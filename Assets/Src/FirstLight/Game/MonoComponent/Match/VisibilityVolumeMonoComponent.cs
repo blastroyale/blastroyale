@@ -14,61 +14,73 @@ namespace FirstLight.Game.Views.MapViews
 		private IGameServices _services;
 		private IMatchServices _matchServices;
 		private IEntityViewUpdaterService _entityViewUpdater;
-		private List<PlayerCharacterViewMonoComponent> _currentlyCollidingPlayers;
+		private Dictionary<EntityRef, PlayerCharacterViewMonoComponent> _currentlyCollidingPlayers;
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 
-			_currentlyCollidingPlayers = new List<PlayerCharacterViewMonoComponent>();
+			_currentlyCollidingPlayers = new Dictionary<EntityRef, PlayerCharacterViewMonoComponent>();
 
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 		}
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
-			CheckUpdateVisiblePlayers();
+			CheckUpdateAllVisiblePlayers();
 		}
 
 		private void OnTriggerEnter(Collider other)
 		{
-			if (other.gameObject.TryGetComponent<PlayerCharacterViewMonoComponent>(out var player) &&
-			    player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
+			if (other.gameObject.TryGetComponent<PlayerCharacterViewMonoComponent>(out var player))
 			{
-				_currentlyCollidingPlayers.Add(player);
-
-				foreach (var currentlyCollidingPlayer in _currentlyCollidingPlayers)
+				_currentlyCollidingPlayers.Add(player.EntityRef, player);
+				
+				if (player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
 				{
-					currentlyCollidingPlayer.SetRenderContainerActive(true);
+					CheckUpdateAllVisiblePlayers();
+				}
+				else
+				{
+					CheckUpdateOneVisiblePlayer(player);
 				}
 			}
 		}
 
 		private void OnTriggerExit(Collider other)
 		{
-			if (other.gameObject.TryGetComponent<PlayerCharacterViewMonoComponent>(out var player) &&
-			    player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
+			if (other.gameObject.TryGetComponent<PlayerCharacterViewMonoComponent>(out var player))
 			{
-				_currentlyCollidingPlayers.Remove(player);
-
-				foreach (var currentlyCollidingPlayer in _currentlyCollidingPlayers)
+				_currentlyCollidingPlayers.Remove(player.EntityRef);
+				
+				if (player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
 				{
-					currentlyCollidingPlayer.SetRenderContainerActive(false);
+					CheckUpdateAllVisiblePlayers();
+				}
+				else
+				{
+					CheckUpdateOneVisiblePlayer(player);
 				}
 			}
 		}
 
-		private void CheckUpdateVisiblePlayers()
+		private void CheckUpdateAllVisiblePlayers()
 		{
-			var currentPlayerWithinVolume =
-				_currentlyCollidingPlayers.FirstOrDefault(x => x.EntityRef ==
-				                                               _matchServices.SpectateService.SpectatedPlayer.Value.Entity);
+			var spectatedPlayerWithinVolume = _currentlyCollidingPlayers.ContainsKey(_matchServices.SpectateService.SpectatedPlayer.Value.Entity);
 			
 			foreach (var player in _currentlyCollidingPlayers)
 			{
-				player.SetRenderContainerActive(currentPlayerWithinVolume != null);
+				player.Value.SetRenderContainerActive(!spectatedPlayerWithinVolume);
 			}
+		}
+
+		private void CheckUpdateOneVisiblePlayer(PlayerCharacterViewMonoComponent otherPlayer)
+		{
+			var spectatedPlayerWithinVolume = _currentlyCollidingPlayers.ContainsKey(_matchServices.SpectateService.SpectatedPlayer.Value.Entity);
+			var otherPlayerWithinVolume = _currentlyCollidingPlayers.ContainsKey(otherPlayer.EntityRef);
+			
+			otherPlayer.SetRenderContainerActive(!spectatedPlayerWithinVolume && otherPlayerWithinVolume);
 		}
 	}
 }

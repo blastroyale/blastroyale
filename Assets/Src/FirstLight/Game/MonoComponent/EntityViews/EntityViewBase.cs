@@ -66,9 +66,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private static readonly int  _dissolveProperty = Shader.PropertyToID("dissolve_amount");
 		
 		[SerializeField] protected RenderersContainerProxyMonoComponent RenderersContainerProxy;
-		
-		public VisibilityVolumeMonoComponent CurrentVisibilityVolume { get; private set; }
-		
+
 		protected override void Awake()
 		{
 			base.Awake();

@@ -312,8 +312,8 @@ namespace Quantum
 				var shieldDamage = spell.PowerAmount - (uint) currentDamageAmount;
 				var healthDamage = (uint) currentDamageAmount;
 
-				f.Events.OnPlayerDamaged(playerCharacter.Player, entity, spell.Attacker, shieldDamage,
-				                         healthDamage, spell.PowerAmount, maxHealth, currentShieldCapacity,
+				f.Events.OnPlayerDamaged(playerCharacter.Player, entity, spell.Attacker, shieldDamage, (uint)previousShield,
+				                         (uint)CurrentShield, healthDamage, spell.PowerAmount, maxHealth, currentShieldCapacity,
 				                         spell.OriginalHitPosition);
 				f.Events.OnLocalPlayerDamaged(playerCharacter.Player, entity, spell.Attacker, shieldDamage,
 				                              healthDamage, spell.PowerAmount, maxHealth, currentShieldCapacity,

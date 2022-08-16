@@ -5524,13 +5524,15 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnPlayerDamaged OnPlayerDamaged(PlayerRef Player, EntityRef Entity, EntityRef Attacker, UInt32 ShieldDamage, UInt32 HealthDamage, UInt32 TotalDamage, Int32 MaxHealth, Int32 ShieldCapacity, FPVector3 HitPosition) {
+      public EventOnPlayerDamaged OnPlayerDamaged(PlayerRef Player, EntityRef Entity, EntityRef Attacker, UInt32 ShieldDamage, UInt32 PreviousShield, UInt32 CurrentShield, UInt32 HealthDamage, UInt32 TotalDamage, Int32 MaxHealth, Int32 ShieldCapacity, FPVector3 HitPosition) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnPlayerDamaged>(EventOnPlayerDamaged.ID);
         ev.Player = Player;
         ev.Entity = Entity;
         ev.Attacker = Attacker;
         ev.ShieldDamage = ShieldDamage;
+        ev.PreviousShield = PreviousShield;
+        ev.CurrentShield = CurrentShield;
         ev.HealthDamage = HealthDamage;
         ev.TotalDamage = TotalDamage;
         ev.MaxHealth = MaxHealth;
@@ -7340,6 +7342,8 @@ namespace Quantum {
     public EntityRef Entity;
     public EntityRef Attacker;
     public UInt32 ShieldDamage;
+    public UInt32 PreviousShield;
+    public UInt32 CurrentShield;
     public UInt32 HealthDamage;
     public UInt32 TotalDamage;
     public Int32 MaxHealth;
@@ -7366,6 +7370,8 @@ namespace Quantum {
         hash = hash * 31 + Entity.GetHashCode();
         hash = hash * 31 + Attacker.GetHashCode();
         hash = hash * 31 + ShieldDamage.GetHashCode();
+        hash = hash * 31 + PreviousShield.GetHashCode();
+        hash = hash * 31 + CurrentShield.GetHashCode();
         hash = hash * 31 + HealthDamage.GetHashCode();
         hash = hash * 31 + TotalDamage.GetHashCode();
         hash = hash * 31 + MaxHealth.GetHashCode();

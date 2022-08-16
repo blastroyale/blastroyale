@@ -126,7 +126,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"nfts_owned", inventory.Count},
 				{"blst_token_balance", (int) _gameData.CurrencyDataProvider.GetCurrencyAmount(GameId.BLST)},
 				{"cs_token_balance", (int) _gameData.CurrencyDataProvider.GetCurrencyAmount(GameId.CS)},
-				{"total_power", loadout.GetTotalStat(EquipmentStatType.Damage)}
+				{"total_power", loadout.GetTotalMight()}
 			};
 			
 			_analyticsService.LogEvent(AnalyticsEvents.GameLoaded, data);

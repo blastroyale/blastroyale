@@ -7,6 +7,7 @@
     <ItemGroup>
         <PackageReference Include="DistributedLock" Version="2.3.0" />
         <PackageReference Include="DistributedLock.Postgres" Version="1.0.2" />
+        <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
         <PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="1.1.0" />
         <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="4.1.0" />
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.4" />
@@ -68,6 +69,7 @@
       <None Remove="Plugins\TestPlugin.dll" />
     </ItemGroup>
     <ItemGroup>
+      <ProjectReference Include="..\BlastRoyaleAnalyticsPlugin\BlastRoyaleAnalyticsPlugin.csproj" />
       <ProjectReference Include="..\BlastRoyaleTrophyLadderPlugin\BlastRoyaleTrophyLadderPlugin.csproj" />
       <ProjectReference Include="..\BlastRoyaleCorePlugin\BlastRoyaleCorePlugin.csproj" />
       <ProjectReference Include="..\ServerSDK\ServerSDK.csproj" />

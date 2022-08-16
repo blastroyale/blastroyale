@@ -16,7 +16,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	public class PlayerCharacterViewMonoComponent : AvatarViewBase
 	{
 		[SerializeField] private MatchCharacterViewMonoComponent _characterView;
-
+		[SerializeField] private AdventureVfxSpawnerMonoComponent[] _footstepVfxSpawners;
+		
 		public Transform RootTransform;
 		
 		private Vector3 _lastPosition;
@@ -94,6 +95,17 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				{
 					AnimatorWrapper.SetTrigger(Triggers.Die);
 				}
+			}
+		}
+		
+		/// <inheritdoc />
+		public override void SetRenderContainerActive(bool active)
+		{
+			base.SetRenderContainerActive(active);
+			
+			for (int i = 0; i < _footstepVfxSpawners.Length; i++)
+			{
+				_footstepVfxSpawners[i].CanSpawnVfx = active;
 			}
 		}
 

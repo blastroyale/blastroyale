@@ -1,4 +1,5 @@
 using System.Text;
+using System.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -64,6 +65,8 @@ namespace FirstLight.Game.Presenters
 			_scoreHolderView.gameObject.SetActive(false);
 			_contendersLeftHolderView.gameObject.SetActive(false);
 			_quitButton.gameObject.SetActive(false);
+			
+			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
 		}
 
 		private void OnDestroy()
@@ -86,11 +89,20 @@ namespace FirstLight.Game.Presenters
 			_minimapHolder.gameObject.SetActive(isBattleRoyale);
 
 			_standings.Initialise(frame.PlayerCount, false, true);
+		}
+		
+		private void OnMatchStartedMessage(MatchStartedMessage msg)
+		{
+			CheckEnableQuitFunctionality();
+		}
 
+		private async void CheckEnableQuitFunctionality()
+		{
+			await Task.Delay(300);
 			var game = QuantumRunner.Default.Game;
+			var frame = game.Frames.Verified;
 			var gameContainer = frame.GetSingleton<GameContainer>();
 			var playersData = gameContainer.PlayersData;
-			var localPlayer = playersData[game.GetLocalPlayers()[0]];
 			var canQuitMatch = false;
 
 			if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
@@ -100,7 +112,11 @@ namespace FirstLight.Game.Presenters
 			}
 			else if (_dataProvider.AppDataProvider.SelectedMatchType.Value == MatchType.Ranked)
 			{
-				canQuitMatch = !localPlayer.Entity.IsAlive(frame);
+				var localPlayer = playersData[game.GetLocalPlayers()[0]];
+				var alive = false || frame.TryGet<Stats>(_matchServices.SpectateService.SpectatedPlayer.Value.Entity, out Stats value);
+
+				canQuitMatch = !alive;
+				Debug.LogError($"Alive - {alive}");
 				Debug.LogError("RANKED MATCH - CAN QUIT? " + canQuitMatch);
 			}
 			else

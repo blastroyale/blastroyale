@@ -4243,6 +4243,7 @@ MonoBehaviour:
   _equipmentCooldownViewRef: {fileID: 8534985517588686270}
   _itemTitleText: {fileID: 7777684615180548027}
   _equipmentAttributesHolder: {fileID: 5753341534403212785}
+  _equipmentStatsHolder: {fileID: 604983661957240208}
   _generationText: {fileID: 9151116168455802582}
   _editionText: {fileID: 1247271078497045376}
   _rarityText: {fileID: 3280787606015226572}

@@ -97,6 +97,7 @@ public class InMemoryTestSetup : ITestPlayerSetup
 	{
 		var id = Guid.NewGuid().ToString();
 		var initialState = _services.GetService<IPlayerSetupService>().GetInitialState(id);
+		initialState.UpdatedTypes.Clear();
 		_services.GetService<IServerStateService>().UpdatePlayerState(id, initialState).Wait();
 		return id;
 	}

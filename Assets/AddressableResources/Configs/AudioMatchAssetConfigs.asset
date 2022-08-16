@@ -514,8 +514,19 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
       BaseVolume: 1
       BasePitch: 1
-      VolumeRandDeviation: 0
-      PitchRandDeviation: 0
+      VolumeRandDeviation: 0.25
+      PitchRandDeviation: 0.25
+  - Key: 75
+    Value:
+      AudioClips:
+      - m_AssetGUID: 825b3c0b5c5af4de4af4dbf4a4a55172
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      BaseVolume: 1
+      BasePitch: 1
+      VolumeRandDeviation: 0.25
+      PitchRandDeviation: 0.25
   - Key: 73
     Value:
       AudioClips:
@@ -536,8 +547,8 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
       BaseVolume: 1
       BasePitch: 1
-      VolumeRandDeviation: 0
-      PitchRandDeviation: 0
+      VolumeRandDeviation: 0.2
+      PitchRandDeviation: 0.2
   - Key: 70
     Value:
       AudioClips:
@@ -547,8 +558,8 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
       BaseVolume: 1
       BasePitch: 1
-      VolumeRandDeviation: 0
-      PitchRandDeviation: 0
+      VolumeRandDeviation: 0.2
+      PitchRandDeviation: 0.2
   - Key: 71
     Value:
       AudioClips:
@@ -558,8 +569,8 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
       BaseVolume: 1
       BasePitch: 1
-      VolumeRandDeviation: 0
-      PitchRandDeviation: 0
+      VolumeRandDeviation: 0.2
+      PitchRandDeviation: 0.2
   - Key: 72
     Value:
       AudioClips:
@@ -569,8 +580,8 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
       BaseVolume: 1
       BasePitch: 1
-      VolumeRandDeviation: 0
-      PitchRandDeviation: 0
+      VolumeRandDeviation: 0.2
+      PitchRandDeviation: 0.2
   - Key: 52
     Value:
       AudioClips:
@@ -580,8 +591,8 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
       BaseVolume: 1
       BasePitch: 1
-      VolumeRandDeviation: 0
-      PitchRandDeviation: 0
+      VolumeRandDeviation: 0.25
+      PitchRandDeviation: 0.25
   - Key: 53
     Value:
       AudioClips:
@@ -591,8 +602,8 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
       BaseVolume: 1
       BasePitch: 1
-      VolumeRandDeviation: 0
-      PitchRandDeviation: 0
+      VolumeRandDeviation: 0.2
+      PitchRandDeviation: 0.2
   - Key: 54
     Value:
       AudioClips:
@@ -602,8 +613,8 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
       BaseVolume: 1
       BasePitch: 1
-      VolumeRandDeviation: 0
-      PitchRandDeviation: 0
+      VolumeRandDeviation: 0.2
+      PitchRandDeviation: 0.2
   - Key: 55
     Value:
       AudioClips:
@@ -613,8 +624,8 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
       BaseVolume: 1
       BasePitch: 1
-      VolumeRandDeviation: 0
-      PitchRandDeviation: 0
+      VolumeRandDeviation: 0.2
+      PitchRandDeviation: 0.2
   - Key: 56
     Value:
       AudioClips:
@@ -624,8 +635,8 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
       BaseVolume: 1
       BasePitch: 1
-      VolumeRandDeviation: 0
-      PitchRandDeviation: 0
+      VolumeRandDeviation: 0.2
+      PitchRandDeviation: 0.2
   - Key: 61
     Value:
       AudioClips:
@@ -635,8 +646,8 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
       BaseVolume: 1
       BasePitch: 1
-      VolumeRandDeviation: 0
-      PitchRandDeviation: 0
+      VolumeRandDeviation: 0.2
+      PitchRandDeviation: 0.2
   - Key: 63
     Value:
       AudioClips:

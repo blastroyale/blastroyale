@@ -203,7 +203,7 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			var audio = AudioId.None;
-			Log.Warn(callback.SourceId);
+
 			switch (callback.SourceId)
 			{
 				//specials
@@ -277,8 +277,9 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			var audio = AudioId.None;
+			var collectableId = callback.CollectableId;
 
-			switch (callback.CollectableId)
+			switch (collectableId)
 			{
 				case GameId.AmmoLarge:
 					audio = AudioId.LargeAmmoPickup;
@@ -302,6 +303,13 @@ namespace FirstLight.Game.StateMachines
 					audio = AudioId.ShieldPickup;
 					break;
 			}
+
+			if (collectableId.IsInGroup(GameIdGroup.Weapon))
+				audio = AudioId.WeaponPickup;
+
+			if (collectableId.IsInGroup(GameIdGroup.Helmet) || collectableId.IsInGroup(GameIdGroup.Armor) || 
+				collectableId.IsInGroup(GameIdGroup.Shield) || collectableId.IsInGroup(GameIdGroup.Amulet))
+				audio = AudioId.GearPickup;
 
 			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView))
 			{

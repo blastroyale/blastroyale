@@ -68,7 +68,7 @@ namespace Quantum.Systems
 			else
 				f.Events.OnProjectileSuccessHit(hitSource, targetHit, projectile, position);
 
-			if (projectile.SplashRadius > FP._0)	
+			if (projectile.SplashRadius > FP._0)
 			{
 				var splashSpell = Spell.CreateInstant(f, targetHit, projectile.Attacker, hitSource, 
 					(uint)(projectile.PowerAmount * projectile.SplashDamageRatio), 

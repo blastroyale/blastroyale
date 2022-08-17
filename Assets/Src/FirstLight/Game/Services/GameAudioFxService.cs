@@ -88,6 +88,7 @@ namespace FirstLight.Game.Services
 			var clipPlaybackData = new AudioClipPlaybackData()
 			{
 				AudioClips = clipTasks.ConvertAll(task => task.Result),
+				Loop = clipConfig.Loop,
 				MinVol = clipConfig.BaseVolume - clipConfig.VolumeRandDeviation,
 				MaxVol = clipConfig.BaseVolume + clipConfig.VolumeRandDeviation,
 				MinPitch = clipConfig.BasePitch - clipConfig.PitchRandDeviation,
@@ -212,7 +213,7 @@ namespace FirstLight.Game.Services
 				SpatialBlend = spatialBlend,
 				Pitch = playbackData.PlaybackPitch,
 				Volume = playbackData.PlaybackVolume,
-				Loop = false,
+				Loop = playbackData.Loop,
 				Mute = false,
 				StartTime = 0,
 				RolloffMode = AudioRolloffMode.Linear,

@@ -83,8 +83,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		
 		protected void Dissolve(bool destroyGameObject, float startValue, float endValue, float delay, float duration)
 		{
-			Services.CoroutineService.StartCoroutine(DissolveCoroutine(destroyGameObject, startValue, endValue, delay,
-			                                                           duration));
+			StartCoroutine(DissolveCoroutine(destroyGameObject, startValue, endValue, delay, duration));
 		}
 
 		private IEnumerator DissolveCoroutine(bool destroyGameObject, float startValue, float endValue, float delay, float duration)

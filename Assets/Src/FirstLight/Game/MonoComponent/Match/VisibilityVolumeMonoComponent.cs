@@ -39,6 +39,11 @@ namespace FirstLight.Game.Views.MapViews
 		{
 			if (other.TryGetComponent<PlayerCharacterViewMonoComponent>(out var player))
 			{
+				if (_currentlyCollidingPlayers.ContainsKey(player.EntityRef))
+				{
+					return;
+				}
+				
 				_currentlyCollidingPlayers.Add(player.EntityRef, player);
 		
 				if (player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
@@ -56,6 +61,11 @@ namespace FirstLight.Game.Views.MapViews
 		{
 			if (other.TryGetComponent<PlayerCharacterViewMonoComponent>(out var player))
 			{
+				if (_currentlyCollidingPlayers.ContainsKey(player.EntityRef))
+				{
+					return;
+				}
+				
 				_currentlyCollidingPlayers.Remove(player.EntityRef);
 				
 				if (player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)

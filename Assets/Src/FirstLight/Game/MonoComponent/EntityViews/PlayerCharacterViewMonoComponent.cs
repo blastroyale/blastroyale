@@ -25,7 +25,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private Coroutine _attackHideRendererCoroutine;
 		
-		private bool _isWithinVisibilityVolume;
+		private int _collidingVisbilityVolumes;
 
 		/// <summary>
 		/// Indicates if this is the local player
@@ -82,7 +82,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			if (other.CompareTag(GameConstants.ObjectTags.TAG_VISIBILITY_VOLUME))
 			{
-				_isWithinVisibilityVolume = true;
+				_collidingVisbilityVolumes += 1;
 			}
 		}
 
@@ -90,7 +90,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			if (other.CompareTag(GameConstants.ObjectTags.TAG_VISIBILITY_VOLUME))
 			{
-				_isWithinVisibilityVolume = false;
+				_collidingVisbilityVolumes -= 1;
 			}
 		}
 
@@ -132,13 +132,18 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void TryStartAttackWithinVisVolume()
 		{
-			if (_isWithinVisibilityVolume)
+			if (EntityRef == MatchServices.SpectateService.SpectatedPlayer.Value.Entity)
+			{
+				return;
+			}
+
+			if (_collidingVisbilityVolumes > 0)
 			{
 				if (_attackHideRendererCoroutine != null)
 				{
 					Services.CoroutineService.StopCoroutine(_attackHideRendererCoroutine);
 				}
-			
+				
 				_attackHideRendererCoroutine = Services.CoroutineService.StartCoroutine(AttackWithinVisVolumeCoroutine());
 			}
 		}
@@ -149,7 +154,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			yield return new WaitForSeconds(GameConstants.Visuals.GAMEPLAY_POST_ATTACK_HIDE_DURATION);
 
-			if (_isWithinVisibilityVolume)
+			if (_collidingVisbilityVolumes > 0)
 			{
 				SetRenderContainerVisible(false);
 			}

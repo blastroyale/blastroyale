@@ -21,13 +21,13 @@ namespace Quantum.Commands
 			// Replenish Special's charges
 			for (var i = 0; i < pc->WeaponSlots.Length; i++)
 			{
-				pc->WeaponSlots[i].Special1Charges = 1;
-				pc->WeaponSlots[i].Special1AvailableTime = f.Time;
-				pc->WeaponSlots[i].Special2Charges = 1;
-				pc->WeaponSlots[i].Special2AvailableTime = f.Time;
+				pc->WeaponSlots[i].Specials[0].Charges = 1;
+				pc->WeaponSlots[i].Specials[0].AvailableTime = f.Time;
+				pc->WeaponSlots[i].Specials[1].Charges = 1;
+				pc->WeaponSlots[i].Specials[1].AvailableTime = f.Time;
 			}
 
-			f.Unsafe.GetPointer<PlayerCharacter>(characterEntity)->GainAmmo(f, characterEntity, FP._1);
+			pc->GainAmmo(f, characterEntity, FP._1);
 			pc->EquipSlotWeapon(f, characterEntity, pc->CurrentWeaponSlot);
 		}
 	}

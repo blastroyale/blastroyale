@@ -228,11 +228,13 @@ namespace FirstLight.Game.StateMachines
 			MainInstaller.Bind<IMatchServices>(matchServices);
 			// TODO ROB _assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<AudioAdventureAssetConfigs>());
 			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<MatchAssetConfigs>());
-			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<EquipmentRarityAssetConfigs>());
 			runnerConfigs.SetRuntimeConfig(config);
 
 			tasks.Add(sceneTask);
+			tasks.Add(_assetAdderService.LoadAllAssets<IndicatorVfxId, GameObject>());
+			tasks.Add(_assetAdderService.LoadAllAssets<EquipmentRarity, GameObject>());
 			tasks.AddRange(LoadQuantumAssets(map));
+			tasks.AddRange(PreloadGameAssets());
 			tasks.AddRange(_uiService.LoadUiSetAsync((int) UiSetId.MatchUi));
 			
 			switch (_services.NetworkService.CurrentRoomMapConfig.Value.GameMode)
@@ -242,7 +244,6 @@ namespace FirstLight.Game.StateMachines
 				case GameMode.BattleRoyale : tasks.AddRange(_uiService.LoadUiSetAsync((int) UiSetId.BattleRoyaleMatchUi));
 					break;
 			}
-			tasks.AddRange(PreloadGameAssets());
 
 			await Task.WhenAll(tasks);
 
@@ -270,8 +271,9 @@ namespace FirstLight.Game.StateMachines
 
 			_services.VfxService.DespawnAll();
 			_services.AudioFxService.UnloadAudioClips(configProvider.GetConfig<AudioMatchAssetConfigs>().ConfigsDictionary);
+			_services.AssetResolverService.UnloadAssets<EquipmentRarity, GameObject>(false);
+			_services.AssetResolverService.UnloadAssets<IndicatorVfxId, GameObject>(false);
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<MatchAssetConfigs>());
-			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<EquipmentRarityAssetConfigs>());
 
 			Resources.UnloadUnusedAssets();
 

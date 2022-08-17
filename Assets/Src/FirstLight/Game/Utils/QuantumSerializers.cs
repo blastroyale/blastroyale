@@ -16,7 +16,7 @@ namespace FirstLight.Game.Utils
 			return X == 0 && Y == 0 && Z == 0;
 		}
 		
-		public static SerializableVector? From(FPVector3 v)
+		public static SerializableVector From(FPVector3 v)
 		{
 			return new SerializableVector()
 			{
@@ -26,7 +26,7 @@ namespace FirstLight.Game.Utils
 			};
 		}
 		
-		public static SerializableVector? From(FPVector2 v)
+		public static SerializableVector From(FPVector2 v)
 		{
 			return new SerializableVector()
 			{

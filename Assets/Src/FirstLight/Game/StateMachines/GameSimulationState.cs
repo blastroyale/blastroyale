@@ -74,7 +74,6 @@ namespace FirstLight.Game.StateMachines
 			startSimulation.OnEnter(StartSimulation);
 			startSimulation.Event(SimulationStartedEvent).Target(modeCheck);
 			startSimulation.Event(NetworkState.LeftRoomEvent).Target(final);
-			startSimulation.OnExit(PublishMatchReadyMessage);
 
 			modeCheck.OnEnter(OpenAdventureWorldHud);
 			modeCheck.Transition().Condition(IsDeathmatch).Target(deathmatch);
@@ -170,6 +169,7 @@ namespace FirstLight.Game.StateMachines
 			// Delays one frame just to guarantee that the game objects are created before anything else
 			await Task.Yield();
 
+			PublishMatchStartedMessage(callback.Game, false);
 			_statechartTrigger(SimulationStartedEvent);
 		}
 
@@ -179,6 +179,7 @@ namespace FirstLight.Game.StateMachines
 			// Delays one frame just to guarantee that the game objects are created before anything else
 			await Task.Yield();
 
+			PublishMatchStartedMessage(callback.Game, true);
 			_statechartTrigger(SimulationStartedEvent);
 		}
 
@@ -372,23 +373,22 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<MatchmakingLoadingScreenPresenter>(false, true);
 		}
 
-		private void PublishMatchReadyMessage()
+		private void PublishMatchStartedMessage(QuantumGame game, bool isResync)
 		{
 			if (_services.NetworkService.IsJoiningNewMatch)
 			{
 				MatchStartAnalytics();
-				SetPlayerMatchData();
+				SetPlayerMatchData(game);
 			}
 
 			CloseMatchmakingScreen();
 
-			_services.MessageBrokerService.Publish(new MatchReadyMessage());
+			_services.MessageBrokerService.Publish(new MatchStartedMessage { Game = game, IsResync = isResync });
 		}
 
-		private void SetPlayerMatchData()
+		private void SetPlayerMatchData(QuantumGame game)
 		{
 			var info = _gameDataProvider.PlayerDataProvider.PlayerInfo;
-			var game = QuantumRunner.Default.Game;
 			var loadout = _gameDataProvider.EquipmentDataProvider.Loadout;
 			var inventory = _gameDataProvider.EquipmentDataProvider.Inventory;
 			var spawnPosition = _uiService.GetUi<MatchmakingLoadingScreenPresenter>().MapSelectionView

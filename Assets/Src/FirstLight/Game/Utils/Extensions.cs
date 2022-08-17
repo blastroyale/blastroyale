@@ -4,12 +4,15 @@ using System.Globalization;
 using System.Reflection;
 using System.Threading.Tasks;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Data;
 using FirstLight.Game.Infos;
+using FirstLight.Game.Input;
 using FirstLight.Services;
 using I2.Loc;
 using Photon.Realtime;
 using Quantum;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Playables;
 using Random = UnityEngine.Random;
 
@@ -458,6 +461,29 @@ namespace FirstLight.Game.Utils
 			{
 				property.SetValue(dest, property.GetValue(source));
 			}
+		}
+
+		/// <summary>
+		/// Requests the <see cref="PlayerMatchData"/> of the current local player playing the game
+		/// </summary>
+		public static PlayerMatchData GetLocalPlayerData(this QuantumGame game, bool isVerified, out Frame f)
+		{
+			f = isVerified ? game.Frames.Verified : game.Frames.Predicted;
+			
+			return f.GetSingleton<GameContainer>().PlayersData[game.GetLocalPlayers()[0]];
+		}
+
+		/// <summary>
+		/// Requests the <see cref="InputAction"/> that controls the input for the special in the given <paramref name="index"/>
+		/// </summary>
+		public static InputAction GetSpecialButton(this LocalInput.GameplayActions gameplayActions, int index)
+		{
+			if (index == 0)
+			{
+				return gameplayActions.SpecialButton0;
+			}
+
+			return gameplayActions.SpecialButton1;
 		}
 	}
 }

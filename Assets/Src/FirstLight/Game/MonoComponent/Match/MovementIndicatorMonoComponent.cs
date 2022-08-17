@@ -1,13 +1,13 @@
+using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.VFX;
 
 namespace FirstLight.Game.MonoComponent.Match
 {
 	/// <summary>
 	/// Shows the indicator to where the local player's is moving towards to
 	/// </summary>
-	public class MovementIndicatorMonoComponent: MonoBehaviour, ITransformIndicator
+	public class MovementIndicatorMonoComponent: MonoBehaviour, IIndicator
 	{
 		[SerializeField, Required] private GameObject _indicator;
 		[SerializeField] private float _playerDistance = 2f;
@@ -18,6 +18,8 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		/// <inheritdoc />
 		public bool VisualState => _indicator.activeSelf;
+		/// <inheritdoc />
+		public IndicatorVfxId IndicatorVfxId => IndicatorVfxId.Movement;
 		
 		private void Awake()
 		{

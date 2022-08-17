@@ -1,19 +1,17 @@
-using System;
 using System.Collections.Generic;
-using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
 using UnityEngine;
 
-namespace FirstLight.Game.Views.MapViews
+namespace FirstLight.Game.MonoComponent.Match
 {
 	/// <inheritdoc/>
 	/// <remarks>
 	/// Responsible of hiding the top of a building when a player enters it
 	/// </remarks>
-	public class BuildingTopRemovalViewMonoComponent : MonoBehaviour
+	public class BuildingTopRemovalMonoComponent : MonoBehaviour
 	{
 		private static readonly int _topAnimatorPlayerInsideParamNameHash = Animator.StringToHash("PlayerInside");
 			

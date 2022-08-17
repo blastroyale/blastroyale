@@ -1,3 +1,4 @@
+using Quantum;
 using UnityEngine;
 
 namespace FirstLight.Game.MonoComponent.Match
@@ -14,6 +15,11 @@ namespace FirstLight.Game.MonoComponent.Match
 		bool VisualState { get; }
 		
 		/// <summary>
+		/// Requests the <see cref="IndicatorVfxId"/> representing this indicator type
+		/// </summary>
+		IndicatorVfxId IndicatorVfxId { get; }
+		
+		/// <summary>
 		/// Set's the visual state of the indicator based on the given parameter values.
 		/// </summary>
 		void SetVisualState(bool isVisible, bool isEmphasized = false);
@@ -24,20 +30,13 @@ namespace FirstLight.Game.MonoComponent.Match
 		void SetVisualProperties(float size, float minRange, float maxRange);
 		
 		/// <summary>
-		/// Initializes this indicator view with the given data
-		/// </summary>
-		void Init(EntityView playerEntityView);
-	}
-	
-	/// <inheritdoc />
-	/// <remarks>
-	/// Enhances the <see cref="IIndicator"/> to allow repositioning in the world
-	/// </remarks>
-	public interface ITransformIndicator : IIndicator
-	{
-		/// <summary>
 		/// Repositions the indicator to the given HUD stick <paramref name="position"/>
 		/// </summary>
 		void SetTransformState(Vector2 position);
+		
+		/// <summary>
+		/// Initializes this indicator view with the given data
+		/// </summary>
+		void Init(EntityView playerEntityView);
 	}
 }

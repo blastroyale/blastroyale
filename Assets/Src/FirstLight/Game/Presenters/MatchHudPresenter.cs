@@ -1,4 +1,7 @@
 using System.Text;
+using System.Threading.Tasks;
+using FirstLight.Game.Ids;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -35,12 +38,15 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private TextMeshProUGUI _equippedDebugText;
 
 		private IGameServices _services;
+		private IGameDataProvider _dataProvider;
 		private IMatchServices _matchServices;
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
+			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
+
 			_mapStatusText.text = "";
 
 			foreach (var standingsButton in _standingsButtons)
@@ -51,29 +57,22 @@ namespace FirstLight.Game.Presenters
 			_services.NetworkService.HasLag.InvokeObserve(OnLag);
 			_leaderButton.onClick.AddListener(OnStandingsClicked);
 			_quitButton.onClick.AddListener(OnQuitClicked);
-			_quitButton.gameObject.SetActive(Debug.isDebugBuild || _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator());
+			_equippedDebugText.gameObject.SetActive(false);
 			_connectionIcon.SetActive(false);
 			_standings.gameObject.SetActive(false);
 			_mapTimerView.gameObject.SetActive(false);
 			_leaderHolderView.gameObject.SetActive(false);
 			_scoreHolderView.gameObject.SetActive(false);
 			_contendersLeftHolderView.gameObject.SetActive(false);
-
-			#if DEVELOPMENT_BUILD
-			if (SROptions.Current.EnableEquipmentDebug)
-			{
-				_equippedDebugText.gameObject.SetActive(true);
-				QuantumEvent.Subscribe<EventOnPlayerStatsChanged>(this, OnPlayerStatsChanged);
-			}
-			else
-			#endif
-			{
-				_equippedDebugText.gameObject.SetActive(false);
-			}
+			_quitButton.gameObject.SetActive(false);
+			
+			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
+			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
 		}
 
 		private void OnDestroy()
 		{
+			QuantumEvent.UnsubscribeListener(this);
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 			_services?.NetworkService?.HasLag?.StopObservingAll(this);
 		}
@@ -90,8 +89,45 @@ namespace FirstLight.Game.Presenters
 			_contendersLeftHolderView.gameObject.SetActive(isBattleRoyale);
 			_scoreHolderView.gameObject.SetActive(!isBattleRoyale);
 			_minimapHolder.gameObject.SetActive(isBattleRoyale);
+			_quitButton.gameObject.SetActive(true);
 
 			_standings.Initialise(frame.PlayerCount, false, true);
+		}
+		
+		private void OnMatchStartedMessage(MatchStartedMessage msg)
+		{
+			CheckEnableQuitFunctionality();
+		}
+		
+		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
+		{
+			CheckEnableQuitFunctionality();
+		}
+
+		private void CheckEnableQuitFunctionality()
+		{
+			var game = QuantumRunner.Default.Game;
+			var frame = game.Frames.Verified;
+			var gameContainer = frame.GetSingleton<GameContainer>();
+			var playersData = gameContainer.PlayersData;
+			var canQuitMatch = true;
+			
+			if (_dataProvider.AppDataProvider.SelectedMatchType.Value == MatchType.Ranked)
+			{
+				var localPlayer = playersData[game.GetLocalPlayers()[0]];
+				var valid = localPlayer.IsValid;
+				var exists = frame.Exists(localPlayer.Entity);
+
+				canQuitMatch = !valid || !exists;
+			}
+
+			_quitButton.gameObject.SetActive(canQuitMatch);
+
+			if (Debug.isDebugBuild && SROptions.Current.EnableEquipmentDebug)
+			{
+				_equippedDebugText.gameObject.SetActive(true);
+				QuantumEvent.Subscribe<EventOnPlayerStatsChanged>(this, OnPlayerStatsChanged);
+			}
 		}
 
 		private void OnQuitClicked()
@@ -117,7 +153,7 @@ namespace FirstLight.Game.Presenters
 		private void OnPlayerStatsChanged(EventOnPlayerStatsChanged callback)
 		{
 			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
-			
+
 			var playerCharacter = QuantumRunner.Default.Game.Frames.Verified.Get<PlayerCharacter>(callback.Entity);
 
 			var sb = new StringBuilder();

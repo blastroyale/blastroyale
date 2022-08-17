@@ -165,6 +165,13 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(_authenticationFailEvent);
 			OnPlayFabError(error);
 		}
+		
+		private void OnAutomaticAuthenticationFail(PlayFabError error)
+		{
+			_dataService.GetData<AppData>().DeviceId = null;
+			_dataService.SaveData<AppData>();
+			_statechartTrigger(_authenticationFailEvent);
+		}
 
 		private bool HasLinkedDevice()
 		{
@@ -184,35 +191,35 @@ namespace FirstLight.Game.StateMachines
 #if UNITY_EDITOR
 			var login = new LoginWithCustomIDRequest
 			{
-				CreateAccount = true,
+				CreateAccount = !FeatureFlags.EMAIL_AUTH,
 				CustomId = deviceId,
 				InfoRequestParameters = infoParams
 			};
 			
-			PlayFabClientAPI.LoginWithCustomID(login, OnLoginSuccess, OnAuthenticationFail);
+			PlayFabClientAPI.LoginWithCustomID(login, OnLoginSuccess, OnAutomaticAuthenticationFail);
 			
 #elif UNITY_ANDROID
 			var login = new LoginWithAndroidDeviceIDRequest()
 			{
-				CreateAccount = true,
+				CreateAccount = !FeatureFlags.EMAIL_AUTH,
 				AndroidDevice = SystemInfo.deviceModel,
 				OS = SystemInfo.operatingSystem,
 				AndroidDeviceId = deviceId,
 				InfoRequestParameters = infoParams
 			};
 			
-			PlayFabClientAPI.LoginWithAndroidDeviceID(login, OnLoginSuccess, OnAuthenticationFail);
+			PlayFabClientAPI.LoginWithAndroidDeviceID(login, OnLoginSuccess, OnAutomaticAuthenticationFail);
 #elif UNITY_IOS
 			var login = new LoginWithIOSDeviceIDRequest()
 			{
-				CreateAccount = true,
+				CreateAccount = !FeatureFlags.EMAIL_AUTH,
 				DeviceModel = SystemInfo.deviceModel,
 				OS = SystemInfo.operatingSystem,
 				DeviceId = deviceId,
 				InfoRequestParameters = infoParams
 			};
 			
-			PlayFabClientAPI.LoginWithIOSDeviceID(login, OnLoginSuccess, OnAuthenticationFail);
+			PlayFabClientAPI.LoginWithIOSDeviceID(login, OnLoginSuccess, OnAutomaticAuthenticationFail);
 #endif
 		}
 

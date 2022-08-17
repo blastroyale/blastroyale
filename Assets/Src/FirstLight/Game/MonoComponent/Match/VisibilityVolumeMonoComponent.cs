@@ -39,18 +39,18 @@ namespace FirstLight.Game.Views.MapViews
 		{
 			if (other.TryGetComponent<PlayerCharacterViewMonoComponent>(out var player))
 			{
-				if (_currentlyCollidingPlayers.ContainsKey(player.EntityRef))
+				if (!_currentlyCollidingPlayers.ContainsKey(player.EntityRef))
 				{
-					return;
+					_currentlyCollidingPlayers.Add(player.EntityRef, player);
 				}
-				
-				_currentlyCollidingPlayers.Add(player.EntityRef, player);
-		
+
+				player.CollidingVisibilityVolumes.Add(gameObject);
+
 				if (player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
 				{
 					CheckUpdateAllVisiblePlayers();
 				}
-				else
+				else if(player.CollidingVisibilityVolumes.Count == 1)
 				{
 					CheckUpdateOneVisiblePlayer(player);
 				}
@@ -61,18 +61,14 @@ namespace FirstLight.Game.Views.MapViews
 		{
 			if (other.TryGetComponent<PlayerCharacterViewMonoComponent>(out var player))
 			{
-				if (_currentlyCollidingPlayers.ContainsKey(player.EntityRef))
-				{
-					return;
-				}
-				
 				_currentlyCollidingPlayers.Remove(player.EntityRef);
+				player.CollidingVisibilityVolumes.Remove(gameObject);
 				
 				if (player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
 				{
 					CheckUpdateAllVisiblePlayers();
 				}
-				else
+				else if (player.CollidingVisibilityVolumes.Count == 0)
 				{
 					CheckUpdateOneVisiblePlayer(player);
 				}
@@ -81,15 +77,16 @@ namespace FirstLight.Game.Views.MapViews
 
 		private void CheckUpdateAllVisiblePlayers()
 		{
-			var spectatedPlayerWithinVolume = _currentlyCollidingPlayers.ContainsKey(_matchServices.SpectateService.SpectatedPlayer.Value.Entity);
-			
+			var spectatedPlayerWithinVolume =
+				_currentlyCollidingPlayers.ContainsKey(_matchServices.SpectateService.SpectatedPlayer.Value.Entity);
+
 			foreach (var player in _currentlyCollidingPlayers)
 			{
 				if (player.Key == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
 				{
 					continue;
 				}
-				
+
 				player.Value.SetRenderContainerVisible(spectatedPlayerWithinVolume);
 			}
 		}
@@ -100,12 +97,13 @@ namespace FirstLight.Game.Views.MapViews
 			{
 				return;
 			}
-			
-			var spectatedPlayerWithinVolume = _currentlyCollidingPlayers.ContainsKey(_matchServices.SpectateService.SpectatedPlayer.Value.Entity);
+
+			var spectatedPlayerWithinVolume =
+				_currentlyCollidingPlayers.ContainsKey(_matchServices.SpectateService.SpectatedPlayer.Value.Entity);
 			var otherPlayerWithinVolume = _currentlyCollidingPlayers.ContainsKey(player.EntityRef);
 
 			player.SetRenderContainerVisible((spectatedPlayerWithinVolume == otherPlayerWithinVolume) ||
-			                                (spectatedPlayerWithinVolume));
+			                                 (spectatedPlayerWithinVolume));
 		}
 	}
 }

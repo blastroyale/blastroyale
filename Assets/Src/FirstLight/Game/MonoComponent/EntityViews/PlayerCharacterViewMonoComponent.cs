@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Game.MonoComponent.Vfx;
@@ -25,7 +26,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private Coroutine _attackHideRendererCoroutine;
 		
-		private int _collidingVisbilityVolumes;
+		public List<GameObject> CollidingVisibilityVolumes { get; private set; }
 
 		/// <summary>
 		/// Indicates if this is the local player
@@ -55,6 +56,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			base.OnAwake();
 
+			CollidingVisibilityVolumes = new List<GameObject>();
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, HandleOnPlayerAlive);
 			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, HandleOnPlayerAttack);
 			QuantumEvent.Subscribe<EventOnPlayerSpecialUsed>(this, HandleOnPlayerSpecialUsed);
@@ -76,22 +78,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private void OnDestroy()
 		{
 			Services.MessageBrokerService.UnsubscribeAll(this);
-		}
-		
-		private void OnTriggerEnter(Collider other)
-		{
-			if (other.CompareTag(GameConstants.ObjectTags.TAG_VISIBILITY_VOLUME))
-			{
-				_collidingVisbilityVolumes += 1;
-			}
-		}
-
-		private void OnTriggerExit(Collider other)
-		{
-			if (other.CompareTag(GameConstants.ObjectTags.TAG_VISIBILITY_VOLUME))
-			{
-				_collidingVisbilityVolumes -= 1;
-			}
 		}
 
 		protected override void OnInit(QuantumGame game)
@@ -137,7 +123,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
-			if (_collidingVisbilityVolumes > 0)
+			if (CollidingVisibilityVolumes.Count > 0)
 			{
 				if (_attackHideRendererCoroutine != null)
 				{
@@ -154,7 +140,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			yield return new WaitForSeconds(GameConstants.Visuals.GAMEPLAY_POST_ATTACK_HIDE_DURATION);
 
-			if (_collidingVisbilityVolumes > 0)
+			if (CollidingVisibilityVolumes.Count > 0)
 			{
 				SetRenderContainerVisible(false);
 			}

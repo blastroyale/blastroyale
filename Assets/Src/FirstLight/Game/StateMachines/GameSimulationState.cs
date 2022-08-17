@@ -64,7 +64,7 @@ namespace FirstLight.Game.StateMachines
 			var gameResults = stateFactory.Wait("Game Results Screen");
 			var rewardsCheck = stateFactory.Choice("Rewards Choice");
 			var trophiesCheck = stateFactory.Choice("Trophies Choice");
-			var resultsSpectatorCheck = stateFactory.Choice("Results Spectator Choice");
+			var quitCheck = stateFactory.Choice("Quit Check");
 			var gameRewards = stateFactory.Wait("Game Rewards Screen");
 			var trophiesGainLoss = stateFactory.Wait("Trophies Gain Loss Screen");
 
@@ -79,24 +79,23 @@ namespace FirstLight.Game.StateMachines
 			modeCheck.Transition().Condition(IsDeathmatch).Target(deathmatch);
 			modeCheck.Transition().Target(battleRoyale);
 
-			deathmatch.Nest(_deathmatchState.Setup).Target(gameEnded);
-			deathmatch.Event(MatchEndedEvent).Target(gameEnded);
-			deathmatch.Event(MatchQuitEvent).OnTransition(() => MatchEndAnalytics(true)).Target(final);
+			deathmatch.Nest(_deathmatchState.Setup).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
+			deathmatch.Event(MatchEndedEvent).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
+			deathmatch.Event(MatchQuitEvent).OnTransition(() => MatchEndAnalytics(true)).Target(quitCheck);
 			deathmatch.OnExit(PublishMatchEnded);
 
-			battleRoyale.Nest(_battleRoyaleState.Setup).Target(gameEnded);
-			battleRoyale.Event(MatchEndedEvent).Target(gameEnded);
-			battleRoyale.Event(MatchQuitEvent).OnTransition(() => MatchEndAnalytics(true)).Target(final);
+			battleRoyale.Nest(_battleRoyaleState.Setup).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
+			battleRoyale.Event(MatchEndedEvent).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
+			battleRoyale.Event(MatchQuitEvent).OnTransition(() => MatchEndAnalytics(true)).Target(quitCheck);
 			battleRoyale.OnExit(PublishMatchEnded);
 
-			gameEnded.OnEnter(() => MatchEndAnalytics(false));
+			quitCheck.Transition().Condition(IsSpectator).Target(final);
+			quitCheck.Transition().Target(gameEnded);
+			
 			gameEnded.OnEnter(OpenGameCompleteScreen);
-			gameEnded.Event(GameCompleteExitEvent).Target(resultsSpectatorCheck);
+			gameEnded.Event(GameCompleteExitEvent).Target(gameResults);
 			gameEnded.OnExit(CloseCompleteScreen);
-
-			resultsSpectatorCheck.Transition().Condition(IsSpectator).Target(final);
-			resultsSpectatorCheck.Transition().Target(gameResults);
-
+	
 			gameResults.OnEnter(GiveMatchRewards);
 			gameResults.WaitingFor(ResultsScreen).Target(trophiesCheck);
 			gameResults.OnExit(CloseResultScreen);
@@ -152,6 +151,11 @@ namespace FirstLight.Game.StateMachines
 		private bool IsDeathmatch()
 		{
 			return _services.NetworkService.CurrentRoomMapConfig.Value.GameMode == GameMode.Deathmatch;
+		}
+
+		private bool IsRankedMatch()
+		{
+			return _services.NetworkService.QuantumClient.CurrentRoom.IsRankedRoom();
 		}
 
 		private async void OnGameStart(CallbackGameStarted callback)

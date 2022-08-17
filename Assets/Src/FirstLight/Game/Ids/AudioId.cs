@@ -140,6 +140,9 @@ namespace FirstLight.Game.Ids
 		// Late additions
 		MusicHighTransitionJingleDm,
 		SelfShieldBreak,
+		AirdropDropped,
+		AirdropLanded,
+		AirdropFalling,
 	}
 	
 	/// <summary>

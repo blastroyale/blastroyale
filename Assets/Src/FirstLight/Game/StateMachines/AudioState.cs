@@ -37,6 +37,22 @@ namespace FirstLight.Game.StateMachines
 			_audioDmState = new AudioDeathmatchState(services, gameLogic, statechartTrigger);
 		}
 
+		private struct LoopedAudioClip
+		{
+			public AudioSourceMonoComponent audioSource;
+			public string despawnEvent;
+			public EntityRef targetEntity;
+
+			public LoopedAudioClip(AudioSourceMonoComponent audioSource, string despawnEvent, EntityRef targetEntity)
+			{
+				this.audioSource = audioSource;
+				this.despawnEvent = despawnEvent;
+				this.targetEntity = targetEntity;
+			}
+			
+		}
+		List<LoopedAudioClip> currentClips = new List<LoopedAudioClip>();
+
 		/// <summary>
 		/// Setups the Adventure gameplay state
 		/// </summary>
@@ -110,14 +126,13 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.SubscribeManual<EventOnCollectableCollected>(this, OnCollectableCollected);
 			QuantumEvent.SubscribeManual<EventOnDamageBlocked>(this, OnDamageBlocked);
 			QuantumEvent.SubscribeManual<EventOnPlayerSpecialUsed>(this, OnSpecialUsed);
-
 			QuantumEvent.SubscribeManual<EventOnRaycastShotExplosion>(this, OnRaycastShotExplosion);
 			QuantumEvent.SubscribeManual<EventOnHazardLand>(this, OnHazardExplosion);
 			QuantumEvent.SubscribeManual<EventOnProjectileExplosion>(this, OnProjectileExplosion);
-
 			QuantumEvent.SubscribeManual<EventOnChestOpened>(this, OnChestOpened);
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKillPlayer);
-
+			QuantumEvent.SubscribeManual<EventOnAirDropDropped>(this, OnAirdropDropped);
+			QuantumEvent.SubscribeManual<EventOnAirDropLanded>(this, OnAirdropLanded);
 		}
 
 		private void UnsubscribeEvents()
@@ -206,6 +221,46 @@ namespace FirstLight.Game.StateMachines
 			                                              GameConstants.Audio.MIXER_SNAPSHOT_TRANSITION_SECONDS);
 		}
 
+		//when feeding input to this method, using callback.tostring()
+		private void checkClips(string currentEvent, EntityRef entity)
+		{
+			foreach(LoopedAudioClip clip in currentClips)
+			{
+				if (clip.despawnEvent == currentEvent && clip.targetEntity == entity)
+					clip.audioSource.StopAndDespawn();
+			}
+		}
+		private void OnAirdropLanded(EventOnAirDropLanded callback)
+		{
+			
+
+		}
+
+		private void OnAirdropDropped(EventOnAirDropDropped callback)
+		{
+			//we first play the airdrop start effect
+			//once that is done, we play the aidrop fly effect until we have the aidrop landed event trigger
+			//this means we must store the currently played effect for the airdrop somehwere
+			//we must be able to store any number of sound effects, and cancel them when certain other events play
+
+			//we can create a list of looped audio that is being played, with events for each
+			//then whenever an event is called, we go through the list of audio events, checking if any of them are set to be
+			//deleted with the current event
+
+			if (_matchServices.EntityViewUpdaterService == null)
+			{
+				return;
+			}
+
+			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
+			{
+				_services.AudioFxService.PlayClip3D(AudioId.AirdropDropped, entityView.transform.position);
+				var fallsfx = _services.AudioFxService.PlayClip3D(AudioId.AirdropDropped, entityView.transform.position);
+				currentClips.Add(new LoopedAudioClip(fallsfx, new EventOnAirDropLanded().ToString(), callback.Entity));
+			}
+
+		}
+
 		private void OnPlayerKillPlayer(EventOnPlayerKilledPlayer callback)
 		{
 			if (_matchServices.EntityViewUpdaterService == null)
@@ -239,7 +294,7 @@ namespace FirstLight.Game.StateMachines
 
 				if (audio != AudioId.None)
 				{
-					_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
+					 _services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
 				}
 			}
 		}

@@ -21,6 +21,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0
@@ -32,6 +33,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0
@@ -43,6 +45,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0
@@ -54,6 +57,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0
@@ -65,6 +69,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0
@@ -76,6 +81,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0
@@ -87,6 +93,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0
@@ -98,6 +105,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0
@@ -109,6 +117,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0
@@ -120,6 +129,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0
@@ -131,6 +141,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0
@@ -150,6 +161,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.2
@@ -169,6 +181,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.2
@@ -188,6 +201,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.2
@@ -199,6 +213,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.2
@@ -210,6 +225,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.2
@@ -229,6 +245,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.2
@@ -248,6 +265,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.2
@@ -259,6 +277,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.25
@@ -270,6 +289,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.25
@@ -281,6 +301,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.25
@@ -292,6 +313,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.25
@@ -303,6 +325,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.25
@@ -314,6 +337,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.25
@@ -325,6 +349,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.25
@@ -336,6 +361,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.25
@@ -347,6 +373,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.25
@@ -358,6 +385,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.25
@@ -369,6 +397,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.25
@@ -380,6 +409,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.25
@@ -391,6 +421,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.25
@@ -402,6 +433,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.25
@@ -413,6 +445,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.25
@@ -424,6 +457,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.25
@@ -435,6 +469,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.25
@@ -446,6 +481,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.25
@@ -457,6 +493,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.25
@@ -468,6 +505,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.25
@@ -479,6 +517,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.25
@@ -490,6 +529,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.25
@@ -501,6 +541,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0
@@ -512,6 +553,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.25
@@ -523,6 +565,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.25
@@ -534,6 +577,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.25
@@ -545,6 +589,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0
@@ -556,6 +601,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.2
@@ -567,6 +613,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.2
@@ -578,6 +625,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.2
@@ -589,6 +637,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.2
@@ -600,6 +649,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.25
@@ -611,6 +661,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.2
@@ -622,6 +673,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.2
@@ -633,6 +685,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.2
@@ -644,6 +697,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.2
@@ -655,6 +709,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0.2
@@ -686,6 +741,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 2
       BasePitch: 1
       VolumeRandDeviation: 0.2
@@ -697,6 +753,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 2
       BasePitch: 1
       VolumeRandDeviation: 0.2
@@ -708,6 +765,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0
@@ -719,6 +777,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 1
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0

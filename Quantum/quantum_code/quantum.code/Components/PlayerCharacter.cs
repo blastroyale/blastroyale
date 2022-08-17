@@ -197,15 +197,12 @@ namespace Quantum
 			}
 
 			WeaponSlots[slot].Weapon = weapon;
-			CurrentWeaponSlot = slot;
 
 			GainAmmo(f, e, initialAmmo - GetAmmoAmountFilled(f, e));
 
 			f.Events.OnLocalPlayerWeaponAdded(Player, e, weapon, slot);
 			
-			EquipSlotWeapon(f, e, slot);
-
-			for (var i = 0; i < WeaponSlot->Specials.Length; i++)
+			for (var i = 0; i < WeaponSlots[slot].Specials.Length; i++)
 			{
 				var id = weaponConfig.Specials[i];
 				var special	= id == default ? new Special() : new Special(f, id);
@@ -213,11 +210,13 @@ namespace Quantum
 				// If equipping a weapon of the same type, just increase the charges and keep the lowest recharge time
 				if (weapon.GameId == primaryWeapon.GameId)
 				{
-					special.AvailableTime = FPMath.Min(WeaponSlot->Specials[i].AvailableTime, special.AvailableTime);
+					special.AvailableTime = FPMath.Min(WeaponSlots[slot].Specials[i].AvailableTime, special.AvailableTime);
 				}
 
-				WeaponSlot->Specials[i] = special;
+				WeaponSlots.GetPointer(slot)->Specials[i] = special;
 			}
+			
+			EquipSlotWeapon(f, e, slot);
 		}
 
 		/// <summary>

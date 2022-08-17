@@ -109,7 +109,7 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.SubscribeManual<EventOnPlayerAttack>(this, OnPlayerAttack);
 			QuantumEvent.SubscribeManual<EventOnCollectableCollected>(this, OnCollectableCollected);
 			QuantumEvent.SubscribeManual<EventOnDamageBlocked>(this, OnDamageBlocked);
-			QuantumEvent.SubscribeManual<EventOnSpecialUsed>(this, OnSpecialUsed);
+			QuantumEvent.SubscribeManual<EventOnPlayerSpecialUsed>(this, OnSpecialUsed);
 
 			QuantumEvent.SubscribeManual<EventOnRaycastShotExplosion>(this, OnRaycastShotExplosion);
 			QuantumEvent.SubscribeManual<EventOnHazardLand>(this, OnHazardExplosion);
@@ -321,7 +321,7 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private void OnSpecialUsed(EventOnSpecialUsed callback)
+		private void OnSpecialUsed(EventOnPlayerSpecialUsed callback)
 		{
 			if (_matchServices.EntityViewUpdaterService == null)
 			{
@@ -330,7 +330,7 @@ namespace FirstLight.Game.StateMachines
 
 			var audio = AudioId.None;
 
-			switch (callback.SpecialType)
+			switch (callback.Special.SpecialType)
 			{
 				case SpecialType.Grenade:
 					audio = AudioId.Dash;

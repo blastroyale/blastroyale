@@ -1,26 +1,28 @@
+using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.VFX;
 
 namespace FirstLight.Game.MonoComponent.Match
 {
 	/// <summary>
 	/// Shows the indicator for the local player's attack with radial area of damage
 	/// </summary>
-	public class RadialIndicatorMonoComponent : MonoBehaviour, ITransformIndicator
+	public class RadialIndicatorMonoComponent : MonoBehaviour, IIndicator
 	{
 		[SerializeField, Required] protected GameObject _indicator;
 		[SerializeField] protected float _localHeight = 0.025f;
 		[SerializeField] protected bool _initiallyEnabled = false;
 		
-		protected Transform _playerTransform;
-		protected Vector3 _position;
-		protected float _maxRange;
+		private Transform _playerTransform;
+		private Vector3 _position;
+		private float _maxRange;
 
 		/// <inheritdoc />
 		public bool VisualState => _indicator.activeSelf;
+		/// <inheritdoc />
+		public IndicatorVfxId IndicatorVfxId => IndicatorVfxId.Radial;
 		
-		protected virtual void Awake()
+		private void Awake()
 		{
 			_indicator.SetActive(_initiallyEnabled);
 			_playerTransform = transform;
@@ -40,7 +42,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		/// <inheritdoc />
 		public void SetVisualProperties(float size, float minRange, float maxRange)
 		{
-			var cacheTransform = transform.transform;
+			var cacheTransform = transform;
 			
 			_maxRange = maxRange;
 			cacheTransform.localScale = new Vector3(size, cacheTransform.localScale.y, size);
@@ -58,12 +60,9 @@ namespace FirstLight.Game.MonoComponent.Match
 		public void SetTransformState(Vector2 direction)
 		{
 			var move = direction * _maxRange;
-			var position = _playerTransform.position;
+			var position = _playerTransform.position + new Vector3(move.x, 10f, move.y);
 
-			// Getting the position the special is going to drop on
-			position += new Vector3(move.x, 10f, move.y);
-			var ray = new Ray(position, Vector3.down);
-			if (Physics.Raycast(ray, out var raycastHit))
+			if (Physics.Raycast(new Ray(position, Vector3.down), out var raycastHit))
 			{
 				position = new Vector3(raycastHit.point.x, raycastHit.point.y, raycastHit.point.z);
 			}
@@ -73,7 +72,7 @@ namespace FirstLight.Game.MonoComponent.Match
 				position = new Vector3(position.x, _playerTransform.position.y, position.z);
 			}
 			
-			_position = position-_playerTransform.position;
+			_position = position - _playerTransform.position;
 		}
 	}
 }

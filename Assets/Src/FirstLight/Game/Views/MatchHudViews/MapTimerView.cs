@@ -67,7 +67,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void OnMatchStarted(MatchStartedMessage message)
 		{
-			var frame = QuantumRunner.Default.Game.Frames.Verified;
+			var frame = message.Game.Frames.Predicted;
 			
 			if (frame.TryGetSingleton<ShrinkingCircle>(out _))
 			{
@@ -77,7 +77,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void OnNewShrinkingCircle(EventOnNewShrinkingCircle callback)
 		{
-			StartTimerCoroutine(callback.Game.Frames.Verified);
+			StartTimerCoroutine(callback.Game.Frames.Predicted);
 		}
 
 		private void StartTimerCoroutine(Frame f)

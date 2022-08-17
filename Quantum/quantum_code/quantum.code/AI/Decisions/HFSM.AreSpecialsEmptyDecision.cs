@@ -7,16 +7,22 @@ namespace Quantum
 	/// </summary>
 	[Serializable]
 	[AssetObjectConfig(GenerateLinkingScripts = true, GenerateAssetCreateMenu = false, GenerateAssetResetMethod = false)]
-	public class AreSpecialsEmptyDecision : HFSMDecision
+	public unsafe class AreSpecialsEmptyDecision : HFSMDecision
 	{
 		/// <inheritdoc />
 		public override bool Decide(Frame f, EntityRef e)
 		{
-			var playerCharacter = f.Get<PlayerCharacter>(e);
-			var currentWeaponSlot = playerCharacter.WeaponSlots[playerCharacter.CurrentWeaponSlot];
+			var specials = f.Unsafe.GetPointer<PlayerCharacter>(e)->WeaponSlot->Specials;
 
-			return !currentWeaponSlot.Special1.IsSpecialAvailable(f) 
-			       || !currentWeaponSlot.Special2.IsSpecialAvailable(f);
+			for(var i = 0; i < specials.Length; i++)
+			{
+				if (f.Time > specials[i].AvailableTime)
+				{
+					return false;
+				}
+			}
+
+			return true;
 		}
 	}
 }

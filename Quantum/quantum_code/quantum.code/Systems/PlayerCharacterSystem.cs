@@ -35,12 +35,11 @@ namespace Quantum.Systems
 			var playerEntity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.PlayerCharacterPrototype.Id));
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
 			var spawnTransform = new Transform3D {Position = FPVector3.Zero, Rotation = FPQuaternion.Identity};
-
-			spawnTransform.Position = spawnPosition.XOY;
-
 			var startingEquipment = f.Context.MapConfig.GameMode == GameMode.BattleRoyale
 				                        ? Array.Empty<Equipment>()
 				                        : playerData.Loadout;
+
+			spawnTransform.Position = spawnPosition.XOY;
 
 			playerCharacter->Init(f, playerEntity, playerRef, spawnTransform, playerData.PlayerLevel,
 			                      playerData.PlayerTrophies, playerData.Skin, playerData.DeathMarker, startingEquipment,
@@ -113,14 +112,12 @@ namespace Quantum.Systems
 				movedirection = rotation;
 			}
 
-			var isAiming = input->AimingDirection.SqrMagnitude > FP._0;
-			if (isAiming)
+			if (input->AimingDirection.SqrMagnitude > FP._0)
 			{
 				rotation = input->AimingDirection;
 			}
 
 			bb->Set(f, Constants.IsAimPressedKey, input->IsShootButtonDown);
-			bb->Set(f, Constants.IsAimingKey, isAiming);
 			bb->Set(f, Constants.AimDirectionKey, rotation);
 			bb->Set(f, Constants.MoveDirectionKey, movedirection);
 		}

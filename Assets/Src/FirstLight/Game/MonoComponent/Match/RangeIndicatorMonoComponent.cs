@@ -1,4 +1,5 @@
 using FirstLight.Game.Utils;
+using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -14,6 +15,8 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		/// <inheritdoc />
 		public bool VisualState => _indicator.enabled;
+		/// <inheritdoc />
+		public IndicatorVfxId IndicatorVfxId => IndicatorVfxId.Range;
 		
 		private void Awake()
 		{
@@ -30,6 +33,12 @@ namespace FirstLight.Game.MonoComponent.Match
 		public void SetVisualProperties(float size, float minRange, float maxRange)
 		{
 			transform.localScale = Vector3.one * (maxRange * GameConstants.Visuals.RADIUS_TO_SCALE_CONVERSION_VALUE);
+		}
+
+		/// <inheritdoc />
+		public void SetTransformState(Vector2 position)
+		{
+			// DO Nothing
 		}
 
 		/// <inheritdoc />

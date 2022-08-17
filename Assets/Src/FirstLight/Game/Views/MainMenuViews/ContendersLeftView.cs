@@ -45,7 +45,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private void OnMatchStarted(MatchStartedMessage message)
 		{
-			UpdatePlayersAlive(QuantumRunner.Default.Game.Frames.Verified);
+			UpdatePlayersAlive(message.Game.Frames.Predicted);
 		}
 
 		private void OnEventOnPlayerDead(EventOnPlayerDead callback)

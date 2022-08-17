@@ -9,7 +9,12 @@ namespace Quantum
 		/// <summary>
 		/// Requests the current weapon of player character
 		/// </summary>
-		public Equipment CurrentWeapon => WeaponSlots[CurrentWeaponSlot].Weapon;
+		public Equipment CurrentWeapon => WeaponSlot->Weapon;
+		
+		/// <summary>
+		/// Requests the current weapon slot of player character
+		/// </summary>
+		public WeaponSlot* WeaponSlot => WeaponSlots.GetPointer(CurrentWeaponSlot);
 
 		/// <summary>
 		/// Spawns this <see cref="PlayerCharacter"/> with all the necessary data.
@@ -33,6 +38,11 @@ namespace Quantum
 			{
 				WeaponSlots[Constants.WEAPON_INDEX_DEFAULT].Weapon.Faction = loadoutWeapon.Faction;
 			}
+			
+			foreach (var item in startingEquipment)
+			{
+				Gear[GetGearSlot(item)] = item;
+			}
 
 			// This makes the entity debuggable in BotSDK. Access debugger inspector from circuit editor and see
 			// a list of all currently registered entities and their states.
@@ -44,8 +54,6 @@ namespace Quantum
 
 			f.Add(e, blackboard);
 			f.Add(e, kcc);
-
-			InitEquipment(f, e, startingEquipment);
 			
 			f.Add<Stats>(e);
 			f.Add<HFSMAgent>(e);
@@ -59,13 +67,10 @@ namespace Quantum
 		/// </summary>
 		internal void Spawn(Frame f, EntityRef e)
 		{
-			// Replenish Special's charges
-			for (var i = 0; i < WeaponSlots.Length; i++)
+			// Replenish weapon slots
+			for (var i = Constants.WEAPON_INDEX_DEFAULT + 1; i < WeaponSlots.Length; i++)
 			{
-				WeaponSlots[i].Special1Charges = 1;
-				WeaponSlots[i].Special2Charges = 1;
-				WeaponSlots[i].Special1AvailableTime = FP._0;
-				WeaponSlots[i].Special2AvailableTime = FP._0;
+				WeaponSlots[i] = default;
 			}
 
 			var isRespawning = f.GetSingleton<GameContainer>().PlayersData[Player].DeathCount > 0;
@@ -75,7 +80,15 @@ namespace Quantum
 			}
 			else
 			{
-				SetSlotWeapon(f, e, Constants.WEAPON_INDEX_DEFAULT);
+				var weaponConfig = SetSlotWeapon(f, e, Constants.WEAPON_INDEX_DEFAULT);
+				var defaultSlot = WeaponSlots.GetPointer(Constants.WEAPON_INDEX_DEFAULT);
+				
+				for (var i = 0; i < defaultSlot->Specials.Length; i++)
+				{
+					var id = weaponConfig.Specials[i];
+					
+					defaultSlot->Specials[i] = id == default ? new Special() : new Special(f, id);
+				}
 			}
 
 			f.Events.OnPlayerSpawned(Player, e, isRespawning);
@@ -161,7 +174,8 @@ namespace Quantum
 		{
 			Assert.Check(weapon.IsWeapon(), weapon);
 
-			var initialAmmo = f.WeaponConfigs.GetConfig(weapon.GameId).InitialAmmoFilled.Get(f);
+			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
+			var initialAmmo = weaponConfig.InitialAmmoFilled.Get(f);
 			var slot = GetWeaponEquipSlot(weapon, primary);
 			var primaryReplaced = false;
 			var primaryWeapon = WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon;
@@ -183,11 +197,26 @@ namespace Quantum
 			}
 
 			WeaponSlots[slot].Weapon = weapon;
-			CurrentWeaponSlot = slot;
 
 			GainAmmo(f, e, initialAmmo - GetAmmoAmountFilled(f, e));
 
 			f.Events.OnLocalPlayerWeaponAdded(Player, e, weapon, slot);
+			
+			for (var i = 0; i < WeaponSlots[slot].Specials.Length; i++)
+			{
+				var id = weaponConfig.Specials[i];
+				var special	= id == default ? new Special() : new Special(f, id);
+
+				// If equipping a weapon of the same type, just increase the charges and keep the lowest recharge time
+				if (weapon.GameId == primaryWeapon.GameId)
+				{
+					special.AvailableTime = FPMath.Min(WeaponSlots[slot].Specials[i].AvailableTime, special.AvailableTime);
+				}
+
+				WeaponSlots.GetPointer(slot)->Specials[i] = special;
+			}
+			
+			EquipSlotWeapon(f, e, slot);
 		}
 
 		/// <summary>
@@ -196,10 +225,8 @@ namespace Quantum
 		internal void EquipSlotWeapon(Frame f, EntityRef e, int slot)
 		{
 			SetSlotWeapon(f, e, slot);
-			RefreshEquipmentStats(f, e);
 			
-			f.Events.OnPlayerWeaponChanged(Player, e, CurrentWeapon);
-			f.Events.OnLocalPlayerWeaponChanged(Player, e, CurrentWeapon, slot);
+			f.Events.OnPlayerWeaponChanged(Player, e, slot);
 		}
 
 		/// <summary>
@@ -211,10 +238,10 @@ namespace Quantum
 
 			var gearSlot = GetGearSlot(gear);
 			Gear[gearSlot] = gear;
+			
+			RefreshEquipmentStats(f, e);
 
 			f.Events.OnPlayerGearChanged(Player, e, gear, gearSlot);
-
-			RefreshEquipmentStats(f, e);
 		}
 
 		/// <summary>
@@ -257,17 +284,6 @@ namespace Quantum
 		}
 
 		/// <summary>
-		/// Sets that we dropped a specific piece of equipment (via GameIdGroup).
-		///
-		/// This does not check if this item is actually in the loadout.
-		/// </summary>
-		public void SetDroppedLoadoutItem(Equipment equipment)
-		{
-			var shift = equipment.IsWeapon() ? 0 : GetGearSlot(equipment) + 1;
-			DroppedLoadoutFlags |= 1 << shift;
-		}
-
-		/// <summary>
 		/// Checks if we dropped a specific piece of equipment (only checks by GameIdGroup).
 		///
 		/// This does not check if this item is actually in the loadout.
@@ -306,6 +322,17 @@ namespace Quantum
 				Constants.GEAR_INDEX_SHIELD => GameIdGroup.Shield,
 				_ => throw new NotSupportedException($"Could not find GameIdGroup for slot({slot})")
 			};
+		}
+
+		/// <summary>
+		/// Sets that we dropped a specific piece of equipment (via GameIdGroup).
+		///
+		/// This does not check if this item is actually in the loadout.
+		/// </summary>
+		internal void SetDroppedLoadoutItem(Equipment equipment)
+		{
+			var shift = equipment.IsWeapon() ? 0 : GetGearSlot(equipment) + 1;
+			DroppedLoadoutFlags |= 1 << shift;
 		}
 
 		/// <summary>
@@ -413,47 +440,17 @@ namespace Quantum
 			f.Events.OnPlayerStatsChanged(Player, e, previousStats, *newStats);
 		}
 
-		private void InitEquipment(Frame f, EntityRef e, Equipment[] equipment)
-		{
-			foreach (var item in equipment)
-			{
-				if (item.IsWeapon())
-				{
-					AddWeapon(f, e, item, true);
-				}
-				else
-				{
-					Gear[GetGearSlot(item)] = item;
-				}
-			}
-		}
-
-		private Special GetSpecial(Frame f, GameId specialId)
-		{
-			if (specialId == default)
-			{
-				return new Special();
-			}
-
-			var specialConfig = f.SpecialConfigs.GetConfig(specialId);
-
-			return new Special(f, specialConfig);
-		}
-
-		private void SetSlotWeapon(Frame f, EntityRef e, int slot)
+		private QuantumWeaponConfig SetSlotWeapon(Frame f, EntityRef e, int slot)
 		{
 			CurrentWeaponSlot = slot;
 
 			var blackboard = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
 			var weapon = CurrentWeapon;
-			var weaponSlot = WeaponSlots[CurrentWeaponSlot];
 			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
+			var burstCount = weaponConfig.AttackCooldown / Constants.BURST_INTERVAL_DIVIDER /weaponConfig.NumberOfBursts;
 			//the total time it takes for a burst to complete should be half of the weapon's cooldown
 			//if we are only firing one shot, burst interval is 0
-			var burstCooldown = weaponConfig.NumberOfBursts == 1
-				                    ? 0
-				                    : (weaponConfig.AttackCooldown / Constants.BURST_INTERVAL_DIVIDER) /
-				                      weaponConfig.NumberOfBursts;
+			var burstCooldown = weaponConfig.NumberOfBursts == 1 ? 0 : burstCount;
 
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AimTime), weaponConfig.AimTime);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AttackCooldown), weaponConfig.AttackCooldown);
@@ -461,20 +458,10 @@ namespace Quantum
 			blackboard->Set(f, nameof(QuantumWeaponConfig.NumberOfBursts), weaponConfig.NumberOfBursts);
 			blackboard->Set(f, Constants.HasMeleeWeaponKey, weaponConfig.IsMeleeWeapon);
 			blackboard->Set(f, Constants.BurstTimeDelay, burstCooldown);
+			
+			RefreshEquipmentStats(f, e);
 
-			weaponSlot.Special1 = GetSpecial(f, weaponConfig.Specials[0]);
-			weaponSlot.Special2 = GetSpecial(f, weaponConfig.Specials[1]);
-
-			if (weaponSlot.Special1AvailableTime > FP._0)
-			{
-				weaponSlot.Special1.AvailableTime = weaponSlot.Special1AvailableTime;
-			}
-			if (weaponSlot.Special2AvailableTime > FP._0)
-			{
-				weaponSlot.Special2.AvailableTime = weaponSlot.Special2AvailableTime;
-			}
-
-			WeaponSlots[CurrentWeaponSlot] = weaponSlot;
+			return weaponConfig;
 		}
 	}
 }

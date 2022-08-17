@@ -45,9 +45,6 @@ namespace Quantum
 			if (aimDirection.SqrMagnitude > FP._0)
 			{
 				QuantumHelpers.LookAt2d(f, e, aimDirection);
-
-				var playerCharacter = f.Get<PlayerCharacter>(e);
-				f.Events.OnLocalPlayerAim(playerCharacter.Player, e, playerCharacter.CurrentWeapon, velocity.SqrMagnitude, maxSpeed*maxSpeed);
 			}
 		}
 	}

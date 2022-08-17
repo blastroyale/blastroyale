@@ -53,12 +53,12 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(spectateCheck);
 			initial.OnExit(SubscribeEvents);
 			
-			spectateCheck.Transition().Condition(IsSpectator).OnTransition(PublishMatchStartedMessage).Target(spectating);
-			spectateCheck.Transition().OnTransition(OpenMatchHud).Target(resyncCheck);
+			spectateCheck.Transition().Condition(IsSpectator).Target(spectating);
+			spectateCheck.Transition().Target(resyncCheck);
 			
-			resyncCheck.Transition().Condition(IsResyncing).Target(aliveCheck);
+			resyncCheck.OnEnter(OpenMatchHud);
+			resyncCheck.Transition().Condition(IsRejoining).Target(aliveCheck);
 			resyncCheck.Transition().Target(spawning);
-			resyncCheck.OnExit(PublishMatchStartedMessage);
 			
 			aliveCheck.Transition().Condition(IsLocalPlayerAlive).Target(alive);
 			aliveCheck.Transition().Target(deadCheck);
@@ -121,7 +121,7 @@ namespace FirstLight.Game.StateMachines
 			return _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator();
 		}
 		
-		private bool IsResyncing()
+		private bool IsRejoining()
 		{
 			return !_services.NetworkService.IsJoiningNewMatch;
 		}
@@ -190,14 +190,6 @@ namespace FirstLight.Game.StateMachines
 		private void CloseSpectateHud()
 		{
 			_uiService.CloseUi<SpectateHudPresenter>();
-		}
-
-		private void PublishMatchStartedMessage()
-		{
-			_services.MessageBrokerService.Publish(new MatchStartedMessage()
-			{
-				IsResync = IsResyncing()
-			});
 		}
 	}
 }

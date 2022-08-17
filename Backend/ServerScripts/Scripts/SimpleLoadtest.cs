@@ -32,8 +32,7 @@ namespace Scripts;
 /// </summary>
 public class SimpleLoadtest : PlayfabScript
 {
-	public override string GetPlayfabTitle() => "***REMOVED***";
-	public override string GetPlayfabSecret() => "***REMOVED***";
+	public override PlayfabEnvironment GetEnvironment() => PlayfabEnvironment.DEV;
 
 	public const int NUMBER_OF_PLAYERS = 10;
 	
@@ -78,7 +77,7 @@ public class SimpleLoadtest : PlayfabScript
 		{
 			CreateAccount = true,
 			CustomId = Guid.NewGuid().ToString(),
-			TitleId = GetPlayfabTitle(),
+			TitleId = GetPlayfabConfiguration().TitleId,
 			InfoRequestParameters = new GetPlayerCombinedInfoRequestParams()
 			{
 				GetUserAccountInfo = true

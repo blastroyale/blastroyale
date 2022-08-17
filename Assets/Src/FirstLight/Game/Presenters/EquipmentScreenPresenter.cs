@@ -191,8 +191,12 @@ namespace FirstLight.Game.Presenters
 			var isWeapon = equipment.Equipment.GameId.IsInGroup(GameIdGroup.Weapon);
 
 			SetStatInfoData(equipment);
-			SetCooldownStatus();
-			
+
+			if (_gameDataProvider.EquipmentDataProvider.NftInventory.ContainsKey(equipment.Id))
+			{
+				SetCooldownStatus();
+			}
+
 			// TODO: Add proper translation logic
 			_equipButtonText.SetText(equipment.IsEquipped ? ScriptLocalization.General.Unequip : ScriptLocalization.General.Equip);
 			_powerRatingText.text = string.Format(ScriptLocalization.MainMenu.MightRating, loadout.GetTotalMight().ToString());

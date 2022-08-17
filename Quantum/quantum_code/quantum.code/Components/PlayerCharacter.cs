@@ -80,13 +80,14 @@ namespace Quantum
 			}
 			else
 			{
-				SetSlotWeapon(f, e, Constants.WEAPON_INDEX_DEFAULT);
-				
+				var weaponConfig = SetSlotWeapon(f, e, Constants.WEAPON_INDEX_DEFAULT);
 				var defaultSlot = WeaponSlots.GetPointer(Constants.WEAPON_INDEX_DEFAULT);
 				
 				for (var i = 0; i < defaultSlot->Specials.Length; i++)
 				{
-					defaultSlot->Specials[i] = new Special(f, defaultSlot->Specials[i].SpecialId);
+					var id = weaponConfig.Specials[i];
+					
+					defaultSlot->Specials[i] = id == default ? new Special() : new Special(f, id);
 				}
 			}
 
@@ -173,7 +174,8 @@ namespace Quantum
 		{
 			Assert.Check(weapon.IsWeapon(), weapon);
 
-			var initialAmmo = f.WeaponConfigs.GetConfig(weapon.GameId).InitialAmmoFilled.Get(f);
+			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
+			var initialAmmo = weaponConfig.InitialAmmoFilled.Get(f);
 			var slot = GetWeaponEquipSlot(weapon, primary);
 			var primaryReplaced = false;
 			var primaryWeapon = WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon;
@@ -202,14 +204,6 @@ namespace Quantum
 			f.Events.OnLocalPlayerWeaponAdded(Player, e, weapon, slot);
 			
 			EquipSlotWeapon(f, e, slot);
-		}
-
-		/// <summary>
-		/// Sets the player's weapon to the given <paramref name="slot"/>
-		/// </summary>
-		internal void EquipSlotWeapon(Frame f, EntityRef e, int slot)
-		{
-			var weaponConfig = SetSlotWeapon(f, e, slot);
 
 			for (var i = 0; i < WeaponSlot->Specials.Length; i++)
 			{
@@ -217,14 +211,21 @@ namespace Quantum
 				var special	= id == default ? new Special() : new Special(f, id);
 
 				// If equipping a weapon of the same type, just increase the charges and keep the lowest recharge time
-				if (id == WeaponSlot->Specials[i].SpecialId)
+				if (weapon.GameId == primaryWeapon.GameId)
 				{
-					special.Charges++;
 					special.AvailableTime = FPMath.Min(WeaponSlot->Specials[i].AvailableTime, special.AvailableTime);
 				}
 
 				WeaponSlot->Specials[i] = special;
 			}
+		}
+
+		/// <summary>
+		/// Sets the player's weapon to the given <paramref name="slot"/>
+		/// </summary>
+		internal void EquipSlotWeapon(Frame f, EntityRef e, int slot)
+		{
+			SetSlotWeapon(f, e, slot);
 			
 			f.Events.OnPlayerWeaponChanged(Player, e, slot);
 		}

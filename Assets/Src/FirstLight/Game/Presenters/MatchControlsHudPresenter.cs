@@ -48,7 +48,8 @@ namespace FirstLight.Game.Presenters
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveDrop>(this, OnLocalPlayerSkydiveDrop);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLanded);
 			QuantumEvent.Subscribe<EventOnLocalPlayerDamaged>(this, OnLocalPlayerDamaged);
-			QuantumEvent.SubscribeManual<EventOnLocalPlayerWeaponChanged>(this, OnWeaponChanged);
+			QuantumEvent.Subscribe<EventOnLocalPlayerSpecialUsed>(this, OnEventOnLocalPlayerSpecialUsed);
+			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, OnWeaponChanged);
 		}
 
 		private void OnDestroy()
@@ -254,6 +255,15 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
+		private void OnEventOnLocalPlayerSpecialUsed(EventOnLocalPlayerSpecialUsed callback)
+		{
+			var button = _specialButtons[callback.SpecialIndex];
+			var inputButton = _localInput.Gameplay.GetSpecialButton(callback.SpecialIndex);
+			var currentTime = callback.Game.Frames.Predicted.Time;
+			
+			button.SpecialUpdate(currentTime, callback.Special)?.OnComplete(inputButton.Enable);
+		}
+
 		private void PollInput(CallbackPollInput callback)
 		{
 			callback.SetInput(_quantumInput, DeterministicInputFlags.Repeatable);
@@ -275,8 +285,20 @@ namespace FirstLight.Game.Presenters
 
 		private void SendSpecialUsedCommand(int specialIndex, Vector2 aimDirection)
 		{
-			// TODO: Check charges:
-			// _localInput.Gameplay.SpecialButton0.Disable();
+			var data = QuantumRunner.Default.Game.GetLocalPlayerData(false, out var f);
+			var special = f.Get<PlayerCharacter>(data.Entity).WeaponSlot->Specials[specialIndex];
+			
+			// Check if there is a weapon equipped in the slot. Avoid extra commands to save network message traffic $$$
+			if (!special.IsUsable(f))
+			{
+				return;
+			}
+
+			// Disables the input until the cooldown is off
+			if (special.Charges == 1)
+			{
+				_localInput.Gameplay.GetSpecialButton(specialIndex).Disable();
+			}
 			
 			var command = new SpecialUsedCommand
 			{
@@ -290,9 +312,10 @@ namespace FirstLight.Game.Presenters
 		private void OnWeaponSlotClicked(int weaponSlotIndex)
 		{
 			var data = QuantumRunner.Default.Game.GetLocalPlayerData(false, out var f);
+			var pc = f.Get<PlayerCharacter>(data.Entity);
 
 			// Check if there is a weapon equipped in the slot. Avoid extra commands to save network message traffic $$$
-			if (!f.Get<PlayerCharacter>(data.Entity).WeaponSlots[weaponSlotIndex].Weapon.IsValid())
+			if (pc.CurrentWeaponSlot == weaponSlotIndex || !pc.WeaponSlots[weaponSlotIndex].Weapon.IsValid())
 			{
 				return;
 			}
@@ -310,17 +333,19 @@ namespace FirstLight.Game.Presenters
 			for (var i = 0; i < weaponSlot.Specials.Length; i++)
 			{
 				var special = weaponSlot.Specials[i];
+				var inputButton = _localInput.Gameplay.GetSpecialButton(i);
 				
-				_indicatorContainerView.SetupIndicator(0, weaponSlot.Specials[i].SpecialId, playerView);
+				_indicatorContainerView.SetupIndicator(i, weaponSlot.Specials[i].SpecialId, playerView);
 
 				if (special.IsValid)
 				{
-					_localInput.Gameplay.GetSpecialButton(i).Enable();
-					_specialButtons[i].Init(currentTime, special);
+					inputButton.Enable();
+					_specialButtons[i].Init(special.SpecialId);
+					_specialButtons[i].SpecialUpdate(currentTime, special)?.OnComplete(inputButton.Enable);
 				}
 				else
 				{
-					_localInput.Gameplay.GetSpecialButton(i).Disable();
+					inputButton.Disable();
 					_specialButtons[i].gameObject.SetActive(false);
 				}
 			}

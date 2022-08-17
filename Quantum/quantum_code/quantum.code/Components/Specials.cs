@@ -33,11 +33,19 @@ namespace Quantum
 		}
 
 		/// <summary>
+		/// Requests the state of the special if is ready to be used or not
+		/// </summary>
+		public bool IsUsable(Frame f)
+		{
+			return IsValid && Charges > 0 && f.Time > AvailableTime;
+		}
+
+		/// <summary>
 		/// Tries to activate this special and returns true if was successfully activated, returns false otherwise
 		/// </summary>
 		public bool TryActivate(Frame f, EntityRef playerEntity, FPVector2 aimInput, int specialIndex)
 		{
-			if (!IsValid || Charges == 0 || f.Time < AvailableTime || !TryUse(f, playerEntity, aimInput))
+			if (!IsUsable(f) || !TryUse(f, playerEntity, aimInput))
 			{
 				return false;
 			}

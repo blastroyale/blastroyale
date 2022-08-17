@@ -99,7 +99,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// </summary>
 		public void SetupIndicator(int index, GameId specialId, EntityView playerView)
 		{
-			var config = _services.ConfigsProvider.GetConfig<QuantumSpecialConfig>((int)specialId);
+			_services.ConfigsProvider.TryGetConfig<QuantumSpecialConfig>((int)specialId, out var config);
 			
 			if (_specialIndicators[index] != null)
 			{

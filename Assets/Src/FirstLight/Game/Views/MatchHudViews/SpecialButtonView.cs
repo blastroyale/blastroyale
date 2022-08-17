@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using FirstLight.Game.Input;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Services;
 using Photon.Deterministic;
 using Quantum;
 using Sirenix.OdinInspector;
@@ -35,19 +36,14 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private QuantumSpecialConfig _specialConfig;
 		private IGameServices _services;
-		private Coroutine _cooldownCoroutine;
+		private IAsyncCoroutine _cooldownCoroutine;
 		private bool _isAiming;
-
-		private void Awake()
-		{
-			QuantumEvent.Subscribe<EventOnLocalPlayerSpecialUsed>(this, OnEventOnLocalPlayerSpecialUsed);
-		}
 
 		private void OnDestroy()
 		{
-			if (_cooldownCoroutine != null)
+			if (_cooldownCoroutine?.Coroutine != null)
 			{
-				_services?.CoroutineService?.StopCoroutine(_cooldownCoroutine);
+				_services?.CoroutineService?.StopCoroutine(_cooldownCoroutine.Coroutine);
 			}
 		}
 
@@ -95,13 +91,13 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// <summary>
 		/// Initializes the special button with it's necessary data
 		/// </summary>
-		public async void Init(FP currentTime, Special special)
+		public async void Init(GameId specialId)
 		{
 			_services ??= MainInstaller.Resolve<IGameServices>();
 
 			gameObject.SetActive(false);
 
-			if (!_services.ConfigsProvider.TryGetConfig((int) special.SpecialId, out _specialConfig))
+			if (!_services.ConfigsProvider.TryGetConfig((int) specialId, out _specialConfig))
 			{
 				return;
 			}
@@ -111,18 +107,25 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_specialIconBackgroundImage.sprite =
 				_specialConfig.IsAimable ? _aimableBackgroundSprite : _nonAimableBackgroundSprite;
 			_outerRingImage.enabled = _specialConfig.IsAimable;
-
-			SpecialUpdate(currentTime, special);
 		}
 
-		private void OnEventOnLocalPlayerSpecialUsed(EventOnLocalPlayerSpecialUsed callback)
+		public IAsyncCoroutine SpecialUpdate(FP currentTime, Special special)
 		{
-			if (callback.SpecialIndex != _specialIndex)
+			gameObject.SetActive(special.Charges > 0);
+
+			if (_cooldownCoroutine?.Coroutine != null)
 			{
-				return;
+				_services.CoroutineService.StopCoroutine(_cooldownCoroutine.Coroutine);
+			}
+
+			if (special.Charges == 0)
+			{
+				return null;
 			}
 			
-			SpecialUpdate(callback.Game.Frames.Predicted.Time, callback.Special);
+			_cooldownCoroutine = _services.CoroutineService.StartAsyncCoroutine(SpecialCooldown(currentTime, special));
+
+			return _cooldownCoroutine;
 		}
 
 		private void SetInputData(PointerEventData eventData)
@@ -136,23 +139,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var delta = Vector2.ClampMagnitude(position, radius);
 
 			_specialAimDirectionAdapter.SendValueToControl(delta / radius);
-		}
-
-		private void SpecialUpdate(FP currentTime, Special special)
-		{
-			gameObject.SetActive(special.Charges > 0);
-
-			if (_cooldownCoroutine != null)
-			{
-				_services.CoroutineService.StopCoroutine(_cooldownCoroutine);
-			}
-
-			if (special.Charges == 0)
-			{
-				return;
-			}
-			
-			_cooldownCoroutine = _services.CoroutineService.StartCoroutine(SpecialCooldown(currentTime, special));
 		}
 
 		private IEnumerator SpecialCooldown(FP currentTime, Special special)
@@ -173,12 +159,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 				yield return null;
 			}
-
-			FillButton();
-		}
-
-		private void FillButton()
-		{
+			
 			_pingAnimation.Rewind();
 			_pingAnimation.Play();
 

@@ -76,7 +76,7 @@ namespace Quantum.Systems
 					projectile.TeamSource);
 
 				QuantumHelpers.ProcessAreaHit(f, projectile.SplashRadius, splashSpell, uint.MaxValue, OnHit);
-				f.Events.OnAudioExplosion(projectile.SourceId, spell.OriginalHitPosition);
+				f.Events.OnProjectileExplosion(projectile.SourceId, position);
 			}
 
 			if (QuantumHelpers.ProcessHit(f, spell))

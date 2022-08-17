@@ -110,7 +110,11 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.SubscribeManual<EventOnCollectableCollected>(this, OnCollectableCollected);
 			QuantumEvent.SubscribeManual<EventOnDamageBlocked>(this, OnDamageBlocked);
 			QuantumEvent.SubscribeManual<EventOnSpecialUsed>(this, OnSpecialUsed);
-			QuantumEvent.SubscribeManual<EventOnAudioExplosion>(this, OnExplosionStart);
+
+			QuantumEvent.SubscribeManual<EventOnRaycastShotExplosion>(this, OnRaycastShotExplosion);
+			QuantumEvent.SubscribeManual<EventOnHazardLand>(this, OnHazardExplosion);
+			QuantumEvent.SubscribeManual<EventOnProjectileExplosion>(this, OnProjectileExplosion);
+
 			QuantumEvent.SubscribeManual<EventOnChestOpened>(this, OnChestOpened);
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKillPlayer);
 
@@ -256,7 +260,26 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private void OnExplosionStart(EventOnAudioExplosion callback)
+		private void OnRaycastShotExplosion(EventOnRaycastShotExplosion callback)
+		{
+			var pos = new Vector3(callback.EndPosition.X.AsFloat,
+					callback.EndPosition.Y.AsFloat, callback.EndPosition.Z.AsFloat);
+			PlayExplosionSFX(callback.sourceId, pos);
+		}
+		private void OnHazardExplosion(EventOnHazardLand callback)
+		{
+			var pos = new Vector3(callback.HitPosition.X.AsFloat,
+					callback.HitPosition.Y.AsFloat, callback.HitPosition.Z.AsFloat);
+			PlayExplosionSFX(callback.sourceId, pos);
+		}
+		private void OnProjectileExplosion(EventOnProjectileExplosion callback)
+		{
+			var pos = new Vector3(callback.EndPosition.X.AsFloat,
+					callback.EndPosition.Y.AsFloat, callback.EndPosition.Z.AsFloat);
+			PlayExplosionSFX(callback.sourceId, pos);
+		}
+
+		private void PlayExplosionSFX(GameId sourceId, Vector3 endPosition)
 		{
 			if (_matchServices.EntityViewUpdaterService == null)
 			{
@@ -265,7 +288,7 @@ namespace FirstLight.Game.StateMachines
 
 			var audio = AudioId.None;
 
-			switch (callback.SourceId)
+			switch (sourceId)
 			{
 				//specials
 				case GameId.SpecialAimingGrenade:
@@ -294,8 +317,7 @@ namespace FirstLight.Game.StateMachines
 
 			if (audio != AudioId.None)
 			{
-				var pos = new Vector3(callback.LandPosition.X.AsFloat, callback.LandPosition.Y.AsFloat, callback.LandPosition.Z.AsFloat);
-				_services.AudioFxService.PlayClip3D(audio, pos);
+				_services.AudioFxService.PlayClip3D(audio, endPosition);
 			}
 		}
 

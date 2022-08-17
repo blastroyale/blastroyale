@@ -130,19 +130,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 		}
 
-		/// <summary>
-		/// Set's the player animation moving state based on the given <paramref name="isAiming"/> state
-		/// </summary>
-		public void SetMovingState(bool isAiming)
-		{
-			AnimatorWrapper.SetBool(Bools.Aim, isAiming);
-		}
-
-		protected override void OnAvatarEliminated(QuantumGame game)
-		{
-			base.OnAvatarEliminated(game);
-		}
-		
 		private void TryStartAttackWithinVisVolume()
 		{
 			if (_isWithinVisibilityVolume)
@@ -166,6 +153,19 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				SetRenderContainerVisible(false);
 			}
+		}
+		
+		/// <summary>
+		/// Set's the player animation moving state based on the given <paramref name="isAiming"/> state
+		/// </summary>
+		public void SetMovingState(bool isAiming)
+		{
+			AnimatorWrapper.SetBool(Bools.Aim, isAiming);
+		}
+
+		protected override void OnAvatarEliminated(QuantumGame game)
+		{
+			base.OnAvatarEliminated(game);
 		}
 
 		private void HandleOnStunGrenadeUsed(EventOnStunGrenadeUsed callback)

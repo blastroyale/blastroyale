@@ -56,7 +56,12 @@ namespace FirstLight.Game.Services
 		QuantumLoadBalancingClient QuantumClient { get; }
 		
 		/// <summary>
-		/// Requests the current <see cref="MapConfig"/> for the map set on the current connected room.
+		/// Requests the information if the current client is a spectator player just watching the match
+		/// </summary>
+		bool IsSpectorPlayer { get; }
+		
+		/// <summary>
+		/// Requests the current <see cref="QuantumMapConfig"/> for the map set on the current connected room.
 		/// If the player is not connected to any room then it return NULL without a value
 		/// </summary>
 		QuantumMapConfig? CurrentRoomMapConfig { get; }
@@ -101,6 +106,7 @@ namespace FirstLight.Game.Services
 		public IObservableList<Player> LastMatchPlayers { get; }
 		public IObservableField<LastDisconnectionLocation> LastDisconnectLocation { get; }
 		public QuantumLoadBalancingClient QuantumClient { get; }
+		public bool IsSpectorPlayer => QuantumClient.LocalPlayer.IsSpectator();
 		private IObservableField<bool> HasLag { get; }
 		
 		string IGameNetworkService.UserId => UserId.Value;

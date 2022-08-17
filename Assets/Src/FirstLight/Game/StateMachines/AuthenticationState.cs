@@ -136,7 +136,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				Callback = () =>
 				{
-					_services.GameFlowService.QuitGame("Closing playfab critical error alert");
+					_services.QuitGame("Closing playfab critical error alert");
 				},
 				Style = AlertButtonStyle.Negative,
 				Text = ScriptLocalization.MainMenu.QuitGameButton
@@ -388,7 +388,7 @@ namespace FirstLight.Game.StateMachines
 				Style = AlertButtonStyle.Default,
 				Callback = () =>
 				{
-					_services.GameFlowService.QuitGame("Closing game blocked dialog");
+					_services.QuitGame("Closing game blocked dialog");
 				}
 			};
 

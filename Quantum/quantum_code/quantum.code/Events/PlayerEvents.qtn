@@ -85,6 +85,7 @@ synced event OnPlayerWeaponChanged
 	player_ref Player;
 	entity_ref Entity;
 	Equipment Weapon;
+	Int32 Slot;
 }
 
 synced event OnPlayerGearChanged
@@ -141,22 +142,15 @@ synced event OnPlayerStatsChanged
 	Quantum.Stats CurrentStats;
 }
 
-// LOCAL PLAYER EVENTS
-
-synced event OnLocalPlayerAim
+synced event OnPlayerSpecialUsed
 {
-	local player_ref Player;
-	entity_ref PlayerEntity;
-	Equipment Weapon;
-	FP VelocitySqrMagnitude;
-	FP MaxSpeedSqr;
-}
-
-synced event OnLocalPlayerLeft
-{
-	local player_ref Player;
+	player_ref Player;
 	entity_ref Entity;
+	Special Special;
+	Int32 SpecialIndex;
 }
+
+// LOCAL PLAYER EVENTS
 
 synced event OnLocalPlayerSpawned
 {
@@ -226,7 +220,7 @@ synced event OnLocalPlayerWeaponChanged
 {
 	local player_ref Player;
 	entity_ref Entity;
-	Equipment Weapon;
+	WeaponSlot WeaponSlot;
 	Int32 Slot;
 }
 
@@ -248,4 +242,12 @@ synced event OnLocalPlayerAttack
 	local player_ref Player;
 	entity_ref PlayerEntity;
 	QuantumWeaponConfig WeaponConfig;
+}
+
+synced event OnLocalPlayerSpecialUsed
+{
+	local player_ref Player;
+	entity_ref Entity;
+	Special Special;
+	Int32 SpecialIndex;
 }

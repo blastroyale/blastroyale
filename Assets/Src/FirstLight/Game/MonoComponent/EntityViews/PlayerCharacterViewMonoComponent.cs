@@ -57,7 +57,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, HandleOnPlayerAlive);
 			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, HandleOnPlayerAttack);
-			QuantumEvent.Subscribe<EventOnSpecialUsed>(this, HandleOnSpecialUsed);
+			QuantumEvent.Subscribe<EventOnPlayerSpecialUsed>(this, HandleOnPlayerSpecialUsed);
 			QuantumEvent.Subscribe<EventOnAirstrikeUsed>(this, HandleOnAirstrikeUsed);
 			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, HandleOnPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnCollectableCollected>(this, HandleOnCollectableCollected);
@@ -276,9 +276,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			RigidbodyContainerMonoComponent.SetState(false);
 		}
 
-		private void HandleOnPlayerAttack(EventOnPlayerAttack evnt)
+		private void HandleOnPlayerAttack(EventOnPlayerAttack callback)
 		{
-			if (evnt.PlayerEntity != EntityRef)
+			if (callback.PlayerEntity != EntityRef)
 			{
 				return;
 			}
@@ -287,9 +287,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			TryStartAttackWithinVisVolume();
 		}
 
-		private void HandleOnSpecialUsed(EventOnSpecialUsed evnt)
+		private void HandleOnPlayerSpecialUsed(EventOnPlayerSpecialUsed callback)
 		{
-			if (evnt.Entity != EntityView.EntityRef)
+			if (callback.Entity != EntityView.EntityRef)
 			{
 				return;
 			}
@@ -400,32 +400,37 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			HandleDelayedFX(callback.HazardData.Interval - FP._0_50, targetPosition, VfxId.Skybeam);
 		}
 
-		private void HandleUpdateView(CallbackUpdateView callback)
-		{
-			const float speedThreshold = 0.5f; // unity units per second
-
-			var currentPosition = transform.position;
-			var deltaPosition = currentPosition - _lastPosition;
-			deltaPosition.y = 0f; // falling doesn't count
-			var sqrSpeed = (deltaPosition / Time.deltaTime).sqrMagnitude;
-			var isMoving = sqrSpeed > speedThreshold * speedThreshold;
-
-			AnimatorWrapper.SetBool(Bools.Move, isMoving);
-
-			if (isMoving)
-			{
-				deltaPosition.Normalize();
-				var localDeltaPosition = transform.InverseTransformDirection(deltaPosition);
-				AnimatorWrapper.SetFloat(PlayerFloats.DirX, localDeltaPosition.x);
-				AnimatorWrapper.SetFloat(PlayerFloats.DirY, localDeltaPosition.z);
-			}
-			else
-			{
-				AnimatorWrapper.SetFloat(PlayerFloats.DirX, 0f);
-				AnimatorWrapper.SetFloat(PlayerFloats.DirY, 0f);
-			}
-
-			_lastPosition = currentPosition;
+		private void HandleUpdateView(CallbackUpdateView callback)	
+		{	
+			const float speedThreshold = 0.5f; // unity units per second	
+			var f = callback.Game.Frames.Predicted;	
+			if (!f.TryGet<AIBlackboardComponent>(EntityRef, out var bb))	
+			{	
+				return;	
+			}	
+				
+			var currentPosition = transform.position;	
+			var deltaPosition = currentPosition - _lastPosition;	
+			deltaPosition.y = 0f; // falling doesn't count	
+			var sqrSpeed = (deltaPosition / f.DeltaTime.AsFloat).sqrMagnitude;	
+			var isMoving = sqrSpeed > speedThreshold * speedThreshold;	
+			var isAiming = bb.GetBoolean(f, Constants.IsAimPressedKey);	
+			AnimatorWrapper.SetBool(Bools.Move, isMoving);	
+			if (isMoving)	
+			{	
+				deltaPosition.Normalize();	
+				var localDeltaPosition = transform.InverseTransformDirection(deltaPosition);	
+				AnimatorWrapper.SetFloat(PlayerFloats.DirX, localDeltaPosition.x);	
+				AnimatorWrapper.SetFloat(PlayerFloats.DirY, localDeltaPosition.z);	
+			}	
+			else	
+			{	
+				AnimatorWrapper.SetFloat(PlayerFloats.DirX, 0f);	
+				AnimatorWrapper.SetFloat(PlayerFloats.DirY, 0f);	
+			}	
+				
+			AnimatorWrapper.SetBool(Bools.Aim, isAiming);	
+			_lastPosition = currentPosition;	
 		}
 
 		private void HandlePlayerSkydivePLF(EventOnPlayerSkydivePLF callback)

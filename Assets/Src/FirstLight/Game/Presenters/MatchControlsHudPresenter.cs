@@ -21,6 +21,7 @@ namespace FirstLight.Game.Presenters
 	public unsafe class MatchControlsHudPresenter : UiPresenter, LocalInput.IGameplayActions
 	{
 		[SerializeField, Required] private SpecialButtonView[] _specialButtons;
+		[SerializeField, Required] private CancelJoystickView _cancelJoystick;
 		[SerializeField] private GameObject[] _disableWhileParachuting;
 		[SerializeField] private Button[] _weaponSlotButtons;
 		[SerializeField, Required] private GameObject _weaponSlotsHolder;
@@ -38,6 +39,7 @@ namespace FirstLight.Game.Presenters
 			_localInput = new LocalInput();
 			_indicatorContainerView = new LocalPlayerIndicatorContainerView(_services);
 
+			_cancelJoystick.gameObject.SetActive(false);
 			_weaponSlotsHolder.gameObject.SetActive(false);
 			_weaponSlotButtons[0].onClick.AddListener(() => OnWeaponSlotClicked(0));
 			_weaponSlotButtons[1].onClick.AddListener(() => OnWeaponSlotClicked(1));
@@ -119,21 +121,22 @@ namespace FirstLight.Game.Presenters
 			{
 				indicator.SetVisualState(true);
 				indicator.SetTransformState(Vector2.zero);
+				_cancelJoystick.gameObject.SetActive(true);
+				return;
 			}
-			else
+			
+			var aim = _localInput.Gameplay.SpecialAim.ReadValue<Vector2>();
+			
+			indicator.SetVisualState(false);
+			_cancelJoystick.gameObject.SetActive(false);
+			
+			// TODO: Check if im.sqrMagnitude > _specialButton0.size
+			
+			// Only triggers the input if the button is released or it was not disabled (ex: weapon replaced)
+			if (Math.Abs(context.time - context.startTime) < Mathf.Epsilon && 
+			    (aim.sqrMagnitude > 0 || indicator.IndicatorVfxId == IndicatorVfxId.None))
 			{
-				var aim = _localInput.Gameplay.SpecialAim.ReadValue<Vector2>();
-				
-				indicator.SetVisualState(false);
-				
-				// TODO: Check if im.sqrMagnitude > _specialButton0.size
-				
-				// Only triggers the input if the button is released or it was not disabled (ex: weapon replaced)
-				if (Math.Abs(context.time - context.startTime) < Mathf.Epsilon && 
-				    (aim.sqrMagnitude > 0 || indicator.IndicatorVfxId == IndicatorVfxId.None))
-				{
-					SendSpecialUsedCommand(0, aim);
-				}
+				SendSpecialUsedCommand(0, aim);
 			}
 		}
 
@@ -146,12 +149,14 @@ namespace FirstLight.Game.Presenters
 			{
 				indicator.SetVisualState(true);
 				indicator.SetTransformState(Vector2.zero);
+				_cancelJoystick.gameObject.SetActive(true);
 				return;
 			}
 			
 			var aim = _localInput.Gameplay.SpecialAim.ReadValue<Vector2>();
 			
 			indicator.SetVisualState(false);
+			_cancelJoystick.gameObject.SetActive(false);
 			
 			// TODO: Check if im.sqrMagnitude > _specialButton0.size
 			
@@ -162,7 +167,12 @@ namespace FirstLight.Game.Presenters
 				SendSpecialUsedCommand(1, aim);
 			}
 		}
-		
+
+		public void OnCancelButton(InputAction.CallbackContext context)
+		{
+			//TODO: Miha Cancel here :) 
+		}
+
 		private void Init(Frame f, EntityRef entity)
 		{
 			var playerView = _matchServices.EntityViewUpdaterService.GetManualView(entity);

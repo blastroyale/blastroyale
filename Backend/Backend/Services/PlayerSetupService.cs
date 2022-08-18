@@ -91,17 +91,6 @@ public class PlayerSetupService : IPlayerSetupService
 		var playerData = new PlayerData();
 		playerData.PlayerSkinId = _initialSkins[rngSkin];
 		playerData.ResourcePools.Add(GameId.CS, new ResourcePoolData(GameId.CS, csPoolConfig.PoolCapacity, DateTime.UtcNow));
-		
-		// TODO: All below can be deleted and is already defined in the Client PlayerData creation
-		playerData.Trophies = 1000;
-		playerData.DeathMarker = GameId.Tombstone;
-		playerData.Level = 1;
-		playerData.Currencies.Add(GameId.CS, 0);
-		playerData.Currencies.Add(GameId.BLST, 0);
-		
-		// TODO: Gabriel: Remove EquipmentXP from the pool and players data. Is not going to be a pool data anymore
-		var eqExpPoolConfig = _configsProvider.GetConfig<ResourcePoolConfig>((int)GameId.EquipmentXP);
-		playerData.ResourcePools.Add(GameId.EquipmentXP, new ResourcePoolData(GameId.EquipmentXP, eqExpPoolConfig.PoolCapacity, DateTime.UtcNow));
 		return playerData;
 	}
 }

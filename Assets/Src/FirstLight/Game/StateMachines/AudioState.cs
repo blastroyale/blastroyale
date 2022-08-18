@@ -263,11 +263,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayerKillPlayer(EventOnPlayerKilledPlayer callback)
 		{
-			if (_matchServices.EntityViewUpdaterService == null)
-			{
-				return;
-			}
-
+			
 			var game = callback.Game;
 			var audio = AudioId.None;
 
@@ -301,11 +297,6 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnChestOpened(EventOnChestOpened callback)
 		{
-			if (_matchServices.EntityViewUpdaterService == null)
-			{
-				return;
-			}
-
 			var audio = AudioId.ChestPickup;
 
 			if (audio != AudioId.None)
@@ -336,10 +327,6 @@ namespace FirstLight.Game.StateMachines
 
 		private void PlayExplosionSFX(GameId sourceId, Vector3 endPosition)
 		{
-			if (_matchServices.EntityViewUpdaterService == null)
-			{
-				return;
-			}
 
 			var audio = AudioId.None;
 
@@ -378,10 +365,6 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnSpecialUsed(EventOnPlayerSpecialUsed callback)
 		{
-			if (_matchServices.EntityViewUpdaterService == null)
-			{
-				return;
-			}
 
 			var audio = AudioId.None;
 
@@ -409,10 +392,6 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnCollectableCollected(EventOnCollectableCollected callback)
 		{
-			if (_matchServices.EntityViewUpdaterService == null)
-			{
-				return;
-			}
 
 			var audio = AudioId.None;
 			var collectableId = callback.CollectableId;
@@ -460,10 +439,6 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayerAttack(EventOnPlayerAttack callback)
 		{
-			if (_matchServices.EntityViewUpdaterService == null)
-			{
-				return;
-			}
 
 			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView))
 			{
@@ -477,10 +452,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnDamageBlocked(EventOnDamageBlocked callback)
 		{
-			if (_matchServices.EntityViewUpdaterService == null)
-			{
-				return;
-			}
+
 			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
 			{
 				var audio = AudioId.DamageAbsorb;
@@ -490,10 +462,6 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayerDamaged(EventOnPlayerDamaged callback)
 		{
-			if (_matchServices.EntityViewUpdaterService == null)
-			{
-				return;
-			}
 
 			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
 			{

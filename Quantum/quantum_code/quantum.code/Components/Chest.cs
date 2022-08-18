@@ -80,8 +80,6 @@ namespace Quantum
 			// Drop Small consumable
 			DropSmallConsumable(f, config, ammoCheck, shieldCheck, healthCheck, chestPosition, ref angleStep);
 			DropLargeConsumable(f, config, ammoCheck, shieldCheck, chestPosition, ref angleStep);
-
-			
 		}
 
 		private void DropSmallConsumable(Frame f, QuantumChestConfig config, bool ammoCheck, bool shieldCheck, bool healthCheck,

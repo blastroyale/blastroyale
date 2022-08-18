@@ -15,8 +15,8 @@ component Hazard
 
 synced event OnHazardLand 
 {
-    GameId sourceId;
-    FPVector3 HitPosition;
+	GameId sourceId;
+	FPVector3 HitPosition;
 }
 
 synced event OnHazardHit

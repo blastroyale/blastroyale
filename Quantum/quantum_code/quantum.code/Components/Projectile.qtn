@@ -23,8 +23,8 @@ synced event OnProjectileFired
 
 synced event OnProjectileExplosion 
 {
-    GameId sourceId;
-    FPVector3 EndPosition;
+	GameId sourceId;
+	FPVector3 EndPosition;
 }
 
 synced event OnProjectileTargetableHit

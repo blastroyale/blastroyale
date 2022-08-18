@@ -147,14 +147,19 @@ namespace FirstLight.Game.StateMachines
 		
 		private void OpenServerSelectScreen()
 		{
-			Debug.LogError(_networkService.QuantumClient.RegionHandler);
-			var data = new DisconnectedScreenPresenter.StateData
+			
+			var data = new ServerSelectScreenPresenter.StateData
 			{
-				ReconnectClicked = OnAttemptReconnectClicked,
-				BackClicked = () => { _statechartTrigger(DisconnectedScreenBackEvent);}
+				AvailableRegions = _networkService.QuantumClient.RegionHandler.EnabledRegions,
+				BackClicked = ConnectPhoton,
+				RegionChosen = (region) =>
+				{
+					_gameDataProvider.AppDataProvider.ConnectionRegion = region.Code;
+					ConnectPhoton();
+				}
 			};
 
-			_uiService.OpenUiAsync<DisconnectedScreenPresenter, DisconnectedScreenPresenter.StateData>(data);
+			_uiService.OpenUiAsync<ServerSelectScreenPresenter, ServerSelectScreenPresenter.StateData>(data);
 		}
 
 		private void OnAttemptReconnectClicked()

@@ -15,6 +15,6 @@ enum ChestType
 
 synced event OnChestOpened
 {
- 	GameId ChestType;
-    FPVector3 ChestPosition;
- }
+	GameId ChestType;
+	FPVector3 ChestPosition;
+}

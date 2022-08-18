@@ -17,9 +17,13 @@ namespace FirstLight.Game.Data
 		public uint Trophies = 1000;
 		public GameId PlayerSkinId = GameId.Female01Avatar;
 		public GameId DeathMarker = GameId.Tombstone;
-		public readonly Dictionary<GameId, ulong> Currencies = new(new GameIdComparer());
 		public readonly Dictionary<GameIdGroup, UniqueId> Equipped = new(new GameIdGroupComparer());
 		public readonly Dictionary<GameId, ResourcePoolData> ResourcePools = new(new GameIdComparer());
 		public readonly List<RewardData> UncollectedRewards = new();
+		public readonly Dictionary<GameId, ulong> Currencies = new (new GameIdComparer())
+		{
+			{ GameId.CS, 0 },
+			{ GameId.BLST, 0 }
+		};
 	}
 }

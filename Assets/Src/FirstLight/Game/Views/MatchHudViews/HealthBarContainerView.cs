@@ -244,7 +244,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 					}
 
 					graphics[i].DOKill();
-					graphics[i].DOFade(0, GameConstants.Visuals.HUD_GAMEPLAY_FADE_DURATION)
+					graphics[i].DOFade(0, GameConstants.Visuals.GAMEPLAY_POST_ATTACK_HIDE_DURATION)
 					           .SetEase(Ease.InCubic)
 					           .OnComplete(() => _pool.Despawn(this));
 				}

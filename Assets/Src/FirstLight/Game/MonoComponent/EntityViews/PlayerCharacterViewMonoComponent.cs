@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Game.MonoComponent.Vfx;
@@ -16,10 +18,15 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	public class PlayerCharacterViewMonoComponent : AvatarViewBase
 	{
 		[SerializeField] private MatchCharacterViewMonoComponent _characterView;
-
+		[SerializeField] private AdventureVfxSpawnerMonoComponent[] _footstepVfxSpawners;
+		
 		public Transform RootTransform;
 		
 		private Vector3 _lastPosition;
+
+		private Coroutine _attackHideRendererCoroutine;
+		
+		public List<GameObject> CollidingVisibilityVolumes { get; private set; }
 
 		/// <summary>
 		/// Indicates if this is the local player
@@ -49,6 +56,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			base.OnAwake();
 
+			CollidingVisibilityVolumes = new List<GameObject>();
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, HandleOnPlayerAlive);
 			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, HandleOnPlayerAttack);
 			QuantumEvent.Subscribe<EventOnPlayerSpecialUsed>(this, HandleOnPlayerSpecialUsed);
@@ -70,6 +78,25 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private void OnDestroy()
 		{
 			Services.MessageBrokerService.UnsubscribeAll(this);
+		}
+		
+		/// <inheritdoc />
+		public override void SetRenderContainerVisible(bool active)
+		{
+			base.SetRenderContainerVisible(active);
+			
+			for (int i = 0; i < _footstepVfxSpawners.Length; i++)
+			{
+				_footstepVfxSpawners[i].CanSpawnVfx = active;
+			}
+		}
+		
+		/// <summary>
+		/// Set's the player animation moving state based on the given <paramref name="isAiming"/> state
+		/// </summary>
+		public void SetMovingState(bool isAiming)
+		{
+			AnimatorWrapper.SetBool(Bools.Aim, isAiming);
 		}
 
 		protected override void OnInit(QuantumGame game)
@@ -94,6 +121,41 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				{
 					AnimatorWrapper.SetTrigger(Triggers.Die);
 				}
+			}
+		}
+		
+		protected override void OnAvatarEliminated(QuantumGame game)
+		{
+			base.OnAvatarEliminated(game);
+		}
+
+		private void TryStartAttackWithinVisVolume()
+		{
+			if (EntityRef == MatchServices.SpectateService.SpectatedPlayer.Value.Entity)
+			{
+				return;
+			}
+
+			if (CollidingVisibilityVolumes.Count > 0)
+			{
+				if (_attackHideRendererCoroutine != null)
+				{
+					Services.CoroutineService.StopCoroutine(_attackHideRendererCoroutine);
+				}
+				
+				_attackHideRendererCoroutine = Services.CoroutineService.StartCoroutine(AttackWithinVisVolumeCoroutine());
+			}
+		}
+
+		private IEnumerator AttackWithinVisVolumeCoroutine()
+		{
+			SetRenderContainerVisible(true);
+
+			yield return new WaitForSeconds(GameConstants.Visuals.GAMEPLAY_POST_ATTACK_HIDE_DURATION);
+
+			if (CollidingVisibilityVolumes.Count > 0)
+			{
+				SetRenderContainerVisible(false);
 			}
 		}
 
@@ -211,18 +273,20 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				return;
 			}
-			
+
 			AnimatorWrapper.SetTrigger(Triggers.Shoot);
+			TryStartAttackWithinVisVolume();
 		}
-		
+
 		private void HandleOnPlayerSpecialUsed(EventOnPlayerSpecialUsed callback)
 		{
 			if (callback.Entity != EntityView.EntityRef)
 			{
 				return;
 			}
-
+	
 			AnimatorWrapper.SetTrigger(Triggers.Special);
+			TryStartAttackWithinVisVolume();
 		}
 
 		private void HandleOnGameEnded(EventOnGameEnded callback)
@@ -327,26 +391,23 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			HandleDelayedFX(callback.HazardData.Interval - FP._0_50, targetPosition, VfxId.Skybeam);
 		}
 
-		private void HandleUpdateView(CallbackUpdateView callback)
-		{
-			const float speedThreshold = 0.5f; // unity units per second
-
+		private void HandleUpdateView(CallbackUpdateView callback)	
+		{	
+			const float speedThreshold = 0.5f; // unity units per second	
 			var f = callback.Game.Frames.Predicted;
-
 			if (!f.TryGet<AIBlackboardComponent>(EntityRef, out var bb))
 			{
 				return;
 			}
-			
+				
 			var currentPosition = transform.position;
 			var deltaPosition = currentPosition - _lastPosition;
 			deltaPosition.y = 0f; // falling doesn't count
 			var sqrSpeed = (deltaPosition / f.DeltaTime.AsFloat).sqrMagnitude;
 			var isMoving = sqrSpeed > speedThreshold * speedThreshold;
 			var isAiming = bb.GetBoolean(f, Constants.IsAimPressedKey);
-
 			AnimatorWrapper.SetBool(Bools.Move, isMoving);
-
+			
 			if (isMoving)
 			{
 				deltaPosition.Normalize();
@@ -361,7 +422,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 			
 			AnimatorWrapper.SetBool(Bools.Aim, isAiming);
-
 			_lastPosition = currentPosition;
 		}
 

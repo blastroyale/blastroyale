@@ -22,6 +22,11 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		/// </summary>
 		public Transform EmojiAnchor => _emojiAnchor;
 
+		/// <summary>
+		/// The associated view of this monocomponent
+		/// </summary>
+		public PlayerCharacterViewMonoComponent PlayerView => _playerView;
+
 		protected override void OnAwake()
 		{
 			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);

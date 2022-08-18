@@ -742,6 +742,8 @@ namespace I2.Loc
 			public static string SelectedGameModeValue 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SelectedGameModeValue"); } }
 			public static string SendPasswordEmail 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SendPasswordEmail"); } }
 			public static string SendPasswordEmailConfirm 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SendPasswordEmailConfirm"); } }
+			public static string ServerButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ServerButton"); } }
+			public static string ServerCurrent 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ServerCurrent"); } }
 			public static string Settings 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Settings"); } }
 			public static string SettingsFaqButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SettingsFaqButton"); } }
 			public static string SettingsHelpSupport 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SettingsHelpSupport"); } }
@@ -1576,6 +1578,8 @@ namespace I2.Loc
 		    public const string SelectedGameModeValue = "MainMenu/SelectedGameModeValue";
 		    public const string SendPasswordEmail = "MainMenu/SendPasswordEmail";
 		    public const string SendPasswordEmailConfirm = "MainMenu/SendPasswordEmailConfirm";
+		    public const string ServerButton = "MainMenu/ServerButton";
+		    public const string ServerCurrent = "MainMenu/ServerCurrent";
 		    public const string Settings = "MainMenu/Settings";
 		    public const string SettingsFaqButton = "MainMenu/SettingsFaqButton";
 		    public const string SettingsHelpSupport = "MainMenu/SettingsHelpSupport";

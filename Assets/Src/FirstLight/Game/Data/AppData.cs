@@ -21,6 +21,7 @@ namespace FirstLight.Game.Data
 		public bool IsFirstSession;
 		
 		public string DeviceId;
+		public string ConnectionRegion;
 		
 		public DateTime GameReviewDate;
 

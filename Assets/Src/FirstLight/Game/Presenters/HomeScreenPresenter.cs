@@ -28,6 +28,7 @@ namespace FirstLight.Game.Presenters
 			public Action OnPlayRoomJoinCreateClicked;
 			public Action OnNameChangeClicked;
 			public Action OnGameModeClicked;
+			public Action OnServerSelectClicked;
 		}
 
 		[SerializeField] private Button _playOnlineButton;
@@ -141,7 +142,7 @@ namespace FirstLight.Game.Presenters
 		
 		private void OpenServerSelect()
 		{
-			
+			Data.OnServerSelectClicked();
 		}
 
 		private void RefreshGameModeButton()

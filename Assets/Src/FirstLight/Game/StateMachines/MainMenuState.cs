@@ -131,6 +131,7 @@ namespace FirstLight.Game.StateMachines
 			homeMenu.Event(_roomJoinCreateClickedEvent).Target(roomJoinCreateMenu);
 			homeMenu.Event(_nameChangeClickedEvent).Target(enterNameDialog);
 			homeMenu.Event(_chooseGameModeClickedEvent).Target(chooseGameMode);
+			homeMenu.Event(NetworkState.OpenServerSelectScreenEvent).Target(screenCheck);
 			homeMenu.OnExit(ClosePlayMenuUI);
 			homeMenu.OnExit(CloseMainMenuUI);
 
@@ -301,6 +302,7 @@ namespace FirstLight.Game.StateMachines
 				OnPlayRoomJoinCreateClicked = () => _statechartTrigger(_roomJoinCreateClickedEvent),
 				OnNameChangeClicked = () => _statechartTrigger(_nameChangeClickedEvent),
 				OnGameModeClicked = () => _statechartTrigger(_chooseGameModeClickedEvent),
+				OnServerSelectClicked = () => _statechartTrigger(NetworkState.OpenServerSelectScreenEvent)
 			};
 
 			_uiService.OpenUi<HomeScreenPresenter, HomeScreenPresenter.StateData>(data);

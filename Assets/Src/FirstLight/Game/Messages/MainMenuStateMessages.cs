@@ -31,4 +31,8 @@ namespace FirstLight.Game.Messages
 		public bool JoinIfExists;
 	}
 	
+	public struct NewRegionSelected : IMessage
+	{
+		public string SelectedRegion; 
+	}
 }

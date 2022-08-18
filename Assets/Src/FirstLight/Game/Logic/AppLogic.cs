@@ -46,7 +46,7 @@ namespace FirstLight.Game.Logic
 		bool IsHapticOn { get; set; }
 
 		/// <summary>
-		/// Is high res mode on device enabled?
+		/// Resuests the current detail level of the game
 		/// </summary>
 		GraphicsConfig.DetailLevel CurrentDetailLevel { get; set; }
 
@@ -59,6 +59,11 @@ namespace FirstLight.Game.Logic
 		/// Obtains the player unique id
 		/// </summary>
 		string PlayerId { get; }
+		
+		/// <summary>
+		/// Requests the last region that player was connected to
+		/// </summary>
+		string ConnectionRegion { get; set; }
 		
 		/// <summary>
 		/// Requests the player's Nickname
@@ -165,6 +170,13 @@ namespace FirstLight.Game.Logic
 				Data.CurrentDetailLevel = value;
 				SetDetailLevel(value);
 			}
+		}
+		
+		/// <inheritdoc />
+		public string ConnectionRegion
+		{
+			get => Data.ConnectionRegion;
+			set => Data.ConnectionRegion = value;
 		}
 
 		/// <inheritdoc />

@@ -170,8 +170,6 @@ MonoBehaviour:
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.LoadingSpinnerScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    - FirstLight.Game.Presenters.DisconnectedScreenPresenter, FirstLight.Game, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   - SetId: 1
     UiConfigsType:
     - FirstLight.Game.Presenters.MainMenuHudPresenter, FirstLight.Game, Version=0.0.0.0,
@@ -183,8 +181,6 @@ MonoBehaviour:
     - FirstLight.Game.Presenters.UiTooltipPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.GameModeSelectionPresenter, FirstLight.Game, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    - FirstLight.Game.Presenters.ServerSelectScreenPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   - SetId: 2
     UiConfigsType:
@@ -199,8 +195,6 @@ MonoBehaviour:
     - FirstLight.Game.Presenters.SpectateHudPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.MatchWorldHudPresenter, FirstLight.Game, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    - FirstLight.Game.Presenters.ServerSelectScreenPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   - SetId: 3
     UiConfigsType:

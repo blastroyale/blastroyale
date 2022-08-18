@@ -19,11 +19,10 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This Presenter handles server selection in the main menu
 	/// </summary>
-	public class ServerSelectScreenPresenter : UiPresenterData<ServerSelectScreenPresenter.StateData>
+	public class ServerSelectScreenPresenter : AnimatedUiPresenterData<ServerSelectScreenPresenter.StateData>
 	{
 		public struct StateData
 		{
-			public List<Region> AvailableRegions;
 			public Action<Region> RegionChosen;
 			public Action BackClicked;
 		}
@@ -35,9 +34,9 @@ namespace FirstLight.Game.Presenters
 		
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
-
-		private int _currentlySelectedServerIndex = 0;
 		
+		private List<Region> _availableRegions;
+
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
@@ -49,8 +48,7 @@ namespace FirstLight.Game.Presenters
 
 		protected override void OnOpened()
 		{
-			SetFrontDimBlockerActive(false);
-			FillServerSelectionList();
+			SetFrontDimBlockerActive(true);
 		}
 
 		/// <summary>
@@ -61,20 +59,25 @@ namespace FirstLight.Game.Presenters
 			_frontDimBlocker.SetActive(active);
 		}
 
-		private void FillServerSelectionList()
+		/// <summary>
+		/// Populates the server selection list with available regions
+		/// </summary>
+		public void PopulateServerSelectionList(List<Region> availableRegions)
 		{
+			_availableRegions = availableRegions;
+			
 			_serverSelectDropdown.options.Clear();
 
 			int currentRegion = 0;
 			
-			foreach (var region in Data.AvailableRegions)
+			foreach (var region in _availableRegions)
 			{
-				string regionTitle = string.Format(ScriptLocalization.MainMenu.ServerSelectOption, region.Code, region.Ping);
+				string regionTitle = string.Format(ScriptLocalization.MainMenu.ServerSelectOption, region.Code.ToUpper(), region.Ping);
 				_serverSelectDropdown.options.Add(new DropdownMenuOption(regionTitle, region));
 
 				if (_gameDataProvider.AppDataProvider.ConnectionRegion == region.Code)
 				{
-					currentRegion = Data.AvailableRegions.IndexOf(region);
+					currentRegion = _availableRegions.IndexOf(region);
 				}
 			}
 

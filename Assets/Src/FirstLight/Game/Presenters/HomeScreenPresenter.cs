@@ -36,13 +36,13 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private Button _settingsButton;
 		[SerializeField] private Button _feedbackButton;
 		[SerializeField] private Button _gameModeButton;
+		[SerializeField] private Button _serverSelectButton;
 		[SerializeField] private NewFeatureUnlockedView _newFeaturesView;
 		[SerializeField] private TextMeshProUGUI _selectedGameModeText;
 
 		// Landscape Mode Buttons
 		[SerializeField] private VisualStateButtonView _lootButton;
 		[SerializeField] private VisualStateButtonView _heroesButton;
-		[SerializeField] private VisualStateButtonView _shopButton;
 		[SerializeField] private Button _marketplaceButton;
 		[SerializeField] private Button _discordButton;
 
@@ -64,6 +64,7 @@ namespace FirstLight.Game.Presenters
 			_marketplaceButton.gameObject.SetActive(Debug.isDebugBuild);
 			_feedbackButton.onClick.AddListener(LeaveFeedbackForm);
 			_discordButton.onClick.AddListener(OpenDiscordLink);
+			_serverSelectButton.onClick.AddListener(OpenServerSelect);
 			
 			_gameModeButton.onClick.AddListener(OpenGameModeClicked);
 			_gameModeButton.gameObject.SetActive(Debug.isDebugBuild);
@@ -136,6 +137,11 @@ namespace FirstLight.Game.Presenters
 		private void OpenDiscordLink()
 		{
 			Application.OpenURL(GameConstants.Links.DISCORD_SERVER);
+		}
+		
+		private void OpenServerSelect()
+		{
+			
 		}
 
 		private void RefreshGameModeButton()

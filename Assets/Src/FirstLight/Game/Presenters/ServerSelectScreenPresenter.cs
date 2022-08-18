@@ -23,7 +23,6 @@ namespace FirstLight.Game.Presenters
 	{
 		public struct StateData
 		{
-			public Action<List<Region>> InitializeRegionListCallback;
 			public Action<Region> RegionChosen;
 			public Action BackClicked;
 		}
@@ -45,9 +44,6 @@ namespace FirstLight.Game.Presenters
 			
 			_connectButton.onClick.AddListener(OnConnectClicked);
 			_backButton.onClick.AddListener(OnBackClicked);
-
-			var data = Data;
-			data.InitializeRegionListCallback += PopulateServerSelectionList;
 		}
 
 		protected override void OnOpened()
@@ -63,7 +59,10 @@ namespace FirstLight.Game.Presenters
 			_frontDimBlocker.SetActive(active);
 		}
 		
-		private void PopulateServerSelectionList(List<Region> availableRegions)
+		/// <summary>
+		/// Activates and populates the server selection list
+		/// </summary>
+		public void InitServerSelectionList(List<Region> availableRegions)
 		{
 			SetFrontDimBlockerActive(false);
 			
@@ -85,9 +84,6 @@ namespace FirstLight.Game.Presenters
 
 			_serverSelectDropdown.SetValueWithoutNotify(currentRegion);
 			_serverSelectDropdown.RefreshShownValue();
-			
-			var data = Data;
-			data.InitializeRegionListCallback -= PopulateServerSelectionList;
 		}
 
 		private void OnBackClicked()

@@ -46,8 +46,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private Coroutine _matchmakingCoroutine;
 
-		private Action<List<Region>> _regionListPingUpdate;
-
 		private QuantumRunnerConfigs QuantumRunnerConfigs =>
 			_services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 
@@ -153,7 +151,6 @@ namespace FirstLight.Game.StateMachines
 					_gameDataProvider.AppDataProvider.ConnectionRegion = region.Code;
 					ConnectPhoton();
 				},
-				InitializeRegionListCallback = _regionListPingUpdate
 			};
 
 			_uiService.OpenUiAsync<ServerSelectScreenPresenter, ServerSelectScreenPresenter.StateData>(data);
@@ -427,7 +424,11 @@ namespace FirstLight.Game.StateMachines
 		void OnPingedRegions(RegionHandler regionHandler)
 		{
 			FLog.Info("OnPingedRegions" + regionHandler.GetResults());
-			_regionListPingUpdate.Invoke(regionHandler.EnabledRegions);
+			
+			if (_uiService.HasUiPresenter<ServerSelectScreenPresenter>())
+			{
+				_uiService.GetUi<ServerSelectScreenPresenter>().InitServerSelectionList(_networkService.QuantumClient.RegionHandler.EnabledRegions);
+			}
 		}
 
 		/// <inheritdoc />

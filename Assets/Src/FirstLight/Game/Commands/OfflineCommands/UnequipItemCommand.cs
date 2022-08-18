@@ -12,7 +12,7 @@ namespace FirstLight.Game.Commands.OfflineCommands
 		public UniqueId Item;
 
 		/// <inheritdoc />
-		public bool ExecuteServer => false;
+		public CommandExecutionMode CommandExecutionMode => CommandExecutionMode.ClientOnly;
 
 		/// <inheritdoc />
 		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)

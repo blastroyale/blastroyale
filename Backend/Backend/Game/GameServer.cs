@@ -5,8 +5,10 @@ using Backend.Game.Services;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Services;
+using FirstLight.Game.Utils;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.Extensions.Logging;
+using PlayFab;
 using ServerSDK;
 using ServerSDK.Events;
 using ServerSDK.Models;
@@ -87,7 +89,7 @@ public class GameServer
 	/// </summary>
 	public bool ValidateCommand(ServerState state, IGameCommand cmd, Dictionary<string,string> cmdData)
 	{
-		if (!HasAccess(state, cmd))
+		if (!HasAccess(state, cmd, cmdData))
 		{
 			throw new LogicException("Insuficient permissions to run command");
 		}
@@ -137,10 +139,23 @@ public class GameServer
 
 	/// <summary>
 	/// Checks if a given player has enough permissions to run a given command.
-	/// </summary>
-	private bool HasAccess(ServerState playerState, IGameCommand cmd)
+	/// </summary>s
+	private bool HasAccess(ServerState playerState, IGameCommand cmd, Dictionary<string,string> cmdData)
 	{
-		// TODO: Validate player access level in player state
-		return DevMode || cmd.AccessLevel == CommandAccessLevel.Player;
+		if (DevMode)
+		{
+			return true;
+		}
+		// TODO: Validate player access level in player state for admin commands (GMs)
+		if (cmd.AccessLevel == CommandAccessLevel.Service)
+		{
+			if (!FeatureFlags.QUANTUM_CUSTOM_SERVER)
+			{
+				return true;
+			}
+			var secretKey = PlayFabSettings.staticSettings.DeveloperSecretKey;
+			return cmdData.TryGetValue("SecretKey", out var key) && key == secretKey;
+		}
+		return cmd.AccessLevel == CommandAccessLevel.Player; 
 	}
 }

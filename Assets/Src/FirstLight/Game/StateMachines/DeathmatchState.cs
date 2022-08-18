@@ -147,10 +147,14 @@ namespace FirstLight.Game.StateMachines
 			var killerData = callback.PlayersMatchData.Find(data => data.Data.Player.Equals(callback.PlayerKiller));
 			var deadData = callback.PlayersMatchData.Find(data => data.Data.Player.Equals(callback.PlayerDead));
 
+			var frameContext = callback.Game.Frames.Verified.Context;
+			var deadLocalPlayer = frameContext.IsLocalPlayer(deadData.Data.Player);
+			var killerLocalPlayer = frameContext.IsLocalPlayer(killerData.Data.Player);
+			
 			// "Key" = Number of times I killed this player, "Value" = number of times that player killed me.
-			if (deadData.IsLocalPlayer || killerData.IsLocalPlayer)
+			if (deadLocalPlayer || killerLocalPlayer)
 			{
-				var recordName = deadData.IsLocalPlayer ? killerData.Data.Player : deadData.Data.Player;
+				var recordName = deadLocalPlayer ? killerData.Data.Player : deadData.Data.Player;
 
 				if (!_killsDictionary.TryGetValue(recordName, out var recordPair))
 				{
@@ -159,8 +163,8 @@ namespace FirstLight.Game.StateMachines
 					_killsDictionary.Add(recordName, recordPair);
 				}
 
-				recordPair.Key += deadData.IsLocalPlayer ? 0 : 1;
-				recordPair.Value += deadData.IsLocalPlayer ? 1 : 0;
+				recordPair.Key += deadLocalPlayer ? 0 : 1;
+				recordPair.Value += deadLocalPlayer ? 1 : 0;
 
 				_killsDictionary[recordName] = recordPair;
 			}

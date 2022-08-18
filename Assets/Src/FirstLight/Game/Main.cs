@@ -74,6 +74,7 @@ namespace FirstLight.Game
 					EditorPrefs.GetBool(GameConstants.Editor.PREFS_ENABLE_STATE_MACHINE_DEBUG_KEY);
 			}
 #endif
+			FLog.Verbose($"Initialized client version {VersionUtils.VersionExternal}");
 		}
 
 		private void Start()

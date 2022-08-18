@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ExitGames.Client.Photon;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
@@ -11,6 +12,9 @@ using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Statechart;
+using Photon.Deterministic;
+using Photon.Realtime;
+using PlayFab;
 using Quantum;
 using Quantum.Commands;
 using UnityEngine;
@@ -33,6 +37,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameServices _services;
 		private readonly IGameUiService _uiService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
+		private readonly IGameNetworkService _network;
 
 		private int _lastTrophyChange = 0;
 		private uint _trophiesBeforeLastChange = 0;
@@ -221,14 +226,17 @@ namespace FirstLight.Game.StateMachines
 			var game = QuantumRunner.Default.Game;
 			var f = game.Frames.Verified;
 			var gameContainer = f.GetSingleton<GameContainer>();
-
-			_services.CommandService.ExecuteCommand(new EndOfGameCalculationsCommand
+			var command = new EndOfGameCalculationsCommand
 			{
 				PlayersMatchData = gameContainer.GetPlayersMatchData(f, out _),
-				LocalPlayerRef = game.GetLocalPlayers()[0],
-				DidPlayerQuit = false,
-				PlayedRankedMatch = _services.NetworkService.QuantumClient.CurrentRoom.IsRankedRoom()
+				PlayfabToken = PlayFabSettings.staticPlayer.EntityToken
+			};
+			command.SetQuantumValues(new QuantumValues()
+			{
+				ExecutingPlayer = game.GetLocalPlayers()[0],
+				Ranked = _services.NetworkService.QuantumClient.CurrentRoom.IsRankedRoom()
 			});
+			_services.CommandService.ExecuteCommand(command);
 		}
 
 		private void MatchEndAnalytics(bool playerQuit)

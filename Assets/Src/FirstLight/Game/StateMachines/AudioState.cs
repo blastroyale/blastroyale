@@ -248,20 +248,6 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private void OnModifierFinished(EventOnStatusModifierFinished callback)
-		{
-			if (callback.Type == StatusModifierType.Shield)
-			{
-				checkClips(callback.ToString(), callback.Entity);
-				if (_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
-				{
-					_services.AudioFxService.PlayClip3D(AudioId.InvEnd, entityView.transform.position);
-				}
-			}
-				
-
-		}
-
 		private void OnSkydiveStart(EventOnLocalPlayerSkydiveDrop callback)
 		{
 			
@@ -450,9 +436,6 @@ namespace FirstLight.Game.StateMachines
 				case SpecialType.Airstrike:
 					audio = AudioId.MissileFlyLoop;
 					break;
-				case SpecialType.ShieldSelfStatus:
-					audio = AudioId.InvStart;
-					break;
 			} 
 
 			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
@@ -462,15 +445,6 @@ namespace FirstLight.Game.StateMachines
 					var missileLoop = _services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
 					string[] despawnEvents = {
 						new EventOnHazardLand().ToString(),
-					};
-					_currentClips.Add(new LoopedAudioClip(missileLoop, despawnEvents, callback.Entity));
-				}
-				else if (audio == AudioId.InvStart)
-				{
-					_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
-					var missileLoop = _services.AudioFxService.PlayClip3D(AudioId.InvLoop, entityView.transform.position);
-					string[] despawnEvents = {
-						new EventOnStatusModifierFinished().ToString(),
 					};
 					_currentClips.Add(new LoopedAudioClip(missileLoop, despawnEvents, callback.Entity));
 				}

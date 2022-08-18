@@ -38,7 +38,6 @@ namespace FirstLight.Game.StateMachines
 		public static readonly IStatechartEvent OpenServerSelectScreenEvent = new StatechartEvent("NETWORK - Open Server Select Screen Event");
 		public static readonly IStatechartEvent ConnectToNameServerSuccessEvent = new StatechartEvent("NETWORK - Connected To Name Success Server Event");
 		public static readonly IStatechartEvent ConnectToNameServerFailEvent = new StatechartEvent("NETWORK - Connected To Name Fail Server Event");
-		public static readonly IStatechartEvent ConnectedToRegionMasterEvent = new StatechartEvent("NETWORK - Connected To Region Master Event");
 		
 		private readonly IGameServices _services; 
 		private readonly IGameDataProvider _gameDataProvider;
@@ -98,8 +97,7 @@ namespace FirstLight.Game.StateMachines
 			connectToNameServer.Event(ConnectToNameServerFailEvent).Target(connectionCheck);
 			
 			serverSelectScreen.OnEnter(OpenServerSelectScreen);
-			serverSelectScreen.Event(ConnectedToRegionMasterEvent).Target(connected);
-			serverSelectScreen.Event(PhotonDisconnectedEvent).Target(disconnectedScreen);
+			serverSelectScreen.Event(PhotonMasterConnectedEvent).Target(connected);
 			serverSelectScreen.OnExit(CloseServerSelectScreen);
 				
 			disconnectedScreen.OnEnter(UpdateDisconnectionLocation);
@@ -148,6 +146,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void OpenServerSelectScreen()
 		{
+			Debug.LogError(_networkService.QuantumClient.RegionHandler.GetResults());
 			var data = new DisconnectedScreenPresenter.StateData
 			{
 				ReconnectClicked = OnAttemptReconnectClicked,

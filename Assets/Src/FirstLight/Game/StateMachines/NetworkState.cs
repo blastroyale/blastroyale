@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
@@ -36,7 +37,7 @@ namespace FirstLight.Game.StateMachines
 		public static readonly IStatechartEvent RoomClosedEvent = new StatechartEvent("NETWORK - Room Closed Event");
 		public static readonly IStatechartEvent AttemptReconnectEvent = new StatechartEvent("NETWORK - Attempt Reconnect Event");
 		public static readonly IStatechartEvent OpenServerSelectScreenEvent = new StatechartEvent("NETWORK - Open Server Select Screen Event");
-		public static readonly IStatechartEvent ConnectToNameServerSuccessEvent = new StatechartEvent("NETWORK - Connected To Name Success Server Event");
+		public static readonly IStatechartEvent RegionListReceivedEvent = new StatechartEvent("NETWORK - Region List Received Event");
 		public static readonly IStatechartEvent ConnectToNameServerFailEvent = new StatechartEvent("NETWORK - Connected To Name Fail Server Event");
 		
 		private readonly IGameServices _services; 
@@ -72,8 +73,8 @@ namespace FirstLight.Game.StateMachines
 			var disconnected = stateFactory.State("NETWORK - Disconnected");
 			var disconnectedScreen = stateFactory.State("NETWORK - Disconnected Screen");
 			var reconnecting = stateFactory.State("NETWORK - Reconnecting Screen");
-			var disconnectForNameServer = stateFactory.State("NETWORK - DisconnectForNameServer");
-			var connectToNameServer = stateFactory.State("NETWORK - Server Select Get Regions");
+			var disconnectForNameServer = stateFactory.State("NETWORK - Disconnect Photon For Name Server");
+			var connectToNameServer = stateFactory.State("NETWORK - Connect To Name Server");
 			var serverSelectScreen = stateFactory.State("NETWORK - Server Select Screen");
 			var connectionCheck = stateFactory.Choice("NETWORK - Connection Check");
 			
@@ -93,7 +94,7 @@ namespace FirstLight.Game.StateMachines
 			disconnectForNameServer.Event(PhotonDisconnectedEvent).Target(connectToNameServer);
 			
 			connectToNameServer.OnEnter(ConnectToNameServer);
-			connectToNameServer.Event(ConnectToNameServerSuccessEvent).Target(serverSelectScreen);
+			connectToNameServer.Event(RegionListReceivedEvent).Target(serverSelectScreen);
 			connectToNameServer.Event(ConnectToNameServerFailEvent).Target(connectionCheck);
 			
 			serverSelectScreen.OnEnter(OpenServerSelectScreen);
@@ -146,7 +147,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void OpenServerSelectScreen()
 		{
-			Debug.LogError(_networkService.QuantumClient.RegionHandler.GetResults());
+			Debug.LogError(_networkService.QuantumClient.RegionHandler);
 			var data = new DisconnectedScreenPresenter.StateData
 			{
 				ReconnectClicked = OnAttemptReconnectClicked,
@@ -402,6 +403,10 @@ namespace FirstLight.Game.StateMachines
 		public void OnRegionListReceived(RegionHandler regionHandler)
 		{
 			FLog.Info("OnRegionListReceived " + regionHandler.GetResults());
+
+			// Documentation says 
+			_networkService.QuantumClient.RegionHandler = regionHandler;
+			_statechartTrigger(RegionListReceivedEvent);
 		}
 
 		/// <inheritdoc />
@@ -690,20 +695,22 @@ namespace FirstLight.Game.StateMachines
 			_networkService.QuantumClient.Disconnect();
 		}
 		
-		private void ConnectToNameServer()
+		private async void ConnectToNameServer()
 		{
+			// This fixes the 1-frame state machine flow. Before connection to name server, photon is disconnected.
+			// The events that trigger states to do disconnect->connectToNameServer->serverSelectScreen all happen in
+			// 1 frame, which breaks the flow. This is all done with correct photon callbacks, it just happens in 
+			// almost instantly for this specific flow.
+			await Task.Delay(1);
+			
 			var success = _networkService.QuantumClient.ConnectToNameServer();
 
-			if (success)
-			{
-				_statechartTrigger(ConnectToNameServerSuccessEvent);
-			}
-			else
+			if (!success)
 			{
 				_statechartTrigger(ConnectToNameServerFailEvent);
 			}
 		}
-
+		
 		private bool IsPhotonConnectedAndReady()
 		{
 			return _networkService.QuantumClient.IsConnectedAndReady;

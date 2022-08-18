@@ -386,11 +386,12 @@ namespace FirstLight.Services
 	public struct AudioClipPlaybackData
 	{
 		public List<AudioClip> AudioClips;
+		public bool Loop;
 		public float MinVol;
 		public float MaxVol;
 		public float MinPitch;
 		public float MaxPitch;
-
+		
 		public float PlaybackVolume => UnityEngine.Random.Range(MinVol, MaxVol);
 		public float PlaybackPitch => UnityEngine.Random.Range(MinPitch, MaxPitch);
 		public AudioClip PlaybackClip => AudioClips[UnityEngine.Random.Range(0, AudioClips.Count)];

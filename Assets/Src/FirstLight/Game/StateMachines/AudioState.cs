@@ -108,6 +108,16 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.SubscribeManual<EventOnPlayerDamaged>(this, OnPlayerDamaged);
 			QuantumEvent.SubscribeManual<EventOnPlayerAttack>(this, OnPlayerAttack);
 			QuantumEvent.SubscribeManual<EventOnCollectableCollected>(this, OnCollectableCollected);
+			QuantumEvent.SubscribeManual<EventOnDamageBlocked>(this, OnDamageBlocked);
+			QuantumEvent.SubscribeManual<EventOnPlayerSpecialUsed>(this, OnSpecialUsed);
+
+			QuantumEvent.SubscribeManual<EventOnRaycastShotExplosion>(this, OnRaycastShotExplosion);
+			QuantumEvent.SubscribeManual<EventOnHazardLand>(this, OnHazardExplosion);
+			QuantumEvent.SubscribeManual<EventOnProjectileExplosion>(this, OnProjectileExplosion);
+
+			QuantumEvent.SubscribeManual<EventOnChestOpened>(this, OnChestOpened);
+			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKillPlayer);
+
 		}
 
 		private void UnsubscribeEvents()
@@ -196,16 +206,142 @@ namespace FirstLight.Game.StateMachines
 			                                              GameConstants.Audio.MIXER_SNAPSHOT_TRANSITION_SECONDS);
 		}
 
-		private void OnCollectableCollected(EventOnCollectableCollected callback)
+		private void OnPlayerKillPlayer(EventOnPlayerKilledPlayer callback)
 		{
-			if (_matchServices.EntityViewUpdaterService == null)
+			
+			var game = callback.Game;
+			var audio = AudioId.None;
+
+			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.EntityKiller, out var entityView))
 			{
-				return;
+				if (_matchServices.SpectateService.SpectatedPlayer.Value.Player.Equals(callback.EntityKiller))
+				{
+					audio = AudioId.PlayerKill;
+				}
+				else if (_matchServices.SpectateService.SpectatedPlayer.Value.Player.Equals(callback.EntityDead))
+				{
+					audio = AudioId.PlayerDeath;
+				}
+				else if (game.Frames.Verified.TryGet<PlayerCharacter>(callback.EntityKiller, out var killerPlayer) &&
+						game.PlayerIsLocal(killerPlayer.Player))
+				{
+					audio = AudioId.PlayerKill;
+				}
+				else if (game.Frames.Verified.TryGet<PlayerCharacter>(callback.EntityDead, out var deadPlayer) &&
+						game.PlayerIsLocal(deadPlayer.Player))
+				{
+					audio = AudioId.PlayerDeath;
+				}
+
+				if (audio != AudioId.None)
+				{
+					_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
+				}
 			}
+		}
+
+		private void OnChestOpened(EventOnChestOpened callback)
+		{
+			var audio = AudioId.ChestPickup;
+
+			if (audio != AudioId.None)
+			{
+				var pos = new Vector3(callback.ChestPosition.X.AsFloat, callback.ChestPosition.Y.AsFloat, callback.ChestPosition.Z.AsFloat);
+				_services.AudioFxService.PlayClip3D(audio, pos);
+			}
+		}
+
+		private void OnRaycastShotExplosion(EventOnRaycastShotExplosion callback)
+		{
+			var pos = new Vector3(callback.EndPosition.X.AsFloat,
+					callback.EndPosition.Y.AsFloat, callback.EndPosition.Z.AsFloat);
+			PlayExplosionSFX(callback.sourceId, pos);
+		}
+		private void OnHazardExplosion(EventOnHazardLand callback)
+		{
+			var pos = new Vector3(callback.HitPosition.X.AsFloat,
+					callback.HitPosition.Y.AsFloat, callback.HitPosition.Z.AsFloat);
+			PlayExplosionSFX(callback.sourceId, pos);
+		}
+		private void OnProjectileExplosion(EventOnProjectileExplosion callback)
+		{
+			var pos = new Vector3(callback.EndPosition.X.AsFloat,
+					callback.EndPosition.Y.AsFloat, callback.EndPosition.Z.AsFloat);
+			PlayExplosionSFX(callback.sourceId, pos);
+		}
+
+		private void PlayExplosionSFX(GameId sourceId, Vector3 endPosition)
+		{
 
 			var audio = AudioId.None;
 
-			switch (callback.CollectableId)
+			switch (sourceId)
+			{
+				//specials
+				case GameId.SpecialAimingGrenade:
+					audio = AudioId.ExplosionMedium;
+					break;
+				case GameId.SpecialAimingAirstrike:
+					audio = AudioId.ExplosionLarge;
+					break;
+				case GameId.SpecialAimingStunGrenade:
+					audio = AudioId.ExplosionFlashBang;
+					break;
+				case GameId.SpecialSkyLaserBeam:
+					audio = AudioId.ExplosionSciFi;
+					break;
+				//weapons
+				case GameId.ApoRPG:
+					audio = AudioId.ExplosionSmall;
+					break;
+				case GameId.ModLauncher:
+					audio = AudioId.ExplosionSmall;
+					break;
+				case GameId.SciCannon:
+					audio = AudioId.ExplosionSciFi;
+					break;
+			}
+
+			if (audio != AudioId.None)
+			{
+				_services.AudioFxService.PlayClip3D(audio, endPosition);
+			}
+		}
+
+		private void OnSpecialUsed(EventOnPlayerSpecialUsed callback)
+		{
+
+			var audio = AudioId.None;
+
+			switch (callback.Special.SpecialType)
+			{
+				case SpecialType.Grenade:
+					audio = AudioId.Dash;
+					break;
+				case SpecialType.StunGrenade:
+					audio = AudioId.Dash;
+					break;
+				case SpecialType.ShieldedCharge:
+					audio = AudioId.Dash;
+					break;
+			}
+
+			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
+			{
+				if (audio != AudioId.None)
+				{
+					_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
+				}
+			}
+		}
+
+		private void OnCollectableCollected(EventOnCollectableCollected callback)
+		{
+
+			var audio = AudioId.None;
+			var collectableId = callback.CollectableId;
+
+			switch (collectableId)
 			{
 				case GameId.AmmoLarge:
 					audio = AudioId.LargeAmmoPickup;
@@ -230,21 +366,24 @@ namespace FirstLight.Game.StateMachines
 					break;
 			}
 
-			_matchServices.EntityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView);
+			if (collectableId.IsInGroup(GameIdGroup.Weapon))
+				audio = AudioId.WeaponPickup;
 
-			if (audio != AudioId.None)
+			if (collectableId.IsInGroup(GameIdGroup.Helmet) || collectableId.IsInGroup(GameIdGroup.Armor) || 
+				collectableId.IsInGroup(GameIdGroup.Shield) || collectableId.IsInGroup(GameIdGroup.Amulet))
+				audio = AudioId.GearPickup;
+
+			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView))
 			{
-				Log.Warn(audio);
-				_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
-			}
+				if (audio != AudioId.None)
+				{
+					_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
+				}
+			}			
 		}
 
 		private void OnPlayerAttack(EventOnPlayerAttack callback)
 		{
-			if (_matchServices.EntityViewUpdaterService == null)
-			{
-				return;
-			}
 
 			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView))
 			{
@@ -256,23 +395,25 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
+		private void OnDamageBlocked(EventOnDamageBlocked callback)
+		{
+
+			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
+			{
+				var audio = AudioId.DamageAbsorb;
+				_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
+			}
+		}
+
 		private void OnPlayerDamaged(EventOnPlayerDamaged callback)
 		{
-			if (_matchServices.EntityViewUpdaterService == null)
-			{
-				return;
-			}
 
 			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
 			{
 				var game = callback.Game;
 				var audio = AudioId.None;
 
-				if (callback.TotalDamage <= 0)
-				{
-					audio = AudioId.SelfShieldBreak;
-				}
-				else if (_matchServices.SpectateService.SpectatedPlayer.Value.Player.Equals(callback.Player))
+				if (_matchServices.SpectateService.SpectatedPlayer.Value.Player.Equals(callback.Player))
 				{
 					audio = callback.ShieldDamage > 0 ? AudioId.TakeShieldDamage : AudioId.TakeHealthDamage;
 				}

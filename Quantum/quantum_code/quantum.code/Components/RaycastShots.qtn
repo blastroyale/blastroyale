@@ -18,3 +18,9 @@ component RaycastShots
 	UInt32 NumberOfShots;
 	FP AccuracyModifier;
 }
+
+synced event OnRaycastShotExplosion 
+{
+	GameId sourceId;
+	FPVector3 EndPosition;
+}

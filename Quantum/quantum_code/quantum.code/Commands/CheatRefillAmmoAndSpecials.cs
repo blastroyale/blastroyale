@@ -18,6 +18,15 @@ namespace Quantum.Commands
 			var characterEntity = f.GetSingleton<GameContainer>().PlayersData[playerRef].Entity;
 			var pc = f.Unsafe.GetPointer<PlayerCharacter>(characterEntity);
 
+			// Replenish Special's charges
+			for (var i = 0; i < pc->WeaponSlots.Length; i++)
+			{
+				pc->WeaponSlots[i].Specials[0].Charges = 1;
+				pc->WeaponSlots[i].Specials[0].AvailableTime = f.Time;
+				pc->WeaponSlots[i].Specials[1].Charges = 1;
+				pc->WeaponSlots[i].Specials[1].AvailableTime = f.Time;
+			}
+
 			pc->GainAmmo(f, characterEntity, FP._1);
 			pc->EquipSlotWeapon(f, characterEntity, pc->CurrentWeaponSlot);
 		}

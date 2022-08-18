@@ -154,6 +154,25 @@ MonoBehaviour:
       BasePitch: 1
       VolumeRandDeviation: 0.2
       PitchRandDeviation: 0.2
+  - Key: 65
+    Value:
+      AudioClips:
+      - m_AssetGUID: 3ef71c36576584e2d90f2bd06c3ec013
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      - m_AssetGUID: 1d5ec782e50e37f48b1e2919fe5f8b87
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      - m_AssetGUID: c24c8e09dd054ec43b8f82811c2a2d2f
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      BaseVolume: 1
+      BasePitch: 1
+      VolumeRandDeviation: 0.2
+      PitchRandDeviation: 0.2
   - Key: 46
     Value:
       AudioClips:
@@ -495,8 +514,30 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
       BaseVolume: 1
       BasePitch: 1
-      VolumeRandDeviation: 0
-      PitchRandDeviation: 0
+      VolumeRandDeviation: 0.25
+      PitchRandDeviation: 0.25
+  - Key: 75
+    Value:
+      AudioClips:
+      - m_AssetGUID: 825b3c0b5c5af4de4af4dbf4a4a55172
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      BaseVolume: 1
+      BasePitch: 1
+      VolumeRandDeviation: 0.25
+      PitchRandDeviation: 0.25
+  - Key: 80
+    Value:
+      AudioClips:
+      - m_AssetGUID: d9726ead63f2b45fcba6e2c4357727c3
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      BaseVolume: 1
+      BasePitch: 1
+      VolumeRandDeviation: 0.25
+      PitchRandDeviation: 0.25
   - Key: 73
     Value:
       AudioClips:
@@ -517,8 +558,8 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
       BaseVolume: 1
       BasePitch: 1
-      VolumeRandDeviation: 0
-      PitchRandDeviation: 0
+      VolumeRandDeviation: 0.2
+      PitchRandDeviation: 0.2
   - Key: 70
     Value:
       AudioClips:
@@ -528,8 +569,8 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
       BaseVolume: 1
       BasePitch: 1
-      VolumeRandDeviation: 0
-      PitchRandDeviation: 0
+      VolumeRandDeviation: 0.2
+      PitchRandDeviation: 0.2
   - Key: 71
     Value:
       AudioClips:
@@ -539,12 +580,142 @@ MonoBehaviour:
         m_EditorAssetChanged: 0
       BaseVolume: 1
       BasePitch: 1
-      VolumeRandDeviation: 0
-      PitchRandDeviation: 0
+      VolumeRandDeviation: 0.2
+      PitchRandDeviation: 0.2
   - Key: 72
     Value:
       AudioClips:
       - m_AssetGUID: 2ad3cc80bfc7e43c89e4e724eff309ce
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      BaseVolume: 1
+      BasePitch: 1
+      VolumeRandDeviation: 0.2
+      PitchRandDeviation: 0.2
+  - Key: 52
+    Value:
+      AudioClips:
+      - m_AssetGUID: 63a258acfa1d84be1aa21ae8eab9325f
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      BaseVolume: 1
+      BasePitch: 1
+      VolumeRandDeviation: 0.25
+      PitchRandDeviation: 0.25
+  - Key: 53
+    Value:
+      AudioClips:
+      - m_AssetGUID: 082e1702f273d4950b5f3391595fbf3a
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      BaseVolume: 1
+      BasePitch: 1
+      VolumeRandDeviation: 0.2
+      PitchRandDeviation: 0.2
+  - Key: 54
+    Value:
+      AudioClips:
+      - m_AssetGUID: 52eb6b66a44334dff972b8954108d649
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      BaseVolume: 1
+      BasePitch: 1
+      VolumeRandDeviation: 0.2
+      PitchRandDeviation: 0.2
+  - Key: 55
+    Value:
+      AudioClips:
+      - m_AssetGUID: 0c444342363824683b406cc05f06cafc
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      BaseVolume: 1
+      BasePitch: 1
+      VolumeRandDeviation: 0.2
+      PitchRandDeviation: 0.2
+  - Key: 56
+    Value:
+      AudioClips:
+      - m_AssetGUID: 3e76ad7bf205d42fda333a1886ae9832
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      BaseVolume: 1
+      BasePitch: 1
+      VolumeRandDeviation: 0.2
+      PitchRandDeviation: 0.2
+  - Key: 61
+    Value:
+      AudioClips:
+      - m_AssetGUID: 3450b610af414401187beeaf084ef893
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      BaseVolume: 1
+      BasePitch: 1
+      VolumeRandDeviation: 0.2
+      PitchRandDeviation: 0.2
+  - Key: 50
+    Value:
+      AudioClips:
+      - m_AssetGUID: a4d88fef0ce72e942aed00c09d1780bd
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      - m_AssetGUID: 195a8356cee6b0d438df83f8a102be10
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      - m_AssetGUID: 38fa4383c156371438f983f1ab4d4d86
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      - m_AssetGUID: 16d6d6a9f3b315944a03b4f4578c2fec
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      - m_AssetGUID: fd04c5238626c114e8c1d2544108247f
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      - m_AssetGUID: 00807fecc7bd8674eac24daf264169b4
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      BaseVolume: 2
+      BasePitch: 1
+      VolumeRandDeviation: 0.2
+      PitchRandDeviation: 0.2
+  - Key: 51
+    Value:
+      AudioClips:
+      - m_AssetGUID: 121175d44a1c94510bf888cd2190ef65
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      BaseVolume: 2
+      BasePitch: 1
+      VolumeRandDeviation: 0.2
+      PitchRandDeviation: 0.2
+  - Key: 63
+    Value:
+      AudioClips:
+      - m_AssetGUID: f2440af6a32024f76acc45c01fa522d9
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      BaseVolume: 1
+      BasePitch: 1
+      VolumeRandDeviation: 0
+      PitchRandDeviation: 0
+  - Key: 58
+    Value:
+      AudioClips:
+      - m_AssetGUID: 7a9322fb868cc421a8dc3da9d5dd78ef
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0

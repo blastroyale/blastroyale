@@ -23,7 +23,6 @@ using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
 using PlayFab.SharedModels;
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -241,11 +240,17 @@ namespace FirstLight.Game.StateMachines
 			_passwordRecoveryEmailTemplateId = "***REMOVED***";
 #else
 			// Dev
-			PlayFabSettings.TitleId = "***REMOVED***";
-			// DEV SERVER TEMPORARILY BEING USED FOR QUANTUM SERVER TESTING
-			//quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
-			quantumSettings.AppSettings.AppIdRealtime="***REMOVED***"; // TEMP SERVER
-			_passwordRecoveryEmailTemplateId = "***REMOVED***";
+			if (FeatureFlags.QUANTUM_CUSTOM_SERVER)
+			{
+				PlayFabSettings.TitleId = "F1A83"; // QUANTUM TEST SERVER - uses dev backend
+				quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***"; // quantum enterprise dev
+			}
+			else
+			{
+				PlayFabSettings.TitleId = "***REMOVED***";
+				quantumSettings.AppSettings.AppIdRealtime="***REMOVED***"; // TEMP SERVER
+				_passwordRecoveryEmailTemplateId = "***REMOVED***";
+			}
 #endif
 		}
 

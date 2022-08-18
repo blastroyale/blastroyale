@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FirstLight.Game.Ids;
@@ -142,11 +143,12 @@ namespace FirstLight.Game.Presenters
 
 		private void OnStandingsClicked()
 		{
-			var frame = QuantumRunner.Default.Game.Frames.Verified;
+			var game = QuantumRunner.Default.Game;
+			var frame = game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
 			var playerData = container.GetPlayersMatchData(frame, out _);
-
-			_standings.UpdateStandings(playerData);
+			
+			_standings.UpdateStandings(playerData, game.GetLocalPlayers()[0]);
 			_standings.gameObject.SetActive(true);
 		}
 

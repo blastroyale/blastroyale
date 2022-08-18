@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using FirstLight.Game.Views.MatchHudViews;
 using FirstLight.Services;
 using Quantum;
@@ -41,7 +42,22 @@ namespace FirstLight.Game.Views.MainMenuViews
 			UpdateBoardRows(playerCount);
 		}
 
-		public void UpdateBoardRows(int playerCount)
+		/// <summary>
+		/// Updates the standings order and view based on the given <paramref name="playerData"/>
+		/// </summary>
+		public void UpdateStandings(List<QuantumPlayerMatchData> playerData, PlayerRef localPlayer)
+		{
+			playerData.SortByPlayerRank(false);
+
+			// Do the descending order. From the highest to the lowest value
+			for (var i = 0; i < playerData.Count; i++)
+			{
+				var isLocalPlayer = localPlayer == playerData[i].Data.Player;
+				_playerResultPool[i].SetInfo(playerData[i], _extraInfo.activeSelf, isLocalPlayer);
+			}
+		}
+
+		private void UpdateBoardRows(int playerCount)
 		{
 			// Add missing entries
 			for (var i = _playerResultPool.Count; i < playerCount; i++)
@@ -67,20 +83,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 			}
 		}
 
-		/// <summary>
-		/// Updates the standings order and view based on the given <paramref name="playerData"/>
-		/// </summary>
-		public void UpdateStandings(List<QuantumPlayerMatchData> playerData)
-		{
-			playerData.SortByPlayerRank(false);
-
-			// Do the descending order. From the highest to the lowest value
-			for (var i = 0; i < playerData.Count; i++)
-			{
-				_playerResultPool[i].SetInfo(playerData[i], _extraInfo.activeSelf);
-			}
-		}
-
 		private void OnCloseClicked()
 		{
 			gameObject.SetActive(false);
@@ -92,7 +94,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
 			UpdateBoardRows(callback.PlayersMatchData.Count);
-			UpdateStandings(callback.PlayersMatchData);
+			UpdateStandings(callback.PlayersMatchData, callback.Game.GetLocalPlayers()[0]);
 		}
 	}
 }

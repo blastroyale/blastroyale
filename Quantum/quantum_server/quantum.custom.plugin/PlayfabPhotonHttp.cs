@@ -1,9 +1,7 @@
 using Photon.Hive.Plugin;
 using PlayFab;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
 using PlayFab.Json;
@@ -32,6 +30,7 @@ namespace quantum.custom.plugin
 	{
 		private readonly IPluginHost _host;
 		private readonly ISerializerPlugin _playfabSerializer;
+		public string ServerAddress = null;
 
 		public PlayfabPhotonHttp(IPluginHost host)
 		{
@@ -54,9 +53,13 @@ namespace quantum.custom.plugin
 		/// <summary>
 		/// Implementation of a Post request using playfab bitstream formatting.
 		/// </summary>
-		public void Post(string playerId, string service, object requestObject, HttpRequestCallback callback)
+		public void Post(string playerId, string service, object requestObject, HttpRequestCallback callback, Dictionary<string, string> headers=null)
 		{
 			var url = PlayFabSettings.staticSettings.GetFullUrl(service);
+			if(ServerAddress != null)
+			{
+				url = ServerAddress + service;
+			}
 			var payload = _playfabSerializer.SerializeObject(requestObject);
 			var bytes = Encoding.UTF8.GetBytes(payload);
 			var request = new HttpRequest()
@@ -67,7 +70,7 @@ namespace quantum.custom.plugin
 				Async = true,
 				Accept = "*/*",
 				DataStream = new MemoryStream(bytes, 0, bytes.Length),
-				CustomHeaders = new Dictionary<string, string>()
+				CustomHeaders = headers ?? new Dictionary<string, string>()
 				{
 					{ "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey }
 				},

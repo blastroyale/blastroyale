@@ -60,7 +60,6 @@ namespace FirstLight.Game.Configs
 			{
 				gameMode = DeterministicGameMode.Spectating;
 			}
-			
 			return new QuantumRunner.StartParameters
 			{
 				RuntimeConfig = _runtimeConfig,

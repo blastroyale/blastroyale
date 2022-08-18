@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -64,14 +65,18 @@ namespace FirstLight.Game.Presenters
 			var game = QuantumRunner.Default.Game;
 			var frame = game.Frames.Verified;
 			var localPlayer = game.GetLocalPlayers()[0];
-			var playerData = frame.GetSingleton<GameContainer>().PlayersData;
-			var deadPlayer = frame.Get<DeadPlayerCharacter>(playerData[localPlayer].Entity);
-			var killerMatchData = new QuantumPlayerMatchData(frame, playerData[deadPlayer.Killer]);
+			var container = frame.GetSingleton<GameContainer>();
+			var playerData = container.GetPlayersMatchData(frame, out _);
+			var deadPlayer = frame.Get<DeadPlayerCharacter>(playerData[localPlayer].Data.Entity);
+			var killerMatchData = playerData[deadPlayer.Killer];
 			var localName = _gameDataProvider.AppDataProvider.Nickname;
+			var isSuicide = localPlayer == deadPlayer.Killer;
+			
+			_killTrackerHolder.SetActive(!isSuicide);
+			_standings.Initialise(playerData.Count, false, false);
+			_standings.UpdateStandings(playerData, localPlayer);
 
-			_killTrackerHolder.SetActive(!killerMatchData.IsLocalPlayer);
-
-			if (killerMatchData.IsLocalPlayer)
+			if (isSuicide)
 			{
 				_fraggedByText.text = ScriptLocalization.AdventureMenu.ChooseDeath;
 			}
@@ -85,7 +90,6 @@ namespace FirstLight.Game.Presenters
 				_enemyScoreText.text = Data.KillerData[killerMatchData.Data.Player].Value.ToString();
 			}
 
-			ProcessResultScreenData(frame);
 			StartCoroutine(TimeUpdateCoroutine());
 		}
 
@@ -130,15 +134,6 @@ namespace FirstLight.Game.Presenters
 			_respawnSlider.value = 1f;
 
 			OnRespawnPressed();
-		}
-
-		private void ProcessResultScreenData(Frame f)
-		{
-			var container = f.GetSingleton<GameContainer>();
-			var playerData = container.GetPlayersMatchData(f, out _);
-			
-			_standings.Initialise(playerData.Count, false, false);
-			_standings.UpdateStandings(playerData);
 		}
 
 		private void OnRespawnPressed()

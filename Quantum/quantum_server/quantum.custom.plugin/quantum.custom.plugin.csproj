@@ -41,20 +41,24 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FirstLight.DataExtensions">
+    <Reference Include="FirstLight.DataExtensions, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Backend\Lib\FirstLight.DataExtensions.dll</HintPath>
     </Reference>
-    <Reference Include="FirstLight.Game">
+    <Reference Include="FirstLight.Game, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Backend\Lib\FirstLight.Game.dll</HintPath>
     </Reference>
-    <Reference Include="FirstLight.Services">
+    <Reference Include="FirstLight.Services, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Backend\Lib\FirstLight.Services.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="PhotonDeterministic">
-      <HintPath>..\..\assemblies\debug\PhotonDeterministic.dll</HintPath>
+    <Reference Include="PhotonDeterministic, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Backend\Lib\PhotonDeterministic.dll</HintPath>
     </Reference>
     <Reference Include="PhotonDeterministic.Plugin">
       <SpecificVersion>False</SpecificVersion>
@@ -74,10 +78,11 @@
       <HintPath>..\packages\PlayFabAllSDK.1.108.220118\lib\net45\PlayFabAllSDK.dll</HintPath>
     </Reference>
     <Reference Include="quantum.code">
-      <HintPath>..\..\..\Assets\Libs\Photon\Quantum\Assemblies\quantum.code.dll</HintPath>
+      <HintPath>..\..\..\Backend\Lib\quantum.code.dll</HintPath>
     </Reference>
-    <Reference Include="quantum.core">
-      <HintPath>..\..\assemblies\debug\quantum.core.dll</HintPath>
+    <Reference Include="quantum.core, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Backend\Lib\quantum.core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Collections" />
@@ -106,10 +111,12 @@
   <ItemGroup>
     <Compile Include="CustomQuantumPlugin.cs" />
     <Compile Include="CustomQuantumServer.cs" />
+    <Compile Include="FlgConfig.cs" />
     <Compile Include="PlayfabPhotonHttp.cs" />
     <Compile Include="PhotonPlayfabSDK.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuantumCustomPluginFactory.cs" />
+    <Compile Include="EndGameConsensusHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

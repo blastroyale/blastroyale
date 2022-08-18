@@ -25,7 +25,7 @@ namespace Quantum.Commands
 			var characterEntity = f.GetSingleton<GameContainer>().PlayersData[playerRef].Entity;
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(characterEntity);
 			var special = playerCharacter->WeaponSlot->Specials[SpecialIndex];
-
+			
 			if (special.TryActivate(f, characterEntity, AimInput, SpecialIndex))
 			{
 				playerCharacter->WeaponSlot->Specials[SpecialIndex] = special;

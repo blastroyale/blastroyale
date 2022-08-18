@@ -142,7 +142,10 @@ namespace FirstLight.Game.Ids
 		SelfShieldBreak,
 		AirdropDropped,
 		AirdropLanded,
-		AirdropFalling,
+		AirdropFlare,
+		CollectionLoop,
+		CollectionStart,
+		CollectionStop,
 	}
 	
 	/// <summary>

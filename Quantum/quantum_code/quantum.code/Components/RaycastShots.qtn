@@ -21,6 +21,6 @@ component RaycastShots
 
 synced event OnRaycastShotExplosion 
 {
-    GameId sourceId;
-    FPVector3 EndPosition;
+	GameId sourceId;
+	FPVector3 EndPosition;
 }

@@ -50,7 +50,7 @@ namespace FirstLight.Game.Views.MapViews
 				{
 					CheckUpdateAllVisiblePlayers();
 				}
-				else if(player.CollidingVisibilityVolumes.Count == 1)
+				else if (player.CollidingVisibilityVolumes.Count == 1)
 				{
 					CheckUpdateOneVisiblePlayer(player);
 				}
@@ -63,7 +63,7 @@ namespace FirstLight.Game.Views.MapViews
 			{
 				_currentlyCollidingPlayers.Remove(player.EntityRef);
 				player.CollidingVisibilityVolumes.Remove(gameObject);
-				
+
 				if (player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
 				{
 					CheckUpdateAllVisiblePlayers();

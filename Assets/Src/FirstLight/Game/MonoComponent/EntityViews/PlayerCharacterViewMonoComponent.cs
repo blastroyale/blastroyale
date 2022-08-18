@@ -79,6 +79,25 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			Services.MessageBrokerService.UnsubscribeAll(this);
 		}
+		
+		/// <inheritdoc />
+		public override void SetRenderContainerVisible(bool active)
+		{
+			base.SetRenderContainerVisible(active);
+			
+			for (int i = 0; i < _footstepVfxSpawners.Length; i++)
+			{
+				_footstepVfxSpawners[i].CanSpawnVfx = active;
+			}
+		}
+		
+		/// <summary>
+		/// Set's the player animation moving state based on the given <paramref name="isAiming"/> state
+		/// </summary>
+		public void SetMovingState(bool isAiming)
+		{
+			AnimatorWrapper.SetBool(Bools.Aim, isAiming);
+		}
 
 		protected override void OnInit(QuantumGame game)
 		{
@@ -105,15 +124,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 		}
 		
-		/// <inheritdoc />
-		public override void SetRenderContainerVisible(bool active)
+		protected override void OnAvatarEliminated(QuantumGame game)
 		{
-			base.SetRenderContainerVisible(active);
-			
-			for (int i = 0; i < _footstepVfxSpawners.Length; i++)
-			{
-				_footstepVfxSpawners[i].CanSpawnVfx = active;
-			}
+			base.OnAvatarEliminated(game);
 		}
 
 		private void TryStartAttackWithinVisVolume()
@@ -144,19 +157,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				SetRenderContainerVisible(false);
 			}
-		}
-		
-		/// <summary>
-		/// Set's the player animation moving state based on the given <paramref name="isAiming"/> state
-		/// </summary>
-		public void SetMovingState(bool isAiming)
-		{
-			AnimatorWrapper.SetBool(Bools.Aim, isAiming);
-		}
-
-		protected override void OnAvatarEliminated(QuantumGame game)
-		{
-			base.OnAvatarEliminated(game);
 		}
 
 		private void HandleOnStunGrenadeUsed(EventOnStunGrenadeUsed callback)
@@ -394,34 +394,35 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private void HandleUpdateView(CallbackUpdateView callback)	
 		{	
 			const float speedThreshold = 0.5f; // unity units per second	
-			var f = callback.Game.Frames.Predicted;	
-			if (!f.TryGet<AIBlackboardComponent>(EntityRef, out var bb))	
-			{	
-				return;	
-			}	
+			var f = callback.Game.Frames.Predicted;
+			if (!f.TryGet<AIBlackboardComponent>(EntityRef, out var bb))
+			{
+				return;
+			}
 				
-			var currentPosition = transform.position;	
-			var deltaPosition = currentPosition - _lastPosition;	
-			deltaPosition.y = 0f; // falling doesn't count	
-			var sqrSpeed = (deltaPosition / f.DeltaTime.AsFloat).sqrMagnitude;	
-			var isMoving = sqrSpeed > speedThreshold * speedThreshold;	
-			var isAiming = bb.GetBoolean(f, Constants.IsAimPressedKey);	
-			AnimatorWrapper.SetBool(Bools.Move, isMoving);	
-			if (isMoving)	
-			{	
-				deltaPosition.Normalize();	
-				var localDeltaPosition = transform.InverseTransformDirection(deltaPosition);	
-				AnimatorWrapper.SetFloat(PlayerFloats.DirX, localDeltaPosition.x);	
-				AnimatorWrapper.SetFloat(PlayerFloats.DirY, localDeltaPosition.z);	
-			}	
-			else	
-			{	
-				AnimatorWrapper.SetFloat(PlayerFloats.DirX, 0f);	
-				AnimatorWrapper.SetFloat(PlayerFloats.DirY, 0f);	
-			}	
-				
-			AnimatorWrapper.SetBool(Bools.Aim, isAiming);	
-			_lastPosition = currentPosition;	
+			var currentPosition = transform.position;
+			var deltaPosition = currentPosition - _lastPosition;
+			deltaPosition.y = 0f; // falling doesn't count
+			var sqrSpeed = (deltaPosition / f.DeltaTime.AsFloat).sqrMagnitude;
+			var isMoving = sqrSpeed > speedThreshold * speedThreshold;
+			var isAiming = bb.GetBoolean(f, Constants.IsAimPressedKey);
+			AnimatorWrapper.SetBool(Bools.Move, isMoving);
+			
+			if (isMoving)
+			{
+				deltaPosition.Normalize();
+				var localDeltaPosition = transform.InverseTransformDirection(deltaPosition);
+				AnimatorWrapper.SetFloat(PlayerFloats.DirX, localDeltaPosition.x);
+				AnimatorWrapper.SetFloat(PlayerFloats.DirY, localDeltaPosition.z);
+			}
+			else
+			{
+				AnimatorWrapper.SetFloat(PlayerFloats.DirX, 0f);
+				AnimatorWrapper.SetFloat(PlayerFloats.DirY, 0f);
+			}
+			
+			AnimatorWrapper.SetBool(Bools.Aim, isAiming);
+			_lastPosition = currentPosition;
 		}
 
 		private void HandlePlayerSkydivePLF(EventOnPlayerSkydivePLF callback)

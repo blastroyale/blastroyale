@@ -49,7 +49,7 @@ public partial class SROptions
 		PlayerPrefs.DeleteAll();
 
 		var deletionUrl =
-			$"https://devmarketplaceapi.azure-api.net/accounts/admin/unlink?key=devkey&playfabId={player.PlayFabId}";
+			$"***REMOVED***/accounts/admin/unlink?key=devkey&playfabId={player.PlayFabId}";
 		var task = new HttpClient().DeleteAsync(deletionUrl);
 		task.Wait();
 		FLog.Info("Wallet unlinked from marketplace");

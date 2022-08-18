@@ -21,14 +21,35 @@ namespace Quantum
 		private DeterministicSessionConfig _config;
 		private RuntimeConfig _runtimeConfig;
 		private readonly Dictionary<String, String> _photonConfig;
-		private readonly PhotonPlayfabSDK _photonPlayfab;
-		private readonly Dictionary<string, SetPlayerData> _clientPlayerDataBytes;
+		private readonly Dictionary<string, SetPlayerData> _receivedPlayers;
+		private readonly Dictionary<int, SetPlayerData> _validPlayers;
+		private readonly Dictionary<int, int> _clientIdToIndex;
+		
+		public readonly PhotonPlayfabSDK Playfab;
 		
 		public CustomQuantumServer(Dictionary<String, String> photonConfig, IPluginHost host) {
 			_photonConfig = photonConfig;
-			_photonPlayfab = new PhotonPlayfabSDK(photonConfig, host);
-			_clientPlayerDataBytes = new Dictionary<string, SetPlayerData>();
+			Playfab = new PhotonPlayfabSDK(photonConfig, host);
+			_receivedPlayers = new Dictionary<string, SetPlayerData>();
+			_validPlayers = new Dictionary<int, SetPlayerData>();
+			_clientIdToIndex = new Dictionary<int, int>();
+			ModelSerializer.RegisterConverter(new QuantumVector2Converter());
+			ModelSerializer.RegisterConverter(new QuantumVector3Converter());
 		}
+
+		public int GetClientIndexByActorNumber(int actorNr) => _clientIdToIndex[actorNr];
+
+		public int GetClientActorNumberByIndex(int index)
+		{
+			foreach(var actorNr in _clientIdToIndex.Keys)
+			{
+				if (_clientIdToIndex[actorNr] == index)
+					return actorNr;
+			}
+			return -1;
+		}
+
+		public Dictionary<int, SetPlayerData> GetValidatedPlayers() => _validPlayers;
 
 		/// <summary>
 		/// Called whenever a game session is about to start and client passes down session configuration.
@@ -40,7 +61,19 @@ namespace Quantum
 
 		public override void OnDeterministicRuntimeConfig(DeterministicPluginClient client, Photon.Deterministic.Protocol.RuntimeConfig configData)
 		{
+			base.OnDeterministicRuntimeConfig(client, configData);
 			_runtimeConfig = RuntimeConfig.FromByteArray(configData.Config);
+		}
+
+		public string GetPlayFabId(int actorNr)
+		{
+			var playerRef = GetClientIndexByActorNumber(actorNr);
+			foreach (var playfabId in _receivedPlayers.Keys)
+			{
+				if (_receivedPlayers[playfabId].Index == playerRef)
+					return playfabId;
+			}
+			return null;
 		}
 
 		/// <summary>
@@ -51,8 +84,10 @@ namespace Quantum
 		public override bool OnDeterministicPlayerDataSet(DeterministicPluginClient client, SetPlayerData clientPlayerData)
 		{
 			var clientPlayer = RuntimePlayer.FromByteArray(clientPlayerData.Data);
-			_clientPlayerDataBytes[clientPlayer.PlayerId] = clientPlayerData;
-			_photonPlayfab.GetProfileReadOnlyData(clientPlayer.PlayerId, OnUserDataResponse);
+			_receivedPlayers[clientPlayer.PlayerId] = clientPlayerData;
+			_clientIdToIndex[client.ActorNr] = clientPlayerData.Index;
+			Playfab.GetProfileReadOnlyData(clientPlayer.PlayerId, OnUserDataResponse);
+			Log.Debug($"Received client data from player {clientPlayer.PlayerId} actor {client.ActorNr}");
 			return false; // denies adding player data to the bitstream when client sends it
 		}
 
@@ -62,19 +97,20 @@ namespace Quantum
 		/// </summary>
 		private void OnUserDataResponse(IHttpResponse response, object userState)
 		{
-			var playfabResponse = _photonPlayfab.HttpWrapper.DeserializePlayFabResponse<GetUserDataResult>(response);
+			var playfabResponse = Playfab.HttpWrapper.DeserializePlayFabResponse<GetUserDataResult>(response);
 			var playfabData = playfabResponse.Data.ToDictionary(
 				entry => entry.Key,
 				entry => entry.Value.Value);
 			var playerId = response.Request.UserState as string;
-			if (playerId == null || !_clientPlayerDataBytes.TryGetValue(playerId, out var setPlayerData))
+			Log.Debug($"Validating loadout for player {playerId}");
+			if (playerId == null || !_receivedPlayers.TryGetValue(playerId, out var setPlayerData))
 			{
 				Log.Error($"Could not find set player data request for player {playerId}");
 				return;
 			}
-			_clientPlayerDataBytes.Remove(playerId);
+			_receivedPlayers.Remove(playerId);
 			var clientPlayer = RuntimePlayer.FromByteArray(setPlayerData.Data);
-			var playerNftData = ModelSerializer.DeserializeFromData<NftEquipmentData>(playfabData);
+			var playerNftData = ModelSerializer.DeserializeFromData<EquipmentData>(playfabData);
 			var serverHashes = playerNftData.Inventory.Values.Select(e => e.GetHashCode()).ToHashSet();
 			foreach (var clientEquip in clientPlayer.Loadout)
 			{
@@ -85,6 +121,8 @@ namespace Quantum
 					return;
 				}
 			}
+			Log.Debug($"Player {playerId} has valid loadout");
+			_validPlayers[GetClientActorNumberByIndex(setPlayerData.Index)] = setPlayerData;
 			SetDeterministicPlayerData(setPlayerData);
 		}
 
@@ -93,7 +131,9 @@ namespace Quantum
 		/// </summary>
 		public void Dispose()
 		{
-			_clientPlayerDataBytes.Clear();
+			_receivedPlayers.Clear();
+			_validPlayers.Clear();
+			_clientIdToIndex.Clear();
 		}
 
 	}

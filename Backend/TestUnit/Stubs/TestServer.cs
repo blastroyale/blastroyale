@@ -16,6 +16,7 @@ using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
+using PlayFab;
 using ServerSDK;
 using ServerSDK.Models;
 using ServerSDK.Services;
@@ -120,6 +121,7 @@ public class TestServer
 		commandData[CommandFields.Timestamp] = "1";
 		commandData[CommandFields.ClientVersion] = ServerConfiguration.GetConfig().MinClientVersion;
 		commandData[CommandFields.Command] = ModelSerializer.Serialize(cmd).Value;
+		commandData["SecretKey"] = PlayFabSettings.staticSettings.DeveloperSecretKey;
 		return GetService<GameServer>()?.RunLogic(GetTestPlayerID(), new LogicRequest()
 		{
 			Command = cmd.GetType().FullName,

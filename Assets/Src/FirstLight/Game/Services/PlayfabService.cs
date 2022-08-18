@@ -72,7 +72,7 @@ namespace FirstLight.Game.Services
 
 		public void HandleError(PlayFabError error)
 		{
-			var descriptiveError = $"{error.ErrorMessage}: {JsonConvert.SerializeObject(error.ErrorDetails)}";
+			var descriptiveError = $"{error.HttpCode} - {error.ErrorMessage} - {JsonConvert.SerializeObject(error.ErrorDetails)}";
 			FLog.Error(descriptiveError);
 			_msgBroker.Publish(new ServerHttpError()
 			{

@@ -75,8 +75,8 @@ GameObject:
   - component: {fileID: 6998687666688202493}
   - component: {fileID: 7608927183735655751}
   m_Layer: 0
-  m_Name: ColliderForBulletVisuals
-  m_TagString: Untagged
+  m_Name: VisualCollider
+  m_TagString: VisualCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -472,6 +472,10 @@ MonoBehaviour:
         Knockback: 0
         AvailableTime:
           RawValue: 0
+      Special1AvailableTime:
+        RawValue: 0
+      Special2AvailableTime:
+        RawValue: 0
     - Weapon:
         GameId:
           Value: 0
@@ -535,6 +539,10 @@ MonoBehaviour:
         Knockback: 0
         AvailableTime:
           RawValue: 0
+      Special1AvailableTime:
+        RawValue: 0
+      Special2AvailableTime:
+        RawValue: 0
     - Weapon:
         GameId:
           Value: 0
@@ -598,6 +606,10 @@ MonoBehaviour:
         Knockback: 0
         AvailableTime:
           RawValue: 0
+      Special1AvailableTime:
+        RawValue: 0
+      Special2AvailableTime:
+        RawValue: 0
     Gear:
     - GameId:
         Value: 0

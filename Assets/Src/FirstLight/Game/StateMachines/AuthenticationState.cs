@@ -23,7 +23,6 @@ using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
 using PlayFab.SharedModels;
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -165,6 +164,13 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(_authenticationFailEvent);
 			OnPlayFabError(error);
 		}
+		
+		private void OnAutomaticAuthenticationFail(PlayFabError error)
+		{
+			_dataService.GetData<AppData>().DeviceId = null;
+			_dataService.SaveData<AppData>();
+			_statechartTrigger(_authenticationFailEvent);
+		}
 
 		private bool HasLinkedDevice()
 		{
@@ -184,35 +190,35 @@ namespace FirstLight.Game.StateMachines
 #if UNITY_EDITOR
 			var login = new LoginWithCustomIDRequest
 			{
-				CreateAccount = true,
+				CreateAccount = !FeatureFlags.EMAIL_AUTH,
 				CustomId = deviceId,
 				InfoRequestParameters = infoParams
 			};
 			
-			PlayFabClientAPI.LoginWithCustomID(login, OnLoginSuccess, OnAuthenticationFail);
+			PlayFabClientAPI.LoginWithCustomID(login, OnLoginSuccess, OnAutomaticAuthenticationFail);
 			
 #elif UNITY_ANDROID
 			var login = new LoginWithAndroidDeviceIDRequest()
 			{
-				CreateAccount = true,
+				CreateAccount = !FeatureFlags.EMAIL_AUTH,
 				AndroidDevice = SystemInfo.deviceModel,
 				OS = SystemInfo.operatingSystem,
 				AndroidDeviceId = deviceId,
 				InfoRequestParameters = infoParams
 			};
 			
-			PlayFabClientAPI.LoginWithAndroidDeviceID(login, OnLoginSuccess, OnAuthenticationFail);
+			PlayFabClientAPI.LoginWithAndroidDeviceID(login, OnLoginSuccess, OnAutomaticAuthenticationFail);
 #elif UNITY_IOS
 			var login = new LoginWithIOSDeviceIDRequest()
 			{
-				CreateAccount = true,
+				CreateAccount = !FeatureFlags.EMAIL_AUTH,
 				DeviceModel = SystemInfo.deviceModel,
 				OS = SystemInfo.operatingSystem,
 				DeviceId = deviceId,
 				InfoRequestParameters = infoParams
 			};
 			
-			PlayFabClientAPI.LoginWithIOSDeviceID(login, OnLoginSuccess, OnAuthenticationFail);
+			PlayFabClientAPI.LoginWithIOSDeviceID(login, OnLoginSuccess, OnAutomaticAuthenticationFail);
 #endif
 		}
 
@@ -234,11 +240,17 @@ namespace FirstLight.Game.StateMachines
 			_passwordRecoveryEmailTemplateId = "***REMOVED***";
 #else
 			// Dev
-			PlayFabSettings.TitleId = "***REMOVED***";
-			// DEV SERVER TEMPORARILY BEING USED FOR QUANTUM SERVER TESTING
-			//quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
-			quantumSettings.AppSettings.AppIdRealtime="***REMOVED***"; // TEMP SERVER
-			_passwordRecoveryEmailTemplateId = "***REMOVED***";
+			if (FeatureFlags.QUANTUM_CUSTOM_SERVER)
+			{
+				PlayFabSettings.TitleId = "F1A83"; // QUANTUM TEST SERVER - uses dev backend
+				quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***"; // quantum enterprise dev
+			}
+			else
+			{
+				PlayFabSettings.TitleId = "***REMOVED***";
+				quantumSettings.AppSettings.AppIdRealtime="***REMOVED***"; // TEMP SERVER
+				_passwordRecoveryEmailTemplateId = "***REMOVED***";
+			}
 #endif
 		}
 

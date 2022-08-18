@@ -35,7 +35,6 @@ public class TestAnalyticsPlugin
 	{
 		var command = new EndOfGameCalculationsCommand()
 		{
-			DidPlayerQuit = false,
 			PlayersMatchData = new List<QuantumPlayerMatchData>()
 			{
 				new QuantumPlayerMatchData()

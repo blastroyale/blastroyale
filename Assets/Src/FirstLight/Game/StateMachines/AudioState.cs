@@ -138,6 +138,7 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.SubscribeManual<EventOnCollectableBlocked>(this, OnCollectionBlocked);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveDrop>(this, OnSkydiveStart);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveLand>(this, OnSkydiveEnd);
+			QuantumEvent.SubscribeManual<EventOnStatusModifierFinished>(this, OnModifierFinished);
 		}
 
 		private void UnsubscribeEvents()
@@ -247,8 +248,23 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
+		private void OnModifierFinished(EventOnStatusModifierFinished callback)
+		{
+			if (callback.Type == StatusModifierType.Shield)
+			{
+				checkClips(callback.ToString(), callback.Entity);
+				if (_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
+				{
+					_services.AudioFxService.PlayClip3D(AudioId.InvEnd, entityView.transform.position);
+				}
+			}
+				
+
+		}
+
 		private void OnSkydiveStart(EventOnLocalPlayerSkydiveDrop callback)
 		{
+			
 			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
 			{
 				//airdrop dropped is the plane fly by effect, this may need to be only played for the local player
@@ -355,13 +371,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnChestOpened(EventOnChestOpened callback)
 		{
-			var audio = AudioId.ChestPickup;
-
-			if (audio != AudioId.None)
-			{
-				var pos = new Vector3(callback.ChestPosition.X.AsFloat, callback.ChestPosition.Y.AsFloat, callback.ChestPosition.Z.AsFloat);
-				_services.AudioFxService.PlayClip3D(audio, pos);
-			}
+			var pos = new Vector3(callback.ChestPosition.X.AsFloat, callback.ChestPosition.Y.AsFloat, callback.ChestPosition.Z.AsFloat);
+			_services.AudioFxService.PlayClip3D(AudioId.ChestPickup, pos);
 		}
 
 		private void OnRaycastShotExplosion(EventOnRaycastShotExplosion callback)
@@ -386,7 +397,6 @@ namespace FirstLight.Game.StateMachines
 
 		private void PlayExplosionSFX(GameId sourceId, Vector3 endPosition)
 		{
-
 			var audio = AudioId.None;
 
 			switch (sourceId)
@@ -449,9 +459,18 @@ namespace FirstLight.Game.StateMachines
 			{
 				if(audio == AudioId.MissileFlyLoop)
 				{
-					var missileLoop = _services.AudioFxService.PlayClip3D(AudioId.MissileFlyLoop, entityView.transform.position);
+					var missileLoop = _services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
 					string[] despawnEvents = {
 						new EventOnHazardLand().ToString(),
+					};
+					_currentClips.Add(new LoopedAudioClip(missileLoop, despawnEvents, callback.Entity));
+				}
+				else if (audio == AudioId.InvStart)
+				{
+					_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
+					var missileLoop = _services.AudioFxService.PlayClip3D(AudioId.InvLoop, entityView.transform.position);
+					string[] despawnEvents = {
+						new EventOnStatusModifierFinished().ToString(),
 					};
 					_currentClips.Add(new LoopedAudioClip(missileLoop, despawnEvents, callback.Entity));
 				}
@@ -495,12 +514,14 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			if (collectableId.IsInGroup(GameIdGroup.Weapon))
+			{
 				audio = AudioId.WeaponPickup;
-
-			if (collectableId.IsInGroup(GameIdGroup.Helmet) || collectableId.IsInGroup(GameIdGroup.Armor) || 
+			}
+			else if (collectableId.IsInGroup(GameIdGroup.Helmet) || collectableId.IsInGroup(GameIdGroup.Armor) || 
 				collectableId.IsInGroup(GameIdGroup.Shield) || collectableId.IsInGroup(GameIdGroup.Amulet))
+			{
 				audio = AudioId.GearPickup;
-
+			}
 			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView))
 			{
 				if (audio != AudioId.None)
@@ -512,7 +533,6 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayerAttack(EventOnPlayerAttack callback)
 		{
-
 			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView))
 			{
 				var weaponConfig = _services.ConfigsProvider.GetConfig<AudioWeaponConfig>((int) callback.Weapon.GameId);
@@ -525,7 +545,6 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnDamageBlocked(EventOnDamageBlocked callback)
 		{
-
 			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
 			{
 				var audio = AudioId.DamageAbsorb;
@@ -535,7 +554,6 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayerDamaged(EventOnPlayerDamaged callback)
 		{
-
 			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
 			{
 				var game = callback.Game;
@@ -550,12 +568,10 @@ namespace FirstLight.Game.StateMachines
 				{
 					audio = callback.ShieldDamage > 0 ? AudioId.HitShieldDamage : AudioId.HitHealthDamage;
 				}
-				
 				if (callback.PreviousShield > 0 && callback.CurrentShield == 0)
 				{
 					audio = AudioId.ShieldBreak;
 				}
-
 				if (audio != AudioId.None)
 				{
 					_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);

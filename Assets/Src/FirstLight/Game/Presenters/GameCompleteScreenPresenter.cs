@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using Cinemachine;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.Timeline;
 using FirstLight.Game.Utils;
@@ -41,12 +39,12 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private GameObject[] _shineAnimObjects;
 
 		private EntityRef _playerWinnerEntity;
-		private IEntityViewUpdaterService _entityService;
+		private IMatchServices _matchService;
 		private IGameServices _services;
 
 		private void Awake()
 		{
-			_entityService = MainInstaller.Resolve<IEntityViewUpdaterService>();
+			_matchService = MainInstaller.Resolve<IMatchServices>();
 			_services = MainInstaller.Resolve<IGameServices>();
 
 			_gotoResultsMenuButton.onClick.AddListener(OnContinueButtonClicked);
@@ -58,7 +56,7 @@ namespace FirstLight.Game.Presenters
 		{
 			var playVfxMarker = notification as PlayVfxMarker;
 
-			if (playVfxMarker != null)
+			if (playVfxMarker != null && !_playerProxyCamera.LookAt.IsDestroyed())
 			{
 				Services.VfxService.Spawn(playVfxMarker.Vfx).transform.position = _playerProxyCamera.LookAt.position;
 			}
@@ -89,21 +87,18 @@ namespace FirstLight.Game.Presenters
 				_emojiImage.sprite = _happyEmojiSprite;
 				_titleText.text = ScriptLocalization.General.Victory_;
 			}
+			else if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
+			{
+				_titleText.text = ScriptLocalization.AdventureMenu.GameOver;
+			}
 			else
 			{
-				if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
-				{
-					_titleText.text = ScriptLocalization.AdventureMenu.GameOver;
-				}
-				else
-				{
-					var localPlayerData = playerData[game.GetLocalPlayers()[0]];
-					var placement = ((int) localPlayerData.PlayerRank).GetOrdinalTranslation();
+				var localPlayerData = playerData[game.GetLocalPlayers()[0]];
+				var placement = ((int) localPlayerData.PlayerRank).GetOrdinalTranslation();
 
-					_emojiImage.sprite = _sickEmojiSprite;
-					_titleText.text = string.Format(ScriptLocalization.General.PlacementMessage,
-					                                localPlayerData.PlayerRank + placement);
-				}
+				_emojiImage.sprite = _sickEmojiSprite;
+				_titleText.text = string.Format(ScriptLocalization.General.PlacementMessage,
+				                                localPlayerData.PlayerRank + placement);
 			}
 
 			if (container.IsGameOver)
@@ -128,7 +123,7 @@ namespace FirstLight.Game.Presenters
 			}
 			
 
-			if (_entityService.TryGetView(playerWinner.Data.Entity, out var entityView))
+			if (_matchService.EntityViewUpdaterService.TryGetView(playerWinner.Data.Entity, out var entityView))
 			{
 				var entityViewTransform = entityView.transform;
 

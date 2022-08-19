@@ -295,7 +295,7 @@ namespace Quantum.Systems
 
 			filter.BotCharacter->Target = target;
 
-			bb->Set(f, Constants.IsAimingKey, target != EntityRef.None);
+			bb->Set(f, Constants.IsAimPressedKey, target != EntityRef.None);
 		}
 
 		// We check specials and try to use them depending on their type if possible
@@ -306,32 +306,27 @@ namespace Quantum.Systems
 				return false;
 			}
 
-			var playerCharacter = filter.PlayerCharacter;
-			var weaponSlot = playerCharacter->CurrentWeaponSlot;
-
-			if (TryUseSpecial(f, playerCharacter->WeaponSlots[weaponSlot].Special1Charges,
-			                  playerCharacter->WeaponSlots[weaponSlot].Special1, 0, ref filter))
+			if (TryUseSpecial(f, filter.PlayerCharacter, 0, filter.Entity, filter.BotCharacter->Target))
 			{
-				playerCharacter->WeaponSlots[weaponSlot].Special1Charges--;
 				return true;
 			}
 			
-			if (TryUseSpecial(f, playerCharacter->WeaponSlots[weaponSlot].Special2Charges,
-			                  playerCharacter->WeaponSlots[weaponSlot].Special2, 1, ref filter))
+			if (TryUseSpecial(f, filter.PlayerCharacter, 1, filter.Entity, filter.BotCharacter->Target))
 			{
-				playerCharacter->WeaponSlots[weaponSlot].Special2Charges--;
 				return true;
 			}
 			
 			return false;
 		}
 
-		private bool TryUseSpecial(Frame f, int specialCharges, Special special, int specialIndex, ref BotCharacterFilter filter)
+		private bool TryUseSpecial(Frame f, PlayerCharacter* playerCharacter, int specialIndex, EntityRef entity, EntityRef target)
 		{
-			var target = filter.BotCharacter->Target;
-			if (specialCharges > 0 && (target != EntityRef.None || special.SpecialType == SpecialType.ShieldSelfStatus) &&
-			    special.IsValid && special.TryActivate(f, filter.Entity, FPVector2.Zero, specialIndex))
+			var special = playerCharacter->WeaponSlot->Specials[specialIndex];
+
+			if ((target != EntityRef.None || special.SpecialType == SpecialType.ShieldSelfStatus) &&
+			    special.TryActivate(f, entity, FPVector2.Zero, specialIndex))
 			{
+				playerCharacter->WeaponSlot->Specials[specialIndex] = special;
 				return true;
 			}
 
@@ -801,9 +796,9 @@ namespace Quantum.Systems
 			var playerSpawners = GetFreeSpawnPoints(f);
 			var botConfigsList = GetBotConfigsList(f);
 			var botNamesIndices = new List<int>();
-
-			var skinOptions = GameIdGroup.PlayerSkin.GetIds()
-			                             .Where(item => GameIdGroup.BotItem.GetIds().Contains(item)).ToArray();
+			var deathMakers = GameIdGroup.DeathMarker.GetIds();
+			var botItems = GameIdGroup.BotItem.GetIds();
+			var skinOptions = GameIdGroup.PlayerSkin.GetIds().Where(item => botItems.Contains(item)).ToArray();
 
 			for (var i = 0; i < f.GameConfig.BotsNameCount; i++)
 			{
@@ -827,6 +822,7 @@ namespace Quantum.Systems
 				var botCharacter = new BotCharacter
 				{
 					Skin = skinOptions[f.RNG->Next(0, skinOptions.Length)],
+					DeathMarker = deathMakers[f.RNG->Next(0, deathMakers.Count)],
 					BotNameIndex = botNamesIndices[listNamesIndex],
 					BehaviourType = botConfig.BehaviourType,
 					DecisionInterval = botConfig.DecisionInterval,
@@ -875,7 +871,8 @@ namespace Quantum.Systems
 				
 				var trophies = (uint) Math.Max((int) playerTrophies + f.RNG->Next(-eloRange / 2, eloRange / 2), 0);
 
-				playerCharacter->Init(f, botEntity, id, spawnerTransform, 1, trophies, botCharacter.Skin, Array.Empty<Equipment>(), Equipment.None);
+				playerCharacter->Init(f, botEntity, id, spawnerTransform, 1, trophies, botCharacter.Skin, 
+				                      botCharacter.DeathMarker, Array.Empty<Equipment>(), Equipment.None);
 			}
 		}
 

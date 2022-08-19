@@ -21,15 +21,27 @@ namespace FirstLight.Game.Utils
 		/// Returns a room parameters used for creation of custom and matchmaking rooms
 		/// </summary>
 		public static EnterRoomParams GetRoomCreateParams(QuantumMapConfig mapConfig, MapGridConfigs gridConfigs,
-		                                                  string roomName)
+		                                                  string roomName, bool isRankedMatch, bool gameHasBots)
 		{
 			var isRandomMatchmaking = string.IsNullOrWhiteSpace(roomName);
 
 			var roomNameFinal = isRandomMatchmaking ? null : roomName;
-
+			var emptyTtl = 0;
+			
 			if (FeatureFlags.COMMIT_VERSION_LOCK && !isRandomMatchmaking)
 			{
 				roomNameFinal += ROOM_SEPARATOR + VersionUtils.Commit;
+			}
+
+			if (!isRandomMatchmaking)
+			{
+				emptyTtl = roomNameFinal.Contains(GameConstants.Network.ROOM_NAME_PLAYTEST)
+					           ? GameConstants.Network.EMPTY_ROOM_PLAYTEST_TTL_MS
+					           : GameConstants.Network.EMPTY_ROOM_TTL_MS;
+			}
+			else
+			{
+				emptyTtl = GameConstants.Network.EMPTY_ROOM_TTL_MS;
 			}
 
 			var roomParams = new EnterRoomParams
@@ -42,18 +54,14 @@ namespace FirstLight.Game.Utils
 				{
 					BroadcastPropsChangeToAll = true,
 					CleanupCacheOnLeave = true,
-					CustomRoomProperties = GetCreateRoomProperties(mapConfig, gridConfigs),
-					CustomRoomPropertiesForLobby = new[]
-					{
-						GameConstants.Network.ROOM_PROPS_COMMIT,
-						GameConstants.Network.ROOM_PROPS_MAP
-					},
+					CustomRoomProperties = GetCreateRoomProperties(mapConfig, gridConfigs, isRankedMatch, gameHasBots),
+					CustomRoomPropertiesForLobby = GetCreateRoomPropertiesForLobby(),
 					Plugins = null,
 					SuppressRoomEvents = false,
 					SuppressPlayerInfo = false,
 					PublishUserId = false,
 					DeleteNullProperties = true,
-					EmptyRoomTtl = GameConstants.Network.EMPTY_ROOM_TTL_MS,
+					EmptyRoomTtl = emptyTtl,
 					IsOpen = true,
 					IsVisible = isRandomMatchmaking,
 					MaxPlayers = isRandomMatchmaking
@@ -72,17 +80,17 @@ namespace FirstLight.Game.Utils
 		public static EnterRoomParams GetRoomEnterParams(string roomName)
 		{
 			var roomNameFinal = roomName;
-			
-			if (FeatureFlags.COMMIT_VERSION_LOCK )
+
+			if (FeatureFlags.COMMIT_VERSION_LOCK)
 			{
 				roomNameFinal += ROOM_SEPARATOR + VersionUtils.Commit;
 			}
-			
+
 			return new EnterRoomParams
 			{
 				RoomName = roomNameFinal,
 				PlayerProperties = null,
-				ExpectedUsers = null,
+				ExpectedUsers = null,	
 				Lobby = TypedLobby.Default,
 				RoomOptions = new RoomOptions
 				{
@@ -95,11 +103,11 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Returns random room entry parameters used for matchmaking room joining
 		/// </summary>
-		public static OpJoinRandomRoomParams GetJoinRandomRoomParams(QuantumMapConfig mapConfig)
+		public static OpJoinRandomRoomParams GetJoinRandomRoomParams(QuantumMapConfig mapConfig, bool isRankedMatch, bool gameHasBots)
 		{
 			return new OpJoinRandomRoomParams
 			{
-				ExpectedCustomRoomProperties = GetJoinRoomProperties(mapConfig),
+				ExpectedCustomRoomProperties = GetJoinRoomProperties(mapConfig, isRankedMatch, gameHasBots),
 				ExpectedMaxPlayers = (byte) mapConfig.PlayersLimit,
 				ExpectedUsers = null,
 				MatchingType = MatchmakingMode.FillRoom,
@@ -135,12 +143,23 @@ namespace FirstLight.Game.Utils
 			return compatibleMaps[timeSegmentIndex];
 		}
 
-		private static Hashtable GetCreateRoomProperties(QuantumMapConfig mapConfig, MapGridConfigs gridConfigs)
+		private static string[] GetCreateRoomPropertiesForLobby()
 		{
-			var properties = GetJoinRoomProperties(mapConfig);
+			return new[]
+			{
+				GameConstants.Network.ROOM_PROPS_COMMIT,
+				GameConstants.Network.ROOM_PROPS_MAP,
+				GameConstants.Network.ROOM_PROPS_RANKED_MATCH,
+				GameConstants.Network.ROOM_PROPS_BOTS
+			};
+		}
+		
+		private static Hashtable GetCreateRoomProperties(QuantumMapConfig mapConfig, MapGridConfigs gridConfigs, bool isRankedMatch, bool gameHasBots)
+		{
+			var properties = GetJoinRoomProperties(mapConfig, isRankedMatch, gameHasBots);
 
 			properties.Add(GameConstants.Network.ROOM_PROPS_START_TIME, DateTime.UtcNow.Ticks);
-			
+
 			if (mapConfig.GameMode == GameMode.BattleRoyale && !mapConfig.IsTestMap)
 			{
 				properties.Add(GameConstants.Network.ROOM_PROPS_DROP_PATTERN, CalculateDropPattern(gridConfigs));
@@ -149,7 +168,7 @@ namespace FirstLight.Game.Utils
 			return properties;
 		}
 
-		private static Hashtable GetJoinRoomProperties(QuantumMapConfig mapConfig)
+		private static Hashtable GetJoinRoomProperties(QuantumMapConfig mapConfig, bool isRankedMatch, bool gameHasBots)
 		{
 			return new Hashtable
 			{
@@ -157,7 +176,13 @@ namespace FirstLight.Game.Utils
 				{GameConstants.Network.ROOM_PROPS_COMMIT, VersionUtils.Commit},
 
 				// Set the game map Id for the same matchmaking
-				{GameConstants.Network.ROOM_PROPS_MAP, mapConfig.Id}
+				{GameConstants.Network.ROOM_PROPS_MAP, mapConfig.Id},
+				
+				// For matchmaking, rooms are segregated by casual/ranked.
+				{GameConstants.Network.ROOM_PROPS_RANKED_MATCH, isRankedMatch},
+				
+				// Games always either have bots, or dont. This property needs to be in here
+				{GameConstants.Network.ROOM_PROPS_BOTS, gameHasBots}
 			};
 		}
 

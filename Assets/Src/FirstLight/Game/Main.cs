@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using Facebook.Unity;
 using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -45,22 +44,17 @@ namespace FirstLight.Game
 			var genericDialogService = new GenericDialogService(uiService);
 			var audioFxService = new GameAudioFxService(assetResolver);
 			var vfxService = new VfxService<VfxId>();
-			var threadService = new ThreadService();
-			var gameFlowService = new GameFlowService();
-			
 			
 			var gameLogic = new GameLogic(messageBroker, timeService, dataService, configsProvider,
 			                              audioFxService);
 			var gameServices = new GameServices(networkService, messageBroker, timeService, dataService,
-			                                    configsProvider,
-			                                    gameLogic, dataService, genericDialogService, assetResolver,
-			                                    vfxService, audioFxService, threadService, gameFlowService);
+			                                    configsProvider, gameLogic, dataService, genericDialogService, 
+			                                    assetResolver, vfxService, audioFxService);
 
 			MainInstaller.Bind<IGameDataProvider>(gameLogic);
 			MainInstaller.Bind<IGameServices>(gameServices);
 
 			UiService = uiService;
-
 			_gameLogic = gameLogic;
 			_services = gameServices;
 			_notificationStateMachine = new NotificationStateMachine(gameLogic, gameServices);
@@ -80,11 +74,11 @@ namespace FirstLight.Game
 					EditorPrefs.GetBool(GameConstants.Editor.PREFS_ENABLE_STATE_MACHINE_DEBUG_KEY);
 			}
 #endif
+			FLog.Verbose($"Initialized client version {VersionUtils.VersionExternal}");
 		}
 
 		private void Start()
 		{
-			FB.Init(FacebookInit);
 			_notificationStateMachine.Run();
 			_gameStateMachine.Run();
 			TrySetLocalServer();
@@ -112,21 +106,7 @@ namespace FirstLight.Game
 		private void OnApplicationQuit()
 		{
 			_services?.DataSaver?.SaveAllData();
-
-			var quitReason = _services?.GameFlowService.QuitReason;
-			
-			_services?.AnalyticsService.SessionCalls.SessionEnd(quitReason);
-		}
-
-		private static void FacebookInit()
-		{
-			if (!FB.IsInitialized)
-			{
-				Debug.LogException(new UnityException("Facebook failed to initialized"));
-				return;
-			}
-
-			FB.ActivateApp();
+			_services?.AnalyticsService.SessionCalls.SessionEnd(_services?.QuitReason);
 		}
 
 		private void TrySetLocalServer()
@@ -151,7 +131,7 @@ namespace FirstLight.Game
 			// The app is closed after 30 sec of being unused
 			yield return new WaitForSeconds(30);
 
-			_services?.GameFlowService.QuitGame("App closed after 30 sec of being unused");
+			_services?.QuitGame("App closed after 30 sec of being unused");
 		}
 
 		private IEnumerator HeartbeatCoroutine()

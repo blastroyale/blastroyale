@@ -8,6 +8,20 @@ using UnityEngine;
 
 namespace FirstLight.Game.Services
 {
+	public struct SpectatedPlayer
+	{
+		public EntityRef Entity;
+		public PlayerRef Player;
+		public Transform Transform;
+
+		public SpectatedPlayer(EntityRef entity, PlayerRef player, Transform transform)
+		{
+			Entity = entity;
+			Player = player;
+			Transform = transform;
+		}
+	}
+	
 	/// <summary>
 	/// Tracks the currently spectated player / entity, and allows operations on it.
 	///
@@ -32,43 +46,36 @@ namespace FirstLight.Game.Services
 		public void SwipeRight();
 	}
 
-	public struct SpectatedPlayer
-	{
-		public EntityRef Entity;
-		public PlayerRef Player;
-		public Transform Transform;
-
-		public SpectatedPlayer(EntityRef entity, PlayerRef player, Transform transform)
-		{
-			Entity = entity;
-			Player = player;
-			Transform = transform;
-		}
-	}
-
 	public class SpectateService : ISpectateService, MatchServices.IMatchService
 	{
+		private readonly IGameServices _gameServices;
+		private readonly IMatchServices _matchServices;
+		private readonly FP _playerVisionRange;
+		private readonly IObservableField<SpectatedPlayer> _spectatedPlayer = new ObservableField<SpectatedPlayer>();
+		
 		public IObservableFieldReader<SpectatedPlayer> SpectatedPlayer => _spectatedPlayer;
 
-		private readonly IEntityViewUpdaterService _entityViewUpdaterService;
-		private readonly IGameNetworkService _networkService;
-
-		private readonly FP _playerVisionRange;
-
-		private readonly IObservableField<SpectatedPlayer> _spectatedPlayer = new ObservableField<SpectatedPlayer>();
-
-		public SpectateService(IEntityViewUpdaterService entityViewUpdaterService, IGameNetworkService networkService,
-		                       IConfigsProvider configsProvider)
+		public SpectateService(IGameServices gameServices, IMatchServices matchServices)
 		{
-			_entityViewUpdaterService = entityViewUpdaterService;
-			_networkService = networkService;
+			_gameServices = gameServices;
+			_matchServices = matchServices;
+			_playerVisionRange = gameServices.ConfigsProvider.GetConfig<QuantumGameConfig>().PlayerVisionRange;
 
-			_playerVisionRange = configsProvider.GetConfig<QuantumGameConfig>().PlayerVisionRange;
+			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnQuantumUpdateView);
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
+			QuantumEvent.SubscribeManual<EventOnPlayerDead>(this, OnEventOnPlayerDead);
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned); // For Deathmatch
 		}
 
-		public void OnMatchStarted(bool isReconnect)
+		public void Dispose()
 		{
-			if (_networkService.QuantumClient.LocalPlayer.IsSpectator())
+			QuantumCallback.UnsubscribeListener(this);
+			QuantumEvent.UnsubscribeListener(this);
+		}
+
+		public void OnMatchStarted(QuantumGame game, bool isReconnect)
+		{
+			if (_gameServices.NetworkService.IsSpectorPlayer)
 			{
 				if (isReconnect)
 				{
@@ -77,7 +84,6 @@ namespace FirstLight.Game.Services
 			}
 			else
 			{
-				var game = QuantumRunner.Default.Game;
 				var f = QuantumRunner.Default.Game.Frames.Verified;
 				var gameContainer = f.GetSingleton<GameContainer>();
 				var playersData = gameContainer.PlayersData;
@@ -93,13 +99,6 @@ namespace FirstLight.Game.Services
 					SetSpectatedEntity(localPlayer.Entity, localPlayer.Player);
 				}
 			}
-
-			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnQuantumUpdateView);
-
-			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
-			QuantumEvent.SubscribeManual<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
-			QuantumEvent.SubscribeManual<EventOnHealthIsZero>(this, OnEventOnHealthIsZero);
-			QuantumEvent.SubscribeManual<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned); // For Deathmatch
 		}
 
 		private void OnQuantumUpdateView(CallbackUpdateView callback)
@@ -169,27 +168,24 @@ namespace FirstLight.Game.Services
 		private void TrySetSpectateModePlayer()
 		{
 			// Spectator mode - set new player to follow, only once
-			if (_networkService.QuantumClient.LocalPlayer.IsSpectator() && !_spectatedPlayer.Value.Entity.IsValid)
+			if (_gameServices.NetworkService.QuantumClient.LocalPlayer.IsSpectator() && !_spectatedPlayer.Value.Entity.IsValid &&
+			    TryGetNextPlayer(out var player))
 			{
-				if (TryGetNextPlayer(out var player))
-				{
-					SetSpectatedEntity(player.Key, player.Value, true);
-				}
+				SetSpectatedEntity(player.Key, player.Value, true);
 			}
 		}
 
-		private void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
+		private void OnEventOnPlayerDead(EventOnPlayerDead callback)
 		{
-			if (callback.EntityDead == _spectatedPlayer.Value.Entity)
+			if (callback.Entity != _spectatedPlayer.Value.Entity)
 			{
-				if (callback.EntityDead == callback.EntityKiller)
-				{
-					SetSpectatedEntity(callback.EntityLeader, callback.PlayerLeader);
-				}
-				else
-				{
-					SetSpectatedEntity(callback.EntityKiller, callback.PlayerKiller);
-				}
+				return;
+			}
+
+			if(!callback.Game.Frames.Verified.TryGet<PlayerCharacter>(callback.EntityKiller, out var killerPlayer) || 
+			        !SetSpectatedEntity(callback.EntityKiller, killerPlayer.Player))
+			{
+				SwipeRight();
 			}
 		}
 
@@ -197,32 +193,29 @@ namespace FirstLight.Game.Services
 		{
 			SetSpectatedEntity(callback.Entity, callback.Player);
 		}
-		
+
 		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
 		{
 			SetSpectatedEntity(callback.Entity, callback.Player);
 		}
 
-		private void OnEventOnHealthIsZero(EventOnHealthIsZero callback)
+		private bool SetSpectatedEntity(EntityRef entity, PlayerRef player, bool safe = false)
 		{
-			if (callback.Entity == _spectatedPlayer.Value.Entity && callback.SpellID == Spell.ShrinkingCircleId)
-			{
-				SwipeRight();
-			}
-		}
+			if (_spectatedPlayer.Value.Entity == entity || !entity.IsValid) return false;
 
-		private void SetSpectatedEntity(EntityRef entity, PlayerRef player, bool safe = false)
-		{
-			if (_spectatedPlayer.Value.Entity == entity) return;
-
-			if (_entityViewUpdaterService.TryGetView(entity, out var view))
+			if (_matchServices.EntityViewUpdaterService.TryGetView(entity, out var view))
 			{
 				_spectatedPlayer.Value = new SpectatedPlayer(entity, player, view.transform);
+				
+				return true;
 			}
-			else if (!safe)
+			
+			if (!safe)
 			{
 				throw new Exception($"Could not fetch EntityView for {entity}");
 			}
+
+			return false;
 		}
 
 		private List<Pair<EntityRef, PlayerRef>> GetPlayerList(Frame f, out int currentIndex)

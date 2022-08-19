@@ -14,6 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _assetsFolderPath: Assets/AddressableResources/AdventureAssets/Indicators
   _configs:
+  - Key: 0
+    Value:
+      m_AssetGUID: d811c2e60601a49dc93aee2e0d196833
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
   - Key: 1
     Value:
       m_AssetGUID: 00a78a82f98f448679ffa93af3781669

@@ -30,12 +30,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Required, Title("Refs")]
 		private GameObject _infoTextRef;
 
-		[SerializeField, Required] private GameObject _statChangeTextRef;
+		[SerializeField, Required] 
+		private GameObject _statChangeTextRef;
 
 		[SerializeField, Required, Title("Animation")]
 		private MessageTypeFlotDictionary _delays;
 
-		private IEntityViewUpdaterService _entityViewUpdaterService;
 		private IMatchServices _matchServices;
 		private Coroutine _coroutine;
 		private EntityRef _observedEntity;
@@ -47,7 +47,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void Awake()
 		{
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
-			_entityViewUpdaterService = MainInstaller.Resolve<IEntityViewUpdaterService>();
 
 			_queues.Add(MessageType.Info, new Queue<MessageData>());
 			_queues.Add(MessageType.StatChange, new Queue<MessageData>());
@@ -91,7 +90,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 						     ArgumentOutOfRangeException($"Text color not defined for {consumable.ConsumableType}.")
 				};
 
-				EnqueueText("MAX", textColor, MessageType.Info,
+				EnqueueText(_observedEntity, "MAX", textColor, MessageType.Info,
 				            consumable.ConsumableType is ConsumableType.Shield or ConsumableType.ShieldCapacity
 					            ? _iconArmour
 					            : null);
@@ -107,7 +106,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				                  ? MessageType.StatChange
 				                  : MessageType.Info;
 
-			EnqueueText(callback.CollectableId.GetTranslation(), _neutralTextColor, messageType);
+			EnqueueText(_observedEntity, callback.CollectableId.GetTranslation(), _neutralTextColor, messageType);
 		}
 
 		private void OnShieldUpdate(EventOnShieldChanged callback)
@@ -116,13 +115,13 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			if (callback.PreviousShieldCapacity != callback.ShieldCapacity)
 			{
-				EnqueueValue(ScriptLocalization.General.Shield,
+				EnqueueValue(_observedEntity, ScriptLocalization.General.Shield,
 				             callback.ShieldCapacity - callback.PreviousShieldCapacity, MessageType.Info);
 			}
 
 			if (callback.PreviousShield != callback.CurrentShield)
 			{
-				EnqueueValue(ScriptLocalization.General.Shield,
+				EnqueueValue(_observedEntity, ScriptLocalization.General.Shield,
 				             callback.CurrentShield - callback.PreviousShield, MessageType.Info);
 			}
 		}
@@ -140,21 +139,22 @@ namespace FirstLight.Game.Views.MatchHudViews
 				                 callback.PreviousStats.Values[i].BaseValue.AsFloat;
 				var statName = callback.CurrentStats.Values[i].Type.GetTranslation();
 
-				EnqueueValue(statName, Mathf.RoundToInt(difference), MessageType.StatChange);
+				EnqueueValue(_observedEntity, statName, Mathf.RoundToInt(difference), MessageType.StatChange);
 			}
 		}
 
 		private void OnHealthUpdate(EventOnHealthChanged callback)
 		{
-			if (callback.Entity != _observedEntity || callback.PreviousHealth == 0) return;
+			if (callback.PreviousHealth == 0) return;
 
 			var healthChange = callback.CurrentHealth - callback.PreviousHealth;
 			var color = healthChange > 0 ? _healTextColor : _hitTextColor;
 
-			EnqueueText(healthChange.ToString(), color, MessageType.Info);
+			EnqueueText(callback.Entity, healthChange.ToString(), color, MessageType.Info);
 		}
 
-		private void EnqueueValue(string valueName, int value, MessageType type, Sprite icon = null,
+		private void EnqueueValue(EntityRef playerEntity, string valueName, int value, MessageType type,
+		                          Sprite icon = null,
 		                          bool allowZero = false)
 		{
 			if (allowZero || value == 0) return;
@@ -163,14 +163,15 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var messageText = valueName + valueSign + value;
 			var messageColor = value > 0 ? _neutralTextColor : _hitTextColor;
 
-			EnqueueText(messageText, messageColor, type, icon);
+			EnqueueText(playerEntity, messageText, messageColor, type, icon);
 		}
 
-		private void EnqueueText(string message, Color color, MessageType type, Sprite icon = null)
+		private void EnqueueText(EntityRef playerEntity, string message, Color color, MessageType type,
+		                         Sprite icon = null)
 		{
-			_queues[type].Enqueue(new MessageData(message, color, icon));
+			_queues[type].Enqueue(new MessageData(playerEntity, message, color, icon));
 
-			if (!_coroutines.ContainsKey(type))
+			if (!_coroutines.ContainsKey(type) && isActiveAndEnabled)
 			{
 				_coroutines[type] = StartCoroutine(SpawnTextCoroutine(type));
 			}
@@ -193,7 +194,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void SpawnText(MessageType type, MessageData data)
 		{
-			if (!TryGetSpawnPosition(out var position)) return;
+			if (!TryGetSpawnPosition(data.PlayerEntity, out var position)) return;
 
 			var textObject = _pools[type].Spawn();
 			textObject.OverlayWorldView.Follow(position);
@@ -231,9 +232,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 			return poolObject;
 		}
 
-		private bool TryGetSpawnPosition(out Vector3 position)
+		private bool TryGetSpawnPosition(EntityRef entity, out Vector3 position)
 		{
-			if (_entityViewUpdaterService.TryGetView(_observedEntity, out var entityView) &&
+			if (_matchServices.EntityViewUpdaterService.TryGetView(entity, out var entityView) &&
 			    entityView.TryGetComponent<HealthEntityBase>(out var entityBase))
 			{
 				position = entityBase.HealthBarAnchor.position;
@@ -270,12 +271,14 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private struct MessageData
 		{
+			public EntityRef PlayerEntity;
 			public string MessageText;
 			public Color Color;
 			public Sprite Icon;
 
-			public MessageData(string messageText, Color color, Sprite icon)
+			public MessageData(EntityRef playerEntity, string messageText, Color color, Sprite icon)
 			{
+				PlayerEntity = playerEntity;
 				MessageText = messageText;
 				Color = color;
 				Icon = icon;

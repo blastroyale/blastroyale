@@ -27,7 +27,7 @@ namespace Quantum
 		public static readonly string BurstTimeDelay = "BurstTimeDelay";
 		public static readonly string BurstShotCount = "BurstShotCount";
 		public static readonly string RampUpTimeStart = "RampUpTimeStart";
-		public static readonly string IsAimingKey = "IsAiming";
+		public static readonly string IsAimPressedKey = "IsAimPressed";
 		public static readonly string AmmoFilledKey = "AmmoFilled";
 		public static readonly string IsSkydiving = "IsSkydiving";
 	}

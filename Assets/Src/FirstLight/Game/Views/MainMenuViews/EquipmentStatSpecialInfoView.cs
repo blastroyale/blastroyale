@@ -50,11 +50,9 @@ namespace FirstLight.Game.Views.MainMenuViews
 				ButtonOnClick = CloseDialog
 			};
 
-			_services.GenericDialogService.OpenVideoDialog(_specialGameId.GetTranslation(),
-				LocalizationManager.GetTranslation(descriptionTerm),
-				_specialGameId,
-				true, 
-				confirmButton);
+			_services.GenericDialogService.OpenDialog(LocalizationManager.GetTranslation(descriptionTerm), 
+			                                          false,
+			                                          confirmButton);
 		}
 		
 		private void CloseDialog()

@@ -50,12 +50,12 @@ public class PlayerSetupService : IPlayerSetupService
 		var rngData = SetupInitialRngData(playFabId.GetHashCode());
 		var idData = new IdData();
 		var playerData = SetupInitialPlayerData(idData, rngData);
-		var equipmentData = new NftEquipmentData();
+		var equipmentData = new EquipmentData();
 		var serverState = new ServerState();
-		serverState.SetModel(idData);
-		serverState.SetModel(rngData);
-		serverState.SetModel(playerData);
-		serverState.SetModel(equipmentData);
+		serverState.UpdateModel(idData);
+		serverState.UpdateModel(rngData);
+		serverState.UpdateModel(playerData);
+		serverState.UpdateModel(equipmentData);
 		return serverState;
 	}
 
@@ -88,15 +88,9 @@ public class PlayerSetupService : IPlayerSetupService
 	{
 		var rngSkin = Rng.Range(0, _initialSkins.Count, rngData.State, false);
 		var csPoolConfig = _configsProvider.GetConfig<ResourcePoolConfig>((int)GameId.CS);
-		var eqExpPoolConfig = _configsProvider.GetConfig<ResourcePoolConfig>((int)GameId.EquipmentXP);
 		var playerData = new PlayerData();
-		playerData.Level = 1;
 		playerData.PlayerSkinId = _initialSkins[rngSkin];
-		playerData.Trophies = 1000;
 		playerData.ResourcePools.Add(GameId.CS, new ResourcePoolData(GameId.CS, csPoolConfig.PoolCapacity, DateTime.UtcNow));
-		playerData.ResourcePools.Add(GameId.EquipmentXP, new ResourcePoolData(GameId.EquipmentXP, eqExpPoolConfig.PoolCapacity, DateTime.UtcNow));
-		playerData.Currencies.Add(GameId.CS, 0);
-		playerData.Currencies.Add(GameId.BLST, 0);
 		return playerData;
 	}
 }

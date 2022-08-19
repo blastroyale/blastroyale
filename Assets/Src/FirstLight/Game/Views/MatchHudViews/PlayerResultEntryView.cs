@@ -25,9 +25,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// <summary>
 		/// Set the information of this player entry ranking based on the given <paramref name="data"/>
 		/// </summary>
-		public void SetInfo(QuantumPlayerMatchData data, bool showExtra = true)
+		public void SetInfo(QuantumPlayerMatchData data, bool showExtra, bool isLocalPlayer)
 		{
-			var col = data.IsLocalPlayer ? Color.yellow : Color.white;
+			var col = isLocalPlayer ? Color.yellow : Color.white;
 
 			_playerNameText.text = data.GetPlayerName();
 			_playerRankText.text = $"{data.PlayerRank.ToString()}.";

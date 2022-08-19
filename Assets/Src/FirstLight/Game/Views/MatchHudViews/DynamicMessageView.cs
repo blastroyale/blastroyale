@@ -29,6 +29,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private readonly Queue<MessageData> _queue = new Queue<MessageData>();
 		
 		private IGameServices _services;
+		private IMatchServices _matchServices;
 		private IGameDataProvider _gameDataProvider;
 		private Coroutine _killTimerCoroutine;
 		private int _killCounter;
@@ -50,6 +51,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
+			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			
 			var mapConfig = _services.NetworkService.CurrentRoomMapConfig.Value;
 			var config = _services.ConfigsProvider.GetConfig<QuantumGameConfig>();
@@ -129,7 +131,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void CheckKillingSpree(QuantumPlayerMatchData killerData, QuantumPlayerMatchData deadData)
 		{
-			if (killerData.IsLocalPlayer)
+			if (_matchServices.SpectateService.SpectatedPlayer.Value.Player == killerData.Data.Player)
 			{
 				var message = new MessageData
 				{
@@ -171,7 +173,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				_killTimerCoroutine = StartCoroutine(TimeUpdateCoroutine());
 			}
 			
-			if (deadData.IsLocalPlayer)
+			if (_matchServices.SpectateService.SpectatedPlayer.Value.Player == deadData.Data.Player)
 			{
 				_killCounter = 0;
 

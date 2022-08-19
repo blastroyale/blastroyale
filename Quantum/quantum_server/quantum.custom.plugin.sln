@@ -5,6 +5,8 @@ VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "quantum.custom.plugin", "quantum.custom.plugin\quantum.custom.plugin.csproj", "{02EEEC68-1AA7-4225-A16E-0AC20984EC2C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestQuantumPlugin", "TestQuantumPlugin\TestQuantumPlugin.csproj", "{79193A7F-497D-4361-9D94-281FB99AD944}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{02EEEC68-1AA7-4225-A16E-0AC20984EC2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02EEEC68-1AA7-4225-A16E-0AC20984EC2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02EEEC68-1AA7-4225-A16E-0AC20984EC2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79193A7F-497D-4361-9D94-281FB99AD944}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79193A7F-497D-4361-9D94-281FB99AD944}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79193A7F-497D-4361-9D94-281FB99AD944}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79193A7F-497D-4361-9D94-281FB99AD944}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

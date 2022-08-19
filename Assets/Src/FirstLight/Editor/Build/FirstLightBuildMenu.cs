@@ -20,6 +20,7 @@ namespace FirstLight.Editor.Build
 			}
 			
 			FirstLightBuildConfig.SetupDevelopmentConfig();
+			FirstLightBuildConfig.SetScriptingDefineSymbols(BuildTargetGroup.Android, FirstLightBuildConfig.DevelopmentSymbol);
 
 			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.Android, outputPath, FirstLightBuildConfig.LocalSymbol);
 			
@@ -37,14 +38,15 @@ namespace FirstLight.Editor.Build
 			}
 			
 			FirstLightBuildConfig.SetupDevelopmentConfig();
+			FirstLightBuildConfig.SetScriptingDefineSymbols(BuildTargetGroup.Android, FirstLightBuildConfig.DevelopmentSymbol);
 			
 			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.Android, outputPath, FirstLightBuildConfig.DevelopmentSymbol);
 			
 			BuildPipeline.BuildPlayer(options);
 		}
 		
-		[MenuItem("FLG/Build/Android/Staging Build")]
-		public static void BuildAndroidStaging()
+		[MenuItem("FLG/Build/Android/Release Build")]
+		public static void BuildRelease()
 		{
 			var outputPath = EditorUtility.SaveFilePanel(string.Empty, string.Empty, _defaultAppName, string.Empty);
 			
@@ -53,9 +55,10 @@ namespace FirstLight.Editor.Build
 				return;
 			}
 			
-			FirstLightBuildConfig.SetupStagingConfig();
+			FirstLightBuildConfig.SetupReleaseConfig();
+			FirstLightBuildConfig.SetScriptingDefineSymbols(BuildTargetGroup.Android, FirstLightBuildConfig.ReleaseSymbol);
 			
-			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.Android, outputPath, FirstLightBuildConfig.StagingSymbol);
+			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.Android, outputPath, FirstLightBuildConfig.ReleaseSymbol);
 			
 			BuildPipeline.BuildPlayer(options);
 		}
@@ -71,6 +74,7 @@ namespace FirstLight.Editor.Build
 			}
 			
 			FirstLightBuildConfig.SetupStoreConfig();
+			FirstLightBuildConfig.SetScriptingDefineSymbols(BuildTargetGroup.Android, FirstLightBuildConfig.StoreSymbol);
 			
 			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.Android, outputPath, FirstLightBuildConfig.StoreSymbol);
 			
@@ -88,6 +92,7 @@ namespace FirstLight.Editor.Build
 			}
 			
 			FirstLightBuildConfig.SetupDevelopmentConfig();
+			FirstLightBuildConfig.SetScriptingDefineSymbols(BuildTargetGroup.iOS, FirstLightBuildConfig.DevelopmentSymbol);
 
 			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.iOS, outputPath, FirstLightBuildConfig.LocalSymbol);
 
@@ -108,14 +113,15 @@ namespace FirstLight.Editor.Build
 			}
 
 			FirstLightBuildConfig.SetupDevelopmentConfig();
+			FirstLightBuildConfig.SetScriptingDefineSymbols(BuildTargetGroup.iOS, FirstLightBuildConfig.DevelopmentSymbol);
 			
 			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.iOS, outputPath, FirstLightBuildConfig.DevelopmentSymbol);
 			
 			BuildPipeline.BuildPlayer(options);
 		}
 		
-		[MenuItem("FLG/Build/iOS/Staging Build")]
-		public static void BuildIosStaging()
+		[MenuItem("FLG/Build/iOS/Release Build")]
+		public static void BuildIosRelease()
 		{
 			var outputPath = EditorUtility.SaveFilePanel(string.Empty, string.Empty, _defaultAppName, string.Empty);
 			
@@ -124,9 +130,10 @@ namespace FirstLight.Editor.Build
 				return;
 			}
 			
-			FirstLightBuildConfig.SetupStagingConfig();
+			FirstLightBuildConfig.SetupReleaseConfig();
+			FirstLightBuildConfig.SetScriptingDefineSymbols(BuildTargetGroup.iOS, FirstLightBuildConfig.ReleaseSymbol);
 			
-			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.iOS, outputPath, FirstLightBuildConfig.StagingSymbol);
+			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.iOS, outputPath, FirstLightBuildConfig.ReleaseSymbol);
 			
 			BuildPipeline.BuildPlayer(options);
 		}
@@ -142,6 +149,7 @@ namespace FirstLight.Editor.Build
 			}
 			
 			FirstLightBuildConfig.SetupStoreConfig();
+			FirstLightBuildConfig.SetScriptingDefineSymbols(BuildTargetGroup.iOS, FirstLightBuildConfig.StoreSymbol);
 			
 			var options = FirstLightBuildConfig.GetBuildPlayerOptions(BuildTarget.iOS, outputPath, FirstLightBuildConfig.StoreSymbol);
 			

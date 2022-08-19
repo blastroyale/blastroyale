@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Presenters;
@@ -86,10 +87,7 @@ namespace FirstLight.Game.StateMachines
 			var game = QuantumRunner.Default.Game;
 			var frame = game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
-			var playerData = container.GetPlayersMatchData(frame, out var leader);
-			var leaderPlayerData = playerData[leader];
-
-			var killsLeftForLeader = container.TargetProgress - leaderPlayerData.Data.PlayersKilledCount;
+			var killsLeftForLeader = container.TargetProgress - container.CurrentProgress;
 
 			return killsLeftForLeader <= GameConstants.Audio.DM_HIGH_PHASE_KILLS_LEFT_THRESHOLD;
 		}
@@ -98,10 +96,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var frame = callback.Game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
-			var playerData = container.GetPlayersMatchData(frame, out var leader);
-			var leaderPlayerData = playerData[leader];
-
-			var killsLeftForLeader = container.TargetProgress - leaderPlayerData.Data.PlayersKilledCount;
+			var killsLeftForLeader = container.TargetProgress - container.CurrentProgress;
 
 			if (killsLeftForLeader <= GameConstants.Audio.DM_HIGH_PHASE_KILLS_LEFT_THRESHOLD && !_isHighIntensityPhase)
 			{
@@ -117,14 +112,16 @@ namespace FirstLight.Game.StateMachines
 		private void PlayHighIntensityMusic()
 		{
 			_isHighIntensityPhase = true;
+			
+			_services.AudioFxService.PlayClip2D(AudioId.MusicHighTransitionJingleDm, GameConstants.Audio.MIXER_GROUP_MUSIC_ID);
 
-			// If resync, skip fading
-			var fadeInDuration = _services.NetworkService.IsJoiningNewMatch
-				                     ? GameConstants.Audio.MUSIC_REGULAR_FADE_SECONDS
-				                     : 0;
+			_services.CoroutineService.StartCoroutine(PlayDmHighLoopCoroutine());
+		}
 
-			_services.AudioFxService.PlayMusic(AudioId.MusicDmLoop, fadeInDuration,
-			                                   GameConstants.Audio.MUSIC_REGULAR_FADE_SECONDS, true);
+		private IEnumerator PlayDmHighLoopCoroutine()
+		{
+			yield return new WaitForSeconds(GameConstants.Audio.HIGH_LOOP_TRANSITION_DELAY);
+			_services.AudioFxService.PlayMusic(AudioId.MusicDmHighLoop);
 		}
 	}
 }

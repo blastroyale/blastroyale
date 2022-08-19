@@ -17,6 +17,16 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// The position of this AirDrop in minimap viewport coordinates.
 		/// </summary>
 		public Vector3 ViewportPosition { get; private set; }
+		
+		/// <summary>
+		/// The quantum's <see cref="AirDrop"/> data for this view
+		/// </summary>
+		public AirDrop AirDrop { get; private set; }
+		
+		/// <summary>
+		/// The quantum's <see cref="EntityRef"/> representing this airdrop
+		/// </summary>
+		public EntityRef Entity { get; private set; }
 
 		[SerializeField, Required, Title("Refs")]
 		private Image _timerImage;
@@ -36,9 +46,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField] private float _showDuration = 0.3f;
 		[SerializeField] private Ease _hideEase = Ease.InSine;
 		[SerializeField] private float _hideDuration = 0.3f;
-
-		private AirDrop _airDrop;
-
+		
 		private void Update()
 		{
 			_glow.transform.localScale = Vector3.one + Vector3.one * ((Mathf.Sin(Time.time * 2f) + 1f) / 2f * 0.2f);
@@ -71,19 +79,20 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// </summary>
 		public void UpdateTime(FP time)
 		{
-			if (_airDrop.Duration > FP._0)
+			if (AirDrop.Duration > FP._0)
 			{
 				_timerImage.fillAmount =
-					Mathf.Clamp01(((time - _airDrop.StartTime - _airDrop.Delay) / _airDrop.Duration).AsFloat);
+					Mathf.Clamp01(((time - AirDrop.StartTime - AirDrop.Delay) / AirDrop.Duration).AsFloat);
 			}
 		}
 
 		/// <summary>
 		/// Sets the AirDrop and it's minimap viewport position.
 		/// </summary>
-		public void SetAirdrop(AirDrop airDrop, Vector3 viewportPosition)
+		public void SetAirdrop(AirDrop airDrop, EntityRef entity, Vector3 viewportPosition)
 		{
-			_airDrop = airDrop;
+			AirDrop = airDrop;
+			Entity = entity;
 			ViewportPosition = viewportPosition;
 		}
 

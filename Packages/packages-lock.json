@@ -17,33 +17,33 @@
       "hash": "b43e40508b167d143330d8b9eff0d5c9965cdf3c"
     },
     "com.google.external-dependency-manager": {
-      "version": "file:../Google/com.google.external-dependency-manager-1.2.170.tgz",
+      "version": "file:../Google/com.google.external-dependency-manager-1.2.172.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {}
     },
     "com.google.firebase.analytics": {
-      "version": "file:../Google/com.google.firebase.analytics-8.8.0.tgz",
+      "version": "file:../Google/com.google.firebase.analytics-9.3.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
-        "com.google.firebase.app": "8.8.0"
+        "com.google.firebase.app": "9.3.0"
       }
     },
     "com.google.firebase.app": {
-      "version": "file:../Google/com.google.firebase.app-8.8.0.tgz",
+      "version": "file:../Google/com.google.firebase.app-9.3.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
-        "com.google.external-dependency-manager": "1.2.169"
+        "com.google.external-dependency-manager": "1.2.172"
       }
     },
     "com.google.firebase.crashlytics": {
-      "version": "file:../Google/com.google.firebase.crashlytics-8.8.0.tgz",
+      "version": "file:../Google/com.google.firebase.crashlytics-9.3.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
-        "com.google.firebase.app": "8.8.0"
+        "com.google.firebase.app": "9.3.0"
       }
     },
     "com.unity.2d.animation": {

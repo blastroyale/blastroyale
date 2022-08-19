@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2064055629333910691}
   - component: {fileID: 4489426621863903911}
   - component: {fileID: 6119799793040394862}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ArmorPadR_Warrior
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,7 +114,7 @@ GameObject:
   - component: {fileID: 8675776543089857187}
   - component: {fileID: 134237334677419677}
   - component: {fileID: 9070067088050665936}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ArmorChest_Warrior
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -216,7 +216,7 @@ GameObject:
   - component: {fileID: 6390418273365316609}
   - component: {fileID: 3991936665760667658}
   - component: {fileID: 668451811872904419}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ArmorPadL_Warrior
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -315,7 +315,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 259382477880355926}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WarriorArmor
   m_TagString: Untagged
   m_Icon: {fileID: 0}

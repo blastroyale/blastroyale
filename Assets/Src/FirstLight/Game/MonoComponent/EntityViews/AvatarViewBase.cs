@@ -94,7 +94,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, HandleEventOnPlayerAlive);
 			QuantumEvent.Subscribe<EventOnHealthChanged>(this, HandleOnHealthChanged);
-			QuantumEvent.Subscribe<EventOnHealthIsZero>(this, HandleOnHealthIsZero);
+			QuantumEvent.Subscribe<EventOnHealthIsZeroFromAttacker>(this, HandleOnHealthIsZeroFromAttacker);
 			QuantumEvent.Subscribe<EventOnStatusModifierSet>(this, HandleOnStatusModifierSet);
 			QuantumEvent.Subscribe<EventOnStatusModifierCancelled>(this, HandleOnStatusModifierCancelled);
 			QuantumEvent.Subscribe<EventOnStatusModifierFinished>(this, HandleOnStatusModifierFinished);
@@ -171,7 +171,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumCallback.UnsubscribeListener(this);
 		}
 
-		private void HandleOnHealthIsZero(EventOnHealthIsZero callback)
+		private void HandleOnHealthIsZeroFromAttacker(EventOnHealthIsZeroFromAttacker callback)
 		{
 			if (callback.Entity != EntityView.EntityRef)
 			{
@@ -180,7 +180,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			var direction = Vector3.zero;
 
-			if (EntityViewUpdaterService.TryGetView(callback.Attacker, out var attackerView))
+			if (MatchServices.EntityViewUpdaterService.TryGetView(callback.Attacker, out var attackerView))
 			{
 				direction = (transform.position - attackerView.transform.position).normalized;
 			}

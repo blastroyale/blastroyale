@@ -8,13 +8,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StandaloneServer", "Standal
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerSDK", "ServerSDK\ServerSDK.csproj", "{0D4B49C3-D319-405D-AB52-689E68FCF64D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlastRoyaleNFTPlugin", "BlastRoyaleNFTPlugin\BlastRoyaleNFTPlugin.csproj", "{CCC7084A-07BF-499D-82B8-4E3A08123FF7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlastRoyaleCorePlugin", "BlastRoyaleCorePlugin\BlastRoyaleCorePlugin.csproj", "{CCC7084A-07BF-499D-82B8-4E3A08123FF7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestIntegration", "TestIntegration\TestIntegration.csproj", "{7D43F122-B4BC-4B5B-BA5B-6E64F13B4F28}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlastRoyaleTrophyLadderPlugin", "BlastRoyaleTrophyLadderPlugin\BlastRoyaleTrophyLadderPlugin.csproj", "{A3953A68-EF34-4A8B-81D4-0A1EA0999458}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerScripts", "ServerScripts\ServerScripts.csproj", "{7F2DDD83-CC93-41FD-94E8-7F223F638AB6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlastRoyaleAnalyticsPlugin", "BlastRoyaleAnalyticsPlugin\BlastRoyaleAnalyticsPlugin.csproj", "{40F47742-2FEE-41B1-BD92-D091AB706DA5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,5 +56,9 @@ Global
 		{7F2DDD83-CC93-41FD-94E8-7F223F638AB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F2DDD83-CC93-41FD-94E8-7F223F638AB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F2DDD83-CC93-41FD-94E8-7F223F638AB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40F47742-2FEE-41B1-BD92-D091AB706DA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40F47742-2FEE-41B1-BD92-D091AB706DA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40F47742-2FEE-41B1-BD92-D091AB706DA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40F47742-2FEE-41B1-BD92-D091AB706DA5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

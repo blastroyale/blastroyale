@@ -8,7 +8,6 @@ using MoreMountains.NiceVibrations;
 using Quantum;
 using UnityEngine;
 
-
 namespace FirstLight.Game.Logic
 {
 	/// <summary>
@@ -25,6 +24,11 @@ namespace FirstLight.Game.Logic
 		/// Requests the information if the game was or not yet reviewed
 		/// </summary>
 		bool IsGameReviewed { get; }
+
+		/// <summary>
+		/// Requests if this device is Linked
+		/// </summary>
+		bool IsDeviceLinked { get; }
 
 		/// <summary>
 		/// Are Sound Effects enabled?
@@ -62,15 +66,20 @@ namespace FirstLight.Game.Logic
 		IObservableFieldReader<string> NicknameId { get; }
 		
 		/// <summary>
-		/// Requests current status device if has a linked account already configured or not
+		/// Requests current device Id
 		/// </summary>
-		IObservableFieldReader<bool> AccountLinkedStatus { get; }
+		IObservableFieldReader<string> DeviceId { get; }
 
 		/// <summary>
 		/// Requests current selected game mode
 		/// Marks the date when the game was last time reviewed
 		/// </summary>
 		IObservableField<GameMode> SelectedGameMode { get; }
+		
+		/// <summary>
+		/// Requests current selected match type
+		/// </summary>
+		IObservableField<MatchType> SelectedMatchType { get; }
 
 		/// <summary>
 		/// Sets the resolution mode for the 3D rendering of the app
@@ -90,19 +99,20 @@ namespace FirstLight.Game.Logic
 		/// Requests and sets player nickname
 		/// </summary>
 		new IObservableField<string> NicknameId { get; }
-		
+
 		/// <summary>
-		/// Requests and sets current status device if has a linked account already configured or not
+		/// Unlinks this device current account
 		/// </summary>
-		new IObservableField<bool> AccountLinkedStatus { get; }
+		void UnlinkDevice();
 	}
 
 	/// <inheritdoc cref="IAppLogic"/>
 	public class AppLogic : AbstractBaseLogic<AppData>, IAppLogic, IGameLogicInitializer
 	{
-		private readonly DateTime _defaultZeroTime = new DateTime(2020, 1, 1);
+		private readonly DateTime _defaultZeroTime = new (2020, 1, 1);
 		private readonly IAudioFxService<AudioId> _audioFxService;
-		private readonly IObservableField<bool> _linkedDevice;
+		
+		private IObservableField<string> _deviceId;
 
 		/// <inheritdoc />
 		public bool IsFirstSession => Data.IsFirstSession;
@@ -111,14 +121,16 @@ namespace FirstLight.Game.Logic
 		public bool IsGameReviewed => Data.GameReviewDate > _defaultZeroTime;
 
 		/// <inheritdoc />
+		public bool IsDeviceLinked => string.IsNullOrWhiteSpace(_deviceId.Value);
+
+		/// <inheritdoc />
 		public bool IsSfxOn
 		{
 			get => Data.SfxEnabled;
 			set
 			{
 				Data.SfxEnabled = value;
-				_audioFxService.Is2dSfxMuted = !value;
-				_audioFxService.Is3dSfxMuted = !value;
+				_audioFxService.IsSfxMuted = !value;
 			}
 		}
 
@@ -167,13 +179,14 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc />
 		public IObservableField<GameMode> SelectedGameMode { get; private set; }
-
+		
 		/// <inheritdoc />
-		public IObservableField<bool> AccountLinkedStatus { get; private set; }
+		public IObservableField<MatchType> SelectedMatchType { get; private set; }
+
 		/// <inheritdoc />
 		IObservableFieldReader<string> IAppDataProvider.NicknameId => NicknameId;
 		/// <inheritdoc />
-		IObservableFieldReader<bool> IAppDataProvider.AccountLinkedStatus => AccountLinkedStatus;
+		IObservableFieldReader<string> IAppDataProvider.DeviceId => _deviceId;
 
 		public AppLogic(IGameLogic gameLogic, IDataProvider dataProvider, IAudioFxService<AudioId> audioFxService) :
 			base(gameLogic, dataProvider)
@@ -187,8 +200,9 @@ namespace FirstLight.Game.Logic
 			IsSfxOn = IsSfxOn;
 			IsBgmOn = IsBgmOn;
 			NicknameId = new ObservableResolverField<string>(() => Data.NickNameId, name => Data.NickNameId = name);
-			AccountLinkedStatus = new ObservableResolverField<bool>(() => Data.LinkedDevice, linked => Data.LinkedDevice = linked);
+			_deviceId = new ObservableResolverField<string>(() => Data.DeviceId, linked => Data.DeviceId = linked);
 			SelectedGameMode = new ObservableField<GameMode>(GameMode.BattleRoyale);
+			SelectedMatchType = new ObservableField<MatchType>(MatchType.Casual);
 		}
 
 		/// <inheritdoc />
@@ -210,6 +224,12 @@ namespace FirstLight.Game.Logic
 
 			QualitySettings.SetQualityLevel(detailLevelConf.DetailLevelIndex);
 			Application.targetFrameRate = detailLevelConf.Fps;
+		}
+
+		/// <inheritdoc />
+		public void UnlinkDevice()
+		{
+			_deviceId.Value = "";
 		}
 	}
 }

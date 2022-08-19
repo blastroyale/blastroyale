@@ -33,17 +33,19 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 
 			QuantumEvent.Subscribe<EventOnPlayerDead>(this, OnEventOnPlayerDead);
+			
+			UpdatePlayersAlive(QuantumRunner.Default.Game.Frames.Verified);
 		}
 
 		private void OnDestroy()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
-			_matchServices.SpectateService.SpectatedPlayer.StopObservingAll(this);
+			_matchServices?.SpectateService.SpectatedPlayer.StopObservingAll(this);
 		}
 
 		private void OnMatchStarted(MatchStartedMessage message)
 		{
-			UpdatePlayersAlive(QuantumRunner.Default.Game.Frames.Verified);
+			UpdatePlayersAlive(message.Game.Frames.Predicted);
 		}
 
 		private void OnEventOnPlayerDead(EventOnPlayerDead callback)
@@ -71,6 +73,10 @@ namespace FirstLight.Game.Views.MainMenuViews
 				                           ? playersLeft.ToString()
 				                           : string.Format(ScriptLocalization.AdventureMenu.ContendersRemaining,
 				                                           playersLeft);
+		}
+
+		private void Update()
+		{
 		}
 	}
 }

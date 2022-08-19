@@ -61,6 +61,7 @@ namespace Quantum.Systems
 				if (filter.RaycastShots->SplashRadius > FP._0)
 				{
 					QuantumHelpers.ProcessAreaHit(f, filter.RaycastShots->SplashRadius, spell);
+					f.Events.OnRaycastShotExplosion(filter.RaycastShots->WeaponConfigId, spell.OriginalHitPosition);
 				}
 				else
 				{
@@ -71,7 +72,6 @@ namespace Quantum.Systems
 			}
 			
 			linecastList.Clear();
-			
 		}
 	}
 }

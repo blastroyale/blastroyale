@@ -7,18 +7,18 @@ namespace FirstLight.Game.Ids
 		None, 
 		
 		//Music
-		MusicMainMenuStart,
-		MusicMainMenuLoop,
+		MusicMainStart,
+		MusicMainLoop,
 		MusicBrSkydiveLoop,
 		MusicBrLowLoop,
 		MusicBrMidLoop,
-		MusicBrFinalDuelLoop,
+		MusicBrHighLoop,
 		MusicDmLoop,
-		MusicDmFinalDuelLoop,
+		MusicDmHighLoop,
 		MusicVictoryJingle,
 		MusicDefeatJingle,
 		MusicPostMatchLoop,
-		MusicFinalDuelTransitionJingle,
+		MusicHighTransitionJingleBr,
 
 		// Weapons
 		PlaHammerWeaponShot,
@@ -62,6 +62,7 @@ namespace FirstLight.Game.Ids
 		HitHealthDamage,
 		HitShieldDamage,
 		ShieldBreak,
+	
 		PlayerKill,
 		PlayerDeath,
 		ExplosionSmall,
@@ -77,7 +78,7 @@ namespace FirstLight.Game.Ids
 		InvLoop,
 		InvStart,
 		InvEnd,
-		InvDamageAbsorb,
+		DamageAbsorb,
 		SdLoop,
 		SdStart,
 		SdEnd,
@@ -94,17 +95,16 @@ namespace FirstLight.Game.Ids
 		WeaponSwitch,
 		SkydiveJetpackDiveLoop,
 		SkydiveEnd,
-		ChestProgressLoop,
-		ChestLootDrop,
+		ChestPickup,
 		PlayerHeartBeatLoop,
 		PlayerEnterLava,
 		PlayerEnterWater,
-		PlayerWalkGrassLoop,
-		PlayerWalkRoadLoop,
-		PlayerWalkTilesLoop,
-		PlayerWalkSandLoop,
-		PlayerWalkWaterLoop,
-		PlayerWalkLavaLoop,
+		PlayerWalkGrass,
+		PlayerWalkRoad,
+		PlayerWalkTiles,
+		PlayerWalkSand,
+		PlayerWalkWater,
+		PlayerWalkLava,
 		PlayerRespawnShine,
 		PlayerRespawnLightningBolt,
 		
@@ -128,7 +128,7 @@ namespace FirstLight.Game.Ids
 		DisconnectScreenAppear,
 		MarketplaceJingle,
 		
-		// Ambients
+		// Ambience
 		ForestAmbientLoop,
 		DesertAmbientLoop,
 		CentralAmbientLoop,
@@ -136,6 +136,10 @@ namespace FirstLight.Game.Ids
 		FrostAmbientLoop,
 		LavaAmbientLoop,
 		WaterAmbientLoop,
+		
+		// Late additions
+		MusicHighTransitionJingleDm,
+		SelfShieldBreak,
 	}
 	
 	/// <summary>

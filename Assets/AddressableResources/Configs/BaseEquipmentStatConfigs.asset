@@ -1,0 +1,490 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2566c2e410db44958669bdcb7e19600e, type: 3}
+  m_Name: BaseEquipmentStatConfigs
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/Configs/BaseEquipmentStatConfigs
+      Guid:
+        Value: 1461361185191240749
+    QuantumConfigs:
+    - Id: 28
+      Manufacturer: 0
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 17039
+      PowerRatioToBase:
+        RawValue: 0
+    - Id: 38
+      Manufacturer: 0
+      HpRatioToBase:
+        RawValue: 4260
+      ArmorRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 0
+      PowerRatioToBase:
+        RawValue: 0
+    - Id: 39
+      Manufacturer: 0
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 0
+      PowerRatioToBase:
+        RawValue: 8520
+    - Id: 40
+      Manufacturer: 0
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 16384
+      SpeedRatioToBase:
+        RawValue: 0
+      PowerRatioToBase:
+        RawValue: 0
+    - Id: 41
+      Manufacturer: 0
+      HpRatioToBase:
+        RawValue: 983
+      ArmorRatioToBase:
+        RawValue: 983
+      SpeedRatioToBase:
+        RawValue: 3277
+      PowerRatioToBase:
+        RawValue: 2949
+    - Id: 42
+      Manufacturer: 4
+      HpRatioToBase:
+        RawValue: 2294
+      ArmorRatioToBase:
+        RawValue: 3932
+      SpeedRatioToBase:
+        RawValue: 3932
+      PowerRatioToBase:
+        RawValue: 0
+    - Id: 29
+      Manufacturer: 5
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 5243
+      SpeedRatioToBase:
+        RawValue: 6554
+      PowerRatioToBase:
+        RawValue: 2621
+    - Id: 43
+      Manufacturer: 3
+      HpRatioToBase:
+        RawValue: 819
+      ArmorRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 3277
+      PowerRatioToBase:
+        RawValue: 5243
+    - Id: 44
+      Manufacturer: 0
+      HpRatioToBase:
+        RawValue: 819
+      ArmorRatioToBase:
+        RawValue: 9830
+      SpeedRatioToBase:
+        RawValue: 0
+      PowerRatioToBase:
+        RawValue: 1638
+    - Id: 45
+      Manufacturer: 6
+      HpRatioToBase:
+        RawValue: 2949
+      ArmorRatioToBase:
+        RawValue: 1638
+      SpeedRatioToBase:
+        RawValue: 1966
+      PowerRatioToBase:
+        RawValue: 983
+    - Id: 34
+      Manufacturer: 7
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 9175
+      PowerRatioToBase:
+        RawValue: 3932
+    - Id: 35
+      Manufacturer: 7
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 2621
+      SpeedRatioToBase:
+        RawValue: 14418
+      PowerRatioToBase:
+        RawValue: 0
+    - Id: 27
+      Manufacturer: 3
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 6554
+      SpeedRatioToBase:
+        RawValue: 0
+      PowerRatioToBase:
+        RawValue: 5243
+    - Id: 52
+      Manufacturer: 4
+      HpRatioToBase:
+        RawValue: 3277
+      ArmorRatioToBase:
+        RawValue: 3932
+      SpeedRatioToBase:
+        RawValue: 0
+      PowerRatioToBase:
+        RawValue: 0
+    - Id: 53
+      Manufacturer: 0
+      HpRatioToBase:
+        RawValue: 819
+      ArmorRatioToBase:
+        RawValue: 13107
+      SpeedRatioToBase:
+        RawValue: 0
+      PowerRatioToBase:
+        RawValue: 0
+    - Id: 54
+      Manufacturer: 6
+      HpRatioToBase:
+        RawValue: 1966
+      ArmorRatioToBase:
+        RawValue: 2949
+      SpeedRatioToBase:
+        RawValue: 2621
+      PowerRatioToBase:
+        RawValue: 328
+    - Id: 36
+      Manufacturer: 5
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 2621
+      SpeedRatioToBase:
+        RawValue: 14418
+      PowerRatioToBase:
+        RawValue: 0
+    - Id: 50
+      Manufacturer: 3
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 2621
+      PowerRatioToBase:
+        RawValue: 7209
+    - Id: 23
+      Manufacturer: 5
+      HpRatioToBase:
+        RawValue: 655
+      ArmorRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 14418
+      PowerRatioToBase:
+        RawValue: 0
+    - Id: 32
+      Manufacturer: 7
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 3932
+      SpeedRatioToBase:
+        RawValue: 0
+      PowerRatioToBase:
+        RawValue: 6554
+    - Id: 33
+      Manufacturer: 7
+      HpRatioToBase:
+        RawValue: 983
+      ArmorRatioToBase:
+        RawValue: 13107
+      SpeedRatioToBase:
+        RawValue: 0
+      PowerRatioToBase:
+        RawValue: 0
+    - Id: 24
+      Manufacturer: 4
+      HpRatioToBase:
+        RawValue: 3277
+      ArmorRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 0
+      PowerRatioToBase:
+        RawValue: 1966
+    - Id: 49
+      Manufacturer: 0
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 13107
+      SpeedRatioToBase:
+        RawValue: 3277
+      PowerRatioToBase:
+        RawValue: 0
+    - Id: 51
+      Manufacturer: 6
+      HpRatioToBase:
+        RawValue: 655
+      ArmorRatioToBase:
+        RawValue: 983
+      SpeedRatioToBase:
+        RawValue: 5243
+      PowerRatioToBase:
+        RawValue: 2294
+    - Id: 30
+      Manufacturer: 7
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 13763
+      PowerRatioToBase:
+        RawValue: 1638
+    - Id: 31
+      Manufacturer: 0
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 0
+      PowerRatioToBase:
+        RawValue: 65536
+    - Id: 60
+      Manufacturer: 2
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 0
+      PowerRatioToBase:
+        RawValue: 65536
+    - Id: 71
+      Manufacturer: 2
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 0
+      PowerRatioToBase:
+        RawValue: 65536
+    - Id: 78
+      Manufacturer: 2
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 0
+      PowerRatioToBase:
+        RawValue: 65536
+    - Id: 79
+      Manufacturer: 2
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 0
+      PowerRatioToBase:
+        RawValue: 65536
+    - Id: 84
+      Manufacturer: 2
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 0
+      PowerRatioToBase:
+        RawValue: 65536
+    - Id: 86
+      Manufacturer: 2
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 0
+      PowerRatioToBase:
+        RawValue: 65536
+    - Id: 87
+      Manufacturer: 2
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 0
+      PowerRatioToBase:
+        RawValue: 65536
+    - Id: 88
+      Manufacturer: 0
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 0
+      PowerRatioToBase:
+        RawValue: 65536
+    - Id: 90
+      Manufacturer: 0
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 0
+      PowerRatioToBase:
+        RawValue: 65536
+    - Id: 91
+      Manufacturer: 0
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 0
+      PowerRatioToBase:
+        RawValue: 65536
+    - Id: 92
+      Manufacturer: 0
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 0
+      PowerRatioToBase:
+        RawValue: 65536
+    - Id: 93
+      Manufacturer: 0
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 0
+      PowerRatioToBase:
+        RawValue: 65536
+    - Id: 94
+      Manufacturer: 0
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 0
+      PowerRatioToBase:
+        RawValue: 65536
+    - Id: 95
+      Manufacturer: 0
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 0
+      PowerRatioToBase:
+        RawValue: 65536
+    - Id: 96
+      Manufacturer: 1
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 0
+      PowerRatioToBase:
+        RawValue: 65536
+    - Id: 97
+      Manufacturer: 1
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 0
+      PowerRatioToBase:
+        RawValue: 65536
+    - Id: 98
+      Manufacturer: 1
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 0
+      PowerRatioToBase:
+        RawValue: 65536
+    - Id: 99
+      Manufacturer: 1
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 0
+      PowerRatioToBase:
+        RawValue: 65536
+    - Id: 100
+      Manufacturer: 1
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 0
+      PowerRatioToBase:
+        RawValue: 65536
+    - Id: 101
+      Manufacturer: 1
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 0
+      PowerRatioToBase:
+        RawValue: 65536
+    - Id: 103
+      Manufacturer: 1
+      HpRatioToBase:
+        RawValue: 0
+      ArmorRatioToBase:
+        RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 0
+      PowerRatioToBase:
+        RawValue: 65536

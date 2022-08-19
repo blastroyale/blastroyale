@@ -45,7 +45,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 
 		private void Start()
 		{
-			var skin = _gameDataProvider.PlayerDataProvider.CurrentSkin.Value;
+			var skin = _gameDataProvider.PlayerDataProvider.PlayerInfo.Skin;
 
 			_services.AssetResolverService.RequestAsset<GameId, GameObject>(skin, true, true, SkinLoaded);
 		}
@@ -100,7 +100,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		private async void SkinLoaded(GameId id, GameObject instance, bool instantiated)
 		{
 			// Check that the player hasn't changed the skin again while we were loading
-			if (this.IsDestroyed() || id != _gameDataProvider.PlayerDataProvider.CurrentSkin.Value)
+			if (this.IsDestroyed() || id != _gameDataProvider.PlayerDataProvider.PlayerInfo.Skin)
 			{
 				Destroy(instance);
 				return;
@@ -109,6 +109,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			instance.SetActive(false);
 
 			var cacheTransform = instance.transform;
+			var loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both);
 
 			cacheTransform.SetParent(_characterAnchor);
 
@@ -116,7 +117,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			cacheTransform.localRotation = Quaternion.identity;
 			_characterViewComponent = instance.GetComponent<MainMenuCharacterViewComponent>();
 
-			await _characterViewComponent.Init(_gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo());
+			await _characterViewComponent.Init(loadout);
 
 			if (!_gameDataProvider.EquipmentDataProvider.Loadout.ContainsKey(GameIdGroup.Weapon))
 			{

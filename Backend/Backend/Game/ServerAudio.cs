@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Threading.Tasks;
 using FirstLight.Game.Ids;
@@ -16,9 +17,18 @@ public class ServerAudio : IAudioFxService<AudioId>
 	{
 	}
 
+	public Task LoadAudioMixers(IEnumerable audioMixers)
+	{
+		return default;
+	}
+
 	public Task LoadAudioClips(IEnumerable clips) => null;
 
 	public void UnloadAudioClips(IEnumerable clips)
+	{
+	}
+
+	public void TransitionAudioMixer(string snapshotName, float transitionDuration)
 	{
 	}
 
@@ -32,25 +42,35 @@ public class ServerAudio : IAudioFxService<AudioId>
 	{
 	}
 
-	public AudioSourceMonoComponent PlayClip3D(AudioId id, Vector3 worldPosition,
-	                                           AudioSourceInitData? sourceInitData = null)
+	public AudioSourceMonoComponent PlayClip3D(AudioId id, Vector3 worldPosition, string mixerGroupOverride = null)
 	{
-		return null;
+		return default;
 	}
 
-	public AudioSourceMonoComponent PlayClip2D(AudioId id, AudioSourceInitData? sourceInitData = null)
+	public AudioSourceMonoComponent PlayClip2D(AudioId id, string mixerGroupOverride = null)
 	{
-		return null;
+		return default;
 	}
 
-	public void PlayMusic(AudioId id, float fadeInDuration = 0, float fadeOutDuration = 0,
-	                      bool continueFromCurrentTime = false,
-	                      AudioSourceInitData? sourceInitData = null)
+	public void PlayClipQueued2D(AudioId id)
+	{
+	}
+
+	public void PlayMusic(AudioId id, float fadeInDuration = 0, float fadeOutDuration = 0, bool continueFromCurrentTime = false)
+	{
+	}
+
+	public void PlaySequentialMusicTransition(AudioId transitionClip, AudioId musicClip)
 	{
 	}
 
 	public void StopMusic(float fadeOutDuration = 0)
 	{
+	}
+
+	public void StopAllSfx()
+	{
+		throw new NotImplementedException();
 	}
 
 	public float GetCurrentMusicPlaybackTime()
@@ -65,6 +85,9 @@ public class ServerAudio : IAudioFxService<AudioId>
 		get => true;
 		set  { }
 	}
+
+	public bool IsSfxMuted { get; set; }
+	public bool IsMusicPlaying { get; }
 
 	public bool Is2dSfxMuted
 	{

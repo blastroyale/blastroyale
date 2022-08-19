@@ -25,12 +25,12 @@ namespace FirstLight.Game.Utils
 			public const string DISCORD_SERVER = "https://discord.gg/blastroyale";
 			public const string APP_STORE_IOS = "https://apps.apple.com/gb/app/boss-hunt-heroes/id1557220333";
 			public const string APP_STORE_GOOGLE_PLAY = "https://play.google.com/store/apps/details?id=com.firstlightgames.phoenix";
-			#if UNITY_EDITOR || DEVELOPMENT_BUILD
-				public const string MARKETPLACE_URL = "https://marketplace-dev.blastroyale.com/";
-			#elif RELEASE_BUILD
+			#if LIVE_SERVER
+				public const string MARKETPLACE_URL = "https://marketplace.blastroyale.com/";
+			#elif STAGE_SERVER
 				public const string MARKETPLACE_URL = "https://marketplace-staging.blastroyale.com/";
 			#else
-				public const string MARKETPLACE_URL = "https://marketplace.blastroyale.com/";
+				public const string MARKETPLACE_URL = "https://marketplace-dev.blastroyale.com/";
 			#endif
 		}
 
@@ -41,12 +41,19 @@ namespace FirstLight.Game.Utils
 
 		public static class Audio
 		{
-			// Audio defaults
-			public const float SFX_2D_DEFFAULT_VOLUME_MULTIPLIER = 0.4f;
-			public const float SFX_3D_DEFAULT_VOLUME_MULTIPLIER = 0.5f;
-			public const float BGM_DEFAULT_VOLUME = 0.35f;
-			public const float SFX_DEFAULT_VOLUME = 1f;
-			public const float SFX_DEFAULT_PITCH = 1f;
+			public const string MIXER_MAIN_SNAPSHOT_ID = "Main";
+			public const string MIXER_LOBBY_SNAPSHOT_ID = "Lobby";
+			public const string MIXER_GROUP_MASTER_ID = "Master";
+			public const string MIXER_GROUP_MUSIC_ID = "Music";
+			public const string MIXER_GROUP_SFX_2D_ID = "Sfx2d";
+			public const string MIXER_GROUP_SFX_3D_ID = "Sfx3d";
+			public const string MIXER_GROUP_VOICE_ID = "Voice";
+			public const string MIXER_GROUP_AMBIENT_ID = "Announcer";
+			
+			public const int SOUND_QUEUE_BREAK_MS = 250;
+			public const float SPATIAL_3D_THRESHOLD = 0.1f;
+			
+			public const float MIXER_SNAPSHOT_TRANSITION_SECONDS = 0.5f;
 			
 			public const float SFX_2D_SPATIAL_BLEND = 0f;
 			public const float SFX_3D_SPATIAL_BLEND = 1f;
@@ -54,13 +61,16 @@ namespace FirstLight.Game.Utils
 			public const float SFX_3D_MIN_DISTANCE = 5f;
 			public const float SFX_3D_MAX_DISTANCE = 20f;
 
-			public const float MUSIC_REGULAR_FADE_SECONDS = 3f;
+			public const float MUSIC_REGULAR_FADE_SECONDS = 2.5f;
 			public const float MUSIC_SHORT_FADE_SECONDS = 1.5f;
 			
 			public const float BR_LOW_PHASE_SECONDS_THRESHOLD = 8f;
 			public const float BR_MID_PHASE_SECONDS_THRESHOLD = 90f;
-
+			public const float BR_HIGH_PHASE_SECONDS_THRESHOLD = 180f;
+			
 			public const float DM_HIGH_PHASE_KILLS_LEFT_THRESHOLD = 3;
+			public const float BR_HIGH_PHASE_PLAYERS_LEFT_THRESHOLD = 2;
+			public const float HIGH_LOOP_TRANSITION_DELAY = 2f;
 		}
 
 		public static class Notifications
@@ -84,9 +94,11 @@ namespace FirstLight.Game.Utils
 
 		public static class Network
 		{
+			// Time control values
 			public const int DEFAULT_PLAYER_TTL_MS = 30000;
 			public const int EMPTY_ROOM_TTL_MS = 15000;
-			
+			public const int EMPTY_ROOM_PLAYTEST_TTL_MS = 1000;
+
 			// Player properties
 			// Loading properties are split into PLAYER_PROPS_CORE_LOADED and PLAYER_PROPS_ALL_LOADED - this is because
 			// the loading flow into match is split into 2 distinct phases (Core assets, player assets), and these properties
@@ -97,11 +109,13 @@ namespace FirstLight.Game.Utils
 			public const string PLAYER_PROPS_SPECTATOR = "isSpectator";
 
 			// Room properties
+			public const string ROOM_NAME_PLAYTEST = "PLAYTEST";
 			public const string ROOM_PROPS_START_TIME = "startTime";
 			public const string ROOM_PROPS_COMMIT = "commit";
 			public const string ROOM_PROPS_MAP = "mapId";
 			public const string ROOM_PROPS_BOTS = "gameHasBots";
 			public const string ROOM_PROPS_DROP_PATTERN = "dropPattern";
+			public const string ROOM_PROPS_RANKED_MATCH = "isRanked";
 		}
 
 		public static class Visuals
@@ -129,6 +143,9 @@ namespace FirstLight.Game.Utils
 			public const string STUN_OUTRO_TIME_ANIMATOR_PARAM = "stun_outro_time_sec";
 
 			public const float RADIUS_TO_SCALE_CONVERSION_VALUE = 2f;
+			public const float GAMEPLAY_POST_ATTACK_HIDE_DURATION = 2f;
+
+			public const string SHADER_MINIMAP_DRAW_PLAYERS = "MINIMAP_DRAW_PLAYERS";
 		}
 
 		public static class Haptics
@@ -148,6 +165,11 @@ namespace FirstLight.Game.Utils
 
 			// Duration of haptic feedback when player is damaged
 			public const float DAMAGE_DURATION = 0.05f;
+		}
+
+		public static class ObjectTags
+		{
+			public const string TAG_VISIBILITY_VOLUME = "VisibilityVolume";
 		}
 	}
 }

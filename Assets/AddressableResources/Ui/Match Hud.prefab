@@ -363,9 +363,7 @@ MonoBehaviour:
   Anchor: {fileID: 1028948423802825868}
   ClickClip: {fileID: 7400000, guid: 47f4cc28b635045d0be5221018fbc0de, type: 2}
   IsForward: 1
-  OverrideSfx: 0
-  OverrideSfxClip:
-    _selection: MainMenuStart
+  OverrideClickSfxId: 0
 --- !u!1 &318386150675179104
 GameObject:
   m_ObjectHideFlags: 0
@@ -715,6 +713,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _minimapCamera: {fileID: 5628063902813850639}
+  _rectTransform: {fileID: 2329837974890775963}
   _backgroundImage: {fileID: 5004151283192992960}
   _fullScreenContainer: {fileID: 3557765285291139652}
   _button: {fileID: 574265280825843266}
@@ -991,9 +990,7 @@ MonoBehaviour:
   Anchor: {fileID: 6889593477464116313}
   ClickClip: {fileID: 7400000, guid: 47f4cc28b635045d0be5221018fbc0de, type: 2}
   IsForward: 1
-  OverrideSfx: 0
-  OverrideSfxClip:
-    _selection: MainMenuStart
+  OverrideClickSfxId: 0
 --- !u!1 &1098278566374237754
 GameObject:
   m_ObjectHideFlags: 0
@@ -4025,9 +4022,7 @@ MonoBehaviour:
   Anchor: {fileID: 3319469657535568295}
   ClickClip: {fileID: 7400000, guid: 47f4cc28b635045d0be5221018fbc0de, type: 2}
   IsForward: 1
-  OverrideSfx: 0
-  OverrideSfxClip:
-    _selection: MainMenuStart
+  OverrideClickSfxId: 0
 --- !u!114 &2766772532731751132
 MonoBehaviour:
   m_ObjectHideFlags: 0

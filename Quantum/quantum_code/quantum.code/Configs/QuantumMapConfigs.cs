@@ -22,15 +22,17 @@ namespace Quantum
 	{
 		public List<QuantumMapConfig> QuantumConfigs = new List<QuantumMapConfig>();
 		
-		private IDictionary<int, QuantumMapConfig> _dictionary = new Dictionary<int, QuantumMapConfig>();
+		private IDictionary<int, QuantumMapConfig> _dictionary = null;
 
 		/// <summary>
 		/// Requests the <see cref="QuantumMapConfig"/> from it's <paramref name="id"/>
 		/// </summary>
 		public QuantumMapConfig GetConfig(int id)
 		{
-			if (_dictionary.Count == 0)
+			if (_dictionary == null)
 			{
+				_dictionary = new Dictionary<int, QuantumMapConfig>();
+				
 				foreach (var config in QuantumConfigs)
 				{
 					_dictionary.Add(config.Id, config);

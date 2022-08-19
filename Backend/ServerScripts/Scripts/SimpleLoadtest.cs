@@ -17,7 +17,6 @@ using PlayFab.CloudScriptModels;
 using PlayFab.ServerModels;
 using Quantum;
 using Scripts.Base;
-using ServerSDK.Modules;
 using EntityKey = PlayFab.AuthenticationModels.EntityKey;
 using EntityTokenResponse = PlayFab.ClientModels.EntityTokenResponse;
 using GetPlayerCombinedInfoRequestParams = PlayFab.ClientModels.GetPlayerCombinedInfoRequestParams;
@@ -33,8 +32,7 @@ namespace Scripts;
 /// </summary>
 public class SimpleLoadtest : PlayfabScript
 {
-	public override string GetPlayfabTitle() => "***REMOVED***";
-	public override string GetPlayfabSecret() => "***REMOVED***";
+	public override PlayfabEnvironment GetEnvironment() => PlayfabEnvironment.DEV;
 
 	public const int NUMBER_OF_PLAYERS = 10;
 	
@@ -79,7 +77,7 @@ public class SimpleLoadtest : PlayfabScript
 		{
 			CreateAccount = true,
 			CustomId = Guid.NewGuid().ToString(),
-			TitleId = GetPlayfabTitle(),
+			TitleId = GetPlayfabConfiguration().TitleId,
 			InfoRequestParameters = new GetPlayerCombinedInfoRequestParams()
 			{
 				GetUserAccountInfo = true
@@ -99,7 +97,7 @@ public class SimpleLoadtest : PlayfabScript
 	private async Task SubmitCommand(LoginResult login, IGameCommand cmd)
 	{
 		var cmdName = cmd.GetType().FullName;
-		var cmdData = ObjectSerializer.Serialize(cmd).Value;
+		var cmdData = ModelSerializer.Serialize(cmd).Value;
 		var logicRequest = new LogicRequest()
 		{
 			Command = cmdName,

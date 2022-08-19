@@ -1,8 +1,10 @@
 using System.Collections;
+using System.Collections.Generic;
 using DG.Tweening;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Views.MapViews;
 using Quantum;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -17,7 +19,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	public abstract class EntityViewBase : MonoBehaviour
 	{
 		protected IGameServices Services;
-		protected IEntityViewUpdaterService EntityViewUpdaterService;
+		protected IMatchServices MatchServices;
 		
 		/// <summary>
 		/// Requests the <see cref="EntityView"/> representing this view execution base
@@ -32,7 +34,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		protected virtual void Awake()
 		{
 			Services = MainInstaller.Resolve<IGameServices>();
-			EntityViewUpdaterService = MainInstaller.Resolve<IEntityViewUpdaterService>();
+			MatchServices = MainInstaller.Resolve<IMatchServices>();
 
 			OnAwake();
 		}
@@ -64,11 +66,19 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private static readonly int  _dissolveProperty = Shader.PropertyToID("dissolve_amount");
 		
 		[SerializeField] protected RenderersContainerProxyMonoComponent RenderersContainerProxy;
-		
+
 		protected override void Awake()
 		{
 			base.Awake();
 			QuantumCallback.Subscribe<CallbackGameDestroyed>(this, HandleGameDestroyed);
+		}
+
+		/// <summary>
+		/// Sets the root rendering container object active or inactive
+		/// </summary>
+		public virtual void SetRenderContainerVisible(bool active)
+		{
+			RenderersContainerProxy.SetRendererState(active);
 		}
 		
 		protected void Dissolve(bool destroyGameObject, float startValue, float endValue, float delay, float duration)

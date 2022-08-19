@@ -49,13 +49,9 @@ namespace FirstLight.Game.Presenters
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
 
-		// TODO - remove when appropriate
-		private IMainMenuServices _mainMenuServices;
-
 		private void Awake()
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			_mainMenuServices = MainMenuInstaller.Resolve<IMainMenuServices>();
 			_services = MainInstaller.Resolve<IGameServices>();
 
 			_playOnlineButton.onClick.AddListener(OnPlayOnlineClicked);
@@ -69,8 +65,8 @@ namespace FirstLight.Game.Presenters
 			_feedbackButton.onClick.AddListener(LeaveFeedbackForm);
 			_discordButton.onClick.AddListener(OpenDiscordLink);
 			
-			// TODO: Replace with OpenGameModeClicked when we want to use the popup again
-			_gameModeButton.onClick.AddListener(GameModeClicked);
+			_gameModeButton.onClick.AddListener(OpenGameModeClicked);
+			_gameModeButton.gameObject.SetActive(Debug.isDebugBuild);
 
 			_newFeaturesView.gameObject.SetActive(false);
 		}
@@ -121,22 +117,10 @@ namespace FirstLight.Game.Presenters
 		{
 			Application.OpenURL(GameConstants.Links.MARKETPLACE_URL);
 		}
-		
+
 		private void OpenGameModeClicked()
 		{
 			Data.OnGameModeClicked();
-		}
-
-		private void GameModeClicked()
-		{
-			_gameDataProvider.AppDataProvider.SelectedGameMode.Value =
-				_gameDataProvider.AppDataProvider.SelectedGameMode.Value == GameMode.Deathmatch
-					? GameMode.BattleRoyale
-					: GameMode.Deathmatch;
-
-			_services.MessageBrokerService.Publish(new SelectedGameModeMessage());
-			
-			RefreshGameModeButton();
 		}
 
 		private void OpenSocialMenuUI()
@@ -156,42 +140,9 @@ namespace FirstLight.Game.Presenters
 
 		private void RefreshGameModeButton()
 		{
-			_selectedGameModeText.text = string.Format(ScriptLocalization.MainMenu.SelectedGameModeText,
-			                                           _gameDataProvider.AppDataProvider.SelectedGameMode.Value
-			                                                            .ToString());
-		}
-
-		private void UnlockSystemButton(UnlockSystem system)
-		{
-			if (system == UnlockSystem.Shop)
-			{
-				_shopButton.PlayUnlockedStateAnimation();
-				_shopButton.UpdateState(true, true, false);
-			}
-		}
-
-		private bool ButtonClickSystemCheck(UnlockSystem system)
-		{
-			var unlockLevel = _gameDataProvider.PlayerDataProvider.GetUnlockSystemLevel(system);
-
-			if (_gameDataProvider.PlayerDataProvider.Level.Value < unlockLevel)
-			{
-				var unlockAtText =
-					string.Format(ScriptLocalization.General.UnlockAtPlayerLevel, unlockLevel.ToString());
-
-				_mainMenuServices.UiVfxService.PlayFloatingText(unlockAtText);
-
-				return false;
-			}
-
-			var tagged = _gameDataProvider.PlayerDataProvider.SystemsTagged;
-
-			if (!tagged.Contains(system))
-			{
-				tagged.Add(system);
-			}
-
-			return true;
+			var matchType = _gameDataProvider.AppDataProvider.SelectedMatchType.Value.ToString().ToUpper();
+			var gameMode = _gameDataProvider.AppDataProvider.SelectedGameMode.Value.ToString().ToUpper();
+			_selectedGameModeText.text = string.Format(ScriptLocalization.MainMenu.SelectedGameModeValue, matchType, gameMode);
 		}
 	}
 }

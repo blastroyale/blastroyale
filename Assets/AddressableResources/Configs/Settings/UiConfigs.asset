@@ -15,10 +15,6 @@ MonoBehaviour:
   _loadingSpinnerType: FirstLight.Game.Presenters.LoadingSpinnerScreenPresenter,
     FirstLight.Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _configs:
-  - AddressableAddress: Ui/Adventure World Hud.prefab
-    Layer: 0
-    UiType: FirstLight.Game.Presenters.AdventureWorldHudPresenter, FirstLight.Game,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/Battle Royale Dead Screen.prefab
     Layer: 2
     UiType: FirstLight.Game.Presenters.BattleRoyaleDeadScreenPresenter, FirstLight.Game,
@@ -98,6 +94,10 @@ MonoBehaviour:
   - AddressableAddress: Ui/Match Hud.prefab
     Layer: 2
     UiType: FirstLight.Game.Presenters.MatchHudPresenter, FirstLight.Game, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - AddressableAddress: Ui/Match World Hud.prefab
+    Layer: 0
+    UiType: FirstLight.Game.Presenters.MatchWorldHudPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/MatchmakingScreen.prefab
     Layer: 6
@@ -182,8 +182,6 @@ MonoBehaviour:
     UiConfigsType:
     - FirstLight.Game.Presenters.MatchHudPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    - FirstLight.Game.Presenters.AdventureWorldHudPresenter, FirstLight.Game, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.GameCompleteScreenPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.QuitGameDialogPresenter, FirstLight.Game, Version=0.0.0.0,
@@ -191,6 +189,8 @@ MonoBehaviour:
     - FirstLight.Game.Presenters.MatchControlsHudPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.SpectateHudPresenter, FirstLight.Game, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    - FirstLight.Game.Presenters.MatchWorldHudPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   - SetId: 3
     UiConfigsType:

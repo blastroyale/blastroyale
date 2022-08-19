@@ -20,28 +20,25 @@ MonoBehaviour:
     Entries:
     - Type: 3
       Key:
-        Key: AimingMovementSpeed
+        Key: StunDuration
     - Type: 3
       Key:
         Key: AimTime
-    - Type: 0
-      Key:
-        Key: IsAiming
-    - Type: 3
-      Key:
-        Key: AmmoFilled
     - Type: 3
       Key:
         Key: BurstShotCount
     - Type: 3
       Key:
-        Key: RampUpTimeStart
+        Key: AmmoFilled
     - Type: 3
       Key:
-        Key: StunDuration
+        Key: AimingMovementSpeed
     - Type: 0
       Key:
         Key: IsSkydiving
+    - Type: 3
+      Key:
+        Key: RampUpTimeStart
     - Type: 4
       Key:
         Key: AimDirection
@@ -50,10 +47,13 @@ MonoBehaviour:
         Key: HasMeleeWeapon
     - Type: 3
       Key:
-        Key: BurstTimeDelay
+        Key: InitialAttackCooldown
     - Type: 3
       Key:
-        Key: InitialAttackCooldown
+        Key: BurstTimeDelay
+    - Type: 0
+      Key:
+        Key: IsAimPressed
     - Type: 4
       Key:
         Key: MoveDirection

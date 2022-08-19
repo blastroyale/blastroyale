@@ -521,8 +521,10 @@ namespace I2.Loc
 			public static string Maintenance 		{ get{ return LocalizationManager.GetTranslation ("General/Maintenance"); } }
 			public static string MaintenanceDescription 		{ get{ return LocalizationManager.GetTranslation ("General/MaintenanceDescription"); } }
 			public static string Map 		{ get{ return LocalizationManager.GetTranslation ("General/Map"); } }
+			public static string MaxAttackAngle 		{ get{ return LocalizationManager.GetTranslation ("General/MaxAttackAngle"); } }
 			public static string MaxCapacity 		{ get{ return LocalizationManager.GetTranslation ("General/MaxCapacity"); } }
 			public static string MaxLevel 		{ get{ return LocalizationManager.GetTranslation ("General/MaxLevel"); } }
+			public static string MinAttackAngle 		{ get{ return LocalizationManager.GetTranslation ("General/MinAttackAngle"); } }
 			public static string NewGameUpdate 		{ get{ return LocalizationManager.GetTranslation ("General/NewGameUpdate"); } }
 			public static string No 		{ get{ return LocalizationManager.GetTranslation ("General/No"); } }
 			public static string NoInternet 		{ get{ return LocalizationManager.GetTranslation ("General/NoInternet"); } }
@@ -530,8 +532,10 @@ namespace I2.Loc
 			public static string NoItemsCollectedYet 		{ get{ return LocalizationManager.GetTranslation ("General/NoItemsCollectedYet"); } }
 			public static string NotEnoughCash 		{ get{ return LocalizationManager.GetTranslation ("General/NotEnoughCash"); } }
 			public static string NotEnoughGems 		{ get{ return LocalizationManager.GetTranslation ("General/NotEnoughGems"); } }
+			public static string NumberOfShots 		{ get{ return LocalizationManager.GetTranslation ("General/NumberOfShots"); } }
 			public static string OK 		{ get{ return LocalizationManager.GetTranslation ("General/OK"); } }
 			public static string Open 		{ get{ return LocalizationManager.GetTranslation ("General/Open"); } }
+			public static string Ordinal0 		{ get{ return LocalizationManager.GetTranslation ("General/Ordinal0"); } }
 			public static string Ordinal1 		{ get{ return LocalizationManager.GetTranslation ("General/Ordinal1"); } }
 			public static string Ordinal10 		{ get{ return LocalizationManager.GetTranslation ("General/Ordinal10"); } }
 			public static string Ordinal11 		{ get{ return LocalizationManager.GetTranslation ("General/Ordinal11"); } }
@@ -553,6 +557,7 @@ namespace I2.Loc
 			public static string Ordinal9 		{ get{ return LocalizationManager.GetTranslation ("General/Ordinal9"); } }
 			public static string PlacementMessage 		{ get{ return LocalizationManager.GetTranslation ("General/PlacementMessage"); } }
 			public static string Power 		{ get{ return LocalizationManager.GetTranslation ("General/Power"); } }
+			public static string PowerToDamageRatio 		{ get{ return LocalizationManager.GetTranslation ("General/PowerToDamageRatio"); } }
 			public static string PrimarySpecial 		{ get{ return LocalizationManager.GetTranslation ("General/PrimarySpecial"); } }
 			public static string ProjectileArmor 		{ get{ return LocalizationManager.GetTranslation ("General/ProjectileArmor"); } }
 			public static string ProjectileSpeed 		{ get{ return LocalizationManager.GetTranslation ("General/ProjectileSpeed"); } }
@@ -574,6 +579,7 @@ namespace I2.Loc
 			public static string SpecialId 		{ get{ return LocalizationManager.GetTranslation ("General/SpecialId"); } }
 			public static string Spectate 		{ get{ return LocalizationManager.GetTranslation ("General/Spectate"); } }
 			public static string Speed 		{ get{ return LocalizationManager.GetTranslation ("General/Speed"); } }
+			public static string SplashDamageRadius 		{ get{ return LocalizationManager.GetTranslation ("General/SplashDamageRadius"); } }
 			public static string TapSkip 		{ get{ return LocalizationManager.GetTranslation ("General/TapSkip"); } }
 			public static string TargetRange 		{ get{ return LocalizationManager.GetTranslation ("General/TargetRange"); } }
 			public static string Unequip 		{ get{ return LocalizationManager.GetTranslation ("General/Unequip"); } }
@@ -634,6 +640,7 @@ namespace I2.Loc
 			public static string DefeatedBossXTimes 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DefeatedBossXTimes"); } }
 			public static string Demo 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Demo"); } }
 			public static string DetailLevel 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DetailLevel"); } }
+			public static string DisconnectedMatchEndInfo 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DisconnectedMatchEndInfo"); } }
 			public static string DragAndReleaseToFire 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DragAndReleaseToFire"); } }
 			public static string DragAndReleaseToFireDescription 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DragAndReleaseToFireDescription"); } }
 			public static string EmailTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/EmailTitle"); } }
@@ -674,7 +681,14 @@ namespace I2.Loc
 			public static string Loot 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Loot"); } }
 			public static string MainMenuButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/MainMenuButton"); } }
 			public static string ManualFire 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ManualFire"); } }
+			public static string MatchmakingMatchType 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/MatchmakingMatchType"); } }
 			public static string Meters 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Meters"); } }
+			public static string MightRating 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/MightRating"); } }
+			public static string MightTotal 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/MightTotal"); } }
+			public static string ModeBr 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ModeBr"); } }
+			public static string ModeCasual 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ModeCasual"); } }
+			public static string ModeDm 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ModeDm"); } }
+			public static string ModeRanked 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ModeRanked"); } }
 			public static string NameHeroTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NameHeroTitle"); } }
 			public static string NameTooLong 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NameTooLong"); } }
 			public static string NameTooShort 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NameTooShort"); } }
@@ -699,18 +713,15 @@ namespace I2.Loc
 			public static string PlayersActiveNumber 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PlayersActiveNumber"); } }
 			public static string PlayfabError 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PlayfabError"); } }
 			public static string PossibleRewards 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PossibleRewards"); } }
-			public static string Power 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Power"); } }
-			public static string PowerRating 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PowerRating"); } }
-			public static string PowerTotal 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PowerTotal"); } }
 			public static string ProgressChapter 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ProgressChapter"); } }
 			public static string QuitGameButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/QuitGameButton"); } }
 			public static string ReachPlayerLevelAdventure 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ReachPlayerLevelAdventure"); } }
-			public static string ReccomendedPower 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ReccomendedPower"); } }
 			public static string ReconnectButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ReconnectButton"); } }
 			public static string RegisterButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RegisterButton"); } }
 			public static string RegisterSuccess 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RegisterSuccess"); } }
 			public static string RegisterTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RegisterTitle"); } }
 			public static string RememberMe 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RememberMe"); } }
+			public static string ResetPassword 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ResetPassword"); } }
 			public static string ResoucePoolFull 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ResoucePoolFull"); } }
 			public static string ResourceAmount 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ResourceAmount"); } }
 			public static string ResourceRestockTime 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ResourceRestockTime"); } }
@@ -727,6 +738,10 @@ namespace I2.Loc
 			public static string SelectGameMode 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SelectGameMode"); } }
 			public static string Selected 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Selected"); } }
 			public static string SelectedGameModeText 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SelectedGameModeText"); } }
+			public static string SelectedGameModeTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SelectedGameModeTitle"); } }
+			public static string SelectedGameModeValue 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SelectedGameModeValue"); } }
+			public static string SendPasswordEmail 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SendPasswordEmail"); } }
+			public static string SendPasswordEmailConfirm 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SendPasswordEmailConfirm"); } }
 			public static string Settings 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Settings"); } }
 			public static string SettingsFaqButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SettingsFaqButton"); } }
 			public static string SettingsHelpSupport 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SettingsHelpSupport"); } }
@@ -738,7 +753,7 @@ namespace I2.Loc
 			public static string Talents 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Talents"); } }
 			public static string TapToUnlock 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TapToUnlock"); } }
 			public static string TooMuchLoot 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TooMuchLoot"); } }
-			public static string TotalPower 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TotalPower"); } }
+			public static string TotalMight 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TotalMight"); } }
 			public static string Trophies 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Trophies"); } }
 			public static string TrophiesGained 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TrophiesGained"); } }
 			public static string TrophiesLost 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/TrophiesLost"); } }
@@ -814,7 +829,9 @@ namespace I2.Loc
 		{
 			public static string ToolTip_BLST 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_BLST"); } }
 			public static string ToolTip_CS 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_CS"); } }
+			public static string ToolTip_Casual 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_Casual"); } }
 			public static string ToolTip_NftCooldown 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_NftCooldown"); } }
+			public static string ToolTip_Ranked 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_Ranked"); } }
 			public static string ToolTip_Trophies 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_Trophies"); } }
 		}
 	}
@@ -1338,8 +1355,10 @@ namespace I2.Loc
 		    public const string Maintenance = "General/Maintenance";
 		    public const string MaintenanceDescription = "General/MaintenanceDescription";
 		    public const string Map = "General/Map";
+		    public const string MaxAttackAngle = "General/MaxAttackAngle";
 		    public const string MaxCapacity = "General/MaxCapacity";
 		    public const string MaxLevel = "General/MaxLevel";
+		    public const string MinAttackAngle = "General/MinAttackAngle";
 		    public const string NewGameUpdate = "General/NewGameUpdate";
 		    public const string No = "General/No";
 		    public const string NoInternet = "General/NoInternet";
@@ -1347,8 +1366,10 @@ namespace I2.Loc
 		    public const string NoItemsCollectedYet = "General/NoItemsCollectedYet";
 		    public const string NotEnoughCash = "General/NotEnoughCash";
 		    public const string NotEnoughGems = "General/NotEnoughGems";
+		    public const string NumberOfShots = "General/NumberOfShots";
 		    public const string OK = "General/OK";
 		    public const string Open = "General/Open";
+		    public const string Ordinal0 = "General/Ordinal0";
 		    public const string Ordinal1 = "General/Ordinal1";
 		    public const string Ordinal10 = "General/Ordinal10";
 		    public const string Ordinal11 = "General/Ordinal11";
@@ -1370,6 +1391,7 @@ namespace I2.Loc
 		    public const string Ordinal9 = "General/Ordinal9";
 		    public const string PlacementMessage = "General/PlacementMessage";
 		    public const string Power = "General/Power";
+		    public const string PowerToDamageRatio = "General/PowerToDamageRatio";
 		    public const string PrimarySpecial = "General/PrimarySpecial";
 		    public const string ProjectileArmor = "General/ProjectileArmor";
 		    public const string ProjectileSpeed = "General/ProjectileSpeed";
@@ -1391,6 +1413,7 @@ namespace I2.Loc
 		    public const string SpecialId = "General/SpecialId";
 		    public const string Spectate = "General/Spectate";
 		    public const string Speed = "General/Speed";
+		    public const string SplashDamageRadius = "General/SplashDamageRadius";
 		    public const string TapSkip = "General/TapSkip";
 		    public const string TargetRange = "General/TargetRange";
 		    public const string Unequip = "General/Unequip";
@@ -1451,6 +1474,7 @@ namespace I2.Loc
 		    public const string DefeatedBossXTimes = "MainMenu/DefeatedBossXTimes";
 		    public const string Demo = "MainMenu/Demo";
 		    public const string DetailLevel = "MainMenu/DetailLevel";
+		    public const string DisconnectedMatchEndInfo = "MainMenu/DisconnectedMatchEndInfo";
 		    public const string DragAndReleaseToFire = "MainMenu/DragAndReleaseToFire";
 		    public const string DragAndReleaseToFireDescription = "MainMenu/DragAndReleaseToFireDescription";
 		    public const string EmailTitle = "MainMenu/EmailTitle";
@@ -1491,7 +1515,14 @@ namespace I2.Loc
 		    public const string Loot = "MainMenu/Loot";
 		    public const string MainMenuButton = "MainMenu/MainMenuButton";
 		    public const string ManualFire = "MainMenu/ManualFire";
+		    public const string MatchmakingMatchType = "MainMenu/MatchmakingMatchType";
 		    public const string Meters = "MainMenu/Meters";
+		    public const string MightRating = "MainMenu/MightRating";
+		    public const string MightTotal = "MainMenu/MightTotal";
+		    public const string ModeBr = "MainMenu/ModeBr";
+		    public const string ModeCasual = "MainMenu/ModeCasual";
+		    public const string ModeDm = "MainMenu/ModeDm";
+		    public const string ModeRanked = "MainMenu/ModeRanked";
 		    public const string NameHeroTitle = "MainMenu/NameHeroTitle";
 		    public const string NameTooLong = "MainMenu/NameTooLong";
 		    public const string NameTooShort = "MainMenu/NameTooShort";
@@ -1516,18 +1547,15 @@ namespace I2.Loc
 		    public const string PlayersActiveNumber = "MainMenu/PlayersActiveNumber";
 		    public const string PlayfabError = "MainMenu/PlayfabError";
 		    public const string PossibleRewards = "MainMenu/PossibleRewards";
-		    public const string Power = "MainMenu/Power";
-		    public const string PowerRating = "MainMenu/PowerRating";
-		    public const string PowerTotal = "MainMenu/PowerTotal";
 		    public const string ProgressChapter = "MainMenu/ProgressChapter";
 		    public const string QuitGameButton = "MainMenu/QuitGameButton";
 		    public const string ReachPlayerLevelAdventure = "MainMenu/ReachPlayerLevelAdventure";
-		    public const string ReccomendedPower = "MainMenu/ReccomendedPower";
 		    public const string ReconnectButton = "MainMenu/ReconnectButton";
 		    public const string RegisterButton = "MainMenu/RegisterButton";
 		    public const string RegisterSuccess = "MainMenu/RegisterSuccess";
 		    public const string RegisterTitle = "MainMenu/RegisterTitle";
 		    public const string RememberMe = "MainMenu/RememberMe";
+		    public const string ResetPassword = "MainMenu/ResetPassword";
 		    public const string ResoucePoolFull = "MainMenu/ResoucePoolFull";
 		    public const string ResourceAmount = "MainMenu/ResourceAmount";
 		    public const string ResourceRestockTime = "MainMenu/ResourceRestockTime";
@@ -1544,6 +1572,10 @@ namespace I2.Loc
 		    public const string SelectGameMode = "MainMenu/SelectGameMode";
 		    public const string Selected = "MainMenu/Selected";
 		    public const string SelectedGameModeText = "MainMenu/SelectedGameModeText";
+		    public const string SelectedGameModeTitle = "MainMenu/SelectedGameModeTitle";
+		    public const string SelectedGameModeValue = "MainMenu/SelectedGameModeValue";
+		    public const string SendPasswordEmail = "MainMenu/SendPasswordEmail";
+		    public const string SendPasswordEmailConfirm = "MainMenu/SendPasswordEmailConfirm";
 		    public const string Settings = "MainMenu/Settings";
 		    public const string SettingsFaqButton = "MainMenu/SettingsFaqButton";
 		    public const string SettingsHelpSupport = "MainMenu/SettingsHelpSupport";
@@ -1555,7 +1587,7 @@ namespace I2.Loc
 		    public const string Talents = "MainMenu/Talents";
 		    public const string TapToUnlock = "MainMenu/TapToUnlock";
 		    public const string TooMuchLoot = "MainMenu/TooMuchLoot";
-		    public const string TotalPower = "MainMenu/TotalPower";
+		    public const string TotalMight = "MainMenu/TotalMight";
 		    public const string Trophies = "MainMenu/Trophies";
 		    public const string TrophiesGained = "MainMenu/TrophiesGained";
 		    public const string TrophiesLost = "MainMenu/TrophiesLost";
@@ -1631,7 +1663,9 @@ namespace I2.Loc
 		{
 		    public const string ToolTip_BLST = "Tooltips/ToolTip_BLST";
 		    public const string ToolTip_CS = "Tooltips/ToolTip_CS";
+		    public const string ToolTip_Casual = "Tooltips/ToolTip_Casual";
 		    public const string ToolTip_NftCooldown = "Tooltips/ToolTip_NftCooldown";
+		    public const string ToolTip_Ranked = "Tooltips/ToolTip_Ranked";
 		    public const string ToolTip_Trophies = "Tooltips/ToolTip_Trophies";
 		}
 	}

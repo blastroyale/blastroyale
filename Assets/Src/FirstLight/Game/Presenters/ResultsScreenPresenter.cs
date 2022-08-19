@@ -1,11 +1,11 @@
 using UnityEngine;
 using FirstLight.Game.Utils;
-using System.Collections.Generic;
 using Quantum;
 using Button = UnityEngine.UI.Button;
 using Slider = UnityEngine.UI.Slider; 
 using System;
 using System.Collections;
+using System.Linq;
 using FirstLight.Game.Services;
 using FirstLight.Game.Views.MainMenuViews;
 using Sirenix.OdinInspector;
@@ -42,13 +42,13 @@ namespace FirstLight.Game.Presenters
 
 		protected override void OnOpened()
 		{
-			var frame = QuantumRunner.Default.Game.Frames.Verified;
-			var container = frame.GetSingleton<GameContainer>();
-			var playerData = container.GetPlayersMatchData(frame, out _);
+			var game = QuantumRunner.Default.Game;
+			var frame = game.Frames.Verified;
+			var playerData = frame.GetSingleton<GameContainer>().GetPlayersMatchData(frame, out _);
 			var isBattleRoyale = frame.Context.MapConfig.GameMode == GameMode.BattleRoyale;
-
+			
 			_standings.Initialise(playerData.Count, isBattleRoyale, true);
-			_standings.UpdateStandings(playerData);
+			_standings.UpdateStandings(playerData, game.GetLocalPlayers()[0]);
 			
 			// Only play the animation after Results Award sprites have been loaded.
 			_animation.clip = _introAnimationClip;

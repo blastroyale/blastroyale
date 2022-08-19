@@ -1,5 +1,6 @@
 
 using Backend.Game.Services;
+using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using NUnit.Framework;
 using ServerSDK.Models;
@@ -17,6 +18,7 @@ public class TestDataService
 	public void Setup()
 	{
 		_server = new TestServer();
+		_server.SetupInMemoryServer();
 		_service = _server.GetService<IServerStateService>();
 	}
 
@@ -38,4 +40,17 @@ public class TestDataService
 		Assert.AreEqual(data["test_key"], readData["test_key"]);
 	}
 
+	[Test]
+	public void TestGettingOnlyUpdatedKeys()
+	{
+		var playerId = _server.GetTestPlayerID();
+		var readData = _service.GetPlayerState(playerId).Result;
+
+		readData.UpdateModel(new PlayerData());
+		var onlyUpdated = readData.GetOnlyUpdatedState();
+
+		Assert.AreEqual(1, readData.UpdatedTypes.Count);
+		Assert.AreEqual(1, onlyUpdated.Count);
+		Assert.IsTrue(onlyUpdated.ContainsKey(typeof(PlayerData).FullName));
+	}
 }

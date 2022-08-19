@@ -56,13 +56,14 @@ namespace FirstLight.Game.StateMachines
 			
 			initial.Transition().Target(spectateCheck);
 			initial.OnExit(SubscribeEvents);
+			initial.OnExit(_killsDictionary.Clear);
 			
-			spectateCheck.Transition().Condition(IsSpectator).OnTransition(PublishMatchStartedMessage).Target(spectating);
-			spectateCheck.Transition().OnTransition(OpenMatchHud).Target(resyncCheck);
+			spectateCheck.Transition().Condition(IsSpectator).Target(spectating);
+			spectateCheck.Transition().Target(resyncCheck);
 			
-			resyncCheck.Transition().Condition(IsResyncing).Target(aliveCheck);
+			resyncCheck.OnEnter(OpenMatchHud);
+			resyncCheck.Transition().Condition(IsRejoining).Target(aliveCheck);
 			resyncCheck.Transition().Target(countdown);
-			resyncCheck.OnExit(PublishMatchStartedMessage);
 			
 			aliveCheck.Transition().Condition(IsLocalPlayerAlive).Target(alive);
 			aliveCheck.Transition().Target(dead);
@@ -116,11 +117,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private bool IsLocalPlayerAlive()
 		{
-			var game = QuantumRunner.Default.Game;
-			var f = game.Frames.Verified;
-			var gameContainer = f.GetSingleton<GameContainer>();
-			var playersData = gameContainer.PlayersData;
-			var localPlayer = playersData[game.GetLocalPlayers()[0]];
+			var localPlayer = QuantumRunner.Default.Game.GetLocalPlayerData(false, out var f);
 			
 			return localPlayer.Entity.IsAlive(f);
 		}
@@ -130,7 +127,7 @@ namespace FirstLight.Game.StateMachines
 			return _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator();
 		}
 		
-		private bool IsResyncing()
+		private bool IsRejoining()
 		{
 			return !_services.NetworkService.IsJoiningNewMatch;
 		}
@@ -150,10 +147,14 @@ namespace FirstLight.Game.StateMachines
 			var killerData = callback.PlayersMatchData.Find(data => data.Data.Player.Equals(callback.PlayerKiller));
 			var deadData = callback.PlayersMatchData.Find(data => data.Data.Player.Equals(callback.PlayerDead));
 
+			var frameContext = callback.Game.Frames.Verified.Context;
+			var deadLocalPlayer = frameContext.IsLocalPlayer(deadData.Data.Player);
+			var killerLocalPlayer = frameContext.IsLocalPlayer(killerData.Data.Player);
+			
 			// "Key" = Number of times I killed this player, "Value" = number of times that player killed me.
-			if (deadData.IsLocalPlayer || killerData.IsLocalPlayer)
+			if (deadLocalPlayer || killerLocalPlayer)
 			{
-				var recordName = deadData.IsLocalPlayer ? killerData.Data.Player : deadData.Data.Player;
+				var recordName = deadLocalPlayer ? killerData.Data.Player : deadData.Data.Player;
 
 				if (!_killsDictionary.TryGetValue(recordName, out var recordPair))
 				{
@@ -162,17 +163,11 @@ namespace FirstLight.Game.StateMachines
 					_killsDictionary.Add(recordName, recordPair);
 				}
 
-				recordPair.Key += deadData.IsLocalPlayer ? 0 : 1;
-				recordPair.Value += deadData.IsLocalPlayer ? 1 : 0;
+				recordPair.Key += deadLocalPlayer ? 0 : 1;
+				recordPair.Value += deadLocalPlayer ? 1 : 0;
 
 				_killsDictionary[recordName] = recordPair;
 			}
-		}
-
-		private void PublishMatchStartedMessage()
-		{
-			_killsDictionary.Clear();
-			_services.MessageBrokerService.Publish(new MatchStartedMessage() { IsResync = IsResyncing()});
 		}
 		
 		private async void OpenSpectateHud()

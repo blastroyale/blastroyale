@@ -20,8 +20,9 @@ namespace FirstLight.Game.Presenters
 			public Action GameModeChosen;
 		}
 		
-		[SerializeField, Required] private Button _battleRoyaleButton;
-		[SerializeField, Required] private Button _deathmatchButton;
+		[SerializeField, Required] private Button _casualBrButton;
+		[SerializeField, Required] private Button _rankedBrButton;
+		[SerializeField, Required] private Button _dmButton;
 		[SerializeField, Required] private Button _backButton;
 
 		private IGameDataProvider _gameDataProvider;
@@ -32,20 +33,30 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
 
-			_battleRoyaleButton.onClick.AddListener(BattleRoyaleClicked);
-			_deathmatchButton.onClick.AddListener(DeathmatchClicked);
+			_casualBrButton.onClick.AddListener(CasualBattleRoyaleClicked);
+			_rankedBrButton.onClick.AddListener(RankedBattleRoyaleClicked);
+			_dmButton.onClick.AddListener(DeathmatchClicked);
 			_backButton.onClick.AddListener(OnBlockerButtonPressed);
 		}
 
 		private void DeathmatchClicked()
 		{
 			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = GameMode.Deathmatch;
+			_gameDataProvider.AppDataProvider.SelectedMatchType.Value = MatchType.Casual;
 			Data.GameModeChosen();
 		}
 
-		private void BattleRoyaleClicked()
+		private void CasualBattleRoyaleClicked()
 		{
 			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = GameMode.BattleRoyale;
+			_gameDataProvider.AppDataProvider.SelectedMatchType.Value = MatchType.Casual;
+			Data.GameModeChosen();
+		}
+		
+		private void RankedBattleRoyaleClicked()
+		{
+			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = GameMode.BattleRoyale;
+			_gameDataProvider.AppDataProvider.SelectedMatchType.Value = MatchType.Ranked;
 			Data.GameModeChosen();
 		}
 
@@ -53,7 +64,5 @@ namespace FirstLight.Game.Presenters
 		{
 			Data.GameModeChosen();
 		}
-		
-		
 	}
 }

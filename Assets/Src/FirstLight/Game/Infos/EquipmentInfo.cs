@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using Quantum;
 
@@ -12,17 +13,22 @@ namespace FirstLight.Game.Infos
 	/// </summary>
 	public enum EquipmentStatType
 	{
-		AttackCooldown,
-		Damage,
+		Power,
+		PowerToDamageRatio,
 		Hp,
 		Speed,
 		Armor,
+		AttackCooldown,
 		TargetRange,
 		ProjectileSpeed,
+		MaxCapacity,
+		ReloadSpeed,
+		MinAttackAngle,
+		MaxAttackAngle,
+		SplashDamageRadius,
+		NumberOfShots,
 		SpecialId0,
 		SpecialId1,
-		MaxCapacity,
-		ReloadSpeed
 	}
 	
 	public struct EquipmentInfo
@@ -30,19 +36,36 @@ namespace FirstLight.Game.Infos
 		public UniqueId Id;
 		public Equipment Equipment;
 		public bool IsEquipped;
-		public TimeSpan NftCooldown;
-		public string CardUrl;
+		public bool IsNft;
 		public Dictionary<EquipmentStatType, float> Stats;
+	}
+	
+	public struct NftEquipmentInfo
+	{
+		public EquipmentInfo EquipmentInfo;
+		public NftEquipmentData NftData;
+		public uint NftCooldownInMinutes;
 
 		/// <summary>
-		/// Requests the info if this equipment is of NFT type
+		/// Requests the end of the NFT cooldown in UTC time
 		/// </summary>
-		public bool IsNft => true;
+		public DateTime CooldownEndUtcTime => new DateTime(NftData.InsertionTimestamp).AddMinutes(NftCooldownInMinutes);
+
+		/// <summary>
+		/// Requests the missing cooldown time for this NFT
+		/// </summary>
+		public TimeSpan Cooldown => CooldownEndUtcTime - DateTime.UtcNow;
 
 		/// <summary>
 		/// Requests if this equipment's NFT is on cooldown or not
 		/// </summary>
-		public bool IsOnCooldown => NftCooldown.TotalSeconds > 0;
+		public bool IsOnCooldown => Cooldown.TotalSeconds > 0;
+		
+		/// <summary>
+		/// Because old jsons didn't had SSL, making it backwards compatible
+		/// we need SSL for iOS because 'random Apple rant'
+		/// </summary>
+		public string SafeImageUrl => NftData.ImageUrl.Replace("http:", "https:");
 	}
 
 	/// <summary>
@@ -99,7 +122,7 @@ namespace FirstLight.Game.Infos
 		}
 		
 		/// <summary>
-		/// Requests the durability states for all the equipments in the given <paramref name="items"/>
+		/// Requests a specified <paramref name="stat"/> for all the equipments in the given <paramref name="items"/>
 		/// </summary>
 		public static float GetTotalStat(this List<EquipmentInfo> items, EquipmentStatType stat)
 		{
@@ -108,6 +131,24 @@ namespace FirstLight.Game.Infos
 			foreach (var nft in items)
 			{
 				total += nft.Stats[stat];
+			}
+
+			return total;
+		}
+		
+		/// <summary>
+		/// Requests "Might" for all the equipments in the given <paramref name="items"/>
+		/// </summary>
+		public static float GetTotalMight(this List<EquipmentInfo> items)
+		{
+			var total = 0f;
+			
+			foreach (var nft in items)
+			{
+				total += nft.Stats[EquipmentStatType.Power]
+				         + nft.Stats[EquipmentStatType.Hp]
+				         + nft.Stats[EquipmentStatType.Speed] * 100f
+				         + nft.Stats[EquipmentStatType.Armor] * 10f;
 			}
 
 			return total;

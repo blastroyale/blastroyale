@@ -7,6 +7,7 @@ namespace Quantum
 		public string PlayerId;
 		public string PlayerName;
 		public GameId Skin;
+		public GameId DeathMarker;
 		public uint PlayerLevel;
 		public uint PlayerTrophies;
 		public FPVector2 NormalizedSpawnPosition;
@@ -16,10 +17,12 @@ namespace Quantum
 		{
 			var serializer = new FrameSerializer(DeterministicFrameSerializeMode.Serialize, null, stream);
 			var skin = (int) Skin;
+			var deathMarker = (int) DeathMarker;
 
 			stream.Serialize(ref PlayerId);
 			stream.Serialize(ref PlayerName);
 			stream.Serialize(ref skin);
+			stream.Serialize(ref deathMarker);
 			stream.Serialize(ref PlayerLevel);
 			stream.Serialize(ref PlayerTrophies);
 			stream.Serialize(ref NormalizedSpawnPosition);
@@ -35,6 +38,7 @@ namespace Quantum
 			}
 
 			Skin = (GameId) skin;
+			DeathMarker = (GameId) deathMarker;
 		}
 	}
 }

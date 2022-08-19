@@ -1,43 +1,44 @@
-using FirstLight.Game.Utils;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using System;
 using Newtonsoft.Json;
 using ServerSDK.Models;
+using ServerSDK.Modules;
 using ServerSDK.Services;
 
 
-namespace ServerSDK;
-
-
-/// <summary>
-/// Setup objects necessary for a plugin to initialize.
-/// This object holds hard-typed references to what can be accessed by a external plugin.
-/// </summary>
-public class PluginContext
+namespace ServerSDK
 {
-	public readonly IEventManager PluginEventManager;
-	public readonly ILogger Log;
-	public readonly IServerStateService ServerState;
-	public readonly IServerMutex PlayerMutex;
-	public readonly IMetricsService Metrics;
-	public readonly IServerAnalytics Analytics;
-
-	public PluginContext(IEventManager evManager, IServiceProvider services)
-	{
-		PluginEventManager = evManager;
-		Log = services.GetService<ILogger>()!;
-		ServerState = services.GetService<IServerStateService>()!;
-		PlayerMutex = services.GetService<IServerMutex>()!;
-		Metrics = services.GetService<IMetricsService>()!;
-		Analytics = services.GetService<IServerAnalytics>()!;
-	}
-
 	/// <summary>
-	/// Registers custom data converters for specific game objects.
+	/// Setup objects necessary for a plugin to initialize.
+	/// This object holds hard-typed references to what can be accessed by a external plugin.
 	/// </summary>
-	public void RegisterCustomConverter(ServerPlugin plugin, JsonConverter converter)
+	public class PluginContext
 	{
-		ModelSerializer.RegisterConverter(converter);
-		Log.LogInformation($"Plugin {plugin.GetType()} registered converter {converter.GetType()}");
+		public readonly IEventManager? PluginEventManager;
+		public readonly IPluginLogger? Log;
+		public readonly IServerStateService? ServerState;
+		public readonly IServerMutex? PlayerMutex;
+		public readonly IMetricsService? Metrics;
+		public readonly IServerAnalytics? Analytics;
+
+		public PluginContext(IEventManager evManager, IServiceProvider services)
+		{
+			PluginEventManager = evManager;
+			Log = services.GetService(typeof(IPluginLogger)) as IPluginLogger;
+			ServerState = services.GetService(typeof(IServerStateService)) as IServerStateService;
+			PlayerMutex = services.GetService(typeof(IServerMutex)) as IServerMutex;
+			Metrics = services.GetService(typeof(IMetricsService)) as IMetricsService;
+			Analytics = services.GetService(typeof(IServerAnalytics)) as IServerAnalytics;
+		}
+
+		/// <summary>
+		/// Registers custom data converters for specific game objects.
+		/// </summary>
+		public void RegisterCustomConverter(ServerPlugin plugin, JsonConverter converter)
+		{
+			ModelSerializer.RegisterConverter(converter);
+			Log.LogInformation($"Plugin {plugin.GetType()} registered converter {converter.GetType()}");
+		}
 	}
 }
+
+

@@ -19,10 +19,9 @@ using Microsoft.Extensions.Logging;
 using PlayFab;
 using ServerSDK;
 using ServerSDK.Models;
+using ServerSDK.Modules;
 using ServerSDK.Services;
 using StackExchange.Redis;
-
-namespace Tests.Stubs;
 
 /// <summary>
 /// Represents what is needed to run a isolated server testing environment.

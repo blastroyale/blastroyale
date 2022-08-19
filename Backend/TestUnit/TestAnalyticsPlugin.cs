@@ -9,10 +9,8 @@ using Quantum;
 using ServerSDK;
 using ServerSDK.Events;
 using ServerSDK.Models;
-using Tests.Stubs;
 using Assert = NUnit.Framework.Assert;
 
-namespace Tests;
 
 /// <summary>
 /// Test suit to test specific blast royale commands.

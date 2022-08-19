@@ -1,11 +1,17 @@
+using System.IO;
 using System.Text;
 using Backend;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Logging;
 using PlayFab;
 using PlayFab.CloudScriptModels;
 using PlayFab.Json;
+using ServerSDK;
 using ServerSDK.Services;
 using StandaloneServer;
 
@@ -13,7 +19,7 @@ using StandaloneServer;
 
 // Setup Logging
 using var loggerFactory = LoggerFactory.Create(loggingBuilder => loggingBuilder.SetMinimumLevel(LogLevel.Trace).AddConsole());
-ILogger logger = loggerFactory.CreateLogger<Program>();
+ILogger logger = loggerFactory.CreateLogger<ServerConfiguration>();
 
 // Setup Application
 var builder = WebApplication.CreateBuilder(args);
@@ -26,7 +32,7 @@ builder.Services.AddSingleton<IServerMutex, NoMutex>();
 
 var app = builder.Build();
 
-app.MapGet("/", () => "Standalone Server is running !");
+app.Services.GetService < IEventManager>();
 
 // Endpoint to simulate playfab's cloud script "ExecuteFunction/ExecuteCommand" locally.
 app.MapPost("/CloudScript/ExecuteFunction", async (ctx) =>

@@ -22,6 +22,7 @@ using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
 using PlayFab.SharedModels;
+using ServerSDK.Modules;
 using UnityEngine;
 
 namespace FirstLight.Game.StateMachines

@@ -9,7 +9,6 @@ using PlayFab;
 using PlayFab.ClientModels;
 using ServerSDK.Services;
 
-namespace Tests.Stubs;
 
 public interface ITestPlayerSetup
 {

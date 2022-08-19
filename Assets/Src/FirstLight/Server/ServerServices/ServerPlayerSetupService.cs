@@ -7,30 +7,13 @@ using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Utils;
 using Quantum;
 using ServerSDK.Models;
+using ServerSDK.Services;
 
-namespace Backend.Game.Services;
-
-
-/// <summary>
-/// Service responsible for generating initial player state.
-/// </summary>
-public interface IPlayerSetupService
+namespace Backend.Game.Services
 {
-	/// <summary>
-	/// Generates initial player state and returns as server data.
-	/// </summary>
-	public ServerState GetInitialState(string playFabId);
-
-	/// <summary>
-	/// Checks if a given state is already setup
-	/// </summary>
-	/// <param name="state"></param>
-	/// <returns></returns>
-	public bool IsSetup(ServerState state);
-}
-
+	
 /// <inheritdoc />
-public class PlayerSetupService : IPlayerSetupService
+public class BlastRoyalePlayerSetup : IPlayerSetupService
 {
 	private static readonly List<GameId> _initialSkins = new List<GameId>
 	{
@@ -39,7 +22,7 @@ public class PlayerSetupService : IPlayerSetupService
 	
 	private static IConfigsProvider _configsProvider;
 
-	public PlayerSetupService(IConfigsProvider configsProvider)
+	public BlastRoyalePlayerSetup(IConfigsProvider configsProvider)
 	{
 		_configsProvider = configsProvider;
 	}
@@ -94,3 +77,5 @@ public class PlayerSetupService : IPlayerSetupService
 		return playerData;
 	}
 }
+}
+

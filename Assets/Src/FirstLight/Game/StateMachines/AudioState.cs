@@ -231,7 +231,7 @@ namespace FirstLight.Game.StateMachines
 		/// </summary>
 		private void CheckClips(string currentEvent, EntityRef entity)
 		{
-			for(int i = _currentClips.Count; i < 0; i--) 
+			for(int i = _currentClips.Count; i > -1; i--) 
 			{
 				var clip = _currentClips[i];
 				foreach(var evnt in clip.despawnEvent)
@@ -240,7 +240,6 @@ namespace FirstLight.Game.StateMachines
 					{
 						clip.audioSource.StopAndDespawn();
 						_currentClips.RemoveAt(i);
-						i--;
 						break;
 					}
 				}

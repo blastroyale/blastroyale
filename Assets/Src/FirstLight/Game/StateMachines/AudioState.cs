@@ -138,7 +138,6 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.SubscribeManual<EventOnCollectableBlocked>(this, OnCollectionBlocked);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveDrop>(this, OnSkydiveStart);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveLand>(this, OnSkydiveEnd);
-			QuantumEvent.SubscribeManual<EventOnStatusModifierFinished>(this, OnModifierFinished);
 		}
 
 		private void UnsubscribeEvents()

@@ -193,7 +193,7 @@ namespace FirstLight.Game.Logic
 			{
 				trophyChange += CalculateEloChange(0d, players[i].Data.PlayerTrophies, 
 				                                   localPlayerData.Data.PlayerTrophies, gameConfig.TrophyEloRange,
-				                                   gameConfig.TrophyEloK);
+				                                   gameConfig.TrophyEloK.AsDouble);
 			}
 
 			// Wins
@@ -201,7 +201,7 @@ namespace FirstLight.Game.Logic
 			{
 				trophyChange += CalculateEloChange(1d, players[i].Data.PlayerTrophies, 
 				                                   localPlayerData.Data.PlayerTrophies, gameConfig.TrophyEloRange,
-				                                   gameConfig.TrophyEloK);
+				                                   gameConfig.TrophyEloK.AsDouble);
 			}
 
 			var finalTrophyChange = (int) Math.Round(trophyChange);
@@ -227,7 +227,7 @@ namespace FirstLight.Game.Logic
 			Data.PlayerSkinId = skin;
 		}
 
-		private double CalculateEloChange(double score, uint trophiesOpponent, uint trophiesPlayer, int eloRange, int eloK)
+		private double CalculateEloChange(double score, uint trophiesOpponent, uint trophiesPlayer, int eloRange, double eloK)
 		{
 			var eloBracket = Math.Pow(10, (trophiesOpponent - trophiesPlayer) / (double) eloRange);
 			

@@ -256,7 +256,7 @@ namespace FirstLight.Game.StateMachines
 				var skydiveLoop = _services.AudioFxService.PlayClip3D(AudioId.SkydiveJetpackDiveLoop, entityView.transform.position);
 				skydiveLoop.SetFollowTarget(entityView.transform, Vector3.zero, Quaternion.identity);
 				string[] despawnEvents = {
-					nameof(EventOnLocalPlayerSkydiveLand).ToString()
+					nameof(EventOnLocalPlayerSkydiveLand)
 				};
 				_currentClips.Add(new LoopedAudioClip(skydiveLoop, despawnEvents, callback.Entity));
 			}
@@ -291,9 +291,9 @@ namespace FirstLight.Game.StateMachines
 				_services.AudioFxService.PlayClip3D(AudioId.CollectionStart, entityView.transform.position);
 				var collectSfx = _services.AudioFxService.PlayClip3D(AudioId.CollectionLoop, entityView.transform.position);
 				string[] despawnEvents = {
-					nameof(EventOnStoppedCollecting).ToString(),
-					nameof(EventOnCollectableBlocked).ToString(),
-					nameof(EventOnCollectableCollected).ToString() 
+					nameof(EventOnStoppedCollecting),
+					nameof(EventOnCollectableBlocked),
+					nameof(EventOnCollectableCollected) 
 				};
 				_currentClips.Add(new LoopedAudioClip(collectSfx, despawnEvents, callback.CollectableEntity));
 			}
@@ -310,7 +310,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				_services.AudioFxService.PlayClip3D(AudioId.AirdropLanded, entityView.transform.position);
 				var flareSfx = _services.AudioFxService.PlayClip3D(AudioId.AirdropFlare, entityView.transform.position);
-				string[] despawnEvents = { nameof(EventOnAirDropCollected).ToString() };
+				string[] despawnEvents = { nameof(EventOnAirDropCollected) };
 				_currentClips.Add(new LoopedAudioClip(flareSfx, despawnEvents, callback.Entity));
 			}
 		}
@@ -321,7 +321,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				_services.AudioFxService.PlayClip3D(AudioId.AirdropDropped, entityView.transform.position);
 				var dropsfx = _services.AudioFxService.PlayClip3D(AudioId.MissileFlyLoop, entityView.transform.position);
-				string[] despawnEvents = { nameof(EventOnAirDropLanded).ToString() };
+				string[] despawnEvents = { nameof(EventOnAirDropLanded) };
 				_currentClips.Add(new LoopedAudioClip(dropsfx, despawnEvents, callback.Entity));
 			}
 		}
@@ -373,7 +373,7 @@ namespace FirstLight.Game.StateMachines
 		}
 		private void OnHazardExplosion(EventOnHazardLand callback)
 		{
-			CheckClips(callback.ToString(), callback.Entity);
+			CheckClips(callback.ToString(), callback.AttackerEntity);
 			var pos = new Vector3(callback.HitPosition.X.AsFloat,
 					callback.HitPosition.Y.AsFloat, callback.HitPosition.Z.AsFloat);
 			PlayExplosionSFX(callback.sourceId, pos);
@@ -448,7 +448,7 @@ namespace FirstLight.Game.StateMachines
 				{
 					var missileLoop = _services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
 					string[] despawnEvents = {
-						nameof(EventOnHazardLand).ToString(),
+						nameof(EventOnHazardLand),
 					};
 					_currentClips.Add(new LoopedAudioClip(missileLoop, despawnEvents, callback.Entity));
 				}

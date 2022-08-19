@@ -28,7 +28,6 @@ namespace FirstLight.Game.Presenters
 			public Action OnPlayRoomJoinCreateClicked;
 			public Action OnNameChangeClicked;
 			public Action OnGameModeClicked;
-			public Action OnServerSelectClicked;
 		}
 
 		[SerializeField] private Button _playOnlineButton;
@@ -37,7 +36,6 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private Button _settingsButton;
 		[SerializeField] private Button _feedbackButton;
 		[SerializeField] private Button _gameModeButton;
-		[SerializeField] private Button _serverSelectButton;
 		[SerializeField] private NewFeatureUnlockedView _newFeaturesView;
 		[SerializeField] private TextMeshProUGUI _selectedGameModeText;
 
@@ -65,8 +63,7 @@ namespace FirstLight.Game.Presenters
 			_marketplaceButton.gameObject.SetActive(Debug.isDebugBuild);
 			_feedbackButton.onClick.AddListener(LeaveFeedbackForm);
 			_discordButton.onClick.AddListener(OpenDiscordLink);
-			_serverSelectButton.onClick.AddListener(OpenServerSelect);
-			
+
 			_gameModeButton.onClick.AddListener(OpenGameModeClicked);
 			_gameModeButton.gameObject.SetActive(Debug.isDebugBuild);
 
@@ -138,11 +135,6 @@ namespace FirstLight.Game.Presenters
 		private void OpenDiscordLink()
 		{
 			Application.OpenURL(GameConstants.Links.DISCORD_SERVER);
-		}
-		
-		private void OpenServerSelect()
-		{
-			Data.OnServerSelectClicked();
 		}
 
 		private void RefreshGameModeButton()

@@ -1,12 +1,9 @@
 using System;
 using System.Collections.Generic;
-using FirstLight.Game.Configs;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.NativeUi;
-using FirstLight.UiService;
 using I2.Loc;
 using Photon.Realtime;
 using Sirenix.OdinInspector;
@@ -52,31 +49,24 @@ namespace FirstLight.Game.Presenters
 		}
 
 		/// <summary>
-		/// Sets the activity of the dimmed blocker image that covers the presenter
-		/// </summary>
-		public void SetFrontDimBlockerActive(bool active)
-		{
-			_frontDimBlocker.SetActive(active);
-		}
-		
-		/// <summary>
 		/// Activates and populates the server selection list
 		/// </summary>
-		public void InitServerSelectionList(List<Region> availableRegions)
+		public void InitServerSelectionList(RegionHandler regionHandler)
 		{
 			SetFrontDimBlockerActive(false);
 			
-			_availableRegions = availableRegions;
+			_availableRegions = regionHandler.EnabledRegions;
 			_serverSelectDropdown.options.Clear();
 
 			int currentRegion = 0;
 			
 			foreach (var region in _availableRegions)
 			{
-				string regionTitle = string.Format(ScriptLocalization.MainMenu.ServerSelectOption, region.Code.ToUpper(), region.Ping);
+				string regionTitle = string.Format(ScriptLocalization.MainMenu.ServerSelectOption, region.Code.ToUpper(), "-");
+
 				_serverSelectDropdown.options.Add(new DropdownMenuOption(regionTitle, region));
 
-				if (_gameDataProvider.AppDataProvider.ConnectionRegion == region.Code)
+				if (_gameDataProvider.AppDataProvider.ConnectionRegion.Value == region.Code)
 				{
 					currentRegion = _availableRegions.IndexOf(region);
 				}
@@ -84,6 +74,26 @@ namespace FirstLight.Game.Presenters
 
 			_serverSelectDropdown.SetValueWithoutNotify(currentRegion);
 			_serverSelectDropdown.RefreshShownValue();
+		}
+		
+		/// <summary>
+		/// Updates pings of regions in the currently initialized list
+		/// </summary>
+		public void UpdateRegionPing(RegionHandler regionHandler)
+		{
+			var selectedOption = (DropdownMenuOption) _serverSelectDropdown.options[_serverSelectDropdown.value];
+			_serverSelectDropdown.captionText.text = string.Format(ScriptLocalization.MainMenu.ServerSelectOption, selectedOption.RegionInfo.Code.ToUpper(), selectedOption.RegionInfo.Ping);
+
+			foreach (var dropdownOption in _serverSelectDropdown.options)
+			{
+				var regionOption = (DropdownMenuOption) dropdownOption;
+				dropdownOption.text = string.Format(ScriptLocalization.MainMenu.ServerSelectOption, regionOption.RegionInfo.Code.ToUpper(), regionOption.RegionInfo.Ping);
+			}
+		}
+
+		private void SetFrontDimBlockerActive(bool active)
+		{
+			_frontDimBlocker.SetActive(active);
 		}
 
 		private void OnBackClicked()
@@ -101,6 +111,7 @@ namespace FirstLight.Game.Presenters
 			
 			var selectedRegion = ((DropdownMenuOption) _serverSelectDropdown.options[_serverSelectDropdown.value]).RegionInfo;
 			Data.RegionChosen.Invoke(selectedRegion);
+			SetFrontDimBlockerActive(true);
 		}
 
 		private void OpenNoInternetPopup()

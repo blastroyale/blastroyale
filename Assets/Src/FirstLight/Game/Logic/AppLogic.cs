@@ -63,7 +63,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Requests the last region that player was connected to
 		/// </summary>
-		string ConnectionRegion { get; set; }
+		IObservableField<string> ConnectionRegion { get; }
 		
 		/// <summary>
 		/// Requests the player's Nickname
@@ -173,11 +173,7 @@ namespace FirstLight.Game.Logic
 		}
 		
 		/// <inheritdoc />
-		public string ConnectionRegion
-		{
-			get => Data.ConnectionRegion;
-			set => Data.ConnectionRegion = value;
-		}
+		public IObservableField<string> ConnectionRegion { get; private set; }
 
 		/// <inheritdoc />
 		public string Nickname => NicknameId == null || string.IsNullOrWhiteSpace(NicknameId.Value) || NicknameId.Value.Length < 5 ?
@@ -212,6 +208,7 @@ namespace FirstLight.Game.Logic
 			IsSfxOn = IsSfxOn;
 			IsBgmOn = IsBgmOn;
 			NicknameId = new ObservableResolverField<string>(() => Data.NickNameId, name => Data.NickNameId = name);
+			ConnectionRegion = new ObservableResolverField<string>(() => Data.ConnectionRegion, region => Data.ConnectionRegion = region);
 			_deviceId = new ObservableResolverField<string>(() => Data.DeviceId, linked => Data.DeviceId = linked);
 			SelectedGameMode = new ObservableField<GameMode>(GameMode.BattleRoyale);
 			SelectedMatchType = new ObservableField<MatchType>(MatchType.Casual);

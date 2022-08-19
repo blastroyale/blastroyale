@@ -38,13 +38,15 @@ namespace FirstLight.Game.StateMachines
 		public static readonly IStatechartEvent AttemptReconnectEvent = new StatechartEvent("NETWORK - Attempt Reconnect Event");
 		public static readonly IStatechartEvent OpenServerSelectScreenEvent = new StatechartEvent("NETWORK - Open Server Select Screen Event");
 		public static readonly IStatechartEvent ConnectToNameServerFailEvent = new StatechartEvent("NETWORK - Connected To Name Fail Server Event");
-
+		public static readonly IStatechartEvent RegionListReceivedEvent = new StatechartEvent("NETWORK - Regions List Received");
+		
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _gameDataProvider;
 		private readonly IGameUiService _uiService;
 		private readonly IGameBackendNetworkService _networkService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private Coroutine _matchmakingCoroutine;
+		private bool _pingingRegionsComplete;
 
 		private QuantumRunnerConfigs QuantumRunnerConfigs =>
 			_services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
@@ -73,7 +75,8 @@ namespace FirstLight.Game.StateMachines
 			var disconnectedScreen = stateFactory.State("NETWORK - Disconnected Screen");
 			var reconnecting = stateFactory.State("NETWORK - Reconnecting Screen");
 			var disconnectForServerSelect = stateFactory.State("NETWORK - Disconnect Photon For Name Server");
-			var serverSelectScreen = stateFactory.State("NETWORK - Server Select Screen");
+			var getAvailableRegions = stateFactory.State("NETWORK - Server Select Screen");
+			var serverSelectScreen = stateFactory.State("NETWORK - Get Available Regions");
 			var connectionCheck = stateFactory.Choice("NETWORK - Connection Check");
 
 			initial.Transition().Target(initialConnection);
@@ -90,10 +93,13 @@ namespace FirstLight.Game.StateMachines
 
 			disconnectForServerSelect.OnEnter(OpenServerSelectScreen);
 			disconnectForServerSelect.OnEnter(DisconnectPhoton);
-			disconnectForServerSelect.Event(PhotonDisconnectedEvent).Target(serverSelectScreen);
+			disconnectForServerSelect.Event(PhotonDisconnectedEvent).Target(getAvailableRegions);
 
-			serverSelectScreen.OnEnter(ConnectToNameServer);
-			serverSelectScreen.Event(ConnectToNameServerFailEvent).OnTransition(CloseServerSelectScreen).Target(connectionCheck);
+			getAvailableRegions.OnEnter(ConnectToNameServer);
+			getAvailableRegions.Event(RegionListReceivedEvent).Target(serverSelectScreen);
+			getAvailableRegions.Event(ConnectToNameServerFailEvent).OnTransition(CloseServerSelectScreen).Target(connectionCheck);
+			
+			serverSelectScreen.OnEnter(InitServerSelect);
 			serverSelectScreen.Event(PhotonMasterConnectedEvent).Target(connected);
 			serverSelectScreen.OnExit(CloseServerSelectScreen);
 
@@ -148,12 +154,20 @@ namespace FirstLight.Game.StateMachines
 				BackClicked = ConnectPhoton,
 				RegionChosen = (region) =>
 				{
-					_gameDataProvider.AppDataProvider.ConnectionRegion = region.Code;
-					ConnectPhoton();
+					_gameDataProvider.AppDataProvider.ConnectionRegion.Value = region.Code;
+					ConnectPhotonToRegionMaster();
 				},
 			};
 
 			_uiService.OpenUiAsync<ServerSelectScreenPresenter, ServerSelectScreenPresenter.StateData>(data);
+		}
+		
+		private void InitServerSelect()
+		{
+			if (_uiService.HasUiPresenter<ServerSelectScreenPresenter>())
+			{
+				_uiService.GetUi<ServerSelectScreenPresenter>().InitServerSelectionList(_networkService.QuantumClient.RegionHandler);
+			}
 		}
 
 		private void OnAttemptReconnectClicked()
@@ -190,7 +204,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void CloseServerSelectScreen()
 		{
-			_uiService.CloseUi<DisconnectedScreenPresenter>(false, true);
+			_uiService.CloseUi<ServerSelectScreenPresenter>(false, true);
 		}
 
 		private void DimDisconnectedScreen()
@@ -413,21 +427,33 @@ namespace FirstLight.Game.StateMachines
 		{
 			FLog.Info("OnRegionListReceived " + regionHandler.GetResults());
 
-			// Documentation says the QuantumClient.RegionHandler should be automatically set when region
-			// list is received with OpGetRegions. But it isn't.
-			// Problem is - OpGetRegions isn't accessible to call, it's done automatically when you connect to name server,
-			// and when you do, regions are requested, but this region handler is never set. 
-			_networkService.QuantumClient.RegionHandler = regionHandler;
-			_networkService.QuantumClient.RegionHandler.PingMinimumOfRegions(OnPingedRegions, "");
+			_statechartTrigger(RegionListReceivedEvent);
+			
+			_services.CoroutineService.StartCoroutine(PingEnabledRegionsCoroutine());
 		}
+		
 
-		void OnPingedRegions(RegionHandler regionHandler)
+		// TODO - THIS DOES NOT EXECUTE ON MAIN THREAD, MAKE IT DO SO, AND REMOVE THE PING COROUTINE
+		private void OnPingedRegions(RegionHandler regionHandler)
 		{
 			FLog.Info("OnPingedRegions" + regionHandler.GetResults());
+
+			_pingingRegionsComplete = true;
+		}
+
+		private IEnumerator PingEnabledRegionsCoroutine()
+		{
+			_pingingRegionsComplete = false;
+			_networkService.QuantumClient.RegionHandler.PingMinimumOfRegions(OnPingedRegions, "");
 			
+			while (!_pingingRegionsComplete)
+			{
+				yield return null;
+			}
+
 			if (_uiService.HasUiPresenter<ServerSelectScreenPresenter>())
 			{
-				_uiService.GetUi<ServerSelectScreenPresenter>().InitServerSelectionList(_networkService.QuantumClient.RegionHandler.EnabledRegions);
+				_uiService.GetUi<ServerSelectScreenPresenter>().UpdateRegionPing(_networkService.QuantumClient.RegionHandler);
 			}
 		}
 
@@ -704,16 +730,21 @@ namespace FirstLight.Game.StateMachines
 
 		private void ConnectPhoton()
 		{
-			if (string.IsNullOrEmpty(_gameDataProvider.AppDataProvider.ConnectionRegion))
+			if (string.IsNullOrEmpty(_gameDataProvider.AppDataProvider.ConnectionRegion.Value))
 			{
-				_gameDataProvider.AppDataProvider.ConnectionRegion = GameConstants.Network.DEFAULT_REGION;
+				_gameDataProvider.AppDataProvider.ConnectionRegion.Value = GameConstants.Network.DEFAULT_REGION;
 			}
 
 			var settings = QuantumRunnerConfigs.PhotonServerSettings.AppSettings;
-			settings.FixedRegion = _gameDataProvider.AppDataProvider.ConnectionRegion;
+			settings.FixedRegion = _gameDataProvider.AppDataProvider.ConnectionRegion.Value;
 
 			UpdateQuantumClientProperties();
 			_networkService.QuantumClient.ConnectUsingSettings(settings, _gameDataProvider.AppDataProvider.Nickname);
+		}
+
+		private void ConnectPhotonToRegionMaster()
+		{
+			_networkService.QuantumClient.ConnectToRegionMaster(_gameDataProvider.AppDataProvider.ConnectionRegion.Value);
 		}
 
 		private void DisconnectPhoton()
@@ -721,14 +752,8 @@ namespace FirstLight.Game.StateMachines
 			_networkService.QuantumClient.Disconnect();
 		}
 
-		private async void ConnectToNameServer()
+		private void ConnectToNameServer()
 		{
-			// This fixes the 1-frame state machine flow. Before connection to name server, photon is disconnected.
-			// The events that trigger states to do disconnect->connectToNameServer->serverSelectScreen all happen in
-			// 1 frame, which breaks the flow. This is all done with correct photon callbacks, it just happens in 
-			// almost instantly for this specific flow.
-			await Task.Delay(1);
-
 			var success = _networkService.QuantumClient.ConnectToNameServer();
 
 			if (!success)

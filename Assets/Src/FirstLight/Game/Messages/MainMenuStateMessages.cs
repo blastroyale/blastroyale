@@ -30,9 +30,4 @@ namespace FirstLight.Game.Messages
 		public QuantumMapConfig MapConfig;
 		public bool JoinIfExists;
 	}
-	
-	public struct NewRegionSelected : IMessage
-	{
-		public string SelectedRegion; 
-	}
 }

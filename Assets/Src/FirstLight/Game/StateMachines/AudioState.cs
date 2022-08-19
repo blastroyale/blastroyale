@@ -287,6 +287,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView))
 			{
+				//TODO: add a rising pitch setting for looping sfx
 				_services.AudioFxService.PlayClip3D(AudioId.CollectionStart, entityView.transform.position);
 				var collectSfx = _services.AudioFxService.PlayClip3D(AudioId.CollectionLoop, entityView.transform.position);
 				string[] despawnEvents = {

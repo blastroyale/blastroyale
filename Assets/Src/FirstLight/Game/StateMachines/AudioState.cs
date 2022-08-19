@@ -229,7 +229,7 @@ namespace FirstLight.Game.StateMachines
 		/// <summary>
 		/// Removes any currently playing looped clips on the target entity if the correct event is being called
 		/// </summary>
-		private void checkClips(string currentEvent, EntityRef entity)
+		private void CheckClips(string currentEvent, EntityRef entity)
 		{
 			for(int i = 0; i < _currentClips.Count; i++) 
 			{

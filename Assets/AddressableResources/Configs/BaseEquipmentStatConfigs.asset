@@ -19,7 +19,7 @@ MonoBehaviour:
         Value: 1461361185191240749
     QuantumConfigs:
     - Id: 28
-      Manufacturer: 0
+      Manufacturer: 5
       HpRatioToBase:
         RawValue: 0
       ArmorRatioToBase:
@@ -29,7 +29,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 0
     - Id: 38
-      Manufacturer: 0
+      Manufacturer: 4
       HpRatioToBase:
         RawValue: 4260
       ArmorRatioToBase:
@@ -39,7 +39,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 0
     - Id: 39
-      Manufacturer: 0
+      Manufacturer: 3
       HpRatioToBase:
         RawValue: 0
       ArmorRatioToBase:
@@ -59,7 +59,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 0
     - Id: 41
-      Manufacturer: 0
+      Manufacturer: 6
       HpRatioToBase:
         RawValue: 983
       ArmorRatioToBase:

@@ -252,9 +252,7 @@ namespace FirstLight.Game.StateMachines
 			
 			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
 			{
-				//airdrop dropped is the plane fly by effect, this may need to be only played for the local player
 				_services.AudioFxService.PlayClip3D(AudioId.AirdropDropped, entityView.transform.position);
-
 				var skydiveLoop = _services.AudioFxService.PlayClip3D(AudioId.SkydiveJetpackDiveLoop, entityView.transform.position);
 				skydiveLoop.SetFollowTarget(entityView.transform, Vector3.zero, Quaternion.identity);
 				string[] despawnEvents = {
@@ -275,12 +273,15 @@ namespace FirstLight.Game.StateMachines
 		private void OnCollectionBlocked(EventOnCollectableBlocked callback)
 		{
 			checkClips(callback.ToString(), callback.CollectableEntity);
-			//maybe play a sound here
+			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView))
+			{
+				//TODO: replace this sfx with a proper sfx for your pickup being blocked
+				_services.AudioFxService.PlayClip3D(AudioId.CollectionStop, entityView.transform.position);
+			}
 		}
 		private void OnCollectionStopped(EventOnStoppedCollecting callback)
 		{
 			checkClips(callback.ToString(), callback.CollectableEntity);
-			//maybe play another sound here
 		}
 		private void OnStartCollection(EventOnStartedCollecting callback)
 		{
@@ -318,6 +319,9 @@ namespace FirstLight.Game.StateMachines
 			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
 			{
 				_services.AudioFxService.PlayClip3D(AudioId.AirdropDropped, entityView.transform.position);
+				var dropsfx = _services.AudioFxService.PlayClip3D(AudioId.MissileFlyLoop, entityView.transform.position);
+				string[] despawnEvents = { new EventOnAirDropLanded().ToString() };
+				_currentClips.Add(new LoopedAudioClip(dropsfx, despawnEvents, callback.Entity));
 			}
 		}
 

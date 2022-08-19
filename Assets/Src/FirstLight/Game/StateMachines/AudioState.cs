@@ -231,10 +231,11 @@ namespace FirstLight.Game.StateMachines
 		/// </summary>
 		private void CheckClips(string currentEvent, EntityRef entity)
 		{
-			for(int i = _currentClips.Count; i > -1; i--) 
+			for(int i = _currentClips.Count -1; i > -1; i--) 
 			{
 				var clip = _currentClips[i];
-				foreach(var evnt in clip.despawnEvent)
+				
+				foreach (var evnt in clip.despawnEvent)
 				{
 					if (evnt == currentEvent && clip.targetEntity == entity)
 					{
@@ -257,12 +258,13 @@ namespace FirstLight.Game.StateMachines
 				string[] despawnEvents = {
 					nameof(EventOnLocalPlayerSkydiveLand)
 				};
+				
 				_currentClips.Add(new LoopedAudioClip(skydiveLoop, despawnEvents, callback.Entity));
 			}
 		}
 		private void OnSkydiveEnd(EventOnLocalPlayerSkydiveLand callback)
 		{
-			CheckClips(callback.ToString(), callback.Entity);
+			CheckClips(nameof(EventOnLocalPlayerSkydiveLand), callback.Entity);
 			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
 			{
 				_services.AudioFxService.PlayClip3D(AudioId.SkydiveEnd, entityView.transform.position);
@@ -271,7 +273,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnCollectionBlocked(EventOnCollectableBlocked callback)
 		{
-			CheckClips(callback.ToString(), callback.CollectableEntity);
+			CheckClips(nameof(EventOnCollectableBlocked), callback.CollectableEntity);
 			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView))
 			{
 				//TODO: replace this sfx with a proper sfx for your pickup being blocked
@@ -280,7 +282,7 @@ namespace FirstLight.Game.StateMachines
 		}
 		private void OnCollectionStopped(EventOnStoppedCollecting callback)
 		{
-			CheckClips(callback.ToString(), callback.CollectableEntity);
+			CheckClips(nameof(EventOnStoppedCollecting), callback.CollectableEntity);
 		}
 		private void OnStartCollection(EventOnStartedCollecting callback)
 		{
@@ -300,7 +302,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnAirdropCollected(EventOnAirDropCollected callback)
 		{
-			CheckClips(callback.ToString(), callback.Entity);
+			CheckClips(nameof(EventOnAirDropCollected), callback.Entity);
 		}
 
 		private void OnAirdropLanded(EventOnAirDropLanded callback)
@@ -309,7 +311,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				_services.AudioFxService.PlayClip3D(AudioId.AirdropLanded, entityView.transform.position);
 				var flareSfx = _services.AudioFxService.PlayClip3D(AudioId.AirdropFlare, entityView.transform.position);
-				string[] despawnEvents = { nameof(EventOnAirDropCollected) };
+				string[] despawnEvents = { nameof(Quantum.EventOnAirDropCollected) };
 				_currentClips.Add(new LoopedAudioClip(flareSfx, despawnEvents, callback.Entity));
 			}
 		}
@@ -320,7 +322,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				_services.AudioFxService.PlayClip3D(AudioId.AirdropDropped, entityView.transform.position);
 				var dropsfx = _services.AudioFxService.PlayClip3D(AudioId.MissileFlyLoop, entityView.transform.position);
-				string[] despawnEvents = { nameof(EventOnAirDropLanded) };
+				string[] despawnEvents = { nameof(Quantum.EventOnAirDropLanded) };
 				_currentClips.Add(new LoopedAudioClip(dropsfx, despawnEvents, callback.Entity));
 			}
 		}
@@ -372,7 +374,7 @@ namespace FirstLight.Game.StateMachines
 		}
 		private void OnHazardExplosion(EventOnHazardLand callback)
 		{
-			CheckClips(callback.ToString(), callback.AttackerEntity);
+			CheckClips(nameof(EventOnHazardLand), callback.AttackerEntity);
 			var pos = new Vector3(callback.HitPosition.X.AsFloat,
 					callback.HitPosition.Y.AsFloat, callback.HitPosition.Z.AsFloat);
 			PlayExplosionSFX(callback.sourceId, pos);
@@ -460,7 +462,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnCollectableCollected(EventOnCollectableCollected callback)
 		{
-			CheckClips(callback.ToString(), callback.CollectableEntity);
+			CheckClips(nameof(EventOnCollectableCollected), callback.CollectableEntity);
 
 			var audio = AudioId.None;
 			var collectableId = callback.CollectableId;

@@ -56,12 +56,14 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 
+			QuantumEvent.Subscribe<EventOnShieldChanged>(this, OnShieldUpdate);
 			QuantumEvent.Subscribe<EventOnHealthChanged>(this, OnHealthUpdate);
 			QuantumEvent.Subscribe<EventOnCollectableCollected>(this, OnCollectableCollected);
 			QuantumEvent.Subscribe<EventOnCollectableBlocked>(this, OnCollectableBlocked);
-			QuantumEvent.Subscribe<EventOnShieldChanged>(this, OnShieldUpdate);
-
 			QuantumEvent.Subscribe<EventOnPlayerStatsChanged>(this, OnPlayerStatsChanged);
+			QuantumEvent.Subscribe<EventOnPlayerDamaged>(this, OnPlayeDamaged);
+			
+			// TODO: Stats change don't consider Modifiers and is done in RefreshEquipment only
 		}
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
@@ -100,7 +102,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void OnCollectableCollected(EventOnCollectableCollected callback)
 		{
 			if (callback.PlayerEntity != _observedEntity) return;
-			if (callback.CollectableId.IsInGroup(GameIdGroup.Ammo)) return;
 
 			var messageType = callback.CollectableId.IsInGroup(GameIdGroup.Weapon)
 				                  ? MessageType.StatChange
@@ -126,6 +127,33 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 		}
 
+		private void OnHealthUpdate(EventOnHealthChanged callback)
+		{
+			if (callback.Entity != _observedEntity || callback.PreviousHealth == 0) return;
+
+			var healthChange = callback.CurrentHealth - callback.PreviousHealth;
+			var color = healthChange > 0 ? _healTextColor : _hitTextColor;
+
+			EnqueueText(callback.Entity, healthChange.ToString(), color, MessageType.Info);
+		}
+
+		private void OnPlayeDamaged(EventOnPlayerDamaged callback)
+		{
+			// Only consider damage changes from the spectator attacker because all other changes are handled with
+			// OnHealthUpdate && OnShieldUpdate. This events consider changes from Hazards or other special sources
+			if (callback.Attacker != _observedEntity) return;
+
+			if (callback.ShieldDamage > 0)
+			{
+				EnqueueValue(_observedEntity, ScriptLocalization.General.Shield, (int) callback.ShieldDamage, MessageType.Info);
+			}
+
+			if (callback.HealthDamage > 0)
+			{
+				EnqueueValue(_observedEntity, ScriptLocalization.General.Shield, (int) callback.HealthDamage, MessageType.Info);
+			}
+		}
+
 		private void OnPlayerStatsChanged(EventOnPlayerStatsChanged callback)
 		{
 			if (callback.Entity != _observedEntity) return;
@@ -141,16 +169,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 				EnqueueValue(_observedEntity, statName, Mathf.RoundToInt(difference), MessageType.StatChange);
 			}
-		}
-
-		private void OnHealthUpdate(EventOnHealthChanged callback)
-		{
-			if (callback.PreviousHealth == 0) return;
-
-			var healthChange = callback.CurrentHealth - callback.PreviousHealth;
-			var color = healthChange > 0 ? _healTextColor : _hitTextColor;
-
-			EnqueueText(callback.Entity, healthChange.ToString(), color, MessageType.Info);
 		}
 
 		private void EnqueueValue(EntityRef playerEntity, string valueName, int value, MessageType type,

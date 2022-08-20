@@ -167,24 +167,22 @@ namespace Quantum
 			var shield = Values[(int)StatType.Shield];
 			var currentShieldCapacity = shield.StatValue;
 			var maxShieldCapacity = shield.BaseValue;
+			var modifierPower = (FP) amount / maxShieldCapacity;
+			var newCapacityValue = currentShieldCapacity + (maxShieldCapacity * modifierPower);
 
 			if (currentShieldCapacity.AsInt == maxShieldCapacity.AsInt)
 			{
 				return;
 			}
 
-			var modifierId = ++f.Global->ModifierIdCount;
-			var modifierPower = (FP) amount / maxShieldCapacity;
-			var newCapacityValue = currentShieldCapacity + (maxShieldCapacity * modifierPower);
 			if (newCapacityValue > maxShieldCapacity)
 			{
-				newCapacityValue = maxShieldCapacity;
 				modifierPower = (maxShieldCapacity - currentShieldCapacity) / maxShieldCapacity;
 			}
 
 			var capacityModifer = new Modifier
 			{
-				Id = modifierId,
+				Id = ++f.Global->ModifierIdCount,
 				Type = StatType.Shield,
 				Power = modifierPower,
 				Duration = FP.MaxValue,
@@ -193,8 +191,6 @@ namespace Quantum
 			};
 
 			AddModifier(f, capacityModifer);
-			f.Events.OnShieldChanged(entity, attacker, CurrentShield, CurrentShield,
-			                         currentShieldCapacity.AsInt, newCapacityValue.AsInt);
 		}
 
 		/// <summary>
@@ -284,9 +280,9 @@ namespace Quantum
 			var previousHealth = CurrentHealth;
 			var previousShield = CurrentShield;
 			var maxHealth = GetStatData(StatType.Health).StatValue.AsInt;
-			var currentShieldCapacity = GetStatData(StatType.Shield).StatValue.AsInt;
+			var maxShield = GetStatData(StatType.Shield).StatValue.AsInt;
 			var armour = GetStatData(StatType.Armour).StatValue.AsInt;
-			var currentDamageAmount = Math.Max((int)spell.PowerAmount, 0);
+			var damageAmount = Math.Max(Math.Max((int)spell.PowerAmount, 0) - armour, 0);
 
 			if (IsImmune)
 			{
@@ -294,38 +290,23 @@ namespace Quantum
 				return;
 			}
 
-			currentDamageAmount = Math.Max(currentDamageAmount - armour, 0);
-
 			// If there's shields then we reduce it first
 			// and if the damage is bigger than shields then we proceed to remove health as well
 			if (previousShield > 0)
 			{
-				CurrentShield = Math.Max(previousShield - currentDamageAmount, 0);
-				currentDamageAmount = Math.Max(currentDamageAmount - previousShield, 0);
-
-				f.Events.OnShieldChanged(entity, spell.Attacker, previousShield, CurrentShield,
-				                         currentShieldCapacity, currentShieldCapacity);
+				SetShields(f, entity, spell.Attacker, Math.Max(previousShield - damageAmount, 0));
+				
+				damageAmount = Math.Max(damageAmount - previousShield, 0);
 			}
 
-			if (f.TryGet<PlayerCharacter>(entity, out var playerCharacter))
-			{
-				var shieldDamage = spell.PowerAmount - (uint) currentDamageAmount;
-				var healthDamage = (uint) currentDamageAmount;
+			f.Events.OnPlayerDamaged(entity, spell, maxHealth, previousShield, maxShield, previousHealth, (uint) damageAmount);
 
-				f.Events.OnPlayerDamaged(playerCharacter.Player, entity, spell.Attacker, shieldDamage, (uint)previousShield,
-				                         (uint)CurrentShield, healthDamage, spell.PowerAmount, maxHealth, currentShieldCapacity,
-				                         spell.OriginalHitPosition);
-				f.Events.OnLocalPlayerDamaged(playerCharacter.Player, entity, spell.Attacker, shieldDamage,
-				                              healthDamage, spell.PowerAmount, maxHealth, currentShieldCapacity,
-				                              spell.OriginalHitPosition);
-			}
-
-			if (currentDamageAmount <= 0)
+			if (damageAmount <= 0)
 			{
 				return;
 			}
 
-			AttackerSetCurrentHealth(f, entity, spell.Attacker, previousHealth - currentDamageAmount);
+			AttackerSetCurrentHealth(f, entity, spell.Attacker, previousHealth - damageAmount);
 		}
 
 		private void ApplyModifier(Modifier modifier)

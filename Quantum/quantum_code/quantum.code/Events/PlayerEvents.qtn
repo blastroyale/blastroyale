@@ -110,13 +110,13 @@ synced event OnPlayerDamaged
 	player_ref Player;
 	entity_ref Entity;
 	entity_ref Attacker;
-	UInt32 ShieldDamage; 
-	UInt32 PreviousShield;
-	UInt32 CurrentShield;
-	UInt32 HealthDamage;
 	UInt32 TotalDamage;
+	UInt32 ShieldDamage; 
+	Int32 PreviousShield;
+	Int32 MaxShield;
+	UInt32 HealthDamage;
+	Int32 PreviousHealth;
 	Int32 MaxHealth;
-	Int32 ShieldCapacity;
 	FPVector3 HitPosition;
 }
 
@@ -222,19 +222,6 @@ synced event OnLocalPlayerWeaponChanged
 	entity_ref Entity;
 	WeaponSlot WeaponSlot;
 	Int32 Slot;
-}
-
-synced event OnLocalPlayerDamaged
-{
-	local player_ref Player;
-	entity_ref Entity;
-	entity_ref Attacker;
-	UInt32 ShieldDamage;
-	UInt32 HealthDamage;
-	UInt32 TotalDamage;
-	Int32 MaxHealth;
-	Int32 ShieldCapacity;
-	FPVector3 HitPosition;
 }
 
 synced event OnLocalPlayerAttack

@@ -61,11 +61,11 @@ namespace Quantum.Systems
 			
 			if (isHealing)
 			{
-				stats->GainHealth(f, spell);
+				stats->GainHealth(f, spell.Victim, spell);
 			}
 			else
 			{
-				stats->ReduceHealth(f, spell);
+				stats->ReduceHealth(f, spell.Victim, spell);
 			}
 		}
 

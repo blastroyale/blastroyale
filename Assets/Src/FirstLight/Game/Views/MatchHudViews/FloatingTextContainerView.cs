@@ -38,7 +38,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private IMatchServices _matchServices;
 		private Coroutine _coroutine;
-		private EntityRef _observedEntity;
 
 		private readonly Dictionary<MessageType, Queue<MessageData>> _queues = new();
 		private readonly Dictionary<MessageType, Coroutine> _coroutines = new();
@@ -56,21 +55,14 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 
-			QuantumEvent.Subscribe<EventOnShieldChanged>(this, OnShieldUpdate);
-			QuantumEvent.Subscribe<EventOnHealthChanged>(this, OnHealthUpdate);
 			QuantumEvent.Subscribe<EventOnCollectableCollected>(this, OnCollectableCollected);
 			QuantumEvent.Subscribe<EventOnCollectableBlocked>(this, OnCollectableBlocked);
 			QuantumEvent.Subscribe<EventOnPlayerStatsChanged>(this, OnPlayerStatsChanged);
-			QuantumEvent.Subscribe<EventOnPlayerDamaged>(this, OnPlayeDamaged);
-			
-			// TODO: Stats change don't consider Modifiers and is done in RefreshEquipment only
-			// TODO: Remove modifier is different than apply modifier
+			QuantumEvent.Subscribe<EventOnPlayerDamaged>(this, OnPlayerDamaged);
 		}
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
-			_observedEntity = next.Entity;
-
 			foreach (var (_, q) in _queues)
 			{
 				q.Clear();
@@ -79,7 +71,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void OnCollectableBlocked(EventOnCollectableBlocked callback)
 		{
-			if (callback.PlayerEntity != _observedEntity) return;
+			if (callback.PlayerEntity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
 
 			if (callback.Game.Frames.Verified.TryGet<Consumable>(callback.CollectableEntity, out var consumable))
 			{
@@ -93,7 +85,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 						     ArgumentOutOfRangeException($"Text color not defined for {consumable.ConsumableType}.")
 				};
 
-				EnqueueText(_observedEntity, "MAX", textColor, MessageType.Info,
+				EnqueueText(callback.PlayerEntity, "MAX", textColor, MessageType.Info,
 				            consumable.ConsumableType is ConsumableType.Shield or ConsumableType.ShieldCapacity
 					            ? _iconArmour
 					            : null);
@@ -102,62 +94,38 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void OnCollectableCollected(EventOnCollectableCollected callback)
 		{
-			if (callback.PlayerEntity != _observedEntity) return;
+			if (callback.PlayerEntity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
 
 			var messageType = callback.CollectableId.IsInGroup(GameIdGroup.Weapon)
 				                  ? MessageType.StatChange
 				                  : MessageType.Info;
 
-			EnqueueText(_observedEntity, callback.CollectableId.GetTranslation(), _neutralTextColor, messageType);
+			EnqueueText(callback.PlayerEntity, callback.CollectableId.GetTranslation(), _neutralTextColor, messageType);
 		}
 
-		private void OnShieldUpdate(EventOnShieldChanged callback)
+		private void OnPlayerDamaged(EventOnPlayerDamaged callback)
 		{
-			if (callback.Entity != _observedEntity) return;
-
-			if (callback.PreviousShieldCapacity != callback.ShieldCapacity)
+			var entityCheck = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
+			
+			if (callback.Attacker != entityCheck || callback.Entity != entityCheck)
 			{
-				EnqueueValue(_observedEntity, ScriptLocalization.General.Shield,
-				             callback.ShieldCapacity - callback.PreviousShieldCapacity, MessageType.Info);
+				return;
 			}
-
-			if (callback.PreviousShield != callback.CurrentShield)
-			{
-				EnqueueValue(_observedEntity, ScriptLocalization.General.Shield,
-				             callback.CurrentShield - callback.PreviousShield, MessageType.Info);
-			}
-		}
-
-		private void OnHealthUpdate(EventOnHealthChanged callback)
-		{
-			if (callback.Entity != _observedEntity || callback.PreviousHealth == 0) return;
-
-			var healthChange = callback.CurrentHealth - callback.PreviousHealth;
-			var color = healthChange > 0 ? _healTextColor : _hitTextColor;
-
-			EnqueueText(callback.Entity, healthChange.ToString(), color, MessageType.Info);
-		}
-
-		private void OnPlayeDamaged(EventOnPlayerDamaged callback)
-		{
-			// Only consider damage changes from the spectator attacker because all other changes are handled with
-			// OnHealthUpdate && OnShieldUpdate. This events consider changes from Hazards or other special sources
-			if (callback.Attacker != _observedEntity) return;
-
+			
 			if (callback.ShieldDamage > 0)
 			{
-				EnqueueValue(_observedEntity, ScriptLocalization.General.Shield, (int) callback.ShieldDamage, MessageType.Info);
+				EnqueueValue(callback.Entity, ScriptLocalization.General.Shield, (int) callback.ShieldDamage, MessageType.Info);
 			}
-
+				
 			if (callback.HealthDamage > 0)
 			{
-				EnqueueValue(_observedEntity, ScriptLocalization.General.Shield, (int) callback.HealthDamage, MessageType.Info);
+				EnqueueValue(callback.Entity, ScriptLocalization.General.Health, (int) callback.HealthDamage, MessageType.Info);
 			}
 		}
 
 		private void OnPlayerStatsChanged(EventOnPlayerStatsChanged callback)
 		{
-			if (callback.Entity != _observedEntity) return;
+			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
 
 			// Don't show stat changes in Deathmatch game mode
 			if (callback.Game.Frames.Verified.Context.MapConfig.GameMode == GameMode.Deathmatch) return;
@@ -168,7 +136,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				                 callback.PreviousStats.Values[i].BaseValue.AsFloat;
 				var statName = callback.CurrentStats.Values[i].Type.GetTranslation();
 
-				EnqueueValue(_observedEntity, statName, Mathf.RoundToInt(difference), MessageType.StatChange);
+				EnqueueValue(callback.Entity, statName, Mathf.RoundToInt(difference), MessageType.StatChange);
 			}
 		}
 

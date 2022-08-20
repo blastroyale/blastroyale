@@ -118,7 +118,7 @@ namespace Quantum
 
 			f.Unsafe.GetPointer<PhysicsCollider3D>(e)->Enabled = true;
 
-			StatusModifiers.AddStatusModifierToEntity(f, e, StatusModifierType.Shield,
+			StatusModifiers.AddStatusModifierToEntity(f, e, StatusModifierType.Immunity,
 			                                          f.GameConfig.PlayerAliveShieldDuration.Get(f));
 		}
 
@@ -239,7 +239,7 @@ namespace Quantum
 			var gearSlot = GetGearSlot(gear);
 			Gear[gearSlot] = gear;
 			
-			RefreshEquipmentStats(f, e);
+			f.Unsafe.GetPointer<Stats>(e)->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Gear);
 
 			f.Events.OnPlayerGearChanged(Player, e, gear, gearSlot);
 		}
@@ -423,23 +423,6 @@ namespace Quantum
 			return primary ? Constants.WEAPON_INDEX_PRIMARY : Constants.WEAPON_INDEX_SECONDARY;
 		}
 
-		private void RefreshEquipmentStats(Frame f, EntityRef e)
-		{
-			var previousStats = f.Get<Stats>(e);
-			var newStats = f.Unsafe.GetPointer<Stats>(e);
-			var previousHeath = previousStats.GetStatData(StatType.Health).StatValue.AsInt;
-
-			newStats->RefreshStats(f, CurrentWeapon, Gear);
-			
-			var newHealth = newStats->GetStatData(StatType.Health).StatValue.AsInt;
-			var diff = Math.Max(newHealth - previousHeath, 0);
-
-			// Adapts the player health if new equipment changes player's HP
-			newStats->SetCurrentHealth(f, e, Math.Min(newStats->CurrentHealth + diff, newHealth));
-
-			f.Events.OnPlayerStatsChanged(Player, e, previousStats, *newStats);
-		}
-
 		private QuantumWeaponConfig SetSlotWeapon(Frame f, EntityRef e, int slot)
 		{
 			CurrentWeaponSlot = slot;
@@ -459,7 +442,7 @@ namespace Quantum
 			blackboard->Set(f, Constants.HasMeleeWeaponKey, weaponConfig.IsMeleeWeapon);
 			blackboard->Set(f, Constants.BurstTimeDelay, burstCooldown);
 			
-			RefreshEquipmentStats(f, e);
+			f.Unsafe.GetPointer<Stats>(e)->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Gear);
 
 			return weaponConfig;
 		}

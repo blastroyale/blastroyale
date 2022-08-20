@@ -1,3 +1,4 @@
+using System;
 using Photon.Deterministic;
 
 namespace Quantum.Commands
@@ -15,24 +16,21 @@ namespace Quantum.Commands
 		/// <inheritdoc />
 		internal override void Execute(Frame f, PlayerRef playerRef)
 		{
-			var characterEntity = f.GetSingleton<GameContainer>().PlayersData[playerRef].Entity;
-			var stats = f.Unsafe.GetPointer<Stats>(characterEntity);
-			
-			var modifierId = ++f.Global->ModifierIdCount;
-			var healthMultiplier = FP._1000;
-			
+			var entity = f.GetSingleton<GameContainer>().PlayersData[playerRef].Entity;
+			var stats = f.Unsafe.GetPointer<Stats>(entity);
 			var healthModifier = new Modifier
 			{
-				Id = modifierId,
+				Id = ++f.Global->ModifierIdCount,
 				Type = StatType.Health,
-				Power = healthMultiplier,
+				Power = FP._1000,
 				Duration = FP.MaxValue,
 				StartTime = FP._0,
 				IsNegative = false
 			};
 			
-			stats->AddModifier(f, healthModifier);
-			stats->SetCurrentHealthPercentage(f, characterEntity, FP._1);
+			stats->AddModifier(f, entity, healthModifier);
+			stats->GainShield(f, entity, int.MaxValue);
+			stats->GainHealth(f, entity, new Spell {PowerAmount = uint.MaxValue});
 		}
 	}
 }

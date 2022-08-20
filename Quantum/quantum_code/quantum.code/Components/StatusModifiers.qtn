@@ -3,7 +3,7 @@ component Stun
 	FP VulnerabilityMultiplier; 
 }
 
-component Shield
+component Immunity
 {
 }
 
@@ -32,7 +32,7 @@ enum StatusModifierType
 {
 	None,
 	Stun,
-	Shield,
+	Immunity,
 	Regeneration,
 	Rage,
 	Invisibility,

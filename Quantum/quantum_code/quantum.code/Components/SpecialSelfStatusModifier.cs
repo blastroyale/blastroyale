@@ -12,7 +12,7 @@ namespace Quantum
 			switch (special.SpecialType)
 			{
 				case SpecialType.ShieldSelfStatus:
-					StatusModifiers.AddStatusModifierToEntity(f, e, StatusModifierType.Shield, duration);
+					StatusModifiers.AddStatusModifierToEntity(f, e, StatusModifierType.Immunity, duration);
 					return true;
 			}
 			

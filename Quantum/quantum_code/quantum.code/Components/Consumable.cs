@@ -30,11 +30,12 @@ namespace Quantum
 		internal void Collect(Frame f, EntityRef entity, EntityRef playerEntity, PlayerRef player)
 		{
 			var consumable = f.Get<Consumable>(entity);
+			var stats = f.Unsafe.GetPointer<Stats>(playerEntity);
 
 			switch (ConsumableType)
 			{
 				case ConsumableType.Health:
-					f.Unsafe.GetPointer<Stats>(playerEntity)->GainHealth(f, playerEntity, (uint) consumable.Amount.AsInt);
+					stats->GainHealth(f, playerEntity, new Spell { PowerAmount = (uint) consumable.Amount.AsInt});
 					break;
 				case ConsumableType.Rage:
 					StatusModifiers.AddStatusModifierToEntity(f, playerEntity, StatusModifierType.Rage, consumable.Amount.AsInt);
@@ -43,12 +44,11 @@ namespace Quantum
 					f.Unsafe.GetPointer<PlayerCharacter>(playerEntity)->GainAmmo(f, playerEntity, consumable.Amount);
 					break;
 				case ConsumableType.Shield:
-					f.Unsafe.GetPointer<Stats>(playerEntity)->GainShields(f, playerEntity, entity, consumable.Amount.AsInt);
+					stats->GainShield(f, playerEntity, consumable.Amount.AsInt);
 					break;
 				case ConsumableType.ShieldCapacity:
-					f.Unsafe.GetPointer<Stats>(playerEntity)->GainShieldCapacity(f, playerEntity, entity, consumable.Amount.AsInt);
-					//once you have gained shield capacity, fill your shields for the same amount
-					f.Unsafe.GetPointer<Stats>(playerEntity)->GainShields(f, playerEntity, entity, consumable.Amount.AsInt);
+					stats->GainShieldCapacity(f, playerEntity, consumable.Amount.AsInt);
+					stats->GainShield(f, playerEntity, consumable.Amount.AsInt);
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();

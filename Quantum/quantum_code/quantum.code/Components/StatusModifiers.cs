@@ -58,8 +58,8 @@ namespace Quantum
 				case StatusModifierType.Stun:
 					f.Remove<Stun>(entity);
 					break;
-				case StatusModifierType.Shield:
-					f.Remove<Shield>(entity);
+				case StatusModifierType.Immunity:
+					f.Remove<Immunity>(entity);
 					break;
 				case StatusModifierType.Star:
 					f.Remove<Star>(entity);
@@ -128,8 +128,8 @@ namespace Quantum
 			
 			switch (statusModifierType)
 			{
-				case StatusModifierType.Shield:
-					f.Add<Shield>(entity);
+				case StatusModifierType.Immunity:
+					f.Add<Immunity>(entity);
 					break;
 				case StatusModifierType.Star:
 					var starComponent = new Star();

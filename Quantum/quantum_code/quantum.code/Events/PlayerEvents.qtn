@@ -109,8 +109,7 @@ synced event OnPlayerAttack
 synced event OnPlayerDamaged
 {
 	player_ref Player;
-	entity_ref Entity;
-	entity_ref Attacker;
+	Spell Spell;
 	UInt32 TotalDamage;
 	UInt32 ShieldDamage; 
 	Int32 PreviousShield;
@@ -118,7 +117,6 @@ synced event OnPlayerDamaged
 	UInt32 HealthDamage;
 	Int32 PreviousHealth;
 	Int32 MaxHealth;
-	FPVector3 HitPosition;
 }
 
 synced event OnPlayerAttackHit

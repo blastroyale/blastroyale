@@ -407,31 +407,32 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayerDamaged(EventOnPlayerDamaged callback)
 		{
-
-			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
+			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
 			{
-				var game = callback.Game;
-				var audio = AudioId.None;
+				return;
+			}
+			
+			var game = callback.Game;
+			var audio = AudioId.None;
 
-				if (_matchServices.SpectateService.SpectatedPlayer.Value.Player.Equals(callback.Player))
-				{
-					audio = callback.ShieldDamage > 0 ? AudioId.TakeShieldDamage : AudioId.TakeHealthDamage;
-				}
-				else if (game.Frames.Verified.TryGet<PlayerCharacter>(callback.Attacker, out var player) &&
-				         game.PlayerIsLocal(player.Player))
-				{
-					audio = callback.ShieldDamage > 0 ? AudioId.HitShieldDamage : AudioId.HitHealthDamage;
-				}
+			if (_matchServices.SpectateService.SpectatedPlayer.Value.Player == callback.Player)
+			{
+				audio = callback.ShieldDamage > 0 ? AudioId.TakeShieldDamage : AudioId.TakeHealthDamage;
+			}
+			else if (game.Frames.Verified.TryGet<PlayerCharacter>(callback.Attacker, out var player) &&
+			         _matchServices.SpectateService.SpectatedPlayer.Value.Player == player.Player)
+			{
+				audio = callback.ShieldDamage > 0 ? AudioId.HitShieldDamage : AudioId.HitHealthDamage;
+			}
 				
-				if (callback.PreviousShield > 0 && callback.CurrentShield == 0)
-				{
-					audio = AudioId.ShieldBreak;
-				}
+			if (callback.ShieldDamage > 0 && callback.HealthDamage > 0)
+			{
+				audio = AudioId.ShieldBreak;
+			}
 
-				if (audio != AudioId.None)
-				{
-					_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
-				}
+			if (audio != AudioId.None)
+			{
+				_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
 			}
 		}
 	}

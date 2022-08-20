@@ -44,10 +44,10 @@ namespace FirstLight.Game.Presenters
 			_weaponSlotButtons[2].onClick.AddListener(() => OnWeaponSlotClicked(2));
 
 			QuantumCallback.Subscribe<CallbackGameResynced>(this, OnGameResync);
+			QuantumEvent.Subscribe<EventOnPlayerDamaged>(this, OnPlayerDamaged);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveDrop>(this, OnLocalPlayerSkydiveDrop);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLanded);
-			QuantumEvent.Subscribe<EventOnLocalPlayerDamaged>(this, OnLocalPlayerDamaged);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpecialUsed>(this, OnEventOnLocalPlayerSpecialUsed);
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, OnWeaponChanged);
 		}
@@ -243,11 +243,13 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		private void OnLocalPlayerDamaged(EventOnLocalPlayerDamaged callback)
+		private void OnPlayerDamaged(EventOnPlayerDamaged callback)
 		{
+			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
+			
 			if (callback.ShieldDamage > 0)
 			{
-				PlayHapticFeedbackForDamage(callback.ShieldDamage, callback.ShieldCapacity);
+				PlayHapticFeedbackForDamage(callback.ShieldDamage, callback.MaxShield);
 			}
 			else if (callback.HealthDamage > 0)
 			{

@@ -60,8 +60,7 @@ namespace Quantum
 			playerCharacter->ReduceAmmo(f, e, 1);
 			bb->Set(f, Constants.BurstShotCount, bb->GetFP(f, Constants.BurstShotCount) - 1);
 
-			f.Events.OnPlayerAttack(player, e, playerCharacter->CurrentWeapon, shotAngle, (uint)targetAttackAngle);
-			f.Events.OnLocalPlayerAttack(player, e, weaponConfig);
+			f.Events.OnPlayerAttack(player, e, playerCharacter->CurrentWeapon, weaponConfig, shotAngle, (uint)targetAttackAngle);
 			Projectile.Create(f, projectile);
 		}
 	}

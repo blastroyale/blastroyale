@@ -203,6 +203,9 @@ namespace FirstLight.Game.Logic
 			_deviceId = new ObservableResolverField<string>(() => Data.DeviceId, linked => Data.DeviceId = linked);
 			SelectedGameMode = new ObservableField<GameMode>(GameMode.BattleRoyale);
 			SelectedMatchType = new ObservableField<MatchType>(MatchType.Casual);
+			
+			_audioFxService.AudioListener.Listener.enabled = true;
+			MMVibrationManager.SetHapticsActive(IsHapticOn);
 		}
 
 		/// <inheritdoc />

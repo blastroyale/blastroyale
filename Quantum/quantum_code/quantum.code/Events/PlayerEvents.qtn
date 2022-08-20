@@ -101,6 +101,7 @@ synced event OnPlayerAttack
 	player_ref Player;
 	entity_ref PlayerEntity;
 	Equipment Weapon;
+	QuantumWeaponConfig WeaponConfig;
 	FP ShotDir;
 	UInt32 AttackAngle;
 }
@@ -222,13 +223,6 @@ synced event OnLocalPlayerWeaponChanged
 	entity_ref Entity;
 	WeaponSlot WeaponSlot;
 	Int32 Slot;
-}
-
-synced event OnLocalPlayerAttack
-{
-	local player_ref Player;
-	entity_ref PlayerEntity;
-	QuantumWeaponConfig WeaponConfig;
 }
 
 synced event OnLocalPlayerSpecialUsed

@@ -4978,7 +4978,7 @@ namespace Quantum {
       }
     }
     public unsafe partial struct FrameEvents {
-      public const Int32 EVENT_TYPE_COUNT = 69;
+      public const Int32 EVENT_TYPE_COUNT = 68;
       public static Int32 GetParentEventID(Int32 eventID) {
         switch (eventID) {
           default: return -1;
@@ -5053,7 +5053,6 @@ namespace Quantum {
           case EventOnLocalPlayerAmmoChanged.ID: return typeof(EventOnLocalPlayerAmmoChanged);
           case EventOnLocalPlayerWeaponAdded.ID: return typeof(EventOnLocalPlayerWeaponAdded);
           case EventOnLocalPlayerWeaponChanged.ID: return typeof(EventOnLocalPlayerWeaponChanged);
-          case EventOnLocalPlayerAttack.ID: return typeof(EventOnLocalPlayerAttack);
           case EventOnLocalPlayerSpecialUsed.ID: return typeof(EventOnLocalPlayerSpecialUsed);
           default: throw new System.ArgumentOutOfRangeException("eventID");
         }
@@ -5509,12 +5508,13 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnPlayerAttack OnPlayerAttack(PlayerRef Player, EntityRef PlayerEntity, Equipment Weapon, FP ShotDir, UInt32 AttackAngle) {
+      public EventOnPlayerAttack OnPlayerAttack(PlayerRef Player, EntityRef PlayerEntity, Equipment Weapon, QuantumWeaponConfig WeaponConfig, FP ShotDir, UInt32 AttackAngle) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnPlayerAttack>(EventOnPlayerAttack.ID);
         ev.Player = Player;
         ev.PlayerEntity = PlayerEntity;
         ev.Weapon = Weapon;
+        ev.WeaponConfig = WeaponConfig;
         ev.ShotDir = ShotDir;
         ev.AttackAngle = AttackAngle;
         _f.AddEvent(ev);
@@ -5674,16 +5674,6 @@ namespace Quantum {
         ev.Entity = Entity;
         ev.WeaponSlot = WeaponSlot;
         ev.Slot = Slot;
-        _f.AddEvent(ev);
-        return ev;
-      }
-      public EventOnLocalPlayerAttack OnLocalPlayerAttack(PlayerRef Player, EntityRef PlayerEntity, QuantumWeaponConfig WeaponConfig) {
-        if (_f.Context.IsLocalPlayer(Player) == false) return null;
-        if (_f.IsPredicted) return null;
-        var ev = _f.Context.AcquireEvent<EventOnLocalPlayerAttack>(EventOnLocalPlayerAttack.ID);
-        ev.Player = Player;
-        ev.PlayerEntity = PlayerEntity;
-        ev.WeaponConfig = WeaponConfig;
         _f.AddEvent(ev);
         return ev;
       }
@@ -7301,6 +7291,7 @@ namespace Quantum {
     public PlayerRef Player;
     public EntityRef PlayerEntity;
     public Equipment Weapon;
+    public QuantumWeaponConfig WeaponConfig;
     public FP ShotDir;
     public UInt32 AttackAngle;
     protected EventOnPlayerAttack(Int32 id, EventFlags flags) : 
@@ -7323,6 +7314,7 @@ namespace Quantum {
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + PlayerEntity.GetHashCode();
         hash = hash * 31 + Weapon.GetHashCode();
+        hash = hash * 31 + WeaponConfig.GetHashCode();
         hash = hash * 31 + ShotDir.GetHashCode();
         hash = hash * 31 + AttackAngle.GetHashCode();
         return hash;
@@ -7788,15 +7780,16 @@ namespace Quantum {
       }
     }
   }
-  public unsafe partial class EventOnLocalPlayerAttack : EventBase {
+  public unsafe partial class EventOnLocalPlayerSpecialUsed : EventBase {
     public new const Int32 ID = 67;
     public PlayerRef Player;
-    public EntityRef PlayerEntity;
-    public QuantumWeaponConfig WeaponConfig;
-    protected EventOnLocalPlayerAttack(Int32 id, EventFlags flags) : 
+    public EntityRef Entity;
+    public Special Special;
+    public Int32 SpecialIndex;
+    protected EventOnLocalPlayerSpecialUsed(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnLocalPlayerAttack() : 
+    public EventOnLocalPlayerSpecialUsed() : 
         base(67, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -7810,36 +7803,6 @@ namespace Quantum {
     public override Int32 GetHashCode() {
       unchecked {
         var hash = 401;
-        hash = hash * 31 + Player.GetHashCode();
-        hash = hash * 31 + PlayerEntity.GetHashCode();
-        hash = hash * 31 + WeaponConfig.GetHashCode();
-        return hash;
-      }
-    }
-  }
-  public unsafe partial class EventOnLocalPlayerSpecialUsed : EventBase {
-    public new const Int32 ID = 68;
-    public PlayerRef Player;
-    public EntityRef Entity;
-    public Special Special;
-    public Int32 SpecialIndex;
-    protected EventOnLocalPlayerSpecialUsed(Int32 id, EventFlags flags) : 
-        base(id, flags) {
-    }
-    public EventOnLocalPlayerSpecialUsed() : 
-        base(68, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
-    }
-    public new QuantumGame Game {
-      get {
-        return (QuantumGame)base.Game;
-      }
-      set {
-        base.Game = value;
-      }
-    }
-    public override Int32 GetHashCode() {
-      unchecked {
-        var hash = 409;
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + Entity.GetHashCode();
         hash = hash * 31 + Special.GetHashCode();

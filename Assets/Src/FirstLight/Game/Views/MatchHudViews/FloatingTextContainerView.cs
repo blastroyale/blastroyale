@@ -64,6 +64,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			QuantumEvent.Subscribe<EventOnPlayerDamaged>(this, OnPlayeDamaged);
 			
 			// TODO: Stats change don't consider Modifiers and is done in RefreshEquipment only
+			// TODO: Remove modifier is different than apply modifier
 		}
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)

@@ -24,12 +24,12 @@ namespace Quantum
 		}
 
 		/// <summary>
-		/// Collects this given <paramref name="entity"/> by the given <paramref name="player"/>
+		/// Collects this given <paramref name="entity"/> by the given <paramref name="playerEntity"/>
 		/// </summary>
-		internal void Collect(Frame f, EntityRef entity, EntityRef player, PlayerRef playerRef)
+		internal void Collect(Frame f, EntityRef entity, EntityRef playerEntity, PlayerRef playerRef)
 		{
-			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(player);
-			var isBot = f.Has<BotCharacter>(player);
+			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
+			var isBot = f.Has<BotCharacter>(playerEntity);
 			var playerData = f.GetPlayerData(playerRef);
 
 			if (Item.IsWeapon())
@@ -39,12 +39,14 @@ namespace Quantum
 				                     !playerCharacter->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon
 					                     .IsValid());
 
-				playerCharacter->AddWeapon(f, player, Item, primaryWeapon);
+				playerCharacter->AddWeapon(f, playerEntity, Item, primaryWeapon);
 			}
 			else
 			{
-				playerCharacter->EquipGear(f, player, Item);
+				playerCharacter->EquipGear(f, playerEntity, Item);
 			}
+
+			f.Events.OnEquipmentCollected(entity, playerRef, playerEntity, Item);
 		}
 	}
 }

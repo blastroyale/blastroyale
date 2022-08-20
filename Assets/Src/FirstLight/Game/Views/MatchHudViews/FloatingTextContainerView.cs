@@ -6,6 +6,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Services;
 using I2.Loc;
+using Photon.Deterministic;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -55,6 +56,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 
+			QuantumEvent.Subscribe<EventOnHealthChanged>(this, OnHealthChanged);
+			QuantumEvent.Subscribe<EventOnShieldChanged>(this, OnShieldChanged);
+			QuantumEvent.Subscribe<EventOnPlayerAmmoChanged>(this, OnPlayerAmmoChanged);
 			QuantumEvent.Subscribe<EventOnCollectableCollected>(this, OnCollectableCollected);
 			QuantumEvent.Subscribe<EventOnCollectableBlocked>(this, OnCollectableBlocked);
 			QuantumEvent.Subscribe<EventOnPlayerStatsChanged>(this, OnPlayerStatsChanged);
@@ -103,23 +107,55 @@ namespace FirstLight.Game.Views.MatchHudViews
 			EnqueueText(callback.PlayerEntity, callback.CollectableId.GetTranslation(), _neutralTextColor, messageType);
 		}
 
+		private void OnPlayerAmmoChanged(EventOnPlayerAmmoChanged callback)
+		{
+			var diff = callback.CurrentAmmo - callback.PreviousAmmo;
+			
+			if (diff < 0 || callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
+			{
+				return;
+			}
+			
+			EnqueueValue(callback.Entity, ScriptLocalization.General.Ammo, diff, MessageType.Info);
+		}
+
+		private void OnShieldChanged(EventOnShieldChanged callback)
+		{
+			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
+			{
+				return;
+			}
+			
+			EnqueueValue(callback.Entity, ScriptLocalization.General.Shield, 
+			             callback.CurrentShield - callback.PreviousShield, MessageType.Info);
+		}
+
+		private void OnHealthChanged(EventOnHealthChanged callback)
+		{
+			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
+			{
+				return;
+			}
+			
+			EnqueueValue(callback.Entity, ScriptLocalization.General.Health, 
+			             callback.CurrentHealth - callback.PreviousHealth, MessageType.Info);
+		}
+
 		private void OnPlayerDamaged(EventOnPlayerDamaged callback)
 		{
-			var entityCheck = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
-			
-			if (callback.Attacker != entityCheck || callback.Entity != entityCheck)
+			if (callback.Attacker != _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
 			{
 				return;
 			}
 			
 			if (callback.ShieldDamage > 0)
 			{
-				EnqueueValue(callback.Entity, ScriptLocalization.General.Shield, (int) callback.ShieldDamage, MessageType.Info);
+				EnqueueValue(callback.Entity, ScriptLocalization.General.Shield, (int) -callback.ShieldDamage, MessageType.Info);
 			}
 				
 			if (callback.HealthDamage > 0)
 			{
-				EnqueueValue(callback.Entity, ScriptLocalization.General.Health, (int) callback.HealthDamage, MessageType.Info);
+				EnqueueValue(callback.Entity, ScriptLocalization.General.Health, (int) -callback.HealthDamage, MessageType.Info);
 			}
 		}
 
@@ -135,6 +171,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 				var difference = callback.CurrentStats.Values[i].BaseValue.AsFloat -
 				                 callback.PreviousStats.Values[i].BaseValue.AsFloat;
 				var statName = callback.CurrentStats.Values[i].Type.GetTranslation();
+				
+				Debug.Log(difference);
 
 				EnqueueValue(callback.Entity, statName, Mathf.RoundToInt(difference), MessageType.StatChange);
 			}

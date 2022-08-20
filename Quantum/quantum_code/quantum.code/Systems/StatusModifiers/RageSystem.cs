@@ -23,8 +23,8 @@ namespace Quantum.Systems
 				Id = component->PowerModifierId,
 				Type = StatType.Power,
 				Power = component->Power,
-				Duration = FP.MaxValue,
-				StartTime = FP._0,
+				Duration = component->Duration,
+				StartTime = f.Time,
 				IsNegative = false
 			};
 			

@@ -29,30 +29,31 @@ namespace Quantum
 		/// </summary>
 		internal void Collect(Frame f, EntityRef entity, EntityRef playerEntity, PlayerRef player)
 		{
-			var consumable = f.Get<Consumable>(entity);
 			var stats = f.Unsafe.GetPointer<Stats>(playerEntity);
 
 			switch (ConsumableType)
 			{
 				case ConsumableType.Health:
-					stats->GainHealth(f, playerEntity, new Spell { PowerAmount = (uint) consumable.Amount.AsInt});
+					stats->GainHealth(f, playerEntity, new Spell { PowerAmount = (uint) Amount.AsInt});
 					break;
 				case ConsumableType.Rage:
-					StatusModifiers.AddStatusModifierToEntity(f, playerEntity, StatusModifierType.Rage, consumable.Amount.AsInt);
+					StatusModifiers.AddStatusModifierToEntity(f, playerEntity, StatusModifierType.Rage, Amount.AsInt);
 					break;
 				case ConsumableType.Ammo:
-					f.Unsafe.GetPointer<PlayerCharacter>(playerEntity)->GainAmmo(f, playerEntity, consumable.Amount);
+					f.Unsafe.GetPointer<PlayerCharacter>(playerEntity)->GainAmmo(f, playerEntity, Amount);
 					break;
 				case ConsumableType.Shield:
-					stats->GainShield(f, playerEntity, consumable.Amount.AsInt);
+					stats->GainShield(f, playerEntity, Amount.AsInt);
 					break;
 				case ConsumableType.ShieldCapacity:
-					stats->GainShieldCapacity(f, playerEntity, consumable.Amount.AsInt);
-					stats->GainShield(f, playerEntity, consumable.Amount.AsInt);
+					stats->GainShieldCapacity(f, playerEntity, Amount.AsInt);
+					stats->GainShield(f, playerEntity, Amount.AsInt);
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
+
+			f.Events.OnConsumableCollected(entity, player, playerEntity, this);
 		}
 	}
 }

@@ -137,7 +137,11 @@ namespace Quantum.Systems
 				{
 					gameId = GameId.AmmoSmall;
 					var ammoAmount = f.ConsumableConfigs.GetConfig(gameId).Amount;
-					playerCharacter->GainAmmo(f, playerEntity, ammoAmount);
+					var consumable = new Consumable { ConsumableType = ConsumableType.Ammo, Amount = ammoAmount };
+
+					// Fake use a consumable to simulate it's natural life cycle
+					f.Add(entity, consumable);
+					consumable.Collect(f, entity, playerEntity, player);
 				}
 				else
 				{

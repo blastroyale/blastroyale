@@ -259,9 +259,7 @@ namespace Quantum
 		/// </summary>
 		public FP GetAmmoAmountFilled(Frame f, EntityRef e)
 		{
-			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
-
-			return bb->GetFP(f, Constants.AmmoFilledKey);
+			return f.Unsafe.GetPointer<AIBlackboardComponent>(e)->GetFP(f, Constants.AmmoFilledKey);
 		}
 
 		/// <summary>
@@ -336,59 +334,45 @@ namespace Quantum
 		}
 
 		/// <summary>
-		/// Adds the given ammo <paramref name="amount"/> of this <paramref name="e"/> player's entity
+		/// Adds the given ammo <paramref name="amountPercentage"/> of this <paramref name="e"/> player's entity
 		/// </summary>
-		internal void GainAmmo(Frame f, EntityRef e, uint amount)
+		internal void GainAmmo(Frame f, EntityRef e, FP amountPercentage)
 		{
-			var maxAmo = f.WeaponConfigs.GetConfig(CurrentWeapon.GameId).MaxAmmo.Get(f);
-
-			GainAmmo(f, e, (FP) amount / maxAmo);
-		}
-
-		/// <summary>
-		/// Adds the given ammo <paramref name="amount"/> of this <paramref name="e"/> player's entity
-		/// </summary>
-		internal void GainAmmo(Frame f, EntityRef e, FP amount)
-		{
-			if (amount < FP._0)
+			if (amountPercentage < FP._0)
 			{
 				return;
 			}
 
 			var ammo = GetAmmoAmount(f, e, out var maxAmmo);
-			var newAmmoFilled = FPMath.Min(GetAmmoAmountFilled(f, e) + amount, FP._1);
-			var newAmmo = FPMath.FloorToInt(newAmmoFilled * maxAmmo);
+			var amount = FPMath.FloorToInt(amountPercentage * maxAmmo);
+			
+			SetCurrentAmmo(f, e, Math.Min(ammo + amount, maxAmmo), maxAmmo);
+		}
 
-			f.Unsafe.GetPointer<AIBlackboardComponent>(e)->Set(f, Constants.AmmoFilledKey, newAmmoFilled);
-
-			if (HasMeleeWeapon(f, e) || ammo == newAmmo)
-			{
-				return;
-			}
-
-			f.Events.OnPlayerAmmoChanged(Player, e, ammo, newAmmo, maxAmmo);
-			f.Events.OnLocalPlayerAmmoChanged(Player, e, ammo, newAmmo, maxAmmo);
+		/// <summary>
+		/// Adds the given ammo <paramref name="amount"/> of this <paramref name="e"/> player's entity
+		/// </summary>
+		internal void GainAmmo(Frame f, EntityRef e, int amount)
+		{
+			var ammo = GetAmmoAmount(f, e, out var maxAmmo);
+			
+			SetCurrentAmmo(f, e, Math.Min(ammo + amount, maxAmmo), maxAmmo);
 		}
 
 		/// <summary>
 		/// Reduces the given ammo <paramref name="amount"/> of this <paramref name="e"/> player's entity
 		/// </summary>
-		internal void ReduceAmmo(Frame f, EntityRef e, uint amount)
+		internal void ReduceAmmo(Frame f, EntityRef e, int amount)
 		{
 			// Do not do reduce for melee weapons or if your weapon is empty
-			if (HasMeleeWeapon(f, e) || IsAmmoEmpty(f, e))
+			if (HasMeleeWeapon(f, e))
 			{
 				return;
 			}
 
-			var ammo = GetAmmoAmount(f, e, out var maxAmmo); // Gives back Int floored down (filledFP * maxAmmo)
-			var newAmmo = Math.Max(ammo - (int) amount, 0);
-			var currentAmmo = Math.Min(newAmmo, maxAmmo);
-			var finalAmmoFilled = FPMath.Max(GetAmmoAmountFilled(f, e) - ((FP._1 / maxAmmo) * amount), FP._0);
+			var ammo = GetAmmoAmount(f, e, out var maxAmmo);
 
-			f.Unsafe.GetPointer<AIBlackboardComponent>(e)->Set(f, Constants.AmmoFilledKey, finalAmmoFilled);
-			f.Events.OnPlayerAmmoChanged(Player, e, ammo, currentAmmo, maxAmmo);
-			f.Events.OnLocalPlayerAmmoChanged(Player, e, ammo, currentAmmo, maxAmmo);
+			SetCurrentAmmo(f, e, Math.Max(ammo - amount, 0), maxAmmo);
 		}
 
 		/// <summary>
@@ -442,9 +426,22 @@ namespace Quantum
 			blackboard->Set(f, Constants.HasMeleeWeaponKey, weaponConfig.IsMeleeWeapon);
 			blackboard->Set(f, Constants.BurstTimeDelay, burstCooldown);
 			
-			f.Unsafe.GetPointer<Stats>(e)->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Gear);
+			f.Unsafe.GetPointer<Stats>(e)->RefreshEquipmentStats(f, Player, e, weapon, Gear);
 
 			return weaponConfig;
+		}
+
+		private void SetCurrentAmmo(Frame f, EntityRef e, int amount, int maxAmmo)
+		{
+			var previousAmmo = FPMath.FloorToInt(GetAmmoAmountFilled(f, e) * maxAmmo);
+			var newAmmoFilled = (FP)amount / maxAmmo;
+
+			f.Unsafe.GetPointer<AIBlackboardComponent>(e)->Set(f, Constants.AmmoFilledKey, newAmmoFilled);
+
+			if (previousAmmo != amount)
+			{
+				f.Events.OnPlayerAmmoChanged(Player, e, previousAmmo, amount, maxAmmo);
+			}
 		}
 	}
 }

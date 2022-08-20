@@ -23,7 +23,7 @@ namespace Quantum
 			var position = f.Get<Transform3D>(e).Position + FPVector3.Up*FP._0_50;
 			var team = f.Get<Targetable>(e).Team;
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
-			var power = f.Get<Stats>(e).GetStatData(StatType.Power).StatValue * weaponConfig.PowerToDamageRatio;
+			var power = f.Get<Stats>(e).GetStatData(StatType.Power).StatValue;
 			var aimingDirection = bb->GetVector2(f, Constants.AimDirectionKey).Normalized;
 			var cVelocitySqr = kcc->Velocity.SqrMagnitude;
 			var maxSpeedSqr = kcc->MaxSpeed * kcc->MaxSpeed;

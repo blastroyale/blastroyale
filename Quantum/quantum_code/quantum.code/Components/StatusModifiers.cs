@@ -140,8 +140,11 @@ namespace Quantum
 					f.Add<Invisibility>(entity);
 					break;
 				case StatusModifierType.Rage:
-					var rageComponent = new Rage();
-					rageComponent.Power = f.GameConfig.RageStatusDamageMultiplier;
+					var rageComponent = new Rage
+					{
+						Power = f.GameConfig.RageStatusDamageMultiplier,
+						Duration = duration
+					};
 					f.Add(entity, rageComponent);
 					break;
 				case StatusModifierType.Regeneration:

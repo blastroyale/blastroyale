@@ -113,13 +113,17 @@ namespace FirstLight.Game.StateMachines
 		private void InitializeGame()
 		{
 			_gameLogic.Init();
-			_services.AnalyticsService.SessionCalls.GameLoaded();
+
+			_services.AudioFxService.AudioListener.Listener.enabled = true;
+			MMVibrationManager.SetHapticsActive(_gameLogic.AppLogic.IsHapticOn);
 			
 			// Just marking the default name to avoid missing names
 			if (string.IsNullOrWhiteSpace(_gameLogic.AppLogic.NicknameId.Value))
 			{
 				_services.PlayfabService.UpdateNickname(GameConstants.PlayerName.DEFAULT_PLAYER_NAME);
 			}
+			
+			_services?.AnalyticsService.SessionCalls.GameLoaded();
 		}
 
 		private void OpenNoInternetPopUp()

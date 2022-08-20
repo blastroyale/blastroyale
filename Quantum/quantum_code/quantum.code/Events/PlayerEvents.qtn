@@ -198,15 +198,6 @@ synced event OnLocalPlayerAmmoEmpty
 	entity_ref Entity;
 }
 
-synced event OnLocalPlayerAmmoChanged
-{
-	local player_ref Player;
-	entity_ref Entity;
-	Int32 PreviousAmmo;
-	Int32 CurrentAmmo;
-	Int32 MaxAmmo;
-}
-
 synced event OnLocalPlayerWeaponAdded
 {
 	local player_ref Player;

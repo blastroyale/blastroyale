@@ -171,8 +171,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 				var difference = callback.CurrentStats.Values[i].BaseValue.AsFloat -
 				                 callback.PreviousStats.Values[i].BaseValue.AsFloat;
 				var statName = callback.CurrentStats.Values[i].Type.GetTranslation();
-				
-				Debug.Log(difference);
 
 				EnqueueValue(callback.Entity, statName, Mathf.RoundToInt(difference), MessageType.StatChange);
 			}

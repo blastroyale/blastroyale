@@ -11,6 +11,7 @@ namespace Quantum.Systems
 		{
 			f.Global->Queries = f.AllocateList<EntityPair>(128);
 			f.Context.MapConfig = f.MapConfigs.GetConfig(f.RuntimeConfig.MapId);
+			f.Context.GameModeConfig = f.GameModeConfigs.GetConfig(f.RuntimeConfig.GameModeName);
 			f.Context.TargetAllLayerMask = f.Layers.GetLayerMask("Default", "Playable Target", "Non Playable Target",
 			                                                     "Prop", "World", "Environment No Silhouette");
 			

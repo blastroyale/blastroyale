@@ -302,6 +302,11 @@ MonoBehaviour:
         Id:
           Value: 1565542650131154954
       Address: Configs/Settings/SimulationConfig.asset
+    - Path: AddressableResources/Configs/GameModeConfigs
+      AssetRef:
+        Id:
+          Value: 1595361790544170013
+      Address: Configs/GameModeConfigs.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TeleportSpawn_4
       AssetRef:
         Id:

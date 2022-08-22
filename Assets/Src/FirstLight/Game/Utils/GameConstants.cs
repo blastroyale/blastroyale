@@ -116,6 +116,8 @@ namespace FirstLight.Game.Utils
 			public const string ROOM_PROPS_BOTS = "gameHasBots";
 			public const string ROOM_PROPS_DROP_PATTERN = "dropPattern";
 			public const string ROOM_PROPS_RANKED_MATCH = "isRanked";
+
+			public const string DEFAULT_REGION = "eu";
 		}
 
 		public static class Visuals
@@ -165,11 +167,6 @@ namespace FirstLight.Game.Utils
 
 			// Duration of haptic feedback when player is damaged
 			public const float DAMAGE_DURATION = 0.05f;
-		}
-
-		public static class ObjectTags
-		{
-			public const string TAG_VISIBILITY_VOLUME = "VisibilityVolume";
 		}
 	}
 }

@@ -1,10 +1,9 @@
-
-namespace Backend.Context;
-
 using System;
 using System.Collections.Generic;
 
-// Shared models
+namespace Backend.Context
+{
+	// Shared models
 public class TitleAuthenticationContext
 {
 	public string Id { get; set; }
@@ -96,3 +95,6 @@ public class EntityPlayStreamFunctionExecutionContext<TPayload, TArg>
 public class EntityPlayStreamFunctionExecutionContext : EntityPlayStreamFunctionExecutionContext<object, object>
 {
 }
+}
+
+

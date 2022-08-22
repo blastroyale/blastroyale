@@ -17,6 +17,7 @@ namespace FirstLight.Game.Configs
 		public float BasePitch;
 		public float VolumeRandDeviation;
 		public float PitchRandDeviation;
+		public float PitchModPerLoop;
 	}
 
 	/// <summary>

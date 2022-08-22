@@ -6,10 +6,8 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
 using NUnit.Framework;
 using ServerSDK.Models;
+using ServerSDK.Modules;
 using ServerSDK.Services;
-using Tests.Stubs;
-
-namespace Tests;
 
 public class TestDataProvider
 {
@@ -21,6 +19,7 @@ public class TestDataProvider
 	public void Setup()
 	{
 		_server = new TestServer();
+		_server.SetupInMemoryServer();
 		_playerId = _server.GetTestPlayerID();
 		
 		// Create player data and add to playfab

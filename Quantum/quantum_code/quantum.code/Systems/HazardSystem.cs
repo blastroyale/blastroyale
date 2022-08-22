@@ -42,7 +42,7 @@ namespace Quantum.Systems
 				return;
 			}
 
-			f.Events.OnHazardLand(filter.Hazard->GameId, filter.Transform->Position);
+			f.Events.OnHazardLand(filter.Hazard->GameId, filter.Transform->Position, filter.Hazard->Attacker);
 
 			//check the area when the hazard explodes
 			var shape = Shape3D.CreateSphere(hazard->Radius);

@@ -10,6 +10,7 @@ using FirstLight.Game.Utils;
 using PlayFab;
 using PlayFab.ServerModels;
 using Scripts.Base;
+using ServerSDK.Modules;
 
 namespace Scripts;
 

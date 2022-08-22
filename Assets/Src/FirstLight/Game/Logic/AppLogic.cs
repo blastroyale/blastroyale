@@ -46,7 +46,7 @@ namespace FirstLight.Game.Logic
 		bool IsHapticOn { get; set; }
 
 		/// <summary>
-		/// Is high res mode on device enabled?
+		/// Resuests the current detail level of the game
 		/// </summary>
 		GraphicsConfig.DetailLevel CurrentDetailLevel { get; set; }
 
@@ -59,6 +59,11 @@ namespace FirstLight.Game.Logic
 		/// Obtains the player unique id
 		/// </summary>
 		string PlayerId { get; }
+		
+		/// <summary>
+		/// Requests the last region that player was connected to
+		/// </summary>
+		IObservableField<string> ConnectionRegion { get; }
 		
 		/// <summary>
 		/// Requests the player's Nickname
@@ -166,6 +171,9 @@ namespace FirstLight.Game.Logic
 				SetDetailLevel(value);
 			}
 		}
+		
+		/// <inheritdoc />
+		public IObservableField<string> ConnectionRegion { get; private set; }
 
 		/// <inheritdoc />
 		public string Nickname => NicknameId == null || string.IsNullOrWhiteSpace(NicknameId.Value) || NicknameId.Value.Length < 5 ?
@@ -200,6 +208,7 @@ namespace FirstLight.Game.Logic
 			IsSfxOn = IsSfxOn;
 			IsBgmOn = IsBgmOn;
 			NicknameId = new ObservableResolverField<string>(() => Data.NickNameId, name => Data.NickNameId = name);
+			ConnectionRegion = new ObservableResolverField<string>(() => Data.ConnectionRegion, region => Data.ConnectionRegion = region);
 			_deviceId = new ObservableResolverField<string>(() => Data.DeviceId, linked => Data.DeviceId = linked);
 			SelectedGameMode = new ObservableField<GameMode>(GameMode.BattleRoyale);
 			SelectedMatchType = new ObservableField<MatchType>(MatchType.Casual);

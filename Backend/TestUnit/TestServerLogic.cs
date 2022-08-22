@@ -9,10 +9,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using NUnit.Framework;
 using Quantum;
 using ServerSDK.Services;
-using Tests.Stubs;
 using Assert = NUnit.Framework.Assert;
-
-namespace Tests;
 
 public class TestServerLogic
 {

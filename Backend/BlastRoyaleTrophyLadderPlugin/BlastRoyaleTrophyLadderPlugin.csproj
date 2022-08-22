@@ -2,9 +2,8 @@
 
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
         <RootNamespace>BlastRoyaleLeaderboardPlugin</RootNamespace>
+        <LangVersion>preview</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -33,6 +32,10 @@
       <Reference Include="quantum.core, Version=2.1.0.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\Lib\quantum.core.dll</HintPath>
       </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="PlayFabAllSDK" Version="1.108.220118" />
     </ItemGroup>
 
 </Project>

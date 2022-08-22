@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using FirstLight.Game.Services;
 using ServerSDK.Models;
 
-namespace Tests.Stubs;
-
 public struct FiredEvent
 {
 	public string User;

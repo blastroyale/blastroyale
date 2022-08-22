@@ -7,28 +7,30 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
 
-namespace Backend.Functions;
-
-/// <summary>
-/// Sets the player state to its initial state.
-/// </summary>
-public class GetPlayerDataCommand
+namespace Backend.Functions
 {
-	private readonly ILogicWebService _gameLogicWebService;
-
-	public GetPlayerDataCommand(ILogicWebService gameLogicWebService)
-	{
-		_gameLogicWebService = gameLogicWebService;
-	}
-	
 	/// <summary>
-	/// Command Execution
+	/// Sets the player state to its initial state.
 	/// </summary>
-	[FunctionName("GetPlayerData")]
-	public async Task<dynamic> RunAsync([HttpTrigger(AuthorizationLevel.Function, "post", Route = null)]
-	                           HttpRequestMessage req, ILogger log)
+	public class GetPlayerDataCommand
 	{
-		var context = await ContextProcessor.ProcessContext<LogicRequest>(req);
-		return await _gameLogicWebService.GetPlayerData(context.AuthenticationContext.PlayFabId);
+		private readonly ILogicWebService _gameLogicWebService;
+
+		public GetPlayerDataCommand(ILogicWebService gameLogicWebService)
+		{
+			_gameLogicWebService = gameLogicWebService;
+		}
+	
+		/// <summary>
+		/// Command Execution
+		/// </summary>
+		[FunctionName("GetPlayerData")]
+		public async Task<dynamic> RunAsync([HttpTrigger(AuthorizationLevel.Function, "post", Route = null)]
+		                                    HttpRequestMessage req, ILogger log)
+		{
+			var context = await ContextProcessor.ProcessContext<LogicRequest>(req);
+			return await _gameLogicWebService.GetPlayerData(context.AuthenticationContext.PlayFabId);
+		}
 	}
 }
+

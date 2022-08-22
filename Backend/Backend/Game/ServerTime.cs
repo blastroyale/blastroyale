@@ -1,9 +1,9 @@
 using System;
 using FirstLight.Services;
 
-namespace Backend.Game;
-
-/// <summary>
+namespace Backend.Game
+{
+	/// <summary>
 /// Server test time.
 /// Starts couting the time when tests instantiates the class.
 /// TODO: Review and validate this
@@ -84,3 +84,5 @@ public class ServerTime: ITimeService
 		_initialTime = initialTime;
 	}
 }
+}
+

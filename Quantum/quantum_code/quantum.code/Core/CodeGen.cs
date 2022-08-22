@@ -5161,11 +5161,12 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnHazardLand OnHazardLand(GameId sourceId, FPVector3 HitPosition) {
+      public EventOnHazardLand OnHazardLand(GameId sourceId, FPVector3 HitPosition, EntityRef AttackerEntity) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnHazardLand>(EventOnHazardLand.ID);
         ev.sourceId = sourceId;
         ev.HitPosition = HitPosition;
+        ev.AttackerEntity = AttackerEntity;
         _f.AddEvent(ev);
         return ev;
       }
@@ -6188,6 +6189,7 @@ namespace Quantum {
     public new const Int32 ID = 12;
     public GameId sourceId;
     public FPVector3 HitPosition;
+    public EntityRef AttackerEntity;
     protected EventOnHazardLand(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -6207,6 +6209,7 @@ namespace Quantum {
         var hash = 89;
         hash = hash * 31 + sourceId.GetHashCode();
         hash = hash * 31 + HitPosition.GetHashCode();
+        hash = hash * 31 + AttackerEntity.GetHashCode();
         return hash;
       }
     }

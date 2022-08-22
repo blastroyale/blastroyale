@@ -1,4 +1,9 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
@@ -8,9 +13,9 @@ using Newtonsoft.Json;
 using Quantum;
 using ServerSDK;
 
-namespace BlastRoyaleNFTPlugin;
-
-/// <summary>
+namespace BlastRoyaleNFTPlugin
+{
+	/// <summary>
 /// Class that encapsulates external models and functionality needed to synchronize NFT's
 /// </summary>
 public class NftSynchronizer
@@ -217,3 +222,5 @@ public class NftSynchronizer
 	    };
     }
 }
+}
+

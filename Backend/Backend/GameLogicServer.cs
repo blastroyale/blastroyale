@@ -11,9 +11,9 @@ using ServerSDK.Events;
 using ServerSDK.Models;
 using ServerSDK.Services;
 
-namespace Backend;
-
-/// <summary>
+namespace Backend
+{
+	/// <summary>
 /// Represents the functionality of the game logic service. (AKA Game Backend).
 /// Responsible for abstracting any networking layer needed to communicate with the server functionality.
 /// </summary>
@@ -111,3 +111,5 @@ public class GameLogicWebWebService : ILogicWebService
 		};
 	}
 }
+}
+

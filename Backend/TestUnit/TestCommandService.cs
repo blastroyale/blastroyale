@@ -1,15 +1,13 @@
 
 using System.Collections.Generic;
 using Backend.Game.Services;
-using Tests.Stubs;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using NUnit.Framework;
 using Quantum;
+using ServerSDK.Modules;
 using Assert = NUnit.Framework.Assert;
-
-namespace Tests;
 
 public class TestCommandManager
 {

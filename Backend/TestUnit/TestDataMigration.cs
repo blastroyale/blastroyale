@@ -4,8 +4,6 @@ using Backend.Models;
 using NUnit.Framework;
 using ServerSDK.Models;
 
-namespace Tests;
-
 
 [Serializable]
 class TestData

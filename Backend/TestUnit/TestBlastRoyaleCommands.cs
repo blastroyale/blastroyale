@@ -12,10 +12,8 @@ using NUnit.Framework;
 using PlayFab;
 using Photon.Deterministic;
 using Quantum;
-using Tests.Stubs;
 using Assert = NUnit.Framework.Assert;
-
-namespace Tests;
+using ModelSerializer = ServerSDK.Modules.ModelSerializer;
 
 /// <summary>
 /// Test suit to test specific blast royale commands.

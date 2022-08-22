@@ -5,9 +5,9 @@ using PlayFab;
 using PlayFab.Json;
 using PlayFab.Plugins.CloudScript;
 
-namespace Backend.Context;
-
-/// <summary>
+namespace Backend.Context
+{
+	/// <summary>
 /// This object is a data container for PlayStream context triggered events
 /// </summary>
 public class PlayStreamFunctionContext
@@ -62,3 +62,5 @@ public static class ContextProcessor
 		};
 	}
 }
+}
+

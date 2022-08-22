@@ -17,6 +17,7 @@ using PlayFab.CloudScriptModels;
 using PlayFab.ServerModels;
 using Quantum;
 using Scripts.Base;
+using ServerSDK.Modules;
 using EntityKey = PlayFab.AuthenticationModels.EntityKey;
 using EntityTokenResponse = PlayFab.ClientModels.EntityTokenResponse;
 using GetPlayerCombinedInfoRequestParams = PlayFab.ClientModels.GetPlayerCombinedInfoRequestParams;

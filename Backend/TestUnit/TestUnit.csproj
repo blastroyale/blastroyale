@@ -6,7 +6,7 @@
 
         <IsPackable>false</IsPackable>
 
-        <LangVersion>10</LangVersion>
+        <LangVersion>9</LangVersion>
 
         <RootNamespace>Tests</RootNamespace>
     </PropertyGroup>
@@ -41,13 +41,22 @@
       <Reference Include="quantum.core, Version=2.1.0.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\Lib\quantum.core.dll</HintPath>
       </Reference>
+      <Reference Include="UnityEngine.AudioModule">
+        <HintPath>..\UnityLib\UnityEngine.AudioModule.dll</HintPath>
+      </Reference>
       <Reference Include="UnityEngine.AudioModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\UnityLib\UnityEngine.AudioModule.dll</HintPath>
          <ReferencePath>..\UnityLib\UnityEngine.AudioModule.dll</ReferencePath>
       </Reference>
+      <Reference Include="UnityEngine.CoreModule">
+        <HintPath>..\UnityLib\UnityEngine.CoreModule.dll</HintPath>
+      </Reference>
       <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\UnityLib\UnityEngine.CoreModule.dll</HintPath>
          <ReferencePath>..\UnityLib\UnityEngine.CoreModule.dll</ReferencePath>
+      </Reference>
+      <Reference Include="UnityEngine.SharedInternalsModule">
+        <HintPath>..\UnityLib\UnityEngine.SharedInternalsModule.dll</HintPath>
       </Reference>
     </ItemGroup>
 

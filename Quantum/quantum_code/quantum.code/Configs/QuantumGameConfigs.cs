@@ -30,7 +30,7 @@ namespace Quantum
 		public FP DeathDropLargeShieldChance;
 		public FP DeathDropSmallShieldChance;
 		public int TrophyEloRange;
-		public int TrophyEloK;
+		public FP TrophyEloK;
 		public uint NftAssumedOwned;
 		public uint MinNftForEarnings;
 		public FP AdjectiveRarityEarningsMod;

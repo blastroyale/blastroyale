@@ -72,7 +72,8 @@ MonoBehaviour:
       DeathDropSmallShieldChance:
         RawValue: 16384
       TrophyEloRange: 50
-      TrophyEloK: 5
+      TrophyEloK:
+        RawValue: 163840
       NftAssumedOwned: 40
       MinNftForEarnings: 0
       AdjectiveRarityEarningsMod:

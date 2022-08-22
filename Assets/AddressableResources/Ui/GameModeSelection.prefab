@@ -789,7 +789,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1892024546848930655, guid: 9dcb7d509a56dcb4ba734c2a768f13b3, type: 3}
       propertyPath: _gameMode
-      value: 1
+      value: Deathmatch
       objectReference: {fileID: 0}
     - target: {fileID: 1892024546848930655, guid: 9dcb7d509a56dcb4ba734c2a768f13b3, type: 3}
       propertyPath: _tooltipLocalizationKey
@@ -946,7 +946,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1892024546848930655, guid: 9dcb7d509a56dcb4ba734c2a768f13b3, type: 3}
       propertyPath: _gameMode
-      value: 2
+      value: BattleRoyale
       objectReference: {fileID: 0}
     - target: {fileID: 1892024546848930655, guid: 9dcb7d509a56dcb4ba734c2a768f13b3, type: 3}
       propertyPath: _matchType
@@ -1103,7 +1103,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1892024546848930655, guid: 9dcb7d509a56dcb4ba734c2a768f13b3, type: 3}
       propertyPath: _gameMode
-      value: 2
+      value: BattleRoyale
       objectReference: {fileID: 0}
     - target: {fileID: 1892024546848930655, guid: 9dcb7d509a56dcb4ba734c2a768f13b3, type: 3}
       propertyPath: _tooltipLocalizationKey

@@ -7,7 +7,7 @@ namespace Quantum
 	{
 		// Non Serialized Map Data
 		[NonSerialized] public int MapId;
-		[NonSerialized] public string GameModeName;
+		[NonSerialized] public string GameModeId;
 		
 		public AssetRefQuantumGameConfigs GameConfigs;
 		public AssetRefQuantumMapConfigs MapConfigs;
@@ -28,7 +28,7 @@ namespace Quantum
 		partial void SerializeUserData(BitStream stream)
 		{
 			stream.Serialize(ref MapId);
-			stream.Serialize(ref GameModeName);
+			stream.Serialize(ref GameModeId);
 			stream.Serialize(ref GameConfigs);
 			stream.Serialize(ref MapConfigs);
 			stream.Serialize(ref GameModeConfigs);

@@ -93,7 +93,7 @@ namespace FirstLight.Game.Presenters
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
 			var mapInfo = _services.NetworkService.CurrentRoomMapConfig.Value;
 			
-			MapSelectionView.SetupMapView(room.GetMapId());
+			MapSelectionView.SetupMapView(room.GetGameModeId(), room.GetMapId());
 			
 			if (RejoiningRoom)
 			{
@@ -127,7 +127,7 @@ namespace FirstLight.Game.Presenters
 			_playersFoundText.text = $"{0}/{room.MaxPlayers.ToString()}";
 			_playerFillWaitTime = _services.ConfigsProvider.GetConfig<QuantumGameConfig>().CasualMatchmakingTime.AsFloat / room.GetRealPlayerCapacity();
 			var matchType = _gameDataProvider.AppDataProvider.SelectedMatchType.Value.ToString().ToUpper();
-			var gameMode = _gameDataProvider.AppDataProvider.SelectedGameMode.Value.ToString().ToUpper();
+			var gameMode = room.GetGameModeId().ToUpper(); // TODO: Should be done differently
 			_selectedGameModeText.text = string.Format(ScriptLocalization.MainMenu.SelectedGameModeValue, matchType, gameMode);
 				
 			if (CurrentRoom.IsMatchmakingRoom())

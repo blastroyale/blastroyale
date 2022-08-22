@@ -54,6 +54,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			
 			var mapConfig = _services.NetworkService.CurrentRoomMapConfig.Value;
+			var gameModeConfig = _services.NetworkService.CurrentRoomGameModeConfig.Value;
 			var config = _services.ConfigsProvider.GetConfig<QuantumGameConfig>();
 			
 			foreach (var message in _messages)
@@ -62,7 +63,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 
 			_killConfigTimer = config.DoubleKillTimeLimit;
-			_killTarget = (int) mapConfig.GameEndTarget;
+			_killTarget = (int) _services.NetworkService.CurrentRoomGameModeConfig.Value.CompletionKillCount;
 			_killWarningLimit = (_killTarget / 3) * 2;
 			_playerKillStreak = new int[mapConfig.PlayersLimit];
 			_playerDominating = new bool[mapConfig.PlayersLimit];

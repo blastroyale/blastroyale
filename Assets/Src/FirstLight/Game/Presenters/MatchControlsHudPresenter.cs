@@ -185,7 +185,7 @@ namespace FirstLight.Game.Presenters
 			var playerView = _matchServices.EntityViewUpdaterService.GetManualView(entity);
 			var playerCharacter = f.Get<PlayerCharacter>(entity);
 			
-			_weaponSlotsHolder.SetActive(f.Context.MapConfig.GameMode == GameMode.BattleRoyale);
+			_weaponSlotsHolder.SetActive(f.Context.GameModeConfig.ShowWeaponSlots);
 			_services.PlayerInputService.Input.Gameplay.SetCallbacks(this);
 			_indicatorContainerView.Init(playerView);
 			_indicatorContainerView.SetupWeaponInfo(playerCharacter.CurrentWeapon.GameId);

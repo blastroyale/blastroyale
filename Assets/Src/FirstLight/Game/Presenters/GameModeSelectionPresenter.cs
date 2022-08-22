@@ -51,9 +51,9 @@ namespace FirstLight.Game.Presenters
 			_backButton.onClick.RemoveAllListeners();
 		}
 
-		private void OnModeButtonClicked(GameMode gameMode, MatchType matchType)
+		private void OnModeButtonClicked(string gameMode, MatchType matchType)
 		{
-			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = gameMode;
+			_gameDataProvider.AppDataProvider.SelectedGameModeId.Value = gameMode;
 			_gameDataProvider.AppDataProvider.SelectedMatchType.Value = matchType;
 			Data.GameModeChosen();
 		}

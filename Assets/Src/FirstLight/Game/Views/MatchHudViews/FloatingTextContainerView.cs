@@ -148,7 +148,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
 
 			// Don't show stat changes in Deathmatch game mode
-			if (callback.Game.Frames.Verified.Context.MapConfig.GameMode == GameMode.Deathmatch) return;
+			if (!callback.Game.Frames.Verified.Context.GameModeConfig.ShowStatChanges) return;
 
 			for (int i = 0; i < Constants.TOTAL_STATS; i++)
 			{

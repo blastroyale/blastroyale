@@ -155,7 +155,8 @@ namespace FirstLight.Game.StateMachines
 
 		private bool IsDeathmatch()
 		{
-			return _services.NetworkService.CurrentRoomMapConfig.Value.GameMode == GameMode.Deathmatch;
+			// TODO: Fix this!
+			return _services.NetworkService.CurrentRoomGameModeConfig.Value.Id == "Deathmatch";
 		}
 
 		private bool IsRankedMatch()
@@ -218,7 +219,10 @@ namespace FirstLight.Game.StateMachines
 
 		private void GiveMatchRewards()
 		{
-			if (_gameDataProvider.AppDataProvider.SelectedGameMode.Value != GameMode.BattleRoyale)
+			var gameModeId = _gameDataProvider.AppDataProvider.SelectedGameModeId.Value;
+			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
+			
+			if (!gameModeConfig.GiveRewards)
 			{
 				return;
 			}

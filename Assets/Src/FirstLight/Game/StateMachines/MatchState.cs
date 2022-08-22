@@ -237,11 +237,12 @@ namespace FirstLight.Game.StateMachines
 			tasks.AddRange(PreloadGameAssets());
 			tasks.AddRange(_uiService.LoadUiSetAsync((int) UiSetId.MatchUi));
 			
-			switch (_services.NetworkService.CurrentRoomMapConfig.Value.GameMode)
+			// TODO: FIX THIS
+			switch (_services.NetworkService.CurrentRoomGameModeConfig.Value.Id)
 			{
-				case GameMode.Deathmatch : tasks.AddRange(_uiService.LoadUiSetAsync((int) UiSetId.DeathMatchMatchUi));
+				case "Deathmatch" : tasks.AddRange(_uiService.LoadUiSetAsync((int) UiSetId.DeathMatchMatchUi));
 					break;
-				case GameMode.BattleRoyale : tasks.AddRange(_uiService.LoadUiSetAsync((int) UiSetId.BattleRoyaleMatchUi));
+				case "BattleRoyale" : tasks.AddRange(_uiService.LoadUiSetAsync((int) UiSetId.BattleRoyaleMatchUi));
 					break;
 			}
 

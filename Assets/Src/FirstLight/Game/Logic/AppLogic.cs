@@ -79,7 +79,7 @@ namespace FirstLight.Game.Logic
 		/// Requests current selected game mode
 		/// Marks the date when the game was last time reviewed
 		/// </summary>
-		IObservableField<GameMode> SelectedGameMode { get; }
+		IObservableField<string> SelectedGameModeId { get; }
 		
 		/// <summary>
 		/// Requests current selected match type
@@ -186,7 +186,7 @@ namespace FirstLight.Game.Logic
 		public IObservableField<string> NicknameId { get; private set; }
 
 		/// <inheritdoc />
-		public IObservableField<GameMode> SelectedGameMode { get; private set; }
+		public IObservableField<string> SelectedGameModeId { get; private set; }
 		
 		/// <inheritdoc />
 		public IObservableField<MatchType> SelectedMatchType { get; private set; }
@@ -210,7 +210,7 @@ namespace FirstLight.Game.Logic
 			NicknameId = new ObservableResolverField<string>(() => Data.NickNameId, name => Data.NickNameId = name);
 			ConnectionRegion = new ObservableResolverField<string>(() => Data.ConnectionRegion, region => Data.ConnectionRegion = region);
 			_deviceId = new ObservableResolverField<string>(() => Data.DeviceId, linked => Data.DeviceId = linked);
-			SelectedGameMode = new ObservableField<GameMode>(GameMode.BattleRoyale);
+			SelectedGameModeId = new ObservableField<string>("BattleRoyale"); // TODO: Add proper default here
 			SelectedMatchType = new ObservableField<MatchType>(MatchType.Casual);
 		}
 

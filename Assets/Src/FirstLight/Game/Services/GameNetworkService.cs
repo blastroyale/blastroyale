@@ -65,6 +65,11 @@ namespace FirstLight.Game.Services
 		/// If the player is not connected to any room then it return NULL without a value
 		/// </summary>
 		QuantumMapConfig? CurrentRoomMapConfig { get; }
+		
+		/// <summary>
+		/// TODO
+		/// </summary>
+		QuantumGameModeConfig? CurrentRoomGameModeConfig { get; }
 	}
 
 	/// <inheritdoc />
@@ -126,6 +131,20 @@ namespace FirstLight.Game.Services
 				}
 
 				return _configsProvider.GetConfig<QuantumMapConfig>(QuantumClient.CurrentRoom.GetMapId());
+			}
+		}
+		
+		/// <inheritdoc />
+		public QuantumGameModeConfig? CurrentRoomGameModeConfig
+		{
+			get
+			{
+				if (!QuantumClient.InRoom)
+				{
+					return null;
+				}
+
+				return _configsProvider.GetConfig<QuantumGameModeConfig>(QuantumClient.CurrentRoom.GetGameModeId().GetHashCode());
 			}
 		}
 

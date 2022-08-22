@@ -23,10 +23,20 @@ namespace Quantum
 
 		public uint Lives; // Note, currently this only works for 1, every other value means "infinite lives"
 
-		public bool SpawnWithLoadout;
-		public bool SkydiveSpawn;
+		
+		[FoldoutGroup("Spawning")] public bool SpawnWithLoadout;
+		[FoldoutGroup("Spawning")] public bool SkydiveSpawn;
+		[FoldoutGroup("Spawning")] public bool SpawnSelection;
+		[FoldoutGroup("Spawning")] public bool SpawnPattern;
 
 		public bool DropWeaponOnPickup;
+
+		// UI / Visual
+		public bool ShowStatChanges;
+		public bool ShowUIMinimap;
+		public bool ShowUITimer;
+		public bool ShowUIStandingsExtraInfo;
+		public bool ShowWeaponSlots;
 
 		public GameCompletionStrategy CompletionStrategy;
 
@@ -36,13 +46,16 @@ namespace Quantum
 		[FoldoutGroup("Death drops")] public DeathDropsStrategy WeaponDeathDropStrategy;
 		[FoldoutGroup("Death drops")] public DeathDropsStrategy HealthDeathDropStrategy;
 		[FoldoutGroup("Death drops")] public DeathDropsStrategy ShieldDeathDropStrategy;
+		[FoldoutGroup("Death drops")] public bool DeathMarker;
 
 		[FoldoutGroup("Bots")] public bool BotSearchForCrates;
 		[FoldoutGroup("Bots")] public bool BotRespawn;
 		[FoldoutGroup("Bots")] public BotWeaponSearchStrategy BotWeaponSearchStrategy;
 
-		[ValueDropdown("GetRankSorters")] public RankSorter RankSorter;
-		[ValueDropdown("GetRankProcessors")] public RankProcessor RankProcessor;
+		public bool GiveRewards;
+
+		public RankSorter RankSorter;
+		public RankProcessor RankProcessor;
 
 		[ValueDropdown("GetOptionalSystems"), ListDrawerSettings(Expanded = true)]
 		public List<Type> Systems;

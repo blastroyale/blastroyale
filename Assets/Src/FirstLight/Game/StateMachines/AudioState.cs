@@ -152,7 +152,8 @@ namespace FirstLight.Game.StateMachines
 		
 		private bool IsDeathmatch()
 		{
-			return _services.NetworkService.CurrentRoomMapConfig.Value.GameMode == GameMode.Deathmatch;
+			// TODO: Fix this!
+			return _services.NetworkService.CurrentRoomGameModeConfig.Value.Id == "Deathmatch";
 		}
 
 		private void PrepareForMatchMusic()

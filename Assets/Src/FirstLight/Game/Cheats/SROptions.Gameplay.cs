@@ -5,6 +5,7 @@ using Photon.Deterministic;
 using Quantum;
 using Quantum.Commands;
 using UnityEngine;
+using UnityEngine.Diagnostics;
 using UnityEngine.Playables;
 
 public partial class SROptions
@@ -118,15 +119,9 @@ public partial class SROptions
 	[Category("Gameplay")]
 	public void CrashUnity()
 	{
-		Crash();
+		Utils.ForceCrash(ForcedCrashCategory.FatalError);
 	}
 	
-	private void Crash(int i = 0)
-	{
-		Crash(i++);
-	}
-
-
 #endif
 	
 	

@@ -30,5 +30,4 @@ namespace FirstLight.Game.Messages
 		public QuantumMapConfig MapConfig;
 		public bool JoinIfExists;
 	}
-	
 }

@@ -7,6 +7,7 @@ using TMPro;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Views.MainMenuViews;
 using I2.Loc;
 using Sirenix.OdinInspector;
@@ -23,6 +24,7 @@ namespace FirstLight.Game.Presenters
 		{
 			public Action LogoutClicked;
 			public Action OnClose;
+			public Action OnServerSelectClicked;
 		}
 		
 		[SerializeField, Required] private TextMeshProUGUI _versionText;
@@ -36,6 +38,8 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private DetailLevelToggleView _detailLevelView;
 		[SerializeField, Required] private Button _helpdesk;
 		[SerializeField, Required] private Button _faq;
+		[SerializeField, Required] private Button _serverSelectButton;
+		[SerializeField, Required] private TextMeshProUGUI _selectedServerText;
 		
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
@@ -44,6 +48,8 @@ namespace FirstLight.Game.Presenters
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
+			
+			_gameDataProvider.AppDataProvider.ConnectionRegion.InvokeObserve(OnConnectionRegionChange);
 
 			_versionText.text = VersionUtils.VersionInternal;
 			_fullNameText.text = string.Format(ScriptLocalization.General.UserId,
@@ -65,17 +71,32 @@ namespace FirstLight.Game.Presenters
 			_blockerButton.onClick.AddListener(OnBlockerButtonPressed);
 			_helpdesk.onClick.AddListener(OnHelpdeskButtonPressed);
 			_faq.onClick.AddListener(OnFaqButtonPressed);
+			_serverSelectButton.onClick.AddListener(OpenServerSelect);
 			_logoutButton.gameObject.SetActive(FeatureFlags.EMAIL_AUTH);
+			
+			_selectedServerText.text = string.Format(ScriptLocalization.MainMenu.ServerCurrent,
+			                                         _gameDataProvider.AppDataProvider.ConnectionRegion.Value.ToUpper());
 
 #if UNITY_IOS
 			_faq.gameObject.SetActive(false);
 #endif
 		}
-		
+
+		private void OnConnectionRegionChange(string previousValue, string newValue)
+		{
+			_selectedServerText.text = string.Format(ScriptLocalization.MainMenu.ServerCurrent, newValue.ToUpper());
+		}
+
 		/// <inheritdoc />
 		protected override void OnClosedCompleted()
 		{
+			_gameDataProvider?.AppDataProvider?.ConnectionRegion?.StopObserving(OnConnectionRegionChange);
 			Data.OnClose();
+		}
+
+		private void OpenServerSelect()
+		{
+			Data.OnServerSelectClicked();
 		}
 
 		private void OnHelpdeskButtonPressed()

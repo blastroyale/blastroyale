@@ -334,11 +334,11 @@ namespace FirstLight.Game.StateMachines
 
 			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.EntityKiller, out var entityView))
 			{
-				if (_matchServices.SpectateService.SpectatedPlayer.Value.Player.Equals(callback.EntityKiller))
+				if (_matchServices.SpectateService.SpectatedPlayer.Value.Entity == callback.EntityKiller)
 				{
 					audio = AudioId.PlayerKill;
 				}
-				else if (_matchServices.SpectateService.SpectatedPlayer.Value.Player.Equals(callback.EntityDead))
+				else if (_matchServices.SpectateService.SpectatedPlayer.Value.Entity == callback.EntityDead)
 				{
 					audio = AudioId.PlayerDeath;
 				}
@@ -538,7 +538,7 @@ namespace FirstLight.Game.StateMachines
 				var game = callback.Game;
 				var audio = AudioId.None;
 
-				if (_matchServices.SpectateService.SpectatedPlayer.Value.Player.Equals(callback.Player))
+				if (_matchServices.SpectateService.SpectatedPlayer.Value.Player == callback.Player)
 				{
 					audio = callback.ShieldDamage > 0 ? AudioId.TakeShieldDamage : AudioId.TakeHealthDamage;
 				}

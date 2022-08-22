@@ -22,6 +22,7 @@ namespace FirstLight.Game.Data
 
 		public string Environment;
 		public string DeviceId;
+		public string ConnectionRegion;
 		
 		public DateTime GameReviewDate;
 

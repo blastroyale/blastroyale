@@ -79,7 +79,8 @@ namespace FirstLight.Game.StateMachines
 			var data = new SettingsScreenPresenter.StateData
 			{
 				LogoutClicked = TryLogOut,
-				OnClose = () => _statechartTrigger(_settingsCloseClickedEvent)
+				OnClose = () => _statechartTrigger(_settingsCloseClickedEvent),
+				OnServerSelectClicked = () => _statechartTrigger(NetworkState.OpenServerSelectScreenEvent)
 			};
 
 			_uiService.OpenUiAsync<SettingsScreenPresenter, SettingsScreenPresenter.StateData>(data);

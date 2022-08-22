@@ -3252,11 +3252,11 @@ MonoBehaviour:
   _settingsButton: {fileID: 6714092112816563466}
   _feedbackButton: {fileID: 7818139860001795659}
   _gameModeButton: {fileID: 3136875770617766570}
+  _serverSelectButton: {fileID: 0}
   _newFeaturesView: {fileID: 8541075219287720584}
   _selectedGameModeText: {fileID: 2299315933719668520}
   _lootButton: {fileID: 4630728439186811857}
   _heroesButton: {fileID: 763193626215202656}
-  _shopButton: {fileID: 0}
   _marketplaceButton: {fileID: 6107732708407092797}
   _discordButton: {fileID: 5710511750010917828}
 --- !u!114 &5459546383188664122
@@ -5672,7 +5672,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 3905704053862019615}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []

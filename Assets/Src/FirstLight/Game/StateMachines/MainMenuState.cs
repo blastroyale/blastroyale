@@ -300,7 +300,7 @@ namespace FirstLight.Game.StateMachines
 				OnHeroesButtonClicked = OnTabClickedCallback<PlayerSkinScreenPresenter>,
 				OnPlayRoomJoinCreateClicked = () => _statechartTrigger(_roomJoinCreateClickedEvent),
 				OnNameChangeClicked = () => _statechartTrigger(_nameChangeClickedEvent),
-				OnGameModeClicked = () => _statechartTrigger(_chooseGameModeClickedEvent),
+				OnGameModeClicked = () => _statechartTrigger(_chooseGameModeClickedEvent)
 			};
 
 			_uiService.OpenUi<HomeScreenPresenter, HomeScreenPresenter.StateData>(data);

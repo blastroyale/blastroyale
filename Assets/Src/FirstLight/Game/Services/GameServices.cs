@@ -28,6 +28,9 @@ namespace FirstLight.Game.Services
 
 		/// <inheritdoc cref="IGameNetworkService"/>
 		IGameNetworkService NetworkService { get; }
+		
+		/// <inheritdoc cref="IPlayerInputService"/>
+		IPlayerInputService PlayerInputService { get; }
 
 		/// <inheritdoc cref="IMessageBrokerService"/>
 		IMessageBrokerService MessageBrokerService { get; }
@@ -95,6 +98,7 @@ namespace FirstLight.Game.Services
 		public IConfigsProvider ConfigsProvider { get; }
 		public IGuidService GuidService { get; }
 		public IGameNetworkService NetworkService { get; }
+		public IPlayerInputService PlayerInputService { get; }
 		public IMessageBrokerService MessageBrokerService { get; }
 		public IGameCommandService CommandService { get; }
 		public IPoolService PoolService { get; }
@@ -139,6 +143,7 @@ namespace FirstLight.Game.Services
 			PoolService = new PoolService();
 			TickService = new TickService();
 			CoroutineService = new CoroutineService();
+			PlayerInputService = new PlayerInputService();
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			NotificationService = new MobileNotificationService(
 			                                                    new

@@ -28,7 +28,6 @@ namespace FirstLight.Game.Presenters
 		
 		private IGameServices _services;
 		private IMatchServices _matchServices;
-		private LocalInput _localInput;
 		private Quantum.Input _quantumInput;
 		private LocalPlayerIndicatorContainerView _indicatorContainerView;
 		
@@ -36,7 +35,6 @@ namespace FirstLight.Game.Presenters
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
-			_localInput = new LocalInput();
 			_indicatorContainerView = new LocalPlayerIndicatorContainerView(_services);
 
 			_cancelJoystick.gameObject.SetActive(false);
@@ -57,12 +55,12 @@ namespace FirstLight.Game.Presenters
 		private void OnDestroy()
 		{
 			_indicatorContainerView?.Dispose();
-			_localInput?.Dispose();
+			_services?.PlayerInputService?.DisposeInput();
 		}
 
 		protected override void OnOpened()
 		{
-			_localInput.Enable();
+			_services.PlayerInputService.EnableInput();
 			
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, OnUpdateView);
 			QuantumCallback.Subscribe<CallbackPollInput>(this, PollInput);
@@ -70,7 +68,7 @@ namespace FirstLight.Game.Presenters
 
 		protected override void OnClosed()
 		{
-			_localInput.Disable();
+			_services.PlayerInputService.DisableInput();
 			QuantumCallback.UnsubscribeListener(this);
 		}
 
@@ -129,9 +127,7 @@ namespace FirstLight.Game.Presenters
 			
 			indicator.SetVisualState(false);
 			_cancelJoystick.gameObject.SetActive(false);
-			
-			// TODO: Check if im.sqrMagnitude > _specialButton0.size
-			
+
 			// Only triggers the input if the button is released or it was not disabled (ex: weapon replaced)
 			if (Math.Abs(context.time - context.startTime) < Mathf.Epsilon && 
 			    (aim.sqrMagnitude > 0 || indicator.IndicatorVfxId == IndicatorVfxId.None))
@@ -170,7 +166,16 @@ namespace FirstLight.Game.Presenters
 
 		public void OnCancelButton(InputAction.CallbackContext context)
 		{
-			//TODO: Miha Cancel here :) 
+			if (context.ReadValueAsButton())
+			{
+				_localInput.Gameplay.SpecialButton0.Disable();
+				_localInput.Gameplay.SpecialButton1.Disable();
+				_localInput.Gameplay.AimButton.Disable();
+				return;
+			}
+			_localInput.Gameplay.SpecialButton0.Enable();
+			_localInput.Gameplay.SpecialButton1.Enable();
+			_localInput.Gameplay.AimButton.Enable();
 		}
 
 		private void Init(Frame f, EntityRef entity)

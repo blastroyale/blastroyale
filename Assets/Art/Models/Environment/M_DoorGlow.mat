@@ -55,10 +55,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - EnginePower: 1.6
-    - GradPower: 1
+    - EnginePower: 3
+    - GradPower: 0.5
     - NoiseSpeed: 0.2
-    - PulseFrequency: 8
+    - PulseFrequency: 1
     - PulseOffset: 0.1
     - PulseSpeed: 1
     - PulseStrength: 0
@@ -66,9 +66,9 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - ColorA: {r: 3.9242945, g: 0.26045325, b: 0, a: 0}
-    - ColorB: {r: 4.2823267, g: 2.1148784, b: 0.26932827, a: 0}
-    - NoiseTile: {r: 0.1, g: 0.1, b: 0, a: 0}
+    - ColorA: {r: 3.9242945, g: 1.8573201, b: 0, a: 0}
+    - ColorB: {r: 6.552832, g: 5.982618, b: 3.0085325, a: 0}
+    - NoiseTile: {r: 0, g: 0.1, b: 0, a: 0}
     - PulseSpeed: {r: 0, g: 2, b: 0, a: 0}
     - Vector2: {r: 0, g: -2, b: 0, a: 0}
   m_BuildTextureStacks: []

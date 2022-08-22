@@ -334,6 +334,7 @@
     <Content Include="Components\EquipmentCollectable.qtn" />
     <Content Include="Configs\Configs.qtn" />
     <Content Include="Configs\GameId.qtn" />
+    <Content Include="Configs\GameModeEnums.qtn" />
     <Content Include="Events\GameEvents.qtn" />
     <Content Include="Events\PlayerEvents.qtn" />
     <EmbeddedResource Include="db.json" />

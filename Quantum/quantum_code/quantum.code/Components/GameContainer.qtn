@@ -7,11 +7,4 @@ singleton component GameContainer
 	FP GameOverTime;
 }
 
-enum GameMode
-{
-	Tutorial,
-	Deathmatch,
-	BattleRoyale
-}
-
 signal GameEnded();

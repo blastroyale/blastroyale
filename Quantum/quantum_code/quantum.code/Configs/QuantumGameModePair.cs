@@ -1,10 +1,12 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace Quantum
 {
 	/// <summary>
-	/// Stores two values for a configurable field, one for BattleRoyale,
-	/// one for Deathmatch.
+	/// Stores values for a configurable field, one for each game mode (optional) and a default one.
 	/// </summary>
 	[Serializable]
 	public struct QuantumGameModePair<TValue>
@@ -19,16 +21,23 @@ namespace Quantum
 		}
 
 		/// <summary>
-		/// Returns <see cref="QuantumGameModePair{TValue}.BattleRoyale"/> for <see cref="GameMode.BattleRoyale"/>
-		/// and <see cref="QuantumGameModePair{TValue}.Deathmatch"/> for <see cref="GameMode.Deathmatch"/>
+		/// Returns the default value of this pair.
 		/// </summary>
-		public TValue Get(GameMode mode)
+		public TValue GetDefault()
+		{
+			return BattleRoyale;
+		}
+
+		/// <summary>
+		/// The value of this object for a specific game mode. If it doesn't exist it reutns <see cref="Default"/>.
+		/// </summary>
+		public TValue Get(string mode)
 		{
 			switch (mode)
 			{
-				case GameMode.BattleRoyale:
+				case "BattleRoyale":
 					return BattleRoyale;
-				case GameMode.Deathmatch:
+				case "Deathmatch":
 					return Deathmatch;
 				default:
 					throw new ArgumentOutOfRangeException(nameof(mode), mode, null);
@@ -38,7 +47,7 @@ namespace Quantum
 		/// <inheritdoc cref="Get(GameMode)"/>
 		public TValue Get(Frame f)
 		{
-			return Get(f.Context.MapConfig.GameMode);
+			return Get(f.Context.GameModeConfig.Id);
 		}
 
 		public override string ToString()
@@ -46,4 +55,62 @@ namespace Quantum
 			return $"[{BattleRoyale.ToString()},{Deathmatch.ToString()}]";
 		}
 	}
+
+
+	/*
+	[Serializable]
+	public struct QuantumGameModePair<TValue>
+	{
+		private TValue Default;
+
+		private List<string> Keys;
+		private List<TValue> Values;
+
+		public QuantumGameModePair(TValue @default, List<string> keys, List<TValue> values)
+		{
+			Default = @default;
+			Keys = keys;
+			Values = values;
+		}
+
+		/// <summary>
+		/// Returns the default value of this pair.
+		/// </summary>
+		public TValue GetDefault()
+		{
+			return Default;
+		}
+
+		/// <summary>
+		/// The value of this object for a specific game mode. If it doesn't exist it reutns <see cref="Default"/>.
+		/// </summary>
+		public TValue Get(string gameModeId)
+		{
+			var index = Keys.IndexOf(gameModeId);
+			return index >= 0 ? Values[index] : GetDefault();
+		}
+
+		/// <inheritdoc cref="Get(string)"/>
+		public TValue Get(Frame f)
+		{
+			return Get(f.Context.GameModeConfig.Id);
+		}
+
+		public override string ToString()
+		{
+			var sb = new StringBuilder();
+
+			sb.Append("[");
+
+			for (var i = 0; i < Keys.Count; i++)
+			{
+				sb.Append($"{Keys[i]} : {Values[i]}");
+			}
+
+			sb.Append("]");
+
+			return sb.ToString();
+		}
+	}
+	*/
 }

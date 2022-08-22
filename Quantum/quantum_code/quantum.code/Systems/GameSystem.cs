@@ -1,4 +1,4 @@
-using Photon.Deterministic;
+using System;
 
 namespace Quantum.Systems
 {
@@ -17,13 +17,18 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void OnAdded(Frame f, EntityRef entity, GameContainer* component)
 		{
-			if (f.Context.MapConfig.GameMode == GameMode.Deathmatch)
+			switch (f.Context.GameModeConfig.CompletionStrategy)
 			{
-				component->TargetProgress = f.Context.MapConfig.GameEndTarget;
-			}
-			else
-			{
-				component->TargetProgress = (uint)f.PlayerCount - 1;
+				case GameCompletionStrategy.Never:
+					break;
+				case GameCompletionStrategy.EveryoneDead:
+					component->TargetProgress = (uint) f.PlayerCount - 1;
+					break;
+				case GameCompletionStrategy.KillCount:
+					component->TargetProgress = f.Context.GameModeConfig.CompletionKillCount;
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
 			}
 		}
 
@@ -34,9 +39,9 @@ namespace Quantum.Systems
 
 			gameContainer->GameOverTime = f.Time;
 			gameContainer->IsGameOver = true;
-			
+
 			f.Events.OnGameEnded();
-			
+
 			f.SystemDisable(typeof(AiPreUpdateSystem));
 			f.SystemDisable(typeof(AiSystem));
 			f.SystemDisable(typeof(Core.NavigationSystem));
@@ -51,29 +56,23 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void PlayerDead(Frame f, PlayerRef playerDead, EntityRef entityDead)
 		{
-			var container = f.Unsafe.GetPointerSingleton<GameContainer>();
-
-			if (f.Context.MapConfig.GameMode != GameMode.BattleRoyale)
+			if (f.Context.GameModeConfig.CompletionStrategy == GameCompletionStrategy.EveryoneDead)
 			{
-				return;
+				var container = f.Unsafe.GetPointerSingleton<GameContainer>();
+				container->UpdateGameProgress(f, 1);
 			}
-			
-			container->UpdateGameProgress(f, 1);
 		}
 
 		public void PlayerKilledPlayer(Frame f, PlayerRef playerDead, EntityRef entityDead, PlayerRef playerKiller,
 		                               EntityRef entityKiller)
 		{
-			var container = f.Unsafe.GetPointerSingleton<GameContainer>();
-
-			if (f.Context.MapConfig.GameMode != GameMode.Deathmatch)
+			if (f.Context.GameModeConfig.CompletionStrategy == GameCompletionStrategy.KillCount)
 			{
-				return;
-			}
+				var container = f.Unsafe.GetPointerSingleton<GameContainer>();
+				var inc = container->PlayersData[playerKiller].PlayersKilledCount - container->CurrentProgress;
 
-			var inc = container->PlayersData[playerKiller].PlayersKilledCount - container->CurrentProgress;
-			
-			container->UpdateGameProgress(f, inc);
+				container->UpdateGameProgress(f, inc);
+			}
 		}
 	}
 }

@@ -9,7 +9,7 @@ namespace Quantum
 	[Serializable]
 	public struct QuantumGameModeConfig
 	{
-		public string Name;
+		public string Id;
 
 		[PropertyRange(1, 30), ValidateInput("@MaxPlayers >= MinPlayers")]
 		public uint MaxPlayers;
@@ -21,7 +21,28 @@ namespace Quantum
 		[ToggleGroup("Teams")] public uint MaxPlayersInTeam;
 		[ToggleGroup("Teams")] public uint MinPlayersInTeam;
 
-		public uint Lives;
+		public uint Lives; // Note, currently this only works for 1, every other value means "infinite lives"
+
+		public bool SpawnWithLoadout;
+		public bool SkydiveSpawn;
+
+		public bool DropWeaponOnPickup;
+
+		public GameCompletionStrategy CompletionStrategy;
+
+		[ShowIf("@CompletionStrategy == GameCompletionStrategy.KillCount")]
+		public uint CompletionKillCount;
+
+		[FoldoutGroup("Death drops")] public DeathDropsStrategy WeaponDeathDropStrategy;
+		[FoldoutGroup("Death drops")] public DeathDropsStrategy HealthDeathDropStrategy;
+		[FoldoutGroup("Death drops")] public DeathDropsStrategy ShieldDeathDropStrategy;
+
+		[FoldoutGroup("Bots")] public bool BotSearchForCrates;
+		[FoldoutGroup("Bots")] public bool BotRespawn;
+		[FoldoutGroup("Bots")] public BotWeaponSearchStrategy BotWeaponSearchStrategy;
+
+		[ValueDropdown("GetRankSorters")] public RankSorter RankSorter;
+		[ValueDropdown("GetRankProcessors")] public RankProcessor RankProcessor;
 
 		[ValueDropdown("GetOptionalSystems"), ListDrawerSettings(Expanded = true)]
 		public List<Type> Systems;
@@ -60,7 +81,7 @@ namespace Quantum
 
 				for (var i = 0; i < QuantumConfigs.Count; i++)
 				{
-					_dictionary.Add(QuantumConfigs[i].Name, QuantumConfigs[i]);
+					_dictionary.Add(QuantumConfigs[i].Id, QuantumConfigs[i]);
 				}
 			}
 

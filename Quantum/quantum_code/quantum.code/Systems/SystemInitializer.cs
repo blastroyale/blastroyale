@@ -14,14 +14,21 @@ namespace Quantum.Systems
 			f.Context.GameModeConfig = f.GameModeConfigs.GetConfig(f.RuntimeConfig.GameModeName);
 			f.Context.TargetAllLayerMask = f.Layers.GetLayerMask("Default", "Playable Target", "Non Playable Target",
 			                                                     "Prop", "World", "Environment No Silhouette");
-			
+
 			f.GetOrAddSingleton<GameContainer>();
 
-			if (f.Context.MapConfig.GameMode == GameMode.BattleRoyale && !f.Context.MapConfig.IsTestMap && 
-			    !f.SystemIsEnabledSelf<ShrinkingCircleSystem>())
+			foreach (var system in f.Context.GameModeConfig.Systems)
 			{
-				f.SystemEnable<ShrinkingCircleSystem>();
-				f.GetOrAddSingleton<ShrinkingCircle>();
+				if (!f.SystemIsEnabledSelf(system))
+				{
+					f.SystemEnable(system);
+				}
+
+				// TODO: Figure out a better way to do this
+				if (system == typeof(ShrinkingCircleSystem))
+				{
+					f.GetOrAddSingleton<ShrinkingCircle>();
+				}
 			}
 		}
 	}

@@ -8,9 +8,7 @@ namespace Quantum
 	{
 		public int Id;
 		public GameId Map;
-		public GameMode GameMode;
 		public int PlayersLimit;
-		public uint GameEndTarget;
 		public bool IsTestMap;
 	}
 	

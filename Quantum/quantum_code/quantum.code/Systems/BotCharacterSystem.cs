@@ -58,8 +58,7 @@ namespace Quantum.Systems
 		public override void Update(Frame f, ref BotCharacterFilter filter)
 		{
 			// If it's a deathmatch game mode and a bot is dead then we process respawn behaviour
-			if (f.Context.MapConfig.GameMode == GameMode.Deathmatch
-			    && f.TryGet<DeadPlayerCharacter>(filter.Entity, out var deadBot))
+			if (f.Context.GameModeConfig.BotRespawn && f.TryGet<DeadPlayerCharacter>(filter.Entity, out var deadBot))
 			{
 				// If the bot is dead and it's not yet the time to respawn then we skip the update
 				if (f.Time < deadBot.TimeOfDeath + f.GameConfig.PlayerRespawnTime)
@@ -227,7 +226,7 @@ namespace Quantum.Systems
 
 			foreach (var botConfig in configs)
 			{
-				if (botConfig.Difficulty == difficultyLevel && botConfig.GameMode == f.Context.MapConfig.GameMode)
+				if (botConfig.Difficulty == difficultyLevel && botConfig.GameModes.Contains(f.Context.GameModeConfig.Id))
 				{
 					list.Add(botConfig);
 				}
@@ -514,8 +513,7 @@ namespace Quantum.Systems
 
 		private bool TryGoForCrates(Frame f, ref BotCharacterFilter filter)
 		{
-			// Deathmatch mode doesn't have crates
-			if (f.Context.MapConfig.GameMode == GameMode.Deathmatch)
+			if (!f.Context.GameModeConfig.BotSearchForCrates)
 			{
 				return false;
 			}
@@ -563,22 +561,20 @@ namespace Quantum.Systems
 		{
 			var weaponPickupPosition = FPVector3.Zero;
 			var weaponPickupEntity = EntityRef.None;
-			var isGoing = false;
 
-			// In Battle Royale bots seek new weapons until they pickup something non-melee
-			if (f.Context.MapConfig.GameMode == GameMode.BattleRoyale)
+			var isGoing = f.Context.GameModeConfig.BotWeaponSearchStrategy switch
 			{
-				isGoing = !filter.PlayerCharacter->WeaponSlots[1].Weapon.IsValid()
-				          && !filter.PlayerCharacter->WeaponSlots[2].Weapon.IsValid()
-				          && f.RNG->Next() < filter.BotCharacter->ChanceToSeekWeapons;
-			}
-			// In Deathmatch bots seek new weapons if they have a default one OR if they have no ammo OR if the chance worked
-			else
-			{
-				isGoing = filter.PlayerCharacter->HasMeleeWeapon(f, filter.Entity) ||
-				              filter.PlayerCharacter->IsAmmoEmpty(f, filter.Entity) ||
-				              f.RNG->Next() < filter.BotCharacter->ChanceToSeekWeapons;
-			}
+				BotWeaponSearchStrategy.None => false,
+				BotWeaponSearchStrategy.FindOne =>
+					!filter.PlayerCharacter->WeaponSlots[1].Weapon.IsValid() &&
+					!filter.PlayerCharacter->WeaponSlots[2].Weapon.IsValid() &&
+					f.RNG->Next() < filter.BotCharacter->ChanceToSeekWeapons,
+				BotWeaponSearchStrategy.FindOneOrNoAmmoOrRandomChance =>
+					filter.PlayerCharacter->HasMeleeWeapon(f, filter.Entity) ||
+					filter.PlayerCharacter->IsAmmoEmpty(f, filter.Entity) ||
+					f.RNG->Next() < filter.BotCharacter->ChanceToSeekWeapons,
+				_ => throw new ArgumentOutOfRangeException()
+			};
 
 			isGoing = isGoing && TryGetClosestWeapon(f, ref filter, out weaponPickupPosition, out weaponPickupEntity);
 			

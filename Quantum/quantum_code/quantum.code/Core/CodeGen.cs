@@ -36,6 +36,11 @@ namespace Quantum {
     Cautious,
     Aggressive,
   }
+  public enum BotWeaponSearchStrategy : int {
+    None,
+    FindOne,
+    FindOneOrNoAmmoOrRandomChance,
+  }
   public enum ChestType : int {
     Common,
     Uncommon,
@@ -49,6 +54,11 @@ namespace Quantum {
     Ammo,
     Shield,
     ShieldCapacity,
+  }
+  public enum DeathDropsStrategy : int {
+    None = 0,
+    Normal = 1,
+    NormalWithFallback = 2,
   }
   [Flags()]
   public enum EWorldState : uint {
@@ -123,6 +133,11 @@ namespace Quantum {
     Legendary,
     LegendaryPlus,
     TOTAL,
+  }
+  public enum GameCompletionStrategy : int {
+    Never,
+    EveryoneDead,
+    KillCount,
   }
   public enum GameId : int {
     Random = 0,
@@ -243,10 +258,13 @@ namespace Quantum {
     Collection = 9,
     DeathMarker = 10,
   }
-  public enum GameMode : int {
-    Tutorial,
+  public enum RankProcessor : int {
+    General,
     Deathmatch,
+  }
+  public enum RankSorter : int {
     BattleRoyale,
+    Deathmatch,
   }
   public enum SpecialType : int {
     Airstrike,
@@ -8407,6 +8425,7 @@ namespace Quantum {
       Register(typeof(Quantum.BotBehaviourType), 4);
       Register(typeof(Quantum.BotCharacter), Quantum.BotCharacter.SIZE);
       Register(typeof(Quantum.BotSDKData), Quantum.BotSDKData.SIZE);
+      Register(typeof(Quantum.BotWeaponSearchStrategy), 4);
       Register(typeof(Button), Button.SIZE);
       Register(typeof(CharacterController2D), CharacterController2D.SIZE);
       Register(typeof(CharacterController3D), CharacterController3D.SIZE);
@@ -8419,6 +8438,7 @@ namespace Quantum {
       Register(typeof(Quantum.Consumable), Quantum.Consumable.SIZE);
       Register(typeof(Quantum.ConsumableType), 4);
       Register(typeof(Quantum.DeadPlayerCharacter), Quantum.DeadPlayerCharacter.SIZE);
+      Register(typeof(Quantum.DeathDropsStrategy), 4);
       Register(typeof(Quantum.Destructible), Quantum.Destructible.SIZE);
       Register(typeof(DistanceJoint), DistanceJoint.SIZE);
       Register(typeof(DistanceJoint3D), DistanceJoint3D.SIZE);
@@ -8450,10 +8470,10 @@ namespace Quantum {
       Register(typeof(Quantum.GOAPAgent), Quantum.GOAPAgent.SIZE);
       Register(typeof(Quantum.GOAPData), Quantum.GOAPData.SIZE);
       Register(typeof(Quantum.GOAPState), Quantum.GOAPState.SIZE);
+      Register(typeof(Quantum.GameCompletionStrategy), 4);
       Register(typeof(Quantum.GameContainer), Quantum.GameContainer.SIZE);
       Register(typeof(Quantum.GameId), 4);
       Register(typeof(Quantum.GameIdGroup), 4);
-      Register(typeof(Quantum.GameMode), 4);
       Register(typeof(Quantum.HFSMAgent), Quantum.HFSMAgent.SIZE);
       Register(typeof(Quantum.HFSMData), Quantum.HFSMData.SIZE);
       Register(typeof(Quantum.Hazard), Quantum.Hazard.SIZE);
@@ -8496,6 +8516,8 @@ namespace Quantum {
       Register(typeof(Quantum.Ptr), Quantum.Ptr.SIZE);
       Register(typeof(RNGSession), RNGSession.SIZE);
       Register(typeof(Quantum.Rage), Quantum.Rage.SIZE);
+      Register(typeof(Quantum.RankProcessor), 4);
+      Register(typeof(Quantum.RankSorter), 4);
       Register(typeof(Quantum.RaycastShots), Quantum.RaycastShots.SIZE);
       Register(typeof(Quantum.Regeneration), Quantum.Regeneration.SIZE);
       Register(typeof(Shape2D), Shape2D.SIZE);
@@ -8567,8 +8589,10 @@ namespace Quantum {
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.AssetRefQuantumWeaponConfigs>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.AssetRefUTRoot>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.BotBehaviourType>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.BotWeaponSearchStrategy>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.ChestType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.ConsumableType>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.DeathDropsStrategy>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.EWorldState>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.EquipmentAdjective>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.EquipmentEdition>();
@@ -8577,10 +8601,12 @@ namespace Quantum {
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.EquipmentManufacturer>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.EquipmentMaterial>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.EquipmentRarity>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.GameCompletionStrategy>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.GameId>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.GameIdGroup>();
-      FramePrinter.EnsurePrimitiveNotStripped<Quantum.GameMode>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.InputButtons>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.RankProcessor>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.RankSorter>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.SpecialType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.StatType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.StatusModifierType>();
@@ -8626,6 +8652,17 @@ namespace Quantum.Prototypes {
     }
   }
   [System.SerializableAttribute()]
+  [Prototype(typeof(BotWeaponSearchStrategy))]
+  public unsafe partial struct BotWeaponSearchStrategy_Prototype {
+    public Int32 Value;
+    public static implicit operator BotWeaponSearchStrategy(BotWeaponSearchStrategy_Prototype value) {
+        return (BotWeaponSearchStrategy)value.Value;
+    }
+    public static implicit operator BotWeaponSearchStrategy_Prototype(BotWeaponSearchStrategy value) {
+        return new BotWeaponSearchStrategy_Prototype() { Value = (Int32)value };
+    }
+  }
+  [System.SerializableAttribute()]
   [Prototype(typeof(ChestType))]
   public unsafe partial struct ChestType_Prototype {
     public Int32 Value;
@@ -8645,6 +8682,17 @@ namespace Quantum.Prototypes {
     }
     public static implicit operator ConsumableType_Prototype(ConsumableType value) {
         return new ConsumableType_Prototype() { Value = (Int32)value };
+    }
+  }
+  [System.SerializableAttribute()]
+  [Prototype(typeof(DeathDropsStrategy))]
+  public unsafe partial struct DeathDropsStrategy_Prototype {
+    public Int32 Value;
+    public static implicit operator DeathDropsStrategy(DeathDropsStrategy_Prototype value) {
+        return (DeathDropsStrategy)value.Value;
+    }
+    public static implicit operator DeathDropsStrategy_Prototype(DeathDropsStrategy value) {
+        return new DeathDropsStrategy_Prototype() { Value = (Int32)value };
     }
   }
   [System.SerializableAttribute()]
@@ -8736,6 +8784,17 @@ namespace Quantum.Prototypes {
     }
   }
   [System.SerializableAttribute()]
+  [Prototype(typeof(GameCompletionStrategy))]
+  public unsafe partial struct GameCompletionStrategy_Prototype {
+    public Int32 Value;
+    public static implicit operator GameCompletionStrategy(GameCompletionStrategy_Prototype value) {
+        return (GameCompletionStrategy)value.Value;
+    }
+    public static implicit operator GameCompletionStrategy_Prototype(GameCompletionStrategy value) {
+        return new GameCompletionStrategy_Prototype() { Value = (Int32)value };
+    }
+  }
+  [System.SerializableAttribute()]
   [Prototype(typeof(GameId))]
   public unsafe partial struct GameId_Prototype {
     public Int32 Value;
@@ -8758,14 +8817,25 @@ namespace Quantum.Prototypes {
     }
   }
   [System.SerializableAttribute()]
-  [Prototype(typeof(GameMode))]
-  public unsafe partial struct GameMode_Prototype {
+  [Prototype(typeof(RankProcessor))]
+  public unsafe partial struct RankProcessor_Prototype {
     public Int32 Value;
-    public static implicit operator GameMode(GameMode_Prototype value) {
-        return (GameMode)value.Value;
+    public static implicit operator RankProcessor(RankProcessor_Prototype value) {
+        return (RankProcessor)value.Value;
     }
-    public static implicit operator GameMode_Prototype(GameMode value) {
-        return new GameMode_Prototype() { Value = (Int32)value };
+    public static implicit operator RankProcessor_Prototype(RankProcessor value) {
+        return new RankProcessor_Prototype() { Value = (Int32)value };
+    }
+  }
+  [System.SerializableAttribute()]
+  [Prototype(typeof(RankSorter))]
+  public unsafe partial struct RankSorter_Prototype {
+    public Int32 Value;
+    public static implicit operator RankSorter(RankSorter_Prototype value) {
+        return (RankSorter)value.Value;
+    }
+    public static implicit operator RankSorter_Prototype(RankSorter value) {
+        return new RankSorter_Prototype() { Value = (Int32)value };
     }
   }
   [System.SerializableAttribute()]

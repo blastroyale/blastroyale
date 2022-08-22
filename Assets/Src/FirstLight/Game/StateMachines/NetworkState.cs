@@ -46,7 +46,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameBackendNetworkService _networkService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private Coroutine _matchmakingCoroutine;
-		private bool _pingingRegionsComplete;
 
 		private QuantumRunnerConfigs QuantumRunnerConfigs =>
 			_services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
@@ -427,34 +426,25 @@ namespace FirstLight.Game.StateMachines
 		{
 			FLog.Info("OnRegionListReceived " + regionHandler.GetResults());
 
-			_statechartTrigger(RegionListReceivedEvent);
+			_networkService.QuantumClient.RegionHandler.PingMinimumOfRegions(OnPingedRegions, "");
 			
-			_services.CoroutineService.StartCoroutine(PingEnabledRegionsCoroutine());
+			_statechartTrigger(RegionListReceivedEvent);
 		}
 		
 
-		// TODO - THIS DOES NOT EXECUTE ON MAIN THREAD, MAKE IT DO SO, AND REMOVE THE PING COROUTINE
+		// NOTE: THIS DOES NOT EXECUTE ON MAIN THREAD BECAUSE QUANTUM IS QUANTUM
 		private void OnPingedRegions(RegionHandler regionHandler)
 		{
 			FLog.Info("OnPingedRegions" + regionHandler.GetResults());
 
-			_pingingRegionsComplete = true;
-		}
-
-		private IEnumerator PingEnabledRegionsCoroutine()
-		{
-			_pingingRegionsComplete = false;
-			_networkService.QuantumClient.RegionHandler.PingMinimumOfRegions(OnPingedRegions, "");
-			
-			while (!_pingingRegionsComplete)
+			_services.ThreadService.MainThreadDispatcher.Enqueue(() =>
 			{
-				yield return null;
-			}
-
-			if (_uiService.HasUiPresenter<ServerSelectScreenPresenter>())
-			{
-				_uiService.GetUi<ServerSelectScreenPresenter>().UpdateRegionPing(_networkService.QuantumClient.RegionHandler);
-			}
+				if (_uiService.HasUiPresenter<ServerSelectScreenPresenter>())
+				{
+					_uiService.GetUi<ServerSelectScreenPresenter>()
+					          .UpdateRegionPing(_networkService.QuantumClient.RegionHandler);
+				}
+			});
 		}
 
 		/// <inheritdoc />

@@ -2,10 +2,24 @@ using FirstLight.Game.Input;
 
 namespace FirstLight.Game.Services
 {
+	/// <summary>
+	/// This service handles Player Input general interaction for spell controls  
+	/// </summary>
 	public interface IPlayerInputService
 	{
-		void DisposeInput();
+		/// <summary>
+		/// Enable accessor for the player spell control input 
+		/// </summary>
+		LocalInput Input { get; }
+		
+		/// <summary>
+		/// Enable Player spell control input 
+		/// </summary>
 		void EnableInput();
+		
+		/// <summary>
+		/// Disable Player spell control input
+		/// </summary>
 		void DisableInput();
 
 	}
@@ -13,26 +27,27 @@ namespace FirstLight.Game.Services
 	
 	public class PlayerInputService : IPlayerInputService
 	{
-		private LocalInput _localInput;
+
+		public LocalInput Input { get; }
 		
 		public PlayerInputService()
 		{
-			_localInput = new LocalInput();
+			Input = new LocalInput();
 		}
-
+		
 		public void DisposeInput()
 		{
-			_localInput.Dispose();
+			Input.Dispose();
 		}
 
 		public void EnableInput()
 		{
-			_localInput.Enable();
+			Input.Enable();
 		}
 
 		public void DisableInput()
 		{
-			_localInput.Disable();
+			Input.Disable();
 		}
 	}
 	

@@ -25,6 +25,8 @@ namespace FirstLight.Game.Input
 		public ButtonControl Special0PointerDown { get; private set; }
 		public ButtonControl Special1PointerDown { get; private set; }
 		
+		public ButtonControl CancelPointerDown { get; private set; }
+		
 		public static OnScreenControlsDevice Current { get; internal set; }
 
 		/// <inheritdoc />
@@ -64,6 +66,7 @@ namespace FirstLight.Game.Input
 			SpecialAimDirection = GetChildControl<Vector2Control>("SpecialAimDirection");
 			Special0PointerDown = GetChildControl<ButtonControl>("Special0PointerDown");
 			Special1PointerDown = GetChildControl<ButtonControl>("Special1PointerDown");
+			CancelPointerDown = GetChildControl<ButtonControl>("CancelPointerDown");
 		}
 		
 		/// <summary>
@@ -77,7 +80,7 @@ namespace FirstLight.Game.Input
 	/// <summary>
 	/// Onscreen controls state layout for Unity's input system.
 	/// </summary>
-	[StructLayout(LayoutKind.Explicit, Size = 40)]
+	[StructLayout(LayoutKind.Explicit, Size = 44)]
 	public struct OnScreenControlsState : IInputStateTypeInfo
 	{
 		public FourCC format => new FourCC('O', 'S', 'C', 'D');
@@ -98,5 +101,8 @@ namespace FirstLight.Game.Input
 		public float Special0PointerDown;
 		[InputControl(layout = "Button"), FieldOffset(36)]
 		public float Special1PointerDown;
+		[InputControl(layout = "Button"), FieldOffset(40)]
+		public float CancelPointerDown;
+		
 	}
 }

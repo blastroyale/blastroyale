@@ -113,6 +113,19 @@ public partial class SROptions
 	{
 		Shader.EnableKeyword("MINIMAP_DRAW_PLAYERS");
 	}
+	
+	
+	[Category("Gameplay")]
+	public void CrashUnity()
+	{
+		Crash();
+	}
+	
+	private void Crash(int i = 0)
+	{
+		Crash(i++);
+	}
+
 
 #endif
 	

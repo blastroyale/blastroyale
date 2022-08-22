@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 4294967263
+  m_StaticEditorFlags: 119
   m_IsActive: 1
 --- !u!4 &3995122595190406429
 Transform:
@@ -52,7 +52,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
+  m_StaticShadowCaster: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -95,12 +95,13 @@ GameObject:
   - component: {fileID: 6647850317970052528}
   - component: {fileID: 6358485105909030721}
   - component: {fileID: 902418430057980914}
+  - component: {fileID: 7833370615596658394}
   m_Layer: 0
   m_Name: BoxStaticCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967287
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 95
   m_IsActive: 1
 --- !u!4 &2499786548666634010
 Transform:
@@ -210,6 +211,19 @@ MonoBehaviour:
       Id:
         Value: 0
     Trigger: 0
+--- !u!65 &7833370615596658394
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2520957759007040391}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7720407221949111772
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,7 +274,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 4294967263
+  m_StaticEditorFlags: 119
   m_IsActive: 1
 --- !u!4 &2749813503182378056
 Transform:
@@ -296,7 +310,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
+  m_StaticShadowCaster: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1

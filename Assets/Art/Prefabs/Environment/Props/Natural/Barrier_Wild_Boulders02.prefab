@@ -12,12 +12,13 @@ GameObject:
   - component: {fileID: 548199291543853226}
   - component: {fileID: 4724932845020016790}
   - component: {fileID: 6736374866363349133}
+  - component: {fileID: 5717643412454084711}
   m_Layer: 0
-  m_Name: Cube (4)
+  m_Name: Coll_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 95
   m_IsActive: 1
 --- !u!4 &7942435939813002817
 Transform:
@@ -127,6 +128,19 @@ MonoBehaviour:
       Id:
         Value: 0
     Trigger: 0
+--- !u!65 &5717643412454084711
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3460885724981790189}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0000001, y: 1, z: 1.0000004}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4468905665704311499
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,12 +153,13 @@ GameObject:
   - component: {fileID: 8646299383479427116}
   - component: {fileID: 8234840463677332696}
   - component: {fileID: 1332899263678026674}
+  - component: {fileID: 6531815538186114002}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: Coll_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 95
   m_IsActive: 1
 --- !u!4 &8450236466068628592
 Transform:
@@ -254,6 +269,19 @@ MonoBehaviour:
       Id:
         Value: 0
     Trigger: 0
+--- !u!65 &6531815538186114002
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4468905665704311499}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1.0000001}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4727207959888954608
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,12 +410,13 @@ GameObject:
   - component: {fileID: 1096244236433413362}
   - component: {fileID: 7154995271497765678}
   - component: {fileID: 6743990524019155362}
+  - component: {fileID: 269130269081630358}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Coll_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 95
   m_IsActive: 1
 --- !u!4 &520696374141816594
 Transform:
@@ -497,6 +526,19 @@ MonoBehaviour:
       Id:
         Value: 0
     Trigger: 0
+--- !u!65 &269130269081630358
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5500691895737687434}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.99999994, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5669123484161242644
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,12 +551,13 @@ GameObject:
   - component: {fileID: 4356855635611584849}
   - component: {fileID: 6036342246776644136}
   - component: {fileID: 2916442831289863698}
+  - component: {fileID: 1841717631401624332}
   m_Layer: 0
-  m_Name: Cube (2)
+  m_Name: Coll_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 95
   m_IsActive: 1
 --- !u!4 &3211549825860158638
 Transform:
@@ -624,6 +667,19 @@ MonoBehaviour:
       Id:
         Value: 0
     Trigger: 0
+--- !u!65 &1841717631401624332
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5669123484161242644}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7737261841613319230
 GameObject:
   m_ObjectHideFlags: 0
@@ -672,12 +728,13 @@ GameObject:
   - component: {fileID: 1916571112664983469}
   - component: {fileID: 8110786363040129757}
   - component: {fileID: 2334941538186685915}
+  - component: {fileID: 8883975097609887664}
   m_Layer: 0
-  m_Name: Cube (3)
+  m_Name: Coll_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 95
   m_IsActive: 1
 --- !u!4 &6669043327117902543
 Transform:
@@ -787,3 +844,16 @@ MonoBehaviour:
       Id:
         Value: 0
     Trigger: 0
+--- !u!65 &8883975097609887664
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7949845880232486453}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.0000001, z: 0.99999994}
+  m_Center: {x: 0, y: 0, z: 0}

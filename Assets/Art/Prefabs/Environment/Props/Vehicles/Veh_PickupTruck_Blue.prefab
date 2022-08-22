@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967263
+  m_StaticEditorFlags: 119
   m_IsActive: 1
 --- !u!4 &2070539776804259111
 Transform:
@@ -53,7 +53,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
+  m_StaticShadowCaster: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -96,12 +96,13 @@ GameObject:
   - component: {fileID: 7568054787938515820}
   - component: {fileID: 2132990867757776447}
   - component: {fileID: 8339790676206663490}
+  - component: {fileID: 341657756279481757}
   m_Layer: 0
-  m_Name: TruckCollision_B
+  m_Name: Coll
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967287
+  m_StaticEditorFlags: 95
   m_IsActive: 1
 --- !u!4 &5903439879184330076
 Transform:
@@ -192,3 +193,17 @@ MonoBehaviour:
     Trigger: 0
   SmoothSphereMeshCollisions: 0
   Mode: 0
+--- !u!64 &341657756279481757
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4166204736124602985}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 1161428396231619325, guid: ee8f34f3c73cdf541a3c5ea34429d3fd, type: 3}

@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967263
+  m_StaticEditorFlags: 119
   m_IsActive: 1
 --- !u!4 &4761648546604678207
 Transform:
@@ -53,7 +53,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
+  m_StaticShadowCaster: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -96,12 +96,13 @@ GameObject:
   - component: {fileID: 5978056428019586945}
   - component: {fileID: 3098636272294078217}
   - component: {fileID: 1571777431347934934}
+  - component: {fileID: 1917452970399108514}
   m_Layer: 0
   m_Name: SedanCollisionRamp2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967287
+  m_StaticEditorFlags: 95
   m_IsActive: 1
 --- !u!4 &2145279176384736376
 Transform:
@@ -192,3 +193,17 @@ MonoBehaviour:
     Trigger: 0
   SmoothSphereMeshCollisions: 0
   Mode: 0
+--- !u!64 &1917452970399108514
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6963303812132642711}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -9108883242535313628, guid: ee8f34f3c73cdf541a3c5ea34429d3fd, type: 3}

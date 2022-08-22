@@ -12,12 +12,13 @@ GameObject:
   - component: {fileID: 4425248831009303237}
   - component: {fileID: 843339917674880002}
   - component: {fileID: 4091840212412614912}
+  - component: {fileID: 1140871419817584375}
   m_Layer: 0
   m_Name: SedanCollision_B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967287
+  m_StaticEditorFlags: 95
   m_IsActive: 1
 --- !u!4 &4392095857072555234
 Transform:
@@ -108,6 +109,20 @@ MonoBehaviour:
     Trigger: 0
   SmoothSphereMeshCollisions: 0
   Mode: 0
+--- !u!64 &1140871419817584375
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 244274283014501757}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7809051582995882103, guid: ee8f34f3c73cdf541a3c5ea34429d3fd, type: 3}
 --- !u!1 &1829963943006175513
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,7 +139,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967263
+  m_StaticEditorFlags: 119
   m_IsActive: 1
 --- !u!4 &7805917825373641596
 Transform:
@@ -161,7 +176,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
+  m_StaticShadowCaster: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1

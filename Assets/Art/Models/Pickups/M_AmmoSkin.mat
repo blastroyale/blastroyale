@@ -2,14 +2,15 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_AmmoSkin
   m_Shader: {fileID: -6465566751694194690, guid: b46dfe5e05587f347a64a2315b30791f, type: 3}
-  m_ShaderKeywords: 
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -66,7 +67,7 @@ Material:
     m_Ints: []
     m_Floats:
     - Vector1_0edf165a9888459aa51fcfd3038d58c3: 0
-    - Vector1_4570d518837345e0a9a0e83b9aee67ee: 1.1
+    - Vector1_4570d518837345e0a9a0e83b9aee67ee: 0.85
     - Vector1_77E8A8EE: 0.2
     - Vector1_7e3420c35b05488787dccb6b24b2f4f8: 0
     - Vector1_A980955: 4
@@ -99,7 +100,7 @@ Material:
     - Color_7dec221cdbeb4a87aeb2014b5be2116b: {r: 4.2918334, g: 2.3086941, b: 0, a: 0}
     - Color_87017717: {r: 1, g: 0.95046335, b: 0, a: 0}
     - Vector2_c488f38661244cc99c1f24d639e7c2db: {r: 0, g: 0, b: 0, a: 0}
-    - Vector3_3ef2f1df446b45db8923d202bc547bef: {r: 0, g: 0.3, b: 0, a: 0}
+    - Vector3_3ef2f1df446b45db8923d202bc547bef: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 0.85566986, b: 0, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

@@ -134,28 +134,28 @@ public partial class SROptions
 		var services = MainInstaller.Resolve<IGameServices>();
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
 		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatConfig>();
-		
+
 		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[0].Id, rarity: EquipmentRarity.RarePlus,
 		                                                      adjective: EquipmentAdjective.Regular,
 		                                                      grade: EquipmentGrade.GradeV, durability: 50,
 		                                                      level: 3));
 		
-		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[1].Id, rarity: EquipmentRarity.Rare,
+		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[5].Id, rarity: EquipmentRarity.Rare,
 		                                                      adjective: EquipmentAdjective.Exquisite,
 		                                                      grade: EquipmentGrade.GradeIII, durability: 70,
 		                                                      level: 3));
 		
-		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[2].Id, rarity: EquipmentRarity.Uncommon,
+		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[12].Id, rarity: EquipmentRarity.Uncommon,
 		                                                      adjective: EquipmentAdjective.Cool,
 		                                                      grade: EquipmentGrade.GradeIII, durability: 65,
 		                                                      level: 3));
 		
-		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[3].Id, rarity: EquipmentRarity.Legendary,
+		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[17].Id, rarity: EquipmentRarity.Legendary,
 		                                                      adjective: EquipmentAdjective.Royal,
 		                                                      grade: EquipmentGrade.GradeI, durability: 34,
 		                                                      level: 3));
 		
-		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[45].Id,
+		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[40].Id,
 		                                                      rarity: EquipmentRarity.LegendaryPlus,
 		                                                      adjective: EquipmentAdjective.Divine,
 		                                                      grade: EquipmentGrade.GradeIV, durability: 97,

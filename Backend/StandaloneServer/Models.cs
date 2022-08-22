@@ -19,6 +19,6 @@ public class PlayfabHttpResponse
 public class NoMutex : IServerMutex
 {
 	public void Dispose() {}
-	public void Lock(string userId) {}
+	public async Task Lock(string userId) {}
 	public void Unlock(string userId) {}
 }

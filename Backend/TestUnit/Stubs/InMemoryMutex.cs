@@ -20,7 +20,7 @@ public class InMemoryMutex : IServerMutex
 		_task = null;
 	}
 
-	public void Lock(string userId)
+	public async Task Lock(string userId)
 	{
 		if (_locked.Contains(userId))
 			_task?.Wait();

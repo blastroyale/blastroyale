@@ -55,7 +55,7 @@ namespace FirstLight.Game.Presenters
 		private void Awake()
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			_mainMenuServices = MainMenuInstaller.Resolve<IMainMenuServices>();
+			_mainMenuServices = MainInstaller.Resolve<IMainMenuServices>();
 			_services = MainInstaller.Resolve<IGameServices>();
 
 			_playOnlineButton.onClick.AddListener(OnPlayOnlineClicked);
@@ -120,14 +120,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OpenMarketplaceLink()
 		{
-			if (Debug.isDebugBuild)
-			{
-				Application.OpenURL(GameConstants.Links.MARKETPLACE_DEV_URL);
-			}
-			else
-			{
-				Application.OpenURL(GameConstants.Links.MARKETPLACE_PROD_URL);
-			}
+			Application.OpenURL(GameConstants.Links.MARKETPLACE_URL);
 		}
 		
 		private void OpenGameModeClicked()

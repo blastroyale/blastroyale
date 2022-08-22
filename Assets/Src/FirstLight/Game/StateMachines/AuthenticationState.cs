@@ -69,7 +69,6 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(autoAuthCheck);
 			initial.OnExit(SubscribeEvents);
 			initial.OnExit(SetAuthenticationData);
-			initial.OnExit(() => _dataService.LoadData<AppData>());
 			
 			autoAuthCheck.Transition().Condition(HasLinkedDevice).Target(authLoginDevice);
 			autoAuthCheck.Transition().Condition(() => !FeatureFlags.EMAIL_AUTH).OnTransition(OnLinkSuccess).Target(authLoginDevice);
@@ -215,21 +214,37 @@ namespace FirstLight.Game.StateMachines
 		private void SetAuthenticationData()
 		{
 			var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
+			var appData = _dataService.LoadData<AppData>();
+			var environment = "";
 
 #if LIVE_SERVER
+			environment = "live";
 			PlayFabSettings.TitleId = "302CF";
 			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
 #elif OFFCHAIN_SERVER
+			environment = "offchain";
 			PlayFabSettings.TitleId = "***REMOVED***";
 			quantumSettings.AppSettings.AppIdRealtime = "81262db7-24a2-4685-b386-65427c73ce9d";
 #elif STAGE_SERVER
+			environment = "stage";
 			PlayFabSettings.TitleId = "***REMOVED***";
 			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
 #else
 			// Dev
+			environment = "dev";
 			PlayFabSettings.TitleId = "***REMOVED***";
 			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
 #endif
+			
+			if (environment != appData.Environment)
+			{
+				var newData = appData.Copy();
+
+				newData.Environment = environment;
+				
+				_dataService.AddData(newData, true);
+				_dataService.SaveData<AppData>();
+			}
 		}
 
 		private void ProcessAuthentication(LoginResult result)
@@ -343,7 +358,7 @@ namespace FirstLight.Game.StateMachines
 			_dataService.AddData(ModelSerializer.DeserializeFromData<RngData>(data));
 			_dataService.AddData(ModelSerializer.DeserializeFromData<IdData>(data));
 			_dataService.AddData(ModelSerializer.DeserializeFromData<PlayerData>(data));
-			_dataService.AddData(ModelSerializer.DeserializeFromData<NftEquipmentData>(data));
+			_dataService.AddData(ModelSerializer.DeserializeFromData<EquipmentData>(data));
 			FLog.Verbose("Downloaded state from server");
 			activity?.Complete();
 		}

@@ -75,11 +75,11 @@ MonoBehaviour:
         RawValue: 196608
       StatsPowerBaseValue: 250
       StatsPowerRarityMultiplier:
-        RawValue: 68813
+        RawValue: 66191
       StatsPowerLevelStepMultiplier:
         RawValue: 328
       StatsPowerGradeStepMultiplier:
-        RawValue: 4588
+        RawValue: 3277
       StatsHpBaseValue: 300
       StatsHpRarityMultiplier:
         RawValue: 72090
@@ -115,7 +115,7 @@ MonoBehaviour:
       AdjectiveRarityEarningsMod:
         RawValue: 52429
       NftUsageCooldownMinutes: 1440
-      NftRequiredEquippedForPlay: 0
+      NftRequiredEquippedForPlay: 3
       PlayerVisionRange:
         RawValue: 1245184
       AirdropPositionOffsetMultiplier:

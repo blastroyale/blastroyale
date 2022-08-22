@@ -16,13 +16,16 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc cref="IUiVfxService"/>
 		IUiVfxService UiVfxService { get; }
 
+		/// <inheritdoc cref="IRemoteTextureService"/>
 		IRemoteTextureService RemoteTextureService { get; }
 	}
 
 	/// <inheritdoc />
 	public class MainMenuServices : IMainMenuServices
 	{
+		/// <inheritdoc />
 		public IUiVfxService UiVfxService { get; }
+		/// <inheritdoc />
 		public IRemoteTextureService RemoteTextureService { get; }
 
 		public MainMenuServices(IUiVfxInternalService uiVfxService, IRemoteTextureService remoteTextureService)

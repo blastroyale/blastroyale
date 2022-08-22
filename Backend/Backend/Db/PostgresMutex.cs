@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Backend.Db;
 using Medallion.Threading.Postgres;
 using ServerSDK.Services;
@@ -15,10 +16,10 @@ public class PostgresMutex : IServerMutex
 	private Dictionary<string, PostgresDistributedLockHandle> _handles = new ();
 
 	/// <inheritdoc />
-	public void Lock(string userId)
+	public async Task Lock(string userId)
 	{
 		var mutex = new PostgresDistributedLock(new PostgresAdvisoryLockKey(userId, allowHashing: true), DbSetup.ConnectionString);
-		_handles[userId] = mutex.Acquire();
+		_handles[userId] = await mutex.AcquireAsync();
 	}
 
 	/// <inheritdoc />

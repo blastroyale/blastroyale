@@ -28,7 +28,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private void OnEventOnProjectileFired(EventOnProjectileFired callback)
 		{
 			if (callback.ProjectileData.Attacker == EntityRef && 
-			    EntityViewUpdaterService.TryGetView(callback.Projectile, out var projectile))
+			    MatchServices.EntityViewUpdaterService.TryGetView(callback.Projectile, out var projectile))
 			{
 				var go = _pool.Spawn();
 				var goTransform = go.transform;

@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Facebook.Unity.Editor;
-using Facebook.Unity.Settings;
 using Photon.Deterministic;
 using UnityEditor;
 using UnityEngine;
@@ -51,8 +49,6 @@ namespace FirstLight.Editor.Build
 		private const string _keystoreName = "firstlightgames.keystore";
 		private const string _apkExtension = ".apk";
 		private const string _aabExtension = ".aab";
-		private const int _facebookDevAppIdSelectedIndex = 1;
-		private const int _facebookAppIdSelectedIndex = 0;
 		private const AndroidArchitecture _androidReleaseTargetArchitectures = AndroidArchitecture.ARMv7 | AndroidArchitecture.ARM64;
 		private static readonly string[] CommonSymbols = new []
 		{
@@ -84,7 +80,6 @@ namespace FirstLight.Editor.Build
 			EditorUserBuildSettings.development = true;
 			EditorUserBuildSettings.buildAppBundle = false;
 			EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
-			FacebookSettings.SelectedAppIndex = _facebookDevAppIdSelectedIndex;
 			
 			VersionEditorUtils.SetAndSaveInternalVersion(true);
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, _appEnterpriseIdentifier);
@@ -93,10 +88,7 @@ namespace FirstLight.Editor.Build
 			ConfigureQuantumForDevelopment();
 			SetAndroidKeystore();
 			PrepareFirebase(DevelopmentSymbol);
-			
-#if UNITY_ANDROID
-			ManifestMod.GenerateManifest();
-#endif
+
 		}
 
 		/// <summary>
@@ -117,7 +109,6 @@ namespace FirstLight.Editor.Build
 			EditorUserBuildSettings.development = false;
 			EditorUserBuildSettings.buildAppBundle = false;
 			EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
-			FacebookSettings.SelectedAppIndex = _facebookDevAppIdSelectedIndex;
 			
 			VersionEditorUtils.SetAndSaveInternalVersion(false);
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, _appEnterpriseIdentifier);
@@ -127,9 +118,6 @@ namespace FirstLight.Editor.Build
 			SetAndroidKeystore();
 			PrepareFirebase(ReleaseSymbol);
 
-#if UNITY_ANDROID
-			ManifestMod.GenerateManifest();
-#endif
 		}
 
 		/// <summary>
@@ -150,7 +138,6 @@ namespace FirstLight.Editor.Build
 			EditorUserBuildSettings.development = false;
 			EditorUserBuildSettings.buildAppBundle = true;
 			EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
-			FacebookSettings.SelectedAppIndex = _facebookAppIdSelectedIndex;
 			
 			VersionEditorUtils.SetAndSaveInternalVersion(false);
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, _appReleaseIdentifier);
@@ -160,9 +147,6 @@ namespace FirstLight.Editor.Build
 			SetAndroidKeystore();
 			PrepareFirebase(StoreSymbol);
 
-#if UNITY_ANDROID
-			ManifestMod.GenerateManifest();
-#endif
 		}
 		
 		/// <summary>

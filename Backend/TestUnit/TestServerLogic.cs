@@ -34,7 +34,7 @@ public class TestServerLogic
 	public void TestLoginInitializationWithInitialState()
 	{
 		var cfg = _server.GetService<IConfigsProvider>();
-		var state = _server.GetService<IServerStateService>().GetPlayerState(_server.GetTestPlayerID());
+		var state = _server.GetService<IServerStateService>().GetPlayerState(_server.GetTestPlayerID()).Result;
 		var logic = new GameServerLogic(cfg, new ServerPlayerDataProvider(state));
 		logic.Init();
 	}
@@ -43,7 +43,7 @@ public class TestServerLogic
 	public void TestServerExecutingCommand()
 	{
 		var playerId = _server.GetTestPlayerID();
-		var oldState = _stateService.GetPlayerState(playerId);
+		var oldState = _stateService.GetPlayerState(playerId).Result;
 		var oldPlayerData = oldState.DeserializeModel<PlayerData>();
 		var currentSkin = oldPlayerData.PlayerSkinId;
 		var newSkin = GameId.Female01Avatar;

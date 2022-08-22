@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Backend.Game.Services;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
@@ -42,19 +43,19 @@ public class GameServer
 	/// <summary>
 	/// Runs a logic request in server state for the given player. This will persist the updated state at the end.
 	/// </summary>
-	public BackendLogicResult RunLogic(string playerId, LogicRequest logicRequest)
+	public async Task<BackendLogicResult> RunLogic(string playerId, LogicRequest logicRequest)
 	{
 		var cmdType = logicRequest.Command;
 		var cmdData = logicRequest.Data;
 		try
 		{
-			_mutex.Lock(playerId);
+			await _mutex.Lock(playerId);
 			var commandInstance = _cmdHandler.BuildCommandInstance(cmdData, cmdType);
-			var currentPlayerState = _state.GetPlayerState(playerId);
+			var currentPlayerState = await _state.GetPlayerState(playerId);
 			ValidateCommand(currentPlayerState, commandInstance, cmdData);
 			var newState = _cmdHandler.ExecuteCommand(commandInstance, currentPlayerState);
 			_eventManager.CallEvent(new CommandFinishedEvent(playerId, commandInstance, newState));
-			_state.UpdatePlayerState(playerId, newState);
+			await _state.UpdatePlayerState(playerId, newState);
 			return new BackendLogicResult()
 			{
 				Command = cmdType,

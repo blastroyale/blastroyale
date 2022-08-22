@@ -10,6 +10,7 @@ using FirstLight.Game.Utils;
 using PlayFab;
 using PlayFab.ServerModels;
 using Scripts.Base;
+using ServerSDK.Modules;
 
 namespace Scripts;
 
@@ -18,10 +19,7 @@ namespace Scripts;
 /// </summary>
 public class AllPlayerDataToCsv : PlayfabScript
 {
-	public override string GetPlayfabTitle() => "***REMOVED***";
-	public override string GetPlayfabSecret() => "***REMOVED***";
-
-	public const string SEGMENT_ID = "97EC6C2DE051B678";
+	public override PlayfabEnvironment GetEnvironment() => PlayfabEnvironment.DEV;
 
 	public override void Execute(ScriptParameters parameters)
 	{
@@ -31,15 +29,8 @@ public class AllPlayerDataToCsv : PlayfabScript
 
 	public async Task RunAsync()
 	{
-		var segmentResult = await PlayFabServerAPI.GetPlayersInSegmentAsync(new GetPlayersInSegmentRequest()
-		{
-			SegmentId = SEGMENT_ID, // All players
-			MaxBatchSize = 10000
-		});
-		HandleError(segmentResult.Error);
-		Console.WriteLine($"Processing {segmentResult.Result.PlayerProfiles.Count} Players");
 		var csvData = new List<Dictionary<string, string>>();
-		foreach (var player in segmentResult.Result.PlayerProfiles)
+		foreach (var player in await GetAllPlayers())
 		{
 			var playerData = await ProcessPlayerData(player);
 			if (playerData != null)

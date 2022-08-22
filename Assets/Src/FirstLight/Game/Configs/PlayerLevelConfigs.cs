@@ -18,10 +18,7 @@ namespace FirstLight.Game.Configs
 	[Serializable]
 	public enum UnlockSystem
 	{
-		Shop, 
-		Enhancement,
-		Fusion,
-		Crates
+		Shop
 	}
 	
 	/// <summary>

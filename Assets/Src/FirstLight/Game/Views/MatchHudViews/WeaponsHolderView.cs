@@ -48,8 +48,8 @@ namespace FirstLight.Game.Views.AdventureHudViews
 				return;
 			}
 
-			var game = QuantumRunner.Default.Game;
-			var f = game.Frames.Verified;
+			var game = msg.Game;
+			var f = game.Frames.Predicted;
 			var gameContainer = f.GetSingleton<GameContainer>();
 			var playersData = gameContainer.PlayersData;
 			var localPlayer = playersData[game.GetLocalPlayers()[0]];

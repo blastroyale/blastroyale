@@ -1,3 +1,4 @@
+using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ namespace FirstLight.Game.MonoComponent.Match
 	/// Shows the indicator for the local player's attack in a line of damage.
 	/// Use <see cref="ScalableLineIndicatorMonoComponent"/> for a scalable size line indicator functionality.
 	/// </summary>
-	public class LineIndicatorMonoComponent : MonoBehaviour, ITransformIndicator
+	public class LineIndicatorMonoComponent : MonoBehaviour, IIndicator
 	{
 		private static readonly int _color = Shader.PropertyToID("_Color");
 		
@@ -19,6 +20,8 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		/// <inheritdoc />
 		public bool VisualState => _indicator.enabled;
+		/// <inheritdoc />
+		public IndicatorVfxId IndicatorVfxId => IndicatorVfxId.Line;
 		
 		private void Awake()
 		{
@@ -46,7 +49,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		/// <inheritdoc />
 		public void Init(EntityView playerEntityView)
 		{
-			var cacheTransform = transform.transform;
+			var cacheTransform = transform;
 
 			cacheTransform.SetParent(playerEntityView.transform);
 
@@ -62,10 +65,8 @@ namespace FirstLight.Game.MonoComponent.Match
 				return;
 			}
 			
-			var cacheTransform = transform;
-
 			_rotation = Quaternion.LookRotation(new Vector3(position.x, 0f, position.y), Vector3.up);
-			cacheTransform.rotation = _rotation;
+			transform.rotation = _rotation;
 		}
 	}
 }

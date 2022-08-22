@@ -4,12 +4,15 @@ using System.Globalization;
 using System.Reflection;
 using System.Threading.Tasks;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Data;
 using FirstLight.Game.Infos;
+using FirstLight.Game.Input;
 using FirstLight.Services;
 using I2.Loc;
 using Photon.Realtime;
 using Quantum;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Playables;
 using Random = UnityEngine.Random;
 
@@ -88,7 +91,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static string GetOrdinalTranslation(this int number)
 		{
-			number = number > 19 ? 19 : number;
+			number = number > 19 ? number % 10 : number;
 			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.General)}/Ordinal{number.ToString()}");
 		}
 
@@ -257,17 +260,11 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static bool IsAlive(this EntityRef entity, Frame f)
 		{
-			if (!f.Exists(entity))
+			if (!f.TryGet<Stats>(entity, out var stats))
 			{
 				return false;
 			}
 
-			if (!f.Has<Stats>(entity))
-			{
-				return false;
-			}
-
-			var stats = f.Get<Stats>(entity);
 			return stats.CurrentHealth > 0;
 		}
 
@@ -344,6 +341,14 @@ namespace FirstLight.Game.Utils
 		{
 			return room.IsVisible;
 		}
+		
+		/// <summary>
+		/// Obtains info on whether the room is used for matchmaking
+		/// </summary>
+		public static bool IsRankedRoom(this Room room)
+		{
+			return (bool) room.CustomProperties[GameConstants.Network.ROOM_PROPS_RANKED_MATCH];
+		}
 
 		/// <summary>
 		/// Obtains amount of non-spectator players currently in room
@@ -400,6 +405,22 @@ namespace FirstLight.Game.Utils
 		{
 			return room.IsMatchmakingRoom() ? 0 : GameConstants.Data.MATCH_SPECTATOR_SPOTS;
 		}
+		
+		/// <summary>
+		/// Obtains info on whether room has all its player slots full
+		/// </summary>
+		public static bool IsAtFullPlayerCapacity(this Room room)
+		{
+			return room.GetRealPlayerAmount() >= room.GetRealPlayerCapacity();
+		}
+		
+		/// <summary>
+		/// Obtains info on whether room has all its spectator slots full
+		/// </summary>
+		public static bool IsAtFullSpectatorCapacity(this Room room)
+		{
+			return room.GetSpectatorAmount() >= room.GetSpectatorCapacity();
+		}
 
 		/// <summary>
 		/// Obtains spectator/player status for player
@@ -440,6 +461,29 @@ namespace FirstLight.Game.Utils
 			{
 				property.SetValue(dest, property.GetValue(source));
 			}
+		}
+
+		/// <summary>
+		/// Requests the <see cref="PlayerMatchData"/> of the current local player playing the game
+		/// </summary>
+		public static PlayerMatchData GetLocalPlayerData(this QuantumGame game, bool isVerified, out Frame f)
+		{
+			f = isVerified ? game.Frames.Verified : game.Frames.Predicted;
+			
+			return f.GetSingleton<GameContainer>().PlayersData[game.GetLocalPlayers()[0]];
+		}
+
+		/// <summary>
+		/// Requests the <see cref="InputAction"/> that controls the input for the special in the given <paramref name="index"/>
+		/// </summary>
+		public static InputAction GetSpecialButton(this LocalInput.GameplayActions gameplayActions, int index)
+		{
+			if (index == 0)
+			{
+				return gameplayActions.SpecialButton0;
+			}
+
+			return gameplayActions.SpecialButton1;
 		}
 	}
 }

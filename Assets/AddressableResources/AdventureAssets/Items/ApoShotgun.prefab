@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 741537328}
   - component: {fileID: 741537330}
   - component: {fileID: 741537329}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ImpactSpark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4881,7 +4881,7 @@ GameObject:
   - component: {fileID: 790594959}
   - component: {fileID: 790594961}
   - component: {fileID: 790594960}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: OORSmoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9763,7 +9763,7 @@ GameObject:
   - component: {fileID: 847114102}
   - component: {fileID: 847114104}
   - component: {fileID: 847114103}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BulletFx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14659,7 +14659,7 @@ GameObject:
   - component: {fileID: 1337288821}
   - component: {fileID: 1337288823}
   - component: {fileID: 1337288822}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ImpactMark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19529,7 +19529,7 @@ GameObject:
   - component: {fileID: 1736712190}
   - component: {fileID: 1736712192}
   - component: {fileID: 1736712191}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ImpactGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24399,7 +24399,7 @@ GameObject:
   - component: {fileID: 1835332549}
   - component: {fileID: 1835332551}
   - component: {fileID: 1835332550}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29271,7 +29271,7 @@ GameObject:
   - component: {fileID: 1928563604}
   - component: {fileID: 1928563606}
   - component: {fileID: 1928563605}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SmokeParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34153,7 +34153,7 @@ GameObject:
   - component: {fileID: 2068417673}
   - component: {fileID: 2068417675}
   - component: {fileID: 2068417674}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ConeParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39021,7 +39021,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8362593546555328923}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Epic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39053,7 +39053,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2275529756122499272}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Rare
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39088,7 +39088,7 @@ GameObject:
   - component: {fileID: 3633679269147042845}
   - component: {fileID: 2678578279424735163}
   - component: {fileID: 5841193932405158870}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wep_Shotgun_Apc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39187,7 +39187,7 @@ GameObject:
   - component: {fileID: 5515227551317258831}
   - component: {fileID: 801380619166741407}
   - component: {fileID: 5429409923579268643}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Clip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39270,7 +39270,7 @@ GameObject:
   - component: {fileID: 2838052527705571991}
   - component: {fileID: 103688253736495459}
   - component: {fileID: 1310020266548992447}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Sight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39353,7 +39353,7 @@ GameObject:
   - component: {fileID: 6394575048518008591}
   - component: {fileID: 8319291770425778234}
   - component: {fileID: 2687271260912821644}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39434,7 +39434,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 263367983745646806}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Legendary
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39466,7 +39466,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5437489280865571751}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Uncommon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39500,7 +39500,7 @@ GameObject:
   - component: {fileID: 3165662919543031010}
   - component: {fileID: 6492119431574368720}
   - component: {fileID: 1608173555858572353}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39583,7 +39583,7 @@ GameObject:
   - component: {fileID: 2091287965001147669}
   - component: {fileID: 1508646914470072384}
   - component: {fileID: 5673864611240029622}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Stock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39664,7 +39664,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8938953702785480351}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ApoShotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}

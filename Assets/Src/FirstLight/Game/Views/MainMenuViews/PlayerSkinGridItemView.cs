@@ -52,7 +52,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_data = data;
 			Text.text = data.Skin.GetTranslation();
 
-			SelectedImage.enabled = _gameDataProvider.PlayerDataProvider.CurrentSkin.Value == _data.Skin;
+			SelectedImage.enabled = _gameDataProvider.PlayerDataProvider.PlayerInfo.Skin == _data.Skin;
 			_selectedFrameImage.SetActive(data.IsSelected);
 			IconImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(_data.Skin);
 		}

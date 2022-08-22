@@ -85,7 +85,6 @@ namespace FirstLight.Game.Services
 			FLog.Info($"Requested texture: {url}");
 			
 			var handle = _handle++;
-
 			var downloadRequest = LoadImage(GetImageUri(url), callback, error, handle);
 			var coroutine = _coroutineService.StartCoroutine(downloadRequest);
 			_requests.Add(handle, coroutine);

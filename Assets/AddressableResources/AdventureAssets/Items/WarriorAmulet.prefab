@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5153803976615694104}
   - component: {fileID: 6996670546390212816}
   - component: {fileID: 659212795298986190}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WarriorAmulet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

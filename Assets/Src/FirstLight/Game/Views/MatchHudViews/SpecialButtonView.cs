@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using FirstLight.Game.Input;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Services;
 using Photon.Deterministic;
 using Quantum;
 using Sirenix.OdinInspector;
@@ -24,32 +25,25 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Required] private Image _specialIconImage;
 		[SerializeField, Required] private Image _specialIconBackgroundImage;
 		[SerializeField, Required] private Image _outerRingImage;
-		[SerializeField] private Color _activeColor;
-		[SerializeField] private Color _cooldownColor;
-		[SerializeField, Required] private UnityInputScreenControl _specialPointerDownAdapter;
-		[SerializeField, Required] private UnityInputScreenControl _specialAimDirectionAdapter;
-		[SerializeField] private float _rectScale = 1f;
 		[SerializeField, Required] private Sprite _aimableBackgroundSprite;
 		[SerializeField, Required] private Sprite _nonAimableBackgroundSprite;
 		[SerializeField, Required] private Animation _pingAnimation;
+		[SerializeField, Required] private UnityInputScreenControl _specialPointerDownAdapter;
+		[SerializeField, Required] private UnityInputScreenControl _specialAimDirectionAdapter;
+		[SerializeField] private Color _activeColor;
+		[SerializeField] private Color _cooldownColor;
+		[SerializeField] private float _rectScale = 1f;
 
+		private QuantumSpecialConfig _specialConfig;
 		private IGameServices _services;
-		private Coroutine _cooldownCoroutine;
+		private IAsyncCoroutine _cooldownCoroutine;
 		private bool _isAiming;
-
-		private void Awake()
-		{
-			QuantumEvent.Subscribe<EventOnLocalSpecialUsed>(this, OnEventOnLocalSpecialUsed);
-			QuantumEvent.Subscribe<EventOnLocalSpecialAvailable>(this, HandleLocalSpecialAvailable);
-		}
 
 		private void OnDestroy()
 		{
-			QuantumEvent.UnsubscribeListener(this);
-
-			if (_cooldownCoroutine != null)
+			if (_cooldownCoroutine?.Coroutine != null)
 			{
-				_services?.CoroutineService.StopCoroutine(_cooldownCoroutine);
+				_services?.CoroutineService?.StopCoroutine(_cooldownCoroutine.Coroutine);
 			}
 		}
 
@@ -88,6 +82,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 
 			_isAiming = false;
+			_buttonView.interactable = true;
 
 			SetInputData(eventData);
 			_specialPointerDownAdapter.SendValueToControl(0f);
@@ -96,92 +91,41 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// <summary>
 		/// Initializes the special button with it's necessary data
 		/// </summary>
-		public async void Init(GameId special, bool hasCharge, FP cooldownTime)
+		public async void Init(GameId specialId)
 		{
 			_services ??= MainInstaller.Resolve<IGameServices>();
 
 			gameObject.SetActive(false);
 
-			if (!_services.ConfigsProvider.TryGetConfig<QuantumSpecialConfig>((int) special, out var config))
+			if (!_services.ConfigsProvider.TryGetConfig((int) specialId, out _specialConfig))
 			{
 				return;
 			}
 
 			_specialIconImage.sprite =
-				await _services.AssetResolverService.RequestAsset<SpecialType, Sprite>(config.SpecialType);
+				await _services.AssetResolverService.RequestAsset<SpecialType, Sprite>(_specialConfig.SpecialType);
 			_specialIconBackgroundImage.sprite =
-				config.IsAimable ? _aimableBackgroundSprite : _nonAimableBackgroundSprite;
-			_outerRingImage.enabled = config.IsAimable;
-			_specialIconImage.fillAmount = 0f;
-			_specialIconBackgroundImage.fillAmount = 0f;
-			_buttonView.interactable = false;
-
-			gameObject.SetActive(true);
-
-			if (_cooldownCoroutine != null)
-			{
-				_services.CoroutineService.StopCoroutine(_cooldownCoroutine);
-				_cooldownCoroutine = null;
-			}
-
-			if (hasCharge)
-			{
-				if (cooldownTime > FP._0)
-				{
-					var cooldownEndTime = QuantumRunner.Default.Game.Frames.Verified.Time + cooldownTime;
-					var cooldownStartTime = cooldownEndTime - config.Cooldown;
-					var currentCooldownTime = cooldownEndTime - cooldownTime;
-
-					_cooldownCoroutine =
-						_services.CoroutineService.StartCoroutine(SpecialCooldown(cooldownStartTime.AsFloat,
-							                                          cooldownEndTime.AsFloat,
-							                                          currentCooldownTime.AsFloat));
-				}
-				else
-				{
-					FillButton();
-				}
-			}
+				_specialConfig.IsAimable ? _aimableBackgroundSprite : _nonAimableBackgroundSprite;
+			_outerRingImage.enabled = _specialConfig.IsAimable;
 		}
 
-		private void OnEventOnLocalSpecialUsed(EventOnLocalSpecialUsed callback)
+		public IAsyncCoroutine SpecialUpdate(FP currentTime, Special special)
 		{
-			if (callback.SpecialIndex != _specialIndex)
+			gameObject.SetActive(special.Charges > 0);
+
+			if (_cooldownCoroutine?.Coroutine != null)
 			{
-				return;
+				_services.CoroutineService.StopCoroutine(_cooldownCoroutine.Coroutine);
 			}
 
-			if (_cooldownCoroutine != null)
+			if (special.Charges == 0)
 			{
-				_services.CoroutineService.StopCoroutine(_cooldownCoroutine);
-				_cooldownCoroutine = null;
+				return null;
 			}
+			
+			_cooldownCoroutine = _services.CoroutineService.StartAsyncCoroutine(SpecialCooldown(currentTime, special));
 
-			_specialIconImage.color = _cooldownColor;
-			_specialIconImage.fillAmount = 0f;
-			_specialIconBackgroundImage.color = _cooldownColor;
-			_specialIconBackgroundImage.fillAmount = 0f;
-			_buttonView.interactable = false;
-
-			_cooldownCoroutine =
-				_services?.CoroutineService.StartCoroutine(SpecialCooldown(callback.StartTime.AsFloat,
-				                                                           callback.EndTime.AsFloat,
-				                                                           callback.StartTime.AsFloat));
-		}
-
-		private void HandleLocalSpecialAvailable(EventOnLocalSpecialAvailable callback)
-		{
-			if (callback.SpecialIndex != _specialIndex)
-			{
-				return;
-			}
-
-			if (_cooldownCoroutine != null)
-			{
-				_services.CoroutineService.StopCoroutine(_cooldownCoroutine);
-			}
-
-			FillButton();
+			return _cooldownCoroutine;
 		}
 
 		private void SetInputData(PointerEventData eventData)
@@ -197,31 +141,25 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_specialAimDirectionAdapter.SendValueToControl(delta / radius);
 		}
 
-		private IEnumerator SpecialCooldown(float startSeconds, float endSeconds, float currentSeconds)
+		private IEnumerator SpecialCooldown(FP currentTime, Special special)
 		{
-			var start = startSeconds;
-			var current = currentSeconds;
-			var end = endSeconds;
+			var end = Time.time + (special.AvailableTime - currentTime).AsFloat;
+			var start = end - special.Cooldown.AsFloat;
 
 			_specialIconImage.color = _cooldownColor;
 			_specialIconBackgroundImage.color = _cooldownColor;
+			_buttonView.interactable = false;
 
-			while (current < end)
+			while (Time.time < end)
 			{
-				var fill = Mathf.InverseLerp(start, end, current);
+				var fill = Mathf.InverseLerp(start, end, Time.time);
+				
 				_specialIconImage.fillAmount = fill;
 				_specialIconBackgroundImage.fillAmount = fill;
 
 				yield return null;
-
-				current += Time.deltaTime;
 			}
-
-			FillButton();
-		}
-
-		private void FillButton()
-		{
+			
 			_pingAnimation.Rewind();
 			_pingAnimation.Play();
 

@@ -13,6 +13,7 @@ namespace Quantum
 		public FP AimingMovementSpeed;
 		public FP AimTime;
 		public FP AttackCooldown;
+		public FP PowerToDamageRatio;
 		public FP AttackHitSpeed;
 		public uint MinAttackAngle;
 		public uint MaxAttackAngle;
@@ -46,15 +47,17 @@ namespace Quantum
 	{
 		public List<QuantumWeaponConfig> QuantumConfigs = new List<QuantumWeaponConfig>();
 		
-		private IDictionary<GameId, QuantumWeaponConfig> _dictionary = new Dictionary<GameId, QuantumWeaponConfig>();
+		private IDictionary<GameId, QuantumWeaponConfig> _dictionary = null;
 
 		/// <summary>
 		/// Requests the <see cref="QuantumWeaponConfig"/> of the given enemy <paramref name="gameId"/>
 		/// </summary>
 		public QuantumWeaponConfig GetConfig(GameId gameId)
 		{
-			if (_dictionary.Count == 0)
+			if (_dictionary == null)
 			{
+				_dictionary = new Dictionary<GameId, QuantumWeaponConfig>();
+				
 				foreach (var config in QuantumConfigs)
 				{
 					_dictionary.Add(config.Id, config);

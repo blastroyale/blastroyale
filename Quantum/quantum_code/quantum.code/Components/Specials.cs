@@ -14,27 +14,30 @@ namespace Quantum
 		/// <summary>
 		/// Initializes this Special with all the necessary data
 		/// </summary>
-		/// 
-		
-		public Special(Frame f, QuantumSpecialConfig config) : this()
+		public Special(Frame f, GameId specialId) : this()
 		{
-			SpecialId = config.Id;
+			var config = f.SpecialConfigs.GetConfig(specialId);
+			
+			SpecialId = specialId;
 			SpecialType = config.SpecialType;
 			Cooldown = config.Cooldown;
 			Radius = config.Radius;
 			SpecialPower = config.SpecialPower;
 			Speed = config.Speed;
+			MinRange = config.MinRange;
 			MaxRange = config.MaxRange;
-			AvailableTime = f.Time + config.InitialCooldown;
+			InitialCooldown = config.InitialCooldown;
 			Knockback = config.Knockback;
+			AvailableTime = f.Time + InitialCooldown;
+			Charges = 1;
 		}
-		
+
 		/// <summary>
-		/// Checks if special is available to be used
+		/// Requests the state of the special if is ready to be used or not
 		/// </summary>
-		public bool IsSpecialAvailable(Frame f)
+		public bool IsUsable(Frame f)
 		{
-			return AvailableTime > FP._0 && f.Time >= AvailableTime;
+			return IsValid && Charges > 0 && f.Time > AvailableTime;
 		}
 
 		/// <summary>
@@ -42,18 +45,15 @@ namespace Quantum
 		/// </summary>
 		public bool TryActivate(Frame f, EntityRef playerEntity, FPVector2 aimInput, int specialIndex)
 		{
-			if (!IsValid || !IsSpecialAvailable(f) || !TryUse(f, playerEntity, aimInput))
+			if (!IsUsable(f) || !TryUse(f, playerEntity, aimInput))
 			{
 				return false;
 			}
-			
-			var player = f.Get<PlayerCharacter>(playerEntity).Player;
 
 			AvailableTime = f.Time + Cooldown;
 			
-			f.Signals.SpecialUsed(player, playerEntity, SpecialType, specialIndex);
-			f.Events.OnSpecialUsed(player, playerEntity, SpecialType, specialIndex);
-			f.Events.OnLocalSpecialUsed(player, playerEntity, SpecialType, specialIndex,f.Time, AvailableTime);
+			f.Signals.SpecialUsed(playerEntity, this, specialIndex);
+			f.Events.OnPlayerSpecialUsed(playerEntity, this, specialIndex);
 
 			return true;
 		}

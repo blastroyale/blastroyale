@@ -24,62 +24,12 @@ namespace Quantum.Commands
 		{
 			var characterEntity = f.GetSingleton<GameContainer>().PlayersData[playerRef].Entity;
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(characterEntity);
-			var special = GetSpecialByIndex(SpecialIndex, playerCharacter);
-
-			if (HasCharge(playerCharacter) && special.TryActivate(f, characterEntity, AimInput, SpecialIndex))
+			var special = playerCharacter->WeaponSlot->Specials[SpecialIndex];
+			
+			if (special.TryActivate(f, characterEntity, AimInput, SpecialIndex))
 			{
-				var weaponSlot = playerCharacter->WeaponSlots[playerCharacter->CurrentWeaponSlot];
-
-				switch (SpecialIndex)
-				{
-					case 0:
-					{
-						weaponSlot.Special1AvailableTime = f.Time + special.Cooldown;
-						break;
-					}
-					case 1:
-					{
-						weaponSlot.Special2AvailableTime = f.Time + special.Cooldown;
-						break;
-					}
-				}
-
-				playerCharacter->WeaponSlots[playerCharacter->CurrentWeaponSlot] = weaponSlot;
+				playerCharacter->WeaponSlot->Specials[SpecialIndex] = special;
 			}
-		}
-
-		/// <summary>
-		/// Tests if the current special has enough charge to be triggered
-		/// </summary>
-		private bool HasCharge(PlayerCharacter* playerCharacter)
-		{
-			return GetSpecialChargesByIndex(SpecialIndex, playerCharacter) > 0;
-		}
-		
-		/// <summary>
-		/// Gets the number of charges of an Special by its index
-		/// </summary>
-		private Special GetSpecialByIndex(int specialIndex, PlayerCharacter* playerCharacter)
-		{
-			return specialIndex switch
-			{ 
-				0 => playerCharacter->WeaponSlots[playerCharacter->CurrentWeaponSlot].Special1,
-				1 => playerCharacter->WeaponSlots[playerCharacter->CurrentWeaponSlot].Special2,
-				_ => new Special()
-			};
-		}
-
-		/// <summary>
-		/// Gets the number of charges of an Special by its index
-		/// </summary>
-		private int GetSpecialChargesByIndex(int specialIndex, PlayerCharacter* playerCharacter)
-		{
-			return specialIndex switch
-			{ 
-				0 => playerCharacter->WeaponSlots[playerCharacter->CurrentWeaponSlot].Special1Charges,
-				1 => playerCharacter->WeaponSlots[playerCharacter->CurrentWeaponSlot].Special2Charges,
-				_ => 0
-			};
 		}
 	}
 }

@@ -73,6 +73,7 @@ jobs:
       -projectPath . ^
       -executeMethod FirstLight.Editor.Build.Builder.ConfigureBuild ^
       -logFile "unity3d_editor.log"
+    continueOnError: true
     displayName: 'Unity Build'
 
   - task: PowerShell@2

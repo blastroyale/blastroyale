@@ -40,7 +40,6 @@ namespace Quantum
 					                     .IsValid());
 
 				playerCharacter->AddWeapon(f, player, Item, primaryWeapon);
-				playerCharacter->EquipSlotWeapon(f, player, playerCharacter->CurrentWeaponSlot);
 			}
 			else
 			{

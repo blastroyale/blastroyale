@@ -94,25 +94,20 @@ namespace FirstLight.Game.Presenters
 		private void SetBasicPlayerInformation()
 		{
 			var loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both);
-
+			var might = loadout.GetTotalMight();
+			
 			_playerNameText.text = _gameDataProvider.AppDataProvider.Nickname;
-			_powerRatingText.text = ScriptLocalization.MainMenu.TotalPower;
-			_powerValueText.text = loadout.GetTotalStat(EquipmentStatType.Damage).ToString("F0");
+			_powerRatingText.text = ScriptLocalization.MainMenu.TotalMight;
+			_powerValueText.text = might.ToString("F0");
 		}
 
 		private async void LoadPlayerLevelInformation()
 		{
-			var level = _gameDataProvider.PlayerDataProvider.Level.Value;
-			_playerLevelBadge.sprite = await _services.AssetResolverService.RequestAsset<int, Sprite>((int) level);
-			_playerLevelText.text = level.ToString("N0");
-			_playerLevelSlider.value = GetXpSliderValue();
-		}
-
-		private float GetXpSliderValue()
-		{
-			var info = _gameDataProvider.PlayerDataProvider.CurrentLevelInfo;
-
-			return (float) info.Xp / info.Config.LevelUpXP;
+			var info = _gameDataProvider.PlayerDataProvider.PlayerInfo;
+			
+			_playerLevelBadge.sprite = await _services.AssetResolverService.RequestAsset<int, Sprite>((int) info.Level);
+			_playerLevelText.text = info.Level.ToString("N0");
+			_playerLevelSlider.value = (float) info.Xp / info.Config.LevelUpXP;
 		}
 
 		private void OnAllGearClicked()

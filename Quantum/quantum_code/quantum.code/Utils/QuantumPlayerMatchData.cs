@@ -8,7 +8,6 @@ namespace Quantum
 	public unsafe struct QuantumPlayerMatchData
 	{
 		public string PlayerName;
-		public bool IsLocalPlayer;
 		public uint PlayerRank;
 		public int MapId;
 		public PlayerMatchData Data;
@@ -19,10 +18,19 @@ namespace Quantum
 
 		public QuantumPlayerMatchData(Frame f, PlayerMatchData data) : this()
 		{
-			IsLocalPlayer = f.Context.IsLocalPlayer(data.Player);
 			MapId = f.RuntimeConfig.MapId;
 			Data = data;
 			PlayerName = data.IsBot ? data.BotNameIndex.ToString() : f.GetPlayerData(data.Player).PlayerName;
+		}
+
+		public override int GetHashCode()
+		{
+			int hash = 67;
+			hash = hash * 31 + Data.GetHashCode();
+			hash = hash * 31 + PlayerRank.GetHashCode();
+			hash = hash * 31 + MapId.GetHashCode();
+			hash = hash * 31 + PlayerName.GetHashCode();
+			return hash;
 		}
 	}
 }

@@ -25,7 +25,6 @@ namespace FirstLight.Game.MonoComponent.Match
 		private IGameServices _services;
 		private IMatchServices _matchServices;
 		private LocalInput _localInput;
-
 		private bool _spectating;
 
 		private void Awake()
@@ -39,17 +38,14 @@ namespace FirstLight.Game.MonoComponent.Match
 			_localInput.Gameplay.SpecialButton1.started += _ => SetActiveCamera(_specialAimCamera);
 			_localInput.Gameplay.SpecialButton1.canceled += _ => SetActiveCamera(_adventureCamera);
 
-			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
+			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 			_services.MessageBrokerService.Subscribe<SpectateSetCameraMessage>(OnSpectateSetCameraMessage);
-
+			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLand);
 
-			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
-
 			_localInput.Enable();
-			_services.MessageBrokerService.Subscribe<MatchSimulationStartedMessage>(OnMatchSimulationStartedMessage);
 			gameObject.SetActive(false);
 		}
 
@@ -68,8 +64,6 @@ namespace FirstLight.Game.MonoComponent.Match
 		{
 			_localInput?.Dispose();
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
-			QuantumEvent.UnsubscribeListener(this);
-			QuantumCallback.UnsubscribeListener(this);
 		}
 
 		private void OnSpectateSetCameraMessage(SpectateSetCameraMessage obj)
@@ -77,14 +71,11 @@ namespace FirstLight.Game.MonoComponent.Match
 			SetActiveCamera(_spectateCameras[obj.CameraId]);
 		}
 
-		private void OnMatchSimulationStartedMessage(MatchSimulationStartedMessage obj)
+		private void OnMatchStarted(MatchStartedMessage obj)
 		{
 			gameObject.SetActive(true);
-		}
-
-		private void OnMatchStartedMessage(MatchStartedMessage msg)
-		{
-			if (msg.IsResync)
+			
+			if (obj.IsResync)
 			{
 				SetActiveCamera(_adventureCamera);
 				SnapCamera();

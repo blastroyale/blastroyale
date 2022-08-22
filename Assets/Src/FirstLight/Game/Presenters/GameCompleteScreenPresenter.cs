@@ -56,7 +56,7 @@ namespace FirstLight.Game.Presenters
 		{
 			var playVfxMarker = notification as PlayVfxMarker;
 
-			if (playVfxMarker != null)
+			if (playVfxMarker != null && !_playerProxyCamera.LookAt.IsDestroyed())
 			{
 				Services.VfxService.Spawn(playVfxMarker.Vfx).transform.position = _playerProxyCamera.LookAt.position;
 			}
@@ -87,21 +87,18 @@ namespace FirstLight.Game.Presenters
 				_emojiImage.sprite = _happyEmojiSprite;
 				_titleText.text = ScriptLocalization.General.Victory_;
 			}
+			else if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
+			{
+				_titleText.text = ScriptLocalization.AdventureMenu.GameOver;
+			}
 			else
 			{
-				if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
-				{
-					_titleText.text = ScriptLocalization.AdventureMenu.GameOver;
-				}
-				else
-				{
-					var localPlayerData = playerData[game.GetLocalPlayers()[0]];
-					var placement = ((int) localPlayerData.PlayerRank).GetOrdinalTranslation();
+				var localPlayerData = playerData[game.GetLocalPlayers()[0]];
+				var placement = ((int) localPlayerData.PlayerRank).GetOrdinalTranslation();
 
-					_emojiImage.sprite = _sickEmojiSprite;
-					_titleText.text = string.Format(ScriptLocalization.General.PlacementMessage,
-					                                localPlayerData.PlayerRank + placement);
-				}
+				_emojiImage.sprite = _sickEmojiSprite;
+				_titleText.text = string.Format(ScriptLocalization.General.PlacementMessage,
+				                                localPlayerData.PlayerRank + placement);
 			}
 
 			if (container.IsGameOver)

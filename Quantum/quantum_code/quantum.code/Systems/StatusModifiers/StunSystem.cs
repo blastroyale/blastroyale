@@ -20,11 +20,15 @@ namespace Quantum.Systems
 				bot->Target = EntityRef.None;
 			}
 			
-			var agent = f.Unsafe.GetPointer<HFSMAgent>(entity);
-			var bbComponent = f.Unsafe.GetPointer<AIBlackboardComponent>(entity);
-			
-			bbComponent->Set(f, Constants.StunDurationKey, f.Get<Stats>(entity).CurrentStatusModifierDuration);
-			HFSMManager.TriggerEvent(f, &agent->Data, entity, Constants.StunnedEvent);
+			if(f.Unsafe.TryGetPointer<AIBlackboardComponent>(entity, out var bbComponent))
+			{
+				bbComponent->Set(f, Constants.StunDurationKey, f.Get<Stats>(entity).CurrentStatusModifierDuration);
+			}
+
+			if (f.Unsafe.TryGetPointer<HFSMAgent>(entity, out var agent))
+			{
+				HFSMManager.TriggerEvent(f, &agent->Data, entity, Constants.StunnedEvent);
+			}
 		}
 
 		/// <inheritdoc />

@@ -12,6 +12,7 @@ using FirstLight.Services;
 using FirstLight.Statechart;
 using FirstLight.UiService;
 using I2.Loc;
+using Quantum;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -176,7 +177,6 @@ namespace FirstLight.Game.StateMachines
 		private void UnsubscribeEvents()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
-			_gameDataProvider?.PlayerDataProvider?.Level.StopObservingAll(this);
 		}
 
 		private void OnGameCompletedRewardsMessage(GameCompletedRewardsMessage message)
@@ -216,7 +216,8 @@ namespace FirstLight.Game.StateMachines
 		
 		private bool EnoughNftToPlay()
 		{
-			return _gameDataProvider.EquipmentDataProvider.EnoughLoadoutEquippedToPlay();
+			return _gameDataProvider.AppDataProvider.SelectedMatchType.Value == MatchType.Casual
+			       || _gameDataProvider.EquipmentDataProvider.EnoughLoadoutEquippedToPlay();
 		}
 
 		private bool IsCurrentScreen<T>() where T : UiPresenter
@@ -249,7 +250,7 @@ namespace FirstLight.Game.StateMachines
 					cacheActivity.Complete();
 				}
 			};
-
+			
 			_uiService.OpenUi<GameModeSelectionPresenter, GameModeSelectionPresenter.StateData>(data);
 		}
 

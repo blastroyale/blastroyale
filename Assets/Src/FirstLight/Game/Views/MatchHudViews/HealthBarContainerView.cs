@@ -1,124 +1,168 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using DG.Tweening;
 using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.EntityPrototypes;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Game.Views.MatchHudViews;
+using FirstLight.Game.Views.AdventureHudViews;
 using FirstLight.Services;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.UI;
 
-namespace FirstLight.Game.Views.AdventureHudViews
+namespace FirstLight.Game.Views.MatchHudViews
 {
 	/// <summary>
 	/// This View pools HealthBarView prefabs for given entities in our 3d world.
 	/// </summary>
 	public class HealthBarContainerView : MonoBehaviour
 	{
-		[SerializeField, Required] private OverlayWorldView _healthBarLocalPlayerRef;
-		[SerializeField, Required] private OverlayWorldView _healthBarPlayerRef;
+		[SerializeField, Required] private OverlayWorldView _healthBarSpectateRef;
+		[SerializeField, Required] private OverlayWorldView _healthBarRef;
 
 		private IGameServices _services;
+		private IMatchServices _matchServices;
 		private IObjectPool<PlayerHealthBarPoolObject> _healthBarPlayerPool;
-		private LocalPlayerHealthBarPoolObject _healthBarLocalPlayer;
+		private SpectatePlayerHealthBarObject _healthBarSpectatePlayer;
 		
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
+			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			_healthBarPlayerPool = new ObjectPool<PlayerHealthBarPoolObject>(4, PlayerHealthBarInstantiator);
-			_healthBarLocalPlayer = LocalPlayerHealthBarInstantiator();
+			_healthBarSpectatePlayer = SpectatePlayerHealthBarInstantiator();
 				
-			_services.MessageBrokerService.Subscribe<HealthEntityInstantiatedMessage>(OnEntityInstantiated);
-			_services.MessageBrokerService.Subscribe<HealthEntityDestroyedMessage>(OnEntityDestroyed);
+			QuantumEvent.Subscribe<EventOnPlayerAttackHit>(this, OnPlayerAttackHit);
+			QuantumEvent.Subscribe<EventOnPlayerSkydiveLand>(this, OnPlayerSkydiveLand);
 			_services.MessageBrokerService.Subscribe<MatchEndedMessage>(OnGameplayEnded);
+			_matchServices.SpectateService.SpectatedPlayer.InvokeObserve(OnPlayerSpectateUpdate);
 			
-			_healthBarLocalPlayerRef.gameObject.SetActive(false);
-			_healthBarPlayerRef.gameObject.SetActive(false);
+			_healthBarSpectateRef.gameObject.SetActive(false);
+			_healthBarRef.gameObject.SetActive(false);
 		}
 
 		private void OnDestroy()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
-			QuantumEvent.UnsubscribeListener(this);
+			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(OnPlayerSpectateUpdate);
 		}
 
-		private void OnEntityInstantiated(HealthEntityInstantiatedMessage message)
+		private void OnPlayerSkydiveLand(EventOnPlayerSkydiveLand callback)
 		{
-			var frame = message.Game.Frames.Verified;
-			var entity = message.Entity.EntityRef;
-			var healthBar = (PlayerHealthBarPoolObject) _healthBarLocalPlayer;
-			var isPlayerCharacter = frame.TryGet<PlayerCharacter>(entity, out var playerCharacter);
+			var spectateEntity = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
 
-			if(frame.TryGet<BotCharacter>(entity, out var botCharacter))
+			if (_healthBarSpectatePlayer.Entity.IsValid || spectateEntity != callback.Entity)
 			{
-				var barCache = _healthBarPlayerPool.Spawn();
-				
-				barCache.HealthBarNameView.NameText.text = Extensions.GetBotName(botCharacter.BotNameIndex.ToString());
-				
-				healthBar = barCache;
+				return;
 			}
-			else if(message.Game.PlayerIsLocal(playerCharacter.Player))
-			{
-				var playerData = frame.GetPlayerData(playerCharacter.Player);
-				
-				_healthBarLocalPlayer.HealthBarNameView.NameText.text = playerData.PlayerName;
-				
-				_healthBarLocalPlayer.HealthBarTextView.SetupView(entity, frame.Get<Stats>(entity).CurrentHealth);
-				_healthBarLocalPlayer.ReloadBarView.SetupView(frame, entity);
-			}
-			else
-			{
-				var barCache = _healthBarPlayerPool.Spawn();
-				var playerName = isPlayerCharacter ? frame.GetPlayerData(playerCharacter.Player).PlayerName : "";
-				
-				barCache.HealthBarNameView.NameText.text = playerName;
-				healthBar = barCache;
-			}
-
-			healthBar.HealthBarShieldView.SetupView(entity, frame.Get<Stats>(entity).CurrentShield);
 			
-			SetupHealthBar(frame, message.Entity, healthBar);
+			SetupSpectateHealthBar(callback.Game.Frames.Verified, callback.Entity, _healthBarSpectatePlayer);
 		}
 
-		private void OnEntityDestroyed(HealthEntityDestroyedMessage message)
+		private void OnPlayerAttackHit(EventOnPlayerAttackHit obj)
 		{
-			_healthBarPlayerPool.Despawn(true, x => x.HealthBar.Entity == message.Entity.EntityRef);
+			if (obj.PlayerEntity != _healthBarSpectatePlayer.Entity || !_healthBarSpectatePlayer.Entity.IsValid)
+			{
+				return;
+			}
+
+			var spawned = _healthBarPlayerPool.SpawnedReadOnly;
+
+			for (var i = 0; i < spawned.Count; i++)
+			{
+				if (spawned[i].Entity == obj.HitEntity)
+				{
+					spawned[i].Despawn();
+					return;
+				}
+			}
+				
+			var healthBar = _healthBarPlayerPool.Spawn();
+			
+			SetupHealthBar(obj.Game.Frames.Verified, obj.HitEntity, healthBar);
+			healthBar.Despawn();
+		}
+
+		private void OnPlayerSpectateUpdate(SpectatedPlayer previousPlayer, SpectatedPlayer newPlayer)
+		{
+			var f = QuantumRunner.Default?.Game?.Frames.Predicted;
+			var player = newPlayer.Entity.IsValid ? newPlayer : previousPlayer;
+
+			if (f == null || !f.TryGet<AIBlackboardComponent>(player.Entity, out var blackboard) || 
+			    blackboard.GetBoolean(f, Constants.IsSkydiving))
+			{
+				_healthBarSpectatePlayer.OnDespawn();
+				return;
+			}
+			
+			SetupSpectateHealthBar(f, player.Entity, _healthBarSpectatePlayer);
+		}
+		
+		private void SetupSpectateHealthBar(Frame f, EntityRef entity, SpectatePlayerHealthBarObject healthBar)
+		{
+			healthBar.ResourceBarView.SetupView(f, entity);
+			SetupHealthBar(f, entity, healthBar);
+		}
+		
+		private void SetupHealthBar(Frame f, EntityRef entity, PlayerHealthBarPoolObject healthBar)
+		{
+			if (!_matchServices.EntityViewUpdaterService.TryGetView(entity, out var entityView) || 
+			    !f.TryGet<Stats>(entity, out var stats))
+			{
+				healthBar.OnDespawn();
+				return;
+			}
+
+			var anchor = entityView.GetComponent<HealthEntityBase>().HealthBarAnchor;
+			var maxHealth = stats.Values[(int) StatType.Health].StatValue.AsInt;
+
+			if (f.TryGet<PlayerCharacter>(entity, out var playerCharacter))
+			{
+				var playerName = f.TryGet<BotCharacter>(entity, out var botCharacter)
+					                 ? Extensions.GetBotName(botCharacter.BotNameIndex.ToString())
+					                 : f.GetPlayerData(playerCharacter.Player).PlayerName;
+				
+				healthBar.HealthBarNameView.NameText.text = playerName;
+				healthBar.HealthBarShieldView.SetupView(entity, stats.CurrentShield);
+			}
+
+			healthBar.OverlayView.gameObject.SetActive(true);
+			healthBar.HealthBar.SetupView(entity, stats.CurrentHealth, maxHealth);
+			healthBar.OverlayView.Follow(anchor);
 		}
 
 		private void OnGameplayEnded(MatchEndedMessage obj)
 		{
+			_healthBarSpectatePlayer.OnDespawn();
 			_healthBarPlayerPool.DespawnAll();
-			_healthBarLocalPlayer.OnDespawn();
 		}
 		
-		private void SetupHealthBar(Frame f, EntityView entityView, HealthBarPoolObject healthBar)
+		private SpectatePlayerHealthBarObject SpectatePlayerHealthBarInstantiator()
 		{
-			var anchor = entityView.GetComponent<HealthEntityBase>().HealthBarAnchor;
-			var stats = f.Get<Stats>(entityView.EntityRef);
-			var maxHealth = stats.Values[(int) StatType.Health].StatValue.AsInt;
-			
-			healthBar.HealthBar.SetupView(entityView.EntityRef, stats.CurrentHealth, maxHealth);
-			healthBar.OverlayView.Follow(anchor);
-		}
+			var instance = _healthBarSpectateRef;
 		
-		private LocalPlayerHealthBarPoolObject LocalPlayerHealthBarInstantiator()
-		{
-			var instance = _healthBarLocalPlayerRef;
-		
-			return new LocalPlayerHealthBarPoolObject
+			return new SpectatePlayerHealthBarObject
 			{
 				OverlayView = instance,
 				HealthBar = instance.GetComponent<HealthBarView>(),
 				HealthBarNameView = instance.GetComponent<HealthBarNameView>(),
-				HealthBarTextView = instance.GetComponent<HealthBarTextView>(),
-				ReloadBarView = instance.GetComponent<ReloadBarView>(),
+				ResourceBarView = instance.GetComponent<ResourceBarView>(),
 				HealthBarShieldView = instance.GetComponent<HealthBarShieldView>()
 			};
 		}
 		
 		private PlayerHealthBarPoolObject PlayerHealthBarInstantiator()
 		{
-			var instance = HealthBarPoolObjectInstantiator(_healthBarPlayerRef);
+			var instance = Instantiate(_healthBarRef, transform, true);
+			var instanceTransform = instance.transform;
+		
+			instance.gameObject.SetActive(false);
+
+			instanceTransform.localPosition = Vector3.zero;
+			instanceTransform.localScale = Vector3.one;
 		
 			return new PlayerHealthBarPoolObject
 			{
@@ -128,58 +172,84 @@ namespace FirstLight.Game.Views.AdventureHudViews
 				HealthBarShieldView = instance.GetComponent<HealthBarShieldView>()
 			};
 		}
-
-		private OverlayWorldView HealthBarPoolObjectInstantiator(OverlayWorldView healthBarRef)
-		{
-			var instance = Instantiate(healthBarRef, transform, true);
-			var instanceTransform = instance.transform;
 		
-			instance.gameObject.SetActive(false);
-
-			instanceTransform.localPosition = Vector3.zero;
-			instanceTransform.localScale = Vector3.one;
-
-			return instance;
-		}
-		
-		private class LocalPlayerHealthBarPoolObject : PlayerHealthBarPoolObject
+		private class SpectatePlayerHealthBarObject : PlayerHealthBarPoolObject
 		{
-			public ReloadBarView ReloadBarView;
-			public HealthBarTextView HealthBarTextView;
+			public ResourceBarView ResourceBarView;
 		
 			/// <inheritdoc />
 			public override void OnDespawn()
 			{
 				base.OnDespawn();
-				ReloadBarView.OnDespawn();
-				HealthBarTextView.OnDespawn();
+				ResourceBarView.OnDespawn();
 			}
 		}
 
-		private class PlayerHealthBarPoolObject : HealthBarPoolObject
+		private class PlayerHealthBarPoolObject : IPoolEntitySpawn, IPoolEntityDespawn, IPoolEntityObject<PlayerHealthBarPoolObject>
 		{
 			public HealthBarNameView HealthBarNameView;
 			public HealthBarShieldView HealthBarShieldView;
-		
-			/// <inheritdoc />
-			public override void OnDespawn()
-			{
-				base.OnDespawn();
-				HealthBarShieldView.OnDespawn();
-			}
-		}
-
-		private class HealthBarPoolObject : IPoolEntityDespawn
-		{
 			public HealthBarView HealthBar;
 			public OverlayWorldView OverlayView;
-		 	
+
+			private IObjectPool<PlayerHealthBarPoolObject> _pool;
+			private List<Pair<Graphic, Color>> _originalGraphics = new ();
+
+			/// <summary>
+			/// The current reference entity
+			/// </summary>
+			public EntityRef Entity => HealthBar.Entity;
+
+			public void OnSpawn()
+			{
+				foreach (var pair in _originalGraphics)
+				{
+					pair.Key.color = pair.Value;
+				}
+				
+				_originalGraphics.Clear();
+			}
+		
 			/// <inheritdoc />
 			public virtual void OnDespawn()
 			{
 				HealthBar.gameObject.SetActive(false);
 				HealthBar.OnDespawn();
 				OverlayView.OnDespawn();
+				HealthBarShieldView.OnDespawn();
+			}
+
+			/// <inheritdoc />
+			public void Init(IObjectPool<PlayerHealthBarPoolObject> pool)
+			{
+				_pool = pool;
+			}
+
+			/// <inheritdoc />
+			public bool Despawn()
+			{
+				var graphics = OverlayView.Graphics;
+				var isEmpty = _originalGraphics.Count == 0;
+				
+				foreach (var pair in _originalGraphics)
+				{
+					pair.Key.color = pair.Value;
+				}
+				
+				for (var i = 0; i < graphics.Count; i++)
+				{
+					if (isEmpty)
+					{
+						_originalGraphics.Add(new Pair<Graphic, Color>(graphics[i], graphics[i].color));
+					}
+
+					graphics[i].DOKill();
+					graphics[i].DOFade(0, GameConstants.Visuals.GAMEPLAY_POST_ATTACK_HIDE_DURATION)
+					           .SetEase(Ease.InCubic)
+					           .OnComplete(() => _pool.Despawn(this));
+				}
+
+				return true;
 			}
 		}
 	}

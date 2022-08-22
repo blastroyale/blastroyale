@@ -55,6 +55,8 @@ namespace Quantum
 			var shieldCheck = stats.CurrentShield / stats.GetStatData(StatType.Shield).StatValue < FP._0_20;
 			var healthCheck = stats.CurrentHealth / stats.GetStatData(StatType.Health).StatValue < FP._0_20;
 
+			f.Events.OnChestOpened(config.Id, chestPosition);
+
 			if (!hasPrimaryWeaponEquipped && hasLoadoutWeapon)
 			{
 				// Drop primary weapon if it's in loadout and not equipped

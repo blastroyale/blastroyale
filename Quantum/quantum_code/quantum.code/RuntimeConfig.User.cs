@@ -18,9 +18,10 @@ namespace Quantum
 		public AssetRefQuantumAssetConfigs AssetConfigs;
 		public AssetRefQuantumDestructibleConfigs DestructibleConfigs;
 		public AssetRefQuantumShrinkingCircleConfigs ShrinkingCircleConfigs;
-		public AssetRefQuantumEquipmentStatsConfigs EquipmentStatsConfigs;
-		public AssetRefQuantumBaseEquipmentStatsConfigs BaseEquipmentStatsConfigs;
-		public AssetRefQuantumEquipmentMaterialStatsConfigs EquipmentMaterialStatsConfigs;
+		public AssetRefQuantumEquipmentStatConfigs EquipmentStatConfigs;
+		public AssetRefQuantumBaseEquipmentStatConfigs BaseEquipmentStatConfigs;
+		public AssetRefQuantumStatConfigs StatConfigs;
+		public AssetRefQuantumEquipmentMaterialStatConfigs EquipmentMaterialStatConfigs;
 		
 		partial void SerializeUserData(BitStream stream)
 		{
@@ -35,9 +36,10 @@ namespace Quantum
 			stream.Serialize(ref AssetConfigs);
 			stream.Serialize(ref DestructibleConfigs);
 			stream.Serialize(ref ShrinkingCircleConfigs);
-			stream.Serialize(ref EquipmentStatsConfigs);
-			stream.Serialize(ref BaseEquipmentStatsConfigs);
-			stream.Serialize(ref EquipmentMaterialStatsConfigs);
+			stream.Serialize(ref EquipmentStatConfigs);
+			stream.Serialize(ref BaseEquipmentStatConfigs);
+			stream.Serialize(ref StatConfigs);
+			stream.Serialize(ref EquipmentMaterialStatConfigs);
 		}
 	}
 }

@@ -21,6 +21,12 @@ synced event OnProjectileFired
 	Projectile ProjectileData;
 }
 
+synced event OnProjectileExplosion 
+{
+	GameId sourceId;
+	FPVector3 EndPosition;
+}
+
 synced event OnProjectileTargetableHit
 {
 	entity_ref Projectile;

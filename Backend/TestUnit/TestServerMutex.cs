@@ -3,9 +3,6 @@ using System;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using ServerSDK.Services;
-using Tests.Stubs;
-
-namespace Tests;
 
 public class TestServerMutex
 {

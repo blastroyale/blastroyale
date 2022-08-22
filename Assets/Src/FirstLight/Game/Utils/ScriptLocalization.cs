@@ -296,6 +296,9 @@ namespace I2.Loc
 		public static class GameIds
 		{
 			public static string Adventure 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Adventure"); } }
+			public static string Ammo 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Ammo"); } }
+			public static string AmmoLarge 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AmmoLarge"); } }
+			public static string AmmoSmall 		{ get{ return LocalizationManager.GetTranslation ("GameIds/AmmoSmall"); } }
 			public static string Amulet 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Amulet"); } }
 			public static string ApoCrossbow 		{ get{ return LocalizationManager.GetTranslation ("GameIds/ApoCrossbow"); } }
 			public static string ApoMinigun 		{ get{ return LocalizationManager.GetTranslation ("GameIds/ApoMinigun"); } }
@@ -343,6 +346,7 @@ namespace I2.Loc
 			public static string HcBundle1 		{ get{ return LocalizationManager.GetTranslation ("GameIds/HcBundle1"); } }
 			public static string HcBundle2 		{ get{ return LocalizationManager.GetTranslation ("GameIds/HcBundle2"); } }
 			public static string HcBundle3 		{ get{ return LocalizationManager.GetTranslation ("GameIds/HcBundle3"); } }
+			public static string Health 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Health"); } }
 			public static string HealthPill 		{ get{ return LocalizationManager.GetTranslation ("GameIds/HealthPill"); } }
 			public static string Helmet 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Helmet"); } }
 			public static string HockeyHelmet 		{ get{ return LocalizationManager.GetTranslation ("GameIds/HockeyHelmet"); } }
@@ -407,6 +411,11 @@ namespace I2.Loc
 			public static string SciRifle 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SciRifle"); } }
 			public static string SciSniper 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SciSniper"); } }
 			public static string Shield 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Shield"); } }
+			public static string ShieldCapacity 		{ get{ return LocalizationManager.GetTranslation ("GameIds/ShieldCapacity"); } }
+			public static string ShieldCapacityLarge 		{ get{ return LocalizationManager.GetTranslation ("GameIds/ShieldCapacityLarge"); } }
+			public static string ShieldCapacitySmall 		{ get{ return LocalizationManager.GetTranslation ("GameIds/ShieldCapacitySmall"); } }
+			public static string ShieldLarge 		{ get{ return LocalizationManager.GetTranslation ("GameIds/ShieldLarge"); } }
+			public static string ShieldSmall 		{ get{ return LocalizationManager.GetTranslation ("GameIds/ShieldSmall"); } }
 			public static string Sideshot 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Sideshot"); } }
 			public static string SmallWilderness 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SmallWilderness"); } }
 			public static string SoldierAmulet 		{ get{ return LocalizationManager.GetTranslation ("GameIds/SoldierAmulet"); } }
@@ -484,6 +493,7 @@ namespace I2.Loc
 		{
 			public static string ATTDescription 		{ get{ return LocalizationManager.GetTranslation ("General/ATTDescription"); } }
 			public static string AWESOME 		{ get{ return LocalizationManager.GetTranslation ("General/AWESOME"); } }
+			public static string Ammo 		{ get{ return LocalizationManager.GetTranslation ("General/Ammo"); } }
 			public static string Appearance 		{ get{ return LocalizationManager.GetTranslation ("General/Appearance"); } }
 			public static string AreYouSure 		{ get{ return LocalizationManager.GetTranslation ("General/AreYouSure"); } }
 			public static string Armor 		{ get{ return LocalizationManager.GetTranslation ("General/Armor"); } }
@@ -1134,6 +1144,9 @@ namespace I2.Loc
 		public static class GameIds
 		{
 		    public const string Adventure = "GameIds/Adventure";
+		    public const string Ammo = "GameIds/Ammo";
+		    public const string AmmoLarge = "GameIds/AmmoLarge";
+		    public const string AmmoSmall = "GameIds/AmmoSmall";
 		    public const string Amulet = "GameIds/Amulet";
 		    public const string ApoCrossbow = "GameIds/ApoCrossbow";
 		    public const string ApoMinigun = "GameIds/ApoMinigun";
@@ -1181,6 +1194,7 @@ namespace I2.Loc
 		    public const string HcBundle1 = "GameIds/HcBundle1";
 		    public const string HcBundle2 = "GameIds/HcBundle2";
 		    public const string HcBundle3 = "GameIds/HcBundle3";
+		    public const string Health = "GameIds/Health";
 		    public const string HealthPill = "GameIds/HealthPill";
 		    public const string Helmet = "GameIds/Helmet";
 		    public const string HockeyHelmet = "GameIds/HockeyHelmet";
@@ -1245,6 +1259,11 @@ namespace I2.Loc
 		    public const string SciRifle = "GameIds/SciRifle";
 		    public const string SciSniper = "GameIds/SciSniper";
 		    public const string Shield = "GameIds/Shield";
+		    public const string ShieldCapacity = "GameIds/ShieldCapacity";
+		    public const string ShieldCapacityLarge = "GameIds/ShieldCapacityLarge";
+		    public const string ShieldCapacitySmall = "GameIds/ShieldCapacitySmall";
+		    public const string ShieldLarge = "GameIds/ShieldLarge";
+		    public const string ShieldSmall = "GameIds/ShieldSmall";
 		    public const string Sideshot = "GameIds/Sideshot";
 		    public const string SmallWilderness = "GameIds/SmallWilderness";
 		    public const string SoldierAmulet = "GameIds/SoldierAmulet";
@@ -1322,6 +1341,7 @@ namespace I2.Loc
 		{
 		    public const string ATTDescription = "General/ATTDescription";
 		    public const string AWESOME = "General/AWESOME";
+		    public const string Ammo = "General/Ammo";
 		    public const string Appearance = "General/Appearance";
 		    public const string AreYouSure = "General/AreYouSure";
 		    public const string Armor = "General/Armor";

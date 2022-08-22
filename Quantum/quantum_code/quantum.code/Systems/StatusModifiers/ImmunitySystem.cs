@@ -3,11 +3,11 @@ namespace Quantum.Systems
 	/// <summary>
 	/// Handles specifics for Shield status modifier
 	/// </summary>
-	public unsafe class ShieldSystem : SystemSignalsOnly, 
-	                                   ISignalOnComponentAdded<Shield>, ISignalOnComponentRemoved<Shield>
+	public unsafe class ImmunitySystem : SystemSignalsOnly, 
+	                                   ISignalOnComponentAdded<Immunity>, ISignalOnComponentRemoved<Immunity>
 	{
 		/// <inheritdoc />
-		public void OnAdded(Frame f, EntityRef entity, Shield* component)
+		public void OnAdded(Frame f, EntityRef entity, Immunity* component)
 		{
 			if (!f.Unsafe.TryGetPointer<Stats>(entity, out var stats))
 			{
@@ -18,7 +18,7 @@ namespace Quantum.Systems
 		}
 
 		/// <inheritdoc />
-		public void OnRemoved(Frame f, EntityRef entity, Shield* component)
+		public void OnRemoved(Frame f, EntityRef entity, Immunity* component)
 		{
 			if (!f.Unsafe.TryGetPointer<Stats>(entity, out var stats))
 			{

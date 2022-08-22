@@ -18,7 +18,7 @@ namespace Quantum.Commands
 			var characterEntity = f.GetSingleton<GameContainer>().PlayersData[playerRef].Entity;
 			var stats = f.Unsafe.GetPointer<Stats>(characterEntity);
 
-			stats->AttackerSetCurrentHealth(f, characterEntity, characterEntity, 0);
+			stats->ReduceHealth(f, characterEntity, new Spell { Attacker = characterEntity, PowerAmount = uint.MaxValue });
 		}
 	}
 }

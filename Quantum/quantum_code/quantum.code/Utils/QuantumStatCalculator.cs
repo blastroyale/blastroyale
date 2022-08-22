@@ -11,10 +11,11 @@ namespace Quantum
 		/// Requests the character's stats based on currently equipped <paramref name="weapon"/> and
 		/// <paramref name="gear"/> from it's base stats and NFT configs.
 		/// </summary>
-		public static void CalculateStats(Frame f, Equipment weapon, FixedArray<Equipment> gear, out int armour,
-		                                  out int health,
-		                                  out FP speed, out FP power)
+		public static void CalculateStats(Frame f, Equipment weapon, FixedArray<Equipment> gear, 
+		                                  out int armour, out int health, out FP speed, out FP power)
 		{
+			var statConfigs = f.StatConfigs.Dictionary;
+			
 			health = 0;
 			speed = FP._0;
 			armour = 0;
@@ -22,10 +23,15 @@ namespace Quantum
 
 			if (weapon.IsValid())
 			{
-				health += CalculateStat(f, weapon, StatType.Health).AsInt;
-				speed += CalculateStat(f, weapon, StatType.Speed);
-				armour += CalculateStat(f, weapon, StatType.Armour).AsInt;
-				power += CalculateStat(f, weapon, StatType.Power);
+				var wc = f.WeaponConfigs.GetConfig(weapon.GameId);
+				var besc = f.BaseEquipmentStatConfigs.GetConfig(weapon.GameId);
+				var esc = f.EquipmentStatConfigs.GetConfig(weapon);
+				var emsc = f.EquipmentMaterialStatConfigs.GetConfig(weapon);
+				
+				health += CalculateWeaponStat(wc, statConfigs[StatType.Health], besc, esc, emsc, weapon).AsInt;
+				speed += CalculateWeaponStat(wc, statConfigs[StatType.Speed], besc, esc, emsc, weapon);
+				armour += CalculateWeaponStat(wc, statConfigs[StatType.Armour], besc, esc, emsc, weapon).AsInt;
+				power += CalculateWeaponStat(wc, statConfigs[StatType.Power], besc, esc, emsc, weapon);
 			}
 
 			for (var i = 0; i < gear.Length; i++)
@@ -37,15 +43,37 @@ namespace Quantum
 					continue;
 				}
 				
-				health += CalculateStat(f, item, StatType.Health).AsInt;
-				speed += CalculateStat(f, item, StatType.Speed);
-				armour += CalculateStat(f, item, StatType.Armour).AsInt;
-				power += CalculateStat(f, item, StatType.Power);
+				var besc = f.BaseEquipmentStatConfigs.GetConfig(item.GameId);
+				var esc = f.EquipmentStatConfigs.GetConfig(item);
+				var emsc = f.EquipmentMaterialStatConfigs.GetConfig(item);
+				
+				health += CalculateStat(statConfigs[StatType.Health], besc, esc, emsc, item).AsInt;
+				speed += CalculateStat(statConfigs[StatType.Speed], besc, esc, emsc, item);
+				armour += CalculateStat(statConfigs[StatType.Armour], besc, esc, emsc, item).AsInt;
+				power += CalculateStat(statConfigs[StatType.Power], besc, esc, emsc, item);
 			}
 		}
 
 		/// <summary>
-		/// Calculates the weapon power based on weapon stats and NFT config.
+		/// Calculates the <paramref name="equipment"/> stats based on all Weapon <see cref="Equipment"/> stat configs.
+		/// </summary>
+		public static FP CalculateWeaponStat(QuantumWeaponConfig weaponConfig, QuantumStatConfig statConfig, 
+		                                     QuantumBaseEquipmentStatConfig baseStatConfig,
+		                                     QuantumEquipmentStatConfig equipmentStatConfig, 
+		                                     QuantumEquipmentMaterialStatConfig materialStatConfig, Equipment equipment)
+		{
+			var attributeValue = CalculateStat(statConfig, baseStatConfig, equipmentStatConfig, materialStatConfig, equipment);
+
+			if (statConfig.StatType == StatType.Power)
+			{
+				attributeValue *= weaponConfig.PowerToDamageRatio;
+			}
+
+			return attributeValue;
+		}
+
+		/// <summary>
+		/// Calculates the <paramref name="equipment"/> stats based on all <see cref="Equipment"/> stat configs.
 		/// </summary>
 		public static FP CalculateStat(QuantumStatConfig statConfig, QuantumBaseEquipmentStatConfig baseStatConfig,
 		                               QuantumEquipmentStatConfig equipmentStatConfig, 
@@ -56,14 +84,6 @@ namespace Quantum
 			                                                 statRatio, equipment);
 
 			return statConfig.StatType == StatType.Speed ? attributeValue : FPMath.CeilToInt(attributeValue);
-		}
-		
-		private static FP CalculateStat(Frame f, Equipment equipment, StatType statType)
-		{
-			return CalculateStat(f.StatConfigs.GetConfig(statType), 
-			                     f.BaseEquipmentStatConfigs.GetConfig(equipment.GameId), 
-			                     f.EquipmentStatConfigs.GetConfig(equipment),
-			                     f.EquipmentMaterialStatConfigs.GetConfig(equipment), equipment);
 		}
 
 		private static FP CalculateAttributeStatValue(QuantumStatConfig statConfig, FP ratioToBase, FP statRatio, Equipment equipment)

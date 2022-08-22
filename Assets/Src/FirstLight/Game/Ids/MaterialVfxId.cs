@@ -38,7 +38,7 @@ namespace FirstLight.Game.Ids
 			new Dictionary<StatusModifierType, MaterialVfxId>
 			{
 				{StatusModifierType.Invisibility, MaterialVfxId.Invisibility},
-				{StatusModifierType.Shield, MaterialVfxId.Invincible},
+				{StatusModifierType.Immunity, MaterialVfxId.Invincible},
 			};
 	}
 }

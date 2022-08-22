@@ -5,7 +5,7 @@ namespace Quantum.Systems
 	/// </summary>
 	public class StatusModifierSystemGroup : SystemGroup
 	{
-		public StatusModifierSystemGroup() : base("Status Modifier Systems", new RageSystem(), new StunSystem(), new ShieldSystem())
+		public StatusModifierSystemGroup() : base("Status Modifier Systems", new RageSystem(), new StunSystem(), new ImmunitySystem())
 		
 		{
 		}

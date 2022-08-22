@@ -3,7 +3,7 @@ component Stun
 	FP VulnerabilityMultiplier; 
 }
 
-component Shield
+component Immunity
 {
 }
 
@@ -14,6 +14,7 @@ component Regeneration
 component Rage
 {
 	FP Power;
+	FP Duration;
 	UInt32 PowerModifierId;
 }
 
@@ -32,7 +33,7 @@ enum StatusModifierType
 {
 	None,
 	Stun,
-	Shield,
+	Immunity,
 	Regeneration,
 	Rage,
 	Invisibility,

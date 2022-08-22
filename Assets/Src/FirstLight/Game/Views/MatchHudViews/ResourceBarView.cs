@@ -19,13 +19,16 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Required] private Image _reloadBarImage;
 		[SerializeField] private Color _primaryReloadColor;
 		[SerializeField] private Color _secondaryReloadColor;
-		
+
+		private EntityRef _entity;
 		private Coroutine _coroutine;
 		private IObjectPool<GameObject> _separatorPool;
 
 		/// <inheritdoc />
 		public void OnDespawn()
 		{
+			_entity = EntityRef.None;
+			
 			QuantumEvent.UnsubscribeListener(this);
 		}
 		
@@ -34,21 +37,28 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// </summary>
 		public void SetupView(Frame f, EntityRef entity)
 		{
+			_entity = entity;
+			
 			SetSliderValue(f, entity);
 			
-			QuantumEvent.Subscribe<EventOnLocalPlayerAmmoChanged>(this, HandleOnPlayerAmmoChanged);
-			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, HandleOnPlayerWeaponChanged);
-			QuantumEvent.Subscribe<EventOnLocalPlayerAttack>(this, HandleOnPlayerAttacked);
+			QuantumEvent.Subscribe<EventOnPlayerAmmoChanged>(this, HandleOnPlayerAmmoChanged);
+			QuantumEvent.Subscribe<EventOnPlayerWeaponChanged>(this, HandleOnPlayerWeaponChanged);
+			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, HandleOnPlayerAttacked);
 		}
 
-		private void HandleOnPlayerWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
+		private void HandleOnPlayerWeaponChanged(EventOnPlayerWeaponChanged callback)
 		{
+			if (callback.Entity != _entity)
+			{
+				return;
+			}
+			
 			SetSliderValue(callback.Game.Frames.Verified, callback.Entity);
 		}
 
-		private void HandleOnPlayerAttacked(EventOnLocalPlayerAttack callback)
+		private void HandleOnPlayerAttacked(EventOnPlayerAttack callback)
 		{
-			if (!callback.WeaponConfig.IsMeleeWeapon)
+			if (callback.PlayerEntity != _entity || !callback.WeaponConfig.IsMeleeWeapon)
 			{
 				return;
 			}
@@ -61,8 +71,13 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_coroutine = StartCoroutine(MeleeCooldownCoroutine(callback.WeaponConfig.AttackCooldown.AsFloat));
 		}
 
-		private void HandleOnPlayerAmmoChanged(EventOnLocalPlayerAmmoChanged callback)
+		private void HandleOnPlayerAmmoChanged(EventOnPlayerAmmoChanged callback)
 		{
+			if (callback.Entity != _entity)
+			{
+				return;
+			}
+			
 			// If the weapon is not melee
 			if (callback.MaxAmmo > 0)
 			{

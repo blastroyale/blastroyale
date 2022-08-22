@@ -7,6 +7,8 @@
         <IsPackable>false</IsPackable>
 
         <RootNamespace>IntegrationTests</RootNamespace>
+
+        <LangVersion>10</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -21,8 +23,26 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Reference Include="FirstLight.DataExtensions">
+        <HintPath>..\Lib\FirstLight.DataExtensions.dll</HintPath>
+      </Reference>
       <Reference Include="FirstLight.Game">
         <HintPath>..\Lib\FirstLight.Game.dll</HintPath>
+      </Reference>
+      <Reference Include="FirstLight.Services">
+        <HintPath>..\Lib\FirstLight.Services.dll</HintPath>
+      </Reference>
+      <Reference Include="PhotonDeterministic">
+        <HintPath>..\Lib\PhotonDeterministic.dll</HintPath>
+      </Reference>
+      <Reference Include="PhotonQuantum">
+        <HintPath>..\Lib\PhotonQuantum.dll</HintPath>
+      </Reference>
+      <Reference Include="quantum.code">
+        <HintPath>..\Lib\quantum.code.dll</HintPath>
+      </Reference>
+      <Reference Include="quantum.core">
+        <HintPath>..\Lib\quantum.core.dll</HintPath>
       </Reference>
     </ItemGroup>
 

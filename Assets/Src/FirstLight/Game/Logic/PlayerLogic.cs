@@ -5,6 +5,7 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Services;
+using Photon.Deterministic;
 using Quantum;
 using UnityEngine;
 
@@ -186,12 +187,12 @@ namespace FirstLight.Game.Logic
 			var tempPlayers = new List<QuantumPlayerMatchData>(players);
 			tempPlayers.SortByPlayerRank(false);
 
-			var trophyChange = 0d;
+			var trophyChange = FP._0;
 
 			// Losses
 			for (var i = 0; i < localPlayerData.PlayerRank; i++)
 			{
-				trophyChange += CalculateEloChange(0d, players[i].Data.PlayerTrophies, 
+				trophyChange += CalculateEloChange(FP._0, players[i].Data.PlayerTrophies, 
 				                                   localPlayerData.Data.PlayerTrophies, gameConfig.TrophyEloRange,
 				                                   gameConfig.TrophyEloK);
 			}
@@ -199,12 +200,12 @@ namespace FirstLight.Game.Logic
 			// Wins
 			for (var i = (int) localPlayerData.PlayerRank + 1; i < players.Count; i++)
 			{
-				trophyChange += CalculateEloChange(1d, players[i].Data.PlayerTrophies, 
+				trophyChange += CalculateEloChange(FP._1, players[i].Data.PlayerTrophies, 
 				                                   localPlayerData.Data.PlayerTrophies, gameConfig.TrophyEloRange,
 				                                   gameConfig.TrophyEloK);
 			}
 
-			var finalTrophyChange = (int) Math.Round(trophyChange);
+			var finalTrophyChange = Mathf.RoundToInt(trophyChange.AsFloat);
 
 			if (finalTrophyChange < 0 && Math.Abs(finalTrophyChange) > _trophies.Value)
 			{
@@ -227,11 +228,11 @@ namespace FirstLight.Game.Logic
 			Data.PlayerSkinId = skin;
 		}
 
-		private double CalculateEloChange(double score, uint trophiesOpponent, uint trophiesPlayer, int eloRange, int eloK)
+		private FP CalculateEloChange(FP score, uint trophiesOpponent, uint trophiesPlayer, int eloRange, FP eloK)
 		{
-			var eloBracket = Math.Pow(10, (trophiesOpponent - trophiesPlayer) / (double) eloRange);
+			var eloBracket = Mathf.Pow(10, (trophiesOpponent - trophiesPlayer) / (float) eloRange).ToFP();
 			
-			return eloK * (score - 1d / (1d + eloBracket));
+			return eloK * (score - FP._1 / (FP._1 + eloBracket));
 		}
 	}
 }

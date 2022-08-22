@@ -15,6 +15,7 @@ using Photon.Realtime;
 using PlayFab;
 using PlayFab.CloudScriptModels;
 using PlayFab.SharedModels;
+using ServerSDK.Modules;
 using UnityEngine;
 
 namespace FirstLight.Game.Services

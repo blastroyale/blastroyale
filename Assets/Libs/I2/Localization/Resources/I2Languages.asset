@@ -65,6 +65,14 @@ MonoBehaviour:
       - 
       Flags: 0000
       Languages_Touch: []
+    - Term: General/Ammo
+      TermType: 0
+      Description: 
+      Languages:
+      - Ammo
+      - 
+      Flags: 0000
+      Languages_Touch: []
     - Term: General/AttackCooldown
       TermType: 0
       Description: 
@@ -2623,6 +2631,38 @@ MonoBehaviour:
       - 
       Flags: 0000
       Languages_Touch: []
+    - Term: MainMenu/ServerCurrent
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Server: {0}'
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/ServerSelectTitle
+      TermType: 0
+      Description: 
+      Languages:
+      - Switch Server
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/ServerSelectOption
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} ({1}ms)'
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/ServerSelectButtonConnect
+      TermType: 0
+      Description: 
+      Languages:
+      - Connect
+      - 
+      Flags: 0000
+      Languages_Touch: []
     - Term: AdventureMenu/AdventureCompleted
       TermType: 0
       Description: 
@@ -4863,6 +4903,30 @@ MonoBehaviour:
       - 
       Flags: 0000
       Languages_Touch: []
+    - Term: GameIds/Ammo
+      TermType: 0
+      Description: 
+      Languages:
+      - Ammo
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: GameIds/AmmoSmall
+      TermType: 0
+      Description: 
+      Languages:
+      - Ammo Small
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: GameIds/AmmoLarge
+      TermType: 0
+      Description: 
+      Languages:
+      - Ammo Large
+      - 
+      Flags: 0000
+      Languages_Touch: []
     - Term: GameIds/BRGenesis
       TermType: 0
       Description: 
@@ -5175,6 +5239,14 @@ MonoBehaviour:
       - 
       Flags: 0000
       Languages_Touch: []
+    - Term: GameIds/Health
+      TermType: 0
+      Description: 
+      Languages:
+      - Health
+      - 
+      Flags: 0000
+      Languages_Touch: []
     - Term: GameIds/Helmet
       TermType: 0
       Description: 
@@ -5315,8 +5387,8 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 'Deadalus '
-      - 'Deadalus '
+      - Daedalus
+      - Daedalus
       Flags: 0000
       Languages_Touch: []
     - Term: GameIds/ModPistol
@@ -5676,6 +5748,46 @@ MonoBehaviour:
       Description: 
       Languages:
       - Shield
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: GameIds/ShieldSmall
+      TermType: 0
+      Description: 
+      Languages:
+      - Shield Small
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: GameIds/ShieldLarge
+      TermType: 0
+      Description: 
+      Languages:
+      - Shield Large
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: GameIds/ShieldCapacity
+      TermType: 0
+      Description: 
+      Languages:
+      - Shield Capacity
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: GameIds/ShieldCapacitySmall
+      TermType: 0
+      Description: 
+      Languages:
+      - Shield Capacity Small
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: GameIds/ShieldCapacityLarge
+      TermType: 0
+      Description: 
+      Languages:
+      - Shield Capacity Large
       - 
       Flags: 0000
       Languages_Touch: []
@@ -6350,7 +6462,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1660647073035
+    Google_LastUpdatedVersion: 1661034413490
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

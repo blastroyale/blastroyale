@@ -1,0 +1,17 @@
+{
+    "name": "FirstLight.Game.Server",
+    "rootNamespace": "",
+    "references": [
+        "GUID:22c6cdfa54ae844a9a9eda2f0014b020",
+        "GUID:69e6b98aed01b4e88976f0c27b7e17d1"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

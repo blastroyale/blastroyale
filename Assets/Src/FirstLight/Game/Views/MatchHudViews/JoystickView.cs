@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace FirstLight.Game.Views.AdventureHudViews
+namespace FirstLight.Game.Views.MatchHudViews
 {
 	/// <summary>
-	/// Onscreen joystick class from Shoot & Loot.
+	/// Onscreen view to control an UI joystick simulation
 	/// </summary>
 	public class JoystickView : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointerDownHandler
 	{

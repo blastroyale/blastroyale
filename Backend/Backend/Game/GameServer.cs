@@ -15,9 +15,9 @@ using ServerSDK.Models;
 using ServerSDK.Services;
 using IGameCommand = FirstLight.Game.Commands.IGameCommand;
 
-namespace Backend.Game;
-
-/// <summary>
+namespace Backend.Game
+{
+	/// <summary>
 /// Class represents game-server instance. Holds logic methods to run gamelogic.
 /// This should be networking agnostic.
 /// </summary>
@@ -159,3 +159,5 @@ public class GameServer
 		return cmd.AccessLevel == CommandAccessLevel.Player; 
 	}
 }
+}
+

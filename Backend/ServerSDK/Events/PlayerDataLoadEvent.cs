@@ -1,16 +1,18 @@
-namespace ServerSDK.Events;
-
-/// <summary>
-/// Event called before server data is loaded so operations that update this data can be called.
-/// </summary>
-public class PlayerDataLoadEvent : GameServerEvent
+namespace ServerSDK.Events
 {
-	private readonly string _playerId;
-
-	public PlayerDataLoadEvent(string playerId)
+	/// <summary>
+	/// Event called before server data is loaded so operations that update this data can be called.
+	/// </summary>
+	public class PlayerDataLoadEvent : GameServerEvent
 	{
-		_playerId = playerId;
-	}
+		private readonly string _playerId;
+
+		public PlayerDataLoadEvent(string playerId)
+		{
+			_playerId = playerId;
+		}
 	
-	public string PlayerId => _playerId;
+		public string PlayerId => _playerId;
+	}
 }
+

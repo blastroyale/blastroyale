@@ -82,7 +82,7 @@ namespace Quantum
 			};
 			
 			QuantumHelpers.LookAt2d(f, e, targetPosition);
-			StatusModifiers.AddStatusModifierToEntity(f, e, StatusModifierType.Shield, chargeDuration, true);
+			StatusModifiers.AddStatusModifierToEntity(f, e, StatusModifierType.Immunity, chargeDuration, true);
 			f.Unsafe.GetPointer<PhysicsCollider3D>(e)->IsTrigger = true;
 			
 			f.Add(e, chargeComponent);

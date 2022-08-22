@@ -55,6 +55,14 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
+		/// Get's the translation string of the given <paramref name="id"/>
+		/// </summary>
+		public static string GetTranslation(this ConsumableType id)
+		{
+			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.GameIds)}/{id.ToString()}");
+		}
+
+		/// <summary>
 		/// Requests the localized text representing the given <paramref name="stat"/>
 		/// </summary>
 		public static string GetTranslation(this EquipmentStatType stat)
@@ -75,15 +83,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static string GetTranslation(this GameIdGroup group)
 		{
-			return LocalizationManager.GetTranslation(group.GetTranslationTerm());
-		}
-
-		/// <summary>
-		/// Get's the translation term of the given <paramref name="group"/>
-		/// </summary>
-		public static string GetTranslationTerm(this GameIdGroup group)
-		{
-			return $"{nameof(ScriptTerms.GameIds)}/{group.ToString()}";
+			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.GameIds)}/{group.ToString()}");
 		}
 
 		/// <summary>

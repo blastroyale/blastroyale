@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using BlastRoyaleNFTPlugin;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
-using FirstLight.Game.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
@@ -12,11 +11,9 @@ using Photon.Deterministic;
 using Quantum;
 using ServerSDK;
 using ServerSDK.Events;
+using ServerSDK.Modules;
 using ServerSDK.Services;
-using Tests.Stubs;
 using Assert = NUnit.Framework.Assert;
-
-namespace Tests;
 
 public class TestNftSyncPlugin
 {
@@ -30,7 +27,7 @@ public class TestNftSyncPlugin
 	{
 		_app = new TestServer();
 		_app.SetupInMemoryServer();
-		var log = _app.GetService<ILogger>();
+		var log = _app.GetService<IPluginLogger>();
 		_events = new PluginEventManager(log);
 		var pluginCtx = new PluginContext(_events, _app.Services);
 		_nftSync = new StubbedNftSync(pluginCtx);

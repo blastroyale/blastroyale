@@ -17,6 +17,7 @@ synced event OnHazardLand
 {
 	GameId sourceId;
 	FPVector3 HitPosition;
+	entity_ref AttackerEntity;
 }
 
 synced event OnHazardHit

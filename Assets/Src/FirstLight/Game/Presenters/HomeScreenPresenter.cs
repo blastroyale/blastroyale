@@ -42,7 +42,6 @@ namespace FirstLight.Game.Presenters
 		// Landscape Mode Buttons
 		[SerializeField] private VisualStateButtonView _lootButton;
 		[SerializeField] private VisualStateButtonView _heroesButton;
-		[SerializeField] private VisualStateButtonView _shopButton;
 		[SerializeField] private Button _marketplaceButton;
 		[SerializeField] private Button _discordButton;
 
@@ -64,7 +63,7 @@ namespace FirstLight.Game.Presenters
 			_marketplaceButton.gameObject.SetActive(Debug.isDebugBuild);
 			_feedbackButton.onClick.AddListener(LeaveFeedbackForm);
 			_discordButton.onClick.AddListener(OpenDiscordLink);
-			
+
 			_gameModeButton.onClick.AddListener(OpenGameModeClicked);
 			_gameModeButton.gameObject.SetActive(Debug.isDebugBuild);
 

@@ -1,9 +1,12 @@
-namespace ServerSDK.Models;
-
-/// <summary>
-/// Interface for emitting application specific metrics.
-/// </summary>
-public interface IMetricsService
+namespace ServerSDK.Models
 {
-	void EmitEvent(string metricName);
+	/// <summary>
+	/// Interface for emitting application specific metrics.
+	/// </summary>
+	public interface IMetricsService
+	{
+		void EmitEvent(string metricName);
+	}
+
 }
+

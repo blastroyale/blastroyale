@@ -2,7 +2,7 @@
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
         <AzureFunctionsVersion>V4</AzureFunctionsVersion>
-        <LangVersion>10</LangVersion>
+        <LangVersion>9</LangVersion>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="DistributedLock" Version="2.3.0" />
@@ -11,7 +11,6 @@
         <PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="1.1.0" />
         <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="4.1.0" />
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.4" />
-        <PackageReference Include="PlayFabAllSDK" Version="1.108.220118" />
         <PackageReference Include="PlayFabCloudScriptPlugin" Version="1.53.190627-alpha" />
         <PackageReference Include="YamlDotNet" Version="11.2.1" />
     </ItemGroup>
@@ -30,6 +29,9 @@
       </Reference>
       <Reference Include="FirstLight.Game">
         <HintPath>..\Lib\FirstLight.Game.dll</HintPath>
+      </Reference>
+      <Reference Include="FirstLight.Game.Server">
+        <HintPath>..\Lib\FirstLight.Game.Server.dll</HintPath>
       </Reference>
       <Reference Include="FirstLight.Services, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\Lib\FirstLight.Services.dll</HintPath>

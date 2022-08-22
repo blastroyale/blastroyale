@@ -148,9 +148,7 @@ MonoBehaviour:
   Anchor: {fileID: 5662700448216563914}
   ClickClip: {fileID: 7400000, guid: 382a5c7d063224d16b5caae8326aa7fb, type: 2}
   IsForward: 1
-  OverrideSfx: 0
-  OverrideSfxClip:
-    _selection: MainMenuStart
+  OverrideClickSfxId: 0
 --- !u!1 &1630217148234354640
 GameObject:
   m_ObjectHideFlags: 0
@@ -717,9 +715,7 @@ MonoBehaviour:
   Anchor: {fileID: 8220132513507660487}
   ClickClip: {fileID: 7400000, guid: 382a5c7d063224d16b5caae8326aa7fb, type: 2}
   IsForward: 1
-  OverrideSfx: 0
-  OverrideSfxClip:
-    _selection: MainMenuStart
+  OverrideClickSfxId: 0
 --- !u!1 &4073292402343234599
 GameObject:
   m_ObjectHideFlags: 0

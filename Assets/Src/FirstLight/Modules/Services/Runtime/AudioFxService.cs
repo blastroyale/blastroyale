@@ -198,14 +198,16 @@ namespace FirstLight.Services
 	{
 		public AudioSource Source;
 
+		public Action<AudioSourceMonoComponent> FadeVolumeCallback;
+		public Action<AudioSourceMonoComponent> SoundPlayedCallback;
+		
 		private IObjectPool<AudioSourceMonoComponent> _pool;
 		private bool _canDespawn;
 		private Coroutine _playSoundCoroutine;
 		private Coroutine _fadeVolumeCoroutine;
 		private Transform _followTarget;
 		private Vector3 _followOffset;
-		public Action<AudioSourceMonoComponent> FadeVolumeCallback;
-		public Action<AudioSourceMonoComponent> SoundPlayedCallback;
+		private float _pitchModPerLoop;
 
 		private void Update()
 		{
@@ -230,7 +232,7 @@ namespace FirstLight.Services
 			SetFollowTarget(null, Vector3.zero, Quaternion.identity);
 
 			_pool = pool;
-
+			
 			Source.outputAudioMixerGroup = sourceInitData.Value.MixerGroup;
 			Source.clip = sourceInitData.Value.Clip;
 			Source.volume = sourceInitData.Value.Volume;
@@ -242,7 +244,8 @@ namespace FirstLight.Services
 			Source.rolloffMode = sourceInitData.Value.RolloffMode;
 			Source.minDistance = sourceInitData.Value.MinDistance;
 			Source.maxDistance = sourceInitData.Value.MaxDistance;
-
+			_pitchModPerLoop = sourceInitData.Value.PitchModPerLoop;
+			
 			if (worldPos.HasValue)
 			{
 				transform.position = worldPos.Value;
@@ -354,6 +357,8 @@ namespace FirstLight.Services
 			do
 			{
 				yield return new WaitForSeconds(Source.clip.length);
+
+				Source.pitch += _pitchModPerLoop;
 			} while (!_canDespawn);
 
 			SoundPlayedCallback?.Invoke(this);
@@ -374,6 +379,7 @@ namespace FirstLight.Services
 		public float Pitch;
 		public bool Mute;
 		public bool Loop;
+		public float PitchModPerLoop;
 
 		public AudioRolloffMode RolloffMode;
 		public float MinDistance;
@@ -391,6 +397,7 @@ namespace FirstLight.Services
 		public float MaxVol;
 		public float MinPitch;
 		public float MaxPitch;
+		public float PitchModPerLoop;
 		
 		public float PlaybackVolume => UnityEngine.Random.Range(MinVol, MaxVol);
 		public float PlaybackPitch => UnityEngine.Random.Range(MinPitch, MaxPitch);

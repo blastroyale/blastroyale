@@ -3,31 +3,33 @@ using PlayFab;
 using PlayFab.ServerModels;
 using ServerSDK.Models;
 
-namespace Backend.Game.Services;
-
-/// <summary>
-/// Analytics implementation for PlayFab Playstream
-/// </summary>
-public class PlaystreamAnalyticsService : IServerAnalytics
+namespace Backend.Game.Services
 {
-	public void EmitEvent(string eventName, AnalyticsData data)
+	/// <summary>
+	/// Analytics implementation for PlayFab Playstream
+	/// </summary>
+	public class PlaystreamAnalyticsService : IServerAnalytics
 	{
-		PlayFabServerAPI.WriteTitleEventAsync(new WriteTitleEventRequest()
+		public void EmitEvent(string eventName, AnalyticsData data)
 		{
-			Body = data,
-			Timestamp = DateTime.UtcNow,
-			EventName = eventName
-		});
-	}
+			PlayFabServerAPI.WriteTitleEventAsync(new WriteTitleEventRequest()
+			{
+				Body = data,
+				Timestamp = DateTime.UtcNow,
+				EventName = eventName
+			});
+		}
 
-	public void EmitUserEvent(string id, string eventName, AnalyticsData data)
-	{
-		PlayFabServerAPI.WritePlayerEventAsync(new WriteServerPlayerEventRequest()
+		public void EmitUserEvent(string id, string eventName, AnalyticsData data)
 		{
-			PlayFabId = id,
-			Body = data,
-			Timestamp = DateTime.UtcNow,
-			EventName = eventName
-		});
+			PlayFabServerAPI.WritePlayerEventAsync(new WriteServerPlayerEventRequest()
+			{
+				PlayFabId = id,
+				Body = data,
+				Timestamp = DateTime.UtcNow,
+				EventName = eventName
+			});
+		}
 	}
 }
+

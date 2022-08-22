@@ -22,6 +22,7 @@ using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
 using PlayFab.SharedModels;
+using ServerSDK.Modules;
 using UnityEngine;
 
 namespace FirstLight.Game.StateMachines
@@ -72,7 +73,6 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(autoAuthCheck);
 			initial.OnExit(SubscribeEvents);
 			initial.OnExit(SetAuthenticationData);
-			initial.OnExit(() => _dataService.LoadData<AppData>());
 			
 			autoAuthCheck.Transition().Condition(HasLinkedDevice).Target(authLoginDevice);
 			autoAuthCheck.Transition().Condition(() => !FeatureFlags.EMAIL_AUTH).OnTransition(OnLinkSuccess).Target(authLoginDevice);
@@ -225,16 +225,21 @@ namespace FirstLight.Game.StateMachines
 		private void SetAuthenticationData()
 		{
 			var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
+			var appData = _dataService.LoadData<AppData>();
+			var environment = "";
 
 #if LIVE_SERVER
+			environment = "live";
 			PlayFabSettings.TitleId = "302CF";
 			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
 			_passwordRecoveryEmailTemplateId = F4F93EEA134BE503;
 #elif OFFCHAIN_SERVER
+			environment = "offchain";
 			PlayFabSettings.TitleId = "***REMOVED***";
 			quantumSettings.AppSettings.AppIdRealtime = "81262db7-24a2-4685-b386-65427c73ce9d";
 			_passwordRecoveryEmailTemplateId = "***REMOVED***";
 #elif STAGE_SERVER
+			environment = "stage";
 			PlayFabSettings.TitleId = "***REMOVED***";
 			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
 			_passwordRecoveryEmailTemplateId = "***REMOVED***";
@@ -252,6 +257,16 @@ namespace FirstLight.Game.StateMachines
 				_passwordRecoveryEmailTemplateId = "***REMOVED***";
 			}
 #endif
+			
+			if (environment != appData.Environment)
+			{
+				var newData = appData.Copy();
+
+				newData.Environment = environment;
+				
+				_dataService.AddData(newData, true);
+				_dataService.SaveData<AppData>();
+			}
 		}
 
 		private void ProcessAuthentication(LoginResult result)

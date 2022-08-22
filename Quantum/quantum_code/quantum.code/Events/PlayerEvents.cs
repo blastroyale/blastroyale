@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using Photon.Deterministic;
 
 namespace Quantum
 {
@@ -15,6 +17,14 @@ namespace Quantum
 	public unsafe partial class EventOnPlayerDead
 	{
 		public bool IsSuicide => Entity == EntityKiller;
+	}
+	
+	public unsafe partial class EventOnPlayerDamaged
+	{
+		public EntityRef Entity => Spell.Victim;
+		public EntityRef Attacker => Spell.Attacker;
+		public UInt32 TotalUnblockedDamage => Spell.PowerAmount;
+		public FPVector3 HitPosition => Spell.OriginalHitPosition;
 	}
 	
 	public partial class Frame 
@@ -60,6 +70,20 @@ namespace Quantum
 				}
 
 				OnLocalPlayerSpecialUsed(playerCharacter->Player, entity, special, specialIndex);
+			}
+			
+			public void OnPlayerDamaged(Spell spell, uint totalDamage, uint healthDamage, 
+			                            int previousHealth, int maxHealth, int previousShield, int maxShield)
+			{
+				if (!_f.Unsafe.TryGetPointer<PlayerCharacter>(spell.Victim, out var playerCharacter))
+				{
+					return;
+				}
+				
+				var shieldDamage = spell.PowerAmount - healthDamage;
+				
+				OnPlayerDamaged(playerCharacter->Player, spell, totalDamage, shieldDamage, previousShield, maxShield,
+				                healthDamage, previousHealth, maxHealth);
 			}
 			
 			public void OnPlayerKilledPlayer(PlayerRef playerDead, PlayerRef playerKiller)

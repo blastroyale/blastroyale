@@ -269,7 +269,7 @@
     <Compile Include="Systems\DestructibleSystem.cs" />
     <Compile Include="Systems\DummyCharacterSystem.cs" />
     <Compile Include="Systems\SpellSystem.cs" />
-    <Compile Include="Systems\StatusModifiers\ShieldSystem.cs" />
+    <Compile Include="Systems\StatusModifiers\ImmunitySystem.cs" />
     <Compile Include="Systems\StatusModifiers\StatusModifierSystemGroup.cs" />
     <Compile Include="Systems\TransformOutOfWorldSystem.cs" />
     <Compile Include="Systems\StatusModifiers\RageSystem.cs" />

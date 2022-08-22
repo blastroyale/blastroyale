@@ -92,7 +92,8 @@ namespace FirstLight.Game.Services
 				MinVol = clipConfig.BaseVolume - clipConfig.VolumeRandDeviation,
 				MaxVol = clipConfig.BaseVolume + clipConfig.VolumeRandDeviation,
 				MinPitch = clipConfig.BasePitch - clipConfig.PitchRandDeviation,
-				MaxPitch = clipConfig.BasePitch + clipConfig.PitchRandDeviation
+				MaxPitch = clipConfig.BasePitch + clipConfig.PitchRandDeviation,
+				PitchModPerLoop = clipConfig.PitchModPerLoop
 			};
 
 			AddAudioClips(id, clipPlaybackData);
@@ -218,7 +219,8 @@ namespace FirstLight.Game.Services
 				StartTime = 0,
 				RolloffMode = AudioRolloffMode.Linear,
 				MinDistance = GameConstants.Audio.SFX_3D_MIN_DISTANCE,
-				MaxDistance = GameConstants.Audio.SFX_3D_MAX_DISTANCE
+				MaxDistance = GameConstants.Audio.SFX_3D_MAX_DISTANCE,
+				PitchModPerLoop = playbackData.PitchModPerLoop
 			};
 		}
 	}

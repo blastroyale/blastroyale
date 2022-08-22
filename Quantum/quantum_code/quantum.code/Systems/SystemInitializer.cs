@@ -1,3 +1,5 @@
+using System;
+
 namespace Quantum.Systems
 {
 	/// <summary>
@@ -17,15 +19,17 @@ namespace Quantum.Systems
 
 			f.GetOrAddSingleton<GameContainer>();
 
-			foreach (var system in f.Context.GameModeConfig.Systems)
+			foreach (var systemName in f.Context.GameModeConfig.Systems)
 			{
-				if (!f.SystemIsEnabledSelf(system))
+				var systemType = Type.GetType(systemName);
+				
+				if (!f.SystemIsEnabledSelf(systemType))
 				{
-					f.SystemEnable(system);
+					f.SystemEnable(systemType);
 				}
 
 				// TODO: Figure out a better way to do this
-				if (system == typeof(ShrinkingCircleSystem))
+				if (systemType == typeof(ShrinkingCircleSystem))
 				{
 					f.GetOrAddSingleton<ShrinkingCircle>();
 				}

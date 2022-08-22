@@ -58,16 +58,16 @@ namespace Quantum
 		public RankProcessor RankProcessor;
 
 		[ValueDropdown("GetOptionalSystems"), ListDrawerSettings(Expanded = true)]
-		public List<Type> Systems;
+		public List<string> Systems;
 
 #region Odin
 
-		private IEnumerable<Type> GetOptionalSystems()
+		private IEnumerable<string> GetOptionalSystems()
 		{
 			return from assembly in AppDomain.CurrentDomain.GetAssemblies()
 			       from type in assembly.GetTypes()
 			       where type.IsDefined(typeof(OptionalSystemAttribute))
-			       select type;
+			       select type.AssemblyQualifiedName;
 		}
 
 #endregion

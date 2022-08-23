@@ -295,6 +295,8 @@ namespace FirstLight.Game.StateMachines
 				OpenGameBlockedDialog();
 				return;
 			}
+			
+			FeatureFlags.ParseFlags(titleData);
 
 			_networkService.UserId.Value = result.PlayFabId;
 			appData.NickNameId = result.InfoResultPayload.AccountInfo.TitleInfo.DisplayName;

@@ -76,10 +76,10 @@
     <Compile Include="AI\Decisions\HFSM.AreSpecialsEmptyDecision.cs" />
     <Compile Include="AI\Decisions\HFSM.CheckBlackboardBool.cs" />
     <Compile Include="AI\Decisions\HFSM.CheckBlackboardFP.cs" />
-    <Compile Include="AI\Decisions\HFSM.CheckGameModeDecision.cs" />
     <Compile Include="AI\Decisions\HFSM.IsCharacterGroundedDecision.cs" />
     <Compile Include="AI\Decisions\HFSM.IsProjectileAttackDecision.cs" />
     <Compile Include="AI\Decisions\HFSM.RaycastHitDecision.cs" />
+    <Compile Include="AI\Decisions\HFSM.ShouldPerformSkydiveDecision.cs" />
     <Compile Include="AI\Functions\HFSM.FPVector2SqrtMagnitudeFunction.cs" />
     <Compile Include="AI\Functions\HFSM.FPVector3SqrtMagnitudeFunction.cs" />
     <Compile Include="AI\Functions\HFSM.StatFunction.cs" />

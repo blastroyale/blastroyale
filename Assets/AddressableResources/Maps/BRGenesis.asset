@@ -1387,7 +1387,7 @@ MonoBehaviour:
       StaticData:
         Name: Coll
         Tag: Untagged
-        Layer: 7
+        Layer: 0
         Asset:
           Id:
             Value: 0
@@ -1428,7 +1428,7 @@ MonoBehaviour:
       StaticData:
         Name: Coll
         Tag: Untagged
-        Layer: 7
+        Layer: 0
         Asset:
           Id:
             Value: 0
@@ -15849,11 +15849,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -4710727
+          RawValue: -4838129
         Y:
           RawValue: 0
         Z:
-          RawValue: 3502244
+          RawValue: 3541565
       Rotation:
         X:
           RawValue: 0
@@ -21547,11 +21547,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 720896
+          RawValue: 817102
         Y:
-          RawValue: 0
+          RawValue: 55259
         Z:
-          RawValue: -5996544
+          RawValue: -6239237
       Rotation:
         X:
           RawValue: 0

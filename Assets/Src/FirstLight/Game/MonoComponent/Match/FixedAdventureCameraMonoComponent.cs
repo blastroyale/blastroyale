@@ -24,19 +24,19 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private IGameServices _services;
 		private IMatchServices _matchServices;
-		private LocalInput _localInput;
 		private bool _spectating;
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
-			_localInput = new LocalInput();
 
-			_localInput.Gameplay.SpecialButton0.started += _ => SetActiveCamera(_specialAimCamera);
-			_localInput.Gameplay.SpecialButton0.canceled += _ => SetActiveCamera(_adventureCamera);
-			_localInput.Gameplay.SpecialButton1.started += _ => SetActiveCamera(_specialAimCamera);
-			_localInput.Gameplay.SpecialButton1.canceled += _ => SetActiveCamera(_adventureCamera);
+			var input = _services.PlayerInputService.Input.Gameplay;
+
+			input.SpecialButton0.started += _ => SetActiveCamera(_specialAimCamera);
+			input.SpecialButton0.canceled += _ => SetActiveCamera(_adventureCamera);
+			input.SpecialButton1.started += _ => SetActiveCamera(_specialAimCamera);
+			input.SpecialButton1.canceled += _ => SetActiveCamera(_adventureCamera);
 
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 			_services.MessageBrokerService.Subscribe<SpectateSetCameraMessage>(OnSpectateSetCameraMessage);
@@ -44,8 +44,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLand);
-
-			_localInput.Enable();
+			
 			gameObject.SetActive(false);
 		}
 
@@ -62,7 +61,6 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void OnDestroy()
 		{
-			_localInput?.Dispose();
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 

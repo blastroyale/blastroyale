@@ -28,7 +28,6 @@ namespace FirstLight.Game.Presenters
 		
 		private IGameServices _services;
 		private IMatchServices _matchServices;
-		private LocalInput _localInput;
 		private Quantum.Input _quantumInput;
 		private LocalPlayerIndicatorContainerView _indicatorContainerView;
 		
@@ -36,7 +35,6 @@ namespace FirstLight.Game.Presenters
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
-			_localInput = new LocalInput();
 			_indicatorContainerView = new LocalPlayerIndicatorContainerView(_services);
 
 			_cancelJoystick.gameObject.SetActive(false);
@@ -57,20 +55,18 @@ namespace FirstLight.Game.Presenters
 		private void OnDestroy()
 		{
 			_indicatorContainerView?.Dispose();
-			_localInput?.Dispose();
 		}
 
 		protected override void OnOpened()
 		{
-			_localInput.Enable();
-			
+			_services.PlayerInputService.EnableInput();
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, OnUpdateView);
 			QuantumCallback.Subscribe<CallbackPollInput>(this, PollInput);
 		}
 
 		protected override void OnClosed()
 		{
-			_localInput.Disable();
+			_services.PlayerInputService.DisableInput();
 			QuantumCallback.UnsubscribeListener(this);
 		}
 
@@ -93,15 +89,17 @@ namespace FirstLight.Game.Presenters
 		/// <inheritdoc />
 		public void OnSpecialAim(InputAction.CallbackContext context)
 		{
-			if (_localInput.Gameplay.SpecialButton0.IsPressed())
+			var input = _services.PlayerInputService.Input.Gameplay;
+			
+			if (input.SpecialButton0.IsPressed())
 			{
 				_indicatorContainerView.GetIndicator(0)
-				                       .SetTransformState(_localInput.Gameplay.SpecialAim.ReadValue<Vector2>());
+				                       .SetTransformState(input.SpecialAim.ReadValue<Vector2>());
 			}
-			else if (_localInput.Gameplay.SpecialButton1.IsPressed())
+			else if (input.SpecialButton1.IsPressed())
 			{
 				_indicatorContainerView.GetIndicator(1)
-				                       .SetTransformState(_localInput.Gameplay.SpecialAim.ReadValue<Vector2>());
+				                       .SetTransformState(input.SpecialAim.ReadValue<Vector2>());
 			}
 		}
 
@@ -125,13 +123,11 @@ namespace FirstLight.Game.Presenters
 				return;
 			}
 			
-			var aim = _localInput.Gameplay.SpecialAim.ReadValue<Vector2>();
+			var aim = _services.PlayerInputService.Input.Gameplay.SpecialAim.ReadValue<Vector2>();
 			
 			indicator.SetVisualState(false);
 			_cancelJoystick.gameObject.SetActive(false);
-			
-			// TODO: Check if im.sqrMagnitude > _specialButton0.size
-			
+
 			// Only triggers the input if the button is released or it was not disabled (ex: weapon replaced)
 			if (Math.Abs(context.time - context.startTime) < Mathf.Epsilon && 
 			    (aim.sqrMagnitude > 0 || indicator.IndicatorVfxId == IndicatorVfxId.None))
@@ -153,7 +149,7 @@ namespace FirstLight.Game.Presenters
 				return;
 			}
 			
-			var aim = _localInput.Gameplay.SpecialAim.ReadValue<Vector2>();
+			var aim = _services.PlayerInputService.Input.Gameplay.SpecialAim.ReadValue<Vector2>();
 			
 			indicator.SetVisualState(false);
 			_cancelJoystick.gameObject.SetActive(false);
@@ -170,7 +166,18 @@ namespace FirstLight.Game.Presenters
 
 		public void OnCancelButton(InputAction.CallbackContext context)
 		{
-			//TODO: Miha Cancel here :) 
+			var input = _services.PlayerInputService.Input.Gameplay;
+			
+			if (context.ReadValueAsButton())
+			{
+				input.SpecialButton0.Disable();
+				input.SpecialButton1.Disable();
+				input.AimButton.Disable();
+				return;
+			}
+			input.SpecialButton0.Enable();
+			input.SpecialButton1.Enable();
+			input.AimButton.Enable();
 		}
 
 		private void Init(Frame f, EntityRef entity)
@@ -179,7 +186,7 @@ namespace FirstLight.Game.Presenters
 			var playerCharacter = f.Get<PlayerCharacter>(entity);
 			
 			_weaponSlotsHolder.SetActive(f.Context.MapConfig.GameMode == GameMode.BattleRoyale);
-			_localInput.Gameplay.SetCallbacks(this);
+			_services.PlayerInputService.Input.Gameplay.SetCallbacks(this);
 			_indicatorContainerView.Init(playerView);
 			_indicatorContainerView.SetupWeaponInfo(playerCharacter.CurrentWeapon.GameId);
 			SetupSpecialsInput(f.Time, *playerCharacter.WeaponSlot, playerView);
@@ -232,9 +239,12 @@ namespace FirstLight.Game.Presenters
 
 		private void OnLocalPlayerSkydiveDrop(EventOnLocalPlayerSkydiveDrop callback)
 		{
-			_localInput.Gameplay.SpecialButton0.Disable();
-			_localInput.Gameplay.SpecialButton1.Disable();
-			_localInput.Gameplay.Aim.Disable();
+			var input = _services.PlayerInputService.Input.Gameplay;
+			
+			input.SpecialButton0.Disable();
+			input.SpecialButton1.Disable();
+			input.Aim.Disable();
+			input.AimButton.Disable();
 
 			foreach (var go in _disableWhileParachuting)
 			{
@@ -244,9 +254,19 @@ namespace FirstLight.Game.Presenters
 
 		private void OnLocalPlayerSkydiveLanded(EventOnLocalPlayerSkydiveLand callback)
 		{
-			_localInput.Gameplay.SpecialButton0.Enable();
-			_localInput.Gameplay.Aim.Enable();
-
+			var input = _services.PlayerInputService.Input.Gameplay;
+			
+			for (int i = 0; i < _specialButtons.Length; i++)
+			{
+				if (_specialButtons[i].isActiveAndEnabled)
+				{
+					input.GetSpecialButton(i).Enable();
+				}
+			}
+			
+			input.Aim.Enable();
+			input.AimButton.Enable();
+			
 			foreach (var go in _disableWhileParachuting)
 			{
 				go.SetActive(true);
@@ -270,7 +290,7 @@ namespace FirstLight.Game.Presenters
 		private void OnEventOnLocalPlayerSpecialUsed(EventOnLocalPlayerSpecialUsed callback)
 		{
 			var button = _specialButtons[callback.SpecialIndex];
-			var inputButton = _localInput.Gameplay.GetSpecialButton(callback.SpecialIndex);
+			var inputButton = _services.PlayerInputService.Input.Gameplay.GetSpecialButton(callback.SpecialIndex);
 			var currentTime = callback.Game.Frames.Predicted.Time;
 			
 			button.SpecialUpdate(currentTime, callback.Special)?.OnComplete(inputButton.Enable);
@@ -309,7 +329,7 @@ namespace FirstLight.Game.Presenters
 			// Disables the input until the cooldown is off
 			if (special.Charges == 1)
 			{
-				_localInput.Gameplay.GetSpecialButton(specialIndex).Disable();
+				_services.PlayerInputService.Input.Gameplay.GetSpecialButton(specialIndex).Disable();
 			}
 			
 			var command = new SpecialUsedCommand
@@ -345,7 +365,7 @@ namespace FirstLight.Game.Presenters
 			for (var i = 0; i < weaponSlot.Specials.Length; i++)
 			{
 				var special = weaponSlot.Specials[i];
-				var inputButton = _localInput.Gameplay.GetSpecialButton(i);
+				var inputButton = _services.PlayerInputService.Input.Gameplay.GetSpecialButton(i);
 				
 				_indicatorContainerView.SetupIndicator(i, weaponSlot.Specials[i].SpecialId, playerView);
 

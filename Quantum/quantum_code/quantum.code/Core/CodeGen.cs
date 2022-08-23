@@ -31,6 +31,10 @@ namespace Quantum {
     Announcing,
     Dropped,
   }
+  public enum AudioStateMachine : int {
+    Deathmatch,
+    BattleRoyale,
+  }
   public enum BotBehaviourType : int {
     Balanced,
     Cautious,
@@ -257,6 +261,10 @@ namespace Quantum {
     Platform = 37,
     Collection = 9,
     DeathMarker = 10,
+  }
+  public enum GameSimulationStateMachine : int {
+    Deathmatch,
+    BattleRoyale,
   }
   public enum RankProcessor : int {
     General,
@@ -8410,6 +8418,7 @@ namespace Quantum {
       Register(typeof(Quantum.AssetRefQuantumWeaponConfigs), Quantum.AssetRefQuantumWeaponConfigs.SIZE);
       Register(typeof(AssetRefTerrainCollider), AssetRefTerrainCollider.SIZE);
       Register(typeof(Quantum.AssetRefUTRoot), Quantum.AssetRefUTRoot.SIZE);
+      Register(typeof(Quantum.AudioStateMachine), 4);
       Register(typeof(Quantum.BTAgent), Quantum.BTAgent.SIZE);
       Register(typeof(Quantum.BTDataIndex), Quantum.BTDataIndex.SIZE);
       Register(typeof(Quantum.BTDataValue), Quantum.BTDataValue.SIZE);
@@ -8474,6 +8483,7 @@ namespace Quantum {
       Register(typeof(Quantum.GameContainer), Quantum.GameContainer.SIZE);
       Register(typeof(Quantum.GameId), 4);
       Register(typeof(Quantum.GameIdGroup), 4);
+      Register(typeof(Quantum.GameSimulationStateMachine), 4);
       Register(typeof(Quantum.HFSMAgent), Quantum.HFSMAgent.SIZE);
       Register(typeof(Quantum.HFSMData), Quantum.HFSMData.SIZE);
       Register(typeof(Quantum.Hazard), Quantum.Hazard.SIZE);
@@ -8588,6 +8598,7 @@ namespace Quantum {
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.AssetRefQuantumStatConfigs>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.AssetRefQuantumWeaponConfigs>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.AssetRefUTRoot>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.AudioStateMachine>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.BotBehaviourType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.BotWeaponSearchStrategy>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.ChestType>();
@@ -8604,6 +8615,7 @@ namespace Quantum {
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.GameCompletionStrategy>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.GameId>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.GameIdGroup>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.GameSimulationStateMachine>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.InputButtons>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.RankProcessor>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.RankSorter>();
@@ -8638,6 +8650,17 @@ namespace Quantum.Prototypes {
     }
     public static implicit operator AirDropStage_Prototype(AirDropStage value) {
         return new AirDropStage_Prototype() { Value = (Int32)value };
+    }
+  }
+  [System.SerializableAttribute()]
+  [Prototype(typeof(AudioStateMachine))]
+  public unsafe partial struct AudioStateMachine_Prototype {
+    public Int32 Value;
+    public static implicit operator AudioStateMachine(AudioStateMachine_Prototype value) {
+        return (AudioStateMachine)value.Value;
+    }
+    public static implicit operator AudioStateMachine_Prototype(AudioStateMachine value) {
+        return new AudioStateMachine_Prototype() { Value = (Int32)value };
     }
   }
   [System.SerializableAttribute()]
@@ -8814,6 +8837,17 @@ namespace Quantum.Prototypes {
     }
     public static implicit operator GameIdGroup_Prototype(GameIdGroup value) {
         return new GameIdGroup_Prototype() { Value = (Int32)value };
+    }
+  }
+  [System.SerializableAttribute()]
+  [Prototype(typeof(GameSimulationStateMachine))]
+  public unsafe partial struct GameSimulationStateMachine_Prototype {
+    public Int32 Value;
+    public static implicit operator GameSimulationStateMachine(GameSimulationStateMachine_Prototype value) {
+        return (GameSimulationStateMachine)value.Value;
+    }
+    public static implicit operator GameSimulationStateMachine_Prototype(GameSimulationStateMachine value) {
+        return new GameSimulationStateMachine_Prototype() { Value = (Int32)value };
     }
   }
   [System.SerializableAttribute()]

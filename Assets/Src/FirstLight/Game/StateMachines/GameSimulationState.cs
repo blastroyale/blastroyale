@@ -81,8 +81,8 @@ namespace FirstLight.Game.StateMachines
 			startSimulation.Event(NetworkState.LeftRoomEvent).Target(final);
 
 			modeCheck.OnEnter(OpenAdventureWorldHud);
-			modeCheck.Transition().Condition(IsDeathmatch).Target(deathmatch);
-			modeCheck.Transition().Target(battleRoyale);
+			modeCheck.Transition().Condition(ShouldUseDeathmatchSM).Target(deathmatch);
+			modeCheck.Transition().Condition(ShouldUseBattleRoyaleSM).Target(battleRoyale);
 
 			deathmatch.Nest(_deathmatchState.Setup).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
 			deathmatch.Event(MatchEndedEvent).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
@@ -153,10 +153,16 @@ namespace FirstLight.Game.StateMachines
 			return _lastTrophyChange != 0;
 		}
 
-		private bool IsDeathmatch()
+		private bool ShouldUseDeathmatchSM()
 		{
-			// TODO: Fix this!
-			return _services.NetworkService.CurrentRoomGameModeConfig.Value.Id == "Deathmatch";
+			return _services.NetworkService.CurrentRoomGameModeConfig.Value.AudioStateMachine ==
+			       AudioStateMachine.Deathmatch;
+		}
+		
+		private bool ShouldUseBattleRoyaleSM()
+		{
+			return _services.NetworkService.CurrentRoomGameModeConfig.Value.AudioStateMachine ==
+			       AudioStateMachine.BattleRoyale;
 		}
 
 		private bool IsRankedMatch()

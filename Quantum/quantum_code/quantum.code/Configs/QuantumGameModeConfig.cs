@@ -109,6 +109,13 @@ namespace Quantum
 
 #endregion
 
+#region State Machines
+
+		[FoldoutGroup("State Machines"), PropertyTooltip(DESC_GAME_SIMULATION_SM)] public GameSimulationStateMachine GameSimulationStateMachine;
+		[FoldoutGroup("State Machines"), PropertyTooltip(DESC_AUDIO_SM)] public AudioStateMachine AudioStateMachine;
+
+#endregion
+
 #region Endgame
 
 		[FoldoutGroup("Endgame"), PropertyTooltip(DESC_COMPLETION_STRATEGY)]
@@ -171,6 +178,8 @@ namespace Quantum
 		private const string DESC_COMPLETION_STRATEGY = "What should mark the end of a match.";
 		private const string DESC_COMPLETION_KILL_COUNT = "How many kills must a player have to win the match.";
 		private const string DESC_GIVE_REWARDS = "Should the player be rewarded (i.e. ranked game) after completing a game.";
+		private const string DESC_GAME_SIMULATION_SM = "Which state machine to use for game simulation";
+		private const string DESC_AUDIO_SM = "Which state machine to use for audio.";
 		private const string DESC_SYSTEMS = "Which Quantum systems should be enabled for this game mode.";
 		// @formatter:on
 

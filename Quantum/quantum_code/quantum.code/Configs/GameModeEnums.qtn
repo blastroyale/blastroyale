@@ -30,3 +30,15 @@ enum GameCompletionStrategy
     EveryoneDead,
     KillCount
 }
+
+enum AudioStateMachine
+{
+    Deathmatch,
+    BattleRoyale
+}
+
+enum GameSimulationStateMachine
+{
+    Deathmatch,
+    BattleRoyale
+}

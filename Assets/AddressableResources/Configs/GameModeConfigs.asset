@@ -45,6 +45,8 @@ MonoBehaviour:
       BotSearchForCrates: 1
       BotRespawn: 0
       BotWeaponSearchStrategy: 1
+      GameSimulationStateMachine: 1
+      AudioStateMachine: 1
       CompletionStrategy: 1
       CompletionKillCount: 0
       GiveRewards: 0
@@ -78,6 +80,8 @@ MonoBehaviour:
       BotSearchForCrates: 0
       BotRespawn: 1
       BotWeaponSearchStrategy: 2
+      GameSimulationStateMachine: 0
+      AudioStateMachine: 0
       CompletionStrategy: 2
       CompletionKillCount: 10
       GiveRewards: 0
@@ -109,6 +113,8 @@ MonoBehaviour:
       BotSearchForCrates: 0
       BotRespawn: 0
       BotWeaponSearchStrategy: 1
+      GameSimulationStateMachine: 1
+      AudioStateMachine: 1
       CompletionStrategy: 1
       CompletionKillCount: 0
       GiveRewards: 0

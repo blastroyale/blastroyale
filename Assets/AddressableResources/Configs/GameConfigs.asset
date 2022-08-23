@@ -27,8 +27,8 @@ MonoBehaviour:
       CasualMatchmakingTime:
         RawValue: 983040
       RankedMatchmakingTime:
-        RawValue: 7864320
-      RankedMatchmakingMinPlayers: 19
+        RawValue: 327680
+      RankedMatchmakingMinPlayers: 1
       BotsNameCount: 200
       PlayerRespawnTime:
         RawValue: 262144
@@ -75,9 +75,11 @@ MonoBehaviour:
       TrophyEloK:
         RawValue: 163840
       NftAssumedOwned: 40
-      MinNftForEarnings: 0
-      AdjectiveRarityEarningsMod:
+      MinNftForEarnings: 3
+      EarningsAugmentationStrengthDropMod:
         RawValue: 52429
+      EarningsAugmentationStrengthSteepnessMod:
+        RawValue: 196608
       NftUsageCooldownMinutes: 1440
       NftRequiredEquippedForPlay: 3
       PlayerVisionRange:

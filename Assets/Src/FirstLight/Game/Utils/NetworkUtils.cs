@@ -182,7 +182,7 @@ namespace FirstLight.Game.Utils
 				{GameConstants.Network.ROOM_PROPS_RANKED_MATCH, isRankedMatch},
 				
 				// Games always either have bots, or dont. This property needs to be in here
-				{GameConstants.Network.ROOM_PROPS_BOTS, gameHasBots}
+				{GameConstants.Network.ROOM_PROPS_BOTS, true}
 			};
 		}
 

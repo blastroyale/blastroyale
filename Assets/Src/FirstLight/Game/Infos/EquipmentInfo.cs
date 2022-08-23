@@ -82,8 +82,8 @@ namespace FirstLight.Game.Infos
 		{
 			var modEquipmentList = new List<Tuple<double, Equipment>>();
 			var nftAssumed = gameConfig.NftAssumedOwned;
-			var minNftOwned = gameConfig.MinNftForEarnings;
-			var adjRarityCurveMod = (double) gameConfig.AdjectiveRarityEarningsMod;
+			var earningsAugDropMod = (double) gameConfig.EarningsAugmentationStrengthDropMod;
+			var earningsAugSteepnessMod = (double) gameConfig.EarningsAugmentationStrengthSteepnessMod;
 			var augmentedModSum = 0d;
 			
 			foreach (var nft in items)
@@ -95,7 +95,7 @@ namespace FirstLight.Game.Infos
 
 			for (var i = 0; i < modEquipmentList.Count; i++)
 			{
-				var strength = Math.Pow(Math.Max(0, 1 - Math.Pow(i, adjRarityCurveMod) / nftAssumed), minNftOwned);
+				var strength = Math.Pow(Math.Max(0, 1 - Math.Pow(i, earningsAugDropMod) / nftAssumed), earningsAugSteepnessMod);
 				
 				augmentedModSum += modEquipmentList[i].Item1 * strength;
 			}

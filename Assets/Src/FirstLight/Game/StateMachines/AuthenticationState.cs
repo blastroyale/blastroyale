@@ -244,18 +244,18 @@ namespace FirstLight.Game.StateMachines
 			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
 			_passwordRecoveryEmailTemplateId = "***REMOVED***";
 #else
+			PlayFabSettings.TitleId = "***REMOVED***";
+			_passwordRecoveryEmailTemplateId = "***REMOVED***";
 			// Dev
 			if (FeatureFlags.QUANTUM_CUSTOM_SERVER)
 			{
-				PlayFabSettings.TitleId = "F1A83"; // QUANTUM TEST SERVER - uses dev backend
-				quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***"; // quantum enterprise dev
+				quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***"; // quantum enterprise dev				
 			}
 			else
 			{
-				PlayFabSettings.TitleId = "***REMOVED***";
-				quantumSettings.AppSettings.AppIdRealtime="***REMOVED***"; // TEMP SERVER
-				_passwordRecoveryEmailTemplateId = "***REMOVED***";
+				quantumSettings.AppSettings.AppIdRealtime="***REMOVED***"; // TEMP SERVER	
 			}
+			
 #endif
 			
 			if (environment != appData.Environment)

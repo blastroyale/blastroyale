@@ -22,7 +22,7 @@ namespace FirstLight.Game.Utils
 		/// If false, player can create/join rooms not locked by commit
 		/// </summary>
 		public static bool COMMIT_VERSION_LOCK = true;
-		
+
 		/// <summary>
 		/// When true, will send end of match commands using quantum server consensus algorithm.
 		/// When false commands will go directly to our backend. 

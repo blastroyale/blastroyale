@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Services;
@@ -9,6 +10,7 @@ using PlayFab;
 using PlayFab.CloudScriptModels;
 using PlayFab.ServerModels;
 using Quantum;
+using ServerSDK.Modules;
 
 namespace quantum.custom.plugin
 {
@@ -56,9 +58,10 @@ namespace quantum.custom.plugin
 				AuthenticationContext = new PlayFabAuthenticationContext()
 				{
 					PlayFabId = userId,
-					EntityToken = token
+					EntityToken = token,
 				}
 			};
+
 			HttpWrapper.Post(userId, "/CloudScript/ExecuteFunction", request, OnPlayfabCommand, new Dictionary<string, string>()
 			{
 				{ "X-EntityToken", token }
@@ -80,10 +83,10 @@ namespace quantum.custom.plugin
 		
 		private void OnPlayfabCommand(IHttpResponse response, object userState)
 		{
-			var json = response.ResponseText;
-			if(response.HttpCode != 200)
+			if(response.HttpCode >= 400)
 			{
-				Log.Error($"Invalid PlayFab response to url {response.Request.Url} status {response.Status} {response.ResponseText}");
+				var dataString = response.ResponseData?.Length > 0 ? Encoding.UTF8.GetString(response.ResponseData) : "";
+				Log.Error($"Invalid PlayFab response to url {response.Request.Url} status {response.Status} data {dataString} text {response.ResponseText}");
 			}
 		}
 	}

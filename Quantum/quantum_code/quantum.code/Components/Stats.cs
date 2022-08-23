@@ -168,7 +168,7 @@ namespace Quantum
 			var maxHealth = GetStatData(StatType.Health).StatValue.AsInt;
 			var maxShield = GetStatData(StatType.Shield).StatValue.AsInt;
 			var armour = GetStatData(StatType.Armour).StatValue.AsInt;
-			var totalDamage = Math.Max(Math.Max((int)spell.PowerAmount, 0) - armour, 0);
+			var totalDamage = Math.Max((int)spell.PowerAmount - armour, 0);
 			var damageAmount = totalDamage;
 
 			if (IsImmune)

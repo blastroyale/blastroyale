@@ -27,6 +27,7 @@ namespace FirstLight.Game.Utils
 
 			var roomNameFinal = isRandomMatchmaking ? null : roomName;
 			var emptyTtl = 0;
+			var maxPlayers = GetMaxPlayers(gameModeConfig, mapConfig);
 			
 			if (FeatureFlags.COMMIT_VERSION_LOCK && !isRandomMatchmaking)
 			{
@@ -65,8 +66,8 @@ namespace FirstLight.Game.Utils
 					IsOpen = true,
 					IsVisible = isRandomMatchmaking,
 					MaxPlayers = isRandomMatchmaking
-						             ? (byte) mapConfig.PlayersLimit
-						             : (byte) (mapConfig.PlayersLimit + GameConstants.Data.MATCH_SPECTATOR_SPOTS),
+						             ? (byte) maxPlayers
+						             : (byte) (maxPlayers + GameConstants.Data.MATCH_SPECTATOR_SPOTS),
 					PlayerTtl = GameConstants.Network.DEFAULT_PLAYER_TTL_MS
 				}
 			};
@@ -108,7 +109,7 @@ namespace FirstLight.Game.Utils
 			return new OpJoinRandomRoomParams
 			{
 				ExpectedCustomRoomProperties = GetJoinRoomProperties(gameModeConfig, mapConfig, isRankedMatch, gameHasBots),
-				ExpectedMaxPlayers = (byte) mapConfig.PlayersLimit,
+				ExpectedMaxPlayers = (byte) GetMaxPlayers(gameModeConfig, mapConfig),
 				ExpectedUsers = null,
 				MatchingType = MatchmakingMode.FillRoom,
 				SqlLobbyFilter = "",
@@ -285,6 +286,14 @@ namespace FirstLight.Game.Utils
 
 
 			return dropPattern;
+		}
+
+		/// <summary>
+		/// Calculates the maximum number of players based on game mode and map.
+		/// </summary>
+		public static int GetMaxPlayers(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig)
+		{
+			return Math.Min((int) gameModeConfig.MaxPlayers, mapConfig.PlayersLimit);
 		}
 	}
 }

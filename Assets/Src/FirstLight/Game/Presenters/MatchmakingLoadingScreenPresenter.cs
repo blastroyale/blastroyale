@@ -92,12 +92,13 @@ namespace FirstLight.Game.Presenters
 			
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
 			var mapInfo = _services.NetworkService.CurrentRoomMapConfig.Value;
+			var gameModeConfig = _services.NetworkService.CurrentRoomGameModeConfig.Value;
 			
 			MapSelectionView.SetupMapView(room.GetGameModeId(), room.GetMapId());
 			
 			if (RejoiningRoom)
 			{
-				_playerListHolder.Init((uint) mapInfo.PlayersLimit);
+				_playerListHolder.Init((uint) gameModeConfig.MaxPlayers);
 				_spectatorListHolder.Init(GameConstants.Data.MATCH_SPECTATOR_SPOTS);
 				
 				_spectateToggleObjectRoot.SetActive(false);
@@ -147,7 +148,7 @@ namespace FirstLight.Game.Presenters
 			}
 			else
 			{
-				_playerListHolder.Init((uint) mapInfo.PlayersLimit);
+				_playerListHolder.Init((uint) gameModeConfig.MaxPlayers);
 				_spectatorListHolder.Init(GameConstants.Data.MATCH_SPECTATOR_SPOTS);
 
 				_playerListHolder.gameObject.SetActive(true);

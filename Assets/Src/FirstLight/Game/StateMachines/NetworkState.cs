@@ -586,13 +586,13 @@ namespace FirstLight.Game.StateMachines
 		private void StartRandomMatchmaking(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig)
 		{
 			var isRankedMatch = _gameDataProvider.AppDataProvider.SelectedMatchType.Value == MatchType.Ranked;
-			var gameHasBots = !isRankedMatch;
+			var gameHasBots = gameModeConfig.AllowBots && !isRankedMatch;
 			var gridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
 			var createParams =
 				NetworkUtils.GetRoomCreateParams(gameModeConfig, mapConfig, gridConfigs, null, isRankedMatch, gameHasBots);
 			var joinRandomParams = NetworkUtils.GetJoinRandomRoomParams(gameModeConfig, mapConfig, isRankedMatch, gameHasBots);
 
-			QuantumRunnerConfigs.IsOfflineMode = mapConfig.PlayersLimit == 1;
+			QuantumRunnerConfigs.IsOfflineMode = NetworkUtils.GetMaxPlayers(gameModeConfig, mapConfig) == 1;
 
 			UpdateQuantumClientProperties();
 

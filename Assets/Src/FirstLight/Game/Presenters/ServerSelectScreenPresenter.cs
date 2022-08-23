@@ -62,8 +62,8 @@ namespace FirstLight.Game.Presenters
 
 			foreach (var region in _availableRegions)
 			{
-				var regionName = LocalizationUtils.GetRegionName(region.Code);
-				string regionTitle = string.Format(ScriptLocalization.MainMenu.ServerSelectOption, regionName.ToUpper(), "-");
+				string regionTitle = string.Format(ScriptLocalization.MainMenu.ServerSelectOption,
+				                                   region.Code.GetPhotonRegionTranslation().ToUpper(), "-");
 
 				_serverSelectDropdown.options.Add(new DropdownMenuOption(regionTitle, region));
 
@@ -83,17 +83,17 @@ namespace FirstLight.Game.Presenters
 		public void UpdateRegionPing(RegionHandler regionHandler)
 		{
 			var selectedOption = (DropdownMenuOption) _serverSelectDropdown.options[_serverSelectDropdown.value];
-			var regionName = LocalizationUtils.GetRegionName(selectedOption.RegionInfo.Code);
-			
-			_serverSelectDropdown.captionText.text = string.Format(ScriptLocalization.MainMenu.ServerSelectOption, regionName.ToUpper(),
+
+			_serverSelectDropdown.captionText.text = string.Format(ScriptLocalization.MainMenu.ServerSelectOption,
+			                                                       selectedOption.RegionInfo.Code.GetPhotonRegionTranslation().ToUpper(),
 			                                                       selectedOption.RegionInfo.Ping);
 
 			foreach (var dropdownOption in _serverSelectDropdown.options)
 			{
 				var regionOption = (DropdownMenuOption) dropdownOption;
-				regionName = LocalizationUtils.GetRegionName(regionOption.RegionInfo.Code);
-				
-				dropdownOption.text = string.Format(ScriptLocalization.MainMenu.ServerSelectOption, regionName.ToUpper(),
+
+				dropdownOption.text = string.Format(ScriptLocalization.MainMenu.ServerSelectOption,
+				                                    regionOption.RegionInfo.Code.GetPhotonRegionTranslation().ToUpper(),
 				                                    regionOption.RegionInfo.Ping);
 			}
 		}
@@ -116,8 +116,7 @@ namespace FirstLight.Game.Presenters
 				return;
 			}
 
-			var selectedRegion = ((DropdownMenuOption) _serverSelectDropdown.options[_serverSelectDropdown.value])
-				.RegionInfo;
+			var selectedRegion = ((DropdownMenuOption) _serverSelectDropdown.options[_serverSelectDropdown.value]).RegionInfo;
 			Data.RegionChosen.Invoke(selectedRegion);
 			SetFrontDimBlockerActive(true);
 		}

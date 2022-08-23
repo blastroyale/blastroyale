@@ -73,8 +73,8 @@ namespace FirstLight.Game.Presenters
 			_faq.onClick.AddListener(OnFaqButtonPressed);
 			_serverSelectButton.onClick.AddListener(OpenServerSelect);
 			_logoutButton.gameObject.SetActive(FeatureFlags.EMAIL_AUTH);
-			
-			var regionName = LocalizationUtils.GetRegionName( _gameDataProvider.AppDataProvider.ConnectionRegion.Value);
+
+			var regionName = _gameDataProvider.AppDataProvider.ConnectionRegion.Value.GetPhotonRegionTranslation();
 			_selectedServerText.text = string.Format(ScriptLocalization.MainMenu.ServerCurrent, regionName.ToUpper());
 
 #if UNITY_IOS
@@ -84,7 +84,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnConnectionRegionChange(string previousValue, string newValue)
 		{
-			var regionName = LocalizationUtils.GetRegionName(newValue);
+			var regionName = newValue.GetPhotonRegionTranslation();
 			_selectedServerText.text = string.Format(ScriptLocalization.MainMenu.ServerCurrent, regionName.ToUpper());
 		}
 

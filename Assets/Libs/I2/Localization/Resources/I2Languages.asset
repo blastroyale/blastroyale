@@ -23,7 +23,8 @@ MonoBehaviour:
       Languages:
       - This identifier will be used to measure advertising efficiency.
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/AWESOME
       TermType: 0
@@ -31,7 +32,8 @@ MonoBehaviour:
       Languages:
       - AWESOME!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Appearance
       TermType: 0
@@ -39,7 +41,8 @@ MonoBehaviour:
       Languages:
       - Appearance
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/AreYouSure
       TermType: 0
@@ -47,7 +50,8 @@ MonoBehaviour:
       Languages:
       - Are you Sure?
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Armor
       TermType: 0
@@ -55,7 +59,8 @@ MonoBehaviour:
       Languages:
       - Armor
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Armour
       TermType: 0
@@ -63,7 +68,8 @@ MonoBehaviour:
       Languages:
       - Armour
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Ammo
       TermType: 0
@@ -71,7 +77,8 @@ MonoBehaviour:
       Languages:
       - Ammo
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/AttackCooldown
       TermType: 0
@@ -79,7 +86,8 @@ MonoBehaviour:
       Languages:
       - Cooldown
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Back
       TermType: 0
@@ -87,7 +95,8 @@ MonoBehaviour:
       Languages:
       - Back
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/CONTINUE
       TermType: 0
@@ -95,7 +104,8 @@ MonoBehaviour:
       Languages:
       - CONTINUE
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/CollectItemsFromCrates
       TermType: 0
@@ -103,7 +113,8 @@ MonoBehaviour:
       Languages:
       - Collect new equipment from crates and cores found in Adventures!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/CompareEquipment
       TermType: 0
@@ -111,7 +122,8 @@ MonoBehaviour:
       Languages:
       - Compare Equipment
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Confirm
       TermType: 0
@@ -119,7 +131,8 @@ MonoBehaviour:
       Languages:
       - Confirm
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/ConfirmIAPPurchase
       TermType: 0
@@ -127,7 +140,8 @@ MonoBehaviour:
       Languages:
       - Confirm your In-App Purchase
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/ConfirmQuit
       TermType: 0
@@ -135,7 +149,8 @@ MonoBehaviour:
       Languages:
       - Are you sure you want to quit? You will lose all of your collected loot!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/DEFEATED
       TermType: 0
@@ -143,7 +158,8 @@ MonoBehaviour:
       Languages:
       - DEFEATED!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Damage
       TermType: 0
@@ -151,7 +167,8 @@ MonoBehaviour:
       Languages:
       - Damage
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Decline
       TermType: 0
@@ -159,7 +176,8 @@ MonoBehaviour:
       Languages:
       - Decline
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/DefeatBoss
       TermType: 0
@@ -167,7 +185,8 @@ MonoBehaviour:
       Languages:
       - Defeat {0}!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Disconnected
       TermType: 0
@@ -175,7 +194,8 @@ MonoBehaviour:
       Languages:
       - Disconnected
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Equip
       TermType: 0
@@ -183,7 +203,8 @@ MonoBehaviour:
       Languages:
       - EQUIP
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/EquipLastWeaponWarning
       TermType: 0
@@ -191,7 +212,8 @@ MonoBehaviour:
       Languages:
       - You only have one weapon left, so can't unequip it.
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Equipment
       TermType: 0
@@ -199,7 +221,8 @@ MonoBehaviour:
       Languages:
       - Equipment
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Equipped
       TermType: 0
@@ -207,7 +230,8 @@ MonoBehaviour:
       Languages:
       - EQUIPPED
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/ExitGame
       TermType: 0
@@ -215,7 +239,8 @@ MonoBehaviour:
       Languages:
       - EXIT GAME
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/FailureReason1
       TermType: 0
@@ -223,7 +248,8 @@ MonoBehaviour:
       Languages:
       - Reason1
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/FailureReason2
       TermType: 0
@@ -231,7 +257,8 @@ MonoBehaviour:
       Languages:
       - Reason2
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/FailureReason3
       TermType: 0
@@ -239,7 +266,8 @@ MonoBehaviour:
       Languages:
       - Reason3
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Get Ready!
       TermType: 0
@@ -247,7 +275,8 @@ MonoBehaviour:
       Languages:
       - Get Ready!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/GoToShop
       TermType: 0
@@ -255,7 +284,8 @@ MonoBehaviour:
       Languages:
       - Would you like to go to the shop
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Health
       TermType: 0
@@ -263,7 +293,8 @@ MonoBehaviour:
       Languages:
       - Health
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Heroes
       TermType: 0
@@ -271,7 +302,8 @@ MonoBehaviour:
       Languages:
       - Heroes
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Home
       TermType: 0
@@ -279,7 +311,8 @@ MonoBehaviour:
       Languages:
       - Home
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Hp
       TermType: 0
@@ -287,7 +320,8 @@ MonoBehaviour:
       Languages:
       - HP
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Leave
       TermType: 0
@@ -295,7 +329,8 @@ MonoBehaviour:
       Languages:
       - Leave
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/LeaveFeedback
       TermType: 0
@@ -303,7 +338,8 @@ MonoBehaviour:
       Languages:
       - Leave Feedback!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Level
       TermType: 0
@@ -311,7 +347,8 @@ MonoBehaviour:
       Languages:
       - Level
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Maintenance
       TermType: 0
@@ -319,7 +356,8 @@ MonoBehaviour:
       Languages:
       - Game in Maintenance
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/MaintenanceDescription
       TermType: 0
@@ -327,7 +365,8 @@ MonoBehaviour:
       Languages:
       - Game devs are running around like Bored Blast Apes in Royale Club
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Map
       TermType: 0
@@ -335,7 +374,8 @@ MonoBehaviour:
       Languages:
       - MAP
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/MaxAttackAngle
       TermType: 0
@@ -343,7 +383,8 @@ MonoBehaviour:
       Languages:
       - Max Angle
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/MaxCapacity
       TermType: 0
@@ -351,7 +392,8 @@ MonoBehaviour:
       Languages:
       - Max Capacity
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/MaxLevel
       TermType: 0
@@ -359,7 +401,8 @@ MonoBehaviour:
       Languages:
       - MAX LEVEL
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/MinAttackAngle
       TermType: 0
@@ -367,7 +410,8 @@ MonoBehaviour:
       Languages:
       - Min Angle
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/NewGameUpdate
       TermType: 0
@@ -375,7 +419,8 @@ MonoBehaviour:
       Languages:
       - New Game Update
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/No
       TermType: 0
@@ -383,7 +428,8 @@ MonoBehaviour:
       Languages:
       - NO
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/NoInternet
       TermType: 0
@@ -391,7 +437,8 @@ MonoBehaviour:
       Languages:
       - No Internet Connection
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/NoInternetDescription
       TermType: 0
@@ -401,7 +448,8 @@ MonoBehaviour:
 
         Check your internet connection.'
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/NoItemsCollectedYet
       TermType: 0
@@ -409,7 +457,8 @@ MonoBehaviour:
       Languages:
       - No items collected yet
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/NotEnoughCash
       TermType: 0
@@ -417,7 +466,8 @@ MonoBehaviour:
       Languages:
       - Not Enough Cash
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/NotEnoughGems
       TermType: 0
@@ -425,7 +475,8 @@ MonoBehaviour:
       Languages:
       - You don't have enough Gems!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/NumberOfShots
       TermType: 0
@@ -433,7 +484,8 @@ MonoBehaviour:
       Languages:
       - Bullets Per Shot
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/OK
       TermType: 0
@@ -441,7 +493,8 @@ MonoBehaviour:
       Languages:
       - OK
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Open
       TermType: 0
@@ -449,7 +502,8 @@ MonoBehaviour:
       Languages:
       - OPEN
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Ordinal0
       TermType: 0
@@ -457,7 +511,8 @@ MonoBehaviour:
       Languages:
       - th
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Ordinal1
       TermType: 0
@@ -465,7 +520,8 @@ MonoBehaviour:
       Languages:
       - st
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Ordinal10
       TermType: 0
@@ -473,7 +529,8 @@ MonoBehaviour:
       Languages:
       - th
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Ordinal11
       TermType: 0
@@ -481,7 +538,8 @@ MonoBehaviour:
       Languages:
       - th
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Ordinal12
       TermType: 0
@@ -489,7 +547,8 @@ MonoBehaviour:
       Languages:
       - th
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Ordinal13
       TermType: 0
@@ -497,7 +556,8 @@ MonoBehaviour:
       Languages:
       - th
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Ordinal14
       TermType: 0
@@ -505,7 +565,8 @@ MonoBehaviour:
       Languages:
       - th
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Ordinal15
       TermType: 0
@@ -513,7 +574,8 @@ MonoBehaviour:
       Languages:
       - th
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Ordinal16
       TermType: 0
@@ -521,7 +583,8 @@ MonoBehaviour:
       Languages:
       - th
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Ordinal17
       TermType: 0
@@ -529,7 +592,8 @@ MonoBehaviour:
       Languages:
       - th
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Ordinal18
       TermType: 0
@@ -537,7 +601,8 @@ MonoBehaviour:
       Languages:
       - th
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Ordinal19
       TermType: 0
@@ -545,7 +610,8 @@ MonoBehaviour:
       Languages:
       - th
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Ordinal2
       TermType: 0
@@ -553,7 +619,8 @@ MonoBehaviour:
       Languages:
       - nd
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Ordinal3
       TermType: 0
@@ -561,7 +628,8 @@ MonoBehaviour:
       Languages:
       - rd
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Ordinal4
       TermType: 0
@@ -569,7 +637,8 @@ MonoBehaviour:
       Languages:
       - th
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Ordinal5
       TermType: 0
@@ -577,7 +646,8 @@ MonoBehaviour:
       Languages:
       - th
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Ordinal6
       TermType: 0
@@ -585,7 +655,8 @@ MonoBehaviour:
       Languages:
       - th
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Ordinal7
       TermType: 0
@@ -593,7 +664,8 @@ MonoBehaviour:
       Languages:
       - th
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Ordinal8
       TermType: 0
@@ -601,7 +673,8 @@ MonoBehaviour:
       Languages:
       - th
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Ordinal9
       TermType: 0
@@ -609,7 +682,8 @@ MonoBehaviour:
       Languages:
       - th
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/PlacementMessage
       TermType: 0
@@ -617,7 +691,8 @@ MonoBehaviour:
       Languages:
       - You finished {0}
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Power
       TermType: 0
@@ -625,7 +700,8 @@ MonoBehaviour:
       Languages:
       - Attack
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/PowerToDamageRatio
       TermType: 0
@@ -633,7 +709,8 @@ MonoBehaviour:
       Languages:
       - Attack to Damage
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/PrimarySpecial
       TermType: 0
@@ -641,7 +718,8 @@ MonoBehaviour:
       Languages:
       - Primary Special
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/ProjectileArmor
       TermType: 0
@@ -649,7 +727,8 @@ MonoBehaviour:
       Languages:
       - Projectile Armor
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/ProjectileSpeed
       TermType: 0
@@ -657,7 +736,8 @@ MonoBehaviour:
       Languages:
       - Speed
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/RESULTS
       TermType: 0
@@ -665,7 +745,8 @@ MonoBehaviour:
       Languages:
       - RESULTS
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/REWARDS
       TermType: 0
@@ -673,7 +754,8 @@ MonoBehaviour:
       Languages:
       - REWARDS
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Ready
       TermType: 0
@@ -681,7 +763,8 @@ MonoBehaviour:
       Languages:
       - Ready
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/ReloadSpeed
       TermType: 0
@@ -689,7 +772,8 @@ MonoBehaviour:
       Languages:
       - Reload Speed
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Reloading
       TermType: 0
@@ -697,7 +781,8 @@ MonoBehaviour:
       Languages:
       - Reloading
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Replace
       TermType: 0
@@ -705,7 +790,8 @@ MonoBehaviour:
       Languages:
       - REPLACE
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/RequireWeapon
       TermType: 0
@@ -713,7 +799,8 @@ MonoBehaviour:
       Languages:
       - You must have a weapon equipped in order to play a game!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/SecondarySpecial
       TermType: 0
@@ -721,7 +808,8 @@ MonoBehaviour:
       Languages:
       - Second Special
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Select
       TermType: 0
@@ -729,7 +817,8 @@ MonoBehaviour:
       Languages:
       - Select
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Selected
       TermType: 0
@@ -737,7 +826,8 @@ MonoBehaviour:
       Languages:
       - Selected
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Sell
       TermType: 0
@@ -745,7 +835,8 @@ MonoBehaviour:
       Languages:
       - SELL
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/SellItemFor
       TermType: 0
@@ -753,7 +844,8 @@ MonoBehaviour:
       Languages:
       - Sell this item for {0}
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/SellLastWeaponWarning
       TermType: 0
@@ -761,7 +853,8 @@ MonoBehaviour:
       Languages:
       - You only have one weapon left, so aren't able to sell this item.
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Shield
       TermType: 0
@@ -769,7 +862,8 @@ MonoBehaviour:
       Languages:
       - Shields
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/SlotEmpty
       TermType: 0
@@ -777,7 +871,8 @@ MonoBehaviour:
       Languages:
       - Slot Empty
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/SpecialId
       TermType: 0
@@ -785,7 +880,8 @@ MonoBehaviour:
       Languages:
       - Special
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Spectate
       TermType: 0
@@ -793,7 +889,8 @@ MonoBehaviour:
       Languages:
       - Spectate
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Speed
       TermType: 0
@@ -801,7 +898,8 @@ MonoBehaviour:
       Languages:
       - Speed
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/SplashDamageRadius
       TermType: 0
@@ -809,7 +907,8 @@ MonoBehaviour:
       Languages:
       - Splash Radius
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/TapSkip
       TermType: 0
@@ -817,7 +916,8 @@ MonoBehaviour:
       Languages:
       - Tap to Skip
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/TargetRange
       TermType: 0
@@ -825,7 +925,8 @@ MonoBehaviour:
       Languages:
       - Range
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Unequip
       TermType: 0
@@ -833,7 +934,8 @@ MonoBehaviour:
       Languages:
       - UNEQUIP
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/UnlockAtPlayerLevel
       TermType: 0
@@ -841,7 +943,8 @@ MonoBehaviour:
       Languages:
       - Unlock at Player Level {0}
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/UpdateGame
       TermType: 0
@@ -849,7 +952,8 @@ MonoBehaviour:
       Languages:
       - Your game is out of date! Go to the app store to get the latest version.
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Upgrade
       TermType: 0
@@ -857,7 +961,8 @@ MonoBehaviour:
       Languages:
       - UPGRADE
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/UpgradeFor
       TermType: 0
@@ -865,7 +970,8 @@ MonoBehaviour:
       Languages:
       - UPGRADE FOR {0} ?
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/UserId
       TermType: 0
@@ -873,7 +979,8 @@ MonoBehaviour:
       Languages:
       - 'User Id: {0}'
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Victory!
       TermType: 0
@@ -881,7 +988,8 @@ MonoBehaviour:
       Languages:
       - Victory!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/Yes
       TermType: 0
@@ -889,7 +997,8 @@ MonoBehaviour:
       Languages:
       - YES
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/YouWereDisconnected
       TermType: 0
@@ -897,7 +1006,8 @@ MonoBehaviour:
       Languages:
       - You were disconnected from the game
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: General/character
       TermType: 0
@@ -905,7 +1015,8 @@ MonoBehaviour:
       Languages:
       - character
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: LoadingTips/Loading_Tip_1
       TermType: 0
@@ -913,7 +1024,8 @@ MonoBehaviour:
       Languages:
       - Defeat Enemies to win
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: LoadingTips/Loading_Tip_2
       TermType: 0
@@ -921,7 +1033,8 @@ MonoBehaviour:
       Languages:
       - Shoot your shot!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: LoadingTips/Loading_Tip_3
       TermType: 0
@@ -929,7 +1042,8 @@ MonoBehaviour:
       Languages:
       - I'll never financially recover from this...
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: LoadingTips/Loading_Tip_4
       TermType: 0
@@ -937,7 +1051,8 @@ MonoBehaviour:
       Languages:
       - They don't think it be - but it do!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: LoadingTips/Loading_Tip_5
       TermType: 0
@@ -945,7 +1060,8 @@ MonoBehaviour:
       Languages:
       - Collect the same weapon again to refill ammo
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: LoadingTips/Loading_Tip_6
       TermType: 0
@@ -953,7 +1069,8 @@ MonoBehaviour:
       Languages:
       - Keep movin' keep groovin'
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: LoadingTips/Loading_Tip_7
       TermType: 0
@@ -961,7 +1078,8 @@ MonoBehaviour:
       Languages:
       - You can't win if you can't hit me
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: LoadingTips/Loading_Tip_8
       TermType: 0
@@ -969,7 +1087,8 @@ MonoBehaviour:
       Languages:
       - Every weapon has its own special talent
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MapDropPoints/Aircraft
       TermType: 0
@@ -977,7 +1096,8 @@ MonoBehaviour:
       Languages:
       - Aircraft
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MapDropPoints/Cafe
       TermType: 0
@@ -985,7 +1105,8 @@ MonoBehaviour:
       Languages:
       - Cafe
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MapDropPoints/Church
       TermType: 0
@@ -993,7 +1114,8 @@ MonoBehaviour:
       Languages:
       - Church
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MapDropPoints/Cinema
       TermType: 0
@@ -1001,7 +1123,8 @@ MonoBehaviour:
       Languages:
       - Cinema
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MapDropPoints/Court
       TermType: 0
@@ -1009,7 +1132,8 @@ MonoBehaviour:
       Languages:
       - Court
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MapDropPoints/Diner
       TermType: 0
@@ -1017,7 +1141,8 @@ MonoBehaviour:
       Languages:
       - Diner
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MapDropPoints/EastCamp
       TermType: 0
@@ -1025,7 +1150,8 @@ MonoBehaviour:
       Languages:
       - East Camp
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MapDropPoints/Fountain
       TermType: 0
@@ -1033,7 +1159,8 @@ MonoBehaviour:
       Languages:
       - Fountain
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MapDropPoints/GasStation
       TermType: 0
@@ -1041,7 +1168,8 @@ MonoBehaviour:
       Languages:
       - Gas Station
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MapDropPoints/Liberty
       TermType: 0
@@ -1049,7 +1177,8 @@ MonoBehaviour:
       Languages:
       - Liberty
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MapDropPoints/Lighthouse
       TermType: 0
@@ -1057,7 +1186,8 @@ MonoBehaviour:
       Languages:
       - Lighthouse
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MapDropPoints/MainCamp
       TermType: 0
@@ -1065,7 +1195,8 @@ MonoBehaviour:
       Languages:
       - Main Camp
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MapDropPoints/Market
       TermType: 0
@@ -1073,7 +1204,8 @@ MonoBehaviour:
       Languages:
       - Market
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MapDropPoints/Motel
       TermType: 0
@@ -1081,7 +1213,8 @@ MonoBehaviour:
       Languages:
       - Motel
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MapDropPoints/Park
       TermType: 0
@@ -1089,7 +1222,8 @@ MonoBehaviour:
       Languages:
       - Park
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MapDropPoints/PetShop
       TermType: 0
@@ -1097,7 +1231,8 @@ MonoBehaviour:
       Languages:
       - Pet Shop
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MapDropPoints/Port
       TermType: 0
@@ -1105,7 +1240,8 @@ MonoBehaviour:
       Languages:
       - Port
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MapDropPoints/Repairs
       TermType: 0
@@ -1113,7 +1249,8 @@ MonoBehaviour:
       Languages:
       - Repairs
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MapDropPoints/Ship
       TermType: 0
@@ -1121,7 +1258,8 @@ MonoBehaviour:
       Languages:
       - Ship
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MapDropPoints/Slum
       TermType: 0
@@ -1129,7 +1267,8 @@ MonoBehaviour:
       Languages:
       - Slum
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MapDropPoints/Store
       TermType: 0
@@ -1137,7 +1276,8 @@ MonoBehaviour:
       Languages:
       - Store
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MapDropPoints/TheCore
       TermType: 0
@@ -1145,7 +1285,8 @@ MonoBehaviour:
       Languages:
       - The Core
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MapDropPoints/TheIsle
       TermType: 0
@@ -1153,7 +1294,8 @@ MonoBehaviour:
       Languages:
       - The Isle
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MapDropPoints/Tower
       TermType: 0
@@ -1161,7 +1303,8 @@ MonoBehaviour:
       Languages:
       - Tower
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: FTUE/AttackDummy
       TermType: 0
@@ -1169,7 +1312,8 @@ MonoBehaviour:
       Languages:
       - Use your RIGHT THUMB to aim, drag and hold to attack
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: FTUE/CollectWeapon
       TermType: 0
@@ -1177,7 +1321,8 @@ MonoBehaviour:
       Languages:
       - You'll need a better weapon to succeed. <color=#85bbfc>Pick up the rifle!</color>
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: FTUE/CollectWeaponTip
       TermType: 0
@@ -1185,7 +1330,8 @@ MonoBehaviour:
       Languages:
       - Pick up the rifle
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: FTUE/EnterDeathmatch
       TermType: 0
@@ -1193,7 +1339,8 @@ MonoBehaviour:
       Languages:
       - <color=#85bbfc>Proceed to the Entrance</color> and join the Death Match!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: FTUE/GoToExit
       TermType: 0
@@ -1202,7 +1349,8 @@ MonoBehaviour:
       - Now it's time to play the game for real - <color=#ff9700>Fight to win or
         die trying!</color>
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: FTUE/HeadToExit
       TermType: 0
@@ -1210,7 +1358,8 @@ MonoBehaviour:
       Languages:
       - Proceed to the Game!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: FTUE/KillDummies
       TermType: 0
@@ -1218,7 +1367,8 @@ MonoBehaviour:
       Languages:
       - Drag and hold the SPECIAL button to aim and nuke the opponents
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: FTUE/KillDummy
       TermType: 0
@@ -1226,7 +1376,8 @@ MonoBehaviour:
       Languages:
       - Use your RIGHT THUMB to aim, drag and hold to attack
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: FTUE/KillEnemyWithRangedWeapon
       TermType: 0
@@ -1234,7 +1385,8 @@ MonoBehaviour:
       Languages:
       - Excellent. <color=#ff9700>Shoot the opponent!</color>
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: FTUE/MoveToArea
       TermType: 0
@@ -1242,7 +1394,8 @@ MonoBehaviour:
       Languages:
       - Use your LEFT THUMB to move to the Marked Area
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: FTUE/SpecialAbilities
       TermType: 0
@@ -1250,7 +1403,8 @@ MonoBehaviour:
       Languages:
       - SPECIAL ABILITIES
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: FTUE/UseHammer
       TermType: 0
@@ -1258,7 +1412,8 @@ MonoBehaviour:
       Languages:
       - Good! <color=#ff9700>Drag Right Joystick to Attack</color> the training opponent
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: FTUE/UseJoystick
       TermType: 0
@@ -1266,7 +1421,8 @@ MonoBehaviour:
       Languages:
       - <color=#85bbfc>Drag Left Joystick to Move</color> to the Marked Area
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: FTUE/UseSpecial
       TermType: 0
@@ -1275,7 +1431,8 @@ MonoBehaviour:
       - <color=#ff9700>Use the weapon's special</color> attack to take down multiple
         opponents
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: FTUE/Welcome
       TermType: 0
@@ -1283,7 +1440,8 @@ MonoBehaviour:
       Languages:
       - Welcome contender. Let us begin your training.
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: Tooltips/ToolTip_BLST
       TermType: 0
@@ -1292,7 +1450,8 @@ MonoBehaviour:
       - "Blast Tokens are valuable rewards obtained in special ways in-game, or purchased.
         \n\nUse Blast Tokens to purchase equipment on the marketplace."
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: Tooltips/ToolTip_CS
       TermType: 0
@@ -1305,7 +1464,8 @@ MonoBehaviour:
         Spice is used on the marketplace for upgrading, repairing and replicating
         equipment.'
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: Tooltips/ToolTip_Casual
       TermType: 0
@@ -1313,7 +1473,8 @@ MonoBehaviour:
       Languages:
       - You cannot earn rewards, or gain trophies in casual matches. Play for fun!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: Tooltips/ToolTip_NftCooldown
       TermType: 0
@@ -1325,7 +1486,8 @@ MonoBehaviour:
         Items on cooldown do not contribute
         to any in-game earnings.'
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: Tooltips/ToolTip_Ranked
       TermType: 0
@@ -1334,7 +1496,8 @@ MonoBehaviour:
       - You can earn rewards in ranked matches, and your trophies are on the line.
         Play for glory!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: Tooltips/ToolTip_Trophies
       TermType: 0
@@ -1343,7 +1506,8 @@ MonoBehaviour:
       - "Trophies increase your Craft Spice pool. \n\nPlace higher in Battle Royale
         matches to earn trophies."
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/Abilties
       TermType: 0
@@ -1351,7 +1515,8 @@ MonoBehaviour:
       Languages:
       - ABILITIES
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/All Gear
       TermType: 0
@@ -1359,7 +1524,8 @@ MonoBehaviour:
       Languages:
       - ALL GEAR
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/AutoFire
       TermType: 0
@@ -1367,7 +1533,8 @@ MonoBehaviour:
       Languages:
       - Autofire
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/BGM
       TermType: 0
@@ -1375,7 +1542,8 @@ MonoBehaviour:
       Languages:
       - Background Music
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/BattleRoyale
       TermType: 0
@@ -1383,7 +1551,8 @@ MonoBehaviour:
       Languages:
       - Battle Royale
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/BeatLevelFirst
       TermType: 0
@@ -1391,7 +1560,8 @@ MonoBehaviour:
       Languages:
       - BEAT CHAPTER {0} LEVEL {1} FIRST!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/BeatLevelFirstWithDifficulty
       TermType: 0
@@ -1399,7 +1569,8 @@ MonoBehaviour:
       Languages:
       - BEAT {0} CHAPTER {1} LEVEL {2} FIRST!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/BossKilledTimes
       TermType: 0
@@ -1407,7 +1578,8 @@ MonoBehaviour:
       Languages:
       - DEFEAT THE BOSS ({0}/10)
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/BossLevel
       TermType: 0
@@ -1415,7 +1587,8 @@ MonoBehaviour:
       Languages:
       - LV.{0}
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/Cancel
       TermType: 0
@@ -1423,7 +1596,8 @@ MonoBehaviour:
       Languages:
       - CANCEL
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/ChangePlayerSkin
       TermType: 0
@@ -1431,7 +1605,8 @@ MonoBehaviour:
       Languages:
       - CHANGE SKIN
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/ChooseGameMode
       TermType: 0
@@ -1439,7 +1614,8 @@ MonoBehaviour:
       Languages:
       - CHOOSE GAME MODE
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/ClaimReward
       TermType: 0
@@ -1447,7 +1623,8 @@ MonoBehaviour:
       Languages:
       - Claim Reward
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/Collect
       TermType: 0
@@ -1455,7 +1632,8 @@ MonoBehaviour:
       Languages:
       - COLLECT!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/CollectedCrates
       TermType: 0
@@ -1463,7 +1641,8 @@ MonoBehaviour:
       Languages:
       - Collected Crates
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/CompleteLowerDifficulty
       TermType: 0
@@ -1471,7 +1650,8 @@ MonoBehaviour:
       Languages:
       - Complete {0} difficulty first
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/ContainsAtLeast
       TermType: 0
@@ -1479,7 +1659,8 @@ MonoBehaviour:
       Languages:
       - CONTAINS AT LEAST
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/Craft
       TermType: 0
@@ -1487,7 +1668,8 @@ MonoBehaviour:
       Languages:
       - CRAFT
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/CrateTier
       TermType: 0
@@ -1495,7 +1677,8 @@ MonoBehaviour:
       Languages:
       - TIER {0}
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/CrateTierType
       TermType: 0
@@ -1505,7 +1688,8 @@ MonoBehaviour:
 
         TIER {1}'
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/Crates
       TermType: 0
@@ -1513,7 +1697,8 @@ MonoBehaviour:
       Languages:
       - Crates
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/CreateRoom
       TermType: 0
@@ -1521,7 +1706,8 @@ MonoBehaviour:
       Languages:
       - Create
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/CurrentXP
       TermType: 0
@@ -1529,7 +1715,8 @@ MonoBehaviour:
       Languages:
       - CURRENT XP {0}
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/CustomMatchBotsToggle
       TermType: 0
@@ -1537,7 +1724,8 @@ MonoBehaviour:
       Languages:
       - Bots
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/CustomMatchSpectateToggle
       TermType: 0
@@ -1545,7 +1733,8 @@ MonoBehaviour:
       Languages:
       - Spectate
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/Deathmatch
       TermType: 0
@@ -1553,7 +1742,8 @@ MonoBehaviour:
       Languages:
       - Deathmatch
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/DeathmatchPlayOffline
       TermType: 0
@@ -1561,7 +1751,8 @@ MonoBehaviour:
       Languages:
       - Play With Bots
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/DeathmatchPlayOnline
       TermType: 0
@@ -1569,7 +1760,8 @@ MonoBehaviour:
       Languages:
       - Play Online
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/DeathmatchPlayRoom
       TermType: 0
@@ -1577,7 +1769,8 @@ MonoBehaviour:
       Languages:
       - Custom Game
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/DefeatedBossXTimes
       TermType: 0
@@ -1585,7 +1778,8 @@ MonoBehaviour:
       Languages:
       - '{0}DEFEATED{1} X {2}'
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/Demo
       TermType: 0
@@ -1593,7 +1787,8 @@ MonoBehaviour:
       Languages:
       - Demo
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/DetailLevel
       TermType: 0
@@ -1601,7 +1796,8 @@ MonoBehaviour:
       Languages:
       - Detail Level
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/DisconnectedMatchEndInfo
       TermType: 0
@@ -1609,7 +1805,8 @@ MonoBehaviour:
       Languages:
       - Match ended by disconnection.
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/DragAndReleaseToFire
       TermType: 0
@@ -1617,7 +1814,8 @@ MonoBehaviour:
       Languages:
       - Drag and Release
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/DragAndReleaseToFireDescription
       TermType: 0
@@ -1625,7 +1823,8 @@ MonoBehaviour:
       Languages:
       - This weapon is fired by dragging and releasing the right side joystick.
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/EmailTitle
       TermType: 0
@@ -1633,7 +1832,8 @@ MonoBehaviour:
       Languages:
       - Email
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/Enhance
       TermType: 0
@@ -1641,7 +1841,8 @@ MonoBehaviour:
       Languages:
       - ENHANCE
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/EnhanceDescription
       TermType: 0
@@ -1650,7 +1851,8 @@ MonoBehaviour:
       - USE PIECES OF THE SAME TYPE OF EQUIPMENT TO CREATE A NEW ITEM OF THE SAME
         TYPE BUT OF HIGHER RARITY
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/EnhanceItemsNeeded
       TermType: 0
@@ -1658,7 +1860,8 @@ MonoBehaviour:
       Languages:
       - '{0} ITEMS OF THE SAME TYPE ARE NEEDED TO ENHANCE'
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/EnhanceResults
       TermType: 0
@@ -1666,7 +1869,8 @@ MonoBehaviour:
       Languages:
       - ENHANCEMENT RESULTS
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/EventsComingSoon
       TermType: 0
@@ -1674,7 +1878,8 @@ MonoBehaviour:
       Languages:
       - EVENTS COMING SOON!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/FirstVictoryRewards
       TermType: 0
@@ -1682,7 +1887,8 @@ MonoBehaviour:
       Languages:
       - 'FIRST VICTORY REWARDS:'
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/FreeSlot
       TermType: 0
@@ -1690,7 +1896,8 @@ MonoBehaviour:
       Languages:
       - Free Slot
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/Fuse
       TermType: 0
@@ -1698,7 +1905,8 @@ MonoBehaviour:
       Languages:
       - FUSE
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/FuseDescription
       TermType: 0
@@ -1707,7 +1915,8 @@ MonoBehaviour:
       - FUSE 5 PIECES OF EQUIPMENT OF THE SAME RARITY TOGETHER TO CREATE A RANDOM
         ITEM OF HIGHER RARITY
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/FuseResults
       TermType: 0
@@ -1715,7 +1924,8 @@ MonoBehaviour:
       Languages:
       - FUSION RESULTS
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/FusionWarning
       TermType: 0
@@ -1723,7 +1933,8 @@ MonoBehaviour:
       Languages:
       - ONE OR MORE ITEMS SELECTED HAS ALREADY BEEN UPGRADED. DO YOU WANT TO PROCEED?
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/GameMode
       TermType: 0
@@ -1731,7 +1942,8 @@ MonoBehaviour:
       Languages:
       - GAME MODE
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/HOME
       TermType: 0
@@ -1739,7 +1951,8 @@ MonoBehaviour:
       Languages:
       - HOME
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/Haptic
       TermType: 0
@@ -1747,7 +1960,8 @@ MonoBehaviour:
       Languages:
       - Haptic Feedback
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/HighResMode
       TermType: 0
@@ -1755,7 +1969,8 @@ MonoBehaviour:
       Languages:
       - High Res Mode
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/HoldToFire
       TermType: 0
@@ -1763,7 +1978,8 @@ MonoBehaviour:
       Languages:
       - Hold and Fire
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/HoldToFireDescription
       TermType: 0
@@ -1771,7 +1987,8 @@ MonoBehaviour:
       Languages:
       - Hold down the button to fire this weapon continuously.
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/HowToPlay
       TermType: 0
@@ -1779,7 +1996,8 @@ MonoBehaviour:
       Languages:
       - HOW TO PLAY
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/HowToPlayDescription
       TermType: 0
@@ -1787,7 +2005,8 @@ MonoBehaviour:
       Languages:
       - 
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/Hurry
       TermType: 0
@@ -1795,7 +2014,8 @@ MonoBehaviour:
       Languages:
       - HURRY
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/HurryCrate
       TermType: 0
@@ -1803,7 +2023,8 @@ MonoBehaviour:
       Languages:
       - SPEED UP THIS CRATE?
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/ItemCraftedText
       TermType: 0
@@ -1811,7 +2032,8 @@ MonoBehaviour:
       Languages:
       - '{0}{1}{2} ITEM WILL BE CRAFTED'
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/ItemEnhancedText
       TermType: 0
@@ -1819,7 +2041,8 @@ MonoBehaviour:
       Languages:
       - '{3} WILL BE ENHANCED TO {0}{1}{2}'
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/Items
       TermType: 0
@@ -1827,7 +2050,8 @@ MonoBehaviour:
       Languages:
       - 'ITEMS: {0}'
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/JoinRoom
       TermType: 0
@@ -1835,7 +2059,8 @@ MonoBehaviour:
       Languages:
       - Join
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/Loading
       TermType: 0
@@ -1843,7 +2068,8 @@ MonoBehaviour:
       Languages:
       - Loading...
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/Locked
       TermType: 0
@@ -1851,7 +2077,8 @@ MonoBehaviour:
       Languages:
       - LOCKED
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/LoginButton
       TermType: 0
@@ -1859,7 +2086,8 @@ MonoBehaviour:
       Languages:
       - Login
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/LoginOrText
       TermType: 0
@@ -1867,7 +2095,8 @@ MonoBehaviour:
       Languages:
       - Or
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/LoginTitle
       TermType: 0
@@ -1875,7 +2104,8 @@ MonoBehaviour:
       Languages:
       - Login to an existing account
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/LogoutButton
       TermType: 0
@@ -1883,7 +2113,8 @@ MonoBehaviour:
       Languages:
       - Logout
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/LogoutConfirm
       TermType: 0
@@ -1891,7 +2122,8 @@ MonoBehaviour:
       Languages:
       - Are you sure you want to log out?
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/LogoutSuccessDesc
       TermType: 0
@@ -1899,7 +2131,8 @@ MonoBehaviour:
       Languages:
       - Restart the game to log in to a new account.
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/LogoutSuccessTitle
       TermType: 0
@@ -1907,7 +2140,8 @@ MonoBehaviour:
       Languages:
       - Logged out successfully
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/Loot
       TermType: 0
@@ -1915,7 +2149,8 @@ MonoBehaviour:
       Languages:
       - LOOT
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/MainMenuButton
       TermType: 0
@@ -1923,7 +2158,8 @@ MonoBehaviour:
       Languages:
       - Main Menu
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/ManualFire
       TermType: 0
@@ -1931,7 +2167,8 @@ MonoBehaviour:
       Languages:
       - Manual Fire
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/MatchmakingMatchType
       TermType: 0
@@ -1939,7 +2176,8 @@ MonoBehaviour:
       Languages:
       - '{0} Match'
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/Meters
       TermType: 0
@@ -1947,7 +2185,8 @@ MonoBehaviour:
       Languages:
       - Damage & Healing Meters
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/MightRating
       TermType: 0
@@ -1955,7 +2194,8 @@ MonoBehaviour:
       Languages:
       - 'Might:'
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/MightTotal
       TermType: 0
@@ -1963,7 +2203,8 @@ MonoBehaviour:
       Languages:
       - 'TOTAL MIGHT: {0}'
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/ModeBr
       TermType: 0
@@ -1971,7 +2212,8 @@ MonoBehaviour:
       Languages:
       - Battle Royale
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/ModeCasual
       TermType: 0
@@ -1979,7 +2221,8 @@ MonoBehaviour:
       Languages:
       - Casual
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/ModeDm
       TermType: 0
@@ -1987,7 +2230,8 @@ MonoBehaviour:
       Languages:
       - Deathmatch
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/ModeRanked
       TermType: 0
@@ -1995,7 +2239,8 @@ MonoBehaviour:
       Languages:
       - Ranked
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/NameHeroTitle
       TermType: 0
@@ -2003,7 +2248,8 @@ MonoBehaviour:
       Languages:
       - What's your name Hero?
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/NameTooLong
       TermType: 0
@@ -2011,7 +2257,8 @@ MonoBehaviour:
       Languages:
       - The name must not exceed {0} characters.
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/NameTooShort
       TermType: 0
@@ -2019,7 +2266,8 @@ MonoBehaviour:
       Languages:
       - The name must be at least {0} characters long.
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/NewEnemies
       TermType: 0
@@ -2027,7 +2275,8 @@ MonoBehaviour:
       Languages:
       - NEW ENEMIES
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/NewFeatureUnlocked
       TermType: 0
@@ -2035,7 +2284,8 @@ MonoBehaviour:
       Languages:
       - '{0} UNLOCKED!'
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/NewItems
       TermType: 0
@@ -2043,7 +2293,8 @@ MonoBehaviour:
       Languages:
       - NEW ITEMS
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/NewMap
       TermType: 0
@@ -2051,7 +2302,8 @@ MonoBehaviour:
       Languages:
       - NEW MAP
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/NewUnlock
       TermType: 0
@@ -2059,7 +2311,8 @@ MonoBehaviour:
       Languages:
       - NEW FEATURE!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/NextArena
       TermType: 0
@@ -2067,7 +2320,8 @@ MonoBehaviour:
       Languages:
       - NEXT ARENA
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/NextGoal
       TermType: 0
@@ -2075,7 +2329,8 @@ MonoBehaviour:
       Languages:
       - NEXT GOAL
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/NftCooldownTimerFullText
       TermType: 0
@@ -2083,7 +2338,8 @@ MonoBehaviour:
       Languages:
       - Item on cooldown for {0}
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/NftCooldownTimerTooltip
       TermType: 0
@@ -2094,7 +2350,8 @@ MonoBehaviour:
         Items on cooldown do no not
         contribute to any in-game earnings.'
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/NftRestrictionText
       TermType: 0
@@ -2102,7 +2359,8 @@ MonoBehaviour:
       Languages:
       - You must have at least 3 items equipped to play online.
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/NoAdventuresAvailable
       TermType: 0
@@ -2110,7 +2368,8 @@ MonoBehaviour:
       Languages:
       - NO {0} ADVENTURES AVAILABLE
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/NotEnoughSpace
       TermType: 0
@@ -2119,7 +2378,8 @@ MonoBehaviour:
       - You have collected loot, but don't have enough space to store it!\n Do you
         want to open all new Crates now?
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/NotEnoughSpaceWarning
       TermType: 0
@@ -2127,7 +2387,8 @@ MonoBehaviour:
       Languages:
       - Are you sure? All extra Loot will be lost!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/OpenCrate
       TermType: 0
@@ -2135,7 +2396,8 @@ MonoBehaviour:
       Languages:
       - OPEN
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/OpenCrateNow
       TermType: 0
@@ -2143,7 +2405,8 @@ MonoBehaviour:
       Languages:
       - Open Now
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/OpenNow
       TermType: 0
@@ -2151,7 +2414,8 @@ MonoBehaviour:
       Languages:
       - Open Now?
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/PasswordTitle
       TermType: 0
@@ -2159,7 +2423,8 @@ MonoBehaviour:
       Languages:
       - Password
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/PlayGame
       TermType: 0
@@ -2167,7 +2432,8 @@ MonoBehaviour:
       Languages:
       - PLAY
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/PlayersActiveNumber
       TermType: 0
@@ -2175,7 +2441,8 @@ MonoBehaviour:
       Languages:
       - 'PLAYERS ACTIVE: {0}'
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/PlayfabError
       TermType: 0
@@ -2183,7 +2450,8 @@ MonoBehaviour:
       Languages:
       - Game Error
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/PossibleRewards
       TermType: 0
@@ -2191,7 +2459,8 @@ MonoBehaviour:
       Languages:
       - 'POSSIBLE REWARDS: '
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/ProgressChapter
       TermType: 0
@@ -2199,7 +2468,8 @@ MonoBehaviour:
       Languages:
       - 'CHAPTER {0}: {1}'
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/QuitGameButton
       TermType: 0
@@ -2207,7 +2477,8 @@ MonoBehaviour:
       Languages:
       - Quit
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/ReachPlayerLevelAdventure
       TermType: 0
@@ -2215,7 +2486,8 @@ MonoBehaviour:
       Languages:
       - Reach Player Level {0} to Unlock
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/ReconnectButton
       TermType: 0
@@ -2223,7 +2495,8 @@ MonoBehaviour:
       Languages:
       - Reconnect
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/RegisterButton
       TermType: 0
@@ -2231,7 +2504,8 @@ MonoBehaviour:
       Languages:
       - Register
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/RegisterSuccess
       TermType: 0
@@ -2239,7 +2513,8 @@ MonoBehaviour:
       Languages:
       - Account has been created successfully.
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/RegisterTitle
       TermType: 0
@@ -2247,7 +2522,8 @@ MonoBehaviour:
       Languages:
       - Register
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/RememberMe
       TermType: 0
@@ -2255,7 +2531,8 @@ MonoBehaviour:
       Languages:
       - Remember Me
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/ResetPassword
       TermType: 0
@@ -2263,7 +2540,8 @@ MonoBehaviour:
       Languages:
       - Reset Password
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/ResoucePoolFull
       TermType: 0
@@ -2271,7 +2549,8 @@ MonoBehaviour:
       Languages:
       - Storage is full!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/ResourceAmount
       TermType: 0
@@ -2279,7 +2558,8 @@ MonoBehaviour:
       Languages:
       - '{0} / {1}'
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/ResourceRestockTime
       TermType: 0
@@ -2289,7 +2569,8 @@ MonoBehaviour:
 
         {1}'
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/RoomCreateOrJoin
       TermType: 0
@@ -2297,7 +2578,8 @@ MonoBehaviour:
       Languages:
       - Create or join a room with a code
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/RoomCurrentName
       TermType: 0
@@ -2305,7 +2587,8 @@ MonoBehaviour:
       Languages:
       - 'Room: {0}'
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/RoomError
       TermType: 0
@@ -2313,7 +2596,8 @@ MonoBehaviour:
       Languages:
       - "Room Error: \n{0}"
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/RoomJoinButton
       TermType: 0
@@ -2321,7 +2605,8 @@ MonoBehaviour:
       Languages:
       - Join
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/RoomJoinCode
       TermType: 0
@@ -2329,7 +2614,8 @@ MonoBehaviour:
       Languages:
       - Enter a valid room code
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/RoomJoinCreateTitle
       TermType: 0
@@ -2337,7 +2623,8 @@ MonoBehaviour:
       Languages:
       - Custom Game
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/RoomLeaveButton
       TermType: 0
@@ -2345,7 +2632,8 @@ MonoBehaviour:
       Languages:
       - Leave
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/RoomLock
       TermType: 0
@@ -2353,7 +2641,8 @@ MonoBehaviour:
       Languages:
       - Lock & Play!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/SFX
       TermType: 0
@@ -2361,7 +2650,8 @@ MonoBehaviour:
       Languages:
       - Sound Effects
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/SelectGameMap
       TermType: 0
@@ -2369,7 +2659,8 @@ MonoBehaviour:
       Languages:
       - SELECT ADVENTURE
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/SelectGameMode
       TermType: 0
@@ -2377,7 +2668,8 @@ MonoBehaviour:
       Languages:
       - SELECT GAME MODE
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/Selected
       TermType: 0
@@ -2385,7 +2677,8 @@ MonoBehaviour:
       Languages:
       - SELECTED
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/SelectedGameModeText
       TermType: 0
@@ -2395,7 +2688,8 @@ MonoBehaviour:
 
         {0}'
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/SelectedGameModeTitle
       TermType: 0
@@ -2403,7 +2697,8 @@ MonoBehaviour:
       Languages:
       - 'Game Mode:'
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/SelectedGameModeValue
       TermType: 0
@@ -2413,7 +2708,8 @@ MonoBehaviour:
 
         {1}'
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/SendPasswordEmail
       TermType: 0
@@ -2421,7 +2717,8 @@ MonoBehaviour:
       Languages:
       - Send Password Recovery Email
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/SendPasswordEmailConfirm
       TermType: 0
@@ -2429,7 +2726,8 @@ MonoBehaviour:
       Languages:
       - A recovery link has been sent to the email.
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/Settings
       TermType: 0
@@ -2437,7 +2735,8 @@ MonoBehaviour:
       Languages:
       - SETTINGS
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/SettingsFaqButton
       TermType: 0
@@ -2445,7 +2744,8 @@ MonoBehaviour:
       Languages:
       - FAQ
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/SettingsHelpSupport
       TermType: 0
@@ -2453,7 +2753,8 @@ MonoBehaviour:
       Languages:
       - HELP & SUPPORT
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/Shop
       TermType: 0
@@ -2461,7 +2762,8 @@ MonoBehaviour:
       Languages:
       - SHOP
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/Social
       TermType: 0
@@ -2469,7 +2771,8 @@ MonoBehaviour:
       Languages:
       - SOCIAL
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/Sort
       TermType: 0
@@ -2477,7 +2780,8 @@ MonoBehaviour:
       Languages:
       - SORT
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/StartUnlock
       TermType: 0
@@ -2485,7 +2789,8 @@ MonoBehaviour:
       Languages:
       - START UNLOCKING {0}?
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/StatShield
       TermType: 0
@@ -2493,7 +2798,8 @@ MonoBehaviour:
       Languages:
       - Shield
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/Talents
       TermType: 0
@@ -2501,7 +2807,8 @@ MonoBehaviour:
       Languages:
       - TALENTS
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/TapToUnlock
       TermType: 0
@@ -2509,7 +2816,8 @@ MonoBehaviour:
       Languages:
       - TAP TO UNLOCK
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/TooMuchLoot
       TermType: 0
@@ -2517,7 +2825,8 @@ MonoBehaviour:
       Languages:
       - Too Much Loot!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/TotalMight
       TermType: 0
@@ -2525,7 +2834,8 @@ MonoBehaviour:
       Languages:
       - TOTAL MIGHT
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/Trophies
       TermType: 0
@@ -2533,7 +2843,8 @@ MonoBehaviour:
       Languages:
       - Trophies
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/TrophiesGained
       TermType: 0
@@ -2541,7 +2852,8 @@ MonoBehaviour:
       Languages:
       - Trophies Gained
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/TrophiesLost
       TermType: 0
@@ -2549,7 +2861,8 @@ MonoBehaviour:
       Languages:
       - Trophies Lost
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/TrophiesNewTotal
       TermType: 0
@@ -2557,7 +2870,8 @@ MonoBehaviour:
       Languages:
       - New Total
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/TrophyRoad
       TermType: 0
@@ -2565,7 +2879,8 @@ MonoBehaviour:
       Languages:
       - REWARDS
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/TrophyRoadXP
       TermType: 0
@@ -2573,7 +2888,8 @@ MonoBehaviour:
       Languages:
       - '{0} XP'
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/Unlock
       TermType: 0
@@ -2581,7 +2897,8 @@ MonoBehaviour:
       Languages:
       - UNLOCK
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/UnlockCrateNow
       TermType: 0
@@ -2589,7 +2906,8 @@ MonoBehaviour:
       Languages:
       - UNLOCK {0} CRATE NOW?
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/UnlockInProgress
       TermType: 0
@@ -2597,7 +2915,8 @@ MonoBehaviour:
       Languages:
       - IN PROGRESS
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/UseCrateSlot
       TermType: 0
@@ -2605,7 +2924,8 @@ MonoBehaviour:
       Languages:
       - You can use this slot to store collected loot crates!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/UsernameTitle
       TermType: 0
@@ -2613,7 +2933,8 @@ MonoBehaviour:
       Languages:
       - Username
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/ViewAll
       TermType: 0
@@ -2621,7 +2942,8 @@ MonoBehaviour:
       Languages:
       - VIEW ALL
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/WeaponIsAtMaxLevel
       TermType: 0
@@ -2629,7 +2951,8 @@ MonoBehaviour:
       Languages:
       - WEAPON IS AT MAX LEVEL
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/ServerCurrent
       TermType: 0
@@ -2637,7 +2960,8 @@ MonoBehaviour:
       Languages:
       - 'Server: {0}'
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/ServerSelectTitle
       TermType: 0
@@ -2645,7 +2969,8 @@ MonoBehaviour:
       Languages:
       - Switch Server
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/ServerSelectOption
       TermType: 0
@@ -2653,7 +2978,8 @@ MonoBehaviour:
       Languages:
       - '{0} ({1}ms)'
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: MainMenu/ServerSelectButtonConnect
       TermType: 0
@@ -2661,71 +2987,35 @@ MonoBehaviour:
       Languages:
       - Connect
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
-    - Term: MainMenu/ServerEuropeName
+    - Term: MainMenu/ServerNameEu
       TermType: 0
       Description: 
       Languages:
       - Europe
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
-    - Term: MainMenu/ServerAmericaName
+    - Term: MainMenu/ServerNameUs
       TermType: 0
       Description: 
       Languages:
       - America
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
-    - Term: MainMenu/ServerAsiaName
+    - Term: MainMenu/ServerNameHk
       TermType: 0
       Description: 
       Languages:
       - Asia
       - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/GameModeBrName
-      TermType: 0
-      Description: 
-      Languages:
-      - Battle Royale
       - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/GameModeDmName
-      TermType: 0
-      Description: 
-      Languages:
-      - Deathmatch
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/GameModeTuName
-      TermType: 0
-      Description: 
-      Languages:
-      - Tutorial
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/MatchTypeCasualName
-      TermType: 0
-      Description: 
-      Languages:
-      - Casual
-      - 
-      Flags: 0000
-      Languages_Touch: []
-    - Term: MainMenu/MatchTypeRankedName
-      TermType: 0
-      Description: 
-      Languages:
-      - Ranked
-      - 
-      Flags: 0000
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/AdventureCompleted
       TermType: 0
@@ -2733,7 +3023,8 @@ MonoBehaviour:
       Languages:
       - Adventure Completed!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/AirDropIncomingLine1
       TermType: 0
@@ -2741,7 +3032,8 @@ MonoBehaviour:
       Languages:
       - Air Drop Incoming!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/AirDropIncomingLine2
       TermType: 0
@@ -2749,7 +3041,8 @@ MonoBehaviour:
       Languages:
       - Hurry Up!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/AreYouSureQuit
       TermType: 0
@@ -2757,7 +3050,8 @@ MonoBehaviour:
       Languages:
       - Are you sure you want to quit?
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/AreaShrinking
       TermType: 0
@@ -2765,7 +3059,8 @@ MonoBehaviour:
       Languages:
       - Area shrinking!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/AskForHelp
       TermType: 0
@@ -2773,7 +3068,8 @@ MonoBehaviour:
       Languages:
       - Ask other players to revive you!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/BossAngry
       TermType: 0
@@ -2781,7 +3077,8 @@ MonoBehaviour:
       Languages:
       - Is Angry!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/BossFurious
       TermType: 0
@@ -2789,7 +3086,8 @@ MonoBehaviour:
       Languages:
       - Is Furious!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/BossPain
       TermType: 0
@@ -2797,7 +3095,8 @@ MonoBehaviour:
       Languages:
       - Is Feeling the Pain!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/ChooseDeath
       TermType: 0
@@ -2805,7 +3104,8 @@ MonoBehaviour:
       Languages:
       - YOU TASTE DEATH!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/ContendersRemaining
       TermType: 0
@@ -2813,7 +3113,8 @@ MonoBehaviour:
       Languages:
       - '{0} PLAYERS REMAINING'
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/Damage
       TermType: 0
@@ -2821,7 +3122,8 @@ MonoBehaviour:
       Languages:
       - Damage
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/Deaths
       TermType: 0
@@ -2829,7 +3131,8 @@ MonoBehaviour:
       Languages:
       - Deaths
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/Dominating
       TermType: 0
@@ -2837,7 +3140,8 @@ MonoBehaviour:
       Languages:
       - IS DOMINATING!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/Double
       TermType: 0
@@ -2845,7 +3149,8 @@ MonoBehaviour:
       Languages:
       - DOUBLE
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/Empty
       TermType: 0
@@ -2853,7 +3158,8 @@ MonoBehaviour:
       Languages:
       - EMPTY
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/FirstToXKills
       TermType: 0
@@ -2861,7 +3167,8 @@ MonoBehaviour:
       Languages:
       - FIRST TO {0} KILLS WINS!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/FraggedBy
       TermType: 0
@@ -2869,7 +3176,8 @@ MonoBehaviour:
       Languages:
       - 'KILLED BY: {0}'
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/FreeSlot
       TermType: 0
@@ -2877,7 +3185,8 @@ MonoBehaviour:
       Languages:
       - Free Slot
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/GameOver
       TermType: 0
@@ -2885,7 +3194,8 @@ MonoBehaviour:
       Languages:
       - GAME OVER
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/GameStartsIn
       TermType: 0
@@ -2893,7 +3203,8 @@ MonoBehaviour:
       Languages:
       - Game Starts In
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/GetReady
       TermType: 0
@@ -2901,7 +3212,8 @@ MonoBehaviour:
       Languages:
       - Get ready!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/Go
       TermType: 0
@@ -2909,7 +3221,8 @@ MonoBehaviour:
       Languages:
       - GO!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/GoToArea
       TermType: 0
@@ -2917,7 +3230,8 @@ MonoBehaviour:
       Languages:
       - Go to the safe area!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/Godlike
       TermType: 0
@@ -2925,7 +3239,8 @@ MonoBehaviour:
       Languages:
       - IS GODLIKE!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/Healing
       TermType: 0
@@ -2933,7 +3248,8 @@ MonoBehaviour:
       Languages:
       - Healing
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/JoinedGame1
       TermType: 0
@@ -2941,7 +3257,8 @@ MonoBehaviour:
       Languages:
       - Has Entered the Game!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/KO
       TermType: 0
@@ -2949,7 +3266,8 @@ MonoBehaviour:
       Languages:
       - KO
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/Kill
       TermType: 0
@@ -2957,7 +3275,8 @@ MonoBehaviour:
       Languages:
       - KILL
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/Killing
       TermType: 0
@@ -2965,7 +3284,8 @@ MonoBehaviour:
       Languages:
       - KILLING
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/Kills
       TermType: 0
@@ -2973,7 +3293,8 @@ MonoBehaviour:
       Languages:
       - Kills
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/KillsRemaining
       TermType: 0
@@ -2981,7 +3302,8 @@ MonoBehaviour:
       Languages:
       - '{0} KILLS'
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/MatchmakingPlayerTitle
       TermType: 0
@@ -2989,7 +3311,8 @@ MonoBehaviour:
       Languages:
       - Player
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/MatchmakingSpectatorTitle
       TermType: 0
@@ -2997,7 +3320,8 @@ MonoBehaviour:
       Languages:
       - Spectator
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/Multi
       TermType: 0
@@ -3005,7 +3329,8 @@ MonoBehaviour:
       Languages:
       - MULTI
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/NextWaveIn
       TermType: 0
@@ -3013,7 +3338,8 @@ MonoBehaviour:
       Languages:
       - Next Wave In
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/NoRewardsCollected
       TermType: 0
@@ -3021,7 +3347,8 @@ MonoBehaviour:
       Languages:
       - NO REWARDS COLLECTED
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/PlayerLeft
       TermType: 0
@@ -3029,7 +3356,8 @@ MonoBehaviour:
       Languages:
       - Player Left
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/PlayerWon
       TermType: 0
@@ -3037,7 +3365,8 @@ MonoBehaviour:
       Languages:
       - '{0} WON!'
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/ReadyStatusHost
       TermType: 0
@@ -3045,7 +3374,8 @@ MonoBehaviour:
       Languages:
       - HOST
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/ReadyStatusLoading
       TermType: 0
@@ -3053,7 +3383,8 @@ MonoBehaviour:
       Languages:
       - LOADING...
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/ReadyStatusReady
       TermType: 0
@@ -3061,7 +3392,8 @@ MonoBehaviour:
       Languages:
       - READY
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/ReadyStatusTitle
       TermType: 0
@@ -3069,7 +3401,8 @@ MonoBehaviour:
       Languages:
       - STATUS
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/Remaining
       TermType: 0
@@ -3077,7 +3410,8 @@ MonoBehaviour:
       Languages:
       - REMAINING!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/RespawnTime
       TermType: 0
@@ -3085,7 +3419,8 @@ MonoBehaviour:
       Languages:
       - 'Respawning In:'
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/Revives
       TermType: 0
@@ -3093,7 +3428,8 @@ MonoBehaviour:
       Languages:
       - Revives
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/SpawningEnemies
       TermType: 0
@@ -3101,7 +3437,8 @@ MonoBehaviour:
       Languages:
       - Spawning Enemies
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/SpectateCam1
       TermType: 0
@@ -3109,7 +3446,8 @@ MonoBehaviour:
       Languages:
       - Camera 1
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/SpectateCam2
       TermType: 0
@@ -3117,7 +3455,8 @@ MonoBehaviour:
       Languages:
       - Camera 2
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/SpectateCam3
       TermType: 0
@@ -3125,7 +3464,8 @@ MonoBehaviour:
       Languages:
       - Camera 3
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/SpectateNextPlayer
       TermType: 0
@@ -3133,7 +3473,8 @@ MonoBehaviour:
       Languages:
       - Next Player
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/SpectatePrevPlayer
       TermType: 0
@@ -3141,7 +3482,8 @@ MonoBehaviour:
       Languages:
       - Previous Player
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/Spree
       TermType: 0
@@ -3149,7 +3491,8 @@ MonoBehaviour:
       Languages:
       - SPREE
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/Suicide
       TermType: 0
@@ -3157,7 +3500,8 @@ MonoBehaviour:
       Languages:
       - '{0} TASTED DEATH!'
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/TimeOver
       TermType: 0
@@ -3165,7 +3509,8 @@ MonoBehaviour:
       Languages:
       - TIME OVER
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/TimeRemaining
       TermType: 0
@@ -3173,7 +3518,8 @@ MonoBehaviour:
       Languages:
       - 'Time Remaining:'
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/TotalLooters
       TermType: 0
@@ -3181,7 +3527,8 @@ MonoBehaviour:
       Languages:
       - Total Looters {0}
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/UnlocksIn
       TermType: 0
@@ -3189,7 +3536,8 @@ MonoBehaviour:
       Languages:
       - 'Unlocks In: {0}'
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/YouDied
       TermType: 0
@@ -3197,7 +3545,8 @@ MonoBehaviour:
       Languages:
       - You Died!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/YouKilledPlayer
       TermType: 0
@@ -3205,7 +3554,8 @@ MonoBehaviour:
       Languages:
       - YOU KILLED
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: AdventureMenu/YourLoot
       TermType: 0
@@ -3213,7 +3563,8 @@ MonoBehaviour:
       Languages:
       - YOUR LOOT
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot1
       TermType: 0
@@ -3221,7 +3572,8 @@ MonoBehaviour:
       Languages:
       - Pig Benis
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot10
       TermType: 0
@@ -3229,7 +3581,8 @@ MonoBehaviour:
       Languages:
       - Noah
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot100
       TermType: 0
@@ -3237,7 +3590,8 @@ MonoBehaviour:
       Languages:
       - MCFC0MUFC3
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot101
       TermType: 0
@@ -3245,7 +3599,8 @@ MonoBehaviour:
       Languages:
       - L.Jenkins
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot102
       TermType: 0
@@ -3253,7 +3608,8 @@ MonoBehaviour:
       Languages:
       - FRODO
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot103
       TermType: 0
@@ -3261,7 +3617,8 @@ MonoBehaviour:
       Languages:
       - M.BISON
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot104
       TermType: 0
@@ -3269,7 +3626,8 @@ MonoBehaviour:
       Languages:
       - COD&CHIPS
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot105
       TermType: 0
@@ -3277,7 +3635,8 @@ MonoBehaviour:
       Languages:
       - Lenny Henry
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot106
       TermType: 0
@@ -3285,7 +3644,8 @@ MonoBehaviour:
       Languages:
       - B0RIS
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot107
       TermType: 0
@@ -3293,7 +3653,8 @@ MonoBehaviour:
       Languages:
       - 888
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot108
       TermType: 0
@@ -3301,7 +3662,8 @@ MonoBehaviour:
       Languages:
       - 999
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot109
       TermType: 0
@@ -3309,7 +3671,8 @@ MonoBehaviour:
       Languages:
       - PP51DUDU
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot11
       TermType: 0
@@ -3317,7 +3680,8 @@ MonoBehaviour:
       Languages:
       - Elijah
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot110
       TermType: 0
@@ -3325,7 +3689,8 @@ MonoBehaviour:
       Languages:
       - MagmaLad
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot111
       TermType: 0
@@ -3333,7 +3698,8 @@ MonoBehaviour:
       Languages:
       - W1NK1E
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot112
       TermType: 0
@@ -3341,7 +3707,8 @@ MonoBehaviour:
       Languages:
       - WAKANDA
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot113
       TermType: 0
@@ -3349,7 +3716,8 @@ MonoBehaviour:
       Languages:
       - X-Rated
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot114
       TermType: 0
@@ -3357,7 +3725,8 @@ MonoBehaviour:
       Languages:
       - BBC
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot115
       TermType: 0
@@ -3365,7 +3734,8 @@ MonoBehaviour:
       Languages:
       - MILD MAN
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot116
       TermType: 0
@@ -3373,7 +3743,8 @@ MonoBehaviour:
       Languages:
       - Wendy1991
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot117
       TermType: 0
@@ -3381,7 +3752,8 @@ MonoBehaviour:
       Languages:
       - Yennifer
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot118
       TermType: 0
@@ -3389,7 +3761,8 @@ MonoBehaviour:
       Languages:
       - Geralt
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot119
       TermType: 0
@@ -3397,7 +3770,8 @@ MonoBehaviour:
       Languages:
       - KungPao
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot12
       TermType: 0
@@ -3405,7 +3779,8 @@ MonoBehaviour:
       Languages:
       - Lucas
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot120
       TermType: 0
@@ -3413,7 +3788,8 @@ MonoBehaviour:
       Languages:
       - Karlygash
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot121
       TermType: 0
@@ -3421,7 +3797,8 @@ MonoBehaviour:
       Languages:
       - Zeus
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot122
       TermType: 0
@@ -3429,7 +3806,8 @@ MonoBehaviour:
       Languages:
       - Mars
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot123
       TermType: 0
@@ -3437,7 +3815,8 @@ MonoBehaviour:
       Languages:
       - Venus
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot124
       TermType: 0
@@ -3445,7 +3824,8 @@ MonoBehaviour:
       Languages:
       - Jupiter
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot125
       TermType: 0
@@ -3453,7 +3833,8 @@ MonoBehaviour:
       Languages:
       - TheRoc
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot126
       TermType: 0
@@ -3461,7 +3842,8 @@ MonoBehaviour:
       Languages:
       - Yorkshire
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot127
       TermType: 0
@@ -3469,7 +3851,8 @@ MonoBehaviour:
       Languages:
       - Brandy Snap
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot128
       TermType: 0
@@ -3477,7 +3860,8 @@ MonoBehaviour:
       Languages:
       - Welsuss
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot129
       TermType: 0
@@ -3485,7 +3869,8 @@ MonoBehaviour:
       Languages:
       - PP-TIME
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot13
       TermType: 0
@@ -3493,7 +3878,8 @@ MonoBehaviour:
       Languages:
       - Alexander
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot130
       TermType: 0
@@ -3501,7 +3887,8 @@ MonoBehaviour:
       Languages:
       - Lazenby
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot131
       TermType: 0
@@ -3509,7 +3896,8 @@ MonoBehaviour:
       Languages:
       - Connery
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot132
       TermType: 0
@@ -3517,7 +3905,8 @@ MonoBehaviour:
       Languages:
       - Moore
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot133
       TermType: 0
@@ -3525,7 +3914,8 @@ MonoBehaviour:
       Languages:
       - Brosnan
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot134
       TermType: 0
@@ -3533,7 +3923,8 @@ MonoBehaviour:
       Languages:
       - Craig
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot135
       TermType: 0
@@ -3541,7 +3932,8 @@ MonoBehaviour:
       Languages:
       - Gary
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot136
       TermType: 0
@@ -3549,7 +3941,8 @@ MonoBehaviour:
       Languages:
       - Kevin
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot137
       TermType: 0
@@ -3557,7 +3950,8 @@ MonoBehaviour:
       Languages:
       - Sharon
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot138
       TermType: 0
@@ -3565,7 +3959,8 @@ MonoBehaviour:
       Languages:
       - Shaniqua
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot139
       TermType: 0
@@ -3573,7 +3968,8 @@ MonoBehaviour:
       Languages:
       - Tyrone
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot14
       TermType: 0
@@ -3581,7 +3977,8 @@ MonoBehaviour:
       Languages:
       - Ninja
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot140
       TermType: 0
@@ -3589,7 +3986,8 @@ MonoBehaviour:
       Languages:
       - Tyrice
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot141
       TermType: 0
@@ -3597,7 +3995,8 @@ MonoBehaviour:
       Languages:
       - Xenobi
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot142
       TermType: 0
@@ -3605,7 +4004,8 @@ MonoBehaviour:
       Languages:
       - Sha'quan
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot143
       TermType: 0
@@ -3613,7 +4013,8 @@ MonoBehaviour:
       Languages:
       - Mystique
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot144
       TermType: 0
@@ -3621,7 +4022,8 @@ MonoBehaviour:
       Languages:
       - 2 HOT 4 U
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot145
       TermType: 0
@@ -3629,7 +4031,8 @@ MonoBehaviour:
       Languages:
       - Nice Treat
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot146
       TermType: 0
@@ -3637,7 +4040,8 @@ MonoBehaviour:
       Languages:
       - Fancy Pants
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot147
       TermType: 0
@@ -3645,7 +4049,8 @@ MonoBehaviour:
       Languages:
       - Dad-man
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot148
       TermType: 0
@@ -3653,7 +4058,8 @@ MonoBehaviour:
       Languages:
       - Postman
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot149
       TermType: 0
@@ -3661,7 +4067,8 @@ MonoBehaviour:
       Languages:
       - Milkman
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot15
       TermType: 0
@@ -3669,7 +4076,8 @@ MonoBehaviour:
       Languages:
       - Shadow
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot150
       TermType: 0
@@ -3677,7 +4085,8 @@ MonoBehaviour:
       Languages:
       - Paperboy
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot151
       TermType: 0
@@ -3685,7 +4094,8 @@ MonoBehaviour:
       Languages:
       - Marrow
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot152
       TermType: 0
@@ -3693,7 +4103,8 @@ MonoBehaviour:
       Languages:
       - Sherbert
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot153
       TermType: 0
@@ -3701,7 +4112,8 @@ MonoBehaviour:
       Languages:
       - Toffee Crisp
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot154
       TermType: 0
@@ -3709,7 +4121,8 @@ MonoBehaviour:
       Languages:
       - Chegwin
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot155
       TermType: 0
@@ -3717,7 +4130,8 @@ MonoBehaviour:
       Languages:
       - Cheggers
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot156
       TermType: 0
@@ -3725,7 +4139,8 @@ MonoBehaviour:
       Languages:
       - BEEFY
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot157
       TermType: 0
@@ -3733,7 +4148,8 @@ MonoBehaviour:
       Languages:
       - Bongo
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot158
       TermType: 0
@@ -3741,7 +4157,8 @@ MonoBehaviour:
       Languages:
       - Red Fury
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot159
       TermType: 0
@@ -3749,7 +4166,8 @@ MonoBehaviour:
       Languages:
       - Anil
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot16
       TermType: 0
@@ -3757,7 +4175,8 @@ MonoBehaviour:
       Languages:
       - Arkham
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot160
       TermType: 0
@@ -3765,7 +4184,8 @@ MonoBehaviour:
       Languages:
       - Mr.Yan
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot161
       TermType: 0
@@ -3773,7 +4193,8 @@ MonoBehaviour:
       Languages:
       - Tony De Tony
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot162
       TermType: 0
@@ -3781,7 +4202,8 @@ MonoBehaviour:
       Languages:
       - Backwards
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot163
       TermType: 0
@@ -3789,7 +4211,8 @@ MonoBehaviour:
       Languages:
       - Cold Press
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot164
       TermType: 0
@@ -3797,7 +4220,8 @@ MonoBehaviour:
       Languages:
       - High Press
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot165
       TermType: 0
@@ -3805,7 +4229,8 @@ MonoBehaviour:
       Languages:
       - 4_4_2
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot166
       TermType: 0
@@ -3813,7 +4238,8 @@ MonoBehaviour:
       Languages:
       - Ratcatcher
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot167
       TermType: 0
@@ -3821,7 +4247,8 @@ MonoBehaviour:
       Languages:
       - Mo Lester
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot168
       TermType: 0
@@ -3829,7 +4256,8 @@ MonoBehaviour:
       Languages:
       - Dick Hurtz
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot169
       TermType: 0
@@ -3837,7 +4265,8 @@ MonoBehaviour:
       Languages:
       - Fay Jina
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot17
       TermType: 0
@@ -3845,7 +4274,8 @@ MonoBehaviour:
       Languages:
       - Rex
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot170
       TermType: 0
@@ -3853,7 +4283,8 @@ MonoBehaviour:
       Languages:
       - Halfling
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot171
       TermType: 0
@@ -3861,7 +4292,8 @@ MonoBehaviour:
       Languages:
       - Bunny
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot172
       TermType: 0
@@ -3869,7 +4301,8 @@ MonoBehaviour:
       Languages:
       - Lady GooGoo
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot173
       TermType: 0
@@ -3877,7 +4310,8 @@ MonoBehaviour:
       Languages:
       - Horned God
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot174
       TermType: 0
@@ -3885,7 +4319,8 @@ MonoBehaviour:
       Languages:
       - Squid
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot175
       TermType: 0
@@ -3893,7 +4328,8 @@ MonoBehaviour:
       Languages:
       - Lemon
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot176
       TermType: 0
@@ -3901,7 +4337,8 @@ MonoBehaviour:
       Languages:
       - Percy
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot177
       TermType: 0
@@ -3909,7 +4346,8 @@ MonoBehaviour:
       Languages:
       - Little Weece
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot178
       TermType: 0
@@ -3917,7 +4355,8 @@ MonoBehaviour:
       Languages:
       - Brandi
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot179
       TermType: 0
@@ -3925,7 +4364,8 @@ MonoBehaviour:
       Languages:
       - Pizza
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot18
       TermType: 0
@@ -3933,7 +4373,8 @@ MonoBehaviour:
       Languages:
       - ErikVale
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot180
       TermType: 0
@@ -3941,7 +4382,8 @@ MonoBehaviour:
       Languages:
       - Burger
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot181
       TermType: 0
@@ -3949,7 +4391,8 @@ MonoBehaviour:
       Languages:
       - Coffee
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot182
       TermType: 0
@@ -3957,7 +4400,8 @@ MonoBehaviour:
       Languages:
       - Tea
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot183
       TermType: 0
@@ -3965,7 +4409,8 @@ MonoBehaviour:
       Languages:
       - Beer
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot184
       TermType: 0
@@ -3973,7 +4418,8 @@ MonoBehaviour:
       Languages:
       - Bottom
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot185
       TermType: 0
@@ -3981,7 +4427,8 @@ MonoBehaviour:
       Languages:
       - Botorama
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot186
       TermType: 0
@@ -3989,7 +4436,8 @@ MonoBehaviour:
       Languages:
       - ElClassico
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot187
       TermType: 0
@@ -3997,7 +4445,8 @@ MonoBehaviour:
       Languages:
       - Fred
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot188
       TermType: 0
@@ -4005,7 +4454,8 @@ MonoBehaviour:
       Languages:
       - NukeMan
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot189
       TermType: 0
@@ -4013,7 +4463,8 @@ MonoBehaviour:
       Languages:
       - Doge
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot19
       TermType: 0
@@ -4021,7 +4472,8 @@ MonoBehaviour:
       Languages:
       - Jannis
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot190
       TermType: 0
@@ -4029,7 +4481,8 @@ MonoBehaviour:
       Languages:
       - $H1BA
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot191
       TermType: 0
@@ -4037,7 +4490,8 @@ MonoBehaviour:
       Languages:
       - Smackster
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot192
       TermType: 0
@@ -4045,7 +4499,8 @@ MonoBehaviour:
       Languages:
       - Hamster
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot193
       TermType: 0
@@ -4053,7 +4508,8 @@ MonoBehaviour:
       Languages:
       - Badger
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot194
       TermType: 0
@@ -4061,7 +4517,8 @@ MonoBehaviour:
       Languages:
       - Sonic
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot195
       TermType: 0
@@ -4069,7 +4526,8 @@ MonoBehaviour:
       Languages:
       - MarioTime
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot196
       TermType: 0
@@ -4077,7 +4535,8 @@ MonoBehaviour:
       Languages:
       - Browser
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot197
       TermType: 0
@@ -4085,7 +4544,8 @@ MonoBehaviour:
       Languages:
       - Lionheart
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot198
       TermType: 0
@@ -4093,7 +4553,8 @@ MonoBehaviour:
       Languages:
       - kl0p
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot199
       TermType: 0
@@ -4101,7 +4562,8 @@ MonoBehaviour:
       Languages:
       - Furhad
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot2
       TermType: 0
@@ -4109,7 +4571,8 @@ MonoBehaviour:
       Languages:
       - Salty
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot20
       TermType: 0
@@ -4117,7 +4580,8 @@ MonoBehaviour:
       Languages:
       - Piw
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot200
       TermType: 0
@@ -4125,7 +4589,8 @@ MonoBehaviour:
       Languages:
       - Yui
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot21
       TermType: 0
@@ -4133,7 +4598,8 @@ MonoBehaviour:
       Languages:
       - Pappy
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot22
       TermType: 0
@@ -4141,7 +4607,8 @@ MonoBehaviour:
       Languages:
       - GODVIN
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot23
       TermType: 0
@@ -4149,7 +4616,8 @@ MonoBehaviour:
       Languages:
       - Starter
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot24
       TermType: 0
@@ -4157,7 +4625,8 @@ MonoBehaviour:
       Languages:
       - Lion
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot25
       TermType: 0
@@ -4165,7 +4634,8 @@ MonoBehaviour:
       Languages:
       - Mystic
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot26
       TermType: 0
@@ -4173,7 +4643,8 @@ MonoBehaviour:
       Languages:
       - Vilka
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot27
       TermType: 0
@@ -4181,7 +4652,8 @@ MonoBehaviour:
       Languages:
       - Moon
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot28
       TermType: 0
@@ -4189,7 +4661,8 @@ MonoBehaviour:
       Languages:
       - BigD2000
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot29
       TermType: 0
@@ -4197,7 +4670,8 @@ MonoBehaviour:
       Languages:
       - Kolbasa
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot3
       TermType: 0
@@ -4205,7 +4679,8 @@ MonoBehaviour:
       Languages:
       - Phoenix
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot30
       TermType: 0
@@ -4213,7 +4688,8 @@ MonoBehaviour:
       Languages:
       - PewPew
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot31
       TermType: 0
@@ -4221,7 +4697,8 @@ MonoBehaviour:
       Languages:
       - Trudy
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot32
       TermType: 0
@@ -4229,7 +4706,8 @@ MonoBehaviour:
       Languages:
       - Banger Man
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot33
       TermType: 0
@@ -4237,7 +4715,8 @@ MonoBehaviour:
       Languages:
       - ITS ME MUM
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot34
       TermType: 0
@@ -4245,7 +4724,8 @@ MonoBehaviour:
       Languages:
       - Mandy Land
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot35
       TermType: 0
@@ -4253,7 +4733,8 @@ MonoBehaviour:
       Languages:
       - Curt Vogel
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot36
       TermType: 0
@@ -4261,7 +4742,8 @@ MonoBehaviour:
       Languages:
       - you fail
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot37
       TermType: 0
@@ -4269,7 +4751,8 @@ MonoBehaviour:
       Languages:
       - Le Fox
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot38
       TermType: 0
@@ -4277,7 +4760,8 @@ MonoBehaviour:
       Languages:
       - VLAD_69
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot39
       TermType: 0
@@ -4285,7 +4769,8 @@ MonoBehaviour:
       Languages:
       - Botticelli
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot4
       TermType: 0
@@ -4293,7 +4778,8 @@ MonoBehaviour:
       Languages:
       - James25
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot40
       TermType: 0
@@ -4301,7 +4787,8 @@ MonoBehaviour:
       Languages:
       - IAN BOT
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot41
       TermType: 0
@@ -4309,7 +4796,8 @@ MonoBehaviour:
       Languages:
       - BANGBOT23
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot42
       TermType: 0
@@ -4317,7 +4805,8 @@ MonoBehaviour:
       Languages:
       - Randy
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot43
       TermType: 0
@@ -4325,7 +4814,8 @@ MonoBehaviour:
       Languages:
       - Coconut
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot44
       TermType: 0
@@ -4333,7 +4823,8 @@ MonoBehaviour:
       Languages:
       - UncleDeeDee
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot45
       TermType: 0
@@ -4341,7 +4832,8 @@ MonoBehaviour:
       Languages:
       - Patty
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot46
       TermType: 0
@@ -4349,7 +4841,8 @@ MonoBehaviour:
       Languages:
       - Kitten
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot47
       TermType: 0
@@ -4357,7 +4850,8 @@ MonoBehaviour:
       Languages:
       - 69420
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot48
       TermType: 0
@@ -4365,7 +4859,8 @@ MonoBehaviour:
       Languages:
       - Gandalf
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot49
       TermType: 0
@@ -4373,7 +4868,8 @@ MonoBehaviour:
       Languages:
       - Handyman
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot5
       TermType: 0
@@ -4381,7 +4877,8 @@ MonoBehaviour:
       Languages:
       - Olivia
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot50
       TermType: 0
@@ -4389,7 +4886,8 @@ MonoBehaviour:
       Languages:
       - HairyPotter
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot51
       TermType: 0
@@ -4397,7 +4895,8 @@ MonoBehaviour:
       Languages:
       - Doctor
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot52
       TermType: 0
@@ -4405,7 +4904,8 @@ MonoBehaviour:
       Languages:
       - Jeremy
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot53
       TermType: 0
@@ -4413,7 +4913,8 @@ MonoBehaviour:
       Languages:
       - WWWWWWW
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot54
       TermType: 0
@@ -4421,7 +4922,8 @@ MonoBehaviour:
       Languages:
       - WWIII
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot55
       TermType: 0
@@ -4429,7 +4931,8 @@ MonoBehaviour:
       Languages:
       - VX IX IV XX
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot56
       TermType: 0
@@ -4437,7 +4940,8 @@ MonoBehaviour:
       Languages:
       - MickeyMouse
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot57
       TermType: 0
@@ -4445,7 +4949,8 @@ MonoBehaviour:
       Languages:
       - Einstein
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot58
       TermType: 0
@@ -4453,7 +4958,8 @@ MonoBehaviour:
       Languages:
       - Gorilla
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot59
       TermType: 0
@@ -4461,7 +4967,8 @@ MonoBehaviour:
       Languages:
       - NETFLIX
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot6
       TermType: 0
@@ -4469,7 +4976,8 @@ MonoBehaviour:
       Languages:
       - Emma
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot60
       TermType: 0
@@ -4477,7 +4985,8 @@ MonoBehaviour:
       Languages:
       - NIKE69
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot61
       TermType: 0
@@ -4485,7 +4994,8 @@ MonoBehaviour:
       Languages:
       - Messi
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot62
       TermType: 0
@@ -4493,7 +5003,8 @@ MonoBehaviour:
       Languages:
       - Ronaldo
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot63
       TermType: 0
@@ -4501,7 +5012,8 @@ MonoBehaviour:
       Languages:
       - B0TeB0I
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot64
       TermType: 0
@@ -4509,7 +5021,8 @@ MonoBehaviour:
       Languages:
       - BOOM
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot65
       TermType: 0
@@ -4517,7 +5030,8 @@ MonoBehaviour:
       Languages:
       - FFFFFFF1982
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot66
       TermType: 0
@@ -4525,7 +5039,8 @@ MonoBehaviour:
       Languages:
       - AK-420
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot67
       TermType: 0
@@ -4533,7 +5048,8 @@ MonoBehaviour:
       Languages:
       - ADAM
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot68
       TermType: 0
@@ -4541,7 +5057,8 @@ MonoBehaviour:
       Languages:
       - NFT
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot69
       TermType: 0
@@ -4549,7 +5066,8 @@ MonoBehaviour:
       Languages:
       - Bitcoin
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot7
       TermType: 0
@@ -4557,7 +5075,8 @@ MonoBehaviour:
       Languages:
       - Ava
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot70
       TermType: 0
@@ -4565,7 +5084,8 @@ MonoBehaviour:
       Languages:
       - BILLIONAIRE
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot71
       TermType: 0
@@ -4573,7 +5093,8 @@ MonoBehaviour:
       Languages:
       - KK SLIDER
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot72
       TermType: 0
@@ -4581,7 +5102,8 @@ MonoBehaviour:
       Languages:
       - Lightning
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot73
       TermType: 0
@@ -4589,7 +5111,8 @@ MonoBehaviour:
       Languages:
       - Nelson
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot74
       TermType: 0
@@ -4597,7 +5120,8 @@ MonoBehaviour:
       Languages:
       - Napoleon
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot75
       TermType: 0
@@ -4605,7 +5129,8 @@ MonoBehaviour:
       Languages:
       - Montgomery
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot76
       TermType: 0
@@ -4613,7 +5138,8 @@ MonoBehaviour:
       Languages:
       - Boomer
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot77
       TermType: 0
@@ -4621,7 +5147,8 @@ MonoBehaviour:
       Languages:
       - Millenial
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot78
       TermType: 0
@@ -4629,7 +5156,8 @@ MonoBehaviour:
       Languages:
       - Snowflake
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot79
       TermType: 0
@@ -4637,7 +5165,8 @@ MonoBehaviour:
       Languages:
       - Triggered
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot8
       TermType: 0
@@ -4645,7 +5174,8 @@ MonoBehaviour:
       Languages:
       - Mia
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot80
       TermType: 0
@@ -4653,7 +5183,8 @@ MonoBehaviour:
       Languages:
       - Woke
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot81
       TermType: 0
@@ -4661,7 +5192,8 @@ MonoBehaviour:
       Languages:
       - GenX
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot82
       TermType: 0
@@ -4669,7 +5201,8 @@ MonoBehaviour:
       Languages:
       - GenZ
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot83
       TermType: 0
@@ -4677,7 +5210,8 @@ MonoBehaviour:
       Languages:
       - Fur Q
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot84
       TermType: 0
@@ -4685,7 +5219,8 @@ MonoBehaviour:
       Languages:
       - Fat Cat
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot85
       TermType: 0
@@ -4693,7 +5228,8 @@ MonoBehaviour:
       Languages:
       - Piggy
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot86
       TermType: 0
@@ -4701,7 +5237,8 @@ MonoBehaviour:
       Languages:
       - Panic
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot87
       TermType: 0
@@ -4709,7 +5246,8 @@ MonoBehaviour:
       Languages:
       - DESTROYER
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot88
       TermType: 0
@@ -4717,7 +5255,8 @@ MonoBehaviour:
       Languages:
       - SimpleDimple
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot89
       TermType: 0
@@ -4725,7 +5264,8 @@ MonoBehaviour:
       Languages:
       - Popit
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot9
       TermType: 0
@@ -4733,7 +5273,8 @@ MonoBehaviour:
       Languages:
       - Harper
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot90
       TermType: 0
@@ -4741,7 +5282,8 @@ MonoBehaviour:
       Languages:
       - Nagibator
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot91
       TermType: 0
@@ -4749,7 +5291,8 @@ MonoBehaviour:
       Languages:
       - Cyb0rg
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot92
       TermType: 0
@@ -4757,7 +5300,8 @@ MonoBehaviour:
       Languages:
       - PREDATOR
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot93
       TermType: 0
@@ -4765,7 +5309,8 @@ MonoBehaviour:
       Languages:
       - s1ake
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot94
       TermType: 0
@@ -4773,7 +5318,8 @@ MonoBehaviour:
       Languages:
       - peppa
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot95
       TermType: 0
@@ -4781,7 +5327,8 @@ MonoBehaviour:
       Languages:
       - D33PM1ND
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot96
       TermType: 0
@@ -4789,7 +5336,8 @@ MonoBehaviour:
       Languages:
       - 2Pints
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot97
       TermType: 0
@@ -4797,7 +5345,8 @@ MonoBehaviour:
       Languages:
       - SwiftHalf
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot98
       TermType: 0
@@ -4805,7 +5354,8 @@ MonoBehaviour:
       Languages:
       - CHEEKYNANDO
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: BotNames/Bot99
       TermType: 0
@@ -4813,7 +5363,8 @@ MonoBehaviour:
       Languages:
       - OIOISAVALOY
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: Notifications/AdventureUnlocked
       TermType: 0
@@ -4821,7 +5372,8 @@ MonoBehaviour:
       Languages:
       - '{0} is now open! Defeat the boss and collect awesome rewards!'
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: Notifications/AdventureUnlockedTitle
       TermType: 0
@@ -4829,7 +5381,8 @@ MonoBehaviour:
       Languages:
       - A New Adventure Awaits!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: Notifications/CrateReady
       TermType: 0
@@ -4837,7 +5390,8 @@ MonoBehaviour:
       Languages:
       - '{0} is ready to open!'
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: Notifications/CrateReadyTitle
       TermType: 0
@@ -4845,7 +5399,8 @@ MonoBehaviour:
       Languages:
       - Crate Unlocked!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: Notifications/GameTitle
       TermType: 0
@@ -4853,7 +5408,8 @@ MonoBehaviour:
       Languages:
       - BOSS HUNT HEROES
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: Notifications/NoCrateUnlocking
       TermType: 0
@@ -4861,7 +5417,8 @@ MonoBehaviour:
       Languages:
       - You forgot to unlock a crate!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: Notifications/NoCrateUnlockingTitle
       TermType: 0
@@ -4869,7 +5426,8 @@ MonoBehaviour:
       Languages:
       - Crates can be Unlocked
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: Notifications/UnopenedCrate
       TermType: 0
@@ -4877,7 +5435,8 @@ MonoBehaviour:
       Languages:
       - You forgot to open a crate
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: Notifications/UnopenedCrateTitle
       TermType: 0
@@ -4885,7 +5444,8 @@ MonoBehaviour:
       Languages:
       - Claim Your Loot!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/Adventure
       TermType: 0
@@ -4893,7 +5453,8 @@ MonoBehaviour:
       Languages:
       - Adventure
       - "\u041F\u0440\u0438\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u0435"
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/Amulet
       TermType: 0
@@ -4901,7 +5462,8 @@ MonoBehaviour:
       Languages:
       - Amulet
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/ApoCrossbow
       TermType: 0
@@ -4909,7 +5471,8 @@ MonoBehaviour:
       Languages:
       - Crossbow
       - Hawk
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/ApoMinigun
       TermType: 0
@@ -4917,7 +5480,8 @@ MonoBehaviour:
       Languages:
       - Minigun
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/ApoRPG
       TermType: 0
@@ -4925,7 +5489,8 @@ MonoBehaviour:
       Languages:
       - RPG
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/ApoRifle
       TermType: 0
@@ -4933,7 +5498,8 @@ MonoBehaviour:
       Languages:
       - Assault Rifle
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/ApoSMG
       TermType: 0
@@ -4941,7 +5507,8 @@ MonoBehaviour:
       Languages:
       - SMG
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/ApoShotgun
       TermType: 0
@@ -4949,7 +5516,8 @@ MonoBehaviour:
       Languages:
       - Scattergun
       - Boomstick
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/ApoSniper
       TermType: 0
@@ -4957,7 +5525,8 @@ MonoBehaviour:
       Languages:
       - Hunting Rifle
       - Falcon
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/Armor
       TermType: 0
@@ -4965,7 +5534,8 @@ MonoBehaviour:
       Languages:
       - Armour
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/Ammo
       TermType: 0
@@ -4973,7 +5543,8 @@ MonoBehaviour:
       Languages:
       - Ammo
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/AmmoSmall
       TermType: 0
@@ -4981,7 +5552,8 @@ MonoBehaviour:
       Languages:
       - Ammo Small
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/AmmoLarge
       TermType: 0
@@ -4989,7 +5561,8 @@ MonoBehaviour:
       Languages:
       - Ammo Large
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/BRGenesis
       TermType: 0
@@ -4997,7 +5570,8 @@ MonoBehaviour:
       Languages:
       - GENESIS
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/BaseballArmor
       TermType: 0
@@ -5005,7 +5579,8 @@ MonoBehaviour:
       Languages:
       - Baseball Armor
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/BaseballHelmet
       TermType: 0
@@ -5013,7 +5588,8 @@ MonoBehaviour:
       Languages:
       - Baseball Helmet
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/BlimpDeck
       TermType: 0
@@ -5021,7 +5597,8 @@ MonoBehaviour:
       Languages:
       - BLIMP DECK
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/Boots
       TermType: 0
@@ -5029,7 +5606,8 @@ MonoBehaviour:
       Languages:
       - Boots
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/BossAngrymanAi
       TermType: 0
@@ -5037,7 +5615,8 @@ MonoBehaviour:
       Languages:
       - Scarface
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/BossCritterAi
       TermType: 0
@@ -5045,7 +5624,8 @@ MonoBehaviour:
       Languages:
       - Crowburr
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/BossRobopedeAi
       TermType: 0
@@ -5053,7 +5633,8 @@ MonoBehaviour:
       Languages:
       - Party Worm
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/BossSnakeAi
       TermType: 0
@@ -5061,7 +5642,8 @@ MonoBehaviour:
       Languages:
       - Snake Bojo
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/BossSpiderAi
       TermType: 0
@@ -5069,7 +5651,8 @@ MonoBehaviour:
       Languages:
       - General Panic
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/ChickenDinner
       TermType: 0
@@ -5077,7 +5660,8 @@ MonoBehaviour:
       Languages:
       - Healing
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/CommonBox
       TermType: 0
@@ -5085,7 +5669,8 @@ MonoBehaviour:
       Languages:
       - BASIC CRATE
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/CommonCore
       TermType: 0
@@ -5093,7 +5678,8 @@ MonoBehaviour:
       Languages:
       - BASIC CORE
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/DamagePill
       TermType: 0
@@ -5101,7 +5687,8 @@ MonoBehaviour:
       Languages:
       - Damage Up
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/Diagonalshot
       TermType: 0
@@ -5109,7 +5696,8 @@ MonoBehaviour:
       Languages:
       - Diagonal Shot
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/DustyDesert
       TermType: 0
@@ -5117,7 +5705,8 @@ MonoBehaviour:
       Languages:
       - DUSTY DESERT
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/DustyDesertDescription
       TermType: 0
@@ -5125,7 +5714,8 @@ MonoBehaviour:
       Languages:
       - An arid landscape with both riches and risks!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/EpicBox
       TermType: 0
@@ -5133,7 +5723,8 @@ MonoBehaviour:
       Languages:
       - BRONZE CRATE
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/EpicCore
       TermType: 0
@@ -5141,7 +5732,8 @@ MonoBehaviour:
       Languages:
       - BRONZE CORE
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/Equipment
       TermType: 0
@@ -5149,7 +5741,8 @@ MonoBehaviour:
       Languages:
       - Equipment
       - "\u0421\u043D\u0430\u0440\u044F\u0436\u0435\u043D\u0438\u0435"
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/Fastershot
       TermType: 0
@@ -5157,7 +5750,8 @@ MonoBehaviour:
       Languages:
       - Faster Shots
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/Female01Avatar
       TermType: 0
@@ -5165,7 +5759,8 @@ MonoBehaviour:
       Languages:
       - Red Dawn
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/Female02Avatar
       TermType: 0
@@ -5173,7 +5768,8 @@ MonoBehaviour:
       Languages:
       - Mint Crush
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/FloodCity
       TermType: 0
@@ -5181,7 +5777,8 @@ MonoBehaviour:
       Languages:
       - FLOOD CITY
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/FloodCitySimple
       TermType: 0
@@ -5189,7 +5786,8 @@ MonoBehaviour:
       Languages:
       - FLOOD TOWN
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/FootballArmor
       TermType: 0
@@ -5197,7 +5795,8 @@ MonoBehaviour:
       Languages:
       - Footbull Armor
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/FootballHelmet
       TermType: 0
@@ -5205,7 +5804,8 @@ MonoBehaviour:
       Languages:
       - Footbull Helmet
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/Freeway
       TermType: 0
@@ -5213,7 +5813,8 @@ MonoBehaviour:
       Languages:
       - FREEWAY
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/FreewayDescription
       TermType: 0
@@ -5221,7 +5822,8 @@ MonoBehaviour:
       Languages:
       - The remanants of a bustling Freeway from the past
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/Frontshot
       TermType: 0
@@ -5229,7 +5831,8 @@ MonoBehaviour:
       Languages:
       - Frontshot
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/GoldenBoots
       TermType: 0
@@ -5237,7 +5840,8 @@ MonoBehaviour:
       Languages:
       - Golden Boots
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/GoldenBootsDescription
       TermType: 0
@@ -5245,7 +5849,8 @@ MonoBehaviour:
       Languages:
       - 
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/HC
       TermType: 0
@@ -5253,7 +5858,8 @@ MonoBehaviour:
       Languages:
       - CRAFT SPICE
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/Hammer
       TermType: 0
@@ -5261,7 +5867,8 @@ MonoBehaviour:
       Languages:
       - Turtle
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/HammerDescription
       TermType: 0
@@ -5269,7 +5876,8 @@ MonoBehaviour:
       Languages:
       - Nails enemies to the ground. No nails needed.
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/HcBundle1
       TermType: 0
@@ -5277,7 +5885,8 @@ MonoBehaviour:
       Languages:
       - DIAMONDS
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/HcBundle2
       TermType: 0
@@ -5285,7 +5894,8 @@ MonoBehaviour:
       Languages:
       - DIAMONDS
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/HcBundle3
       TermType: 0
@@ -5293,7 +5903,8 @@ MonoBehaviour:
       Languages:
       - DIAMONDS
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/HealthPill
       TermType: 0
@@ -5301,7 +5912,8 @@ MonoBehaviour:
       Languages:
       - Health Up
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/Health
       TermType: 0
@@ -5309,7 +5921,8 @@ MonoBehaviour:
       Languages:
       - Health
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/Helmet
       TermType: 0
@@ -5317,7 +5930,8 @@ MonoBehaviour:
       Languages:
       - Helmet
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/HockeyHelmet
       TermType: 0
@@ -5325,7 +5939,8 @@ MonoBehaviour:
       Languages:
       - Hockey Mask
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/Invincible
       TermType: 0
@@ -5333,7 +5948,8 @@ MonoBehaviour:
       Languages:
       - Invincibility
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/Invisibility
       TermType: 0
@@ -5341,7 +5957,8 @@ MonoBehaviour:
       Languages:
       - Invisibility
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/LegendaryBox
       TermType: 0
@@ -5349,7 +5966,8 @@ MonoBehaviour:
       Languages:
       - GOLDEN CRATE
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/LegendaryCore
       TermType: 0
@@ -5357,7 +5975,8 @@ MonoBehaviour:
       Languages:
       - GOLDEN CORE
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/Liberty
       TermType: 0
@@ -5365,7 +5984,8 @@ MonoBehaviour:
       Languages:
       - LIBERTY RUINS
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/LibertyDescription
       TermType: 0
@@ -5373,7 +5993,8 @@ MonoBehaviour:
       Languages:
       - A once famous landmark, reduced to rubble
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/Lifesteal
       TermType: 0
@@ -5381,7 +6002,8 @@ MonoBehaviour:
       Languages:
       - Lifesteal
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/MagicCube
       TermType: 0
@@ -5389,7 +6011,8 @@ MonoBehaviour:
       Languages:
       - Magic Cube
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/MainDeck
       TermType: 0
@@ -5397,7 +6020,8 @@ MonoBehaviour:
       Languages:
       - SKY DECK
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/Male01Avatar
       TermType: 0
@@ -5405,7 +6029,8 @@ MonoBehaviour:
       Languages:
       - Action Dan
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/Male02Avatar
       TermType: 0
@@ -5413,7 +6038,8 @@ MonoBehaviour:
       Languages:
       - Beef Chegwin
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/MausHelmet
       TermType: 0
@@ -5421,7 +6047,8 @@ MonoBehaviour:
       Languages:
       - Maus Helmet
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/MausHelmetDescription
       TermType: 0
@@ -5429,7 +6056,8 @@ MonoBehaviour:
       Languages:
       - 
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/ModHeavyMachineGun
       TermType: 0
@@ -5437,7 +6065,8 @@ MonoBehaviour:
       Languages:
       - Heavy MG
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/ModLauncher
       TermType: 0
@@ -5445,7 +6074,8 @@ MonoBehaviour:
       Languages:
       - Grenade Launcher
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/ModMachineGun
       TermType: 0
@@ -5453,7 +6083,8 @@ MonoBehaviour:
       Languages:
       - Daedalus
       - Daedalus
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/ModPistol
       TermType: 0
@@ -5461,7 +6092,8 @@ MonoBehaviour:
       Languages:
       - Pistol
       - Mantis
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/ModRifle
       TermType: 0
@@ -5469,7 +6101,8 @@ MonoBehaviour:
       Languages:
       - Carbine
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/ModShotgun
       TermType: 0
@@ -5477,7 +6110,8 @@ MonoBehaviour:
       Languages:
       - Shotgun
       - Bulldog
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/ModSniper
       TermType: 0
@@ -5485,7 +6119,8 @@ MonoBehaviour:
       Languages:
       - Sniper
       - Rhino
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/MouseAmulet
       TermType: 0
@@ -5493,7 +6128,8 @@ MonoBehaviour:
       Languages:
       - Mouse Amulet
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/MouseAmuletDescription
       TermType: 0
@@ -5501,7 +6137,8 @@ MonoBehaviour:
       Languages:
       - 
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/MouseArmor
       TermType: 0
@@ -5509,7 +6146,8 @@ MonoBehaviour:
       Languages:
       - Mouse Armor
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/MouseArmorDescription
       TermType: 0
@@ -5517,7 +6155,8 @@ MonoBehaviour:
       Languages:
       - 
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/MouseBoots
       TermType: 0
@@ -5525,7 +6164,8 @@ MonoBehaviour:
       Languages:
       - Mouse Boots
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/MouseBootsDescription
       TermType: 0
@@ -5533,7 +6173,8 @@ MonoBehaviour:
       Languages:
       - 
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/MouseShield
       TermType: 0
@@ -5541,7 +6182,8 @@ MonoBehaviour:
       Languages:
       - Mouse Shield
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/MouseShieldDescription
       TermType: 0
@@ -5549,7 +6191,8 @@ MonoBehaviour:
       Languages:
       - 
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/Multishot
       TermType: 0
@@ -5557,7 +6200,8 @@ MonoBehaviour:
       Languages:
       - Multishot
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/Philadelphia
       TermType: 0
@@ -5565,7 +6209,8 @@ MonoBehaviour:
       Languages:
       - PHILADELPHIA
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/PhiladelphiaDescription
       TermType: 0
@@ -5573,7 +6218,8 @@ MonoBehaviour:
       Languages:
       - Once a busy city, now a looters battleground
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/Rage
       TermType: 0
@@ -5581,7 +6227,8 @@ MonoBehaviour:
       Languages:
       - Quad Damage
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/RareBox
       TermType: 0
@@ -5589,7 +6236,8 @@ MonoBehaviour:
       Languages:
       - STEEL CRATE
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/RareCore
       TermType: 0
@@ -5597,7 +6245,8 @@ MonoBehaviour:
       Languages:
       - STEEL CORE
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/Replenish
       TermType: 0
@@ -5605,7 +6254,8 @@ MonoBehaviour:
       Languages:
       - Special Move
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/RiotAmulet
       TermType: 0
@@ -5613,7 +6263,8 @@ MonoBehaviour:
       Languages:
       - Riot Amulet
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/RiotAmuletDescription
       TermType: 0
@@ -5621,7 +6272,8 @@ MonoBehaviour:
       Languages:
       - 
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/RiotArmor
       TermType: 0
@@ -5629,7 +6281,8 @@ MonoBehaviour:
       Languages:
       - Riot Armor
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/RiotArmorDescription
       TermType: 0
@@ -5637,7 +6290,8 @@ MonoBehaviour:
       Languages:
       - 
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/RiotBoots
       TermType: 0
@@ -5645,7 +6299,8 @@ MonoBehaviour:
       Languages:
       - Riot Boots
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/RiotBootsDescription
       TermType: 0
@@ -5653,7 +6308,8 @@ MonoBehaviour:
       Languages:
       - 
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/RiotHelmet
       TermType: 0
@@ -5661,7 +6317,8 @@ MonoBehaviour:
       Languages:
       - Riot Helmet
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/RiotHelmetDescription
       TermType: 0
@@ -5669,7 +6326,8 @@ MonoBehaviour:
       Languages:
       - 
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/RiotShield
       TermType: 0
@@ -5677,7 +6335,8 @@ MonoBehaviour:
       Languages:
       - Riot Shield
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/RiotShieldDescription
       TermType: 0
@@ -5685,7 +6344,8 @@ MonoBehaviour:
       Languages:
       - 
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/RoadHelmet
       TermType: 0
@@ -5693,7 +6353,8 @@ MonoBehaviour:
       Languages:
       - Road Cone
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/RoadShield
       TermType: 0
@@ -5701,7 +6362,8 @@ MonoBehaviour:
       Languages:
       - Road Shield
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/RoadSignArmour
       TermType: 0
@@ -5709,7 +6371,8 @@ MonoBehaviour:
       Languages:
       - Traffic Armor
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/RoadSignArmourDescription
       TermType: 0
@@ -5717,7 +6380,8 @@ MonoBehaviour:
       Languages:
       - 
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SC
       TermType: 0
@@ -5725,7 +6389,8 @@ MonoBehaviour:
       Languages:
       - COINS
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/ScBundle1
       TermType: 0
@@ -5733,7 +6398,8 @@ MonoBehaviour:
       Languages:
       - COINS
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/ScBundle2
       TermType: 0
@@ -5741,7 +6407,8 @@ MonoBehaviour:
       Languages:
       - COINS
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/ScBundle3
       TermType: 0
@@ -5749,7 +6416,8 @@ MonoBehaviour:
       Languages:
       - COINS
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SciBlaster
       TermType: 0
@@ -5757,7 +6425,8 @@ MonoBehaviour:
       Languages:
       - Laser Blaster
       - Nova Blaster
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SciCannon
       TermType: 0
@@ -5765,7 +6434,8 @@ MonoBehaviour:
       Languages:
       - Plasma Cannon
       - H.Y.P.E Launcher
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SciMelter
       TermType: 0
@@ -5773,7 +6443,8 @@ MonoBehaviour:
       Languages:
       - Electron Thrower
       - 'Pulsar '
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SciNeedleGun
       TermType: 0
@@ -5781,7 +6452,8 @@ MonoBehaviour:
       Languages:
       - Needle Gun
       - Comet Slinger
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SciPistol
       TermType: 0
@@ -5789,7 +6461,8 @@ MonoBehaviour:
       Languages:
       - Laser Pistol
       - Lunar Repeater
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SciRifle
       TermType: 0
@@ -5797,7 +6470,8 @@ MonoBehaviour:
       Languages:
       - Laser Rifle
       - Solar Carbine
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SciSniper
       TermType: 0
@@ -5805,7 +6479,8 @@ MonoBehaviour:
       Languages:
       - Pulse Rifle
       - Eclipse
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/Shield
       TermType: 0
@@ -5813,7 +6488,8 @@ MonoBehaviour:
       Languages:
       - Shield
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/ShieldSmall
       TermType: 0
@@ -5821,7 +6497,8 @@ MonoBehaviour:
       Languages:
       - Shield Small
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/ShieldLarge
       TermType: 0
@@ -5829,7 +6506,8 @@ MonoBehaviour:
       Languages:
       - Shield Large
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/ShieldCapacity
       TermType: 0
@@ -5837,7 +6515,8 @@ MonoBehaviour:
       Languages:
       - Shield Capacity
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/ShieldCapacitySmall
       TermType: 0
@@ -5845,7 +6524,8 @@ MonoBehaviour:
       Languages:
       - Shield Capacity Small
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/ShieldCapacityLarge
       TermType: 0
@@ -5853,7 +6533,8 @@ MonoBehaviour:
       Languages:
       - Shield Capacity Large
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/Sideshot
       TermType: 0
@@ -5861,7 +6542,8 @@ MonoBehaviour:
       Languages:
       - Sideshot
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SmallWilderness
       TermType: 0
@@ -5869,7 +6551,8 @@ MonoBehaviour:
       Languages:
       - OASIS
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SoldierAmulet
       TermType: 0
@@ -5877,7 +6560,8 @@ MonoBehaviour:
       Languages:
       - Soldier Amulet
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SoldierAmuletDescription
       TermType: 0
@@ -5885,7 +6569,8 @@ MonoBehaviour:
       Languages:
       - 
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SoldierArmor
       TermType: 0
@@ -5893,7 +6578,8 @@ MonoBehaviour:
       Languages:
       - Soldier Armor
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SoldierArmorDescription
       TermType: 0
@@ -5901,7 +6587,8 @@ MonoBehaviour:
       Languages:
       - 
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SoldierBoots
       TermType: 0
@@ -5909,7 +6596,8 @@ MonoBehaviour:
       Languages:
       - Soldier Boots
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SoldierBootsDescription
       TermType: 0
@@ -5917,7 +6605,8 @@ MonoBehaviour:
       Languages:
       - 
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SoldierHelmet
       TermType: 0
@@ -5925,7 +6614,8 @@ MonoBehaviour:
       Languages:
       - Soldier Helmet
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SoldierHelmetDescription
       TermType: 0
@@ -5933,7 +6623,8 @@ MonoBehaviour:
       Languages:
       - 
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SoldierShield
       TermType: 0
@@ -5941,7 +6632,8 @@ MonoBehaviour:
       Languages:
       - Soldier Shield
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SoldierShieldDescription
       TermType: 0
@@ -5949,7 +6641,8 @@ MonoBehaviour:
       Languages:
       - 
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SpecialAggroBeaconGrenade
       TermType: 0
@@ -5957,7 +6650,8 @@ MonoBehaviour:
       Languages:
       - Tantalizing Beacon
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SpecialAggroBeaconGrenadeDescription
       TermType: 0
@@ -5965,7 +6659,8 @@ MonoBehaviour:
       Languages:
       - Attracts all enemies around and explodes after a few seconds
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SpecialAimingAirstrike
       TermType: 0
@@ -5973,7 +6668,8 @@ MonoBehaviour:
       Languages:
       - Aimed Airstrike
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SpecialAimingAirstrikeDescription
       TermType: 0
@@ -5981,7 +6677,8 @@ MonoBehaviour:
       Languages:
       - Splash Damage across a targeted area
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SpecialAimingGrenade
       TermType: 0
@@ -5989,7 +6686,8 @@ MonoBehaviour:
       Languages:
       - Grenade
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SpecialAimingGrenadeDescription
       TermType: 0
@@ -5997,7 +6695,8 @@ MonoBehaviour:
       Languages:
       - Damages all enemies within the blast radius of a thrown grenade
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SpecialAimingHealArea
       TermType: 0
@@ -6005,7 +6704,8 @@ MonoBehaviour:
       Languages:
       - Aimed Healing Sphere
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SpecialAimingHealAreaDescription
       TermType: 0
@@ -6013,7 +6713,8 @@ MonoBehaviour:
       Languages:
       - Places a healing sphere in a targetted position
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SpecialAimingInvisibilityArea
       TermType: 0
@@ -6021,7 +6722,8 @@ MonoBehaviour:
       Languages:
       - Aimed Invisibility
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SpecialAimingInvisibilityAreaDescription
       TermType: 0
@@ -6029,7 +6731,8 @@ MonoBehaviour:
       Languages:
       - All players within a fixed area go Invisible
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SpecialAimingRageArea
       TermType: 0
@@ -6037,7 +6740,8 @@ MonoBehaviour:
       Languages:
       - Aimed Rage
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SpecialAimingRageAreaDescription
       TermType: 0
@@ -6045,7 +6749,8 @@ MonoBehaviour:
       Languages:
       - All players within a fixed area gain Rage status
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SpecialAimingShieldArea
       TermType: 0
@@ -6053,7 +6758,8 @@ MonoBehaviour:
       Languages:
       - Aimed Shield
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SpecialAimingShieldAreaDescription
       TermType: 0
@@ -6061,7 +6767,8 @@ MonoBehaviour:
       Languages:
       - Places a shield which all friendly players can use
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SpecialAimingStunGrenade
       TermType: 0
@@ -6069,7 +6776,8 @@ MonoBehaviour:
       Languages:
       - Stun Grenade
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SpecialAimingStunGrenadeDescription
       TermType: 0
@@ -6077,7 +6785,8 @@ MonoBehaviour:
       Languages:
       - Stuns all enemies within the blast radius of a thrown grenade
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SpecialAirstrikeSimple
       TermType: 0
@@ -6085,7 +6794,8 @@ MonoBehaviour:
       Languages:
       - Airstrike
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SpecialAirstrikeSimpleDescription
       TermType: 0
@@ -6093,7 +6803,8 @@ MonoBehaviour:
       Languages:
       - Splash Damage over a large area
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SpecialHealAround
       TermType: 0
@@ -6101,7 +6812,8 @@ MonoBehaviour:
       Languages:
       - Healing Sphere
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SpecialHealAroundDescription
       TermType: 0
@@ -6109,7 +6821,8 @@ MonoBehaviour:
       Languages:
       - Heals all players within a fixed area
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SpecialHealingField
       TermType: 0
@@ -6117,7 +6830,8 @@ MonoBehaviour:
       Languages:
       - Healing Field
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SpecialHealingFieldDescription
       TermType: 0
@@ -6125,7 +6839,8 @@ MonoBehaviour:
       Languages:
       - Heals all friendly players within the healing field
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SpecialHealingMode
       TermType: 0
@@ -6133,7 +6848,8 @@ MonoBehaviour:
       Languages:
       - Healing Mode
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SpecialHealingModeDescription
       TermType: 0
@@ -6141,7 +6857,8 @@ MonoBehaviour:
       Languages:
       - Heals any player targetted by your weapon. Be a team player!
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SpecialInvisibilitySelf
       TermType: 0
@@ -6149,7 +6866,8 @@ MonoBehaviour:
       Languages:
       - Invisibility Mode
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SpecialInvisibilitySelfDescription
       TermType: 0
@@ -6157,7 +6875,8 @@ MonoBehaviour:
       Languages:
       - Go invisible, causing enemies to stop targetting you
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SpecialRageSelf
       TermType: 0
@@ -6165,7 +6884,8 @@ MonoBehaviour:
       Languages:
       - Rage
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SpecialRageSelfDescription
       TermType: 0
@@ -6173,7 +6893,8 @@ MonoBehaviour:
       Languages:
       - Go into Rage mode and inflict more damage per second
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SpecialShieldSelf
       TermType: 0
@@ -6181,7 +6902,8 @@ MonoBehaviour:
       Languages:
       - Shield
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SpecialShieldSelfDescription
       TermType: 0
@@ -6189,7 +6911,8 @@ MonoBehaviour:
       Languages:
       - Activates a shield around your character
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SpecialShieldedCharge
       TermType: 0
@@ -6197,7 +6920,8 @@ MonoBehaviour:
       Languages:
       - Shielded Charge
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SpecialShieldedChargeDescription
       TermType: 0
@@ -6205,7 +6929,8 @@ MonoBehaviour:
       Languages:
       - Dash that stuns enemies on the way and greatly increases aggro
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SpecialSkyLaserBeam
       TermType: 0
@@ -6213,7 +6938,8 @@ MonoBehaviour:
       Languages:
       - Sky Laser Beam
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SpecialSkyLaserBeamDescription
       TermType: 0
@@ -6221,7 +6947,8 @@ MonoBehaviour:
       Languages:
       - Instant high power damage in a small but focussed area
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SpecialStunSplash
       TermType: 0
@@ -6229,7 +6956,8 @@ MonoBehaviour:
       Languages:
       - Stun Splash
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SpecialStunSplashDescription
       TermType: 0
@@ -6237,7 +6965,8 @@ MonoBehaviour:
       Languages:
       - Stuns all enemies with a large area
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/SpeedPill
       TermType: 0
@@ -6245,7 +6974,8 @@ MonoBehaviour:
       Languages:
       - Speed Up
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/Stadium
       TermType: 0
@@ -6253,7 +6983,8 @@ MonoBehaviour:
       Languages:
       - GHOST STADIUM
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/StadiumDescription
       TermType: 0
@@ -6261,7 +6992,8 @@ MonoBehaviour:
       Languages:
       - A lively venue turned into a base of evil forces
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/StadiumTraining
       TermType: 0
@@ -6269,7 +7001,8 @@ MonoBehaviour:
       Languages:
       - TRAINING GROUNDS
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/StadiumTrainingDescription
       TermType: 0
@@ -6277,7 +7010,8 @@ MonoBehaviour:
       Languages:
       - No hunting without a proper training
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/Star
       TermType: 0
@@ -6285,7 +7019,8 @@ MonoBehaviour:
       Languages:
       - Superstar
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/TestScene
       TermType: 0
@@ -6293,7 +7028,8 @@ MonoBehaviour:
       Languages:
       - Test Scene
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/TikTokAmulet
       TermType: 0
@@ -6301,7 +7037,8 @@ MonoBehaviour:
       Languages:
       - TikTok Amulet
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/TikTokAmuletDescription
       TermType: 0
@@ -6309,7 +7046,8 @@ MonoBehaviour:
       Languages:
       - 
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/UncommonBox
       TermType: 0
@@ -6317,7 +7055,8 @@ MonoBehaviour:
       Languages:
       - PLASTIC CRATE
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/UncommonCore
       TermType: 0
@@ -6325,7 +7064,8 @@ MonoBehaviour:
       Languages:
       - PLASTIC CORE
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/WallBounce
       TermType: 0
@@ -6333,7 +7073,8 @@ MonoBehaviour:
       Languages:
       - Rocks Bounce
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/WarriorAmulet
       TermType: 0
@@ -6341,7 +7082,8 @@ MonoBehaviour:
       Languages:
       - Warrior Amulet
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/WarriorAmuletDescription
       TermType: 0
@@ -6349,7 +7091,8 @@ MonoBehaviour:
       Languages:
       - 
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/WarriorArmor
       TermType: 0
@@ -6357,7 +7100,8 @@ MonoBehaviour:
       Languages:
       - Warrior Armor
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/WarriorArmorDescription
       TermType: 0
@@ -6365,7 +7109,8 @@ MonoBehaviour:
       Languages:
       - 
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/WarriorBoots
       TermType: 0
@@ -6373,7 +7118,8 @@ MonoBehaviour:
       Languages:
       - Warrior Boots
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/WarriorBootsDescription
       TermType: 0
@@ -6381,7 +7127,8 @@ MonoBehaviour:
       Languages:
       - 
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/WarriorHelmet
       TermType: 0
@@ -6389,7 +7136,8 @@ MonoBehaviour:
       Languages:
       - Warrior Helmet
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/WarriorHelmetDescription
       TermType: 0
@@ -6397,7 +7145,8 @@ MonoBehaviour:
       Languages:
       - 
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/WarriorShield
       TermType: 0
@@ -6405,7 +7154,8 @@ MonoBehaviour:
       Languages:
       - Warrior Shield
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/WarriorShieldDescription
       TermType: 0
@@ -6413,7 +7163,8 @@ MonoBehaviour:
       Languages:
       - 
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: GameIds/Weapon
       TermType: 0
@@ -6421,7 +7172,53 @@ MonoBehaviour:
       Languages:
       - Weapon
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: GameIds/BattleRoyale
+      TermType: 0
+      Description: 
+      Languages:
+      - Battle Royale
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: GameIds/Deathmatch
+      TermType: 0
+      Description: 
+      Languages:
+      - Deathmatch
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: GameIds/Tutorial
+      TermType: 0
+      Description: 
+      Languages:
+      - Tutorial
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: GameIds/Ranked
+      TermType: 0
+      Description: 
+      Languages:
+      - Ranked
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: GameIds/Casual
+      TermType: 0
+      Description: 
+      Languages:
+      - Casual
+      - 
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: Shop/ConfirmPurchase
       TermType: 0
@@ -6429,7 +7226,8 @@ MonoBehaviour:
       Languages:
       - PURCHASE {0}?
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: Shop/com.core.epic.1
       TermType: 0
@@ -6437,7 +7235,8 @@ MonoBehaviour:
       Languages:
       - BRONZE CORE
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: Shop/com.core.legendary.1
       TermType: 0
@@ -6445,7 +7244,8 @@ MonoBehaviour:
       Languages:
       - GOLDEN CORE
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: Shop/com.core.legendary.2
       TermType: 0
@@ -6453,7 +7253,8 @@ MonoBehaviour:
       Languages:
       - x5 GOLDEN CORES
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: Shop/com.core.rare.1
       TermType: 0
@@ -6461,7 +7262,8 @@ MonoBehaviour:
       Languages:
       - STEEL CORE
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: Shop/com.hard.currency.bundle.1
       TermType: 0
@@ -6469,7 +7271,8 @@ MonoBehaviour:
       Languages:
       - 50 GEMS
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: Shop/com.hard.currency.bundle.2
       TermType: 0
@@ -6477,7 +7280,8 @@ MonoBehaviour:
       Languages:
       - 180 GEMS
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: Shop/com.hard.currency.bundle.3
       TermType: 0
@@ -6485,7 +7289,8 @@ MonoBehaviour:
       Languages:
       - 320 GEMS
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: Shop/com.soft.currency.bundle.1
       TermType: 0
@@ -6493,7 +7298,8 @@ MonoBehaviour:
       Languages:
       - 2500 COINS
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: Shop/com.soft.currency.bundle.2
       TermType: 0
@@ -6501,7 +7307,8 @@ MonoBehaviour:
       Languages:
       - 8000 COINS
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: Shop/com.soft.currency.bundle.3
       TermType: 0
@@ -6509,23 +7316,26 @@ MonoBehaviour:
       Languages:
       - 13500 COINS
       - 
-      Flags: 0000
+      - 
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/HydrationError
       TermType: 0
       Description: 
       Languages:
-      - There was an issue while initializing the Marketplace.
+      - There was an issue while initializing the Marketplace
       - 
-      Flags: 0000
+      - NftStore.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/FetchNFTError
       TermType: 0
       Description: 
       Languages:
-      - There was a problem fetching equipment to display.
+      - There was a problem fetching equipment to display
       - 
-      Flags: 0000
+      - NftStore.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/FetchNFTStatsError
       TermType: 0
@@ -6533,7 +7343,8 @@ MonoBehaviour:
       Languages:
       - There was a problem looking for current equipment stats.
       - 
-      Flags: 0000
+      - NftStore.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/BuyNFTSuccess
       TermType: 0
@@ -6541,73 +7352,82 @@ MonoBehaviour:
       Languages:
       - You aquired a new piece of equipment! Check out your Inventory to view it!
       - 
-      Flags: 0000
+      - NftStore.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/BuyNFTError
       TermType: 0
       Description: 
       Languages:
-      - Something went wrong during the buy process.
+      - Something went wrong during the buy process
       - 
-      Flags: 0000
+      - NftStore.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/BuyInProcess
       TermType: 0
       Description: 
       Languages:
       - A buy transaction is in progress. You can't buy another item until the transaction
-        finishes or is cancelled.
+        finishes or is cancelled
       - 
-      Flags: 0000
+      - NftStore.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/SellNFTSuccess
       TermType: 0
       Description: 
       Languages:
-      - Your equipment was listed succesfuly.
+      - Your equipment was listed succesfuly
       - 
-      Flags: 0000
+      - NftStore.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/SellNFTError
       TermType: 0
       Description: 
       Languages:
-      - Equipment listing failed.
+      - Equipment listing failed
       - 
-      Flags: 0000
+      - NftStore.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/SellInProcess
       TermType: 0
       Description: 
       Languages:
       - A sale transaction is in progress. You can't sell another item until the
-        sale finishes or is cancelled.
+        sale finishes or is cancelled
       - 
-      Flags: 0000
+      - NftStore.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/CancelSellSuccess
       TermType: 0
       Description: 
       Languages:
-      - Your equipment sale was cancelled.
+      - Your equipment sale was cancelled
       - 
-      Flags: 0000
+      - NftStore.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/CancelSellError
       TermType: 0
       Description: 
       Languages:
-      - We were not able to cancel the equipment sale. Please try again.
+      - We were not able to cancel the equipment sale. Please try again
       - 
-      Flags: 0000
+      - NftStore.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/CancelInProcess
       TermType: 0
       Description: 
       Languages:
-      - Cancel transaction in progress for this piece of equipment.
+      - Cancel transaction in progress for this piece of equipment
       - 
-      Flags: 0000
+      - NftStore.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/NoWalletAddr
       TermType: 0
@@ -6615,7 +7435,8 @@ MonoBehaviour:
       Languages:
       - No wallet address.
       - 
-      Flags: 0000
+      - NftStore.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/NoContractAddr
       TermType: 0
@@ -6623,7 +7444,8 @@ MonoBehaviour:
       Languages:
       - No nft contract address
       - 
-      Flags: 0000
+      - NftStore.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/NoBLSTPrice
       TermType: 0
@@ -6631,7 +7453,8 @@ MonoBehaviour:
       Languages:
       - This piece of equipment doesn't have a price available for it.
       - 
-      Flags: 0000
+      - NftStore.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/NotEnoughBLST
       TermType: 0
@@ -6639,7 +7462,8 @@ MonoBehaviour:
       Languages:
       - You don't have enough $BLST to complete this action.
       - 
-      Flags: 0000
+      - NftStore.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/LoginTransactionExists
       TermType: 0
@@ -6648,7 +7472,8 @@ MonoBehaviour:
       - You have one login request pending. Please, finalize this one first before
         requesting it again.
       - 
-      Flags: 0000
+      - metamask.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/ConnectionError
       TermType: 0
@@ -6656,7 +7481,8 @@ MonoBehaviour:
       Languages:
       - Metamask connection failed.
       - 
-      Flags: 0000
+      - metamask.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/ChainSwitchError
       TermType: 0
@@ -6664,7 +7490,8 @@ MonoBehaviour:
       Languages:
       - Metamask failed to switch chain network
       - 
-      Flags: 0000
+      - metamask.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/ChainAddError
       TermType: 0
@@ -6672,7 +7499,8 @@ MonoBehaviour:
       Languages:
       - Metamask failed to add chain network
       - 
-      Flags: 0000
+      - metamask.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/FetchBalanceError
       TermType: 0
@@ -6680,7 +7508,8 @@ MonoBehaviour:
       Languages:
       - Metamask failed to get the account balance
       - 
-      Flags: 0000
+      - metamask.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/EthEventsError
       TermType: 0
@@ -6688,7 +7517,8 @@ MonoBehaviour:
       Languages:
       - Failed to add wallet events, please refresh the page
       - 
-      Flags: 0000
+      - metamask.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/NoEthContext
       TermType: 0
@@ -6696,7 +7526,8 @@ MonoBehaviour:
       Languages:
       - No Ethereum context
       - 
-      Flags: 0000
+      - metamask.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/PasswordResetRequestSuccess
       TermType: 0
@@ -6704,7 +7535,8 @@ MonoBehaviour:
       Languages:
       - We sent an email with further instructions on how reset your password
       - 
-      Flags: 0000
+      - user.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/CheckWalletLinkError
       TermType: 0
@@ -6712,121 +7544,134 @@ MonoBehaviour:
       Languages:
       - Was not possible to verify the wallet link with the account
       - 
-      Flags: 0000
+      - user.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/AccountRegisterError
       TermType: 0
       Description: 
       Languages:
-      - Houston, We have a problem with the account registration
+      - Account registration error
       - 
-      Flags: 0000
+      - user.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/AccountRegisterSuccess
       TermType: 0
       Description: 
       Languages:
-      - Account registration succesful.
+      - Account registration succesful
       - 
-      Flags: 0000
+      - user.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/DisplayNameChangeError
       TermType: 0
       Description: 
       Languages:
-      - Your display name was not updated.
+      - Display name was not updated
       - 
-      Flags: 0000
+      - user.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/DisplayNameChangeSuccess
       TermType: 0
       Description: 
       Languages:
-      - Your display name was updated
+      - Display name updated!
       - 
-      Flags: 0000
+      - user.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/ContactEmailChangeError
       TermType: 0
       Description: 
       Languages:
-      - Your contact email was not updated
+      - Contact email was not updated
       - 
-      Flags: 0000
+      - user.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/ContactEmailChangeSuccess
       TermType: 0
       Description: 
       Languages:
-      - Your contact email was updated
+      - Contact email was updated
       - 
-      Flags: 0000
+      - user.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/LoginError
       TermType: 0
       Description: 
       Languages:
-      - Nah... this login is not working...
+      - Login error
       - 
-      Flags: 0000
+      - user.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/WalletLinkError
       TermType: 0
       Description: 
       Languages:
-      - Oh no... signature failure! Wallet not linked
+      - Signature failure. Wallet not linked
       - 
-      Flags: 0000
+      - user.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/WalletLinkSuccess
       TermType: 0
       Description: 
       Languages:
-      - Alright! Your wallet was linked to your account successfully.
+      - Blast-tastic! Your wallet was successfully linked to your account.
       - 
-      Flags: 0000
+      - user.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/CraftSpiceMintOngoing
       TermType: 0
       Description: 
       Languages:
-      - Wait Warrior! One craft spice request is being claimed...
+      - A craft spice request is alrady ongoing, please try again later
       - 
-      Flags: 0000
+      - user.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/CraftSpiceMintSuccess
       TermType: 0
       Description: 
       Languages:
-      - Congrats Warrior! Your craft spice was claimed with success!',
+      - Congratulations Hero! Craft spice claimed!
       - 
-      Flags: 0000
+      - user.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/CraftSpiceMintError
       TermType: 0
       Description: 
       Languages:
-      - The minter elfs reported a problem during your request, but worry not my
-        dear! No loss happened.',
+      - Minting error. Nothing has been lost, but please try again
       - 
-      Flags: 0000
+      - user.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/CraftSpiceFetchError
       TermType: 0
       Description: 
       Languages:
-      - Preciousss, precioussss!!! Where are you?!! Problems during Craft Spice search.',
+      - There was an error fetching Craft Spice. Please try again
       - 
-      Flags: 0000
+      - user.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/CraftSpiceAvailabilityError
       TermType: 0
       Description: 
       Languages:
-      - "Erm... \U0001F914, we were not able to check if you claim is available at
-        this moment ...',"
+      - Unable to check if claim is available. Please try again later
       - 
-      Flags: 0000
+      - user.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/ClaimVestingScheduleError
       TermType: 0
@@ -6834,7 +7679,8 @@ MonoBehaviour:
       Languages:
       - Your schedule contract does not exist.
       - 
-      Flags: 0000
+      - vesting.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/ClaimVestingError
       TermType: 0
@@ -6842,7 +7688,8 @@ MonoBehaviour:
       Languages:
       - There was an issue when trying to claim your tokens. Please try again.
       - 
-      Flags: 0000
+      - vesting.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/ClaimVestingNotAvailable
       TermType: 0
@@ -6850,7 +7697,8 @@ MonoBehaviour:
       Languages:
       - Claiming is currently unavailable. Try again later.
       - 
-      Flags: 0000
+      - vesting.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/CheckVestingAmountError
       TermType: 0
@@ -6858,7 +7706,8 @@ MonoBehaviour:
       Languages:
       - There was a technical issue when trying to retrieve vesting collection information.
       - 
-      Flags: 0000
+      - vesting.ts
+      Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/ClaimVestingSuccess
       TermType: 0
@@ -6866,7 +7715,8 @@ MonoBehaviour:
       Languages:
       - Congratulations! You just claimed your BLST tokens!!
       - 
-      Flags: 0000
+      - vesting.ts
+      Flags: 000000
       Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
@@ -6878,12 +7728,15 @@ MonoBehaviour:
     - Name: Nickname?
       Code: 
       Flags: 1
+    - Name: File
+      Code: 
+      Flags: 0
     IgnoreDeviceLanguage: 0
     _AllowUnloadingLanguages: 0
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1661248161876
+    Google_LastUpdatedVersion: 1661251226748
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

@@ -20,9 +20,9 @@ services:
       SqlConnectionString: Server=postgres;Database=localDatabase;Port=5432;User Id=postgres;Password=localPassword;Ssl Mode=Allow;
       PLAYFAB_DEV_SECRET_KEY: ***REMOVED***
       PLAYFAB_TITLE: ***REMOVED***
-      API_URL: https://apim-marketplace-flg-staging.azure-api.net
+      API_URL: ***REMOVED***
       API_BLOCKCHAIN_SERVICE: br-blockchain/blast-royale-equipment
-      API_SECRET: stagingkey
+      API_SECRET: devkey
       DEV_MODE: "true"
     build:
       context: .

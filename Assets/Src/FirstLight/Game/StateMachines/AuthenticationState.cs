@@ -227,7 +227,12 @@ namespace FirstLight.Game.StateMachines
 			var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
 			var appData = _dataService.LoadData<AppData>();
 			var environment = "";
-
+			
+			environment = "stage";
+			PlayFabSettings.TitleId = "***REMOVED***";
+			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
+			
+/*
 #if LIVE_SERVER
 			environment = "live";
 			PlayFabSettings.TitleId = "302CF";
@@ -257,6 +262,7 @@ namespace FirstLight.Game.StateMachines
 				_passwordRecoveryEmailTemplateId = "***REMOVED***";
 			}
 #endif
+*/
 			
 			if (environment != appData.Environment)
 			{

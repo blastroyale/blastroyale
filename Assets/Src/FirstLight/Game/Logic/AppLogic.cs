@@ -210,7 +210,7 @@ namespace FirstLight.Game.Logic
 			NicknameId = new ObservableResolverField<string>(() => Data.NickNameId, name => Data.NickNameId = name);
 			ConnectionRegion = new ObservableResolverField<string>(() => Data.ConnectionRegion, region => Data.ConnectionRegion = region);
 			_deviceId = new ObservableResolverField<string>(() => Data.DeviceId, linked => Data.DeviceId = linked);
-			SelectedGameModeId = new ObservableField<string>("BattleRoyale"); // TODO: Add proper default here
+			SelectedGameModeId = new ObservableField<string>(GameLogic.ConfigsProvider.GetConfigsList<QuantumGameModeConfig>()[0].Id);
 			SelectedMatchType = new ObservableField<MatchType>(MatchType.Casual);
 		}
 

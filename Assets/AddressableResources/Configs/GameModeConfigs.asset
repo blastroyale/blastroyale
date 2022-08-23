@@ -24,29 +24,30 @@ MonoBehaviour:
       Teams: 0
       MaxPlayersInTeam: 0
       MinPlayersInTeam: 0
-      Lives: 1
-      SpawnWithLoadout: 0
-      SkydiveSpawn: 1
-      SpawnSelection: 1
-      SpawnPattern: 1
-      DropWeaponOnPickup: 1
+      RankSorter: 0
+      RankProcessor: 0
       ShowStatChanges: 1
       ShowUIMinimap: 1
       ShowUITimer: 1
       ShowUIStandingsExtraInfo: 1
       ShowWeaponSlots: 1
-      CompletionStrategy: 1
-      CompletionKillCount: 0
+      Lives: 1
+      DropWeaponOnPickup: 1
+      SpawnWithLoadout: 0
+      SkydiveSpawn: 1
+      SpawnSelection: 1
+      SpawnPattern: 1
       WeaponDeathDropStrategy: 1
       HealthDeathDropStrategy: 2
       ShieldDeathDropStrategy: 2
       DeathMarker: 1
+      AllowBots: 1
       BotSearchForCrates: 1
       BotRespawn: 0
       BotWeaponSearchStrategy: 1
+      CompletionStrategy: 1
+      CompletionKillCount: 0
       GiveRewards: 0
-      RankSorter: 0
-      RankProcessor: 0
       Systems:
       - Quantum.Systems.ShrinkingCircleSystem, quantum.code, Version=2.1.0.0, Culture=neutral,
         PublicKeyToken=null
@@ -56,27 +57,61 @@ MonoBehaviour:
       Teams: 0
       MaxPlayersInTeam: 0
       MinPlayersInTeam: 0
-      Lives: 10
-      SpawnWithLoadout: 0
-      SkydiveSpawn: 0
-      SpawnSelection: 0
-      SpawnPattern: 0
-      DropWeaponOnPickup: 0
+      RankSorter: 1
+      RankProcessor: 1
       ShowStatChanges: 0
       ShowUIMinimap: 0
       ShowUITimer: 0
       ShowUIStandingsExtraInfo: 0
       ShowWeaponSlots: 0
-      CompletionStrategy: 2
-      CompletionKillCount: 10
+      Lives: 0
+      DropWeaponOnPickup: 0
+      SpawnWithLoadout: 0
+      SkydiveSpawn: 0
+      SpawnSelection: 0
+      SpawnPattern: 0
       WeaponDeathDropStrategy: 0
       HealthDeathDropStrategy: 0
       ShieldDeathDropStrategy: 0
       DeathMarker: 0
+      AllowBots: 1
+      BotSearchForCrates: 0
+      BotRespawn: 1
+      BotWeaponSearchStrategy: 2
+      CompletionStrategy: 2
+      CompletionKillCount: 10
+      GiveRewards: 0
+      Systems: []
+    - Id: Testing
+      MaxPlayers: 1
+      MinPlayers: 1
+      Teams: 0
+      MaxPlayersInTeam: 0
+      MinPlayersInTeam: 0
+      RankSorter: 0
+      RankProcessor: 0
+      ShowStatChanges: 1
+      ShowUIMinimap: 1
+      ShowUITimer: 1
+      ShowUIStandingsExtraInfo: 1
+      ShowWeaponSlots: 1
+      Lives: 0
+      DropWeaponOnPickup: 1
+      SpawnWithLoadout: 0
+      SkydiveSpawn: 1
+      SpawnSelection: 1
+      SpawnPattern: 0
+      WeaponDeathDropStrategy: 1
+      HealthDeathDropStrategy: 2
+      ShieldDeathDropStrategy: 2
+      DeathMarker: 0
+      AllowBots: 0
       BotSearchForCrates: 0
       BotRespawn: 0
-      BotWeaponSearchStrategy: 0
+      BotWeaponSearchStrategy: 1
+      CompletionStrategy: 1
+      CompletionKillCount: 0
       GiveRewards: 0
-      RankSorter: 1
-      RankProcessor: 1
-      Systems: []
+      Systems:
+      - Quantum.Systems.ShrinkingCircleSystem, quantum.code, Version=2.1.0.0, Culture=neutral,
+        PublicKeyToken=null

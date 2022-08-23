@@ -40,7 +40,7 @@ namespace Quantum
 				case "Deathmatch":
 					return Deathmatch;
 				default:
-					throw new ArgumentOutOfRangeException(nameof(mode), mode, null);
+					return GetDefault();
 			}
 		}
 

@@ -28,11 +28,16 @@ namespace Quantum.Systems
 					f.SystemEnable(systemType);
 				}
 
-				// TODO: Figure out a better way to do this
-				if (systemType == typeof(ShrinkingCircleSystem))
-				{
-					f.GetOrAddSingleton<ShrinkingCircle>();
-				}
+				TryInitializeSystem(f, systemType);
+			}
+		}
+
+		private void TryInitializeSystem(Frame f, Type type)
+		{
+			// TODO: Figure out a better way to do this
+			if (type == typeof(ShrinkingCircleSystem))
+			{
+				f.GetOrAddSingleton<ShrinkingCircle>();
 			}
 		}
 	}

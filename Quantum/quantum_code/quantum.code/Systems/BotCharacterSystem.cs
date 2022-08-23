@@ -31,7 +31,7 @@ namespace Quantum.Systems
 
 		private void InitializeBots(Frame f, uint baseTrophiesAmount)
 		{
-			if (f.ComponentCount<BotCharacter>() > 0)
+			if (!f.Context.GameModeConfig.AllowBots || f.ComponentCount<BotCharacter>() > 0)
 			{
 				return;
 			}

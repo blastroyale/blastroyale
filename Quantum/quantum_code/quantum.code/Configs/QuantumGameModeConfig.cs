@@ -95,13 +95,16 @@ namespace Quantum
 
 #region Bots
 
-		[FoldoutGroup("Bots"), PropertyTooltip(DESC_BOT_SEARCH_FOR_CRATES)]
+		[FoldoutGroup("Bots"), PropertyTooltip(DESC_ALLOW_BOTS)]
+		public bool AllowBots;
+
+		[FoldoutGroup("Bots"), ShowIf("EnableBots"), PropertyTooltip(DESC_BOT_SEARCH_FOR_CRATES)]
 		public bool BotSearchForCrates;
 
-		[FoldoutGroup("Bots"), PropertyTooltip(DESC_BOT_RESPAWN)]
+		[FoldoutGroup("Bots"), ShowIf("EnableBots"), PropertyTooltip(DESC_BOT_RESPAWN)]
 		public bool BotRespawn;
 
-		[FoldoutGroup("Bots"), PropertyTooltip(DESC_BOT_WEAPON_SEARCH_STRATEGY)]
+		[FoldoutGroup("Bots"), ShowIf("EnableBots"), PropertyTooltip(DESC_BOT_WEAPON_SEARCH_STRATEGY)]
 		public BotWeaponSearchStrategy BotWeaponSearchStrategy;
 
 #endregion
@@ -137,7 +140,7 @@ namespace Quantum
 
 #region Tooltips
 
-// @formatter:off
+		// @formatter:off
 		private const string DESC_ID = "A UNIQUE ID that identifies this game mode.";
 		private const string DESC_MAX_PLAYERS = "The maximum number of players that can join a room.";
 		private const string DESC_MIN_PLAYERS = "The minimum number of players that can join a room.";
@@ -146,7 +149,7 @@ namespace Quantum
 		private const string DESC_MIN_PLAYERS_IN_TEAM = "What is the minimum number of players in a team.";
 		private const string DESC_SHOW_STAT_CHANGES = "Displays floating texts above the player when their stats change (e.g. on weapon pickup)";
 		private const string DESC_SHOW_MINIMAP = "Displays the Minimap";
-		private const string DESC_SHOW_TIMER = "Displays the countdown timer at the top center of the screen. Requires ShrinkingCircle system to be enabled.";
+		private const string DESC_SHOW_TIMER = "Displays the countdown timer at the top center of the screen, along with other BR specific UIs. Requires ShrinkingCircle system to be enabled.";
 		private const string DESC_SHOW_UI_STANDINGS_EXTRA_INFO = "Displays additional information on the standings / leaderboards, like XP and Trophy count.";
 		private const string DESC_SHOW_WEAPON_SLOTS = "Displays weapon slots and enables the player to switch between weapons.";
 		private const string DESC_LIVES = "How many lives does the player have. Use 0 for infinite lives";
@@ -160,6 +163,7 @@ namespace Quantum
 		private const string DESC_SHIELD_DEATH_DROP_STRATEGY = "How / if we drop shield pickups when the player dies.";
 		private const string DESC_DEATH_MARKER = "If we should spawn a death marker on the position where a player died.";
 		private const string DESC_BOT_SEARCH_FOR_CRATES = "Should the bots search / look for crates.";
+		private const string DESC_ALLOW_BOTS = "If bots can be enabled for this game mode.";
 		private const string DESC_BOT_RESPAWN = "Allows bots to respawn when they get killed.";
 		private const string DESC_BOT_WEAPON_SEARCH_STRATEGY = "How should bots search for weapons on the map.";
 		private const string DESC_RANK_SORTER = "How should we sort the players on the leaderboards.";

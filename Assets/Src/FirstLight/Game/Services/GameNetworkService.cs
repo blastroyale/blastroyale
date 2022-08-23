@@ -67,7 +67,8 @@ namespace FirstLight.Game.Services
 		QuantumMapConfig? CurrentRoomMapConfig { get; }
 		
 		/// <summary>
-		/// TODO
+		/// Requests the current <see cref="QuantumGameModeConfig"/> for the game mode set on the current connected room.
+		/// If the player is not connected to any room then it return NULL without a value.
 		/// </summary>
 		QuantumGameModeConfig? CurrentRoomGameModeConfig { get; }
 	}

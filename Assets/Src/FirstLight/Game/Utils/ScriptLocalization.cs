@@ -666,6 +666,9 @@ namespace I2.Loc
 			public static string FuseResults 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/FuseResults"); } }
 			public static string FusionWarning 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/FusionWarning"); } }
 			public static string GameMode 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/GameMode"); } }
+			public static string GameModeBrName 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/GameModeBrName"); } }
+			public static string GameModeDmName 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/GameModeDmName"); } }
+			public static string GameModeTuName 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/GameModeTuName"); } }
 			public static string HOME 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/HOME"); } }
 			public static string Haptic 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Haptic"); } }
 			public static string HighResMode 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/HighResMode"); } }
@@ -691,6 +694,8 @@ namespace I2.Loc
 			public static string Loot 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Loot"); } }
 			public static string MainMenuButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/MainMenuButton"); } }
 			public static string ManualFire 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ManualFire"); } }
+			public static string MatchTypeCasualName 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/MatchTypeCasualName"); } }
+			public static string MatchTypeRankedName 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/MatchTypeRankedName"); } }
 			public static string MatchmakingMatchType 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/MatchmakingMatchType"); } }
 			public static string Meters 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Meters"); } }
 			public static string MightRating 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/MightRating"); } }
@@ -752,7 +757,10 @@ namespace I2.Loc
 			public static string SelectedGameModeValue 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SelectedGameModeValue"); } }
 			public static string SendPasswordEmail 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SendPasswordEmail"); } }
 			public static string SendPasswordEmailConfirm 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SendPasswordEmailConfirm"); } }
+			public static string ServerAmericaName 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ServerAmericaName"); } }
+			public static string ServerAsiaName 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ServerAsiaName"); } }
 			public static string ServerCurrent 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ServerCurrent"); } }
+			public static string ServerEuropeName 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ServerEuropeName"); } }
 			public static string ServerSelectButtonConnect 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ServerSelectButtonConnect"); } }
 			public static string ServerSelectOption 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ServerSelectOption"); } }
 			public static string ServerSelectTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ServerSelectTitle"); } }
@@ -809,6 +817,54 @@ namespace I2.Loc
 			public static string TheCore 		{ get{ return LocalizationManager.GetTranslation ("MapDropPoints/TheCore"); } }
 			public static string TheIsle 		{ get{ return LocalizationManager.GetTranslation ("MapDropPoints/TheIsle"); } }
 			public static string Tower 		{ get{ return LocalizationManager.GetTranslation ("MapDropPoints/Tower"); } }
+		}
+
+		public static class Marketplace
+		{
+			public static string AccountRegisterError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/AccountRegisterError"); } }
+			public static string AccountRegisterSuccess 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/AccountRegisterSuccess"); } }
+			public static string BuyInProcess 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/BuyInProcess"); } }
+			public static string BuyNFTError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/BuyNFTError"); } }
+			public static string BuyNFTSuccess 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/BuyNFTSuccess"); } }
+			public static string CancelInProcess 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/CancelInProcess"); } }
+			public static string CancelSellError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/CancelSellError"); } }
+			public static string CancelSellSuccess 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/CancelSellSuccess"); } }
+			public static string ChainAddError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/ChainAddError"); } }
+			public static string ChainSwitchError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/ChainSwitchError"); } }
+			public static string CheckVestingAmountError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/CheckVestingAmountError"); } }
+			public static string CheckWalletLinkError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/CheckWalletLinkError"); } }
+			public static string ClaimVestingError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/ClaimVestingError"); } }
+			public static string ClaimVestingNotAvailable 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/ClaimVestingNotAvailable"); } }
+			public static string ClaimVestingScheduleError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/ClaimVestingScheduleError"); } }
+			public static string ClaimVestingSuccess 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/ClaimVestingSuccess"); } }
+			public static string ConnectionError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/ConnectionError"); } }
+			public static string ContactEmailChangeError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/ContactEmailChangeError"); } }
+			public static string ContactEmailChangeSuccess 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/ContactEmailChangeSuccess"); } }
+			public static string CraftSpiceAvailabilityError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/CraftSpiceAvailabilityError"); } }
+			public static string CraftSpiceFetchError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/CraftSpiceFetchError"); } }
+			public static string CraftSpiceMintError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/CraftSpiceMintError"); } }
+			public static string CraftSpiceMintOngoing 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/CraftSpiceMintOngoing"); } }
+			public static string CraftSpiceMintSuccess 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/CraftSpiceMintSuccess"); } }
+			public static string DisplayNameChangeError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/DisplayNameChangeError"); } }
+			public static string DisplayNameChangeSuccess 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/DisplayNameChangeSuccess"); } }
+			public static string EthEventsError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/EthEventsError"); } }
+			public static string FetchBalanceError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/FetchBalanceError"); } }
+			public static string FetchNFTError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/FetchNFTError"); } }
+			public static string FetchNFTStatsError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/FetchNFTStatsError"); } }
+			public static string HydrationError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/HydrationError"); } }
+			public static string LoginError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/LoginError"); } }
+			public static string LoginTransactionExists 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/LoginTransactionExists"); } }
+			public static string NoBLSTPrice 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/NoBLSTPrice"); } }
+			public static string NoContractAddr 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/NoContractAddr"); } }
+			public static string NoEthContext 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/NoEthContext"); } }
+			public static string NoWalletAddr 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/NoWalletAddr"); } }
+			public static string NotEnoughBLST 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/NotEnoughBLST"); } }
+			public static string PasswordResetRequestSuccess 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/PasswordResetRequestSuccess"); } }
+			public static string SellInProcess 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/SellInProcess"); } }
+			public static string SellNFTError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/SellNFTError"); } }
+			public static string SellNFTSuccess 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/SellNFTSuccess"); } }
+			public static string WalletLinkError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/WalletLinkError"); } }
+			public static string WalletLinkSuccess 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/WalletLinkSuccess"); } }
 		}
 
 		public static class Notifications
@@ -1514,6 +1570,9 @@ namespace I2.Loc
 		    public const string FuseResults = "MainMenu/FuseResults";
 		    public const string FusionWarning = "MainMenu/FusionWarning";
 		    public const string GameMode = "MainMenu/GameMode";
+		    public const string GameModeBrName = "MainMenu/GameModeBrName";
+		    public const string GameModeDmName = "MainMenu/GameModeDmName";
+		    public const string GameModeTuName = "MainMenu/GameModeTuName";
 		    public const string HOME = "MainMenu/HOME";
 		    public const string Haptic = "MainMenu/Haptic";
 		    public const string HighResMode = "MainMenu/HighResMode";
@@ -1539,6 +1598,8 @@ namespace I2.Loc
 		    public const string Loot = "MainMenu/Loot";
 		    public const string MainMenuButton = "MainMenu/MainMenuButton";
 		    public const string ManualFire = "MainMenu/ManualFire";
+		    public const string MatchTypeCasualName = "MainMenu/MatchTypeCasualName";
+		    public const string MatchTypeRankedName = "MainMenu/MatchTypeRankedName";
 		    public const string MatchmakingMatchType = "MainMenu/MatchmakingMatchType";
 		    public const string Meters = "MainMenu/Meters";
 		    public const string MightRating = "MainMenu/MightRating";
@@ -1600,7 +1661,10 @@ namespace I2.Loc
 		    public const string SelectedGameModeValue = "MainMenu/SelectedGameModeValue";
 		    public const string SendPasswordEmail = "MainMenu/SendPasswordEmail";
 		    public const string SendPasswordEmailConfirm = "MainMenu/SendPasswordEmailConfirm";
+		    public const string ServerAmericaName = "MainMenu/ServerAmericaName";
+		    public const string ServerAsiaName = "MainMenu/ServerAsiaName";
 		    public const string ServerCurrent = "MainMenu/ServerCurrent";
+		    public const string ServerEuropeName = "MainMenu/ServerEuropeName";
 		    public const string ServerSelectButtonConnect = "MainMenu/ServerSelectButtonConnect";
 		    public const string ServerSelectOption = "MainMenu/ServerSelectOption";
 		    public const string ServerSelectTitle = "MainMenu/ServerSelectTitle";
@@ -1657,6 +1721,54 @@ namespace I2.Loc
 		    public const string TheCore = "MapDropPoints/TheCore";
 		    public const string TheIsle = "MapDropPoints/TheIsle";
 		    public const string Tower = "MapDropPoints/Tower";
+		}
+
+		public static class Marketplace
+		{
+		    public const string AccountRegisterError = "Marketplace/AccountRegisterError";
+		    public const string AccountRegisterSuccess = "Marketplace/AccountRegisterSuccess";
+		    public const string BuyInProcess = "Marketplace/BuyInProcess";
+		    public const string BuyNFTError = "Marketplace/BuyNFTError";
+		    public const string BuyNFTSuccess = "Marketplace/BuyNFTSuccess";
+		    public const string CancelInProcess = "Marketplace/CancelInProcess";
+		    public const string CancelSellError = "Marketplace/CancelSellError";
+		    public const string CancelSellSuccess = "Marketplace/CancelSellSuccess";
+		    public const string ChainAddError = "Marketplace/ChainAddError";
+		    public const string ChainSwitchError = "Marketplace/ChainSwitchError";
+		    public const string CheckVestingAmountError = "Marketplace/CheckVestingAmountError";
+		    public const string CheckWalletLinkError = "Marketplace/CheckWalletLinkError";
+		    public const string ClaimVestingError = "Marketplace/ClaimVestingError";
+		    public const string ClaimVestingNotAvailable = "Marketplace/ClaimVestingNotAvailable";
+		    public const string ClaimVestingScheduleError = "Marketplace/ClaimVestingScheduleError";
+		    public const string ClaimVestingSuccess = "Marketplace/ClaimVestingSuccess";
+		    public const string ConnectionError = "Marketplace/ConnectionError";
+		    public const string ContactEmailChangeError = "Marketplace/ContactEmailChangeError";
+		    public const string ContactEmailChangeSuccess = "Marketplace/ContactEmailChangeSuccess";
+		    public const string CraftSpiceAvailabilityError = "Marketplace/CraftSpiceAvailabilityError";
+		    public const string CraftSpiceFetchError = "Marketplace/CraftSpiceFetchError";
+		    public const string CraftSpiceMintError = "Marketplace/CraftSpiceMintError";
+		    public const string CraftSpiceMintOngoing = "Marketplace/CraftSpiceMintOngoing";
+		    public const string CraftSpiceMintSuccess = "Marketplace/CraftSpiceMintSuccess";
+		    public const string DisplayNameChangeError = "Marketplace/DisplayNameChangeError";
+		    public const string DisplayNameChangeSuccess = "Marketplace/DisplayNameChangeSuccess";
+		    public const string EthEventsError = "Marketplace/EthEventsError";
+		    public const string FetchBalanceError = "Marketplace/FetchBalanceError";
+		    public const string FetchNFTError = "Marketplace/FetchNFTError";
+		    public const string FetchNFTStatsError = "Marketplace/FetchNFTStatsError";
+		    public const string HydrationError = "Marketplace/HydrationError";
+		    public const string LoginError = "Marketplace/LoginError";
+		    public const string LoginTransactionExists = "Marketplace/LoginTransactionExists";
+		    public const string NoBLSTPrice = "Marketplace/NoBLSTPrice";
+		    public const string NoContractAddr = "Marketplace/NoContractAddr";
+		    public const string NoEthContext = "Marketplace/NoEthContext";
+		    public const string NoWalletAddr = "Marketplace/NoWalletAddr";
+		    public const string NotEnoughBLST = "Marketplace/NotEnoughBLST";
+		    public const string PasswordResetRequestSuccess = "Marketplace/PasswordResetRequestSuccess";
+		    public const string SellInProcess = "Marketplace/SellInProcess";
+		    public const string SellNFTError = "Marketplace/SellNFTError";
+		    public const string SellNFTSuccess = "Marketplace/SellNFTSuccess";
+		    public const string WalletLinkError = "Marketplace/WalletLinkError";
+		    public const string WalletLinkSuccess = "Marketplace/WalletLinkSuccess";
 		}
 
 		public static class Notifications

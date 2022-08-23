@@ -2663,6 +2663,70 @@ MonoBehaviour:
       - 
       Flags: 0000
       Languages_Touch: []
+    - Term: MainMenu/ServerEuropeName
+      TermType: 0
+      Description: 
+      Languages:
+      - Europe
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/ServerAmericaName
+      TermType: 0
+      Description: 
+      Languages:
+      - America
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/ServerAsiaName
+      TermType: 0
+      Description: 
+      Languages:
+      - Asia
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/GameModeBrName
+      TermType: 0
+      Description: 
+      Languages:
+      - Battle Royale
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/GameModeDmName
+      TermType: 0
+      Description: 
+      Languages:
+      - Deathmatch
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/GameModeTuName
+      TermType: 0
+      Description: 
+      Languages:
+      - Tutorial
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/MatchTypeCasualName
+      TermType: 0
+      Description: 
+      Languages:
+      - Casual
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: MainMenu/MatchTypeRankedName
+      TermType: 0
+      Description: 
+      Languages:
+      - Ranked
+      - 
+      Flags: 0000
+      Languages_Touch: []
     - Term: AdventureMenu/AdventureCompleted
       TermType: 0
       Description: 
@@ -6447,6 +6511,363 @@ MonoBehaviour:
       - 
       Flags: 0000
       Languages_Touch: []
+    - Term: Marketplace/HydrationError
+      TermType: 0
+      Description: 
+      Languages:
+      - There was an issue while initializing the Marketplace.
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/FetchNFTError
+      TermType: 0
+      Description: 
+      Languages:
+      - There was a problem fetching equipment to display.
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/FetchNFTStatsError
+      TermType: 0
+      Description: 
+      Languages:
+      - There was a problem looking for current equipment stats.
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/BuyNFTSuccess
+      TermType: 0
+      Description: 
+      Languages:
+      - You aquired a new piece of equipment! Check out your Inventory to view it!
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/BuyNFTError
+      TermType: 0
+      Description: 
+      Languages:
+      - Something went wrong during the buy process.
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/BuyInProcess
+      TermType: 0
+      Description: 
+      Languages:
+      - A buy transaction is in progress. You can't buy another item until the transaction
+        finishes or is cancelled.
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/SellNFTSuccess
+      TermType: 0
+      Description: 
+      Languages:
+      - Your equipment was listed succesfuly.
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/SellNFTError
+      TermType: 0
+      Description: 
+      Languages:
+      - Equipment listing failed.
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/SellInProcess
+      TermType: 0
+      Description: 
+      Languages:
+      - A sale transaction is in progress. You can't sell another item until the
+        sale finishes or is cancelled.
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/CancelSellSuccess
+      TermType: 0
+      Description: 
+      Languages:
+      - Your equipment sale was cancelled.
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/CancelSellError
+      TermType: 0
+      Description: 
+      Languages:
+      - We were not able to cancel the equipment sale. Please try again.
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/CancelInProcess
+      TermType: 0
+      Description: 
+      Languages:
+      - Cancel transaction in progress for this piece of equipment.
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/NoWalletAddr
+      TermType: 0
+      Description: 
+      Languages:
+      - No wallet address.
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/NoContractAddr
+      TermType: 0
+      Description: 
+      Languages:
+      - No nft contract address
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/NoBLSTPrice
+      TermType: 0
+      Description: 
+      Languages:
+      - This piece of equipment doesn't have a price available for it.
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/NotEnoughBLST
+      TermType: 0
+      Description: 
+      Languages:
+      - You don't have enough $BLST to complete this action.
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/LoginTransactionExists
+      TermType: 0
+      Description: 
+      Languages:
+      - You have one login request pending. Please, finalize this one first before
+        requesting it again.
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/ConnectionError
+      TermType: 0
+      Description: 
+      Languages:
+      - Metamask connection failed.
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/ChainSwitchError
+      TermType: 0
+      Description: 
+      Languages:
+      - Metamask failed to switch chain network
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/ChainAddError
+      TermType: 0
+      Description: 
+      Languages:
+      - Metamask failed to add chain network
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/FetchBalanceError
+      TermType: 0
+      Description: 
+      Languages:
+      - Metamask failed to get the account balance
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/EthEventsError
+      TermType: 0
+      Description: 
+      Languages:
+      - Failed to add wallet events, please refresh the page
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/NoEthContext
+      TermType: 0
+      Description: 
+      Languages:
+      - No Ethereum context
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/PasswordResetRequestSuccess
+      TermType: 0
+      Description: 
+      Languages:
+      - We sent an email with further instructions on how reset your password
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/CheckWalletLinkError
+      TermType: 0
+      Description: 
+      Languages:
+      - Was not possible to verify the wallet link with the account
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/AccountRegisterError
+      TermType: 0
+      Description: 
+      Languages:
+      - Houston, We have a problem with the account registration
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/AccountRegisterSuccess
+      TermType: 0
+      Description: 
+      Languages:
+      - Account registration succesful.
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/DisplayNameChangeError
+      TermType: 0
+      Description: 
+      Languages:
+      - Your display name was not updated.
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/DisplayNameChangeSuccess
+      TermType: 0
+      Description: 
+      Languages:
+      - Your display name was updated
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/ContactEmailChangeError
+      TermType: 0
+      Description: 
+      Languages:
+      - Your contact email was not updated
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/ContactEmailChangeSuccess
+      TermType: 0
+      Description: 
+      Languages:
+      - Your contact email was updated
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/LoginError
+      TermType: 0
+      Description: 
+      Languages:
+      - Nah... this login is not working...
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/WalletLinkError
+      TermType: 0
+      Description: 
+      Languages:
+      - Oh no... signature failure! Wallet not linked
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/WalletLinkSuccess
+      TermType: 0
+      Description: 
+      Languages:
+      - Alright! Your wallet was linked to your account successfully.
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/CraftSpiceMintOngoing
+      TermType: 0
+      Description: 
+      Languages:
+      - Wait Warrior! One craft spice request is being claimed...
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/CraftSpiceMintSuccess
+      TermType: 0
+      Description: 
+      Languages:
+      - Congrats Warrior! Your craft spice was claimed with success!',
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/CraftSpiceMintError
+      TermType: 0
+      Description: 
+      Languages:
+      - The minter elfs reported a problem during your request, but worry not my
+        dear! No loss happened.',
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/CraftSpiceFetchError
+      TermType: 0
+      Description: 
+      Languages:
+      - Preciousss, precioussss!!! Where are you?!! Problems during Craft Spice search.',
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/CraftSpiceAvailabilityError
+      TermType: 0
+      Description: 
+      Languages:
+      - "Erm... \U0001F914, we were not able to check if you claim is available at
+        this moment ...',"
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/ClaimVestingScheduleError
+      TermType: 0
+      Description: 
+      Languages:
+      - Your schedule contract does not exist.
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/ClaimVestingError
+      TermType: 0
+      Description: 
+      Languages:
+      - There was an issue when trying to claim your tokens. Please try again.
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/ClaimVestingNotAvailable
+      TermType: 0
+      Description: 
+      Languages:
+      - Claiming is currently unavailable. Try again later.
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/CheckVestingAmountError
+      TermType: 0
+      Description: 
+      Languages:
+      - There was a technical issue when trying to retrieve vesting collection information.
+      - 
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Marketplace/ClaimVestingSuccess
+      TermType: 0
+      Description: 
+      Languages:
+      - Congratulations! You just claimed your BLST tokens!!
+      - 
+      Flags: 0000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -6462,7 +6883,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1661034413490
+    Google_LastUpdatedVersion: 1661248161876
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

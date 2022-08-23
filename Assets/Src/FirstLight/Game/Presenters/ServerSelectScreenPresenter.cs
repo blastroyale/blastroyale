@@ -28,17 +28,17 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private Button _backButton;
 		[SerializeField, Required] private GameObject _frontDimBlocker;
 		[SerializeField, Required] private TMP_Dropdown _serverSelectDropdown;
-		
+
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
-		
+
 		private List<Region> _availableRegions;
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			
+
 			_connectButton.onClick.AddListener(OnConnectClicked);
 			_backButton.onClick.AddListener(OnBackClicked);
 		}
@@ -54,15 +54,16 @@ namespace FirstLight.Game.Presenters
 		public void InitServerSelectionList(RegionHandler regionHandler)
 		{
 			SetFrontDimBlockerActive(false);
-			
+
 			_availableRegions = regionHandler.EnabledRegions;
 			_serverSelectDropdown.options.Clear();
 
 			int currentRegion = 0;
-			
+
 			foreach (var region in _availableRegions)
 			{
-				string regionTitle = string.Format(ScriptLocalization.MainMenu.ServerSelectOption, region.Code.ToUpper(), "-");
+				var regionName = LocalizationUtils.GetRegionName(region.Code);
+				string regionTitle = string.Format(ScriptLocalization.MainMenu.ServerSelectOption, regionName.ToUpper(), "-");
 
 				_serverSelectDropdown.options.Add(new DropdownMenuOption(regionTitle, region));
 
@@ -75,19 +76,25 @@ namespace FirstLight.Game.Presenters
 			_serverSelectDropdown.SetValueWithoutNotify(currentRegion);
 			_serverSelectDropdown.RefreshShownValue();
 		}
-		
+
 		/// <summary>
 		/// Updates pings of regions in the currently initialized list
 		/// </summary>
 		public void UpdateRegionPing(RegionHandler regionHandler)
 		{
 			var selectedOption = (DropdownMenuOption) _serverSelectDropdown.options[_serverSelectDropdown.value];
-			_serverSelectDropdown.captionText.text = string.Format(ScriptLocalization.MainMenu.ServerSelectOption, selectedOption.RegionInfo.Code.ToUpper(), selectedOption.RegionInfo.Ping);
+			var regionName = LocalizationUtils.GetRegionName(selectedOption.RegionInfo.Code);
+			
+			_serverSelectDropdown.captionText.text = string.Format(ScriptLocalization.MainMenu.ServerSelectOption, regionName.ToUpper(),
+			                                                       selectedOption.RegionInfo.Ping);
 
 			foreach (var dropdownOption in _serverSelectDropdown.options)
 			{
 				var regionOption = (DropdownMenuOption) dropdownOption;
-				dropdownOption.text = string.Format(ScriptLocalization.MainMenu.ServerSelectOption, regionOption.RegionInfo.Code.ToUpper(), regionOption.RegionInfo.Ping);
+				regionName = LocalizationUtils.GetRegionName(regionOption.RegionInfo.Code);
+				
+				dropdownOption.text = string.Format(ScriptLocalization.MainMenu.ServerSelectOption, regionName.ToUpper(),
+				                                    regionOption.RegionInfo.Ping);
 			}
 		}
 
@@ -108,8 +115,9 @@ namespace FirstLight.Game.Presenters
 				OpenNoInternetPopup();
 				return;
 			}
-			
-			var selectedRegion = ((DropdownMenuOption) _serverSelectDropdown.options[_serverSelectDropdown.value]).RegionInfo;
+
+			var selectedRegion = ((DropdownMenuOption) _serverSelectDropdown.options[_serverSelectDropdown.value])
+				.RegionInfo;
 			Data.RegionChosen.Invoke(selectedRegion);
 			SetFrontDimBlockerActive(true);
 		}
@@ -125,10 +133,11 @@ namespace FirstLight.Game.Presenters
 			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.NoInternet,
 			                               ScriptLocalization.General.NoInternetDescription, button);
 		}
-		
+
 		private class DropdownMenuOption : TMP_Dropdown.OptionData
 		{
 			public Region RegionInfo { get; set; }
+
 			public DropdownMenuOption(string text, Region regionInfo) : base(text)
 			{
 				RegionInfo = regionInfo;

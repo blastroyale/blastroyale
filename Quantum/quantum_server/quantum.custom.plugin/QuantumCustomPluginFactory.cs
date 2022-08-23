@@ -19,7 +19,7 @@ namespace Quantum
 		public IGamePlugin Create(IPluginHost gameHost, String pluginName, Dictionary<String, String> config, out String errorMsg)
 		{
 			var server = new CustomQuantumServer(config, gameHost);
-			var plugin = new CustomQuantumPlugin(server);
+			var plugin = new CustomQuantumPlugin(config, server);
 			InitLog(plugin);
 			if (plugin.SetupInstance(gameHost, config, out errorMsg))
 			{

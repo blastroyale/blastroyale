@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Input;
 using FirstLight.Services;
@@ -71,19 +72,56 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
-		/// Get's the translation term of the given <paramref name="id"/>
+		/// Gets the translation term of the given <paramref name="id"/>
 		/// </summary>
 		public static string GetTranslationTerm(this GameId id)
 		{
 			return $"{nameof(ScriptTerms.GameIds)}/{id.ToString()}";
 		}
+		
+		/// <summary>
+		/// Gets the translation term of the given <paramref name="id"/> for a game mode
+		/// </summary>
+		public static string GetTranslation(this GameMode id)
+		{
+			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.GameIds)}/{id.ToString()}");
+		}
+		
+		/// <summary>
+		/// Gets the translation term of the given <paramref name="id"/> for a match type
+		/// </summary>
+		public static string GetTranslation(this MatchType id)
+		{
+			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.GameIds)}/{id.ToString()}");
+		}
 
 		/// <summary>
-		/// Get's the translation string of the given <paramref name="group"/>
+		/// Gets the translation string of the given <paramref name="group"/>
 		/// </summary>
 		public static string GetTranslation(this GameIdGroup group)
 		{
 			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.GameIds)}/{group.ToString()}");
+		}
+		
+		/// <summary>
+		/// Get Photon region translation for the given <paramref name="regionKey"/> 
+		/// </summary>
+		public static string GetPhotonRegionTranslation(this string regionKey)
+		{
+			switch (regionKey)
+			{
+				case "eu":
+					return ScriptLocalization.MainMenu.ServerNameEu;
+
+				case "us":
+					return ScriptLocalization.MainMenu.ServerNameUs;
+
+				case "hk":
+					return ScriptLocalization.MainMenu.ServerNameHk;
+
+				default:
+					return "";
+			}
 		}
 
 		/// <summary>

@@ -138,21 +138,33 @@ namespace FirstLight.Tests.EditorMode.Logic
 			EquipmentLogic.GetLoadoutEquipmentInfo(EquipmentFilter.NftOnly).Returns(nftList);
 			InitConfigData(_poolConfig);
 			InitConfigData(new QuantumGameConfig { NftAssumedOwned = 40, MinNftForEarnings = 3 });
-			InitConfigData(config => (int) config.Grade, new GradeDataConfig { Grade = EquipmentGrade.GradeV, PoolIncreaseModifier = FP._0});
-			InitConfigData(config => (int) config.Grade, new GradeDataConfig { Grade = EquipmentGrade.GradeIII, PoolIncreaseModifier = FP._0_05});
-			InitConfigData(config => (int) config.Grade, new GradeDataConfig { Grade = EquipmentGrade.GradeIII, PoolIncreaseModifier = FP._0_05});
 			InitConfigData(config => (int) config.Grade, new GradeDataConfig { Grade = EquipmentGrade.GradeI, PoolIncreaseModifier = FP.FromString("0.135")});
+			InitConfigData(config => (int) config.Grade, new GradeDataConfig { Grade = EquipmentGrade.GradeII, PoolIncreaseModifier = FP.FromString("0.085")});
+			InitConfigData(config => (int) config.Grade, new GradeDataConfig { Grade = EquipmentGrade.GradeIII, PoolIncreaseModifier = FP.FromString("0.05")});
 			InitConfigData(config => (int) config.Grade, new GradeDataConfig { Grade = EquipmentGrade.GradeIV, PoolIncreaseModifier = FP.FromString("0.025")});
-			InitConfigData(config => (int) config.Adjective, new AdjectiveDataConfig { Adjective = EquipmentAdjective.Regular, PoolCapacityModifier = FP._0});
+			InitConfigData(config => (int) config.Grade, new GradeDataConfig { Grade = EquipmentGrade.GradeV, PoolIncreaseModifier = FP.FromString("0")});
+			
+			InitConfigData(config => (int) config.Adjective, new AdjectiveDataConfig { Adjective = EquipmentAdjective.Regular, PoolCapacityModifier = FP.FromString("0")});
+			InitConfigData(config => (int) config.Adjective, new AdjectiveDataConfig { Adjective = EquipmentAdjective.Cool, PoolCapacityModifier = FP.FromString("0")});
+			InitConfigData(config => (int) config.Adjective, new AdjectiveDataConfig { Adjective = EquipmentAdjective.Ornate, PoolCapacityModifier = FP.FromString("0")});
+			InitConfigData(config => (int) config.Adjective, new AdjectiveDataConfig { Adjective = EquipmentAdjective.Posh, PoolCapacityModifier = FP.FromString("0.00125")});
 			InitConfigData(config => (int) config.Adjective, new AdjectiveDataConfig { Adjective = EquipmentAdjective.Exquisite, PoolCapacityModifier = FP.FromString("0.00125")});
-			InitConfigData(config => (int) config.Adjective, new AdjectiveDataConfig { Adjective = EquipmentAdjective.Cool, PoolCapacityModifier = FP._0});
-			InitConfigData(config => (int) config.Adjective, new AdjectiveDataConfig { Adjective = EquipmentAdjective.Royal, PoolCapacityModifier = FP._0_01});
-			InitConfigData(config => (int) config.Adjective, new AdjectiveDataConfig { Adjective = EquipmentAdjective.Divine, PoolCapacityModifier = FP._0_01});
-			InitConfigData(config => (int) config.Rarity, new RarityDataConfig { Rarity = EquipmentRarity.RarePlus, PoolCapacityModifier = FP.FromString("0.0025")});
-			InitConfigData(config => (int) config.Rarity, new RarityDataConfig { Rarity = EquipmentRarity.Rare, PoolCapacityModifier = FP.FromString("0.0025")});
+			InitConfigData(config => (int) config.Adjective, new AdjectiveDataConfig { Adjective = EquipmentAdjective.Majestic, PoolCapacityModifier = FP.FromString("0.0025")});
+			InitConfigData(config => (int) config.Adjective, new AdjectiveDataConfig { Adjective = EquipmentAdjective.Marvelous, PoolCapacityModifier = FP.FromString("0.0025")});
+			InitConfigData(config => (int) config.Adjective, new AdjectiveDataConfig { Adjective = EquipmentAdjective.Magnificent, PoolCapacityModifier = FP.FromString("0.005")});
+			InitConfigData(config => (int) config.Adjective, new AdjectiveDataConfig { Adjective = EquipmentAdjective.Royal, PoolCapacityModifier = FP.FromString("0.01")});
+			InitConfigData(config => (int) config.Adjective, new AdjectiveDataConfig { Adjective = EquipmentAdjective.Divine, PoolCapacityModifier = FP.FromString("0.01")});
+			
+			InitConfigData(config => (int) config.Rarity, new RarityDataConfig { Rarity = EquipmentRarity.Common, PoolCapacityModifier = FP.FromString("0")});
+			InitConfigData(config => (int) config.Rarity, new RarityDataConfig { Rarity = EquipmentRarity.CommonPlus, PoolCapacityModifier = FP.FromString("0")});
 			InitConfigData(config => (int) config.Rarity, new RarityDataConfig { Rarity = EquipmentRarity.Uncommon, PoolCapacityModifier = FP.FromString("0.00125")});
-			InitConfigData(config => (int) config.Rarity, new RarityDataConfig { Rarity = EquipmentRarity.Legendary, PoolCapacityModifier = FP._0_01});
-			InitConfigData(config => (int) config.Rarity, new RarityDataConfig { Rarity = EquipmentRarity.LegendaryPlus, PoolCapacityModifier = FP._0_01});
+			InitConfigData(config => (int) config.Rarity, new RarityDataConfig { Rarity = EquipmentRarity.UncommonPlus, PoolCapacityModifier = FP.FromString("0.00125")});
+			InitConfigData(config => (int) config.Rarity, new RarityDataConfig { Rarity = EquipmentRarity.Rare, PoolCapacityModifier = FP.FromString("0.0025")});
+			InitConfigData(config => (int) config.Rarity, new RarityDataConfig { Rarity = EquipmentRarity.RarePlus, PoolCapacityModifier = FP.FromString("0.0025")});
+			InitConfigData(config => (int) config.Rarity, new RarityDataConfig { Rarity = EquipmentRarity.Epic, PoolCapacityModifier = FP.FromString("0.005")});
+			InitConfigData(config => (int) config.Rarity, new RarityDataConfig { Rarity = EquipmentRarity.EpicPlus, PoolCapacityModifier = FP.FromString("0.005")});
+			InitConfigData(config => (int) config.Rarity, new RarityDataConfig { Rarity = EquipmentRarity.Legendary, PoolCapacityModifier = FP.FromString("0.01")});
+			InitConfigData(config => (int) config.Rarity, new RarityDataConfig { Rarity = EquipmentRarity.LegendaryPlus, PoolCapacityModifier = FP.FromString("0.01")});
 		}
 	}
 }

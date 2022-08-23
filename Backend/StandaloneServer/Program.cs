@@ -46,6 +46,9 @@ app.MapPost("/CloudScript/ExecuteFunction", async (ctx) =>
 	var logicString = functionRequest?.FunctionParameter as JsonObject;
 	var logicRequest = serializer.DeserializeObject<LogicRequest>(logicString?.ToString());
 	var webServer = app.Services.GetService<ILogicWebService>();
+	
+	logger.LogInformation($"Logic Request Contents: {logicString?.ToString()}");
+	
 	// TODO: Make attribute that implements service calls in both Azure Functions and Standalone to avoid this
 	PlayFabResult<BackendLogicResult?> result = functionRequest?.FunctionName switch
 	{

@@ -10,7 +10,7 @@ namespace Quantum
 	{
 		private static readonly List<GameIdGroup> _slots = new List<GameIdGroup>
 		{
-			GameIdGroup.Amulet, GameIdGroup.Armor, GameIdGroup.Chest, GameIdGroup.Helmet, GameIdGroup.Weapon
+			GameIdGroup.Amulet, GameIdGroup.Armor, GameIdGroup.Shield, GameIdGroup.Helmet, GameIdGroup.Weapon
 		};
 		
 		/// <summary>

@@ -58,7 +58,7 @@ namespace Quantum.Systems
 			{
 				return;
 			}
-			
+
 			if (isHealing)
 			{
 				stats->GainHealth(f, spell.Victim, spell);

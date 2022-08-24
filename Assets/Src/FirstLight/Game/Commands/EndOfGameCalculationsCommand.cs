@@ -1,4 +1,4 @@
-using FirstLight.Game.Logic;
+﻿using FirstLight.Game.Logic;
 using System.Collections.Generic;
 using System.Linq;
 using FirstLight.Game.Data.DataTypes;
@@ -53,6 +53,7 @@ namespace FirstLight.Game.Commands
 			{
 				return false;
 			}
+
 			var endCommand = (EndOfGameCalculationsCommand) command;
 			var myHashes = PlayersMatchData.Select(d => d.GetHashCode());
 			var hisHashes = endCommand.PlayersMatchData.Select(d => d.GetHashCode());

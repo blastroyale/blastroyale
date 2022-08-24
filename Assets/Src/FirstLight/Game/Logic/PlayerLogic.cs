@@ -187,25 +187,25 @@ namespace FirstLight.Game.Logic
 			var tempPlayers = new List<QuantumPlayerMatchData>(players);
 			tempPlayers.SortByPlayerRank(false);
 
-			var trophyChange = FP._0;
+			var trophyChange = 0d;
 
 			// Losses
 			for (var i = 0; i < localPlayerData.PlayerRank; i++)
 			{
-				trophyChange += CalculateEloChange(FP._0, players[i].Data.PlayerTrophies, 
+				trophyChange += CalculateEloChange(0d, players[i].Data.PlayerTrophies, 
 				                                   localPlayerData.Data.PlayerTrophies, gameConfig.TrophyEloRange,
-				                                   gameConfig.TrophyEloK);
+				                                   gameConfig.TrophyEloK.AsDouble);
 			}
 
 			// Wins
 			for (var i = (int) localPlayerData.PlayerRank + 1; i < players.Count; i++)
 			{
-				trophyChange += CalculateEloChange(FP._1, players[i].Data.PlayerTrophies, 
+				trophyChange += CalculateEloChange(1d, players[i].Data.PlayerTrophies, 
 				                                   localPlayerData.Data.PlayerTrophies, gameConfig.TrophyEloRange,
-				                                   gameConfig.TrophyEloK);
+				                                   gameConfig.TrophyEloK.AsDouble);
 			}
 
-			var finalTrophyChange = Mathf.RoundToInt(trophyChange.AsFloat);
+			var finalTrophyChange = (int)Math.Round(trophyChange);
 
 			if (finalTrophyChange < 0 && Math.Abs(finalTrophyChange) > _trophies.Value)
 			{
@@ -228,11 +228,11 @@ namespace FirstLight.Game.Logic
 			Data.PlayerSkinId = skin;
 		}
 
-		private FP CalculateEloChange(FP score, uint trophiesOpponent, uint trophiesPlayer, int eloRange, FP eloK)
+		private double CalculateEloChange(double score, uint trophiesOpponent, uint trophiesPlayer, int eloRange, double eloK)
 		{
-			var eloBracket = Mathf.Pow(10, (trophiesOpponent - trophiesPlayer) / (float) eloRange).ToFP();
+			var eloBracket = Math.Pow(10, (trophiesOpponent - trophiesPlayer) / (float) eloRange);
 			
-			return eloK * (score - FP._1 / (FP._1 + eloBracket));
+			return eloK * (score - 1 / (1 + eloBracket));
 		}
 	}
 }

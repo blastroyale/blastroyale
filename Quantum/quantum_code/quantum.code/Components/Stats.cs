@@ -155,6 +155,11 @@ namespace Quantum
 		/// </summary>
 		internal void GainHealth(Frame f, EntityRef entity, Spell spell)
 		{
+			if (f.Has<EntityDestroyer>(entity))
+			{
+				return;
+			}
+			
 			SetCurrentHealth(f, entity, (int) (CurrentHealth + spell.PowerAmount));
 		}
 
@@ -163,6 +168,11 @@ namespace Quantum
 		/// </summary>
 		internal void ReduceHealth(Frame f, EntityRef entity, Spell spell)
 		{
+			if (f.Has<EntityDestroyer>(entity))
+			{
+				return;
+			}
+			
 			var previousHealth = CurrentHealth;
 			var previousShield = CurrentShield;
 			var maxHealth = GetStatData(StatType.Health).StatValue.AsInt;

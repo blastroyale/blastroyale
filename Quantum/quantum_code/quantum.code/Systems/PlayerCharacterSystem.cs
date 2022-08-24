@@ -53,7 +53,7 @@ namespace Quantum.Systems
 			{
 				return;
 			}
-			
+
 			var deathPosition = f.Get<Transform3D>(entity).Position;
 			var step = 0;
 			var gameMode = f.Context.MapConfig.GameMode;

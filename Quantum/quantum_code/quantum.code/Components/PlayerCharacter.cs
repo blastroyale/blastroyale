@@ -299,6 +299,7 @@ namespace Quantum
 		{
 			return equipment.GetEquipmentGroup() switch
 			{
+				GameIdGroup.Weapon => Constants.GEAR_INDEX_WEAPON,
 				GameIdGroup.Helmet => Constants.GEAR_INDEX_HELMET,
 				GameIdGroup.Amulet => Constants.GEAR_INDEX_AMULET,
 				GameIdGroup.Armor => Constants.GEAR_INDEX_ARMOR,
@@ -314,6 +315,7 @@ namespace Quantum
 		{
 			return slot switch
 			{
+				Constants.GEAR_INDEX_WEAPON => GameIdGroup.Weapon,
 				Constants.GEAR_INDEX_HELMET => GameIdGroup.Helmet,
 				Constants.GEAR_INDEX_AMULET => GameIdGroup.Amulet,
 				Constants.GEAR_INDEX_ARMOR => GameIdGroup.Armor,

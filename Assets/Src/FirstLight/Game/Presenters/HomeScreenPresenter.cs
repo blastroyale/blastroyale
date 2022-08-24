@@ -60,7 +60,7 @@ namespace FirstLight.Game.Presenters
 			_settingsButton.onClick.AddListener(OnSettingsButtonClicked);
 			_lootButton.Button.onClick.AddListener(OpenLootMenuUI);
 			_heroesButton.Button.onClick.AddListener(OpenHeroesMenuUI);
-			_marketplaceButton.gameObject.SetActive(Debug.isDebugBuild);
+			_marketplaceButton.onClick.AddListener(OpenMarketplaceLink);
 			_feedbackButton.onClick.AddListener(LeaveFeedbackForm);
 			_discordButton.onClick.AddListener(OpenDiscordLink);
 

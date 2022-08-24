@@ -180,6 +180,7 @@ namespace Quantum
 			var armour = GetStatData(StatType.Armour).StatValue.AsInt;
 			var totalDamage = Math.Max((int)spell.PowerAmount - armour, 0);
 			var damageAmount = totalDamage;
+			var shieldDamageAmount = 0;
 
 			if (IsImmune)
 			{
@@ -191,13 +192,14 @@ namespace Quantum
 			// and if the damage is bigger than shields then we proceed to remove health as well
 			if (previousShield > 0)
 			{
-				SetCurrenShield(f, entity, Math.Max(previousShield - damageAmount, 0));
+				shieldDamageAmount = Math.Min(previousShield, damageAmount);
+				damageAmount -= shieldDamageAmount;
 				
-				damageAmount = Math.Max(damageAmount - previousShield, 0);
+				SetCurrenShield(f, entity, previousShield - shieldDamageAmount);
 			}
 
-			f.Events.OnPlayerDamaged(spell, (uint) totalDamage, (uint) damageAmount, previousHealth, maxHealth, 
-			                         previousShield, maxShield);
+			f.Events.OnPlayerDamaged(spell, totalDamage, shieldDamageAmount, Math.Min(previousHealth, damageAmount), 
+			                         previousHealth, maxHealth, previousShield, maxShield);
 
 			if (damageAmount <= 0)
 			{

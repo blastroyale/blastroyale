@@ -72,18 +72,15 @@ namespace Quantum
 				OnLocalPlayerSpecialUsed(playerCharacter->Player, entity, special, specialIndex);
 			}
 			
-			public void OnPlayerDamaged(Spell spell, uint totalDamage, uint healthDamage, 
+			public void OnPlayerDamaged(Spell spell, int totalDamage, int shieldDamageAmount, int healthDamageAmount, 
 			                            int previousHealth, int maxHealth, int previousShield, int maxShield)
 			{
 				if (!_f.Unsafe.TryGetPointer<PlayerCharacter>(spell.Victim, out var playerCharacter))
 				{
 					return;
 				}
-				
-				var shieldDamage = spell.PowerAmount - healthDamage;
-				
-				OnPlayerDamaged(playerCharacter->Player, spell, totalDamage, shieldDamage, previousShield, maxShield,
-				                healthDamage, previousHealth, maxHealth);
+				OnPlayerDamaged(playerCharacter->Player, spell, (uint) totalDamage, (uint) shieldDamageAmount, 
+				                previousShield, maxShield, (uint) healthDamageAmount, previousHealth, maxHealth);
 			}
 			
 			public void OnPlayerKilledPlayer(PlayerRef playerDead, PlayerRef playerKiller)

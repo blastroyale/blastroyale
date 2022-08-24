@@ -22,7 +22,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Title("Colors")] private Color _hitTextColor = Color.red;
 		[SerializeField] private Color _healTextColor = Color.green;
 		[SerializeField] private Color _neutralTextColor = Color.white;
-		[SerializeField] private Color _armourLossTextColor = Color.white;
 		[SerializeField] private Color _armourGainTextColor = Color.cyan;
 
 		[SerializeField, Required, Title("Icons")]
@@ -58,7 +57,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			QuantumEvent.Subscribe<EventOnHealthChanged>(this, OnHealthChanged);
 			QuantumEvent.Subscribe<EventOnShieldChanged>(this, OnShieldChanged);
-			QuantumEvent.Subscribe<EventOnPlayerAmmoChanged>(this, OnPlayerAmmoChanged);
 			QuantumEvent.Subscribe<EventOnCollectableCollected>(this, OnCollectableCollected);
 			QuantumEvent.Subscribe<EventOnCollectableBlocked>(this, OnCollectableBlocked);
 			QuantumEvent.Subscribe<EventOnPlayerStatsChanged>(this, OnPlayerStatsChanged);
@@ -99,24 +97,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void OnCollectableCollected(EventOnCollectableCollected callback)
 		{
 			if (callback.PlayerEntity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
+			if (callback.CollectableId != GameId.Rage && !callback.CollectableId.IsInGroup(GameIdGroup.Weapon)) return;
 
-			var messageType = callback.CollectableId.IsInGroup(GameIdGroup.Weapon)
-				                  ? MessageType.StatChange
-				                  : MessageType.Info;
-
-			EnqueueText(callback.PlayerEntity, callback.CollectableId.GetTranslation(), _neutralTextColor, messageType);
-		}
-
-		private void OnPlayerAmmoChanged(EventOnPlayerAmmoChanged callback)
-		{
-			var diff = callback.CurrentAmmo - callback.PreviousAmmo;
-			
-			if (diff < 0 || callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
-			{
-				return;
-			}
-			
-			EnqueueValue(callback.Entity, ScriptLocalization.General.Ammo, diff, MessageType.Info);
+			EnqueueText(callback.PlayerEntity, callback.CollectableId.GetTranslation(), _neutralTextColor, MessageType.StatChange);
 		}
 
 		private void OnShieldChanged(EventOnShieldChanged callback)
@@ -125,9 +108,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				return;
 			}
+
+			var changeValue = callback.CurrentShield - callback.PreviousShield;
+			var color = changeValue < 0 ? _hitTextColor : _healTextColor;
 			
-			EnqueueValue(callback.Entity, ScriptLocalization.General.Shield, 
-			             callback.CurrentShield - callback.PreviousShield, MessageType.Info);
+			EnqueueText(callback.Entity, changeValue.ToString(), color, MessageType.Info);
 		}
 
 		private void OnHealthChanged(EventOnHealthChanged callback)
@@ -136,9 +121,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				return;
 			}
+
+			var changeValue = callback.CurrentHealth - callback.PreviousHealth;
+			var color = changeValue < 0 ? _hitTextColor : _healTextColor;
 			
-			EnqueueValue(callback.Entity, ScriptLocalization.General.Health, 
-			             callback.CurrentHealth - callback.PreviousHealth, MessageType.Info);
+			EnqueueText(callback.Entity, changeValue.ToString(), color, MessageType.Info);
 		}
 
 		private void OnPlayerDamaged(EventOnPlayerDamaged callback)
@@ -148,15 +135,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				return;
 			}
 			
-			if (callback.ShieldDamage > 0)
-			{
-				EnqueueValue(callback.Entity, ScriptLocalization.General.Shield, (int) -callback.ShieldDamage, MessageType.Info);
-			}
-				
-			if (callback.HealthDamage > 0)
-			{
-				EnqueueValue(callback.Entity, ScriptLocalization.General.Health, (int) -callback.HealthDamage, MessageType.Info);
-			}
+			EnqueueValue(callback.Entity, "", (int) -callback.TotalDamage, MessageType.Info);
 		}
 
 		private void OnPlayerStatsChanged(EventOnPlayerStatsChanged callback)
@@ -171,22 +150,19 @@ namespace FirstLight.Game.Views.MatchHudViews
 				var difference = callback.CurrentStats.Values[i].BaseValue.AsFloat -
 				                 callback.PreviousStats.Values[i].BaseValue.AsFloat;
 				var statName = callback.CurrentStats.Values[i].Type.GetTranslation();
-
+				
 				EnqueueValue(callback.Entity, statName, Mathf.RoundToInt(difference), MessageType.StatChange);
 			}
 		}
 
-		private void EnqueueValue(EntityRef playerEntity, string valueName, int value, MessageType type,
-		                          Sprite icon = null,
-		                          bool allowZero = false)
+		private void EnqueueValue(EntityRef playerEntity, string valueName, int value, MessageType type)
 		{
-			if (allowZero || value == 0) return;
+			if (value == 0) return;
 
-			var valueSign = value > 0 ? " +" : " ";
-			var messageText = valueName + valueSign + value;
+			var valueSign = value > 0 ? "+" : "";
 			var messageColor = value > 0 ? _neutralTextColor : _hitTextColor;
 
-			EnqueueText(playerEntity, messageText, messageColor, type, icon);
+			EnqueueText(playerEntity, $"{valueName} {valueSign}{value.ToString()}", messageColor, type);
 		}
 
 		private void EnqueueText(EntityRef playerEntity, string message, Color color, MessageType type,

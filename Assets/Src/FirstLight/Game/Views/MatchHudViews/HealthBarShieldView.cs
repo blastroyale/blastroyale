@@ -11,7 +11,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 	/// </summary>
 	public class HealthBarShieldView : MonoBehaviour, IPoolEntityDespawn
 	{
-		public TextMeshProUGUI ShieldText;
 		public GameObject ShieldIcon;
 		public Slider ArmourSlider;
 
@@ -28,7 +27,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public void SetupView(EntityRef entity, int currentShield)
 		{
 			_entity = entity;
-			UpdateShieldText(currentShield);
+			
+			ShieldIcon.SetActive(currentShield > 0);
 		}
 		
 		/// <inheritdoc />
@@ -47,7 +47,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void UpdateShieldBar(float shield)
 		{
-			ArmourSlider.value = shield;
 			if (!ShieldIcon.activeSelf && shield > 0)
 			{
 				ShieldIcon.SetActive(true);
@@ -57,13 +56,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 				ShieldIcon.SetActive(false);
 			}
 			
-		}
-
-		private void UpdateShieldText(int shield)
-		{
-			ShieldText.text = shield.ToString("###0");
-			ShieldText.gameObject.SetActive(shield > 0);
-			ShieldIcon.SetActive(shield > 0);
 		}
 	}
 }

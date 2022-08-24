@@ -54,8 +54,7 @@ namespace Quantum.Systems
 		
 		private void HandleHealth(Frame f, Spell spell, bool isHealing)
 		{
-			if (!f.Unsafe.TryGetPointer<Stats>(spell.Victim, out var stats) || spell.PowerAmount == 0 ||
-			    f.Has<EntityDestroyer>(spell.Victim))
+			if (!f.Unsafe.TryGetPointer<Stats>(spell.Victim, out var stats) || spell.PowerAmount == 0)
 			{
 				return;
 			}

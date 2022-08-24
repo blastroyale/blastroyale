@@ -98,13 +98,13 @@ namespace Quantum
 		[FoldoutGroup("Bots"), PropertyTooltip(DESC_ALLOW_BOTS)]
 		public bool AllowBots;
 
-		[FoldoutGroup("Bots"), ShowIf("EnableBots"), PropertyTooltip(DESC_BOT_SEARCH_FOR_CRATES)]
+		[FoldoutGroup("Bots"), ShowIf("AllowBots"), PropertyTooltip(DESC_BOT_SEARCH_FOR_CRATES)]
 		public bool BotSearchForCrates;
 
-		[FoldoutGroup("Bots"), ShowIf("EnableBots"), PropertyTooltip(DESC_BOT_RESPAWN)]
+		[FoldoutGroup("Bots"), ShowIf("AllowBots"), PropertyTooltip(DESC_BOT_RESPAWN)]
 		public bool BotRespawn;
 
-		[FoldoutGroup("Bots"), ShowIf("EnableBots"), PropertyTooltip(DESC_BOT_WEAPON_SEARCH_STRATEGY)]
+		[FoldoutGroup("Bots"), ShowIf("AllowBots"), PropertyTooltip(DESC_BOT_WEAPON_SEARCH_STRATEGY)]
 		public BotWeaponSearchStrategy BotWeaponSearchStrategy;
 
 #endregion

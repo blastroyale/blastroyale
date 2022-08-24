@@ -749,6 +749,7 @@ namespace I2.Loc
 			public static string RoomLeaveButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomLeaveButton"); } }
 			public static string RoomLock 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomLock"); } }
 			public static string SFX 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SFX"); } }
+			public static string SelectDropZone 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SelectDropZone"); } }
 			public static string SelectGameMap 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SelectGameMap"); } }
 			public static string SelectGameMode 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/SelectGameMode"); } }
 			public static string Selected 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Selected"); } }
@@ -824,13 +825,17 @@ namespace I2.Loc
 			public static string AccountRegisterError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/AccountRegisterError"); } }
 			public static string AccountRegisterSuccess 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/AccountRegisterSuccess"); } }
 			public static string BuyInProcess 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/BuyInProcess"); } }
+			public static string BuyLootboxError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/BuyLootboxError"); } }
+			public static string BuyLootboxSuccess 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/BuyLootboxSuccess"); } }
 			public static string BuyNFTError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/BuyNFTError"); } }
 			public static string BuyNFTSuccess 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/BuyNFTSuccess"); } }
+			public static string BuyValidationProofError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/BuyValidationProofError"); } }
 			public static string CancelInProcess 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/CancelInProcess"); } }
 			public static string CancelSellError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/CancelSellError"); } }
 			public static string CancelSellSuccess 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/CancelSellSuccess"); } }
 			public static string ChainAddError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/ChainAddError"); } }
 			public static string ChainSwitchError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/ChainSwitchError"); } }
+			public static string CheckLootboxAvailabilityError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/CheckLootboxAvailabilityError"); } }
 			public static string CheckVestingAmountError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/CheckVestingAmountError"); } }
 			public static string CheckWalletLinkError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/CheckWalletLinkError"); } }
 			public static string ClaimVestingError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/ClaimVestingError"); } }
@@ -849,16 +854,27 @@ namespace I2.Loc
 			public static string DisplayNameChangeSuccess 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/DisplayNameChangeSuccess"); } }
 			public static string EthEventsError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/EthEventsError"); } }
 			public static string FetchBalanceError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/FetchBalanceError"); } }
+			public static string FetchLootboxEquipError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/FetchLootboxEquipError"); } }
+			public static string FetchLootboxError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/FetchLootboxError"); } }
 			public static string FetchNFTError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/FetchNFTError"); } }
 			public static string FetchNFTStatsError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/FetchNFTStatsError"); } }
 			public static string HydrationError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/HydrationError"); } }
+			public static string InvalidNetwork 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/InvalidNetwork"); } }
+			public static string LoadConfigError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/LoadConfigError"); } }
+			public static string LoadWhitelistError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/LoadWhitelistError"); } }
 			public static string LoginError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/LoginError"); } }
 			public static string LoginTransactionExists 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/LoginTransactionExists"); } }
+			public static string MerkleTreeGenerationError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/MerkleTreeGenerationError"); } }
 			public static string NoBLSTPrice 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/NoBLSTPrice"); } }
 			public static string NoContractAddr 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/NoContractAddr"); } }
 			public static string NoEthContext 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/NoEthContext"); } }
+			public static string NoLinkedWallet 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/NoLinkedWallet"); } }
 			public static string NoWalletAddr 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/NoWalletAddr"); } }
+			public static string NoWalletConnected 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/NoWalletConnected"); } }
 			public static string NotEnoughBLST 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/NotEnoughBLST"); } }
+			public static string OpenLootboxError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/OpenLootboxError"); } }
+			public static string OpenLootboxMultipleTransactionSent 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/OpenLootboxMultipleTransactionSent"); } }
+			public static string OpenLootboxSuccess 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/OpenLootboxSuccess"); } }
 			public static string PasswordResetRequestSuccess 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/PasswordResetRequestSuccess"); } }
 			public static string SellInProcess 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/SellInProcess"); } }
 			public static string SellNFTError 		{ get{ return LocalizationManager.GetTranslation ("Marketplace/SellNFTError"); } }
@@ -1653,6 +1669,7 @@ namespace I2.Loc
 		    public const string RoomLeaveButton = "MainMenu/RoomLeaveButton";
 		    public const string RoomLock = "MainMenu/RoomLock";
 		    public const string SFX = "MainMenu/SFX";
+		    public const string SelectDropZone = "MainMenu/SelectDropZone";
 		    public const string SelectGameMap = "MainMenu/SelectGameMap";
 		    public const string SelectGameMode = "MainMenu/SelectGameMode";
 		    public const string Selected = "MainMenu/Selected";
@@ -1728,13 +1745,17 @@ namespace I2.Loc
 		    public const string AccountRegisterError = "Marketplace/AccountRegisterError";
 		    public const string AccountRegisterSuccess = "Marketplace/AccountRegisterSuccess";
 		    public const string BuyInProcess = "Marketplace/BuyInProcess";
+		    public const string BuyLootboxError = "Marketplace/BuyLootboxError";
+		    public const string BuyLootboxSuccess = "Marketplace/BuyLootboxSuccess";
 		    public const string BuyNFTError = "Marketplace/BuyNFTError";
 		    public const string BuyNFTSuccess = "Marketplace/BuyNFTSuccess";
+		    public const string BuyValidationProofError = "Marketplace/BuyValidationProofError";
 		    public const string CancelInProcess = "Marketplace/CancelInProcess";
 		    public const string CancelSellError = "Marketplace/CancelSellError";
 		    public const string CancelSellSuccess = "Marketplace/CancelSellSuccess";
 		    public const string ChainAddError = "Marketplace/ChainAddError";
 		    public const string ChainSwitchError = "Marketplace/ChainSwitchError";
+		    public const string CheckLootboxAvailabilityError = "Marketplace/CheckLootboxAvailabilityError";
 		    public const string CheckVestingAmountError = "Marketplace/CheckVestingAmountError";
 		    public const string CheckWalletLinkError = "Marketplace/CheckWalletLinkError";
 		    public const string ClaimVestingError = "Marketplace/ClaimVestingError";
@@ -1753,16 +1774,27 @@ namespace I2.Loc
 		    public const string DisplayNameChangeSuccess = "Marketplace/DisplayNameChangeSuccess";
 		    public const string EthEventsError = "Marketplace/EthEventsError";
 		    public const string FetchBalanceError = "Marketplace/FetchBalanceError";
+		    public const string FetchLootboxEquipError = "Marketplace/FetchLootboxEquipError";
+		    public const string FetchLootboxError = "Marketplace/FetchLootboxError";
 		    public const string FetchNFTError = "Marketplace/FetchNFTError";
 		    public const string FetchNFTStatsError = "Marketplace/FetchNFTStatsError";
 		    public const string HydrationError = "Marketplace/HydrationError";
+		    public const string InvalidNetwork = "Marketplace/InvalidNetwork";
+		    public const string LoadConfigError = "Marketplace/LoadConfigError";
+		    public const string LoadWhitelistError = "Marketplace/LoadWhitelistError";
 		    public const string LoginError = "Marketplace/LoginError";
 		    public const string LoginTransactionExists = "Marketplace/LoginTransactionExists";
+		    public const string MerkleTreeGenerationError = "Marketplace/MerkleTreeGenerationError";
 		    public const string NoBLSTPrice = "Marketplace/NoBLSTPrice";
 		    public const string NoContractAddr = "Marketplace/NoContractAddr";
 		    public const string NoEthContext = "Marketplace/NoEthContext";
+		    public const string NoLinkedWallet = "Marketplace/NoLinkedWallet";
 		    public const string NoWalletAddr = "Marketplace/NoWalletAddr";
+		    public const string NoWalletConnected = "Marketplace/NoWalletConnected";
 		    public const string NotEnoughBLST = "Marketplace/NotEnoughBLST";
+		    public const string OpenLootboxError = "Marketplace/OpenLootboxError";
+		    public const string OpenLootboxMultipleTransactionSent = "Marketplace/OpenLootboxMultipleTransactionSent";
+		    public const string OpenLootboxSuccess = "Marketplace/OpenLootboxSuccess";
 		    public const string PasswordResetRequestSuccess = "Marketplace/PasswordResetRequestSuccess";
 		    public const string SellInProcess = "Marketplace/SellInProcess";
 		    public const string SellNFTError = "Marketplace/SellNFTError";

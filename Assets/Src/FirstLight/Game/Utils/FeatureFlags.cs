@@ -29,5 +29,10 @@ namespace FirstLight.Game.Utils
 		/// To use this in our backend the backend needs to be compiled with this flag being False.
 		/// </summary>
 		public static bool QUANTUM_CUSTOM_SERVER = false;
+		
+		/// <summary>
+		/// If false, deathmatch game mode selection will be disabled in GameModeSelectionPresenter
+		/// </summary>
+		public static readonly bool DEATHMATCH_ENABLED = false;
 	}
 }

@@ -43,7 +43,8 @@ namespace Quantum
 			var chestPosition = f.Get<Transform3D>(e).Position;
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
 			var isBot = f.Has<BotCharacter>(playerEntity);
-			var hasPrimaryWeaponEquipped = playerCharacter->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon.IsValid();
+			var primarySlotWeapon = playerCharacter->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon;
+			var hasPrimaryWeaponEquipped = primarySlotWeapon.IsValid();
 			var loadoutWeapon = isBot ? Equipment.None : playerData.Loadout.FirstOrDefault(item => item.IsWeapon());
 			var hasLoadoutWeapon = loadoutWeapon.IsValid();
 			var minimumRarity = hasLoadoutWeapon ? loadoutWeapon.Rarity : EquipmentRarity.Common;
@@ -57,7 +58,7 @@ namespace Quantum
 
 			f.Events.OnChestOpened(config.Id, chestPosition);
 
-			if (!hasPrimaryWeaponEquipped && hasLoadoutWeapon)
+			if ((!hasPrimaryWeaponEquipped || primarySlotWeapon.GameId == loadoutWeapon.GameId) && hasLoadoutWeapon)
 			{
 				// Drop primary weapon if it's in loadout and not equipped
 				playerCharacter->SetDroppedLoadoutItem(loadoutWeapon);

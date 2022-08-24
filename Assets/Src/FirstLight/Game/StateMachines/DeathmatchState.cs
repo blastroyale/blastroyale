@@ -81,6 +81,7 @@ namespace FirstLight.Game.StateMachines
 			
 			dead.OnEnter(CloseMatchHud);
 			dead.OnEnter(OpenKilledHud);
+			// Needed on transition in case the player leaves the game in the dead screen
 			dead.Event(_localPlayerAliveEvent).OnTransition(OpenControlsHud).Target(alive);
 			dead.Event(_localPlayerRespawnEvent).OnTransition(OpenControlsHud).Target(respawning);
 			dead.OnExit(CloseKilledHud);

@@ -65,7 +65,6 @@ namespace FirstLight.Game.Presenters
 			_discordButton.onClick.AddListener(OpenDiscordLink);
 
 			_gameModeButton.onClick.AddListener(OpenGameModeClicked);
-			_gameModeButton.gameObject.SetActive(Debug.isDebugBuild);
 
 			_newFeaturesView.gameObject.SetActive(false);
 		}

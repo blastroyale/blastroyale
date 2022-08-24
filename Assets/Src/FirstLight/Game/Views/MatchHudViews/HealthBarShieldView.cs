@@ -47,6 +47,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void UpdateShieldBar(float shield)
 		{
+			ArmourSlider.value = shield;
 			if (!ShieldIcon.activeSelf && shield > 0)
 			{
 				ShieldIcon.SetActive(true);

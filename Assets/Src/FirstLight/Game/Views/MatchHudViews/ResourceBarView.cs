@@ -1,4 +1,6 @@
 using System.Collections;
+using FirstLight.Game.Services;
+using FirstLight.Game.Utils;
 using FirstLight.Services;
 using Quantum;
 using Sirenix.OdinInspector;
@@ -39,9 +41,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public void SetupView(Frame f, EntityRef entity)
 		{
 			_entity = entity;
-			_currentWeapon = GameId.Hammer;
 			SetSliderValue(f, entity);
 			
+			_currentWeapon = f.Get<PlayerCharacter>(entity).CurrentWeapon.GameId;
+			Debug.LogError(_currentWeapon);
 			QuantumEvent.Subscribe<EventOnPlayerAmmoChanged>(this, HandleOnPlayerAmmoChanged);
 			QuantumEvent.Subscribe<EventOnPlayerWeaponChanged>(this, HandleOnPlayerWeaponChanged);
 			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, HandleOnPlayerAttacked);

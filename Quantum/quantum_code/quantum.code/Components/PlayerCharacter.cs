@@ -288,7 +288,7 @@ namespace Quantum
 		/// </summary>
 		public bool HasDroppedLoadoutItem(Equipment equipment)
 		{
-			var shift = equipment.IsWeapon() ? 0 : GetGearSlot(equipment) + 1;
+			var shift = GetGearSlot(equipment) + 1;
 			return (DroppedLoadoutFlags & (1 << shift)) != 0;
 		}
 
@@ -331,7 +331,7 @@ namespace Quantum
 		/// </summary>
 		internal void SetDroppedLoadoutItem(Equipment equipment)
 		{
-			var shift = equipment.IsWeapon() ? 0 : GetGearSlot(equipment) + 1;
+			var shift = GetGearSlot(equipment) + 1;
 			DroppedLoadoutFlags |= 1 << shift;
 		}
 

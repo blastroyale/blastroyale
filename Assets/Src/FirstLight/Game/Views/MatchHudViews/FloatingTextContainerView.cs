@@ -104,33 +104,33 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void OnShieldChanged(EventOnShieldChanged callback)
 		{
-			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
+			var changeValue = callback.CurrentShield - callback.PreviousShield;
+			
+			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity || changeValue < 0)
 			{
 				return;
 			}
-
-			var changeValue = callback.CurrentShield - callback.PreviousShield;
-			var color = changeValue < 0 ? _hitTextColor : _armourGainTextColor;
 			
-			EnqueueText(callback.Entity, changeValue.ToString(), color, MessageType.Info);
+			EnqueueText(callback.Entity, changeValue.ToString(), _armourGainTextColor, MessageType.Info);
 		}
 
 		private void OnHealthChanged(EventOnHealthChanged callback)
 		{
-			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
+			var changeValue = callback.CurrentHealth - callback.PreviousHealth;
+			
+			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity || changeValue < 0)
 			{
 				return;
 			}
-
-			var changeValue = callback.CurrentHealth - callback.PreviousHealth;
-			var color = changeValue < 0 ? _hitTextColor : _healTextColor;
 			
-			EnqueueText(callback.Entity, changeValue.ToString(), color, MessageType.Info);
+			EnqueueText(callback.Entity, changeValue.ToString(), _healTextColor, MessageType.Info);
 		}
 
 		private void OnPlayerDamaged(EventOnPlayerDamaged callback)
 		{
-			if (callback.Attacker != _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
+			var player = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
+			
+			if (callback.Attacker != player && callback.Entity != player)
 			{
 				return;
 			}

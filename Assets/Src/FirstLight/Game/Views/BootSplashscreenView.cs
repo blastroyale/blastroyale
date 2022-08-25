@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 using Firebase;
 using Firebase.Analytics;
 using FirstLight.Game.Utils;
-using AppsFlyerSDK;
 using FirstLight.Game.Data;
 using Newtonsoft.Json;
 using Sirenix.OdinInspector;
@@ -35,18 +34,6 @@ namespace FirstLight.Game.Views
          // Know more and follow the Unity issue in https://issuetracker.unity3d.com/issues/isdebugbuild-returns-false-in-the-editor-when-its-value-is-checked-after-a-build
          // Remove once Unity solves it and we have a patched version
          DebugManager.instance.enableRuntimeUI = false;
-         
-         var appsFlyerReceiver = new GameObject(nameof(AppsFlyerReceiver)).AddComponent<AppsFlyerReceiver>();
-         
-         DontDestroyOnLoad(appsFlyerReceiver.gameObject);
-         Analytics.CustomEvent("session_start");
-         AppsFlyer.setIsDebug(Debug.isDebugBuild);
-#if UNITY_ANDROID && !UNITY_EDITOR
-         AppsFlyer.initSDK("GVzBhnWFUC2GjwKivnuH2H", null, appsFlyerReceiver);
-#else
-         AppsFlyer.initSDK("GVzBhnWFUC2GjwKivnuH2H", "1557220333", appsFlyerReceiver);
-#endif
-         
       }
       
       private async void Start()
@@ -68,7 +55,6 @@ namespace FirstLight.Game.Views
          if (Unity.Advertisement.IosSupport.ATTrackingStatusBinding.GetAuthorizationTrackingStatus() == 
              Unity.Advertisement.IosSupport.ATTrackingStatusBinding.AuthorizationTrackingStatus.NOT_DETERMINED)
          {
-            AppsFlyeriOS.waitForATTUserAuthorizationWithTimeoutInterval(60);
             Unity.Advertisement.IosSupport.ATTrackingStatusBinding.RequestAuthorizationTracking();
 
             await Task.Delay(500);
@@ -124,16 +110,13 @@ namespace FirstLight.Game.Views
                                   SceneManager.GetSceneByName(_mainSceneName));
          Destroy(gameObject);
       }
-      
+
       private void InitializePlugins()
       {
-    
-         AppsFlyer.startSDK();
-         
-         if (Debug.isDebugBuild)
-         {
-            SRDebug.Init();
-         }
+	      if (Debug.isDebugBuild)
+	      {
+		      SRDebug.Init();
+	      }
       }
    }
 }

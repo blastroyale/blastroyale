@@ -3017,6 +3017,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: MainMenu/SelectDropZone
+      TermType: 0
+      Description: 
+      Languages:
+      - SELECT DROP ZONE
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: AdventureMenu/AdventureCompleted
       TermType: 0
       Description: 
@@ -7397,7 +7406,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - A sale transaction is in progress. You can't sell another item until the
-        sale finishes or is cancelled
+        transaction finishes or is cancelled
       - 
       - NftStore.ts
       Flags: 000000
@@ -7632,7 +7641,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - A craft spice request is alrady ongoing, please try again later
+      - A craft spice request is already ongoing, please try again later
       - 
       - user.ts
       Flags: 000000
@@ -7718,6 +7727,142 @@ MonoBehaviour:
       - vesting.ts
       Flags: 000000
       Languages_Touch: []
+    - Term: Marketplace/LoadConfigError
+      TermType: 0
+      Description: 
+      Languages:
+      - BlastBox information error.
+      - 
+      - lootbox.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/LoadWhitelistError
+      TermType: 0
+      Description: 
+      Languages:
+      - BlastBox whitelist information retrieval error
+      - 
+      - lootbox.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/CheckLootboxAvailabilityError
+      TermType: 0
+      Description: 
+      Languages:
+      - Unable to access BlastBox availability
+      - 
+      - lootbox.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/MerkleTreeGenerationError
+      TermType: 0
+      Description: 
+      Languages:
+      - Unable to generate your availability proof
+      - 
+      - lootbox.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/FetchLootboxError
+      TermType: 0
+      Description: 
+      Languages:
+      - Unable to fetch BlastBox information
+      - 
+      - lootbox.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/FetchLootboxEquipError
+      TermType: 0
+      Description: 
+      Languages:
+      - Unable to display Blastbox contents
+      - 
+      - lootbox.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/OpenLootboxError
+      TermType: 0
+      Description: 
+      Languages:
+      - Unable to open Blastbox. Try again.
+      - 
+      - lootbox.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/OpenLootboxSuccess
+      TermType: 0
+      Description: 
+      Languages:
+      - Blastbox opened succesfully!
+      - 
+      - lootbox.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/OpenLootboxMultipleTransactionSent
+      TermType: 0
+      Description: 
+      Languages:
+      - It can take time to open a Blastbox. Please be patient whilst they open.
+      - 
+      - lootbox.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/BuyValidationProofError
+      TermType: 0
+      Description: 
+      Languages:
+      - Validation Proof error when trying to buy.
+      - 
+      - lootbox.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/BuyLootboxError
+      TermType: 0
+      Description: 
+      Languages:
+      - We were not able to conclude your BlastBox buy transaction
+      - 
+      - lootbox.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/BuyLootboxSuccess
+      TermType: 0
+      Description: 
+      Languages:
+      - Congratulations. You have acquired a BlastBox!'
+      - 
+      - lootbox.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/NoWalletConnected
+      TermType: 0
+      Description: 
+      Languages:
+      - You need to connect your wallet first.
+      - 
+      - app.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/InvalidNetwork
+      TermType: 0
+      Description: 
+      Languages:
+      - Connected to an invalid network. Please switch to the Polygon network.
+      - 
+      - app.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/NoLinkedWallet
+      TermType: 0
+      Description: 
+      Languages:
+      - Please complete your registration and link your wallet to your game account.
+        \n If you don't have one, click register.
+      - 
+      - app.ts
+      Flags: 000000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -7736,7 +7881,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1661251226748
+    Google_LastUpdatedVersion: 1661374242076
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

@@ -42,7 +42,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			SetSliderValue(f, entity);
 			
 			_currentWeapon = f.Get<PlayerCharacter>(entity).CurrentWeapon.GameId;
-			Debug.LogError(_currentWeapon);
+
 			QuantumEvent.Subscribe<EventOnPlayerAmmoChanged>(this, HandleOnPlayerAmmoChanged);
 			QuantumEvent.Subscribe<EventOnPlayerWeaponChanged>(this, HandleOnPlayerWeaponChanged);
 			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, HandleOnPlayerAttacked);

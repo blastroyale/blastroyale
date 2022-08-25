@@ -288,7 +288,7 @@ namespace Quantum
 		/// </summary>
 		public bool HasDroppedLoadoutItem(Equipment equipment)
 		{
-			var shift = equipment.IsWeapon() ? 0 : GetGearSlot(equipment) + 1;
+			var shift = GetGearSlot(equipment) + 1;
 			return (DroppedLoadoutFlags & (1 << shift)) != 0;
 		}
 
@@ -299,6 +299,7 @@ namespace Quantum
 		{
 			return equipment.GetEquipmentGroup() switch
 			{
+				GameIdGroup.Weapon => Constants.GEAR_INDEX_WEAPON,
 				GameIdGroup.Helmet => Constants.GEAR_INDEX_HELMET,
 				GameIdGroup.Amulet => Constants.GEAR_INDEX_AMULET,
 				GameIdGroup.Armor => Constants.GEAR_INDEX_ARMOR,
@@ -314,6 +315,7 @@ namespace Quantum
 		{
 			return slot switch
 			{
+				Constants.GEAR_INDEX_WEAPON => GameIdGroup.Weapon,
 				Constants.GEAR_INDEX_HELMET => GameIdGroup.Helmet,
 				Constants.GEAR_INDEX_AMULET => GameIdGroup.Amulet,
 				Constants.GEAR_INDEX_ARMOR => GameIdGroup.Armor,
@@ -329,7 +331,7 @@ namespace Quantum
 		/// </summary>
 		internal void SetDroppedLoadoutItem(Equipment equipment)
 		{
-			var shift = equipment.IsWeapon() ? 0 : GetGearSlot(equipment) + 1;
+			var shift = GetGearSlot(equipment) + 1;
 			DroppedLoadoutFlags |= 1 << shift;
 		}
 

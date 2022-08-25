@@ -35,11 +35,12 @@ namespace Quantum
 
 			if (Item.IsWeapon())
 			{
-				var primaryWeapon = isBot || Owner == playerRef ||
-				                    (!loadoutWeapon.IsValid() &&
-				                     !playerCharacter->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon
-					                     .IsValid()) ||
-				                     Item.GameId == loadoutWeapon.GameId;
+				var primaryWeapon = isBot || 
+										Owner == playerRef ||
+										// If you don't have a weapon in loadout and you don't already have a weapon in slot 1
+										(!loadoutWeapon.IsValid() && !playerCharacter->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon.IsValid()) ||
+										// If you got the same type of weapon you have in loadout
+										Item.GameId == loadoutWeapon.GameId;
 
 				playerCharacter->AddWeapon(f, playerEntity, Item, primaryWeapon);
 			}

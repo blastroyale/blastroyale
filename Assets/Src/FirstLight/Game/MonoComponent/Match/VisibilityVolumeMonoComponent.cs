@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,9 +31,9 @@ namespace FirstLight.Game.Views.MapViews
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 		}
 
-		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
+		private void OnDestroy()
 		{
-			CheckUpdateAllVisiblePlayers();
+			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(OnSpectatedPlayerChanged);
 		}
 
 		private void OnTriggerEnter(Collider other)
@@ -73,6 +74,11 @@ namespace FirstLight.Game.Views.MapViews
 					CheckUpdateOneVisiblePlayer(player);
 				}
 			}
+		}
+
+		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
+		{
+			CheckUpdateAllVisiblePlayers();
 		}
 
 		private void CheckUpdateAllVisiblePlayers()

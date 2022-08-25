@@ -63,6 +63,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 			QuantumEvent.Subscribe<EventOnPlayerDamaged>(this, OnPlayerDamaged);
 		}
 
+		private void OnDestroy()
+		{
+			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(OnSpectatedPlayerChanged);
+		}
+
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
 			foreach (var (_, q) in _queues)

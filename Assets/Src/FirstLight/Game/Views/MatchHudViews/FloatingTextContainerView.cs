@@ -110,7 +110,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 
 			var changeValue = callback.CurrentShield - callback.PreviousShield;
-			var color = changeValue < 0 ? _hitTextColor : _healTextColor;
+			var color = changeValue < 0 ? _hitTextColor : _armourGainTextColor;
 			
 			EnqueueText(callback.Entity, changeValue.ToString(), color, MessageType.Info);
 		}

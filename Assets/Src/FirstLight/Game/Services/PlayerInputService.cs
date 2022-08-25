@@ -21,23 +21,16 @@ namespace FirstLight.Game.Services
 		/// Disable Player spell control input
 		/// </summary>
 		void DisableInput();
-
 	}
 
 	
 	public class PlayerInputService : IPlayerInputService
 	{
-
 		public LocalInput Input { get; }
 		
 		public PlayerInputService()
 		{
 			Input = new LocalInput();
-		}
-		
-		public void DisposeInput()
-		{
-			Input.Dispose();
 		}
 
 		public void EnableInput()

@@ -32,6 +32,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			_animation = _animation ? _animation : GetComponent<Animation>();
 		}
 
+		private void OnDestroy()
+		{
+			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(OnSpectatedPlayerChanged);
+		}
+
 		protected override void OnAwake()
 		{
 			_matchServices = MainInstaller.Resolve<IMatchServices>();

@@ -1,6 +1,4 @@
 using System.Collections;
-using FirstLight.Game.Services;
-using FirstLight.Game.Utils;
 using FirstLight.Services;
 using Quantum;
 using Sirenix.OdinInspector;

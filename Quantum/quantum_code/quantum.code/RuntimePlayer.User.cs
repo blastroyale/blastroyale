@@ -11,6 +11,7 @@ namespace Quantum
 		public uint PlayerLevel;
 		public uint PlayerTrophies;
 		public FPVector2 NormalizedSpawnPosition;
+		public Equipment Weapon;
 		public Equipment[] Loadout;
 
 		partial void SerializeUserData(BitStream stream)
@@ -33,6 +34,11 @@ namespace Quantum
 				var localGear = Loadout[i];
 				
 				Equipment.Serialize(&localGear, serializer);
+
+				if (localGear.IsWeapon())
+				{
+					Weapon = localGear;
+				}
 
 				Loadout[i] = localGear;
 			}

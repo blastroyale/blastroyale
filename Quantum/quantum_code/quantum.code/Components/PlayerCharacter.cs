@@ -324,6 +324,30 @@ namespace Quantum
 			};
 		}
 
+		public Equipment[] GetLoadout(Frame f)
+		{
+			var playerData = f.GetPlayerData(Player);
+
+			if (playerData == null)
+			{
+				return null;
+			}
+
+			return playerData.Loadout;
+		}
+		
+		public Equipment GetLoadoutWeapon(Frame f)
+		{
+			var playerData = f.GetPlayerData(Player);
+
+			if (playerData == null)
+			{
+				return Equipment.None;
+			}
+
+			return playerData.Weapon;
+		}
+
 		/// <summary>
 		/// Sets that we dropped a specific piece of equipment (via GameIdGroup).
 		///

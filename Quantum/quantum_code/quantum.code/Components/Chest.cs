@@ -39,16 +39,17 @@ namespace Quantum
 		public void Open(Frame f, EntityRef e, EntityRef playerEntity, PlayerRef playerRef)
 		{
 			var angleStep = 0;
-			var playerData = f.GetPlayerData(playerRef);
+
 			var chestPosition = f.Get<Transform3D>(e).Position;
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
+
 			var isBot = f.Has<BotCharacter>(playerEntity);
-			var loadoutWeapon = isBot ? Equipment.None : playerData.Loadout.FirstOrDefault(item => item.IsWeapon());
+			var loadoutWeapon = isBot ? Equipment.None : playerCharacter->GetLoadoutWeapon(f);
 			var hasLoadoutWeapon = loadoutWeapon.IsValid();
 			var minimumRarity = hasLoadoutWeapon ? loadoutWeapon.Rarity : EquipmentRarity.Common;
 			var nextGearItem = isBot ? Equipment.None : 
 				                   (hasLoadoutWeapon && !playerCharacter->HasDroppedLoadoutItem(loadoutWeapon)? 
-					                    loadoutWeapon : GetNextLoadoutGearItem(f, playerCharacter, playerData.Loadout));
+					                    loadoutWeapon : GetNextLoadoutGearItem(f, playerCharacter, playerCharacter->GetLoadout(f)));
 			var weaponPool = f.Context.GetPlayerWeapons(f, out var medianRarity);
 			var config = f.ChestConfigs.GetConfig(ChestType);
 			var stats = f.Get<Stats>(playerEntity);
@@ -210,9 +211,12 @@ namespace Quantum
 
 			// Set bits of loadout items we have
 			int loadoutFlags = 0;
-			foreach (var e in loadout)
+			if (loadout != null)
 			{
-				loadoutFlags |= 1 << (PlayerCharacter.GetGearSlot(e) + 1);
+				foreach (var e in loadout)
+				{
+					loadoutFlags |= 1 << (PlayerCharacter.GetGearSlot(e) + 1);
+				}
 			}
 
 			// Flip it around so only missing gear bits are set

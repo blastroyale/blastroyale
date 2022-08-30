@@ -1,44 +1,44 @@
 enum BotWeaponSearchStrategy
 {
-    None,
-    FindOne,
-    FindOneOrNoAmmoOrRandomChance
+	None,
+	FindOne,
+	FindOneOrNoAmmoOrRandomChance
 }
 
 enum RankSorter
 {
-    BattleRoyale,
-    Deathmatch
+	BattleRoyale,
+	Deathmatch
 }
 
 enum RankProcessor
 {
-    General,
-    Deathmatch
+	General,
+	Deathmatch
 }
 
 enum DeathDropsStrategy
 {
-    None = 0,
-    Normal = 1,
-    NormalWithFallback = 2
+	None = 0,
+	Normal = 1,
+	NormalWithFallback = 2
 }
 
 enum GameCompletionStrategy
 {
-    Never,
-    EveryoneDead,
-    KillCount
+	Never,
+	EveryoneDead,
+	KillCount
 }
 
 enum AudioStateMachine
 {
-    Deathmatch,
-    BattleRoyale
+	Deathmatch,
+	BattleRoyale
 }
 
 enum GameSimulationStateMachine
 {
-    Deathmatch,
-    BattleRoyale
+	Deathmatch,
+	BattleRoyale
 }

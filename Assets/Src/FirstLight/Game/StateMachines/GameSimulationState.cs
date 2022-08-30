@@ -83,6 +83,7 @@ namespace FirstLight.Game.StateMachines
 			modeCheck.OnEnter(OpenAdventureWorldHud);
 			modeCheck.Transition().Condition(ShouldUseDeathmatchSM).Target(deathmatch);
 			modeCheck.Transition().Condition(ShouldUseBattleRoyaleSM).Target(battleRoyale);
+			modeCheck.Transition().Target(battleRoyale);
 
 			deathmatch.Nest(_deathmatchState.Setup).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
 			deathmatch.Event(MatchEndedEvent).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);

@@ -99,7 +99,7 @@ MonoBehaviour:
       ShowUITimer: 1
       ShowUIStandingsExtraInfo: 1
       ShowWeaponSlots: 1
-      Lives: 0
+      Lives: 1
       DropWeaponOnPickup: 1
       SpawnWithLoadout: 0
       SkydiveSpawn: 1

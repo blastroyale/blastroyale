@@ -87,6 +87,7 @@ namespace FirstLight.Game.StateMachines
 
 			gameModeCheck.Transition().Condition(ShouldUseDeathmatchSM).Target(deathmatch);
 			gameModeCheck.Transition().Condition(ShouldUseBattleRoyaleSM).Target(battleRoyale);
+			gameModeCheck.Transition().Target(battleRoyale);
 
 			battleRoyale.Nest(_audioBrState.Setup).Target(postGameSpectatorCheck);
 			battleRoyale.Event(GameSimulationState.GameCompleteExitEvent).Target(postGameSpectatorCheck);

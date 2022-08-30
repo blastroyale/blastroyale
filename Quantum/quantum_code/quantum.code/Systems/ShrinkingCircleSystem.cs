@@ -11,6 +11,11 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public override bool StartEnabled => false;
 
+		public override void OnInit(Frame f)
+		{
+			f.GetOrAddSingleton<ShrinkingCircle>();
+		}
+
 		/// <inheritdoc />
 		public void OnAdded(Frame f, EntityRef entity, ShrinkingCircle* circle)
 		{

@@ -324,16 +324,28 @@ namespace Quantum
 			};
 		}
 
-		public RuntimePlayer GetPlayerData(Frame f)
+		public Equipment[] GetLoadout(Frame f)
 		{
 			var playerData = f.GetPlayerData(Player);
 
 			if (playerData == null)
 			{
-				playerData = new RuntimePlayer();
+				return null;
 			}
 
-			return playerData;
+			return playerData.Loadout;
+		}
+		
+		public Equipment GetLoadoutWeapon(Frame f)
+		{
+			var playerData = f.GetPlayerData(Player);
+
+			if (playerData == null)
+			{
+				return Equipment.None;
+			}
+
+			return playerData.Weapon;
 		}
 
 		/// <summary>

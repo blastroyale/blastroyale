@@ -30,8 +30,8 @@ namespace Quantum
 		{
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
 			var isBot = f.Has<BotCharacter>(playerEntity);
-			var playerData = playerCharacter->GetPlayerData(f);
-			var loadoutWeapon = playerData.Loadout.FirstOrDefault(e => e.IsWeapon());
+
+			var loadoutWeapon = playerCharacter->GetLoadoutWeapon(f);
 			
 
 			if (Item.IsWeapon())

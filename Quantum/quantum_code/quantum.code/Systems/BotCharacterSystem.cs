@@ -24,13 +24,8 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void OnPlayerDataSet(Frame f, PlayerRef playerRef)
 		{
-			var playerTrophies = (uint)1000;
-			
-			if (f.GetPlayerData(playerRef) != null)
-			{
-				playerTrophies = f.GetPlayerData(playerRef).PlayerTrophies;
-			}
-			
+			var data = f.GetPlayerData(playerRef);
+			var playerTrophies= data?.PlayerTrophies ?? 1000u;
 			InitializeBots(f, playerTrophies);
 		}
 

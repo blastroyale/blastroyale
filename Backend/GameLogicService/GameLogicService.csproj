@@ -1,0 +1,74 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <LangVersion>preview</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="DistributedLock" Version="2.3.0" />
+        <PackageReference Include="DistributedLock.Postgres" Version="1.0.2" />
+        <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
+        <PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="1.1.0" />
+        <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="4.1.0" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.4" />
+        <PackageReference Include="PlayFabCloudScriptPlugin" Version="1.53.190627-alpha" />
+        <PackageReference Include="YamlDotNet" Version="11.2.1" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <EmbeddedResource Include="config.yml">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </EmbeddedResource>
+      <EmbeddedResource Include="gameConfig.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\BlastRoyaleAnalyticsPlugin\BlastRoyaleAnalyticsPlugin.csproj" />
+      <ProjectReference Include="..\BlastRoyaleCorePlugin\BlastRoyaleCorePlugin.csproj" />
+      <ProjectReference Include="..\BlastRoyaleTrophyLadderPlugin\BlastRoyaleTrophyLadderPlugin.csproj" />
+      <ProjectReference Include="..\ServerSDK\ServerSDK.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="FirstLight.DataExtensions">
+        <HintPath>..\Lib\FirstLight.DataExtensions.dll</HintPath>
+      </Reference>
+      <Reference Include="FirstLight.Game">
+        <HintPath>..\Lib\FirstLight.Game.dll</HintPath>
+      </Reference>
+      <Reference Include="FirstLight.Game.Server">
+        <HintPath>..\Lib\FirstLight.Game.Server.dll</HintPath>
+      </Reference>
+      <Reference Include="FirstLight.Services">
+        <HintPath>..\Lib\FirstLight.Services.dll</HintPath>
+      </Reference>
+      <Reference Include="PhotonDeterministic">
+        <HintPath>..\Lib\PhotonDeterministic.dll</HintPath>
+      </Reference>
+      <Reference Include="PhotonQuantum">
+        <HintPath>..\Lib\PhotonQuantum.dll</HintPath>
+      </Reference>
+      <Reference Include="quantum.code">
+        <HintPath>..\Lib\quantum.code.dll</HintPath>
+      </Reference>
+      <Reference Include="quantum.core">
+        <HintPath>..\Lib\quantum.core.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine.AudioModule">
+        <HintPath>..\UnityLib\UnityEngine.AudioModule.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine.CoreModule">
+        <HintPath>..\UnityLib\UnityEngine.CoreModule.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine.SharedInternalsModule">
+        <HintPath>..\UnityLib\UnityEngine.SharedInternalsModule.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+</Project>

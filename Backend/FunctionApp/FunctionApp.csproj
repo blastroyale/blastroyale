@@ -3,6 +3,7 @@
         <TargetFramework>net6.0</TargetFramework>
         <AzureFunctionsVersion>V4</AzureFunctionsVersion>
         <LangVersion>9</LangVersion>
+        <RootNamespace>Backend</RootNamespace>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="DistributedLock" Version="2.3.0" />
@@ -15,12 +16,12 @@
         <PackageReference Include="YamlDotNet" Version="11.2.1" />
     </ItemGroup>
     <ItemGroup>
-        <None Update="host.json">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
         <None Update="local.settings.json">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+        </None>
+        <None Update="host.json">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
     </ItemGroup>
     <ItemGroup>
@@ -60,20 +61,14 @@
     </ItemGroup>
     <ItemGroup>
       <None Remove="config.yml" />
-      <EmbeddedResource Include="config.yml">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      </EmbeddedResource>
       <None Remove="gameConfig.json" />
-      <EmbeddedResource Include="gameConfig.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </EmbeddedResource>
       <None Remove="Plugins\TestPlugin.dll" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\BlastRoyaleAnalyticsPlugin\BlastRoyaleAnalyticsPlugin.csproj" />
       <ProjectReference Include="..\BlastRoyaleTrophyLadderPlugin\BlastRoyaleTrophyLadderPlugin.csproj" />
       <ProjectReference Include="..\BlastRoyaleCorePlugin\BlastRoyaleCorePlugin.csproj" />
+      <ProjectReference Include="..\GameLogicService\GameLogicService.csproj" />
       <ProjectReference Include="..\ServerSDK\ServerSDK.csproj" />
     </ItemGroup>
 </Project>

@@ -14,7 +14,7 @@ using ServerSDK.Services;
 namespace Backend
 {
 	/// <summary>
-/// Represents the functionality of the game logic service. (AKA Game Backend).
+/// Represents the functionality of the game logic service. (AKA Game FunctionApp).
 /// Responsible for abstracting any networking layer needed to communicate with the server functionality.
 /// </summary>
 public interface ILogicWebService

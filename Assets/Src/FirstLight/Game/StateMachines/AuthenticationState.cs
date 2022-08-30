@@ -246,16 +246,7 @@ namespace FirstLight.Game.StateMachines
 #else
 			PlayFabSettings.TitleId = "***REMOVED***";
 			_passwordRecoveryEmailTemplateId = "***REMOVED***";
-			// Dev
-			if (FeatureFlags.QUANTUM_CUSTOM_SERVER)
-			{
-				quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***"; // quantum enterprise dev				
-			}
-			else
-			{
-				quantumSettings.AppSettings.AppIdRealtime="***REMOVED***"; // TEMP SERVER	
-			}
-			
+			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";	
 #endif
 			
 			if (environment != appData.Environment)

@@ -33,6 +33,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _roomJoinCreateClickedEvent = new StatechartEvent("Room Join Create Button Clicked Event");
 		private readonly IStatechartEvent _nameChangeClickedEvent = new StatechartEvent("Name Change Clicked Event");
 		private readonly IStatechartEvent _chooseGameModeClickedEvent = new StatechartEvent("Game Mode Clicked Event");
+		private readonly IStatechartEvent _leaderboardClickedEvent = new StatechartEvent("Leaderboard Clicked Event");
 		private readonly IStatechartEvent _roomJoinCreateCloseClickedEvent = new StatechartEvent("Room Join Create Close Button Clicked Event");
 		private readonly IStatechartEvent _gameCompletedCheatEvent = new StatechartEvent("Game Completed Cheat Event");
 		
@@ -103,6 +104,7 @@ namespace FirstLight.Game.StateMachines
 			var playClickedCheck = stateFactory.Choice("Play Button Clicked Check");
 			var roomWait = stateFactory.State("Room Joined Check");
 			var chooseGameMode = stateFactory.Wait("Enter Choose Game Mode");
+			var leaderboard = stateFactory.Wait("Leaderboard");
 			var enterNameDialog = stateFactory.Nest("Enter Name Dialog");
 			var roomJoinCreateMenu = stateFactory.State("Room Join Create Menu");
 			var nftPlayRestricted = stateFactory.Wait("Nft Restriction Pop Up");
@@ -143,6 +145,9 @@ namespace FirstLight.Game.StateMachines
 
 			chooseGameMode.WaitingFor(OpenGameModeSelectionUI).Target(homeMenu);
 			chooseGameMode.OnExit(CloseGameModeSelectionUI);
+			
+			leaderboard.WaitingFor(OpenLeaderboardUI).Target(homeMenu);
+			chooseGameMode.OnExit(CloseLeaderboardUI);
 
 			enterNameDialog.Nest(_enterNameState.Setup).Target(homeMenu);
 			
@@ -258,6 +263,23 @@ namespace FirstLight.Game.StateMachines
 		{
 			_uiService.CloseUi<GameModeSelectionPresenter>();
 		}
+		
+		private void OpenLeaderboardUI(IWaitActivity activity)
+		{
+			var cacheActivity = activity;
+
+			var data = new LeaderboardScreenPresenter.StateData
+			{
+				BackClicked = () => { cacheActivity.Complete(); }
+			};
+			
+			_uiService.OpenUi<LeaderboardScreenPresenter, LeaderboardScreenPresenter.StateData>(data);
+		}
+
+		private void CloseLeaderboardUI()
+		{
+			_uiService.CloseUi<LeaderboardScreenPresenter>();
+		}
 
 		private void OpenHeroesMenuUI()
 		{
@@ -300,7 +322,8 @@ namespace FirstLight.Game.StateMachines
 				OnHeroesButtonClicked = OnTabClickedCallback<PlayerSkinScreenPresenter>,
 				OnPlayRoomJoinCreateClicked = () => _statechartTrigger(_roomJoinCreateClickedEvent),
 				OnNameChangeClicked = () => _statechartTrigger(_nameChangeClickedEvent),
-				OnGameModeClicked = () => _statechartTrigger(_chooseGameModeClickedEvent)
+				OnGameModeClicked = () => _statechartTrigger(_chooseGameModeClickedEvent),
+				OnLeaderboardClicked = () => _statechartTrigger(_leaderboardClickedEvent)
 			};
 
 			_uiService.OpenUi<HomeScreenPresenter, HomeScreenPresenter.StateData>(data);

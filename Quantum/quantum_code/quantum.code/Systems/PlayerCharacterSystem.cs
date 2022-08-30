@@ -25,15 +25,15 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void OnPlayerDataSet(Frame f, PlayerRef playerRef)
 		{
-			var playerData = f.GetPlayerData(playerRef);
-
+			var playerEntity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.PlayerCharacterPrototype.Id));
+			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
+			var playerData = playerCharacter->GetPlayerData(f);
 			var gridSquareSize = FP._1 * f.Map.WorldSize / f.Map.GridSizeX / FP._2;
 			var spawnPosition = playerData.NormalizedSpawnPosition * f.Map.WorldSize +
 			                    new FPVector2(f.RNG->Next(-gridSquareSize, gridSquareSize),
 			                                  f.RNG->Next(-gridSquareSize, gridSquareSize));
 
-			var playerEntity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.PlayerCharacterPrototype.Id));
-			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
+			
 			var spawnTransform = new Transform3D {Position = FPVector3.Zero, Rotation = FPQuaternion.Identity};
 			var startingEquipment = f.Context.MapConfig.GameMode == GameMode.BattleRoyale
 				                        ? Array.Empty<Equipment>()

@@ -324,6 +324,18 @@ namespace Quantum
 			};
 		}
 
+		public RuntimePlayer GetPlayerData(Frame f)
+		{
+			var playerData = f.GetPlayerData(Player);
+
+			if (playerData == null)
+			{
+				playerData = new RuntimePlayer();
+			}
+
+			return playerData;
+		}
+
 		/// <summary>
 		/// Sets that we dropped a specific piece of equipment (via GameIdGroup).
 		///

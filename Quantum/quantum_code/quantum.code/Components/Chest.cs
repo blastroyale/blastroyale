@@ -39,9 +39,10 @@ namespace Quantum
 		public void Open(Frame f, EntityRef e, EntityRef playerEntity, PlayerRef playerRef)
 		{
 			var angleStep = 0;
-			var playerData = f.GetPlayerData(playerRef);
+
 			var chestPosition = f.Get<Transform3D>(e).Position;
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
+			var playerData = playerCharacter->GetPlayerData(f);
 			var isBot = f.Has<BotCharacter>(playerEntity);
 			var loadoutWeapon = isBot ? Equipment.None : playerData.Loadout.FirstOrDefault(item => item.IsWeapon());
 			var hasLoadoutWeapon = loadoutWeapon.IsValid();

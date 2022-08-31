@@ -230,9 +230,9 @@ namespace FirstLight.Game.StateMachines
 			
 #if LIVE_SERVER
 			environment = "live";
-			PlayFabSettings.TitleId = "302CF";
-			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
-			_passwordRecoveryEmailTemplateId = F4F93EEA134BE503;
+			PlayFabSettings.TitleId = "***REMOVED***";
+			quantumSettings.AppSettings.AppIdRealtime = "bfdaace0-bcbd-4554-8527-bf418791bbd4";
+			_passwordRecoveryEmailTemplateId = "***REMOVED***";
 #elif OFFCHAIN_SERVER
 			environment = "offchain";
 			PlayFabSettings.TitleId = "***REMOVED***";
@@ -286,6 +286,8 @@ namespace FirstLight.Game.StateMachines
 				OpenGameBlockedDialog();
 				return;
 			}
+			
+			FeatureFlags.ParseFlags(titleData);
 
 			_networkService.UserId.Value = result.PlayFabId;
 			appData.NickNameId = result.InfoResultPayload.AccountInfo.TitleInfo.DisplayName;

@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "appsflyer-unity-plugin": "https://github.com/AppsFlyerSDK/appsflyer-unity-plugin.git#upm",
     "com.coffee.ui-effect": "https://github.com/mob-sakai/UIEffect.git",
     "com.google.external-dependency-manager": "file:../Google/com.google.external-dependency-manager-1.2.172.tgz",
     "com.google.firebase.analytics": "file:../Google/com.google.firebase.analytics-9.3.0.tgz",

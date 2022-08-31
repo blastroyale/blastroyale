@@ -57,19 +57,17 @@ namespace FirstLight.Game.Presenters
 
 			_playOnlineButton.onClick.AddListener(OnPlayOnlineClicked);
 			_playRoom.onClick.AddListener(OnPlayRoomlicked);
-
 			_nameChangeButton.onClick.AddListener(OnNameChangeClicked);
 			_settingsButton.onClick.AddListener(OnSettingsButtonClicked);
 			_lootButton.Button.onClick.AddListener(OpenLootMenuUI);
 			_heroesButton.Button.onClick.AddListener(OpenHeroesMenuUI);
-			_marketplaceButton.gameObject.SetActive(Debug.isDebugBuild);
+			_marketplaceButton.onClick.AddListener(OpenMarketplaceLink);
 			_feedbackButton.onClick.AddListener(LeaveFeedbackForm);
 			_discordButton.onClick.AddListener(OpenDiscordLink);
 			_leaderboardButton.onClick.AddListener(OpenLeaderboardUI);
-			
 			_gameModeButton.onClick.AddListener(OpenGameModeClicked);
-			_gameModeButton.gameObject.SetActive(Debug.isDebugBuild);
 
+			_marketplaceButton.gameObject.SetActive(Debug.isDebugBuild);
 			_newFeaturesView.gameObject.SetActive(false);
 		}
 
@@ -147,9 +145,9 @@ namespace FirstLight.Game.Presenters
 
 		private void RefreshGameModeButton()
 		{
-			var matchType = _gameDataProvider.AppDataProvider.SelectedMatchType.Value.ToString().ToUpper();
-			var gameMode = _gameDataProvider.AppDataProvider.SelectedGameMode.Value.ToString().ToUpper();
-			_selectedGameModeText.text = string.Format(ScriptLocalization.MainMenu.SelectedGameModeValue, matchType, gameMode);
+			var matchType = _gameDataProvider.AppDataProvider.SelectedMatchType.Value.GetTranslation();
+			var gameMode = _gameDataProvider.AppDataProvider.SelectedGameMode.Value.GetTranslation();
+			_selectedGameModeText.text = string.Format(ScriptLocalization.MainMenu.SelectedGameModeValue, matchType.ToUpper(), gameMode.ToUpper());
 		}
 	}
 }

@@ -39,9 +39,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 		}
 
+
 		private void OnDestroy()
 		{
-			_services?.MessageBrokerService?.UnsubscribeAll(this);
+			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(OnSpectatedPlayerChanged);
 		}
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)

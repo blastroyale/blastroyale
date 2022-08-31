@@ -67,7 +67,6 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private TextMeshProUGUI _levelText;
 		[SerializeField, Required] private TextMeshProUGUI _replicationText;
 		[SerializeField, Required] private GameObject _actionButtonHolder;
-		[SerializeField, Required] private GameObject _equippedStatusObject;
 		[SerializeField, Required] private GameObject _itemLevelObject;
 		[SerializeField, Required] private GameObject _upgradeCostHolder;
 		[SerializeField, Required] private TextMeshProUGUI _equipButtonText;
@@ -170,7 +169,6 @@ namespace FirstLight.Game.Presenters
 
 			_statInfoViewPool?.DespawnAll();
 			_statSpecialInfoViewPool?.DespawnAll();
-			_equippedStatusObject.SetActive(equipmentProvider.Loadout.ReadOnlyDictionary.Values.Contains(_selectedId));
 
 			if (_selectedId == UniqueId.Invalid)
 			{

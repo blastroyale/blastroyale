@@ -5,6 +5,7 @@ using Photon.Deterministic;
 using Quantum;
 using Quantum.Commands;
 using UnityEngine;
+using UnityEngine.Diagnostics;
 using UnityEngine.Playables;
 
 public partial class SROptions
@@ -113,7 +114,14 @@ public partial class SROptions
 	{
 		Shader.EnableKeyword("MINIMAP_DRAW_PLAYERS");
 	}
-
+	
+	
+	[Category("Gameplay")]
+	public void CrashUnity()
+	{
+		Utils.ForceCrash(ForcedCrashCategory.FatalError);
+	}
+	
 #endif
 	
 	

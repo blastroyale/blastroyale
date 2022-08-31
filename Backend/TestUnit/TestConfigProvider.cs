@@ -31,8 +31,10 @@ public class TestConfigsProvider
 		var cfgSerializer = new ConfigsSerializer();
 		var bakedConfigs = File.ReadAllText(Path.Combine(testAppPath, "gameConfig.json"));
 		var cfg = cfgSerializer.Deserialize<ServerConfigsProvider>(bakedConfigs);
-		
-		Assert.NotNull(cfg.GetConfigsDictionary<PlayerLevelConfig>());
-	}
 
+		foreach (var cfgType in cfg.GetAllConfigs().Keys)
+		{
+			Assert.NotNull(cfg.GetConfigByType(cfgType));
+		}
+	}
 }

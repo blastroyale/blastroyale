@@ -10,7 +10,7 @@ namespace Backend.Functions
 {
 	/// <summary>
 	/// This is the end point of the client backend execution commands.
-	/// The Backend only exist to validate the game logic that is already executing in the backend.
+	/// The FunctionApp only exist to validate the game logic that is already executing in the backend.
 	/// </summary>
 	public class ExecuteCommand
 	{
@@ -25,8 +25,7 @@ namespace Backend.Functions
 		/// Command Execution
 		/// </summary>
 		[FunctionName("ExecuteCommand")]
-		public async Task<dynamic> RunAsync([HttpTrigger(AuthorizationLevel.Function, "post", Route = null)]
-		                                    HttpRequestMessage req, ILogger log)
+		public async Task<dynamic> RunAsync([HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequestMessage req, ILogger log)
 		{
 			var context = await ContextProcessor.ProcessContext<LogicRequest>(req);
 			var playerId = context.AuthenticationContext.PlayFabId;
@@ -35,6 +34,5 @@ namespace Backend.Functions
 			return await _server.RunLogic(playerId, context.FunctionArgument);
 		}
 	}
-
 }
 

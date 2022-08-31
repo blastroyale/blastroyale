@@ -3,6 +3,7 @@
 This server is to be run locally for local development.
 It only includes the "ExecuteCommand" functionality at this stage, PlayerSetup has to be done in Azure.
 
+The standalone server simulates the whole "Playfab Cloudscript Execution" flow for testing purposes.
 ### Requirements
 
 Docker

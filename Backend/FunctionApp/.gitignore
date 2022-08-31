@@ -4,6 +4,8 @@
 # Azure Functions localsettings file
 local.settings.json
 
+!*.csproj
+
 # User-specific files
 *.suo
 *.user

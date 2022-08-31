@@ -61,7 +61,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Backend\Backend.csproj" />
+      <ProjectReference Include="..\FunctionApp\FunctionApp.csproj" />
       <ProjectReference Include="..\ServerSDK\ServerSDK.csproj" />
     </ItemGroup>
 </Project>

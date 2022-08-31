@@ -1,6 +1,10 @@
-﻿using FirstLight.Game.Logic;
+﻿using System;
+using FirstLight.Game.Logic;
+using FirstLight.Game.Services;
+using FirstLight.Game.Utils;
 using I2.Loc;
 using Photon.Realtime;
+using Quantum;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,7 +16,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 	/// </summary>
 	public class PlayerRankEntryView : MonoBehaviour
 	{
-		[SerializeField] private bool IsBlankEntry;
 		[SerializeField] private TextMeshProUGUI _rankText;
 		[SerializeField] private TextMeshProUGUI _playerNameText;
 		[SerializeField] private TextMeshProUGUI _trophiesText;
@@ -22,13 +25,34 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField] private Color _topRanksColor;
 		[SerializeField] private Color _rewardedRanksColor;
 		[SerializeField] private Color _nonRewardedRanksColor;
+		[SerializeField] private Color _youColor;
+		
+		private IGameServices _services;
+		
+		private void Awake()
+		{
+			_services = MainInstaller.Resolve<IGameServices>();
+		}
 		
 		/// <summary>
 		/// Set the information of this player entry based on the given leaderboard entry
 		/// </summary>
-		public void SetInfo()
+		public async void SetInfo(int rank, string playerName, int trophies, Tuple<GameId,int> rewardAndAmount)
 		{
-			if (IsBlankEntry) return;
+			_rankText.text = $"#{rank}";
+			_playerNameText.text = playerName;
+			_trophiesText.text = trophies.ToString();
+
+			if (rewardAndAmount != null)
+			{
+				_rewardIcon.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(rewardAndAmount.Item1);
+				_rewardAmountText.text = rewardAndAmount.Item2.ToString();
+			}
+			else
+			{
+				_rewardIcon.gameObject.SetActive(false);
+				_rewardAmountText.text = "-";
+			}
 		}
 	}
 }

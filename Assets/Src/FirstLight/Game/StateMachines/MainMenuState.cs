@@ -148,7 +148,7 @@ namespace FirstLight.Game.StateMachines
 			chooseGameMode.OnExit(CloseGameModeSelectionUI);
 			
 			leaderboard.WaitingFor(OpenLeaderboardUI).Target(homeMenu);
-			chooseGameMode.OnExit(CloseLeaderboardUI);
+			leaderboard.OnExit(CloseLeaderboardUI);
 
 			enterNameDialog.Nest(_enterNameState.Setup).Target(homeMenu);
 			
@@ -279,7 +279,6 @@ namespace FirstLight.Game.StateMachines
 
 		private void CloseLeaderboardUI()
 		{
-			Debug.LogError("fuck off you stupid cunt");
 			_uiService.CloseUi<LeaderboardScreenPresenter>();
 		}
 

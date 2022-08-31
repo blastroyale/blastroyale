@@ -84,7 +84,7 @@ namespace FirstLight.Game.Presenters
 		{
 			foreach (var entry in result.Leaderboard)
 			{
-				Debug.LogError(entry.DisplayName + " " + entry.StatValue);
+				//Debug.LogError(entry.DisplayName + " " + entry.StatValue);
 			}
 		}
 		
@@ -92,7 +92,7 @@ namespace FirstLight.Game.Presenters
 		{
 			foreach (var entry in result.Leaderboard)
 			{
-				Debug.LogError(entry.DisplayName + " " + entry.StatValue);
+				//Debug.LogError(entry.DisplayName + " " + entry.StatValue);
 			}
 		}
 

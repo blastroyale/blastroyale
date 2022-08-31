@@ -40,6 +40,15 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
+		/// Strips the X amount of playfab generated numbers that are appended to the player name
+		/// </summary>
+		public static string TrimPlayerNameNumbers(this string playerName)
+		{
+			int appendedNumberAmount = GameConstants.Data.PLAYER_NAME_APPENDED_NUMBERS;
+			return playerName.Remove(playerName.Length - appendedNumberAmount, appendedNumberAmount);
+		}
+
+		/// <summary>
 		/// Requests the localized text representing the given <paramref name="stat"/>
 		/// </summary>
 		public static string GetTranslation(this StatType stat)

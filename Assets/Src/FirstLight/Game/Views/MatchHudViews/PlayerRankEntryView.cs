@@ -25,7 +25,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField] private Color _topRanksColor;
 		[SerializeField] private Color _rewardedRanksColor;
 		[SerializeField] private Color _nonRewardedRanksColor;
-		[SerializeField] private Color _youColor;
+		[SerializeField] private Color _youTextColor;
 		
 		private IGameServices _services;
 		
@@ -37,10 +37,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// <summary>
 		/// Set the information of this player entry based on the given leaderboard entry
 		/// </summary>
-		public async void SetInfo(int rank, string playerName, int trophies, Tuple<GameId,int> rewardAndAmount)
+		public async void SetInfo(int rank, string playerName, int trophies, bool localPlayer, Tuple<GameId,int> rewardAndAmount)
 		{
 			_rankText.text = $"#{rank}";
-			_playerNameText.text = playerName;
+			_playerNameText.text = playerName.TrimPlayerNameNumbers();
 			_trophiesText.text = trophies.ToString();
 
 			if (rewardAndAmount != null)
@@ -52,6 +52,14 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				_rewardIcon.gameObject.SetActive(false);
 				_rewardAmountText.text = "-";
+			}
+
+			if (localPlayer)
+			{
+				_rankText.color = _youTextColor;
+				_playerNameText.color = _youTextColor;
+				_trophiesText.color = _youTextColor;
+				_rewardAmountText.color = _youTextColor;
 			}
 		}
 	}

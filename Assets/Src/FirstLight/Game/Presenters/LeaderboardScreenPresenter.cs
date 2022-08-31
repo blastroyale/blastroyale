@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FirstLight.FLogger;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
@@ -10,6 +11,7 @@ using I2.Loc;
 using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ClientModels;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,13 +31,14 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private Transform _topRankSpawnTransform;
 		[SerializeField] private Transform _farRankSpawnTransform;
 		[SerializeField] private GameObject _farRankLeaderboardRoot;
+		[SerializeField] private TextMeshProUGUI _seasonEndText;
 		[SerializeField] private Button _backButton;
-		
+
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
 		private IObjectPool<PlayerRankEntryView> _playerRankPool;
-		
-		private int lowestTopRank = 0;
+
+		private int lowestTopRankedPosition = 0;
 
 		private void Awake()
 		{
@@ -47,19 +50,28 @@ namespace FirstLight.Game.Presenters
 		private void OnDestroy()
 		{
 			_backButton.onClick.RemoveAllListeners();
-			
-			Debug.LogError("ON ABSOLUTE DESTRUCTION!!!!!!!");
+		}
+
+		protected override void OnClosed()
+		{
+			base.OnClosed();
+
+			_playerRankPool.DespawnAll();
+			_farRankLeaderboardRoot.SetActive(false);
 		}
 
 		protected override void OnOpened()
 		{
 			base.OnOpened();
-			
-			_farRankLeaderboardRoot.SetActive(false);
-			
-			_services = MainInstaller.Resolve<IGameServices>();
-			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 
+			_farRankLeaderboardRoot.SetActive(false);
+
+			var nextResetDate = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month+1, 1);
+			var timeDiff = nextResetDate - DateTime.UtcNow;
+			
+			// TODO - ALL TEXT ON THIS PRESENTER NEEDS TO BE ADDED, HOOKED UP AND LOCALIZED. THIS IS PLACEHOLDER
+			_seasonEndText.text = "Season ends in " + timeDiff.ToString(@"d\d\ h\h\ mm\m");
+			
 			// Leaderboard is requested and displayed in 2 parts
 			// First - top players, then, if needed - current player and neighbors, in a separate anchored section
 			var leaderboardRequest = new GetLeaderboardRequest()
@@ -69,7 +81,7 @@ namespace FirstLight.Game.Presenters
 				StartPosition = 0,
 				MaxResultsCount = GameConstants.Network.LEADERBOARD_TOP_RANK_AMOUNT
 			};
-			
+
 			PlayFabClientAPI.GetLeaderboard(leaderboardRequest, OnLeaderboardTopRanksReceived, OnPlayfabError);
 		}
 
@@ -85,64 +97,70 @@ namespace FirstLight.Game.Presenters
 			{
 				FLog.Error(JsonConvert.SerializeObject(error.ErrorDetails));
 			}
-			
+
 			_services.GenericDialogService.OpenDialog(error.ErrorMessage, false, confirmButton);
 		}
 
 		private void OnLeaderboardTopRanksReceived(GetLeaderboardResult result)
 		{
-			_playerRankPool = new GameObjectPool<PlayerRankEntryView>((uint)result.Leaderboard.Count, _playerRankEntryRef);
+			_playerRankPool =
+				new GameObjectPool<PlayerRankEntryView>((uint) result.Leaderboard.Count, _playerRankEntryRef);
 
 			bool localPlayerInTopRanks = false;
 
-			lowestTopRank = result.Leaderboard[result.Leaderboard.Count - 1].Position;
-			
+			lowestTopRankedPosition = result.Leaderboard[result.Leaderboard.Count - 1].Position;
+
 			for (int i = result.Leaderboard.Count - 1; i >= 0; i--)
 			{
+				var isLocalPlayer = result.Leaderboard[i].PlayFabId == PlayFabSettings.staticPlayer.PlayFabId;
 				var newEntry = _playerRankPool.Spawn();
+				newEntry.transform.SetParent(_topRankSpawnTransform);
 				newEntry.gameObject.SetActive(true);
-				newEntry.SetInfo( result.Leaderboard[i].Position+1, result.Leaderboard[i].DisplayName,result.Leaderboard[i].StatValue,null);
-				
-				if (result.Leaderboard[i].PlayFabId == PlayFabSettings.staticPlayer.PlayFabId)
+				newEntry.SetInfo(result.Leaderboard[i].Position + 1, result.Leaderboard[i].DisplayName,
+				                 result.Leaderboard[i].StatValue, isLocalPlayer, null);
+
+				if (isLocalPlayer)
 				{
 					localPlayerInTopRanks = true;
 				}
 			}
 
 			if (localPlayerInTopRanks) return;
-			
+
 			var neighborLeaderboardRequest = new GetLeaderboardAroundPlayerRequest()
 			{
 				AuthenticationContext = PlayFabSettings.staticPlayer,
 				StatisticName = GameConstants.Network.LEADERBOARD_LADDER_NAME,
-				MaxResultsCount = GameConstants.Network.LEADERBOARD_PLAYER_RANK_NEIGHBOR_RANGE
+				MaxResultsCount = GameConstants.Network.LEADERBOARD_PLAYER_RANK_RANGE
 			};
-			
-			PlayFabClientAPI.GetLeaderboardAroundPlayer(neighborLeaderboardRequest, OnLeaderboardNeighborRanksReceived, OnPlayfabError);
+
+			PlayFabClientAPI.GetLeaderboardAroundPlayer(neighborLeaderboardRequest, OnLeaderboardNeighborRanksReceived,
+			                                            OnPlayfabError);
 		}
-		
+
 		private void OnLeaderboardNeighborRanksReceived(GetLeaderboardAroundPlayerResult result)
 		{
-			_farRankLeaderboardRoot.SetActive(true);
+			var localPlayer = result.Leaderboard.First(x => x.PlayFabId == PlayFabSettings.staticPlayer.PlayFabId);
 
-			var localPlayerIndex = GameConstants.Network.LEADERBOARD_PLAYER_RANK_NEIGHBOR_RANGE;
-			var playerAboveLocalPlayerIndex = localPlayerIndex + 1;
-			
 			// If the rank above player joins with the top ranks leaderboard, we just append player to the normal leaderboard
-			if (result.Leaderboard[playerAboveLocalPlayerIndex].Position == lowestTopRank)
+			if (Math.Abs(lowestTopRankedPosition - localPlayer.Position) == 1)
 			{
 				var newEntry = _playerRankPool.Spawn();
 				newEntry.gameObject.SetActive(true);
-				newEntry.SetInfo( result.Leaderboard[localPlayerIndex].Position+1, result.Leaderboard[localPlayerIndex].DisplayName,result.Leaderboard[localPlayerIndex].StatValue,null);
+				newEntry.SetInfo(localPlayer.Position + 1, localPlayer.DisplayName, localPlayer.StatValue, true, null);
 				return;
 			}
+			
+			_farRankLeaderboardRoot.SetActive(true);
 
-			for (int i = result.Leaderboard.Count - 1; i >= 0; i--)
+			for (int i = 0; i < result.Leaderboard.Count; i++)
 			{
+				var isLocalPlayer = result.Leaderboard[i].PlayFabId == PlayFabSettings.staticPlayer.PlayFabId;
 				var newEntry = _playerRankPool.Spawn();
 				newEntry.gameObject.SetActive(true);
 				newEntry.transform.SetParent(_farRankSpawnTransform);
-				newEntry.SetInfo( result.Leaderboard[i].Position+1, result.Leaderboard[i].DisplayName,result.Leaderboard[i].StatValue,null);
+				newEntry.SetInfo(result.Leaderboard[i].Position + 1, result.Leaderboard[i].DisplayName,
+				                 result.Leaderboard[i].StatValue, isLocalPlayer, null);
 			}
 		}
 

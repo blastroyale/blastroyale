@@ -1,3 +1,5 @@
+using System;
+
 namespace Quantum.Systems
 {
 	/// <summary>
@@ -11,16 +13,20 @@ namespace Quantum.Systems
 		{
 			f.Global->Queries = f.AllocateList<EntityPair>(128);
 			f.Context.MapConfig = f.MapConfigs.GetConfig(f.RuntimeConfig.MapId);
+			f.Context.GameModeConfig = f.GameModeConfigs.GetConfig(f.RuntimeConfig.GameModeId);
 			f.Context.TargetAllLayerMask = f.Layers.GetLayerMask("Default", "Playable Target", "Non Playable Target",
 			                                                     "Prop", "World", "Environment No Silhouette");
-			
+
 			f.GetOrAddSingleton<GameContainer>();
 
-			if (f.Context.MapConfig.GameMode == GameMode.BattleRoyale && !f.Context.MapConfig.IsTestMap && 
-			    !f.SystemIsEnabledSelf<ShrinkingCircleSystem>())
+			foreach (var systemName in f.Context.GameModeConfig.Systems)
 			{
-				f.SystemEnable<ShrinkingCircleSystem>();
-				f.GetOrAddSingleton<ShrinkingCircle>();
+				var systemType = Type.GetType(systemName);
+				
+				if (!f.SystemIsEnabledSelf(systemType))
+				{
+					f.SystemEnable(systemType);
+				}
 			}
 		}
 	}

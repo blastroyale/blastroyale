@@ -78,7 +78,7 @@ namespace FirstLight.Editor.EditorTools
 			await Task.WhenAll(configsLoader.LoadConfigTasks(configs));
 			var serialiezd = serializer.Serialize(configs, "develop");
 			
-			File.WriteAllText ($"{_backendPath}/Backend/gameConfig.json", serialiezd);
+			File.WriteAllText ($"{_backendPath}/GameLogicService/gameConfig.json", serialiezd);
 			Debug.Log("Parsed and saved in backend folder");
 		}
 		

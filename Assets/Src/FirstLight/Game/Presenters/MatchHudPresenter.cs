@@ -12,6 +12,7 @@ using TMPro;
 using UnityEngine;
 using FirstLight.Game.Views.MainMenuViews;
 using FirstLight.Game.Views.MatchHudViews;
+using Quantum.Systems;
 using Sirenix.OdinInspector;
 using Button = UnityEngine.UI.Button;
 
@@ -81,15 +82,16 @@ namespace FirstLight.Game.Presenters
 		protected override void OnOpened()
 		{
 			var frame = QuantumRunner.Default.Game.Frames.Verified;
-			var isBattleRoyale = frame.Context.MapConfig.GameMode == GameMode.BattleRoyale;
+			var gameModeConfig = frame.Context.GameModeConfig;
 
 			_animation.clip = _introAnimationClip;
 			_animation.Play();
 
-			_mapTimerView.gameObject.SetActive(isBattleRoyale);
-			_contendersLeftHolderView.gameObject.SetActive(isBattleRoyale);
-			_scoreHolderView.gameObject.SetActive(!isBattleRoyale);
-			_minimapHolder.gameObject.SetActive(isBattleRoyale);
+			// TODO: gameModeConfig.ShowUITimer might not be enough here eventually
+			_mapTimerView.gameObject.SetActive(gameModeConfig.ShowUITimer);
+			_contendersLeftHolderView.gameObject.SetActive(gameModeConfig.ShowUITimer);
+			_scoreHolderView.gameObject.SetActive(!gameModeConfig.ShowUITimer);
+			_minimapHolder.gameObject.SetActive(gameModeConfig.ShowUIMinimap);
 			_quitButton.gameObject.SetActive(true);
 
 			_standings.Initialise(frame.PlayerCount, false, true);

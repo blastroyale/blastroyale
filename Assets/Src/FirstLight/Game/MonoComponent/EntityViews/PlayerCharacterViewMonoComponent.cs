@@ -110,7 +110,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			
 			if (Services.NetworkService.IsJoiningNewMatch)
 			{
-				AnimatorWrapper.SetBool(Bools.Flying, frame.Context.MapConfig.GameMode == GameMode.BattleRoyale);
+				AnimatorWrapper.SetBool(Bools.Flying, frame.Context.GameModeConfig.SkydiveSpawn);
 				AnimatorWrapper.SetTrigger(EntityView.EntityRef.IsAlive(frame) ? Triggers.Spawn : Triggers.Die);
 			}
 			else

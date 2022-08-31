@@ -155,11 +155,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		protected virtual void OnAvatarEliminated(QuantumGame game)
 		{
 			var frame = game.Frames.Verified;
-			var isBattleRoyale = frame.Context.MapConfig.GameMode == GameMode.BattleRoyale;
+			var oneLife = frame.Context.GameModeConfig.Lives == 1; // TODO: Should be properly handled based on deaths
 			
 			AnimatorWrapper.SetBool(Bools.Stun, false);
 			AnimatorWrapper.SetBool(Bools.Pickup, false);
-			Dissolve(isBattleRoyale, 0, GameConstants.Visuals.DISSOLVE_END_ALPHA_CLIP_VALUE, GameConstants.Visuals.DISSOLVE_DELAY,
+			Dissolve(oneLife, 0, GameConstants.Visuals.DISSOLVE_END_ALPHA_CLIP_VALUE, GameConstants.Visuals.DISSOLVE_DELAY,
 			         GameConstants.Visuals.DISSOLVE_DURATION);
 		}
 

@@ -10,6 +10,7 @@ namespace Quantum
 		public string PlayerName;
 		public uint PlayerRank;
 		public int MapId;
+		public string GameModeId;
 		public PlayerMatchData Data;
 
 		public QuantumPlayerMatchData(Frame f, PlayerRef player) : this(f, f.GetSingleton<GameContainer>().PlayersData[player])
@@ -19,6 +20,7 @@ namespace Quantum
 		public QuantumPlayerMatchData(Frame f, PlayerMatchData data) : this()
 		{
 			MapId = f.RuntimeConfig.MapId;
+			GameModeId = f.RuntimeConfig.GameModeId;
 			Data = data;
 			PlayerName = data.IsBot ? data.BotNameIndex.ToString() : f.GetPlayerData(data.Player).PlayerName;
 		}

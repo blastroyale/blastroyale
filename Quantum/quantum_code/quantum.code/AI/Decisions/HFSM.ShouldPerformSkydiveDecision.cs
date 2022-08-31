@@ -3,19 +3,17 @@ using System;
 namespace Quantum
 {
 	/// <summary>
-	/// This decision checks if we are in the BR or Deathmatch mode
+	/// This decision checks if we should do a Skydive drop.
 	/// </summary>
 	[Serializable]
 	[AssetObjectConfig(GenerateLinkingScripts = true, GenerateAssetCreateMenu = false,
 	                   GenerateAssetResetMethod = false)]
-	public partial class CheckGameModeDecision : HFSMDecision
+	public partial class ShouldPerformSkydiveDecision : HFSMDecision
 	{
-		public GameMode GameMode;
-
 		/// <inheritdoc />
 		public override unsafe bool Decide(Frame f, EntityRef e)
 		{
-			return f.Context.MapConfig.GameMode == GameMode;
+			return f.Context.GameModeConfig.SkydiveSpawn;
 		}
 	}
 }

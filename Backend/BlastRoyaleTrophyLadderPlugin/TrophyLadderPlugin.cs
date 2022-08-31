@@ -32,7 +32,6 @@ namespace BlastRoyaleNFTPlugin
 			});
 		}
 
-	
 		private void OnCommandFinished(CommandFinishedEvent ev)
 		{
 			if(!(ev.Command is EndOfGameCalculationsCommand))

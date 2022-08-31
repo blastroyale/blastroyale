@@ -12,6 +12,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 	/// </summary>
 	public class PlayerRankEntryView : MonoBehaviour
 	{
+		[SerializeField] private bool IsBlankEntry;
 		[SerializeField] private TextMeshProUGUI _rankText;
 		[SerializeField] private TextMeshProUGUI _playerNameText;
 		[SerializeField] private TextMeshProUGUI _trophiesText;
@@ -27,7 +28,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// </summary>
 		public void SetInfo()
 		{
-
+			if (IsBlankEntry) return;
 		}
 	}
 }

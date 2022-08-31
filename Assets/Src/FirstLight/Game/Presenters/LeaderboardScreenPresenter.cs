@@ -4,6 +4,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MatchHudViews;
+using FirstLight.Services;
 using I2.Loc;
 using Newtonsoft.Json;
 using PlayFab;
@@ -22,12 +23,13 @@ namespace FirstLight.Game.Presenters
 			public Action BackClicked;
 		}
 
-		private IGameServices _services;
-		private IGameDataProvider _gameDataProvider;
-
 		[SerializeField] private PlayerRankEntryView _playerRankEntryPlaceholder;
 		[SerializeField] private GameObject _playerGapEntryPlaceholder;
 		
+		private IGameServices _services;
+		private IGameDataProvider _gameDataProvider;
+		private IObjectPool<PlayerRankEntryView> _playerRankPool;
+
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
@@ -75,7 +77,14 @@ namespace FirstLight.Game.Presenters
 			{
 				Debug.LogError(entry.DisplayName + " " + entry.StatValue);
 			}
-			
+		}
+		
+		private void OnLeaderboardNeighborRanksReceived(GetLeaderboardResult result)
+		{
+			foreach (var entry in result.Leaderboard)
+			{
+				Debug.LogError(entry.DisplayName + " " + entry.StatValue);
+			}
 		}
 	}
 }

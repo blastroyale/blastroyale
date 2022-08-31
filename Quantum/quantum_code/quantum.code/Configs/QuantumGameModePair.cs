@@ -1,70 +1,16 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace Quantum
 {
-	/// <summary>
-	/// Stores values for a configurable field, one for each game mode (optional) and a default one.
-	/// </summary>
 	[Serializable]
 	public struct QuantumGameModePair<TValue>
 	{
-		public TValue BattleRoyale;
-		public TValue Deathmatch;
+		public TValue Default;
 
-		public QuantumGameModePair(TValue battleRoyale, TValue deathmatch)
-		{
-			BattleRoyale = battleRoyale;
-			Deathmatch = deathmatch;
-		}
-
-		/// <summary>
-		/// Returns the default value of this pair.
-		/// </summary>
-		public TValue GetDefault()
-		{
-			return BattleRoyale;
-		}
-
-		/// <summary>
-		/// The value of this object for a specific game mode. If it doesn't exist it reutns <see cref="Default"/>.
-		/// </summary>
-		public TValue Get(string mode)
-		{
-			switch (mode)
-			{
-				case "BattleRoyale":
-					return BattleRoyale;
-				case "Deathmatch":
-					return Deathmatch;
-				default:
-					return GetDefault();
-			}
-		}
-
-		/// <inheritdoc cref="Get(GameMode)"/>
-		public TValue Get(Frame f)
-		{
-			return Get(f.Context.GameModeConfig.Id);
-		}
-
-		public override string ToString()
-		{
-			return $"[{BattleRoyale.ToString()},{Deathmatch.ToString()}]";
-		}
-	}
-
-
-	/*
-	[Serializable]
-	public struct QuantumGameModePair<TValue>
-	{
-		private TValue Default;
-
-		private List<string> Keys;
-		private List<TValue> Values;
+		public List<string> Keys;
+		public List<TValue> Values;
 
 		public QuantumGameModePair(TValue @default, List<string> keys, List<TValue> values)
 		{
@@ -112,5 +58,4 @@ namespace Quantum
 			return sb.ToString();
 		}
 	}
-	*/
 }

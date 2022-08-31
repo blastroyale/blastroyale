@@ -20,13 +20,18 @@ MonoBehaviour:
     QuantumConfigs:
     - Id: 31
       InitialAmmoFilled:
-        BattleRoyale:
+        Default:
           RawValue: 19661
-        Deathmatch:
-          RawValue: 65536
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 19661
+        - RawValue: 65536
       MaxAmmo:
-        BattleRoyale: -1
-        Deathmatch: -1
+        Default: -1
+        Keys: []
+        Values: 
       AimingMovementSpeed:
         RawValue: 19661
       AimTime:
@@ -57,13 +62,20 @@ MonoBehaviour:
       KnockbackAmount: 20
     - Id: 60
       InitialAmmoFilled:
-        BattleRoyale:
+        Default:
           RawValue: 19661
-        Deathmatch:
-          RawValue: 65536
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 19661
+        - RawValue: 65536
       MaxAmmo:
-        BattleRoyale: 36
-        Deathmatch: 12
+        Default: 36
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: 240000000c000000
       AimingMovementSpeed:
         RawValue: 65536
       AimTime:
@@ -94,13 +106,20 @@ MonoBehaviour:
       KnockbackAmount: 0
     - Id: 71
       InitialAmmoFilled:
-        BattleRoyale:
+        Default:
           RawValue: 19661
-        Deathmatch:
-          RawValue: 65536
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 19661
+        - RawValue: 65536
       MaxAmmo:
-        BattleRoyale: 36
-        Deathmatch: 12
+        Default: 36
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: 240000000c000000
       AimingMovementSpeed:
         RawValue: 52429
       AimTime:
@@ -131,13 +150,20 @@ MonoBehaviour:
       KnockbackAmount: 0
     - Id: 78
       InitialAmmoFilled:
-        BattleRoyale:
+        Default:
           RawValue: 19661
-        Deathmatch:
-          RawValue: 65536
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 19661
+        - RawValue: 65536
       MaxAmmo:
-        BattleRoyale: 300
-        Deathmatch: 70
+        Default: 300
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: 2c01000046000000
       AimingMovementSpeed:
         RawValue: 72090
       AimTime:
@@ -168,13 +194,20 @@ MonoBehaviour:
       KnockbackAmount: 0
     - Id: 79
       InitialAmmoFilled:
-        BattleRoyale:
+        Default:
           RawValue: 19661
-        Deathmatch:
-          RawValue: 65536
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 19661
+        - RawValue: 65536
       MaxAmmo:
-        BattleRoyale: 200
-        Deathmatch: 50
+        Default: 200
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: c800000032000000
       AimingMovementSpeed:
         RawValue: 52429
       AimTime:
@@ -205,13 +238,20 @@ MonoBehaviour:
       KnockbackAmount: 0
     - Id: 84
       InitialAmmoFilled:
-        BattleRoyale:
+        Default:
           RawValue: 19661
-        Deathmatch:
-          RawValue: 65536
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 19661
+        - RawValue: 65536
       MaxAmmo:
-        BattleRoyale: 25
-        Deathmatch: 12
+        Default: 25
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: 190000000c000000
       AimingMovementSpeed:
         RawValue: 52429
       AimTime:
@@ -227,7 +267,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 589824
+        RawValue: 655360
       CanHitSameTarget: 0
       IsProjectile: 0
       SplashRadius:
@@ -242,13 +282,20 @@ MonoBehaviour:
       KnockbackAmount: 0
     - Id: 86
       InitialAmmoFilled:
-        BattleRoyale:
+        Default:
           RawValue: 19661
-        Deathmatch:
-          RawValue: 65536
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 19661
+        - RawValue: 65536
       MaxAmmo:
-        BattleRoyale: 50
-        Deathmatch: 24
+        Default: 50
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: 3200000018000000
       AimingMovementSpeed:
         RawValue: 52429
       AimTime:
@@ -279,13 +326,20 @@ MonoBehaviour:
       KnockbackAmount: 0
     - Id: 87
       InitialAmmoFilled:
-        BattleRoyale:
+        Default:
           RawValue: 19661
-        Deathmatch:
-          RawValue: 65536
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 19661
+        - RawValue: 65536
       MaxAmmo:
-        BattleRoyale: 200
-        Deathmatch: 75
+        Default: 200
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: c80000004b000000
       AimingMovementSpeed:
         RawValue: 32768
       AimTime:
@@ -316,13 +370,20 @@ MonoBehaviour:
       KnockbackAmount: 0
     - Id: 88
       InitialAmmoFilled:
-        BattleRoyale:
+        Default:
           RawValue: 19661
-        Deathmatch:
-          RawValue: 65536
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 19661
+        - RawValue: 65536
       MaxAmmo:
-        BattleRoyale: 100
-        Deathmatch: 36
+        Default: 100
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: 6400000024000000
       AimingMovementSpeed:
         RawValue: 65536
       AimTime:
@@ -353,13 +414,20 @@ MonoBehaviour:
       KnockbackAmount: 0
     - Id: 90
       InitialAmmoFilled:
-        BattleRoyale:
+        Default:
           RawValue: 19661
-        Deathmatch:
-          RawValue: 65536
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 19661
+        - RawValue: 65536
       MaxAmmo:
-        BattleRoyale: 36
-        Deathmatch: 12
+        Default: 36
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: 240000000c000000
       AimingMovementSpeed:
         RawValue: 32768
       AimTime:
@@ -390,13 +458,20 @@ MonoBehaviour:
       KnockbackAmount: 0
     - Id: 91
       InitialAmmoFilled:
-        BattleRoyale:
+        Default:
           RawValue: 19661
-        Deathmatch:
-          RawValue: 65536
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 19661
+        - RawValue: 65536
       MaxAmmo:
-        BattleRoyale: 200
-        Deathmatch: 70
+        Default: 300
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: 2c01000046000000
       AimingMovementSpeed:
         RawValue: 65536
       AimTime:
@@ -427,13 +502,20 @@ MonoBehaviour:
       KnockbackAmount: 0
     - Id: 92
       InitialAmmoFilled:
-        BattleRoyale:
+        Default:
           RawValue: 19661
-        Deathmatch:
-          RawValue: 65536
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 19661
+        - RawValue: 65536
       MaxAmmo:
-        BattleRoyale: 200
-        Deathmatch: 50
+        Default: 200
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: c800000032000000
       AimingMovementSpeed:
         RawValue: 65536
       AimTime:
@@ -464,13 +546,20 @@ MonoBehaviour:
       KnockbackAmount: 0
     - Id: 93
       InitialAmmoFilled:
-        BattleRoyale:
+        Default:
           RawValue: 19661
-        Deathmatch:
-          RawValue: 65536
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 19661
+        - RawValue: 65536
       MaxAmmo:
-        BattleRoyale: 25
-        Deathmatch: 12
+        Default: 25
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: 190000000c000000
       AimingMovementSpeed:
         RawValue: 32768
       AimTime:
@@ -495,19 +584,26 @@ MonoBehaviour:
         RawValue: 0
       Specials: 5900000055000000
       InitialAttackCooldown:
-        RawValue: 65536
+        RawValue: 0
       InitialAttackRampUpTime:
-        RawValue: 196608
+        RawValue: 0
       KnockbackAmount: 20
     - Id: 94
       InitialAmmoFilled:
-        BattleRoyale:
+        Default:
           RawValue: 19661
-        Deathmatch:
-          RawValue: 65536
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 19661
+        - RawValue: 65536
       MaxAmmo:
-        BattleRoyale: 35
-        Deathmatch: 20
+        Default: 35
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: 2300000014000000
       AimingMovementSpeed:
         RawValue: 65536
       AimTime:
@@ -538,13 +634,20 @@ MonoBehaviour:
       KnockbackAmount: 0
     - Id: 95
       InitialAmmoFilled:
-        BattleRoyale:
+        Default:
           RawValue: 19661
-        Deathmatch:
-          RawValue: 65536
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 19661
+        - RawValue: 65536
       MaxAmmo:
-        BattleRoyale: 200
-        Deathmatch: 75
+        Default: 200
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: c80000004b000000
       AimingMovementSpeed:
         RawValue: 52429
       AimTime:
@@ -575,13 +678,20 @@ MonoBehaviour:
       KnockbackAmount: 0
     - Id: 96
       InitialAmmoFilled:
-        BattleRoyale:
+        Default:
           RawValue: 19661
-        Deathmatch:
-          RawValue: 65536
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 19661
+        - RawValue: 65536
       MaxAmmo:
-        BattleRoyale: 150
-        Deathmatch: 36
+        Default: 150
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: 9600000024000000
       AimingMovementSpeed:
         RawValue: 65536
       AimTime:
@@ -612,13 +722,20 @@ MonoBehaviour:
       KnockbackAmount: 0
     - Id: 97
       InitialAmmoFilled:
-        BattleRoyale:
+        Default:
           RawValue: 19661
-        Deathmatch:
-          RawValue: 65536
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 19661
+        - RawValue: 65536
       MaxAmmo:
-        BattleRoyale: 36
-        Deathmatch: 12
+        Default: 36
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: 240000000c000000
       AimingMovementSpeed:
         RawValue: 52429
       AimTime:
@@ -649,13 +766,20 @@ MonoBehaviour:
       KnockbackAmount: 0
     - Id: 98
       InitialAmmoFilled:
-        BattleRoyale:
+        Default:
           RawValue: 19661
-        Deathmatch:
-          RawValue: 65536
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 19661
+        - RawValue: 65536
       MaxAmmo:
-        BattleRoyale: 200
-        Deathmatch: 70
+        Default: 200
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: c800000046000000
       AimingMovementSpeed:
         RawValue: 65536
       AimTime:
@@ -686,13 +810,20 @@ MonoBehaviour:
       KnockbackAmount: 0
     - Id: 99
       InitialAmmoFilled:
-        BattleRoyale:
+        Default:
           RawValue: 19661
-        Deathmatch:
-          RawValue: 65536
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 19661
+        - RawValue: 65536
       MaxAmmo:
-        BattleRoyale: 200
-        Deathmatch: 50
+        Default: 200
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: c800000032000000
       AimingMovementSpeed:
         RawValue: 65536
       AimTime:
@@ -723,13 +854,20 @@ MonoBehaviour:
       KnockbackAmount: 0
     - Id: 100
       InitialAmmoFilled:
-        BattleRoyale:
+        Default:
           RawValue: 19661
-        Deathmatch:
-          RawValue: 65536
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 19661
+        - RawValue: 65536
       MaxAmmo:
-        BattleRoyale: 25
-        Deathmatch: 12
+        Default: 25
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: 190000000c000000
       AimingMovementSpeed:
         RawValue: 52429
       AimTime:
@@ -745,7 +883,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 655360
+        RawValue: 589824
       CanHitSameTarget: 1
       IsProjectile: 0
       SplashRadius:
@@ -760,13 +898,20 @@ MonoBehaviour:
       KnockbackAmount: 0
     - Id: 101
       InitialAmmoFilled:
-        BattleRoyale:
+        Default:
           RawValue: 19661
-        Deathmatch:
-          RawValue: 65536
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 19661
+        - RawValue: 65536
       MaxAmmo:
-        BattleRoyale: 40
-        Deathmatch: 24
+        Default: 40
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: 2800000018000000
       AimingMovementSpeed:
         RawValue: 52429
       AimTime:
@@ -797,13 +942,20 @@ MonoBehaviour:
       KnockbackAmount: 0
     - Id: 103
       InitialAmmoFilled:
-        BattleRoyale:
+        Default:
           RawValue: 19661
-        Deathmatch:
-          RawValue: 65536
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 19661
+        - RawValue: 65536
       MaxAmmo:
-        BattleRoyale: 200
-        Deathmatch: 75
+        Default: 200
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: c80000004b000000
       AimingMovementSpeed:
         RawValue: 65536
       AimTime:
@@ -826,7 +978,7 @@ MonoBehaviour:
         RawValue: 0
       SplashDamageRatio:
         RawValue: 0
-      Specials: 590000000a000000
+      Specials: 590000006e000000
       InitialAttackCooldown:
         RawValue: 0
       InitialAttackRampUpTime:

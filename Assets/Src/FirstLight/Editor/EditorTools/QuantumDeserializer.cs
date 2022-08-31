@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using FirstLight.GoogleSheetImporter;
 using Photon.Deterministic;
 using Quantum;
@@ -27,7 +28,7 @@ namespace FirstLight.Editor.EditorTools
 			{
 				return FP.FromString(data);
 			}
-			
+
 			return null;
 		}
 
@@ -38,29 +39,35 @@ namespace FirstLight.Editor.EditorTools
 		public static object QuantumGameModePairDeserializer(string data, Type type)
 		{
 			var gameModePairType = typeof(QuantumGameModePair<>);
-			
+
 			if (!type.IsGenericType || !gameModePairType.IsAssignableFrom(type.GetGenericTypeDefinition()))
 			{
 				return null;
 			}
-			
-			var values = data.Split(CsvParser.PairSplitChars);
-			
-			if (values.Length > 2)
-			{
-				throw new
-					IndexOutOfRangeException($"Trying to deserialize more than 2 values to a value pair: ({data})");
-			}
-			
-			var genericType = type.GetGenericArguments()[0];
-			var value1 = CsvParser.Parse(values[0], genericType, FpDeserializer);
-			var value2 = values.Length == 1 ? value1 : CsvParser.Parse(values[1], genericType, FpDeserializer);
-			var valuePair = Activator.CreateInstance(gameModePairType.MakeGenericType(genericType));
-			var brField = valuePair.GetType().GetField(nameof(QuantumGameModePair<object>.BattleRoyale));
-			var dmField = valuePair.GetType().GetField(nameof(QuantumGameModePair<object>.Deathmatch));
 
-			brField.SetValue(valuePair, value1);
-			dmField.SetValue(valuePair, value2);
+			var lines = data.Split(CsvParser.NewLineChars, StringSplitOptions.RemoveEmptyEntries);
+
+			var genericType = type.GetGenericArguments()[0];
+			var defaultValue = CsvParser.Parse(lines[0], genericType, FpDeserializer);
+			var keys = new List<string>();
+			var values = new List<string>();
+
+			for (var i = 1; i < lines.Length; i++)
+			{
+				var split = lines[i].Split(CsvParser.PairSplitChars);
+				keys.Add(split[0]);
+				values.Add(split[1]);
+			}
+
+			var valuePair = Activator.CreateInstance(gameModePairType.MakeGenericType(genericType));
+			var defaultField = valuePair.GetType().GetField(nameof(QuantumGameModePair<object>.Default));
+			var keysField = valuePair.GetType().GetField(nameof(QuantumGameModePair<object>.Keys));
+			var valuesField = valuePair.GetType().GetField(nameof(QuantumGameModePair<object>.Values));
+
+			defaultField.SetValue(valuePair, defaultValue);
+			keysField.SetValue(valuePair, keys);
+			valuesField.SetValue(valuePair,
+			                     CsvParser.ArrayParse(string.Join(",", values), genericType, FpDeserializer));
 
 			return valuePair;
 		}

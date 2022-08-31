@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ClientModels;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace FirstLight.Game.Presenters
 {
@@ -25,6 +26,7 @@ namespace FirstLight.Game.Presenters
 
 		[SerializeField] private PlayerRankEntryView _playerRankEntryPlaceholder;
 		[SerializeField] private GameObject _playerGapEntryPlaceholder;
+		[SerializeField] private Button _backButton;
 		
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
@@ -34,8 +36,15 @@ namespace FirstLight.Game.Presenters
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
+			
+			_backButton.onClick.AddListener(OnBackClicked);
 		}
-		
+
+		private void OnDestroy()
+		{
+			_backButton.onClick.RemoveAllListeners();
+		}
+
 		protected override void OnOpened()
 		{
 			base.OnOpened();
@@ -85,6 +94,11 @@ namespace FirstLight.Game.Presenters
 			{
 				Debug.LogError(entry.DisplayName + " " + entry.StatValue);
 			}
+		}
+
+		private void OnBackClicked()
+		{
+			Data.BackClicked();
 		}
 	}
 }

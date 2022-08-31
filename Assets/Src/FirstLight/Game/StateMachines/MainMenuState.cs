@@ -279,6 +279,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void CloseLeaderboardUI()
 		{
+			Debug.LogError("fuck off you stupid cunt");
 			_uiService.CloseUi<LeaderboardScreenPresenter>();
 		}
 

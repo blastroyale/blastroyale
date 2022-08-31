@@ -2682,10 +2682,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animation: {fileID: 4271545850543195364}
-  _introAnimationClip: {fileID: 7400000, guid: 5e196f19563416f47aece4f22e42ef88, type: 2}
-  _outroAnimationClip: {fileID: 7400000, guid: f40e65f4c5ee77744b2082d0afa8fc27, type: 2}
+  _introAnimationClip: {fileID: 7400000, guid: a0cd5e803d30f7641ace6d85f6521dea, type: 2}
+  _outroAnimationClip: {fileID: 7400000, guid: eb62f888ce82bce48acd44d0b7ddacc8, type: 2}
   _playerRankEntryPlaceholder: {fileID: 4364693104999481198}
   _playerGapEntryPlaceholder: {fileID: 2037973063346883437}
+  _backButton: {fileID: 2600167573563792202}
 --- !u!1 &5347463446096468404
 GameObject:
   m_ObjectHideFlags: 0
@@ -2723,7 +2724,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00018310547}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &8659723823928900629
@@ -4041,7 +4042,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00012207031, y: 0}
+  m_AnchoredPosition: {x: -0.000061035156, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2516553894573876086
@@ -4737,10 +4738,10 @@ Animation:
   m_GameObject: {fileID: 8028147853940128259}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 5e196f19563416f47aece4f22e42ef88, type: 2}
+  m_Animation: {fileID: 7400000, guid: eb62f888ce82bce48acd44d0b7ddacc8, type: 2}
   m_Animations:
-  - {fileID: 7400000, guid: 5e196f19563416f47aece4f22e42ef88, type: 2}
-  - {fileID: 7400000, guid: f40e65f4c5ee77744b2082d0afa8fc27, type: 2}
+  - {fileID: 7400000, guid: a0cd5e803d30f7641ace6d85f6521dea, type: 2}
+  - {fileID: 7400000, guid: eb62f888ce82bce48acd44d0b7ddacc8, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0

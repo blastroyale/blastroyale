@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5900778908804094350}
   - component: {fileID: 2055459447100467079}
   - component: {fileID: 6751388472775187674}
+  - component: {fileID: 6042479742456473788}
   m_Layer: 0
   m_Name: Coll
   m_TagString: Untagged
@@ -141,6 +142,22 @@ MonoBehaviour:
       Id:
         Value: 0
     Trigger: 0
+--- !u!208 &6042479742456473788
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5083423842219381074}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &7807229845257364449
 GameObject:
   m_ObjectHideFlags: 0

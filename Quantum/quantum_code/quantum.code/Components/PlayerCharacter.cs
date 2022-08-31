@@ -288,7 +288,7 @@ namespace Quantum
 		/// </summary>
 		public bool HasDroppedLoadoutItem(Equipment equipment)
 		{
-			var shift = equipment.IsWeapon() ? 0 : GetGearSlot(equipment) + 1;
+			var shift = GetGearSlot(equipment) + 1;
 			return (DroppedLoadoutFlags & (1 << shift)) != 0;
 		}
 
@@ -299,6 +299,7 @@ namespace Quantum
 		{
 			return equipment.GetEquipmentGroup() switch
 			{
+				GameIdGroup.Weapon => Constants.GEAR_INDEX_WEAPON,
 				GameIdGroup.Helmet => Constants.GEAR_INDEX_HELMET,
 				GameIdGroup.Amulet => Constants.GEAR_INDEX_AMULET,
 				GameIdGroup.Armor => Constants.GEAR_INDEX_ARMOR,
@@ -314,12 +315,37 @@ namespace Quantum
 		{
 			return slot switch
 			{
+				Constants.GEAR_INDEX_WEAPON => GameIdGroup.Weapon,
 				Constants.GEAR_INDEX_HELMET => GameIdGroup.Helmet,
 				Constants.GEAR_INDEX_AMULET => GameIdGroup.Amulet,
 				Constants.GEAR_INDEX_ARMOR => GameIdGroup.Armor,
 				Constants.GEAR_INDEX_SHIELD => GameIdGroup.Shield,
 				_ => throw new NotSupportedException($"Could not find GameIdGroup for slot({slot})")
 			};
+		}
+
+		public Equipment[] GetLoadout(Frame f)
+		{
+			var playerData = f.GetPlayerData(Player);
+
+			if (playerData == null)
+			{
+				return null;
+			}
+
+			return playerData.Loadout;
+		}
+		
+		public Equipment GetLoadoutWeapon(Frame f)
+		{
+			var playerData = f.GetPlayerData(Player);
+
+			if (playerData == null)
+			{
+				return Equipment.None;
+			}
+
+			return playerData.Weapon;
 		}
 
 		/// <summary>
@@ -329,50 +355,52 @@ namespace Quantum
 		/// </summary>
 		internal void SetDroppedLoadoutItem(Equipment equipment)
 		{
-			var shift = equipment.IsWeapon() ? 0 : GetGearSlot(equipment) + 1;
+			var shift = GetGearSlot(equipment) + 1;
 			DroppedLoadoutFlags |= 1 << shift;
-		}
-
-		/// <summary>
-		/// Adds the given ammo <paramref name="amountPercentage"/> of this <paramref name="e"/> player's entity
-		/// </summary>
-		internal void GainAmmo(Frame f, EntityRef e, FP amountPercentage)
-		{
-			if (amountPercentage < FP._0)
-			{
-				return;
-			}
-
-			var ammo = GetAmmoAmount(f, e, out var maxAmmo);
-			var amount = FPMath.FloorToInt(amountPercentage * maxAmmo);
-			
-			SetCurrentAmmo(f, e, Math.Min(ammo + amount, maxAmmo), maxAmmo);
 		}
 
 		/// <summary>
 		/// Adds the given ammo <paramref name="amount"/> of this <paramref name="e"/> player's entity
 		/// </summary>
-		internal void GainAmmo(Frame f, EntityRef e, int amount)
+		internal void GainAmmo(Frame f, EntityRef e, FP amount)
 		{
-			var ammo = GetAmmoAmount(f, e, out var maxAmmo);
-			
-			SetCurrentAmmo(f, e, Math.Min(ammo + amount, maxAmmo), maxAmmo);
-		}
-
-		/// <summary>
-		/// Reduces the given ammo <paramref name="amount"/> of this <paramref name="e"/> player's entity
-		/// </summary>
-		internal void ReduceAmmo(Frame f, EntityRef e, int amount)
-		{
-			// Do not do reduce for melee weapons or if your weapon is empty
-			if (HasMeleeWeapon(f, e))
+			if (amount <= FP._0)
 			{
 				return;
 			}
 
 			var ammo = GetAmmoAmount(f, e, out var maxAmmo);
+			var newAmmoFilled = FPMath.Min(GetAmmoAmountFilled(f, e) + amount, FP._1);
+			var newAmmo = FPMath.FloorToInt(newAmmoFilled * maxAmmo);
 
-			SetCurrentAmmo(f, e, Math.Max(ammo - amount, 0), maxAmmo);
+			f.Unsafe.GetPointer<AIBlackboardComponent>(e)->Set(f, Constants.AmmoFilledKey, newAmmoFilled);
+
+			if (HasMeleeWeapon(f, e) || ammo == newAmmo)
+			{
+				return;
+			}
+
+			f.Events.OnPlayerAmmoChanged(Player, e, ammo, newAmmo, maxAmmo);
+		}
+
+		/// <summary>
+		/// Reduces the given ammo <paramref name="amount"/> of this <paramref name="e"/> player's entity
+		/// </summary>
+		internal void ReduceAmmo(Frame f, EntityRef e, uint amount)
+		{
+			// Do not do reduce for melee weapons or if your weapon is empty
+			if (HasMeleeWeapon(f, e) || IsAmmoEmpty(f, e))
+			{
+				return;
+			}
+
+			var ammo = GetAmmoAmount(f, e, out var maxAmmo); // Gives back Int floored down (filledFP * maxAmmo)
+			var newAmmo = Math.Max(ammo - (int) amount, 0);
+			var currentAmmo = Math.Min(newAmmo, maxAmmo);
+			var finalAmmoFilled = FPMath.Max(GetAmmoAmountFilled(f, e) - ((FP._1 / maxAmmo) * amount), FP._0);
+
+			f.Unsafe.GetPointer<AIBlackboardComponent>(e)->Set(f, Constants.AmmoFilledKey, finalAmmoFilled);
+			f.Events.OnPlayerAmmoChanged(Player, e, ammo, currentAmmo, maxAmmo);
 		}
 
 		/// <summary>
@@ -426,22 +454,9 @@ namespace Quantum
 			blackboard->Set(f, Constants.HasMeleeWeaponKey, weaponConfig.IsMeleeWeapon);
 			blackboard->Set(f, Constants.BurstTimeDelay, burstCooldown);
 			
-			f.Unsafe.GetPointer<Stats>(e)->RefreshEquipmentStats(f, Player, e, weapon, Gear);
+			f.Unsafe.GetPointer<Stats>(e)->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Gear);
 
 			return weaponConfig;
-		}
-
-		private void SetCurrentAmmo(Frame f, EntityRef e, int amount, int maxAmmo)
-		{
-			var previousAmmo = FPMath.FloorToInt(GetAmmoAmountFilled(f, e) * maxAmmo);
-			var newAmmoFilled = (FP)amount / maxAmmo;
-
-			f.Unsafe.GetPointer<AIBlackboardComponent>(e)->Set(f, Constants.AmmoFilledKey, newAmmoFilled);
-
-			if (previousAmmo != amount)
-			{
-				f.Events.OnPlayerAmmoChanged(Player, e, previousAmmo, amount, maxAmmo);
-			}
 		}
 	}
 }

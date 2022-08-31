@@ -24,10 +24,12 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void OnPlayerDataSet(Frame f, PlayerRef playerRef)
 		{
-			InitializeBots(f, playerRef);
+			var data = f.GetPlayerData(playerRef);
+			var playerTrophies= data?.PlayerTrophies ?? 1000u;
+			InitializeBots(f, playerTrophies);
 		}
 
-		private void InitializeBots(Frame f, PlayerRef playerRef)
+		private void InitializeBots(Frame f, uint baseTrophiesAmount)
 		{
 			if (f.ComponentCount<BotCharacter>() > 0)
 			{
@@ -48,7 +50,7 @@ namespace Quantum.Systems
 
 			if (botIds.Count != playerLimit)
 			{
-				AddBots(f, botIds, playerRef);
+				AddBots(f, botIds, baseTrophiesAmount);
 			}
 		}
 
@@ -791,7 +793,7 @@ namespace Quantum.Systems
 			return distanceSqr <= circle.CurrentRadius;
 		}
 		
-		private void AddBots(Frame f, List<PlayerRef> botIds, PlayerRef playerRef)
+		private void AddBots(Frame f, List<PlayerRef> botIds, uint baseTrophiesAmount)
 		{
 			var playerSpawners = GetFreeSpawnPoints(f);
 			var botConfigsList = GetBotConfigsList(f);
@@ -862,14 +864,8 @@ namespace Quantum.Systems
 
 				// Calculate bot trophies
 				var eloRange = f.GameConfig.TrophyEloRange;
-				var playerTrophies = (uint)1000;
-				
-				if (f.GetPlayerData(playerRef) != null)
-				{
-					playerTrophies = f.GetPlayerData(playerRef).PlayerTrophies;
-				}
-				
-				var trophies = (uint) Math.Max((int) playerTrophies + f.RNG->Next(-eloRange / 2, eloRange / 2), 0);
+
+				var trophies = (uint) Math.Max((int) baseTrophiesAmount + f.RNG->Next(-eloRange / 2, eloRange / 2), 0);
 
 				playerCharacter->Init(f, botEntity, id, spawnerTransform, 1, trophies, botCharacter.Skin, 
 				                      botCharacter.DeathMarker, Array.Empty<Equipment>(), Equipment.None);

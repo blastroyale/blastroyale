@@ -344,8 +344,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 11.8}
-  m_SizeDelta: {x: 280, y: 67.5}
+  m_AnchoredPosition: {x: -0.000031948, y: 7.775}
+  m_SizeDelta: {x: 307.5724, y: 59.45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6204825062497229514
 CanvasRenderer:
@@ -375,7 +375,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'SERVER: EU'
+  m_text: 'SERVER: EUROPE'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d7b331517660d474596db465e3089916, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: b83504fa082014114bc4bea2cb0e9cc4, type: 2}
@@ -402,12 +402,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 45
+  m_fontSize: 44.7
   m_fontSizeBase: 45
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 44.7
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -418,7 +418,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -4706,7 +4706,7 @@ PrefabInstance:
     - target: {fileID: 6330742539999291386, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: -6727387647484772778, guid: d7b331517660d474596db465e3089916, type: 2}
+      objectReference: {fileID: 2100000, guid: 34550e126b4c8441696b65040c2fd9b3, type: 2}
     - target: {fileID: 6330742539999291386, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
@@ -4855,7 +4855,7 @@ PrefabInstance:
     - target: {fileID: 6330742539999291386, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: -6727387647484772778, guid: d7b331517660d474596db465e3089916, type: 2}
+      objectReference: {fileID: 2100000, guid: 34550e126b4c8441696b65040c2fd9b3, type: 2}
     - target: {fileID: 6330742539999291386, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
@@ -5009,7 +5009,7 @@ PrefabInstance:
     - target: {fileID: 6330742539999291386, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: -6727387647484772778, guid: d7b331517660d474596db465e3089916, type: 2}
+      objectReference: {fileID: 2100000, guid: 34550e126b4c8441696b65040c2fd9b3, type: 2}
     - target: {fileID: 6330742539999291386, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0

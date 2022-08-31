@@ -124,11 +124,13 @@ namespace FirstLight.Game.Presenters
 
 			_quitButton.gameObject.SetActive(canQuitMatch);
 
-			if (Debug.isDebugBuild && SROptions.Current.EnableEquipmentDebug)
+#if DEVELOPMENT_BUILD
+			if (SROptions.Current.EnableEquipmentDebug)
 			{
 				_equippedDebugText.gameObject.SetActive(true);
 				QuantumEvent.Subscribe<EventOnPlayerStatsChanged>(this, OnPlayerStatsChanged);
 			}
+#endif
 		}
 
 		private void OnQuitClicked()

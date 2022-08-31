@@ -57,8 +57,8 @@ namespace FirstLight.Game.StateMachines
 
 			matchStateCheck.Transition().Condition(IsSkyDivePhase).Target(skydive);
 			matchStateCheck.Transition().Condition(IsLowIntensityPhase).Target(lowIntensity);
-			matchStateCheck.Transition().Condition(IsMidIntensityPhase).Target(lowIntensity);
-			matchStateCheck.Transition().Target(midIntensity);
+			matchStateCheck.Transition().Condition(IsMidIntensityPhase).Target(midIntensity);
+			matchStateCheck.Transition().Target(highIntensity);
 
 			skydive.OnEnter(PlaySkydiveMusic);
 			skydive.Event(IncreaseIntensityEvent).Target(lowIntensity);

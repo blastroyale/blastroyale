@@ -20,7 +20,7 @@ namespace Quantum.Systems
 		{
 			if (filter.Transform->Position.Y < Constants.OUT_OF_WORLD_Y_THRESHOLD)
 			{
-				filter.Stats->ReduceHealth(f, filter.Entity, new Spell { Attacker = filter.Entity, PowerAmount = uint.MaxValue });
+				filter.Stats->ReduceHealth(f, filter.Entity, new Spell { Attacker = filter.Entity, PowerAmount = int.MaxValue });
 			}
 		}
 	}

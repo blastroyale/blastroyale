@@ -155,6 +155,11 @@ namespace Quantum
 		/// </summary>
 		internal void GainHealth(Frame f, EntityRef entity, Spell spell)
 		{
+			if (f.Has<EntityDestroyer>(entity))
+			{
+				return;
+			}
+			
 			SetCurrentHealth(f, entity, (int) (CurrentHealth + spell.PowerAmount));
 		}
 
@@ -163,13 +168,19 @@ namespace Quantum
 		/// </summary>
 		internal void ReduceHealth(Frame f, EntityRef entity, Spell spell)
 		{
+			if (f.Has<EntityDestroyer>(entity))
+			{
+				return;
+			}
+			
 			var previousHealth = CurrentHealth;
 			var previousShield = CurrentShield;
 			var maxHealth = GetStatData(StatType.Health).StatValue.AsInt;
 			var maxShield = GetStatData(StatType.Shield).StatValue.AsInt;
 			var armour = GetStatData(StatType.Armour).StatValue.AsInt;
-			var totalDamage = Math.Max(Math.Max((int)spell.PowerAmount, 0) - armour, 0);
+			var totalDamage = Math.Max((int)spell.PowerAmount - armour, 0);
 			var damageAmount = totalDamage;
+			var shieldDamageAmount = 0;
 
 			if (IsImmune)
 			{
@@ -181,13 +192,14 @@ namespace Quantum
 			// and if the damage is bigger than shields then we proceed to remove health as well
 			if (previousShield > 0)
 			{
-				SetCurrenShield(f, entity, Math.Max(previousShield - damageAmount, 0));
+				shieldDamageAmount = Math.Min(previousShield, damageAmount);
+				damageAmount -= shieldDamageAmount;
 				
-				damageAmount = Math.Max(damageAmount - previousShield, 0);
+				SetCurrenShield(f, entity, previousShield - shieldDamageAmount);
 			}
 
-			f.Events.OnPlayerDamaged(spell, (uint) totalDamage, (uint) damageAmount, previousHealth, maxHealth, 
-			                         previousShield, maxShield);
+			f.Events.OnPlayerDamaged(spell, totalDamage, shieldDamageAmount, Math.Min(previousHealth, damageAmount), 
+			                         previousHealth, maxHealth, previousShield, maxShield);
 
 			if (damageAmount <= 0)
 			{

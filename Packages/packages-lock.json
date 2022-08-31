@@ -1,14 +1,5 @@
 {
   "dependencies": {
-    "appsflyer-unity-plugin": {
-      "version": "https://github.com/AppsFlyerSDK/appsflyer-unity-plugin.git#upm",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {
-        "com.google.external-dependency-manager": "1.2.144"
-      },
-      "hash": "7bc0b28c7f4e5d6e447c5761f6f04925b1e89872"
-    },
     "com.coffee.ui-effect": {
       "version": "https://github.com/mob-sakai/UIEffect.git",
       "depth": 0,

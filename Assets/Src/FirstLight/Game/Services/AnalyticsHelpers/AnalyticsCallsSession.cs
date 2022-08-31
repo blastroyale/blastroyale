@@ -85,8 +85,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		{
 			Analytics.SetUserId(id);
 			FirebaseAnalytics.SetUserId(id);
-			// AppsFlyer.setCustomerUserId(id);
-			
+
 			var loginData = new Dictionary<string, object> 		{
 				{"client_version", VersionUtils.VersionExternal },
 				{"platform", Application.platform.ToString()},
@@ -105,9 +104,6 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"memory_readable", SRFileUtil.GetBytesReadable((long) SystemInfo.systemMemorySize*1024*1024)},
 			};
 			
-			// var appsFlyerData = loginData.ToDictionary(key => key.Key, value => value.ToString());
-			// AppsFlyer.sendEvent(AnalyticsEvents.PlayerLogin, appsFlyerData);
-			//
 			// FB.LogAppEvent(AnalyticsEvents.PlayerLogin, null, loginData);
 			
 			_analyticsService.LogEvent(AnalyticsEvents.PlayerLogin, loginData);
@@ -126,7 +122,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"nfts_owned", inventory.Count},
 				{"blst_token_balance", (int) _gameData.CurrencyDataProvider.GetCurrencyAmount(GameId.BLST)},
 				{"cs_token_balance", (int) _gameData.CurrencyDataProvider.GetCurrencyAmount(GameId.CS)},
-				{"total_power", loadout.GetTotalStat(EquipmentStatType.Damage)}
+				{"total_power", loadout.GetTotalMight()}
 			};
 			
 			_analyticsService.LogEvent(AnalyticsEvents.GameLoaded, data);

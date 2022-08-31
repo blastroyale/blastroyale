@@ -79,7 +79,8 @@ namespace FirstLight.Game.StateMachines
 			var data = new SettingsScreenPresenter.StateData
 			{
 				LogoutClicked = TryLogOut,
-				OnClose = () => _statechartTrigger(_settingsCloseClickedEvent)
+				OnClose = () => _statechartTrigger(_settingsCloseClickedEvent),
+				OnServerSelectClicked = () => _statechartTrigger(NetworkState.OpenServerSelectScreenEvent)
 			};
 
 			_uiService.OpenUiAsync<SettingsScreenPresenter, SettingsScreenPresenter.StateData>(data);
@@ -165,7 +166,7 @@ namespace FirstLight.Game.StateMachines
 				{
 					Callback = () =>
 					{
-						_services.GameFlowService.QuitGame("Closing unlink complete alert");
+						_services.QuitGame("Closing unlink complete alert");
 					},
 					Style = FirstLight.NativeUi.AlertButtonStyle.Positive,
 					Text = ScriptLocalization.MainMenu.QuitGameButton

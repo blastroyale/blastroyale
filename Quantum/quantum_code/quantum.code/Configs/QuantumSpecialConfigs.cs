@@ -4,6 +4,18 @@ using Photon.Deterministic;
 
 namespace Quantum
 {
+	public enum IndicatorVfxId
+	{
+		None,
+		Movement,
+		ScalableLine,
+		Line,
+		Cone,
+		Range,
+		Radial,
+		TOTAL,            // Used to know the total amount of this type without the need of reflection
+	}
+	
 	[Serializable]
 	public partial struct QuantumSpecialConfig
 	{
@@ -30,15 +42,17 @@ namespace Quantum
 	{
 		public List<QuantumSpecialConfig> QuantumConfigs = new List<QuantumSpecialConfig>();
 		
-		private IDictionary<GameId, QuantumSpecialConfig> _dictionary = new Dictionary<GameId, QuantumSpecialConfig>();
+		private IDictionary<GameId, QuantumSpecialConfig> _dictionary = null;
 
 		/// <summary>
 		/// Requests the <see cref="QuantumSpecialConfig"/> of the given enemy <paramref name="gameId"/>
 		/// </summary>
 		public QuantumSpecialConfig GetConfig(GameId gameId)
 		{
-			if (_dictionary.Count == 0)
+			if (_dictionary == null)
 			{
+				_dictionary = new Dictionary<GameId, QuantumSpecialConfig>();
+				
 				foreach (var config in QuantumConfigs)
 				{
 					_dictionary.Add(config.Id, config);

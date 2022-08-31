@@ -19,16 +19,16 @@ namespace Quantum.Systems
 			component->PowerModifierId = ++f.Global->ModifierIdCount;
 			
 			var powerModifier = new Modifier
-				{
-					Id = component->PowerModifierId,
-					Type = StatType.Power,
-					Power = component->Power,
-					Duration = FP.MaxValue,
-					StartTime = FP._0,
-					IsNegative = false
-				};
+			{
+				Id = component->PowerModifierId,
+				Type = StatType.Power,
+				Power = component->Power,
+				Duration = component->Duration,
+				StartTime = f.Time,
+				IsNegative = false
+			};
 			
-			stats->AddModifier(f, powerModifier);
+			stats->AddModifier(f, entity, powerModifier);
 		}
 
 		/// <inheritdoc />
@@ -38,8 +38,17 @@ namespace Quantum.Systems
 			{
 				return;
 			}
-			
-			stats->RemoveModifier(f, component->PowerModifierId);
+
+			var modifiers = f.ResolveList(stats->Modifiers);
+
+			for (var i = 0; i < modifiers.Count; i++)
+			{
+				if (modifiers[i].Id == component->PowerModifierId)
+				{
+					stats->RemoveModifier(f, entity, i);
+					break;
+				}
+			}
 		}
 	}
 }

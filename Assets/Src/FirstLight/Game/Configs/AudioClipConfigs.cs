@@ -12,10 +12,12 @@ namespace FirstLight.Game.Configs
 	public struct AudioClipConfig
 	{
 		public List<AssetReferenceT<AudioClip>> AudioClips;
+		public bool Loop;
 		public float BaseVolume;
 		public float BasePitch;
 		public float VolumeRandDeviation;
 		public float PitchRandDeviation;
+		public float PitchModPerLoop;
 	}
 
 	/// <summary>

@@ -149,7 +149,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.099998474}
+  m_AnchoredPosition: {x: -7, y: 7}
   m_SizeDelta: {x: 92.97, y: 77.3}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &8539328852545579661
@@ -583,9 +583,7 @@ MonoBehaviour:
   Anchor: {fileID: 7869157824217757518}
   ClickClip: {fileID: 7400000, guid: 47f4cc28b635045d0be5221018fbc0de, type: 2}
   IsForward: 1
-  OverrideSfx: 0
-  OverrideSfxClip:
-    _selection: MainMenuStart
+  OverrideClickSfxId: 0
 --- !u!114 &3240498142302198623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -665,8 +663,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -34, y: 53.8}
-  m_SizeDelta: {x: 40, y: 40}
+  m_AnchoredPosition: {x: -27.4, y: 26.8}
+  m_SizeDelta: {x: 48, y: 48}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1356164740885959953
 CanvasRenderer:
@@ -696,7 +694,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b6cdc4265ab284a2a83375c8cc9febc8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b008f4796d3474e22a0d7beeda54f0de, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
+using ExitGames.Client.Photon;
+using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
@@ -8,9 +11,11 @@ using FirstLight.Game.Utils;
 using FirstLight.NativeUi;
 using FirstLight.Services;
 using Newtonsoft.Json;
+using Photon.Realtime;
 using PlayFab;
 using PlayFab.CloudScriptModels;
 using PlayFab.SharedModels;
+using ServerSDK.Modules;
 using UnityEngine;
 
 namespace FirstLight.Game.Services
@@ -20,7 +25,23 @@ namespace FirstLight.Game.Services
 	/// </summary>
 	public enum CommandAccessLevel
 	{
-		Player, Admin
+		/// <summary>
+		/// Standard permission, allows command to be ran only for the given authenticated player.
+		/// </summary>
+		Player, 
+		
+		/// <summary>
+		/// Only allows the command to be ran for the given authenticated player but Admin commands might
+		/// perform operations normal players can't like cheats.
+		/// </summary>
+		Admin,
+		
+		/// <summary>
+		/// Service commands might be used for any given player without requiring player authentication.
+		/// It will impersonate a player to run the command from a third party service.
+		/// Will require a secret key to run the command.
+		/// </summary>
+		Service
 	}
 	
 	/// <inheritdoc cref="ICommandService{TGameLogic}"/>
@@ -54,20 +75,40 @@ namespace FirstLight.Game.Services
 	/// <inheritdoc />
 	public class GameCommandService : IGameCommandService
 	{
-		private readonly IGameFlowService _gameFlowService;
 		private readonly IDataProvider _dataProvider;
 		private readonly IGameLogic _gameLogic;
+		private readonly IGameServices _services;
 		private readonly Queue<IGameCommand> _commandQueue;
-		private IPlayfabService _playfab;
+		private readonly IPlayfabService _playfab;
+		private readonly IGameNetworkService _network;
 		
 		public GameCommandService(IPlayfabService playfabService, IGameLogic gameLogic, IDataProvider dataProvider,
-		                          IGameFlowService gameFlowService)
+		                          IGameServices services, IGameNetworkService network)
 		{
 			_playfab = playfabService;
 			_gameLogic = gameLogic;
 			_dataProvider = dataProvider;
-			_gameFlowService = gameFlowService;
+			_services = services;
 			_commandQueue = new Queue<IGameCommand>();
+			_network = network;
+			ModelSerializer.RegisterConverter(new QuantumVector2Converter());
+			ModelSerializer.RegisterConverter(new QuantumVector3Converter());
+		}
+
+		/// <summary>
+		/// Sends the command to quantum
+		/// </summary>
+		private void ExecuteConsensusCommand<TCommand>(TCommand command) where TCommand : IGameCommand
+		{
+			FLog.Verbose($"Sending quantum consensus command {command.GetType().Name}");
+			var json = ModelSerializer.Serialize(command);
+			var opt = new RaiseEventOptions
+			{
+				Receivers = ReceiverGroup.All
+			};
+			_network.QuantumClient.OpRaiseEvent(
+				(int)QuantumCustomEvents.ConsensusCommand, Encoding.UTF8.GetBytes($"{json.Key}:{json.Value}"), opt, SendOptions.SendReliable
+			);
 		}
 
 		/// <inheritdoc cref="CommandService{TGameLogic}.ExecuteCommand{TCommand}" />
@@ -75,9 +116,20 @@ namespace FirstLight.Game.Services
 		{
 			try
 			{
-				if (command.ExecuteServer)
+				switch (command.CommandExecutionMode)
 				{
-					EnqueueCommandToServer(command);
+					case CommandExecutionMode.QuantumConsensus:
+						if(FeatureFlags.QUANTUM_CUSTOM_SERVER)
+						{
+							ExecuteConsensusCommand(command);
+						} else
+						{
+							EnqueueCommandToServer(command);
+						}
+						break;
+					case CommandExecutionMode.Server:
+						EnqueueCommandToServer(command);
+						break;
 				}
 				command.Execute(_gameLogic, _dataProvider);
 			}
@@ -88,7 +140,7 @@ namespace FirstLight.Game.Services
 				{
 					Callback = () =>
 					{
-						_gameFlowService.QuitGame("Closing game exception popup");
+						_services.QuitGame("Closing game exception popup");
 					},
 					Style = AlertButtonStyle.Negative,
 					Text = "Quit Game"
@@ -152,6 +204,7 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		private void ExecuteServerCommand<TCommand>(TCommand command) where TCommand : IGameCommand
 		{
+			FLog.Verbose($"Sending server command {command.GetType().Name}");
 			var request = new LogicRequest
 			{
 				Command = command.GetType().FullName,

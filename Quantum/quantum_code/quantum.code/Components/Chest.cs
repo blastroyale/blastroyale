@@ -39,15 +39,17 @@ namespace Quantum
 		public void Open(Frame f, EntityRef e, EntityRef playerEntity, PlayerRef playerRef)
 		{
 			var angleStep = 0;
-			var playerData = f.GetPlayerData(playerRef);
+
 			var chestPosition = f.Get<Transform3D>(e).Position;
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
+
 			var isBot = f.Has<BotCharacter>(playerEntity);
-			var hasPrimaryWeaponEquipped = playerCharacter->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon.IsValid();
-			var loadoutWeapon = isBot ? Equipment.None : playerData.Loadout.FirstOrDefault(item => item.IsWeapon());
+			var loadoutWeapon = isBot ? Equipment.None : playerCharacter->GetLoadoutWeapon(f);
 			var hasLoadoutWeapon = loadoutWeapon.IsValid();
 			var minimumRarity = hasLoadoutWeapon ? loadoutWeapon.Rarity : EquipmentRarity.Common;
-			var nextGearItem = isBot ? Equipment.None : GetNextLoadoutGearItem(f, playerCharacter, playerData.Loadout);
+			var nextGearItem = isBot ? Equipment.None : 
+				                   (hasLoadoutWeapon && !playerCharacter->HasDroppedLoadoutItem(loadoutWeapon)? 
+					                    loadoutWeapon : GetNextLoadoutGearItem(f, playerCharacter, playerCharacter->GetLoadout(f)));
 			var weaponPool = f.Context.GetPlayerWeapons(f, out var medianRarity);
 			var config = f.ChestConfigs.GetConfig(ChestType);
 			var stats = f.Get<Stats>(playerEntity);
@@ -55,14 +57,9 @@ namespace Quantum
 			var shieldCheck = stats.CurrentShield / stats.GetStatData(StatType.Shield).StatValue < FP._0_20;
 			var healthCheck = stats.CurrentHealth / stats.GetStatData(StatType.Health).StatValue < FP._0_20;
 
-			if (!hasPrimaryWeaponEquipped && hasLoadoutWeapon)
-			{
-				// Drop primary weapon if it's in loadout and not equipped
-				playerCharacter->SetDroppedLoadoutItem(loadoutWeapon);
-				ModifyEquipmentRarity(f, ref loadoutWeapon, minimumRarity, medianRarity);
-				Collectable.DropEquipment(f, loadoutWeapon, chestPosition, angleStep++, playerRef);
-			}
-			else if (nextGearItem.IsValid())
+			f.Events.OnChestOpened(config.Id, chestPosition);
+
+			if (nextGearItem.IsValid())
 			{
 				playerCharacter->SetDroppedLoadoutItem(nextGearItem);
 				ModifyEquipmentRarity(f, ref nextGearItem, minimumRarity, medianRarity);
@@ -214,14 +211,12 @@ namespace Quantum
 
 			// Set bits of loadout items we have
 			int loadoutFlags = 0;
-			foreach (var e in loadout)
+			if (loadout != null)
 			{
-				if (e.IsWeapon())
+				foreach (var e in loadout)
 				{
-					continue;
+					loadoutFlags |= 1 << (PlayerCharacter.GetGearSlot(e) + 1);
 				}
-
-				loadoutFlags |= 1 << (PlayerCharacter.GetGearSlot(e) + 1);
 			}
 
 			// Flip it around so only missing gear bits are set

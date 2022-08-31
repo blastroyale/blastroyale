@@ -23,16 +23,13 @@ MonoBehaviour:
         Key: StunDuration
     - Type: 3
       Key:
-        Key: AmmoFilled
-    - Type: 3
-      Key:
         Key: AimTime
     - Type: 3
       Key:
         Key: BurstShotCount
-    - Type: 0
+    - Type: 3
       Key:
-        Key: IsAiming
+        Key: AmmoFilled
     - Type: 3
       Key:
         Key: AimingMovementSpeed

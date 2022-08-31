@@ -75,8 +75,8 @@ GameObject:
   - component: {fileID: 6998687666688202493}
   - component: {fileID: 7608927183735655751}
   m_Layer: 0
-  m_Name: ColliderForBulletVisuals
-  m_TagString: Untagged
+  m_Name: VisualCollider
+  m_TagString: VisualCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -434,13 +434,13 @@ MonoBehaviour:
         Generation: 0
         ReplicationCounter: 0
         Durability: 0
-      Special1Charges: 0
-      Special2Charges: 0
-      Special1:
-        SpecialId:
+      Specials:
+      - SpecialId:
           Value: 0
         SpecialType:
           Value: 0
+        InitialCooldown:
+          RawValue: 0
         Cooldown:
           RawValue: 0
         Radius:
@@ -449,16 +449,20 @@ MonoBehaviour:
           RawValue: 0
         Speed:
           RawValue: 0
+        MinRange:
+          RawValue: 0
         MaxRange:
           RawValue: 0
-        Knockback: 0
         AvailableTime:
           RawValue: 0
-      Special2:
-        SpecialId:
+        Charges: 0
+        Knockback: 0
+      - SpecialId:
           Value: 0
         SpecialType:
           Value: 0
+        InitialCooldown:
+          RawValue: 0
         Cooldown:
           RawValue: 0
         Radius:
@@ -467,11 +471,14 @@ MonoBehaviour:
           RawValue: 0
         Speed:
           RawValue: 0
+        MinRange:
+          RawValue: 0
         MaxRange:
           RawValue: 0
-        Knockback: 0
         AvailableTime:
           RawValue: 0
+        Charges: 0
+        Knockback: 0
     - Weapon:
         GameId:
           Value: 0
@@ -497,13 +504,13 @@ MonoBehaviour:
         Generation: 0
         ReplicationCounter: 0
         Durability: 0
-      Special1Charges: 0
-      Special2Charges: 0
-      Special1:
-        SpecialId:
+      Specials:
+      - SpecialId:
           Value: 0
         SpecialType:
           Value: 0
+        InitialCooldown:
+          RawValue: 0
         Cooldown:
           RawValue: 0
         Radius:
@@ -512,16 +519,20 @@ MonoBehaviour:
           RawValue: 0
         Speed:
           RawValue: 0
+        MinRange:
+          RawValue: 0
         MaxRange:
           RawValue: 0
-        Knockback: 0
         AvailableTime:
           RawValue: 0
-      Special2:
-        SpecialId:
+        Charges: 0
+        Knockback: 0
+      - SpecialId:
           Value: 0
         SpecialType:
           Value: 0
+        InitialCooldown:
+          RawValue: 0
         Cooldown:
           RawValue: 0
         Radius:
@@ -530,11 +541,14 @@ MonoBehaviour:
           RawValue: 0
         Speed:
           RawValue: 0
+        MinRange:
+          RawValue: 0
         MaxRange:
           RawValue: 0
-        Knockback: 0
         AvailableTime:
           RawValue: 0
+        Charges: 0
+        Knockback: 0
     - Weapon:
         GameId:
           Value: 0
@@ -560,13 +574,13 @@ MonoBehaviour:
         Generation: 0
         ReplicationCounter: 0
         Durability: 0
-      Special1Charges: 0
-      Special2Charges: 0
-      Special1:
-        SpecialId:
+      Specials:
+      - SpecialId:
           Value: 0
         SpecialType:
           Value: 0
+        InitialCooldown:
+          RawValue: 0
         Cooldown:
           RawValue: 0
         Radius:
@@ -575,16 +589,20 @@ MonoBehaviour:
           RawValue: 0
         Speed:
           RawValue: 0
+        MinRange:
+          RawValue: 0
         MaxRange:
           RawValue: 0
-        Knockback: 0
         AvailableTime:
           RawValue: 0
-      Special2:
-        SpecialId:
+        Charges: 0
+        Knockback: 0
+      - SpecialId:
           Value: 0
         SpecialType:
           Value: 0
+        InitialCooldown:
+          RawValue: 0
         Cooldown:
           RawValue: 0
         Radius:
@@ -593,12 +611,39 @@ MonoBehaviour:
           RawValue: 0
         Speed:
           RawValue: 0
+        MinRange:
+          RawValue: 0
         MaxRange:
           RawValue: 0
-        Knockback: 0
         AvailableTime:
           RawValue: 0
+        Charges: 0
+        Knockback: 0
     Gear:
+    - GameId:
+        Value: 0
+      Edition:
+        Value: 0
+      Rarity:
+        Value: 0
+      Grade:
+        Value: 0
+      Faction:
+        Value: 0
+      Adjective:
+        Value: 0
+      Material:
+        Value: 0
+      Manufacturer:
+        Value: 0
+      MaxDurability: 0
+      MaxLevel: 0
+      InitialReplicationCounter: 0
+      Tuning: 0
+      Level: 0
+      Generation: 0
+      ReplicationCounter: 0
+      Durability: 0
     - GameId:
         Value: 0
       Edition:

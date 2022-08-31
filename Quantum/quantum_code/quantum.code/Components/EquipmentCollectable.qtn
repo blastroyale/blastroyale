@@ -3,3 +3,11 @@ component EquipmentCollectable
 	[HideInInspector] Equipment Item;
 	[HideInInspector] player_ref Owner; // Optionally set if this weapon is from a Loadout of a player
 }
+
+synced event OnEquipmentCollected
+{
+	entity_ref Entity;
+	player_ref Player;
+	entity_ref PlayerEntity;
+	Equipment Item;
+}

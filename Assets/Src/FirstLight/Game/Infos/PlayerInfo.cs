@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using FirstLight.Game.Configs;
 using Quantum;
 
@@ -11,6 +12,9 @@ namespace FirstLight.Game.Infos
 		public uint TotalCollectedXp;
 		public uint MaxLevel;
 		public GameId Skin;
+		public GameId DeathMarker;
+		public uint TotalTrophies;
+		public List<UnlockSystem> CurrentUnlockedSystems;
 		public PlayerLevelConfig Config;
 
 		/// <summary>

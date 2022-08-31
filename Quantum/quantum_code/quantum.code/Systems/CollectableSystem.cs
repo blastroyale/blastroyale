@@ -6,8 +6,7 @@ namespace Quantum.Systems
 	/// <summary>
 	/// This system handles all the <see cref="Collectable"/> component collection interactions using triggers 
 	/// </summary>
-	public unsafe class CollectableSystem : SystemSignalsOnly, ISignalHealthIsZero,
-	                                        ISignalOnComponentRemoved<PlayerCharacter>,
+	public unsafe class CollectableSystem : SystemSignalsOnly, ISignalPlayerDead,
 	                                        ISignalOnTriggerEnter3D, ISignalOnTrigger3D, ISignalOnTriggerExit3D
 	{
 		public void OnTriggerEnter3D(Frame f, TriggerInfo3D info)
@@ -105,26 +104,11 @@ namespace Quantum.Systems
 			return false;
 		}
 
-		/// <inheritdoc />
-		public void HealthIsZero(Frame f, EntityRef entity, EntityRef attacker)
-		{
-			if (!f.TryGet<PlayerCharacter>(entity, out var playerCharacter))
-			{
-				return;
-			}
-
-			foreach (var collectable in f.Unsafe.GetComponentBlockIterator<Collectable>())
-			{
-				StopCollecting(f, collectable.Entity, entity, playerCharacter.Player, collectable.Component);
-			}
-		}
-
-		/// <inheritdoc />
-		public void OnRemoved(Frame f, EntityRef entity, PlayerCharacter* component)
+		public void PlayerDead(Frame f, PlayerRef playerDead, EntityRef entityDead)
 		{
 			foreach (var collectable in f.Unsafe.GetComponentBlockIterator<Collectable>())
 			{
-				StopCollecting(f, collectable.Entity, entity, component->Player, collectable.Component);
+				StopCollecting(f, collectable.Entity, entityDead, playerDead, collectable.Component);
 			}
 		}
 
@@ -153,7 +137,11 @@ namespace Quantum.Systems
 				{
 					gameId = GameId.AmmoSmall;
 					var ammoAmount = f.ConsumableConfigs.GetConfig(gameId).Amount;
-					playerCharacter->GainAmmo(f, playerEntity, ammoAmount);
+					var consumable = new Consumable { ConsumableType = ConsumableType.Ammo, Amount = ammoAmount };
+
+					// Fake use a consumable to simulate it's natural life cycle
+					f.Add(entity, consumable);
+					consumable.Collect(f, entity, playerEntity, player);
 				}
 				else
 				{

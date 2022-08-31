@@ -1,8 +1,6 @@
 using System;
 using FirstLight.Services;
 
-namespace Tests.Stubs;
-
 // TODO: Implement properly, this is throw-away test code
 public class ServerTestData : IDataProvider
 {

@@ -115,7 +115,6 @@ namespace Quantum
 			                                    f.Context.TargetAllLayerMask, QueryOptions.HitDynamics | QueryOptions.HitKinematics);
 			
 			hits.SortCastDistance();
-			
 
 			for (var j = 0; j < hits.Count; j++)
 			{
@@ -155,10 +154,8 @@ namespace Quantum
 		{
 			if (!IsAttackable(f, spell.Victim, spell.TeamSource))
 			{
-
 				return false;
 			}
-
 
 			if (spell.KnockbackAmount > 0 &&
 			    f.Unsafe.TryGetPointer<CharacterController3D>(spell.Victim, out var kcc) &&
@@ -168,14 +165,6 @@ namespace Quantum
 				           spell.KnockbackAmount;
 				kick.Y = FP._0;
 				kcc->Velocity += kick;
-			}
-			
-
-			if (spell.IsInstantaneous && f.Unsafe.TryGetPointer<Stats>(spell.Victim, out var stats))
-			{
-				stats->ReduceHealth(f, spell);
-
-				return true;
 			}
 
 			f.Add(f.Create(), spell);

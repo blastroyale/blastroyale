@@ -1,15 +1,13 @@
 
 using System.Collections.Generic;
 using Backend.Game.Services;
-using Tests.Stubs;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using NUnit.Framework;
 using Quantum;
+using ServerSDK.Modules;
 using Assert = NUnit.Framework.Assert;
-
-namespace Tests;
 
 public class TestCommandManager
 {
@@ -48,17 +46,15 @@ public class TestCommandManager
 	}
 	
 	[Test]
-	public void TestCommandFromArgs()
+	public void TestCommandFromString()
 	{
 		var sentCommand = new UpdatePlayerSkinCommand()
 		{
 			SkinId = GameId.Barrel // a skin to look like a barrel !! $_$
 		};
-		var args = new Dictionary<string, string>();
 		var (cmdTypeName, cmdData) = ModelSerializer.Serialize(sentCommand);
-		args[CommandFields.Command] = cmdData;
 		
-		var receivedCommand = (UpdatePlayerSkinCommand)_server.GetService<IServerCommahdHandler>().BuildCommandInstance(args, cmdTypeName);
+		var receivedCommand = (UpdatePlayerSkinCommand)_server.GetService<IServerCommahdHandler>().BuildCommandInstance(cmdData, cmdTypeName);
 
 		Assert.AreEqual(sentCommand.SkinId, receivedCommand.SkinId);
 	}

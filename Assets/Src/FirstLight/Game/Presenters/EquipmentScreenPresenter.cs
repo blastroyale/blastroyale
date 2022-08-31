@@ -52,6 +52,7 @@ namespace FirstLight.Game.Presenters
 		// TODO: This should be a view when we properly implement it
 		[SerializeField, Required] private TextMeshProUGUI _itemTitleText;
 		[SerializeField, Required] private GameObject _equipmentAttributesHolder;
+		[SerializeField, Required] private GameObject _equipmentStatsHolder;
 
 		[SerializeField, Required] private TextMeshProUGUI _generationText;
 		[SerializeField, Required] private TextMeshProUGUI _editionText;
@@ -66,7 +67,6 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private TextMeshProUGUI _levelText;
 		[SerializeField, Required] private TextMeshProUGUI _replicationText;
 		[SerializeField, Required] private GameObject _actionButtonHolder;
-		[SerializeField, Required] private GameObject _equippedStatusObject;
 		[SerializeField, Required] private GameObject _itemLevelObject;
 		[SerializeField, Required] private GameObject _upgradeCostHolder;
 		[SerializeField, Required] private TextMeshProUGUI _equipButtonText;
@@ -153,22 +153,22 @@ namespace FirstLight.Game.Presenters
 			_itemTitleText.text = ScriptLocalization.General.SlotEmpty;
 			_descriptionText.text = ScriptLocalization.General.CollectItemsFromCrates;
 
+			_equipmentStatsHolder.SetActive(false);
 			_equipmentAttributesHolder.SetActive(false);
 			_weaponTypeButton.gameObject.SetActive(false);
 			_movieButton.gameObject.SetActive(false);
 			_itemLevelObject.SetActive(false);
 			_actionButtonHolder.SetActive(false);
 			_equipmentCooldownViewRef.SetVisualsActive(false);
-			_powerRatingText.text = "";
 		}
 
 		private void SetStats()
 		{
 			var equipmentProvider = _gameDataProvider.EquipmentDataProvider;
+			var loadout = equipmentProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both);
 
 			_statInfoViewPool?.DespawnAll();
 			_statSpecialInfoViewPool?.DespawnAll();
-			_equippedStatusObject.SetActive(equipmentProvider.Loadout.ReadOnlyDictionary.Values.Contains(_selectedId));
 
 			if (_selectedId == UniqueId.Invalid)
 			{
@@ -189,11 +189,15 @@ namespace FirstLight.Game.Presenters
 			var isWeapon = equipment.Equipment.GameId.IsInGroup(GameIdGroup.Weapon);
 
 			SetStatInfoData(equipment);
-			SetCooldownStatus();
-			
+
+			if (_gameDataProvider.EquipmentDataProvider.NftInventory.ContainsKey(equipment.Id))
+			{
+				SetCooldownStatus();
+			}
+
 			// TODO: Add proper translation logic
 			_equipButtonText.SetText(equipment.IsEquipped ? ScriptLocalization.General.Unequip : ScriptLocalization.General.Equip);
-			_powerRatingText.text = string.Format(ScriptLocalization.MainMenu.PowerRating, equipment.Stats[EquipmentStatType.Damage].ToString());
+			_powerRatingText.text = string.Format(ScriptLocalization.MainMenu.MightRating, loadout.GetTotalMight().ToString());
 			_itemTitleText.text = $"{equipment.Equipment.Adjective} {equipment.Equipment.GameId.GetTranslation()}";
 			_editionText.text = equipment.Equipment.Edition.ToString();
 			_materialText.text = equipment.Equipment.Material.ToString();
@@ -201,7 +205,8 @@ namespace FirstLight.Game.Presenters
 			_factionText.text = equipment.Equipment.Faction.ToString();
 			_manufacturerText.text = equipment.Equipment.Manufacturer.ToString();
 			_durabilityText.text = $"Durability {equipment.Equipment.Durability}/{equipment.Equipment.MaxDurability}";
-			_restoredText.text = "??";
+			_restoredText.text = "Restored: 0";
+			_generationText.text = "Genesis";
 			_replicationText.text = $"Replication {equipment.Equipment.ReplicationCounter}/{equipment.Equipment.InitialReplicationCounter}";
 			_screenTitleText.text = equipment.Equipment.GameId.GetSlot().GetTranslation();
 			_descriptionText.text = LocalizationManager.GetTranslation(descriptionID);
@@ -224,15 +229,15 @@ namespace FirstLight.Game.Presenters
 				_upgradeCoinImage.enabled = false;
 			}
 
-
 			for (int i = 0; i < _rarityImage.Length; i++)
 			{
-				_rarityImage[i].enabled = i == (int) equipment.Equipment.Rarity;
+				_rarityImage[i].enabled = i == Mathf.FloorToInt((float) equipment.Equipment.Rarity / 2f);
 			}
 
-			_movieButton.gameObject.SetActive(isWeapon);
-			_weaponTypeButton.gameObject.SetActive(isWeapon);
+			_movieButton.gameObject.SetActive(false);
+			_weaponTypeButton.gameObject.SetActive(false);
 			_equipmentAttributesHolder.SetActive(true);
+			_equipmentStatsHolder.SetActive(true);
 			_itemLevelObject.SetActive(true);
 			_actionButtonHolder.SetActive(true);
 		}
@@ -247,11 +252,11 @@ namespace FirstLight.Game.Presenters
 
 			foreach (var (stat, value) in equipment.Stats)
 			{
-				if (stat == EquipmentStatType.AttackCooldown || stat == EquipmentStatType.ProjectileSpeed)
+				if (stat == EquipmentStatType.ProjectileSpeed)
 				{
 					continue;
 				}
-
+			
 				if (value > 0 && (stat == EquipmentStatType.SpecialId0 || stat == EquipmentStatType.SpecialId1))
 				{
 					GetSpecialIconInfo(stat, _statSpecialInfoViewPool.Spawn(), (GameId) value);
@@ -263,21 +268,28 @@ namespace FirstLight.Game.Presenters
 						                      ? GameConstants.Visuals.MOVEMENT_SPEED_BEAUTIFIER
 						                      : 1f;
 					var selectedValue = value * statsBeautifier;
-
+			
 					if (equipment.Equipment.IsMaxLevel())
 					{
 						_statInfoViewPool.Spawn().SetInfo(stat, stat.GetTranslation(), selectedValue,
 						                                  statsAtMaxLevel[stat]);
 						continue;
 					}
-
-					var format = stat == EquipmentStatType.ReloadSpeed ? "N1" : "N0";
+			
+					var format = stat switch
+					{
+						EquipmentStatType.ReloadSpeed => "N1",
+						EquipmentStatType.PowerToDamageRatio => "N2",
+						EquipmentStatType.AttackCooldown => "N2",
+						_ => "N0"
+					};
+					
 					var equippedValue = statsAtNextLevel[stat] * statsBeautifier;
 					var statText = selectedValue.ToString(format);
 					var delta = stat == EquipmentStatType.ReloadSpeed
 						            ? equippedValue - selectedValue
 						            : Mathf.RoundToInt(equippedValue) - Mathf.RoundToInt(selectedValue);
-
+			
 					_statInfoViewPool.Spawn().SetComparisonInfo(stat.GetTranslation(), statText, delta,
 					                                            stat, selectedValue, equippedValue);
 				}
@@ -314,7 +326,7 @@ namespace FirstLight.Game.Presenters
 		{
 			var dataProvider = _gameDataProvider.EquipmentDataProvider;
 			var loadout = dataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both);
-			var previousDamage = loadout.GetTotalStat(EquipmentStatType.Damage);
+			var previousMight = loadout.GetTotalMight();
 			var item = loadout.Find(infoItem => infoItem.Id == _selectedId);
 
 			if (item.IsEquipped)
@@ -356,14 +368,14 @@ namespace FirstLight.Game.Presenters
 				EquipItem(_selectedId);
 			}
 			
-			var damageDiff =  dataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both).GetTotalStat(EquipmentStatType.Damage) - previousDamage;
-			var postfix = damageDiff < 0 ? "-" : "+";
+			var mightDiff =  Mathf.RoundToInt(dataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both).GetTotalMight() - previousMight);
+			var postfix = mightDiff < 0 ? "-" : "+";
 
-			_powerChangeText.color = damageDiff < 0 ? Color.red : Color.green;
+			_powerChangeText.color = mightDiff < 0 ? Color.red : Color.green;
 
-			if (Mathf.Abs(damageDiff) > float.Epsilon)
+			if (Mathf.Abs(mightDiff) > float.Epsilon)
 			{
-				_powerChangeText.text = $"{ScriptLocalization.MainMenu.Power} {postfix} {Mathf.Abs(damageDiff).ToString()}";
+				_powerChangeText.text = $"{ScriptLocalization.MainMenu.MightRating} {postfix} {Mathf.Abs(mightDiff).ToString()}";
 				_powerChangeText.enabled = true;
 				_powerChangeAnimation.Rewind();
 				_powerChangeAnimation.Play();

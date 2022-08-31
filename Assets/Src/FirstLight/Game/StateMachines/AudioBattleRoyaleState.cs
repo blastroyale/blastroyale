@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Presenters;
@@ -19,14 +20,15 @@ namespace FirstLight.Game.StateMachines
 	/// </summary>
 	public class AudioBattleRoyaleState
 	{
-		private static readonly IStatechartEvent IncreaseIntensityEvent =
-			new StatechartEvent("Increase Music Intensity Event");
+		private static readonly IStatechartEvent IncreaseIntensityEvent = new StatechartEvent("Increase Music Intensity Event");
+		private static readonly IStatechartEvent MaxIntensityEvent = new StatechartEvent("Max Music Intensity Event");
 
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _dataProvider;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
 		private float _lastRecordedIntensityIncreaseTime = 0;
+		private bool _isHighIntensityPhase = false;
 		private float CurrentMatchTime => QuantumRunner.Default.Game.Frames.Predicted.Time.AsFloat;
 
 		public AudioBattleRoyaleState(IGameServices services, IGameDataProvider gameLogic,
@@ -48,34 +50,44 @@ namespace FirstLight.Game.StateMachines
 			var skydive = stateFactory.State("AUDIO BR - Skydive");
 			var lowIntensity = stateFactory.State("AUDIO BR - Low Intensity");
 			var midIntensity = stateFactory.State("AUDIO BR - Mid Intensity");
-
+			var highIntensity = stateFactory.State("AUDIO BR - High Intensity");
+			
 			initial.Transition().Target(matchStateCheck);
 			initial.OnExit(SubscribeEvents);
 
 			matchStateCheck.Transition().Condition(IsSkyDivePhase).Target(skydive);
 			matchStateCheck.Transition().Condition(IsLowIntensityPhase).Target(lowIntensity);
-			matchStateCheck.Transition().Target(midIntensity);
+			matchStateCheck.Transition().Condition(IsMidIntensityPhase).Target(midIntensity);
+			matchStateCheck.Transition().Target(highIntensity);
 
 			skydive.OnEnter(PlaySkydiveMusic);
 			skydive.Event(IncreaseIntensityEvent).Target(lowIntensity);
 
 			lowIntensity.OnEnter(PlayLowIntensityMusic);
 			lowIntensity.Event(IncreaseIntensityEvent).Target(midIntensity);
-
+			lowIntensity.Event(MaxIntensityEvent).Target(highIntensity);
+			
 			midIntensity.OnEnter(PlayMidIntensityMusic);
-			midIntensity.Event(IncreaseIntensityEvent).Target(final);
-
+			midIntensity.Event(IncreaseIntensityEvent).Target(highIntensity);
+			midIntensity.Event(MaxIntensityEvent).Target(highIntensity);
+			
+			highIntensity.OnEnter(StopMusicInstant);
+			highIntensity.OnEnter(PlayHighIntensityMusic);
+			highIntensity.Event(IncreaseIntensityEvent).Target(final);
+			
 			final.OnEnter(UnsubscribeEvents);
 		}
 
 		private void SubscribeEvents()
 		{
 			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnQuantumUpdateView);
+			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnEventOnPlayerKilledPlayer);
 		}
 
 		private void UnsubscribeEvents()
 		{
 			QuantumCallback.UnsubscribeListener(this);
+			QuantumEvent.UnsubscribeListener(this);
 		}
 
 		private void OnQuantumUpdateView(CallbackUpdateView callback)
@@ -85,9 +97,25 @@ namespace FirstLight.Game.StateMachines
 			if ((time > GameConstants.Audio.BR_LOW_PHASE_SECONDS_THRESHOLD &&
 			     _lastRecordedIntensityIncreaseTime < GameConstants.Audio.BR_LOW_PHASE_SECONDS_THRESHOLD) ||
 			    (time > GameConstants.Audio.BR_MID_PHASE_SECONDS_THRESHOLD &&
-			     _lastRecordedIntensityIncreaseTime < GameConstants.Audio.BR_MID_PHASE_SECONDS_THRESHOLD))
+			     _lastRecordedIntensityIncreaseTime < GameConstants.Audio.BR_MID_PHASE_SECONDS_THRESHOLD) ||
+			    (time > GameConstants.Audio.BR_HIGH_PHASE_SECONDS_THRESHOLD &&
+						    _lastRecordedIntensityIncreaseTime < GameConstants.Audio.BR_MID_PHASE_SECONDS_THRESHOLD) &&
+			    !_isHighIntensityPhase) 
 			{
 				_statechartTrigger(IncreaseIntensityEvent);
+			}
+		}
+		
+		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
+		{
+			var frame = callback.Game.Frames.Verified;
+			var container = frame.GetSingleton<GameContainer>();
+			var playersLeft = container.TargetProgress - (container.CurrentProgress + 1);
+			// CurrentProgress+1 because BR always has 1 player left alive at the end
+
+			if (playersLeft <= GameConstants.Audio.BR_HIGH_PHASE_PLAYERS_LEFT_THRESHOLD && !_isHighIntensityPhase)
+			{
+				_statechartTrigger(MaxIntensityEvent);
 			}
 		}
 
@@ -99,6 +127,20 @@ namespace FirstLight.Game.StateMachines
 		private bool IsLowIntensityPhase()
 		{
 			return CurrentMatchTime < GameConstants.Audio.BR_MID_PHASE_SECONDS_THRESHOLD;
+		}
+		
+		private bool IsMidIntensityPhase()
+		{
+			var frame = QuantumRunner.Default.Game.Frames.Verified;
+			var container = frame.GetSingleton<GameContainer>();
+			var playersLeft = container.TargetProgress - container.CurrentProgress;
+			
+			return CurrentMatchTime < GameConstants.Audio.BR_HIGH_PHASE_SECONDS_THRESHOLD && playersLeft > 2;
+		}
+		
+		private void StopMusicInstant()
+		{
+			_services.AudioFxService.StopMusic();
 		}
 
 		private void PlaySkydiveMusic()
@@ -132,6 +174,22 @@ namespace FirstLight.Game.StateMachines
 
 			_services.AudioFxService.PlayMusic(AudioId.MusicBrMidLoop, fadeInDuration,
 			                                   GameConstants.Audio.MUSIC_SHORT_FADE_SECONDS, true);
+		}
+		
+		private void PlayHighIntensityMusic()
+		{
+			_lastRecordedIntensityIncreaseTime = CurrentMatchTime;
+			_isHighIntensityPhase = true;
+			
+			_services.AudioFxService.PlayClip2D(AudioId.MusicHighTransitionJingleBr, GameConstants.Audio.MIXER_GROUP_MUSIC_ID);
+
+			_services.CoroutineService.StartCoroutine(PlayBrHighLoopCoroutine());
+		}
+		
+		private IEnumerator PlayBrHighLoopCoroutine()
+		{
+			yield return new WaitForSeconds(GameConstants.Audio.HIGH_LOOP_TRANSITION_DELAY);
+			_services.AudioFxService.PlayMusic(AudioId.MusicBrHighLoop, 0,0, false);
 		}
 	}
 }

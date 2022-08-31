@@ -7,6 +7,7 @@ using FirstLight.Game.Utils;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace FirstLight.Game.MonoComponent.Match
 {
@@ -24,33 +25,44 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private IGameServices _services;
 		private IMatchServices _matchServices;
-		private LocalInput _localInput;
-
 		private bool _spectating;
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
-			_localInput = new LocalInput();
 
-			_localInput.Gameplay.SpecialButton0.started += _ => SetActiveCamera(_specialAimCamera);
-			_localInput.Gameplay.SpecialButton0.canceled += _ => SetActiveCamera(_adventureCamera);
-			_localInput.Gameplay.SpecialButton1.started += _ => SetActiveCamera(_specialAimCamera);
-			_localInput.Gameplay.SpecialButton1.canceled += _ => SetActiveCamera(_adventureCamera);
+			var input = _services.PlayerInputService.Input.Gameplay;
 
-			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
+			input.SpecialButton0.started += SetActiveCamera;
+			input.SpecialButton0.canceled += SetActiveCamera;
+			input.SpecialButton1.started += SetActiveCamera;
+			input.SpecialButton1.canceled += SetActiveCamera;
+
+			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 			_services.MessageBrokerService.Subscribe<SpectateSetCameraMessage>(OnSpectateSetCameraMessage);
-
+			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLand);
-
-			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
-
-			_localInput.Enable();
-			_services.MessageBrokerService.Subscribe<MatchSimulationStartedMessage>(OnMatchSimulationStartedMessage);
+			
 			gameObject.SetActive(false);
+		}
+
+		private void OnDestroy()
+		{
+			var input = _services?.PlayerInputService?.Input?.Gameplay;
+
+			if (input.HasValue)
+			{
+				input.Value.SpecialButton0.started -= SetActiveCamera;
+				input.Value.SpecialButton0.canceled -= SetActiveCamera;
+				input.Value.SpecialButton1.started -= SetActiveCamera;
+				input.Value.SpecialButton1.canceled -= SetActiveCamera;
+			}
+			
+			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(OnSpectatedPlayerChanged);
+			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
@@ -64,12 +76,9 @@ namespace FirstLight.Game.MonoComponent.Match
 			SnapCamera();
 		}
 
-		private void OnDestroy()
+		private void SetActiveCamera(InputAction.CallbackContext context)
 		{
-			_localInput?.Dispose();
-			_services?.MessageBrokerService?.UnsubscribeAll(this);
-			QuantumEvent.UnsubscribeListener(this);
-			QuantumCallback.UnsubscribeListener(this);
+			SetActiveCamera(context.canceled ? _adventureCamera : _specialAimCamera);
 		}
 
 		private void OnSpectateSetCameraMessage(SpectateSetCameraMessage obj)
@@ -77,14 +86,11 @@ namespace FirstLight.Game.MonoComponent.Match
 			SetActiveCamera(_spectateCameras[obj.CameraId]);
 		}
 
-		private void OnMatchSimulationStartedMessage(MatchSimulationStartedMessage obj)
+		private void OnMatchStarted(MatchStartedMessage obj)
 		{
 			gameObject.SetActive(true);
-		}
-
-		private void OnMatchStartedMessage(MatchStartedMessage msg)
-		{
-			if (msg.IsResync)
+			
+			if (obj.IsResync)
 			{
 				SetActiveCamera(_adventureCamera);
 				SnapCamera();

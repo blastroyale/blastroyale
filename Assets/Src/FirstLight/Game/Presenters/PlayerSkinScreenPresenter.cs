@@ -71,7 +71,7 @@ namespace FirstLight.Game.Presenters
 		/// </summary>
 		protected override async void OnOpened()
 		{
-			_selectedId = _gameDataProvider.PlayerDataProvider.CurrentSkin.Value;
+			_selectedId = _gameDataProvider.PlayerDataProvider.PlayerInfo.Skin;
 			base.OnOpened();
 			
 			// Used to fix OSA order of execution issue.
@@ -108,7 +108,7 @@ namespace FirstLight.Game.Presenters
 
 		private void UpdateSelectedButtonImage(GameId selectedId)
 		{
-			var skinValue = _gameDataProvider.PlayerDataProvider.CurrentSkin.Value;
+			var skinValue = _gameDataProvider.PlayerDataProvider.PlayerInfo.Skin;
 			
 			_selectedGameHolder.SetActive(skinValue == selectedId);
 			_selectButton.gameObject.SetActive(skinValue != selectedId);

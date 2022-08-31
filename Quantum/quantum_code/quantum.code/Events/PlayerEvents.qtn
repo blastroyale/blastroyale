@@ -44,6 +44,8 @@ synced event OnPlayerDead
 {
 	player_ref Player;
 	entity_ref Entity;
+	entity_ref EntityKiller;
+	bool IsPlayerKiller;
 }
 
 synced event OnPlayerEmojiSent
@@ -83,6 +85,7 @@ synced event OnPlayerWeaponChanged
 	player_ref Player;
 	entity_ref Entity;
 	Equipment Weapon;
+	Int32 Slot;
 }
 
 synced event OnPlayerGearChanged
@@ -98,6 +101,7 @@ synced event OnPlayerAttack
 	player_ref Player;
 	entity_ref PlayerEntity;
 	Equipment Weapon;
+	QuantumWeaponConfig WeaponConfig;
 	FP ShotDir;
 	UInt32 AttackAngle;
 }
@@ -105,14 +109,14 @@ synced event OnPlayerAttack
 synced event OnPlayerDamaged
 {
 	player_ref Player;
-	entity_ref Entity;
-	entity_ref Attacker;
-	UInt32 ShieldDamage; 
-	UInt32 HealthDamage;
+	Spell Spell;
 	UInt32 TotalDamage;
+	UInt32 ShieldDamage; 
+	Int32 PreviousShield;
+	Int32 MaxShield;
+	UInt32 HealthDamage;
+	Int32 PreviousHealth;
 	Int32 MaxHealth;
-	Int32 ShieldCapacity;
-	FPVector3 HitPosition;
 }
 
 synced event OnPlayerAttackHit
@@ -137,22 +141,15 @@ synced event OnPlayerStatsChanged
 	Quantum.Stats CurrentStats;
 }
 
-// LOCAL PLAYER EVENTS
-
-synced event OnLocalPlayerAim
+synced event OnPlayerSpecialUsed
 {
-	local player_ref Player;
-	entity_ref PlayerEntity;
-	Equipment Weapon;
-	FP VelocitySqrMagnitude;
-	FP MaxSpeedSqr;
-}
-
-synced event OnLocalPlayerLeft
-{
-	local player_ref Player;
+	player_ref Player;
 	entity_ref Entity;
+	Special Special;
+	Int32 SpecialIndex;
 }
+
+// LOCAL PLAYER EVENTS
 
 synced event OnLocalPlayerSpawned
 {
@@ -201,15 +198,6 @@ synced event OnLocalPlayerAmmoEmpty
 	entity_ref Entity;
 }
 
-synced event OnLocalPlayerAmmoChanged
-{
-	local player_ref Player;
-	entity_ref Entity;
-	Int32 PreviousAmmo;
-	Int32 CurrentAmmo;
-	Int32 MaxAmmo;
-}
-
 synced event OnLocalPlayerWeaponAdded
 {
 	local player_ref Player;
@@ -222,26 +210,14 @@ synced event OnLocalPlayerWeaponChanged
 {
 	local player_ref Player;
 	entity_ref Entity;
-	Equipment Weapon;
+	WeaponSlot WeaponSlot;
 	Int32 Slot;
 }
 
-synced event OnLocalPlayerDamaged
+synced event OnLocalPlayerSpecialUsed
 {
 	local player_ref Player;
 	entity_ref Entity;
-	entity_ref Attacker;
-	UInt32 ShieldDamage;
-	UInt32 HealthDamage;
-	UInt32 TotalDamage;
-	Int32 MaxHealth;
-	Int32 ShieldCapacity;
-	FPVector3 HitPosition;
-}
-
-synced event OnLocalPlayerAttack
-{
-	local player_ref Player;
-	entity_ref PlayerEntity;
-	QuantumWeaponConfig WeaponConfig;
+	Special Special;
+	Int32 SpecialIndex;
 }

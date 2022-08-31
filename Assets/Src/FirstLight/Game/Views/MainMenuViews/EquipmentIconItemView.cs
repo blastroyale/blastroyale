@@ -39,7 +39,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 				_mainMenuServices.RemoteTextureService.CancelRequest(_textureRequestHandle);
 			}
 
-			if (_loadedId != uniqueId)
+			if (_loadedId != uniqueId && _gameDataProvider.EquipmentDataProvider.NftInventory.ContainsKey(uniqueId))
 			{
 				_loadedId = uniqueId;
 				var url = _gameDataProvider.EquipmentDataProvider.GetNftInfo(uniqueId).SafeImageUrl;

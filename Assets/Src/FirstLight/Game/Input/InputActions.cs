@@ -82,6 +82,15 @@ namespace FirstLight.Game.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Cancel Button"",
+                    ""type"": ""Button"",
+                    ""id"": ""7b68b57a-4747-4592-a90e-ac11d6f8613f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -330,7 +339,7 @@ namespace FirstLight.Game.Input
                 {
                     ""name"": """",
                     ""id"": ""ab87f8be-0780-4589-a75d-1af9d11fa73e"",
-                    ""path"": ""<Keyboard>/upArrow"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -340,30 +349,8 @@ namespace FirstLight.Game.Input
                 },
                 {
                     ""name"": """",
-                    ""id"": ""9251bfc5-1857-4845-a950-4a2a94e75658"",
-                    ""path"": ""<Keyboard>/downArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Aim Button"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""7b75ed8b-ead6-4845-9789-408125a8445c"",
-                    ""path"": ""<Keyboard>/leftArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Aim Button"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""35883955-d13d-4e0c-aa63-7ca7b43fefa2"",
-                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""id"": ""bdb062e8-cdf0-4004-9b65-b0d9cc9fc9bf"",
+                    ""path"": ""<Mouse>/middleButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -394,8 +381,8 @@ namespace FirstLight.Game.Input
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""Direction Keys"",
-                    ""id"": ""492cb57b-1ab1-4d9a-831b-a32505cfe4bc"",
+                    ""name"": ""ArrowKeys"",
+                    ""id"": ""902f96a7-7a3a-49bc-944b-7c5bb5054862"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -406,8 +393,8 @@ namespace FirstLight.Game.Input
                 },
                 {
                     ""name"": ""up"",
-                    ""id"": ""205c0646-f15e-46db-9e72-1ef5a8035616"",
-                    ""path"": ""<Keyboard>/i"",
+                    ""id"": ""e3edc8e1-0be2-46c3-b2b2-bf989932184d"",
+                    ""path"": ""<Keyboard>/upArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -417,8 +404,8 @@ namespace FirstLight.Game.Input
                 },
                 {
                     ""name"": ""down"",
-                    ""id"": ""bde0d329-73ef-4d5a-bf9d-a1b001c60282"",
-                    ""path"": ""<Keyboard>/k"",
+                    ""id"": ""0fdb2022-b743-4b56-b52a-a428b1ff21ef"",
+                    ""path"": ""<Keyboard>/downArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -428,8 +415,8 @@ namespace FirstLight.Game.Input
                 },
                 {
                     ""name"": ""left"",
-                    ""id"": ""7e1f8c0f-ec94-48d1-ae59-52eae93019c6"",
-                    ""path"": ""<Keyboard>/j"",
+                    ""id"": ""eabf52a0-a8d9-41a9-94ce-ff250c927c47"",
+                    ""path"": ""<Keyboard>/leftArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -439,14 +426,47 @@ namespace FirstLight.Game.Input
                 },
                 {
                     ""name"": ""right"",
-                    ""id"": ""976ce886-22a8-4da3-bf3d-5dcf2e54cb38"",
-                    ""path"": ""<Keyboard>/l"",
+                    ""id"": ""b908a797-0391-4b8f-9071-513085464d15"",
+                    ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Special Aim"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6f67bc16-b47d-4b86-b829-ee3e04afb576"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel Button"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""18c6442c-4d36-4c1b-b9d5-0f0b6e1f4956"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel Button"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1a814264-8265-46cc-ba29-ca623cc13e10"",
+                    ""path"": ""<OnScreenControlsDevice>/CancelPointerDown"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel Button"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -461,6 +481,7 @@ namespace FirstLight.Game.Input
             m_Gameplay_AimButton = m_Gameplay.FindAction("Aim Button", throwIfNotFound: true);
             m_Gameplay_SpecialButton0 = m_Gameplay.FindAction("Special Button0", throwIfNotFound: true);
             m_Gameplay_SpecialButton1 = m_Gameplay.FindAction("Special Button1", throwIfNotFound: true);
+            m_Gameplay_CancelButton = m_Gameplay.FindAction("Cancel Button", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -526,6 +547,7 @@ namespace FirstLight.Game.Input
         private readonly InputAction m_Gameplay_AimButton;
         private readonly InputAction m_Gameplay_SpecialButton0;
         private readonly InputAction m_Gameplay_SpecialButton1;
+        private readonly InputAction m_Gameplay_CancelButton;
         public struct GameplayActions
         {
             private @LocalInput m_Wrapper;
@@ -536,6 +558,7 @@ namespace FirstLight.Game.Input
             public InputAction @AimButton => m_Wrapper.m_Gameplay_AimButton;
             public InputAction @SpecialButton0 => m_Wrapper.m_Gameplay_SpecialButton0;
             public InputAction @SpecialButton1 => m_Wrapper.m_Gameplay_SpecialButton1;
+            public InputAction @CancelButton => m_Wrapper.m_Gameplay_CancelButton;
             public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -563,6 +586,9 @@ namespace FirstLight.Game.Input
                     @SpecialButton1.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSpecialButton1;
                     @SpecialButton1.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSpecialButton1;
                     @SpecialButton1.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSpecialButton1;
+                    @CancelButton.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCancelButton;
+                    @CancelButton.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCancelButton;
+                    @CancelButton.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCancelButton;
                 }
                 m_Wrapper.m_GameplayActionsCallbackInterface = instance;
                 if (instance != null)
@@ -585,6 +611,9 @@ namespace FirstLight.Game.Input
                     @SpecialButton1.started += instance.OnSpecialButton1;
                     @SpecialButton1.performed += instance.OnSpecialButton1;
                     @SpecialButton1.canceled += instance.OnSpecialButton1;
+                    @CancelButton.started += instance.OnCancelButton;
+                    @CancelButton.performed += instance.OnCancelButton;
+                    @CancelButton.canceled += instance.OnCancelButton;
                 }
             }
         }
@@ -597,6 +626,7 @@ namespace FirstLight.Game.Input
             void OnAimButton(InputAction.CallbackContext context);
             void OnSpecialButton0(InputAction.CallbackContext context);
             void OnSpecialButton1(InputAction.CallbackContext context);
+            void OnCancelButton(InputAction.CallbackContext context);
         }
     }
 }

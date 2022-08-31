@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Net;
 using ExitGames.Client.Photon;
 using FirstLight.FLogger;
@@ -21,6 +22,7 @@ using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
 using PlayFab.SharedModels;
+using ServerSDK.Modules;
 using UnityEngine;
 
 namespace FirstLight.Game.StateMachines
@@ -41,6 +43,8 @@ namespace FirstLight.Game.StateMachines
 		private readonly IDataService _dataService;
 		private readonly IGameBackendNetworkService _networkService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
+
+		private string _passwordRecoveryEmailTemplateId = "";
 		
 		public AuthenticationState(IGameServices services, IGameUiServiceInit uiService, IDataService dataService, 
 		                           IGameBackendNetworkService networkService, Action<IStatechartEvent> statechartTrigger)
@@ -131,7 +135,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				Callback = () =>
 				{
-					_services.GameFlowService.QuitGame("Closing playfab critical error alert");
+					_services.QuitGame("Closing playfab critical error alert");
 				},
 				Style = AlertButtonStyle.Negative,
 				Text = ScriptLocalization.MainMenu.QuitGameButton
@@ -160,6 +164,13 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(_authenticationFailEvent);
 			OnPlayFabError(error);
 		}
+		
+		private void OnAutomaticAuthenticationFail(PlayFabError error)
+		{
+			_dataService.GetData<AppData>().DeviceId = null;
+			_dataService.SaveData<AppData>();
+			_statechartTrigger(_authenticationFailEvent);
+		}
 
 		private bool HasLinkedDevice()
 		{
@@ -179,35 +190,35 @@ namespace FirstLight.Game.StateMachines
 #if UNITY_EDITOR
 			var login = new LoginWithCustomIDRequest
 			{
-				CreateAccount = true,
+				CreateAccount = !FeatureFlags.EMAIL_AUTH,
 				CustomId = deviceId,
 				InfoRequestParameters = infoParams
 			};
 			
-			PlayFabClientAPI.LoginWithCustomID(login, OnLoginSuccess, OnAuthenticationFail);
+			PlayFabClientAPI.LoginWithCustomID(login, OnLoginSuccess, OnAutomaticAuthenticationFail);
 			
 #elif UNITY_ANDROID
 			var login = new LoginWithAndroidDeviceIDRequest()
 			{
-				CreateAccount = true,
+				CreateAccount = !FeatureFlags.EMAIL_AUTH,
 				AndroidDevice = SystemInfo.deviceModel,
 				OS = SystemInfo.operatingSystem,
 				AndroidDeviceId = deviceId,
 				InfoRequestParameters = infoParams
 			};
 			
-			PlayFabClientAPI.LoginWithAndroidDeviceID(login, OnLoginSuccess, OnAuthenticationFail);
+			PlayFabClientAPI.LoginWithAndroidDeviceID(login, OnLoginSuccess, OnAutomaticAuthenticationFail);
 #elif UNITY_IOS
 			var login = new LoginWithIOSDeviceIDRequest()
 			{
-				CreateAccount = true,
+				CreateAccount = !FeatureFlags.EMAIL_AUTH,
 				DeviceModel = SystemInfo.deviceModel,
 				OS = SystemInfo.operatingSystem,
 				DeviceId = deviceId,
 				InfoRequestParameters = infoParams
 			};
 			
-			PlayFabClientAPI.LoginWithIOSDeviceID(login, OnLoginSuccess, OnAuthenticationFail);
+			PlayFabClientAPI.LoginWithIOSDeviceID(login, OnLoginSuccess, OnAutomaticAuthenticationFail);
 #endif
 		}
 
@@ -216,24 +227,26 @@ namespace FirstLight.Game.StateMachines
 			var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
 			var appData = _dataService.LoadData<AppData>();
 			var environment = "";
-
+			
 #if LIVE_SERVER
 			environment = "live";
 			PlayFabSettings.TitleId = "302CF";
 			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
+			_passwordRecoveryEmailTemplateId = F4F93EEA134BE503;
 #elif OFFCHAIN_SERVER
 			environment = "offchain";
 			PlayFabSettings.TitleId = "***REMOVED***";
 			quantumSettings.AppSettings.AppIdRealtime = "81262db7-24a2-4685-b386-65427c73ce9d";
+			_passwordRecoveryEmailTemplateId = "***REMOVED***";
 #elif STAGE_SERVER
 			environment = "stage";
 			PlayFabSettings.TitleId = "***REMOVED***";
 			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
+			_passwordRecoveryEmailTemplateId = "***REMOVED***";
 #else
-			// Dev
-			environment = "dev";
 			PlayFabSettings.TitleId = "***REMOVED***";
-			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
+			_passwordRecoveryEmailTemplateId = "***REMOVED***";
+			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";	
 #endif
 			
 			if (environment != appData.Environment)
@@ -332,7 +345,7 @@ namespace FirstLight.Game.StateMachines
 			FLog.Verbose("Obtaining player data");
 			_services.PlayfabService.CallFunction("GetPlayerData", res => OnPlayerDataObtained(res, activity), 
 			                                      OnPlayFabError);
-			
+
 			PhotonAuthentication(activity.Split());
 		}
 
@@ -393,7 +406,7 @@ namespace FirstLight.Game.StateMachines
 				Style = AlertButtonStyle.Default,
 				Callback = () =>
 				{
-					_services.GameFlowService.QuitGame("Closing game blocked dialog");
+					_services.QuitGame("Closing game blocked dialog");
 				}
 			};
 
@@ -499,7 +512,8 @@ namespace FirstLight.Game.StateMachines
 			var data = new LoginScreenPresenter.StateData
 			{
 				LoginClicked = LoginClicked,
-				GoToRegisterClicked = () => _statechartTrigger(_goToRegisterClickedEvent)
+				GoToRegisterClicked = () => _statechartTrigger(_goToRegisterClickedEvent),
+				ForgotPasswordClicked = SendRecoveryEmail
 			};
 			
 			_uiService.OpenUiAsync<LoginScreenPresenter, LoginScreenPresenter.StateData>(data);
@@ -514,6 +528,33 @@ namespace FirstLight.Game.StateMachines
 			};
 			
 			_uiService.OpenUiAsync<RegisterScreenPresenter, RegisterScreenPresenter.StateData>(data);
+		}
+
+		private void SendRecoveryEmail(string email)
+		{
+			SendAccountRecoveryEmailRequest request = new SendAccountRecoveryEmailRequest()
+			{
+				TitleId = PlayFabSettings.TitleId,
+				Email = email,
+				EmailTemplateId = _passwordRecoveryEmailTemplateId,
+				AuthenticationContext = PlayFabSettings.staticPlayer
+			};
+			
+			PlayFabClientAPI.SendAccountRecoveryEmail(request,OnAccountRecoveryResult,OnPlayFabError);
+		}
+		
+		private void OnAccountRecoveryResult(SendAccountRecoveryEmailResult result)
+		{
+			_services.GenericDialogService.CloseDialog();
+			
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.General.OK,
+				ButtonOnClick = _services.GenericDialogService.CloseDialog
+			};
+
+			_services.GenericDialogService.OpenDialog(ScriptLocalization.MainMenu.SendPasswordEmailConfirm, false,
+			                                         confirmButton);
 		}
 
 		private bool IsOutdated(string version)

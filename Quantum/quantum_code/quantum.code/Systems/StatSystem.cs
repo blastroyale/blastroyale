@@ -39,8 +39,7 @@ namespace Quantum.Systems
 			{
 				if (f.Time > list[i].StartTime + list[i].Duration)
 				{
-					filter.Stats->RemoveModifier(f, list[i]);
-					list.RemoveAt(i);
+					filter.Stats->RemoveModifier(f, filter.Entity, i);
 				}
 			}
 

@@ -14,10 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _assetsFolderPath: 
   _configs:
+  - Key: 1
+    Value:
+      AudioClips:
+      - m_AssetGUID: 6f878f354881c4507bee115abb99b094
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      BaseVolume: 1
+      BasePitch: 1
+      VolumeRandDeviation: 0
+      PitchRandDeviation: 0
   - Key: 2
     Value:
       AudioClips:
-      - m_AssetGUID: 9e37b63c532ce5c41a4beca9fd3d9d9b
+      - m_AssetGUID: 98f4db3f56d1148028142a90e9037799
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0

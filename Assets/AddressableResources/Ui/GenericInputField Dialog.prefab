@@ -148,9 +148,7 @@ MonoBehaviour:
   Anchor: {fileID: 1047952961762339578}
   ClickClip: {fileID: 7400000, guid: 382a5c7d063224d16b5caae8326aa7fb, type: 2}
   IsForward: 1
-  OverrideSfx: 0
-  OverrideSfxClip:
-    _selection: MainMenuStart
+  OverrideClickSfxId: 0
 --- !u!1 &2702348174101988794
 GameObject:
   m_ObjectHideFlags: 0
@@ -451,7 +449,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 130999
 --- !u!114 &5863388544096724369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -924,7 +922,7 @@ MonoBehaviour:
   m_CharacterValidation: 0
   m_RegexValue: 
   m_GlobalPointSize: 14
-  m_CharacterLimit: 20
+  m_CharacterLimit: 60
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls: []
@@ -1287,9 +1285,7 @@ MonoBehaviour:
   Anchor: {fileID: 7621068453438606519}
   ClickClip: {fileID: 7400000, guid: 382a5c7d063224d16b5caae8326aa7fb, type: 2}
   IsForward: 1
-  OverrideSfx: 0
-  OverrideSfxClip:
-    _selection: MainMenuStart
+  OverrideClickSfxId: 0
 --- !u!1 &7949469674548425335
 GameObject:
   m_ObjectHideFlags: 0

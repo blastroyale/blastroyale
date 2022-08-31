@@ -6,7 +6,7 @@
 
         <IsPackable>false</IsPackable>
 
-        <LangVersion>10</LangVersion>
+        <LangVersion>9</LangVersion>
 
         <RootNamespace>Tests</RootNamespace>
     </PropertyGroup>
@@ -31,8 +31,8 @@
         <HintPath>..\Lib\FirstLight.Services.dll</HintPath>
          <ReferencePath>..\Lib\FirstLight.Services.dll</ReferencePath>
       </Reference>
-      <Reference Include="JetBrains.ReSharper.TestRunner.Merged, Version=2.6.2.69, Culture=neutral, PublicKeyToken=5c492ec4f3eccde3">
-        <HintPath>..\..\..\..\..\..\Applications\Rider.app\Contents\lib\ReSharperHost\TestRunner\netcoreapp3.0\JetBrains.ReSharper.TestRunner.Merged.dll</HintPath>
+      <Reference Include="PhotonDeterministic">
+        <HintPath>..\Lib\PhotonDeterministic.dll</HintPath>
       </Reference>
       <Reference Include="quantum.code, Version=2.1.0.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\Lib\quantum.code.dll</HintPath>
@@ -41,17 +41,27 @@
       <Reference Include="quantum.core, Version=2.1.0.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\Lib\quantum.core.dll</HintPath>
       </Reference>
+      <Reference Include="UnityEngine.AudioModule">
+        <HintPath>..\UnityLib\UnityEngine.AudioModule.dll</HintPath>
+      </Reference>
       <Reference Include="UnityEngine.AudioModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\UnityLib\UnityEngine.AudioModule.dll</HintPath>
          <ReferencePath>..\UnityLib\UnityEngine.AudioModule.dll</ReferencePath>
+      </Reference>
+      <Reference Include="UnityEngine.CoreModule">
+        <HintPath>..\UnityLib\UnityEngine.CoreModule.dll</HintPath>
       </Reference>
       <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\UnityLib\UnityEngine.CoreModule.dll</HintPath>
          <ReferencePath>..\UnityLib\UnityEngine.CoreModule.dll</ReferencePath>
       </Reference>
+      <Reference Include="UnityEngine.SharedInternalsModule">
+        <HintPath>..\UnityLib\UnityEngine.SharedInternalsModule.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Backend\Backend.csproj" />
+      <ProjectReference Include="..\ServerSDK\ServerSDK.csproj" />
     </ItemGroup>
 </Project>

@@ -25,12 +25,12 @@ namespace FirstLight.Game.Utils
 			public const string DISCORD_SERVER = "https://discord.gg/blastroyale";
 			public const string APP_STORE_IOS = "https://apps.apple.com/gb/app/boss-hunt-heroes/id1557220333";
 			public const string APP_STORE_GOOGLE_PLAY = "https://play.google.com/store/apps/details?id=com.firstlightgames.phoenix";
-			#if UNITY_EDITOR || DEVELOPMENT_BUILD
-				public const string MARKETPLACE_URL = "https://marketplace-dev.blastroyale.com/";
-			#elif RELEASE_BUILD
+			#if LIVE_SERVER
+				public const string MARKETPLACE_URL = "https://marketplace.blastroyale.com/";
+			#elif STAGE_SERVER
 				public const string MARKETPLACE_URL = "https://marketplace-staging.blastroyale.com/";
 			#else
-				public const string MARKETPLACE_URL = "https://marketplace.blastroyale.com/";
+				public const string MARKETPLACE_URL = "https://marketplace-dev.blastroyale.com/";
 			#endif
 		}
 
@@ -66,8 +66,11 @@ namespace FirstLight.Game.Utils
 			
 			public const float BR_LOW_PHASE_SECONDS_THRESHOLD = 8f;
 			public const float BR_MID_PHASE_SECONDS_THRESHOLD = 90f;
-
+			public const float BR_HIGH_PHASE_SECONDS_THRESHOLD = 180f;
+			
 			public const float DM_HIGH_PHASE_KILLS_LEFT_THRESHOLD = 3;
+			public const float BR_HIGH_PHASE_PLAYERS_LEFT_THRESHOLD = 2;
+			public const float HIGH_LOOP_TRANSITION_DELAY = 2f;
 		}
 
 		public static class Notifications
@@ -95,7 +98,7 @@ namespace FirstLight.Game.Utils
 			public const int DEFAULT_PLAYER_TTL_MS = 30000;
 			public const int EMPTY_ROOM_TTL_MS = 15000;
 			public const int EMPTY_ROOM_PLAYTEST_TTL_MS = 1000;
-			
+
 			// Player properties
 			// Loading properties are split into PLAYER_PROPS_CORE_LOADED and PLAYER_PROPS_ALL_LOADED - this is because
 			// the loading flow into match is split into 2 distinct phases (Core assets, player assets), and these properties
@@ -112,6 +115,9 @@ namespace FirstLight.Game.Utils
 			public const string ROOM_PROPS_MAP = "mapId";
 			public const string ROOM_PROPS_BOTS = "gameHasBots";
 			public const string ROOM_PROPS_DROP_PATTERN = "dropPattern";
+			public const string ROOM_PROPS_RANKED_MATCH = "isRanked";
+
+			public const string DEFAULT_REGION = "eu";
 		}
 
 		public static class Visuals
@@ -139,6 +145,9 @@ namespace FirstLight.Game.Utils
 			public const string STUN_OUTRO_TIME_ANIMATOR_PARAM = "stun_outro_time_sec";
 
 			public const float RADIUS_TO_SCALE_CONVERSION_VALUE = 2f;
+			public const float GAMEPLAY_POST_ATTACK_HIDE_DURATION = 2f;
+
+			public const string SHADER_MINIMAP_DRAW_PLAYERS = "MINIMAP_DRAW_PLAYERS";
 		}
 
 		public static class Haptics

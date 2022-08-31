@@ -4,34 +4,36 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using PlayFab;
 
-namespace Backend.Game.Services;
-
-/// <summary>
-/// Interface to handle any errors that happens during logic execution.
-/// Should always wrap the error in a LogicException.
-/// </summary>
-/// <typeparam name="T"></typeparam>
-public interface IErrorService<T>
+namespace Backend.Game.Services
 {
 	/// <summary>
-	/// Handles error, logs it. Convert any type of error to a Logic Exception.
+	/// Interface to handle any errors that happens during logic execution.
+	/// Should always wrap the error in a LogicException.
 	/// </summary>
-	public LogicException HandleError(T error);
+	/// <typeparam name="T"></typeparam>
+	public interface IErrorService<T>
+	{
+		/// <summary>
+		/// Handles error, logs it. Convert any type of error to a Logic Exception.
+		/// </summary>
+		public LogicException HandleError(T error);
+	}
+
+	/// <inheritdoc />
+	public class PlayfabErrorService : IErrorService<PlayFabError>
+	{
+		private readonly ILogger _log;
+	
+		public PlayfabErrorService(ILogger log)
+		{
+			_log = log;
+		}
+	
+		/// <inheritdoc />
+		public LogicException HandleError(PlayFabError error)
+		{
+			return new LogicException($"Playfab Error {error.ErrorMessage}: {JsonConvert.SerializeObject(error.ErrorDetails)}");
+		}
+	}
 }
 
-/// <inheritdoc />
-public class PlayfabErrorService : IErrorService<PlayFabError>
-{
-	private readonly ILogger _log;
-	
-	public PlayfabErrorService(ILogger log)
-	{
-		_log = log;
-	}
-	
-	/// <inheritdoc />
-	public LogicException HandleError(PlayFabError error)
-	{
-		return new LogicException($"Playfab Error {error.ErrorMessage}: {JsonConvert.SerializeObject(error.ErrorDetails)}");
-	}
-}

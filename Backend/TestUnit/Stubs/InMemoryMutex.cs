@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ServerSDK.Services;
 
-namespace Tests.Stubs;
-
 /// <summary>
 /// In memory rudimentary hacky wacky implementation of async single threaded server mutex
 /// </summary>

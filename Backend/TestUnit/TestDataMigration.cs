@@ -4,8 +4,6 @@ using Backend.Models;
 using NUnit.Framework;
 using ServerSDK.Models;
 
-namespace Tests;
-
 
 [Serializable]
 class TestData
@@ -45,12 +43,12 @@ public class TestDataMigration
 		var updatedModel = new TestData() {Property = "New Value"};
 		
 		var serverState = new ServerState();
-		serverState.SetModel(model);
+		serverState.UpdateModel(model);
 		serverState.SetVersion(0);
 		
 		// Adding V0-> V1 migration
 		_migrations.CurrentVersion = 1;
-		_migrations.Migrations[0] = state => state.SetModel(updatedModel);
+		_migrations.Migrations[0] = state => state.UpdateModel(updatedModel);
 
 		var versionBumps = _migrations.RunMigrations(serverState);
 

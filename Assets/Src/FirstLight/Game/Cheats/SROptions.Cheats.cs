@@ -14,6 +14,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Services;
 using PlayFab;
 using Quantum;
+using ServerSDK.Modules;
 using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
@@ -49,7 +50,7 @@ public partial class SROptions
 		PlayerPrefs.DeleteAll();
 
 		var deletionUrl =
-			$"https://devmarketplaceapi.azure-api.net/accounts/admin/unlink?key=devkey&playfabId={player.PlayFabId}";
+			$"***REMOVED***/accounts/admin/unlink?key=devkey&playfabId={player.PlayFabId}";
 		var task = new HttpClient().DeleteAsync(deletionUrl);
 		task.Wait();
 		FLog.Info("Wallet unlinked from marketplace");
@@ -72,7 +73,7 @@ public partial class SROptions
 		var services = MainInstaller.Resolve<IGameServices>();
 		var gameLogic = (IGameLogic) MainInstaller.Resolve<IGameDataProvider>();
 
-		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatsConfig>();
+		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatConfig>();
 		
 		foreach (var config in equipmentConfigs)
 		{
@@ -106,7 +107,7 @@ public partial class SROptions
 		var services = MainInstaller.Resolve<IGameServices>();
 		var gameLogic = (IGameLogic) MainInstaller.Resolve<IGameDataProvider>();
 
-		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatsConfig>();
+		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatConfig>();
 		
 		foreach (var config in equipmentConfigs)
 		{
@@ -132,29 +133,29 @@ public partial class SROptions
 	{
 		var services = MainInstaller.Resolve<IGameServices>();
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
-		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatsConfig>();
-		
+		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatConfig>();
+
 		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[0].Id, rarity: EquipmentRarity.RarePlus,
 		                                                      adjective: EquipmentAdjective.Regular,
 		                                                      grade: EquipmentGrade.GradeV, durability: 50,
 		                                                      level: 3));
 		
-		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[1].Id, rarity: EquipmentRarity.Rare,
+		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[5].Id, rarity: EquipmentRarity.Rare,
 		                                                      adjective: EquipmentAdjective.Exquisite,
 		                                                      grade: EquipmentGrade.GradeIII, durability: 70,
 		                                                      level: 3));
 		
-		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[2].Id, rarity: EquipmentRarity.Uncommon,
+		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[12].Id, rarity: EquipmentRarity.Uncommon,
 		                                                      adjective: EquipmentAdjective.Cool,
 		                                                      grade: EquipmentGrade.GradeIII, durability: 65,
 		                                                      level: 3));
 		
-		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[3].Id, rarity: EquipmentRarity.Legendary,
+		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[17].Id, rarity: EquipmentRarity.Legendary,
 		                                                      adjective: EquipmentAdjective.Royal,
 		                                                      grade: EquipmentGrade.GradeI, durability: 34,
 		                                                      level: 3));
 		
-		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[45].Id,
+		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[40].Id,
 		                                                      rarity: EquipmentRarity.LegendaryPlus,
 		                                                      adjective: EquipmentAdjective.Divine,
 		                                                      grade: EquipmentGrade.GradeIV, durability: 97,
@@ -171,7 +172,7 @@ public partial class SROptions
 	{
 		var services = MainInstaller.Resolve<IGameServices>();
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
-		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatsConfig>();
+		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatConfig>();
 
 		for (var i = 0; i < equipmentConfigs.Count; i++)
 		{
@@ -190,7 +191,7 @@ public partial class SROptions
 	{
 		var services = MainInstaller.Resolve<IGameServices>();
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
-		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatsConfig>();
+		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatConfig>();
 
 		var rand = Random.Range(0, equipmentConfigs.Count);
 
@@ -273,17 +274,32 @@ public partial class SROptions
 	}
 	
 	[Category("Logging")]
-	public void LogNetworkInfo()
+	public void LogCurrentRoomInfo()
 	{
 		var services = MainInstaller.Resolve<IGameServices>();
+		var room = services.NetworkService.QuantumClient.CurrentRoom;
+		
+		if (room == null)
+		{
+			return;
+		}
+		
+		var roomProps = (string) "";
 
+		foreach (var prop in room.CustomProperties)
+		{
+			roomProps += $"{prop.Key}: {prop.Value}\n";
+		}
+		
 		Debug.Log($"-NETWORK INFO-\n" +
 		          $"Lobby Name: {services.NetworkService.QuantumClient.CurrentLobby?.Name}\n" +
-		          $"Room Name: {services.NetworkService.QuantumClient.CurrentRoom?.Name}\n" +
-		          $"Player Count: {services.NetworkService.QuantumClient.CurrentRoom?.Players.Count}\n" +
-		          $"Is Open: {services.NetworkService.QuantumClient.CurrentRoom?.IsOpen}\n" +
-		          $"Is Visible: {services.NetworkService.QuantumClient.CurrentRoom?.IsVisible}\n" + 
-		          $"Commit: {services.NetworkService.QuantumClient.CurrentRoom?.CustomProperties[GameConstants.Network.ROOM_PROPS_COMMIT]}\n");
+		          $"Room Name: {room.Name}\n" +
+		          $"Player Count: {room.Players.Count}\n" +
+		          $"Is Open: {room.IsOpen}\n" +
+		          $"Is Visible: {room.IsVisible}\n" + 
+		          $"-----\n" + 
+		          $"Custom Props:\n" + roomProps +
+		          $"-----\n");
 	}
 #endif
 }

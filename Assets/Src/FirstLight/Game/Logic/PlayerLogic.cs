@@ -5,6 +5,7 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Services;
+using Photon.Deterministic;
 using Quantum;
 using UnityEngine;
 
@@ -16,48 +17,29 @@ namespace FirstLight.Game.Logic
 	public interface IPlayerDataProvider
 	{
 		/// <summary>
-		/// Requests the player's level
-		/// </summary>
-		IObservableFieldReader<uint> Level { get; }
-		/// <summary>
-		/// Requests the player's XP
-		/// </summary>
-		IObservableFieldReader<uint> Xp { get; }
-		/// <summary>
 		/// Request the player's current trophy count.
 		/// </summary>
 		IObservableFieldReader<uint> Trophies { get; }
-		/// <summary>
-		/// Requests the player's current selected skin
-		/// </summary>
-		IObservableFieldReader<GameId> CurrentSkin { get; }
-		/// <summary>
-		/// Requests the <see cref="PlayerInfo"/> representing the current player
-		/// </summary>
-		PlayerInfo CurrentLevelInfo { get; }
-		/// <summary>
-		/// Requests the current list of unlocked systems
-		/// </summary>
-		List<UnlockSystem> CurrentUnlockedSystems { get; }
+		
 		/// <summary>
 		/// Requests a list of systems already seen by the player.
 		/// </summary>
 		IObservableList<UnlockSystem> SystemsTagged { get; }
 
 		/// <summary>
-		/// Requests the <see cref="PlayerInfo"/> for the given player <paramref name="level"/>
+		/// Requests the current <see cref="Infos.PlayerInfo"/>
 		/// </summary>
-		public PlayerInfo GetInfo(uint level);
+		PlayerInfo PlayerInfo { get; }
 
 		/// <summary>
 		/// Requests the unlock level of the given <paramref name="unlockSystem"/>
 		/// </summary>
-		public uint GetUnlockSystemLevel(UnlockSystem unlockSystem);
+		uint GetUnlockSystemLevel(UnlockSystem unlockSystem);
 
 		/// <summary>
 		/// Requests the list of unlocked systems until the given <paramref name="level"/> from the given <paramref name="startLevel"/>
 		/// </summary>
-		public List<UnlockSystem> GetUnlockSystems(uint level, uint startLevel = 1);
+		List<UnlockSystem> GetUnlockSystems(uint level, uint startLevel = 1);
 	}
 
 	/// <inheritdoc />
@@ -83,25 +65,43 @@ namespace FirstLight.Game.Logic
 	/// <inheritdoc cref="IPlayerLogic"/>
 	public class PlayerLogic : AbstractBaseLogic<PlayerData>, IPlayerLogic, IGameLogicInitializer
 	{
-		private IObservableField<uint> _level;
-		private IObservableField<uint> _xp;
-		private IObservableField<GameId> _currentSkin;
 		private IObservableField<uint> _trophies;
 
 		/// <inheritdoc />
 		public IObservableFieldReader<uint> Trophies => _trophies;
-		/// <inheritdoc />
-		public IObservableFieldReader<uint> Level => _level;
-		/// <inheritdoc />
-		public IObservableFieldReader<uint> Xp => _xp;
-		/// <inheritdoc />
-		public IObservableFieldReader<GameId> CurrentSkin => _currentSkin;
-		/// <inheritdoc />
-		public PlayerInfo CurrentLevelInfo => GetInfo(_level.Value);
-		/// <inheritdoc />
-		public List<UnlockSystem> CurrentUnlockedSystems => GetUnlockSystems(_level.Value);
+		
 		/// <inheritdoc />
 		public IObservableList<UnlockSystem> SystemsTagged { get; private set; }
+
+		/// <inheritdoc />
+		public PlayerInfo PlayerInfo
+		{
+			get
+			{
+				var configs = GameLogic.ConfigsProvider.GetConfigsDictionary<PlayerLevelConfig>();
+				var config = configs[(int) Math.Min(Data.Level, configs.Count)];
+				var maxLevel = configs[configs.Count].Level + 1;
+				var totalXp = Data.Level;
+
+				for (var i = 1; i < Data.Level; i++)
+				{
+					totalXp += configs[i].LevelUpXP;
+				}
+				
+				return new PlayerInfo
+				{
+					Level = Data.Level,
+					Xp = Data.Xp,
+					TotalCollectedXp = totalXp,
+					MaxLevel = maxLevel,
+					Config = config,
+					Skin = Data.PlayerSkinId,
+					DeathMarker = Data.DeathMarker,
+					TotalTrophies = _trophies.Value,
+					CurrentUnlockedSystems = GetUnlockSystems(Data.Level)
+				};
+			}
+		}
 
 		private AppData AppData => DataProvider.GetData<AppData>();
 
@@ -112,35 +112,8 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public void Init()
 		{
-			_level = new ObservableResolverField<uint>(() => Data.Level, level => Data.Level = level);
-			_xp = new ObservableResolverField<uint>(() => Data.Xp, xp => Data.Xp = xp);
-			_currentSkin = new ObservableResolverField<GameId>(() => Data.PlayerSkinId,skin => Data.PlayerSkinId =skin);
 			_trophies = new ObservableResolverField<uint>(() => Data.Trophies, val => Data.Trophies = val);
 			SystemsTagged = new ObservableList<UnlockSystem>(AppData.SystemsTagged);
-		}
-
-		/// <inheritdoc />
-		public PlayerInfo GetInfo(uint level)
-		{
-			var configs = GameLogic.ConfigsProvider.GetConfigsDictionary<PlayerLevelConfig>();
-			var config = configs[(int) Math.Min(level, configs.Count)];
-			var maxLevel = configs[configs.Count].Level + 1;
-			var totalXp = _xp.Value;
-
-			for (var i = 1; i < _level.Value; i++)
-			{
-				totalXp += configs[i].LevelUpXP;
-			}
-				
-			return new PlayerInfo
-			{
-				Level = level,
-				Xp = _xp.Value,
-				TotalCollectedXp = totalXp,
-				MaxLevel = maxLevel,
-				Config = config,
-				Skin = _currentSkin.Value
-			};
 		}
 
 		/// <inheritdoc />
@@ -187,8 +160,8 @@ namespace FirstLight.Game.Logic
 		public void AddXp(uint amount)
 		{
 			var configs = GameLogic.ConfigsProvider.GetConfigsDictionary<PlayerLevelConfig>();
-			var xp = _xp.Value + amount;
-			var level = _level.Value;
+			var xp = Data.Xp + amount;
+			var level = Data.Level;
 			
 			if (level == configs.Count + 1)
 			{
@@ -201,12 +174,8 @@ namespace FirstLight.Game.Logic
 				level++;
 			}
 
-			if (_level.Value != level)
-			{
-				_level.Value = level;
-			}
-
-			_xp.Value = level >= configs.Count ? 0 : xp;
+			Data.Level = level;
+			Data.Xp = level >= configs.Count ? 0 : xp;
 		}
 
 		/// <inheritdoc />
@@ -225,7 +194,7 @@ namespace FirstLight.Game.Logic
 			{
 				trophyChange += CalculateEloChange(0d, players[i].Data.PlayerTrophies, 
 				                                   localPlayerData.Data.PlayerTrophies, gameConfig.TrophyEloRange,
-				                                   gameConfig.TrophyEloK);
+				                                   gameConfig.TrophyEloK.AsDouble);
 			}
 
 			// Wins
@@ -233,10 +202,10 @@ namespace FirstLight.Game.Logic
 			{
 				trophyChange += CalculateEloChange(1d, players[i].Data.PlayerTrophies, 
 				                                   localPlayerData.Data.PlayerTrophies, gameConfig.TrophyEloRange,
-				                                   gameConfig.TrophyEloK);
+				                                   gameConfig.TrophyEloK.AsDouble);
 			}
 
-			var finalTrophyChange = (int) Math.Round(trophyChange);
+			var finalTrophyChange = (int)Math.Round(trophyChange);
 
 			if (finalTrophyChange < 0 && Math.Abs(finalTrophyChange) > _trophies.Value)
 			{
@@ -256,14 +225,14 @@ namespace FirstLight.Game.Logic
 				throw new LogicException($"Skin Id '{skin}' is not part of the Game Id Group PlayerSkin.");
 			}
 
-			_currentSkin.Value = skin;
+			Data.PlayerSkinId = skin;
 		}
 
-		private double CalculateEloChange(double score, uint trophiesOpponent, uint trophiesPlayer, int eloRange, int eloK)
+		private double CalculateEloChange(double score, uint trophiesOpponent, uint trophiesPlayer, int eloRange, double eloK)
 		{
-			var eloBracket = Math.Pow(10, (trophiesOpponent - trophiesPlayer) / (double) eloRange);
+			var eloBracket = Math.Pow(10, (trophiesOpponent - trophiesPlayer) / (float) eloRange);
 			
-			return eloK * (score - 1d / (1d + eloBracket));
+			return eloK * (score - 1 / (1 + eloBracket));
 		}
 	}
 }

@@ -8,6 +8,7 @@ using FirstLight.Game.Views.MainMenuViews;
 using FirstLight.UiService;
 using I2.Loc;
 using Photon.Realtime;
+using Quantum;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
@@ -39,6 +40,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private TextMeshProUGUI _findingPlayersText;
 		[SerializeField, Required] private TextMeshProUGUI _getReadyToRumbleText;
 		[SerializeField, Required] private TextMeshProUGUI _roomNameText;
+		[SerializeField, Required] private TextMeshProUGUI _selectedGameModeText;
 		[SerializeField, Required] private GameObject _loadingText;
 		[SerializeField, Required] private GameObject _roomNameRootObject;
 		[SerializeField, Required] private GameObject _playerMatchmakingRootObject;
@@ -52,8 +54,7 @@ namespace FirstLight.Game.Presenters
 		
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
-		private float _rndWaitingTimeLowest;
-		private float _rndWaitingTimeBiggest;
+		private float _playerFillWaitTime;
 		private bool _loadedCoreMatchAssets;
 		private bool _spectatorToggleTimeOut;
 
@@ -124,9 +125,11 @@ namespace FirstLight.Game.Presenters
 			_spectateToggleObjectRoot.SetActive(false);
 			_loadingText.SetActive(true);
 			_playersFoundText.text = $"{0}/{room.MaxPlayers.ToString()}";
-			_rndWaitingTimeLowest = 2f / room.MaxPlayers;
-			_rndWaitingTimeBiggest = 8f / room.MaxPlayers;
-
+			_playerFillWaitTime = _services.ConfigsProvider.GetConfig<QuantumGameConfig>().CasualMatchmakingTime.AsFloat / room.GetRealPlayerCapacity();
+			var matchType = _gameDataProvider.AppDataProvider.SelectedMatchType.Value.ToString().ToUpper();
+			var gameMode = _gameDataProvider.AppDataProvider.SelectedGameMode.Value.ToString().ToUpper();
+			_selectedGameModeText.text = string.Format(ScriptLocalization.MainMenu.SelectedGameModeValue, matchType, gameMode);
+				
 			if (CurrentRoom.IsMatchmakingRoom())
 			{
 				_playerListHolder.gameObject.SetActive(false);
@@ -134,7 +137,12 @@ namespace FirstLight.Game.Presenters
 				_playerMatchmakingRootObject.SetActive(true);
 
 				_roomNameRootObject.SetActive(false);
-				StartCoroutine(TimeUpdateCoroutine(room.GetRealPlayerCapacity()));
+				
+				if (_gameDataProvider.AppDataProvider.SelectedMatchType.Value == MatchType.Casual)
+				{
+					StartCoroutine(MatchmakingTimeUpdateCoroutine(room.GetRealPlayerCapacity()));
+				}
+
 				UpdatePlayersWaitingImages(room.GetRealPlayerCapacity(), room.GetRealPlayerAmount());
 			}
 			else
@@ -164,20 +172,22 @@ namespace FirstLight.Game.Presenters
 
 		private void OnCoreMatchAssetsLoaded(CoreMatchAssetsLoadedMessage msg)
 		{
+			_loadedCoreMatchAssets = true;
+			
 			if (RejoiningRoom)
 			{
 				return;
 			}
 
-			// For custom games, only show leave room button if we are not loading straight into the match (if host locked room while we were loading)
-			if (!CurrentRoom.IsMatchmakingRoom() && !_services.NetworkService.QuantumClient.CurrentRoom.AreAllPlayersReady())
+			if (!_services.NetworkService.QuantumClient.CurrentRoom.IsOpen)
 			{
-				_loadingText.SetActive(false);
-				_leaveRoomButton.gameObject.SetActive(true);
+				return;
 			}
 			
-			if (_services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient && !CurrentRoom.IsMatchmakingRoom() &&
-			    _services.NetworkService.QuantumClient.CurrentRoom.IsOpen)
+			_leaveRoomButton.gameObject.SetActive(true);
+			_loadingText.SetActive(false);
+
+			if (_services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient && !CurrentRoom.IsMatchmakingRoom())
 			{
 				_lockRoomButton.gameObject.SetActive(true);
 				_botsToggleObjectRoot.SetActive(true);
@@ -187,8 +197,6 @@ namespace FirstLight.Game.Presenters
 			{
 				_spectateToggleObjectRoot.SetActive(true);
 			}
-			
-			_loadedCoreMatchAssets = true;
 		}
 
 		private void OnStartedFinalPreloadMessage(StartedFinalPreloadMessage msg)
@@ -203,12 +211,24 @@ namespace FirstLight.Game.Presenters
 		public void OnPlayerEnteredRoom(Player newPlayer)
 		{
 			AddOrUpdatePlayerInList(newPlayer);
+
+			// For casual matches, MatchmakingTimeUpdateCoroutine handles the player waiting images
+			if (_gameDataProvider.AppDataProvider.SelectedMatchType.Value == MatchType.Ranked)
+			{
+				UpdatePlayersWaitingImages(CurrentRoom.GetRealPlayerCapacity(), CurrentRoom.GetRealPlayerAmount());
+			}
 		}
 
 		/// <inheritdoc />
 		public void OnPlayerLeftRoom(Player otherPlayer)
 		{
 			RemovePlayerInAllLists(otherPlayer);
+			
+			// For casual matches, MatchmakingTimeUpdateCoroutine handles the player waiting images
+			if (_gameDataProvider.AppDataProvider.SelectedMatchType.Value == MatchType.Ranked)
+			{
+				UpdatePlayersWaitingImages(CurrentRoom.GetRealPlayerCapacity(), CurrentRoom.GetRealPlayerAmount());
+			}
 		}
 
 		/// <inheritdoc />
@@ -341,6 +361,11 @@ namespace FirstLight.Game.Presenters
 
 		private void UpdatePlayersWaitingImages(int maxPlayers, int playerAmount)
 		{
+			if (!CurrentRoom.IsMatchmakingRoom())
+			{
+				return;
+			}
+			
 			for (var i = 0; i < _playersWaitingImage.Length; i++)
 			{
 				_playersWaitingImage[i].gameObject.SetActive((i + 1) <= playerAmount);
@@ -349,12 +374,12 @@ namespace FirstLight.Game.Presenters
 			_playersFoundText.text = $"{playerAmount.ToString()}/{maxPlayers.ToString()}";
 		}
 
-		private IEnumerator TimeUpdateCoroutine(int maxPlayers)
+		private IEnumerator MatchmakingTimeUpdateCoroutine(int maxPlayers)
 		{
 			for (var i = 0; i < _playersWaitingImage.Length && i < maxPlayers; i++)
 			{
 				UpdatePlayersWaitingImages(maxPlayers, i + 1);
-				yield return new WaitForSeconds(Random.Range(_rndWaitingTimeLowest, _rndWaitingTimeBiggest));
+				yield return new WaitForSeconds(_playerFillWaitTime);
 			}
 
 			yield return new WaitForSeconds(0.5f);

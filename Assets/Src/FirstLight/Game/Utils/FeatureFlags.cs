@@ -22,5 +22,17 @@ namespace FirstLight.Game.Utils
 		/// When true will point to new production environments.
 		/// </summary>
 		public static bool TEMP_PRODUCTION_PLAYFAB = false;
+
+		/// <summary>
+		/// When true, will send end of match commands using quantum server consensus algorithm.
+		/// When false commands will go directly to our backend. 
+		/// To use this in our backend the backend needs to be compiled with this flag being False.
+		/// </summary>
+		public static bool QUANTUM_CUSTOM_SERVER = false;
+		
+		/// <summary>
+		/// If false, deathmatch game mode selection will be disabled in GameModeSelectionPresenter
+		/// </summary>
+		public static readonly bool DEATHMATCH_ENABLED = false;
 	}
 }

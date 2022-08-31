@@ -4,12 +4,16 @@ using System.Globalization;
 using System.Reflection;
 using System.Threading.Tasks;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Data;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
+using FirstLight.Game.Input;
 using FirstLight.Services;
 using I2.Loc;
 using Photon.Realtime;
 using Quantum;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Playables;
 using Random = UnityEngine.Random;
 
@@ -52,6 +56,14 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
+		/// Get's the translation string of the given <paramref name="id"/>
+		/// </summary>
+		public static string GetTranslation(this ConsumableType id)
+		{
+			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.GameIds)}/{id.ToString()}");
+		}
+
+		/// <summary>
 		/// Requests the localized text representing the given <paramref name="stat"/>
 		/// </summary>
 		public static string GetTranslation(this EquipmentStatType stat)
@@ -60,27 +72,56 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
-		/// Get's the translation term of the given <paramref name="id"/>
+		/// Gets the translation term of the given <paramref name="id"/>
 		/// </summary>
 		public static string GetTranslationTerm(this GameId id)
 		{
 			return $"{nameof(ScriptTerms.GameIds)}/{id.ToString()}";
 		}
-
+		
 		/// <summary>
-		/// Get's the translation string of the given <paramref name="group"/>
+		/// Gets the translation term of the given <paramref name="id"/> for a game mode
 		/// </summary>
-		public static string GetTranslation(this GameIdGroup group)
+		public static string GetTranslation(this GameMode id)
 		{
-			return LocalizationManager.GetTranslation(group.GetTranslationTerm());
+			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.GameIds)}/{id.ToString()}");
+		}
+		
+		/// <summary>
+		/// Gets the translation term of the given <paramref name="id"/> for a match type
+		/// </summary>
+		public static string GetTranslation(this MatchType id)
+		{
+			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.GameIds)}/{id.ToString()}");
 		}
 
 		/// <summary>
-		/// Get's the translation term of the given <paramref name="group"/>
+		/// Gets the translation string of the given <paramref name="group"/>
 		/// </summary>
-		public static string GetTranslationTerm(this GameIdGroup group)
+		public static string GetTranslation(this GameIdGroup group)
 		{
-			return $"{nameof(ScriptTerms.GameIds)}/{group.ToString()}";
+			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.GameIds)}/{group.ToString()}");
+		}
+		
+		/// <summary>
+		/// Get Photon region translation for the given <paramref name="regionKey"/> 
+		/// </summary>
+		public static string GetPhotonRegionTranslation(this string regionKey)
+		{
+			switch (regionKey)
+			{
+				case "eu":
+					return ScriptLocalization.MainMenu.ServerNameEu;
+
+				case "us":
+					return ScriptLocalization.MainMenu.ServerNameUs;
+
+				case "hk":
+					return ScriptLocalization.MainMenu.ServerNameHk;
+
+				default:
+					return "";
+			}
 		}
 
 		/// <summary>
@@ -88,7 +129,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static string GetOrdinalTranslation(this int number)
 		{
-			number = number > 19 ? 19 : number;
+			number = number > 19 ? number % 10 : number;
 			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.General)}/Ordinal{number.ToString()}");
 		}
 
@@ -257,17 +298,11 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static bool IsAlive(this EntityRef entity, Frame f)
 		{
-			if (!f.Exists(entity))
+			if (!f.TryGet<Stats>(entity, out var stats))
 			{
 				return false;
 			}
 
-			if (!f.Has<Stats>(entity))
-			{
-				return false;
-			}
-
-			var stats = f.Get<Stats>(entity);
 			return stats.CurrentHealth > 0;
 		}
 
@@ -344,6 +379,14 @@ namespace FirstLight.Game.Utils
 		{
 			return room.IsVisible;
 		}
+		
+		/// <summary>
+		/// Obtains info on whether the room is used for matchmaking
+		/// </summary>
+		public static bool IsRankedRoom(this Room room)
+		{
+			return (bool) room.CustomProperties[GameConstants.Network.ROOM_PROPS_RANKED_MATCH];
+		}
 
 		/// <summary>
 		/// Obtains amount of non-spectator players currently in room
@@ -400,6 +443,22 @@ namespace FirstLight.Game.Utils
 		{
 			return room.IsMatchmakingRoom() ? 0 : GameConstants.Data.MATCH_SPECTATOR_SPOTS;
 		}
+		
+		/// <summary>
+		/// Obtains info on whether room has all its player slots full
+		/// </summary>
+		public static bool IsAtFullPlayerCapacity(this Room room)
+		{
+			return room.GetRealPlayerAmount() >= room.GetRealPlayerCapacity();
+		}
+		
+		/// <summary>
+		/// Obtains info on whether room has all its spectator slots full
+		/// </summary>
+		public static bool IsAtFullSpectatorCapacity(this Room room)
+		{
+			return room.GetSpectatorAmount() >= room.GetSpectatorCapacity();
+		}
 
 		/// <summary>
 		/// Obtains spectator/player status for player
@@ -440,6 +499,29 @@ namespace FirstLight.Game.Utils
 			{
 				property.SetValue(dest, property.GetValue(source));
 			}
+		}
+
+		/// <summary>
+		/// Requests the <see cref="PlayerMatchData"/> of the current local player playing the game
+		/// </summary>
+		public static PlayerMatchData GetLocalPlayerData(this QuantumGame game, bool isVerified, out Frame f)
+		{
+			f = isVerified ? game.Frames.Verified : game.Frames.Predicted;
+			
+			return f.GetSingleton<GameContainer>().PlayersData[game.GetLocalPlayers()[0]];
+		}
+
+		/// <summary>
+		/// Requests the <see cref="InputAction"/> that controls the input for the special in the given <paramref name="index"/>
+		/// </summary>
+		public static InputAction GetSpecialButton(this LocalInput.GameplayActions gameplayActions, int index)
+		{
+			if (index == 0)
+			{
+				return gameplayActions.SpecialButton0;
+			}
+
+			return gameplayActions.SpecialButton1;
 		}
 	}
 }

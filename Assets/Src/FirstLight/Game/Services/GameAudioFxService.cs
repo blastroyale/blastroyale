@@ -88,10 +88,12 @@ namespace FirstLight.Game.Services
 			var clipPlaybackData = new AudioClipPlaybackData()
 			{
 				AudioClips = clipTasks.ConvertAll(task => task.Result),
+				Loop = clipConfig.Loop,
 				MinVol = clipConfig.BaseVolume - clipConfig.VolumeRandDeviation,
 				MaxVol = clipConfig.BaseVolume + clipConfig.VolumeRandDeviation,
 				MinPitch = clipConfig.BasePitch - clipConfig.PitchRandDeviation,
-				MaxPitch = clipConfig.BasePitch + clipConfig.PitchRandDeviation
+				MaxPitch = clipConfig.BasePitch + clipConfig.PitchRandDeviation,
+				PitchModPerLoop = clipConfig.PitchModPerLoop
 			};
 
 			AddAudioClips(id, clipPlaybackData);
@@ -117,79 +119,90 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public override AudioSourceMonoComponent PlayClip3D(AudioId id, Vector3 worldPosition,
-		                                                    AudioSourceInitData? sourceInitData = null)
+		public override AudioSourceMonoComponent PlayClip3D(AudioId id, Vector3 worldPosition, string mixerGroupOverride = null)
 		{
 			if (id == AudioId.None || !TryGetClipPlaybackData(id, out var clipData))
 			{
 				return null;
 			}
 
-			sourceInitData ??= GetAudioInitProps(GameConstants.Audio.SFX_3D_SPATIAL_BLEND, clipData);
-
-			var updatedInitData = sourceInitData.Value;
-			updatedInitData.MixerGroup = GetAudioMixerGroup(_mixerSfx3dGroupId);
+			AudioSourceInitData sourceInitData = GetAudioInitProps(GameConstants.Audio.SFX_3D_SPATIAL_BLEND, clipData);
+			var mixerGroupId = mixerGroupOverride ?? _mixerSfx2dGroupId;
+			
+			var updatedInitData = sourceInitData;
+			updatedInitData.MixerGroup = GetAudioMixerGroup(mixerGroupId);
 			updatedInitData.Mute = IsSfxMuted;
 			sourceInitData = updatedInitData;
 
-			return base.PlayClip3D(id, worldPosition, sourceInitData);
+			return PlayClipInternal(worldPosition, sourceInitData);
 		}
 
 		/// <inheritdoc />
-		public override AudioSourceMonoComponent PlayClip2D(AudioId id, AudioSourceInitData? sourceInitData = null)
+		public override AudioSourceMonoComponent PlayClip2D(AudioId id, string mixerGroupOverride = null)
 		{
 			if (id == AudioId.None || !TryGetClipPlaybackData(id, out var clipData))
 			{
 				return null;
 			}
 
-			sourceInitData ??= GetAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND, clipData);
-
-			var updatedInitData = sourceInitData.Value;
-			updatedInitData.MixerGroup = GetAudioMixerGroup(_mixerSfx2dGroupId);
+			AudioSourceInitData sourceInitData = GetAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND, clipData);
+			var mixerGroupId = mixerGroupOverride ?? _mixerSfx2dGroupId;
+			
+			var updatedInitData = sourceInitData;
+			updatedInitData.MixerGroup = GetAudioMixerGroup(mixerGroupId);
 			updatedInitData.Mute = IsSfxMuted;
 			sourceInitData = updatedInitData;
 
-			return base.PlayClip2D(id, sourceInitData);
+			return PlayClipInternal(Vector3.zero, sourceInitData);
 		}
-
+		
 		/// <inheritdoc />
-		public override void PlayMusic(AudioId id, float fadeInDuration = 0f, float fadeOutDuration = 0f,
-		                               bool continueFromCurrentTime = false, AudioSourceInitData? sourceInitData = null)
+		public override void PlayClipQueued2D(AudioId id)
 		{
 			if (id == AudioId.None || !TryGetClipPlaybackData(id, out var clipData))
 			{
 				return;
 			}
 
-			sourceInitData ??= GetAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND, clipData);
+			AudioSourceInitData sourceInitData = GetAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND, clipData);
 
-			var updatedInitData = sourceInitData.Value;
+			var updatedInitData = sourceInitData;
+			updatedInitData.MixerGroup = GetAudioMixerGroup(_mixerSfx2dGroupId);
+			updatedInitData.Mute = IsSfxMuted;
+			sourceInitData = updatedInitData;
+
+			PlayClipQueued2DInternal(sourceInitData);
+		}
+
+		/// <inheritdoc />
+		public override void PlayMusic(AudioId id, float fadeInDuration = 0f, float fadeOutDuration = 0f,
+		                               bool continueFromCurrentTime = false)
+		{
+			if (id == AudioId.None || !TryGetClipPlaybackData(id, out var clipData))
+			{
+				return;
+			}
+
+			AudioSourceInitData sourceInitData = GetAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND, clipData);
+
+			var updatedInitData = sourceInitData;
 			updatedInitData.MixerGroup = GetAudioMixerGroup(_mixerMusicGroupId);
 			updatedInitData.StartTime = continueFromCurrentTime ? GetCurrentMusicPlaybackTime() : 0;
 			updatedInitData.Mute = IsBgmMuted;
 			updatedInitData.Loop = true;
 			sourceInitData = updatedInitData;
 
-			base.PlayMusic(id, fadeInDuration, fadeOutDuration, continueFromCurrentTime, sourceInitData);
+			PlayMusicInternal(fadeInDuration, fadeOutDuration, continueFromCurrentTime, sourceInitData);
 		}
-
+		
 		/// <inheritdoc />
-		public override void PlayClipQueued2D(AudioId id, string mixerGroupId, AudioSourceInitData? sourceInitData = null)
+		public override void PlaySequentialMusicTransition(AudioId transitionClip, AudioId musicClip)
 		{
-			if (id == AudioId.None || !TryGetClipPlaybackData(id, out var clipData))
+			var transition = PlayClip2D(transitionClip, _mixerMusicGroupId);
+			transition.SoundPlayedCallback += (source) =>
 			{
-				return;
-			}
-
-			sourceInitData ??= GetAudioInitProps(GameConstants.Audio.SFX_2D_SPATIAL_BLEND, clipData);
-
-			var updatedInitData = sourceInitData.Value;
-			updatedInitData.MixerGroup = GetAudioMixerGroup(mixerGroupId);
-			updatedInitData.Mute = IsSfxMuted;
-			sourceInitData = updatedInitData;
-
-			base.PlayClipQueued2D(id, mixerGroupId, sourceInitData);
+				PlayMusic(musicClip);
+			};
 		}
 
 		/// <inheritdoc />
@@ -201,12 +214,13 @@ namespace FirstLight.Game.Services
 				SpatialBlend = spatialBlend,
 				Pitch = playbackData.PlaybackPitch,
 				Volume = playbackData.PlaybackVolume,
-				Loop = false,
+				Loop = playbackData.Loop,
 				Mute = false,
 				StartTime = 0,
 				RolloffMode = AudioRolloffMode.Linear,
 				MinDistance = GameConstants.Audio.SFX_3D_MIN_DISTANCE,
-				MaxDistance = GameConstants.Audio.SFX_3D_MAX_DISTANCE
+				MaxDistance = GameConstants.Audio.SFX_3D_MAX_DISTANCE,
+				PitchModPerLoop = playbackData.PitchModPerLoop
 			};
 		}
 	}

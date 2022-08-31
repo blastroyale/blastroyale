@@ -3,6 +3,7 @@ using FirstLight.Services;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Utils;
 using FirstLight.NotificationService;
+using UnityEngine;
 
 namespace FirstLight.Game.Services
 {
@@ -27,6 +28,9 @@ namespace FirstLight.Game.Services
 
 		/// <inheritdoc cref="IGameNetworkService"/>
 		IGameNetworkService NetworkService { get; }
+		
+		/// <inheritdoc cref="IPlayerInputService"/>
+		IPlayerInputService PlayerInputService { get; }
 
 		/// <inheritdoc cref="IMessageBrokerService"/>
 		IMessageBrokerService MessageBrokerService { get; }
@@ -76,8 +80,16 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc cref="IHelpdeskService"/>
 		public IHelpdeskService HelpdeskService { get; }
 		
-		/// <inheritdoc cref="IGameFlowService"/>
-		public IGameFlowService GameFlowService { get; }
+		/// <summary>
+		/// Reason why the player quit the app
+		/// </summary>
+		public string QuitReason { get; }
+		
+		/// <summary>
+		/// Method used when we want to leave the app, so we can record the reason
+		/// </summary>
+		/// <param name="reason">Reason why we quit the app</param>
+		public void QuitGame(string reason);
 	}
 
 	public class GameServices : IGameServices
@@ -86,6 +98,7 @@ namespace FirstLight.Game.Services
 		public IConfigsProvider ConfigsProvider { get; }
 		public IGuidService GuidService { get; }
 		public IGameNetworkService NetworkService { get; }
+		public IPlayerInputService PlayerInputService { get; }
 		public IMessageBrokerService MessageBrokerService { get; }
 		public IGameCommandService CommandService { get; }
 		public IPoolService PoolService { get; }
@@ -102,15 +115,14 @@ namespace FirstLight.Game.Services
 		public IRemoteTextureService RemoteTextureService { get; }
 		public IThreadService ThreadService { get; }
 		public IHelpdeskService HelpdeskService { get; }
-		public IGameFlowService GameFlowService { get; }
+		public string QuitReason { get; set; }
 
 		public GameServices(IGameNetworkService networkService, IMessageBrokerService messageBrokerService,
 		                    ITimeService timeService, IDataSaver dataSaver, IConfigsProvider configsProvider,
 		                    IGameLogic gameLogic, IDataProvider dataProvider,
 		                    IGenericDialogService genericDialogService,
 		                    IAssetResolverService assetResolverService,
-		                    IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService,
-		                    IThreadService threadService, IGameFlowService gameFlowService)
+		                    IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService)
 		{
 			NetworkService = networkService;
 			AnalyticsService = new AnalyticsService(this, gameLogic, dataProvider);
@@ -122,15 +134,16 @@ namespace FirstLight.Game.Services
 			GenericDialogService = genericDialogService;
 			AudioFxService = audioFxService;
 			VfxService = vfxService;
-			ThreadService = threadService;
-			GameFlowService = gameFlowService;
 
+			ThreadService = new ThreadService();
+			HelpdeskService = new HelpdeskService();
 			GuidService = new GuidService();
 			PlayfabService = new PlayfabService(gameLogic.AppLogic, messageBrokerService);
-			CommandService = new GameCommandService(PlayfabService, gameLogic, dataProvider, gameFlowService);
+			CommandService = new GameCommandService(PlayfabService, gameLogic, dataProvider, this, networkService);
 			PoolService = new PoolService();
 			TickService = new TickService();
 			CoroutineService = new CoroutineService();
+			PlayerInputService = new PlayerInputService();
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			NotificationService = new MobileNotificationService(
 			                                                    new
@@ -145,8 +158,13 @@ namespace FirstLight.Game.Services
 						                                                    .NOTIFICATION_IDLE_BOXES_CHANNEL,
 					                                                    GameConstants.Notifications
 						                                                    .NOTIFICATION_IDLE_BOXES_CHANNEL));
-			HelpdeskService = new HelpdeskService();
 		}
 		
+		/// <inheritdoc />
+		public void QuitGame(string reason)
+		{
+			QuitReason = reason;
+			Application.Quit();
+		}
 	}
 }

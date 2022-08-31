@@ -40,12 +40,12 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private void OnDestroy()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
-			_matchServices?.SpectateService.SpectatedPlayer.StopObservingAll(this);
+			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(OnSpectatedPlayerChanged);
 		}
 
 		private void OnMatchStarted(MatchStartedMessage message)
 		{
-			UpdatePlayersAlive(QuantumRunner.Default.Game.Frames.Verified);
+			UpdatePlayersAlive(message.Game.Frames.Predicted);
 		}
 
 		private void OnEventOnPlayerDead(EventOnPlayerDead callback)

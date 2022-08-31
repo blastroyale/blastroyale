@@ -2,8 +2,6 @@
   <packages>
     <package>com.android.installreferrer:installreferrer:2.1</package>
     <package>com.android.support:appcompat-v7:28.0.0</package>
-    <package>com.appsflyer:af-android-sdk:6.5.2</package>
-    <package>com.appsflyer:unity-wrapper:6.5.2</package>
     <package>com.google.android.gms:play-services-base:18.1.0</package>
     <package>com.google.firebase:firebase-analytics:21.1.0</package>
     <package>com.google.firebase:firebase-analytics-unity:9.3.0</package>
@@ -45,9 +43,6 @@
     <file>Assets/Plugins/Android/androidx.versionedparcelable.versionedparcelable-1.1.0.aar</file>
     <file>Assets/Plugins/Android/androidx.viewpager.viewpager-1.0.0.aar</file>
     <file>Assets/Plugins/Android/com.android.installreferrer.installreferrer-2.1.aar</file>
-    <file>Assets/Plugins/Android/com.appsflyer.af-android-sdk-6.5.2.aar</file>
-    <file>Assets/Plugins/Android/com.appsflyer.oaid-6.2.4.aar</file>
-    <file>Assets/Plugins/Android/com.appsflyer.unity-wrapper-6.5.2.aar</file>
     <file>Assets/Plugins/Android/com.google.android.datatransport.transport-api-3.0.0.aar</file>
     <file>Assets/Plugins/Android/com.google.android.datatransport.transport-backend-cct-3.1.5.aar</file>
     <file>Assets/Plugins/Android/com.google.android.datatransport.transport-runtime-3.1.5.aar</file>

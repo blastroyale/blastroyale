@@ -8,7 +8,7 @@ namespace Quantum.Systems
 	/// This system handles all the behaviour for the <see cref="PlayerCharacter"/> and it's dependent component states
 	/// </summary>
 	public unsafe class PlayerCharacterSystem : SystemMainThreadFilter<PlayerCharacterSystem.PlayerCharacterFilter>,
-	                                            ISignalOnPlayerDataSet, ISignalPlayerKilledPlayer, ISignalHealthIsZero
+	                                            ISignalOnPlayerDataSet, ISignalHealthIsZeroFromAttacker
 	{
 		public struct PlayerCharacterFilter
 		{
@@ -25,53 +25,45 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void OnPlayerDataSet(Frame f, PlayerRef playerRef)
 		{
+			var playerEntity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.PlayerCharacterPrototype.Id));
+			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
 			var playerData = f.GetPlayerData(playerRef);
-
 			var gridSquareSize = FP._1 * f.Map.WorldSize / f.Map.GridSizeX / FP._2;
 			var spawnPosition = playerData.NormalizedSpawnPosition * f.Map.WorldSize +
 			                    new FPVector2(f.RNG->Next(-gridSquareSize, gridSquareSize),
 			                                  f.RNG->Next(-gridSquareSize, gridSquareSize));
 
-			var playerEntity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.PlayerCharacterPrototype.Id));
-			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
+			
 			var spawnTransform = new Transform3D {Position = FPVector3.Zero, Rotation = FPQuaternion.Identity};
-
-			spawnTransform.Position = spawnPosition.XOY;
-
 			var startingEquipment = f.Context.MapConfig.GameMode == GameMode.BattleRoyale
 				                        ? Array.Empty<Equipment>()
 				                        : playerData.Loadout;
 
+			spawnTransform.Position = spawnPosition.XOY;
+
 			playerCharacter->Init(f, playerEntity, playerRef, spawnTransform, playerData.PlayerLevel,
-			                      playerData.PlayerTrophies, playerData.Skin, startingEquipment,
+			                      playerData.PlayerTrophies, playerData.Skin, playerData.DeathMarker, startingEquipment,
 			                      playerData.Loadout.FirstOrDefault(e => e.IsWeapon()));
 		}
 
 		/// <inheritdoc />
-		public void HealthIsZero(Frame f, EntityRef entity, EntityRef attacker)
+		public void HealthIsZeroFromAttacker(Frame f, EntityRef entity, EntityRef attacker)
 		{
-			if (!f.Unsafe.TryGetPointer<PlayerCharacter>(entity, out var player))
+			if (!f.Unsafe.TryGetPointer<PlayerCharacter>(entity, out var playerDead))
 			{
 				return;
 			}
 
-			player->Dead(f, entity, attacker);
-		}
-
-		/// <inheritdoc />
-		public void PlayerKilledPlayer(Frame f, PlayerRef playerDead, EntityRef entityDead, PlayerRef playerKiller,
-		                               EntityRef entityKiller)
-		{
-			var deathPosition = f.Get<Transform3D>(entityDead).Position;
-			var armourDropChance = f.RNG->Next();
+			var deathPosition = f.Get<Transform3D>(entity).Position;
 			var step = 0;
 			var gameMode = f.Context.MapConfig.GameMode;
 
+			playerDead->Dead(f, entity, attacker);
+
 			//when you kill a player in BR we drop also his/hers weapon
-			if (f.Context.MapConfig.GameMode == GameMode.BattleRoyale &&
-			    !f.Get<PlayerCharacter>(entityDead).HasMeleeWeapon(f, entityDead))
+			if (f.Context.MapConfig.GameMode == GameMode.BattleRoyale && !playerDead->HasMeleeWeapon(f, entity))
 			{
-				Collectable.DropEquipment(f, f.Get<PlayerCharacter>(entityDead).CurrentWeapon, deathPosition, step);
+				Collectable.DropEquipment(f, playerDead->CurrentWeapon, deathPosition, step);
 				step++;
 			}
 
@@ -86,6 +78,8 @@ namespace Quantum.Systems
 				Collectable.DropConsumable(f, GameId.AmmoSmall, deathPosition, step, false);
 				step++;
 			}
+			
+			var armourDropChance = f.RNG->Next();
 
 			// Try to drop ShieldLarge
 			if (armourDropChance <= f.GameConfig.DeathDropLargeShieldChance)
@@ -118,14 +112,12 @@ namespace Quantum.Systems
 				movedirection = rotation;
 			}
 
-			var isAiming = input->AimingDirection.SqrMagnitude > FP._0;
-			if (isAiming)
+			if (input->AimingDirection.SqrMagnitude > FP._0)
 			{
 				rotation = input->AimingDirection;
 			}
 
 			bb->Set(f, Constants.IsAimPressedKey, input->IsShootButtonDown);
-			bb->Set(f, Constants.IsAimingKey, isAiming);
 			bb->Set(f, Constants.AimDirectionKey, rotation);
 			bb->Set(f, Constants.MoveDirectionKey, movedirection);
 		}

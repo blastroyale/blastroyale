@@ -42,7 +42,6 @@ struct Modifier
 synced event OnHealthChanged
 {
 	entity_ref Entity;
-	entity_ref Attacker;
 	Int32 PreviousHealth;
 	Int32 CurrentHealth;
 	Int32 MaxHealth;
@@ -56,22 +55,31 @@ synced event OnDamageBlocked
 synced event OnShieldChanged
 {
 	entity_ref Entity;
-	entity_ref Attacker;
 	Int32 PreviousShield;
 	Int32 CurrentShield;
-	Int32 PreviousShieldCapacity;
 	Int32 ShieldCapacity;
 }
 
-synced event OnHealthIsZero
+synced event OnHealthIsZeroFromAttacker
 {
 	entity_ref Entity;
 	entity_ref Attacker;
 	Int32 DamageAmount;
 	Int32 MaxHealth;
-	uint SpellID;
 }
 
-signal HealthChanged(entity_ref entity, entity_ref attacker, Int32 previousHealth);
-signal HealthIsZero(entity_ref entity, entity_ref attacker);
+synced event OnStatModifierAdded
+{
+	entity_ref Entity;
+	Modifier Modifier;
+}
+
+synced event OnStatModifierRemoved
+{
+	entity_ref Entity;
+	Modifier Modifier;
+}
+
+signal HealthChangedFromAttacker(entity_ref entity, entity_ref attacker, Int32 previousHealth);
+signal HealthIsZeroFromAttacker(entity_ref entity, entity_ref attacker);
 

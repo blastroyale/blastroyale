@@ -58,6 +58,7 @@ namespace FirstLight.Editor.EditorTools
 			  
 			// Script Assembly Dependencies
 			CopyAssembly(_unityPath,"FirstLight.DataExtensions.dll");
+			CopyAssembly(_unityPath,"FirstLight.Game.Server.dll"); 
 			CopyAssembly(_unityPath,"FirstLight.Game.dll"); 
 			CopyAssembly(_unityPath,"FirstLight.Services.dll");
 			CopyAssembly(_unityPath,"PhotonQuantum.dll");

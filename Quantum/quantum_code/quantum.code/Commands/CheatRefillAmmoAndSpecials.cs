@@ -16,19 +16,19 @@ namespace Quantum.Commands
 		internal override void Execute(Frame f, PlayerRef playerRef)
 		{
 			var characterEntity = f.GetSingleton<GameContainer>().PlayersData[playerRef].Entity;
-
 			var pc = f.Unsafe.GetPointer<PlayerCharacter>(characterEntity);
-			var stats = f.Unsafe.GetPointer<Stats>(characterEntity);
 
 			// Replenish Special's charges
 			for (var i = 0; i < pc->WeaponSlots.Length; i++)
 			{
-				pc->WeaponSlots[i].Special1Charges = 1;
-				pc->WeaponSlots[i].Special2Charges = 1;
+				pc->WeaponSlots[i].Specials[0].Charges = 1;
+				pc->WeaponSlots[i].Specials[0].AvailableTime = f.Time;
+				pc->WeaponSlots[i].Specials[1].Charges = 1;
+				pc->WeaponSlots[i].Specials[1].AvailableTime = f.Time;
 			}
 
-			f.Unsafe.GetPointer<PlayerCharacter>(characterEntity)->GainAmmo(f, characterEntity, FP._1);
-			pc->EquipSlotWeapon(f, characterEntity, pc->CurrentWeaponSlot, true);
+			pc->GainAmmo(f, characterEntity, FP._1);
+			pc->EquipSlotWeapon(f, characterEntity, pc->CurrentWeaponSlot);
 		}
 	}
 }

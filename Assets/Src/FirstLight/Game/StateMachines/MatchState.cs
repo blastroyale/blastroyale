@@ -132,7 +132,7 @@ namespace FirstLight.Game.StateMachines
 		private void OnDisconnectDuringMatchmaking()
 		{
 			_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.Matchmaking;
-			_uiService.CloseUi<MatchmakingLoadingScreenPresenter>();
+			CloseMatchmakingScreen();
 		}
 		
 		private void OnDisconnectDuringFinalPreload()
@@ -227,12 +227,14 @@ namespace FirstLight.Game.StateMachines
 			
 			MainInstaller.Bind<IMatchServices>(matchServices);
 			// TODO ROB _assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<AudioAdventureAssetConfigs>());
-			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<AdventureAssetConfigs>());
-			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<EquipmentRarityAssetConfigs>());
+			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<MatchAssetConfigs>());
 			runnerConfigs.SetRuntimeConfig(config);
 
 			tasks.Add(sceneTask);
+			tasks.Add(_assetAdderService.LoadAllAssets<IndicatorVfxId, GameObject>());
+			tasks.Add(_assetAdderService.LoadAllAssets<EquipmentRarity, GameObject>());
 			tasks.AddRange(LoadQuantumAssets(map));
+			tasks.AddRange(PreloadGameAssets());
 			tasks.AddRange(_uiService.LoadUiSetAsync((int) UiSetId.MatchUi));
 			
 			switch (_services.NetworkService.CurrentRoomMapConfig.Value.GameMode)
@@ -242,7 +244,6 @@ namespace FirstLight.Game.StateMachines
 				case GameMode.BattleRoyale : tasks.AddRange(_uiService.LoadUiSetAsync((int) UiSetId.BattleRoyaleMatchUi));
 					break;
 			}
-			tasks.AddRange(PreloadGameAssets());
 
 			await Task.WhenAll(tasks);
 
@@ -268,11 +269,11 @@ namespace FirstLight.Game.StateMachines
 
 			await _services.AssetResolverService.UnloadSceneAsync(scene);
 
-			
 			_services.VfxService.DespawnAll();
 			_services.AudioFxService.UnloadAudioClips(configProvider.GetConfig<AudioMatchAssetConfigs>().ConfigsDictionary);
-			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<AdventureAssetConfigs>());
-			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<EquipmentRarityAssetConfigs>());
+			_services.AssetResolverService.UnloadAssets<EquipmentRarity, GameObject>(false);
+			_services.AssetResolverService.UnloadAssets<IndicatorVfxId, GameObject>(false);
+			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<MatchAssetConfigs>());
 
 			Resources.UnloadUnusedAssets();
 

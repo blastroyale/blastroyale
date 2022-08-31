@@ -1,4 +1,5 @@
-﻿using FirstLight.Game.Commands;
+﻿using System.Collections.Generic;
+using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
 using PlayFab;
 using PlayFab.AdminModels;
@@ -7,49 +8,51 @@ using ServerSDK;
 using ServerSDK.Events;
 using UpdatePlayerStatisticsRequest = PlayFab.ServerModels.UpdatePlayerStatisticsRequest;
 
-namespace BlastRoyaleNFTPlugin;
-
-/// <summary>
-/// Server plugin to handle leaderboards.
-/// </summary>
-public class TrophyLadderPlugin : ServerPlugin
+namespace BlastRoyaleNFTPlugin
 {
-	private const string RANK_NAME = "Trophies Ladder";
+	/// <summary>
+	/// Server plugin to handle leaderboards.
+	/// </summary>
+	public class TrophyLadderPlugin : ServerPlugin
+	{
+		private const string RANK_NAME = "Trophies Ladder";
 	
-	public override void OnEnable(PluginContext context)
-	{
-		context.PluginEventManager.RegisterListener<CommandFinishedEvent>(OnCommandFinished);
-		SetupLeaderboard();
-	}
-
-	private void SetupLeaderboard()
-	{
-		PlayFabAdminAPI.CreatePlayerStatisticDefinitionAsync(new CreatePlayerStatisticDefinitionRequest()
+		public override void OnEnable(PluginContext context)
 		{
-			AggregationMethod = StatisticAggregationMethod.Last,
-			StatisticName = RANK_NAME
-		});
-	}
-
-	
-	private void OnCommandFinished(CommandFinishedEvent ev)
-	{
-		if(!(ev.Command is EndOfGameCalculationsCommand))
-		{
-			return;
+			context.PluginEventManager.RegisterListener<CommandFinishedEvent>(OnCommandFinished);
+			SetupLeaderboard();
 		}
-		
-		PlayFabServerAPI.UpdatePlayerStatisticsAsync(new UpdatePlayerStatisticsRequest()
+
+		private void SetupLeaderboard()
 		{
-			PlayFabId = ev.PlayerId,
-			Statistics = new List<StatisticUpdate>()
+			PlayFabAdminAPI.CreatePlayerStatisticDefinitionAsync(new CreatePlayerStatisticDefinitionRequest()
 			{
-				new StatisticUpdate()
+				AggregationMethod = StatisticAggregationMethod.Last,
+				StatisticName = RANK_NAME
+			});
+		}
+
+	
+		private void OnCommandFinished(CommandFinishedEvent ev)
+		{
+			if(!(ev.Command is EndOfGameCalculationsCommand))
+			{
+				return;
+			}
+		
+			PlayFabServerAPI.UpdatePlayerStatisticsAsync(new UpdatePlayerStatisticsRequest()
+			{
+				PlayFabId = ev.PlayerId,
+				Statistics = new List<StatisticUpdate>()
 				{
-					Value = (int)ev.PlayerState.DeserializeModel<PlayerData>().Trophies,
-					StatisticName = RANK_NAME
-				}
-			},
-		});
+					new StatisticUpdate()
+					{
+						Value = (int)ev.PlayerState.DeserializeModel<PlayerData>().Trophies,
+						StatisticName = RANK_NAME
+					}
+				},
+			});
+		}
 	}
 }
+

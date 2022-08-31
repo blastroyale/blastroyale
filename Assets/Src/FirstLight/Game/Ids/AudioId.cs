@@ -12,13 +12,13 @@ namespace FirstLight.Game.Ids
 		MusicBrSkydiveLoop,
 		MusicBrLowLoop,
 		MusicBrMidLoop,
-		MusicBrFinalDuelLoop,
+		MusicBrHighLoop,
 		MusicDmLoop,
-		MusicDmFinalDuelLoop,
+		MusicDmHighLoop,
 		MusicVictoryJingle,
 		MusicDefeatJingle,
 		MusicPostMatchLoop,
-		MusicFinalDuelTransitionJingle,
+		MusicHighTransitionJingleBr,
 
 		// Weapons
 		PlaHammerWeaponShot,
@@ -62,6 +62,7 @@ namespace FirstLight.Game.Ids
 		HitHealthDamage,
 		HitShieldDamage,
 		ShieldBreak,
+	
 		PlayerKill,
 		PlayerDeath,
 		ExplosionSmall,
@@ -77,7 +78,7 @@ namespace FirstLight.Game.Ids
 		InvLoop,
 		InvStart,
 		InvEnd,
-		InvDamageAbsorb,
+		DamageAbsorb,
 		SdLoop,
 		SdStart,
 		SdEnd,
@@ -94,7 +95,7 @@ namespace FirstLight.Game.Ids
 		WeaponSwitch,
 		SkydiveJetpackDiveLoop,
 		SkydiveEnd,
-		ChestLootDrop,
+		ChestPickup,
 		PlayerHeartBeatLoop,
 		PlayerEnterLava,
 		PlayerEnterWater,
@@ -135,6 +136,16 @@ namespace FirstLight.Game.Ids
 		FrostAmbientLoop,
 		LavaAmbientLoop,
 		WaterAmbientLoop,
+		
+		// Late additions
+		MusicHighTransitionJingleDm,
+		SelfShieldBreak,
+		AirdropDropped,
+		AirdropLanded,
+		AirdropFlare,
+		CollectionLoop,
+		CollectionStart,
+		CollectionStop,
 	}
 	
 	/// <summary>

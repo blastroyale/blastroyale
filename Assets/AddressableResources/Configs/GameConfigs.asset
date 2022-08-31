@@ -24,6 +24,11 @@ MonoBehaviour:
       RoomLockKillCount: 14
       MatchmakingTime:
         RawValue: 983040
+      CasualMatchmakingTime:
+        RawValue: 983040
+      RankedMatchmakingTime:
+        RawValue: 7864320
+      RankedMatchmakingMinPlayers: 19
       BotsNameCount: 200
       PlayerRespawnTime:
         RawValue: 262144
@@ -47,14 +52,6 @@ MonoBehaviour:
       PlayerStartingShieldCapacity:
         BattleRoyale: 200
         Deathmatch: 400
-      CoinsPerRank: 30
-      XpPerRank: 20
-      DeathSignificance:
-        RawValue: 32768
-      CoinsPerFragDeathRatio:
-        RawValue: 1966080
-      XpPerFragDeathRatio:
-        RawValue: 2293760
       CollectableCollectTime:
         BattleRoyale:
           RawValue: 78643
@@ -65,43 +62,9 @@ MonoBehaviour:
           RawValue: 0
         Deathmatch:
           RawValue: 196608
-      EquipmentLevelToPowerK: 10
-      EquipmentRarityToPowerK: 50
-      LootboxSlotsMaxNumber: 4
-      MinuteCostInHardCurrency:
-        RawValue: 55706
       MaxPlayerRanks: 25
       RageStatusDamageMultiplier:
         RawValue: 196608
-      StatsPowerBaseValue: 250
-      StatsPowerRarityMultiplier:
-        RawValue: 66191
-      StatsPowerLevelStepMultiplier:
-        RawValue: 328
-      StatsPowerGradeStepMultiplier:
-        RawValue: 3277
-      StatsHpBaseValue: 300
-      StatsHpRarityMultiplier:
-        RawValue: 72090
-      StatsHpLevelStepMultiplier:
-        RawValue: 328
-      StatsHpGradeStepMultiplier:
-        RawValue: 3277
-      StatsSpeedBaseValue:
-        RawValue: 13107
-      StatsSpeedRarityMultiplier:
-        RawValue: 68813
-      StatsSpeedLevelStepMultiplier:
-        RawValue: 2294
-      StatsSpeedGradeStepMultiplier:
-        RawValue: 16384
-      StatsArmorBaseValue: 5
-      StatsArmorRarityMultiplier:
-        RawValue: 78643
-      StatsArmorLevelStepMultiplier:
-        RawValue: 1507
-      StatsArmorGradeStepMultiplier:
-        RawValue: 10945
       DeathDropHealthChance:
         RawValue: 26214
       DeathDropLargeShieldChance:
@@ -109,11 +72,14 @@ MonoBehaviour:
       DeathDropSmallShieldChance:
         RawValue: 16384
       TrophyEloRange: 50
-      TrophyEloK: 5
+      TrophyEloK:
+        RawValue: 163840
       NftAssumedOwned: 40
-      MinNftForEarnings: 0
-      AdjectiveRarityEarningsMod:
+      MinNftForEarnings: 3
+      EarningsAugmentationStrengthDropMod:
         RawValue: 52429
+      EarningsAugmentationStrengthSteepnessMod:
+        RawValue: 196608
       NftUsageCooldownMinutes: 1440
       NftRequiredEquippedForPlay: 3
       PlayerVisionRange:

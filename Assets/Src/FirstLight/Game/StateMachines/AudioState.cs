@@ -7,8 +7,10 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Services;
 using FirstLight.Statechart;
 using Quantum;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.StateMachines
@@ -23,7 +25,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly AudioBattleRoyaleState _audioBrState;
 		private readonly AudioDeathmatchState _audioDmState;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
-		private IEntityViewUpdaterService _entityViewUpdaterService;
+		private IMatchServices _matchServices;
 
 		public AudioState(IGameDataProvider gameLogic, IGameServices services,
 		                  Action<IStatechartEvent> statechartTrigger)
@@ -34,6 +36,21 @@ namespace FirstLight.Game.StateMachines
 			_audioBrState = new AudioBattleRoyaleState(services, gameLogic, statechartTrigger);
 			_audioDmState = new AudioDeathmatchState(services, gameLogic, statechartTrigger);
 		}
+
+		private struct LoopedAudioClip
+		{
+			public AudioSourceMonoComponent audioSource;
+			public string[] despawnEvent;
+			public EntityRef targetEntity;
+
+			public LoopedAudioClip(AudioSourceMonoComponent audioSource, string[] despawnEvent, EntityRef targetEntity)
+			{
+				this.audioSource = audioSource;
+				this.despawnEvent = despawnEvent;
+				this.targetEntity = targetEntity;
+			}
+		}
+		private List<LoopedAudioClip> _currentClips = new List<LoopedAudioClip>();
 
 		/// <summary>
 		/// Setups the Adventure gameplay state
@@ -49,49 +66,54 @@ namespace FirstLight.Game.StateMachines
 			var battleRoyale = stateFactory.Nest("AUDIO - Battle Royale");
 			var deathmatch = stateFactory.Nest("AUDIO - Deathmatch");
 			var postGame = stateFactory.State("AUDIO - Post Game");
-			var disonnected = stateFactory.State("AUDIO - Disconnected");
+			var disconnected = stateFactory.State("AUDIO - Disconnected");
+			var postGameSpectatorCheck = stateFactory.Choice("AUDIO - Spectator Check");
 
 			initial.Transition().Target(audioBase);
 			initial.OnExit(SubscribeEvents);
 
 			audioBase.Event(MainMenuState.MainMenuLoadedEvent).Target(mainMenu);
-
-			mainMenu.OnEnter(TryPlayMainMenuMusic);
+			
 			mainMenu.OnEnter(TransitionAudioMixerMain);
-			mainMenu.Event(MainMenuState.MainMenuUnloadedEvent).Target(matchmaking);
+			mainMenu.OnEnter(TryPlayMainMenuMusic);
+			mainMenu.Event(NetworkState.JoinedRoomEvent).Target(matchmaking);
 
 			matchmaking.OnEnter(TryPlayLobbyMusic);
 			matchmaking.OnEnter(TransitionAudioMixerLobby);
 			matchmaking.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
-			matchmaking.Event(GameSimulationState.SimulationStartedEvent).OnTransition(GetEntityViewUpdaterService).Target(gameModeCheck);
-			matchmaking.Event(NetworkState.PhotonDisconnectedEvent).Target(disonnected);
-			matchmaking.OnExit(StopMusicInstant);
+			matchmaking.Event(GameSimulationState.SimulationStartedEvent).OnTransition(PrepareForMatchMusic).Target(gameModeCheck);
+			matchmaking.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(StopMusicInstant).Target(disconnected);
 			matchmaking.OnExit(TransitionAudioMixerMain);
 
 			gameModeCheck.Transition().Condition(IsDeathmatch).Target(deathmatch);
 			gameModeCheck.Transition().Target(battleRoyale);
 
-			battleRoyale.Nest(_audioBrState.Setup).Target(postGame);
-			battleRoyale.Event(GameSimulationState.GameCompleteExitEvent).Target(postGame);
-			battleRoyale.Event(GameSimulationState.MatchEndedEvent).Target(postGame);
-			battleRoyale.Event(GameSimulationState.MatchQuitEvent).OnTransition(StopMusicInstant).Target(audioBase);
+			battleRoyale.Nest(_audioBrState.Setup).Target(postGameSpectatorCheck);
+			battleRoyale.Event(GameSimulationState.GameCompleteExitEvent).Target(postGameSpectatorCheck);
+			battleRoyale.Event(GameSimulationState.MatchEndedEvent).Target(postGameSpectatorCheck);
+			battleRoyale.Event(GameSimulationState.MatchQuitEvent).OnTransition(StopMusicInstant).Target(postGameSpectatorCheck);
 			battleRoyale.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
-			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(disonnected);
+			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
 
-			deathmatch.Nest(_audioDmState.Setup).Target(postGame);
-			deathmatch.Event(GameSimulationState.GameCompleteExitEvent).Target(postGame);
-			deathmatch.Event(GameSimulationState.MatchEndedEvent).Target(postGame);
-			deathmatch.Event(GameSimulationState.MatchQuitEvent).OnTransition(StopMusicInstant).Target(audioBase);
+			deathmatch.Nest(_audioDmState.Setup).Target(postGameSpectatorCheck);
+			deathmatch.Event(GameSimulationState.GameCompleteExitEvent).Target(postGameSpectatorCheck);
+			deathmatch.Event(GameSimulationState.MatchEndedEvent).Target(postGameSpectatorCheck);
+			deathmatch.Event(GameSimulationState.MatchQuitEvent).OnTransition(StopMusicInstant).Target(postGameSpectatorCheck);
 			deathmatch.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
-			deathmatch.Event(NetworkState.PhotonDisconnectedEvent).Target(disonnected);
-
-			postGame.OnEnter(PlayPostGameMusic);
+			deathmatch.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
+			
+			postGameSpectatorCheck.Transition().Condition(IsSpectator).Target(audioBase);
+			postGameSpectatorCheck.Transition().Target(postGame);
+				
+			postGame.OnEnter(StopMusicInstant);
+			postGame.OnEnter(PlayPostMatchMusic);
 			postGame.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
 			postGame.OnExit(StopMusicInstant);
+			postGame.OnExit(StopAllSfx);
 
-			disonnected.OnEnter(StopMusicInstant);
-			disonnected.Event(MainMenuState.MainMenuLoadedEvent).Target(mainMenu);
-			disonnected.Event(NetworkState.JoinedRoomEvent).Target(matchmaking);
+			disconnected.OnEnter(StopMusicInstant);
+			disconnected.Event(MainMenuState.MainMenuLoadedEvent).Target(mainMenu);
+			disconnected.Event(NetworkState.JoinedRoomEvent).Target(matchmaking);
 
 			final.OnEnter(UnsubscribeEvents);
 		}
@@ -100,6 +122,22 @@ namespace FirstLight.Game.StateMachines
 		{
 			QuantumEvent.SubscribeManual<EventOnPlayerDamaged>(this, OnPlayerDamaged);
 			QuantumEvent.SubscribeManual<EventOnPlayerAttack>(this, OnPlayerAttack);
+			QuantumEvent.SubscribeManual<EventOnCollectableCollected>(this, OnCollectableCollected);
+			QuantumEvent.SubscribeManual<EventOnDamageBlocked>(this, OnDamageBlocked);
+			QuantumEvent.SubscribeManual<EventOnPlayerSpecialUsed>(this, OnSpecialUsed);
+			QuantumEvent.SubscribeManual<EventOnRaycastShotExplosion>(this, OnRaycastShotExplosion);
+			QuantumEvent.SubscribeManual<EventOnHazardLand>(this, OnHazardExplosion);
+			QuantumEvent.SubscribeManual<EventOnProjectileExplosion>(this, OnProjectileExplosion);
+			QuantumEvent.SubscribeManual<EventOnChestOpened>(this, OnChestOpened);
+			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKillPlayer);
+			QuantumEvent.SubscribeManual<EventOnAirDropDropped>(this, OnAirdropDropped);
+			QuantumEvent.SubscribeManual<EventOnAirDropLanded>(this, OnAirdropLanded);
+			QuantumEvent.SubscribeManual<EventOnAirDropCollected>(this, OnAirdropCollected);
+			QuantumEvent.SubscribeManual<EventOnStartedCollecting>(this, OnStartCollection);
+			QuantumEvent.SubscribeManual<EventOnStoppedCollecting>(this, OnCollectionStopped);
+			QuantumEvent.SubscribeManual<EventOnCollectableBlocked>(this, OnCollectionBlocked);
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveDrop>(this, OnSkydiveStart);
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveLand>(this, OnSkydiveEnd);
 		}
 
 		private void UnsubscribeEvents()
@@ -107,22 +145,27 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.UnsubscribeListener(this);
 		}
 
+		private bool IsSpectator()
+		{
+			return _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator();
+		}
+		
 		private bool IsDeathmatch()
 		{
 			return _services.NetworkService.CurrentRoomMapConfig.Value.GameMode == GameMode.Deathmatch;
 		}
 
-		private void GetEntityViewUpdaterService()
+		private void PrepareForMatchMusic()
 		{
-			_entityViewUpdaterService = MainInstaller.Resolve<IMatchServices>().EntityViewUpdaterService;
+			StopMusicInstant();
+			_matchServices = MainInstaller.Resolve<IMatchServices>();
 		}
 
 		private void TryPlayMainMenuMusic()
 		{
 			if (!_services.AudioFxService.IsMusicPlaying)
 			{
-				_services.AudioFxService.PlayMusic(AudioId.MusicMainLoop,
-				                                   GameConstants.Audio.MUSIC_SHORT_FADE_SECONDS);
+				_services.AudioFxService.PlaySequentialMusicTransition(AudioId.MusicMainStart, AudioId.MusicMainLoop);
 			}
 		}
 
@@ -130,16 +173,35 @@ namespace FirstLight.Game.StateMachines
 		{
 			if (!_services.AudioFxService.IsMusicPlaying)
 			{
-				_services.AudioFxService.PlayMusic(AudioId.MusicMainLoop,
-				                                   GameConstants.Audio.MUSIC_SHORT_FADE_SECONDS);
+				_services.AudioFxService.PlayMusic(AudioId.MusicMainLoop, GameConstants.Audio.MUSIC_SHORT_FADE_SECONDS);
 			}
 		}
 
-		private void PlayPostGameMusic()
+		private void PlayPostMatchMusic()
 		{
-			_services.AudioFxService.PlayMusic(AudioId.MusicPostMatchLoop,
-			                                   GameConstants.Audio.MUSIC_SHORT_FADE_SECONDS,
-			                                   GameConstants.Audio.MUSIC_SHORT_FADE_SECONDS);
+			var game = QuantumRunner.Default.Game;
+			var frame = game.Frames.Verified;
+			var container = frame.GetSingleton<GameContainer>();
+			var playerData = container.GetPlayersMatchData(frame, out var leader);
+			var playerWinner = playerData[leader];
+			var victoryStatusAudio = AudioId.MusicDefeatJingle;
+			
+			if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator() && 
+			    _matchServices.SpectateService.SpectatedPlayer.Value.Player == leader)
+			{
+				victoryStatusAudio = AudioId.MusicVictoryJingle;
+			}
+			else if (game.PlayerIsLocal(leader))
+			{
+				victoryStatusAudio = AudioId.MusicVictoryJingle;
+			}
+			
+			_services.AudioFxService.PlaySequentialMusicTransition(victoryStatusAudio, AudioId.MusicPostMatchLoop);
+		}
+
+		private void StopAllSfx()
+		{
+			_services.AudioFxService.StopAllSfx();
 		}
 
 		private void StopMusicInstant()
@@ -164,48 +226,324 @@ namespace FirstLight.Game.StateMachines
 			                                              GameConstants.Audio.MIXER_SNAPSHOT_TRANSITION_SECONDS);
 		}
 
-		private void OnPlayerAttack(EventOnPlayerAttack callback)
+		/// <summary>
+		/// Removes any currently playing looped clips on the target entity if the correct event is being called
+		/// </summary>
+		private void CheckClips(string currentEvent, EntityRef entity)
 		{
-			if (_entityViewUpdaterService == null)
+			for(var i = _currentClips.Count -1; i > -1; i--) 
 			{
-				return;
+				var clip = _currentClips[i];
+				
+				foreach (var evnt in clip.despawnEvent)
+				{
+					if (evnt == currentEvent && clip.targetEntity == entity)
+					{
+						clip.audioSource.StopAndDespawn();
+						_currentClips.RemoveAt(i);
+						break;
+					}
+				}
+			}
+		}
+
+		private void OnSkydiveStart(EventOnLocalPlayerSkydiveDrop callback)
+		{
+			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
+			{
+				var despawnEvents = new [] { nameof(EventOnLocalPlayerSkydiveLand) };
+				var position = entityView.transform.position;
+				_services.AudioFxService.PlayClip3D(AudioId.AirdropDropped, position);
+				var skydiveLoop = _services.AudioFxService.PlayClip3D(AudioId.SkydiveJetpackDiveLoop, position);
+				
+				skydiveLoop.SetFollowTarget(entityView.transform, Vector3.zero, Quaternion.identity);
+				_currentClips.Add(new LoopedAudioClip(skydiveLoop, despawnEvents, callback.Entity));
+			}
+		}
+		private void OnSkydiveEnd(EventOnLocalPlayerSkydiveLand callback)
+		{
+			CheckClips(nameof(EventOnLocalPlayerSkydiveLand), callback.Entity);
+			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
+			{
+				_services.AudioFxService.PlayClip3D(AudioId.SkydiveEnd, entityView.transform.position);
+			}
+		}
+
+		private void OnCollectionBlocked(EventOnCollectableBlocked callback)
+		{
+			CheckClips(nameof(EventOnCollectableBlocked), callback.CollectableEntity);
+			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView))
+			{
+				//TODO: replace this sfx with a proper sfx for your pickup being blocked
+				_services.AudioFxService.PlayClip3D(AudioId.CollectionStop, entityView.transform.position);
+			}
+		}
+		private void OnCollectionStopped(EventOnStoppedCollecting callback)
+		{
+			CheckClips(nameof(EventOnStoppedCollecting), callback.CollectableEntity);
+		}
+		private void OnStartCollection(EventOnStartedCollecting callback)
+		{
+			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView))
+			{
+				//TODO: add a rising pitch setting for looping sfx
+				_services.AudioFxService.PlayClip3D(AudioId.CollectionStart, entityView.transform.position);
+				var collectSfx = _services.AudioFxService.PlayClip3D(AudioId.CollectionLoop, entityView.transform.position);
+				var despawnEvents = new [] 
+				{ 
+					nameof(EventOnStoppedCollecting),
+					nameof(EventOnCollectableBlocked),
+					nameof(EventOnCollectableCollected) 
+				};
+				_currentClips.Add(new LoopedAudioClip(collectSfx, despawnEvents, callback.CollectableEntity));
+			}
+		}
+
+		private void OnAirdropCollected(EventOnAirDropCollected callback)
+		{
+			CheckClips(nameof(EventOnAirDropCollected), callback.Entity);
+		}
+
+		private void OnAirdropLanded(EventOnAirDropLanded callback)
+		{
+			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
+			{
+				var position = entityView.transform.position;
+				_services.AudioFxService.PlayClip3D(AudioId.AirdropLanded, position);
+				var flareSfx = _services.AudioFxService.PlayClip3D(AudioId.AirdropFlare, position);
+				var despawnEvents = new [] { nameof(EventOnAirDropCollected) };
+				_currentClips.Add(new LoopedAudioClip(flareSfx, despawnEvents, callback.Entity));
+			}
+		}
+
+		private void OnAirdropDropped(EventOnAirDropDropped callback)
+		{
+			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
+			{
+				var position = entityView.transform.position;
+				_services.AudioFxService.PlayClip3D(AudioId.AirdropDropped, position);
+				var dropsFx = _services.AudioFxService.PlayClip3D(AudioId.MissileFlyLoop, position);
+				var despawnEvents = new [] { nameof(EventOnAirDropLanded) };
+				_currentClips.Add(new LoopedAudioClip(dropsFx, despawnEvents, callback.Entity));
+			}
+		}
+
+		private void OnPlayerKillPlayer(EventOnPlayerKilledPlayer callback)
+		{
+			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.EntityKiller, out var entityView)) return;
+			
+			var game = callback.Game;
+			var audio = AudioId.None;
+			
+			if (_matchServices.SpectateService.SpectatedPlayer.Value.Entity == callback.EntityKiller)
+			{
+				audio = AudioId.PlayerKill;
+			}
+			else if (_matchServices.SpectateService.SpectatedPlayer.Value.Entity == callback.EntityDead)
+			{
+				audio = AudioId.PlayerDeath;
+			}
+			else if (game.Frames.Verified.TryGet<PlayerCharacter>(callback.EntityKiller, out var killerPlayer) &&
+			         _matchServices.SpectateService.SpectatedPlayer.Value.Player == killerPlayer.Player)
+			{
+				audio = AudioId.PlayerKill;
+			}
+			else if (game.Frames.Verified.TryGet<PlayerCharacter>(callback.EntityDead, out var deadPlayer) &&
+			         _matchServices.SpectateService.SpectatedPlayer.Value.Player == deadPlayer.Player)
+			{
+				audio = AudioId.PlayerDeath;
 			}
 
-			if (_entityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView))
+			if (audio != AudioId.None)
+			{
+				_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
+			}
+		}
+
+		private void OnChestOpened(EventOnChestOpened callback)
+		{
+			_services.AudioFxService.PlayClip3D(AudioId.ChestPickup, callback.ChestPosition.ToUnityVector3());
+		}
+
+		private void OnRaycastShotExplosion(EventOnRaycastShotExplosion callback)
+		{
+			PlayExplosionSFX(callback.sourceId, callback.EndPosition.ToUnityVector3());
+		}
+		private void OnHazardExplosion(EventOnHazardLand callback)
+		{
+			PlayExplosionSFX(callback.sourceId, callback.HitPosition.ToUnityVector3());
+		}
+		private void OnProjectileExplosion(EventOnProjectileExplosion callback)
+		{
+			PlayExplosionSFX(callback.sourceId, callback.EndPosition.ToUnityVector3());
+		}
+
+		private void PlayExplosionSFX(GameId sourceId, Vector3 endPosition)
+		{
+			var audio = AudioId.None;
+
+			switch (sourceId)
+			{
+				//specials
+				case GameId.SpecialAimingGrenade:
+					audio = AudioId.ExplosionMedium;
+					break;
+				case GameId.SpecialAimingAirstrike:
+					audio = AudioId.ExplosionLarge;
+					break;
+				case GameId.SpecialAimingStunGrenade:
+					audio = AudioId.ExplosionFlashBang;
+					break;
+				case GameId.SpecialSkyLaserBeam:
+					audio = AudioId.ExplosionSciFi;
+					break;
+				//weapons
+				case GameId.ApoRPG:
+					audio = AudioId.ExplosionSmall;
+					break;
+				case GameId.ModLauncher:
+					audio = AudioId.ExplosionSmall;
+					break;
+				case GameId.SciCannon:
+					audio = AudioId.ExplosionSciFi;
+					break;
+			}
+
+			if (audio != AudioId.None)
+			{
+				_services.AudioFxService.PlayClip3D(audio, endPosition);
+			}
+		}
+
+		private void OnSpecialUsed(EventOnPlayerSpecialUsed callback)
+		{
+			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
+			
+			var audio = AudioId.None;
+
+			switch (callback.Special.SpecialType)
+			{
+				case SpecialType.Grenade:
+					audio = AudioId.Dash;
+					break;
+				case SpecialType.StunGrenade:
+					audio = AudioId.Dash;
+					break;
+				case SpecialType.ShieldedCharge:
+					audio = AudioId.Dash;
+					break;
+				case SpecialType.Airstrike:
+					audio = AudioId.MissileFlyLoop;
+					break;
+			}
+
+			if(audio == AudioId.MissileFlyLoop)
+			{
+				var missileLoop = _services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
+				var despawnEvents = new[] { nameof(EventOnHazardLand) };
+				_currentClips.Add(new LoopedAudioClip(missileLoop, despawnEvents, callback.Entity));
+			}
+			else if (audio != AudioId.None)
+			{
+				_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
+			}
+		}
+
+		private void OnCollectableCollected(EventOnCollectableCollected callback)
+		{
+			CheckClips(nameof(EventOnCollectableCollected), callback.CollectableEntity);
+
+			var audio = AudioId.None;
+			var collectableId = callback.CollectableId;
+
+			switch (collectableId)
+			{
+				case GameId.AmmoLarge:
+					audio = AudioId.LargeAmmoPickup;
+					break;
+				case GameId.AmmoSmall:
+					audio = AudioId.AmmoPickup;
+					break;
+				case GameId.Health:
+					audio = AudioId.HealthPickup;
+					break;
+				case GameId.ShieldCapacityLarge:
+					audio = AudioId.GearPickup;
+					break;
+				case GameId.ShieldCapacitySmall:
+					audio = AudioId.GearPickup;
+					break;
+				case GameId.ShieldLarge:
+					audio = AudioId.LargeShieldPickup;
+					break;
+				case GameId.ShieldSmall:
+					audio = AudioId.ShieldPickup;
+					break;
+			}
+
+			if (collectableId.IsInGroup(GameIdGroup.Weapon))
+			{
+				audio = AudioId.WeaponPickup;
+			}
+			else if (collectableId.IsInGroup(GameIdGroup.Equipment))
+			{
+				audio = AudioId.GearPickup;
+			}
+			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView) && 
+			    audio != AudioId.None)
+			{
+				_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
+			}			
+		}
+
+		private void OnPlayerAttack(EventOnPlayerAttack callback)
+		{
+			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView))
 			{
 				var weaponConfig = _services.ConfigsProvider.GetConfig<AudioWeaponConfig>((int) callback.Weapon.GameId);
+				var audio = _services.AudioFxService.PlayClip3D(weaponConfig.WeaponShotId,
+				                                                entityView.transform.position);
+				audio.SetFollowTarget(entityView.transform, Vector3.zero, Quaternion.identity);
+			}
+		}
 
-				_services.AudioFxService.PlayClip3D(weaponConfig.WeaponShotId, entityView.transform.position);
+		private void OnDamageBlocked(EventOnDamageBlocked callback)
+		{
+			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
+			{
+				var audio = AudioId.DamageAbsorb;
+				_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
 			}
 		}
 
 		private void OnPlayerDamaged(EventOnPlayerDamaged callback)
 		{
-			if (_entityViewUpdaterService == null)
+			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
 			{
 				return;
 			}
+			
+			var game = callback.Game;
+			var audio = AudioId.None;
 
-			if (_entityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
+			if (_matchServices.SpectateService.SpectatedPlayer.Value.Player == callback.Player)
 			{
-				var game = callback.Game;
-				var audio = AudioId.None;
+				audio = callback.ShieldDamage > 0 ? AudioId.TakeShieldDamage : AudioId.TakeHealthDamage;
+			}
+			else if (game.Frames.Verified.TryGet<PlayerCharacter>(callback.Attacker, out var player) &&
+			         _matchServices.SpectateService.SpectatedPlayer.Value.Player == player.Player)
+			{
+				audio = callback.ShieldDamage > 0 ? AudioId.HitShieldDamage : AudioId.HitHealthDamage;
+			}
+				
+			if (callback.ShieldDamage > 0 && callback.HealthDamage > 0)
+			{
+				audio = AudioId.ShieldBreak;
+			}
 
-				// TODO - TAKE/SHIELD HIT DAMAGE BASED ON SPECTATED ENTITY
-				if (game.PlayerIsLocal(callback.Player))
-				{
-					audio = callback.ShieldDamage > 0 ? AudioId.TakeShieldDamage : AudioId.TakeHealthDamage;
-				}
-				else if (game.Frames.Verified.TryGet<PlayerCharacter>(callback.Attacker, out var player) &&
-				         game.PlayerIsLocal(player.Player))
-				{
-					audio = callback.ShieldDamage > 0 ? AudioId.HitShieldDamage : AudioId.HitHealthDamage;
-				}
-
-				if (audio != AudioId.None)
-				{
-					_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
-				}
+			if (audio != AudioId.None)
+			{
+				_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
 			}
 		}
 	}

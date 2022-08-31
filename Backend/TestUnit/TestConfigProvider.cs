@@ -6,9 +6,6 @@ using FirstLight;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using NUnit.Framework;
-using Tests.Stubs;
-
-namespace Tests;
 
 public class TestConfigsProvider
 {
@@ -20,6 +17,7 @@ public class TestConfigsProvider
 	public void Setup()
 	{
 		_server = new TestServer();
+		_server.SetupInMemoryServer();
 		_playerId = _server.GetTestPlayerID();
 	}
 	

@@ -24,28 +24,33 @@ namespace Quantum
 		}
 
 		/// <summary>
-		/// Collects this given <paramref name="entity"/> by the given <paramref name="player"/>
+		/// Collects this given <paramref name="entity"/> by the given <paramref name="playerEntity"/>
 		/// </summary>
-		internal void Collect(Frame f, EntityRef entity, EntityRef player, PlayerRef playerRef)
+		internal void Collect(Frame f, EntityRef entity, EntityRef playerEntity, PlayerRef playerRef)
 		{
-			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(player);
-			var isBot = f.Has<BotCharacter>(player);
-			var playerData = f.GetPlayerData(playerRef);
+			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
+			var isBot = f.Has<BotCharacter>(playerEntity);
+
+			var loadoutWeapon = playerCharacter->GetLoadoutWeapon(f);
+			
 
 			if (Item.IsWeapon())
 			{
-				var primaryWeapon = isBot || Owner == playerRef ||
-				                    (!playerData.Loadout.FirstOrDefault(e => e.IsWeapon()).IsValid() &&
-				                     !playerCharacter->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon
-					                     .IsValid());
+				var primaryWeapon = isBot || 
+										Owner == playerRef ||
+										// If you don't have a weapon in loadout and you don't already have a weapon in slot 1
+										(!loadoutWeapon.IsValid() && !playerCharacter->WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon.IsValid()) ||
+										// If you got the same type of weapon you have in loadout
+										Item.GameId == loadoutWeapon.GameId;
 
-				playerCharacter->AddWeapon(f, player, Item, primaryWeapon);
-				playerCharacter->EquipSlotWeapon(f, player, playerCharacter->CurrentWeaponSlot);
+				playerCharacter->AddWeapon(f, playerEntity, Item, primaryWeapon);
 			}
 			else
 			{
-				playerCharacter->EquipGear(f, player, Item);
+				playerCharacter->EquipGear(f, playerEntity, Item);
 			}
+
+			f.Events.OnEquipmentCollected(entity, playerRef, playerEntity, Item);
 		}
 	}
 }

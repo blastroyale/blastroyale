@@ -23,7 +23,8 @@
         "PhotonQuantum",
         "Localization",
         "MoreMountains.NiceVibrations.Haptics",
-        "FirstLight.FLogger"
+        "FirstLight.FLogger",
+        "PlayFabEditorExtensions"
     ],
     "includePlatforms": [
         "Editor"

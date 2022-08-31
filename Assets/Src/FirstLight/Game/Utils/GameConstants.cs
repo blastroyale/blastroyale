@@ -118,6 +118,8 @@ namespace FirstLight.Game.Utils
 			public const string ROOM_PROPS_RANKED_MATCH = "isRanked";
 
 			public const string DEFAULT_REGION = "eu";
+			
+			public const string LEADERBOARD_LADDER_NAME = "Trophies Ladder";
 		}
 
 		public static class Visuals

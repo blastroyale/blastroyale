@@ -156,6 +156,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				FLog.Error(JsonConvert.SerializeObject(error.ErrorDetails));
 			}
+			
 			_services.GenericDialogService.OpenDialog(error.ErrorMessage, false, confirmButton);
 		}
 		

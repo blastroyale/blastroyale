@@ -39,6 +39,11 @@ namespace FirstLight.Game.Utils
 		/// If false, testing game mode selection will be disabled in GameModeSelectionPresenter
 		/// </summary>
 		public static readonly bool TESTING_GAME_MODE_ENABLED = true;
+		
+		/// <summary>
+		/// If false, leaderboard button will be disabled on the home screen
+		/// </summary>
+		public static readonly bool LEADERBOARD_ACCESSIBLE = true;
 
 		/// <summary>
 		/// Parses the feature flags from a given input dictionary.

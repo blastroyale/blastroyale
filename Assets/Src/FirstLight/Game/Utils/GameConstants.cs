@@ -90,6 +90,7 @@ namespace FirstLight.Game.Utils
 		{
 			public const int MATCH_SPECTATOR_SPOTS = 15;
 			public const float SPECTATOR_TOGGLE_TIMEOUT = 2f;
+			public const int PLAYER_NAME_APPENDED_NUMBERS = 5;
 		}
 
 		public static class Network
@@ -119,6 +120,10 @@ namespace FirstLight.Game.Utils
 			public const string ROOM_PROPS_RANKED_MATCH = "isRanked";
 
 			public const string DEFAULT_REGION = "eu";
+			
+			public const string LEADERBOARD_LADDER_NAME = "Trophies Ladder";
+			public const int LEADERBOARD_TOP_RANK_AMOUNT = 20;
+			public const int LEADERBOARD_NEIGHBOR_RANK_AMOUNT = 3;
 		}
 
 		public static class Visuals

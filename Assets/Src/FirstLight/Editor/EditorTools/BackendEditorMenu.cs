@@ -85,6 +85,7 @@ namespace FirstLight.Editor.EditorTools
 			Debug.Log("Parsed and saved in backend folder");
 		}
 		
+#if UNITY_EDITOR && ENABLE_PLAYFABADMIN_API		
 		/// <summary>
 		/// Uploads the last serialized configuration to dev playfab.
 		/// Playfab title is set in the Window -> Playfab -> Editor Extension menu
@@ -102,7 +103,8 @@ namespace FirstLight.Editor.EditorTools
 				Debug.Log("Configs uploaded to playfab and version bumped");
 			});
 		}
-	
+#endif
+
 		[MenuItem("FLG/Backend/Force Update")]
 		private static void ForceUpdate()
 		{

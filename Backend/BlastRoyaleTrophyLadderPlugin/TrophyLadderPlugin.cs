@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
+using FirstLight.Game.Utils;
 using PlayFab;
 using PlayFab.AdminModels;
 using PlayFab.ServerModels;
@@ -15,8 +16,6 @@ namespace BlastRoyaleNFTPlugin
 	/// </summary>
 	public class TrophyLadderPlugin : ServerPlugin
 	{
-		private const string RANK_NAME = "Trophies Ladder";
-	
 		public override void OnEnable(PluginContext context)
 		{
 			context.PluginEventManager.RegisterListener<CommandFinishedEvent>(OnCommandFinished);
@@ -28,7 +27,7 @@ namespace BlastRoyaleNFTPlugin
 			PlayFabAdminAPI.CreatePlayerStatisticDefinitionAsync(new CreatePlayerStatisticDefinitionRequest()
 			{
 				AggregationMethod = StatisticAggregationMethod.Last,
-				StatisticName = RANK_NAME
+				StatisticName = GameConstants.Network.LEADERBOARD_LADDER_NAME
 			});
 		}
 
@@ -47,7 +46,7 @@ namespace BlastRoyaleNFTPlugin
 					new StatisticUpdate()
 					{
 						Value = (int)ev.PlayerState.DeserializeModel<PlayerData>().Trophies,
-						StatisticName = RANK_NAME
+						StatisticName = GameConstants.Network.LEADERBOARD_LADDER_NAME
 					}
 				},
 			});

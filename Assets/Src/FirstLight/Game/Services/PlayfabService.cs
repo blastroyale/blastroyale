@@ -53,12 +53,13 @@ namespace FirstLight.Game.Services
 		private readonly IAppLogic _app;
 		private readonly IMessageBrokerService _msgBroker;
 
-		private const string LEADERBOARD_LADDER_NAME = "Trophies Ladder";
+		private readonly string _leaderboardLadderName;
 
-		public PlayfabService(IAppLogic app, IMessageBrokerService msgBroker)
+		public PlayfabService(IAppLogic app, IMessageBrokerService msgBroker, string leaderboardLadderName)
 		{
 			_app = app;
 			_msgBroker = msgBroker;
+			_leaderboardLadderName = leaderboardLadderName;
 		}
 
 		/// <inheritdoc />
@@ -79,7 +80,7 @@ namespace FirstLight.Game.Services
 		{
 			var leaderboardRequest = new GetLeaderboardRequest()
 			{
-				StatisticName = LEADERBOARD_LADDER_NAME,
+				StatisticName = _leaderboardLadderName,
 				StartPosition = 0,
 				MaxResultsCount = amountOfEntries
 			};
@@ -98,7 +99,7 @@ namespace FirstLight.Game.Services
 		{
 			var neighborLeaderboardRequest = new GetLeaderboardAroundPlayerRequest()
 			{
-				StatisticName = LEADERBOARD_LADDER_NAME,
+				StatisticName = _leaderboardLadderName,
 				MaxResultsCount = amountOfEntries
 			};
 

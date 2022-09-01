@@ -39,13 +39,14 @@ namespace FirstLight.Game.Configs
 		/// <summary>
 		/// Defines the <see cref="RuntimeConfig"/> to set on the Quantum's simulation when starting
 		/// </summary>
-		public void SetRuntimeConfig(QuantumMapConfig config)
+		public void SetRuntimeConfig(QuantumGameModeConfig gameModeConfig, QuantumMapConfig config)
 		{
 			var op = Addressables.LoadAssetAsync<MapAsset>($"Maps/{config.Map.ToString()}.asset");
 			
 			_runtimeConfig.Seed = Random.Range(0, int.MaxValue);
 			_runtimeConfig.MapId = config.Id;
 			_runtimeConfig.Map = op.WaitForCompletion().Settings;
+			_runtimeConfig.GameModeId = gameModeConfig.Id;
 		}
 
 		/// <inheritdoc cref="QuantumRunner.StartParameters"/>

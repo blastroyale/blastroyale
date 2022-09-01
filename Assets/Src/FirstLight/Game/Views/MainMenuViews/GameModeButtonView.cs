@@ -24,7 +24,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		[SerializeField, Required] private Button _selectButton;
 		[SerializeField, Required] private Button _tooltipButton;
 		[SerializeField, Required] private MatchType _matchType;
-		[SerializeField, Required] private GameMode _gameMode;
+		[SerializeField, Required] private string _gameMode;
 		[SerializeField, Required] private Transform _tooltipAnchor;
 		[SerializeField, Required] private TextMeshProUGUI _gameModeText;
 		[SerializeField, Required] private TextMeshProUGUI _matchTypeText;
@@ -32,13 +32,13 @@ namespace FirstLight.Game.Views.MainMenuViews
 		/// <summary>
 		/// Action that invokes when the button is clicked, with the selected game mode and match type
 		/// </summary>
-		public Action<GameMode, MatchType> GameModeAndMatchTypeSelected { get; set; }
+		public Action<string, MatchType> GameModeAndMatchTypeSelected { get; set; }
 		
 		private IGameServices _services;
 		
 		private void Awake()
 		{
-			if (_gameMode == GameMode.Deathmatch && !FeatureFlags.DEATHMATCH_ENABLED)
+			if (_gameMode == "Deathmatch" && !FeatureFlags.DEATHMATCH_ENABLED)
 			{
 				gameObject.SetActive(false);
 				return;
@@ -48,7 +48,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_tooltipButton.onClick.AddListener(OnTooltipButtonClick);
 			_selectButton.onClick.AddListener(OnButtonClick);
 
-			_gameModeText.text = _gameMode.GetTranslation();
+			_gameModeText.text = _gameMode.ToUpper();
 			_matchTypeText.text = _matchType.GetTranslation();
 		}
 

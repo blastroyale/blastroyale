@@ -104,7 +104,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		
 		private void OnLocalPlayerAlive(EventOnLocalPlayerAlive callback)
 		{
-			if (callback.Game.Frames.Verified.Context.MapConfig.GameMode == GameMode.Deathmatch)
+			if (callback.Game.Frames.Verified.Context.GameModeConfig.Lives != 1)
 			{
 				SetActiveCamera(_adventureCamera);
 			}

@@ -144,7 +144,7 @@ namespace Quantum
 				navMeshPathfinder->Stop(f, e, true);
 			}
 
-			if (f.Context.MapConfig.GameMode == GameMode.BattleRoyale)
+			if (f.Context.GameModeConfig.Lives == 1)
 			{
 				f.Add<EntityDestroyer>(e);
 			}
@@ -186,11 +186,10 @@ namespace Quantum
 				primaryReplaced = true;
 			}
 
-			// In Battle Royale if there's a different weapon in a slot then we drop it
-			if (f.Context.MapConfig.GameMode == GameMode.BattleRoyale && WeaponSlots[slot].Weapon.IsValid()
-			                                                          && (WeaponSlots[slot].Weapon.GameId !=
-			                                                              weapon.GameId ||
-			                                                              primaryReplaced))
+			// Optionally drop the weapon if there's a different weapon in a slot
+			if (f.Context.GameModeConfig.DropWeaponOnPickup &&
+			    WeaponSlots[slot].Weapon.IsValid() &&
+			    (WeaponSlots[slot].Weapon.GameId != weapon.GameId || primaryReplaced))
 			{
 				var dropPosition = f.Get<Transform3D>(e).Position + FPVector3.Forward;
 				Collectable.DropEquipment(f, WeaponSlots[slot].Weapon, dropPosition, 0);

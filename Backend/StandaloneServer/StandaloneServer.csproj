@@ -38,6 +38,9 @@
       <Reference Include="quantum.core">
         <HintPath>..\Lib\quantum.core.dll</HintPath>
       </Reference>
+      <Reference Include="Sirenix.OdinInspector.Attributes">
+        <HintPath>..\UnityLib\Sirenix.OdinInspector.Attributes.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
     <ItemGroup>

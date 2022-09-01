@@ -54,7 +54,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			
 			var mapConfig = _services.NetworkService.CurrentRoomMapConfig.Value;
+			var gameModeConfig = _services.NetworkService.CurrentRoomGameModeConfig.Value;
 			var config = _services.ConfigsProvider.GetConfig<QuantumGameConfig>();
+			var maxPlayers = NetworkUtils.GetMaxPlayers(gameModeConfig, mapConfig);
 			
 			foreach (var message in _messages)
 			{
@@ -62,11 +64,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 
 			_killConfigTimer = config.DoubleKillTimeLimit;
-			_killTarget = (int) mapConfig.GameEndTarget;
+			_killTarget = (int) _services.NetworkService.CurrentRoomGameModeConfig.Value.CompletionKillCount;
 			_killWarningLimit = (_killTarget / 3) * 2;
-			_playerKillStreak = new int[mapConfig.PlayersLimit];
-			_playerDominating = new bool[mapConfig.PlayersLimit];
-			_playerGodlike = new bool[mapConfig.PlayersLimit];
+			_playerKillStreak = new int[maxPlayers];
+			_playerDominating = new bool[maxPlayers];
+			_playerGodlike = new bool[maxPlayers];
 			
 			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnEventOnPlayerKilledPlayer, onlyIfActiveAndEnabled: true);
 			QuantumEvent.Subscribe<EventOnGameEnded>(this, OnEventGameEnd);

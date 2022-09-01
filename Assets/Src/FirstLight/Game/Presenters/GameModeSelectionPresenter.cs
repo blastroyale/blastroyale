@@ -23,6 +23,7 @@ namespace FirstLight.Game.Presenters
 		}
 		
 		[SerializeField, Required] private List<GameModeButtonView> _modeAndMatchButtons;
+		[SerializeField, Required] private GameModeButtonView _testingButton;
 		[SerializeField, Required] private Button _backButton;
 
 		private IGameDataProvider _gameDataProvider;
@@ -37,7 +38,10 @@ namespace FirstLight.Game.Presenters
 			{
 				button.GameModeAndMatchTypeSelected += OnModeButtonClicked;
 			}
+
 			
+			_testingButton.gameObject.SetActive(FeatureFlags.TESTING_GAME_MODE_ENABLED);
+			_testingButton.GameModeAndMatchTypeSelected += OnModeButtonClicked;
 			_backButton.onClick.AddListener(OnBlockerButtonPressed);
 		}
 
@@ -51,9 +55,9 @@ namespace FirstLight.Game.Presenters
 			_backButton.onClick.RemoveAllListeners();
 		}
 
-		private void OnModeButtonClicked(GameMode gameMode, MatchType matchType)
+		private void OnModeButtonClicked(string gameMode, MatchType matchType)
 		{
-			_gameDataProvider.AppDataProvider.SelectedGameMode.Value = gameMode;
+			_gameDataProvider.AppDataProvider.SelectedGameModeId.Value = gameMode;
 			_gameDataProvider.AppDataProvider.SelectedMatchType.Value = matchType;
 			Data.GameModeChosen();
 		}

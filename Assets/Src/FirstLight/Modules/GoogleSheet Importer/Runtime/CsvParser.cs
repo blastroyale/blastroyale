@@ -18,6 +18,7 @@ namespace FirstLight.GoogleSheetImporter
 		
 		public static readonly char[] PairSplitChars = {':', '<', '>', '=', '|'};
 		public static readonly char[] ArraySplitChars = {',', '(', ')', '[', ']', '{', '}'};
+		public static readonly string[] NewLineChars = {"\r\n", "\r", "\n"};
 
 		/// <summary>
 		/// Parses the entire <paramref name="csv"/> text.

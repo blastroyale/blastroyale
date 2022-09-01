@@ -87,15 +87,7 @@ namespace FirstLight.Game.Utils
 		{
 			return $"{nameof(ScriptTerms.GameIds)}/{id.ToString()}";
 		}
-		
-		/// <summary>
-		/// Gets the translation term of the given <paramref name="id"/> for a game mode
-		/// </summary>
-		public static string GetTranslation(this GameMode id)
-		{
-			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.GameIds)}/{id.ToString()}");
-		}
-		
+
 		/// <summary>
 		/// Gets the translation term of the given <paramref name="id"/> for a match type
 		/// </summary>
@@ -371,6 +363,14 @@ namespace FirstLight.Game.Utils
 		public static int GetMapId(this Room room)
 		{
 			return (int) room.CustomProperties[GameConstants.Network.ROOM_PROPS_MAP];
+		}
+		
+		/// <summary>
+		/// Obtains the current selected game mode id in the given <paramref name="room"/>
+		/// </summary>
+		public static string GetGameModeId(this Room room)
+		{
+			return (string) room.CustomProperties[GameConstants.Network.ROOM_PROPS_GAME_MODE];
 		}
 
 		/// <summary>

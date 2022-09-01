@@ -65,11 +65,11 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public List<RewardData> CalculateMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit)
 		{
-			var mapConfig = GameLogic.ConfigsProvider.GetConfig<QuantumMapConfig>(matchData.MapId);
+			var gameModeConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGameModeConfig>(matchData.GameModeId.GetHashCode());
 			var rewards = new List<RewardData>();
 			
 			// Currently, there is no plan on giving rewards on anything but BR mode
-			if (mapConfig.GameMode != GameMode.BattleRoyale || didPlayerQuit)
+			if (!gameModeConfig.GiveRewards || didPlayerQuit)
 			{
 				return rewards;
 			}

@@ -74,9 +74,5 @@ namespace FirstLight.Game.Views.MainMenuViews
 				                           : string.Format(ScriptLocalization.AdventureMenu.ContendersRemaining,
 				                                           playersLeft);
 		}
-
-		private void Update()
-		{
-		}
 	}
 }

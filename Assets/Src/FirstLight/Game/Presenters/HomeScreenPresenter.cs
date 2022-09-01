@@ -146,7 +146,7 @@ namespace FirstLight.Game.Presenters
 		private void RefreshGameModeButton()
 		{
 			var matchType = _gameDataProvider.AppDataProvider.SelectedMatchType.Value.GetTranslation();
-			var gameMode = _gameDataProvider.AppDataProvider.SelectedGameMode.Value.GetTranslation();
+			var gameMode = _gameDataProvider.AppDataProvider.SelectedGameModeId.Value.ToUpper();
 			_selectedGameModeText.text = string.Format(ScriptLocalization.MainMenu.SelectedGameModeValue, matchType.ToUpper(), gameMode.ToUpper());
 		}
 	}

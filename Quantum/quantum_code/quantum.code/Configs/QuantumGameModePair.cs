@@ -1,49 +1,61 @@
 using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Quantum
 {
-	/// <summary>
-	/// Stores two values for a configurable field, one for BattleRoyale,
-	/// one for Deathmatch.
-	/// </summary>
 	[Serializable]
 	public struct QuantumGameModePair<TValue>
 	{
-		public TValue BattleRoyale;
-		public TValue Deathmatch;
+		public TValue Default;
 
-		public QuantumGameModePair(TValue battleRoyale, TValue deathmatch)
+		public List<string> Keys;
+		public List<TValue> Values;
+
+		public QuantumGameModePair(TValue @default, List<string> keys, List<TValue> values)
 		{
-			BattleRoyale = battleRoyale;
-			Deathmatch = deathmatch;
+			Default = @default;
+			Keys = keys;
+			Values = values;
 		}
 
 		/// <summary>
-		/// Returns <see cref="QuantumGameModePair{TValue}.BattleRoyale"/> for <see cref="GameMode.BattleRoyale"/>
-		/// and <see cref="QuantumGameModePair{TValue}.Deathmatch"/> for <see cref="GameMode.Deathmatch"/>
+		/// Returns the default value of this pair.
 		/// </summary>
-		public TValue Get(GameMode mode)
+		public TValue GetDefault()
 		{
-			switch (mode)
-			{
-				case GameMode.BattleRoyale:
-					return BattleRoyale;
-				case GameMode.Deathmatch:
-					return Deathmatch;
-				default:
-					throw new ArgumentOutOfRangeException(nameof(mode), mode, null);
-			}
+			return Default;
 		}
 
-		/// <inheritdoc cref="Get(GameMode)"/>
+		/// <summary>
+		/// The value of this object for a specific game mode. If it doesn't exist it reutns <see cref="Default"/>.
+		/// </summary>
+		public TValue Get(string gameModeId)
+		{
+			var index = Keys.IndexOf(gameModeId);
+			return index >= 0 ? Values[index] : GetDefault();
+		}
+
+		/// <inheritdoc cref="Get(string)"/>
 		public TValue Get(Frame f)
 		{
-			return Get(f.Context.MapConfig.GameMode);
+			return Get(f.Context.GameModeConfig.Id);
 		}
 
 		public override string ToString()
 		{
-			return $"[{BattleRoyale.ToString()},{Deathmatch.ToString()}]";
+			var sb = new StringBuilder();
+
+			sb.Append("[");
+
+			for (var i = 0; i < Keys.Count; i++)
+			{
+				sb.Append($"{Keys[i]} : {Values[i]}");
+			}
+
+			sb.Append("]");
+
+			return sb.ToString();
 		}
 	}
 }

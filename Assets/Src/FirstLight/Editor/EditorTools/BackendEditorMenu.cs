@@ -1,9 +1,14 @@
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using Newtonsoft.Json;
 using PlayFab;
+using PlayFab.AdminModels;
+using PlayFab.PfEditor;
 using UnityEditor;
 using UnityEngine;
 
@@ -78,10 +83,28 @@ namespace FirstLight.Editor.EditorTools
 			await Task.WhenAll(configsLoader.LoadConfigTasks(configs));
 			var serialiezd = serializer.Serialize(configs, "develop");
 			
-			File.WriteAllText ($"{_backendPath}/Backend/gameConfig.json", serialiezd);
+			File.WriteAllText ($"{_backendPath}/GameLogicService/gameConfig.json", serialiezd);
 			Debug.Log("Parsed and saved in backend folder");
 		}
 		
+		/// <summary>
+		/// Uploads the last serialized configuration to dev playfab.
+		/// Playfab title is set in the Window -> Playfab -> Editor Extension menu
+		/// </summary>
+		[MenuItem("FLG/Backend/Upload Configs to Playfab (DEV)")]
+		public static async void UploadToPlayfab()
+		{
+			var serialized = File.ReadAllText($"{_backendPath}/GameLogicService/gameConfig.json");
+			
+			PlayFabShortcuts.SetTitleInternalData("GameConfig", serialized);
+			PlayFabShortcuts.GetTitleInternalData("GameConfigVersion", configVersion =>
+			{
+				var currentVersion = Int32.Parse(configVersion);
+				PlayFabShortcuts.SetTitleInternalData("GameConfigVersion", (currentVersion + 1).ToString());
+				Debug.Log("Configs uploaded to playfab and version bumped");
+			});
+		}
+	
 		[MenuItem("FLG/Backend/Force Update")]
 		private static void ForceUpdate()
 		{

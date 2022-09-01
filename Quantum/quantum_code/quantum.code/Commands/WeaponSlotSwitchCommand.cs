@@ -20,14 +20,15 @@ namespace Quantum.Commands
 		internal override void Execute(Frame f, PlayerRef playerRef)
 		{
 			var characterEntity = f.GetSingleton<GameContainer>().PlayersData[playerRef].Entity;
-			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(characterEntity);
 			
-			if (!playerCharacter->WeaponSlots[WeaponSlotIndex].Weapon.IsValid() || WeaponSlotIndex == playerCharacter->CurrentWeaponSlot)
+			// Between sending the command and receiving it, the player might have died due to the frame delay between Unity & Quantum
+			if (!f.Unsafe.TryGetPointer<PlayerCharacter>(characterEntity, out var pc) ||
+			    !pc->WeaponSlots[WeaponSlotIndex].Weapon.IsValid() || WeaponSlotIndex == pc->CurrentWeaponSlot)
 			{
 				return;
 			}
 			
-			playerCharacter->EquipSlotWeapon(f, characterEntity, WeaponSlotIndex);
+			pc->EquipSlotWeapon(f, characterEntity, WeaponSlotIndex);
 		}
 	}
 }

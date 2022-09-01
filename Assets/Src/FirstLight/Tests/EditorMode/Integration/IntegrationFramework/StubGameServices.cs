@@ -13,6 +13,7 @@ namespace FirstLight.Tests.EditorMode
 		public virtual IConfigsProvider ConfigsProvider { get; }
 		public virtual IGuidService GuidService { get; }
 		public virtual IGameNetworkService NetworkService { get; }
+		public virtual IPlayerInputService PlayerInputService { get; }
 		public virtual IMessageBrokerService MessageBrokerService { get; }
 		public virtual IGameCommandService CommandService { get; }
 		public virtual IPoolService PoolService { get; }
@@ -30,17 +31,18 @@ namespace FirstLight.Tests.EditorMode
 		public virtual IThreadService ThreadService { get; }
 		public virtual IHelpdeskService HelpdeskService { get; }
 		public string QuitReason { get; set; }
+
 		public void QuitGame(string reason)
 		{
-			
 		}
 
 		public StubGameServices(IGameNetworkService networkService, IMessageBrokerService messageBrokerService,
-			ITimeService timeService, IDataSaver dataSaver, IConfigsProvider configsProvider,
-			IGameLogic gameLogic, IDataProvider dataProvider,
-			IGenericDialogService genericDialogService,
-			IAssetResolverService assetResolverService,
-			IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService)
+		                        ITimeService timeService, IDataSaver dataSaver, IConfigsProvider configsProvider,
+		                        IGameLogic gameLogic, IDataProvider dataProvider,
+		                        IGenericDialogService genericDialogService,
+		                        IAssetResolverService assetResolverService,
+		                        IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService,
+		                        IPlayerInputService playerInputService)
 		{
 			NetworkService = networkService;
 			AnalyticsService = new AnalyticsService(this, gameLogic, dataProvider);
@@ -51,6 +53,7 @@ namespace FirstLight.Tests.EditorMode
 			AssetResolverService = assetResolverService;
 			GenericDialogService = genericDialogService;
 			AudioFxService = audioFxService;
+			PlayerInputService = playerInputService;
 			VfxService = vfxService;
 
 			ThreadService = new ThreadService();

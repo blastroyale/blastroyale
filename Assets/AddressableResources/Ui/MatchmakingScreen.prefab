@@ -4775,7 +4775,9 @@ MonoBehaviour:
   _selectedGameModeText: {fileID: 8095967368700346430}
   _playerCountText: {fileID: 8417088899061205114}
   _spectatorCountText: {fileID: 5007134362510740454}
-  _kickOverlayObjects: []
+  _kickOverlayObjects:
+  - {fileID: 2375602479812299111}
+  - {fileID: 2949961465567251211}
   _loadingText: {fileID: 3344349076559296637}
   _roomNameRootObject: {fileID: 2297774574124471423}
   _playerMatchmakingRootObject: {fileID: 5813237726447687209}

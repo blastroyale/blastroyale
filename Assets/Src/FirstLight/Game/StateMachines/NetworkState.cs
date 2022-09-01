@@ -121,11 +121,31 @@ namespace FirstLight.Game.StateMachines
 			final.OnEnter(UnsubscribeEvents);
 		}
 		
+		/// <summary>
+		/// This method receives all photon events, but is only used for our custom in-game events
+		/// </summary>
 		public void OnEvent(EventData photonEvent)
 		{
 			if (photonEvent.Code == GameConstants.Network.PHOTON_EVENT_KICK)
 			{
 				OnKickPlayerEventReceived((string) photonEvent.CustomData);
+			}
+		}
+		
+		private void OnKickPlayerEventReceived(string userIdToLeave)
+		{
+			if (_networkService.QuantumClient.LocalPlayer.UserId == userIdToLeave &&
+			    _networkService.QuantumClient.InRoom)
+			{
+				LeaveRoom();
+				
+				var confirmButton = new GenericDialogButton
+				{
+					ButtonText = ScriptLocalization.General.OK.ToUpper(),
+					ButtonOnClick = _services.GenericDialogService.CloseDialog
+				};
+
+				_services.GenericDialogService.OpenDialog(ScriptLocalization.MainMenu.MatchmakingKickedNotification.ToUpper(), false, confirmButton);
 			}
 		}
 
@@ -502,26 +522,10 @@ namespace FirstLight.Game.StateMachines
 		private void OnRequestKickPlayerMessage(RequestKickPlayerMessage msg)
 		{
 			if (_networkService.QuantumClient.CurrentRoom == null) return;
-			
-			_networkService.QuantumClient.OpRaiseEvent(GameConstants.Network.PHOTON_EVENT_KICK, msg.Player.UserId, RaiseEventOptions.Default,
+
+			var eventOptions = new RaiseEventOptions() { Receivers = ReceiverGroup.All };
+			_networkService.QuantumClient.OpRaiseEvent(GameConstants.Network.PHOTON_EVENT_KICK, msg.Player.UserId, eventOptions,
 			                                           SendOptions.SendReliable);
-		}
-
-		private void OnKickPlayerEventReceived(string userIdToLeave)
-		{
-			if (_networkService.QuantumClient.LocalPlayer.UserId == userIdToLeave &&
-			    _networkService.QuantumClient.InRoom)
-			{
-				LeaveRoom();
-				
-				var confirmButton = new GenericDialogButton
-				{
-					ButtonText = ScriptLocalization.MainMenu.MatchmakingKickedNotification,
-					ButtonOnClick = _services.GenericDialogService.CloseDialog
-				};
-
-				_services.GenericDialogService.OpenDialog(ScriptLocalization.MainMenu.MatchmakingKickInfo, false, confirmButton);
-			}
 		}
 
 		private void OnRoomLeaveClickedMessage(RoomLeaveClickedMessage msg)

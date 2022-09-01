@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ExitGames.Client.Photon;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
@@ -25,7 +26,7 @@ namespace FirstLight.Game.StateMachines
 	/// <summary>
 	/// This object contains the behaviour logic for the Network State and communication with Quantum servers in the <seealso cref="GameStateMachine"/>
 	/// </summary>
-	public class NetworkState : IConnectionCallbacks, IMatchmakingCallbacks, IInRoomCallbacks
+	public class NetworkState : IConnectionCallbacks, IMatchmakingCallbacks, IInRoomCallbacks, IOnEventCallback
 	{
 		public static readonly IStatechartEvent PhotonMasterConnectedEvent = new StatechartEvent("NETWORK - Photon Master Connected Event");
 		public static readonly IStatechartEvent PhotonDisconnectedEvent = new StatechartEvent("NETWORK - Photon Disconnected Event");
@@ -118,6 +119,14 @@ namespace FirstLight.Game.StateMachines
 			disconnected.Event(PhotonMasterConnectedEvent).Target(connected);
 
 			final.OnEnter(UnsubscribeEvents);
+		}
+		
+		public void OnEvent(EventData photonEvent)
+		{
+			if (photonEvent.Code == GameConstants.Network.PHOTON_EVENT_KICK)
+			{
+				OnKickPlayerEventReceived((string) photonEvent.CustomData);
+			}
 		}
 
 		private void UpdateDisconnectionLocation()
@@ -232,6 +241,7 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<AllMatchAssetsLoadedMessage>(OnAllMatchAssetsLoaded);
 			_services.MessageBrokerService.Subscribe<AssetReloadRequiredMessage>(OnAssetReloadRequiredMessage);
 			_services.MessageBrokerService.Subscribe<SpectatorModeToggledMessage>(OnSpectatorToggleMessage);
+			_services.MessageBrokerService.Subscribe<RequestKickPlayerMessage>(OnRequestKickPlayerMessage);
 		}
 
 		private void UnsubscribeEvents()
@@ -488,6 +498,31 @@ namespace FirstLight.Game.StateMachines
 
 			_services.NetworkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
 		}
+		
+		private void OnRequestKickPlayerMessage(RequestKickPlayerMessage msg)
+		{
+			if (_networkService.QuantumClient.CurrentRoom == null) return;
+			
+			_networkService.QuantumClient.OpRaiseEvent(GameConstants.Network.PHOTON_EVENT_KICK, msg.Player.UserId, RaiseEventOptions.Default,
+			                                           SendOptions.SendReliable);
+		}
+
+		private void OnKickPlayerEventReceived(string userIdToLeave)
+		{
+			if (_networkService.QuantumClient.LocalPlayer.UserId == userIdToLeave &&
+			    _networkService.QuantumClient.InRoom)
+			{
+				LeaveRoom();
+				
+				var confirmButton = new GenericDialogButton
+				{
+					ButtonText = ScriptLocalization.MainMenu.MatchmakingKickedNotification,
+					ButtonOnClick = _services.GenericDialogService.CloseDialog
+				};
+
+				_services.GenericDialogService.OpenDialog(ScriptLocalization.MainMenu.MatchmakingKickInfo, false, confirmButton);
+			}
+		}
 
 		private void OnRoomLeaveClickedMessage(RoomLeaveClickedMessage msg)
 		{
@@ -639,7 +674,7 @@ namespace FirstLight.Game.StateMachines
 				_networkService.QuantumClient.OpCreateRoom(createParams);
 			}
 		}
-
+		
 		private void JoinOrCreateRoom(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, string roomName)
 		{
 			var gridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();

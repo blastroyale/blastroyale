@@ -7,8 +7,6 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Newtonsoft.Json;
 using PlayFab;
-using PlayFab.AdminModels;
-using PlayFab.PfEditor;
 using UnityEditor;
 using UnityEngine;
 

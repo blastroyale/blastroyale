@@ -12,7 +12,7 @@ using Assert = NUnit.Framework.Assert;
 
 namespace FirstLight.Tests.EditorMode.Logic
 {
-	public class EquipmentLogicTest : BaseTestFixture<EquipmentData>
+	public class EquipmentLogicTest : MockedTestFixture<EquipmentData>
 	{
 		private PlayerData _playerData;
 		private Pair<UniqueId, Equipment> _item;

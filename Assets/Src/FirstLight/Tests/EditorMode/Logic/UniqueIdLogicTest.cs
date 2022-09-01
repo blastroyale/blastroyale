@@ -8,7 +8,7 @@ using Assert = NUnit.Framework.Assert;
 
 namespace FirstLight.Tests.EditorMode.Logic
 {
-	public class UniqueIdLogicTest : BaseTestFixture<IdData>
+	public class UniqueIdLogicTest : MockedTestFixture<IdData>
 	{
 		private UniqueIdLogic _uniqueIdLogic;
 		private readonly GameId _gameID = GameId.ModRifle;

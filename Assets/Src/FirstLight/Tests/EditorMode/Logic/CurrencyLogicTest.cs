@@ -14,7 +14,7 @@ using Assert = NUnit.Framework.Assert;
 
 namespace FirstLight.Tests.EditorMode.Logic
 {
-	public class CurrencyLogicTest : BaseTestFixture<PlayerData>
+	public class CurrencyLogicTest : MockedTestFixture<PlayerData>
 	{
 		private CurrencyLogic _currencyLogic;
 

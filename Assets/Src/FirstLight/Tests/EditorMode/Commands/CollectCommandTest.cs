@@ -8,7 +8,7 @@ using NUnit.Framework;
 
 namespace FirstLight.Tests.EditorMode.Commands
 {
-	public class CollectCommandTest : BaseTestFixture<PlayerData>
+	public class CollectCommandTest : MockedTestFixture<PlayerData>
 	{ //TODO: Enable it when playFab calls are not in the commands
 		/*[Test]
 		public void CollectRewardCommand_CurrencyReward_Check()

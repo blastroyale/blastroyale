@@ -12,7 +12,10 @@
         "FirstLight.Statechart",
         "FirstLight.NotificationService",
         "FirstLight.GoogleSheetImporter",
-        "PhotonQuantum"
+        "PhotonQuantum",
+        "FirstLight.Game.Server",
+        "PlayFabEditorExtensions",
+        "PlayFab"
     ],
     "includePlatforms": [
         "Editor"
@@ -26,7 +29,9 @@
         "quantum.code.dll",
         "quantum.core.dll",
         "PhotonDeterministic.dll",
-        "Photon3Unity3D.dll"
+        "Photon3Unity3D.dll",
+        "ServerSDK.dll",
+        ""
     ],
     "autoReferenced": false,
     "defineConstraints": [

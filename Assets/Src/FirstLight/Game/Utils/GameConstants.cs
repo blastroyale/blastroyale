@@ -90,6 +90,7 @@ namespace FirstLight.Game.Utils
 		{
 			public const int MATCH_SPECTATOR_SPOTS = 15;
 			public const float SPECTATOR_TOGGLE_TIMEOUT = 2f;
+			public const float SERVER_SELECT_CONNECTION_TIMEOUT = 8f;
 			public const int PLAYER_NAME_APPENDED_NUMBERS = 5;
 		}
 
@@ -125,7 +126,8 @@ namespace FirstLight.Game.Utils
 			public const int LEADERBOARD_TOP_RANK_AMOUNT = 20;
 			public const int LEADERBOARD_NEIGHBOR_RANK_AMOUNT = 3;
 
-			public const int PHOTON_EVENT_KICK = 100;
+			// Custom photon events can start at 0 - Photon internal event codes are separate from our in game codes
+			public const byte PHOTON_EVENT_KICK = (byte) 0;
 		}
 
 		public static class Visuals

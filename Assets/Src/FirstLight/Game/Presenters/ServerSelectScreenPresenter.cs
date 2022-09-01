@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
@@ -34,6 +35,8 @@ namespace FirstLight.Game.Presenters
 
 		private List<Region> _availableRegions;
 
+		private Coroutine _fadeBlockerCoroutine;
+
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
@@ -46,6 +49,16 @@ namespace FirstLight.Game.Presenters
 		protected override void OnOpened()
 		{
 			SetFrontDimBlockerActive(true);
+		}
+
+		protected override void OnClosed()
+		{
+			base.OnClosed();
+
+			if (_fadeBlockerCoroutine != null)
+			{
+				_services.CoroutineService.StopCoroutine(_fadeBlockerCoroutine);
+			}
 		}
 
 		/// <summary>
@@ -98,6 +111,15 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
+		private IEnumerator FrontDimBlockerSequence()
+		{
+			SetFrontDimBlockerActive(true);
+
+			yield return new WaitForSeconds(GameConstants.Data.SERVER_SELECT_CONNECTION_TIMEOUT);
+			
+			SetFrontDimBlockerActive(false);
+		}
+
 		private void SetFrontDimBlockerActive(bool active)
 		{
 			_frontDimBlocker.SetActive(active);
@@ -106,6 +128,7 @@ namespace FirstLight.Game.Presenters
 		private void OnBackClicked()
 		{
 			Data.BackClicked.Invoke();
+			_fadeBlockerCoroutine = _services.CoroutineService.StartCoroutine(FrontDimBlockerSequence());
 		}
 
 		private void OnConnectClicked()
@@ -118,7 +141,7 @@ namespace FirstLight.Game.Presenters
 
 			var selectedRegion = ((DropdownMenuOption) _serverSelectDropdown.options[_serverSelectDropdown.value]).RegionInfo;
 			Data.RegionChosen.Invoke(selectedRegion);
-			SetFrontDimBlockerActive(true);
+			_fadeBlockerCoroutine = _services.CoroutineService.StartCoroutine(FrontDimBlockerSequence());
 		}
 
 		private void OpenNoInternetPopup()

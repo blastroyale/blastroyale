@@ -179,7 +179,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new ServerSelectScreenPresenter.StateData
 			{
-				BackClicked = ConnectPhoton,
+				BackClicked = ConnectPhotonToRegionMaster,
 				RegionChosen = (region) =>
 				{
 					_gameDataProvider.AppDataProvider.ConnectionRegion.Value = region.Code;

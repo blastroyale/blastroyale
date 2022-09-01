@@ -8,7 +8,7 @@
 
         <RootNamespace>IntegrationTests</RootNamespace>
 
-        <LangVersion>10</LangVersion>
+        <LangVersion>preview</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -43,6 +43,9 @@
       </Reference>
       <Reference Include="quantum.core">
         <HintPath>..\Lib\quantum.core.dll</HintPath>
+      </Reference>
+      <Reference Include="Sirenix.OdinInspector.Attributes">
+        <HintPath>..\UnityLib\Sirenix.OdinInspector.Attributes.dll</HintPath>
       </Reference>
     </ItemGroup>
 

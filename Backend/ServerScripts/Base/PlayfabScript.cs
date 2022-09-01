@@ -1,10 +1,11 @@
+using System;
+using System.Collections.Generic;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ServerModels;
-
-namespace Scripts.Base;
 
 /// <summary>
 /// Playfab configuration for a single environment

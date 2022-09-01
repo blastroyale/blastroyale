@@ -67,6 +67,7 @@ namespace FirstLight.Game.Presenters
 			_leaderboardButton.onClick.AddListener(OpenLeaderboardUI);
 			_gameModeButton.onClick.AddListener(OpenGameModeClicked);
 
+			_leaderboardButton.gameObject.SetActive(FeatureFlags.LEADERBOARD_ACCESSIBLE);
 			_marketplaceButton.gameObject.SetActive(Debug.isDebugBuild);
 			_newFeaturesView.gameObject.SetActive(false);
 		}

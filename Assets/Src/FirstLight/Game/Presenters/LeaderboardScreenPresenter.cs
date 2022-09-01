@@ -35,7 +35,6 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private Button _backButton;
 
 		private IGameServices _services;
-		private IGameDataProvider _gameDataProvider;
 		private IObjectPool<PlayerRankEntryView> _playerRankPool;
 
 		private int lowestTopRankedPosition = 0;
@@ -43,7 +42,6 @@ namespace FirstLight.Game.Presenters
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_backButton.onClick.AddListener(OnBackClicked);
 		}
 
@@ -66,23 +64,17 @@ namespace FirstLight.Game.Presenters
 
 			_farRankLeaderboardRoot.SetActive(false);
 
-			var nextResetDate = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month+1, 1);
+			var nextResetDate = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month + 1, 1);
 			var timeDiff = nextResetDate - DateTime.UtcNow;
-			
+
 			// TODO - ALL TEXT ON THIS PRESENTER NEEDS TO BE ADDED, HOOKED UP AND LOCALIZED. THIS IS PLACEHOLDER
 			_seasonEndText.text = "Season ends in " + timeDiff.ToString(@"d\d\ h\h\ mm\m");
-			
+
 			// Leaderboard is requested and displayed in 2 parts
 			// First - top players, then, if needed - current player and neighbors, in a separate anchored section
-			var leaderboardRequest = new GetLeaderboardRequest()
-			{
-				AuthenticationContext = PlayFabSettings.staticPlayer,
-				StatisticName = GameConstants.Network.LEADERBOARD_LADDER_NAME,
-				StartPosition = 0,
-				MaxResultsCount = GameConstants.Network.LEADERBOARD_TOP_RANK_AMOUNT
-			};
-
-			PlayFabClientAPI.GetLeaderboard(leaderboardRequest, OnLeaderboardTopRanksReceived, OnPlayfabError);
+			_services.PlayfabService.GetTopRankLeaderboard(GameConstants.Network.LEADERBOARD_LADDER_NAME,
+			                                               GameConstants.Network.LEADERBOARD_TOP_RANK_AMOUNT,
+			                                               OnLeaderboardTopRanksReceived, OnPlayfabError);
 		}
 
 		private void OnPlayfabError(PlayFabError error)
@@ -127,15 +119,9 @@ namespace FirstLight.Game.Presenters
 
 			if (localPlayerInTopRanks) return;
 
-			var neighborLeaderboardRequest = new GetLeaderboardAroundPlayerRequest()
-			{
-				AuthenticationContext = PlayFabSettings.staticPlayer,
-				StatisticName = GameConstants.Network.LEADERBOARD_LADDER_NAME,
-				MaxResultsCount = GameConstants.Network.LEADERBOARD_PLAYER_RANK_RANGE
-			};
-
-			PlayFabClientAPI.GetLeaderboardAroundPlayer(neighborLeaderboardRequest, OnLeaderboardNeighborRanksReceived,
-			                                            OnPlayfabError);
+			_services.PlayfabService.GetNeighborRankLeaderboard(GameConstants.Network.LEADERBOARD_LADDER_NAME,
+			                                                    GameConstants.Network.LEADERBOARD_NEIGHBOR_RANK_AMOUNT,
+			                                                    OnLeaderboardNeighborRanksReceived, OnPlayfabError);
 		}
 
 		private void OnLeaderboardNeighborRanksReceived(GetLeaderboardAroundPlayerResult result)
@@ -150,7 +136,7 @@ namespace FirstLight.Game.Presenters
 				newEntry.SetInfo(localPlayer.Position + 1, localPlayer.DisplayName, localPlayer.StatValue, true, null);
 				return;
 			}
-			
+
 			_farRankLeaderboardRoot.SetActive(true);
 
 			for (int i = 0; i < result.Leaderboard.Count; i++)

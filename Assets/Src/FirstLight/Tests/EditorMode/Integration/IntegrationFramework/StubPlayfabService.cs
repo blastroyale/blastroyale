@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using FirstLight.Game.Services;
 using PlayFab;
+using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
 
 namespace FirstLight.Tests.EditorMode
@@ -16,6 +17,16 @@ namespace FirstLight.Tests.EditorMode
 		public void UpdateNickname(string newNickname)
 		{
 			
+		}
+
+		public void GetTopRankLeaderboard(string leaderboardName, int amountOfEntries, Action<GetLeaderboardResult> onSuccess, Action<PlayFabError> onError = null)
+		{
+
+		}
+
+		public void GetNeighborRankLeaderboard(string leaderboardName, int amountOfEntries, Action<GetLeaderboardAroundPlayerResult> onSuccess, Action<PlayFabError> onError = null)
+		{
+
 		}
 
 		public void CallFunction(string functionName, Action<ExecuteFunctionResult> onSuccess, Action<PlayFabError> onError = null, object parameter = null)

@@ -41,12 +41,14 @@ namespace FirstLight.Tests.EditorMode
 			var genericDialogService = new GenericDialogService(uiService);
 			var audioFxService = new GameAudioFxService(assetResolver);
 			var vfxService = new VfxService<VfxId>();
+			var playerInputService = new PlayerInputService();
+			
 			TestData = SetupPlayer(TestConfigs);
 			TestLogic = new GameLogic(messageBroker, timeService, TestData, TestConfigs,
 				audioFxService);
 			TestServices = new StubGameServices(networkService, messageBroker, timeService, TestData as IDataSaver, 
 				TestConfigs, TestLogic, TestData, genericDialogService, 
-				assetResolver, vfxService, audioFxService);
+				assetResolver, vfxService, audioFxService, playerInputService);
 		
 			TestLogic.Init();
 			

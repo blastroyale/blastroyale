@@ -123,7 +123,7 @@ namespace FirstLight.Game.Utils
 			
 			public const string LEADERBOARD_LADDER_NAME = "Trophies Ladder";
 			public const int LEADERBOARD_TOP_RANK_AMOUNT = 20;
-			public const int LEADERBOARD_PLAYER_RANK_RANGE = 3;
+			public const int LEADERBOARD_NEIGHBOR_RANK_AMOUNT = 3;
 		}
 
 		public static class Visuals

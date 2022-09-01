@@ -25,13 +25,13 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Requests current top leaderboard entries
 		/// </summary>
-		void GetTopRankLeaderboard(string leaderboardName, int amountOfEntries, Action<GetLeaderboardResult> onSuccess,
+		void GetTopRankLeaderboard(int amountOfEntries, Action<GetLeaderboardResult> onSuccess,
 		                           Action<PlayFabError> onError = null);
 
 		/// <summary>
 		/// Requests leaderboard entries around player with ID <paramref name="playfabID"/>
 		/// </summary>
-		void GetNeighborRankLeaderboard(string leaderboardName, int amountOfEntries,
+		void GetNeighborRankLeaderboard(int amountOfEntries,
 		                                Action<GetLeaderboardAroundPlayerResult> onSuccess,
 		                                Action<PlayFabError> onError = null);
 
@@ -53,6 +53,8 @@ namespace FirstLight.Game.Services
 		private readonly IAppLogic _app;
 		private readonly IMessageBrokerService _msgBroker;
 
+		private const string LEADERBOARD_LADDER_NAME = "Trophies Ladder";
+
 		public PlayfabService(IAppLogic app, IMessageBrokerService msgBroker)
 		{
 			_app = app;
@@ -72,12 +74,12 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public void GetTopRankLeaderboard(string leaderboardName, int amountOfEntries,
+		public void GetTopRankLeaderboard(int amountOfEntries,
 		                                  Action<GetLeaderboardResult> onSuccess, Action<PlayFabError> onError = null)
 		{
 			var leaderboardRequest = new GetLeaderboardRequest()
 			{
-				StatisticName = leaderboardName,
+				StatisticName = LEADERBOARD_LADDER_NAME,
 				StartPosition = 0,
 				MaxResultsCount = amountOfEntries
 			};
@@ -90,13 +92,13 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public void GetNeighborRankLeaderboard(string leaderboardName, int amountOfEntries,
+		public void GetNeighborRankLeaderboard(int amountOfEntries,
 		                                       Action<GetLeaderboardAroundPlayerResult> onSuccess,
 		                                       Action<PlayFabError> onError = null)
 		{
 			var neighborLeaderboardRequest = new GetLeaderboardAroundPlayerRequest()
 			{
-				StatisticName = leaderboardName,
+				StatisticName = LEADERBOARD_LADDER_NAME,
 				MaxResultsCount = amountOfEntries
 			};
 
@@ -118,15 +120,16 @@ namespace FirstLight.Game.Services
 				FunctionParameter = parameter,
 				AuthenticationContext = PlayFabSettings.staticPlayer
 			};
-			
+
 			PlayFabCloudScriptAPI.ExecuteFunction(request, onSuccess, onError ?? HandleError);
 		}
 
 		public void HandleError(PlayFabError error)
 		{
-			var descriptiveError = $"{error.HttpCode} - {error.ErrorMessage} - {JsonConvert.SerializeObject(error.ErrorDetails)}";
+			var descriptiveError =
+				$"{error.HttpCode} - {error.ErrorMessage} - {JsonConvert.SerializeObject(error.ErrorDetails)}";
 			FLog.Error(descriptiveError);
-			
+
 			_msgBroker.Publish(new ServerHttpError()
 			{
 				ErrorCode = (HttpStatusCode) error.HttpCode,

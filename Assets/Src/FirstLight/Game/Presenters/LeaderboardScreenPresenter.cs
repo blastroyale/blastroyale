@@ -43,13 +43,17 @@ namespace FirstLight.Game.Presenters
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_backButton.onClick.AddListener(OnBackClicked);
+			
+			_playerRankPool =
+				new GameObjectPool<PlayerRankEntryView>(GameConstants.Network.LEADERBOARD_TOP_RANK_AMOUNT + 
+				                                        GameConstants.Network.LEADERBOARD_NEIGHBOR_RANK_AMOUNT, _playerRankEntryRef);
 		}
 
 		private void OnDestroy()
 		{
 			_backButton.onClick.RemoveAllListeners();
 		}
-
+		
 		protected override void OnClosed()
 		{
 			base.OnClosed();
@@ -72,12 +76,11 @@ namespace FirstLight.Game.Presenters
 
 			// Leaderboard is requested and displayed in 2 parts
 			// First - top players, then, if needed - current player and neighbors, in a separate anchored section
-			_services.PlayfabService.GetTopRankLeaderboard(GameConstants.Network.LEADERBOARD_LADDER_NAME,
-			                                               GameConstants.Network.LEADERBOARD_TOP_RANK_AMOUNT,
-			                                               OnLeaderboardTopRanksReceived, OnPlayfabError);
+			_services.PlayfabService.GetTopRankLeaderboard(GameConstants.Network.LEADERBOARD_TOP_RANK_AMOUNT,
+			                                               OnLeaderboardTopRanksReceived, OnLeaderboardRequestError);
 		}
 
-		private void OnPlayfabError(PlayFabError error)
+		private void OnLeaderboardRequestError(PlayFabError error)
 		{
 			var confirmButton = new GenericDialogButton
 			{
@@ -91,13 +94,12 @@ namespace FirstLight.Game.Presenters
 			}
 
 			_services.GenericDialogService.OpenDialog(error.ErrorMessage, false, confirmButton);
+			
+			Data.BackClicked();
 		}
 
 		private void OnLeaderboardTopRanksReceived(GetLeaderboardResult result)
 		{
-			_playerRankPool =
-				new GameObjectPool<PlayerRankEntryView>((uint) result.Leaderboard.Count, _playerRankEntryRef);
-
 			bool localPlayerInTopRanks = false;
 
 			lowestTopRankedPosition = result.Leaderboard[result.Leaderboard.Count - 1].Position;
@@ -119,9 +121,8 @@ namespace FirstLight.Game.Presenters
 
 			if (localPlayerInTopRanks) return;
 
-			_services.PlayfabService.GetNeighborRankLeaderboard(GameConstants.Network.LEADERBOARD_LADDER_NAME,
-			                                                    GameConstants.Network.LEADERBOARD_NEIGHBOR_RANK_AMOUNT,
-			                                                    OnLeaderboardNeighborRanksReceived, OnPlayfabError);
+			_services.PlayfabService.GetNeighborRankLeaderboard(GameConstants.Network.LEADERBOARD_NEIGHBOR_RANK_AMOUNT,
+			                                                    OnLeaderboardNeighborRanksReceived, OnLeaderboardRequestError);
 		}
 
 		private void OnLeaderboardNeighborRanksReceived(GetLeaderboardAroundPlayerResult result)

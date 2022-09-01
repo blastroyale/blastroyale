@@ -19,12 +19,12 @@ namespace FirstLight.Tests.EditorMode
 			
 		}
 
-		public void GetTopRankLeaderboard(string leaderboardName, int amountOfEntries, Action<GetLeaderboardResult> onSuccess, Action<PlayFabError> onError = null)
+		public void GetTopRankLeaderboard(int amountOfEntries, Action<GetLeaderboardResult> onSuccess, Action<PlayFabError> onError = null)
 		{
 
 		}
 
-		public void GetNeighborRankLeaderboard(string leaderboardName, int amountOfEntries, Action<GetLeaderboardAroundPlayerResult> onSuccess, Action<PlayFabError> onError = null)
+		public void GetNeighborRankLeaderboard(int amountOfEntries, Action<GetLeaderboardAroundPlayerResult> onSuccess, Action<PlayFabError> onError = null)
 		{
 
 		}

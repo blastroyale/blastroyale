@@ -40,9 +40,12 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private TextMeshProUGUI _getReadyToRumbleText;
 		[SerializeField, Required] private TextMeshProUGUI _roomNameText;
 		[SerializeField, Required] private TextMeshProUGUI _selectedGameModeText;
+		[SerializeField, Required] private TextMeshProUGUI _playerCountText;
+		[SerializeField, Required] private TextMeshProUGUI _spectatorCountText;
 		[SerializeField, Required] private GameObject _loadingText;
 		[SerializeField, Required] private GameObject _roomNameRootObject;
 		[SerializeField, Required] private GameObject _playerMatchmakingRootObject;
+		[SerializeField, Required] private GameObject _playerCountHolder;
 		[SerializeField, Required] private PlayerListHolderView _playerListHolder;
 		[SerializeField, Required] private PlayerListHolderView _spectatorListHolder;
 		[SerializeField, Required] private UiToggleButtonView _botsToggle;
@@ -133,12 +136,14 @@ namespace FirstLight.Game.Presenters
 			_selectedGameModeText.text =
 				string.Format(ScriptLocalization.MainMenu.SelectedGameModeValue, matchType, gameMode);
 
+			UpdateRoomPlayerCounts();
+			
 			if (CurrentRoom.IsMatchmakingRoom())
 			{
 				_playerListHolder.gameObject.SetActive(false);
 				_spectatorListHolder.gameObject.SetActive(false);
 				_playerMatchmakingRootObject.SetActive(true);
-
+				_playerCountHolder.SetActive(false);
 				_roomNameRootObject.SetActive(false);
 
 				if (_gameDataProvider.AppDataProvider.SelectedMatchType.Value == MatchType.Casual)
@@ -156,6 +161,7 @@ namespace FirstLight.Game.Presenters
 				_playerListHolder.gameObject.SetActive(true);
 				_spectatorListHolder.gameObject.SetActive(true);
 				_playerMatchmakingRootObject.SetActive(false);
+				_playerCountHolder.SetActive(true);
 
 				_roomNameText.text = string.Format(ScriptLocalization.MainMenu.RoomCurrentName, room.GetRoomName());
 				_roomNameRootObject.SetActive(true);
@@ -166,7 +172,7 @@ namespace FirstLight.Game.Presenters
 				}
 			}
 		}
-
+		
 		protected override void OnClosed()
 		{
 			MapSelectionView.CleanupMapView();
@@ -213,6 +219,7 @@ namespace FirstLight.Game.Presenters
 		/// <inheritdoc />
 		public void OnPlayerEnteredRoom(Player newPlayer)
 		{
+			UpdateRoomPlayerCounts();
 			AddOrUpdatePlayerInList(newPlayer);
 
 			// For casual matches, MatchmakingTimeUpdateCoroutine handles the player waiting images
@@ -225,6 +232,7 @@ namespace FirstLight.Game.Presenters
 		/// <inheritdoc />
 		public void OnPlayerLeftRoom(Player otherPlayer)
 		{
+			UpdateRoomPlayerCounts();
 			RemovePlayerInAllLists(otherPlayer);
 
 			// For casual matches, MatchmakingTimeUpdateCoroutine handles the player waiting images
@@ -252,6 +260,7 @@ namespace FirstLight.Game.Presenters
 		/// <inheritdoc />
 		public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
 		{
+			UpdateRoomPlayerCounts();
 			AddOrUpdatePlayerInList(targetPlayer);
 			CheckEnableLockRoomButton();
 		}
@@ -266,6 +275,17 @@ namespace FirstLight.Game.Presenters
 				_lockRoomButton.gameObject.SetActive(true);
 				_botsToggleObjectRoot.SetActive(_services.NetworkService.CurrentRoomGameModeConfig.Value.AllowBots);
 			}
+		}
+		
+		private void UpdateRoomPlayerCounts()
+		{
+			if (CurrentRoom.IsMatchmakingRoom())
+			{
+				return;
+			}
+			
+			_playerCountText.text = $"{CurrentRoom.GetRealPlayerAmount()}/{CurrentRoom.GetRealPlayerCapacity()}";
+			_spectatorCountText.text = $"{CurrentRoom.GetSpectatorAmount()}/{CurrentRoom.GetSpectatorCapacity()}";
 		}
 
 		private void AddOrUpdatePlayerInList(Player player)

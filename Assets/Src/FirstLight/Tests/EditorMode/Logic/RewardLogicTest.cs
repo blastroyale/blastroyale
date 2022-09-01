@@ -11,7 +11,7 @@ using Assert = NUnit.Framework.Assert;
 
 namespace FirstLight.Tests.EditorMode.Logic
 {
-	public class RewardLogicTest : BaseTestFixture<PlayerData>
+	public class RewardLogicTest : MockedTestFixture<PlayerData>
 	{
 		private RewardLogic _rewardLogic;
 		private QuantumPlayerMatchData _matchData;

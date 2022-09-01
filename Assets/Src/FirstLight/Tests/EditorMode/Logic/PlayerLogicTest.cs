@@ -8,7 +8,7 @@ using Assert = NUnit.Framework.Assert;
 
 namespace FirstLight.Tests.EditorMode.Logic
 {
-	public class PlayerLogicTest : BaseTestFixture<PlayerData>
+	public class PlayerLogicTest : MockedTestFixture<PlayerData>
 	{
 		/*private PlayerLogic _playerLogic;
 

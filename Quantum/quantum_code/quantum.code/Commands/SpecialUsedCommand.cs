@@ -23,7 +23,13 @@ namespace Quantum.Commands
 		internal override void Execute(Frame f, PlayerRef playerRef)
 		{
 			var characterEntity = f.GetSingleton<GameContainer>().PlayersData[playerRef].Entity;
-			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(characterEntity);
+
+			// Between sending the command and receiving it, the player might have died due to the frame delay between Unity & Quantum
+			if (!f.Unsafe.TryGetPointer<PlayerCharacter>(characterEntity, out var playerCharacter))
+			{
+				return;
+			}
+			
 			var special = playerCharacter->WeaponSlot->Specials[SpecialIndex];
 			
 			if (special.TryActivate(f, characterEntity, AimInput, SpecialIndex))

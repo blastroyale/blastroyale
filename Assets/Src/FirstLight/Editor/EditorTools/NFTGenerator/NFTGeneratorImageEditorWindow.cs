@@ -7,7 +7,6 @@ using System.Security.Cryptography;
 using System.Text;
 using FirstLight.Game.Configs;
 using FirstLight.Game.MonoComponent;
-using FirstLight.Game.Views;
 using I2.Loc;
 using Newtonsoft.Json;
 using Quantum;
@@ -60,16 +59,16 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 		[SerializeField] private BaseEquipmentStatConfigs baseEquipmentStatConfigs;
 		[SerializeField] private Vector2 _referenceResolution = new(1600, 2048);
 		[SerializeField] private string _webMarketplaceUri = "https://flgmarketplacestorage.z33.web.core.windows.net";
-
-		[SerializeField] private Transform _markerTransform;
-		[SerializeField] private Camera _camera;
-		[SerializeField] private GameObject _canvas;
-		[SerializeField] private GameObject _canvasRoot;
+		
 		[SerializeField] private RenderTextureMode _renderTextureMode = RenderTextureMode.Both;
 		[SerializeField] private TextureMode _textureMode = TextureMode.Png;
-
-		private Dictionary<GameId, GameObject> _assetDictionary = new Dictionary<GameId, GameObject>();
-
+		
+		private readonly Dictionary<GameId, GameObject> _assetDictionary = new Dictionary<GameId, GameObject>();
+		private GameObject _canvas;
+		private Transform _markerTransform;
+		private GameObject _canvasRoot;
+		private Camera _camera;
+		
 		/// <summary>
 		/// Export render texture image collection referencing NFT metadata json folder 
 		/// </summary>
@@ -99,6 +98,7 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 				GameIdGroup.Weapon
 			};
 
+			InitializeReferences();
 
 			_assetDictionary.Clear();
 			var keys = new List<object>();
@@ -162,6 +162,8 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 				return;
 			}
 
+			InitializeReferences();
+			
 			_assetDictionary.Clear();
 
 			var backgroundErcRenderable = _canvas.GetComponent<IErcRenderable>();
@@ -188,6 +190,13 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 			DestroyPool();
 		}
 
+		private void InitializeReferences()
+		{
+			_camera = GameObject.Find("Camera").GetComponent<Camera>();
+			_markerTransform = GameObject.Find("Marker").transform;
+			_canvas = GameObject.Find("Canvas");
+			_canvasRoot = _canvas.transform.GetChild(0).gameObject;
+		}
 
 		private void DestroyPool()
 		{
@@ -220,6 +229,7 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 				GameIdGroup.Weapon
 			};
 
+			InitializeReferences();
 
 			_assetDictionary.Clear();
 			var keys = new List<object>();

@@ -6,9 +6,11 @@ using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using I2.Loc;
+using Quantum;
 using Sirenix.OdinInspector;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+using Button = UnityEngine.UI.Button;
 
 namespace FirstLight.Game.Views.MainMenuViews
 {
@@ -19,21 +21,45 @@ namespace FirstLight.Game.Views.MainMenuViews
 	/// </summary>
 	public class GameModeButtonView : MonoBehaviour
 	{
+		[SerializeField, Required] private Button _selectButton;
 		[SerializeField, Required] private Button _tooltipButton;
 		[SerializeField, Required] private MatchType _matchType;
+		[SerializeField, Required] private string _gameMode;
 		[SerializeField, Required] private Transform _tooltipAnchor;
+		[SerializeField, Required] private TextMeshProUGUI _gameModeText;
+		[SerializeField, Required] private TextMeshProUGUI _matchTypeText;
+		
+		/// <summary>
+		/// Action that invokes when the button is clicked, with the selected game mode and match type
+		/// </summary>
+		public Action<string, MatchType> GameModeAndMatchTypeSelected { get; set; }
 		
 		private IGameServices _services;
 		
 		private void Awake()
 		{
+			if (_gameMode == "Deathmatch" && !FeatureFlags.DEATHMATCH_ENABLED)
+			{
+				gameObject.SetActive(false);
+				return;
+			}
+			
 			_services = MainInstaller.Resolve<IGameServices>();
 			_tooltipButton.onClick.AddListener(OnTooltipButtonClick);
+			_selectButton.onClick.AddListener(OnButtonClick);
+
+			_gameModeText.text = _gameMode.ToUpper();
+			_matchTypeText.text = _matchType.GetTranslation();
 		}
 
 		private void OnDestroy()
 		{
 			_tooltipButton.onClick.RemoveAllListeners();
+		}
+
+		private void OnButtonClick()
+		{
+			GameModeAndMatchTypeSelected?.Invoke(_gameMode,_matchType);
 		}
 
 		private void OnTooltipButtonClick()

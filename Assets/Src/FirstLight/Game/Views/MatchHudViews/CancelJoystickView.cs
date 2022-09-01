@@ -1,3 +1,4 @@
+using System;
 using FirstLight.Game.Input;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -16,6 +17,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private PointerEventData _pointerDownData;
 
 		private int? CurrentPointerId => _pointerDownData?.pointerId;
+
+		private void OnDisable()
+		{
+			_pointerDownData = null;
+		}
 
 		public void OnPointerEnter(PointerEventData eventData)
 		{

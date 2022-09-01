@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27719413a98b49a8bb127e18f4e1f671, type: 3}
+  m_Name: GameModeConfigs
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/Configs/GameModeConfigs
+      Guid:
+        Value: 1595361790544170013
+    QuantumConfigs:
+    - Id: BattleRoyale
+      MaxPlayers: 30
+      MinPlayers: 1
+      Teams: 0
+      MaxPlayersInTeam: 0
+      MinPlayersInTeam: 0
+      RankSorter: 0
+      RankProcessor: 0
+      ShowStatChanges: 1
+      ShowUIMinimap: 1
+      ShowUITimer: 1
+      ShowUIStandingsExtraInfo: 1
+      ShowWeaponSlots: 1
+      Lives: 1
+      DropWeaponOnPickup: 1
+      SpawnWithLoadout: 0
+      SkydiveSpawn: 1
+      SpawnSelection: 1
+      SpawnPattern: 1
+      WeaponDeathDropStrategy: 1
+      HealthDeathDropStrategy: 2
+      ShieldDeathDropStrategy: 2
+      DeathMarker: 1
+      AllowBots: 1
+      BotSearchForCrates: 1
+      BotRespawn: 0
+      BotWeaponSearchStrategy: 1
+      GameSimulationStateMachine: 1
+      AudioStateMachine: 1
+      CompletionStrategy: 1
+      CompletionKillCount: 0
+      GiveRewards: 0
+      Systems:
+      - Quantum.Systems.ShrinkingCircleSystem, quantum.code, Version=2.1.0.0, Culture=neutral,
+        PublicKeyToken=null
+    - Id: Deathmatch
+      MaxPlayers: 10
+      MinPlayers: 1
+      Teams: 0
+      MaxPlayersInTeam: 0
+      MinPlayersInTeam: 0
+      RankSorter: 1
+      RankProcessor: 1
+      ShowStatChanges: 0
+      ShowUIMinimap: 0
+      ShowUITimer: 0
+      ShowUIStandingsExtraInfo: 0
+      ShowWeaponSlots: 0
+      Lives: 0
+      DropWeaponOnPickup: 0
+      SpawnWithLoadout: 0
+      SkydiveSpawn: 0
+      SpawnSelection: 0
+      SpawnPattern: 0
+      WeaponDeathDropStrategy: 0
+      HealthDeathDropStrategy: 0
+      ShieldDeathDropStrategy: 0
+      DeathMarker: 0
+      AllowBots: 1
+      BotSearchForCrates: 0
+      BotRespawn: 1
+      BotWeaponSearchStrategy: 2
+      GameSimulationStateMachine: 0
+      AudioStateMachine: 0
+      CompletionStrategy: 2
+      CompletionKillCount: 10
+      GiveRewards: 0
+      Systems: []
+    - Id: Testing
+      MaxPlayers: 1
+      MinPlayers: 1
+      Teams: 0
+      MaxPlayersInTeam: 0
+      MinPlayersInTeam: 0
+      RankSorter: 0
+      RankProcessor: 0
+      ShowStatChanges: 1
+      ShowUIMinimap: 1
+      ShowUITimer: 1
+      ShowUIStandingsExtraInfo: 1
+      ShowWeaponSlots: 1
+      Lives: 1
+      DropWeaponOnPickup: 1
+      SpawnWithLoadout: 0
+      SkydiveSpawn: 1
+      SpawnSelection: 1
+      SpawnPattern: 0
+      WeaponDeathDropStrategy: 1
+      HealthDeathDropStrategy: 2
+      ShieldDeathDropStrategy: 2
+      DeathMarker: 0
+      AllowBots: 0
+      BotSearchForCrates: 0
+      BotRespawn: 0
+      BotWeaponSearchStrategy: 1
+      GameSimulationStateMachine: 1
+      AudioStateMachine: 1
+      CompletionStrategy: 1
+      CompletionKillCount: 0
+      GiveRewards: 0
+      Systems:
+      - Quantum.Systems.ShrinkingCircleSystem, quantum.code, Version=2.1.0.0, Culture=neutral,
+        PublicKeyToken=null

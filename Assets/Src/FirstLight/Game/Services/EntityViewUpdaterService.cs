@@ -32,11 +32,13 @@ namespace FirstLight.Game.Services
 		/// </remarks>
 		EntityView GetManualView(EntityRef entityRef);
 	}
-	
+
 	/// <inheritdoc cref="IEntityViewUpdaterService" />
 	public class EntityViewUpdaterService : EntityViewUpdater, IEntityViewUpdaterService
 	{
-		private readonly IDictionary<EntityRef, EntityView> _viewsToDestroy = new Dictionary<EntityRef, EntityView>(256);
+		private readonly IDictionary<EntityRef, EntityView>
+			_viewsToDestroy = new Dictionary<EntityRef, EntityView>(256);
+
 		private readonly List<EntityView> _viewsListToDestroy = new List<EntityView>(256);
 
 		private IGameServices _gameServices;
@@ -53,17 +55,17 @@ namespace FirstLight.Game.Services
 			foreach (var view in _viewsListToDestroy)
 			{
 				view.OnEntityDestroyed.Invoke(ObservedGame);
-				
-				if (view.AssetGuid.IsValid) 
+
+				if (view.AssetGuid.IsValid)
 				{
 					DestroyEntityViewInstance(view);
-				} 
-				else 
+				}
+				else
 				{
 					DisableMapEntityInstance(view);
 				}
 			}
-			
+
 			_viewsListToDestroy.Clear();
 			_viewsToDestroy.Clear();
 		}
@@ -92,7 +94,7 @@ namespace FirstLight.Game.Services
 			{
 				return;
 			}
-			
+
 			if (view.ManualDisposal)
 			{
 				_viewsListToDestroy.Add(view);
@@ -100,25 +102,21 @@ namespace FirstLight.Game.Services
 
 				return;
 			}
-			
+
 			base.DestroyEntityView(game, view);
 		}
 
 		private void OnGameResynced(CallbackGameResynced callback)
 		{
 			var f = callback.Game.Frames.Verified;
-			
-			if (f.Context.MapConfig.GameMode == GameMode.Deathmatch)
-			{
-				return;
-			}
+
+			if (!f.Context.GameModeConfig.DeathMarker) return;
 
 			var data = f.GetSingleton<GameContainer>().PlayersData;
-
-			for(var i = 0; i < data.Length; i++)
+			for (var i = 0; i < data.Length; i++)
 			{
 				var playerData = data[i];
-				
+
 				if (playerData.DeathCount > 0)
 				{
 					SpawnDeathMarker(playerData.PlayerDeathMarker, playerData.LastDeathPosition.ToUnityVector3());

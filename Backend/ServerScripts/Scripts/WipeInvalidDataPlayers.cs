@@ -9,10 +9,7 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Utils;
 using PlayFab;
 using PlayFab.ServerModels;
-using Scripts.Base;
 using ServerSDK.Modules;
-
-namespace Scripts;
 
 /// <summary>
 /// Wipes all player data if the player contains invalid data.

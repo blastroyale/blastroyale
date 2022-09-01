@@ -50,14 +50,15 @@ namespace FirstLight.Game.Views.MainMenuViews
 		/// <summary>
 		/// Setup the map visuals to look awesome on the screen and selects a random point in battle royale mode
 		/// </summary>
-		public async void SetupMapView(int mapId)
+		public async void SetupMapView(string gameModeId, int mapId)
 		{
 			var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(mapId);
+			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
 
 			_mapImage.enabled = false;
 			_mapImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(config.Map, false);
 			_mapImage.enabled = true;
-			_selectionEnabled = config.GameMode == GameMode.BattleRoyale && !config.IsTestMap;
+			_selectionEnabled = gameModeConfig.SpawnSelection && !config.IsTestMap;
 
 			_selectedDropAreaText.gameObject.SetActive(_selectionEnabled);
 			_selectedPoint.gameObject.SetActive(_selectionEnabled);

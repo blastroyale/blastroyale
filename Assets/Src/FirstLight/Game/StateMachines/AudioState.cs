@@ -85,7 +85,8 @@ namespace FirstLight.Game.StateMachines
 			matchmaking.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(StopMusicInstant).Target(disconnected);
 			matchmaking.OnExit(TransitionAudioMixerMain);
 
-			gameModeCheck.Transition().Condition(IsDeathmatch).Target(deathmatch);
+			gameModeCheck.Transition().Condition(ShouldUseDeathmatchSM).Target(deathmatch);
+			gameModeCheck.Transition().Condition(ShouldUseBattleRoyaleSM).Target(battleRoyale);
 			gameModeCheck.Transition().Target(battleRoyale);
 
 			battleRoyale.Nest(_audioBrState.Setup).Target(postGameSpectatorCheck);
@@ -149,10 +150,17 @@ namespace FirstLight.Game.StateMachines
 		{
 			return _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator();
 		}
-		
-		private bool IsDeathmatch()
+
+		private bool ShouldUseDeathmatchSM()
 		{
-			return _services.NetworkService.CurrentRoomMapConfig.Value.GameMode == GameMode.Deathmatch;
+			return _services.NetworkService.CurrentRoomGameModeConfig.Value.AudioStateMachine ==
+			       AudioStateMachine.Deathmatch;
+		}
+		
+		private bool ShouldUseBattleRoyaleSM()
+		{
+			return _services.NetworkService.CurrentRoomGameModeConfig.Value.AudioStateMachine ==
+			       AudioStateMachine.BattleRoyale;
 		}
 
 		private void PrepareForMatchMusic()

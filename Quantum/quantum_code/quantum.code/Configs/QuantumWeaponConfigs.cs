@@ -36,7 +36,7 @@ namespace Quantum
 		/// the same for both BR and DM.
 		/// </remarks>
 		/// </summary>
-		public bool IsMeleeWeapon => MaxAmmo.BattleRoyale < 0;
+		public bool IsMeleeWeapon => Id == GameId.Hammer;
 	}
 
 	/// <summary>

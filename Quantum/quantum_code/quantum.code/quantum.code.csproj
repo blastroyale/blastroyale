@@ -76,10 +76,10 @@
     <Compile Include="AI\Decisions\HFSM.AreSpecialsEmptyDecision.cs" />
     <Compile Include="AI\Decisions\HFSM.CheckBlackboardBool.cs" />
     <Compile Include="AI\Decisions\HFSM.CheckBlackboardFP.cs" />
-    <Compile Include="AI\Decisions\HFSM.CheckGameModeDecision.cs" />
     <Compile Include="AI\Decisions\HFSM.IsCharacterGroundedDecision.cs" />
     <Compile Include="AI\Decisions\HFSM.IsProjectileAttackDecision.cs" />
     <Compile Include="AI\Decisions\HFSM.RaycastHitDecision.cs" />
+    <Compile Include="AI\Decisions\HFSM.ShouldPerformSkydiveDecision.cs" />
     <Compile Include="AI\Functions\HFSM.FPVector2SqrtMagnitudeFunction.cs" />
     <Compile Include="AI\Functions\HFSM.FPVector3SqrtMagnitudeFunction.cs" />
     <Compile Include="AI\Functions\HFSM.StatFunction.cs" />
@@ -232,6 +232,7 @@
     <Compile Include="Configs\QuantumBaseEquipmentStatConfig.cs" />
     <Compile Include="Configs\QuantumChestConfigs.cs" />
     <Compile Include="Configs\QuantumEquipmentMaterialStatConfigs.cs" />
+    <Compile Include="Configs\QuantumGameModeConfig.cs" />
     <Compile Include="Configs\QuantumStatConfigs.cs" />
     <Compile Include="Configs\QuantumMapConfigs.cs" />
     <Compile Include="Configs\QuantumEquipmentStatConfigs.cs" />
@@ -287,6 +288,7 @@
     <Compile Include="Systems\SystemInitializer.cs" />
     <Compile Include="Utils\BitUtil.cs" />
     <Compile Include="Utils\ListExtension.cs" />
+    <Compile Include="Utils\OptionalSystemAttribute.cs" />
     <Compile Include="Utils\QuantumExtensions.cs" />
     <Compile Include="Utils\QuantumHelpers.cs" />
     <Compile Include="Utils\QuantumPlayerMatchData.cs" />
@@ -332,6 +334,7 @@
     <Content Include="Components\EquipmentCollectable.qtn" />
     <Content Include="Configs\Configs.qtn" />
     <Content Include="Configs\GameId.qtn" />
+    <Content Include="Configs\GameModeEnums.qtn" />
     <Content Include="Events\GameEvents.qtn" />
     <Content Include="Events\PlayerEvents.qtn" />
     <EmbeddedResource Include="db.json" />

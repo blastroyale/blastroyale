@@ -32,6 +32,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			_animation = _animation ? _animation : GetComponent<Animation>();
 		}
 
+		private void OnDestroy()
+		{
+			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(OnSpectatedPlayerChanged);
+		}
+
 		protected override void OnAwake()
 		{
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
@@ -47,7 +52,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			base.OnInit(game);
 
-			EntityView.OnEntityDestroyed.AddListener(OnEntityDestroyed);
 			PlayAnimation(_spawnClip);
 
 			this.LateCoroutineCall(_animation.clip.length, () => PlayAnimation(_idleClip));
@@ -84,7 +88,20 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			if (EntityView.EntityRef != callback.CollectableEntity) return;
 
 			_collectors.Remove(callback.PlayerEntity);
-			RefreshVfx(_matchServices.SpectateService.SpectatedPlayer.Value);
+
+			if (_collectingVfx != null)
+			{
+				_collectingVfx.Despawn();
+			}
+
+			transform.parent = null;
+
+			QuantumEvent.UnsubscribeListener(this);
+			_matchServices.SpectateService.SpectatedPlayer.StopObserving(OnSpectatedPlayerChanged);
+
+			PlayAnimation(_collectClip);
+
+			this.LateCoroutineCall(_animation.clip.length, () => { Destroy(gameObject); });
 		}
 
 		private void RefreshVfx(SpectatedPlayer spectatedPlayer)
@@ -117,22 +134,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				_collectingVfx!.SetTime(collectingData.StartTime, collectingData.EndTime);
 			}
-		}
-
-		private void OnEntityDestroyed(QuantumGame game)
-		{
-			if (_collectingVfx != null)
-			{
-				_collectingVfx.Despawn();
-			}
-			
-			transform.parent = null;
-
-			QuantumEvent.UnsubscribeListener(this);
-			_matchServices?.SpectateService.SpectatedPlayer.StopObserving(OnSpectatedPlayerChanged);
-			PlayAnimation(_collectClip);
-
-			this.LateCoroutineCall(_animation.clip.length, () => { Destroy(gameObject); });
 		}
 
 		private void PlayAnimation(AnimationClip clip)

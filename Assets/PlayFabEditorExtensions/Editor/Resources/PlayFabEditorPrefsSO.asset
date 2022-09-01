@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DevAccountEmail: admin@firstlight.games
   DevAccountToken: ***REMOVED***
-  SelectedStudio: First Light Games
+  SelectedStudio: First Light Games DEV
   SdkPath: Assets/Libs/PlayFabSDK
   EdExPath: Assets/PlayFabEditorExtensions
   LocalCloudScriptPath: 

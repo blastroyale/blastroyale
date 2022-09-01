@@ -1,8 +1,9 @@
-﻿using Scripts;
+﻿using System;
+using System.Linq;
 
 Console.WriteLine("Local Script Runner");
 
-var scripts = typeof(Program).Assembly.GetTypes()
+var scripts = typeof(IScript).Assembly.GetTypes()
                              .Where(type => typeof(IScript).IsAssignableFrom(type) && !type.IsInterface && !type.IsAbstract)
                              .ToList();
 

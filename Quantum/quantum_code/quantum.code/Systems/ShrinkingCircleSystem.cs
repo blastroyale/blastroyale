@@ -1,4 +1,3 @@
-using System.Threading;
 using Photon.Deterministic;
 
 namespace Quantum.Systems
@@ -6,10 +5,16 @@ namespace Quantum.Systems
 	/// <summary>
 	/// This system handles all the behaviour for the <see cref="ShrinkingCircle"/>
 	/// </summary>
+	[OptionalSystem]
 	public unsafe class ShrinkingCircleSystem : SystemMainThread, ISignalOnComponentAdded<ShrinkingCircle>
 	{
 		/// <inheritdoc />
 		public override bool StartEnabled => false;
+
+		public override void OnInit(Frame f)
+		{
+			f.GetOrAddSingleton<ShrinkingCircle>();
+		}
 
 		/// <inheritdoc />
 		public void OnAdded(Frame f, EntityRef entity, ShrinkingCircle* circle)

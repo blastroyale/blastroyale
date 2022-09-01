@@ -4,8 +4,6 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using ServerSDK.Services;
 
-namespace Tests;
-
 public class TestServerMutex
 {
 	private TestServer _server = null!;

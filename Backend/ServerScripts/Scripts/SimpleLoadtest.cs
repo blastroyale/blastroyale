@@ -16,15 +16,12 @@ using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
 using PlayFab.ServerModels;
 using Quantum;
-using Scripts.Base;
 using ServerSDK.Modules;
 using EntityKey = PlayFab.AuthenticationModels.EntityKey;
 using EntityTokenResponse = PlayFab.ClientModels.EntityTokenResponse;
 using GetPlayerCombinedInfoRequestParams = PlayFab.ClientModels.GetPlayerCombinedInfoRequestParams;
 using GetUserDataRequest = PlayFab.ServerModels.GetUserDataRequest;
 using UpdateUserDataRequest = PlayFab.ServerModels.UpdateUserDataRequest;
-
-namespace Scripts;
 
 /// <summary>
 /// This is the minimal form of a loadtest. This was done as opposed to implementing it via JMX file due to
@@ -53,7 +50,6 @@ public class SimpleLoadtest : PlayfabScript
 
 	public async Task RunAsync(List<LoginResult> loggedInUsers)
 	{
-		
 		var cmd = new UpdatePlayerSkinCommand() { SkinId = GameId.Male01Avatar };
 		var start = DateTime.UtcNow;
 		var tasks = new List<Task>();

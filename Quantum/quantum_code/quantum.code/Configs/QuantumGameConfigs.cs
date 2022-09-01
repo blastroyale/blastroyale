@@ -33,7 +33,8 @@ namespace Quantum
 		public FP TrophyEloK;
 		public uint NftAssumedOwned;
 		public uint MinNftForEarnings;
-		public FP AdjectiveRarityEarningsMod;
+		public FP EarningsAugmentationStrengthDropMod ;
+		public FP EarningsAugmentationStrengthSteepnessMod;
 		public uint NftUsageCooldownMinutes;
 		public uint NftRequiredEquippedForPlay;
 		public FP PlayerVisionRange;

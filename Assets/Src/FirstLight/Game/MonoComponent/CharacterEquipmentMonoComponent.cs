@@ -46,7 +46,7 @@ namespace FirstLight.Game.MonoComponent
 		/// <summary>
 		/// Equip characters equipment slot with an asset loaded by unique id.
 		/// </summary>
-		public async Task EquipItem(GameId gameId)
+		public async Task<List<GameObject>> EquipItem(GameId gameId)
 		{
 			var slot = gameId.GetSlot();
 			
@@ -88,6 +88,8 @@ namespace FirstLight.Game.MonoComponent
 			}
 			
 			_equipment.Add(slot, instances);
+
+			return instances;
 		}
 
 		/// <summary>
@@ -139,9 +141,7 @@ namespace FirstLight.Game.MonoComponent
 		/// </summary>
 		public async Task<IList<GameObject>> EquipWeapon(GameId weapon)
 		{
-			await EquipItem(weapon);
-
-			var weapons = _equipment[GameIdGroup.Weapon];
+			var weapons = await EquipItem(weapon);
 
 			for (var i = 0; i < weapons.Count; i++)
 			{

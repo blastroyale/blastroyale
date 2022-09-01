@@ -9,10 +9,7 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Utils;
 using PlayFab;
 using PlayFab.ServerModels;
-using Scripts.Base;
 using ServerSDK.Modules;
-
-namespace Scripts;
 
 /// <summary>
 /// Read all players from playfab and generate a csv

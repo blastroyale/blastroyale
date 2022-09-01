@@ -12,3 +12,4 @@ asset QuantumEquipmentStatConfigs;
 asset QuantumBaseEquipmentStatConfigs;
 asset QuantumEquipmentMaterialStatConfigs;
 asset QuantumStatConfigs;
+asset QuantumGameModeConfigs;

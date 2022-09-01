@@ -12,6 +12,9 @@ namespace Quantum
 		private EquipmentRarity _averageRarity;
 
 		public QuantumMapConfig MapConfig { get; internal set; }
+		
+		public QuantumGameModeConfig GameModeConfig { get; internal set; }
+		
 		public int TargetAllLayerMask { get; internal set; }
 
 		/// <summary>

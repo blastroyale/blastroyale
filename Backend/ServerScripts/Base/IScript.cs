@@ -1,4 +1,4 @@
-namespace Scripts;
+using System.Collections.Generic;
 
 /// <summary>
 /// Script arguments utility

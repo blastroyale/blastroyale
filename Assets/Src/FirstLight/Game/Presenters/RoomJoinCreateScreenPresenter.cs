@@ -40,7 +40,7 @@ namespace FirstLight.Game.Presenters
 			
 			FillMapSelectionList();
 			
-			_gameDataProvider.AppDataProvider.SelectedGameMode.Observe((mode, gameMode) => FillMapSelectionList());
+			_gameDataProvider.AppDataProvider.SelectedGameModeId.Observe((_, _) => FillMapSelectionList());
 
 			_closeButton.onClick.AddListener(CloseRequested);
 			_createDeathmatchRoomButton.onClick.AddListener(CreateRoomClicked);
@@ -122,7 +122,7 @@ namespace FirstLight.Game.Presenters
 
 			foreach (var config in configs.Values)
 			{
-				if (config.GameMode == _gameDataProvider.AppDataProvider.SelectedGameMode.Value && 
+				if (config.GameModes.Contains(_gameDataProvider.AppDataProvider.SelectedGameModeId.Value) && 
 				         (!config.IsTestMap || Debug.isDebugBuild))
 				{
 					_mapSelection.options.Add(new DropdownMenuOption(config.Map.GetTranslation(), config));

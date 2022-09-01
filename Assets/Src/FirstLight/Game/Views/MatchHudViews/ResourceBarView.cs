@@ -23,6 +23,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private EntityRef _entity;
 		private Coroutine _coroutine;
 		private IObjectPool<GameObject> _separatorPool;
+		private GameId _currentWeapon;
 
 		/// <inheritdoc />
 		public void OnDespawn()
@@ -38,9 +39,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public void SetupView(Frame f, EntityRef entity)
 		{
 			_entity = entity;
-			
 			SetSliderValue(f, entity);
 			
+			_currentWeapon = f.Get<PlayerCharacter>(entity).CurrentWeapon.GameId;
+
 			QuantumEvent.Subscribe<EventOnPlayerAmmoChanged>(this, HandleOnPlayerAmmoChanged);
 			QuantumEvent.Subscribe<EventOnPlayerWeaponChanged>(this, HandleOnPlayerWeaponChanged);
 			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, HandleOnPlayerAttacked);
@@ -52,7 +54,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				return;
 			}
-			
+
+			_currentWeapon = callback.Weapon.GameId;
 			SetSliderValue(callback.Game.Frames.Verified, callback.Entity);
 		}
 
@@ -86,7 +89,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 			
 			_reloadBarImage.color = _primaryReloadColor;
 
-			if (callback.CurrentAmmo <= 0)
+			
+			if (callback.CurrentAmmo <= 0 && _currentWeapon != GameId.Random && _currentWeapon != GameId.Hammer)
 			{
 				_reloadBarImage.color = _secondaryReloadColor;
 

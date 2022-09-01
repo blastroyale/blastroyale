@@ -32,7 +32,7 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void OnDestroy()
 		{
-			_services.MessageBrokerService.UnsubscribeAll(this);
+			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(OnSpectatedPlayerChanged);
 		}
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)

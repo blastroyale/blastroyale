@@ -39,29 +39,48 @@ MonoBehaviour:
       ShrinkingDamageCooldown:
         RawValue: 65536
       PlayerDefaultHealth:
-        BattleRoyale: 800
-        Deathmatch: 800
+        Default: 800
+        Keys: []
+        Values: 
       PlayerDefaultSpeed:
-        BattleRoyale:
+        Default:
           RawValue: 196608
-        Deathmatch:
-          RawValue: 294912
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 196608
+        - RawValue: 294912
       PlayerMaxShieldCapacity:
-        BattleRoyale: 1600
-        Deathmatch: 400
+        Default: 1600
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: 4006000090010000
       PlayerStartingShieldCapacity:
-        BattleRoyale: 200
-        Deathmatch: 400
+        Default: 200
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: c800000090010000
       CollectableCollectTime:
-        BattleRoyale:
+        Default:
           RawValue: 78643
-        Deathmatch:
-          RawValue: 39322
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 78643
+        - RawValue: 39322
       PlayerAliveShieldDuration:
-        BattleRoyale:
+        Default:
           RawValue: 0
-        Deathmatch:
-          RawValue: 196608
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 0
+        - RawValue: 196608
       MaxPlayerRanks: 25
       RageStatusDamageMultiplier:
         RawValue: 196608
@@ -75,9 +94,11 @@ MonoBehaviour:
       TrophyEloK:
         RawValue: 163840
       NftAssumedOwned: 40
-      MinNftForEarnings: 0
-      AdjectiveRarityEarningsMod:
+      MinNftForEarnings: 3
+      EarningsAugmentationStrengthDropMod:
         RawValue: 52429
+      EarningsAugmentationStrengthSteepnessMod:
+        RawValue: 196608
       NftUsageCooldownMinutes: 1440
       NftRequiredEquippedForPlay: 3
       PlayerVisionRange:

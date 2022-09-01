@@ -5,7 +5,7 @@ using NUnit.Framework;
 
 namespace FirstLight.Tests.EditorMode.Logic
 {
-	public class AppLogicTest : BaseTestFixture<AppData>
+	public class AppLogicTest : MockedTestFixture<AppData>
 	{
 		private AppLogic _appLogic;
 

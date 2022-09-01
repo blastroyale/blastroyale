@@ -17,7 +17,7 @@ namespace FirstLight.Tests.EditorMode
 	/// <remarks>
 	/// Helper class with a reference <seealso cref="TestData"/> of <typeparamref name="T"/> type to test Game Logic
 	/// </remarks>
-	public abstract class BaseTestFixture<T> : BaseTestFixture where T : class
+	public abstract class MockedTestFixture<T> : MockedTestFixture where T : class
 	{
 		protected T TestData;
 
@@ -33,7 +33,7 @@ namespace FirstLight.Tests.EditorMode
 	/// Helper base class for unit tests to mock dependencies.
 	/// All tests should inherit from this class to reduce code duplications
 	/// </summary>
-	public abstract class BaseTestFixture
+	public abstract class MockedTestFixture
 	{
 		// Services
 		protected IGameServices GameServices;
@@ -146,7 +146,7 @@ namespace FirstLight.Tests.EditorMode
 	}
 
 
-	/// <inheritdoc cref="BaseTestFixture"/>
+	/// <inheritdoc cref="MockedTestFixture"/>
 	/// <remarks>
 	/// Helper class with a reference <seealso cref="TestData"/> of unsafe <typeparamref name="T"/> type to test Quantum's Systems
 	/// </remarks>

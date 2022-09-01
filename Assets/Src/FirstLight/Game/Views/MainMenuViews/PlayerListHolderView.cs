@@ -22,18 +22,10 @@ namespace FirstLight.Game.Views.MainMenuViews
 		[SerializeField] private RectTransform _contentTransform;
 
 		private IObjectPool<PlayerNameEntryView> _playerNamePool;
-		private IGameServices _services;
-		private IGameDataProvider _gameDataProvider;
-
+		
 		private bool _showExtra;
 		private List<PlayerNameEntryView> _activePlayerEntries = new List<PlayerNameEntryView>();
 		private bool _finalPreload = false;
-
-		private void Awake()
-		{
-			_services = MainInstaller.Resolve<IGameServices>();
-			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-		}
 
 		/// <summary>
 		/// Initialises the player list with <paramref name="playerLimit"/> amount of player slots

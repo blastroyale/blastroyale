@@ -28,6 +28,7 @@ namespace FirstLight.Game.Presenters
 			public Action OnPlayRoomJoinCreateClicked;
 			public Action OnNameChangeClicked;
 			public Action OnGameModeClicked;
+			public Action OnLeaderboardClicked;
 		}
 
 		[SerializeField] private Button _playOnlineButton;
@@ -36,6 +37,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private Button _settingsButton;
 		[SerializeField] private Button _feedbackButton;
 		[SerializeField] private Button _gameModeButton;
+		[SerializeField] private Button _leaderboardButton;
 		[SerializeField] private NewFeatureUnlockedView _newFeaturesView;
 		[SerializeField] private TextMeshProUGUI _selectedGameModeText;
 
@@ -62,8 +64,10 @@ namespace FirstLight.Game.Presenters
 			_marketplaceButton.onClick.AddListener(OpenMarketplaceLink);
 			_feedbackButton.onClick.AddListener(LeaveFeedbackForm);
 			_discordButton.onClick.AddListener(OpenDiscordLink);
+			_leaderboardButton.onClick.AddListener(OpenLeaderboardUI);
 			_gameModeButton.onClick.AddListener(OpenGameModeClicked);
 
+			_leaderboardButton.gameObject.SetActive(FeatureFlags.LEADERBOARD_ACCESSIBLE);
 			_marketplaceButton.gameObject.SetActive(Debug.isDebugBuild);
 			_newFeaturesView.gameObject.SetActive(false);
 		}
@@ -113,6 +117,11 @@ namespace FirstLight.Game.Presenters
 		private void OpenMarketplaceLink()
 		{
 			Application.OpenURL(GameConstants.Links.MARKETPLACE_URL);
+		}
+		
+		private void OpenLeaderboardUI()
+		{
+			Data.OnLeaderboardClicked();
 		}
 
 		private void OpenGameModeClicked()

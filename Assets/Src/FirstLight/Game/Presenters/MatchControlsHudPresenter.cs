@@ -318,16 +318,16 @@ namespace FirstLight.Game.Presenters
 		private void SendSpecialUsedCommand(int specialIndex, Vector2 aimDirection)
 		{
 			var data = QuantumRunner.Default.Game.GetLocalPlayerData(false, out var f);
-			var special = f.Get<PlayerCharacter>(data.Entity).WeaponSlot->Specials[specialIndex];
 			
 			// Check if there is a weapon equipped in the slot. Avoid extra commands to save network message traffic $$$
-			if (!special.IsUsable(f))
+			if (!f.TryGet<PlayerCharacter>(data.Entity, out var playerCharacter) || 
+			    !playerCharacter.WeaponSlot->Specials[specialIndex].IsUsable(f))
 			{
 				return;
 			}
 
 			// Disables the input until the cooldown is off
-			if (special.Charges == 1)
+			if (playerCharacter.WeaponSlot->Specials[specialIndex].Charges == 1)
 			{
 				_services.PlayerInputService.Input.Gameplay.GetSpecialButton(specialIndex).Disable();
 			}
@@ -344,10 +344,10 @@ namespace FirstLight.Game.Presenters
 		private void OnWeaponSlotClicked(int weaponSlotIndex)
 		{
 			var data = QuantumRunner.Default.Game.GetLocalPlayerData(false, out var f);
-			var pc = f.Get<PlayerCharacter>(data.Entity);
 
 			// Check if there is a weapon equipped in the slot. Avoid extra commands to save network message traffic $$$
-			if (pc.CurrentWeaponSlot == weaponSlotIndex || !pc.WeaponSlots[weaponSlotIndex].Weapon.IsValid())
+			if (!f.TryGet<PlayerCharacter>(data.Entity, out var pc) ||
+			    pc.CurrentWeaponSlot == weaponSlotIndex || !pc.WeaponSlots[weaponSlotIndex].Weapon.IsValid())
 			{
 				return;
 			}

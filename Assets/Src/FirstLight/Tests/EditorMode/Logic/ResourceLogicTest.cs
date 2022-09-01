@@ -13,7 +13,7 @@ using Assert = NUnit.Framework.Assert;
 
 namespace FirstLight.Tests.EditorMode.Logic
 {
-	public class ResourceLogicTest : BaseTestFixture<PlayerData>
+	public class ResourceLogicTest : MockedTestFixture<PlayerData>
 	{
 		private ResourcePoolConfig _poolConfig;
 		private ResourceLogic _resourceLogic;

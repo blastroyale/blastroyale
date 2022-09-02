@@ -128,16 +128,20 @@ namespace FirstLight.Game.StateMachines
 		{
 			if (photonEvent.Code == GameConstants.Network.PHOTON_EVENT_KICK)
 			{
-				OnKickPlayerEventReceived((string) photonEvent.CustomData);
+				OnKickPlayerEventReceived((string) photonEvent.CustomData, photonEvent.Sender);
 			}
 		}
 		
-		private void OnKickPlayerEventReceived(string userIdToLeave)
+		private void OnKickPlayerEventReceived(string userIdToLeave, int senderIndex)
 		{
-			if (_networkService.QuantumClient.LocalPlayer.UserId == userIdToLeave &&
-			    _networkService.QuantumClient.InRoom)
+			if (_networkService.QuantumClient.LocalPlayer.UserId != userIdToLeave ||
+			    _networkService.QuantumClient.InRoom || 
+			    _networkService.QuantumClient.CurrentRoom.MasterClientId != senderIndex)
 			{
-				LeaveRoom();
+				return;
+			}
+
+			LeaveRoom();
 				
 				var confirmButton = new GenericDialogButton
 				{
@@ -146,7 +150,7 @@ namespace FirstLight.Game.StateMachines
 				};
 
 				_services.GenericDialogService.OpenDialog(ScriptLocalization.MainMenu.MatchmakingKickedNotification.ToUpper(), false, confirmButton);
-			}
+			
 		}
 
 		private void UpdateDisconnectionLocation()

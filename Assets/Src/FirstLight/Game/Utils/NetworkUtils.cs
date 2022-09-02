@@ -151,7 +151,6 @@ namespace FirstLight.Game.Utils
 				GameConstants.Network.ROOM_PROPS_COMMIT,
 				GameConstants.Network.ROOM_PROPS_MAP,
 				GameConstants.Network.ROOM_PROPS_RANKED_MATCH,
-				GameConstants.Network.ROOM_PROPS_BOTS,
 				GameConstants.Network.ROOM_PROPS_GAME_MODE
 			};
 		}
@@ -161,6 +160,8 @@ namespace FirstLight.Game.Utils
 			var properties = GetJoinRoomProperties(gameModeConfig, mapConfig, isRankedMatch, gameHasBots);
 
 			properties.Add(GameConstants.Network.ROOM_PROPS_START_TIME, DateTime.UtcNow.Ticks);
+			
+			properties.Add(GameConstants.Network.ROOM_PROPS_BOTS, gameHasBots);
 
 			if (gameModeConfig.SpawnPattern)
 			{
@@ -182,9 +183,6 @@ namespace FirstLight.Game.Utils
 				
 				// For matchmaking, rooms are segregated by casual/ranked.
 				{GameConstants.Network.ROOM_PROPS_RANKED_MATCH, isRankedMatch},
-				
-				// Games always either have bots, or dont. This property needs to be in here
-				{GameConstants.Network.ROOM_PROPS_BOTS, gameHasBots},
 
 				// For matchmaking, rooms are segregated by casual/ranked.
 				{GameConstants.Network.ROOM_PROPS_GAME_MODE, gameModeConfig.Id}

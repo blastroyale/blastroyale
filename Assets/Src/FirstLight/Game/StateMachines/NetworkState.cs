@@ -521,7 +521,11 @@ namespace FirstLight.Game.StateMachines
 		
 		private void OnRequestKickPlayerMessage(RequestKickPlayerMessage msg)
 		{
-			if (_networkService.QuantumClient.CurrentRoom == null) return;
+			if (_networkService.QuantumClient.CurrentRoom == null ||
+			    !_networkService.QuantumClient.LocalPlayer.IsMasterClient)
+			{
+				return;
+			}
 
 			var eventOptions = new RaiseEventOptions() { Receivers = ReceiverGroup.All };
 			_networkService.QuantumClient.OpRaiseEvent(GameConstants.Network.PHOTON_EVENT_KICK, msg.Player.UserId, eventOptions,

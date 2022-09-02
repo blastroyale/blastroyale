@@ -90,10 +90,6 @@ namespace FirstLight.Game.Presenters
 		{
 			_services?.NetworkService?.QuantumClient?.RemoveCallbackTarget(this);
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
-			_lockRoomButton.onClick.RemoveAllListeners();
-			_leaveRoomButton.onClick.RemoveAllListeners();
-			_kickButton.onClick.RemoveAllListeners();
-			_cancelKickButton.onClick.RemoveAllListeners();
 		}
 
 		/// <inheritdoc />

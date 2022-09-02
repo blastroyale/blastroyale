@@ -17,7 +17,7 @@ namespace FirstLight.Editor.SheetImporters
 			var config = new GameModeRotationConfig();
 			var type = typeof(GameModeRotationConfig);
 
-			config.Entries = new List<GameModeRotationConfig.RotationEntry>();
+			config.RotationEntries = new List<GameModeRotationConfig.RotationEntry>();
 
 			foreach (var row in data)
 			{
@@ -43,7 +43,7 @@ namespace FirstLight.Editor.SheetImporters
 				{
 					// GameModes section
 					var entry = QuantumDeserializer.DeserializeTo<GameModeRotationConfig.RotationEntry>(row);
-					config.Entries.Add(entry);
+					config.RotationEntries.Add(entry);
 				}
 			}
 

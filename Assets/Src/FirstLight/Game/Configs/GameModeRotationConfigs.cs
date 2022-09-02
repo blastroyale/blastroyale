@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FirstLight.Game.Ids;
 using Quantum;
 using UnityEngine;
 
@@ -8,16 +9,21 @@ namespace FirstLight.Game.Configs
 	[Serializable]
 	public struct GameModeRotationConfig
 	{
-		public long StartTimeTicks;
-		public uint SlotDuration;
+		public string GameModeId1;
+		public MatchType MatchType1;
+		public string GameModeId2;
+		public MatchType MatchType2;
+		
+		public long RotationStartTimeTicks;
+		public uint RotationSlotDuration;
 
-		public List<RotationEntry> Entries;
+		public List<RotationEntry> RotationEntries;
 
 		[Serializable]
 		public struct RotationEntry
 		{
 			public string GameModeId;
-			// TODO: Modifiers
+			public List<string> MutatorIds;
 		}
 	}
 

@@ -1,6 +1,9 @@
 using System;
+using System.Collections.Generic;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Ids;
 using FirstLight.Services;
+using Quantum;
 
 namespace FirstLight.Game.Services
 {
@@ -11,19 +14,49 @@ namespace FirstLight.Game.Services
 	public interface IGameModeService
 	{
 		/// <summary>
-		/// The currently selected GameMode.
+		/// Sets up the initial game mode rotation values - must be called after configs are loaded.
 		/// </summary>
-		IObservableField<string> SelectedGameModeId { get; }
+		void Init();
 
 		/// <summary>
-		/// The currently selected Map ID.
+		/// The currently selected GameMode.
 		/// </summary>
-		IObservableField<string> SelectedMapId { get; }
+		IObservableField<SelectedGameModeInfo> SelectedGameMode { get; }
 
 		/// <summary>
 		/// The current rotational GameMode (updates automatically when time runs out, with a 500ms delay.
 		/// </summary>
-		IObservableFieldReader<GameModeRotationConfig.RotationEntry> RotationGameMode { get; }
+		IObservableFieldReader<GameModeRotationInfo> RotationGameMode { get; }
+	}
+
+	public struct SelectedGameModeInfo
+	{
+		public string Id;
+		public MatchType MatchType;
+		public List<string> Mutators;
+		public DateTime EndTime;
+		public bool FromRotation;
+
+		public SelectedGameModeInfo(string id, MatchType matchType, List<string> mutators, bool fromRotation = false, DateTime endTime = default)
+		{
+			Id = id;
+			MatchType = matchType;
+			Mutators = mutators;
+			FromRotation = fromRotation;
+			EndTime = endTime;
+		}
+	}
+
+	public struct GameModeRotationInfo
+	{
+		public GameModeRotationConfig.RotationEntry Entry;
+		public DateTime EndTime;
+
+		public GameModeRotationInfo(GameModeRotationConfig.RotationEntry entry, DateTime endTime)
+		{
+			Entry = entry;
+			EndTime = endTime;
+		}
 	}
 
 	/// <inheritdoc cref="IGameModeService"/>
@@ -32,49 +65,53 @@ namespace FirstLight.Game.Services
 		private readonly IConfigsProvider _configsProvider;
 		private readonly IThreadService _threadService;
 
-		private IObservableField<GameModeRotationConfig.RotationEntry> _rotationGameMode;
+		private readonly IObservableField<GameModeRotationInfo> _rotationGameMode;
 
-		public IObservableField<string> SelectedGameModeId { get; }
-		public IObservableField<string> SelectedMapId { get; }
-		public IObservableFieldReader<GameModeRotationConfig.RotationEntry> RotationGameMode => _rotationGameMode;
+		public IObservableField<SelectedGameModeInfo> SelectedGameMode { get; }
+		public IObservableFieldReader<GameModeRotationInfo> RotationGameMode => _rotationGameMode;
 
 		public GameModeService(IConfigsProvider configsProvider, IThreadService threadService)
 		{
 			_configsProvider = configsProvider;
 			_threadService = threadService;
 
-			_configsProvider.GetConfig<GameModeRotationConfig>();
+			SelectedGameMode = new ObservableField<SelectedGameModeInfo>();
+			_rotationGameMode = new ObservableField<GameModeRotationInfo>();
+		}
 
-			SelectedGameModeId = new ObservableField<string>(null); // TODO: Set this!
-			SelectedMapId = new ObservableField<string>(null); // TODO: Set this!
-			_rotationGameMode = new ObservableField<GameModeRotationConfig.RotationEntry>();
+		public void Init()
+		{
+			SelectedGameMode.Value =
+				new SelectedGameModeInfo(_configsProvider.GetConfigsList<QuantumGameModeConfig>()[0].Id,
+				                         MatchType.Casual,
+				                         new List<string>());
 
 			RefreshRotationGameMode();
 		}
 
 		private void RefreshRotationGameMode()
 		{
-			var currentRotationEntry = GetCurrentRotationEntry(out int index, out long ticksLeft);
-			_rotationGameMode.Value = currentRotationEntry;
+			var currentRotationEntry = GetCurrentRotationEntry(out var ticksLeft);
+			_rotationGameMode.Value = new GameModeRotationInfo(currentRotationEntry, DateTime.UtcNow.AddTicks(ticksLeft));
 
 			var delay = (int) TimeSpan.FromTicks(ticksLeft).TotalMilliseconds + 500;
 			_threadService.EnqueueDelayed(delay, () => 0, _ => { RefreshRotationGameMode(); });
 		}
 
-		private GameModeRotationConfig.RotationEntry GetCurrentRotationEntry(out int index, out long ticksLeft)
+		private GameModeRotationConfig.RotationEntry GetCurrentRotationEntry(out long ticksLeft)
 		{
 			var config = _configsProvider.GetConfig<GameModeRotationConfig>();
 
 			var currentTime = DateTime.UtcNow.Ticks;
-			var startTime = config.StartTimeTicks;
+			var startTime = config.RotationStartTimeTicks;
 
 			var ticksFromStart = currentTime - startTime;
-			var slotDurationTicks = TimeSpan.FromSeconds(config.SlotDuration).Ticks;
-			var ticksWindow = slotDurationTicks * config.Entries.Count;
+			var slotDurationTicks = TimeSpan.FromSeconds(config.RotationSlotDuration).Ticks;
+			var ticksWindow = slotDurationTicks * config.RotationEntries.Count;
 
 			var ticksElapsed = ticksFromStart % ticksWindow;
 
-			index = 0;
+			var index = 0;
 			while (ticksElapsed > slotDurationTicks)
 			{
 				index++;
@@ -83,7 +120,7 @@ namespace FirstLight.Game.Services
 
 			ticksLeft = slotDurationTicks - ticksElapsed;
 
-			return config.Entries[index];
+			return config.RotationEntries[index];
 		}
 	}
 }

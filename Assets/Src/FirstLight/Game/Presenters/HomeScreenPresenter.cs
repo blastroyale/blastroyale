@@ -40,6 +40,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField] private Button _leaderboardButton;
 		[SerializeField] private NewFeatureUnlockedView _newFeaturesView;
 		[SerializeField] private TextMeshProUGUI _selectedGameModeText;
+		[SerializeField] private TextMeshProUGUI _selectedGameModeTimerText;
 
 		// Landscape Mode Buttons
 		[SerializeField] private VisualStateButtonView _lootButton;
@@ -70,6 +71,16 @@ namespace FirstLight.Game.Presenters
 			_leaderboardButton.gameObject.SetActive(FeatureFlags.LEADERBOARD_ACCESSIBLE);
 			_marketplaceButton.gameObject.SetActive(Debug.isDebugBuild);
 			_newFeaturesView.gameObject.SetActive(false);
+		}
+
+		private void Update()
+		{
+			var selectedGameModeInfo = _services.GameModeService.SelectedGameMode.Value;
+			if (selectedGameModeInfo.FromRotation)
+			{
+				var timeLeft = selectedGameModeInfo.EndTime - DateTime.UtcNow;
+				_selectedGameModeTimerText.text = timeLeft.ToString(@"hh\:mm\:ss");
+			}
 		}
 
 		private void OnDestroy()
@@ -118,7 +129,7 @@ namespace FirstLight.Game.Presenters
 		{
 			Application.OpenURL(GameConstants.Links.MARKETPLACE_URL);
 		}
-		
+
 		private void OpenLeaderboardUI()
 		{
 			Data.OnLeaderboardClicked();
@@ -146,9 +157,11 @@ namespace FirstLight.Game.Presenters
 
 		private void RefreshGameModeButton()
 		{
-			var matchType = _gameDataProvider.AppDataProvider.SelectedMatchType.Value.GetTranslation();
-			var gameMode = _gameDataProvider.AppDataProvider.SelectedGameModeId.Value.ToUpper();
-			_selectedGameModeText.text = string.Format(ScriptLocalization.MainMenu.SelectedGameModeValue, matchType.ToUpper(), gameMode.ToUpper());
+			var gameMode = _services.GameModeService.SelectedGameMode.Value;
+			_selectedGameModeTimerText.gameObject.SetActive(gameMode.FromRotation);
+			_selectedGameModeText.text = string.Format(ScriptLocalization.MainMenu.SelectedGameModeValue,
+			                                           gameMode.MatchType.GetTranslation().ToUpper(),
+			                                           gameMode.Id.ToUpper());
 		}
 	}
 }

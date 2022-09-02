@@ -13,5 +13,26 @@ MonoBehaviour:
   m_Name: GameModeRotationConfigs
   m_EditorClassIdentifier: 
   _config:
-    StartTimeTicks: 0
-    SlotDuration: 0
+    GameModeId1: BattleRoyale
+    MatchType1: 1
+    GameModeId2: BattleRoyale
+    MatchType2: 0
+    RotationStartTimeTicks: 0
+    RotationSlotDuration: 3600
+    RotationEntries:
+    - GameModeId: Deathmatch
+      MutatorIds:
+      - 1
+      - 2
+    - GameModeId: BattleRoyale
+      MutatorIds:
+      - 1
+      - 2
+    - GameModeId: Deathmatch
+      MutatorIds:
+      - 1
+      - 2
+    - GameModeId: BattleRoyale
+      MutatorIds:
+      - 1
+      - 2

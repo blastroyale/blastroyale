@@ -69,7 +69,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private void UpdateTimerView(float delta)
 		{
-			if (_dataProvider.AppDataProvider.SelectedMatchType.Value != MatchType.Ranked)
+			if (_services.GameModeService.SelectedGameMode.Value.MatchType != MatchType.Ranked)
 			{
 				_visualsAnchorRoot.SetActive(false);
 				return;

@@ -9,10 +9,7 @@ namespace ServerSDK
 	{
 		protected virtual string ReadPluginConfig(string path)
 		{
-			var url = Environment.GetEnvironmentVariable(path, EnvironmentVariableTarget.Process);
-			if (url == null)
-				throw new Exception($"{path} Environment Config Plugin not set.");
-			return url;
+			return null;
 		}
 
 		public abstract void OnEnable(PluginContext context);

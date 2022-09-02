@@ -19,11 +19,11 @@ using StandaloneServer;
 
 // Setup Logging
 using var loggerFactory = LoggerFactory.Create(loggingBuilder => loggingBuilder.SetMinimumLevel(LogLevel.Trace).AddConsole());
-ILogger logger = loggerFactory.CreateLogger<ServerConfiguration>();
+ILogger logger = loggerFactory.CreateLogger<GameLogicWebWebService>();
 
 // Setup Application
 var builder = WebApplication.CreateBuilder(args);
-var path = Path.GetDirectoryName(typeof(ServerConfiguration).Assembly.Location);
+var path = Path.GetDirectoryName(typeof(GameLogicWebWebService).Assembly.Location);
 ServerStartup.Setup(builder.Services, path);
 
 // Remove database dependency for local run for simplicity and saving laptop cpu

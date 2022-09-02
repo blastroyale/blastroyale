@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
 using System.Windows.Input;
+using Backend.Game.Services;
 using BlastRoyaleNFTPlugin;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
@@ -105,10 +106,7 @@ namespace Backend.Plugins {
 			// TODO: Make it work for Azure Functions
 			//var loadedPlugins = LoadPlugins(Path.Combine(appPath, "Plugins"));
 			var loadedPlugins = new List<ServerPlugin>();
-			var nftSync = Environment.GetEnvironmentVariable("NFT_SYNC", EnvironmentVariableTarget.Process) ?? "true";
-			if(nftSync == "true")
-				loadedPlugins.Add(new BlastRoyalePlugin());
-			
+			loadedPlugins.Add(new BlastRoyalePlugin());
 			loadedPlugins.Add(new TrophyLadderPlugin());
 			loadedPlugins.Add(new AnalyticsPlugin());
 			return loadedPlugins;

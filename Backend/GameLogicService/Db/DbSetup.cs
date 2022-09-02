@@ -1,6 +1,7 @@
 using System;
 using System.Data;
 using Backend.Game;
+using Backend.Game.Services;
 using Login.Db;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,19 +15,16 @@ namespace Backend.Db
 	/// </summary>
 	public static class DbSetup
 	{
-		public static string ConnectionString =>
-			Environment.GetEnvironmentVariable("SqlConnectionString", EnvironmentVariableTarget.Process);
-	
 		/// <summary>
 		/// Sets up database for the game server. Will setup any specific database dependencies that have to be injected.
 		/// </summary>
-		public static void Setup(IServiceCollection services)
+		public static void Setup(IServiceCollection services, IServerConfiguration config)
 		{
-			if (ConnectionString == null)
+			if (config.DbConnectionString == null)
 			{
 				throw new DataException("Database not configured. Please set 'SqlConnectionString' env var");
 			}
-			services.AddDbContext<PlayersContext>(o => o.UseNpgsql(ConnectionString));
+			services.AddDbContext<PlayersContext>(o => o.UseNpgsql(config.DbConnectionString));
 			services.AddSingleton<IServerMutex, PostgresMutex>();
 		}
 	}

@@ -33,7 +33,7 @@ public class TestCommandValidation
 		_gameServer = new TestServer().GetService<GameServer>();
 		_commandData = new Dictionary<string, string>();
 		_commandData[CommandFields.Timestamp] = "1";
-		_commandData[CommandFields.ClientVersion] = ServerConfiguration.GetConfig().MinClientVersion;
+		_commandData[CommandFields.ClientVersion] = "1.0.0";
 		_command = new UpdatePlayerSkinCommand();
 		ModelSerializer.SerializeToData(_commandData, _command);
 	}

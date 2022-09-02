@@ -10,7 +10,7 @@ builder.Services
        .AddControllers()
        .AddNewtonsoftJson(); // cloudscript specifically requires newtonsoft as it does not add [Serializable] attrs
 
-var binPath = Path.GetDirectoryName(typeof(ServerConfiguration).Assembly.Location);
+var binPath = Path.GetDirectoryName(typeof(GameLogicWebWebService).Assembly.Location);
 ServerStartup.Setup(builder.Services, binPath);
 
 var app = builder.Build();

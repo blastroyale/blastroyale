@@ -19,6 +19,7 @@ namespace ServerSDK
 		public readonly IServerMutex? PlayerMutex;
 		public readonly IMetricsService? Metrics;
 		public readonly IServerAnalytics? Analytics;
+		public readonly IServerConfiguration? ServerConfig;
 
 		public PluginContext(IEventManager evManager, IServiceProvider services)
 		{
@@ -28,6 +29,7 @@ namespace ServerSDK
 			PlayerMutex = services.GetService(typeof(IServerMutex)) as IServerMutex;
 			Metrics = services.GetService(typeof(IMetricsService)) as IMetricsService;
 			Analytics = services.GetService(typeof(IServerAnalytics)) as IServerAnalytics;
+			ServerConfig = services.GetService(typeof(IServerConfiguration)) as IServerConfiguration;
 		}
 
 		/// <summary>

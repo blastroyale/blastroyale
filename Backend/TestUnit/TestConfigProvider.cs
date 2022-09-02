@@ -27,7 +27,7 @@ public class TestConfigsProvider
 	[Test]
 	public void TestCurrentDevData()
 	{
-		var testAppPath = Path.GetDirectoryName(typeof(ServerConfiguration).Assembly.Location);
+		var testAppPath = Path.GetDirectoryName(typeof(GameLogicWebWebService).Assembly.Location);
 		var cfgSerializer = new ConfigsSerializer();
 		var bakedConfigs = File.ReadAllText(Path.Combine(testAppPath, "gameConfig.json"));
 		var cfg = cfgSerializer.Deserialize<ServerConfigsProvider>(bakedConfigs);

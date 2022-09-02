@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Backend.Db;
+using Backend.Game.Services;
 using Medallion.Threading.Postgres;
 using ServerSDK.Services;
 
@@ -13,11 +14,17 @@ namespace Backend.Game
 	public class PostgresMutex : IServerMutex
 	{
 		private Dictionary<string, PostgresDistributedLockHandle> _handles = new ();
-
+		private IServerConfiguration _cfg;
+		
+		public PostgresMutex(IServerConfiguration cfg)
+		{
+			_cfg = cfg;
+		}
+		
 		/// <inheritdoc />
 		public async Task Lock(string userId)
 		{
-			var mutex = new PostgresDistributedLock(new PostgresAdvisoryLockKey(userId, allowHashing: true), DbSetup.ConnectionString);
+			var mutex = new PostgresDistributedLock(new PostgresAdvisoryLockKey(userId, allowHashing: true), _cfg.DbConnectionString);
 			_handles[userId] = await mutex.AcquireAsync();
 		}
 

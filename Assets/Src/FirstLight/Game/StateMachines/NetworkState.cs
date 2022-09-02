@@ -136,7 +136,7 @@ namespace FirstLight.Game.StateMachines
 		private void OnKickPlayerEventReceived(int userIdToLeave, int senderIndex)
 		{
 			if (_networkService.QuantumClient.LocalPlayer.ActorNumber != userIdToLeave ||
-			    _networkService.QuantumClient.InRoom || 
+			    !_networkService.QuantumClient.InRoom || 
 			    _networkService.QuantumClient.CurrentRoom.MasterClientId != senderIndex)
 			{
 				return;

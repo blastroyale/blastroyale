@@ -74,6 +74,7 @@ public class GameLogicWebWebService : ILogicWebService
 		var state = await _stateService.GetPlayerState(playerId);
 		if (!_setupService.IsSetup(state))
 		{
+			_log.LogInformation($"Setting up player {playerId}");
 			await SetupPlayer(playerId);
 		}
 		else

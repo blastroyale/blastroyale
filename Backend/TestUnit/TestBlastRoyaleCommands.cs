@@ -64,7 +64,7 @@ public class TestBlastRoyaleCommands
 		};
 		var commandData = new Dictionary<string, string>();
 		commandData[CommandFields.Timestamp] = "1";
-		commandData[CommandFields.ClientVersion] = ServerConfiguration.GetConfig().MinClientVersion;
+		commandData[CommandFields.ClientVersion] = "10.0.0";
 		commandData[CommandFields.Command] = ModelSerializer.Serialize(command).Value;
 		commandData["SecretKey"] = "invalid secret key";
 		var result = await _server.GetService<GameServer>().RunLogic(_server.GetTestPlayerID(), new LogicRequest()

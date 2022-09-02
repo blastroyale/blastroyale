@@ -29,13 +29,9 @@ public class GameServer
 	private IServerMutex _mutex;
 	private IEventManager _eventManager;
 	private IMetricsService _metrics;
+	private IServerConfiguration _serverConfig;
 
-	/// <summary>
-	/// Returns if the server is setup to run dev-mode. In dev-mode all players are admin and cheating will be enabled.
-	/// </summary>
-	public bool DevMode => Environment.GetEnvironmentVariable("DEV_MODE", EnvironmentVariableTarget.Process) == "true";
-	
-	public GameServer(IServerCommahdHandler cmdHandler, ILogger log, IServerStateService state, IServerMutex mutex, IEventManager eventManager, IMetricsService metrics)
+	public GameServer(IServerConfiguration serverConfig, IServerCommahdHandler cmdHandler, ILogger log, IServerStateService state, IServerMutex mutex, IEventManager eventManager, IMetricsService metrics)
 	{
 		_cmdHandler = cmdHandler;
 		_log = log;
@@ -43,6 +39,7 @@ public class GameServer
 		_mutex = mutex;
 		_eventManager = eventManager;
 		_metrics = metrics;
+		_serverConfig = serverConfig;
 	}
 	
 	/// <summary>
@@ -58,10 +55,12 @@ public class GameServer
 			{
 				throw new LogicException($"Input dict requires field key for cmd: {CommandFields.Command}");
 			}
+			_log.LogDebug($"{playerId} running {cmdType}");
 			await _mutex.Lock(playerId);
 			var commandInstance = _cmdHandler.BuildCommandInstance(commandData, cmdType);
 			var currentPlayerState = await _state.GetPlayerState(playerId);
 			ValidateCommand(currentPlayerState, commandInstance, requestData);
+			
 			var newState = _cmdHandler.ExecuteCommand(commandInstance, currentPlayerState);
 			_eventManager.CallEvent(new CommandFinishedEvent(playerId, commandInstance, newState, commandData));
 			await _state.UpdatePlayerState(playerId, newState);
@@ -104,7 +103,7 @@ public class GameServer
 			throw new LogicException($"Command data requires a version to be ran: Key {CommandFields.ClientVersion}");
 		}
 
-		var minVersion = new Version(ServerConfiguration.GetConfig().MinClientVersion);
+		var minVersion = _serverConfig.MinClientVersion;
 		var clientVersion = new Version(clientVersionString);
 		if (clientVersion < minVersion)
 		{
@@ -142,7 +141,7 @@ public class GameServer
 	/// </summary>s
 	private bool HasAccess(ServerState playerState, IGameCommand cmd, Dictionary<string,string> cmdData)
 	{
-		if (DevMode)
+		if (_serverConfig.DevelopmentMode)
 		{
 			return true;
 		}

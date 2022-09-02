@@ -27,10 +27,11 @@ namespace Backend
 	{
 		public static void Setup(IServiceCollection services, string appPath)
 		{
-			ServerConfiguration.LoadConfiguration(appPath);
-			DbSetup.Setup(services);
+			var envConfig = new EnvironmentVariablesConfigurationService();
+			
+			DbSetup.Setup(services, envConfig);
 			var pluginLoader = new PluginLoader();
-			var insightsConnection = Environment.GetEnvironmentVariable("APPLICATIONINSIGHTS_CONNECTION_STRING", EnvironmentVariableTarget.Process);
+			var insightsConnection = envConfig.TelemetryConnectionString;
 			if (insightsConnection != null)
 			{
 				services.AddApplicationInsightsTelemetry(o => o.ConnectionString = insightsConnection);
@@ -44,6 +45,7 @@ namespace Backend
 			services.AddSingleton<IPlayerSetupService, DefaultPlayerSetupService>();
 			services.AddSingleton<IPluginLogger, ServerPluginLogger>();
 			services.AddSingleton<IErrorService<PlayFabError>, PlayfabErrorService>();
+			services.AddSingleton<IServerConfiguration>(p => envConfig);
 			services.AddSingleton<IServerStateService, PlayfabGameStateService>();
 			services.AddSingleton<ILogger, ILogger>(l =>
 			{

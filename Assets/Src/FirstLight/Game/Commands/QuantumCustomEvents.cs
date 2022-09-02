@@ -6,6 +6,7 @@ namespace FirstLight.Game.Commands
 	/// </summary>
 	public enum QuantumCustomEvents
 	{
-		ConsensusCommand = 1
+		ConsensusCommand = 1,
+		KickPlayer = 2
 	}
 }

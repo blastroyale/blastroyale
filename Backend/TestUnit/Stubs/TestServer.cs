@@ -118,7 +118,7 @@ public class TestServer
 	{
 		var commandData = new Dictionary<string, string>();
 		commandData[CommandFields.Timestamp] = "1";
-		commandData[CommandFields.ClientVersion] = ServerConfiguration.GetConfig().MinClientVersion;
+		commandData[CommandFields.ClientVersion] = GetService<IServerConfiguration>().MinClientVersion.ToString();
 		commandData[CommandFields.Command] = ModelSerializer.Serialize(cmd).Value;
 		commandData["SecretKey"] = PlayFabSettings.staticSettings.DeveloperSecretKey;
 		return GetService<GameServer>()?.RunLogic(GetTestPlayerID(), new LogicRequest()
@@ -131,7 +131,7 @@ public class TestServer
 	private IServiceCollection SetupServices()
 	{
 		var services = new ServiceCollection();
-		var testAppPath = Path.GetDirectoryName(typeof(ServerConfiguration).Assembly.Location);
+		var testAppPath = Path.GetDirectoryName(typeof(GameLogicWebWebService).Assembly.Location);
 		ServerStartup.Setup(services, testAppPath);
 		services.AddSingleton<IDataProvider, ServerTestData>();
 		services.AddSingleton<ITestPlayerSetup, TestPlayerSetup>();
@@ -146,6 +146,8 @@ public class TestServer
 		Environment.SetEnvironmentVariable("API_URL", "stub-api", EnvironmentVariableTarget.Process);
 		Environment.SetEnvironmentVariable("API_BLOCKCHAIN_SERVICE", "stub-service", EnvironmentVariableTarget.Process);
 		Environment.SetEnvironmentVariable("API_SECRET", "stub-key", EnvironmentVariableTarget.Process);
+		Environment.SetEnvironmentVariable("PLAYFAB_DEV_SECRET_KEY", "***REMOVED***", EnvironmentVariableTarget.Process);
+		Environment.SetEnvironmentVariable("PLAYFAB_TITLE", "DDD52", EnvironmentVariableTarget.Process);
 	}
 
 }

@@ -84,7 +84,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			}
 
 			_notificationUniqueIdView.SetUniqueId(data.Id, data.PlayViewNotificationAnimation);
-			_equipmentIconView.SetInfo(data.Id, data.Equipment);
+			_equipmentIconView.SetInfo(data.Id);
 			_uniqueId = data.Id;
 		}
 

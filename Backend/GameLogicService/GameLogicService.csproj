@@ -18,10 +18,6 @@
     </ItemGroup>
     
     <ItemGroup>
-      <EmbeddedResource Include="config.yml">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      </EmbeddedResource>
       <EmbeddedResource Include="gameConfig.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </EmbeddedResource>

@@ -26,13 +26,15 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private bool _showExtra;
 		private List<PlayerNameEntryView> _activePlayerEntries = new List<PlayerNameEntryView>();
 		private bool _finalPreload = false;
-
+		private Action<Player> _kickPlayerCallback;
+		
 		/// <summary>
 		/// Initialises the player list with <paramref name="playerLimit"/> amount of player slots
 		/// </summary>
-		public void Init(uint playerLimit)
+		public void Init(uint playerLimit, Action<Player> kickPlayerCallback)
 		{
 			_finalPreload = false;
+			_kickPlayerCallback = kickPlayerCallback;
 
 			if (_playerNamePool != null && _playerNamePool.SpawnedReadOnly.Count > 0)
 			{
@@ -46,7 +48,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			{
 				var newEntry = _playerNamePool.Spawn();
 				_activePlayerEntries.Add(newEntry);
-				newEntry.SetInfo(null, false, false, false);
+				newEntry.SetInfo(null, false, false, false, _kickPlayerCallback);
 			}
 
 			_nameEntryViewRef.gameObject.SetActive(false);
@@ -81,7 +83,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 			if (existingEntry != null)
 			{
-				existingEntry.SetInfo(player, player.IsLocal, player.IsMasterClient, isLoaded);
+				existingEntry.SetInfo(player, player.IsLocal, player.IsMasterClient, isLoaded, _kickPlayerCallback);
 			}
 			else
 			{
@@ -89,7 +91,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 				if (emptyEntry != null)
 				{
-					emptyEntry.SetInfo(player, player.IsLocal, player.IsMasterClient, isLoaded);
+					emptyEntry.SetInfo(player, player.IsLocal, player.IsMasterClient, isLoaded, _kickPlayerCallback);
 				}
 			}
 
@@ -108,7 +110,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 			if (existingEntry != null)
 			{
-				existingEntry.SetInfo(null, false, false, false);
+				existingEntry.SetInfo(null, false, false, false, null);
 
 				SortPlayerList();
 			}

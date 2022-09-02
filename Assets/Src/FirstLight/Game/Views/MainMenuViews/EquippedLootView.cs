@@ -62,7 +62,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 					if (ItemId != uniqueId)
 					{
-						_iconView.SetInfo(uniqueId, equipment);
+						_iconView.SetInfo(uniqueId);
 					}
 
 					ItemId = uniqueId;

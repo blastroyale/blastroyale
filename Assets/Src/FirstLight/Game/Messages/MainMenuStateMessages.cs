@@ -3,6 +3,7 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
 using FirstLight.Services;
+using Photon.Realtime;
 using Quantum;
 
 namespace FirstLight.Game.Messages
@@ -16,6 +17,10 @@ namespace FirstLight.Game.Messages
 	public struct SpectatorModeToggledMessage : IMessage
 	{
 		public bool IsSpectator;
+	}
+	public struct RequestKickPlayerMessage : IMessage
+	{
+		public Player Player;
 	}
 	public struct PlayJoinRoomClickedMessage : IMessage { public string RoomName; }
 	public struct PlayMatchmakingReadyMessage : IMessage { }

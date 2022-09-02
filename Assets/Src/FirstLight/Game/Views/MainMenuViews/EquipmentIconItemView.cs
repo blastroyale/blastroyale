@@ -1,11 +1,8 @@
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace FirstLight.Game.Views.MainMenuViews
 {
@@ -14,52 +11,29 @@ namespace FirstLight.Game.Views.MainMenuViews
 	/// </summary>
 	public class EquipmentIconItemView : MonoBehaviour
 	{
-		[SerializeField, Required] private RawImage _iconImage;
-		[SerializeField, Required] private GameObject _loadingView;
+		[SerializeField, Required] private RemoteTextureView _remoteTextureView;
 
-		private IMainMenuServices _mainMenuServices;
 		private IGameDataProvider _gameDataProvider;
-
-		private int _textureRequestHandle = -1;
-		private UniqueId _loadedId = UniqueId.Invalid;
 
 		private void Awake()
 		{
-			_mainMenuServices = MainInstaller.Resolve<IMainMenuServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 		}
 
 		/// <summary>
 		/// Sets the information for this view
 		/// </summary>
-		public void SetInfo(UniqueId uniqueId, Equipment equipment)
+		public void SetInfo(UniqueId uniqueId)
 		{
-			if (_textureRequestHandle >= 0)
+			if (_gameDataProvider.EquipmentDataProvider.NftInventory.ContainsKey(uniqueId))
 			{
-				_mainMenuServices.RemoteTextureService.CancelRequest(_textureRequestHandle);
-			}
-
-			if (_loadedId != uniqueId && _gameDataProvider.EquipmentDataProvider.NftInventory.ContainsKey(uniqueId))
-			{
-				_loadedId = uniqueId;
 				var url = _gameDataProvider.EquipmentDataProvider.GetNftInfo(uniqueId).SafeImageUrl;
-
-				_iconImage.gameObject.SetActive(false);
-				_textureRequestHandle =
-					_mainMenuServices.RemoteTextureService.RequestTexture(url, OnTextureReceived, OnTextureReceived);
+				_remoteTextureView.LoadImage(url);
 			}
-		}
-
-		private void OnTextureReceived(Texture2D tex)
-		{
-			if (_iconImage == null) return;
-
-			_iconImage.texture = tex;
-
-			_loadingView.SetActive(false);
-			_iconImage.gameObject.SetActive(true);
-
-			_textureRequestHandle = -1;
+			else
+			{
+				_remoteTextureView.LoadImage(null);
+			}
 		}
 	}
 }

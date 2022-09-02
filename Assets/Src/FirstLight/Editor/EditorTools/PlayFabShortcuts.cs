@@ -145,7 +145,14 @@ namespace FirstLight.Editor.EditorTools
 			PlayFabAdminAPI.GetTitleInternalData(
 				new PlayFab.AdminModels.GetTitleDataRequest()
 				{ Keys = new List<string>() { key }},
-				res => callback(res.Data[key]), OnPlayFabError
+				res =>
+				{
+					if (!res.Data.TryGetValue(key, out var data))
+					{
+						data = null;
+					}
+					callback(data);
+				}, OnPlayFabError
 			);
 		}
 

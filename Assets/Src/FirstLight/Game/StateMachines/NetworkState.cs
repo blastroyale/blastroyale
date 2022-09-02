@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ExitGames.Client.Photon;
 using FirstLight.FLogger;
+using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -126,7 +127,7 @@ namespace FirstLight.Game.StateMachines
 		/// </summary>
 		public void OnEvent(EventData photonEvent)
 		{
-			if (photonEvent.Code == GameConstants.Network.PHOTON_EVENT_KICK)
+			if (photonEvent.Code == (byte) QuantumCustomEvents.KickPlayer)
 			{
 				OnKickPlayerEventReceived((int) photonEvent.CustomData, photonEvent.Sender);
 			}
@@ -532,7 +533,7 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			var eventOptions = new RaiseEventOptions() { Receivers = ReceiverGroup.All };
-			_networkService.QuantumClient.OpRaiseEvent(GameConstants.Network.PHOTON_EVENT_KICK, msg.Player.ActorNumber, eventOptions,
+			_networkService.QuantumClient.OpRaiseEvent((byte) QuantumCustomEvents.KickPlayer, msg.Player.ActorNumber, eventOptions,
 			                                           SendOptions.SendReliable);
 		}
 

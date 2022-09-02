@@ -119,7 +119,6 @@ namespace FirstLight.Game.StateMachines
 			await Task.WhenAll(errorSprite.Task, errorCube.Task, errorMaterial.Task, errorClip.Task);
 			
 			_assetService.AddDebugConfigs(errorSprite.Result, errorCube.Result, errorMaterial.Result, errorClip.Result);
-			_services.RemoteTextureService.SetErrorTexture(errorSprite.Result.texture);
 		}
 
 		private IEnumerable<Task> LoadAssetConfigs()

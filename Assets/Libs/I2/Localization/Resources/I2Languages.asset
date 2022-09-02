@@ -3026,6 +3026,42 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: MainMenu/MatchmakingKickButton
+      TermType: 0
+      Description: 
+      Languages:
+      - Kick Player
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/MatchmakingKickInfo
+      TermType: 0
+      Description: 
+      Languages:
+      - Select a player to kick, or tap anywhere else to cancel
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/MatchmakingKickConfirm
+      TermType: 0
+      Description: 
+      Languages:
+      - Kick player '{0}' ?
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/MatchmakingKickedNotification
+      TermType: 0
+      Description: 
+      Languages:
+      - You have been kicked from the room.
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: AdventureMenu/AdventureCompleted
       TermType: 0
       Description: 
@@ -8781,7 +8817,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1662027588494
+    Google_LastUpdatedVersion: 1662051051045
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

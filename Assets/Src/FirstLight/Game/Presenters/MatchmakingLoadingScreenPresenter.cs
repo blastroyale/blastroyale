@@ -34,15 +34,21 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private GameObject _rootObject;
 		[SerializeField, Required] private Button _lockRoomButton;
 		[SerializeField, Required] private Button _leaveRoomButton;
+		[SerializeField, Required] private Button _kickButton;
+		[SerializeField, Required] private Button _cancelKickButton;
 		[SerializeField, Required] private Image[] _playersWaitingImage;
 		[SerializeField, Required] private TextMeshProUGUI _playersFoundText;
 		[SerializeField, Required] private TextMeshProUGUI _findingPlayersText;
 		[SerializeField, Required] private TextMeshProUGUI _getReadyToRumbleText;
 		[SerializeField, Required] private TextMeshProUGUI _roomNameText;
 		[SerializeField, Required] private TextMeshProUGUI _selectedGameModeText;
+		[SerializeField, Required] private TextMeshProUGUI _playerCountText;
+		[SerializeField, Required] private TextMeshProUGUI _spectatorCountText;
+		[SerializeField, Required] private GameObject[] _kickOverlayObjects;
 		[SerializeField, Required] private GameObject _loadingText;
 		[SerializeField, Required] private GameObject _roomNameRootObject;
 		[SerializeField, Required] private GameObject _playerMatchmakingRootObject;
+		[SerializeField, Required] private GameObject _playerCountHolder;
 		[SerializeField, Required] private PlayerListHolderView _playerListHolder;
 		[SerializeField, Required] private PlayerListHolderView _spectatorListHolder;
 		[SerializeField, Required] private UiToggleButtonView _botsToggle;
@@ -74,6 +80,8 @@ namespace FirstLight.Game.Presenters
 			_services.NetworkService.QuantumClient.AddCallbackTarget(this);
 			_lockRoomButton.onClick.AddListener(OnLockRoomClicked);
 			_leaveRoomButton.onClick.AddListener(OnLeaveRoomClicked);
+			_kickButton.onClick.AddListener(ActivateKickOverlay);
+			_cancelKickButton.onClick.AddListener(DeactivateKickOverlay);
 			_services.MessageBrokerService.Subscribe<CoreMatchAssetsLoadedMessage>(OnCoreMatchAssetsLoaded);
 			_services.MessageBrokerService.Subscribe<StartedFinalPreloadMessage>(OnStartedFinalPreloadMessage);
 		}
@@ -97,9 +105,10 @@ namespace FirstLight.Game.Presenters
 
 			if (RejoiningRoom)
 			{
-				_playerListHolder.Init((uint) NetworkUtils.GetMaxPlayers(gameModeConfig, mapConfig));
-				_spectatorListHolder.Init(GameConstants.Data.MATCH_SPECTATOR_SPOTS);
+				_playerListHolder.Init((uint) NetworkUtils.GetMaxPlayers(gameModeConfig, mapConfig), RequestKickPlayer);
+				_spectatorListHolder.Init(GameConstants.Data.MATCH_SPECTATOR_SPOTS, RequestKickPlayer);
 
+				_kickButton.gameObject.SetActive(false);
 				_spectateToggleObjectRoot.SetActive(false);
 				_botsToggleObjectRoot.SetActive(false);
 				_lockRoomButton.gameObject.SetActive(false);
@@ -123,6 +132,7 @@ namespace FirstLight.Game.Presenters
 			_botsToggleObjectRoot.SetActive(false);
 			_spectateToggle.SetInitialValue(false);
 			_spectateToggleObjectRoot.SetActive(false);
+			_kickButton.gameObject.SetActive(false);
 			_loadingText.SetActive(true);
 			_playersFoundText.text = $"{0}/{room.MaxPlayers.ToString()}";
 			_playerFillWaitTime =
@@ -133,12 +143,14 @@ namespace FirstLight.Game.Presenters
 			_selectedGameModeText.text =
 				string.Format(ScriptLocalization.MainMenu.SelectedGameModeValue, matchType, gameMode);
 
+			UpdateRoomPlayerCounts();
+
 			if (CurrentRoom.IsMatchmakingRoom())
 			{
 				_playerListHolder.gameObject.SetActive(false);
 				_spectatorListHolder.gameObject.SetActive(false);
 				_playerMatchmakingRootObject.SetActive(true);
-
+				_playerCountHolder.SetActive(false);
 				_roomNameRootObject.SetActive(false);
 
 				if (_gameDataProvider.AppDataProvider.SelectedMatchType.Value == MatchType.Casual)
@@ -150,12 +162,13 @@ namespace FirstLight.Game.Presenters
 			}
 			else
 			{
-				_playerListHolder.Init((uint) NetworkUtils.GetMaxPlayers(gameModeConfig, mapConfig));
-				_spectatorListHolder.Init(GameConstants.Data.MATCH_SPECTATOR_SPOTS);
+				_playerListHolder.Init((uint) NetworkUtils.GetMaxPlayers(gameModeConfig, mapConfig), RequestKickPlayer);
+				_spectatorListHolder.Init(GameConstants.Data.MATCH_SPECTATOR_SPOTS, RequestKickPlayer);
 
 				_playerListHolder.gameObject.SetActive(true);
 				_spectatorListHolder.gameObject.SetActive(true);
 				_playerMatchmakingRootObject.SetActive(false);
+				_playerCountHolder.SetActive(true);
 
 				_roomNameText.text = string.Format(ScriptLocalization.MainMenu.RoomCurrentName, room.GetRoomName());
 				_roomNameRootObject.SetActive(true);
@@ -193,6 +206,7 @@ namespace FirstLight.Game.Presenters
 			if (_services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient && !CurrentRoom.IsMatchmakingRoom())
 			{
 				_lockRoomButton.gameObject.SetActive(true);
+				_kickButton.gameObject.SetActive(true);
 				_botsToggleObjectRoot.SetActive(_services.NetworkService.CurrentRoomGameModeConfig.Value.AllowBots);
 			}
 
@@ -213,6 +227,7 @@ namespace FirstLight.Game.Presenters
 		/// <inheritdoc />
 		public void OnPlayerEnteredRoom(Player newPlayer)
 		{
+			UpdateRoomPlayerCounts();
 			AddOrUpdatePlayerInList(newPlayer);
 
 			// For casual matches, MatchmakingTimeUpdateCoroutine handles the player waiting images
@@ -225,6 +240,7 @@ namespace FirstLight.Game.Presenters
 		/// <inheritdoc />
 		public void OnPlayerLeftRoom(Player otherPlayer)
 		{
+			UpdateRoomPlayerCounts();
 			RemovePlayerInAllLists(otherPlayer);
 
 			// For casual matches, MatchmakingTimeUpdateCoroutine handles the player waiting images
@@ -252,6 +268,7 @@ namespace FirstLight.Game.Presenters
 		/// <inheritdoc />
 		public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
 		{
+			UpdateRoomPlayerCounts();
 			AddOrUpdatePlayerInList(targetPlayer);
 			CheckEnableLockRoomButton();
 		}
@@ -263,9 +280,21 @@ namespace FirstLight.Game.Presenters
 
 			if (!CurrentRoom.IsMatchmakingRoom() && newMasterClient.IsLocal && _loadedCoreMatchAssets)
 			{
+				_kickButton.gameObject.SetActive(true);
 				_lockRoomButton.gameObject.SetActive(true);
 				_botsToggleObjectRoot.SetActive(_services.NetworkService.CurrentRoomGameModeConfig.Value.AllowBots);
 			}
+		}
+
+		private void UpdateRoomPlayerCounts()
+		{
+			if (CurrentRoom.IsMatchmakingRoom())
+			{
+				return;
+			}
+
+			_playerCountText.text = $"{CurrentRoom.GetRealPlayerAmount()}/{CurrentRoom.GetRealPlayerCapacity()}";
+			_spectatorCountText.text = $"{CurrentRoom.GetSpectatorAmount()}/{CurrentRoom.GetSpectatorCapacity()}";
 		}
 
 		private void AddOrUpdatePlayerInList(Player player)
@@ -427,6 +456,7 @@ namespace FirstLight.Game.Presenters
 			_lockRoomButton.gameObject.SetActive(false);
 			_leaveRoomButton.gameObject.SetActive(false);
 			_botsToggleObjectRoot.SetActive(false);
+			_kickButton.gameObject.SetActive(false);
 			_spectateToggleObjectRoot.SetActive(false);
 
 			if (CurrentRoom.IsMatchmakingRoom())
@@ -435,6 +465,41 @@ namespace FirstLight.Game.Presenters
 				_playersFoundText.gameObject.SetActive(false);
 				_findingPlayersText.gameObject.SetActive(false);
 			}
+		}
+
+		private void ActivateKickOverlay()
+		{
+			foreach (var overlayObject in _kickOverlayObjects)
+			{
+				overlayObject.SetActive(true);
+			}
+		}
+		
+		private void DeactivateKickOverlay()
+		{
+			foreach (var overlayObject in _kickOverlayObjects)
+			{
+				overlayObject.SetActive(false);
+			}
+		}
+
+		private void RequestKickPlayer(Player player)
+		{
+			// You cannot kick yourself, for error avoidance reasons
+			if (player.UserId == _services.NetworkService.QuantumClient.LocalPlayer.UserId) return;
+
+			var title = string.Format(ScriptLocalization.MainMenu.MatchmakingKickConfirm, player.NickName).ToUpper();
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.General.Yes.ToUpper(),
+				ButtonOnClick = () =>
+				{
+					_services.MessageBrokerService.Publish(new RequestKickPlayerMessage() {Player = player});
+					DeactivateKickOverlay();
+				}
+			};
+
+			_services.GenericDialogService.OpenDialog(title, true, confirmButton, DeactivateKickOverlay);
 		}
 
 		private void OnSpectatorToggle(bool isOn)

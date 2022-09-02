@@ -151,7 +151,8 @@ namespace FirstLight.Game.Utils
 				GameConstants.Network.ROOM_PROPS_COMMIT,
 				GameConstants.Network.ROOM_PROPS_MAP,
 				GameConstants.Network.ROOM_PROPS_RANKED_MATCH,
-				GameConstants.Network.ROOM_PROPS_BOTS
+				GameConstants.Network.ROOM_PROPS_BOTS,
+				GameConstants.Network.ROOM_PROPS_GAME_MODE
 			};
 		}
 		

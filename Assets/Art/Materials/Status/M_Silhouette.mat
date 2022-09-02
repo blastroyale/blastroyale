@@ -67,10 +67,10 @@ Material:
     m_Ints: []
     m_Floats:
     - Vector1_0edf165a9888459aa51fcfd3038d58c3: 0
-    - Vector1_4570d518837345e0a9a0e83b9aee67ee: 0.75
+    - Vector1_4570d518837345e0a9a0e83b9aee67ee: 0
     - Vector1_77E8A8EE: 0.2
     - Vector1_7e3420c35b05488787dccb6b24b2f4f8: 0
-    - Vector1_A980955: 2
+    - Vector1_A980955: 1
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -97,10 +97,10 @@ Material:
     m_Colors:
     - Color_6552EC56: {r: 0, g: 0.9532491, b: 3.6870956, a: 0}
     - Color_7596fa9110d844f6b58daec20133774f: {r: 0.45911932, g: 0.7350492, b: 1, a: 0}
-    - Color_7dec221cdbeb4a87aeb2014b5be2116b: {r: 0, g: 2.7503216, b: 6.1882243, a: 0}
+    - Color_7dec221cdbeb4a87aeb2014b5be2116b: {r: 0, g: 0.3572578, b: 0.8027793, a: 0}
     - Color_87017717: {r: 1, g: 0.95046335, b: 0, a: 0}
     - Vector2_c488f38661244cc99c1f24d639e7c2db: {r: 0, g: 0, b: 0, a: 0}
-    - Vector3_3ef2f1df446b45db8923d202bc547bef: {r: 0, g: 0, b: -1, a: 0}
+    - Vector3_3ef2f1df446b45db8923d202bc547bef: {r: 0, g: 0, b: -0.5, a: 0}
     - _BaseColor: {r: 1, g: 0.85566986, b: 0, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

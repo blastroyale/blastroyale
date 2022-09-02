@@ -247,7 +247,7 @@ namespace FirstLight.Game.StateMachines
 #else
 			PlayFabSettings.TitleId = "***REMOVED***";
 			_passwordRecoveryEmailTemplateId = "***REMOVED***";
-			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";	
+			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
 #endif
 			
 			if (environment != appData.Environment)

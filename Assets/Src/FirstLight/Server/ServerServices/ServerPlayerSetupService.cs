@@ -45,6 +45,8 @@ public class BlastRoyalePlayerSetup : IPlayerSetupService
 	/// <inheritdoc />
 	public bool IsSetup(ServerState state)
 	{
+		if (state.Count == 0)
+			return false;
 		var playerData = state.DeserializeModel<PlayerData>();
 		if (playerData == null || playerData.Level == 0)
 			return false;

@@ -90,15 +90,15 @@ namespace FirstLight.Editor.EditorTools
 		/// Uploads the last serialized configuration to dev playfab.
 		/// Playfab title is set in the Window -> Playfab -> Editor Extension menu
 		/// </summary>
-		[MenuItem("FLG/Backend/Upload Configs to Playfab (DEV)")]
-		public static async void UploadToPlayfab()
+		[MenuItem("FLG/Backend/Upload Configs to Playfab")]
+		public static void UploadToPlayfab()
 		{
 			var serialized = File.ReadAllText($"{_backendPath}/GameLogicService/gameConfig.json");
 			
 			PlayFabShortcuts.SetTitleInternalData("GameConfig", serialized);
 			PlayFabShortcuts.GetTitleInternalData("GameConfigVersion", configVersion =>
 			{
-				var currentVersion = Int32.Parse(configVersion);
+				var currentVersion = Int32.Parse(configVersion ?? "0");
 				PlayFabShortcuts.SetTitleInternalData("GameConfigVersion", (currentVersion + 1).ToString());
 				Debug.Log("Configs uploaded to playfab and version bumped");
 			});

@@ -1,48 +1,50 @@
+using FirstLight.Server.SDK.Services;
 using PlayFab;
-using ServerSDK.Services;
 
-namespace Backend.Game.Services;
-
-/// <summary>
-///     Interface of creating playfab server configuration.
-/// </summary>
-public interface IPlayfabServer
+namespace Backend.Game.Services
 {
 	/// <summary>
-	///     Creates and returns a playfab server configuration.
+	///     Interface of creating playfab server configuration.
 	/// </summary>
-	public PlayFabServerInstanceAPI CreateServer(string playfabId);
-}
-
-/// <summary>
-///     Server settings to connect to PlayFab
-/// </summary>
-public class PlayfabServerSettings : IPlayfabServer
-{
-	public PlayfabServerSettings(IServerConfiguration cfg)
+	public interface IPlayfabServer
 	{
-		SecretKey = cfg.PlayfabSecretKey;
-		TitleId = cfg.PlayfabTitle;
-		PlayFabSettings.staticSettings.TitleId = TitleId;
-		PlayFabSettings.staticSettings.DeveloperSecretKey = SecretKey;
+		/// <summary>
+		///     Creates and returns a playfab server configuration.
+		/// </summary>
+		public PlayFabServerInstanceAPI CreateServer(string playfabId);
 	}
 
-	public string SecretKey { get; }
-
-	public string TitleId { get; }
-
-	/// <inheritdoc />
-	public PlayFabServerInstanceAPI CreateServer(string playfabId)
+	/// <summary>
+	///     Server settings to connect to PlayFab
+	/// </summary>
+	public class PlayfabServerSettings : IPlayfabServer
 	{
-		var settings = new PlayFabApiSettings
+		public PlayfabServerSettings(IServerConfiguration cfg)
 		{
-			TitleId = TitleId,
-			DeveloperSecretKey = SecretKey
-		};
-		var authContext = new PlayFabAuthenticationContext
+			SecretKey = cfg.PlayfabSecretKey;
+			TitleId = cfg.PlayfabTitle;
+			PlayFabSettings.staticSettings.TitleId = TitleId;
+			PlayFabSettings.staticSettings.DeveloperSecretKey = SecretKey;
+		}
+
+		public string SecretKey { get; }
+
+		public string TitleId { get; }
+
+		/// <inheritdoc />
+		public PlayFabServerInstanceAPI CreateServer(string playfabId)
 		{
-			PlayFabId = playfabId
-		};
-		return new PlayFabServerInstanceAPI(settings, authContext);
+			var settings = new PlayFabApiSettings
+			{
+				TitleId = TitleId,
+				DeveloperSecretKey = SecretKey
+			};
+			var authContext = new PlayFabAuthenticationContext
+			{
+				PlayFabId = playfabId
+			};
+			return new PlayFabServerInstanceAPI(settings, authContext);
+		}
 	}
 }
+

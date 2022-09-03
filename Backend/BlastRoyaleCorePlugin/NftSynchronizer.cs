@@ -11,7 +11,7 @@ using FirstLight.Game.Views.MainMenuViews;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Quantum;
-using ServerSDK;
+using FirstLight.Server.SDK;
 
 namespace BlastRoyaleNFTPlugin
 {

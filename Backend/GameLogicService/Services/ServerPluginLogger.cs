@@ -1,5 +1,5 @@
 using Microsoft.Extensions.Logging;
-using ServerSDK.Services;
+using FirstLight.Server.SDK.Services;
 
 namespace Backend.Game.Services
 {

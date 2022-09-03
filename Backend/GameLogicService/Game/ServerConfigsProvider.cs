@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using FirstLight;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 
 namespace Backend.Game
 {

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ServerSDK.Services;
+using FirstLight.Server.SDK.Services;
 
 /// <summary>
 /// In memory rudimentary hacky wacky implementation of async single threaded server mutex

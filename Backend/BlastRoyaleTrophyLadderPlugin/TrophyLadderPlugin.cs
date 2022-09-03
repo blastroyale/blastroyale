@@ -5,8 +5,8 @@ using FirstLight.Game.Utils;
 using PlayFab;
 using PlayFab.AdminModels;
 using PlayFab.ServerModels;
-using ServerSDK;
-using ServerSDK.Events;
+using FirstLight.Server.SDK;
+using FirstLight.Server.SDK.Events;
 using UpdatePlayerStatisticsRequest = PlayFab.ServerModels.UpdatePlayerStatisticsRequest;
 
 namespace BlastRoyaleNFTPlugin

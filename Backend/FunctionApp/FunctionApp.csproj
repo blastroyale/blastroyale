@@ -72,6 +72,6 @@
       <ProjectReference Include="..\BlastRoyaleTrophyLadderPlugin\BlastRoyaleTrophyLadderPlugin.csproj" />
       <ProjectReference Include="..\BlastRoyaleCorePlugin\BlastRoyaleCorePlugin.csproj" />
       <ProjectReference Include="..\GameLogicService\GameLogicService.csproj" />
-      <ProjectReference Include="..\ServerSDK\ServerSDK.csproj" />
+      <ProjectReference Include="..\FirstLightServerSDK\FirstLightServerSDK.csproj" />
     </ItemGroup>
 </Project>

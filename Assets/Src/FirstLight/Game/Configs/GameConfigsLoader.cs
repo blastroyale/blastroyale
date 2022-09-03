@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Quantum;
-using UnityEngine;
 
 namespace FirstLight.Game.Configs
 {

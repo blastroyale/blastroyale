@@ -1,7 +1,7 @@
 using System;
 using PlayFab;
 using PlayFab.ServerModels;
-using ServerSDK.Models;
+using FirstLight.Server.SDK.Models;
 
 namespace Backend.Game.Services
 {

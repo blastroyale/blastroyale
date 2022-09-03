@@ -11,8 +11,8 @@ using Microsoft.Extensions.Logging;
 using PlayFab;
 using PlayFab.CloudScriptModels;
 using PlayFab.Json;
-using ServerSDK;
-using ServerSDK.Services;
+using FirstLight.Server.SDK;
+using FirstLight.Server.SDK.Services;
 using StandaloneServer;
 
 // A minimalistic server wrapper for the game-server as a containerized rest api for local development & testing.

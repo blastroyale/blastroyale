@@ -12,9 +12,10 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using PlayFab;
-using ServerSDK;
-using ServerSDK.Models;
-using ServerSDK.Services;
+using FirstLight.Server.SDK;
+using FirstLight.Server.SDK.Models;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
+using FirstLight.Server.SDK.Services;
 
 namespace Backend
 {

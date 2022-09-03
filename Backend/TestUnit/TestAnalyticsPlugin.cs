@@ -6,9 +6,9 @@ using FirstLight.Game.Services;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using Quantum;
-using ServerSDK;
-using ServerSDK.Events;
-using ServerSDK.Models;
+using FirstLight.Server.SDK;
+using FirstLight.Server.SDK.Events;
+using FirstLight.Server.SDK.Models;
 using Assert = NUnit.Framework.Assert;
 
 

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Newtonsoft.Json;
 using PlayFab;
 using UnityEditor;

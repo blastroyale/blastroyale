@@ -1,5 +1,5 @@
 using System;
-using ServerSDK.Services;
+using FirstLight.Server.SDK.Services;
 
 namespace Backend.Game.Services
 {

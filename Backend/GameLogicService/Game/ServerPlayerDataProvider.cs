@@ -4,7 +4,7 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Services;
-using ServerSDK.Models;
+using FirstLight.Server.SDK.Models;
 
 
 namespace Backend.Game

@@ -1,5 +1,6 @@
 using FirstLight;
 using FirstLight.Game.Logic;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 
 namespace Backend.Game

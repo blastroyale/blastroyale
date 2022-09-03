@@ -3,8 +3,8 @@ using Backend.Game.Services;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using NUnit.Framework;
-using ServerSDK.Models;
-using ServerSDK.Services;
+using FirstLight.Server.SDK.Models;
+using FirstLight.Server.SDK.Services;
 
 public class TestDataService
 {

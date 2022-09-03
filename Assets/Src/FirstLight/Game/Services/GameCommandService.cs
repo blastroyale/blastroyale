@@ -9,13 +9,13 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Utils;
 using FirstLight.NativeUi;
+using FirstLight.Server.SDK.Modules;
 using FirstLight.Services;
 using Newtonsoft.Json;
 using Photon.Realtime;
 using PlayFab;
 using PlayFab.CloudScriptModels;
 using PlayFab.SharedModels;
-using ServerSDK.Modules;
 using UnityEngine;
 
 namespace FirstLight.Game.Services

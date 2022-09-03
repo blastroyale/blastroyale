@@ -1,6 +1,6 @@
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.Extensibility;
-using ServerSDK.Models;
+using FirstLight.Server.SDK.Models;
 
 namespace Backend.Game.Services
 {

@@ -5,6 +5,7 @@ using Backend.Game;
 using FirstLight;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using NUnit.Framework;
 
 public class TestConfigsProvider

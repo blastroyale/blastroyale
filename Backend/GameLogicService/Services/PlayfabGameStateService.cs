@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using PlayFab;
 using PlayFab.ServerModels;
-using ServerSDK.Models;
-using ServerSDK.Services;
+using FirstLight.Server.SDK.Models;
+using FirstLight.Server.SDK.Services;
 
 namespace Backend.Game.Services
 {

@@ -1,8 +1,8 @@
 using FirstLight.Game.Commands;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
-using UnityEngine;
 
 namespace FirstLight.Game.Logic
 {

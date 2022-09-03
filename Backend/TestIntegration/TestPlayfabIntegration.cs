@@ -1,13 +1,13 @@
 using FirstLight.Game.Data;
 using FirstLight.Game.Utils;
 using NUnit.Framework;
-using ServerSDK.Services;
+using FirstLight.Server.SDK.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ServerSDK.Modules;
+using FirstLight.Server.SDK.Modules;
 
 namespace IntegrationTests
 {

@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 using NUnit.Framework;
-using ServerSDK.Services;
+using FirstLight.Server.SDK.Services;
 
 public class TestServerMutex
 {

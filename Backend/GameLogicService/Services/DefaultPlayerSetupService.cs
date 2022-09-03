@@ -6,8 +6,8 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Utils;
 using Quantum;
-using ServerSDK.Models;
-using ServerSDK.Services;
+using FirstLight.Server.SDK.Models;
+using FirstLight.Server.SDK.Services;
 
 
 namespace Backend.Game.Services

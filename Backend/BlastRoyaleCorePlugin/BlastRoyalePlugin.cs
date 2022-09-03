@@ -1,6 +1,6 @@
 ﻿using FirstLight.Game.Utils;
-using ServerSDK;
-using ServerSDK.Events;
+using FirstLight.Server.SDK;
+using FirstLight.Server.SDK.Events;
 
 namespace BlastRoyaleNFTPlugin
 {

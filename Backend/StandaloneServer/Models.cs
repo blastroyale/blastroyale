@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using ServerSDK.Services;
+using FirstLight.Server.SDK.Services;
 
 namespace StandaloneServer
 {

@@ -3,6 +3,7 @@ using FirstLight.Services;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Utils;
 using FirstLight.NotificationService;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using UnityEngine;
 
 namespace FirstLight.Game.Services

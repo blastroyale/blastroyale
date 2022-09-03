@@ -6,10 +6,10 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using Microsoft.Extensions.Logging;
 using PlayFab;
-using ServerSDK;
-using ServerSDK.Events;
-using ServerSDK.Models;
-using ServerSDK.Services;
+using FirstLight.Server.SDK;
+using FirstLight.Server.SDK.Events;
+using FirstLight.Server.SDK.Models;
+using FirstLight.Server.SDK.Services;
 
 namespace Backend
 {

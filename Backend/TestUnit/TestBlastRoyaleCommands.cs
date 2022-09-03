@@ -13,7 +13,7 @@ using PlayFab;
 using Photon.Deterministic;
 using Quantum;
 using Assert = NUnit.Framework.Assert;
-using ModelSerializer = ServerSDK.Modules.ModelSerializer;
+using ModelSerializer = FirstLight.Server.SDK.Modules.ModelSerializer;
 
 /// <summary>
 /// Test suit to test specific blast royale commands.

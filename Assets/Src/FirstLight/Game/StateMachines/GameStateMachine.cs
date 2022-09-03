@@ -8,13 +8,12 @@ using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.NativeUi;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using FirstLight.Statechart;
 using FirstLight.UiService;
 using I2.Loc; 
 using MoreMountains.NiceVibrations;
-using PlayFab;
-using PlayFab.ClientModels;
 using UnityEngine;
 
 namespace FirstLight.Game.StateMachines

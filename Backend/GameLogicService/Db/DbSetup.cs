@@ -5,7 +5,7 @@ using Backend.Game.Services;
 using Login.Db;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using ServerSDK.Services;
+using FirstLight.Server.SDK.Services;
 
 namespace Backend.Db
 {

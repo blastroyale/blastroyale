@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using FirstLight.Game.Infos;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Quantum;
 
 namespace FirstLight.Game.Utils

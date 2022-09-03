@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using ServerSDK.Models;
+using FirstLight.Server.SDK.Models;
 
 namespace Backend.Models
 {

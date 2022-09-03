@@ -48,7 +48,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ServerSDK\ServerSDK.csproj" />
+      <ProjectReference Include="..\FirstLightServerSDK\FirstLightServerSDK.csproj" />
     </ItemGroup>
 
 </Project>

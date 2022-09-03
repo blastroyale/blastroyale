@@ -1,8 +1,8 @@
 using FirstLight.Game.Commands;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
+using FirstLight.Server.SDK.Modules;
 using FirstLight.Services;
-using ServerSDK.Modules;
 
 namespace FirstLight.Tests.EditorMode
 {

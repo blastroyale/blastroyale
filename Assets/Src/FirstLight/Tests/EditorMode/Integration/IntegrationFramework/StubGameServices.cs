@@ -3,6 +3,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.NotificationService;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 
 namespace FirstLight.Tests.EditorMode

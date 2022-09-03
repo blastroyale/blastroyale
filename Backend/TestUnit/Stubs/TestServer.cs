@@ -17,10 +17,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using PlayFab;
-using ServerSDK;
-using ServerSDK.Models;
-using ServerSDK.Modules;
-using ServerSDK.Services;
+using FirstLight.Server.SDK;
+using FirstLight.Server.SDK.Models;
+using FirstLight.Server.SDK.Modules;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
+using FirstLight.Server.SDK.Services;
 using StackExchange.Redis;
 
 /// <summary>

@@ -30,8 +30,7 @@
         "quantum.core.dll",
         "PhotonDeterministic.dll",
         "Photon3Unity3D.dll",
-        "ServerSDK.dll",
-        ""
+        "FirstLightServerSDK.dll"
     ],
     "autoReferenced": false,
     "defineConstraints": [

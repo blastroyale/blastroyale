@@ -1,0 +1,52 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/gabrielslomka/Code/blast-royale/Backend/ServerSDK/ServerSDK.csproj": {}
+  },
+  "projects": {
+    "/Users/gabrielslomka/Code/blast-royale/Backend/ServerSDK/ServerSDK.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/gabrielslomka/Code/blast-royale/Backend/ServerSDK/ServerSDK.csproj",
+        "projectName": "ServerSDK",
+        "projectPath": "/Users/gabrielslomka/Code/blast-royale/Backend/ServerSDK/ServerSDK.csproj",
+        "packagesPath": "/Users/gabrielslomka/.nuget/packages/",
+        "outputPath": "/Users/gabrielslomka/Code/blast-royale/Backend/ServerSDK/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/gabrielslomka/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net48"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net48": {
+            "targetAlias": "net48",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net48": {
+          "targetAlias": "net48",
+          "dependencies": {
+            "Newtonsoft.Json": {
+              "include": "Compile, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "target": "Package",
+              "version": "[13.0.1, )"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/x64/sdk/6.0.102/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

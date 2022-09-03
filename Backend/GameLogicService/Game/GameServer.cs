@@ -9,10 +9,10 @@ using FirstLight.Game.Utils;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.Extensions.Logging;
 using PlayFab;
-using ServerSDK;
-using ServerSDK.Events;
-using ServerSDK.Models;
-using ServerSDK.Services;
+using FirstLight.Server.SDK;
+using FirstLight.Server.SDK.Events;
+using FirstLight.Server.SDK.Models;
+using FirstLight.Server.SDK.Services;
 using IGameCommand = FirstLight.Game.Commands.IGameCommand;
 
 namespace Backend.Game

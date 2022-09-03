@@ -7,7 +7,7 @@ using FirstLight.Game.Logic;
 using Microsoft.Extensions.DependencyInjection;
 using PlayFab;
 using PlayFab.ClientModels;
-using ServerSDK.Services;
+using FirstLight.Server.SDK.Services;
 
 
 public interface ITestPlayerSetup

@@ -7,8 +7,9 @@ using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Microsoft.Extensions.Logging;
-using ServerSDK.Models;
-using ServerSDK.Modules;
+using FirstLight.Server.SDK.Models;
+using FirstLight.Server.SDK.Modules;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 
 
 namespace Backend.Game.Services

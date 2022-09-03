@@ -15,8 +15,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using NUnit.Framework;
 using Quantum;
-using ServerSDK.Models;
-using ServerSDK.Modules;
+using FirstLight.Server.SDK.Models;
+using FirstLight.Server.SDK.Modules;
 using Assert = NUnit.Framework.Assert;
 
 public class TestCommandValidation

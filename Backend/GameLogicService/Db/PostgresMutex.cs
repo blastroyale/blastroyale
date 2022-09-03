@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Backend.Db;
 using Backend.Game.Services;
 using Medallion.Threading.Postgres;
-using ServerSDK.Services;
+using FirstLight.Server.SDK.Services;
 
 namespace Backend.Game
 {

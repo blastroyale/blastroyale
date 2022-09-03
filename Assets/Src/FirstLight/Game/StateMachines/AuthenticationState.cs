@@ -14,6 +14,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Utils;
 using FirstLight.NativeUi;
+using FirstLight.Server.SDK.Modules;
 using FirstLight.Services;
 using FirstLight.Statechart;
 using I2.Loc;
@@ -22,7 +23,6 @@ using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
 using PlayFab.SharedModels;
-using ServerSDK.Modules;
 using UnityEngine;
 
 namespace FirstLight.Game.StateMachines

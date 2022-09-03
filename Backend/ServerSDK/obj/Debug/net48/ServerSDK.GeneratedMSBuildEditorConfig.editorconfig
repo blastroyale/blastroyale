@@ -1,0 +1,3 @@
+is_global = true
+build_property.RootNamespace = ServerSDK
+build_property.ProjectDir = /Users/gabrielslomka/Code/blast-royale/Backend/ServerSDK/

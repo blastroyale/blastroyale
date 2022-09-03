@@ -7,15 +7,11 @@ using System.Runtime.Loader;
 using System.Windows.Input;
 using Backend.Game.Services;
 using BlastRoyaleNFTPlugin;
+using FirstLight.Server.SDK;
 using JetBrains.Annotations;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
-using ServerSDK;
 using Src.FirstLight.Server;
-using StackExchange.Redis;
 
 namespace Backend.Plugins {
 

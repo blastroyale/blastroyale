@@ -2,7 +2,7 @@
 using System;
 using Backend.Models;
 using NUnit.Framework;
-using ServerSDK.Models;
+using FirstLight.Server.SDK.Models;
 
 
 [Serializable]

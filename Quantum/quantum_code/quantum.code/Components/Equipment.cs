@@ -85,6 +85,16 @@ namespace Quantum
 		/// TODO: Might need different logic
 		/// </summary>
 		public bool IsDefaultItem() => GameId == GameId.Hammer;
+		
+		/// <summary>
+		/// Requests the equipment's current might
+		/// </summary>
+		public int GetTotalMight(Frame f)
+		{
+			QuantumStatCalculator.CalculateStats(f, this, out var armour, out var health, out var speed, out var power);
+			
+			return QuantumStatCalculator.GetTotalMight(armour,health,speed, power);
+		}
 
 		/// <summary>
 		/// Returns the "Equipment" <see cref="GameIdGroup"/> that this item belongs to.

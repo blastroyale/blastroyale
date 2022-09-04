@@ -57,7 +57,8 @@ synced event OnShieldChanged
 	entity_ref Entity;
 	Int32 PreviousShield;
 	Int32 CurrentShield;
-	Int32 ShieldCapacity;
+	Int32 PreviousShieldCapacity;
+	Int32 CurrentShieldCapacity;
 }
 
 synced event OnHealthIsZeroFromAttacker

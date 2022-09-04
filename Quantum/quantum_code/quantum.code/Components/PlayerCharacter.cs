@@ -323,28 +323,20 @@ namespace Quantum
 			};
 		}
 
+		/// <summary>
+		/// Requests the player's initial setup loadout
+		/// </summary>
 		public Equipment[] GetLoadout(Frame f)
 		{
-			var playerData = f.GetPlayerData(Player);
-
-			if (playerData == null)
-			{
-				return null;
-			}
-
-			return playerData.Loadout;
+			return f.GetPlayerData(Player)?.Loadout;
 		}
 		
+		/// <summary>
+		/// Requests the player's weapon from initial setup loadout
+		/// </summary>
 		public Equipment GetLoadoutWeapon(Frame f)
 		{
-			var playerData = f.GetPlayerData(Player);
-
-			if (playerData == null)
-			{
-				return Equipment.None;
-			}
-
-			return playerData.Weapon;
+			return f.GetPlayerData(Player)?.Weapon ?? Equipment.None;
 		}
 
 		/// <summary>

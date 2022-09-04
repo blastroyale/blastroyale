@@ -135,6 +135,7 @@ namespace FirstLight.Game.Utils
 			public const float DISSOLVE_END_ALPHA_CLIP_VALUE = 0.75f;
 			public const float STAR_STATUS_CHARACTER_SCALE_MULTIPLIER = 1.5f;
 			public const float RADIAL_LOCAL_POS_OFFSET = 0.1f;
+			public const float NEAR_DEATH_HEALTH_RATIO_THRESHOLD = 0.4f;
 
 			// Description post fix string tag
 			public const string DESCRIPTION_POSTFIX = "Description";

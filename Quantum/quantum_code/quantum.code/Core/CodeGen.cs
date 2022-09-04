@@ -5391,13 +5391,14 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnShieldChanged OnShieldChanged(EntityRef Entity, Int32 PreviousShield, Int32 CurrentShield, Int32 ShieldCapacity) {
+      public EventOnShieldChanged OnShieldChanged(EntityRef Entity, Int32 PreviousShield, Int32 CurrentShield, Int32 PreviousShieldCapacity, Int32 CurrentShieldCapacity) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnShieldChanged>(EventOnShieldChanged.ID);
         ev.Entity = Entity;
         ev.PreviousShield = PreviousShield;
         ev.CurrentShield = CurrentShield;
-        ev.ShieldCapacity = ShieldCapacity;
+        ev.PreviousShieldCapacity = PreviousShieldCapacity;
+        ev.CurrentShieldCapacity = CurrentShieldCapacity;
         _f.AddEvent(ev);
         return ev;
       }
@@ -6777,7 +6778,8 @@ namespace Quantum {
     public EntityRef Entity;
     public Int32 PreviousShield;
     public Int32 CurrentShield;
-    public Int32 ShieldCapacity;
+    public Int32 PreviousShieldCapacity;
+    public Int32 CurrentShieldCapacity;
     protected EventOnShieldChanged(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -6798,7 +6800,8 @@ namespace Quantum {
         hash = hash * 31 + Entity.GetHashCode();
         hash = hash * 31 + PreviousShield.GetHashCode();
         hash = hash * 31 + CurrentShield.GetHashCode();
-        hash = hash * 31 + ShieldCapacity.GetHashCode();
+        hash = hash * 31 + PreviousShieldCapacity.GetHashCode();
+        hash = hash * 31 + CurrentShieldCapacity.GetHashCode();
         return hash;
       }
     }

@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Net;
 using ExitGames.Client.Photon;
 using FirstLight.FLogger;
@@ -15,6 +14,7 @@ using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Utils;
 using FirstLight.NativeUi;
 using FirstLight.Server.SDK.Modules;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using FirstLight.Statechart;
 using I2.Loc;
@@ -43,17 +43,19 @@ namespace FirstLight.Game.StateMachines
 		private readonly IDataService _dataService;
 		private readonly IGameBackendNetworkService _networkService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
+		private IConfigsAdder _configsAdder;
 
 		private string _passwordRecoveryEmailTemplateId = "";
 		
 		public AuthenticationState(IGameServices services, IGameUiServiceInit uiService, IDataService dataService, 
-		                           IGameBackendNetworkService networkService, Action<IStatechartEvent> statechartTrigger)
+		                           IGameBackendNetworkService networkService, Action<IStatechartEvent> statechartTrigger, IConfigsAdder cfgs)
 		{
 			_services = services;
 			_uiService = uiService;
 			_dataService = dataService;
 			_networkService = networkService;
 			_statechartTrigger = statechartTrigger;
+			_configsAdder = cfgs;
 		}
 
 		/// <summary>
@@ -178,7 +180,7 @@ namespace FirstLight.Game.StateMachines
 			return !string.IsNullOrWhiteSpace(_dataService.GetData<AppData>().DeviceId);
 		}
 
-		private void LoginWithDevice()
+		public void LoginWithDevice()
 		{
 			FLog.Verbose("Logging in with device ID");
 			var deviceId = _dataService.GetData<AppData>().DeviceId;
@@ -265,7 +267,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var titleData = result.InfoResultPayload.TitleData;
 			var appData = _dataService.GetData<AppData>();
-			
+
 			PlayFabSettings.staticPlayer.CopyFrom(result.AuthenticationContext);
 			_services.AnalyticsService.SessionCalls.PlayerLogin(result.PlayFabId);
 			FLog.Verbose($"Logged in. PlayfabId={result.PlayFabId}");
@@ -289,7 +291,7 @@ namespace FirstLight.Game.StateMachines
 			}
 			
 			FeatureFlags.ParseFlags(titleData);
-
+			
 			_networkService.UserId.Value = result.PlayFabId;
 			appData.NickNameId = result.InfoResultPayload.AccountInfo.TitleInfo.DisplayName;
 			appData.FirstLoginTime = result.InfoResultPayload.AccountInfo.Created;
@@ -297,6 +299,21 @@ namespace FirstLight.Game.StateMachines
 			appData.LastLoginTime = result.LastLoginTime ?? result.InfoResultPayload.AccountInfo.Created;
 			appData.IsFirstSession = result.NewlyCreated;
 			appData.PlayerId = result.PlayFabId;
+
+			if (FeatureFlags.REMOTE_CONFIGURATION)
+			{
+				FLog.Verbose("Parsing Remote Configurations");
+				var remoteStringConfig = titleData[PlayfabConfigurationProvider.ConfigName];
+				var serializer = new ConfigsSerializer();
+				var remoteConfig = serializer.Deserialize<PlayfabConfigurationProvider>(remoteStringConfig);
+				FLog.Verbose($"Updating config from version {_configsAdder.Version} to {remoteConfig.Version}");
+				_services.MessageBrokerService.Publish(new ConfigurationUpdate()
+				{
+					NewConfig = remoteConfig,
+					OldConfig = _configsAdder
+				});
+				_configsAdder.UpdateTo(remoteConfig.Version, remoteConfig.GetAllConfigs());
+			}
 
 			_dataService.SaveData<AppData>();
 			FLog.Verbose("Saved AppData");

@@ -12,6 +12,7 @@ using PlayFab;
 using PlayFab.CloudScriptModels;
 using PlayFab.Json;
 using FirstLight.Server.SDK;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Server.SDK.Services;
 using StandaloneServer;
 
@@ -32,7 +33,7 @@ builder.Services.AddSingleton<IServerMutex, NoMutex>();
 
 var app = builder.Build();
 
-app.Services.GetService < IEventManager>();
+app.Services.GetService < IConfigsProvider>();
 
 // Endpoint to simulate playfab's cloud script "ExecuteFunction/ExecuteCommand" locally.
 app.MapPost("/CloudScript/ExecuteFunction", async (ctx) =>

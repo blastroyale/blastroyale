@@ -11,6 +11,11 @@ namespace FirstLight.Server.SDK.Modules.GameConfiguration
 	public interface IConfigsProvider
 	{
 		/// <summary>
+		///  Gets the current version of the current configuration
+		/// </summary>
+		ulong Version { get; }
+		
+		/// <summary>
 		/// Requests the Config of <typeparamref name="T"/> type and with the given <paramref name="id"/>.
 		/// Returns true if there is a <paramref name="config"/> of <typeparamref name="T"/> type and with the
 		/// given <paramref name="id"/>,  false otherwise.

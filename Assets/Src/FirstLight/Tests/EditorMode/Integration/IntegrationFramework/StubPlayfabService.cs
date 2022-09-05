@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using FirstLight.Game.Services;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
@@ -33,6 +35,11 @@ namespace FirstLight.Tests.EditorMode
 		{
 			FunctionsCalled.Add(functionName);
 			onSuccess ?.Invoke(new ExecuteFunctionResult());
+		}
+
+		public void GetTitleData(string key, Action<string> result)
+		{
+			
 		}
 
 		public void HandleError(PlayFabError error)

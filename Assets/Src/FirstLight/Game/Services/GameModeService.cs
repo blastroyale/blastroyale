@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using Quantum;
 
@@ -24,9 +25,19 @@ namespace FirstLight.Game.Services
 		IObservableField<SelectedGameModeInfo> SelectedGameMode { get; }
 
 		/// <summary>
-		/// The current rotational GameMode (updates automatically when time runs out, with a 500ms delay.
+		/// Provides a list of fixed game mode slots that should always be displayed.
 		/// </summary>
-		IObservableFieldReader<GameModeRotationInfo> RotationGameMode { get; }
+		List<GameModeRotationConfig.GameModeEntry> FixedSlots { get; }
+
+		/// <summary>
+		/// The current rotational GameMode in slot 1 (updates automatically when time runs out, with a 500ms delay.
+		/// </summary>
+		IObservableFieldReader<GameModeRotationInfo> RotationSlot1 { get; }
+
+		/// <summary>
+		/// The current rotational GameMode in slot 2 (updates automatically when time runs out, with a 500ms delay.
+		/// </summary>
+		IObservableFieldReader<GameModeRotationInfo> RotationSlot2 { get; }
 	}
 
 	public struct SelectedGameModeInfo
@@ -37,7 +48,8 @@ namespace FirstLight.Game.Services
 		public DateTime EndTime;
 		public bool FromRotation;
 
-		public SelectedGameModeInfo(string id, MatchType matchType, List<string> mutators, bool fromRotation = false, DateTime endTime = default)
+		public SelectedGameModeInfo(string id, MatchType matchType, List<string> mutators, bool fromRotation = false,
+		                            DateTime endTime = default)
 		{
 			Id = id;
 			MatchType = matchType;
@@ -49,10 +61,10 @@ namespace FirstLight.Game.Services
 
 	public struct GameModeRotationInfo
 	{
-		public GameModeRotationConfig.RotationEntry Entry;
+		public GameModeRotationConfig.GameModeEntry Entry;
 		public DateTime EndTime;
 
-		public GameModeRotationInfo(GameModeRotationConfig.RotationEntry entry, DateTime endTime)
+		public GameModeRotationInfo(GameModeRotationConfig.GameModeEntry entry, DateTime endTime)
 		{
 			Entry = entry;
 			EndTime = endTime;
@@ -65,10 +77,16 @@ namespace FirstLight.Game.Services
 		private readonly IConfigsProvider _configsProvider;
 		private readonly IThreadService _threadService;
 
-		private readonly IObservableField<GameModeRotationInfo> _rotationGameMode;
+		private readonly IObservableField<GameModeRotationInfo> _rotationSlot1;
+		private readonly IObservableField<GameModeRotationInfo> _rotationSlot2;
 
 		public IObservableField<SelectedGameModeInfo> SelectedGameMode { get; }
-		public IObservableFieldReader<GameModeRotationInfo> RotationGameMode => _rotationGameMode;
+
+		public List<GameModeRotationConfig.GameModeEntry> FixedSlots =>
+			_configsProvider.GetConfig<GameModeRotationConfig>().FixedSlots;
+
+		public IObservableFieldReader<GameModeRotationInfo> RotationSlot1 => _rotationSlot1;
+		public IObservableFieldReader<GameModeRotationInfo> RotationSlot2 => _rotationSlot2;
 
 		public GameModeService(IConfigsProvider configsProvider, IThreadService threadService)
 		{
@@ -76,51 +94,61 @@ namespace FirstLight.Game.Services
 			_threadService = threadService;
 
 			SelectedGameMode = new ObservableField<SelectedGameModeInfo>();
-			_rotationGameMode = new ObservableField<GameModeRotationInfo>();
+			_rotationSlot1 = new ObservableField<GameModeRotationInfo>();
+			_rotationSlot2 = new ObservableField<GameModeRotationInfo>();
 		}
 
 		public void Init()
 		{
-			SelectedGameMode.Value =
-				new SelectedGameModeInfo(_configsProvider.GetConfigsList<QuantumGameModeConfig>()[0].Id,
-				                         MatchType.Casual,
-				                         new List<string>());
+			var firstFixedSlot = _configsProvider.GetConfig<GameModeRotationConfig>().FixedSlots[0];
+			SelectedGameMode.Value = new SelectedGameModeInfo(firstFixedSlot.GameModeId,
+			                                                  firstFixedSlot.MatchType,
+			                                                  firstFixedSlot.Mutators);
 
 			RefreshRotationGameMode();
 		}
 
 		private void RefreshRotationGameMode()
 		{
-			var currentRotationEntry = GetCurrentRotationEntry(out var ticksLeft);
-			_rotationGameMode.Value = new GameModeRotationInfo(currentRotationEntry, DateTime.UtcNow.AddTicks(ticksLeft));
+			var config = _configsProvider.GetConfig<GameModeRotationConfig>();
+			var startTimeTicks = config.RotationStartTimeTicks;
+			var slotDurationTicks = TimeSpan.FromSeconds(config.RotationSlotDuration).Ticks;
+
+			// Slot1
+			RefreshRotationSlot(startTimeTicks, slotDurationTicks, config.RotationSlot2, _rotationSlot2);
+
+			// Slot2
+			RefreshRotationSlot(startTimeTicks, slotDurationTicks, config.RotationSlot1, _rotationSlot1);
+		}
+
+		private void RefreshRotationSlot(long startTimeTicks, long slotDurationTicks,
+		                                 List<GameModeRotationConfig.GameModeEntry> rotationSlots,
+		                                 IObservableField<GameModeRotationInfo> observable)
+		{
+			if (observable.Value.EndTime > DateTime.UtcNow) return;
+
+			var currentRotationEntry =
+				GetCurrentRotationEntry(startTimeTicks, slotDurationTicks, rotationSlots, out var ticksLeft);
+			observable.Value = new GameModeRotationInfo(currentRotationEntry, DateTime.UtcNow.AddTicks(ticksLeft));
 
 			var delay = (int) TimeSpan.FromTicks(ticksLeft).TotalMilliseconds + 500;
 			_threadService.EnqueueDelayed(delay, () => 0, _ => { RefreshRotationGameMode(); });
 		}
 
-		private GameModeRotationConfig.RotationEntry GetCurrentRotationEntry(out long ticksLeft)
+		private GameModeRotationConfig.GameModeEntry GetCurrentRotationEntry(
+		long startTimeTicks, long slotDurationTicks, List<GameModeRotationConfig.GameModeEntry> rotationSlots,
+		out long ticksLeft)
 		{
-			var config = _configsProvider.GetConfig<GameModeRotationConfig>();
-
 			var currentTime = DateTime.UtcNow.Ticks;
-			var startTime = config.RotationStartTimeTicks;
 
-			var ticksFromStart = currentTime - startTime;
-			var slotDurationTicks = TimeSpan.FromSeconds(config.RotationSlotDuration).Ticks;
-			var ticksWindow = slotDurationTicks * config.RotationEntries.Count;
-
+			var ticksFromStart = currentTime - startTimeTicks;
+			var ticksWindow = slotDurationTicks * rotationSlots.Count;
 			var ticksElapsed = ticksFromStart % ticksWindow;
 
-			var index = 0;
-			while (ticksElapsed > slotDurationTicks)
-			{
-				index++;
-				ticksElapsed -= slotDurationTicks;
-			}
+			var index = (int) Math.Ceiling((double) ticksElapsed / slotDurationTicks) - 1;
+			ticksLeft = slotDurationTicks - ticksElapsed % slotDurationTicks;
 
-			ticksLeft = slotDurationTicks - ticksElapsed;
-
-			return config.RotationEntries[index];
+			return rotationSlots[index];
 		}
 	}
 }

@@ -135,10 +135,31 @@ namespace FirstLight.GoogleSheetImporter
 		}
 
 		/// <summary>
+		/// Deserializes a list of custom complex (non-primitive) types, with their own headers / definitions.
+		/// </summary>
+		public static object DeserializeSubList(List<Dictionary<string, string>> data, int startIndex, Type type,
+		                                        string fieldName,
+		                                        params Func<string, Type, object>[] deserializers)
+		{
+			var subType = type.GetGenericArguments()[0];
+			var subData = GetSubListDictionary(data, startIndex);
+
+			var listType = typeof(List<>).MakeGenericType(subType);
+			var list = Activator.CreateInstance(listType);
+			var addMethod = listType.GetMethod("Add")!;
+
+			foreach (var dict in subData)
+			{
+				addMethod.Invoke(list, new[] {DeserializeTo(subType, dict, deserializers)});
+			}
+
+			return list;
+		}
+		
+		/// <summary>
 		/// Extracts the data dictionary of a sub list from the base deserialization data of an object.
 		/// </summary>
-		public static List<Dictionary<string, string>> GetSubListDictionary(
-		List<Dictionary<string, string>> data, int startIndex)
+		private static List<Dictionary<string, string>> GetSubListDictionary(List<Dictionary<string, string>> data, int startIndex)
 		{
 			var headerMap = new Dictionary<string, string>();
 
@@ -170,28 +191,6 @@ namespace FirstLight.GoogleSheetImporter
 			}
 
 			return objData;
-		}
-
-		/// <summary>
-		/// Deserializes a list of custom complex (non-primitive) types, with their own headers / definitions.
-		/// </summary>
-		public static object DeserializeSubList(List<Dictionary<string, string>> data, int startIndex, Type type,
-		                                        string fieldName,
-		                                        params Func<string, Type, object>[] deserializers)
-		{
-			var subType = type.GetGenericArguments()[0];
-			var subData = GetSubListDictionary(data, startIndex);
-
-			var listType = typeof(List<>).MakeGenericType(subType);
-			var list = Activator.CreateInstance(listType);
-			var addMethod = listType.GetMethod("Add")!;
-
-			foreach (var dict in subData)
-			{
-				addMethod.Invoke(list, new[] {DeserializeTo(subType, dict, deserializers)});
-			}
-
-			return list;
 		}
 
 		/// <summary>

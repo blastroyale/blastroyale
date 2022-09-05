@@ -121,6 +121,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeEvents()
 		{
+			QuantumEvent.SubscribeManual<EventOnPlayerSkydiveDrop>(this, OnPlayerSkydiveDrop);
 			QuantumEvent.SubscribeManual<EventOnPlayerDamaged>(this, OnPlayerDamaged);
 			QuantumEvent.SubscribeManual<EventOnPlayerAttack>(this, OnPlayerAttack);
 			QuantumEvent.SubscribeManual<EventOnCollectableCollected>(this, OnCollectableCollected);
@@ -137,13 +138,14 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.SubscribeManual<EventOnStartedCollecting>(this, OnStartCollection);
 			QuantumEvent.SubscribeManual<EventOnStoppedCollecting>(this, OnCollectionStopped);
 			QuantumEvent.SubscribeManual<EventOnCollectableBlocked>(this, OnCollectionBlocked);
-			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveDrop>(this, OnSkydiveStart);
-			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveLand>(this, OnSkydiveEnd);
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveDrop>(this, OnLocalPlayerSkydiveDrop);
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveLand>(this, OnLocalSkydiveEnd);
 		}
-
+		
 		private void UnsubscribeEvents()
 		{
 			QuantumEvent.UnsubscribeListener(this);
+			QuantumCallback.UnsubscribeListener(this);
 		}
 
 		private bool IsSpectator()
@@ -255,7 +257,15 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private void OnSkydiveStart(EventOnLocalPlayerSkydiveDrop callback)
+		private void OnPlayerSkydiveDrop(EventOnPlayerSkydiveDrop callback)
+		{
+			if (_matchServices.SpectateService.SpectatedPlayer.Value.Player == callback.Player)
+			{
+				_services.AudioFxService.PlayClip2D(AudioId.Vo_GameStart);
+			}
+		}
+		
+		private void OnLocalPlayerSkydiveDrop(EventOnLocalPlayerSkydiveDrop callback)
 		{
 			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
 			{
@@ -268,7 +278,8 @@ namespace FirstLight.Game.StateMachines
 				_currentClips.Add(new LoopedAudioClip(skydiveLoop, despawnEvents, callback.Entity));
 			}
 		}
-		private void OnSkydiveEnd(EventOnLocalPlayerSkydiveLand callback)
+		
+		private void OnLocalSkydiveEnd(EventOnLocalPlayerSkydiveLand callback)
 		{
 			CheckClips(nameof(EventOnLocalPlayerSkydiveLand), callback.Entity);
 			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView))

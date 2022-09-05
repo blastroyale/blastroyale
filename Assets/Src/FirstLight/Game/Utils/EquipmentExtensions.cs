@@ -54,17 +54,17 @@ namespace FirstLight.Game.Utils
 			else
 			{
 				stats.Add(EquipmentStatType.Hp, 
-				          QuantumStatCalculator.CalculateStat(configs.GetConfig<QuantumStatConfig>((int) StatType.Health),
-				                                              baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
+				          QuantumStatCalculator.CalculateGearStat(statConfigs[(int) StatType.Health], baseStatsConfig, 
+				                                                  statsConfig, statsMaterialConfig, equipment).AsFloat);
 				stats.Add(EquipmentStatType.Speed,
-				          QuantumStatCalculator.CalculateStat(configs.GetConfig<QuantumStatConfig>((int) StatType.Speed), 
-				                                              baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
+				          QuantumStatCalculator.CalculateGearStat(statConfigs[(int) StatType.Speed], baseStatsConfig,
+				                                                  statsConfig, statsMaterialConfig, equipment).AsFloat);
 				stats.Add(EquipmentStatType.Armor,
-				          QuantumStatCalculator.CalculateStat(configs.GetConfig<QuantumStatConfig>((int) StatType.Armour), 
-				                                              baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
+				          QuantumStatCalculator.CalculateGearStat(statConfigs[(int) StatType.Armour], baseStatsConfig, 
+				                                                  statsConfig, statsMaterialConfig, equipment).AsFloat);
 				stats.Add(EquipmentStatType.Power,
-				          QuantumStatCalculator.CalculateStat(configs.GetConfig<QuantumStatConfig>((int) StatType.Power), 
-				                                              baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
+				          QuantumStatCalculator.CalculateGearStat(statConfigs[(int) StatType.Power], baseStatsConfig, 
+				                                                  statsConfig, statsMaterialConfig, equipment).AsFloat);
 			}
 
 			return stats;

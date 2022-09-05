@@ -91,9 +91,16 @@ namespace Quantum
 		/// </summary>
 		public int GetTotalMight(Frame f)
 		{
-			QuantumStatCalculator.CalculateStats(f, this, out var armour, out var health, out var speed, out var power);
-			
-			return QuantumStatCalculator.GetTotalMight(armour,health,speed, power);
+			if (IsWeapon())
+			{
+				QuantumStatCalculator.CalculateWeaponStats(f, this, out var armour, out var health, out var speed, out var power);
+				return QuantumStatCalculator.GetTotalMight(armour,health,speed, power);
+			}
+			else
+			{
+				QuantumStatCalculator.CalculateGearStats(f, this, out var armour, out var health, out var speed, out var power);
+				return QuantumStatCalculator.GetTotalMight(armour,health,speed, power);
+			}
 		}
 
 		/// <summary>

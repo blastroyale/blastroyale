@@ -5117,7 +5117,7 @@ namespace Quantum {
           case EventOnPlayerDamaged.ID: return typeof(EventOnPlayerDamaged);
           case EventOnPlayerAttackHit.ID: return typeof(EventOnPlayerAttackHit);
           case EventOnPlayerStopAttack.ID: return typeof(EventOnPlayerStopAttack);
-          case EventOnPlayerStatsChanged.ID: return typeof(EventOnPlayerStatsChanged);
+          case EventOnPlayerEquipmentStatsChanged.ID: return typeof(EventOnPlayerEquipmentStatsChanged);
           case EventOnPlayerSpecialUsed.ID: return typeof(EventOnPlayerSpecialUsed);
           case EventOnLocalPlayerSpawned.ID: return typeof(EventOnLocalPlayerSpawned);
           case EventOnLocalPlayerAlive.ID: return typeof(EventOnLocalPlayerAlive);
@@ -5664,9 +5664,9 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnPlayerStatsChanged OnPlayerStatsChanged(PlayerRef Player, EntityRef Entity, Quantum.Stats PreviousStats, Quantum.Stats CurrentStats) {
+      public EventOnPlayerEquipmentStatsChanged OnPlayerEquipmentStatsChanged(PlayerRef Player, EntityRef Entity, Quantum.Stats PreviousStats, Quantum.Stats CurrentStats) {
         if (_f.IsPredicted) return null;
-        var ev = _f.Context.AcquireEvent<EventOnPlayerStatsChanged>(EventOnPlayerStatsChanged.ID);
+        var ev = _f.Context.AcquireEvent<EventOnPlayerEquipmentStatsChanged>(EventOnPlayerEquipmentStatsChanged.ID);
         ev.Player = Player;
         ev.Entity = Entity;
         ev.PreviousStats = PreviousStats;
@@ -7636,16 +7636,16 @@ namespace Quantum {
       }
     }
   }
-  public unsafe partial class EventOnPlayerStatsChanged : EventBase {
+  public unsafe partial class EventOnPlayerEquipmentStatsChanged : EventBase {
     public new const Int32 ID = 59;
     public PlayerRef Player;
     public EntityRef Entity;
     public Quantum.Stats PreviousStats;
     public Quantum.Stats CurrentStats;
-    protected EventOnPlayerStatsChanged(Int32 id, EventFlags flags) : 
+    protected EventOnPlayerEquipmentStatsChanged(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnPlayerStatsChanged() : 
+    public EventOnPlayerEquipmentStatsChanged() : 
         base(59, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {

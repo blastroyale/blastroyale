@@ -104,7 +104,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void OnCollectableCollected(EventOnCollectableCollected callback)
 		{
-			if (callback.PlayerEntity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity &&
+			if (callback.PlayerEntity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity ||
 			    callback.CollectableId != GameId.Rage) return;
 
 			EnqueueText(callback.PlayerEntity, callback.CollectableId.GetTranslation(), _neutralTextColor, MessageType.StatChange);

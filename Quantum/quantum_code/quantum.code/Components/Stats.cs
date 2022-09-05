@@ -294,11 +294,11 @@ namespace Quantum
 		private void GetLoadoutStats(Frame f, Equipment weapon, FixedArray<Equipment> gear,
 		                             out int armour, out int health, out FP speed, out FP power)
 		{
-			QuantumStatCalculator.CalculateStats(f, weapon, out armour, out health, out speed, out power);
+			QuantumStatCalculator.CalculateWeaponStats(f, weapon, out armour, out health, out speed, out power);
 
 			for (var i = 0; i < gear.Length; i++)
 			{
-				QuantumStatCalculator.CalculateStats(f, gear[i], out var armour2, out var health2, out var speed2, out var power2);
+				QuantumStatCalculator.CalculateGearStats(f, gear[i], out var armour2, out var health2, out var speed2, out var power2);
 				
 				health += health2;
 				speed += speed2;

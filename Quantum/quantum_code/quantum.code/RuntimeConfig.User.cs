@@ -24,6 +24,7 @@ namespace Quantum
 		public AssetRefQuantumBaseEquipmentStatConfigs BaseEquipmentStatConfigs;
 		public AssetRefQuantumStatConfigs StatConfigs;
 		public AssetRefQuantumEquipmentMaterialStatConfigs EquipmentMaterialStatConfigs;
+		public AssetRefQuantumMutatorConfigs MutatorConfigs;
 		
 		partial void SerializeUserData(BitStream stream)
 		{
@@ -44,6 +45,7 @@ namespace Quantum
 			stream.Serialize(ref BaseEquipmentStatConfigs);
 			stream.Serialize(ref StatConfigs);
 			stream.Serialize(ref EquipmentMaterialStatConfigs);
+			stream.Serialize(ref MutatorConfigs);
 		}
 	}
 }

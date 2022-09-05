@@ -325,16 +325,20 @@ namespace Quantum
 		/// </summary>
 		public static FPVector3 GetClosestAirdropPoint(Frame f, FPVector3 targetPoint)
 		{
+			var spawners = new List<EntityComponentPointerPair<AirDropSpawner>>();
 			var closestPoint = targetPoint;
 
 			foreach(var spawner in f.Unsafe.GetComponentBlockIterator<AirDropSpawner>())
 			{
+				spawners.Add(spawner);
 				var dist = spawner.Component->DistanceToTarget(f, closestPoint, spawner.Entity);
 				if(spawner.Component->DistanceToTarget(f, targetPoint, spawner.Entity) > dist)
 				{
 					closestPoint = spawner.Component->Position;
 				}
 			}
+			if (spawners.Count == 0)
+				Log.Warn("Could not find any spawners");
 
 			return closestPoint;
 		}

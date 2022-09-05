@@ -10,44 +10,50 @@ namespace FirstLight.Editor.SheetImporters
 		GameModeRotationConfigs>
 	{
 		public override string GoogleSheetUrl =>
-			"***REMOVED***/edit#gid=2128837022";
+			"***REMOVED***/edit#gid=405313914";
 
 		protected override GameModeRotationConfig Deserialize(List<Dictionary<string, string>> data)
 		{
-			var config = new GameModeRotationConfig();
+			var config = new GameModeRotationConfig() as object;
 			var type = typeof(GameModeRotationConfig);
 
-			config.RotationEntries = new List<GameModeRotationConfig.RotationEntry>();
-
-			foreach (var row in data)
+			for (var i = 0; i < data.Count; i++)
 			{
-				var keyValue = row["Key"];
-
-				if (!string.IsNullOrEmpty(keyValue) && keyValue != "x")
+				var row = data[i];
+				var fieldName = row["Key"];
+				var isSubList = fieldName.EndsWith(CsvParser.SUB_LIST_SUFFIX);
+				if (isSubList)
 				{
-					// Values section
-					var field = type.GetField(row["Key"]);
+					fieldName = fieldName.Replace(CsvParser.SUB_LIST_SUFFIX, "");
+				}
 
-					if (field == null)
-					{
-						continue;
-					}
+				var field = type.GetField(fieldName);
 
-					var value = CsvParser.DeserializeObject(row["Value"], field.FieldType);
+				if (field == null)
+				{
+					continue;
+				}
 
-					var configObj = config as object;
-					field.SetValue(configObj, value);
-					config = (GameModeRotationConfig) configObj;
+				object value;
+
+				if (isSubList)
+				{
+					value = CsvParser.DeserializeSubList(data, i, field.FieldType, field.Name,
+					                                     QuantumDeserializer.FpDeserializer,
+					                                     QuantumDeserializer.QuantumGameModePairDeserializer);
 				}
 				else
 				{
-					// GameModes section
-					var entry = QuantumDeserializer.DeserializeTo<GameModeRotationConfig.RotationEntry>(row);
-					config.RotationEntries.Add(entry);
+					value = CsvParser.DeserializeObject(row["Value"], field.FieldType,
+					                                    QuantumDeserializer.FpDeserializer,
+					                                    QuantumDeserializer.QuantumGameModePairDeserializer);
 				}
+
+
+				field.SetValue(config, value);
 			}
 
-			return config;
+			return (GameModeRotationConfig) config;
 		}
 	}
 }

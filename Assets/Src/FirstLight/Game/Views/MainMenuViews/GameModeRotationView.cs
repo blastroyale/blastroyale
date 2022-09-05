@@ -20,7 +20,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		public void Init(GameModeRotationInfo data, Action<string, List<string>, MatchType, bool, DateTime> onClick)
 		{
 			_data = data;
-			_buttonView.Init(data.Entry.GameModeId, data.Entry.MutatorIds, MatchType.Casual, true, data.EndTime,
+			_buttonView.Init(data.Entry.GameModeId, data.Entry.Mutators, MatchType.Casual, true, data.EndTime,
 			                 onClick);
 		}
 

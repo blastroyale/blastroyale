@@ -152,8 +152,8 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		public void GetTitleData(string key, Action<string> callback)
 		{
-			PlayFabAdminAPI.GetTitleData(
-				new PlayFab.AdminModels.GetTitleDataRequest()
+			PlayFabClientAPI.GetTitleData(
+				new GetTitleDataRequest()
 					{ Keys = new List<string>() { key }},
 				res =>
 				{

@@ -13,26 +13,53 @@ MonoBehaviour:
   m_Name: GameModeRotationConfigs
   m_EditorClassIdentifier: 
   _config:
-    GameModeId1: BattleRoyale
-    MatchType1: 1
-    GameModeId2: BattleRoyale
-    MatchType2: 0
     RotationStartTimeTicks: 0
     RotationSlotDuration: 3600
-    RotationEntries:
+    FixedSlots:
+    - GameModeId: BattleRoyale
+      MatchType: 1
+      Mutators:
+      - 1
+      - 2
+    RotationSlot1:
     - GameModeId: Deathmatch
-      MutatorIds:
+      MatchType: 0
+      Mutators:
       - 1
       - 2
     - GameModeId: BattleRoyale
-      MutatorIds:
+      MatchType: 0
+      Mutators:
       - 1
       - 2
     - GameModeId: Deathmatch
-      MutatorIds:
+      MatchType: 0
+      Mutators:
       - 1
       - 2
     - GameModeId: BattleRoyale
-      MutatorIds:
+      MatchType: 0
+      Mutators:
+      - 1
+      - 2
+    RotationSlot2:
+    - GameModeId: Deathmatch
+      MatchType: 0
+      Mutators:
+      - 1
+      - 2
+    - GameModeId: BattleRoyale
+      MatchType: 0
+      Mutators:
+      - 1
+      - 2
+    - GameModeId: Deathmatch
+      MatchType: 0
+      Mutators:
+      - 1
+      - 2
+    - GameModeId: BattleRoyale
+      MatchType: 0
+      Mutators:
       - 1
       - 2

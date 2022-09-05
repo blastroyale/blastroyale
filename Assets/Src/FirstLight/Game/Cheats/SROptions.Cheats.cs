@@ -66,62 +66,6 @@ public partial class SROptions
 		}
 	}
 #endif
-
-	[Category("Equipment")]
-	public void GiveMaxedEquipment()
-	{
-		var services = MainInstaller.Resolve<IGameServices>();
-		var gameLogic = (IGameLogic) MainInstaller.Resolve<IGameDataProvider>();
-
-		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatConfig>();
-		
-		foreach (var config in equipmentConfigs)
-		{
-			if (config.Id == GameId.Hammer)
-			{
-				continue;
-			}
-
-			gameLogic.EquipmentLogic.AddToInventory(new Equipment(config.Id,
-			                                                      EquipmentEdition.Genesis,
-			                                                      EquipmentRarity.LegendaryPlus,
-			                                                      EquipmentGrade.GradeI,
-			                                                      EquipmentFaction.Dimensional,
-			                                                      EquipmentAdjective.Divine,
-			                                                      EquipmentMaterial.Golden,
-			                                                      EquipmentManufacturer.Military,
-			                                                      100,
-			                                                      10,
-			                                                      0,
-			                                                      0,
-			                                                      10
-			                                                     ));
-		}
-
-		((GameCommandService) services.CommandService).ForceServerDataUpdate();
-	}
-
-	[Category("Equipment")]
-	public void GiveBadEquipment()
-	{
-		var services = MainInstaller.Resolve<IGameServices>();
-		var gameLogic = (IGameLogic) MainInstaller.Resolve<IGameDataProvider>();
-
-		var equipmentConfigs = services.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatConfig>();
-		
-		foreach (var config in equipmentConfigs)
-		{
-			if (config.Id == GameId.Hammer)
-			{
-				continue;
-			}
-
-			gameLogic.EquipmentLogic.AddToInventory(new Equipment(config.Id));
-		}
-
-		((GameCommandService) services.CommandService).ForceServerDataUpdate();
-	}
-
 	/// <summary>
 	/// This cheat can be be used to validate resource pool calculations, by receiving equipment used in the resource pool calculator:
 	/// https://docs.google.com/spreadsheets/d/1LrHGwlNi2tbb7I8xmQVNCKKbc9YgEJjYyA8EFsIFarw/edit#gid=1028779545
@@ -129,7 +73,7 @@ public partial class SROptions
 	/// Make sure to use RemoveAllEquipment cheat before using this one, if you want to test RP calculations.
 	/// </summary>
 	[Category("Equipment")]
-	public void UnlockEquipmentSet()
+	public void UnlockTestEquipment()
 	{
 		var services = MainInstaller.Resolve<IGameServices>();
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
@@ -168,7 +112,7 @@ public partial class SROptions
 	/// This cheat helps to test all 2D sprites and 3D models for all equipment in the game
 	/// </summary>
 	[Category("Equipment")]
-	public void UnlockAllEquipmentGameIDs()
+	public void UnlockAllEquipment()
 	{
 		var services = MainInstaller.Resolve<IGameServices>();
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
@@ -177,10 +121,10 @@ public partial class SROptions
 		for (var i = 0; i < equipmentConfigs.Count; i++)
 		{
 			gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[i].Id,
-			                                                      rarity: EquipmentRarity.LegendaryPlus,
-			                                                      adjective: EquipmentAdjective.Divine,
-			                                                      grade: EquipmentGrade.GradeI, durability: 75,
-			                                                      level: 30));
+			                                                      rarity: EquipmentRarity.Epic,
+			                                                      adjective: EquipmentAdjective.Exquisite,
+			                                                      grade: EquipmentGrade.GradeIII, durability: 100, maxDurability:100,
+			                                                      level: 3));
 		}
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
@@ -196,9 +140,9 @@ public partial class SROptions
 		var rand = Random.Range(0, equipmentConfigs.Count);
 
 		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[rand].Id,
-		                                                      rarity: EquipmentRarity.Rare,
+		                                                      rarity: EquipmentRarity.Epic,
 		                                                      adjective: EquipmentAdjective.Exquisite,
-		                                                      grade: EquipmentGrade.GradeIII, durability: 75,
+		                                                      grade: EquipmentGrade.GradeIII, durability: 100, maxDurability:100,
 		                                                      level: 3));
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();

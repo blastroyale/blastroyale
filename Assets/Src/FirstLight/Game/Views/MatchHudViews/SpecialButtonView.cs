@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using FirstLight.Game.Input;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -9,6 +7,7 @@ using Photon.Deterministic;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -18,26 +17,45 @@ namespace FirstLight.Game.Views.MatchHudViews
 	/// This class handles the Special Move button. As long as the player has special charges and the special is not in
 	/// cooldown mode, they can use their special move during gameplay.
 	/// </summary>
-	public class SpecialButtonView : MonoBehaviour, IPointerUpHandler, IPointerDownHandler, IDragHandler
+	public class SpecialButtonView : MonoBehaviour, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler, 
+	                                 IPointerDownHandler, IDragHandler
 	{
+		public UnityEvent OnCancelEnter;
+		public UnityEvent OnCancelExit;
+
 		[SerializeField, Required] private UiButtonView _buttonView;
-		[SerializeField, Required] private int _specialIndex;
 		[SerializeField, Required] private Image _specialIconImage;
 		[SerializeField, Required] private Image _specialIconBackgroundImage;
 		[SerializeField, Required] private Image _outerRingImage;
 		[SerializeField, Required] private Sprite _aimableBackgroundSprite;
 		[SerializeField, Required] private Sprite _nonAimableBackgroundSprite;
 		[SerializeField, Required] private Animation _pingAnimation;
+		[SerializeField, Required] private GameObject _normalAnchor;
+		[SerializeField, Required] private GameObject _cancelAnchor;
 		[SerializeField, Required] private UnityInputScreenControl _specialPointerDownAdapter;
+		[SerializeField, Required] private UnityInputScreenControl _cancelPointerDownAdapter;
 		[SerializeField, Required] private UnityInputScreenControl _specialAimDirectionAdapter;
+		[SerializeField, Required] private RectTransform _rectTransform;
 		[SerializeField] private Color _activeColor;
 		[SerializeField] private Color _cooldownColor;
 		[SerializeField] private float _rectScale = 1f;
 
-		private QuantumSpecialConfig _specialConfig;
 		private IGameServices _services;
 		private IAsyncCoroutine _cooldownCoroutine;
-		private bool _isAiming;
+		private PointerEventData _pointerDownData;
+		private bool _isInside;
+
+		/// <summary>
+		/// Request's the special <see cref="GameId"/> assigned to this special view button
+		/// </summary>
+		public GameId SpecialId { get; private set; }
+		
+		private int? CurrentPointerId => _pointerDownData?.pointerId;
+
+		private void OnValidate()
+		{
+			_rectTransform ??= GetComponent<RectTransform>();
+		}
 
 		private void OnDestroy()
 		{
@@ -56,16 +74,53 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 
 			_buttonView.interactable = false;
-			_isAiming = true;
+			_pointerDownData = eventData;
+			_isInside = true;
 
 			_specialAimDirectionAdapter.SendValueToControl(Vector2.zero);
 			_specialPointerDownAdapter.SendValueToControl(1f);
 		}
 
 		/// <inheritdoc />
+		public void OnPointerEnter(PointerEventData eventData)
+		{
+			if (CurrentPointerId != eventData.pointerId)
+			{
+				return;
+			}
+
+			_isInside = true;
+			
+			OnCancelEnter?.Invoke();
+		}
+
+		/// <inheritdoc />
+		public void OnPointerExit(PointerEventData eventData)
+		{
+			if (CurrentPointerId != eventData.pointerId)
+			{
+				return;
+			}
+
+			_isInside = false;
+
+			if (_cancelAnchor.activeInHierarchy)
+			{
+				OnCancelExit?.Invoke();
+			}
+			else
+			{
+				_cancelPointerDownAdapter.SendValueToControl(1f);
+			}
+			
+			_normalAnchor.SetActive(false);
+			_cancelAnchor.SetActive(true);
+		}
+
+		/// <inheritdoc />
 		public void OnDrag(PointerEventData eventData)
 		{
-			if (!_isAiming)
+			if (CurrentPointerId != eventData.pointerId)
 			{
 				return;
 			}
@@ -76,16 +131,26 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// <inheritdoc />
 		public void OnPointerUp(PointerEventData eventData)
 		{
-			if (!_isAiming)
+			if (CurrentPointerId != eventData.pointerId)
 			{
 				return;
 			}
 
-			_isAiming = false;
 			_buttonView.interactable = true;
+			_pointerDownData = null;
 
+			_normalAnchor.SetActive(true);
+			_cancelAnchor.SetActive(false);
 			SetInputData(eventData);
-			_specialPointerDownAdapter.SendValueToControl(0f);
+			
+			if (_isInside)
+			{
+				_cancelPointerDownAdapter.SendValueToControl(0f);
+			}
+			else
+			{
+				_specialPointerDownAdapter.SendValueToControl(0f);
+			}
 		}
 
 		/// <summary>
@@ -94,21 +159,28 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public async void Init(GameId specialId)
 		{
 			_services ??= MainInstaller.Resolve<IGameServices>();
+			SpecialId = specialId;
 
 			gameObject.SetActive(false);
 
-			if (!_services.ConfigsProvider.TryGetConfig((int) specialId, out _specialConfig))
+			if (!_services.ConfigsProvider.TryGetConfig<QuantumSpecialConfig>((int) specialId, out var specialConfig))
 			{
 				return;
 			}
 
 			_specialIconImage.sprite =
-				await _services.AssetResolverService.RequestAsset<SpecialType, Sprite>(_specialConfig.SpecialType);
+				await _services.AssetResolverService.RequestAsset<SpecialType, Sprite>(specialConfig.SpecialType);
 			_specialIconBackgroundImage.sprite =
-				_specialConfig.IsAimable ? _aimableBackgroundSprite : _nonAimableBackgroundSprite;
-			_outerRingImage.enabled = _specialConfig.IsAimable;
+				specialConfig.IsAimable ? _aimableBackgroundSprite : _nonAimableBackgroundSprite;
+			_outerRingImage.enabled = specialConfig.IsAimable;
+			
+			_normalAnchor.SetActive(true);
+			_cancelAnchor.SetActive(false);
 		}
 
+		/// <summary>
+		/// Update special button view data
+		/// </summary>
 		public IAsyncCoroutine SpecialUpdate(FP currentTime, Special special)
 		{
 			gameObject.SetActive(special.Charges > 0);

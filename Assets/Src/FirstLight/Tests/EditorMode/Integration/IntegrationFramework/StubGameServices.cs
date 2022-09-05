@@ -66,7 +66,7 @@ namespace FirstLight.Tests.EditorMode
 			TickService = new StubTickService();
 			CoroutineService = new StubCoroutineService();
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
-			NotificationService = new StubNotificationService();
+			NotificationService = new MobileNotificationService();
 		}
 	}
 }

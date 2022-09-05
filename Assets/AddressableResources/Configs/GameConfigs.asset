@@ -23,7 +23,7 @@ MonoBehaviour:
       DoubleKillTimeLimit: 10
       RoomLockKillCount: 14
       MatchmakingTime:
-        RawValue: 983040
+        RawValue: 0
       CasualMatchmakingTime:
         RawValue: 983040
       RankedMatchmakingTime:

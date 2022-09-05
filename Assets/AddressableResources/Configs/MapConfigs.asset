@@ -25,43 +25,36 @@ MonoBehaviour:
       IsTestMap: 0
     - Id: 1
       Map: 137
-      GameModes:
-      - Deathmatch
+      GameModes: []
       PlayersLimit: 12
       IsTestMap: 0
     - Id: 2
       Map: 143
-      GameModes:
-      - Deathmatch
+      GameModes: []
       PlayersLimit: 8
       IsTestMap: 0
     - Id: 3
       Map: 144
-      GameModes:
-      - Deathmatch
+      GameModes: []
       PlayersLimit: 7
       IsTestMap: 0
     - Id: 4
       Map: 7
-      GameModes:
-      - Deathmatch
+      GameModes: []
       PlayersLimit: 10
       IsTestMap: 0
     - Id: 5
       Map: 8
-      GameModes:
-      - Deathmatch
+      GameModes: []
       PlayersLimit: 8
       IsTestMap: 0
     - Id: 6
       Map: 9
-      GameModes:
-      - BattleRoyale
+      GameModes: []
       PlayersLimit: 30
       IsTestMap: 0
     - Id: 7
       Map: 11
-      GameModes:
-      - Testing
+      GameModes: []
       PlayersLimit: 1
       IsTestMap: 1

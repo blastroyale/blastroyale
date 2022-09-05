@@ -94,6 +94,8 @@ namespace FirstLight.Game.StateMachines
 			tasks.AddRange(LoadAssetConfigs());
 			
 			await Task.WhenAll(tasks);
+			
+			_services.GameModeService.Init();
 
 			var audioTasks = new List<Task>();
 			

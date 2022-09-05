@@ -31,6 +31,7 @@ namespace FirstLight.Tests.EditorMode
 		public virtual IRemoteTextureService RemoteTextureService { get; }
 		public virtual IThreadService ThreadService { get; }
 		public virtual IHelpdeskService HelpdeskService { get; }
+		public IGameModeService GameModeService { get; }
 		public string QuitReason { get; set; }
 
 		public void QuitGame(string reason)
@@ -59,6 +60,7 @@ namespace FirstLight.Tests.EditorMode
 
 			ThreadService = new ThreadService();
 			HelpdeskService = new HelpdeskService();
+			GameModeService = new GameModeService(ConfigsProvider, ThreadService);
 			GuidService = new GuidService();
 			PlayfabService = new StubPlayfabService();
 			CommandService = new StubCommandService(gameLogic, dataProvider);

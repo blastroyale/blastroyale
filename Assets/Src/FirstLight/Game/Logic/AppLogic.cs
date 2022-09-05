@@ -76,17 +76,6 @@ namespace FirstLight.Game.Logic
 		IObservableFieldReader<string> DeviceId { get; }
 
 		/// <summary>
-		/// Requests current selected game mode
-		/// Marks the date when the game was last time reviewed
-		/// </summary>
-		IObservableField<string> SelectedGameModeId { get; }
-		
-		/// <summary>
-		/// Requests current selected match type
-		/// </summary>
-		IObservableField<MatchType> SelectedMatchType { get; }
-
-		/// <summary>
 		/// Sets the resolution mode for the 3D rendering of the app
 		/// </summary>
 		void SetDetailLevel(GraphicsConfig.DetailLevel highRes);

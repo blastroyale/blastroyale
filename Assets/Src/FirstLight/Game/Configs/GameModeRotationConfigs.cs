@@ -9,21 +9,19 @@ namespace FirstLight.Game.Configs
 	[Serializable]
 	public struct GameModeRotationConfig
 	{
-		public string GameModeId1;
-		public MatchType MatchType1;
-		public string GameModeId2;
-		public MatchType MatchType2;
-		
 		public long RotationStartTimeTicks;
 		public uint RotationSlotDuration;
 
-		public List<RotationEntry> RotationEntries;
+		public List<GameModeEntry> FixedSlots;
+		public List<GameModeEntry> RotationSlot1;
+		public List<GameModeEntry> RotationSlot2;
 
 		[Serializable]
-		public struct RotationEntry
+		public struct GameModeEntry
 		{
 			public string GameModeId;
-			public List<string> MutatorIds;
+			public MatchType MatchType;
+			public List<string> Mutators;
 		}
 	}
 

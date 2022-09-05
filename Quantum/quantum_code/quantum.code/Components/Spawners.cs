@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Photon.Deterministic;
 
 namespace Quantum
@@ -12,6 +12,21 @@ namespace Quantum
 		public bool IsActive(Frame f)
 		{
 			return f.Time >= ActivationTime;
+		}
+		
+	}
+
+	public unsafe partial struct AirDropSpawner
+	{
+
+		/// <summary>
+		/// Requests the distance between the target point and this particular spawner
+		/// </summary>
+		public FP DistanceToTarget(Frame f, FPVector3 targetTransform, EntityRef e)
+		{
+			var transform = f.Get<Transform3D>(e);
+			Position = transform.Position;
+			return FPVector3.Distance(transform.Position, targetTransform);
 		}
 	}
 

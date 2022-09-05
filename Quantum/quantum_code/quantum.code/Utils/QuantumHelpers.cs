@@ -321,6 +321,25 @@ namespace Quantum
 		}
 
 		/// <summary>
+		/// Finds the closest <see cref="Transform3D.Position"/> of any object with component <see cref="AirDropSpawner"/> attached.
+		/// </summary>
+		public static FPVector3 GetClosestAirdropPoint(Frame f, FPVector3 targetPoint)
+		{
+			var closestPoint = targetPoint;
+
+			foreach(var spawner in f.Unsafe.GetComponentBlockIterator<AirDropSpawner>())
+			{
+				var dist = spawner.Component->DistanceToTarget(f, closestPoint, spawner.Entity);
+				if(spawner.Component->DistanceToTarget(f, targetPoint, spawner.Entity) > dist)
+				{
+					closestPoint = spawner.Component->Position;
+				}
+			}
+
+			return closestPoint;
+		}
+
+		/// <summary>
 		/// Returns a random item from <paramref name="items"/>, with equal chance for each.
 		/// </summary>
 		public static T GetRandomItem<T>(Frame f, params T[] items)

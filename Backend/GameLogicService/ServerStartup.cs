@@ -28,8 +28,8 @@ namespace Backend
 	{
 		public static void Setup(IServiceCollection services, string appPath)
 		{
-			var envConfig = new EnvironmentVariablesConfigurationService();
-			
+			var envConfig = new EnvironmentVariablesConfigurationService(appPath);
+
 			DbSetup.Setup(services, envConfig);
 			var pluginLoader = new PluginLoader();
 			var insightsConnection = envConfig.TelemetryConnectionString;
@@ -48,6 +48,7 @@ namespace Backend
 			services.AddSingleton<IErrorService<PlayFabError>, PlayfabErrorService>();
 			services.AddSingleton<IServerConfiguration>(p => envConfig);
 			services.AddSingleton<IServerStateService, PlayfabGameStateService>();
+			services.AddSingleton<IConfigBackendService, PlayfabConfigurationBackendService>();
 			services.AddSingleton<ILogger, ILogger>(l =>
 			{
 				return l.GetService<ILoggerFactory>().CreateLogger(LogCategories.CreateFunctionUserCategory("Common"));
@@ -66,14 +67,30 @@ namespace Backend
 				pluginLoader.LoadPlugins(pluginSetup, appPath, services);
 				return eventManager;
 			});
-			services.AddSingleton<IConfigsProvider, ConfigsProvider>(p =>
-			{
-				var cfgSerializer = new ConfigsSerializer();
-				var bakedConfigs = File.ReadAllText(Path.Combine(appPath, "gameConfig.json"));
-				var cfg = cfgSerializer.Deserialize<ServerConfigsProvider>(bakedConfigs);
-				return cfg;
-			});
+			services.AddSingleton<IConfigsProvider>(SetupConfigsProvider);
 			pluginLoader.LoadServerSetup(services);
+		}
+
+		private static IConfigsProvider SetupConfigsProvider(IServiceProvider services)
+		{
+			var log = services.GetService<ILogger>();
+			services.GetService<IPlayfabServer>(); 
+			var cfgSerializer = new ConfigsSerializer();
+			var env = services.GetService<IServerConfiguration>();
+			if (!env.RemoteGameConfiguration)
+			{
+				log.Log(LogLevel.Information, "Starting server with baked configs");
+				var bakedConfigs = File.ReadAllText(Path.Combine(env.AppPath, "gameConfig.json"));
+				return cfgSerializer.Deserialize<ConfigsProvider>(bakedConfigs);
+			}
+			log.Log(LogLevel.Information, "Downloading remote configurations");
+			var cfgBackend = services.GetService<IConfigBackendService>();
+			var task = cfgBackend.GetVersion();
+			task.Wait();
+			var version = task.Result;
+			var task2 = cfgBackend.BuildConfiguration(version);
+			task2.Wait();
+			return task2.Result;
 		}
 	}
 }

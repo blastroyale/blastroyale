@@ -34,7 +34,7 @@ namespace FirstLight.Game.Data
 		public List<UniqueId> NewUniqueIds = new ();
 		public List<GameId> GameIdsTagged = new ();
 		public List<UnlockSystem> SystemsTagged = new ();
-
+		
 		public AppData Copy()
 		{
 			return new AppData

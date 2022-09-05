@@ -1,8 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.Net;
+using System.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using Newtonsoft.Json;
 using PlayFab;
@@ -40,6 +43,12 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		void CallFunction(string functionName, Action<ExecuteFunctionResult> onSuccess,
 		                  Action<PlayFabError> onError = null, object parameter = null);
+
+		/// <summary>
+		/// Reads the specific title data by the given key.
+		/// Throws an error if the key was not present.
+		/// </summary>
+		void GetTitleData(string key, Action<string> result);
 
 		/// <summary>
 		/// Handles when a request errors out on playfab.
@@ -131,11 +140,30 @@ namespace FirstLight.Game.Services
 				$"{error.HttpCode} - {error.ErrorMessage} - {JsonConvert.SerializeObject(error.ErrorDetails)}";
 			FLog.Error(descriptiveError);
 
-			_msgBroker.Publish(new ServerHttpError()
+			_msgBroker?.Publish(new ServerHttpError()
 			{
 				ErrorCode = (HttpStatusCode) error.HttpCode,
 				Message = descriptiveError
 			});
+		}
+
+		/// <summary>
+		/// Gets an specific internal title key data
+		/// </summary>
+		public void GetTitleData(string key, Action<string> callback)
+		{
+			PlayFabAdminAPI.GetTitleData(
+				new PlayFab.AdminModels.GetTitleDataRequest()
+					{ Keys = new List<string>() { key }},
+				res =>
+				{
+					if (!res.Data.TryGetValue(key, out var data))
+					{
+						data = null;
+					}
+					callback(data);
+				}, HandleError
+			);
 		}
 	}
 }

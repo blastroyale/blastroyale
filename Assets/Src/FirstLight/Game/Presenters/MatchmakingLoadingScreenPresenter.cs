@@ -138,7 +138,7 @@ namespace FirstLight.Game.Presenters
 			_playerFillWaitTime =
 				_services.ConfigsProvider.GetConfig<QuantumGameConfig>().CasualMatchmakingTime.AsFloat /
 				room.GetRealPlayerCapacity();
-			var matchType = _gameDataProvider.AppDataProvider.SelectedMatchType.Value.ToString().ToUpper();
+			var matchType = _services.GameModeService.SelectedGameMode.Value.MatchType.ToString().ToUpper();
 			var gameMode = room.GetGameModeId().ToUpper();
 			_selectedGameModeText.text =
 				string.Format(ScriptLocalization.MainMenu.SelectedGameModeValue, matchType, gameMode);
@@ -153,7 +153,7 @@ namespace FirstLight.Game.Presenters
 				_playerCountHolder.SetActive(false);
 				_roomNameRootObject.SetActive(false);
 
-				if (_gameDataProvider.AppDataProvider.SelectedMatchType.Value == MatchType.Casual)
+				if (_services.GameModeService.SelectedGameMode.Value.MatchType == MatchType.Casual)
 				{
 					StartCoroutine(MatchmakingTimeUpdateCoroutine(room.GetRealPlayerCapacity()));
 				}
@@ -231,7 +231,7 @@ namespace FirstLight.Game.Presenters
 			AddOrUpdatePlayerInList(newPlayer);
 
 			// For casual matches, MatchmakingTimeUpdateCoroutine handles the player waiting images
-			if (_gameDataProvider.AppDataProvider.SelectedMatchType.Value == MatchType.Ranked)
+			if (_services.GameModeService.SelectedGameMode.Value.MatchType == MatchType.Ranked)
 			{
 				UpdatePlayersWaitingImages(CurrentRoom.GetRealPlayerCapacity(), CurrentRoom.GetRealPlayerAmount());
 			}
@@ -244,7 +244,7 @@ namespace FirstLight.Game.Presenters
 			RemovePlayerInAllLists(otherPlayer);
 
 			// For casual matches, MatchmakingTimeUpdateCoroutine handles the player waiting images
-			if (_gameDataProvider.AppDataProvider.SelectedMatchType.Value == MatchType.Ranked)
+			if (_services.GameModeService.SelectedGameMode.Value.MatchType == MatchType.Ranked)
 			{
 				UpdatePlayersWaitingImages(CurrentRoom.GetRealPlayerCapacity(), CurrentRoom.GetRealPlayerAmount());
 			}

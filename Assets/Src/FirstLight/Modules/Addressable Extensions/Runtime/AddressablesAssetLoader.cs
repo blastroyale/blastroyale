@@ -28,7 +28,7 @@ namespace FirstLight.AddressablesExtensions
 			
 			return operation.Result;
 		}
-
+		
 		/// <inheritdoc />
 		public async Task<GameObject> InstantiateAsync(object key, Transform parent, bool instantiateInWorldSpace)
 		{

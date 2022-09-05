@@ -72,7 +72,11 @@ namespace FirstLight.Server.SDK.Modules.GameConfiguration
 		{
 			var cfg = Activator.CreateInstance(typeof(T)) as IConfigsAdder;
 			var configs = JsonConvert.DeserializeObject<SerializedConfigs>(serialized, settings);
-			cfg.AddAllConfigs(configs?.Configs);
+			if (!ulong.TryParse(configs.Version, out var versionNumber))
+			{
+				versionNumber = 0;
+			}
+			cfg.UpdateTo(versionNumber, configs?.Configs);
 			return (T)cfg;
 		}
 

@@ -226,7 +226,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void GiveMatchRewards()
 		{
-			var gameModeId = _gameDataProvider.AppDataProvider.SelectedGameModeId.Value;
+			var gameModeId = _services.GameModeService.SelectedGameMode.Value.Id;
 			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
 			
 			if (!gameModeConfig.GiveRewards)

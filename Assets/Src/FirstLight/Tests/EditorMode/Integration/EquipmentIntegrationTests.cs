@@ -14,7 +14,7 @@ using Assert = NUnit.Framework.Assert;
 
 namespace FirstLight.Tests.EditorMode.Logic
 {
-	public class EquipmentIntegrationLogicTest : IntegrationTestFixture
+	public class EquipmentIntegrationTest : IntegrationTestFixture
 	{
 		/// <summary>
 		/// Ensure logic adds item to inventory

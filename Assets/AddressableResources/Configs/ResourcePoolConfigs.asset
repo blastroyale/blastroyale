@@ -32,19 +32,19 @@ MonoBehaviour:
       RawValue: 117965
     PoolCapacityTrophiesModifier:
       RawValue: 655360000
-  - Id: 15
-    PoolCapacity: 500
+  - Id: 26
+    PoolCapacity: 300
     RestockIntervalMinutes: 180
     TotalRestockIntervalMinutes: 720
-    BaseMaxTake: 41
+    BaseMaxTake: 16
     ScaleMultiplier:
-      RawValue: 1638400
+      RawValue: 983040
     ShapeModifier:
-      RawValue: 65536
+      RawValue: 98304
     MaxPoolCapacityDecreaseModifier:
-      RawValue: 39322
+      RawValue: 58982
     PoolCapacityDecreaseExponent:
-      RawValue: 32768
+      RawValue: 19661
     MaxTakeDecreaseModifier:
       RawValue: 7209
     TakeDecreaseExponent:

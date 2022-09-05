@@ -60,6 +60,10 @@ namespace FirstLight.Statechart
 		/// <inheritdoc />
 		public bool LogsEnabled { get; set; }
 
+#if UNITY_EDITOR
+		public string CurrentState => _currentState.Name;
+#endif
+		
 		private Statechart() {}
 
 		public Statechart(Action<IStateFactory> setup)

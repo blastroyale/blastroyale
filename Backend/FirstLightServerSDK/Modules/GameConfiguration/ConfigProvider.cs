@@ -8,6 +8,9 @@ namespace FirstLight.Server.SDK.Modules.GameConfiguration
 	public class ConfigsProvider : IConfigsAdder
 	{
 		private const int _singleConfigId = 0;
+		private ulong _version;
+
+		public ulong Version => _version;
 		
 		private readonly IDictionary<Type, IEnumerable> _configs = new Dictionary<Type, IEnumerable>();
 
@@ -44,7 +47,7 @@ namespace FirstLight.Server.SDK.Modules.GameConfiguration
 		}
 
 		/// <inheritdoc />
-		public IReadOnlyDictionary<int, T> GetConfigsDictionary<T>() 
+		public virtual IReadOnlyDictionary<int, T> GetConfigsDictionary<T>() 
 		{
 			return _configs[typeof(T)] as IReadOnlyDictionary<int, T>;
 		}
@@ -75,12 +78,27 @@ namespace FirstLight.Server.SDK.Modules.GameConfiguration
 		}
 
 		/// <inheritdoc />
-		public void AddAllConfigs(IDictionary<Type, IEnumerable> configs)
+		public void AddAllConfigs(IReadOnlyDictionary<Type, IEnumerable> configs)
 		{
 			foreach (var type in configs.Keys)
 			{
 				_configs[type] = configs[type];
 			}
+		}
+		
+		/// <summary>
+		/// Sets the current version number for the current configuration
+		/// </summary>
+		public void SetVersion(ulong version)
+		{
+			_version = version;
+		}
+
+		/// <inheritdoc />
+		public void UpdateTo(ulong version, IReadOnlyDictionary<Type, IEnumerable> toUpdate)
+		{
+			AddAllConfigs(toUpdate);
+			SetVersion(version);
 		}
 	}
 }

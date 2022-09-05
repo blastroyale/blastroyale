@@ -121,9 +121,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 
 			var color = changeCapacity == 0 ? _shieldGainTextColor : _neutralTextColor;
-			var text = changeCapacity == 0 
-				           ? string.Format(ScriptLocalization.AdventureMenu.Shield, changeShield.ToString())
-				           : $"+{changeShield.ToString()}";
+			var text = changeCapacity == 0
+				           ? $"+{changeShield.ToString()}"
+				           : string.Format(ScriptLocalization.AdventureMenu.Shield, changeShield.ToString());
 			
 			EnqueueText(callback.Entity, text, color, MessageType.Info);
 		}
@@ -185,13 +185,13 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private IEnumerator SpawnTextCoroutine(MessageType type)
 		{
 			var queue = _queues[type];
-			var delay = _delays[type];
+			var waitSeconds = new WaitForSeconds(_delays[type]);
 
 			while (queue.Count > 0)
 			{
 				SpawnText(type, queue.Dequeue());
 
-				yield return new WaitForSeconds(delay);
+				yield return waitSeconds;
 			}
 
 			_coroutines.Remove(type);

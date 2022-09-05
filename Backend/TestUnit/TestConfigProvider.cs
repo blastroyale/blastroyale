@@ -1,8 +1,11 @@
 
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Backend;
 using Backend.Game;
-using FirstLight;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
@@ -37,5 +40,50 @@ public class TestConfigsProvider
 		{
 			Assert.NotNull(cfg.GetConfigByType(cfgType));
 		}
+	}
+	
+	[Test]
+	public void TestUpdatingConfigs()
+	{
+		var config = new ConfigsProvider();
+		var oldValue = new Dictionary<Type, IEnumerable>()
+		{
+			{
+				typeof(PlayerLevelConfig), new Dictionary<int, PlayerLevelConfig>()
+				{
+					{0, new PlayerLevelConfig()
+					{
+						Level = 1,
+						LevelUpXP = 10
+					}}
+				}
+			}
+		};
+
+		var newValue = new Dictionary<Type, IEnumerable>()
+		{
+			{
+				typeof(PlayerLevelConfig), new Dictionary<int, PlayerLevelConfig>()
+				{
+					{0, new PlayerLevelConfig()
+					{
+						Level = 1,
+						LevelUpXP = 50
+					}}
+				}
+			}
+		};
+		
+		config.AddAllConfigs(oldValue);
+
+		var cfg = config.GetConfigsDictionary<PlayerLevelConfig>().Values.First();
+		Assert.AreEqual(0, config.Version);
+		Assert.AreEqual(10, cfg.LevelUpXP);
+
+		config.UpdateTo(1, newValue);
+		
+		cfg = config.GetConfigsDictionary<PlayerLevelConfig>().Values.First();
+		Assert.AreEqual(1, config.Version);
+		Assert.AreEqual(50, cfg.LevelUpXP);
 	}
 }

@@ -8,6 +8,11 @@ namespace FirstLight.Server.SDK.Services
 	public interface IServerConfiguration
 	{
 		/// <summary>
+		/// Path of the running assemblies
+		/// </summary>
+		public string AppPath { get; }
+		
+		/// <summary>
 		/// Playfab title the server will comunicate to
 		/// </summary>
 		public string PlayfabTitle { get; }
@@ -42,5 +47,11 @@ namespace FirstLight.Server.SDK.Services
 		/// Enables or disabled NFT sync system
 		/// </summary>
 		bool NftSync { get; }
+		
+		/// <summary>
+		/// When true will fetch the configuration from a remote backend.
+		/// If false will fetch config baked into the server.
+		/// </summary>
+		bool RemoteGameConfiguration { get; }
 	}
 }

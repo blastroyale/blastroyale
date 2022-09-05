@@ -121,9 +121,9 @@ namespace FirstLight.Editor.EditorTools
 		/// <summary>
 		/// Sets internal title data key value pair.
 		/// </summary>
-		public static void SetTitleInternalData(string key, string data)
+		public static void SetTitleData(string key, string data)
 		{
-			PlayFabAdminAPI.SetTitleInternalData(new PlayFab.AdminModels.SetTitleDataRequest()
+			PlayFabAdminAPI.SetTitleData(new PlayFab.AdminModels.SetTitleDataRequest()
 				{
 					Key = key,
 					Value = data,
@@ -140,9 +140,9 @@ namespace FirstLight.Editor.EditorTools
 		/// <summary>
 		/// Gets an specific internal title key data
 		/// </summary>
-		public static void GetTitleInternalData(string key, Action<string> callback)
+		public static void GetTitleData(string key, Action<string> callback)
 		{
-			PlayFabAdminAPI.GetTitleInternalData(
+			PlayFabAdminAPI.GetTitleData(
 				new PlayFab.AdminModels.GetTitleDataRequest()
 				{ Keys = new List<string>() { key }},
 				res =>

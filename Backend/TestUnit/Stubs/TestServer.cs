@@ -31,32 +31,29 @@ public class TestServer
 {	
 	private IServiceProvider _services;
 	private IDataProvider _data;
-	private GameServerLogic _logic;
 	private string? _testPlayerId = null;
-	private PluginContext _pluginCtx;
 
+	public TestServer(IServerConfiguration cfg)
+	{
+		SetupTestEnv();
+		_services = SetupServices().BuildServiceProvider();
+		UpdateDependencies(services =>
+		{
+			services.RemoveAll(typeof(IServerConfiguration));
+			services.AddSingleton<IServerConfiguration>(p => cfg);
+		});
+	}
+	
 	public TestServer()
 	{
 		SetupTestEnv();
 		_services = SetupServices().BuildServiceProvider();
-		var cfg = GetService<IConfigsProvider>();
-		var data = GetService<IDataProvider>();
-		var eventManager = GetService<IEventManager>();
-		_logic = new GameServerLogic(cfg, data);
-		_logic.Init();
-		_pluginCtx = new PluginContext(eventManager, Services);
 	}
 
-	public void RegisterTestPlugin(ServerPlugin plugin)
-	{
-		plugin.OnEnable(_pluginCtx);
-	}
-	
 	public IServerStateService ServerState => GetService<IServerStateService>()!;
 
 	public IServiceProvider Services => _services;
-
-	public PluginContext PluginContext => _pluginCtx;
+	
 	/// <summary>
 	/// Obtains a test player id that is setup to be used in tests.
 	/// The player should already exists and be ready to use.
@@ -69,11 +66,6 @@ public class TestServer
 		}
 		return _testPlayerId;
 	}
-
-	/// <summary>
-	/// Gets current instance of game logic
-	/// </summary>
-	public IGameLogic Logic => _logic;
 
 	/// <summary>
 	/// Updates server dependencies to be stubbed or modified for specific unit testing.
@@ -148,7 +140,8 @@ public class TestServer
 		Environment.SetEnvironmentVariable("API_BLOCKCHAIN_SERVICE", "stub-service", EnvironmentVariableTarget.Process);
 		Environment.SetEnvironmentVariable("API_SECRET", "stub-key", EnvironmentVariableTarget.Process);
 		Environment.SetEnvironmentVariable("PLAYFAB_DEV_SECRET_KEY", "***REMOVED***", EnvironmentVariableTarget.Process);
-		Environment.SetEnvironmentVariable("PLAYFAB_TITLE", "DDD52", EnvironmentVariableTarget.Process);
+		Environment.SetEnvironmentVariable("PLAYFAB_TITLE", "***REMOVED***", EnvironmentVariableTarget.Process);
+		Environment.SetEnvironmentVariable("REMOTE_CONFIGURATION", "false", EnvironmentVariableTarget.Process);
 	}
 
 }

@@ -146,6 +146,7 @@ namespace Quantum
 
 		// @formatter:off
 		private const string DESC_ID = "A UNIQUE ID that identifies this game mode.";
+		private const string DESC_DISPLAY_IN_SELECTION = "If this game mode should be displayed by default in game mode selection UI.";
 		private const string DESC_MAX_PLAYERS = "The maximum number of players that can join a room.";
 		private const string DESC_MIN_PLAYERS = "The minimum number of players that can join a room.";
 		private const string DESC_TEAMS = "Whether or not this game mode supports teams.";

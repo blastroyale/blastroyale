@@ -354,14 +354,14 @@ namespace FirstLight.Game.StateMachines
 				var gameModeId =
 					(string) _networkService.QuantumClient.CurrentRoom.CustomProperties
 						[GameConstants.Network.ROOM_PROPS_GAME_MODE];
-				_gameDataProvider.AppDataProvider.SelectedGameModeId.Value = gameModeId;
-
-				// Update ranked match status upon joining the room, just in case 
 				var isRankedMatch =
 					(bool) _networkService.QuantumClient.CurrentRoom.CustomProperties
 						[GameConstants.Network.ROOM_PROPS_RANKED_MATCH];
-				_gameDataProvider.AppDataProvider.SelectedMatchType.Value =
-					isRankedMatch ? MatchType.Ranked : MatchType.Casual;
+
+				// TODO: Add mutators
+				_services.GameModeService.SelectedGameMode.Value =
+					new SelectedGameModeInfo(gameModeId, isRankedMatch ? MatchType.Ranked : MatchType.Casual,
+					                         new List<string>(), false);
 			}
 
 			if (QuantumRunnerConfigs.IsOfflineMode)
@@ -559,7 +559,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayMatchmakingReadyMessage(PlayMatchmakingReadyMessage msg)
 		{
-			var gameModeId = _gameDataProvider.AppDataProvider.SelectedGameModeId.Value;
+			var gameModeId = _services.GameModeService.SelectedGameMode.Value.Id;
 			var mapConfig = NetworkUtils.GetRotationMapConfig(gameModeId, _services);
 			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
 
@@ -569,7 +569,7 @@ namespace FirstLight.Game.StateMachines
 		private void OnPlayMapClickedMessage(PlayMapClickedMessage msg)
 		{
 			var mapConfig = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(msg.MapId);
-			var gameModeId = _gameDataProvider.AppDataProvider.SelectedGameModeId.Value;
+			var gameModeId = _services.GameModeService.SelectedGameMode.Value.Id;
 			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
 
 			StartRandomMatchmaking(gameModeConfig, mapConfig);
@@ -577,7 +577,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayCreateRoomClickedMessage(PlayCreateRoomClickedMessage msg)
 		{
-			var gameModeId = _gameDataProvider.AppDataProvider.SelectedGameModeId.Value;
+			var gameModeId = _services.GameModeService.SelectedGameMode.Value.Id;
 			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
 			
 			if (msg.JoinIfExists)
@@ -633,7 +633,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void StartRandomMatchmaking(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig)
 		{
-			var isRankedMatch = _gameDataProvider.AppDataProvider.SelectedMatchType.Value == MatchType.Ranked;
+			var isRankedMatch = _services.GameModeService.SelectedGameMode.Value.MatchType == MatchType.Ranked;
 			var gameHasBots = gameModeConfig.AllowBots && !isRankedMatch;
 			var gridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
 			var createParams =

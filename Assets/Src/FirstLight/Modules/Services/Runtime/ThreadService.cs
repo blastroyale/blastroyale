@@ -24,6 +24,12 @@ namespace FirstLight.Services
 		int Enqueue<T>(Func<T> threadedCall, Action<T> mainThreadCall = null, Action<Exception> error = null);
 
 		/// <summary>
+		/// The same as <see cref="Enqueue{T}"/>, but with a delay before executing <paramref name="threadedCall"/>.
+		/// </summary>
+		int EnqueueDelayed<T>(int delay, Func<T> threadedCall, Action<T> mainThreadCall = null,
+		                      Action<Exception> error = null);
+
+		/// <summary>
 		/// Cancels a "run task". Note that this does not kill the running thread,
 		/// but does prevent any callbacks that haven't been triggered yet from being
 		/// triggered.
@@ -52,6 +58,14 @@ namespace FirstLight.Services
 		/// <inheritdoc />
 		public int Enqueue<T>(Func<T> threadedCall, Action<T> mainThreadCall = null, Action<Exception> error = null)
 		{
+			return EnqueueDelayed(0, threadedCall, mainThreadCall, error);
+		}
+
+		/// <inheritdoc />
+		public int EnqueueDelayed<T>(int delay, Func<T> threadedCall, Action<T> mainThreadCall = null,
+		                             Action<Exception> error = null)
+
+		{
 			lock (_handles)
 			{
 				var handle = _currentHandle++;
@@ -61,26 +75,19 @@ namespace FirstLight.Services
 				{
 					try
 					{
-						if (!CanRun(handle))
-						{
-							return;
-						}
+						if (!CanRun(handle)) return;
+						if (delay > 0) Thread.Sleep(delay);
+						if (!CanRun(handle)) return;
 
 						var t = threadedCall();
 
-						if (!CanRun(handle))
-						{
-							return;
-						}
+						if (!CanRun(handle)) return;
 
 						if (mainThreadCall != null)
 						{
 							MainThreadDispatcher.Enqueue(() =>
 							{
-								if (!CanRun(handle))
-								{
-									return;
-								}
+								if (!CanRun(handle)) return;
 
 								mainThreadCall(t);
 							});

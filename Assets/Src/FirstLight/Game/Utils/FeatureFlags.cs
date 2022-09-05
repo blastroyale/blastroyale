@@ -15,7 +15,7 @@ namespace FirstLight.Game.Utils
 		/// If true will use email/pass authentication.
 		/// If false will only use device id authentication.
 		/// </summary>
-		public static readonly bool EMAIL_AUTH = true;
+		public static bool EMAIL_AUTH = true;
 
 		/// <summary>
 		/// If true, rooms created/joined will be locked by commit
@@ -44,6 +44,11 @@ namespace FirstLight.Game.Utils
 		/// If false, leaderboard button will be disabled on the home screen
 		/// </summary>
 		public static readonly bool LEADERBOARD_ACCESSIBLE = true;
+		
+		/// <summary>
+		/// If true will load game configurations from remote server
+		/// </summary>
+		public static bool REMOTE_CONFIGURATION = false;
 
 		/// <summary>
 		/// Parses the feature flags from a given input dictionary.
@@ -59,6 +64,10 @@ namespace FirstLight.Game.Utils
 			if (TrySetFlag("COMMIT_VERSION_LOCK", titleData, out var commitVersionLock))
 			{
 				COMMIT_VERSION_LOCK = commitVersionLock;
+			}
+			if (TrySetFlag("REMOTE_CONFIGURATION", titleData, out var remoteConfig))
+			{
+				REMOTE_CONFIGURATION = remoteConfig;
 			}
 		}
 

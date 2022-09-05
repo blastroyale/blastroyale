@@ -1,12 +1,9 @@
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
-using Newtonsoft.Json;
 using PlayFab;
 using UnityEditor;
 using UnityEngine;
@@ -45,13 +42,6 @@ namespace FirstLight.Editor.EditorTools
 			File.Copy(gameDllPath, destDll, true);
 		}
 		
-		[MenuItem("FLG/Backend/Copy Configs & Dlls")]
-		private static void CopyConfigsDlls()
-		{
-			MoveBackendDlls();
-			CopyConfigs();
-		}
-
 		[MenuItem("FLG/Backend/Copy DLLs")]
 		private static void MoveBackendDlls()
 		{
@@ -72,7 +62,7 @@ namespace FirstLight.Editor.EditorTools
 		/// Generates and copies a gameConfig.json with needed game configs to be shared to the backend
 		/// and moves the config file to the backend.
 		/// </summary>
-		[MenuItem("FLG/Backend/Copy Configs")]
+		[MenuItem("FLG/Backend/Copy Server Test Configs")]
 		public static async void CopyConfigs()
 		{
 			var serializer = new ConfigsSerializer();
@@ -92,16 +82,23 @@ namespace FirstLight.Editor.EditorTools
 		/// Playfab title is set in the Window -> Playfab -> Editor Extension menu
 		/// </summary>
 		[MenuItem("FLG/Backend/Upload Configs to Playfab")]
-		public static void UploadToPlayfab()
+		public static async Task UploadToPlayfab()
 		{
-			var serialized = File.ReadAllText($"{_backendPath}/GameLogicService/gameConfig.json");
-			
-			PlayFabShortcuts.SetTitleInternalData("GameConfig", serialized);
-			PlayFabShortcuts.GetTitleInternalData("GameConfigVersion", configVersion =>
+			var serializer = new ConfigsSerializer();
+			var configs = new ConfigsProvider();
+			var configsLoader = new GameConfigsLoader(new AssetResolverService());
+			Debug.Log("Parsing Configs");
+			await Task.WhenAll(configsLoader.LoadConfigTasks(configs));
+			Debug.Log("Getting title data");
+			PlayFabShortcuts.GetTitleData("GameConfigVersion", configVersion =>
 			{
-				var currentVersion = Int32.Parse(configVersion ?? "0");
-				PlayFabShortcuts.SetTitleInternalData("GameConfigVersion", (currentVersion + 1).ToString());
-				Debug.Log("Configs uploaded to playfab and version bumped");
+				var currentVersion = ulong.Parse(configVersion ?? "0");
+				var nextVersion = currentVersion + 1;
+				var serialiezd = serializer.Serialize(configs, nextVersion.ToString());
+			
+				PlayFabShortcuts.SetTitleData(PlayfabConfigurationProvider.ConfigName, serialiezd);
+				PlayFabShortcuts.SetTitleData(PlayfabConfigurationProvider.ConfigVersion, nextVersion.ToString());
+				Debug.Log($"Configs uploaded to playfab and version bumped to {nextVersion}");
 			});
 		}
 #endif

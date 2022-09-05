@@ -1,9 +1,11 @@
 using System.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -51,7 +53,7 @@ namespace FirstLight.Game.StateMachines
 			_uiService = uiService;
 			_configsAdder = configsAdder;
 			_initialLoadingState = new InitialLoadingState(services, uiService, assetAdderService, configsAdder, vfxService, Trigger);
-			_authenticationState = new AuthenticationState(services, uiService, dataService, networkService, Trigger);
+			_authenticationState = new AuthenticationState(services, uiService, dataService, networkService, Trigger, _configsAdder);
 			_audioState = new AudioState(gameLogic, services, Trigger);
 			_networkState = new NetworkState(gameLogic, services, uiService, networkService, Trigger);
 			_coreLoopState = new CoreLoopState(services, networkService, uiService, gameLogic, assetAdderService, Trigger);
@@ -96,12 +98,12 @@ namespace FirstLight.Game.StateMachines
 		
 		private void SubscribeEvents()
 		{
-			// Add any events to subscribe
+			
 		}
 
 		private void UnsubscribeEvents()
 		{
-			_services?.MessageBrokerService.UnsubscribeAll(this);
+			_services.MessageBrokerService.UnsubscribeAll(this);
 		}
 
 		private bool InternetCheck()

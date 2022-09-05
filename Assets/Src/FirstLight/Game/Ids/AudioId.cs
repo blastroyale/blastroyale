@@ -146,6 +146,36 @@ namespace FirstLight.Game.Ids
 		CollectionLoop,
 		CollectionStart,
 		CollectionStop,
+		
+		// Announcer
+		Vo_GameStart,
+		Vo_GameOver,
+		Vo_Victory,
+		Vo_PerfectVictory,
+		Vo_OnDeath,
+		Vo_OnKill,
+		Vo_Kills2,
+		Vo_Kills3,
+		Vo_Kills4,
+		Vo_Kills5,
+		Vo_Kills2Special,
+		Vo_KillsLeft3,
+		Vo_KillsLeft1,
+		Vo_KillStreak3,
+		Vo_KillStreak5,
+		Vo_KillStreak7,
+		Vo_KillStreak9,
+		Vo_KillLowHp,
+		Vo_Alive10,
+		Vo_Alive2,
+		Vo_CircleClose,
+		Vo_CircleLastClose,
+		Vo_Countdown,
+		Vo_CountdownGo,
+		Vo_AirdropComing,
+		Vo_AirdropLanded,
+		Vo_LeaderboardTop,
+		Vo_LeaderboardOvertaken
 	}
 	
 	/// <summary>

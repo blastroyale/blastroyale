@@ -1,4 +1,4 @@
-#define TOTAL_STATS 5
+#define TOTAL_STATS 6
 
 component Stats
 {

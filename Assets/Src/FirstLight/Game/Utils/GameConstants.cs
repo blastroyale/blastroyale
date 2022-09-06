@@ -47,7 +47,7 @@ namespace FirstLight.Game.Utils
 			public const string MIXER_GROUP_MUSIC_ID = "Music";
 			public const string MIXER_GROUP_SFX_2D_ID = "Sfx2d";
 			public const string MIXER_GROUP_SFX_3D_ID = "Sfx3d";
-			public const string MIXER_GROUP_VOICE_ID = "Voice";
+			public const string MIXER_GROUP_DIALOGUE_ID = "Dialogue";
 			public const string MIXER_GROUP_AMBIENT_ID = "Announcer";
 			
 			public const int SOUND_QUEUE_BREAK_MS = 250;

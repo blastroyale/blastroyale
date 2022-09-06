@@ -261,7 +261,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			if (_matchServices.SpectateService.SpectatedPlayer.Value.Player == callback.Player)
 			{
-				_services.AudioFxService.PlayClip2D(AudioId.Vo_GameStart, GameConstants.Audio.MIXER_GROUP_VOICE_ID);
+				_services.AudioFxService.PlayClip2D(AudioId.Vo_GameStart, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
 			}
 		}
 		

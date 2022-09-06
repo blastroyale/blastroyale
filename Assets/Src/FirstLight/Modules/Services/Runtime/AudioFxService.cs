@@ -164,7 +164,7 @@ namespace FirstLight.Services
 		/// <summary>
 		/// Requests to check if a mixer group should be muted
 		/// </summary>
-		bool GetMuteStatusForMixerGroup(string id);
+		bool GetMuteStatus(string id);
 	}
 
 	/// <summary>
@@ -724,7 +724,7 @@ namespace FirstLight.Services
 			return _mixerGroups[id];
 		}
 
-		public bool GetMuteStatusForMixerGroup(string id)
+		public bool GetMuteStatus(string id)
 		{
 			if (id == _mixerMusicGroupId)
 			{

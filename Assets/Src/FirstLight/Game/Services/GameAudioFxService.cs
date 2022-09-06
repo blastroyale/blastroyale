@@ -204,7 +204,7 @@ namespace FirstLight.Game.Services
 				Pitch = playbackData.PlaybackPitch,
 				Volume = playbackData.PlaybackVolume,
 				Loop = playbackData.Loop,
-				Mute = GetMuteStatusForMixerGroup(mixerGroupId),
+				Mute = GetMuteStatus(mixerGroupId),
 				StartTime = 0,
 				RolloffMode = AudioRolloffMode.Linear,
 				MinDistance = GameConstants.Audio.SFX_3D_MIN_DISTANCE,

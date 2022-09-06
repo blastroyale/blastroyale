@@ -1,4 +1,5 @@
 using System;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using Quantum;
 
@@ -14,7 +15,7 @@ namespace FirstLight.Game.Commands
 	public struct QuantumValues
 	{
 		public PlayerRef ExecutingPlayer;
-		public bool Ranked;
+		public MatchType MatchType;
 	}
 	
 	/// <summary>

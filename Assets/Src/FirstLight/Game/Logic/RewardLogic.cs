@@ -5,6 +5,7 @@ using System.Linq;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Services;
@@ -25,7 +26,8 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Generate a list of rewards based on the players <paramref name="matchData"/> performance from a game completed
 		/// </summary>
-		List<RewardData> CalculateMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit);
+		List<RewardData> CalculateMatchRewards(MatchType matchType, QuantumPlayerMatchData matchData,
+		                                       bool didPlayerQuit);
 	}
 
 	/// <inheritdoc />
@@ -34,7 +36,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Generate a list of rewards based on the players <paramref name="matchData"/> performance from a game completed
 		/// </summary>
-		List<RewardData> GiveMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit);
+		List<RewardData> GiveMatchRewards(MatchType matchType, QuantumPlayerMatchData matchData, bool didPlayerQuit);
 
 		/// <summary>
 		/// Collects all the unclaimed rewards in the player's inventory
@@ -46,10 +48,10 @@ namespace FirstLight.Game.Logic
 	public class RewardLogic : AbstractBaseLogic<PlayerData>, IRewardLogic, IGameLogicInitializer
 	{
 		private IObservableList<RewardData> _unclaimedRewards;
-		
+
 		/// <inheritdoc />
 		public IObservableListReader<RewardData> UnclaimedRewards => _unclaimedRewards;
-		
+
 		private QuantumGameConfig GameConfig => GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
 
 		public RewardLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
@@ -61,35 +63,37 @@ namespace FirstLight.Game.Logic
 		{
 			_unclaimedRewards = new ObservableList<RewardData>(Data.UncollectedRewards);
 		}
-		
+
 		/// <inheritdoc />
-		public List<RewardData> CalculateMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit)
+		public List<RewardData> CalculateMatchRewards(MatchType matchType, QuantumPlayerMatchData matchData,
+		                                              bool didPlayerQuit)
 		{
-			var gameModeConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGameModeConfig>(matchData.GameModeId.GetHashCode());
+			var gameModeConfig =
+				GameLogic.ConfigsProvider.GetConfig<QuantumGameModeConfig>(matchData.GameModeId.GetHashCode());
 			var rewards = new List<RewardData>();
-			
+
 			// Currently, there is no plan on giving rewards on anything but BR mode
-			if (!gameModeConfig.GiveRewards || didPlayerQuit)
+			if (matchType == MatchType.Custom || didPlayerQuit)
 			{
 				return rewards;
 			}
-			
+
 			// Always perform ordering operation on the configs.
 			// If config data placement order changed in google sheet, it could silently screw up this algorithm.
 			var gameModeRewardConfigs = GameLogic.ConfigsProvider
 			                                     .GetConfigsList<MatchRewardConfig>()
 			                                     .OrderByDescending(x => x.Placement).ToList();
-			
+
 			var rewardConfig = gameModeRewardConfigs[0];
 			var rankValue = matchData.PlayerRank;
-			
+
 			foreach (var config in gameModeRewardConfigs)
 			{
 				if (rankValue > config.Placement)
 				{
 					break;
 				}
-				
+
 				if (config.Placement == rankValue)
 				{
 					rewardConfig = config;
@@ -97,26 +101,40 @@ namespace FirstLight.Game.Logic
 				}
 			}
 
-			var csRewardPair = rewardConfig.Rewards.FirstOrDefault(x => x.Key == GameId.CS);
-			var csPercent = csRewardPair.Value / 100d;
-			// csRewardPair.Value is the absolute percent of the max CS take that people will be awarded
-			
-			var csInfo = GameLogic.ResourceLogic.GetResourcePoolInfo(GameId.CS);
-			var csTake = (uint) Math.Ceiling(csInfo.WinnerRewardAmount * csPercent);
-			var csWithdrawn = (int) Math.Min(csInfo.CurrentAmount, csTake);
-			
-			if (csWithdrawn > 0)
+			if (matchType == MatchType.Ranked)
 			{
-				rewards.Add(new RewardData(GameId.CS, csWithdrawn));
+				CalculatePoolReward(rewards, rewardConfig, GameId.CS);
+			}
+
+			if (matchType is MatchType.Ranked or MatchType.Casual)
+			{
+				CalculatePoolReward(rewards, rewardConfig, GameId.BPP);
 			}
 
 			return rewards;
 		}
 
-		/// <inheritdoc />
-		public List<RewardData> GiveMatchRewards(QuantumPlayerMatchData matchData, bool didPlayerQuit)
+		private void CalculatePoolReward(ICollection<RewardData> rewards, MatchRewardConfig rewardConfig, GameId resourceId)
 		{
-			var rewards = CalculateMatchRewards(matchData, didPlayerQuit);
+			var rewardPair = rewardConfig.Rewards.FirstOrDefault(x => x.Key == resourceId);
+			var percent = rewardPair.Value / 100d;
+			// rewardPair.Value is the absolute percent of the max take that people will be awarded
+
+			var info = GameLogic.ResourceLogic.GetResourcePoolInfo(resourceId);
+			var take = (uint) Math.Ceiling(info.WinnerRewardAmount * percent);
+			var withdrawn = (int) Math.Min(info.CurrentAmount, take);
+
+			if (withdrawn > 0)
+			{
+				rewards.Add(new RewardData(resourceId, withdrawn));
+			}
+		}
+
+		/// <inheritdoc />
+		public List<RewardData> GiveMatchRewards(MatchType matchType, QuantumPlayerMatchData matchData,
+		                                         bool didPlayerQuit)
+		{
+			var rewards = CalculateMatchRewards(matchType, matchData, didPlayerQuit);
 
 			foreach (var reward in rewards)
 			{
@@ -124,18 +142,18 @@ namespace FirstLight.Game.Logic
 				{
 					GameLogic.ResourceLogic.WithdrawFromResourcePool(reward.RewardId, (uint) reward.Value);
 				}
-				
+
 				Data.UncollectedRewards.Add(reward);
 			}
-			
+
 			return rewards;
 		}
-		
+
 		/// <inheritdoc />
 		public List<RewardData> ClaimUncollectedRewards()
 		{
 			var rewards = new List<RewardData>(Data.UncollectedRewards.Count);
-			
+
 			foreach (var reward in Data.UncollectedRewards)
 			{
 				rewards.Add(ClaimReward(reward));
@@ -160,7 +178,8 @@ namespace FirstLight.Game.Logic
 			}
 			else
 			{
-				throw new LogicException($"The reward '{reward.RewardId}' is not from a group type that is rewardable.");
+				throw
+					new LogicException($"The reward '{reward.RewardId}' is not from a group type that is rewardable.");
 			}
 
 			return reward;

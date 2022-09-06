@@ -3403,21 +3403,18 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct AirDropSpawner : Quantum.IComponent {
-    public const Int32 SIZE = 24;
-    public const Int32 ALIGNMENT = 8;
+    public const Int32 SIZE = 4;
+    public const Int32 ALIGNMENT = 4;
     [FieldOffset(0)]
-    [HideInInspector()]
-    public FPVector3 Position;
+    private fixed Byte _alignment_padding_[4];
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 383;
-        hash = hash * 31 + Position.GetHashCode();
         return hash;
       }
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (AirDropSpawner*)ptr;
-        FPVector3.Serialize(&p->Position, serializer);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -9042,7 +9039,7 @@ namespace Quantum.Prototypes {
   [Prototype(typeof(AirDropSpawner))]
   public sealed unsafe partial class AirDropSpawner_Prototype : ComponentPrototype<AirDropSpawner> {
     [HideInInspector()]
-    public FPVector3 Position;
+    public Int32 _empty_prototype_dummy_field_;
     partial void MaterializeUser(Frame frame, ref AirDropSpawner result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       AirDropSpawner component = default;
@@ -9050,7 +9047,6 @@ namespace Quantum.Prototypes {
       return f.Set(entity, component) == SetResult.ComponentAdded;
     }
     public void Materialize(Frame frame, ref AirDropSpawner result, in PrototypeMaterializationContext context) {
-      result.Position = this.Position;
       MaterializeUser(frame, ref result, in context);
     }
     public override void Dispatch(ComponentPrototypeVisitorBase visitor) {

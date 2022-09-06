@@ -16,5 +16,5 @@ component PlayerSpawner
 
 component AirDropSpawner
 {
-	[HideInInspector] FPVector3 Position;
+
 }

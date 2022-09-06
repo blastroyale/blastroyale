@@ -18,15 +18,13 @@ namespace Quantum
 
 	public unsafe partial struct AirDropSpawner
 	{
-
 		/// <summary>
-		/// Requests the distance between the target point and this particular spawner
+		/// Requests the current position of the entity this component is attached to
 		/// </summary>
-		public FP DistanceToTarget(Frame f, FPVector3 targetTransform, EntityRef e)
+		public FPVector3 position(Frame f, EntityRef e)
 		{
 			var transform = f.Get<Transform3D>(e);
-			Position = transform.Position;
-			return FPVector3.Distance(transform.Position, targetTransform);
+			return transform.Position;
 		}
 	}
 

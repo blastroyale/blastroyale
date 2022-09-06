@@ -1,0 +1,9 @@
+synced event OnCombatEventPlayerKilledPlayer
+{
+	player_ref PlayerDead;
+	entity_ref EntityDead;
+	player_ref PlayerKiller;
+	entity_ref EntityKiller;
+	UInt32 CurrentKillStreak;
+	UInt32 CurrentMultiKill;
+}

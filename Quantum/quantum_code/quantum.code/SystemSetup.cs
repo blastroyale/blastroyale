@@ -31,7 +31,8 @@ namespace Quantum
 				new StatusModifierSystemGroup(),
 				new DummyCharacterSystem(),
 				new CollectableSystem(),
-
+				new PlayerCombatEventsSystem(),
+				
 				// Update systems - Update & OnInit & Signal order matters
 				new CommandsSystem(),
 				new ShrinkingCircleSystem(),

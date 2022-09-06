@@ -121,6 +121,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeEvents()
 		{
+			QuantumEvent.SubscribeManual<EventOnCombatEventPlayerKilledPlayer>(this, OnCombatEventPlayerKilledPlayer);
 			QuantumEvent.SubscribeManual<EventOnPlayerSkydiveDrop>(this, OnPlayerSkydiveDrop);
 			QuantumEvent.SubscribeManual<EventOnPlayerDamaged>(this, OnPlayerDamaged);
 			QuantumEvent.SubscribeManual<EventOnPlayerAttack>(this, OnPlayerAttack);
@@ -141,7 +142,7 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveDrop>(this, OnLocalPlayerSkydiveDrop);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveLand>(this, OnLocalSkydiveEnd);
 		}
-		
+
 		private void UnsubscribeEvents()
 		{
 			QuantumEvent.UnsubscribeListener(this);
@@ -378,6 +379,15 @@ namespace FirstLight.Game.StateMachines
 				_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
 			}
 		}
+		
+		private void OnCombatEventPlayerKilledPlayer(EventOnCombatEventPlayerKilledPlayer callback)
+		{
+			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.EntityKiller, out var entityView) ||
+				_matchServices.SpectateService.SpectatedPlayer.Value.Player != callback.PlayerKiller)
+			{
+				return;
+			}
+		}
 
 		private void OnChestOpened(EventOnChestOpened callback)
 		{
@@ -537,11 +547,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayerDamaged(EventOnPlayerDamaged callback)
 		{
-			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
-			{
-				return;
-			}
-			
+			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
+
 			var game = callback.Game;
 			var audio = AudioId.None;
 

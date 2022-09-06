@@ -12,14 +12,14 @@ namespace Quantum.Systems
 		public void PlayerDead(Frame f, PlayerRef playerDead, EntityRef entityDead)
 		{
 			var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
-			var pointer = gameContainer->PlayersData.GetPointer(playerDead);
+			var dataPointer = gameContainer->PlayersData.GetPointer(playerDead);
 			
-			pointer->DeathCount++;
-			pointer->LastDeathPosition = f.Get<Transform3D>(entityDead).Position;
+			dataPointer->DeathCount++;
+			dataPointer->LastDeathPosition = f.Get<Transform3D>(entityDead).Position;
 
-			if (pointer->FirstDeathTime == FP._0)
+			if (dataPointer->FirstDeathTime == FP._0)
 			{
-				pointer->FirstDeathTime = f.Time;
+				dataPointer->FirstDeathTime = f.Time;
 			}
 		}
 

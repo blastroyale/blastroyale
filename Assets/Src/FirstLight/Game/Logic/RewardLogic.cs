@@ -1,12 +1,10 @@
 using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
-using FirstLight.Game.Infos;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Services;
 using Quantum;
@@ -171,6 +169,10 @@ namespace FirstLight.Game.Logic
 			if (reward.RewardId == GameId.XP)
 			{
 				GameLogic.PlayerLogic.AddXp((uint) reward.Value);
+			}
+			else if (reward.RewardId == GameId.BPP)
+			{
+				GameLogic.BattlePassLogic.AddBPP((uint) reward.Value);
 			}
 			else if (groups.Contains(GameIdGroup.Currency))
 			{

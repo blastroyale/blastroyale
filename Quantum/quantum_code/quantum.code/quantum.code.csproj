@@ -261,7 +261,7 @@
     <Compile Include="Systems\AiPreUpdateSystem.cs" />
     <Compile Include="Systems\AirDropSystem.cs" />
     <Compile Include="Systems\PlayerChargingSystem.cs" />
-    <Compile Include="Systems\PlayerCombatEventsSystem.cs" />
+    <Compile Include="Systems\PlayerCombatDataSystem.cs" />
     <Compile Include="Systems\PreRaycastShotSytem.cs" />
     <Compile Include="Systems\RaycastShotsSystem.cs" />
     <Compile Include="Systems\ShrinkingCircleSystem.cs" />

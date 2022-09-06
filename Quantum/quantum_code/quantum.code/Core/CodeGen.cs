@@ -5074,7 +5074,7 @@ namespace Quantum {
           case EventOnAirDropLanded.ID: return typeof(EventOnAirDropLanded);
           case EventOnAirDropCollected.ID: return typeof(EventOnAirDropCollected);
           case EventOnChestOpened.ID: return typeof(EventOnChestOpened);
-          case EventOnCombatEventPlayerKilledPlayer.ID: return typeof(EventOnCombatEventPlayerKilledPlayer);
+          case EventOnCombatDataPlayerKilledPlayer.ID: return typeof(EventOnCombatDataPlayerKilledPlayer);
           case EventOnRaycastShotExplosion.ID: return typeof(EventOnRaycastShotExplosion);
           case EventOnNewShrinkingCircle.ID: return typeof(EventOnNewShrinkingCircle);
           case EventOnDummyCharacterKilled.ID: return typeof(EventOnDummyCharacterKilled);
@@ -5178,9 +5178,9 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnCombatEventPlayerKilledPlayer OnCombatEventPlayerKilledPlayer(PlayerRef PlayerDead, EntityRef EntityDead, PlayerRef PlayerKiller, EntityRef EntityKiller, UInt32 CurrentKillStreak, UInt32 CurrentMultiKill) {
+      public EventOnCombatDataPlayerKilledPlayer OnCombatDataPlayerKilledPlayer(PlayerRef PlayerDead, EntityRef EntityDead, PlayerRef PlayerKiller, EntityRef EntityKiller, UInt32 CurrentKillStreak, UInt32 CurrentMultiKill) {
         if (_f.IsPredicted) return null;
-        var ev = _f.Context.AcquireEvent<EventOnCombatEventPlayerKilledPlayer>(EventOnCombatEventPlayerKilledPlayer.ID);
+        var ev = _f.Context.AcquireEvent<EventOnCombatDataPlayerKilledPlayer>(EventOnCombatDataPlayerKilledPlayer.ID);
         ev.PlayerDead = PlayerDead;
         ev.EntityDead = EntityDead;
         ev.PlayerKiller = PlayerKiller;
@@ -6055,7 +6055,7 @@ namespace Quantum {
       }
     }
   }
-  public unsafe partial class EventOnCombatEventPlayerKilledPlayer : EventBase {
+  public unsafe partial class EventOnCombatDataPlayerKilledPlayer : EventBase {
     public new const Int32 ID = 4;
     public PlayerRef PlayerDead;
     public EntityRef EntityDead;
@@ -6063,10 +6063,10 @@ namespace Quantum {
     public EntityRef EntityKiller;
     public UInt32 CurrentKillStreak;
     public UInt32 CurrentMultiKill;
-    protected EventOnCombatEventPlayerKilledPlayer(Int32 id, EventFlags flags) : 
+    protected EventOnCombatDataPlayerKilledPlayer(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnCombatEventPlayerKilledPlayer() : 
+    public EventOnCombatDataPlayerKilledPlayer() : 
         base(4, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {

@@ -2,7 +2,7 @@ using Photon.Deterministic;
 
 namespace Quantum.Systems
 {
-	public unsafe class PlayerCombatEventsSystem : SystemSignalsOnly, ISignalOnPlayerDataSet, ISignalPlayerKilledPlayer,
+	public unsafe class PlayerCombatDataSystem : SystemSignalsOnly, ISignalOnPlayerDataSet, ISignalPlayerKilledPlayer,
 	                                               ISignalPlayerDead
 	{
 		public void OnPlayerDataSet(Frame f, PlayerRef player)
@@ -32,8 +32,8 @@ namespace Quantum.Systems
 
 				killerData->MultiKillResetTime = f.Time + f.GameConfig.MultiKillResetTime;
 
-				f.Events.OnCombatEventPlayerKilledPlayer(playerDead, entityDead, playerKiller, entityKiller,
-				                                         killerData->CurrentKillStreak, killerData->CurrentMultiKill);
+				f.Events.OnCombatDataPlayerKilledPlayer(playerDead, entityDead, playerKiller, entityKiller,
+				                                        killerData->CurrentKillStreak, killerData->CurrentMultiKill);
 			}
 		}
 

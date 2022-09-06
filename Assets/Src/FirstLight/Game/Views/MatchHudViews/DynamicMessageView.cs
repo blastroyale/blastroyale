@@ -31,15 +31,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private IGameServices _services;
 		private IMatchServices _matchServices;
 		private IGameDataProvider _gameDataProvider;
-		private Coroutine _killTimerCoroutine;
-		private int _killCounter;
-		private float _killConfigTimer;
-		private int _killWarningLimit;
-		private int _killTarget;
-		private int[] _playerKillStreak;
-		private bool[] _playerDominating;
-		private bool[] _playerGodlike;
-		
+
 		private struct MessageData
 		{
 			public string TopText;
@@ -62,25 +54,17 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				message.gameObject.SetActive(false);
 			}
-
-			_killConfigTimer = config.DoubleKillTimeLimit;
-			_killTarget = (int) _services.NetworkService.CurrentRoomGameModeConfig.Value.CompletionKillCount;
-			_killWarningLimit = (_killTarget / 3) * 2;
-			_playerKillStreak = new int[maxPlayers];
-			_playerDominating = new bool[maxPlayers];
-			_playerGodlike = new bool[maxPlayers];
 			
-			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnEventOnPlayerKilledPlayer, onlyIfActiveAndEnabled: true);
-			QuantumEvent.Subscribe<EventOnGameEnded>(this, OnEventGameEnd);
+			QuantumEvent.Subscribe<EventOnCombatDataPlayerKilledPlayer>(this, OnCombatDataPlayerKilledPlayer, onlyIfActiveAndEnabled: true);
 			QuantumEvent.Subscribe<EventOnAirDropDropped>(this, OnAirDropDropped);
 		}
 
 		/// <summary>
 		/// Handles Double Kills, Multi Kills, Killing Sprees.
 		/// </summary>
-		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
+		private void OnCombatDataPlayerKilledPlayer(EventOnCombatDataPlayerKilledPlayer callback)
 		{
-			var leaderData = callback.PlayersMatchData.Find(data => data.Data.Player.Equals(callback.PlayerLeader));
+			/*var leaderData = callback.PlayersMatchData.Find(data => data.Data.Player.Equals(callback.PlayerLeader));
 			var killerData = callback.PlayersMatchData.Find(data => data.Data.Player.Equals(callback.PlayerKiller));
 			var deadData = callback.PlayersMatchData.Find(data => data.Data.Player.Equals(callback.PlayerDead));
 			
@@ -95,23 +79,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				};
 					
 				EnqueueMessage(messageData);
-			}
-
-			// Update Kill streaks;
-			_playerKillStreak[callback.PlayerDead] = 0;
-			_playerKillStreak[callback.PlayerKiller]++;
-
-			CheckKillingSpree(killerData, deadData);
-
-			if (!_playerDominating[callback.PlayerKiller])
-			{
-				CheckDominating(callback.PlayerKiller, killerData.PlayerName);
-			}
-
-			if (!_playerGodlike[callback.PlayerKiller])
-			{
-				CheckGodlike(callback.PlayerKiller, killerData.PlayerName);
-			}
+			}*/
 		}
 		
 		private void OnAirDropDropped(EventOnAirDropDropped callback)
@@ -124,126 +92,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			};
 					
 			EnqueueMessage(messageData);
-		}
-		
-		private void OnEventGameEnd(EventOnGameEnded callback)
-		{
-			StopTimerCoroutine();
-		}
-
-		private void CheckKillingSpree(QuantumPlayerMatchData killerData, QuantumPlayerMatchData deadData)
-		{
-			if (_matchServices.SpectateService.SpectatedPlayer.Value.Player == killerData.Data.Player)
-			{
-				var message = new MessageData
-				{
-					MessageEntry = _messages[Random.Range(0, _messages.Count)]
-				};
-				
-				_killCounter++;
-				
-				if (_killCounter == _doubleKillCount)
-				{
-					message.TopText = ScriptLocalization.AdventureMenu.Double;
-					message.BottomText = ScriptLocalization.AdventureMenu.Kill;
-				}
-				else if (_killCounter == _multiKillCount)
-				{
-					message.TopText = ScriptLocalization.AdventureMenu.Multi;
-					message.BottomText = ScriptLocalization.AdventureMenu.Kill;
-				}
-				else if (_killCounter > _killingSpreeCount)
-				{
-					message.TopText = ScriptLocalization.AdventureMenu.Killing;
-					message.BottomText = ScriptLocalization.AdventureMenu.Spree;
-				}
-
-				if (_killCounter > 1)
-				{
-					EnqueueMessage(message);
-				}
-				else
-				{
-					message.TopText = ScriptLocalization.AdventureMenu.YouKilledPlayer;
-					message.BottomText = deadData.GetPlayerName();
-					
-					EnqueueMessage(message);
-				}
-				
-				StopTimerCoroutine();
-				
-				_killTimerCoroutine = StartCoroutine(TimeUpdateCoroutine());
-			}
-			
-			if (_matchServices.SpectateService.SpectatedPlayer.Value.Player == deadData.Data.Player)
-			{
-				_killCounter = 0;
-
-				StopTimerCoroutine();
-			}
-		}
-
-		private void StopTimerCoroutine()
-		{
-			if (_killTimerCoroutine != null)
-			{
-				StopCoroutine(_killTimerCoroutine);
-				_killTimerCoroutine  = null;
-			} 
-		}
-
-		private void CheckDominating(int playerIndex, string playerName)
-		{
-			for (var i = 0; i < _playerKillStreak.Length; i++)
-			{
-				if (i != playerIndex && _playerKillStreak[i] + _dominatingCount >= _playerKillStreak[playerIndex])
-				{
-					return;
-				}
-			}
-			
-			_playerDominating[playerIndex] = true;
-				
-			var messageData = new MessageData
-			{
-				TopText = playerName,
-				BottomText = ScriptLocalization.AdventureMenu.Dominating,
-				MessageEntry = _messages[Random.Range(0, _messages.Count)]
-			};
-				
-			EnqueueMessage(messageData);
-		}
-
-		private void CheckGodlike(int playerIndex, string playerName)
-		{
-			for (var i = 0; i < _playerKillStreak.Length; i++)
-			{
-				if (i != playerIndex && _playerKillStreak[i] + _godlikeCount >= _playerKillStreak[playerIndex])
-				{
-					return;
-				}
-			}
-			
-			_playerDominating[playerIndex] = true;
-				
-			var messageData = new MessageData
-			{
-				TopText = playerName,
-				BottomText = ScriptLocalization.AdventureMenu.Godlike,
-				MessageEntry = _messages[Random.Range(0, _messages.Count)]
-			};
-				
-			EnqueueMessage(messageData);
-		}
-		
-		
-		// If the local player kills another player within the specified time period, they can 
-		// rack up double kills and multi-kills.
-		private IEnumerator TimeUpdateCoroutine()
-		{
-			yield return new WaitForSeconds(_killConfigTimer);
-
-			_killCounter = 0;
 		}
 		
 		private void EnqueueMessage(MessageData message)

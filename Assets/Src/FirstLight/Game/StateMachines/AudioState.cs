@@ -121,7 +121,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeEvents()
 		{
-			QuantumEvent.SubscribeManual<EventOnCombatEventPlayerKilledPlayer>(this, OnCombatEventPlayerKilledPlayer);
+			QuantumEvent.SubscribeManual<EventOnCombatDataPlayerKilledPlayer>(this, OnCombatDataPlayerKilledPlayer);
 			QuantumEvent.SubscribeManual<EventOnPlayerSkydiveDrop>(this, OnPlayerSkydiveDrop);
 			QuantumEvent.SubscribeManual<EventOnPlayerDamaged>(this, OnPlayerDamaged);
 			QuantumEvent.SubscribeManual<EventOnPlayerAttack>(this, OnPlayerAttack);
@@ -380,7 +380,7 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 		
-		private void OnCombatEventPlayerKilledPlayer(EventOnCombatEventPlayerKilledPlayer callback)
+		private void OnCombatDataPlayerKilledPlayer(EventOnCombatDataPlayerKilledPlayer callback)
 		{
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.EntityKiller, out var entityView) ||
 				_matchServices.SpectateService.SpectatedPlayer.Value.Player != callback.PlayerKiller)

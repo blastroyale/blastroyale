@@ -1,4 +1,4 @@
-synced event OnCombatEventPlayerKilledPlayer
+synced event OnCombatDataPlayerKilledPlayer
 {
 	player_ref PlayerDead;
 	entity_ref EntityDead;

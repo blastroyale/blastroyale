@@ -29,6 +29,7 @@ namespace FirstLight.Game.Presenters
 		private IMatchServices _matchServices;
 		private Quantum.Input _quantumInput;
 		private LocalPlayerIndicatorContainerView _indicatorContainerView;
+		private bool _wasRecentlyCanceled;
 		
 		private void Awake()
 		{
@@ -122,16 +123,22 @@ namespace FirstLight.Game.Presenters
 			
 			var indicator = _indicatorContainerView.GetIndicator(0);
 			
-			if (context.ReadValueAsButton())
+			if (context.started)
 			{
 				indicator.SetVisualState(true);
 				indicator.SetTransformState(Vector2.zero);
 				return;
 			}
 			
-			var aim = _services.PlayerInputService.Input.Gameplay.SpecialAim.ReadValue<Vector2>();
-			
 			indicator.SetVisualState(false);
+
+			if (_wasRecentlyCanceled)
+			{
+				_wasRecentlyCanceled = false;
+				return;
+			}
+			
+			var aim = _services.PlayerInputService.Input.Gameplay.SpecialAim.ReadValue<Vector2>();
 
 			// Only triggers the input if the button is released or it was not disabled (ex: weapon replaced)
 			if (Math.Abs(context.time - context.startTime) < Mathf.Epsilon && 
@@ -151,16 +158,22 @@ namespace FirstLight.Game.Presenters
 			
 			var indicator = _indicatorContainerView.GetIndicator(1);
 			
-			if (context.ReadValueAsButton())
+			if (context.started)
 			{
 				indicator.SetVisualState(true);
 				indicator.SetTransformState(Vector2.zero);
 				return;
 			}
 			
-			var aim = _services.PlayerInputService.Input.Gameplay.SpecialAim.ReadValue<Vector2>();
-			
 			indicator.SetVisualState(false);
+
+			if (_wasRecentlyCanceled)
+			{
+				_wasRecentlyCanceled = false;
+				return;
+			}
+			
+			var aim = _services.PlayerInputService.Input.Gameplay.SpecialAim.ReadValue<Vector2>();
 			
 			// Only triggers the input if the button is released or it was not disabled (ex: weapon replaced)
 			if (Math.Abs(context.time - context.startTime) < Mathf.Epsilon && 
@@ -179,6 +192,8 @@ namespace FirstLight.Game.Presenters
 			}
 			
 			var input = _services.PlayerInputService.Input.Gameplay;
+
+			_wasRecentlyCanceled = true;
 			
 			input.SpecialButton0.Disable();
 			input.SpecialButton1.Disable();
@@ -270,9 +285,9 @@ namespace FirstLight.Game.Presenters
 		{
 			var input = _services.PlayerInputService.Input.Gameplay;
 			
-			for (int i = 0; i < _specialButtons.Length; i++)
+			for (var i = 0; i < _specialButtons.Length; i++)
 			{
-				if (_specialButtons[i].isActiveAndEnabled)
+				if (_specialButtons[i].SpecialId != GameId.Random)
 				{
 					input.GetSpecialButton(i).Enable();
 				}

@@ -43,7 +43,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private IGameServices _services;
 		private IAsyncCoroutine _cooldownCoroutine;
 		private PointerEventData _pointerDownData;
-		private bool _isInside;
 
 		/// <summary>
 		/// Request's the special <see cref="GameId"/> assigned to this special view button
@@ -68,14 +67,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// <inheritdoc />
 		public void OnPointerDown(PointerEventData eventData)
 		{
-			if (!_buttonView.interactable)
+			if (_pointerDownData != null)
 			{
 				return;
 			}
 
-			_buttonView.interactable = false;
 			_pointerDownData = eventData;
-			_isInside = true;
 
 			_specialAimDirectionAdapter.SendValueToControl(Vector2.zero);
 			_specialPointerDownAdapter.SendValueToControl(1f);
@@ -88,9 +85,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				return;
 			}
-
-			_isInside = true;
 			
+			_cancelPointerDownAdapter.SendValueToControl(1f);
 			OnCancelEnter?.Invoke();
 		}
 
@@ -102,15 +98,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 				return;
 			}
 
-			_isInside = false;
-
 			if (_cancelAnchor.activeInHierarchy)
 			{
 				OnCancelExit?.Invoke();
-			}
-			else
-			{
-				_cancelPointerDownAdapter.SendValueToControl(1f);
 			}
 			
 			_normalAnchor.SetActive(false);
@@ -135,21 +125,22 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				return;
 			}
-
-			_buttonView.interactable = true;
+			
 			_pointerDownData = null;
 
 			_normalAnchor.SetActive(true);
 			_cancelAnchor.SetActive(false);
 			SetInputData(eventData);
 			
-			if (_isInside)
+			if (RectTransformUtility.RectangleContainsScreenPoint(_rectTransform, eventData.position, eventData.pressEventCamera))
 			{
 				_cancelPointerDownAdapter.SendValueToControl(0f);
+				_specialPointerDownAdapter.SendValueToControl(0f);
 			}
 			else
 			{
 				_specialPointerDownAdapter.SendValueToControl(0f);
+				_cancelPointerDownAdapter.SendValueToControl(0f);
 			}
 		}
 

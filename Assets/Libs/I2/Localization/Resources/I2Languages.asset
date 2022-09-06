@@ -1545,6 +1545,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: MainMenu/DialogueSetting
+      TermType: 0
+      Description: 
+      Languages:
+      - Dialogue
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: MainMenu/BattleRoyale
       TermType: 0
       Description: 
@@ -3607,6 +3616,24 @@ MonoBehaviour:
       Description: 
       Languages:
       - YOUR LOOT
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: AdventureMenu/Might
+      TermType: 0
+      Description: 
+      Languages:
+      - MIGHT {0}
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: AdventureMenu/Shield
+      TermType: 0
+      Description: 
+      Languages:
+      - SHIELD +{0}
       - 
       - 
       Flags: 000000
@@ -8817,7 +8844,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1662051051045
+    Google_LastUpdatedVersion: 1662461991922
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

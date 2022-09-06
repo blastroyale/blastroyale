@@ -41,6 +41,7 @@ namespace I2.Loc
 			public static string KillsRemaining 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/KillsRemaining"); } }
 			public static string MatchmakingPlayerTitle 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/MatchmakingPlayerTitle"); } }
 			public static string MatchmakingSpectatorTitle 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/MatchmakingSpectatorTitle"); } }
+			public static string Might 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Might"); } }
 			public static string Multi 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Multi"); } }
 			public static string NextWaveIn 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/NextWaveIn"); } }
 			public static string NoRewardsCollected 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/NoRewardsCollected"); } }
@@ -53,6 +54,7 @@ namespace I2.Loc
 			public static string Remaining 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Remaining"); } }
 			public static string RespawnTime 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/RespawnTime"); } }
 			public static string Revives 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Revives"); } }
+			public static string Shield 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Shield"); } }
 			public static string SpawningEnemies 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/SpawningEnemies"); } }
 			public static string SpectateCam1 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/SpectateCam1"); } }
 			public static string SpectateCam2 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/SpectateCam2"); } }
@@ -755,6 +757,7 @@ namespace I2.Loc
 			public static string DefeatedBossXTimes 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DefeatedBossXTimes"); } }
 			public static string Demo 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Demo"); } }
 			public static string DetailLevel 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DetailLevel"); } }
+			public static string DialogueSetting 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DialogueSetting"); } }
 			public static string DisconnectedMatchEndInfo 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DisconnectedMatchEndInfo"); } }
 			public static string DragAndReleaseToFire 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DragAndReleaseToFire"); } }
 			public static string DragAndReleaseToFireDescription 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DragAndReleaseToFireDescription"); } }
@@ -1065,6 +1068,7 @@ namespace I2.Loc
 		    public const string KillsRemaining = "AdventureMenu/KillsRemaining";
 		    public const string MatchmakingPlayerTitle = "AdventureMenu/MatchmakingPlayerTitle";
 		    public const string MatchmakingSpectatorTitle = "AdventureMenu/MatchmakingSpectatorTitle";
+		    public const string Might = "AdventureMenu/Might";
 		    public const string Multi = "AdventureMenu/Multi";
 		    public const string NextWaveIn = "AdventureMenu/NextWaveIn";
 		    public const string NoRewardsCollected = "AdventureMenu/NoRewardsCollected";
@@ -1077,6 +1081,7 @@ namespace I2.Loc
 		    public const string Remaining = "AdventureMenu/Remaining";
 		    public const string RespawnTime = "AdventureMenu/RespawnTime";
 		    public const string Revives = "AdventureMenu/Revives";
+		    public const string Shield = "AdventureMenu/Shield";
 		    public const string SpawningEnemies = "AdventureMenu/SpawningEnemies";
 		    public const string SpectateCam1 = "AdventureMenu/SpectateCam1";
 		    public const string SpectateCam2 = "AdventureMenu/SpectateCam2";
@@ -1779,6 +1784,7 @@ namespace I2.Loc
 		    public const string DefeatedBossXTimes = "MainMenu/DefeatedBossXTimes";
 		    public const string Demo = "MainMenu/Demo";
 		    public const string DetailLevel = "MainMenu/DetailLevel";
+		    public const string DialogueSetting = "MainMenu/DialogueSetting";
 		    public const string DisconnectedMatchEndInfo = "MainMenu/DisconnectedMatchEndInfo";
 		    public const string DragAndReleaseToFire = "MainMenu/DragAndReleaseToFire";
 		    public const string DragAndReleaseToFireDescription = "MainMenu/DragAndReleaseToFireDescription";

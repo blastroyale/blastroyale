@@ -80,26 +80,10 @@ namespace Backend.Game
     
     	public AudioListenerMonoComponent AudioListener { get; }
     
-    	public bool IsBgmMuted
-    	{
-    		get => true;
-    		set  { }
-    	}
-    
-    	public bool IsSfxMuted { get; set; }
-    	public bool IsMusicPlaying { get; }
-    
-    	public bool Is2dSfxMuted
-    	{
-    		get => true;
-    		set { }
-    	}
-    
-    	public bool Is3dSfxMuted
-    	{
-    		get => true;
-    		set { }
-    	}
+    	public bool IsBgmMuted { get; set; }
+        public bool IsSfxMuted { get; set; }
+        public bool IsDialogueMuted { get; set; }
+        public bool IsMusicPlaying { get; }
     }
 }
 

@@ -1,5 +1,6 @@
 ﻿using Photon.Deterministic;
 using System;
+using System.Collections.Generic;
 
 namespace Quantum 
 {
@@ -8,6 +9,7 @@ namespace Quantum
 		// Non Serialized Map Data
 		[NonSerialized] public int MapId;
 		[NonSerialized] public string GameModeId;
+		[NonSerialized] public string[] Mutators;
 		
 		public AssetRefQuantumGameConfigs GameConfigs;
 		public AssetRefQuantumMapConfigs MapConfigs;
@@ -30,6 +32,12 @@ namespace Quantum
 		{
 			stream.Serialize(ref MapId);
 			stream.Serialize(ref GameModeId);
+			stream.SerializeArrayLength(ref Mutators);
+			for (var i = 0; i < Mutators.Length; i++)
+			{
+				stream.Serialize(ref Mutators[i]);
+			}
+
 			stream.Serialize(ref GameConfigs);
 			stream.Serialize(ref MapConfigs);
 			stream.Serialize(ref GameModeConfigs);

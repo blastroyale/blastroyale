@@ -14,6 +14,8 @@ namespace Quantum
 		public QuantumMapConfig MapConfig { get; internal set; }
 		
 		public QuantumGameModeConfig GameModeConfig { get; internal set; }
+
+		public List<QuantumMutatorConfig> MutatorConfigs { get; internal set; }
 		
 		public int TargetAllLayerMask { get; internal set; }
 

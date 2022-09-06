@@ -20,7 +20,7 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Returns a room parameters used for creation of custom and matchmaking rooms
 		/// </summary>
-		public static EnterRoomParams GetRoomCreateParams(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, MapGridConfigs gridConfigs,
+		public static EnterRoomParams GetRoomCreateParams(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, MapGridConfigs gridConfigs, List<string> mutators,
 		                                                  string roomName, bool isRankedMatch, bool gameHasBots)
 		{
 			var isRandomMatchmaking = string.IsNullOrWhiteSpace(roomName);
@@ -55,7 +55,7 @@ namespace FirstLight.Game.Utils
 				{
 					BroadcastPropsChangeToAll = true,
 					CleanupCacheOnLeave = true,
-					CustomRoomProperties = GetCreateRoomProperties(gameModeConfig, mapConfig, gridConfigs, isRankedMatch, gameHasBots),
+					CustomRoomProperties = GetCreateRoomProperties(gameModeConfig, mapConfig, gridConfigs, mutators, isRankedMatch, gameHasBots),
 					CustomRoomPropertiesForLobby = GetCreateRoomPropertiesForLobby(),
 					Plugins = null,
 					SuppressRoomEvents = false,
@@ -104,11 +104,11 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Returns random room entry parameters used for matchmaking room joining
 		/// </summary>
-		public static OpJoinRandomRoomParams GetJoinRandomRoomParams(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, bool isRankedMatch)
+		public static OpJoinRandomRoomParams GetJoinRandomRoomParams(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, List<string> mutators, bool isRankedMatch)
 		{
 			return new OpJoinRandomRoomParams
 			{
-				ExpectedCustomRoomProperties = GetJoinRoomProperties(gameModeConfig, mapConfig, isRankedMatch),
+				ExpectedCustomRoomProperties = GetJoinRoomProperties(gameModeConfig, mapConfig, mutators, isRankedMatch),
 				ExpectedMaxPlayers = (byte) GetMaxPlayers(gameModeConfig, mapConfig),
 				ExpectedUsers = null,
 				MatchingType = MatchmakingMode.FillRoom,
@@ -151,13 +151,14 @@ namespace FirstLight.Game.Utils
 				GameConstants.Network.ROOM_PROPS_COMMIT,
 				GameConstants.Network.ROOM_PROPS_MAP,
 				GameConstants.Network.ROOM_PROPS_RANKED_MATCH,
-				GameConstants.Network.ROOM_PROPS_GAME_MODE
+				GameConstants.Network.ROOM_PROPS_GAME_MODE,
+				GameConstants.Network.ROOM_PROPS_MUTATORS
 			};
 		}
 		
-		private static Hashtable GetCreateRoomProperties(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, MapGridConfigs gridConfigs, bool isRankedMatch, bool gameHasBots)
+		private static Hashtable GetCreateRoomProperties(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, MapGridConfigs gridConfigs, List<string> mutators, bool isRankedMatch, bool gameHasBots)
 		{
-			var properties = GetJoinRoomProperties(gameModeConfig, mapConfig, isRankedMatch);
+			var properties = GetJoinRoomProperties(gameModeConfig, mapConfig, mutators, isRankedMatch);
 
 			properties.Add(GameConstants.Network.ROOM_PROPS_START_TIME, DateTime.UtcNow.Ticks);
 			
@@ -171,7 +172,8 @@ namespace FirstLight.Game.Utils
 			return properties;
 		}
 
-		private static Hashtable GetJoinRoomProperties(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, bool isRankedMatch)
+		private static Hashtable GetJoinRoomProperties(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig,
+		                                               List<string> mutators, bool isRankedMatch)
 		{
 			return new Hashtable
 			{
@@ -185,7 +187,10 @@ namespace FirstLight.Game.Utils
 				{GameConstants.Network.ROOM_PROPS_RANKED_MATCH, isRankedMatch},
 
 				// For matchmaking, rooms are segregated by casual/ranked.
-				{GameConstants.Network.ROOM_PROPS_GAME_MODE, gameModeConfig.Id}
+				{GameConstants.Network.ROOM_PROPS_GAME_MODE, gameModeConfig.Id},
+				
+				// A list of mutators used in this room
+				{GameConstants.Network.ROOM_PROPS_MUTATORS, string.Join(",", mutators)}
 			};
 		}
 

@@ -288,6 +288,7 @@ namespace Quantum {
     Speed,
     Armour,
     Shield,
+    AttackRange,
   }
   public enum StatusModifierType : int {
     None,

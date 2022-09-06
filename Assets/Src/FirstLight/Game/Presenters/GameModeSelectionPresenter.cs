@@ -22,9 +22,9 @@ namespace FirstLight.Game.Presenters
 			public Action GameModeChosen;
 		}
 
-		[SerializeField, Required] private GameModeButtonView _gameMode1;
-		[SerializeField, Required] private GameModeButtonView _gameMode2;
-		[SerializeField, Required] private GameModeRotationView _rotationGameMode;
+		[SerializeField, Required] private List<GameModeButtonView> _fixedSlots;
+		[SerializeField, Required] private GameModeRotationView _rotationSlot1;
+		[SerializeField, Required] private GameModeRotationView _rotationSlot2;
 		[SerializeField, Required] private GameModeButtonView _testingButton;
 		[SerializeField, Required] private Button _backButton;
 
@@ -39,24 +39,32 @@ namespace FirstLight.Game.Presenters
 			_testingButton.gameObject.SetActive(FeatureFlags.TESTING_GAME_MODE_ENABLED);
 			_testingButton.Init("Testing", new List<string>(), MatchType.Casual, false, default, OnModeButtonClicked);
 
-			var rotationConfig = _services.ConfigsProvider.GetConfig<GameModeRotationConfig>();
-			_gameMode1.Init(rotationConfig.GameModeId1, new List<string>(), rotationConfig.MatchType1, false, default,
-			                OnModeButtonClicked);
-			_gameMode2.Init(rotationConfig.GameModeId2, new List<string>(), rotationConfig.MatchType2, false, default,
-			                OnModeButtonClicked);
+			var fixedSlots = _services.GameModeService.FixedSlots;
+			for (var i = 0; i < fixedSlots.Count; i++)
+			{
+				var entry = fixedSlots[i];
+				_fixedSlots[i].Init(entry.GameModeId, entry.Mutators, entry.MatchType, false, default, OnModeButtonClicked);
+			}
 
-			_services.GameModeService.RotationGameMode.InvokeObserve(OnRotationGameModeChanged);
+			_services.GameModeService.RotationSlot1.InvokeObserve(OnRotationGameMode1Changed);
+			_services.GameModeService.RotationSlot2.InvokeObserve(OnRotationGameMode2Changed);
 		}
 
-		private void OnRotationGameModeChanged(GameModeRotationInfo previous, GameModeRotationInfo current)
+		private void OnRotationGameMode1Changed(GameModeRotationInfo previous, GameModeRotationInfo current)
 		{
-			_rotationGameMode.Init(current, OnModeButtonClicked);
+			_rotationSlot1.Init(current, OnModeButtonClicked);
+		}
+		
+		private void OnRotationGameMode2Changed(GameModeRotationInfo previous, GameModeRotationInfo current)
+		{
+			_rotationSlot2.Init(current, OnModeButtonClicked);
 		}
 
 		private void OnDestroy()
 		{
 			_backButton.onClick.RemoveAllListeners();
-			_services.GameModeService.RotationGameMode.StopObserving(OnRotationGameModeChanged);
+			_services.GameModeService.RotationSlot1.StopObserving(OnRotationGameMode1Changed);
+			_services.GameModeService.RotationSlot2.StopObserving(OnRotationGameMode2Changed);
 		}
 
 		private void OnModeButtonClicked(string gameMode, List<string> mutators, MatchType matchType, bool fromRotation,

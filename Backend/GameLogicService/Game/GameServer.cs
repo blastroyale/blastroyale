@@ -61,7 +61,7 @@ public class GameServer
 			var currentPlayerState = await _state.GetPlayerState(playerId);
 			ValidateCommand(currentPlayerState, commandInstance, requestData);
 			
-			var newState = _cmdHandler.ExecuteCommand(commandInstance, currentPlayerState);
+			var newState = await _cmdHandler.ExecuteCommand(commandInstance, currentPlayerState);
 			_eventManager.CallEvent(new CommandFinishedEvent(playerId, commandInstance, newState, commandData));
 			await _state.UpdatePlayerState(playerId, newState);
 			return new BackendLogicResult()

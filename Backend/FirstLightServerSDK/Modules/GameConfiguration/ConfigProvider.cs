@@ -74,7 +74,7 @@ namespace FirstLight.Server.SDK.Modules.GameConfiguration
 		/// <inheritdoc />
 		public IReadOnlyDictionary<Type, IEnumerable> GetAllConfigs()
 		{
-			return new ReadOnlyDictionary<Type, IEnumerable>(_configs);
+			return _configs as IReadOnlyDictionary<Type, IEnumerable>;
 		}
 
 		/// <inheritdoc />

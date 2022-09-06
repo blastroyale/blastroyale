@@ -70,8 +70,7 @@ namespace Backend.Game
     
     	public void StopAllSfx()
     	{
-    		throw new NotImplementedException();
-    	}
+        }
     
     	public float GetCurrentMusicPlaybackTime()
     	{

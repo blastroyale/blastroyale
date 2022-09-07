@@ -331,7 +331,7 @@ namespace Quantum
 			foreach(var spawner in f.GetComponentIterator<AirDropSpawner>())
 			{
 				var spawnerPos = spawner.Component.position(f, spawner.Entity);
-				var distanceToSpawner = FPVector3.Distance(targetPoint, spawnerPos); 
+				var distanceToSpawner = FPVector3.DistanceSquared(targetPoint, spawnerPos); 
 
 				if (distanceToSpawner < shortestDist)
 				{

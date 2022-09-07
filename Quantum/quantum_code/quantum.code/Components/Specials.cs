@@ -17,10 +17,16 @@ namespace Quantum
 		public Special(Frame f, GameId specialId) : this()
 		{
 			var config = f.SpecialConfigs.GetConfig(specialId);
-			
+			var mutatorExists = f.Context.TryGetMutatorByType(MutatorType.SpecialsCooldowns, out var mutatorConfig);
+
+			if (mutatorExists)
+			{
+				Log.Info("Mutator activated of type Specials Cooldowns");
+			}
+
 			SpecialId = specialId;
 			SpecialType = config.SpecialType;
-			Cooldown = config.Cooldown;
+			Cooldown = mutatorExists?FP.FromString(mutatorConfig.Param1):config.Cooldown;
 			Radius = config.Radius;
 			SpecialPower = config.SpecialPower;
 			Speed = config.Speed;

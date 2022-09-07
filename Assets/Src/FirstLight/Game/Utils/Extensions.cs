@@ -381,7 +381,7 @@ namespace FirstLight.Game.Utils
 		public static List<string> GetMutatorIds(this Room room)
 		{
 			var str = (string) room.CustomProperties[GameConstants.Network.ROOM_PROPS_MUTATORS];
-			return str.Split(',').ToList();
+			return str.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
 		}
 
 		/// <summary>

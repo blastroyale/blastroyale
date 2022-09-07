@@ -13,6 +13,7 @@ namespace Quantum
 		public FP ArmorRatioToBase;
 		public FP SpeedRatioToBase;
 		public FP PowerRatioToBase;
+		public FP AttackRangeRatioToBase;
 
 		/// <summary>
 		/// Requests the stat value for the given <paramref name="statType"/>
@@ -31,6 +32,8 @@ namespace Quantum
 					return SpeedRatioToBase;
 				case StatType.Armour:
 					return ArmorRatioToBase;
+				case StatType.AttackRange:
+					return AttackRangeRatioToBase;
 				default:
 					throw new ArgumentOutOfRangeException(nameof(statType), statType, null);
 			}

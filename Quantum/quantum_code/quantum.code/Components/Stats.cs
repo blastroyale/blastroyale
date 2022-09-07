@@ -16,7 +16,7 @@ namespace Quantum
 
 	public unsafe partial struct Stats
 	{
-		public Stats(FP baseHealth, FP basePower, FP baseSpeed, FP baseArmour, FP maxShields, FP startingShields)
+		public Stats(FP baseHealth, FP basePower, FP baseSpeed, FP baseArmour, FP maxShields, FP startingShields, FP startingRange)
 		{
 			CurrentHealth = baseHealth.AsInt;
 			CurrentShield = 0;
@@ -32,6 +32,7 @@ namespace Quantum
 			Values[(int) StatType.Power] = new StatData(basePower, basePower, StatType.Power);
 			Values[(int) StatType.Speed] = new StatData(baseSpeed, baseSpeed, StatType.Speed);
 			Values[(int) StatType.Armour] = new StatData(baseArmour, baseArmour, StatType.Armour);
+			Values[(int)StatType.AttackRange] = new StatData(startingRange, startingRange, StatType.AttackRange);
 		}
 
 		/// <summary>
@@ -74,10 +75,11 @@ namespace Quantum
 			var newMaxShield = GetStatData(StatType.Shield).StatValue.AsInt;
 			var newHealthAmount = Math.Min(CurrentHealth + Math.Max(newMaxHealth - previousMaxHeath, 0), newMaxHealth);
 			var newShieldAmount = Math.Min(CurrentShield + Math.Max(newMaxShield - previousMaxShield, 0), newMaxShield);
+			
 
 			// Adapts the player health & shield if new equipment changes player's HP
 			SetCurrentHealth(f, e, newHealthAmount);
-			SetCurrenShield(f, e, newShieldAmount);
+			SetCurrentShield(f, e, newShieldAmount);
 
 			f.Events.OnPlayerStatsChanged(player, e, previousStats, this);
 		}
@@ -113,7 +115,7 @@ namespace Quantum
 		/// </summary>
 		internal void GainShield(Frame f, EntityRef entity, int amount)
 		{
-			SetCurrenShield(f, entity, CurrentShield + amount);
+			SetCurrentShield(f, entity, CurrentShield + amount);
 		}
 
 		/// <summary>
@@ -195,7 +197,7 @@ namespace Quantum
 				shieldDamageAmount = Math.Min(previousShield, damageAmount);
 				damageAmount -= shieldDamageAmount;
 				
-				SetCurrenShield(f, entity, previousShield - shieldDamageAmount);
+				SetCurrentShield(f, entity, previousShield - shieldDamageAmount);
 			}
 
 			f.Events.OnPlayerDamaged(spell, totalDamage, shieldDamageAmount, Math.Min(previousHealth, damageAmount), 
@@ -209,7 +211,7 @@ namespace Quantum
 			AttackerSetCurrentHealth(f, entity, spell.Attacker, previousHealth - damageAmount);
 		}
 
-		private void SetCurrenShield(Frame f, EntityRef entity, int amount)
+		private void SetCurrentShield(Frame f, EntityRef entity, int amount)
 		{
 			var previousShield = CurrentShield;
 			var currentShieldCapacity = Values[(int)StatType.Shield].StatValue.AsInt;
@@ -266,7 +268,7 @@ namespace Quantum
 			var modifiers = f.ResolveList(Modifiers);
 			
 			QuantumStatCalculator.CalculateStats(f, weapon, gear, out var armour, out var health,
-			                                     out var speed, out var power);
+			                                     out var speed, out var power, out var attackRange);
 			
 			health += f.GameConfig.PlayerDefaultHealth.Get(f);
 			speed += f.GameConfig.PlayerDefaultSpeed.Get(f);
@@ -276,6 +278,7 @@ namespace Quantum
 			Values[(int) StatType.Power] = new StatData(power, power, StatType.Power);
 			Values[(int) StatType.Speed] = new StatData(speed, speed, StatType.Speed);
 			Values[(int) StatType.Armour] = new StatData(armour, armour, StatType.Armour);
+			Values[(int)StatType.AttackRange] = new StatData(attackRange, attackRange, StatType.AttackRange);
 
 			foreach (var modifier in modifiers)
 			{

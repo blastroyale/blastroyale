@@ -12,7 +12,7 @@ namespace Quantum
 		/// <paramref name="gear"/> from it's base stats and NFT configs.
 		/// </summary>
 		public static void CalculateStats(Frame f, Equipment weapon, FixedArray<Equipment> gear, 
-		                                  out int armour, out int health, out FP speed, out FP power)
+		                                  out int armour, out int health, out FP speed, out FP power, out FP attackRange)
 		{
 			var statConfigs = f.StatConfigs.Dictionary;
 			
@@ -20,6 +20,7 @@ namespace Quantum
 			speed = FP._0;
 			armour = 0;
 			power = FP._0;
+			attackRange = FP._0;
 
 			if (weapon.IsValid())
 			{
@@ -32,6 +33,7 @@ namespace Quantum
 				speed += CalculateWeaponStat(wc, statConfigs[StatType.Speed], besc, esc, emsc, weapon);
 				armour += CalculateWeaponStat(wc, statConfigs[StatType.Armour], besc, esc, emsc, weapon).AsInt;
 				power += CalculateWeaponStat(wc, statConfigs[StatType.Power], besc, esc, emsc, weapon);
+				attackRange += CalculateWeaponStat(wc, statConfigs[StatType.AttackRange], besc, esc, emsc, weapon);
 			}
 
 			for (var i = 0; i < gear.Length; i++)
@@ -51,6 +53,7 @@ namespace Quantum
 				speed += CalculateStat(statConfigs[StatType.Speed], besc, esc, emsc, item);
 				armour += CalculateStat(statConfigs[StatType.Armour], besc, esc, emsc, item).AsInt;
 				power += CalculateStat(statConfigs[StatType.Power], besc, esc, emsc, item);
+				attackRange += CalculateStat(statConfigs[StatType.AttackRange], besc, esc, emsc, item);
 			}
 		}
 

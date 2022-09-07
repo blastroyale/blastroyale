@@ -33,6 +33,7 @@ namespace Quantum
 			Values[(int) StatType.Speed] = new StatData(baseSpeed, baseSpeed, StatType.Speed);
 			Values[(int) StatType.Armour] = new StatData(baseArmour, baseArmour, StatType.Armour);
 			Values[(int)StatType.AttackRange] = new StatData(startingRange, startingRange, StatType.AttackRange);
+			Values[(int)StatType.PickupSpeed] = new StatData(startingRange, startingRange, StatType.PickupSpeed);
 		}
 
 		/// <summary>

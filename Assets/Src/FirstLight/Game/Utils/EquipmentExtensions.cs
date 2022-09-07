@@ -39,6 +39,7 @@ namespace FirstLight.Game.Utils
 				stats.Add(EquipmentStatType.Power,
 				          QuantumStatCalculator.CalculateWeaponStat(weaponConfig, statConfigs[(int) StatType.Power],
 				                                                    baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
+				//TODO: replace the attackRange from weapon config here
 				stats.Add(EquipmentStatType.TargetRange, weaponConfig.AttackRange.AsFloat +
 					 QuantumStatCalculator.CalculateWeaponStat(weaponConfig, statConfigs[(int)StatType.AttackRange],
 																	baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
@@ -69,6 +70,9 @@ namespace FirstLight.Game.Utils
 				                                              baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
 				stats.Add(EquipmentStatType.TargetRange,
 						  QuantumStatCalculator.CalculateStat(configs.GetConfig<QuantumStatConfig>((int)StatType.AttackRange),
+															  baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
+				stats.Add(EquipmentStatType.PickupSpeed,
+						  QuantumStatCalculator.CalculateStat(configs.GetConfig<QuantumStatConfig>((int)StatType.PickupSpeed),
 															  baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
 			}
 

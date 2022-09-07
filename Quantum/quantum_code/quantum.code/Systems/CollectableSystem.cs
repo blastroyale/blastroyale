@@ -41,18 +41,19 @@ namespace Quantum.Systems
 			if (IsCollectableFilled(f, info.Entity, info.Other)) return;
 
 			var endTime = collectable->CollectorsEndTime[player.Player];
+			var timeMod = f.Get<Stats>(info.Other).GetStatData(StatType.PickupSpeed).StatValue;
 
 			if (!collectable->IsCollecting(player.Player))
 			{
 				// If it's a consumable then we use CollectTime from consumable config
 				if (f.TryGet<Consumable>(info.Entity, out var consumable))
 				{
-					endTime = f.Time + consumable.CollectTime;
+					endTime = f.Time + (consumable.CollectTime / (1 + timeMod)); //collection speed reduction goes here
 				}
 				// Otherwise we use global collect time
 				else
 				{
-					endTime = f.Time + f.GameConfig.CollectableCollectTime.Get(f);
+					endTime = f.Time + (f.GameConfig.CollectableCollectTime.Get(f) / (1 + timeMod)); // and here
 				}
 
 				collectable->CollectorsEndTime[player.Player] = endTime;

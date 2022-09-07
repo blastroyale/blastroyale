@@ -115,6 +115,7 @@ namespace FirstLight.Game.StateMachines
 
 			postGame.OnEnter(StopMusicInstant);
 			postGame.OnEnter(PlayPostMatchMusic);
+			postGame.OnEnter(PlayPostMatchAnnouncer);
 			postGame.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
 			postGame.OnExit(StopMusicInstant);
 			postGame.OnExit(StopAllSfx);

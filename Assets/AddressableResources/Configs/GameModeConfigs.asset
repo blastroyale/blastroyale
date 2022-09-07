@@ -24,6 +24,7 @@ MonoBehaviour:
       Teams: 0
       MaxPlayersInTeam: 0
       MinPlayersInTeam: 0
+      AllowedMaps: 09000000
       RankSorter: 0
       RankProcessor: 0
       ShowStatChanges: 1
@@ -59,6 +60,7 @@ MonoBehaviour:
       Teams: 0
       MaxPlayersInTeam: 0
       MinPlayersInTeam: 0
+      AllowedMaps: 89000000070000008f0000009000000008000000
       RankSorter: 1
       RankProcessor: 1
       ShowStatChanges: 0
@@ -92,6 +94,7 @@ MonoBehaviour:
       Teams: 0
       MaxPlayersInTeam: 0
       MinPlayersInTeam: 0
+      AllowedMaps: 0b0000000900000089000000070000008f0000009000000008000000
       RankSorter: 0
       RankProcessor: 0
       ShowStatChanges: 1

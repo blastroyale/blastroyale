@@ -97,7 +97,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			var resourceInfo = new ResourcePoolInfo { WinnerRewardAmount = 10, CurrentAmount = 10 };
 
 			ResourceLogic.GetResourcePoolInfo(Arg.Any<GameId>()).Returns(resourceInfo);
-			InitConfigData(new QuantumMapConfig { Id = _matchData.MapId });
+			InitConfigData(new QuantumMapConfig { Map = (GameId) _matchData.MapId });
 			InitConfigData(new MatchRewardConfig { Placement = 1, Rewards = new GameIdUintDictionary { { GameId.CS, 100 }} });
 		}
 	}

@@ -50,7 +50,7 @@ namespace FirstLight.Game.Utils
 			public const string MIXER_GROUP_DIALOGUE_ID = "Dialogue";
 			public const string MIXER_GROUP_AMBIENT_ID = "Announcer";
 			
-			public const int SOUND_QUEUE_BREAK_MS = 200;
+			public const int SOUND_QUEUE_BREAK_MS = 150;
 			public const float SPATIAL_3D_THRESHOLD = 0.1f;
 			
 			public const float MIXER_SNAPSHOT_TRANSITION_SECONDS = 0.5f;

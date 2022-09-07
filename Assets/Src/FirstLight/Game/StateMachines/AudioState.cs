@@ -20,7 +20,7 @@ namespace FirstLight.Game.StateMachines
 	/// </summary>
 	public class AudioState
 	{
-		private const int VO_SINGLE_KILL_SFX_DUPLICATE_SECONDS = 15;
+		private const int VO_SINGLE_KILL_SFX_DUPLICATE_SECONDS = 12;
 		
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _gameDataProvider;
@@ -360,7 +360,9 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayerDead(EventOnPlayerDead callback)
 		{
-			_services.AudioFxService.PlayClip2D(AudioId.PlayerDeath);
+			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
+			
+			_services.AudioFxService.PlayClip3D(AudioId.PlayerDeath, entityView.transform.position);
 		}
 
 		private void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
@@ -431,7 +433,7 @@ namespace FirstLight.Game.StateMachines
 			_services.AudioFxService.PlayClip2D(killAudio);
 			_services.AudioFxService.PlayClipQueued2D(voMultiKillAudio);
 
-			if (callback.CurrentMultiKill <= 1 && DateTime.UtcNow < _voOneKillSfxAvailabilityTime)
+			if (callback.CurrentMultiKill <= 1 && DateTime.UtcNow >= _voOneKillSfxAvailabilityTime)
 			{
 				_services.AudioFxService.PlayClipQueued2D(voKillstreakAudio);
 				_voOneKillSfxAvailabilityTime = DateTime.UtcNow.AddSeconds(VO_SINGLE_KILL_SFX_DUPLICATE_SECONDS);

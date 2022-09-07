@@ -1,4 +1,4 @@
-#define TOTAL_STATS 5
+#define TOTAL_STATS 6
 
 component Stats
 {
@@ -20,6 +20,7 @@ enum StatType
 	Speed,
 	Armour,
 	Shield,
+	AttackRange,
 }
 
 struct StatData

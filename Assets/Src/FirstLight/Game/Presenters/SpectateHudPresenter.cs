@@ -12,17 +12,9 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This is responsible for displaying the screen during spectate mode,
 	/// that follows your killer around.
-	/// TODO: Once some time is put aside, all the rest of MatchHud elements should be made compaitble with spectator mode,
-	/// TODO: and this presenter should only have the spectate buttons.
 	/// </summary>
-	public class SpectateHudPresenter : UiPresenterData<SpectateHudPresenter.StateData>
+	public class SpectateHudPresenter : UiPresenter
 	{
-		public struct StateData
-		{
-			public Action OnLeaveClicked;
-		}
-
-		[SerializeField, Required] private Button _leaveButton;
 		[SerializeField, Required] private Button _nextPlayerButton;
 		[SerializeField, Required] private Button _previousPlayerButton;
 		[SerializeField, Required] private Button _camera1Button;

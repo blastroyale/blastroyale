@@ -349,17 +349,6 @@ namespace FirstLight.Game.Input
                 },
                 {
                     ""name"": """",
-                    ""id"": ""bdb062e8-cdf0-4004-9b65-b0d9cc9fc9bf"",
-                    ""path"": ""<Mouse>/middleButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Aim Button"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""fa4a40b8-8c2b-413b-bdc4-1b12054e5d04"",
                     ""path"": ""<OnscreenControlsDevice>/SpecialAimDirection"",
                     ""interactions"": """",
@@ -461,6 +450,17 @@ namespace FirstLight.Game.Input
                     ""name"": """",
                     ""id"": ""1a814264-8265-46cc-ba29-ca623cc13e10"",
                     ""path"": ""<OnScreenControlsDevice>/CancelPointerDown"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel Button"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0ac5cd63-339f-43bc-b259-8b9fce87e197"",
+                    ""path"": ""<Mouse>/middleButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

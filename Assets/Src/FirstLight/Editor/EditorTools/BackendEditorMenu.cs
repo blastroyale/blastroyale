@@ -5,6 +5,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using PlayFab;
+using PlayFab.PfEditor;
 using UnityEditor;
 using UnityEngine;
 
@@ -94,6 +95,13 @@ namespace FirstLight.Editor.EditorTools
 			{
 				var currentVersion = ulong.Parse(configVersion ?? "0");
 				var nextVersion = currentVersion + 1;
+				var title = PlayFabEditorDataService.ActiveTitle;
+				if(!EditorUtility.DisplayDialog("Confirm Version Update",
+					@$"Update configs from version {currentVersion} to {nextVersion} on environment {title.Name.ToUpper()} {title.Id.ToUpper()}?", "Confirm", "Cancel"))
+				{
+					return;
+				}
+				
 				var serialiezd = serializer.Serialize(configs, nextVersion.ToString());
 			
 				PlayFabShortcuts.SetTitleData(PlayfabConfigurationProvider.ConfigName, serialiezd);

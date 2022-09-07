@@ -55,7 +55,7 @@ namespace FirstLight.Tests.EditorMode
 			var messageBroker = new MessageBrokerService();
 			var timeService = new TimeService();
 			
-			TestUI = new StubGameUiService();
+			TestUI = new GameUiService(new UiAssetLoader());
 			TestNetwork = new GameNetworkService(TestConfigs);
 			var genericDialogService = new GenericDialogService(TestUI);
 			var audioFxService = new GameAudioFxService(TestAssetResolver);

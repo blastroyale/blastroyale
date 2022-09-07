@@ -20,9 +20,9 @@ namespace FirstLight.Editor.Build
 		/// <summary>
 		/// Set the internal version before building the app.
 		/// </summary>
-		public static void SetAndSaveInternalVersion(bool isDevelopmentBuild)
+		public static void SetAndSaveInternalVersion(bool isStoreBuild)
 		{
-			var newVersionData = GenerateInternalVersionSuffix(isDevelopmentBuild);
+			var newVersionData = GenerateInternalVersionSuffix(isStoreBuild);
 			var newVersionDataSerialized = JsonUtility.ToJson(newVersionData);
 			var oldVersionDataSerialized = VersionEditorUtils.LoadVersionDataSerializedSync();
 			if (newVersionDataSerialized.Equals(oldVersionDataSerialized, StringComparison.Ordinal))
@@ -57,10 +57,10 @@ namespace FirstLight.Editor.Build
 		[InitializeOnLoadMethod]
 		private static void OnEditorLoad()
 		{
-			SetAndSaveInternalVersion(true);
+			SetAndSaveInternalVersion(false);
 		}
 
-		private static VersionUtils.VersionData GenerateInternalVersionSuffix(bool isDevelopmentBuild)
+		private static VersionUtils.VersionData GenerateInternalVersionSuffix(bool isStoreBuild)
 		{
 			var data = new VersionUtils.VersionData();
 			
@@ -103,7 +103,7 @@ namespace FirstLight.Editor.Build
 			}
 
 			data.BuildNumber = PlayerSettings.iOS.buildNumber;
-			data.BuildType = isDevelopmentBuild ? "dev" : "prod";
+			data.BuildType = isStoreBuild ? "prod" : "dev";
 
 			return data;
 		}

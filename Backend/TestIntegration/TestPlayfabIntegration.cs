@@ -1,11 +1,17 @@
+using System.Collections.Generic;
+using System.Linq;
 using FirstLight.Game.Data;
 using NUnit.Framework;
 using FirstLight.Server.SDK.Services;
 using System.Threading.Tasks;
 using Backend.Game.Services;
+using FirstLight.Game.Commands;
+using FirstLight.Game.Configs;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using IntegrationTests.Setups;
+using Quantum;
+using Assert = NUnit.Framework.Assert;
 
 namespace IntegrationTests
 {
@@ -29,7 +35,40 @@ namespace IntegrationTests
 			var currentConfig = _server.GetService<IConfigsProvider>();
 
 			var fabConfig = new PlayfabConfigurationBackendService();
-			Assert.AreEqual(await fabConfig.GetVersion(), currentConfig.Version);
+			Assert.AreEqual(await fabConfig.GetRemoteVersion(), currentConfig.Version);
+		}
+
+		[Test]
+		public async Task TestPlayfabConfigUpdate()
+		{
+			var configs = _server.GetService<IConfigsProvider>() as PlayfabConfigurationProvider;
+
+			var levelConfigs = configs.GetAllConfigs()[typeof(PlayerLevelConfig)] as Dictionary<int, PlayerLevelConfig>;
+			
+			var currentVersion = configs.Version;
+			var deprecatedVersion = currentVersion - 1;
+			
+			// simulating outdated configs
+			var levelConfig = levelConfigs[1];
+			var oldValue = levelConfig.LevelUpXP;
+			levelConfig.LevelUpXP = oldValue / 2;
+			levelConfigs[1] = levelConfig;
+			configs.UpdateTo(deprecatedVersion, configs.GetAllConfigs());
+
+			var levelConfigsAfter = configs.GetAllConfigs()[typeof(PlayerLevelConfig)] as Dictionary<int, PlayerLevelConfig>;
+			var firstConfig = levelConfigsAfter[1];
+			Assert.That(firstConfig.LevelUpXP != oldValue);
+			Assert.That(configs.Version == deprecatedVersion);
+			
+			// Sending a command should trigger the update
+			_server.SendTestCommand(new UpdatePlayerSkinCommand()
+			{
+				SkinId = GameId.Female01Avatar
+			});
+			
+			firstConfig = configs.GetConfigsList<PlayerLevelConfig>().First();
+			Assert.That(firstConfig.LevelUpXP == oldValue);
+			Assert.That(configs.Version == currentVersion);
 		}
 
 		/// <summary>

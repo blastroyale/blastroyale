@@ -21,9 +21,10 @@ namespace FirstLight.Game.Logic
 		IObservableFieldReader<uint> CurrentPoints { get; }
 
 		/// <summary>
-		/// Tells you if there are any points to redeem for levels and rewards.
+		/// Tells you if there are any points to redeem for levels and rewards, and gives you required points for
+		/// the next level.
 		/// </summary>
-		bool IsRedeemable();
+		bool IsRedeemable( out uint nextLevelPoints);
 	}
 
 	/// <inheritdoc />
@@ -63,9 +64,12 @@ namespace FirstLight.Game.Logic
 			_currentPoints = new ObservableResolverField<uint>(() => Data.BPPoints, val => Data.BPPoints = val);
 		}
 
-		public bool IsRedeemable()
+		public bool IsRedeemable(out uint nextLevelPoints)
 		{
 			var config = GameLogic.ConfigsProvider.GetConfig<BattlePassConfig>();
+
+			nextLevelPoints = config.PointsPerLevel;
+			
 			return config.PointsPerLevel < _currentPoints.Value;
 		}
 

@@ -13,41 +13,39 @@ MonoBehaviour:
   m_Name: BattlePassRewardConfigs
   m_EditorClassIdentifier: 
   _configs:
-    _keyData: 0000000001000000
-    _valueData:
-    - Id: 0
-      Reward:
-        Adjective: 0
-        Durability: 100
-        Edition: 0
-        Faction: 0
-        GameId: 71
-        Generation: 0
-        Grade: 4
-        InitialReplicationCounter: 0
-        Level: 0
-        Manufacturer: 0
-        Material: 0
-        MaxDurability: 100
-        MaxLevel: 10
-        Rarity: 0
-        ReplicationCounter: 0
-        Tuning: 0
-    - Id: 1
-      Reward:
-        Adjective: 0
-        Durability: 100
-        Edition: 0
-        Faction: 0
-        GameId: 78
-        Generation: 0
-        Grade: 4
-        InitialReplicationCounter: 0
-        Level: 0
-        Manufacturer: 0
-        Material: 0
-        MaxDurability: 100
-        MaxLevel: 10
-        Rarity: 0
-        ReplicationCounter: 0
-        Tuning: 0
+  - Id: 0
+    Reward:
+      Adjective: 0
+      Durability: 100
+      Edition: 0
+      Faction: 0
+      GameId: 71
+      Generation: 0
+      Grade: 4
+      InitialReplicationCounter: 0
+      Level: 0
+      Manufacturer: 0
+      Material: 0
+      MaxDurability: 100
+      MaxLevel: 10
+      Rarity: 0
+      ReplicationCounter: 0
+      Tuning: 0
+  - Id: 1
+    Reward:
+      Adjective: 0
+      Durability: 100
+      Edition: 0
+      Faction: 0
+      GameId: 78
+      Generation: 0
+      Grade: 4
+      InitialReplicationCounter: 0
+      Level: 0
+      Manufacturer: 0
+      Material: 0
+      MaxDurability: 100
+      MaxLevel: 10
+      Rarity: 0
+      ReplicationCounter: 0
+      Tuning: 0

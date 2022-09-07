@@ -47,27 +47,20 @@ namespace FirstLight.Game.Logic
 	{
 		private IObservableList<RewardData> _unclaimedRewards;
 
-		/// <inheritdoc />
 		public IObservableListReader<RewardData> UnclaimedRewards => _unclaimedRewards;
-
-		private QuantumGameConfig GameConfig => GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
 
 		public RewardLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
 		{
 		}
 
-		/// <inheritdoc />
 		public void Init()
 		{
 			_unclaimedRewards = new ObservableList<RewardData>(Data.UncollectedRewards);
 		}
 
-		/// <inheritdoc />
 		public List<RewardData> CalculateMatchRewards(MatchType matchType, QuantumPlayerMatchData matchData,
 		                                              bool didPlayerQuit)
 		{
-			var gameModeConfig =
-				GameLogic.ConfigsProvider.GetConfig<QuantumGameModeConfig>(matchData.GameModeId.GetHashCode());
 			var rewards = new List<RewardData>();
 
 			// Currently, there is no plan on giving rewards on anything but BR mode
@@ -101,30 +94,38 @@ namespace FirstLight.Game.Logic
 
 			if (matchType == MatchType.Ranked)
 			{
-				CalculatePoolReward(rewards, rewardConfig, GameId.CS);
+				GiveCSReward(rewards, rewardConfig);
 			}
 
 			if (matchType is MatchType.Ranked or MatchType.Casual)
 			{
-				CalculatePoolReward(rewards, rewardConfig, GameId.BPP);
+				GiveBPPReward(rewards, rewardConfig);
 			}
 
 			return rewards;
 		}
 
-		private void CalculatePoolReward(ICollection<RewardData> rewards, MatchRewardConfig rewardConfig, GameId resourceId)
+		private void GiveCSReward(ICollection<RewardData> rewards, MatchRewardConfig rewardConfig)
 		{
-			var rewardPair = rewardConfig.Rewards.FirstOrDefault(x => x.Key == resourceId);
+			var rewardPair = rewardConfig.Rewards.FirstOrDefault(x => x.Key == GameId.CS);
 			var percent = rewardPair.Value / 100d;
 			// rewardPair.Value is the absolute percent of the max take that people will be awarded
 
-			var info = GameLogic.ResourceLogic.GetResourcePoolInfo(resourceId);
+			var info = GameLogic.ResourceLogic.GetResourcePoolInfo(GameId.CS);
 			var take = (uint) Math.Ceiling(info.WinnerRewardAmount * percent);
 			var withdrawn = (int) Math.Min(info.CurrentAmount, take);
 
 			if (withdrawn > 0)
 			{
-				rewards.Add(new RewardData(resourceId, withdrawn));
+				rewards.Add(new RewardData(GameId.CS, withdrawn));
+			}
+		}
+
+		private void GiveBPPReward(ICollection<RewardData> rewards, MatchRewardConfig rewardConfig)
+		{
+			if (rewardConfig.Rewards.TryGetValue(GameId.BPP, out var amount))
+			{
+				rewards.Add(new RewardData(GameId.BPP, (int) amount));
 			}
 		}
 

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.AssetConfigs;
@@ -128,6 +129,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeEvents()
 		{
+			QuantumEvent.SubscribeManual<EventOnNewShrinkingCircle>(this, OnNewShrinkingCircle);
 			QuantumEvent.SubscribeManual<EventOnPlayerSkydiveDrop>(this, OnPlayerSkydiveDrop);
 			QuantumEvent.SubscribeManual<EventOnPlayerDamaged>(this, OnPlayerDamaged);
 			QuantumEvent.SubscribeManual<EventOnPlayerAttack>(this, OnPlayerAttack);
@@ -329,6 +331,31 @@ namespace FirstLight.Game.StateMachines
 		{
 			CheckClips(nameof(EventOnAirDropCollected), callback.Entity);
 		}
+		
+		private void OnNewShrinkingCircle(EventOnNewShrinkingCircle callback)
+		{
+			if (callback.ShrinkingCircle.Step == 1) return;
+			
+			var allConfigs = _services.ConfigsProvider.GetConfigsList<QuantumShrinkingCircleConfig>();
+			var config = allConfigs[callback.ShrinkingCircle.Step];
+
+			_services.CoroutineService.StartCoroutine(WaitForCircleShrinkCoroutine(config.Step, allConfigs.Count,
+				                                          config.DelayTime.AsFloat + config.WarningTime.AsFloat));
+		}
+
+		private IEnumerator WaitForCircleShrinkCoroutine(int step, int maxStep, float delay)
+		{
+			yield return new WaitForSeconds(delay);
+			
+			if (step != maxStep)
+			{
+				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_CircleClose);
+			}
+			else
+			{
+				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_CircleLastClose);
+			}
+		}
 
 		private void OnAirdropDropped(EventOnAirDropDropped callback)
 		{
@@ -360,9 +387,14 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayerDead(EventOnPlayerDead callback)
 		{
-			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
+			if (_matchServices.SpectateService.SpectatedPlayer.Value.Entity != callback.Entity) return;
 			
-			_services.AudioFxService.PlayClip3D(AudioId.PlayerDeath, entityView.transform.position);
+			_services.AudioFxService.PlayClip2D(AudioId.PlayerDeath);
+			
+			if (QuantumRunner.Default.Game.PlayerIsLocal(callback.Player))
+			{
+				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_OnDeath);
+			}
 		}
 
 		private void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
@@ -379,6 +411,8 @@ namespace FirstLight.Game.StateMachines
 			{
 				case 1:
 					killAudio = AudioId.PlayerKillLevel1;
+					
+					// TODO KILLS1, OR TECHNICIAN
 					voMultiKillAudio = AudioId.Vo_Kills1;
 					break;
 
@@ -430,6 +464,7 @@ namespace FirstLight.Game.StateMachines
 					break;
 			}
 
+			// TODO - CLUTCH IF LOW HP KILL, AND TIMER
 			_services.AudioFxService.PlayClip2D(killAudio);
 			_services.AudioFxService.PlayClipQueued2D(voMultiKillAudio);
 

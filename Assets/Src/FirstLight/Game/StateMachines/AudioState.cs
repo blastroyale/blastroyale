@@ -30,7 +30,8 @@ namespace FirstLight.Game.StateMachines
 		private IMatchServices _matchServices;
 		private List<LoopedAudioClip> _currentClips = new List<LoopedAudioClip>();
 		private DateTime _voOneKillSfxAvailabilityTime = DateTime.UtcNow;
-
+		private DateTime _voClutchSfxAvailabilityTime = DateTime.UtcNow;
+		
 		public AudioState(IGameDataProvider gameLogic, IGameServices services,
 		                  Action<IStatechartEvent> statechartTrigger)
 		{
@@ -410,25 +411,13 @@ namespace FirstLight.Game.StateMachines
 			var killAudio = AudioId.None;
 			var voMultiKillAudio = AudioId.None;
 			var voKillstreakAudio = AudioId.None;
-			var isClutchKill = false;
 
 			// Kill SFX
 			switch (callback.CurrentMultiKill)
 			{
 				case 1:
 					killAudio = AudioId.PlayerKillLevel1;
-					
-					// Clutch or normal kill
-					if (frame.TryGet<Stats>(callback.EntityKiller, out Stats stats) && 
-					    stats.CurrentHealth < GameConstants.Audio.LOW_HP_CLUTCH_THERSHOLD)
-					{
-						isClutchKill = true;
-						voMultiKillAudio = AudioId.Vo_KillLowHp;
-					}
-					else
-					{
-						voMultiKillAudio = AudioId.Vo_Kills1;
-					}
+					voMultiKillAudio = AudioId.Vo_Kills1;
 					break;
 
 				case 2:
@@ -488,12 +477,25 @@ namespace FirstLight.Game.StateMachines
 			{
 				_services.AudioFxService.PlayClipQueued2D(voMultiKillAudio);
 			}
-			else if (isClutchKill || (callback.CurrentMultiKill <= 1 && DateTime.UtcNow >= _voOneKillSfxAvailabilityTime))
+			else if (callback.CurrentMultiKill <= 1 && DateTime.UtcNow >= _voOneKillSfxAvailabilityTime)
 			{
 				_services.AudioFxService.PlayClipQueued2D(voMultiKillAudio);
 				_voOneKillSfxAvailabilityTime = DateTime.UtcNow.AddSeconds(GameConstants.Audio.VO_DUPLICATE_SFX_PREVENTION_SECONDS);
 			}
 			
+			// Clutch announcer
+			var stats = frame.Get<Stats>(callback.EntityKiller);
+			var maxHealth = stats.Values[(int) StatType.Health].StatValue.AsInt;
+			var maxShield = stats.Values[(int) StatType.Shield].StatValue.AsInt;
+			var percent = (maxHealth + maxShield) / (stats.CurrentHealth + stats.CurrentShield);
+			
+			if (percent <= GameConstants.Audio.LOW_HP_CLUTCH_THERSHOLD_PERCENT &&
+			    DateTime.UtcNow >= _voClutchSfxAvailabilityTime) 
+			{
+				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_KillLowHp);
+				_voClutchSfxAvailabilityTime = DateTime.UtcNow.AddSeconds(GameConstants.Audio.VO_DUPLICATE_SFX_PREVENTION_SECONDS);
+			}
+
 			// Killstreak announcer
 			_services.AudioFxService.PlayClipQueued2D(voKillstreakAudio);
 		}

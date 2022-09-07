@@ -72,7 +72,7 @@ namespace FirstLight.Game.Utils
 			public const float BR_HIGH_PHASE_PLAYERS_LEFT_THRESHOLD = 2;
 			public const float HIGH_LOOP_TRANSITION_DELAY = 2f;
 			
-			public const int LOW_HP_CLUTCH_THERSHOLD = 100;
+			public const float LOW_HP_CLUTCH_THERSHOLD_PERCENT = 0.1f;
 			public const int VO_DUPLICATE_SFX_PREVENTION_SECONDS = 12;
 		}
 

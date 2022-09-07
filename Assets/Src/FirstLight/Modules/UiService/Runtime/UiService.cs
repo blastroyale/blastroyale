@@ -166,7 +166,6 @@ namespace FirstLight.UiService
 			}
 
 			var layer = AddLayer(config.Layer);
-
 			var gameObject = await _assetLoader.InstantiatePrefabAsync(config.AddressableAddress, layer.transform, false);
 
 			// Double check if the same UiPresenter was already loaded. This can happen if the coder spam calls LoadUiAsync
@@ -223,6 +222,14 @@ namespace FirstLight.UiService
 		}
 
 		/// <inheritdoc />
+		public async Task<T> GetUiAsync<T>() where T : UiPresenter
+		{
+			var presenter = await GetUiAsync(typeof(T));
+			
+			return presenter as T;
+		}
+
+		/// <inheritdoc />
 		public T GetUi<T>() where T : UiPresenter
 		{
 			return GetUi(typeof(T)) as T;
@@ -236,6 +243,7 @@ namespace FirstLight.UiService
 			return presenter.Presenter;
 		}
 		
+		/// <inheritdoc />
 		public UiPresenter GetUi(Type type)
 		{
 			var presenter = GetReference(type);
@@ -250,6 +258,14 @@ namespace FirstLight.UiService
 		}
 
 		/// <inheritdoc />
+		public async Task<T> OpenUiAsync<T>(bool openedException = false) where T : UiPresenter
+		{
+			await GetUiAsync<T>();
+
+			return OpenUi<T>(openedException);
+		}
+
+		/// <inheritdoc />
 		public T OpenUi<T>(bool openedException = false) where T : UiPresenter
 		{
 			return OpenUi(typeof(T), openedException) as T;
@@ -258,21 +274,12 @@ namespace FirstLight.UiService
 		/// <inheritdoc />
 		public async Task<UiPresenter> OpenUiAsync(Type type, bool openedException = false)
 		{
-			var ui = await GetUiAsync(type);
-
-			if (!_visibleUiList.Contains(type))
-			{
-				ui.InternalOpen();
-				_visibleUiList.Add(type);
-			}
-			else if(openedException)
-			{
-				throw new InvalidOperationException($"Is trying to open the {type.Name} ui but is already open");
-			}
+			await GetUiAsync(type);
 			
-			return ui;
+			return OpenUi(type, openedException);
 		}
 		
+		/// <inheritdoc />
 		public UiPresenter OpenUi(Type type, bool openedException = false)
 		{
 			var ui = GetUi(type);
@@ -324,16 +331,9 @@ namespace FirstLight.UiService
 		/// <inheritdoc />
 		public async Task<UiPresenter> OpenUiAsync<TData>(Type type, TData initialData, bool openedException = false) where TData : struct
 		{
-			var uiPresenterData = await GetUiAsync(type) as UiPresenterData<TData>;
+			await GetUiAsync(type);
 
-			if (uiPresenterData == null)
-			{
-				throw new ArgumentException($"The UiPresenter {type} is not of a {nameof(UiPresenterData<TData>)}");
-			}
-			
-			uiPresenterData.InternalSetData(initialData);
-
-			return await OpenUiAsync(type, openedException);
+			return OpenUi(type, initialData, openedException);
 		}
 
 		/// <inheritdoc />

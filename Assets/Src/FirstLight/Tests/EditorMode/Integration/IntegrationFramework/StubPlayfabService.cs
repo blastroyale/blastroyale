@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using FirstLight.Game.Services;
+using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using PlayFab;
 using PlayFab.ClientModels;
@@ -38,6 +39,11 @@ namespace FirstLight.Tests.EditorMode
 		}
 
 		public void GetTitleData(string key, Action<string> result)
+		{
+			
+		}
+
+		public void FetchServerState(Action<ServerState> callback)
 		{
 			
 		}

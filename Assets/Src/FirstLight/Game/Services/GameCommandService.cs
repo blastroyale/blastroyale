@@ -10,6 +10,7 @@ using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Utils;
 using FirstLight.NativeUi;
 using FirstLight.Server.SDK.Modules;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using Newtonsoft.Json;
 using Photon.Realtime;
@@ -70,24 +71,29 @@ namespace FirstLight.Game.Services
 		/// Field about the version the game client is currently running
 		/// </summary>
 		public static readonly string ClientVersion = nameof(ClientVersion);
+		
+		/// <summary>
+		/// Field that represents the client configuration version
+		/// </summary>
+		public static readonly string ConfigurationVersion = nameof(ConfigurationVersion);
 	}
 
 	/// <inheritdoc />
 	public class GameCommandService : IGameCommandService
 	{
-		private readonly IDataProvider _dataProvider;
+		private readonly IDataService _dataService;
 		private readonly IGameLogic _gameLogic;
 		private readonly IGameServices _services;
 		private readonly Queue<IGameCommand> _commandQueue;
 		private readonly IPlayfabService _playfab;
 		private readonly IGameNetworkService _network;
 		
-		public GameCommandService(IPlayfabService playfabService, IGameLogic gameLogic, IDataProvider dataProvider,
+		public GameCommandService(IPlayfabService playfabService, IGameLogic gameLogic, IDataService dataService,
 		                          IGameServices services, IGameNetworkService network)
 		{
 			_playfab = playfabService;
 			_gameLogic = gameLogic;
-			_dataProvider = dataProvider;
+			_dataService = dataService;
 			_services = services;
 			_commandQueue = new Queue<IGameCommand>();
 			_network = network;
@@ -110,6 +116,23 @@ namespace FirstLight.Game.Services
 				(int)QuantumCustomEvents.ConsensusCommand, Encoding.UTF8.GetBytes($"{json.Key}:{json.Value}"), opt, SendOptions.SendReliable
 			);
 		}
+		
+		/// <summary>
+		/// Fetches current server state and override client's state.
+		/// Will not cause a UI refresh.
+		/// </summary>
+		private void RollbackToServerState<TCommand>(TCommand lastCommand) where TCommand : IGameCommand
+		{
+			_playfab.FetchServerState(state =>
+			{
+				_dataService.AddData(state.DeserializeModel<PlayerData>());
+				_dataService.AddData(state.DeserializeModel<RngData>());
+				_dataService.AddData(state.DeserializeModel<EquipmentData>());
+				_dataService.AddData(state.DeserializeModel<IdData>());
+				FLog.Verbose("Fetched user state from server");
+				OnServerExecutionFinished(lastCommand);
+			});
+		}
 
 		/// <inheritdoc cref="CommandService{TGameLogic}.ExecuteCommand{TCommand}" />
 		public void ExecuteCommand<TCommand>(TCommand command) where TCommand : struct, IGameCommand
@@ -131,7 +154,7 @@ namespace FirstLight.Game.Services
 						EnqueueCommandToServer(command);
 						break;
 				}
-				command.Execute(_gameLogic, _dataProvider);
+				command.Execute(_gameLogic, _dataService);
 			}
 			catch (Exception e)
 			{
@@ -167,10 +190,10 @@ namespace FirstLight.Game.Services
 		{
 			EnqueueCommandToServer(new ForceUpdateCommand()
 			{
-				IdData = _dataProvider.GetData<IdData>(),
-				RngData = _dataProvider.GetData<RngData>(),
-				PlayerData = _dataProvider.GetData<PlayerData>(),
-				EquipmentData = _dataProvider.GetData<EquipmentData>()
+				IdData = _dataService.GetData<IdData>(),
+				RngData = _dataService.GetData<RngData>(),
+				PlayerData = _dataService.GetData<PlayerData>(),
+				EquipmentData = _dataService.GetData<EquipmentData>()
 			});
 		}
 
@@ -213,7 +236,8 @@ namespace FirstLight.Game.Services
 				{
 					{CommandFields.Command, ModelSerializer.Serialize(command).Value},
 					{CommandFields.Timestamp, DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString()},
-					{CommandFields.ClientVersion, VersionUtils.VersionExternal}
+					{CommandFields.ClientVersion, VersionUtils.VersionExternal},
+					{CommandFields.ConfigurationVersion, _gameLogic.ConfigsProvider.Version.ToString()}
 				}
 			};
 			_playfab.CallFunction("ExecuteCommand", OnCommandSuccess, OnCommandError, request);
@@ -228,6 +252,18 @@ namespace FirstLight.Game.Services
 			_commandQueue.Clear(); 	// clear to make easier for testing
 #endif
 			_playfab.HandleError(error);
+		}
+
+		private void UpdateConfiguration(ulong serverVersion, IGameCommand lastCommand)
+		{
+			var configAdder = _gameLogic.ConfigsProvider as IConfigsAdder;
+			_playfab.GetTitleData(PlayfabConfigurationProvider.ConfigName, configString =>
+			{
+				var updatedConfig = new ConfigsSerializer().Deserialize<ConfigsProvider>(configString);
+				configAdder.UpdateTo(serverVersion, updatedConfig.GetAllConfigs());
+				FLog.Info($"Updated game configs to version {serverVersion}");
+				RollbackToServerState(lastCommand);
+			});
 		}
 
 		/// <summary>
@@ -245,6 +281,17 @@ namespace FirstLight.Game.Services
 			if (logicResult.Result.Data.TryGetValue("LogicException", out var logicException))
 			{
 				throw new LogicException(logicException);
+			}
+			if (FeatureFlags.REMOTE_CONFIGURATION && 
+			    logicResult.Result.Data.TryGetValue(CommandFields.ConfigurationVersion, out var serverConfigVersion))
+			{
+				var serverVersionNumber = ulong.Parse(serverConfigVersion);
+				if (serverVersionNumber > _gameLogic.ConfigsProvider.Version)
+				{
+					FLog.Verbose("Client configs outdated, updating !");
+					UpdateConfiguration(serverVersionNumber, current);
+					return;
+				}
 			}
 			OnServerExecutionFinished(current);
 		}

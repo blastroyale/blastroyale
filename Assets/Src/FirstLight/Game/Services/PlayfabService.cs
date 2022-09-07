@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
+using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using Newtonsoft.Json;
@@ -50,6 +52,11 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		void GetTitleData(string key, Action<string> result);
 
+		/// <summary>
+		/// Obtains the server state of the logged in player
+		/// </summary>
+		void FetchServerState(Action<ServerState> callback);
+		
 		/// <summary>
 		/// Handles when a request errors out on playfab.
 		/// </summary>
@@ -145,6 +152,17 @@ namespace FirstLight.Game.Services
 				ErrorCode = (HttpStatusCode) error.HttpCode,
 				Message = descriptiveError
 			});
+		}
+		
+		public void FetchServerState(Action<ServerState> callback)
+		{
+			PlayFabClientAPI.GetUserReadOnlyData(new GetUserDataRequest(), result =>
+			{
+				callback(new ServerState(result.Data.ToDictionary(
+					entry => entry.Key,
+					entry => entry.Value.Value)
+				));
+			}, HandleError);
 		}
 
 		/// <summary>

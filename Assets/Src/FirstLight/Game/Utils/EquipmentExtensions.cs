@@ -69,10 +69,10 @@ namespace FirstLight.Game.Utils
 				          QuantumStatCalculator.CalculateStat(configs.GetConfig<QuantumStatConfig>((int) StatType.Power), 
 				                                              baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
 				stats.Add(EquipmentStatType.TargetRange,
-						  QuantumStatCalculator.CalculateStat(configs.GetConfig<QuantumStatConfig>((int)StatType.AttackRange),
+						  QuantumStatCalculator.CalculateStat(configs.GetConfig<QuantumStatConfig>((int) StatType.AttackRange),
 															  baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
 				stats.Add(EquipmentStatType.PickupSpeed,
-						  QuantumStatCalculator.CalculateStat(configs.GetConfig<QuantumStatConfig>((int)StatType.PickupSpeed),
+						  QuantumStatCalculator.CalculateStat(configs.GetConfig<QuantumStatConfig>((int) StatType.PickupSpeed),
 															  baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
 			}
 

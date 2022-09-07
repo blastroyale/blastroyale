@@ -63,7 +63,7 @@ namespace FirstLight.Game.Ids
 		HitShieldDamage,
 		ShieldBreak,
 	
-		PlayerKill,
+		PlayerKillLevel1,
 		PlayerDeath,
 		ExplosionSmall,
 		ExplosionMedium,
@@ -153,7 +153,7 @@ namespace FirstLight.Game.Ids
 		Vo_Victory,
 		Vo_PerfectVictory,
 		Vo_OnDeath,
-		Vo_OnKill,
+		Vo_Kills1,
 		Vo_Kills2,
 		Vo_Kills3,
 		Vo_Kills4,
@@ -175,7 +175,14 @@ namespace FirstLight.Game.Ids
 		Vo_AirdropComing,
 		Vo_AirdropLanded,
 		Vo_LeaderboardTop,
-		Vo_LeaderboardOvertaken
+		Vo_LeaderboardOvertaken,
+		
+		// Late additions
+		PlayerKillLevel2,
+		PlayerKillLevel3,
+		PlayerKillLevel4,
+		PlayerKillLevel5,
+		PlayerKillLevel6
 	}
 	
 	/// <summary>

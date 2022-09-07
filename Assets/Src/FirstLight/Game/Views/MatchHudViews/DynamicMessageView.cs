@@ -55,14 +55,14 @@ namespace FirstLight.Game.Views.MatchHudViews
 				message.gameObject.SetActive(false);
 			}
 			
-			QuantumEvent.Subscribe<EventOnCombatDataPlayerKilledPlayer>(this, OnCombatDataPlayerKilledPlayer, onlyIfActiveAndEnabled: true);
+			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer, onlyIfActiveAndEnabled: true);
 			QuantumEvent.Subscribe<EventOnAirDropDropped>(this, OnAirDropDropped);
 		}
 
 		/// <summary>
 		/// Handles Double Kills, Multi Kills, Killing Sprees.
 		/// </summary>
-		private void OnCombatDataPlayerKilledPlayer(EventOnCombatDataPlayerKilledPlayer callback)
+		private void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
 			/*var leaderData = callback.PlayersMatchData.Find(data => data.Data.Player.Equals(callback.PlayerLeader));
 			var killerData = callback.PlayersMatchData.Find(data => data.Data.Player.Equals(callback.PlayerKiller));
@@ -79,6 +79,60 @@ namespace FirstLight.Game.Views.MatchHudViews
 				};
 					
 				EnqueueMessage(messageData);
+			}
+			
+			CheckKillingSpree(killerData, deadData);*/
+		}
+		
+		private void CheckKillingSpree(QuantumPlayerMatchData killerData, QuantumPlayerMatchData deadData)
+		{
+			/*if (_matchServices.SpectateService.SpectatedPlayer.Value.Player == killerData.Data.Player)
+			{
+				var message = new MessageData
+				{
+					MessageEntry = _messages[Random.Range(0, _messages.Count)]
+				};
+				
+				_killCounter++;
+				
+				if (_killCounter == _doubleKillCount)
+				{
+					message.TopText = ScriptLocalization.AdventureMenu.Double;
+					message.BottomText = ScriptLocalization.AdventureMenu.Kill;
+				}
+				else if (_killCounter == _multiKillCount)
+				{
+					message.TopText = ScriptLocalization.AdventureMenu.Multi;
+					message.BottomText = ScriptLocalization.AdventureMenu.Kill;
+				}
+				else if (_killCounter > _killingSpreeCount)
+				{
+					message.TopText = ScriptLocalization.AdventureMenu.Killing;
+					message.BottomText = ScriptLocalization.AdventureMenu.Spree;
+				}
+
+				if (_killCounter > 1)
+				{
+					EnqueueMessage(message);
+				}
+				else
+				{
+					message.TopText = ScriptLocalization.AdventureMenu.YouKilledPlayer;
+					message.BottomText = deadData.GetPlayerName();
+					
+					EnqueueMessage(message);
+				}
+				
+				StopTimerCoroutine();
+				
+				_killTimerCoroutine = StartCoroutine(TimeUpdateCoroutine());
+			}
+			
+			if (_matchServices.SpectateService.SpectatedPlayer.Value.Player == deadData.Data.Player)
+			{
+				_killCounter = 0;
+
+				StopTimerCoroutine();
 			}*/
 		}
 		

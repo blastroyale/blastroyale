@@ -21,6 +21,9 @@ namespace Quantum.Systems
 			{
 				dataPointer->FirstDeathTime = f.Time;
 			}
+			
+			dataPointer->CurrentKillStreak = 0;
+			dataPointer->CurrentMultiKill = 0;
 		}
 
 		/// <inheritdoc />
@@ -31,7 +34,21 @@ namespace Quantum.Systems
 			
 			if (playerDead != playerKiller)
 			{
-				gameContainer->PlayersData.GetPointer(playerKiller)->PlayersKilledCount++;
+				var killerData = gameContainer->PlayersData.GetPointer(playerKiller);
+				
+				killerData->PlayersKilledCount++;
+				killerData->CurrentKillStreak++;
+
+				if (f.Time <= killerData->MultiKillResetTime)
+				{
+					killerData->CurrentMultiKill++;
+				}
+				else
+				{
+					killerData->CurrentMultiKill = 1;
+				}
+
+				killerData->MultiKillResetTime = f.Time + f.GameConfig.MultiKillResetTime;
 			}
 			else
 			{

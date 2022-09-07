@@ -20,7 +20,7 @@ enum StatType
 	Speed,
 	Armour,
 	Shield,
-    AttackRange,
+	AttackRange,
 }
 
 struct StatData

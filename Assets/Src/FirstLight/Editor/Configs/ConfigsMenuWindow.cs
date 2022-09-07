@@ -148,15 +148,11 @@ namespace FirstLight.Editor.Configs
 		{
 			private readonly TAsset _asset;
 
-			[ShowInInspector, HideLabel]
+			[ShowInInspector, HideLabel, OnValueChanged("@EditorUtility.SetDirty(_asset)", IncludeChildren = true)]
 			public TConfig Config
 			{
 				get => _asset.Config;
-				set
-				{
-					_asset.Config = value;
-					EditorUtility.SetDirty(_asset);
-				}
+				set => _asset.Config = value;
 			}
 
 			public QuantumSingleConfigWrapper(TAsset asset)
@@ -170,15 +166,11 @@ namespace FirstLight.Editor.Configs
 		{
 			private readonly TAsset _asset;
 
-			[ShowInInspector, HideLabel]
+			[ShowInInspector, HideLabel, OnValueChanged("@EditorUtility.SetDirty(_asset)", IncludeChildren = true)]
 			public List<TConfig> Configs
 			{
 				get => _asset.Configs;
-				set
-				{
-					_asset.Configs = value;
-					EditorUtility.SetDirty(_asset);
-				}
+				set => _asset.Configs = value;
 			}
 
 			public QuantumConfigWrapper(TAsset asset)

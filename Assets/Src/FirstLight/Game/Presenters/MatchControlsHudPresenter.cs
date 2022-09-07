@@ -60,6 +60,7 @@ namespace FirstLight.Game.Presenters
 		protected override void OnOpened()
 		{
 			_services.PlayerInputService.EnableInput();
+			QuantumCallback.Subscribe<CallbackGameStarted>(this, OnGameStart);
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, OnUpdateView);
 			QuantumCallback.Subscribe<CallbackPollInput>(this, PollInput);
 		}
@@ -195,6 +196,13 @@ namespace FirstLight.Game.Presenters
 		private void OnUpdateView(CallbackUpdateView callback)
 		{
 			_indicatorContainerView.OnUpdate(callback.Game.Frames.Predicted);
+		}
+
+		private void OnGameStart(CallbackGameStarted callback)
+		{
+			MMVibrationManager.ContinuousHaptic(GameConstants.Haptics.GAME_START_INTENSITY, 
+			                                    GameConstants.Haptics.GAME_START_SHARPNESS, 
+			                                    GameConstants.Haptics.GAME_START_DURATION);
 		}
 
 		private void OnGameResync(CallbackGameResynced callback)

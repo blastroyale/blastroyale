@@ -71,6 +71,9 @@ namespace FirstLight.Game.Utils
 			public const float DM_HIGH_PHASE_KILLS_LEFT_THRESHOLD = 3;
 			public const float BR_HIGH_PHASE_PLAYERS_LEFT_THRESHOLD = 2;
 			public const float HIGH_LOOP_TRANSITION_DELAY = 2f;
+			
+			public const int LOW_HP_CLUTCH_THERSHOLD = 100;
+			public const int VO_DUPLICATE_SFX_PREVENTION_SECONDS = 12;
 		}
 
 		public static class Notifications
@@ -174,6 +177,11 @@ namespace FirstLight.Game.Utils
 
 			// Duration of haptic feedback when player is damaged
 			public const float DAMAGE_DURATION = 0.05f;
+			
+			// Duration of haptic feedback when player is damaged
+			public const float GAME_START_DURATION = 0.25f;
+			public const float GAME_START_INTENSITY = 1f;
+			public const float GAME_START_SHARPNESS = 1f;
 		}
 	}
 }

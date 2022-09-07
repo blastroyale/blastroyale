@@ -21,8 +21,6 @@ namespace FirstLight.Game.StateMachines
 	/// </summary>
 	public class AudioState
 	{
-		private const int VO_SINGLE_KILL_SFX_DUPLICATE_SECONDS = 12;
-
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _gameDataProvider;
 		private readonly AudioBattleRoyaleState _audioBrState;
@@ -412,15 +410,25 @@ namespace FirstLight.Game.StateMachines
 			var killAudio = AudioId.None;
 			var voMultiKillAudio = AudioId.None;
 			var voKillstreakAudio = AudioId.None;
+			var isClutchKill = false;
 
 			// Kill SFX
 			switch (callback.CurrentMultiKill)
 			{
 				case 1:
 					killAudio = AudioId.PlayerKillLevel1;
-
-					// TODO KILLS1, OR TECHNICIAN
-					voMultiKillAudio = AudioId.Vo_Kills1;
+					
+					// Clutch or normal kill
+					if (frame.TryGet<Stats>(callback.EntityKiller, out Stats stats) && 
+					    stats.CurrentHealth < GameConstants.Audio.LOW_HP_CLUTCH_THERSHOLD)
+					{
+						isClutchKill = true;
+						voMultiKillAudio = AudioId.Vo_KillLowHp;
+					}
+					else
+					{
+						voMultiKillAudio = AudioId.Vo_Kills1;
+					}
 					break;
 
 				case 2:
@@ -472,23 +480,22 @@ namespace FirstLight.Game.StateMachines
 					break;
 			}
 
+			// Kill SFX
+			_services.AudioFxService.PlayClip2D(killAudio);
+			
 			// Multikill announcer
 			if (callback.CurrentMultiKill > 1)
 			{
 				_services.AudioFxService.PlayClipQueued2D(voMultiKillAudio);
 			}
-			else if (callback.CurrentMultiKill <= 1 && DateTime.UtcNow >= _voOneKillSfxAvailabilityTime && Random.Range(0,2) == 0)
+			else if (isClutchKill || (callback.CurrentMultiKill <= 1 && DateTime.UtcNow >= _voOneKillSfxAvailabilityTime))
 			{
 				_services.AudioFxService.PlayClipQueued2D(voMultiKillAudio);
-				_voOneKillSfxAvailabilityTime = DateTime.UtcNow.AddSeconds(VO_SINGLE_KILL_SFX_DUPLICATE_SECONDS);
+				_voOneKillSfxAvailabilityTime = DateTime.UtcNow.AddSeconds(GameConstants.Audio.VO_DUPLICATE_SFX_PREVENTION_SECONDS);
 			}
 			
 			// Killstreak announcer
 			_services.AudioFxService.PlayClipQueued2D(voKillstreakAudio);
-			// TODO CLUTCH/TECHNICIAN VO
-			
-			// Kill SFX
-			_services.AudioFxService.PlayClip2D(killAudio);
 		}
 
 		private void OnChestOpened(EventOnChestOpened callback)

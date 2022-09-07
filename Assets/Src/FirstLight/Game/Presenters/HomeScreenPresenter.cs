@@ -30,6 +30,7 @@ namespace FirstLight.Game.Presenters
 			public Action OnNameChangeClicked;
 			public Action OnGameModeClicked;
 			public Action OnLeaderboardClicked;
+			public Action OnBattlePassClicked;
 		}
 
 		[SerializeField, Required] private Button _playOnlineButton;
@@ -150,7 +151,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OpenBattlePassScreen()
 		{
-			// TODO
+			Data.OnBattlePassClicked();
 		}
 
 		private void LeaveFeedbackForm()

@@ -59,7 +59,7 @@ namespace FirstLight.Game.Logic
 		public ResourcePoolInfo GetResourcePoolInfo(GameId poolType)
 		{
 			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int) poolType);
-			var capacity = GetCurrentPoolCapacity(poolType);
+			var capacity = GetCurrentPoolCapacity(poolType, poolConfig.UseNftData);
 
 			if (!_resourcePools.TryGetValue(poolType, out var pool))
 			{
@@ -81,7 +81,7 @@ namespace FirstLight.Game.Logic
 				Config = poolConfig,
 				PoolCapacity = capacity,
 				CurrentAmount = Math.Min(pool.CurrentResourceAmountInPool + addAmount, capacity),
-				WinnerRewardAmount = GetCurrentPoolReward(poolType),
+				WinnerRewardAmount = poolConfig.UseNftData ? GetCurrentPoolReward(poolType) : 0,
 				RestockPerInterval = restockPerInterval,
 				NextRestockTime = pool.LastPoolRestockTime.AddMinutes(nextRestockMinutes)
 			};
@@ -103,7 +103,7 @@ namespace FirstLight.Game.Logic
 			return amountWithdrawn;
 		}
 
-		private uint GetCurrentPoolCapacity(GameId poolType)
+		private uint GetCurrentPoolCapacity(GameId poolType, bool useNftData)
 		{
 			// To understand the calculations below better, see link. Do NOT change the calculations here without understanding the system completely.
 			// https://firstlightgames.atlassian.net/wiki/spaces/BB/pages/1789034519/Pool+System#Taking-from-pools-setup
@@ -115,6 +115,12 @@ namespace FirstLight.Game.Logic
 
 			var inventory = GameLogic.EquipmentLogic.GetInventoryEquipmentInfo(EquipmentFilter.NftOnly);
 			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)poolType);
+
+			if (!useNftData)
+			{
+				return poolConfig.PoolCapacity;
+			}
+			
 			var nftOwned = inventory.Count;
 			var poolCapacity = (double) 0;
 			var shapeMod = (double) poolConfig.ShapeModifier;

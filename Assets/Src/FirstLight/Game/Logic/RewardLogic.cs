@@ -125,7 +125,13 @@ namespace FirstLight.Game.Logic
 		{
 			if (rewardConfig.Rewards.TryGetValue(GameId.BPP, out var amount))
 			{
-				rewards.Add(new RewardData(GameId.BPP, (int) amount));
+				var info = GameLogic.ResourceLogic.GetResourcePoolInfo(GameId.BPP);
+				var withdrawn = (int) Math.Min(info.CurrentAmount, amount);
+
+				if (withdrawn > 0)
+				{
+					rewards.Add(new RewardData(GameId.BPP, withdrawn));
+				}
 			}
 		}
 

@@ -21,6 +21,7 @@ MonoBehaviour:
       Mutators:
       - QuickSpecials
       - SpeedUp
+      - HealthyAir
     RotationSlot1:
     - GameModeId: Deathmatch
       MatchType: 0

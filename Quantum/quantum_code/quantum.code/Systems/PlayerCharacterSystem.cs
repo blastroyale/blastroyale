@@ -20,6 +20,7 @@ namespace Quantum.Systems
 		public override void Update(Frame f, ref PlayerCharacterFilter filter)
 		{
 			ProcessPlayerInput(f, ref filter);
+			UpdateHealthPerSecMutator(f, ref filter);
 		}
 
 		/// <inheritdoc />
@@ -124,6 +125,36 @@ namespace Quantum.Systems
 			bb->Set(f, Constants.IsAimPressedKey, input->IsShootButtonDown);
 			bb->Set(f, Constants.AimDirectionKey, rotation);
 			bb->Set(f, Constants.MoveDirectionKey, movedirection);
+		}
+		
+		private void UpdateHealthPerSecMutator(Frame f, ref PlayerCharacterFilter filter)
+		{
+			if (!f.Context.TryGetMutatorByType(MutatorType.HealthPerSeconds, out var healthPerSecondsMutatorConfig))
+			{
+				return;
+			}
+
+			var health = Int32.Parse(healthPerSecondsMutatorConfig.Param1);
+			var seconds = Int32.Parse(healthPerSecondsMutatorConfig.Param2);
+
+			if (f.Time > f.GetSingleton<GameContainer>().MutatorsState.HealthPerSecLastTime + seconds)
+			{
+				f.Unsafe.GetPointerSingleton<GameContainer>()->MutatorsState.HealthPerSecLastTime = f.Time;
+				
+				if (!f.Unsafe.TryGetPointer<Stats>(filter.Entity, out var stats))
+				{
+					return;
+				}
+
+				if (health > 0)
+				{
+					stats->GainHealth(f, filter.Entity, new Spell(){ PowerAmount = (uint)health });
+				}
+				else
+				{
+					stats->ReduceHealth(f, filter.Entity, new Spell(){ PowerAmount = (uint)health });
+				}
+			}
 		}
 	}
 }

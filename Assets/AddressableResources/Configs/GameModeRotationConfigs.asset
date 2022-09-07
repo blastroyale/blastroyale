@@ -19,8 +19,7 @@ MonoBehaviour:
     - GameModeId: BattleRoyale
       MatchType: 1
       Mutators:
-      - 1
-      - 2
+      - QuickSpecials
     RotationSlot1:
     - GameModeId: Deathmatch
       MatchType: 0

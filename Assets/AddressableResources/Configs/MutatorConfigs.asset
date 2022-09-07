@@ -18,15 +18,15 @@ MonoBehaviour:
       Guid:
         Value: 490727885306324360
     QuantumConfigs:
-    - Id: 0
+    - Id: QuickSpecials
       Type: 0
       Param1: 10
       Param2: 0
-    - Id: 1
+    - Id: SpeedUp
       Type: 1
       Param1: 0.4
       Param2: 0
-    - Id: 2
+    - Id: HealthyAir
       Type: 2
       Param1: 50
       Param2: 5

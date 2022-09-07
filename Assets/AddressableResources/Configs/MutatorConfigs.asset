@@ -24,7 +24,7 @@ MonoBehaviour:
       Param2: 0
     - Id: SpeedUp
       Type: 1
-      Param1: 0.4
+      Param1: 3
       Param2: 0
     - Id: HealthyAir
       Type: 2

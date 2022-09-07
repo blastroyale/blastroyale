@@ -20,6 +20,7 @@ MonoBehaviour:
       MatchType: 1
       Mutators:
       - QuickSpecials
+      - SpeedUp
     RotationSlot1:
     - GameModeId: Deathmatch
       MatchType: 0

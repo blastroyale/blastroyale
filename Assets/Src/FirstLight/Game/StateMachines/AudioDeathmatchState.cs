@@ -71,7 +71,6 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeEvents()
 		{
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnEventOnPlayerKilledPlayer);
-			QuantumEvent.SubscribeManual<EventOnGameEnded>(this, OnGameEnded);
 		}
 
 		private void UnsubscribeEvents()
@@ -134,40 +133,6 @@ namespace FirstLight.Game.StateMachines
 			{
 				_statechartTrigger(IncreaseIntensityEvent);
 			}
-		}
-
-		private void OnGameEnded(EventOnGameEnded callback)
-		{
-			if (IsSpectator()) return;
-			
-			if (IsSpectator()) return;
-			
-			var game = QuantumRunner.Default.Game;
-			var frame = game.Frames.Verified;
-			var container = frame.GetSingleton<GameContainer>();
-			var matchData = container.GetPlayersMatchData(frame, out var leader);
-			var localPlayerData = matchData[game.GetLocalPlayers()[0]];
-			
-			if (game.PlayerIsLocal(leader))
-			{
-				if (localPlayerData.Data.DeathCount == 0)
-				{
-					_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_PerfectVictory);
-				}
-				else
-				{
-					_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_Victory);
-				}
-			}
-			else
-			{
-				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_GameOver);
-			}
-		}
-		
-		private bool IsSpectator()
-		{
-			return _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator();
 		}
 
 		private void PlayMidIntensityMusic()

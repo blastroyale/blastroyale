@@ -218,6 +218,34 @@ namespace FirstLight.Game.StateMachines
 			_services.AudioFxService.PlaySequentialMusicTransition(victoryStatusAudio, AudioId.MusicPostMatchLoop);
 		}
 
+		private void PlayPostMatchAnnouncer()
+		{
+			if (IsSpectator()) return;
+			
+			var game = QuantumRunner.Default.Game;
+			var frame = game.Frames.Verified;
+			var container = frame.GetSingleton<GameContainer>();
+			var matchData = container.GetPlayersMatchData(frame, out var leader);
+			var localPlayerData = matchData[game.GetLocalPlayers()[0]];
+			var gameMode = _services.NetworkService.CurrentRoomGameModeConfig.Value;
+			
+			if (game.PlayerIsLocal(leader))
+			{
+				if (gameMode.CompletionStrategy == GameCompletionStrategy.KillCount && localPlayerData.Data.DeathCount == 0)
+				{
+					_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_PerfectVictory);
+				}
+				else
+				{
+					_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_Victory);
+				}
+			}
+			else
+			{
+				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_GameOver);
+			}
+		}
+
 		private void StopAllSfx()
 		{
 			_services.AudioFxService.StopAllSfx();
@@ -351,13 +379,13 @@ namespace FirstLight.Game.StateMachines
 			
 			yield return new WaitForSeconds(config.WarningTime.AsFloat);
 
-			if (config.Step != maxStep)
+			if (config.Step == maxStep)
 			{
-				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_CircleClose);
+				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_CircleLastClose);
 			}
 			else
 			{
-				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_CircleLastClose);
+				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_CircleClose);
 			}
 		}
 

@@ -182,7 +182,8 @@ namespace FirstLight.Game.Ids
 		PlayerKillLevel3,
 		PlayerKillLevel4,
 		PlayerKillLevel5,
-		PlayerKillLevel6
+		PlayerKillLevel6,
+		Vo_CircleLastCountdown,
 	}
 	
 	/// <summary>

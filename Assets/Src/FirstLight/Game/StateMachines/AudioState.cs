@@ -150,7 +150,6 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.SubscribeManual<EventOnCollectableBlocked>(this, OnCollectionBlocked);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveDrop>(this, OnLocalPlayerSkydiveDrop);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveLand>(this, OnLocalSkydiveEnd);
-			QuantumEvent.SubscribeManual<EventOnGameEnded>(this, OnGameEnded);
 		}
 
 		private void UnsubscribeEvents()
@@ -335,20 +334,25 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnNewShrinkingCircle(EventOnNewShrinkingCircle callback)
 		{
-			if (callback.ShrinkingCircle.Step == 1) return;
-
-			var allConfigs = _services.ConfigsProvider.GetConfigsList<QuantumShrinkingCircleConfig>();
-			var config = allConfigs[callback.ShrinkingCircle.Step];
-
-			_services.CoroutineService.StartCoroutine(WaitForCircleShrinkCoroutine(config.Step, allConfigs.Count,
-				                                          config.DelayTime.AsFloat + config.WarningTime.AsFloat));
+			_services.CoroutineService.StartCoroutine(WaitForCircleShrinkCoroutine(callback));
 		}
 
-		private IEnumerator WaitForCircleShrinkCoroutine(int step, int maxStep, float delay)
+		private IEnumerator WaitForCircleShrinkCoroutine(EventOnNewShrinkingCircle callback)
 		{
-			yield return new WaitForSeconds(delay);
+			var allConfigs = _services.ConfigsProvider.GetConfigsList<QuantumShrinkingCircleConfig>();
+			var config = allConfigs[callback.ShrinkingCircle.Step];
+			var maxStep = allConfigs.Count - 1;
 
-			if (step != maxStep)
+			yield return new WaitForSeconds(config.DelayTime.AsFloat);
+
+			if (config.Step == maxStep)
+			{
+				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_CircleLastCountdown);
+			}
+			
+			yield return new WaitForSeconds(config.WarningTime.AsFloat);
+
+			if (config.Step != maxStep)
 			{
 				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_CircleClose);
 			}
@@ -408,7 +412,6 @@ namespace FirstLight.Game.StateMachines
 			var killAudio = AudioId.None;
 			var voMultiKillAudio = AudioId.None;
 			var voKillstreakAudio = AudioId.None;
-			var voGamemodeProgressAudio = AudioId.None;
 
 			// Kill SFX
 			switch (callback.CurrentMultiKill)
@@ -469,43 +472,12 @@ namespace FirstLight.Game.StateMachines
 					break;
 			}
 
-			switch (_services.NetworkService.CurrentRoomGameModeConfig.Value.CompletionStrategy)
-			{
-				case GameCompletionStrategy.KillCount:
-
-					var killsLeftForLeader = container.TargetProgress - container.CurrentProgress;
-					if (killsLeftForLeader == 3)
-					{
-						voGamemodeProgressAudio = AudioId.Vo_KillsLeft3;
-					}
-					else if (killsLeftForLeader == 1)
-					{
-						voGamemodeProgressAudio = AudioId.Vo_KillsLeft1;
-					}
-
-					break;
-
-
-				case GameCompletionStrategy.EveryoneDead:
-					var playersLeft = container.TargetProgress - (container.CurrentProgress + 1);
-					
-					if (playersLeft == 10)
-					{
-						voGamemodeProgressAudio = AudioId.Vo_Alive10;
-					}
-					else if (playersLeft == 2)
-					{
-						voGamemodeProgressAudio = AudioId.Vo_Alive2;
-					}
-					break;
-			}
-			
 			// Multikill announcer
 			if (callback.CurrentMultiKill > 1)
 			{
 				_services.AudioFxService.PlayClipQueued2D(voMultiKillAudio);
 			}
-			else if (callback.CurrentMultiKill <= 1 && DateTime.UtcNow >= _voOneKillSfxAvailabilityTime)
+			else if (callback.CurrentMultiKill <= 1 && DateTime.UtcNow >= _voOneKillSfxAvailabilityTime && Random.Range(0,2) == 0)
 			{
 				_services.AudioFxService.PlayClipQueued2D(voMultiKillAudio);
 				_voOneKillSfxAvailabilityTime = DateTime.UtcNow.AddSeconds(VO_SINGLE_KILL_SFX_DUPLICATE_SECONDS);
@@ -513,7 +485,6 @@ namespace FirstLight.Game.StateMachines
 			
 			// Killstreak announcer
 			_services.AudioFxService.PlayClipQueued2D(voKillstreakAudio);
-			_services.AudioFxService.PlayClipQueued2D(voGamemodeProgressAudio);
 			// TODO CLUTCH/TECHNICIAN VO
 			
 			// Kill SFX
@@ -538,38 +509,6 @@ namespace FirstLight.Game.StateMachines
 		private void OnProjectileExplosion(EventOnProjectileExplosion callback)
 		{
 			PlayExplosionSfx(callback.sourceId, callback.EndPosition.ToUnityVector3());
-		}
-
-		private void OnGameEnded(EventOnGameEnded callback)
-		{
-			if (IsSpectator()) return;
-
-			var game = QuantumRunner.Default.Game;
-			var frame = game.Frames.Verified;
-			var container = frame.GetSingleton<GameContainer>();
-			var matchData = container.GetPlayersMatchData(frame, out var leader);
-			var localPlayerData = matchData[game.GetLocalPlayers()[0]];
-			var audio = AudioId.None;
-
-			if (game.PlayerIsLocal(leader))
-			{
-				if (_services.NetworkService.CurrentRoomGameModeConfig.Value.CompletionStrategy ==
-				    GameCompletionStrategy.KillCount &&
-				    localPlayerData.Data.DeathCount == 0)
-				{
-					audio = AudioId.Vo_PerfectVictory;
-				}
-				else
-				{
-					audio = AudioId.Vo_Victory;
-				}
-			}
-			else
-			{
-				audio = AudioId.Vo_GameOver;
-			}
-
-			_services.AudioFxService.PlayClipQueued2D(audio);
 		}
 
 		private void PlayExplosionSfx(GameId sourceId, Vector3 endPosition)

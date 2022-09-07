@@ -82,6 +82,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnQuantumUpdateView);
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnEventOnPlayerKilledPlayer);
+			QuantumEvent.SubscribeManual<EventOnGameEnded>(this, OnGameEnded);
 		}
 
 		private void UnsubscribeEvents()
@@ -112,11 +113,44 @@ namespace FirstLight.Game.StateMachines
 			var container = frame.GetSingleton<GameContainer>();
 			var playersLeft = container.TargetProgress - (container.CurrentProgress + 1);
 			// CurrentProgress+1 because BR always has 1 player left alive at the end
-
+			
+			if (playersLeft == 10)
+			{
+				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_Alive10);
+			}
+			else if (playersLeft == 2)
+			{
+				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_Alive2);
+			}
+			
 			if (playersLeft <= GameConstants.Audio.BR_HIGH_PHASE_PLAYERS_LEFT_THRESHOLD && !_isHighIntensityPhase)
 			{
 				_statechartTrigger(MaxIntensityEvent);
 			}
+		}
+
+		private void OnGameEnded(EventOnGameEnded callback)
+		{
+			if (IsSpectator()) return;
+			
+			var game = QuantumRunner.Default.Game;
+			var frame = game.Frames.Verified;
+			var container = frame.GetSingleton<GameContainer>();
+			var matchData = container.GetPlayersMatchData(frame, out var leader);
+
+			if (game.PlayerIsLocal(leader))
+			{
+				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_Victory);
+			}
+			else
+			{
+				_services.AudioFxService.PlayClipQueued2D( AudioId.Vo_GameOver);
+			}
+		}
+		
+		private bool IsSpectator()
+		{
+			return _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator();
 		}
 
 		private bool IsSkyDivePhase()

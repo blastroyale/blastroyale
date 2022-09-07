@@ -1468,18 +1468,6 @@ MonoBehaviour:
   - Key: 146
     Value:
       AudioClips:
-      - m_AssetGUID: 640f0e1e0f103c54f932cf69fcaa3e28
-        m_SubObjectName: 
-        m_SubObjectType: 
-        m_EditorAssetChanged: 0
-      - m_AssetGUID: 37e4527e008697646821e391509fde6f
-        m_SubObjectName: 
-        m_SubObjectType: 
-        m_EditorAssetChanged: 0
-      - m_AssetGUID: 4ec28a09959be6840a9d1941c4ea654a
-        m_SubObjectName: 
-        m_SubObjectType: 
-        m_EditorAssetChanged: 0
       - m_AssetGUID: 095190193823f994e8b141dbe69419cb
         m_SubObjectName: 
         m_SubObjectType: 
@@ -1489,6 +1477,27 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       - m_AssetGUID: 83ad27f776292bb45a9b624df8aa6646
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Loop: 0
+      BaseVolume: 1
+      BasePitch: 1
+      VolumeRandDeviation: 0
+      PitchRandDeviation: 0
+      PitchModPerLoop: 0
+  - Key: 158
+    Value:
+      AudioClips:
+      - m_AssetGUID: 640f0e1e0f103c54f932cf69fcaa3e28
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      - m_AssetGUID: 37e4527e008697646821e391509fde6f
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      - m_AssetGUID: 4ec28a09959be6840a9d1941c4ea654a
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0

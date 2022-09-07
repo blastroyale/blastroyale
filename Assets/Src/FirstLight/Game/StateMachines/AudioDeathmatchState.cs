@@ -69,6 +69,7 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeEvents()
 		{
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnEventOnPlayerKilledPlayer);
+			QuantumEvent.SubscribeManual<EventOnGameEnded>(this, OnGameEnded);
 		}
 
 		private void UnsubscribeEvents()
@@ -98,10 +99,53 @@ namespace FirstLight.Game.StateMachines
 			var container = frame.GetSingleton<GameContainer>();
 			var killsLeftForLeader = container.TargetProgress - container.CurrentProgress;
 
+			if (killsLeftForLeader == 3)
+			{ 
+				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_KillsLeft3);
+			}
+			else if (killsLeftForLeader == 1)
+			{ 
+				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_KillsLeft1);
+			}
+			
 			if (killsLeftForLeader <= GameConstants.Audio.DM_HIGH_PHASE_KILLS_LEFT_THRESHOLD && !_isHighIntensityPhase)
 			{
 				_statechartTrigger(IncreaseIntensityEvent);
 			}
+		}
+
+		private void OnGameEnded(EventOnGameEnded callback)
+		{
+			if (IsSpectator()) return;
+			
+			if (IsSpectator()) return;
+			
+			var game = QuantumRunner.Default.Game;
+			var frame = game.Frames.Verified;
+			var container = frame.GetSingleton<GameContainer>();
+			var matchData = container.GetPlayersMatchData(frame, out var leader);
+			var localPlayerData = matchData[game.GetLocalPlayers()[0]];
+			
+			if (game.PlayerIsLocal(leader))
+			{
+				if (localPlayerData.Data.DeathCount == 0)
+				{
+					_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_PerfectVictory);
+				}
+				else
+				{
+					_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_Victory);
+				}
+			}
+			else
+			{
+				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_GameOver);
+			}
+		}
+		
+		private bool IsSpectator()
+		{
+			return _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator();
 		}
 
 		private void PlayMidIntensityMusic()

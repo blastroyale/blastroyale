@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52c3e2d8c0594d9bb92c948d4252ec84, type: 3}
+  m_Name: BattlePassRewardConfigs
+  m_EditorClassIdentifier: 
+  _configs:
+    _keyData: 0000000001000000
+    _valueData:
+    - Id: 0
+      Reward:
+        Adjective: 0
+        Durability: 100
+        Edition: 0
+        Faction: 0
+        GameId: 71
+        Generation: 0
+        Grade: 4
+        InitialReplicationCounter: 0
+        Level: 0
+        Manufacturer: 0
+        Material: 0
+        MaxDurability: 100
+        MaxLevel: 10
+        Rarity: 0
+        ReplicationCounter: 0
+        Tuning: 0
+    - Id: 1
+      Reward:
+        Adjective: 0
+        Durability: 100
+        Edition: 0
+        Faction: 0
+        GameId: 78
+        Generation: 0
+        Grade: 4
+        InitialReplicationCounter: 0
+        Level: 0
+        Manufacturer: 0
+        Material: 0
+        MaxDurability: 100
+        MaxLevel: 10
+        Rarity: 0
+        ReplicationCounter: 0
+        Tuning: 0

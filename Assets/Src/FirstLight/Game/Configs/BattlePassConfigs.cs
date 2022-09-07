@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Quantum;
 using UnityEngine;
 
 namespace FirstLight.Game.Configs
@@ -14,8 +15,7 @@ namespace FirstLight.Game.Configs
 		[Serializable]
 		public struct BattlePassLevel
 		{
-			private string Name;
-			private string Reward;
+			public int RewardId;
 		}
 	}
 
@@ -23,7 +23,7 @@ namespace FirstLight.Game.Configs
 	/// Scriptable Object tool to import the <seealso cref="BattlePassConfig"/> sheet data
 	/// </summary>
 	[CreateAssetMenu(fileName = "BattlePassConfigs", menuName = "ScriptableObjects/Configs/BattlePassConfigs")]
-	public class BattlePassConfigs : ScriptableObject
+	public class BattlePassConfigs : ScriptableObject, ISingleConfigContainer<BattlePassConfig>
 	{
 		[SerializeField] private BattlePassConfig _config;
 

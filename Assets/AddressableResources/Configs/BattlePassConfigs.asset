@@ -13,5 +13,16 @@ MonoBehaviour:
   m_Name: BattlePassConfigs
   m_EditorClassIdentifier: 
   _config:
-    PointsPerLevel: 0
-    Levels: []
+    PointsPerLevel: 10
+    Levels:
+    - RewardId: 0
+    - RewardId: 1
+    - RewardId: 0
+    - RewardId: 1
+    - RewardId: 0
+    - RewardId: 1
+    - RewardId: 0
+    - RewardId: 1
+    - RewardId: 0
+    - RewardId: 1
+    - RewardId: 0

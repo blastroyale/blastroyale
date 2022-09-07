@@ -5,11 +5,10 @@ using FirstLightEditor.GoogleSheetImporter;
 
 namespace FirstLight.Editor.SheetImporters
 {
-	public class GameModeRotationConfigsImporter : GoogleSheetSingleConfigSubListImporter<GameModeRotationConfig,
-		GameModeRotationConfigs>
+	public class BattlePassConfigsImporter : GoogleSheetSingleConfigSubListImporter<BattlePassConfig, BattlePassConfigs>
 	{
 		public override string GoogleSheetUrl =>
-			"***REMOVED***/edit#gid=405313914";
+			"***REMOVED***/edit#gid=1814523614";
 
 		protected override Func<string, Type, object>[] GetDeserializers()
 		{

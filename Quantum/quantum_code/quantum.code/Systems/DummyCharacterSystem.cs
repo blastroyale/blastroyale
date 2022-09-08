@@ -28,7 +28,7 @@ namespace Quantum.Systems
 			};
 
 			f.Add(entity, targetable);
-			f.Add(entity, new Stats(component->Health, 0, 0, 0, 0, 0, 0));
+			f.Add(entity, new Stats(component->Health, 0, 0, 0, 0, 0, 0, 0));
 		}
 	}
 }

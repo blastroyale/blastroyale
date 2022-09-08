@@ -47,7 +47,7 @@ namespace Quantum
 				bb->Set(f, nameof(weaponConfig.AttackCooldown), currentAttackCooldown);
 			}
 
-			var attackRange = f.Get<Stats>(e).GetStatData(StatType.AttackRange).StatValue;
+			var attackRange = weaponConfig.AttackRange + f.Get<Stats>(e).GetStatData(StatType.AttackRange).StatValue;
 
 			var raycastShot = new RaycastShots
 			{

@@ -40,7 +40,7 @@ namespace FirstLight.Game.Utils
 				          QuantumStatCalculator.CalculateWeaponStat(weaponConfig, statConfigs[(int) StatType.Power],
 				                                                    baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
 				//TODO: replace the attackRange from weapon config here
-				stats.Add(EquipmentStatType.TargetRange,
+				stats.Add(EquipmentStatType.TargetRange, weaponConfig.AttackRange.AsFloat +
 					 QuantumStatCalculator.CalculateWeaponStat(weaponConfig, statConfigs[(int)StatType.AttackRange],
 																	baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
 

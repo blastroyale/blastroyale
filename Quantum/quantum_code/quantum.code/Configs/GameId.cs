@@ -87,16 +87,16 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.Trophies, new List<GameIdGroup>
-					{
-						GameIdGroup.Resource
-					}.AsReadOnly()
-				},
-				{
-					GameId.BPP, new List<GameIdGroup>
+					GameId.EquipmentXP, new List<GameIdGroup>
 					{
 						GameIdGroup.Resource,
 						GameIdGroup.ResourcePool
+					}.AsReadOnly()
+				},
+				{
+					GameId.Trophies, new List<GameIdGroup>
+					{
+						GameIdGroup.Resource
 					}.AsReadOnly()
 				},
 				{
@@ -550,16 +550,14 @@ namespace Quantum
 					GameId.ShieldCapacitySmall, new List<GameIdGroup>
 					{
 						GameIdGroup.Consumable,
-						GameIdGroup.Collectable,
-						GameIdGroup.ShieldCapacity
+						GameIdGroup.Collectable
 					}.AsReadOnly()
 				},
 				{
 					GameId.ShieldCapacityLarge, new List<GameIdGroup>
 					{
 						GameIdGroup.Consumable,
-						GameIdGroup.Collectable,
-						GameIdGroup.ShieldCapacity
+						GameIdGroup.Collectable
 					}.AsReadOnly()
 				},
 				{
@@ -700,15 +698,15 @@ namespace Quantum
 					GameIdGroup.ResourcePool, new List<GameId>
 					{
 						GameId.CS,
-						GameId.BPP
+						GameId.EquipmentXP
 					}.AsReadOnly()
 				},
 				{
 					GameIdGroup.Resource, new List<GameId>
 					{
 						GameId.XP,
-						GameId.Trophies,
-						GameId.BPP
+						GameId.EquipmentXP,
+						GameId.Trophies
 					}.AsReadOnly()
 				},
 				{
@@ -900,13 +898,6 @@ namespace Quantum
 					{
 						GameId.AmmoSmall,
 						GameId.AmmoLarge
-					}.AsReadOnly()
-				},
-				{
-					GameIdGroup.ShieldCapacity, new List<GameId>
-					{
-						GameId.ShieldCapacitySmall,
-						GameId.ShieldCapacityLarge
 					}.AsReadOnly()
 				},
 				{

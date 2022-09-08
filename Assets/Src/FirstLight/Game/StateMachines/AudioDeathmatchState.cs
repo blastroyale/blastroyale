@@ -71,6 +71,8 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeEvents()
 		{
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnEventOnPlayerKilledPlayer);
+
+			_localPlayerLastRank = 0;
 		}
 
 		private void UnsubscribeEvents()
@@ -101,38 +103,50 @@ namespace FirstLight.Game.StateMachines
 			var container = frame.GetSingleton<GameContainer>();
 			var killsLeftForLeader = container.TargetProgress - container.CurrentProgress;
 			var matchData = container.GetPlayersMatchData(frame, out var leader);
-			var localPlayerData = matchData[game.GetLocalPlayers()[0]];
-			
+
+
 			// Kills left announcer
 			if (killsLeftForLeader == 3)
-			{ 
+			{
 				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_KillsLeft3);
 			}
 			else if (killsLeftForLeader == 1)
-			{ 
+			{
 				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_KillsLeft1);
 			}
 
-			// Leaderboard announcer
-			if (_localPlayerLastRank != 1 && localPlayerData.PlayerRank == 1 
-			                              && DateTime.UtcNow >= _voLeaderboardSfxAvailabilityTime)
+			if (!IsSpectator())
 			{
-				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_LeaderboardTop);
-				_voLeaderboardSfxAvailabilityTime = DateTime.UtcNow.AddSeconds(GameConstants.Audio.VO_DUPLICATE_SFX_PREVENTION_SECONDS);
-			}
-			else if (_localPlayerLastRank == 1 && localPlayerData.PlayerRank != 1 
-			                                   && DateTime.UtcNow >= _voLeaderboardSfxAvailabilityTime)
-			{
-				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_LeaderboardOvertaken);
-				_voLeaderboardSfxAvailabilityTime = DateTime.UtcNow.AddSeconds(GameConstants.Audio.VO_DUPLICATE_SFX_PREVENTION_SECONDS);
+				var localPlayerData = matchData[game.GetLocalPlayers()[0]];
+				
+				// Leaderboard announcer
+				if (_localPlayerLastRank != 1 && localPlayerData.PlayerRank == 1
+				                              && DateTime.UtcNow >= _voLeaderboardSfxAvailabilityTime)
+				{
+					_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_LeaderboardTop);
+					_voLeaderboardSfxAvailabilityTime =
+						DateTime.UtcNow.AddSeconds(GameConstants.Audio.VO_DUPLICATE_SFX_PREVENTION_SECONDS);
+				}
+				else if (_localPlayerLastRank == 1 && localPlayerData.PlayerRank != 1
+				                                   && DateTime.UtcNow >= _voLeaderboardSfxAvailabilityTime)
+				{
+					_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_LeaderboardOvertaken);
+					_voLeaderboardSfxAvailabilityTime =
+						DateTime.UtcNow.AddSeconds(GameConstants.Audio.VO_DUPLICATE_SFX_PREVENTION_SECONDS);
+				}
+
+				_localPlayerLastRank = localPlayerData.PlayerRank;
 			}
 
-			_localPlayerLastRank = localPlayerData.PlayerRank;
-			
 			if (killsLeftForLeader <= GameConstants.Audio.DM_HIGH_PHASE_KILLS_LEFT_THRESHOLD && !_isHighIntensityPhase)
 			{
 				_statechartTrigger(IncreaseIntensityEvent);
 			}
+		}
+
+		private bool IsSpectator()
+		{
+			return _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator();
 		}
 
 		private void PlayMidIntensityMusic()
@@ -143,8 +157,9 @@ namespace FirstLight.Game.StateMachines
 		private void PlayHighIntensityMusic()
 		{
 			_isHighIntensityPhase = true;
-			
-			_services.AudioFxService.PlayClip2D(AudioId.MusicHighTransitionJingleDm, GameConstants.Audio.MIXER_GROUP_MUSIC_ID);
+
+			_services.AudioFxService.PlayClip2D(AudioId.MusicHighTransitionJingleDm,
+			                                    GameConstants.Audio.MIXER_GROUP_MUSIC_ID);
 
 			_services.CoroutineService.StartCoroutine(PlayDmHighLoopCoroutine());
 		}

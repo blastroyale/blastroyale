@@ -2724,46 +2724,54 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct PlayerMatchData {
-    public const Int32 SIZE = 96;
+    public const Int32 SIZE = 112;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(8)]
     public Int32 BotNameIndex;
     [FieldOffset(16)]
-    public UInt32 DamageDone;
+    public UInt32 CurrentKillStreak;
     [FieldOffset(20)]
-    public UInt32 DamageReceived;
+    public UInt32 CurrentMultiKill;
     [FieldOffset(24)]
-    public UInt32 DeathCount;
-    [FieldOffset(56)]
-    public EntityRef Entity;
-    [FieldOffset(64)]
-    public FP FirstDeathTime;
+    public UInt32 DamageDone;
     [FieldOffset(28)]
-    public UInt32 HealingDone;
+    public UInt32 DamageReceived;
     [FieldOffset(32)]
-    public UInt32 HealingReceived;
+    public UInt32 DeathCount;
+    [FieldOffset(64)]
+    public EntityRef Entity;
     [FieldOffset(72)]
+    public FP FirstDeathTime;
+    [FieldOffset(36)]
+    public UInt32 HealingDone;
+    [FieldOffset(40)]
+    public UInt32 HealingReceived;
+    [FieldOffset(88)]
     public FPVector3 LastDeathPosition;
+    [FieldOffset(80)]
+    public FP MultiKillResetTime;
     [FieldOffset(12)]
     public PlayerRef Player;
     [FieldOffset(0)]
     public GameId PlayerDeathMarker;
-    [FieldOffset(36)]
+    [FieldOffset(44)]
     public UInt32 PlayerLevel;
     [FieldOffset(4)]
     public GameId PlayerSkin;
-    [FieldOffset(40)]
-    public UInt32 PlayerTrophies;
-    [FieldOffset(44)]
-    public UInt32 PlayersKilledCount;
     [FieldOffset(48)]
-    public UInt32 SpecialsUsedCount;
+    public UInt32 PlayerTrophies;
     [FieldOffset(52)]
+    public UInt32 PlayersKilledCount;
+    [FieldOffset(56)]
+    public UInt32 SpecialsUsedCount;
+    [FieldOffset(60)]
     public UInt32 SuicideCount;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 317;
         hash = hash * 31 + BotNameIndex.GetHashCode();
+        hash = hash * 31 + CurrentKillStreak.GetHashCode();
+        hash = hash * 31 + CurrentMultiKill.GetHashCode();
         hash = hash * 31 + DamageDone.GetHashCode();
         hash = hash * 31 + DamageReceived.GetHashCode();
         hash = hash * 31 + DeathCount.GetHashCode();
@@ -2772,6 +2780,7 @@ namespace Quantum {
         hash = hash * 31 + HealingDone.GetHashCode();
         hash = hash * 31 + HealingReceived.GetHashCode();
         hash = hash * 31 + LastDeathPosition.GetHashCode();
+        hash = hash * 31 + MultiKillResetTime.GetHashCode();
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + (Int32)PlayerDeathMarker;
         hash = hash * 31 + PlayerLevel.GetHashCode();
@@ -2789,6 +2798,8 @@ namespace Quantum {
         serializer.Stream.Serialize((Int32*)&p->PlayerSkin);
         serializer.Stream.Serialize(&p->BotNameIndex);
         PlayerRef.Serialize(&p->Player, serializer);
+        serializer.Stream.Serialize(&p->CurrentKillStreak);
+        serializer.Stream.Serialize(&p->CurrentMultiKill);
         serializer.Stream.Serialize(&p->DamageDone);
         serializer.Stream.Serialize(&p->DamageReceived);
         serializer.Stream.Serialize(&p->DeathCount);
@@ -2801,6 +2812,7 @@ namespace Quantum {
         serializer.Stream.Serialize(&p->SuicideCount);
         EntityRef.Serialize(&p->Entity, serializer);
         FP.Serialize(&p->FirstDeathTime, serializer);
+        FP.Serialize(&p->MultiKillResetTime, serializer);
         FPVector3.Serialize(&p->LastDeathPosition, serializer);
     }
   }
@@ -4108,7 +4120,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct GameContainer : Quantum.IComponentSingleton {
-    public const Int32 SIZE = 3104;
+    public const Int32 SIZE = 3616;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(4)]
     public UInt32 CurrentProgress;
@@ -4120,12 +4132,12 @@ namespace Quantum {
     public MutatorsState MutatorsState;
     [FieldOffset(32)]
     [FramePrinter.FixedArrayAttribute(typeof(PlayerMatchData), 32)]
-    private fixed Byte _PlayersData_[3072];
+    private fixed Byte _PlayersData_[3584];
     [FieldOffset(8)]
     public UInt32 TargetProgress;
     public FixedArray<PlayerMatchData> PlayersData {
       get {
-        fixed (byte* p = _PlayersData_) { return new FixedArray<PlayerMatchData>(p, 96, 32); }
+        fixed (byte* p = _PlayersData_) { return new FixedArray<PlayerMatchData>(p, 112, 32); }
       }
     }
     public override Int32 GetHashCode() {
@@ -5653,7 +5665,7 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnPlayerKilledPlayer OnPlayerKilledPlayer(PlayerRef PlayerDead, EntityRef EntityDead, PlayerRef PlayerKiller, EntityRef EntityKiller, PlayerRef PlayerLeader, EntityRef EntityLeader) {
+      public EventOnPlayerKilledPlayer OnPlayerKilledPlayer(PlayerRef PlayerDead, EntityRef EntityDead, PlayerRef PlayerKiller, EntityRef EntityKiller, PlayerRef PlayerLeader, EntityRef EntityLeader, UInt32 CurrentKillStreak, UInt32 CurrentMultiKill) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnPlayerKilledPlayer>(EventOnPlayerKilledPlayer.ID);
         ev.PlayerDead = PlayerDead;
@@ -5662,6 +5674,8 @@ namespace Quantum {
         ev.EntityKiller = EntityKiller;
         ev.PlayerLeader = PlayerLeader;
         ev.EntityLeader = EntityLeader;
+        ev.CurrentKillStreak = CurrentKillStreak;
+        ev.CurrentMultiKill = CurrentMultiKill;
         _f.AddEvent(ev);
         return ev;
       }
@@ -7439,6 +7453,8 @@ namespace Quantum {
     public EntityRef EntityKiller;
     public PlayerRef PlayerLeader;
     public EntityRef EntityLeader;
+    public UInt32 CurrentKillStreak;
+    public UInt32 CurrentMultiKill;
     protected EventOnPlayerKilledPlayer(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -7462,6 +7478,8 @@ namespace Quantum {
         hash = hash * 31 + EntityKiller.GetHashCode();
         hash = hash * 31 + PlayerLeader.GetHashCode();
         hash = hash * 31 + EntityLeader.GetHashCode();
+        hash = hash * 31 + CurrentKillStreak.GetHashCode();
+        hash = hash * 31 + CurrentMultiKill.GetHashCode();
         return hash;
       }
     }
@@ -10007,9 +10025,14 @@ namespace Quantum.Prototypes {
     public UInt32 DeathCount;
     public UInt32 SuicideCount;
     public UInt32 SpecialsUsedCount;
+    public UInt32 CurrentKillStreak;
+    public UInt32 CurrentMultiKill;
+    public FP MultiKillResetTime;
     partial void MaterializeUser(Frame frame, ref PlayerMatchData result, in PrototypeMaterializationContext context);
     public void Materialize(Frame frame, ref PlayerMatchData result, in PrototypeMaterializationContext context) {
       result.BotNameIndex = this.BotNameIndex;
+      result.CurrentKillStreak = this.CurrentKillStreak;
+      result.CurrentMultiKill = this.CurrentMultiKill;
       result.DamageDone = this.DamageDone;
       result.DamageReceived = this.DamageReceived;
       result.DeathCount = this.DeathCount;
@@ -10018,6 +10041,7 @@ namespace Quantum.Prototypes {
       result.HealingDone = this.HealingDone;
       result.HealingReceived = this.HealingReceived;
       result.LastDeathPosition = this.LastDeathPosition;
+      result.MultiKillResetTime = this.MultiKillResetTime;
       result.Player = this.Player;
       result.PlayerDeathMarker = this.PlayerDeathMarker;
       result.PlayerLevel = this.PlayerLevel;

@@ -33,12 +33,17 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Are Sound Effects enabled?
 		/// </summary>
-		bool IsSfxOn { get; set; }
+		bool IsSfxEnabled { get; set; }
 
 		/// <summary>
 		/// Is Background Music enabled?
 		/// </summary>
-		bool IsBgmOn { get; set; }
+		bool IsBgmEnabled { get; set; }
+		
+		/// <summary>
+		/// Is dialogue enabled?
+		/// </summary>
+		bool IsDialogueEnabled { get; set; }
 
 		/// <summary>
 		/// Is Haptic feedback on device enabled?
@@ -118,7 +123,7 @@ namespace FirstLight.Game.Logic
 		public bool IsDeviceLinked => string.IsNullOrWhiteSpace(_deviceId.Value);
 
 		/// <inheritdoc />
-		public bool IsSfxOn
+		public bool IsSfxEnabled
 		{
 			get => Data.SfxEnabled;
 			set
@@ -129,13 +134,24 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public bool IsBgmOn
+		public bool IsBgmEnabled
 		{
 			get => Data.BgmEnabled;
 			set
 			{
 				Data.BgmEnabled = value;
 				_audioFxService.IsBgmMuted = !value;
+			}
+		}
+
+		/// <inheritdoc />
+		public bool IsDialogueEnabled
+		{
+			get => Data.DialogueEnabled;
+			set
+			{
+				Data.DialogueEnabled = value;
+				_audioFxService.IsDialogueMuted = !value;
 			}
 		}
 
@@ -194,8 +210,9 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public void Init()
 		{
-			IsSfxOn = IsSfxOn;
-			IsBgmOn = IsBgmOn;
+			IsSfxEnabled = Data.SfxEnabled;
+			IsBgmEnabled = Data.BgmEnabled;
+			IsDialogueEnabled = Data.DialogueEnabled;
 			NicknameId = new ObservableResolverField<string>(() => Data.NickNameId, name => Data.NickNameId = name);
 			ConnectionRegion = new ObservableResolverField<string>(() => Data.ConnectionRegion, region => Data.ConnectionRegion = region);
 			_deviceId = new ObservableResolverField<string>(() => Data.DeviceId, linked => Data.DeviceId = linked);

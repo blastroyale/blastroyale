@@ -1,5 +1,6 @@
 using System;
 using FirstLight.Game.Input;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MatchHudViews;
@@ -46,6 +47,7 @@ namespace FirstLight.Game.Presenters
 			_weaponSlotButtons[1].onClick.AddListener(() => OnWeaponSlotClicked(1));
 			_weaponSlotButtons[2].onClick.AddListener(() => OnWeaponSlotClicked(2));
 
+
 			QuantumCallback.Subscribe<CallbackGameResynced>(this, OnGameResync);
 			QuantumEvent.Subscribe<EventOnPlayerDamaged>(this, OnPlayerDamaged);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
@@ -63,6 +65,7 @@ namespace FirstLight.Game.Presenters
 		protected override void OnOpened()
 		{
 			_services.PlayerInputService.EnableInput();
+			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, OnUpdateView);
 			QuantumCallback.Subscribe<CallbackPollInput>(this, PollInput);
 		}
@@ -224,6 +227,13 @@ namespace FirstLight.Game.Presenters
 		private void OnUpdateView(CallbackUpdateView callback)
 		{
 			_indicatorContainerView.OnUpdate(callback.Game.Frames.Predicted);
+		}
+
+		private void OnMatchStartedMessage(MatchStartedMessage msg)
+		{
+			MMVibrationManager.ContinuousHaptic(GameConstants.Haptics.GAME_START_INTENSITY, 
+			                                    GameConstants.Haptics.GAME_START_SHARPNESS, 
+			                                    GameConstants.Haptics.GAME_START_DURATION);
 		}
 
 		private void OnGameResync(CallbackGameResynced callback)

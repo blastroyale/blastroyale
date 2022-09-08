@@ -8,17 +8,17 @@ namespace Quantum
 	{
 		public QuantumPlayerMatchData PlayerData;
 	}
-	
+
 	public unsafe partial class EventOnPlayerKilledPlayer
 	{
 		public List<QuantumPlayerMatchData> PlayersMatchData;
 	}
-	
+
 	public unsafe partial class EventOnPlayerDead
 	{
 		public bool IsSuicide => Entity == EntityKiller;
 	}
-	
+
 	public unsafe partial class EventOnPlayerDamaged
 	{
 		public EntityRef Entity => Spell.Victim;
@@ -26,10 +26,10 @@ namespace Quantum
 		public UInt32 TotalUnblockedDamage => Spell.PowerAmount;
 		public FPVector3 HitPosition => Spell.OriginalHitPosition;
 	}
-	
-	public partial class Frame 
+
+	public partial class Frame
 	{
-		public unsafe partial struct FrameEvents 
+		public unsafe partial struct FrameEvents
 		{
 			public void OnPlayerWeaponChanged(PlayerRef player, EntityRef entity, int slot)
 			{
@@ -43,12 +43,12 @@ namespace Quantum
 
 				OnLocalPlayerWeaponChanged(player, entity, *playerCharacter->WeaponSlot, slot);
 			}
-			
+
 			public void OnLocalPlayerDead(PlayerRef player, PlayerRef killer, EntityRef killerEntity)
 			{
 				var data = _f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData;
 				var matchData = data[player];
-				
+
 				var ev = OnLocalPlayerDead(player, matchData.Entity, killer, killerEntity);
 
 				if (ev == null)
@@ -58,7 +58,7 @@ namespace Quantum
 
 				ev.PlayerData = new QuantumPlayerMatchData(_f, matchData);
 			}
-			
+
 			public void OnPlayerSpecialUsed(EntityRef entity, Special special, int specialIndex)
 			{
 				var playerCharacter = _f.Unsafe.GetPointer<PlayerCharacter>(entity);
@@ -71,32 +71,34 @@ namespace Quantum
 
 				OnLocalPlayerSpecialUsed(playerCharacter->Player, entity, special, specialIndex);
 			}
-			
-			public void OnPlayerDamaged(Spell spell, int totalDamage, int shieldDamageAmount, int healthDamageAmount, 
+
+			public void OnPlayerDamaged(Spell spell, int totalDamage, int shieldDamageAmount, int healthDamageAmount,
 			                            int previousHealth, int maxHealth, int previousShield, int maxShield)
 			{
 				if (!_f.Unsafe.TryGetPointer<PlayerCharacter>(spell.Victim, out var playerCharacter))
 				{
 					return;
 				}
-				OnPlayerDamaged(playerCharacter->Player, spell, (uint) totalDamage, (uint) shieldDamageAmount, 
+
+				OnPlayerDamaged(playerCharacter->Player, spell, (uint) totalDamage, (uint) shieldDamageAmount,
 				                previousShield, maxShield, (uint) healthDamageAmount, previousHealth, maxHealth);
 			}
-			
+
 			public void OnPlayerKilledPlayer(PlayerRef playerDead, PlayerRef playerKiller)
 			{
 				var container = _f.Unsafe.GetPointerSingleton<GameContainer>();
 				var data = container->PlayersData;
 				var matchData = container->GetPlayersMatchData(_f, out var leader);
-				var ev = OnPlayerKilledPlayer(playerDead, data[playerDead].Entity, 
-				                              playerKiller, data[playerKiller].Entity, 
-				                              leader, data[leader].Entity);
+				var ev = OnPlayerKilledPlayer(playerDead, data[playerDead].Entity,
+				                              playerKiller, data[playerKiller].Entity,
+				                              leader, data[leader].Entity, data[playerKiller].CurrentKillStreak,
+				                              data[playerKiller].CurrentMultiKill);
 
 				if (ev == null)
 				{
 					return;
 				}
-				
+
 				ev.PlayersMatchData = matchData;
 			}
 		}

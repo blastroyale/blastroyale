@@ -12,15 +12,18 @@ namespace Quantum.Systems
 		public void PlayerDead(Frame f, PlayerRef playerDead, EntityRef entityDead)
 		{
 			var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
-			var pointer = gameContainer->PlayersData.GetPointer(playerDead);
+			var dataPointer = gameContainer->PlayersData.GetPointer(playerDead);
 			
-			pointer->DeathCount++;
-			pointer->LastDeathPosition = f.Get<Transform3D>(entityDead).Position;
+			dataPointer->DeathCount++;
+			dataPointer->LastDeathPosition = f.Get<Transform3D>(entityDead).Position;
 
-			if (pointer->FirstDeathTime == FP._0)
+			if (dataPointer->FirstDeathTime == FP._0)
 			{
-				pointer->FirstDeathTime = f.Time;
+				dataPointer->FirstDeathTime = f.Time;
 			}
+			
+			dataPointer->CurrentKillStreak = 0;
+			dataPointer->CurrentMultiKill = 0;
 		}
 
 		/// <inheritdoc />
@@ -31,7 +34,21 @@ namespace Quantum.Systems
 			
 			if (playerDead != playerKiller)
 			{
-				gameContainer->PlayersData.GetPointer(playerKiller)->PlayersKilledCount++;
+				var killerData = gameContainer->PlayersData.GetPointer(playerKiller);
+				
+				killerData->PlayersKilledCount++;
+				killerData->CurrentKillStreak++;
+
+				if (f.Time <= killerData->MultiKillResetTime)
+				{
+					killerData->CurrentMultiKill++;
+				}
+				else
+				{
+					killerData->CurrentMultiKill = 1;
+				}
+
+				killerData->MultiKillResetTime = f.Time + f.GameConfig.MultiKillResetTime;
 			}
 			else
 			{

@@ -47,10 +47,10 @@ namespace FirstLight.Game.Utils
 			public const string MIXER_GROUP_MUSIC_ID = "Music";
 			public const string MIXER_GROUP_SFX_2D_ID = "Sfx2d";
 			public const string MIXER_GROUP_SFX_3D_ID = "Sfx3d";
-			public const string MIXER_GROUP_VOICE_ID = "Voice";
+			public const string MIXER_GROUP_DIALOGUE_ID = "Dialogue";
 			public const string MIXER_GROUP_AMBIENT_ID = "Announcer";
 			
-			public const int SOUND_QUEUE_BREAK_MS = 250;
+			public const int SOUND_QUEUE_BREAK_MS = 75;
 			public const float SPATIAL_3D_THRESHOLD = 0.1f;
 			
 			public const float MIXER_SNAPSHOT_TRANSITION_SECONDS = 0.5f;
@@ -71,6 +71,9 @@ namespace FirstLight.Game.Utils
 			public const float DM_HIGH_PHASE_KILLS_LEFT_THRESHOLD = 3;
 			public const float BR_HIGH_PHASE_PLAYERS_LEFT_THRESHOLD = 2;
 			public const float HIGH_LOOP_TRANSITION_DELAY = 2f;
+			
+			public const float LOW_HP_CLUTCH_THERSHOLD_PERCENT = 0.1f;
+			public const int VO_DUPLICATE_SFX_PREVENTION_SECONDS = 12;
 		}
 
 		public static class Notifications
@@ -175,6 +178,11 @@ namespace FirstLight.Game.Utils
 
 			// Duration of haptic feedback when player is damaged
 			public const float DAMAGE_DURATION = 0.05f;
+			
+			// Duration of haptic feedback when player is damaged
+			public const float GAME_START_DURATION = 0.25f;
+			public const float GAME_START_INTENSITY = 1f;
+			public const float GAME_START_SHARPNESS = 1f;
 		}
 	}
 }

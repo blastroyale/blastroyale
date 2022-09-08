@@ -23,7 +23,7 @@ MonoBehaviour:
       DoubleKillTimeLimit: 10
       RoomLockKillCount: 14
       MatchmakingTime:
-        RawValue: 983040
+        RawValue: 0
       CasualMatchmakingTime:
         RawValue: 983040
       RankedMatchmakingTime:
@@ -109,3 +109,5 @@ MonoBehaviour:
         RawValue: 6554
       AirdropHeight:
         RawValue: 1310720
+      MultiKillResetTime:
+        RawValue: 262144

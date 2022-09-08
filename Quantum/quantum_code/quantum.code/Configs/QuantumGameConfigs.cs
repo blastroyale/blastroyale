@@ -41,6 +41,7 @@ namespace Quantum
 		public FP AirdropPositionOffsetMultiplier;
 		public FP AirdropRandomAreaMultiplier;
 		public FP AirdropHeight;
+		public FP MultiKillResetTime;
 	}
 
 	/// <summary>

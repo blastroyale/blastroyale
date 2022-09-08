@@ -44,7 +44,7 @@ namespace FirstLight.Game.Configs
 			var op = Addressables.LoadAssetAsync<MapAsset>($"Maps/{config.Map.ToString()}.asset");
 			
 			_runtimeConfig.Seed = Random.Range(0, int.MaxValue);
-			_runtimeConfig.MapId = config.Id;
+			_runtimeConfig.MapId = (int) config.Map;
 			_runtimeConfig.Map = op.WaitForCompletion().Settings;
 			_runtimeConfig.GameModeId = gameModeConfig.Id;
 			_runtimeConfig.Mutators = mutators.ToArray();

@@ -29,6 +29,9 @@ namespace Quantum
 
 		[ToggleGroup("Matchmaking & Room/Teams"), DisableIf("@true"), PropertyTooltip(DESC_MIN_PLAYERS_IN_TEAM)]
 		public uint MinPlayersInTeam;
+		
+		[PropertyTooltip(DESC_ALLOWED_MAPS)]
+		public List<GameId> AllowedMaps;
 
 		[FoldoutGroup("Ranking"), PropertyTooltip(DESC_RANK_SORTER)]
 		public RankSorter RankSorter;
@@ -176,6 +179,7 @@ namespace Quantum
 		private const string DESC_BOT_WEAPON_SEARCH_STRATEGY = "How should bots search for weapons on the map.";
 		private const string DESC_RANK_SORTER = "How should we sort the players on the leaderboards.";
 		private const string DESC_RANK_PROCESSOR = "How should we modify the player's rank on the leaderboards.";
+		private const string DESC_ALLOWED_MAPS = "Which maps are allowed to be played with this game mode.";
 		private const string DESC_COMPLETION_STRATEGY = "What should mark the end of a match.";
 		private const string DESC_COMPLETION_KILL_COUNT = "How many kills must a player have to win the match.";
 		private const string DESC_GIVE_REWARDS = "Should the player be rewarded (i.e. ranked game) after completing a game.";

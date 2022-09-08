@@ -20,7 +20,7 @@ namespace Backend.Game.Services
 		public string? TelemetryConnectionString => FromEnv("APPLICATIONINSIGHTS_CONNECTION_STRING");
 		public Version MinClientVersion => new Version("0.4.0");
 		public bool DevelopmentMode => FromEnv("DEV_MODE") == "true";
-		public bool RemoteGameConfiguration => FromEnv("REMOTE_CONFIGURATION") != "false";
+		public bool RemoteGameConfiguration => FromEnv("REMOTE_CONFIGURATION") == "true";
 		private static string FromEnv(string name, string defaultValue = null)
 		{
 			return Environment.GetEnvironmentVariable(name, EnvironmentVariableTarget.Process) ??

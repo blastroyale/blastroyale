@@ -12,6 +12,7 @@ using PlayFab;
 using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Events;
 using FirstLight.Server.SDK.Models;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Server.SDK.Services;
 using IGameCommand = FirstLight.Game.Commands.IGameCommand;
 
@@ -30,8 +31,9 @@ public class GameServer
 	private IEventManager _eventManager;
 	private IMetricsService _metrics;
 	private IServerConfiguration _serverConfig;
+	private IConfigsProvider _gameConfigs;
 
-	public GameServer(IServerConfiguration serverConfig, IServerCommahdHandler cmdHandler, ILogger log, IServerStateService state, IServerMutex mutex, IEventManager eventManager, IMetricsService metrics)
+	public GameServer(IConfigsProvider gameConfigs, IServerConfiguration serverConfig, IServerCommahdHandler cmdHandler, ILogger log, IServerStateService state, IServerMutex mutex, IEventManager eventManager, IMetricsService metrics)
 	{
 		_cmdHandler = cmdHandler;
 		_log = log;
@@ -40,6 +42,7 @@ public class GameServer
 		_eventManager = eventManager;
 		_metrics = metrics;
 		_serverConfig = serverConfig;
+		_gameConfigs = gameConfigs;
 	}
 	
 	/// <summary>
@@ -64,6 +67,16 @@ public class GameServer
 			var newState = await _cmdHandler.ExecuteCommand(commandInstance, currentPlayerState);
 			_eventManager.CallEvent(new CommandFinishedEvent(playerId, commandInstance, newState, commandData));
 			await _state.UpdatePlayerState(playerId, newState);
+			
+			if(requestData.TryGetValue(CommandFields.ConfigurationVersion, out var clientConfigVersion))
+			{
+				var clientConfigVersionNumber = ulong.Parse(clientConfigVersion);
+				if (_gameConfigs.Version > clientConfigVersionNumber)
+				{
+					newState[CommandFields.ConfigurationVersion] = _gameConfigs.Version.ToString();
+				}
+			}
+			
 			return new BackendLogicResult()
 			{
 				Command = cmdType,

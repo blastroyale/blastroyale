@@ -122,17 +122,18 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static QuantumMapConfig GetRotationMapConfig(string gameModeId, IGameServices services)
 		{
-			var configs = services.ConfigsProvider.GetConfigsDictionary<QuantumMapConfig>();
+			var gameModeConfig = services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
 			var compatibleMaps = new List<QuantumMapConfig>();
 			var span = DateTime.UtcNow - DateTime.UtcNow.Date;
 			var timeSegmentIndex =
 				Mathf.RoundToInt((float) span.TotalMinutes / GameConstants.Balance.MAP_ROTATION_TIME_MINUTES);
 
-			foreach (var config in configs)
+			foreach (var mapId in gameModeConfig.AllowedMaps)
 			{
-				if (!config.Value.IsTestMap && config.Value.GameModes.Contains(gameModeId))
+				var mapConfig = services.ConfigsProvider.GetConfig<QuantumMapConfig>((int) mapId);
+				if (!mapConfig.IsTestMap)
 				{
-					compatibleMaps.Add(config.Value);
+					compatibleMaps.Add(mapConfig);
 				}
 			}
 
@@ -181,7 +182,7 @@ namespace FirstLight.Game.Utils
 				{GameConstants.Network.ROOM_PROPS_COMMIT, VersionUtils.Commit},
 
 				// Set the game map Id for the same matchmaking
-				{GameConstants.Network.ROOM_PROPS_MAP, mapConfig.Id},
+				{GameConstants.Network.ROOM_PROPS_MAP, mapConfig.Map},
 				
 				// For matchmaking, rooms are segregated by casual/ranked.
 				{GameConstants.Network.ROOM_PROPS_RANKED_MATCH, isRankedMatch},
@@ -297,7 +298,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static int GetMaxPlayers(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig)
 		{
-			return Math.Min((int) gameModeConfig.MaxPlayers, mapConfig.PlayersLimit);
+			return Math.Min((int) gameModeConfig.MaxPlayers, mapConfig.MaxPlayers);
 		}
 	}
 }

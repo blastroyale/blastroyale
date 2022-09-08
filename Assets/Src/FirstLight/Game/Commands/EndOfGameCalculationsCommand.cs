@@ -1,7 +1,6 @@
 ﻿using FirstLight.Game.Logic;
 using System.Collections.Generic;
 using System.Linq;
-using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Services;
@@ -26,13 +25,11 @@ namespace FirstLight.Game.Commands
 		{
 			var matchData = PlayersMatchData;
 			var trophiesBeforeChange = gameLogic.PlayerLogic.Trophies.Value;
-			var trophyChange = 0;
-			var rewards = new List<RewardData>();
-			if (QuantumValues.Ranked && gameLogic.EquipmentLogic.EnoughLoadoutEquippedToPlay())
-			{
-				trophyChange = gameLogic.PlayerLogic.UpdateTrophies(matchData, QuantumValues.ExecutingPlayer);
-				rewards = gameLogic.RewardLogic.GiveMatchRewards(matchData[QuantumValues.ExecutingPlayer], false);
-			}
+			var matchType = QuantumValues.MatchType;
+			var trophyChange =
+				gameLogic.PlayerLogic.UpdateTrophies(matchType, matchData, QuantumValues.ExecutingPlayer);
+			var rewards =
+				gameLogic.RewardLogic.GiveMatchRewards(matchType, matchData[QuantumValues.ExecutingPlayer], false);
 
 			gameLogic.MessageBrokerService.Publish(new GameCompletedRewardsMessage
 			{
@@ -49,12 +46,11 @@ namespace FirstLight.Game.Commands
 		/// </summary>
 		public bool HasConsensus(IQuantumConsensusCommand command)
 		{
-			if (!(command is EndOfGameCalculationsCommand))
+			if (command is not EndOfGameCalculationsCommand endCommand)
 			{
 				return false;
 			}
 
-			var endCommand = (EndOfGameCalculationsCommand) command;
 			var myHashes = PlayersMatchData.Select(d => d.GetHashCode());
 			var hisHashes = endCommand.PlayersMatchData.Select(d => d.GetHashCode());
 			return myHashes.SequenceEqual(hisHashes);

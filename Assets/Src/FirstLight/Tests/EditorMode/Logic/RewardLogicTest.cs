@@ -1,6 +1,7 @@
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Logic;
 using NSubstitute;
@@ -52,7 +53,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void GiveMatchRewards_PlayerQuit_RewardsNothing()
 		{
-			var rewards = _rewardLogic.GiveMatchRewards(_matchData, true);
+			var rewards = _rewardLogic.GiveMatchRewards(MatchType.Ranked, _matchData, true);
 			
 			Assert.AreEqual(0, rewards.Count);
 		}

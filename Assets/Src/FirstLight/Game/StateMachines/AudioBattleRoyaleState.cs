@@ -113,8 +113,6 @@ namespace FirstLight.Game.StateMachines
 			var playersLeft = (container.TargetProgress+1) - container.CurrentProgress;
 			// CurrentProgress+1 because BR always has 1 player left alive at the end
 
-			Debug.LogError(container.CurrentProgress + " " + playersLeft);
-			
 			if (playersLeft == 10)
 			{
 				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_Alive10);

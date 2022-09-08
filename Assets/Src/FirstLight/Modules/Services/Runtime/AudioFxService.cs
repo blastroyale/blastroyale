@@ -111,6 +111,11 @@ namespace FirstLight.Services
 		/// Stops all currently playing SFX
 		/// </summary>
 		void StopAllSfx();
+		
+		/// <summary>
+		/// Stops all current sounds in sound queue, and empties the sound queue
+		/// </summary>
+		void WipeSoundQueue();
 
 		/// <summary>
 		/// Requests the current playback time of the currently playing music track, in seconds
@@ -710,6 +715,19 @@ namespace FirstLight.Services
 			{
 				source.StopAndDespawn();
 			}
+			
+			_soundQueue.Clear();
+		}
+
+		/// <inheritdoc />
+		public void WipeSoundQueue()
+		{
+			foreach (var source in _soundQueue)
+			{
+				source.StopAndDespawn();
+			}
+
+			_soundQueue.Clear();
 		}
 
 		/// <inheritdoc />

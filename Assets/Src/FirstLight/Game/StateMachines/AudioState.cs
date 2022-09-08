@@ -105,8 +105,7 @@ namespace FirstLight.Game.StateMachines
 			deathmatch.Nest(_audioDmState.Setup).Target(postGameSpectatorCheck);
 			deathmatch.Event(GameSimulationState.GameCompleteExitEvent).Target(postGameSpectatorCheck);
 			deathmatch.Event(GameSimulationState.MatchEndedEvent).Target(postGameSpectatorCheck);
-			deathmatch.Event(GameSimulationState.MatchQuitEvent).OnTransition(StopMusicInstant)
-			          .Target(postGameSpectatorCheck);
+			deathmatch.Event(GameSimulationState.MatchQuitEvent).OnTransition(StopMusicInstant).Target(postGameSpectatorCheck);
 			deathmatch.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
 			deathmatch.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
 
@@ -223,6 +222,8 @@ namespace FirstLight.Game.StateMachines
 		{
 			if (IsSpectator()) return;
 			
+			WipeSoundQueue();
+			
 			var game = QuantumRunner.Default.Game;
 			var frame = game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
@@ -245,6 +246,11 @@ namespace FirstLight.Game.StateMachines
 			{
 				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_GameOver);
 			}
+		}
+		
+		private void WipeSoundQueue()
+		{
+			_services.AudioFxService.WipeSoundQueue();
 		}
 
 		private void StopAllSfx()
@@ -367,27 +373,27 @@ namespace FirstLight.Game.StateMachines
 
 		private IEnumerator WaitForCircleShrinkCoroutine(EventOnNewShrinkingCircle callback)
 		{
+			var f = callback.Game.Frames.Verified;
 			var allConfigs = _services.ConfigsProvider.GetConfigsList<QuantumShrinkingCircleConfig>();
 			var config = allConfigs[callback.ShrinkingCircle.Step];
+			var circle = f.GetSingleton<ShrinkingCircle>();
 			var maxStep = allConfigs.Count - 1;
-
-			yield return new WaitForSeconds(config.DelayTime.AsFloat);
+			var time = (circle.ShrinkingStartTime - f.Time - config.WarningTime).AsFloat;
 
 			if (config.Step == maxStep)
 			{
 				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_CircleLastCountdown);
 			}
 			
-			yield return new WaitForSeconds(config.WarningTime.AsFloat);
+			yield return new WaitForSeconds(time);
+			
+			time = (circle.ShrinkingStartTime - f.Time).AsFloat;
+			
+			yield return new WaitForSeconds(time);
 
-			if (config.Step == maxStep)
-			{
-				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_CircleLastClose);
-			}
-			else
-			{
-				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_CircleClose);
-			}
+			_services.AudioFxService.PlayClipQueued2D(config.Step == maxStep
+				                                          ? AudioId.Vo_CircleLastClose
+				                                          : AudioId.Vo_CircleClose);
 		}
 
 		private void OnAirdropDropped(EventOnAirDropDropped callback)

@@ -17,6 +17,7 @@ MonoBehaviour:
     PoolCapacity: 300
     RestockIntervalMinutes: 180
     TotalRestockIntervalMinutes: 720
+    UseNftData: 1
     BaseMaxTake: 16
     ScaleMultiplier:
       RawValue: 983040
@@ -36,6 +37,7 @@ MonoBehaviour:
     PoolCapacity: 300
     RestockIntervalMinutes: 180
     TotalRestockIntervalMinutes: 720
+    UseNftData: 0
     BaseMaxTake: 16
     ScaleMultiplier:
       RawValue: 983040

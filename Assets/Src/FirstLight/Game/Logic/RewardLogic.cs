@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
@@ -127,6 +128,10 @@ namespace FirstLight.Game.Logic
 			{
 				var info = GameLogic.ResourceLogic.GetResourcePoolInfo(GameId.BPP);
 				var withdrawn = (int) Math.Min(info.CurrentAmount, amount);
+				
+				var remainingPoints = GameLogic.BattlePassLogic.GetRemainingPoints();
+
+				withdrawn = (int) Math.Min(withdrawn, remainingPoints);
 
 				if (withdrawn > 0)
 				{

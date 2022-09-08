@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
@@ -21,10 +22,26 @@ namespace FirstLight.Game.Logic
 		IObservableFieldReader<uint> CurrentPoints { get; }
 
 		/// <summary>
+		/// The maximum (highest) level of the BattlePass.
+		/// </summary>
+		uint MaxLevel { get; }
+
+		/// <summary>
+		/// Returns how many points the player is able to earn, before reaching max level (this takes
+		/// into accounts the points they already have)
+		/// </summary>
+		uint GetRemainingPoints();
+
+		/// <summary>
+		/// Returns the rewards received for a particular level.
+		/// </summary>
+		BattlePassRewardConfig GetRewardForLevel(uint level);
+
+		/// <summary>
 		/// Tells you if there are any points to redeem for levels and rewards, and gives you required points for
 		/// the next level.
 		/// </summary>
-		bool IsRedeemable( out uint nextLevelPoints);
+		bool IsRedeemable(out uint nextLevelPoints);
 	}
 
 	/// <inheritdoc />
@@ -53,6 +70,7 @@ namespace FirstLight.Game.Logic
 
 		public IObservableFieldReader<uint> CurrentLevel => _currentLevel;
 		public IObservableFieldReader<uint> CurrentPoints => _currentPoints;
+		public uint MaxLevel { get; private set; }
 
 		public BattlePassLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
 		{
@@ -60,8 +78,27 @@ namespace FirstLight.Game.Logic
 
 		public void Init()
 		{
+			MaxLevel = (uint) GameLogic.ConfigsProvider.GetConfig<BattlePassConfig>().Levels.Count;
 			_currentLevel = new ObservableResolverField<uint>(() => Data.BPLevel, val => Data.BPLevel = val);
 			_currentPoints = new ObservableResolverField<uint>(() => Data.BPPoints, val => Data.BPPoints = val);
+		}
+
+		public uint GetRemainingPoints()
+		{
+			var levelsTillMax = MaxLevel - _currentLevel.Value;
+			var ppl = GameLogic.ConfigsProvider.GetConfig<BattlePassConfig>().PointsPerLevel;
+
+			var points = (int) levelsTillMax * (int) ppl - (int) _currentPoints.Value;
+
+			return (uint) Math.Max(0, points);
+		}
+
+		public BattlePassRewardConfig GetRewardForLevel(uint level)
+		{
+			var config = GameLogic.ConfigsProvider.GetConfig<BattlePassConfig>();
+			var levelConfig = config.Levels[(int) level - 1];
+
+			return GameLogic.ConfigsProvider.GetConfig<BattlePassRewardConfig>(levelConfig.RewardId);
 		}
 
 		public bool IsRedeemable(out uint nextLevelPoints)
@@ -69,13 +106,18 @@ namespace FirstLight.Game.Logic
 			var config = GameLogic.ConfigsProvider.GetConfig<BattlePassConfig>();
 
 			nextLevelPoints = config.PointsPerLevel;
-			
-			return config.PointsPerLevel < _currentPoints.Value;
+
+			return config.PointsPerLevel <= _currentPoints.Value;
 		}
 
 		public void AddBPP(uint amount)
 		{
-			_currentPoints.Value += amount;
+			amount = Math.Min(GetRemainingPoints(), amount);
+
+			if (amount > 0)
+			{
+				_currentPoints.Value += amount;
+			}
 		}
 
 		public void AddLevels(uint amount, out List<BattlePassRewardConfig> rewards, out uint newLevel)
@@ -95,7 +137,7 @@ namespace FirstLight.Game.Logic
 
 			var levels = new List<BattlePassRewardConfig>();
 
-			while (points > config.PointsPerLevel)
+			while (points >= config.PointsPerLevel)
 			{
 				points -= config.PointsPerLevel;
 				level++;

@@ -1,5 +1,3 @@
-using System;
-using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -9,6 +7,9 @@ using UnityEngine.UI;
 
 namespace FirstLight.Game.Views.MainMenuViews
 {
+	/// <summary>
+	/// A button view displaying the current battle pass status.
+	/// </summary>
 	public class BattlePassButtonView : MonoBehaviour
 	{
 		[SerializeField] private TextMeshProUGUI _progressText;

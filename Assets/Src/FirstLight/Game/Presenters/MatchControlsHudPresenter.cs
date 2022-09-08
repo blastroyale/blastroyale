@@ -72,6 +72,7 @@ namespace FirstLight.Game.Presenters
 
 		protected override void OnClosed()
 		{
+			_services.MessageBrokerService.UnsubscribeAll(this);
 			_services.PlayerInputService.DisableInput();
 			QuantumCallback.UnsubscribeListener(this);
 		}

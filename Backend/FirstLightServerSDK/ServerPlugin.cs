@@ -9,7 +9,12 @@ namespace FirstLight.Server.SDK
 	{
 		protected virtual string ReadPluginConfig(string path)
 		{
-			return null;
+			var url = Environment.GetEnvironmentVariable(path, EnvironmentVariableTarget.Process);
+			if (url == null)
+			{
+				throw new Exception($"{path} Environment Config Plugin not set.");
+			}
+			return url;
 		}
 
 		public abstract void OnEnable(PluginContext context);

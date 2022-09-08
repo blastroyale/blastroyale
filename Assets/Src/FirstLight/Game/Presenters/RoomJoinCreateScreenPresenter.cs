@@ -23,7 +23,7 @@ namespace FirstLight.Game.Presenters
 			public Action CloseClicked;
 			public Action PlayClicked;
 		}
-		
+
 		[SerializeField, Required] private Button _closeButton;
 		[SerializeField, Required] private Button _createDeathmatchRoomButton;
 		[SerializeField, Required] private Button _joinRoomButton;
@@ -37,9 +37,9 @@ namespace FirstLight.Game.Presenters
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
-			
+
 			FillMapSelectionList();
-			
+
 			_services.GameModeService.SelectedGameMode.Observe((_, _) => FillMapSelectionList());
 
 			_closeButton.onClick.AddListener(CloseRequested);
@@ -60,7 +60,7 @@ namespace FirstLight.Game.Presenters
 		{
 			Close(true);
 		}
-		
+
 		protected override void Close(bool destroy)
 		{
 			Data.CloseClicked.Invoke();
@@ -73,17 +73,18 @@ namespace FirstLight.Game.Presenters
 				ButtonText = ScriptLocalization.MainMenu.RoomJoinButton,
 				ButtonOnClick = OnRoomJoinClicked
 			};
-			
-			_services.GenericDialogService.OpenInputFieldDialog(ScriptLocalization.MainMenu.RoomJoinCode, 
-			                                                    "", confirmButton, true, TMP_InputField.ContentType.IntegerNumber);
+
+			_services.GenericDialogService.OpenInputFieldDialog(ScriptLocalization.MainMenu.RoomJoinCode,
+			                                                    "", confirmButton, true,
+			                                                    TMP_InputField.ContentType.IntegerNumber);
 		}
 
 		private void OnRoomJoinClicked(string roomNameInput)
 		{
-			_services.MessageBrokerService.Publish(new PlayJoinRoomClickedMessage{ RoomName = roomNameInput });
+			_services.MessageBrokerService.Publish(new PlayJoinRoomClickedMessage {RoomName = roomNameInput});
 			Data.PlayClicked();
 		}
-		
+
 		private void PlaytestClicked()
 		{
 			var mapConfig = ((DropdownMenuOption) _mapSelection.options[_mapSelection.value]).MapConfig;
@@ -117,15 +118,17 @@ namespace FirstLight.Game.Presenters
 		private void FillMapSelectionList()
 		{
 			_mapSelection.options.Clear();
-			
-			var configs = _services.ConfigsProvider.GetConfigsDictionary<QuantumMapConfig>();
 
-			foreach (var config in configs.Values)
+			var gameModeConfig =
+				_services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(_services.GameModeService.SelectedGameMode
+					                                                           .Value.Id.GetHashCode());
+
+			foreach (var mapId in gameModeConfig.AllowedMaps)
 			{
-				if (config.GameModes.Contains(_services.GameModeService.SelectedGameMode.Value.Id) && 
-				         (!config.IsTestMap || Debug.isDebugBuild))
+				var mapConfig = _services.ConfigsProvider.GetConfig<QuantumMapConfig>((int) mapId);
+				if (!mapConfig.IsTestMap || Debug.isDebugBuild)
 				{
-					_mapSelection.options.Add(new DropdownMenuOption(config.Map.GetTranslation(), config));
+					_mapSelection.options.Add(new DropdownMenuOption(mapId.GetTranslation(), mapConfig));
 				}
 			}
 
@@ -135,6 +138,7 @@ namespace FirstLight.Game.Presenters
 		private class DropdownMenuOption : TMP_Dropdown.OptionData
 		{
 			public QuantumMapConfig MapConfig { get; set; }
+
 			public DropdownMenuOption(string text, QuantumMapConfig mapConfig) : base(text)
 			{
 				MapConfig = mapConfig;

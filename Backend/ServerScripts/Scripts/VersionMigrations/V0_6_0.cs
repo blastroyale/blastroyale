@@ -19,7 +19,8 @@ namespace Scripts.Scripts.VersionMigrations
 				await DeleteStateKey(playerId, "FirstLight.Game.Data.DataTypes.NftEquipmentData");
 			}
 			var playerData = state.DeserializeModel<PlayerData>();
-			return playerData.ResourcePools.Remove(GameId.EquipmentXP);
+			//return playerData.ResourcePools.Remove(GameId.EquipmentXP);
+			return false;
 		}
 	}
 }

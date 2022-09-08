@@ -71,8 +71,12 @@ namespace Backend.Game
     	public void StopAllSfx()
     	{
         }
-    
-    	public float GetCurrentMusicPlaybackTime()
+
+        public void WipeSoundQueue()
+        {
+        }
+
+        public float GetCurrentMusicPlaybackTime()
     	{
     		return 0f;
     	}

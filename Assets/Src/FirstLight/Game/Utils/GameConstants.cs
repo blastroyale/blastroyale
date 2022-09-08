@@ -119,7 +119,7 @@ namespace FirstLight.Game.Utils
 			public const string ROOM_PROPS_MUTATORS = "mutators";
 			public const string ROOM_PROPS_BOTS = "gameHasBots";
 			public const string ROOM_PROPS_DROP_PATTERN = "dropPattern";
-			public const string ROOM_PROPS_RANKED_MATCH = "isRanked";
+			public const string ROOM_PROPS_MATCH_TYPE = "matchType";
 
 			public const string DEFAULT_REGION = "eu";
 			

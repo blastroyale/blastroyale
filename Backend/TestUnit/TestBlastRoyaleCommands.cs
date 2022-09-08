@@ -80,7 +80,7 @@ public class TestBlastRoyaleCommands
 	{
 		var playerRef = new PlayerRef()
 		{
-			_index = 0
+			_index = 1
 		};
 		var matchData = new QuantumPlayerMatchData[]
 		{
@@ -91,7 +91,7 @@ public class TestBlastRoyaleCommands
 					Player = playerRef,
 					Entity = new EntityRef()
 					{
-						Index = 0
+						Index = 1
 					},
 				}
 			}

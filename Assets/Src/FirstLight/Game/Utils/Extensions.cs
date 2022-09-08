@@ -399,13 +399,13 @@ namespace FirstLight.Game.Utils
 		{
 			return room.IsVisible;
 		}
-		
+
 		/// <summary>
-		/// Obtains info on whether the room is used for matchmaking
+		/// Obtains the <see cref="MatchType"/> of this room.
 		/// </summary>
-		public static bool IsRankedRoom(this Room room)
+		public static MatchType GetMatchType(this Room room)
 		{
-			return (bool) room.CustomProperties[GameConstants.Network.ROOM_PROPS_RANKED_MATCH];
+			return Enum.Parse<MatchType>((string) room.CustomProperties[GameConstants.Network.ROOM_PROPS_MATCH_TYPE]);
 		}
 
 		/// <summary>

@@ -58,6 +58,8 @@ namespace FirstLight.Game.Configs
 				LoadConfig<BaseEquipmentStatConfigs>(AddressableId.Configs_BaseEquipmentStatConfigs, asset => configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
 				LoadConfig<StatConfigs>(AddressableId.Configs_StatConfigs, asset => configsAdder.AddConfigs(data => (int) data.StatType, asset.Configs)),
 				LoadConfig<GraphicsConfig>(AddressableId.Configs_GraphicsConfig, asset => configsAdder.AddSingletonConfig(asset)),
+				LoadConfig<BattlePassConfigs>(AddressableId.Configs_BattlePassConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
+				LoadConfig<BattlePassRewardConfigs>(AddressableId.Configs_BattlePassRewardConfigs, asset => configsAdder.AddConfigs(data => data.Id, asset.Configs)),
 				LoadConfig<RarityDataConfigs>(AddressableId.Configs_RarityDataConfigs, asset => configsAdder.AddConfigs(data => (int)data.Rarity, asset.Configs)),
 				LoadConfig<AdjectiveDataConfigs>(AddressableId.Configs_AdjectiveDataConfigs, asset => configsAdder.AddConfigs(data => (int)data.Adjective, asset.Configs)),
 				LoadConfig<GradeDataConfigs>(AddressableId.Configs_GradeDataConfigs, asset => configsAdder.AddConfigs(data => (int)data.Grade, asset.Configs)),

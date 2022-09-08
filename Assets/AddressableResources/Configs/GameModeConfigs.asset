@@ -50,7 +50,6 @@ MonoBehaviour:
       AudioStateMachine: 1
       CompletionStrategy: 1
       CompletionKillCount: 0
-      GiveRewards: 1
       Systems:
       - Quantum.Systems.ShrinkingCircleSystem, quantum.code, Version=2.1.0.0, Culture=neutral,
         PublicKeyToken=null
@@ -86,7 +85,6 @@ MonoBehaviour:
       AudioStateMachine: 0
       CompletionStrategy: 2
       CompletionKillCount: 10
-      GiveRewards: 0
       Systems: []
     - Id: Testing
       MaxPlayers: 1
@@ -120,7 +118,6 @@ MonoBehaviour:
       AudioStateMachine: 1
       CompletionStrategy: 1
       CompletionKillCount: 0
-      GiveRewards: 0
       Systems:
       - Quantum.Systems.ShrinkingCircleSystem, quantum.code, Version=2.1.0.0, Culture=neutral,
         PublicKeyToken=null

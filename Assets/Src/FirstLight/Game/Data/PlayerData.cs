@@ -15,6 +15,8 @@ namespace FirstLight.Game.Data
 		public uint Level = 1;
 		public uint Xp = 0;
 		public uint Trophies = 1000;
+		public uint BPLevel = 0;
+		public uint BPPoints = 0;
 		public GameId PlayerSkinId = GameId.Female01Avatar;
 		public GameId DeathMarker = GameId.Tombstone;
 		public readonly Dictionary<GameIdGroup, UniqueId> Equipped = new(new GameIdGroupComparer());

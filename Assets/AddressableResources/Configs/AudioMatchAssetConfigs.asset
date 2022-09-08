@@ -662,8 +662,8 @@ MonoBehaviour:
       Loop: 0
       BaseVolume: 1
       BasePitch: 1
-      VolumeRandDeviation: 0.2
-      PitchRandDeviation: 0.2
+      VolumeRandDeviation: 0
+      PitchRandDeviation: 0
       PitchModPerLoop: 0
   - Key: 71
     Value:
@@ -688,8 +688,8 @@ MonoBehaviour:
       Loop: 0
       BaseVolume: 1
       BasePitch: 1
-      VolumeRandDeviation: 0.2
-      PitchRandDeviation: 0.2
+      VolumeRandDeviation: 0
+      PitchRandDeviation: 0
       PitchModPerLoop: 0
   - Key: 52
     Value:
@@ -699,10 +699,10 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Loop: 0
-      BaseVolume: 1
+      BaseVolume: 0.9
       BasePitch: 1
-      VolumeRandDeviation: 0.25
-      PitchRandDeviation: 0.25
+      VolumeRandDeviation: 0
+      PitchRandDeviation: 0.15
       PitchModPerLoop: 0
   - Key: 53
     Value:
@@ -714,8 +714,8 @@ MonoBehaviour:
       Loop: 0
       BaseVolume: 1
       BasePitch: 1
-      VolumeRandDeviation: 0.2
-      PitchRandDeviation: 0.2
+      VolumeRandDeviation: 0
+      PitchRandDeviation: 0
       PitchModPerLoop: 0
   - Key: 54
     Value:
@@ -727,8 +727,8 @@ MonoBehaviour:
       Loop: 0
       BaseVolume: 1
       BasePitch: 1
-      VolumeRandDeviation: 0.2
-      PitchRandDeviation: 0.2
+      VolumeRandDeviation: 0
+      PitchRandDeviation: 0.05
       PitchModPerLoop: 0
   - Key: 55
     Value:
@@ -740,8 +740,8 @@ MonoBehaviour:
       Loop: 0
       BaseVolume: 1
       BasePitch: 1
-      VolumeRandDeviation: 0.2
-      PitchRandDeviation: 0.2
+      VolumeRandDeviation: 0
+      PitchRandDeviation: 0
       PitchModPerLoop: 0
   - Key: 56
     Value:
@@ -777,10 +777,10 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Loop: 0
-      BaseVolume: 2
+      BaseVolume: 1
       BasePitch: 1
-      VolumeRandDeviation: 0.2
-      PitchRandDeviation: 0.2
+      VolumeRandDeviation: 0
+      PitchRandDeviation: 0
       PitchModPerLoop: 0
   - Key: 58
     Value:
@@ -1585,10 +1585,6 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       - m_AssetGUID: 284d4baa86827984ba6b2e98023901ca
-        m_SubObjectName: 
-        m_SubObjectType: 
-        m_EditorAssetChanged: 0
-      - m_AssetGUID: 9ab4ce79058ed214db8ca22b2fa0d988
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0

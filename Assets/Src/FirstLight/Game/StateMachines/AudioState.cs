@@ -57,7 +57,7 @@ namespace FirstLight.Game.StateMachines
 		}
 
 		/// <summary>
-		/// Setups the Adventure gameplay state
+		/// Setups the audio state - root state, and then per gamemode type nested states
 		/// </summary>
 		public void Setup(IStateFactory stateFactory)
 		{

@@ -119,7 +119,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var isEmptied = playerCharacter->IsAmmoEmpty(f, _localPlayerEntity);
 			var speed = kcc->MaxSpeed * kcc->MaxSpeed;
 			var velocity = kcc->Velocity.SqrMagnitude;
-			var range = _weaponConfig.AttackRange.AsFloat;
+			var range = (_weaponConfig.AttackRange + f.Get<Stats>(_localPlayerEntity).GetStatData(StatType.AttackRange).StatValue).AsFloat;
+			
 			var minAttackAngle = _weaponConfig.MinAttackAngle;
 			var maxAttackAngle = _weaponConfig.MaxAttackAngle;
 			var lerp = Mathf.Lerp(minAttackAngle, maxAttackAngle, velocity.AsFloat / speed.AsFloat);

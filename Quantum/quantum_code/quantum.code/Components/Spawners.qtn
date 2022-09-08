@@ -13,3 +13,8 @@ component PlayerSpawner
 {
 	[HideInInspector] FP ActivationTime;
 }
+
+component AirDropSpawner
+{
+
+}

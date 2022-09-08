@@ -39,13 +39,13 @@ namespace Quantum.Systems
 				killerData->PlayersKilledCount++;
 				killerData->CurrentKillStreak++;
 
-				if (f.Time <= killerData->MultiKillResetTime)
+				if (f.Time > killerData->MultiKillResetTime)
 				{
-					killerData->CurrentMultiKill++;
+					killerData->CurrentMultiKill = 1;
 				}
 				else
 				{
-					killerData->CurrentMultiKill = 1;
+					killerData->CurrentMultiKill++;
 				}
 
 				killerData->MultiKillResetTime = f.Time + f.GameConfig.MultiKillResetTime;

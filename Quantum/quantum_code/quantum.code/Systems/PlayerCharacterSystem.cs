@@ -136,11 +136,12 @@ namespace Quantum.Systems
 
 			var health = healthPerSecondsMutatorConfig.Param1.AsInt;
 			var seconds = healthPerSecondsMutatorConfig.Param2.AsInt;
-			var mutatorState = f.Unsafe.GetPointerSingleton<GameContainer>()->MutatorsState;
+
+			var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
 			
-			if (f.Time > mutatorState.HealthPerSecLastTime + seconds)
+			if (f.Time > gameContainer->MutatorsState.HealthPerSecLastTime + seconds)
 			{
-				mutatorState.HealthPerSecLastTime = f.Time;
+				gameContainer->MutatorsState.HealthPerSecLastTime = f.Time;
 				
 				if (!f.Unsafe.TryGetPointer<Stats>(filter.Entity, out var stats))
 				{

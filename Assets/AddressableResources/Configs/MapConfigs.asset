@@ -18,50 +18,24 @@ MonoBehaviour:
       Guid:
         Value: 3072854346747122385
     QuantumConfigs:
-    - Id: 0
-      Map: 5
-      GameModes: []
-      PlayersLimit: 1
+    - Map: 137
+      MaxPlayers: 12
       IsTestMap: 0
-    - Id: 1
-      Map: 137
-      GameModes:
-      - Deathmatch
-      PlayersLimit: 12
+    - Map: 143
+      MaxPlayers: 8
       IsTestMap: 0
-    - Id: 2
-      Map: 143
-      GameModes:
-      - Deathmatch
-      PlayersLimit: 8
+    - Map: 144
+      MaxPlayers: 7
       IsTestMap: 0
-    - Id: 3
-      Map: 144
-      GameModes:
-      - Deathmatch
-      PlayersLimit: 7
+    - Map: 7
+      MaxPlayers: 10
       IsTestMap: 0
-    - Id: 4
-      Map: 7
-      GameModes:
-      - Deathmatch
-      PlayersLimit: 10
+    - Map: 8
+      MaxPlayers: 8
       IsTestMap: 0
-    - Id: 5
-      Map: 8
-      GameModes:
-      - Deathmatch
-      PlayersLimit: 8
+    - Map: 9
+      MaxPlayers: 30
       IsTestMap: 0
-    - Id: 6
-      Map: 9
-      GameModes:
-      - BattleRoyale
-      PlayersLimit: 30
-      IsTestMap: 0
-    - Id: 7
-      Map: 11
-      GameModes:
-      - Testing
-      PlayersLimit: 1
+    - Map: 11
+      MaxPlayers: 1
       IsTestMap: 1

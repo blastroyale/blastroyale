@@ -19,12 +19,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 	public class DynamicMessageView : MonoBehaviour
 	{
 		[SerializeField] private List<DynamicMessageEntryView> _messages;
-		
-		private const int _doubleKillCount = 2;
-		private const int _multiKillCount = 3;
-		private const int _killingSpreeCount = 3;
-		private const int _dominatingCount = 5;
-		private const int _godlikeCount = 10;
 
 		private readonly Queue<MessageData> _queue = new Queue<MessageData>();
 		
@@ -64,78 +58,39 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// </summary>
 		private void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
-			/*var leaderData = callback.PlayersMatchData.Find(data => data.Data.Player.Equals(callback.PlayerLeader));
-			var killerData = callback.PlayersMatchData.Find(data => data.Data.Player.Equals(callback.PlayerKiller));
-			var deadData = callback.PlayersMatchData.Find(data => data.Data.Player.Equals(callback.PlayerDead));
+			if (_matchServices.SpectateService.SpectatedPlayer.Value.Entity != callback.EntityKiller) return;
+
 			
-			// Check to see if we are close to ending the match.
-			if(leaderData.Data.PlayersKilledCount == _killWarningLimit &&  callback.PlayerKiller == callback.PlayerLeader)
+			if (callback.CurrentMultiKill >= 2)
 			{
 				var messageData = new MessageData
 				{
-					TopText = string.Format(ScriptLocalization.AdventureMenu.KillsRemaining, (_killTarget - _killWarningLimit).ToString()),
-					BottomText = ScriptLocalization.AdventureMenu.Remaining,
+					TopText = ScriptLocalization.AdventureMenu.MultikillMessage,
+					BottomText = string.Format(ScriptLocalization.AdventureMenu.KillMessageAmount, callback.CurrentMultiKill),
 					MessageEntry = _messages[Random.Range(0, _messages.Count)]
 				};
 					
 				EnqueueMessage(messageData);
 			}
 			
-			CheckKillingSpree(killerData, deadData);*/
-		}
-		
-		private void CheckKillingSpree(QuantumPlayerMatchData killerData, QuantumPlayerMatchData deadData)
-		{
-			/*if (_matchServices.SpectateService.SpectatedPlayer.Value.Player == killerData.Data.Player)
+			switch (callback.CurrentKillStreak)
 			{
-				var message = new MessageData
-				{
-					MessageEntry = _messages[Random.Range(0, _messages.Count)]
-				};
-				
-				_killCounter++;
-				
-				if (_killCounter == _doubleKillCount)
-				{
-					message.TopText = ScriptLocalization.AdventureMenu.Double;
-					message.BottomText = ScriptLocalization.AdventureMenu.Kill;
-				}
-				else if (_killCounter == _multiKillCount)
-				{
-					message.TopText = ScriptLocalization.AdventureMenu.Multi;
-					message.BottomText = ScriptLocalization.AdventureMenu.Kill;
-				}
-				else if (_killCounter > _killingSpreeCount)
-				{
-					message.TopText = ScriptLocalization.AdventureMenu.Killing;
-					message.BottomText = ScriptLocalization.AdventureMenu.Spree;
-				}
-
-				if (_killCounter > 1)
-				{
-					EnqueueMessage(message);
-				}
-				else
-				{
-					message.TopText = ScriptLocalization.AdventureMenu.YouKilledPlayer;
-					message.BottomText = deadData.GetPlayerName();
+				case 3:
+				case 5:
+				case 7:
+				case 9:
+					var messageData = new MessageData
+					{
+						TopText = ScriptLocalization.AdventureMenu.KillingSpreeMessage,
+						BottomText = string.Format(ScriptLocalization.AdventureMenu.KillMessageAmount, callback.CurrentKillStreak),
+						MessageEntry = _messages[Random.Range(0, _messages.Count)]
+					};
 					
-					EnqueueMessage(message);
-				}
-				
-				StopTimerCoroutine();
-				
-				_killTimerCoroutine = StartCoroutine(TimeUpdateCoroutine());
+					EnqueueMessage(messageData);
+					break;
 			}
-			
-			if (_matchServices.SpectateService.SpectatedPlayer.Value.Player == deadData.Data.Player)
-			{
-				_killCounter = 0;
-
-				StopTimerCoroutine();
-			}*/
 		}
-		
+
 		private void OnAirDropDropped(EventOnAirDropDropped callback)
 		{
 			var messageData = new MessageData

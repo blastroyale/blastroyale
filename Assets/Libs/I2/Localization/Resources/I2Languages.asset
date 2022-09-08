@@ -694,11 +694,20 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: General/PickupSpeed
+      TermType: 0
+      Description: 
+      Languages:
+      - Pickup Speed
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: General/Power
       TermType: 0
       Description: 
       Languages:
-      - Attack
+      - Attack Power
       - 
       - 
       Flags: 000000
@@ -707,7 +716,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Attack to Damage
+      - Damage
       - 
       - 
       Flags: 000000
@@ -3638,6 +3647,33 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: AdventureMenu/MultikillMessage
+      TermType: 0
+      Description: 
+      Languages:
+      - Multikill
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: AdventureMenu/KillingSpreeMessage
+      TermType: 0
+      Description: 
+      Languages:
+      - Killing Spree
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: AdventureMenu/KillMessageAmount
+      TermType: 0
+      Description: 
+      Languages:
+      - x{0}
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: BotNames/Bot1
       TermType: 0
       Description: 
@@ -6338,6 +6374,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: BotNames/Bot301
+      TermType: 0
+      Description: 
+      Languages:
+      - PassionDispenser
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: Notifications/AdventureUnlocked
       TermType: 0
       Description: 
@@ -8844,7 +8889,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1662461991922
+    Google_LastUpdatedVersion: 1662647504090
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

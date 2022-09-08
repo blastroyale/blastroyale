@@ -196,7 +196,7 @@ MonoBehaviour:
       Loop: 0
       BaseVolume: 1
       BasePitch: 1
-      VolumeRandDeviation: 0.2
+      VolumeRandDeviation: 0.05
       PitchRandDeviation: 0.2
       PitchModPerLoop: 0
   - Key: 46
@@ -217,7 +217,7 @@ MonoBehaviour:
       Loop: 0
       BaseVolume: 1
       BasePitch: 1
-      VolumeRandDeviation: 0.2
+      VolumeRandDeviation: 0.05
       PitchRandDeviation: 0.2
       PitchModPerLoop: 0
   - Key: 49
@@ -230,7 +230,7 @@ MonoBehaviour:
       Loop: 0
       BaseVolume: 1
       BasePitch: 1
-      VolumeRandDeviation: 0.2
+      VolumeRandDeviation: 0
       PitchRandDeviation: 0.2
       PitchModPerLoop: 0
   - Key: 118
@@ -243,7 +243,7 @@ MonoBehaviour:
       Loop: 0
       BaseVolume: 1
       BasePitch: 1
-      VolumeRandDeviation: 0.2
+      VolumeRandDeviation: 0
       PitchRandDeviation: 0.2
       PitchModPerLoop: 0
   - Key: 47
@@ -264,7 +264,7 @@ MonoBehaviour:
       Loop: 0
       BaseVolume: 1
       BasePitch: 1
-      VolumeRandDeviation: 0.2
+      VolumeRandDeviation: 0.05
       PitchRandDeviation: 0.2
       PitchModPerLoop: 0
   - Key: 48
@@ -285,7 +285,7 @@ MonoBehaviour:
       Loop: 0
       BaseVolume: 1
       BasePitch: 1
-      VolumeRandDeviation: 0.2
+      VolumeRandDeviation: 0.05
       PitchRandDeviation: 0.2
       PitchModPerLoop: 0
   - Key: 13
@@ -298,7 +298,7 @@ MonoBehaviour:
       Loop: 0
       BaseVolume: 1
       BasePitch: 1
-      VolumeRandDeviation: 0.25
+      VolumeRandDeviation: 0.05
       PitchRandDeviation: 0.25
       PitchModPerLoop: 0
   - Key: 14
@@ -309,9 +309,9 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Loop: 0
-      BaseVolume: 1
+      BaseVolume: 0.9
       BasePitch: 1
-      VolumeRandDeviation: 0.25
+      VolumeRandDeviation: 0.05
       PitchRandDeviation: 0.25
       PitchModPerLoop: 0
   - Key: 15
@@ -322,9 +322,9 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Loop: 0
-      BaseVolume: 1
+      BaseVolume: 0.8
       BasePitch: 1
-      VolumeRandDeviation: 0.25
+      VolumeRandDeviation: 0.05
       PitchRandDeviation: 0.25
       PitchModPerLoop: 0
   - Key: 16
@@ -335,9 +335,9 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Loop: 0
-      BaseVolume: 1
+      BaseVolume: 0.8
       BasePitch: 1
-      VolumeRandDeviation: 0.25
+      VolumeRandDeviation: 0.05
       PitchRandDeviation: 0.25
       PitchModPerLoop: 0
   - Key: 17
@@ -348,9 +348,9 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Loop: 0
-      BaseVolume: 1
+      BaseVolume: 0.8
       BasePitch: 1
-      VolumeRandDeviation: 0.25
+      VolumeRandDeviation: 0.05
       PitchRandDeviation: 0.25
       PitchModPerLoop: 0
   - Key: 18
@@ -363,7 +363,7 @@ MonoBehaviour:
       Loop: 0
       BaseVolume: 1
       BasePitch: 1
-      VolumeRandDeviation: 0.25
+      VolumeRandDeviation: 0.05
       PitchRandDeviation: 0.25
       PitchModPerLoop: 0
   - Key: 19
@@ -376,7 +376,7 @@ MonoBehaviour:
       Loop: 0
       BaseVolume: 1
       BasePitch: 1
-      VolumeRandDeviation: 0.25
+      VolumeRandDeviation: 0.05
       PitchRandDeviation: 0.25
       PitchModPerLoop: 0
   - Key: 22
@@ -387,9 +387,9 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Loop: 0
-      BaseVolume: 1
+      BaseVolume: 0.75
       BasePitch: 1
-      VolumeRandDeviation: 0.25
+      VolumeRandDeviation: 0.05
       PitchRandDeviation: 0.25
       PitchModPerLoop: 0
   - Key: 23
@@ -400,9 +400,9 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Loop: 0
-      BaseVolume: 1
+      BaseVolume: 0.8
       BasePitch: 1
-      VolumeRandDeviation: 0.25
+      VolumeRandDeviation: 0.05
       PitchRandDeviation: 0.25
       PitchModPerLoop: 0
   - Key: 24
@@ -413,9 +413,9 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Loop: 0
-      BaseVolume: 1
+      BaseVolume: 0.8
       BasePitch: 1
-      VolumeRandDeviation: 0.25
+      VolumeRandDeviation: 0.05
       PitchRandDeviation: 0.25
       PitchModPerLoop: 0
   - Key: 25
@@ -426,9 +426,9 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Loop: 0
-      BaseVolume: 1
+      BaseVolume: 0.8
       BasePitch: 1
-      VolumeRandDeviation: 0.25
+      VolumeRandDeviation: 0.05
       PitchRandDeviation: 0.25
       PitchModPerLoop: 0
   - Key: 26
@@ -439,9 +439,9 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Loop: 0
-      BaseVolume: 1
+      BaseVolume: 0.8
       BasePitch: 1
-      VolumeRandDeviation: 0.25
+      VolumeRandDeviation: 0.05
       PitchRandDeviation: 0.25
       PitchModPerLoop: 0
   - Key: 27
@@ -452,9 +452,9 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Loop: 0
-      BaseVolume: 1
+      BaseVolume: 0.8
       BasePitch: 1
-      VolumeRandDeviation: 0.25
+      VolumeRandDeviation: 0.05
       PitchRandDeviation: 0.25
       PitchModPerLoop: 0
   - Key: 28
@@ -467,7 +467,7 @@ MonoBehaviour:
       Loop: 0
       BaseVolume: 1
       BasePitch: 1
-      VolumeRandDeviation: 0.25
+      VolumeRandDeviation: 0.05
       PitchRandDeviation: 0.25
       PitchModPerLoop: 0
   - Key: 30
@@ -478,9 +478,9 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Loop: 0
-      BaseVolume: 1
+      BaseVolume: 0.8
       BasePitch: 1
-      VolumeRandDeviation: 0.25
+      VolumeRandDeviation: 0.05
       PitchRandDeviation: 0.25
       PitchModPerLoop: 0
   - Key: 31
@@ -491,9 +491,9 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Loop: 0
-      BaseVolume: 1
+      BaseVolume: 0.8
       BasePitch: 1
-      VolumeRandDeviation: 0.25
+      VolumeRandDeviation: 0.05
       PitchRandDeviation: 0.25
       PitchModPerLoop: 0
   - Key: 32
@@ -504,9 +504,9 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Loop: 0
-      BaseVolume: 1
+      BaseVolume: 0.8
       BasePitch: 1
-      VolumeRandDeviation: 0.25
+      VolumeRandDeviation: 0.05
       PitchRandDeviation: 0.25
       PitchModPerLoop: 0
   - Key: 33
@@ -517,9 +517,9 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Loop: 0
-      BaseVolume: 1
+      BaseVolume: 0.85
       BasePitch: 1
-      VolumeRandDeviation: 0.25
+      VolumeRandDeviation: 0.05
       PitchRandDeviation: 0.25
       PitchModPerLoop: 0
   - Key: 34
@@ -530,9 +530,9 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Loop: 0
-      BaseVolume: 1
+      BaseVolume: 0.8
       BasePitch: 1
-      VolumeRandDeviation: 0.25
+      VolumeRandDeviation: 0.05
       PitchRandDeviation: 0.25
       PitchModPerLoop: 0
   - Key: 35
@@ -543,9 +543,9 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Loop: 0
-      BaseVolume: 1
+      BaseVolume: 0.8
       BasePitch: 1
-      VolumeRandDeviation: 0.25
+      VolumeRandDeviation: 0.05
       PitchRandDeviation: 0.25
       PitchModPerLoop: 0
   - Key: 37
@@ -558,7 +558,7 @@ MonoBehaviour:
       Loop: 0
       BaseVolume: 1
       BasePitch: 1
-      VolumeRandDeviation: 0.25
+      VolumeRandDeviation: 0.05
       PitchRandDeviation: 0.25
       PitchModPerLoop: 0
   - Key: 39
@@ -569,9 +569,9 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Loop: 0
-      BaseVolume: 1
+      BaseVolume: 0.8
       BasePitch: 1
-      VolumeRandDeviation: 0.25
+      VolumeRandDeviation: 0.05
       PitchRandDeviation: 0.25
       PitchModPerLoop: 0
   - Key: 77

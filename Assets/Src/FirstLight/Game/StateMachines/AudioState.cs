@@ -698,23 +698,27 @@ namespace FirstLight.Game.StateMachines
 
 			var game = callback.Game;
 			var audio = AudioId.None;
+			var damagedPlayerIsLocal = _matchServices.SpectateService.SpectatedPlayer.Value.Player == callback.Player;
 
-			if (_matchServices.SpectateService.SpectatedPlayer.Value.Player == callback.Player)
+			if (damagedPlayerIsLocal)
 			{
 				audio = callback.ShieldDamage > 0 ? AudioId.TakeShieldDamage : AudioId.TakeHealthDamage;
 			}
-			else if (game.Frames.Verified.TryGet<PlayerCharacter>(callback.Attacker, out var player) &&
-			         _matchServices.SpectateService.SpectatedPlayer.Value.Player == player.Player)
+			else
 			{
 				audio = callback.ShieldDamage > 0 ? AudioId.HitShieldDamage : AudioId.HitHealthDamage;
 			}
 
 			if (callback.ShieldDamage > 0 && callback.HealthDamage > 0)
 			{
-				audio = AudioId.ShieldBreak;
+				audio = damagedPlayerIsLocal ? AudioId.SelfShieldBreak : AudioId.ShieldBreak;
 			}
 
-			if (audio != AudioId.None)
+			if (damagedPlayerIsLocal)
+			{
+				_services.AudioFxService.PlayClip2D(audio);
+			}
+			else
 			{
 				_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
 			}

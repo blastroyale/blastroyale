@@ -49,7 +49,7 @@ namespace FirstLight.Game.Utils
 				stats.Add(EquipmentStatType.MinAttackAngle, weaponConfig.MinAttackAngle);
 				stats.Add(EquipmentStatType.MaxAttackAngle, weaponConfig.MaxAttackAngle);
 				stats.Add(EquipmentStatType.SplashDamageRadius, weaponConfig.SplashRadius.AsFloat);
-				stats.Add(EquipmentStatType.PowerToDamageRatio, (int)(weaponConfig.PowerToDamageRatio.AsFloat * 100));
+				stats.Add(EquipmentStatType.PowerToDamageRatio, weaponConfig.PowerToDamageRatio.AsFloat);
 				stats.Add(EquipmentStatType.NumberOfShots, weaponConfig.NumberOfShots);
 				stats.Add(EquipmentStatType.SpecialId0, (float) weaponConfig.Specials[0]);
 				stats.Add(EquipmentStatType.SpecialId1, (float) weaponConfig.Specials[1]);

@@ -42,7 +42,7 @@ namespace FirstLight.Game.Configs
 			{
 				LoadConfig<GameConfigs>(AddressableId.Configs_GameConfigs, asset => configsAdder.AddSingletonConfig(asset.Config)),
 				LoadConfig<MapGridConfigs>(AddressableId.Configs_MapGridConfigs, asset => configsAdder.AddSingletonConfig(asset)),
-				LoadConfig<MapConfigs>(AddressableId.Configs_MapConfigs, asset => configsAdder.AddConfigs(data => data.Id, asset.Configs)),
+				LoadConfig<MapConfigs>(AddressableId.Configs_MapConfigs, asset => configsAdder.AddConfigs(data => (int) data.Map, asset.Configs)),
 				LoadConfig<WeaponConfigs>(AddressableId.Configs_WeaponConfigs, asset => configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),
 				LoadConfig<PlayerLevelConfigs>(AddressableId.Configs_PlayerLevelConfigs, asset => configsAdder.AddConfigs(data => (int) data.Level, asset.Configs)),
 				LoadConfig<SpecialConfigs>(AddressableId.Configs_SpecialConfigs, asset => configsAdder.AddConfigs(data => (int) data.Id, asset.Configs)),

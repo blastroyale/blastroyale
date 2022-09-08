@@ -123,17 +123,17 @@ namespace FirstLight.Game.Services
 		public string QuitReason { get; set; }
 
 		public GameServices(IGameNetworkService networkService, IMessageBrokerService messageBrokerService,
-		                    ITimeService timeService, IDataSaver dataSaver, IConfigsProvider configsProvider,
-		                    IGameLogic gameLogic, IDataProvider dataProvider,
+		                    ITimeService timeService, IDataService dataService, IConfigsProvider configsProvider,
+		                    IGameLogic gameLogic,
 		                    IGenericDialogService genericDialogService,
 		                    IAssetResolverService assetResolverService,
 		                    IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService)
 		{
 			NetworkService = networkService;
-			AnalyticsService = new AnalyticsService(this, gameLogic, dataProvider);
+			AnalyticsService = new AnalyticsService(this, gameLogic, dataService);
 			MessageBrokerService = messageBrokerService;
 			TimeService = timeService;
-			DataSaver = dataSaver;
+			DataSaver = dataService;
 			ConfigsProvider = configsProvider;
 			AssetResolverService = assetResolverService;
 			GenericDialogService = genericDialogService;
@@ -145,7 +145,7 @@ namespace FirstLight.Game.Services
 			GameModeService = new GameModeService(ConfigsProvider, ThreadService);
 			GuidService = new GuidService();
 			PlayfabService = new PlayfabService(gameLogic.AppLogic, messageBrokerService, GameConstants.Network.LEADERBOARD_LADDER_NAME);
-			CommandService = new GameCommandService(PlayfabService, gameLogic, dataProvider, this, networkService);
+			CommandService = new GameCommandService(PlayfabService, gameLogic, dataService, this, networkService);
 			PoolService = new PoolService();
 			TickService = new TickService();
 			CoroutineService = new CoroutineService();

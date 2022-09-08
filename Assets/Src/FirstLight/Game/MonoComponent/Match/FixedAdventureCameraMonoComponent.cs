@@ -38,6 +38,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			input.SpecialButton0.canceled += SetActiveCamera;
 			input.SpecialButton1.started += SetActiveCamera;
 			input.SpecialButton1.canceled += SetActiveCamera;
+			input.CancelButton.canceled += SetActiveCamera;
 
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 			_services.MessageBrokerService.Subscribe<SpectateSetCameraMessage>(OnSpectateSetCameraMessage);
@@ -59,6 +60,7 @@ namespace FirstLight.Game.MonoComponent.Match
 				input.Value.SpecialButton0.canceled -= SetActiveCamera;
 				input.Value.SpecialButton1.started -= SetActiveCamera;
 				input.Value.SpecialButton1.canceled -= SetActiveCamera;
+				input.Value.CancelButton.canceled -= SetActiveCamera;
 			}
 			
 			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(OnSpectatedPlayerChanged);

@@ -93,13 +93,15 @@ namespace Quantum
 		{
 			if (IsWeapon())
 			{
-				QuantumStatCalculator.CalculateWeaponStats(f, this, out var armour, out var health, out var speed, out var power);
-				return QuantumStatCalculator.GetTotalMight(armour,health,speed, power);
+				QuantumStatCalculator.CalculateWeaponStats(f, this, out var armour, out var health, out var speed, 
+				                                           out var power, out var attackRange, out var pickupSpeed);
+				return QuantumStatCalculator.GetTotalMight(armour,health,speed, power, attackRange, pickupSpeed);
 			}
 			else
 			{
-				QuantumStatCalculator.CalculateGearStats(f, this, out var armour, out var health, out var speed, out var power);
-				return QuantumStatCalculator.GetTotalMight(armour,health,speed, power);
+				QuantumStatCalculator.CalculateGearStats(f, this, out var armour, out var health, out var speed, 
+				                                         out var power, out var attackRange, out var pickupSpeed);
+				return QuantumStatCalculator.GetTotalMight(armour,health,speed, power, attackRange, pickupSpeed);
 			}
 		}
 

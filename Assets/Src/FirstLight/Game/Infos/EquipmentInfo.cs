@@ -29,6 +29,7 @@ namespace FirstLight.Game.Infos
 		NumberOfShots,
 		SpecialId0,
 		SpecialId1,
+		PickupSpeed,
 	}
 	
 	public struct EquipmentInfo
@@ -148,7 +149,9 @@ namespace FirstLight.Game.Infos
 				total += QuantumStatCalculator.GetTotalMight(nft.Stats[EquipmentStatType.Armor].ToFP(),
 				                                             nft.Stats[EquipmentStatType.Hp].ToFP(),
 				                                             nft.Stats[EquipmentStatType.Speed].ToFP(),
-				                                             nft.Stats[EquipmentStatType.Power].ToFP());
+				                                             nft.Stats[EquipmentStatType.Power].ToFP(),
+				                                             nft.Stats[EquipmentStatType.TargetRange].ToFP(),
+				                                             nft.Stats[EquipmentStatType.PickupSpeed].ToFP());
 			}
 
 			return total;

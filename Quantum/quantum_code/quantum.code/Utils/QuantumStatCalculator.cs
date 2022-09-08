@@ -10,7 +10,8 @@ namespace Quantum
 		/// <summary>
 		/// Requests the <see cref="Equipment"/> stats based on the given <paramref name="item"/>
 		/// </summary>
-		public static void CalculateWeaponStats(Frame f, Equipment item, out int armour, out int health, out FP speed, out FP power)
+		public static void CalculateWeaponStats(Frame f, Equipment item, out int armour, out int health, out FP speed, 
+		                                        out FP power, out FP attackRange, out FP pickupSpeed)
 		{
 			if (!item.IsValid() || !item.IsWeapon())
 			{
@@ -18,6 +19,8 @@ namespace Quantum
 				speed = FP._0;
 				armour = 0;
 				power = FP._0;
+				attackRange = FP._0;
+				pickupSpeed = FP._0;
 				return;
 			}
 			
@@ -31,11 +34,14 @@ namespace Quantum
 			speed = CalculateWeaponStat(wc, statConfigs[StatType.Speed], besc, esc, emsc, item);
 			armour = CalculateWeaponStat(wc, statConfigs[StatType.Armour], besc, esc, emsc, item).AsInt;
 			power = CalculateWeaponStat(wc, statConfigs[StatType.Power], besc, esc, emsc, item);
+			attackRange = CalculateWeaponStat(wc, statConfigs[StatType.AttackRange], besc, esc, emsc, item);
+			pickupSpeed = CalculateWeaponStat(wc, statConfigs[StatType.PickupSpeed], besc, esc, emsc, item);
 		}
 		/// <summary>
 		/// Requests the <see cref="Equipment"/> stats based on the given <paramref name="item"/>
 		/// </summary>
-		public static void CalculateGearStats(Frame f, Equipment item, out int armour, out int health, out FP speed, out FP power)
+		public static void CalculateGearStats(Frame f, Equipment item, out int armour, out int health, out FP speed, 
+		                                      out FP power, out FP attackRange, out FP pickupSpeed)
 		{
 			if (!item.IsValid())
 			{
@@ -43,6 +49,8 @@ namespace Quantum
 				speed = FP._0;
 				armour = 0;
 				power = FP._0;
+				attackRange = FP._0;
+				pickupSpeed = FP._0;
 				return;
 			}
 			
@@ -55,12 +63,14 @@ namespace Quantum
 			speed = CalculateGearStat(statConfigs[StatType.Speed], besc, esc, emsc, item);
 			armour = CalculateGearStat(statConfigs[StatType.Armour], besc, esc, emsc, item).AsInt;
 			power = CalculateGearStat(statConfigs[StatType.Power], besc, esc, emsc, item);
+			attackRange = CalculateGearStat(statConfigs[StatType.AttackRange], besc, esc, emsc, item);
+			pickupSpeed = CalculateGearStat(statConfigs[StatType.PickupSpeed], besc, esc, emsc, item);
 		}
 
 		/// <summary>
 		/// Requests the total might for the give stats
 		/// </summary>
-		public static int GetTotalMight(FP armour, FP health, FP speed, FP power)
+		public static int GetTotalMight(FP armour, FP health, FP speed, FP power, FP attackRange, FP pickupSpeed)
 		{
 			return FPMath.RoundToInt(power + health + speed * FP._100 + armour * FP._10);
 		}

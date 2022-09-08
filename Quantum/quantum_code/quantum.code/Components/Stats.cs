@@ -22,9 +22,12 @@ namespace Quantum
 		public int TotalMight => QuantumStatCalculator.GetTotalMight(GetStatData(StatType.Armour).BaseValue,
 		                                                             GetStatData(StatType.Health).BaseValue,
 		                                                             GetStatData(StatType.Speed).BaseValue,
-		                                                             GetStatData(StatType.Power).BaseValue);
+		                                                             GetStatData(StatType.Power).BaseValue,
+		                                                             GetStatData(StatType.AttackRange).BaseValue,
+		                                                             GetStatData(StatType.PickupSpeed).BaseValue);
 		
-		public Stats(FP baseHealth, FP basePower, FP baseSpeed, FP baseArmour, FP maxShields, FP startingShields)
+		public Stats(FP baseHealth, FP basePower, FP baseSpeed, FP baseArmour, FP maxShields, FP startingShields, 
+		             FP baseRange, FP basePickupSpeed)
 		{
 			CurrentHealth = baseHealth.AsInt;
 			CurrentShield = 0;
@@ -40,6 +43,8 @@ namespace Quantum
 			Values[(int) StatType.Power] = new StatData(basePower, basePower, StatType.Power);
 			Values[(int) StatType.Speed] = new StatData(baseSpeed, baseSpeed, StatType.Speed);
 			Values[(int) StatType.Armour] = new StatData(baseArmour, baseArmour, StatType.Armour);
+			Values[(int)StatType.AttackRange] = new StatData(baseRange, baseRange, StatType.AttackRange);
+			Values[(int)StatType.PickupSpeed] = new StatData(basePickupSpeed, basePickupSpeed, StatType.PickupSpeed);
 		}
 
 		/// <summary>
@@ -82,10 +87,11 @@ namespace Quantum
 			var newMaxShield = GetStatData(StatType.Shield).StatValue.AsInt;
 			var newHealthAmount = Math.Min(CurrentHealth + Math.Max(newMaxHealth - previousMaxHeath, 0), newMaxHealth);
 			var newShieldAmount = Math.Min(CurrentShield + Math.Max(newMaxShield - previousMaxShield, 0), newMaxShield);
+			
 
 			// Adapts the player health & shield if new equipment changes player's HP
 			SetCurrentHealth(f, e, newHealthAmount);
-			SetCurrenShield(f, e, newShieldAmount, previousMaxShield);
+			SetCurrentShield(f, e, newShieldAmount, previousMaxShield);
 
 			f.Events.OnPlayerEquipmentStatsChanged(player, e, previousStats, this);
 		}
@@ -121,7 +127,7 @@ namespace Quantum
 		/// </summary>
 		internal void GainShield(Frame f, EntityRef entity, int amount)
 		{
-			SetCurrenShield(f, entity, CurrentShield + amount, GetStatData(StatType.Shield).StatValue.AsInt);
+			SetCurrentShield(f, entity, CurrentShield + amount, GetStatData(StatType.Shield).StatValue.AsInt);
 		}
 
 		/// <summary>
@@ -156,7 +162,7 @@ namespace Quantum
 			};
 
 			AddModifier(f, entity, modifier);
-			SetCurrenShield(f, entity, CurrentShield + amount, previousShieldCapacity.AsInt);
+			SetCurrentShield(f, entity, CurrentShield + amount, previousShieldCapacity.AsInt);
 		}
 
 		/// <summary>
@@ -204,7 +210,7 @@ namespace Quantum
 				shieldDamageAmount = Math.Min(previousShield, damageAmount);
 				damageAmount -= shieldDamageAmount;
 				
-				SetCurrenShield(f, entity, previousShield - shieldDamageAmount, GetStatData(StatType.Shield).StatValue.AsInt);
+				SetCurrentShield(f, entity, previousShield - shieldDamageAmount, GetStatData(StatType.Shield).StatValue.AsInt);
 			}
 
 			f.Events.OnPlayerDamaged(spell, totalDamage, shieldDamageAmount, Math.Min(previousHealth, damageAmount), 
@@ -218,7 +224,7 @@ namespace Quantum
 			AttackerSetCurrentHealth(f, entity, spell.Attacker, previousHealth - damageAmount);
 		}
 
-		private void SetCurrenShield(Frame f, EntityRef entity, int amount, int previousShieldCapacity)
+		private void SetCurrentShield(Frame f, EntityRef entity, int amount, int previousShieldCapacity)
 		{
 			var previousShield = CurrentShield;
 			var currentShieldCapacity = GetStatData(StatType.Shield).StatValue.AsInt;
@@ -274,7 +280,8 @@ namespace Quantum
 			var startingShields = f.GameConfig.PlayerStartingShieldCapacity.Get(f);
 			var modifiers = f.ResolveList(Modifiers);
 			
-			GetLoadoutStats(f, weapon, gear, out var armour, out var health, out var speed, out var power);
+			GetLoadoutStats(f, weapon, gear, out var armour, out var health, out var speed, out var power, 
+			                out var attackRange, out var pickupSpeed);
 			
 			health += f.GameConfig.PlayerDefaultHealth.Get(f);
 			speed += f.GameConfig.PlayerDefaultSpeed.Get(f);
@@ -284,6 +291,8 @@ namespace Quantum
 			Values[(int) StatType.Power] = new StatData(power, power, StatType.Power);
 			Values[(int) StatType.Speed] = new StatData(speed, speed, StatType.Speed);
 			Values[(int) StatType.Armour] = new StatData(armour, armour, StatType.Armour);
+			Values[(int)StatType.AttackRange] = new StatData(attackRange, attackRange, StatType.AttackRange);
+			Values[(int)StatType.PickupSpeed] = new StatData(pickupSpeed, pickupSpeed, StatType.PickupSpeed);
 
 			foreach (var modifier in modifiers)
 			{
@@ -291,19 +300,23 @@ namespace Quantum
 			}
 		}
 		
-		private void GetLoadoutStats(Frame f, Equipment weapon, FixedArray<Equipment> gear,
-		                             out int armour, out int health, out FP speed, out FP power)
+		private void GetLoadoutStats(Frame f, Equipment weapon, FixedArray<Equipment> gear, out int armour, 
+		                             out int health, out FP speed, out FP power, out FP attackRange, out FP pickupSpeed)
 		{
-			QuantumStatCalculator.CalculateWeaponStats(f, weapon, out armour, out health, out speed, out power);
+			QuantumStatCalculator.CalculateWeaponStats(f, weapon, out armour, out health, out speed, out power, 
+			                                           out attackRange, out pickupSpeed);
 
 			for (var i = 0; i < gear.Length; i++)
 			{
-				QuantumStatCalculator.CalculateGearStats(f, gear[i], out var armour2, out var health2, out var speed2, out var power2);
+				QuantumStatCalculator.CalculateGearStats(f, gear[i], out var armour2, out var health2, out var speed2, 
+				                                         out var power2, out var attackRange2, out var pickupSpeed2);
 				
 				health += health2;
 				speed += speed2;
 				armour += armour2;
 				power += power2;
+				attackRange += attackRange2;
+				pickupSpeed += pickupSpeed2;
 			}
 		}
 

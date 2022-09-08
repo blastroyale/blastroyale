@@ -81,7 +81,7 @@ namespace FirstLight.Editor.Build
 			EditorUserBuildSettings.buildAppBundle = false;
 			EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
 			
-			VersionEditorUtils.SetAndSaveInternalVersion(true);
+			VersionEditorUtils.SetAndSaveInternalVersion(false);
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, _appEnterpriseIdentifier);
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, _appEnterpriseIdentifier);
 			PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android, ScriptingImplementation.IL2CPP);
@@ -139,7 +139,7 @@ namespace FirstLight.Editor.Build
 			EditorUserBuildSettings.buildAppBundle = true;
 			EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
 			
-			VersionEditorUtils.SetAndSaveInternalVersion(false);
+			VersionEditorUtils.SetAndSaveInternalVersion(true);
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, _appReleaseIdentifier);
 			PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, _appReleaseIdentifier);
 			PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android, ScriptingImplementation.IL2CPP);

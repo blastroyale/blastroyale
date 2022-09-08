@@ -47,6 +47,8 @@ namespace Quantum
 				bb->Set(f, nameof(weaponConfig.AttackCooldown), currentAttackCooldown);
 			}
 
+			var attackRange = weaponConfig.AttackRange + f.Get<Stats>(e).GetStatData(StatType.AttackRange).StatValue;
+
 			var raycastShot = new RaycastShots
 			{
 				Attacker = e,
@@ -59,7 +61,7 @@ namespace Quantum
 				PowerAmount = (uint)power.AsInt,
 				KnockbackAmount = weaponConfig.KnockbackAmount,
 				AttackAngle = (uint)targetAttackAngle,
-				Range = weaponConfig.AttackRange,
+				Range = attackRange,
 				Speed = weaponConfig.AttackHitSpeed,
 				SplashRadius = weaponConfig.SplashRadius,
 				CanHitSameTarget = weaponConfig.CanHitSameTarget,

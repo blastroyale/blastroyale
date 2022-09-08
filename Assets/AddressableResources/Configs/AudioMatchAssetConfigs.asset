@@ -296,7 +296,7 @@ MonoBehaviour:
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       Loop: 0
-      BaseVolume: 1
+      BaseVolume: 0.8
       BasePitch: 1
       VolumeRandDeviation: 0.05
       PitchRandDeviation: 0.25

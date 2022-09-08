@@ -28,6 +28,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Material: 1
       HpRatioToBaseK:
@@ -38,6 +42,10 @@ MonoBehaviour:
         RawValue: 15729
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 15729
     - Category: 13
       Material: 2
       HpRatioToBaseK:
@@ -48,6 +56,10 @@ MonoBehaviour:
         RawValue: 26214
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 26214
     - Category: 13
       Material: 3
       HpRatioToBaseK:
@@ -58,6 +70,10 @@ MonoBehaviour:
         RawValue: 26214
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 6554
+      PickupSpeedRatioToBaseK:
+        RawValue: 26214
     - Category: 13
       Material: 4
       HpRatioToBaseK:
@@ -68,6 +84,10 @@ MonoBehaviour:
         RawValue: 26214
       PowerRatioToBaseK:
         RawValue: 13107
+      AttackRangeRatioToBaseK:
+        RawValue: 6554
+      PickupSpeedRatioToBaseK:
+        RawValue: 26214
     - Category: 11
       Material: 0
       HpRatioToBaseK:
@@ -77,6 +97,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 11
       Material: 1
@@ -88,6 +112,10 @@ MonoBehaviour:
         RawValue: 12583
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 12583
     - Category: 11
       Material: 2
       HpRatioToBaseK:
@@ -98,6 +126,10 @@ MonoBehaviour:
         RawValue: 20972
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 20972
     - Category: 11
       Material: 3
       HpRatioToBaseK:
@@ -108,6 +140,10 @@ MonoBehaviour:
         RawValue: 20972
       PowerRatioToBaseK:
         RawValue: 10486
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 20972
     - Category: 11
       Material: 4
       HpRatioToBaseK:
@@ -118,6 +154,10 @@ MonoBehaviour:
         RawValue: 26214
       PowerRatioToBaseK:
         RawValue: 13107
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 26214
     - Category: 17
       Material: 0
       HpRatioToBaseK:
@@ -127,6 +167,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 17
       Material: 1
@@ -138,6 +182,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Material: 2
       HpRatioToBaseK:
@@ -147,6 +195,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 17
       Material: 3
@@ -158,6 +210,10 @@ MonoBehaviour:
         RawValue: 26214
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 26214
     - Category: 17
       Material: 4
       HpRatioToBaseK:
@@ -168,6 +224,10 @@ MonoBehaviour:
         RawValue: 26214
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 6554
+      PickupSpeedRatioToBaseK:
+        RawValue: 26214
     - Category: 16
       Material: 0
       HpRatioToBaseK:
@@ -177,6 +237,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 16
       Material: 1
@@ -188,6 +252,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 7864
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Material: 2
       HpRatioToBaseK:
@@ -198,6 +266,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 13107
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Material: 3
       HpRatioToBaseK:
@@ -208,6 +280,10 @@ MonoBehaviour:
         RawValue: 26214
       PowerRatioToBaseK:
         RawValue: 13107
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 26214
     - Category: 16
       Material: 4
       HpRatioToBaseK:
@@ -218,6 +294,10 @@ MonoBehaviour:
         RawValue: 26214
       PowerRatioToBaseK:
         RawValue: 13107
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 26214
     - Category: 15
       Material: 0
       HpRatioToBaseK:
@@ -227,6 +307,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 15
       Material: 1
@@ -238,6 +322,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 3932
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Material: 2
       HpRatioToBaseK:
@@ -247,6 +335,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 6554
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 15
       Material: 3
@@ -258,6 +350,10 @@ MonoBehaviour:
         RawValue: 26214
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 6554
+      PickupSpeedRatioToBaseK:
+        RawValue: 26214
     - Category: 15
       Material: 4
       HpRatioToBaseK:
@@ -268,3 +364,7 @@ MonoBehaviour:
         RawValue: 26214
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 6554
+      PickupSpeedRatioToBaseK:
+        RawValue: 26214

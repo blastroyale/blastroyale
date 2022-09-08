@@ -40,7 +40,7 @@ namespace Quantum
 			var shotAngle = weaponConfig.NumberOfShots == 1 ? f.RNG->Next(-angle, angle) : FP._0;
 			var newAngleVector = FPVector2.Rotate(aimingDirection, shotAngle * FP.Deg2Rad).XOY;
 
-			var attackRange = weaponConfig.AttackRange + f.Get<Stats>(e).GetStatData(StatType.AttackRange).StatValue;
+			var attackRange = f.Get<Stats>(e).GetStatData(StatType.AttackRange).StatValue;
 
 
 			var projectile = new Projectile

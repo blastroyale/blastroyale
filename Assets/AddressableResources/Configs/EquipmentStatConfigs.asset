@@ -29,6 +29,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 1
       Faction: 0
@@ -39,6 +43,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 2
@@ -51,6 +59,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 3
       Faction: 0
@@ -62,6 +74,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 1638
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 4
       Faction: 0
@@ -73,6 +89,10 @@ MonoBehaviour:
         RawValue: 3277
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 3277
     - Category: 13
       Adjective: 5
       Faction: 0
@@ -84,6 +104,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 1966
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 6
       Faction: 0
@@ -95,6 +119,10 @@ MonoBehaviour:
         RawValue: 3932
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 3932
     - Category: 13
       Adjective: 7
       Faction: 0
@@ -105,6 +133,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 8
@@ -117,6 +149,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 2294
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 9
       Faction: 0
@@ -128,6 +164,10 @@ MonoBehaviour:
         RawValue: 1966
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 1966
     - Category: 13
       Adjective: 0
       Faction: 1
@@ -138,6 +178,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 1
@@ -150,6 +194,10 @@ MonoBehaviour:
         RawValue: 2458
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 2458
     - Category: 13
       Adjective: 2
       Faction: 1
@@ -161,6 +209,10 @@ MonoBehaviour:
         RawValue: 4096
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 4096
     - Category: 13
       Adjective: 3
       Faction: 1
@@ -172,6 +224,10 @@ MonoBehaviour:
         RawValue: 4915
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 4915
     - Category: 13
       Adjective: 4
       Faction: 1
@@ -183,6 +239,10 @@ MonoBehaviour:
         RawValue: 4915
       PowerRatioToBaseK:
         RawValue: 1638
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 4915
     - Category: 13
       Adjective: 5
       Faction: 1
@@ -194,6 +254,10 @@ MonoBehaviour:
         RawValue: 5898
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 5898
     - Category: 13
       Adjective: 6
       Faction: 1
@@ -205,6 +269,10 @@ MonoBehaviour:
         RawValue: 5898
       PowerRatioToBaseK:
         RawValue: 1966
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 5898
     - Category: 13
       Adjective: 7
       Faction: 1
@@ -216,6 +284,10 @@ MonoBehaviour:
         RawValue: 5734
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 5734
     - Category: 13
       Adjective: 8
       Faction: 1
@@ -227,6 +299,10 @@ MonoBehaviour:
         RawValue: 6554
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 6554
     - Category: 13
       Adjective: 9
       Faction: 1
@@ -238,6 +314,10 @@ MonoBehaviour:
         RawValue: 6554
       PowerRatioToBaseK:
         RawValue: 983
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 6554
     - Category: 13
       Adjective: 0
       Faction: 2
@@ -248,6 +328,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 1
@@ -260,6 +344,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 2
       Faction: 2
@@ -270,6 +358,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 3
@@ -282,6 +374,10 @@ MonoBehaviour:
         RawValue: 3277
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 3277
     - Category: 13
       Adjective: 4
       Faction: 2
@@ -293,6 +389,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 1638
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 5
       Faction: 2
@@ -304,6 +404,10 @@ MonoBehaviour:
         RawValue: 3932
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 3932
     - Category: 13
       Adjective: 6
       Faction: 2
@@ -315,6 +419,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 1966
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 7
       Faction: 2
@@ -325,6 +433,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 8
@@ -337,6 +449,10 @@ MonoBehaviour:
         RawValue: 4588
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 4588
     - Category: 13
       Adjective: 9
       Faction: 2
@@ -348,6 +464,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 983
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 0
       Faction: 3
@@ -358,6 +478,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 1
@@ -370,6 +494,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 1229
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 2
       Faction: 3
@@ -381,6 +509,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 2048
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 3
       Faction: 3
@@ -392,6 +524,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 2458
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 4
       Faction: 3
@@ -403,6 +539,10 @@ MonoBehaviour:
         RawValue: 3277
       PowerRatioToBaseK:
         RawValue: 2458
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 3277
     - Category: 13
       Adjective: 5
       Faction: 3
@@ -414,6 +554,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 2949
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 6
       Faction: 3
@@ -425,6 +569,10 @@ MonoBehaviour:
         RawValue: 3932
       PowerRatioToBaseK:
         RawValue: 2949
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 3932
     - Category: 13
       Adjective: 7
       Faction: 3
@@ -436,6 +584,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 2867
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 8
       Faction: 3
@@ -447,6 +599,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 3277
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 9
       Faction: 3
@@ -458,6 +614,10 @@ MonoBehaviour:
         RawValue: 1966
       PowerRatioToBaseK:
         RawValue: 3277
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 1966
     - Category: 13
       Adjective: 0
       Faction: 4
@@ -468,6 +628,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 1
@@ -480,6 +644,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 1843
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 2
       Faction: 4
@@ -491,6 +659,10 @@ MonoBehaviour:
         RawValue: 6144
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 6144
     - Category: 13
       Adjective: 3
       Faction: 4
@@ -502,6 +674,10 @@ MonoBehaviour:
         RawValue: 7987
       PowerRatioToBaseK:
         RawValue: 2150
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 7987
     - Category: 13
       Adjective: 4
       Faction: 4
@@ -513,6 +689,10 @@ MonoBehaviour:
         RawValue: 4301
       PowerRatioToBaseK:
         RawValue: 3994
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 4301
     - Category: 13
       Adjective: 5
       Faction: 4
@@ -524,6 +704,10 @@ MonoBehaviour:
         RawValue: 9585
       PowerRatioToBaseK:
         RawValue: 2580
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 9585
     - Category: 13
       Adjective: 6
       Faction: 4
@@ -535,6 +719,10 @@ MonoBehaviour:
         RawValue: 5161
       PowerRatioToBaseK:
         RawValue: 4792
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 5161
     - Category: 13
       Adjective: 7
       Faction: 4
@@ -546,6 +734,10 @@ MonoBehaviour:
         RawValue: 8602
       PowerRatioToBaseK:
         RawValue: 4301
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 8602
     - Category: 13
       Adjective: 8
       Faction: 4
@@ -557,6 +749,10 @@ MonoBehaviour:
         RawValue: 8847
       PowerRatioToBaseK:
         RawValue: 4424
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 8847
     - Category: 13
       Adjective: 9
       Faction: 4
@@ -568,6 +764,10 @@ MonoBehaviour:
         RawValue: 8847
       PowerRatioToBaseK:
         RawValue: 4424
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 8847
     - Category: 13
       Adjective: 0
       Faction: 5
@@ -578,6 +778,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 1
@@ -590,6 +794,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 2
       Faction: 5
@@ -600,6 +808,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 3
@@ -612,6 +824,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 4
       Faction: 5
@@ -622,6 +838,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 5
@@ -634,6 +854,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 6
       Faction: 5
@@ -644,6 +868,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 7
@@ -656,6 +884,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 8
       Faction: 5
@@ -667,6 +899,10 @@ MonoBehaviour:
         RawValue: 1966
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 1966
     - Category: 13
       Adjective: 9
       Faction: 5
@@ -678,6 +914,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 983
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 0
       Faction: 6
@@ -688,6 +928,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 1
@@ -700,6 +944,10 @@ MonoBehaviour:
         RawValue: 4915
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 4915
     - Category: 13
       Adjective: 2
       Faction: 6
@@ -710,6 +958,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 3
@@ -722,6 +974,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 4
       Faction: 6
@@ -733,6 +989,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 5734
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 5
       Faction: 6
@@ -743,6 +1003,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 6
@@ -755,6 +1019,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 6881
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 7
       Faction: 6
@@ -766,6 +1034,10 @@ MonoBehaviour:
         RawValue: 9175
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 9175
     - Category: 13
       Adjective: 8
       Faction: 6
@@ -777,6 +1049,10 @@ MonoBehaviour:
         RawValue: 10486
       PowerRatioToBaseK:
         RawValue: 4588
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 10486
     - Category: 13
       Adjective: 9
       Faction: 6
@@ -788,6 +1064,10 @@ MonoBehaviour:
         RawValue: 10486
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 10486
     - Category: 11
       Adjective: 0
       Faction: 0
@@ -798,6 +1078,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 1
@@ -810,6 +1094,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 1229
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 2
       Faction: 0
@@ -821,6 +1109,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 2048
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 3
       Faction: 0
@@ -832,6 +1124,10 @@ MonoBehaviour:
         RawValue: 819
       PowerRatioToBaseK:
         RawValue: 3686
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 819
     - Category: 11
       Adjective: 4
       Faction: 0
@@ -843,6 +1139,10 @@ MonoBehaviour:
         RawValue: 1638
       PowerRatioToBaseK:
         RawValue: 3277
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 1638
     - Category: 11
       Adjective: 5
       Faction: 0
@@ -854,6 +1154,10 @@ MonoBehaviour:
         RawValue: 983
       PowerRatioToBaseK:
         RawValue: 4424
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 983
     - Category: 11
       Adjective: 6
       Faction: 0
@@ -865,6 +1169,10 @@ MonoBehaviour:
         RawValue: 1966
       PowerRatioToBaseK:
         RawValue: 3932
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 1966
     - Category: 11
       Adjective: 7
       Faction: 0
@@ -876,6 +1184,10 @@ MonoBehaviour:
         RawValue: 3441
       PowerRatioToBaseK:
         RawValue: 4014
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 3441
     - Category: 11
       Adjective: 8
       Faction: 0
@@ -887,6 +1199,10 @@ MonoBehaviour:
         RawValue: 4588
       PowerRatioToBaseK:
         RawValue: 4260
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 4588
     - Category: 11
       Adjective: 9
       Faction: 0
@@ -898,6 +1214,10 @@ MonoBehaviour:
         RawValue: 3277
       PowerRatioToBaseK:
         RawValue: 4915
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 3277
     - Category: 11
       Adjective: 0
       Faction: 1
@@ -908,6 +1228,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 1
@@ -920,6 +1244,10 @@ MonoBehaviour:
         RawValue: 2458
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 2458
     - Category: 11
       Adjective: 2
       Faction: 1
@@ -931,6 +1259,10 @@ MonoBehaviour:
         RawValue: 4096
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 4096
     - Category: 11
       Adjective: 3
       Faction: 1
@@ -942,6 +1274,10 @@ MonoBehaviour:
         RawValue: 7373
       PowerRatioToBaseK:
         RawValue: 410
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 7373
     - Category: 11
       Adjective: 4
       Faction: 1
@@ -953,6 +1289,10 @@ MonoBehaviour:
         RawValue: 6554
       PowerRatioToBaseK:
         RawValue: 819
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 6554
     - Category: 11
       Adjective: 5
       Faction: 1
@@ -964,6 +1304,10 @@ MonoBehaviour:
         RawValue: 8847
       PowerRatioToBaseK:
         RawValue: 492
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 8847
     - Category: 11
       Adjective: 6
       Faction: 1
@@ -975,6 +1319,10 @@ MonoBehaviour:
         RawValue: 7864
       PowerRatioToBaseK:
         RawValue: 983
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 7864
     - Category: 11
       Adjective: 7
       Faction: 1
@@ -986,6 +1334,10 @@ MonoBehaviour:
         RawValue: 8028
       PowerRatioToBaseK:
         RawValue: 1720
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 8028
     - Category: 11
       Adjective: 8
       Faction: 1
@@ -997,6 +1349,10 @@ MonoBehaviour:
         RawValue: 8520
       PowerRatioToBaseK:
         RawValue: 2294
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 8520
     - Category: 11
       Adjective: 9
       Faction: 1
@@ -1008,6 +1364,10 @@ MonoBehaviour:
         RawValue: 9830
       PowerRatioToBaseK:
         RawValue: 1638
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 9830
     - Category: 11
       Adjective: 0
       Faction: 2
@@ -1018,6 +1378,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 1
@@ -1030,6 +1394,10 @@ MonoBehaviour:
         RawValue: 2458
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 2458
     - Category: 11
       Adjective: 2
       Faction: 2
@@ -1041,6 +1409,10 @@ MonoBehaviour:
         RawValue: 4096
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 4096
     - Category: 11
       Adjective: 3
       Faction: 2
@@ -1052,6 +1424,10 @@ MonoBehaviour:
         RawValue: 5734
       PowerRatioToBaseK:
         RawValue: 1229
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 5734
     - Category: 11
       Adjective: 4
       Faction: 2
@@ -1063,6 +1439,10 @@ MonoBehaviour:
         RawValue: 5325
       PowerRatioToBaseK:
         RawValue: 1434
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 5325
     - Category: 11
       Adjective: 5
       Faction: 2
@@ -1074,6 +1454,10 @@ MonoBehaviour:
         RawValue: 6881
       PowerRatioToBaseK:
         RawValue: 1475
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 6881
     - Category: 11
       Adjective: 6
       Faction: 2
@@ -1085,6 +1469,10 @@ MonoBehaviour:
         RawValue: 6390
       PowerRatioToBaseK:
         RawValue: 1720
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 6390
     - Category: 11
       Adjective: 7
       Faction: 2
@@ -1096,6 +1484,10 @@ MonoBehaviour:
         RawValue: 8602
       PowerRatioToBaseK:
         RawValue: 1434
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 8602
     - Category: 11
       Adjective: 8
       Faction: 2
@@ -1107,6 +1499,10 @@ MonoBehaviour:
         RawValue: 10486
       PowerRatioToBaseK:
         RawValue: 1311
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 10486
     - Category: 11
       Adjective: 9
       Faction: 2
@@ -1118,6 +1514,10 @@ MonoBehaviour:
         RawValue: 11141
       PowerRatioToBaseK:
         RawValue: 983
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 11141
     - Category: 11
       Adjective: 0
       Faction: 3
@@ -1128,6 +1528,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 1
@@ -1140,6 +1544,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 1229
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 2
       Faction: 3
@@ -1151,6 +1559,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 2048
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 3
       Faction: 3
@@ -1162,6 +1574,10 @@ MonoBehaviour:
         RawValue: 2458
       PowerRatioToBaseK:
         RawValue: 2867
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 2458
     - Category: 11
       Adjective: 4
       Faction: 3
@@ -1173,6 +1589,10 @@ MonoBehaviour:
         RawValue: 2867
       PowerRatioToBaseK:
         RawValue: 2662
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 2867
     - Category: 11
       Adjective: 5
       Faction: 3
@@ -1184,6 +1604,10 @@ MonoBehaviour:
         RawValue: 2949
       PowerRatioToBaseK:
         RawValue: 3441
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 2949
     - Category: 11
       Adjective: 6
       Faction: 3
@@ -1195,6 +1619,10 @@ MonoBehaviour:
         RawValue: 3441
       PowerRatioToBaseK:
         RawValue: 3195
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 3441
     - Category: 11
       Adjective: 7
       Faction: 3
@@ -1206,6 +1634,10 @@ MonoBehaviour:
         RawValue: 2867
       PowerRatioToBaseK:
         RawValue: 4301
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 2867
     - Category: 11
       Adjective: 8
       Faction: 3
@@ -1217,6 +1649,10 @@ MonoBehaviour:
         RawValue: 2621
       PowerRatioToBaseK:
         RawValue: 5243
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 2621
     - Category: 11
       Adjective: 9
       Faction: 3
@@ -1228,6 +1664,10 @@ MonoBehaviour:
         RawValue: 1966
       PowerRatioToBaseK:
         RawValue: 5571
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 1966
     - Category: 11
       Adjective: 0
       Faction: 4
@@ -1238,6 +1678,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 1
@@ -1250,6 +1694,10 @@ MonoBehaviour:
         RawValue: 3686
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 3686
     - Category: 11
       Adjective: 2
       Faction: 4
@@ -1261,6 +1709,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 3072
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 3
       Faction: 4
@@ -1272,6 +1724,10 @@ MonoBehaviour:
         RawValue: 7373
       PowerRatioToBaseK:
         RawValue: 2458
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 7373
     - Category: 11
       Adjective: 4
       Faction: 4
@@ -1283,6 +1739,10 @@ MonoBehaviour:
         RawValue: 6758
       PowerRatioToBaseK:
         RawValue: 2765
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 6758
     - Category: 11
       Adjective: 5
       Faction: 4
@@ -1294,6 +1754,10 @@ MonoBehaviour:
         RawValue: 8847
       PowerRatioToBaseK:
         RawValue: 2949
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 8847
     - Category: 11
       Adjective: 6
       Faction: 4
@@ -1305,6 +1769,10 @@ MonoBehaviour:
         RawValue: 8110
       PowerRatioToBaseK:
         RawValue: 3318
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 8110
     - Category: 11
       Adjective: 7
       Faction: 4
@@ -1316,6 +1784,10 @@ MonoBehaviour:
         RawValue: 11182
       PowerRatioToBaseK:
         RawValue: 3011
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 11182
     - Category: 11
       Adjective: 8
       Faction: 4
@@ -1327,6 +1799,10 @@ MonoBehaviour:
         RawValue: 11796
       PowerRatioToBaseK:
         RawValue: 3932
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 11796
     - Category: 11
       Adjective: 9
       Faction: 4
@@ -1338,6 +1814,10 @@ MonoBehaviour:
         RawValue: 12780
       PowerRatioToBaseK:
         RawValue: 3441
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 12780
     - Category: 11
       Adjective: 0
       Faction: 5
@@ -1348,6 +1828,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 1
@@ -1360,6 +1844,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 1843
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 2
       Faction: 5
@@ -1371,6 +1859,10 @@ MonoBehaviour:
         RawValue: 6144
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 6144
     - Category: 11
       Adjective: 3
       Faction: 5
@@ -1382,6 +1874,10 @@ MonoBehaviour:
         RawValue: 4915
       PowerRatioToBaseK:
         RawValue: 3686
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 4915
     - Category: 11
       Adjective: 4
       Faction: 5
@@ -1393,6 +1889,10 @@ MonoBehaviour:
         RawValue: 5530
       PowerRatioToBaseK:
         RawValue: 3379
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 5530
     - Category: 11
       Adjective: 5
       Faction: 5
@@ -1404,6 +1904,10 @@ MonoBehaviour:
         RawValue: 5898
       PowerRatioToBaseK:
         RawValue: 4424
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 5898
     - Category: 11
       Adjective: 6
       Faction: 5
@@ -1415,6 +1919,10 @@ MonoBehaviour:
         RawValue: 6636
       PowerRatioToBaseK:
         RawValue: 4055
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 6636
     - Category: 11
       Adjective: 7
       Faction: 5
@@ -1426,6 +1934,10 @@ MonoBehaviour:
         RawValue: 6021
       PowerRatioToBaseK:
         RawValue: 5591
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 6021
     - Category: 11
       Adjective: 8
       Faction: 5
@@ -1437,6 +1949,10 @@ MonoBehaviour:
         RawValue: 7864
       PowerRatioToBaseK:
         RawValue: 5898
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 7864
     - Category: 11
       Adjective: 9
       Faction: 5
@@ -1448,6 +1964,10 @@ MonoBehaviour:
         RawValue: 6881
       PowerRatioToBaseK:
         RawValue: 6390
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 6881
     - Category: 11
       Adjective: 0
       Faction: 6
@@ -1458,6 +1978,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 1
@@ -1470,6 +1994,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 2458
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 2
       Faction: 6
@@ -1481,6 +2009,10 @@ MonoBehaviour:
         RawValue: 8192
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 8192
     - Category: 11
       Adjective: 3
       Faction: 6
@@ -1492,6 +2024,10 @@ MonoBehaviour:
         RawValue: 8192
       PowerRatioToBaseK:
         RawValue: 4096
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 8192
     - Category: 11
       Adjective: 4
       Faction: 6
@@ -1503,6 +2039,10 @@ MonoBehaviour:
         RawValue: 819
       PowerRatioToBaseK:
         RawValue: 7782
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 819
     - Category: 11
       Adjective: 5
       Faction: 6
@@ -1514,6 +2054,10 @@ MonoBehaviour:
         RawValue: 9830
       PowerRatioToBaseK:
         RawValue: 4915
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 9830
     - Category: 11
       Adjective: 6
       Faction: 6
@@ -1525,6 +2069,10 @@ MonoBehaviour:
         RawValue: 983
       PowerRatioToBaseK:
         RawValue: 9339
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 983
     - Category: 11
       Adjective: 7
       Faction: 6
@@ -1536,6 +2084,10 @@ MonoBehaviour:
         RawValue: 20644
       PowerRatioToBaseK:
         RawValue: 1147
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 20644
     - Category: 11
       Adjective: 8
       Faction: 6
@@ -1547,6 +2099,10 @@ MonoBehaviour:
         RawValue: 5243
       PowerRatioToBaseK:
         RawValue: 10486
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 5243
     - Category: 11
       Adjective: 9
       Faction: 6
@@ -1558,6 +2114,10 @@ MonoBehaviour:
         RawValue: 22282
       PowerRatioToBaseK:
         RawValue: 1966
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 22282
     - Category: 17
       Adjective: 0
       Faction: 0
@@ -1568,6 +2128,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 1
@@ -1580,6 +2144,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 2
       Faction: 0
@@ -1590,6 +2158,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 3
@@ -1602,6 +2174,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 4
       Faction: 0
@@ -1612,6 +2188,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 5
@@ -1624,6 +2204,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 6
       Faction: 0
@@ -1635,6 +2219,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 7
       Faction: 0
@@ -1645,6 +2233,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 8
@@ -1657,6 +2249,10 @@ MonoBehaviour:
         RawValue: 3277
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 3277
     - Category: 17
       Adjective: 9
       Faction: 0
@@ -1668,6 +2264,10 @@ MonoBehaviour:
         RawValue: 3932
       PowerRatioToBaseK:
         RawValue: 655
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 3932
     - Category: 17
       Adjective: 0
       Faction: 1
@@ -1678,6 +2278,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 1
@@ -1690,6 +2294,10 @@ MonoBehaviour:
         RawValue: 2458
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 2458
     - Category: 17
       Adjective: 2
       Faction: 1
@@ -1701,6 +2309,10 @@ MonoBehaviour:
         RawValue: 4096
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 4096
     - Category: 17
       Adjective: 3
       Faction: 1
@@ -1712,6 +2324,10 @@ MonoBehaviour:
         RawValue: 5734
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 5734
     - Category: 17
       Adjective: 4
       Faction: 1
@@ -1723,6 +2339,10 @@ MonoBehaviour:
         RawValue: 5325
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 5325
     - Category: 17
       Adjective: 5
       Faction: 1
@@ -1734,6 +2354,10 @@ MonoBehaviour:
         RawValue: 6881
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 6881
     - Category: 17
       Adjective: 6
       Faction: 1
@@ -1745,6 +2369,10 @@ MonoBehaviour:
         RawValue: 6390
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 6390
     - Category: 17
       Adjective: 7
       Faction: 1
@@ -1756,6 +2384,10 @@ MonoBehaviour:
         RawValue: 6881
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 6881
     - Category: 17
       Adjective: 8
       Faction: 1
@@ -1767,6 +2399,10 @@ MonoBehaviour:
         RawValue: 7864
       PowerRatioToBaseK:
         RawValue: 1638
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 7864
     - Category: 17
       Adjective: 9
       Faction: 1
@@ -1778,6 +2414,10 @@ MonoBehaviour:
         RawValue: 7864
       PowerRatioToBaseK:
         RawValue: 1966
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 7864
     - Category: 17
       Adjective: 0
       Faction: 2
@@ -1789,6 +2429,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 1
       Faction: 2
@@ -1799,6 +2443,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 2
@@ -1811,6 +2459,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 3
       Faction: 2
@@ -1821,6 +2473,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 4
@@ -1833,6 +2489,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 5
       Faction: 2
@@ -1843,6 +2503,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 6
@@ -1855,6 +2519,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 7
       Faction: 2
@@ -1865,6 +2533,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 8
@@ -1877,6 +2549,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 1638
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 9
       Faction: 2
@@ -1888,6 +2564,10 @@ MonoBehaviour:
         RawValue: 1311
       PowerRatioToBaseK:
         RawValue: 1966
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 1311
     - Category: 17
       Adjective: 0
       Faction: 3
@@ -1898,6 +2578,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 1
@@ -1910,6 +2594,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 1229
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 2
       Faction: 3
@@ -1921,6 +2609,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 2048
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 3
       Faction: 3
@@ -1932,6 +2624,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 2867
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 4
       Faction: 3
@@ -1943,6 +2639,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 2662
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 5
       Faction: 3
@@ -1954,6 +2654,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 3441
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 6
       Faction: 3
@@ -1965,6 +2669,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 3195
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 7
       Faction: 3
@@ -1976,6 +2684,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 3441
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 8
       Faction: 3
@@ -1987,6 +2699,10 @@ MonoBehaviour:
         RawValue: 3277
       PowerRatioToBaseK:
         RawValue: 3932
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 3277
     - Category: 17
       Adjective: 9
       Faction: 3
@@ -1998,6 +2714,10 @@ MonoBehaviour:
         RawValue: 3932
       PowerRatioToBaseK:
         RawValue: 3932
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 3932
     - Category: 17
       Adjective: 0
       Faction: 4
@@ -2008,6 +2728,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 1
@@ -2020,6 +2744,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 1843
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 2
       Faction: 4
@@ -2031,6 +2759,10 @@ MonoBehaviour:
         RawValue: 6144
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 6144
     - Category: 17
       Adjective: 3
       Faction: 4
@@ -2042,6 +2774,10 @@ MonoBehaviour:
         RawValue: 9216
       PowerRatioToBaseK:
         RawValue: 1536
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 9216
     - Category: 17
       Adjective: 4
       Faction: 4
@@ -2053,6 +2789,10 @@ MonoBehaviour:
         RawValue: 2458
       PowerRatioToBaseK:
         RawValue: 4915
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 2458
     - Category: 17
       Adjective: 5
       Faction: 4
@@ -2064,6 +2804,10 @@ MonoBehaviour:
         RawValue: 11059
       PowerRatioToBaseK:
         RawValue: 1843
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 11059
     - Category: 17
       Adjective: 6
       Faction: 4
@@ -2075,6 +2819,10 @@ MonoBehaviour:
         RawValue: 2949
       PowerRatioToBaseK:
         RawValue: 5898
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 2949
     - Category: 17
       Adjective: 7
       Faction: 4
@@ -2086,6 +2834,10 @@ MonoBehaviour:
         RawValue: 8602
       PowerRatioToBaseK:
         RawValue: 4301
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 8602
     - Category: 17
       Adjective: 8
       Faction: 4
@@ -2097,6 +2849,10 @@ MonoBehaviour:
         RawValue: 7864
       PowerRatioToBaseK:
         RawValue: 3932
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 7864
     - Category: 17
       Adjective: 9
       Faction: 4
@@ -2108,6 +2864,10 @@ MonoBehaviour:
         RawValue: 7864
       PowerRatioToBaseK:
         RawValue: 3932
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 7864
     - Category: 17
       Adjective: 0
       Faction: 5
@@ -2118,6 +2878,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 1
@@ -2130,6 +2894,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 2
       Faction: 5
@@ -2140,6 +2908,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 3
@@ -2152,6 +2924,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 4
       Faction: 5
@@ -2163,6 +2939,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 5
       Faction: 5
@@ -2173,6 +2953,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 6
@@ -2185,6 +2969,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 7
       Faction: 5
@@ -2195,6 +2983,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 8
@@ -2207,6 +2999,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 1966
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 9
       Faction: 5
@@ -2218,6 +3014,10 @@ MonoBehaviour:
         RawValue: 3932
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 3932
     - Category: 17
       Adjective: 0
       Faction: 6
@@ -2228,6 +3028,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 1
@@ -2240,6 +3044,10 @@ MonoBehaviour:
         RawValue: 4915
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 4915
     - Category: 17
       Adjective: 2
       Faction: 6
@@ -2250,6 +3058,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 3
@@ -2262,6 +3074,10 @@ MonoBehaviour:
         RawValue: 7373
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 7373
     - Category: 17
       Adjective: 4
       Faction: 6
@@ -2273,6 +3089,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 1229
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 5
       Faction: 6
@@ -2284,6 +3104,10 @@ MonoBehaviour:
         RawValue: 8847
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 8847
     - Category: 17
       Adjective: 6
       Faction: 6
@@ -2295,6 +3119,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 1475
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 7
       Faction: 6
@@ -2306,6 +3134,10 @@ MonoBehaviour:
         RawValue: 6881
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 6881
     - Category: 17
       Adjective: 8
       Faction: 6
@@ -2317,6 +3149,10 @@ MonoBehaviour:
         RawValue: 10486
       PowerRatioToBaseK:
         RawValue: 1966
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 10486
     - Category: 17
       Adjective: 9
       Faction: 6
@@ -2328,6 +3164,10 @@ MonoBehaviour:
         RawValue: 2621
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 2621
     - Category: 16
       Adjective: 0
       Faction: 0
@@ -2338,6 +3178,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 1
@@ -2350,6 +3194,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 2
       Faction: 0
@@ -2360,6 +3208,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 3
@@ -2372,6 +3224,10 @@ MonoBehaviour:
         RawValue: 3277
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 3277
     - Category: 16
       Adjective: 4
       Faction: 0
@@ -2382,6 +3238,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 5
@@ -2394,6 +3254,10 @@ MonoBehaviour:
         RawValue: 3932
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 3932
     - Category: 16
       Adjective: 6
       Faction: 0
@@ -2404,6 +3268,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 7
@@ -2416,6 +3284,10 @@ MonoBehaviour:
         RawValue: 5734
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 5734
     - Category: 16
       Adjective: 8
       Faction: 0
@@ -2427,6 +3299,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 1311
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 9
       Faction: 0
@@ -2438,6 +3314,10 @@ MonoBehaviour:
         RawValue: 2621
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 2621
     - Category: 16
       Adjective: 0
       Faction: 1
@@ -2448,6 +3328,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 1
@@ -2460,6 +3344,10 @@ MonoBehaviour:
         RawValue: 2458
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 2458
     - Category: 16
       Adjective: 2
       Faction: 1
@@ -2471,6 +3359,10 @@ MonoBehaviour:
         RawValue: 4096
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 4096
     - Category: 16
       Adjective: 3
       Faction: 1
@@ -2482,6 +3374,10 @@ MonoBehaviour:
         RawValue: 4915
       PowerRatioToBaseK:
         RawValue: 1638
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 4915
     - Category: 16
       Adjective: 4
       Faction: 1
@@ -2493,6 +3389,10 @@ MonoBehaviour:
         RawValue: 4915
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 4915
     - Category: 16
       Adjective: 5
       Faction: 1
@@ -2504,6 +3404,10 @@ MonoBehaviour:
         RawValue: 5898
       PowerRatioToBaseK:
         RawValue: 1966
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 5898
     - Category: 16
       Adjective: 6
       Faction: 1
@@ -2515,6 +3419,10 @@ MonoBehaviour:
         RawValue: 5898
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 5898
     - Category: 16
       Adjective: 7
       Faction: 1
@@ -2526,6 +3434,10 @@ MonoBehaviour:
         RawValue: 5734
       PowerRatioToBaseK:
         RawValue: 2867
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 5734
     - Category: 16
       Adjective: 8
       Faction: 1
@@ -2537,6 +3449,10 @@ MonoBehaviour:
         RawValue: 7864
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 7864
     - Category: 16
       Adjective: 9
       Faction: 1
@@ -2548,6 +3464,10 @@ MonoBehaviour:
         RawValue: 7864
       PowerRatioToBaseK:
         RawValue: 1311
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 7864
     - Category: 16
       Adjective: 0
       Faction: 2
@@ -2558,6 +3478,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 1
@@ -2570,6 +3494,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 2
       Faction: 2
@@ -2580,6 +3508,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 3
@@ -2592,6 +3524,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 1638
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 4
       Faction: 2
@@ -2602,6 +3538,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 5
@@ -2614,6 +3554,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 1966
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 6
       Faction: 2
@@ -2624,6 +3568,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 7
@@ -2636,6 +3584,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 2867
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 8
       Faction: 2
@@ -2647,6 +3599,10 @@ MonoBehaviour:
         RawValue: 2621
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 2621
     - Category: 16
       Adjective: 9
       Faction: 2
@@ -2658,6 +3614,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 1311
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 0
       Faction: 3
@@ -2668,6 +3628,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 1
@@ -2680,6 +3644,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 1229
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 2
       Faction: 3
@@ -2691,6 +3659,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 2048
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 3
       Faction: 3
@@ -2702,6 +3674,10 @@ MonoBehaviour:
         RawValue: 3277
       PowerRatioToBaseK:
         RawValue: 2458
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 3277
     - Category: 16
       Adjective: 4
       Faction: 3
@@ -2713,6 +3689,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 2458
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 5
       Faction: 3
@@ -2724,6 +3704,10 @@ MonoBehaviour:
         RawValue: 3932
       PowerRatioToBaseK:
         RawValue: 2949
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 3932
     - Category: 16
       Adjective: 6
       Faction: 3
@@ -2735,6 +3719,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 2949
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 7
       Faction: 3
@@ -2746,6 +3734,10 @@ MonoBehaviour:
         RawValue: 5734
       PowerRatioToBaseK:
         RawValue: 2867
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 5734
     - Category: 16
       Adjective: 8
       Faction: 3
@@ -2757,6 +3749,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 3932
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 9
       Faction: 3
@@ -2768,6 +3764,10 @@ MonoBehaviour:
         RawValue: 2621
       PowerRatioToBaseK:
         RawValue: 3932
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 2621
     - Category: 16
       Adjective: 0
       Faction: 4
@@ -2778,6 +3778,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 1
@@ -2790,6 +3794,10 @@ MonoBehaviour:
         RawValue: 3686
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 3686
     - Category: 16
       Adjective: 2
       Faction: 4
@@ -2801,6 +3809,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 3072
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 3
       Faction: 4
@@ -2812,6 +3824,10 @@ MonoBehaviour:
         RawValue: 4915
       PowerRatioToBaseK:
         RawValue: 3686
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 4915
     - Category: 16
       Adjective: 4
       Faction: 4
@@ -2823,6 +3839,10 @@ MonoBehaviour:
         RawValue: 7373
       PowerRatioToBaseK:
         RawValue: 2458
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 7373
     - Category: 16
       Adjective: 5
       Faction: 4
@@ -2834,6 +3854,10 @@ MonoBehaviour:
         RawValue: 5898
       PowerRatioToBaseK:
         RawValue: 4424
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 5898
     - Category: 16
       Adjective: 6
       Faction: 4
@@ -2845,6 +3869,10 @@ MonoBehaviour:
         RawValue: 8847
       PowerRatioToBaseK:
         RawValue: 2949
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 8847
     - Category: 16
       Adjective: 7
       Faction: 4
@@ -2856,6 +3884,10 @@ MonoBehaviour:
         RawValue: 8602
       PowerRatioToBaseK:
         RawValue: 4301
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 8602
     - Category: 16
       Adjective: 8
       Faction: 4
@@ -2867,6 +3899,10 @@ MonoBehaviour:
         RawValue: 7864
       PowerRatioToBaseK:
         RawValue: 3932
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 7864
     - Category: 16
       Adjective: 9
       Faction: 4
@@ -2878,6 +3914,10 @@ MonoBehaviour:
         RawValue: 7864
       PowerRatioToBaseK:
         RawValue: 3932
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 7864
     - Category: 16
       Adjective: 0
       Faction: 5
@@ -2888,6 +3928,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 1
@@ -2900,6 +3944,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 2
       Faction: 5
@@ -2911,6 +3959,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 3
       Faction: 5
@@ -2921,6 +3973,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 4
@@ -2933,6 +3989,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 5
       Faction: 5
@@ -2943,6 +4003,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 6
@@ -2955,6 +4019,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 7
       Faction: 5
@@ -2965,6 +4033,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 8
@@ -2977,6 +4049,10 @@ MonoBehaviour:
         RawValue: 3932
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 3932
     - Category: 16
       Adjective: 9
       Faction: 5
@@ -2988,6 +4064,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 1966
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 0
       Faction: 6
@@ -2998,6 +4078,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 1
@@ -3010,6 +4094,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 2458
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 2
       Faction: 6
@@ -3020,6 +4108,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 3
@@ -3032,6 +4124,10 @@ MonoBehaviour:
         RawValue: 4096
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 4096
     - Category: 16
       Adjective: 4
       Faction: 6
@@ -3043,6 +4139,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 6144
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 5
       Faction: 6
@@ -3054,6 +4154,10 @@ MonoBehaviour:
         RawValue: 4915
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 4915
     - Category: 16
       Adjective: 6
       Faction: 6
@@ -3065,6 +4169,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 7373
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 7
       Faction: 6
@@ -3075,6 +4183,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 8
@@ -3087,6 +4199,10 @@ MonoBehaviour:
         RawValue: 9175
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 9175
     - Category: 16
       Adjective: 9
       Faction: 6
@@ -3098,6 +4214,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 3932
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 0
       Faction: 0
@@ -3108,6 +4228,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 1
@@ -3120,6 +4244,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 2
       Faction: 0
@@ -3131,6 +4259,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 3
       Faction: 0
@@ -3141,6 +4273,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 4
@@ -3153,6 +4289,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 1638
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 5
       Faction: 0
@@ -3163,6 +4303,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 6
@@ -3175,6 +4319,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 1966
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 7
       Faction: 0
@@ -3186,6 +4334,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 2867
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 8
       Faction: 0
@@ -3197,6 +4349,10 @@ MonoBehaviour:
         RawValue: 4588
       PowerRatioToBaseK:
         RawValue: 983
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 4588
     - Category: 15
       Adjective: 9
       Faction: 0
@@ -3208,6 +4364,10 @@ MonoBehaviour:
         RawValue: 4588
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 4588
     - Category: 15
       Adjective: 0
       Faction: 1
@@ -3218,6 +4378,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 1
@@ -3230,6 +4394,10 @@ MonoBehaviour:
         RawValue: 2458
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 2458
     - Category: 15
       Adjective: 2
       Faction: 1
@@ -3241,6 +4409,10 @@ MonoBehaviour:
         RawValue: 4096
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 4096
     - Category: 15
       Adjective: 3
       Faction: 1
@@ -3252,6 +4424,10 @@ MonoBehaviour:
         RawValue: 4915
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 4915
     - Category: 15
       Adjective: 4
       Faction: 1
@@ -3263,6 +4439,10 @@ MonoBehaviour:
         RawValue: 4915
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 4915
     - Category: 15
       Adjective: 5
       Faction: 1
@@ -3274,6 +4454,10 @@ MonoBehaviour:
         RawValue: 5898
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 5898
     - Category: 15
       Adjective: 6
       Faction: 1
@@ -3285,6 +4469,10 @@ MonoBehaviour:
         RawValue: 5898
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 5898
     - Category: 15
       Adjective: 7
       Faction: 1
@@ -3296,6 +4484,10 @@ MonoBehaviour:
         RawValue: 5734
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 5734
     - Category: 15
       Adjective: 8
       Faction: 1
@@ -3307,6 +4499,10 @@ MonoBehaviour:
         RawValue: 6554
       PowerRatioToBaseK:
         RawValue: 2294
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 6554
     - Category: 15
       Adjective: 9
       Faction: 1
@@ -3318,6 +4514,10 @@ MonoBehaviour:
         RawValue: 6554
       PowerRatioToBaseK:
         RawValue: 2294
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 6554
     - Category: 15
       Adjective: 0
       Faction: 2
@@ -3328,6 +4528,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 1
@@ -3340,6 +4544,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 2
       Faction: 2
@@ -3350,6 +4558,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 3
@@ -3362,6 +4574,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 4
       Faction: 2
@@ -3373,6 +4589,10 @@ MonoBehaviour:
         RawValue: 3277
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 3277
     - Category: 15
       Adjective: 5
       Faction: 2
@@ -3383,6 +4603,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 6
@@ -3395,6 +4619,10 @@ MonoBehaviour:
         RawValue: 3932
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 3932
     - Category: 15
       Adjective: 7
       Faction: 2
@@ -3406,6 +4634,10 @@ MonoBehaviour:
         RawValue: 5734
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 5734
     - Category: 15
       Adjective: 8
       Faction: 2
@@ -3417,6 +4649,10 @@ MonoBehaviour:
         RawValue: 1966
       PowerRatioToBaseK:
         RawValue: 2294
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 1966
     - Category: 15
       Adjective: 9
       Faction: 2
@@ -3428,6 +4664,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 2294
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 0
       Faction: 3
@@ -3438,6 +4678,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 1
@@ -3450,6 +4694,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 1229
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 2
       Faction: 3
@@ -3461,6 +4709,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 2048
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 3
       Faction: 3
@@ -3472,6 +4724,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 2458
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 4
       Faction: 3
@@ -3483,6 +4739,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 2458
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 5
       Faction: 3
@@ -3494,6 +4754,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 2949
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 6
       Faction: 3
@@ -3505,6 +4769,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 2949
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 7
       Faction: 3
@@ -3516,6 +4784,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 2867
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 8
       Faction: 3
@@ -3527,6 +4799,10 @@ MonoBehaviour:
         RawValue: 4588
       PowerRatioToBaseK:
         RawValue: 3277
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 4588
     - Category: 15
       Adjective: 9
       Faction: 3
@@ -3538,6 +4814,10 @@ MonoBehaviour:
         RawValue: 4588
       PowerRatioToBaseK:
         RawValue: 3277
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 4588
     - Category: 15
       Adjective: 0
       Faction: 4
@@ -3548,6 +4828,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 1
@@ -3560,6 +4844,10 @@ MonoBehaviour:
         RawValue: 3686
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 3686
     - Category: 15
       Adjective: 2
       Faction: 4
@@ -3571,6 +4859,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 3072
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 3
       Faction: 4
@@ -3582,6 +4874,10 @@ MonoBehaviour:
         RawValue: 6758
       PowerRatioToBaseK:
         RawValue: 2765
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 6758
     - Category: 15
       Adjective: 4
       Faction: 4
@@ -3593,6 +4889,10 @@ MonoBehaviour:
         RawValue: 5530
       PowerRatioToBaseK:
         RawValue: 3379
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 5530
     - Category: 15
       Adjective: 5
       Faction: 4
@@ -3604,6 +4904,10 @@ MonoBehaviour:
         RawValue: 8110
       PowerRatioToBaseK:
         RawValue: 3318
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 8110
     - Category: 15
       Adjective: 6
       Faction: 4
@@ -3615,6 +4919,10 @@ MonoBehaviour:
         RawValue: 6636
       PowerRatioToBaseK:
         RawValue: 4055
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 6636
     - Category: 15
       Adjective: 7
       Faction: 4
@@ -3626,6 +4934,10 @@ MonoBehaviour:
         RawValue: 8602
       PowerRatioToBaseK:
         RawValue: 4301
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 8602
     - Category: 15
       Adjective: 8
       Faction: 4
@@ -3637,6 +4949,10 @@ MonoBehaviour:
         RawValue: 7864
       PowerRatioToBaseK:
         RawValue: 3932
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 7864
     - Category: 15
       Adjective: 9
       Faction: 4
@@ -3648,6 +4964,10 @@ MonoBehaviour:
         RawValue: 7864
       PowerRatioToBaseK:
         RawValue: 3932
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 7864
     - Category: 15
       Adjective: 0
       Faction: 5
@@ -3658,6 +4978,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 1
@@ -3670,6 +4994,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 2
       Faction: 5
@@ -3680,6 +5008,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 3
@@ -3692,6 +5024,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 4
       Faction: 5
@@ -3702,6 +5038,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 5
@@ -3714,6 +5054,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 6
       Faction: 5
@@ -3724,6 +5068,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 7
@@ -3736,6 +5084,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 8
       Faction: 5
@@ -3747,6 +5099,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 1966
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 9
       Faction: 5
@@ -3758,6 +5114,10 @@ MonoBehaviour:
         RawValue: 3932
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 3932
     - Category: 15
       Adjective: 0
       Faction: 6
@@ -3768,6 +5128,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 1
@@ -3780,6 +5144,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 2458
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 2
       Faction: 6
@@ -3790,6 +5158,10 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 3
@@ -3802,6 +5174,10 @@ MonoBehaviour:
         RawValue: 12288
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 12288
     - Category: 15
       Adjective: 4
       Faction: 6
@@ -3813,6 +5189,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 3686
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 5
       Faction: 6
@@ -3824,6 +5204,10 @@ MonoBehaviour:
         RawValue: 14746
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 14746
     - Category: 15
       Adjective: 6
       Faction: 6
@@ -3835,6 +5219,10 @@ MonoBehaviour:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 4424
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 7
       Faction: 6
@@ -3846,6 +5234,10 @@ MonoBehaviour:
         RawValue: 13763
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 13763
     - Category: 15
       Adjective: 8
       Faction: 6
@@ -3857,6 +5249,10 @@ MonoBehaviour:
         RawValue: 11796
       PowerRatioToBaseK:
         RawValue: 3932
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 11796
     - Category: 15
       Adjective: 9
       Faction: 6
@@ -3868,3 +5264,7 @@ MonoBehaviour:
         RawValue: 5243
       PowerRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 5243

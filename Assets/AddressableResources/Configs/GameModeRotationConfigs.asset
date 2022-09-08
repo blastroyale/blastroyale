@@ -18,9 +18,7 @@ MonoBehaviour:
     FixedSlots:
     - GameModeId: BattleRoyale
       MatchType: 1
-      Mutators:
-      - 1
-      - 2
+      Mutators: []
     RotationSlot1:
     - GameModeId: Deathmatch
       MatchType: 0

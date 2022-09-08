@@ -50,7 +50,7 @@ MonoBehaviour:
       AudioStateMachine: 1
       CompletionStrategy: 1
       CompletionKillCount: 0
-      GiveRewards: 0
+      GiveRewards: 1
       Systems:
       - Quantum.Systems.ShrinkingCircleSystem, quantum.code, Version=2.1.0.0, Culture=neutral,
         PublicKeyToken=null

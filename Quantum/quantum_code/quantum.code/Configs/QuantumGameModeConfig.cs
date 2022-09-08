@@ -44,9 +44,6 @@ namespace Quantum
 #region UI / Visual
 
 		// UI / Visual
-		[FoldoutGroup("UI"), PropertyTooltip(DESC_SHOW_STAT_CHANGES)]
-		public bool ShowStatChanges;
-
 		[FoldoutGroup("UI"), PropertyTooltip(DESC_SHOW_MINIMAP)]
 		public bool ShowUIMinimap;
 

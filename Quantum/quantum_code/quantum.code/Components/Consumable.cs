@@ -47,7 +47,6 @@ namespace Quantum
 					break;
 				case ConsumableType.ShieldCapacity:
 					stats->GainShieldCapacity(f, playerEntity, Amount.AsInt);
-					stats->GainShield(f, playerEntity, Amount.AsInt);
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();

@@ -135,7 +135,7 @@ synced event OnPlayerStopAttack
 	entity_ref PlayerEntity;
 }
 
-synced event OnPlayerStatsChanged
+synced event OnPlayerEquipmentStatsChanged
 {
 	player_ref Player;
 	entity_ref Entity;

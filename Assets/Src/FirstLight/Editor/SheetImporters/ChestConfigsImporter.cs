@@ -6,18 +6,9 @@ using Quantum;
 
 namespace FirstLight.Editor.SheetImporters
 {
-	public class ChestConfigsImporter :
-		GoogleSheetConfigsAssetImporterBase<QuantumChestConfig, ChestConfigs, CustomAssetConfigs>
+	/// <inheritdoc />
+	public class ChestConfigsImporter : GoogleSheetQuantumConfigsImporter<QuantumChestConfig, ChestConfigs>
 	{
-		public override string GoogleSheetUrl =>
-			"***REMOVED***/edit#gid=1440451349";
-
-		protected override QuantumChestConfig DeserializeAsset(Dictionary<string, string> data,
-		                                                       CustomAssetConfigs assetConfigs)
-		{
-			var config = QuantumDeserializer.DeserializeTo<QuantumChestConfig>(data);
-
-			return config;
-		}
+		public override string GoogleSheetUrl => "***REMOVED***/edit#gid=1440451349";
 	}
 }

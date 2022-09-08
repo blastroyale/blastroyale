@@ -16,7 +16,7 @@ namespace Quantum
 
 	public unsafe partial struct Stats
 	{
-		public Stats(FP baseHealth, FP basePower, FP baseSpeed, FP baseArmour, FP maxShields, FP startingShields, FP startingRange)
+		public Stats(FP baseHealth, FP basePower, FP baseSpeed, FP baseArmour, FP maxShields, FP startingShields, FP startingRange, FP pickupSpeed)
 		{
 			CurrentHealth = baseHealth.AsInt;
 			CurrentShield = 0;
@@ -33,6 +33,7 @@ namespace Quantum
 			Values[(int) StatType.Speed] = new StatData(baseSpeed, baseSpeed, StatType.Speed);
 			Values[(int) StatType.Armour] = new StatData(baseArmour, baseArmour, StatType.Armour);
 			Values[(int)StatType.AttackRange] = new StatData(startingRange, startingRange, StatType.AttackRange);
+			Values[(int)StatType.PickupSpeed] = new StatData(pickupSpeed, pickupSpeed, StatType.PickupSpeed);
 		}
 
 		/// <summary>
@@ -268,7 +269,7 @@ namespace Quantum
 			var modifiers = f.ResolveList(Modifiers);
 			
 			QuantumStatCalculator.CalculateStats(f, weapon, gear, out var armour, out var health,
-			                                     out var speed, out var power, out var attackRange);
+			                                     out var speed, out var power, out var attackRange, out var pickupSpeed);
 			
 			health += f.GameConfig.PlayerDefaultHealth.Get(f);
 			speed += f.GameConfig.PlayerDefaultSpeed.Get(f);
@@ -279,6 +280,7 @@ namespace Quantum
 			Values[(int) StatType.Speed] = new StatData(speed, speed, StatType.Speed);
 			Values[(int) StatType.Armour] = new StatData(armour, armour, StatType.Armour);
 			Values[(int)StatType.AttackRange] = new StatData(attackRange, attackRange, StatType.AttackRange);
+			Values[(int)StatType.PickupSpeed] = new StatData(pickupSpeed, pickupSpeed, StatType.PickupSpeed);
 
 			foreach (var modifier in modifiers)
 			{

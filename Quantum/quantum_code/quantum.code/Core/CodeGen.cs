@@ -289,6 +289,7 @@ namespace Quantum {
     Armour,
     Shield,
     AttackRange,
+    PickupSpeed,
   }
   public enum StatusModifierType : int {
     None,
@@ -4662,7 +4663,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Stats : Quantum.IComponent {
-    public const Int32 SIZE = 184;
+    public const Int32 SIZE = 208;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(0)]
     public Int32 CurrentHealth;
@@ -4683,8 +4684,8 @@ namespace Quantum {
     [FramePrinter.PtrQListAttribute(typeof(EntityRef))]
     private Quantum.Ptr SpellEffectsPtr;
     [FieldOffset(40)]
-    [FramePrinter.FixedArrayAttribute(typeof(StatData), 6)]
-    private fixed Byte _Values_[144];
+    [FramePrinter.FixedArrayAttribute(typeof(StatData), 7)]
+    private fixed Byte _Values_[168];
     public QListPtr<Modifier> Modifiers {
       get {
         return new QListPtr<Modifier>(ModifiersPtr);
@@ -4703,7 +4704,7 @@ namespace Quantum {
     }
     public FixedArray<StatData> Values {
       get {
-        fixed (byte* p = _Values_) { return new FixedArray<StatData>(p, 24, 6); }
+        fixed (byte* p = _Values_) { return new FixedArray<StatData>(p, 24, 7); }
       }
     }
     public override Int32 GetHashCode() {
@@ -8341,7 +8342,7 @@ namespace Quantum {
     public const Int32 GEAR_INDEX_ARMOR = 3;
     public const Int32 GEAR_INDEX_SHIELD = 4;
     public const Int32 MAX_SPECIALS = 2;
-    public const Int32 TOTAL_STATS = 6;
+    public const Int32 TOTAL_STATS = 7;
   }
   public static unsafe partial class StaticDelegates {
     public static FrameSerializer.Delegate SerializeBlackboardEntry;
@@ -10249,8 +10250,8 @@ namespace Quantum.Prototypes {
     public Int32 CurrentHealth;
     public Int32 CurrentShield;
     public QBoolean IsImmune;
-    [ArrayLengthAttribute(6)]
-    public StatData_Prototype[] Values = new StatData_Prototype[6];
+    [ArrayLengthAttribute(7)]
+    public StatData_Prototype[] Values = new StatData_Prototype[7];
     [DynamicCollectionAttribute()]
     public Modifier_Prototype[] Modifiers = {};
     [DynamicCollectionAttribute()]
@@ -10293,7 +10294,7 @@ namespace Quantum.Prototypes {
         }
         result.SpellEffects = list;
       }
-      for (int i = 0, count = PrototypeValidator.CheckLength(Values, 6, in context); i < count; ++i) {
+      for (int i = 0, count = PrototypeValidator.CheckLength(Values, 7, in context); i < count; ++i) {
         this.Values[i].Materialize(frame, ref *result.Values.GetPointer(i), in context);
       }
       MaterializeUser(frame, ref result, in context);

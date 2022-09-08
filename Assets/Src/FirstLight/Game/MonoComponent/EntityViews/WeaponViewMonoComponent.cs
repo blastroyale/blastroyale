@@ -25,7 +25,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			var f = game.Frames.Verified;
 			var playerCharacter = f.Get<PlayerCharacter>(EntityRef);
 			
-			UpdateParticleSystem((int)playerCharacter.CurrentWeapon.GameId);
+			UpdateParticleSystem((int)playerCharacter.CurrentWeapon.GameId, f);
 		}
 
 		private void OnWeaponChanged(EventOnPlayerWeaponChanged callback)
@@ -34,8 +34,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				return;
 			}
-			
-			UpdateParticleSystem((int)callback.Weapon.GameId);
+			var f = callback.Game.Frames.Verified;
+			UpdateParticleSystem((int)callback.Weapon.GameId, f);
 		}
 
 		private void OnEventOnPlayerAttack(EventOnPlayerAttack callback)
@@ -87,9 +87,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			_particleSystem.Stop();
 		}
 
-		private void UpdateParticleSystem(int weaponId)
+		private void UpdateParticleSystem(int weaponId, Frame f)
 		{
 			var config = Services.ConfigsProvider.GetConfig<QuantumWeaponConfig>(weaponId);
+			var stats = f.Get<Stats>(EntityRef);
 			var main = _particleSystem.main;
 			var emission = _particleSystem.emission;
 			var speed = config.AttackHitSpeed.AsFloat;
@@ -106,7 +107,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			emission.rateOverTime = 0;
 			main.loop = false;
 			main.startSpeed = speed;
-			main.startLifetime = config.AttackRange.AsFloat / speed ;
+			main.startLifetime = stats.GetStatData(StatType.AttackRange).StatValue.AsFloat / speed ;
 
 			emission.burstCount = 1;
 			var burst = emission.GetBurst(0);

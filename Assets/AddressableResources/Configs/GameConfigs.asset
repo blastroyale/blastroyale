@@ -109,3 +109,5 @@ MonoBehaviour:
         RawValue: 6554
       AirdropHeight:
         RawValue: 1310720
+      MultiKillResetTime:
+        RawValue: 262144

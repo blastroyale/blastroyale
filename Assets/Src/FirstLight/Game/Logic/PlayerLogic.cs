@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Services;
@@ -54,7 +55,7 @@ namespace FirstLight.Game.Logic
 		/// Updates player's trophies (Elo) based on their ranking in the match, and returns the amount of trophies
 		/// added/removed
 		/// </summary>
-		int UpdateTrophies(List<QuantumPlayerMatchData> players, PlayerRef localPlayer);
+		int UpdateTrophies(MatchType matchType, List<QuantumPlayerMatchData> players, PlayerRef localPlayer);
 		
 		/// <summary>
 		/// Changes the player skin to <paramref name="skin"/>
@@ -179,8 +180,10 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public int UpdateTrophies(List<QuantumPlayerMatchData> players, PlayerRef localPlayer)
+		public int UpdateTrophies(MatchType matchType, List<QuantumPlayerMatchData> players, PlayerRef localPlayer)
 		{
+			if (matchType != MatchType.Ranked) return 0;
+			
 			var localPlayerData = players[localPlayer];
 			var gameConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
 			

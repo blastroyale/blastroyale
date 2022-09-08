@@ -110,9 +110,18 @@ namespace FirstLight.Game.StateMachines
 		{
 			var frame = callback.Game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
-			var playersLeft = container.TargetProgress - (container.CurrentProgress + 1);
+			var playersLeft = (container.TargetProgress+1) - container.CurrentProgress;
 			// CurrentProgress+1 because BR always has 1 player left alive at the end
 
+			if (playersLeft == 10)
+			{
+				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_Alive10);
+			}
+			else if (playersLeft == 2)
+			{
+				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_Alive2);
+			}
+			
 			if (playersLeft <= GameConstants.Audio.BR_HIGH_PHASE_PLAYERS_LEFT_THRESHOLD && !_isHighIntensityPhase)
 			{
 				_statechartTrigger(MaxIntensityEvent);

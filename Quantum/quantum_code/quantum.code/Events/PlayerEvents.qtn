@@ -63,6 +63,8 @@ synced event OnPlayerKilledPlayer
 	entity_ref EntityKiller;
 	player_ref PlayerLeader;
 	entity_ref EntityLeader;
+	UInt32 CurrentKillStreak;
+	UInt32 CurrentMultiKill;
 }
 
 synced event OnPlayerAmmoEmpty

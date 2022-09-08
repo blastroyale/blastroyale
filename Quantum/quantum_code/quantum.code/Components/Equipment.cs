@@ -6,6 +6,7 @@ namespace Quantum
 	/// <summary>
 	/// Holds (NFT) attributes about a piece of equipment (weapon or gear).
 	/// </summary>
+	[Serializable]
 	public partial struct Equipment : IEquatable<Equipment>
 	{
 		private static readonly List<GameIdGroup> _slots = new List<GameIdGroup>

@@ -29,6 +29,11 @@ namespace FirstLight.Services
 		/// Sets the 2D Sfx muting state across the game
 		/// </summary>
 		bool IsSfxMuted { get; set; }
+		
+		/// <summary>
+		/// Sets the voice Sfx muting state across the game
+		/// </summary>
+		bool IsDialogueMuted { get; set; }
 
 		/// <summary>
 		/// Requests check to see if any music is currently playing
@@ -106,6 +111,11 @@ namespace FirstLight.Services
 		/// Stops all currently playing SFX
 		/// </summary>
 		void StopAllSfx();
+		
+		/// <summary>
+		/// Stops all current sounds in sound queue, and empties the sound queue
+		/// </summary>
+		void WipeSoundQueue();
 
 		/// <summary>
 		/// Requests the current playback time of the currently playing music track, in seconds
@@ -149,12 +159,17 @@ namespace FirstLight.Services
 		/// <summary>
 		/// Requests the default audio init properties, for a given spatial blend and volume multiplier
 		/// </summary>
-		AudioSourceInitData GetAudioInitProps(float spatialBlend, AudioClipPlaybackData playbackData);
+		AudioSourceInitData GetAudioInitProps(float spatialBlend, AudioClipPlaybackData playbackData, string mixerGroupId);
 
 		/// <summary>
-		/// Requests an audio mixer group by ID
+		/// Requests a stored audio mixer group by ID
 		/// </summary>
 		AudioMixerGroup GetAudioMixerGroup(string id);
+		
+		/// <summary>
+		/// Requests to check if a mixer group should be muted
+		/// </summary>
+		bool GetMuteStatus(string id);
 	}
 
 	/// <summary>
@@ -201,6 +216,8 @@ namespace FirstLight.Services
 		public Action<AudioSourceMonoComponent> FadeVolumeCallback;
 		public Action<AudioSourceMonoComponent> SoundPlayedCallback;
 		
+		public string MixerGroupID { get; private set; }
+		
 		private IObjectPool<AudioSourceMonoComponent> _pool;
 		private bool _canDespawn;
 		private Coroutine _playSoundCoroutine;
@@ -233,7 +250,7 @@ namespace FirstLight.Services
 
 			_pool = pool;
 			
-			Source.outputAudioMixerGroup = sourceInitData.Value.MixerGroup;
+			Source.outputAudioMixerGroup = sourceInitData.Value.MixerGroupAndId.Item1;
 			Source.clip = sourceInitData.Value.Clip;
 			Source.volume = sourceInitData.Value.Volume;
 			Source.spatialBlend = sourceInitData.Value.SpatialBlend;
@@ -245,6 +262,7 @@ namespace FirstLight.Services
 			Source.minDistance = sourceInitData.Value.MinDistance;
 			Source.maxDistance = sourceInitData.Value.MaxDistance;
 			_pitchModPerLoop = sourceInitData.Value.PitchModPerLoop;
+			MixerGroupID = sourceInitData.Value.MixerGroupAndId.Item2;
 			
 			if (worldPos.HasValue)
 			{
@@ -371,7 +389,7 @@ namespace FirstLight.Services
 	/// </summary>
 	public struct AudioSourceInitData
 	{
-		public AudioMixerGroup MixerGroup;
+		public Tuple<AudioMixerGroup,string> MixerGroupAndId;
 		public AudioClip Clip;
 		public float StartTime;
 		public float SpatialBlend;
@@ -407,26 +425,28 @@ namespace FirstLight.Services
 	/// <inheritdoc />
 	public class AudioFxService<T> : IAudioFxInternalService<T> where T : struct, Enum
 	{
-		protected float _spatial3dThreshold;
-		protected int _soundQueueBreakMs;
-		
-		protected readonly IDictionary<T, AudioClipPlaybackData> _audioClips = new Dictionary<T, AudioClipPlaybackData>();
-
+		private readonly int _soundQueueBreakMs;
 		private readonly GameObject _audioPoolParent;
+		private readonly IDictionary<T, AudioClipPlaybackData> _audioClips = new Dictionary<T, AudioClipPlaybackData>();
 		private readonly IObjectPool<AudioSourceMonoComponent> _sfxPlayerPool;
-
-		// Music sources
+		
+		protected AudioMixer _audioMixer;
+		protected Dictionary<string, AudioMixerGroup> _mixerGroups;
+		protected Dictionary<string, AudioMixerSnapshot> _mixerSnapshots;
+		protected string _mixerMasterGroupId;
+		protected string _mixerSfx2dGroupId;
+		protected string _mixerSfx3dGroupId;
+		protected string _mixerMusicGroupId;
+		protected string _mixerDialogueGroupId;
+		protected string _mixerAmbientGroupId;
+		
 		private AudioSourceMonoComponent _activeMusicSource;
 		private AudioSourceMonoComponent _transitionMusicSource;
 		private Queue<AudioSourceMonoComponent> _soundQueue;
 
-		// Audio mixer elements
-		protected AudioMixer _audioMixer;
-		protected Dictionary<string, AudioMixerGroup> _mixerGroups;
-		protected Dictionary<string, AudioMixerSnapshot> _mixerSnapshots;
-
-		private bool _sfxEnabled;
-		private IAudioFxInternalService<T> _audioFxInternalServiceImplementation;
+		private bool _bgmMuted;
+		private bool _sfxMuted;
+		private bool _dialogueMuted;
 
 		/// <inheritdoc />
 		public AudioListenerMonoComponent AudioListener { get; }
@@ -434,9 +454,10 @@ namespace FirstLight.Services
 		/// <inheritdoc />
 		public bool IsBgmMuted
 		{
-			get => _activeMusicSource.Source.mute && _transitionMusicSource.Source.mute;
+			get => _bgmMuted;
 			set
 			{
+				_bgmMuted = value;
 				_activeMusicSource.Source.mute = value;
 				_transitionMusicSource.Source.mute = value;
 			}
@@ -445,19 +466,36 @@ namespace FirstLight.Services
 		/// <inheritdoc />
 		public bool IsSfxMuted
 		{
-			get => _sfxEnabled;
+			get => _sfxMuted;
 			set
 			{
 				var audio = _sfxPlayerPool.SpawnedReadOnly;
 
-				_sfxEnabled = value;
+				_sfxMuted = value;
 
-				for (var i = 0; i < audio.Count; i++)
+				foreach (var asmc in audio)
 				{
-					if (audio[i].Source.spatialBlend < _spatial3dThreshold)
-					{
-						audio[i].Source.mute = value;
-					}
+					// Default competitive game design, SFX toggle handles all sounds effects, AND ambient sfx.
+					asmc.Source.mute = (value && asmc.MixerGroupID == _mixerSfx2dGroupId) ||
+					                   (value && asmc.MixerGroupID == _mixerSfx3dGroupId) ||
+					                   (value && asmc.MixerGroupID == _mixerAmbientGroupId);
+				}
+			}
+		}
+		
+		/// <inheritdoc />
+		public bool IsDialogueMuted
+		{
+			get => _dialogueMuted;
+			set
+			{
+				var audio = _sfxPlayerPool.SpawnedReadOnly;
+
+				_dialogueMuted = value;
+
+				foreach (var asmc in audio)
+				{
+					asmc.Source.mute = (value && asmc.MixerGroupID == _mixerDialogueGroupId);
 				}
 			}
 		}
@@ -471,8 +509,7 @@ namespace FirstLight.Services
 			_mixerGroups = new Dictionary<string, AudioMixerGroup>();
 			_soundQueue = new Queue<AudioSourceMonoComponent>();
 			_audioPoolParent = new GameObject("Audio Container");
-
-			_spatial3dThreshold = spatial3DThreshold;
+			
 			_soundQueueBreakMs = soundQueueBreakMs;
 			
 			var audioPlayer = new GameObject("Audio Source").AddComponent<AudioSourceMonoComponent>();
@@ -678,10 +715,23 @@ namespace FirstLight.Services
 			{
 				source.StopAndDespawn();
 			}
+			
+			_soundQueue.Clear();
 		}
 
 		/// <inheritdoc />
-		public virtual AudioSourceInitData GetAudioInitProps(float spatialBlend, AudioClipPlaybackData playbackData)
+		public void WipeSoundQueue()
+		{
+			foreach (var source in _soundQueue)
+			{
+				source.StopAndDespawn();
+			}
+
+			_soundQueue.Clear();
+		}
+
+		/// <inheritdoc />
+		public virtual AudioSourceInitData GetAudioInitProps(float spatialBlend, AudioClipPlaybackData playbackData, string mixerGroupId)
 		{
 			return default;
 		}
@@ -689,8 +739,25 @@ namespace FirstLight.Services
 		/// <inheritdoc />
 		public AudioMixerGroup GetAudioMixerGroup(string id)
 		{
-			var mixerGroup = _mixerGroups.TryGetValue(id, out AudioMixerGroup group);
-			return group;
+			return _mixerGroups[id];
+		}
+
+		public bool GetMuteStatus(string id)
+		{
+			if (id == _mixerMusicGroupId)
+			{
+				return IsBgmMuted;
+			}
+			if (id == _mixerSfx2dGroupId || id == _mixerSfx3dGroupId || id == _mixerAmbientGroupId)
+			{
+				return IsSfxMuted;
+			}
+			if (id == _mixerDialogueGroupId)
+			{
+				return IsDialogueMuted;
+			}
+
+			return false;
 		}
 
 		/// <inheritdoc />

@@ -233,6 +233,7 @@
     <Compile Include="Configs\QuantumChestConfigs.cs" />
     <Compile Include="Configs\QuantumEquipmentMaterialStatConfigs.cs" />
     <Compile Include="Configs\QuantumGameModeConfig.cs" />
+    <Compile Include="Configs\QuantumMutatorConfigs.cs" />
     <Compile Include="Configs\QuantumStatConfigs.cs" />
     <Compile Include="Configs\QuantumMapConfigs.cs" />
     <Compile Include="Configs\QuantumEquipmentStatConfigs.cs" />
@@ -338,6 +339,9 @@
     <Content Include="Events\GameEvents.qtn" />
     <Content Include="Events\PlayerEvents.qtn" />
     <EmbeddedResource Include="db.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Configs\MutatorConfigs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

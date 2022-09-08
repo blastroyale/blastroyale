@@ -5,6 +5,12 @@ singleton component GameContainer
 	UInt32 TargetProgress;
 	bool IsGameOver;
 	FP GameOverTime;
+	MutatorsState MutatorsState;
+}
+
+struct MutatorsState
+{
+	FP HealthPerSecLastTime;
 }
 
 signal GameEnded();

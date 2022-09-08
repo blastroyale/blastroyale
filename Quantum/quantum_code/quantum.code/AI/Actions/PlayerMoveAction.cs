@@ -36,7 +36,7 @@ namespace Quantum
 			
 			var speedUpMutatorExists = f.Context.TryGetMutatorByType(MutatorType.Speed, out var speedUpMutatorConfig);
 
-			kcc->MaxSpeed = speedUpMutatorExists?maxSpeed * FP.FromString(speedUpMutatorConfig.Param1):maxSpeed;
+			kcc->MaxSpeed = speedUpMutatorExists?maxSpeed * speedUpMutatorConfig.Param1:maxSpeed;
 			kcc->Velocity = velocity;
 
 			// We have to call "Move" method every frame, even with seemingly Zero velocity because any movement of CharacterController,

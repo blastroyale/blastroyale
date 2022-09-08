@@ -16,8 +16,8 @@ namespace Quantum
 	{
 		public string Id;
 		public MutatorType Type;
-		public string Param1;
-		public string Param2;
+		public FP Param1;
+		public FP Param2;
 	}
 
 	/// <summary>

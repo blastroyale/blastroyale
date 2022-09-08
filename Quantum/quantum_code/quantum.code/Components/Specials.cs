@@ -21,7 +21,7 @@ namespace Quantum
 
 			SpecialId = specialId;
 			SpecialType = config.SpecialType;
-			Cooldown = specialsCooldownsMutatorExists?FP.FromString(specialsCooldownsMutatorConfig.Param1):config.Cooldown;
+			Cooldown = specialsCooldownsMutatorExists?specialsCooldownsMutatorConfig.Param1:config.Cooldown;
 			Radius = config.Radius;
 			SpecialPower = config.SpecialPower;
 			Speed = config.Speed;

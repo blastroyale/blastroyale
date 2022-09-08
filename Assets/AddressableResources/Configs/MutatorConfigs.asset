@@ -20,13 +20,19 @@ MonoBehaviour:
     QuantumConfigs:
     - Id: QuickSpecials
       Type: 0
-      Param1: 10
-      Param2: 0
+      Param1:
+        RawValue: 655360
+      Param2:
+        RawValue: 0
     - Id: SpeedUp
       Type: 1
-      Param1: 3
-      Param2: 0
+      Param1:
+        RawValue: 91750
+      Param2:
+        RawValue: 0
     - Id: HealthyAir
       Type: 2
-      Param1: 50
-      Param2: 5
+      Param1:
+        RawValue: 3276800
+      Param2:
+        RawValue: 327680

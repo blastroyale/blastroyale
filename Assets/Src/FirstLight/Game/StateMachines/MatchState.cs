@@ -220,6 +220,7 @@ namespace FirstLight.Game.StateMachines
 			var tasks = new List<Task>();
 			var config = _services.NetworkService.CurrentRoomMapConfig.Value;
 			var gameModeConfig = _services.NetworkService.CurrentRoomGameModeConfig.Value;
+			var mutatorIds = _services.NetworkService.CurrentRoomMutatorIds;
 			var map = config.Map.ToString();
 			var entityService = new GameObject(nameof(EntityViewUpdaterService)).AddComponent<EntityViewUpdaterService>();
 			var matchServices = new MatchServices(entityService, _services);
@@ -229,7 +230,7 @@ namespace FirstLight.Game.StateMachines
 			MainInstaller.Bind<IMatchServices>(matchServices);
 			// TODO ROB _assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<AudioAdventureAssetConfigs>());
 			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<MatchAssetConfigs>());
-			runnerConfigs.SetRuntimeConfig(gameModeConfig, config);
+			runnerConfigs.SetRuntimeConfig(gameModeConfig, config, mutatorIds);
 
 			tasks.Add(sceneTask);
 			tasks.Add(_assetAdderService.LoadAllAssets<IndicatorVfxId, GameObject>());

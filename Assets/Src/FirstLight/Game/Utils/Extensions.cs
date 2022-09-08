@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using FirstLight.Game.Configs;
@@ -371,6 +373,15 @@ namespace FirstLight.Game.Utils
 		public static string GetGameModeId(this Room room)
 		{
 			return (string) room.CustomProperties[GameConstants.Network.ROOM_PROPS_GAME_MODE];
+		}
+
+		/// <summary>
+		/// Obtains the list of mutators enabled in the given <paramref name="room"/>
+		/// </summary>
+		public static List<string> GetMutatorIds(this Room room)
+		{
+			var str = (string) room.CustomProperties[GameConstants.Network.ROOM_PROPS_MUTATORS];
+			return str.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
 		}
 
 		/// <summary>

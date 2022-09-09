@@ -14,7 +14,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		protected override void OnAwake()
 		{
-			QuantumEvent.Subscribe<EventOnPlayerWeaponChanged>(this, OnWeaponChanged);
+			
 			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, OnEventOnPlayerAttack);
 			QuantumEvent.Subscribe<EventOnPlayerStopAttack>(this, OnEventOnPlayerStopAttack);
 			QuantumEvent.Subscribe<EventOnGameEnded>(this, OnEventOnGameEnded);
@@ -30,16 +30,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			UpdateParticleSystem((int)playerCharacter.CurrentWeapon.GameId, stats);
 		}
 
-		private void OnWeaponChanged(EventOnPlayerWeaponChanged callback)
-		{
-			if (EntityRef != callback.Entity)
-			{
-				return;
-			}
-			var f = callback.Game.Frames.Verified;
-			var stats = f.Get<Stats>(EntityRef);
-			UpdateParticleSystem((int)callback.Weapon.GameId, stats);
-		}
 		private void OnStatsChanged(EventOnPlayerEquipmentStatsChanged callback)
 		{
 			if (EntityRef != callback.Entity)

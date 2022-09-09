@@ -97,7 +97,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private bool ShowPool()
 		{
-			return _services.GameModeService.SelectedGameMode.Value.MatchType switch
+			return _services.GameModeService.SelectedGameMode.Value.Entry.MatchType switch
 			{
 				MatchType.Custom => false,
 				MatchType.Casual => _poolToObserve == GameId.BPP,

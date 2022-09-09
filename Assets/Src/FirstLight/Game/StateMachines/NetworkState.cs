@@ -353,10 +353,9 @@ namespace FirstLight.Game.StateMachines
 				// Set the game mode from room props.
 				var gameModeId = _networkService.QuantumClient.CurrentRoom.GetGameModeId();
 				var matchType = _networkService.QuantumClient.CurrentRoom.GetMatchType();
+				var mutators = _networkService.QuantumClient.CurrentRoom.GetMutatorIds();
 
-				// TODO: Add mutators
-				_services.GameModeService.SelectedGameMode.Value =
-					new SelectedGameModeInfo(gameModeId, matchType, new List<string>());
+				_services.GameModeService.SelectedGameMode.Value = new GameModeInfo(gameModeId, matchType, mutators);
 			}
 
 			if (QuantumRunnerConfigs.IsOfflineMode)
@@ -555,8 +554,8 @@ namespace FirstLight.Game.StateMachines
 		private void OnPlayMatchmakingReadyMessage(PlayMatchmakingReadyMessage msg)
 		{
 			var selectedGameMode = _services.GameModeService.SelectedGameMode.Value;
-			var gameModeId = selectedGameMode.Id;
-			var mutators = selectedGameMode.Mutators;
+			var gameModeId = selectedGameMode.Entry.GameModeId;
+			var mutators = selectedGameMode.Entry.Mutators;
 			var mapConfig = NetworkUtils.GetRotationMapConfig(gameModeId, _services);
 			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
 
@@ -567,8 +566,8 @@ namespace FirstLight.Game.StateMachines
 		{
 			var mapConfig = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(msg.MapId);
 			var selectedGameMode = _services.GameModeService.SelectedGameMode.Value;
-			var gameModeId = selectedGameMode.Id;
-			var mutators = selectedGameMode.Mutators;
+			var gameModeId = selectedGameMode.Entry.GameModeId;
+			var mutators = selectedGameMode.Entry.Mutators;
 			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
 
 			StartRandomMatchmaking(gameModeConfig, mapConfig, mutators);
@@ -577,8 +576,8 @@ namespace FirstLight.Game.StateMachines
 		private void OnPlayCreateRoomClickedMessage(PlayCreateRoomClickedMessage msg)
 		{
 			var selectedGameMode = _services.GameModeService.SelectedGameMode.Value;
-			var gameModeId = selectedGameMode.Id;
-			var mutators = selectedGameMode.Mutators;
+			var gameModeId = selectedGameMode.Entry.GameModeId;
+			var mutators = selectedGameMode.Entry.Mutators;
 			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
 			
 			if (msg.JoinIfExists)
@@ -634,7 +633,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void StartRandomMatchmaking(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, List<string> mutators)
 		{
-			var matchType = _services.GameModeService.SelectedGameMode.Value.MatchType;
+			var matchType = _services.GameModeService.SelectedGameMode.Value.Entry.MatchType;
 			var gameHasBots = gameModeConfig.AllowBots && matchType != MatchType.Ranked;
 			var gridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
 			var createParams =

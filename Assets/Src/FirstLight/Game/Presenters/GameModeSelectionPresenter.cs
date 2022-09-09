@@ -31,7 +31,7 @@ namespace FirstLight.Game.Presenters
 
 		private IGameServices _services;
 
-		private List<GameModeButtonView> _slotViews;
+		private readonly List<GameModeButtonView> _slotViews = new();
 
 		private void Awake()
 		{

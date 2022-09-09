@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
@@ -25,6 +24,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		[SerializeField, Required] private TextMeshProUGUI _gameModeText;
 		[SerializeField, Required] private TextMeshProUGUI _matchTypeText;
 		[SerializeField, Required] private TextMeshProUGUI _timeLeftText;
+		[SerializeField, Required] private TextMeshProUGUI _mutatorsText;
 
 		private IGameServices _services;
 
@@ -43,10 +43,20 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_info = info;
 			_onClick = onClick;
 
-			// TODO: Display mutator icons
 			_gameModeText.text = _info.Entry.GameModeId.ToUpper();
 			_matchTypeText.text = _info.Entry.MatchType.GetTranslation();
 			_timeLeftText.gameObject.SetActive(!_info.IsFixed);
+
+			// TODO: Display mutator icons
+			if (_info.Entry.Mutators.Count == 0)
+			{
+				_mutatorsText.gameObject.SetActive(false);
+			}
+			else
+			{
+				_mutatorsText.gameObject.SetActive(true);
+				_mutatorsText.text = string.Join(", ", _info.Entry.Mutators);
+			}
 		}
 
 		private void Update()

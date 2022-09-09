@@ -3,7 +3,6 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
 using PlayFab;
 using Quantum;
-using UnityEngine;
 
 namespace FirstLight.Game.Services.AnalyticsHelpers
 {
@@ -25,6 +24,8 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		{
 			_gameData = gameDataProvider;
 			_services = services;
+
+			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(MatchKillAction);
 		}
 
 		/// <summary>
@@ -62,6 +63,9 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", room.Name},
+				{"match_type",_services.GameModeService.SelectedGameMode.Value.Entry.MatchType},
+				{"game_mode", _services.GameModeService.SelectedGameMode.Value.Entry.GameModeId},
+				{"mutators", string.Join(",",_services.GameModeService.SelectedGameMode.Value.Entry.Mutators)},
 				{"player_level", _gameData.PlayerDataProvider.PlayerInfo.Level},
 				{"total_players", totalPlayers},
 				{"total_bots", NetworkUtils.GetMaxPlayers(gameModeConfig, config) - totalPlayers},
@@ -74,8 +78,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"item_amulet", amuletId},
 				{"drop_open_grid", PresentedMapPath},
 				{"drop_location_default", DefaultDropPosition},
-				{"drop_location_final", SelectedDropPosition},
-				{"match_type",_services.GameModeService.SelectedGameMode.Value.Entry.GameModeId}
+				{"drop_location_final", SelectedDropPosition}
 			};
 			
 			_analyticsService.LogEvent(AnalyticsEvents.MatchStart, data);
@@ -92,7 +95,9 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", room.Name},
-				{"match_type",_services.GameModeService.SelectedGameMode.Value.Entry.GameModeId},
+				{"match_type",_services.GameModeService.SelectedGameMode.Value.Entry.MatchType},
+				{"game_mode", _services.GameModeService.SelectedGameMode.Value.Entry.GameModeId},
+				{"mutators", string.Join(",",_services.GameModeService.SelectedGameMode.Value.Entry.Mutators)},
 				{"map_id", (int) config.Map},
 				{"players_left", totalPlayers},
 				{"suicide",matchData.Data.SuicideCount},
@@ -103,6 +108,37 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			};
 			
 			_analyticsService.LogEvent(AnalyticsEvents.MatchEnd, data);
+		}
+
+		/// <summary>
+		/// Logs when a player kills another player
+		/// </summary>
+		public void MatchKillAction(EventOnPlayerKilledPlayer playerKilledEvent)
+		{
+			var killerData = playerKilledEvent.PlayersMatchData.Find(data => data.Data.Player.Equals(playerKilledEvent.PlayerKiller));
+
+			// We cannot send this event for everyone every time so we only send if we are the killer or we were killed by a bot
+			if (!(playerKilledEvent.Game.PlayerIsLocal(playerKilledEvent.PlayerKiller) || 
+			    (killerData.Data.IsBot && playerKilledEvent.Game.PlayerIsLocal(playerKilledEvent.PlayerDead))))
+			{
+				return;
+			}
+			
+			var room = _services.NetworkService.QuantumClient.CurrentRoom;
+			var deadData = playerKilledEvent.PlayersMatchData.Find(data => data.Data.Player.Equals(playerKilledEvent.PlayerDead));
+
+			var data = new Dictionary<string, object>
+			{
+				{"match_id", room.Name},
+				{"match_type",_services.GameModeService.SelectedGameMode.Value.Entry.MatchType},
+				{"game_mode", _services.GameModeService.SelectedGameMode.Value.Entry.GameModeId},
+				{"mutators", string.Join(",",_services.GameModeService.SelectedGameMode.Value.Entry.Mutators)},
+				{"killed_name", (deadData.Data.IsBot?"Bot":"") + deadData.PlayerName},
+				{"killed_reason", playerKilledEvent.EntityDead == playerKilledEvent.EntityKiller? "suicide":(killerData.Data.IsBot?"bot":"player")},
+				{"killer_name", (killerData.Data.IsBot?"Bot":"") + killerData.PlayerName}
+			};
+			
+			_analyticsService.LogEvent(AnalyticsEvents.MatchKillAction, data);
 		}
 	}
 }

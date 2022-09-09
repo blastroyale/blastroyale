@@ -21,7 +21,7 @@ MonoBehaviour:
         MatchType: 2
         Mutators: []
     - Entries:
-      - GameModeId: BattleRoyale
+      - GameModeId: Deathmatch
         MatchType: 1
         Mutators:
         - 

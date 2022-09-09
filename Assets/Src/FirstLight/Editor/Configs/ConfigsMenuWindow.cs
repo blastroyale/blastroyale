@@ -74,7 +74,7 @@ namespace FirstLight.Editor.Configs
 
 		protected override void OnBeginDrawEditors()
 		{
-			var selected = MenuTree.Selection.FirstOrDefault();
+			var selected = MenuTree.Selection?.FirstOrDefault();
 			var toolbarHeight = MenuTree.Config.SearchToolbarHeight;
 
 			if (selected?.Value == null) return;

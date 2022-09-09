@@ -26,6 +26,12 @@ namespace FirstLight.Game.Views.MainMenuViews
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
+			
+			if (!FeatureFlags.BATTLE_PASS_ENABLED)
+			{
+				gameObject.SetActive(false);
+				return;
+			}
 
 			_gameDataProvider.BattlePassDataProvider.CurrentLevel.InvokeObserve(OnCurrentLevelUpdated);
 			_gameDataProvider.BattlePassDataProvider.CurrentPoints.InvokeObserve(OnCurrentPointsUpdated);

@@ -33,9 +33,9 @@ MonoBehaviour:
         MatchType: 1
         Mutators:
         - QuickSpecials
-        - Speed
+        - SpeedUp
       - GameModeId: BattleRoyale
         MatchType: 1
         Mutators:
-        - Speed
+        - SpeedUp
         - HealthyAir

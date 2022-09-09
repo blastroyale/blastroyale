@@ -130,7 +130,7 @@ namespace FirstLight.Game.Presenters
 			if (SROptions.Current.EnableEquipmentDebug)
 			{
 				_equippedDebugText.gameObject.SetActive(true);
-				QuantumEvent.Subscribe<EventOnPlayerStatsChanged>(this, OnPlayerStatsChanged);
+				QuantumEvent.Subscribe<EventOnPlayerEquipmentStatsChanged>(this, OnPlayerEquipmentStatsChanged);
 			}
 #endif
 		}
@@ -156,7 +156,7 @@ namespace FirstLight.Game.Presenters
 			_standings.gameObject.SetActive(true);
 		}
 
-		private void OnPlayerStatsChanged(EventOnPlayerStatsChanged callback)
+		private void OnPlayerEquipmentStatsChanged(EventOnPlayerEquipmentStatsChanged callback)
 		{
 			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
 

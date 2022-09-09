@@ -166,11 +166,6 @@ namespace FirstLight.Game.StateMachines
 			       AudioStateMachine.BattleRoyale;
 		}
 
-		private bool IsRankedMatch()
-		{
-			return _services.NetworkService.QuantumClient.CurrentRoom.IsRankedRoom();
-		}
-
 		private async void OnGameStart(CallbackGameStarted callback)
 		{
 			// paused on Start means waiting for Snapshot
@@ -226,14 +221,6 @@ namespace FirstLight.Game.StateMachines
 
 		private void GiveMatchRewards()
 		{
-			var gameModeId = _services.GameModeService.SelectedGameMode.Value.Id;
-			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
-			
-			if (!gameModeConfig.GiveRewards)
-			{
-				return;
-			}
-
 			var game = QuantumRunner.Default.Game;
 			var f = game.Frames.Verified;
 			var gameContainer = f.GetSingleton<GameContainer>();
@@ -242,10 +229,10 @@ namespace FirstLight.Game.StateMachines
 				PlayersMatchData = gameContainer.GetPlayersMatchData(f, out _),
 				PlayfabToken = PlayFabSettings.staticPlayer.EntityToken
 			};
-			command.SetQuantumValues(new QuantumValues()
+			command.SetQuantumValues(new QuantumValues
 			{
 				ExecutingPlayer = game.GetLocalPlayers()[0],
-				Ranked = _services.NetworkService.QuantumClient.CurrentRoom.IsRankedRoom()
+				MatchType = _services.NetworkService.QuantumClient.CurrentRoom.GetMatchType()
 			});
 			_services.CommandService.ExecuteCommand(command);
 		}

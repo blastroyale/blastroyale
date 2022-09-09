@@ -1,4 +1,5 @@
 using DG.Tweening;
+using FirstLight.Game.Utils;
 using FirstLight.Services;
 using Quantum;
 using Sirenix.OdinInspector;
@@ -17,9 +18,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Required] private Slider _damageDealtSlider;
 		[SerializeField, Required] private Slider _slider;
 		[SerializeField, Required] private Image _fillImage;
-		[SerializeField] private Color _primaryHitColor = Color.green;
-		[SerializeField] private Color _secondaryHitColor = Color.yellow;
-		[SerializeField] private Color _tertiaryHitColor = Color.red;
+		[SerializeField] private Color _normalColor = Color.green;
+		[SerializeField] private Color _dangerColor = Color.red;
 		[SerializeField, Required] private UnityEvent _healthIncreasedEvent;
 		[SerializeField, Required] private Image _damageBlockedIcon;
 		[SerializeField] private float _damageBlockedDuration = 2f;
@@ -57,7 +57,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public void SetupView(EntityRef entity, int currentHealth, int maxHealth)
 		{
 			Entity = entity;
-			_fillImage.color = _primaryHitColor;
 			_slider.value = (float)currentHealth / maxHealth;
 			_damageDealtSlider.value = (float)currentHealth / maxHealth;
 
@@ -127,18 +126,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void HealthBarUpdate()
 		{
-			var col = _secondaryHitColor;
-
-			if (_slider.value < 0.33f)
-			{
-				col = _tertiaryHitColor;
-			}
-			else if (_slider.value > 0.66f)
-			{
-				col = _primaryHitColor;
-			}
-
-			_fillImage.color = col;
+			_fillImage.color = _slider.value < GameConstants.Visuals.NEAR_DEATH_HEALTH_RATIO_THRESHOLD
+				                   ? _dangerColor
+				                   : _normalColor;
 		}
 
 		private void OnDamageBlocked(EventOnDamageBlocked callback)

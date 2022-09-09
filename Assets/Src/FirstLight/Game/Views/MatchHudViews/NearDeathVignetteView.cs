@@ -11,11 +11,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 	/// </summary>
 	public class NearDeathVignetteView : MonoBehaviour
 	{
-		private const float NEAR_DEATH_VIGNETTE_HEALTH_RATIO_THRESHOLD = 0.4f;
 		private const float MAX_ALPHA_HEALTH_RATIO_THRESHOLD = 0.15f;
 		private const float STARTING_ALPHA = 0.25f;
 		private const float ALPHA_CHANGE = (1f - STARTING_ALPHA) /
-		                                   (NEAR_DEATH_VIGNETTE_HEALTH_RATIO_THRESHOLD -
+		                                   (GameConstants.Visuals.NEAR_DEATH_HEALTH_RATIO_THRESHOLD -
 		                                    MAX_ALPHA_HEALTH_RATIO_THRESHOLD);
 
 		[SerializeField] private Image _vignetteImage;
@@ -74,9 +73,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			var healthRatio = currentHealth / (float) maxHealth;
 			var newAlpha = Mathf.Clamp01(STARTING_ALPHA +
-			                             (NEAR_DEATH_VIGNETTE_HEALTH_RATIO_THRESHOLD - healthRatio) * ALPHA_CHANGE);
+			                             (GameConstants.Visuals.NEAR_DEATH_HEALTH_RATIO_THRESHOLD - healthRatio) * ALPHA_CHANGE);
 
-			_vignetteImage.enabled = healthRatio < NEAR_DEATH_VIGNETTE_HEALTH_RATIO_THRESHOLD;
+			_vignetteImage.enabled = healthRatio < GameConstants.Visuals.NEAR_DEATH_HEALTH_RATIO_THRESHOLD;
 			_vignetteImage.color = new Color(1f, 1f, 1f, newAlpha);
 		}
 	}

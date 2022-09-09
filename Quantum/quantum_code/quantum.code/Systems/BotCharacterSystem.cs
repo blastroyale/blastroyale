@@ -108,7 +108,10 @@ namespace Quantum.Systems
 			}
 			else
 			{
-				kcc->MaxSpeed = speed * weaponConfig.AimingMovementSpeed;
+				var speedUpMutatorExists = f.Context.TryGetMutatorByType(MutatorType.Speed, out var speedUpMutatorConfig);
+				speed *= weaponConfig.AimingMovementSpeed;
+				
+				kcc->MaxSpeed = speedUpMutatorExists?speed * speedUpMutatorConfig.Param1:speed;
 				QuantumHelpers.LookAt2d(f, filter.Entity, target);
 			}
 
@@ -226,7 +229,7 @@ namespace Quantum.Systems
 
 			foreach (var botConfig in configs)
 			{
-				if (botConfig.Difficulty == difficultyLevel && botConfig.GameModes.Contains(f.Context.GameModeConfig.Id))
+				if (botConfig.Difficulty == difficultyLevel && botConfig.GameMode == f.Context.GameModeConfig.Id)
 				{
 					list.Add(botConfig);
 				}
@@ -240,6 +243,9 @@ namespace Quantum.Systems
 			var speed = f.Get<Stats>(filter.Entity).Values[(int) StatType.Speed].StatValue;
 
 			filter.BotCharacter->Target = EntityRef.None;
+			
+			var speedUpMutatorExists = f.Context.TryGetMutatorByType(MutatorType.Speed, out var speedUpMutatorConfig);
+			speed = speedUpMutatorExists?speed * speedUpMutatorConfig.Param1:speed;
 
 			// When we clear the target we also return speed to normal
 			// because without a target bots don't shoot

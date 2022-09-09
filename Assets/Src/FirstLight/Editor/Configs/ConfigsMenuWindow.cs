@@ -77,6 +77,8 @@ namespace FirstLight.Editor.Configs
 			var selected = MenuTree.Selection.FirstOrDefault();
 			var toolbarHeight = MenuTree.Config.SearchToolbarHeight;
 
+			if (selected?.Value == null) return;
+			
 			SirenixEditorGUI.BeginHorizontalToolbar(toolbarHeight);
 			{
 				EditorGUILayout.Space();

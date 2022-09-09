@@ -13,34 +13,4 @@ MonoBehaviour:
   m_Name: VideoAssetConfigs
   m_EditorClassIdentifier: 
   _assetsFolderPath: Assets/AddressableResources/Video
-  _configs:
-  - Key: 10
-    Value:
-      m_AssetGUID: a5600f95a5c51e547b8a46e89d30706a
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 85
-    Value:
-      m_AssetGUID: 243059416f44ad94c9f0f1d3e9278f2b
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 89
-    Value:
-      m_AssetGUID: befa1711ab9cf0b42a04df1662df9925
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 110
-    Value:
-      m_AssetGUID: b4a7c55a064bd2e4386336f607d7d1b8
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-  - Key: 119
-    Value:
-      m_AssetGUID: bd90fea2d123c5449bb3a659a7d63a81
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
+  _configs: []

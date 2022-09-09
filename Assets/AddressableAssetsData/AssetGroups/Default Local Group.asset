@@ -91,6 +91,11 @@ MonoBehaviour:
     m_SerializedLabels:
     - GenerateIds
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b4c6272720f424821911a0bf237d295f
+    m_Address: Assets/Art/Textures/Ui/Shop/com.hard.currency.bundle.2.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 84d0e2bd97df24e95a85e355dd79a2b5, type: 2}
   m_SchemaSet:

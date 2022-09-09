@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using FirstLight.Game.Configs;
@@ -374,6 +376,15 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
+		/// Obtains the list of mutators enabled in the given <paramref name="room"/>
+		/// </summary>
+		public static List<string> GetMutatorIds(this Room room)
+		{
+			var str = (string) room.CustomProperties[GameConstants.Network.ROOM_PROPS_MUTATORS];
+			return str.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
+		}
+
+		/// <summary>
 		/// Obtains the current selected room code name in the given <paramref name="room"/>
 		/// </summary>
 		public static string GetRoomName(this Room room)
@@ -388,13 +399,13 @@ namespace FirstLight.Game.Utils
 		{
 			return room.IsVisible;
 		}
-		
+
 		/// <summary>
-		/// Obtains info on whether the room is used for matchmaking
+		/// Obtains the <see cref="MatchType"/> of this room.
 		/// </summary>
-		public static bool IsRankedRoom(this Room room)
+		public static MatchType GetMatchType(this Room room)
 		{
-			return (bool) room.CustomProperties[GameConstants.Network.ROOM_PROPS_RANKED_MATCH];
+			return Enum.Parse<MatchType>((string) room.CustomProperties[GameConstants.Network.ROOM_PROPS_MATCH_TYPE]);
 		}
 
 		/// <summary>

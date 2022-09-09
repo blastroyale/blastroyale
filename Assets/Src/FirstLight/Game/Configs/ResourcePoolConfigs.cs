@@ -13,6 +13,8 @@ namespace FirstLight.Game.Configs
 		public uint PoolCapacity;
 		public uint RestockIntervalMinutes;
 		public uint TotalRestockIntervalMinutes;
+
+		public bool UseNftData;
 		public uint BaseMaxTake;
 		public FP ScaleMultiplier;
 		public FP ShapeModifier;

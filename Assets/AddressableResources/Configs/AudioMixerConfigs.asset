@@ -28,5 +28,5 @@ MonoBehaviour:
       MixerSfx2dKey: Sfx2d
       MixerSfx3dKey: Sfx3d
       MixerMusicKey: Music
-      MixerVoiceKey: Voice
+      MixerVoiceKey: Dialogue
       MixerAmbientKey: Ambient

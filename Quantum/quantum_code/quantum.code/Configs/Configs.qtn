@@ -13,3 +13,4 @@ asset QuantumBaseEquipmentStatConfigs;
 asset QuantumEquipmentMaterialStatConfigs;
 asset QuantumStatConfigs;
 asset QuantumGameModeConfigs;
+asset QuantumMutatorConfigs;

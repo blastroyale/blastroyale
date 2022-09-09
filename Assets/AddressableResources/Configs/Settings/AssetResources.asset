@@ -97,6 +97,11 @@ MonoBehaviour:
         Id:
           Value: 477379078662942642
       Address: Maps/TestScene_NavMesh_data.asset
+    - Path: AddressableResources/Configs/MutatorConfigs
+      AssetRef:
+        Id:
+          Value: 490727885306324360
+      Address: Configs/MutatorConfigs.asset
     - Path: AddressableResources/QuantumAssets/Spawners/LegacyWeaponPlatformSpawner|EntityView
       AssetRef:
         Id:

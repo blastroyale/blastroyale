@@ -6,6 +6,7 @@ namespace Quantum
 	/// <summary>
 	/// Holds (NFT) attributes about a piece of equipment (weapon or gear).
 	/// </summary>
+	[Serializable]
 	public partial struct Equipment : IEquatable<Equipment>
 	{
 		private static readonly List<GameIdGroup> _slots = new List<GameIdGroup>
@@ -85,6 +86,25 @@ namespace Quantum
 		/// TODO: Might need different logic
 		/// </summary>
 		public bool IsDefaultItem() => GameId == GameId.Hammer;
+		
+		/// <summary>
+		/// Requests the equipment's current might
+		/// </summary>
+		public int GetTotalMight(Frame f)
+		{
+			if (IsWeapon())
+			{
+				QuantumStatCalculator.CalculateWeaponStats(f, this, out var armour, out var health, out var speed, 
+				                                           out var power, out var attackRange, out var pickupSpeed);
+				return QuantumStatCalculator.GetTotalMight(armour,health,speed, power, attackRange, pickupSpeed);
+			}
+			else
+			{
+				QuantumStatCalculator.CalculateGearStats(f, this, out var armour, out var health, out var speed, 
+				                                         out var power, out var attackRange, out var pickupSpeed);
+				return QuantumStatCalculator.GetTotalMight(armour,health,speed, power, attackRange, pickupSpeed);
+			}
+		}
 
 		/// <summary>
 		/// Returns the "Equipment" <see cref="GameIdGroup"/> that this item belongs to.

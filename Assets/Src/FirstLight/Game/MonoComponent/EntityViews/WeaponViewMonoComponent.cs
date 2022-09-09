@@ -18,14 +18,16 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, OnEventOnPlayerAttack);
 			QuantumEvent.Subscribe<EventOnPlayerStopAttack>(this, OnEventOnPlayerStopAttack);
 			QuantumEvent.Subscribe<EventOnGameEnded>(this, OnEventOnGameEnded);
+			QuantumEvent.Subscribe<EventOnPlayerEquipmentStatsChanged>(this, OnStatsChanged);
 		}
 		
 		protected override void OnInit(QuantumGame game)
 		{
 			var f = game.Frames.Verified;
 			var playerCharacter = f.Get<PlayerCharacter>(EntityRef);
-			
-			UpdateParticleSystem((int)playerCharacter.CurrentWeapon.GameId, f);
+			var stats = f.Get<Stats>(EntityRef);
+
+			UpdateParticleSystem((int)playerCharacter.CurrentWeapon.GameId, stats);
 		}
 
 		private void OnWeaponChanged(EventOnPlayerWeaponChanged callback)
@@ -35,7 +37,19 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 			var f = callback.Game.Frames.Verified;
-			UpdateParticleSystem((int)callback.Weapon.GameId, f);
+			var stats = f.Get<Stats>(EntityRef);
+			UpdateParticleSystem((int)callback.Weapon.GameId, stats);
+		}
+		private void OnStatsChanged(EventOnPlayerEquipmentStatsChanged callback)
+		{
+			if (EntityRef != callback.Entity)
+			{
+				return;
+			}
+			var f = callback.Game.Frames.Verified;
+			var weaponGameId = f.Get<PlayerCharacter>(EntityRef).CurrentWeapon.GameId;
+			var stats = f.Get<Stats>(EntityRef);
+			UpdateParticleSystem((int)weaponGameId, stats);
 		}
 
 		private void OnEventOnPlayerAttack(EventOnPlayerAttack callback)
@@ -87,10 +101,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			_particleSystem.Stop();
 		}
 
-		private void UpdateParticleSystem(int weaponId, Frame f)
+		private void UpdateParticleSystem(int weaponId, Stats stats)
 		{
 			var config = Services.ConfigsProvider.GetConfig<QuantumWeaponConfig>(weaponId);
-			var stats = f.Get<Stats>(EntityRef);
+			
 			var main = _particleSystem.main;
 			var emission = _particleSystem.emission;
 			var speed = config.AttackHitSpeed.AsFloat;

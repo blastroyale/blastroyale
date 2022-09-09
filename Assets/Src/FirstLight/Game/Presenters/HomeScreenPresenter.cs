@@ -80,7 +80,7 @@ namespace FirstLight.Game.Presenters
 		private void Update()
 		{
 			var selectedGameModeInfo = _services.GameModeService.SelectedGameMode.Value;
-			if (selectedGameModeInfo.FromRotation)
+			if (!selectedGameModeInfo.IsFixed)
 			{
 				var timeLeft = selectedGameModeInfo.EndTime - DateTime.UtcNow;
 				_selectedGameModeTimerText.text = timeLeft.ToString(@"hh\:mm\:ss");
@@ -167,10 +167,10 @@ namespace FirstLight.Game.Presenters
 		private void RefreshGameModeButton()
 		{
 			var gameMode = _services.GameModeService.SelectedGameMode.Value;
-			_selectedGameModeTimerText.gameObject.SetActive(gameMode.FromRotation);
+			_selectedGameModeTimerText.gameObject.SetActive(!gameMode.IsFixed);
 			_selectedGameModeText.text = string.Format(ScriptLocalization.MainMenu.SelectedGameModeValue,
-			                                           gameMode.MatchType.GetTranslation().ToUpper(),
-			                                           gameMode.Id.ToUpper());
+			                                           gameMode.Entry.MatchType.GetTranslation().ToUpper(),
+			                                           gameMode.Entry.GameModeId.ToUpper());
 		}
 	}
 }

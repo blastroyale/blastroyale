@@ -121,7 +121,7 @@ namespace FirstLight.Game.Presenters
 
 			var gameModeConfig =
 				_services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(_services.GameModeService.SelectedGameMode
-					                                                           .Value.Id.GetHashCode());
+					                                                           .Value.Entry.GameModeId.GetHashCode());
 
 			foreach (var mapId in gameModeConfig.AllowedMaps)
 			{

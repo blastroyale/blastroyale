@@ -35,7 +35,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", _services.NetworkService.QuantumClient.CurrentRoom.Name},
-				{"match_type",_services.GameModeService.SelectedGameMode.Value.Id},
+				{"match_type",_services.GameModeService.SelectedGameMode.Value.Entry.GameModeId},
 				{"PlayerId", PlayFabSettings.staticPlayer.PlayFabId}
 			};
 			
@@ -75,7 +75,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"drop_open_grid", PresentedMapPath},
 				{"drop_location_default", DefaultDropPosition},
 				{"drop_location_final", SelectedDropPosition},
-				{"match_type",_services.GameModeService.SelectedGameMode.Value.Id}
+				{"match_type",_services.GameModeService.SelectedGameMode.Value.Entry.GameModeId}
 			};
 			
 			_analyticsService.LogEvent(AnalyticsEvents.MatchStart, data);
@@ -92,7 +92,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", room.Name},
-				{"match_type",_services.GameModeService.SelectedGameMode.Value.Id},
+				{"match_type",_services.GameModeService.SelectedGameMode.Value.Entry.GameModeId},
 				{"map_id", (int) config.Map},
 				{"players_left", totalPlayers},
 				{"suicide",matchData.Data.SuicideCount},

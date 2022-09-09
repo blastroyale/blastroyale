@@ -12,9 +12,7 @@ namespace FirstLight.Game.Configs
 		public long RotationStartTimeTicks;
 		public uint RotationSlotDuration;
 
-		public List<GameModeEntry> FixedSlots;
-		public List<GameModeEntry> RotationSlot1;
-		public List<GameModeEntry> RotationSlot2;
+		public List<SlotWrapper> Slots;
 
 		[Serializable]
 		public struct GameModeEntry
@@ -22,6 +20,27 @@ namespace FirstLight.Game.Configs
 			public string GameModeId;
 			public MatchType MatchType;
 			public List<string> Mutators;
+
+			public GameModeEntry(string gameModeId, MatchType matchType, List<string> mutators)
+			{
+				GameModeId = gameModeId;
+				MatchType = matchType;
+				Mutators = mutators;
+			}
+		}
+
+		[Serializable]
+		public struct SlotWrapper
+		{
+			public List<GameModeEntry> Entries;
+
+			public int Count => Entries.Count;
+
+			public GameModeEntry this[int key]
+			{
+				get => Entries[key];
+				set => Entries[key] = value;
+			}
 		}
 	}
 

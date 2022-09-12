@@ -20,14 +20,3 @@ synced event OnChestOpened
     player_ref Player;
     entity_ref Entity;
 }
-
-synced event OnChestItemDropped
-{
-	GameId ChestType;
-    FPVector3 ChestPosition;
-    player_ref Player;
-    entity_ref Entity;
-    GameId ItemType;
-    int Amount;
-    int AngleStepAroundChest;
-}

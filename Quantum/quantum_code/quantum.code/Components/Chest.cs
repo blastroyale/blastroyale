@@ -1,11 +1,25 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using Photon.Deterministic;
 
 namespace Quantum
 {
+	public struct ChestItemDropped
+	{
+		public GameId ChestType;
+		public FPVector3 ChestPosition;
+		public PlayerRef Player;
+		public EntityRef PlayerEntity;
+		public GameId ItemType;
+		public int Amount;
+		public int AngleStepAroundChest;
+	}
+	
+	public unsafe partial class EventOnChestOpened
+	{
+		public List<ChestItemDropped> Items;
+	}
+	
 	public unsafe partial struct Chest
 	{
 		/// <summary>
@@ -57,30 +71,44 @@ namespace Quantum
 			var shieldCheck = stats.CurrentShield / stats.GetStatData(StatType.Shield).StatValue < FP._0_20;
 			var healthCheck = stats.CurrentHealth / stats.GetStatData(StatType.Health).StatValue < FP._0_20;
 
-			f.Events.OnChestOpened(config.Id, chestPosition, playerRef, playerEntity);
+			var chestItems = new List<ChestItemDropped>();
 
 			if (nextGearItem.IsValid())
 			{
 				playerCharacter->SetDroppedLoadoutItem(nextGearItem);
 				ModifyEquipmentRarity(f, ref nextGearItem, minimumRarity, medianRarity);
-				f.Events.OnChestItemDropped(config.Id, chestPosition, playerRef, playerEntity, nextGearItem.GameId, 1, angleStep);
 				Collectable.DropEquipment(f, nextGearItem, chestPosition, angleStep++, playerRef);
+				chestItems.Add(new ChestItemDropped()
+				{
+					ChestType = config.Id,
+					ChestPosition = chestPosition,
+					Player = playerRef,
+					PlayerEntity = playerEntity,
+					ItemType = nextGearItem.GameId,
+					Amount = 1,
+					AngleStepAroundChest = angleStep
+				});
 			}
 			else
 			{
 				// Drop "PowerUps" (equipment / shield upgrade)
-				DropPowerUps(f, playerEntity, playerRef, config, playerCharacter, weaponPool,
-					minimumRarity, medianRarity, loadoutWeapon, chestPosition, ref angleStep);
+				chestItems.AddRange(DropPowerUps(f, playerEntity, config, playerCharacter, weaponPool,
+				                                 minimumRarity, medianRarity, loadoutWeapon, chestPosition,
+				                                 ref angleStep));
 			}
 
 			// Drop Small consumable
-			DropSmallConsumable(f, playerEntity, playerRef, config, ammoCheck, shieldCheck, healthCheck, chestPosition, ref angleStep);
-			DropLargeConsumable(f, playerEntity, playerRef,config, ammoCheck, shieldCheck, chestPosition, ref angleStep);
+			chestItems.AddRange(DropSmallConsumable(f, playerEntity, playerRef, config, ammoCheck, shieldCheck, healthCheck, chestPosition, ref angleStep));
+			chestItems.AddRange(DropLargeConsumable(f, playerEntity, playerRef,config, ammoCheck, shieldCheck, chestPosition, ref angleStep));
+			
+			f.Events.OnChestOpened(config.Id, chestPosition, playerRef, playerEntity, chestItems);
 		}
 
-		private void DropSmallConsumable(Frame f, EntityRef playerEntity, PlayerRef playerRef, QuantumChestConfig config, bool ammoCheck, bool shieldCheck, bool healthCheck,
-			FPVector3 chestPosition, ref int angleStep)
+		private List<ChestItemDropped> DropSmallConsumable(Frame f, EntityRef playerEntity, PlayerRef playerRef, QuantumChestConfig config, bool ammoCheck, bool shieldCheck, bool healthCheck,
+		                                                   FPVector3 chestPosition, ref int angleStep)
 		{
+			var chestItems = new List<ChestItemDropped>();
+			
 			foreach (var (chance, count) in config.SmallConsumable)
 			{
 				if (f.RNG->Next() > chance)
@@ -109,16 +137,29 @@ namespace Quantum
 					{
 						drop = QuantumHelpers.GetRandomItem(f, GameId.AmmoSmall, GameId.ShieldSmall, GameId.Health);
 					}
-
-					f.Events.OnChestItemDropped(config.Id, chestPosition, playerRef, playerEntity, drop, 1, angleStep);
+					
 					Collectable.DropConsumable(f, drop, chestPosition, angleStep++, false);
+					chestItems.Add(new ChestItemDropped()
+					{
+						ChestType = config.Id,
+						ChestPosition = chestPosition,
+						Player = playerRef,
+						PlayerEntity = playerEntity,
+						ItemType = drop,
+						Amount = 1,
+						AngleStepAroundChest = angleStep
+					});
 				}
 			}
+			
+			return chestItems;
 		}
 
-		private void DropLargeConsumable(Frame f, EntityRef playerEntity, PlayerRef playerRef, QuantumChestConfig config, bool ammoCheck, bool shieldCheck, 
-			FPVector3 chestPosition, ref int angleStep)
+		private List<ChestItemDropped> DropLargeConsumable(Frame f, EntityRef playerEntity, PlayerRef playerRef, QuantumChestConfig config, bool ammoCheck, bool shieldCheck, 
+		                                                   FPVector3 chestPosition, ref int angleStep)
 		{
+			var chestItems = new List<ChestItemDropped>();
+			
 			foreach (var (chance, count) in config.LargeConsumable)
 			{
 				if (f.RNG->Next() > chance)
@@ -142,16 +183,29 @@ namespace Quantum
 					{
 						drop = QuantumHelpers.GetRandomItem(f, GameId.AmmoLarge, GameId.ShieldLarge);
 					}
-					f.Events.OnChestItemDropped(config.Id, chestPosition, playerRef, playerEntity, drop, 1, angleStep);
+
 					Collectable.DropConsumable(f, drop, chestPosition, angleStep++, false);
+					chestItems.Add(new ChestItemDropped()
+					{
+						ChestType = config.Id,
+						ChestPosition = chestPosition,
+						Player = playerRef,
+						PlayerEntity = playerEntity,
+						ItemType = drop,
+						Amount = 1,
+						AngleStepAroundChest = angleStep
+					});
 				}
 			}
+			
+			return chestItems;
 		}
 
-		private void DropPowerUps(Frame f, EntityRef playerEntity, PlayerRef playerRef, QuantumChestConfig config, PlayerCharacter* playerCharacter, 
-			IReadOnlyList<Equipment> weaponPool, EquipmentRarity minimumRarity, EquipmentRarity medianRarity, 
-			Equipment loadoutWeapon, FPVector3 chestPosition, ref int angleStep)
+		private List<ChestItemDropped> DropPowerUps(Frame f, EntityRef playerEntity, QuantumChestConfig config, PlayerCharacter* playerCharacter, 
+		                                               IReadOnlyList<Equipment> weaponPool, EquipmentRarity minimumRarity, EquipmentRarity medianRarity, 
+		                                               Equipment loadoutWeapon, FPVector3 chestPosition, ref int angleStep)
 		{
+			var chestItems = new List<ChestItemDropped>();
 			var hasLoadoutWeapon = loadoutWeapon.IsValid();
 			var noWeaponsEquipped = playerCharacter->WeaponSlots[1].Weapon.GameId == GameId.Random &&
 										playerCharacter->WeaponSlots[2].Weapon.GameId == GameId.Random;
@@ -185,16 +239,37 @@ namespace Quantum
 						}
 
 						ModifyEquipmentRarity(f, ref weapon, minimumRarity, medianRarity);
-						f.Events.OnChestItemDropped(config.Id, chestPosition, playerRef, playerEntity, drop, 1, angleStep);
+
 						Collectable.DropEquipment(f, weapon, chestPosition, angleStep++);
+						chestItems.Add(new ChestItemDropped()
+						{
+							ChestType = config.Id,
+							ChestPosition = chestPosition,
+							Player = playerCharacter->Player,
+							PlayerEntity = playerEntity,
+							ItemType = drop,
+							Amount = 1,
+							AngleStepAroundChest = angleStep
+						});
 					}
 					else
 					{
-						f.Events.OnChestItemDropped(config.Id, chestPosition, playerRef, playerEntity, drop, 1, angleStep);
 						Collectable.DropConsumable(f, drop, chestPosition, angleStep++, false);
+						chestItems.Add(new ChestItemDropped()
+						{
+							ChestType = config.Id,
+							ChestPosition = chestPosition,
+							Player = playerCharacter->Player,
+							PlayerEntity = playerEntity,
+							ItemType = drop,
+							Amount = 1,
+							AngleStepAroundChest = angleStep
+						});
 					}
 				}
 			}
+
+			return chestItems;
 		}
 
 		private void ModifyEquipmentRarity(Frame f, ref Equipment equipment, EquipmentRarity minimumRarity,
@@ -252,6 +327,21 @@ namespace Quantum
 			}
 
 			throw new NotSupportedException($"Could not find random gear item with index({index}), group{group}");
+		}
+	}
+
+	public partial class Frame
+	{
+		public unsafe partial struct FrameEvents
+		{
+			public EventOnChestOpened OnChestOpened(GameId ChestType, FPVector3 ChestPosition, PlayerRef Player, EntityRef Entity, List<ChestItemDropped> Items)
+			{
+				var chestOpenedEvent = OnChestOpened(ChestType, ChestPosition, Player, Entity);
+
+				chestOpenedEvent.Items = Items;
+
+				return chestOpenedEvent;
+			}
 		}
 	}
 }

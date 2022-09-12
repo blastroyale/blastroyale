@@ -3,6 +3,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
 using PlayFab;
 using Quantum;
+using UnityEngine;
 
 namespace FirstLight.Game.Services.AnalyticsHelpers
 {
@@ -27,10 +28,8 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(MatchKillAction);
 			QuantumEvent.SubscribeManual<EventOnChestOpened>(this, MatchChestOpenAction);
-			QuantumEvent.SubscribeManual<EventOnChestItemDropped>(MatchChestItemDrop);
 			QuantumEvent.SubscribeManual<EventOnCollectableCollected>(MatchPickupAction);
 		}
-
 
 		/// <summary>
 		/// Logs when we entered the matchmaking room
@@ -43,8 +42,8 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			{
 				{"match_id", _services.NetworkService.QuantumClient.CurrentRoom.Name},
 				{"match_type", room.GetMatchType()},
-				{"game_mode", _services.GameModeService.SelectedGameMode.Value.Entry.GameModeId},
-				{"mutators", string.Join(",",_services.GameModeService.SelectedGameMode.Value.Entry.Mutators)},
+				{"game_mode", room.GetGameModeId()},
+				{"mutators", string.Join(",",room.GetMutatorIds())},
 				{"PlayerId", PlayFabSettings.staticPlayer.PlayFabId}
 			};
 			
@@ -71,9 +70,9 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", room.Name},
-				{"match_type",room.GetMatchType()},
-				{"game_mode", _services.GameModeService.SelectedGameMode.Value.Entry.GameModeId},
-				{"mutators", string.Join(",",_services.GameModeService.SelectedGameMode.Value.Entry.Mutators)},
+				{"match_type", room.GetMatchType()},
+				{"game_mode", room.GetGameModeId()},
+				{"mutators", string.Join(",",room.GetMutatorIds())},
 				{"player_level", _gameData.PlayerDataProvider.PlayerInfo.Level},
 				{"total_players", totalPlayers},
 				{"total_bots", NetworkUtils.GetMaxPlayers(gameModeConfig, config) - totalPlayers},
@@ -103,9 +102,9 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", room.Name},
-				{"match_type",room.GetMatchType()},
-				{"game_mode", _services.GameModeService.SelectedGameMode.Value.Entry.GameModeId},
-				{"mutators", string.Join(",",_services.GameModeService.SelectedGameMode.Value.Entry.Mutators)},
+				{"match_type", room.GetMatchType()},
+				{"game_mode", room.GetGameModeId()},
+				{"mutators", string.Join(",",room.GetMutatorIds())},
 				{"map_id", (int) config.Map},
 				{"players_left", totalPlayers},
 				{"suicide",matchData.Data.SuicideCount},
@@ -123,7 +122,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		/// </summary>
 		public void MatchKillAction(EventOnPlayerKilledPlayer playerKilledEvent)
 		{
-			var killerData = playerKilledEvent.PlayersMatchData.Find(data => data.Data.Player.Equals(playerKilledEvent.PlayerKiller));
+			var killerData = playerKilledEvent.PlayersMatchData[playerKilledEvent.PlayerKiller];
 
 			// We cannot send this event for everyone every time so we only send if we are the killer or we were killed by a bot
 			if (!(playerKilledEvent.Game.PlayerIsLocal(playerKilledEvent.PlayerKiller) || 
@@ -133,14 +132,14 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			}
 			
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
-			var deadData = playerKilledEvent.PlayersMatchData.Find(data => data.Data.Player.Equals(playerKilledEvent.PlayerDead));
+			var deadData = playerKilledEvent.PlayersMatchData[playerKilledEvent.PlayerKiller];
 
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", room.Name},
-				{"match_type",room.GetMatchType()},
-				{"game_mode", _services.GameModeService.SelectedGameMode.Value.Entry.GameModeId},
-				{"mutators", string.Join(",",_services.GameModeService.SelectedGameMode.Value.Entry.Mutators)},
+				{"match_type", room.GetMatchType()},
+				{"game_mode", room.GetGameModeId()},
+				{"mutators", string.Join(",",room.GetMutatorIds())},
 				{"killed_name", (deadData.Data.IsBot?"Bot":"") + deadData.PlayerName},
 				{"killed_reason", playerKilledEvent.EntityDead == playerKilledEvent.EntityKiller? "suicide":(killerData.Data.IsBot?"bot":"player")},
 				{"killer_name", (killerData.Data.IsBot?"Bot":"") + killerData.PlayerName}
@@ -160,26 +159,36 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			}
 			
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
+			var frame = callback.Game.Frames.Verified;
+			var container = frame.GetSingleton<GameContainer>();
+			
+			var playerData = container.GetPlayersMatchData(frame, out var leader)[callback.Player];
 
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", room.Name},
-				{"match_type",room.GetMatchType()},
-				{"game_mode", _services.GameModeService.SelectedGameMode.Value.Entry.GameModeId},
-				{"mutators", string.Join(",",_services.GameModeService.SelectedGameMode.Value.Entry.Mutators)},
+				{"match_type", room.GetMatchType()},
+				{"game_mode", room.GetGameModeId()},
+				{"mutators", string.Join(",",room.GetMutatorIds())},
 				{"chest_type", callback.ChestType.ToString()},
-				{"chest_coordinates", callback.ChestPosition.ToString()}
+				{"chest_coordinates", callback.ChestPosition.ToString()},
+				{"player_name", playerData.PlayerName }
 			};
 			
 			_analyticsService.LogEvent(AnalyticsEvents.MatchChestOpenAction, data);
+
+			foreach (var item in callback.Items)
+			{
+				MatchChestItemDrop(item, callback.Game);
+			}
 		}
 		
 		/// <summary>
 		/// Logs when a chest item is dropped
 		/// </summary>
-		public void MatchChestItemDrop(EventOnChestItemDropped callback)
+		public void MatchChestItemDrop(ChestItemDropped chestItemDropped, QuantumGame game)
 		{
-			if (!(callback.Game.PlayerIsLocal(callback.Player)))
+			if (!(game.PlayerIsLocal(chestItemDropped.Player)))
 			{
 				return;
 			}
@@ -189,14 +198,14 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", room.Name},
-				{"match_type",room.GetMatchType()},
-				{"game_mode", _services.GameModeService.SelectedGameMode.Value.Entry.GameModeId},
-				{"mutators", string.Join(",",_services.GameModeService.SelectedGameMode.Value.Entry.Mutators)},
-				{"chest_type", callback.ChestType.ToString()},
-				{"chest_coordinates", callback.ChestPosition.ToString()},
-				{"item_type", callback.ItemType.ToString()},
-				{"amount", callback.Amount},
-				{"angle_step_around_chest", callback.AngleStepAroundChest}
+				{"match_type", room.GetMatchType()},
+				{"game_mode", room.GetGameModeId()},
+				{"mutators", string.Join(",",room.GetMutatorIds())},
+				{"chest_type", chestItemDropped.ChestType.ToString()},
+				{"chest_coordinates", chestItemDropped.ChestPosition.ToString()},
+				{"item_type", chestItemDropped.ItemType.ToString()},
+				{"amount", chestItemDropped.Amount},
+				{"angle_step_around_chest", chestItemDropped.AngleStepAroundChest}
 			};
 			
 			_analyticsService.LogEvent(AnalyticsEvents.MatchChestItemDrop, data);
@@ -216,20 +225,20 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			var frame = callback.Game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
 			
-			var playerData = container.GetPlayersMatchData(frame, out var leader).Find(data => data.Data.Player.Equals(callback.Player));
+			var playerData = container.GetPlayersMatchData(frame, out var leader)[callback.Player];
 
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", room.Name},
-				{"match_type",room.GetMatchType()},
-				{"game_mode", _services.GameModeService.SelectedGameMode.Value.Entry.GameModeId},
-				{"mutators", string.Join(",",_services.GameModeService.SelectedGameMode.Value.Entry.Mutators)},
+				{"match_type", room.GetMatchType()},
+				{"game_mode", room.GetGameModeId()},
+				{"mutators", string.Join(",",room.GetMutatorIds())},
 				{"item_type", callback.CollectableId.ToString()},
 				{"amount", 1},
 				{"player_name", playerData.PlayerName }
 			};
 			
-			_analyticsService.LogEvent(AnalyticsEvents.MatchChestItemDrop, data);
+			_analyticsService.LogEvent(AnalyticsEvents.MatchPickupAction, data);
 		}
 	}
 }

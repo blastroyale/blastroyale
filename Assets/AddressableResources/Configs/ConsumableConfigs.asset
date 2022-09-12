@@ -59,12 +59,12 @@ MonoBehaviour:
         RawValue: 9830
       ConsumableCollectTime:
         Default:
-          RawValue: 52429
+          RawValue: 65536
         Keys:
         - BattleRoyale
         - Deathmatch
         Values:
-        - RawValue: 52429
+        - RawValue: 65536
         - RawValue: 13107
     - Id: 128
       AssetRef:
@@ -75,12 +75,12 @@ MonoBehaviour:
         RawValue: 19661
       ConsumableCollectTime:
         Default:
-          RawValue: 98304
+          RawValue: 117965
         Keys:
         - BattleRoyale
         - Deathmatch
         Values:
-        - RawValue: 98304
+        - RawValue: 117965
         - RawValue: 13107
     - Id: 20
       AssetRef:
@@ -91,12 +91,12 @@ MonoBehaviour:
         RawValue: 13107200
       ConsumableCollectTime:
         Default:
-          RawValue: 52429
+          RawValue: 65536
         Keys:
         - BattleRoyale
         - Deathmatch
         Values:
-        - RawValue: 52429
+        - RawValue: 65536
         - RawValue: 13107
     - Id: 21
       AssetRef:
@@ -107,12 +107,12 @@ MonoBehaviour:
         RawValue: 26214400
       ConsumableCollectTime:
         Default:
-          RawValue: 98304
+          RawValue: 117965
         Keys:
         - BattleRoyale
         - Deathmatch
         Values:
-        - RawValue: 98304
+        - RawValue: 117965
         - RawValue: 13107
     - Id: 17
       AssetRef:
@@ -123,12 +123,12 @@ MonoBehaviour:
         RawValue: 13107200
       ConsumableCollectTime:
         Default:
-          RawValue: 98304
+          RawValue: 117965
         Keys:
         - BattleRoyale
         - Deathmatch
         Values:
-        - RawValue: 98304
+        - RawValue: 117965
         - RawValue: 13107
     - Id: 18
       AssetRef:
@@ -139,10 +139,10 @@ MonoBehaviour:
         RawValue: 26214400
       ConsumableCollectTime:
         Default:
-          RawValue: 98304
+          RawValue: 117965
         Keys:
         - BattleRoyale
         - Deathmatch
         Values:
-        - RawValue: 98304
+        - RawValue: 117965
         - RawValue: 13107

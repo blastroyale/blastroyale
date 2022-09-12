@@ -39,7 +39,7 @@ MonoBehaviour:
       ShrinkingDamageCooldown:
         RawValue: 65536
       PlayerDefaultHealth:
-        Default: 800
+        Default: 1000
         Keys: []
         Values: 
       PlayerDefaultSpeed:

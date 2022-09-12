@@ -108,7 +108,10 @@ namespace Quantum.Systems
 			}
 			else
 			{
-				kcc->MaxSpeed = speed * weaponConfig.AimingMovementSpeed;
+				var speedUpMutatorExists = f.Context.TryGetMutatorByType(MutatorType.Speed, out var speedUpMutatorConfig);
+				speed *= weaponConfig.AimingMovementSpeed;
+				
+				kcc->MaxSpeed = speedUpMutatorExists?speed * speedUpMutatorConfig.Param1:speed;
 				QuantumHelpers.LookAt2d(f, filter.Entity, target);
 			}
 
@@ -128,7 +131,7 @@ namespace Quantum.Systems
 					{
 						// Checking how close is the target and stop the movement if the target is closer
 						// than allowed by closefight intolerance
-						var weaponTargetRange = weaponConfig.AttackRange;
+						var weaponTargetRange = f.Get<Stats>(filter.Entity).GetStatData(StatType.AttackRange).StatValue;
 						var minDistanceToTarget =
 							FPMath.Max(FP._1, weaponTargetRange * filter.BotCharacter->CloseFightIntolerance);
 						var sqrDistanceToTarget = (f.Get<Transform3D>(target).Position - filter.Transform->Position)
@@ -226,7 +229,7 @@ namespace Quantum.Systems
 
 			foreach (var botConfig in configs)
 			{
-				if (botConfig.Difficulty == difficultyLevel && botConfig.GameModes.Contains(f.Context.GameModeConfig.Id))
+				if (botConfig.Difficulty == difficultyLevel && botConfig.GameMode == f.Context.GameModeConfig.Id)
 				{
 					list.Add(botConfig);
 				}
@@ -240,6 +243,9 @@ namespace Quantum.Systems
 			var speed = f.Get<Stats>(filter.Entity).Values[(int) StatType.Speed].StatValue;
 
 			filter.BotCharacter->Target = EntityRef.None;
+			
+			var speedUpMutatorExists = f.Context.TryGetMutatorByType(MutatorType.Speed, out var speedUpMutatorConfig);
+			speed = speedUpMutatorExists?speed * speedUpMutatorConfig.Param1:speed;
 
 			// When we clear the target we also return speed to normal
 			// because without a target bots don't shoot
@@ -261,7 +267,7 @@ namespace Quantum.Systems
 			// If there is a target in Sight then store this Target into the blackboard variable
 			// We check enemies one by one until we find a valid enemy in sight
 			// TODO: Select not a random, but the closest possible enemy to shoot at
-			var targetRange = weaponConfig.AttackRange;
+			var targetRange = f.Get<Stats>(filter.Entity).GetStatData(StatType.AttackRange).StatValue; 
 			var botPosition = filter.Transform->Position;
 			var team = f.Get<Targetable>(filter.Entity).Team;
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(filter.Entity);
@@ -633,7 +639,7 @@ namespace Quantum.Systems
 				return false;
 			}
 
-			var weaponTargetRange = weaponConfig.AttackRange;
+			var weaponTargetRange = f.Get<Stats>(filter.Entity).GetStatData(StatType.AttackRange).StatValue;
 			var reverseDirection = (enemyPosition - botPosition).Normalized;
 			// Do not go closer than 1 meter to target
 			var offsetDistance = FPMath.Max(FP._1, weaponTargetRange * filter.BotCharacter->CloseFightIntolerance);

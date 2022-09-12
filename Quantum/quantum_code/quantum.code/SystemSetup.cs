@@ -31,7 +31,7 @@ namespace Quantum
 				new StatusModifierSystemGroup(),
 				new DummyCharacterSystem(),
 				new CollectableSystem(),
-
+				
 				// Update systems - Update & OnInit & Signal order matters
 				new CommandsSystem(),
 				new ShrinkingCircleSystem(),

@@ -35,7 +35,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", _services.NetworkService.QuantumClient.CurrentRoom.Name},
-				{"match_type",_services.GameModeService.SelectedGameMode.Value.Id},
+				{"match_type",_services.GameModeService.SelectedGameMode.Value.Entry.GameModeId},
 				{"PlayerId", PlayFabSettings.staticPlayer.PlayFabId}
 			};
 			
@@ -65,8 +65,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"player_level", _gameData.PlayerDataProvider.PlayerInfo.Level},
 				{"total_players", totalPlayers},
 				{"total_bots", NetworkUtils.GetMaxPlayers(gameModeConfig, config) - totalPlayers},
-				{"map_id", config.Id},
-				{"map_name", config.Map},
+				{"map_id", (int) config.Map},
 				{"trophies_start", _gameData.PlayerDataProvider.Trophies.Value},
 				{"item_weapon", weaponId},
 				{"item_helmet", helmetId},
@@ -76,7 +75,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"drop_open_grid", PresentedMapPath},
 				{"drop_location_default", DefaultDropPosition},
 				{"drop_location_final", SelectedDropPosition},
-				{"match_type",_services.GameModeService.SelectedGameMode.Value.Id}
+				{"match_type",_services.GameModeService.SelectedGameMode.Value.Entry.GameModeId}
 			};
 			
 			_analyticsService.LogEvent(AnalyticsEvents.MatchStart, data);
@@ -93,9 +92,8 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", room.Name},
-				{"match_type",_services.GameModeService.SelectedGameMode.Value.Id},
-				{"map_id", config.Id},
-				{"map_name", config.Map},
+				{"match_type",_services.GameModeService.SelectedGameMode.Value.Entry.GameModeId},
+				{"map_id", (int) config.Map},
 				{"players_left", totalPlayers},
 				{"suicide",matchData.Data.SuicideCount},
 				{"kills", matchData.Data.PlayersKilledCount},

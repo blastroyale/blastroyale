@@ -48,6 +48,8 @@ public class TestServer
 	{
 		SetupTestEnv();
 		_services = SetupServices().BuildServiceProvider();
+		ModelSerializer.RegisterConverter(new QuantumVector2Converter());
+		ModelSerializer.RegisterConverter(new QuantumVector3Converter());
 	}
 
 	public IServerStateService ServerState => GetService<IServerStateService>()!;

@@ -217,6 +217,28 @@ public partial class SROptions
 		});
 	}
 	
+	[Category("Progression")]
+	public void Add9BPP()
+	{
+		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
+		var services = MainInstaller.Resolve<IGameServices>();
+		
+		gameLogic.BattlePassLogic.AddBPP(9);
+
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
+	}
+	
+	[Category("Progression")]
+	public void Add25BPP()
+	{
+		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
+		var services = MainInstaller.Resolve<IGameServices>();
+		
+		gameLogic.BattlePassLogic.AddBPP(25);
+
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
+	}
+	
 	[Category("Logging")]
 	public void LogCurrentRoomInfo()
 	{

@@ -41,7 +41,7 @@ public class TestConfigsProvider
 			Assert.NotNull(cfg.GetConfigByType(cfgType));
 		}
 	}
-	
+
 	[Test]
 	public void TestUpdatingConfigs()
 	{

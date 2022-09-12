@@ -48,6 +48,7 @@ namespace Backend
 			services.AddSingleton<IErrorService<PlayFabError>, PlayfabErrorService>();
 			services.AddSingleton<IServerConfiguration>(p => envConfig);
 			services.AddSingleton<IServerStateService, PlayfabGameStateService>();
+			services.AddSingleton<IGameConfigurationService, GameConfigurationService>();
 			services.AddSingleton<IConfigBackendService, PlayfabConfigurationBackendService>();
 			services.AddSingleton<ILogger, ILogger>(l =>
 			{
@@ -85,10 +86,10 @@ namespace Backend
 			}
 			log.Log(LogLevel.Information, "Downloading remote configurations");
 			var cfgBackend = services.GetService<IConfigBackendService>();
-			var task = cfgBackend.GetVersion();
+			var task = cfgBackend.GetRemoteVersion();
 			task.Wait();
 			var version = task.Result;
-			var task2 = cfgBackend.BuildConfiguration(version);
+			var task2 = cfgBackend.FetchRemoteConfiguration(version);
 			task2.Wait();
 			return task2.Result;
 		}

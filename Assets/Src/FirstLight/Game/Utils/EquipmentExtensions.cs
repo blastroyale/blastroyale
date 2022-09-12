@@ -39,9 +39,14 @@ namespace FirstLight.Game.Utils
 				stats.Add(EquipmentStatType.Power,
 				          QuantumStatCalculator.CalculateWeaponStat(weaponConfig, statConfigs[(int) StatType.Power],
 				                                                    baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
+				stats.Add(EquipmentStatType.TargetRange, 
+				          QuantumStatCalculator.CalculateWeaponStat(weaponConfig, statConfigs[(int)StatType.AttackRange],
+				                                                    baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
+				stats.Add(EquipmentStatType.PickupSpeed, 
+				          QuantumStatCalculator.CalculateWeaponStat(weaponConfig, statConfigs[(int)StatType.PickupSpeed],
+				                                                    baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
 
 				stats.Add(EquipmentStatType.MaxCapacity, weaponConfig.MaxAmmo.GetDefault());
-				stats.Add(EquipmentStatType.TargetRange, weaponConfig.AttackRange.AsFloat);
 				stats.Add(EquipmentStatType.AttackCooldown, weaponConfig.AttackCooldown.AsFloat);
 				stats.Add(EquipmentStatType.MinAttackAngle, weaponConfig.MinAttackAngle);
 				stats.Add(EquipmentStatType.MaxAttackAngle, weaponConfig.MaxAttackAngle);
@@ -54,17 +59,23 @@ namespace FirstLight.Game.Utils
 			else
 			{
 				stats.Add(EquipmentStatType.Hp, 
-				          QuantumStatCalculator.CalculateStat(configs.GetConfig<QuantumStatConfig>((int) StatType.Health),
-				                                              baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
+				          QuantumStatCalculator.CalculateGearStat(statConfigs[(int) StatType.Health], baseStatsConfig, 
+				                                                  statsConfig, statsMaterialConfig, equipment).AsFloat);
 				stats.Add(EquipmentStatType.Speed,
-				          QuantumStatCalculator.CalculateStat(configs.GetConfig<QuantumStatConfig>((int) StatType.Speed), 
-				                                              baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
+				          QuantumStatCalculator.CalculateGearStat(statConfigs[(int) StatType.Speed], baseStatsConfig,
+				                                                  statsConfig, statsMaterialConfig, equipment).AsFloat);
 				stats.Add(EquipmentStatType.Armor,
-				          QuantumStatCalculator.CalculateStat(configs.GetConfig<QuantumStatConfig>((int) StatType.Armour), 
-				                                              baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
+				          QuantumStatCalculator.CalculateGearStat(statConfigs[(int) StatType.Armour], baseStatsConfig, 
+				                                                  statsConfig, statsMaterialConfig, equipment).AsFloat);
 				stats.Add(EquipmentStatType.Power,
-				          QuantumStatCalculator.CalculateStat(configs.GetConfig<QuantumStatConfig>((int) StatType.Power), 
-				                                              baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
+				          QuantumStatCalculator.CalculateGearStat(statConfigs[(int) StatType.Power], baseStatsConfig,
+				                                                  statsConfig, statsMaterialConfig, equipment).AsFloat);
+				stats.Add(EquipmentStatType.TargetRange,
+						  QuantumStatCalculator.CalculateGearStat(statConfigs[(int)  StatType.AttackRange],baseStatsConfig, 
+						                                          statsConfig, statsMaterialConfig, equipment).AsFloat);
+				stats.Add(EquipmentStatType.PickupSpeed,
+				          QuantumStatCalculator.CalculateGearStat(statConfigs[(int) StatType.PickupSpeed], baseStatsConfig, 
+				                                                  statsConfig, statsMaterialConfig, equipment).AsFloat);
 			}
 
 			return stats;

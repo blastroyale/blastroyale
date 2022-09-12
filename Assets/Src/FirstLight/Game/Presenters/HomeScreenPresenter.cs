@@ -8,6 +8,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Views.MainMenuViews;
 using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using Button = UnityEngine.UI.Button;
 
@@ -29,24 +30,26 @@ namespace FirstLight.Game.Presenters
 			public Action OnNameChangeClicked;
 			public Action OnGameModeClicked;
 			public Action OnLeaderboardClicked;
+			public Action OnBattlePassClicked;
 		}
 
-		[SerializeField] private Button _playOnlineButton;
-		[SerializeField] private Button _playRoom;
-		[SerializeField] private Button _nameChangeButton;
-		[SerializeField] private Button _settingsButton;
-		[SerializeField] private Button _feedbackButton;
-		[SerializeField] private Button _gameModeButton;
-		[SerializeField] private Button _leaderboardButton;
-		[SerializeField] private NewFeatureUnlockedView _newFeaturesView;
-		[SerializeField] private TextMeshProUGUI _selectedGameModeText;
-		[SerializeField] private TextMeshProUGUI _selectedGameModeTimerText;
+		[SerializeField, Required] private Button _playOnlineButton;
+		[SerializeField, Required] private Button _playRoom;
+		[SerializeField, Required] private Button _nameChangeButton;
+		[SerializeField, Required] private Button _settingsButton;
+		[SerializeField, Required] private Button _feedbackButton;
+		[SerializeField, Required] private Button _gameModeButton;
+		[SerializeField, Required] private Button _leaderboardButton;
+		[SerializeField, Required] private Button _battlePassButton;
+		[SerializeField, Required] private NewFeatureUnlockedView _newFeaturesView;
+		[SerializeField, Required] private TextMeshProUGUI _selectedGameModeText;
+		[SerializeField, Required] private TextMeshProUGUI _selectedGameModeTimerText;
 
 		// Landscape Mode Buttons
-		[SerializeField] private VisualStateButtonView _lootButton;
-		[SerializeField] private VisualStateButtonView _heroesButton;
-		[SerializeField] private Button _marketplaceButton;
-		[SerializeField] private Button _discordButton;
+		[SerializeField, Required] private VisualStateButtonView _lootButton;
+		[SerializeField, Required] private VisualStateButtonView _heroesButton;
+		[SerializeField, Required] private Button _marketplaceButton;
+		[SerializeField, Required] private Button _discordButton;
 
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
@@ -67,6 +70,7 @@ namespace FirstLight.Game.Presenters
 			_discordButton.onClick.AddListener(OpenDiscordLink);
 			_leaderboardButton.onClick.AddListener(OpenLeaderboardUI);
 			_gameModeButton.onClick.AddListener(OpenGameModeClicked);
+			_battlePassButton.onClick.AddListener(OpenBattlePassScreen);
 
 			_leaderboardButton.gameObject.SetActive(FeatureFlags.LEADERBOARD_ACCESSIBLE);
 			_marketplaceButton.gameObject.SetActive(Debug.isDebugBuild);
@@ -76,7 +80,7 @@ namespace FirstLight.Game.Presenters
 		private void Update()
 		{
 			var selectedGameModeInfo = _services.GameModeService.SelectedGameMode.Value;
-			if (selectedGameModeInfo.FromRotation)
+			if (!selectedGameModeInfo.IsFixed)
 			{
 				var timeLeft = selectedGameModeInfo.EndTime - DateTime.UtcNow;
 				_selectedGameModeTimerText.text = timeLeft.ToString(@"hh\:mm\:ss");
@@ -145,6 +149,11 @@ namespace FirstLight.Game.Presenters
 			Data.OnSocialButtonClicked();
 		}
 
+		private void OpenBattlePassScreen()
+		{
+			Data.OnBattlePassClicked();
+		}
+
 		private void LeaveFeedbackForm()
 		{
 			Application.OpenURL(GameConstants.Links.FEEDBACK_FORM);
@@ -158,10 +167,10 @@ namespace FirstLight.Game.Presenters
 		private void RefreshGameModeButton()
 		{
 			var gameMode = _services.GameModeService.SelectedGameMode.Value;
-			_selectedGameModeTimerText.gameObject.SetActive(gameMode.FromRotation);
+			_selectedGameModeTimerText.gameObject.SetActive(!gameMode.IsFixed);
 			_selectedGameModeText.text = string.Format(ScriptLocalization.MainMenu.SelectedGameModeValue,
-			                                           gameMode.MatchType.GetTranslation().ToUpper(),
-			                                           gameMode.Id.ToUpper());
+			                                           gameMode.Entry.MatchType.GetTranslation().ToUpper(),
+			                                           gameMode.Entry.GameModeId.ToUpper());
 		}
 	}
 }

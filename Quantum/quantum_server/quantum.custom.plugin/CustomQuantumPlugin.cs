@@ -7,6 +7,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using FirstLight.Game.Ids;
 
 namespace Quantum
 {
@@ -19,7 +20,7 @@ namespace Quantum
 		private readonly CustomQuantumServer _server;
 		private readonly EndGameCommandConsensusHandler _consensus;
 		private List<int> _actorsOnlineWhenLastCommandReceived;
-		private bool _isRanked;
+		private MatchType _matchType = MatchType.Custom;
 
 		public CustomQuantumPlugin(Dictionary<String, String> config, IServer server) : base(server)
 		{
@@ -29,7 +30,7 @@ namespace Quantum
 			_actorsOnlineWhenLastCommandReceived = new List<int>();
 			if(config.TryGetValue("ForceRanked", out var forceRanked) && forceRanked == "true")
 			{
-				_isRanked = true;
+				_matchType = MatchType.Ranked;
 				Log.Info("Forcing match as a ranked match");
 			}
 			if (config.TryGetValue("TestConsensus", out var testConsensus) && testConsensus == "true")
@@ -86,7 +87,7 @@ namespace Quantum
 			base.OnCreateGame(info);
 			if (FlgConfig.TEST_CONSENSUS)
 			{ 
-				_isRanked = true;
+				_matchType = MatchType.Ranked;
 			}
 			if (!info.CreateOptions.TryGetValue("CustomProperties", out var propsObject))
 			{
@@ -99,18 +100,10 @@ namespace Quantum
 				Log.Debug("No Custom Properties");
 				return;
 			}
-			if(!customProperties.ContainsKey("isRanked"))
-			{
-				Log.Debug("No 'isRanked' flag on custom properties");
-				return;
-			}
-			if (!(bool)customProperties["isRanked"])
-			{
-				Log.Debug("Not a ranked game");
-				return;
-			}
-			_isRanked = true;
-			Log.Info("Ranked Game Created");
+
+			Enum.TryParse((string) customProperties["matchType"], out _matchType);
+			
+			Log.Info($"Created {_matchType.ToString()} game");
 		}
 
 		/// <summary>
@@ -158,7 +151,7 @@ namespace Quantum
 				{
 					_index = _server.GetClientIndexByActorNumber(actorNr),
 				},
-				Ranked = _isRanked
+				MatchType = _matchType
 			};
 		}
 

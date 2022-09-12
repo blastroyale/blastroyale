@@ -111,4 +111,57 @@ namespace FirstLightEditor.GoogleSheetImporter
 		
 		protected abstract TConfig Deserialize(List<Dictionary<string, string>> data);
 	}
+
+	/// <inheritdoc cref="GoogleSheetSingleConfigImporter{TConfig,TScriptableObject}"/>
+	/// <remarks>
+	/// This works the same way as <see cref="GoogleSheetSingleConfigImporter{TConfig,TScriptableObject}"/> but supports
+	/// importing lists within the config.
+	/// </remarks>
+	public abstract class GoogleSheetSingleConfigSubListImporter<TConfig, TScriptableObject> :
+		GoogleSheetSingleConfigImporter<TConfig, TScriptableObject>
+		where TConfig : struct
+		where TScriptableObject : ScriptableObject, ISingleConfigContainer<TConfig>
+	{
+		protected override TConfig Deserialize(List<Dictionary<string, string>> data)
+		{
+			var config = new TConfig() as object;
+			var type = typeof(TConfig);
+
+			for (var i = 0; i < data.Count; i++)
+			{
+				var row = data[i];
+				var fieldName = row["Key"];
+				var isSubList = fieldName.EndsWith(CsvParser.SUB_LIST_SUFFIX);
+				if (isSubList)
+				{
+					fieldName = fieldName.Replace(CsvParser.SUB_LIST_SUFFIX, "");
+				}
+
+				var field = type.GetField(fieldName);
+
+				if (field == null)
+				{
+					continue;
+				}
+
+				object value;
+
+				if (isSubList)
+				{
+					value = CsvParser.DeserializeSubList(data, i, field.FieldType, field.Name, GetDeserializers());
+				}
+				else
+				{
+					value = CsvParser.DeserializeObject(row["Value"], field.FieldType, GetDeserializers());
+				}
+
+
+				field.SetValue(config, value);
+			}
+
+			return (TConfig) config;
+		}
+		
+		protected abstract Func<string, Type, object>[] GetDeserializers();
+	}
 }

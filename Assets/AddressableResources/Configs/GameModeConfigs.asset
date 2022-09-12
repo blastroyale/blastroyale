@@ -24,6 +24,7 @@ MonoBehaviour:
       Teams: 0
       MaxPlayersInTeam: 0
       MinPlayersInTeam: 0
+      AllowedMaps: 09000000
       RankSorter: 0
       RankProcessor: 0
       ShowStatChanges: 1
@@ -49,7 +50,6 @@ MonoBehaviour:
       AudioStateMachine: 1
       CompletionStrategy: 1
       CompletionKillCount: 0
-      GiveRewards: 0
       Systems:
       - Quantum.Systems.ShrinkingCircleSystem, quantum.code, Version=2.1.0.0, Culture=neutral,
         PublicKeyToken=null
@@ -59,6 +59,7 @@ MonoBehaviour:
       Teams: 0
       MaxPlayersInTeam: 0
       MinPlayersInTeam: 0
+      AllowedMaps: 89000000070000008f0000009000000008000000
       RankSorter: 1
       RankProcessor: 1
       ShowStatChanges: 0
@@ -84,7 +85,6 @@ MonoBehaviour:
       AudioStateMachine: 0
       CompletionStrategy: 2
       CompletionKillCount: 10
-      GiveRewards: 0
       Systems: []
     - Id: Testing
       MaxPlayers: 1
@@ -92,6 +92,7 @@ MonoBehaviour:
       Teams: 0
       MaxPlayersInTeam: 0
       MinPlayersInTeam: 0
+      AllowedMaps: 0b0000000900000089000000070000008f0000009000000008000000
       RankSorter: 0
       RankProcessor: 0
       ShowStatChanges: 1
@@ -117,7 +118,6 @@ MonoBehaviour:
       AudioStateMachine: 1
       CompletionStrategy: 1
       CompletionKillCount: 0
-      GiveRewards: 0
       Systems:
       - Quantum.Systems.ShrinkingCircleSystem, quantum.code, Version=2.1.0.0, Culture=neutral,
         PublicKeyToken=null

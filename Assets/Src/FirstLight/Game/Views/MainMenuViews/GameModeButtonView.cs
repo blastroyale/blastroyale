@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
@@ -24,15 +23,13 @@ namespace FirstLight.Game.Views.MainMenuViews
 		[SerializeField, Required] private Transform _tooltipAnchor;
 		[SerializeField, Required] private TextMeshProUGUI _gameModeText;
 		[SerializeField, Required] private TextMeshProUGUI _matchTypeText;
+		[SerializeField, Required] private TextMeshProUGUI _timeLeftText;
+		[SerializeField, Required] private TextMeshProUGUI _mutatorsText;
 
 		private IGameServices _services;
 
-		private MatchType _matchType;
-		private string _gameModeId;
-		private List<string> _mutators;
-		private bool _fromRotation;
-		private DateTime _endTime;
-		private Action<string, List<string>, MatchType, bool, DateTime> _onClick;
+		private GameModeInfo _info;
+		private Action<GameModeInfo> _onClick;
 
 		private void Awake()
 		{
@@ -41,19 +38,33 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_selectButton.onClick.AddListener(OnButtonClick);
 		}
 
-		public void Init(string gameModeId, List<string> mutators, MatchType matchType, bool fromRotation, DateTime endTime,
-		                 Action<string, List<string>, MatchType, bool, DateTime> onClick)
+		public void Init(GameModeInfo info, Action<GameModeInfo> onClick)
 		{
-			_gameModeId = gameModeId;
-			_mutators = mutators;
-			_matchType = matchType;
-			_fromRotation = fromRotation;
-			_endTime = endTime;
+			_info = info;
 			_onClick = onClick;
 
+			_gameModeText.text = _info.Entry.GameModeId.ToUpper();
+			_matchTypeText.text = _info.Entry.MatchType.GetTranslation();
+			_timeLeftText.gameObject.SetActive(!_info.IsFixed);
+
 			// TODO: Display mutator icons
-			_gameModeText.text = _gameModeId.ToUpper();
-			_matchTypeText.text = _matchType.GetTranslation();
+			if (_info.Entry.Mutators.Count == 0)
+			{
+				_mutatorsText.gameObject.SetActive(false);
+			}
+			else
+			{
+				_mutatorsText.gameObject.SetActive(true);
+				_mutatorsText.text = string.Join(", ", _info.Entry.Mutators);
+			}
+		}
+
+		private void Update()
+		{
+			if (_info.IsFixed) return;
+
+			var timeLeft = _info.EndTime - DateTime.UtcNow;
+			_timeLeftText.text = timeLeft.ToString(@"hh\:mm\:ss");
 		}
 
 		private void OnDestroy()
@@ -63,12 +74,12 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private void OnButtonClick()
 		{
-			_onClick(_gameModeId, _mutators, _matchType, _fromRotation, _endTime);
+			_onClick(_info);
 		}
 
 		private void OnTooltipButtonClick()
 		{
-			var tooltip = _matchType switch
+			var tooltip = _info.Entry.MatchType switch
 			{
 				MatchType.Casual => ScriptLocalization.Tooltips.ToolTip_Casual,
 				MatchType.Ranked => ScriptLocalization.Tooltips.ToolTip_Ranked,

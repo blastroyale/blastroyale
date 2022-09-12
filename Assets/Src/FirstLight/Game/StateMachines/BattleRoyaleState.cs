@@ -177,12 +177,7 @@ namespace FirstLight.Game.StateMachines
 
 		private async void OpenSpectateHud()
 		{
-			var data = new SpectateHudPresenter.StateData
-			{
-				OnLeaveClicked = () => { _statechartTrigger(_localPlayerExitEvent); }
-			};
-
-			await _uiService.OpenUiAsync<SpectateHudPresenter, SpectateHudPresenter.StateData>(data);
+			await _uiService.OpenUiAsync<SpectateHudPresenter>();
 			
 			_services.MessageBrokerService.Publish(new SpectateStartedMessage());
 		}

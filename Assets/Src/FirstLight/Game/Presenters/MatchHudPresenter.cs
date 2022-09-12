@@ -115,7 +115,7 @@ namespace FirstLight.Game.Presenters
 			var playersData = gameContainer.PlayersData;
 			var canQuitMatch = true;
 			
-			if (_services.GameModeService.SelectedGameMode.Value.MatchType == MatchType.Ranked)
+			if (_services.GameModeService.SelectedGameMode.Value.Entry.MatchType == MatchType.Ranked)
 			{
 				var localPlayer = playersData[game.GetLocalPlayers()[0]];
 				var valid = localPlayer.IsValid;
@@ -130,7 +130,7 @@ namespace FirstLight.Game.Presenters
 			if (SROptions.Current.EnableEquipmentDebug)
 			{
 				_equippedDebugText.gameObject.SetActive(true);
-				QuantumEvent.Subscribe<EventOnPlayerStatsChanged>(this, OnPlayerStatsChanged);
+				QuantumEvent.Subscribe<EventOnPlayerEquipmentStatsChanged>(this, OnPlayerEquipmentStatsChanged);
 			}
 #endif
 		}
@@ -156,7 +156,7 @@ namespace FirstLight.Game.Presenters
 			_standings.gameObject.SetActive(true);
 		}
 
-		private void OnPlayerStatsChanged(EventOnPlayerStatsChanged callback)
+		private void OnPlayerEquipmentStatsChanged(EventOnPlayerEquipmentStatsChanged callback)
 		{
 			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
 

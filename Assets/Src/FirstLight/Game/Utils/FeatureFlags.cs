@@ -46,6 +46,11 @@ namespace FirstLight.Game.Utils
 		public static bool REMOTE_CONFIGURATION = false;
 
 		/// <summary>
+		/// If true we award BattlePass points (BPP) and show the BattlePass button on the home screen.
+		/// </summary>
+		public static bool BATTLE_PASS_ENABLED = true;
+
+		/// <summary>
 		/// Parses the feature flags from a given input dictionary.
 		/// Keys of the dictionary will be matched as title feature flag keys referenced on the attributes.
 		/// Values will be converted to boolean ('true' or 'false)

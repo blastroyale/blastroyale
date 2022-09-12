@@ -91,6 +91,7 @@ jobs:
       publishLocation: 'pipeline'
     condition: always()
     displayName: 'Publish Build Log'
+    continueOnError: true
 
   - script: |
       "C:\Program Files\Unity\Hub\Editor\2021.3.7f1\Editor\unity.exe" -flBuildSymbol DEVELOPMENT_BUILD -flBuildFileName "app" -quit -batchmode ^
@@ -115,6 +116,7 @@ jobs:
       publishLocation: 'pipeline'
     condition: always()
     displayName: 'Publish App Build Log'
+    continueOnError: true
 
   - task: PowerShell@2
     inputs:

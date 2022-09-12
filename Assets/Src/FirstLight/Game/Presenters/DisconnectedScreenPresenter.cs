@@ -57,7 +57,7 @@ namespace FirstLight.Game.Presenters
 			_menuButton.gameObject.SetActive(_services.NetworkService.LastDisconnectLocation != LastDisconnectionLocation.Menu);
 
 			// Always force reconnect to ranked matches to prevent exploits
-			if (_services.GameModeService.SelectedGameMode.Value.MatchType == MatchType.Ranked)
+			if (_services.GameModeService.SelectedGameMode.Value.Entry.MatchType == MatchType.Ranked)
 			{
 				_menuButton.gameObject.SetActive(false);
 			}

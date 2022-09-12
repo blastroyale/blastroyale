@@ -19,10 +19,13 @@ namespace FirstLight.Game.Views.MatchHudViews
 	/// </summary>
 	public class FloatingTextContainerView : MonoBehaviour
 	{
-		[SerializeField, Title("Colors")] private Color _hitTextColor = Color.red;
-		[SerializeField] private Color _healTextColor = Color.green;
+		[Title("Colors")]
+		[SerializeField] private Color _healthDamageTextColor = Color.red;
+		[SerializeField] private Color _shieldDamageTextColor = new (0.6f, 0.2f, 0.9f);
+		[SerializeField] private Color _ammoTextColor = Color.yellow;
 		[SerializeField] private Color _neutralTextColor = Color.white;
-		[SerializeField] private Color _armourGainTextColor = Color.cyan;
+		[SerializeField] private Color _healthGainTextColor = Color.green;
+		[SerializeField] private Color _shieldGainTextColor = Color.cyan;
 
 		[SerializeField, Required, Title("Icons")]
 		private Sprite _iconArmour;
@@ -59,7 +62,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			QuantumEvent.Subscribe<EventOnShieldChanged>(this, OnShieldChanged);
 			QuantumEvent.Subscribe<EventOnCollectableCollected>(this, OnCollectableCollected);
 			QuantumEvent.Subscribe<EventOnCollectableBlocked>(this, OnCollectableBlocked);
-			QuantumEvent.Subscribe<EventOnPlayerStatsChanged>(this, OnPlayerStatsChanged);
+			QuantumEvent.Subscribe<EventOnPlayerEquipmentStatsChanged>(this, OnPlayerEquipmentStatsChanged);
 			QuantumEvent.Subscribe<EventOnPlayerDamaged>(this, OnPlayerDamaged);
 		}
 
@@ -84,10 +87,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				var textColor = consumable.ConsumableType switch
 				{
-					ConsumableType.Health => _healTextColor,
-					ConsumableType.Ammo => _neutralTextColor,
-					ConsumableType.Shield => _armourGainTextColor,
-					ConsumableType.ShieldCapacity => _armourGainTextColor,
+					ConsumableType.Health => _healthGainTextColor,
+					ConsumableType.Ammo => _ammoTextColor,
+					ConsumableType.Shield => _shieldGainTextColor,
+					ConsumableType.ShieldCapacity => _shieldGainTextColor,
 					_ => throw new
 						     ArgumentOutOfRangeException($"Text color not defined for {consumable.ConsumableType}.")
 				};
@@ -101,22 +104,28 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void OnCollectableCollected(EventOnCollectableCollected callback)
 		{
-			if (callback.PlayerEntity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
-			if (callback.CollectableId != GameId.Rage && !callback.CollectableId.IsInGroup(GameIdGroup.Weapon)) return;
+			if (callback.PlayerEntity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity ||
+			    callback.CollectableId != GameId.Rage) return;
 
 			EnqueueText(callback.PlayerEntity, callback.CollectableId.GetTranslation(), _neutralTextColor, MessageType.StatChange);
 		}
 
 		private void OnShieldChanged(EventOnShieldChanged callback)
 		{
-			var changeValue = callback.CurrentShield - callback.PreviousShield;
+			var changeShield = callback.CurrentShield - callback.PreviousShield;
+			var changeCapacity = callback.CurrentShieldCapacity - callback.PreviousShieldCapacity;
 			
-			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity || changeValue < 0)
+			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity || changeShield < 0)
 			{
 				return;
 			}
+
+			var color = changeCapacity == 0 ? _shieldGainTextColor : _neutralTextColor;
+			var text = changeCapacity == 0
+				           ? $"+{changeShield.ToString()}"
+				           : string.Format(ScriptLocalization.AdventureMenu.Shield, changeShield.ToString());
 			
-			EnqueueText(callback.Entity, changeValue.ToString(), _armourGainTextColor, MessageType.Info);
+			EnqueueText(callback.Entity, text, color, MessageType.Info);
 		}
 
 		private void OnHealthChanged(EventOnHealthChanged callback)
@@ -128,46 +137,38 @@ namespace FirstLight.Game.Views.MatchHudViews
 				return;
 			}
 			
-			EnqueueText(callback.Entity, changeValue.ToString(), _healTextColor, MessageType.Info);
+			EnqueueText(callback.Entity, $"+{changeValue.ToString()}", _healthGainTextColor, MessageType.Info);
 		}
 
 		private void OnPlayerDamaged(EventOnPlayerDamaged callback)
 		{
 			var player = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
 			
-			if (callback.Attacker != player && callback.Entity != player)
+			if (callback.TotalDamage == 0 || callback.Attacker != player && callback.Entity != player)
 			{
 				return;
 			}
-			
-			EnqueueValue(callback.Entity, "", (int) -callback.TotalDamage, MessageType.Info);
-		}
 
-		private void OnPlayerStatsChanged(EventOnPlayerStatsChanged callback)
-		{
-			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
-
-			// Don't show stat changes in Deathmatch game mode
-			if (!callback.Game.Frames.Verified.Context.GameModeConfig.ShowStatChanges) return;
-
-			for (int i = 0; i < Constants.TOTAL_STATS; i++)
+			if (callback.ShieldDamage > 0)
 			{
-				var difference = callback.CurrentStats.Values[i].BaseValue.AsFloat -
-				                 callback.PreviousStats.Values[i].BaseValue.AsFloat;
-				var statName = callback.CurrentStats.Values[i].Type.GetTranslation();
-				
-				EnqueueValue(callback.Entity, statName, Mathf.RoundToInt(difference), MessageType.StatChange);
+				EnqueueText(callback.Entity, $"-{callback.ShieldDamage.ToString()}", _shieldDamageTextColor, MessageType.Info);
+			}
+			if (callback.HealthDamage > 0)
+			{
+				EnqueueText(callback.Entity, $"-{callback.HealthDamage.ToString()}", _healthDamageTextColor, MessageType.Info);
 			}
 		}
 
-		private void EnqueueValue(EntityRef playerEntity, string valueName, int value, MessageType type)
+		private void OnPlayerEquipmentStatsChanged(EventOnPlayerEquipmentStatsChanged callback)
 		{
-			if (value == 0) return;
+			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
+			{
+				return;
+			}
 
-			var valueSign = value > 0 ? "+" : "";
-			var messageColor = value > 0 ? _neutralTextColor : _hitTextColor;
-
-			EnqueueText(playerEntity, $"{valueName} {valueSign}{value.ToString()}", messageColor, type);
+			var text = string.Format(ScriptLocalization.AdventureMenu.Might, callback.CurrentStats.TotalMight);
+			
+			EnqueueText(callback.Entity, text, _neutralTextColor, MessageType.StatChange);
 		}
 
 		private void EnqueueText(EntityRef playerEntity, string message, Color color, MessageType type,
@@ -184,13 +185,13 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private IEnumerator SpawnTextCoroutine(MessageType type)
 		{
 			var queue = _queues[type];
-			var delay = _delays[type];
+			var waitSeconds = new WaitForSeconds(_delays[type]);
 
 			while (queue.Count > 0)
 			{
 				SpawnText(type, queue.Dequeue());
 
-				yield return new WaitForSeconds(delay);
+				yield return waitSeconds;
 			}
 
 			_coroutines.Remove(type);

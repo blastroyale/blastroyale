@@ -19,8 +19,7 @@ MonoBehaviour:
         Value: 1550297457877710414
     QuantumConfigs:
     - BehaviourType: 1
-      GameModes:
-      - BattleRoyale
+      GameMode: Deathmatch
       Difficulty: 1
       DecisionInterval:
         RawValue: 78643
@@ -58,8 +57,7 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 0
     - BehaviourType: 2
-      GameModes:
-      - BattleRoyale
+      GameMode: Deathmatch
       Difficulty: 1
       DecisionInterval:
         RawValue: 65536
@@ -97,8 +95,7 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 0
     - BehaviourType: 0
-      GameModes:
-      - BattleRoyale
+      GameMode: Deathmatch
       Difficulty: 1
       DecisionInterval:
         RawValue: 100925
@@ -136,8 +133,7 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 0
     - BehaviourType: 1
-      GameModes:
-      - BattleRoyale
+      GameMode: Deathmatch
       Difficulty: 1
       DecisionInterval:
         RawValue: 96338
@@ -175,8 +171,7 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 0
     - BehaviourType: 2
-      GameModes:
-      - BattleRoyale
+      GameMode: Deathmatch
       Difficulty: 1
       DecisionInterval:
         RawValue: 75366
@@ -214,8 +209,7 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 0
     - BehaviourType: 1
-      GameModes:
-      - Deathmatch
+      GameMode: BattleRoyale
       Difficulty: 1
       DecisionInterval:
         RawValue: 62915
@@ -253,8 +247,7 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 39322
     - BehaviourType: 2
-      GameModes:
-      - Deathmatch
+      GameMode: BattleRoyale
       Difficulty: 1
       DecisionInterval:
         RawValue: 52429
@@ -292,8 +285,7 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 16384
     - BehaviourType: 0
-      GameModes:
-      - Deathmatch
+      GameMode: BattleRoyale
       Difficulty: 1
       DecisionInterval:
         RawValue: 80609
@@ -331,8 +323,7 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 29491
     - BehaviourType: 1
-      GameModes:
-      - Deathmatch
+      GameMode: BattleRoyale
       Difficulty: 1
       DecisionInterval:
         RawValue: 76677
@@ -370,8 +361,7 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 32768
     - BehaviourType: 2
-      GameModes:
-      - Deathmatch
+      GameMode: BattleRoyale
       Difficulty: 1
       DecisionInterval:
         RawValue: 59638

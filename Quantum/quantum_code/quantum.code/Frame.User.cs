@@ -53,6 +53,8 @@ namespace Quantum
 
 		internal QuantumShrinkingCircleConfigs ShrinkingCircleConfigs =>
 			FindAsset<QuantumShrinkingCircleConfigs>(RuntimeConfig.ShrinkingCircleConfigs.Id);
+		
+		internal QuantumMutatorConfigs MutatorConfigs => FindAsset<QuantumMutatorConfigs>(RuntimeConfig.MutatorConfigs.Id);
 
 		/// <summary>
 		/// Requests the list of <typeparamref name="T"/> that can be iterated over.

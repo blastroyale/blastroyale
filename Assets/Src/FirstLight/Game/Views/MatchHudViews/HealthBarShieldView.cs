@@ -41,7 +41,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			if (callback.Entity == _entity)
 			{
-				UpdateShieldBar((float)callback.CurrentShield / callback.ShieldCapacity);
+				UpdateShieldBar((float)callback.CurrentShield / callback.CurrentShieldCapacity);
 			}
 		}
 

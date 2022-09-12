@@ -27,6 +27,7 @@ namespace Quantum
 			var aimingDirection = bb->GetVector2(f, Constants.AimDirectionKey).Normalized;
 			var cVelocitySqr = kcc->Velocity.SqrMagnitude;
 			var maxSpeedSqr = kcc->MaxSpeed * kcc->MaxSpeed;
+			var attackRange = f.Get<Stats>(e).GetStatData(StatType.AttackRange).StatValue;
 
 			//targetAttackAngle depend on a current character velocity 
 			var targetAttackAngle = FPMath.Lerp(weaponConfig.MinAttackAngle, weaponConfig.MaxAttackAngle, 
@@ -46,8 +47,6 @@ namespace Quantum
 					timeDiff / weaponConfig.InitialAttackRampUpTime);
 				bb->Set(f, nameof(weaponConfig.AttackCooldown), currentAttackCooldown);
 			}
-
-			var attackRange = weaponConfig.AttackRange + f.Get<Stats>(e).GetStatData(StatType.AttackRange).StatValue;
 
 			var raycastShot = new RaycastShots
 			{

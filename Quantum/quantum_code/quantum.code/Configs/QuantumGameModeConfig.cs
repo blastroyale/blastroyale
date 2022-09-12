@@ -29,6 +29,9 @@ namespace Quantum
 
 		[ToggleGroup("Matchmaking & Room/Teams"), DisableIf("@true"), PropertyTooltip(DESC_MIN_PLAYERS_IN_TEAM)]
 		public uint MinPlayersInTeam;
+		
+		[PropertyTooltip(DESC_ALLOWED_MAPS)]
+		public List<GameId> AllowedMaps;
 
 		[FoldoutGroup("Ranking"), PropertyTooltip(DESC_RANK_SORTER)]
 		public RankSorter RankSorter;
@@ -41,9 +44,6 @@ namespace Quantum
 #region UI / Visual
 
 		// UI / Visual
-		[FoldoutGroup("UI"), PropertyTooltip(DESC_SHOW_STAT_CHANGES)]
-		public bool ShowStatChanges;
-
 		[FoldoutGroup("UI"), PropertyTooltip(DESC_SHOW_MINIMAP)]
 		public bool ShowUIMinimap;
 
@@ -125,9 +125,6 @@ namespace Quantum
 		 PropertyTooltip(DESC_COMPLETION_KILL_COUNT)]
 		public uint CompletionKillCount;
 
-		[FoldoutGroup("Endgame"), PropertyTooltip(DESC_GIVE_REWARDS)]
-		public bool GiveRewards;
-
 #endregion
 
 		[ValueDropdown("GetOptionalSystems"), ListDrawerSettings(Expanded = true), PropertyTooltip(DESC_SYSTEMS)]
@@ -149,7 +146,6 @@ namespace Quantum
 
 		// @formatter:off
 		private const string DESC_ID = "A UNIQUE ID that identifies this game mode.";
-		private const string DESC_DISPLAY_IN_SELECTION = "If this game mode should be displayed by default in game mode selection UI.";
 		private const string DESC_MAX_PLAYERS = "The maximum number of players that can join a room.";
 		private const string DESC_MIN_PLAYERS = "The minimum number of players that can join a room.";
 		private const string DESC_TEAMS = "Whether or not this game mode supports teams.";
@@ -176,9 +172,9 @@ namespace Quantum
 		private const string DESC_BOT_WEAPON_SEARCH_STRATEGY = "How should bots search for weapons on the map.";
 		private const string DESC_RANK_SORTER = "How should we sort the players on the leaderboards.";
 		private const string DESC_RANK_PROCESSOR = "How should we modify the player's rank on the leaderboards.";
+		private const string DESC_ALLOWED_MAPS = "Which maps are allowed to be played with this game mode.";
 		private const string DESC_COMPLETION_STRATEGY = "What should mark the end of a match.";
 		private const string DESC_COMPLETION_KILL_COUNT = "How many kills must a player have to win the match.";
-		private const string DESC_GIVE_REWARDS = "Should the player be rewarded (i.e. ranked game) after completing a game.";
 		private const string DESC_GAME_SIMULATION_SM = "Which state machine to use for game simulation";
 		private const string DESC_AUDIO_SM = "Which state machine to use for audio.";
 		private const string DESC_SYSTEMS = "Which Quantum systems should be enabled for this game mode.";

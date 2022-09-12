@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace Quantum.Systems
 {
@@ -14,6 +15,8 @@ namespace Quantum.Systems
 			f.Global->Queries = f.AllocateList<EntityPair>(128);
 			f.Context.MapConfig = f.MapConfigs.GetConfig(f.RuntimeConfig.MapId);
 			f.Context.GameModeConfig = f.GameModeConfigs.GetConfig(f.RuntimeConfig.GameModeId);
+			f.Context.MutatorConfigs = f.RuntimeConfig.Mutators
+			                            .Select(mutatorId => f.MutatorConfigs.GetConfig(mutatorId)).ToList();
 			f.Context.TargetAllLayerMask = f.Layers.GetLayerMask("Default", "Playable Target", "Non Playable Target",
 			                                                     "Prop", "World", "Environment No Silhouette");
 

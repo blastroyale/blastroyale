@@ -15,51 +15,27 @@ MonoBehaviour:
   _config:
     RotationStartTimeTicks: 0
     RotationSlotDuration: 3600
-    FixedSlots:
-    - GameModeId: BattleRoyale
-      MatchType: 1
-      Mutators:
-      - 1
-      - 2
-    RotationSlot1:
-    - GameModeId: Deathmatch
-      MatchType: 0
-      Mutators:
-      - 1
-      - 2
-    - GameModeId: BattleRoyale
-      MatchType: 0
-      Mutators:
-      - 1
-      - 2
-    - GameModeId: Deathmatch
-      MatchType: 0
-      Mutators:
-      - 1
-      - 2
-    - GameModeId: BattleRoyale
-      MatchType: 0
-      Mutators:
-      - 1
-      - 2
-    RotationSlot2:
-    - GameModeId: Deathmatch
-      MatchType: 0
-      Mutators:
-      - 1
-      - 2
-    - GameModeId: BattleRoyale
-      MatchType: 0
-      Mutators:
-      - 1
-      - 2
-    - GameModeId: Deathmatch
-      MatchType: 0
-      Mutators:
-      - 1
-      - 2
-    - GameModeId: BattleRoyale
-      MatchType: 0
-      Mutators:
-      - 1
-      - 2
+    Slots:
+    - Entries:
+      - GameModeId: BattleRoyale
+        MatchType: 2
+        Mutators: []
+    - Entries:
+      - GameModeId: Deathmatch
+        MatchType: 1
+        Mutators:
+        - 
+      - GameModeId: Deathmatch
+        MatchType: 1
+        Mutators: []
+    - Entries:
+      - GameModeId: Deathmatch
+        MatchType: 1
+        Mutators:
+        - QuickSpecials
+        - SpeedUp
+      - GameModeId: BattleRoyale
+        MatchType: 1
+        Mutators:
+        - SpeedUp
+        - HealthyAir

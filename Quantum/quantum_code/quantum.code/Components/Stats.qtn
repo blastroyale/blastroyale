@@ -1,4 +1,4 @@
-#define TOTAL_STATS 6
+#define TOTAL_STATS 7
 
 component Stats
 {
@@ -21,6 +21,7 @@ enum StatType
 	Armour,
 	Shield,
 	AttackRange,
+	PickupSpeed,
 }
 
 struct StatData
@@ -58,7 +59,8 @@ synced event OnShieldChanged
 	entity_ref Entity;
 	Int32 PreviousShield;
 	Int32 CurrentShield;
-	Int32 ShieldCapacity;
+	Int32 PreviousShieldCapacity;
+	Int32 CurrentShieldCapacity;
 }
 
 synced event OnHealthIsZeroFromAttacker

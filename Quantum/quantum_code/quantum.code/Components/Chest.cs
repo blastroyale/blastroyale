@@ -57,27 +57,28 @@ namespace Quantum
 			var shieldCheck = stats.CurrentShield / stats.GetStatData(StatType.Shield).StatValue < FP._0_20;
 			var healthCheck = stats.CurrentHealth / stats.GetStatData(StatType.Health).StatValue < FP._0_20;
 
-			f.Events.OnChestOpened(config.Id, chestPosition);
+			f.Events.OnChestOpened(config.Id, chestPosition, playerRef, playerEntity);
 
 			if (nextGearItem.IsValid())
 			{
 				playerCharacter->SetDroppedLoadoutItem(nextGearItem);
 				ModifyEquipmentRarity(f, ref nextGearItem, minimumRarity, medianRarity);
+				f.Events.OnChestItemDropped(config.Id, chestPosition, playerRef, playerEntity, nextGearItem.GameId, 1, angleStep);
 				Collectable.DropEquipment(f, nextGearItem, chestPosition, angleStep++, playerRef);
 			}
 			else
 			{
 				// Drop "PowerUps" (equipment / shield upgrade)
-				DropPowerUps(f, config, playerCharacter, playerEntity, weaponPool,
+				DropPowerUps(f, playerEntity, playerRef, config, playerCharacter, weaponPool,
 					minimumRarity, medianRarity, loadoutWeapon, chestPosition, ref angleStep);
 			}
 
 			// Drop Small consumable
-			DropSmallConsumable(f, config, ammoCheck, shieldCheck, healthCheck, chestPosition, ref angleStep);
-			DropLargeConsumable(f, config, ammoCheck, shieldCheck, chestPosition, ref angleStep);
+			DropSmallConsumable(f, playerEntity, playerRef, config, ammoCheck, shieldCheck, healthCheck, chestPosition, ref angleStep);
+			DropLargeConsumable(f, playerEntity, playerRef,config, ammoCheck, shieldCheck, chestPosition, ref angleStep);
 		}
 
-		private void DropSmallConsumable(Frame f, QuantumChestConfig config, bool ammoCheck, bool shieldCheck, bool healthCheck,
+		private void DropSmallConsumable(Frame f, EntityRef playerEntity, PlayerRef playerRef, QuantumChestConfig config, bool ammoCheck, bool shieldCheck, bool healthCheck,
 			FPVector3 chestPosition, ref int angleStep)
 		{
 			foreach (var (chance, count) in config.SmallConsumable)
@@ -108,12 +109,14 @@ namespace Quantum
 					{
 						drop = QuantumHelpers.GetRandomItem(f, GameId.AmmoSmall, GameId.ShieldSmall, GameId.Health);
 					}
+
+					f.Events.OnChestItemDropped(config.Id, chestPosition, playerRef, playerEntity, drop, 1, angleStep);
 					Collectable.DropConsumable(f, drop, chestPosition, angleStep++, false);
 				}
 			}
 		}
 
-		private void DropLargeConsumable(Frame f, QuantumChestConfig config, bool ammoCheck, bool shieldCheck, 
+		private void DropLargeConsumable(Frame f, EntityRef playerEntity, PlayerRef playerRef, QuantumChestConfig config, bool ammoCheck, bool shieldCheck, 
 			FPVector3 chestPosition, ref int angleStep)
 		{
 			foreach (var (chance, count) in config.LargeConsumable)
@@ -139,12 +142,13 @@ namespace Quantum
 					{
 						drop = QuantumHelpers.GetRandomItem(f, GameId.AmmoLarge, GameId.ShieldLarge);
 					}
+					f.Events.OnChestItemDropped(config.Id, chestPosition, playerRef, playerEntity, drop, 1, angleStep);
 					Collectable.DropConsumable(f, drop, chestPosition, angleStep++, false);
 				}
 			}
 		}
 
-		private void DropPowerUps(Frame f, QuantumChestConfig config, PlayerCharacter* playerCharacter, EntityRef playerEntity,
+		private void DropPowerUps(Frame f, EntityRef playerEntity, PlayerRef playerRef, QuantumChestConfig config, PlayerCharacter* playerCharacter, 
 			IReadOnlyList<Equipment> weaponPool, EquipmentRarity minimumRarity, EquipmentRarity medianRarity, 
 			Equipment loadoutWeapon, FPVector3 chestPosition, ref int angleStep)
 		{
@@ -181,10 +185,12 @@ namespace Quantum
 						}
 
 						ModifyEquipmentRarity(f, ref weapon, minimumRarity, medianRarity);
+						f.Events.OnChestItemDropped(config.Id, chestPosition, playerRef, playerEntity, drop, 1, angleStep);
 						Collectable.DropEquipment(f, weapon, chestPosition, angleStep++);
 					}
 					else
 					{
+						f.Events.OnChestItemDropped(config.Id, chestPosition, playerRef, playerEntity, drop, 1, angleStep);
 						Collectable.DropConsumable(f, drop, chestPosition, angleStep++, false);
 					}
 				}

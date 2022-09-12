@@ -26,7 +26,10 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			_services = services;
 
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(MatchKillAction);
+			QuantumEvent.SubscribeManual<EventOnChestOpened>(this, MatchChestOpenAction);
+			QuantumEvent.SubscribeManual<EventOnChestItemDropped>(MatchChestItemDrop);
 		}
+
 
 		/// <summary>
 		/// Logs when we entered the matchmaking room
@@ -36,7 +39,9 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", _services.NetworkService.QuantumClient.CurrentRoom.Name},
-				{"match_type",_services.GameModeService.SelectedGameMode.Value.Entry.GameModeId},
+				{"match_type",_services.GameModeService.SelectedGameMode.Value.Entry.MatchType.ToString()},
+				{"game_mode", _services.GameModeService.SelectedGameMode.Value.Entry.GameModeId},
+				{"mutators", string.Join(",",_services.GameModeService.SelectedGameMode.Value.Entry.Mutators)},
 				{"PlayerId", PlayFabSettings.staticPlayer.PlayFabId}
 			};
 			
@@ -63,7 +68,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", room.Name},
-				{"match_type",_services.GameModeService.SelectedGameMode.Value.Entry.MatchType},
+				{"match_type",_services.GameModeService.SelectedGameMode.Value.Entry.MatchType.ToString()},
 				{"game_mode", _services.GameModeService.SelectedGameMode.Value.Entry.GameModeId},
 				{"mutators", string.Join(",",_services.GameModeService.SelectedGameMode.Value.Entry.Mutators)},
 				{"player_level", _gameData.PlayerDataProvider.PlayerInfo.Level},
@@ -95,7 +100,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", room.Name},
-				{"match_type",_services.GameModeService.SelectedGameMode.Value.Entry.MatchType},
+				{"match_type",_services.GameModeService.SelectedGameMode.Value.Entry.MatchType.ToString()},
 				{"game_mode", _services.GameModeService.SelectedGameMode.Value.Entry.GameModeId},
 				{"mutators", string.Join(",",_services.GameModeService.SelectedGameMode.Value.Entry.Mutators)},
 				{"map_id", (int) config.Map},
@@ -130,7 +135,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", room.Name},
-				{"match_type",_services.GameModeService.SelectedGameMode.Value.Entry.MatchType},
+				{"match_type",_services.GameModeService.SelectedGameMode.Value.Entry.MatchType.ToString()},
 				{"game_mode", _services.GameModeService.SelectedGameMode.Value.Entry.GameModeId},
 				{"mutators", string.Join(",",_services.GameModeService.SelectedGameMode.Value.Entry.Mutators)},
 				{"killed_name", (deadData.Data.IsBot?"Bot":"") + deadData.PlayerName},
@@ -139,6 +144,59 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			};
 			
 			_analyticsService.LogEvent(AnalyticsEvents.MatchKillAction, data);
+		}
+
+		/// <summary>
+		/// Logs when a chest is opened
+		/// </summary>
+		public void MatchChestOpenAction(EventOnChestOpened callback)
+		{
+			if (!(callback.Game.PlayerIsLocal(callback.Player)))
+			{
+				return;
+			}
+			
+			var room = _services.NetworkService.QuantumClient.CurrentRoom;
+
+			var data = new Dictionary<string, object>
+			{
+				{"match_id", room.Name},
+				{"match_type",_services.GameModeService.SelectedGameMode.Value.Entry.MatchType.ToString()},
+				{"game_mode", _services.GameModeService.SelectedGameMode.Value.Entry.GameModeId},
+				{"mutators", string.Join(",",_services.GameModeService.SelectedGameMode.Value.Entry.Mutators)},
+				{"chest_type", callback.ChestType.ToString()},
+				{"chest_coordinates", callback.ChestPosition.ToString()}
+			};
+			
+			_analyticsService.LogEvent(AnalyticsEvents.MatchChestOpenAction, data);
+		}
+		
+		/// <summary>
+		/// Logs when a chest item is dropped
+		/// </summary>
+		public void MatchChestItemDrop(EventOnChestItemDropped callback)
+		{
+			if (!(callback.Game.PlayerIsLocal(callback.Player)))
+			{
+				return;
+			}
+			
+			var room = _services.NetworkService.QuantumClient.CurrentRoom;
+
+			var data = new Dictionary<string, object>
+			{
+				{"match_id", room.Name},
+				{"match_type",_services.GameModeService.SelectedGameMode.Value.Entry.MatchType.ToString()},
+				{"game_mode", _services.GameModeService.SelectedGameMode.Value.Entry.GameModeId},
+				{"mutators", string.Join(",",_services.GameModeService.SelectedGameMode.Value.Entry.Mutators)},
+				{"chest_type", callback.ChestType.ToString()},
+				{"chest_coordinates", callback.ChestPosition.ToString()},
+				{"item_type", callback.ItemType.ToString()},
+				{"amount", callback.Amount},
+				{"angle_step_around_chest", callback.AngleStepAroundChest}
+			};
+			
+			_analyticsService.LogEvent(AnalyticsEvents.MatchChestItemDrop, data);
 		}
 	}
 }

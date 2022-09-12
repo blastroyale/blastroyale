@@ -29,7 +29,8 @@ namespace FirstLight.Game.Services
 		public static readonly string MatchEnd = "match_end";
 		public static readonly string MatchKillAction = "match_kill_action";
 		public static readonly string MatchPickupAction = "match_pickup_action";
-		public static readonly string MatchLootboxOpenAction = "match_lootbox_open_action";
+		public static readonly string MatchChestOpenAction = "match_chest_open_action";
+		public static readonly string MatchChestItemDrop = "match_chest_item_drop";
 		public static readonly string Error = "error";
 	}
 	

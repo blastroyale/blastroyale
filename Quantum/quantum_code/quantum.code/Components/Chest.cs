@@ -216,31 +216,21 @@ namespace Quantum
 						ModifyEquipmentRarity(f, ref weapon, minimumRarity, medianRarity);
 
 						Collectable.DropEquipment(f, weapon, chestPosition, angleStep++);
-						chestItems.Add(new ChestItemDropped()
-						{
-							ChestType = config.Id,
-							ChestPosition = chestPosition,
-							Player = playerCharacter->Player,
-							PlayerEntity = playerEntity,
-							ItemType = drop,
-							Amount = 1,
-							AngleStepAroundChest = angleStep
-						});
 					}
 					else
 					{
 						Collectable.DropConsumable(f, drop, chestPosition, angleStep++, false);
-						chestItems.Add(new ChestItemDropped()
-						{
-							ChestType = config.Id,
-							ChestPosition = chestPosition,
-							Player = playerCharacter->Player,
-							PlayerEntity = playerEntity,
-							ItemType = drop,
-							Amount = 1,
-							AngleStepAroundChest = angleStep
-						});
 					}
+					chestItems.Add(new ChestItemDropped
+					{
+						ChestType = config.Id,
+						ChestPosition = chestPosition,
+						Player = playerCharacter->Player,
+						PlayerEntity = playerEntity,
+						ItemType = drop,
+						Amount = 1,
+						AngleStepAroundChest = angleStep
+					});
 				}
 			}
 		}

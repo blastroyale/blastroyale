@@ -37,6 +37,8 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		/// </summary>
 		public void MatchInitiate()
 		{
+			var room = _services.NetworkService.QuantumClient.CurrentRoom;
+			
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", _services.NetworkService.QuantumClient.CurrentRoom.Name},

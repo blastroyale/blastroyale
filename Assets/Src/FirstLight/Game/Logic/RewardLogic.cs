@@ -7,6 +7,7 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic.RPC;
+using FirstLight.Game.Utils;
 using FirstLight.Services;
 using Quantum;
 
@@ -98,7 +99,7 @@ namespace FirstLight.Game.Logic
 				GiveCSReward(rewards, rewardConfig);
 			}
 
-			if (matchType is MatchType.Ranked or MatchType.Casual)
+			if (FeatureFlags.BATTLE_PASS_ENABLED && matchType is MatchType.Ranked or MatchType.Casual)
 			{
 				GiveBPPReward(rewards, rewardConfig);
 			}

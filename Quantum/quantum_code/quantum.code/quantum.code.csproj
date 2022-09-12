@@ -250,6 +250,7 @@
     <Compile Include="Core\CodeGen.cs" />
     <Compile Include="CommandSetup.cs" />
     <Compile Include="Core\Core.cs" />
+    <Compile Include="Events\ChestEvents.cs" />
     <Compile Include="Events\GameEvents.cs" />
     <Compile Include="Events\PlayerEvents.cs" />
     <Compile Include="Frame.User.cs" />
@@ -336,6 +337,7 @@
     <Content Include="Configs\Configs.qtn" />
     <Content Include="Configs\GameId.qtn" />
     <Content Include="Configs\GameModeEnums.qtn" />
+    <Content Include="Events\ChestEvents.qtn" />
     <Content Include="Events\GameEvents.qtn" />
     <Content Include="Events\PlayerEvents.qtn" />
     <EmbeddedResource Include="db.json" />

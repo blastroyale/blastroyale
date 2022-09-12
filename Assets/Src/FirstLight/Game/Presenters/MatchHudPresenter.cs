@@ -59,6 +59,7 @@ namespace FirstLight.Game.Presenters
 			_services.NetworkService.HasLag.InvokeObserve(OnLag);
 			_leaderButton.onClick.AddListener(OnStandingsClicked);
 			_quitButton.onClick.AddListener(OnQuitClicked);
+			_minimapHolder.SetActive(false);
 			_equippedDebugText.gameObject.SetActive(false);
 			_connectionIcon.SetActive(false);
 			_standings.gameObject.SetActive(false);

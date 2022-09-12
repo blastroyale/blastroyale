@@ -36,6 +36,14 @@ namespace FirstLight.Game.Views.MapViews
 			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(OnSpectatedPlayerChanged);
 		}
 
+		/// <summary>
+		/// Requests to check if this volume contains 
+		/// </summary>
+		public bool VolumeHasSpectatedPlayer()
+		{
+			return _currentlyCollidingPlayers.ContainsKey(_matchServices.SpectateService.SpectatedPlayer.Value.Entity);
+		}
+
 		private void OnTriggerEnter(Collider other)
 		{
 			if (other.TryGetComponent<PlayerCharacterViewMonoComponent>(out var player))
@@ -45,7 +53,7 @@ namespace FirstLight.Game.Views.MapViews
 					_currentlyCollidingPlayers.Add(player.EntityRef, player);
 				}
 
-				player.CollidingVisibilityVolumes.Add(gameObject);
+				player.CollidingVisibilityVolumes.Add(this);
 
 				if (player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
 				{
@@ -63,7 +71,7 @@ namespace FirstLight.Game.Views.MapViews
 			if (other.TryGetComponent<PlayerCharacterViewMonoComponent>(out var player))
 			{
 				_currentlyCollidingPlayers.Remove(player.EntityRef);
-				player.CollidingVisibilityVolumes.Remove(gameObject);
+				player.CollidingVisibilityVolumes.Remove(this);
 
 				if (player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
 				{

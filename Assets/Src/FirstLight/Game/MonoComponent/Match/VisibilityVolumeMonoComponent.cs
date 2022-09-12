@@ -88,11 +88,6 @@ namespace FirstLight.Game.Views.MapViews
 
 			foreach (var player in _currentlyCollidingPlayers)
 			{
-				if (player.Key == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
-				{
-					continue;
-				}
-
 				player.Value.SetRenderContainerVisible(spectatedPlayerWithinVolume);
 			}
 		}

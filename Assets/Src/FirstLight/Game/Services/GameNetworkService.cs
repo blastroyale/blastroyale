@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Photon.Realtime;
@@ -68,6 +69,12 @@ namespace FirstLight.Game.Services
 		/// If the player is not connected to any room then it return NULL without a value.
 		/// </summary>
 		QuantumGameModeConfig? CurrentRoomGameModeConfig { get; }
+		
+		/// <summary>
+		/// Requests the <see cref="MatchType"/> of the currently connected room.
+		/// If the player is not connected to any room then it return NULL without a value.
+		/// </summary>
+		MatchType? CurrentRoomMatchType { get; }
 		
 		/// <summary>
 		/// Requests the current list of <see cref="QuantumMutatorConfig"/> for the game mode set on the current connected room.
@@ -149,6 +156,19 @@ namespace FirstLight.Game.Services
 				}
 
 				return _configsProvider.GetConfig<QuantumGameModeConfig>(QuantumClient.CurrentRoom.GetGameModeId().GetHashCode());
+			}
+		}
+
+		public MatchType? CurrentRoomMatchType
+		{
+			get
+			{
+				if (!QuantumClient.InRoom)
+				{
+					return null;
+				}
+
+				return QuantumClient.CurrentRoom.GetMatchType();
 			}
 		}
 

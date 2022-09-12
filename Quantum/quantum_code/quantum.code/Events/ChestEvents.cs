@@ -23,13 +23,14 @@ namespace Quantum
 	{
 		public unsafe partial struct FrameEvents
 		{
-			public EventOnChestOpened OnChestOpened(GameId ChestType, FPVector3 ChestPosition, PlayerRef Player, EntityRef Entity, List<ChestItemDropped> Items)
+			public void OnChestOpened(GameId ChestType, FPVector3 ChestPosition, PlayerRef Player, EntityRef Entity, List<ChestItemDropped> Items)
 			{
 				var chestOpenedEvent = OnChestOpened(ChestType, ChestPosition, Player, Entity);
-
+				if (chestOpenedEvent == null)
+				{
+					return;
+				}
 				chestOpenedEvent.Items = Items;
-
-				return chestOpenedEvent;
 			}
 		}
 	}

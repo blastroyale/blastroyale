@@ -192,12 +192,10 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc />
 		public IObservableField<string> SelectedGameModeId { get; private set; }
-		
-		/// <inheritdoc />
-		public IObservableField<MatchType> SelectedMatchType { get; private set; }
 
 		/// <inheritdoc />
 		IObservableFieldReader<string> IAppDataProvider.NicknameId => NicknameId;
+		
 		/// <inheritdoc />
 		IObservableFieldReader<string> IAppDataProvider.DeviceId => _deviceId;
 
@@ -217,7 +215,6 @@ namespace FirstLight.Game.Logic
 			ConnectionRegion = new ObservableResolverField<string>(() => Data.ConnectionRegion, region => Data.ConnectionRegion = region);
 			_deviceId = new ObservableResolverField<string>(() => Data.DeviceId, linked => Data.DeviceId = linked);
 			SelectedGameModeId = new ObservableField<string>(GameLogic.ConfigsProvider.GetConfigsList<QuantumGameModeConfig>()[0].Id);
-			SelectedMatchType = new ObservableField<MatchType>(MatchType.Casual);
 		}
 
 		/// <inheritdoc />

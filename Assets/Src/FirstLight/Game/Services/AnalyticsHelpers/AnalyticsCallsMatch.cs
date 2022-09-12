@@ -28,6 +28,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(MatchKillAction);
 			QuantumEvent.SubscribeManual<EventOnChestOpened>(this, MatchChestOpenAction);
 			QuantumEvent.SubscribeManual<EventOnChestItemDropped>(MatchChestItemDrop);
+			QuantumEvent.SubscribeManual<EventOnCollectableCollected>(MatchPickupAction);
 		}
 
 
@@ -194,6 +195,36 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"item_type", callback.ItemType.ToString()},
 				{"amount", callback.Amount},
 				{"angle_step_around_chest", callback.AngleStepAroundChest}
+			};
+			
+			_analyticsService.LogEvent(AnalyticsEvents.MatchChestItemDrop, data);
+		}
+		
+		/// <summary>
+		/// Logs when an item is picked up
+		/// </summary>
+		public void MatchPickupAction(EventOnCollectableCollected callback)
+		{
+			if (!(callback.Game.PlayerIsLocal(callback.Player)))
+			{
+				return;
+			}
+			
+			var room = _services.NetworkService.QuantumClient.CurrentRoom;
+			var frame = callback.Game.Frames.Verified;
+			var container = frame.GetSingleton<GameContainer>();
+			
+			var playerData = container.GetPlayersMatchData(frame, out var leader).Find(data => data.Data.Player.Equals(callback.Player));
+
+			var data = new Dictionary<string, object>
+			{
+				{"match_id", room.Name},
+				{"match_type",_services.GameModeService.SelectedGameMode.Value.Entry.MatchType.ToString()},
+				{"game_mode", _services.GameModeService.SelectedGameMode.Value.Entry.GameModeId},
+				{"mutators", string.Join(",",_services.GameModeService.SelectedGameMode.Value.Entry.Mutators)},
+				{"item_type", callback.CollectableId.ToString()},
+				{"amount", 1},
+				{"player_name", playerData.PlayerName }
 			};
 			
 			_analyticsService.LogEvent(AnalyticsEvents.MatchChestItemDrop, data);

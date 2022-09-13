@@ -439,9 +439,8 @@ namespace FirstLight.Game.StateMachines
 		private void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
 			// If not a kill of spectated player, or spectated player committed suicide
-			if (_matchServices.SpectateService.SpectatedPlayer.Value.Entity != callback.EntityKiller ||
-			    (_matchServices.SpectateService.SpectatedPlayer.Value.Entity == callback.EntityKiller && 
-			     callback.EntityKiller == callback.EntityDead))
+			if (_matchServices.SpectateService.SpectatedPlayer.Value.Entity != callback.EntityKiller || 
+			    callback.EntityKiller == callback.EntityDead)
 			{
 				return;
 			}

@@ -28,6 +28,11 @@ namespace FirstLight.Game.Services
 		/// will never be called.
 		/// </summary>
 		void CancelRequest(int handle);
+
+		/// <summary>
+		/// Deletes all cached downloaded images.
+		/// </summary>
+		void ClearCache();
 	}
 
 	/// <inheritdoc />
@@ -88,6 +93,17 @@ namespace FirstLight.Game.Services
 				_coroutineService.StopCoroutine(_requests[handle]);
 				_requests.Remove(handle);
 			}
+		}
+
+		/// <inheritdoc />
+		public void ClearCache()
+		{
+			foreach (var textureName in _cachedTextures)
+			{
+				File.Delete(Path.Combine(TEXTURES_FOLDER, textureName));
+			}
+
+			_cachedTextures.Clear();
 		}
 
 		private IEnumerator LoadImage(string uri, Action<Texture2D> callback, Action error, int handle)

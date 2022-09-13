@@ -67,8 +67,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			if (callback.PlayerKiller != _matchServices.SpectateService.SpectatedPlayer.Value.Player) return;
 			
-			var frame = callback.Game.Frames.Verified;
-			var gameContainer = frame.GetSingleton<GameContainer>();
 			var data = callback.PlayersMatchData;
 			
 			UpdateValues(data[_currentlyFollowing]);

@@ -80,9 +80,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			
 			if (callback.CurrentMultiKill == 1)
 			{
-				var game = QuantumRunner.Default.Game;
-				var frame = game.Frames.Verified;
-				var container = frame.GetSingleton<GameContainer>();
 				var deadName = callback.PlayersMatchData[callback.PlayerDead].GetPlayerName();
 				
 				var messageData = new MessageData

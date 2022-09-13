@@ -12,6 +12,14 @@ namespace Quantum.Systems
 		public override bool StartEnabled => false;
 
 		/// <inheritdoc />
+		public override void OnEnabled(Frame f)
+		{
+			base.OnEnabled(f);
+			
+			f.GetOrAddSingleton<ShrinkingCircle>();
+		}
+
+		/// <inheritdoc />
 		public void OnAdded(Frame f, EntityRef entity, ShrinkingCircle* circle)
 		{
 			circle->CurrentRadius = f.Map.WorldSize / FP._2;

@@ -435,6 +435,8 @@ namespace FirstLight.Game.StateMachines
 		{
 			if (_matchServices.SpectateService.SpectatedPlayer.Value.Entity != callback.Entity) return;
 
+			WipeSoundQueue();
+			
 			_services.AudioFxService.PlayClip2D(AudioId.PlayerDeath);
 
 			if (QuantumRunner.Default.Game.PlayerIsLocal(callback.Player))

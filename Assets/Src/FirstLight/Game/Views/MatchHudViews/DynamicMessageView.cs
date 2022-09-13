@@ -52,9 +52,22 @@ namespace FirstLight.Game.Views.MatchHudViews
 			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer, onlyIfActiveAndEnabled: true);
 			QuantumEvent.Subscribe<EventOnAirDropDropped>(this, OnAirDropDropped);
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, OnPlayerAlive);
+			QuantumEvent.Subscribe<EventOnPlayerDead>(this, OnPlayerDead);
+		}
+
+		private void OnDestroy()
+		{
+			QuantumEvent.UnsubscribeListener(this);
 		}
 
 		private void OnPlayerAlive(EventOnPlayerAlive callback)
+		{
+			if (_matchServices.SpectateService.SpectatedPlayer.Value.Player != callback.Player) return;
+			
+			_queue.Clear();
+		}
+		
+		private void OnPlayerDead(EventOnPlayerDead callback)
 		{
 			if (_matchServices.SpectateService.SpectatedPlayer.Value.Player != callback.Player) return;
 			

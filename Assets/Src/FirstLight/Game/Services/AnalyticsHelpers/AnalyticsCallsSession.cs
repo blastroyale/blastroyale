@@ -74,7 +74,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		/// </summary>
 		public void GameLoadStart()
 		{
-			var dic = new Dictionary<string, object> {{"client_version", Application.version}};
+			var dic = new Dictionary<string, object> {{"client_version", VersionUtils.VersionInternal}};
 			_analyticsService.LogEvent(AnalyticsEvents.GameLoadStart, dic);
 		}
 		
@@ -87,7 +87,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			FirebaseAnalytics.SetUserId(id);
 
 			var loginData = new Dictionary<string, object> 		{
-				{"client_version", VersionUtils.VersionExternal },
+				{"client_version", VersionUtils.VersionInternal },
 				{"platform", Application.platform.ToString()},
 				{"device", SystemInfo.deviceModel},
 				{"tablet", IsTablet},

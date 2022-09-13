@@ -35,6 +35,8 @@ namespace Quantum.Systems
 			}
 		}
 
+		// TODO - Rewrite inclusion of components/systems per game mode config
+		// TODO - Currently, all systems get added and initialized in SystemSetup.cs, regardless of the config
 		private void HandleSystemInclusion(Frame f, Type systemType)
 		{
 			if (systemType == typeof(ShrinkingCircleSystem))

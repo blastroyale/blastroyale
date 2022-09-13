@@ -43,7 +43,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 1720
       AttackRangeRatioToBaseK:
-        RawValue: 1792
+        RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 3584
     - Category: 13
@@ -57,7 +57,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 2458
       AttackRangeRatioToBaseK:
-        RawValue: 2560
+        RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 5120
     - Category: 13
@@ -71,7 +71,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 1843
       AttackRangeRatioToBaseK:
-        RawValue: 1920
+        RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 3840
     - Category: 13
@@ -85,7 +85,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 1638
       AttackRangeRatioToBaseK:
-        RawValue: 1707
+        RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 3413
     - Category: 11
@@ -183,7 +183,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 1720
       AttackRangeRatioToBaseK:
-        RawValue: 1792
+        RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 3584
     - Category: 17
@@ -197,7 +197,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 2458
       AttackRangeRatioToBaseK:
-        RawValue: 2560
+        RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 5120
     - Category: 17
@@ -211,7 +211,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 1843
       AttackRangeRatioToBaseK:
-        RawValue: 1920
+        RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 3840
     - Category: 17
@@ -225,7 +225,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 1638
       AttackRangeRatioToBaseK:
-        RawValue: 1707
+        RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 3413
     - Category: 16
@@ -253,7 +253,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 1720
       AttackRangeRatioToBaseK:
-        RawValue: 1792
+        RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 3584
     - Category: 16
@@ -267,7 +267,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 2458
       AttackRangeRatioToBaseK:
-        RawValue: 2560
+        RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 5120
     - Category: 16
@@ -281,7 +281,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 1843
       AttackRangeRatioToBaseK:
-        RawValue: 1920
+        RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 3840
     - Category: 16
@@ -295,7 +295,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 1638
       AttackRangeRatioToBaseK:
-        RawValue: 1707
+        RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 3413
     - Category: 15
@@ -323,7 +323,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 1720
       AttackRangeRatioToBaseK:
-        RawValue: 1792
+        RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 3584
     - Category: 15
@@ -337,7 +337,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 2458
       AttackRangeRatioToBaseK:
-        RawValue: 2560
+        RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 5120
     - Category: 15
@@ -351,7 +351,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 1843
       AttackRangeRatioToBaseK:
-        RawValue: 1920
+        RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 3840
     - Category: 15
@@ -365,6 +365,6 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 1638
       AttackRangeRatioToBaseK:
-        RawValue: 1707
+        RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 3413

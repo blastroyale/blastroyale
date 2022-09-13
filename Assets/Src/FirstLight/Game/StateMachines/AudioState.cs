@@ -375,7 +375,9 @@ namespace FirstLight.Game.StateMachines
 		{
 			var f = callback.Game.Frames.Verified;
 			var allConfigs = _services.ConfigsProvider.GetConfigsList<QuantumShrinkingCircleConfig>();
-			var config = allConfigs[callback.ShrinkingCircle.Step];
+
+			var config = allConfigs[callback.ShrinkingCircle.Step-1];
+
 			var circle = f.GetSingleton<ShrinkingCircle>();
 			var maxStep = allConfigs.Count - 1;
 			var time = (circle.ShrinkingStartTime - f.Time - config.WarningTime).AsFloat;

@@ -51,11 +51,16 @@ namespace FirstLight.Game.Views.MatchHudViews
 			
 			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer, onlyIfActiveAndEnabled: true);
 			QuantumEvent.Subscribe<EventOnAirDropDropped>(this, OnAirDropDropped);
+			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, OnPlayerAlive);
 		}
 
-		/// <summary>
-		/// Handles Double Kills, Multi Kills, Killing Sprees.
-		/// </summary>
+		private void OnPlayerAlive(EventOnPlayerAlive callback)
+		{
+			if (_matchServices.SpectateService.SpectatedPlayer.Value.Player != callback.Player) return;
+			
+			_queue.Clear();
+		}
+		
 		private void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
 			if (_matchServices.SpectateService.SpectatedPlayer.Value.Entity != callback.EntityKiller) return;

@@ -349,13 +349,6 @@ namespace FirstLight.Game.StateMachines
 				{
 					SetSpectatePlayerProperty(false);
 				}
-
-				// Set the game mode from room props.
-				var gameModeId = _networkService.QuantumClient.CurrentRoom.GetGameModeId();
-				var matchType = _networkService.QuantumClient.CurrentRoom.GetMatchType();
-				var mutators = _networkService.QuantumClient.CurrentRoom.GetMutatorIds();
-
-				_services.GameModeService.SelectedGameMode.Value = new GameModeInfo(gameModeId, matchType, mutators);
 			}
 
 			if (QuantumRunnerConfigs.IsOfflineMode)

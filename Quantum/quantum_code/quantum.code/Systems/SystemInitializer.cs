@@ -29,6 +29,11 @@ namespace Quantum.Systems
 				if (!f.SystemIsEnabledSelf(systemType))
 				{
 					f.SystemEnable(systemType);
+					
+					if (systemType == typeof(ShrinkingCircleSystem))
+					{
+						f.GetOrAddSingleton<ShrinkingCircle>();
+					}
 				}
 			}
 		}

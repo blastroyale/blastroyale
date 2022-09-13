@@ -135,10 +135,10 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.SubscribeManual<EventOnCollectableCollected>(this, OnCollectableCollected);
 			QuantumEvent.SubscribeManual<EventOnDamageBlocked>(this, OnDamageBlocked);
 			QuantumEvent.SubscribeManual<EventOnPlayerSpecialUsed>(this, OnSpecialUsed);
-			QuantumEvent.SubscribeManual<EventOnRaycastShotExplosion>(this, OnRaycastShotExplosion);
-			QuantumEvent.SubscribeManual<EventOnHazardLand>(this, OnHazardExplosion);
-			QuantumEvent.SubscribeManual<EventOnProjectileExplosion>(this, OnProjectileExplosion);
-			QuantumEvent.SubscribeManual<EventOnChestOpened>(this, OnChestOpened);
+			QuantumEvent.SubscribeManual<EventOnRaycastShotExplosion>(this, OnEventOnRaycastShotExplosion);
+			QuantumEvent.SubscribeManual<EventOnHazardLand>(this, OnEventHazardLand);
+			QuantumEvent.SubscribeManual<EventOnProjectileExplosion>(this, OnEventOnProjectileExplosion);
+			QuantumEvent.SubscribeManual<EventOnChestOpened>(this, OnEventOnChestOpened);
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
 			QuantumEvent.SubscribeManual<EventOnPlayerDead>(this, OnPlayerDead);
 			QuantumEvent.SubscribeManual<EventOnAirDropDropped>(this, OnAirdropDropped);
@@ -540,22 +540,23 @@ namespace FirstLight.Game.StateMachines
 			_services.AudioFxService.PlayClipQueued2D(voKillstreakAudio);
 		}
 
-		private void OnChestOpened(EventOnChestOpened callback)
+		private void OnEventOnChestOpened(EventOnChestOpened callback)
 		{
 			_services.AudioFxService.PlayClip3D(AudioId.ChestPickup, callback.ChestPosition.ToUnityVector3());
 		}
 
-		private void OnRaycastShotExplosion(EventOnRaycastShotExplosion callback)
+		private void OnEventOnRaycastShotExplosion(EventOnRaycastShotExplosion callback)
 		{
 			PlayExplosionSfx(callback.sourceId, callback.EndPosition.ToUnityVector3());
 		}
 
-		private void OnHazardExplosion(EventOnHazardLand callback)
+		private void OnEventHazardLand(EventOnHazardLand callback)
 		{
 			PlayExplosionSfx(callback.sourceId, callback.HitPosition.ToUnityVector3());
+			CheckClips(nameof(EventOnHazardLand), callback.AttackerEntity);
 		}
 
-		private void OnProjectileExplosion(EventOnProjectileExplosion callback)
+		private void OnEventOnProjectileExplosion(EventOnProjectileExplosion callback)
 		{
 			PlayExplosionSfx(callback.sourceId, callback.EndPosition.ToUnityVector3());
 		}
@@ -566,7 +567,6 @@ namespace FirstLight.Game.StateMachines
 
 			switch (sourceId)
 			{
-				//specials
 				case GameId.SpecialAimingGrenade:
 					audio = AudioId.ExplosionMedium;
 					break;
@@ -602,32 +602,42 @@ namespace FirstLight.Game.StateMachines
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
 
 			var audio = AudioId.None;
-
+			var pos = Vector3.zero;
+			
 			switch (callback.Special.SpecialType)
 			{
 				case SpecialType.Grenade:
 					audio = AudioId.Dash;
+					pos = callback.HitPosition.ToUnityVector3();
 					break;
+				
 				case SpecialType.StunGrenade:
 					audio = AudioId.Dash;
+					pos = callback.HitPosition.ToUnityVector3();
 					break;
+				
 				case SpecialType.ShieldedCharge:
 					audio = AudioId.Dash;
+					pos = entityView.transform.position;
 					break;
+				
 				case SpecialType.Airstrike:
 					audio = AudioId.MissileFlyLoop;
+					pos = callback.HitPosition.ToUnityVector3();
 					break;
 			}
+			
+			var audioSource = _services.AudioFxService.PlayClip3D(audio, pos);
 
 			if (audio == AudioId.MissileFlyLoop)
 			{
-				var missileLoop = _services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
-				var despawnEvents = new[] {nameof(EventOnHazardLand)};
-				_currentClips.Add(new LoopedAudioClip(missileLoop, despawnEvents, callback.Entity));
+				var despawnEvents = new[] { nameof(EventOnHazardLand) };
+				
+				_currentClips.Add(new LoopedAudioClip(audioSource, despawnEvents, callback.Entity));
 			}
 			else if (audio != AudioId.None)
 			{
-				_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
+				_services.AudioFxService.PlayClip3D(audio, pos);
 			}
 		}
 

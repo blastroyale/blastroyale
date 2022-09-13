@@ -36,7 +36,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_fragTarget = (int) _services.NetworkService.CurrentRoomGameModeConfig.Value.CompletionKillCount;
 			_targetFragsText.text = _fragTarget.ToString();
 			
-			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
+			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, OnPlayerAlive);
 			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnEventOnPlayerKilledPlayer);
 
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
@@ -52,7 +52,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			UpdateFollowedPlayer(next.Player, QuantumRunner.Default.Game.Frames.Predicted);
 		}
 		
-		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
+		private void OnPlayerAlive(EventOnPlayerAlive callback)
 		{
 			if (callback.Player != _matchServices.SpectateService.SpectatedPlayer.Value.Player) return;
 			
@@ -69,7 +69,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			
 			var frame = callback.Game.Frames.Verified;
 			var gameContainer = frame.GetSingleton<GameContainer>();
-			var data = gameContainer.GetPlayersMatchData(frame, out _);
+			var data = callback.PlayersMatchData;
 			
 			UpdateValues(data[_currentlyFollowing]);
 		}

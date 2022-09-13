@@ -40,8 +40,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void OnEventPlayerAlive(EventOnPlayerAlive callback)
 		{
 			if (_matchServices.SpectateService.SpectatedPlayer.Value.Player != callback.Player) return;
-			
-			var frame = QuantumRunner.Default.Game.Frames.Predicted;
+
+			var frame = callback.Game.Frames.Verified;
 			var stats = frame.Get<Stats>(_matchServices.SpectateService.SpectatedPlayer.Value.Entity);
 			
 			SetVignetteIntensity(stats.CurrentHealth, stats.Values[(int) StatType.Health].StatValue.AsInt);

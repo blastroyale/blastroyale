@@ -35,11 +35,13 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_progressSlider.value = 0;
 			_fragTarget = (int) _services.NetworkService.CurrentRoomGameModeConfig.Value.CompletionKillCount;
 			_targetFragsText.text = _fragTarget.ToString();
+			
+			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
+			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnEventOnPlayerKilledPlayer);
 
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 		}
-
-
+		
 		private void OnDestroy()
 		{
 			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(OnSpectatedPlayerChanged);
@@ -48,6 +50,28 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
 			UpdateFollowedPlayer(next.Player, QuantumRunner.Default.Game.Frames.Predicted);
+		}
+		
+		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
+		{
+			if (callback.Player != _matchServices.SpectateService.SpectatedPlayer.Value.Player) return;
+			
+			var frame = callback.Game.Frames.Verified;
+			var gameContainer = frame.GetSingleton<GameContainer>();
+			var data = gameContainer.GetPlayersMatchData(frame, out _);
+			
+			UpdateValues(data[_currentlyFollowing]);
+		}
+		
+		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
+		{
+			if (callback.PlayerKiller == _matchServices.SpectateService.SpectatedPlayer.Value.Player) return;
+			
+			var frame = callback.Game.Frames.Verified;
+			var gameContainer = frame.GetSingleton<GameContainer>();
+			var data = gameContainer.GetPlayersMatchData(frame, out _);
+			
+			UpdateValues(data[_currentlyFollowing]);
 		}
 
 		private void UpdateFollowedPlayer(PlayerRef playerRef, Frame f)

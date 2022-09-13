@@ -48,7 +48,7 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// If true we award BattlePass points (BPP) and show the BattlePass button on the home screen.
 		/// </summary>
-		public static bool BATTLE_PASS_ENABLED = true;
+		public static bool BATTLE_PASS_ENABLED = false;
 
 		/// <summary>
 		/// Parses the feature flags from a given input dictionary.

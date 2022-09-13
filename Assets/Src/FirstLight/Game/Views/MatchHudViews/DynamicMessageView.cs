@@ -59,9 +59,25 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
 			if (_matchServices.SpectateService.SpectatedPlayer.Value.Entity != callback.EntityKiller) return;
-
 			
-			if (callback.CurrentMultiKill >= 2)
+			if (callback.CurrentMultiKill == 1)
+			{
+				var game = QuantumRunner.Default.Game;
+				var frame = game.Frames.Verified;
+				var container = frame.GetSingleton<GameContainer>();
+				var playerData = container.GetPlayersMatchData(frame, out _);
+				var deadName = playerData[callback.PlayerDead].GetPlayerName();
+				
+				var messageData = new MessageData
+				{
+					TopText = ScriptLocalization.AdventureMenu.Kill,
+					BottomText = deadName,
+					MessageEntry = _messages[Random.Range(0, _messages.Count)]
+				};
+					
+				EnqueueMessage(messageData);
+			}
+			else
 			{
 				var messageData = new MessageData
 				{

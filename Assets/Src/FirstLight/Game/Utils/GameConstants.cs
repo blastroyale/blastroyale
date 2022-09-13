@@ -127,7 +127,7 @@ namespace FirstLight.Game.Utils
 			public const string DEFAULT_REGION = "eu";
 			
 			public const string LEADERBOARD_LADDER_NAME = "Trophies Ladder";
-			public const int LEADERBOARD_TOP_RANK_AMOUNT = 50;
+			public const int LEADERBOARD_TOP_RANK_AMOUNT = 20;
 			public const int LEADERBOARD_NEIGHBOR_RANK_AMOUNT = 3;
 		}
 

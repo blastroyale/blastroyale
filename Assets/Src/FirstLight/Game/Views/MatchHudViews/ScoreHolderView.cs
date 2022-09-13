@@ -65,7 +65,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
-			if (callback.PlayerKiller == _matchServices.SpectateService.SpectatedPlayer.Value.Player) return;
+			if (callback.PlayerKiller != _matchServices.SpectateService.SpectatedPlayer.Value.Player) return;
 			
 			var frame = callback.Game.Frames.Verified;
 			var gameContainer = frame.GetSingleton<GameContainer>();

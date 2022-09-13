@@ -75,7 +75,7 @@ MonoBehaviour:
         - Deathmatch
         Values: 240000000c000000
       AimingMovementSpeed:
-        RawValue: 65536
+        RawValue: 52429
       AimTime:
         RawValue: 8192
       AttackCooldown:
@@ -84,8 +84,8 @@ MonoBehaviour:
         RawValue: 39322
       AttackHitSpeed:
         RawValue: 1638400
-      MinAttackAngle: 10
-      MaxAttackAngle: 25
+      MinAttackAngle: 7
+      MaxAttackAngle: 14
       NumberOfShots: 1
       NumberOfBursts: 1
       CanHitSameTarget: 0
@@ -98,7 +98,7 @@ MonoBehaviour:
       InitialAttackCooldown:
         RawValue: 3277
       InitialAttackRampUpTime:
-        RawValue: 131072
+        RawValue: 98304
       KnockbackAmount: 0
     - Id: 71
       InitialAmmoFilled:
@@ -119,7 +119,7 @@ MonoBehaviour:
       AimingMovementSpeed:
         RawValue: 52429
       AimTime:
-        RawValue: 8192
+        RawValue: 13107
       AttackCooldown:
         RawValue: 39322
       PowerToDamageRatio:
@@ -163,13 +163,13 @@ MonoBehaviour:
       AimTime:
         RawValue: 8192
       AttackCooldown:
-        RawValue: 4915
+        RawValue: 5243
       PowerToDamageRatio:
-        RawValue: 9830
+        RawValue: 16384
       AttackHitSpeed:
         RawValue: 2162688
       MinAttackAngle: 5
-      MaxAttackAngle: 35
+      MaxAttackAngle: 25
       NumberOfShots: 1
       NumberOfBursts: 1
       CanHitSameTarget: 0
@@ -180,7 +180,7 @@ MonoBehaviour:
         RawValue: 0
       Specials: 7700000066000000
       InitialAttackCooldown:
-        RawValue: 26214
+        RawValue: 19661
       InitialAttackRampUpTime:
         RawValue: 52429
       KnockbackAmount: 0
@@ -205,12 +205,12 @@ MonoBehaviour:
       AimTime:
         RawValue: 8192
       AttackCooldown:
-        RawValue: 32768
+        RawValue: 29491
       PowerToDamageRatio:
-        RawValue: 21627
+        RawValue: 52429
       AttackHitSpeed:
         RawValue: 2162688
-      MinAttackAngle: 10
+      MinAttackAngle: 7
       MaxAttackAngle: 33
       NumberOfShots: 1
       NumberOfBursts: 3
@@ -245,11 +245,11 @@ MonoBehaviour:
       AimingMovementSpeed:
         RawValue: 52429
       AimTime:
-        RawValue: 26214
+        RawValue: 16384
       AttackCooldown:
         RawValue: 52429
       PowerToDamageRatio:
-        RawValue: 91750
+        RawValue: 78643
       AttackHitSpeed:
         RawValue: 3276800
       MinAttackAngle: 3
@@ -291,11 +291,11 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 65536
       PowerToDamageRatio:
-        RawValue: 29491
+        RawValue: 32768
       AttackHitSpeed:
-        RawValue: 589824
-      MinAttackAngle: 15
-      MaxAttackAngle: 35
+        RawValue: 786432
+      MinAttackAngle: 10
+      MaxAttackAngle: 25
       NumberOfShots: 1
       NumberOfBursts: 4
       CanHitSameTarget: 0
@@ -303,7 +303,7 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 98304
       SplashDamageRatio:
-        RawValue: 16384
+        RawValue: 32768
       Specials: 0a0000000a000000
       InitialAttackCooldown:
         RawValue: 0
@@ -331,9 +331,9 @@ MonoBehaviour:
       AimTime:
         RawValue: 8192
       AttackCooldown:
-        RawValue: 3277
+        RawValue: 1638
       PowerToDamageRatio:
-        RawValue: 13107
+        RawValue: 19661
       AttackHitSpeed:
         RawValue: 2162688
       MinAttackAngle: 10
@@ -350,7 +350,7 @@ MonoBehaviour:
       InitialAttackCooldown:
         RawValue: 32768
       InitialAttackRampUpTime:
-        RawValue: 131072
+        RawValue: 98304
       KnockbackAmount: 0
     - Id: 88
       InitialAmmoFilled:
@@ -375,11 +375,11 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 19661
       PowerToDamageRatio:
-        RawValue: 26214
+        RawValue: 32768
       AttackHitSpeed:
         RawValue: 3276800
-      MinAttackAngle: 5
-      MaxAttackAngle: 5
+      MinAttackAngle: 3
+      MaxAttackAngle: 3
       NumberOfShots: 1
       NumberOfBursts: 1
       CanHitSameTarget: 0
@@ -417,7 +417,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 43647
       PowerToDamageRatio:
-        RawValue: 19661
+        RawValue: 13107
       AttackHitSpeed:
         RawValue: 3276800
       MinAttackAngle: 30
@@ -459,7 +459,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 5243
       PowerToDamageRatio:
-        RawValue: 16384
+        RawValue: 9830
       AttackHitSpeed:
         RawValue: 3276800
       MinAttackAngle: 20
@@ -501,11 +501,11 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 7864
       PowerToDamageRatio:
-        RawValue: 21627
+        RawValue: 19661
       AttackHitSpeed:
         RawValue: 3276800
-      MinAttackAngle: 15
-      MaxAttackAngle: 15
+      MinAttackAngle: 7
+      MaxAttackAngle: 7
       NumberOfShots: 1
       NumberOfBursts: 1
       CanHitSameTarget: 1
@@ -543,7 +543,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 65536
       PowerToDamageRatio:
-        RawValue: 104858
+        RawValue: 65536
       AttackHitSpeed:
         RawValue: 5242880
       MinAttackAngle: 3
@@ -585,7 +585,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 36045
       PowerToDamageRatio:
-        RawValue: 49152
+        RawValue: 45875
       AttackHitSpeed:
         RawValue: 458752
       MinAttackAngle: 10
@@ -595,9 +595,9 @@ MonoBehaviour:
       CanHitSameTarget: 0
       IsProjectile: 1
       SplashRadius:
-        RawValue: 163840
+        RawValue: 131072
       SplashDamageRatio:
-        RawValue: 45875
+        RawValue: 39322
       Specials: 6600000066000000
       InitialAttackCooldown:
         RawValue: 0
@@ -615,23 +615,23 @@ MonoBehaviour:
         - RawValue: 19661
         - RawValue: 65536
       MaxAmmo:
-        Default: 200
+        Default: 150
         Keys:
         - BattleRoyale
         - Deathmatch
-        Values: c80000004b000000
+        Values: 960000004b000000
       AimingMovementSpeed:
-        RawValue: 52429
+        RawValue: 49152
       AimTime:
         RawValue: 26214
       AttackCooldown:
-        RawValue: 6554
+        RawValue: 3932
       PowerToDamageRatio:
-        RawValue: 26214
+        RawValue: 9830
       AttackHitSpeed:
         RawValue: 5242880
-      MinAttackAngle: 5
-      MaxAttackAngle: 5
+      MinAttackAngle: 15
+      MaxAttackAngle: 15
       NumberOfShots: 1
       NumberOfBursts: 1
       CanHitSameTarget: 0
@@ -657,11 +657,11 @@ MonoBehaviour:
         - RawValue: 19661
         - RawValue: 65536
       MaxAmmo:
-        Default: 150
+        Default: 50
         Keys:
         - BattleRoyale
         - Deathmatch
-        Values: 9600000024000000
+        Values: 3200000024000000
       AimingMovementSpeed:
         RawValue: 65536
       AimTime:
@@ -699,11 +699,11 @@ MonoBehaviour:
         - RawValue: 19661
         - RawValue: 65536
       MaxAmmo:
-        Default: 36
+        Default: 30
         Keys:
         - BattleRoyale
         - Deathmatch
-        Values: 240000000c000000
+        Values: 1e0000000c000000
       AimingMovementSpeed:
         RawValue: 52429
       AimTime:
@@ -711,11 +711,11 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 19661
       PowerToDamageRatio:
-        RawValue: 13107
+        RawValue: 19661
       AttackHitSpeed:
         RawValue: 2162688
-      MinAttackAngle: 10
-      MaxAttackAngle: 35
+      MinAttackAngle: 7
+      MaxAttackAngle: 33
       NumberOfShots: 5
       NumberOfBursts: 1
       CanHitSameTarget: 1
@@ -753,7 +753,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 7864
       PowerToDamageRatio:
-        RawValue: 7864
+        RawValue: 15729
       AttackHitSpeed:
         RawValue: 2162688
       MinAttackAngle: 15
@@ -795,19 +795,19 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 10486
       PowerToDamageRatio:
-        RawValue: 22938
+        RawValue: 19661
       AttackHitSpeed:
         RawValue: 3276800
-      MinAttackAngle: 15
-      MaxAttackAngle: 35
+      MinAttackAngle: 5
+      MaxAttackAngle: 15
       NumberOfShots: 1
       NumberOfBursts: 1
       CanHitSameTarget: 0
       IsProjectile: 0
       SplashRadius:
-        RawValue: 0
+        RawValue: 32768
       SplashDamageRatio:
-        RawValue: 0
+        RawValue: 19661
       Specials: 770000006e000000
       InitialAttackCooldown:
         RawValue: 0
@@ -833,15 +833,15 @@ MonoBehaviour:
       AimingMovementSpeed:
         RawValue: 52429
       AimTime:
-        RawValue: 26214
+        RawValue: 32768
       AttackCooldown:
-        RawValue: 39322
+        RawValue: 19661
       PowerToDamageRatio:
         RawValue: 78643
       AttackHitSpeed:
         RawValue: 5898240
       MinAttackAngle: 3
-      MaxAttackAngle: 25
+      MaxAttackAngle: 20
       NumberOfShots: 1
       NumberOfBursts: 1
       CanHitSameTarget: 1
@@ -867,11 +867,11 @@ MonoBehaviour:
         - RawValue: 19661
         - RawValue: 65536
       MaxAmmo:
-        Default: 40
+        Default: 30
         Keys:
         - BattleRoyale
         - Deathmatch
-        Values: 2800000018000000
+        Values: 1e00000018000000
       AimingMovementSpeed:
         RawValue: 52429
       AimTime:
@@ -891,7 +891,7 @@ MonoBehaviour:
       SplashRadius:
         RawValue: 131072
       SplashDamageRatio:
-        RawValue: 32768
+        RawValue: 49152
       Specials: 6e0000006e000000
       InitialAttackCooldown:
         RawValue: 0

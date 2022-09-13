@@ -33,8 +33,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 
 			QuantumEvent.Subscribe<EventOnPlayerDead>(this, OnEventOnPlayerDead);
-			
-			UpdatePlayersAlive(QuantumRunner.Default.Game.Frames.Verified);
 		}
 
 		private void OnDestroy()

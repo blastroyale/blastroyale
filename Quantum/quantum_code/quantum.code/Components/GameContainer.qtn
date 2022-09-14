@@ -6,11 +6,18 @@ singleton component GameContainer
 	bool IsGameOver;
 	FP GameOverTime;
 	MutatorsState MutatorsState;
+	WeaponDropPool DropPool;
 }
 
 struct MutatorsState
 {
 	FP HealthPerSecLastTime;
+}
+
+struct WeaponDropPool
+{
+	EquipmentRarity AverageRarity;
+	array<Equipment>[PLAYER_COUNT] WeaponPool;
 }
 
 signal GameEnded();

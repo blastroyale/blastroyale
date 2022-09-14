@@ -82,7 +82,7 @@ namespace Quantum.Systems
 
 		private void SetupWeaponPool(Frame f, GameContainer* component)
 		{
-			var offPool = GameIdGroup.Weapon.GetIds();
+			var offPool = new List<GameId>(GameIdGroup.Weapon.GetIds());
 			var count = component->DropPool.WeaponPool.Length;
 			var rarity = 0;
 
@@ -99,7 +99,10 @@ namespace Quantum.Systems
 					
 					equipment = new Equipment(offPool[index]);
 					
-					offPool.RemoveAt(index);
+					if (offPool.Count > 1)
+					{
+						offPool.RemoveAt(index);
+					}
 				}
 
 				rarity += (int) equipment.Value.Rarity;

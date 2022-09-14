@@ -3035,11 +3035,13 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct WeaponDropPool {
-    public const Int32 SIZE = 2052;
+    public const Int32 SIZE = 2056;
     public const Int32 ALIGNMENT = 4;
     [FieldOffset(0)]
     public EquipmentRarity AverageRarity;
     [FieldOffset(4)]
+    public EquipmentRarity MedianRarity;
+    [FieldOffset(8)]
     [FramePrinter.FixedArrayAttribute(typeof(Equipment), 32)]
     private fixed Byte _WeaponPool_[2048];
     public FixedArray<Equipment> WeaponPool {
@@ -3051,6 +3053,7 @@ namespace Quantum {
       unchecked { 
         var hash = 359;
         hash = hash * 31 + (Int32)AverageRarity;
+        hash = hash * 31 + (Int32)MedianRarity;
         hash = hash * 31 + HashCodeUtils.GetArrayHashCode(WeaponPool);
         return hash;
       }
@@ -3058,6 +3061,7 @@ namespace Quantum {
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (WeaponDropPool*)ptr;
         serializer.Stream.Serialize((Int32*)&p->AverageRarity);
+        serializer.Stream.Serialize((Int32*)&p->MedianRarity);
         FixedArray.Serialize(p->WeaponPool, serializer, StaticDelegates.SerializeEquipment);
     }
   }
@@ -4150,8 +4154,6 @@ namespace Quantum {
   public unsafe partial struct GameContainer : Quantum.IComponentSingleton {
     public const Int32 SIZE = 5672;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(5668)]
-    private fixed Byte _alignment_padding_[4];
     [FieldOffset(4)]
     public UInt32 CurrentProgress;
     [FieldOffset(3616)]
@@ -10620,11 +10622,13 @@ namespace Quantum.Prototypes {
   [Prototype(typeof(WeaponDropPool))]
   public sealed unsafe partial class WeaponDropPool_Prototype : StructPrototype {
     public EquipmentRarity_Prototype AverageRarity;
+    public EquipmentRarity_Prototype MedianRarity;
     [ArrayLengthAttribute(32)]
     public Equipment_Prototype[] WeaponPool = new Equipment_Prototype[32];
     partial void MaterializeUser(Frame frame, ref WeaponDropPool result, in PrototypeMaterializationContext context);
     public void Materialize(Frame frame, ref WeaponDropPool result, in PrototypeMaterializationContext context) {
       result.AverageRarity = this.AverageRarity;
+      result.MedianRarity = this.MedianRarity;
       for (int i = 0, count = PrototypeValidator.CheckLength(WeaponPool, 32, in context); i < count; ++i) {
         this.WeaponPool[i].Materialize(frame, ref *result.WeaponPool.GetPointer(i), in context);
       }

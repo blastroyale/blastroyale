@@ -380,29 +380,28 @@ namespace FirstLight.Game.StateMachines
 			var circle = f.GetSingleton<ShrinkingCircle>();
 
 			// We don't play on the last step, so we get the previous one as the max
-			var maxStepForAnnouncer = allConfigs[^1].Step;
-
-			if (config.Step > maxStepForAnnouncer)
-			{
-				yield break;
-			}
+			var maxStepForCircleClosing = allConfigs[^3].Step;
+			var maxStepForFinalCoutndown = allConfigs[^2].Step;
 			
 			var time = (circle.ShrinkingStartTime - f.Time - config.WarningTime).AsFloat;
-
-			if (config.Step == maxStepForAnnouncer)
+			
+			yield return new WaitForSeconds(time);
+			
+			if (config.Step == maxStepForFinalCoutndown)
 			{
 				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_CircleLastCountdown);
 			}
 			
-			yield return new WaitForSeconds(time);
-			
 			time = (circle.ShrinkingStartTime - f.Time).AsFloat;
 			
 			yield return new WaitForSeconds(time);
-
-			_services.AudioFxService.PlayClipQueued2D(config.Step == maxStepForAnnouncer
-				                                          ? AudioId.Vo_CircleLastClose
-				                                          : AudioId.Vo_CircleClose);
+			
+			if (config.Step <= maxStepForCircleClosing)
+			{
+				_services.AudioFxService.PlayClipQueued2D(config.Step == maxStepForCircleClosing
+					                                          ? AudioId.Vo_CircleLastClose
+					                                          : AudioId.Vo_CircleClose);
+			}
 		}
 
 		private void OnAirdropDropped(EventOnAirDropDropped callback)

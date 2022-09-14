@@ -83,23 +83,32 @@ namespace Quantum.Systems
 		private void SetupWeaponPool(Frame f, GameContainer* component)
 		{
 			var offPool = GameIdGroup.Weapon.GetIds();
+			var count = component->DropPool.WeaponPool.Length;
 			var rarity = 0;
 
 			offPool.Remove(GameId.Hammer);
 
-			for (var i = 0; i < f.PlayerCount; i++)
+			for (var i = 0; i < count; i++)
 			{
 				var playerData = f.GetPlayerData(i);
-				var equipment = playerData == null || !playerData.Weapon.IsValid()
-					                ? new Equipment(offPool[f.RNG->Next(0, offPool.Count)])
-					                : playerData.Weapon;
+				var equipment = playerData?.Weapon;
 
-				rarity += (int) equipment.Rarity;
+				if (!equipment.HasValue || !equipment.Value.IsValid())
+				{
+					var index = f.RNG->Next(0, offPool.Count);
+					
+					equipment = new Equipment(offPool[index]);
+					
+					offPool.RemoveAt(index);
+				}
 
-				component->DropPool.WeaponPool[i] = equipment;
+				rarity += (int) equipment.Value.Rarity;
+
+				component->DropPool.WeaponPool[i] = equipment.Value;
 			}
 
-			component->DropPool.AverageRarity = (EquipmentRarity) FPMath.FloorToInt((FP) rarity / f.PlayerCount);
+			component->DropPool.AverageRarity = (EquipmentRarity) FPMath.FloorToInt((FP) rarity / count);
+			component->DropPool.MedianRarity = component->DropPool.WeaponPool[count / 2].Rarity;
 		}
 	}
 }

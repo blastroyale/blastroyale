@@ -375,14 +375,21 @@ namespace FirstLight.Game.StateMachines
 		{
 			var f = callback.Game.Frames.Verified;
 			var allConfigs = _services.ConfigsProvider.GetConfigsList<QuantumShrinkingCircleConfig>();
-
 			var config = _services.ConfigsProvider.GetConfig<QuantumShrinkingCircleConfig>(callback.ShrinkingCircle.Step);
 
 			var circle = f.GetSingleton<ShrinkingCircle>();
-			var maxStep = allConfigs.Count;
+
+			// We don't play on the last step, so we get the previous one as the max
+			var maxStepForAnnouncer = allConfigs[^1].Step;
+
+			if (config.Step > maxStepForAnnouncer)
+			{
+				yield break;
+			}
+			
 			var time = (circle.ShrinkingStartTime - f.Time - config.WarningTime).AsFloat;
 
-			if (config.Step == maxStep)
+			if (config.Step == maxStepForAnnouncer)
 			{
 				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_CircleLastCountdown);
 			}
@@ -393,7 +400,7 @@ namespace FirstLight.Game.StateMachines
 			
 			yield return new WaitForSeconds(time);
 
-			_services.AudioFxService.PlayClipQueued2D(config.Step == maxStep
+			_services.AudioFxService.PlayClipQueued2D(config.Step == maxStepForAnnouncer
 				                                          ? AudioId.Vo_CircleLastClose
 				                                          : AudioId.Vo_CircleClose);
 		}

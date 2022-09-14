@@ -149,6 +149,7 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.SubscribeManual<EventOnCollectableBlocked>(this, OnCollectionBlocked);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveDrop>(this, OnLocalPlayerSkydiveDrop);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveLand>(this, OnLocalSkydiveEnd);
+			QuantumEvent.SubscribeManual<EventOnPlayerAlive>(this, OnPlayerAlive);
 		}
 
 		private void UnsubscribeEvents()
@@ -235,16 +236,16 @@ namespace FirstLight.Game.StateMachines
 			{
 				if (gameMode.CompletionStrategy == GameCompletionStrategy.KillCount && localPlayerData.Data.DeathCount == 0)
 				{
-					_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_PerfectVictory);
+					_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_PerfectVictory, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
 				}
 				else
 				{
-					_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_Victory);
+					_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_Victory, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
 				}
 			}
 			else
 			{
-				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_GameOver);
+				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_GameOver, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
 			}
 		}
 		
@@ -300,13 +301,19 @@ namespace FirstLight.Game.StateMachines
 				}
 			}
 		}
+		
+		private void OnPlayerAlive(EventOnPlayerAlive callback)
+		{
+			if (_matchServices.SpectateService.SpectatedPlayer.Value.Player != callback.Player) return;
+			
+			WipeSoundQueue();
+		}
 
 		private void OnPlayerSkydiveDrop(EventOnPlayerSkydiveDrop callback)
 		{
-			if (_matchServices.SpectateService.SpectatedPlayer.Value.Player == callback.Player)
-			{
-				_services.AudioFxService.PlayClip2D(AudioId.Vo_GameStart, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
-			}
+			if (_matchServices.SpectateService.SpectatedPlayer.Value.Player != callback.Player) return;
+			
+			_services.AudioFxService.PlayClip2D(AudioId.Vo_GameStart, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
 		}
 
 		private void OnLocalPlayerSkydiveDrop(EventOnLocalPlayerSkydiveDrop callback)
@@ -389,19 +396,16 @@ namespace FirstLight.Game.StateMachines
 			
 			if (config.Step == maxStepForFinalCoutndown)
 			{
-				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_CircleLastCountdown);
+				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_CircleLastCountdown, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
 			}
 			
 			time = (circle.ShrinkingStartTime - f.Time).AsFloat;
 			
 			yield return new WaitForSeconds(time);
-			
-			if (config.Step <= maxStepForCircleClosing)
-			{
-				_services.AudioFxService.PlayClipQueued2D(config.Step == maxStepForCircleClosing
-					                                          ? AudioId.Vo_CircleLastClose
-					                                          : AudioId.Vo_CircleClose);
-			}
+
+			_services.AudioFxService.PlayClipQueued2D(config.Step == maxStepForCircleClosing
+				                                          ? AudioId.Vo_CircleLastClose
+				                                          : AudioId.Vo_CircleClose,GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
 		}
 
 		private void OnAirdropDropped(EventOnAirDropDropped callback)
@@ -415,7 +419,7 @@ namespace FirstLight.Game.StateMachines
 			var despawnEvents = new[] {nameof(EventOnAirDropLanded)};
 			_currentClips.Add(new LoopedAudioClip(dropsFx, despawnEvents, callback.Entity));
 
-			_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_AirdropComing);
+			_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_AirdropComing, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
 		}
 
 		private void OnAirdropLanded(EventOnAirDropLanded callback)
@@ -429,18 +433,20 @@ namespace FirstLight.Game.StateMachines
 			var despawnEvents = new[] {nameof(EventOnAirDropCollected)};
 			_currentClips.Add(new LoopedAudioClip(flareSfx, despawnEvents, callback.Entity));
 
-			_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_AirdropLanded);
+			_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_AirdropLanded, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
 		}
 
 		private void OnPlayerDead(EventOnPlayerDead callback)
 		{
 			if (_matchServices.SpectateService.SpectatedPlayer.Value.Entity != callback.Entity) return;
 
+			WipeSoundQueue();
+			
 			_services.AudioFxService.PlayClip2D(AudioId.PlayerDeath);
 
 			if (QuantumRunner.Default.Game.PlayerIsLocal(callback.Player))
 			{
-				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_OnDeath);
+				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_OnDeath, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
 			}
 		}
 
@@ -523,11 +529,11 @@ namespace FirstLight.Game.StateMachines
 			// Multikill announcer
 			if (callback.CurrentMultiKill > 1)
 			{
-				_services.AudioFxService.PlayClipQueued2D(voMultiKillAudio);
+				_services.AudioFxService.PlayClipQueued2D(voMultiKillAudio, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
 			}
 			else if (callback.CurrentMultiKill <= 1 && DateTime.UtcNow >= _voOneKillSfxAvailabilityTime)
 			{
-				_services.AudioFxService.PlayClipQueued2D(voMultiKillAudio);
+				_services.AudioFxService.PlayClipQueued2D(voMultiKillAudio, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
 				_voOneKillSfxAvailabilityTime = DateTime.UtcNow.AddSeconds(GameConstants.Audio.VO_DUPLICATE_SFX_PREVENTION_SECONDS);
 			}
 			
@@ -540,7 +546,7 @@ namespace FirstLight.Game.StateMachines
 			if (percent <= GameConstants.Audio.LOW_HP_CLUTCH_THERSHOLD_PERCENT &&
 			    DateTime.UtcNow >= _voClutchSfxAvailabilityTime) 
 			{
-				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_KillLowHp);
+				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_KillLowHp, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
 				_voClutchSfxAvailabilityTime = DateTime.UtcNow.AddSeconds(GameConstants.Audio.VO_DUPLICATE_SFX_PREVENTION_SECONDS);
 			}
 

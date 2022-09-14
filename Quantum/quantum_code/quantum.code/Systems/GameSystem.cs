@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Photon.Deterministic;
 
 namespace Quantum.Systems
 {
@@ -30,6 +32,8 @@ namespace Quantum.Systems
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
+
+			SetupWeaponPool(f, component);
 		}
 
 		/// <inheritdoc />
@@ -63,6 +67,7 @@ namespace Quantum.Systems
 			}
 		}
 
+		/// <inheritdoc />
 		public void PlayerKilledPlayer(Frame f, PlayerRef playerDead, EntityRef entityDead, PlayerRef playerKiller,
 		                               EntityRef entityKiller)
 		{
@@ -73,6 +78,28 @@ namespace Quantum.Systems
 
 				container->UpdateGameProgress(f, inc);
 			}
+		}
+
+		private void SetupWeaponPool(Frame f, GameContainer* component)
+		{
+			var offPool = GameIdGroup.Weapon.GetIds();
+			var rarity = 0;
+
+			offPool.Remove(GameId.Hammer);
+
+			for (var i = 0; i < f.PlayerCount; i++)
+			{
+				var playerData = f.GetPlayerData(i);
+				var equipment = playerData == null || !playerData.Weapon.IsValid()
+					                ? new Equipment(offPool[f.RNG->Next(0, offPool.Count)])
+					                : playerData.Weapon;
+
+				rarity += (int) equipment.Rarity;
+
+				component->DropPool.WeaponPool[i] = equipment;
+			}
+
+			component->DropPool.AverageRarity = (EquipmentRarity) FPMath.FloorToInt((FP) rarity / f.PlayerCount);
 		}
 	}
 }

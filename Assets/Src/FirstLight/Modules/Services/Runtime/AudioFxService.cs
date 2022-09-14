@@ -89,7 +89,7 @@ namespace FirstLight.Services
 		/// Inserts the given <paramref name="id"/> sound clip into the 2D sound queue, where it will be played at the
 		/// soonest available opportunity (with the appropriate delay).
 		/// </summary>
-		void PlayClipQueued2D(T id);
+		void PlayClipQueued2D(T id, string mixerGroupOverride = null);
 
 		/// <summary>
 		/// Plays the given <paramref name="id"/> music and transitions with a fade based on fade in and out durations
@@ -599,7 +599,7 @@ namespace FirstLight.Services
 		}
 		
 		/// <inheritdoc />
-		public virtual void PlayClipQueued2D(T id)
+		public virtual void PlayClipQueued2D(T id, string mixerGroupOverride = null)
 		{
 		}
 		

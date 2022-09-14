@@ -670,7 +670,7 @@ GameObject:
   - component: {fileID: 5511225842881905239}
   - component: {fileID: 574265280825843266}
   m_Layer: 5
-  m_Name: Container
+  m_Name: MinimapContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5001,8 +5001,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -811.5, y: 0}
-  m_SizeDelta: {x: 1623, y: 0}
+  m_AnchoredPosition: {x: -833.33, y: 0}
+  m_SizeDelta: {x: 1666.7, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8970515025093471934
 MonoBehaviour:

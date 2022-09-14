@@ -51,17 +51,47 @@ namespace FirstLight.Game.Views.MatchHudViews
 			
 			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer, onlyIfActiveAndEnabled: true);
 			QuantumEvent.Subscribe<EventOnAirDropDropped>(this, OnAirDropDropped);
+			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, OnPlayerAlive);
+			QuantumEvent.Subscribe<EventOnPlayerDead>(this, OnPlayerDead);
 		}
 
-		/// <summary>
-		/// Handles Double Kills, Multi Kills, Killing Sprees.
-		/// </summary>
+		private void OnDestroy()
+		{
+			QuantumEvent.UnsubscribeListener(this);
+		}
+
+		private void OnPlayerAlive(EventOnPlayerAlive callback)
+		{
+			if (_matchServices.SpectateService.SpectatedPlayer.Value.Player != callback.Player) return;
+			
+			_queue.Clear();
+		}
+		
+		private void OnPlayerDead(EventOnPlayerDead callback)
+		{
+			if (_matchServices.SpectateService.SpectatedPlayer.Value.Player != callback.Player) return;
+			
+			_queue.Clear();
+		}
+		
 		private void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
 			if (_matchServices.SpectateService.SpectatedPlayer.Value.Entity != callback.EntityKiller) return;
-
 			
-			if (callback.CurrentMultiKill >= 2)
+			if (callback.CurrentMultiKill == 1)
+			{
+				var deadName = callback.PlayersMatchData[callback.PlayerDead].GetPlayerName();
+				
+				var messageData = new MessageData
+				{
+					TopText = ScriptLocalization.AdventureMenu.Kill,
+					BottomText = deadName,
+					MessageEntry = _messages[Random.Range(0, _messages.Count)]
+				};
+					
+				EnqueueMessage(messageData);
+			}
+			else
 			{
 				var messageData = new MessageData
 				{

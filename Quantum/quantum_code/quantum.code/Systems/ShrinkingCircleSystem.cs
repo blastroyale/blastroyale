@@ -11,8 +11,11 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public override bool StartEnabled => false;
 
-		public override void OnInit(Frame f)
+		/// <inheritdoc />
+		public override void OnEnabled(Frame f)
 		{
+			base.OnEnabled(f);
+			
 			f.GetOrAddSingleton<ShrinkingCircle>();
 		}
 

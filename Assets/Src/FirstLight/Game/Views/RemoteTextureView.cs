@@ -1,3 +1,4 @@
+using System;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Sirenix.OdinInspector;
@@ -24,6 +25,14 @@ namespace FirstLight.Game.Views
 		private void Awake()
 		{
 			_mainMenuServices = MainInstaller.Resolve<IMainMenuServices>();
+		}
+
+		private void OnDestroy()
+		{
+			if (_textureRequestHandle >= 0)
+			{
+				_mainMenuServices.RemoteTextureService.CancelRequest(_textureRequestHandle);
+			}
 		}
 
 		/// <summary>

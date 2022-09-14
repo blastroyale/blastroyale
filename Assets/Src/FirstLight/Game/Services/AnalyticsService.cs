@@ -78,38 +78,53 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc />
 		public void LogEvent(string eventName, Dictionary<string, object> parameters)
 		{
-			// max of 10 parameters
-			Analytics.CustomEvent(eventName, parameters);
-
+			Debug.Log("Analytics event "+eventName+": "+JsonConvert.SerializeObject(parameters));
+   
+			//PlayFab Analytics
 			if (PlayFabSettings.staticPlayer.IsClientLoggedIn())
 			{
 				var request = new WriteClientPlayerEventRequest { EventName = eventName, Body = parameters };
 				PlayFabClientAPI.WritePlayerEvent(request, null, null);
 			}
-
+   
 			if (parameters == null)
 			{
+				// Firebase
 				FirebaseAnalytics.LogEvent(eventName);
+				// Unity
+				Analytics.CustomEvent(eventName);
 				return;
 			}
-
+   
+			// Prepare parameters for Unity and Firebase
+			var unityParams = new Dictionary<string, object>();
 			var firebaseParams = new List<Parameter>(parameters.Count);
-			foreach (var parameter in parameters)
+			int count = 0;
+			foreach(var parameter in parameters)
 			{
-				if (parameter.Value is long)
+				// Unity (max 10 params)
+				if (count++ < 10)
 				{
-					firebaseParams.Add(new Parameter(parameter.Key, (long) parameter.Value));
+					unityParams[parameter.Key] = parameter.Value;
 				}
-				else if (parameter.Value is string)
+
+				switch (parameter.Value)
 				{
-					firebaseParams.Add(new Parameter(parameter.Key, (string) parameter.Value));
-				}
-				else if (parameter.Value is double)
-				{
-					firebaseParams.Add(new Parameter(parameter.Key, (string) parameter.Value));
+					// Firebase
+					case long or uint or int or byte:
+						firebaseParams.Add(new Parameter(parameter.Key, Convert.ToInt64(parameter.Value)));
+						break;
+					case double or float:
+						firebaseParams.Add(new Parameter(parameter.Key, Convert.ToDouble(parameter.Value)));
+						break;
+					default:
+						firebaseParams.Add(new Parameter(parameter.Key, parameter.Value.ToString()));
+						break;
 				}
 			}
-			
+			// Unity
+			Analytics.CustomEvent(eventName, unityParams);
+			// Firebase
 			FirebaseAnalytics.LogEvent(eventName, firebaseParams.ToArray());
 		}
 

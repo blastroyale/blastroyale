@@ -122,6 +122,7 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc />
 		public void CrashLog(Exception exception)
 		{
+			ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Session, "CrashLog:"+exception.Message);
 			Debug.LogException(exception);
 		}
 	}

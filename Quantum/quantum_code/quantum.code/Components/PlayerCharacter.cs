@@ -229,13 +229,13 @@ namespace Quantum
 		}
 
 		/// <summary>
-		/// Tries to set the player's weapon to the given <paramref name="weapon"/> that player already has
+		/// Tries to set the player's weapon to the given <paramref name="weaponGameId"/> that player already has
 		/// </summary>
-		internal bool TryEquipExistingWeapon(Frame f, EntityRef e, Equipment weapon)
+		internal bool TryEquipExistingWeaponID(Frame f, EntityRef e, GameId weaponGameId)
 		{
 			for (int i = 0; i < WeaponSlots.Length; i++)
 			{
-				if (WeaponSlots[i].Weapon.GameId == weapon.GameId)
+				if (WeaponSlots[i].Weapon.GameId == weaponGameId)
 				{
 					EquipSlotWeapon(f, e, i);
 					return true;

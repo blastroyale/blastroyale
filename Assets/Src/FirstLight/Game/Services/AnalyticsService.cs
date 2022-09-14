@@ -78,7 +78,7 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc />
 		public void LogEvent(string eventName, Dictionary<string, object> parameters)
 		{
-			Debug.Log("Analytics event "+eventName+": "+JsonConvert.SerializeObject(parameters));
+			//Debug.Log("Analytics event "+eventName+": "+JsonConvert.SerializeObject(parameters));
    
 			//PlayFab Analytics
 			if (PlayFabSettings.staticPlayer.IsClientLoggedIn())

@@ -137,12 +137,20 @@ namespace Quantum.Systems
 				if (playerCharacter->HasBetterWeaponEquipped(equipment->Item))
 				{
 					gameId = GameId.AmmoSmall;
-					var ammoAmount = f.ConsumableConfigs.GetConfig(gameId).Amount;
-					var consumable = new Consumable { ConsumableType = ConsumableType.Ammo, Amount = ammoAmount };
+					var weaponConfig = f.WeaponConfigs.GetConfig(equipment->Item.GameId);
+					var initialAmmo = weaponConfig.InitialAmmoFilled.Get(f);
+					var consumable = new Consumable { ConsumableType = ConsumableType.Ammo, Amount = initialAmmo };
+					var ammoWasEmpty = playerCharacter->GetAmmoAmountFilled(f, playerEntity) < FP.SmallestNonZero;
 
 					// Fake use a consumable to simulate it's natural life cycle
 					f.Add(entity, consumable);
 					consumable.Collect(f, entity, playerEntity, player);
+					
+					// Special case: having no ammo and collecting the weapon that is already in one of the slots
+					if (ammoWasEmpty && playerCharacter->HasMeleeWeapon(f, playerEntity))
+					{
+						playerCharacter->EquipExistingWeapon(f, playerEntity, equipment->Item);
+					}
 				}
 				else
 				{

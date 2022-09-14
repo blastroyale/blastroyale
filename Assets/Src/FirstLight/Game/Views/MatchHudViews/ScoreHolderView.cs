@@ -1,4 +1,5 @@
-﻿using FirstLight.Game.Services;
+﻿using FirstLight.Game.Messages;
+using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
 using Sirenix.OdinInspector;
@@ -25,6 +26,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private PlayerRef _currentlyFollowing;
 
+		private bool _matchSimulationStarted;
+
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
@@ -36,25 +39,39 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_fragTarget = (int) _services.NetworkService.CurrentRoomGameModeConfig.Value.CompletionKillCount;
 			_targetFragsText.text = _fragTarget.ToString();
 			
+			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
+			_services.MessageBrokerService.Subscribe<MatchSimulationStartedMessage>(OnMatchSimulationStartedMessage);
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, OnPlayerAlive);
 			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnEventOnPlayerKilledPlayer);
-
-			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 		}
 		
 		private void OnDestroy()
 		{
+			_services?.MessageBrokerService.UnsubscribeAll(this);
 			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(OnSpectatedPlayerChanged);
+			QuantumEvent.UnsubscribeListener(this);
+		}
+
+		private void OnMatchSimulationStartedMessage(MatchSimulationStartedMessage msg)
+		{
+			_matchSimulationStarted = true;
+
+			if (_currentlyFollowing != PlayerRef.None)
+			{
+				UpdateFollowedPlayer(_currentlyFollowing, QuantumRunner.Default.Game.Frames.Predicted);
+			}
 		}
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
+			if (!_matchSimulationStarted) return;
+			
 			UpdateFollowedPlayer(next.Player, QuantumRunner.Default.Game.Frames.Predicted);
 		}
 		
 		private void OnPlayerAlive(EventOnPlayerAlive callback)
 		{
-			if (callback.Player != _matchServices.SpectateService.SpectatedPlayer.Value.Player) return;
+			if (callback.Player != _matchServices.SpectateService.SpectatedPlayer.Value.Player || !_matchSimulationStarted) return;
 			
 			var frame = callback.Game.Frames.Verified;
 			var gameContainer = frame.GetSingleton<GameContainer>();

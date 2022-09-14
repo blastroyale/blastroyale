@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using FirstLight.Game.Services;
+using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MatchHudViews;
 using FirstLight.Services;
 using Quantum;
@@ -15,19 +18,29 @@ namespace FirstLight.Game.Views.MainMenuViews
 	public class StandingsHolderView : MonoBehaviour
 	{
 		[SerializeField, Required] private PlayerResultEntryView _resultEntryViewRef;
-		[FormerlySerializedAs("_xpHolder")] [SerializeField, Required] private GameObject _extraInfo;
+
+		[FormerlySerializedAs("_xpHolder")] [SerializeField, Required]
+		private GameObject _extraInfo;
+
 		[SerializeField, Required] private RectTransform _contentTransform;
 		[SerializeField] private int _verticalEntrySpacing = 14;
 		[SerializeField, Required] private UnityEngine.UI.Button _blockerButton;
-		
-		private readonly List<PlayerResultEntryView> _playerResultPool = new ();
+
+		private readonly List<PlayerResultEntryView> _playerResultPool = new();
+		private IGameServices _services;
 
 		private void Awake()
 		{
+			_services = MainInstaller.Resolve<IGameServices>();
 			_blockerButton.onClick.AddListener(OnCloseClicked);
 			_resultEntryViewRef.gameObject.SetActive(false);
 			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnEventOnPlayerKilledPlayer,
 			                                                  onlyIfActiveAndEnabled: true);
+		}
+
+		private void OnDestroy()
+		{
+			QuantumEvent.UnsubscribeListener(this);
 		}
 
 		/// <summary>
@@ -38,6 +51,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		{
 			_extraInfo.SetActive(showExtra);
 			_blockerButton.gameObject.SetActive(enableBlockerButton);
+			_services = MainInstaller.Resolve<IGameServices>();
 			
 			UpdateBoardRows(playerCount);
 		}
@@ -45,15 +59,26 @@ namespace FirstLight.Game.Views.MainMenuViews
 		/// <summary>
 		/// Updates the standings order and view based on the given <paramref name="playerData"/>
 		/// </summary>
-		public void UpdateStandings(List<QuantumPlayerMatchData> playerData, PlayerRef localPlayer)
+		public void UpdateStandings(List<QuantumPlayerMatchData> playerData)
 		{
 			playerData.SortByPlayerRank(false);
+			
+			if (!_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
+			{
+				var localPlayer = QuantumRunner.Default.Game.GetLocalPlayers()[0];
 
-			// Do the descending order. From the highest to the lowest value
+				for (var i = 0; i < playerData.Count; i++)
+				{
+					var isLocalPlayer = localPlayer == playerData[i].Data.Player;
+					_playerResultPool[i].SetInfo(playerData[i], _extraInfo.activeSelf, isLocalPlayer);
+				}
+
+				return;
+			}
+
 			for (var i = 0; i < playerData.Count; i++)
 			{
-				var isLocalPlayer = localPlayer == playerData[i].Data.Player;
-				_playerResultPool[i].SetInfo(playerData[i], _extraInfo.activeSelf, isLocalPlayer);
+				_playerResultPool[i].SetInfo(playerData[i], _extraInfo.activeSelf, false);
 			}
 		}
 
@@ -63,11 +88,12 @@ namespace FirstLight.Game.Views.MainMenuViews
 			for (var i = _playerResultPool.Count; i < playerCount; i++)
 			{
 				var entry = GameObjectPool<PlayerResultEntryView>.Instantiator(_resultEntryViewRef);
-				
+
 				entry.gameObject.SetActive(true);
-				
+
 				_playerResultPool.Add(entry);
 			}
+
 			// Remove extra entries
 			for (var j = _playerResultPool.Count; j > _playerResultPool.Count; j--)
 			{
@@ -94,7 +120,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
 			UpdateBoardRows(callback.PlayersMatchData.Count);
-			UpdateStandings(callback.PlayersMatchData, callback.Game.GetLocalPlayers()[0]);
+			UpdateStandings(callback.PlayersMatchData);
 		}
 	}
 }

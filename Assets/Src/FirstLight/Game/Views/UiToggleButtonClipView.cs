@@ -18,8 +18,6 @@ namespace FirstLight.UiService
 		/// <inheritdoc />
 		protected override void OnClick()
 		{
-			_gameService.AudioFxService.PlayClip2D(AudioId.ButtonClickForward);
-			
 			Animation.clip = isOn ? Clip : ToggleOnPressedClip;
 			Animation.Rewind(); 
 			Animation.Play();

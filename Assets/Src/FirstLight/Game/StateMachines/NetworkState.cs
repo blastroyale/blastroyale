@@ -715,8 +715,6 @@ namespace FirstLight.Game.StateMachines
 			{
 				return;
 			}
-			
-			Debug.LogError("STARTING MATCHMAKING");
 
 			if (_networkService.QuantumClient.CurrentRoom.GetMatchType() == MatchType.Ranked)
 			{
@@ -745,8 +743,6 @@ namespace FirstLight.Game.StateMachines
 			var matchmakingEndTime = roomCreationTime.AddSeconds(_services.ConfigsProvider.GetConfig<QuantumGameConfig>().CasualMatchmakingTime.AsFloat);
 			var room = _networkService.QuantumClient.CurrentRoom;
 
-			Debug.LogError(matchmakingEndTime.TimeOfDay);
-			
 			while ((DateTime.UtcNow < matchmakingEndTime && !room.IsAtFullPlayerCapacity()))
 			{
 				yield return oneSecond;
@@ -763,8 +759,6 @@ namespace FirstLight.Game.StateMachines
 			var minPlayers = _services.ConfigsProvider.GetConfig<QuantumGameConfig>().RankedMatchmakingMinPlayers;
 			var room = _networkService.QuantumClient.CurrentRoom;
 
-			Debug.LogError(matchmakingEndTime.TimeOfDay);
-			
 			while ((DateTime.UtcNow < matchmakingEndTime && !room.IsAtFullPlayerCapacity()) ||
 			       (DateTime.UtcNow >= matchmakingEndTime && room.GetRealPlayerAmount() < minPlayers))
 			{

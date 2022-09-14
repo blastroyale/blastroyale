@@ -2059,10 +2059,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _healthDamageTextColor: {r: 1, g: 0, b: 0, a: 1}
   _shieldDamageTextColor: {r: 1, g: 0, b: 0, a: 1}
-  _healTextColor: {r: 0.47058824, g: 0.8666667, b: 0.31764707, a: 1}
   _ammoTextColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   _neutralTextColor: {r: 1, g: 1, b: 1, a: 1}
-  _armourGainTextColor: {r: 0.6, g: 0.2, b: 0.9, a: 1}
+  _healthGainTextColor: {r: 0, g: 1, b: 0, a: 1}
   _shieldGainTextColor: {r: 0, g: 1, b: 1, a: 1}
   _iconArmour: {fileID: 21300000, guid: bec95047e2f276844b0419ffbf07b7c4, type: 3}
   _infoTextRef: {fileID: 6809354617266001813}
@@ -2070,7 +2069,7 @@ MonoBehaviour:
   _delays:
     _keyData: 0100000000000000
     _valueData:
-    - 0.1
+    - 0
     - 0.3
 --- !u!223 &5558458926250411287
 Canvas:

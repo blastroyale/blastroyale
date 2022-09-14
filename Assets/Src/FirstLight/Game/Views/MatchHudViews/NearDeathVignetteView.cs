@@ -32,8 +32,19 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			QuantumEvent.Subscribe<EventOnHealthChanged>(this, OnEventOnHealthChanged);
 			QuantumEvent.Subscribe<EventOnPlayerDead>(this, OnEventOnPlayerDead);
+			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, OnEventPlayerAlive);
 			
 			SetVignetteIntensity(1f, 1f);
+		}
+
+		private void OnEventPlayerAlive(EventOnPlayerAlive callback)
+		{
+			if (_matchServices.SpectateService.SpectatedPlayer.Value.Player != callback.Player) return;
+
+			var frame = callback.Game.Frames.Verified;
+			var stats = frame.Get<Stats>(_matchServices.SpectateService.SpectatedPlayer.Value.Entity);
+			
+			SetVignetteIntensity(stats.CurrentHealth, stats.Values[(int) StatType.Health].StatValue.AsInt);
 		}
 
 		private void OnDestroy()
@@ -51,20 +62,14 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void OnEventOnHealthChanged(EventOnHealthChanged callback)
 		{
-			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
-			{
-				return;
-			}
+			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
 
 			SetVignetteIntensity(callback.CurrentHealth, callback.MaxHealth);
 		}
 
 		private void OnEventOnPlayerDead(EventOnPlayerDead callback)
 		{
-			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
-			{
-				return;
-			}
+			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
 
 			_vignetteImage.enabled = false;
 		}

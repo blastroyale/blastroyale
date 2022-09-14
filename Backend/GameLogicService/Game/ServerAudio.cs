@@ -51,12 +51,12 @@ namespace Backend.Game
     	{
     		return default;
     	}
-    
-    	public void PlayClipQueued2D(AudioId id)
-    	{
-    	}
-    
-    	public void PlayMusic(AudioId id, float fadeInDuration = 0, float fadeOutDuration = 0, bool continueFromCurrentTime = false)
+
+        public void PlayClipQueued2D(AudioId id, string mixerGroupOverride = null)
+        {
+        }
+
+        public void PlayMusic(AudioId id, float fadeInDuration = 0, float fadeOutDuration = 0, bool continueFromCurrentTime = false)
     	{
     	}
     

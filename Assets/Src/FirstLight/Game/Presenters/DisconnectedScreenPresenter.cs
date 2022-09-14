@@ -68,6 +68,7 @@ namespace FirstLight.Game.Presenters
 			    _services.NetworkService.LastDisconnectLocation == LastDisconnectionLocation.Simulation)
 			{
 				_reconnectButton.gameObject.SetActive(false);
+				_menuButton.gameObject.SetActive(true);
 				
 				var confirmButton = new GenericDialogButton
 				{

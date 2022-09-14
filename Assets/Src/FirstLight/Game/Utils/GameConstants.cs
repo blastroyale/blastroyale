@@ -115,7 +115,7 @@ namespace FirstLight.Game.Utils
 
 			// Room properties
 			public const string ROOM_NAME_PLAYTEST = "PLAYTEST";
-			public const string ROOM_PROPS_START_TIME = "startTime";
+			public const string ROOM_PROPS_CREATION_TICKS = "creationTicks";
 			public const string ROOM_PROPS_COMMIT = "commit";
 			public const string ROOM_PROPS_MAP = "mapId";
 			public const string ROOM_PROPS_GAME_MODE = "gameModeId";

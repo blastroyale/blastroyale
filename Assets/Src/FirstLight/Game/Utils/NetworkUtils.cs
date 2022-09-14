@@ -162,7 +162,7 @@ namespace FirstLight.Game.Utils
 		{
 			var properties = GetJoinRoomProperties(gameModeConfig, mapConfig, matchType, mutators);
 
-			properties.Add(GameConstants.Network.ROOM_PROPS_START_TIME, DateTime.UtcNow.Ticks);
+			properties.Add(GameConstants.Network.ROOM_PROPS_CREATION_TICKS, DateTime.UtcNow.Ticks);
 			
 			properties.Add(GameConstants.Network.ROOM_PROPS_BOTS, gameHasBots);
 

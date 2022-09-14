@@ -406,6 +406,8 @@ namespace FirstLight.Game.StateMachines
 		public void OnPlayerLeftRoom(Player player)
 		{
 			FLog.Info($"OnPlayerLeftRoom {player.NickName}");
+
+			StartMatchmakingLockRoomTimer();
 		}
 
 		/// <inheritdoc />
@@ -737,11 +739,11 @@ namespace FirstLight.Game.StateMachines
 		private IEnumerator CasualMatchmakingCoroutine()
 		{
 			var oneSecond = new WaitForSeconds(1f);
-			var matchmakingEndTime = Time.time + _services.ConfigsProvider.GetConfig<QuantumGameConfig>()
-			                                              .CasualMatchmakingTime.AsFloat;
+			var roomCreationTime = _networkService.QuantumClient.CurrentRoom.GetRoomCreationDateTime();
+			var matchmakingEndTime = roomCreationTime.AddSeconds(_services.ConfigsProvider.GetConfig<QuantumGameConfig>().CasualMatchmakingTime.AsFloat);
 			var room = _networkService.QuantumClient.CurrentRoom;
 
-			while ((Time.time < matchmakingEndTime && !room.IsAtFullPlayerCapacity()))
+			while ((DateTime.UtcNow < matchmakingEndTime && !room.IsAtFullPlayerCapacity()))
 			{
 				yield return oneSecond;
 			}
@@ -752,13 +754,13 @@ namespace FirstLight.Game.StateMachines
 		private IEnumerator RankedMatchmakingCoroutine()
 		{
 			var oneSecond = new WaitForSeconds(1f);
-			var matchmakingEndTime = Time.time + _services.ConfigsProvider.GetConfig<QuantumGameConfig>()
-			                                              .RankedMatchmakingTime.AsFloat;
+			var roomCreationTime = _networkService.QuantumClient.CurrentRoom.GetRoomCreationDateTime();
+			var matchmakingEndTime = roomCreationTime.AddSeconds(_services.ConfigsProvider.GetConfig<QuantumGameConfig>().RankedMatchmakingTime.AsFloat);
 			var minPlayers = _services.ConfigsProvider.GetConfig<QuantumGameConfig>().RankedMatchmakingMinPlayers;
 			var room = _networkService.QuantumClient.CurrentRoom;
 
-			while ((Time.time < matchmakingEndTime && !room.IsAtFullPlayerCapacity()) ||
-			       (Time.time >= matchmakingEndTime && room.GetRealPlayerAmount() < minPlayers))
+			while ((DateTime.UtcNow < matchmakingEndTime && !room.IsAtFullPlayerCapacity()) ||
+			       (DateTime.UtcNow >= matchmakingEndTime && room.GetRealPlayerAmount() < minPlayers))
 			{
 				yield return oneSecond;
 			}

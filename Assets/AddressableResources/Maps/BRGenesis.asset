@@ -1419,11 +1419,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 383866
+          RawValue: 291736
         Y:
-          RawValue: 165267
+          RawValue: 145433
         Z:
-          RawValue: 165267
+          RawValue: 130560
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: Coll
@@ -1460,11 +1460,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 176439
+          RawValue: 149971
         Y:
-          RawValue: 176439
+          RawValue: 128799
         Z:
-          RawValue: 176439
+          RawValue: 123506
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: Coll
@@ -1624,11 +1624,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 383866
+          RawValue: 280220
         Y:
-          RawValue: 165267
+          RawValue: 120644
         Z:
-          RawValue: 165267
+          RawValue: 130560
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: Coll
@@ -1665,11 +1665,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 176439
+          RawValue: 139385
         Y:
-          RawValue: 176439
+          RawValue: 139385
         Z:
-          RawValue: 176439
+          RawValue: 144678
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: Coll
@@ -2608,11 +2608,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 77453
+          RawValue: 62931
         Y:
-          RawValue: 77453
+          RawValue: 67772
         Z:
-          RawValue: 146371
+          RawValue: 135394
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: Coll
@@ -2711,11 +2711,11 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 32745
+          RawValue: 34719
         Z:
           RawValue: 0
         W:
-          RawValue: 56768
+          RawValue: 55583
       Position:
         X:
           RawValue: 2860222
@@ -2731,11 +2731,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 137217
+          RawValue: 71187
         Y:
-          RawValue: 140509
+          RawValue: 112405
         Z:
-          RawValue: 417512
+          RawValue: 292776
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: Coll
@@ -2752,11 +2752,11 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 56805
+          RawValue: 55622
         Z:
           RawValue: 0
         W:
-          RawValue: -32681
+          RawValue: -34656
       Position:
         X:
           RawValue: 1996163
@@ -2772,11 +2772,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 137217
+          RawValue: 68484
         Y:
-          RawValue: 140509
+          RawValue: 106786
         Z:
-          RawValue: 417512
+          RawValue: 292776
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: Coll
@@ -2793,11 +2793,11 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 64304
+          RawValue: 64708
         Z:
           RawValue: 0
         W:
-          RawValue: 12646
+          RawValue: 10380
       Position:
         X:
           RawValue: 2816673
@@ -2813,11 +2813,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 137217
+          RawValue: 68484
         Y:
-          RawValue: 140509
+          RawValue: 141913
         Z:
-          RawValue: 417512
+          RawValue: 300190
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: Coll
@@ -2834,11 +2834,11 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 49207
+          RawValue: 47656
         Z:
           RawValue: 0
         W:
-          RawValue: -43285
+          RawValue: -44986
       Position:
         X:
           RawValue: 3821412
@@ -2854,11 +2854,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 137217
+          RawValue: 55869
         Y:
-          RawValue: 140509
+          RawValue: 106786
         Z:
-          RawValue: 417512
+          RawValue: 292776
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: Coll
@@ -2875,11 +2875,11 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 40318
+          RawValue: 38478
         Z:
           RawValue: 0
         W:
-          RawValue: -51666
+          RawValue: -53050
       Position:
         X:
           RawValue: 6241732
@@ -2895,11 +2895,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 137217
+          RawValue: 60374
         Y:
-          RawValue: 140509
+          RawValue: 119431
         Z:
-          RawValue: 417512
+          RawValue: 292776
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: Coll
@@ -2916,11 +2916,11 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 65534
+          RawValue: 65510
         Z:
           RawValue: 0
         W:
-          RawValue: 490
+          RawValue: -1811
       Position:
         X:
           RawValue: 7371639
@@ -2936,11 +2936,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 137217
+          RawValue: 76594
         Y:
-          RawValue: 140509
+          RawValue: 111001
         Z:
-          RawValue: 417512
+          RawValue: 281658
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: Coll
@@ -2957,11 +2957,11 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 64391
+          RawValue: 64779
         Z:
           RawValue: 0
         W:
-          RawValue: 12196
+          RawValue: 9927
       Position:
         X:
           RawValue: 4299606
@@ -2977,11 +2977,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 137217
+          RawValue: 72990
         Y:
-          RawValue: 140509
+          RawValue: 111001
         Z:
-          RawValue: 417512
+          RawValue: 296480
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: Coll
@@ -2998,11 +2998,11 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 31528
         Z:
           RawValue: 0
         W:
-          RawValue: 65536
+          RawValue: -57453
       Position:
         X:
           RawValue: 2755610
@@ -3018,11 +3018,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 179899
+          RawValue: 105059
         Y:
-          RawValue: 179899
+          RawValue: 147516
         Z:
-          RawValue: 179899
+          RawValue: 105616
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: Coll
@@ -3059,11 +3059,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 179899
+          RawValue: 96092
         Y:
-          RawValue: 179899
+          RawValue: 147516
         Z:
-          RawValue: 179899
+          RawValue: 93585
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: Coll
@@ -3100,11 +3100,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 179899
+          RawValue: 102496
         Y:
-          RawValue: 179899
+          RawValue: 142119
         Z:
-          RawValue: 179899
+          RawValue: 117648
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: Coll
@@ -3141,11 +3141,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 179899
+          RawValue: 101216
         Y:
-          RawValue: 179899
+          RawValue: 145718
         Z:
-          RawValue: 179899
+          RawValue: 106953
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: Coll
@@ -3182,11 +3182,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 179899
+          RawValue: 101216
         Y:
-          RawValue: 179899
+          RawValue: 138520
         Z:
-          RawValue: 179899
+          RawValue: 109627
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: Coll
@@ -3223,11 +3223,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 179899
+          RawValue: 102496
         Y:
-          RawValue: 179899
+          RawValue: 142119
         Z:
-          RawValue: 179899
+          RawValue: 106953
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: Coll
@@ -5998,11 +5998,11 @@ MonoBehaviour:
           RawValue: -64630
       Position:
         X:
-          RawValue: 415236
+          RawValue: 464388
         Y:
           RawValue: 20604
         Z:
-          RawValue: 7076315
+          RawValue: 7109083
       PhysicsMaterial:
         Id:
           Value: 0
@@ -6039,11 +6039,11 @@ MonoBehaviour:
           RawValue: -64630
       Position:
         X:
-          RawValue: 71303
+          RawValue: 22151
         Y:
           RawValue: 20604
         Z:
-          RawValue: 6964641
+          RawValue: 6981025
       PhysicsMaterial:
         Id:
           Value: 0

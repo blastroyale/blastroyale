@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace FirstLight.Game.Services.AnalyticsHelpers
 {
 	/// <summary>
@@ -8,7 +10,8 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		public enum ErrorType
 		{
 			Disconnection,
-			Session
+			Session,
+			Login
 		}
 		public AnalyticsCallsErrors(IAnalyticsService analyticsService) : base(analyticsService)
 		{
@@ -16,7 +19,13 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 
 		public void ReportError(ErrorType type, string description)
 		{
+			var data = new Dictionary<string, object>
+			{
+				{"type", type.ToString()},
+				{"description", description}
+			};
 			
+			_analyticsService.LogEvent(AnalyticsEvents.Error, data);
 		}
 	}
 }

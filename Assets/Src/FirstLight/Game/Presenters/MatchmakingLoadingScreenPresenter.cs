@@ -49,6 +49,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private GameObject _roomNameRootObject;
 		[SerializeField, Required] private GameObject _playerMatchmakingRootObject;
 		[SerializeField, Required] private GameObject _playerCountHolder;
+		[SerializeField, Required] private GameObject _selectDropZoneTextRootObject;
 		[SerializeField, Required] private PlayerListHolderView _playerListHolder;
 		[SerializeField, Required] private PlayerListHolderView _spectatorListHolder;
 		[SerializeField, Required] private UiToggleButtonView _botsToggle;
@@ -122,7 +123,8 @@ namespace FirstLight.Game.Presenters
 
 				return;
 			}
-
+			
+			_selectDropZoneTextRootObject.SetActive(gameModeConfig.SpawnSelection);
 			_lockRoomButton.gameObject.SetActive(false);
 			_leaveRoomButton.gameObject.SetActive(false);
 			_getReadyToRumbleText.gameObject.SetActive(false);

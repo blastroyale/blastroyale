@@ -9,6 +9,13 @@ namespace Quantum
 		/// </summary>
 		public void GetMovingCircle(Frame f, out FPVector2 center, out FP radius)
 		{
+			if (ShrinkingDurationTime == 0)
+			{
+				center = CurrentCircleCenter;
+				radius = CurrentRadius;
+				return;
+			}
+			
 			var lerp = FPMath.Max(0, (f.Time - ShrinkingStartTime) / ShrinkingDurationTime);
 
 			radius = FPMath.Lerp(CurrentRadius, TargetRadius, lerp);

@@ -12633,11 +12633,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 504365
+          RawValue: 537133
         Y:
           RawValue: 0
         Z:
-          RawValue: -1758986
+          RawValue: -1775370
       Rotation:
         X:
           RawValue: 0
@@ -12843,11 +12843,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -2025062
+          RawValue: -2074214
         Y:
           RawValue: 0
         Z:
-          RawValue: -5770445
+          RawValue: -5835981
       Rotation:
         X:
           RawValue: 0
@@ -14733,11 +14733,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -4702863
+          RawValue: -4653711
         Y:
           RawValue: 0
         Z:
-          RawValue: 3675258
+          RawValue: 3789946
       Rotation:
         X:
           RawValue: 0
@@ -15573,7 +15573,7 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -4177920
+          RawValue: -4276224
         Y:
           RawValue: 0
         Z:
@@ -16133,11 +16133,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 146800
+          RawValue: 245104
         Y:
           RawValue: 0
         Z:
-          RawValue: -3397386
+          RawValue: -3462922
       Rotation:
         X:
           RawValue: 0
@@ -16553,11 +16553,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 6191841
+          RawValue: 6224609
         Y:
           RawValue: 0
         Z:
-          RawValue: -2039480
+          RawValue: -2203320
       Rotation:
         X:
           RawValue: 0
@@ -17533,11 +17533,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -1684013
+          RawValue: -1618477
         Y:
           RawValue: 0
         Z:
-          RawValue: 2629828
+          RawValue: 2580676
       Rotation:
         X:
           RawValue: 0
@@ -23013,11 +23013,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 1790443
+          RawValue: 1921515
         Y:
           RawValue: 0
         Z:
-          RawValue: 3004170
+          RawValue: 2987786
       Rotation:
         X:
           RawValue: 0
@@ -23247,11 +23247,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -3373793
+          RawValue: -3291873
         Y:
           RawValue: 0
         Z:
-          RawValue: 5271716
+          RawValue: 5157028
       Rotation:
         X:
           RawValue: 0
@@ -25119,7 +25119,7 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -3029729
+          RawValue: -3095265
         Y:
           RawValue: 0
         Z:
@@ -25197,7 +25197,7 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -765460
+          RawValue: -749076
         Y:
           RawValue: 39321
         Z:
@@ -25431,11 +25431,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -2539520
+          RawValue: -2523136
         Y:
           RawValue: 0
         Z:
-          RawValue: 360448
+          RawValue: 425984
       Rotation:
         X:
           RawValue: 0
@@ -27693,18 +27693,18 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -7161700
+          RawValue: -7210852
         Y:
-          RawValue: -21875
+          RawValue: -5491
         Z:
-          RawValue: 1850887
+          RawValue: 1900039
       Rotation:
         X:
-          RawValue: 1809359
+          RawValue: 0
         Y:
-          RawValue: 16288174
+          RawValue: 0
         Z:
-          RawValue: 176112
+          RawValue: 0
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -27773,16 +27773,16 @@ MonoBehaviour:
         X:
           RawValue: -7080627
         Y:
-          RawValue: 23681
+          RawValue: -9086
         Z:
           RawValue: 1882759
       Rotation:
         X:
-          RawValue: 1809359
+          RawValue: 0
         Y:
-          RawValue: 16288174
+          RawValue: 0
         Z:
-          RawValue: 176112
+          RawValue: 0
     View: []
     PhysicsJoints2D: []
     PhysicsJoints3D: []
@@ -29101,7 +29101,7 @@ MonoBehaviour:
         Y:
           RawValue: 0
         Z:
-          RawValue: 2326528
+          RawValue: 2260992
       Rotation:
         X:
           RawValue: 0
@@ -31983,11 +31983,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 817102
+          RawValue: 751566
         Y:
           RawValue: 55259
         Z:
-          RawValue: -5600261
+          RawValue: -5534725
       Rotation:
         X:
           RawValue: 0
@@ -32997,16 +32997,16 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -4128768
+          RawValue: -4112384
         Y:
           RawValue: 0
         Z:
-          RawValue: -5357568
+          RawValue: -5373952
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 0
+          RawValue: 22977264
         Z:
           RawValue: 0
     View: []
@@ -33075,16 +33075,94 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -4128768
+          RawValue: -4128432
         Y:
           RawValue: 0
         Z:
-          RawValue: -5259264
+          RawValue: -5276968
       Rotation:
         X:
           RawValue: 0
         Y:
+          RawValue: 22977264
+        Z:
           RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 0
+      InitialSpawnDelayInSec: 10
+      GameId:
+        Value: 127
+      RarityModifier: 0
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GOAPData: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -4096337
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -5470938
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 22977264
         Z:
           RawValue: 0
     View: []
@@ -37443,11 +37521,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -1576009
+          RawValue: -920649
         Y:
           RawValue: 0
         Z:
-          RawValue: -784335
+          RawValue: -882639
       Rotation:
         X:
           RawValue: 0
@@ -37677,11 +37755,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -562298
+          RawValue: -480378
         Y:
           RawValue: 0
         Z:
-          RawValue: 526909
+          RawValue: 592445
       Rotation:
         X:
           RawValue: 0
@@ -37755,11 +37833,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -1036124
+          RawValue: -1003356
         Y:
           RawValue: 0
         Z:
-          RawValue: 527302
+          RawValue: 478150
       Rotation:
         X:
           RawValue: 0

@@ -74,7 +74,17 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		/// </summary>
 		public void GameLoadStart()
 		{
-			var dic = new Dictionary<string, object> {{"client_version", VersionUtils.VersionInternal}};
+			var dic = new Dictionary<string, object>
+			{
+				{"client_version", VersionUtils.VersionInternal},
+#if UNITY_IOS
+				{"advertising_id", UnityEngine.iOS.Device.advertisingIdentifier},
+				{"vendor_id", SystemInfo.deviceUniqueIdentifier},
+#elif UNITY_ANDROID
+				{"advertising_id", SystemInfo.deviceUniqueIdentifier},
+				{"vendor_id", SystemInfo.deviceUniqueIdentifier},
+#endif
+			};
 			_analyticsService.LogEvent(AnalyticsEvents.GameLoadStart, dic);
 		}
 		

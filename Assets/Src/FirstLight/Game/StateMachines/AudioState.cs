@@ -382,25 +382,33 @@ namespace FirstLight.Game.StateMachines
 		{
 			var f = callback.Game.Frames.Verified;
 			var allConfigs = _services.ConfigsProvider.GetConfigsList<QuantumShrinkingCircleConfig>();
-			var config = allConfigs[callback.ShrinkingCircle.Step];
-			var circle = f.GetSingleton<ShrinkingCircle>();
-			var maxStep = allConfigs.Count - 1;
-			var time = (circle.ShrinkingStartTime - f.Time - config.WarningTime).AsFloat;
+			var config = _services.ConfigsProvider.GetConfig<QuantumShrinkingCircleConfig>(callback.ShrinkingCircle.Step);
 
-			if (config.Step == maxStep)
+			var circle = f.GetSingleton<ShrinkingCircle>();
+
+			// We don't play on the last step, so we get the previous one as the max
+			var maxStepForCircleClosing = allConfigs[^3].Step;
+			var stepForFinalCountdown = allConfigs[^2].Step;
+   
+			var time = (circle.ShrinkingStartTime - f.Time - config.WarningTime).AsFloat;
+   
+			yield return new WaitForSeconds(time);
+   
+			if (config.Step == stepForFinalCountdown)
 			{
 				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_CircleLastCountdown, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
 			}
-			
-			yield return new WaitForSeconds(time);
-			
+   
 			time = (circle.ShrinkingStartTime - f.Time).AsFloat;
-			
+   
 			yield return new WaitForSeconds(time);
-
-			_services.AudioFxService.PlayClipQueued2D(config.Step == maxStep
-				                                          ? AudioId.Vo_CircleLastClose
-				                                          : AudioId.Vo_CircleClose,GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
+   
+			if (config.Step <= maxStepForCircleClosing)
+			{
+				_services.AudioFxService.PlayClipQueued2D(config.Step == maxStepForCircleClosing
+					                                          ? AudioId.Vo_CircleLastClose
+					                                          : AudioId.Vo_CircleClose, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
+			}
 		}
 
 		private void OnAirdropDropped(EventOnAirDropDropped callback)

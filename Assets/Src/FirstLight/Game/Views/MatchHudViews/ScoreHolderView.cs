@@ -64,8 +64,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
-			if (!_matchSimulationStarted) return;
-			
 			UpdateFollowedPlayer(next.Player, QuantumRunner.Default.Game.Frames.Predicted);
 		}
 		
@@ -93,6 +91,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			_currentlyFollowing = playerRef;
 
+			if (!_matchSimulationStarted) return;
+			
 			var gameContainer = f.GetSingleton<GameContainer>();
 			var data = gameContainer.GetPlayersMatchData(f, out _);
 

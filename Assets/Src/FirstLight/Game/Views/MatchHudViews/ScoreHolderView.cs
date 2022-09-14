@@ -49,7 +49,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
-			UpdateFollowedPlayer(next);
+			UpdateFollowedPlayer(next.Player, QuantumRunner.Default.Game.Frames.Predicted);
 		}
 		
 		private void OnPlayerAlive(EventOnPlayerAlive callback)
@@ -72,11 +72,14 @@ namespace FirstLight.Game.Views.MatchHudViews
 			UpdateValues(data[_currentlyFollowing]);
 		}
 
-		private void UpdateFollowedPlayer(SpectatedPlayer player)
+		private void UpdateFollowedPlayer(PlayerRef playerRef, Frame f)
 		{
-			_currentlyFollowing = player.Player;
-			
-			UpdateValues(player.PlayerMatchData);
+			_currentlyFollowing = playerRef;
+
+			var gameContainer = f.GetSingleton<GameContainer>();
+			var data = gameContainer.GetPlayersMatchData(f, out _);
+
+			UpdateValues(data[_currentlyFollowing]);
 		}
 
 		private void UpdateValues(QuantumPlayerMatchData playerMatchData)

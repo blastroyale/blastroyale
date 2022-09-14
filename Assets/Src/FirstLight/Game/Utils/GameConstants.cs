@@ -11,7 +11,6 @@ namespace FirstLight.Game.Utils
 		public static class Editor
 		{
 			public const string PREFS_USE_LOCAL_SERVER_KEY = "UseLocalServer";
-			public const string PREFS_ENABLE_STATE_MACHINE_DEBUG_KEY = "EnableStateMachineDebug";
 		}
 
 		public static class Scenes

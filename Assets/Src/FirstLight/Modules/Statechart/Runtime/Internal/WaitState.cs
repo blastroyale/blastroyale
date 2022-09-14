@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using FirstLight.FLogger;
 using UnityEngine;
 
 // ReSharper disable CheckNamespace
@@ -142,11 +143,9 @@ namespace FirstLight.Statechart.Internal
 
 			try
 			{
-				if (IsStateLogsEnabled)
-				{
-					Debug.Log($"'{eventName}' event triggers the wait method '{_waitAction.Method.Name}'" +
-					          $"from the object {_waitAction.Target} in the state {Name}");
-				}
+				FLog.Verbose("Statechart", $"'{eventName}' event triggers the wait method '{_waitAction.Method.Name}'" +
+				                        $"from the object {_waitAction.Target} in the state {Name}");
+
 				_waitAction(_waitingActivity);
 			}
 			catch(Exception e)

@@ -73,7 +73,6 @@ namespace FirstLight.Tests.EditorMode
 			TestStates = new GameStateMachine(TestLogic, TestServices, TestUI, TestNetwork,
 				TestConfigs,
 				TestAssetResolver, TestData, TestVfx);
-			TestStates.LogsEnabled = true;
 			
 			// TODO: Fix async issue with asset resolver on NUnit
 			// TestStates.Run();      // Not working due to async asset loading

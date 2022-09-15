@@ -6,7 +6,7 @@ namespace Quantum.Systems
 	/// This system handles all the behaviour for the <see cref="ShrinkingCircle"/>
 	/// </summary>
 	[OptionalSystem]
-	public unsafe class ShrinkingCircleSystem : SystemMainThread, ISignalOnComponentAdded<ShrinkingCircle>
+	public unsafe class ShrinkingCircleSystem : SystemMainThread
 	{
 		/// <inheritdoc />
 		public override bool StartEnabled => false;
@@ -15,22 +15,24 @@ namespace Quantum.Systems
 		public override void OnEnabled(Frame f)
 		{
 			base.OnEnabled(f);
-			
-			f.GetOrAddSingleton<ShrinkingCircle>();
-		}
 
-		/// <inheritdoc />
-		public void OnAdded(Frame f, EntityRef entity, ShrinkingCircle* circle)
-		{
+			var circle = f.Unsafe.GetOrAddSingletonPointer<ShrinkingCircle>();
 			circle->CurrentRadius = f.Map.WorldSize / FP._2;
-
-			SetShrinkingCircleData(f, circle, f.ShrinkingCircleConfigs.QuantumConfigs[0]);
+			circle->Step = -1;
 		}
 
 		/// <inheritdoc />
 		public override void Update(Frame f)
 		{
-			var circle = ProcessShrinkingCircle(f);
+			var circle = f.Unsafe.GetPointerSingleton<ShrinkingCircle>();
+
+			if (circle->Step < 0)
+			{
+				SetShrinkingCircleData(f, circle, f.ShrinkingCircleConfigs.QuantumConfigs[0]);
+			}
+
+			ProcessShrinkingCircle(f, circle);
+
 			circle->GetMovingCircle(f, out var center, out var radius);
 
 			foreach (var pair in f.GetComponentIterator<AlivePlayerCharacter>())
@@ -50,13 +52,11 @@ namespace Quantum.Systems
 			}
 		}
 
-		private ShrinkingCircle* ProcessShrinkingCircle(Frame f)
+		private void ProcessShrinkingCircle(Frame f, ShrinkingCircle* circle)
 		{
-			var circle = f.Unsafe.GetPointerSingleton<ShrinkingCircle>();
-
 			if (f.Time < circle->ShrinkingStartTime + circle->ShrinkingDurationTime)
 			{
-				return circle;
+				return;
 			}
 
 			var configs = f.ShrinkingCircleConfigs.QuantumConfigs;
@@ -68,15 +68,13 @@ namespace Quantum.Systems
 				circle->CurrentRadius = circle->TargetRadius;
 				circle->CurrentCircleCenter = circle->TargetCircleCenter;
 
-				return circle;
+				return;
 			}
 
 			circle->ShrinkingStartTime += circle->ShrinkingDurationTime;
 			circle->CurrentRadius = circle->TargetRadius;
 
 			SetShrinkingCircleData(f, circle, configs[circle->Step]);
-
-			return circle;
 		}
 
 		private void SetShrinkingCircleData(Frame f, ShrinkingCircle* circle, QuantumShrinkingCircleConfig config)
@@ -134,7 +132,7 @@ namespace Quantum.Systems
 				EndTime = FP.MaxValue,
 				NextHitTime = FP._0,
 				OriginalHitPosition = position,
-				PowerAmount = (uint)damage,
+				PowerAmount = (uint) damage,
 				TeamSource = (int) TeamType.Enemy,
 				Victim = playerEntity
 			};

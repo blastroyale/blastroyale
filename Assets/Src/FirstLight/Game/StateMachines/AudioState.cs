@@ -620,12 +620,13 @@ namespace FirstLight.Game.StateMachines
 
 			var audio = AudioId.None;
 			var pos = Vector3.zero;
+			var followTransform = (Transform) null;
 			
 			switch (callback.Special.SpecialType)
 			{
 				case SpecialType.Grenade:
 					audio = AudioId.Dash;
-					pos = callback.HitPosition.ToUnityVector3();
+					pos = entityView.transform.position;
 					break;
 				
 				case SpecialType.StunGrenade:
@@ -636,6 +637,7 @@ namespace FirstLight.Game.StateMachines
 				case SpecialType.ShieldedCharge:
 					audio = AudioId.Dash;
 					pos = entityView.transform.position;
+					followTransform = entityView.transform;
 					break;
 				
 				case SpecialType.Airstrike:
@@ -655,6 +657,11 @@ namespace FirstLight.Game.StateMachines
 			else if (audio != AudioId.None)
 			{
 				_services.AudioFxService.PlayClip3D(audio, pos);
+			}
+
+			if (followTransform != null)
+			{
+				audioSource.SetFollowTarget(followTransform, Vector3.zero, Quaternion.identity);
 			}
 		}
 

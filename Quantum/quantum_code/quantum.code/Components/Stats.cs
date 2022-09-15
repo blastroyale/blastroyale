@@ -170,7 +170,7 @@ namespace Quantum
 		/// </summary>
 		internal void GainHealth(Frame f, EntityRef entity, Spell spell)
 		{
-			if (f.Has<EntityDestroyer>(entity))
+			if (f.Has<EntityDestroyer>(entity) || f.Has<DeadPlayerCharacter>(entity))
 			{
 				return;
 			}
@@ -183,7 +183,7 @@ namespace Quantum
 		/// </summary>
 		internal void ReduceHealth(Frame f, EntityRef entity, Spell spell)
 		{
-			if (f.Has<EntityDestroyer>(entity))
+			if (f.Has<EntityDestroyer>(entity) || f.Has<DeadPlayerCharacter>(entity))
 			{
 				return;
 			}

@@ -102,6 +102,12 @@ namespace FirstLight.Game.Services
 			int count = 0;
 			foreach(var parameter in parameters)
 			{
+				if (parameter.Value == null)
+				{
+					Debug.LogWarning("Analytics null parameter '"+parameter.Key+"' in event '"+eventName+"'");
+					continue;
+				}
+				
 				// Unity (max 10 params)
 				if (count++ < 10)
 				{

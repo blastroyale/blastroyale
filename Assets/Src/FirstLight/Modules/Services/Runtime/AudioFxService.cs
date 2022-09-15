@@ -495,7 +495,10 @@ namespace FirstLight.Services
 
 				foreach (var asmc in audio)
 				{
-					asmc.Source.mute = (value && asmc.MixerGroupID == _mixerDialogueGroupId);
+					if (asmc.MixerGroupID == _mixerDialogueGroupId)
+					{
+						asmc.Source.mute = value;
+					}
 				}
 			}
 		}

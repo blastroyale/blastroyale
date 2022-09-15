@@ -5812,13 +5812,14 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnPlayerSpecialUsed OnPlayerSpecialUsed(PlayerRef Player, EntityRef Entity, Special Special, Int32 SpecialIndex) {
+      public EventOnPlayerSpecialUsed OnPlayerSpecialUsed(PlayerRef Player, EntityRef Entity, Special Special, Int32 SpecialIndex, FPVector3 HitPosition) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnPlayerSpecialUsed>(EventOnPlayerSpecialUsed.ID);
         ev.Player = Player;
         ev.Entity = Entity;
         ev.Special = Special;
         ev.SpecialIndex = SpecialIndex;
+        ev.HitPosition = HitPosition;
         _f.AddEvent(ev);
         return ev;
       }
@@ -5912,7 +5913,7 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnLocalPlayerSpecialUsed OnLocalPlayerSpecialUsed(PlayerRef Player, EntityRef Entity, Special Special, Int32 SpecialIndex) {
+      public EventOnLocalPlayerSpecialUsed OnLocalPlayerSpecialUsed(PlayerRef Player, EntityRef Entity, Special Special, Int32 SpecialIndex, FPVector3 HitPosition) {
         if (_f.Context.IsLocalPlayer(Player) == false) return null;
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnLocalPlayerSpecialUsed>(EventOnLocalPlayerSpecialUsed.ID);
@@ -5920,6 +5921,7 @@ namespace Quantum {
         ev.Entity = Entity;
         ev.Special = Special;
         ev.SpecialIndex = SpecialIndex;
+        ev.HitPosition = HitPosition;
         _f.AddEvent(ev);
         return ev;
       }
@@ -7822,6 +7824,7 @@ namespace Quantum {
     public EntityRef Entity;
     public Special Special;
     public Int32 SpecialIndex;
+    public FPVector3 HitPosition;
     protected EventOnPlayerSpecialUsed(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -7843,6 +7846,7 @@ namespace Quantum {
         hash = hash * 31 + Entity.GetHashCode();
         hash = hash * 31 + Special.GetHashCode();
         hash = hash * 31 + SpecialIndex.GetHashCode();
+        hash = hash * 31 + HitPosition.GetHashCode();
         return hash;
       }
     }
@@ -8114,6 +8118,7 @@ namespace Quantum {
     public EntityRef Entity;
     public Special Special;
     public Int32 SpecialIndex;
+    public FPVector3 HitPosition;
     protected EventOnLocalPlayerSpecialUsed(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -8135,6 +8140,7 @@ namespace Quantum {
         hash = hash * 31 + Entity.GetHashCode();
         hash = hash * 31 + Special.GetHashCode();
         hash = hash * 31 + SpecialIndex.GetHashCode();
+        hash = hash * 31 + HitPosition.GetHashCode();
         return hash;
       }
     }

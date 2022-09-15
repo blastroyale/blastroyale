@@ -138,7 +138,6 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider.AppDataProvider.CurrentDetailLevel = detailLevel;
 		}
 		
-
 		private void OnLogoutClicked()
 		{
 			var title = string.Format(ScriptLocalization.MainMenu.LogoutConfirm);

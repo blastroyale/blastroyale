@@ -33,7 +33,7 @@ namespace FirstLight.UiService
 		[HideInInspector] public RectTransform RectTransform;
 		
 		private Coroutine _coroutine;
-		protected IGameServices _gameService;
+		protected IGameServices _services;
 		
 #if UNITY_EDITOR
 		/// <inheritdoc />
@@ -53,7 +53,7 @@ namespace FirstLight.UiService
 			if (Application.isPlaying)
 #endif	
 			{
-				_gameService = MainInstaller.Resolve<IGameServices>();
+				_services = MainInstaller.Resolve<IGameServices>();
 			}
 			
 			onValueChanged.AddListener(OnValueChanged);
@@ -65,7 +65,7 @@ namespace FirstLight.UiService
 			base.OnDestroy();
 			if (_coroutine != null)
 			{
-				_gameService?.CoroutineService.StopCoroutine(_coroutine);
+				_services?.CoroutineService.StopCoroutine(_coroutine);
 				_coroutine = null;
 			}
 			onValueChanged?.RemoveListener(OnValueChanged);
@@ -98,10 +98,10 @@ namespace FirstLight.UiService
 			
 			if (_coroutine != null)
 			{
-				_gameService.CoroutineService.StopCoroutine(_coroutine);
+				_services.CoroutineService.StopCoroutine(_coroutine);
 				_coroutine = null;
 			}
-			_coroutine = _gameService.CoroutineService.StartCoroutine(ScaleAfterPointerEventCo(PressedScale));
+			_coroutine = _services.CoroutineService.StartCoroutine(ScaleAfterPointerEventCo(PressedScale));
 		}
 		
 		/// <inheritdoc />
@@ -128,15 +128,15 @@ namespace FirstLight.UiService
 			
 			if (_coroutine != null)
 			{
-				_gameService.CoroutineService.StopCoroutine(_coroutine);
+				_services.CoroutineService.StopCoroutine(_coroutine);
 				_coroutine = null;
 			}
 			
 			if (!RectTransformUtility.RectangleContainsScreenPoint(RectTransform, eventData.position))
 			{
-				_gameService.AudioFxService.PlayClip2D(AudioId.ButtonClickForward);
+				_services.AudioFxService.PlayClip2D(AudioId.SettingsToggle);
 				
-				_coroutine = _gameService.CoroutineService.StartCoroutine(ScaleAfterPointerEventCo(Vector3.one));
+				_coroutine = _services.CoroutineService.StartCoroutine(ScaleAfterPointerEventCo(Vector3.one));
 			}
 		}
 
@@ -156,7 +156,7 @@ namespace FirstLight.UiService
 		/// </summary>
 		protected virtual void OnClick()
 		{
-			_gameService.AudioFxService.PlayClip2D(AudioId.ButtonClickForward);
+			_services.AudioFxService.PlayClip2D(AudioId.SettingsToggle);
 			
 			Animation.clip = !isOn ? ToggleOnPressedClip : ToggleOffPressedClip;
 			Animation.Rewind(); 

@@ -48,6 +48,8 @@ namespace FirstLight.Game.Presenters
 		protected override void OnOpened()
 		{
 			SetFrontDimBlockerActive(false);
+
+			_services.AudioFxService.PlayClip2D(AudioId.DisconnectScreenAppear);
 			
 			if (Application.internetReachability == NetworkReachability.NotReachable)
 			{

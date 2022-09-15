@@ -119,6 +119,9 @@ namespace FirstLight.Game.StateMachines
 			postGame.OnExit(StopMusicInstant);
 			postGame.OnExit(StopAllSfx);
 
+			disconnected.OnEnter(ClearLoopingClips);
+			disconnected.OnEnter(WipeSoundQueue);
+			disconnected.OnEnter(StopAllSfx);
 			disconnected.OnEnter(StopMusicInstant);
 			disconnected.Event(MainMenuState.MainMenuLoadedEvent).Target(mainMenu);
 			disconnected.Event(NetworkState.JoinedRoomEvent).Target(matchmaking);
@@ -128,6 +131,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeEvents()
 		{
+			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
 			QuantumEvent.SubscribeManual<EventOnNewShrinkingCircle>(this, OnNewShrinkingCircle);
 			QuantumEvent.SubscribeManual<EventOnPlayerSkydiveDrop>(this, OnPlayerSkydiveDrop);
 			QuantumEvent.SubscribeManual<EventOnPlayerDamaged>(this, OnPlayerDamaged);
@@ -150,12 +154,14 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveDrop>(this, OnLocalPlayerSkydiveDrop);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveLand>(this, OnLocalSkydiveEnd);
 			QuantumEvent.SubscribeManual<EventOnPlayerAlive>(this, OnPlayerAlive);
+			QuantumEvent.SubscribeManual<EventOnPlayerSpawned>(this, OnPlayerSpawned);
 		}
 
 		private void UnsubscribeEvents()
 		{
 			QuantumEvent.UnsubscribeListener(this);
-			QuantumCallback.UnsubscribeListener(this);
+			_services.MessageBrokerService.UnsubscribeAll(this);
+			
 		}
 
 		private bool IsSpectator()
@@ -249,6 +255,11 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 		
+		private void ClearLoopingClips()
+		{
+			_currentClips.Clear();
+		}
+		
 		private void WipeSoundQueue()
 		{
 			_services.AudioFxService.WipeSoundQueue();
@@ -302,11 +313,50 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 		
+		private void OnMatchStartedMessage(MatchStartedMessage msg)
+		{
+			if (msg.IsResync) return;
+			
+			var gameModeId = _services.GameModeService.SelectedGameMode.Value.Entry.GameModeId;
+			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
+			
+			if(!gameModeConfig.SkydiveSpawn)
+			{
+				_services.AudioFxService.PlayClip2D(AudioId.Vo_GameStart, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
+			}
+		}
+		
 		private void OnPlayerAlive(EventOnPlayerAlive callback)
 		{
-			if (_matchServices.SpectateService.SpectatedPlayer.Value.Player != callback.Player) return;
+			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
+
+			var gameModeId = _services.GameModeService.SelectedGameMode.Value.Entry.GameModeId;
+			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
+
+			// Respawnable game-mode
+			if (gameModeConfig.Lives is 0 or > 1)
+			{
+				_services.AudioFxService.PlayClip3D(AudioId.PlayerRespawnLightningBolt, entityView.transform.position);
+				CheckClips(nameof(EventOnPlayerAlive), callback.Entity);
+			}
+		}
+		
+		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
+		{
+			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
 			
 			WipeSoundQueue();
+			
+			var gameModeId = _services.GameModeService.SelectedGameMode.Value.Entry.GameModeId;
+			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
+
+			// Respawnable game-mode
+			if (gameModeConfig.Lives is 0 or > 1)
+			{
+				var despawnEvents = new[] {nameof(EventOnPlayerAlive)};
+				var audioSource = _services.AudioFxService.PlayClip3D(AudioId.PlayerRespawnShine, entityView.transform.position);
+				_currentClips.Add(new LoopedAudioClip(audioSource, despawnEvents, callback.Entity));
+			}
 		}
 
 		private void OnPlayerSkydiveDrop(EventOnPlayerSkydiveDrop callback)

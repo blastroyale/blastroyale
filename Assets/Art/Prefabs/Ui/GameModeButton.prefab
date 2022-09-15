@@ -656,7 +656,7 @@ MonoBehaviour:
   Anchor: {fileID: 8992601162332185662}
   ClickClip: {fileID: 7400000, guid: 382a5c7d063224d16b5caae8326aa7fb, type: 2}
   IsForward: 1
-  OverrideClickSfxId: 0
+  OverrideClickSfxId: 96
 --- !u!1 &7628801863275536486
 GameObject:
   m_ObjectHideFlags: 0

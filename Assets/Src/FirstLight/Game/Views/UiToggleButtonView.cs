@@ -134,7 +134,7 @@ namespace FirstLight.UiService
 			
 			if (!RectTransformUtility.RectangleContainsScreenPoint(RectTransform, eventData.position))
 			{
-				_services.AudioFxService.PlayClip2D(AudioId.ButtonClickForward);
+				_services.AudioFxService.PlayClip2D(AudioId.SettingsToggle);
 				
 				_coroutine = _services.CoroutineService.StartCoroutine(ScaleAfterPointerEventCo(Vector3.one));
 			}
@@ -156,7 +156,7 @@ namespace FirstLight.UiService
 		/// </summary>
 		protected virtual void OnClick()
 		{
-			_services.AudioFxService.PlayClip2D(AudioId.ButtonClickForward);
+			_services.AudioFxService.PlayClip2D(AudioId.SettingsToggle);
 			
 			Animation.clip = !isOn ? ToggleOnPressedClip : ToggleOffPressedClip;
 			Animation.Rewind(); 

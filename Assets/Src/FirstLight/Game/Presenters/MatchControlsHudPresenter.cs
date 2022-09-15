@@ -315,7 +315,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnPlayerDamaged(EventOnPlayerDamaged callback)
 		{
-			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
+			if (!callback.Game.PlayerIsLocal(callback.Player)) return;
 			
 			if (callback.ShieldDamage > 0)
 			{

@@ -28,7 +28,7 @@ MonoBehaviour:
         RawValue: 983040
       RankedMatchmakingTime:
         RawValue: 7864320
-      RankedMatchmakingMinPlayers: 4
+      RankedMatchmakingMinPlayers: 10
       BotsNameCount: 300
       PlayerRespawnTime:
         RawValue: 262144

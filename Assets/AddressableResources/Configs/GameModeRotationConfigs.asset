@@ -18,67 +18,67 @@ MonoBehaviour:
     Slots:
     - Entries:
       - GameModeId: BattleRoyale
+        MatchType: 1
+        Mutators:
+        - SpeedUp
+      - GameModeId: BattleRoyale
+        MatchType: 1
+        Mutators: []
+      - GameModeId: BattleRoyale
+        MatchType: 1
+        Mutators:
+        - HealthyAir
+        - SpeedUp
+      - GameModeId: BattleRoyale
+        MatchType: 1
+        Mutators:
+        - HealthyAir
+      - GameModeId: BattleRoyale
+        MatchType: 1
+        Mutators:
+        - QuickSpecials
+        - SpeedUp
+      - GameModeId: BattleRoyale
+        MatchType: 1
+        Mutators:
+        - HealthyAir
+        - QuickSpecials
+      - GameModeId: BattleRoyale
+        MatchType: 1
+        Mutators:
+        - QuickSpecials
+    - Entries:
+      - GameModeId: Deathmatch
+        MatchType: 1
+        Mutators:
+        - HealthyAir
+        - SpeedUp
+      - GameModeId: Deathmatch
+        MatchType: 1
+        Mutators: []
+      - GameModeId: Deathmatch
+        MatchType: 1
+        Mutators:
+        - SpeedUp
+      - GameModeId: Deathmatch
+        MatchType: 1
+        Mutators:
+        - QuickSpecials
+        - SpeedUp
+      - GameModeId: Deathmatch
+        MatchType: 1
+        Mutators:
+        - QuickSpecials
+      - GameModeId: Deathmatch
+        MatchType: 1
+        Mutators:
+        - HealthyAir
+      - GameModeId: Deathmatch
+        MatchType: 1
+        Mutators:
+        - HealthyAir
+        - QuickSpecials
+    - Entries:
+      - GameModeId: BattleRoyale
         MatchType: 2
         Mutators: []
-    - Entries:
-      - GameModeId: BattleRoyale
-        MatchType: 1
-        Mutators:
-        - SpeedUp
-      - GameModeId: BattleRoyale
-        MatchType: 1
-        Mutators: []
-      - GameModeId: BattleRoyale
-        MatchType: 1
-        Mutators:
-        - HealthyAir
-        - SpeedUp
-      - GameModeId: BattleRoyale
-        MatchType: 1
-        Mutators:
-        - HealthyAir
-      - GameModeId: BattleRoyale
-        MatchType: 1
-        Mutators:
-        - QuickSpecials
-        - SpeedUp
-      - GameModeId: BattleRoyale
-        MatchType: 1
-        Mutators:
-        - HealthyAir
-        - QuickSpecials
-      - GameModeId: BattleRoyale
-        MatchType: 1
-        Mutators:
-        - QuickSpecials
-    - Entries:
-      - GameModeId: Deathmatch
-        MatchType: 1
-        Mutators:
-        - HealthyAir
-        - SpeedUp
-      - GameModeId: Deathmatch
-        MatchType: 1
-        Mutators: []
-      - GameModeId: Deathmatch
-        MatchType: 1
-        Mutators:
-        - SpeedUp
-      - GameModeId: Deathmatch
-        MatchType: 1
-        Mutators:
-        - QuickSpecials
-        - SpeedUp
-      - GameModeId: Deathmatch
-        MatchType: 1
-        Mutators:
-        - QuickSpecials
-      - GameModeId: Deathmatch
-        MatchType: 1
-        Mutators:
-        - HealthyAir
-      - GameModeId: Deathmatch
-        MatchType: 1
-        Mutators:
-        - HealthyAir
-        - QuickSpecials

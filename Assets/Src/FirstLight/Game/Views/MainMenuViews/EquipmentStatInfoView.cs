@@ -43,6 +43,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			{ EquipmentStatType.SplashDamageRadius, 4 },
 			{ EquipmentStatType.PowerToDamageRatio, 2 },
 			{ EquipmentStatType.NumberOfShots, 10 },
+			{ EquipmentStatType.PickupSpeed, 4f },
 		};
 
 		/// <summary>

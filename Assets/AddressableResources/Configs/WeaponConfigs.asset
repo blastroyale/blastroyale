@@ -73,7 +73,7 @@ MonoBehaviour:
         Keys:
         - BattleRoyale
         - Deathmatch
-        Values: 240000000c000000
+        Values: 2400000018000000
       AimingMovementSpeed:
         RawValue: 52429
       AimTime:
@@ -115,7 +115,7 @@ MonoBehaviour:
         Keys:
         - BattleRoyale
         - Deathmatch
-        Values: 240000000c000000
+        Values: 2400000012000000
       AimingMovementSpeed:
         RawValue: 52429
       AimTime:
@@ -157,7 +157,7 @@ MonoBehaviour:
         Keys:
         - BattleRoyale
         - Deathmatch
-        Values: 2c01000046000000
+        Values: 2c0100004b000000
       AimingMovementSpeed:
         RawValue: 72090
       AimTime:
@@ -283,7 +283,7 @@ MonoBehaviour:
         Keys:
         - BattleRoyale
         - Deathmatch
-        Values: 3200000018000000
+        Values: 3200000014000000
       AimingMovementSpeed:
         RawValue: 52429
       AimTime:
@@ -324,8 +324,8 @@ MonoBehaviour:
         Default: 200
         Keys:
         - BattleRoyale
-        - Deathmatch
-        Values: c80000004b000000
+        - 'Deathmatch '
+        Values: c800000064000000
       AimingMovementSpeed:
         RawValue: 32768
       AimTime:
@@ -501,7 +501,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 7864
       PowerToDamageRatio:
-        RawValue: 19661
+        RawValue: 13107
       AttackHitSpeed:
         RawValue: 3276800
       MinAttackAngle: 7
@@ -577,7 +577,7 @@ MonoBehaviour:
         Keys:
         - BattleRoyale
         - Deathmatch
-        Values: 2300000014000000
+        Values: 230000000f000000
       AimingMovementSpeed:
         RawValue: 65536
       AimTime:
@@ -661,7 +661,7 @@ MonoBehaviour:
         Keys:
         - BattleRoyale
         - Deathmatch
-        Values: 3200000024000000
+        Values: 3200000018000000
       AimingMovementSpeed:
         RawValue: 65536
       AimTime:
@@ -745,7 +745,7 @@ MonoBehaviour:
         Keys:
         - BattleRoyale
         - Deathmatch
-        Values: c800000046000000
+        Values: c80000004b000000
       AimingMovementSpeed:
         RawValue: 65536
       AimTime:
@@ -784,8 +784,10 @@ MonoBehaviour:
         - RawValue: 65536
       MaxAmmo:
         Default: 100
-        Keys: []
-        Values: 
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: 6400000032000000
       AimingMovementSpeed:
         RawValue: 65536
       AimTime:
@@ -827,21 +829,21 @@ MonoBehaviour:
         Keys:
         - BattleRoyale
         - Deathmatch
-        Values: 190000000c000000
+        Values: 1900000020000000
       AimingMovementSpeed:
         RawValue: 52429
       AimTime:
-        RawValue: 32768
+        RawValue: 26214
       AttackCooldown:
-        RawValue: 16384
+        RawValue: 52429
       PowerToDamageRatio:
-        RawValue: 39322
+        RawValue: 49152
       AttackHitSpeed:
         RawValue: 5898240
       MinAttackAngle: 3
       MaxAttackAngle: 20
       NumberOfShots: 1
-      NumberOfBursts: 1
+      NumberOfBursts: 4
       CanHitSameTarget: 1
       IsProjectile: 0
       SplashRadius:
@@ -869,7 +871,7 @@ MonoBehaviour:
         Keys:
         - BattleRoyale
         - Deathmatch
-        Values: 1e00000018000000
+        Values: 1e0000000a000000
       AimingMovementSpeed:
         RawValue: 52429
       AimTime:

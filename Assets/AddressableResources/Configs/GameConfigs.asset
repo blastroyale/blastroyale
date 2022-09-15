@@ -50,7 +50,7 @@ MonoBehaviour:
         - Deathmatch
         Values:
         - RawValue: 196608
-        - RawValue: 294912
+        - RawValue: 262144
       PlayerMaxShieldCapacity:
         Default: 1600
         Keys:

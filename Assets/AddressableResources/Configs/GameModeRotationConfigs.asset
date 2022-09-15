@@ -55,30 +55,21 @@ MonoBehaviour:
       - GameModeId: Deathmatch
         MatchType: 1
         Mutators:
+        - QuickSpecials
+      - GameModeId: Deathmatch
+        MatchType: 1
+        Mutators:
         - HealthyAir
+      - GameModeId: Deathmatch
+        MatchType: 1
+        Mutators:
+        - QuickSpecials
         - SpeedUp
+      - GameModeId: Deathmatch
+        MatchType: 1
+        Mutators:
+        - HealthyAir
+        - QuickSpecials
       - GameModeId: Deathmatch
         MatchType: 1
         Mutators: []
-      - GameModeId: Deathmatch
-        MatchType: 1
-        Mutators:
-        - SpeedUp
-      - GameModeId: Deathmatch
-        MatchType: 1
-        Mutators:
-        - QuickSpecials
-        - SpeedUp
-      - GameModeId: Deathmatch
-        MatchType: 1
-        Mutators:
-        - QuickSpecials
-      - GameModeId: Deathmatch
-        MatchType: 1
-        Mutators:
-        - HealthyAir
-      - GameModeId: Deathmatch
-        MatchType: 1
-        Mutators:
-        - HealthyAir
-        - QuickSpecials

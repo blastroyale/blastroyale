@@ -59,7 +59,7 @@ MonoBehaviour:
         - Deathmatch
         Values:
         - RawValue: 98304
-        - RawValue: 6554
+        - RawValue: 13107
     - Id: 127
       AssetRef:
         Id:

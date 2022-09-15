@@ -315,7 +315,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnPlayerDamaged(EventOnPlayerDamaged callback)
 		{
-			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
+			if (!callback.Game.PlayerIsLocal(callback.Player)) return;
 			
 			if (callback.ShieldDamage > 0)
 			{
@@ -331,9 +331,16 @@ namespace FirstLight.Game.Presenters
 		{
 			var button = _specialButtons[callback.SpecialIndex];
 			var inputButton = _services.PlayerInputService.Input.Gameplay.GetSpecialButton(callback.SpecialIndex);
-			var currentTime = callback.Game.Frames.Predicted.Time;
+			var frame = callback.Game.Frames.Predicted;
+
+			// Disables the input until the cooldown is off
+			if (frame.TryGet<PlayerCharacter>(callback.Entity, out var playerCharacter) && 
+			    playerCharacter.WeaponSlot->Specials[callback.SpecialIndex].Charges == 1)
+			{
+				inputButton.Disable();
+			}
 			
-			button.SpecialUpdate(currentTime, callback.Special)?.OnComplete(inputButton.Enable);
+			button.SpecialUpdate(frame.Time, callback.Special)?.OnComplete(inputButton.Enable);
 		}
 
 		private void PollInput(CallbackPollInput callback)
@@ -364,12 +371,6 @@ namespace FirstLight.Game.Presenters
 			    !playerCharacter.WeaponSlot->Specials[specialIndex].IsUsable(f))
 			{
 				return;
-			}
-
-			// Disables the input until the cooldown is off
-			if (playerCharacter.WeaponSlot->Specials[specialIndex].Charges == 1)
-			{
-				_services.PlayerInputService.Input.Gameplay.GetSpecialButton(specialIndex).Disable();
 			}
 			
 			var command = new SpecialUsedCommand

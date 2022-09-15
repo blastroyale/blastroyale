@@ -28,7 +28,7 @@ MonoBehaviour:
         RawValue: 983040
       RankedMatchmakingTime:
         RawValue: 7864320
-      RankedMatchmakingMinPlayers: 4
+      RankedMatchmakingMinPlayers: 10
       BotsNameCount: 300
       PlayerRespawnTime:
         RawValue: 262144
@@ -50,7 +50,7 @@ MonoBehaviour:
         - Deathmatch
         Values:
         - RawValue: 196608
-        - RawValue: 294912
+        - RawValue: 262144
       PlayerMaxShieldCapacity:
         Default: 1600
         Keys:

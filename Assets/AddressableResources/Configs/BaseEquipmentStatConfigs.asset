@@ -517,7 +517,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 98304
+        RawValue: 104858
       AttackRangeRatioToBase:
         RawValue: 360448
       PickupTimeRatioToBase:
@@ -531,7 +531,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 81920
+        RawValue: 98304
       AttackRangeRatioToBase:
         RawValue: 458752
       PickupTimeRatioToBase:

@@ -83,10 +83,14 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"item_shield", shieldId},
 				{"item_armour", armorId},
 				{"item_amulet", amuletId},
-				{"drop_open_grid", PresentedMapPath},
 				{"drop_location_default", DefaultDropPosition},
 				{"drop_location_final", SelectedDropPosition}
 			};
+
+			if (PresentedMapPath != null)
+			{
+				data.Add("drop_open_grid", PresentedMapPath);
+			}
 			
 			_analyticsService.LogEvent(AnalyticsEvents.MatchStart, data);
 		}

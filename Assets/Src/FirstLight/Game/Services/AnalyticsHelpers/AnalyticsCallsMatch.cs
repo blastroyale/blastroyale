@@ -41,7 +41,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", _services.NetworkService.QuantumClient.CurrentRoom.Name},
-				{"match_type", room.GetMatchType()},
+				{"match_type", room.GetMatchType().ToString()},
 				{"game_mode", room.GetGameModeId()},
 				{"mutators", string.Join(",",room.GetMutatorIds())},
 				{"PlayerId", PlayFabSettings.staticPlayer.PlayFabId}
@@ -70,7 +70,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", room.Name},
-				{"match_type", room.GetMatchType()},
+				{"match_type", room.GetMatchType().ToString()},
 				{"game_mode", room.GetGameModeId()},
 				{"mutators", string.Join(",",room.GetMutatorIds())},
 				{"player_level", _gameData.PlayerDataProvider.PlayerInfo.Level},
@@ -102,7 +102,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", room.Name},
-				{"match_type", room.GetMatchType()},
+				{"match_type", room.GetMatchType().ToString()},
 				{"game_mode", room.GetGameModeId()},
 				{"mutators", string.Join(",",room.GetMutatorIds())},
 				{"map_id", (int) config.Map},
@@ -137,7 +137,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", room.Name},
-				{"match_type", room.GetMatchType()},
+				{"match_type", room.GetMatchType().ToString()},
 				{"game_mode", room.GetGameModeId()},
 				{"mutators", string.Join(",",room.GetMutatorIds())},
 				{"killed_name", (deadData.Data.IsBot?"Bot":"") + deadData.PlayerName},
@@ -167,7 +167,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", room.Name},
-				{"match_type", room.GetMatchType()},
+				{"match_type", room.GetMatchType().ToString()},
 				{"game_mode", room.GetGameModeId()},
 				{"mutators", string.Join(",",room.GetMutatorIds())},
 				{"chest_type", callback.ChestType.ToString()},
@@ -198,7 +198,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", room.Name},
-				{"match_type", room.GetMatchType()},
+				{"match_type", room.GetMatchType().ToString()},
 				{"game_mode", room.GetGameModeId()},
 				{"mutators", string.Join(",",room.GetMutatorIds())},
 				{"chest_type", chestItemDropped.ChestType.ToString()},
@@ -230,7 +230,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", room.Name},
-				{"match_type", room.GetMatchType()},
+				{"match_type", room.GetMatchType().ToString()},
 				{"game_mode", room.GetGameModeId()},
 				{"mutators", string.Join(",",room.GetMutatorIds())},
 				{"item_type", callback.CollectableId.ToString()},

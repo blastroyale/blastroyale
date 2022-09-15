@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using FirstLight.Game.Input;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
@@ -19,7 +20,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// Presenter for match controls.
 	/// </summary>
-	public unsafe class MatchControlsHudPresenter : UiPresenter, LocalInput.IGameplayActions
+	public class MatchControlsHudPresenter : UiPresenter, LocalInput.IGameplayActions
 	{
 		[SerializeField, Required] private SpecialButtonView[] _specialButtons;
 		[SerializeField] private GameObject[] _disableWhileParachuting;
@@ -213,7 +214,7 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		private void Init(Frame f, EntityRef entity)
+		private unsafe void Init(Frame f, EntityRef entity)
 		{
 			var playerView = _matchServices.EntityViewUpdaterService.GetManualView(entity);
 			var playerCharacter = f.Get<PlayerCharacter>(entity);
@@ -237,12 +238,14 @@ namespace FirstLight.Game.Presenters
 			                                    GameConstants.Haptics.GAME_START_DURATION);
 		}
 
-		private void OnGameResync(CallbackGameResynced callback)
+		private async void OnGameResync(CallbackGameResynced callback)
 		{
 			if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
 			{
 				return;
 			}
+			
+			await Task.Yield();
 			
 			var localPlayer = callback.Game.GetLocalPlayerData(false, out var f);
 
@@ -327,7 +330,7 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		private void OnEventOnLocalPlayerSpecialUsed(EventOnLocalPlayerSpecialUsed callback)
+		private unsafe void OnEventOnLocalPlayerSpecialUsed(EventOnLocalPlayerSpecialUsed callback)
 		{
 			var button = _specialButtons[callback.SpecialIndex];
 			var inputButton = _services.PlayerInputService.Input.Gameplay.GetSpecialButton(callback.SpecialIndex);
@@ -362,7 +365,7 @@ namespace FirstLight.Game.Presenters
 			MMVibrationManager.ContinuousHaptic(intensity, sharpness, GameConstants.Haptics.DAMAGE_DURATION);
 		}
 
-		private void SendSpecialUsedCommand(int specialIndex, Vector2 aimDirection)
+		private unsafe void SendSpecialUsedCommand(int specialIndex, Vector2 aimDirection)
 		{
 			var data = QuantumRunner.Default.Game.GetLocalPlayerData(false, out var f);
 			

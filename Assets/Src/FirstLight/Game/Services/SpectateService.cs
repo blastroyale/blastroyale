@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
@@ -73,8 +74,10 @@ namespace FirstLight.Game.Services
 			QuantumEvent.UnsubscribeListener(this);
 		}
 
-		public void OnMatchStarted(QuantumGame game, bool isReconnect)
+		public async void OnMatchStarted(QuantumGame game, bool isReconnect)
 		{
+			await Task.Yield();
+			
 			if (_gameServices.NetworkService.IsSpectorPlayer)
 			{
 				if (isReconnect)
@@ -165,12 +168,15 @@ namespace FirstLight.Game.Services
 			return false;
 		}
 
-		private void TrySetSpectateModePlayer()
+		private async void TrySetSpectateModePlayer()
 		{
 			// Spectator mode - set new player to follow, only once
 			if (_gameServices.NetworkService.QuantumClient.LocalPlayer.IsSpectator() && !_spectatedPlayer.Value.Entity.IsValid &&
 			    TryGetNextPlayer(out var player))
 			{
+				// Layer 2 of stupidity - on resync of spectate mode, quantum still 
+				await Task.Yield();
+				
 				SetSpectatedEntity(player.Key, player.Value, true);
 			}
 		}

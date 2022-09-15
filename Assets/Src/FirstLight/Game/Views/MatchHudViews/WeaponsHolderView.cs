@@ -1,4 +1,5 @@
-﻿using FirstLight.Game.Messages;
+﻿using System.Threading.Tasks;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MatchHudViews;
@@ -41,12 +42,14 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			_services.MessageBrokerService.UnsubscribeAll(this);
 		}
 
-		private void OnMatchStartedMessage(MatchStartedMessage msg)
+		private async void OnMatchStartedMessage(MatchStartedMessage msg)
 		{
 			if (!msg.IsResync || _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
 			{
 				return;
 			}
+			
+			await Task.Yield();
 
 			var game = msg.Game;
 			var f = game.Frames.Predicted;

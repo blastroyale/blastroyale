@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Cinemachine;
 using FirstLight.FLogger;
 using FirstLight.Game.Input;
@@ -63,8 +64,9 @@ namespace FirstLight.Game.MonoComponent.Match
 				input.Value.CancelButton.canceled -= SetActiveCamera;
 			}
 			
-			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(OnSpectatedPlayerChanged);
+			_matchServices?.SpectateService?.SpectatedPlayer.StopObserving(OnSpectatedPlayerChanged);
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
+			QuantumEvent.UnsubscribeListener(this);
 		}
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
@@ -74,6 +76,7 @@ namespace FirstLight.Game.MonoComponent.Match
 				// This sets the initial camera when we get the first spectated player in spectate mode
 				SetActiveCamera(_spectateCameras[0]);
 			}
+			
 			RefreshSpectator(next.Transform);
 			SnapCamera();
 		}
@@ -88,12 +91,13 @@ namespace FirstLight.Game.MonoComponent.Match
 			SetActiveCamera(_spectateCameras[obj.CameraId]);
 		}
 
-		private void OnMatchStarted(MatchStartedMessage obj)
+		private async void OnMatchStarted(MatchStartedMessage obj)
 		{
 			gameObject.SetActive(true);
 			
 			if (obj.IsResync)
 			{
+				await Task.Yield();
 				SetActiveCamera(_adventureCamera);
 				SnapCamera();
 			}
@@ -125,12 +129,14 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void SetActiveCamera(CinemachineVirtualCamera virtualCamera)
 		{
-			if (virtualCamera.gameObject == _cinemachineBrain.ActiveVirtualCamera.VirtualCameraGameObject)
+			if ( _cinemachineBrain.ActiveVirtualCamera != null &&
+			     virtualCamera.gameObject == _cinemachineBrain.ActiveVirtualCamera.VirtualCameraGameObject)
 			{
 				return;
 			}
 
-			_cinemachineBrain.ActiveVirtualCamera.VirtualCameraGameObject.SetActive(false);
+			_cinemachineBrain.ActiveVirtualCamera?.VirtualCameraGameObject.SetActive(false);
+
 			virtualCamera.gameObject.SetActive(true);
 		}
 
@@ -164,7 +170,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		private void SnapCamera()
 		{
 			// Hacky way to force the camera to evaluate the blend to the next follow target (so we snap to it)
-			_cinemachineBrain.ActiveVirtualCamera.UpdateCameraState(Vector3.up, 10f);
+			_cinemachineBrain.ActiveVirtualCamera?.UpdateCameraState(Vector3.up, 10f);
 		}
 	}
 }

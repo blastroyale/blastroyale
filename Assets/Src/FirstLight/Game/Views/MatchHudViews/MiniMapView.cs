@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using DG.Tweening;
 using FirstLight.FLogger;
 using FirstLight.Game.Messages;
@@ -293,9 +294,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 			RenderMinimap();
 		}
 
-		private void OnGameResync(CallbackGameResynced callback)
+		private async void OnGameResync(CallbackGameResynced callback)
 		{
+			await Task.Yield();
+			
 			_airdropPool.DespawnAll();
+			
 			foreach (var (entity, airDrop) in callback.Game.Frames.Predicted.GetComponentIterator<AirDrop>())
 			{
 				SpawnAirdrop(entity, airDrop);

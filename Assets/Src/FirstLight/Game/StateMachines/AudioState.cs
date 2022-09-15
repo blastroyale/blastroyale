@@ -727,11 +727,11 @@ namespace FirstLight.Game.StateMachines
 		private void OnPlayerDamaged(EventOnPlayerDamaged callback)
 		{
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
-
-			var game = callback.Game;
+			
 			var audio = AudioId.None;
 			var damagedPlayerIsLocal = _matchServices.SpectateService.SpectatedPlayer.Value.Player == callback.Player;
-
+			var spectatedEntity = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
+			
 			if (damagedPlayerIsLocal)
 			{
 				audio = callback.ShieldDamage > 0 ? AudioId.TakeShieldDamage : AudioId.TakeHealthDamage;
@@ -746,7 +746,7 @@ namespace FirstLight.Game.StateMachines
 				audio = damagedPlayerIsLocal ? AudioId.SelfShieldBreak : AudioId.ShieldBreak;
 			}
 
-			if (damagedPlayerIsLocal)
+			if (spectatedEntity == callback.Entity || spectatedEntity == callback.Attacker)
 			{
 				_services.AudioFxService.PlayClip2D(audio);
 			}

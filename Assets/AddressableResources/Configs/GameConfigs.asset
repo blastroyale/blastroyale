@@ -73,7 +73,7 @@ MonoBehaviour:
         - Deathmatch
         Values:
         - RawValue: 117965
-        - RawValue: 13107
+        - RawValue: 39322
       PlayerAliveShieldDuration:
         Default:
           RawValue: 0

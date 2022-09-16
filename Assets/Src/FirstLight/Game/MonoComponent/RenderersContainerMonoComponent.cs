@@ -172,27 +172,15 @@ namespace FirstLight.Game.MonoComponent
 		{
 			foreach (var render in _renderers)
 			{
-				// Prevents an exception from VisVolume when a player dies, and ragdolls out of a vis volume
-				// Not 100% this is the root cause, but it has something to do with the fact that upon death, players lose
-				// some of their renderers, and this errors out
-				if (render.gameObject != null)
-				{
-					render.enabled = visible;
-				}
+				render.enabled = visible;
 			}
 			foreach (var render in _particleRenderers)
 			{
-				if (render.gameObject != null)
-				{
-					render.enabled = visible;
-				}
+				render.enabled = visible;
 			}
 			foreach (var render in _rendererRoots)
 			{
-				if (render.gameObject != null)
-				{
-					render.SetActive(visible);
-				}
+				render.SetActive(visible);
 			}
 		}
 		

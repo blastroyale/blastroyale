@@ -32,6 +32,15 @@ namespace FirstLight.Game.Views.MapViews
 
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
+			QuantumEvent.Subscribe<EventOnPlayerDead>(this, OnPlayerDead);
+		}
+
+		private void OnPlayerDead(EventOnPlayerDead callback)
+		{
+			if (_currentlyCollidingPlayers.ContainsKey(callback.Entity))
+			{
+				_currentlyCollidingPlayers.Remove(callback.Entity);
+			}
 		}
 
 		private void OnDestroy()

@@ -41,7 +41,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			input.SpecialButton1.canceled += SetActiveCamera;
 			input.CancelButton.canceled += SetActiveCamera;
 
-			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
+			_matchServices.SpectateService.SpectatedPlayer.InvokeObserve(OnSpectatedPlayerChanged);
 			_services.MessageBrokerService.Subscribe<SpectateSetCameraMessage>(OnSpectateSetCameraMessage);
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
 			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
@@ -70,6 +70,8 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
+			if (!next.Entity.IsValid) return;
+			
 			RefreshSpectator(next.Transform);
 			SnapCamera();
 		}
@@ -107,10 +109,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		{
 			if (_matchServices.SpectateService.SpectatedPlayer.Value.Player != callback.Player) return;
 			
-			//if (callback.Game.Frames.Verified.Context.GameModeConfig.Lives != 1)
-			{
-				SetActiveCamera(_adventureCamera);
-			}
+			SetActiveCamera(_adventureCamera);
 		}
 
 		private void OnPlayerSkydiveLand(EventOnPlayerSkydiveLand callback)

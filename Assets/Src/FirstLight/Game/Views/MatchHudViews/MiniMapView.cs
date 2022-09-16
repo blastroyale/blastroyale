@@ -91,7 +91,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			QuantumEvent.Subscribe<EventOnAirDropDropped>(this, OnAirDropDropped);
 			QuantumEvent.Subscribe<EventOnAirDropLanded>(this, OnAirDropLanded);
 			QuantumEvent.Subscribe<EventOnAirDropCollected>(this, OnAirDropCollected);
-			QuantumCallback.Subscribe<CallbackUpdateView>(this, UpdateView);
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
 
 			_button.onClick.AddListener(OnClick);
@@ -101,8 +100,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void OnDestroy()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
-			QuantumCallback.UnsubscribeListener(this);
-			QuantumEvent.UnsubscribeListener(this);
 			Destroy(_minimapMat);
 		}
 
@@ -118,6 +115,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 			
 			_tweenerSize?.Kill();
 			UpdateMinimapSize(0);
+			QuantumCallback.Subscribe<CallbackUpdateView>(this, UpdateView);
+		}
+
+		private void OnDisable()
+		{
+			QuantumCallback.UnsubscribeListener(this);
 		}
 
 		private void UpdateView(CallbackUpdateView callback)

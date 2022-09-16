@@ -1,3 +1,5 @@
+using System;
+using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +16,16 @@ namespace FirstLight.Game.MonoComponent.Vfx
 		private float _startTime;
 		private float _endTime;
 
+		private void OnEnable()
+		{
+			QuantumCallback.Subscribe<CallbackUpdateView>(this, UpdateView);
+		}
+
+		private void OnDisable()
+		{
+			QuantumCallback.UnsubscribeListener(this);
+		}
+
 		/// <summary>
 		/// Initializes this VFX with the given <paramref name="entity"/>
 		/// </summary>
@@ -22,12 +34,16 @@ namespace FirstLight.Game.MonoComponent.Vfx
 			_startTime = startTime;
 			_endTime = endTime;
 
-			Update();
+			UpdateIndicator(QuantumRunner.Default.Game.Frames.Predicted.Time.AsFloat);
 		}
 
-		private void Update()
+		private void UpdateView(CallbackUpdateView callback)
 		{
-			var currentTime = QuantumRunner.Default.Game.Frames.Predicted.Time.AsFloat;
+			UpdateIndicator(callback.Game.Frames.Predicted.Time.AsFloat);
+		}
+
+		private void UpdateIndicator(float currentTime)
+		{
 			_progressIndicator.fillAmount = Mathf.Lerp(0, 1, (currentTime - _startTime) / (_endTime - _startTime));
 		}
 	}

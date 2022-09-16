@@ -294,6 +294,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 		
 		private void OnMatchStartedMessage(MatchStartedMessage msg)
 		{
+			RenderMinimap();
+			
 			if (msg.IsResync)
 			{
 				_airdropPool.DespawnAll();
@@ -302,11 +304,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				{
 					SpawnAirdrop(entity, airDrop);
 				}
-				
-				return;
 			}
-			
-			RenderMinimap();
 		}
 
 		private void OnAirDropDropped(EventOnAirDropDropped callback)

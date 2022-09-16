@@ -86,10 +86,10 @@ namespace Quantum
 		{
 			var attributeValue = CalculateGearStat(statConfig, baseStatConfig, equipmentStatConfig, materialStatConfig, equipment);
 
-			if (statConfig.StatType == StatType.Power)
+			/*if (statConfig.StatType == StatType.Power)
 			{
-				attributeValue *= weaponConfig.PowerToDamageRatio;
-			}
+				attributeValue *= weaponConfig.PowerToDamageRatio.GetDefault();
+			}*/
 
 			return attributeValue;
 		}

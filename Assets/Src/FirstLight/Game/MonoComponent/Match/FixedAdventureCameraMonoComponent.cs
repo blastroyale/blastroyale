@@ -107,7 +107,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		{
 			if (_matchServices.SpectateService.SpectatedPlayer.Value.Player != callback.Player) return;
 			
-			if (callback.Game.Frames.Verified.Context.GameModeConfig.Lives != 1)
+			//if (callback.Game.Frames.Verified.Context.GameModeConfig.Lives != 1)
 			{
 				SetActiveCamera(_adventureCamera);
 			}

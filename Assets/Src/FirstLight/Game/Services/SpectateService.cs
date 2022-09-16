@@ -80,25 +80,21 @@ namespace FirstLight.Game.Services
 			{
 				if (isReconnect)
 				{
-					SwipeRight();
+					SwipeRightGame(game);
 				}
+
+				return;
+			}
+			
+			var localPlayer = game.GetLocalPlayerData(false, out var f);
+
+			if (isReconnect && !localPlayer.Entity.IsAlive(f))
+			{
+				SwipeRightGame(game);
 			}
 			else
 			{
-				var f = QuantumRunner.Default.Game.Frames.Verified;
-				var gameContainer = f.GetSingleton<GameContainer>();
-				var playersData = gameContainer.PlayersData;
-
-				var localPlayer = playersData[game.GetLocalPlayers()[0]];
-
-				if (isReconnect && !localPlayer.Entity.IsAlive(f))
-				{
-					SwipeRight();
-				}
-				else
-				{
-					SetSpectatedEntity(localPlayer.Entity, localPlayer.Player);
-				}
+				SetSpectatedEntity(localPlayer.Entity, localPlayer.Player);
 			}
 		}
 
@@ -107,7 +103,7 @@ namespace FirstLight.Game.Services
 			// This stupidity along with all the TryGetNextPlayer nonsense is needed because apparently Quantum lags
 			// behind when we're in Spectate mode, meaning that we aren't able to fetch the initial spectated player
 			// on the first frame the same way we can in normal mode. SMH.
-			TrySetSpectateModePlayer();
+			TrySetSpectateModePlayer(callback.Game);
 
 			if (_spectatedPlayer.Value.Transform != null)
 			{
@@ -126,19 +122,29 @@ namespace FirstLight.Game.Services
 
 		public void SwipeLeft()
 		{
-			TryGetPreviousPlayer(out var player);
-			SetSpectatedEntity(player.Key, player.Value);
+			SwipeLeftGame(QuantumRunner.Default.Game);
 		}
 
 		public void SwipeRight()
 		{
-			TryGetNextPlayer(out var player);
+			SwipeRightGame(QuantumRunner.Default.Game);
+		}
+
+		private void SwipeLeftGame(QuantumGame game)
+		{
+			TryGetPreviousPlayer(game, out var player);
 			SetSpectatedEntity(player.Key, player.Value);
 		}
 
-		private bool TryGetNextPlayer(out Pair<EntityRef, PlayerRef> player)
+		private void SwipeRightGame(QuantumGame game)
 		{
-			var frame = QuantumRunner.Default.Game.Frames.Verified;
+			TryGetNextPlayer(game, out var player);
+			SetSpectatedEntity(player.Key, player.Value);
+		}
+
+		private bool TryGetNextPlayer(QuantumGame game, out Pair<EntityRef, PlayerRef> player)
+		{
+			var frame = game.Frames.Verified;
 			var players = GetPlayerList(frame, out var currentIndex);
 
 			if (players.Count > 0)
@@ -151,9 +157,9 @@ namespace FirstLight.Game.Services
 			return false;
 		}
 
-		private bool TryGetPreviousPlayer(out Pair<EntityRef, PlayerRef> player)
+		private bool TryGetPreviousPlayer(QuantumGame game, out Pair<EntityRef, PlayerRef> player)
 		{
-			var frame = QuantumRunner.Default.Game.Frames.Verified;
+			var frame = game.Frames.Verified;
 			var players = GetPlayerList(frame, out var currentIndex);
 
 			if (players.Count > 0)
@@ -166,11 +172,11 @@ namespace FirstLight.Game.Services
 			return false;
 		}
 
-		private void TrySetSpectateModePlayer()
+		private void TrySetSpectateModePlayer(QuantumGame game)
 		{
 			// Spectator mode - set new player to follow, only once
 			if (_gameServices.NetworkService.QuantumClient.LocalPlayer.IsSpectator() && !_spectatedPlayer.Value.Entity.IsValid &&
-			    TryGetNextPlayer(out var player))
+			    TryGetNextPlayer(game, out var player))
 			{
 				SetSpectatedEntity(player.Key, player.Value, true);
 			}
@@ -186,7 +192,7 @@ namespace FirstLight.Game.Services
 			if(!callback.Game.Frames.Verified.TryGet<PlayerCharacter>(callback.EntityKiller, out var killerPlayer) || 
 			        !SetSpectatedEntity(callback.EntityKiller, killerPlayer.Player))
 			{
-				SwipeRight();
+				SwipeRightGame(callback.Game);
 			}
 		}
 

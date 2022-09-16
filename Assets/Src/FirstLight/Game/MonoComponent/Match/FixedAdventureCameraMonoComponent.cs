@@ -44,10 +44,10 @@ namespace FirstLight.Game.MonoComponent.Match
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 			_services.MessageBrokerService.Subscribe<SpectateSetCameraMessage>(OnSpectateSetCameraMessage);
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
-			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
+			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, OnPlayerAlive);
 			QuantumEvent.Subscribe<EventOnPlayerSkydiveLand>(this, OnPlayerSkydiveLand);
-			
+
 			gameObject.SetActive(false);
 		}
 
@@ -70,12 +70,6 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
-			if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator() && !previous.Entity.IsValid)
-			{
-				// This sets the initial camera when we get the first spectated player in spectate mode
-				SetActiveCamera(_spectateCameras[0]);
-			}
-			
 			RefreshSpectator(next.Transform);
 			SnapCamera();
 		}
@@ -100,14 +94,12 @@ namespace FirstLight.Game.MonoComponent.Match
 				SnapCamera();
 			}
 		}
-
-		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
+		
+		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
 		{
-			if (_matchServices.SpectateService.SpectatedPlayer.Value.Player != callback.Player) return;
-			
 			SetActiveCamera(_spawnCamera);
 		}
-		
+
 		private void OnPlayerAlive(EventOnPlayerAlive callback)
 		{
 			if (_matchServices.SpectateService.SpectatedPlayer.Value.Player != callback.Player) return;

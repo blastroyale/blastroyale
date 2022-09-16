@@ -37,7 +37,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				
 			QuantumEvent.Subscribe<EventOnPlayerAttackHit>(this, OnPlayerAttackHit);
 			QuantumEvent.Subscribe<EventOnPlayerSkydiveLand>(this, OnPlayerSkydiveLand);
-			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, OnPlayerAlive);
+			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
 			_services.MessageBrokerService.Subscribe<MatchEndedMessage>(OnGameplayEnded);
 			_matchServices.SpectateService.SpectatedPlayer.InvokeObserve(OnPlayerSpectateUpdate);
 			
@@ -55,17 +55,18 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			var spectateEntity = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
 
-			if (_healthBarSpectatePlayer.Entity.IsValid || spectateEntity != callback.Entity)
+			if (spectateEntity != callback.Entity)
 			{
 				return;
 			}
 			
-			SetupSpectateHealthBar(callback.Game.Frames.Verified, callback.Entity, _healthBarSpectatePlayer);
+			_healthBarSpectatePlayer.ResourceBarView.SetupView(callback.Game.Frames.Verified, callback.Entity);
+			SetupHealthBar(callback.Game.Frames.Verified, callback.Entity, _healthBarSpectatePlayer);
 		}
 
 		private void OnPlayerAttackHit(EventOnPlayerAttackHit obj)
 		{
-			if (obj.PlayerEntity != _healthBarSpectatePlayer.Entity || !_healthBarSpectatePlayer.Entity.IsValid)
+			if (!_healthBarSpectatePlayer.Entity.IsValid || obj.PlayerEntity != _healthBarSpectatePlayer.Entity)
 			{
 				return;
 			}
@@ -87,8 +88,15 @@ namespace FirstLight.Game.Views.MatchHudViews
 			healthBar.Despawn();
 		}
 
-		private void OnPlayerAlive(EventOnPlayerAlive callback)
+		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
 		{
+			var spectateEntity = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
+
+			if (spectateEntity != callback.Entity)
+			{
+				return;
+			}
+			
 			SetupInitialHealthBar(callback.Game.Frames.Verified, callback.Entity);
 		}
 
@@ -111,13 +119,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 				return;
 			}
 			
-			SetupSpectateHealthBar(f, playerEntity, _healthBarSpectatePlayer);
-		}
-		
-		private void SetupSpectateHealthBar(Frame f, EntityRef entity, SpectatePlayerHealthBarObject healthBar)
-		{
-			healthBar.ResourceBarView.SetupView(f, entity);
-			SetupHealthBar(f, entity, healthBar);
+			_healthBarSpectatePlayer.ResourceBarView.SetupView(f, playerEntity);
+			SetupHealthBar(f, playerEntity, _healthBarSpectatePlayer);
 		}
 		
 		private void SetupHealthBar(Frame f, EntityRef entity, PlayerHealthBarPoolObject healthBar)

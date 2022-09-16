@@ -181,7 +181,6 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(SimulationStartedEvent);
 		}
 
-
 		private async void OnGameResync(CallbackGameResynced callback)
 		{
 			// Delays one frame just to guarantee that the game objects are created before anything else

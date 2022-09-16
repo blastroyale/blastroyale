@@ -28,7 +28,7 @@ MonoBehaviour:
     m_To: '**ANY CAMERA**'
     m_Blend:
       m_Style: 2
-      m_Time: 3
+      m_Time: 2
       m_CustomCurve:
         serializedVersion: 2
         m_Curve: []

@@ -78,10 +78,7 @@ namespace FirstLight.Game.Services
 		{
 			if (_gameServices.NetworkService.IsSpectorPlayer)
 			{
-				if (isReconnect)
-				{
-					SwipeRightGame(game);
-				}
+				SwipeRightGame(game);
 
 				return;
 			}

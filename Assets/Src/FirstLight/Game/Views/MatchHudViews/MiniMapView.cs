@@ -91,9 +91,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 			QuantumEvent.Subscribe<EventOnAirDropDropped>(this, OnAirDropDropped);
 			QuantumEvent.Subscribe<EventOnAirDropLanded>(this, OnAirDropLanded);
 			QuantumEvent.Subscribe<EventOnAirDropCollected>(this, OnAirDropCollected);
-			QuantumCallback.Subscribe<CallbackGameResynced>(this, OnGameResync);
-			QuantumCallback.Subscribe<CallbackGameStarted>(this, OnGameStarted);
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, UpdateView);
+			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
 
 			_button.onClick.AddListener(OnClick);
 			_fullScreenButton.onClick.AddListener(OnClick);
@@ -101,6 +100,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void OnDestroy()
 		{
+			_services?.MessageBrokerService?.UnsubscribeAll(this);
 			QuantumCallback.UnsubscribeListener(this);
 			QuantumEvent.UnsubscribeListener(this);
 			Destroy(_minimapMat);
@@ -288,22 +288,22 @@ namespace FirstLight.Game.Views.MatchHudViews
 			ct.position = new Vector3(0, _cameraHeight, 0);
 			_minimapCamera.Render();
 		}
-
-		private void OnGameStarted(CallbackGameStarted callback)
+		
+		private void OnMatchStartedMessage(MatchStartedMessage msg)
 		{
-			RenderMinimap();
-		}
-
-		private async void OnGameResync(CallbackGameResynced callback)
-		{
-			await Task.Yield();
-			
-			_airdropPool.DespawnAll();
-			
-			foreach (var (entity, airDrop) in callback.Game.Frames.Predicted.GetComponentIterator<AirDrop>())
+			if (msg.IsResync)
 			{
-				SpawnAirdrop(entity, airDrop);
+				_airdropPool.DespawnAll();
+				
+				foreach (var (entity, airDrop) in msg.Game.Frames.Predicted.GetComponentIterator<AirDrop>())
+				{
+					SpawnAirdrop(entity, airDrop);
+				}
+				
+				return;
 			}
+			
+			RenderMinimap();
 		}
 
 		private void OnAirDropDropped(EventOnAirDropDropped callback)

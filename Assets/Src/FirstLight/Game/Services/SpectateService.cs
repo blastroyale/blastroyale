@@ -172,9 +172,6 @@ namespace FirstLight.Game.Services
 			if (_gameServices.NetworkService.QuantumClient.LocalPlayer.IsSpectator() && !_spectatedPlayer.Value.Entity.IsValid &&
 			    TryGetNextPlayer(out var player))
 			{
-				// Layer 2 of stupidity - on resync of spectate mode, quantum still 
-				await Task.Yield();
-				
 				SetSpectatedEntity(player.Key, player.Value, true);
 			}
 		}

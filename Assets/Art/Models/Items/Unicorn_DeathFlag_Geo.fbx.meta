@@ -3,7 +3,12 @@ guid: 53bfc932f076bc843baecf10d6092e04
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat1_Unicorn_Death_Flag1
+    second: {fileID: 2100000, guid: 929719431ed6e0a4eae420bf16291a0d, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

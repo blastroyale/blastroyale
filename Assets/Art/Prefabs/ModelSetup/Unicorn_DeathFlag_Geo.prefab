@@ -4823,7 +4823,7 @@ GameObject:
   - component: {fileID: 4608976593665840556}
   - component: {fileID: 601657571564444169}
   - component: {fileID: 3440032230042578627}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Unicorn_DeathFlag_Geo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4837,7 +4837,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3800351330853883670}
-  m_LocalRotation: {x: -0, y: -0.7071068, z: -0.7071068, w: 0}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4845,7 +4845,7 @@ Transform:
   - {fileID: 6781084725691462079}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -180}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!33 &601657571564444169
 MeshFilter:
   m_ObjectHideFlags: 0

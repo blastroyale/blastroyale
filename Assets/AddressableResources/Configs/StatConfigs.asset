@@ -65,10 +65,19 @@ MonoBehaviour:
         RawValue: 66
     - StatType: 6
       BaseValue:
-        RawValue: 13107
+        RawValue: 6554
       RarityMultiplier:
         RawValue: 68813
       LevelStepMultiplier:
         RawValue: 2294
       GradeStepMultiplier:
         RawValue: 16384
+    - StatType: 7
+      BaseValue:
+        RawValue: 655360
+      RarityMultiplier:
+        RawValue: 68813
+      LevelStepMultiplier:
+        RawValue: 328
+      GradeStepMultiplier:
+        RawValue: 3277

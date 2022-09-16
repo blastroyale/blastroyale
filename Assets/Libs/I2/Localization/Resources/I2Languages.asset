@@ -8880,6 +8880,15 @@ MonoBehaviour:
       - app.ts
       Flags: 000000
       Languages_Touch: []
+    - Term: General/AmmoCapacity
+      TermType: 0
+      Description: 
+      Languages:
+      - Ammo Capacity
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -8898,7 +8907,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1663155695751
+    Google_LastUpdatedVersion: 1663340512907
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

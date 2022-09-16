@@ -27,7 +27,7 @@ namespace Quantum
 		                                                             GetStatData(StatType.PickupSpeed).BaseValue);
 		
 		public Stats(FP baseHealth, FP basePower, FP baseSpeed, FP baseArmour, FP maxShields, FP startingShields, 
-		             FP baseRange, FP basePickupSpeed)
+		             FP baseRange, FP basePickupSpeed, FP baseAmmoCapacity)
 		{
 			CurrentHealth = baseHealth.AsInt;
 			CurrentShield = 0;
@@ -45,6 +45,7 @@ namespace Quantum
 			Values[(int) StatType.Armour] = new StatData(baseArmour, baseArmour, StatType.Armour);
 			Values[(int)StatType.AttackRange] = new StatData(baseRange, baseRange, StatType.AttackRange);
 			Values[(int)StatType.PickupSpeed] = new StatData(basePickupSpeed, basePickupSpeed, StatType.PickupSpeed);
+			Values[(int)StatType.AmmoCapacity] = new StatData(baseAmmoCapacity, baseAmmoCapacity, StatType.AmmoCapacity);
 		}
 
 		/// <summary>

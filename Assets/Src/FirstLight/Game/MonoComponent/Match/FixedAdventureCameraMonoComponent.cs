@@ -66,7 +66,6 @@ namespace FirstLight.Game.MonoComponent.Match
 			
 			_matchServices?.SpectateService?.SpectatedPlayer.StopObserving(OnSpectatedPlayerChanged);
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
-			QuantumEvent.UnsubscribeListener(this);
 		}
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)

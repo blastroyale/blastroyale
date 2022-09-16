@@ -42,14 +42,12 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			_services.MessageBrokerService.UnsubscribeAll(this);
 		}
 
-		private async void OnMatchStartedMessage(MatchStartedMessage msg)
+		private void OnMatchStartedMessage(MatchStartedMessage msg)
 		{
 			if (!msg.IsResync || _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
 			{
 				return;
 			}
-			
-			await Task.Yield();
 
 			var game = msg.Game;
 			var f = game.Frames.Predicted;

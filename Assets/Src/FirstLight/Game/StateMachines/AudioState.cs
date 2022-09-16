@@ -99,8 +99,7 @@ namespace FirstLight.Game.StateMachines
 			battleRoyale.Nest(_audioBrState.Setup).Target(postGameSpectatorCheck);
 			battleRoyale.Event(GameSimulationState.GameCompleteExitEvent).Target(postGameSpectatorCheck);
 			battleRoyale.Event(GameSimulationState.MatchEndedEvent).Target(postGameSpectatorCheck);
-			battleRoyale.Event(GameSimulationState.MatchQuitEvent).OnTransition(StopMusicInstant)
-			            .Target(postGameSpectatorCheck);
+			battleRoyale.Event(GameSimulationState.MatchQuitEvent).OnTransition(StopMusicInstant).Target(postGameSpectatorCheck);
 			battleRoyale.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
 			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
 			battleRoyale.OnExit(UnsubscribeMatchEvents);
@@ -403,7 +402,7 @@ namespace FirstLight.Game.StateMachines
 		private void OnStartCollection(EventOnStartedCollecting callback)
 		{
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView)) return;
-			if (entityView == null) return;
+
 			_services.AudioFxService.PlayClip3D(AudioId.CollectionStart, entityView.transform.position);
 			var collectSfx = _services.AudioFxService.PlayClip3D(AudioId.CollectionLoop, entityView.transform.position);
 			var despawnEvents = new[]
@@ -763,8 +762,7 @@ namespace FirstLight.Game.StateMachines
 		private void OnPlayerAttack(EventOnPlayerAttack callback)
 		{
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView)) return;
-
-			if (entityView == null) return;
+			
 			var weaponConfig = _services.ConfigsProvider.GetConfig<AudioWeaponConfig>((int) callback.Weapon.GameId);
 			var audio = _services.AudioFxService.PlayClip3D(weaponConfig.WeaponShotId,
 			                                                entityView.transform.position);
@@ -782,7 +780,7 @@ namespace FirstLight.Game.StateMachines
 		private void OnPlayerDamaged(EventOnPlayerDamaged callback)
 		{
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
-			if (entityView == null) return;
+
 			var audio = AudioId.None;
 			var damagedPlayerIsLocal = _matchServices.SpectateService.SpectatedPlayer.Value.Player == callback.Player;
 			var spectatedEntity = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;

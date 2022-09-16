@@ -379,7 +379,7 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<MatchmakingLoadingScreenPresenter>(false, true);
 		}
 
-		private void PublishMatchStartedMessage(QuantumGame game, bool isResync)
+		private async void PublishMatchStartedMessage(QuantumGame game, bool isResync)
 		{
 			if (_services.NetworkService.IsJoiningNewMatch)
 			{
@@ -389,6 +389,8 @@ namespace FirstLight.Game.StateMachines
 
 			CloseMatchmakingScreen();
 
+			await Task.Yield();
+			
 			_services.MessageBrokerService.Publish(new MatchStartedMessage { Game = game, IsResync = isResync });
 		}
 

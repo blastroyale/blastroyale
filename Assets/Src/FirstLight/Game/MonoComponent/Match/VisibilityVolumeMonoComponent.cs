@@ -93,12 +93,10 @@ namespace FirstLight.Game.Views.MapViews
 			CheckUpdateAllVisiblePlayers();
 		}
 		
-		private async void OnMatchStartedMessage(MatchStartedMessage msg)
+		private void OnMatchStartedMessage(MatchStartedMessage msg)
 		{
 			if (!msg.IsResync) return;
 
-			await Task.Yield();
-			
 			CheckUpdateAllVisiblePlayers();
 		}
 

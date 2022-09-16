@@ -74,10 +74,8 @@ namespace FirstLight.Game.Services
 			QuantumEvent.UnsubscribeListener(this);
 		}
 
-		public async void OnMatchStarted(QuantumGame game, bool isReconnect)
+		public void OnMatchStarted(QuantumGame game, bool isReconnect)
 		{
-			await Task.Yield();
-			
 			if (_gameServices.NetworkService.IsSpectorPlayer)
 			{
 				if (isReconnect)

@@ -166,7 +166,7 @@ namespace FirstLight.Game.Services
 			return false;
 		}
 
-		private async void TrySetSpectateModePlayer()
+		private void TrySetSpectateModePlayer()
 		{
 			// Spectator mode - set new player to follow, only once
 			if (_gameServices.NetworkService.QuantumClient.LocalPlayer.IsSpectator() && !_spectatedPlayer.Value.Entity.IsValid &&

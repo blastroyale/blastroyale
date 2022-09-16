@@ -44,7 +44,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 			_services.MessageBrokerService.Subscribe<SpectateSetCameraMessage>(OnSpectateSetCameraMessage);
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
-			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
+			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, OnPlayerAlive);
 			QuantumEvent.Subscribe<EventOnPlayerSkydiveLand>(this, OnPlayerSkydiveLand);
 
@@ -95,9 +95,12 @@ namespace FirstLight.Game.MonoComponent.Match
 			}
 		}
 		
-		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
+		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
 		{
-			SetActiveCamera(_spawnCamera);
+			if (callback.Game.PlayerIsLocal(callback.Player))
+			{
+				SetActiveCamera(_spawnCamera);
+			}
 		}
 
 		private void OnPlayerAlive(EventOnPlayerAlive callback)

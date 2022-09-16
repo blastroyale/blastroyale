@@ -235,9 +235,7 @@ namespace FirstLight.Game.Presenters
 			                                    GameConstants.Haptics.GAME_START_SHARPNESS, 
 			                                    GameConstants.Haptics.GAME_START_DURATION);
 
-			if (!msg.IsResync) return;
-			
-			if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
+			if (!msg.IsResync || _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
 			{
 				return;
 			}

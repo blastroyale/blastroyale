@@ -10,7 +10,7 @@ namespace Quantum
 		public GameId Id;
 		public AssetRefEntityPrototype AssetRef; 
 		public ConsumableType ConsumableType;
-		public FP Amount;
+		public QuantumGameModePair<FP> Amount;
 		public QuantumGameModePair<FP> ConsumableCollectTime;
 	}
 

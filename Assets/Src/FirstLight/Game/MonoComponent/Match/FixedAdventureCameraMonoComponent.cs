@@ -44,9 +44,9 @@ namespace FirstLight.Game.MonoComponent.Match
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 			_services.MessageBrokerService.Subscribe<SpectateSetCameraMessage>(OnSpectateSetCameraMessage);
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
-			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
-			QuantumEvent.Subscribe<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
-			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLand);
+			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
+			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, OnPlayerAlive);
+			QuantumEvent.Subscribe<EventOnPlayerSkydiveLand>(this, OnPlayerSkydiveLand);
 			
 			gameObject.SetActive(false);
 		}
@@ -64,7 +64,7 @@ namespace FirstLight.Game.MonoComponent.Match
 				input.Value.CancelButton.canceled -= SetActiveCamera;
 			}
 			
-			_matchServices?.SpectateService?.SpectatedPlayer.StopObserving(OnSpectatedPlayerChanged);
+			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(OnSpectatedPlayerChanged);
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
@@ -90,33 +90,38 @@ namespace FirstLight.Game.MonoComponent.Match
 			SetActiveCamera(_spectateCameras[obj.CameraId]);
 		}
 
-		private async void OnMatchStarted(MatchStartedMessage obj)
+		private void OnMatchStarted(MatchStartedMessage obj)
 		{
 			gameObject.SetActive(true);
 			
 			if (obj.IsResync)
 			{
-				await Task.Yield();
 				SetActiveCamera(_adventureCamera);
 				SnapCamera();
 			}
 		}
 
-		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
+		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
 		{
+			if (_matchServices.SpectateService.SpectatedPlayer.Value.Player != callback.Player) return;
+			
 			SetActiveCamera(_spawnCamera);
 		}
 		
-		private void OnLocalPlayerAlive(EventOnLocalPlayerAlive callback)
+		private void OnPlayerAlive(EventOnPlayerAlive callback)
 		{
+			if (_matchServices.SpectateService.SpectatedPlayer.Value.Player != callback.Player) return;
+			
 			if (callback.Game.Frames.Verified.Context.GameModeConfig.Lives != 1)
 			{
 				SetActiveCamera(_adventureCamera);
 			}
 		}
 
-		private void OnLocalPlayerSkydiveLand(EventOnLocalPlayerSkydiveLand callback)
+		private void OnPlayerSkydiveLand(EventOnPlayerSkydiveLand callback)
 		{
+			if (_matchServices.SpectateService.SpectatedPlayer.Value.Player != callback.Player) return;
+			
 			SetActiveCamera(_adventureCamera);
 		}
 

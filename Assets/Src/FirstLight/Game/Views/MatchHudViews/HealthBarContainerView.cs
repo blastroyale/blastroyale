@@ -37,6 +37,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				
 			QuantumEvent.Subscribe<EventOnPlayerAttackHit>(this, OnPlayerAttackHit);
 			QuantumEvent.Subscribe<EventOnPlayerSkydiveLand>(this, OnPlayerSkydiveLand);
+			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, OnPlayerAlive);
 			_services.MessageBrokerService.Subscribe<MatchEndedMessage>(OnGameplayEnded);
 			_matchServices.SpectateService.SpectatedPlayer.InvokeObserve(OnPlayerSpectateUpdate);
 			
@@ -86,19 +87,31 @@ namespace FirstLight.Game.Views.MatchHudViews
 			healthBar.Despawn();
 		}
 
+		private void OnPlayerAlive(EventOnPlayerAlive callback)
+		{
+			SetupInitialHealthBar(callback.Game.Frames.Verified, callback.Entity);
+		}
+
 		private void OnPlayerSpectateUpdate(SpectatedPlayer previousPlayer, SpectatedPlayer newPlayer)
 		{
+			if (!newPlayer.Entity.IsValid) return;
+			
 			var f = QuantumRunner.Default?.Game?.Frames.Predicted;
 			var player = newPlayer.Entity.IsValid ? newPlayer : previousPlayer;
+			
+			SetupInitialHealthBar(f, player.Entity);
+		}
 
-			if (f == null || !f.TryGet<AIBlackboardComponent>(player.Entity, out var blackboard) || 
+		private void SetupInitialHealthBar(Frame f, EntityRef playerEntity)
+		{
+			if (f == null || !f.TryGet<AIBlackboardComponent>(playerEntity, out var blackboard) || 
 			    blackboard.GetBoolean(f, Constants.IsSkydiving))
 			{
 				_healthBarSpectatePlayer.OnDespawn();
 				return;
 			}
 			
-			SetupSpectateHealthBar(f, player.Entity, _healthBarSpectatePlayer);
+			SetupSpectateHealthBar(f, playerEntity, _healthBarSpectatePlayer);
 		}
 		
 		private void SetupSpectateHealthBar(Frame f, EntityRef entity, SpectatePlayerHealthBarObject healthBar)

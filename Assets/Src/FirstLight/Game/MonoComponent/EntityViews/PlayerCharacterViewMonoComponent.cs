@@ -79,6 +79,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void OnDestroy()
 		{
+			if (_attackHideRendererCoroutine != null)
+			{
+				Services.CoroutineService.StopCoroutine(_attackHideRendererCoroutine);
+			}
+			
 			Services.MessageBrokerService.UnsubscribeAll(this);
 		}
 		
@@ -128,6 +133,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		
 		protected override void OnAvatarEliminated(QuantumGame game)
 		{
+			if (_attackHideRendererCoroutine != null)
+			{
+				Services.CoroutineService.StopCoroutine(_attackHideRendererCoroutine);
+			}
+			
 			base.OnAvatarEliminated(game);
 		}
 

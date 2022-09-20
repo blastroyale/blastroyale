@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.EntityPrototypes;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Services;
@@ -28,12 +30,23 @@ namespace FirstLight.Game.Views.MapViews
 
 			_currentlyCollidingPlayers = new Dictionary<EntityRef, PlayerCharacterViewMonoComponent>();
 
+			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
+			QuantumEvent.Subscribe<EventOnPlayerDead>(this, OnPlayerDead);
+		}
+
+		private void OnPlayerDead(EventOnPlayerDead callback)
+		{
+			if (_currentlyCollidingPlayers.ContainsKey(callback.Entity))
+			{
+				_currentlyCollidingPlayers.Remove(callback.Entity);
+			}
 		}
 
 		private void OnDestroy()
 		{
 			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(OnSpectatedPlayerChanged);
+			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
 		/// <summary>
@@ -86,6 +99,13 @@ namespace FirstLight.Game.Views.MapViews
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
+			CheckUpdateAllVisiblePlayers();
+		}
+		
+		private void OnMatchStartedMessage(MatchStartedMessage msg)
+		{
+			if (!msg.IsResync) return;
+
 			CheckUpdateAllVisiblePlayers();
 		}
 

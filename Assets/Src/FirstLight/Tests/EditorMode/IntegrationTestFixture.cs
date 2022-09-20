@@ -29,8 +29,7 @@ namespace FirstLight.Tests.EditorMode
 	public abstract class IntegrationTestFixture
 	{
 		private static string _backendPath => $"{Application.dataPath}/../Backend";
-		private static bool _isConfigSetup = false;
-		
+
 		protected string TestPlayerId;
 		protected IGameServices TestServices;
 		protected GameLogic TestLogic;
@@ -122,9 +121,11 @@ namespace FirstLight.Tests.EditorMode
 		
 		private void WorkaroundForStateRun()
 		{
+#pragma warning disable CS0612
 			var quantumAddress = AddressableId.Configs_Settings_QuantumRunnerConfigs.GetConfig().Address;
 			var quantumAsset = Addressables.LoadAsset<QuantumRunnerConfigs>(quantumAddress).WaitForCompletion();
 			TestConfigs.AddSingletonConfig(quantumAsset);
+#pragma warning restore CS0612
 		}
 	}
 }

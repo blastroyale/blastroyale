@@ -181,7 +181,6 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(SimulationStartedEvent);
 		}
 
-
 		private async void OnGameResync(CallbackGameResynced callback)
 		{
 			// Delays one frame just to guarantee that the game objects are created before anything else
@@ -374,11 +373,6 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<TrophiesScreenPresenter>(false, true);
 		}
 
-		private void CloseMatchmakingScreen()
-		{
-			_uiService.CloseUi<MatchmakingLoadingScreenPresenter>(false, true);
-		}
-
 		private void PublishMatchStartedMessage(QuantumGame game, bool isResync)
 		{
 			if (_services.NetworkService.IsJoiningNewMatch)
@@ -386,8 +380,6 @@ namespace FirstLight.Game.StateMachines
 				MatchStartAnalytics();
 				SetPlayerMatchData(game);
 			}
-
-			CloseMatchmakingScreen();
 
 			_services.MessageBrokerService.Publish(new MatchStartedMessage { Game = game, IsResync = isResync });
 		}

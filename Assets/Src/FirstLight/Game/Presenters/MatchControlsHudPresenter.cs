@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using FirstLight.Game.Input;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
@@ -19,7 +20,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// Presenter for match controls.
 	/// </summary>
-	public unsafe class MatchControlsHudPresenter : UiPresenter, LocalInput.IGameplayActions
+	public class MatchControlsHudPresenter : UiPresenter, LocalInput.IGameplayActions
 	{
 		[SerializeField, Required] private SpecialButtonView[] _specialButtons;
 		[SerializeField] private GameObject[] _disableWhileParachuting;
@@ -46,9 +47,8 @@ namespace FirstLight.Game.Presenters
 			_weaponSlotButtons[0].onClick.AddListener(() => OnWeaponSlotClicked(0));
 			_weaponSlotButtons[1].onClick.AddListener(() => OnWeaponSlotClicked(1));
 			_weaponSlotButtons[2].onClick.AddListener(() => OnWeaponSlotClicked(2));
-
-
-			QuantumCallback.Subscribe<CallbackGameResynced>(this, OnGameResync);
+			
+			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
 			QuantumEvent.Subscribe<EventOnPlayerDamaged>(this, OnPlayerDamaged);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveDrop>(this, OnLocalPlayerSkydiveDrop);
@@ -65,7 +65,6 @@ namespace FirstLight.Game.Presenters
 		protected override void OnOpened()
 		{
 			_services.PlayerInputService.EnableInput();
-			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, OnUpdateView);
 			QuantumCallback.Subscribe<CallbackPollInput>(this, PollInput);
 		}
@@ -213,7 +212,7 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		private void Init(Frame f, EntityRef entity)
+		private unsafe void Init(Frame f, EntityRef entity)
 		{
 			var playerView = _matchServices.EntityViewUpdaterService.GetManualView(entity);
 			var playerCharacter = f.Get<PlayerCharacter>(entity);
@@ -235,16 +234,13 @@ namespace FirstLight.Game.Presenters
 			MMVibrationManager.ContinuousHaptic(GameConstants.Haptics.GAME_START_INTENSITY, 
 			                                    GameConstants.Haptics.GAME_START_SHARPNESS, 
 			                                    GameConstants.Haptics.GAME_START_DURATION);
-		}
 
-		private void OnGameResync(CallbackGameResynced callback)
-		{
-			if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
+			if (!msg.IsResync || _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
 			{
 				return;
 			}
-			
-			var localPlayer = callback.Game.GetLocalPlayerData(false, out var f);
+
+			var localPlayer = msg.Game.GetLocalPlayerData(false, out var f);
 
 			if (!localPlayer.Entity.IsAlive(f))
 			{
@@ -327,7 +323,7 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		private void OnEventOnLocalPlayerSpecialUsed(EventOnLocalPlayerSpecialUsed callback)
+		private unsafe void OnEventOnLocalPlayerSpecialUsed(EventOnLocalPlayerSpecialUsed callback)
 		{
 			var button = _specialButtons[callback.SpecialIndex];
 			var inputButton = _services.PlayerInputService.Input.Gameplay.GetSpecialButton(callback.SpecialIndex);
@@ -362,7 +358,7 @@ namespace FirstLight.Game.Presenters
 			MMVibrationManager.ContinuousHaptic(intensity, sharpness, GameConstants.Haptics.DAMAGE_DURATION);
 		}
 
-		private void SendSpecialUsedCommand(int specialIndex, Vector2 aimDirection)
+		private unsafe void SendSpecialUsedCommand(int specialIndex, Vector2 aimDirection)
 		{
 			var data = QuantumRunner.Default.Game.GetLocalPlayerData(false, out var f);
 			

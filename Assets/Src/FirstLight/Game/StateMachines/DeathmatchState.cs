@@ -57,6 +57,7 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(spectateCheck);
 			initial.OnExit(SubscribeEvents);
 			initial.OnExit(_killsDictionary.Clear);
+			initial.OnExit(CloseMatchmakingScreen);
 			
 			spectateCheck.Transition().Condition(IsSpectator).Target(spectating);
 			spectateCheck.Transition().Target(resyncCheck);
@@ -217,6 +218,11 @@ namespace FirstLight.Game.StateMachines
 		private void CloseKilledHud()
 		{
 			_uiService.CloseUi<DeathmatchDeadScreenPresenter>();
+		}
+		
+		private void CloseMatchmakingScreen()
+		{
+			_uiService.CloseUi<MatchmakingLoadingScreenPresenter>(false, true);
 		}
 
 		private async Task Countdown()

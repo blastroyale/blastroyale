@@ -219,6 +219,7 @@ namespace Quantum
 
 			if (damageAmount <= 0)
 			{
+				f.Events.OnDamageBlocked(entity);
 				return;
 			}
 

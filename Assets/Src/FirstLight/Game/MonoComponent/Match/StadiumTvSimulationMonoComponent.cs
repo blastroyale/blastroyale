@@ -66,7 +66,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			var playerData = callback.PlayersMatchData;
 			
 			_standings.Initialise(playerData.Count, true, true);
-			_standings.UpdateStandings(playerData, callback.Game.GetLocalPlayers()[0]);
+			_standings.UpdateStandings(playerData);
 			_services?.TickService?.UnsubscribeOnUpdate(UpdateTick);
 		}
 	}

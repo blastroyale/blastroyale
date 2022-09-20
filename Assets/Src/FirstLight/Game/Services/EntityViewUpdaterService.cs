@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
 using Quantum;
 using UnityEngine;
@@ -43,11 +44,33 @@ namespace FirstLight.Game.Services
 
 		private IGameServices _gameServices;
 
-		private void Start()
+		private new void Awake()
 		{
+			base.Awake();
+			
 			_gameServices = MainInstaller.Resolve<IGameServices>();
 
-			QuantumCallback.Subscribe<CallbackGameResynced>(this, OnGameResynced);
+			_gameServices.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
+		}
+
+		private void OnMatchStartedMessage(MatchStartedMessage msg)
+		{
+			if (!msg.IsResync) return;
+			
+			var f = msg.Game.Frames.Verified;
+
+			if (!f.Context.GameModeConfig.DeathMarker) return;
+
+			var data = f.GetSingleton<GameContainer>().PlayersData;
+			for (var i = 0; i < data.Length; i++)
+			{
+				var playerData = data[i];
+
+				if (playerData.DeathCount > 0)
+				{
+					SpawnDeathMarker(playerData.PlayerDeathMarker, playerData.LastDeathPosition.ToUnityVector3());
+				}
+			}
 		}
 
 		private void LateUpdate()
@@ -104,24 +127,6 @@ namespace FirstLight.Game.Services
 			}
 
 			base.DestroyEntityView(game, view);
-		}
-
-		private void OnGameResynced(CallbackGameResynced callback)
-		{
-			var f = callback.Game.Frames.Verified;
-
-			if (!f.Context.GameModeConfig.DeathMarker) return;
-
-			var data = f.GetSingleton<GameContainer>().PlayersData;
-			for (var i = 0; i < data.Length; i++)
-			{
-				var playerData = data[i];
-
-				if (playerData.DeathCount > 0)
-				{
-					SpawnDeathMarker(playerData.PlayerDeathMarker, playerData.LastDeathPosition.ToUnityVector3());
-				}
-			}
 		}
 
 		private async void SpawnDeathMarker(GameId marker, Vector3 position)

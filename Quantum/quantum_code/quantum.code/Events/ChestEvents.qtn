@@ -1,0 +1,7 @@
+synced event OnChestOpened
+{
+	GameId ChestType;
+	FPVector3 ChestPosition;
+	player_ref Player;
+	entity_ref Entity;
+}

@@ -429,6 +429,7 @@ namespace I2.Loc
 			public static string ChickenDinner 		{ get{ return LocalizationManager.GetTranslation ("GameIds/ChickenDinner"); } }
 			public static string CommonBox 		{ get{ return LocalizationManager.GetTranslation ("GameIds/CommonBox"); } }
 			public static string CommonCore 		{ get{ return LocalizationManager.GetTranslation ("GameIds/CommonCore"); } }
+			public static string Custom 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Custom"); } }
 			public static string DamagePill 		{ get{ return LocalizationManager.GetTranslation ("GameIds/DamagePill"); } }
 			public static string Deathmatch 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Deathmatch"); } }
 			public static string Diagonalshot 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Diagonalshot"); } }
@@ -1461,6 +1462,7 @@ namespace I2.Loc
 		    public const string ChickenDinner = "GameIds/ChickenDinner";
 		    public const string CommonBox = "GameIds/CommonBox";
 		    public const string CommonCore = "GameIds/CommonCore";
+		    public const string Custom = "GameIds/Custom";
 		    public const string DamagePill = "GameIds/DamagePill";
 		    public const string Deathmatch = "GameIds/Deathmatch";
 		    public const string Diagonalshot = "GameIds/Diagonalshot";

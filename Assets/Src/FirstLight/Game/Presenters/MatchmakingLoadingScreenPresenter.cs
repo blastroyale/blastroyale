@@ -49,6 +49,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private GameObject _roomNameRootObject;
 		[SerializeField, Required] private GameObject _playerMatchmakingRootObject;
 		[SerializeField, Required] private GameObject _playerCountHolder;
+		[SerializeField, Required] private GameObject _selectDropZoneTextRootObject;
 		[SerializeField, Required] private PlayerListHolderView _playerListHolder;
 		[SerializeField, Required] private PlayerListHolderView _spectatorListHolder;
 		[SerializeField, Required] private UiToggleButtonView _botsToggle;
@@ -122,7 +123,8 @@ namespace FirstLight.Game.Presenters
 
 				return;
 			}
-
+			
+			_selectDropZoneTextRootObject.SetActive(gameModeConfig.SpawnSelection);
 			_lockRoomButton.gameObject.SetActive(false);
 			_leaveRoomButton.gameObject.SetActive(false);
 			_getReadyToRumbleText.gameObject.SetActive(false);
@@ -138,10 +140,11 @@ namespace FirstLight.Game.Presenters
 			_playerFillWaitTime =
 				_services.ConfigsProvider.GetConfig<QuantumGameConfig>().CasualMatchmakingTime.AsFloat /
 				room.GetRealPlayerCapacity();
-			var matchType = _services.GameModeService.SelectedGameMode.Value.Entry.MatchType.ToString().ToUpper();
+			var matchType = room.GetMatchType();
 			var gameMode = room.GetGameModeId().ToUpper();
 			_selectedGameModeText.text =
-				string.Format(ScriptLocalization.MainMenu.SelectedGameModeValue, matchType, gameMode);
+				string.Format(ScriptLocalization.MainMenu.SelectedGameModeValue, matchType.ToString().ToUpper(),
+				              gameMode);
 
 			UpdateRoomPlayerCounts();
 
@@ -153,7 +156,7 @@ namespace FirstLight.Game.Presenters
 				_playerCountHolder.SetActive(false);
 				_roomNameRootObject.SetActive(false);
 
-				if (_services.GameModeService.SelectedGameMode.Value.Entry.MatchType == MatchType.Casual)
+				if (matchType == MatchType.Casual)
 				{
 					StartCoroutine(MatchmakingTimeUpdateCoroutine(room.GetRealPlayerCapacity()));
 				}
@@ -231,7 +234,7 @@ namespace FirstLight.Game.Presenters
 			AddOrUpdatePlayerInList(newPlayer);
 
 			// For casual matches, MatchmakingTimeUpdateCoroutine handles the player waiting images
-			if (_services.GameModeService.SelectedGameMode.Value.Entry.MatchType == MatchType.Ranked)
+			if (_services.NetworkService.CurrentRoomMatchType == MatchType.Ranked)
 			{
 				UpdatePlayersWaitingImages(CurrentRoom.GetRealPlayerCapacity(), CurrentRoom.GetRealPlayerAmount());
 			}
@@ -244,7 +247,7 @@ namespace FirstLight.Game.Presenters
 			RemovePlayerInAllLists(otherPlayer);
 
 			// For casual matches, MatchmakingTimeUpdateCoroutine handles the player waiting images
-			if (_services.GameModeService.SelectedGameMode.Value.Entry.MatchType == MatchType.Ranked)
+			if (_services.NetworkService.CurrentRoomMatchType == MatchType.Ranked)
 			{
 				UpdatePlayersWaitingImages(CurrentRoom.GetRealPlayerCapacity(), CurrentRoom.GetRealPlayerAmount());
 			}
@@ -474,7 +477,7 @@ namespace FirstLight.Game.Presenters
 				overlayObject.SetActive(true);
 			}
 		}
-		
+
 		private void DeactivateKickOverlay()
 		{
 			foreach (var overlayObject in _kickOverlayObjects)

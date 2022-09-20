@@ -27,6 +27,11 @@ namespace FirstLight.Game.Configs
 				MatchType = matchType;
 				Mutators = mutators;
 			}
+
+			public override string ToString()
+			{
+				return $"{GameModeId}, {MatchType}, Mutators({string.Join(",", Mutators)})";
+			}
 		}
 
 		[Serializable]

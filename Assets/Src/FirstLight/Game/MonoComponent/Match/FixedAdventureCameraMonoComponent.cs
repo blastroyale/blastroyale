@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Cinemachine;
 using FirstLight.FLogger;
 using FirstLight.Game.Input;
@@ -40,13 +41,13 @@ namespace FirstLight.Game.MonoComponent.Match
 			input.SpecialButton1.canceled += SetActiveCamera;
 			input.CancelButton.canceled += SetActiveCamera;
 
-			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
+			_matchServices.SpectateService.SpectatedPlayer.InvokeObserve(OnSpectatedPlayerChanged);
 			_services.MessageBrokerService.Subscribe<SpectateSetCameraMessage>(OnSpectateSetCameraMessage);
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
-			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
-			QuantumEvent.Subscribe<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
-			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLand);
-			
+			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
+			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, OnPlayerAlive);
+			QuantumEvent.Subscribe<EventOnPlayerSkydiveLand>(this, OnPlayerSkydiveLand);
+
 			gameObject.SetActive(false);
 		}
 
@@ -69,11 +70,8 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
-			if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator() && !previous.Entity.IsValid)
-			{
-				// This sets the initial camera when we get the first spectated player in spectate mode
-				SetActiveCamera(_spectateCameras[0]);
-			}
+			if (!next.Entity.IsValid) return;
+			
 			RefreshSpectator(next.Transform);
 			SnapCamera();
 		}
@@ -98,22 +96,26 @@ namespace FirstLight.Game.MonoComponent.Match
 				SnapCamera();
 			}
 		}
-
-		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
-		{
-			SetActiveCamera(_spawnCamera);
-		}
 		
-		private void OnLocalPlayerAlive(EventOnLocalPlayerAlive callback)
+		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
 		{
-			if (callback.Game.Frames.Verified.Context.GameModeConfig.Lives != 1)
+			if (callback.Game.PlayerIsLocal(callback.Player))
 			{
-				SetActiveCamera(_adventureCamera);
+				SetActiveCamera(_spawnCamera);
 			}
 		}
 
-		private void OnLocalPlayerSkydiveLand(EventOnLocalPlayerSkydiveLand callback)
+		private void OnPlayerAlive(EventOnPlayerAlive callback)
 		{
+			if (_matchServices.SpectateService.SpectatedPlayer.Value.Player != callback.Player) return;
+			
+			SetActiveCamera(_adventureCamera);
+		}
+
+		private void OnPlayerSkydiveLand(EventOnPlayerSkydiveLand callback)
+		{
+			if (_matchServices.SpectateService.SpectatedPlayer.Value.Player != callback.Player) return;
+			
 			SetActiveCamera(_adventureCamera);
 		}
 
@@ -125,12 +127,14 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void SetActiveCamera(CinemachineVirtualCamera virtualCamera)
 		{
-			if (virtualCamera.gameObject == _cinemachineBrain.ActiveVirtualCamera.VirtualCameraGameObject)
+			if ( _cinemachineBrain.ActiveVirtualCamera != null &&
+			     virtualCamera.gameObject == _cinemachineBrain.ActiveVirtualCamera.VirtualCameraGameObject)
 			{
 				return;
 			}
 
-			_cinemachineBrain.ActiveVirtualCamera.VirtualCameraGameObject.SetActive(false);
+			_cinemachineBrain.ActiveVirtualCamera?.VirtualCameraGameObject.SetActive(false);
+
 			virtualCamera.gameObject.SetActive(true);
 		}
 
@@ -164,7 +168,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		private void SnapCamera()
 		{
 			// Hacky way to force the camera to evaluate the blend to the next follow target (so we snap to it)
-			_cinemachineBrain.ActiveVirtualCamera.UpdateCameraState(Vector3.up, 10f);
+			_cinemachineBrain.ActiveVirtualCamera?.UpdateCameraState(Vector3.up, 10f);
 		}
 	}
 }

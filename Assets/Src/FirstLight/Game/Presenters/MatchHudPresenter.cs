@@ -62,11 +62,7 @@ namespace FirstLight.Game.Presenters
 			_equippedDebugText.gameObject.SetActive(false);
 			_connectionIcon.SetActive(false);
 			_standings.gameObject.SetActive(false);
-			_mapTimerView.gameObject.SetActive(false);
 			_leaderHolderView.gameObject.SetActive(false);
-			_scoreHolderView.gameObject.SetActive(false);
-			_contendersLeftHolderView.gameObject.SetActive(false);
-			_quitButton.gameObject.SetActive(false);
 			
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
@@ -115,7 +111,7 @@ namespace FirstLight.Game.Presenters
 			var playersData = gameContainer.PlayersData;
 			var canQuitMatch = true;
 			
-			if (_services.GameModeService.SelectedGameMode.Value.Entry.MatchType == MatchType.Ranked)
+			if ( _services.NetworkService.CurrentRoomMatchType == MatchType.Ranked)
 			{
 				var localPlayer = playersData[game.GetLocalPlayers()[0]];
 				var valid = localPlayer.IsValid;
@@ -152,7 +148,7 @@ namespace FirstLight.Game.Presenters
 			var container = frame.GetSingleton<GameContainer>();
 			var playerData = container.GetPlayersMatchData(frame, out _);
 			
-			_standings.UpdateStandings(playerData, game.GetLocalPlayers()[0]);
+			_standings.UpdateStandings(playerData);
 			_standings.gameObject.SetActive(true);
 		}
 

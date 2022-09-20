@@ -16,18 +16,6 @@ namespace Quantum
 		
 	}
 
-	public unsafe partial struct AirDropSpawner
-	{
-		/// <summary>
-		/// Requests the current position of the entity this component is attached to
-		/// </summary>
-		public FPVector3 position(Frame f, EntityRef e)
-		{
-			var transform = f.Get<Transform3D>(e);
-			return transform.Position;
-		}
-	}
-
 	public unsafe partial struct CollectablePlatformSpawner
 	{
 		/// <summary>
@@ -100,13 +88,13 @@ namespace Quantum
 		{
 			// TODO: Clean this up and merge with SpawnGear when we start spawning freelying gear for public
 			var configs = f.WeaponConfigs;
-			var weaponPool = f.Context.GetPlayerWeapons(f, out var medianRarity);
+			var gameContainer = f.GetSingleton<GameContainer>();
 			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.EquipmentPickUpPrototype.Id));
-			var rarity = (EquipmentRarity) FPMath.Clamp((int) medianRarity + rarityModifier,
+			var rarity = (EquipmentRarity) FPMath.Clamp((int) gameContainer.DropPool.AverageRarity + rarityModifier,
 			                                            0,
 			                                            (int) EquipmentRarity.TOTAL - 1);
 			var equipment = id == GameId.Random
-				                ? weaponPool[f.RNG->Next(0, weaponPool.Count)]
+				                ? gameContainer.GenerateNextWeapon(f)
 				                : new Equipment(configs.GetConfig(id).Id, rarity: rarity);
 
 			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, transform.Position, FPQuaternion.Identity,

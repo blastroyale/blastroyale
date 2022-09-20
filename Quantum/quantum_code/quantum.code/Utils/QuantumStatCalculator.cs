@@ -86,9 +86,11 @@ namespace Quantum
 		{
 			var attributeValue = CalculateGearStat(statConfig, baseStatConfig, equipmentStatConfig, materialStatConfig, equipment);
 
-			if (statConfig.StatType == StatType.Power)
+
+			//TODO: make a second method that calls the frame in order to get game modde dependant stats
+			if(statConfig.StatType == StatType.Power)
 			{
-				attributeValue *= weaponConfig.PowerToDamageRatio;
+				attributeValue *= weaponConfig.PowerToDamageRatio.GetDefault();
 			}
 
 			return attributeValue;

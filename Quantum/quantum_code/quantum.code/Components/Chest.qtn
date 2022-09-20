@@ -12,9 +12,3 @@ enum ChestType
 	Epic,
 	Legendary,
 }
-
-synced event OnChestOpened
-{
-	GameId ChestType;
-	FPVector3 ChestPosition;
-}

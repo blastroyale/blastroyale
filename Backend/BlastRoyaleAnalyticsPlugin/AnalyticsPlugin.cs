@@ -19,11 +19,11 @@ namespace BlastRoyaleNFTPlugin
 
 		public void OnCommandFinished(CommandFinishedEvent ev)
 		{
-			_ctx.Analytics.EmitUserEvent(ev.PlayerId, ev.Command.GetType().Name, new AnalyticsData()
+			_ctx.Analytics.EmitUserEvent(ev.PlayerId, "server_player_gamestate_change", new AnalyticsData()
 			{
-				{ "CommandData", ev.CommandData },
+				{ "old_state", ev.PlayerStateBeforeCommand },
+				{ "current_state", ev.PlayerState }
 			});
-			_ctx.Analytics.EmitUserEvent(ev.PlayerId, "StateUpdate", new AnalyticsData(ev.PlayerState));
 		}
 	}
 }

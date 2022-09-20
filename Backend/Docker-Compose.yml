@@ -26,6 +26,7 @@ services:
       DEV_MODE: "true"
     build:
       context: .
+      dockerfile: StandaloneServer/Dockerfile
       args:
         APP_PORT: 7274
         ENVIRONMENT: "Development"

@@ -1,5 +1,5 @@
 using System;
-using UnityEngine;
+using FirstLight.FLogger;
 
 // ReSharper disable CheckNamespace
 
@@ -12,32 +12,38 @@ namespace FirstLight.Statechart.Internal
 		/// The unique value identifying this state
 		/// </summary>
 		uint Id { get; }
+
 		/// <summary>
 		/// The string representation identifying this state
 		/// </summary>
 		string Name { get; }
+
 		/// <summary>
 		/// The layer in the nested setup this state is in. If in the root then the value will be 0
 		/// </summary>
 		uint RegionLayer { get; }
+
 		/// <summary>
 		/// The stack trace when this setup was created. Relevant for debugging purposes
 		/// </summary>
 		string CreationStackTrace { get; }
-		
+
 		/// <summary>
 		/// Triggers the given <paramref name="statechartEvent"/> as input to the <see cref="IStatechart"/> and returns
 		/// the processed <see cref="IStateInternal"/> as an output
 		/// </summary>
 		IStateInternal Trigger(IStatechartEvent statechartEvent);
+
 		/// <summary>
 		/// Marks the initial moment of this state as the new current state in the <see cref="IStatechart"/>
 		/// </summary>
 		void Enter();
+
 		/// <summary>
 		/// Marks the final moment of this state as the current state in the <see cref="IStatechart"/>
 		/// </summary>
 		void Exit();
+
 		/// <summary>
 		/// Validates this state to any potential bad setup schemes. Relevant to debug purposes.
 		/// It requires the <see cref="IStatechart"/> to run at runtime.
@@ -53,17 +59,16 @@ namespace FirstLight.Statechart.Internal
 		private static uint _idRef;
 
 		/// <inheritdoc />
-		public bool LogsEnabled { get; set; }
-		/// <inheritdoc />
 		public uint Id { get; }
+
 		/// <inheritdoc />
 		public string Name { get; }
+
 		/// <inheritdoc />
 		public uint RegionLayer => _stateFactory.RegionLayer;
+
 		/// <inheritdoc />
 		public string CreationStackTrace { get; }
-
-		protected bool IsStateLogsEnabled => LogsEnabled || _stateFactory.Data.Statechart.LogsEnabled;
 
 		protected StateInternal(string name, IStateFactoryInternal stateFactory)
 		{
@@ -84,11 +89,9 @@ namespace FirstLight.Statechart.Internal
 
 			if (transition == null)
 			{
-				if (IsStateLogsEnabled)
-				{
-					Debug.Log($"({GetType().UnderlyingSystemType.Name}) - '{statechartEvent?.Name}' : ## STOP ## '{Name}'");
-				}
-				
+				FLog.Verbose("Statechart", $"{GetType().UnderlyingSystemType.Name} - '{statechartEvent?.Name}' : " +
+				                           $"## STOP ## '{Name}'");
+
 				return null;
 			}
 
@@ -96,12 +99,9 @@ namespace FirstLight.Statechart.Internal
 
 			if (Equals(nextState))
 			{
-				if (IsStateLogsEnabled)
-				{
-					Debug.Log($"({GetType().UnderlyingSystemType.Name}) - '{statechartEvent?.Name}' : " +
-					          $"'{Name}' -> '{Name}' because => {GetType().UnderlyingSystemType.Name}");
-				}
-				
+				FLog.Verbose("Statechart", $"{GetType().UnderlyingSystemType.Name} - '{statechartEvent?.Name}' : " +
+				                           $"'{Name}' -> '{Name}' because => {GetType().UnderlyingSystemType.Name}");
+
 				return nextState;
 			}
 
@@ -145,8 +145,10 @@ namespace FirstLight.Statechart.Internal
 
 		/// <inheritdoc />
 		public abstract void Enter();
+
 		/// <inheritdoc />
 		public abstract void Exit();
+
 		/// <inheritdoc />
 		public abstract void Validate();
 
@@ -156,15 +158,14 @@ namespace FirstLight.Statechart.Internal
 		{
 			try
 			{
-				if (IsStateLogsEnabled)
-				{
-					Debug.Log($"({state.GetType().UnderlyingSystemType.Name}) - Entering '{state.Name}'");
-				}
+				FLog.Verbose("Statechart", $"({state.GetType().UnderlyingSystemType.Name}) - Entering '{state.Name}'");
+
 				state.Enter();
 			}
 			catch (Exception e)
 			{
-				throw new Exception($"Exception in the state {state.Name}, OnEnter() actions.\n" + CreationStackTrace, e);
+				throw new Exception($"Exception in the state {state.Name}, OnEnter() actions.\n" + CreationStackTrace,
+				                    e);
 			}
 		}
 
@@ -172,13 +173,11 @@ namespace FirstLight.Statechart.Internal
 		{
 			try
 			{
-				if(IsStateLogsEnabled)
-				{
-					Debug.LogFormat($"({GetType().UnderlyingSystemType.Name}) - Exiting '{Name}'");
-				}
+				FLog.Verbose("Statechart", $"({GetType().UnderlyingSystemType.Name}) - Exiting '{Name}'");
+
 				Exit();
 			}
-			catch(Exception e)
+			catch (Exception e)
 			{
 				throw new Exception($"Exception in the state '{Name}', OnExit() actions.\n" + CreationStackTrace, e);
 			}
@@ -188,13 +187,9 @@ namespace FirstLight.Statechart.Internal
 		{
 			try
 			{
-				if (IsStateLogsEnabled)
-				{
-					var targetState = transition.TargetState?.Name ?? "only invokes OnTransition()";
-					
-					Debug.Log($"({GetType().UnderlyingSystemType.Name}) - '{eventName}' : '{Name}' -> '{targetState}'");
-				}
-				
+				FLog.Verbose("Statechart", $"({GetType().UnderlyingSystemType.Name}) - '{eventName}' : " +
+				                           $"'{Name}' -> '{transition.TargetState?.Name ?? "only invokes OnTransition()"}'");
+
 				transition.TriggerTransition();
 			}
 			catch (Exception e)

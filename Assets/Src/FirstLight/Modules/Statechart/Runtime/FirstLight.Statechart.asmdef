@@ -1,6 +1,9 @@
 {
     "name": "FirstLight.Statechart",
-    "references": [],
+    "rootNamespace": "",
+    "references": [
+        "GUID:4e0274c636228486ab0c943b70b2f5cc"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

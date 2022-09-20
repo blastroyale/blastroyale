@@ -31,8 +31,10 @@ namespace FirstLight.Game.Messages
 	}
 	public struct PlayCreateRoomClickedMessage : IMessage
 	{
-		public string RoomName; 
+		public string RoomName;
+		public QuantumGameModeConfig GameModeConfig;
 		public QuantumMapConfig MapConfig;
+		public string Mutators;
 		public bool JoinIfExists;
 	}
 }

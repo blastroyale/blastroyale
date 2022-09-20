@@ -33,7 +33,7 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// If false, testing game mode selection will be disabled in GameModeSelectionPresenter
 		/// </summary>
-		public static readonly bool TESTING_GAME_MODE_ENABLED = true;
+		public static readonly bool TESTING_GAME_MODE_ENABLED = false;
 		
 		/// <summary>
 		/// If false, leaderboard button will be disabled on the home screen

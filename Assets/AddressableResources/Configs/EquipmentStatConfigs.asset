@@ -33,6 +33,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 1
       Faction: 0
@@ -47,6 +49,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 2
@@ -63,6 +67,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 3
       Faction: 0
@@ -77,6 +83,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 4
@@ -93,6 +101,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 5
       Faction: 0
@@ -108,6 +118,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 6
       Faction: 0
@@ -122,6 +134,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 7
@@ -138,6 +152,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 8
       Faction: 0
@@ -152,6 +168,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 9
@@ -168,6 +186,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 0
       Faction: 1
@@ -182,6 +202,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 1
@@ -198,6 +220,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 2
       Faction: 1
@@ -212,6 +236,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 3
@@ -228,6 +254,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 1408
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 4
       Faction: 1
@@ -243,6 +271,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 1408
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 5
       Faction: 1
@@ -258,6 +288,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 1690
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 6
       Faction: 1
@@ -273,6 +305,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 1690
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 7
       Faction: 1
@@ -288,6 +322,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 1971
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 8
       Faction: 1
@@ -303,6 +339,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 2140
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 9
       Faction: 1
@@ -318,6 +356,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 2140
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 0
       Faction: 2
@@ -332,6 +372,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 1
@@ -348,6 +390,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 2
       Faction: 2
@@ -362,6 +406,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 3
@@ -378,6 +424,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 4
       Faction: 2
@@ -392,6 +440,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 5
@@ -408,6 +458,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 6
       Faction: 2
@@ -422,6 +474,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 7
@@ -438,6 +492,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 8
       Faction: 2
@@ -452,6 +508,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 9
@@ -468,6 +526,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 0
       Faction: 3
@@ -482,6 +542,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 1
@@ -498,6 +560,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 2112
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 2
       Faction: 3
@@ -513,6 +577,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 3520
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 3
       Faction: 3
@@ -528,6 +594,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 5632
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 4
       Faction: 3
@@ -543,6 +611,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 5632
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 5
       Faction: 3
@@ -558,6 +628,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 6758
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 6
       Faction: 3
@@ -573,6 +645,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 6758
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 7
       Faction: 3
@@ -588,6 +662,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 7885
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 8
       Faction: 3
@@ -603,6 +679,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 8335
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 9
       Faction: 3
@@ -618,6 +696,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 8335
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 0
       Faction: 4
@@ -632,6 +712,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 1
@@ -648,6 +730,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 2
       Faction: 4
@@ -662,6 +746,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 3
@@ -678,6 +764,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 2112
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 4
       Faction: 4
@@ -693,6 +781,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 2112
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 5
       Faction: 4
@@ -708,6 +798,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 2534
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 6
       Faction: 4
@@ -723,6 +815,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 2534
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 7
       Faction: 4
@@ -738,6 +832,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 2957
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 8
       Faction: 4
@@ -753,6 +849,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 3210
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 9
       Faction: 4
@@ -768,6 +866,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 3210
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 0
       Faction: 5
@@ -782,6 +882,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 1
@@ -798,6 +900,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 2
       Faction: 5
@@ -812,6 +916,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 3
@@ -828,6 +934,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 4
       Faction: 5
@@ -842,6 +950,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 5
@@ -858,6 +968,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 6
       Faction: 5
@@ -872,6 +984,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 7
@@ -888,6 +1002,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 8
       Faction: 5
@@ -902,6 +1018,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 9
@@ -918,6 +1036,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 0
       Faction: 6
@@ -932,6 +1052,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 1
@@ -948,6 +1070,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 2
       Faction: 6
@@ -962,6 +1086,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 3
@@ -978,6 +1104,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 4
       Faction: 6
@@ -992,6 +1120,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 5
@@ -1008,6 +1138,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 6
       Faction: 6
@@ -1022,6 +1154,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 13
       Adjective: 7
@@ -1038,6 +1172,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 8
       Faction: 6
@@ -1053,6 +1189,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 1577
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Adjective: 9
       Faction: 6
@@ -1068,6 +1206,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 1577
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 0
       Faction: 0
@@ -1082,6 +1222,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 1
@@ -1098,6 +1240,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 2
       Faction: 0
@@ -1112,6 +1256,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 3
@@ -1128,6 +1274,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 4
       Faction: 0
@@ -1142,6 +1290,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 5
@@ -1158,6 +1308,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 6
       Faction: 0
@@ -1172,6 +1324,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 7
@@ -1188,6 +1342,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 8
       Faction: 0
@@ -1202,6 +1358,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 9
@@ -1218,6 +1376,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 0
       Faction: 1
@@ -1232,6 +1392,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 1
@@ -1248,6 +1410,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 2
       Faction: 1
@@ -1262,6 +1426,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 3
@@ -1278,6 +1444,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 2816
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 4
       Faction: 1
@@ -1293,6 +1461,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 2816
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 5
       Faction: 1
@@ -1308,6 +1478,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 3379
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 6
       Faction: 1
@@ -1323,6 +1495,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 3379
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 7
       Faction: 1
@@ -1338,6 +1512,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 3942
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 8
       Faction: 1
@@ -1353,6 +1529,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 4280
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 9
       Faction: 1
@@ -1368,6 +1546,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 4280
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 0
       Faction: 2
@@ -1382,6 +1562,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 1
@@ -1398,6 +1580,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 2
       Faction: 2
@@ -1412,6 +1596,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 3
@@ -1428,6 +1614,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 4
       Faction: 2
@@ -1442,6 +1630,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 5
@@ -1458,6 +1648,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 6
       Faction: 2
@@ -1472,6 +1664,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 7
@@ -1488,6 +1682,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 8
       Faction: 2
@@ -1502,6 +1698,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 9
@@ -1518,6 +1716,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 0
       Faction: 3
@@ -1532,6 +1732,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 1
@@ -1548,6 +1750,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 2112
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 2
       Faction: 3
@@ -1563,6 +1767,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 3520
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 3
       Faction: 3
@@ -1578,6 +1784,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 4224
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 4
       Faction: 3
@@ -1593,6 +1801,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 4224
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 5
       Faction: 3
@@ -1608,6 +1818,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 5069
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 6
       Faction: 3
@@ -1623,6 +1835,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 5069
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 7
       Faction: 3
@@ -1638,6 +1852,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 5914
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 8
       Faction: 3
@@ -1653,6 +1869,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 6252
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 9
       Faction: 3
@@ -1668,6 +1886,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 6252
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 0
       Faction: 4
@@ -1682,6 +1902,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 1
@@ -1698,6 +1920,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 2
       Faction: 4
@@ -1712,6 +1936,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 3
@@ -1728,6 +1954,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 4224
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 4
       Faction: 4
@@ -1743,6 +1971,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 4224
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 5
       Faction: 4
@@ -1758,6 +1988,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 5069
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 6
       Faction: 4
@@ -1773,6 +2005,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 5069
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 7
       Faction: 4
@@ -1788,6 +2022,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 5914
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 8
       Faction: 4
@@ -1803,6 +2039,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 6420
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 9
       Faction: 4
@@ -1818,6 +2056,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 6420
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 0
       Faction: 5
@@ -1832,6 +2072,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 1
@@ -1848,6 +2090,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 2
       Faction: 5
@@ -1862,6 +2106,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 3
@@ -1878,6 +2124,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 4
       Faction: 5
@@ -1892,6 +2140,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 5
@@ -1908,6 +2158,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 6
       Faction: 5
@@ -1922,6 +2174,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 7
@@ -1938,6 +2192,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 8
       Faction: 5
@@ -1952,6 +2208,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 9
@@ -1968,6 +2226,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 0
       Faction: 6
@@ -1982,6 +2242,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 1
@@ -1998,6 +2260,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 2
       Faction: 6
@@ -2012,6 +2276,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 3
@@ -2028,6 +2294,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 4
       Faction: 6
@@ -2042,6 +2310,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 5
@@ -2058,6 +2328,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 6
       Faction: 6
@@ -2072,6 +2344,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 17
       Adjective: 7
@@ -2088,6 +2362,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 8
       Faction: 6
@@ -2103,6 +2379,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 1464
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 17
       Adjective: 9
       Faction: 6
@@ -2118,6 +2396,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 1464
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 0
       Faction: 0
@@ -2132,6 +2412,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 1
@@ -2148,6 +2430,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 2
       Faction: 0
@@ -2162,6 +2446,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 3
@@ -2178,6 +2464,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 4
       Faction: 0
@@ -2192,6 +2480,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 5
@@ -2208,6 +2498,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 6
       Faction: 0
@@ -2222,6 +2514,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 7
@@ -2238,6 +2532,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 8
       Faction: 0
@@ -2252,6 +2548,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 9
@@ -2268,6 +2566,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 0
       Faction: 1
@@ -2282,6 +2582,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 1
@@ -2298,6 +2600,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 2
       Faction: 1
@@ -2312,6 +2616,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 3
@@ -2328,6 +2634,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 704
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 4
       Faction: 1
@@ -2343,6 +2651,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 704
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 5
       Faction: 1
@@ -2358,6 +2668,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 845
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 6
       Faction: 1
@@ -2373,6 +2685,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 845
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 7
       Faction: 1
@@ -2388,6 +2702,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 986
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 8
       Faction: 1
@@ -2403,6 +2719,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 1070
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 9
       Faction: 1
@@ -2418,6 +2736,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 1070
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 0
       Faction: 2
@@ -2432,6 +2752,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 1
@@ -2448,6 +2770,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 2
       Faction: 2
@@ -2462,6 +2786,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 3
@@ -2478,6 +2804,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 4
       Faction: 2
@@ -2492,6 +2820,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 5
@@ -2508,6 +2838,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 6
       Faction: 2
@@ -2522,6 +2854,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 7
@@ -2538,6 +2872,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 8
       Faction: 2
@@ -2552,6 +2888,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 9
@@ -2568,6 +2906,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 0
       Faction: 3
@@ -2582,6 +2922,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 1
@@ -2598,6 +2940,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 2112
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 2
       Faction: 3
@@ -2613,6 +2957,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 3520
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 3
       Faction: 3
@@ -2628,6 +2974,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 6336
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 4
       Faction: 3
@@ -2643,6 +2991,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 6336
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 5
       Faction: 3
@@ -2658,6 +3008,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 7603
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 6
       Faction: 3
@@ -2673,6 +3025,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 7603
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 7
       Faction: 3
@@ -2688,6 +3042,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 8870
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 8
       Faction: 3
@@ -2703,6 +3059,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 9377
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 9
       Faction: 3
@@ -2718,6 +3076,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 9377
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 0
       Faction: 4
@@ -2732,6 +3092,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 1
@@ -2748,6 +3110,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 2
       Faction: 4
@@ -2762,6 +3126,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 3
@@ -2778,6 +3144,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 1056
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 4
       Faction: 4
@@ -2793,6 +3161,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 1056
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 5
       Faction: 4
@@ -2808,6 +3178,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 1267
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 6
       Faction: 4
@@ -2823,6 +3195,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 1267
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 7
       Faction: 4
@@ -2838,6 +3212,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 1478
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 8
       Faction: 4
@@ -2853,6 +3229,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 1605
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 9
       Faction: 4
@@ -2868,6 +3246,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 1605
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 0
       Faction: 5
@@ -2882,6 +3262,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 1
@@ -2898,6 +3280,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 2
       Faction: 5
@@ -2912,6 +3296,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 3
@@ -2928,6 +3314,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 4
       Faction: 5
@@ -2942,6 +3330,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 5
@@ -2958,6 +3348,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 6
       Faction: 5
@@ -2972,6 +3364,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 7
@@ -2988,6 +3382,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 8
       Faction: 5
@@ -3002,6 +3398,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 9
@@ -3018,6 +3416,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 0
       Faction: 6
@@ -3033,6 +3433,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 1
       Faction: 6
@@ -3047,6 +3449,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 2
@@ -3063,6 +3467,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 3
       Faction: 6
@@ -3077,6 +3483,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 4
@@ -3093,6 +3501,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 5
       Faction: 6
@@ -3107,6 +3517,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 6
@@ -3123,6 +3535,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 7
       Faction: 6
@@ -3137,6 +3551,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 16
       Adjective: 8
@@ -3153,6 +3569,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 1633
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 16
       Adjective: 9
       Faction: 6
@@ -3168,6 +3586,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 1633
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 0
       Faction: 0
@@ -3183,6 +3603,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 1
       Faction: 0
@@ -3197,6 +3619,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 2
@@ -3213,6 +3637,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 3
       Faction: 0
@@ -3227,6 +3653,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 4
@@ -3243,6 +3671,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 5
       Faction: 0
@@ -3258,6 +3688,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 6
       Faction: 0
@@ -3272,6 +3704,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 7
@@ -3288,6 +3722,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 8
       Faction: 0
@@ -3302,6 +3738,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 9
@@ -3318,6 +3756,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 0
       Faction: 1
@@ -3333,6 +3773,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 1
       Faction: 1
@@ -3347,6 +3789,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 2
@@ -3363,6 +3807,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 3
       Faction: 1
@@ -3378,6 +3824,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 1056
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 4
       Faction: 1
@@ -3393,6 +3841,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 1056
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 5
       Faction: 1
@@ -3408,6 +3858,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 1267
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 6
       Faction: 1
@@ -3423,6 +3875,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 1267
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 7
       Faction: 1
@@ -3438,6 +3892,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 1478
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 8
       Faction: 1
@@ -3453,6 +3909,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 1605
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 9
       Faction: 1
@@ -3468,6 +3926,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 1605
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 0
       Faction: 2
@@ -3482,6 +3942,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 1
@@ -3498,6 +3960,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 2
       Faction: 2
@@ -3512,6 +3976,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 3
@@ -3528,6 +3994,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 4
       Faction: 2
@@ -3542,6 +4010,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 5
@@ -3558,6 +4028,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 6
       Faction: 2
@@ -3572,6 +4044,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 7
@@ -3588,6 +4062,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 8
       Faction: 2
@@ -3602,6 +4078,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 9
@@ -3618,6 +4096,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 0
       Faction: 3
@@ -3632,6 +4112,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 1
@@ -3648,6 +4130,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 2112
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 2
       Faction: 3
@@ -3663,6 +4147,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 3520
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 3
       Faction: 3
@@ -3678,6 +4164,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 5984
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 4
       Faction: 3
@@ -3693,6 +4181,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 5984
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 5
       Faction: 3
@@ -3708,6 +4198,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 7181
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 6
       Faction: 3
@@ -3723,6 +4215,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 7181
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 7
       Faction: 3
@@ -3738,6 +4232,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 8378
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 8
       Faction: 3
@@ -3753,6 +4249,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 8856
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 9
       Faction: 3
@@ -3768,6 +4266,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 8856
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 0
       Faction: 4
@@ -3782,6 +4282,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 1
@@ -3798,6 +4300,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 2
       Faction: 4
@@ -3812,6 +4316,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 3
@@ -3828,6 +4334,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 1584
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 4
       Faction: 4
@@ -3843,6 +4351,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 1584
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 5
       Faction: 4
@@ -3858,6 +4368,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 1901
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 6
       Faction: 4
@@ -3873,6 +4385,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 1901
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 7
       Faction: 4
@@ -3888,6 +4402,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 2218
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 8
       Faction: 4
@@ -3903,6 +4419,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 2408
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 9
       Faction: 4
@@ -3918,6 +4436,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 2408
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 0
       Faction: 5
@@ -3932,6 +4452,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 1
@@ -3948,6 +4470,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 2
       Faction: 5
@@ -3962,6 +4486,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 3
@@ -3978,6 +4504,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 4
       Faction: 5
@@ -3992,6 +4520,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 5
@@ -4008,6 +4538,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 6
       Faction: 5
@@ -4022,6 +4554,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 7
@@ -4038,6 +4572,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 8
       Faction: 5
@@ -4052,6 +4588,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 9
@@ -4068,6 +4606,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 0
       Faction: 6
@@ -4082,6 +4622,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 1
@@ -4098,6 +4640,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 2
       Faction: 6
@@ -4112,6 +4656,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 3
@@ -4128,6 +4674,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 4
       Faction: 6
@@ -4142,6 +4690,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 5
@@ -4158,6 +4708,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 6
       Faction: 6
@@ -4172,6 +4724,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 15
       Adjective: 7
@@ -4188,6 +4742,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 8
       Faction: 6
@@ -4203,6 +4759,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 1605
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 15
       Adjective: 9
       Faction: 6
@@ -4218,6 +4776,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 1605
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 0
       Faction: 0
@@ -4232,6 +4792,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 1
@@ -4248,6 +4810,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 2
       Faction: 0
@@ -4262,6 +4826,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 3
@@ -4278,6 +4844,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 4
       Faction: 0
@@ -4292,6 +4860,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 5
@@ -4308,6 +4878,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 6
       Faction: 0
@@ -4322,6 +4894,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 7
@@ -4338,6 +4912,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 8
       Faction: 0
@@ -4352,6 +4928,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 9
@@ -4368,6 +4946,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 0
       Faction: 1
@@ -4382,6 +4962,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 1
@@ -4398,6 +4980,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 2
       Faction: 1
@@ -4412,6 +4996,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 3
@@ -4428,6 +5014,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 4
       Faction: 1
@@ -4442,6 +5030,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 5
@@ -4458,6 +5048,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 6
       Faction: 1
@@ -4472,6 +5064,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 7
@@ -4488,6 +5082,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 8
       Faction: 1
@@ -4502,6 +5098,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 9
@@ -4518,6 +5116,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 0
       Faction: 2
@@ -4532,6 +5132,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 1
@@ -4548,6 +5150,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 2
       Faction: 2
@@ -4562,6 +5166,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 3
@@ -4578,6 +5184,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 4
       Faction: 2
@@ -4592,6 +5200,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 5
@@ -4608,6 +5218,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 6
       Faction: 2
@@ -4622,6 +5234,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 7
@@ -4638,6 +5252,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 8
       Faction: 2
@@ -4652,6 +5268,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 9
@@ -4668,6 +5286,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 0
       Faction: 3
@@ -4682,6 +5302,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 1
@@ -4698,6 +5320,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 2
       Faction: 3
@@ -4712,6 +5336,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 3
@@ -4728,6 +5354,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 4
       Faction: 3
@@ -4742,6 +5370,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 5
@@ -4758,6 +5388,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 6
       Faction: 3
@@ -4772,6 +5404,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 7
@@ -4788,6 +5422,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 8
       Faction: 3
@@ -4802,6 +5438,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 9
@@ -4818,6 +5456,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 0
       Faction: 4
@@ -4832,6 +5472,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 1
@@ -4848,6 +5490,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 2
       Faction: 4
@@ -4862,6 +5506,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 3
@@ -4878,6 +5524,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 4
       Faction: 4
@@ -4892,6 +5540,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 5
@@ -4908,6 +5558,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 6
       Faction: 4
@@ -4922,6 +5574,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 7
@@ -4938,6 +5592,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 8
       Faction: 4
@@ -4952,6 +5608,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 9
@@ -4968,6 +5626,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 0
       Faction: 5
@@ -4982,6 +5642,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 1
@@ -4998,6 +5660,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 2
       Faction: 5
@@ -5012,6 +5676,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 3
@@ -5028,6 +5694,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 4
       Faction: 5
@@ -5042,6 +5710,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 5
@@ -5058,6 +5728,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 6
       Faction: 5
@@ -5072,6 +5744,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 7
@@ -5088,6 +5762,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 8
       Faction: 5
@@ -5102,6 +5778,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 9
@@ -5118,6 +5796,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 0
       Faction: 6
@@ -5132,6 +5812,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 1
@@ -5148,6 +5830,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 2
       Faction: 6
@@ -5162,6 +5846,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 3
@@ -5178,6 +5864,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 4
       Faction: 6
@@ -5192,6 +5880,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 5
@@ -5208,6 +5898,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 6
       Faction: 6
@@ -5222,6 +5914,8 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0
     - Category: 11
       Adjective: 7
@@ -5238,6 +5932,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 8
       Faction: 6
@@ -5253,6 +5949,8 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Adjective: 9
       Faction: 6
@@ -5267,4 +5965,6 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
         RawValue: 0

@@ -293,10 +293,9 @@ MonoBehaviour:
   HapticType: 9
   Anchor: {fileID: 1047952961762339578}
   ClickClip: {fileID: 7400000, guid: 382a5c7d063224d16b5caae8326aa7fb, type: 2}
+  PlaySound: 1
   IsForward: 1
-  OverrideSfx: 0
-  OverrideSfxClip:
-    _selection: MainMenuStart
+  OverrideClickSfxId: 0
 --- !u!114 &958336924346670064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,8 +311,8 @@ MonoBehaviour:
   m_IgnoreLayout: 0
   m_MinWidth: -1
   m_MinHeight: -1
-  m_PreferredWidth: 635.8
-  m_PreferredHeight: 100
+  m_PreferredWidth: 500
+  m_PreferredHeight: 75
   m_FlexibleWidth: 0
   m_FlexibleHeight: 0
   m_LayoutPriority: 1
@@ -3174,10 +3173,9 @@ MonoBehaviour:
   HapticType: 9
   Anchor: {fileID: 7621068453438606519}
   ClickClip: {fileID: 7400000, guid: 382a5c7d063224d16b5caae8326aa7fb, type: 2}
+  PlaySound: 1
   IsForward: 1
-  OverrideSfx: 0
-  OverrideSfxClip:
-    _selection: MainMenuStart
+  OverrideClickSfxId: 0
 --- !u!114 &7310258251320374662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3706,7 +3704,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Register a new account
+  m_text: Register
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d7b331517660d474596db465e3089916, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 54b3ed35361584c0bb6a8d0a8a882451, type: 2}
@@ -3851,8 +3849,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0.000061035156, y: 60}
-  m_SizeDelta: {x: -184.09668, y: 100}
+  m_AnchoredPosition: {x: 0, y: 60}
+  m_SizeDelta: {x: 0.0001, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7327540964492805117
 MonoBehaviour:

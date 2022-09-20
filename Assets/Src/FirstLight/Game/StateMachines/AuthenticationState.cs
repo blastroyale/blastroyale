@@ -33,6 +33,7 @@ namespace FirstLight.Game.StateMachines
 	public class AuthenticationState
 	{
 		private readonly IStatechartEvent _goToRegisterClickedEvent = new StatechartEvent("Go To Register Clicked Event");
+		private readonly IStatechartEvent _loginAsGuestEvent = new StatechartEvent("Login as Guest Event");
 		private readonly IStatechartEvent _goToLoginClickedEvent = new StatechartEvent("Go To Login Clicked Event");
 		private readonly IStatechartEvent _loginRegisterTransitionEvent = new StatechartEvent("Login Register Transition Clicked Event");
 		private readonly IStatechartEvent _loginCompletedEvent = new StatechartEvent("Login Completed Event");
@@ -82,15 +83,18 @@ namespace FirstLight.Game.StateMachines
 
 			login.OnEnter(OpenLoginScreen);
 			login.Event(_goToRegisterClickedEvent).OnTransition(CloseLoginScreen).Target(register);
+			login.Event(_loginAsGuestEvent).OnTransition(OnLinkSuccess).Target(authLoginDevice);
 			login.Event(_loginRegisterTransitionEvent).Target(authLogin);
 
 			register.OnEnter(OpenRegisterScreen);
 			register.Event(_goToLoginClickedEvent).OnTransition(CloseRegisterScreen).Target(login);
 			register.Event(_loginRegisterTransitionEvent).Target(authLogin);
 
+			authLoginDevice.OnEnter(() => DimLoginRegisterScreens(true));
 			authLoginDevice.OnEnter(LoginWithDevice);
 			authLoginDevice.Event(_loginCompletedEvent).Target(getServerState);
 			authLoginDevice.Event(_authenticationFailEvent).OnTransition(CloseLoadingScreen).Target(login);
+			authLoginDevice.OnEnter(() => DimLoginRegisterScreens(false));
 			
 			authLogin.OnEnter(() => DimLoginRegisterScreens(true));
 			authLogin.Event(_loginCompletedEvent).OnTransition(CloseLoginRegisterScreens).Target(getServerState);
@@ -197,7 +201,7 @@ namespace FirstLight.Game.StateMachines
 #if UNITY_EDITOR
 			var login = new LoginWithCustomIDRequest
 			{
-				CreateAccount = !FeatureFlags.EMAIL_AUTH,
+				CreateAccount = true,
 				CustomId = deviceId,
 				InfoRequestParameters = infoParams
 			};
@@ -207,7 +211,7 @@ namespace FirstLight.Game.StateMachines
 #elif UNITY_ANDROID
 			var login = new LoginWithAndroidDeviceIDRequest()
 			{
-				CreateAccount = !FeatureFlags.EMAIL_AUTH,
+				CreateAccount = true,
 				AndroidDevice = SystemInfo.deviceModel,
 				OS = SystemInfo.operatingSystem,
 				AndroidDeviceId = deviceId,
@@ -218,7 +222,7 @@ namespace FirstLight.Game.StateMachines
 #elif UNITY_IOS
 			var login = new LoginWithIOSDeviceIDRequest()
 			{
-				CreateAccount = !FeatureFlags.EMAIL_AUTH,
+				CreateAccount = true,
 				DeviceModel = SystemInfo.deviceModel,
 				OS = SystemInfo.operatingSystem,
 				DeviceId = deviceId,
@@ -537,6 +541,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				LoginClicked = LoginClicked,
 				GoToRegisterClicked = () => _statechartTrigger(_goToRegisterClickedEvent),
+				PlayAsGuestClicked = () => _statechartTrigger(_loginAsGuestEvent),
 				ForgotPasswordClicked = SendRecoveryEmail
 			};
 			

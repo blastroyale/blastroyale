@@ -18,14 +18,15 @@ namespace FirstLight.Game.Presenters
 		{
 			public Action<string, string> LoginClicked;
 			public Action GoToRegisterClicked;
+			public Action PlayAsGuestClicked;
 			public UnityAction<string> ForgotPasswordClicked;
 		}
 
 		[SerializeField] private TMP_InputField _emailInputField;
 		[SerializeField] private TMP_InputField _passwordInputField;
 		[SerializeField] private Button _goToRegisterButton;
-		[SerializeField] private Button _goToDevRegisterButton;
 		[SerializeField] private Button _loginButton;
+		[SerializeField] private Button _playAsGuestButton;
 		[SerializeField] private GameObject _frontDimBlocker;
 		[SerializeField] private Button _forgotPasswordButton;
 
@@ -35,12 +36,18 @@ namespace FirstLight.Game.Presenters
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			
-			_goToRegisterButton.onClick.AddListener(GoToRegisterClicked);
 			_loginButton.onClick.AddListener(LoginClicked);
-			_goToDevRegisterButton.onClick.AddListener(GoToDevRegisterClicked);
+			_goToRegisterButton.onClick.AddListener(GoToRegisterClicked);
+			_playAsGuestButton.onClick.AddListener(PlayAsGuestClicked);
 			_forgotPasswordButton.onClick.AddListener(GoToForgotYourPassword);
-			
-			_goToDevRegisterButton.gameObject.SetActive(Debug.isDebugBuild);
+		}
+
+		private void OnDestroy()
+		{
+			_loginButton.onClick.RemoveAllListeners();
+			_goToRegisterButton.onClick.RemoveAllListeners();
+			_playAsGuestButton.onClick.RemoveAllListeners();
+			_forgotPasswordButton.onClick.RemoveAllListeners();
 		}
 
 		private void OnEnable()
@@ -63,12 +70,12 @@ namespace FirstLight.Game.Presenters
 
 		private void GoToRegisterClicked()
 		{
-			Application.OpenURL(GameConstants.Links.MARKETPLACE_URL);
+			Data.GoToRegisterClicked();
 		}
 		
-		private void GoToDevRegisterClicked()
+		private void PlayAsGuestClicked()
 		{
-			Data.GoToRegisterClicked();
+			Data.PlayAsGuestClicked();
 		}
 
 		private void GoToForgotYourPassword()

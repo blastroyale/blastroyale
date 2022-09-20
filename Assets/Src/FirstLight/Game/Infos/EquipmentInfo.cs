@@ -30,6 +30,7 @@ namespace FirstLight.Game.Infos
 		SpecialId0,
 		SpecialId1,
 		PickupSpeed,
+		ShieldCapacity,
 	}
 	
 	public struct EquipmentInfo

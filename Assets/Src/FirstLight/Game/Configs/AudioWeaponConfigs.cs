@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using FirstLight.Game.Ids;
 using Quantum;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 

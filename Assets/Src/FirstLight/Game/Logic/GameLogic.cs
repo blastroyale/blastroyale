@@ -1,8 +1,8 @@
 using FirstLight.Game.Commands;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
-using UnityEngine;
 
 namespace FirstLight.Game.Logic
 {
@@ -39,6 +39,8 @@ namespace FirstLight.Game.Logic
 		IEquipmentDataProvider EquipmentDataProvider { get; }
 		/// <inheritdoc cref="IRewardDataProvider"/>
 		IRewardDataProvider RewardDataProvider { get; }
+		/// <inheritdoc cref="IBattlePassDataProvider"/>
+		IBattlePassDataProvider BattlePassDataProvider { get; }
 	}
 
 	/// <summary>
@@ -69,8 +71,10 @@ namespace FirstLight.Game.Logic
 		IPlayerLogic PlayerLogic { get; }
 		/// <inheritdoc cref="IEquipmentLogic"/>
 		IEquipmentLogic EquipmentLogic { get; }
-		/// <inheritdoc cref="IRewardDataProvider"/>
+		/// <inheritdoc cref="IRewardLogic"/>
 		IRewardLogic RewardLogic { get; }
+		/// <inheritdoc cref="IBattlePassLogic"/>
+		IBattlePassLogic BattlePassLogic { get; }
 	}
 
 	/// <inheritdoc cref="IGameLogic"/>
@@ -85,7 +89,6 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc />
 		public IConfigsProvider ConfigsProvider { get; }
-
 		/// <inheritdoc />
 		public IAppDataProvider AppDataProvider => AppLogic;
 		/// <inheritdoc />
@@ -102,6 +105,9 @@ namespace FirstLight.Game.Logic
 		public IEquipmentDataProvider EquipmentDataProvider => EquipmentLogic;
 		/// <inheritdoc />
 		public IRewardDataProvider RewardDataProvider => RewardLogic;
+		/// <inheritdoc />
+		public IBattlePassDataProvider BattlePassDataProvider => BattlePassLogic;
+
 		/// <inheritdoc />
 		public IAppLogic AppLogic { get; }
 		/// <inheritdoc />
@@ -120,6 +126,8 @@ namespace FirstLight.Game.Logic
 		public IEquipmentLogic EquipmentLogic { get; }
 		/// <inheritdoc />
 		public IRewardLogic RewardLogic { get; }
+		/// <inheritdoc />
+		public IBattlePassLogic BattlePassLogic { get; }
 
 		public GameLogic(IMessageBrokerService messageBroker, ITimeService timeService, IDataProvider dataProvider, 
 		                 IConfigsProvider configsProvider, IAudioFxService<AudioId> audioFxService)
@@ -136,6 +144,7 @@ namespace FirstLight.Game.Logic
 			PlayerLogic = new PlayerLogic(this, dataProvider);
 			EquipmentLogic = new EquipmentLogic(this, dataProvider);
 			RewardLogic = new RewardLogic(this, dataProvider);
+			BattlePassLogic = new BattlePassLogic(this, dataProvider);
 		}
 
 		/// <inheritdoc />
@@ -150,6 +159,7 @@ namespace FirstLight.Game.Logic
 			(PlayerLogic as IGameLogicInitializer).Init();
 			(EquipmentLogic as IGameLogicInitializer).Init();
 			(RewardLogic as IGameLogicInitializer).Init();
+			(BattlePassLogic as IGameLogicInitializer).Init();
 		}
 	}
 }

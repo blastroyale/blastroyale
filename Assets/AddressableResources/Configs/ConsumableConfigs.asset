@@ -24,93 +24,153 @@ MonoBehaviour:
           Value: 240296495379453662
       ConsumableType: 1
       Amount:
-        RawValue: 983040
+        Default:
+          RawValue: 983040
+        Keys: []
+        Values: []
       ConsumableCollectTime:
-        BattleRoyale:
-          RawValue: 144179
-        Deathmatch:
-          RawValue: 13107
+        Default:
+          RawValue: 98304
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 144179
+        - RawValue: 13107
     - Id: 4
       AssetRef:
         Id:
           Value: 240296495379453662
       ConsumableType: 0
       Amount:
-        RawValue: 26214400
+        Default:
+          RawValue: 26214400
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 26214400
+        - RawValue: 6553600
       ConsumableCollectTime:
-        BattleRoyale:
+        Default:
           RawValue: 98304
-        Deathmatch:
-          RawValue: 13107
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 98304
+        - RawValue: 13107
     - Id: 127
       AssetRef:
         Id:
           Value: 240296495379453662
       ConsumableType: 2
       Amount:
-        RawValue: 9830
+        Default:
+          RawValue: 9830
+        Keys: []
+        Values: []
       ConsumableCollectTime:
-        BattleRoyale:
-          RawValue: 52429
-        Deathmatch:
-          RawValue: 13107
+        Default:
+          RawValue: 65536
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 65536
+        - RawValue: 13107
     - Id: 128
       AssetRef:
         Id:
           Value: 240296495379453662
       ConsumableType: 2
       Amount:
-        RawValue: 19661
+        Default:
+          RawValue: 19661
+        Keys: []
+        Values: []
       ConsumableCollectTime:
-        BattleRoyale:
-          RawValue: 98304
-        Deathmatch:
-          RawValue: 13107
+        Default:
+          RawValue: 117965
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 117965
+        - RawValue: 13107
     - Id: 20
       AssetRef:
         Id:
           Value: 240296495379453662
       ConsumableType: 3
       Amount:
-        RawValue: 13107200
+        Default:
+          RawValue: 13107200
+        Keys: []
+        Values: []
       ConsumableCollectTime:
-        BattleRoyale:
-          RawValue: 52429
-        Deathmatch:
-          RawValue: 13107
+        Default:
+          RawValue: 65536
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 65536
+        - RawValue: 13107
     - Id: 21
       AssetRef:
         Id:
           Value: 240296495379453662
       ConsumableType: 3
       Amount:
-        RawValue: 26214400
+        Default:
+          RawValue: 26214400
+        Keys: []
+        Values: []
       ConsumableCollectTime:
-        BattleRoyale:
-          RawValue: 98304
-        Deathmatch:
-          RawValue: 13107
+        Default:
+          RawValue: 117965
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 117965
+        - RawValue: 13107
     - Id: 17
       AssetRef:
         Id:
           Value: 240296495379453662
       ConsumableType: 4
       Amount:
-        RawValue: 13107200
+        Default:
+          RawValue: 13107200
+        Keys: []
+        Values: []
       ConsumableCollectTime:
-        BattleRoyale:
-          RawValue: 98304
-        Deathmatch:
-          RawValue: 13107
+        Default:
+          RawValue: 117965
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 117965
+        - RawValue: 13107
     - Id: 18
       AssetRef:
         Id:
           Value: 240296495379453662
       ConsumableType: 4
       Amount:
-        RawValue: 26214400
+        Default:
+          RawValue: 26214400
+        Keys: []
+        Values: []
       ConsumableCollectTime:
-        BattleRoyale:
-          RawValue: 98304
-        Deathmatch:
-          RawValue: 13107
+        Default:
+          RawValue: 117965
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 117965
+        - RawValue: 13107

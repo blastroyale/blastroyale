@@ -58,8 +58,9 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		private async void SpawnDeathMarker(GameId marker, Vector3 position)
 		{
+			if (!Services.NetworkService.CurrentRoomGameModeConfig.Value.DeathMarker) return;
+			
 			var obj = await Services.AssetResolverService.RequestAsset<GameId, GameObject>(marker);
-
 			obj.transform.position = position;
 		}
 

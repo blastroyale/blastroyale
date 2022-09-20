@@ -5,6 +5,7 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.AssetConfigs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using FirstLight.Statechart;
 using UnityEngine;
@@ -93,6 +94,8 @@ namespace FirstLight.Game.StateMachines
 			tasks.AddRange(LoadAssetConfigs());
 			
 			await Task.WhenAll(tasks);
+			
+			_services.GameModeService.Init();
 
 			var audioTasks = new List<Task>();
 			
@@ -119,7 +122,6 @@ namespace FirstLight.Game.StateMachines
 			await Task.WhenAll(errorSprite.Task, errorCube.Task, errorMaterial.Task, errorClip.Task);
 			
 			_assetService.AddDebugConfigs(errorSprite.Result, errorCube.Result, errorMaterial.Result, errorClip.Result);
-			_services.RemoteTextureService.SetErrorTexture(errorSprite.Result.texture);
 		}
 
 		private IEnumerable<Task> LoadAssetConfigs()

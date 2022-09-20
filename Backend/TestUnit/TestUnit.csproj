@@ -41,6 +41,9 @@
       <Reference Include="quantum.core, Version=2.1.0.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\Lib\quantum.core.dll</HintPath>
       </Reference>
+      <Reference Include="Sirenix.OdinInspector.Attributes">
+        <HintPath>..\UnityLib\Sirenix.OdinInspector.Attributes.dll</HintPath>
+      </Reference>
       <Reference Include="UnityEngine.AudioModule">
         <HintPath>..\UnityLib\UnityEngine.AudioModule.dll</HintPath>
       </Reference>
@@ -61,7 +64,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Backend\Backend.csproj" />
-      <ProjectReference Include="..\ServerSDK\ServerSDK.csproj" />
+      <ProjectReference Include="..\FunctionApp\FunctionApp.csproj" />
+      <ProjectReference Include="..\FirstLightServerSDK\FirstLightServerSDK.csproj" />
     </ItemGroup>
 </Project>

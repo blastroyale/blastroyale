@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
+using System.Threading.Tasks;
 using FirstLight.FLogger;
 using Newtonsoft.Json;
 using PlayFab;
@@ -114,6 +116,44 @@ namespace FirstLight.Editor.EditorTools
 					}
 				}
 			}
+		}
+
+		/// <summary>
+		/// Sets internal title data key value pair.
+		/// </summary>
+		public static void SetTitleData(string key, string data)
+		{
+			PlayFabAdminAPI.SetTitleData(new PlayFab.AdminModels.SetTitleDataRequest()
+				{
+					Key = key,
+					Value = data,
+					TitleId = PlayFabSettings.TitleId
+				},
+				res =>
+				{
+					Debug.Log($"Internal Title Data {key} Set");
+				},
+				OnPlayFabError
+			);
+		}
+
+		/// <summary>
+		/// Gets an specific internal title key data
+		/// </summary>
+		public static void GetTitleData(string key, Action<string> callback)
+		{
+			PlayFabAdminAPI.GetTitleData(
+				new PlayFab.AdminModels.GetTitleDataRequest()
+				{ Keys = new List<string>() { key }},
+				res =>
+				{
+					if (!res.Data.TryGetValue(key, out var data))
+					{
+						data = null;
+					}
+					callback(data);
+				}, OnPlayFabError
+			);
 		}
 
 		private static void GetAllPlayFabPlayers(Action<PlayFab.AdminModels.GetPlayersInSegmentResult> onSuccess)

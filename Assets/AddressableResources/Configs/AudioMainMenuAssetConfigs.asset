@@ -14,6 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _assetsFolderPath: 
   _configs:
+  - Key: 96
+    Value:
+      AudioClips:
+      - m_AssetGUID: 8b9c0ffbe66a6455897492c3c13ff192
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Loop: 0
+      BaseVolume: 1
+      BasePitch: 1
+      VolumeRandDeviation: 0
+      PitchRandDeviation: 0
+      PitchModPerLoop: 0
   - Key: 104
     Value:
       AudioClips:
@@ -21,7 +34,35 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0
       PitchRandDeviation: 0
+      PitchModPerLoop: 0
+  - Key: 102
+    Value:
+      AudioClips:
+      - m_AssetGUID: 480df297bb64f4793a7f2b3382b24042
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Loop: 0
+      BaseVolume: 1
+      BasePitch: 1
+      VolumeRandDeviation: 0
+      PitchRandDeviation: 0
+      PitchModPerLoop: 0
+  - Key: 103
+    Value:
+      AudioClips:
+      - m_AssetGUID: ee79e16f8b9f844b783ac09354aaab7b
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Loop: 0
+      BaseVolume: 1
+      BasePitch: 1
+      VolumeRandDeviation: 0
+      PitchRandDeviation: 0
+      PitchModPerLoop: 0

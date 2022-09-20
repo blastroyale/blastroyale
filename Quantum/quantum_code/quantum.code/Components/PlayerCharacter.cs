@@ -144,7 +144,7 @@ namespace Quantum
 				navMeshPathfinder->Stop(f, e, true);
 			}
 
-			if (f.Context.MapConfig.GameMode == GameMode.BattleRoyale)
+			if (f.Context.GameModeConfig.Lives == 1)
 			{
 				f.Add<EntityDestroyer>(e);
 			}
@@ -186,11 +186,10 @@ namespace Quantum
 				primaryReplaced = true;
 			}
 
-			// In Battle Royale if there's a different weapon in a slot then we drop it
-			if (f.Context.MapConfig.GameMode == GameMode.BattleRoyale && WeaponSlots[slot].Weapon.IsValid()
-			                                                          && (WeaponSlots[slot].Weapon.GameId !=
-			                                                              weapon.GameId ||
-			                                                              primaryReplaced))
+			// Optionally drop the weapon if there's a different weapon in a slot
+			if (f.Context.GameModeConfig.DropWeaponOnPickup &&
+			    WeaponSlots[slot].Weapon.IsValid() &&
+			    (WeaponSlots[slot].Weapon.GameId != weapon.GameId || primaryReplaced))
 			{
 				var dropPosition = f.Get<Transform3D>(e).Position + FPVector3.Forward;
 				Collectable.DropEquipment(f, WeaponSlots[slot].Weapon, dropPosition, 0);
@@ -227,6 +226,23 @@ namespace Quantum
 			SetSlotWeapon(f, e, slot);
 			
 			f.Events.OnPlayerWeaponChanged(Player, e, slot);
+		}
+
+		/// <summary>
+		/// Tries to set the player's weapon to the given <paramref name="weaponGameId"/> that player already has
+		/// </summary>
+		internal bool TryEquipExistingWeaponID(Frame f, EntityRef e, GameId weaponGameId)
+		{
+			for (int i = 0; i < WeaponSlots.Length; i++)
+			{
+				if (WeaponSlots[i].Weapon.GameId == weaponGameId)
+				{
+					EquipSlotWeapon(f, e, i);
+					return true;
+				}
+			}
+			
+			return false;
 		}
 
 		/// <summary>
@@ -324,28 +340,20 @@ namespace Quantum
 			};
 		}
 
+		/// <summary>
+		/// Requests the player's initial setup loadout
+		/// </summary>
 		public Equipment[] GetLoadout(Frame f)
 		{
-			var playerData = f.GetPlayerData(Player);
-
-			if (playerData == null)
-			{
-				return null;
-			}
-
-			return playerData.Loadout;
+			return f.GetPlayerData(Player)?.Loadout;
 		}
 		
+		/// <summary>
+		/// Requests the player's weapon from initial setup loadout
+		/// </summary>
 		public Equipment GetLoadoutWeapon(Frame f)
 		{
-			var playerData = f.GetPlayerData(Player);
-
-			if (playerData == null)
-			{
-				return Equipment.None;
-			}
-
-			return playerData.Weapon;
+			return f.GetPlayerData(Player)?.Weapon ?? Equipment.None;
 		}
 
 		/// <summary>

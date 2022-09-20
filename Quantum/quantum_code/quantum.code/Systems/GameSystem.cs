@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Photon.Deterministic;
 
 namespace Quantum.Systems
@@ -17,14 +19,21 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void OnAdded(Frame f, EntityRef entity, GameContainer* component)
 		{
-			if (f.Context.MapConfig.GameMode == GameMode.Deathmatch)
+			switch (f.Context.GameModeConfig.CompletionStrategy)
 			{
-				component->TargetProgress = f.Context.MapConfig.GameEndTarget;
+				case GameCompletionStrategy.Never:
+					break;
+				case GameCompletionStrategy.EveryoneDead:
+					component->TargetProgress = (uint) f.PlayerCount - 1;
+					break;
+				case GameCompletionStrategy.KillCount:
+					component->TargetProgress = f.Context.GameModeConfig.CompletionKillCount;
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
 			}
-			else
-			{
-				component->TargetProgress = (uint)f.PlayerCount - 1;
-			}
+
+			SetupWeaponPool(f, component);
 		}
 
 		/// <inheritdoc />
@@ -34,9 +43,9 @@ namespace Quantum.Systems
 
 			gameContainer->GameOverTime = f.Time;
 			gameContainer->IsGameOver = true;
-			
+
 			f.Events.OnGameEnded();
-			
+
 			f.SystemDisable(typeof(AiPreUpdateSystem));
 			f.SystemDisable(typeof(AiSystem));
 			f.SystemDisable(typeof(Core.NavigationSystem));
@@ -51,29 +60,58 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void PlayerDead(Frame f, PlayerRef playerDead, EntityRef entityDead)
 		{
-			var container = f.Unsafe.GetPointerSingleton<GameContainer>();
-
-			if (f.Context.MapConfig.GameMode != GameMode.BattleRoyale)
+			if (f.Context.GameModeConfig.CompletionStrategy == GameCompletionStrategy.EveryoneDead)
 			{
-				return;
+				var container = f.Unsafe.GetPointerSingleton<GameContainer>();
+				container->UpdateGameProgress(f, 1);
 			}
-			
-			container->UpdateGameProgress(f, 1);
 		}
 
+		/// <inheritdoc />
 		public void PlayerKilledPlayer(Frame f, PlayerRef playerDead, EntityRef entityDead, PlayerRef playerKiller,
 		                               EntityRef entityKiller)
 		{
-			var container = f.Unsafe.GetPointerSingleton<GameContainer>();
-
-			if (f.Context.MapConfig.GameMode != GameMode.Deathmatch)
+			if (f.Context.GameModeConfig.CompletionStrategy == GameCompletionStrategy.KillCount)
 			{
-				return;
+				var container = f.Unsafe.GetPointerSingleton<GameContainer>();
+				var inc = container->PlayersData[playerKiller].PlayersKilledCount - container->CurrentProgress;
+
+				container->UpdateGameProgress(f, inc);
+			}
+		}
+
+		private void SetupWeaponPool(Frame f, GameContainer* component)
+		{
+			var offPool = new List<GameId>(GameIdGroup.Weapon.GetIds());
+			var count = component->DropPool.WeaponPool.Length;
+			var rarity = 0;
+
+			offPool.Remove(GameId.Hammer);
+
+			for (var i = 0; i < count; i++)
+			{
+				var playerData = f.GetPlayerData(i);
+				var equipment = playerData?.Weapon;
+
+				if (!equipment.HasValue || !equipment.Value.IsValid())
+				{
+					var index = f.RNG->Next(0, offPool.Count);
+					
+					equipment = new Equipment(offPool[index]);
+					
+					if (offPool.Count > 1)
+					{
+						offPool.RemoveAt(index);
+					}
+				}
+
+				rarity += (int) equipment.Value.Rarity;
+
+				component->DropPool.WeaponPool[i] = equipment.Value;
 			}
 
-			var inc = container->PlayersData[playerKiller].PlayersKilledCount - container->CurrentProgress;
-			
-			container->UpdateGameProgress(f, inc);
+			component->DropPool.AverageRarity = (EquipmentRarity) FPMath.FloorToInt((FP) rarity / count);
+			component->DropPool.MedianRarity = component->DropPool.WeaponPool[count / 2].Rarity;
 		}
 	}
 }

@@ -20,16 +20,16 @@ MonoBehaviour:
     QuantumConfigs:
     - StatType: 0
       BaseValue:
-        RawValue: 19660800
+        RawValue: 32768000
       RarityMultiplier:
-        RawValue: 72090
+        RawValue: 68813
       LevelStepMultiplier:
         RawValue: 328
       GradeStepMultiplier:
         RawValue: 3277
     - StatType: 1
       BaseValue:
-        RawValue: 16384000
+        RawValue: 13107200
       RarityMultiplier:
         RawValue: 66191
       LevelStepMultiplier:
@@ -47,10 +47,28 @@ MonoBehaviour:
         RawValue: 16384
     - StatType: 3
       BaseValue:
-        RawValue: 327680
+        RawValue: 655360
       RarityMultiplier:
         RawValue: 78643
       LevelStepMultiplier:
         RawValue: 1507
       GradeStepMultiplier:
         RawValue: 10945
+    - StatType: 5
+      BaseValue:
+        RawValue: 65536
+      RarityMultiplier:
+        RawValue: 65864
+      LevelStepMultiplier:
+        RawValue: 66
+      GradeStepMultiplier:
+        RawValue: 66
+    - StatType: 6
+      BaseValue:
+        RawValue: 13107
+      RarityMultiplier:
+        RawValue: 68813
+      LevelStepMultiplier:
+        RawValue: 2294
+      GradeStepMultiplier:
+        RawValue: 16384

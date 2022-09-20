@@ -1,12 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backend", "Backend\Backend.csproj", "{6A37F29F-95A5-4542-A706-052536DEE6F4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunctionApp", "FunctionApp\FunctionApp.csproj", "{6A37F29F-95A5-4542-A706-052536DEE6F4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestUnit", "TestUnit\TestUnit.csproj", "{3582B2D2-43C6-4CE3-A175-A2F4BF2B1D4E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StandaloneServer", "StandaloneServer\StandaloneServer.csproj", "{FA920202-9217-4D84-9028-67CC61410096}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerSDK", "ServerSDK\ServerSDK.csproj", "{0D4B49C3-D319-405D-AB52-689E68FCF64D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FirstLightServerSDK", "FirstLightServerSDK\FirstLightServerSDK.csproj", "{0D4B49C3-D319-405D-AB52-689E68FCF64D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlastRoyaleCorePlugin", "BlastRoyaleCorePlugin\BlastRoyaleCorePlugin.csproj", "{CCC7084A-07BF-499D-82B8-4E3A08123FF7}"
 EndProject
@@ -17,6 +17,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerScripts", "ServerScripts\ServerScripts.csproj", "{7F2DDD83-CC93-41FD-94E8-7F223F638AB6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlastRoyaleAnalyticsPlugin", "BlastRoyaleAnalyticsPlugin\BlastRoyaleAnalyticsPlugin.csproj", "{40F47742-2FEE-41B1-BD92-D091AB706DA5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameLogicService", "GameLogicService\GameLogicService.csproj", "{F384ADA5-D1E9-4614-A740-70197086C14F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContainerApp", "ContainerApp\ContainerApp.csproj", "{7EAA3DC4-BA84-4425-BDC7-AFCB97B44D58}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,5 +68,13 @@ Global
 		{7A401768-06B0-46AD-8892-B65F0AC9D71A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A401768-06B0-46AD-8892-B65F0AC9D71A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A401768-06B0-46AD-8892-B65F0AC9D71A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F384ADA5-D1E9-4614-A740-70197086C14F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F384ADA5-D1E9-4614-A740-70197086C14F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F384ADA5-D1E9-4614-A740-70197086C14F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F384ADA5-D1E9-4614-A740-70197086C14F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EAA3DC4-BA84-4425-BDC7-AFCB97B44D58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EAA3DC4-BA84-4425-BDC7-AFCB97B44D58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EAA3DC4-BA84-4425-BDC7-AFCB97B44D58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EAA3DC4-BA84-4425-BDC7-AFCB97B44D58}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

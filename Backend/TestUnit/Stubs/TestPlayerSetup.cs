@@ -7,7 +7,7 @@ using FirstLight.Game.Logic;
 using Microsoft.Extensions.DependencyInjection;
 using PlayFab;
 using PlayFab.ClientModels;
-using ServerSDK.Services;
+using FirstLight.Server.SDK.Services;
 
 
 public interface ITestPlayerSetup
@@ -30,8 +30,8 @@ public class TestPlayerSetup: ITestPlayerSetup
 	{
 		var res = PlayFabClientAPI.LoginWithEmailAddressAsync(new LoginWithEmailAddressRequest()
 		{
-			Email = "test@test.com",
-			Password = "test123",
+			Email = "integrationtest@integrationtest.com",
+			Password = "integrationtest123",
 			TitleId = _server?.TitleId
 		});
 		res.Wait();
@@ -60,15 +60,15 @@ public class TestPlayerSetup: ITestPlayerSetup
 		{
 			TitleId = _server.TitleId,
 			PlayerSecret = _server.SecretKey,
-			Username = "test",
-			Password = "test123",
-			Email = "test@test.com",
+			Username = "integrationtest",
+			Password = "integrationtest123",
+			Email = "integrationtest@integrationtest.com",
 			DisplayName = "test"
 		});
 		response.Wait();
 		var result = response.Result;
 		string playerId = null!;
-		if (result.Error != null && result.Error.ErrorMessage.Contains("The display name entered is not available"))
+		if (result.Error != null)
 		{
 			playerId = LoginAndGetId();
 		}
@@ -76,7 +76,6 @@ public class TestPlayerSetup: ITestPlayerSetup
 		{
 			playerId = result.Result.PlayFabId;
 		}
-
 		var initialState = _services.GetService<IPlayerSetupService>().GetInitialState(playerId);
 		_services.GetService<IServerStateService>().UpdatePlayerState(playerId, initialState).Wait();
 		return playerId;

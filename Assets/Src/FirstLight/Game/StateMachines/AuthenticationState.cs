@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Net;
 using ExitGames.Client.Photon;
 using FirstLight.FLogger;
@@ -14,6 +13,8 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Utils;
 using FirstLight.NativeUi;
+using FirstLight.Server.SDK.Modules;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using FirstLight.Statechart;
 using I2.Loc;
@@ -22,7 +23,6 @@ using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
 using PlayFab.SharedModels;
-using ServerSDK.Modules;
 using UnityEngine;
 
 namespace FirstLight.Game.StateMachines
@@ -43,17 +43,19 @@ namespace FirstLight.Game.StateMachines
 		private readonly IDataService _dataService;
 		private readonly IGameBackendNetworkService _networkService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
+		private IConfigsAdder _configsAdder;
 
 		private string _passwordRecoveryEmailTemplateId = "";
 		
 		public AuthenticationState(IGameServices services, IGameUiServiceInit uiService, IDataService dataService, 
-		                           IGameBackendNetworkService networkService, Action<IStatechartEvent> statechartTrigger)
+		                           IGameBackendNetworkService networkService, Action<IStatechartEvent> statechartTrigger, IConfigsAdder cfgs)
 		{
 			_services = services;
 			_uiService = uiService;
 			_dataService = dataService;
 			_networkService = networkService;
 			_statechartTrigger = statechartTrigger;
+			_configsAdder = cfgs;
 		}
 
 		/// <summary>
@@ -114,12 +116,13 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnConnectionError(ServerHttpError msg)
 		{
+			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Session, "Invalid Session Ticket:"+msg.Message );
+			
 			if (msg.ErrorCode != HttpStatusCode.Unauthorized)
 			{
 				throw new PlayFabException(PlayFabExceptionCode.AuthContextRequired, msg.Message);
 			}
-
-			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Session, "Invalid Session Ticket");
+			
 			LoginWithDevice();
 			_services.PlayfabService.CallFunction("GetPlayerData", res => 
 					OnPlayerDataObtained(res, null), OnPlayFabError);
@@ -146,6 +149,8 @@ namespace FirstLight.Game.StateMachines
 		
 		private void OnPlayFabError(PlayFabError error) 
 		{
+			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Login, error.ErrorMessage);
+			
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.OK,
@@ -156,6 +161,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				FLog.Error(JsonConvert.SerializeObject(error.ErrorDetails));
 			}
+			
 			_services.GenericDialogService.OpenDialog(error.ErrorMessage, false, confirmButton);
 		}
 		
@@ -170,6 +176,7 @@ namespace FirstLight.Game.StateMachines
 			_dataService.GetData<AppData>().DeviceId = null;
 			_dataService.SaveData<AppData>();
 			_statechartTrigger(_authenticationFailEvent);
+			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Login, "AutomaticLogin:"+error.ErrorMessage);
 		}
 
 		private bool HasLinkedDevice()
@@ -177,7 +184,7 @@ namespace FirstLight.Game.StateMachines
 			return !string.IsNullOrWhiteSpace(_dataService.GetData<AppData>().DeviceId);
 		}
 
-		private void LoginWithDevice()
+		public void LoginWithDevice()
 		{
 			FLog.Verbose("Logging in with device ID");
 			var deviceId = _dataService.GetData<AppData>().DeviceId;
@@ -230,9 +237,9 @@ namespace FirstLight.Game.StateMachines
 			
 #if LIVE_SERVER
 			environment = "live";
-			PlayFabSettings.TitleId = "302CF";
-			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
-			_passwordRecoveryEmailTemplateId = F4F93EEA134BE503;
+			PlayFabSettings.TitleId = "***REMOVED***";
+			quantumSettings.AppSettings.AppIdRealtime = "bfdaace0-bcbd-4554-8527-bf418791bbd4";
+			_passwordRecoveryEmailTemplateId = "***REMOVED***";
 #elif OFFCHAIN_SERVER
 			environment = "offchain";
 			PlayFabSettings.TitleId = "***REMOVED***";
@@ -246,7 +253,7 @@ namespace FirstLight.Game.StateMachines
 #else
 			PlayFabSettings.TitleId = "***REMOVED***";
 			_passwordRecoveryEmailTemplateId = "***REMOVED***";
-			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";	
+			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
 #endif
 			
 			if (environment != appData.Environment)
@@ -264,7 +271,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var titleData = result.InfoResultPayload.TitleData;
 			var appData = _dataService.GetData<AppData>();
-			
+
 			PlayFabSettings.staticPlayer.CopyFrom(result.AuthenticationContext);
 			_services.AnalyticsService.SessionCalls.PlayerLogin(result.PlayFabId);
 			FLog.Verbose($"Logged in. PlayfabId={result.PlayFabId}");
@@ -286,7 +293,9 @@ namespace FirstLight.Game.StateMachines
 				OpenGameBlockedDialog();
 				return;
 			}
-
+			
+			FeatureFlags.ParseFlags(titleData);
+			
 			_networkService.UserId.Value = result.PlayFabId;
 			appData.NickNameId = result.InfoResultPayload.AccountInfo.TitleInfo.DisplayName;
 			appData.FirstLoginTime = result.InfoResultPayload.AccountInfo.Created;
@@ -294,6 +303,21 @@ namespace FirstLight.Game.StateMachines
 			appData.LastLoginTime = result.LastLoginTime ?? result.InfoResultPayload.AccountInfo.Created;
 			appData.IsFirstSession = result.NewlyCreated;
 			appData.PlayerId = result.PlayFabId;
+
+			if (FeatureFlags.REMOTE_CONFIGURATION)
+			{
+				FLog.Verbose("Parsing Remote Configurations");
+				var remoteStringConfig = titleData[PlayfabConfigurationProvider.ConfigName];
+				var serializer = new ConfigsSerializer();
+				var remoteConfig = serializer.Deserialize<PlayfabConfigurationProvider>(remoteStringConfig);
+				FLog.Verbose($"Updating config from version {_configsAdder.Version} to {remoteConfig.Version}");
+				_services.MessageBrokerService.Publish(new ConfigurationUpdate()
+				{
+					NewConfig = remoteConfig,
+					OldConfig = _configsAdder
+				});
+				_configsAdder.UpdateTo(remoteConfig.Version, remoteConfig.GetAllConfigs());
+			}
 
 			_dataService.SaveData<AppData>();
 			FLog.Verbose("Saved AppData");

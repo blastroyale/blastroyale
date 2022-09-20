@@ -1,8 +1,10 @@
-﻿using FirstLight.Game.Logic;
+﻿using System;
+using FirstLight.Game.Logic;
 using I2.Loc;
 using Photon.Realtime;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace FirstLight.Game.Views.MatchHudViews
 {
@@ -11,6 +13,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 	/// </summary>
 	public class PlayerNameEntryView : MonoBehaviour
 	{
+		[SerializeField] private Button _kickButton;
 		[SerializeField] private TextMeshProUGUI _playerNameText;
 		[SerializeField] private TextMeshProUGUI _playerStatus;
 		[SerializeField] private Color _regularColor;
@@ -18,6 +21,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField] private Color _hostColor;
 		[SerializeField] private GameObject _hostIconObject;
 
+		private Action<Player> _kickPlayerClicked;
 		private IGameDataProvider _dataProvider;
 
 		public Player Player { get; private set; }
@@ -25,10 +29,20 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public bool IsHost { get; private set; }
 		public bool IsLocal { get; private set; }
 
+		private void Awake()
+		{
+			_kickButton.onClick.AddListener(KickButtonClicked);
+		}
+
+		private void OnDestroy()
+		{
+			_kickButton.onClick.RemoveAllListeners();
+		}
+		
 		/// <summary>
 		/// Set the information of this player entry based on the given strings and host status
 		/// </summary>
-		public void SetInfo(Player player, bool isLocal, bool isHost, bool isLoaded)
+		public void SetInfo(Player player, bool isLocal, bool isHost, bool isLoaded, Action<Player> kickPlayerClickedCallback)
 		{
 			Player = player;
 			
@@ -66,6 +80,13 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			_playerNameText.color = col;
 			_playerStatus.color = col;
+
+			_kickPlayerClicked = kickPlayerClickedCallback;
+		}
+
+		private void KickButtonClicked()
+		{
+			_kickPlayerClicked?.Invoke(Player);
 		}
 	}
 }

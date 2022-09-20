@@ -41,7 +41,8 @@ namespace FirstLight.Editor.Configs
 			tree.Config.DrawSearchToolbar = true;
 
 			var gameConfigs = AssetDatabase.LoadAssetAtPath<GameConfigs>($"{ConfigsFolder}/GameConfigs.asset");
-			tree.AddObjectAtPath("Game Config", new QuantumConfigWrapper<GameConfigs, QuantumGameConfig>(gameConfigs));
+			tree.AddObjectAtPath("Game Config",
+			                     new QuantumSingleConfigWrapper<GameConfigs, QuantumGameConfig>(gameConfigs));
 
 			tree.AddAllAssetsAtPath("Asset Configs", ConfigsFolder, typeof(AssetConfigsScriptableObject));
 			tree.AddAllAssetsAtPath("Settings", $"{ConfigsFolder}/Settings");
@@ -56,7 +57,14 @@ namespace FirstLight.Editor.Configs
 
 			foreach (var path in otherConfigs)
 			{
-				tree.AddAssetAtPath($"Other/{Path.GetFileNameWithoutExtension(path)}", path);
+				if (TryGetWrapper(path, out var wrapper))
+				{
+					tree.AddObjectAtPath($"Other/{Path.GetFileNameWithoutExtension(path)}", wrapper);
+				}
+				else
+				{
+					tree.AddAssetAtPath($"Other/{Path.GetFileNameWithoutExtension(path)}", path);
+				}
 			}
 
 			_importers = ConfigUtils.GetAllImporters();
@@ -66,9 +74,11 @@ namespace FirstLight.Editor.Configs
 
 		protected override void OnBeginDrawEditors()
 		{
-			var selected = MenuTree.Selection.FirstOrDefault();
+			var selected = MenuTree.Selection?.FirstOrDefault();
 			var toolbarHeight = MenuTree.Config.SearchToolbarHeight;
 
+			if (selected?.Value == null) return;
+			
 			SirenixEditorGUI.BeginHorizontalToolbar(toolbarHeight);
 			{
 				EditorGUILayout.Space();
@@ -110,7 +120,7 @@ namespace FirstLight.Editor.Configs
 
 		private IGoogleSheetConfigsImporter GetImporter(Type type)
 		{
-			var quantumConfigWrapperType = typeof(QuantumConfigWrapper<,>);
+			var quantumConfigWrapperType = typeof(QuantumSingleConfigWrapper<,>);
 
 			if (type.IsGenericType && type.GetGenericTypeDefinition()
 			                              .IsAssignableFrom(quantumConfigWrapperType.GetGenericTypeDefinition()))
@@ -121,21 +131,48 @@ namespace FirstLight.Editor.Configs
 			return _importers.TryGetValue(type, out var importer) ? importer : null;
 		}
 
+		private bool TryGetWrapper(string path, out object wrapper)
+		{
+			// TODO: Make this dynamic somehow
+			wrapper = Path.GetFileName(path) switch
+			{
+				"GameModeConfigs.asset" =>
+					new QuantumConfigWrapper<GameModeConfigs, QuantumGameModeConfig>(AssetDatabase
+						.LoadAssetAtPath<GameModeConfigs>(path)),
+				_ => null
+			};
 
-		private class QuantumConfigWrapper<TAsset, TConfig> where TConfig : struct
-		                                                    where TAsset : Object, ISingleConfigContainer<TConfig>
+			return wrapper != null;
+		}
+
+		private class QuantumSingleConfigWrapper<TAsset, TConfig> where TConfig : struct
+		                                                          where TAsset : Object, ISingleConfigContainer<TConfig>
 		{
 			private readonly TAsset _asset;
 
-			[ShowInInspector, HideLabel]
+			[ShowInInspector, HideLabel, OnValueChanged("@EditorUtility.SetDirty(_asset)", IncludeChildren = true)]
 			public TConfig Config
 			{
 				get => _asset.Config;
-				set
-				{
-					_asset.Config = value;
-					EditorUtility.SetDirty(_asset);
-				}
+				set => _asset.Config = value;
+			}
+
+			public QuantumSingleConfigWrapper(TAsset asset)
+			{
+				_asset = asset;
+			}
+		}
+
+		private class QuantumConfigWrapper<TAsset, TConfig> where TConfig : struct
+		                                                    where TAsset : Object, IConfigsContainer<TConfig>
+		{
+			private readonly TAsset _asset;
+
+			[ShowInInspector, HideLabel, OnValueChanged("@EditorUtility.SetDirty(_asset)", IncludeChildren = true)]
+			public List<TConfig> Configs
+			{
+				get => _asset.Configs;
+				set => _asset.Configs = value;
 			}
 
 			public QuantumConfigWrapper(TAsset asset)

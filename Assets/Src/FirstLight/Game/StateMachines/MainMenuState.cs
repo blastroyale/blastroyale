@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs.AssetConfigs;
@@ -33,6 +34,8 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _roomJoinCreateClickedEvent = new StatechartEvent("Room Join Create Button Clicked Event");
 		private readonly IStatechartEvent _nameChangeClickedEvent = new StatechartEvent("Name Change Clicked Event");
 		private readonly IStatechartEvent _chooseGameModeClickedEvent = new StatechartEvent("Game Mode Clicked Event");
+		private readonly IStatechartEvent _leaderboardClickedEvent = new StatechartEvent("Leaderboard Clicked Event");
+		private readonly IStatechartEvent _battlePassClickedEvent = new StatechartEvent("BattlePass Clicked Event");
 		private readonly IStatechartEvent _roomJoinCreateCloseClickedEvent = new StatechartEvent("Room Join Create Close Button Clicked Event");
 		private readonly IStatechartEvent _gameCompletedCheatEvent = new StatechartEvent("Game Completed Cheat Event");
 		
@@ -75,6 +78,7 @@ namespace FirstLight.Game.StateMachines
 			initial.OnExit(SubscribeEvents);
 
 			mainMenuLoading.OnEnter(LoadMainMenu);
+			mainMenuLoading.OnEnter(ValidateCurrentGameMode);
 			mainMenuLoading.Event(MainMenuLoadedEvent).Target(mainMenu);
 			mainMenuLoading.OnExit(LoadingComplete);
 
@@ -103,6 +107,8 @@ namespace FirstLight.Game.StateMachines
 			var playClickedCheck = stateFactory.Choice("Play Button Clicked Check");
 			var roomWait = stateFactory.State("Room Joined Check");
 			var chooseGameMode = stateFactory.Wait("Enter Choose Game Mode");
+			var leaderboard = stateFactory.Wait("Leaderboard");
+			var battlePass = stateFactory.Wait("BattlePass");
 			var enterNameDialog = stateFactory.Nest("Enter Name Dialog");
 			var roomJoinCreateMenu = stateFactory.State("Room Join Create Menu");
 			var nftPlayRestricted = stateFactory.Wait("Nft Restriction Pop Up");
@@ -122,7 +128,7 @@ namespace FirstLight.Game.StateMachines
 
 			claimUnclaimedRewards.OnEnter(ClaimUncollectedRewards);
 			claimUnclaimedRewards.Transition().Target(screenCheck);
-
+			
 			homeMenu.OnEnter(OpenMainMenuUi);
 			homeMenu.OnEnter(OpenPlayMenuUI);
 			homeMenu.Event(_playClickedEvent).Target(playClickedCheck);
@@ -131,6 +137,8 @@ namespace FirstLight.Game.StateMachines
 			homeMenu.Event(_roomJoinCreateClickedEvent).Target(roomJoinCreateMenu);
 			homeMenu.Event(_nameChangeClickedEvent).Target(enterNameDialog);
 			homeMenu.Event(_chooseGameModeClickedEvent).Target(chooseGameMode);
+			homeMenu.Event(_leaderboardClickedEvent).Target(leaderboard);
+			homeMenu.Event(_battlePassClickedEvent).Target(battlePass);
 			homeMenu.OnExit(ClosePlayMenuUI);
 			homeMenu.OnExit(CloseMainMenuUI);
 
@@ -143,6 +151,12 @@ namespace FirstLight.Game.StateMachines
 
 			chooseGameMode.WaitingFor(OpenGameModeSelectionUI).Target(homeMenu);
 			chooseGameMode.OnExit(CloseGameModeSelectionUI);
+			
+			leaderboard.WaitingFor(OpenLeaderboardUI).Target(homeMenu);
+			leaderboard.OnExit(CloseLeaderboardUI);
+			
+			battlePass.WaitingFor(OpenBattlePassUI).Target(homeMenu);
+			battlePass.OnExit(CloseBattlePassUI);
 
 			enterNameDialog.Nest(_enterNameState.Setup).Target(homeMenu);
 			
@@ -208,6 +222,14 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.CommandService.ExecuteCommand(new CollectUnclaimedRewardsCommand());
 		}
+		
+		private void ValidateCurrentGameMode()
+		{
+			if (_services.GameModeService.SelectedGameMode.Value.Entry.MatchType != MatchType.Custom) return;
+
+			var rankedMode = _services.GameModeService.Slots.ReadOnlyList.FirstOrDefault(x => x.Entry.MatchType == MatchType.Ranked);
+			_services.GameModeService.SelectedGameMode.Value = rankedMode;
+		}
 
 		private void SendMatchmakingReadyMessage()
 		{
@@ -216,7 +238,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private bool EnoughNftToPlay()
 		{
-			return _gameDataProvider.AppDataProvider.SelectedMatchType.Value == MatchType.Casual
+			return _services.GameModeService.SelectedGameMode.Value.Entry.MatchType == MatchType.Casual
 			       || _gameDataProvider.EquipmentDataProvider.EnoughLoadoutEquippedToPlay();
 		}
 
@@ -258,7 +280,41 @@ namespace FirstLight.Game.StateMachines
 		{
 			_uiService.CloseUi<GameModeSelectionPresenter>();
 		}
+		
+		private void OpenLeaderboardUI(IWaitActivity activity)
+		{
+			var cacheActivity = activity;
 
+			var data = new LeaderboardScreenPresenter.StateData
+			{
+				BackClicked = () => { cacheActivity.Complete(); }
+			};
+			
+			_uiService.OpenUiAsync<LeaderboardScreenPresenter, LeaderboardScreenPresenter.StateData>(data);
+		}
+
+		private void CloseLeaderboardUI()
+		{
+			_uiService.CloseUi<LeaderboardScreenPresenter>();
+		}
+		
+		private void OpenBattlePassUI(IWaitActivity activity)
+		{
+			var cacheActivity = activity;
+
+			var data = new BattlePassScreenPresenter.StateData
+			{
+				BackClicked = () => { cacheActivity.Complete(); }
+			};
+			
+			_uiService.OpenUiAsync<BattlePassScreenPresenter, BattlePassScreenPresenter.StateData>(data);
+		}
+		
+		private void CloseBattlePassUI()
+		{
+			_uiService.CloseUi<BattlePassScreenPresenter>();
+		}
+		
 		private void OpenHeroesMenuUI()
 		{
 			var data = new PlayerSkinScreenPresenter.StateData
@@ -300,7 +356,9 @@ namespace FirstLight.Game.StateMachines
 				OnHeroesButtonClicked = OnTabClickedCallback<PlayerSkinScreenPresenter>,
 				OnPlayRoomJoinCreateClicked = () => _statechartTrigger(_roomJoinCreateClickedEvent),
 				OnNameChangeClicked = () => _statechartTrigger(_nameChangeClickedEvent),
-				OnGameModeClicked = () => _statechartTrigger(_chooseGameModeClickedEvent)
+				OnGameModeClicked = () => _statechartTrigger(_chooseGameModeClickedEvent),
+				OnLeaderboardClicked = () => _statechartTrigger(_leaderboardClickedEvent),
+				OnBattlePassClicked = () => _statechartTrigger(_battlePassClickedEvent)
 			};
 
 			_uiService.OpenUi<HomeScreenPresenter, HomeScreenPresenter.StateData>(data);

@@ -13,7 +13,7 @@ using Assert = NUnit.Framework.Assert;
 
 namespace FirstLight.Tests.EditorMode.Logic
 {
-	public class ResourceLogicTest : BaseTestFixture<PlayerData>
+	public class ResourceLogicTest : MockedTestFixture<PlayerData>
 	{
 		private ResourcePoolConfig _poolConfig;
 		private ResourceLogic _resourceLogic;
@@ -107,15 +107,26 @@ namespace FirstLight.Tests.EditorMode.Logic
 		{
 			var nftList = new List<EquipmentInfo>
 			{
-				new() { Equipment = new Equipment(GameId.Hammer, rarity: EquipmentRarity.RarePlus, grade: EquipmentGrade.GradeV, adjective: EquipmentAdjective.Regular, durability: 50, maxDurability: 100 )},
-				new() { Equipment = new Equipment(GameId.Hammer, rarity: EquipmentRarity.Rare, grade: EquipmentGrade.GradeIII, adjective: EquipmentAdjective.Exquisite, durability: 70, maxDurability: 100 )},
-				new() { Equipment = new Equipment(GameId.Hammer, rarity: EquipmentRarity.Uncommon, grade: EquipmentGrade.GradeIII, adjective: EquipmentAdjective.Cool, durability: 65, maxDurability: 100 )},
-				new() { Equipment = new Equipment(GameId.Hammer, rarity: EquipmentRarity.Legendary, grade: EquipmentGrade.GradeI, adjective: EquipmentAdjective.Royal, durability: 34, maxDurability: 100 )},
-				new() { Equipment = new Equipment(GameId.Hammer, rarity: EquipmentRarity.LegendaryPlus, grade: EquipmentGrade.GradeIV, adjective: EquipmentAdjective.Divine, durability: 97, maxDurability: 100 )},
+				new() { Equipment = new Equipment(GameId.BaseballArmor, rarity: EquipmentRarity.RarePlus, grade: EquipmentGrade.GradeV, adjective: EquipmentAdjective.Regular, durability: 50, maxDurability: 100 )},
+				new() { Equipment = new Equipment(GameId.SciCannon, rarity: EquipmentRarity.Rare, grade: EquipmentGrade.GradeIII, adjective: EquipmentAdjective.Exquisite, durability: 70, maxDurability: 100 )},
+				new() { Equipment = new Equipment(GameId.MouseAmulet, rarity: EquipmentRarity.Uncommon, grade: EquipmentGrade.GradeIII, adjective: EquipmentAdjective.Cool, durability: 65, maxDurability: 100 )},
+				new() { Equipment = new Equipment(GameId.RoadShield, rarity: EquipmentRarity.Legendary, grade: EquipmentGrade.GradeI, adjective: EquipmentAdjective.Royal, durability: 34, maxDurability: 100 )},
+				new() { Equipment = new Equipment(GameId.BaseballHelmet, rarity: EquipmentRarity.LegendaryPlus, grade: EquipmentGrade.GradeIV, adjective: EquipmentAdjective.Divine, durability: 97, maxDurability: 100 )},
 			};
 			
-			// TODO: Have also NON-NFT list
-			
+			var nonNftList = new List<EquipmentInfo>
+			{
+				new() { Equipment = new Equipment(GameId.FootballArmor, rarity: EquipmentRarity.Common, grade: EquipmentGrade.GradeIV, adjective: EquipmentAdjective.Regular, durability: 90, maxDurability: 100 )},
+				new() { Equipment = new Equipment(GameId.ModPistol, rarity: EquipmentRarity.Common, grade: EquipmentGrade.GradeIII, adjective: EquipmentAdjective.Regular, durability: 80, maxDurability: 100 )},
+				new() { Equipment = new Equipment(GameId.RiotAmulet, rarity: EquipmentRarity.Uncommon, grade: EquipmentGrade.GradeIII, adjective: EquipmentAdjective.Cool, durability: 65, maxDurability: 100 )},
+				new() { Equipment = new Equipment(GameId.WarriorShield, rarity: EquipmentRarity.CommonPlus, grade: EquipmentGrade.GradeIII, adjective: EquipmentAdjective.Regular, durability: 66, maxDurability: 100 )},
+				new() { Equipment = new Equipment(GameId.HockeyHelmet, rarity: EquipmentRarity.Rare, grade: EquipmentGrade.GradeV, adjective: EquipmentAdjective.Regular, durability: 100, maxDurability: 100 )},
+			};
+
+			var bothList = new List<EquipmentInfo>();
+			bothList.AddRange(nftList);
+			bothList.AddRange(nonNftList);
+
 			_poolConfig = new ResourcePoolConfig
 			{
 				Id = GameId.CS,
@@ -136,6 +147,11 @@ namespace FirstLight.Tests.EditorMode.Logic
 			GameLogic.EquipmentLogic.Loadout.Count.Returns(nftList.Count);
 			EquipmentLogic.GetInventoryEquipmentInfo(EquipmentFilter.NftOnly).Returns(nftList);
 			EquipmentLogic.GetLoadoutEquipmentInfo(EquipmentFilter.NftOnly).Returns(nftList);
+			EquipmentLogic.GetInventoryEquipmentInfo(EquipmentFilter.NoNftOnly).Returns(nonNftList);
+			EquipmentLogic.GetLoadoutEquipmentInfo(EquipmentFilter.NoNftOnly).Returns(nonNftList);
+			EquipmentLogic.GetInventoryEquipmentInfo(EquipmentFilter.Both).Returns(bothList);
+			EquipmentLogic.GetLoadoutEquipmentInfo(EquipmentFilter.Both).Returns(bothList);
+
 			InitConfigData(_poolConfig);
 			InitConfigData(new QuantumGameConfig { NftAssumedOwned = 40, MinNftForEarnings = 3, EarningsAugmentationStrengthSteepnessMod = FP.FromString("3"), EarningsAugmentationStrengthDropMod = FP.FromString("0.08")});
 			InitConfigData(config => (int) config.Grade, new GradeDataConfig { Grade = EquipmentGrade.GradeI, PoolIncreaseModifier = FP.FromString("0.135")});

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using ExitGames.Client.Photon;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using Photon.Realtime;
 using Quantum;
@@ -20,13 +21,14 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Returns a room parameters used for creation of custom and matchmaking rooms
 		/// </summary>
-		public static EnterRoomParams GetRoomCreateParams(QuantumMapConfig mapConfig, MapGridConfigs gridConfigs,
-		                                                  string roomName, bool isRankedMatch, bool gameHasBots)
+		public static EnterRoomParams GetRoomCreateParams(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, MapGridConfigs gridConfigs,
+		                                                  string roomName, MatchType matchType, List<string> mutators, bool gameHasBots)
 		{
 			var isRandomMatchmaking = string.IsNullOrWhiteSpace(roomName);
 
 			var roomNameFinal = isRandomMatchmaking ? null : roomName;
 			var emptyTtl = 0;
+			var maxPlayers = GetMaxPlayers(gameModeConfig, mapConfig);
 			
 			if (FeatureFlags.COMMIT_VERSION_LOCK && !isRandomMatchmaking)
 			{
@@ -54,7 +56,7 @@ namespace FirstLight.Game.Utils
 				{
 					BroadcastPropsChangeToAll = true,
 					CleanupCacheOnLeave = true,
-					CustomRoomProperties = GetCreateRoomProperties(mapConfig, gridConfigs, isRankedMatch, gameHasBots),
+					CustomRoomProperties = GetCreateRoomProperties(gameModeConfig, mapConfig, gridConfigs, matchType, mutators, gameHasBots),
 					CustomRoomPropertiesForLobby = GetCreateRoomPropertiesForLobby(),
 					Plugins = null,
 					SuppressRoomEvents = false,
@@ -65,8 +67,8 @@ namespace FirstLight.Game.Utils
 					IsOpen = true,
 					IsVisible = isRandomMatchmaking,
 					MaxPlayers = isRandomMatchmaking
-						             ? (byte) mapConfig.PlayersLimit
-						             : (byte) (mapConfig.PlayersLimit + GameConstants.Data.MATCH_SPECTATOR_SPOTS),
+						             ? (byte) maxPlayers
+						             : (byte) (maxPlayers + GameConstants.Data.MATCH_SPECTATOR_SPOTS),
 					PlayerTtl = GameConstants.Network.DEFAULT_PLAYER_TTL_MS
 				}
 			};
@@ -103,12 +105,12 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Returns random room entry parameters used for matchmaking room joining
 		/// </summary>
-		public static OpJoinRandomRoomParams GetJoinRandomRoomParams(QuantumMapConfig mapConfig, bool isRankedMatch, bool gameHasBots)
+		public static OpJoinRandomRoomParams GetJoinRandomRoomParams(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, MatchType matchType, List<string> mutators)
 		{
 			return new OpJoinRandomRoomParams
 			{
-				ExpectedCustomRoomProperties = GetJoinRoomProperties(mapConfig, isRankedMatch, gameHasBots),
-				ExpectedMaxPlayers = (byte) mapConfig.PlayersLimit,
+				ExpectedCustomRoomProperties = GetJoinRoomProperties(gameModeConfig, mapConfig, matchType, mutators),
+				ExpectedMaxPlayers = (byte) GetMaxPlayers(gameModeConfig, mapConfig),
 				ExpectedUsers = null,
 				MatchingType = MatchmakingMode.FillRoom,
 				SqlLobbyFilter = "",
@@ -119,19 +121,20 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Returns the current map in rotation, used for creating rooms with maps in rotation
 		/// </summary>
-		public static QuantumMapConfig GetRotationMapConfig(GameMode gameMode, IGameServices services)
+		public static QuantumMapConfig GetRotationMapConfig(string gameModeId, IGameServices services)
 		{
-			var configs = services.ConfigsProvider.GetConfigsDictionary<QuantumMapConfig>();
+			var gameModeConfig = services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
 			var compatibleMaps = new List<QuantumMapConfig>();
 			var span = DateTime.UtcNow - DateTime.UtcNow.Date;
 			var timeSegmentIndex =
 				Mathf.RoundToInt((float) span.TotalMinutes / GameConstants.Balance.MAP_ROTATION_TIME_MINUTES);
 
-			foreach (var config in configs)
+			foreach (var mapId in gameModeConfig.AllowedMaps)
 			{
-				if (config.Value.GameMode == gameMode && !config.Value.IsTestMap)
+				var mapConfig = services.ConfigsProvider.GetConfig<QuantumMapConfig>((int) mapId);
+				if (!mapConfig.IsTestMap)
 				{
-					compatibleMaps.Add(config.Value);
+					compatibleMaps.Add(mapConfig);
 				}
 			}
 
@@ -149,18 +152,21 @@ namespace FirstLight.Game.Utils
 			{
 				GameConstants.Network.ROOM_PROPS_COMMIT,
 				GameConstants.Network.ROOM_PROPS_MAP,
-				GameConstants.Network.ROOM_PROPS_RANKED_MATCH,
-				GameConstants.Network.ROOM_PROPS_BOTS
+				GameConstants.Network.ROOM_PROPS_MATCH_TYPE,
+				GameConstants.Network.ROOM_PROPS_GAME_MODE,
+				GameConstants.Network.ROOM_PROPS_MUTATORS
 			};
 		}
 		
-		private static Hashtable GetCreateRoomProperties(QuantumMapConfig mapConfig, MapGridConfigs gridConfigs, bool isRankedMatch, bool gameHasBots)
+		private static Hashtable GetCreateRoomProperties(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, MapGridConfigs gridConfigs, MatchType matchType, List<string> mutators, bool gameHasBots)
 		{
-			var properties = GetJoinRoomProperties(mapConfig, isRankedMatch, gameHasBots);
+			var properties = GetJoinRoomProperties(gameModeConfig, mapConfig, matchType, mutators);
 
-			properties.Add(GameConstants.Network.ROOM_PROPS_START_TIME, DateTime.UtcNow.Ticks);
+			properties.Add(GameConstants.Network.ROOM_PROPS_CREATION_TICKS, DateTime.UtcNow.Ticks);
+			
+			properties.Add(GameConstants.Network.ROOM_PROPS_BOTS, gameHasBots);
 
-			if (mapConfig.GameMode == GameMode.BattleRoyale && !mapConfig.IsTestMap)
+			if (gameModeConfig.SpawnPattern)
 			{
 				properties.Add(GameConstants.Network.ROOM_PROPS_DROP_PATTERN, CalculateDropPattern(gridConfigs));
 			}
@@ -168,7 +174,7 @@ namespace FirstLight.Game.Utils
 			return properties;
 		}
 
-		private static Hashtable GetJoinRoomProperties(QuantumMapConfig mapConfig, bool isRankedMatch, bool gameHasBots)
+		private static Hashtable GetJoinRoomProperties(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, MatchType matchType, List<string> mutators)
 		{
 			return new Hashtable
 			{
@@ -176,13 +182,16 @@ namespace FirstLight.Game.Utils
 				{GameConstants.Network.ROOM_PROPS_COMMIT, VersionUtils.Commit},
 
 				// Set the game map Id for the same matchmaking
-				{GameConstants.Network.ROOM_PROPS_MAP, mapConfig.Id},
+				{GameConstants.Network.ROOM_PROPS_MAP, mapConfig.Map},
 				
 				// For matchmaking, rooms are segregated by casual/ranked.
-				{GameConstants.Network.ROOM_PROPS_RANKED_MATCH, isRankedMatch},
+				{GameConstants.Network.ROOM_PROPS_MATCH_TYPE, matchType.ToString()},
+
+				// For matchmaking, rooms are segregated by casual/ranked.
+				{GameConstants.Network.ROOM_PROPS_GAME_MODE, gameModeConfig.Id},
 				
-				// Games always either have bots, or dont. This property needs to be in here
-				{GameConstants.Network.ROOM_PROPS_BOTS, true}
+				// A list of mutators used in this room
+				{GameConstants.Network.ROOM_PROPS_MUTATORS, string.Join(",", mutators)}
 			};
 		}
 
@@ -282,6 +291,14 @@ namespace FirstLight.Game.Utils
 
 
 			return dropPattern;
+		}
+
+		/// <summary>
+		/// Calculates the maximum number of players based on game mode and map.
+		/// </summary>
+		public static int GetMaxPlayers(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig)
+		{
+			return Math.Min((int) gameModeConfig.MaxPlayers, mapConfig.MaxPlayers);
 		}
 	}
 }

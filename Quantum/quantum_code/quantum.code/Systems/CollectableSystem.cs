@@ -41,18 +41,19 @@ namespace Quantum.Systems
 			if (IsCollectableFilled(f, info.Entity, info.Other)) return;
 
 			var endTime = collectable->CollectorsEndTime[player.Player];
+			var timeMod = f.Get<Stats>(info.Other).GetStatData(StatType.PickupSpeed).StatValue;
 
 			if (!collectable->IsCollecting(player.Player))
 			{
 				// If it's a consumable then we use CollectTime from consumable config
 				if (f.TryGet<Consumable>(info.Entity, out var consumable))
 				{
-					endTime = f.Time + consumable.CollectTime;
+					endTime = f.Time + FPMath.Max((consumable.CollectTime - timeMod), Constants.PICKUP_SPEED_MINIMUM);
 				}
 				// Otherwise we use global collect time
 				else
 				{
-					endTime = f.Time + f.GameConfig.CollectableCollectTime.Get(f);
+					endTime = f.Time + FPMath.Max((f.GameConfig.CollectableCollectTime.Get(f) - timeMod), Constants.PICKUP_SPEED_MINIMUM);
 				}
 
 				collectable->CollectorsEndTime[player.Player] = endTime;
@@ -136,12 +137,20 @@ namespace Quantum.Systems
 				if (playerCharacter->HasBetterWeaponEquipped(equipment->Item))
 				{
 					gameId = GameId.AmmoSmall;
-					var ammoAmount = f.ConsumableConfigs.GetConfig(gameId).Amount;
-					var consumable = new Consumable { ConsumableType = ConsumableType.Ammo, Amount = ammoAmount };
+					var weaponConfig = f.WeaponConfigs.GetConfig(equipment->Item.GameId);
+					var initialAmmo = weaponConfig.InitialAmmoFilled.Get(f);
+					var consumable = new Consumable { ConsumableType = ConsumableType.Ammo, Amount = initialAmmo };
+					var ammoWasEmpty = playerCharacter->GetAmmoAmountFilled(f, playerEntity) < FP.SmallestNonZero;
 
 					// Fake use a consumable to simulate it's natural life cycle
 					f.Add(entity, consumable);
 					consumable.Collect(f, entity, playerEntity, player);
+					
+					// Special case: having no ammo and collecting the weapon that is already in one of the slots
+					if (ammoWasEmpty && playerCharacter->HasMeleeWeapon(f, playerEntity))
+					{
+						playerCharacter->TryEquipExistingWeaponID(f, playerEntity, equipment->Item.GameId);
+					}
 				}
 				else
 				{

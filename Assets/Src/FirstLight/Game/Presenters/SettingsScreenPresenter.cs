@@ -33,8 +33,9 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private Button _blockerButton;
 		[SerializeField, Required] private Button _logoutButton;
 		[SerializeField, Required] private UiToggleButtonView _backgroundMusicToggle;
-		[SerializeField, Required] private UiToggleButtonView _hapticToggle;
 		[SerializeField, Required] private UiToggleButtonView _sfxToggle;
+		[SerializeField, Required] private UiToggleButtonView _dialogueToggle;
+		[SerializeField, Required] private UiToggleButtonView _hapticToggle;
 		[SerializeField, Required] private DetailLevelToggleView _detailLevelView;
 		[SerializeField, Required] private Button _helpdesk;
 		[SerializeField, Required] private Button _faq;
@@ -61,11 +62,13 @@ namespace FirstLight.Game.Presenters
 
 			_backgroundMusicToggle.onValueChanged.AddListener(OnBgmChanged);
 			_sfxToggle.onValueChanged.AddListener(OnSfxChanged);
+			_dialogueToggle.onValueChanged.AddListener(OnDialogueChanged);
 			_hapticToggle.onValueChanged.AddListener(OnHapticChanged);
 			_detailLevelView.ValueChanged += OnDetailLevelChanged;
 
-			_backgroundMusicToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsBgmOn);
-			_sfxToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsSfxOn);
+			_backgroundMusicToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsBgmEnabled);
+			_sfxToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsSfxEnabled);
+			_dialogueToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsDialogueEnabled);
 			_hapticToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsHapticOn);
 			_detailLevelView.SetSelectedDetailLevel(_gameDataProvider.AppDataProvider.CurrentDetailLevel);
 			_blockerButton.onClick.AddListener(OnBlockerButtonPressed);
@@ -112,12 +115,17 @@ namespace FirstLight.Game.Presenters
 
 		private void OnBgmChanged(bool value)
 		{
-			_gameDataProvider.AppDataProvider.IsBgmOn = value;
+			_gameDataProvider.AppDataProvider.IsBgmEnabled = value;
 		}
 
 		private void OnSfxChanged(bool value)
 		{
-			_gameDataProvider.AppDataProvider.IsSfxOn = value;
+			_gameDataProvider.AppDataProvider.IsSfxEnabled = value;
+		}
+		
+		private void OnDialogueChanged(bool value)
+		{
+			_gameDataProvider.AppDataProvider.IsDialogueEnabled = value;
 		}
 
 		private void OnHapticChanged(bool value)
@@ -130,7 +138,6 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider.AppDataProvider.CurrentDetailLevel = detailLevel;
 		}
 		
-
 		private void OnLogoutClicked()
 		{
 			var title = string.Format(ScriptLocalization.MainMenu.LogoutConfirm);

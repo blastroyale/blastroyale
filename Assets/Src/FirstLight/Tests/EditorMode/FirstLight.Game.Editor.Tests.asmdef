@@ -2,17 +2,24 @@
     "name": "FirstLight.Game.Editor.Tests",
     "rootNamespace": "",
     "references": [
-        "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner",
-        "FirstLight.Game",
-        "FirstLight.Services",
-        "FirstLight.UiService",
-        "FirstLight.AddressablesExtensions",
-        "FirstLight.DataExtensions",
-        "FirstLight.Statechart",
-        "FirstLight.NotificationService",
-        "FirstLight.GoogleSheetImporter",
-        "PhotonQuantum"
+        "GUID:27619889b8ba8c24980f49ee34dbb44a",
+        "GUID:0acc523941302664db1f4e527237feb3",
+        "GUID:69e6b98aed01b4e88976f0c27b7e17d1",
+        "GUID:15a85301a6cee40849303ad50f7a0322",
+        "GUID:2385f06be155241f187357d856a0af52",
+        "GUID:ffab5256b265d45fa9fb86697af7ee2b",
+        "GUID:22c6cdfa54ae844a9a9eda2f0014b020",
+        "GUID:7613086793aa54429a8475a426413f0b",
+        "GUID:5ea6f81af76ad42d8a94678c913881c1",
+        "GUID:97e8c5e426b7946028b98691397a84d4",
+        "GUID:f6fa0c2f8b9a9f64897d3351666f3d66",
+        "GUID:3325ebfb36dc84187b126a8395349dc0",
+        "GUID:8f342294dfb958a4694b67859092b749",
+        "GUID:0da6d172d18a54e4389d0dce1e1ffdf2",
+        "GUID:9e24947de15b9834991c9d8411ea37cf",
+        "GUID:69448af7b92c7f342b298e06a37122aa",
+        "GUID:84651a3751eca9349aac36a66bba901b",
+        "GUID:4e0274c636228486ab0c943b70b2f5cc"
     ],
     "includePlatforms": [
         "Editor"
@@ -26,7 +33,8 @@
         "quantum.code.dll",
         "quantum.core.dll",
         "PhotonDeterministic.dll",
-        "Photon3Unity3D.dll"
+        "Photon3Unity3D.dll",
+        "FirstLightServerSDK.dll"
     ],
     "autoReferenced": false,
     "defineConstraints": [

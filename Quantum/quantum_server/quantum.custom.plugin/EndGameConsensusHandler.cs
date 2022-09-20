@@ -4,6 +4,7 @@ using System.Text;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Utils;
 using System.Linq;
+using ServerSDK.Modules;
 
 namespace Quantum
 {
@@ -19,7 +20,7 @@ namespace Quantum
 	/// Microsoft.Common.CurrentVersion.targets(2302,5): warning MSB3270: 
 	/// There was a mismatch between the processor architecture of the project being built "MSIL" and the processor architecture of the reference 
 	/// "PhotonHivePlugin", "AMD64". 
-	/// This mismatch may cause runtime failures.Please consider changing the targeted processor architecture of your project 
+	/// This mismatch may cause runtime failures. Please consider changing the targeted processor architecture of your project 
 	/// through the Configuration Manager so as to align the processor architectures between your project and references, 
 	/// or take a dependency on references with a processor architecture that matches the targeted processor architecture of your project.
 	/// </summary>

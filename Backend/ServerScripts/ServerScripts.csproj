@@ -3,10 +3,9 @@
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>net6.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <RootNamespace>Scripts</RootNamespace>
-        <LangVersion>10</LangVersion>
+        <LangVersion>preview</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -49,7 +48,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ServerSDK\ServerSDK.csproj" />
+      <ProjectReference Include="..\FirstLightServerSDK\FirstLightServerSDK.csproj" />
+      <ProjectReference Include="..\GameLogicService\GameLogicService.csproj" />
     </ItemGroup>
 
 </Project>

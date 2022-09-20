@@ -1,6 +1,6 @@
 ﻿using FirstLight.Game.Utils;
-using ServerSDK;
-using ServerSDK.Events;
+using FirstLight.Server.SDK;
+using FirstLight.Server.SDK.Events;
 
 namespace BlastRoyaleNFTPlugin
 {
@@ -22,7 +22,10 @@ namespace BlastRoyaleNFTPlugin
 			//var fullUrl = $"{baseUrl}/{blockchainUrl}/indexed?key={apiSecret}&playfabId=";
 			var fullUrl = $"{baseUrl}/{blockchainUrl}";
 			NftSync = new NftSynchronizer(fullUrl, apiSecret, context);
-			context.PluginEventManager.RegisterListener<PlayerDataLoadEvent>(OnGetPlayerData);
+			if (context.ServerConfig.NftSync)
+			{
+				context.PluginEventManager.RegisterListener<PlayerDataLoadEvent>(OnGetPlayerData);
+			}
 			context.RegisterCustomConverter(this, new QuantumVector2Converter());
 			context.RegisterCustomConverter(this, new QuantumVector3Converter());
 		}

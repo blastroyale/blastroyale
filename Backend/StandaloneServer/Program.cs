@@ -11,19 +11,20 @@ using Microsoft.Extensions.Logging;
 using PlayFab;
 using PlayFab.CloudScriptModels;
 using PlayFab.Json;
-using ServerSDK;
-using ServerSDK.Services;
+using FirstLight.Server.SDK;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
+using FirstLight.Server.SDK.Services;
 using StandaloneServer;
 
 // A minimalistic server wrapper for the game-server as a containerized rest api for local development & testing.
 
 // Setup Logging
 using var loggerFactory = LoggerFactory.Create(loggingBuilder => loggingBuilder.SetMinimumLevel(LogLevel.Trace).AddConsole());
-ILogger logger = loggerFactory.CreateLogger<ServerConfiguration>();
+ILogger logger = loggerFactory.CreateLogger<GameLogicWebWebService>();
 
 // Setup Application
 var builder = WebApplication.CreateBuilder(args);
-var path = Path.GetDirectoryName(typeof(ServerConfiguration).Assembly.Location);
+var path = Path.GetDirectoryName(typeof(GameLogicWebWebService).Assembly.Location);
 ServerStartup.Setup(builder.Services, path);
 
 // Remove database dependency for local run for simplicity and saving laptop cpu
@@ -32,7 +33,7 @@ builder.Services.AddSingleton<IServerMutex, NoMutex>();
 
 var app = builder.Build();
 
-app.Services.GetService < IEventManager>();
+app.Services.GetService < IConfigsProvider>();
 
 // Endpoint to simulate playfab's cloud script "ExecuteFunction/ExecuteCommand" locally.
 app.MapPost("/CloudScript/ExecuteFunction", async (ctx) =>

@@ -5,9 +5,9 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
 using NUnit.Framework;
-using ServerSDK.Models;
-using ServerSDK.Modules;
-using ServerSDK.Services;
+using FirstLight.Server.SDK.Models;
+using FirstLight.Server.SDK.Modules;
+using FirstLight.Server.SDK.Services;
 
 public class TestDataProvider
 {

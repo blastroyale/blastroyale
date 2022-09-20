@@ -29,12 +29,13 @@ namespace FirstLight.Game.Data
 		public bool SfxEnabled = true;
 		public bool BgmEnabled = true;
 		public bool HapticEnabled = true;
+		public bool DialogueEnabled = true;
 		public GraphicsConfig.DetailLevel CurrentDetailLevel = GraphicsConfig.DetailLevel.Medium;
 
 		public List<UniqueId> NewUniqueIds = new ();
 		public List<GameId> GameIdsTagged = new ();
 		public List<UnlockSystem> SystemsTagged = new ();
-
+		
 		public AppData Copy()
 		{
 			return new AppData

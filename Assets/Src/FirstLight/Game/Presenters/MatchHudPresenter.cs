@@ -12,6 +12,7 @@ using TMPro;
 using UnityEngine;
 using FirstLight.Game.Views.MainMenuViews;
 using FirstLight.Game.Views.MatchHudViews;
+using Quantum.Systems;
 using Sirenix.OdinInspector;
 using Button = UnityEngine.UI.Button;
 
@@ -61,11 +62,7 @@ namespace FirstLight.Game.Presenters
 			_equippedDebugText.gameObject.SetActive(false);
 			_connectionIcon.SetActive(false);
 			_standings.gameObject.SetActive(false);
-			_mapTimerView.gameObject.SetActive(false);
 			_leaderHolderView.gameObject.SetActive(false);
-			_scoreHolderView.gameObject.SetActive(false);
-			_contendersLeftHolderView.gameObject.SetActive(false);
-			_quitButton.gameObject.SetActive(false);
 			
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
@@ -81,15 +78,16 @@ namespace FirstLight.Game.Presenters
 		protected override void OnOpened()
 		{
 			var frame = QuantumRunner.Default.Game.Frames.Verified;
-			var isBattleRoyale = frame.Context.MapConfig.GameMode == GameMode.BattleRoyale;
+			var gameModeConfig = frame.Context.GameModeConfig;
 
 			_animation.clip = _introAnimationClip;
 			_animation.Play();
 
-			_mapTimerView.gameObject.SetActive(isBattleRoyale);
-			_contendersLeftHolderView.gameObject.SetActive(isBattleRoyale);
-			_scoreHolderView.gameObject.SetActive(!isBattleRoyale);
-			_minimapHolder.gameObject.SetActive(isBattleRoyale);
+			// TODO: gameModeConfig.ShowUITimer might not be enough here eventually
+			_mapTimerView.gameObject.SetActive(gameModeConfig.ShowUITimer);
+			_contendersLeftHolderView.gameObject.SetActive(gameModeConfig.ShowUITimer);
+			_scoreHolderView.gameObject.SetActive(!gameModeConfig.ShowUITimer);
+			_minimapHolder.gameObject.SetActive(gameModeConfig.ShowUIMinimap);
 			_quitButton.gameObject.SetActive(true);
 
 			_standings.Initialise(frame.PlayerCount, false, true);
@@ -113,7 +111,7 @@ namespace FirstLight.Game.Presenters
 			var playersData = gameContainer.PlayersData;
 			var canQuitMatch = true;
 			
-			if (_dataProvider.AppDataProvider.SelectedMatchType.Value == MatchType.Ranked)
+			if ( _services.NetworkService.CurrentRoomMatchType == MatchType.Ranked)
 			{
 				var localPlayer = playersData[game.GetLocalPlayers()[0]];
 				var valid = localPlayer.IsValid;
@@ -128,7 +126,7 @@ namespace FirstLight.Game.Presenters
 			if (SROptions.Current.EnableEquipmentDebug)
 			{
 				_equippedDebugText.gameObject.SetActive(true);
-				QuantumEvent.Subscribe<EventOnPlayerStatsChanged>(this, OnPlayerStatsChanged);
+				QuantumEvent.Subscribe<EventOnPlayerEquipmentStatsChanged>(this, OnPlayerEquipmentStatsChanged);
 			}
 #endif
 		}
@@ -150,11 +148,11 @@ namespace FirstLight.Game.Presenters
 			var container = frame.GetSingleton<GameContainer>();
 			var playerData = container.GetPlayersMatchData(frame, out _);
 			
-			_standings.UpdateStandings(playerData, game.GetLocalPlayers()[0]);
+			_standings.UpdateStandings(playerData);
 			_standings.gameObject.SetActive(true);
 		}
 
-		private void OnPlayerStatsChanged(EventOnPlayerStatsChanged callback)
+		private void OnPlayerEquipmentStatsChanged(EventOnPlayerEquipmentStatsChanged callback)
 		{
 			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
 

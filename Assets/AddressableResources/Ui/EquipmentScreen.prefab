@@ -2109,6 +2109,7 @@ MonoBehaviour:
   HapticType: 0
   Anchor: {fileID: 6739938109033102798}
   ClickClip: {fileID: 7400000, guid: 382a5c7d063224d16b5caae8326aa7fb, type: 2}
+  PlaySound: 0
   IsForward: 1
   OverrideClickSfxId: 0
 --- !u!1 &2253379299501643645
@@ -3357,6 +3358,7 @@ MonoBehaviour:
   HapticType: 0
   Anchor: {fileID: 7766357486075920722}
   ClickClip: {fileID: 7400000, guid: 382a5c7d063224d16b5caae8326aa7fb, type: 2}
+  PlaySound: 1
   IsForward: 1
   OverrideClickSfxId: 0
 --- !u!1 &3611246960766126054
@@ -4103,6 +4105,7 @@ MonoBehaviour:
   HapticType: 0
   Anchor: {fileID: 8799533185373238712}
   ClickClip: {fileID: 7400000, guid: 382a5c7d063224d16b5caae8326aa7fb, type: 2}
+  PlaySound: 1
   IsForward: 1
   OverrideClickSfxId: 0
 --- !u!1 &4073292402343234599
@@ -4262,7 +4265,6 @@ MonoBehaviour:
   _levelText: {fileID: 6299818388162802775}
   _replicationText: {fileID: 6563480049829862570}
   _actionButtonHolder: {fileID: 7874001045638986434}
-  _equippedStatusObject: {fileID: 0}
   _itemLevelObject: {fileID: 7671095906254773252}
   _upgradeCostHolder: {fileID: 627181582835151279}
   _equipButtonText: {fileID: 481799633015484528}
@@ -6291,6 +6293,7 @@ MonoBehaviour:
   HapticType: 9
   Anchor: {fileID: 2505799615890111194}
   ClickClip: {fileID: 7400000, guid: 382a5c7d063224d16b5caae8326aa7fb, type: 2}
+  PlaySound: 1
   IsForward: 1
   OverrideClickSfxId: 0
 --- !u!114 &4290717589665861341

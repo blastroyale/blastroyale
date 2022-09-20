@@ -2,6 +2,7 @@ using FirstLight.Game.Services;
 using FirstLight.UiService;
 using FirstLight.Game.Utils;
 using I2.Loc;
+using Quantum;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
@@ -27,14 +28,16 @@ namespace FirstLight.Game.Presenters
 
 		protected override void OnOpened()
 		{
-			var mapConfig = QuantumRunner.Default.Game.Frames.Verified.Context.MapConfig;
+			var f = QuantumRunner.Default.Game.Frames.Verified;
+			var gameModeConfig = f.Context.GameModeConfig;
 
 			_animation.clip = _firstToXKillsCountdownClip;
 			_animation.Play();
 
-			_firstToXKillsText.text =  string.Format(ScriptLocalization.AdventureMenu.FirstToXKills, mapConfig.GameEndTarget.ToString());
-			
-			this.LateCoroutineCall(_animation.clip.length, ()=>Close(true));
+			_firstToXKillsText.text = string.Format(ScriptLocalization.AdventureMenu.FirstToXKills,
+			                                        gameModeConfig.CompletionKillCount);
+
+			this.LateCoroutineCall(_animation.clip.length, () => Close(true));
 		}
 	}
 }

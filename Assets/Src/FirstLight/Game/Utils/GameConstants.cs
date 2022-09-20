@@ -47,10 +47,10 @@ namespace FirstLight.Game.Utils
 			public const string MIXER_GROUP_MUSIC_ID = "Music";
 			public const string MIXER_GROUP_SFX_2D_ID = "Sfx2d";
 			public const string MIXER_GROUP_SFX_3D_ID = "Sfx3d";
-			public const string MIXER_GROUP_VOICE_ID = "Voice";
+			public const string MIXER_GROUP_DIALOGUE_ID = "Dialogue";
 			public const string MIXER_GROUP_AMBIENT_ID = "Announcer";
 			
-			public const int SOUND_QUEUE_BREAK_MS = 250;
+			public const int SOUND_QUEUE_BREAK_MS = 75;
 			public const float SPATIAL_3D_THRESHOLD = 0.1f;
 			
 			public const float MIXER_SNAPSHOT_TRANSITION_SECONDS = 0.5f;
@@ -71,6 +71,9 @@ namespace FirstLight.Game.Utils
 			public const float DM_HIGH_PHASE_KILLS_LEFT_THRESHOLD = 3;
 			public const float BR_HIGH_PHASE_PLAYERS_LEFT_THRESHOLD = 2;
 			public const float HIGH_LOOP_TRANSITION_DELAY = 2f;
+			
+			public const float LOW_HP_CLUTCH_THERSHOLD_PERCENT = 0.1f;
+			public const int VO_DUPLICATE_SFX_PREVENTION_SECONDS = 12;
 		}
 
 		public static class Notifications
@@ -90,13 +93,15 @@ namespace FirstLight.Game.Utils
 		{
 			public const int MATCH_SPECTATOR_SPOTS = 15;
 			public const float SPECTATOR_TOGGLE_TIMEOUT = 2f;
+			public const float SERVER_SELECT_CONNECTION_TIMEOUT = 8f;
+			public const int PLAYER_NAME_APPENDED_NUMBERS = 5;
 		}
 
 		public static class Network
 		{
 			// Time control values
 			public const int DEFAULT_PLAYER_TTL_MS = 30000;
-			public const int EMPTY_ROOM_TTL_MS = 15000;
+			public const int EMPTY_ROOM_TTL_MS = 10000;
 			public const int EMPTY_ROOM_PLAYTEST_TTL_MS = 1000;
 
 			// Player properties
@@ -110,14 +115,20 @@ namespace FirstLight.Game.Utils
 
 			// Room properties
 			public const string ROOM_NAME_PLAYTEST = "PLAYTEST";
-			public const string ROOM_PROPS_START_TIME = "startTime";
+			public const string ROOM_PROPS_CREATION_TICKS = "creationTicks";
 			public const string ROOM_PROPS_COMMIT = "commit";
 			public const string ROOM_PROPS_MAP = "mapId";
+			public const string ROOM_PROPS_GAME_MODE = "gameModeId";
+			public const string ROOM_PROPS_MUTATORS = "mutators";
 			public const string ROOM_PROPS_BOTS = "gameHasBots";
 			public const string ROOM_PROPS_DROP_PATTERN = "dropPattern";
-			public const string ROOM_PROPS_RANKED_MATCH = "isRanked";
+			public const string ROOM_PROPS_MATCH_TYPE = "matchType";
 
 			public const string DEFAULT_REGION = "eu";
+			
+			public const string LEADERBOARD_LADDER_NAME = "Trophies Ladder";
+			public const int LEADERBOARD_TOP_RANK_AMOUNT = 20;
+			public const int LEADERBOARD_NEIGHBOR_RANK_AMOUNT = 3;
 		}
 
 		public static class Visuals
@@ -128,6 +139,7 @@ namespace FirstLight.Game.Utils
 			public const float DISSOLVE_END_ALPHA_CLIP_VALUE = 0.75f;
 			public const float STAR_STATUS_CHARACTER_SCALE_MULTIPLIER = 1.5f;
 			public const float RADIAL_LOCAL_POS_OFFSET = 0.1f;
+			public const float NEAR_DEATH_HEALTH_RATIO_THRESHOLD = 0.4f;
 
 			// Description post fix string tag
 			public const string DESCRIPTION_POSTFIX = "Description";
@@ -167,6 +179,11 @@ namespace FirstLight.Game.Utils
 
 			// Duration of haptic feedback when player is damaged
 			public const float DAMAGE_DURATION = 0.05f;
+			
+			// Duration of haptic feedback when player is damaged
+			public const float GAME_START_DURATION = 0.25f;
+			public const float GAME_START_INTENSITY = 1f;
+			public const float GAME_START_SHARPNESS = 1f;
 		}
 	}
 }

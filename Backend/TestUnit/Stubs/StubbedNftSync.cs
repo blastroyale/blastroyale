@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using BlastRoyaleNFTPlugin;
 using JetBrains.Annotations;
-using ServerSDK;
+using FirstLight.Server.SDK;
 
 /// <summary>
 /// Stubbed NFT sync where instead of getting external indexed nfts and last updates

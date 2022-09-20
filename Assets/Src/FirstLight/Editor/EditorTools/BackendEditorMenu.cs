@@ -3,7 +3,9 @@ using System.Threading.Tasks;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using PlayFab;
+using PlayFab.PfEditor;
 using UnityEditor;
 using UnityEngine;
 
@@ -41,13 +43,6 @@ namespace FirstLight.Editor.EditorTools
 			File.Copy(gameDllPath, destDll, true);
 		}
 		
-		[MenuItem("FLG/Backend/Copy Configs & Dlls")]
-		private static void CopyConfigsDlls()
-		{
-			MoveBackendDlls();
-			CopyConfigs();
-		}
-
 		[MenuItem("FLG/Backend/Copy DLLs")]
 		private static void MoveBackendDlls()
 		{
@@ -68,7 +63,7 @@ namespace FirstLight.Editor.EditorTools
 		/// Generates and copies a gameConfig.json with needed game configs to be shared to the backend
 		/// and moves the config file to the backend.
 		/// </summary>
-		[MenuItem("FLG/Backend/Copy Configs")]
+		[MenuItem("FLG/Backend/Copy Server Test Configs")]
 		public static async void CopyConfigs()
 		{
 			var serializer = new ConfigsSerializer();
@@ -78,10 +73,44 @@ namespace FirstLight.Editor.EditorTools
 			await Task.WhenAll(configsLoader.LoadConfigTasks(configs));
 			var serialiezd = serializer.Serialize(configs, "develop");
 			
-			File.WriteAllText ($"{_backendPath}/Backend/gameConfig.json", serialiezd);
+			File.WriteAllText ($"{_backendPath}/GameLogicService/gameConfig.json", serialiezd);
 			Debug.Log("Parsed and saved in backend folder");
 		}
 		
+#if UNITY_EDITOR && ENABLE_PLAYFABADMIN_API		
+		/// <summary>
+		/// Uploads the last serialized configuration to dev playfab.
+		/// Playfab title is set in the Window -> Playfab -> Editor Extension menu
+		/// </summary>
+		[MenuItem("FLG/Backend/Upload Configs to Playfab")]
+		public static async Task UploadToPlayfab()
+		{
+			var serializer = new ConfigsSerializer();
+			var configs = new ConfigsProvider();
+			var configsLoader = new GameConfigsLoader(new AssetResolverService());
+			Debug.Log("Parsing Configs");
+			await Task.WhenAll(configsLoader.LoadConfigTasks(configs));
+			Debug.Log("Getting title data");
+			PlayFabShortcuts.GetTitleData("GameConfigVersion", configVersion =>
+			{
+				var currentVersion = ulong.Parse(configVersion ?? "0");
+				var nextVersion = currentVersion + 1;
+				var title = PlayFabEditorDataService.ActiveTitle;
+				if(!EditorUtility.DisplayDialog("Confirm Version Update",
+					@$"Update configs from version {currentVersion} to {nextVersion} on environment {title.Name.ToUpper()} {title.Id.ToUpper()}?", "Confirm", "Cancel"))
+				{
+					return;
+				}
+				
+				var serialiezd = serializer.Serialize(configs, nextVersion.ToString());
+			
+				PlayFabShortcuts.SetTitleData(PlayfabConfigurationProvider.ConfigName, serialiezd);
+				PlayFabShortcuts.SetTitleData(PlayfabConfigurationProvider.ConfigVersion, nextVersion.ToString());
+				Debug.Log($"Configs uploaded to playfab and version bumped to {nextVersion}");
+			});
+		}
+#endif
+
 		[MenuItem("FLG/Backend/Force Update")]
 		private static void ForceUpdate()
 		{

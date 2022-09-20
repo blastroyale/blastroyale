@@ -1,12 +1,9 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using I2.Loc;
-using Quantum;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
@@ -23,33 +20,51 @@ namespace FirstLight.Game.Views.MainMenuViews
 	{
 		[SerializeField, Required] private Button _selectButton;
 		[SerializeField, Required] private Button _tooltipButton;
-		[SerializeField, Required] private MatchType _matchType;
-		[SerializeField, Required] private GameMode _gameMode;
 		[SerializeField, Required] private Transform _tooltipAnchor;
 		[SerializeField, Required] private TextMeshProUGUI _gameModeText;
 		[SerializeField, Required] private TextMeshProUGUI _matchTypeText;
-		
-		/// <summary>
-		/// Action that invokes when the button is clicked, with the selected game mode and match type
-		/// </summary>
-		public Action<GameMode, MatchType> GameModeAndMatchTypeSelected { get; set; }
-		
+		[SerializeField, Required] private TextMeshProUGUI _timeLeftText;
+		[SerializeField, Required] private TextMeshProUGUI _mutatorsText;
+
 		private IGameServices _services;
-		
+
+		private GameModeInfo _info;
+		private Action<GameModeInfo> _onClick;
+
 		private void Awake()
 		{
-			if (_gameMode == GameMode.Deathmatch && !FeatureFlags.DEATHMATCH_ENABLED)
-			{
-				gameObject.SetActive(false);
-				return;
-			}
-			
 			_services = MainInstaller.Resolve<IGameServices>();
 			_tooltipButton.onClick.AddListener(OnTooltipButtonClick);
 			_selectButton.onClick.AddListener(OnButtonClick);
+		}
 
-			_gameModeText.text = _gameMode.GetTranslation();
-			_matchTypeText.text = _matchType.GetTranslation();
+		public void Init(GameModeInfo info, Action<GameModeInfo> onClick)
+		{
+			_info = info;
+			_onClick = onClick;
+
+			_gameModeText.text = _info.Entry.GameModeId.ToUpper();
+			_matchTypeText.text = _info.Entry.MatchType.GetTranslation();
+			_timeLeftText.gameObject.SetActive(!_info.IsFixed);
+
+			// TODO: Display mutator icons
+			if (_info.Entry.Mutators.Count == 0)
+			{
+				_mutatorsText.gameObject.SetActive(false);
+			}
+			else
+			{
+				_mutatorsText.gameObject.SetActive(true);
+				_mutatorsText.text = string.Join(", ", _info.Entry.Mutators);
+			}
+		}
+
+		private void Update()
+		{
+			if (_info.IsFixed) return;
+
+			var timeLeft = _info.EndTime - DateTime.UtcNow;
+			_timeLeftText.text = timeLeft.ToString(@"hh\:mm\:ss");
 		}
 
 		private void OnDestroy()
@@ -59,25 +74,20 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private void OnButtonClick()
 		{
-			GameModeAndMatchTypeSelected?.Invoke(_gameMode,_matchType);
+			_onClick(_info);
 		}
 
 		private void OnTooltipButtonClick()
 		{
-			string tooltip = "";
-
-			switch (_matchType)
+			var tooltip = _info.Entry.MatchType switch
 			{
-				case MatchType.Casual:
-					tooltip = ScriptLocalization.Tooltips.ToolTip_Casual;
-					break;
-				
-				case MatchType.Ranked:
-					tooltip = ScriptLocalization.Tooltips.ToolTip_Ranked;
-					break;
-			}
-			
-			_services.GenericDialogService.OpenTooltipDialog(tooltip, _tooltipAnchor.position, TooltipArrowPosition.Top);
+				MatchType.Casual => ScriptLocalization.Tooltips.ToolTip_Casual,
+				MatchType.Ranked => ScriptLocalization.Tooltips.ToolTip_Ranked,
+				_ => throw new ArgumentOutOfRangeException()
+			};
+
+			_services.GenericDialogService.OpenTooltipDialog(tooltip, _tooltipAnchor.position,
+			                                                 TooltipArrowPosition.Top);
 		}
 	}
 }

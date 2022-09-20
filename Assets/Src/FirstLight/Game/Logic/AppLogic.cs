@@ -33,12 +33,17 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Are Sound Effects enabled?
 		/// </summary>
-		bool IsSfxOn { get; set; }
+		bool IsSfxEnabled { get; set; }
 
 		/// <summary>
 		/// Is Background Music enabled?
 		/// </summary>
-		bool IsBgmOn { get; set; }
+		bool IsBgmEnabled { get; set; }
+		
+		/// <summary>
+		/// Is dialogue enabled?
+		/// </summary>
+		bool IsDialogueEnabled { get; set; }
 
 		/// <summary>
 		/// Is Haptic feedback on device enabled?
@@ -74,17 +79,6 @@ namespace FirstLight.Game.Logic
 		/// Requests current device Id
 		/// </summary>
 		IObservableFieldReader<string> DeviceId { get; }
-
-		/// <summary>
-		/// Requests current selected game mode
-		/// Marks the date when the game was last time reviewed
-		/// </summary>
-		IObservableField<GameMode> SelectedGameMode { get; }
-		
-		/// <summary>
-		/// Requests current selected match type
-		/// </summary>
-		IObservableField<MatchType> SelectedMatchType { get; }
 
 		/// <summary>
 		/// Sets the resolution mode for the 3D rendering of the app
@@ -129,7 +123,7 @@ namespace FirstLight.Game.Logic
 		public bool IsDeviceLinked => string.IsNullOrWhiteSpace(_deviceId.Value);
 
 		/// <inheritdoc />
-		public bool IsSfxOn
+		public bool IsSfxEnabled
 		{
 			get => Data.SfxEnabled;
 			set
@@ -140,13 +134,24 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public bool IsBgmOn
+		public bool IsBgmEnabled
 		{
 			get => Data.BgmEnabled;
 			set
 			{
 				Data.BgmEnabled = value;
 				_audioFxService.IsBgmMuted = !value;
+			}
+		}
+
+		/// <inheritdoc />
+		public bool IsDialogueEnabled
+		{
+			get => Data.DialogueEnabled;
+			set
+			{
+				Data.DialogueEnabled = value;
+				_audioFxService.IsDialogueMuted = !value;
 			}
 		}
 
@@ -186,13 +191,11 @@ namespace FirstLight.Game.Logic
 		public IObservableField<string> NicknameId { get; private set; }
 
 		/// <inheritdoc />
-		public IObservableField<GameMode> SelectedGameMode { get; private set; }
-		
-		/// <inheritdoc />
-		public IObservableField<MatchType> SelectedMatchType { get; private set; }
+		public IObservableField<string> SelectedGameModeId { get; private set; }
 
 		/// <inheritdoc />
 		IObservableFieldReader<string> IAppDataProvider.NicknameId => NicknameId;
+		
 		/// <inheritdoc />
 		IObservableFieldReader<string> IAppDataProvider.DeviceId => _deviceId;
 
@@ -205,13 +208,13 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public void Init()
 		{
-			IsSfxOn = IsSfxOn;
-			IsBgmOn = IsBgmOn;
+			IsSfxEnabled = Data.SfxEnabled;
+			IsBgmEnabled = Data.BgmEnabled;
+			IsDialogueEnabled = Data.DialogueEnabled;
 			NicknameId = new ObservableResolverField<string>(() => Data.NickNameId, name => Data.NickNameId = name);
 			ConnectionRegion = new ObservableResolverField<string>(() => Data.ConnectionRegion, region => Data.ConnectionRegion = region);
 			_deviceId = new ObservableResolverField<string>(() => Data.DeviceId, linked => Data.DeviceId = linked);
-			SelectedGameMode = new ObservableField<GameMode>(GameMode.BattleRoyale);
-			SelectedMatchType = new ObservableField<MatchType>(MatchType.Casual);
+			SelectedGameModeId = new ObservableField<string>(GameLogic.ConfigsProvider.GetConfigsList<QuantumGameModeConfig>()[0].Id);
 		}
 
 		/// <inheritdoc />

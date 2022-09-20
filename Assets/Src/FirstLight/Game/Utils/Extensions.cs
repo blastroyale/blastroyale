@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using FirstLight.Game.Configs;
@@ -37,6 +39,15 @@ namespace FirstLight.Game.Utils
 			}
 
 			return name;
+		}
+
+		/// <summary>
+		/// Strips the X amount of playfab generated numbers that are appended to the player name
+		/// </summary>
+		public static string TrimPlayerNameNumbers(this string playerName)
+		{
+			int appendedNumberAmount = GameConstants.Data.PLAYER_NAME_APPENDED_NUMBERS;
+			return playerName.Remove(playerName.Length - appendedNumberAmount, appendedNumberAmount);
 		}
 
 		/// <summary>
@@ -78,15 +89,7 @@ namespace FirstLight.Game.Utils
 		{
 			return $"{nameof(ScriptTerms.GameIds)}/{id.ToString()}";
 		}
-		
-		/// <summary>
-		/// Gets the translation term of the given <paramref name="id"/> for a game mode
-		/// </summary>
-		public static string GetTranslation(this GameMode id)
-		{
-			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.GameIds)}/{id.ToString()}");
-		}
-		
+
 		/// <summary>
 		/// Gets the translation term of the given <paramref name="id"/> for a match type
 		/// </summary>
@@ -363,6 +366,31 @@ namespace FirstLight.Game.Utils
 		{
 			return (int) room.CustomProperties[GameConstants.Network.ROOM_PROPS_MAP];
 		}
+		
+		/// <summary>
+		/// Obtains the current selected game mode id in the given <paramref name="room"/>
+		/// </summary>
+		public static string GetGameModeId(this Room room)
+		{
+			return (string) room.CustomProperties[GameConstants.Network.ROOM_PROPS_GAME_MODE];
+		}
+		
+		/// <summary>
+		/// Obtains the current room creation time (created with UTC.Now)
+		/// </summary>
+		public static DateTime GetRoomCreationDateTime(this Room room)
+		{
+			return new DateTime((long) room.CustomProperties[GameConstants.Network.ROOM_PROPS_CREATION_TICKS]); ;
+		}
+
+		/// <summary>
+		/// Obtains the list of mutators enabled in the given <paramref name="room"/>
+		/// </summary>
+		public static List<string> GetMutatorIds(this Room room)
+		{
+			var str = (string) room.CustomProperties[GameConstants.Network.ROOM_PROPS_MUTATORS];
+			return str.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
+		}
 
 		/// <summary>
 		/// Obtains the current selected room code name in the given <paramref name="room"/>
@@ -379,13 +407,13 @@ namespace FirstLight.Game.Utils
 		{
 			return room.IsVisible;
 		}
-		
+
 		/// <summary>
-		/// Obtains info on whether the room is used for matchmaking
+		/// Obtains the <see cref="MatchType"/> of this room.
 		/// </summary>
-		public static bool IsRankedRoom(this Room room)
+		public static MatchType GetMatchType(this Room room)
 		{
-			return (bool) room.CustomProperties[GameConstants.Network.ROOM_PROPS_RANKED_MATCH];
+			return Enum.Parse<MatchType>((string) room.CustomProperties[GameConstants.Network.ROOM_PROPS_MATCH_TYPE]);
 		}
 
 		/// <summary>

@@ -60,6 +60,7 @@ namespace FirstLight.Game.MonoComponent
 		[SerializeField] private List<Material> _originalMaterials = new List<Material>();
 		[SerializeField] private List<Renderer> _renderers = new List<Renderer>();
 		[SerializeField] private List<Renderer> _particleRenderers = new List<Renderer>();
+		[SerializeField] private List<GameObject> _rendererRoots = new List<GameObject>();
 		[SerializeField] private Renderer _mainRenderer;
 		
 		private IGameServices _services;
@@ -176,6 +177,10 @@ namespace FirstLight.Game.MonoComponent
 			foreach (var render in _particleRenderers)
 			{
 				render.enabled = visible;
+			}
+			foreach (var render in _rendererRoots)
+			{
+				render.SetActive(visible);
 			}
 		}
 		

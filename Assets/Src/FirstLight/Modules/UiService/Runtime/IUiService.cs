@@ -132,6 +132,12 @@ namespace FirstLight.UiService
 		/// </summary>
 		bool HasUiPresenter(Type type);
 		
+		/// <inheritdoc cref="GetUi{T}"/>
+		/// <remarks>
+		/// Executes the call asynchronously while loading the UI asset
+		/// </remarks>
+		Task<T> GetUiAsync<T>() where T : UiPresenter;
+		
 		/// <summary>
 		/// Requests the UI of given type <typeparamref name="T"/>
 		/// </summary>
@@ -140,12 +146,10 @@ namespace FirstLight.UiService
 		/// </exception>
 		T GetUi<T>() where T : UiPresenter;
 		
-		/// <summary>
-		/// Requests the UI of given <paramref name="type"/>
-		/// </summary>
-		/// <exception cref="KeyNotFoundException">
-		/// Thrown if the service does NOT contain an <see cref="UiPresenter"/> of the given <paramref name="type"/>
-		/// </exception>
+		/// <inheritdoc cref="GetUi"/>
+		/// <remarks>
+		/// Executes the call asynchronously while loading the UI asset
+		/// </remarks>
 		Task<UiPresenter> GetUiAsync(Type type);
 		
 		/// <summary>
@@ -161,6 +165,12 @@ namespace FirstLight.UiService
 		/// </summary>
 		List<Type> GetAllVisibleUi();
 
+		/// <inheritdoc cref="OpenUi{T}(bool)"/>
+		/// <remarks>
+		/// Executes the call asynchronously while loading the UI asset
+		/// </remarks>
+		Task<T> OpenUiAsync<T>(bool openedException = false) where T : UiPresenter;
+
 		/// <summary>
 		/// Opens and returns the UI of given type <typeparamref name="T"/>.
 		/// If the given <paramref name="openedException"/> is true, then will throw an <see cref="InvalidOperationException"/>
@@ -171,14 +181,10 @@ namespace FirstLight.UiService
 		/// </exception>
 		T OpenUi<T>(bool openedException = false) where T : UiPresenter;
 
-		/// <summary>
-		/// Opens and returns the UI of given <paramref name="type"/>.
-		/// If the given <paramref name="openedException"/> is true, then will throw an <see cref="InvalidOperationException"/>
-		/// if the <see cref="UiPresenter"/> is already opened.
-		/// </summary>
-		/// <exception cref="KeyNotFoundException">
-		/// Thrown if the service does NOT contain an <see cref="UiPresenter"/> of the given <paramref name="type"/>
-		/// </exception>
+		/// <inheritdoc cref="OpenUi"/>
+		/// <remarks>
+		/// Executes the call asynchronously while loading the UI asset
+		/// </remarks>
 		Task<UiPresenter> OpenUiAsync(Type type, bool openedException = false);
 		
 		/// <summary>
@@ -191,9 +197,9 @@ namespace FirstLight.UiService
 		/// </exception>
 		UiPresenter OpenUi(Type type, bool openedException = false);
 
-		///<inheritdoc cref="OpenUi{T}(bool)"/>
+		///<inheritdoc cref="OpenUi{T,TData}(TData, bool)"/>
 		/// <remarks>
-		/// It sets the given <paramref name="initialData"/> data BEFORE opening the UI
+		/// Executes the call asynchronously while loading the UI asset
 		/// </remarks>
 		Task<T> OpenUiAsync<T, TData>(TData initialData, bool openedException = false) 
 			where T : class, IUiPresenterData 
@@ -207,12 +213,9 @@ namespace FirstLight.UiService
 			where T : class, IUiPresenterData 
 			where TData : struct;
 
-		///<inheritdoc cref="OpenUi(Type, bool)"/>
-		/// <exception cref="ArgumentException">
-		/// Thrown if the the given <paramref name="type"/> is not of inhereting from <see cref="UiPresenterData{T}"/> class
-		/// </exception>
+		///<inheritdoc cref="OpenUi{TData}(Type,TData,bool)"/>
 		/// <remarks>
-		/// It sets the given <paramref name="initialData"/> data BEFORE opening the UI
+		/// Executes the call asynchronously while loading the UI asset
 		/// </remarks>
 		Task<UiPresenter> OpenUiAsync<TData>(Type type, TData initialData, bool openedException = false) where TData : struct;
 		

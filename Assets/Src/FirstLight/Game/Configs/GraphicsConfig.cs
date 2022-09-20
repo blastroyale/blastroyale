@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using UnityEngine;
 
 namespace FirstLight.Game.Configs

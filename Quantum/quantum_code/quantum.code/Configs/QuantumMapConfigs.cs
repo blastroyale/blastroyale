@@ -6,11 +6,8 @@ namespace Quantum
 	[Serializable]
 	public partial struct QuantumMapConfig
 	{
-		public int Id;
 		public GameId Map;
-		public GameMode GameMode;
-		public int PlayersLimit;
-		public uint GameEndTarget;
+		public int MaxPlayers;
 		public bool IsTestMap;
 	}
 	
@@ -22,7 +19,7 @@ namespace Quantum
 	{
 		public List<QuantumMapConfig> QuantumConfigs = new List<QuantumMapConfig>();
 		
-		private IDictionary<int, QuantumMapConfig> _dictionary = null;
+		private IDictionary<int, QuantumMapConfig> _dictionary;
 
 		/// <summary>
 		/// Requests the <see cref="QuantumMapConfig"/> from it's <paramref name="id"/>
@@ -35,7 +32,7 @@ namespace Quantum
 				
 				foreach (var config in QuantumConfigs)
 				{
-					_dictionary.Add(config.Id, config);
+					_dictionary.Add((int) config.Map, config);
 				}
 			}
 

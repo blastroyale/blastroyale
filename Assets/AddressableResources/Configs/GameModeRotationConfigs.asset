@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef98ebe4c1b9458dadf67919de8fea94, type: 3}
+  m_Name: GameModeRotationConfigs
+  m_EditorClassIdentifier: 
+  _config:
+    RotationStartTimeTicks: 0
+    RotationSlotDuration: 10800
+    Slots:
+    - Entries:
+      - GameModeId: BattleRoyale
+        MatchType: 1
+        Mutators:
+        - SpeedUp
+      - GameModeId: BattleRoyale
+        MatchType: 1
+        Mutators: []
+      - GameModeId: BattleRoyale
+        MatchType: 1
+        Mutators:
+        - HealthyAir
+        - SpeedUp
+      - GameModeId: BattleRoyale
+        MatchType: 1
+        Mutators:
+        - HealthyAir
+      - GameModeId: BattleRoyale
+        MatchType: 1
+        Mutators:
+        - QuickSpecials
+        - SpeedUp
+      - GameModeId: BattleRoyale
+        MatchType: 1
+        Mutators:
+        - HealthyAir
+        - QuickSpecials
+      - GameModeId: BattleRoyale
+        MatchType: 1
+        Mutators:
+        - QuickSpecials
+    - Entries:
+      - GameModeId: Deathmatch
+        MatchType: 1
+        Mutators:
+        - QuickSpecials
+      - GameModeId: Deathmatch
+        MatchType: 1
+        Mutators:
+        - HealthyAir
+      - GameModeId: Deathmatch
+        MatchType: 1
+        Mutators:
+        - QuickSpecials
+        - SpeedUp
+      - GameModeId: Deathmatch
+        MatchType: 1
+        Mutators:
+        - HealthyAir
+        - QuickSpecials
+      - GameModeId: Deathmatch
+        MatchType: 1
+        Mutators: []
+    - Entries:
+      - GameModeId: BattleRoyale
+        MatchType: 2
+        Mutators: []

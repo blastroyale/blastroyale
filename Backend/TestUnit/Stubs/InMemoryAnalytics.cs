@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using FirstLight.Game.Services;
-using ServerSDK.Models;
+using FirstLight.Server.SDK.Models;
 
 public struct FiredEvent
 {

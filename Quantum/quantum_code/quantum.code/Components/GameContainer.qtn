@@ -5,13 +5,20 @@ singleton component GameContainer
 	UInt32 TargetProgress;
 	bool IsGameOver;
 	FP GameOverTime;
+	MutatorsState MutatorsState;
+	WeaponDropPool DropPool;
 }
 
-enum GameMode
+struct MutatorsState
 {
-	Tutorial,
-	Deathmatch,
-	BattleRoyale
+	FP HealthPerSecLastTime;
+}
+
+struct WeaponDropPool
+{
+	EquipmentRarity AverageRarity;
+	EquipmentRarity MedianRarity;
+	array<Equipment>[PLAYER_COUNT] WeaponPool;
 }
 
 signal GameEnded();

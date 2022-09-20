@@ -1,11 +1,9 @@
 using System.Collections.Generic;
-using ExitGames.Client.Photon;
-using FirstLight.Game.Infos;
-using FirstLight;
-using FirstLight.Game.Configs;
+using System.Linq;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Utils;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Photon.Realtime;
-using PlayFab;
 using Quantum;
 
 namespace FirstLight.Game.Services
@@ -65,6 +63,24 @@ namespace FirstLight.Game.Services
 		/// If the player is not connected to any room then it return NULL without a value
 		/// </summary>
 		QuantumMapConfig? CurrentRoomMapConfig { get; }
+		
+		/// <summary>
+		/// Requests the current <see cref="QuantumGameModeConfig"/> for the game mode set on the current connected room.
+		/// If the player is not connected to any room then it return NULL without a value.
+		/// </summary>
+		QuantumGameModeConfig? CurrentRoomGameModeConfig { get; }
+		
+		/// <summary>
+		/// Requests the <see cref="MatchType"/> of the currently connected room.
+		/// If the player is not connected to any room then it return NULL without a value.
+		/// </summary>
+		MatchType? CurrentRoomMatchType { get; }
+		
+		/// <summary>
+		/// Requests the current list of <see cref="QuantumMutatorConfig"/> for the game mode set on the current connected room.
+		/// If the player is not connected to any room then it return an empty list.
+		/// </summary>
+		List<string> CurrentRoomMutatorIds { get; }
 	}
 
 	/// <inheritdoc />
@@ -126,6 +142,46 @@ namespace FirstLight.Game.Services
 				}
 
 				return _configsProvider.GetConfig<QuantumMapConfig>(QuantumClient.CurrentRoom.GetMapId());
+			}
+		}
+		
+		/// <inheritdoc />
+		public QuantumGameModeConfig? CurrentRoomGameModeConfig
+		{
+			get
+			{
+				if (!QuantumClient.InRoom)
+				{
+					return null;
+				}
+
+				return _configsProvider.GetConfig<QuantumGameModeConfig>(QuantumClient.CurrentRoom.GetGameModeId().GetHashCode());
+			}
+		}
+
+		public MatchType? CurrentRoomMatchType
+		{
+			get
+			{
+				if (!QuantumClient.InRoom)
+				{
+					return null;
+				}
+
+				return QuantumClient.CurrentRoom.GetMatchType();
+			}
+		}
+
+		public List<string> CurrentRoomMutatorIds
+		{
+			get
+			{
+				if (!QuantumClient.InRoom)
+				{
+					return new List<string>();
+				}
+
+				return QuantumClient.CurrentRoom.GetMutatorIds();
 			}
 		}
 

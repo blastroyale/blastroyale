@@ -18,51 +18,24 @@ MonoBehaviour:
       Guid:
         Value: 3072854346747122385
     QuantumConfigs:
-    - Id: 0
-      Map: 5
-      GameMode: 0
-      PlayersLimit: 1
-      GameEndTarget: 1
+    - Map: 137
+      MaxPlayers: 12
       IsTestMap: 0
-    - Id: 1
-      Map: 137
-      GameMode: 1
-      PlayersLimit: 12
-      GameEndTarget: 10
+    - Map: 143
+      MaxPlayers: 8
       IsTestMap: 0
-    - Id: 2
-      Map: 143
-      GameMode: 1
-      PlayersLimit: 8
-      GameEndTarget: 10
+    - Map: 144
+      MaxPlayers: 7
       IsTestMap: 0
-    - Id: 3
-      Map: 144
-      GameMode: 1
-      PlayersLimit: 7
-      GameEndTarget: 10
+    - Map: 7
+      MaxPlayers: 10
       IsTestMap: 0
-    - Id: 4
-      Map: 7
-      GameMode: 1
-      PlayersLimit: 10
-      GameEndTarget: 10
+    - Map: 8
+      MaxPlayers: 8
       IsTestMap: 0
-    - Id: 5
-      Map: 8
-      GameMode: 1
-      PlayersLimit: 8
-      GameEndTarget: 10
+    - Map: 9
+      MaxPlayers: 30
       IsTestMap: 0
-    - Id: 6
-      Map: 9
-      GameMode: 2
-      PlayersLimit: 30
-      GameEndTarget: 29
-      IsTestMap: 0
-    - Id: 7
-      Map: 11
-      GameMode: 2
-      PlayersLimit: 1
-      GameEndTarget: 1
+    - Map: 11
+      MaxPlayers: 1
       IsTestMap: 1

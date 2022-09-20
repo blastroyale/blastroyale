@@ -69,7 +69,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private void UpdateTimerView(float delta)
 		{
-			if (_dataProvider.AppDataProvider.SelectedMatchType.Value != MatchType.Ranked)
+			if (!ShowPool())
 			{
 				_visualsAnchorRoot.SetActive(false);
 				return;
@@ -93,6 +93,17 @@ namespace FirstLight.Game.Views.MainMenuViews
 			                                 poolInfo.PoolCapacity);
 			
 			_visualsAnchorRoot.SetActive(true);
+		}
+
+		private bool ShowPool()
+		{
+			return _services.GameModeService.SelectedGameMode.Value.Entry.MatchType switch
+			{
+				MatchType.Custom => false,
+				MatchType.Casual => _poolToObserve == GameId.BPP,
+				MatchType.Ranked => true,
+				_ => throw new ArgumentOutOfRangeException()
+			};
 		}
 	}
 }

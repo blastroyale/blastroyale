@@ -31,7 +31,7 @@ namespace Quantum.Systems
 
 		private void InitializeBots(Frame f, uint baseTrophiesAmount)
 		{
-			if (f.ComponentCount<BotCharacter>() > 0)
+			if (!f.Context.GameModeConfig.AllowBots || f.ComponentCount<BotCharacter>() > 0)
 			{
 				return;
 			}
@@ -58,8 +58,7 @@ namespace Quantum.Systems
 		public override void Update(Frame f, ref BotCharacterFilter filter)
 		{
 			// If it's a deathmatch game mode and a bot is dead then we process respawn behaviour
-			if (f.Context.MapConfig.GameMode == GameMode.Deathmatch
-			    && f.TryGet<DeadPlayerCharacter>(filter.Entity, out var deadBot))
+			if (f.Context.GameModeConfig.BotRespawn && f.TryGet<DeadPlayerCharacter>(filter.Entity, out var deadBot))
 			{
 				// If the bot is dead and it's not yet the time to respawn then we skip the update
 				if (f.Time < deadBot.TimeOfDeath + f.GameConfig.PlayerRespawnTime)
@@ -109,7 +108,10 @@ namespace Quantum.Systems
 			}
 			else
 			{
-				kcc->MaxSpeed = speed * weaponConfig.AimingMovementSpeed;
+				var speedUpMutatorExists = f.Context.TryGetMutatorByType(MutatorType.Speed, out var speedUpMutatorConfig);
+				speed *= weaponConfig.AimingMovementSpeed;
+				
+				kcc->MaxSpeed = speedUpMutatorExists?speed * speedUpMutatorConfig.Param1:speed;
 				QuantumHelpers.LookAt2d(f, filter.Entity, target);
 			}
 
@@ -129,7 +131,7 @@ namespace Quantum.Systems
 					{
 						// Checking how close is the target and stop the movement if the target is closer
 						// than allowed by closefight intolerance
-						var weaponTargetRange = weaponConfig.AttackRange;
+						var weaponTargetRange = f.Get<Stats>(filter.Entity).GetStatData(StatType.AttackRange).StatValue;
 						var minDistanceToTarget =
 							FPMath.Max(FP._1, weaponTargetRange * filter.BotCharacter->CloseFightIntolerance);
 						var sqrDistanceToTarget = (f.Get<Transform3D>(target).Position - filter.Transform->Position)
@@ -227,7 +229,7 @@ namespace Quantum.Systems
 
 			foreach (var botConfig in configs)
 			{
-				if (botConfig.Difficulty == difficultyLevel && botConfig.GameMode == f.Context.MapConfig.GameMode)
+				if (botConfig.Difficulty == difficultyLevel && botConfig.GameMode == f.Context.GameModeConfig.Id)
 				{
 					list.Add(botConfig);
 				}
@@ -241,6 +243,9 @@ namespace Quantum.Systems
 			var speed = f.Get<Stats>(filter.Entity).Values[(int) StatType.Speed].StatValue;
 
 			filter.BotCharacter->Target = EntityRef.None;
+			
+			var speedUpMutatorExists = f.Context.TryGetMutatorByType(MutatorType.Speed, out var speedUpMutatorConfig);
+			speed = speedUpMutatorExists?speed * speedUpMutatorConfig.Param1:speed;
 
 			// When we clear the target we also return speed to normal
 			// because without a target bots don't shoot
@@ -262,7 +267,7 @@ namespace Quantum.Systems
 			// If there is a target in Sight then store this Target into the blackboard variable
 			// We check enemies one by one until we find a valid enemy in sight
 			// TODO: Select not a random, but the closest possible enemy to shoot at
-			var targetRange = weaponConfig.AttackRange;
+			var targetRange = f.Get<Stats>(filter.Entity).GetStatData(StatType.AttackRange).StatValue; 
 			var botPosition = filter.Transform->Position;
 			var team = f.Get<Targetable>(filter.Entity).Team;
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(filter.Entity);
@@ -514,8 +519,7 @@ namespace Quantum.Systems
 
 		private bool TryGoForCrates(Frame f, ref BotCharacterFilter filter)
 		{
-			// Deathmatch mode doesn't have crates
-			if (f.Context.MapConfig.GameMode == GameMode.Deathmatch)
+			if (!f.Context.GameModeConfig.BotSearchForCrates)
 			{
 				return false;
 			}
@@ -563,22 +567,20 @@ namespace Quantum.Systems
 		{
 			var weaponPickupPosition = FPVector3.Zero;
 			var weaponPickupEntity = EntityRef.None;
-			var isGoing = false;
 
-			// In Battle Royale bots seek new weapons until they pickup something non-melee
-			if (f.Context.MapConfig.GameMode == GameMode.BattleRoyale)
+			var isGoing = f.Context.GameModeConfig.BotWeaponSearchStrategy switch
 			{
-				isGoing = !filter.PlayerCharacter->WeaponSlots[1].Weapon.IsValid()
-				          && !filter.PlayerCharacter->WeaponSlots[2].Weapon.IsValid()
-				          && f.RNG->Next() < filter.BotCharacter->ChanceToSeekWeapons;
-			}
-			// In Deathmatch bots seek new weapons if they have a default one OR if they have no ammo OR if the chance worked
-			else
-			{
-				isGoing = filter.PlayerCharacter->HasMeleeWeapon(f, filter.Entity) ||
-				              filter.PlayerCharacter->IsAmmoEmpty(f, filter.Entity) ||
-				              f.RNG->Next() < filter.BotCharacter->ChanceToSeekWeapons;
-			}
+				BotWeaponSearchStrategy.None => false,
+				BotWeaponSearchStrategy.FindOne =>
+					!filter.PlayerCharacter->WeaponSlots[1].Weapon.IsValid() &&
+					!filter.PlayerCharacter->WeaponSlots[2].Weapon.IsValid() &&
+					f.RNG->Next() < filter.BotCharacter->ChanceToSeekWeapons,
+				BotWeaponSearchStrategy.FindOneOrNoAmmoOrRandomChance =>
+					filter.PlayerCharacter->HasMeleeWeapon(f, filter.Entity) ||
+					filter.PlayerCharacter->IsAmmoEmpty(f, filter.Entity) ||
+					f.RNG->Next() < filter.BotCharacter->ChanceToSeekWeapons,
+				_ => throw new ArgumentOutOfRangeException()
+			};
 
 			isGoing = isGoing && TryGetClosestWeapon(f, ref filter, out weaponPickupPosition, out weaponPickupEntity);
 			
@@ -637,7 +639,7 @@ namespace Quantum.Systems
 				return false;
 			}
 
-			var weaponTargetRange = weaponConfig.AttackRange;
+			var weaponTargetRange = f.Get<Stats>(filter.Entity).GetStatData(StatType.AttackRange).StatValue;
 			var reverseDirection = (enemyPosition - botPosition).Normalized;
 			// Do not go closer than 1 meter to target
 			var offsetDistance = FPMath.Max(FP._1, weaponTargetRange * filter.BotCharacter->CloseFightIntolerance);

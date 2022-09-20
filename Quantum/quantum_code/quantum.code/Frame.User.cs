@@ -26,6 +26,7 @@ namespace Quantum
 
 		internal NavMesh NavMesh => FindAsset<NavMesh>(Map.NavMeshLinks[0].Id);
 		internal QuantumMapConfigs MapConfigs => FindAsset<QuantumMapConfigs>(RuntimeConfig.MapConfigs.Id);
+		internal QuantumGameModeConfigs GameModeConfigs => FindAsset<QuantumGameModeConfigs>(RuntimeConfig.GameModeConfigs.Id);
 		internal QuantumWeaponConfigs WeaponConfigs => FindAsset<QuantumWeaponConfigs>(RuntimeConfig.WeaponConfigs.Id);
 		
 		internal QuantumStatConfigs StatConfigs =>
@@ -52,6 +53,8 @@ namespace Quantum
 
 		internal QuantumShrinkingCircleConfigs ShrinkingCircleConfigs =>
 			FindAsset<QuantumShrinkingCircleConfigs>(RuntimeConfig.ShrinkingCircleConfigs.Id);
+		
+		internal QuantumMutatorConfigs MutatorConfigs => FindAsset<QuantumMutatorConfigs>(RuntimeConfig.MutatorConfigs.Id);
 
 		/// <summary>
 		/// Requests the list of <typeparamref name="T"/> that can be iterated over.

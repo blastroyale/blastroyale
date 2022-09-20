@@ -694,11 +694,20 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: General/PickupSpeed
+      TermType: 0
+      Description: 
+      Languages:
+      - Pickup Speed
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: General/Power
       TermType: 0
       Description: 
       Languages:
-      - Attack
+      - Attack Power
       - 
       - 
       Flags: 000000
@@ -707,7 +716,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Attack to Damage
+      - Damage
       - 
       - 
       Flags: 000000
@@ -1541,6 +1550,15 @@ MonoBehaviour:
       Description: 
       Languages:
       - Background Music
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/DialogueSetting
+      TermType: 0
+      Description: 
+      Languages:
+      - Dialogue
       - 
       - 
       Flags: 000000
@@ -3026,6 +3044,42 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: MainMenu/MatchmakingKickButton
+      TermType: 0
+      Description: 
+      Languages:
+      - Kick Player
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/MatchmakingKickInfo
+      TermType: 0
+      Description: 
+      Languages:
+      - Select a player to kick, or tap anywhere else to cancel
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/MatchmakingKickConfirm
+      TermType: 0
+      Description: 
+      Languages:
+      - Kick player '{0}' ?
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/MatchmakingKickedNotification
+      TermType: 0
+      Description: 
+      Languages:
+      - You have been kicked from the room.
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: AdventureMenu/AdventureCompleted
       TermType: 0
       Description: 
@@ -3282,7 +3336,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - KILL
+      - YOU KILLED
       - 
       - 
       Flags: 000000
@@ -3571,6 +3625,51 @@ MonoBehaviour:
       Description: 
       Languages:
       - YOUR LOOT
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: AdventureMenu/Might
+      TermType: 0
+      Description: 
+      Languages:
+      - MIGHT {0}
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: AdventureMenu/Shield
+      TermType: 0
+      Description: 
+      Languages:
+      - SHIELD +{0}
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: AdventureMenu/MultikillMessage
+      TermType: 0
+      Description: 
+      Languages:
+      - Multi Kill
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: AdventureMenu/KillingSpreeMessage
+      TermType: 0
+      Description: 
+      Languages:
+      - Killing Spree
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: AdventureMenu/KillMessageAmount
+      TermType: 0
+      Description: 
+      Languages:
+      - x{0}
       - 
       - 
       Flags: 000000
@@ -5371,6 +5470,915 @@ MonoBehaviour:
       Description: 
       Languages:
       - OIOISAVALOY
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot201
+      TermType: 0
+      Description: 
+      Languages:
+      - Blabbermouth
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot202
+      TermType: 0
+      Description: 
+      Languages:
+      - Hercules
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot203
+      TermType: 0
+      Description: 
+      Languages:
+      - Konversation
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot204
+      TermType: 0
+      Description: 
+      Languages:
+      - Lollipop
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot205
+      TermType: 0
+      Description: 
+      Languages:
+      - Smart
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot206
+      TermType: 0
+      Description: 
+      Languages:
+      - Hey
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot207
+      TermType: 0
+      Description: 
+      Languages:
+      - Bigmouth
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot208
+      TermType: 0
+      Description: 
+      Languages:
+      - Galore
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot209
+      TermType: 0
+      Description: 
+      Languages:
+      - Jovial
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot210
+      TermType: 0
+      Description: 
+      Languages:
+      - Fat
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot211
+      TermType: 0
+      Description: 
+      Languages:
+      - Supersmart
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot212
+      TermType: 0
+      Description: 
+      Languages:
+      - BleepBloop
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot213
+      TermType: 0
+      Description: 
+      Languages:
+      - TheMonkey
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot214
+      TermType: 0
+      Description: 
+      Languages:
+      - Volter
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot215
+      TermType: 0
+      Description: 
+      Languages:
+      - Fintech
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot216
+      TermType: 0
+      Description: 
+      Languages:
+      - FunnyGuy
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot217
+      TermType: 0
+      Description: 
+      Languages:
+      - ReallyClever
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot218
+      TermType: 0
+      Description: 
+      Languages:
+      - Dimwit
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot219
+      TermType: 0
+      Description: 
+      Languages:
+      - OkaySir
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot220
+      TermType: 0
+      Description: 
+      Languages:
+      - Cybernetic
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot221
+      TermType: 0
+      Description: 
+      Languages:
+      - DigitalDave
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot222
+      TermType: 0
+      Description: 
+      Languages:
+      - MrRo
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot223
+      TermType: 0
+      Description: 
+      Languages:
+      - Pepper
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot224
+      TermType: 0
+      Description: 
+      Languages:
+      - Baxi
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot225
+      TermType: 0
+      Description: 
+      Languages:
+      - Tutorial
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot226
+      TermType: 0
+      Description: 
+      Languages:
+      - Cloud
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot227
+      TermType: 0
+      Description: 
+      Languages:
+      - Comet
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot228
+      TermType: 0
+      Description: 
+      Languages:
+      - Comet
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot229
+      TermType: 0
+      Description: 
+      Languages:
+      - Albus
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot230
+      TermType: 0
+      Description: 
+      Languages:
+      - Anthony
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot231
+      TermType: 0
+      Description: 
+      Languages:
+      - Brooke
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot232
+      TermType: 0
+      Description: 
+      Languages:
+      - Bumper
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot233
+      TermType: 0
+      Description: 
+      Languages:
+      - Chandler
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot234
+      TermType: 0
+      Description: 
+      Languages:
+      - Charlotte
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot235
+      TermType: 0
+      Description: 
+      Languages:
+      - SmartOne
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot236
+      TermType: 0
+      Description: 
+      Languages:
+      - Abracadabra
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot237
+      TermType: 0
+      Description: 
+      Languages:
+      - Creations
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot238
+      TermType: 0
+      Description: 
+      Languages:
+      - Alchemist
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot239
+      TermType: 0
+      Description: 
+      Languages:
+      - Alphius
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot240
+      TermType: 0
+      Description: 
+      Languages:
+      - Beast
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot241
+      TermType: 0
+      Description: 
+      Languages:
+      - ofHearts
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot242
+      TermType: 0
+      Description: 
+      Languages:
+      - Laser
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot243
+      TermType: 0
+      Description: 
+      Languages:
+      - MindReader
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot244
+      TermType: 0
+      Description: 
+      Languages:
+      - Proton
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot245
+      TermType: 0
+      Description: 
+      Languages:
+      - Hail
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot246
+      TermType: 0
+      Description: 
+      Languages:
+      - Tornado
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot247
+      TermType: 0
+      Description: 
+      Languages:
+      - Insightful
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot248
+      TermType: 0
+      Description: 
+      Languages:
+      - Rapid
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot249
+      TermType: 0
+      Description: 
+      Languages:
+      - ForHonor
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot250
+      TermType: 0
+      Description: 
+      Languages:
+      - Self
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot251
+      TermType: 0
+      Description: 
+      Languages:
+      - Spy
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot252
+      TermType: 0
+      Description: 
+      Languages:
+      - Retel
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot253
+      TermType: 0
+      Description: 
+      Languages:
+      - Naya
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot254
+      TermType: 0
+      Description: 
+      Languages:
+      - Kabir
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot255
+      TermType: 0
+      Description: 
+      Languages:
+      - Ishaan
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot256
+      TermType: 0
+      Description: 
+      Languages:
+      - Jai
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot257
+      TermType: 0
+      Description: 
+      Languages:
+      - Inaya
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot258
+      TermType: 0
+      Description: 
+      Languages:
+      - Amar
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot259
+      TermType: 0
+      Description: 
+      Languages:
+      - Dhruv
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot260
+      TermType: 0
+      Description: 
+      Languages:
+      - Kanan
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot261
+      TermType: 0
+      Description: 
+      Languages:
+      - Ai
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot262
+      TermType: 0
+      Description: 
+      Languages:
+      - Fang
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot263
+      TermType: 0
+      Description: 
+      Languages:
+      - Jing
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot264
+      TermType: 0
+      Description: 
+      Languages:
+      - Li
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot265
+      TermType: 0
+      Description: 
+      Languages:
+      - Min
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot266
+      TermType: 0
+      Description: 
+      Languages:
+      - Yan
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot267
+      TermType: 0
+      Description: 
+      Languages:
+      - Xiu
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot268
+      TermType: 0
+      Description: 
+      Languages:
+      - Ya
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot269
+      TermType: 0
+      Description: 
+      Languages:
+      - Asahi
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot270
+      TermType: 0
+      Description: 
+      Languages:
+      - Haru
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot271
+      TermType: 0
+      Description: 
+      Languages:
+      - Akio
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot272
+      TermType: 0
+      Description: 
+      Languages:
+      - Akira
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot273
+      TermType: 0
+      Description: 
+      Languages:
+      - Haruto
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot274
+      TermType: 0
+      Description: 
+      Languages:
+      - Ahmya
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot275
+      TermType: 0
+      Description: 
+      Languages:
+      - Fumiko
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot276
+      TermType: 0
+      Description: 
+      Languages:
+      - Katana
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot277
+      TermType: 0
+      Description: 
+      Languages:
+      - Midori
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot278
+      TermType: 0
+      Description: 
+      Languages:
+      - Rika
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot279
+      TermType: 0
+      Description: 
+      Languages:
+      - Ahanu
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot280
+      TermType: 0
+      Description: 
+      Languages:
+      - Ahiga
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot281
+      TermType: 0
+      Description: 
+      Languages:
+      - Sakari
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot282
+      TermType: 0
+      Description: 
+      Languages:
+      - Urika
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot283
+      TermType: 0
+      Description: 
+      Languages:
+      - Winona
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot284
+      TermType: 0
+      Description: 
+      Languages:
+      - Adriel
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot285
+      TermType: 0
+      Description: 
+      Languages:
+      - Anakin
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot286
+      TermType: 0
+      Description: 
+      Languages:
+      - Kosumi
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot287
+      TermType: 0
+      Description: 
+      Languages:
+      - Nova
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot288
+      TermType: 0
+      Description: 
+      Languages:
+      - Wayra
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot289
+      TermType: 0
+      Description: 
+      Languages:
+      - Kieola
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot290
+      TermType: 0
+      Description: 
+      Languages:
+      - Tuio1
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot291
+      TermType: 0
+      Description: 
+      Languages:
+      - Buela
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot292
+      TermType: 0
+      Description: 
+      Languages:
+      - n00b
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot293
+      TermType: 0
+      Description: 
+      Languages:
+      - l33t
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot294
+      TermType: 0
+      Description: 
+      Languages:
+      - H4x0r
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot295
+      TermType: 0
+      Description: 
+      Languages:
+      - pwnd
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot296
+      TermType: 0
+      Description: 
+      Languages:
+      - ch0p
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot297
+      TermType: 0
+      Description: 
+      Languages:
+      - zoombax
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot298
+      TermType: 0
+      Description: 
+      Languages:
+      - w00t
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot299
+      TermType: 0
+      Description: 
+      Languages:
+      - ub3r
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot300
+      TermType: 0
+      Description: 
+      Languages:
+      - poasdg
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot301
+      TermType: 0
+      Description: 
+      Languages:
+      - PassionDispenser
       - 
       - 
       Flags: 000000
@@ -7229,6 +8237,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: GameIds/Custom
+      TermType: 0
+      Description: 
+      Languages:
+      - Custom
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: Shop/ConfirmPurchase
       TermType: 0
       Description: 
@@ -7881,7 +8898,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1661374242076
+    Google_LastUpdatedVersion: 1663155695751
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

@@ -3,6 +3,7 @@ using FirstLight.Services;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Utils;
 using FirstLight.NotificationService;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using UnityEngine;
 
 namespace FirstLight.Game.Services
@@ -80,6 +81,9 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc cref="IHelpdeskService"/>
 		public IHelpdeskService HelpdeskService { get; }
 		
+		/// <inheritdoc cref="IGameModeService"/>
+		public IGameModeService GameModeService { get; }
+		
 		/// <summary>
 		/// Reason why the player quit the app
 		/// </summary>
@@ -115,20 +119,21 @@ namespace FirstLight.Game.Services
 		public IRemoteTextureService RemoteTextureService { get; }
 		public IThreadService ThreadService { get; }
 		public IHelpdeskService HelpdeskService { get; }
+		public IGameModeService GameModeService { get; }
 		public string QuitReason { get; set; }
 
 		public GameServices(IGameNetworkService networkService, IMessageBrokerService messageBrokerService,
-		                    ITimeService timeService, IDataSaver dataSaver, IConfigsProvider configsProvider,
-		                    IGameLogic gameLogic, IDataProvider dataProvider,
+		                    ITimeService timeService, IDataService dataService, IConfigsProvider configsProvider,
+		                    IGameLogic gameLogic,
 		                    IGenericDialogService genericDialogService,
 		                    IAssetResolverService assetResolverService,
 		                    IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService)
 		{
 			NetworkService = networkService;
-			AnalyticsService = new AnalyticsService(this, gameLogic, dataProvider);
+			AnalyticsService = new AnalyticsService(this, gameLogic, dataService);
 			MessageBrokerService = messageBrokerService;
 			TimeService = timeService;
-			DataSaver = dataSaver;
+			DataSaver = dataService;
 			ConfigsProvider = configsProvider;
 			AssetResolverService = assetResolverService;
 			GenericDialogService = genericDialogService;
@@ -137,9 +142,10 @@ namespace FirstLight.Game.Services
 
 			ThreadService = new ThreadService();
 			HelpdeskService = new HelpdeskService();
+			GameModeService = new GameModeService(ConfigsProvider, ThreadService);
 			GuidService = new GuidService();
-			PlayfabService = new PlayfabService(gameLogic.AppLogic, messageBrokerService);
-			CommandService = new GameCommandService(PlayfabService, gameLogic, dataProvider, this, networkService);
+			PlayfabService = new PlayfabService(gameLogic.AppLogic, messageBrokerService, GameConstants.Network.LEADERBOARD_LADDER_NAME);
+			CommandService = new GameCommandService(PlayfabService, gameLogic, dataService, this, networkService);
 			PoolService = new PoolService();
 			TickService = new TickService();
 			CoroutineService = new CoroutineService();

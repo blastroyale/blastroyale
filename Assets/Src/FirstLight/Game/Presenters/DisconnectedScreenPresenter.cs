@@ -48,6 +48,8 @@ namespace FirstLight.Game.Presenters
 		protected override void OnOpened()
 		{
 			SetFrontDimBlockerActive(false);
+
+			_services.AudioFxService.PlayClip2D(AudioId.DisconnectScreenAppear);
 			
 			if (Application.internetReachability == NetworkReachability.NotReachable)
 			{
@@ -57,7 +59,7 @@ namespace FirstLight.Game.Presenters
 			_menuButton.gameObject.SetActive(_services.NetworkService.LastDisconnectLocation != LastDisconnectionLocation.Menu);
 
 			// Always force reconnect to ranked matches to prevent exploits
-			if (_gameDataProvider.AppDataProvider.SelectedMatchType.Value == MatchType.Ranked)
+			if (_services.GameModeService.SelectedGameMode.Value.Entry.MatchType == MatchType.Ranked)
 			{
 				_menuButton.gameObject.SetActive(false);
 			}
@@ -68,6 +70,7 @@ namespace FirstLight.Game.Presenters
 			    _services.NetworkService.LastDisconnectLocation == LastDisconnectionLocation.Simulation)
 			{
 				_reconnectButton.gameObject.SetActive(false);
+				_menuButton.gameObject.SetActive(true);
 				
 				var confirmButton = new GenericDialogButton
 				{

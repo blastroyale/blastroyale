@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: ee8f34f3c73cdf541a3c5ea34429d3fd
 ModelImporter:
-  serializedVersion: 21202
+  serializedVersion: 21300
   internalIDToNameTable: []
   externalObjects:
   - first:
@@ -9,6 +9,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: M_VehicleAtlas
     second: {fileID: 2100000, guid: 7626b8bf11412dd478235798b8a78509, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert1
+    second: {fileID: 2100000, guid: 8cfb2472d6ca73d49a503682b1bbc573, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -104,6 +109,7 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

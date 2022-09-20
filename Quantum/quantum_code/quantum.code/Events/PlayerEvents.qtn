@@ -63,6 +63,8 @@ synced event OnPlayerKilledPlayer
 	entity_ref EntityKiller;
 	player_ref PlayerLeader;
 	entity_ref EntityLeader;
+	UInt32 CurrentKillStreak;
+	UInt32 CurrentMultiKill;
 }
 
 synced event OnPlayerAmmoEmpty
@@ -133,7 +135,7 @@ synced event OnPlayerStopAttack
 	entity_ref PlayerEntity;
 }
 
-synced event OnPlayerStatsChanged
+synced event OnPlayerEquipmentStatsChanged
 {
 	player_ref Player;
 	entity_ref Entity;
@@ -147,6 +149,7 @@ synced event OnPlayerSpecialUsed
 	entity_ref Entity;
 	Special Special;
 	Int32 SpecialIndex;
+	FPVector3 HitPosition;
 }
 
 // LOCAL PLAYER EVENTS
@@ -220,4 +223,5 @@ synced event OnLocalPlayerSpecialUsed
 	entity_ref Entity;
 	Special Special;
 	Int32 SpecialIndex;
+	FPVector3 HitPosition;
 }

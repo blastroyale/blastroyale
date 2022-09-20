@@ -6,6 +6,7 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.StateMachines;
 using FirstLight.Game.Utils;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using FirstLight.UiService;
 using PlayFab;
@@ -48,7 +49,7 @@ namespace FirstLight.Game
 			var gameLogic = new GameLogic(messageBroker, timeService, dataService, configsProvider,
 			                              audioFxService);
 			var gameServices = new GameServices(networkService, messageBroker, timeService, dataService,
-			                                    configsProvider, gameLogic, dataService, genericDialogService, 
+			                                    configsProvider, gameLogic, genericDialogService, 
 			                                    assetResolver, vfxService, audioFxService);
 
 			MainInstaller.Bind<IGameDataProvider>(gameLogic);

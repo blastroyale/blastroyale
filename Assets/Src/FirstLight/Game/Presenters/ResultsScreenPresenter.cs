@@ -45,10 +45,10 @@ namespace FirstLight.Game.Presenters
 			var game = QuantumRunner.Default.Game;
 			var frame = game.Frames.Verified;
 			var playerData = frame.GetSingleton<GameContainer>().GetPlayersMatchData(frame, out _);
-			var isBattleRoyale = frame.Context.MapConfig.GameMode == GameMode.BattleRoyale;
+			var showStandingsExtra = frame.Context.GameModeConfig.ShowUIStandingsExtraInfo;
 			
-			_standings.Initialise(playerData.Count, isBattleRoyale, true);
-			_standings.UpdateStandings(playerData, game.GetLocalPlayers()[0]);
+			_standings.Initialise(playerData.Count, showStandingsExtra, true);
+			_standings.UpdateStandings(playerData);
 			
 			// Only play the animation after Results Award sprites have been loaded.
 			_animation.clip = _introAnimationClip;

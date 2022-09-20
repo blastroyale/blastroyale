@@ -36,6 +36,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		[SerializeField, Required] private Button _button;
 		[SerializeField, Required] private Image _equippedImage;
 		[SerializeField, Required] private Image _cooldownImage;
+		[SerializeField, Required] private Image _nftImage;
 		[SerializeField, Required] private GameObject _selectedFrameImage;
 		[SerializeField, Required] private NotificationUniqueIdView _notificationUniqueIdView;
 		[SerializeField, Required] private Animation _cardItemAnimation;
@@ -74,6 +75,12 @@ namespace FirstLight.Game.Views.MainMenuViews
 				var info = equipmentDataProvider.GetNftInfo(data.Id);
 				_equippedImage.enabled = info.EquipmentInfo.IsEquipped;
 				_cooldownImage.enabled = info.IsOnCooldown;
+				_nftImage.gameObject.SetActive(!info.IsOnCooldown);
+			}
+			else
+			{
+				_cooldownImage.enabled = false;
+				_nftImage.gameObject.SetActive(false);
 			}
 
 			_selectedFrameImage.SetActive(data.IsSelected);
@@ -84,7 +91,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			}
 
 			_notificationUniqueIdView.SetUniqueId(data.Id, data.PlayViewNotificationAnimation);
-			_equipmentIconView.SetInfo(data.Id, data.Equipment);
+			_equipmentIconView.SetInfo(data.Id);
 			_uniqueId = data.Id;
 		}
 

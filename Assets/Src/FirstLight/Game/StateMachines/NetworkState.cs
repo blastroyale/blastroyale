@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ExitGames.Client.Photon;
 using FirstLight.FLogger;
+using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -25,7 +27,7 @@ namespace FirstLight.Game.StateMachines
 	/// <summary>
 	/// This object contains the behaviour logic for the Network State and communication with Quantum servers in the <seealso cref="GameStateMachine"/>
 	/// </summary>
-	public class NetworkState : IConnectionCallbacks, IMatchmakingCallbacks, IInRoomCallbacks
+	public class NetworkState : IConnectionCallbacks, IMatchmakingCallbacks, IInRoomCallbacks, IOnEventCallback
 	{
 		public static readonly IStatechartEvent PhotonMasterConnectedEvent = new StatechartEvent("NETWORK - Photon Master Connected Event");
 		public static readonly IStatechartEvent PhotonDisconnectedEvent = new StatechartEvent("NETWORK - Photon Disconnected Event");
@@ -119,6 +121,38 @@ namespace FirstLight.Game.StateMachines
 
 			final.OnEnter(UnsubscribeEvents);
 		}
+		
+		/// <summary>
+		/// This method receives all photon events, but is only used for our custom in-game events
+		/// </summary>
+		public void OnEvent(EventData photonEvent)
+		{
+			if (photonEvent.Code == (byte) QuantumCustomEvents.KickPlayer)
+			{
+				OnKickPlayerEventReceived((int) photonEvent.CustomData, photonEvent.Sender);
+			}
+		}
+		
+		private void OnKickPlayerEventReceived(int userIdToLeave, int senderIndex)
+		{
+			if (_networkService.QuantumClient.LocalPlayer.ActorNumber != userIdToLeave ||
+			    !_networkService.QuantumClient.InRoom || 
+			    _networkService.QuantumClient.CurrentRoom.MasterClientId != senderIndex)
+			{
+				return;
+			}
+
+			LeaveRoom();
+				
+				var confirmButton = new GenericDialogButton
+				{
+					ButtonText = ScriptLocalization.General.OK.ToUpper(),
+					ButtonOnClick = _services.GenericDialogService.CloseDialog
+				};
+
+				_services.GenericDialogService.OpenDialog(ScriptLocalization.MainMenu.MatchmakingKickedNotification.ToUpper(), false, confirmButton);
+			
+		}
 
 		private void UpdateDisconnectionLocation()
 		{
@@ -150,7 +184,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new ServerSelectScreenPresenter.StateData
 			{
-				BackClicked = ConnectPhoton,
+				BackClicked = ConnectPhotonToRegionMaster,
 				RegionChosen = (region) =>
 				{
 					_gameDataProvider.AppDataProvider.ConnectionRegion.Value = region.Code;
@@ -232,6 +266,7 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<AllMatchAssetsLoadedMessage>(OnAllMatchAssetsLoaded);
 			_services.MessageBrokerService.Subscribe<AssetReloadRequiredMessage>(OnAssetReloadRequiredMessage);
 			_services.MessageBrokerService.Subscribe<SpectatorModeToggledMessage>(OnSpectatorToggleMessage);
+			_services.MessageBrokerService.Subscribe<RequestKickPlayerMessage>(OnRequestKickPlayerMessage);
 		}
 
 		private void UnsubscribeEvents()
@@ -314,20 +349,6 @@ namespace FirstLight.Game.StateMachines
 				{
 					SetSpectatePlayerProperty(false);
 				}
-
-				// Set the game mode to match the map of the room (can't be set earlier if joining rooms in custom games)
-				var mapId =
-					(int) _networkService.QuantumClient.CurrentRoom.CustomProperties
-						[GameConstants.Network.ROOM_PROPS_MAP];
-				var mapConfig = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(mapId);
-				_gameDataProvider.AppDataProvider.SelectedGameMode.Value = mapConfig.GameMode;
-
-				// Update ranked match status upon joining the room, just in case 
-				var isRankedMatch =
-					(bool) _networkService.QuantumClient.CurrentRoom.CustomProperties
-						[GameConstants.Network.ROOM_PROPS_RANKED_MATCH];
-				_gameDataProvider.AppDataProvider.SelectedMatchType.Value =
-					isRankedMatch ? MatchType.Ranked : MatchType.Casual;
 			}
 
 			if (QuantumRunnerConfigs.IsOfflineMode)
@@ -385,6 +406,8 @@ namespace FirstLight.Game.StateMachines
 		public void OnPlayerLeftRoom(Player player)
 		{
 			FLog.Info($"OnPlayerLeftRoom {player.NickName}");
+
+			StartMatchmakingLockRoomTimer();
 		}
 
 		/// <inheritdoc />
@@ -489,6 +512,19 @@ namespace FirstLight.Game.StateMachines
 
 			_services.NetworkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
 		}
+		
+		private void OnRequestKickPlayerMessage(RequestKickPlayerMessage msg)
+		{
+			if (_networkService.QuantumClient.CurrentRoom == null ||
+			    !_networkService.QuantumClient.LocalPlayer.IsMasterClient)
+			{
+				return;
+			}
+
+			var eventOptions = new RaiseEventOptions() { Receivers = ReceiverGroup.All };
+			_networkService.QuantumClient.OpRaiseEvent((byte) QuantumCustomEvents.KickPlayer, msg.Player.ActorNumber, eventOptions,
+			                                           SendOptions.SendReliable);
+		}
 
 		private void OnRoomLeaveClickedMessage(RoomLeaveClickedMessage msg)
 		{
@@ -512,26 +548,40 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayMatchmakingReadyMessage(PlayMatchmakingReadyMessage msg)
 		{
-			var mapConfig =
-				NetworkUtils.GetRotationMapConfig(_gameDataProvider.AppDataProvider.SelectedGameMode.Value, _services);
-			StartRandomMatchmaking(mapConfig);
+			var selectedGameMode = _services.GameModeService.SelectedGameMode.Value;
+			var gameModeId = selectedGameMode.Entry.GameModeId;
+			var mutators = selectedGameMode.Entry.Mutators;
+			var mapConfig = NetworkUtils.GetRotationMapConfig(gameModeId, _services);
+			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
+
+			StartRandomMatchmaking(gameModeConfig, mapConfig, mutators);
 		}
 
 		private void OnPlayMapClickedMessage(PlayMapClickedMessage msg)
 		{
 			var mapConfig = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(msg.MapId);
-			StartRandomMatchmaking(mapConfig);
+			var selectedGameMode = _services.GameModeService.SelectedGameMode.Value;
+			var gameModeId = selectedGameMode.Entry.GameModeId;
+			var mutators = selectedGameMode.Entry.Mutators;
+			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
+
+			StartRandomMatchmaking(gameModeConfig, mapConfig, mutators);
 		}
 
 		private void OnPlayCreateRoomClickedMessage(PlayCreateRoomClickedMessage msg)
 		{
+			var selectedGameMode = _services.GameModeService.SelectedGameMode.Value;
+			var gameModeId = selectedGameMode.Entry.GameModeId;
+			var mutators = selectedGameMode.Entry.Mutators;
+			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
+			
 			if (msg.JoinIfExists)
 			{
-				JoinOrCreateRoom(msg.MapConfig, msg.RoomName);
+				JoinOrCreateRoom(gameModeConfig, msg.MapConfig, mutators, msg.RoomName);
 			}
 			else
 			{
-				CreateRoom(msg.MapConfig, msg.RoomName);
+				CreateRoom(gameModeConfig, msg.MapConfig, mutators, msg.RoomName);
 			}
 		}
 
@@ -576,16 +626,16 @@ namespace FirstLight.Game.StateMachines
 			_networkService.QuantumClient.Disconnect();
 		}
 
-		private void StartRandomMatchmaking(QuantumMapConfig mapConfig)
+		private void StartRandomMatchmaking(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, List<string> mutators)
 		{
-			var isRankedMatch = _gameDataProvider.AppDataProvider.SelectedMatchType.Value == MatchType.Ranked;
-			var gameHasBots = !isRankedMatch;
+			var matchType = _services.GameModeService.SelectedGameMode.Value.Entry.MatchType;
+			var gameHasBots = gameModeConfig.AllowBots && matchType != MatchType.Ranked;
 			var gridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
 			var createParams =
-				NetworkUtils.GetRoomCreateParams(mapConfig, gridConfigs, null, isRankedMatch, gameHasBots);
-			var joinRandomParams = NetworkUtils.GetJoinRandomRoomParams(mapConfig, isRankedMatch, gameHasBots);
+				NetworkUtils.GetRoomCreateParams(gameModeConfig, mapConfig, gridConfigs, null, matchType, mutators, gameHasBots);
+			var joinRandomParams = NetworkUtils.GetJoinRandomRoomParams(gameModeConfig, mapConfig, matchType, mutators);
 
-			QuantumRunnerConfigs.IsOfflineMode = mapConfig.PlayersLimit == 1;
+			QuantumRunnerConfigs.IsOfflineMode = NetworkUtils.GetMaxPlayers(gameModeConfig, mapConfig) == 1;
 
 			UpdateQuantumClientProperties();
 
@@ -615,10 +665,10 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private void CreateRoom(QuantumMapConfig mapConfig, string roomName)
+		private void CreateRoom(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, List<string> mutators, string roomName)
 		{
 			var gridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
-			var createParams = NetworkUtils.GetRoomCreateParams(mapConfig, gridConfigs, roomName, false, false);
+			var createParams = NetworkUtils.GetRoomCreateParams(gameModeConfig, mapConfig, gridConfigs, roomName, MatchType.Custom, mutators, false);
 
 			QuantumRunnerConfigs.IsOfflineMode = false;
 
@@ -632,11 +682,11 @@ namespace FirstLight.Game.StateMachines
 				_networkService.QuantumClient.OpCreateRoom(createParams);
 			}
 		}
-
-		private void JoinOrCreateRoom(QuantumMapConfig mapConfig, string roomName)
+		
+		private void JoinOrCreateRoom(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, List<string> mutators, string roomName)
 		{
 			var gridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
-			var createParams = NetworkUtils.GetRoomCreateParams(mapConfig, gridConfigs, roomName, false, false);
+			var createParams = NetworkUtils.GetRoomCreateParams(gameModeConfig, mapConfig, gridConfigs, roomName, MatchType.Custom, mutators, false);
 
 			QuantumRunnerConfigs.IsOfflineMode = false;
 
@@ -666,7 +716,7 @@ namespace FirstLight.Game.StateMachines
 				return;
 			}
 
-			if (_networkService.QuantumClient.CurrentRoom.IsRankedRoom())
+			if (_networkService.QuantumClient.CurrentRoom.GetMatchType() == MatchType.Ranked)
 			{
 				_matchmakingCoroutine = _services.CoroutineService.StartCoroutine(RankedMatchmakingCoroutine());
 			}
@@ -689,11 +739,11 @@ namespace FirstLight.Game.StateMachines
 		private IEnumerator CasualMatchmakingCoroutine()
 		{
 			var oneSecond = new WaitForSeconds(1f);
-			var matchmakingEndTime = Time.time + _services.ConfigsProvider.GetConfig<QuantumGameConfig>()
-			                                              .CasualMatchmakingTime.AsFloat;
+			var roomCreationTime = _networkService.QuantumClient.CurrentRoom.GetRoomCreationDateTime();
+			var matchmakingEndTime = roomCreationTime.AddSeconds(_services.ConfigsProvider.GetConfig<QuantumGameConfig>().CasualMatchmakingTime.AsFloat);
 			var room = _networkService.QuantumClient.CurrentRoom;
 
-			while ((Time.time < matchmakingEndTime && !room.IsAtFullPlayerCapacity()))
+			while ((DateTime.UtcNow < matchmakingEndTime && !room.IsAtFullPlayerCapacity()))
 			{
 				yield return oneSecond;
 			}
@@ -704,13 +754,13 @@ namespace FirstLight.Game.StateMachines
 		private IEnumerator RankedMatchmakingCoroutine()
 		{
 			var oneSecond = new WaitForSeconds(1f);
-			var matchmakingEndTime = Time.time + _services.ConfigsProvider.GetConfig<QuantumGameConfig>()
-			                                              .RankedMatchmakingTime.AsFloat;
+			var roomCreationTime = _networkService.QuantumClient.CurrentRoom.GetRoomCreationDateTime();
+			var matchmakingEndTime = roomCreationTime.AddSeconds(_services.ConfigsProvider.GetConfig<QuantumGameConfig>().RankedMatchmakingTime.AsFloat);
 			var minPlayers = _services.ConfigsProvider.GetConfig<QuantumGameConfig>().RankedMatchmakingMinPlayers;
 			var room = _networkService.QuantumClient.CurrentRoom;
 
-			while ((Time.time < matchmakingEndTime && !room.IsAtFullPlayerCapacity()) ||
-			       (Time.time >= matchmakingEndTime && room.GetRealPlayerAmount() < minPlayers))
+			while ((DateTime.UtcNow < matchmakingEndTime && !room.IsAtFullPlayerCapacity()) ||
+			       (DateTime.UtcNow >= matchmakingEndTime && room.GetRealPlayerAmount() < minPlayers))
 			{
 				yield return oneSecond;
 			}

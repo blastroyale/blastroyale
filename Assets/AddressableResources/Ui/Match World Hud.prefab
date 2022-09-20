@@ -643,9 +643,8 @@ MonoBehaviour:
   _damageDealtSlider: {fileID: 2886203827406722873}
   _slider: {fileID: 7727170340805134936}
   _fillImage: {fileID: 8770987893392793336}
-  _primaryHitColor: {r: 0.47058824, g: 0.8666667, b: 0.31764707, a: 1}
-  _secondaryHitColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  _tertiaryHitColor: {r: 0.8666667, g: 0, b: 0, a: 1}
+  _normalColor: {r: 0, g: 1, b: 0, a: 1}
+  _dangerColor: {r: 1, g: 0, b: 0, a: 1}
   _healthIncreasedEvent:
     m_PersistentCalls:
       m_Calls:
@@ -1354,9 +1353,8 @@ MonoBehaviour:
   _damageDealtSlider: {fileID: 7044406841380251423}
   _slider: {fileID: 8388538653810565683}
   _fillImage: {fileID: 2877419581083091017}
-  _primaryHitColor: {r: 0.47058824, g: 0.8666667, b: 0.31764707, a: 1}
-  _secondaryHitColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  _tertiaryHitColor: {r: 0.8666667, g: 0, b: 0, a: 1}
+  _normalColor: {r: 0, g: 1, b: 0, a: 1}
+  _dangerColor: {r: 1, g: 0, b: 0, a: 1}
   _healthIncreasedEvent:
     m_PersistentCalls:
       m_Calls:
@@ -2059,11 +2057,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23875815e55e30a45a73639574b25cb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hitTextColor: {r: 0.8627451, g: 0.35659638, b: 0.2666667, a: 1}
-  _healTextColor: {r: 0.47058824, g: 0.8666667, b: 0.31764707, a: 1}
+  _healthDamageTextColor: {r: 1, g: 0, b: 0, a: 1}
+  _shieldDamageTextColor: {r: 0.6, g: 0.2, b: 0.9, a: 1}
+  _ammoTextColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   _neutralTextColor: {r: 1, g: 1, b: 1, a: 1}
-  _armourLossTextColor: {r: 0.4149163, g: 0.8047976, b: 0.9245283, a: 1}
-  _armourGainTextColor: {r: 0.60248786, g: 0.1992956, b: 0.8962264, a: 1}
+  _healthGainTextColor: {r: 0, g: 1, b: 0, a: 1}
+  _shieldGainTextColor: {r: 0, g: 1, b: 1, a: 1}
   _iconArmour: {fileID: 21300000, guid: bec95047e2f276844b0419ffbf07b7c4, type: 3}
   _infoTextRef: {fileID: 6809354617266001813}
   _statChangeTextRef: {fileID: 2653090891116556150}

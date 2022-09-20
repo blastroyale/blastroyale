@@ -1,10 +1,11 @@
+using System;
+using System.Collections.Generic;
 using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 using PlayFab;
 using PlayFab.AdminModels;
-using Scripts.Base;
 using PlayerProfile = PlayFab.ServerModels.PlayerProfile;
-
-namespace Scripts;
 
 /// <summary>
 /// Will delete all players and unlink their accounts from marketplace.

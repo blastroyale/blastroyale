@@ -81,7 +81,8 @@ namespace FirstLight.Game.StateMachines
 			startSimulation.Event(NetworkState.LeftRoomEvent).Target(final);
 
 			modeCheck.OnEnter(OpenAdventureWorldHud);
-			modeCheck.Transition().Condition(IsDeathmatch).Target(deathmatch);
+			modeCheck.Transition().Condition(ShouldUseDeathmatchSM).Target(deathmatch);
+			modeCheck.Transition().Condition(ShouldUseBattleRoyaleSM).Target(battleRoyale);
 			modeCheck.Transition().Target(battleRoyale);
 
 			deathmatch.Nest(_deathmatchState.Setup).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
@@ -153,14 +154,16 @@ namespace FirstLight.Game.StateMachines
 			return _lastTrophyChange != 0;
 		}
 
-		private bool IsDeathmatch()
+		private bool ShouldUseDeathmatchSM()
 		{
-			return _services.NetworkService.CurrentRoomMapConfig.Value.GameMode == GameMode.Deathmatch;
+			return _services.NetworkService.CurrentRoomGameModeConfig.Value.AudioStateMachine ==
+			       AudioStateMachine.Deathmatch;
 		}
-
-		private bool IsRankedMatch()
+		
+		private bool ShouldUseBattleRoyaleSM()
 		{
-			return _services.NetworkService.QuantumClient.CurrentRoom.IsRankedRoom();
+			return _services.NetworkService.CurrentRoomGameModeConfig.Value.AudioStateMachine ==
+			       AudioStateMachine.BattleRoyale;
 		}
 
 		private async void OnGameStart(CallbackGameStarted callback)
@@ -177,7 +180,6 @@ namespace FirstLight.Game.StateMachines
 			PublishMatchStartedMessage(callback.Game, false);
 			_statechartTrigger(SimulationStartedEvent);
 		}
-
 
 		private async void OnGameResync(CallbackGameResynced callback)
 		{
@@ -218,11 +220,6 @@ namespace FirstLight.Game.StateMachines
 
 		private void GiveMatchRewards()
 		{
-			if (_gameDataProvider.AppDataProvider.SelectedGameMode.Value != GameMode.BattleRoyale)
-			{
-				return;
-			}
-
 			var game = QuantumRunner.Default.Game;
 			var f = game.Frames.Verified;
 			var gameContainer = f.GetSingleton<GameContainer>();
@@ -231,10 +228,10 @@ namespace FirstLight.Game.StateMachines
 				PlayersMatchData = gameContainer.GetPlayersMatchData(f, out _),
 				PlayfabToken = PlayFabSettings.staticPlayer.EntityToken
 			};
-			command.SetQuantumValues(new QuantumValues()
+			command.SetQuantumValues(new QuantumValues
 			{
 				ExecutingPlayer = game.GetLocalPlayers()[0],
-				Ranked = _services.NetworkService.QuantumClient.CurrentRoom.IsRankedRoom()
+				MatchType = _services.NetworkService.QuantumClient.CurrentRoom.GetMatchType()
 			});
 			_services.CommandService.ExecuteCommand(command);
 		}
@@ -376,11 +373,6 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<TrophiesScreenPresenter>(false, true);
 		}
 
-		private void CloseMatchmakingScreen()
-		{
-			_uiService.CloseUi<MatchmakingLoadingScreenPresenter>(false, true);
-		}
-
 		private void PublishMatchStartedMessage(QuantumGame game, bool isResync)
 		{
 			if (_services.NetworkService.IsJoiningNewMatch)
@@ -388,8 +380,6 @@ namespace FirstLight.Game.StateMachines
 				MatchStartAnalytics();
 				SetPlayerMatchData(game);
 			}
-
-			CloseMatchmakingScreen();
 
 			_services.MessageBrokerService.Publish(new MatchStartedMessage { Game = game, IsResync = isResync });
 		}

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.AssetConfigs;
@@ -25,8 +26,12 @@ namespace FirstLight.Game.StateMachines
 		private readonly AudioBattleRoyaleState _audioBrState;
 		private readonly AudioDeathmatchState _audioDmState;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
-		private IMatchServices _matchServices;
 
+		private IMatchServices _matchServices;
+		private List<LoopedAudioClip> _currentClips = new List<LoopedAudioClip>();
+		private DateTime _voOneKillSfxAvailabilityTime = DateTime.UtcNow;
+		private DateTime _voClutchSfxAvailabilityTime = DateTime.UtcNow;
+		
 		public AudioState(IGameDataProvider gameLogic, IGameServices services,
 		                  Action<IStatechartEvent> statechartTrigger)
 		{
@@ -50,10 +55,9 @@ namespace FirstLight.Game.StateMachines
 				this.targetEntity = targetEntity;
 			}
 		}
-		private List<LoopedAudioClip> _currentClips = new List<LoopedAudioClip>();
 
 		/// <summary>
-		/// Setups the Adventure gameplay state
+		/// Setups the audio state - root state, and then per gamemode type nested states
 		/// </summary>
 		public void Setup(IStateFactory stateFactory)
 		{
@@ -70,10 +74,10 @@ namespace FirstLight.Game.StateMachines
 			var postGameSpectatorCheck = stateFactory.Choice("AUDIO - Spectator Check");
 
 			initial.Transition().Target(audioBase);
-			initial.OnExit(SubscribeEvents);
 
 			audioBase.Event(MainMenuState.MainMenuLoadedEvent).Target(mainMenu);
-			
+
+			mainMenu.OnEnter(StopAllSfx);
 			mainMenu.OnEnter(TransitionAudioMixerMain);
 			mainMenu.OnEnter(TryPlayMainMenuMusic);
 			mainMenu.Event(NetworkState.JoinedRoomEvent).Target(matchmaking);
@@ -81,11 +85,15 @@ namespace FirstLight.Game.StateMachines
 			matchmaking.OnEnter(TryPlayLobbyMusic);
 			matchmaking.OnEnter(TransitionAudioMixerLobby);
 			matchmaking.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
-			matchmaking.Event(GameSimulationState.SimulationStartedEvent).OnTransition(PrepareForMatchMusic).Target(gameModeCheck);
+			matchmaking.Event(GameSimulationState.SimulationStartedEvent).Target(gameModeCheck);
 			matchmaking.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(StopMusicInstant).Target(disconnected);
 			matchmaking.OnExit(TransitionAudioMixerMain);
 
-			gameModeCheck.Transition().Condition(IsDeathmatch).Target(deathmatch);
+			gameModeCheck.OnEnter(SetMatchServices);
+			gameModeCheck.OnEnter(SubscribeMatchEvents);
+			gameModeCheck.OnEnter(PrepareForMatchMusic);
+			gameModeCheck.Transition().Condition(ShouldUseDeathmatchSM).Target(deathmatch);
+			gameModeCheck.Transition().Condition(ShouldUseBattleRoyaleSM).Target(battleRoyale);
 			gameModeCheck.Transition().Target(battleRoyale);
 
 			battleRoyale.Nest(_audioBrState.Setup).Target(postGameSpectatorCheck);
@@ -94,71 +102,93 @@ namespace FirstLight.Game.StateMachines
 			battleRoyale.Event(GameSimulationState.MatchQuitEvent).OnTransition(StopMusicInstant).Target(postGameSpectatorCheck);
 			battleRoyale.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
 			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
-
+			battleRoyale.OnExit(UnsubscribeMatchEvents);
+			
 			deathmatch.Nest(_audioDmState.Setup).Target(postGameSpectatorCheck);
 			deathmatch.Event(GameSimulationState.GameCompleteExitEvent).Target(postGameSpectatorCheck);
 			deathmatch.Event(GameSimulationState.MatchEndedEvent).Target(postGameSpectatorCheck);
 			deathmatch.Event(GameSimulationState.MatchQuitEvent).OnTransition(StopMusicInstant).Target(postGameSpectatorCheck);
 			deathmatch.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
 			deathmatch.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
-			
-			postGameSpectatorCheck.Transition().Condition(IsSpectator).Target(audioBase);
+			deathmatch.OnExit(UnsubscribeMatchEvents);
+
+			postGameSpectatorCheck.Transition().Condition(IsSpectator).OnTransition(StopMusicInstant).Target(audioBase);
 			postGameSpectatorCheck.Transition().Target(postGame);
-				
+			postGameSpectatorCheck.OnExit(StopAllSfx);
+			
 			postGame.OnEnter(StopMusicInstant);
 			postGame.OnEnter(PlayPostMatchMusic);
+			postGame.OnEnter(PlayPostMatchAnnouncer);
 			postGame.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
 			postGame.OnExit(StopMusicInstant);
 			postGame.OnExit(StopAllSfx);
-
+			
+			disconnected.OnEnter(StopAllSfx);
 			disconnected.OnEnter(StopMusicInstant);
 			disconnected.Event(MainMenuState.MainMenuLoadedEvent).Target(mainMenu);
 			disconnected.Event(NetworkState.JoinedRoomEvent).Target(matchmaking);
-
-			final.OnEnter(UnsubscribeEvents);
 		}
 
-		private void SubscribeEvents()
+		private void SubscribeMatchEvents()
 		{
+			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
+			QuantumEvent.SubscribeManual<EventOnNewShrinkingCircle>(this, OnNewShrinkingCircle);
+			QuantumEvent.SubscribeManual<EventOnPlayerSkydiveDrop>(this, OnPlayerSkydiveDrop);
 			QuantumEvent.SubscribeManual<EventOnPlayerDamaged>(this, OnPlayerDamaged);
 			QuantumEvent.SubscribeManual<EventOnPlayerAttack>(this, OnPlayerAttack);
 			QuantumEvent.SubscribeManual<EventOnCollectableCollected>(this, OnCollectableCollected);
 			QuantumEvent.SubscribeManual<EventOnDamageBlocked>(this, OnDamageBlocked);
 			QuantumEvent.SubscribeManual<EventOnPlayerSpecialUsed>(this, OnSpecialUsed);
-			QuantumEvent.SubscribeManual<EventOnRaycastShotExplosion>(this, OnRaycastShotExplosion);
-			QuantumEvent.SubscribeManual<EventOnHazardLand>(this, OnHazardExplosion);
-			QuantumEvent.SubscribeManual<EventOnProjectileExplosion>(this, OnProjectileExplosion);
-			QuantumEvent.SubscribeManual<EventOnChestOpened>(this, OnChestOpened);
-			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKillPlayer);
+			QuantumEvent.SubscribeManual<EventOnRaycastShotExplosion>(this, OnEventOnRaycastShotExplosion);
+			QuantumEvent.SubscribeManual<EventOnHazardLand>(this, OnEventHazardLand);
+			QuantumEvent.SubscribeManual<EventOnProjectileExplosion>(this, OnEventOnProjectileExplosion);
+			QuantumEvent.SubscribeManual<EventOnChestOpened>(this, OnEventOnChestOpened);
+			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
+			QuantumEvent.SubscribeManual<EventOnPlayerDead>(this, OnPlayerDead);
 			QuantumEvent.SubscribeManual<EventOnAirDropDropped>(this, OnAirdropDropped);
 			QuantumEvent.SubscribeManual<EventOnAirDropLanded>(this, OnAirdropLanded);
 			QuantumEvent.SubscribeManual<EventOnAirDropCollected>(this, OnAirdropCollected);
 			QuantumEvent.SubscribeManual<EventOnStartedCollecting>(this, OnStartCollection);
 			QuantumEvent.SubscribeManual<EventOnStoppedCollecting>(this, OnCollectionStopped);
 			QuantumEvent.SubscribeManual<EventOnCollectableBlocked>(this, OnCollectionBlocked);
-			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveDrop>(this, OnSkydiveStart);
-			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveLand>(this, OnSkydiveEnd);
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveDrop>(this, OnLocalPlayerSkydiveDrop);
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveLand>(this, OnLocalSkydiveEnd);
+			QuantumEvent.SubscribeManual<EventOnPlayerAlive>(this, OnPlayerAlive);
+			QuantumEvent.SubscribeManual<EventOnPlayerSpawned>(this, OnPlayerSpawned);
 		}
 
-		private void UnsubscribeEvents()
+		private void UnsubscribeMatchEvents()
 		{
 			QuantumEvent.UnsubscribeListener(this);
+			_services.MessageBrokerService.UnsubscribeAll(this);
+			
 		}
 
 		private bool IsSpectator()
 		{
 			return _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator();
 		}
-		
-		private bool IsDeathmatch()
+
+		private bool ShouldUseDeathmatchSM()
 		{
-			return _services.NetworkService.CurrentRoomMapConfig.Value.GameMode == GameMode.Deathmatch;
+			return _services.NetworkService.CurrentRoomGameModeConfig.Value.AudioStateMachine ==
+			       AudioStateMachine.Deathmatch;
 		}
 
+		private bool ShouldUseBattleRoyaleSM()
+		{
+			return _services.NetworkService.CurrentRoomGameModeConfig.Value.AudioStateMachine ==
+			       AudioStateMachine.BattleRoyale;
+		}
+
+		private void SetMatchServices()
+		{
+			_matchServices = MainInstaller.Resolve<IMatchServices>();
+		}
+		
 		private void PrepareForMatchMusic()
 		{
 			StopMusicInstant();
-			_matchServices = MainInstaller.Resolve<IMatchServices>();
 		}
 
 		private void TryPlayMainMenuMusic()
@@ -171,10 +201,9 @@ namespace FirstLight.Game.StateMachines
 
 		private void TryPlayLobbyMusic()
 		{
-			if (!_services.AudioFxService.IsMusicPlaying)
-			{
-				_services.AudioFxService.PlayMusic(AudioId.MusicMainLoop, GameConstants.Audio.MUSIC_SHORT_FADE_SECONDS);
-			}
+			if (!_services.AudioFxService.IsMusicPlaying || !IsResyncing()) return;
+			
+			_services.AudioFxService.PlayMusic(AudioId.MusicMainLoop, GameConstants.Audio.MUSIC_SHORT_FADE_SECONDS);
 		}
 
 		private void PlayPostMatchMusic()
@@ -182,11 +211,11 @@ namespace FirstLight.Game.StateMachines
 			var game = QuantumRunner.Default.Game;
 			var frame = game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
-			var playerData = container.GetPlayersMatchData(frame, out var leader);
-			var playerWinner = playerData[leader];
+			container.GetPlayersMatchData(frame, out var leader);
+
 			var victoryStatusAudio = AudioId.MusicDefeatJingle;
-			
-			if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator() && 
+
+			if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator() &&
 			    _matchServices.SpectateService.SpectatedPlayer.Value.Player == leader)
 			{
 				victoryStatusAudio = AudioId.MusicVictoryJingle;
@@ -195,13 +224,46 @@ namespace FirstLight.Game.StateMachines
 			{
 				victoryStatusAudio = AudioId.MusicVictoryJingle;
 			}
-			
+
 			_services.AudioFxService.PlaySequentialMusicTransition(victoryStatusAudio, AudioId.MusicPostMatchLoop);
 		}
+
+		private void PlayPostMatchAnnouncer()
+		{
+			if (IsSpectator()) return;
+			
+			_services.AudioFxService.WipeSoundQueue();
+			
+			var game = QuantumRunner.Default.Game;
+			var frame = game.Frames.Verified;
+			var container = frame.GetSingleton<GameContainer>();
+			var matchData = container.GetPlayersMatchData(frame, out var leader);
+			var localPlayerData = matchData[game.GetLocalPlayers()[0]];
+			var gameMode = _services.NetworkService.CurrentRoomGameModeConfig.Value;
+			
+			if (game.PlayerIsLocal(leader))
+			{
+				if (gameMode.CompletionStrategy == GameCompletionStrategy.KillCount && localPlayerData.Data.DeathCount == 0)
+				{
+					_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_PerfectVictory, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
+				}
+				else
+				{
+					_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_Victory, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
+				}
+			}
+			else
+			{
+				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_GameOver, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
+			}
+		}
+		
 
 		private void StopAllSfx()
 		{
 			_services.AudioFxService.StopAllSfx();
+			_services.AudioFxService.WipeSoundQueue();
+			_currentClips.Clear();
 		}
 
 		private void StopMusicInstant()
@@ -222,6 +284,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void TransitionAudioMixerLobby()
 		{
+			if (IsResyncing()) return;
+			
 			_services.AudioFxService.TransitionAudioMixer(GameConstants.Audio.MIXER_LOBBY_SNAPSHOT_ID,
 			                                              GameConstants.Audio.MIXER_SNAPSHOT_TRANSITION_SECONDS);
 		}
@@ -231,10 +295,10 @@ namespace FirstLight.Game.StateMachines
 		/// </summary>
 		private void CheckClips(string currentEvent, EntityRef entity)
 		{
-			for(var i = _currentClips.Count -1; i > -1; i--) 
+			for (var i = _currentClips.Count - 1; i > -1; i--)
 			{
 				var clip = _currentClips[i];
-				
+
 				foreach (var evnt in clip.despawnEvent)
 				{
 					if (evnt == currentEvent && clip.targetEntity == entity)
@@ -246,57 +310,108 @@ namespace FirstLight.Game.StateMachines
 				}
 			}
 		}
-
-		private void OnSkydiveStart(EventOnLocalPlayerSkydiveDrop callback)
+		
+		private void OnMatchStartedMessage(MatchStartedMessage msg)
 		{
-			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
+			if (msg.IsResync) return;
+			
+			var gameModeId = _services.GameModeService.SelectedGameMode.Value.Entry.GameModeId;
+			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
+			
+			if(!gameModeConfig.SkydiveSpawn)
 			{
-				var despawnEvents = new [] { nameof(EventOnLocalPlayerSkydiveLand) };
-				var position = entityView.transform.position;
-				_services.AudioFxService.PlayClip3D(AudioId.AirdropDropped, position);
-				var skydiveLoop = _services.AudioFxService.PlayClip3D(AudioId.SkydiveJetpackDiveLoop, position);
-				
-				skydiveLoop.SetFollowTarget(entityView.transform, Vector3.zero, Quaternion.identity);
-				_currentClips.Add(new LoopedAudioClip(skydiveLoop, despawnEvents, callback.Entity));
+				_services.AudioFxService.PlayClip2D(AudioId.Vo_GameStart, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
 			}
 		}
-		private void OnSkydiveEnd(EventOnLocalPlayerSkydiveLand callback)
+		
+		private void OnPlayerAlive(EventOnPlayerAlive callback)
+		{
+			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
+
+			var gameModeId = _services.GameModeService.SelectedGameMode.Value.Entry.GameModeId;
+			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
+
+			// Respawnable game-mode
+			if (gameModeConfig.Lives is 0 or > 1)
+			{
+				_services.AudioFxService.PlayClip3D(AudioId.PlayerRespawnLightningBolt, entityView.transform.position);
+				CheckClips(nameof(EventOnPlayerAlive), callback.Entity);
+			}
+		}
+		
+		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
+		{
+			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
+			
+			_services.AudioFxService.WipeSoundQueue();
+			
+			var gameModeId = _services.GameModeService.SelectedGameMode.Value.Entry.GameModeId;
+			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
+
+			// Respawnable game-mode
+			if (gameModeConfig.Lives is 0 or > 1)
+			{
+				var despawnEvents = new[] {nameof(EventOnPlayerAlive)};
+				var audioSource = _services.AudioFxService.PlayClip3D(AudioId.PlayerRespawnShine, entityView.transform.position);
+				_currentClips.Add(new LoopedAudioClip(audioSource, despawnEvents, callback.Entity));
+			}
+		}
+
+		private void OnPlayerSkydiveDrop(EventOnPlayerSkydiveDrop callback)
+		{
+			if (_matchServices.SpectateService.SpectatedPlayer.Value.Player != callback.Player) return;
+			
+			_services.AudioFxService.PlayClip2D(AudioId.Vo_GameStart, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
+		}
+
+		private void OnLocalPlayerSkydiveDrop(EventOnLocalPlayerSkydiveDrop callback)
+		{
+			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
+
+			var despawnEvents = new[] {nameof(EventOnLocalPlayerSkydiveLand)};
+			var position = entityView.transform.position;
+			_services.AudioFxService.PlayClip3D(AudioId.AirdropDropped, position);
+			var skydiveLoop = _services.AudioFxService.PlayClip3D(AudioId.SkydiveJetpackDiveLoop, position);
+
+			skydiveLoop.SetFollowTarget(entityView.transform, Vector3.zero, Quaternion.identity);
+			_currentClips.Add(new LoopedAudioClip(skydiveLoop, despawnEvents, callback.Entity));
+		}
+
+		private void OnLocalSkydiveEnd(EventOnLocalPlayerSkydiveLand callback)
 		{
 			CheckClips(nameof(EventOnLocalPlayerSkydiveLand), callback.Entity);
-			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
-			{
-				_services.AudioFxService.PlayClip3D(AudioId.SkydiveEnd, entityView.transform.position);
-			}
+			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
+
+			_services.AudioFxService.PlayClip3D(AudioId.SkydiveEnd, entityView.transform.position);
 		}
 
 		private void OnCollectionBlocked(EventOnCollectableBlocked callback)
 		{
 			CheckClips(nameof(EventOnCollectableBlocked), callback.CollectableEntity);
-			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView))
-			{
-				//TODO: replace this sfx with a proper sfx for your pickup being blocked
-				_services.AudioFxService.PlayClip3D(AudioId.CollectionStop, entityView.transform.position);
-			}
+			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView)) return;
+
+			//TODO: replace this sfx with a proper sfx for your pickup being blocked
+			_services.AudioFxService.PlayClip3D(AudioId.CollectionStop, entityView.transform.position);
 		}
+
 		private void OnCollectionStopped(EventOnStoppedCollecting callback)
 		{
 			CheckClips(nameof(EventOnStoppedCollecting), callback.CollectableEntity);
 		}
+
 		private void OnStartCollection(EventOnStartedCollecting callback)
 		{
-			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView))
+			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView)) return;
+
+			_services.AudioFxService.PlayClip3D(AudioId.CollectionStart, entityView.transform.position);
+			var collectSfx = _services.AudioFxService.PlayClip3D(AudioId.CollectionLoop, entityView.transform.position);
+			var despawnEvents = new[]
 			{
-				//TODO: add a rising pitch setting for looping sfx
-				_services.AudioFxService.PlayClip3D(AudioId.CollectionStart, entityView.transform.position);
-				var collectSfx = _services.AudioFxService.PlayClip3D(AudioId.CollectionLoop, entityView.transform.position);
-				var despawnEvents = new [] 
-				{ 
-					nameof(EventOnStoppedCollecting),
-					nameof(EventOnCollectableBlocked),
-					nameof(EventOnCollectableCollected) 
-				};
-				_currentClips.Add(new LoopedAudioClip(collectSfx, despawnEvents, callback.CollectableEntity));
-			}
+				nameof(EventOnStoppedCollecting),
+				nameof(EventOnCollectableBlocked),
+				nameof(EventOnCollectableCollected)
+			};
+			_currentClips.Add(new LoopedAudioClip(collectSfx, despawnEvents, callback.CollectableEntity));
 		}
 
 		private void OnAirdropCollected(EventOnAirDropCollected callback)
@@ -304,87 +419,217 @@ namespace FirstLight.Game.StateMachines
 			CheckClips(nameof(EventOnAirDropCollected), callback.Entity);
 		}
 
-		private void OnAirdropLanded(EventOnAirDropLanded callback)
+		private void OnNewShrinkingCircle(EventOnNewShrinkingCircle callback)
 		{
-			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
+			_services.CoroutineService.StartCoroutine(WaitForCircleShrinkCoroutine(callback));
+		}
+
+		private IEnumerator WaitForCircleShrinkCoroutine(EventOnNewShrinkingCircle callback)
+		{
+			var f = callback.Game.Frames.Verified;
+			var allConfigs = _services.ConfigsProvider.GetConfigsList<QuantumShrinkingCircleConfig>();
+			var config = _services.ConfigsProvider.GetConfig<QuantumShrinkingCircleConfig>(callback.ShrinkingCircle.Step);
+
+			var circle = f.GetSingleton<ShrinkingCircle>();
+
+			// We don't play on the last step, so we get the previous one as the max
+			var maxStepForCircleClosing = allConfigs[^3].Step;
+			var stepForFinalCountdown = allConfigs[^2].Step;
+   
+			var time = (circle.ShrinkingStartTime - f.Time - config.WarningTime).AsFloat;
+   
+			yield return new WaitForSeconds(time);
+   
+			if (config.Step == stepForFinalCountdown)
 			{
-				var position = entityView.transform.position;
-				_services.AudioFxService.PlayClip3D(AudioId.AirdropLanded, position);
-				var flareSfx = _services.AudioFxService.PlayClip3D(AudioId.AirdropFlare, position);
-				var despawnEvents = new [] { nameof(EventOnAirDropCollected) };
-				_currentClips.Add(new LoopedAudioClip(flareSfx, despawnEvents, callback.Entity));
+				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_CircleLastCountdown, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
+			}
+   
+			time = (circle.ShrinkingStartTime - f.Time).AsFloat;
+   
+			yield return new WaitForSeconds(time);
+   
+			if (config.Step <= maxStepForCircleClosing)
+			{
+				_services.AudioFxService.PlayClipQueued2D(config.Step == maxStepForCircleClosing
+					                                          ? AudioId.Vo_CircleLastClose
+					                                          : AudioId.Vo_CircleClose, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
 			}
 		}
 
 		private void OnAirdropDropped(EventOnAirDropDropped callback)
 		{
-			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
-			{
-				var position = entityView.transform.position;
-				_services.AudioFxService.PlayClip3D(AudioId.AirdropDropped, position);
-				var dropsFx = _services.AudioFxService.PlayClip3D(AudioId.MissileFlyLoop, position);
-				var despawnEvents = new [] { nameof(EventOnAirDropLanded) };
-				_currentClips.Add(new LoopedAudioClip(dropsFx, despawnEvents, callback.Entity));
-			}
+			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
+
+			var position = entityView.transform.position;
+			_services.AudioFxService.PlayClip3D(AudioId.AirdropDropped, position);
+
+			var dropsFx = _services.AudioFxService.PlayClip3D(AudioId.MissileFlyLoop, position);
+			var despawnEvents = new[] {nameof(EventOnAirDropLanded)};
+			_currentClips.Add(new LoopedAudioClip(dropsFx, despawnEvents, callback.Entity));
+
+			_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_AirdropComing, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
 		}
 
-		private void OnPlayerKillPlayer(EventOnPlayerKilledPlayer callback)
+		private void OnAirdropLanded(EventOnAirDropLanded callback)
 		{
-			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.EntityKiller, out var entityView)) return;
-			
-			var game = callback.Game;
-			var audio = AudioId.None;
-			
-			if (_matchServices.SpectateService.SpectatedPlayer.Value.Entity == callback.EntityKiller)
-			{
-				audio = AudioId.PlayerKill;
-			}
-			else if (_matchServices.SpectateService.SpectatedPlayer.Value.Entity == callback.EntityDead)
-			{
-				audio = AudioId.PlayerDeath;
-			}
-			else if (game.Frames.Verified.TryGet<PlayerCharacter>(callback.EntityKiller, out var killerPlayer) &&
-			         _matchServices.SpectateService.SpectatedPlayer.Value.Player == killerPlayer.Player)
-			{
-				audio = AudioId.PlayerKill;
-			}
-			else if (game.Frames.Verified.TryGet<PlayerCharacter>(callback.EntityDead, out var deadPlayer) &&
-			         _matchServices.SpectateService.SpectatedPlayer.Value.Player == deadPlayer.Player)
-			{
-				audio = AudioId.PlayerDeath;
-			}
+			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
 
-			if (audio != AudioId.None)
+			var position = entityView.transform.position;
+			_services.AudioFxService.PlayClip3D(AudioId.AirdropLanded, position);
+
+			var flareSfx = _services.AudioFxService.PlayClip3D(AudioId.AirdropFlare, position);
+			var despawnEvents = new[] {nameof(EventOnAirDropCollected)};
+			_currentClips.Add(new LoopedAudioClip(flareSfx, despawnEvents, callback.Entity));
+
+			_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_AirdropLanded, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
+		}
+
+		private void OnPlayerDead(EventOnPlayerDead callback)
+		{
+			if (_matchServices.SpectateService.SpectatedPlayer.Value.Entity != callback.Entity) return;
+
+			_services.AudioFxService.WipeSoundQueue();
+			
+			_services.AudioFxService.PlayClip2D(AudioId.PlayerDeath);
+
+			if (QuantumRunner.Default.Game.PlayerIsLocal(callback.Player))
 			{
-				_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
+				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_OnDeath, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
 			}
 		}
 
-		private void OnChestOpened(EventOnChestOpened callback)
+		private void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
+		{
+			// If not a kill of spectated player, or spectated player committed suicide
+			if (_matchServices.SpectateService.SpectatedPlayer.Value.Entity != callback.EntityKiller || 
+			    callback.EntityKiller == callback.EntityDead)
+			{
+				return;
+			}
+
+			var game = callback.Game;
+			var frame = game.Frames.Verified;
+			var container = frame.GetSingleton<GameContainer>();
+			var killAudio = AudioId.None;
+			var voMultiKillAudio = AudioId.None;
+			var voKillstreakAudio = AudioId.None;
+
+			// Kill SFX
+			switch (callback.CurrentMultiKill)
+			{
+				case 1:
+					killAudio = AudioId.PlayerKillLevel1;
+					voMultiKillAudio = AudioId.Vo_Kills1;
+					break;
+
+				case 2:
+					killAudio = AudioId.PlayerKillLevel2;
+					voMultiKillAudio = AudioId.Vo_Kills2;
+					break;
+
+				case 3:
+					killAudio = AudioId.PlayerKillLevel3;
+					voMultiKillAudio = AudioId.Vo_Kills3;
+					break;
+
+				case 4:
+					killAudio = AudioId.PlayerKillLevel4;
+					voMultiKillAudio = AudioId.Vo_Kills4;
+					break;
+
+				case 5:
+					killAudio = AudioId.PlayerKillLevel5;
+					voMultiKillAudio = AudioId.Vo_Kills5;
+					break;
+
+				default:
+					if (callback.CurrentMultiKill > 5)
+					{
+						killAudio = AudioId.PlayerKillLevel6;
+						voMultiKillAudio = AudioId.Vo_Kills5;
+					}
+
+					break;
+			}
+
+			switch (callback.CurrentKillStreak)
+			{
+				case 3:
+					voKillstreakAudio = AudioId.Vo_KillStreak3;
+					break;
+
+				case 5:
+					voKillstreakAudio = AudioId.Vo_KillStreak5;
+					break;
+
+				case 7:
+					voKillstreakAudio = AudioId.Vo_KillStreak7;
+					break;
+
+				case 9:
+					voKillstreakAudio = AudioId.Vo_KillStreak9;
+					break;
+			}
+
+			// Kill SFX
+			_services.AudioFxService.PlayClip2D(killAudio);
+			
+			// Multikill announcer
+			if (callback.CurrentMultiKill > 1)
+			{
+				_services.AudioFxService.PlayClipQueued2D(voMultiKillAudio, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
+			}
+			else if (callback.CurrentMultiKill <= 1 && DateTime.UtcNow >= _voOneKillSfxAvailabilityTime)
+			{
+				_services.AudioFxService.PlayClipQueued2D(voMultiKillAudio, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
+				_voOneKillSfxAvailabilityTime = DateTime.UtcNow.AddSeconds(GameConstants.Audio.VO_DUPLICATE_SFX_PREVENTION_SECONDS);
+			}
+			
+			// Clutch announcer
+			var stats = frame.Get<Stats>(callback.EntityKiller);
+			var maxHealth = stats.Values[(int) StatType.Health].StatValue.AsInt;
+			var maxShield = stats.Values[(int) StatType.Shield].StatValue.AsInt;
+			var percent = (maxHealth + maxShield) / (stats.CurrentHealth + stats.CurrentShield);
+			
+			if (percent <= GameConstants.Audio.LOW_HP_CLUTCH_THERSHOLD_PERCENT &&
+			    DateTime.UtcNow >= _voClutchSfxAvailabilityTime) 
+			{
+				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_KillLowHp, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
+				_voClutchSfxAvailabilityTime = DateTime.UtcNow.AddSeconds(GameConstants.Audio.VO_DUPLICATE_SFX_PREVENTION_SECONDS);
+			}
+
+			// Killstreak announcer
+			_services.AudioFxService.PlayClipQueued2D(voKillstreakAudio);
+		}
+
+		private void OnEventOnChestOpened(EventOnChestOpened callback)
 		{
 			_services.AudioFxService.PlayClip3D(AudioId.ChestPickup, callback.ChestPosition.ToUnityVector3());
 		}
 
-		private void OnRaycastShotExplosion(EventOnRaycastShotExplosion callback)
+		private void OnEventOnRaycastShotExplosion(EventOnRaycastShotExplosion callback)
 		{
-			PlayExplosionSFX(callback.sourceId, callback.EndPosition.ToUnityVector3());
-		}
-		private void OnHazardExplosion(EventOnHazardLand callback)
-		{
-			PlayExplosionSFX(callback.sourceId, callback.HitPosition.ToUnityVector3());
-		}
-		private void OnProjectileExplosion(EventOnProjectileExplosion callback)
-		{
-			PlayExplosionSFX(callback.sourceId, callback.EndPosition.ToUnityVector3());
+			PlayExplosionSfx(callback.sourceId, callback.EndPosition.ToUnityVector3());
 		}
 
-		private void PlayExplosionSFX(GameId sourceId, Vector3 endPosition)
+		private void OnEventHazardLand(EventOnHazardLand callback)
+		{
+			PlayExplosionSfx(callback.sourceId, callback.HitPosition.ToUnityVector3());
+			CheckClips(nameof(EventOnHazardLand), callback.AttackerEntity);
+		}
+
+		private void OnEventOnProjectileExplosion(EventOnProjectileExplosion callback)
+		{
+			PlayExplosionSfx(callback.sourceId, callback.EndPosition.ToUnityVector3());
+		}
+
+		private void PlayExplosionSfx(GameId sourceId, Vector3 endPosition)
 		{
 			var audio = AudioId.None;
 
 			switch (sourceId)
 			{
-				//specials
 				case GameId.SpecialAimingGrenade:
 					audio = AudioId.ExplosionMedium;
 					break;
@@ -418,34 +663,51 @@ namespace FirstLight.Game.StateMachines
 		private void OnSpecialUsed(EventOnPlayerSpecialUsed callback)
 		{
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
-			
-			var audio = AudioId.None;
 
+			var audio = AudioId.None;
+			var pos = Vector3.zero;
+			var followTransform = (Transform) null;
+			
 			switch (callback.Special.SpecialType)
 			{
 				case SpecialType.Grenade:
 					audio = AudioId.Dash;
+					pos = entityView.transform.position;
 					break;
+				
 				case SpecialType.StunGrenade:
 					audio = AudioId.Dash;
+					pos = callback.HitPosition.ToUnityVector3();
 					break;
+				
 				case SpecialType.ShieldedCharge:
 					audio = AudioId.Dash;
+					pos = entityView.transform.position;
+					followTransform = entityView.transform;
 					break;
+				
 				case SpecialType.Airstrike:
 					audio = AudioId.MissileFlyLoop;
+					pos = callback.HitPosition.ToUnityVector3();
 					break;
 			}
+			
+			var audioSource = _services.AudioFxService.PlayClip3D(audio, pos);
 
-			if(audio == AudioId.MissileFlyLoop)
+			if (audio == AudioId.MissileFlyLoop)
 			{
-				var missileLoop = _services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
 				var despawnEvents = new[] { nameof(EventOnHazardLand) };
-				_currentClips.Add(new LoopedAudioClip(missileLoop, despawnEvents, callback.Entity));
+				
+				_currentClips.Add(new LoopedAudioClip(audioSource, despawnEvents, callback.Entity));
 			}
 			else if (audio != AudioId.None)
 			{
-				_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
+				_services.AudioFxService.PlayClip3D(audio, pos);
+			}
+
+			if (followTransform != null)
+			{
+				audioSource.SetFollowTarget(followTransform, Vector3.zero, Quaternion.identity);
 			}
 		}
 
@@ -489,62 +751,67 @@ namespace FirstLight.Game.StateMachines
 			{
 				audio = AudioId.GearPickup;
 			}
-			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView) && 
+
+			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView) &&
 			    audio != AudioId.None)
 			{
 				_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
-			}			
+			}
 		}
 
 		private void OnPlayerAttack(EventOnPlayerAttack callback)
 		{
-			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView))
-			{
-				var weaponConfig = _services.ConfigsProvider.GetConfig<AudioWeaponConfig>((int) callback.Weapon.GameId);
-				var audio = _services.AudioFxService.PlayClip3D(weaponConfig.WeaponShotId,
-				                                                entityView.transform.position);
-				audio.SetFollowTarget(entityView.transform, Vector3.zero, Quaternion.identity);
-			}
+			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView)) return;
+			
+			var weaponConfig = _services.ConfigsProvider.GetConfig<AudioWeaponConfig>((int) callback.Weapon.GameId);
+			var audio = _services.AudioFxService.PlayClip3D(weaponConfig.WeaponShotId,
+			                                                entityView.transform.position);
+			audio.SetFollowTarget(entityView.transform, Vector3.zero, Quaternion.identity);
 		}
 
 		private void OnDamageBlocked(EventOnDamageBlocked callback)
 		{
-			if (_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
-			{
-				var audio = AudioId.DamageAbsorb;
-				_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
-			}
+			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
+
+			var audio = AudioId.DamageAbsorb;
+			_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
 		}
 
 		private void OnPlayerDamaged(EventOnPlayerDamaged callback)
 		{
-			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView))
-			{
-				return;
-			}
-			
-			var game = callback.Game;
-			var audio = AudioId.None;
+			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
 
-			if (_matchServices.SpectateService.SpectatedPlayer.Value.Player == callback.Player)
+			var audio = AudioId.None;
+			var damagedPlayerIsLocal = _matchServices.SpectateService.SpectatedPlayer.Value.Player == callback.Player;
+			var spectatedEntity = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
+			
+			if (damagedPlayerIsLocal)
 			{
 				audio = callback.ShieldDamage > 0 ? AudioId.TakeShieldDamage : AudioId.TakeHealthDamage;
 			}
-			else if (game.Frames.Verified.TryGet<PlayerCharacter>(callback.Attacker, out var player) &&
-			         _matchServices.SpectateService.SpectatedPlayer.Value.Player == player.Player)
+			else
 			{
 				audio = callback.ShieldDamage > 0 ? AudioId.HitShieldDamage : AudioId.HitHealthDamage;
 			}
-				
+
 			if (callback.ShieldDamage > 0 && callback.HealthDamage > 0)
 			{
-				audio = AudioId.ShieldBreak;
+				audio = damagedPlayerIsLocal ? AudioId.SelfShieldBreak : AudioId.ShieldBreak;
 			}
 
-			if (audio != AudioId.None)
+			if (spectatedEntity == callback.Entity || spectatedEntity == callback.Attacker)
+			{
+				_services.AudioFxService.PlayClip2D(audio);
+			}
+			else
 			{
 				_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
 			}
+		}
+		
+		private bool IsResyncing()
+		{
+			return !_services.NetworkService.IsJoiningNewMatch;
 		}
 	}
 }

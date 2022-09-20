@@ -13,7 +13,7 @@ using PlayFab;
 using Photon.Deterministic;
 using Quantum;
 using Assert = NUnit.Framework.Assert;
-using ModelSerializer = ServerSDK.Modules.ModelSerializer;
+using ModelSerializer = FirstLight.Server.SDK.Modules.ModelSerializer;
 
 /// <summary>
 /// Test suit to test specific blast royale commands.
@@ -64,7 +64,7 @@ public class TestBlastRoyaleCommands
 		};
 		var commandData = new Dictionary<string, string>();
 		commandData[CommandFields.Timestamp] = "1";
-		commandData[CommandFields.ClientVersion] = ServerConfiguration.GetConfig().MinClientVersion;
+		commandData[CommandFields.ClientVersion] = "10.0.0";
 		commandData[CommandFields.Command] = ModelSerializer.Serialize(command).Value;
 		commandData["SecretKey"] = "invalid secret key";
 		var result = await _server.GetService<GameServer>().RunLogic(_server.GetTestPlayerID(), new LogicRequest()
@@ -80,7 +80,7 @@ public class TestBlastRoyaleCommands
 	{
 		var playerRef = new PlayerRef()
 		{
-			_index = 0
+			_index = 1
 		};
 		var matchData = new QuantumPlayerMatchData[]
 		{
@@ -91,7 +91,7 @@ public class TestBlastRoyaleCommands
 					Player = playerRef,
 					Entity = new EntityRef()
 					{
-						Index = 0
+						Index = 1
 					},
 				}
 			}

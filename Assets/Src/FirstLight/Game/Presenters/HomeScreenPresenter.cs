@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using UnityEngine;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Utils;
@@ -8,8 +9,10 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Views.MainMenuViews;
 using Quantum;
+using Sirenix.OdinInspector;
 using TMPro;
 using Button = UnityEngine.UI.Button;
+using Debug = UnityEngine.Debug;
 
 namespace FirstLight.Game.Presenters
 {
@@ -28,22 +31,27 @@ namespace FirstLight.Game.Presenters
 			public Action OnPlayRoomJoinCreateClicked;
 			public Action OnNameChangeClicked;
 			public Action OnGameModeClicked;
+			public Action OnLeaderboardClicked;
+			public Action OnBattlePassClicked;
 		}
 
-		[SerializeField] private Button _playOnlineButton;
-		[SerializeField] private Button _playRoom;
-		[SerializeField] private Button _nameChangeButton;
-		[SerializeField] private Button _settingsButton;
-		[SerializeField] private Button _feedbackButton;
-		[SerializeField] private Button _gameModeButton;
-		[SerializeField] private NewFeatureUnlockedView _newFeaturesView;
-		[SerializeField] private TextMeshProUGUI _selectedGameModeText;
+		[SerializeField, Required] private Button _playOnlineButton;
+		[SerializeField, Required] private Button _playRoom;
+		[SerializeField, Required] private Button _nameChangeButton;
+		[SerializeField, Required] private Button _settingsButton;
+		[SerializeField, Required] private Button _feedbackButton;
+		[SerializeField, Required] private Button _gameModeButton;
+		[SerializeField, Required] private Button _leaderboardButton;
+		[SerializeField, Required] private Button _battlePassButton;
+		[SerializeField, Required] private NewFeatureUnlockedView _newFeaturesView;
+		[SerializeField, Required] private TextMeshProUGUI _selectedGameModeText;
+		[SerializeField, Required] private TextMeshProUGUI _selectedGameModeTimerText;
 
 		// Landscape Mode Buttons
-		[SerializeField] private VisualStateButtonView _lootButton;
-		[SerializeField] private VisualStateButtonView _heroesButton;
-		[SerializeField] private Button _marketplaceButton;
-		[SerializeField] private Button _discordButton;
+		[SerializeField, Required] private VisualStateButtonView _lootButton;
+		[SerializeField, Required] private VisualStateButtonView _heroesButton;
+		[SerializeField, Required] private Button _marketplaceButton;
+		[SerializeField, Required] private Button _discordButton;
 
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
@@ -62,10 +70,23 @@ namespace FirstLight.Game.Presenters
 			_marketplaceButton.onClick.AddListener(OpenMarketplaceLink);
 			_feedbackButton.onClick.AddListener(LeaveFeedbackForm);
 			_discordButton.onClick.AddListener(OpenDiscordLink);
+			_leaderboardButton.onClick.AddListener(OpenLeaderboardUI);
 			_gameModeButton.onClick.AddListener(OpenGameModeClicked);
+			_battlePassButton.onClick.AddListener(OpenBattlePassScreen);
 
+			_leaderboardButton.gameObject.SetActive(FeatureFlags.LEADERBOARD_ACCESSIBLE);
 			_marketplaceButton.gameObject.SetActive(Debug.isDebugBuild);
 			_newFeaturesView.gameObject.SetActive(false);
+		}
+
+		private void Update()
+		{
+			var selectedGameModeInfo = _services.GameModeService.SelectedGameMode.Value;
+			if (!selectedGameModeInfo.IsFixed)
+			{
+				var timeLeft = selectedGameModeInfo.EndTime - DateTime.UtcNow;
+				_selectedGameModeTimerText.text = timeLeft.ToString(@"hh\:mm\:ss");
+			}
 		}
 
 		private void OnDestroy()
@@ -77,7 +98,14 @@ namespace FirstLight.Game.Presenters
 		{
 			base.OnOpened();
 
-			RefreshGameModeButton();
+			_services.GameModeService.SelectedGameMode.InvokeObserve(RefreshGameModeButton);
+		}
+
+		protected override void OnClosed()
+		{
+			base.OnClosed();
+
+			_services.GameModeService.SelectedGameMode.StopObserving(RefreshGameModeButton);
 		}
 
 		private void OnPlayOnlineClicked()
@@ -115,6 +143,11 @@ namespace FirstLight.Game.Presenters
 			Application.OpenURL(GameConstants.Links.MARKETPLACE_URL);
 		}
 
+		private void OpenLeaderboardUI()
+		{
+			Data.OnLeaderboardClicked();
+		}
+
 		private void OpenGameModeClicked()
 		{
 			Data.OnGameModeClicked();
@@ -123,6 +156,11 @@ namespace FirstLight.Game.Presenters
 		private void OpenSocialMenuUI()
 		{
 			Data.OnSocialButtonClicked();
+		}
+
+		private void OpenBattlePassScreen()
+		{
+			Data.OnBattlePassClicked();
 		}
 
 		private void LeaveFeedbackForm()
@@ -135,11 +173,12 @@ namespace FirstLight.Game.Presenters
 			Application.OpenURL(GameConstants.Links.DISCORD_SERVER);
 		}
 
-		private void RefreshGameModeButton()
+		private void RefreshGameModeButton(GameModeInfo _, GameModeInfo info)
 		{
-			var matchType = _gameDataProvider.AppDataProvider.SelectedMatchType.Value.GetTranslation();
-			var gameMode = _gameDataProvider.AppDataProvider.SelectedGameMode.Value.GetTranslation();
-			_selectedGameModeText.text = string.Format(ScriptLocalization.MainMenu.SelectedGameModeValue, matchType.ToUpper(), gameMode.ToUpper());
+			_selectedGameModeTimerText.gameObject.SetActive(!info.IsFixed);
+			_selectedGameModeText.text = string.Format(ScriptLocalization.MainMenu.SelectedGameModeValue,
+			                                           info.Entry.MatchType.GetTranslation().ToUpper(),
+			                                           info.Entry.GameModeId.ToUpper());
 		}
 	}
 }

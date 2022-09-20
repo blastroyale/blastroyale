@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Game.MonoComponent.Vfx;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Views.MapViews;
 using Photon.Deterministic;
 using Quantum;
 using UnityEngine;
@@ -26,7 +28,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private Coroutine _attackHideRendererCoroutine;
 		
-		public List<GameObject> CollidingVisibilityVolumes { get; private set; }
+		public List<VisibilityVolumeMonoComponent> CollidingVisibilityVolumes { get; private set; }
 
 		/// <summary>
 		/// Indicates if this is the local player
@@ -56,7 +58,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			base.OnAwake();
 
-			CollidingVisibilityVolumes = new List<GameObject>();
+			CollidingVisibilityVolumes = new List<VisibilityVolumeMonoComponent>();
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, HandleOnPlayerAlive);
 			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, HandleOnPlayerAttack);
 			QuantumEvent.Subscribe<EventOnPlayerSpecialUsed>(this, HandleOnPlayerSpecialUsed);
@@ -77,6 +79,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void OnDestroy()
 		{
+			if (_attackHideRendererCoroutine != null)
+			{
+				Services.CoroutineService.StopCoroutine(_attackHideRendererCoroutine);
+			}
+			
 			Services.MessageBrokerService.UnsubscribeAll(this);
 		}
 		
@@ -110,7 +117,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			
 			if (Services.NetworkService.IsJoiningNewMatch)
 			{
-				AnimatorWrapper.SetBool(Bools.Flying, frame.Context.MapConfig.GameMode == GameMode.BattleRoyale);
+				AnimatorWrapper.SetBool(Bools.Flying, frame.Context.GameModeConfig.SkydiveSpawn);
 				AnimatorWrapper.SetTrigger(EntityView.EntityRef.IsAlive(frame) ? Triggers.Spawn : Triggers.Die);
 			}
 			else
@@ -126,25 +133,28 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		
 		protected override void OnAvatarEliminated(QuantumGame game)
 		{
+			if (_attackHideRendererCoroutine != null)
+			{
+				Services.CoroutineService.StopCoroutine(_attackHideRendererCoroutine);
+			}
+			
 			base.OnAvatarEliminated(game);
 		}
 
 		private void TryStartAttackWithinVisVolume()
 		{
-			if (EntityRef == MatchServices.SpectateService.SpectatedPlayer.Value.Entity)
+			if (EntityRef == MatchServices.SpectateService.SpectatedPlayer.Value.Entity || 
+			    CollidingVisibilityVolumes.Count == 0)
 			{
 				return;
 			}
-
-			if (CollidingVisibilityVolumes.Count > 0)
+			
+			if (_attackHideRendererCoroutine != null)
 			{
-				if (_attackHideRendererCoroutine != null)
-				{
-					Services.CoroutineService.StopCoroutine(_attackHideRendererCoroutine);
-				}
-				
-				_attackHideRendererCoroutine = Services.CoroutineService.StartCoroutine(AttackWithinVisVolumeCoroutine());
+				Services.CoroutineService.StopCoroutine(_attackHideRendererCoroutine);
 			}
+				
+			_attackHideRendererCoroutine = Services.CoroutineService.StartCoroutine(AttackWithinVisVolumeCoroutine());
 		}
 
 		private IEnumerator AttackWithinVisVolumeCoroutine()
@@ -152,10 +162,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			SetRenderContainerVisible(true);
 
 			yield return new WaitForSeconds(GameConstants.Visuals.GAMEPLAY_POST_ATTACK_HIDE_DURATION);
-
+			
 			if (CollidingVisibilityVolumes.Count > 0)
 			{
-				SetRenderContainerVisible(false);
+				var visVolumeHasSpectatedPlayer = CollidingVisibilityVolumes.Any(visVolume => visVolume.VolumeHasSpectatedPlayer());
+				SetRenderContainerVisible(visVolumeHasSpectatedPlayer);
 			}
 		}
 

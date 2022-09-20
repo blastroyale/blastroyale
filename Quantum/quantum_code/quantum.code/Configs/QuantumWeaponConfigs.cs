@@ -13,13 +13,12 @@ namespace Quantum
 		public FP AimingMovementSpeed;
 		public FP AimTime;
 		public FP AttackCooldown;
-		public FP PowerToDamageRatio;
+		public QuantumGameModePair<FP> PowerToDamageRatio;
 		public FP AttackHitSpeed;
 		public uint MinAttackAngle;
 		public uint MaxAttackAngle;
 		public uint NumberOfShots;
 		public uint NumberOfBursts;
-		public FP AttackRange;
 		public bool CanHitSameTarget;
 		public bool IsProjectile;
 		public FP SplashRadius;
@@ -36,7 +35,7 @@ namespace Quantum
 		/// the same for both BR and DM.
 		/// </remarks>
 		/// </summary>
-		public bool IsMeleeWeapon => MaxAmmo.BattleRoyale < 0;
+		public bool IsMeleeWeapon => Id == GameId.Hammer;
 	}
 
 	/// <summary>

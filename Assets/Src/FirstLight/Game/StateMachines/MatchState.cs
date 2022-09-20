@@ -219,6 +219,8 @@ namespace FirstLight.Game.StateMachines
 		{
 			var tasks = new List<Task>();
 			var config = _services.NetworkService.CurrentRoomMapConfig.Value;
+			var gameModeConfig = _services.NetworkService.CurrentRoomGameModeConfig.Value;
+			var mutatorIds = _services.NetworkService.CurrentRoomMutatorIds;
 			var map = config.Map.ToString();
 			var entityService = new GameObject(nameof(EntityViewUpdaterService)).AddComponent<EntityViewUpdaterService>();
 			var matchServices = new MatchServices(entityService, _services);
@@ -228,7 +230,7 @@ namespace FirstLight.Game.StateMachines
 			MainInstaller.Bind<IMatchServices>(matchServices);
 			// TODO ROB _assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<AudioAdventureAssetConfigs>());
 			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<MatchAssetConfigs>());
-			runnerConfigs.SetRuntimeConfig(config);
+			runnerConfigs.SetRuntimeConfig(gameModeConfig, config, mutatorIds);
 
 			tasks.Add(sceneTask);
 			tasks.Add(_assetAdderService.LoadAllAssets<IndicatorVfxId, GameObject>());
@@ -237,11 +239,12 @@ namespace FirstLight.Game.StateMachines
 			tasks.AddRange(PreloadGameAssets());
 			tasks.AddRange(_uiService.LoadUiSetAsync((int) UiSetId.MatchUi));
 			
-			switch (_services.NetworkService.CurrentRoomMapConfig.Value.GameMode)
+			// TODO: FIX THIS
+			switch (_services.NetworkService.CurrentRoomGameModeConfig.Value.Id)
 			{
-				case GameMode.Deathmatch : tasks.AddRange(_uiService.LoadUiSetAsync((int) UiSetId.DeathMatchMatchUi));
+				case "Deathmatch" : tasks.AddRange(_uiService.LoadUiSetAsync((int) UiSetId.DeathMatchMatchUi));
 					break;
-				case GameMode.BattleRoyale : tasks.AddRange(_uiService.LoadUiSetAsync((int) UiSetId.BattleRoyaleMatchUi));
+				case "BattleRoyale" : tasks.AddRange(_uiService.LoadUiSetAsync((int) UiSetId.BattleRoyaleMatchUi));
 					break;
 			}
 

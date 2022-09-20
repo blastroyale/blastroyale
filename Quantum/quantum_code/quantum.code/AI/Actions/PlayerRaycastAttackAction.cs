@@ -27,6 +27,7 @@ namespace Quantum
 			var aimingDirection = bb->GetVector2(f, Constants.AimDirectionKey).Normalized;
 			var cVelocitySqr = kcc->Velocity.SqrMagnitude;
 			var maxSpeedSqr = kcc->MaxSpeed * kcc->MaxSpeed;
+			var attackRange = f.Get<Stats>(e).GetStatData(StatType.AttackRange).StatValue;
 
 			//targetAttackAngle depend on a current character velocity 
 			var targetAttackAngle = FPMath.Lerp(weaponConfig.MinAttackAngle, weaponConfig.MaxAttackAngle, 
@@ -59,7 +60,7 @@ namespace Quantum
 				PowerAmount = (uint)power.AsInt,
 				KnockbackAmount = weaponConfig.KnockbackAmount,
 				AttackAngle = (uint)targetAttackAngle,
-				Range = weaponConfig.AttackRange,
+				Range = attackRange,
 				Speed = weaponConfig.AttackHitSpeed,
 				SplashRadius = weaponConfig.SplashRadius,
 				CanHitSameTarget = weaponConfig.CanHitSameTarget,

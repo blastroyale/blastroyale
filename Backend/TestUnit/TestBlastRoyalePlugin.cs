@@ -9,10 +9,10 @@ using Microsoft.Extensions.Logging;
 using NUnit.Framework;
 using Photon.Deterministic;
 using Quantum;
-using ServerSDK;
-using ServerSDK.Events;
-using ServerSDK.Modules;
-using ServerSDK.Services;
+using FirstLight.Server.SDK;
+using FirstLight.Server.SDK.Events;
+using FirstLight.Server.SDK.Modules;
+using FirstLight.Server.SDK.Services;
 using Assert = NUnit.Framework.Assert;
 
 public class TestNftSyncPlugin

@@ -14,28 +14,32 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		protected override void OnAwake()
 		{
-			QuantumEvent.Subscribe<EventOnPlayerWeaponChanged>(this, OnWeaponChanged);
+			
 			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, OnEventOnPlayerAttack);
 			QuantumEvent.Subscribe<EventOnPlayerStopAttack>(this, OnEventOnPlayerStopAttack);
 			QuantumEvent.Subscribe<EventOnGameEnded>(this, OnEventOnGameEnded);
+			QuantumEvent.Subscribe<EventOnPlayerEquipmentStatsChanged>(this, OnStatsChanged);
 		}
 		
 		protected override void OnInit(QuantumGame game)
 		{
 			var f = game.Frames.Verified;
 			var playerCharacter = f.Get<PlayerCharacter>(EntityRef);
-			
-			UpdateParticleSystem((int)playerCharacter.CurrentWeapon.GameId);
+			var stats = f.Get<Stats>(EntityRef);
+
+			UpdateParticleSystem((int)playerCharacter.CurrentWeapon.GameId, stats);
 		}
 
-		private void OnWeaponChanged(EventOnPlayerWeaponChanged callback)
+		private void OnStatsChanged(EventOnPlayerEquipmentStatsChanged callback)
 		{
 			if (EntityRef != callback.Entity)
 			{
 				return;
 			}
-			
-			UpdateParticleSystem((int)callback.Weapon.GameId);
+			var f = callback.Game.Frames.Verified;
+			var weaponGameId = f.Get<PlayerCharacter>(EntityRef).CurrentWeapon.GameId;
+			var stats = f.Get<Stats>(EntityRef);
+			UpdateParticleSystem((int)weaponGameId, stats);
 		}
 
 		private void OnEventOnPlayerAttack(EventOnPlayerAttack callback)
@@ -87,9 +91,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			_particleSystem.Stop();
 		}
 
-		private void UpdateParticleSystem(int weaponId)
+		private void UpdateParticleSystem(int weaponId, Stats stats)
 		{
 			var config = Services.ConfigsProvider.GetConfig<QuantumWeaponConfig>(weaponId);
+			
 			var main = _particleSystem.main;
 			var emission = _particleSystem.emission;
 			var speed = config.AttackHitSpeed.AsFloat;
@@ -106,7 +111,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			emission.rateOverTime = 0;
 			main.loop = false;
 			main.startSpeed = speed;
-			main.startLifetime = config.AttackRange.AsFloat / speed ;
+			main.startLifetime = stats.GetStatData(StatType.AttackRange).StatValue.AsFloat / speed ;
 
 			emission.burstCount = 1;
 			var burst = emission.GetBurst(0);

@@ -5,6 +5,7 @@ using FirstLight.Game.Commands;
 using FirstLight.Game.Utils;
 using NUnit.Framework;
 using Quantum;
+using ServerSDK.Modules;
 using Assert = NUnit.Framework.Assert;
 
 namespace Tests
@@ -33,7 +34,6 @@ namespace Tests
 			return convertedCommand;
 		}
 		
-
 		private IQuantumConsensusCommand BuildTestCommand(uint rank)
 		{
 			return new EndOfGameCalculationsCommand()

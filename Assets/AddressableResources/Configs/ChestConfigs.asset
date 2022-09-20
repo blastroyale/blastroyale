@@ -25,7 +25,7 @@ MonoBehaviour:
         Value2: -2
       RandomEquipment:
       - Value1:
-          RawValue: 32768
+          RawValue: 13107
         Value2: 1
       SmallConsumable:
       - Value1:
@@ -45,15 +45,12 @@ MonoBehaviour:
         Value2: -2
       RandomEquipment:
       - Value1:
-          RawValue: 65536
+          RawValue: 32768
         Value2: 1
       SmallConsumable:
       - Value1:
           RawValue: 65536
-        Value2: 1
-      - Value1:
-          RawValue: 39322
-        Value2: 1
+        Value2: 2
       LargeConsumable:
       - Value1:
           RawValue: 6554
@@ -73,7 +70,7 @@ MonoBehaviour:
       SmallConsumable:
       - Value1:
           RawValue: 65536
-        Value2: 1
+        Value2: 2
       LargeConsumable:
       - Value1:
           RawValue: 65536
@@ -123,4 +120,4 @@ MonoBehaviour:
       LargeConsumable:
       - Value1:
           RawValue: 65536
-        Value2: 3
+        Value2: 4

@@ -15,7 +15,7 @@ namespace Quantum
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 			
 			ConsumableType = config.ConsumableType;
-			Amount = config.Amount;
+			Amount = config.Amount.Get(f);
 			CollectTime = config.ConsumableCollectTime.Get(f);
 			
 			transform->Position = position;
@@ -47,7 +47,6 @@ namespace Quantum
 					break;
 				case ConsumableType.ShieldCapacity:
 					stats->GainShieldCapacity(f, playerEntity, Amount.AsInt);
-					stats->GainShield(f, playerEntity, Amount.AsInt);
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();

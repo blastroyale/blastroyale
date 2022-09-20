@@ -36,12 +36,16 @@ namespace I2.Loc
 			public static string JoinedGame1 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/JoinedGame1"); } }
 			public static string KO 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/KO"); } }
 			public static string Kill 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Kill"); } }
+			public static string KillMessageAmount 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/KillMessageAmount"); } }
 			public static string Killing 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Killing"); } }
+			public static string KillingSpreeMessage 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/KillingSpreeMessage"); } }
 			public static string Kills 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Kills"); } }
 			public static string KillsRemaining 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/KillsRemaining"); } }
 			public static string MatchmakingPlayerTitle 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/MatchmakingPlayerTitle"); } }
 			public static string MatchmakingSpectatorTitle 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/MatchmakingSpectatorTitle"); } }
+			public static string Might 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Might"); } }
 			public static string Multi 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Multi"); } }
+			public static string MultikillMessage 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/MultikillMessage"); } }
 			public static string NextWaveIn 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/NextWaveIn"); } }
 			public static string NoRewardsCollected 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/NoRewardsCollected"); } }
 			public static string PlayerLeft 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/PlayerLeft"); } }
@@ -53,6 +57,7 @@ namespace I2.Loc
 			public static string Remaining 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Remaining"); } }
 			public static string RespawnTime 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/RespawnTime"); } }
 			public static string Revives 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Revives"); } }
+			public static string Shield 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Shield"); } }
 			public static string SpawningEnemies 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/SpawningEnemies"); } }
 			public static string SpectateCam1 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/SpectateCam1"); } }
 			public static string SpectateCam2 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/SpectateCam2"); } }
@@ -186,17 +191,118 @@ namespace I2.Loc
 			public static string Bot2 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot2"); } }
 			public static string Bot20 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot20"); } }
 			public static string Bot200 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot200"); } }
+			public static string Bot201 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot201"); } }
+			public static string Bot202 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot202"); } }
+			public static string Bot203 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot203"); } }
+			public static string Bot204 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot204"); } }
+			public static string Bot205 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot205"); } }
+			public static string Bot206 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot206"); } }
+			public static string Bot207 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot207"); } }
+			public static string Bot208 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot208"); } }
+			public static string Bot209 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot209"); } }
 			public static string Bot21 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot21"); } }
+			public static string Bot210 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot210"); } }
+			public static string Bot211 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot211"); } }
+			public static string Bot212 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot212"); } }
+			public static string Bot213 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot213"); } }
+			public static string Bot214 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot214"); } }
+			public static string Bot215 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot215"); } }
+			public static string Bot216 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot216"); } }
+			public static string Bot217 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot217"); } }
+			public static string Bot218 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot218"); } }
+			public static string Bot219 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot219"); } }
 			public static string Bot22 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot22"); } }
+			public static string Bot220 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot220"); } }
+			public static string Bot221 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot221"); } }
+			public static string Bot222 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot222"); } }
+			public static string Bot223 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot223"); } }
+			public static string Bot224 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot224"); } }
+			public static string Bot225 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot225"); } }
+			public static string Bot226 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot226"); } }
+			public static string Bot227 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot227"); } }
+			public static string Bot228 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot228"); } }
+			public static string Bot229 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot229"); } }
 			public static string Bot23 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot23"); } }
+			public static string Bot230 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot230"); } }
+			public static string Bot231 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot231"); } }
+			public static string Bot232 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot232"); } }
+			public static string Bot233 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot233"); } }
+			public static string Bot234 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot234"); } }
+			public static string Bot235 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot235"); } }
+			public static string Bot236 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot236"); } }
+			public static string Bot237 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot237"); } }
+			public static string Bot238 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot238"); } }
+			public static string Bot239 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot239"); } }
 			public static string Bot24 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot24"); } }
+			public static string Bot240 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot240"); } }
+			public static string Bot241 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot241"); } }
+			public static string Bot242 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot242"); } }
+			public static string Bot243 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot243"); } }
+			public static string Bot244 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot244"); } }
+			public static string Bot245 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot245"); } }
+			public static string Bot246 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot246"); } }
+			public static string Bot247 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot247"); } }
+			public static string Bot248 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot248"); } }
+			public static string Bot249 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot249"); } }
 			public static string Bot25 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot25"); } }
+			public static string Bot250 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot250"); } }
+			public static string Bot251 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot251"); } }
+			public static string Bot252 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot252"); } }
+			public static string Bot253 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot253"); } }
+			public static string Bot254 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot254"); } }
+			public static string Bot255 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot255"); } }
+			public static string Bot256 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot256"); } }
+			public static string Bot257 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot257"); } }
+			public static string Bot258 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot258"); } }
+			public static string Bot259 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot259"); } }
 			public static string Bot26 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot26"); } }
+			public static string Bot260 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot260"); } }
+			public static string Bot261 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot261"); } }
+			public static string Bot262 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot262"); } }
+			public static string Bot263 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot263"); } }
+			public static string Bot264 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot264"); } }
+			public static string Bot265 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot265"); } }
+			public static string Bot266 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot266"); } }
+			public static string Bot267 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot267"); } }
+			public static string Bot268 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot268"); } }
+			public static string Bot269 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot269"); } }
 			public static string Bot27 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot27"); } }
+			public static string Bot270 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot270"); } }
+			public static string Bot271 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot271"); } }
+			public static string Bot272 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot272"); } }
+			public static string Bot273 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot273"); } }
+			public static string Bot274 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot274"); } }
+			public static string Bot275 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot275"); } }
+			public static string Bot276 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot276"); } }
+			public static string Bot277 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot277"); } }
+			public static string Bot278 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot278"); } }
+			public static string Bot279 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot279"); } }
 			public static string Bot28 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot28"); } }
+			public static string Bot280 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot280"); } }
+			public static string Bot281 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot281"); } }
+			public static string Bot282 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot282"); } }
+			public static string Bot283 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot283"); } }
+			public static string Bot284 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot284"); } }
+			public static string Bot285 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot285"); } }
+			public static string Bot286 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot286"); } }
+			public static string Bot287 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot287"); } }
+			public static string Bot288 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot288"); } }
+			public static string Bot289 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot289"); } }
 			public static string Bot29 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot29"); } }
+			public static string Bot290 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot290"); } }
+			public static string Bot291 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot291"); } }
+			public static string Bot292 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot292"); } }
+			public static string Bot293 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot293"); } }
+			public static string Bot294 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot294"); } }
+			public static string Bot295 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot295"); } }
+			public static string Bot296 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot296"); } }
+			public static string Bot297 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot297"); } }
+			public static string Bot298 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot298"); } }
+			public static string Bot299 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot299"); } }
 			public static string Bot3 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot3"); } }
 			public static string Bot30 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot30"); } }
+			public static string Bot300 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot300"); } }
+			public static string Bot301 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot301"); } }
 			public static string Bot31 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot31"); } }
 			public static string Bot32 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot32"); } }
 			public static string Bot33 		{ get{ return LocalizationManager.GetTranslation ("BotNames/Bot33"); } }
@@ -323,6 +429,7 @@ namespace I2.Loc
 			public static string ChickenDinner 		{ get{ return LocalizationManager.GetTranslation ("GameIds/ChickenDinner"); } }
 			public static string CommonBox 		{ get{ return LocalizationManager.GetTranslation ("GameIds/CommonBox"); } }
 			public static string CommonCore 		{ get{ return LocalizationManager.GetTranslation ("GameIds/CommonCore"); } }
+			public static string Custom 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Custom"); } }
 			public static string DamagePill 		{ get{ return LocalizationManager.GetTranslation ("GameIds/DamagePill"); } }
 			public static string Deathmatch 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Deathmatch"); } }
 			public static string Diagonalshot 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Diagonalshot"); } }
@@ -570,6 +677,7 @@ namespace I2.Loc
 			public static string Ordinal7 		{ get{ return LocalizationManager.GetTranslation ("General/Ordinal7"); } }
 			public static string Ordinal8 		{ get{ return LocalizationManager.GetTranslation ("General/Ordinal8"); } }
 			public static string Ordinal9 		{ get{ return LocalizationManager.GetTranslation ("General/Ordinal9"); } }
+			public static string PickupSpeed 		{ get{ return LocalizationManager.GetTranslation ("General/PickupSpeed"); } }
 			public static string PlacementMessage 		{ get{ return LocalizationManager.GetTranslation ("General/PlacementMessage"); } }
 			public static string Power 		{ get{ return LocalizationManager.GetTranslation ("General/Power"); } }
 			public static string PowerToDamageRatio 		{ get{ return LocalizationManager.GetTranslation ("General/PowerToDamageRatio"); } }
@@ -655,6 +763,7 @@ namespace I2.Loc
 			public static string DefeatedBossXTimes 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DefeatedBossXTimes"); } }
 			public static string Demo 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Demo"); } }
 			public static string DetailLevel 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DetailLevel"); } }
+			public static string DialogueSetting 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DialogueSetting"); } }
 			public static string DisconnectedMatchEndInfo 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DisconnectedMatchEndInfo"); } }
 			public static string DragAndReleaseToFire 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DragAndReleaseToFire"); } }
 			public static string DragAndReleaseToFireDescription 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DragAndReleaseToFireDescription"); } }
@@ -696,6 +805,10 @@ namespace I2.Loc
 			public static string Loot 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Loot"); } }
 			public static string MainMenuButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/MainMenuButton"); } }
 			public static string ManualFire 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ManualFire"); } }
+			public static string MatchmakingKickButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/MatchmakingKickButton"); } }
+			public static string MatchmakingKickConfirm 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/MatchmakingKickConfirm"); } }
+			public static string MatchmakingKickInfo 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/MatchmakingKickInfo"); } }
+			public static string MatchmakingKickedNotification 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/MatchmakingKickedNotification"); } }
 			public static string MatchmakingMatchType 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/MatchmakingMatchType"); } }
 			public static string Meters 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Meters"); } }
 			public static string MightRating 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/MightRating"); } }
@@ -956,12 +1069,16 @@ namespace I2.Loc
 		    public const string JoinedGame1 = "AdventureMenu/JoinedGame1";
 		    public const string KO = "AdventureMenu/KO";
 		    public const string Kill = "AdventureMenu/Kill";
+		    public const string KillMessageAmount = "AdventureMenu/KillMessageAmount";
 		    public const string Killing = "AdventureMenu/Killing";
+		    public const string KillingSpreeMessage = "AdventureMenu/KillingSpreeMessage";
 		    public const string Kills = "AdventureMenu/Kills";
 		    public const string KillsRemaining = "AdventureMenu/KillsRemaining";
 		    public const string MatchmakingPlayerTitle = "AdventureMenu/MatchmakingPlayerTitle";
 		    public const string MatchmakingSpectatorTitle = "AdventureMenu/MatchmakingSpectatorTitle";
+		    public const string Might = "AdventureMenu/Might";
 		    public const string Multi = "AdventureMenu/Multi";
+		    public const string MultikillMessage = "AdventureMenu/MultikillMessage";
 		    public const string NextWaveIn = "AdventureMenu/NextWaveIn";
 		    public const string NoRewardsCollected = "AdventureMenu/NoRewardsCollected";
 		    public const string PlayerLeft = "AdventureMenu/PlayerLeft";
@@ -973,6 +1090,7 @@ namespace I2.Loc
 		    public const string Remaining = "AdventureMenu/Remaining";
 		    public const string RespawnTime = "AdventureMenu/RespawnTime";
 		    public const string Revives = "AdventureMenu/Revives";
+		    public const string Shield = "AdventureMenu/Shield";
 		    public const string SpawningEnemies = "AdventureMenu/SpawningEnemies";
 		    public const string SpectateCam1 = "AdventureMenu/SpectateCam1";
 		    public const string SpectateCam2 = "AdventureMenu/SpectateCam2";
@@ -1106,17 +1224,118 @@ namespace I2.Loc
 		    public const string Bot2 = "BotNames/Bot2";
 		    public const string Bot20 = "BotNames/Bot20";
 		    public const string Bot200 = "BotNames/Bot200";
+		    public const string Bot201 = "BotNames/Bot201";
+		    public const string Bot202 = "BotNames/Bot202";
+		    public const string Bot203 = "BotNames/Bot203";
+		    public const string Bot204 = "BotNames/Bot204";
+		    public const string Bot205 = "BotNames/Bot205";
+		    public const string Bot206 = "BotNames/Bot206";
+		    public const string Bot207 = "BotNames/Bot207";
+		    public const string Bot208 = "BotNames/Bot208";
+		    public const string Bot209 = "BotNames/Bot209";
 		    public const string Bot21 = "BotNames/Bot21";
+		    public const string Bot210 = "BotNames/Bot210";
+		    public const string Bot211 = "BotNames/Bot211";
+		    public const string Bot212 = "BotNames/Bot212";
+		    public const string Bot213 = "BotNames/Bot213";
+		    public const string Bot214 = "BotNames/Bot214";
+		    public const string Bot215 = "BotNames/Bot215";
+		    public const string Bot216 = "BotNames/Bot216";
+		    public const string Bot217 = "BotNames/Bot217";
+		    public const string Bot218 = "BotNames/Bot218";
+		    public const string Bot219 = "BotNames/Bot219";
 		    public const string Bot22 = "BotNames/Bot22";
+		    public const string Bot220 = "BotNames/Bot220";
+		    public const string Bot221 = "BotNames/Bot221";
+		    public const string Bot222 = "BotNames/Bot222";
+		    public const string Bot223 = "BotNames/Bot223";
+		    public const string Bot224 = "BotNames/Bot224";
+		    public const string Bot225 = "BotNames/Bot225";
+		    public const string Bot226 = "BotNames/Bot226";
+		    public const string Bot227 = "BotNames/Bot227";
+		    public const string Bot228 = "BotNames/Bot228";
+		    public const string Bot229 = "BotNames/Bot229";
 		    public const string Bot23 = "BotNames/Bot23";
+		    public const string Bot230 = "BotNames/Bot230";
+		    public const string Bot231 = "BotNames/Bot231";
+		    public const string Bot232 = "BotNames/Bot232";
+		    public const string Bot233 = "BotNames/Bot233";
+		    public const string Bot234 = "BotNames/Bot234";
+		    public const string Bot235 = "BotNames/Bot235";
+		    public const string Bot236 = "BotNames/Bot236";
+		    public const string Bot237 = "BotNames/Bot237";
+		    public const string Bot238 = "BotNames/Bot238";
+		    public const string Bot239 = "BotNames/Bot239";
 		    public const string Bot24 = "BotNames/Bot24";
+		    public const string Bot240 = "BotNames/Bot240";
+		    public const string Bot241 = "BotNames/Bot241";
+		    public const string Bot242 = "BotNames/Bot242";
+		    public const string Bot243 = "BotNames/Bot243";
+		    public const string Bot244 = "BotNames/Bot244";
+		    public const string Bot245 = "BotNames/Bot245";
+		    public const string Bot246 = "BotNames/Bot246";
+		    public const string Bot247 = "BotNames/Bot247";
+		    public const string Bot248 = "BotNames/Bot248";
+		    public const string Bot249 = "BotNames/Bot249";
 		    public const string Bot25 = "BotNames/Bot25";
+		    public const string Bot250 = "BotNames/Bot250";
+		    public const string Bot251 = "BotNames/Bot251";
+		    public const string Bot252 = "BotNames/Bot252";
+		    public const string Bot253 = "BotNames/Bot253";
+		    public const string Bot254 = "BotNames/Bot254";
+		    public const string Bot255 = "BotNames/Bot255";
+		    public const string Bot256 = "BotNames/Bot256";
+		    public const string Bot257 = "BotNames/Bot257";
+		    public const string Bot258 = "BotNames/Bot258";
+		    public const string Bot259 = "BotNames/Bot259";
 		    public const string Bot26 = "BotNames/Bot26";
+		    public const string Bot260 = "BotNames/Bot260";
+		    public const string Bot261 = "BotNames/Bot261";
+		    public const string Bot262 = "BotNames/Bot262";
+		    public const string Bot263 = "BotNames/Bot263";
+		    public const string Bot264 = "BotNames/Bot264";
+		    public const string Bot265 = "BotNames/Bot265";
+		    public const string Bot266 = "BotNames/Bot266";
+		    public const string Bot267 = "BotNames/Bot267";
+		    public const string Bot268 = "BotNames/Bot268";
+		    public const string Bot269 = "BotNames/Bot269";
 		    public const string Bot27 = "BotNames/Bot27";
+		    public const string Bot270 = "BotNames/Bot270";
+		    public const string Bot271 = "BotNames/Bot271";
+		    public const string Bot272 = "BotNames/Bot272";
+		    public const string Bot273 = "BotNames/Bot273";
+		    public const string Bot274 = "BotNames/Bot274";
+		    public const string Bot275 = "BotNames/Bot275";
+		    public const string Bot276 = "BotNames/Bot276";
+		    public const string Bot277 = "BotNames/Bot277";
+		    public const string Bot278 = "BotNames/Bot278";
+		    public const string Bot279 = "BotNames/Bot279";
 		    public const string Bot28 = "BotNames/Bot28";
+		    public const string Bot280 = "BotNames/Bot280";
+		    public const string Bot281 = "BotNames/Bot281";
+		    public const string Bot282 = "BotNames/Bot282";
+		    public const string Bot283 = "BotNames/Bot283";
+		    public const string Bot284 = "BotNames/Bot284";
+		    public const string Bot285 = "BotNames/Bot285";
+		    public const string Bot286 = "BotNames/Bot286";
+		    public const string Bot287 = "BotNames/Bot287";
+		    public const string Bot288 = "BotNames/Bot288";
+		    public const string Bot289 = "BotNames/Bot289";
 		    public const string Bot29 = "BotNames/Bot29";
+		    public const string Bot290 = "BotNames/Bot290";
+		    public const string Bot291 = "BotNames/Bot291";
+		    public const string Bot292 = "BotNames/Bot292";
+		    public const string Bot293 = "BotNames/Bot293";
+		    public const string Bot294 = "BotNames/Bot294";
+		    public const string Bot295 = "BotNames/Bot295";
+		    public const string Bot296 = "BotNames/Bot296";
+		    public const string Bot297 = "BotNames/Bot297";
+		    public const string Bot298 = "BotNames/Bot298";
+		    public const string Bot299 = "BotNames/Bot299";
 		    public const string Bot3 = "BotNames/Bot3";
 		    public const string Bot30 = "BotNames/Bot30";
+		    public const string Bot300 = "BotNames/Bot300";
+		    public const string Bot301 = "BotNames/Bot301";
 		    public const string Bot31 = "BotNames/Bot31";
 		    public const string Bot32 = "BotNames/Bot32";
 		    public const string Bot33 = "BotNames/Bot33";
@@ -1243,6 +1462,7 @@ namespace I2.Loc
 		    public const string ChickenDinner = "GameIds/ChickenDinner";
 		    public const string CommonBox = "GameIds/CommonBox";
 		    public const string CommonCore = "GameIds/CommonCore";
+		    public const string Custom = "GameIds/Custom";
 		    public const string DamagePill = "GameIds/DamagePill";
 		    public const string Deathmatch = "GameIds/Deathmatch";
 		    public const string Diagonalshot = "GameIds/Diagonalshot";
@@ -1490,6 +1710,7 @@ namespace I2.Loc
 		    public const string Ordinal7 = "General/Ordinal7";
 		    public const string Ordinal8 = "General/Ordinal8";
 		    public const string Ordinal9 = "General/Ordinal9";
+		    public const string PickupSpeed = "General/PickupSpeed";
 		    public const string PlacementMessage = "General/PlacementMessage";
 		    public const string Power = "General/Power";
 		    public const string PowerToDamageRatio = "General/PowerToDamageRatio";
@@ -1575,6 +1796,7 @@ namespace I2.Loc
 		    public const string DefeatedBossXTimes = "MainMenu/DefeatedBossXTimes";
 		    public const string Demo = "MainMenu/Demo";
 		    public const string DetailLevel = "MainMenu/DetailLevel";
+		    public const string DialogueSetting = "MainMenu/DialogueSetting";
 		    public const string DisconnectedMatchEndInfo = "MainMenu/DisconnectedMatchEndInfo";
 		    public const string DragAndReleaseToFire = "MainMenu/DragAndReleaseToFire";
 		    public const string DragAndReleaseToFireDescription = "MainMenu/DragAndReleaseToFireDescription";
@@ -1616,6 +1838,10 @@ namespace I2.Loc
 		    public const string Loot = "MainMenu/Loot";
 		    public const string MainMenuButton = "MainMenu/MainMenuButton";
 		    public const string ManualFire = "MainMenu/ManualFire";
+		    public const string MatchmakingKickButton = "MainMenu/MatchmakingKickButton";
+		    public const string MatchmakingKickConfirm = "MainMenu/MatchmakingKickConfirm";
+		    public const string MatchmakingKickInfo = "MainMenu/MatchmakingKickInfo";
+		    public const string MatchmakingKickedNotification = "MainMenu/MatchmakingKickedNotification";
 		    public const string MatchmakingMatchType = "MainMenu/MatchmakingMatchType";
 		    public const string Meters = "MainMenu/Meters";
 		    public const string MightRating = "MainMenu/MightRating";

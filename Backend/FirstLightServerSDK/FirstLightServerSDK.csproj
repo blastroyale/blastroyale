@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net48</TargetFramework>
+        <Nullable>enable</Nullable>
+        <LangVersion>8</LangVersion>
+        <OutputType>Library</OutputType>
+        <Optimize>true</Optimize>
+        <OutputPath>../../Assets/Src/FirstLight/Server/Plugin</OutputPath>
+    </PropertyGroup>
+    
+    <ItemGroup>
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.1" ExcludeAssets="runtime" />
+    </ItemGroup>
+
+</Project>

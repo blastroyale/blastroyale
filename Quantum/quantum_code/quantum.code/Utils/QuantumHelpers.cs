@@ -321,11 +321,42 @@ namespace Quantum
 		}
 
 		/// <summary>
+		/// Finds the closest <see cref="Transform3D.Position"/> of any object with component <see cref="AirDropSpawner"/> attached.
+		/// </summary>
+		public static FPVector3 GetClosestAirdropPoint(Frame f, FPVector3 targetPoint)
+		{
+			var closestPoint = FPVector3.Zero;
+			var shortestDist = FP.MaxValue;
+
+			foreach(var spawner in f.GetComponentIterator<AirDropSpawner>())
+			{
+				var spawnerPos = spawner.Entity.GetPosition(f);
+				var distanceToSpawner = FPVector3.DistanceSquared(targetPoint, spawnerPos); 
+
+				if (distanceToSpawner < shortestDist)
+				{
+					shortestDist = distanceToSpawner;
+					closestPoint = spawnerPos;
+				}	
+			}
+
+			return closestPoint;
+		}
+
+		/// <summary>
 		/// Returns a random item from <paramref name="items"/>, with equal chance for each.
 		/// </summary>
 		public static T GetRandomItem<T>(Frame f, params T[] items)
 		{
 			return items[f.RNG->Next(0, items.Length)];
+		}
+
+		/// <summary>
+		/// Requests the <see cref="Transform3D"/> position of this <paramref name="entity"/>.
+		/// </summary>
+		public static FPVector3 GetPosition(this EntityRef entity, Frame f)
+		{
+			return f.Unsafe.GetPointer<Transform3D>(entity)->Position;
 		}
 	}
 }

@@ -3,9 +3,11 @@ using Photon.Deterministic;
 using Photon.Deterministic.Server.Interface;
 using Photon.Hive.Plugin;
 using quantum.custom.plugin;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using FirstLight.Game.Ids;
 
 namespace Quantum
 {
@@ -18,14 +20,25 @@ namespace Quantum
 		private readonly CustomQuantumServer _server;
 		private readonly EndGameCommandConsensusHandler _consensus;
 		private List<int> _actorsOnlineWhenLastCommandReceived;
-		private bool _isRanked;
+		private MatchType _matchType = MatchType.Custom;
 
-		public CustomQuantumPlugin(IServer server) : base(server)
+		public CustomQuantumPlugin(Dictionary<String, String> config, IServer server) : base(server)
 		{
 			Assert.Check(server is CustomQuantumServer);
 			_consensus = new EndGameCommandConsensusHandler();
 			_server = (CustomQuantumServer)server;
 			_actorsOnlineWhenLastCommandReceived = new List<int>();
+			if(config.TryGetValue("ForceRanked", out var forceRanked) && forceRanked == "true")
+			{
+				_matchType = MatchType.Ranked;
+				Log.Info("Forcing match as a ranked match");
+			}
+			if (config.TryGetValue("TestConsensus", out var testConsensus) && testConsensus == "true")
+			{
+				FlgConfig.TEST_CONSENSUS = true;
+				Log.Info("Test Consensus Mode");
+			}
+
 		}
 
 		/// <summary>
@@ -33,13 +46,6 @@ namespace Quantum
 		/// </summary>
 		public override void OnRaiseEvent(IRaiseEventCallInfo info)
 		{
-			if (!_isRanked)
-			{
-				base.OnRaiseEvent(info);
-				return;
-			}
-				
-
 			if (info.Request.EvCode == (int)QuantumCustomEvents.ConsensusCommand)
 			{
 				info.Cancel();
@@ -81,27 +87,23 @@ namespace Quantum
 			base.OnCreateGame(info);
 			if (FlgConfig.TEST_CONSENSUS)
 			{ 
-				_isRanked = true;
+				_matchType = MatchType.Ranked;
 			}
 			if (!info.CreateOptions.TryGetValue("CustomProperties", out var propsObject))
 			{
+				Log.Debug("No Custom Properties");
 				return;
 			}
 			var customProperties = propsObject as Hashtable;
 			if(customProperties==null)
 			{
+				Log.Debug("No Custom Properties");
 				return;
 			}
-			if(!customProperties.ContainsKey("isRanked"))
-			{
-				return;
-			}
-			if (!(bool)customProperties["isRanked"])
-			{
-				return;
-			}
-			_isRanked = true;
-			Log.Info("Game Created");
+
+			Enum.TryParse((string) customProperties["matchType"], out _matchType);
+			
+			Log.Info($"Created {_matchType.ToString()} game");
 		}
 
 		/// <summary>
@@ -124,10 +126,6 @@ namespace Quantum
 		/// </summary>
 		public override void OnCloseGame(ICloseGameCallInfo info)
 		{
-			if (!FlgConfig.TEST_CONSENSUS)
-			{
-				RunCommandConsensus();
-			}
 			RunCommandConsensus();
 			_consensus.Dispose();
 			_server.Dispose();
@@ -146,7 +144,6 @@ namespace Quantum
 		}
 
 		private QuantumValues GetCommandQuantumValues(int actorNr)
-
 		{
 			return new QuantumValues()
 			{
@@ -154,7 +151,7 @@ namespace Quantum
 				{
 					_index = _server.GetClientIndexByActorNumber(actorNr),
 				},
-				Ranked = _isRanked
+				MatchType = _matchType
 			};
 		}
 

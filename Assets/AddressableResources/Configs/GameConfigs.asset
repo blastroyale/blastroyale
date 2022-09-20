@@ -23,13 +23,13 @@ MonoBehaviour:
       DoubleKillTimeLimit: 10
       RoomLockKillCount: 14
       MatchmakingTime:
-        RawValue: 983040
+        RawValue: 0
       CasualMatchmakingTime:
         RawValue: 983040
       RankedMatchmakingTime:
         RawValue: 7864320
-      RankedMatchmakingMinPlayers: 19
-      BotsNameCount: 200
+      RankedMatchmakingMinPlayers: 10
+      BotsNameCount: 300
       PlayerRespawnTime:
         RawValue: 262144
       PlayerForceRespawnTime:
@@ -39,29 +39,50 @@ MonoBehaviour:
       ShrinkingDamageCooldown:
         RawValue: 65536
       PlayerDefaultHealth:
-        BattleRoyale: 800
-        Deathmatch: 800
+        Default: 1000
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: e803000020030000
       PlayerDefaultSpeed:
-        BattleRoyale:
+        Default:
           RawValue: 196608
-        Deathmatch:
-          RawValue: 294912
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 196608
+        - RawValue: 262144
       PlayerMaxShieldCapacity:
-        BattleRoyale: 1600
-        Deathmatch: 400
+        Default: 1600
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: 4006000020030000
       PlayerStartingShieldCapacity:
-        BattleRoyale: 200
-        Deathmatch: 400
+        Default: 200
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: c800000020030000
       CollectableCollectTime:
-        BattleRoyale:
-          RawValue: 78643
-        Deathmatch:
-          RawValue: 39322
+        Default:
+          RawValue: 117965
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 117965
+        - RawValue: 39322
       PlayerAliveShieldDuration:
-        BattleRoyale:
+        Default:
           RawValue: 0
-        Deathmatch:
-          RawValue: 196608
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 0
+        - RawValue: 196608
       MaxPlayerRanks: 25
       RageStatusDamageMultiplier:
         RawValue: 196608
@@ -90,3 +111,5 @@ MonoBehaviour:
         RawValue: 6554
       AirdropHeight:
         RawValue: 1310720
+      MultiKillResetTime:
+        RawValue: 262144

@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace FirstLight.Tests.EditorMode.Logic
 {
-	public class RngLogicTest : BaseTestFixture<RngData>
+	public class RngLogicTest : MockedTestFixture<RngData>
 	{
 		private const int _seed = 1;
 		private RngLogic _rngLogic;

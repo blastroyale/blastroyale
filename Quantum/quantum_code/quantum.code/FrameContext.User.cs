@@ -1,81 +1,41 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using Photon.Deterministic;
 
 namespace Quantum
 {
 	public unsafe partial class FrameContextUser
 	{
-		private readonly List<Equipment> _playersWeaponPool = new List<Equipment>();
-
-		private EquipmentRarity _averageRarity;
+		private Dictionary<MutatorType, QuantumMutatorConfig> _mutators;
 
 		public QuantumMapConfig MapConfig { get; internal set; }
+		
+		public QuantumGameModeConfig GameModeConfig { get; internal set; }
+
+		public List<QuantumMutatorConfig> MutatorConfigs { get; internal set; }
+		
 		public int TargetAllLayerMask { get; internal set; }
 
 		/// <summary>
-		/// Requests the players weapon pool list, ordered by its rarity
+		/// Requests the current game's mutator by type
 		/// </summary>
-		public IReadOnlyList<Equipment> GetPlayerWeapons(Frame f, out EquipmentRarity averageRarity)
+		public bool TryGetMutatorByType(MutatorType type, out QuantumMutatorConfig quantumMutatorConfig)
 		{
-			if (_playersWeaponPool.Count > 0)
+			if (_mutators == null)
 			{
-				averageRarity = _averageRarity;
-
-				return _playersWeaponPool;
-			}
-
-			var offPool = GameIdGroup.Weapon.GetIds();
-			var rarity = 0;
-
-			for (var i = 0; i < f.PlayerCount; i++)
-			{
-				var playerData = f.GetPlayerData(i);
-
-				if (playerData == null)
+				_mutators = new Dictionary<MutatorType, QuantumMutatorConfig>();
+				foreach (var config in MutatorConfigs)
 				{
-					continue;
-				}
-
-				var weapon = playerData.Loadout.FirstOrDefault(e => e.IsWeapon());
-
-				if (weapon.IsValid())
-				{
-					rarity += (int) weapon.Rarity;
-
-					_playersWeaponPool.Add(weapon);
+					_mutators[config.Type] = config;
 				}
 			}
 
-			// Fill up weapon pool to a minimum size
-			var poolIndex = _playersWeaponPool.Count;
-			while (_playersWeaponPool.Count < Constants.OFFHAND_POOLSIZE)
+			if (_mutators.ContainsKey(type))
 			{
-				var gameId = offPool[poolIndex++];
-
-				if (gameId == GameId.Hammer) continue;
-
-				var equipment = new Equipment(gameId);
-				rarity += (int) equipment.Rarity;
-				_playersWeaponPool.Add(equipment);
+				quantumMutatorConfig = _mutators[type];
+				return true;
 			}
 
-			averageRarity = (EquipmentRarity) FPMath.FloorToInt((FP) rarity / _playersWeaponPool.Count);
-
-			// We only save the list on verified frames to avoid de-syncs
-			if (f.IsPredicted)
-			{
-				var predictedList = new List<Equipment>(_playersWeaponPool);
-
-				_playersWeaponPool.Clear();
-
-				return predictedList;
-			}
-
-			_averageRarity = averageRarity;
-
-			return _playersWeaponPool;
+			quantumMutatorConfig = default;
+			return false;
 		}
 	}
 }

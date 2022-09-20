@@ -1,10 +1,15 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
+using Backend.Game.Services;
+using FirstLight.Server.SDK.Models;
+using FirstLight.Server.SDK.Services;
 using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ServerModels;
-
-namespace Scripts.Base;
 
 /// <summary>
 /// Playfab configuration for a single environment
@@ -53,6 +58,14 @@ public abstract class PlayfabScript : IScript
 		}},
 	};
 	
+	public PlayfabScript()
+	{
+		var playfabSetup = GetPlayfabConfiguration();
+		PlayFabSettings.staticSettings.TitleId = playfabSetup.TitleId;
+		PlayFabSettings.staticSettings.DeveloperSecretKey = playfabSetup.SecretKey;
+		Console.WriteLine($"Using Playfab Title {PlayFabSettings.staticSettings.TitleId}");
+	}
+	
 	public abstract PlayfabEnvironment GetEnvironment();
 
 	protected PlayfabConfiguration GetPlayfabConfiguration()
@@ -82,11 +95,64 @@ public abstract class PlayfabScript : IScript
 		throw new Exception($"Playfab Error {error.ErrorMessage}:{JsonConvert.SerializeObject(error.ErrorDetails)}");
 	}
 	
-	public PlayfabScript()
+	/// <summary>
+	/// Reads user state from playfab
+	/// </summary>
+	protected async Task<ServerState> ReadUserState(string playfabId)
 	{
-		var playfabSetup = GetPlayfabConfiguration();
-		PlayFabSettings.staticSettings.TitleId = playfabSetup.TitleId;
-		PlayFabSettings.staticSettings.DeveloperSecretKey = playfabSetup.SecretKey;
-		Console.WriteLine($"Using Playfab Title {PlayFabSettings.staticSettings.TitleId}");
+		var userDataResult = await PlayFabServerAPI.GetUserReadOnlyDataAsync(new GetUserDataRequest()
+		{
+			PlayFabId = playfabId
+		});
+		if (userDataResult.Error != null)
+		{
+			Console.WriteLine($"Error finding user {playfabId}");
+			return null;
+		}
+		var userDataJson = userDataResult.Result.Data.ToDictionary(
+		                                                           entry => entry.Key,
+		                                                           entry => entry.Value.Value);
+		return new ServerState(userDataJson);
 	}
+	
+	/// <summary>
+	/// Updates the given server state on playfab for a given user.
+	/// </summary>
+	protected async Task SetUserState(string playerId, ServerState state)
+	{
+		var result = await PlayFabServerAPI.UpdateUserReadOnlyDataAsync(new UpdateUserDataRequest()
+		{
+			PlayFabId = playerId,
+			Data = state
+		});
+		if (result.Error != null)
+		{
+			Console.WriteLine($"Error updating user {playerId}");
+		}
+		else
+		{
+			Console.WriteLine($"User {playerId} updated");
+		}
+	}
+	
+	/// <summary>
+	/// Deletes specific keys from playfab user readonly data
+	/// </summary>
+	protected async Task DeleteStateKey(string playerId, params string [] keys)
+	{
+		var result = await PlayFabServerAPI.UpdateUserReadOnlyDataAsync(new UpdateUserDataRequest()
+		{
+			PlayFabId = playerId,
+			KeysToRemove = keys.ToList()
+		});
+		if (result.Error != null)
+		{
+			Console.WriteLine($"Error deleteing key for user user {playerId}");
+		}
+		else
+		{
+			Console.WriteLine($"User {playerId} got keys deleted");
+		}
+	}
+	
 }

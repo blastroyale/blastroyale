@@ -20,6 +20,7 @@ namespace Quantum.Systems
 		public override void Update(Frame f, ref PlayerCharacterFilter filter)
 		{
 			ProcessPlayerInput(f, ref filter);
+			UpdateHealthPerSecMutator(f, ref filter);
 		}
 
 		/// <inheritdoc />
@@ -35,9 +36,9 @@ namespace Quantum.Systems
 
 			
 			var spawnTransform = new Transform3D {Position = FPVector3.Zero, Rotation = FPQuaternion.Identity};
-			var startingEquipment = f.Context.MapConfig.GameMode == GameMode.BattleRoyale
-				                        ? Array.Empty<Equipment>()
-				                        : playerData.Loadout;
+			var startingEquipment = f.Context.GameModeConfig.SpawnWithLoadout
+				                        ? playerData.Loadout :
+				                        Array.Empty<Equipment>();
 
 			spawnTransform.Position = spawnPosition.XOY;
 
@@ -56,37 +57,41 @@ namespace Quantum.Systems
 
 			var deathPosition = f.Get<Transform3D>(entity).Position;
 			var step = 0;
-			var gameMode = f.Context.MapConfig.GameMode;
+			var gameModeConfig = f.Context.GameModeConfig;
 
 			playerDead->Dead(f, entity, attacker);
 
-			//when you kill a player in BR we drop also his/hers weapon
-			if (f.Context.MapConfig.GameMode == GameMode.BattleRoyale && !playerDead->HasMeleeWeapon(f, entity))
+			// Try to drop player weapon
+			if (gameModeConfig.WeaponDeathDropStrategy >= DeathDropsStrategy.Normal && 
+			    !playerDead->HasMeleeWeapon(f, entity))
 			{
 				Collectable.DropEquipment(f, playerDead->CurrentWeapon, deathPosition, step);
 				step++;
 			}
 
 			// Try to drop Health pack
-			if (f.RNG->Next() <= f.GameConfig.DeathDropHealthChance)
+			if (gameModeConfig.HealthDeathDropStrategy >= DeathDropsStrategy.Normal &&
+			    f.RNG->Next() <= f.GameConfig.DeathDropHealthChance)
 			{
 				Collectable.DropConsumable(f, GameId.Health, deathPosition, step, false);
 				step++;
 			}
-			else if (gameMode == GameMode.BattleRoyale)
+			else if (gameModeConfig.HealthDeathDropStrategy == DeathDropsStrategy.NormalWithFallback)
 			{
 				Collectable.DropConsumable(f, GameId.AmmoSmall, deathPosition, step, false);
 				step++;
 			}
-			
+
 			var armourDropChance = f.RNG->Next();
 
 			// Try to drop ShieldLarge
-			if (armourDropChance <= f.GameConfig.DeathDropLargeShieldChance)
+			if (gameModeConfig.ShieldDeathDropStrategy >= DeathDropsStrategy.Normal &&
+			    armourDropChance <= f.GameConfig.DeathDropLargeShieldChance)
 			{
 				Collectable.DropConsumable(f, GameId.ShieldLarge, deathPosition, step, false);
 			}
-			else if (gameMode == GameMode.BattleRoyale && armourDropChance <= f.GameConfig.DeathDropSmallShieldChance)
+			else if (gameModeConfig.ShieldDeathDropStrategy == DeathDropsStrategy.NormalWithFallback &&
+			         armourDropChance <= f.GameConfig.DeathDropSmallShieldChance)
 			{
 				Collectable.DropConsumable(f, GameId.ShieldSmall, deathPosition, step, false);
 			}
@@ -120,6 +125,38 @@ namespace Quantum.Systems
 			bb->Set(f, Constants.IsAimPressedKey, input->IsShootButtonDown);
 			bb->Set(f, Constants.AimDirectionKey, rotation);
 			bb->Set(f, Constants.MoveDirectionKey, movedirection);
+		}
+		
+		private void UpdateHealthPerSecMutator(Frame f, ref PlayerCharacterFilter filter)
+		{
+			if (!f.Context.TryGetMutatorByType(MutatorType.HealthPerSeconds, out var healthPerSecondsMutatorConfig))
+			{
+				return;
+			}
+
+			var health = healthPerSecondsMutatorConfig.Param1.AsInt;
+			var seconds = healthPerSecondsMutatorConfig.Param2.AsInt;
+
+			var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
+			
+			if (f.Time > gameContainer->MutatorsState.HealthPerSecLastTime + seconds)
+			{
+				gameContainer->MutatorsState.HealthPerSecLastTime = f.Time;
+				
+				if (!f.Unsafe.TryGetPointer<Stats>(filter.Entity, out var stats))
+				{
+					return;
+				}
+
+				if (health > 0)
+				{
+					stats->GainHealth(f, filter.Entity, new Spell(){ PowerAmount = (uint)health });
+				}
+				else
+				{
+					stats->ReduceHealth(f, filter.Entity, new Spell(){ PowerAmount = (uint)health });
+				}
+			}
 		}
 	}
 }

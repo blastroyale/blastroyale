@@ -698,7 +698,8 @@ namespace I2.Loc
 			public static string Sell 		{ get{ return LocalizationManager.GetTranslation ("General/Sell"); } }
 			public static string SellItemFor 		{ get{ return LocalizationManager.GetTranslation ("General/SellItemFor"); } }
 			public static string SellLastWeaponWarning 		{ get{ return LocalizationManager.GetTranslation ("General/SellLastWeaponWarning"); } }
-			public static string Shield 		{ get{ return LocalizationManager.GetTranslation ("General/Shield"); } }
+			public static string Shield_Capacity 		{ get{ return LocalizationManager.GetTranslation ("General/Shield Capacity"); } }
+			public static string ShieldCapacity 		{ get{ return LocalizationManager.GetTranslation ("General/ShieldCapacity"); } }
 			public static string SlotEmpty 		{ get{ return LocalizationManager.GetTranslation ("General/SlotEmpty"); } }
 			public static string SpecialId 		{ get{ return LocalizationManager.GetTranslation ("General/SpecialId"); } }
 			public static string Spectate 		{ get{ return LocalizationManager.GetTranslation ("General/Spectate"); } }
@@ -774,6 +775,8 @@ namespace I2.Loc
 			public static string EnhanceItemsNeeded 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/EnhanceItemsNeeded"); } }
 			public static string EnhanceResults 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/EnhanceResults"); } }
 			public static string EventsComingSoon 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/EventsComingSoon"); } }
+			public static string FirstLightIdConnected 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/FirstLightIdConnected"); } }
+			public static string FirstLightIdNeedConnection 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/FirstLightIdNeedConnection"); } }
 			public static string FirstVictoryRewards 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/FirstVictoryRewards"); } }
 			public static string FreeSlot 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/FreeSlot"); } }
 			public static string Fuse 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Fuse"); } }
@@ -797,6 +800,7 @@ namespace I2.Loc
 			public static string Loading 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Loading"); } }
 			public static string Locked 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Locked"); } }
 			public static string LoginButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/LoginButton"); } }
+			public static string LoginFirstLightId 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/LoginFirstLightId"); } }
 			public static string LoginOrText 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/LoginOrText"); } }
 			public static string LoginTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/LoginTitle"); } }
 			public static string LogoutButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/LogoutButton"); } }
@@ -847,7 +851,9 @@ namespace I2.Loc
 			public static string QuitGameButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/QuitGameButton"); } }
 			public static string ReachPlayerLevelAdventure 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ReachPlayerLevelAdventure"); } }
 			public static string ReconnectButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ReconnectButton"); } }
+			public static string RegisterAdvice 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RegisterAdvice"); } }
 			public static string RegisterButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RegisterButton"); } }
+			public static string RegisterFirstLightId 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RegisterFirstLightId"); } }
 			public static string RegisterSuccess 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RegisterSuccess"); } }
 			public static string RegisterTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RegisterTitle"); } }
 			public static string RememberMe 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RememberMe"); } }
@@ -1737,7 +1743,8 @@ namespace I2.Loc
 		    public const string Sell = "General/Sell";
 		    public const string SellItemFor = "General/SellItemFor";
 		    public const string SellLastWeaponWarning = "General/SellLastWeaponWarning";
-		    public const string Shield = "General/Shield";
+		    public const string Shield_Capacity = "General/Shield Capacity";
+		    public const string ShieldCapacity = "General/ShieldCapacity";
 		    public const string SlotEmpty = "General/SlotEmpty";
 		    public const string SpecialId = "General/SpecialId";
 		    public const string Spectate = "General/Spectate";
@@ -1813,6 +1820,8 @@ namespace I2.Loc
 		    public const string EnhanceItemsNeeded = "MainMenu/EnhanceItemsNeeded";
 		    public const string EnhanceResults = "MainMenu/EnhanceResults";
 		    public const string EventsComingSoon = "MainMenu/EventsComingSoon";
+		    public const string FirstLightIdConnected = "MainMenu/FirstLightIdConnected";
+		    public const string FirstLightIdNeedConnection = "MainMenu/FirstLightIdNeedConnection";
 		    public const string FirstVictoryRewards = "MainMenu/FirstVictoryRewards";
 		    public const string FreeSlot = "MainMenu/FreeSlot";
 		    public const string Fuse = "MainMenu/Fuse";
@@ -1836,6 +1845,7 @@ namespace I2.Loc
 		    public const string Loading = "MainMenu/Loading";
 		    public const string Locked = "MainMenu/Locked";
 		    public const string LoginButton = "MainMenu/LoginButton";
+		    public const string LoginFirstLightId = "MainMenu/LoginFirstLightId";
 		    public const string LoginOrText = "MainMenu/LoginOrText";
 		    public const string LoginTitle = "MainMenu/LoginTitle";
 		    public const string LogoutButton = "MainMenu/LogoutButton";
@@ -1886,7 +1896,9 @@ namespace I2.Loc
 		    public const string QuitGameButton = "MainMenu/QuitGameButton";
 		    public const string ReachPlayerLevelAdventure = "MainMenu/ReachPlayerLevelAdventure";
 		    public const string ReconnectButton = "MainMenu/ReconnectButton";
+		    public const string RegisterAdvice = "MainMenu/RegisterAdvice";
 		    public const string RegisterButton = "MainMenu/RegisterButton";
+		    public const string RegisterFirstLightId = "MainMenu/RegisterFirstLightId";
 		    public const string RegisterSuccess = "MainMenu/RegisterSuccess";
 		    public const string RegisterTitle = "MainMenu/RegisterTitle";
 		    public const string RememberMe = "MainMenu/RememberMe";

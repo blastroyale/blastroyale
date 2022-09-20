@@ -874,11 +874,20 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: General/Shield
+    - Term: General/Shield Capacity
       TermType: 0
       Description: 
       Languages:
       - Shields
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: General/ShieldCapacity
+      TermType: 0
+      Description: 
+      Languages:
+      - Shield Capacity
       - 
       - 
       Flags: 000000
@@ -3130,6 +3139,51 @@ MonoBehaviour:
       Description: 
       Languages:
       - Play as a Guest
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/RegisterAdvice
+      TermType: 0
+      Description: 
+      Languages:
+      - to save progress and unlock more possibilities!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/FirstLightIdConnected
+      TermType: 0
+      Description: 
+      Languages:
+      - First Light ID Connected
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/FirstLightIdNeedConnection
+      TermType: 0
+      Description: 
+      Languages:
+      - Connect First Light ID
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/RegisterFirstLightId
+      TermType: 0
+      Description: 
+      Languages:
+      - Register new First Light ID
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/LoginFirstLightId
+      TermType: 0
+      Description: 
+      Languages:
+      - Login to existing First Light ID
       - 
       - 
       Flags: 000000
@@ -8952,7 +9006,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1663671719442
+    Google_LastUpdatedVersion: 1663679551439
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

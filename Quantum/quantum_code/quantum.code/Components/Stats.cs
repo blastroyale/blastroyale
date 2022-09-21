@@ -85,7 +85,7 @@ namespace Quantum
 			var previousMaxShield = GetStatData(StatType.Shield).StatValue.AsInt;
 
 			RefreshStats(f, weapon, gear);
-			
+
 			var newMaxHealth = GetStatData(StatType.Health).StatValue.AsInt;
 			var newMaxShield = GetStatData(StatType.Shield).StatValue.AsInt;
 			var newHealthAmount = Math.Min(CurrentHealth + Math.Max(newMaxHealth - previousMaxHeath, 0), newMaxHealth);
@@ -319,7 +319,7 @@ namespace Quantum
 				QuantumStatCalculator.CalculateGearStats(f, gear[i], out var armour2, out var health2, out var speed2, 
 				                                         out var power2, out var attackRange2, out var pickupSpeed2, 
 														 out var ammoCapacity2, out var shieldCapacity2);
-				
+
 				health += health2;
 				speed += speed2;
 				armour += armour2;

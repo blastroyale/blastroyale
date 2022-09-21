@@ -253,10 +253,16 @@ namespace Quantum
 			Assert.Check(!gear.IsWeapon(), gear);
 
 			var gearSlot = GetGearSlot(gear);
-			Gear[gearSlot] = gear;
 			
-			f.Unsafe.GetPointer<Stats>(e)->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Gear);
+			Gear[gearSlot] = gear;
 
+			QuantumStatCalculator.CalculateGearStats(f, gear, out var armour, out var health, out var speed,
+														 out var power, out var attackRange, out var pickupSpeed,
+														 out var ammoCapacity, out var shieldCapacity);
+
+			f.Unsafe.GetPointer<Stats>(e)->GainShieldCapacity(f, e, shieldCapacity.AsInt);
+			f.Unsafe.GetPointer<Stats>(e)->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Gear);
+			
 			f.Events.OnPlayerGearChanged(Player, e, gear, gearSlot);
 		}
 

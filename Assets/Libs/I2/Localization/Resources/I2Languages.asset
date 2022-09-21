@@ -874,11 +874,20 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: General/Shield
+    - Term: General/Shield Capacity
       TermType: 0
       Description: 
       Languages:
       - Shields
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: General/ShieldCapacity
+      TermType: 0
+      Description: 
+      Languages:
+      - Shield Capacity
       - 
       - 
       Flags: 000000
@@ -3121,6 +3130,87 @@ MonoBehaviour:
       Description: 
       Languages:
       - mutator 2
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/PlayAsGuestButton
+      TermType: 0
+      Description: 
+      Languages:
+      - Play as a Guest
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/RegisterAdvice
+      TermType: 0
+      Description: 
+      Languages:
+      - to save progress and unlock more possibilities!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/FirstLightIdConnected
+      TermType: 0
+      Description: 
+      Languages:
+      - First Light ID Connected
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/FirstLightIdNeedConnection
+      TermType: 0
+      Description: 
+      Languages:
+      - Connect First Light ID
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/RegisterFirstLightId
+      TermType: 0
+      Description: 
+      Languages:
+      - Register new First Light ID
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/LoginFirstLightId
+      TermType: 0
+      Description: 
+      Languages:
+      - Login to existing First Light ID
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/PrepareForActionBasic
+      TermType: 0
+      Description: 
+      Languages:
+      - Prepare for action!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/PrepareForActionTimer
+      TermType: 0
+      Description: 
+      Languages:
+      - Starting in {0} sec!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/PrepareForActionWaiting
+      TermType: 0
+      Description: 
+      Languages:
+      - Waiting for players!
       - 
       - 
       Flags: 000000
@@ -8943,7 +9033,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1663576697611
+    Google_LastUpdatedVersion: 1663692046659
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

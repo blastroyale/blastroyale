@@ -44,7 +44,6 @@ namespace FirstLight.Tests.EditorMode.Logic
 		public void CalculateMatchRewards_WinningPlacement_GetsCorrectRewards()
 		{
 			_matchData.PlayerRank = 1;
-			FeatureFlags.BATTLE_PASS_ENABLED = true;
 			var rewards = _rewardLogic.CalculateMatchRewards(MatchType.Ranked, _matchData, false);
 			
 			Assert.AreEqual(2, rewards.Count);
@@ -56,7 +55,6 @@ namespace FirstLight.Tests.EditorMode.Logic
 		public void CalculateMatchRewards_NoWinningPlacement_GetsLastRewards()
 		{
 			_matchData.PlayerRank = 10;
-			FeatureFlags.BATTLE_PASS_ENABLED = true;
 			var rewards = _rewardLogic.CalculateMatchRewards(MatchType.Ranked, _matchData, false);
 			
 			Assert.AreEqual(2, rewards.Count);
@@ -68,7 +66,6 @@ namespace FirstLight.Tests.EditorMode.Logic
 		public void GiveMatchRewards_WinningPlacement_GetsCorrectRewards()
 		{
 			_matchData.PlayerRank = 1;
-			FeatureFlags.BATTLE_PASS_ENABLED = true;
 			var rewards = _rewardLogic.GiveMatchRewards(MatchType.Ranked, _matchData, false);
 			
 			Assert.AreEqual(2, rewards.Count);
@@ -80,7 +77,6 @@ namespace FirstLight.Tests.EditorMode.Logic
 		public void GiveMatchRewards_NoWinningPlacement_GetsLastRewards()
 		{
 			_matchData.PlayerRank = 10;
-			FeatureFlags.BATTLE_PASS_ENABLED = true;
 			var rewards = _rewardLogic.GiveMatchRewards(MatchType.Ranked, _matchData, false);
 			
 			Assert.AreEqual(2, rewards.Count);
@@ -92,7 +88,6 @@ namespace FirstLight.Tests.EditorMode.Logic
 		public void GiveMatchRewards_EmptyPool_RewardsNothing()
 		{
 			_matchData.PlayerRank = 1;
-			FeatureFlags.BATTLE_PASS_ENABLED = true;
 			SetupZeroResources();
 			var rewards = _rewardLogic.GiveMatchRewards(MatchType.Ranked, _matchData, false);
 
@@ -112,7 +107,6 @@ namespace FirstLight.Tests.EditorMode.Logic
 		public void GiveMatchRewards_Custom_RewardsNothing()
 		{
 			_matchData.PlayerRank = 1;
-			FeatureFlags.BATTLE_PASS_ENABLED = true;
 			var rewards = _rewardLogic.GiveMatchRewards(MatchType.Custom, _matchData, false);
 			
 			Assert.AreEqual(0, rewards.Count);
@@ -122,7 +116,6 @@ namespace FirstLight.Tests.EditorMode.Logic
 		public void GiveMatchRewards_Casual_OnlyRewardsBPP()
 		{
 			_matchData.PlayerRank = 1;
-			FeatureFlags.BATTLE_PASS_ENABLED = true;
 			var rewards = _rewardLogic.GiveMatchRewards(MatchType.Casual, _matchData, false);
 			
 			Assert.AreEqual(1, rewards.Count);
@@ -132,10 +125,8 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void GiveMatchRewards_EmptyMatchData_RewardsNothing()
 		{
-			FeatureFlags.BATTLE_PASS_ENABLED = true;
-			var rewards = _rewardLogic.GiveMatchRewards(MatchType.Ranked, new QuantumPlayerMatchData(), false);
-
-			Assert.AreEqual(0, rewards.Count);
+			Assert.Throws<MatchDataEmptyException>(() => _rewardLogic.GiveMatchRewards(MatchType.Ranked,
+				                                       new QuantumPlayerMatchData(), false));
 		}
 
 		[Test]
@@ -173,6 +164,8 @@ namespace FirstLight.Tests.EditorMode.Logic
 
 		private void SetupData()
 		{
+			FeatureFlags.BATTLE_PASS_ENABLED = true;
+			
 			var resourceInfoCS = new ResourcePoolInfo { WinnerRewardAmount = RESOURCEINFO_CSS_WINAMOUNT, CurrentAmount = RESOURCEINFO_CSS_STARTAMOUNT };
 			ResourceLogic.GetResourcePoolInfo(GameId.CS).Returns(resourceInfoCS);
 			var resourceInfoBPP = new ResourcePoolInfo { CurrentAmount = RESOURCEINFO_BPP_STARTAMOUNT };

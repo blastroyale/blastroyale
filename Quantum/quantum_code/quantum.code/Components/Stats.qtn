@@ -22,7 +22,7 @@ enum StatType
 	Shield,
 	AttackRange,
 	PickupSpeed,
-    AmmoCapacity,
+	AmmoCapacity,
 }
 
 struct StatData

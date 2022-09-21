@@ -25,7 +25,8 @@ namespace Quantum
 		                                                             GetStatData(StatType.Power).BaseValue,
 		                                                             GetStatData(StatType.AttackRange).BaseValue,
 		                                                             GetStatData(StatType.PickupSpeed).BaseValue,
-																	 GetStatData(StatType.AmmoCapacity).BaseValue);
+																	 GetStatData(StatType.AmmoCapacity).BaseValue,
+																	 GetStatData(StatType.Shield).BaseValue);
 		
 		public Stats(FP baseHealth, FP basePower, FP baseSpeed, FP baseArmour, FP maxShields, FP startingShields, 
 		             FP baseRange, FP basePickupSpeed, FP baseAmmoCapacity)
@@ -284,12 +285,13 @@ namespace Quantum
 			var modifiers = f.ResolveList(Modifiers);
 			
 			GetLoadoutStats(f, weapon, gear, out var armour, out var health, out var speed, out var power, 
-			                out var attackRange, out var pickupSpeed, out var ammoCapacity);
+			                out var attackRange, out var pickupSpeed, out var ammoCapacity, out var shieldCapacity);
 			
 			health += f.GameConfig.PlayerDefaultHealth.Get(f);
 			speed += f.GameConfig.PlayerDefaultSpeed.Get(f);
 			ammoCapacity += f.WeaponConfigs.GetConfig(weapon.GameId).MaxAmmo.Get(f);
-			
+			maxShields += shieldCapacity.AsInt;
+
 			Values[(int) StatType.Health] = new StatData(health, health, StatType.Health);
 			Values[(int) StatType.Shield] = new StatData(maxShields, startingShields, StatType.Shield);
 			Values[(int) StatType.Power] = new StatData(power, power, StatType.Power);
@@ -307,16 +309,16 @@ namespace Quantum
 		
 		private void GetLoadoutStats(Frame f, Equipment weapon, FixedArray<Equipment> gear, out int armour, 
 		                             out int health, out FP speed, out FP power, out FP attackRange, out FP pickupSpeed, 
-									 out FP ammoCapacity)
+									 out FP ammoCapacity, out FP shieldCapacity)
 		{
 			QuantumStatCalculator.CalculateWeaponStats(f, weapon, out armour, out health, out speed, out power, 
-			                                           out attackRange, out pickupSpeed, out ammoCapacity);
+			                                           out attackRange, out pickupSpeed, out ammoCapacity, out shieldCapacity);
 
 			for (var i = 0; i < gear.Length; i++)
 			{
 				QuantumStatCalculator.CalculateGearStats(f, gear[i], out var armour2, out var health2, out var speed2, 
 				                                         out var power2, out var attackRange2, out var pickupSpeed2, 
-														 out var ammoCapacity2);
+														 out var ammoCapacity2, out var shieldCapacity2);
 				
 				health += health2;
 				speed += speed2;
@@ -325,6 +327,7 @@ namespace Quantum
 				attackRange += attackRange2;
 				pickupSpeed += pickupSpeed2;
 				ammoCapacity += ammoCapacity2;
+				shieldCapacity += shieldCapacity2;
 			}
 		}
 

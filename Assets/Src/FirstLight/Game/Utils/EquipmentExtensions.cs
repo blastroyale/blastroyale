@@ -47,9 +47,7 @@ namespace FirstLight.Game.Utils
 				                                                    baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
 				stats.Add(EquipmentStatType.MaxCapacity, 
 				          QuantumStatCalculator.CalculateWeaponStat(weaponConfig, statConfigs[(int)StatType.AmmoCapacity],
-				                                                    baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat + 
-				          weaponConfig.MaxAmmo.GetDefault());
-
+				                                                    baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
 				stats.Add(EquipmentStatType.ShieldCapacity,
 						  QuantumStatCalculator.CalculateWeaponStat(weaponConfig, statConfigs[(int)StatType.Shield],
 																	baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);

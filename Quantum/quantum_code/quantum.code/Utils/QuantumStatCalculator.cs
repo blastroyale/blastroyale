@@ -77,8 +77,16 @@ namespace Quantum
 		/// </summary>
 		public static int GetTotalMight(FP armour, FP health, FP speed, FP power, FP attackRange, FP pickupSpeed, FP ammoCapacity)
 		{
-			//TODO: add more stats to might calculation
-			return FPMath.RoundToInt(power + health + speed * FP._100 + armour * FP._10);
+			//TODO: Use data from StatDataConfig instead of magic numbers
+			//TODO: Subtract default character values from calculation of Might that comes from health, speed, pickupSpeed
+			//TODO: Subtract base weapon values from calculation of Might that comes from power, attackRange, ammoCapacity
+			return FPMath.RoundToInt(armour * FP._10
+			                         + health * (FP._0_10 + FP._0_05)
+			                         + speed * (FP._10 * FP._6)
+			                         + power * FP._1
+			                         + attackRange * (FP._10 + FP._10)
+			                         + pickupSpeed * FP._200
+			                         + ammoCapacity * FP._2);
 		}
 
 		/// <summary>

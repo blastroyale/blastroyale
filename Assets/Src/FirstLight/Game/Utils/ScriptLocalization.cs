@@ -698,7 +698,6 @@ namespace I2.Loc
 			public static string Sell 		{ get{ return LocalizationManager.GetTranslation ("General/Sell"); } }
 			public static string SellItemFor 		{ get{ return LocalizationManager.GetTranslation ("General/SellItemFor"); } }
 			public static string SellLastWeaponWarning 		{ get{ return LocalizationManager.GetTranslation ("General/SellLastWeaponWarning"); } }
-			public static string Shield_Capacity 		{ get{ return LocalizationManager.GetTranslation ("General/Shield Capacity"); } }
 			public static string ShieldCapacity 		{ get{ return LocalizationManager.GetTranslation ("General/ShieldCapacity"); } }
 			public static string SlotEmpty 		{ get{ return LocalizationManager.GetTranslation ("General/SlotEmpty"); } }
 			public static string SpecialId 		{ get{ return LocalizationManager.GetTranslation ("General/SpecialId"); } }
@@ -717,7 +716,6 @@ namespace I2.Loc
 			public static string Yes 		{ get{ return LocalizationManager.GetTranslation ("General/Yes"); } }
 			public static string YouWereDisconnected 		{ get{ return LocalizationManager.GetTranslation ("General/YouWereDisconnected"); } }
 			public static string character 		{ get{ return LocalizationManager.GetTranslation ("General/character"); } }
-			public static string AmmoCapacity 		{ get{ return LocalizationManager.GetTranslation ("General/AmmoCapacity"); } }
 		}
 
 		public static class LoadingTips
@@ -855,7 +853,6 @@ namespace I2.Loc
 			public static string QuitGameButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/QuitGameButton"); } }
 			public static string ReachPlayerLevelAdventure 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ReachPlayerLevelAdventure"); } }
 			public static string ReconnectButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ReconnectButton"); } }
-			public static string RegisterAdvice 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RegisterAdvice"); } }
 			public static string RegisterButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RegisterButton"); } }
 			public static string RegisterFirstLightId 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RegisterFirstLightId"); } }
 			public static string RegisterSuccess 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RegisterSuccess"); } }
@@ -919,10 +916,6 @@ namespace I2.Loc
 			public static string UsernameTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/UsernameTitle"); } }
 			public static string ViewAll 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ViewAll"); } }
 			public static string WeaponIsAtMaxLevel 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/WeaponIsAtMaxLevel"); } }
-			public static string RoomJoinCreateGameModeSelect 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomJoinCreateGameModeSelect"); } }
-			public static string RoomJoinCreateMapSelect 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomJoinCreateMapSelect"); } }
-			public static string RoomJoinCreateMutatorOneSelect 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomJoinCreateMutatorOneSelect"); } }
-			public static string RoomJoinCreateMutatorTwoSelect 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomJoinCreateMutatorTwoSelect"); } }
 		}
 
 		public static class MapDropPoints
@@ -1751,7 +1744,6 @@ namespace I2.Loc
 		    public const string Sell = "General/Sell";
 		    public const string SellItemFor = "General/SellItemFor";
 		    public const string SellLastWeaponWarning = "General/SellLastWeaponWarning";
-		    public const string Shield_Capacity = "General/Shield Capacity";
 		    public const string ShieldCapacity = "General/ShieldCapacity";
 		    public const string SlotEmpty = "General/SlotEmpty";
 		    public const string SpecialId = "General/SpecialId";
@@ -1770,7 +1762,6 @@ namespace I2.Loc
 		    public const string Yes = "General/Yes";
 		    public const string YouWereDisconnected = "General/YouWereDisconnected";
 		    public const string character = "General/character";
-		    public const string AmmoCapacity = "General/AmmoCapacity";
 		}
 
 		public static class LoadingTips
@@ -1908,7 +1899,6 @@ namespace I2.Loc
 		    public const string QuitGameButton = "MainMenu/QuitGameButton";
 		    public const string ReachPlayerLevelAdventure = "MainMenu/ReachPlayerLevelAdventure";
 		    public const string ReconnectButton = "MainMenu/ReconnectButton";
-		    public const string RegisterAdvice = "MainMenu/RegisterAdvice";
 		    public const string RegisterButton = "MainMenu/RegisterButton";
 		    public const string RegisterFirstLightId = "MainMenu/RegisterFirstLightId";
 		    public const string RegisterSuccess = "MainMenu/RegisterSuccess";
@@ -1972,10 +1962,6 @@ namespace I2.Loc
 		    public const string UsernameTitle = "MainMenu/UsernameTitle";
 		    public const string ViewAll = "MainMenu/ViewAll";
 		    public const string WeaponIsAtMaxLevel = "MainMenu/WeaponIsAtMaxLevel";
-		    public const string RoomJoinCreateGameModeSelect = "MainMenu/RoomJoinCreateGameModeSelect";
-		    public const string RoomJoinCreateMapSelect = "MainMenu/RoomJoinCreateMapSelect";
-		    public const string RoomJoinCreateMutatorOneSelect = "MainMenu/RoomJoinCreateMutatorOneSelect";
-		    public const string RoomJoinCreateMutatorTwoSelect = "MainMenu/RoomJoinCreateMutatorTwoSelect";
 		}
 
 		public static class MapDropPoints

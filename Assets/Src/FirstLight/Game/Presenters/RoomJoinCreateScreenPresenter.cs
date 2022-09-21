@@ -187,8 +187,7 @@ namespace FirstLight.Game.Presenters
 
 			foreach (var gameModeConfig in gameModeConfigs)
 			{
-				// TODO: Add "Is Debug Mode" into game mode configuration to avoid checking for "Testing"
-				if (!Debug.isDebugBuild && gameModeConfig.Id == "Testing")
+				if (gameModeConfig.IsDebugOnly && !Debug.isDebugBuild)
 				{
 					continue;
 				}

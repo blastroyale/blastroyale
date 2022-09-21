@@ -127,6 +127,13 @@ namespace Quantum
 
 #endregion
 
+#region Debug
+
+		[FoldoutGroup("Debug"), PropertyTooltip(DESC_IS_DEBUG_ONLY)]
+		public bool IsDebugOnly;
+
+#endregion
+
 		[ValueDropdown("GetOptionalSystems"), ListDrawerSettings(Expanded = true), PropertyTooltip(DESC_SYSTEMS)]
 		public List<string> Systems;
 
@@ -178,6 +185,7 @@ namespace Quantum
 		private const string DESC_GAME_SIMULATION_SM = "Which state machine to use for game simulation";
 		private const string DESC_AUDIO_SM = "Which state machine to use for audio.";
 		private const string DESC_SYSTEMS = "Which Quantum systems should be enabled for this game mode.";
+		private const string DESC_IS_DEBUG_ONLY = "Marks this game mode to be available only in Debug builds.";
 		// @formatter:on
 
 #endregion

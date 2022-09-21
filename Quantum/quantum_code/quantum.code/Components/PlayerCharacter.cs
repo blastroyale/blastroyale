@@ -256,7 +256,7 @@ namespace Quantum
 			
 			Gear[gearSlot] = gear;
 			
-			f.Unsafe.GetPointer<Stats>(e)->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Gear);
+			f.Unsafe.GetPointer<Stats>(e)->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Gear, gear);
 			
 			f.Events.OnPlayerGearChanged(Player, e, gear, gearSlot);
 		}
@@ -462,7 +462,7 @@ namespace Quantum
 			blackboard->Set(f, Constants.HasMeleeWeaponKey, weaponConfig.IsMeleeWeapon);
 			blackboard->Set(f, Constants.BurstTimeDelay, burstCooldown);
 			
-			f.Unsafe.GetPointer<Stats>(e)->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Gear);
+			f.Unsafe.GetPointer<Stats>(e)->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Gear, Equipment.None);
 
 			return weaponConfig;
 		}

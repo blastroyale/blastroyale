@@ -74,21 +74,23 @@ namespace Quantum
 			
 			CurrentHealth = GetStatData(StatType.Health).StatValue.AsInt;
 		}
-		
+
 		/// <summary>
 		/// Refresh the <paramref name="player"/> stats based on the given loadout data
 		/// </summary>
-		internal void RefreshEquipmentStats(Frame f, PlayerRef player, EntityRef e, Equipment weapon, FixedArray<Equipment> gear)
+		internal void RefreshEquipmentStats(Frame f, PlayerRef player, EntityRef e, Equipment weapon, FixedArray<Equipment> gear, Equipment pickup)
 		{
 			var previousStats = this;
 			var previousMaxHeath = GetStatData(StatType.Health).StatValue.AsInt;
 			var previousMaxShield = GetStatData(StatType.Shield).StatValue.AsInt;
 
-			GetLoadoutStats(f, weapon, gear, out var armour, out var health, out var speed, out var power, 
-				out var attackRange, out var pickupSpeed, out var ammoCapacity, out var shieldCapacity);
+			if(!pickup.Equals(Equipment.None) && previousMaxShield != 0)
+			{
+				QuantumStatCalculator.CalculateGearStats(f, pickup, out var armour, out var health, out var speed, out var power,
+					out var attackRange, out var pickupSpeed, out var ammoCapacity, out var shieldCapacity);
 
-			GainShieldCapacity(f, e, shieldCapacity.AsInt);
-			
+				GainShieldCapacity(f, e, shieldCapacity.AsInt);
+			}
 
 			RefreshStats(f, weapon, gear);
 

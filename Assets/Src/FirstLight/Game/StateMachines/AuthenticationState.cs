@@ -116,12 +116,13 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnConnectionError(ServerHttpError msg)
 		{
+			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Session, "Invalid Session Ticket:"+msg.Message );
+			
 			if (msg.ErrorCode != HttpStatusCode.Unauthorized)
 			{
 				throw new PlayFabException(PlayFabExceptionCode.AuthContextRequired, msg.Message);
 			}
-
-			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Session, "Invalid Session Ticket");
+			
 			LoginWithDevice();
 			_services.PlayfabService.CallFunction("GetPlayerData", res => 
 					OnPlayerDataObtained(res, null), OnPlayFabError);
@@ -148,6 +149,8 @@ namespace FirstLight.Game.StateMachines
 		
 		private void OnPlayFabError(PlayFabError error) 
 		{
+			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Login, error.ErrorMessage);
+			
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.OK,
@@ -173,6 +176,7 @@ namespace FirstLight.Game.StateMachines
 			_dataService.GetData<AppData>().DeviceId = null;
 			_dataService.SaveData<AppData>();
 			_statechartTrigger(_authenticationFailEvent);
+			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Login, "AutomaticLogin:"+error.ErrorMessage);
 		}
 
 		private bool HasLinkedDevice()
@@ -234,7 +238,7 @@ namespace FirstLight.Game.StateMachines
 #if LIVE_SERVER
 			environment = "live";
 			PlayFabSettings.TitleId = "***REMOVED***";
-			quantumSettings.AppSettings.AppIdRealtime = "bfdaace0-bcbd-4554-8527-bf418791bbd4";
+			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
 			_passwordRecoveryEmailTemplateId = "***REMOVED***";
 #elif OFFCHAIN_SERVER
 			environment = "offchain";

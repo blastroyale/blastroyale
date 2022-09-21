@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using FirstLight.FLogger;
 using UnityEngine;
 
 // ReSharper disable CheckNamespace
@@ -137,10 +138,8 @@ namespace FirstLight.Statechart.Internal
 
 			try
 			{
-				if (IsStateLogsEnabled)
-				{
-					Debug.Log($"TaskWait - '{eventName}' : '{_taskAwaitAction.Target}.{_taskAwaitAction.Method.Name}()' => '{Name}'");
-				}
+				FLog.Verbose("Statechart", $"TaskWait - '{eventName}' : " +
+				                           $"'{_taskAwaitAction.Target}.{_taskAwaitAction.Method.Name}()' => '{Name}'");
 
 				await Task.Yield();
 				await _taskAwaitAction();

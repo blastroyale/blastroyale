@@ -65,7 +65,7 @@ public class GameServer
 			ValidateCommand(currentPlayerState, commandInstance, requestData);
 			
 			var newState = await _cmdHandler.ExecuteCommand(commandInstance, currentPlayerState);
-			_eventManager.CallEvent(new CommandFinishedEvent(playerId, commandInstance, newState, commandData));
+			_eventManager.CallEvent(new CommandFinishedEvent(playerId, commandInstance, newState, currentPlayerState, commandData));
 			await _state.UpdatePlayerState(playerId, newState);
 			
 			if(requestData.TryGetValue(CommandFields.ConfigurationVersion, out var clientConfigVersion))

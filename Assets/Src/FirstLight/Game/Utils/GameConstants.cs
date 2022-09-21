@@ -11,7 +11,6 @@ namespace FirstLight.Game.Utils
 		public static class Editor
 		{
 			public const string PREFS_USE_LOCAL_SERVER_KEY = "UseLocalServer";
-			public const string PREFS_ENABLE_STATE_MACHINE_DEBUG_KEY = "EnableStateMachineDebug";
 		}
 
 		public static class Scenes
@@ -101,7 +100,7 @@ namespace FirstLight.Game.Utils
 		{
 			// Time control values
 			public const int DEFAULT_PLAYER_TTL_MS = 30000;
-			public const int EMPTY_ROOM_TTL_MS = 15000;
+			public const int EMPTY_ROOM_TTL_MS = 10000;
 			public const int EMPTY_ROOM_PLAYTEST_TTL_MS = 1000;
 
 			// Player properties
@@ -115,7 +114,7 @@ namespace FirstLight.Game.Utils
 
 			// Room properties
 			public const string ROOM_NAME_PLAYTEST = "PLAYTEST";
-			public const string ROOM_PROPS_START_TIME = "startTime";
+			public const string ROOM_PROPS_CREATION_TICKS = "creationTicks";
 			public const string ROOM_PROPS_COMMIT = "commit";
 			public const string ROOM_PROPS_MAP = "mapId";
 			public const string ROOM_PROPS_GAME_MODE = "gameModeId";

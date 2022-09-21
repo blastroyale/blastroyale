@@ -349,6 +349,7 @@ namespace FirstLight.Game.Presenters
 					return;
 				}
 				
+				_services.AudioFxService.PlayClip2D(AudioId.UnequipEquipment);
 				UnequipItem(_selectedId);
 
 				// Equip Default/Melee weapon after unequipping a regular one
@@ -365,6 +366,7 @@ namespace FirstLight.Game.Presenters
 			}
 			else
 			{
+				_services.AudioFxService.PlayClip2D(AudioId.EquipEquipment);
 				EquipItem(_selectedId);
 			}
 			
@@ -384,6 +386,7 @@ namespace FirstLight.Game.Presenters
 
 		private void EquipItem(UniqueId item)
 		{
+			
 			_services.CommandService.ExecuteCommand(new EquipItemCommand { Item = item });
 			
 			UpdateEquipmentMenu();

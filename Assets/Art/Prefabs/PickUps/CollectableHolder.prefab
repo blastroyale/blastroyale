@@ -52,7 +52,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RenderersContainerProxy: {fileID: 0}
   _collectableIndicatorAnchor: {fileID: 0}
-  _collectSfxId: 3
   _animation: {fileID: 7082083947952226433}
   _spawnClip: {fileID: 7400000, guid: 80667d8194120b844bb70bf48b18b23d, type: 2}
   _idleClip: {fileID: 7400000, guid: 8a06ab19cd7973a469664ed25f9e15c6, type: 2}
@@ -74,6 +73,7 @@ MonoBehaviour:
   _particleRenderers:
   - {fileID: 4731984034646006467}
   - {fileID: 4060014089699066941}
+  _rendererRoots: []
   _mainRenderer: {fileID: 0}
 --- !u!111 &7082083947952226433
 Animation:
@@ -84,11 +84,8 @@ Animation:
   m_GameObject: {fileID: 3587682744574828602}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 80667d8194120b844bb70bf48b18b23d, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 80667d8194120b844bb70bf48b18b23d, type: 2}
-  - {fileID: 7400000, guid: 8a06ab19cd7973a469664ed25f9e15c6, type: 2}
-  - {fileID: 7400000, guid: 20fccc7415f6e1e4a972e7be8eff7249, type: 2}
+  m_Animation: {fileID: 0}
+  m_Animations: []
   m_WrapMode: 0
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0

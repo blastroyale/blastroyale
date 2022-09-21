@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -44,11 +45,13 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private TextMeshProUGUI _selectedGameModeText;
 		[SerializeField, Required] private TextMeshProUGUI _playerCountText;
 		[SerializeField, Required] private TextMeshProUGUI _spectatorCountText;
+		[SerializeField, Required] private TextMeshProUGUI _topTitleText;
 		[SerializeField, Required] private GameObject[] _kickOverlayObjects;
 		[SerializeField, Required] private GameObject _loadingText;
 		[SerializeField, Required] private GameObject _roomNameRootObject;
 		[SerializeField, Required] private GameObject _playerMatchmakingRootObject;
 		[SerializeField, Required] private GameObject _playerCountHolder;
+		[SerializeField, Required] private GameObject _selectDropZoneTextRootObject;
 		[SerializeField, Required] private PlayerListHolderView _playerListHolder;
 		[SerializeField, Required] private PlayerListHolderView _spectatorListHolder;
 		[SerializeField, Required] private UiToggleButtonView _botsToggle;
@@ -59,7 +62,6 @@ namespace FirstLight.Game.Presenters
 
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
-		private float _playerFillWaitTime;
 		private bool _loadedCoreMatchAssets;
 		private bool _spectatorToggleTimeOut;
 
@@ -122,7 +124,8 @@ namespace FirstLight.Game.Presenters
 
 				return;
 			}
-
+			
+			_selectDropZoneTextRootObject.SetActive(gameModeConfig.SpawnSelection);
 			_lockRoomButton.gameObject.SetActive(false);
 			_leaveRoomButton.gameObject.SetActive(false);
 			_getReadyToRumbleText.gameObject.SetActive(false);
@@ -135,13 +138,16 @@ namespace FirstLight.Game.Presenters
 			_kickButton.gameObject.SetActive(false);
 			_loadingText.SetActive(true);
 			_playersFoundText.text = $"{0}/{room.MaxPlayers.ToString()}";
-			_playerFillWaitTime =
-				_services.ConfigsProvider.GetConfig<QuantumGameConfig>().CasualMatchmakingTime.AsFloat /
-				room.GetRealPlayerCapacity();
-			var matchType = _services.GameModeService.SelectedGameMode.Value.Entry.MatchType.ToString().ToUpper();
+			
+			var matchType = room.GetMatchType();
 			var gameMode = room.GetGameModeId().ToUpper();
-			_selectedGameModeText.text =
-				string.Format(ScriptLocalization.MainMenu.SelectedGameModeValue, matchType, gameMode);
+			var quantumGameConfigs = _services.ConfigsProvider.GetConfig<QuantumGameConfig>();
+			var minPlayers = matchType == MatchType.Ranked ? quantumGameConfigs.RankedMatchmakingMinPlayers : 0;
+			var matchmakingTime = matchType == MatchType.Ranked ? 
+				                      quantumGameConfigs.RankedMatchmakingTime.AsFloat :
+				                      quantumGameConfigs.CasualMatchmakingTime.AsFloat;
+			
+			_selectedGameModeText.text = string.Format(ScriptLocalization.MainMenu.SelectedGameModeValue, matchType.ToString().ToUpper(), gameMode);
 
 			UpdateRoomPlayerCounts();
 
@@ -153,12 +159,8 @@ namespace FirstLight.Game.Presenters
 				_playerCountHolder.SetActive(false);
 				_roomNameRootObject.SetActive(false);
 
-				if (_services.GameModeService.SelectedGameMode.Value.Entry.MatchType == MatchType.Casual)
-				{
-					StartCoroutine(MatchmakingTimeUpdateCoroutine(room.GetRealPlayerCapacity()));
-				}
-
 				UpdatePlayersWaitingImages(room.GetRealPlayerCapacity(), room.GetRealPlayerAmount());
+				StartCoroutine(MatchmakingTimerCoroutine(matchmakingTime, minPlayers));
 			}
 			else
 			{
@@ -170,6 +172,7 @@ namespace FirstLight.Game.Presenters
 				_playerMatchmakingRootObject.SetActive(false);
 				_playerCountHolder.SetActive(true);
 
+				_topTitleText.text = ScriptLocalization.MainMenu.PrepareForActionBasic;
 				_roomNameText.text = string.Format(ScriptLocalization.MainMenu.RoomCurrentName, room.GetRoomName());
 				_roomNameRootObject.SetActive(true);
 
@@ -229,12 +232,7 @@ namespace FirstLight.Game.Presenters
 		{
 			UpdateRoomPlayerCounts();
 			AddOrUpdatePlayerInList(newPlayer);
-
-			// For casual matches, MatchmakingTimeUpdateCoroutine handles the player waiting images
-			if (_services.GameModeService.SelectedGameMode.Value.Entry.MatchType == MatchType.Ranked)
-			{
-				UpdatePlayersWaitingImages(CurrentRoom.GetRealPlayerCapacity(), CurrentRoom.GetRealPlayerAmount());
-			}
+			UpdatePlayersWaitingImages(CurrentRoom.GetRealPlayerCapacity(), CurrentRoom.GetRealPlayerAmount());
 		}
 
 		/// <inheritdoc />
@@ -242,12 +240,7 @@ namespace FirstLight.Game.Presenters
 		{
 			UpdateRoomPlayerCounts();
 			RemovePlayerInAllLists(otherPlayer);
-
-			// For casual matches, MatchmakingTimeUpdateCoroutine handles the player waiting images
-			if (_services.GameModeService.SelectedGameMode.Value.Entry.MatchType == MatchType.Ranked)
-			{
-				UpdatePlayersWaitingImages(CurrentRoom.GetRealPlayerCapacity(), CurrentRoom.GetRealPlayerAmount());
-			}
+			UpdatePlayersWaitingImages(CurrentRoom.GetRealPlayerCapacity(), CurrentRoom.GetRealPlayerAmount());
 		}
 
 		/// <inheritdoc />
@@ -408,21 +401,6 @@ namespace FirstLight.Game.Presenters
 			_playersFoundText.text = $"{playerAmount.ToString()}/{maxPlayers.ToString()}";
 		}
 
-		private IEnumerator MatchmakingTimeUpdateCoroutine(int maxPlayers)
-		{
-			for (var i = 0; i < _playersWaitingImage.Length && i < maxPlayers; i++)
-			{
-				UpdatePlayersWaitingImages(maxPlayers, i + 1);
-				yield return new WaitForSeconds(_playerFillWaitTime);
-			}
-
-			yield return new WaitForSeconds(0.5f);
-
-			_getReadyToRumbleText.gameObject.SetActive(true);
-			_playersFoundText.gameObject.SetActive(false);
-			_findingPlayersText.gameObject.SetActive(false);
-		}
-
 		private IEnumerator TimeoutSpectatorToggleCoroutine()
 		{
 			SetSpectateInteractable(false);
@@ -436,6 +414,29 @@ namespace FirstLight.Game.Presenters
 			if (CurrentRoom != null)
 			{
 				CheckEnableSpectatorToggle();
+			}
+		}
+
+		private IEnumerator MatchmakingTimerCoroutine(float matchmakingTime, int minPlayers)
+		{
+			var roomCreateTime = CurrentRoom.GetRoomCreationDateTime();
+			var matchmakingEndTime = roomCreateTime.AddSeconds(matchmakingTime);
+
+			while (DateTime.UtcNow < matchmakingEndTime)
+			{
+				var timeLeft = (DateTime.UtcNow - matchmakingEndTime).Duration();
+				_topTitleText.text = string.Format(ScriptLocalization.MainMenu.PrepareForActionTimer, timeLeft.TotalSeconds.ToString("F0"));
+				
+				yield return null;
+			}
+
+			if (CurrentRoom.GetRealPlayerAmount() >= minPlayers)
+			{
+				_topTitleText.text = ScriptLocalization.MainMenu.PrepareForActionBasic;
+			}
+			else
+			{
+				_topTitleText.text = ScriptLocalization.MainMenu.PrepareForActionWaiting;
 			}
 		}
 
@@ -474,7 +475,7 @@ namespace FirstLight.Game.Presenters
 				overlayObject.SetActive(true);
 			}
 		}
-		
+
 		private void DeactivateKickOverlay()
 		{
 			foreach (var overlayObject in _kickOverlayObjects)

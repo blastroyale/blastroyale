@@ -11,7 +11,7 @@ namespace Quantum
 		/// Requests the <see cref="Equipment"/> stats based on the given <paramref name="item"/>
 		/// </summary>
 		public static void CalculateWeaponStats(Frame f, Equipment item, out int armour, out int health, out FP speed, 
-		                                        out FP power, out FP attackRange, out FP pickupSpeed)
+		                                        out FP power, out FP attackRange, out FP pickupSpeed, out FP ammoCapacity)
 		{
 			if (!item.IsValid() || !item.IsWeapon())
 			{
@@ -21,6 +21,7 @@ namespace Quantum
 				power = FP._0;
 				attackRange = FP._0;
 				pickupSpeed = FP._0;
+				ammoCapacity = FP._0;
 				return;
 			}
 			
@@ -36,12 +37,13 @@ namespace Quantum
 			power = CalculateWeaponStat(wc, statConfigs[StatType.Power], besc, esc, emsc, item);
 			attackRange = CalculateWeaponStat(wc, statConfigs[StatType.AttackRange], besc, esc, emsc, item);
 			pickupSpeed = CalculateWeaponStat(wc, statConfigs[StatType.PickupSpeed], besc, esc, emsc, item);
+			ammoCapacity = CalculateWeaponStat(wc, statConfigs[StatType.AmmoCapacity], besc, esc, emsc, item);
 		}
 		/// <summary>
 		/// Requests the <see cref="Equipment"/> stats based on the given <paramref name="item"/>
 		/// </summary>
 		public static void CalculateGearStats(Frame f, Equipment item, out int armour, out int health, out FP speed, 
-		                                      out FP power, out FP attackRange, out FP pickupSpeed)
+		                                      out FP power, out FP attackRange, out FP pickupSpeed, out FP ammoCapacity)
 		{
 			if (!item.IsValid())
 			{
@@ -51,6 +53,7 @@ namespace Quantum
 				power = FP._0;
 				attackRange = FP._0;
 				pickupSpeed = FP._0;
+				ammoCapacity = FP._0;
 				return;
 			}
 			
@@ -65,13 +68,16 @@ namespace Quantum
 			power = CalculateGearStat(statConfigs[StatType.Power], besc, esc, emsc, item);
 			attackRange = CalculateGearStat(statConfigs[StatType.AttackRange], besc, esc, emsc, item);
 			pickupSpeed = CalculateGearStat(statConfigs[StatType.PickupSpeed], besc, esc, emsc, item);
+			ammoCapacity = CalculateGearStat(statConfigs[StatType.AmmoCapacity], besc, esc, emsc, item);
+
 		}
 
 		/// <summary>
 		/// Requests the total might for the give stats
 		/// </summary>
-		public static int GetTotalMight(FP armour, FP health, FP speed, FP power, FP attackRange, FP pickupSpeed)
+		public static int GetTotalMight(FP armour, FP health, FP speed, FP power, FP attackRange, FP pickupSpeed, FP ammoCapacity)
 		{
+			//TODO: add more stats to might calculation
 			return FPMath.RoundToInt(power + health + speed * FP._100 + armour * FP._10);
 		}
 
@@ -86,9 +92,11 @@ namespace Quantum
 		{
 			var attributeValue = CalculateGearStat(statConfig, baseStatConfig, equipmentStatConfig, materialStatConfig, equipment);
 
-			if (statConfig.StatType == StatType.Power)
+
+			//TODO: make a second method that calls the frame in order to get game modde dependant stats
+			if(statConfig.StatType == StatType.Power)
 			{
-				attributeValue *= weaponConfig.PowerToDamageRatio;
+				attributeValue *= weaponConfig.PowerToDamageRatio.GetDefault();
 			}
 
 			return attributeValue;

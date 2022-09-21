@@ -36,13 +36,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly IConfigsAdder _configsAdder;
 		private readonly IGameUiServiceInit _uiService;
 
-		/// <inheritdoc cref="IStatechart.LogsEnabled"/>
-		public bool LogsEnabled
-		{
-			get => _statechart.LogsEnabled;
-			set => _statechart.LogsEnabled = value;
-		}
-
 		public GameStateMachine(GameLogic gameLogic, IGameServices services, IGameUiServiceInit uiService, 
 		                        IGameBackendNetworkService networkService, IConfigsAdder configsAdder, 
 		                        IAssetAdderService assetAdderService, IDataService dataService,

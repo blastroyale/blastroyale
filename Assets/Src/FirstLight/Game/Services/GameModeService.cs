@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
@@ -48,6 +49,11 @@ namespace FirstLight.Game.Services
 			Entry = new GameModeRotationConfig.GameModeEntry(gameModeId, matchType, mutators);
 			EndTime = endTime;
 		}
+
+		public override string ToString()
+		{
+			return $"Entry({Entry}), EndTime({EndTime}), IsFixed({IsFixed})";
+		}
 	}
 
 	/// <inheritdoc cref="IGameModeService"/>
@@ -69,6 +75,7 @@ namespace FirstLight.Game.Services
 
 			_slots = new ObservableList<GameModeInfo>(new List<GameModeInfo>());
 			SelectedGameMode = new ObservableField<GameModeInfo>();
+			SelectedGameMode.Observe((_, gm) => FLog.Info($"Selected GameMode set to: {gm}"));
 		}
 
 		public void Init()
@@ -83,14 +90,15 @@ namespace FirstLight.Game.Services
 				_slots.Add(default);
 			}
 
-			RefreshGameModes();
+			RefreshGameModes(true);
 		}
 
-		private void RefreshGameModes()
+		private void RefreshGameModes(bool forceAll)
 		{
 			for (var i = 0; i < _slots.Count; i++)
 			{
-				if (_slots[i].EndTime < DateTime.UtcNow)
+				var slot = _slots[i];
+				if (forceAll || !slot.IsFixed && slot.EndTime < DateTime.UtcNow)
 				{
 					RefreshSlot(i);
 				}
@@ -101,12 +109,15 @@ namespace FirstLight.Game.Services
 		{
 			var entry = GetCurrentRotationEntry(index, out var ticksLeft, out var rotating);
 
-			_slots[index] = new GameModeInfo(entry, rotating ? DateTime.UtcNow.AddTicks(ticksLeft) : default);
+			var info = new GameModeInfo(entry, rotating ? DateTime.UtcNow.AddTicks(ticksLeft) : default);
+			_slots[index] = info;
+
+			FLog.Info($"GameMode in slot {index} refreshed to {info.ToString()}");
 
 			if (rotating)
 			{
 				var delay = (int) TimeSpan.FromTicks(ticksLeft).TotalMilliseconds + 500;
-				_threadService.EnqueueDelayed(delay, () => 0, _ => { RefreshGameModes(); });
+				_threadService.EnqueueDelayed(delay, () => 0, _ => { RefreshGameModes(false); });
 			}
 		}
 

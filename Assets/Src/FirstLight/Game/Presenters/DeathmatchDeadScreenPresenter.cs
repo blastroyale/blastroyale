@@ -74,7 +74,7 @@ namespace FirstLight.Game.Presenters
 			
 			_killTrackerHolder.SetActive(!isSuicide);
 			_standings.Initialise(playerData.Count, false, false);
-			_standings.UpdateStandings(playerData, localPlayer);
+			_standings.UpdateStandings(playerData);
 
 			if (isSuicide)
 			{

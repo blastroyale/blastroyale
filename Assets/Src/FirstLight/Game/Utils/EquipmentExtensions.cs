@@ -45,13 +45,16 @@ namespace FirstLight.Game.Utils
 				stats.Add(EquipmentStatType.PickupSpeed, 
 				          QuantumStatCalculator.CalculateWeaponStat(weaponConfig, statConfigs[(int)StatType.PickupSpeed],
 				                                                    baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
+				stats.Add(EquipmentStatType.MaxCapacity, 
+				          QuantumStatCalculator.CalculateWeaponStat(weaponConfig, statConfigs[(int)StatType.AmmoCapacity],
+				                                                    baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat + 
+				          weaponConfig.MaxAmmo.GetDefault());
 
-				stats.Add(EquipmentStatType.MaxCapacity, weaponConfig.MaxAmmo.GetDefault());
 				stats.Add(EquipmentStatType.AttackCooldown, weaponConfig.AttackCooldown.AsFloat);
 				stats.Add(EquipmentStatType.MinAttackAngle, weaponConfig.MinAttackAngle);
 				stats.Add(EquipmentStatType.MaxAttackAngle, weaponConfig.MaxAttackAngle);
 				stats.Add(EquipmentStatType.SplashDamageRadius, weaponConfig.SplashRadius.AsFloat);
-				stats.Add(EquipmentStatType.PowerToDamageRatio, weaponConfig.PowerToDamageRatio.AsFloat);
+				stats.Add(EquipmentStatType.PowerToDamageRatio, weaponConfig.PowerToDamageRatio.GetDefault().AsFloat);
 				stats.Add(EquipmentStatType.NumberOfShots, weaponConfig.NumberOfShots);
 				stats.Add(EquipmentStatType.SpecialId0, (float) weaponConfig.Specials[0]);
 				stats.Add(EquipmentStatType.SpecialId1, (float) weaponConfig.Specials[1]);
@@ -75,6 +78,9 @@ namespace FirstLight.Game.Utils
 						                                          statsConfig, statsMaterialConfig, equipment).AsFloat);
 				stats.Add(EquipmentStatType.PickupSpeed,
 				          QuantumStatCalculator.CalculateGearStat(statConfigs[(int) StatType.PickupSpeed], baseStatsConfig, 
+				                                                  statsConfig, statsMaterialConfig, equipment).AsFloat);
+				stats.Add(EquipmentStatType.MaxCapacity,
+				          QuantumStatCalculator.CalculateGearStat(statConfigs[(int) StatType.AmmoCapacity], baseStatsConfig, 
 				                                                  statsConfig, statsMaterialConfig, equipment).AsFloat);
 			}
 

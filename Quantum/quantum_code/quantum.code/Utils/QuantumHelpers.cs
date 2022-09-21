@@ -330,7 +330,7 @@ namespace Quantum
 
 			foreach(var spawner in f.GetComponentIterator<AirDropSpawner>())
 			{
-				var spawnerPos = spawner.Component.position(f, spawner.Entity);
+				var spawnerPos = spawner.Entity.GetPosition(f);
 				var distanceToSpawner = FPVector3.DistanceSquared(targetPoint, spawnerPos); 
 
 				if (distanceToSpawner < shortestDist)
@@ -349,6 +349,14 @@ namespace Quantum
 		public static T GetRandomItem<T>(Frame f, params T[] items)
 		{
 			return items[f.RNG->Next(0, items.Length)];
+		}
+
+		/// <summary>
+		/// Requests the <see cref="Transform3D"/> position of this <paramref name="entity"/>.
+		/// </summary>
+		public static FPVector3 GetPosition(this EntityRef entity, Frame f)
+		{
+			return f.Unsafe.GetPointer<Transform3D>(entity)->Position;
 		}
 	}
 }

@@ -1,4 +1,4 @@
-#define TOTAL_STATS 7
+#define TOTAL_STATS 8
 
 component Stats
 {
@@ -22,6 +22,7 @@ enum StatType
 	Shield,
 	AttackRange,
 	PickupSpeed,
+	AmmoCapacity,
 }
 
 struct StatData

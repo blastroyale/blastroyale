@@ -24,10 +24,11 @@ namespace Quantum
 		                                                             GetStatData(StatType.Speed).BaseValue,
 		                                                             GetStatData(StatType.Power).BaseValue,
 		                                                             GetStatData(StatType.AttackRange).BaseValue,
-		                                                             GetStatData(StatType.PickupSpeed).BaseValue);
+		                                                             GetStatData(StatType.PickupSpeed).BaseValue,
+																	 GetStatData(StatType.AmmoCapacity).BaseValue);
 		
 		public Stats(FP baseHealth, FP basePower, FP baseSpeed, FP baseArmour, FP maxShields, FP startingShields, 
-		             FP baseRange, FP basePickupSpeed)
+		             FP baseRange, FP basePickupSpeed, FP baseAmmoCapacity)
 		{
 			CurrentHealth = baseHealth.AsInt;
 			CurrentShield = 0;
@@ -45,6 +46,7 @@ namespace Quantum
 			Values[(int) StatType.Armour] = new StatData(baseArmour, baseArmour, StatType.Armour);
 			Values[(int)StatType.AttackRange] = new StatData(baseRange, baseRange, StatType.AttackRange);
 			Values[(int)StatType.PickupSpeed] = new StatData(basePickupSpeed, basePickupSpeed, StatType.PickupSpeed);
+			Values[(int)StatType.AmmoCapacity] = new StatData(baseAmmoCapacity, baseAmmoCapacity, StatType.AmmoCapacity);
 		}
 
 		/// <summary>
@@ -170,7 +172,7 @@ namespace Quantum
 		/// </summary>
 		internal void GainHealth(Frame f, EntityRef entity, Spell spell)
 		{
-			if (f.Has<EntityDestroyer>(entity))
+			if (f.Has<EntityDestroyer>(entity) || f.Has<DeadPlayerCharacter>(entity))
 			{
 				return;
 			}
@@ -183,7 +185,7 @@ namespace Quantum
 		/// </summary>
 		internal void ReduceHealth(Frame f, EntityRef entity, Spell spell)
 		{
-			if (f.Has<EntityDestroyer>(entity))
+			if (f.Has<EntityDestroyer>(entity) || f.Has<DeadPlayerCharacter>(entity))
 			{
 				return;
 			}
@@ -218,6 +220,7 @@ namespace Quantum
 
 			if (damageAmount <= 0)
 			{
+				f.Events.OnDamageBlocked(entity);
 				return;
 			}
 
@@ -281,10 +284,11 @@ namespace Quantum
 			var modifiers = f.ResolveList(Modifiers);
 			
 			GetLoadoutStats(f, weapon, gear, out var armour, out var health, out var speed, out var power, 
-			                out var attackRange, out var pickupSpeed);
+			                out var attackRange, out var pickupSpeed, out var ammoCapacity);
 			
 			health += f.GameConfig.PlayerDefaultHealth.Get(f);
 			speed += f.GameConfig.PlayerDefaultSpeed.Get(f);
+			ammoCapacity += f.WeaponConfigs.GetConfig(weapon.GameId).MaxAmmo.Get(f);
 			
 			Values[(int) StatType.Health] = new StatData(health, health, StatType.Health);
 			Values[(int) StatType.Shield] = new StatData(maxShields, startingShields, StatType.Shield);
@@ -293,6 +297,7 @@ namespace Quantum
 			Values[(int) StatType.Armour] = new StatData(armour, armour, StatType.Armour);
 			Values[(int)StatType.AttackRange] = new StatData(attackRange, attackRange, StatType.AttackRange);
 			Values[(int)StatType.PickupSpeed] = new StatData(pickupSpeed, pickupSpeed, StatType.PickupSpeed);
+			Values[(int)StatType.AmmoCapacity] = new StatData(ammoCapacity, ammoCapacity, StatType.AmmoCapacity);
 
 			foreach (var modifier in modifiers)
 			{
@@ -301,15 +306,17 @@ namespace Quantum
 		}
 		
 		private void GetLoadoutStats(Frame f, Equipment weapon, FixedArray<Equipment> gear, out int armour, 
-		                             out int health, out FP speed, out FP power, out FP attackRange, out FP pickupSpeed)
+		                             out int health, out FP speed, out FP power, out FP attackRange, out FP pickupSpeed, 
+									 out FP ammoCapacity)
 		{
 			QuantumStatCalculator.CalculateWeaponStats(f, weapon, out armour, out health, out speed, out power, 
-			                                           out attackRange, out pickupSpeed);
+			                                           out attackRange, out pickupSpeed, out ammoCapacity);
 
 			for (var i = 0; i < gear.Length; i++)
 			{
 				QuantumStatCalculator.CalculateGearStats(f, gear[i], out var armour2, out var health2, out var speed2, 
-				                                         out var power2, out var attackRange2, out var pickupSpeed2);
+				                                         out var power2, out var attackRange2, out var pickupSpeed2, 
+														 out var ammoCapacity2);
 				
 				health += health2;
 				speed += speed2;
@@ -317,6 +324,7 @@ namespace Quantum
 				power += power2;
 				attackRange += attackRange2;
 				pickupSpeed += pickupSpeed2;
+				ammoCapacity += ammoCapacity2;
 			}
 		}
 

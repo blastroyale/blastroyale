@@ -113,7 +113,7 @@ namespace Quantum
 			var attributeValue = CalculateAttributeStatValue(statConfig, baseStatConfig.GetValue(statConfig.StatType), 
 			                                                 statRatio, equipment);
 
-			return statConfig.StatType == StatType.Speed ? attributeValue : FPMath.CeilToInt(attributeValue);
+			return statConfig.CeilToInt ? FPMath.CeilToInt(attributeValue) : attributeValue;
 		}
 
 		private static FP CalculateAttributeStatValue(QuantumStatConfig statConfig, FP ratioToBase, FP statRatio, Equipment equipment)

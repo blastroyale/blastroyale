@@ -12,6 +12,7 @@ namespace Quantum
 		public FP RarityMultiplier;
 		public FP LevelStepMultiplier;
 		public FP GradeStepMultiplier;
+		public bool CeilToInt;
 	}
 
 	/// <summary>

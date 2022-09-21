@@ -59,7 +59,7 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger = statechartTrigger;
 			_lootMenuState = new LootMenuState(services, uiService, gameLogic, statechartTrigger);
 			_enterNameState = new EnterNameState(services, uiService, gameLogic, statechartTrigger);
-			_settingsMenuState = new SettingsMenuState(services, gameLogic, uiService, statechartTrigger);
+			_settingsMenuState = new SettingsMenuState(gameLogic, services, gameLogic, uiService, statechartTrigger);
 		}
 
 		/// <summary>

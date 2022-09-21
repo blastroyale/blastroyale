@@ -25,6 +25,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private readonly MatchState _matchState;
 		private readonly MainMenuState _mainMenuState;
+		private readonly IGameDataProvider _data;
 		private readonly IGameServices _services;
 		private readonly IGameUiService _uiService;
 		private readonly IAppLogic _appLogic;
@@ -32,9 +33,10 @@ namespace FirstLight.Game.StateMachines
 
 		private Coroutine _csPoolTimerCoroutine;
 
-		public SettingsMenuState(IGameServices services, IGameLogic gameLogic, IGameUiService uiService, 
+		public SettingsMenuState(IGameDataProvider data, IGameServices services, IGameLogic gameLogic, IGameUiService uiService, 
 		                         Action<IStatechartEvent> statechartTrigger)
 		{
+			_data = data;
 			_services = services;
 			_uiService = uiService;
 			_appLogic = gameLogic.AppLogic;
@@ -93,45 +95,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void TryLogOut()
 		{
-			_services.HelpdeskService.Logout();
-			
-#if UNITY_EDITOR
-			var unlink = new UnlinkCustomIDRequest
-			{
-				CustomId = PlayFabSettings.DeviceUniqueIdentifier
-			};
-
-			PlayFabClientAPI.UnlinkCustomID(unlink, OnUnlinkSuccess, OnUnlinkFail);
-
-			void OnUnlinkSuccess(UnlinkCustomIDResult result)
-			{
-				UnlinkComplete();
-			}
-#elif UNITY_ANDROID
-			var unlink = new UnlinkAndroidDeviceIDRequest
-			{
-				AndroidDeviceId = PlayFabSettings.DeviceUniqueIdentifier,
-			};
-			
-			PlayFabClientAPI.UnlinkAndroidDeviceID(unlink,OnUnlinkSuccess,OnUnlinkFail);
-			
-			void OnUnlinkSuccess(UnlinkAndroidDeviceIDResult result)
-			{
-				UnlinkComplete();
-			}
-#elif UNITY_IOS
-			var unlink = new UnlinkIOSDeviceIDRequest
-			{
-				DeviceId = PlayFabSettings.DeviceUniqueIdentifier,
-			};
-
-			PlayFabClientAPI.UnlinkIOSDeviceID(unlink, OnUnlinkSuccess, OnUnlinkFail);
-			
-			void OnUnlinkSuccess(UnlinkIOSDeviceIDResult result)
-			{
-				UnlinkComplete();
-			}
-#endif
+			_data.AppDataProvider.UnlinkDeviceID(UnlinkComplete, OnUnlinkFail);
 		}
 		
 		private void OnUnlinkFail(PlayFabError error)
@@ -149,8 +113,6 @@ namespace FirstLight.Game.StateMachines
 		
 		private void UnlinkComplete()
 		{
-			_appLogic.UnlinkDevice();
-
 #if UNITY_EDITOR
 			var title = string.Format(ScriptLocalization.MainMenu.LogoutSuccessDesc);
 			var confirmButton = new GenericDialogButton

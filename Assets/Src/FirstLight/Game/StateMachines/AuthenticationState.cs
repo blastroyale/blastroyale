@@ -38,7 +38,8 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _loginRegisterTransitionEvent = new StatechartEvent("Login Register Transition Clicked Event");
 		private readonly IStatechartEvent _loginCompletedEvent = new StatechartEvent("Login Completed Event");
 		private readonly IStatechartEvent _authenticationFailEvent = new StatechartEvent("Authentication Fail Event");
-		
+
+		private readonly IGameDataProvider _data;
 		private readonly IGameServices _services;
 		private readonly IGameUiServiceInit _uiService;
 		private readonly IDataService _dataService;
@@ -48,9 +49,10 @@ namespace FirstLight.Game.StateMachines
 
 		private string _passwordRecoveryEmailTemplateId = "";
 		
-		public AuthenticationState(IGameServices services, IGameUiServiceInit uiService, IDataService dataService, 
+		public AuthenticationState(IGameDataProvider data, IGameServices services, IGameUiServiceInit uiService, IDataService dataService, 
 		                           IGameBackendNetworkService networkService, Action<IStatechartEvent> statechartTrigger, IConfigsAdder cfgs)
 		{
+			_data = data;
 			_services = services;
 			_uiService = uiService;
 			_dataService = dataService;
@@ -78,12 +80,12 @@ namespace FirstLight.Game.StateMachines
 			initial.OnExit(SetAuthenticationData);
 			
 			autoAuthCheck.Transition().Condition(HasLinkedDevice).Target(authLoginDevice);
-			autoAuthCheck.Transition().Condition(() => !FeatureFlags.EMAIL_AUTH).OnTransition(OnLinkSuccess).Target(authLoginDevice);
+			autoAuthCheck.Transition().Condition(() => !FeatureFlags.EMAIL_AUTH).OnTransition(SetLinkedDevice).Target(authLoginDevice);
 			autoAuthCheck.Transition().OnTransition(CloseLoadingScreen).Target(login);
 
 			login.OnEnter(OpenLoginScreen);
 			login.Event(_goToRegisterClickedEvent).OnTransition(CloseLoginScreen).Target(register);
-			login.Event(_loginAsGuestEvent).OnTransition(OnLinkSuccess).Target(authLoginDevice);
+			login.Event(_loginAsGuestEvent).OnTransition(SetLinkedDevice).Target(authLoginDevice);
 			login.Event(_loginRegisterTransitionEvent).Target(authLogin);
 
 			register.OnEnter(OpenRegisterScreen);
@@ -327,47 +329,6 @@ namespace FirstLight.Game.StateMachines
 			FLog.Verbose("Saved AppData");
 		}
 
-		private void LinkDeviceID()
-		{
-#if UNITY_EDITOR
-			var link = new LinkCustomIDRequest
-			{
-				CustomId = PlayFabSettings.DeviceUniqueIdentifier,
-				ForceLink = true
-			};
-			
-			PlayFabClientAPI.LinkCustomID(link, _ => OnLinkSuccess(), OnPlayFabError);
-#elif UNITY_ANDROID
-			var link = new LinkAndroidDeviceIDRequest
-			{
-				AndroidDevice = SystemInfo.deviceModel,
-				OS = SystemInfo.operatingSystem,
-				AndroidDeviceId = PlayFabSettings.DeviceUniqueIdentifier,
-				ForceLink = true
-			};
-			
-			PlayFabClientAPI.LinkAndroidDeviceID(link, _ => OnLinkSuccess(), OnPlayFabError);
-
-#elif UNITY_IOS
-			var link = new LinkIOSDeviceIDRequest
-			{
-				DeviceModel = SystemInfo.deviceModel,
-				OS = SystemInfo.operatingSystem,
-				DeviceId = PlayFabSettings.DeviceUniqueIdentifier,
-				ForceLink = true
-			};
-			
-			PlayFabClientAPI.LinkIOSDeviceID(link, _ => OnLinkSuccess(), OnPlayFabError);
-#endif
-		}
-		
-		private void OnLinkSuccess()
-		{
-			_dataService.GetData<AppData>().DeviceId = PlayFabSettings.DeviceUniqueIdentifier;
-			_dataService.SaveData<AppData>();
-			FLog.Verbose("Linked account with device in playfab");
-		}
-
 		private void FinalStepsAuthentication(IWaitActivity activity)
 		{
 			FLog.Verbose("Obtaining player data");
@@ -473,7 +434,7 @@ namespace FirstLight.Game.StateMachines
 			
 			if (string.IsNullOrWhiteSpace(appData.DeviceId))
 			{
-				LinkDeviceID();
+				_data.AppDataProvider.LinkDeviceID(null, null);
 			}
 
 			ProcessAuthentication(result);
@@ -584,6 +545,12 @@ namespace FirstLight.Game.StateMachines
 
 			_services.GenericDialogService.OpenDialog(ScriptLocalization.MainMenu.SendPasswordEmailConfirm, false,
 			                                         confirmButton);
+		}
+		
+		private void SetLinkedDevice()
+		{
+			_data.AppDataProvider.DeviceId = PlayFabSettings.DeviceUniqueIdentifier;
+		
 		}
 
 		private bool IsOutdated(string version)

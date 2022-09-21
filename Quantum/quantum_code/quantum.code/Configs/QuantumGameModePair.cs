@@ -28,7 +28,7 @@ namespace Quantum
 		}
 
 		/// <summary>
-		/// The value of this object for a specific game mode. If it doesn't exist it reutns <see cref="Default"/>.
+		/// The value of this object for a specific game mode. If it doesn't exist it returns <see cref="Default"/>.
 		/// </summary>
 		public TValue Get(string gameModeId)
 		{

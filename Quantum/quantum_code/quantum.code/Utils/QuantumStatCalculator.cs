@@ -83,7 +83,6 @@ namespace Quantum
 
 		/// <summary>
 		/// Calculates the <paramref name="equipment"/> stats based on all Weapon <see cref="Equipment"/> stat configs.
-		/// Requests the total might for the give stats
 		/// </summary>
 		public static FP CalculateWeaponStat(QuantumWeaponConfig weaponConfig, QuantumStatConfig statConfig, 
 		                                     QuantumBaseEquipmentStatConfig baseStatConfig,
@@ -92,11 +91,10 @@ namespace Quantum
 		{
 			var attributeValue = CalculateGearStat(statConfig, baseStatConfig, equipmentStatConfig, materialStatConfig, equipment);
 
-
 			//TODO: make a second method that calls the frame in order to get game modde dependant stats
-			if(statConfig.StatType == StatType.Power)
+			if (statConfig.StatType == StatType.Power)
 			{
-				attributeValue *= weaponConfig.PowerToDamageRatio.GetDefault();
+				attributeValue *= weaponConfig.PowerToDamageRatio;
 			}
 
 			return attributeValue;

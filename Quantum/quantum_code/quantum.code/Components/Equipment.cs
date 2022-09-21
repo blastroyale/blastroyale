@@ -82,8 +82,6 @@ namespace Quantum
 
 		/// <summary>
 		/// Checks if this item is the Hammer.
-		///
-		/// TODO: Might need different logic
 		/// </summary>
 		public bool IsDefaultItem() => GameId == GameId.Hammer;
 		

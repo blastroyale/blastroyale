@@ -265,8 +265,7 @@ namespace Quantum
 		/// </summary>
 		public int GetAmmoAmount(Frame f, EntityRef e, out int maxAmmo)
 		{
-			maxAmmo = f.WeaponConfigs.GetConfig(CurrentWeapon.GameId).MaxAmmo.Get(f);
-			maxAmmo += f.Get<Stats>(e).GetStatData(StatType.AmmoCapacity).StatValue.AsInt;
+			maxAmmo = f.Get<Stats>(e).GetStatData(StatType.AmmoCapacity).StatValue.AsInt;
 			return FPMath.FloorToInt(GetAmmoAmountFilled(f, e) * maxAmmo);
 		}
 

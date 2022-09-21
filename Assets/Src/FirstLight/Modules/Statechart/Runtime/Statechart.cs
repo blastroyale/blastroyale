@@ -6,22 +6,11 @@ using FirstLight.Statechart.Internal;
 namespace FirstLight.Statechart
 {
 	/// <summary>
-	/// Interface to help debug the state chart
-	/// </summary>
-	public interface IStatechartDebug
-	{
-		/// <summary>
-		/// Allows to show logs in the console to help debugging possible errors in the states & transitions
-		/// </summary>
-		bool LogsEnabled { get; set; }
-	}
-
-	/// <summary>
 	/// The main object which represents the State Chart and drives it forward.
 	/// The State Chart schematics are defined in the constructor setup action and cannot be modified during runtime. 
 	/// See <see cref="http://www.omg.org/spec/UML"/> for Semantics.
 	/// </summary>
-	public interface IStatechart : IStatechartDebug
+	public interface IStatechart
 	{
 		/// <summary>
 		/// Processes the event <param name="trigger"></param> for the State Chart with run-to-completion paradigm.
@@ -56,9 +45,6 @@ namespace FirstLight.Statechart
 		private IStateInternal _currentState;
 
 		private readonly IStateFactoryInternal _stateFactory;
-
-		/// <inheritdoc />
-		public bool LogsEnabled { get; set; }
 
 #if UNITY_EDITOR
 		public string CurrentState => _currentState.Name;

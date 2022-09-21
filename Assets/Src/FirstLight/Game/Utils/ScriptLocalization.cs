@@ -847,6 +847,9 @@ namespace I2.Loc
 			public static string PlayersActiveNumber 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PlayersActiveNumber"); } }
 			public static string PlayfabError 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PlayfabError"); } }
 			public static string PossibleRewards 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PossibleRewards"); } }
+			public static string PrepareForActionBasic 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PrepareForActionBasic"); } }
+			public static string PrepareForActionTimer 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PrepareForActionTimer"); } }
+			public static string PrepareForActionWaiting 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/PrepareForActionWaiting"); } }
 			public static string ProgressChapter 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ProgressChapter"); } }
 			public static string QuitGameButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/QuitGameButton"); } }
 			public static string ReachPlayerLevelAdventure 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ReachPlayerLevelAdventure"); } }
@@ -1892,6 +1895,9 @@ namespace I2.Loc
 		    public const string PlayersActiveNumber = "MainMenu/PlayersActiveNumber";
 		    public const string PlayfabError = "MainMenu/PlayfabError";
 		    public const string PossibleRewards = "MainMenu/PossibleRewards";
+		    public const string PrepareForActionBasic = "MainMenu/PrepareForActionBasic";
+		    public const string PrepareForActionTimer = "MainMenu/PrepareForActionTimer";
+		    public const string PrepareForActionWaiting = "MainMenu/PrepareForActionWaiting";
 		    public const string ProgressChapter = "MainMenu/ProgressChapter";
 		    public const string QuitGameButton = "MainMenu/QuitGameButton";
 		    public const string ReachPlayerLevelAdventure = "MainMenu/ReachPlayerLevelAdventure";

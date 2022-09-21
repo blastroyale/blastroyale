@@ -242,7 +242,7 @@ namespace FirstLight.Game.StateMachines
 #if LIVE_SERVER
 			environment = "live";
 			PlayFabSettings.TitleId = "***REMOVED***";
-			quantumSettings.AppSettings.AppIdRealtime = "bfdaace0-bcbd-4554-8527-bf418791bbd4";
+			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
 			_passwordRecoveryEmailTemplateId = "***REMOVED***";
 #elif OFFCHAIN_SERVER
 			environment = "offchain";

@@ -3188,6 +3188,33 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: MainMenu/PrepareForActionBasic
+      TermType: 0
+      Description: 
+      Languages:
+      - Prepare for action!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/PrepareForActionTimer
+      TermType: 0
+      Description: 
+      Languages:
+      - Starting in {0} sec!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/PrepareForActionWaiting
+      TermType: 0
+      Description: 
+      Languages:
+      - Waiting for players!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: AdventureMenu/AdventureCompleted
       TermType: 0
       Description: 
@@ -9006,7 +9033,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1663679551439
+    Google_LastUpdatedVersion: 1663692046659
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

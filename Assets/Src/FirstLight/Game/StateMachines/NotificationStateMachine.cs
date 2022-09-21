@@ -22,13 +22,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameDataProvider _dataProvider;
 		private readonly IGameServices _services;
 
-		/// <inheritdoc cref="IStatechart.LogsEnabled"/>
-		public bool LogsEnabled
-		{
-			get => _statechart.LogsEnabled;
-			set => _statechart.LogsEnabled = value;
-		}
-
 		public NotificationStateMachine(IGameDataProvider dataProvider, IGameServices services)
 		{
 			_dataProvider = dataProvider;

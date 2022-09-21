@@ -63,18 +63,6 @@ namespace FirstLight.Game
 			                                         configsProvider,
 			                                         assetResolver, dataService, vfxService);
 
-#if UNITY_EDITOR
-			if (!EditorPrefs.HasKey(GameConstants.Editor.PREFS_ENABLE_STATE_MACHINE_DEBUG_KEY))
-			{
-				EditorPrefs.SetBool(GameConstants.Editor.PREFS_ENABLE_STATE_MACHINE_DEBUG_KEY, false);
-			}
-
-			if (EditorPrefs.HasKey(GameConstants.Editor.PREFS_ENABLE_STATE_MACHINE_DEBUG_KEY))
-			{
-				_gameStateMachine.LogsEnabled =
-					EditorPrefs.GetBool(GameConstants.Editor.PREFS_ENABLE_STATE_MACHINE_DEBUG_KEY);
-			}
-#endif
 			FLog.Verbose($"Initialized client version {VersionUtils.VersionExternal}");
 		}
 

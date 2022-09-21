@@ -66,7 +66,7 @@ namespace FirstLight.Game.Logic
 			var rewards = new List<RewardData>();
 
 			// Currently, there is no plan on giving rewards on anything but BR mode
-			if (matchType == MatchType.Custom || didPlayerQuit)
+			if (matchType == MatchType.Custom || didPlayerQuit || matchData.PlayerRank == 0)
 			{
 				return rewards;
 			}
@@ -149,12 +149,15 @@ namespace FirstLight.Game.Logic
 
 			foreach (var reward in rewards)
 			{
-				if (reward.RewardId.IsInGroup(GameIdGroup.ResourcePool))
+				var rewardData = reward;
+   
+				if (rewardData.RewardId.IsInGroup(GameIdGroup.ResourcePool))
 				{
-					GameLogic.ResourceLogic.WithdrawFromResourcePool(reward.RewardId, (uint) reward.Value);
+					var withdrawnResource = GameLogic.ResourceLogic.WithdrawFromResourcePool(reward.RewardId, (uint) reward.Value);
+					rewardData.Value = (int) withdrawnResource;
 				}
 
-				Data.UncollectedRewards.Add(reward);
+				Data.UncollectedRewards.Add(rewardData);
 			}
 
 			return rewards;

@@ -149,12 +149,15 @@ namespace FirstLight.Game.Logic
 
 			foreach (var reward in rewards)
 			{
-				if (reward.RewardId.IsInGroup(GameIdGroup.ResourcePool))
+				var rewardData = reward;
+   
+				if (rewardData.RewardId.IsInGroup(GameIdGroup.ResourcePool))
 				{
-					GameLogic.ResourceLogic.WithdrawFromResourcePool(reward.RewardId, (uint) reward.Value);
+					var withdrawnResource = GameLogic.ResourceLogic.WithdrawFromResourcePool(reward.RewardId, (uint) reward.Value);
+					rewardData.Value = (int) withdrawnResource;
 				}
 
-				Data.UncollectedRewards.Add(reward);
+				Data.UncollectedRewards.Add(rewardData);
 			}
 
 			return rewards;

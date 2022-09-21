@@ -15,13 +15,11 @@ namespace FirstLight.Game.StateMachines
 	/// </summary>
 	public class SettingsMenuState
 	{
-		private readonly IStatechartEvent _settingsCloseClickedEvent =
-			new StatechartEvent("Settings Close Button Clicked Event");
-
-		private readonly IStatechartEvent _logoutConfirmClickedEvent =
-			new StatechartEvent("Logout Confirm Clicked Event");
-
+		private readonly IStatechartEvent _settingsCloseClickedEvent = new StatechartEvent("Settings Close Button Clicked Event");
+		private readonly IStatechartEvent _logoutConfirmClickedEvent = new StatechartEvent("Logout Confirm Clicked Event");
 		private readonly IStatechartEvent _logoutFailedEvent = new StatechartEvent("Logout Failed Event");
+		private readonly IStatechartEvent _connectIdClickedEvent = new StatechartEvent("Connect ID Clicked Event");
+		private readonly IStatechartEvent _connectIdBackEvent = new StatechartEvent("Connect ID Back Event");
 		
 		private readonly MatchState _matchState;
 		private readonly MainMenuState _mainMenuState;
@@ -51,6 +49,7 @@ namespace FirstLight.Game.StateMachines
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
 			var settingsMenu = stateFactory.State("Settings Menu");
+			var connectId = stateFactory.State("Connect ID Screen");
 			var logoutWait = stateFactory.State("Wait For Logout");
 
 			initial.Transition().Target(settingsMenu);
@@ -59,8 +58,13 @@ namespace FirstLight.Game.StateMachines
 			settingsMenu.OnEnter(OpenSettingsMenuUI);
 			settingsMenu.Event(_settingsCloseClickedEvent).Target(final);
 			settingsMenu.Event(_logoutConfirmClickedEvent).Target(logoutWait);
+			settingsMenu.Event(_connectIdClickedEvent).Target(connectId);
 			settingsMenu.OnExit(CloseSettingsMenuUI);
-
+			
+			connectId.OnEnter(OpenConnectIdScreen);
+			connectId.Event(_connectIdBackEvent).Target(settingsMenu);
+			connectId.OnEnter(CloseConnectIdScreen);
+			
 			logoutWait.OnEnter(TryLogOut);
 			logoutWait.Event(_logoutFailedEvent).Target(final);
 
@@ -93,25 +97,49 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<SettingsScreenPresenter>(false, true);
 		}
 
-		private void TryLogOut()
+		private void OpenConnectIdScreen()
 		{
-			_data.AppDataProvider.UnlinkDeviceID(UnlinkComplete, OnUnlinkFail);
-		}
-		
-		private void OnUnlinkFail(PlayFabError error)
-		{
-			_services.AnalyticsService.CrashLog(error.ErrorMessage);
-
-			var confirmButton = new GenericDialogButton
+			var data = new ConnectIdScreenPresenter.StateData
 			{
-				ButtonText = ScriptLocalization.General.OK,
-				ButtonOnClick = () => { _statechartTrigger(_logoutFailedEvent); }
+				ConnectClicked = TryConnectId,
+				BackClicked = () => _statechartTrigger(_connectIdBackEvent)
 			};
 
-			_services.GenericDialogService.OpenDialog(error.ErrorMessage, false, confirmButton);
+			_uiService.OpenUiAsync<ConnectIdScreenPresenter, ConnectIdScreenPresenter.StateData>(data);
+		}
+
+		private void CloseConnectIdScreen()
+		{
+			_uiService.CloseUi<ConnectIdScreenPresenter>();
+		}
+
+		private void SetConnectIdDim(bool activateDim)
+		{
+			if (_uiService.HasUiPresenter<ConnectIdScreenPresenter>())
+			{
+				_uiService.GetUi<ConnectIdScreenPresenter>().SetFrontDimBlockerActive(activateDim);
+			}
+		}
+
+		private void TryConnectId(string email, string password, string username)
+		{
+			SetConnectIdDim(true);
+			_data.AppDataProvider.AttachLoginDataToAccount(email, password, username, OnConnectIdComplete,
+			                                               OnPlayfabError);
+		}
+
+		private void TryLogOut()
+		{
+			_data.AppDataProvider.UnlinkDeviceID(OnUnlinkComplete, OnPlayfabError);
+		}
+
+		private void OnConnectIdComplete(string newUsername)
+		{
+			SetConnectIdDim(false);
+			_statechartTrigger(_connectIdBackEvent);
 		}
 		
-		private void UnlinkComplete()
+		private void OnUnlinkComplete()
 		{
 			_services.HelpdeskService.Logout();
 			
@@ -139,6 +167,19 @@ namespace FirstLight.Game.StateMachines
 				FirstLight.NativeUi.NativeUiService.ShowAlertPopUp(false, ScriptLocalization.MainMenu.LogoutSuccessTitle,
 				                               ScriptLocalization.MainMenu.LogoutSuccessDesc, button);
 #endif
+		}
+		
+		private void OnPlayfabError(PlayFabError error)
+		{
+			_services.AnalyticsService.CrashLog(error.ErrorMessage);
+
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.General.OK,
+				ButtonOnClick = () => { _statechartTrigger(_logoutFailedEvent); }
+			};
+
+			_services.GenericDialogService.OpenDialog(error.ErrorMessage, false, confirmButton);
 		}
 	}
 }

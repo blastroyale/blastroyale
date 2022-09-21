@@ -874,15 +874,6 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: General/Shield Capacity
-      TermType: 0
-      Description: 
-      Languages:
-      - Shields
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
     - Term: General/ShieldCapacity
       TermType: 0
       Description: 
@@ -3165,7 +3156,16 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Connect First Light ID
+      - No First Light ID connected - connect to secure your progress!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/ConnectToNewFirstLightId
+      TermType: 0
+      Description: 
+      Languages:
+      - Connect new First Light ID
       - 
       - 
       Flags: 000000
@@ -3211,6 +3211,15 @@ MonoBehaviour:
       Description: 
       Languages:
       - Waiting for players!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/ConnectFirstLightIdButton
+      TermType: 0
+      Description: 
+      Languages:
+      - Connect
       - 
       - 
       Flags: 000000
@@ -9033,7 +9042,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1663692046659
+    Google_LastUpdatedVersion: 1663769526854
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

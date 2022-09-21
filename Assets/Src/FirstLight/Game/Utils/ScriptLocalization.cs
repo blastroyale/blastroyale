@@ -698,7 +698,6 @@ namespace I2.Loc
 			public static string Sell 		{ get{ return LocalizationManager.GetTranslation ("General/Sell"); } }
 			public static string SellItemFor 		{ get{ return LocalizationManager.GetTranslation ("General/SellItemFor"); } }
 			public static string SellLastWeaponWarning 		{ get{ return LocalizationManager.GetTranslation ("General/SellLastWeaponWarning"); } }
-			public static string Shield_Capacity 		{ get{ return LocalizationManager.GetTranslation ("General/Shield Capacity"); } }
 			public static string ShieldCapacity 		{ get{ return LocalizationManager.GetTranslation ("General/ShieldCapacity"); } }
 			public static string SlotEmpty 		{ get{ return LocalizationManager.GetTranslation ("General/SlotEmpty"); } }
 			public static string SpecialId 		{ get{ return LocalizationManager.GetTranslation ("General/SpecialId"); } }
@@ -749,6 +748,8 @@ namespace I2.Loc
 			public static string Collect 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Collect"); } }
 			public static string CollectedCrates 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/CollectedCrates"); } }
 			public static string CompleteLowerDifficulty 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/CompleteLowerDifficulty"); } }
+			public static string ConnectFirstLightIdButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ConnectFirstLightIdButton"); } }
+			public static string ConnectToNewFirstLightId 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ConnectToNewFirstLightId"); } }
 			public static string ContainsAtLeast 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ContainsAtLeast"); } }
 			public static string Craft 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Craft"); } }
 			public static string CrateTier 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/CrateTier"); } }
@@ -1746,7 +1747,6 @@ namespace I2.Loc
 		    public const string Sell = "General/Sell";
 		    public const string SellItemFor = "General/SellItemFor";
 		    public const string SellLastWeaponWarning = "General/SellLastWeaponWarning";
-		    public const string Shield_Capacity = "General/Shield Capacity";
 		    public const string ShieldCapacity = "General/ShieldCapacity";
 		    public const string SlotEmpty = "General/SlotEmpty";
 		    public const string SpecialId = "General/SpecialId";
@@ -1797,6 +1797,8 @@ namespace I2.Loc
 		    public const string Collect = "MainMenu/Collect";
 		    public const string CollectedCrates = "MainMenu/CollectedCrates";
 		    public const string CompleteLowerDifficulty = "MainMenu/CompleteLowerDifficulty";
+		    public const string ConnectFirstLightIdButton = "MainMenu/ConnectFirstLightIdButton";
+		    public const string ConnectToNewFirstLightId = "MainMenu/ConnectToNewFirstLightId";
 		    public const string ContainsAtLeast = "MainMenu/ContainsAtLeast";
 		    public const string Craft = "MainMenu/Craft";
 		    public const string CrateTier = "MainMenu/CrateTier";

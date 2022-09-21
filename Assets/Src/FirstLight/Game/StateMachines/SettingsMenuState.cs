@@ -137,7 +137,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnConnectIdComplete(AddUsernamePasswordResult result)
 		{
-			_services.PlayfabService.UpdateNickname(result.Username, OnUpdateNicknameComplete, OnUpdateNicknameError);
+			_services.PlayfabService.UpdateDisplayName(result.Username, OnUpdateNicknameComplete, OnUpdateNicknameError);
 		}
 
 		private void OnConnectIdError(PlayFabError error)

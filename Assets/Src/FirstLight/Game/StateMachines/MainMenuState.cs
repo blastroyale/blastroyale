@@ -179,7 +179,8 @@ namespace FirstLight.Game.StateMachines
 
 		private bool HasDefaultName()
 		{
-			return _gameDataProvider.AppDataProvider.Nickname == GameConstants.PlayerName.DEFAULT_PLAYER_NAME;
+			return _gameDataProvider.AppDataProvider.Nickname == GameConstants.PlayerName.DEFAULT_PLAYER_NAME ||
+			       string.IsNullOrEmpty(_gameDataProvider.AppDataProvider.Nickname);
 		}
 
 		private void SubscribeEvents()

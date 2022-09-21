@@ -25,7 +25,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Updates the user nickname in playfab.
 		/// </summary>
-		void UpdateNickname(string newNickname, Action<UpdateUserTitleDisplayNameResult> onSuccess = null, Action<PlayFabError> onError = null);
+		void UpdateDisplayName(string newNickname, Action<UpdateUserTitleDisplayNameResult> onSuccess = null, Action<PlayFabError> onError = null);
 
 		/// <summary>
 		/// Requests current top leaderboard entries
@@ -96,7 +96,7 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public void UpdateNickname(string newNickname, Action<UpdateUserTitleDisplayNameResult> onSuccess = null, Action<PlayFabError> onError = null)
+		public void UpdateDisplayName(string newNickname, Action<UpdateUserTitleDisplayNameResult> onSuccess = null, Action<PlayFabError> onError = null)
 		{
 			var request = new UpdateUserTitleDisplayNameRequest {DisplayName = newNickname};
 			PlayFabClientAPI.UpdateUserTitleDisplayName(request, OnSuccess, HandleError);

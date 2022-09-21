@@ -442,7 +442,7 @@ namespace FirstLight.Game.StateMachines
 			
 			if (string.IsNullOrWhiteSpace(_data.AppLogic.NicknameId.Value))
 			{
-				_services.PlayfabService.UpdateNickname(GameConstants.PlayerName.DEFAULT_PLAYER_NAME);
+				_services.PlayfabService.UpdateDisplayName(GameConstants.PlayerName.DEFAULT_PLAYER_NAME);
 			}
 
 			ProcessAuthentication(result);

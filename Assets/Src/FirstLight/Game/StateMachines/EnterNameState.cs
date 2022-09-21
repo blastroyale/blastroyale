@@ -124,7 +124,7 @@ namespace FirstLight.Game.StateMachines
 
 			if (newName != _dataProvider.AppDataProvider.Nickname)
 			{
-				_services.PlayfabService.UpdateNickname(newName);
+				_services.PlayfabService.UpdateDisplayName(newName);
 			}
 			
 			_statechartTrigger(_nameSetEvent);

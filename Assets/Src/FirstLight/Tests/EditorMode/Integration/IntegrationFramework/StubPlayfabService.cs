@@ -17,7 +17,7 @@ namespace FirstLight.Tests.EditorMode
 	{
 		public List<string> FunctionsCalled = new();
 
-		public void UpdateNickname(string newNickname, Action<UpdateUserTitleDisplayNameResult> onSuccess = null, Action<PlayFabError> onError = null)
+		public void UpdateDisplayName(string newNickname, Action<UpdateUserTitleDisplayNameResult> onSuccess = null, Action<PlayFabError> onError = null)
 		{
 			
 		}

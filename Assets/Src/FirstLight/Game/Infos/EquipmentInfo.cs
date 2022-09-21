@@ -154,7 +154,7 @@ namespace FirstLight.Game.Infos
 				                                             nft.Stats[EquipmentStatType.TargetRange].ToFP(),
 				                                             nft.Stats[EquipmentStatType.PickupSpeed].ToFP(),
 				                                             nft.Stats[EquipmentStatType.MaxCapacity].ToFP(),
-															 nft.Stats[EquipmentStatType.MaxCapacity].ToFP());
+															 nft.Stats[EquipmentStatType.ShieldCapacity].ToFP());
 			}
 
 			return total;

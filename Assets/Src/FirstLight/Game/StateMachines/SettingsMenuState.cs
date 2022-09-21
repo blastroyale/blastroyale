@@ -1,5 +1,6 @@
 using System;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Statechart;
@@ -73,6 +74,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeEvents()
 		{
+			_services.MessageBrokerService.Subscribe<ServerHttpErrorMessage>(OnServerHttpErrorMessage);
 		}
 
 		private void UnsubscribeEvents()
@@ -125,16 +127,31 @@ namespace FirstLight.Game.StateMachines
 		private void TryConnectId(string email, string password, string username)
 		{
 			SetConnectIdDim(true);
-			_services.PlayfabService.AttachLoginDataToAccount(email, password, username, OnConnectIdComplete,
-			                                               OnPlayfabError);
+			_services.PlayfabService.AttachLoginDataToAccount(email, password, username, OnConnectIdComplete, OnConnectIdError);
 		}
 
 		private void TryLogOut()
 		{
-			_services.PlayfabService.UnlinkDeviceID(OnUnlinkComplete, OnPlayfabError);
+			_services.PlayfabService.UnlinkDeviceID(OnUnlinkComplete);
 		}
 
 		private void OnConnectIdComplete(AddUsernamePasswordResult result)
+		{
+			_services.PlayfabService.UpdateNickname(result.Username, OnUpdateNicknameComplete, OnUpdateNicknameError);
+		}
+
+		private void OnConnectIdError(PlayFabError error)
+		{
+			SetConnectIdDim(false);
+		}
+
+		private void OnUpdateNicknameComplete(UpdateUserTitleDisplayNameResult result)
+		{
+			SetConnectIdDim(false);
+			_statechartTrigger(_connectIdBackEvent);
+		}
+
+		private void OnUpdateNicknameError(PlayFabError error)
 		{
 			SetConnectIdDim(false);
 			_statechartTrigger(_connectIdBackEvent);
@@ -170,9 +187,9 @@ namespace FirstLight.Game.StateMachines
 #endif
 		}
 		
-		private void OnPlayfabError(PlayFabError error)
+		private void OnServerHttpErrorMessage(ServerHttpErrorMessage msg)
 		{
-			_services.AnalyticsService.CrashLog(error.ErrorMessage);
+			_services.AnalyticsService.CrashLog(msg.Message);
 
 			var confirmButton = new GenericDialogButton
 			{
@@ -180,7 +197,7 @@ namespace FirstLight.Game.StateMachines
 				ButtonOnClick = () => { _statechartTrigger(_logoutFailedEvent); }
 			};
 
-			_services.GenericDialogService.OpenDialog(error.ErrorMessage, false, confirmButton);
+			_services.GenericDialogService.OpenDialog(msg.Message, false, confirmButton);
 		}
 	}
 }

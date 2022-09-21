@@ -111,7 +111,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeEvents()
 		{
-			_services.MessageBrokerService.Subscribe<ServerHttpError>(OnConnectionError);
+			_services.MessageBrokerService.Subscribe<ServerHttpErrorMessage>(OnConnectionError);
 		}
 
 		private void UnsubscribeEvents()
@@ -120,7 +120,7 @@ namespace FirstLight.Game.StateMachines
 			//_services.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
-		private void OnConnectionError(ServerHttpError msg)
+		private void OnConnectionError(ServerHttpErrorMessage msg)
 		{
 			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Session, "Invalid Session Ticket:"+msg.Message );
 			

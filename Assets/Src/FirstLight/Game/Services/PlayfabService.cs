@@ -25,43 +25,43 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Updates the user nickname in playfab.
 		/// </summary>
-		void UpdateNickname(string newNickname);
+		void UpdateNickname(string newNickname, Action<UpdateUserTitleDisplayNameResult> onSuccess = null, Action<PlayFabError> onError = null);
 
 		/// <summary>
 		/// Requests current top leaderboard entries
 		/// </summary>
-		void GetTopRankLeaderboard(int amountOfEntries, Action<GetLeaderboardResult> onSuccess,
+		void GetTopRankLeaderboard(int amountOfEntries, Action<GetLeaderboardResult> onSuccess = null,
 		                           Action<PlayFabError> onError = null);
 
 		/// <summary>
 		/// Requests leaderboard entries around player with ID <paramref name="playfabID"/>
 		/// </summary>
 		void GetNeighborRankLeaderboard(int amountOfEntries,
-		                                Action<GetLeaderboardAroundPlayerResult> onSuccess,
+		                                Action<GetLeaderboardAroundPlayerResult> onSuccess = null,
 		                                Action<PlayFabError> onError = null);
 
 		/// <summary>
 		/// Calls the given cloudscript function with the given arguments.
 		/// </summary>
-		void CallFunction(string functionName, Action<ExecuteFunctionResult> onSuccess,
+		void CallFunction(string functionName, Action<ExecuteFunctionResult> onSuccess = null,
 		                  Action<PlayFabError> onError = null, object parameter = null);
 
 		/// <summary>
 		/// Unlinks this device current account
 		/// </summary>
-		void LinkDeviceID(Action successCallback, Action<PlayFabError> errorCallback);
+		void LinkDeviceID(Action successCallback = null, Action<PlayFabError> errorCallback = null);
 
 		/// <summary>
 		/// Unlinks this device current account
 		/// </summary>
-		void UnlinkDeviceID(Action successCallback, Action<PlayFabError> errorCallback);
+		void UnlinkDeviceID(Action successCallback = null, Action<PlayFabError> errorCallback = null);
 
 		/// <summary>
 		/// Updates anonymous account with provided registration data
 		/// </summary>
 		void AttachLoginDataToAccount(string email, string password, string displayName,
-		                              Action<AddUsernamePasswordResult> successCallback,
-		                              Action<PlayFabError> errorCallback);
+		                              Action<AddUsernamePasswordResult> successCallback = null,
+		                              Action<PlayFabError> errorCallback = null);
 
 		/// <summary>
 		/// Reads the specific title data by the given key.
@@ -96,14 +96,15 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public void UpdateNickname(string newNickname)
+		public void UpdateNickname(string newNickname, Action<UpdateUserTitleDisplayNameResult> onSuccess = null, Action<PlayFabError> onError = null)
 		{
 			var request = new UpdateUserTitleDisplayNameRequest {DisplayName = newNickname};
-			PlayFabClientAPI.UpdateUserTitleDisplayName(request, OnResultCallback, HandleError);
+			PlayFabClientAPI.UpdateUserTitleDisplayName(request, OnSuccess, HandleError);
 
-			void OnResultCallback(UpdateUserTitleDisplayNameResult result)
+			void OnSuccess(UpdateUserTitleDisplayNameResult result)
 			{
 				_logic.AppLogic.NicknameId.Value = result.DisplayName;
+				onSuccess?.Invoke(result);
 			}
 		}
 
@@ -127,7 +128,7 @@ namespace FirstLight.Game.Services
 
 		/// <inheritdoc />
 		public void GetNeighborRankLeaderboard(int amountOfEntries,
-		                                       Action<GetLeaderboardAroundPlayerResult> onSuccess,
+		                                       Action<GetLeaderboardAroundPlayerResult> onSuccess = null,
 		                                       Action<PlayFabError> onError = null)
 		{
 			var neighborLeaderboardRequest = new GetLeaderboardAroundPlayerRequest()
@@ -144,7 +145,7 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public void CallFunction(string functionName, Action<ExecuteFunctionResult> onSuccess,
+		public void CallFunction(string functionName, Action<ExecuteFunctionResult> onSuccess = null,
 		                         Action<PlayFabError> onError = null, object parameter = null)
 		{
 			var request = new ExecuteFunctionRequest
@@ -164,18 +165,18 @@ namespace FirstLight.Game.Services
 				$"{error.HttpCode} - {error.ErrorMessage} - {JsonConvert.SerializeObject(error.ErrorDetails)}";
 			FLog.Error(descriptiveError);
 
-			_msgBroker?.Publish(new ServerHttpError()
+			_msgBroker?.Publish(new ServerHttpErrorMessage()
 			{
 				ErrorCode = (HttpStatusCode) error.HttpCode,
 				Message = descriptiveError
 			});
 		}
 
-		public void FetchServerState(Action<ServerState> callback)
+		public void FetchServerState(Action<ServerState> callback = null)
 		{
 			PlayFabClientAPI.GetUserReadOnlyData(new GetUserDataRequest(), result =>
 			{
-				callback(new ServerState(result.Data
+				callback?.Invoke(new ServerState(result.Data
 				                               .ToDictionary(entry => entry.Key,
 				                                             entry =>
 					                                             entry.Value.Value)));
@@ -185,7 +186,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Gets an specific internal title key data
 		/// </summary>
-		public void GetTitleData(string key, Action<string> callback)
+		public void GetTitleData(string key, Action<string> callback = null)
 		{
 			PlayFabClientAPI.GetTitleData(new GetTitleDataRequest() {Keys = new List<string>() {key}}, res =>
 			{
@@ -194,12 +195,12 @@ namespace FirstLight.Game.Services
 					data = null;
 				}
 
-				callback(data);
+				callback?.Invoke(data);
 			}, HandleError);
 		}
 
 		/// <inheritdoc />
-		public void LinkDeviceID(Action successCallback, Action<PlayFabError> errorCallback)
+		public void LinkDeviceID(Action successCallback = null, Action<PlayFabError> errorCallback = null)
 		{
 #if UNITY_EDITOR
 			var link = new LinkCustomIDRequest
@@ -239,7 +240,7 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public void UnlinkDeviceID(Action successCallback, Action<PlayFabError> errorCallback)
+		public void UnlinkDeviceID(Action successCallback = null, Action<PlayFabError> errorCallback = null)
 		{
 #if UNITY_EDITOR
 			var unlinkRequest = new UnlinkCustomIDRequest
@@ -285,8 +286,8 @@ namespace FirstLight.Game.Services
 
 		/// <inheritdoc />
 		public void AttachLoginDataToAccount(string email, string password, string username,
-		                                     Action<AddUsernamePasswordResult> successCallback,
-		                                     Action<PlayFabError> errorCallback)
+		                                     Action<AddUsernamePasswordResult> successCallback = null,
+		                                     Action<PlayFabError> errorCallback = null)
 		{
 			var addUsernamePasswordRequest = new AddUsernamePasswordRequest
 			{

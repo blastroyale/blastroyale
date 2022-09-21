@@ -33,7 +33,7 @@ MonoBehaviour:
       PickupSpeedRatioToBase:
         RawValue: 17039
       AmmoCapacityRatioToBase:
-        RawValue: 17039
+        RawValue: 0
     - Id: 38
       Manufacturer: 4
       HpRatioToBase:
@@ -97,7 +97,7 @@ MonoBehaviour:
       PickupSpeedRatioToBase:
         RawValue: 3277
       AmmoCapacityRatioToBase:
-        RawValue: 3277
+        RawValue: 0
     - Id: 42
       Manufacturer: 4
       HpRatioToBase:
@@ -113,7 +113,7 @@ MonoBehaviour:
       PickupSpeedRatioToBase:
         RawValue: 3932
       AmmoCapacityRatioToBase:
-        RawValue: 3932
+        RawValue: 0
     - Id: 29
       Manufacturer: 5
       HpRatioToBase:
@@ -129,7 +129,7 @@ MonoBehaviour:
       PickupSpeedRatioToBase:
         RawValue: 6554
       AmmoCapacityRatioToBase:
-        RawValue: 6554
+        RawValue: 0
     - Id: 43
       Manufacturer: 3
       HpRatioToBase:
@@ -145,7 +145,7 @@ MonoBehaviour:
       PickupSpeedRatioToBase:
         RawValue: 3277
       AmmoCapacityRatioToBase:
-        RawValue: 3277
+        RawValue: 0
     - Id: 44
       Manufacturer: 0
       HpRatioToBase:
@@ -177,7 +177,7 @@ MonoBehaviour:
       PickupSpeedRatioToBase:
         RawValue: 1966
       AmmoCapacityRatioToBase:
-        RawValue: 1966
+        RawValue: 0
     - Id: 34
       Manufacturer: 7
       HpRatioToBase:
@@ -193,7 +193,7 @@ MonoBehaviour:
       PickupSpeedRatioToBase:
         RawValue: 9175
       AmmoCapacityRatioToBase:
-        RawValue: 9175
+        RawValue: 0
     - Id: 35
       Manufacturer: 7
       HpRatioToBase:
@@ -209,7 +209,7 @@ MonoBehaviour:
       PickupSpeedRatioToBase:
         RawValue: 14418
       AmmoCapacityRatioToBase:
-        RawValue: 14418
+        RawValue: 0
     - Id: 27
       Manufacturer: 3
       HpRatioToBase:
@@ -273,7 +273,7 @@ MonoBehaviour:
       PickupSpeedRatioToBase:
         RawValue: 2621
       AmmoCapacityRatioToBase:
-        RawValue: 2621
+        RawValue: 0
     - Id: 36
       Manufacturer: 5
       HpRatioToBase:
@@ -289,7 +289,7 @@ MonoBehaviour:
       PickupSpeedRatioToBase:
         RawValue: 14418
       AmmoCapacityRatioToBase:
-        RawValue: 14418
+        RawValue: 0
     - Id: 50
       Manufacturer: 3
       HpRatioToBase:
@@ -305,7 +305,7 @@ MonoBehaviour:
       PickupSpeedRatioToBase:
         RawValue: 2621
       AmmoCapacityRatioToBase:
-        RawValue: 2621
+        RawValue: 0
     - Id: 23
       Manufacturer: 5
       HpRatioToBase:
@@ -321,7 +321,7 @@ MonoBehaviour:
       PickupSpeedRatioToBase:
         RawValue: 14418
       AmmoCapacityRatioToBase:
-        RawValue: 14418
+        RawValue: 0
     - Id: 32
       Manufacturer: 7
       HpRatioToBase:
@@ -385,7 +385,7 @@ MonoBehaviour:
       PickupSpeedRatioToBase:
         RawValue: 3277
       AmmoCapacityRatioToBase:
-        RawValue: 3277
+        RawValue: 0
     - Id: 51
       Manufacturer: 6
       HpRatioToBase:
@@ -401,7 +401,7 @@ MonoBehaviour:
       PickupSpeedRatioToBase:
         RawValue: 5243
       AmmoCapacityRatioToBase:
-        RawValue: 5243
+        RawValue: 0
     - Id: 30
       Manufacturer: 7
       HpRatioToBase:
@@ -417,7 +417,7 @@ MonoBehaviour:
       PickupSpeedRatioToBase:
         RawValue: 13763
       AmmoCapacityRatioToBase:
-        RawValue: 13763
+        RawValue: 0
     - Id: 31
       Manufacturer: 0
       HpRatioToBase:

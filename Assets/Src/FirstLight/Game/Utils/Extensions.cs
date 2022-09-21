@@ -380,7 +380,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static DateTime GetRoomCreationDateTime(this Room room)
 		{
-			return new DateTime((long) room.CustomProperties[GameConstants.Network.ROOM_PROPS_CREATION_TICKS]); ;
+			return new DateTime((long) room.CustomProperties[GameConstants.Network.ROOM_PROPS_CREATION_TICKS]);
 		}
 
 		/// <summary>

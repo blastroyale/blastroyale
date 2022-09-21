@@ -47,6 +47,23 @@ namespace FirstLight.Game.Services
 		                  Action<PlayFabError> onError = null, object parameter = null);
 
 		/// <summary>
+		/// Unlinks this device current account
+		/// </summary>
+		void LinkDeviceID(Action successCallback, Action<PlayFabError> errorCallback);
+
+		/// <summary>
+		/// Unlinks this device current account
+		/// </summary>
+		void UnlinkDeviceID(Action successCallback, Action<PlayFabError> errorCallback);
+
+		/// <summary>
+		/// Updates anonymous account with provided registration data
+		/// </summary>
+		void AttachLoginDataToAccount(string email, string password, string displayName,
+		                              Action<AddUsernamePasswordResult> successCallback,
+		                              Action<PlayFabError> errorCallback);
+
+		/// <summary>
 		/// Reads the specific title data by the given key.
 		/// Throws an error if the key was not present.
 		/// </summary>
@@ -56,7 +73,7 @@ namespace FirstLight.Game.Services
 		/// Obtains the server state of the logged in player
 		/// </summary>
 		void FetchServerState(Action<ServerState> callback);
-		
+
 		/// <summary>
 		/// Handles when a request errors out on playfab.
 		/// </summary>
@@ -66,14 +83,14 @@ namespace FirstLight.Game.Services
 	/// <inheritdoc cref="IPlayfabService" />
 	public class PlayfabService : IPlayfabService
 	{
-		private readonly IAppLogic _app;
+		private readonly IGameLogic _logic;
 		private readonly IMessageBrokerService _msgBroker;
 
 		private readonly string _leaderboardLadderName;
 
-		public PlayfabService(IAppLogic app, IMessageBrokerService msgBroker, string leaderboardLadderName)
+		public PlayfabService(IGameLogic gameLogic, IMessageBrokerService msgBroker, string leaderboardLadderName)
 		{
-			_app = app;
+			_logic = gameLogic;
 			_msgBroker = msgBroker;
 			_leaderboardLadderName = leaderboardLadderName;
 		}
@@ -86,7 +103,7 @@ namespace FirstLight.Game.Services
 
 			void OnResultCallback(UpdateUserTitleDisplayNameResult result)
 			{
-				_app.NicknameId.Value = result.DisplayName;
+				_logic.AppLogic.NicknameId.Value = result.DisplayName;
 			}
 		}
 
@@ -153,15 +170,15 @@ namespace FirstLight.Game.Services
 				Message = descriptiveError
 			});
 		}
-		
+
 		public void FetchServerState(Action<ServerState> callback)
 		{
 			PlayFabClientAPI.GetUserReadOnlyData(new GetUserDataRequest(), result =>
 			{
-				callback(new ServerState(result.Data.ToDictionary(
-					entry => entry.Key,
-					entry => entry.Value.Value)
-				));
+				callback(new ServerState(result.Data
+				                               .ToDictionary(entry => entry.Key,
+				                                             entry =>
+					                                             entry.Value.Value)));
 			}, HandleError);
 		}
 
@@ -170,18 +187,121 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		public void GetTitleData(string key, Action<string> callback)
 		{
-			PlayFabClientAPI.GetTitleData(
-				new GetTitleDataRequest()
-					{ Keys = new List<string>() { key }},
-				res =>
+			PlayFabClientAPI.GetTitleData(new GetTitleDataRequest() {Keys = new List<string>() {key}}, res =>
+			{
+				if (!res.Data.TryGetValue(key, out var data))
 				{
-					if (!res.Data.TryGetValue(key, out var data))
-					{
-						data = null;
-					}
-					callback(data);
-				}, HandleError
-			);
+					data = null;
+				}
+
+				callback(data);
+			}, HandleError);
+		}
+
+		/// <inheritdoc />
+		public void LinkDeviceID(Action successCallback, Action<PlayFabError> errorCallback)
+		{
+#if UNITY_EDITOR
+			var link = new LinkCustomIDRequest
+			{
+				CustomId = PlayFabSettings.DeviceUniqueIdentifier,
+				ForceLink = true
+			};
+
+			PlayFabClientAPI.LinkCustomID(link, _ => OnSuccess(), errorCallback);
+#elif UNITY_ANDROID
+			var link = new LinkAndroidDeviceIDRequest
+			{
+				AndroidDevice = SystemInfo.deviceModel,
+				OS = SystemInfo.operatingSystem,
+				AndroidDeviceId = PlayFabSettings.DeviceUniqueIdentifier,
+				ForceLink = true
+			};
+			
+			PlayFabClientAPI.LinkAndroidDeviceID(link, _ => OnSuccess(), errorCallback);
+
+#elif UNITY_IOS
+			var link = new LinkIOSDeviceIDRequest
+			{
+				DeviceModel = SystemInfo.deviceModel,
+				OS = SystemInfo.operatingSystem,
+				DeviceId = PlayFabSettings.DeviceUniqueIdentifier,
+				ForceLink = true
+			};
+			
+			PlayFabClientAPI.LinkIOSDeviceID(link, _ => OnSuccess(), errorCallback);
+#endif
+			void OnSuccess()
+			{
+				successCallback?.Invoke();
+				_logic.AppLogic.DeviceID.Value = PlayFabSettings.DeviceUniqueIdentifier;
+			}
+		}
+
+		/// <inheritdoc />
+		public void UnlinkDeviceID(Action successCallback, Action<PlayFabError> errorCallback)
+		{
+#if UNITY_EDITOR
+			var unlinkRequest = new UnlinkCustomIDRequest
+			{
+				CustomId = PlayFabSettings.DeviceUniqueIdentifier
+			};
+
+			PlayFabClientAPI.UnlinkCustomID(unlinkRequest, OnSuccess, errorCallback);
+
+			void OnSuccess(UnlinkCustomIDResult result)
+			{
+				_logic.AppLogic.DeviceID.Value = "";
+				successCallback?.Invoke();
+			}
+#elif UNITY_ANDROID
+			var unlinkRequest = new UnlinkAndroidDeviceIDRequest
+			{
+				AndroidDeviceId = PlayFabSettings.DeviceUniqueIdentifier,
+			};
+			
+			PlayFabClientAPI.UnlinkAndroidDeviceID(unlinkRequest,OnSuccess, errorCallback);
+			
+			void OnSuccess(UnlinkAndroidDeviceIDResult result)
+			{
+				_logic.AppLogic.DeviceID.Value = "";
+				successCallback?.Invoke();
+			}
+#elif UNITY_IOS
+			var unlinkRequest = new UnlinkIOSDeviceIDRequest
+			{
+				DeviceId = PlayFabSettings.DeviceUniqueIdentifier,
+			};
+
+			PlayFabClientAPI.UnlinkIOSDeviceID(unlinkRequest, OnSuccess, errorCallback);
+			
+			void OnSuccess(UnlinkIOSDeviceIDResult result)
+			{
+				_logic.AppLogic.DeviceID.Value = "";
+				successCallback?.Invoke();
+			}
+#endif
+		}
+
+		/// <inheritdoc />
+		public void AttachLoginDataToAccount(string email, string password, string username,
+		                                     Action<AddUsernamePasswordResult> successCallback,
+		                                     Action<PlayFabError> errorCallback)
+		{
+			var addUsernamePasswordRequest = new AddUsernamePasswordRequest
+			{
+				Email = email,
+				Username = username,
+				Password = password
+			};
+
+			PlayFabClientAPI.AddUsernamePassword(addUsernamePasswordRequest, OnSuccess, errorCallback);
+
+			void OnSuccess(AddUsernamePasswordResult result)
+			{
+				_logic.AppLogic.LastLoginEmail.Value = email;
+				successCallback?.Invoke(result);
+			}
 		}
 	}
 }

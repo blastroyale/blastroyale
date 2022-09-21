@@ -33,6 +33,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly GameLogic _gameLogic;
 		private readonly CoreLoopState _coreLoopState;
 		private readonly IGameServices _services;
+		private readonly IDataService _dataService;
 		private readonly IConfigsAdder _configsAdder;
 		private readonly IGameUiServiceInit _uiService;
 
@@ -41,6 +42,7 @@ namespace FirstLight.Game.StateMachines
 		                        IAssetAdderService assetAdderService, IDataService dataService,
 		                        IVfxInternalService<VfxId> vfxService)
 		{
+			_dataService = dataService;
 			_gameLogic = gameLogic;
 			_services = services;
 			_uiService = uiService;
@@ -70,7 +72,8 @@ namespace FirstLight.Game.StateMachines
 			var final = stateFactory.Final("Final");
 			var initialAssets = stateFactory.TaskWait("Initial Asset");
 			var internetCheck = stateFactory.Choice("Internet Check");
-			var initialLoading = stateFactory.Split("Initial Loading");
+			var initialLoading = stateFactory.Nest("Initial Loading");
+			var authentication = stateFactory.Nest("Authentication");
 			var core = stateFactory.Split("Core");
 			
 			initial.Transition().Target(initialAssets);
@@ -81,8 +84,10 @@ namespace FirstLight.Game.StateMachines
 			internetCheck.Transition().Condition(InternetCheck).OnTransition(OpenNoInternetPopUp).Target(final);
 			internetCheck.Transition().Target(initialLoading);
 
-			initialLoading.Split(_initialLoadingState.Setup, _authenticationState.Setup).Target(core);
+			initialLoading.Nest(_initialLoadingState.Setup).Target(authentication);
 			initialLoading.OnExit(InitializeGame);
+			
+			authentication.Nest(_authenticationState.Setup).Target(core);
 			
 			core.Split(_audioState.Setup, _networkState.Setup, _coreLoopState.Setup).Target(final);
 
@@ -106,17 +111,17 @@ namespace FirstLight.Game.StateMachines
 
 		private void InitializeGame()
 		{
+			// App data is always loaded from disk, while the other data will be obtained later on from server
+			_dataService.LoadData<AppData>();
+			_dataService.AddData<RngData>(new RngData());
+			_dataService.AddData<IdData>(new IdData());
+			_dataService.AddData<PlayerData>(new PlayerData());
+			_dataService.AddData<EquipmentData>(new EquipmentData());
 			_gameLogic.Init();
 
 			_services.AudioFxService.AudioListener.Listener.enabled = true;
 			MMVibrationManager.SetHapticsActive(_gameLogic.AppLogic.IsHapticOn);
-			
-			// Just marking the default name to avoid missing names
-			if (string.IsNullOrWhiteSpace(_gameLogic.AppLogic.NicknameId.Value))
-			{
-				_services.PlayfabService.UpdateNickname(GameConstants.PlayerName.DEFAULT_PLAYER_NAME);
-			}
-			
+
 			_services?.AnalyticsService.SessionCalls.GameLoaded();
 		}
 

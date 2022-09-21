@@ -125,16 +125,16 @@ namespace FirstLight.Game.StateMachines
 		private void TryConnectId(string email, string password, string username)
 		{
 			SetConnectIdDim(true);
-			_data.AppDataProvider.AttachLoginDataToAccount(email, password, username, OnConnectIdComplete,
+			_services.PlayfabService.AttachLoginDataToAccount(email, password, username, OnConnectIdComplete,
 			                                               OnPlayfabError);
 		}
 
 		private void TryLogOut()
 		{
-			_data.AppDataProvider.UnlinkDeviceID(OnUnlinkComplete, OnPlayfabError);
+			_services.PlayfabService.UnlinkDeviceID(OnUnlinkComplete, OnPlayfabError);
 		}
 
-		private void OnConnectIdComplete(string newUsername)
+		private void OnConnectIdComplete(AddUsernamePasswordResult result)
 		{
 			SetConnectIdDim(false);
 			_statechartTrigger(_connectIdBackEvent);

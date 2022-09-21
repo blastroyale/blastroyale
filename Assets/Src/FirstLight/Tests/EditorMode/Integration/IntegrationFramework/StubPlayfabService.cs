@@ -38,6 +38,22 @@ namespace FirstLight.Tests.EditorMode
 			onSuccess ?.Invoke(new ExecuteFunctionResult());
 		}
 
+		public void LinkDeviceID(Action successCallback, Action<PlayFabError> errorCallback)
+		{
+			
+		}
+
+		public void UnlinkDeviceID(Action successCallback, Action<PlayFabError> errorCallback)
+		{
+
+		}
+
+		public void AttachLoginDataToAccount(string email, string password, string displayName, Action<AddUsernamePasswordResult> successCallback,
+		                                     Action<PlayFabError> errorCallback)
+		{
+
+		}
+
 		public void GetTitleData(string key, Action<string> result)
 		{
 			

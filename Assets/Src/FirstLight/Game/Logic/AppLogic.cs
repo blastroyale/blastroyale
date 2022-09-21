@@ -96,21 +96,6 @@ namespace FirstLight.Game.Logic
 		/// Marks the date when the game was last time reviewed
 		/// </summary>
 		void MarkGameAsReviewed();
-
-		/// <summary>
-		/// Unlinks this device current account
-		/// </summary>
-		void LinkDeviceID(Action successCallback, Action<PlayFabError> errorCallback);
-
-		/// <summary>
-		/// Unlinks this device current account
-		/// </summary>
-		void UnlinkDeviceID(Action successCallback, Action<PlayFabError> errorCallback);
-		
-		/// <summary>
-		/// Updates anonymous account with provided registration data
-		/// </summary>
-		void AttachLoginDataToAccount(string email, string password, string displayName, Action<string> successCallback, Action<PlayFabError> errorCallback);
 	}
 
 	/// <inheritdoc />
@@ -253,110 +238,6 @@ namespace FirstLight.Game.Logic
 
 			QualitySettings.SetQualityLevel(detailLevelConf.DetailLevelIndex);
 			Application.targetFrameRate = detailLevelConf.Fps;
-		}
-
-		/// <inheritdoc />
-		public void LinkDeviceID(Action successCallback, Action<PlayFabError> errorCallback)
-		{
-#if UNITY_EDITOR
-			var link = new LinkCustomIDRequest
-			{
-				CustomId = PlayFabSettings.DeviceUniqueIdentifier,
-				ForceLink = true
-			};
-
-			PlayFabClientAPI.LinkCustomID(link, _ => OnSuccess(), errorCallback);
-#elif UNITY_ANDROID
-			var link = new LinkAndroidDeviceIDRequest
-			{
-				AndroidDevice = SystemInfo.deviceModel,
-				OS = SystemInfo.operatingSystem,
-				AndroidDeviceId = PlayFabSettings.DeviceUniqueIdentifier,
-				ForceLink = true
-			};
-			
-			PlayFabClientAPI.LinkAndroidDeviceID(link, _ => OnSuccess(), errorCallback);
-
-#elif UNITY_IOS
-			var link = new LinkIOSDeviceIDRequest
-			{
-				DeviceModel = SystemInfo.deviceModel,
-				OS = SystemInfo.operatingSystem,
-				DeviceId = PlayFabSettings.DeviceUniqueIdentifier,
-				ForceLink = true
-			};
-			
-			PlayFabClientAPI.LinkIOSDeviceID(link, _ => OnSuccess(), errorCallback);
-#endif
-			void OnSuccess()
-			{
-				successCallback?.Invoke();
-				DeviceID.Value = PlayFabSettings.DeviceUniqueIdentifier;
-			}
-		}
-
-		/// <inheritdoc />
-		public void UnlinkDeviceID(Action successCallback, Action<PlayFabError> errorCallback)
-		{
-#if UNITY_EDITOR
-			var unlinkRequest = new UnlinkCustomIDRequest
-			{
-				CustomId = PlayFabSettings.DeviceUniqueIdentifier
-			};
-
-			PlayFabClientAPI.UnlinkCustomID(unlinkRequest, OnSuccess, errorCallback);
-
-			void OnSuccess(UnlinkCustomIDResult result)
-			{
-				DeviceID.Value = "";
-				successCallback?.Invoke();
-			}
-#elif UNITY_ANDROID
-			var unlinkRequest = new UnlinkAndroidDeviceIDRequest
-			{
-				AndroidDeviceId = PlayFabSettings.DeviceUniqueIdentifier,
-			};
-			
-			PlayFabClientAPI.UnlinkAndroidDeviceID(unlinkRequest,OnSuccess, errorCallback);
-			
-			void OnSuccess(UnlinkAndroidDeviceIDResult result)
-			{
-				DeviceID.Value = "";
-				successCallback?.Invoke();
-			}
-#elif UNITY_IOS
-			var unlinkRequest = new UnlinkIOSDeviceIDRequest
-			{
-				DeviceId = PlayFabSettings.DeviceUniqueIdentifier,
-			};
-
-			PlayFabClientAPI.UnlinkIOSDeviceID(unlinkRequest, OnSuccess, errorCallback);
-			
-			void OnSuccess(UnlinkIOSDeviceIDResult result)
-			{
-				DeviceID.Value = "";
-				successCallback?.Invoke();
-			}
-#endif
-		}
-
-		/// <inheritdoc />
-		public void AttachLoginDataToAccount(string email, string password, string username, Action<string> successCallback, Action<PlayFabError> errorCallback)
-		{
-			var addUsernamePasswordRequest = new AddUsernamePasswordRequest
-			{
-				Email = email,
-				Username = username,
-				Password = password
-			};
-			
-			PlayFabClientAPI.AddUsernamePassword(addUsernamePasswordRequest, OnSuccess, errorCallback);
-			
-			void OnSuccess(AddUsernamePasswordResult result)
-			{
-				LastLoginEmail.Value = email;
-				successCallback?.Invoke(result.Username);
-			}
 		}
 	}
 }

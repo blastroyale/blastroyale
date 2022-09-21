@@ -200,6 +200,9 @@ namespace FirstLight.Game.Logic
 		
 		/// <inheritdoc />
 		public IObservableField<string> LastLoginEmail { get; private set; }
+		
+		/// <inheritdoc />
+		public IObservableField<string> NicknameId { get; private set; }
 
 		/// <inheritdoc />
 		public string Nickname =>
@@ -209,10 +212,7 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc />
 		public string PlayerId => Data.PlayerId;
-
-		/// <inheritdoc />
-		public IObservableField<string> NicknameId { get; private set; }
-
+		
 		/// <inheritdoc />
 		IObservableFieldReader<string> IAppDataProvider.NicknameId => NicknameId;
 

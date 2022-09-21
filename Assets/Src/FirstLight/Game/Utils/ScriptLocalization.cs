@@ -748,6 +748,7 @@ namespace I2.Loc
 			public static string Collect 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Collect"); } }
 			public static string CollectedCrates 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/CollectedCrates"); } }
 			public static string CompleteLowerDifficulty 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/CompleteLowerDifficulty"); } }
+			public static string ConnectFirstLightIdAdvice 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ConnectFirstLightIdAdvice"); } }
 			public static string ConnectFirstLightIdButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ConnectFirstLightIdButton"); } }
 			public static string ConnectToNewFirstLightId 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ConnectToNewFirstLightId"); } }
 			public static string ContainsAtLeast 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ContainsAtLeast"); } }
@@ -855,7 +856,6 @@ namespace I2.Loc
 			public static string QuitGameButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/QuitGameButton"); } }
 			public static string ReachPlayerLevelAdventure 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ReachPlayerLevelAdventure"); } }
 			public static string ReconnectButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ReconnectButton"); } }
-			public static string RegisterAdvice 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RegisterAdvice"); } }
 			public static string RegisterButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RegisterButton"); } }
 			public static string RegisterFirstLightId 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RegisterFirstLightId"); } }
 			public static string RegisterSuccess 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RegisterSuccess"); } }
@@ -1797,6 +1797,7 @@ namespace I2.Loc
 		    public const string Collect = "MainMenu/Collect";
 		    public const string CollectedCrates = "MainMenu/CollectedCrates";
 		    public const string CompleteLowerDifficulty = "MainMenu/CompleteLowerDifficulty";
+		    public const string ConnectFirstLightIdAdvice = "MainMenu/ConnectFirstLightIdAdvice";
 		    public const string ConnectFirstLightIdButton = "MainMenu/ConnectFirstLightIdButton";
 		    public const string ConnectToNewFirstLightId = "MainMenu/ConnectToNewFirstLightId";
 		    public const string ContainsAtLeast = "MainMenu/ContainsAtLeast";
@@ -1904,7 +1905,6 @@ namespace I2.Loc
 		    public const string QuitGameButton = "MainMenu/QuitGameButton";
 		    public const string ReachPlayerLevelAdventure = "MainMenu/ReachPlayerLevelAdventure";
 		    public const string ReconnectButton = "MainMenu/ReconnectButton";
-		    public const string RegisterAdvice = "MainMenu/RegisterAdvice";
 		    public const string RegisterButton = "MainMenu/RegisterButton";
 		    public const string RegisterFirstLightId = "MainMenu/RegisterFirstLightId";
 		    public const string RegisterSuccess = "MainMenu/RegisterSuccess";

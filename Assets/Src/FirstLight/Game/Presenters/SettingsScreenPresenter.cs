@@ -24,7 +24,7 @@ namespace FirstLight.Game.Presenters
 		{
 			public Action LogoutClicked;
 			public Action OnClose;
-			public Action OnAccountLinkClicked;
+			public Action OnConnectIdClicked;
 			public Action OnServerSelectClicked;
 		}
 		
@@ -75,7 +75,7 @@ namespace FirstLight.Game.Presenters
 			_closeButton.onClick.AddListener(OnClosedCompleted);
 			_blockerButton.onClick.AddListener(OnBlockerButtonPressed);
 			_logoutButton.onClick.AddListener(OnLogoutClicked);
-			_connectIdButton.onClick.AddListener(OpenAccountLink);
+			_connectIdButton.onClick.AddListener(OpenConnectId);
 			_backgroundMusicToggle.onValueChanged.AddListener(OnBgmChanged);
 			_sfxToggle.onValueChanged.AddListener(OnSfxChanged);
 			_dialogueToggle.onValueChanged.AddListener(OnDialogueChanged);
@@ -114,9 +114,9 @@ namespace FirstLight.Game.Presenters
 			Data.OnClose();
 		}
 
-		private void OpenAccountLink()
+		private void OpenConnectId()
 		{
-			
+			Data.OnConnectIdClicked();
 		}
 
 		private void OpenServerSelect()

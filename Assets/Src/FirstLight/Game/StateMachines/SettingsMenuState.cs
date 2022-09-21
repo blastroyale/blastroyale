@@ -63,7 +63,7 @@ namespace FirstLight.Game.StateMachines
 			
 			connectId.OnEnter(OpenConnectIdScreen);
 			connectId.Event(_connectIdBackEvent).Target(settingsMenu);
-			connectId.OnEnter(CloseConnectIdScreen);
+			connectId.OnExit(CloseConnectIdScreen);
 			
 			logoutWait.OnEnter(TryLogOut);
 			logoutWait.Event(_logoutFailedEvent).Target(final);
@@ -86,7 +86,8 @@ namespace FirstLight.Game.StateMachines
 			{
 				LogoutClicked = TryLogOut,
 				OnClose = () => _statechartTrigger(_settingsCloseClickedEvent),
-				OnServerSelectClicked = () => _statechartTrigger(NetworkState.OpenServerSelectScreenEvent)
+				OnServerSelectClicked = () => _statechartTrigger(NetworkState.OpenServerSelectScreenEvent),
+				OnConnectIdClicked = () => _statechartTrigger(_connectIdClickedEvent)
 			};
 
 			_uiService.OpenUiAsync<SettingsScreenPresenter, SettingsScreenPresenter.StateData>(data);

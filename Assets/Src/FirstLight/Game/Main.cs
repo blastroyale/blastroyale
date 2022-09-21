@@ -46,8 +46,7 @@ namespace FirstLight.Game
 			var audioFxService = new GameAudioFxService(assetResolver);
 			var vfxService = new VfxService<VfxId>();
 			
-			var gameLogic = new GameLogic(messageBroker, timeService, dataService, configsProvider,
-			                              audioFxService);
+			var gameLogic = new GameLogic(messageBroker, timeService, dataService, configsProvider, audioFxService);
 			var gameServices = new GameServices(networkService, messageBroker, timeService, dataService,
 			                                    configsProvider, gameLogic, genericDialogService, 
 			                                    assetResolver, vfxService, audioFxService);

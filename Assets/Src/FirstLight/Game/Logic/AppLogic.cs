@@ -75,7 +75,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Requests current device Id
 		/// </summary>
-		IObservableField<string> DeviceId { get; }
+		IObservableField<string> DeviceID { get; }
 		
 		/// <summary>
 		/// Requests current device Id
@@ -189,7 +189,7 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc />
 		public IObservableField<string> ConnectionRegion { get; private set; }
-		
+
 		/// <inheritdoc />
 		public IObservableField<string> DeviceID { get; private set; }
 		
@@ -207,9 +207,6 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc />
 		public IObservableField<string> NicknameId { get; private set; }
-
-		/// <inheritdoc />
-		public IObservableField<string> SelectedGameModeId { get; private set; }
 
 		/// <inheritdoc />
 		IObservableFieldReader<string> IAppDataProvider.NicknameId => NicknameId;
@@ -230,7 +227,6 @@ namespace FirstLight.Game.Logic
 			ConnectionRegion = new ObservableResolverField<string>(() => Data.ConnectionRegion, region => Data.ConnectionRegion = region);
 			DeviceID = new ObservableResolverField<string>(() => Data.DeviceId, linked => Data.DeviceId = linked);
 			LastLoginEmail = new ObservableResolverField<string>(() => Data.LastLoginEmail, email => Data.LastLoginEmail = email);
-			SelectedGameModeId = new ObservableField<string>(GameLogic.ConfigsProvider.GetConfigsList<QuantumGameModeConfig>()[0].Id);
 		}
 
 		/// <inheritdoc />
@@ -290,7 +286,7 @@ namespace FirstLight.Game.Logic
 			void OnLinkSuccess()
 			{
 				linkSuccessCallback?.Invoke();
-				_deviceId.Value = PlayFabSettings.DeviceUniqueIdentifier;
+				DeviceID.Value = PlayFabSettings.DeviceUniqueIdentifier;
 			}
 		}
 
@@ -308,7 +304,7 @@ namespace FirstLight.Game.Logic
 			void OnUnlinkSuccess(UnlinkCustomIDResult result)
 			{
 				unlinkSuccessCallback?.Invoke();
-				_deviceId.Value = "";
+				DeviceID.Value = "";
 			}
 #elif UNITY_ANDROID
 			var unlinkRequest = new UnlinkAndroidDeviceIDRequest
@@ -321,7 +317,7 @@ namespace FirstLight.Game.Logic
 			void OnUnlinkSuccess(UnlinkAndroidDeviceIDResult result)
 			{
 				unlinkSuccessCallback?.Invoke();
-				_deviceId.Value = "";
+				DeviceID.Value = "";
 			}
 #elif UNITY_IOS
 			var unlinkRequest = new UnlinkIOSDeviceIDRequest
@@ -334,7 +330,7 @@ namespace FirstLight.Game.Logic
 			void OnUnlinkSuccess(UnlinkIOSDeviceIDResult result)
 			{
 				unlinkSuccessCallback?.Invoke();
-				_deviceId.Value = "";
+				DeviceID.Value = "";
 			}
 #endif
 		}

@@ -2363,7 +2363,6 @@ MonoBehaviour:
   _introAnimationClip: {fileID: 7400000, guid: 773c6ff7ec667ce43aa6ca1d7e1b4117, type: 2}
   _outroAnimationClip: {fileID: 7400000, guid: 4a14d88f05172784c8c981bfe725dbca, type: 2}
   _versionText: {fileID: 380711719780358377}
-  _fullNameText: {fileID: 7973712682157415712}
   _closeButton: {fileID: 1584029078043924708}
   _blockerButton: {fileID: 2397720136522821436}
   _logoutButton: {fileID: 5149535156501787418}
@@ -2376,6 +2375,9 @@ MonoBehaviour:
   _faq: {fileID: 2274110565824241915}
   _serverSelectButton: {fileID: 3940367620747384967}
   _selectedServerText: {fileID: 83373390724344024}
+  _connectIdButton: {fileID: 61423693901523033}
+  _idConnectionStatusText: {fileID: 2942644703346028177}
+  _idConnectionNameText: {fileID: 7973712682157415712}
 --- !u!114 &8847670435640540833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4590,7 +4592,7 @@ GameObject:
   - component: {fileID: 7973712682157415712}
   - component: {fileID: 245631839043040577}
   m_Layer: 5
-  m_Name: FullNameText
+  m_Name: IdNameText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

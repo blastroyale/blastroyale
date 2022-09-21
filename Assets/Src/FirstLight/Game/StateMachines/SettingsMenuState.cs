@@ -113,6 +113,8 @@ namespace FirstLight.Game.StateMachines
 		
 		private void UnlinkComplete()
 		{
+			_services.HelpdeskService.Logout();
+			
 #if UNITY_EDITOR
 			var title = string.Format(ScriptLocalization.MainMenu.LogoutSuccessDesc);
 			var confirmButton = new GenericDialogButton

@@ -309,7 +309,8 @@ namespace FirstLight.Game.StateMachines
 			appData.LastLoginTime = result.LastLoginTime ?? result.InfoResultPayload.AccountInfo.Created;
 			appData.IsFirstSession = result.NewlyCreated;
 			appData.PlayerId = result.PlayFabId;
-
+			appData.LastLoginEmail = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
+				
 			if (FeatureFlags.REMOTE_CONFIGURATION)
 			{
 				FLog.Verbose("Parsing Remote Configurations");
@@ -431,7 +432,7 @@ namespace FirstLight.Game.StateMachines
 			var userName = result.InfoResultPayload.AccountInfo.Username;
 
 			_services.HelpdeskService.Login(userId, email, userName);
-			
+
 			if (string.IsNullOrWhiteSpace(appData.DeviceId))
 			{
 				_data.AppDataProvider.LinkDeviceID(null, null);
@@ -549,8 +550,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void SetLinkedDevice()
 		{
-			_data.AppDataProvider.DeviceId = PlayFabSettings.DeviceUniqueIdentifier;
-		
+			_data.AppDataProvider.DeviceID.Value = PlayFabSettings.DeviceUniqueIdentifier;
 		}
 
 		private bool IsOutdated(string version)

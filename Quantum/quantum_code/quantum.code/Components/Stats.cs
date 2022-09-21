@@ -84,6 +84,12 @@ namespace Quantum
 			var previousMaxHeath = GetStatData(StatType.Health).StatValue.AsInt;
 			var previousMaxShield = GetStatData(StatType.Shield).StatValue.AsInt;
 
+			GetLoadoutStats(f, weapon, gear, out var armour, out var health, out var speed, out var power, 
+				out var attackRange, out var pickupSpeed, out var ammoCapacity, out var shieldCapacity);
+
+			GainShieldCapacity(f, e, shieldCapacity.AsInt);
+			
+
 			RefreshStats(f, weapon, gear);
 
 			var newMaxHealth = GetStatData(StatType.Health).StatValue.AsInt;

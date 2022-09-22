@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
@@ -124,20 +125,20 @@ namespace FirstLight.Game.Presenters
 			Data.PlayClicked();
 		}
 
-		private string GetMutatorsList()
+		private List<String> GetMutatorsList()
 		{
-			var mutators = "";
+			var mutators = new List<String>();
 
 			for (var i = 0; i < _mutatorsSelections.Length; i++)
 			{
-				var mutatorMenuOption = ((MutatorDropdownMenuOption) _mutatorsSelections[i].options[_mutatorsSelections[i].value]);
+				var mutatorMenuOption = _mutatorsSelections[i].options[_mutatorsSelections[i].value];
 				
 				if (mutatorMenuOption.text.Length == 0)
 				{
 					continue;
 				}
 				
-				mutators += mutatorMenuOption.MutatorConfig.Id + ",";
+				mutators.Add(mutatorMenuOption.text);
 			}
 
 			return mutators;
@@ -150,11 +151,11 @@ namespace FirstLight.Game.Presenters
 			foreach (var mutatorsSelection in _mutatorsSelections)
 			{
 				mutatorsSelection.options.Clear();
-				mutatorsSelection.options.Add(new MutatorDropdownMenuOption("", new QuantumMutatorConfig()));
+				mutatorsSelection.options.Add(new TMP_Dropdown.OptionData(""));
 
 				foreach (var mutatorConfig in mutatorConfigs)
 				{
-					mutatorsSelection.options.Add(new MutatorDropdownMenuOption(mutatorConfig.Id, mutatorConfig));
+					mutatorsSelection.options.Add(new TMP_Dropdown.OptionData(mutatorConfig.Id));
 				}
 
 				mutatorsSelection.RefreshShownValue();
@@ -215,16 +216,6 @@ namespace FirstLight.Game.Presenters
 			public MapDropdownMenuOption(string text, QuantumMapConfig mapConfig) : base(text)
 			{
 				MapConfig = mapConfig;
-			}
-		}
-		
-		private class MutatorDropdownMenuOption : TMP_Dropdown.OptionData
-		{
-			public QuantumMutatorConfig MutatorConfig { get; set; }
-
-			public MutatorDropdownMenuOption(string text, QuantumMutatorConfig mutatorConfig) : base(text)
-			{
-				MutatorConfig = mutatorConfig;
 			}
 		}
 	}

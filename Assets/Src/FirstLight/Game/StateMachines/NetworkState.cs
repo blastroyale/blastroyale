@@ -573,15 +573,14 @@ namespace FirstLight.Game.StateMachines
 		{
 			var gameModeId = msg.GameModeConfig.Id;
 			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
-			var mutators = msg.Mutators.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList();
 			
 			if (msg.JoinIfExists)
 			{
-				JoinOrCreateRoom(gameModeConfig, msg.MapConfig, mutators, msg.RoomName);
+				JoinOrCreateRoom(gameModeConfig, msg.MapConfig, msg.Mutators, msg.RoomName);
 			}
 			else
 			{
-				CreateRoom(gameModeConfig, msg.MapConfig, mutators, msg.RoomName);
+				CreateRoom(gameModeConfig, msg.MapConfig, msg.Mutators, msg.RoomName);
 			}
 		}
 

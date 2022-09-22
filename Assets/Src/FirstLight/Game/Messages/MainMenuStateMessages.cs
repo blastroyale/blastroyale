@@ -34,7 +34,7 @@ namespace FirstLight.Game.Messages
 		public string RoomName;
 		public QuantumGameModeConfig GameModeConfig;
 		public QuantumMapConfig MapConfig;
-		public string Mutators;
+		public List<string> Mutators;
 		public bool JoinIfExists;
 	}
 }

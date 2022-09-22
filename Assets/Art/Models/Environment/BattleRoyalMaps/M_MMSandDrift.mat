@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-1461426858221588010
+--- !u!114 &-3106444939343930136
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Clouds
-  m_Shader: {fileID: -6465566751694194690, guid: cce87e1700f967249b65e407de016e00, type: 3}
+  m_Name: M_MMSandDrift
+  m_Shader: {fileID: -6465566751694194690, guid: d598fcaae52fff44295a42aca73e0a40, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -33,6 +33,14 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - MetRough:
+        m_Texture: {fileID: 2800000, guid: fcea564af35acf04ba9ae26d103135a5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_80E45D9B:
+        m_Texture: {fileID: 2800000, guid: 7feca4d8f8ad56349842846313775643, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -47,32 +55,23 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Alpha_Clip: 0.1
-    - Cloud_Alpha: 0.5
-    - Cloud_Power: 0.2
-    - Cloud_Scale: 100
-    - Distort_Scale: 200
-    - Vector1_2C41ECC1: 0
-    - Vector1_556AE1FB: 1
-    - Vector1_67FEC935: 1
-    - Vector1_8C61E293: 10
-    - Vector1_9A17C224: 1
-    - Vector1_9AE58B88: 2
-    - Vector1_AAB03FDC: 1
-    - Vector1_C4C59EAB: 5
-    - Vector1_DC02DE99: 2
-    - Vector1_E7658068: 0.2
-    - Vector1_F65AAB4A: 100
-    - Vector1_FC69CDDC: 0.1
-    - Vertext_Offset: -3
+    - Distort: 0.5
+    - DistortAmount: 1
+    - DistortScale: 1.5
+    - NormalStrength: 0.1
+    - Vector1_1B1866F0: 2
+    - Vector1_35A109C9: 0.5
+    - Vector1_652EF29: 0.75
+    - Vector1_904B25EC: 0.9
+    - Vector1_976BFC4: 1
+    - Vector1_C53D494A: 1
+    - Vector1_C53F84B0: 0.15
+    - Vector1_CDB3DABE: 0.1
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - Cloud_Color: {r: 1.6701597, g: 1.8470784, b: 2.3710303, a: 1}
-    - Cloud_Speed: {r: 0.003, g: 0.001, b: 0, a: 0}
-    - Color_B822D8BE: {r: 0, g: 0, b: 0, a: 0}
-    - Color_EE1A5DA6: {r: 1, g: 1, b: 1, a: 0}
-    - Distort_Speed: {r: 0.01, g: -0.02, b: 0, a: 0}
-    - Vector4_89E8BEC0: {r: 0, g: 1, b: -1, a: 1}
-    - Vector4_B0488B0: {r: 90, g: 1, b: 1, a: 0}
+    - Color_1E8D7265: {r: 5.069822, g: 2.7792733, b: 1.036284, a: 1}
+    - Color_CB1CA255: {r: 1, g: 1, b: 1, a: 1}
+    - Vector2_FD0C58A4: {r: 0.1, g: 0.1, b: 1, a: 1}
+    - Vector4_F799D26D: {r: 16, g: 8, b: 0, a: 20}
   m_BuildTextureStacks: []

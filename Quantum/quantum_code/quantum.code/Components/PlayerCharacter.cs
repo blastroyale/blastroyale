@@ -253,10 +253,11 @@ namespace Quantum
 			Assert.Check(!gear.IsWeapon(), gear);
 
 			var gearSlot = GetGearSlot(gear);
+			
 			Gear[gearSlot] = gear;
 			
 			f.Unsafe.GetPointer<Stats>(e)->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Gear);
-
+			
 			f.Events.OnPlayerGearChanged(Player, e, gear, gearSlot);
 		}
 
@@ -265,8 +266,7 @@ namespace Quantum
 		/// </summary>
 		public int GetAmmoAmount(Frame f, EntityRef e, out int maxAmmo)
 		{
-			maxAmmo = f.WeaponConfigs.GetConfig(CurrentWeapon.GameId).MaxAmmo.Get(f);
-
+			maxAmmo = f.Get<Stats>(e).GetStatData(StatType.AmmoCapacity).StatValue.AsInt;
 			return FPMath.FloorToInt(GetAmmoAmountFilled(f, e) * maxAmmo);
 		}
 

@@ -1,15 +1,16 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using FirstLight.Game.Data;
 using FirstLight.Game.Utils;
+using FirstLight.Server.SDK.Modules;
 using Photon.Deterministic;
 using Photon.Deterministic.Protocol;
 using Photon.Deterministic.Server;
 using Photon.Hive.Plugin;
 using PlayFab.ServerModels;
 using quantum.custom.plugin;
-using ServerSDK.Modules;
 
 namespace Quantum
 {
@@ -19,24 +20,24 @@ namespace Quantum
 	/// </summary>
 	public class CustomQuantumServer : DeterministicServer, IDisposable
 	{
+		private static ResourceManagerStaticPreloaded _resourceManager;
+		private static QuantumAssetSerializer _serializer = new QuantumAssetSerializer();
+		private static Object _initializationLock = new Object();
+
 		private DeterministicSessionConfig _config;
 		private RuntimeConfig _runtimeConfig;
 		private readonly Dictionary<String, String> _photonConfig;
 		private readonly Dictionary<string, SetPlayerData> _receivedPlayers;
 		private readonly Dictionary<int, SetPlayerData> _validPlayers;
 		private readonly Dictionary<int, int> _actorNrToIndex;
-		
+		public SessionContainer gameSession;
+		private InputProvider inputProvider;
+	
 		public readonly PhotonPlayfabSDK Playfab;
 		
 		public CustomQuantumServer(Dictionary<String, String> photonConfig, IPluginHost host) {
 			_photonConfig = photonConfig;
 			Playfab = new PhotonPlayfabSDK(photonConfig, host);
-
-			if (photonConfig.TryGetValue("TestConsensus", out var testConsensus) && testConsensus == "true")
-			{
-				FlgConfig.TEST_CONSENSUS = true;
-			}
-
 			_receivedPlayers = new Dictionary<string, SetPlayerData>();
 			_validPlayers = new Dictionary<int, SetPlayerData>();
 			_actorNrToIndex = new Dictionary<int, int>();
@@ -44,8 +45,157 @@ namespace Quantum
 			ModelSerializer.RegisterConverter(new QuantumVector3Converter());
 		}
 
+		public override void OnDeterministicStartSession()
+		{
+			lock (_initializationLock) 
+			{
+				if (!FPLut.IsLoaded)
+				{
+					FPLut.Init(Path.Combine(PluginLocation, "MathTables"));
+					String pathToDB = Path.Combine(PluginLocation, "assetDatabase.json");
+					byte[] assetDBData = LoadAssetDBData(pathToDB, null);
+					Assert.Always(assetDBData != null, "No asset database found");
+					Native.Utils = Native.Utils ?? SessionContainer.CreateNativeUtils();
+					var assets = _serializer.DeserializeAssets(assetDBData);
+					var allocator = SessionContainer.CreateNativeAllocator();
+					_resourceManager = ResourceManagerStaticPreloaded.Create(assets, allocator);
+				}
+			}
+			StartServerSimulation();
+		}
+
+		public void StartServerSimulation()
+		{
+			Log.Debug("Starting server simulation");
+			var configsFile = new ReplayFile();
+			configsFile.DeterministicConfig = _config;
+			configsFile.RuntimeConfig = _runtimeConfig;
+			gameSession = new SessionContainer(configsFile);
+			var startParams = new QuantumGame.StartParameters
+			{
+				AssetSerializer = _serializer,
+				ResourceManager = _resourceManager
+			};
+			inputProvider = new InputProvider(_config);
+			var taskRunner = new InactiveTaskRunner();
+			gameSession.StartReplay(startParams, inputProvider, "server", false, taskRunner: taskRunner);
+		}
+
+		public string PluginLocation
+		{
+			get
+			{
+				string codeBase = GetType().Assembly.CodeBase;
+				UriBuilder uri = new UriBuilder(codeBase);
+				string path = Uri.UnescapeDataString(uri.Path);
+				return Path.GetDirectoryName(path);
+			}
+		}
+
+		private byte[] LoadAssetDBData(string pathToDB, string embeddedDB)
+		{
+			byte[] assetDBFileContent = null;
+
+			// Trying to load the asset db file from disk
+			if (string.IsNullOrEmpty(pathToDB) == false)
+			{
+				if (File.Exists(pathToDB))
+				{
+					PluginHost.LogInfo($"Loading Quantum AssetDB from file '{pathToDB}' ..");
+					assetDBFileContent = File.ReadAllBytes(pathToDB);
+					Assert.Always(assetDBFileContent != null);
+				}
+				else
+				{
+					PluginHost.LogInfo($"No asset db file found at '{pathToDB}'.");
+				}
+			}
+
+			// Trying to load the asset db file from the assembly
+			if (assetDBFileContent == null)
+			{
+				PluginHost.LogInfo($"Loading Quantum AssetDB from internal resource '{embeddedDB}'");
+				using (var stream = typeof(QuantumGame).Assembly.GetManifestResourceStream(embeddedDB))
+				{
+					if (stream != null)
+					{
+						if (stream.Length > 0)
+						{
+							assetDBFileContent = new byte[stream.Length];
+							var bytesRead = stream.Read(assetDBFileContent, 0, (int)stream.Length);
+							Assert.Always(bytesRead == (int)stream.Length);
+						}
+						else
+						{
+							PluginHost.LogError($"The file '{embeddedDB}' in assembly '{typeof(QuantumGame).Assembly.FullName}' is empty.");
+						}
+					}
+					else
+					{
+						PluginHost.LogError($"Failed to find the Quantum AssetDB resource from '{embeddedDB}' in assembly '{typeof(QuantumGame).Assembly.FullName}'. Here are all resources found inside the assembly:");
+						foreach (var name in typeof(QuantumGame).Assembly.GetManifestResourceNames())
+						{
+							PluginHost.LogInfo(name);
+						}
+					}
+				}
+			}
+
+			return assetDBFileContent;
+		}
+
+		/// <summary>
+		/// Method responsible for receiving client inputs and forwarding them to the server simulation
+		/// </summary>
+		public override void OnDeterministicInputConfirmed(DeterministicPluginClient client, int tick, int playerIndex, DeterministicTickInput input)
+		{
+			inputProvider.InjectInput(input, true);
+		}
+
+		/// <summary>
+		/// Method called when ticking the simulation.
+		/// Will advance the simulation necessary frames.
+		/// </summary>
+		public override void OnDeterministicUpdate()
+		{
+			if (gameSession == null)
+			{
+				return;
+			}
+
+			if (gameSession.Session.FrameVerified != null)
+			{
+				// Interpolate time to make sure server catchup if it ticked too slow for some reason
+				double gameTime = Session.Input.GameTime;
+				var sessionTime = gameSession.Session.AccumulatedTime + gameSession.Session.FrameVerified.Number * gameSession.Session.DeltaTimeDouble;
+				gameSession.Service(gameTime - sessionTime);
+			}
+			else
+			{
+				gameSession.Service();
+			}
+		}
+
+		/// <summary>
+		/// Called when clients requests a snapshot of the last validated frame.
+		/// Only works for validated frames server-side. Server does not run predicted frames.
+		/// </summary>
+		public override Boolean OnDeterministicSnapshotRequested(ref Int32 tick, ref byte[] data)
+		{
+			if (gameSession.Session.FrameVerified == null)
+			{
+				return false;
+			}
+			tick = gameSession.Session.FrameVerified.Number;
+			data = gameSession.Session.FrameVerified.Serialize(DeterministicFrameSerializeMode.Serialize);
+			return true;
+		}
+
 		public int GetClientIndexByActorNumber(int actorNr) => _actorNrToIndex[actorNr];
 
+		/// <summary>
+		/// Obtains the actor number based on the quantum index
+		/// </summary>
 		public int GetClientActorNumberByIndex(int index)
 		{
 			foreach(var actorNr in _actorNrToIndex.Keys)
@@ -142,6 +292,8 @@ namespace Quantum
 		/// </summary>
 		public void Dispose()
 		{
+			Log.Debug("Destroying simulation");
+			gameSession?.Destroy();
 			_receivedPlayers.Clear();
 			_validPlayers.Clear();
 			_actorNrToIndex.Clear();

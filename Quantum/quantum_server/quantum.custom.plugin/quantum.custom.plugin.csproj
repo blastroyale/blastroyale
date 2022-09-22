@@ -53,6 +53,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Backend\Lib\FirstLight.Services.dll</HintPath>
     </Reference>
+    <Reference Include="FirstLightServerSDK">
+      <HintPath>..\..\..\Assets\Src\FirstLight\Server\Plugin\net48\FirstLightServerSDK.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -84,9 +87,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Backend\Lib\quantum.core.dll</HintPath>
     </Reference>
-    <Reference Include="ServerSDK, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Assets\Src\FirstLight\Server\Plugin\net48\ServerSDK.dll</HintPath>
+    <Reference Include="Sirenix.OdinInspector.Attributes">
+      <HintPath>..\..\..\Backend\UnityLib\Sirenix.OdinInspector.Attributes.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Collections" />
@@ -116,15 +118,56 @@
     <Compile Include="CustomQuantumPlugin.cs" />
     <Compile Include="CustomQuantumServer.cs" />
     <Compile Include="FlgConfig.cs" />
+    <Compile Include="obj\Debug\.NETFramework,Version=v4.8.AssemblyAttributes.cs" />
     <Compile Include="PlayfabPhotonHttp.cs" />
     <Compile Include="PhotonPlayfabSDK.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuantumAssetSerializer.cs" />
+    <Compile Include="QuantumCommandHandler.cs" />
     <Compile Include="QuantumCustomPluginFactory.cs" />
-    <Compile Include="EndGameConsensusHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="assetDatabase.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="MathTables\FPAcos.bytes">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="MathTables\FPAsin.bytes">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="MathTables\FPAtan.bytes">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="MathTables\FPCos.bytes">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="MathTables\FPSin.bytes">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="MathTables\FPSinCos.bytes">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="MathTables\FPSqrt.bytes">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="MathTables\FPTan.bytes">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\Debug\quantum.custom.plugin.csproj.AssemblyReference.cache" />
+    <None Include="obj\Debug\quantum.custom.plugin.csproj.CopyComplete" />
+    <None Include="obj\Debug\quantum.custom.plugin.csproj.CoreCompileInputs.cache" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="obj\Debug\quantum.custom.plugin.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\quantum.custom.plugin.dll" />
+    <Content Include="obj\Debug\quantum.custom.plugin.pdb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

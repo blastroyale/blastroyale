@@ -222,13 +222,8 @@ namespace FirstLight.Game.StateMachines
 		{
 			var game = QuantumRunner.Default.Game;
 			var f = game.Frames.Verified;
-			var gameContainer = f.GetSingleton<GameContainer>();
-			var command = new EndOfGameCalculationsCommand
-			{
-				PlayersMatchData = gameContainer.GetPlayersMatchData(f, out _),
-				PlayfabToken = PlayFabSettings.staticPlayer.EntityToken
-			};
-			command.SetQuantumValues(new QuantumValues
+			var command = new EndOfGameCalculationsCommand();
+			command.FromFrame(f, new QuantumValues()
 			{
 				ExecutingPlayer = game.GetLocalPlayers()[0],
 				MatchType = _services.NetworkService.QuantumClient.CurrentRoom.GetMatchType()

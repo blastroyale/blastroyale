@@ -1,7 +1,8 @@
-
 using System.Collections.Generic;
 using System.Reflection;
 using FirstLight.FLogger;
+
+// ReSharper disable RedundantDefaultMemberInitializer
 
 namespace FirstLight.Game.Utils
 {
@@ -33,13 +34,13 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// If false, testing game mode selection will be disabled in GameModeSelectionPresenter
 		/// </summary>
-		public static readonly bool TESTING_GAME_MODE_ENABLED = false;
-		
+		public static readonly bool TESTING_GAME_MODE_ENABLED = true;
+
 		/// <summary>
 		/// If false, leaderboard button will be disabled on the home screen
 		/// </summary>
 		public static readonly bool LEADERBOARD_ACCESSIBLE = true;
-		
+
 		/// <summary>
 		/// If true will load game configurations from remote server
 		/// </summary>
@@ -61,10 +62,12 @@ namespace FirstLight.Game.Utils
 			{
 				QUANTUM_CUSTOM_SERVER = customServer;
 			}
+
 			if (TrySetFlag("COMMIT_VERSION_LOCK", titleData, out var commitVersionLock))
 			{
 				COMMIT_VERSION_LOCK = commitVersionLock;
 			}
+
 			if (TrySetFlag("REMOTE_CONFIGURATION", titleData, out var remoteConfig))
 			{
 				REMOTE_CONFIGURATION = remoteConfig;
@@ -84,6 +87,7 @@ namespace FirstLight.Game.Utils
 				FLog.Verbose($"Disabling flag {flagName}");
 				flag = false;
 			}
+
 			return false;
 		}
 	}

@@ -59,7 +59,7 @@ namespace FirstLight.Editor.Build
 		private static readonly string[] DebugSymbols = new []
 		{
 			"QUANTUM_REMOTE_PROFILER",
-			"LOG_LEVEL_VERBOSE"
+			"LOG_LEVEL_INFO"
 		};
 
 		/// <summary>

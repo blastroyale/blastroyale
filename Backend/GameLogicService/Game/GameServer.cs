@@ -159,7 +159,7 @@ public class GameServer
 			return true;
 		}
 		// TODO: Validate player access level in player state for admin commands (GMs)
-		if (cmd.AccessLevel == CommandAccessLevel.Service)
+		if (cmd.AccessLevel() == CommandAccessLevel.Service)
 		{
 			if (!FeatureFlags.QUANTUM_CUSTOM_SERVER)
 			{
@@ -168,7 +168,7 @@ public class GameServer
 			var secretKey = PlayFabSettings.staticSettings.DeveloperSecretKey;
 			return cmdData.TryGetValue("SecretKey", out var key) && key == secretKey;
 		}
-		return cmd.AccessLevel == CommandAccessLevel.Player; 
+		return cmd.AccessLevel() == CommandAccessLevel.Player; 
 	}
 }
 }

@@ -67,7 +67,7 @@ namespace FirstLight.Game.Services
 		/// Reads the specific title data by the given key.
 		/// Throws an error if the key was not present.
 		/// </summary>
-		void GetTitleData(string key, Action<string> result);
+		void GetTitleData(string key, Action<string> callback);
 
 		/// <summary>
 		/// Obtains the server state of the logged in player
@@ -83,14 +83,14 @@ namespace FirstLight.Game.Services
 	/// <inheritdoc cref="IPlayfabService" />
 	public class PlayfabService : IPlayfabService
 	{
-		private readonly IGameLogic _logic;
+		private readonly IGameDataProvider _dataProvider;
 		private readonly IMessageBrokerService _msgBroker;
 
 		private readonly string _leaderboardLadderName;
 
-		public PlayfabService(IGameLogic gameLogic, IMessageBrokerService msgBroker, string leaderboardLadderName)
+		public PlayfabService(IGameDataProvider dataProvider, IMessageBrokerService msgBroker, string leaderboardLadderName)
 		{
-			_logic = gameLogic;
+			_dataProvider = dataProvider;
 			_msgBroker = msgBroker;
 			_leaderboardLadderName = leaderboardLadderName;
 		}
@@ -103,7 +103,7 @@ namespace FirstLight.Game.Services
 
 			void OnSuccess(UpdateUserTitleDisplayNameResult result)
 			{
-				_logic.AppLogic.NicknameId.Value = result.DisplayName;
+				_dataProvider.AppDataProvider.DisplayName.Value = result.DisplayName;
 				onSuccess?.Invoke(result);
 			}
 		}
@@ -161,8 +161,7 @@ namespace FirstLight.Game.Services
 
 		public void HandleError(PlayFabError error)
 		{
-			var descriptiveError =
-				$"{error.HttpCode} - {error.ErrorMessage} - {JsonConvert.SerializeObject(error.ErrorDetails)}";
+			var descriptiveError = $"{error.HttpCode} - {error.ErrorMessage} - {JsonConvert.SerializeObject(error.ErrorDetails)}";
 			FLog.Error(descriptiveError);
 
 			_msgBroker?.Publish(new ServerHttpErrorMessage()
@@ -172,11 +171,11 @@ namespace FirstLight.Game.Services
 			});
 		}
 
-		public void FetchServerState(Action<ServerState> callback = null)
+		public void FetchServerState(Action<ServerState> callback)
 		{
 			PlayFabClientAPI.GetUserReadOnlyData(new GetUserDataRequest(), result =>
 			{
-				callback?.Invoke(new ServerState(result.Data
+				callback.Invoke(new ServerState(result.Data
 				                               .ToDictionary(entry => entry.Key,
 				                                             entry =>
 					                                             entry.Value.Value)));
@@ -186,7 +185,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Gets an specific internal title key data
 		/// </summary>
-		public void GetTitleData(string key, Action<string> callback = null)
+		public void GetTitleData(string key, Action<string> callback)
 		{
 			PlayFabClientAPI.GetTitleData(new GetTitleDataRequest() {Keys = new List<string>() {key}}, res =>
 			{
@@ -195,7 +194,7 @@ namespace FirstLight.Game.Services
 					data = null;
 				}
 
-				callback?.Invoke(data);
+				callback.Invoke(data);
 			}, HandleError);
 		}
 
@@ -235,7 +234,7 @@ namespace FirstLight.Game.Services
 			void OnSuccess()
 			{
 				successCallback?.Invoke();
-				_logic.AppLogic.DeviceID.Value = PlayFabSettings.DeviceUniqueIdentifier;
+				_dataProvider.AppDataProvider.DeviceID.Value = PlayFabSettings.DeviceUniqueIdentifier;
 			}
 		}
 
@@ -248,40 +247,27 @@ namespace FirstLight.Game.Services
 				CustomId = PlayFabSettings.DeviceUniqueIdentifier
 			};
 
-			PlayFabClientAPI.UnlinkCustomID(unlinkRequest, OnSuccess, errorCallback);
-
-			void OnSuccess(UnlinkCustomIDResult result)
-			{
-				_logic.AppLogic.DeviceID.Value = "";
-				successCallback?.Invoke();
-			}
+			PlayFabClientAPI.UnlinkCustomID(unlinkRequest, _ => OnSuccess(), errorCallback);
 #elif UNITY_ANDROID
 			var unlinkRequest = new UnlinkAndroidDeviceIDRequest
 			{
 				AndroidDeviceId = PlayFabSettings.DeviceUniqueIdentifier,
 			};
 			
-			PlayFabClientAPI.UnlinkAndroidDeviceID(unlinkRequest,OnSuccess, errorCallback);
-			
-			void OnSuccess(UnlinkAndroidDeviceIDResult result)
-			{
-				_logic.AppLogic.DeviceID.Value = "";
-				successCallback?.Invoke();
-			}
+			PlayFabClientAPI.UnlinkAndroidDeviceID(unlinkRequest, _ => OnSuccess(), errorCallback);
 #elif UNITY_IOS
 			var unlinkRequest = new UnlinkIOSDeviceIDRequest
 			{
 				DeviceId = PlayFabSettings.DeviceUniqueIdentifier,
 			};
 
-			PlayFabClientAPI.UnlinkIOSDeviceID(unlinkRequest, OnSuccess, errorCallback);
-			
-			void OnSuccess(UnlinkIOSDeviceIDResult result)
+			PlayFabClientAPI.UnlinkIOSDeviceID(unlinkRequest, _ => OnSuccess(), errorCallback);
+#endif
+			void OnSuccess()
 			{
-				_logic.AppLogic.DeviceID.Value = "";
+				_dataProvider.AppDataProvider.DeviceID.Value = "";
 				successCallback?.Invoke();
 			}
-#endif
 		}
 
 		/// <inheritdoc />
@@ -300,7 +286,7 @@ namespace FirstLight.Game.Services
 
 			void OnSuccess(AddUsernamePasswordResult result)
 			{
-				_logic.AppLogic.LastLoginEmail.Value = email;
+				_dataProvider.AppDataProvider.LastLoginEmail.Value = email;
 				successCallback?.Invoke(result);
 			}
 		}

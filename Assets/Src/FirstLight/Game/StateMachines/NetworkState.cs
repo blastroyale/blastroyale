@@ -779,7 +779,7 @@ namespace FirstLight.Game.StateMachines
 			settings.FixedRegion = _gameDataProvider.AppDataProvider.ConnectionRegion.Value;
 
 			UpdateQuantumClientProperties();
-			_networkService.QuantumClient.ConnectUsingSettings(settings, _gameDataProvider.AppDataProvider.Nickname);
+			_networkService.QuantumClient.ConnectUsingSettings(settings, _gameDataProvider.AppDataProvider.DisplayNameTrimmed);
 		}
 
 		private void ConnectPhotonToRegionMaster()
@@ -819,7 +819,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_networkService.QuantumClient.AuthValues.AuthType = CustomAuthenticationType.Custom;
 			_networkService.QuantumClient.EnableProtocolFallback = true;
-			_networkService.QuantumClient.NickName = _gameDataProvider.AppDataProvider.Nickname;
+			_networkService.QuantumClient.NickName = _gameDataProvider.AppDataProvider.DisplayNameTrimmed;
 
 			var preloadIds = new List<int>();
 

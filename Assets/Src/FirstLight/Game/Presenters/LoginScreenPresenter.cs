@@ -42,14 +42,6 @@ namespace FirstLight.Game.Presenters
 			_forgotPasswordButton.onClick.AddListener(GoToForgotYourPassword);
 		}
 
-		private void OnDestroy()
-		{
-			_loginButton.onClick.RemoveAllListeners();
-			_goToRegisterButton.onClick.RemoveAllListeners();
-			_playAsGuestButton.onClick.RemoveAllListeners();
-			_forgotPasswordButton.onClick.RemoveAllListeners();
-		}
-
 		private void OnEnable()
 		{
 			SetFrontDimBlockerActive(false);

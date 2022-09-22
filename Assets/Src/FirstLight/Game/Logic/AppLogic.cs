@@ -58,9 +58,9 @@ namespace FirstLight.Game.Logic
 		GraphicsConfig.DetailLevel CurrentDetailLevel { get; set; }
 
 		/// <summary>
-		/// Requests the player's Nickname
+		/// Requests the player's title display name (excluding appended numbers)
 		/// </summary>
-		string Nickname { get; }
+		string DisplayNameTrimmed { get; }
 
 		/// <summary>
 		/// Obtains the player unique id
@@ -83,9 +83,9 @@ namespace FirstLight.Game.Logic
 		IObservableField<string> LastLoginEmail { get; }
 		
 		/// <summary>
-		/// Requests the player's Nickname
+		/// Requests the player's title display name (including appended numbers)
 		/// </summary>
-		IObservableFieldReader<string> NicknameId { get; }
+		IObservableField<string> DisplayName { get; }
 
 		/// <summary>
 		/// Sets the resolution mode for the 3D rendering of the app
@@ -101,10 +101,6 @@ namespace FirstLight.Game.Logic
 	/// <inheritdoc />
 	public interface IAppLogic : IAppDataProvider
 	{
-		/// <summary>
-		/// Requests and sets player nickname
-		/// </summary>
-		new IObservableField<string> NicknameId { get; }
 	}
 
 	/// <inheritdoc cref="IAppLogic"/>
@@ -185,21 +181,18 @@ namespace FirstLight.Game.Logic
 		
 		/// <inheritdoc />
 		public IObservableField<string> LastLoginEmail { get; private set; }
-		
-		/// <inheritdoc />
-		public IObservableField<string> NicknameId { get; private set; }
 
 		/// <inheritdoc />
-		public string Nickname =>
-			NicknameId == null || string.IsNullOrWhiteSpace(NicknameId.Value) || NicknameId.Value.Length < 5
-				? ""
-				: NicknameId.Value.Substring(0, NicknameId.Value.Length - 5);
+		public IObservableField<string> DisplayName { get; private set; }
+
+		
+		/// <inheritdoc />
+		public string DisplayNameTrimmed =>
+			DisplayName == null || string.IsNullOrWhiteSpace(DisplayName.Value) || DisplayName.Value.Length < 5
+				? "" : DisplayName.Value.Substring(0, DisplayName.Value.Length - 5);
 
 		/// <inheritdoc />
 		public string PlayerId => Data.PlayerId;
-		
-		/// <inheritdoc />
-		IObservableFieldReader<string> IAppDataProvider.NicknameId => NicknameId;
 
 		public AppLogic(IGameLogic gameLogic, IDataProvider dataProvider, IAudioFxService<AudioId> audioFxService) :
 			base(gameLogic, dataProvider)
@@ -213,7 +206,7 @@ namespace FirstLight.Game.Logic
 			IsSfxEnabled = Data.SfxEnabled;
 			IsBgmEnabled = Data.BgmEnabled;
 			IsDialogueEnabled = Data.DialogueEnabled;
-			NicknameId = new ObservableResolverField<string>(() => Data.NickNameId, name => Data.NickNameId = name);
+			DisplayName = new ObservableResolverField<string>(() => Data.DisplayName, name => Data.DisplayName = name);
 			ConnectionRegion = new ObservableResolverField<string>(() => Data.ConnectionRegion, region => Data.ConnectionRegion = region);
 			DeviceID = new ObservableResolverField<string>(() => Data.DeviceId, linked => Data.DeviceId = linked);
 			LastLoginEmail = new ObservableResolverField<string>(() => Data.LastLoginEmail, email => Data.LastLoginEmail = email);

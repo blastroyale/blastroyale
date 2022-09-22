@@ -39,7 +39,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _loginCompletedEvent = new StatechartEvent("Login Completed Event");
 		private readonly IStatechartEvent _authenticationFailEvent = new StatechartEvent("Authentication Fail Event");
 
-		private readonly GameLogic _data;
+		private readonly IGameDataProvider _dataProvider;
 		private readonly IGameServices _services;
 		private readonly IGameUiServiceInit _uiService;
 		private readonly IDataService _dataService;
@@ -49,10 +49,10 @@ namespace FirstLight.Game.StateMachines
 
 		private string _passwordRecoveryEmailTemplateId = "";
 		
-		public AuthenticationState(GameLogic data, IGameServices services, IGameUiServiceInit uiService, IDataService dataService, 
+		public AuthenticationState(IGameDataProvider dataProvider, IGameServices services, IGameUiServiceInit uiService, IDataService dataService, 
 		                           IGameBackendNetworkService networkService, Action<IStatechartEvent> statechartTrigger, IConfigsAdder cfgs)
 		{
-			_data = data;
+			_dataProvider = dataProvider;
 			_services = services;
 			_uiService = uiService;
 			_dataService = dataService;
@@ -130,6 +130,7 @@ namespace FirstLight.Game.StateMachines
 			}
 			
 			LoginWithDevice();
+			
 			_services.PlayfabService.CallFunction("GetPlayerData", res => 
 					OnPlayerDataObtained(res, null), OnPlayFabError);
 		}
@@ -305,7 +306,7 @@ namespace FirstLight.Game.StateMachines
 			FeatureFlags.ParseFlags(titleData);
 			
 			_networkService.UserId.Value = result.PlayFabId;
-			appData.NickNameId = result.InfoResultPayload.AccountInfo.TitleInfo.DisplayName;
+			appData.DisplayName = result.InfoResultPayload.AccountInfo.TitleInfo.DisplayName;
 			appData.FirstLoginTime = result.InfoResultPayload.AccountInfo.Created;
 			appData.LoginTime = _services.TimeService.DateTimeUtcNow;
 			appData.LastLoginTime = result.LastLoginTime ?? result.InfoResultPayload.AccountInfo.Created;
@@ -440,7 +441,7 @@ namespace FirstLight.Game.StateMachines
 				_services.PlayfabService.LinkDeviceID(null, null);
 			}
 			
-			if (string.IsNullOrWhiteSpace(_data.AppLogic.NicknameId.Value))
+			if (string.IsNullOrWhiteSpace(_dataProvider.AppDataProvider.DisplayName.Value))
 			{
 				_services.PlayfabService.UpdateDisplayName(GameConstants.PlayerName.DEFAULT_PLAYER_NAME);
 			}
@@ -561,7 +562,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void SetLinkedDevice()
 		{
-			_data.AppDataProvider.DeviceID.Value = PlayFabSettings.DeviceUniqueIdentifier;
+			_dataProvider.AppDataProvider.DeviceID.Value = PlayFabSettings.DeviceUniqueIdentifier;
 		}
 
 		private bool IsOutdated(string version)

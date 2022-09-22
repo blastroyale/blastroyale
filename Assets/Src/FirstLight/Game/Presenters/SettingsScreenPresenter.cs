@@ -69,7 +69,7 @@ namespace FirstLight.Game.Presenters
 				_idConnectionNameText.gameObject.SetActive(true);
 				_idConnectionStatusText.text = ScriptLocalization.MainMenu.FirstLightIdConnected;
 				_idConnectionNameText.text = string.Format(ScriptLocalization.General.UserId,
-				                                           _gameDataProvider.AppDataProvider.NicknameId.Value);
+				                                           _gameDataProvider.AppDataProvider.DisplayName.Value);
 			}
 
 			_closeButton.onClick.AddListener(OnClosedCompleted);

@@ -88,7 +88,7 @@ namespace FirstLight.Game.StateMachines
 			};
 			
 			_services.GenericDialogService.OpenInputFieldDialog(ScriptLocalization.MainMenu.NameHeroTitle, 
-			                                                    _dataProvider.AppDataProvider.Nickname, 
+			                                                    _dataProvider.AppDataProvider.DisplayNameTrimmed, 
 			                                                    confirmButton, false);
 		}
 		
@@ -122,7 +122,7 @@ namespace FirstLight.Game.StateMachines
 				return;
 			}
 
-			if (newName != _dataProvider.AppDataProvider.Nickname)
+			if (newName != _dataProvider.AppDataProvider.DisplayNameTrimmed)
 			{
 				_services.PlayfabService.UpdateDisplayName(newName);
 			}

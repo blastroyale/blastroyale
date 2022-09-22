@@ -54,7 +54,7 @@ namespace FirstLight.Tests.EditorMode
 
 		}
 
-		public void GetTitleData(string key, Action<string> result = null)
+		public void GetTitleData(string key, Action<string> callback = null)
 		{
 			
 		}

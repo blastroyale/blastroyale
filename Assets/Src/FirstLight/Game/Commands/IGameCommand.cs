@@ -24,7 +24,7 @@ namespace FirstLight.Game.Commands
 		/// <summary>
 		/// Runs the command in quantum using a majority vote consensus algorithm.
 		/// </summary>
-		QuantumConsensus
+		Quantum
 	}
 	
 	
@@ -35,12 +35,12 @@ namespace FirstLight.Game.Commands
 		/// Define necessary permissions to run a given command on server.
 		/// On development servers, everyone is admin.
 		/// </summary>
-		CommandAccessLevel AccessLevel => CommandAccessLevel.Player;
+		CommandAccessLevel AccessLevel();
 
 		/// <summary>
 		/// Defines the execution mode of the given command.
 		/// </summary>
-		CommandExecutionMode CommandExecutionMode => CommandExecutionMode.Server;
+		CommandExecutionMode ExecutionMode();
 		
 		/// <summary>
 		/// Executes the command logic

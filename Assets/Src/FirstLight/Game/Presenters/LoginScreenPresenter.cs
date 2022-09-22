@@ -46,6 +46,13 @@ namespace FirstLight.Game.Presenters
 		{
 			SetFrontDimBlockerActive(false);
 		}
+		
+		protected override void OnOpened()
+		{
+			base.OnOpened();
+			
+			_playAsGuestButton.gameObject.SetActive(true);
+		}
 
 		/// <summary>
 		/// Sets the activity of the dimmed blocker image that covers the presenter

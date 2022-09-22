@@ -53,7 +53,7 @@ namespace quantum.custom.plugin
 		/// <summary>
 		/// Implementation of a Post request using playfab bitstream formatting.
 		/// </summary>
-		public void Post(string playerId, string service, object requestObject, HttpRequestCallback callback, Dictionary<string, string> headers=null)
+		public void Post(string playerId, string service, object requestObject, HttpRequestCallback callback, Dictionary<string, string> headers=null, bool async=true)
 		{
 			var url = PlayFabSettings.staticSettings.GetFullUrl(service);
 			if(ServerAddress != null)
@@ -67,7 +67,7 @@ namespace quantum.custom.plugin
 				Method = "POST",
 				Callback = callback,
 				Url = url,
-				Async = true,
+				Async = async,
 				Accept = "*/*",
 				DataStream = new MemoryStream(bytes, 0, bytes.Length),
 				CustomHeaders = headers ?? new Dictionary<string, string>()

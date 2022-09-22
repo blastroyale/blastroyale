@@ -29,14 +29,14 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Standard permission, allows command to be ran only for the given authenticated player.
 		/// </summary>
-		Player, 
-		
+		Player,
+
 		/// <summary>
 		/// Only allows the command to be ran for the given authenticated player but Admin commands might
 		/// perform operations normal players can't like cheats.
 		/// </summary>
 		Admin,
-		
+
 		/// <summary>
 		/// Service commands might be used for any given player without requiring player authentication.
 		/// It will impersonate a player to run the command from a third party service.
@@ -44,12 +44,12 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		Service
 	}
-	
+
 	/// <inheritdoc cref="ICommandService{TGameLogic}"/>
 	public interface IGameCommandService
 	{
 		/// <inheritdoc cref="ICommandService{TGameLogic}.ExecuteCommand{TCommand}"/>
-		void ExecuteCommand<TCommand>(TCommand command) where TCommand : struct, IGameCommand;
+		void ExecuteCommand<TCommand>(TCommand command) where TCommand : IGameCommand;
 	}
 
 	/// <summary>
@@ -61,7 +61,7 @@ namespace FirstLight.Game.Services
 		/// Key where the command data is serialized.
 		/// </summary>
 		public static readonly string Command = nameof(IGameCommand);
-		
+
 		/// <summary>
 		/// Field containing the client timestamp for when the command was issued.
 		/// </summary>
@@ -71,7 +71,7 @@ namespace FirstLight.Game.Services
 		/// Field about the version the game client is currently running
 		/// </summary>
 		public static readonly string ClientVersion = nameof(ClientVersion);
-		
+
 		/// <summary>
 		/// Field that represents the client configuration version
 		/// </summary>
@@ -87,9 +87,9 @@ namespace FirstLight.Game.Services
 		private readonly Queue<IGameCommand> _commandQueue;
 		private readonly IPlayfabService _playfab;
 		private readonly IGameNetworkService _network;
-		
+
 		public GameCommandService(IPlayfabService playfabService, IGameLogic gameLogic, IDataService dataService,
-		                          IGameServices services, IGameNetworkService network)
+								  IGameServices services, IGameNetworkService network)
 		{
 			_playfab = playfabService;
 			_gameLogic = gameLogic;
@@ -102,21 +102,32 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <summary>
-		/// Sends the command to quantum
+		/// Sends the command to quantum. Quantum will enrich the command data from the simulation server-side.
+		/// All commands will be ran at the end of the match using the last frame.
 		/// </summary>
-		private void ExecuteConsensusCommand<TCommand>(TCommand command) where TCommand : IGameCommand
+		private void ExecuteQuantumCommand<TCommand>(TCommand command) where TCommand : IGameCommand
 		{
-			FLog.Verbose($"Sending quantum consensus command {command.GetType().Name}");
-			var json = ModelSerializer.Serialize(command);
+			var quantumCommand = command as IQuantumCommand;
+			if (quantumCommand == null)
+			{
+				throw new Exception($"Trying to send {command.GetType().Name} to quantum but that command is not IQuantumCommand");
+			}
+			FLog.Verbose($"Sending quantum command {command.GetType().Name}");
+			var payload = new QuantumCommandPayload()
+			{
+				CommandType = command.GetType().FullName,
+				Token = PlayFabSettings.staticPlayer.EntityToken
+			};
+			var bytes = Encoding.UTF8.GetBytes(ModelSerializer.Serialize(payload).Value);
 			var opt = new RaiseEventOptions
 			{
 				Receivers = ReceiverGroup.All
 			};
 			_network.QuantumClient.OpRaiseEvent(
-				(int)QuantumCustomEvents.ConsensusCommand, Encoding.UTF8.GetBytes($"{json.Key}:{json.Value}"), opt, SendOptions.SendReliable
+				(int)QuantumCustomEvents.EndGameCommand, bytes, opt, SendOptions.SendReliable
 			);
 		}
-		
+
 		/// <summary>
 		/// Fetches current server state and override client's state.
 		/// Will not cause a UI refresh.
@@ -135,17 +146,18 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc cref="CommandService{TGameLogic}.ExecuteCommand{TCommand}" />
-		public void ExecuteCommand<TCommand>(TCommand command) where TCommand : struct, IGameCommand
+		public void ExecuteCommand<TCommand>(TCommand command) where TCommand : IGameCommand
 		{
 			try
 			{
-				switch (command.CommandExecutionMode)
+				switch (command.ExecutionMode())
 				{
-					case CommandExecutionMode.QuantumConsensus:
-						if(FeatureFlags.QUANTUM_CUSTOM_SERVER)
+					case CommandExecutionMode.Quantum:
+						if (FeatureFlags.QUANTUM_CUSTOM_SERVER)
 						{
-							ExecuteConsensusCommand(command);
-						} else
+							ExecuteQuantumCommand(command);
+						}
+						else
 						{
 							EnqueueCommandToServer(command);
 						}
@@ -168,7 +180,7 @@ namespace FirstLight.Game.Services
 					Style = AlertButtonStyle.Negative,
 					Text = "Quit Game"
 				};
-			
+
 				if (e is LogicException)
 				{
 					title = "Logic Exception";
@@ -201,7 +213,7 @@ namespace FirstLight.Game.Services
 		/// Adds a given command to the "to send to server queue".
 		/// We send one command at a time to server, this queue ensure that.
 		/// </summary>
-		private void EnqueueCommandToServer<TCommand>(TCommand cmd) where TCommand : struct, IGameCommand
+		private void EnqueueCommandToServer<TCommand>(TCommand cmd) where TCommand : IGameCommand
 		{
 			_commandQueue.Enqueue(cmd);
 			if (_commandQueue.Count == 1)
@@ -242,14 +254,14 @@ namespace FirstLight.Game.Services
 			};
 			_playfab.CallFunction("ExecuteCommand", OnCommandSuccess, OnCommandError, request);
 		}
-		
+
 		/// <summary>
 		/// Whenever the HTTP request to proccess a command does not return 200
 		/// </summary>
 		private void OnCommandError(PlayFabError error)
 		{
 #if UNITY_EDITOR
-			_commandQueue.Clear(); 	// clear to make easier for testing
+			_commandQueue.Clear();  // clear to make easier for testing
 #endif
 			_playfab.HandleError(error);
 		}
@@ -282,8 +294,8 @@ namespace FirstLight.Game.Services
 			{
 				throw new LogicException(logicException);
 			}
-			if (FeatureFlags.REMOTE_CONFIGURATION && 
-			    logicResult.Result.Data.TryGetValue(CommandFields.ConfigurationVersion, out var serverConfigVersion))
+			if (FeatureFlags.REMOTE_CONFIGURATION &&
+				logicResult.Result.Data.TryGetValue(CommandFields.ConfigurationVersion, out var serverConfigVersion))
 			{
 				var serverVersionNumber = ulong.Parse(serverConfigVersion);
 				if (serverVersionNumber > _gameLogic.ConfigsProvider.Version)

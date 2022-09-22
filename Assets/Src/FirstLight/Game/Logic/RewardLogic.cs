@@ -65,6 +65,11 @@ namespace FirstLight.Game.Logic
 		{
 			var rewards = new List<RewardData>();
 
+			if (matchData.PlayerRank == 0)
+			{
+				throw new MatchDataEmptyLogicException();
+			}
+
 			// Currently, there is no plan on giving rewards on anything but BR mode
 			if (matchType == MatchType.Custom || didPlayerQuit)
 			{
@@ -200,6 +205,19 @@ namespace FirstLight.Game.Logic
 			}
 
 			return reward;
+		}
+	}
+
+	public class MatchDataEmptyLogicException : LogicException
+	{
+		private const string MATCH_DATA_EMPTY_EXCEPTION_MESSAGE =
+			"MatchData parameter should not be empty";
+		public MatchDataEmptyLogicException() : base(MATCH_DATA_EMPTY_EXCEPTION_MESSAGE)
+		{
+		}
+ 
+		public MatchDataEmptyLogicException(string message, Exception inner) : base(message, inner)
+		{
 		}
 	}
 }

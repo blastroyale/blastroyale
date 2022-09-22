@@ -1,19 +1,19 @@
-# Game Logic build and release pipeline
-# This pipeline is respsonsible for building the game logic code and pushing it to the artifact repository
-# as a nuget package.
+# Game Logic server deployment pipeline
+# This pipeline is respsonsible for deploying the game logic code to the Azure container app.
 
 name: $(Rev:r)
 
-trigger:
-  branches:
-    include:
-    - develop
-  paths:
-    include:
-    - Backend
-    - pipeline-game-logic-server-cd.yml
+trigger: none
+pr: none
 
 resources:
+  pipelines:
+  - pipeline: build
+    source: 'Game Logic Server CI'
+    trigger:
+      branches:
+        include:
+        - 'develop'
   repositories:
   - repository: templates
     type: bitbucket

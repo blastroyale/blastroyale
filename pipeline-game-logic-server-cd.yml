@@ -3,17 +3,13 @@
 
 name: $(Rev:r)
 
-trigger: none
 pr: none
 
 resources:
   pipelines:
   - pipeline: build
     source: 'Game Logic Server CI'
-    trigger:
-      branches:
-        include:
-        - 'develop'
+    trigger: true
   repositories:
   - repository: templates
     type: bitbucket

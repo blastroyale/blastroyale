@@ -4,6 +4,7 @@
 name: $(Rev:r)
 
 trigger:
+  batch: true
   branches:
     include:
     - develop
@@ -11,6 +12,7 @@ trigger:
     include:
     - Backend
     - pipeline-game-logic-server-ci.yml
+pr: none
 
 resources:
   repositories:
@@ -18,7 +20,7 @@ resources:
   - repository: templates
     type: bitbucket
     endpoint: bitbucket
-    ref: feature/add-image-ref-step
+    ref: master
     name: first-light/infrastructure
     
 variables:

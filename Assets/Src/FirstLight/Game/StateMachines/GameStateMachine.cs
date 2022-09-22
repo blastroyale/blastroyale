@@ -85,9 +85,10 @@ namespace FirstLight.Game.StateMachines
 			internetCheck.Transition().Target(initialLoading);
 
 			initialLoading.Nest(_initialLoadingState.Setup).Target(authentication);
-			initialLoading.OnExit(InitializeGame);
+			initialLoading.OnExit(InitializeLocalLogic);
 			
 			authentication.Nest(_authenticationState.Setup).Target(core);
+			authentication.OnExit(InitializeRemainingLogic);
 			
 			core.Split(_audioState.Setup, _networkState.Setup, _coreLoopState.Setup).Target(final);
 
@@ -109,19 +110,19 @@ namespace FirstLight.Game.StateMachines
 			return Application.internetReachability == NetworkReachability.NotReachable;
 		}
 
-		private void InitializeGame()
+		private void InitializeLocalLogic()
 		{
-			// App data is always loaded from disk, while the other data will be obtained later on from server
 			_dataService.LoadData<AppData>();
-			_dataService.AddData<RngData>(new RngData());
-			_dataService.AddData<IdData>(new IdData());
-			_dataService.AddData<PlayerData>(new PlayerData());
-			_dataService.AddData<EquipmentData>(new EquipmentData());
-			_gameLogic.Init();
-
+			_gameLogic.InitLocal();
+			
 			_services.AudioFxService.AudioListener.Listener.enabled = true;
+			
 			MMVibrationManager.SetHapticsActive(_gameLogic.AppLogic.IsHapticOn);
-
+		}
+		
+		private void InitializeRemainingLogic()
+		{
+			_gameLogic.Init();
 			_services?.AnalyticsService.SessionCalls.GameLoaded();
 		}
 

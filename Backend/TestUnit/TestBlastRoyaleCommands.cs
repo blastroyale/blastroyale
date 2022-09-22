@@ -85,6 +85,7 @@ public class TestBlastRoyaleCommands
 		{
 			new QuantumPlayerMatchData()
 			{
+				PlayerRank = 1,
 				Data = new PlayerMatchData()
 				{
 					Player = playerRef,

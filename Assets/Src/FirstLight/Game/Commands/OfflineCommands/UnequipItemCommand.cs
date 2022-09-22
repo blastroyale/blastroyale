@@ -1,5 +1,6 @@
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Services;
 using FirstLight.Services;
 
 namespace FirstLight.Game.Commands.OfflineCommands
@@ -11,8 +12,10 @@ namespace FirstLight.Game.Commands.OfflineCommands
 	{
 		public UniqueId Item;
 
-		/// <inheritdoc />
-		public CommandExecutionMode CommandExecutionMode => CommandExecutionMode.ClientOnly;
+		public CommandAccessLevel AccessLevel() => CommandAccessLevel.Player;
+
+		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.ClientOnly;
+
 
 		/// <inheritdoc />
 		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)

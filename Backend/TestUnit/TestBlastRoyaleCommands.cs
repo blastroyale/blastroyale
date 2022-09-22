@@ -56,7 +56,6 @@ public class TestBlastRoyaleCommands
 		var command = new EndOfGameCalculationsCommand()
 		{
 			PlayersMatchData = matchData,
-			PlayfabToken = "noToken",
 			QuantumValues = new QuantumValues()
 			{
 				ExecutingPlayer = playerRef,
@@ -86,6 +85,7 @@ public class TestBlastRoyaleCommands
 		{
 			new QuantumPlayerMatchData()
 			{
+				PlayerRank = 1,
 				Data = new PlayerMatchData()
 				{
 					Player = playerRef,
@@ -100,7 +100,6 @@ public class TestBlastRoyaleCommands
 		var command = new EndOfGameCalculationsCommand()
 		{
 			PlayersMatchData = matchData,
-			PlayfabToken = "noToken",
 			QuantumValues = new QuantumValues()
 			{
 				ExecutingPlayer = playerRef,

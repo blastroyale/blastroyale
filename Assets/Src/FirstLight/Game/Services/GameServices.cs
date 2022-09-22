@@ -144,7 +144,7 @@ namespace FirstLight.Game.Services
 			HelpdeskService = new HelpdeskService();
 			GameModeService = new GameModeService(ConfigsProvider, ThreadService);
 			GuidService = new GuidService();
-			PlayfabService = new PlayfabService(gameLogic.AppLogic, messageBrokerService, GameConstants.Network.LEADERBOARD_LADDER_NAME);
+			PlayfabService = new PlayfabService(gameLogic, messageBrokerService, GameConstants.Network.LEADERBOARD_LADDER_NAME);
 			CommandService = new GameCommandService(PlayfabService, gameLogic, dataService, this, networkService);
 			PoolService = new PoolService();
 			TickService = new TickService();

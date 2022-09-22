@@ -748,6 +748,9 @@ namespace I2.Loc
 			public static string Collect 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Collect"); } }
 			public static string CollectedCrates 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/CollectedCrates"); } }
 			public static string CompleteLowerDifficulty 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/CompleteLowerDifficulty"); } }
+			public static string ConnectFirstLightIdAdvice 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ConnectFirstLightIdAdvice"); } }
+			public static string ConnectFirstLightIdButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ConnectFirstLightIdButton"); } }
+			public static string ConnectToNewFirstLightId 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ConnectToNewFirstLightId"); } }
 			public static string ContainsAtLeast 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ContainsAtLeast"); } }
 			public static string Craft 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Craft"); } }
 			public static string CrateTier 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/CrateTier"); } }
@@ -775,6 +778,7 @@ namespace I2.Loc
 			public static string EnhanceResults 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/EnhanceResults"); } }
 			public static string EventsComingSoon 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/EventsComingSoon"); } }
 			public static string FirstLightIdConnected 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/FirstLightIdConnected"); } }
+			public static string FirstLightIdConnectionSuccess 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/FirstLightIdConnectionSuccess"); } }
 			public static string FirstLightIdNeedConnection 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/FirstLightIdNeedConnection"); } }
 			public static string FirstVictoryRewards 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/FirstVictoryRewards"); } }
 			public static string FreeSlot 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/FreeSlot"); } }
@@ -1794,6 +1798,9 @@ namespace I2.Loc
 		    public const string Collect = "MainMenu/Collect";
 		    public const string CollectedCrates = "MainMenu/CollectedCrates";
 		    public const string CompleteLowerDifficulty = "MainMenu/CompleteLowerDifficulty";
+		    public const string ConnectFirstLightIdAdvice = "MainMenu/ConnectFirstLightIdAdvice";
+		    public const string ConnectFirstLightIdButton = "MainMenu/ConnectFirstLightIdButton";
+		    public const string ConnectToNewFirstLightId = "MainMenu/ConnectToNewFirstLightId";
 		    public const string ContainsAtLeast = "MainMenu/ContainsAtLeast";
 		    public const string Craft = "MainMenu/Craft";
 		    public const string CrateTier = "MainMenu/CrateTier";
@@ -1821,6 +1828,7 @@ namespace I2.Loc
 		    public const string EnhanceResults = "MainMenu/EnhanceResults";
 		    public const string EventsComingSoon = "MainMenu/EventsComingSoon";
 		    public const string FirstLightIdConnected = "MainMenu/FirstLightIdConnected";
+		    public const string FirstLightIdConnectionSuccess = "MainMenu/FirstLightIdConnectionSuccess";
 		    public const string FirstLightIdNeedConnection = "MainMenu/FirstLightIdNeedConnection";
 		    public const string FirstVictoryRewards = "MainMenu/FirstVictoryRewards";
 		    public const string FreeSlot = "MainMenu/FreeSlot";

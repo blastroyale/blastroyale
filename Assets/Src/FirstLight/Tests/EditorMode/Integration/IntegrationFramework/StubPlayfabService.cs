@@ -16,34 +16,50 @@ namespace FirstLight.Tests.EditorMode
 	public class StubPlayfabService : IPlayfabService
 	{
 		public List<string> FunctionsCalled = new();
-		
-		public void UpdateNickname(string newNickname)
+
+		public void UpdateDisplayName(string newNickname, Action<UpdateUserTitleDisplayNameResult> onSuccess = null, Action<PlayFabError> onError = null)
 		{
 			
 		}
 
-		public void GetTopRankLeaderboard(int amountOfEntries, Action<GetLeaderboardResult> onSuccess, Action<PlayFabError> onError = null)
+		public void GetTopRankLeaderboard(int amountOfEntries, Action<GetLeaderboardResult> onSuccess = null, Action<PlayFabError> onError = null)
 		{
 
 		}
 
-		public void GetNeighborRankLeaderboard(int amountOfEntries, Action<GetLeaderboardAroundPlayerResult> onSuccess, Action<PlayFabError> onError = null)
+		public void GetNeighborRankLeaderboard(int amountOfEntries, Action<GetLeaderboardAroundPlayerResult> onSuccess = null, Action<PlayFabError> onError = null)
 		{
 
 		}
 
-		public void CallFunction(string functionName, Action<ExecuteFunctionResult> onSuccess, Action<PlayFabError> onError = null, object parameter = null)
+		public void CallFunction(string functionName, Action<ExecuteFunctionResult> onSuccess = null, Action<PlayFabError> onError = null, object parameter = null)
 		{
 			FunctionsCalled.Add(functionName);
 			onSuccess ?.Invoke(new ExecuteFunctionResult());
 		}
 
-		public void GetTitleData(string key, Action<string> result)
+		public void LinkDeviceID(Action successCallback = null, Action<PlayFabError> errorCallback = null)
 		{
 			
 		}
 
-		public void FetchServerState(Action<ServerState> callback)
+		public void UnlinkDeviceID(Action successCallback = null, Action<PlayFabError> errorCallback = null)
+		{
+
+		}
+
+		public void AttachLoginDataToAccount(string email, string password, string displayName, Action<AddUsernamePasswordResult> successCallback = null,
+		                                     Action<PlayFabError> errorCallback = null)
+		{
+
+		}
+
+		public void GetTitleData(string key, Action<string> callback = null)
+		{
+			
+		}
+
+		public void FetchServerState(Action<ServerState> callback = null)
 		{
 			
 		}

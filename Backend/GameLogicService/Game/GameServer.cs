@@ -15,6 +15,7 @@ using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Server.SDK.Services;
 using IGameCommand = FirstLight.Game.Commands.IGameCommand;
+using FirstLight.Game.Commands;
 
 namespace Backend.Game
 {
@@ -86,6 +87,7 @@ public class GameServer
 		}
 		catch (LogicException e)
 		{
+			_log.LogError(e, $"Exception running command {logicRequest.Command}");
 			return GetErrorResult(logicRequest, e);
 		}
 		finally
@@ -105,7 +107,10 @@ public class GameServer
 		{
 			throw new LogicException("Insuficient permissions to run command");
 		}
-
+		if(cmd.ExecutionMode() == CommandExecutionMode.Quantum)
+		{
+			return true;
+		}
 		if (!cmdData.TryGetValue(CommandFields.Timestamp, out var currentCommandTimeString))
 		{
 			throw new LogicException($"Command data requires a timestamp to be ran: Key {CommandFields.Timestamp}");
@@ -159,7 +164,7 @@ public class GameServer
 			return true;
 		}
 		// TODO: Validate player access level in player state for admin commands (GMs)
-		if (cmd.AccessLevel == CommandAccessLevel.Service)
+		if (cmd.AccessLevel() == CommandAccessLevel.Service)
 		{
 			if (!FeatureFlags.QUANTUM_CUSTOM_SERVER)
 			{
@@ -168,7 +173,7 @@ public class GameServer
 			var secretKey = PlayFabSettings.staticSettings.DeveloperSecretKey;
 			return cmdData.TryGetValue("SecretKey", out var key) && key == secretKey;
 		}
-		return cmd.AccessLevel == CommandAccessLevel.Player; 
+		return cmd.AccessLevel() == CommandAccessLevel.Player; 
 	}
 }
 }

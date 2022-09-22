@@ -1,4 +1,4 @@
-﻿using FirstLight.Game.Data;
+using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -16,9 +16,10 @@ namespace FirstLight.Game.Commands
 		public RngData RngData;
 		public IdData IdData;
 		public EquipmentData EquipmentData;
-		
-		/// <inheritdoc />
-		public CommandAccessLevel AccessLevel => CommandAccessLevel.Admin;
+
+		public CommandAccessLevel AccessLevel() => CommandAccessLevel.Admin;
+
+		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Server;
 
 		/// <inheritdoc />
 		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)

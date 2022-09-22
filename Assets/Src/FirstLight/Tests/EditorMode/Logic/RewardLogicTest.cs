@@ -125,7 +125,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void GiveMatchRewards_EmptyMatchData_RewardsNothing()
 		{
-			Assert.Throws<MatchDataEmptyException>(() => _rewardLogic.GiveMatchRewards(MatchType.Ranked,
+			Assert.Throws<MatchDataEmptyLogicException>(() => _rewardLogic.GiveMatchRewards(MatchType.Ranked,
 				                                       new QuantumPlayerMatchData(), false));
 		}
 

@@ -10,7 +10,7 @@ namespace FirstLight.Game.Utils
 	{
 		public static class Editor
 		{
-			public const string PREFS_USE_LOCAL_SERVER_KEY = "UseLocalServer";
+	
 		}
 
 		public static class Scenes
@@ -99,7 +99,7 @@ namespace FirstLight.Game.Utils
 		public static class Network
 		{
 			// Time control values
-			public const int DEFAULT_PLAYER_TTL_MS = 30000;
+			public const int DEFAULT_PLAYER_TTL_MS = 99999999;
 			public const int EMPTY_ROOM_TTL_MS = 10000;
 			public const int EMPTY_ROOM_PLAYTEST_TTL_MS = 1000;
 

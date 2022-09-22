@@ -31,6 +31,8 @@ variables:
   value: Dockerfile
 - name: vmImageName
   value: 'ubuntu-latest'
+- name: buildPipelineId
+  value: build
 
 pool:
   vmImage: $(vmImageName)

@@ -100,17 +100,8 @@ namespace FirstLight.Game
 		private void TrySetLocalServer()
 		{
 #if UNITY_EDITOR
-			if (!EditorPrefs.HasKey(GameConstants.Editor.PREFS_USE_LOCAL_SERVER_KEY))
-			{
-				EditorPrefs.SetBool(GameConstants.Editor.PREFS_USE_LOCAL_SERVER_KEY, false);
-			}
-
-			if (EditorPrefs.GetBool(GameConstants.Editor.PREFS_USE_LOCAL_SERVER_KEY))
-			{
-				PlayFabSettings.LocalApiServer = "http://localhost:7274";
-			}
-
-			Debug.Log("Using local server? -" + EditorPrefs.GetBool(GameConstants.Editor.PREFS_USE_LOCAL_SERVER_KEY));
+			FeatureFlags.ParseLocalFeatureFlags();
+			Debug.Log("Using local server? -" + FeatureFlags.GetLocalConfiguration().UseLocalServer);
 #endif
 		}
 

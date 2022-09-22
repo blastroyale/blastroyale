@@ -10,7 +10,7 @@ namespace FirstLight.Game.Utils
 	{
 		public static class Editor
 		{
-			public const string PREFS_USE_LOCAL_SERVER_KEY = "UseLocalServer";
+	
 		}
 
 		public static class Scenes

@@ -30,7 +30,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 		private void SetupChart()
 		{
 			FeatureFlags.EMAIL_AUTH = false; // make things simpler :D 
-			_state = new AuthenticationState(TestServices, TestUI, TestData, TestNetwork, e => _chart.Trigger(e), TestConfigs);
+			_state = new AuthenticationState(TestLogic, TestServices, TestUI, TestData, TestNetwork, e => _chart.Trigger(e), TestConfigs);
 			_chart = new Statechart.Statechart(_state.Setup);
 			_chart.Run();
 		}

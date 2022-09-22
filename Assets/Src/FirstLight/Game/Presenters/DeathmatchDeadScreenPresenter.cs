@@ -69,7 +69,7 @@ namespace FirstLight.Game.Presenters
 			var playerData = container.GetPlayersMatchData(frame, out _);
 			var deadPlayer = frame.Get<DeadPlayerCharacter>(playerData[localPlayer].Data.Entity);
 			var killerMatchData = playerData[deadPlayer.Killer];
-			var localName = _gameDataProvider.AppDataProvider.Nickname;
+			var localName = _gameDataProvider.AppDataProvider.DisplayNameTrimmed;
 			var isSuicide = localPlayer == deadPlayer.Killer;
 			
 			_killTrackerHolder.SetActive(!isSuicide);

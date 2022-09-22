@@ -392,7 +392,7 @@ namespace FirstLight.Game.StateMachines
 				game.SendPlayerData(game.GetLocalPlayers()[0], new RuntimePlayer
 				{
 					PlayerId = _gameDataProvider.AppDataProvider.PlayerId,
-					PlayerName = _gameDataProvider.AppDataProvider.Nickname,
+					PlayerName = _gameDataProvider.AppDataProvider.DisplayNameTrimmed,
 					Skin = info.Skin,
 					DeathMarker = info.DeathMarker,
 					PlayerLevel = info.Level,

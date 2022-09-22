@@ -149,12 +149,26 @@ namespace FirstLight.Game.StateMachines
 		{
 			SetConnectIdDim(false);
 			_statechartTrigger(_connectIdBackEvent);
+			OpenFlgIdSuccessPopup();
 		}
 
 		private void OnUpdateNicknameError(PlayFabError error)
 		{
 			SetConnectIdDim(false);
 			_statechartTrigger(_connectIdBackEvent);
+			OpenFlgIdSuccessPopup();
+		}
+
+		private void OpenFlgIdSuccessPopup()
+		{
+			var title = string.Format(ScriptLocalization.MainMenu.FirstLightIdConnectionSuccess);
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.General.OK,
+				ButtonOnClick = _services.GenericDialogService.CloseDialog
+			};
+
+			_services.GenericDialogService.OpenDialog(title, false, confirmButton);
 		}
 		
 		private void OnUnlinkComplete()

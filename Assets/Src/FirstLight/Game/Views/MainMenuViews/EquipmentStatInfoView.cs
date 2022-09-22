@@ -44,6 +44,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			{ EquipmentStatType.PowerToDamageRatio, 2 },
 			{ EquipmentStatType.NumberOfShots, 10 },
 			{ EquipmentStatType.PickupSpeed, 4f },
+			{ EquipmentStatType.ShieldCapacity, 500f },
 		};
 
 		/// <summary>

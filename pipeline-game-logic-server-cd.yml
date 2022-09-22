@@ -56,7 +56,7 @@ stages:
     maxReplicas: 2
     cpu: 1
     memory: 2Gi
-    oneLineEnvVars: "'API_BLOCKCHAIN_SERVICE=blast-royale-equipment' 'API_SECRET=$(DEV-GAMELOGIC-API-SECRET)' 'API_URL=***REMOVED***/br-blockchain' 'APPLICATIONINSIGHTS_CONNECTION_STRING=InstrumentationKey=***REMOVED***;IngestionEndpoint=https://uksouth-0.in.applicationinsights.azure.com/;LiveEndpoint=https://uksouth.livediagnostics.monitor.azure.com/' 'DEV_MODE=TRUE' 'NFT_SYNC=TRUE' 'PLAYFAB_DEV_SECRET_KEY=$(DEV-COMMON-PLAYFAB-SECRET-KEY)' 'PLAYFAB_SECRET_KEY=$(DEV-COMMON-PLAYFAB-SECRET-KEY)' 'PLAYFAB_TITLE=***REMOVED***' 'SqlConnectionString=$(DEV-MARKETPLACE-DB-CONNECTION-STRING)'"
+    oneLineEnvVars: "'API_BLOCKCHAIN_SERVICE=blast-royale-equipment' 'API_SECRET=$(DEV-GAMELOGIC-API-SECRET)' 'API_URL=***REMOVED***/br-blockchain' 'APPLICATIONINSIGHTS_CONNECTION_STRING=InstrumentationKey=***REMOVED***;IngestionEndpoint=https://uksouth-1.in.applicationinsights.azure.com/;LiveEndpoint=https://uksouth.livediagnostics.monitor.azure.com/' 'DEV_MODE=TRUE' 'NFT_SYNC=TRUE' 'PLAYFAB_DEV_SECRET_KEY=$(DEV-COMMON-PLAYFAB-SECRET-KEY)' 'PLAYFAB_SECRET_KEY=$(DEV-COMMON-PLAYFAB-SECRET-KEY)' 'PLAYFAB_TITLE=***REMOVED***' 'SqlConnectionString=$(DEV-MARKETPLACE-DB-CONNECTION-STRING)'"
 
 - template: pipelines/templates/containerapps-deploy.yml@templates
   parameters:

@@ -1,9 +1,7 @@
 using System.Collections.Generic;
-using System.Reflection;
 using FirstLight.FLogger;
 using FirstLight.Server.SDK.Modules;
 using PlayFab;
-using UnityEditor;
 
 // ReSharper disable RedundantDefaultMemberInitializer
 
@@ -131,8 +129,10 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static void SaveLocalConfig()
 		{
-			EditorPrefs.SetString("LocalFeatureFlags", ModelSerializer.Serialize(_localConfig).Value);
+#if UNITY_EDITOR
+			UnityEditor.EditorPrefs.SetString("LocalFeatureFlags", ModelSerializer.Serialize(_localConfig).Value);
 			FLog.Verbose("Saved local config for feature flags");
+#endif
 		}
 
 		/// <summary>
@@ -140,13 +140,15 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static void LoadLocalConfig()
 		{
-			var localConfig = EditorPrefs.GetString("LocalFeatureFlags", null);
+#if UNITY_EDITOR
+			var localConfig = UnityEditor.EditorPrefs.GetString("LocalFeatureFlags", null);
 			if (!string.IsNullOrEmpty(localConfig))
 			{
 				_localConfig = ModelSerializer.Deserialize<LocalFeatureFlagConfig>(localConfig);
 				FLog.Verbose($"Loaded local configs from local storage: {localConfig}");
 				return;
 			}
+#endif
 			_localConfig = new();
 		}
 

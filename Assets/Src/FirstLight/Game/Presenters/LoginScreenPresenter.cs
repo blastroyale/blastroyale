@@ -67,6 +67,7 @@ namespace FirstLight.Game.Presenters
 		
 		private void PlayAsGuestClicked()
 		{
+			_playAsGuestButton.gameObject.SetActive(false);
 			Data.PlayAsGuestClicked();
 		}
 

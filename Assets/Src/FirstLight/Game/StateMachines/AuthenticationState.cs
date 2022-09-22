@@ -80,12 +80,12 @@ namespace FirstLight.Game.StateMachines
 			initial.OnExit(SetAuthenticationData);
 			
 			autoAuthCheck.Transition().Condition(HasLinkedDevice).Target(authLoginDevice);
-			autoAuthCheck.Transition().Condition(() => !FeatureFlags.EMAIL_AUTH).OnTransition(SetLinkedDevice).Target(authLoginDevice);
+			autoAuthCheck.Transition().Condition(() => !FeatureFlags.EMAIL_AUTH).OnTransition(()=> { SetLinkedDevice(true); }).Target(authLoginDevice);
 			autoAuthCheck.Transition().OnTransition(CloseLoadingScreen).Target(login);
 
 			login.OnEnter(OpenLoginScreen);
 			login.Event(_goToRegisterClickedEvent).OnTransition(CloseLoginScreen).Target(register);
-			login.Event(_loginAsGuestEvent).OnTransition(()=>{SetLinkedDevice(); CloseLoginScreen();}).Target(authLoginDevice);
+			login.Event(_loginAsGuestEvent).OnTransition(()=>{SetLinkedDevice(true); CloseLoginScreen();}).Target(authLoginDevice);
 			login.Event(_loginRegisterTransitionEvent).Target(authLogin);
 
 			register.OnEnter(OpenRegisterScreen);
@@ -95,7 +95,7 @@ namespace FirstLight.Game.StateMachines
 			authLoginDevice.OnEnter(() => DimLoginRegisterScreens(true));
 			authLoginDevice.OnEnter(LoginWithDevice);
 			authLoginDevice.Event(_loginCompletedEvent).Target(getServerState);
-			authLoginDevice.Event(_authenticationFailEvent).OnTransition(CloseLoadingScreen).Target(login);
+			authLoginDevice.Event(_authenticationFailEvent).OnTransition(()=>{SetLinkedDevice(false); CloseLoadingScreen();}).Target(login);
 			authLoginDevice.OnEnter(() => DimLoginRegisterScreens(false));
 			
 			authLogin.OnEnter(() => DimLoginRegisterScreens(true));
@@ -560,9 +560,9 @@ namespace FirstLight.Game.StateMachines
 			                                         confirmButton);
 		}
 		
-		private void SetLinkedDevice()
+		private void SetLinkedDevice(bool linked)
 		{
-			_dataProvider.AppDataProvider.DeviceID.Value = PlayFabSettings.DeviceUniqueIdentifier;
+			_dataProvider.AppDataProvider.DeviceID.Value = linked ? PlayFabSettings.DeviceUniqueIdentifier : "";
 		}
 
 		private bool IsOutdated(string version)

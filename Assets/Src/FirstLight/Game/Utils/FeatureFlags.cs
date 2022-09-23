@@ -1,9 +1,7 @@
 using System.Collections.Generic;
-using System.Reflection;
 using FirstLight.FLogger;
 using FirstLight.Server.SDK.Modules;
 using PlayFab;
-using UnityEditor;
 
 // ReSharper disable RedundantDefaultMemberInitializer
 
@@ -55,11 +53,6 @@ namespace FirstLight.Game.Utils
 		public static bool QUANTUM_CUSTOM_SERVER = false;
 
 		/// <summary>
-		/// If false, testing game mode selection will be disabled in GameModeSelectionPresenter
-		/// </summary>
-		public static readonly bool TESTING_GAME_MODE_ENABLED = true;
-
-		/// <summary>
 		/// If false, leaderboard button will be disabled on the home screen
 		/// </summary>
 		public static readonly bool LEADERBOARD_ACCESSIBLE = true;
@@ -73,6 +66,11 @@ namespace FirstLight.Game.Utils
 		/// If true we award BattlePass points (BPP) and show the BattlePass button on the home screen.
 		/// </summary>
 		public static bool BATTLE_PASS_ENABLED = false;
+		
+		/// <summary>
+		/// If true all matches will be handled as ranked matches
+		/// </summary>
+		public static bool FORCE_RANKED = false;
 
 		/// <summary>
 		/// Parses the feature flags from a given input dictionary.
@@ -95,6 +93,12 @@ namespace FirstLight.Game.Utils
 			{
 				REMOTE_CONFIGURATION = remoteConfig;
 			}
+			
+			if (TrySetFlag("FORCE_RANKED", titleData, out var forceRanked))
+			{
+				FORCE_RANKED = forceRanked;
+			}
+			
 			ParseLocalFeatureFlags();
 		}
 
@@ -131,8 +135,10 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static void SaveLocalConfig()
 		{
-			EditorPrefs.SetString("LocalFeatureFlags", ModelSerializer.Serialize(_localConfig).Value);
+#if UNITY_EDITOR
+			UnityEditor.EditorPrefs.SetString("LocalFeatureFlags", ModelSerializer.Serialize(_localConfig).Value);
 			FLog.Verbose("Saved local config for feature flags");
+#endif
 		}
 
 		/// <summary>
@@ -140,13 +146,14 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static void LoadLocalConfig()
 		{
-			var localConfig = EditorPrefs.GetString("LocalFeatureFlags", null);
+#if UNITY_EDITOR
+			var localConfig = UnityEditor.EditorPrefs.GetString("LocalFeatureFlags", null);
 			if (!string.IsNullOrEmpty(localConfig))
 			{
 				_localConfig = ModelSerializer.Deserialize<LocalFeatureFlagConfig>(localConfig);
-				FLog.Verbose($"Loaded local configs from local storage: {localConfig}");
 				return;
 			}
+#endif
 			_localConfig = new();
 		}
 

@@ -31,7 +31,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Required] private Animation _pingAnimation;
 		[SerializeField, Required] private RectTransform _rootAnchor;
 		[SerializeField, Required] private RectTransform _targetingCenterAnchor;
-		[SerializeField, Required] private GameObject _normalAnchor;
+		[SerializeField, Required] private GameObject _specialAnchor;
 		[SerializeField, Required] private GameObject _cancelAnchor;
 		[SerializeField, Required] private UnityInputScreenControl _specialPointerDownAdapter;
 		[SerializeField, Required] private UnityInputScreenControl _cancelPointerDownAdapter;
@@ -86,52 +86,41 @@ namespace FirstLight.Game.Views.MatchHudViews
 				return;
 			}
 
+			RectTransformUtility.ScreenPointToLocalPointInRectangle(_rootAnchor, _targetingCenterAnchor.position,
+			                                                        eventData.pressEventCamera, out var buttonPosition);
 			RectTransformUtility.ScreenPointToLocalPointInRectangle(_rootAnchor, eventData.position,
 			                                                        eventData.pressEventCamera, out var position);
-			
-			//var delta = Vector2.ClampMagnitude(position, _specialRadius);
-			//var deltaMagNorm = deltaMagClamp / _joystickRadius;
-			var buttonPosition = _targetingCenterAnchor.anchoredPosition;
+
 			var delta = position - buttonPosition;
 			var deltaMag = delta.magnitude;
 			var deltaMagClamp = Vector2.ClampMagnitude(delta, _specialRadius);
 			var deltaMagNorm = deltaMagClamp / _specialRadius;
-			Debug.LogError(deltaMagNorm);
-			//Debug.LogError(_targetingCenterAnchor.anchoredPosition + "  " + position);
-			if (!_allowTargetingCancel && deltaMag >= _specialRadius)
+
+			// Exit cancel radius
+			if (!_allowTargetingCancel && deltaMag >= _cancelRadius)
 			{
-				//Debug.LogError("EXIT SPECIAL RADIUS");
+				Debug.LogError("EXIT SPECIAL RADIUS");
 				
 				_allowTargetingCancel = true;
 				
-				_normalAnchor.SetActive(false);
+				_specialAnchor.SetActive(false);
 				_cancelAnchor.SetActive(true);
 				
 				OnCancelExit?.Invoke();
 			}
-			// Pointer enter cancel radius
+			// Enter cancel radius
 			else if (_allowTargetingCancel && deltaMag <= _cancelRadius)
 			{
-				//Debug.LogError("ENTER CANCEL RADIUS");
+				Debug.LogError("ENTER CANCEL RADIUS");
 				
 				_allowTargetingCancel = false;
 
 				_cancelPointerDownAdapter.SendValueToControl(1f);
 				OnCancelEnter?.Invoke();
 			}
-			// Pointer exit cancel radius
-			else if (!_allowTargetingCancel && deltaMag > _cancelRadius)
-			{
-				//Debug.LogError("EXIT CANCEL RADIUS");
-				
-				_allowTargetingCancel = true;
-
-				_cancelPointerDownAdapter.SendValueToControl(1f);
-				OnCancelEnter?.Invoke();
-			}
 			else
 			{
-				//Debug.LogError("NORMAL ON DRAG");
+				Debug.LogError("-");
 				_specialAimDirectionAdapter.SendValueToControl(deltaMagNorm);
 			}
 		}
@@ -147,7 +136,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_pointerDownData = null;
 			_allowTargetingCancel = false;
 			
-			_normalAnchor.SetActive(true);
+			_specialAnchor.SetActive(true);
 			_cancelAnchor.SetActive(false);
 
 			_cancelPointerDownAdapter.SendValueToControl(0f);
@@ -173,12 +162,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_specialIconBackgroundImage.sprite = specialConfig.IsAimable ? _aimableBackgroundSprite : _nonAimableBackgroundSprite;
 			_outerRingImage.enabled = specialConfig.IsAimable;
 			
-			var specialRect = _normalAnchor.GetComponent<RectTransform>();
-			var cancelRect = _normalAnchor.GetComponent<RectTransform>();
+			var specialRect = _specialAnchor.GetComponent<RectTransform>();
+			var cancelRect = _cancelAnchor.GetComponent<RectTransform>();
 			
-			_specialRadius = ((specialRect.rect.size.x / 2f) * specialRect.localScale.x);
-			_cancelRadius = ((cancelRect.rect.size.x / 2f) * cancelRect.localScale.x);
-			_normalAnchor.SetActive(true);
+			_specialRadius = ((specialRect.rect.size.x / 2f) * specialRect.localScale.x) * GameConstants.Controls.SPECIAL_BUTTON_RADIUS_MULTIPLIER;
+			_cancelRadius = ((cancelRect.rect.size.x / 2f) * cancelRect.localScale.x) * GameConstants.Controls.SPECIAL_CANCEL_RADIUS_MULTIPLIER;
+			_specialAnchor.SetActive(true);
 			_cancelAnchor.SetActive(false);
 		}
 

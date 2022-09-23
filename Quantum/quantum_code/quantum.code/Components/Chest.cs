@@ -276,7 +276,9 @@ namespace Quantum
 								{
 									continue;
 								}
-								ModifyEquipmentRarity(f, ref equipmentUpgrade, rarity + 1, gameContainer->DropPool.AverageRarity);
+								//modify the equipment rairty by the rarity of the chest being opened, and by at minimum 1
+								var rarityModifier = FPMath.Max(1, f.RNG->NextInclusive(config.RarityModifierRange.Value1, config.RarityModifierRange.Value2)).AsInt;
+								ModifyEquipmentRarity(f, ref equipmentUpgrade, rarity + rarityModifier, gameContainer->DropPool.AverageRarity);
 								Collectable.DropEquipment(f, equipmentUpgrade, chestPosition, angleStep++, playerRef);
 
 								chestItems.Add(new ChestItemDropped

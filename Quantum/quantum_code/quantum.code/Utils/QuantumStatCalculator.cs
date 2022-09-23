@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Photon.Deterministic;
 
 namespace Quantum
@@ -69,24 +70,23 @@ namespace Quantum
 			attackRange = CalculateGearStat(statConfigs[StatType.AttackRange], besc, esc, emsc, item);
 			pickupSpeed = CalculateGearStat(statConfigs[StatType.PickupSpeed], besc, esc, emsc, item);
 			ammoCapacity = CalculateGearStat(statConfigs[StatType.AmmoCapacity], besc, esc, emsc, item);
-
 		}
 
 		/// <summary>
 		/// Requests the total might for the give stats
 		/// </summary>
-		public static int GetTotalMight(FP armour, FP health, FP speed, FP power, FP attackRange, FP pickupSpeed, FP ammoCapacity)
+		public static int GetTotalMight(IReadOnlyDictionary<StatType, QuantumStatConfig> statConfigs, FP armour, FP health,
+		                                 FP speed, FP power, FP attackRange, FP pickupSpeed, FP ammoCapacity)
 		{
-			//TODO: Use data from StatDataConfig instead of magic numbers
 			//TODO: Subtract default character values from calculation of Might that comes from health, speed, pickupSpeed
 			//TODO: Subtract base weapon values from calculation of Might that comes from power, attackRange, ammoCapacity
-			return FPMath.RoundToInt(armour * FP._10
-			                         + health * (FP._0_10 + FP._0_05)
-			                         + speed * (FP._10 * FP._6)
-			                         + power * FP._1
-			                         + attackRange * (FP._10 + FP._10)
-			                         + pickupSpeed * FP._200
-			                         + ammoCapacity * FP._2);
+			return FPMath.RoundToInt(armour * statConfigs[StatType.Armour].ConversionToMightRate
+			                         + health * statConfigs[StatType.Health].ConversionToMightRate
+			                         + speed * statConfigs[StatType.Speed].ConversionToMightRate
+			                         + power * statConfigs[StatType.Power].ConversionToMightRate
+			                         + attackRange * statConfigs[StatType.AttackRange].ConversionToMightRate
+			                         + pickupSpeed * statConfigs[StatType.PickupSpeed].ConversionToMightRate
+			                         + ammoCapacity * statConfigs[StatType.AmmoCapacity].ConversionToMightRate);
 		}
 
 		/// <summary>

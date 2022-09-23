@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Services;
+using FirstLight.Game.Utils;
 using Quantum;
 
 namespace FirstLight.Game.Infos
@@ -142,11 +144,15 @@ namespace FirstLight.Game.Infos
 		/// </summary>
 		public static float GetTotalMight(this List<EquipmentInfo> items)
 		{
+			var services = MainInstaller.Resolve<IGameServices>();
+			var statConfigs = services.ConfigsProvider.GetConfigsDictionary<QuantumStatConfig>().ToDictionary(f => (StatType)f.Key, f => f.Value);
+			
 			var total = 0f;
 			
 			foreach (var nft in items)
 			{
-				total += QuantumStatCalculator.GetTotalMight(nft.Stats[EquipmentStatType.Armor].ToFP(),
+				total += QuantumStatCalculator.GetTotalMight(statConfigs,
+				                                             nft.Stats[EquipmentStatType.Armor].ToFP(),
 				                                             nft.Stats[EquipmentStatType.Hp].ToFP(),
 				                                             nft.Stats[EquipmentStatType.Speed].ToFP(),
 				                                             nft.Stats[EquipmentStatType.Power].ToFP(),

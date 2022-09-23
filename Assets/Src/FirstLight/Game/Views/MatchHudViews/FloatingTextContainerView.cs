@@ -166,7 +166,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				return;
 			}
 
-			var text = string.Format(ScriptLocalization.AdventureMenu.Might, callback.CurrentStats.TotalMight);
+			var text = string.Format(ScriptLocalization.AdventureMenu.Might, callback.CurrentMight);
 			
 			EnqueueText(callback.Entity, text, _neutralTextColor, MessageType.StatChange);
 		}

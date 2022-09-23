@@ -5803,13 +5803,14 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnPlayerEquipmentStatsChanged OnPlayerEquipmentStatsChanged(PlayerRef Player, EntityRef Entity, Quantum.Stats PreviousStats, Quantum.Stats CurrentStats) {
+      public EventOnPlayerEquipmentStatsChanged OnPlayerEquipmentStatsChanged(PlayerRef Player, EntityRef Entity, Quantum.Stats PreviousStats, Quantum.Stats CurrentStats, Int32 CurrentMight) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnPlayerEquipmentStatsChanged>(EventOnPlayerEquipmentStatsChanged.ID);
         ev.Player = Player;
         ev.Entity = Entity;
         ev.PreviousStats = PreviousStats;
         ev.CurrentStats = CurrentStats;
+        ev.CurrentMight = CurrentMight;
         _f.AddEvent(ev);
         return ev;
       }
@@ -7794,6 +7795,7 @@ namespace Quantum {
     public EntityRef Entity;
     public Quantum.Stats PreviousStats;
     public Quantum.Stats CurrentStats;
+    public Int32 CurrentMight;
     protected EventOnPlayerEquipmentStatsChanged(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -7815,6 +7817,7 @@ namespace Quantum {
         hash = hash * 31 + Entity.GetHashCode();
         hash = hash * 31 + PreviousStats.GetHashCode();
         hash = hash * 31 + CurrentStats.GetHashCode();
+        hash = hash * 31 + CurrentMight.GetHashCode();
         return hash;
       }
     }

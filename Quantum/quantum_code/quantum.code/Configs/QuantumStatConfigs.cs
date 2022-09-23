@@ -13,6 +13,7 @@ namespace Quantum
 		public FP LevelStepMultiplier;
 		public FP GradeStepMultiplier;
 		public bool CeilToInt;
+		public FP ConversionToMightRate;
 	}
 
 	/// <summary>

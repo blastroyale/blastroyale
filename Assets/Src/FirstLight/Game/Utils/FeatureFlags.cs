@@ -66,6 +66,11 @@ namespace FirstLight.Game.Utils
 		/// If true we award BattlePass points (BPP) and show the BattlePass button on the home screen.
 		/// </summary>
 		public static bool BATTLE_PASS_ENABLED = false;
+		
+		/// <summary>
+		/// If true all matches will be handled as ranked matches
+		/// </summary>
+		public static bool FORCE_RANKED = false;
 
 		/// <summary>
 		/// Parses the feature flags from a given input dictionary.
@@ -88,6 +93,12 @@ namespace FirstLight.Game.Utils
 			{
 				REMOTE_CONFIGURATION = remoteConfig;
 			}
+			
+			if (TrySetFlag("FORCE_RANKED", titleData, out var forceRanked))
+			{
+				FORCE_RANKED = forceRanked;
+			}
+			
 			ParseLocalFeatureFlags();
 		}
 

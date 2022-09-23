@@ -24,6 +24,10 @@ namespace FirstLight.Game.Utils
 		public static EnterRoomParams GetRoomCreateParams(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, MapGridConfigs gridConfigs,
 		                                                  string roomName, MatchType matchType, List<string> mutators, bool gameHasBots)
 		{
+			if (FeatureFlags.FORCE_RANKED)
+			{
+				matchType = MatchType.Ranked;
+			}
 			var isRandomMatchmaking = string.IsNullOrWhiteSpace(roomName);
 
 			var roomNameFinal = isRandomMatchmaking ? null : roomName;
@@ -288,8 +292,6 @@ namespace FirstLight.Game.Utils
 					}
 				}
 			}
-
-
 			return dropPattern;
 		}
 

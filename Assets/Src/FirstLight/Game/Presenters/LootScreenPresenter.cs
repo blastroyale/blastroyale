@@ -96,7 +96,7 @@ namespace FirstLight.Game.Presenters
 			var loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both);
 			var might = loadout.GetTotalMight();
 			
-			_playerNameText.text = _gameDataProvider.AppDataProvider.Nickname;
+			_playerNameText.text = _gameDataProvider.AppDataProvider.DisplayNameTrimmed;
 			_powerRatingText.text = ScriptLocalization.MainMenu.TotalMight;
 			_powerValueText.text = might.ToString("F0");
 		}

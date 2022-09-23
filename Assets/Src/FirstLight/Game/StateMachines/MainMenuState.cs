@@ -59,7 +59,7 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger = statechartTrigger;
 			_lootMenuState = new LootMenuState(services, uiService, gameLogic, statechartTrigger);
 			_enterNameState = new EnterNameState(services, uiService, gameLogic, statechartTrigger);
-			_settingsMenuState = new SettingsMenuState(services, gameLogic, uiService, statechartTrigger);
+			_settingsMenuState = new SettingsMenuState(gameLogic, services, gameLogic, uiService, statechartTrigger);
 		}
 
 		/// <summary>
@@ -179,7 +179,8 @@ namespace FirstLight.Game.StateMachines
 
 		private bool HasDefaultName()
 		{
-			return _gameDataProvider.AppDataProvider.Nickname == GameConstants.PlayerName.DEFAULT_PLAYER_NAME;
+			return _gameDataProvider.AppDataProvider.DisplayNameTrimmed == GameConstants.PlayerName.DEFAULT_PLAYER_NAME ||
+			       string.IsNullOrEmpty(_gameDataProvider.AppDataProvider.DisplayNameTrimmed);
 		}
 
 		private void SubscribeEvents()

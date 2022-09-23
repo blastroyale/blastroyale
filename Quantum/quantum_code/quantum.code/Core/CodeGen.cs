@@ -3530,15 +3530,17 @@ namespace Quantum {
     public const Int32 SIZE = 4;
     public const Int32 ALIGNMENT = 4;
     [FieldOffset(0)]
-    private fixed Byte _alignment_padding_[4];
+    public QBoolean InCircle;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 409;
+        hash = hash * 31 + InCircle.GetHashCode();
         return hash;
       }
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (AlivePlayerCharacter*)ptr;
+        QBoolean.Serialize(&p->InCircle, serializer);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -9209,8 +9211,7 @@ namespace Quantum.Prototypes {
   [System.SerializableAttribute()]
   [Prototype(typeof(AlivePlayerCharacter))]
   public sealed unsafe partial class AlivePlayerCharacter_Prototype : ComponentPrototype<AlivePlayerCharacter> {
-    [HideInInspector()]
-    public Int32 _empty_prototype_dummy_field_;
+    public QBoolean InCircle;
     partial void MaterializeUser(Frame frame, ref AlivePlayerCharacter result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       AlivePlayerCharacter component = default;
@@ -9218,6 +9219,7 @@ namespace Quantum.Prototypes {
       return f.Set(entity, component) == SetResult.ComponentAdded;
     }
     public void Materialize(Frame frame, ref AlivePlayerCharacter result, in PrototypeMaterializationContext context) {
+      result.InCircle = this.InCircle;
       MaterializeUser(frame, ref result, in context);
     }
     public override void Dispatch(ComponentPrototypeVisitorBase visitor) {

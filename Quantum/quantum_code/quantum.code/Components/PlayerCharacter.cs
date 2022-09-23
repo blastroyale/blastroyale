@@ -253,10 +253,11 @@ namespace Quantum
 			Assert.Check(!gear.IsWeapon(), gear);
 
 			var gearSlot = GetGearSlot(gear);
+			
 			Gear[gearSlot] = gear;
 			
 			f.Unsafe.GetPointer<Stats>(e)->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Gear);
-
+			
 			f.Events.OnPlayerGearChanged(Player, e, gear, gearSlot);
 		}
 

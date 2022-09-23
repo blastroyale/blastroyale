@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using ExitGames.Client.Photon;
 using FirstLight.FLogger;
@@ -570,18 +571,16 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayCreateRoomClickedMessage(PlayCreateRoomClickedMessage msg)
 		{
-			var selectedGameMode = _services.GameModeService.SelectedGameMode.Value;
-			var gameModeId = selectedGameMode.Entry.GameModeId;
-			var mutators = selectedGameMode.Entry.Mutators;
+			var gameModeId = msg.GameModeConfig.Id;
 			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
 			
 			if (msg.JoinIfExists)
 			{
-				JoinOrCreateRoom(gameModeConfig, msg.MapConfig, mutators, msg.RoomName);
+				JoinOrCreateRoom(gameModeConfig, msg.MapConfig, msg.Mutators, msg.RoomName);
 			}
 			else
 			{
-				CreateRoom(gameModeConfig, msg.MapConfig, mutators, msg.RoomName);
+				CreateRoom(gameModeConfig, msg.MapConfig, msg.Mutators, msg.RoomName);
 			}
 		}
 
@@ -779,7 +778,7 @@ namespace FirstLight.Game.StateMachines
 			settings.FixedRegion = _gameDataProvider.AppDataProvider.ConnectionRegion.Value;
 
 			UpdateQuantumClientProperties();
-			_networkService.QuantumClient.ConnectUsingSettings(settings, _gameDataProvider.AppDataProvider.Nickname);
+			_networkService.QuantumClient.ConnectUsingSettings(settings, _gameDataProvider.AppDataProvider.DisplayNameTrimmed);
 		}
 
 		private void ConnectPhotonToRegionMaster()
@@ -819,7 +818,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_networkService.QuantumClient.AuthValues.AuthType = CustomAuthenticationType.Custom;
 			_networkService.QuantumClient.EnableProtocolFallback = true;
-			_networkService.QuantumClient.NickName = _gameDataProvider.AppDataProvider.Nickname;
+			_networkService.QuantumClient.NickName = _gameDataProvider.AppDataProvider.DisplayNameTrimmed;
 
 			var preloadIds = new List<int>();
 

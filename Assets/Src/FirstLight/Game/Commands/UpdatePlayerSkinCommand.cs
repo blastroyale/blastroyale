@@ -1,5 +1,6 @@
-﻿using FirstLight.Game.Logic;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
+using FirstLight.Game.Services;
 using FirstLight.Services;
 using Quantum;
 
@@ -11,6 +12,10 @@ namespace FirstLight.Game.Commands
 	public struct UpdatePlayerSkinCommand : IGameCommand
 	{
 		public GameId SkinId;
+
+		public CommandAccessLevel AccessLevel() => CommandAccessLevel.Player;
+
+		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Server;
 
 		/// <inheritdoc />
 		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)

@@ -12,7 +12,8 @@ namespace Quantum
 		/// Requests the <see cref="Equipment"/> stats based on the given <paramref name="item"/>
 		/// </summary>
 		public static void CalculateWeaponStats(Frame f, Equipment item, out int armour, out int health, out FP speed, 
-		                                        out FP power, out FP attackRange, out FP pickupSpeed, out FP ammoCapacity)
+		                                        out FP power, out FP attackRange, out FP pickupSpeed, out FP ammoCapacity,
+		                                        out FP shieldCapacity)
 		{
 			if (!item.IsValid() || !item.IsWeapon())
 			{
@@ -23,6 +24,7 @@ namespace Quantum
 				attackRange = FP._0;
 				pickupSpeed = FP._0;
 				ammoCapacity = FP._0;
+				shieldCapacity = FP._0;
 				return;
 			}
 			
@@ -39,12 +41,14 @@ namespace Quantum
 			attackRange = CalculateWeaponStat(wc, statConfigs[StatType.AttackRange], besc, esc, emsc, item);
 			pickupSpeed = CalculateWeaponStat(wc, statConfigs[StatType.PickupSpeed], besc, esc, emsc, item);
 			ammoCapacity = CalculateWeaponStat(wc, statConfigs[StatType.AmmoCapacity], besc, esc, emsc, item);
+			shieldCapacity = CalculateWeaponStat(wc, statConfigs[StatType.Shield], besc, esc, emsc, item);
 		}
 		/// <summary>
 		/// Requests the <see cref="Equipment"/> stats based on the given <paramref name="item"/>
 		/// </summary>
 		public static void CalculateGearStats(Frame f, Equipment item, out int armour, out int health, out FP speed, 
-		                                      out FP power, out FP attackRange, out FP pickupSpeed, out FP ammoCapacity)
+		                                      out FP power, out FP attackRange, out FP pickupSpeed, out FP ammoCapacity,
+		                                      out FP shieldCapacity)
 		{
 			if (!item.IsValid())
 			{
@@ -55,6 +59,7 @@ namespace Quantum
 				attackRange = FP._0;
 				pickupSpeed = FP._0;
 				ammoCapacity = FP._0;
+				shieldCapacity= FP._0;
 				return;
 			}
 			
@@ -70,13 +75,13 @@ namespace Quantum
 			attackRange = CalculateGearStat(statConfigs[StatType.AttackRange], besc, esc, emsc, item);
 			pickupSpeed = CalculateGearStat(statConfigs[StatType.PickupSpeed], besc, esc, emsc, item);
 			ammoCapacity = CalculateGearStat(statConfigs[StatType.AmmoCapacity], besc, esc, emsc, item);
+			shieldCapacity = CalculateGearStat(statConfigs[StatType.Shield], besc, esc, emsc, item);
 		}
 
 		/// <summary>
 		/// Requests the total might for the give stats
 		/// </summary>
-		public static int GetTotalMight(IReadOnlyDictionary<StatType, QuantumStatConfig> statConfigs, FP armour, FP health,
-		                                 FP speed, FP power, FP attackRange, FP pickupSpeed, FP ammoCapacity)
+		public static int GetTotalMight(IReadOnlyDictionary<StatType, QuantumStatConfig> statConfigs, FP armour, FP health, FP speed, FP power, FP attackRange, FP pickupSpeed, FP ammoCapacity, FP shieldCapacity)
 		{
 			//TODO: Subtract default character values from calculation of Might that comes from health, speed, pickupSpeed
 			//TODO: Subtract base weapon values from calculation of Might that comes from power, attackRange, ammoCapacity
@@ -86,7 +91,8 @@ namespace Quantum
 			                         + power * statConfigs[StatType.Power].ConversionToMightRate
 			                         + attackRange * statConfigs[StatType.AttackRange].ConversionToMightRate
 			                         + pickupSpeed * statConfigs[StatType.PickupSpeed].ConversionToMightRate
-			                         + ammoCapacity * statConfigs[StatType.AmmoCapacity].ConversionToMightRate);
+			                         + ammoCapacity * statConfigs[StatType.AmmoCapacity].ConversionToMightRate
+			                         + shieldCapacity * statConfigs[StatType.Shield].ConversionToMightRate);
 		}
 
 		/// <summary>

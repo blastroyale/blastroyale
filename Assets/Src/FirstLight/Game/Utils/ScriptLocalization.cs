@@ -698,7 +698,6 @@ namespace I2.Loc
 			public static string Sell 		{ get{ return LocalizationManager.GetTranslation ("General/Sell"); } }
 			public static string SellItemFor 		{ get{ return LocalizationManager.GetTranslation ("General/SellItemFor"); } }
 			public static string SellLastWeaponWarning 		{ get{ return LocalizationManager.GetTranslation ("General/SellLastWeaponWarning"); } }
-			public static string Shield_Capacity 		{ get{ return LocalizationManager.GetTranslation ("General/Shield Capacity"); } }
 			public static string ShieldCapacity 		{ get{ return LocalizationManager.GetTranslation ("General/ShieldCapacity"); } }
 			public static string SlotEmpty 		{ get{ return LocalizationManager.GetTranslation ("General/SlotEmpty"); } }
 			public static string SpecialId 		{ get{ return LocalizationManager.GetTranslation ("General/SpecialId"); } }
@@ -749,6 +748,9 @@ namespace I2.Loc
 			public static string Collect 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Collect"); } }
 			public static string CollectedCrates 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/CollectedCrates"); } }
 			public static string CompleteLowerDifficulty 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/CompleteLowerDifficulty"); } }
+			public static string ConnectFirstLightIdAdvice 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ConnectFirstLightIdAdvice"); } }
+			public static string ConnectFirstLightIdButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ConnectFirstLightIdButton"); } }
+			public static string ConnectToNewFirstLightId 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ConnectToNewFirstLightId"); } }
 			public static string ContainsAtLeast 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ContainsAtLeast"); } }
 			public static string Craft 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Craft"); } }
 			public static string CrateTier 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/CrateTier"); } }
@@ -776,6 +778,7 @@ namespace I2.Loc
 			public static string EnhanceResults 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/EnhanceResults"); } }
 			public static string EventsComingSoon 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/EventsComingSoon"); } }
 			public static string FirstLightIdConnected 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/FirstLightIdConnected"); } }
+			public static string FirstLightIdConnectionSuccess 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/FirstLightIdConnectionSuccess"); } }
 			public static string FirstLightIdNeedConnection 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/FirstLightIdNeedConnection"); } }
 			public static string FirstVictoryRewards 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/FirstVictoryRewards"); } }
 			public static string FreeSlot 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/FreeSlot"); } }
@@ -854,7 +857,6 @@ namespace I2.Loc
 			public static string QuitGameButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/QuitGameButton"); } }
 			public static string ReachPlayerLevelAdventure 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ReachPlayerLevelAdventure"); } }
 			public static string ReconnectButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ReconnectButton"); } }
-			public static string RegisterAdvice 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RegisterAdvice"); } }
 			public static string RegisterButton 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RegisterButton"); } }
 			public static string RegisterFirstLightId 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RegisterFirstLightId"); } }
 			public static string RegisterSuccess 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RegisterSuccess"); } }
@@ -1746,7 +1748,6 @@ namespace I2.Loc
 		    public const string Sell = "General/Sell";
 		    public const string SellItemFor = "General/SellItemFor";
 		    public const string SellLastWeaponWarning = "General/SellLastWeaponWarning";
-		    public const string Shield_Capacity = "General/Shield Capacity";
 		    public const string ShieldCapacity = "General/ShieldCapacity";
 		    public const string SlotEmpty = "General/SlotEmpty";
 		    public const string SpecialId = "General/SpecialId";
@@ -1797,6 +1798,9 @@ namespace I2.Loc
 		    public const string Collect = "MainMenu/Collect";
 		    public const string CollectedCrates = "MainMenu/CollectedCrates";
 		    public const string CompleteLowerDifficulty = "MainMenu/CompleteLowerDifficulty";
+		    public const string ConnectFirstLightIdAdvice = "MainMenu/ConnectFirstLightIdAdvice";
+		    public const string ConnectFirstLightIdButton = "MainMenu/ConnectFirstLightIdButton";
+		    public const string ConnectToNewFirstLightId = "MainMenu/ConnectToNewFirstLightId";
 		    public const string ContainsAtLeast = "MainMenu/ContainsAtLeast";
 		    public const string Craft = "MainMenu/Craft";
 		    public const string CrateTier = "MainMenu/CrateTier";
@@ -1824,6 +1828,7 @@ namespace I2.Loc
 		    public const string EnhanceResults = "MainMenu/EnhanceResults";
 		    public const string EventsComingSoon = "MainMenu/EventsComingSoon";
 		    public const string FirstLightIdConnected = "MainMenu/FirstLightIdConnected";
+		    public const string FirstLightIdConnectionSuccess = "MainMenu/FirstLightIdConnectionSuccess";
 		    public const string FirstLightIdNeedConnection = "MainMenu/FirstLightIdNeedConnection";
 		    public const string FirstVictoryRewards = "MainMenu/FirstVictoryRewards";
 		    public const string FreeSlot = "MainMenu/FreeSlot";
@@ -1902,7 +1907,6 @@ namespace I2.Loc
 		    public const string QuitGameButton = "MainMenu/QuitGameButton";
 		    public const string ReachPlayerLevelAdventure = "MainMenu/ReachPlayerLevelAdventure";
 		    public const string ReconnectButton = "MainMenu/ReconnectButton";
-		    public const string RegisterAdvice = "MainMenu/RegisterAdvice";
 		    public const string RegisterButton = "MainMenu/RegisterButton";
 		    public const string RegisterFirstLightId = "MainMenu/RegisterFirstLightId";
 		    public const string RegisterSuccess = "MainMenu/RegisterSuccess";

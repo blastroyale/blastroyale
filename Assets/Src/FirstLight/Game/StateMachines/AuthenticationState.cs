@@ -33,11 +33,13 @@ namespace FirstLight.Game.StateMachines
 	public class AuthenticationState
 	{
 		private readonly IStatechartEvent _goToRegisterClickedEvent = new StatechartEvent("Go To Register Clicked Event");
+		private readonly IStatechartEvent _loginAsGuestEvent = new StatechartEvent("Login as Guest Event");
 		private readonly IStatechartEvent _goToLoginClickedEvent = new StatechartEvent("Go To Login Clicked Event");
 		private readonly IStatechartEvent _loginRegisterTransitionEvent = new StatechartEvent("Login Register Transition Clicked Event");
 		private readonly IStatechartEvent _loginCompletedEvent = new StatechartEvent("Login Completed Event");
 		private readonly IStatechartEvent _authenticationFailEvent = new StatechartEvent("Authentication Fail Event");
-		
+
+		private readonly IGameDataProvider _dataProvider;
 		private readonly IGameServices _services;
 		private readonly IGameUiServiceInit _uiService;
 		private readonly IDataService _dataService;
@@ -47,9 +49,10 @@ namespace FirstLight.Game.StateMachines
 
 		private string _passwordRecoveryEmailTemplateId = "";
 		
-		public AuthenticationState(IGameServices services, IGameUiServiceInit uiService, IDataService dataService, 
+		public AuthenticationState(IGameDataProvider dataProvider, IGameServices services, IGameUiServiceInit uiService, IDataService dataService, 
 		                           IGameBackendNetworkService networkService, Action<IStatechartEvent> statechartTrigger, IConfigsAdder cfgs)
 		{
+			_dataProvider = dataProvider;
 			_services = services;
 			_uiService = uiService;
 			_dataService = dataService;
@@ -77,20 +80,23 @@ namespace FirstLight.Game.StateMachines
 			initial.OnExit(SetAuthenticationData);
 			
 			autoAuthCheck.Transition().Condition(HasLinkedDevice).Target(authLoginDevice);
-			autoAuthCheck.Transition().Condition(() => !FeatureFlags.EMAIL_AUTH).OnTransition(OnLinkSuccess).Target(authLoginDevice);
+			autoAuthCheck.Transition().Condition(() => !FeatureFlags.EMAIL_AUTH).OnTransition(()=> { SetLinkedDevice(true); }).Target(authLoginDevice);
 			autoAuthCheck.Transition().OnTransition(CloseLoadingScreen).Target(login);
 
 			login.OnEnter(OpenLoginScreen);
 			login.Event(_goToRegisterClickedEvent).OnTransition(CloseLoginScreen).Target(register);
+			login.Event(_loginAsGuestEvent).OnTransition(()=>{SetLinkedDevice(true); CloseLoginScreen();}).Target(authLoginDevice);
 			login.Event(_loginRegisterTransitionEvent).Target(authLogin);
 
 			register.OnEnter(OpenRegisterScreen);
 			register.Event(_goToLoginClickedEvent).OnTransition(CloseRegisterScreen).Target(login);
 			register.Event(_loginRegisterTransitionEvent).Target(authLogin);
 
+			authLoginDevice.OnEnter(() => DimLoginRegisterScreens(true));
 			authLoginDevice.OnEnter(LoginWithDevice);
 			authLoginDevice.Event(_loginCompletedEvent).Target(getServerState);
-			authLoginDevice.Event(_authenticationFailEvent).OnTransition(CloseLoadingScreen).Target(login);
+			authLoginDevice.Event(_authenticationFailEvent).OnTransition(()=>{SetLinkedDevice(false); CloseLoadingScreen();}).Target(login);
+			authLoginDevice.OnEnter(() => DimLoginRegisterScreens(false));
 			
 			authLogin.OnEnter(() => DimLoginRegisterScreens(true));
 			authLogin.Event(_loginCompletedEvent).OnTransition(CloseLoginRegisterScreens).Target(getServerState);
@@ -105,7 +111,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeEvents()
 		{
-			_services.MessageBrokerService.Subscribe<ServerHttpError>(OnConnectionError);
+			_services.MessageBrokerService.Subscribe<ServerHttpErrorMessage>(OnConnectionError);
 		}
 
 		private void UnsubscribeEvents()
@@ -114,7 +120,7 @@ namespace FirstLight.Game.StateMachines
 			//_services.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
-		private void OnConnectionError(ServerHttpError msg)
+		private void OnConnectionError(ServerHttpErrorMessage msg)
 		{
 			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Session, "Invalid Session Ticket:"+msg.Message );
 			
@@ -124,6 +130,7 @@ namespace FirstLight.Game.StateMachines
 			}
 			
 			LoginWithDevice();
+			
 			_services.PlayfabService.CallFunction("GetPlayerData", res => 
 					OnPlayerDataObtained(res, null), OnPlayFabError);
 		}
@@ -163,6 +170,8 @@ namespace FirstLight.Game.StateMachines
 			}
 			
 			_services.GenericDialogService.OpenDialog(error.ErrorMessage, false, confirmButton);
+			
+			DimLoginRegisterScreens(false);
 		}
 		
 		private void OnAuthenticationFail(PlayFabError error)
@@ -197,7 +206,7 @@ namespace FirstLight.Game.StateMachines
 #if UNITY_EDITOR
 			var login = new LoginWithCustomIDRequest
 			{
-				CreateAccount = !FeatureFlags.EMAIL_AUTH,
+				CreateAccount = true,
 				CustomId = deviceId,
 				InfoRequestParameters = infoParams
 			};
@@ -207,7 +216,7 @@ namespace FirstLight.Game.StateMachines
 #elif UNITY_ANDROID
 			var login = new LoginWithAndroidDeviceIDRequest()
 			{
-				CreateAccount = !FeatureFlags.EMAIL_AUTH,
+				CreateAccount = true,
 				AndroidDevice = SystemInfo.deviceModel,
 				OS = SystemInfo.operatingSystem,
 				AndroidDeviceId = deviceId,
@@ -218,7 +227,7 @@ namespace FirstLight.Game.StateMachines
 #elif UNITY_IOS
 			var login = new LoginWithIOSDeviceIDRequest()
 			{
-				CreateAccount = !FeatureFlags.EMAIL_AUTH,
+				CreateAccount = true,
 				DeviceModel = SystemInfo.deviceModel,
 				OS = SystemInfo.operatingSystem,
 				DeviceId = deviceId,
@@ -232,7 +241,7 @@ namespace FirstLight.Game.StateMachines
 		private void SetAuthenticationData()
 		{
 			var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
-			var appData = _dataService.LoadData<AppData>();
+			var appData = _dataService.GetData<AppData>();
 			var environment = "";
 			
 #if LIVE_SERVER
@@ -297,13 +306,14 @@ namespace FirstLight.Game.StateMachines
 			FeatureFlags.ParseFlags(titleData);
 			
 			_networkService.UserId.Value = result.PlayFabId;
-			appData.NickNameId = result.InfoResultPayload.AccountInfo.TitleInfo.DisplayName;
+			appData.DisplayName = result.InfoResultPayload.AccountInfo.TitleInfo.DisplayName;
 			appData.FirstLoginTime = result.InfoResultPayload.AccountInfo.Created;
 			appData.LoginTime = _services.TimeService.DateTimeUtcNow;
 			appData.LastLoginTime = result.LastLoginTime ?? result.InfoResultPayload.AccountInfo.Created;
 			appData.IsFirstSession = result.NewlyCreated;
 			appData.PlayerId = result.PlayFabId;
-
+			appData.LastLoginEmail = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
+				
 			if (FeatureFlags.REMOTE_CONFIGURATION)
 			{
 				FLog.Verbose("Parsing Remote Configurations");
@@ -321,47 +331,6 @@ namespace FirstLight.Game.StateMachines
 
 			_dataService.SaveData<AppData>();
 			FLog.Verbose("Saved AppData");
-		}
-
-		private void LinkDeviceID()
-		{
-#if UNITY_EDITOR
-			var link = new LinkCustomIDRequest
-			{
-				CustomId = PlayFabSettings.DeviceUniqueIdentifier,
-				ForceLink = true
-			};
-			
-			PlayFabClientAPI.LinkCustomID(link, _ => OnLinkSuccess(), OnPlayFabError);
-#elif UNITY_ANDROID
-			var link = new LinkAndroidDeviceIDRequest
-			{
-				AndroidDevice = SystemInfo.deviceModel,
-				OS = SystemInfo.operatingSystem,
-				AndroidDeviceId = PlayFabSettings.DeviceUniqueIdentifier,
-				ForceLink = true
-			};
-			
-			PlayFabClientAPI.LinkAndroidDeviceID(link, _ => OnLinkSuccess(), OnPlayFabError);
-
-#elif UNITY_IOS
-			var link = new LinkIOSDeviceIDRequest
-			{
-				DeviceModel = SystemInfo.deviceModel,
-				OS = SystemInfo.operatingSystem,
-				DeviceId = PlayFabSettings.DeviceUniqueIdentifier,
-				ForceLink = true
-			};
-			
-			PlayFabClientAPI.LinkIOSDeviceID(link, _ => OnLinkSuccess(), OnPlayFabError);
-#endif
-		}
-		
-		private void OnLinkSuccess()
-		{
-			_dataService.GetData<AppData>().DeviceId = PlayFabSettings.DeviceUniqueIdentifier;
-			_dataService.SaveData<AppData>();
-			FLog.Verbose("Linked account with device in playfab");
 		}
 
 		private void FinalStepsAuthentication(IWaitActivity activity)
@@ -454,7 +423,7 @@ namespace FirstLight.Game.StateMachines
 				Password = password,
 				InfoRequestParameters = infoParams
 			};
-			
+
 			PlayFabClientAPI.LoginWithEmailAddress(login, OnLoginSuccess, OnAuthenticationFail);
 		}
 
@@ -466,10 +435,15 @@ namespace FirstLight.Game.StateMachines
 			var userName = result.InfoResultPayload.AccountInfo.Username;
 
 			_services.HelpdeskService.Login(userId, email, userName);
-			
+
 			if (string.IsNullOrWhiteSpace(appData.DeviceId))
 			{
-				LinkDeviceID();
+				_services.PlayfabService.LinkDeviceID(null, null);
+			}
+			
+			if (string.IsNullOrWhiteSpace(_dataProvider.AppDataProvider.DisplayName.Value))
+			{
+				_services.PlayfabService.UpdateDisplayName(GameConstants.PlayerName.DEFAULT_PLAYER_NAME);
 			}
 
 			ProcessAuthentication(result);
@@ -488,7 +462,7 @@ namespace FirstLight.Game.StateMachines
 				Username = username,
 				Password = password
 			};
-			
+
 			PlayFabClientAPI.RegisterPlayFabUser(register, _ => LoginClicked(email, password), OnAuthenticationFail);
 		}
 		
@@ -537,6 +511,11 @@ namespace FirstLight.Game.StateMachines
 			{
 				LoginClicked = LoginClicked,
 				GoToRegisterClicked = () => _statechartTrigger(_goToRegisterClickedEvent),
+				PlayAsGuestClicked = () =>
+				{
+					DimLoginRegisterScreens(true);
+					_statechartTrigger(_loginAsGuestEvent);
+				},
 				ForgotPasswordClicked = SendRecoveryEmail
 			};
 			
@@ -579,6 +558,11 @@ namespace FirstLight.Game.StateMachines
 
 			_services.GenericDialogService.OpenDialog(ScriptLocalization.MainMenu.SendPasswordEmailConfirm, false,
 			                                         confirmButton);
+		}
+		
+		private void SetLinkedDevice(bool linked)
+		{
+			_dataProvider.AppDataProvider.DeviceID.Value = linked ? PlayFabSettings.DeviceUniqueIdentifier : "";
 		}
 
 		private bool IsOutdated(string version)

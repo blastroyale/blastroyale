@@ -11,7 +11,7 @@ namespace FirstLight.Game.Messages
 	/// <summary>
 	/// Message fired when requests to server fails for some reason.
 	/// </summary>
-	public struct ServerHttpError : IMessage
+	public struct ServerHttpErrorMessage : IMessage
 	{
 		public HttpStatusCode ErrorCode;
 		public string Message;

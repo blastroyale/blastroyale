@@ -39,7 +39,7 @@ namespace Quantum.Systems
 			{
 				var transform = f.Get<Transform3D>(pair.Entity);
 				var position = transform.Position;
-				var isInside = (position.XZ - center).SqrMagnitude > radius * radius;
+				var isInside = (position.XZ - center).SqrMagnitude < radius * radius;
 
 				if (pair.Component.InCircle && isInside)
 				{

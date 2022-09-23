@@ -53,6 +53,25 @@ namespace Quantum
 			var nextGearItem = Equipment.None;
 			var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
 
+			//if the player has yet to be dropped thier primary weapon, we do so here
+			if (!f.Has<BotCharacter>(playerEntity) && hasLoadoutWeapon && !playerCharacter->HasDroppedLoadoutItem(loadoutWeapon))
+			{
+				nextGearItem = loadoutWeapon;
+				playerCharacter->SetDroppedLoadoutItem(nextGearItem);
+				ModifyEquipmentRarity(f, ref nextGearItem, minimumRarity, gameContainer->DropPool.AverageRarity);
+				Collectable.DropEquipment(f, nextGearItem, chestPosition, angleStep++);
+				chestItems.Add(new ChestItemDropped()
+				{
+					ChestType = config.Id,
+					ChestPosition = chestPosition,
+					Player = playerRef,
+					PlayerEntity = playerEntity,
+					ItemType = nextGearItem.GameId,
+					Amount = 1,
+					AngleStepAroundChest = angleStep
+				});
+			}
+
 			// Drop "PowerUps" (equipment / shield upgrade)
 			DropPowerUps(f, playerEntity, config, playerCharacter, gameContainer, minimumRarity, loadoutWeapon,
 						 chestPosition, ref angleStep, chestItems);
@@ -167,19 +186,14 @@ namespace Quantum
 			{
 				if (f.RNG->Next() > chance)
 				{
-					//if the player has yet to be dropped thier primary weapon, we do so here
-					if (!f.Has<BotCharacter>(playerEntity) && hasLoadoutWeapon && !playerCharacter->HasDroppedLoadoutItem(loadoutWeapon))
-					{
-						Collectable.DropEquipment(f, loadoutWeapon, chestPosition, angleStep++);
-					}
 					continue;
 				}
-
+				
 				for (uint i = 0; i < count; i++)
 				{
 					//if there is no shield capacity to be dropped, only ever drop the randomID, otherwise, drop shield capacity
 					var drop = filledShieldCapacity ? GameId.Random : 
-						QuantumHelpers.GetRandomItem(f, GameId.Random, GameId.ShieldCapacityLarge, GameId.ShieldCapacitySmall);
+						QuantumHelpers.GetRandomItem(f, GameId.Random ,GameId.Random, GameId.ShieldCapacityLarge, GameId.ShieldCapacitySmall);
 
 					if (drop == GameId.Random)
 					{

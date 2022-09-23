@@ -151,7 +151,6 @@ namespace FirstLight.Game.Utils
 			if (!string.IsNullOrEmpty(localConfig))
 			{
 				_localConfig = ModelSerializer.Deserialize<LocalFeatureFlagConfig>(localConfig);
-				FLog.Verbose($"Loaded local configs from local storage: {localConfig}");
 				return;
 			}
 #endif

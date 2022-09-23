@@ -1,4 +1,6 @@
 using FirstLight.Game.Input;
+using FirstLight.Game.Logic;
+using FirstLight.Game.Utils;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -17,18 +19,26 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Required] private UnityInputScreenControl _onscreenJoystickDirectionAdapter;
 		[SerializeField, Required] private UnityInputScreenControl _onscreenJoystickPointerDownAdapter;
 		[SerializeField] private float _radiusMultiplier = 1f;
-		[SerializeField] private bool _allowFloating = true;
+		[SerializeField] private bool _dynamicJoystickCompatible = true;
 		
 		private PointerEventData _pointerDownData;
 		private Vector2 _defaultJoystickPos = Vector2.zero;
+		private bool _allowDynamicRepositioning;
+		private IGameDataProvider _dataProvider;
 		
 		private int? CurrentPointerId => _pointerDownData?.pointerId;
 		private float _joystickRadius => ((_joystick.rect.size.x / 2f) * _joystick.localScale.x) * _radiusMultiplier;
-		private float _joystickCorrectionRadius => _joystickRadius * 2f;
+		private float _joystickCorrectionRadius => _joystickRadius * GameConstants.Controls.DYNAMIC_JOYSTICK_THRESHOLD_MULTIPLIER;
 		
 		private void Awake()
 		{
+			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_defaultJoystickPos = _joystick.anchoredPosition;
+
+			if (_dynamicJoystickCompatible)
+			{
+				_allowDynamicRepositioning = _dataProvider.AppDataProvider.UseDynamicJoystick;
+			}
 		}
 		
 		private void OnEnable()
@@ -65,16 +75,17 @@ namespace FirstLight.Game.Views.MatchHudViews
 			                                                        eventData.pressEventCamera, out var position);
 			RectTransformUtility.ScreenPointToLocalPointInRectangle(_rootAnchor, eventData.pressPosition,
 			                                                        eventData.pressEventCamera, out var pressPosition);
-			
-			var deltaMag = (position - _joystick.anchoredPosition).magnitude;
-			var deltaMagClamp = Vector2.ClampMagnitude(position - pressPosition, _joystickRadius);
+
+			var joystickPosition = _joystick.anchoredPosition;
+			var deltaMag = (position - joystickPosition).magnitude;
+			var deltaMagClamp = Vector2.ClampMagnitude(position - joystickPosition, _joystickRadius);
 			var deltaMagNorm = deltaMagClamp / _joystickRadius;
 			
-			// Makes the joystick "float" towards drag position, if the player dragged very far from initial press pos (UX)
-			if (deltaMag > _joystickCorrectionRadius)
+			// Makes the joystick float towards drag position, if the player dragged very far from initial press pos (UX)
+			if (_allowDynamicRepositioning && deltaMag > _joystickCorrectionRadius)
 			{
-				var correctionDirVector = (position - _joystick.anchoredPosition).normalized * _joystickCorrectionRadius;
-				var deltaCorrection = (position - _joystick.anchoredPosition) - correctionDirVector;
+				var correctionDirVector = (position - joystickPosition).normalized * _joystickCorrectionRadius;
+				var deltaCorrection = (position - joystickPosition) - correctionDirVector;
 				_joystick.anchoredPosition += deltaCorrection;
 			}
 			

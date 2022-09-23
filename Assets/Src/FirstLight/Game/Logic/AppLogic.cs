@@ -53,6 +53,11 @@ namespace FirstLight.Game.Logic
 		bool IsHapticOn { get; set; }
 
 		/// <summary>
+		/// Requests the enable property for dynamic movement joystick
+		/// </summary>
+		bool UseDynamicJoystick { get; set; }
+		
+		/// <summary>
 		/// Resuests the current detail level of the game
 		/// </summary>
 		GraphicsConfig.DetailLevel CurrentDetailLevel { get; set; }
@@ -86,7 +91,7 @@ namespace FirstLight.Game.Logic
 		/// Requests the player's title display name (including appended numbers)
 		/// </summary>
 		IObservableField<string> DisplayName { get; }
-
+		
 		/// <summary>
 		/// Sets the resolution mode for the 3D rendering of the app
 		/// </summary>
@@ -161,6 +166,13 @@ namespace FirstLight.Game.Logic
 				MMVibrationManager.SetHapticsActive(value);
 			}
 		}
+		
+		/// <inheritdoc />
+		public bool UseDynamicJoystick
+		{
+			get => Data.UseDynamicJoystick;
+			set => Data.UseDynamicJoystick = value;
+		}
 
 		/// <inheritdoc />
 		public GraphicsConfig.DetailLevel CurrentDetailLevel
@@ -185,7 +197,6 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public IObservableField<string> DisplayName { get; private set; }
 
-		
 		/// <inheritdoc />
 		public string DisplayNameTrimmed =>
 			DisplayName == null || string.IsNullOrWhiteSpace(DisplayName.Value) || DisplayName.Value.Length < 5

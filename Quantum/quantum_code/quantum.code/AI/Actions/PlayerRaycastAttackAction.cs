@@ -32,12 +32,25 @@ namespace Quantum
 			//targetAttackAngle depend on a current character velocity 
 			var targetAttackAngle = FPMath.Lerp(weaponConfig.MinAttackAngle, weaponConfig.MaxAttackAngle, 
 			                                    cVelocitySqr / maxSpeedSqr);
-
-			//accuracy modifier is found by getting a random angle between the min and max angle values,
-			//and then passing that through into the shot; Works only for single shot weapons
-			var angle = targetAttackAngle / FP._2;
-			var shotAngle = weaponConfig.NumberOfShots == 1 ? f.RNG->Next(-angle, angle) : FP._0;
-
+			var shotAngle = FP._0;
+			
+			//accuracy modifier is found by approximate normal distribution random,
+			//and then creating a rotation vector that is passed onto the projectile; only works for single shot weapons
+			if (weaponConfig.NumberOfShots == 1)
+			{
+				var rngNumber = f.RNG->NextInclusive(0,100);
+				var angleStep = targetAttackAngle / Constants.APPRX_NORMAL_DISTRIBUTION.Length;
+				
+				for (var i = 0; i < Constants.APPRX_NORMAL_DISTRIBUTION.Length; i++)
+				{
+					if (rngNumber <= Constants.APPRX_NORMAL_DISTRIBUTION[i])
+					{
+						shotAngle = f.RNG->Next(angleStep * i, angleStep * (i + 1)) - (targetAttackAngle / FP._2);;
+						break;
+					}
+				}
+			}
+			
 			//only do attackSpeed ramping if the weapon has it
 			var rampUpStartTime = bb->GetFP(f, Constants.RampUpTimeStart);
 			if (weaponConfig.InitialAttackRampUpTime != FP._0)

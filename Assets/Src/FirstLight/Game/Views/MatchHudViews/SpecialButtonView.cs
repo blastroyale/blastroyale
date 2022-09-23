@@ -17,8 +17,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 	/// This class handles the Special Move button. As long as the player has special charges and the special is not in
 	/// cooldown mode, they can use their special move during gameplay.
 	/// </summary>
-	public class SpecialButtonView : MonoBehaviour, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler, 
-	                                 IPointerDownHandler, IDragHandler
+	public class SpecialButtonView : MonoBehaviour, IPointerUpHandler, IPointerDownHandler, IDragHandler
 	{
 		public UnityEvent OnCancelEnter;
 		public UnityEvent OnCancelExit;
@@ -30,31 +29,31 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Required] private Sprite _aimableBackgroundSprite;
 		[SerializeField, Required] private Sprite _nonAimableBackgroundSprite;
 		[SerializeField, Required] private Animation _pingAnimation;
+		[SerializeField, Required] private RectTransform _rootAnchor;
+		[SerializeField, Required] private RectTransform _targetingCenterAnchor;
 		[SerializeField, Required] private GameObject _normalAnchor;
 		[SerializeField, Required] private GameObject _cancelAnchor;
 		[SerializeField, Required] private UnityInputScreenControl _specialPointerDownAdapter;
 		[SerializeField, Required] private UnityInputScreenControl _cancelPointerDownAdapter;
 		[SerializeField, Required] private UnityInputScreenControl _specialAimDirectionAdapter;
-		[SerializeField, Required] private RectTransform _rectTransform;
 		[SerializeField] private Color _activeColor;
 		[SerializeField] private Color _cooldownColor;
 		[SerializeField] private float _rectScale = 1f;
 
+		private float _specialRadius;
+		private float _cancelRadius;
+
 		private IGameServices _services;
 		private IAsyncCoroutine _cooldownCoroutine;
 		private PointerEventData _pointerDownData;
-
+		private bool _allowTargetingCancel;
+		
 		/// <summary>
 		/// Request's the special <see cref="GameId"/> assigned to this special view button
 		/// </summary>
 		public GameId SpecialId { get; private set; }
-		
-		private int? CurrentPointerId => _pointerDownData?.pointerId;
 
-		private void OnValidate()
-		{
-			_rectTransform ??= GetComponent<RectTransform>();
-		}
+		private int? CurrentPointerId => _pointerDownData?.pointerId;
 
 		private void OnDestroy()
 		{
@@ -73,38 +72,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 
 			_pointerDownData = eventData;
-
+			_allowTargetingCancel = false;
+			
 			_specialAimDirectionAdapter.SendValueToControl(Vector2.zero);
 			_specialPointerDownAdapter.SendValueToControl(1f);
-		}
-
-		/// <inheritdoc />
-		public void OnPointerEnter(PointerEventData eventData)
-		{
-			if (CurrentPointerId != eventData.pointerId)
-			{
-				return;
-			}
-			
-			_cancelPointerDownAdapter.SendValueToControl(1f);
-			OnCancelEnter?.Invoke();
-		}
-
-		/// <inheritdoc />
-		public void OnPointerExit(PointerEventData eventData)
-		{
-			if (CurrentPointerId != eventData.pointerId)
-			{
-				return;
-			}
-
-			if (_cancelAnchor.activeInHierarchy)
-			{
-				OnCancelExit?.Invoke();
-			}
-			
-			_normalAnchor.SetActive(false);
-			_cancelAnchor.SetActive(true);
 		}
 
 		/// <inheritdoc />
@@ -115,7 +86,54 @@ namespace FirstLight.Game.Views.MatchHudViews
 				return;
 			}
 
-			SetInputData(eventData);
+			RectTransformUtility.ScreenPointToLocalPointInRectangle(_rootAnchor, eventData.position,
+			                                                        eventData.pressEventCamera, out var position);
+			
+			//var delta = Vector2.ClampMagnitude(position, _specialRadius);
+			//var deltaMagNorm = deltaMagClamp / _joystickRadius;
+			var buttonPosition = _targetingCenterAnchor.anchoredPosition;
+			var delta = position - buttonPosition;
+			var deltaMag = delta.magnitude;
+			var deltaMagClamp = Vector2.ClampMagnitude(delta, _specialRadius);
+			var deltaMagNorm = deltaMagClamp / _specialRadius;
+			Debug.LogError(deltaMagNorm);
+			//Debug.LogError(_targetingCenterAnchor.anchoredPosition + "  " + position);
+			if (!_allowTargetingCancel && deltaMag >= _specialRadius)
+			{
+				//Debug.LogError("EXIT SPECIAL RADIUS");
+				
+				_allowTargetingCancel = true;
+				
+				_normalAnchor.SetActive(false);
+				_cancelAnchor.SetActive(true);
+				
+				OnCancelExit?.Invoke();
+			}
+			// Pointer enter cancel radius
+			else if (_allowTargetingCancel && deltaMag <= _cancelRadius)
+			{
+				//Debug.LogError("ENTER CANCEL RADIUS");
+				
+				_allowTargetingCancel = false;
+
+				_cancelPointerDownAdapter.SendValueToControl(1f);
+				OnCancelEnter?.Invoke();
+			}
+			// Pointer exit cancel radius
+			else if (!_allowTargetingCancel && deltaMag > _cancelRadius)
+			{
+				//Debug.LogError("EXIT CANCEL RADIUS");
+				
+				_allowTargetingCancel = true;
+
+				_cancelPointerDownAdapter.SendValueToControl(1f);
+				OnCancelEnter?.Invoke();
+			}
+			else
+			{
+				//Debug.LogError("NORMAL ON DRAG");
+				_specialAimDirectionAdapter.SendValueToControl(deltaMagNorm);
+			}
 		}
 
 		/// <inheritdoc />
@@ -125,23 +143,15 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				return;
 			}
-			
-			_pointerDownData = null;
 
+			_pointerDownData = null;
+			_allowTargetingCancel = false;
+			
 			_normalAnchor.SetActive(true);
 			_cancelAnchor.SetActive(false);
-			SetInputData(eventData);
-			
-			if (RectTransformUtility.RectangleContainsScreenPoint(_rectTransform, eventData.position, eventData.pressEventCamera))
-			{
-				_cancelPointerDownAdapter.SendValueToControl(0f);
-				_specialPointerDownAdapter.SendValueToControl(0f);
-			}
-			else
-			{
-				_specialPointerDownAdapter.SendValueToControl(0f);
-				_cancelPointerDownAdapter.SendValueToControl(0f);
-			}
+
+			_cancelPointerDownAdapter.SendValueToControl(0f);
+			_specialPointerDownAdapter.SendValueToControl(0f);
 		}
 
 		/// <summary>
@@ -159,12 +169,15 @@ namespace FirstLight.Game.Views.MatchHudViews
 				return;
 			}
 
-			_specialIconImage.sprite =
-				await _services.AssetResolverService.RequestAsset<SpecialType, Sprite>(specialConfig.SpecialType);
-			_specialIconBackgroundImage.sprite =
-				specialConfig.IsAimable ? _aimableBackgroundSprite : _nonAimableBackgroundSprite;
+			_specialIconImage.sprite = await _services.AssetResolverService.RequestAsset<SpecialType, Sprite>(specialConfig.SpecialType);
+			_specialIconBackgroundImage.sprite = specialConfig.IsAimable ? _aimableBackgroundSprite : _nonAimableBackgroundSprite;
 			_outerRingImage.enabled = specialConfig.IsAimable;
 			
+			var specialRect = _normalAnchor.GetComponent<RectTransform>();
+			var cancelRect = _normalAnchor.GetComponent<RectTransform>();
+			
+			_specialRadius = ((specialRect.rect.size.x / 2f) * specialRect.localScale.x);
+			_cancelRadius = ((cancelRect.rect.size.x / 2f) * cancelRect.localScale.x);
 			_normalAnchor.SetActive(true);
 			_cancelAnchor.SetActive(false);
 		}
@@ -185,23 +198,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				return null;
 			}
-			
+
 			_cooldownCoroutine = _services.CoroutineService.StartAsyncCoroutine(SpecialCooldown(currentTime, special));
 
 			return _cooldownCoroutine;
-		}
-
-		private void SetInputData(PointerEventData eventData)
-		{
-			var rectTransform = _specialIconBackgroundImage.rectTransform;
-
-			RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform, eventData.position,
-			                                                        eventData.pressEventCamera, out var position);
-
-			var radius = (rectTransform.rect.size.x / 2f) * rectTransform.localScale.x * _rectScale;
-			var delta = Vector2.ClampMagnitude(position, radius);
-
-			_specialAimDirectionAdapter.SendValueToControl(delta / radius);
 		}
 
 		private IEnumerator SpecialCooldown(FP currentTime, Special special)
@@ -216,13 +216,13 @@ namespace FirstLight.Game.Views.MatchHudViews
 			while (Time.time < end)
 			{
 				var fill = Mathf.InverseLerp(start, end, Time.time);
-				
+
 				_specialIconImage.fillAmount = fill;
 				_specialIconBackgroundImage.fillAmount = fill;
 
 				yield return null;
 			}
-			
+
 			_pingAnimation.Rewind();
 			_pingAnimation.Play();
 

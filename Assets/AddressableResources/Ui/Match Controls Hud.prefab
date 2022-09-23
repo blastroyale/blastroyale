@@ -284,43 +284,6 @@ MonoBehaviour:
   - {fileID: 1015186445677410935}
   - {fileID: 7927679339230548324}
   - {fileID: 7202690800226956252}
---- !u!1 &198219154397577810
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5774780865538978590}
-  m_Layer: 5
-  m_Name: Special 0
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &5774780865538978590
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 198219154397577810}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 8563632869876589350}
-  m_Father: {fileID: 3472611840853193809}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &358992452973788510
 GameObject:
   m_ObjectHideFlags: 0
@@ -600,8 +563,8 @@ MonoBehaviour:
   _disableWhileParachuting:
   - {fileID: 3447398606337825929}
   - {fileID: 2120427830526508390}
-  - {fileID: 198219154397577810}
-  - {fileID: 4409873183101683305}
+  - {fileID: 2568880939142903357}
+  - {fileID: 1418112126722583087}
   _weaponSlotButtons:
   - {fileID: 3626502624678355086}
   - {fileID: 5927159352142547869}
@@ -692,8 +655,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 3447398606337825929}
   - {fileID: 0}
-  - {fileID: 198219154397577810}
-  - {fileID: 4409873183101683305}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 7664221961180034817}
   - {fileID: 2120427830526508390}
 --- !u!114 &7127802443190282236
@@ -711,7 +674,7 @@ MonoBehaviour:
   _id:
     _selection: UI_Special_0
   _elements:
-  - {fileID: 198219154397577810}
+  - {fileID: 2568880939142903357}
 --- !u!114 &4010216328906356468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -727,7 +690,7 @@ MonoBehaviour:
   _id:
     _selection: UI_Special_1
   _elements:
-  - {fileID: 4409873183101683305}
+  - {fileID: 1418112126722583087}
 --- !u!1 &501066028523988474
 GameObject:
   m_ObjectHideFlags: 0
@@ -1521,14 +1484,14 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3741901584797629708}
   - {fileID: 7415002022574461386}
-  m_Father: {fileID: 6508037046843924228}
-  m_RootOrder: 0
+  - {fileID: 3741901584797629708}
+  m_Father: {fileID: 3472611840853193809}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -596.2, y: 379}
+  m_AnchoredPosition: {x: 636.8, y: -191.00006}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 1, y: 0}
 --- !u!222 &4294410415444329899
@@ -1580,12 +1543,13 @@ MonoBehaviour:
   _aimableBackgroundSprite: {fileID: 21300000, guid: 4358f599f237f4186a501d2d73007520, type: 3}
   _nonAimableBackgroundSprite: {fileID: 21300000, guid: 26ba52ed9051d423dbfe823488a7abfc, type: 3}
   _pingAnimation: {fileID: 7290879418590675977}
+  _rootAnchor: {fileID: 3472611840853193809}
+  _targetingCenterAnchor: {fileID: 5102710682680377140}
   _normalAnchor: {fileID: 7011066546590258266}
   _cancelAnchor: {fileID: 2922920794480341446}
   _specialPointerDownAdapter: {fileID: 8396587060330052619}
   _cancelPointerDownAdapter: {fileID: 9164516729164607444}
   _specialAimDirectionAdapter: {fileID: 2155075727209600347}
-  _rectTransform: {fileID: 5102710682680377140}
   _activeColor: {r: 1, g: 1, b: 1, a: 1}
   _cooldownColor: {r: 1, g: 1, b: 1, a: 0.49411765}
   _rectScale: 3
@@ -2419,12 +2383,12 @@ RectTransform:
   m_Children:
   - {fileID: 4440035762668644296}
   - {fileID: 280838667663974686}
-  m_Father: {fileID: 5774780865538978590}
-  m_RootOrder: 0
+  m_Father: {fileID: 3472611840853193809}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -479.2, y: 107}
+  m_AnchoredPosition: {x: 720.8, y: -433.00006}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 1, y: 0}
 --- !u!222 &833330207645981113
@@ -2476,12 +2440,13 @@ MonoBehaviour:
   _aimableBackgroundSprite: {fileID: 21300000, guid: 4358f599f237f4186a501d2d73007520, type: 3}
   _nonAimableBackgroundSprite: {fileID: 21300000, guid: 26ba52ed9051d423dbfe823488a7abfc, type: 3}
   _pingAnimation: {fileID: 4027164869943713673}
+  _rootAnchor: {fileID: 3472611840853193809}
+  _targetingCenterAnchor: {fileID: 8563632869876589350}
   _normalAnchor: {fileID: 5855828561154820168}
   _cancelAnchor: {fileID: 8016272417629621918}
   _specialPointerDownAdapter: {fileID: 4940151495661608985}
   _cancelPointerDownAdapter: {fileID: 2905015960403773104}
   _specialAimDirectionAdapter: {fileID: 3305649930638346569}
-  _rectTransform: {fileID: 8563632869876589350}
   _activeColor: {r: 1, g: 1, b: 1, a: 1}
   _cooldownColor: {r: 1, g: 1, b: 1, a: 0.49411765}
   _rectScale: 3
@@ -2914,7 +2879,7 @@ RectTransform:
   - {fileID: 1119530660898233908}
   - {fileID: 5185295568582355362}
   m_Father: {fileID: 5102710682680377140}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3257,8 +3222,7 @@ MonoBehaviour:
   _handleImage: {fileID: 6968738139710598826}
   _onscreenJoystickDirectionAdapter: {fileID: 1587165873812747888}
   _onscreenJoystickPointerDownAdapter: {fileID: 6161270051547520423}
-  _radiusMultiplier: 0.6
-  _allowFloating: 1
+  _dynamicJoystickCompatible: 0
 --- !u!1 &3497551811194389876
 GameObject:
   m_ObjectHideFlags: 0
@@ -3711,43 +3675,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 29.6982}
   m_Pivot: {x: 0.5, y: 0}
---- !u!1 &4409873183101683305
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6508037046843924228}
-  m_Layer: 5
-  m_Name: Special 1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &6508037046843924228
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4409873183101683305}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 5102710682680377140}
-  m_Father: {fileID: 3472611840853193809}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 33, y: -30}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4543775689126659115
 GameObject:
   m_ObjectHideFlags: 0
@@ -3856,8 +3783,7 @@ MonoBehaviour:
   _handleImage: {fileID: 1694587998037533901}
   _onscreenJoystickDirectionAdapter: {fileID: 323115840485055281}
   _onscreenJoystickPointerDownAdapter: {fileID: 8467213377424103225}
-  _radiusMultiplier: 1
-  _allowFloating: 1
+  _dynamicJoystickCompatible: 1
 --- !u!1 &4586102480093648317
 GameObject:
   m_ObjectHideFlags: 0
@@ -4540,8 +4466,8 @@ RectTransform:
   - {fileID: 5734491727047242999}
   - {fileID: 539732899676485819}
   - {fileID: 2666238011588944143}
-  - {fileID: 5774780865538978590}
-  - {fileID: 6508037046843924228}
+  - {fileID: 8563632869876589350}
+  - {fileID: 5102710682680377140}
   - {fileID: 8709853206971877338}
   m_Father: {fileID: 5025167367812149218}
   m_RootOrder: 0
@@ -5268,7 +5194,7 @@ RectTransform:
   - {fileID: 4749596056458263754}
   - {fileID: 3318937472231163396}
   m_Father: {fileID: 5102710682680377140}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}

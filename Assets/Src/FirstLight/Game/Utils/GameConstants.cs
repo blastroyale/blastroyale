@@ -164,6 +164,7 @@ namespace FirstLight.Game.Utils
 		public static class Controls
 		{
 			public const float DYNAMIC_JOYSTICK_THRESHOLD_MULTIPLIER = 1.85f;
+			public const float MOVEMENT_JOYSTICK_RADIUS_MULTIPLIER = 0.6f;
 		}
 		
 		public static class Haptics

@@ -31,7 +31,6 @@ namespace FirstLight.Game.Presenters
 		private IMatchServices _matchServices;
 		private Quantum.Input _quantumInput;
 		private LocalPlayerIndicatorContainerView _indicatorContainerView;
-		private bool _wasRecentlyCanceled;
 		
 		private void Awake()
 		{
@@ -123,7 +122,7 @@ namespace FirstLight.Game.Presenters
 			{
 				return;
 			}
-			
+
 			var indicator = _indicatorContainerView.GetIndicator(0);
 			
 			if (context.started)
@@ -132,21 +131,20 @@ namespace FirstLight.Game.Presenters
 				indicator.SetTransformState(Vector2.zero);
 				return;
 			}
-			
+
 			indicator.SetVisualState(false);
 
-			if (_wasRecentlyCanceled)
+			if (!_specialButtons[0].DraggingValidPosition())
 			{
-				_wasRecentlyCanceled = false;
 				return;
 			}
-			
-			var aim = _services.PlayerInputService.Input.Gameplay.SpecialAim.ReadValue<Vector2>();
 
+			var aim = _services.PlayerInputService.Input.Gameplay.SpecialAim.ReadValue<Vector2>();
+			
 			// Only triggers the input if the button is released or it was not disabled (ex: weapon replaced)
-			if (Math.Abs(context.time - context.startTime) < Mathf.Epsilon && 
-			    (aim.sqrMagnitude > 0 || indicator.IndicatorVfxId == IndicatorVfxId.None))
+			if ((aim.sqrMagnitude > 0 || indicator.IndicatorVfxId == IndicatorVfxId.None))
 			{
+				Debug.LogError("1");
 				SendSpecialUsedCommand(0, aim);
 			}
 		}
@@ -170,17 +168,15 @@ namespace FirstLight.Game.Presenters
 			
 			indicator.SetVisualState(false);
 
-			if (_wasRecentlyCanceled)
+			if (!_specialButtons[1].DraggingValidPosition())
 			{
-				_wasRecentlyCanceled = false;
 				return;
 			}
 			
 			var aim = _services.PlayerInputService.Input.Gameplay.SpecialAim.ReadValue<Vector2>();
 			
 			// Only triggers the input if the button is released or it was not disabled (ex: weapon replaced)
-			if (Math.Abs(context.time - context.startTime) < Mathf.Epsilon && 
-			    (aim.sqrMagnitude > 0 || indicator.IndicatorVfxId == IndicatorVfxId.None))
+			if ((aim.sqrMagnitude > 0 || indicator.IndicatorVfxId == IndicatorVfxId.None))
 			{
 				SendSpecialUsedCommand(1, aim);
 			}
@@ -196,8 +192,6 @@ namespace FirstLight.Game.Presenters
 			
 			var input = _services.PlayerInputService.Input.Gameplay;
 
-			_wasRecentlyCanceled = true;
-			
 			input.SpecialButton0.Disable();
 			input.SpecialButton1.Disable();
 			input.AimButton.Disable();
@@ -337,6 +331,7 @@ namespace FirstLight.Game.Presenters
 			}
 			
 			button.SpecialUpdate(frame.Time, callback.Special)?.OnComplete(inputButton.Enable);
+			button.SpecialUpdate(frame.Time, callback.Special)?.OnComplete(inputButton.Enable);
 		}
 
 		private void PollInput(CallbackPollInput callback)
@@ -368,7 +363,7 @@ namespace FirstLight.Game.Presenters
 			{
 				return;
 			}
-			
+			Debug.LogError("2");
 			var command = new SpecialUsedCommand
 			{
 				SpecialIndex = specialIndex,

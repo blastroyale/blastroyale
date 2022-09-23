@@ -130,7 +130,7 @@ MonoBehaviour:
       SpecialType: 4
       Indicator: 2
       Cooldown:
-        RawValue: 1966080
+        RawValue: 327680
       InitialCooldown:
         RawValue: 0
       Radius:

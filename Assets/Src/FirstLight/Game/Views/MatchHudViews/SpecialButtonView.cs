@@ -47,6 +47,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private IAsyncCoroutine _cooldownCoroutine;
 		private PointerEventData _pointerDownData;
 		private bool _allowTargetingCancel;
+		private float _lastDragDeltaMag;
 		
 		/// <summary>
 		/// Request's the special <see cref="GameId"/> assigned to this special view button
@@ -99,8 +100,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			// Exit cancel radius
 			if (!_allowTargetingCancel && deltaMag >= _cancelRadius)
 			{
-				Debug.LogError("EXIT SPECIAL RADIUS");
-				
 				_allowTargetingCancel = true;
 				
 				_specialAnchor.SetActive(false);
@@ -111,8 +110,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			// Enter cancel radius
 			else if (_allowTargetingCancel && deltaMag <= _cancelRadius)
 			{
-				Debug.LogError("ENTER CANCEL RADIUS");
-				
 				_allowTargetingCancel = false;
 
 				_cancelPointerDownAdapter.SendValueToControl(1f);
@@ -120,9 +117,18 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 			else
 			{
-				Debug.LogError("-");
 				_specialAimDirectionAdapter.SendValueToControl(deltaMagNorm);
 			}
+			
+			_lastDragDeltaMag = deltaMag;
+		}
+
+		/// <summary>
+		/// Requests status on whether currently player is dragging over cancel button, or out of it
+		/// </summary>
+		public bool DraggingValidPosition()
+		{
+			return _lastDragDeltaMag > _cancelRadius;
 		}
 
 		/// <inheritdoc />

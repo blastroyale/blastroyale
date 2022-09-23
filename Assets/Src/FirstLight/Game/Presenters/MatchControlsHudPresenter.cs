@@ -290,6 +290,11 @@ namespace FirstLight.Game.Presenters
 
 		private void OnLocalPlayerSkydiveLanded(EventOnLocalPlayerSkydiveLand callback)
 		{
+			foreach (var go in _disableWhileParachuting)
+			{
+				go.SetActive(true);
+			}
+			
 			var input = _services.PlayerInputService.Input.Gameplay;
 			
 			for (var i = 0; i < _specialButtons.Length; i++)
@@ -302,11 +307,6 @@ namespace FirstLight.Game.Presenters
 			
 			input.Aim.Enable();
 			input.AimButton.Enable();
-			
-			foreach (var go in _disableWhileParachuting)
-			{
-				go.SetActive(true);
-			}
 		}
 
 		private void OnPlayerDamaged(EventOnPlayerDamaged callback)

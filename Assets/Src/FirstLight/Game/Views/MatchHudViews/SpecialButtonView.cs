@@ -54,7 +54,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public GameId SpecialId { get; private set; }
 
 		private int? CurrentPointerId => _pointerDownData?.pointerId;
-
+		
 		private void OnDestroy()
 		{
 			if (_cooldownCoroutine?.Coroutine != null)
@@ -155,6 +155,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			if (!_services.ConfigsProvider.TryGetConfig<QuantumSpecialConfig>((int) specialId, out var specialConfig))
 			{
+				gameObject.SetActive(false);
 				return;
 			}
 

@@ -143,11 +143,9 @@ namespace FirstLight.Game.Infos
 		/// <summary>
 		/// Requests "Might" for all the equipments in the given <paramref name="items"/>
 		/// </summary>
-		public static float GetTotalMight(this List<EquipmentInfo> items)
+		public static float GetTotalMight(this List<EquipmentInfo> items, IReadOnlyDictionary<int, QuantumStatConfig> configs)
 		{
-			var services = MainInstaller.Resolve<IGameServices>();
-			var statConfigs = services.ConfigsProvider.GetConfigsDictionary<QuantumStatConfig>().ToDictionary(f => (StatType)f.Key, f => f.Value);
-			
+			var statConfigs = configs.ToDictionary(f => (StatType)f.Key, f => f.Value);
 			var total = 0f;
 			
 			foreach (var nft in items)

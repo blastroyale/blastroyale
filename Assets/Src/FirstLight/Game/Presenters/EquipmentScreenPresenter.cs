@@ -166,6 +166,7 @@ namespace FirstLight.Game.Presenters
 		{
 			var equipmentProvider = _gameDataProvider.EquipmentDataProvider;
 			var loadout = equipmentProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both);
+			var configs = _services.ConfigsProvider.GetConfigsDictionary<QuantumStatConfig>();
 
 			_statInfoViewPool?.DespawnAll();
 			_statSpecialInfoViewPool?.DespawnAll();
@@ -177,6 +178,7 @@ namespace FirstLight.Game.Presenters
 			}
 
 			var equipment = equipmentProvider.GetInfo(_selectedId);
+			var descriptionID = equipment.Equipment.GameId.GetTranslationTerm() + GameConstants.Visuals.DESCRIPTION_POSTFIX;
 
 			// Don't show Default/Melee weapon
 			if (equipment.Equipment.IsWeapon() && equipment.Equipment.IsDefaultItem())
@@ -184,9 +186,6 @@ namespace FirstLight.Game.Presenters
 				ShowStatsForEmptySlot();
 				return;
 			}
-
-			var descriptionID = equipment.Equipment.GameId.GetTranslationTerm() + GameConstants.Visuals.DESCRIPTION_POSTFIX;
-			var isWeapon = equipment.Equipment.GameId.IsInGroup(GameIdGroup.Weapon);
 
 			SetStatInfoData(equipment);
 
@@ -197,7 +196,7 @@ namespace FirstLight.Game.Presenters
 
 			// TODO: Add proper translation logic
 			_equipButtonText.SetText(equipment.IsEquipped ? ScriptLocalization.General.Unequip : ScriptLocalization.General.Equip);
-			_powerRatingText.text = string.Format(ScriptLocalization.MainMenu.MightRating, loadout.GetTotalMight().ToString());
+			_powerRatingText.text = string.Format(ScriptLocalization.MainMenu.MightRating, loadout.GetTotalMight(configs).ToString());
 			_itemTitleText.text = $"{equipment.Equipment.Adjective} {equipment.Equipment.GameId.GetTranslation()}";
 			_editionText.text = equipment.Equipment.Edition.ToString();
 			_materialText.text = equipment.Equipment.Material.ToString();
@@ -326,7 +325,8 @@ namespace FirstLight.Game.Presenters
 		{
 			var dataProvider = _gameDataProvider.EquipmentDataProvider;
 			var loadout = dataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both);
-			var previousMight = loadout.GetTotalMight();
+			var configs = _services.ConfigsProvider.GetConfigsDictionary<QuantumStatConfig>();
+			var previousMight = loadout.GetTotalMight(configs);
 			var item = loadout.Find(infoItem => infoItem.Id == _selectedId);
 
 			if (item.IsEquipped)
@@ -369,8 +369,9 @@ namespace FirstLight.Game.Presenters
 				_services.AudioFxService.PlayClip2D(AudioId.EquipEquipment);
 				EquipItem(_selectedId);
 			}
-			
-			var mightDiff =  Mathf.RoundToInt(dataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both).GetTotalMight() - previousMight);
+
+			var newLoadout = dataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both);
+			var mightDiff =  Mathf.RoundToInt(newLoadout.GetTotalMight(configs) - previousMight);
 			var postfix = mightDiff < 0 ? "-" : "+";
 
 			_powerChangeText.color = mightDiff < 0 ? Color.red : Color.green;

@@ -81,7 +81,8 @@ namespace Quantum
 		/// <summary>
 		/// Requests the total might for the give stats
 		/// </summary>
-		public static int GetTotalMight(IReadOnlyDictionary<StatType, QuantumStatConfig> statConfigs, FP armour, FP health, FP speed, FP power, FP attackRange, FP pickupSpeed, FP ammoCapacity, FP shieldCapacity)
+		public static int GetTotalMight(IReadOnlyDictionary<StatType, QuantumStatConfig> statConfigs, FP armour, FP health, 
+		                                FP speed, FP power, FP attackRange, FP pickupSpeed, FP ammoCapacity, FP shieldCapacity)
 		{
 			//TODO: Subtract default character values from calculation of Might that comes from health, speed, pickupSpeed
 			//TODO: Subtract base weapon values from calculation of Might that comes from power, attackRange, ammoCapacity

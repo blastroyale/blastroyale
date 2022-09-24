@@ -71,8 +71,7 @@ namespace Quantum
 			var previousStats = this;
 			var previousMaxHeath = GetStatData(StatType.Health).StatValue.AsInt;
 			var previousMaxShield = GetStatData(StatType.Shield).StatValue.AsInt;
-
-			RefreshStats(f, weapon, gear);
+			var might = RefreshStats(f, weapon, gear);
 
 			var newMaxHealth = GetStatData(StatType.Health).StatValue.AsInt;
 			var newMaxShield = GetStatData(StatType.Shield).StatValue.AsInt;
@@ -83,12 +82,7 @@ namespace Quantum
 			SetCurrentHealth(f, e, newHealthAmount);
 			SetCurrentShield(f, e, newShieldAmount, previousMaxShield);
 			
-			GetLoadoutStats(f, weapon, gear, out var armour, out var health, out var speed, 
-			                out var power, out var attackRange, out var pickupSpeed,
-			                out var ammoCapacity, out var shieldsCapacity);
-			var newMight = QuantumStatCalculator.GetTotalMight(f.StatConfigs.Dictionary, armour, health,speed, power, attackRange, pickupSpeed, ammoCapacity, shieldsCapacity);
-			
-			f.Events.OnPlayerEquipmentStatsChanged(player, e, previousStats, this, newMight);
+			f.Events.OnPlayerEquipmentStatsChanged(player, e, previousStats, this, might);
 		}
 
 		/// <summary>
@@ -270,7 +264,7 @@ namespace Quantum
 			}
 		}
 
-		private void RefreshStats(Frame f, Equipment weapon, FixedArray<Equipment> gear)
+		private int RefreshStats(Frame f, Equipment weapon, FixedArray<Equipment> gear)
 		{
 			var maxShields = f.GameConfig.PlayerMaxShieldCapacity.Get(f);
 			var startingShields = f.GameConfig.PlayerStartingShieldCapacity.Get(f);
@@ -278,6 +272,9 @@ namespace Quantum
 			
 			GetLoadoutStats(f, weapon, gear, out var armour, out var health, out var speed, out var power, 
 			                out var attackRange, out var pickupSpeed, out var ammoCapacity, out var shieldCapacity);
+			
+			var might = QuantumStatCalculator.GetTotalMight(f.StatConfigs.Dictionary, armour, health,speed, 
+			                                                power, attackRange, pickupSpeed, ammoCapacity, shieldCapacity);
 			
 			health += f.GameConfig.PlayerDefaultHealth.Get(f);
 			speed += f.GameConfig.PlayerDefaultSpeed.Get(f);
@@ -298,6 +295,8 @@ namespace Quantum
 			{
 				ApplyModifierUpdate(modifier, false);
 			}
+
+			return might;
 		}
 		
 		private void GetLoadoutStats(Frame f, Equipment weapon, FixedArray<Equipment> gear, out int armour, 

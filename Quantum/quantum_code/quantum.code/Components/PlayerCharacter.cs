@@ -309,6 +309,17 @@ namespace Quantum
 		}
 
 		/// <summary>
+		/// Checks if we dropped a piece of equipment for specified slot.
+		///
+		/// This does not check if this item is actually in the loadout.
+		/// </summary>
+		public bool HasDroppedItemForSlot(int slotIndex)
+		{
+			var shift = slotIndex + 1;
+			return (DroppedLoadoutFlags & (1 << shift)) != 0;
+		}
+		
+		/// <summary>
 		/// Returns the slot index of <paramref name="equipment"/> for <see cref="Gear"/>.
 		/// </summary>
 		public static int GetGearSlot(Equipment equipment)

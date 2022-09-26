@@ -5,7 +5,6 @@ using Backend.Game;
 using Backend.Game.Services;
 using Backend.Plugins;
 using Backend.Models;
-using FirstLight;
 using Microsoft.Azure.WebJobs.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;

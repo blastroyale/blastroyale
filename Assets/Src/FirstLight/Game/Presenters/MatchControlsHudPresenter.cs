@@ -98,21 +98,18 @@ namespace FirstLight.Game.Presenters
 			
 			if (input.SpecialButton0.IsPressed())
 			{
-				_indicatorContainerView.GetIndicator(0)
-				                       .SetTransformState(input.SpecialAim.ReadValue<Vector2>());
+				_indicatorContainerView.GetIndicator(0).SetTransformState(input.SpecialAim.ReadValue<Vector2>());
 			}
 			else if (input.SpecialButton1.IsPressed())
 			{
-				_indicatorContainerView.GetIndicator(1)
-				                       .SetTransformState(input.SpecialAim.ReadValue<Vector2>());
+				_indicatorContainerView.GetIndicator(1).SetTransformState(input.SpecialAim.ReadValue<Vector2>());
 			}
 		}
 
 		/// <inheritdoc />
 		public void OnAimButton(InputAction.CallbackContext context)
 		{
-			_quantumInput.AimButtonState =
-				context.ReadValueAsButton() ? Quantum.Input.DownState : Quantum.Input.ReleaseState;
+			_quantumInput.AimButtonState = context.ReadValueAsButton() ? Quantum.Input.DownState : Quantum.Input.ReleaseState;
 		}
 
 		/// <inheritdoc />
@@ -144,7 +141,6 @@ namespace FirstLight.Game.Presenters
 			// Only triggers the input if the button is released or it was not disabled (ex: weapon replaced)
 			if ((aim.sqrMagnitude > 0 || indicator.IndicatorVfxId == IndicatorVfxId.None))
 			{
-				Debug.LogError("1");
 				SendSpecialUsedCommand(0, aim);
 			}
 		}
@@ -185,25 +181,6 @@ namespace FirstLight.Game.Presenters
 		/// <inheritdoc />
 		public void OnCancelButton(InputAction.CallbackContext context)
 		{
-			if (!context.canceled)
-			{
-				return;
-			}
-			
-			var input = _services.PlayerInputService.Input.Gameplay;
-
-			input.SpecialButton0.Disable();
-			input.SpecialButton1.Disable();
-			input.AimButton.Disable();
-			input.AimButton.Enable();
-
-			for (var i = 0; i < _specialButtons.Length; i++)
-			{
-				if (_specialButtons[i].SpecialId == GameId.Random) continue;
-				
-				input.GetSpecialButton(i).Enable();
-				_indicatorContainerView.GetIndicator(i).SetVisualState(false);
-			}
 		}
 
 		private unsafe void Init(Frame f, EntityRef entity)
@@ -363,7 +340,7 @@ namespace FirstLight.Game.Presenters
 			{
 				return;
 			}
-			Debug.LogError("2");
+			
 			var command = new SpecialUsedCommand
 			{
 				SpecialIndex = specialIndex,

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using FirstLight.Game.Input;
 using FirstLight.Game.Services;
@@ -48,7 +49,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private PointerEventData _pointerDownData;
 		private bool _allowTargetingCancel;
 		private float _lastDragDeltaMag;
-		
+		private DateTime _cooldownEnd;
+		private bool _startedValidSpecialInput;
+
 		/// <summary>
 		/// Request's the special <see cref="GameId"/> assigned to this special view button
 		/// </summary>
@@ -67,13 +70,14 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// <inheritdoc />
 		public void OnPointerDown(PointerEventData eventData)
 		{
-			if (_pointerDownData != null)
+			if (_pointerDownData != null || DateTime.Now < _cooldownEnd)
 			{
 				return;
 			}
 
 			_pointerDownData = eventData;
 			_allowTargetingCancel = false;
+			_startedValidSpecialInput = true;
 			
 			_specialAimDirectionAdapter.SendValueToControl(Vector2.zero);
 			_specialPointerDownAdapter.SendValueToControl(1f);
@@ -82,7 +86,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// <inheritdoc />
 		public void OnDrag(PointerEventData eventData)
 		{
-			if (CurrentPointerId != eventData.pointerId)
+			if (CurrentPointerId != eventData.pointerId || !_startedValidSpecialInput)
 			{
 				return;
 			}
@@ -123,30 +127,31 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_lastDragDeltaMag = deltaMag;
 		}
 
-		/// <summary>
-		/// Requests status on whether currently player is dragging over cancel button, or out of it
-		/// </summary>
-		public bool DraggingValidPosition()
-		{
-			return _lastDragDeltaMag > _cancelRadius;
-		}
-
 		/// <inheritdoc />
 		public void OnPointerUp(PointerEventData eventData)
 		{
-			if (CurrentPointerId != eventData.pointerId)
+			if (CurrentPointerId != eventData.pointerId || !_startedValidSpecialInput)
 			{
 				return;
 			}
 
 			_pointerDownData = null;
 			_allowTargetingCancel = false;
+			_startedValidSpecialInput = false;
 			
 			_specialAnchor.SetActive(true);
 			_cancelAnchor.SetActive(false);
 
 			_cancelPointerDownAdapter.SendValueToControl(0f);
 			_specialPointerDownAdapter.SendValueToControl(0f);
+		}
+		
+		/// <summary>
+		/// Requests status on whether currently player is dragging over cancel button, or out of it
+		/// </summary>
+		public bool DraggingValidPosition()
+		{
+			return _lastDragDeltaMag > _cancelRadius;
 		}
 
 		/// <summary>
@@ -165,6 +170,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				return;
 			}
 
+			_cooldownEnd = DateTime.Now;
 			_specialIconImage.sprite = await _services.AssetResolverService.RequestAsset<SpecialType, Sprite>(specialConfig.SpecialType);
 			_specialIconBackgroundImage.sprite = specialConfig.IsAimable ? _aimableBackgroundSprite : _nonAimableBackgroundSprite;
 			_outerRingImage.enabled = specialConfig.IsAimable;
@@ -209,6 +215,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_specialIconBackgroundImage.color = _cooldownColor;
 			_buttonView.interactable = false;
 
+			_cooldownEnd = DateTime.Now.AddSeconds((special.AvailableTime - currentTime).AsFloat);
+			
 			while (Time.time < end)
 			{
 				var fill = Mathf.InverseLerp(start, end, Time.time);

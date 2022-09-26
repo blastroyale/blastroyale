@@ -2403,7 +2403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2b88c9d03cb42d385f9310e1c063f21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _controlPath: <OnscreenControlsDevice>/Special0PointerDown
+  _controlPath: <OnScreenControlsDevice>/Special1PointerDown
 --- !u!114 &4864388032786119492
 MonoBehaviour:
   m_ObjectHideFlags: 0

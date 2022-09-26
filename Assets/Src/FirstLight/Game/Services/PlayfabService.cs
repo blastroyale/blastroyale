@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
+using PlayFab.Json;
 using UnityEngine;
 
 namespace FirstLight.Game.Services
@@ -156,7 +157,29 @@ namespace FirstLight.Game.Services
 				AuthenticationContext = PlayFabSettings.staticPlayer
 			};
 
-			PlayFabCloudScriptAPI.ExecuteFunction(request, onSuccess, onError ?? HandleError);
+			PlayFabCloudScriptAPI.ExecuteFunction(request, res =>
+			{
+				var exception = ExtractException(res);
+				if (exception != null)
+				{
+					throw exception;
+				}
+				onSuccess(res);
+			}, onError ?? HandleError);
+		}
+
+		/// <summary>
+		/// Playfab cannot return error codes by default. So we require to wrap errors inside ok results.
+		/// This function unpacks an exception packed with OK result so its visible on client
+		/// </summary>
+		private Exception ExtractException(ExecuteFunctionResult req)
+		{
+			var result = req.FunctionResult as JsonObject;
+			if (result.TryGetValue("error", out var error) && error != null)
+			{
+				return new Exception(error.ToString());
+			}
+			return null;
 		}
 
 		public void HandleError(PlayFabError error)

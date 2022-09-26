@@ -6,6 +6,15 @@ using PlayFab.Internal;
 namespace FirstLight.Game.Logic
 {
 	/// <summary>
+	/// Wrapper class to indicate a logic result is an error result
+	/// </summary>
+	[Serializable]
+	public class BackendErrorResult : BackendLogicResult
+	{
+		public Exception Error;
+	}
+	
+	/// <summary>
 	/// This object defines the result of an function app logic execution.
 	// This is replicated from client due to client object inherits from PlayFab.SharedModels and server requires 
 	// PlayFab.Internal which client does not have.

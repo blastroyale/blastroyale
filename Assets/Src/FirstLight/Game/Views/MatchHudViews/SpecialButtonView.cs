@@ -164,8 +164,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// </summary>
 		public bool DraggingValidPosition()
 		{
-			return (_firstCancelExit && _lastDragDeltaMagSqr > _cancelRadius) ||
-			       (!_firstCancelExit && _lastDragDeltaMagSqr > 0);
+			return (!_firstCancelExit && _lastDragDeltaMagSqr > _cancelRadius) || (_firstCancelExit);
 		}
 
 		/// <summary>

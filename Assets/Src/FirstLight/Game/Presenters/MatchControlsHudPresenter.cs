@@ -135,14 +135,9 @@ namespace FirstLight.Game.Presenters
 			{
 				return;
 			}
-
-			var aim = _services.PlayerInputService.Input.Gameplay.SpecialAim.ReadValue<Vector2>();
 			
-			// Only triggers the input if the button is released or it was not disabled (ex: weapon replaced)
-			if ((aim.sqrMagnitude > 0 || indicator.IndicatorVfxId == IndicatorVfxId.None))
-			{
-				SendSpecialUsedCommand(0, aim);
-			}
+			var aim = _services.PlayerInputService.Input.Gameplay.SpecialAim.ReadValue<Vector2>();
+			SendSpecialUsedCommand(0, aim);
 		}
 
 		/// <inheritdoc />
@@ -171,11 +166,7 @@ namespace FirstLight.Game.Presenters
 			
 			var aim = _services.PlayerInputService.Input.Gameplay.SpecialAim.ReadValue<Vector2>();
 			
-			// Only triggers the input if the button is released or it was not disabled (ex: weapon replaced)
-			if ((aim.sqrMagnitude > 0 || indicator.IndicatorVfxId == IndicatorVfxId.None))
-			{
-				SendSpecialUsedCommand(1, aim);
-			}
+			SendSpecialUsedCommand(1, aim);
 		}
 
 		/// <inheritdoc />

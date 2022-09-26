@@ -72,10 +72,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 				return;
 			}
 			
+			RectTransformUtility.ScreenPointToLocalPointInRectangle(_rootAnchor, _joystick.position,
+			                                                        eventData.pressEventCamera, out var joystickPosition);
 			RectTransformUtility.ScreenPointToLocalPointInRectangle(_rootAnchor, eventData.position,
 			                                                        eventData.pressEventCamera, out var position);
-
-			var joystickPosition = _joystick.anchoredPosition;
+			
 			var delta = position - joystickPosition;
 			var deltaMag = delta.magnitude;
 			var deltaMagClamp = Vector2.ClampMagnitude(delta, _joystickRadius);
@@ -84,8 +85,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 			// Makes the joystick float towards drag position, if the player dragged very far from initial press pos (UX)
 			if (_allowDynamicRepositioning && deltaMag > _joystickCorrectionRadius)
 			{
-				var correctionDirVector = (position - joystickPosition).normalized * _joystickCorrectionRadius;
-				var deltaCorrection = (position - joystickPosition) - correctionDirVector;
+				var correctionDirVector = delta.normalized * _joystickCorrectionRadius;
+				var deltaCorrection = delta - correctionDirVector;
 				_joystick.anchoredPosition += deltaCorrection;
 			}
 			

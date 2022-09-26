@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
@@ -14,7 +15,7 @@ using Random = UnityEngine.Random;
 namespace FirstLight.Game.Presenters
 {
 	/// <summary>
-	/// This Presenter handles the Shop Menu.
+	/// This Presenter handles the Custom Game Creation Menu.
 	/// </summary>
 	public class RoomJoinCreateScreenPresenter : AnimatedUiPresenterData<RoomJoinCreateScreenPresenter.StateData>
 	{
@@ -24,25 +25,27 @@ namespace FirstLight.Game.Presenters
 			public Action PlayClicked;
 		}
 
-		[SerializeField, Required] private Button _closeButton;
+		[SerializeField, Required] private Button _backButton;
 		[SerializeField, Required] private Button _createDeathmatchRoomButton;
 		[SerializeField, Required] private Button _joinRoomButton;
 		[SerializeField, Required] private Button _playtestButton;
+		[SerializeField, Required] private TMP_Dropdown _gameModeSelection;
 		[SerializeField, Required] private TMP_Dropdown _mapSelection;
+		[SerializeField, Required] private TMP_Dropdown[] _mutatorsSelections;
 
-		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
 
 		private void Awake()
 		{
-			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
 
-			FillMapSelectionList();
-
-			_services.GameModeService.SelectedGameMode.Observe((_, _) => FillMapSelectionList());
-
-			_closeButton.onClick.AddListener(CloseRequested);
+			_gameModeSelection.onValueChanged.AddListener(FillMapSelectionList);
+			
+			FillGameModesSelectionList();
+			FillMapSelectionList(0);
+			FillMutatorsSelectionList();
+			
+			_backButton.onClick.AddListener(CloseRequested);
 			_createDeathmatchRoomButton.onClick.AddListener(CreateRoomClicked);
 			_joinRoomButton.onClick.AddListener(JoinRoomClicked);
 			if (Debug.isDebugBuild)
@@ -87,11 +90,14 @@ namespace FirstLight.Game.Presenters
 
 		private void PlaytestClicked()
 		{
-			var mapConfig = ((DropdownMenuOption) _mapSelection.options[_mapSelection.value]).MapConfig;
+			var gameModeConfig = ((GameModeDropdownMenuOption) _gameModeSelection.options[_gameModeSelection.value]).GameModeConfig;
+			var mapConfig = ((MapDropdownMenuOption) _mapSelection.options[_mapSelection.value]).MapConfig;
 			var message = new PlayCreateRoomClickedMessage
 			{
 				RoomName = GameConstants.Network.ROOM_NAME_PLAYTEST,
+				GameModeConfig = gameModeConfig,
 				MapConfig = mapConfig,
+				Mutators = GetMutatorsList(),
 				JoinIfExists = true
 			};
 
@@ -104,42 +110,110 @@ namespace FirstLight.Game.Presenters
 			// Room code should be short and easily shareable, visible on the UI. Up to 6 trailing 0s
 			// This should correspond to GameConstants.Data.ROOM_NAME_CODE_LENGTH
 			var roomName = Random.Range(0, 999999).ToString("000000");
-			var mapConfig = ((DropdownMenuOption) _mapSelection.options[_mapSelection.value]).MapConfig;
+			var gameModeConfig = ((GameModeDropdownMenuOption) _gameModeSelection.options[_gameModeSelection.value]).GameModeConfig;
+			var mapConfig = ((MapDropdownMenuOption) _mapSelection.options[_mapSelection.value]).MapConfig;
+
 			var message = new PlayCreateRoomClickedMessage
 			{
 				RoomName = roomName,
-				MapConfig = mapConfig
+				GameModeConfig = gameModeConfig,
+				MapConfig = mapConfig,
+				Mutators = GetMutatorsList()
 			};
 
 			_services.MessageBrokerService.Publish(message);
 			Data.PlayClicked();
 		}
 
-		private void FillMapSelectionList()
+		private List<String> GetMutatorsList()
+		{
+			var mutators = new List<String>();
+
+			for (var i = 0; i < _mutatorsSelections.Length; i++)
+			{
+				var mutatorMenuOption = _mutatorsSelections[i].options[_mutatorsSelections[i].value];
+				
+				if (mutatorMenuOption.text.Length == 0)
+				{
+					continue;
+				}
+				
+				mutators.Add(mutatorMenuOption.text);
+			}
+
+			return mutators;
+		}
+
+		private void FillMutatorsSelectionList()
+		{
+			var mutatorConfigs = _services.ConfigsProvider.GetConfigsList<QuantumMutatorConfig>();
+
+			foreach (var mutatorsSelection in _mutatorsSelections)
+			{
+				mutatorsSelection.options.Clear();
+				mutatorsSelection.options.Add(new TMP_Dropdown.OptionData(""));
+
+				foreach (var mutatorConfig in mutatorConfigs)
+				{
+					mutatorsSelection.options.Add(new TMP_Dropdown.OptionData(mutatorConfig.Id));
+				}
+
+				mutatorsSelection.RefreshShownValue();
+			}
+		}
+		
+		private void FillMapSelectionList(int gameModeSelectionIndex)
 		{
 			_mapSelection.options.Clear();
 
-			var gameModeConfig =
-				_services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(_services.GameModeService.SelectedGameMode
-					                                                           .Value.Entry.GameModeId.GetHashCode());
+			var gameModeConfig = ((GameModeDropdownMenuOption) _gameModeSelection.options[gameModeSelectionIndex]).GameModeConfig;
 
 			foreach (var mapId in gameModeConfig.AllowedMaps)
 			{
 				var mapConfig = _services.ConfigsProvider.GetConfig<QuantumMapConfig>((int) mapId);
 				if (!mapConfig.IsTestMap || Debug.isDebugBuild)
 				{
-					_mapSelection.options.Add(new DropdownMenuOption(mapId.GetTranslation(), mapConfig));
+					_mapSelection.options.Add(new MapDropdownMenuOption(mapId.GetTranslation(), mapConfig));
 				}
 			}
 
 			_mapSelection.RefreshShownValue();
 		}
+		
+		private void FillGameModesSelectionList()
+		{
+			_gameModeSelection.options.Clear();
 
-		private class DropdownMenuOption : TMP_Dropdown.OptionData
+			var gameModeConfigs = _services.ConfigsProvider.GetConfigsList<QuantumGameModeConfig>();
+
+			foreach (var gameModeConfig in gameModeConfigs)
+			{
+				if (gameModeConfig.IsDebugOnly && !Debug.isDebugBuild)
+				{
+					continue;
+				}
+				
+				_gameModeSelection.options.Add(new GameModeDropdownMenuOption(gameModeConfig.Id, gameModeConfig));
+			}
+
+			_gameModeSelection.RefreshShownValue();
+		}
+
+		private class GameModeDropdownMenuOption : TMP_Dropdown.OptionData
+		{
+			public QuantumGameModeConfig GameModeConfig { get; set; }
+
+			public GameModeDropdownMenuOption(string text, QuantumGameModeConfig gameModeConfig) : base(text)
+			{
+				GameModeConfig = gameModeConfig;
+			}
+		}
+		
+		private class MapDropdownMenuOption : TMP_Dropdown.OptionData
 		{
 			public QuantumMapConfig MapConfig { get; set; }
 
-			public DropdownMenuOption(string text, QuantumMapConfig mapConfig) : base(text)
+			public MapDropdownMenuOption(string text, QuantumMapConfig mapConfig) : base(text)
 			{
 				MapConfig = mapConfig;
 			}

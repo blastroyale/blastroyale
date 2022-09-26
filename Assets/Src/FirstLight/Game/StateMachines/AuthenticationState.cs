@@ -440,11 +440,6 @@ namespace FirstLight.Game.StateMachines
 			{
 				_services.PlayfabService.LinkDeviceID(null, null);
 			}
-			
-			if (string.IsNullOrWhiteSpace(_dataProvider.AppDataProvider.DisplayName.Value))
-			{
-				_services.PlayfabService.UpdateDisplayName(GameConstants.PlayerName.DEFAULT_PLAYER_NAME);
-			}
 
 			ProcessAuthentication(result);
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using ExitGames.Client.Photon;
 using FirstLight.FLogger;
@@ -570,18 +571,16 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayCreateRoomClickedMessage(PlayCreateRoomClickedMessage msg)
 		{
-			var selectedGameMode = _services.GameModeService.SelectedGameMode.Value;
-			var gameModeId = selectedGameMode.Entry.GameModeId;
-			var mutators = selectedGameMode.Entry.Mutators;
+			var gameModeId = msg.GameModeConfig.Id;
 			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
 			
 			if (msg.JoinIfExists)
 			{
-				JoinOrCreateRoom(gameModeConfig, msg.MapConfig, mutators, msg.RoomName);
+				JoinOrCreateRoom(gameModeConfig, msg.MapConfig, msg.Mutators, msg.RoomName);
 			}
 			else
 			{
-				CreateRoom(gameModeConfig, msg.MapConfig, mutators, msg.RoomName);
+				CreateRoom(gameModeConfig, msg.MapConfig, msg.Mutators, msg.RoomName);
 			}
 		}
 

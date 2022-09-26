@@ -39,13 +39,13 @@ namespace Quantum.Systems
 			{
 				var transform = f.Get<Transform3D>(pair.Entity);
 				var position = transform.Position;
-				var distance = (position.XZ - center).SqrMagnitude;
+				var isInside = (position.XZ - center).SqrMagnitude < radius * radius;
 
-				if (distance < radius * radius)
+				if (pair.Component.InCircle && isInside)
 				{
 					RemoveShrinkingDamage(f, pair.Entity);
 				}
-				else
+				else if(!pair.Component.InCircle && !isInside)
 				{
 					AddShrinkingDamage(f, pair.Entity, position);
 				}
@@ -137,6 +137,7 @@ namespace Quantum.Systems
 				Victim = playerEntity
 			};
 			f.Add(newSpell, spell);
+			f.Unsafe.GetPointer<AlivePlayerCharacter>(playerEntity)->InCircle = true;
 		}
 
 		private void RemoveShrinkingDamage(Frame f, EntityRef playerEntity)
@@ -145,6 +146,7 @@ namespace Quantum.Systems
 			{
 				f.Destroy(spellEntity);
 			}
+			f.Unsafe.GetPointer<AlivePlayerCharacter>(playerEntity)->InCircle = false;
 		}
 
 		private bool TryGetSpellEntity(Frame f, EntityRef playerEntity, bool removeIfFound, out EntityRef spellEntity)

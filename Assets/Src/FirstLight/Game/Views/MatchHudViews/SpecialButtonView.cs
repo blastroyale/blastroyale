@@ -47,7 +47,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private IGameServices _services;
 		private IAsyncCoroutine _cooldownCoroutine;
 		private PointerEventData _pointerDownData;
-		private float _lastDragDeltaMag;
+		private float _lastDragDeltaMagSqr;
 		private DateTime _cooldownEnd;
 		private bool _startedValidSpecialInput;
 		private bool _canTriggerCancelEnter;
@@ -135,7 +135,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				_specialAimDirectionAdapter.SendValueToControl(deltaMagNorm);
 			}
 			
-			_lastDragDeltaMag = deltaMag;
+			_lastDragDeltaMagSqr = deltaMag;
 		}
 
 		/// <inheritdoc />
@@ -164,7 +164,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// </summary>
 		public bool DraggingValidPosition()
 		{
-			return _lastDragDeltaMag > _cancelRadius;
+			return (_firstCancelExit && _lastDragDeltaMagSqr > _cancelRadius) ||
+			       (!_firstCancelExit && _lastDragDeltaMagSqr > 0);
 		}
 
 		/// <summary>

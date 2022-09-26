@@ -54,13 +54,15 @@ namespace FirstLight.Game.Views
 		private async Task InitAtt()
 		{
 #if UNITY_IOS
-         if (Unity.Advertisement.IosSupport.ATTrackingStatusBinding.GetAuthorizationTrackingStatus() == 
-             Unity.Advertisement.IosSupport.ATTrackingStatusBinding.AuthorizationTrackingStatus.NOT_DETERMINED)
-         {
-            Unity.Advertisement.IosSupport.ATTrackingStatusBinding.RequestAuthorizationTracking();
+			Unity.Advertisement.IosSupport.SkAdNetworkBinding.SkAdNetworkRegisterAppForNetworkAttribution();
+			
+			if (Unity.Advertisement.IosSupport.ATTrackingStatusBinding.GetAuthorizationTrackingStatus() == 
+			    Unity.Advertisement.IosSupport.ATTrackingStatusBinding.AuthorizationTrackingStatus.NOT_DETERMINED)
+			{
+				Unity.Advertisement.IosSupport.ATTrackingStatusBinding.RequestAuthorizationTracking();
 
-            await Task.Delay(500);
-         }
+				await Task.Delay(500);
+			}
 #endif
 		}
 

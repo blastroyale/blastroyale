@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using ExitGames.Client.Photon;
 using FirstLight.FLogger;
@@ -349,13 +350,6 @@ namespace FirstLight.Game.StateMachines
 				{
 					SetSpectatePlayerProperty(false);
 				}
-
-				// Set the game mode from room props.
-				var gameModeId = _networkService.QuantumClient.CurrentRoom.GetGameModeId();
-				var matchType = _networkService.QuantumClient.CurrentRoom.GetMatchType();
-				var mutators = _networkService.QuantumClient.CurrentRoom.GetMutatorIds();
-
-				_services.GameModeService.SelectedGameMode.Value = new GameModeInfo(gameModeId, matchType, mutators);
 			}
 
 			if (QuantumRunnerConfigs.IsOfflineMode)
@@ -413,6 +407,8 @@ namespace FirstLight.Game.StateMachines
 		public void OnPlayerLeftRoom(Player player)
 		{
 			FLog.Info($"OnPlayerLeftRoom {player.NickName}");
+
+			StartMatchmakingLockRoomTimer();
 		}
 
 		/// <inheritdoc />
@@ -575,18 +571,16 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayCreateRoomClickedMessage(PlayCreateRoomClickedMessage msg)
 		{
-			var selectedGameMode = _services.GameModeService.SelectedGameMode.Value;
-			var gameModeId = selectedGameMode.Entry.GameModeId;
-			var mutators = selectedGameMode.Entry.Mutators;
+			var gameModeId = msg.GameModeConfig.Id;
 			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
 			
 			if (msg.JoinIfExists)
 			{
-				JoinOrCreateRoom(gameModeConfig, msg.MapConfig, mutators, msg.RoomName);
+				JoinOrCreateRoom(gameModeConfig, msg.MapConfig, msg.Mutators, msg.RoomName);
 			}
 			else
 			{
-				CreateRoom(gameModeConfig, msg.MapConfig, mutators, msg.RoomName);
+				CreateRoom(gameModeConfig, msg.MapConfig, msg.Mutators, msg.RoomName);
 			}
 		}
 
@@ -744,11 +738,11 @@ namespace FirstLight.Game.StateMachines
 		private IEnumerator CasualMatchmakingCoroutine()
 		{
 			var oneSecond = new WaitForSeconds(1f);
-			var matchmakingEndTime = Time.time + _services.ConfigsProvider.GetConfig<QuantumGameConfig>()
-			                                              .CasualMatchmakingTime.AsFloat;
+			var roomCreationTime = _networkService.QuantumClient.CurrentRoom.GetRoomCreationDateTime();
+			var matchmakingEndTime = roomCreationTime.AddSeconds(_services.ConfigsProvider.GetConfig<QuantumGameConfig>().CasualMatchmakingTime.AsFloat);
 			var room = _networkService.QuantumClient.CurrentRoom;
 
-			while ((Time.time < matchmakingEndTime && !room.IsAtFullPlayerCapacity()))
+			while ((DateTime.UtcNow < matchmakingEndTime && !room.IsAtFullPlayerCapacity()))
 			{
 				yield return oneSecond;
 			}
@@ -759,13 +753,13 @@ namespace FirstLight.Game.StateMachines
 		private IEnumerator RankedMatchmakingCoroutine()
 		{
 			var oneSecond = new WaitForSeconds(1f);
-			var matchmakingEndTime = Time.time + _services.ConfigsProvider.GetConfig<QuantumGameConfig>()
-			                                              .RankedMatchmakingTime.AsFloat;
+			var roomCreationTime = _networkService.QuantumClient.CurrentRoom.GetRoomCreationDateTime();
+			var matchmakingEndTime = roomCreationTime.AddSeconds(_services.ConfigsProvider.GetConfig<QuantumGameConfig>().RankedMatchmakingTime.AsFloat);
 			var minPlayers = _services.ConfigsProvider.GetConfig<QuantumGameConfig>().RankedMatchmakingMinPlayers;
 			var room = _networkService.QuantumClient.CurrentRoom;
 
-			while ((Time.time < matchmakingEndTime && !room.IsAtFullPlayerCapacity()) ||
-			       (Time.time >= matchmakingEndTime && room.GetRealPlayerAmount() < minPlayers))
+			while ((DateTime.UtcNow < matchmakingEndTime && !room.IsAtFullPlayerCapacity()) ||
+			       (DateTime.UtcNow >= matchmakingEndTime && room.GetRealPlayerAmount() < minPlayers))
 			{
 				yield return oneSecond;
 			}
@@ -784,7 +778,7 @@ namespace FirstLight.Game.StateMachines
 			settings.FixedRegion = _gameDataProvider.AppDataProvider.ConnectionRegion.Value;
 
 			UpdateQuantumClientProperties();
-			_networkService.QuantumClient.ConnectUsingSettings(settings, _gameDataProvider.AppDataProvider.Nickname);
+			_networkService.QuantumClient.ConnectUsingSettings(settings, _gameDataProvider.AppDataProvider.DisplayNameTrimmed);
 		}
 
 		private void ConnectPhotonToRegionMaster()
@@ -824,7 +818,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_networkService.QuantumClient.AuthValues.AuthType = CustomAuthenticationType.Custom;
 			_networkService.QuantumClient.EnableProtocolFallback = true;
-			_networkService.QuantumClient.NickName = _gameDataProvider.AppDataProvider.Nickname;
+			_networkService.QuantumClient.NickName = _gameDataProvider.AppDataProvider.DisplayNameTrimmed;
 
 			var preloadIds = new List<int>();
 

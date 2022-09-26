@@ -4,7 +4,10 @@
 name: $(Rev:r)
 
 trigger:
-- develop
+  batch: true
+  branches:
+    include:
+    - develop
 pr: none
 
 pool: vmss

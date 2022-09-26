@@ -21,10 +21,12 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0
       PitchRandDeviation: 0
+      PitchModPerLoop: 0
   - Key: 2
     Value:
       AudioClips:
@@ -32,10 +34,12 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0
       PitchRandDeviation: 0
+      PitchModPerLoop: 0
   - Key: 92
     Value:
       AudioClips:
@@ -43,10 +47,12 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0
       PitchRandDeviation: 0
+      PitchModPerLoop: 0
   - Key: 93
     Value:
       AudioClips:
@@ -54,7 +60,35 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
+      Loop: 0
       BaseVolume: 1
       BasePitch: 1
       VolumeRandDeviation: 0
       PitchRandDeviation: 0
+      PitchModPerLoop: 0
+  - Key: 94
+    Value:
+      AudioClips:
+      - m_AssetGUID: 9269cf43502c2487ba7568963dc8a77d
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Loop: 0
+      BaseVolume: 1
+      BasePitch: 1
+      VolumeRandDeviation: 0
+      PitchRandDeviation: 0
+      PitchModPerLoop: 0
+  - Key: 108
+    Value:
+      AudioClips:
+      - m_AssetGUID: c032529dfbddf42a99cdbdada6f2bf6c
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Loop: 0
+      BaseVolume: 1
+      BasePitch: 1
+      VolumeRandDeviation: 0
+      PitchRandDeviation: 0
+      PitchModPerLoop: 0

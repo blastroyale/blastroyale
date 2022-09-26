@@ -100,6 +100,14 @@ namespace Quantum
 			return playersData;
 		}
 
+		/// <summary>
+		/// Generates a weapon <see cref="Equipment"/> from the equipment pool
+		/// </summary>
+		public Equipment GenerateNextWeapon(Frame f)
+		{
+			return DropPool.WeaponPool[f.RNG->Next(0, DropPool.WeaponPool.Length)];
+		}
+
 #region Player Rank Sorters
 		
 		private static IRankSorter GetSorter(RankSorter sorter)

@@ -33,27 +33,22 @@ namespace FirstLight.Game.StateMachines
 		private readonly GameLogic _gameLogic;
 		private readonly CoreLoopState _coreLoopState;
 		private readonly IGameServices _services;
+		private readonly IDataService _dataService;
 		private readonly IConfigsAdder _configsAdder;
 		private readonly IGameUiServiceInit _uiService;
-
-		/// <inheritdoc cref="IStatechart.LogsEnabled"/>
-		public bool LogsEnabled
-		{
-			get => _statechart.LogsEnabled;
-			set => _statechart.LogsEnabled = value;
-		}
 
 		public GameStateMachine(GameLogic gameLogic, IGameServices services, IGameUiServiceInit uiService, 
 		                        IGameBackendNetworkService networkService, IConfigsAdder configsAdder, 
 		                        IAssetAdderService assetAdderService, IDataService dataService,
 		                        IVfxInternalService<VfxId> vfxService)
 		{
+			_dataService = dataService;
 			_gameLogic = gameLogic;
 			_services = services;
 			_uiService = uiService;
 			_configsAdder = configsAdder;
 			_initialLoadingState = new InitialLoadingState(services, uiService, assetAdderService, configsAdder, vfxService, Trigger);
-			_authenticationState = new AuthenticationState(services, uiService, dataService, networkService, Trigger, _configsAdder);
+			_authenticationState = new AuthenticationState(gameLogic, services, uiService, dataService, networkService, Trigger, _configsAdder);
 			_audioState = new AudioState(gameLogic, services, Trigger);
 			_networkState = new NetworkState(gameLogic, services, uiService, networkService, Trigger);
 			_coreLoopState = new CoreLoopState(services, networkService, uiService, gameLogic, assetAdderService, Trigger);
@@ -77,7 +72,8 @@ namespace FirstLight.Game.StateMachines
 			var final = stateFactory.Final("Final");
 			var initialAssets = stateFactory.TaskWait("Initial Asset");
 			var internetCheck = stateFactory.Choice("Internet Check");
-			var initialLoading = stateFactory.Split("Initial Loading");
+			var initialLoading = stateFactory.Nest("Initial Loading");
+			var authentication = stateFactory.Nest("Authentication");
 			var core = stateFactory.Split("Core");
 			
 			initial.Transition().Target(initialAssets);
@@ -88,8 +84,11 @@ namespace FirstLight.Game.StateMachines
 			internetCheck.Transition().Condition(InternetCheck).OnTransition(OpenNoInternetPopUp).Target(final);
 			internetCheck.Transition().Target(initialLoading);
 
-			initialLoading.Split(_initialLoadingState.Setup, _authenticationState.Setup).Target(core);
-			initialLoading.OnExit(InitializeGame);
+			initialLoading.Nest(_initialLoadingState.Setup).Target(authentication);
+			initialLoading.OnExit(InitializeLocalLogic);
+			
+			authentication.Nest(_authenticationState.Setup).Target(core);
+			authentication.OnExit(InitializeRemainingLogic);
 			
 			core.Split(_audioState.Setup, _networkState.Setup, _coreLoopState.Setup).Target(final);
 
@@ -111,19 +110,19 @@ namespace FirstLight.Game.StateMachines
 			return Application.internetReachability == NetworkReachability.NotReachable;
 		}
 
-		private void InitializeGame()
+		private void InitializeLocalLogic()
+		{
+			_dataService.LoadData<AppData>();
+			_gameLogic.InitLocal();
+			
+			_services.AudioFxService.AudioListener.Listener.enabled = true;
+			
+			MMVibrationManager.SetHapticsActive(_gameLogic.AppLogic.IsHapticOn);
+		}
+		
+		private void InitializeRemainingLogic()
 		{
 			_gameLogic.Init();
-
-			_services.AudioFxService.AudioListener.Listener.enabled = true;
-			MMVibrationManager.SetHapticsActive(_gameLogic.AppLogic.IsHapticOn);
-			
-			// Just marking the default name to avoid missing names
-			if (string.IsNullOrWhiteSpace(_gameLogic.AppLogic.NicknameId.Value))
-			{
-				_services.PlayfabService.UpdateNickname(GameConstants.PlayerName.DEFAULT_PLAYER_NAME);
-			}
-			
 			_services?.AnalyticsService.SessionCalls.GameLoaded();
 		}
 

@@ -26,7 +26,6 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private RectTransform _slotsContainer;
 		[SerializeField, Required] private GameModeButtonView _slotPrefab;
 
-		[SerializeField, Required] private GameModeButtonView _testingButton;
 		[SerializeField, Required] private Button _backButton;
 
 		private IGameServices _services;
@@ -38,9 +37,6 @@ namespace FirstLight.Game.Presenters
 			_services = MainInstaller.Resolve<IGameServices>();
 
 			_backButton.onClick.AddListener(OnBlockerButtonPressed);
-
-			_testingButton.gameObject.SetActive(FeatureFlags.TESTING_GAME_MODE_ENABLED);
-			_testingButton.Init(new GameModeInfo("Testing", MatchType.Custom, new List<string>()), OnModeButtonClicked);
 
 			foreach (var slot in _services.GameModeService.Slots)
 			{

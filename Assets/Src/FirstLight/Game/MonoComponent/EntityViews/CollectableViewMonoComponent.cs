@@ -15,6 +15,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	/// </summary>
 	public class CollectableViewMonoComponent : EntityMainViewBase
 	{
+		private const string CLIP_SPAWN = "spawn";
+		private const string CLIP_IDLE = "idle";
+		private const string CLIP_COLLECT = "collect";
+
 		[SerializeField, Required] private Transform _collectableIndicatorAnchor;
 		[SerializeField, Required] private Animation _animation;
 		[SerializeField, Required] private AnimationClip _spawnClip;
@@ -41,6 +45,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 
+			_animation.AddClip(_spawnClip, CLIP_SPAWN);
+			_animation.AddClip(_idleClip, CLIP_IDLE);
+			_animation.AddClip(_collectClip, CLIP_COLLECT);
+
 			QuantumEvent.Subscribe<EventOnStartedCollecting>(this, OnStartedCollecting);
 			QuantumEvent.Subscribe<EventOnStoppedCollecting>(this, OnStoppedCollecting);
 			QuantumEvent.Subscribe<EventOnCollectableCollected>(this, OnCollectableCollected);
@@ -52,11 +60,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			base.OnInit(game);
 
-			PlayAnimation(_spawnClip);
-
-			this.LateCoroutineCall(_animation.clip.length, () => PlayAnimation(_idleClip));
+			_animation.Play(CLIP_SPAWN);
+			_animation.PlayQueued(CLIP_IDLE, QueueMode.CompleteOthers, PlayMode.StopAll);
 		}
-
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
@@ -99,9 +105,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumEvent.UnsubscribeListener(this);
 			_matchServices.SpectateService.SpectatedPlayer.StopObserving(OnSpectatedPlayerChanged);
 
-			PlayAnimation(_collectClip);
+			_animation.Play(CLIP_COLLECT, PlayMode.StopAll);
 
-			this.LateCoroutineCall(_animation.clip.length, () => { Destroy(gameObject); });
+			this.LateCoroutineCall(_collectClip.length, () => { Destroy(gameObject); });
 		}
 
 		private void RefreshVfx(SpectatedPlayer spectatedPlayer)
@@ -134,14 +140,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			{
 				_collectingVfx!.SetTime(collectingData.StartTime, collectingData.EndTime);
 			}
-		}
-
-		private void PlayAnimation(AnimationClip clip)
-		{
-			_animation.clip = clip;
-
-			_animation.Rewind();
-			_animation.Play();
 		}
 
 		private struct CollectingData

@@ -13,7 +13,7 @@ namespace FirstLight.Game.Data
 	[Serializable]
 	public class AppData
 	{
-		public string NickNameId;
+		public string DisplayName;
 		public string PlayerId;
 		public DateTime FirstLoginTime;
 		public DateTime LastLoginTime;
@@ -22,6 +22,7 @@ namespace FirstLight.Game.Data
 
 		public string Environment;
 		public string DeviceId;
+		public string LastLoginEmail;
 		public string ConnectionRegion;
 		
 		public DateTime GameReviewDate;

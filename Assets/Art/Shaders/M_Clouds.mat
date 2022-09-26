@@ -15,14 +15,15 @@ MonoBehaviour:
   version: 5
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Clouds
   m_Shader: {fileID: -6465566751694194690, guid: cce87e1700f967249b65e407de016e00, type: 3}
-  m_ShaderKeywords: 
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -47,9 +48,9 @@ Material:
     m_Ints: []
     m_Floats:
     - Alpha_Clip: 0.1
-    - Cloud_Alpha: 0.9
-    - Cloud_Power: 0.5
-    - Cloud_Scale: 300
+    - Cloud_Alpha: 0.5
+    - Cloud_Power: 0.2
+    - Cloud_Scale: 100
     - Distort_Scale: 200
     - Vector1_2C41ECC1: 0
     - Vector1_556AE1FB: 1
@@ -63,15 +64,15 @@ Material:
     - Vector1_E7658068: 0.2
     - Vector1_F65AAB4A: 100
     - Vector1_FC69CDDC: 0.1
-    - Vertext_Offset: 2
+    - Vertext_Offset: -3
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - Cloud_Color: {r: 1.0413189, g: 1.3511068, b: 2.2680783, a: 1}
-    - Cloud_Speed: {r: -0.003, g: 0.001, b: 0, a: 0}
+    - Cloud_Color: {r: 1.6701597, g: 1.8470784, b: 2.3710303, a: 1}
+    - Cloud_Speed: {r: 0.003, g: 0.001, b: 0, a: 0}
     - Color_B822D8BE: {r: 0, g: 0, b: 0, a: 0}
     - Color_EE1A5DA6: {r: 1, g: 1, b: 1, a: 0}
-    - Distort_Speed: {r: -0.02, g: 0.02, b: 0, a: 0}
+    - Distort_Speed: {r: 0.01, g: -0.02, b: 0, a: 0}
     - Vector4_89E8BEC0: {r: 0, g: 1, b: -1, a: 1}
     - Vector4_B0488B0: {r: 90, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []

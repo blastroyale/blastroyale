@@ -229,6 +229,23 @@ namespace Quantum
 		}
 
 		/// <summary>
+		/// Tries to set the player's weapon to the given <paramref name="weaponGameId"/> that player already has
+		/// </summary>
+		internal bool TryEquipExistingWeaponID(Frame f, EntityRef e, GameId weaponGameId)
+		{
+			for (int i = 0; i < WeaponSlots.Length; i++)
+			{
+				if (WeaponSlots[i].Weapon.GameId == weaponGameId)
+				{
+					EquipSlotWeapon(f, e, i);
+					return true;
+				}
+			}
+			
+			return false;
+		}
+
+		/// <summary>
 		/// Equips a gear item to the correct gear slot (old one is replaced).
 		/// </summary>
 		public void EquipGear(Frame f, EntityRef e, Equipment gear)
@@ -236,10 +253,11 @@ namespace Quantum
 			Assert.Check(!gear.IsWeapon(), gear);
 
 			var gearSlot = GetGearSlot(gear);
+			
 			Gear[gearSlot] = gear;
 			
 			f.Unsafe.GetPointer<Stats>(e)->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Gear);
-
+			
 			f.Events.OnPlayerGearChanged(Player, e, gear, gearSlot);
 		}
 
@@ -248,8 +266,7 @@ namespace Quantum
 		/// </summary>
 		public int GetAmmoAmount(Frame f, EntityRef e, out int maxAmmo)
 		{
-			maxAmmo = f.WeaponConfigs.GetConfig(CurrentWeapon.GameId).MaxAmmo.Get(f);
-
+			maxAmmo = f.Get<Stats>(e).GetStatData(StatType.AmmoCapacity).StatValue.AsInt;
 			return FPMath.FloorToInt(GetAmmoAmountFilled(f, e) * maxAmmo);
 		}
 

@@ -48,7 +48,7 @@ namespace FirstLight.Game.Presenters
 			var showStandingsExtra = frame.Context.GameModeConfig.ShowUIStandingsExtraInfo;
 			
 			_standings.Initialise(playerData.Count, showStandingsExtra, true);
-			_standings.UpdateStandings(playerData, game.GetLocalPlayers()[0]);
+			_standings.UpdateStandings(playerData);
 			
 			// Only play the animation after Results Award sprites have been loaded.
 			_animation.clip = _introAnimationClip;

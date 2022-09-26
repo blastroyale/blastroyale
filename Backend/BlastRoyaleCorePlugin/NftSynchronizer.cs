@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Quantum;
 using FirstLight.Server.SDK;
+using FirstLight.Server.SDK.Models;
 
 namespace BlastRoyaleNFTPlugin
 {
@@ -70,7 +71,7 @@ public class NftSynchronizer
 			    {
 				    if (!ownedNftsInGame.ContainsKey(nft.token_id))
 				    {
-					    AddEquipment(nft, idData, equipmentData);
+					    AddEquipment(playfabId, nft, idData, equipmentData);
 					    _ctx.Log.LogInformation($"Added item {nft.token_id}({nft.name}) to user {playfabId}");
 				    }
 			    }
@@ -87,7 +88,8 @@ public class NftSynchronizer
 			    if (!ownedTokensInBlockchain.Contains(ownedTokenId.Key))
 			    {
 				    _ctx.Log.LogInformation($"Removed item {ownedTokenId} from user {playfabId}");
-				    RemoveEquipment(ownedTokenId.Value, equipmentData, playerData, idData);
+				    var item = equipmentData.NftInventory[ownedTokenId.Value];
+				    RemoveEquipment(playfabId, ownedTokenId.Value, equipmentData, playerData, idData);
 			    }
 		    }
 
@@ -138,7 +140,7 @@ public class NftSynchronizer
     /// <summary>
     /// Adds NFT equipment to game data models. Perform a conversion to game data models from NFT model.
     /// </summary>
-    private void AddEquipment(PolygonNFTMetadata nft, IdData idData, EquipmentData equipmentData)
+    private void AddEquipment(string playfabId, PolygonNFTMetadata nft, IdData idData, EquipmentData equipmentData)
     {
 	    var equipment = NftToGameEquipment(nft);
 	    var nftEquipment = NftToGameNftEquipment(nft);
@@ -149,18 +151,20 @@ public class NftSynchronizer
         equipmentData.Inventory.Add(nextId, equipment);
         equipmentData.NftInventory.Add(nextId, nftEquipment);
         idData.GameIds.Add(nextId, equipment.GameId);
+        _ctx.Analytics.EmitUserEvent(playfabId, "nft_add", equipment.ToAnalyticsData());
     }
 
     /// <summary>
     /// Removes a given token from the given player.
     /// Also removes all references from the generated internal unique id for that token.
     /// </summary>
-    private void RemoveEquipment(UniqueId uniqueId, EquipmentData nftEquipment, PlayerData playerData, IdData idData)
+    private void RemoveEquipment(string playfabId, UniqueId uniqueId, EquipmentData nftEquipment, PlayerData playerData, IdData idData)
     {
+	    var equipment = nftEquipment.Inventory[uniqueId];
 	    nftEquipment.Inventory.Remove(uniqueId);
 	    nftEquipment.NftInventory.Remove(uniqueId);
 	    idData.GameIds.Remove(uniqueId);
-	    
+	    _ctx.Analytics.EmitUserEvent(playfabId, "nft_remove", equipment.ToAnalyticsData());
 	    var equippedGroups = playerData.Equipped.Keys.ToList();
 	    foreach (var group in equippedGroups)
 	    {

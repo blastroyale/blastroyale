@@ -54,7 +54,7 @@ namespace Quantum
 			AvailableTime = f.Time + Cooldown;
 			
 			f.Signals.SpecialUsed(playerEntity, this, specialIndex);
-			f.Events.OnPlayerSpecialUsed(playerEntity, this, specialIndex);
+			f.Events.OnPlayerSpecialUsed(playerEntity, this, specialIndex, aimInput, MaxRange);
 
 			return true;
 		}

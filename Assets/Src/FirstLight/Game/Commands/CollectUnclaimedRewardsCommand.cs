@@ -1,7 +1,8 @@
-﻿using FirstLight.Game.Logic;
+using FirstLight.Game.Logic;
 using System.Linq;
 using FirstLight.Game.Messages;
 using FirstLight.Services;
+using FirstLight.Game.Services;
 
 namespace FirstLight.Game.Commands
 {
@@ -10,6 +11,10 @@ namespace FirstLight.Game.Commands
 	/// </summary>
 	public struct CollectUnclaimedRewardsCommand : IGameCommand
 	{
+		public CommandAccessLevel AccessLevel() => CommandAccessLevel.Player;
+
+		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Server;
+
 		/// <inheritdoc />
 		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)
 		{

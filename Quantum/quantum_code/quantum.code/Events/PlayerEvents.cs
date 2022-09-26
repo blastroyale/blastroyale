@@ -59,17 +59,20 @@ namespace Quantum
 				ev.PlayerData = new QuantumPlayerMatchData(_f, matchData);
 			}
 
-			public void OnPlayerSpecialUsed(EntityRef entity, Special special, int specialIndex)
+			public void OnPlayerSpecialUsed(EntityRef entity, Special special, int specialIndex, FPVector2 aimInput, FP maxRange)
 			{
 				var playerCharacter = _f.Unsafe.GetPointer<PlayerCharacter>(entity);
-				var ev = OnPlayerSpecialUsed(playerCharacter->Player, entity, special, specialIndex);
+				var attackerPosition = _f.Unsafe.GetPointer<Transform3D>(entity)->Position;
+				var hitPosition = attackerPosition + (FPVector2.ClampMagnitude(aimInput, FP._1) * maxRange).XOY;
+				
+				var ev = OnPlayerSpecialUsed(playerCharacter->Player, entity, special, specialIndex, hitPosition);
 
 				if (ev == null || !_f.Context.IsLocalPlayer(playerCharacter->Player))
 				{
 					return;
 				}
 
-				OnLocalPlayerSpecialUsed(playerCharacter->Player, entity, special, specialIndex);
+				OnLocalPlayerSpecialUsed(playerCharacter->Player, entity, special, specialIndex, hitPosition);
 			}
 
 			public void OnPlayerDamaged(Spell spell, int totalDamage, int shieldDamageAmount, int healthDamageAmount,

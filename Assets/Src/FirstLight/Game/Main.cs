@@ -46,8 +46,7 @@ namespace FirstLight.Game
 			var audioFxService = new GameAudioFxService(assetResolver);
 			var vfxService = new VfxService<VfxId>();
 			
-			var gameLogic = new GameLogic(messageBroker, timeService, dataService, configsProvider,
-			                              audioFxService);
+			var gameLogic = new GameLogic(messageBroker, timeService, dataService, configsProvider, audioFxService);
 			var gameServices = new GameServices(networkService, messageBroker, timeService, dataService,
 			                                    configsProvider, gameLogic, genericDialogService, 
 			                                    assetResolver, vfxService, audioFxService);
@@ -63,18 +62,6 @@ namespace FirstLight.Game
 			                                         configsProvider,
 			                                         assetResolver, dataService, vfxService);
 
-#if UNITY_EDITOR
-			if (!EditorPrefs.HasKey(GameConstants.Editor.PREFS_ENABLE_STATE_MACHINE_DEBUG_KEY))
-			{
-				EditorPrefs.SetBool(GameConstants.Editor.PREFS_ENABLE_STATE_MACHINE_DEBUG_KEY, false);
-			}
-
-			if (EditorPrefs.HasKey(GameConstants.Editor.PREFS_ENABLE_STATE_MACHINE_DEBUG_KEY))
-			{
-				_gameStateMachine.LogsEnabled =
-					EditorPrefs.GetBool(GameConstants.Editor.PREFS_ENABLE_STATE_MACHINE_DEBUG_KEY);
-			}
-#endif
 			FLog.Verbose($"Initialized client version {VersionUtils.VersionExternal}");
 		}
 
@@ -113,17 +100,8 @@ namespace FirstLight.Game
 		private void TrySetLocalServer()
 		{
 #if UNITY_EDITOR
-			if (!EditorPrefs.HasKey(GameConstants.Editor.PREFS_USE_LOCAL_SERVER_KEY))
-			{
-				EditorPrefs.SetBool(GameConstants.Editor.PREFS_USE_LOCAL_SERVER_KEY, false);
-			}
-
-			if (EditorPrefs.GetBool(GameConstants.Editor.PREFS_USE_LOCAL_SERVER_KEY))
-			{
-				PlayFabSettings.LocalApiServer = "http://localhost:7274";
-			}
-
-			Debug.Log("Using local server? -" + EditorPrefs.GetBool(GameConstants.Editor.PREFS_USE_LOCAL_SERVER_KEY));
+			FeatureFlags.ParseLocalFeatureFlags();
+			Debug.Log("Using local server? -" + FeatureFlags.GetLocalConfiguration().UseLocalServer);
 #endif
 		}
 

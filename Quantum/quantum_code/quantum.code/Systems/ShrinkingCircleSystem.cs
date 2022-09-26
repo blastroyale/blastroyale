@@ -6,54 +6,57 @@ namespace Quantum.Systems
 	/// This system handles all the behaviour for the <see cref="ShrinkingCircle"/>
 	/// </summary>
 	[OptionalSystem]
-	public unsafe class ShrinkingCircleSystem : SystemMainThread, ISignalOnComponentAdded<ShrinkingCircle>
+	public unsafe class ShrinkingCircleSystem : SystemMainThread
 	{
 		/// <inheritdoc />
 		public override bool StartEnabled => false;
 
-		public override void OnInit(Frame f)
-		{
-			f.GetOrAddSingleton<ShrinkingCircle>();
-		}
-
 		/// <inheritdoc />
-		public void OnAdded(Frame f, EntityRef entity, ShrinkingCircle* circle)
+		public override void OnEnabled(Frame f)
 		{
-			circle->CurrentRadius = f.Map.WorldSize / FP._2;
+			base.OnEnabled(f);
 
-			SetShrinkingCircleData(f, circle, f.ShrinkingCircleConfigs.QuantumConfigs[0]);
+			var circle = f.Unsafe.GetOrAddSingletonPointer<ShrinkingCircle>();
+			circle->CurrentRadius = f.Map.WorldSize / FP._2;
+			circle->Step = -1;
 		}
 
 		/// <inheritdoc />
 		public override void Update(Frame f)
 		{
-			var circle = ProcessShrinkingCircle(f);
+			var circle = f.Unsafe.GetPointerSingleton<ShrinkingCircle>();
+
+			if (circle->Step < 0)
+			{
+				SetShrinkingCircleData(f, circle, f.ShrinkingCircleConfigs.QuantumConfigs[0]);
+			}
+
+			ProcessShrinkingCircle(f, circle);
+
 			circle->GetMovingCircle(f, out var center, out var radius);
 
 			foreach (var pair in f.GetComponentIterator<AlivePlayerCharacter>())
 			{
 				var transform = f.Get<Transform3D>(pair.Entity);
 				var position = transform.Position;
-				var distance = (position.XZ - center).SqrMagnitude;
+				var isInside = (position.XZ - center).SqrMagnitude < radius * radius;
 
-				if (distance < radius * radius)
+				if (pair.Component.InCircle && isInside)
 				{
 					RemoveShrinkingDamage(f, pair.Entity);
 				}
-				else
+				else if(!pair.Component.InCircle && !isInside)
 				{
 					AddShrinkingDamage(f, pair.Entity, position);
 				}
 			}
 		}
 
-		private ShrinkingCircle* ProcessShrinkingCircle(Frame f)
+		private void ProcessShrinkingCircle(Frame f, ShrinkingCircle* circle)
 		{
-			var circle = f.Unsafe.GetPointerSingleton<ShrinkingCircle>();
-
 			if (f.Time < circle->ShrinkingStartTime + circle->ShrinkingDurationTime)
 			{
-				return circle;
+				return;
 			}
 
 			var configs = f.ShrinkingCircleConfigs.QuantumConfigs;
@@ -65,15 +68,13 @@ namespace Quantum.Systems
 				circle->CurrentRadius = circle->TargetRadius;
 				circle->CurrentCircleCenter = circle->TargetCircleCenter;
 
-				return circle;
+				return;
 			}
 
 			circle->ShrinkingStartTime += circle->ShrinkingDurationTime;
 			circle->CurrentRadius = circle->TargetRadius;
 
 			SetShrinkingCircleData(f, circle, configs[circle->Step]);
-
-			return circle;
 		}
 
 		private void SetShrinkingCircleData(Frame f, ShrinkingCircle* circle, QuantumShrinkingCircleConfig config)
@@ -131,11 +132,12 @@ namespace Quantum.Systems
 				EndTime = FP.MaxValue,
 				NextHitTime = FP._0,
 				OriginalHitPosition = position,
-				PowerAmount = (uint)damage,
+				PowerAmount = (uint) damage,
 				TeamSource = (int) TeamType.Enemy,
 				Victim = playerEntity
 			};
 			f.Add(newSpell, spell);
+			f.Unsafe.GetPointer<AlivePlayerCharacter>(playerEntity)->InCircle = true;
 		}
 
 		private void RemoveShrinkingDamage(Frame f, EntityRef playerEntity)
@@ -144,6 +146,7 @@ namespace Quantum.Systems
 			{
 				f.Destroy(spellEntity);
 			}
+			f.Unsafe.GetPointer<AlivePlayerCharacter>(playerEntity)->InCircle = false;
 		}
 
 		private bool TryGetSpellEntity(Frame f, EntityRef playerEntity, bool removeIfFound, out EntityRef spellEntity)

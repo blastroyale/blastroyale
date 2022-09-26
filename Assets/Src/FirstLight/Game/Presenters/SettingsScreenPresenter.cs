@@ -24,11 +24,11 @@ namespace FirstLight.Game.Presenters
 		{
 			public Action LogoutClicked;
 			public Action OnClose;
+			public Action OnConnectIdClicked;
 			public Action OnServerSelectClicked;
 		}
 		
 		[SerializeField, Required] private TextMeshProUGUI _versionText;
-		[SerializeField, Required] private TextMeshProUGUI _fullNameText;
 		[SerializeField, Required] private Button _closeButton;
 		[SerializeField, Required] private Button _blockerButton;
 		[SerializeField, Required] private Button _logoutButton;
@@ -41,6 +41,9 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private Button _faq;
 		[SerializeField, Required] private Button _serverSelectButton;
 		[SerializeField, Required] private TextMeshProUGUI _selectedServerText;
+		[SerializeField, Required] private Button _connectIdButton;
+		[SerializeField, Required] private TextMeshProUGUI _idConnectionStatusText;
+		[SerializeField, Required] private TextMeshProUGUI _idConnectionNameText;
 		
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
@@ -53,13 +56,26 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider.AppDataProvider.ConnectionRegion.InvokeObserve(OnConnectionRegionChange);
 
 			_versionText.text = VersionUtils.VersionInternal;
-			_fullNameText.text = string.Format(ScriptLocalization.General.UserId,
-			                                   _gameDataProvider.AppDataProvider.NicknameId.Value);
+
+			if (string.IsNullOrEmpty(_gameDataProvider.AppDataProvider.LastLoginEmail.Value))
+			{
+				_connectIdButton.gameObject.SetActive(true);
+				_idConnectionNameText.gameObject.SetActive(false);
+				_idConnectionStatusText.text = ScriptLocalization.MainMenu.FirstLightIdNeedConnection;
+			}
+			else
+			{
+				_connectIdButton.gameObject.SetActive(false);
+				_idConnectionNameText.gameObject.SetActive(true);
+				_idConnectionStatusText.text = ScriptLocalization.MainMenu.FirstLightIdConnected;
+				_idConnectionNameText.text = string.Format(ScriptLocalization.General.UserId,
+				                                           _gameDataProvider.AppDataProvider.DisplayName.Value);
+			}
 
 			_closeButton.onClick.AddListener(OnClosedCompleted);
 			_blockerButton.onClick.AddListener(OnBlockerButtonPressed);
 			_logoutButton.onClick.AddListener(OnLogoutClicked);
-
+			_connectIdButton.onClick.AddListener(OpenConnectId);
 			_backgroundMusicToggle.onValueChanged.AddListener(OnBgmChanged);
 			_sfxToggle.onValueChanged.AddListener(OnSfxChanged);
 			_dialogueToggle.onValueChanged.AddListener(OnDialogueChanged);
@@ -96,6 +112,11 @@ namespace FirstLight.Game.Presenters
 		{
 			_gameDataProvider?.AppDataProvider?.ConnectionRegion?.StopObserving(OnConnectionRegionChange);
 			Data.OnClose();
+		}
+
+		private void OpenConnectId()
+		{
+			Data.OnConnectIdClicked();
 		}
 
 		private void OpenServerSelect()
@@ -138,7 +159,6 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider.AppDataProvider.CurrentDetailLevel = detailLevel;
 		}
 		
-
 		private void OnLogoutClicked()
 		{
 			var title = string.Format(ScriptLocalization.MainMenu.LogoutConfirm);

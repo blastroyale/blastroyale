@@ -5167,6 +5167,7 @@ MonoBehaviour:
   - {fileID: 8030625994436633200}
   - {fileID: 2686466951611175667}
   - {fileID: 2927426723504251844}
+  _rendererRoots: []
   _mainRenderer: {fileID: 0}
 --- !u!1 &1538911260172150046
 GameObject:
@@ -15949,7 +15950,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 10
+        scalar: 1
         minScalar: 30
         maxCurve:
           serializedVersion: 2

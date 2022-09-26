@@ -374,6 +374,14 @@ namespace FirstLight.Game.Utils
 		{
 			return (string) room.CustomProperties[GameConstants.Network.ROOM_PROPS_GAME_MODE];
 		}
+		
+		/// <summary>
+		/// Obtains the current room creation time (created with UTC.Now)
+		/// </summary>
+		public static DateTime GetRoomCreationDateTime(this Room room)
+		{
+			return new DateTime((long) room.CustomProperties[GameConstants.Network.ROOM_PROPS_CREATION_TICKS]);
+		}
 
 		/// <summary>
 		/// Obtains the list of mutators enabled in the given <paramref name="room"/>

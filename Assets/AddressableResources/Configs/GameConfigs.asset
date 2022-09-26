@@ -28,7 +28,7 @@ MonoBehaviour:
         RawValue: 983040
       RankedMatchmakingTime:
         RawValue: 7864320
-      RankedMatchmakingMinPlayers: 4
+      RankedMatchmakingMinPlayers: 10
       BotsNameCount: 300
       PlayerRespawnTime:
         RawValue: 262144
@@ -39,9 +39,11 @@ MonoBehaviour:
       ShrinkingDamageCooldown:
         RawValue: 65536
       PlayerDefaultHealth:
-        Default: 800
-        Keys: []
-        Values: 
+        Default: 1000
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: e803000020030000
       PlayerDefaultSpeed:
         Default:
           RawValue: 196608
@@ -50,27 +52,27 @@ MonoBehaviour:
         - Deathmatch
         Values:
         - RawValue: 196608
-        - RawValue: 294912
+        - RawValue: 262144
       PlayerMaxShieldCapacity:
         Default: 1600
         Keys:
         - BattleRoyale
         - Deathmatch
-        Values: 4006000090010000
+        Values: 4006000020030000
       PlayerStartingShieldCapacity:
         Default: 200
         Keys:
         - BattleRoyale
         - Deathmatch
-        Values: c800000090010000
+        Values: c800000020030000
       CollectableCollectTime:
         Default:
-          RawValue: 78643
+          RawValue: 117965
         Keys:
         - BattleRoyale
         - Deathmatch
         Values:
-        - RawValue: 78643
+        - RawValue: 117965
         - RawValue: 39322
       PlayerAliveShieldDuration:
         Default:

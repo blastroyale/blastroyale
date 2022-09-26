@@ -181,7 +181,6 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(SimulationStartedEvent);
 		}
 
-
 		private async void OnGameResync(CallbackGameResynced callback)
 		{
 			// Delays one frame just to guarantee that the game objects are created before anything else
@@ -223,13 +222,8 @@ namespace FirstLight.Game.StateMachines
 		{
 			var game = QuantumRunner.Default.Game;
 			var f = game.Frames.Verified;
-			var gameContainer = f.GetSingleton<GameContainer>();
-			var command = new EndOfGameCalculationsCommand
-			{
-				PlayersMatchData = gameContainer.GetPlayersMatchData(f, out _),
-				PlayfabToken = PlayFabSettings.staticPlayer.EntityToken
-			};
-			command.SetQuantumValues(new QuantumValues
+			var command = new EndOfGameCalculationsCommand();
+			command.FromFrame(f, new QuantumValues()
 			{
 				ExecutingPlayer = game.GetLocalPlayers()[0],
 				MatchType = _services.NetworkService.QuantumClient.CurrentRoom.GetMatchType()
@@ -374,11 +368,6 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<TrophiesScreenPresenter>(false, true);
 		}
 
-		private void CloseMatchmakingScreen()
-		{
-			_uiService.CloseUi<MatchmakingLoadingScreenPresenter>(false, true);
-		}
-
 		private void PublishMatchStartedMessage(QuantumGame game, bool isResync)
 		{
 			if (_services.NetworkService.IsJoiningNewMatch)
@@ -386,8 +375,6 @@ namespace FirstLight.Game.StateMachines
 				MatchStartAnalytics();
 				SetPlayerMatchData(game);
 			}
-
-			CloseMatchmakingScreen();
 
 			_services.MessageBrokerService.Publish(new MatchStartedMessage { Game = game, IsResync = isResync });
 		}
@@ -405,7 +392,7 @@ namespace FirstLight.Game.StateMachines
 				game.SendPlayerData(game.GetLocalPlayers()[0], new RuntimePlayer
 				{
 					PlayerId = _gameDataProvider.AppDataProvider.PlayerId,
-					PlayerName = _gameDataProvider.AppDataProvider.Nickname,
+					PlayerName = _gameDataProvider.AppDataProvider.DisplayNameTrimmed,
 					Skin = info.Skin,
 					DeathMarker = info.DeathMarker,
 					PlayerLevel = info.Level,

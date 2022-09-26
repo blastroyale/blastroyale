@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using UnityEngine;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Utils;
@@ -11,6 +12,7 @@ using Quantum;
 using Sirenix.OdinInspector;
 using TMPro;
 using Button = UnityEngine.UI.Button;
+using Debug = UnityEngine.Debug;
 
 namespace FirstLight.Game.Presenters
 {
@@ -96,7 +98,14 @@ namespace FirstLight.Game.Presenters
 		{
 			base.OnOpened();
 
-			RefreshGameModeButton();
+			_services.GameModeService.SelectedGameMode.InvokeObserve(RefreshGameModeButton);
+		}
+
+		protected override void OnClosed()
+		{
+			base.OnClosed();
+
+			_services.GameModeService.SelectedGameMode.StopObserving(RefreshGameModeButton);
 		}
 
 		private void OnPlayOnlineClicked()
@@ -164,13 +173,12 @@ namespace FirstLight.Game.Presenters
 			Application.OpenURL(GameConstants.Links.DISCORD_SERVER);
 		}
 
-		private void RefreshGameModeButton()
+		private void RefreshGameModeButton(GameModeInfo _, GameModeInfo info)
 		{
-			var gameMode = _services.GameModeService.SelectedGameMode.Value;
-			_selectedGameModeTimerText.gameObject.SetActive(!gameMode.IsFixed);
+			_selectedGameModeTimerText.gameObject.SetActive(!info.IsFixed);
 			_selectedGameModeText.text = string.Format(ScriptLocalization.MainMenu.SelectedGameModeValue,
-			                                           gameMode.Entry.MatchType.GetTranslation().ToUpper(),
-			                                           gameMode.Entry.GameModeId.ToUpper());
+			                                           info.Entry.MatchType.GetTranslation().ToUpper(),
+			                                           info.Entry.GameModeId.ToUpper());
 		}
 	}
 }

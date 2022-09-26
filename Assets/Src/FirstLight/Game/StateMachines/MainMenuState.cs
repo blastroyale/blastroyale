@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs.AssetConfigs;
@@ -58,7 +59,7 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger = statechartTrigger;
 			_lootMenuState = new LootMenuState(services, uiService, gameLogic, statechartTrigger);
 			_enterNameState = new EnterNameState(services, uiService, gameLogic, statechartTrigger);
-			_settingsMenuState = new SettingsMenuState(services, gameLogic, uiService, statechartTrigger);
+			_settingsMenuState = new SettingsMenuState(gameLogic, services, gameLogic, uiService, statechartTrigger);
 		}
 
 		/// <summary>
@@ -77,6 +78,7 @@ namespace FirstLight.Game.StateMachines
 			initial.OnExit(SubscribeEvents);
 
 			mainMenuLoading.OnEnter(LoadMainMenu);
+			mainMenuLoading.OnEnter(ValidateCurrentGameMode);
 			mainMenuLoading.Event(MainMenuLoadedEvent).Target(mainMenu);
 			mainMenuLoading.OnExit(LoadingComplete);
 
@@ -126,7 +128,7 @@ namespace FirstLight.Game.StateMachines
 
 			claimUnclaimedRewards.OnEnter(ClaimUncollectedRewards);
 			claimUnclaimedRewards.Transition().Target(screenCheck);
-
+			
 			homeMenu.OnEnter(OpenMainMenuUi);
 			homeMenu.OnEnter(OpenPlayMenuUI);
 			homeMenu.Event(_playClickedEvent).Target(playClickedCheck);
@@ -177,7 +179,8 @@ namespace FirstLight.Game.StateMachines
 
 		private bool HasDefaultName()
 		{
-			return _gameDataProvider.AppDataProvider.Nickname == GameConstants.PlayerName.DEFAULT_PLAYER_NAME;
+			return _gameDataProvider.AppDataProvider.DisplayNameTrimmed == GameConstants.PlayerName.DEFAULT_PLAYER_NAME ||
+			       string.IsNullOrEmpty(_gameDataProvider.AppDataProvider.DisplayNameTrimmed);
 		}
 
 		private void SubscribeEvents()
@@ -219,6 +222,14 @@ namespace FirstLight.Game.StateMachines
 		private void ClaimUncollectedRewards()
 		{
 			_services.CommandService.ExecuteCommand(new CollectUnclaimedRewardsCommand());
+		}
+		
+		private void ValidateCurrentGameMode()
+		{
+			if (_services.GameModeService.SelectedGameMode.Value.Entry.MatchType != MatchType.Custom) return;
+
+			var rankedMode = _services.GameModeService.Slots.ReadOnlyList.FirstOrDefault(x => x.Entry.MatchType == MatchType.Ranked);
+			_services.GameModeService.SelectedGameMode.Value = rankedMode;
 		}
 
 		private void SendMatchmakingReadyMessage()

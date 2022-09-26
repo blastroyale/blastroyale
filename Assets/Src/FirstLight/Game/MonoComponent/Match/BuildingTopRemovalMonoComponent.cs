@@ -28,6 +28,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			_currentlyCollidingEntities = new List<EntityRef>();
 
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
+			QuantumEvent.Subscribe<EventOnPlayerDead>(this, OnPlayerDead);
 		}
 
 		private void OnDestroy()
@@ -38,6 +39,14 @@ namespace FirstLight.Game.MonoComponent.Match
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
 			CheckUpdateBuildingTop();
+		}
+		
+		private void OnPlayerDead(EventOnPlayerDead callback)
+		{
+			if (_currentlyCollidingEntities.Contains(callback.Entity))
+			{
+				_currentlyCollidingEntities.Remove(callback.Entity);
+			}
 		}
 
 		private void OnTriggerEnter(Collider other)

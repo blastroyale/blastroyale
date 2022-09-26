@@ -11,6 +11,7 @@ using Photon.Deterministic;
 using Quantum;
 using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Events;
+using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Services;
 using Assert = NUnit.Framework.Assert;
@@ -21,6 +22,7 @@ public class TestNftSyncPlugin
 	private StubbedNftSync _nftSync;
 	private PluginEventManager _events;
 	private TestServer _app;
+	private InMemoryAnalytics _analytics;
 
 	[SetUp]
 	public void Setup()
@@ -34,6 +36,7 @@ public class TestNftSyncPlugin
 		_plugin = new BlastRoyalePlugin();
 		_plugin.OnEnable(pluginCtx);
 		_plugin.NftSync = _nftSync;
+		_analytics = _app.GetService<IServerAnalytics>() as InMemoryAnalytics;
 		_nftSync.Indexed.Add(new PolygonNFTMetadata()
 		{
 			token_id = "tokenid1",
@@ -45,9 +48,6 @@ public class TestNftSyncPlugin
 	[Test]
 	public void TestQuantumVector3Serialialization()
 	{
-
-		FP CU = FP.FromRaw(0);
-		
 		var v = new FPVector3(FP._0_01, FP._0_02, FP._0_03);
 
 		var serialized = ModelSerializer.Serialize(v).Value;
@@ -103,7 +103,6 @@ public class TestNftSyncPlugin
     [Test]
     public async Task TestNotDuplicatingAlreadyOwned()
     {
-	 
 	    await _nftSync.SyncAllNfts("yolo");
         var firstState = _app.ServerState.GetPlayerState("yolo").Result.DeserializeModel<EquipmentData>();
         var firstStateUniqueId = firstState.Inventory.Keys.First();
@@ -141,6 +140,35 @@ public class TestNftSyncPlugin
         Assert.AreEqual(1, firstState.NftInventory.Keys.Count);
         Assert.AreEqual(0, secondState.Inventory.Keys.Count);
         Assert.AreEqual(0, secondState.NftInventory.Keys.Count);
+    }
+    
+    [Test]
+    public void TestNftSyncTriggeringAddNftAnalytics()
+    {
+	    _app.ServerState.GetPlayerState("yolo").Result.DeserializeModel<EquipmentData>();
+		
+	    _events.CallEvent(new PlayerDataLoadEvent("yolo"));
+		
+	    var nftDataAfter = _app.ServerState.GetPlayerState("yolo").Result.DeserializeModel<EquipmentData>();
+	    var nftAddedEvents = _analytics.FiredEvents.Where(e => e.Name == "nft_add").ToList();
+
+	    Assert.That(nftAddedEvents.Count == nftDataAfter.NftInventory.Count);
+    }
+    
+    [Test]
+    public async Task TestNftSyncTriggeringRemoveNftAnalytics()
+    {
+	    await _nftSync.SyncAllNfts("yolo");
+	    var firstState = _app.ServerState.GetPlayerState("yolo").Result.DeserializeModel<EquipmentData>();
+        
+	    _nftSync.Indexed.Clear();
+        
+	    await _nftSync.SyncAllNfts("yolo");
+	    _app.ServerState.GetPlayerState("yolo").Result.DeserializeModel<EquipmentData>();
+
+	    var nftRemovedEvents = _analytics.FiredEvents.Where(e => e.Name == "nft_remove").ToList();
+
+	    Assert.That(nftRemovedEvents.Count == firstState.NftInventory.Count);
     }
 
 }

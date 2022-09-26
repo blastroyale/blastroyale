@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Net.Http;
 using FirstLight.FLogger;
 using FirstLight.Game;
@@ -190,20 +191,20 @@ public partial class SROptions
 	}
 
 	[Category("Equipment")]
-	public void RemoveAllEquipment()
+	public void RemoveAllNonNftEquipment()
 	{
 		var services = MainInstaller.Resolve<IGameServices>();
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
 
 		var deletionKeys = new List<UniqueId>();
 
-		deletionKeys.AddRange(gameLogic.EquipmentLogic.Inventory.ReadOnlyDictionary.Keys);
+		var nonNftIds = gameLogic.EquipmentLogic.GetInventoryEquipmentInfo(EquipmentFilter.NoNftOnly).Select(e => e.Id).ToList();
+		deletionKeys.AddRange(nonNftIds);
 
 		foreach (var key in deletionKeys)
 		{
 			gameLogic.EquipmentLogic.RemoveFromInventory(key);
 		}
-
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
 

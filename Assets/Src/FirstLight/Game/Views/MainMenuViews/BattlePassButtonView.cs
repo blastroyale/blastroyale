@@ -14,8 +14,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 	{
 		[SerializeField] private TextMeshProUGUI _progressText;
 		[SerializeField] private Image _progressBar;
-		[SerializeField] private TextMeshProUGUI _currentLevelText;
-		[SerializeField] private TextMeshProUGUI _nextLevelText;
 		[SerializeField] private GameObject _pendingRewardsContainer;
 		[SerializeField] private GameObject _progressContainer;
 
@@ -33,13 +31,11 @@ namespace FirstLight.Game.Views.MainMenuViews
 				return;
 			}
 
-			_gameDataProvider.BattlePassDataProvider.CurrentLevel.InvokeObserve(OnCurrentLevelUpdated);
 			_gameDataProvider.BattlePassDataProvider.CurrentPoints.InvokeObserve(OnCurrentPointsUpdated);
 		}
 
 		protected void OnDestroy()
 		{
-			_gameDataProvider.BattlePassDataProvider.CurrentLevel.StopObserving(OnCurrentLevelUpdated);
 			_gameDataProvider.BattlePassDataProvider.CurrentPoints.StopObserving(OnCurrentPointsUpdated);
 		}
 
@@ -54,12 +50,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 				_progressText.text = $"{current}/{nextLevel}";
 				_progressBar.fillAmount = (float) current / nextLevel;
 			}
-		}
-
-		private void OnCurrentLevelUpdated(uint previous, uint current)
-		{
-			_currentLevelText.text = current.ToString();
-			_nextLevelText.text = (current + 1).ToString();
 		}
 	}
 }

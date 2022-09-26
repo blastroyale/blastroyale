@@ -699,6 +699,7 @@ namespace I2.Loc
 			public static string SellItemFor 		{ get{ return LocalizationManager.GetTranslation ("General/SellItemFor"); } }
 			public static string SellLastWeaponWarning 		{ get{ return LocalizationManager.GetTranslation ("General/SellLastWeaponWarning"); } }
 			public static string ShieldCapacity 		{ get{ return LocalizationManager.GetTranslation ("General/ShieldCapacity"); } }
+			public static string ShieldCapacity2 		{ get{ return LocalizationManager.GetTranslation ("General/ShieldCapacity2"); } }
 			public static string SlotEmpty 		{ get{ return LocalizationManager.GetTranslation ("General/SlotEmpty"); } }
 			public static string SpecialId 		{ get{ return LocalizationManager.GetTranslation ("General/SpecialId"); } }
 			public static string Spectate 		{ get{ return LocalizationManager.GetTranslation ("General/Spectate"); } }
@@ -737,6 +738,8 @@ namespace I2.Loc
 			public static string AutoFire 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/AutoFire"); } }
 			public static string BGM 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BGM"); } }
 			public static string BattleRoyale 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattleRoyale"); } }
+			public static string BattlepassRewardsProgress 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassRewardsProgress"); } }
+			public static string BattlepassRewardsReady 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassRewardsReady"); } }
 			public static string BeatLevelFirst 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BeatLevelFirst"); } }
 			public static string BeatLevelFirstWithDifficulty 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BeatLevelFirstWithDifficulty"); } }
 			public static string BossKilledTimes 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BossKilledTimes"); } }
@@ -771,6 +774,7 @@ namespace I2.Loc
 			public static string DisconnectedMatchEndInfo 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DisconnectedMatchEndInfo"); } }
 			public static string DragAndReleaseToFire 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DragAndReleaseToFire"); } }
 			public static string DragAndReleaseToFireDescription 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DragAndReleaseToFireDescription"); } }
+			public static string DynamicJoystickSetting 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DynamicJoystickSetting"); } }
 			public static string EmailTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/EmailTitle"); } }
 			public static string Enhance 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Enhance"); } }
 			public static string EnhanceDescription 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/EnhanceDescription"); } }
@@ -1749,6 +1753,7 @@ namespace I2.Loc
 		    public const string SellItemFor = "General/SellItemFor";
 		    public const string SellLastWeaponWarning = "General/SellLastWeaponWarning";
 		    public const string ShieldCapacity = "General/ShieldCapacity";
+		    public const string ShieldCapacity2 = "General/ShieldCapacity2";
 		    public const string SlotEmpty = "General/SlotEmpty";
 		    public const string SpecialId = "General/SpecialId";
 		    public const string Spectate = "General/Spectate";
@@ -1787,6 +1792,8 @@ namespace I2.Loc
 		    public const string AutoFire = "MainMenu/AutoFire";
 		    public const string BGM = "MainMenu/BGM";
 		    public const string BattleRoyale = "MainMenu/BattleRoyale";
+		    public const string BattlepassRewardsProgress = "MainMenu/BattlepassRewardsProgress";
+		    public const string BattlepassRewardsReady = "MainMenu/BattlepassRewardsReady";
 		    public const string BeatLevelFirst = "MainMenu/BeatLevelFirst";
 		    public const string BeatLevelFirstWithDifficulty = "MainMenu/BeatLevelFirstWithDifficulty";
 		    public const string BossKilledTimes = "MainMenu/BossKilledTimes";
@@ -1821,6 +1828,7 @@ namespace I2.Loc
 		    public const string DisconnectedMatchEndInfo = "MainMenu/DisconnectedMatchEndInfo";
 		    public const string DragAndReleaseToFire = "MainMenu/DragAndReleaseToFire";
 		    public const string DragAndReleaseToFireDescription = "MainMenu/DragAndReleaseToFireDescription";
+		    public const string DynamicJoystickSetting = "MainMenu/DynamicJoystickSetting";
 		    public const string EmailTitle = "MainMenu/EmailTitle";
 		    public const string Enhance = "MainMenu/Enhance";
 		    public const string EnhanceDescription = "MainMenu/EnhanceDescription";

@@ -1638,6 +1638,28 @@ MonoBehaviour:
   - {fileID: 295714941}
   - {fileID: 1682619813}
   - {fileID: 687402979}
+  - {fileID: 1540971482}
+  - {fileID: 1849918561}
+  - {fileID: 1238665992}
+  - {fileID: 1292160832}
+  - {fileID: 21648803}
+  - {fileID: 2135511934}
+  - {fileID: 109905770}
+  - {fileID: 871914132}
+  - {fileID: 295714941}
+  - {fileID: 1682619813}
+  - {fileID: 687402979}
+  - {fileID: 1540971482}
+  - {fileID: 1849918561}
+  - {fileID: 1238665992}
+  - {fileID: 1292160832}
+  - {fileID: 21648803}
+  - {fileID: 2135511934}
+  - {fileID: 109905770}
+  - {fileID: 871914132}
+  - {fileID: 295714941}
+  - {fileID: 1682619813}
+  - {fileID: 687402979}
 --- !u!136 &-2416048819925898897
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1762,7 +1784,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2381652312719675916
 Transform:
   m_ObjectHideFlags: 0

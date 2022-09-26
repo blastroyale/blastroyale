@@ -39,14 +39,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 49152
       PowerToDamageRatio:
-        Default:
-          RawValue: 26214
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 26214
-        - RawValue: 39322
+        RawValue: 26214
       AttackHitSpeed:
         RawValue: 0
       MinAttackAngle: 60
@@ -88,10 +81,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 32768
       PowerToDamageRatio:
-        Default:
-          RawValue: 39322
-        Keys: []
-        Values: []
+        RawValue: 39322
       AttackHitSpeed:
         RawValue: 1638400
       MinAttackAngle: 7
@@ -133,10 +123,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 39322
       PowerToDamageRatio:
-        Default:
-          RawValue: 16384
-        Keys: []
-        Values: []
+        RawValue: 16384
       AttackHitSpeed:
         RawValue: 2162688
       MinAttackAngle: 20
@@ -178,10 +165,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 5243
       PowerToDamageRatio:
-        Default:
-          RawValue: 16384
-        Keys: []
-        Values: []
+        RawValue: 16384
       AttackHitSpeed:
         RawValue: 2162688
       MinAttackAngle: 5
@@ -223,10 +207,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 29491
       PowerToDamageRatio:
-        Default:
-          RawValue: 52429
-        Keys: []
-        Values: []
+        RawValue: 52429
       AttackHitSpeed:
         RawValue: 2162688
       MinAttackAngle: 7
@@ -268,10 +249,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 52429
       PowerToDamageRatio:
-        Default:
-          RawValue: 78643
-        Keys: []
-        Values: []
+        RawValue: 78643
       AttackHitSpeed:
         RawValue: 3276800
       MinAttackAngle: 3
@@ -313,10 +291,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 65536
       PowerToDamageRatio:
-        Default:
-          RawValue: 32768
-        Keys: []
-        Values: []
+        RawValue: 32768
       AttackHitSpeed:
         RawValue: 786432
       MinAttackAngle: 10
@@ -358,10 +333,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 1638
       PowerToDamageRatio:
-        Default:
-          RawValue: 19661
-        Keys: []
-        Values: []
+        RawValue: 19661
       AttackHitSpeed:
         RawValue: 2162688
       MinAttackAngle: 10
@@ -403,10 +375,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 19661
       PowerToDamageRatio:
-        Default:
-          RawValue: 32768
-        Keys: []
-        Values: []
+        RawValue: 32768
       AttackHitSpeed:
         RawValue: 3276800
       MinAttackAngle: 3
@@ -448,10 +417,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 43647
       PowerToDamageRatio:
-        Default:
-          RawValue: 9830
-        Keys: []
-        Values: []
+        RawValue: 9830
       AttackHitSpeed:
         RawValue: 3276800
       MinAttackAngle: 33
@@ -493,10 +459,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 5243
       PowerToDamageRatio:
-        Default:
-          RawValue: 9830
-        Keys: []
-        Values: []
+        RawValue: 9830
       AttackHitSpeed:
         RawValue: 3276800
       MinAttackAngle: 20
@@ -538,10 +501,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 7864
       PowerToDamageRatio:
-        Default:
-          RawValue: 13107
-        Keys: []
-        Values: []
+        RawValue: 13107
       AttackHitSpeed:
         RawValue: 3276800
       MinAttackAngle: 7
@@ -583,10 +543,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 65536
       PowerToDamageRatio:
-        Default:
-          RawValue: 65536
-        Keys: []
-        Values: []
+        RawValue: 65536
       AttackHitSpeed:
         RawValue: 5242880
       MinAttackAngle: 3
@@ -628,10 +585,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 36045
       PowerToDamageRatio:
-        Default:
-          RawValue: 45875
-        Keys: []
-        Values: []
+        RawValue: 45875
       AttackHitSpeed:
         RawValue: 458752
       MinAttackAngle: 10
@@ -673,10 +627,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 3932
       PowerToDamageRatio:
-        Default:
-          RawValue: 9830
-        Keys: []
-        Values: []
+        RawValue: 9830
       AttackHitSpeed:
         RawValue: 5242880
       MinAttackAngle: 15
@@ -718,10 +669,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 32768
       PowerToDamageRatio:
-        Default:
-          RawValue: 45875
-        Keys: []
-        Values: []
+        RawValue: 45875
       AttackHitSpeed:
         RawValue: 3276800
       MinAttackAngle: 5
@@ -763,10 +711,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 19661
       PowerToDamageRatio:
-        Default:
-          RawValue: 16384
-        Keys: []
-        Values: []
+        RawValue: 16384
       AttackHitSpeed:
         RawValue: 2162688
       MinAttackAngle: 7
@@ -808,10 +753,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 7864
       PowerToDamageRatio:
-        Default:
-          RawValue: 16384
-        Keys: []
-        Values: []
+        RawValue: 16384
       AttackHitSpeed:
         RawValue: 2162688
       MinAttackAngle: 15
@@ -853,10 +795,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 10486
       PowerToDamageRatio:
-        Default:
-          RawValue: 19661
-        Keys: []
-        Values: []
+        RawValue: 19661
       AttackHitSpeed:
         RawValue: 3276800
       MinAttackAngle: 5
@@ -898,10 +837,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 52429
       PowerToDamageRatio:
-        Default:
-          RawValue: 49152
-        Keys: []
-        Values: []
+        RawValue: 49152
       AttackHitSpeed:
         RawValue: 5898240
       MinAttackAngle: 3
@@ -943,10 +879,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 52429
       PowerToDamageRatio:
-        Default:
-          RawValue: 52429
-        Keys: []
-        Values: []
+        RawValue: 52429
       AttackHitSpeed:
         RawValue: 458752
       MinAttackAngle: 10
@@ -988,10 +921,7 @@ MonoBehaviour:
       AttackCooldown:
         RawValue: 1311
       PowerToDamageRatio:
-        Default:
-          RawValue: 1966
-        Keys: []
-        Values: []
+        RawValue: 1966
       AttackHitSpeed:
         RawValue: 655360
       MinAttackAngle: 10

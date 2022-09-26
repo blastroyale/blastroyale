@@ -141,6 +141,7 @@ synced event OnPlayerEquipmentStatsChanged
 	entity_ref Entity;
 	Quantum.Stats PreviousStats;
 	Quantum.Stats CurrentStats;
+	Int32 CurrentMight;
 }
 
 synced event OnPlayerSpecialUsed

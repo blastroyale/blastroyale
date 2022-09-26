@@ -27,6 +27,9 @@ MonoBehaviour:
         RawValue: 328
       GradeStepMultiplier:
         RawValue: 3277
+      CeilToInt: 1
+      ConversionToMightRate:
+        RawValue: 42598
     - StatType: 1
       BaseValue:
         RawValue: 13107200
@@ -36,6 +39,9 @@ MonoBehaviour:
         RawValue: 328
       GradeStepMultiplier:
         RawValue: 3277
+      CeilToInt: 1
+      ConversionToMightRate:
+        RawValue: 65536
     - StatType: 2
       BaseValue:
         RawValue: 13107
@@ -45,6 +51,9 @@ MonoBehaviour:
         RawValue: 2294
       GradeStepMultiplier:
         RawValue: 16384
+      CeilToInt: 0
+      ConversionToMightRate:
+        RawValue: 32768000
     - StatType: 3
       BaseValue:
         RawValue: 655360
@@ -54,6 +63,9 @@ MonoBehaviour:
         RawValue: 1507
       GradeStepMultiplier:
         RawValue: 10945
+      CeilToInt: 1
+      ConversionToMightRate:
+        RawValue: 655360
     - StatType: 5
       BaseValue:
         RawValue: 65536
@@ -63,6 +75,9 @@ MonoBehaviour:
         RawValue: 66
       GradeStepMultiplier:
         RawValue: 66
+      CeilToInt: 0
+      ConversionToMightRate:
+        RawValue: 983040
     - StatType: 6
       BaseValue:
         RawValue: 6554
@@ -72,6 +87,9 @@ MonoBehaviour:
         RawValue: 2294
       GradeStepMultiplier:
         RawValue: 16384
+      CeilToInt: 0
+      ConversionToMightRate:
+        RawValue: 13107200
     - StatType: 7
       BaseValue:
         RawValue: 655360
@@ -81,6 +99,9 @@ MonoBehaviour:
         RawValue: 66
       GradeStepMultiplier:
         RawValue: 66
+      CeilToInt: 1
+      ConversionToMightRate:
+        RawValue: 1310720
     - StatType: 4
       BaseValue:
         RawValue: 16384000
@@ -90,3 +111,6 @@ MonoBehaviour:
         RawValue: 328
       GradeStepMultiplier:
         RawValue: 3277
+      CeilToInt: 1
+      ConversionToMightRate:
+        RawValue: 28836

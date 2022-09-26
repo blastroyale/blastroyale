@@ -47,11 +47,13 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private IGameServices _services;
 		private IAsyncCoroutine _cooldownCoroutine;
 		private PointerEventData _pointerDownData;
-		private bool _allowTargetingCancel;
 		private float _lastDragDeltaMag;
 		private DateTime _cooldownEnd;
 		private bool _startedValidSpecialInput;
-
+		private bool _canTriggerCancelEnter;
+		private bool _canTriggerCancelExit;
+		private bool _firstCancelExit;
+		
 		/// <summary>
 		/// Request's the special <see cref="GameId"/> assigned to this special view button
 		/// </summary>
@@ -76,8 +78,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 
 			_pointerDownData = eventData;
-			_allowTargetingCancel = false;
 			_startedValidSpecialInput = true;
+			_canTriggerCancelEnter = false;
+			_canTriggerCancelExit = false;
+			_firstCancelExit = true;
 			
 			_specialAimDirectionAdapter.SendValueToControl(Vector2.zero);
 			_specialPointerDownAdapter.SendValueToControl(1f);
@@ -101,21 +105,28 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var deltaMagClamp = Vector2.ClampMagnitude(delta, _specialRadius);
 			var deltaMagNorm = deltaMagClamp / _specialRadius;
 
-			// Exit cancel radius
-			if (!_allowTargetingCancel && deltaMag >= _cancelRadius)
+			// Exit special radius first time
+			if (_firstCancelExit && deltaMag >= _specialRadius)
 			{
-				_allowTargetingCancel = true;
-				
+				_firstCancelExit = false;
+				_canTriggerCancelEnter = true;
 				_specialAnchor.SetActive(false);
 				_cancelAnchor.SetActive(true);
-				
+			}
+			// Exit cancel radius
+			else if (_canTriggerCancelExit && deltaMag >= _cancelRadius)
+			{
+				_canTriggerCancelExit = false;
+				_canTriggerCancelEnter = true;
+				_specialAnchor.SetActive(false);
+				_cancelAnchor.SetActive(true);
 				OnCancelExit?.Invoke();
 			}
 			// Enter cancel radius
-			else if (_allowTargetingCancel && deltaMag <= _cancelRadius)
+			else if (_canTriggerCancelEnter && deltaMag <= _cancelRadius)
 			{
-				_allowTargetingCancel = false;
-
+				_canTriggerCancelEnter = false;
+				_canTriggerCancelExit = true;
 				_cancelPointerDownAdapter.SendValueToControl(1f);
 				OnCancelEnter?.Invoke();
 			}
@@ -136,8 +147,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 
 			_pointerDownData = null;
-			_allowTargetingCancel = false;
 			_startedValidSpecialInput = false;
+			_canTriggerCancelEnter = false;
+			_canTriggerCancelExit = false;
+			_firstCancelExit = true;
 			
 			_specialAnchor.SetActive(true);
 			_cancelAnchor.SetActive(false);

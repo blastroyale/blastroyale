@@ -1,0 +1,22 @@
+.currency-display {
+    background-image: url('project://database/Assets/Art/UI/Sprites/CurrencyBack.png?fileID=21300000&guid=5c34000b4db9d44d297310e0b968e481&type=3#CurrencyBack');
+    width: 197px;
+    height: 54px;
+    flex-direction: row;
+}
+
+.currency-display > #Icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/CS.png?fileID=21300000&guid=d74b22177c5ba4ac6b9293d6c147e46e&type=3#CS');
+    width: 54px;
+    height: 54px;
+    margin-left: -17px;
+}
+
+.currency-display > #Label {
+    -unity-text-align: middle-left;
+    font-size: 42px;
+    margin-left: 30px;
+    color: rgba(255, 255, 255, 255);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgba(0, 0, 0, 255);
+}

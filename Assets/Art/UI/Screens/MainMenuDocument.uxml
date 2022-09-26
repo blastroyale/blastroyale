@@ -1,0 +1,63 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="CurrencyDisplay" src="project://database/Assets/Art/UI/Templates/CurrencyDisplay.uxml?fileID=9197481963319205126&amp;guid=328eeb5ffa7ba412e8d99f68c0f592c7&amp;type=3#CurrencyDisplay" />
+    <Style src="project://database/Assets/Art/UI/CommonStyle.uss?fileID=7433441132597879392&amp;guid=724da097496fa4dabbe27f211fbcd3bf&amp;type=3#CommonStyle" />
+    <Style src="project://database/Assets/Art/UI/Screens/MainMenuStyle.uss?fileID=7433441132597879392&amp;guid=54dbd0d57987f4f398aea3e4722669ea&amp;type=3#MainMenuStyle" />
+    <FirstLight.Game.UIElements.SafeAreaElement style="align-items: center; justify-content: center;">
+        <ui:VisualElement style="flex-direction: row-reverse; position: absolute; top: 0; right: 0; margin-right: 110px; margin-top: 23px; align-items: center;">
+            <ui:Button display-tooltip-when-elided="true" name="SettingsButton" style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/SettingsIcon.png?fileID=21300000&amp;guid=04713a4471ac6493ba0a2533be572841&amp;type=3#SettingsIcon&apos;); width: 66px; height: 66px;" />
+            <ui:Instance template="CurrencyDisplay" name="CSCurrency" style="margin-right: 49px;" />
+            <ui:Instance template="CurrencyDisplay" name="CSCurrency" style="margin-right: 43px;" />
+        </ui:VisualElement>
+        <ui:VisualElement style="height: 580px; width: 535px; position: absolute; right: 0; bottom: 0; flex-direction: column-reverse; margin-bottom: 35px; margin-right: 93px; align-items: flex-end; display: flex;">
+            <ui:Button text="PLAY" display-tooltip-when-elided="true" name="PlayButton" enable-rich-text="false" class="play-button font-italic font-style-h1" />
+            <ui:Button text="Button" display-tooltip-when-elided="true" name="GameModeButton" style="flex-direction: column-reverse;">
+                <ui:VisualElement style="rotate: -3deg; margin-right: 56px; padding-bottom: 26px;">
+                    <ui:Label text="DEATHMATCH" display-tooltip-when-elided="true" name="GameModeLabel" class="font-italic font-style-h2" style="-unity-text-align: upper-right; font-size: 46px; padding-bottom: 0; margin-bottom: -6px;" />
+                    <ui:Label text="CHANGE MODE" display-tooltip-when-elided="true" class="font-italic font-style-h2" style="-unity-text-align: upper-right; font-size: 29px;" />
+                </ui:VisualElement>
+            </ui:Button>
+            <ui:Button text="CUSTOM GAME" display-tooltip-when-elided="true" name="CustomGameButton" class="button-regular font-italic font-style-h2">
+                <ui:VisualElement name="ButtonIcon" class="button-icon" style="-unity-background-scale-mode: scale-to-fit; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/BattlepassCrown.png?fileID=21300000&amp;guid=0009bb56e12594dd9a62134a948a4f74&amp;type=3#BattlepassCrown&apos;);" />
+            </ui:Button>
+        </ui:VisualElement>
+        <ui:VisualElement style="position: absolute; left: 0; top: 285px; bottom: 0; justify-content: space-between; margin-bottom: 36px; margin-left: 121px;">
+            <ui:Button text="EQUIPMENT" display-tooltip-when-elided="true" name="EquipmentButton" class="button-regular font-italic font-style-h2">
+                <ui:VisualElement name="ButtonIcon" class="button-icon" style="-unity-background-scale-mode: scale-to-fit; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/BattlepassCrown.png?fileID=21300000&amp;guid=0009bb56e12594dd9a62134a948a4f74&amp;type=3#BattlepassCrown&apos;);" />
+            </ui:Button>
+            <ui:Button text="HEROES" display-tooltip-when-elided="true" name="HeroesButton" class="button-regular font-italic font-style-h2">
+                <ui:VisualElement name="ButtonIcon" class="button-icon" style="-unity-background-scale-mode: scale-to-fit; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/BattlepassCrown.png?fileID=21300000&amp;guid=0009bb56e12594dd9a62134a948a4f74&amp;type=3#BattlepassCrown&apos;);" />
+            </ui:Button>
+            <ui:Button text="MARKETPLACE" display-tooltip-when-elided="true" name="MarketplaceButton" class="button-regular font-italic font-style-h2">
+                <ui:VisualElement name="ButtonIcon" class="button-icon" style="-unity-background-scale-mode: scale-to-fit; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/BattlepassCrown.png?fileID=21300000&amp;guid=0009bb56e12594dd9a62134a948a4f74&amp;type=3#BattlepassCrown&apos;);" />
+            </ui:Button>
+            <ui:Button text="LEADERBOARDS" display-tooltip-when-elided="true" name="LeaderboardsButton" class="button-regular font-italic font-style-h2" style="letter-spacing: -4px;">
+                <ui:VisualElement name="ButtonIcon" class="button-icon" style="-unity-background-scale-mode: scale-to-fit; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/BattlepassCrown.png?fileID=21300000&amp;guid=0009bb56e12594dd9a62134a948a4f74&amp;type=3#BattlepassCrown&apos;);" />
+            </ui:Button>
+            <ui:VisualElement style="flex-direction: row; align-items: flex-end;">
+                <ui:Button display-tooltip-when-elided="true" name="BattlePassButton" class="blastpassbutton">
+                    <ui:VisualElement style="rotate: 1deg;">
+                        <ui:Label text="BLAST PASS" display-tooltip-when-elided="true" class="font-style-h1 font-italic" style="margin-top: 14px; font-size: 55px; -unity-font-style: bold; text-shadow: -5px 5px 0 rgb(0, 0, 0);" />
+                        <ui:Label text="LVL 1" display-tooltip-when-elided="true" name="BattlePassLevelLabel" class="font-bold" style="-unity-text-align: middle-right; font-size: 46px; margin-top: -18px; margin-right: 15px; color: rgb(138, 22, 0); -unity-font-style: bold;" />
+                        <ui:VisualElement style="height: 20px; padding-left: 2px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px; background-color: rgb(137, 25, 0); rotate: -1deg; margin-right: 12px; margin-left: 61px; margin-top: -7px; right: 0; flex-direction: row;">
+                            <ui:VisualElement style="background-color: rgb(68, 202, 208); flex-grow: 1; flex-shrink: 0; flex-direction: row; flex-basis: 1px;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:Button>
+                <ui:Button text="Chest" display-tooltip-when-elided="true" name="ChestButton" class="button-regular font-italic font-style-h2" style="margin-left: 64px; -unity-background-image-tint-color: rgb(255, 247, 0);" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </FirstLight.Game.UIElements.SafeAreaElement>
+    <ui:VisualElement style="position: absolute; left: 0; top: 0; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/HeadlineCornerBack.png?fileID=21300000&amp;guid=a00a82499a7b54937bb2cf2b23aeb238&amp;type=3#HeadlineCornerBack&apos;); width: 790px; height: 220px;">
+        <ui:VisualElement style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/ProfileHeadlineBack.png?fileID=21300000&amp;guid=8f2de411e440e476a955e263066bcdfa&amp;type=3#ProfileHeadlineBack&apos;); width: 484px; height: 128px; margin-left: 315px;">
+            <ui:VisualElement style="position: absolute; width: 340px; height: 72px; rotate: -13deg; left: 31px; top: -14px; flex-direction: column-reverse;">
+                <ui:ProgressBar title="my-progress" name="TrophiesProgressBar" style="height: 14px; visibility: hidden; display: flex;" />
+                <ui:VisualElement style="flex-direction: row; justify-content: flex-start; align-items: flex-end; margin-bottom: 6px;">
+                    <ui:VisualElement style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Trophy.png?fileID=21300000&amp;guid=872fe08ff0fbc4f64b229d591f48d144&amp;type=3#Trophy&apos;); width: 32px; height: 32px; margin-left: 16px;" />
+                    <ui:Label text="143" display-tooltip-when-elided="true" name="PlayerTrophiesLabel" class="font-italic font-style-h2" style="margin-left: 6px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:Label text="PLAYER NAME" display-tooltip-when-elided="true" name="PlayerNameLabel" class="font-italic font-style-h2" />
+    </ui:VisualElement>
+    <ui:VisualElement name="Reference" style="position: absolute; left: -4px; top: 0; right: 4px; bottom: 0; background-image: url(&apos;project://database/Assets/Art/UI/References/MainMenu.png?fileID=2800000&amp;guid=1b6a00a4f363440e3aec3b988db1f6b0&amp;type=3#MainMenu&apos;); opacity: 0.41; overflow: visible; visibility: hidden; display: flex; background-color: rgb(138, 22, 0);" />
+</ui:UXML>

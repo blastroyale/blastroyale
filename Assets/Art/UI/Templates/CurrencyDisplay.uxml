@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Templates/CurrencyDisplayStyle.uss?fileID=7433441132597879392&amp;guid=f9b27b3b4a5b04f5ba7078e5695733e5&amp;type=3#CurrencyDisplayStyle" />
+    <Style src="project://database/Assets/Art/UI/CommonStyle.uss?fileID=7433441132597879392&amp;guid=724da097496fa4dabbe27f211fbcd3bf&amp;type=3#CommonStyle" />
+    <ui:VisualElement name="CurrencyDisplay" class="currency-display">
+        <ui:VisualElement name="Icon" class="currency-icon" />
+        <ui:Label text="1,276" display-tooltip-when-elided="true" name="Label" class="currency-label font-italic" />
+    </ui:VisualElement>
+</ui:UXML>

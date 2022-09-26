@@ -215,7 +215,8 @@ namespace Quantum
 					// Equipment drop logic
 					if (drop == GameId.Random)
 					{
-						// TODO: Currently a player has only 1 chance to get Weapon - from their first crate; this needs to be fixed, otherwise a player will have to pickup all gear before getting another weapon
+						//TODO: Currently a player has only 1 chance to get Weapon - from their first crate; this needs to be fixed, otherwise a player will have to pickup all gear before getting another weapon
+						//TODO: Currently this logic can drop two same equipment items, which shouldn't be the case
 						
 						// First - try to drop player's next equipment from their loadout
 						var nextGearItem = GetNextLoadoutGearItem(f, playerCharacter, playerCharacter->GetLoadout(f));
@@ -293,8 +294,11 @@ namespace Quantum
 							
 							// Modify the equipment rarity by the rarity of the chest being opened, and by 1 at minimum
 							var higherRarityEquipment = equipment;
-							var rarityModifier = FPMath.Max(1, f.RNG->NextInclusive(config.RarityModifierRange.Value1, config.RarityModifierRange.Value2)).AsInt;
-							ModifyEquipmentRarity(f, ref higherRarityEquipment, equipment.Rarity + rarityModifier, gameContainer->DropPool.AverageRarity);
+							var newMinimumRarity = (EquipmentRarity)((int)equipment.Rarity + 1);
+							
+							// We use "newMinimumRarity" as "median rarity" in this particular case to ensure
+							// that higher quality chests affect rarity improvement stronger
+							ModifyEquipmentRarity(f, ref higherRarityEquipment, newMinimumRarity, newMinimumRarity);
 							Collectable.DropEquipment(f, higherRarityEquipment, chestPosition, angleStep++, playerRef);
 							
 							chestItems.Add(new ChestItemDropped

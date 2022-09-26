@@ -128,6 +128,21 @@ namespace FirstLight.Game.Views.MainMenuViews
 			SetGridPosition(ScreenToGridPosition(eventData.position), true);
 		}
 
+		public void SelectWaterPosition()
+		{
+			var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
+
+			for (int y = 0; y < mapGridConfigs.GetSize().y; y++)
+			{
+				var pos = new Vector2Int(0, y);
+				if (IsValidPosition(pos, true))
+				{
+					SetGridPosition(pos, true);
+					return;
+				}
+			}
+		}
+
 		private void SetGridPosition(Vector2Int pos, bool includeWater)
 		{
 			if (!IsValidPosition(pos, includeWater))

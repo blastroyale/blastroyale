@@ -177,19 +177,17 @@ namespace Quantum
 			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
 			var initialAmmo = weaponConfig.InitialAmmoFilled.Get(f);
 			var slot = GetWeaponEquipSlot(weapon, primary);
-			var primaryReplaced = false;
 			var primaryWeapon = WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon;
 			if (primaryWeapon.IsValid() && weapon.GameId == primaryWeapon.GameId &&
 			    weapon.Rarity > primaryWeapon.Rarity)
 			{
 				slot = Constants.WEAPON_INDEX_PRIMARY;
-				primaryReplaced = true;
 			}
 
 			// Optionally drop the weapon if there's a different weapon in a slot
 			if (f.Context.GameModeConfig.DropWeaponOnPickup &&
 			    WeaponSlots[slot].Weapon.IsValid() &&
-			    (WeaponSlots[slot].Weapon.GameId != weapon.GameId || primaryReplaced))
+			    WeaponSlots[slot].Weapon.GameId != weapon.GameId)
 			{
 				var dropPosition = f.Get<Transform3D>(e).Position + FPVector3.Forward;
 				Collectable.DropEquipment(f, WeaponSlots[slot].Weapon, dropPosition, 0);

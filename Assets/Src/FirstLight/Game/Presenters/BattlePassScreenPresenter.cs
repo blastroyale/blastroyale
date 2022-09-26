@@ -20,12 +20,11 @@ namespace FirstLight.Game.Presenters
 	/// This presenter handles the BattlePass screen - displays the current / next level, the progress, and
 	/// shows reward popups when you receive them.
 	/// </summary>
-	public class BattlePassScreenPresenter : UiPresenterData<BattlePassScreenPresenter.StateData>
+	public class BattlePassScreenPresenter : AnimatedUiPresenterData<BattlePassScreenPresenter.StateData>
 	{
 		[SerializeField, Required] private Button _backButton;
 		[SerializeField, Required] private TextMeshProUGUI _currentLevel;
 		[SerializeField, Required] private TextMeshProUGUI _nextLevel;
-		[SerializeField, Required] private TextMeshProUGUI _progressText;
 		[SerializeField, Required] private TextMeshProUGUI _nextLevelRewards;
 		[SerializeField, Required] private Image _progressBar;
 
@@ -124,7 +123,7 @@ namespace FirstLight.Game.Presenters
 			var ppl = config.PointsPerLevel;
 
 			_progressBar.fillAmount = (float) points / ppl;
-			_progressText.text = $"{points}/{ppl}";
+			//_progressText.text = $"{points}/{ppl}";
 		}
 	}
 }

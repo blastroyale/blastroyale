@@ -65,7 +65,7 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// If true we award BattlePass points (BPP) and show the BattlePass button on the home screen.
 		/// </summary>
-		public static bool BATTLE_PASS_ENABLED = false;
+		public static bool BATTLE_PASS_ENABLED = true;
 		
 		/// <summary>
 		/// If true all matches will be handled as ranked matches

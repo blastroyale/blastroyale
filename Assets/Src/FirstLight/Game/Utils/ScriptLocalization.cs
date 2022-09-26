@@ -738,6 +738,7 @@ namespace I2.Loc
 			public static string AutoFire 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/AutoFire"); } }
 			public static string BGM 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BGM"); } }
 			public static string BattleRoyale 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattleRoyale"); } }
+			public static string BattlepassClaimAll 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassClaimAll"); } }
 			public static string BattlepassRewardsProgress 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassRewardsProgress"); } }
 			public static string BattlepassRewardsReady 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassRewardsReady"); } }
 			public static string BeatLevelFirst 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BeatLevelFirst"); } }
@@ -1792,6 +1793,7 @@ namespace I2.Loc
 		    public const string AutoFire = "MainMenu/AutoFire";
 		    public const string BGM = "MainMenu/BGM";
 		    public const string BattleRoyale = "MainMenu/BattleRoyale";
+		    public const string BattlepassClaimAll = "MainMenu/BattlepassClaimAll";
 		    public const string BattlepassRewardsProgress = "MainMenu/BattlepassRewardsProgress";
 		    public const string BattlepassRewardsReady = "MainMenu/BattlepassRewardsReady";
 		    public const string BeatLevelFirst = "MainMenu/BeatLevelFirst";

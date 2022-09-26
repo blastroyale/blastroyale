@@ -7014,6 +7014,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _progressText: {fileID: 3611011438510064994}
   _progressBar: {fileID: 5322105290801352195}
+  _currentLevelText: {fileID: 3510603926277771892}
+  _nextLevelText: {fileID: 3510603926277771892}
   _pendingRewardsContainer: {fileID: 216062981541517148}
   _progressContainer: {fileID: 407111248514519887}
 --- !u!1 &7384991948409431680

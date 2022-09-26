@@ -33,32 +33,10 @@ namespace Quantum
 
 			//targetAttackAngle depend on a current character velocity 
 			var targetAttackAngle = FPMath.Lerp(weaponConfig.MinAttackAngle, weaponConfig.MaxAttackAngle,
-												cVelocitySqr / maxSpeedSqr);
-			var shotAngle = FP._0;
-
-			//accuracy modifier is found by approximate normal distribution random,
-			//and then creating a rotation vector that is passed onto the projectile; only works for single shot weapons
-			if (weaponConfig.NumberOfShots == 1)
-			{
-				var rngNumber = f.RNG->NextInclusive(0,100);
-				var angleStep = targetAttackAngle / Constants.APPRX_NORMAL_DISTRIBUTION.Length;
-				
-				for (var i = 0; i < Constants.APPRX_NORMAL_DISTRIBUTION.Length; i++)
-				{
-					if (rngNumber <= Constants.APPRX_NORMAL_DISTRIBUTION[i])
-					{
-						shotAngle = f.RNG->Next(angleStep * i, angleStep * (i + 1)) - (targetAttackAngle / FP._2);
-						break;
-					}
-					
-					// i = 2
-					// approximateNormalDistribution[i] = 37
-					// angleStep = 60 / 7 = 8.57
-					// 0,			1,				2,				3,				4,				5,				6
-					// 0 - 8.57,	8.57 - 17.14	17.14 - 25.71	25.71 - 34.28	34.28 - 42.85	42.85 - 51.42	51.42 - 60
-				}
-			}
-			
+			                                    cVelocitySqr / maxSpeedSqr);
+			var shotAngle = weaponConfig.NumberOfShots == 1 ?
+				                QuantumHelpers.GetSingleShotAngleAccuracyModifier(f, targetAttackAngle) :
+				                FP._0;
 			var newAngleVector = FPVector2.Rotate(aimingDirection, shotAngle * FP.Deg2Rad).XOY;
 
 			var projectile = new Projectile

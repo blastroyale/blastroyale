@@ -276,6 +276,7 @@ namespace Quantum
 			var might = QuantumStatCalculator.GetTotalMight(f.StatConfigs.Dictionary, armour, health,speed, 
 			                                                power, attackRange, pickupSpeed, ammoCapacity, shieldCapacity);
 			
+			//TODO: Move default (health, speed, shields) values into StatData configs
 			health += f.GameConfig.PlayerDefaultHealth.Get(f);
 			speed += f.GameConfig.PlayerDefaultSpeed.Get(f);
 			ammoCapacity += f.WeaponConfigs.GetConfig(weapon.GameId).MaxAmmo.Get(f);
@@ -287,9 +288,9 @@ namespace Quantum
 			Values[(int) StatType.Power] = new StatData(power, power, StatType.Power);
 			Values[(int) StatType.Speed] = new StatData(speed, speed, StatType.Speed);
 			Values[(int) StatType.Armour] = new StatData(armour, armour, StatType.Armour);
-			Values[(int)StatType.AttackRange] = new StatData(attackRange, attackRange, StatType.AttackRange);
-			Values[(int)StatType.PickupSpeed] = new StatData(pickupSpeed, pickupSpeed, StatType.PickupSpeed);
-			Values[(int)StatType.AmmoCapacity] = new StatData(ammoCapacity, ammoCapacity, StatType.AmmoCapacity);
+			Values[(int) StatType.AttackRange] = new StatData(attackRange, attackRange, StatType.AttackRange);
+			Values[(int) StatType.PickupSpeed] = new StatData(pickupSpeed, pickupSpeed, StatType.PickupSpeed);
+			Values[(int) StatType.AmmoCapacity] = new StatData(ammoCapacity, ammoCapacity, StatType.AmmoCapacity);
 
 			foreach (var modifier in modifiers)
 			{

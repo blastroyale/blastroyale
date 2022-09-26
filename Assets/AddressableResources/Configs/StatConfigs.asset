@@ -29,7 +29,7 @@ MonoBehaviour:
         RawValue: 3277
       CeilToInt: 1
       ConversionToMightRate:
-        RawValue: 9830
+        RawValue: 42598
     - StatType: 1
       BaseValue:
         RawValue: 13107200
@@ -53,7 +53,7 @@ MonoBehaviour:
         RawValue: 16384
       CeilToInt: 0
       ConversionToMightRate:
-        RawValue: 3932160
+        RawValue: 32768000
     - StatType: 3
       BaseValue:
         RawValue: 655360
@@ -77,7 +77,7 @@ MonoBehaviour:
         RawValue: 66
       CeilToInt: 0
       ConversionToMightRate:
-        RawValue: 1310720
+        RawValue: 983040
     - StatType: 6
       BaseValue:
         RawValue: 6554
@@ -101,7 +101,7 @@ MonoBehaviour:
         RawValue: 66
       CeilToInt: 1
       ConversionToMightRate:
-        RawValue: 131072
+        RawValue: 1310720
     - StatType: 4
       BaseValue:
         RawValue: 16384000
@@ -113,4 +113,4 @@ MonoBehaviour:
         RawValue: 3277
       CeilToInt: 1
       ConversionToMightRate:
-        RawValue: 16384
+        RawValue: 28836

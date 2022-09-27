@@ -33,6 +33,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private IGameDataProvider _dataProvider;
 		private RectTransform _rectTransform;
 		private bool _selectionEnabled = false;
+		private float _dropSelectionSize;
 
 		/// <summary>
 		/// Returns the player's selected point on the map in a normalized state
@@ -55,9 +56,12 @@ namespace FirstLight.Game.Views.MainMenuViews
 			var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(mapId);
 			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
 
+			_dropSelectionSize = config.DropSelectionSize;
+
 			_mapImage.enabled = false;
 			_mapImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(config.Map, false);
 			_mapImage.enabled = true;
+			_mapImage.rectTransform.localScale = Vector3.one / _dropSelectionSize;
 			_selectionEnabled = gameModeConfig.SpawnSelection && !config.IsTestMap;
 
 			_selectedDropAreaText.gameObject.SetActive(_selectionEnabled);
@@ -158,7 +162,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			var localSize = _rectTransform.sizeDelta;
 			_selectedPoint.anchoredPosition = localPosition;
 			_selectedDropAreaText.text = mapGridConfigs.GetTranslation(gridConfig.AreaName);
-			NormalizedSelectionPoint = new Vector2(localPosition.x / localSize.x, localPosition.y / localSize.y);
+			NormalizedSelectionPoint = new Vector2(localPosition.x / localSize.x, localPosition.y / localSize.y) * _dropSelectionSize;
 
 			_selectedDropAreaRoot.SetActive(gridConfig.IsValidNamedArea);
 		}

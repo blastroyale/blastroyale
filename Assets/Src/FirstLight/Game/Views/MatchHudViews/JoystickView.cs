@@ -27,7 +27,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		
 		private int? CurrentPointerId => _pointerDownData?.pointerId;
 		private float _joystickRadius;
-		private float _joystickCorrectionRadius => _joystickRadius * GameConstants.Controls.DYNAMIC_JOYSTICK_THRESHOLD_MULT;
+		private float _joystickCorrectionRadius;
 		
 		private void Awake()
 		{
@@ -35,7 +35,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_defaultJoystickPos = _joystick.anchoredPosition;
 			_joystickRadius = ((_joystick.rect.size.x / 2f) * _joystick.localScale.x) *
 			                  GameConstants.Controls.MOVEMENT_JOYSTICK_RADIUS_MULT;
-
+			_joystickCorrectionRadius = _joystickRadius * GameConstants.Controls.DYNAMIC_JOYSTICK_THRESHOLD_MULT;
+			
 			if (_dynamicJoystickCompatible)
 			{
 				_allowDynamicRepositioning = _dataProvider.AppDataProvider.UseDynamicJoystick;

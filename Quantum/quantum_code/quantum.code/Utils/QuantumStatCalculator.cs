@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Photon.Deterministic;
 
 namespace Quantum
@@ -12,7 +13,7 @@ namespace Quantum
 		/// </summary>
 		public static void CalculateWeaponStats(Frame f, Equipment item, out int armour, out int health, out FP speed, 
 		                                        out FP power, out FP attackRange, out FP pickupSpeed, out FP ammoCapacity,
-												out FP shieldCapacity)
+		                                        out FP shieldCapacity)
 		{
 			if (!item.IsValid() || !item.IsWeapon())
 			{
@@ -47,7 +48,7 @@ namespace Quantum
 		/// </summary>
 		public static void CalculateGearStats(Frame f, Equipment item, out int armour, out int health, out FP speed, 
 		                                      out FP power, out FP attackRange, out FP pickupSpeed, out FP ammoCapacity,
-											  out FP shieldCapacity)
+		                                      out FP shieldCapacity)
 		{
 			if (!item.IsValid())
 			{
@@ -75,21 +76,26 @@ namespace Quantum
 			pickupSpeed = CalculateGearStat(statConfigs[StatType.PickupSpeed], besc, esc, emsc, item);
 			ammoCapacity = CalculateGearStat(statConfigs[StatType.AmmoCapacity], besc, esc, emsc, item);
 			shieldCapacity = CalculateGearStat(statConfigs[StatType.Shield], besc, esc, emsc, item);
-
 		}
 
 		/// <summary>
 		/// Requests the total might for the give stats
 		/// </summary>
-		public static int GetTotalMight(FP armour, FP health, FP speed, FP power, FP attackRange, FP pickupSpeed, FP ammoCapacity, FP shieldCapacity)
+		public static int GetTotalMight(IReadOnlyDictionary<StatType, QuantumStatConfig> statConfigs, FP armour, FP health, 
+		                                FP speed, FP power, FP attackRange, FP pickupSpeed, FP ammoCapacity, FP shieldCapacity)
 		{
-			//TODO: add more stats to might calculation
-			return FPMath.RoundToInt(power + health + speed * FP._100 + armour * FP._10);
+			return FPMath.RoundToInt(armour * statConfigs[StatType.Armour].ConversionToMightRate
+			                         + health * statConfigs[StatType.Health].ConversionToMightRate
+			                         + speed * statConfigs[StatType.Speed].ConversionToMightRate
+			                         + power * statConfigs[StatType.Power].ConversionToMightRate
+			                         + attackRange * statConfigs[StatType.AttackRange].ConversionToMightRate
+			                         + pickupSpeed * statConfigs[StatType.PickupSpeed].ConversionToMightRate
+			                         + ammoCapacity * statConfigs[StatType.AmmoCapacity].ConversionToMightRate
+			                         + shieldCapacity * statConfigs[StatType.Shield].ConversionToMightRate);
 		}
 
 		/// <summary>
 		/// Calculates the <paramref name="equipment"/> stats based on all Weapon <see cref="Equipment"/> stat configs.
-		/// Requests the total might for the give stats
 		/// </summary>
 		public static FP CalculateWeaponStat(QuantumWeaponConfig weaponConfig, QuantumStatConfig statConfig, 
 		                                     QuantumBaseEquipmentStatConfig baseStatConfig,
@@ -98,11 +104,10 @@ namespace Quantum
 		{
 			var attributeValue = CalculateGearStat(statConfig, baseStatConfig, equipmentStatConfig, materialStatConfig, equipment);
 
-
 			//TODO: make a second method that calls the frame in order to get game modde dependant stats
-			if(statConfig.StatType == StatType.Power)
+			if (statConfig.StatType == StatType.Power)
 			{
-				attributeValue *= weaponConfig.PowerToDamageRatio.GetDefault();
+				attributeValue *= weaponConfig.PowerToDamageRatio;
 			}
 
 			return attributeValue;
@@ -119,7 +124,7 @@ namespace Quantum
 			var attributeValue = CalculateAttributeStatValue(statConfig, baseStatConfig.GetValue(statConfig.StatType), 
 			                                                 statRatio, equipment);
 
-			return statConfig.StatType == StatType.Speed ? attributeValue : FPMath.CeilToInt(attributeValue);
+			return statConfig.CeilToInt ? FPMath.CeilToInt(attributeValue) : attributeValue;
 		}
 
 		private static FP CalculateAttributeStatValue(QuantumStatConfig statConfig, FP ratioToBase, FP statRatio, Equipment equipment)

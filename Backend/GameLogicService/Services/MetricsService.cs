@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.Extensibility;
 using FirstLight.Server.SDK.Models;
@@ -12,6 +13,11 @@ namespace Backend.Game.Services
 		public void EmitEvent(string metricName)
 		{
 		
+		}
+
+		public void EmitFailure(string failure)
+		{
+			
 		}
 	}
 
@@ -30,6 +36,14 @@ namespace Backend.Game.Services
 		public void EmitEvent(string metricName)
 		{
 			_client.TrackEvent(metricName);
+		}
+
+		public void EmitFailure(string failure)
+		{
+			_client.TrackException(null, new Dictionary<string, string>()
+			{
+				{ "Error", failure }
+			});
 		}
 	}
 }

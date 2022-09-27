@@ -424,17 +424,6 @@
                 },
                 {
                     "name": "",
-                    "id": "1a814264-8265-46cc-ba29-ca623cc13e10",
-                    "path": "<OnScreenControlsDevice>/CancelPointerDown",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Cancel Button",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "0ac5cd63-339f-43bc-b259-8b9fce87e197",
                     "path": "<Mouse>/middleButton",
                     "interactions": "",

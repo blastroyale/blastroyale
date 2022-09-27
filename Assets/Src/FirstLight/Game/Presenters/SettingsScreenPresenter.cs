@@ -36,6 +36,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private UiToggleButtonView _sfxToggle;
 		[SerializeField, Required] private UiToggleButtonView _dialogueToggle;
 		[SerializeField, Required] private UiToggleButtonView _hapticToggle;
+		[SerializeField, Required] private UiToggleButtonView _dynamicJoystickToggle;
 		[SerializeField, Required] private DetailLevelToggleView _detailLevelView;
 		[SerializeField, Required] private Button _helpdesk;
 		[SerializeField, Required] private Button _faq;
@@ -80,12 +81,14 @@ namespace FirstLight.Game.Presenters
 			_sfxToggle.onValueChanged.AddListener(OnSfxChanged);
 			_dialogueToggle.onValueChanged.AddListener(OnDialogueChanged);
 			_hapticToggle.onValueChanged.AddListener(OnHapticChanged);
+			_dynamicJoystickToggle.onValueChanged.AddListener(OnDynamicJoystickChanged);
 			_detailLevelView.ValueChanged += OnDetailLevelChanged;
 
 			_backgroundMusicToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsBgmEnabled);
 			_sfxToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsSfxEnabled);
 			_dialogueToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsDialogueEnabled);
 			_hapticToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsHapticOn);
+			_dynamicJoystickToggle.SetInitialValue(_gameDataProvider.AppDataProvider.UseDynamicJoystick);
 			_detailLevelView.SetSelectedDetailLevel(_gameDataProvider.AppDataProvider.CurrentDetailLevel);
 			_blockerButton.onClick.AddListener(OnBlockerButtonPressed);
 			_helpdesk.onClick.AddListener(OnHelpdeskButtonPressed);
@@ -153,6 +156,12 @@ namespace FirstLight.Game.Presenters
 		{
 			_gameDataProvider.AppDataProvider.IsHapticOn = value;
 		}
+		
+		private void OnDynamicJoystickChanged(bool value)
+		{
+			_gameDataProvider.AppDataProvider.UseDynamicJoystick = value;
+		}
+		
 
 		private void OnDetailLevelChanged(GraphicsConfig.DetailLevel detailLevel)
 		{

@@ -358,5 +358,28 @@ namespace Quantum
 		{
 			return f.Unsafe.GetPointer<Transform3D>(entity)->Position;
 		}
+		
+		/// <summary>
+		/// Calculates and returns an augmented shot angle based on approximation of normal distribution
+		/// </summary>
+		/// <remarks>
+		/// Accuracy modifier is found by approximate normal distribution random,
+		/// and then creating a rotation vector that is passed onto the projectile; only works for single shot weapons
+		/// </remarks>
+		public static FP GetSingleShotAngleAccuracyModifier(Frame f, FP targetAttackAngle)
+		{
+			var rngNumber = f.RNG->NextInclusive(0,100);
+			var angleStep = targetAttackAngle / Constants.APPRX_NORMAL_DISTRIBUTION.Length;
+			
+			for (var i = 0; i < Constants.APPRX_NORMAL_DISTRIBUTION.Length; i++)
+			{
+				if (rngNumber <= Constants.APPRX_NORMAL_DISTRIBUTION[i])
+				{
+					return f.RNG->Next(angleStep * i, angleStep * (i + 1)) - (targetAttackAngle / FP._2);
+				}
+			}
+			
+			return FP._0;
+		}
 	}
 }

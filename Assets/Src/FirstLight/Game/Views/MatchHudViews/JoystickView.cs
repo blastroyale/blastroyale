@@ -1,4 +1,6 @@
 using FirstLight.Game.Input;
+using FirstLight.Game.Logic;
+using FirstLight.Game.Utils;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -11,24 +13,34 @@ namespace FirstLight.Game.Views.MatchHudViews
 	/// </summary>
 	public class JoystickView : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointerDownHandler
 	{
-		[SerializeField] private RectTransform[] _joysticks;
-		[SerializeField, Required] private Image _handleImage;
+		[SerializeField, Required] private RectTransform _rootAnchor;
+		[SerializeField, Required] private RectTransform _joystick;
+		[SerializeField, Required] private RectTransform _handleImage;
 		[SerializeField, Required] private UnityInputScreenControl _onscreenJoystickDirectionAdapter;
 		[SerializeField, Required] private UnityInputScreenControl _onscreenJoystickPointerDownAdapter;
-		[SerializeField] private float _radiusMultiplier = 1f;
+		[SerializeField, Required] private bool _dynamicJoystickCompatible = true;
 		
 		private PointerEventData _pointerDownData;
-
-		private int? CurrentPointerId => _pointerDownData?.pointerId;
-		private RectTransform MainJoystick => _joysticks[0];
 		private Vector2 _defaultJoystickPos = Vector2.zero;
+		private bool _allowDynamicRepositioning;
+		private IGameDataProvider _dataProvider;
 		
-		// Will be used in the future for new delta deadzone input processor
-		private Vector2 _deltaLastFrame = Vector2.zero;
+		private int? CurrentPointerId => _pointerDownData?.pointerId;
+		private float _joystickRadius;
+		private float _joystickCorrectionRadius;
 		
 		private void Awake()
 		{
-			_defaultJoystickPos = MainJoystick.anchoredPosition;
+			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
+			_defaultJoystickPos = _joystick.anchoredPosition;
+			_joystickRadius = ((_joystick.rect.size.x / 2f) * _joystick.localScale.x) *
+			                  GameConstants.Controls.MOVEMENT_JOYSTICK_RADIUS_MULT;
+			_joystickCorrectionRadius = _joystickRadius * GameConstants.Controls.DYNAMIC_JOYSTICK_THRESHOLD_MULT;
+			
+			if (_dynamicJoystickCompatible)
+			{
+				_allowDynamicRepositioning = _dataProvider.AppDataProvider.UseDynamicJoystick;
+			}
 		}
 		
 		private void OnEnable()
@@ -43,14 +55,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				return;
 			}
-
-			foreach (var joystick in _joysticks)
-			{
-				joystick.position = eventData.position;
-			}
+			
+			_joystick.position = eventData.position;
 
 			_pointerDownData = eventData;
-			_handleImage.rectTransform.anchoredPosition = Vector2.zero;
+			_handleImage.anchoredPosition = Vector2.zero;
 
 			_onscreenJoystickDirectionAdapter.SendValueToControl(Vector2.zero);
 			_onscreenJoystickPointerDownAdapter.SendValueToControl(1f);
@@ -63,22 +72,27 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				return;
 			}
-
-			var rectTransform = MainJoystick;
-
-			RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform, eventData.position,
+			
+			RectTransformUtility.ScreenPointToLocalPointInRectangle(_rootAnchor, _joystick.position,
+			                                                        eventData.pressEventCamera, out var joystickPosition);
+			RectTransformUtility.ScreenPointToLocalPointInRectangle(_rootAnchor, eventData.position,
 			                                                        eventData.pressEventCamera, out var position);
-			RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform, eventData.pressPosition,
-			                                                        eventData.pressEventCamera, out var pressPosition);
-
-			var radius = ((rectTransform.rect.size.x / 2f) * rectTransform.localScale.x) * _radiusMultiplier;
-			var deltaFromCenter = Vector2.ClampMagnitude(position - pressPosition, radius);
-			var deltaFromCenterNorm = deltaFromCenter / radius;
 			
-			_handleImage.rectTransform.anchoredPosition = deltaFromCenter;
-			_onscreenJoystickDirectionAdapter.SendValueToControl(deltaFromCenterNorm);
+			var delta = position - joystickPosition;
+			var deltaMag = delta.magnitude;
+			var deltaMagClamp = Vector2.ClampMagnitude(delta, _joystickRadius);
+			var deltaMagNorm = deltaMagClamp / _joystickRadius;
 			
-			_deltaLastFrame = deltaFromCenter;
+			// Makes the joystick float towards drag position, if the player dragged very far from initial press pos (UX)
+			if (_allowDynamicRepositioning && deltaMag > _joystickCorrectionRadius)
+			{
+				var correctionDirVector = delta.normalized * _joystickCorrectionRadius;
+				var deltaCorrection = delta - correctionDirVector;
+				_joystick.anchoredPosition += deltaCorrection;
+			}
+			
+			_handleImage.anchoredPosition = deltaMagClamp;
+			_onscreenJoystickDirectionAdapter.SendValueToControl(deltaMagNorm);
 		}
 
 		/// <inheritdoc />
@@ -94,13 +108,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void SetDefaultUI()
 		{
-			foreach (var joystick in _joysticks)
-			{
-				joystick.anchoredPosition = _defaultJoystickPos;
-			}
+			_joystick.anchoredPosition = _defaultJoystickPos;
 
 			_pointerDownData = null;
-			_handleImage.rectTransform.anchoredPosition = Vector2.zero;
+			_handleImage.anchoredPosition = Vector2.zero;
 
 			_onscreenJoystickDirectionAdapter.SendValueToControl(Vector2.zero);
 			_onscreenJoystickPointerDownAdapter.SendValueToControl(0f);

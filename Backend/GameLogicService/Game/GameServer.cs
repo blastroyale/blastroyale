@@ -85,11 +85,6 @@ public class GameServer
 				PlayFabId = playerId
 			};
 		}
-		catch (LogicException e)
-		{
-			_log.LogError(e, $"Exception running command {logicRequest.Command}");
-			return GetErrorResult(logicRequest, e);
-		}
 		finally
 		{
 			_mutex.Unlock(playerId);
@@ -142,11 +137,14 @@ public class GameServer
 	/// Returns a logic result to contain information about the logic exception that was
 	/// thrown to be acknowledge by the game client.
 	/// </summary>
-	private BackendLogicResult GetErrorResult(LogicRequest request, LogicException exp)
+	public BackendErrorResult GetErrorResult(LogicRequest request, Exception exp)
 	{
-		return new BackendLogicResult()
+		_log.LogError(exp, $"Unhandled Server Error for {request?.Command}");
+		_metrics.EmitFailure($"{exp.Message} at {exp.StackTrace} on {request?.Command}");
+		return new BackendErrorResult()
 		{
-			Command = request.Command,
+			Error = exp,
+			Command = request?.Command,
 			Data = new Dictionary<string, string>()
 			{
 				{ "LogicException", exp.Message }

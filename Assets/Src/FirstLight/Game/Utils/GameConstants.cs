@@ -161,6 +161,17 @@ namespace FirstLight.Game.Utils
 			public const string SHADER_MINIMAP_DRAW_PLAYERS = "MINIMAP_DRAW_PLAYERS";
 		}
 
+		public static class Controls
+		{
+			public const float DYNAMIC_JOYSTICK_THRESHOLD_MULT = 1.2f;
+			
+			public const float MOVEMENT_JOYSTICK_RADIUS_MULT = 0.9f;
+			
+			public const float SPECIAL_BUTTON_MAX_RADIUS_MULT = 1.65f;
+			public const float SPECIAL_BUTTON_FIRST_CANCEL_RADIUS_MULT = 1.05f;
+			public const float SPECIAL_BUTTON_CANCEL_RADIUS_MULT = 0.55f;
+		}
+		
 		public static class Haptics
 		{
 			// Platform dependent intensity as the vibrations vary greatly between android/iOS

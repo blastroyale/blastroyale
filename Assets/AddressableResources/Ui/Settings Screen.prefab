@@ -906,7 +906,7 @@ RectTransform:
   - {fileID: 5440086929070938068}
   - {fileID: 2812588505734810542}
   m_Father: {fileID: 4627227877818895305}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1096,10 +1096,10 @@ RectTransform:
   m_Father: {fileID: 3269918510843362177}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 250, y: -42.5}
+  m_SizeDelta: {x: 400, y: 35}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &4229455444965180251
 CanvasRenderer:
@@ -1450,7 +1450,7 @@ RectTransform:
   - {fileID: 567235621492412448}
   - {fileID: 7020652120539083993}
   m_Father: {fileID: 4627227877818895305}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2410,6 +2410,7 @@ MonoBehaviour:
   _sfxToggle: {fileID: 8336871632358562626}
   _dialogueToggle: {fileID: 5120825976401775487}
   _hapticToggle: {fileID: 6474415247856761561}
+  _dynamicJoystickToggle: {fileID: 2469355133776862931}
   _detailLevelView: {fileID: 4302885810791390143}
   _helpdesk: {fileID: 6551341500598566378}
   _faq: {fileID: 2274110565824241915}
@@ -2565,6 +2566,7 @@ RectTransform:
   - {fileID: 8198651173539174183}
   - {fileID: 5000443925805287194}
   - {fileID: 6605741634665117372}
+  - {fileID: 2319661881165976246}
   - {fileID: 1975362356925207418}
   - {fileID: 6336130037878780064}
   - {fileID: 4319683294776734569}
@@ -2655,10 +2657,10 @@ RectTransform:
   m_Father: {fileID: 3269918510843362177}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 250, y: -90}
+  m_SizeDelta: {x: 350, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3088334575806887723
 CanvasRenderer:
@@ -2809,7 +2811,7 @@ RectTransform:
   - {fileID: 8548772708282443041}
   - {fileID: 2236829008849379827}
   m_Father: {fileID: 4627227877818895305}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3596,7 +3598,7 @@ RectTransform:
   - {fileID: 6104290060101556208}
   - {fileID: 3447885176404728574}
   m_Father: {fileID: 4627227877818895305}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -6097,6 +6099,163 @@ RectTransform:
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7538380655511276991, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
   m_PrefabInstance: {fileID: 4853456402599911092}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bed01cff761aad248977796dc28aeff0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &5393443377438233452
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 4627227877818895305}
+    m_Modifications:
+    - target: {fileID: 1579659455194769787, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 170.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2993872283670274009, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+      propertyPath: m_Name
+      value: SettingsCellDynamicJoystick
+      objectReference: {fileID: 0}
+    - target: {fileID: 2993872283670274009, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3351900311158343669, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+      propertyPath: mTerm
+      value: MainMenu/DynamicJoystickSetting
+      objectReference: {fileID: 0}
+    - target: {fileID: 3351900311158343669, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+      propertyPath: mLocalizeTarget
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4037596363406086159, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 293.7983
+      objectReference: {fileID: 0}
+    - target: {fileID: 5769708838463548832, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6330742539999291386, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 34550e126b4c8441696b65040c2fd9b3, type: 2}
+    - target: {fileID: 6330742539999291386, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6685156910141101698, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+      propertyPath: m_text
+      value: Dynamic Movement Joystick
+      objectReference: {fileID: 0}
+    - target: {fileID: 6685156910141101698, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+      propertyPath: m_fontSize
+      value: 33.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7538380655511276991, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+      propertyPath: TapSoundFx
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7703482057410347482, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7703482057410347482, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7703482057410347482, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7703482057410347482, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7703482057410347482, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7703482057410347482, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7703482057410347482, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7703482057410347482, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 7703482057410347482, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7703482057410347482, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7703482057410347482, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7703482057410347482, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7703482057410347482, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7703482057410347482, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7703482057410347482, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7703482057410347482, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7703482057410347482, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7703482057410347482, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7703482057410347482, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7703482057410347482, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7703482057410347482, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+--- !u!224 &2319661881165976246 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7703482057410347482, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+  m_PrefabInstance: {fileID: 5393443377438233452}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2469355133776862931 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7538380655511276991, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+  m_PrefabInstance: {fileID: 5393443377438233452}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1

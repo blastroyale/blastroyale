@@ -771,6 +771,7 @@ namespace I2.Loc
 			public static string DisconnectedMatchEndInfo 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DisconnectedMatchEndInfo"); } }
 			public static string DragAndReleaseToFire 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DragAndReleaseToFire"); } }
 			public static string DragAndReleaseToFireDescription 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DragAndReleaseToFireDescription"); } }
+			public static string DynamicJoystickSetting 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DynamicJoystickSetting"); } }
 			public static string EmailTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/EmailTitle"); } }
 			public static string Enhance 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Enhance"); } }
 			public static string EnhanceDescription 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/EnhanceDescription"); } }
@@ -1821,6 +1822,7 @@ namespace I2.Loc
 		    public const string DisconnectedMatchEndInfo = "MainMenu/DisconnectedMatchEndInfo";
 		    public const string DragAndReleaseToFire = "MainMenu/DragAndReleaseToFire";
 		    public const string DragAndReleaseToFireDescription = "MainMenu/DragAndReleaseToFireDescription";
+		    public const string DynamicJoystickSetting = "MainMenu/DynamicJoystickSetting";
 		    public const string EmailTitle = "MainMenu/EmailTitle";
 		    public const string Enhance = "MainMenu/Enhance";
 		    public const string EnhanceDescription = "MainMenu/EnhanceDescription";

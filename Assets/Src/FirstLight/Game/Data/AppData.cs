@@ -20,6 +20,8 @@ namespace FirstLight.Game.Data
 		public DateTime LoginTime;
 		public bool IsFirstSession;
 
+		public bool UseDynamicJoystick = true;
+		
 		public string Environment;
 		public string DeviceId;
 		public string LastLoginEmail;

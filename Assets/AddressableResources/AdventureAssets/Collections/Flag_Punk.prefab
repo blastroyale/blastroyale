@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2087908713229751363}
   - component: {fileID: 2087908713229751361}
   - component: {fileID: 2087908713229751360}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: StunChars
   m_TagString: Untagged
   m_Icon: {fileID: 0}

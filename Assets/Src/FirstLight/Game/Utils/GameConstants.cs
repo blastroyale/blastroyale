@@ -168,8 +168,8 @@ namespace FirstLight.Game.Utils
 			public const float MOVEMENT_JOYSTICK_RADIUS_MULT = 0.9f;
 			
 			public const float SPECIAL_BUTTON_MAX_RADIUS_MULT = 1.65f;
-			public const float SPECIAL_BUTTON_FIRST_CANCEL_RADIUS_MULT = 1f;
-			public const float SPECIAL_BUTTON_CANCEL_RADIUS_MULT = 0.6f;
+			public const float SPECIAL_BUTTON_FIRST_CANCEL_RADIUS_MULT = 1.05f;
+			public const float SPECIAL_BUTTON_CANCEL_RADIUS_MULT = 0.55f;
 		}
 		
 		public static class Haptics

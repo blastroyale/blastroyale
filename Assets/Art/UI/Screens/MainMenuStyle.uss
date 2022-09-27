@@ -8,15 +8,19 @@
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(0, 0, 0);
     padding-left: 38px;
-    text-shadow: 5px 5px 0 rgb(0, 0, 0);
+    text-shadow: 5px 5px 0 rgb(139, 26, 3);
     -unity-text-align: middle-center;
     padding-bottom: 19px;
 }
 
+#PlayButton:hover {
+    color: rgba(156, 156, 156, 255);
+}
+
 #PlayButton:active {
     background-image: url('project://database/Assets/Art/UI/Sprites/PlayButtonPressed.png?fileID=21300000&guid=4755d43108e94404e975817fcc3c9d0b&type=3#PlayButtonPressed');
-    padding-left: 69px;
-    padding-top: 15px;
+    padding-left: 62px;
+    padding-top: 20px;
 }
 
 #GameModeButton {
@@ -38,18 +42,38 @@
     background-image: url('project://database/Assets/Art/UI/Sprites/BattlepassButton.png?fileID=21300000&guid=2944494fed89644cabdbd0b3da73c0e3&type=3#BattlepassButton');
     width: 479px;
     height: 179px;
-    font-size: 70px;
-    color: rgb(255, 255, 255);
+    padding-top: 20px;
+}
+
+#BattlePassButton #Title {
+    text-shadow: 5px 5px 0 rgba(139, 26, 3, 255);
+    font-size: 55px;
+    -unity-font-style: bold;
+}
+
+#BattlePassButton #BattlePassProgressElement {
+    background-color: rgba(68, 202, 208, 255);
+}
+
+#BattlePassButton:hover #Title {
+    color: rgba(197, 197, 197, 255);
+}
+
+#BattlePassButton:hover #BattlePassProgressElement {
+    background-color: rgba(51, 156, 161, 255);
 }
 
 #BattlePassButton:active {
     background-image: url('project://database/Assets/Art/UI/Sprites/BattlepassButtonPressed.png?fileID=21300000&guid=3954eea7714304c3aacf010642a02d78&type=3#BattlepassButtonPressed');
+    padding-top: 27px;
+    padding-right: 20px;
+    padding-left: 0;
 }
 
 #ChestButton {
 }
 
-#GameTypeLabel {
+#GameModeButton #GameTypeLabel {
     color: rgb(146, 137, 162);
 }
 
@@ -67,6 +91,10 @@
 
 #LeaderboardsButton .button-icon {
     background-image: url('project://database/Assets/Art/UI/Sprites/IconLeaderboards.png?fileID=21300000&guid=3a7d899cc87a648b6ab9f1f3cf7035f2&type=3#IconLeaderboards');
+}
+
+#CustomGameButton .button-icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/IconCustomGame.png?fileID=21300000&guid=edeb643c81c524ca28070f239ae51a4e&type=3#IconCustomGame');
 }
 
 #BLSTCurrency #Icon {

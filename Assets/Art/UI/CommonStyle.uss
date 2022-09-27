@@ -65,10 +65,6 @@ Button:hover {
     -unity-text-align: middle-center;
 }
 
-.button-regular:active {
-    background-image: url('project://database/Assets/Art/UI/Sprites/ButtonMainPressed.png?fileID=21300000&guid=5cb1a9853b14740c980813b57e5d03f3&type=3#ButtonMainPressed');
-}
-
 .button-regular > .button-icon {
     width: auto;
     height: 100px;
@@ -78,4 +74,22 @@ Button:hover {
     top: -41px;
     overflow: visible;
     -unity-background-scale-mode: scale-to-fit;
+}
+
+.button-regular:hover {
+    -unity-background-image-tint-color: rgba(121, 57, 236, 255);
+    color: rgba(180, 180, 180, 255);
+}
+
+.button-regular:hover > .button-icon {
+    -unity-background-image-tint-color: rgba(195, 195, 195, 255);
+}
+
+.button-regular:active {
+    background-image: url('project://database/Assets/Art/UI/Sprites/ButtonMainPressed.png?fileID=21300000&guid=5cb1a9853b14740c980813b57e5d03f3&type=3#ButtonMainPressed');
+    padding-top: 70px;
+}
+
+.button-regular:active > .button-icon {
+    top: -30px;
 }

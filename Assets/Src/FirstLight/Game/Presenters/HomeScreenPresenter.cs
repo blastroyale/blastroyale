@@ -4,7 +4,6 @@ using FirstLight.Game.Utils;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.UiService;
-using I2.Loc;
 using Quantum;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
@@ -43,6 +42,8 @@ namespace FirstLight.Game.Presenters
 		private Label _gameTypeLabel;
 		private Label _csAmountLabel;
 		private Label _blstAmountLabel;
+		private Label _battlePassLevelLabel;
+		private VisualElement _battlePassProgressElement;
 
 		private void Start()
 		{
@@ -56,9 +57,11 @@ namespace FirstLight.Game.Presenters
 			_gameModeLabel = _root.Q<Label>("GameModeLabel");
 			_gameTypeLabel = _root.Q<Label>("GameTypeLabel");
 
-			// TODO: Probably a better way to quety this, with .Query<>
-			_csAmountLabel = _root.Q<VisualElement>("CSCurrencyDisplay").Q<Label>("Label");
-			_blstAmountLabel = _root.Q<VisualElement>("BLSTCurrencyDisplay").Q<Label>("Label");
+			// TODO: Probably a better way to query this, with .Query<>
+			_csAmountLabel = _root.Q<VisualElement>("CSCurrency").Q<Label>("Label");
+			_blstAmountLabel = _root.Q<VisualElement>("BLSTCurrency").Q<Label>("Label");
+			_battlePassLevelLabel = _root.Q<Label>("BattlePassLevelLabel");
+			_battlePassProgressElement = _root.Q<VisualElement>("BattlePassProgressElement");
 
 			_root.Q<Button>("PlayButton").clicked += OnPlayButtonClicked;
 			_root.Q<Button>("GameModeButton").clicked += OnGameModeClicked;
@@ -74,23 +77,11 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider.AppDataProvider.DisplayName.InvokeObserve(OnDisplayNameChanged);
 			_gameDataProvider.PlayerDataProvider.Trophies.InvokeObserve(OnTrophiesChanged);
 			_gameDataProvider.CurrencyDataProvider.Currencies.InvokeObserve(GameId.CS, OnCSCurrencyChanged);
-			_gameDataProvider.CurrencyDataProvider.Currencies.InvokeObserve(GameId.CS, OnBLSTCurrencyChanged);
+			_gameDataProvider.CurrencyDataProvider.Currencies.InvokeObserve(GameId.BLST, OnBLSTCurrencyChanged);
+			_gameDataProvider.BattlePassDataProvider.CurrentLevel.InvokeObserve(OnBattlePassCurrentLevelChanged);
+			_gameDataProvider.BattlePassDataProvider.CurrentPoints.InvokeObserve(OnBattlePassCurrentPointsChanged);
 
 			_gameServices.GameModeService.SelectedGameMode.InvokeObserve(OnSelectedGameModeChanged);
-		}
-
-		private void OnCSCurrencyChanged(GameId id, ulong previous, ulong current, ObservableUpdateType updateType)
-		{
-			if (id != GameId.CS) return;
-
-			_csAmountLabel.text = current.ToString();
-		}
-
-		private void OnBLSTCurrencyChanged(GameId id, ulong previous, ulong current, ObservableUpdateType updateType)
-		{
-			if (id != GameId.BLST) return;
-
-			_csAmountLabel.text = current.ToString();
 		}
 
 		private void OnDestroy()
@@ -98,8 +89,7 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider.AppDataProvider.DisplayName.StopObserving(OnDisplayNameChanged);
 			_gameDataProvider.PlayerDataProvider.Trophies.StopObserving(OnTrophiesChanged);
 			_gameServices.GameModeService.SelectedGameMode.StopObserving(OnSelectedGameModeChanged);
-			_gameDataProvider.CurrencyDataProvider.Currencies.StopObserving(OnCSCurrencyChanged);
-			_gameDataProvider.CurrencyDataProvider.Currencies.StopObserving(OnBLSTCurrencyChanged);
+			_gameDataProvider.CurrencyDataProvider.Currencies.StopObservingAll(this);
 		}
 
 		protected override void OnOpened()
@@ -175,6 +165,31 @@ namespace FirstLight.Game.Presenters
 		{
 			_gameModeLabel.text = current.Entry.GameModeId.ToUpper();
 			_gameTypeLabel.text = current.Entry.MatchType.ToString().ToUpper();
+		}
+
+		private void OnCSCurrencyChanged(GameId id, ulong previous, ulong current, ObservableUpdateType updateType)
+		{
+			if (id != GameId.CS) return;
+
+			_csAmountLabel.text = current.ToString();
+		}
+
+		private void OnBLSTCurrencyChanged(GameId id, ulong previous, ulong current, ObservableUpdateType updateType)
+		{
+			if (id != GameId.BLST) return;
+
+			_blstAmountLabel.text = current.ToString();
+		}
+
+		private void OnBattlePassCurrentLevelChanged(uint _, uint current)
+		{
+			_battlePassLevelLabel.text = current.ToString();
+		}
+
+		private void OnBattlePassCurrentPointsChanged(uint _, uint current)
+		{
+			var hasRewards = _gameDataProvider.BattlePassDataProvider.IsRedeemable(out var nextLevel);
+			_battlePassLevelLabel.style.flexGrow = Mathf.Clamp01((float) current / nextLevel);
 		}
 	}
 }

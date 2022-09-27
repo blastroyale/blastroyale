@@ -874,6 +874,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: General/ShieldCapacity2
+      TermType: 0
+      Description: 
+      Languages:
+      - Shields
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: General/ShieldCapacity
       TermType: 0
       Description: 
@@ -2529,7 +2538,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Register
+      - Register First Light ID
       - 
       - 
       Flags: 000000
@@ -3228,7 +3237,53 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - First Light ID has been connected successfully!
+      - First Light ID has been created and connected successfully! Your progress
+        is safe now.
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/DynamicJoystickSetting
+      TermType: 0
+      Description: 
+      Languages:
+      - Dynamic Movement Joystick
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/BattlepassRewardsReady
+      TermType: 0
+      Description: 
+      Languages:
+      - Ready to collect!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/BattlepassRewardsProgress
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0}/{1}'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/BattlepassClaimAll
+      TermType: 0
+      Description: 
+      Languages:
+      - Claim all rewards
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/BattlepassRewardSingleReady
+      TermType: 0
+      Description: 
+      Languages:
+      - Ready to claim!
       - 
       - 
       Flags: 000000
@@ -9051,7 +9106,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1663856388556
+    Google_LastUpdatedVersion: 1664281732985
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

@@ -7,8 +7,10 @@
     -unity-font-style: bold;
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(0, 0, 0);
-    padding-left: 54px;
+    padding-left: 38px;
     text-shadow: 5px 5px 0 rgb(0, 0, 0);
+    -unity-text-align: middle-center;
+    padding-bottom: 19px;
 }
 
 #PlayButton:active {
@@ -45,4 +47,8 @@
 }
 
 #ChestButton {
+}
+
+#GameTypeLabel {
+    color: rgba(146, 137, 162, 255);
 }

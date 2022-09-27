@@ -31,7 +31,7 @@
 .font-style-h2 {
     font-size: 38px;
     letter-spacing: 1px;
-    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.53);
+    text-shadow: 5px 5px 0 rgba(0, 0, 0, 0.53);
     color: rgb(255, 255, 255);
 }
 
@@ -61,6 +61,7 @@ Button:hover {
     padding-top: 50px;
     overflow: visible;
     -unity-background-image-tint-color: var(--color-defauly);
+    -unity-text-align: middle-center;
 }
 
 .button-regular:active {

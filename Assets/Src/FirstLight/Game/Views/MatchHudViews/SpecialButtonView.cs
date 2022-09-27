@@ -41,6 +41,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField] private Color _cooldownColor;
 		[SerializeField] private float _rectScale = 1f;
 
+		private float _firstCancelRadius;
 		private float _specialRadius;
 		private float _cancelRadius;
 
@@ -106,7 +107,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var deltaMagNorm = deltaMagClamp / _specialRadius;
 
 			// Exit special radius first time
-			if (_firstCancelExit && deltaMag >= _specialRadius)
+			if (_firstCancelExit && deltaMag >= _firstCancelRadius)
 			{
 				_firstCancelExit = false;
 				_canTriggerCancelEnter = true;
@@ -147,11 +148,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 
 			_pointerDownData = null;
-			_startedValidSpecialInput = false;
-			_canTriggerCancelEnter = false;
-			_canTriggerCancelExit = false;
-			_firstCancelExit = true;
-			
+
 			_specialAnchor.SetActive(true);
 			_cancelAnchor.SetActive(false);
 
@@ -191,8 +188,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var specialRect = _specialAnchor.GetComponent<RectTransform>();
 			var cancelRect = _cancelAnchor.GetComponent<RectTransform>();
 			
-			_specialRadius = ((specialRect.rect.size.x / 2f) * specialRect.localScale.x) * GameConstants.Controls.SPECIAL_BUTTON_RADIUS_MULTIPLIER;
-			_cancelRadius = ((cancelRect.rect.size.x / 2f) * cancelRect.localScale.x) * GameConstants.Controls.SPECIAL_CANCEL_RADIUS_MULTIPLIER;
+			_firstCancelRadius = ((specialRect.rect.size.x / 2f) * specialRect.localScale.x) * GameConstants.Controls.SPECIAL_BUTTON_FIRST_CANCEL_RADIUS_MULT;
+			_specialRadius = ((specialRect.rect.size.x / 2f) * specialRect.localScale.x) * GameConstants.Controls.SPECIAL_BUTTON_MAX_RADIUS_MULT;
+			_cancelRadius = ((cancelRect.rect.size.x / 2f) * cancelRect.localScale.x) * GameConstants.Controls.SPECIAL_BUTTON_CANCEL_RADIUS_MULT;
 			_specialAnchor.SetActive(true);
 			_cancelAnchor.SetActive(false);
 		}

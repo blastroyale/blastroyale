@@ -115,40 +115,23 @@ namespace FirstLight.Game.Presenters
 		/// <inheritdoc />
 		public void OnSpecialButton0(InputAction.CallbackContext context)
 		{
-			if (_specialButtons[0].SpecialId == GameId.Random || context.performed)
-			{
-				return;
-			}
-
-			var indicator = _indicatorContainerView.GetIndicator(0);
-			
-			if (context.started)
-			{
-				indicator.SetVisualState(true);
-				indicator.SetTransformState(Vector2.zero);
-				return;
-			}
-
-			indicator.SetVisualState(false);
-
-			if (!_specialButtons[0].DraggingValidPosition())
-			{
-				return;
-			}
-			
-			var aim = _services.PlayerInputService.Input.Gameplay.SpecialAim.ReadValue<Vector2>();
-			SendSpecialUsedCommand(0, aim);
+			OnSpecialButtonUsed(context, 0);
 		}
 
 		/// <inheritdoc />
 		public void OnSpecialButton1(InputAction.CallbackContext context)
 		{
-			if (_specialButtons[1].SpecialId == GameId.Random || context.performed)
+			OnSpecialButtonUsed(context, 1);
+		}
+		
+		private void OnSpecialButtonUsed(InputAction.CallbackContext context, int specialIndex)
+		{
+			if (_specialButtons[specialIndex].SpecialId == GameId.Random || context.performed)
 			{
 				return;
 			}
 			
-			var indicator = _indicatorContainerView.GetIndicator(1);
+			var indicator = _indicatorContainerView.GetIndicator(specialIndex);
 			
 			if (context.started)
 			{
@@ -159,19 +142,41 @@ namespace FirstLight.Game.Presenters
 			
 			indicator.SetVisualState(false);
 
-			if (!_specialButtons[1].DraggingValidPosition())
+			if (!_specialButtons[specialIndex].DraggingValidPosition())
 			{
 				return;
 			}
 			
 			var aim = _services.PlayerInputService.Input.Gameplay.SpecialAim.ReadValue<Vector2>();
 			
-			SendSpecialUsedCommand(1, aim);
+			SendSpecialUsedCommand(specialIndex, aim);
+		}
+		
+		private unsafe void SendSpecialUsedCommand(int specialIndex, Vector2 aimDirection)
+		{
+			var data = QuantumRunner.Default.Game.GetLocalPlayerData(false, out var f);
+			
+			// Check if there is a weapon equipped in the slot. Avoid extra commands to save network message traffic $$$
+			if (!f.TryGet<PlayerCharacter>(data.Entity, out var playerCharacter) || 
+			    !playerCharacter.WeaponSlot->Specials[specialIndex].IsUsable(f))
+			{
+				return;
+			}
+			
+			var command = new SpecialUsedCommand
+			{
+				SpecialIndex = specialIndex,
+				AimInput = aimDirection.ToFPVector2(),
+			};
+
+			QuantumRunner.Default.Game.SendCommand(command);
 		}
 
 		/// <inheritdoc />
 		public void OnCancelButton(InputAction.CallbackContext context)
 		{
+			// TODO: When we decide to officially support gamepads, add dedicated Cancel functionality button.
+			// TODO: At this point, input should be conditional, and this code should not run for touch input.
 		}
 
 		private unsafe void Init(Frame f, EntityRef entity)
@@ -321,26 +326,6 @@ namespace FirstLight.Game.Presenters
 			MMVibrationManager.ContinuousHaptic(intensity, sharpness, GameConstants.Haptics.DAMAGE_DURATION);
 		}
 
-		private unsafe void SendSpecialUsedCommand(int specialIndex, Vector2 aimDirection)
-		{
-			var data = QuantumRunner.Default.Game.GetLocalPlayerData(false, out var f);
-			
-			// Check if there is a weapon equipped in the slot. Avoid extra commands to save network message traffic $$$
-			if (!f.TryGet<PlayerCharacter>(data.Entity, out var playerCharacter) || 
-			    !playerCharacter.WeaponSlot->Specials[specialIndex].IsUsable(f))
-			{
-				return;
-			}
-			
-			var command = new SpecialUsedCommand
-			{
-				SpecialIndex = specialIndex,
-				AimInput = aimDirection.ToFPVector2(),
-			};
-
-			QuantumRunner.Default.Game.SendCommand(command);
-		}
-		
 		private void OnWeaponSlotClicked(int weaponSlotIndex)
 		{
 			var data = QuantumRunner.Default.Game.GetLocalPlayerData(false, out var f);

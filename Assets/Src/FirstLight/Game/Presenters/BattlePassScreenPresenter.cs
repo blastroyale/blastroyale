@@ -23,10 +23,6 @@ namespace FirstLight.Game.Presenters
 	public class BattlePassScreenPresenter : AnimatedUiPresenterData<BattlePassScreenPresenter.StateData>
 	{
 		[SerializeField, Required] private Button _backButton;
-		[SerializeField, Required] private TextMeshProUGUI _currentLevel;
-		[SerializeField, Required] private TextMeshProUGUI _nextLevel;
-		[SerializeField, Required] private TextMeshProUGUI _nextLevelRewards;
-		[SerializeField, Required] private Image _progressBar;
 
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
@@ -99,21 +95,21 @@ namespace FirstLight.Game.Presenters
 
 		private void RefreshLevelData(uint _, uint level)
 		{
-			_currentLevel.text = level.ToString();
+			//_currentLevel.text = level.ToString();
 
 			if (level < _gameDataProvider.BattlePassDataProvider.MaxLevel)
 			{
-				_nextLevel.text = (level + 1).ToString();
+				//_nextLevel.text = (level + 1).ToString();
 
-				_nextLevelRewards.gameObject.SetActive(true);
-				var nextReward = _gameDataProvider.BattlePassDataProvider.GetRewardForLevel(level + 1);
-				_nextLevelRewards.text =
-					$"Next level reward:\n{nextReward.Reward.GameId.ToString()}, {nextReward.Reward.Rarity.ToString()}";
+				//_nextLevelRewards.gameObject.SetActive(true);
+				//var nextReward = _gameDataProvider.BattlePassDataProvider.GetRewardForLevel(level + 1);
+				//_nextLevelRewards.text =
+					//$"Next level reward:\n{nextReward.Reward.GameId.ToString()}, {nextReward.Reward.Rarity.ToString()}";
 			}
 			else
 			{
-				_nextLevel.text = "MAX";
-				_nextLevelRewards.gameObject.SetActive(false);
+				//_nextLevel.text = "MAX";
+				//_nextLevelRewards.gameObject.SetActive(false);
 			}
 		}
 
@@ -122,7 +118,7 @@ namespace FirstLight.Game.Presenters
 			var config = _services.ConfigsProvider.GetConfig<BattlePassConfig>();
 			var ppl = config.PointsPerLevel;
 
-			_progressBar.fillAmount = (float) points / ppl;
+			//_progressBar.fillAmount = (float) points / ppl;
 			//_progressText.text = $"{points}/{ppl}";
 		}
 	}

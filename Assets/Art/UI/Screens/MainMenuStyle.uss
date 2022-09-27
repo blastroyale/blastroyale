@@ -50,5 +50,29 @@
 }
 
 #GameTypeLabel {
-    color: rgba(146, 137, 162, 255);
+    color: rgb(146, 137, 162);
+}
+
+#EquipmentButton .button-icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/IconEquipment.png?fileID=21300000&guid=f074c3dd0ff0849fe90a973fd6fbd458&type=3#IconEquipment');
+}
+
+#HeroesButton .button-icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/IconHeroes.png?fileID=21300000&guid=51ac3af9acd824af591121ab7510c3df&type=3#IconHeroes');
+}
+
+#MarketplaceButton .button-icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/IconMarketplace.png?fileID=21300000&guid=13c1b5f14115447f780402fd721baad8&type=3#IconMarketplace');
+}
+
+#LeaderboardsButton .button-icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/IconLeaderboards.png?fileID=21300000&guid=3a7d899cc87a648b6ab9f1f3cf7035f2&type=3#IconLeaderboards');
+}
+
+#BLSTCurrency #Icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/BLST.png?fileID=21300000&guid=b0ad58f6ca5c1472fa1fb6178491eb03&type=3#BLST');
+}
+
+#CSCurrency #Icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/CS.png?fileID=21300000&guid=d74b22177c5ba4ac6b9293d6c147e46e&type=3#CS');
 }

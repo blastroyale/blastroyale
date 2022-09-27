@@ -5,7 +5,9 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.UiService;
 using I2.Loc;
+using Quantum;
 using UnityEngine.UIElements;
+using Button = UnityEngine.UIElements.Button;
 
 namespace FirstLight.Game.Presenters
 {
@@ -38,6 +40,9 @@ namespace FirstLight.Game.Presenters
 		private Label _playerNameLabel;
 		private Label _playerTrophiesLabel;
 		private Label _gameModeLabel;
+		private Label _gameTypeLabel;
+		private Label _csAmountLabel;
+		private Label _blstAmountLabel;
 
 		private void Start()
 		{
@@ -49,6 +54,11 @@ namespace FirstLight.Game.Presenters
 			_playerNameLabel = _root.Q<Label>("PlayerNameLabel");
 			_playerTrophiesLabel = _root.Q<Label>("PlayerTrophiesLabel");
 			_gameModeLabel = _root.Q<Label>("GameModeLabel");
+			_gameTypeLabel = _root.Q<Label>("GameTypeLabel");
+
+			// TODO: Probably a better way to quety this, with .Query<>
+			_csAmountLabel = _root.Q<VisualElement>("CSCurrencyDisplay").Q<Label>("Label");
+			_blstAmountLabel = _root.Q<VisualElement>("BLSTCurrencyDisplay").Q<Label>("Label");
 
 			_root.Q<Button>("PlayButton").clicked += OnPlayButtonClicked;
 			_root.Q<Button>("GameModeButton").clicked += OnGameModeClicked;
@@ -63,8 +73,24 @@ namespace FirstLight.Game.Presenters
 
 			_gameDataProvider.AppDataProvider.DisplayName.InvokeObserve(OnDisplayNameChanged);
 			_gameDataProvider.PlayerDataProvider.Trophies.InvokeObserve(OnTrophiesChanged);
+			_gameDataProvider.CurrencyDataProvider.Currencies.InvokeObserve(GameId.CS, OnCSCurrencyChanged);
+			_gameDataProvider.CurrencyDataProvider.Currencies.InvokeObserve(GameId.CS, OnBLSTCurrencyChanged);
 
 			_gameServices.GameModeService.SelectedGameMode.InvokeObserve(OnSelectedGameModeChanged);
+		}
+
+		private void OnCSCurrencyChanged(GameId id, ulong previous, ulong current, ObservableUpdateType updateType)
+		{
+			if (id != GameId.CS) return;
+
+			_csAmountLabel.text = current.ToString();
+		}
+
+		private void OnBLSTCurrencyChanged(GameId id, ulong previous, ulong current, ObservableUpdateType updateType)
+		{
+			if (id != GameId.BLST) return;
+
+			_csAmountLabel.text = current.ToString();
 		}
 
 		private void OnDestroy()
@@ -72,6 +98,8 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider.AppDataProvider.DisplayName.StopObserving(OnDisplayNameChanged);
 			_gameDataProvider.PlayerDataProvider.Trophies.StopObserving(OnTrophiesChanged);
 			_gameServices.GameModeService.SelectedGameMode.StopObserving(OnSelectedGameModeChanged);
+			_gameDataProvider.CurrencyDataProvider.Currencies.StopObserving(OnCSCurrencyChanged);
+			_gameDataProvider.CurrencyDataProvider.Currencies.StopObserving(OnBLSTCurrencyChanged);
 		}
 
 		protected override void OnOpened()
@@ -145,7 +173,8 @@ namespace FirstLight.Game.Presenters
 
 		private void OnSelectedGameModeChanged(GameModeInfo _, GameModeInfo current)
 		{
-			_gameModeLabel.text = string.Format(current.Entry.GameModeId.ToUpper());
+			_gameModeLabel.text = current.Entry.GameModeId.ToUpper();
+			_gameTypeLabel.text = current.Entry.MatchType.ToString().ToUpper();
 		}
 	}
 }

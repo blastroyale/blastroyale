@@ -313,7 +313,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void CloseBattlePassUI()
 		{
-			_uiService.CloseUi<BattlePassScreenPresenter>();
+			_uiService.CloseUi<BattlePassScreenPresenter>(false, true);
 		}
 		
 		private void OpenHeroesMenuUI()

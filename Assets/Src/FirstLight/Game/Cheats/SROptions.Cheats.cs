@@ -281,6 +281,28 @@ public partial class SROptions
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
 	
+	[Category("Progression")]
+	public void RedeemBpp()
+	{
+		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
+		var services = MainInstaller.Resolve<IGameServices>();
+
+		gameLogic.BattlePassLogic.RedeemBPP(out var _r, out var _l);
+
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
+	}
+	
+	[Category("Progression")]
+	public void ResetBpp()
+	{
+		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
+		var services = MainInstaller.Resolve<IGameServices>();
+
+		gameLogic.BattlePassLogic.ResetBattlePass();
+
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
+	}
+	
 	[Category("Logging")]
 	public void LogCurrentRoomInfo()
 	{

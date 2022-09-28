@@ -683,17 +683,17 @@ MonoBehaviour:
   _rewardTitleText: {fileID: 9039917771042372466}
   _rewardStatusText: {fileID: 6381912842105692001}
   _rewardReadyToClaimObject: {fileID: 6724200496889986067}
+  _levelSegmentBackgroundReached: {fileID: 454302238823096516}
+  _levelSegmentBackgroundNotReached: {fileID: 4689133643608896020}
   _progressBar: {fileID: 4349425523080943293}
   _rewardImage: {fileID: 4259884251537971749}
   _rewardClaimedObjects:
   - {fileID: 6558858228258878975}
   - {fileID: 483832592007367523}
-  - {fileID: 454302238823096516}
   - {fileID: 4598677448830028761}
   _rewardNotClaimedObjects:
   - {fileID: 4414759017965269625}
   - {fileID: 2910355753407459082}
-  - {fileID: 4689133643608896020}
 --- !u!1 &4414759017965269625
 GameObject:
   m_ObjectHideFlags: 0
@@ -846,7 +846,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 25}
+  m_AnchoredPosition: {x: -36, y: 31}
   m_SizeDelta: {x: 90, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &341741572302069337
@@ -915,7 +915,7 @@ GameObject:
   - component: {fileID: 8579483712294130287}
   - component: {fileID: 795296071433751364}
   m_Layer: 5
-  m_Name: SegmentBackground
+  m_Name: SegmentBackgroundNotReached
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

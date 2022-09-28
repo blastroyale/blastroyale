@@ -740,7 +740,10 @@ namespace I2.Loc
 			public static string BattleRoyale 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattleRoyale"); } }
 			public static string BattlepassClaimAll 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassClaimAll"); } }
 			public static string BattlepassCurrentLevel 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassCurrentLevel"); } }
-			public static string BattlepassRewardSingleReady 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassRewardSingleReady"); } }
+			public static string BattlepassNothingToClaim 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassNothingToClaim"); } }
+			public static string BattlepassRewardClaimFarOut 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassRewardClaimFarOut"); } }
+			public static string BattlepassRewardClaimNext 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassRewardClaimNext"); } }
+			public static string BattlepassRewardClaimReady 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassRewardClaimReady"); } }
 			public static string BattlepassRewardsProgress 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassRewardsProgress"); } }
 			public static string BattlepassRewardsReady 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassRewardsReady"); } }
 			public static string BattlepassTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassTitle"); } }
@@ -1798,7 +1801,10 @@ namespace I2.Loc
 		    public const string BattleRoyale = "MainMenu/BattleRoyale";
 		    public const string BattlepassClaimAll = "MainMenu/BattlepassClaimAll";
 		    public const string BattlepassCurrentLevel = "MainMenu/BattlepassCurrentLevel";
-		    public const string BattlepassRewardSingleReady = "MainMenu/BattlepassRewardSingleReady";
+		    public const string BattlepassNothingToClaim = "MainMenu/BattlepassNothingToClaim";
+		    public const string BattlepassRewardClaimFarOut = "MainMenu/BattlepassRewardClaimFarOut";
+		    public const string BattlepassRewardClaimNext = "MainMenu/BattlepassRewardClaimNext";
+		    public const string BattlepassRewardClaimReady = "MainMenu/BattlepassRewardClaimReady";
 		    public const string BattlepassRewardsProgress = "MainMenu/BattlepassRewardsProgress";
 		    public const string BattlepassRewardsReady = "MainMenu/BattlepassRewardsReady";
 		    public const string BattlepassTitle = "MainMenu/BattlepassTitle";

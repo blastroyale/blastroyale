@@ -3279,11 +3279,38 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: MainMenu/BattlepassRewardSingleReady
+    - Term: MainMenu/BattlepassRewardClaimReady
       TermType: 0
       Description: 
       Languages:
       - Ready to claim!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/BattlepassRewardClaimFarOut
+      TermType: 0
+      Description: 
+      Languages:
+      - Reward at level {0}
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/BattlepassNothingToClaim
+      TermType: 0
+      Description: 
+      Languages:
+      - No rewards to claim. Play more games to unlock new rewards!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/BattlepassRewardClaimNext
+      TermType: 0
+      Description: 
+      Languages:
+      - Next Reward
       - 
       - 
       Flags: 000000
@@ -9124,7 +9151,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1664363935883
+    Google_LastUpdatedVersion: 1664378903238
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

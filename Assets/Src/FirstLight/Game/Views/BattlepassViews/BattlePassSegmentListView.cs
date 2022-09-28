@@ -33,11 +33,11 @@ namespace FirstLight.Game.Views.BattlePassViews
 			
 			Data = new SimpleDataHelper<BattlePassSegmentData>(this);
 			
-			// Calling this initializes internal data and prepares the adapter to handle item count changes
+			// (OSA) Calling this initializes internal data and prepares the adapter to handle item count changes
 			base.Start();
 			
-			// Retrieve the models from your data source and set the items count
-			LoadBattlePassData(_services.ConfigsProvider.GetConfig<BattlePassConfig>());
+			LoadBattlePassData();
+			ScrollTo((int)_gameDataProvider.BattlePassDataProvider.CurrentLevel.Value);
 		}
 		
 		protected override BattlePassSegmentViewHolder CreateViewsHolder(int itemIndex)
@@ -55,22 +55,30 @@ namespace FirstLight.Game.Views.BattlePassViews
 			newOrRecycled.View.Init(model);
 		}
 
-		private void LoadBattlePassData(BattlePassConfig battlePassConfig)
+		private void LoadBattlePassData()
 		{
-			var newItems = new BattlePassSegmentData[battlePassConfig.Levels.Count];
-
-			for (uint i = 0; i < newItems.Length; ++i)
+			var battlePassConfig = _services.ConfigsProvider.GetConfig<BattlePassConfig>();
+			var rewardConfig = _services.ConfigsProvider.GetConfigsList<BattlePassRewardConfig>();
+			var newSegments = new BattlePassSegmentData[battlePassConfig.Levels.Count];
+			var redeemedProgress = _gameDataProvider.BattlePassDataProvider.GetLevelAndPointsIfReedemed();
+			
+			for (int i = 0; i < newSegments.Length; ++i)
 			{
 				var model = new BattlePassSegmentData
 				{
-					Level = i,
-					CurrentLevel = _gameDataProvider.BattlePassDataProvider.CurrentLevel.Value
+					Level = (uint)i,
+					CurrentLevel = _gameDataProvider.BattlePassDataProvider.CurrentLevel.Value,
+					CurrentProgress = _gameDataProvider.BattlePassDataProvider.CurrentPoints.Value,
+					RedeemableLevel = redeemedProgress.Item1,
+					RedeemableProgress = redeemedProgress.Item2,
+					MaxProgress = battlePassConfig.PointsPerLevel,
+					RewardConfig = rewardConfig[battlePassConfig.Levels[i].RewardId]
 				};
 				
-				newItems[i] = model;
+				newSegments[i] = model;
 			}
 			
-			OnDataRetrieved(newItems);
+			OnDataRetrieved(newSegments);
 		}
 
 		private void OnDataRetrieved(BattlePassSegmentData[] newItems)

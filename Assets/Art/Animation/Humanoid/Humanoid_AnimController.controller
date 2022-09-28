@@ -612,7 +612,7 @@ AnimatorStateTransition:
   serializedVersion: 3
   m_TransitionDuration: 0
   m_TransitionOffset: 0
-  m_ExitTime: 0.90625
+  m_ExitTime: 0
   m_HasExitTime: 0
   m_HasFixedDuration: 0
   m_InterruptionSource: 0
@@ -1958,38 +1958,38 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 6deb4e14ad36ad646929fe4b53b86efd, type: 2}
     m_Threshold: 0
-    m_Position: {x: 0, y: 1}
+    m_Position: {x: 0, y: 2}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: attackspeed
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 94358f8f380ae2e4fb886a7858a10f45, type: 2}
-    m_Threshold: 0.16666667
-    m_Position: {x: 0, y: 0.5}
+    m_Threshold: 0.1388889
+    m_Position: {x: 0, y: 1}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: attackspeed
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: f06e6daee2435e94cb6121e13e8f4da5, type: 2}
-    m_Threshold: 0.33333334
-    m_Position: {x: 0, y: -0.5}
+    m_Threshold: 0.2777778
+    m_Position: {x: 0, y: -1}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: attackspeed
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 4da4b8c1df311884489300552cb9c3c4, type: 2}
-    m_Threshold: 0.5
-    m_Position: {x: 0, y: -1}
-    m_TimeScale: -1
+    m_Threshold: 0.41666666
+    m_Position: {x: 0, y: -2}
+    m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: attackspeed
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 281d8da345b309047b8ed3c41b72a1fd, type: 2}
-    m_Threshold: 0.6666667
+    m_Threshold: 0.5555556
     m_Position: {x: -1, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -1997,15 +1997,15 @@ BlendTree:
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: d595d2d6acae4784f8a975e2f2993ff5, type: 2}
-    m_Threshold: 0.8333333
+    m_Threshold: 0.6944444
     m_Position: {x: 1, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: attackspeed
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: f06e6daee2435e94cb6121e13e8f4da5, type: 2}
-    m_Threshold: 1
+    m_Motion: {fileID: 7400000, guid: 84e0f97dbae28a44283329a40b209c75, type: 2}
+    m_Threshold: 0.8333333
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -2014,7 +2014,7 @@ BlendTree:
   m_BlendParameter: DirX
   m_BlendParameterY: DirY
   m_MinThreshold: 0
-  m_MaxThreshold: 1
+  m_MaxThreshold: 0.8333333
   m_UseAutomaticThresholds: 1
   m_NormalizedBlendValues: 0
   m_BlendType: 2

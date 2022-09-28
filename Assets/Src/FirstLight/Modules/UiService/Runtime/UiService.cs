@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.ResourceProviders;
 
 // ReSharper disable CheckNamespace
 
@@ -166,7 +168,18 @@ namespace FirstLight.UiService
 			}
 
 			var layer = AddLayer(config.Layer);
-			var gameObject = await _assetLoader.InstantiatePrefabAsync(config.AddressableAddress, layer.transform, false);
+
+
+			GameObject gameObject;
+			if (Attribute.IsDefined(type, typeof(LoadSynchronouslyAttribute)))
+			{
+				gameObject = _assetLoader.InstantiatePrefab(config.AddressableAddress, layer.transform, false);
+			}
+			else
+			{
+				gameObject =
+					await _assetLoader.InstantiatePrefabAsync(config.AddressableAddress, layer.transform, false);
+			}
 
 			// Double check if the same UiPresenter was already loaded. This can happen if the coder spam calls LoadUiAsync
 			if (HasUiPresenter(type))

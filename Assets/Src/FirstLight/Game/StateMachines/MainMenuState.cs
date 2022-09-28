@@ -129,7 +129,6 @@ namespace FirstLight.Game.StateMachines
 			claimUnclaimedRewards.OnEnter(ClaimUncollectedRewards);
 			claimUnclaimedRewards.Transition().Target(screenCheck);
 			
-			homeMenu.OnEnter(OpenMainMenuUi);
 			homeMenu.OnEnter(OpenPlayMenuUI);
 			homeMenu.Event(_playClickedEvent).Target(playClickedCheck);
 			homeMenu.Event(_settingsMenuClickedEvent).Target(settingsMenu);
@@ -140,7 +139,6 @@ namespace FirstLight.Game.StateMachines
 			homeMenu.Event(_leaderboardClickedEvent).Target(leaderboard);
 			homeMenu.Event(_battlePassClickedEvent).Target(battlePass);
 			homeMenu.OnExit(ClosePlayMenuUI);
-			homeMenu.OnExit(CloseMainMenuUI);
 
 			playClickedCheck.Transition().Condition(EnoughNftToPlay).OnTransition(SendMatchmakingReadyMessage).Target(roomWait);
 			playClickedCheck.Transition().Target(nftPlayRestricted);
@@ -385,16 +383,6 @@ namespace FirstLight.Game.StateMachines
 		private void InvalidScreen()
 		{
 			throw new InvalidOperationException($"The current screen '{_currentScreen}' is invalid");
-		}
-
-		private void CloseMainMenuUI()
-		{
-			_uiService.CloseUi<MainMenuHudPresenter>();
-		}
-
-		private void OpenMainMenuUi()
-		{
-			_uiService.OpenUi<MainMenuHudPresenter>();
 		}
 
 		private void OpenUiVfxPresenter()

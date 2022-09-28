@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: ecdd4df26ce474069865eb3673c40456
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Amsi Pro Normal
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 0795311f50762194b82569701a27d71b, type: 3}
+  - {fileID: 12800000, guid: df690fa881baa734b80f85936e8b156d, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

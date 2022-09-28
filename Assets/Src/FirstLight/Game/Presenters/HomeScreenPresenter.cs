@@ -44,6 +44,7 @@ namespace FirstLight.Game.Presenters
 		private Label _blstAmountLabel;
 		private Label _battlePassLevelLabel;
 		private VisualElement _battlePassProgressElement;
+		private VisualElement _battlePassCrownIcon;
 
 		private void Start()
 		{
@@ -56,6 +57,7 @@ namespace FirstLight.Game.Presenters
 			_playerTrophiesLabel = _root.Q<Label>("PlayerTrophiesLabel");
 			_gameModeLabel = _root.Q<Label>("GameModeLabel");
 			_gameTypeLabel = _root.Q<Label>("GameTypeLabel");
+			_battlePassCrownIcon = _root.Q<Label>("BattlePassCrownIcon");
 
 			// TODO: Probably a better way to query this, with .Query<>
 			_csAmountLabel = _root.Q<VisualElement>("CSCurrency").Q<Label>("Label");
@@ -73,6 +75,8 @@ namespace FirstLight.Game.Presenters
 			_root.Q<Button>("HeroesButton").clicked += OnHeroesButtonClicked;
 			_root.Q<Button>("MarketplaceButton").clicked += OnMarketplaceButtonClicked;
 			_root.Q<Button>("LeaderboardsButton").clicked += OnLeaderboardsButtonClicked;
+			
+			_playerNameLabel.RegisterCallback<ClickEvent>(OnPlayerNameClicked);
 
 			_gameDataProvider.AppDataProvider.DisplayName.InvokeObserve(OnDisplayNameChanged);
 			_gameDataProvider.PlayerDataProvider.Trophies.InvokeObserve(OnTrophiesChanged);
@@ -150,6 +154,11 @@ namespace FirstLight.Game.Presenters
 		{
 			Data.OnLeaderboardClicked();
 		}
+		
+		private void OnPlayerNameClicked(ClickEvent evt)
+		{
+			Data.OnNameChangeClicked();
+		}
 
 		private void OnTrophiesChanged(uint _, uint current)
 		{
@@ -190,6 +199,7 @@ namespace FirstLight.Game.Presenters
 		{
 			var hasRewards = _gameDataProvider.BattlePassDataProvider.IsRedeemable(out var nextLevel);
 			_battlePassLevelLabel.style.flexGrow = Mathf.Clamp01((float) current / nextLevel);
+			_battlePassCrownIcon.style.display = hasRewards ? DisplayStyle.Flex : DisplayStyle.None;
 		}
 	}
 }

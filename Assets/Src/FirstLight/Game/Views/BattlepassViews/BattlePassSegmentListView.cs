@@ -73,7 +73,8 @@ namespace FirstLight.Game.Views.BattlePassViews
 		/// </summary>
 		public void ScrollToBattlePassLevel()
 		{
-			SmoothScrollTo((int)_gameDataProvider.BattlePassDataProvider.GetLevelAndPointsIfReedemed().Item1, 0.3f, 0, -1f);
+			var index = Math.Clamp((int) _gameDataProvider.BattlePassDataProvider.GetLevelAndPointsIfReedemed().Item1, 0, Data.Count - 1);
+			SmoothScrollTo(index, 0.3f, 0, -1f);
 		}
 
 		protected override BattlePassSegmentViewHolder CreateViewsHolder(int itemIndex)

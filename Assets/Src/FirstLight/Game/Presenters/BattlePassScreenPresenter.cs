@@ -116,13 +116,21 @@ namespace FirstLight.Game.Presenters
 
 		private void OnLevelDataUpdated(uint _, uint level)
 		{
-			_currentLevelText.text = string.Format(ScriptLocalization.MainMenu.BattlepassCurrentLevel,(level+1).ToString());
+			UpdateLevelUi();
 		}
 		
 		private void OnPointsDataUpdated(uint _, uint level)
 		{
 			_battlePassSegmentListView.UpdateAllSegments();
 			CheckEnableRewardClaimButton();
+			
+			UpdateLevelUi();
+		}
+
+		private void UpdateLevelUi()
+		{
+			var redeemableLevelAndPts = _gameDataProvider.BattlePassDataProvider.GetLevelAndPointsIfReedemed();
+			_currentLevelText.text = string.Format(ScriptLocalization.MainMenu.BattlepassCurrentLevel,(redeemableLevelAndPts.Item1+1).ToString());
 		}
 
 		private void OnClaimRewardsClicked()

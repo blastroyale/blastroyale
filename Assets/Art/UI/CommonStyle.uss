@@ -63,26 +63,27 @@ Button:hover {
     overflow: visible;
     -unity-background-image-tint-color: var(--color-defauly);
     -unity-text-align: middle-center;
+    align-items: center;
 }
 
 .button-regular > .button-icon {
     width: auto;
-    height: 100px;
+    height: 75px;
     position: absolute;
     left: 0;
     right: 0;
-    top: -41px;
+    top: -23px;
     overflow: visible;
     -unity-background-scale-mode: scale-to-fit;
 }
 
 .button-regular:hover {
-    -unity-background-image-tint-color: rgba(121, 57, 236, 255);
-    color: rgba(180, 180, 180, 255);
+    -unity-background-image-tint-color: rgb(121, 57, 236);
+    color: rgb(180, 180, 180);
 }
 
 .button-regular:hover > .button-icon {
-    -unity-background-image-tint-color: rgba(195, 195, 195, 255);
+    -unity-background-image-tint-color: rgb(195, 195, 195);
 }
 
 .button-regular:active {

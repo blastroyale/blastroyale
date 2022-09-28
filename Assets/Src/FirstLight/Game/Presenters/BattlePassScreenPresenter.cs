@@ -9,6 +9,7 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using I2.Loc;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
@@ -23,6 +24,7 @@ namespace FirstLight.Game.Presenters
 	public class BattlePassScreenPresenter : AnimatedUiPresenterData<BattlePassScreenPresenter.StateData>
 	{
 		[SerializeField, Required] private Button _backButton;
+		[SerializeField, Required] private TextMeshProUGUI _currentLevelText;
 
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
@@ -44,6 +46,8 @@ namespace FirstLight.Game.Presenters
 
 		protected override void OnOpened()
 		{
+			base.OnOpened();
+			
 			_services.MessageBrokerService.Subscribe<BattlePassLevelUpMessage>(OnBattlePassLevelUp);
 
 			_gameDataProvider.BattlePassDataProvider.CurrentLevel.InvokeObserve(RefreshLevelData);
@@ -57,6 +61,8 @@ namespace FirstLight.Game.Presenters
 
 		protected override void OnClosed()
 		{
+			base.OnClosed();
+			
 			_services.MessageBrokerService.Unsubscribe<BattlePassLevelUpMessage>(OnBattlePassLevelUp);
 			
 			_gameDataProvider.BattlePassDataProvider.CurrentLevel.StopObserving(RefreshLevelData);
@@ -95,7 +101,7 @@ namespace FirstLight.Game.Presenters
 
 		private void RefreshLevelData(uint _, uint level)
 		{
-			//_currentLevel.text = level.ToString();
+			_currentLevelText.text = string.Format(ScriptLocalization.MainMenu.BattlepassCurrentLevel,level.ToString());
 
 			if (level < _gameDataProvider.BattlePassDataProvider.MaxLevel)
 			{

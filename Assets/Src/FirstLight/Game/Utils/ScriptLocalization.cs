@@ -739,8 +739,11 @@ namespace I2.Loc
 			public static string BGM 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BGM"); } }
 			public static string BattleRoyale 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattleRoyale"); } }
 			public static string BattlepassClaimAll 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassClaimAll"); } }
+			public static string BattlepassCurrentLevel 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassCurrentLevel"); } }
+			public static string BattlepassRewardSingleReady 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassRewardSingleReady"); } }
 			public static string BattlepassRewardsProgress 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassRewardsProgress"); } }
 			public static string BattlepassRewardsReady 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassRewardsReady"); } }
+			public static string BattlepassTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassTitle"); } }
 			public static string BeatLevelFirst 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BeatLevelFirst"); } }
 			public static string BeatLevelFirstWithDifficulty 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BeatLevelFirstWithDifficulty"); } }
 			public static string BossKilledTimes 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BossKilledTimes"); } }
@@ -1794,8 +1797,11 @@ namespace I2.Loc
 		    public const string BGM = "MainMenu/BGM";
 		    public const string BattleRoyale = "MainMenu/BattleRoyale";
 		    public const string BattlepassClaimAll = "MainMenu/BattlepassClaimAll";
+		    public const string BattlepassCurrentLevel = "MainMenu/BattlepassCurrentLevel";
+		    public const string BattlepassRewardSingleReady = "MainMenu/BattlepassRewardSingleReady";
 		    public const string BattlepassRewardsProgress = "MainMenu/BattlepassRewardsProgress";
 		    public const string BattlepassRewardsReady = "MainMenu/BattlepassRewardsReady";
+		    public const string BattlepassTitle = "MainMenu/BattlepassTitle";
 		    public const string BeatLevelFirst = "MainMenu/BeatLevelFirst";
 		    public const string BeatLevelFirstWithDifficulty = "MainMenu/BeatLevelFirstWithDifficulty";
 		    public const string BossKilledTimes = "MainMenu/BossKilledTimes";

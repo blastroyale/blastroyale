@@ -629,7 +629,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7726089748286685129}
   - component: {fileID: 2142883226314699095}
-  - component: {fileID: 6043815067050876372}
   - component: {fileID: 1030503948032391636}
   m_Layer: 5
   m_Name: BattlePassSegmentView
@@ -667,22 +666,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4398984865169265999}
   m_CullTransparentMesh: 0
---- !u!114 &6043815067050876372
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4398984865169265999}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09d8179e328149dc9cb074e2e6c444d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &1030503948032391636
 MonoBehaviour:
   m_ObjectHideFlags: 0

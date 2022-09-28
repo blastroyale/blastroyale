@@ -40,8 +40,8 @@ namespace FirstLight.Game.Views.BattlePassViews
 		
 		public void Init(BattlePassSegmentData data)
 		{
-			var levelForUi = data.LevelForRewards + 1;
-			var isRewardClaimed = data.CurrentLevel >= data.LevelForRewards;
+			var levelForUi = data.SegmentLevelForRewards + 1;
+			var isRewardClaimed = data.CurrentLevel >= data.SegmentLevelForRewards;
 			
 			foreach (var go in _rewardClaimedObjects)
 			{
@@ -53,22 +53,21 @@ namespace FirstLight.Game.Views.BattlePassViews
 				go.SetActive(!isRewardClaimed);
 			}
 			
-			_levelText.text = levelForUi.ToString();
-			_rewardTitleText.text = data.RewardConfig.Reward.GameId.ToString();
-
+			// Update reward card 
 			_rewardReadyToClaimObject.SetActive(false);
 			_rewardStatusText.gameObject.SetActive(false);
+			_rewardTitleText.text = data.RewardConfig.Reward.GameId.ToString();
 			
-			if (!isRewardClaimed && data.RedeemableLevel >= data.LevelForRewards)
+			if (!isRewardClaimed && data.RedeemableLevel >= data.SegmentLevelForRewards)
 			{
 				_rewardReadyToClaimObject.SetActive(true);
 			}
-			else if(!isRewardClaimed && (data.RedeemableLevel+1) == data.LevelForRewards)
+			else if(!isRewardClaimed && (data.RedeemableLevel+1) == data.SegmentLevelForRewards)
 			{
 				_rewardStatusText.gameObject.SetActive(true);
 				_rewardStatusText.text = ScriptLocalization.MainMenu.BattlepassRewardClaimNext.ToUpper();
 			}
-			else if(!isRewardClaimed && (data.RedeemableLevel+1) < data.LevelForRewards)
+			else if(!isRewardClaimed && (data.RedeemableLevel+1) < data.SegmentLevelForRewards)
 			{
 				_rewardStatusText.gameObject.SetActive(true);
 				_rewardStatusText.text = string.Format(ScriptLocalization.MainMenu.BattlepassRewardClaimFarOut, levelForUi).ToUpper();
@@ -78,12 +77,17 @@ namespace FirstLight.Game.Views.BattlePassViews
 				_rewardStatusText.text = "";
 			}
 
-			if (data.RedeemableLevel > data.Level)
+			// Update progress bar and level
+			_levelText.text = levelForUi.ToString();
+			_levelSegmentBackgroundReached.SetActive(data.RedeemableLevel >= data.SegmentLevelForRewards);
+			_levelSegmentBackgroundNotReached.SetActive(data.RedeemableLevel < data.SegmentLevelForRewards);
+			
+			if (data.RedeemableLevel > data.SegmentLevel)
 			{
 				_progressBar.fillAmount = 1f;
 				_progressText.text = "";
 			}
-			else if (data.RedeemableLevel == data.Level)
+			else if (data.RedeemableLevel == data.SegmentLevel)
 			{
 				_progressBar.fillAmount = (float) data.RedeemableProgress / data.MaxProgress;
 				_progressText.text = $"{data.RedeemableProgress}/{data.MaxProgress}";
@@ -101,7 +105,7 @@ namespace FirstLight.Game.Views.BattlePassViews
 	/// </summary>
 	public class BattlePassSegmentData
 	{
-		public uint Level;
+		public uint SegmentLevel;
 		public uint CurrentLevel;
 		public uint CurrentProgress;
 		public uint RedeemableLevel;
@@ -109,6 +113,6 @@ namespace FirstLight.Game.Views.BattlePassViews
 		public uint MaxProgress;
 		public BattlePassRewardConfig RewardConfig;
 
-		public uint LevelForRewards => Level + 1;
+		public uint SegmentLevelForRewards => SegmentLevel + 1;
 	}
 }

@@ -37,9 +37,45 @@ namespace FirstLight.Game.Views.BattlePassViews
 			base.Start();
 			
 			LoadBattlePassData();
-			ScrollTo((int)_gameDataProvider.BattlePassDataProvider.CurrentLevel.Value);
 		}
-		
+
+		/// <summary>
+		/// Updates all BP segments with the most recent BP data
+		/// </summary>
+		public void UpdateAllSegments()
+		{
+			var battlePassConfig = _services.ConfigsProvider.GetConfig<BattlePassConfig>();
+			var rewardConfig = _services.ConfigsProvider.GetConfigsList<BattlePassRewardConfig>();
+			var redeemedProgress = _gameDataProvider.BattlePassDataProvider.GetLevelAndPointsIfReedemed();
+
+			for (int i = 0; i < Data.List.Count; i++)
+			{
+				Data.List[i].SegmentLevel = (uint) i;
+				Data.List[i].CurrentLevel = _gameDataProvider.BattlePassDataProvider.CurrentLevel.Value;
+				Data.List[i].CurrentProgress = _gameDataProvider.BattlePassDataProvider.CurrentPoints.Value;
+				Data.List[i].RedeemableLevel = redeemedProgress.Item1;
+				Data.List[i].RedeemableProgress = redeemedProgress.Item2;
+				Data.List[i].MaxProgress = battlePassConfig.PointsPerLevel;
+				Data.List[i].RewardConfig = rewardConfig[battlePassConfig.Levels[i].RewardId];
+				
+				var viewsHolder = GetItemViewsHolderIfVisible(i);
+				if (viewsHolder != null)
+				{
+					viewsHolder.View.Init(Data.List[i]);
+				}
+			}
+
+			ScrollToBattlePassLevel();
+		}
+
+		/// <summary>
+		/// Scrolls OSA to current redeemable BP level
+		/// </summary>
+		public void ScrollToBattlePassLevel()
+		{
+			SmoothScrollTo((int)_gameDataProvider.BattlePassDataProvider.GetLevelAndPointsIfReedemed().Item1, 0.3f, 0, -1f);
+		}
+
 		protected override BattlePassSegmentViewHolder CreateViewsHolder(int itemIndex)
 		{
 			var instance = new BattlePassSegmentViewHolder();
@@ -66,7 +102,7 @@ namespace FirstLight.Game.Views.BattlePassViews
 			{
 				var model = new BattlePassSegmentData
 				{
-					Level = (uint)i,
+					SegmentLevel = (uint)i,
 					CurrentLevel = _gameDataProvider.BattlePassDataProvider.CurrentLevel.Value,
 					CurrentProgress = _gameDataProvider.BattlePassDataProvider.CurrentPoints.Value,
 					RedeemableLevel = redeemedProgress.Item1,

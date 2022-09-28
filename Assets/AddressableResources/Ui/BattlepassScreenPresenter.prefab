@@ -1080,9 +1080,10 @@ MonoBehaviour:
   _introAnimationClip: {fileID: 7400000, guid: ec8d3a698e8ca834f87dd59091db6285, type: 2}
   _outroAnimationClip: {fileID: 7400000, guid: 29dc25f5609946042a78ffe2f7c7bd5a, type: 2}
   _backButton: {fileID: 4440748060856440310}
-  _claimRewardsButton: {fileID: 0}
+  _claimRewardsButton: {fileID: 8627155493136088953}
   _currentLevelText: {fileID: 7281817662836427885}
-  _nothingToClaimText: {fileID: 0}
+  _nothingToClaimText: {fileID: 4594927456911448294}
+  _battlePassSegmentListView: {fileID: 8861166935542014335}
 --- !u!1 &4187676412388937108
 GameObject:
   m_ObjectHideFlags: 0

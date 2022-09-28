@@ -8,6 +8,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Views.BattlePassViews;
 using FirstLight.UiService;
 using I2.Loc;
 using Sirenix.OdinInspector;
@@ -27,6 +28,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private Button _claimRewardsButton;
 		[SerializeField, Required] private TextMeshProUGUI _currentLevelText;
 		[SerializeField, Required] private GameObject _nothingToClaimText;
+		[SerializeField, Required] private BattlePassSegmentListView _battlePassSegmentListView;
 		
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
@@ -53,11 +55,12 @@ namespace FirstLight.Game.Presenters
 			
 			_services.MessageBrokerService.Subscribe<BattlePassLevelUpMessage>(OnBattlePassLevelUp);
 
-			_gameDataProvider.BattlePassDataProvider.CurrentLevel.InvokeObserve(RefreshLevelData);
-
-			var rewardsRedeemable = _gameDataProvider.BattlePassDataProvider.IsRedeemable(out _);
-			_claimRewardsButton.gameObject.SetActive(rewardsRedeemable);
-			_nothingToClaimText.gameObject.SetActive(!rewardsRedeemable);
+			_gameDataProvider.BattlePassDataProvider.CurrentLevel.InvokeObserve(OnLevelDataUpdated);
+			_gameDataProvider.BattlePassDataProvider.CurrentPoints.InvokeObserve(OnPointsDataUpdated);
+			
+			CheckEnableRewardClaimButton();
+			
+			this.LateCoroutineCall(_introAnimationClip.length, () => _battlePassSegmentListView.ScrollToBattlePassLevel());
 		}
 
 		protected override void OnClosed()
@@ -66,7 +69,8 @@ namespace FirstLight.Game.Presenters
 			
 			_services.MessageBrokerService.Unsubscribe<BattlePassLevelUpMessage>(OnBattlePassLevelUp);
 			
-			_gameDataProvider.BattlePassDataProvider.CurrentLevel.StopObserving(RefreshLevelData);
+			_gameDataProvider.BattlePassDataProvider.CurrentLevel.StopObserving(OnLevelDataUpdated);
+			_gameDataProvider.BattlePassDataProvider.CurrentPoints.StopObserving(OnPointsDataUpdated);
 		}
 
 		private void OnBackClicked()
@@ -74,15 +78,26 @@ namespace FirstLight.Game.Presenters
 			Data.BackClicked();
 		}
 
+		private void CheckEnableRewardClaimButton()
+		{
+			var rewardsRedeemable = _gameDataProvider.BattlePassDataProvider.IsRedeemable(out _);
+			_claimRewardsButton.gameObject.SetActive(rewardsRedeemable);
+			_nothingToClaimText.gameObject.SetActive(!rewardsRedeemable);
+		}
+
 		private void OnBattlePassLevelUp(BattlePassLevelUpMessage message)
 		{
 			PendingRewards.Clear();
+			
 			foreach (var config in message.Rewards)
 			{
 				PendingRewards.Enqueue(config);
 			}
 
 			TryShowNextReward();
+			
+			_battlePassSegmentListView.UpdateAllSegments();
+			CheckEnableRewardClaimButton();
 		}
 
 		private void TryShowNextReward()
@@ -99,9 +114,15 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		private void RefreshLevelData(uint _, uint level)
+		private void OnLevelDataUpdated(uint _, uint level)
 		{
 			_currentLevelText.text = string.Format(ScriptLocalization.MainMenu.BattlepassCurrentLevel,(level+1).ToString());
+		}
+		
+		private void OnPointsDataUpdated(uint _, uint level)
+		{
+			_battlePassSegmentListView.UpdateAllSegments();
+			CheckEnableRewardClaimButton();
 		}
 
 		private void OnClaimRewardsClicked()

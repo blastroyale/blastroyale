@@ -58,7 +58,7 @@ namespace FirstLight.Game.Presenters
 		protected override void OnClosed()
 		{
 			_services.MessageBrokerService.Unsubscribe<BattlePassLevelUpMessage>(OnBattlePassLevelUp);
-
+			
 			_gameDataProvider.BattlePassDataProvider.CurrentLevel.StopObserving(RefreshLevelData);
 			_gameDataProvider.BattlePassDataProvider.CurrentPoints.StopObserving(RefreshPointsData);
 		}

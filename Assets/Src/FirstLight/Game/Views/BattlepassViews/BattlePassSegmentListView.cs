@@ -8,89 +8,63 @@ using Com.TheFallenGames.OSA.Core;
 using Com.TheFallenGames.OSA.CustomParams;
 using Com.TheFallenGames.OSA.DataHelpers;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using TMPro;
 
 namespace FirstLight.Game.Views.BattlePassViews
 {
-	// There are 2 important callbacks you need to implement, apart from Start(): CreateViewsHolder() and UpdateViewsHolder()
-	// See explanations below
-	public class BattlePassSegmentListView : OSA<BaseParamsWithPrefab, BattlePassSegmentView>
+	/// <summary>
+	/// This class is an OSA implementation of a view holder. It handles spawning and controlling battle pass segment
+	/// view holders.
+	/// </summary>
+	public class BattlePassSegmentListView : OSA<BaseParamsWithPrefab, BattlePassSegmentViewHolder>
 	{
 		private IGameServices _services;
+		private IGameDataProvider _gameDataProvider;
 		
-		// Helper that stores data and notifies the adapter when items count changes
-		// Can be iterated and can also have its elements accessed by the [] operator
-		public SimpleDataHelper<BattlePassSegmentView.DataModel> Data { get; private set; }
-
-		protected override void Awake()
-		{
-			base.Awake();
-
-			_services = MainInstaller.Resolve<IGameServices>();
-		}
-
+		public SimpleDataHelper<BattlePassSegmentData> Data { get; private set; }
+		
 		protected override void Start()
 		{
-			Data = new SimpleDataHelper<BattlePassSegmentView.DataModel>(this);
-
+			_services = MainInstaller.Resolve<IGameServices>();
+			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
+			
+			Data = new SimpleDataHelper<BattlePassSegmentData>(this);
+			
 			// Calling this initializes internal data and prepares the adapter to handle item count changes
 			base.Start();
 			
 			// Retrieve the models from your data source and set the items count
-			RetrieveDataAndUpdate(_services.ConfigsProvider.GetConfig<BattlePassConfig>());
+			LoadBattlePassData(_services.ConfigsProvider.GetConfig<BattlePassConfig>());
 		}
-
-		// This is called initially, as many times as needed to fill the viewport, 
-		// and anytime the viewport's size grows, thus allowing more items to be displayed
-		// Here you create the "ViewsHolder" instance whose views will be re-used
-		// *For the method's full description check the base implementation
-		protected override BattlePassSegmentView CreateViewsHolder(int itemIndex)
+		
+		protected override BattlePassSegmentViewHolder CreateViewsHolder(int itemIndex)
 		{
-			var instance = new BattlePassSegmentView();
+			var instance = new BattlePassSegmentViewHolder();
 			
 			instance.Init(_Params.ItemPrefab, _Params.Content, itemIndex);
 
 			return instance;
 		}
 
-		// This is called anytime a previously invisible item become visible, or after it's created, 
-		// or when anything that requires a refresh happens
-		// Here you bind the data from the model to the item's views
-		// *For the method's full description check the base implementation
-		protected override void UpdateViewsHolder(BattlePassSegmentView newOrRecycled)
+		protected override void UpdateViewsHolder(BattlePassSegmentViewHolder newOrRecycled)
 		{
-			BattlePassSegmentView.DataModel model = Data[newOrRecycled.ItemIndex];
-	
-			//newOrRecycled.RewardText.text = model.RewardName;
-			//newOrRecycled.RewardImage.sprite = model.RewardSprite;
-		}
-		
-		public void AddItemsAt(int index, IList<BattlePassSegmentView.DataModel> items)
-		{
-			Data.InsertItems(index, items);
+			BattlePassSegmentData model = Data[newOrRecycled.ItemIndex];
+			newOrRecycled.View.Init(model);
 		}
 
-		public void RemoveItemsFrom(int index, int count)
+		private void LoadBattlePassData(BattlePassConfig battlePassConfig)
 		{
-			Data.RemoveItems(index, count);
-		}
+			var newItems = new BattlePassSegmentData[battlePassConfig.Levels.Count];
 
-		public void SetItems(IList<BattlePassSegmentView.DataModel> items)
-		{
-			Data.ResetItems(items);
-		}
-
-		private void RetrieveDataAndUpdate(BattlePassConfig battlePassConfig)
-		{
-			var newItems = new BattlePassSegmentView.DataModel[battlePassConfig.Levels.Count];
-
-			for (int i = 0; i < newItems.Length; ++i)
+			for (uint i = 0; i < newItems.Length; ++i)
 			{
-				var model = new BattlePassSegmentView.DataModel
+				var model = new BattlePassSegmentData
 				{
-					RewardName = battlePassConfig.Levels[i].RewardId.ToString()
+					Level = i,
+					CurrentLevel = _gameDataProvider.BattlePassDataProvider.CurrentLevel.Value
 				};
 				
 				newItems[i] = model;
@@ -99,7 +73,7 @@ namespace FirstLight.Game.Views.BattlePassViews
 			OnDataRetrieved(newItems);
 		}
 
-		private void OnDataRetrieved(BattlePassSegmentView.DataModel[] newItems)
+		private void OnDataRetrieved(BattlePassSegmentData[] newItems)
 		{
 			Data.InsertItemsAtEnd(newItems);
 		}

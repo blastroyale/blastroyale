@@ -316,7 +316,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33.2
+  m_fontSize: 45
   m_fontSizeBase: 52
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1451,7 +1451,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 119, y: 52.000057}
+  m_AnchoredPosition: {x: 98, y: 61}
   m_SizeDelta: {x: 146, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3135238936894915046
@@ -1989,10 +1989,10 @@ Animation:
   m_GameObject: {fileID: 6892930250842689698}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: eb62f888ce82bce48acd44d0b7ddacc8, type: 2}
+  m_Animation: {fileID: 7400000, guid: ec8d3a698e8ca834f87dd59091db6285, type: 2}
   m_Animations:
-  - {fileID: 7400000, guid: a0cd5e803d30f7641ace6d85f6521dea, type: 2}
-  - {fileID: 7400000, guid: eb62f888ce82bce48acd44d0b7ddacc8, type: 2}
+  - {fileID: 7400000, guid: ec8d3a698e8ca834f87dd59091db6285, type: 2}
+  - {fileID: 7400000, guid: 29dc25f5609946042a78ffe2f7c7bd5a, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
@@ -2112,8 +2112,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -0.0000033975, y: 52}
-  m_SizeDelta: {x: 302.82068, y: 86.651}
+  m_AnchoredPosition: {x: 0, y: 79.575165}
+  m_SizeDelta: {x: 432.651, y: 123.8015}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &452546545025199654
 CanvasRenderer:

@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_ItemCard2D_Maskable
+  m_Name: M_ItemCard2D_Maskable_Runtime
   m_Shader: {fileID: -6465566751694194690, guid: 5d50a418b1581544db563aee1145ef5a, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []

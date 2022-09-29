@@ -21,6 +21,11 @@ namespace FirstLight.UiService
 		/// This method can be controlled in an async method and returns the prefab instantiated
 		/// </summary>
 		Task<GameObject> InstantiatePrefabAsync(string path, Transform parent, bool instantiateInWorldSpace);
+		
+		/// <summary>
+		/// Same as <see cref="InstantiatePrefabAsync"/>, but synchronous.
+		/// </summary>
+		GameObject InstantiatePrefab(string path, Transform parent, bool instantiateInWorldSpace);
 
 		/// <summary>
 		/// Unloads the given <paramref name="asset"/> from the game memory
@@ -44,6 +49,12 @@ namespace FirstLight.UiService
 			}
 			
 			return operation.Result;
+		}
+
+		public GameObject InstantiatePrefab(string path, Transform parent, bool instantiateInWorldSpace)
+		{
+			return Addressables.InstantiateAsync(path, new InstantiationParameters(parent, instantiateInWorldSpace))
+			                   .WaitForCompletion();
 		}
 
 		/// <inheritdoc />

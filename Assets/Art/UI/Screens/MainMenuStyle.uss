@@ -1,3 +1,10 @@
+:root {
+    --out-animation-duration: 0.3s;
+    --out-animation-easing: ease-in;
+    --in-animation-duration: 0.3s;
+    --in-animation-easing: ease-out;
+}
+
 #PlayButton {
     background-image: url('project://database/Assets/Art/UI/Sprites/PlayButton.png?fileID=21300000&guid=7b2a8cf62857f439d94b28d33014167f&type=3#PlayButton');
     width: 535px;
@@ -11,11 +18,9 @@
     text-shadow: 5px 5px 0 rgb(139, 26, 3);
     -unity-text-align: middle-center;
     padding-bottom: 19px;
-}
-
-#PlayButton:hover {
-    color: rgb(156, 156, 156);
-    text-shadow: 5px 5px 0 rgb(96, 16, 0);
+    transition-duration: var(--in-animation-duration);
+    transition-timing-function: var(--in-animation-easing);
+    transition-property: margin-right;
 }
 
 #PlayButton:active {
@@ -31,6 +36,17 @@
     margin-bottom: 7px;
     padding-left: 59px;
     padding-bottom: 4px;
+    transition-delay: 0.1s;
+    transition-timing-function: var(--in-animation-easing);
+    transition-property: margin-right;
+    transition-duration: var(--in-animation-duration);
+}
+
+#CustomGameButton {
+    transition-delay: 0.2s;
+    transition-property: margin-right;
+    transition-duration: var(--in-animation-duration);
+    transition-timing-function: var(--in-animation-easing);
 }
 
 #GameModeButton:active {
@@ -75,14 +91,6 @@
     right: 5px;
 }
 
-#BattlePassButton:hover #Title {
-    color: rgb(197, 197, 197);
-}
-
-#BattlePassButton:hover #BattlePassProgressElement {
-    -unity-background-image-tint-color: rgb(173, 173, 173);
-}
-
 #BattlePassButton:active {
     background-image: url('project://database/Assets/Art/UI/Sprites/BattlepassButtonPressed.png?fileID=21300000&guid=3954eea7714304c3aacf010642a02d78&type=3#BattlepassButtonPressed');
     padding-top: 30px;
@@ -103,20 +111,83 @@
     color: rgb(146, 137, 162);
 }
 
+#EquipmentButton {
+    transition-duration: var(--in-animation-duration);
+    transition-timing-function: var(--in-animation-easing);
+    transition-property: margin-left;
+    transition-delay: 0.4s;
+}
+
 #EquipmentButton .button-icon {
     background-image: url('project://database/Assets/Art/UI/Sprites/IconEquipment.png?fileID=21300000&guid=f074c3dd0ff0849fe90a973fd6fbd458&type=3#IconEquipment');
+}
+
+#HeroesButton {
+    transition-duration: var(--in-animation-duration);
+    transition-timing-function: var(--in-animation-easing);
+    transition-property: margin-left;
+    transition-delay: 0.3s;
 }
 
 #HeroesButton .button-icon {
     background-image: url('project://database/Assets/Art/UI/Sprites/IconHeroes.png?fileID=21300000&guid=51ac3af9acd824af591121ab7510c3df&type=3#IconHeroes');
 }
 
+#MarketplaceButton {
+    transition-duration: var(--in-animation-duration);
+    transition-timing-function: var(--in-animation-easing);
+    transition-property: margin-left;
+    transition-delay: 0.2s;
+}
+
 #MarketplaceButton .button-icon {
     background-image: url('project://database/Assets/Art/UI/Sprites/IconMarketplace.png?fileID=21300000&guid=13c1b5f14115447f780402fd721baad8&type=3#IconMarketplace');
 }
 
+#LeaderboardsButton {
+    transition-duration: var(--in-animation-duration);
+    transition-timing-function: var(--in-animation-easing);
+    transition-property: margin-left;
+    transition-delay: 0.1s;
+}
+
 #LeaderboardsButton .button-icon {
     background-image: url('project://database/Assets/Art/UI/Sprites/IconLeaderboards.png?fileID=21300000&guid=3a7d899cc87a648b6ab9f1f3cf7035f2&type=3#IconLeaderboards');
+}
+
+#BattlePassHolder {
+    transition-duration: var(--in-animation-duration);
+    transition-timing-function: var(--in-animation-easing);
+    transition-property: margin-left;
+    transition-delay: 0s;
+}
+
+#SettingsButton {
+    transition-duration: var(--in-animation-duration);
+    transition-timing-function: var(--in-animation-easing);
+    transition-property: margin-top;
+    transition-delay: 0s;
+}
+
+#CSCurrency {
+    transition-duration: var(--in-animation-duration);
+    transition-timing-function: var(--in-animation-easing);
+    transition-property: margin-top;
+    transition-delay: 0.1s;
+}
+
+#BLSTCurrency {
+    transition-duration: var(--in-animation-duration);
+    transition-timing-function: var(--in-animation-easing);
+    transition-property: margin-top;
+    transition-delay: 0.2s;
+}
+
+#PlayerHolder {
+    transition-duration: var(--in-animation-duration);
+    transition-timing-function: var(--in-animation-easing);
+    transition-property: margin-top;
+    transition-delay: 0s;
 }
 
 #CustomGameButton .button-icon {
@@ -129,4 +200,38 @@
 
 #CSCurrency #Icon {
     background-image: url('project://database/Assets/Art/UI/Sprites/CS.png?fileID=21300000&guid=d74b22177c5ba4ac6b9293d6c147e46e&type=3#CS');
+}
+
+.hidden {
+    visibility: hidden;
+    display: none;
+    transition-delay: 0.7s;
+}
+
+.hidden .hidden-left {
+    margin-left: -700px;
+    transition-duration: var(--out-animation-duration);
+    transition-timing-function: var(--out-animation-easing);
+    transition-property: margin-left;
+}
+
+.hidden .hidden-right {
+    margin-right: -700px;
+    transition-duration: var(--out-animation-duration);
+    transition-timing-function: var(--out-animation-easing);
+    transition-property: margin-right;
+}
+
+.hidden .hidden-top {
+    margin-top: -200px;
+    transition-duration: var(--out-animation-duration);
+    transition-timing-function: var(--out-animation-easing);
+    transition-property: margin-top;
+}
+
+.hidden .hidden-profile {
+    margin-top: -300px;
+    transition-duration: var(--out-animation-duration);
+    transition-timing-function: var(--out-animation-easing);
+    transition-property: margin-top;
 }

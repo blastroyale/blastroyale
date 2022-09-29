@@ -133,6 +133,7 @@ namespace FirstLight.Game.StateMachines
 		private void TryLogOut()
 		{
 			_services.PlayfabService.UnlinkDeviceID(OnUnlinkComplete);
+			_data.AppDataProvider.DeviceID.Value = null;
 		}
 
 		private void OnConnectIdComplete(AddUsernamePasswordResult result)

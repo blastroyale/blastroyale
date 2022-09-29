@@ -3,7 +3,7 @@
     <Style src="project://database/Assets/Art/UI/CommonStyle.uss?fileID=7433441132597879392&amp;guid=724da097496fa4dabbe27f211fbcd3bf&amp;type=3#CommonStyle" />
     <Style src="project://database/Assets/Art/UI/Screens/MainMenuStyle.uss?fileID=7433441132597879392&amp;guid=54dbd0d57987f4f398aea3e4722669ea&amp;type=3#MainMenuStyle" />
     <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore" style="align-items: center; justify-content: center;">
-        <ui:VisualElement picking-mode="Ignore" style="flex-direction: row-reverse; position: absolute; top: 0; right: 0; margin-right: 110px; margin-top: 23px; align-items: center; transition-property: margin-top; transition-duration: 0.5s; transition-timing-function: ease-in;">
+        <ui:VisualElement picking-mode="Ignore" style="flex-direction: row-reverse; position: absolute; top: 0; right: 0; margin-right: 36px; margin-top: 23px; align-items: center; transition-property: margin-top; transition-duration: 0.5s; transition-timing-function: ease-in;">
             <ui:Button display-tooltip-when-elided="true" name="SettingsButton" class="hidden-top" style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/SettingsIcon.png?fileID=21300000&amp;guid=04713a4471ac6493ba0a2533be572841&amp;type=3#SettingsIcon&apos;); width: 66px; height: 66px;" />
             <ui:Instance template="CurrencyDisplay" name="CSCurrency" class="hidden-top" style="margin-right: 49px;" />
             <ui:Instance template="CurrencyDisplay" name="BLSTCurrency" class="hidden-top" style="margin-right: 43px;" />

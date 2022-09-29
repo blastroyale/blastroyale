@@ -236,6 +236,11 @@ namespace Quantum {
     ConsumablePlatformSpawner = 140,
     Flag = 25,
     Tombstone = 37,
+    CoreCommon = 15,
+    CoreUncommon = 46,
+    CoreRare = 47,
+    CoreEpic = 48,
+    CoreLegendary = 59,
   }
   public enum GameIdGroup : int {
     GameDesign = 0,
@@ -246,6 +251,7 @@ namespace Quantum {
     Helmet = 13,
     Equipment = 12,
     Weapon = 11,
+    Melee = 20,
     Amulet = 16,
     Armor = 17,
     Shield = 15,
@@ -262,6 +268,7 @@ namespace Quantum {
     Platform = 37,
     Collection = 9,
     DeathMarker = 10,
+    Core = 22,
   }
   public enum GameSimulationStateMachine : int {
     Deathmatch,

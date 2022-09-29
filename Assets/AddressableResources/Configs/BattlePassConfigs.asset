@@ -17,12 +17,12 @@ MonoBehaviour:
     Levels:
     - RewardId: 0
     - RewardId: 1
-    - RewardId: 0
-    - RewardId: 1
-    - RewardId: 0
-    - RewardId: 1
-    - RewardId: 0
-    - RewardId: 1
-    - RewardId: 0
-    - RewardId: 1
-    - RewardId: 0
+    - RewardId: 2
+    - RewardId: 2
+    - RewardId: 2
+    - RewardId: 2
+    - RewardId: 2
+    - RewardId: 3
+    - RewardId: 4
+    - RewardId: 5
+    - RewardId: 6

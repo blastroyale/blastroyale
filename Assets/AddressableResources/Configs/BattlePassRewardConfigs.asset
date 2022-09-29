@@ -14,38 +14,308 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _configs:
   - Id: 0
-    Reward:
-      Adjective: 0
-      Durability: 100
-      Edition: 0
-      Faction: 0
-      GameId: 71
-      Generation: 0
-      Grade: 4
-      InitialReplicationCounter: 0
-      Level: 0
-      Manufacturer: 0
-      Material: 0
-      MaxDurability: 100
-      MaxLevel: 10
-      Rarity: 0
-      ReplicationCounter: 0
-      Tuning: 0
+    GameId: 71
+    EquipmentCategory: 
+    Edition:
+      _keyData: 00000000
+      _valueData:
+      - 100
+    Rarity:
+      _keyData: 00000000
+      _valueData:
+      - 100
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - 100
+    Faction:
+      _keyData: 0000000005000000
+      _valueData:
+      - 50
+      - 50
+    Adjective:
+      _keyData: 00000000
+      _valueData:
+      - 100
+    Material:
+      _keyData: 00000000
+      _valueData:
+      - 100
+    MaxDurability:
+      Key: 1
+      Value: 3
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
   - Id: 1
-    Reward:
-      Adjective: 0
-      Durability: 100
-      Edition: 0
-      Faction: 0
-      GameId: 78
-      Generation: 0
-      Grade: 4
-      InitialReplicationCounter: 0
-      Level: 0
-      Manufacturer: 0
-      Material: 0
-      MaxDurability: 100
-      MaxLevel: 10
-      Rarity: 0
-      ReplicationCounter: 0
-      Tuning: 0
+    GameId: 78
+    EquipmentCategory: 
+    Edition:
+      _keyData: 00000000
+      _valueData:
+      - 100
+    Rarity:
+      _keyData: 00000000
+      _valueData:
+      - 100
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - 100
+    Faction:
+      _keyData: 00000000
+      _valueData:
+      - 100
+    Adjective:
+      _keyData: 00000000
+      _valueData:
+      - 100
+    Material:
+      _keyData: 00000000
+      _valueData:
+      - 100
+    MaxDurability:
+      Key: 1
+      Value: 3
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+  - Id: 2
+    GameId: 15
+    EquipmentCategory: 0d0000000f00000010000000
+    Edition:
+      _keyData: 00000000
+      _valueData:
+      - 100
+    Rarity:
+      _keyData: 0000000001000000
+      _valueData:
+      - 35
+      - 25
+    Grade:
+      _keyData: 04000000
+      _valueData:
+      - 100
+    Faction:
+      _keyData: 00000000010000000200000003000000
+      _valueData:
+      - 20
+      - 20
+      - 20
+      - 20
+    Adjective:
+      _keyData: 0000000001000000020000000300000004000000
+      _valueData:
+      - 40
+      - 30
+      - 15
+      - 5.5
+      - 5.5
+    Material:
+      _keyData: 0000000001000000
+      _valueData:
+      - 56.58
+      - 35
+    MaxDurability:
+      Key: 1
+      Value: 3
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+  - Id: 3
+    GameId: 46
+    EquipmentCategory: 0d0000000f0000001100000010000000
+    Edition:
+      _keyData: 00000000
+      _valueData:
+      - 100
+    Rarity:
+      _keyData: 000000000100000002000000
+      _valueData:
+      - 35
+      - 25
+      - 18
+    Grade:
+      _keyData: 0400000003000000
+      _valueData:
+      - 85
+      - 15
+    Faction:
+      _keyData: 00000000010000000200000003000000
+      _valueData:
+      - 20
+      - 20
+      - 20
+      - 20
+    Adjective:
+      _keyData: 0100000002000000030000000400000005000000
+      _valueData:
+      - 30
+      - 15
+      - 5.5
+      - 5.5
+      - 1.9
+    Material:
+      _keyData: 000000000100000002000000
+      _valueData:
+      - 56.58
+      - 35
+      - 8
+    MaxDurability:
+      Key: 1
+      Value: 3
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+  - Id: 4
+    GameId: 47
+    EquipmentCategory: 0d0000000f00000011000000100000000b000000
+    Edition:
+      _keyData: 00000000
+      _valueData:
+      - 100
+    Rarity:
+      _keyData: 010000000200000003000000
+      _valueData:
+      - 25
+      - 18
+      - 12
+    Grade:
+      _keyData: 0400000003000000
+      _valueData:
+      - 56.58
+      - 35
+    Faction:
+      _keyData: 000000000100000002000000030000000400000005000000
+      _valueData:
+      - 20
+      - 20
+      - 20
+      - 20
+      - 9
+      - 9
+    Adjective:
+      _keyData: 010000000200000003000000040000000500000006000000
+      _valueData:
+      - 30
+      - 15
+      - 5.5
+      - 5.5
+      - 1.9
+      - 1.9
+    Material:
+      _keyData: 0100000002000000
+      _valueData:
+      - 35
+      - 8
+    MaxDurability:
+      Key: 1
+      Value: 3
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+  - Id: 5
+    GameId: 48
+    EquipmentCategory: 0d0000000f00000011000000100000000b000000
+    Edition:
+      _keyData: 00000000
+      _valueData:
+      - 100
+    Rarity:
+      _keyData: 02000000030000000400000005000000
+      _valueData:
+      - 18
+      - 12
+      - 6.5
+      - 2.79
+    Grade:
+      _keyData: 040000000300000002000000
+      _valueData:
+      - 56.58
+      - 35
+      - 8
+    Faction:
+      _keyData: 000000000100000002000000030000000400000005000000
+      _valueData:
+      - 20
+      - 20
+      - 20
+      - 20
+      - 9
+      - 9
+    Adjective:
+      _keyData: 020000000300000004000000050000000600000007000000
+      _valueData:
+      - 15
+      - 5.5
+      - 5.5
+      - 1.9
+      - 1.9
+      - 0.16
+    Material:
+      _keyData: 010000000200000003000000
+      _valueData:
+      - 35
+      - 8
+      - 0.4
+    MaxDurability:
+      Key: 1
+      Value: 3
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+  - Id: 6
+    GameId: 59
+    EquipmentCategory: 0d0000000f00000011000000100000000b000000
+    Edition:
+      _keyData: 00000000
+      _valueData:
+      - 100
+    Rarity:
+      _keyData: 03000000040000000500000006000000
+      _valueData:
+      - 12
+      - 6.5
+      - 2.79
+      - 0.5
+    Grade:
+      _keyData: 030000000200000001000000
+      _valueData:
+      - 35
+      - 8
+      - 0.4
+    Faction:
+      _keyData: 040000000500000006000000
+      _valueData:
+      - 9
+      - 9
+      - 2
+    Adjective:
+      _keyData: 03000000040000000500000006000000070000000800000009000000
+      _valueData:
+      - 5.5
+      - 5.5
+      - 1.9
+      - 1.9
+      - 0.16
+      - 0.02
+      - 0.02
+    Material:
+      _keyData: 020000000300000004000000
+      _valueData:
+      - 8
+      - 0.4
+      - 0.02
+    MaxDurability:
+      Key: 1
+      Value: 3
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0

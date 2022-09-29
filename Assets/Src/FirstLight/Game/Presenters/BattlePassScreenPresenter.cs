@@ -110,7 +110,8 @@ namespace FirstLight.Game.Presenters
 
 			if (PendingRewards.TryDequeue(out var reward))
 			{
-				_services.GenericDialogService.OpenDialog($"Reward: {reward.Reward.GameId.ToString()}", false, button);
+				// TODO BP
+				//_services.GenericDialogService.OpenDialog($"Reward: {reward.Reward.GameId.ToString()}", false, button);
 			}
 		}
 

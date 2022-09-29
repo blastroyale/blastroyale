@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FirstLight.Game.Utils;
 using Quantum;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ namespace FirstLight.Game.Configs
 	public struct MatchRewardConfig
 	{
 		public short Placement;
-		public GameIdUintDictionary Rewards;
+		public SerializedDictionary<GameId,uint> Rewards;
 	}
 
 	/// <summary>
@@ -29,8 +30,5 @@ namespace FirstLight.Game.Configs
 		}
 	}
 
-	[Serializable]
-	public class GameIdUintDictionary : UnitySerializedDictionary<GameId, uint>
-	{
-	}
+	
 }

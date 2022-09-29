@@ -56,7 +56,7 @@ namespace FirstLight.Game.Views.BattlePassViews
 			// Update reward card 
 			_rewardReadyToClaimObject.SetActive(false);
 			_rewardStatusText.gameObject.SetActive(false);
-			_rewardTitleText.text = data.RewardConfig.Reward.GameId.ToString();
+			//_rewardTitleText.text = data.RewardConfig.Reward.GameId.ToString(); // TODO BP
 			
 			if (!isRewardClaimed && data.RedeemableLevel >= data.SegmentLevelForRewards)
 			{

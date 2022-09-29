@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
+using UnityEngine;
 
 // ReSharper disable once CheckNamespace
 
@@ -101,6 +102,8 @@ namespace FirstLight.GoogleSheetImporter
 		public static object DeserializeObject(string data, Type type,
 		                                       params Func<string, Type, object>[] deserializers)
 		{
+			if(data == "Rewards")
+				Debug.LogError("");
 			var listType = typeof(IList);
 			var dictionaryType = typeof(IDictionary);
 			var unityDictionaryType = typeof(UnitySerializedDictionary<,>).GetGenericTypeDefinition();
@@ -260,6 +263,11 @@ namespace FirstLight.GoogleSheetImporter
 			var items = ArrayParse<string>(text, deserializers);
 			var dictionary = (IDictionary) Activator.CreateInstance(dictionaryType);
 
+			if (items.Count == 0)
+			{
+				return null;
+			}
+			
 			if (items[0].IndexOfAny(PairSplitChars) != -1)
 			{
 				foreach (var item in items)

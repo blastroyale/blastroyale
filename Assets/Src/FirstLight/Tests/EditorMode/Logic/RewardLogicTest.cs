@@ -174,11 +174,11 @@ namespace FirstLight.Tests.EditorMode.Logic
 			GameLogic.BattlePassLogic.GetRemainingPoints().Returns<uint>(100);
 			
 			InitConfigData(new QuantumMapConfig { Map = (GameId) _matchData.MapId });
-			
-			InitConfigData(config => (int) config.Placement, 
-			               new MatchRewardConfig { Placement = 1, Rewards = new GameIdUintDictionary {{GameId.CS, PLACEMENT1_CS_PERCENTAGE}, {GameId.BPP, PLACEMENT1_BPP}}}, 
-			               new MatchRewardConfig { Placement = 2, Rewards = new GameIdUintDictionary { { GameId.CS, PLACEMENT2_CS_PERCENTAGE }, {GameId.BPP, PLACEMENT2_BPP}} }, 
-			               new MatchRewardConfig { Placement = 3, Rewards = new GameIdUintDictionary { { GameId.CS, PLACEMENT3_CS_PERCENTAGE }, {GameId.BPP, PLACEMENT3_BPP}} });
+			// TODO BP
+			//InitConfigData(config => (int) config.Placement, 
+			//               new MatchRewardConfig { Placement = 1, Rewards = new GameIdUintDictionary {{GameId.CS, PLACEMENT1_CS_PERCENTAGE}, {GameId.BPP, PLACEMENT1_BPP}}}, 
+			//               new MatchRewardConfig { Placement = 2, Rewards = new GameIdUintDictionary { { GameId.CS, PLACEMENT2_CS_PERCENTAGE }, {GameId.BPP, PLACEMENT2_BPP}} }, 
+			//               new MatchRewardConfig { Placement = 3, Rewards = new GameIdUintDictionary { { GameId.CS, PLACEMENT3_CS_PERCENTAGE }, {GameId.BPP, PLACEMENT3_BPP}} });
 		}
 
 		private void SetupZeroResources()

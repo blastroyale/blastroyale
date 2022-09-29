@@ -211,7 +211,8 @@ namespace FirstLight.Game.Logic
 		{
 			foreach (var reward in rewards)
 			{
-				GameLogic.EquipmentLogic.AddToInventory(reward.Reward);
+				// TODO BP
+				//GameLogic.EquipmentLogic.AddToInventory(reward.Reward);
 			}
 		}
 	}

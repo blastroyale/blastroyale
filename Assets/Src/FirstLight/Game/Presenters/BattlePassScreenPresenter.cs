@@ -29,12 +29,12 @@ namespace FirstLight.Game.Presenters
 		
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
-		private IGameUiService _uiService;
 
 		private Queue<Equipment> PendingRewards = new();
 
 		public struct StateData
 		{
+			public IGameUiService UiService;
 			public Action BackClicked;
 		}
 
@@ -42,7 +42,6 @@ namespace FirstLight.Game.Presenters
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			_uiService = MainInstaller.Resolve<IGameUiService>();
 			
 			_backButton.onClick.AddListener(OnBackClicked);
 			_claimRewardsButton.onClick.AddListener(OnClaimRewardsClicked);
@@ -102,9 +101,9 @@ namespace FirstLight.Game.Presenters
 		private void TryShowNextReward()
 		{
 			// Keep showing/dismissing the battle pass generic reward dialog recursively, until all have been shown
-			if (_uiService.HasUiPresenter<BattlepassRewardDialogPresenter>())
+			if (Data.UiService.HasUiPresenter<BattlepassRewardDialogPresenter>())
 			{
-				_uiService.CloseUi<BattlepassRewardDialogPresenter>();
+				Data.UiService.CloseUi<BattlepassRewardDialogPresenter>();
 			}
 			
 			if (!PendingRewards.TryDequeue(out var reward)) return;
@@ -115,7 +114,7 @@ namespace FirstLight.Game.Presenters
 				Reward = reward
 			};
 					
-			_uiService.OpenUiAsync<BattlepassRewardDialogPresenter, BattlepassRewardDialogPresenter.StateData>(data);
+			Data.UiService.OpenUiAsync<BattlepassRewardDialogPresenter, BattlepassRewardDialogPresenter.StateData>(data);
 		}
 
 		private void OnLevelDataUpdated(uint _, uint level)

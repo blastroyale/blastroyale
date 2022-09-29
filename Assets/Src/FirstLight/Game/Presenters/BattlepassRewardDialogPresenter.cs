@@ -34,7 +34,9 @@ namespace FirstLight.Game.Presenters
 		{
 			base.OnOpened();
 			
+			_rewardImage.gameObject.SetActive(false);
 			_rewardImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(Data.Reward.GameId);
+			_rewardImage.gameObject.SetActive(true);
 		}
 
 		private void OnConfirmButtonClicked()

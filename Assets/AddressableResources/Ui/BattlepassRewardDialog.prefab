@@ -956,6 +956,7 @@ GameObject:
   - component: {fileID: 6133319722439297057}
   - component: {fileID: 5258841922226880994}
   - component: {fileID: 1913426886436797869}
+  - component: {fileID: 3902914029370105198}
   m_Layer: 5
   m_Name: RewardImage
   m_TagString: Untagged
@@ -980,8 +981,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0.000030517578, y: -0.000016212}
-  m_SizeDelta: {x: -139.0479, y: 400.2774}
+  m_AnchoredPosition: {x: 0.000030517578, y: 37}
+  m_SizeDelta: {x: -237.6319, y: 313.439}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5258841922226880994
 CanvasRenderer:
@@ -1021,3 +1022,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!111 &3902914029370105198
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8701152753590329287}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: d048311dbfd41084cbbf3ee2a3ec9086, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: d048311dbfd41084cbbf3ee2a3ec9086, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0

@@ -1,4 +1,6 @@
 using System;
+using FirstLight.FLogger;
+using FirstLight.Game.Ids;
 using UnityEngine;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Logic;
@@ -53,17 +55,17 @@ namespace FirstLight.Game.Presenters
 
 			_root = _document.rootVisualElement;
 
-			_playerNameLabel = _root.Q<Label>("PlayerNameLabel");
-			_playerTrophiesLabel = _root.Q<Label>("PlayerTrophiesLabel");
-			_gameModeLabel = _root.Q<Label>("GameModeLabel");
-			_gameTypeLabel = _root.Q<Label>("GameTypeLabel");
-			_battlePassCrownIcon = _root.Q<Label>("BattlePassCrownIcon");
+			_playerNameLabel = _root.Q<Label>("PlayerNameLabel").Required();
+			_playerTrophiesLabel = _root.Q<Label>("PlayerTrophiesLabel").Required();
+			_gameModeLabel = _root.Q<Label>("GameModeLabel").Required();
+			_gameTypeLabel = _root.Q<Label>("GameTypeLabel").Required();
 
 			// TODO: Probably a better way to query this, with .Query<>
-			_csAmountLabel = _root.Q<VisualElement>("CSCurrency").Q<Label>("Label");
-			_blstAmountLabel = _root.Q<VisualElement>("BLSTCurrency").Q<Label>("Label");
-			_battlePassLevelLabel = _root.Q<Label>("BattlePassLevelLabel");
-			_battlePassProgressElement = _root.Q<VisualElement>("BattlePassProgressElement");
+			_csAmountLabel = _root.Q<VisualElement>("CSCurrency").Q<Label>("Label").Required();
+			_blstAmountLabel = _root.Q<VisualElement>("BLSTCurrency").Q<Label>("Label").Required();
+			_battlePassLevelLabel = _root.Q<Label>("BattlePassLevelLabel").Required();
+			_battlePassProgressElement = _root.Q<VisualElement>("BattlePassProgressElement").Required();
+			_battlePassCrownIcon = _root.Q<VisualElement>("BattlePassCrownIcon").Required();
 
 			_root.Q<Button>("PlayButton").clicked += OnPlayButtonClicked;
 			_root.Q<Button>("GameModeButton").clicked += OnGameModeClicked;
@@ -75,7 +77,14 @@ namespace FirstLight.Game.Presenters
 			_root.Q<Button>("HeroesButton").clicked += OnHeroesButtonClicked;
 			_root.Q<Button>("MarketplaceButton").clicked += OnMarketplaceButtonClicked;
 			_root.Q<Button>("LeaderboardsButton").clicked += OnLeaderboardsButtonClicked;
-			
+
+			// TODO: Move to shared code
+			_root.Query<Button>().Build().ForEach(b =>
+			{
+				b.RegisterCallback<PointerDownEvent>(e => { _gameServices.AudioFxService.PlayClip2D(AudioId.ButtonClickForward); },
+				                                     TrickleDown.TrickleDown);
+			});
+
 			_playerNameLabel.RegisterCallback<ClickEvent>(OnPlayerNameClicked);
 
 			_gameDataProvider.AppDataProvider.DisplayName.InvokeObserve(OnDisplayNameChanged);
@@ -93,7 +102,7 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider.AppDataProvider.DisplayName.StopObserving(OnDisplayNameChanged);
 			_gameDataProvider.PlayerDataProvider.Trophies.StopObserving(OnTrophiesChanged);
 			_gameServices.GameModeService.SelectedGameMode.StopObserving(OnSelectedGameModeChanged);
-			_gameDataProvider.CurrencyDataProvider.Currencies.StopObservingAll(this);
+			_gameDataProvider.CurrencyDataProvider.Currencies.StopObserving(GameId.CS);
 		}
 
 		protected override void OnOpened()
@@ -101,13 +110,13 @@ namespace FirstLight.Game.Presenters
 			base.OnOpened();
 			if (_root == null) return; // First open
 
-			_root.style.display = DisplayStyle.Flex;
+			_root.EnableInClassList("hidden", false);
 		}
 
 		protected override void OnClosed()
 		{
 			base.OnClosed();
-			_root.style.display = DisplayStyle.None;
+			_root.EnableInClassList("hidden", true);
 		}
 
 		private void OnPlayButtonClicked()
@@ -154,7 +163,7 @@ namespace FirstLight.Game.Presenters
 		{
 			Data.OnLeaderboardClicked();
 		}
-		
+
 		private void OnPlayerNameClicked(ClickEvent evt)
 		{
 			Data.OnNameChangeClicked();
@@ -167,7 +176,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnDisplayNameChanged(string _, string current)
 		{
-			_playerNameLabel.text = current;
+			_playerNameLabel.text = _gameDataProvider.AppDataProvider.DisplayNameTrimmed;
 		}
 
 		private void OnSelectedGameModeChanged(GameModeInfo _, GameModeInfo current)
@@ -198,7 +207,7 @@ namespace FirstLight.Game.Presenters
 		private void OnBattlePassCurrentPointsChanged(uint _, uint current)
 		{
 			var hasRewards = _gameDataProvider.BattlePassDataProvider.IsRedeemable(out var nextLevel);
-			_battlePassLevelLabel.style.flexGrow = Mathf.Clamp01((float) current / nextLevel);
+			_battlePassProgressElement.style.flexGrow = Mathf.Clamp01((float) current / nextLevel);
 			_battlePassCrownIcon.style.display = hasRewards ? DisplayStyle.Flex : DisplayStyle.None;
 		}
 	}

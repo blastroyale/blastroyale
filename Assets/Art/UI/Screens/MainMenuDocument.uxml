@@ -3,39 +3,39 @@
     <Style src="project://database/Assets/Art/UI/CommonStyle.uss?fileID=7433441132597879392&amp;guid=724da097496fa4dabbe27f211fbcd3bf&amp;type=3#CommonStyle" />
     <Style src="project://database/Assets/Art/UI/Screens/MainMenuStyle.uss?fileID=7433441132597879392&amp;guid=54dbd0d57987f4f398aea3e4722669ea&amp;type=3#MainMenuStyle" />
     <FirstLight.Game.UIElements.SafeAreaElement style="align-items: center; justify-content: center;">
-        <ui:VisualElement style="flex-direction: row-reverse; position: absolute; top: 0; right: 0; margin-right: 110px; margin-top: 23px; align-items: center;">
-            <ui:Button display-tooltip-when-elided="true" name="SettingsButton" style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/SettingsIcon.png?fileID=21300000&amp;guid=04713a4471ac6493ba0a2533be572841&amp;type=3#SettingsIcon&apos;); width: 66px; height: 66px;" />
-            <ui:Instance template="CurrencyDisplay" name="CSCurrency" style="margin-right: 49px;" />
-            <ui:Instance template="CurrencyDisplay" name="BLSTCurrency" style="margin-right: 43px;" />
+        <ui:VisualElement style="flex-direction: row-reverse; position: absolute; top: 0; right: 0; margin-right: 110px; margin-top: 23px; align-items: center; transition-property: margin-top; transition-duration: 0.5s; transition-timing-function: ease-in;">
+            <ui:Button display-tooltip-when-elided="true" name="SettingsButton" class="hidden-top" style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/SettingsIcon.png?fileID=21300000&amp;guid=04713a4471ac6493ba0a2533be572841&amp;type=3#SettingsIcon&apos;); width: 66px; height: 66px;" />
+            <ui:Instance template="CurrencyDisplay" name="CSCurrency" class="hidden-top" style="margin-right: 49px;" />
+            <ui:Instance template="CurrencyDisplay" name="BLSTCurrency" class="hidden-top" style="margin-right: 43px;" />
         </ui:VisualElement>
-        <ui:VisualElement style="height: 580px; width: 535px; position: absolute; right: 0; bottom: 0; flex-direction: column-reverse; margin-bottom: 35px; margin-right: 93px; align-items: flex-end; display: flex;">
-            <ui:Button text="PLAY" display-tooltip-when-elided="true" name="PlayButton" enable-rich-text="false" class="play-button font-italic font-style-h1" />
-            <ui:Button display-tooltip-when-elided="true" name="GameModeButton" style="flex-direction: column-reverse;">
+        <ui:VisualElement style="height: 580px; width: 535px; position: absolute; right: 0; bottom: 0; flex-direction: column-reverse; align-items: flex-end; display: flex; margin-bottom: 36px; margin-right: 36px;">
+            <ui:Button text="PLAY" display-tooltip-when-elided="true" name="PlayButton" enable-rich-text="false" class="play-button font-italic font-style-h1 hidden-right" />
+            <ui:Button display-tooltip-when-elided="true" name="GameModeButton" class="hidden-right" style="flex-direction: column-reverse;">
                 <ui:VisualElement style="rotate: 0; margin-right: 38px; padding-bottom: 32px; align-items: flex-start;">
                     <ui:Label text="DEATHMATCH" display-tooltip-when-elided="true" name="GameModeLabel" class="font-italic font-style-h2" style="-unity-text-align: upper-right; font-size: 46px; padding-bottom: 0; margin-bottom: -3px;" />
                     <ui:Label text="CASUAL" display-tooltip-when-elided="true" name="GameTypeLabel" class="font-italic font-style-h2" style="-unity-text-align: upper-right; font-size: 29px; margin-bottom: -3px; margin-left: -13px;" />
                 </ui:VisualElement>
             </ui:Button>
-            <ui:Button text="CUSTOM GAME" display-tooltip-when-elided="true" name="CustomGameButton" class="button-regular font-italic font-style-h2" style="margin-bottom: 27px;">
+            <ui:Button text="CUSTOM GAME" display-tooltip-when-elided="true" name="CustomGameButton" class="button-regular font-italic font-style-h2 hidden-right" style="margin-bottom: 27px;">
                 <ui:VisualElement name="ButtonIcon" class="button-icon" />
             </ui:Button>
         </ui:VisualElement>
-        <ui:VisualElement style="position: absolute; left: 0; top: 245px; bottom: 0; justify-content: space-between; margin-bottom: 36px; margin-left: 121px;">
-            <ui:Button text="EQUiPMENT" display-tooltip-when-elided="true" name="EquipmentButton" class="button-regular font-italic font-style-h2">
+        <ui:VisualElement style="position: absolute; left: 0; top: 245px; bottom: 0; justify-content: space-between; margin-bottom: 36px; margin-left: 36px;">
+            <ui:Button text="EQUiPMENT" display-tooltip-when-elided="true" name="EquipmentButton" class="button-regular font-italic font-style-h2 hidden-left">
                 <ui:VisualElement class="button-icon" />
             </ui:Button>
-            <ui:Button text="HEROES" display-tooltip-when-elided="true" name="HeroesButton" class="button-regular font-italic font-style-h2">
+            <ui:Button text="HEROES" display-tooltip-when-elided="true" name="HeroesButton" class="button-regular font-italic font-style-h2 hidden-left">
                 <ui:VisualElement class="button-icon" />
             </ui:Button>
-            <ui:Button text="MARKETPLACE" display-tooltip-when-elided="true" name="MarketplaceButton" class="button-regular font-italic font-style-h2" style="letter-spacing: -1px;">
+            <ui:Button text="MARKETPLACE" display-tooltip-when-elided="true" name="MarketplaceButton" class="button-regular font-italic font-style-h2 hidden-left" style="letter-spacing: -1px;">
                 <ui:VisualElement class="button-icon" />
             </ui:Button>
-            <ui:Button text="LEADERBOARDS" display-tooltip-when-elided="true" name="LeaderboardsButton" class="button-regular font-italic font-style-h2" style="letter-spacing: -4px;">
+            <ui:Button text="LEADERBOARDS" display-tooltip-when-elided="true" name="LeaderboardsButton" class="button-regular font-italic font-style-h2 hidden-left" style="letter-spacing: -4px;">
                 <ui:VisualElement class="button-icon" />
             </ui:Button>
-            <ui:VisualElement style="flex-direction: row; align-items: flex-end;">
+            <ui:VisualElement name="BattlePassHolder" class="hidden-left" style="flex-direction: row; align-items: flex-end;">
                 <ui:Button display-tooltip-when-elided="true" name="BattlePassButton" class="blastpassbutton" style="overflow: visible;">
-                    <ui:VisualElement style="justify-content: flex-start; align-items: stretch; flex-grow: 1;">
+                    <ui:VisualElement style="justify-content: flex-start; align-items: stretch; flex-grow: 1; flex-direction: column;">
                         <ui:Label text="BLAST PASS" name="Title" class="font-style-h1 font-italic" />
                         <ui:Label text="LVL 1" display-tooltip-when-elided="true" name="BattlePassLevelLabel" class="font-bold" style="-unity-text-align: middle-right; font-size: 46px; margin-top: -20px; margin-right: 30px; color: rgb(138, 22, 0); -unity-font-style: bold; margin-bottom: 10px;" />
                         <ui:VisualElement style="height: 20px; padding-left: 2px; padding-right: 3px; padding-top: 2px; padding-bottom: 2px; right: 0; flex-direction: row; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/BattlePassProgressBack.png?fileID=21300000&amp;guid=32610552af28844669cdba62234811ad&amp;type=3#BattlePassProgressBack&apos;); -unity-slice-left: 8; -unity-slice-right: 8; -unity-background-scale-mode: stretch-to-fill; margin-top: -17px; margin-left: 44px; margin-right: 19px;">
@@ -48,13 +48,13 @@
             </ui:VisualElement>
         </ui:VisualElement>
     </FirstLight.Game.UIElements.SafeAreaElement>
-    <ui:VisualElement style="position: absolute; left: 0; top: 0; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/HeadlineCornerBack.png?fileID=21300000&amp;guid=a00a82499a7b54937bb2cf2b23aeb238&amp;type=3#HeadlineCornerBack&apos;); width: 790px; height: 220px;">
+    <ui:VisualElement name="PlayerHolder" class="hidden-profile" style="position: absolute; left: 0; top: 0; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/HeadlineCornerBack.png?fileID=21300000&amp;guid=a00a82499a7b54937bb2cf2b23aeb238&amp;type=3#HeadlineCornerBack&apos;); width: 790px; height: 220px;">
         <ui:VisualElement style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/ProfileHeadlineBack.png?fileID=21300000&amp;guid=8f2de411e440e476a955e263066bcdfa&amp;type=3#ProfileHeadlineBack&apos;); width: 484px; height: 128px; margin-left: 315px;">
             <ui:VisualElement style="position: absolute; width: 340px; height: 72px; rotate: -13deg; left: 31px; top: -14px; flex-direction: column-reverse;">
                 <ui:VisualElement style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/ProfileProgressBack.png?fileID=21300000&amp;guid=4d4555713b6f541ebad6dd66f91c9429&amp;type=3#ProfileProgressBack&apos;); flex-grow: 1; padding-left: 1px; padding-right: 1px; padding-top: 1px; padding-bottom: 1px; flex-direction: row;">
                     <ui:VisualElement name="PlayerLevelProgressElement" style="flex-grow: 1; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/ProfileProgress.png?fileID=21300000&amp;guid=5d610d5eb2b6d402e80eb23e2f4e974b&amp;type=3#ProfileProgress&apos;);" />
                 </ui:VisualElement>
-                <ui:VisualElement style="flex-direction: row; justify-content: flex-start; align-items: flex-end; margin-bottom: 6px;">
+                <ui:VisualElement style="flex-direction: row; justify-content: flex-start; align-items: center; margin-bottom: 6px;">
                     <ui:VisualElement style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Trophy.png?fileID=21300000&amp;guid=872fe08ff0fbc4f64b229d591f48d144&amp;type=3#Trophy&apos;); width: 32px; height: 32px; margin-left: 16px;" />
                     <ui:Label text="143" display-tooltip-when-elided="true" name="PlayerTrophiesLabel" class="font-italic font-style-h2" style="margin-left: 6px;" />
                 </ui:VisualElement>

@@ -56,7 +56,7 @@ Button:hover {
 }
 
 .button-regular {
-    background-image: url('project://database/Assets/Art/UI/Sprites/ButtonMain.png?fileID=21300000&guid=8368e60ca24ab4818929e5d7b2dd77f2&type=3#ButtonMain');
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMain.png?fileID=21300000&guid=8368e60ca24ab4818929e5d7b2dd77f2&type=3#ButtonMain');
     width: 222px;
     height: 128px;
     padding-top: 50px;
@@ -81,7 +81,7 @@ Button:hover {
 }
 
 .button-regular:active {
-    background-image: url('project://database/Assets/Art/UI/Sprites/ButtonMainPressed.png?fileID=21300000&guid=5cb1a9853b14740c980813b57e5d03f3&type=3#ButtonMainPressed');
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMainPressed.png?fileID=21300000&guid=5cb1a9853b14740c980813b57e5d03f3&type=3#ButtonMainPressed');
     padding-top: 70px;
 }
 

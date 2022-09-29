@@ -2,13 +2,13 @@
     <ui:Template name="CurrencyDisplay" src="project://database/Assets/Art/UI/Templates/CurrencyDisplay.uxml?fileID=9197481963319205126&amp;guid=328eeb5ffa7ba412e8d99f68c0f592c7&amp;type=3#CurrencyDisplay" />
     <Style src="project://database/Assets/Art/UI/CommonStyle.uss?fileID=7433441132597879392&amp;guid=724da097496fa4dabbe27f211fbcd3bf&amp;type=3#CommonStyle" />
     <Style src="project://database/Assets/Art/UI/Screens/MainMenuStyle.uss?fileID=7433441132597879392&amp;guid=54dbd0d57987f4f398aea3e4722669ea&amp;type=3#MainMenuStyle" />
-    <FirstLight.Game.UIElements.SafeAreaElement style="align-items: center; justify-content: center;">
-        <ui:VisualElement style="flex-direction: row-reverse; position: absolute; top: 0; right: 0; margin-right: 110px; margin-top: 23px; align-items: center; transition-property: margin-top; transition-duration: 0.5s; transition-timing-function: ease-in;">
+    <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore" style="align-items: center; justify-content: center;">
+        <ui:VisualElement picking-mode="Ignore" style="flex-direction: row-reverse; position: absolute; top: 0; right: 0; margin-right: 110px; margin-top: 23px; align-items: center; transition-property: margin-top; transition-duration: 0.5s; transition-timing-function: ease-in;">
             <ui:Button display-tooltip-when-elided="true" name="SettingsButton" class="hidden-top" style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/SettingsIcon.png?fileID=21300000&amp;guid=04713a4471ac6493ba0a2533be572841&amp;type=3#SettingsIcon&apos;); width: 66px; height: 66px;" />
             <ui:Instance template="CurrencyDisplay" name="CSCurrency" class="hidden-top" style="margin-right: 49px;" />
             <ui:Instance template="CurrencyDisplay" name="BLSTCurrency" class="hidden-top" style="margin-right: 43px;" />
         </ui:VisualElement>
-        <ui:VisualElement style="height: 580px; width: 535px; position: absolute; right: 0; bottom: 0; flex-direction: column-reverse; align-items: flex-end; display: flex; margin-bottom: 36px; margin-right: 36px;">
+        <ui:VisualElement picking-mode="Ignore" style="height: 580px; width: 535px; position: absolute; right: 0; bottom: 0; flex-direction: column-reverse; align-items: flex-end; display: flex; margin-bottom: 36px; margin-right: 36px;">
             <ui:Button text="PLAY" display-tooltip-when-elided="true" name="PlayButton" enable-rich-text="false" class="play-button font-italic font-style-h1 hidden-right" />
             <ui:Button display-tooltip-when-elided="true" name="GameModeButton" class="hidden-right" style="flex-direction: column-reverse;">
                 <ui:VisualElement style="rotate: 0; margin-right: 38px; padding-bottom: 32px; align-items: flex-start;">
@@ -20,8 +20,8 @@
                 <ui:VisualElement name="ButtonIcon" class="button-icon" />
             </ui:Button>
         </ui:VisualElement>
-        <ui:VisualElement style="position: absolute; left: 0; top: 245px; bottom: 0; justify-content: space-between; margin-bottom: 36px; margin-left: 36px;">
-            <ui:Button text="EQUiPMENT" display-tooltip-when-elided="true" name="EquipmentButton" class="button-regular font-italic font-style-h2 hidden-left">
+        <ui:VisualElement picking-mode="Ignore" style="position: absolute; left: 0; top: 245px; bottom: 0; justify-content: space-between; margin-bottom: 36px; margin-left: 36px;">
+            <ui:Button text="EQUiPMENT" name="EquipmentButton" class="button-regular font-italic font-style-h2 hidden-left">
                 <ui:VisualElement class="button-icon" />
             </ui:Button>
             <ui:Button text="HEROES" display-tooltip-when-elided="true" name="HeroesButton" class="button-regular font-italic font-style-h2 hidden-left">
@@ -44,7 +44,7 @@
                     </ui:VisualElement>
                     <ui:VisualElement name="BattlePassCrownIcon" style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/BattlepassCrown.png?fileID=21300000&amp;guid=0009bb56e12594dd9a62134a948a4f74&amp;type=3#BattlepassCrown&apos;); width: 104px; height: 88px;" />
                 </ui:Button>
-                <ui:Button text="Chest" display-tooltip-when-elided="true" name="ChestButton" class="button-regular font-italic font-style-h2" style="margin-left: 64px; -unity-background-image-tint-color: rgb(255, 247, 0); visibility: hidden;" />
+                <ui:Button text="Chest" display-tooltip-when-elided="true" name="ChestButton" class="button-regular font-italic font-style-h2" style="margin-left: 64px; -unity-background-image-tint-color: rgb(255, 247, 0); display: none;" />
             </ui:VisualElement>
         </ui:VisualElement>
     </FirstLight.Game.UIElements.SafeAreaElement>

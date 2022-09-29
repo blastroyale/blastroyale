@@ -18,6 +18,8 @@ namespace FirstLight.Game.UIElements
 			style.flexGrow = 1;
 			style.flexShrink = 1;
 
+			pickingMode = PickingMode.Ignore; // To allow raycasts to pass through it
+
 			RegisterCallback<GeometryChangedEvent>(LayoutChanged);
 		}
 

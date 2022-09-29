@@ -20,7 +20,7 @@ namespace FirstLight.Game.Configs
 		/// <summary>
 		/// Requests the <see cref="QuantumEquipmentMaterialStatConfig"/> of the given <paramref name="equipment"/>
 		/// </summary>
-		public virtual QuantumEquipmentMaterialStatConfig GetConfig(Equipment equipment)
+		public virtual QuantumEquipmentMaterialStatConfig GetConfig(Quantum.Equipment equipment)
 		{
 			return Settings.GetConfig(equipment);
 		}

@@ -11,6 +11,7 @@ using NSubstitute;
 using NUnit.Framework;
 using Quantum;
 using Assert = NUnit.Framework.Assert;
+using Equipment = Quantum.Equipment;
 
 namespace FirstLight.Tests.EditorMode.Logic
 {

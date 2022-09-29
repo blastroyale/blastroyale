@@ -5,6 +5,7 @@ using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Infos;
 using FirstLight.Services;
 using Quantum;
+using Equipment = Quantum.Equipment;
 
 namespace FirstLight.Game.Logic
 {

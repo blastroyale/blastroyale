@@ -14,6 +14,7 @@ using Photon.Deterministic;
 using Quantum;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Equipment = Quantum.Equipment;
 using Object = UnityEngine.Object;
 
 namespace FirstLight.Game.StateMachines

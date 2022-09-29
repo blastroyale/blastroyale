@@ -11,22 +11,22 @@ namespace FirstLight.Game.Configs
 	/// The rewards are non-NFTs, and are generated from a list of possibilities and ranges (GameID + Chance)
 	/// </summary>
 	[Serializable]
-	public struct BattlePassRewardConfig
+	public struct Equipment
 	{
 		public int Id;
 		public GameId GameId;
-		public List<GameIdGroup> EquipmentCategory;
-		public SerializedDictionary<EquipmentEdition, float> Edition;
-		public SerializedDictionary<EquipmentRarity, float> Rarity;
-		public SerializedDictionary<EquipmentGrade, float> Grade;
-		public SerializedDictionary<EquipmentFaction, float> Faction;
-		public SerializedDictionary<EquipmentAdjective, float> Adjective;
-		public SerializedDictionary<EquipmentMaterial, float> Material;
-		public Pair<float, float> MaxDurability;
-		public int InitialReplicationCounter;
-		public int Tuning;
-		public int Level;
-		public int Generation;
+		public SerializedDictionary<GameIdGroup, double> EquipmentCategory;
+		public SerializedDictionary<EquipmentEdition, double> Edition;
+		public SerializedDictionary<EquipmentRarity, double> Rarity;
+		public SerializedDictionary<EquipmentGrade, double> Grade;
+		public SerializedDictionary<EquipmentFaction, double> Faction;
+		public SerializedDictionary<EquipmentAdjective, double> Adjective;
+		public SerializedDictionary<EquipmentMaterial, double> Material;
+		public Pair<int, int> MaxDurability;
+		public uint InitialReplicationCounter;
+		public uint Tuning;
+		public uint Level;
+		public uint Generation;
 
 	}
 	/// <summary>
@@ -34,11 +34,11 @@ namespace FirstLight.Game.Configs
 	/// </summary>
 	[CreateAssetMenu(fileName = "BattlePassRewardConfigs",
 	                 menuName = "ScriptableObjects/Configs/BattlePassRewardConfigs")]
-	public class BattlePassRewardConfigs : ScriptableObject, IConfigsContainer<BattlePassRewardConfig>
+	public class BattlePassRewardConfigs : ScriptableObject, IConfigsContainer<Equipment>
 	{
-		[SerializeField] private List<BattlePassRewardConfig> _configs;
+		[SerializeField] private List<Equipment> _configs;
 
-		public List<BattlePassRewardConfig> Configs
+		public List<Equipment> Configs
 		{
 			get => _configs;
 			set => _configs = value;

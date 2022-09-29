@@ -15,7 +15,9 @@ MonoBehaviour:
   _configs:
   - Id: 0
     GameId: 71
-    EquipmentCategory: 
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
     Edition:
       _keyData: 00000000
       _valueData:
@@ -50,7 +52,9 @@ MonoBehaviour:
     Generation: 0
   - Id: 1
     GameId: 78
-    EquipmentCategory: 
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
     Edition:
       _keyData: 00000000
       _valueData:
@@ -84,7 +88,12 @@ MonoBehaviour:
     Generation: 0
   - Id: 2
     GameId: 15
-    EquipmentCategory: 0d0000000f00000010000000
+    EquipmentCategory:
+      _keyData: 0d0000000f00000010000000
+      _valueData:
+      - 22
+      - 27
+      - 27
     Edition:
       _keyData: 00000000
       _valueData:
@@ -127,7 +136,14 @@ MonoBehaviour:
     Generation: 0
   - Id: 3
     GameId: 46
-    EquipmentCategory: 0d0000000f0000001100000010000000
+    EquipmentCategory:
+      _keyData: 0d0000000f00000011000000100000000b000000
+      _valueData:
+      - 22
+      - 27
+      - 14
+      - 27
+      - 10
     Edition:
       _keyData: 00000000
       _valueData:
@@ -173,7 +189,14 @@ MonoBehaviour:
     Generation: 0
   - Id: 4
     GameId: 47
-    EquipmentCategory: 0d0000000f00000011000000100000000b000000
+    EquipmentCategory:
+      _keyData: 0d0000000f00000011000000100000000b000000
+      _valueData:
+      - 22
+      - 27
+      - 14
+      - 27
+      - 10
     Edition:
       _keyData: 00000000
       _valueData:
@@ -221,7 +244,14 @@ MonoBehaviour:
     Generation: 0
   - Id: 5
     GameId: 48
-    EquipmentCategory: 0d0000000f00000011000000100000000b000000
+    EquipmentCategory:
+      _keyData: 0d0000000f00000011000000100000000b000000
+      _valueData:
+      - 22
+      - 27
+      - 14
+      - 27
+      - 10
     Edition:
       _keyData: 00000000
       _valueData:
@@ -272,7 +302,14 @@ MonoBehaviour:
     Generation: 0
   - Id: 6
     GameId: 59
-    EquipmentCategory: 0d0000000f00000011000000100000000b000000
+    EquipmentCategory:
+      _keyData: 0d0000000f00000011000000100000000b000000
+      _valueData:
+      - 22
+      - 27
+      - 14
+      - 27
+      - 10
     Edition:
       _keyData: 00000000
       _valueData:

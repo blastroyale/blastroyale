@@ -1,20 +1,17 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using FirstLight.FLogger;
 using FirstLight.Game.Commands;
-using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.BattlePassViews;
-using FirstLight.UiService;
 using I2.Loc;
+using Quantum;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+using Button = UnityEngine.UI.Button;
 
 namespace FirstLight.Game.Presenters
 {
@@ -32,8 +29,9 @@ namespace FirstLight.Game.Presenters
 		
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
+		private IGameUiService _uiService;
 
-		private Queue<BattlePassRewardConfig> PendingRewards = new();
+		private Queue<Equipment> PendingRewards = new();
 
 		public struct StateData
 		{
@@ -44,7 +42,8 @@ namespace FirstLight.Game.Presenters
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-
+			_uiService = MainInstaller.Resolve<IGameUiService>();
+			
 			_backButton.onClick.AddListener(OnBackClicked);
 			_claimRewardsButton.onClick.AddListener(OnClaimRewardsClicked);
 		}
@@ -89,9 +88,9 @@ namespace FirstLight.Game.Presenters
 		{
 			PendingRewards.Clear();
 			
-			foreach (var config in message.Rewards)
+			foreach (var equipment in message.Rewards)
 			{
-				PendingRewards.Enqueue(config);
+				PendingRewards.Enqueue(equipment);
 			}
 
 			TryShowNextReward();
@@ -102,17 +101,21 @@ namespace FirstLight.Game.Presenters
 
 		private void TryShowNextReward()
 		{
-			var button = new GenericDialogButton()
+			// Keep showing/dismissing the battle pass generic reward dialog recursively, until all have been shown
+			if (_uiService.HasUiPresenter<BattlepassRewardDialogPresenter>())
 			{
-				ButtonText = "OK",
-				ButtonOnClick = TryShowNextReward
-			};
-
-			if (PendingRewards.TryDequeue(out var reward))
-			{
-				// TODO BP
-				//_services.GenericDialogService.OpenDialog($"Reward: {reward.Reward.GameId.ToString()}", false, button);
+				_uiService.CloseUi<BattlepassRewardDialogPresenter>();
 			}
+			
+			if (!PendingRewards.TryDequeue(out var reward)) return;
+
+			var data = new BattlepassRewardDialogPresenter.StateData()
+			{
+				ConfirmClicked = TryShowNextReward,
+				Reward = reward
+			};
+					
+			_uiService.OpenUiAsync<BattlepassRewardDialogPresenter, BattlepassRewardDialogPresenter.StateData>(data);
 		}
 
 		private void OnLevelDataUpdated(uint _, uint level)

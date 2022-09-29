@@ -102,8 +102,6 @@ namespace FirstLight.GoogleSheetImporter
 		public static object DeserializeObject(string data, Type type,
 		                                       params Func<string, Type, object>[] deserializers)
 		{
-			if(data == "Rewards")
-				Debug.LogError("");
 			var listType = typeof(IList);
 			var dictionaryType = typeof(IDictionary);
 			var unityDictionaryType = typeof(UnitySerializedDictionary<,>).GetGenericTypeDefinition();
@@ -362,11 +360,20 @@ namespace FirstLight.GoogleSheetImporter
 				return TypeDescriptor.GetConverter(type).ConvertFrom(text);
 			}
 
+			try
+			{
+
+			
 			if (type.IsValueType)
 			{
 				return Convert.ChangeType(text, type);
 			}
-
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				throw;
+			}
 			return JsonConvert.DeserializeObject($"\"{text}\"", type);
 		}
 

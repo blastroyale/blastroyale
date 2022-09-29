@@ -448,6 +448,8 @@ MonoBehaviour:
   _animation: {fileID: 883844809517885863}
   _introAnimationClip: {fileID: 7400000, guid: d048311dbfd41084cbbf3ee2a3ec9086, type: 2}
   _outroAnimationClip: {fileID: 7400000, guid: 6e141fcd58e9e624598ffe05aef9546d, type: 2}
+  _confirmButton: {fileID: 8465143649444952213}
+  _rewardImage: {fileID: 1913426886436797869}
 --- !u!1 &4422085721905576558
 GameObject:
   m_ObjectHideFlags: 0

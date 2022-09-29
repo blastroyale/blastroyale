@@ -1,7 +1,12 @@
 ﻿using System;
-using FirstLight.Game.Configs;
 using FirstLight.Game.Services;
+using FirstLight.Game.Utils;
+using Quantum;
+using Sirenix.OdinInspector;
+using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
+using Button = UnityEngine.UI.Button;
 
 namespace FirstLight.Game.Presenters
 {
@@ -10,22 +15,26 @@ namespace FirstLight.Game.Presenters
 	{
 		public struct StateData
 		{
-			public BattlePassRewardConfig RewardConfig;
+			public Equipment Reward;
 			public Action ConfirmClicked;
 		}
 
-		private Button _confirmButton;
+		private IGameServices _services;
+		
+		[SerializeField, Required] private Button _confirmButton;
+		[SerializeField, Required] private Image _rewardImage;
 
 		private void Awake()
 		{
+			_services = MainInstaller.Resolve<IGameServices>();
 			_confirmButton.onClick.AddListener(OnConfirmButtonClicked);
 		}
 
-		protected override void OnOpened()
+		protected override async void OnOpened()
 		{
 			base.OnOpened();
 			
-			
+			_rewardImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(Data.Reward.GameId);
 		}
 
 		private void OnConfirmButtonClicked()

@@ -45,7 +45,7 @@ namespace FirstLight.Game.Views.BattlePassViews
 		public void UpdateAllSegments()
 		{
 			var battlePassConfig = _services.ConfigsProvider.GetConfig<BattlePassConfig>();
-			var rewardConfig = _services.ConfigsProvider.GetConfigsList<BattlePassRewardConfig>();
+			var rewardConfig = _services.ConfigsProvider.GetConfigsList<Equipment>();
 			var redeemedProgress = _gameDataProvider.BattlePassDataProvider.GetLevelAndPointsIfReedemed();
 
 			for (int i = 0; i < Data.List.Count; i++)
@@ -95,7 +95,7 @@ namespace FirstLight.Game.Views.BattlePassViews
 		private void LoadBattlePassData()
 		{
 			var battlePassConfig = _services.ConfigsProvider.GetConfig<BattlePassConfig>();
-			var rewardConfig = _services.ConfigsProvider.GetConfigsList<BattlePassRewardConfig>();
+			var rewardConfig = _services.ConfigsProvider.GetConfigsList<Equipment>();
 			var newSegments = new BattlePassSegmentData[battlePassConfig.Levels.Count];
 			var redeemedProgress = _gameDataProvider.BattlePassDataProvider.GetLevelAndPointsIfReedemed();
 			

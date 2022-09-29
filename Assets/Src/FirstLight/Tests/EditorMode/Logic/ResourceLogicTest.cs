@@ -10,6 +10,7 @@ using NUnit.Framework;
 using Photon.Deterministic;
 using Quantum;
 using Assert = NUnit.Framework.Assert;
+using Equipment = Quantum.Equipment;
 
 namespace FirstLight.Tests.EditorMode.Logic
 {

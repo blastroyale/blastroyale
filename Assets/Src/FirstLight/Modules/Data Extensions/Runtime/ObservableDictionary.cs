@@ -220,9 +220,16 @@ namespace FirstLight
 		/// <inheritdoc />
 		public void Observe(TKey key, Action<TKey, TValue, TValue, ObservableUpdateType> onUpdate)
 		{
-			var list = new List<Action<TKey, TValue, TValue, ObservableUpdateType>> { onUpdate };
+			var list = new List<Action<TKey, TValue, TValue, ObservableUpdateType>> {onUpdate};
 
-			_keyUpdateActions.Add(key, list);
+			if (_keyUpdateActions.TryGetValue(key, out var listeners))
+			{
+				listeners.Add(onUpdate);
+			}
+			else
+			{
+				_keyUpdateActions.Add(key, new List<Action<TKey, TValue, TValue, ObservableUpdateType>> {onUpdate});
+			}
 		}
 
 		/// <inheritdoc />

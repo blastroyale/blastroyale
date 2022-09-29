@@ -8508,6 +8508,51 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: GameIds/CoreCommon
+      TermType: 0
+      Description: 
+      Languages:
+      - Common Core
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: GameIds/CoreUncommon
+      TermType: 0
+      Description: 
+      Languages:
+      - Uncommon Core
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: GameIds/CoreRare
+      TermType: 0
+      Description: 
+      Languages:
+      - Rare Core
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: GameIds/CoreEpic
+      TermType: 0
+      Description: 
+      Languages:
+      - Epic Core
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: GameIds/CoreLegendary
+      TermType: 0
+      Description: 
+      Languages:
+      - Legendary Core
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: Shop/ConfirmPurchase
       TermType: 0
       Description: 
@@ -9160,7 +9205,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1664451024153
+    Google_LastUpdatedVersion: 1664463749772
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

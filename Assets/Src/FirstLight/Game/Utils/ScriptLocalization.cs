@@ -429,6 +429,11 @@ namespace I2.Loc
 			public static string ChickenDinner 		{ get{ return LocalizationManager.GetTranslation ("GameIds/ChickenDinner"); } }
 			public static string CommonBox 		{ get{ return LocalizationManager.GetTranslation ("GameIds/CommonBox"); } }
 			public static string CommonCore 		{ get{ return LocalizationManager.GetTranslation ("GameIds/CommonCore"); } }
+			public static string CoreCommon 		{ get{ return LocalizationManager.GetTranslation ("GameIds/CoreCommon"); } }
+			public static string CoreEpic 		{ get{ return LocalizationManager.GetTranslation ("GameIds/CoreEpic"); } }
+			public static string CoreLegendary 		{ get{ return LocalizationManager.GetTranslation ("GameIds/CoreLegendary"); } }
+			public static string CoreRare 		{ get{ return LocalizationManager.GetTranslation ("GameIds/CoreRare"); } }
+			public static string CoreUncommon 		{ get{ return LocalizationManager.GetTranslation ("GameIds/CoreUncommon"); } }
 			public static string Custom 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Custom"); } }
 			public static string DamagePill 		{ get{ return LocalizationManager.GetTranslation ("GameIds/DamagePill"); } }
 			public static string Deathmatch 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Deathmatch"); } }
@@ -1491,6 +1496,11 @@ namespace I2.Loc
 		    public const string ChickenDinner = "GameIds/ChickenDinner";
 		    public const string CommonBox = "GameIds/CommonBox";
 		    public const string CommonCore = "GameIds/CommonCore";
+		    public const string CoreCommon = "GameIds/CoreCommon";
+		    public const string CoreEpic = "GameIds/CoreEpic";
+		    public const string CoreLegendary = "GameIds/CoreLegendary";
+		    public const string CoreRare = "GameIds/CoreRare";
+		    public const string CoreUncommon = "GameIds/CoreUncommon";
 		    public const string Custom = "GameIds/Custom";
 		    public const string DamagePill = "GameIds/DamagePill";
 		    public const string Deathmatch = "GameIds/Deathmatch";

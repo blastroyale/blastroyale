@@ -5,6 +5,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using I2.Loc;
+using Quantum;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
@@ -38,7 +39,7 @@ namespace FirstLight.Game.Views.BattlePassViews
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 		}
 		
-		public void Init(BattlePassSegmentData data)
+		public async void Init(BattlePassSegmentData data)
 		{
 			var levelForUi = data.SegmentLevelForRewards + 1;
 			var isRewardClaimed = data.CurrentLevel >= data.SegmentLevelForRewards;
@@ -56,8 +57,10 @@ namespace FirstLight.Game.Views.BattlePassViews
 			// Update reward card 
 			_rewardReadyToClaimObject.SetActive(false);
 			_rewardStatusText.gameObject.SetActive(false);
-			//_rewardTitleText.text = data.RewardConfig.Reward.GameId.ToString(); // TODO BP
+			_rewardTitleText.text = data.RewardConfig.GameId.GetTranslation().ToUpper();
 			
+			_rewardImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(data.RewardConfig.GameId);
+
 			if (!isRewardClaimed && data.RedeemableLevel >= data.SegmentLevelForRewards)
 			{
 				_rewardReadyToClaimObject.SetActive(true);

@@ -744,6 +744,7 @@ namespace I2.Loc
 			public static string BattlepassRewardClaimFarOut 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassRewardClaimFarOut"); } }
 			public static string BattlepassRewardClaimNext 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassRewardClaimNext"); } }
 			public static string BattlepassRewardClaimReady 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassRewardClaimReady"); } }
+			public static string BattlepassRewardDialogTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassRewardDialogTitle"); } }
 			public static string BattlepassRewardsProgress 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassRewardsProgress"); } }
 			public static string BattlepassRewardsReady 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassRewardsReady"); } }
 			public static string BattlepassTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassTitle"); } }
@@ -1805,6 +1806,7 @@ namespace I2.Loc
 		    public const string BattlepassRewardClaimFarOut = "MainMenu/BattlepassRewardClaimFarOut";
 		    public const string BattlepassRewardClaimNext = "MainMenu/BattlepassRewardClaimNext";
 		    public const string BattlepassRewardClaimReady = "MainMenu/BattlepassRewardClaimReady";
+		    public const string BattlepassRewardDialogTitle = "MainMenu/BattlepassRewardDialogTitle";
 		    public const string BattlepassRewardsProgress = "MainMenu/BattlepassRewardsProgress";
 		    public const string BattlepassRewardsReady = "MainMenu/BattlepassRewardsReady";
 		    public const string BattlepassTitle = "MainMenu/BattlepassTitle";

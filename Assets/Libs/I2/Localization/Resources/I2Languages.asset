@@ -3333,6 +3333,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: MainMenu/BattlepassRewardDialogTitle
+      TermType: 0
+      Description: 
+      Languages:
+      - You got a reward!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: AdventureMenu/AdventureCompleted
       TermType: 0
       Description: 
@@ -9151,7 +9160,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1664378903238
+    Google_LastUpdatedVersion: 1664448065069
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

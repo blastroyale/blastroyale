@@ -102,12 +102,18 @@ namespace Quantum
 		                                     QuantumEquipmentStatConfig equipmentStatConfig, 
 		                                     QuantumEquipmentMaterialStatConfig materialStatConfig, Equipment equipment)
 		{
+			//TODO: make a second method that calls the frame in order to get game modde dependant stats
+			
 			var attributeValue = CalculateGearStat(statConfig, baseStatConfig, equipmentStatConfig, materialStatConfig, equipment);
 
-			//TODO: make a second method that calls the frame in order to get game modde dependant stats
 			if (statConfig.StatType == StatType.Power)
 			{
 				attributeValue *= weaponConfig.PowerToDamageRatio;
+			}
+
+			if (statConfig.StatType == StatType.AttackRange)
+			{
+				attributeValue += weaponConfig.AttackRange;
 			}
 
 			return attributeValue;

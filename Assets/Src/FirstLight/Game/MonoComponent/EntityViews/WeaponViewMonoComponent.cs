@@ -111,7 +111,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			emission.rateOverTime = 0;
 			main.loop = false;
 			main.startSpeed = speed;
-			main.startLifetime = stats.GetStatData(StatType.AttackRange).StatValue.AsFloat / speed ;
+			main.startLifetime = (config.AttackRange + stats.GetStatData(StatType.AttackRange).StatValue).AsFloat / speed ;
 
 			emission.burstCount = 1;
 			var burst = emission.GetBurst(0);

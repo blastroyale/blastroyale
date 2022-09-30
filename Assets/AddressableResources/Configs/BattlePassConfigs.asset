@@ -17,10 +17,10 @@ MonoBehaviour:
     Levels:
     - RewardId: 2
     - RewardId: 3
-    - RewardId: 3
+    - RewardId: 5
     - RewardId: 2
     - RewardId: 3
-    - RewardId: 5
+    - RewardId: 6
     - RewardId: 2
     - RewardId: 2
     - RewardId: 4

@@ -35,7 +35,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Requests the player's non NFT inventory.
 		/// </summary>
-		IObservableDictionaryReader<UniqueId, Quantum.Equipment> Inventory { get; }
+		IObservableDictionaryReader<UniqueId, Equipment> Inventory { get; }
 
 		/// <summary>
 		/// Requests the player's non NFT inventory.
@@ -71,7 +71,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Request the stats a specific piece of equipment has
 		/// </summary>
-		Dictionary<EquipmentStatType, float> GetEquipmentStats(Quantum.Equipment equipment);
+		Dictionary<EquipmentStatType, float> GetEquipmentStats(Equipment equipment);
 
 		/// <summary>
 		/// Requests to see if player has enough NFTs equipped for play
@@ -81,7 +81,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Generates a new unique non-NFT piece of equipment from battle pass reward configs
 		/// </summary>
-		Quantum.Equipment GenerateEquipmentFromBattlePassReward(BattlePassRewardConfig config);
+		Equipment GenerateEquipmentFromBattlePassReward(BattlePassRewardConfig config);
 	}
 
 	/// <inheritdoc />
@@ -90,7 +90,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Adds an item to the inventory and assigns it a new UniqueId.
 		/// </summary>
-		UniqueId AddToInventory(Quantum.Equipment equipment);
+		UniqueId AddToInventory(Equipment equipment);
 
 		/// <summary>
 		/// Tries to remove an item from inventory, and returns true if a removal was successful
@@ -118,10 +118,10 @@ namespace FirstLight.Game.Logic
 	public class EquipmentLogic : AbstractBaseLogic<EquipmentData>, IEquipmentLogic, IGameLogicInitializer
 	{
 		private IObservableDictionary<GameIdGroup, UniqueId> _loadout;
-		private IObservableDictionary<UniqueId, Quantum.Equipment> _inventory;
+		private IObservableDictionary<UniqueId, Equipment> _inventory;
 		private IObservableDictionary<UniqueId, NftEquipmentData> _nftInventory;
 		public IObservableDictionaryReader<GameIdGroup, UniqueId> Loadout => _loadout;
-		public IObservableDictionaryReader<UniqueId, Quantum.Equipment> Inventory => _inventory;
+		public IObservableDictionaryReader<UniqueId, Equipment> Inventory => _inventory;
 		public IObservableDictionaryReader<UniqueId, NftEquipmentData> NftInventory => _nftInventory;
 
 		public EquipmentLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
@@ -131,7 +131,7 @@ namespace FirstLight.Game.Logic
 		public void Init()
 		{
 			_loadout = new ObservableDictionary<GameIdGroup, UniqueId>(DataProvider.GetData<PlayerData>().Equipped);
-			_inventory = new ObservableDictionary<UniqueId, Quantum.Equipment>(Data.Inventory);
+			_inventory = new ObservableDictionary<UniqueId, Equipment>(Data.Inventory);
 			_nftInventory = new ObservableDictionary<UniqueId, NftEquipmentData>(Data.NftInventory);
 		}
 		
@@ -216,7 +216,7 @@ namespace FirstLight.Game.Logic
 			return ret;
 		}
 
-		public Dictionary<EquipmentStatType, float> GetEquipmentStats(Quantum.Equipment equipment)
+		public Dictionary<EquipmentStatType, float> GetEquipmentStats(Equipment equipment)
 		{
 			return equipment.GetStats(GameLogic.ConfigsProvider);
 		}
@@ -226,7 +226,7 @@ namespace FirstLight.Game.Logic
 			return Loadout.Count >= GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>().NftRequiredEquippedForPlay;
 		}
 
-		public Quantum.Equipment GenerateEquipmentFromBattlePassReward(BattlePassRewardConfig config)
+		public Equipment GenerateEquipmentFromBattlePassReward(BattlePassRewardConfig config)
 		{
 			Random r = new Random();
 
@@ -248,7 +248,7 @@ namespace FirstLight.Game.Logic
 			var edition = config.Edition.Keys.ElementAt(GetWeightedRandomDictionaryIndex(config.Edition));
 			var maxDurability = (uint) r.Next(config.MaxDurability.Key, config.MaxDurability.Value);
 			
-			return new Quantum.Equipment(gameId,
+			return new Equipment(gameId,
 			                             rarity: rarity,
 			                             adjective: adjective,
 			                             grade: grade, 
@@ -294,7 +294,7 @@ namespace FirstLight.Game.Logic
 			throw new LogicException("Dictionary weighted random could not return a valid index.");
 		}
 
-		public UniqueId AddToInventory(Quantum.Equipment equipment)
+		public UniqueId AddToInventory(Equipment equipment)
 		{
 			if (!equipment.GameId.IsInGroup(GameIdGroup.Equipment))
 			{
@@ -334,7 +334,7 @@ namespace FirstLight.Game.Logic
 
 		public void SetLoadout(IDictionary<GameIdGroup, UniqueId> newLoadout)
 		{
-			var slots = Quantum.Equipment.EquipmentSlots;
+			var slots = Equipment.EquipmentSlots;
 
 			foreach (var slot in slots)
 			{

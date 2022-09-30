@@ -132,7 +132,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			var reward = _battlePassLogic.GetRewardForLevel(2);
 
 			Assert.AreEqual(1, reward.Id);
-			//Assert.AreEqual(GameId.ApoMinigun, reward.Reward.GameId); // TODO BP
+			Assert.AreEqual(GameId.ApoMinigun, reward.GameId);
 		}
 
 		[Test]
@@ -199,22 +199,22 @@ namespace FirstLight.Tests.EditorMode.Logic
 				new()
 				{
 					Id = 0,
-					//Reward = new Equipment(GameId.ApoCrossbow) // TODO BP
+					GameId = GameId.ApoCrossbow
 				},
 				new()
 				{
 					Id = 1,
-					//Reward = new Equipment(GameId.ApoMinigun) // TODO BP
+					GameId = GameId.ApoMinigun
 				},
 				new()
 				{
 					Id = 2,
-					//Reward = new Equipment(GameId.ApoRifle) // TODO BP
+					GameId = GameId.ApoRifle
 				},
 				new()
 				{
 					Id = 3,
-					//Reward = new Equipment(GameId.ApoRPG) // TODO BP
+					GameId = GameId.ApoRPG
 				}
 			};
 

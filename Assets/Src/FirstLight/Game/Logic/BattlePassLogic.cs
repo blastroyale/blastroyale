@@ -61,12 +61,12 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Adds <paramref name="amount"/> of levels to the player's current level, and redeems rewards for it.
 		/// </summary>
-		void AddLevels(uint amount, out List<Quantum.Equipment> rewards, out uint newLevel);
+		void AddLevels(uint amount, out List<Equipment> rewards, out uint newLevel);
 
 		/// <summary>
 		/// Converts the BattlePass Points to levels and rewards. Returns true if there was a level increase.
 		/// </summary>
-		bool RedeemBPP(out List<Quantum.Equipment> rewards, out uint newLevel);
+		bool RedeemBPP(out List<Equipment> rewards, out uint newLevel);
 
 		/// <summary>
 		/// Resets battlepass level and points back to 0
@@ -160,7 +160,7 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public void AddLevels(uint amount, out List<Quantum.Equipment> rewards, out uint newLevel)
+		public void AddLevels(uint amount, out List<Equipment> rewards, out uint newLevel)
 		{
 			var config = GameLogic.ConfigsProvider.GetConfig<BattlePassConfig>();
 
@@ -169,7 +169,7 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public bool RedeemBPP(out List<Quantum.Equipment> rewards, out uint newLevel)
+		public bool RedeemBPP(out List<Equipment> rewards, out uint newLevel)
 		{
 			var level = _currentLevel.Value;
 			var points = _currentPoints.Value;
@@ -205,9 +205,9 @@ namespace FirstLight.Game.Logic
 			_currentPoints.Value = 0;
 		}
 
-		private void RedeemBPRewards(List<BattlePassRewardConfig> rewardConfigs, out List<Quantum.Equipment> rewards)
+		private void RedeemBPRewards(List<BattlePassRewardConfig> rewardConfigs, out List<Equipment> rewards)
 		{
-			rewards = new List<Quantum.Equipment>();
+			rewards = new List<Equipment>();
 			
 			foreach (var reward in rewardConfigs)
 			{

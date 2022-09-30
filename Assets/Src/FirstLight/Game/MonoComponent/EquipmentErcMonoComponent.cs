@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Quantum;
 using UnityEngine;
 
@@ -13,7 +14,7 @@ namespace FirstLight.Game.MonoComponent
 		/// Initialises a erc object given erc metadata <see cref="metadata"/>
 		/// </summary>
 		/// <param name="metadata"></param>
-		public void Initialise(Equipment metadata);
+		public Task Initialise(Equipment metadata);
 	}
 	
 	/// <summary>
@@ -44,7 +45,7 @@ namespace FirstLight.Game.MonoComponent
 		/// <summary>
 		/// Initialise material and game objects based on metadata object 
 		/// </summary>
-		public void Initialise(Equipment metadata)
+		public Task Initialise(Equipment metadata)
 		{
 			_propBlock ??= new MaterialPropertyBlock();
 						
@@ -61,13 +62,15 @@ namespace FirstLight.Game.MonoComponent
 
 			if (_equipmentRarityGameObjects == null || _equipmentRarityGameObjects.Length <= 0)
 			{
-				return;
+				return null;
 			}
 			
 			for (var i = 0; i <= (int)metadata.Rarity; i++)
 			{
 				_equipmentRarityGameObjects[i].SetActive(true);
 			}
+
+			return null;
 		}
 	}
 }

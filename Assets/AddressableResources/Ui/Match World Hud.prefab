@@ -2069,7 +2069,7 @@ MonoBehaviour:
   _delays:
     _keyData: 0100000000000000
     _valueData:
-    - 0.1
+    - 0.03
     - 0.3
 --- !u!223 &5558458926250411287
 Canvas:

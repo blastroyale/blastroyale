@@ -1,5 +1,6 @@
 using System;
 using FirstLight.FLogger;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using UnityEngine;
 using FirstLight.Game.Utils;
@@ -7,6 +8,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.UiService;
 using Quantum;
+using UnityEngine.PlayerLoop;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
 
@@ -93,7 +95,6 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider.CurrencyDataProvider.Currencies.InvokeObserve(GameId.BLST, OnBLSTCurrencyChanged);
 			_gameDataProvider.BattlePassDataProvider.CurrentLevel.InvokeObserve(OnBattlePassCurrentLevelChanged);
 			_gameDataProvider.BattlePassDataProvider.CurrentPoints.InvokeObserve(OnBattlePassCurrentPointsChanged);
-
 			_gameServices.GameModeService.SelectedGameMode.InvokeObserve(OnSelectedGameModeChanged);
 		}
 
@@ -201,14 +202,35 @@ namespace FirstLight.Game.Presenters
 
 		private void OnBattlePassCurrentLevelChanged(uint _, uint current)
 		{
-			_battlePassLevelLabel.text = current.ToString();
+			UpdateBattlePassLevel(_gameDataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints().Item1);
 		}
 
 		private void OnBattlePassCurrentPointsChanged(uint _, uint current)
 		{
-			var hasRewards = _gameDataProvider.BattlePassDataProvider.IsRedeemable(out var nextLevel);
-			_battlePassProgressElement.style.flexGrow = Mathf.Clamp01((float) current / nextLevel);
+			var predictedLevelAndPoints = _gameDataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
+			UpdateBattlePassPoints(predictedLevelAndPoints.Item1, predictedLevelAndPoints.Item2);
+		}
+		
+		private void UpdateBattlePassLevel(uint predictedLevel)
+		{
+			var maxLevel = _gameDataProvider.BattlePassDataProvider.MaxLevel;
+			var nextLevel = Math.Clamp(predictedLevel + 1, 0, maxLevel) + 1;
+			_battlePassLevelLabel.text = nextLevel.ToString();
+		}
+
+		private void UpdateBattlePassPoints(uint predictedLevel, uint predictedPoints)
+		{
+			var battlePassConfig = _gameServices.ConfigsProvider.GetConfig<BattlePassConfig>();
+			var hasRewards = _gameDataProvider.BattlePassDataProvider.IsRedeemable();
+			_battlePassProgressElement.style.flexGrow = Mathf.Clamp01((float) predictedPoints / battlePassConfig.PointsPerLevel);
 			_battlePassCrownIcon.style.display = hasRewards ? DisplayStyle.Flex : DisplayStyle.None;
+
+			if (predictedLevel == _gameDataProvider.BattlePassDataProvider.MaxLevel)
+			{
+				_battlePassProgressElement.style.flexGrow = 1f;
+			}
+			
+			UpdateBattlePassLevel(predictedLevel);
 		}
 	}
 }

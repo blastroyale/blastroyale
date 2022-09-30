@@ -15,6 +15,7 @@ using Sirenix.OdinInspector.Editor;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using Equipment = Quantum.Equipment;
 
 
 namespace FirstLight.Editor.EditorTools.NFTGenerator

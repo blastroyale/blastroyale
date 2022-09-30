@@ -429,6 +429,11 @@ namespace I2.Loc
 			public static string ChickenDinner 		{ get{ return LocalizationManager.GetTranslation ("GameIds/ChickenDinner"); } }
 			public static string CommonBox 		{ get{ return LocalizationManager.GetTranslation ("GameIds/CommonBox"); } }
 			public static string CommonCore 		{ get{ return LocalizationManager.GetTranslation ("GameIds/CommonCore"); } }
+			public static string CoreCommon 		{ get{ return LocalizationManager.GetTranslation ("GameIds/CoreCommon"); } }
+			public static string CoreEpic 		{ get{ return LocalizationManager.GetTranslation ("GameIds/CoreEpic"); } }
+			public static string CoreLegendary 		{ get{ return LocalizationManager.GetTranslation ("GameIds/CoreLegendary"); } }
+			public static string CoreRare 		{ get{ return LocalizationManager.GetTranslation ("GameIds/CoreRare"); } }
+			public static string CoreUncommon 		{ get{ return LocalizationManager.GetTranslation ("GameIds/CoreUncommon"); } }
 			public static string Custom 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Custom"); } }
 			public static string DamagePill 		{ get{ return LocalizationManager.GetTranslation ("GameIds/DamagePill"); } }
 			public static string Deathmatch 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Deathmatch"); } }
@@ -699,6 +704,7 @@ namespace I2.Loc
 			public static string SellItemFor 		{ get{ return LocalizationManager.GetTranslation ("General/SellItemFor"); } }
 			public static string SellLastWeaponWarning 		{ get{ return LocalizationManager.GetTranslation ("General/SellLastWeaponWarning"); } }
 			public static string ShieldCapacity 		{ get{ return LocalizationManager.GetTranslation ("General/ShieldCapacity"); } }
+			public static string ShieldCapacity2 		{ get{ return LocalizationManager.GetTranslation ("General/ShieldCapacity2"); } }
 			public static string SlotEmpty 		{ get{ return LocalizationManager.GetTranslation ("General/SlotEmpty"); } }
 			public static string SpecialId 		{ get{ return LocalizationManager.GetTranslation ("General/SpecialId"); } }
 			public static string Spectate 		{ get{ return LocalizationManager.GetTranslation ("General/Spectate"); } }
@@ -737,6 +743,16 @@ namespace I2.Loc
 			public static string AutoFire 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/AutoFire"); } }
 			public static string BGM 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BGM"); } }
 			public static string BattleRoyale 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattleRoyale"); } }
+			public static string BattlepassClaimAll 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassClaimAll"); } }
+			public static string BattlepassCurrentLevel 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassCurrentLevel"); } }
+			public static string BattlepassNothingToClaim 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassNothingToClaim"); } }
+			public static string BattlepassRewardClaimFarOut 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassRewardClaimFarOut"); } }
+			public static string BattlepassRewardClaimNext 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassRewardClaimNext"); } }
+			public static string BattlepassRewardClaimReady 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassRewardClaimReady"); } }
+			public static string BattlepassRewardDialogTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassRewardDialogTitle"); } }
+			public static string BattlepassRewardsProgress 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassRewardsProgress"); } }
+			public static string BattlepassRewardsReady 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassRewardsReady"); } }
+			public static string BattlepassTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BattlepassTitle"); } }
 			public static string BeatLevelFirst 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BeatLevelFirst"); } }
 			public static string BeatLevelFirstWithDifficulty 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BeatLevelFirstWithDifficulty"); } }
 			public static string BossKilledTimes 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/BossKilledTimes"); } }
@@ -1480,6 +1496,11 @@ namespace I2.Loc
 		    public const string ChickenDinner = "GameIds/ChickenDinner";
 		    public const string CommonBox = "GameIds/CommonBox";
 		    public const string CommonCore = "GameIds/CommonCore";
+		    public const string CoreCommon = "GameIds/CoreCommon";
+		    public const string CoreEpic = "GameIds/CoreEpic";
+		    public const string CoreLegendary = "GameIds/CoreLegendary";
+		    public const string CoreRare = "GameIds/CoreRare";
+		    public const string CoreUncommon = "GameIds/CoreUncommon";
 		    public const string Custom = "GameIds/Custom";
 		    public const string DamagePill = "GameIds/DamagePill";
 		    public const string Deathmatch = "GameIds/Deathmatch";
@@ -1750,6 +1771,7 @@ namespace I2.Loc
 		    public const string SellItemFor = "General/SellItemFor";
 		    public const string SellLastWeaponWarning = "General/SellLastWeaponWarning";
 		    public const string ShieldCapacity = "General/ShieldCapacity";
+		    public const string ShieldCapacity2 = "General/ShieldCapacity2";
 		    public const string SlotEmpty = "General/SlotEmpty";
 		    public const string SpecialId = "General/SpecialId";
 		    public const string Spectate = "General/Spectate";
@@ -1788,6 +1810,16 @@ namespace I2.Loc
 		    public const string AutoFire = "MainMenu/AutoFire";
 		    public const string BGM = "MainMenu/BGM";
 		    public const string BattleRoyale = "MainMenu/BattleRoyale";
+		    public const string BattlepassClaimAll = "MainMenu/BattlepassClaimAll";
+		    public const string BattlepassCurrentLevel = "MainMenu/BattlepassCurrentLevel";
+		    public const string BattlepassNothingToClaim = "MainMenu/BattlepassNothingToClaim";
+		    public const string BattlepassRewardClaimFarOut = "MainMenu/BattlepassRewardClaimFarOut";
+		    public const string BattlepassRewardClaimNext = "MainMenu/BattlepassRewardClaimNext";
+		    public const string BattlepassRewardClaimReady = "MainMenu/BattlepassRewardClaimReady";
+		    public const string BattlepassRewardDialogTitle = "MainMenu/BattlepassRewardDialogTitle";
+		    public const string BattlepassRewardsProgress = "MainMenu/BattlepassRewardsProgress";
+		    public const string BattlepassRewardsReady = "MainMenu/BattlepassRewardsReady";
+		    public const string BattlepassTitle = "MainMenu/BattlepassTitle";
 		    public const string BeatLevelFirst = "MainMenu/BeatLevelFirst";
 		    public const string BeatLevelFirstWithDifficulty = "MainMenu/BeatLevelFirstWithDifficulty";
 		    public const string BossKilledTimes = "MainMenu/BossKilledTimes";

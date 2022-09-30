@@ -1,18 +1,17 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using FirstLight.FLogger;
 using FirstLight.Game.Commands;
-using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.UiService;
+using FirstLight.Game.Views.BattlePassViews;
+using I2.Loc;
+using Quantum;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+using Button = UnityEngine.UI.Button;
 
 namespace FirstLight.Game.Presenters
 {
@@ -20,22 +19,22 @@ namespace FirstLight.Game.Presenters
 	/// This presenter handles the BattlePass screen - displays the current / next level, the progress, and
 	/// shows reward popups when you receive them.
 	/// </summary>
-	public class BattlePassScreenPresenter : UiPresenterData<BattlePassScreenPresenter.StateData>
+	public class BattlePassScreenPresenter : AnimatedUiPresenterData<BattlePassScreenPresenter.StateData>
 	{
 		[SerializeField, Required] private Button _backButton;
-		[SerializeField, Required] private TextMeshProUGUI _currentLevel;
-		[SerializeField, Required] private TextMeshProUGUI _nextLevel;
-		[SerializeField, Required] private TextMeshProUGUI _progressText;
-		[SerializeField, Required] private TextMeshProUGUI _nextLevelRewards;
-		[SerializeField, Required] private Image _progressBar;
-
+		[SerializeField, Required] private Button _claimRewardsButton;
+		[SerializeField, Required] private TextMeshProUGUI _currentLevelText;
+		[SerializeField, Required] private GameObject _nothingToClaimText;
+		[SerializeField, Required] private BattlePassSegmentListView _battlePassSegmentListView;
+		
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
 
-		private Queue<BattlePassRewardConfig> PendingRewards = new();
+		private Queue<Equipment> PendingRewards = new();
 
 		public struct StateData
 		{
+			public IGameUiService UiService;
 			public Action BackClicked;
 		}
 
@@ -43,29 +42,33 @@ namespace FirstLight.Game.Presenters
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-
+			
 			_backButton.onClick.AddListener(OnBackClicked);
+			_claimRewardsButton.onClick.AddListener(OnClaimRewardsClicked);
 		}
 
 		protected override void OnOpened()
 		{
+			base.OnOpened();
+			
 			_services.MessageBrokerService.Subscribe<BattlePassLevelUpMessage>(OnBattlePassLevelUp);
 
-			_gameDataProvider.BattlePassDataProvider.CurrentLevel.InvokeObserve(RefreshLevelData);
-			_gameDataProvider.BattlePassDataProvider.CurrentPoints.InvokeObserve(RefreshPointsData);
-
-			if (_gameDataProvider.BattlePassDataProvider.IsRedeemable(out _))
-			{
-				_services.CommandService.ExecuteCommand(new RedeemBPPCommand());
-			}
+			_gameDataProvider.BattlePassDataProvider.CurrentLevel.InvokeObserve(OnLevelDataUpdated);
+			_gameDataProvider.BattlePassDataProvider.CurrentPoints.InvokeObserve(OnPointsDataUpdated);
+			
+			CheckEnableRewardClaimButton();
+			
+			this.LateCoroutineCall(_introAnimationClip.length, () => _battlePassSegmentListView.ScrollToBattlePassLevel());
 		}
 
 		protected override void OnClosed()
 		{
+			base.OnClosed();
+			
 			_services.MessageBrokerService.Unsubscribe<BattlePassLevelUpMessage>(OnBattlePassLevelUp);
-
-			_gameDataProvider.BattlePassDataProvider.CurrentLevel.StopObserving(RefreshLevelData);
-			_gameDataProvider.BattlePassDataProvider.CurrentPoints.StopObserving(RefreshPointsData);
+			
+			_gameDataProvider.BattlePassDataProvider.CurrentLevel.StopObserving(OnLevelDataUpdated);
+			_gameDataProvider.BattlePassDataProvider.CurrentPoints.StopObserving(OnPointsDataUpdated);
 		}
 
 		private void OnBackClicked()
@@ -73,58 +76,72 @@ namespace FirstLight.Game.Presenters
 			Data.BackClicked();
 		}
 
+		private void CheckEnableRewardClaimButton()
+		{
+			var rewardsRedeemable = _gameDataProvider.BattlePassDataProvider.IsRedeemable();
+			_claimRewardsButton.gameObject.SetActive(rewardsRedeemable);
+			_nothingToClaimText.gameObject.SetActive(!rewardsRedeemable);
+		}
+
 		private void OnBattlePassLevelUp(BattlePassLevelUpMessage message)
 		{
 			PendingRewards.Clear();
-			foreach (var config in message.Rewards)
+			
+			foreach (var equipment in message.Rewards)
 			{
-				PendingRewards.Enqueue(config);
+				PendingRewards.Enqueue(equipment);
 			}
 
 			TryShowNextReward();
+			
+			_battlePassSegmentListView.UpdateAllSegments();
+			CheckEnableRewardClaimButton();
 		}
 
 		private void TryShowNextReward()
 		{
-			var button = new GenericDialogButton()
+			// Keep showing/dismissing the battle pass generic reward dialog recursively, until all have been shown
+			if (Data.UiService.HasUiPresenter<BattlepassRewardDialogPresenter>())
 			{
-				ButtonText = "OK",
-				ButtonOnClick = TryShowNextReward
+				Data.UiService.CloseUi<BattlepassRewardDialogPresenter>();
+			}
+			
+			if (!PendingRewards.TryDequeue(out var reward)) return;
+
+			var data = new BattlepassRewardDialogPresenter.StateData()
+			{
+				ConfirmClicked = TryShowNextReward,
+				Reward = reward
 			};
-
-			if (PendingRewards.TryDequeue(out var reward))
-			{
-				_services.GenericDialogService.OpenDialog($"Reward: {reward.Reward.GameId.ToString()}", false, button);
-			}
+					
+			Data.UiService.OpenUiAsync<BattlepassRewardDialogPresenter, BattlepassRewardDialogPresenter.StateData>(data);
 		}
 
-		private void RefreshLevelData(uint _, uint level)
+		private void OnLevelDataUpdated(uint _, uint level)
 		{
-			_currentLevel.text = level.ToString();
-
-			if (level < _gameDataProvider.BattlePassDataProvider.MaxLevel)
-			{
-				_nextLevel.text = (level + 1).ToString();
-
-				_nextLevelRewards.gameObject.SetActive(true);
-				var nextReward = _gameDataProvider.BattlePassDataProvider.GetRewardForLevel(level + 1);
-				_nextLevelRewards.text =
-					$"Next level reward:\n{nextReward.Reward.GameId.ToString()}, {nextReward.Reward.Rarity.ToString()}";
-			}
-			else
-			{
-				_nextLevel.text = "MAX";
-				_nextLevelRewards.gameObject.SetActive(false);
-			}
+			UpdateLevelUi();
+		}
+		
+		private void OnPointsDataUpdated(uint _, uint level)
+		{
+			_battlePassSegmentListView.UpdateAllSegments();
+			CheckEnableRewardClaimButton();
+			
+			UpdateLevelUi();
 		}
 
-		private void RefreshPointsData(uint _, uint points)
+		private void UpdateLevelUi()
 		{
-			var config = _services.ConfigsProvider.GetConfig<BattlePassConfig>();
-			var ppl = config.PointsPerLevel;
+			var redeemableLevelAndPts = _gameDataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
+			_currentLevelText.text = string.Format(ScriptLocalization.MainMenu.BattlepassCurrentLevel,(redeemableLevelAndPts.Item1+1).ToString());
+		}
 
-			_progressBar.fillAmount = (float) points / ppl;
-			_progressText.text = $"{points}/{ppl}";
+		private void OnClaimRewardsClicked()
+		{
+			if (_gameDataProvider.BattlePassDataProvider.IsRedeemable())
+			{
+				_services.CommandService.ExecuteCommand(new RedeemBPPCommand());
+			}
 		}
 	}
 }

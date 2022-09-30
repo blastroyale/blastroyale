@@ -207,7 +207,8 @@ namespace Quantum
 					GameId.Hammer, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Melee
 					}.AsReadOnly()
 				},
 				{
@@ -677,6 +678,36 @@ namespace Quantum
 						GameIdGroup.DeathMarker
 					}.AsReadOnly()
 				},
+				{
+					GameId.CoreCommon, new List<GameIdGroup>
+					{
+						GameIdGroup.Core
+					}.AsReadOnly()
+				},
+				{
+					GameId.CoreUncommon, new List<GameIdGroup>
+					{
+						GameIdGroup.Core
+					}.AsReadOnly()
+				},
+				{
+					GameId.CoreRare, new List<GameIdGroup>
+					{
+						GameIdGroup.Core
+					}.AsReadOnly()
+				},
+				{
+					GameId.CoreEpic, new List<GameIdGroup>
+					{
+						GameIdGroup.Core
+					}.AsReadOnly()
+				},
+				{
+					GameId.CoreLegendary, new List<GameIdGroup>
+					{
+						GameIdGroup.Core
+					}.AsReadOnly()
+				},
 			};
 
 		private static readonly Dictionary<GameIdGroup, ReadOnlyCollection<GameId>> _ids =
@@ -814,6 +845,12 @@ namespace Quantum
 						GameId.SciSniper,
 						GameId.SciCannon,
 						GameId.SciMelter
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.Melee, new List<GameId>
+					{
+						GameId.Hammer
 					}.AsReadOnly()
 				},
 				{
@@ -962,6 +999,16 @@ namespace Quantum
 					{
 						GameId.Flag,
 						GameId.Tombstone
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.Core, new List<GameId>
+					{
+						GameId.CoreCommon,
+						GameId.CoreUncommon,
+						GameId.CoreRare,
+						GameId.CoreEpic,
+						GameId.CoreLegendary
 					}.AsReadOnly()
 				},
 			};

@@ -32,7 +32,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			public Action<UniqueId> OnEquipmentClicked;
 		}
 
-		[SerializeField, Required] private EquipmentIconItemView _equipmentIconView;
+		[SerializeField, Required] private EquipmentCardView _equipmentCardView;
 		[SerializeField, Required] private Button _button;
 		[SerializeField, Required] private Image _equippedImage;
 		[SerializeField, Required] private Image _cooldownImage;
@@ -91,7 +91,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			}
 
 			_notificationUniqueIdView.SetUniqueId(data.Id, data.PlayViewNotificationAnimation);
-			_equipmentIconView.SetInfo(data.Id);
+			_equipmentCardView.Initialise(data.Equipment);
 			_uniqueId = data.Id;
 		}
 

@@ -4,7 +4,6 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Services;
 using Quantum;
-using Equipment = FirstLight.Game.Configs.Equipment;
 
 namespace FirstLight.Game.Logic
 {
@@ -42,7 +41,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Returns the rewards received for a particular level.
 		/// </summary>
-		Equipment GetRewardForLevel(uint level);
+		BattlePassRewardConfig GetRewardForLevel(uint level);
 
 		/// <summary>
 		/// Tells you if there are any points to redeem for levels and rewards, and gives you required points for
@@ -131,12 +130,12 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public Equipment GetRewardForLevel(uint level)
+		public BattlePassRewardConfig GetRewardForLevel(uint level)
 		{
 			var config = GameLogic.ConfigsProvider.GetConfig<BattlePassConfig>();
 			var levelConfig = config.Levels[(int) level - 1];
 
-			return GameLogic.ConfigsProvider.GetConfig<Equipment>(levelConfig.RewardId);
+			return GameLogic.ConfigsProvider.GetConfig<BattlePassRewardConfig>(levelConfig.RewardId);
 		}
 
 		/// <inheritdoc />
@@ -177,14 +176,14 @@ namespace FirstLight.Game.Logic
 
 			var config = GameLogic.ConfigsProvider.GetConfig<BattlePassConfig>();
 
-			var levels = new List<Equipment>();
+			var levels = new List<BattlePassRewardConfig>();
 
 			while (points >= config.PointsPerLevel)
 			{
 				points -= config.PointsPerLevel;
 				level++;
 
-				var rewardConfig = GameLogic.ConfigsProvider.GetConfig<Equipment>(config.Levels[(int) level - 1].RewardId);
+				var rewardConfig = GameLogic.ConfigsProvider.GetConfig<BattlePassRewardConfig>(config.Levels[(int) level - 1].RewardId);
 
 				levels.Add(rewardConfig);
 			}
@@ -206,7 +205,7 @@ namespace FirstLight.Game.Logic
 			_currentPoints.Value = 0;
 		}
 
-		private void RedeemBPRewards(List<Equipment> rewardConfigs, out List<Quantum.Equipment> rewards)
+		private void RedeemBPRewards(List<BattlePassRewardConfig> rewardConfigs, out List<Quantum.Equipment> rewards)
 		{
 			rewards = new List<Quantum.Equipment>();
 			

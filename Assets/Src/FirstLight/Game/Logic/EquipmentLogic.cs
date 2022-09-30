@@ -11,7 +11,6 @@ using FirstLight.Services;
 using FirstLight.Game.Utils;
 using Quantum;
 using UnityEngine;
-using Equipment = FirstLight.Game.Configs.Equipment;
 using Random = System.Random;
 
 namespace FirstLight.Game.Logic
@@ -82,7 +81,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Generates a new unique non-NFT piece of equipment from battle pass reward configs
 		/// </summary>
-		Quantum.Equipment GenerateEquipmentFromBattlePassReward(Equipment config);
+		Quantum.Equipment GenerateEquipmentFromBattlePassReward(BattlePassRewardConfig config);
 	}
 
 	/// <inheritdoc />
@@ -227,7 +226,7 @@ namespace FirstLight.Game.Logic
 			return Loadout.Count >= GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>().NftRequiredEquippedForPlay;
 		}
 
-		public Quantum.Equipment GenerateEquipmentFromBattlePassReward(Equipment config)
+		public Quantum.Equipment GenerateEquipmentFromBattlePassReward(BattlePassRewardConfig config)
 		{
 			Random r = new Random();
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Views;
 using Quantum;
 using Sirenix.OdinInspector;
 using TMPro;
@@ -22,7 +23,7 @@ namespace FirstLight.Game.Presenters
 		private IGameServices _services;
 		
 		[SerializeField, Required] private Button _confirmButton;
-		[SerializeField, Required] private Image _rewardImage;
+		[SerializeField, Required] private EquipmentCardView _rewardCard;
 
 		private void Awake()
 		{
@@ -34,9 +35,7 @@ namespace FirstLight.Game.Presenters
 		{
 			base.OnOpened();
 			
-			_rewardImage.gameObject.SetActive(false);
-			_rewardImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(Data.Reward.GameId);
-			_rewardImage.gameObject.SetActive(true);
+			_rewardCard.Initialise(Data.Reward);
 		}
 
 		private void OnConfirmButtonClicked()

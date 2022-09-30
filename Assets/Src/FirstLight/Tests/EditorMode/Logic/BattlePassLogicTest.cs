@@ -5,7 +5,6 @@ using FirstLight.Game.Logic;
 using NUnit.Framework;
 using Quantum;
 using Assert = NUnit.Framework.Assert;
-using Equipment = FirstLight.Game.Configs.Equipment;
 
 namespace FirstLight.Tests.EditorMode.Logic
 {
@@ -195,7 +194,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 				}
 			};
 
-			var bpRewardConfigs = new Equipment[]
+			var bpRewardConfigs = new BattlePassRewardConfig[]
 			{
 				new()
 				{

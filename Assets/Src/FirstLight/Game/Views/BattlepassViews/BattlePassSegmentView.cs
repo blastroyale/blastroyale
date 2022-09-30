@@ -10,7 +10,6 @@ using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Equipment = FirstLight.Game.Configs.Equipment;
 
 namespace FirstLight.Game.Views.BattlePassViews
 {
@@ -115,7 +114,7 @@ namespace FirstLight.Game.Views.BattlePassViews
 		public uint PredictedCurrentLevel;
 		public uint PredictedCurrentProgress;
 		public uint MaxProgress;
-		public Equipment RewardConfig;
+		public BattlePassRewardConfig RewardConfig;
 
 		public uint SegmentLevelForRewards => SegmentLevel + 1;
 	}

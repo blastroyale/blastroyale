@@ -280,6 +280,7 @@ namespace Quantum
 			health += f.GameConfig.PlayerDefaultHealth.Get(f);
 			speed += f.GameConfig.PlayerDefaultSpeed.Get(f);
 			ammoCapacity += f.WeaponConfigs.GetConfig(weapon.GameId).MaxAmmo.Get(f);
+			attackRange += f.WeaponConfigs.GetConfig(weapon.GameId).AttackRange;
 			maxShields += shieldCapacity.AsInt;
 			startingShields += shieldCapacity.AsInt;
 

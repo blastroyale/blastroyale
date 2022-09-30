@@ -111,11 +111,6 @@ namespace Quantum
 				attributeValue *= weaponConfig.PowerToDamageRatio;
 			}
 
-			if (statConfig.StatType == StatType.AttackRange)
-			{
-				attributeValue += weaponConfig.AttackRange;
-			}
-
 			return attributeValue;
 		}
 

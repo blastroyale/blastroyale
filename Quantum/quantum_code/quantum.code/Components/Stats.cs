@@ -269,6 +269,7 @@ namespace Quantum
 			var maxShields = f.GameConfig.PlayerMaxShieldCapacity.Get(f);
 			var startingShields = f.GameConfig.PlayerStartingShieldCapacity.Get(f);
 			var modifiers = f.ResolveList(Modifiers);
+			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
 			
 			GetLoadoutStats(f, weapon, gear, out var armour, out var health, out var speed, out var power, 
 			                out var attackRange, out var pickupSpeed, out var ammoCapacity, out var shieldCapacity);
@@ -279,11 +280,13 @@ namespace Quantum
 			//TODO: Move default (health, speed, shields) values into StatData configs
 			health += f.GameConfig.PlayerDefaultHealth.Get(f);
 			speed += f.GameConfig.PlayerDefaultSpeed.Get(f);
-			ammoCapacity += f.WeaponConfigs.GetConfig(weapon.GameId).MaxAmmo.Get(f);
-			attackRange += f.WeaponConfigs.GetConfig(weapon.GameId).AttackRange;
+			ammoCapacity += weaponConfig.MaxAmmo.Get(f);
 			maxShields += shieldCapacity.AsInt;
 			startingShields += shieldCapacity.AsInt;
-
+			
+			// Melee weapons ignore Attack Range bonuses, sticking to base weapon value
+			attackRange = weaponConfig.IsMeleeWeapon ? weaponConfig.AttackRange : attackRange + weaponConfig.AttackRange;
+			
 			Values[(int) StatType.Health] = new StatData(health, health, StatType.Health);
 			Values[(int) StatType.Shield] = new StatData(maxShields, startingShields, StatType.Shield);
 			Values[(int) StatType.Power] = new StatData(power, power, StatType.Power);

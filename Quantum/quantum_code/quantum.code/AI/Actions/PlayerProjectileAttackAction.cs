@@ -29,7 +29,7 @@ namespace Quantum
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
 			var cVelocitySqr = kcc->Velocity.SqrMagnitude;
 			var maxSpeedSqr = kcc->MaxSpeed * kcc->MaxSpeed;
-			var attackRange = f.Get<Stats>(e).GetStatData(StatType.AttackRange).StatValue;
+			var attackRange = weaponConfig.AttackRange + f.Get<Stats>(e).GetStatData(StatType.AttackRange).StatValue;
 
 			//targetAttackAngle depend on a current character velocity 
 			var targetAttackAngle = FPMath.Lerp(weaponConfig.MinAttackAngle, weaponConfig.MaxAttackAngle,

@@ -39,26 +39,26 @@ MonoBehaviour:
       ShrinkingDamageCooldown:
         RawValue: 65536
       PlayerDefaultHealth:
+        Default: 600
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: 5802000020030000
+      PlayerDefaultSpeed:
+        Default:
+          RawValue: 180224
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values:
+        - RawValue: 180224
+        - RawValue: 262144
+      PlayerMaxShieldCapacity:
         Default: 1000
         Keys:
         - BattleRoyale
         - Deathmatch
         Values: e803000020030000
-      PlayerDefaultSpeed:
-        Default:
-          RawValue: 196608
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 196608
-        - RawValue: 262144
-      PlayerMaxShieldCapacity:
-        Default: 1600
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values: 4006000020030000
       PlayerStartingShieldCapacity:
         Default: 200
         Keys:

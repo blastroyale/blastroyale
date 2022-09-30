@@ -27,12 +27,12 @@ MonoBehaviour:
     - Id: SpeedUp
       Type: 1
       Param1:
-        RawValue: 91750
+        RawValue: 85197
       Param2:
         RawValue: 0
     - Id: HealthyAir
       Type: 2
       Param1:
-        RawValue: 3276800
+        RawValue: 6553600
       Param2:
-        RawValue: 327680
+        RawValue: 196608

@@ -89,10 +89,11 @@ MonoBehaviour:
   - Id: 2
     GameId: 15
     EquipmentCategory:
-      _keyData: 0d0000000f00000010000000
+      _keyData: 0d0000000f0000001100000010000000
       _valueData:
       - 22
       - 27
+      - 14
       - 27
     Edition:
       _keyData: 00000000

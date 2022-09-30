@@ -1,9 +1,12 @@
-using FirstLight.Game.Data;
+using System.Threading.Tasks;
 using FirstLight.Game.MonoComponent;
+using FirstLight.Game.Services;
+using FirstLight.Game.Utils;
 using I2.Loc;
 using Quantum;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace FirstLight.Game.Views
 {
@@ -12,70 +15,61 @@ namespace FirstLight.Game.Views
 	/// </summary>
 	public class EquipmentCardView : MonoBehaviour, IErcRenderable
 	{
-		[System.Serializable]
-		public class SpriteDimensional
-		{
-			public Sprite[] Array;
-		}
-		
 		public Sprite[] _factionSprites;
 		public Sprite[] _frameSprites;
 		public Sprite[] _frameShapeMasks;
 		public Sprite[] _NameTagSprites;
 		public Sprite[] _adjectivePatternSprites;
 
-		
 		[SerializeField] private TextMeshProUGUI _nameText;
 		[SerializeField] private TextMeshProUGUI _gradeText;
-		[SerializeField] private SpriteRenderer _factionSpriteRenderer;
-		[SerializeField] private SpriteRenderer _factionShadowSpriteRenderer;
-		[SerializeField] private Renderer _renderer;
+		[SerializeField] private Image _factionSpriteRenderer;
+		[SerializeField] private Image _factionShadowSpriteRenderer;
+		[SerializeField] private Image _itemIcon;
+		[SerializeField] private RawImage _card;
 
-		private MaterialPropertyBlock _propBlock;
-		private readonly string[] _gradeRomanNumerals = new[] { "I", "II", "III", "IV", "V" };
+		private readonly string[] _gradeRomanNumerals = {"I", "II", "III", "IV", "V"};
 		private readonly int _frameId = Shader.PropertyToID("_Frame");
 		private readonly int _frameShapeMaskId = Shader.PropertyToID("_FrameShapeMask");
 		private readonly int _nameTagId = Shader.PropertyToID("_NameTag");
 		private readonly int _adjectivePatternId = Shader.PropertyToID("_AdjectivePattern");
 		private readonly int _plusIndicatorId = Shader.PropertyToID("_Plus_Indicator");
-		
+
+		private Material _cardMat;
+
+		private IGameServices _services;
+
 		private void Awake()
 		{
-			_propBlock = new MaterialPropertyBlock();
+			_services = MainInstaller.Resolve<IGameServices>();
+			_cardMat = _card.material = Instantiate(_card.material);
 		}
-		
 
 		/// <summary>
 		/// Initialise material and visual elements based on metadata object 
 		/// </summary>
-		public void Initialise(Equipment metadata)
+		public async Task Initialise(Equipment metadata)
 		{
 			_nameText.text = LocalizationManager.GetTranslation($"GameIds/{metadata.GameId.ToString()}");
-			
-			_propBlock ??= new MaterialPropertyBlock();
-			
-			_gradeText.text = _gradeRomanNumerals[(int)metadata.Grade];
 
-			var factionId = (int)metadata.Faction;
-			var rarityId = (int)metadata.Rarity;
-			var adjectiveId = (int)metadata.Adjective;
-			var materialId = (int)metadata.Material;
-			
+			_gradeText.text = _gradeRomanNumerals[(int) metadata.Grade];
+
+			var factionId = (int) metadata.Faction;
+			var rarityId = (int) metadata.Rarity;
+			var adjectiveId = (int) metadata.Adjective;
+			var materialId = (int) metadata.Material;
+
 			_factionSpriteRenderer.sprite = _factionSprites[factionId];
 			_factionShadowSpriteRenderer.sprite = _factionSprites[factionId];
-			
-			_propBlock.Clear();
-			_renderer.GetPropertyBlock(_propBlock);
-			
-			_propBlock.SetFloat(_plusIndicatorId, ((rarityId + 1) % 2) == 0 ? 1f : 0f);
-			_propBlock.SetTexture(_frameId, _frameSprites[rarityId].texture);
-			_propBlock.SetTexture(_frameShapeMaskId, _frameShapeMasks[rarityId].texture);
-			_propBlock.SetTexture(_nameTagId, _NameTagSprites[materialId].texture);
-			_propBlock.SetTexture(_adjectivePatternId, _adjectivePatternSprites[adjectiveId].texture);
-			
-			_renderer.SetPropertyBlock(_propBlock, 0);
+
+			_cardMat.SetFloat(_plusIndicatorId, ((rarityId + 1) % 2) == 0 ? 1f : 0f);
+			_cardMat.SetTexture(_frameId, _frameSprites[rarityId].texture);
+			_cardMat.SetTexture(_frameShapeMaskId, _frameShapeMasks[rarityId].texture);
+			_cardMat.SetTexture(_nameTagId, _NameTagSprites[materialId].texture);
+			_cardMat.SetTexture(_adjectivePatternId, _adjectivePatternSprites[adjectiveId].texture);
+
+			_itemIcon.sprite =
+				await _services.AssetResolverService.RequestAsset<GameId, Sprite>(metadata.GameId, true, false);
 		}
 	}
 }
-
-

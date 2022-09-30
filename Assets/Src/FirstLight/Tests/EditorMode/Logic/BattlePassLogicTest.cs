@@ -132,7 +132,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			var reward = _battlePassLogic.GetRewardForLevel(2);
 
 			Assert.AreEqual(1, reward.Id);
-			Assert.AreEqual(GameId.ApoMinigun, reward.Reward.GameId);
+			Assert.AreEqual(GameId.ApoMinigun, reward.GameId);
 		}
 
 		[Test]
@@ -140,16 +140,17 @@ namespace FirstLight.Tests.EditorMode.Logic
 		{
 			Assert.AreEqual(0, _battlePassLogic.CurrentPoints.Value);
 			Assert.AreEqual(0, _battlePassLogic.CurrentLevel.Value);
-
+			var pointsPerLevel = ConfigsProvider.GetConfig<BattlePassConfig>();
+			
 			_battlePassLogic.AddBPP(9);
-
-			Assert.IsFalse(_battlePassLogic.IsRedeemable(out var nextLevelPoints));
-			Assert.AreEqual(10, nextLevelPoints);
+			
+			Assert.IsFalse(_battlePassLogic.IsRedeemable());
+			Assert.AreEqual(10, pointsPerLevel);
 
 			_battlePassLogic.AddBPP(5);
 
-			Assert.IsTrue(_battlePassLogic.IsRedeemable(out var nextLevelPoints2));
-			Assert.AreEqual(10, nextLevelPoints2);
+			Assert.IsTrue(_battlePassLogic.IsRedeemable());
+			Assert.AreEqual(10, pointsPerLevel);
 		}
 
 		[Test]
@@ -199,22 +200,22 @@ namespace FirstLight.Tests.EditorMode.Logic
 				new()
 				{
 					Id = 0,
-					Reward = new Equipment(GameId.ApoCrossbow)
+					GameId = GameId.ApoCrossbow
 				},
 				new()
 				{
 					Id = 1,
-					Reward = new Equipment(GameId.ApoMinigun)
+					GameId = GameId.ApoMinigun
 				},
 				new()
 				{
 					Id = 2,
-					Reward = new Equipment(GameId.ApoRifle)
+					GameId = GameId.ApoRifle
 				},
 				new()
 				{
 					Id = 3,
-					Reward = new Equipment(GameId.ApoRPG)
+					GameId = GameId.ApoRPG
 				}
 			};
 

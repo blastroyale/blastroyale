@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
+using UnityEngine;
 
 // ReSharper disable once CheckNamespace
 
@@ -260,6 +261,11 @@ namespace FirstLight.GoogleSheetImporter
 			var items = ArrayParse<string>(text, deserializers);
 			var dictionary = (IDictionary) Activator.CreateInstance(dictionaryType);
 
+			if (items.Count == 0)
+			{
+				return null;
+			}
+			
 			if (items[0].IndexOfAny(PairSplitChars) != -1)
 			{
 				foreach (var item in items)
@@ -354,11 +360,20 @@ namespace FirstLight.GoogleSheetImporter
 				return TypeDescriptor.GetConverter(type).ConvertFrom(text);
 			}
 
+			try
+			{
+
+			
 			if (type.IsValueType)
 			{
 				return Convert.ChangeType(text, type);
 			}
-
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				throw;
+			}
 			return JsonConvert.DeserializeObject($"\"{text}\"", type);
 		}
 

@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using FirstLight.Game.MonoComponent;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -47,7 +48,7 @@ namespace FirstLight.Game.Views
 		/// <summary>
 		/// Initialise material and visual elements based on metadata object 
 		/// </summary>
-		public async void Initialise(Equipment metadata)
+		public async Task Initialise(Equipment metadata)
 		{
 			_nameText.text = LocalizationManager.GetTranslation($"GameIds/{metadata.GameId.ToString()}");
 

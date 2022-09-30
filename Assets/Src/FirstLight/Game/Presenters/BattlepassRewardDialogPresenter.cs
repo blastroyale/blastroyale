@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views;
@@ -35,7 +36,9 @@ namespace FirstLight.Game.Presenters
 		{
 			base.OnOpened();
 			
-			_rewardCard.Initialise(Data.Reward);
+			_rewardCard.gameObject.SetActive(false);
+			await _rewardCard.Initialise(Data.Reward);
+			_rewardCard.gameObject.SetActive(true);
 		}
 
 		private void OnConfirmButtonClicked()

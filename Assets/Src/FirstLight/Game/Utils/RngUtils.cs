@@ -69,9 +69,16 @@ namespace FirstLight.Game.Utils
 			var range = max - min;
 			var value = RngUtils.Next(rndState);
 
-			value = maxInclusive && value == int.MaxValue ? value - 1 : value;
+			value = maxInclusive && FloatEquals(value, float.MaxValue) ? value - 1 : value;
 
-			return range * value / int.MaxValue + min;
+			return (range / float.MaxValue) * value + min;
+		}
+		
+		private static bool FloatEquals(double x, double y, double tolerance = 1e-10)
+		{
+			var diff = Math.Abs(x - y);
+			return diff <= tolerance ||
+			       diff <= Math.Max(Math.Abs(x), Math.Abs(y)) * tolerance;
 		}
 	}
 	

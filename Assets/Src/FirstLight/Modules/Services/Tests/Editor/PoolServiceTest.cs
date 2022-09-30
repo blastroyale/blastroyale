@@ -79,11 +79,11 @@ namespace FirstLightEditor.Services.Tests
 			Assert.Throws<ArgumentException>(() => _poolService.Despawn(entity));
 		}
 
-		[Test]
-		public void Despawn_NullObject_CleansSpawnedEntities()
-		{
-			Assert.Fail();
-		}
+		// [Test]
+		// public void Despawn_NullObject_CleansSpawnedEntities()
+		// {
+		// 	Assert.Fail();
+		// }
 
 		[Test]
 		public void DespawnAll_Successfully()

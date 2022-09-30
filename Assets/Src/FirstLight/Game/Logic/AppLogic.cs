@@ -106,6 +106,7 @@ namespace FirstLight.Game.Logic
 	/// <inheritdoc />
 	public interface IAppLogic : IAppDataProvider
 	{
+		public void Init();
 	}
 
 	/// <inheritdoc cref="IAppLogic"/>

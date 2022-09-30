@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_ItemCard2D_Maskable_Runtime
-  m_Shader: {fileID: -6465566751694194690, guid: 5d50a418b1581544db563aee1145ef5a, type: 3}
+  m_Shader: {fileID: 4800000, guid: bc9d2a8e690f42cbb8435e1bf9dcc94a, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -103,12 +103,18 @@ Material:
     m_Ints: []
     m_Floats:
     - _Adjective_Amount: 0.5
+    - _ColorMask: 15
     - _FX_Amount: 0.5
     - _FX_Size: 1.64
     - _Grade_Amount: -0.3
     - _PlusIndicator: 1
     - _Plus_Amount: 1.5
     - _Plus_Indicator: 1
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
     m_Colors:
     - _FX_Offset: {r: 0.25, g: 0.15, b: 0, a: 0}
     - _FX_Scale: {r: 0.6, g: 0.6, b: 0, a: 0}

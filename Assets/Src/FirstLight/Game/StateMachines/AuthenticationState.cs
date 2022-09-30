@@ -69,6 +69,7 @@ namespace FirstLight.Game.StateMachines
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
 			var login = stateFactory.State("Login");
+			var guestLogin = stateFactory.State("Guest Login");
 			var autoAuthCheck = stateFactory.Choice("Auto Auth Check");
 			var register = stateFactory.State("Register");
 			var authLogin = stateFactory.State("Authentication Login");
@@ -85,9 +86,13 @@ namespace FirstLight.Game.StateMachines
 
 			login.OnEnter(OpenLoginScreen);
 			login.Event(_goToRegisterClickedEvent).OnTransition(CloseLoginScreen).Target(register);
-			login.Event(_loginAsGuestEvent).OnTransition(()=>{SetLinkedDevice(true); CloseLoginScreen();}).Target(authLoginDevice);
+			login.Event(_loginAsGuestEvent).Target(guestLogin);
 			login.Event(_loginRegisterTransitionEvent).Target(authLogin);
 
+			guestLogin.OnEnter(() => { DimLoginRegisterScreens(true); SetupGuestAccount(); });
+			guestLogin.Event(_loginCompletedEvent).Target(authLoginDevice);
+			guestLogin.Event(_authenticationFailEvent).OnTransition(() => {DimLoginRegisterScreens(false);}).Target(login);
+			
 			register.OnEnter(OpenRegisterScreen);
 			register.Event(_goToLoginClickedEvent).OnTransition(CloseRegisterScreen).Target(login);
 			register.Event(_loginRegisterTransitionEvent).Target(authLogin);
@@ -118,6 +123,31 @@ namespace FirstLight.Game.StateMachines
 		{
 			// TODO: Re-add the unsubscription when we can have global state for the authentication or just the re-login on the connection loss
 			//_services.MessageBrokerService?.UnsubscribeAll(this);
+		}
+
+		/// <summary>
+		/// Create a new account by a random customID
+		/// And links the current device to that account
+		/// </summary>
+		private void SetupGuestAccount()
+		{
+			FLog.Verbose($"Creating guest account");
+			var login = new LoginWithCustomIDRequest
+			{
+				CreateAccount = true,
+				CustomId = Guid.NewGuid().ToString(),
+			};
+			PlayFabClientAPI.LoginWithCustomID(login, res =>
+			{
+				FLog.Verbose($"Created guest account {res.PlayFabId} linking device");
+				_services.PlayfabService.LinkDeviceID(() =>
+				{
+					FLog.Verbose("Device linked to new account");
+					SetLinkedDevice(true);
+					CloseLoginScreen();
+					_statechartTrigger(_loginCompletedEvent);
+				});
+			},OnAuthenticationFail);
 		}
 
 		private void OnConnectionError(ServerHttpErrorMessage msg)
@@ -176,8 +206,9 @@ namespace FirstLight.Game.StateMachines
 		
 		private void OnAuthenticationFail(PlayFabError error)
 		{
-			_statechartTrigger(_authenticationFailEvent);
+			FLog.Error("Authentication Failed");
 			OnPlayFabError(error);
+			_statechartTrigger(_authenticationFailEvent);
 		}
 		
 		private void OnAutomaticAuthenticationFail(PlayFabError error)
@@ -206,7 +237,7 @@ namespace FirstLight.Game.StateMachines
 #if UNITY_EDITOR
 			var login = new LoginWithCustomIDRequest
 			{
-				CreateAccount = true,
+				CreateAccount = false,
 				CustomId = deviceId,
 				InfoRequestParameters = infoParams
 			};
@@ -216,7 +247,7 @@ namespace FirstLight.Game.StateMachines
 #elif UNITY_ANDROID
 			var login = new LoginWithAndroidDeviceIDRequest()
 			{
-				CreateAccount = true,
+				CreateAccount = false,
 				AndroidDevice = SystemInfo.deviceModel,
 				OS = SystemInfo.operatingSystem,
 				AndroidDeviceId = deviceId,
@@ -227,7 +258,7 @@ namespace FirstLight.Game.StateMachines
 #elif UNITY_IOS
 			var login = new LoginWithIOSDeviceIDRequest()
 			{
-				CreateAccount = true,
+				CreateAccount = false,
 				DeviceModel = SystemInfo.deviceModel,
 				OS = SystemInfo.operatingSystem,
 				DeviceId = deviceId,
@@ -558,6 +589,7 @@ namespace FirstLight.Game.StateMachines
 		private void SetLinkedDevice(bool linked)
 		{
 			_dataProvider.AppDataProvider.DeviceID.Value = linked ? PlayFabSettings.DeviceUniqueIdentifier : "";
+			_dataService.SaveData<AppData>();
 		}
 
 		private bool IsOutdated(string version)

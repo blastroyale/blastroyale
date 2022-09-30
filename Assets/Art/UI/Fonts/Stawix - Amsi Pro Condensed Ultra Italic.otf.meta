@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: 6ff2428eb8a974c2281717afe377e3c6
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Amsi Pro Condensed
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: dcf0103698ea2d9498d000929c093184, type: 3}
+  - {fileID: 12800000, guid: a3548c302ed824acb9afda8587ded4e7, type: 3}
+  - {fileID: 12800000, guid: c3103ee1ffc7a8d44a899f53f9236dcb, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

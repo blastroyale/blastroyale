@@ -53,7 +53,6 @@ app.MapPost("/CloudScript/ExecuteFunction", async (ctx) =>
 	// TODO: Make attribute that implements service calls in both Azure Functions and Standalone to avoid this
 	PlayFabResult<BackendLogicResult?> result = functionRequest?.FunctionName switch
 	{
-		"SetupPlayerCommand" => await webServer.SetupPlayer(playerId),
 		"ExecuteCommand" => await webServer.RunLogic(playerId, logicRequest),
 		"GetPlayerData" => await webServer.GetPlayerData(playerId)
 	};

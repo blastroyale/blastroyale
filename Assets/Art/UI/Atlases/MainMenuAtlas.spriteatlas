@@ -1,0 +1,110 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MainMenuAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: eddab3aba30e5485295534587b925b7a, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 8f2de411e440e476a955e263066bcdfa, type: 3}
+  - {fileID: 21300000, guid: 4755d43108e94404e975817fcc3c9d0b, type: 3}
+  - {fileID: 21300000, guid: 4d4555713b6f541ebad6dd66f91c9429, type: 3}
+  - {fileID: 21300000, guid: 13c1b5f14115447f780402fd721baad8, type: 3}
+  - {fileID: 21300000, guid: 000b16f1577f24878bd79b5c8ff28be6, type: 3}
+  - {fileID: 21300000, guid: 32610552af28844669cdba62234811ad, type: 3}
+  - {fileID: 21300000, guid: c9a202b2307fb49549d013e0c91bcb44, type: 3}
+  - {fileID: 21300000, guid: c89c05447743249abbe3605e15ac0c97, type: 3}
+  - {fileID: 21300000, guid: 04713a4471ac6493ba0a2533be572841, type: 3}
+  - {fileID: 21300000, guid: 5cb1a9853b14740c980813b57e5d03f3, type: 3}
+  - {fileID: 21300000, guid: 71761bd5e01a740118d4f5b0de3cb413, type: 3}
+  - {fileID: 21300000, guid: f064b826f895e4c4d8a88bc40e230288, type: 3}
+  - {fileID: 21300000, guid: 03c6cb3603c124c059572bdae8edb057, type: 3}
+  - {fileID: 21300000, guid: 0009bb56e12594dd9a62134a948a4f74, type: 3}
+  - {fileID: 21300000, guid: 807d21c6c7a6a477f910045d01d697bf, type: 3}
+  - {fileID: 21300000, guid: b0ad58f6ca5c1472fa1fb6178491eb03, type: 3}
+  - {fileID: 21300000, guid: 7b2a8cf62857f439d94b28d33014167f, type: 3}
+  - {fileID: 21300000, guid: d74b22177c5ba4ac6b9293d6c147e46e, type: 3}
+  - {fileID: 21300000, guid: 3954eea7714304c3aacf010642a02d78, type: 3}
+  - {fileID: 21300000, guid: a00a82499a7b54937bb2cf2b23aeb238, type: 3}
+  - {fileID: 21300000, guid: 51ac3af9acd824af591121ab7510c3df, type: 3}
+  - {fileID: 21300000, guid: 5c34000b4db9d44d297310e0b968e481, type: 3}
+  - {fileID: 21300000, guid: 6ed5495b8d7894f56ae9a5a2a64820af, type: 3}
+  - {fileID: 21300000, guid: 8368e60ca24ab4818929e5d7b2dd77f2, type: 3}
+  - {fileID: 21300000, guid: edeb643c81c524ca28070f239ae51a4e, type: 3}
+  - {fileID: 21300000, guid: 805b077c9a6dc4cc8acf308e183b7a0b, type: 3}
+  - {fileID: 21300000, guid: 3a7d899cc87a648b6ab9f1f3cf7035f2, type: 3}
+  - {fileID: 21300000, guid: f074c3dd0ff0849fe90a973fd6fbd458, type: 3}
+  - {fileID: 21300000, guid: 6ba4f24e4a43d4bb2aa74aa4de0a3139, type: 3}
+  - {fileID: 21300000, guid: 5d610d5eb2b6d402e80eb23e2f4e974b, type: 3}
+  - {fileID: 21300000, guid: b5fd351f65cdc40378af8e8d20eb4afd, type: 3}
+  - {fileID: 21300000, guid: 2944494fed89644cabdbd0b3da73c0e3, type: 3}
+  - {fileID: 21300000, guid: 872fe08ff0fbc4f64b229d591f48d144, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - ProfileHeadlineBack
+  - PlayButtonPressed
+  - ProfileProgressBack
+  - IconMarketplace
+  - TrophyIcon
+  - BattlePassProgressBack
+  - ChangemodeButton
+  - AvatarBack
+  - SettingsIcon
+  - ButtonMainPressed
+  - ChangemodeButtonPressed
+  - LightSprite
+  - Effect1
+  - BattlepassCrown
+  - Effect2
+  - BLST
+  - PlayButton
+  - CS
+  - BattlepassButtonPressed
+  - HeadlineCornerBack
+  - IconHeroes
+  - CurrencyBack
+  - TappedEffect
+  - ButtonMain
+  - IconCustomGame
+  - BattlePassProgress
+  - IconLeaderboards
+  - IconEquipment
+  - AddpartymemberButton
+  - ProfileProgress
+  - LightTapped
+  - BattlepassButton
+  - Trophy
+  m_RenderDataMap: {}
+  m_Tag: MainMenuAtlas
+  m_IsVariant: 0

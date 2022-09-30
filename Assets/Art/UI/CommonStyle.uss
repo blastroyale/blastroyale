@@ -1,0 +1,93 @@
+:root {
+    --color-primary: rgb(240, 209, 94);
+    --color-accent: rgb(196, 84, 122);
+    --color-highlight: rgb(196, 84, 122);
+    --color-defauly: rgb(144, 98, 227);
+    --color-body: rgb(148, 45, 68);
+    transition-duration: 0.5s;
+}
+
+.font-regular {
+    -unity-font-definition: none;
+    -unity-font: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Normal%20Regular.otf?fileID=12800000&guid=fc8266ceb95e44d6d812af34322286b7&type=3#Stawix - Amsi Pro Normal Regular');
+}
+
+.font-bold {
+    -unity-font-definition: none;
+    -unity-font: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Condensed%20Bold.otf?fileID=12800000&guid=a3548c302ed824acb9afda8587ded4e7&type=3#Stawix - Amsi Pro Condensed Bold');
+}
+
+.font-italic {
+    -unity-font-definition: none;
+    -unity-font: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Condensed%20Ultra%20Italic.otf?fileID=12800000&guid=6ff2428eb8a974c2281717afe377e3c6&type=3#Stawix - Amsi Pro Condensed Ultra Italic');
+    letter-spacing: -7px;
+    -unity-paragraph-spacing: -32px;
+}
+
+.font-light-italic {
+    -unity-font-definition: none;
+    -unity-font: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Normal%20ExtraLight%20Italic.otf?fileID=12800000&guid=ecdd4df26ce474069865eb3673c40456&type=3#Stawix - Amsi Pro Normal ExtraLight Italic');
+}
+
+.font-style-h2 {
+    font-size: 38px;
+    letter-spacing: 1px;
+    text-shadow: 5px 5px 0 rgba(0, 0, 0, 0.53);
+    color: rgb(255, 255, 255);
+}
+
+.font-style-h1 {
+    font-size: 70px;
+    -unity-font-style: bold;
+    letter-spacing: 1px;
+    text-shadow: 5px 5px 0 rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+}
+
+Button {
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+}
+
+Button:hover {
+    text-shadow: 0 0 0 rgb(159, 159, 159);
+}
+
+.button-regular {
+    background-image: url('project://database/Assets/Art/UI/Sprites/ButtonMain.png?fileID=21300000&guid=8368e60ca24ab4818929e5d7b2dd77f2&type=3#ButtonMain');
+    width: 222px;
+    height: 128px;
+    padding-top: 50px;
+    overflow: visible;
+    -unity-background-image-tint-color: var(--color-defauly);
+    -unity-text-align: middle-center;
+    align-items: center;
+}
+
+.button-regular > .button-icon {
+    width: auto;
+    height: 75px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -23px;
+    overflow: visible;
+    -unity-background-scale-mode: scale-to-fit;
+    transition-property: top;
+    transition-timing-function: ease-out;
+    transition-duration: 0.2s;
+}
+
+.button-regular:active {
+    background-image: url('project://database/Assets/Art/UI/Sprites/ButtonMainPressed.png?fileID=21300000&guid=5cb1a9853b14740c980813b57e5d03f3&type=3#ButtonMainPressed');
+    padding-top: 70px;
+}
+
+.button-regular:active > .button-icon {
+    top: -30px;
+    transition-property: top;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-out;
+}

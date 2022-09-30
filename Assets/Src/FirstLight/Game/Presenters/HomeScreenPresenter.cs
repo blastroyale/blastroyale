@@ -1,25 +1,22 @@
 using System;
-using System.Diagnostics;
+using FirstLight.FLogger;
+using FirstLight.Game.Ids;
 using UnityEngine;
-using FirstLight.Game.Configs;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Logic;
-using I2.Loc;
 using FirstLight.Game.Services;
-using FirstLight.Game.Messages;
-using FirstLight.Game.Views.MainMenuViews;
+using FirstLight.UiService;
 using Quantum;
-using Sirenix.OdinInspector;
-using TMPro;
-using Button = UnityEngine.UI.Button;
-using Debug = UnityEngine.Debug;
+using UnityEngine.UIElements;
+using Button = UnityEngine.UIElements.Button;
 
 namespace FirstLight.Game.Presenters
 {
 	/// <summary>
 	/// This Presenter handles the Home Screen.
 	/// </summary>
-	public class HomeScreenPresenter : AnimatedUiPresenterData<HomeScreenPresenter.StateData>
+	[LoadSynchronously]
+	public class HomeScreenPresenter : UiCloseActivePresenterData<HomeScreenPresenter.StateData>
 	{
 		public struct StateData
 		{
@@ -27,7 +24,6 @@ namespace FirstLight.Game.Presenters
 			public Action OnSettingsButtonClicked;
 			public Action OnLootButtonClicked;
 			public Action OnHeroesButtonClicked;
-			public Action OnSocialButtonClicked;
 			public Action OnPlayRoomJoinCreateClicked;
 			public Action OnNameChangeClicked;
 			public Action OnGameModeClicked;
@@ -35,92 +31,102 @@ namespace FirstLight.Game.Presenters
 			public Action OnBattlePassClicked;
 		}
 
-		[SerializeField, Required] private Button _playOnlineButton;
-		[SerializeField, Required] private Button _playRoom;
-		[SerializeField, Required] private Button _nameChangeButton;
-		[SerializeField, Required] private Button _settingsButton;
-		[SerializeField, Required] private Button _feedbackButton;
-		[SerializeField, Required] private Button _gameModeButton;
-		[SerializeField, Required] private Button _leaderboardButton;
-		[SerializeField, Required] private Button _battlePassButton;
-		[SerializeField, Required] private NewFeatureUnlockedView _newFeaturesView;
-		[SerializeField, Required] private TextMeshProUGUI _selectedGameModeText;
-		[SerializeField, Required] private TextMeshProUGUI _selectedGameModeTimerText;
+		[SerializeField] private UIDocument _document;
 
-		// Landscape Mode Buttons
-		[SerializeField, Required] private VisualStateButtonView _lootButton;
-		[SerializeField, Required] private VisualStateButtonView _heroesButton;
-		[SerializeField, Required] private Button _marketplaceButton;
-		[SerializeField, Required] private Button _discordButton;
+		private VisualElement _root;
 
 		private IGameDataProvider _gameDataProvider;
-		private IGameServices _services;
+		private IGameServices _gameServices;
 
-		private void Awake()
+		private Label _playerNameLabel;
+		private Label _playerTrophiesLabel;
+		private Label _gameModeLabel;
+		private Label _gameTypeLabel;
+		private Label _csAmountLabel;
+		private Label _blstAmountLabel;
+		private Label _battlePassLevelLabel;
+		private VisualElement _battlePassProgressElement;
+		private VisualElement _battlePassCrownIcon;
+
+		private void Start()
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			_services = MainInstaller.Resolve<IGameServices>();
+			_gameServices = MainInstaller.Resolve<IGameServices>();
 
-			_playOnlineButton.onClick.AddListener(OnPlayOnlineClicked);
-			_playRoom.onClick.AddListener(OnPlayRoomlicked);
-			_nameChangeButton.onClick.AddListener(OnNameChangeClicked);
-			_settingsButton.onClick.AddListener(OnSettingsButtonClicked);
-			_lootButton.Button.onClick.AddListener(OpenLootMenuUI);
-			_heroesButton.Button.onClick.AddListener(OpenHeroesMenuUI);
-			_marketplaceButton.onClick.AddListener(OpenMarketplaceLink);
-			_feedbackButton.onClick.AddListener(LeaveFeedbackForm);
-			_discordButton.onClick.AddListener(OpenDiscordLink);
-			_leaderboardButton.onClick.AddListener(OpenLeaderboardUI);
-			_gameModeButton.onClick.AddListener(OpenGameModeClicked);
-			_battlePassButton.onClick.AddListener(OpenBattlePassScreen);
+			_root = _document.rootVisualElement;
 
-			_leaderboardButton.gameObject.SetActive(FeatureFlags.LEADERBOARD_ACCESSIBLE);
-			_marketplaceButton.gameObject.SetActive(Debug.isDebugBuild);
-			_newFeaturesView.gameObject.SetActive(false);
-		}
+			_playerNameLabel = _root.Q<Label>("PlayerNameLabel").Required();
+			_playerTrophiesLabel = _root.Q<Label>("PlayerTrophiesLabel").Required();
+			_gameModeLabel = _root.Q<Label>("GameModeLabel").Required();
+			_gameTypeLabel = _root.Q<Label>("GameTypeLabel").Required();
 
-		private void Update()
-		{
-			var selectedGameModeInfo = _services.GameModeService.SelectedGameMode.Value;
-			if (!selectedGameModeInfo.IsFixed)
+			// TODO: Probably a better way to query this, with .Query<>
+			_csAmountLabel = _root.Q<VisualElement>("CSCurrency").Q<Label>("Label").Required();
+			_blstAmountLabel = _root.Q<VisualElement>("BLSTCurrency").Q<Label>("Label").Required();
+			_battlePassLevelLabel = _root.Q<Label>("BattlePassLevelLabel").Required();
+			_battlePassProgressElement = _root.Q<VisualElement>("BattlePassProgressElement").Required();
+			_battlePassCrownIcon = _root.Q<VisualElement>("BattlePassCrownIcon").Required();
+
+			_root.Q<Button>("PlayButton").clicked += OnPlayButtonClicked;
+			_root.Q<Button>("GameModeButton").clicked += OnGameModeClicked;
+			_root.Q<Button>("SettingsButton").clicked += OnSettingsButtonClicked;
+			_root.Q<Button>("BattlePassButton").clicked += OnBattlePassButtonClicked;
+			_root.Q<Button>("CustomGameButton").clicked += OnCustomGameClicked;
+
+			_root.Q<Button>("EquipmentButton").clicked += OnEquipmentButtonClicked;
+			_root.Q<Button>("HeroesButton").clicked += OnHeroesButtonClicked;
+			_root.Q<Button>("MarketplaceButton").clicked += OnMarketplaceButtonClicked;
+			_root.Q<Button>("LeaderboardsButton").clicked += OnLeaderboardsButtonClicked;
+
+			// TODO: Move to shared code
+			_root.Query<Button>().Build().ForEach(b =>
 			{
-				var timeLeft = selectedGameModeInfo.EndTime - DateTime.UtcNow;
-				_selectedGameModeTimerText.text = timeLeft.ToString(@"hh\:mm\:ss");
-			}
+				b.RegisterCallback<PointerDownEvent>(e => { _gameServices.AudioFxService.PlayClip2D(AudioId.ButtonClickForward); },
+				                                     TrickleDown.TrickleDown);
+			});
+
+			_playerNameLabel.RegisterCallback<ClickEvent>(OnPlayerNameClicked);
+
+			_gameDataProvider.AppDataProvider.DisplayName.InvokeObserve(OnDisplayNameChanged);
+			_gameDataProvider.PlayerDataProvider.Trophies.InvokeObserve(OnTrophiesChanged);
+			_gameDataProvider.CurrencyDataProvider.Currencies.InvokeObserve(GameId.CS, OnCSCurrencyChanged);
+			_gameDataProvider.CurrencyDataProvider.Currencies.InvokeObserve(GameId.BLST, OnBLSTCurrencyChanged);
+			_gameDataProvider.BattlePassDataProvider.CurrentLevel.InvokeObserve(OnBattlePassCurrentLevelChanged);
+			_gameDataProvider.BattlePassDataProvider.CurrentPoints.InvokeObserve(OnBattlePassCurrentPointsChanged);
+
+			_gameServices.GameModeService.SelectedGameMode.InvokeObserve(OnSelectedGameModeChanged);
 		}
 
 		private void OnDestroy()
 		{
-			Services?.MessageBrokerService?.UnsubscribeAll(this);
+			_gameDataProvider.AppDataProvider.DisplayName.StopObserving(OnDisplayNameChanged);
+			_gameDataProvider.PlayerDataProvider.Trophies.StopObserving(OnTrophiesChanged);
+			_gameServices.GameModeService.SelectedGameMode.StopObserving(OnSelectedGameModeChanged);
+			_gameDataProvider.CurrencyDataProvider.Currencies.StopObserving(GameId.CS);
 		}
 
 		protected override void OnOpened()
 		{
 			base.OnOpened();
+			if (_root == null) return; // First open
 
-			_services.GameModeService.SelectedGameMode.InvokeObserve(RefreshGameModeButton);
+			_root.EnableInClassList("hidden", false);
 		}
 
 		protected override void OnClosed()
 		{
 			base.OnClosed();
-
-			_services.GameModeService.SelectedGameMode.StopObserving(RefreshGameModeButton);
+			_root.EnableInClassList("hidden", true);
 		}
 
-		private void OnPlayOnlineClicked()
+		private void OnPlayButtonClicked()
 		{
 			Data.OnPlayButtonClicked();
 		}
 
-		private void OnPlayRoomlicked()
+		private void OnGameModeClicked()
 		{
-			Data.OnPlayRoomJoinCreateClicked();
-		}
-
-		private void OnNameChangeClicked()
-		{
-			Data.OnNameChangeClicked();
+			Data.OnGameModeClicked();
 		}
 
 		private void OnSettingsButtonClicked()
@@ -128,57 +134,81 @@ namespace FirstLight.Game.Presenters
 			Data.OnSettingsButtonClicked();
 		}
 
-		private void OpenLootMenuUI()
-		{
-			Data.OnLootButtonClicked();
-		}
-
-		private void OpenHeroesMenuUI()
-		{
-			Data.OnHeroesButtonClicked();
-		}
-
-		private void OpenMarketplaceLink()
-		{
-			Application.OpenURL(GameConstants.Links.MARKETPLACE_URL);
-		}
-
-		private void OpenLeaderboardUI()
-		{
-			Data.OnLeaderboardClicked();
-		}
-
-		private void OpenGameModeClicked()
-		{
-			Data.OnGameModeClicked();
-		}
-
-		private void OpenSocialMenuUI()
-		{
-			Data.OnSocialButtonClicked();
-		}
-
-		private void OpenBattlePassScreen()
+		private void OnBattlePassButtonClicked()
 		{
 			Data.OnBattlePassClicked();
 		}
 
-		private void LeaveFeedbackForm()
+		private void OnCustomGameClicked()
 		{
-			Application.OpenURL(GameConstants.Links.FEEDBACK_FORM);
+			Data.OnPlayRoomJoinCreateClicked();
 		}
 
-		private void OpenDiscordLink()
+		private void OnEquipmentButtonClicked()
 		{
-			Application.OpenURL(GameConstants.Links.DISCORD_SERVER);
+			Data.OnLootButtonClicked();
 		}
 
-		private void RefreshGameModeButton(GameModeInfo _, GameModeInfo info)
+		private void OnHeroesButtonClicked()
 		{
-			_selectedGameModeTimerText.gameObject.SetActive(!info.IsFixed);
-			_selectedGameModeText.text = string.Format(ScriptLocalization.MainMenu.SelectedGameModeValue,
-			                                           info.Entry.MatchType.GetTranslation().ToUpper(),
-			                                           info.Entry.GameModeId.ToUpper());
+			Data.OnHeroesButtonClicked();
+		}
+
+		private void OnMarketplaceButtonClicked()
+		{
+			Application.OpenURL(GameConstants.Links.MARKETPLACE_URL);
+		}
+
+		private void OnLeaderboardsButtonClicked()
+		{
+			Data.OnLeaderboardClicked();
+		}
+
+		private void OnPlayerNameClicked(ClickEvent evt)
+		{
+			Data.OnNameChangeClicked();
+		}
+
+		private void OnTrophiesChanged(uint _, uint current)
+		{
+			_playerTrophiesLabel.text = current.ToString();
+		}
+
+		private void OnDisplayNameChanged(string _, string current)
+		{
+			_playerNameLabel.text = _gameDataProvider.AppDataProvider.DisplayNameTrimmed;
+		}
+
+		private void OnSelectedGameModeChanged(GameModeInfo _, GameModeInfo current)
+		{
+			_gameModeLabel.text = current.Entry.GameModeId.ToUpper();
+			_gameTypeLabel.text = current.Entry.MatchType.ToString().ToUpper();
+		}
+
+		private void OnCSCurrencyChanged(GameId id, ulong previous, ulong current, ObservableUpdateType updateType)
+		{
+			if (id != GameId.CS) return;
+
+			_csAmountLabel.text = current.ToString();
+		}
+
+		private void OnBLSTCurrencyChanged(GameId id, ulong previous, ulong current, ObservableUpdateType updateType)
+		{
+			if (id != GameId.BLST) return;
+
+			_blstAmountLabel.text = current.ToString();
+		}
+
+		private void OnBattlePassCurrentLevelChanged(uint _, uint current)
+		{
+			_battlePassLevelLabel.text = current.ToString();
+		}
+
+		private void OnBattlePassCurrentPointsChanged(uint _, uint current)
+		{
+			var hasRewards = _gameDataProvider.BattlePassDataProvider.IsRedeemable(out var nextLevel);
+			_battlePassProgressElement.style.flexGrow = Mathf.Clamp01((float) current / nextLevel);
+			_battlePassCrownIcon.style.display = hasRewards ? DisplayStyle.Flex : DisplayStyle.None;
 		}
 	}
 }

@@ -6,7 +6,7 @@
 }
 
 #PlayButton {
-    background-image: url('project://database/Assets/Art/UI/Sprites/PlayButton.png?fileID=21300000&guid=7b2a8cf62857f439d94b28d33014167f&type=3#PlayButton');
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/PlayButton.png?fileID=21300000&guid=7b2a8cf62857f439d94b28d33014167f&type=3#PlayButton');
     width: 535px;
     height: 193px;
     font-size: 70px;
@@ -24,13 +24,13 @@
 }
 
 #PlayButton:active {
-    background-image: url('project://database/Assets/Art/UI/Sprites/PlayButtonPressed.png?fileID=21300000&guid=4755d43108e94404e975817fcc3c9d0b&type=3#PlayButtonPressed');
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/PlayButtonPressed.png?fileID=21300000&guid=4755d43108e94404e975817fcc3c9d0b&type=3#PlayButtonPressed');
     padding-left: 62px;
     padding-top: 20px;
 }
 
 #GameModeButton {
-    background-image: url('project://database/Assets/Art/UI/Sprites/ChangemodeButton.png?fileID=2800000&guid=c9a202b2307fb49549d013e0c91bcb44&type=3#ChangemodeButton');
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ChangemodeButton.png?fileID=2800000&guid=c9a202b2307fb49549d013e0c91bcb44&type=3#ChangemodeButton');
     width: 414px;
     height: 168px;
     margin-bottom: 7px;
@@ -50,7 +50,7 @@
 }
 
 #GameModeButton:active {
-    background-image: url('project://database/Assets/Art/UI/Sprites/ChangemodeButtonPressed.png?fileID=21300000&guid=71761bd5e01a740118d4f5b0de3cb413&type=3#ChangemodeButtonPressed');
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ChangemodeButtonPressed.png?fileID=21300000&guid=71761bd5e01a740118d4f5b0de3cb413&type=3#ChangemodeButtonPressed');
     padding-left: 68px;
     padding-top: 45px;
 }
@@ -67,7 +67,7 @@
 }
 
 #BattlePassButton {
-    background-image: url('project://database/Assets/Art/UI/Sprites/BattlepassButton.png?fileID=21300000&guid=2944494fed89644cabdbd0b3da73c0e3&type=3#BattlepassButton');
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BattlepassButton.png?fileID=21300000&guid=2944494fed89644cabdbd0b3da73c0e3&type=3#BattlepassButton');
     width: 479px;
     height: 179px;
     padding-top: 24px;
@@ -82,7 +82,7 @@
 }
 
 #BattlePassButton #BattlePassProgressElement {
-    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePassProgress.png?fileID=21300000&guid=805b077c9a6dc4cc8acf308e183b7a0b&type=3#BattlePassProgress');
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BattlePassProgress.png?fileID=21300000&guid=805b077c9a6dc4cc8acf308e183b7a0b&type=3#BattlePassProgress');
 }
 
 #BattlePassButton #BattlePassCrownIcon {
@@ -92,7 +92,7 @@
 }
 
 #BattlePassButton:active {
-    background-image: url('project://database/Assets/Art/UI/Sprites/BattlepassButtonPressed.png?fileID=21300000&guid=3954eea7714304c3aacf010642a02d78&type=3#BattlepassButtonPressed');
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BattlepassButtonPressed.png?fileID=21300000&guid=3954eea7714304c3aacf010642a02d78&type=3#BattlepassButtonPressed');
     padding-top: 30px;
     padding-right: 20px;
     padding-left: 0;
@@ -119,7 +119,7 @@
 }
 
 #EquipmentButton .button-icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/IconEquipment.png?fileID=21300000&guid=f074c3dd0ff0849fe90a973fd6fbd458&type=3#IconEquipment');
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/IconEquipment.png?fileID=21300000&guid=f074c3dd0ff0849fe90a973fd6fbd458&type=3#IconEquipment');
 }
 
 #HeroesButton {
@@ -130,7 +130,7 @@
 }
 
 #HeroesButton .button-icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/IconHeroes.png?fileID=21300000&guid=51ac3af9acd824af591121ab7510c3df&type=3#IconHeroes');
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/IconHeroes.png?fileID=21300000&guid=51ac3af9acd824af591121ab7510c3df&type=3#IconHeroes');
 }
 
 #MarketplaceButton {
@@ -141,7 +141,7 @@
 }
 
 #MarketplaceButton .button-icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/IconMarketplace.png?fileID=21300000&guid=13c1b5f14115447f780402fd721baad8&type=3#IconMarketplace');
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/IconMarketplace.png?fileID=21300000&guid=13c1b5f14115447f780402fd721baad8&type=3#IconMarketplace');
 }
 
 #LeaderboardsButton {
@@ -152,7 +152,7 @@
 }
 
 #LeaderboardsButton .button-icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/IconLeaderboards.png?fileID=21300000&guid=3a7d899cc87a648b6ab9f1f3cf7035f2&type=3#IconLeaderboards');
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/IconLeaderboards.png?fileID=21300000&guid=3a7d899cc87a648b6ab9f1f3cf7035f2&type=3#IconLeaderboards');
 }
 
 #BattlePassHolder {
@@ -191,15 +191,15 @@
 }
 
 #CustomGameButton .button-icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/IconCustomGame.png?fileID=21300000&guid=edeb643c81c524ca28070f239ae51a4e&type=3#IconCustomGame');
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/IconCustomGame.png?fileID=21300000&guid=edeb643c81c524ca28070f239ae51a4e&type=3#IconCustomGame');
 }
 
 #BLSTCurrency #Icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/BLST.png?fileID=21300000&guid=b0ad58f6ca5c1472fa1fb6178491eb03&type=3#BLST');
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BLST.png?fileID=21300000&guid=b0ad58f6ca5c1472fa1fb6178491eb03&type=3#BLST');
 }
 
 #CSCurrency #Icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/CS.png?fileID=21300000&guid=d74b22177c5ba4ac6b9293d6c147e46e&type=3#CS');
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/CS.png?fileID=21300000&guid=d74b22177c5ba4ac6b9293d6c147e46e&type=3#CS');
 }
 
 .hidden {

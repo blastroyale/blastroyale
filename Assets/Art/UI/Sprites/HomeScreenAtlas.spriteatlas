@@ -6,7 +6,7 @@ SpriteAtlas:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MainMenuAtlas
+  m_Name: HomeScreenAtlas
   m_EditorData:
     serializedVersion: 2
     textureSettings:
@@ -32,7 +32,7 @@ SpriteAtlas:
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
-    - {fileID: 102900000, guid: eddab3aba30e5485295534587b925b7a, type: 3}
+    - {fileID: 102900000, guid: caffc5a5905c64fdea87daffb5024c03, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -42,7 +42,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 4755d43108e94404e975817fcc3c9d0b, type: 3}
   - {fileID: 21300000, guid: 4d4555713b6f541ebad6dd66f91c9429, type: 3}
   - {fileID: 21300000, guid: 13c1b5f14115447f780402fd721baad8, type: 3}
-  - {fileID: 21300000, guid: 000b16f1577f24878bd79b5c8ff28be6, type: 3}
   - {fileID: 21300000, guid: 32610552af28844669cdba62234811ad, type: 3}
   - {fileID: 21300000, guid: c9a202b2307fb49549d013e0c91bcb44, type: 3}
   - {fileID: 21300000, guid: c89c05447743249abbe3605e15ac0c97, type: 3}
@@ -76,7 +75,6 @@ SpriteAtlas:
   - PlayButtonPressed
   - ProfileProgressBack
   - IconMarketplace
-  - TrophyIcon
   - BattlePassProgressBack
   - ChangemodeButton
   - AvatarBack
@@ -106,5 +104,5 @@ SpriteAtlas:
   - BattlepassButton
   - Trophy
   m_RenderDataMap: {}
-  m_Tag: MainMenuAtlas
+  m_Tag: HomeScreenAtlas
   m_IsVariant: 0

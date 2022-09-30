@@ -132,7 +132,7 @@ namespace FirstLight.Game.Presenters
 
 		private void UpdateLevelUi()
 		{
-			var redeemableLevelAndPts = _gameDataProvider.BattlePassDataProvider.GetLevelAndPointsIfReedemed();
+			var redeemableLevelAndPts = _gameDataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
 			_currentLevelText.text = string.Format(ScriptLocalization.MainMenu.BattlepassCurrentLevel,(redeemableLevelAndPts.Item1+1).ToString());
 		}
 

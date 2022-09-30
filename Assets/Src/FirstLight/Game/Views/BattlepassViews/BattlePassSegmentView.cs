@@ -62,16 +62,16 @@ namespace FirstLight.Game.Views.BattlePassViews
 			
 			_rewardImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(data.RewardConfig.GameId);
 
-			if (!isRewardClaimed && data.RedeemableLevel >= data.SegmentLevelForRewards)
+			if (!isRewardClaimed && data.PredictedCurrentLevel >= data.SegmentLevelForRewards)
 			{
 				_rewardReadyToClaimObject.SetActive(true);
 			}
-			else if(!isRewardClaimed && (data.RedeemableLevel+1) == data.SegmentLevelForRewards)
+			else if(!isRewardClaimed && (data.PredictedCurrentLevel+1) == data.SegmentLevelForRewards)
 			{
 				_rewardStatusText.gameObject.SetActive(true);
 				_rewardStatusText.text = ScriptLocalization.MainMenu.BattlepassRewardClaimNext.ToUpper();
 			}
-			else if(!isRewardClaimed && (data.RedeemableLevel+1) < data.SegmentLevelForRewards)
+			else if(!isRewardClaimed && (data.PredictedCurrentLevel+1) < data.SegmentLevelForRewards)
 			{
 				_rewardStatusText.gameObject.SetActive(true);
 				_rewardStatusText.text = string.Format(ScriptLocalization.MainMenu.BattlepassRewardClaimFarOut, levelForUi).ToUpper();
@@ -83,18 +83,18 @@ namespace FirstLight.Game.Views.BattlePassViews
 
 			// Update progress bar and level
 			_levelText.text = levelForUi.ToString();
-			_levelSegmentBackgroundReached.SetActive(data.RedeemableLevel >= data.SegmentLevelForRewards);
-			_levelSegmentBackgroundNotReached.SetActive(data.RedeemableLevel < data.SegmentLevelForRewards);
+			_levelSegmentBackgroundReached.SetActive(data.PredictedCurrentLevel >= data.SegmentLevelForRewards);
+			_levelSegmentBackgroundNotReached.SetActive(data.PredictedCurrentLevel < data.SegmentLevelForRewards);
 			
-			if (data.RedeemableLevel > data.SegmentLevel)
+			if (data.PredictedCurrentLevel > data.SegmentLevel)
 			{
 				_progressBar.fillAmount = 1f;
 				_progressText.text = "";
 			}
-			else if (data.RedeemableLevel == data.SegmentLevel)
+			else if (data.PredictedCurrentLevel == data.SegmentLevel)
 			{
-				_progressBar.fillAmount = (float) data.RedeemableProgress / data.MaxProgress;
-				_progressText.text = $"{data.RedeemableProgress}/{data.MaxProgress}";
+				_progressBar.fillAmount = (float) data.PredictedCurrentProgress / data.MaxProgress;
+				_progressText.text = $"{data.PredictedCurrentProgress}/{data.MaxProgress}";
 			}
 			else
 			{
@@ -112,8 +112,8 @@ namespace FirstLight.Game.Views.BattlePassViews
 		public uint SegmentLevel;
 		public uint CurrentLevel;
 		public uint CurrentProgress;
-		public uint RedeemableLevel;
-		public uint RedeemableProgress;
+		public uint PredictedCurrentLevel;
+		public uint PredictedCurrentProgress;
 		public uint MaxProgress;
 		public Equipment RewardConfig;
 

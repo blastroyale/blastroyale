@@ -46,15 +46,15 @@ namespace FirstLight.Game.Views.BattlePassViews
 		{
 			var battlePassConfig = _services.ConfigsProvider.GetConfig<BattlePassConfig>();
 			var rewardConfig = _services.ConfigsProvider.GetConfigsList<Equipment>();
-			var redeemedProgress = _gameDataProvider.BattlePassDataProvider.GetLevelAndPointsIfReedemed();
+			var redeemedProgress = _gameDataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
 
 			for (int i = 0; i < Data.List.Count; i++)
 			{
 				Data.List[i].SegmentLevel = (uint) i;
 				Data.List[i].CurrentLevel = _gameDataProvider.BattlePassDataProvider.CurrentLevel.Value;
 				Data.List[i].CurrentProgress = _gameDataProvider.BattlePassDataProvider.CurrentPoints.Value;
-				Data.List[i].RedeemableLevel = redeemedProgress.Item1;
-				Data.List[i].RedeemableProgress = redeemedProgress.Item2;
+				Data.List[i].PredictedCurrentLevel = redeemedProgress.Item1;
+				Data.List[i].PredictedCurrentProgress = redeemedProgress.Item2;
 				Data.List[i].MaxProgress = battlePassConfig.PointsPerLevel;
 				Data.List[i].RewardConfig = rewardConfig[battlePassConfig.Levels[i].RewardId];
 				
@@ -73,7 +73,7 @@ namespace FirstLight.Game.Views.BattlePassViews
 		/// </summary>
 		public void ScrollToBattlePassLevel()
 		{
-			var index = Math.Clamp((int) _gameDataProvider.BattlePassDataProvider.GetLevelAndPointsIfReedemed().Item1, 0, Data.Count - 1);
+			var index = Math.Clamp((int) _gameDataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints().Item1, 0, Data.Count - 1);
 			SmoothScrollTo(index, 0.3f, 0, -1f);
 		}
 
@@ -97,7 +97,7 @@ namespace FirstLight.Game.Views.BattlePassViews
 			var battlePassConfig = _services.ConfigsProvider.GetConfig<BattlePassConfig>();
 			var rewardConfig = _services.ConfigsProvider.GetConfigsList<Equipment>();
 			var newSegments = new BattlePassSegmentData[battlePassConfig.Levels.Count];
-			var redeemedProgress = _gameDataProvider.BattlePassDataProvider.GetLevelAndPointsIfReedemed();
+			var redeemedProgress = _gameDataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
 			
 			for (int i = 0; i < newSegments.Length; ++i)
 			{
@@ -106,8 +106,8 @@ namespace FirstLight.Game.Views.BattlePassViews
 					SegmentLevel = (uint)i,
 					CurrentLevel = _gameDataProvider.BattlePassDataProvider.CurrentLevel.Value,
 					CurrentProgress = _gameDataProvider.BattlePassDataProvider.CurrentPoints.Value,
-					RedeemableLevel = redeemedProgress.Item1,
-					RedeemableProgress = redeemedProgress.Item2,
+					PredictedCurrentLevel = redeemedProgress.Item1,
+					PredictedCurrentProgress = redeemedProgress.Item2,
 					MaxProgress = battlePassConfig.PointsPerLevel,
 					RewardConfig = rewardConfig[battlePassConfig.Levels[i].RewardId]
 				};

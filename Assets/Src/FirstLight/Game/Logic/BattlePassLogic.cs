@@ -26,7 +26,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Gets the level and points that would be if current BPP was redeemed
 		/// </summary>
-		Tuple<uint, uint> GetLevelAndPointsIfReedemed();
+		Tuple<uint, uint> GetPredictedLevelAndPoints();
 
 		/// <summary>
 		/// The maximum (highest) level of the BattlePass.
@@ -103,7 +103,7 @@ namespace FirstLight.Game.Logic
 		}
 		
 		/// <inheritdoc />
-		public Tuple<uint, uint> GetLevelAndPointsIfReedemed()
+		public Tuple<uint, uint> GetPredictedLevelAndPoints()
 		{
 			var level = _currentLevel.Value;
 			var points = _currentPoints.Value;

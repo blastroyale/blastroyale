@@ -220,6 +220,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void GiveMatchRewards()
 		{
+			if (IsSpectator()) return;
+			
 			var game = QuantumRunner.Default.Game;
 			var f = game.Frames.Verified;
 			var command = new EndOfGameCalculationsCommand();

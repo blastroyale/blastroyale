@@ -222,7 +222,10 @@ namespace FirstLight.Game.StateMachines
 		
 		private void CloseMatchmakingScreen()
 		{
-			_uiService.CloseUi<MatchmakingLoadingScreenPresenter>(false, true);
+			if (_uiService.HasUiPresenter<MatchmakingLoadingScreenPresenter>())
+			{
+				_uiService.CloseUi<MatchmakingLoadingScreenPresenter>(false, true);
+			}
 		}
 
 		private async Task Countdown()

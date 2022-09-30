@@ -236,17 +236,17 @@ namespace FirstLight.Game.Logic
 			if (gameId.IsInGroup(GameIdGroup.Core))
 			{
 				var equipmentConfigs = GameLogic.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatConfig>();
-				var equipmentCategory = config.EquipmentCategory.Keys.ElementAt(GetWeightedRandomDictionaryItemIndex(config.EquipmentCategory, r));
+				var equipmentCategory = config.EquipmentCategory.Keys.ElementAt(GetWeightedRandomDictionaryIndex(config.EquipmentCategory));
 				var matchingEquipment =  equipmentConfigs.Where(x =>x.Id.IsInGroup(equipmentCategory)).ToList();
 				gameId = matchingEquipment[r.Next(0, matchingEquipment.Count())].Id;
 			}
 			
-			var rarity = config.Rarity.Keys.ElementAt(GetWeightedRandomDictionaryItemIndex(config.Rarity, r));
-			var grade = config.Grade.Keys.ElementAt(GetWeightedRandomDictionaryItemIndex(config.Grade, r));
-			var adjective = config.Adjective.Keys.ElementAt(GetWeightedRandomDictionaryItemIndex(config.Adjective, r));
-			var faction = config.Faction.Keys.ElementAt(GetWeightedRandomDictionaryItemIndex(config.Faction, r));
-			var material = config.Material.Keys.ElementAt(GetWeightedRandomDictionaryItemIndex(config.Material, r));
-			var edition = config.Edition.Keys.ElementAt(GetWeightedRandomDictionaryItemIndex(config.Edition, r));
+			var rarity = config.Rarity.Keys.ElementAt(GetWeightedRandomDictionaryIndex(config.Rarity));
+			var grade = config.Grade.Keys.ElementAt(GetWeightedRandomDictionaryIndex(config.Grade));
+			var adjective = config.Adjective.Keys.ElementAt(GetWeightedRandomDictionaryIndex(config.Adjective));
+			var faction = config.Faction.Keys.ElementAt(GetWeightedRandomDictionaryIndex(config.Faction));
+			var material = config.Material.Keys.ElementAt(GetWeightedRandomDictionaryIndex(config.Material));
+			var edition = config.Edition.Keys.ElementAt(GetWeightedRandomDictionaryIndex(config.Edition));
 			var maxDurability = (uint) r.Next(config.MaxDurability.Key, config.MaxDurability.Value);
 			
 			return new Quantum.Equipment(gameId,
@@ -266,23 +266,23 @@ namespace FirstLight.Game.Logic
 			                            );
 		}
 
-		private int GetWeightedRandomDictionaryItemIndex<TKey, TValue>(SerializedDictionary<TKey, TValue> dictionary, Random r)
+		private int GetWeightedRandomDictionaryIndex<TKey, TValue>(SerializedDictionary<TKey, TValue> dictionary)
 		{
-			Dictionary<TKey, double> rangeDictionary = dictionary as Dictionary<TKey, double>;
-			List<Tuple<double, double>> indexRanges = new List<Tuple<double, double>>();
+			Dictionary<TKey, float> rangeDictionary = dictionary as Dictionary<TKey, float>;
+			List<Tuple<float, float>> indexRanges = new List<Tuple<float, float>>();
 
-			var currentRangeMax = 0d;
+			var currentRangeMax = 0f;
 			
 			foreach (var valueMax in rangeDictionary.Values)
 			{
 				var min = currentRangeMax;
 				var max = min + valueMax;
-				indexRanges.Add(new Tuple<double, double>(min,max));
+				indexRanges.Add(new Tuple<float, float>(min,max));
 
 				currentRangeMax = max;
 			}
 
-			var rand = r.NextDouble() * (currentRangeMax - 0) + 0;
+			var rand = GameLogic.RngLogic.Range(0, currentRangeMax);
 
 			foreach (var range in indexRanges)
 			{

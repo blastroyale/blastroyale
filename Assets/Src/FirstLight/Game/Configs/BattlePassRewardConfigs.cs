@@ -15,13 +15,13 @@ namespace FirstLight.Game.Configs
 	{
 		public int Id;
 		public GameId GameId;
-		public SerializedDictionary<GameIdGroup, double> EquipmentCategory;
-		public SerializedDictionary<EquipmentEdition, double> Edition;
-		public SerializedDictionary<EquipmentRarity, double> Rarity;
-		public SerializedDictionary<EquipmentGrade, double> Grade;
-		public SerializedDictionary<EquipmentFaction, double> Faction;
-		public SerializedDictionary<EquipmentAdjective, double> Adjective;
-		public SerializedDictionary<EquipmentMaterial, double> Material;
+		public SerializedDictionary<GameIdGroup, float> EquipmentCategory;
+		public SerializedDictionary<EquipmentEdition, float> Edition;
+		public SerializedDictionary<EquipmentRarity, float> Rarity;
+		public SerializedDictionary<EquipmentGrade, float> Grade;
+		public SerializedDictionary<EquipmentFaction, float> Faction;
+		public SerializedDictionary<EquipmentAdjective, float> Adjective;
+		public SerializedDictionary<EquipmentMaterial, float> Material;
 		public Pair<int, int> MaxDurability;
 		public uint InitialReplicationCounter;
 		public uint Tuning;

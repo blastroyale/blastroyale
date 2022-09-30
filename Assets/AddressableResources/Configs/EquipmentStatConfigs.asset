@@ -486,7 +486,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 0
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 3792
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -505,7 +505,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 0
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 4838
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -524,7 +524,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 0
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 6210
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -543,7 +543,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 4554
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 6580
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -562,7 +562,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 5861
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 8467
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -581,7 +581,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 7466
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 10786
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -923,7 +923,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 5606
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 7147
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -942,7 +942,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 7214
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 9197
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -961,7 +961,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 9190
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 11716
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -1816,7 +1816,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 0
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 7583
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -1835,7 +1835,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 0
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 9675
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -1854,7 +1854,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 0
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 12421
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -1873,7 +1873,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 4701
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 13159
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -1892,7 +1892,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 6050
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 16935
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -1911,7 +1911,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 7707
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 21573
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -2253,7 +2253,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 11211
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 7377
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -2272,7 +2272,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 14428
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 9494
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -2291,7 +2291,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 18379
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 12094
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -3146,7 +3146,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 0
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 1896
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -3165,7 +3165,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 0
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 2419
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -3184,7 +3184,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 0
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 3105
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -3203,7 +3203,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 4481
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 3290
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -3222,7 +3222,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 5766
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 4234
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -3241,7 +3241,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 7346
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 5393
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -3583,7 +3583,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 2803
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 7031
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -3602,7 +3602,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 3607
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 9049
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -3621,7 +3621,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 4595
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 11527
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -4476,7 +4476,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 0
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 2844
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -4495,7 +4495,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 0
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 3628
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -4514,7 +4514,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 0
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 4658
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -4533,7 +4533,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 4518
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 4935
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -4552,7 +4552,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 5814
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 6350
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -4571,7 +4571,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 7406
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 8090
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -4913,7 +4913,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 4204
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 7089
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -4932,7 +4932,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 5410
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 9123
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -4951,7 +4951,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 6892
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 11621
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -5483,7 +5483,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 12488
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 6480
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -5502,7 +5502,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 16070
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 8339
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -5521,7 +5521,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 20472
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 10623
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -5673,7 +5673,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 12488
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 6480
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -5692,7 +5692,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 16070
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 8339
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -5711,7 +5711,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 20472
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 10623
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -5863,7 +5863,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 12488
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 6480
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -5882,7 +5882,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 16070
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 8339
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -5901,7 +5901,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 20472
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 10623
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -6053,7 +6053,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 12488
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 6480
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -6072,7 +6072,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 16070
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 8339
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -6091,7 +6091,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 20472
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 10623
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -6243,7 +6243,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 14439
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 7493
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -6262,7 +6262,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 18581
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 9642
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -6281,7 +6281,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 23671
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 12283
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -6433,7 +6433,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 14439
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 7493
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -6452,7 +6452,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 18581
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 9642
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -6471,7 +6471,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 23671
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 12283
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -6623,7 +6623,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 15610
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 8100
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -6642,7 +6642,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 20088
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 10424
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -6661,7 +6661,7 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 25590
       AttackRangeRatioToBaseK:
-        RawValue: 0
+        RawValue: 13279
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:

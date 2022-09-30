@@ -47,7 +47,7 @@ namespace FirstLight.Game.Logic
 		/// Tells you if there are any points to redeem for levels and rewards, and gives you required points for
 		/// the next level.
 		/// </summary>
-		bool IsRedeemable(out uint nextLevelPoints);
+		bool IsRedeemable();
 	}
 
 	/// <inheritdoc />
@@ -130,13 +130,11 @@ namespace FirstLight.Game.Logic
 			return GameLogic.ConfigsProvider.GetConfig<BattlePassRewardConfig>(levelConfig.RewardId);
 		}
 
-		public bool IsRedeemable(out uint nextLevelPoints)
+		public bool IsRedeemable()
 		{
 			var config = GameLogic.ConfigsProvider.GetConfig<BattlePassConfig>();
 
-			nextLevelPoints = config.PointsPerLevel;
-
-			return config.PointsPerLevel <= _currentPoints.Value;
+			return _currentPoints.Value > config.PointsPerLevel;
 		}
 
 		public void AddBPP(uint amount)

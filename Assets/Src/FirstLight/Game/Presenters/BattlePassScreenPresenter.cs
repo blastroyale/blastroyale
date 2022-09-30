@@ -78,7 +78,7 @@ namespace FirstLight.Game.Presenters
 
 		private void CheckEnableRewardClaimButton()
 		{
-			var rewardsRedeemable = _gameDataProvider.BattlePassDataProvider.IsRedeemable(out _);
+			var rewardsRedeemable = _gameDataProvider.BattlePassDataProvider.IsRedeemable();
 			_claimRewardsButton.gameObject.SetActive(rewardsRedeemable);
 			_nothingToClaimText.gameObject.SetActive(!rewardsRedeemable);
 		}
@@ -138,7 +138,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnClaimRewardsClicked()
 		{
-			if (_gameDataProvider.BattlePassDataProvider.IsRedeemable(out _))
+			if (_gameDataProvider.BattlePassDataProvider.IsRedeemable())
 			{
 				_services.CommandService.ExecuteCommand(new RedeemBPPCommand());
 			}

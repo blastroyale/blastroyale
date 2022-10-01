@@ -170,6 +170,44 @@ public partial class SROptions
 	}
 
 	[Category("Equipment")]
+	public void GiveMaxAttackBuildEquipment()
+	{
+		var services = MainInstaller.Resolve<IGameServices>();
+		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
+
+		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.HockeyHelmet,
+		                                                       material: EquipmentMaterial.Golden,
+		                                                       faction: EquipmentFaction.Dimensional,
+		                                                       adjective: EquipmentAdjective.Divine,
+		                                                       rarity: EquipmentRarity.LegendaryPlus,
+		                                                       level: 35,
+		                                                       grade: EquipmentGrade.GradeI));
+		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.BaseballArmor,
+		                                                       material: EquipmentMaterial.Golden,
+		                                                       faction: EquipmentFaction.Dimensional,
+		                                                       adjective: EquipmentAdjective.Divine,
+		                                                       rarity: EquipmentRarity.LegendaryPlus,
+		                                                       level: 35,
+		                                                       grade: EquipmentGrade.GradeI));
+		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.RiotShield,
+		                                                       material: EquipmentMaterial.Golden,
+		                                                       faction: EquipmentFaction.Dimensional,
+		                                                       adjective: EquipmentAdjective.Divine,
+		                                                       rarity: EquipmentRarity.LegendaryPlus,
+		                                                       level: 35,
+		                                                       grade: EquipmentGrade.GradeI));
+		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.RiotAmulet,
+		                                                       material: EquipmentMaterial.Golden,
+		                                                       faction: EquipmentFaction.Organic,
+		                                                       adjective: EquipmentAdjective.Divine,
+		                                                       rarity: EquipmentRarity.LegendaryPlus,
+		                                                       level: 35,
+		                                                       grade: EquipmentGrade.GradeI));
+
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
+	}
+
+	[Category("Equipment")]
 	public void GiveMaxAttackRangeBuildEquipment()
 	{
 		var services = MainInstaller.Resolve<IGameServices>();

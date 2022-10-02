@@ -44,10 +44,13 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 13c1b5f14115447f780402fd721baad8, type: 3}
   - {fileID: 21300000, guid: 32610552af28844669cdba62234811ad, type: 3}
   - {fileID: 21300000, guid: c9a202b2307fb49549d013e0c91bcb44, type: 3}
+  - {fileID: 21300000, guid: 123b7673eb1d048a486154a4e65c630b, type: 3}
   - {fileID: 21300000, guid: c89c05447743249abbe3605e15ac0c97, type: 3}
   - {fileID: 21300000, guid: 04713a4471ac6493ba0a2533be572841, type: 3}
+  - {fileID: 21300000, guid: cf4abf5541a924d0da5e2d5681f54665, type: 3}
   - {fileID: 21300000, guid: 5cb1a9853b14740c980813b57e5d03f3, type: 3}
   - {fileID: 21300000, guid: 71761bd5e01a740118d4f5b0de3cb413, type: 3}
+  - {fileID: 21300000, guid: 6a9373e55276b4254b7304c8d38f2dc6, type: 3}
   - {fileID: 21300000, guid: f064b826f895e4c4d8a88bc40e230288, type: 3}
   - {fileID: 21300000, guid: 03c6cb3603c124c059572bdae8edb057, type: 3}
   - {fileID: 21300000, guid: 0009bb56e12594dd9a62134a948a4f74, type: 3}
@@ -77,10 +80,13 @@ SpriteAtlas:
   - IconMarketplace
   - BattlePassProgressBack
   - ChangemodeButton
+  - DotsRotated
   - AvatarBack
   - SettingsIcon
+  - GradientAndDots
   - ButtonMainPressed
   - ChangemodeButtonPressed
+  - InputFieldBackground
   - LightSprite
   - Effect1
   - BattlepassCrown

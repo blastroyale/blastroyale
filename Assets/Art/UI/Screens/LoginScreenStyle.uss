@@ -1,0 +1,34 @@
+:root {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.popup-radius {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+#unity-text-input {
+    flex-grow: 1;
+}
+
+TextField > Label {
+    margin-right: 15px;
+    width: 150px;
+    font-size: 33px;
+}
+
+Button {
+    -unity-text-align: middle-center;
+}
+
+.hidden #PopupBackground {
+    top: -1000px;
+    transition-timing-function: ease-out;
+    transition-duration: 0.3s;
+}

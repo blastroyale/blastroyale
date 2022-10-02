@@ -3,6 +3,17 @@
     --out-animation-easing: ease-in;
     --in-animation-duration: 0.3s;
     --in-animation-easing: ease-out;
+    --animation-delay-1: 0s;
+    --animation-delay-2: 0.1s;
+    --animation-delay-3: 0.2s;
+    --animation-delay-4: 0.3s;
+    --animation-delay-5: 0.4s;
+    --animation-total-duration: 0.7s;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
 }
 
 #PlayButton {
@@ -36,14 +47,14 @@
     margin-bottom: 7px;
     padding-left: 59px;
     padding-bottom: 4px;
-    transition-delay: 0.1s;
+    transition-delay: var(--animation-delay-2);
     transition-timing-function: var(--in-animation-easing);
     transition-property: margin-right;
     transition-duration: var(--in-animation-duration);
 }
 
 #CustomGameButton {
-    transition-delay: 0.2s;
+    transition-delay: var(--animation-delay-3);
     transition-property: margin-right;
     transition-duration: var(--in-animation-duration);
     transition-timing-function: var(--in-animation-easing);
@@ -79,6 +90,7 @@
     -unity-font-style: bold;
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(141, 27, 0);
+    -unity-text-align: upper-center;
 }
 
 #BattlePassButton #BattlePassProgressElement {
@@ -94,7 +106,7 @@
 #BattlePassButton:active {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BattlepassButtonPressed.png?fileID=21300000&guid=3954eea7714304c3aacf010642a02d78&type=3#BattlepassButtonPressed');
     padding-top: 30px;
-    padding-right: 20px;
+    padding-right: 12px;
     padding-left: 0;
 }
 
@@ -115,7 +127,7 @@
     transition-duration: var(--in-animation-duration);
     transition-timing-function: var(--in-animation-easing);
     transition-property: margin-left;
-    transition-delay: 0.4s;
+    transition-delay: var(--animation-delay-5);
 }
 
 #EquipmentButton .button-icon {
@@ -126,7 +138,7 @@
     transition-duration: var(--in-animation-duration);
     transition-timing-function: var(--in-animation-easing);
     transition-property: margin-left;
-    transition-delay: 0.3s;
+    transition-delay: var(--animation-delay-4);
 }
 
 #HeroesButton .button-icon {
@@ -137,7 +149,7 @@
     transition-duration: var(--in-animation-duration);
     transition-timing-function: var(--in-animation-easing);
     transition-property: margin-left;
-    transition-delay: 0.1s;
+    transition-delay: var(--animation-delay-2);
 }
 
 #LeaderboardsButton .button-icon {
@@ -148,35 +160,35 @@
     transition-duration: var(--in-animation-duration);
     transition-timing-function: var(--in-animation-easing);
     transition-property: margin-left;
-    transition-delay: 0s;
+    transition-delay: var(--animation-delay-1);
 }
 
 #SettingsButton {
     transition-duration: var(--in-animation-duration);
     transition-timing-function: var(--in-animation-easing);
     transition-property: margin-top;
-    transition-delay: 0s;
+    transition-delay: var(--animation-delay-1);
 }
 
 #CSCurrency {
     transition-duration: var(--in-animation-duration);
     transition-timing-function: var(--in-animation-easing);
     transition-property: margin-top;
-    transition-delay: 0.1s;
+    transition-delay: var(--animation-delay-2);
 }
 
 #BLSTCurrency {
     transition-duration: var(--in-animation-duration);
     transition-timing-function: var(--in-animation-easing);
     transition-property: margin-top;
-    transition-delay: 0.2s;
+    transition-delay: var(--animation-delay-3);
 }
 
 #PlayerHolder {
     transition-duration: var(--in-animation-duration);
     transition-timing-function: var(--in-animation-easing);
     transition-property: margin-top;
-    transition-delay: 0s;
+    transition-delay: var(--animation-delay-1);
 }
 
 #CustomGameButton .button-icon {
@@ -194,7 +206,7 @@
 .hidden {
     visibility: hidden;
     display: none;
-    transition-delay: 0.7s;
+    transition-delay: var(--animation-total-duration);
 }
 
 .hidden .hidden-left {

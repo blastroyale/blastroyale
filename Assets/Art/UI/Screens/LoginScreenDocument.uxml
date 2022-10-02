@@ -1,0 +1,25 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Screens/LoginScreenStyle.uss?fileID=7433441132597879392&amp;guid=62c1d9d88fd9646f987a3c9d8d48a713&amp;type=3#LoginScreenStyle" />
+    <ui:VisualElement style="left: 0; top: 0; right: 0; bottom: 0; position: absolute; justify-content: center; align-items: center;">
+        <ui:VisualElement name="PopupBackground" class="popup-radius" style="width: 1000px; height: 780px; background-color: rgb(0, 0, 0); margin-left: 25px; margin-top: -4px; transition-timing-function: ease-in; transition-duration: 0.3s;">
+            <ui:VisualElement class="popup-radius" style="position: absolute; left: -10px; top: -10px; right: 10px; bottom: 10px; background-color: rgb(255, 255, 255); overflow: hidden; border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0);">
+                <ui:VisualElement name="Header" class="background-purple" style="overflow: hidden;">
+                    <ui:VisualElement class="dots-pattern" style="top: -138px; left: -28px;" />
+                    <ui:Label text="LOGIN WITH FIRSTLIGHT ID" display-tooltip-when-elided="true" name="Title" class="font-italic" style="height: 90px; -unity-text-align: middle-center; font-size: 36px; color: rgb(255, 255, 255); overflow: hidden;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Container" style="flex-grow: 1; align-items: center; justify-content: space-between; padding-top: 48px; padding-bottom: 40px;">
+                    <ui:TextField picking-mode="Ignore" label="EMAIL" name="EmailTextField" class="font-italic input-field" style="flex-direction: row; justify-content: flex-start; align-items: stretch;" />
+                    <ui:TextField picking-mode="Ignore" label="PASSWORD" name="PasswordTextField" password="true" class="font-italic input-field" style="margin-top: 28px; margin-bottom: 44px; flex-direction: row; justify-content: flex-start;" />
+                    <ui:Button text="LOGIN" display-tooltip-when-elided="true" name="LoginButton" class="button-flat font-italic background-yellow" style="padding-left: 100px; padding-right: 100px;" />
+                    <ui:Label text="OR" display-tooltip-when-elided="true" class="font-italic" style="color: rgb(90, 86, 125); font-size: 30px; margin-bottom: 8px;" />
+                    <ui:Button text="REGISTER&#10;FIRST LIGHT ID" display-tooltip-when-elided="true" name="RegisterButton" class="button-flat font-italic background-purple" style="font-size: 42px; -unity-text-outline-color: rgb(100, 68, 178);" />
+                    <ui:VisualElement style="flex-direction: row; justify-content: space-between;">
+                        <ui:Button text="RESET&#10;PASSWORD" display-tooltip-when-elided="true" name="ResetPasswordButton" class="button-flat font-italic background-purple" style="-unity-text-outline-color: rgb(100, 68, 178);" />
+                        <ui:VisualElement style="height: 0; width: 51px;" />
+                        <ui:Button text="PLAY AS&#10;GUEST" display-tooltip-when-elided="true" name="PlayAsGuestButton" class="button-flat font-italic background-purple" style="-unity-text-outline-color: rgb(100, 68, 178);" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

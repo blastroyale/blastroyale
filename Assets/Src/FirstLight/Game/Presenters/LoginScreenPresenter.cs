@@ -1,18 +1,20 @@
 using System;
+using FirstLight.FLogger;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.UiService;
 using I2.Loc;
 using UnityEngine;
-using TMPro;
 using UnityEngine.Events;
-using Button = UnityEngine.UI.Button;
+using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
 {
 	/// <summary>
 	/// This presenter handles showing the login screen
 	/// </summary>
-	public class LoginScreenPresenter : AnimatedUiPresenterData<LoginScreenPresenter.StateData>
+	[LoadSynchronously]
+	public class LoginScreenPresenter : UiCloseActivePresenterData<LoginScreenPresenter.StateData>
 	{
 		public struct StateData
 		{
@@ -22,36 +24,45 @@ namespace FirstLight.Game.Presenters
 			public UnityAction<string> ForgotPasswordClicked;
 		}
 
-		[SerializeField] private TMP_InputField _emailInputField;
-		[SerializeField] private TMP_InputField _passwordInputField;
-		[SerializeField] private Button _goToRegisterButton;
-		[SerializeField] private Button _loginButton;
-		[SerializeField] private Button _playAsGuestButton;
-		[SerializeField] private GameObject _frontDimBlocker;
-		[SerializeField] private Button _forgotPasswordButton;
+		[SerializeField] private UIDocument _document;
+		[SerializeField] private Camera _camera;
+
+		private TextField _emailField;
+		private TextField _passwordField;
+
+		private VisualElement _root;
 
 		private IGameServices _services;
 
-		private void Awake()
+		private void Start()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-			
-			_loginButton.onClick.AddListener(LoginClicked);
-			_goToRegisterButton.onClick.AddListener(GoToRegisterClicked);
-			_playAsGuestButton.onClick.AddListener(PlayAsGuestClicked);
-			_forgotPasswordButton.onClick.AddListener(GoToForgotYourPassword);
+
+			_root = _document.rootVisualElement;
+
+			_emailField = _root.Q<TextField>("EmailTextField");
+			_passwordField = _root.Q<TextField>("PasswordTextField");
+
+			_root.Q<Button>("LoginButton").clicked += OnLoginButtonClicked;
+			_root.Q<Button>("RegisterButton").clicked += OnRegisterButtonClicked;
+			_root.Q<Button>("ResetPasswordButton").clicked += OnResetPasswordButtonClicked;
+			_root.Q<Button>("PlayAsGuestButton").clicked += OnPlayAsGuestButtonClicked;
 		}
 
-		private void OnEnable()
-		{
-			SetFrontDimBlockerActive(false);
-		}
-		
 		protected override void OnOpened()
 		{
 			base.OnOpened();
-			
-			_playAsGuestButton.gameObject.SetActive(true);
+			_camera.gameObject.SetActive(true);
+			if (_root == null) return; // First open
+
+			_root.EnableInClassList("hidden", false);
+		}
+
+		protected override void OnClosed()
+		{
+			base.OnClosed();
+			_camera.gameObject.SetActive(false);
+			_root.EnableInClassList("hidden", true);
 		}
 
 		/// <summary>
@@ -59,35 +70,34 @@ namespace FirstLight.Game.Presenters
 		/// </summary>
 		public void SetFrontDimBlockerActive(bool active)
 		{
-			_frontDimBlocker.SetActive(active);
+			// TODO: UIT Loader
 		}
 
-		private void LoginClicked()
+		private void OnLoginButtonClicked()
 		{
-			Data.LoginClicked(_emailInputField.text, _passwordInputField.text);
+			Data.LoginClicked(_emailField.text, _passwordField.text);
 		}
 
-		private void GoToRegisterClicked()
+		private void OnRegisterButtonClicked()
 		{
 			Data.GoToRegisterClicked();
 		}
-		
-		private void PlayAsGuestClicked()
-		{
-			_playAsGuestButton.gameObject.SetActive(false);
-			Data.PlayAsGuestClicked();
-		}
 
-		private void GoToForgotYourPassword()
+		private void OnResetPasswordButtonClicked()
 		{
 			var confirmButton = new GenericDialogButton<string>
 			{
 				ButtonText = ScriptLocalization.General.OK,
 				ButtonOnClick = Data.ForgotPasswordClicked
 			};
-			
-			_services.GenericDialogService.OpenInputFieldDialog(ScriptLocalization.MainMenu.SendPasswordEmail, 
+
+			_services.GenericDialogService.OpenInputFieldDialog(ScriptLocalization.MainMenu.SendPasswordEmail,
 			                                                    "", confirmButton, true);
+		}
+
+		private void OnPlayAsGuestButtonClicked()
+		{
+			Data.PlayAsGuestClicked();
 		}
 	}
 }

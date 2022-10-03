@@ -40,6 +40,7 @@ namespace FirstLight.Game.Views.MapViews
 			if (_currentlyCollidingPlayers.ContainsKey(callback.Entity))
 			{
 				_currentlyCollidingPlayers.Remove(callback.Entity);
+				CheckUpdateAllVisiblePlayers();
 			}
 		}
 

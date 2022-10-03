@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -27,12 +28,14 @@ namespace FirstLight.Game.MonoComponent.Match
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			_currentlyCollidingEntities = new List<EntityRef>();
 
+			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 			QuantumEvent.Subscribe<EventOnPlayerDead>(this, OnPlayerDead);
 		}
 
 		private void OnDestroy()
 		{
+			_services?.MessageBrokerService?.UnsubscribeAll(this);
 			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(OnSpectatedPlayerChanged);
 		}
 
@@ -41,11 +44,19 @@ namespace FirstLight.Game.MonoComponent.Match
 			CheckUpdateBuildingTop();
 		}
 		
+		private void OnMatchStartedMessage(MatchStartedMessage msg)
+		{
+			if (!msg.IsResync) return;
+
+			CheckUpdateBuildingTop();
+		}
+		
 		private void OnPlayerDead(EventOnPlayerDead callback)
 		{
 			if (_currentlyCollidingEntities.Contains(callback.Entity))
 			{
 				_currentlyCollidingEntities.Remove(callback.Entity);
+				CheckUpdateBuildingTop();
 			}
 		}
 
@@ -81,7 +92,7 @@ namespace FirstLight.Game.MonoComponent.Match
 					return;
 				}
 			}
-
+			
 			UpdateBuildingTop(false);
 		}
 

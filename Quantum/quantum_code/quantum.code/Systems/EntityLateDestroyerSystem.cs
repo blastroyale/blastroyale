@@ -1,3 +1,5 @@
+using Photon.Deterministic;
+
 namespace Quantum.Systems
 {
 	/// <summary>
@@ -14,7 +16,10 @@ namespace Quantum.Systems
 
 			foreach (var filter in it)
 			{
-				f.Destroy(filter.Entity);
+				if (filter.Component.time == FP._0 || filter.Component.time <= f.Time)
+				{
+					f.Destroy(filter.Entity);
+				}
 			}
 		}
 	}

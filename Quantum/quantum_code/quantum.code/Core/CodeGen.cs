@@ -4005,18 +4005,20 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct EntityDestroyer : Quantum.IComponent {
-    public const Int32 SIZE = 4;
-    public const Int32 ALIGNMENT = 4;
+    public const Int32 SIZE = 8;
+    public const Int32 ALIGNMENT = 8;
     [FieldOffset(0)]
-    private fixed Byte _alignment_padding_[4];
+    public FP time;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 463;
+        hash = hash * 31 + time.GetHashCode();
         return hash;
       }
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (EntityDestroyer*)ptr;
+        FP.Serialize(&p->time, serializer);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -9672,8 +9674,7 @@ namespace Quantum.Prototypes {
   [System.SerializableAttribute()]
   [Prototype(typeof(EntityDestroyer))]
   public sealed unsafe partial class EntityDestroyer_Prototype : ComponentPrototype<EntityDestroyer> {
-    [HideInInspector()]
-    public Int32 _empty_prototype_dummy_field_;
+    public FP time;
     partial void MaterializeUser(Frame frame, ref EntityDestroyer result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       EntityDestroyer component = default;
@@ -9681,6 +9682,7 @@ namespace Quantum.Prototypes {
       return f.Set(entity, component) == SetResult.ComponentAdded;
     }
     public void Materialize(Frame frame, ref EntityDestroyer result, in PrototypeMaterializationContext context) {
+      result.time = this.time;
       MaterializeUser(frame, ref result, in context);
     }
     public override void Dispatch(ComponentPrototypeVisitorBase visitor) {

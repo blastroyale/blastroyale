@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using DG.Tweening;
 using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.EntityPrototypes;
@@ -106,11 +107,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 			
 			var f = QuantumRunner.Default?.Game?.Frames.Predicted;
 			var player = newPlayer.Entity.IsValid ? newPlayer : previousPlayer;
-			
+
 			SetupInitialHealthBar(f, player.Entity);
 		}
 
-		private void SetupInitialHealthBar(Frame f, EntityRef playerEntity)
+		private async void SetupInitialHealthBar(Frame f, EntityRef playerEntity)
 		{
 			if (f == null || !f.TryGet<AIBlackboardComponent>(playerEntity, out var blackboard) || 
 			    blackboard.GetBoolean(f, Constants.IsSkydiving) || 
@@ -119,6 +120,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 				_healthBarSpectatePlayer.OnDespawn();
 				return;
 			}
+
+			// Sometimes there is 1-frame race condition upon reconnection/setting up the health bar, where spectated health bar
+			// gets positioned incorrectly. There is most likely a better solution, but time is money, and I'm poor.
+			await Task.Yield();
 			
 			_healthBarSpectatePlayer.ResourceBarView.SetupView(f, playerEntity);
 			SetupHealthBar(f, playerEntity, _healthBarSpectatePlayer);

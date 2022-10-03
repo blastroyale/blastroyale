@@ -52,7 +52,7 @@ MonoBehaviour:
       MinRange:
         RawValue: 0
       MaxRange:
-        RawValue: 458752
+        RawValue: 589824
       Knockback: 10
     - Id: 89
       SpecialType: 2

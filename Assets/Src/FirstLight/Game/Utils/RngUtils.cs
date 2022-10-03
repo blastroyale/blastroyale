@@ -1,4 +1,5 @@
 using System;
+using Photon.Deterministic;
 using UnityEngine;
 
 namespace FirstLight.Game.Utils
@@ -54,14 +55,14 @@ namespace FirstLight.Game.Utils
 		/// Requests a random generated <see cref="float"/> value between the given <paramref name="min"/> and <paramref name="max"/>,
 		/// without changing the state with  the max value inclusive depending on the given <paramref name="maxInclusive"/>
 		/// </summary>
-		public static float Range(float min, float max, int[] rndState, bool maxInclusive)
+		public static FP Range(FP min, FP max, int[] rndState, bool maxInclusive)
 		{
-			if (min > max || maxInclusive && Math.Abs(min - max) < float.Epsilon)
+			if (min > max || maxInclusive && FPMath.Abs(min - max) < FP.Epsilon)
 			{
 				throw new IndexOutOfRangeException("The min range value must be less the max range value");
 			}
 
-			if (Math.Abs(min - max) < float.Epsilon)
+			if (FPMath.Abs(min - max) < FP.Epsilon)
 			{
 				return min;
 			}
@@ -69,16 +70,9 @@ namespace FirstLight.Game.Utils
 			var range = max - min;
 			var value = RngUtils.Next(rndState);
 
-			value = maxInclusive && FloatEquals(value, float.MaxValue) ? value - 1 : value;
+			value = maxInclusive && value == int.MaxValue ? value - 1 : value;
 
-			return (range / float.MaxValue) * value + min;
-		}
-		
-		private static bool FloatEquals(double x, double y, double tolerance = 1e-10)
-		{
-			var diff = Math.Abs(x - y);
-			return diff <= tolerance ||
-			       diff <= Math.Max(Math.Abs(x), Math.Abs(y)) * tolerance;
+			return range * value / int.MaxValue + min;
 		}
 	}
 	

@@ -101,7 +101,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 1376
       AttackRangeRatioToBase:
-        RawValue: 1612
+        RawValue: 1868
       PickupSpeedRatioToBase:
         RawValue: 5652
       AmmoCapacityRatioToBase:
@@ -119,7 +119,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 0
       AttackRangeRatioToBase:
-        RawValue: 2015
+        RawValue: 2335
       PickupSpeedRatioToBase:
         RawValue: 7066
       AmmoCapacityRatioToBase:
@@ -155,7 +155,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 1720
       AttackRangeRatioToBase:
-        RawValue: 2015
+        RawValue: 2335
       PickupSpeedRatioToBase:
         RawValue: 7066
       AmmoCapacityRatioToBase:
@@ -209,7 +209,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 2294
       AttackRangeRatioToBase:
-        RawValue: 2687
+        RawValue: 3113
       PickupSpeedRatioToBase:
         RawValue: 0
       AmmoCapacityRatioToBase:
@@ -263,7 +263,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 0
       AttackRangeRatioToBase:
-        RawValue: 4030
+        RawValue: 4669
       PickupSpeedRatioToBase:
         RawValue: 0
       AmmoCapacityRatioToBase:
@@ -317,7 +317,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 0
       AttackRangeRatioToBase:
-        RawValue: 2687
+        RawValue: 3113
       PickupSpeedRatioToBase:
         RawValue: 9421
       AmmoCapacityRatioToBase:
@@ -335,7 +335,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 2294
       AttackRangeRatioToBase:
-        RawValue: 2687
+        RawValue: 3113
       PickupSpeedRatioToBase:
         RawValue: 0
       AmmoCapacityRatioToBase:
@@ -371,7 +371,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 0
       AttackRangeRatioToBase:
-        RawValue: 4030
+        RawValue: 4669
       PickupSpeedRatioToBase:
         RawValue: 0
       AmmoCapacityRatioToBase:
@@ -443,7 +443,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 1376
       AttackRangeRatioToBase:
-        RawValue: 1612
+        RawValue: 1868
       PickupSpeedRatioToBase:
         RawValue: 0
       AmmoCapacityRatioToBase:
@@ -513,7 +513,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 26542
+        RawValue: 29491
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:
@@ -603,7 +603,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 16384
+        RawValue: 19661
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:

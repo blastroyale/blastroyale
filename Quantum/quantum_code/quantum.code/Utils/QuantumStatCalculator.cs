@@ -105,18 +105,8 @@ namespace Quantum
 			//TODO: make a second method that calls the frame in order to get game modde dependant stats
 			
 			var attributeValue = CalculateGearStat(statConfig, baseStatConfig, equipmentStatConfig, materialStatConfig, equipment);
-
-			if (statConfig.StatType == StatType.Power)
-			{
-				attributeValue *= weaponConfig.PowerToDamageRatio;
-			}
-
-			if (statConfig.StatType == StatType.AttackRange)
-			{
-				attributeValue += weaponConfig.AttackRange;
-			}
-
-			return attributeValue;
+			
+			return statConfig.CeilToInt ? FPMath.CeilToInt(attributeValue) : attributeValue;
 		}
 
 		/// <summary>

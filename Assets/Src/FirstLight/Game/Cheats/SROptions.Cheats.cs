@@ -132,19 +132,18 @@ public partial class SROptions
 	}
 
 	[Category("Equipment")]
-	public void GiveArmourBuildEquipment()
+	public void GiveMaxArmourBuildEquipment()
 	{
 		var services = MainInstaller.Resolve<IGameServices>();
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
 
-		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.SoldierAmulet,
-		                                                       material: EquipmentMaterial.Carbon,
+		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.BaseballHelmet,
+		                                                       material: EquipmentMaterial.Bronze,
 		                                                       faction: EquipmentFaction.Celestial,
 		                                                       adjective: EquipmentAdjective.Divine,
 		                                                       rarity: EquipmentRarity.LegendaryPlus,
 		                                                       level: 35,
 		                                                       grade: EquipmentGrade.GradeI));
-
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.SoldierArmor,
 		                                                       material: EquipmentMaterial.Golden,
 		                                                       faction: EquipmentFaction.Celestial,
@@ -152,17 +151,15 @@ public partial class SROptions
 		                                                       rarity: EquipmentRarity.LegendaryPlus,
 		                                                       level: 35,
 		                                                       grade: EquipmentGrade.GradeI));
-		
 		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.SoldierShield,
-		                                                       material: EquipmentMaterial.Carbon,
+		                                                       material: EquipmentMaterial.Golden,
 		                                                       faction: EquipmentFaction.Celestial,
 		                                                       adjective: EquipmentAdjective.Divine,
 		                                                       rarity: EquipmentRarity.LegendaryPlus,
 		                                                       level: 35,
 		                                                       grade: EquipmentGrade.GradeI));
-		
-		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.HockeyHelmet,
-		                                                       material: EquipmentMaterial.Carbon,
+		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.SoldierAmulet,
+		                                                       material: EquipmentMaterial.Golden,
 		                                                       faction: EquipmentFaction.Celestial,
 		                                                       adjective: EquipmentAdjective.Divine,
 		                                                       rarity: EquipmentRarity.LegendaryPlus,
@@ -172,6 +169,82 @@ public partial class SROptions
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
 
+	[Category("Equipment")]
+	public void GiveMaxAttackBuildEquipment()
+	{
+		var services = MainInstaller.Resolve<IGameServices>();
+		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
+
+		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.HockeyHelmet,
+		                                                       material: EquipmentMaterial.Golden,
+		                                                       faction: EquipmentFaction.Dimensional,
+		                                                       adjective: EquipmentAdjective.Divine,
+		                                                       rarity: EquipmentRarity.LegendaryPlus,
+		                                                       level: 35,
+		                                                       grade: EquipmentGrade.GradeI));
+		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.BaseballArmor,
+		                                                       material: EquipmentMaterial.Golden,
+		                                                       faction: EquipmentFaction.Dimensional,
+		                                                       adjective: EquipmentAdjective.Divine,
+		                                                       rarity: EquipmentRarity.LegendaryPlus,
+		                                                       level: 35,
+		                                                       grade: EquipmentGrade.GradeI));
+		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.RiotShield,
+		                                                       material: EquipmentMaterial.Golden,
+		                                                       faction: EquipmentFaction.Dimensional,
+		                                                       adjective: EquipmentAdjective.Divine,
+		                                                       rarity: EquipmentRarity.LegendaryPlus,
+		                                                       level: 35,
+		                                                       grade: EquipmentGrade.GradeI));
+		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.RiotAmulet,
+		                                                       material: EquipmentMaterial.Golden,
+		                                                       faction: EquipmentFaction.Organic,
+		                                                       adjective: EquipmentAdjective.Divine,
+		                                                       rarity: EquipmentRarity.LegendaryPlus,
+		                                                       level: 35,
+		                                                       grade: EquipmentGrade.GradeI));
+
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
+	}
+
+	[Category("Equipment")]
+	public void GiveMaxAttackRangeBuildEquipment()
+	{
+		var services = MainInstaller.Resolve<IGameServices>();
+		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
+
+		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.BaseballHelmet,
+		                                                       material: EquipmentMaterial.Golden,
+		                                                       faction: EquipmentFaction.Shadow,
+		                                                       adjective: EquipmentAdjective.Divine,
+		                                                       rarity: EquipmentRarity.LegendaryPlus,
+		                                                       level: 35,
+		                                                       grade: EquipmentGrade.GradeI));
+		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.BaseballArmor,
+		                                                       material: EquipmentMaterial.Golden,
+		                                                       faction: EquipmentFaction.Organic,
+		                                                       adjective: EquipmentAdjective.Divine,
+		                                                       rarity: EquipmentRarity.LegendaryPlus,
+		                                                       level: 35,
+		                                                       grade: EquipmentGrade.GradeI));
+		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.MouseShield,
+		                                                       material: EquipmentMaterial.Golden,
+		                                                       faction: EquipmentFaction.Shadow,
+		                                                       adjective: EquipmentAdjective.Divine,
+		                                                       rarity: EquipmentRarity.LegendaryPlus,
+		                                                       level: 35,
+		                                                       grade: EquipmentGrade.GradeI));
+		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.WarriorAmulet,
+		                                                       material: EquipmentMaterial.Golden,
+		                                                       faction: EquipmentFaction.Shadow,
+		                                                       adjective: EquipmentAdjective.Divine,
+		                                                       rarity: EquipmentRarity.LegendaryPlus,
+		                                                       level: 35,
+		                                                       grade: EquipmentGrade.GradeI));
+
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
+	}
+	
 	[Category("Equipment")]
 	public void UnlockOneEquipment()
 	{

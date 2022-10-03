@@ -9,7 +9,7 @@ pr: none
 resources:
   pipelines:
   - pipeline: build
-    source: 'Game Logic Server CI'
+    source: 'Game Logic Service CI'
     trigger: true
   repositories:
   - repository: templates

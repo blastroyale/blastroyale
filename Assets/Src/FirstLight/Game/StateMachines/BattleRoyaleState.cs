@@ -64,8 +64,8 @@ namespace FirstLight.Game.StateMachines
 			aliveCheck.Transition().Target(deadCheck);
 
 			spawning.Event(_localPlayerAliveEvent).Target(alive);
-			spawning.OnExit(CloseMatchmakingScreen);
-
+			
+			alive.OnEnter(CloseMatchmakingScreen);
 			alive.OnEnter(OpenControlsHud);
 			alive.Event(_localPlayerDeadEvent).Target(deadCheck);
 			alive.OnExit(CloseControlsHud);

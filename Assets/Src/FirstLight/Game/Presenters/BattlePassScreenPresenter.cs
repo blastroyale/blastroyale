@@ -57,8 +57,6 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider.BattlePassDataProvider.CurrentPoints.InvokeObserve(OnPointsDataUpdated);
 			
 			CheckEnableRewardClaimButton();
-			
-			this.LateCoroutineCall(_introAnimationClip.length, () => _battlePassSegmentListView.ScrollToBattlePassLevel());
 		}
 
 		protected override void OnClosed()

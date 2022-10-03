@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using FirstLight.Game.Utils;
+using Photon.Deterministic;
 using Quantum;
 using UnityEngine;
 
@@ -15,13 +16,13 @@ namespace FirstLight.Game.Configs
 	{
 		public int Id;
 		public GameId GameId;
-		public SerializedDictionary<GameIdGroup, double> EquipmentCategory;
-		public SerializedDictionary<EquipmentEdition, double> Edition;
-		public SerializedDictionary<EquipmentRarity, double> Rarity;
-		public SerializedDictionary<EquipmentGrade, double> Grade;
-		public SerializedDictionary<EquipmentFaction, double> Faction;
-		public SerializedDictionary<EquipmentAdjective, double> Adjective;
-		public SerializedDictionary<EquipmentMaterial, double> Material;
+		public SerializedDictionary<GameIdGroup, FP> EquipmentCategory;
+		public SerializedDictionary<EquipmentEdition, FP> Edition;
+		public SerializedDictionary<EquipmentRarity, FP> Rarity;
+		public SerializedDictionary<EquipmentGrade, FP> Grade;
+		public SerializedDictionary<EquipmentFaction, FP> Faction;
+		public SerializedDictionary<EquipmentAdjective, FP> Adjective;
+		public SerializedDictionary<EquipmentMaterial, FP> Material;
 		public Pair<int, int> MaxDurability;
 		public uint InitialReplicationCounter;
 		public uint Tuning;

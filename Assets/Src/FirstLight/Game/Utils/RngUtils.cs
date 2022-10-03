@@ -1,4 +1,5 @@
 using System;
+using Photon.Deterministic;
 using UnityEngine;
 
 namespace FirstLight.Game.Utils
@@ -54,14 +55,14 @@ namespace FirstLight.Game.Utils
 		/// Requests a random generated <see cref="float"/> value between the given <paramref name="min"/> and <paramref name="max"/>,
 		/// without changing the state with  the max value inclusive depending on the given <paramref name="maxInclusive"/>
 		/// </summary>
-		public static double Range(double min, double max, int[] rndState, bool maxInclusive)
+		public static FP Range(FP min, FP max, int[] rndState, bool maxInclusive)
 		{
-			if (min > max || maxInclusive && Math.Abs(min - max) < double.Epsilon)
+			if (min > max || maxInclusive && FPMath.Abs(min - max) < FP.Epsilon)
 			{
 				throw new IndexOutOfRangeException("The min range value must be less the max range value");
 			}
 
-			if (Math.Abs(min - max) < double.Epsilon)
+			if (FPMath.Abs(min - max) < FP.Epsilon)
 			{
 				return min;
 			}

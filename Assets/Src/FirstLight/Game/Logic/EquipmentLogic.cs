@@ -9,6 +9,7 @@ using FirstLight.Game.Infos;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Services;
 using FirstLight.Game.Utils;
+using Photon.Deterministic;
 using Quantum;
 using UnityEngine;
 using Random = System.Random;
@@ -235,7 +236,7 @@ namespace FirstLight.Game.Logic
 				var equipmentConfigs = GameLogic.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatConfig>();
 				var equipmentCategory = config.EquipmentCategory.Keys.ElementAt(GetWeightedRandomDictionaryIndex(config.EquipmentCategory));
 				var matchingEquipment =  equipmentConfigs.Where(x =>x.Id.IsInGroup(equipmentCategory)).ToList();
-				gameId = matchingEquipment[GameLogic.RngLogic.Range(0, matchingEquipment.Count-1)].Id;
+				gameId = matchingEquipment[GameLogic.RngLogic.Range(0, matchingEquipment.Count)].Id;
 			}
 			
 			var rarity = config.Rarity.Keys.ElementAt(GetWeightedRandomDictionaryIndex(config.Rarity));
@@ -266,22 +267,22 @@ namespace FirstLight.Game.Logic
 
 		private int GetWeightedRandomDictionaryIndex<TKey, TValue>(SerializedDictionary<TKey, TValue> dictionary)
 		{
-			Dictionary<TKey, double> rangeDictionary = dictionary as Dictionary<TKey, double>;
-			List<Tuple<double, double>> indexRanges = new List<Tuple<double, double>>();
+			Dictionary<TKey, FP> rangeDictionary = dictionary as Dictionary<TKey, FP>;
+			List<Tuple<FP, FP>> indexRanges = new List<Tuple<FP, FP>>();
 
-			var currentRangeMax = 0d;
+			var currentRangeMax = FP._0;
 			
 			foreach (var valueMax in rangeDictionary.Values)
 			{
 				var min = currentRangeMax;
 				var max = min + valueMax;
-				indexRanges.Add(new Tuple<double, double>(min,max));
+				indexRanges.Add(new Tuple<FP, FP>(min,max));
 
 				currentRangeMax = max;
 			}
 
 			var rand = GameLogic.RngLogic.Range(0, currentRangeMax);
-
+			
 			foreach (var range in indexRanges)
 			{
 				if (rand >= range.Item1 && rand < range.Item2)

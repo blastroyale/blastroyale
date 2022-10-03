@@ -78,7 +78,7 @@ namespace FirstLight.Game.Services
 		{
 			if (_gameServices.NetworkService.IsSpectorPlayer)
 			{
-				SwipeRightGame(game);
+				SwipeRight(game);
 
 				return;
 			}
@@ -87,7 +87,7 @@ namespace FirstLight.Game.Services
 
 			if (isReconnect && !localPlayer.Entity.IsAlive(f))
 			{
-				SwipeRightGame(game);
+				SwipeRight(game);
 			}
 			else
 			{
@@ -119,21 +119,21 @@ namespace FirstLight.Game.Services
 
 		public void SwipeLeft()
 		{
-			SwipeLeftGame(QuantumRunner.Default.Game);
+			SwipeLeft(QuantumRunner.Default.Game);
 		}
 
 		public void SwipeRight()
 		{
-			SwipeRightGame(QuantumRunner.Default.Game);
+			SwipeRight(QuantumRunner.Default.Game);
 		}
 
-		private void SwipeLeftGame(QuantumGame game)
+		private void SwipeLeft(QuantumGame game)
 		{
 			TryGetPreviousPlayer(game, out var player);
 			SetSpectatedEntity(player.Key, player.Value);
 		}
 
-		private void SwipeRightGame(QuantumGame game)
+		private void SwipeRight(QuantumGame game)
 		{
 			TryGetNextPlayer(game, out var player);
 			SetSpectatedEntity(player.Key, player.Value);
@@ -189,7 +189,7 @@ namespace FirstLight.Game.Services
 			if(!callback.Game.Frames.Verified.TryGet<PlayerCharacter>(callback.EntityKiller, out var killerPlayer) || 
 			        !SetSpectatedEntity(callback.EntityKiller, killerPlayer.Player))
 			{
-				SwipeRightGame(callback.Game);
+				SwipeRight(callback.Game);
 			}
 		}
 

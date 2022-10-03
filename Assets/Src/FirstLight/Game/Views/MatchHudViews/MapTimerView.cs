@@ -94,6 +94,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private IEnumerator UpdateShrinkingCircleTimer(Frame f)
 		{
 			var circle = f.GetSingleton<ShrinkingCircle>();
+
+			while (circle.Step < 0)
+			{
+				yield return null;
+			}
+			
 			var config = _services.ConfigsProvider.GetConfig<QuantumShrinkingCircleConfig>(circle.Step);
 			var time = (circle.ShrinkingStartTime - f.Time - config.WarningTime).AsFloat;
 

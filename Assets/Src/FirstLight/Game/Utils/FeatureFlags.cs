@@ -88,7 +88,7 @@ namespace FirstLight.Game.Utils
 			{
 				COMMIT_VERSION_LOCK = commitVersionLock;
 			}
-
+			
 			if (TrySetFlag("REMOTE_CONFIGURATION", titleData, out var remoteConfig))
 			{
 				REMOTE_CONFIGURATION = remoteConfig;

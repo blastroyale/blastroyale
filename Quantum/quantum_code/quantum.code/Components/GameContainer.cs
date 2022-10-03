@@ -17,7 +17,7 @@ namespace Quantum
 		                        GameId deathMarker, uint playerTrophies)
 		{
 			var isBot = f.TryGet<BotCharacter>(playerEntity, out var bot);
-
+			
 			PlayersData[player] = new PlayerMatchData
 			{
 				Entity = playerEntity,

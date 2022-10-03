@@ -9,8 +9,7 @@ namespace Quantum.Systems
 	/// <summary>
 	/// This system handles all the behaviour for the <see cref="BotCharacter"/>
 	/// </summary>
-	public unsafe class BotCharacterSystem : SystemMainThreadFilter<BotCharacterSystem.BotCharacterFilter>,
-	                                         ISignalOnPlayerDataSet
+	public unsafe class BotCharacterSystem : SystemMainThreadFilter<BotCharacterSystem.BotCharacterFilter>, ISignalAllPlayersJoined
 	{
 		public struct BotCharacterFilter
 		{
@@ -21,21 +20,17 @@ namespace Quantum.Systems
 			public NavMeshPathfinder* NavMeshAgent;
 		}
 		
-		/// <inheritdoc />
-		public void OnPlayerDataSet(Frame f, PlayerRef playerRef)
+		public void AllPlayersJoined(Frame f)
 		{
-			var data = f.GetPlayerData(playerRef);
-			var playerTrophies= data?.PlayerTrophies ?? 1000u;
-			InitializeBots(f, playerTrophies);
+			InitializeBots(f, 1000u);
 		}
-
+		
 		private void InitializeBots(Frame f, uint baseTrophiesAmount)
 		{
 			if (!f.Context.GameModeConfig.AllowBots || f.ComponentCount<BotCharacter>() > 0)
 			{
 				return;
 			}
-
 			var playerLimit = f.PlayerCount;
 			var botIds = new List<PlayerRef>();
 
@@ -874,7 +869,7 @@ namespace Quantum.Systems
 			}
 		}
 
-		public List<EntityComponentPointerPair<PlayerSpawner>> GetFreeSpawnPoints(Frame f)
+		private static List<EntityComponentPointerPair<PlayerSpawner>> GetFreeSpawnPoints(Frame f)
 		{
 			var list = new List<EntityComponentPointerPair<PlayerSpawner>>();
 			var entity = EntityRef.None;

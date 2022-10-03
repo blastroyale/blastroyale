@@ -104,15 +104,15 @@ MonoBehaviour:
   - Placement: 23
     Rewards:
       _keyData: 0c0000001a000000
-      _valueData: 0000000007000000
+      _valueData: 0000000006000000
   - Placement: 24
     Rewards:
       _keyData: 0c0000001a000000
-      _valueData: 0000000006000000
+      _valueData: 0000000004000000
   - Placement: 25
     Rewards:
       _keyData: 0c0000001a000000
-      _valueData: 0000000005000000
+      _valueData: 0000000004000000
   - Placement: 26
     Rewards:
       _keyData: 0c0000001a000000

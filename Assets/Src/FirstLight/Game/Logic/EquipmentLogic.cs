@@ -228,8 +228,6 @@ namespace FirstLight.Game.Logic
 
 		public Equipment GenerateEquipmentFromBattlePassReward(BattlePassRewardConfig config)
 		{
-			Random r = new Random();
-
 			var gameId = config.GameId;
 
 			if (gameId.IsInGroup(GameIdGroup.Core))
@@ -237,7 +235,7 @@ namespace FirstLight.Game.Logic
 				var equipmentConfigs = GameLogic.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatConfig>();
 				var equipmentCategory = config.EquipmentCategory.Keys.ElementAt(GetWeightedRandomDictionaryIndex(config.EquipmentCategory));
 				var matchingEquipment =  equipmentConfigs.Where(x =>x.Id.IsInGroup(equipmentCategory)).ToList();
-				gameId = matchingEquipment[r.Next(0, matchingEquipment.Count())].Id;
+				gameId = matchingEquipment[GameLogic.RngLogic.Range(0, matchingEquipment.Count-1)].Id;
 			}
 			
 			var rarity = config.Rarity.Keys.ElementAt(GetWeightedRandomDictionaryIndex(config.Rarity));
@@ -246,7 +244,8 @@ namespace FirstLight.Game.Logic
 			var faction = config.Faction.Keys.ElementAt(GetWeightedRandomDictionaryIndex(config.Faction));
 			var material = config.Material.Keys.ElementAt(GetWeightedRandomDictionaryIndex(config.Material));
 			var edition = config.Edition.Keys.ElementAt(GetWeightedRandomDictionaryIndex(config.Edition));
-			var maxDurability = (uint) r.Next(config.MaxDurability.Key, config.MaxDurability.Value);
+			
+			var maxDurability = (uint) GameLogic.RngLogic.Range(config.MaxDurability.Key, config.MaxDurability.Value);
 			
 			return new Equipment(gameId,
 			                             rarity: rarity,
@@ -267,16 +266,16 @@ namespace FirstLight.Game.Logic
 
 		private int GetWeightedRandomDictionaryIndex<TKey, TValue>(SerializedDictionary<TKey, TValue> dictionary)
 		{
-			Dictionary<TKey, float> rangeDictionary = dictionary as Dictionary<TKey, float>;
-			List<Tuple<float, float>> indexRanges = new List<Tuple<float, float>>();
+			Dictionary<TKey, double> rangeDictionary = dictionary as Dictionary<TKey, double>;
+			List<Tuple<double, double>> indexRanges = new List<Tuple<double, double>>();
 
-			var currentRangeMax = 0f;
+			var currentRangeMax = 0d;
 			
 			foreach (var valueMax in rangeDictionary.Values)
 			{
 				var min = currentRangeMax;
 				var max = min + valueMax;
-				indexRanges.Add(new Tuple<float, float>(min,max));
+				indexRanges.Add(new Tuple<double, double>(min,max));
 
 				currentRangeMax = max;
 			}

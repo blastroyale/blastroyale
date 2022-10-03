@@ -19,22 +19,25 @@ namespace FirstLight.Game.Logic
 		/// Calling this multiple times in sequence gives always the same result.
 		/// </summary>
 		int Peek { get; }
+		
 		/// <summary>
-		/// Requests the next <see cref="float"/> generated value without changing the state.
+		/// Requests the next <see cref="double"/> generated value without changing the state.
 		/// Calling this multiple times in sequence gives always the same result.
 		/// </summary>
-		float PeekFp { get; }
+		double PeekDouble { get; }
 
 		/// <inheritdoc cref="Rng.Range(int,int,int[],bool)"/>
 		/// <remarks>
 		/// Calling this multiple times with the same parameters in sequence gives always the same result.
 		/// </remarks>
-		int PeekRange(int min, int max, bool maxInclusive = false);
-		/// <inheritdoc cref="Rng.Range(float,float,int[],bool)"/>
+		/// 
+		int PeekRange(int min, int max, bool maxInclusive = true);
+		
+		/// <inheritdoc cref="Rng.Range(double,double,int[],bool)"/>
 		/// <remarks>
 		/// Calling this multiple times with the same parameters in sequence gives always the same result.
 		/// </remarks>
-		float PeekRange(float min, float max, bool maxInclusive = true);
+		double PeekRange(double min, double max, bool maxInclusive = true);
 	}
 
 	/// <inheritdoc />
@@ -44,15 +47,17 @@ namespace FirstLight.Game.Logic
 		/// Requests the next <see cref="int"/> generated value
 		/// </summary>
 		int Next { get; }
+		
 		/// <summary>
-		/// Requests the next <see cref="float"/> generated value
+		/// Requests the next <see cref="double"/> generated value
 		/// </summary>
-		float NextFp { get; }
+		double NextDouble { get; }
 
 		/// <inheritdoc cref="Rng.Range(int,int,int[],bool)"/>
-		int Range(int min, int max, bool maxInclusive = false);
-		/// <inheritdoc cref="Rng.Range(float,float,int[],bool)"/>
-		float Range(float min, float max, bool maxInclusive = true);
+		int Range(int min, int max, bool maxInclusive = true);
+		
+		/// <inheritdoc cref="Rng.Range(double,double,int[],bool)"/>
+		double Range(double min, double max, bool maxInclusive = true);
 
 		/// <summary>
 		/// Restores the current RNG state to the given <paramref name="count"/>.
@@ -70,31 +75,32 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public int Peek => PeekRange(0, int.MaxValue);
 		/// <inheritdoc />
-		public float PeekFp => PeekRange(0, float.MaxValue);
+		public double PeekDouble => PeekRange(0, float.MaxValue);
 
 		/// <inheritdoc />
 		public int Next => Range(0, int.MaxValue);
+		
 		/// <inheritdoc />
-		public float NextFp => Range(0, float.MaxValue);
+		public double NextDouble => Range(0, double.MaxValue);
 		
 		public RngLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
 		{
 		}
 		
 		/// <inheritdoc />
-		public int PeekRange(int min, int max, bool maxInclusive = false)
+		public int PeekRange(int min, int max, bool maxInclusive = true)
 		{
 			return Rng.Range(min, max, RngUtils.CopyRngState(Data.State), maxInclusive);
 		}
 
 		/// <inheritdoc />
-		public float PeekRange(float min, float max, bool maxInclusive = true)
+		public double PeekRange(double min, double max, bool maxInclusive = true)
 		{
 			return Rng.Range(min, max, RngUtils.CopyRngState(Data.State), maxInclusive);
 		}
 		
 		/// <inheritdoc />
-		public int Range(int min, int max, bool maxInclusive = false)
+		public int Range(int min, int max, bool maxInclusive = true)
 		{
 			Data.Count++;
 			
@@ -102,7 +108,7 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public float Range(float min, float max, bool maxInclusive = true)
+		public double Range(double min, double max, bool maxInclusive = true)
 		{
 			Data.Count++;
 			

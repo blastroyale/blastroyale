@@ -40,15 +40,15 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void PeekFpCheck()
 		{
-			Assert.AreEqual(2.02819034E+09f, _rngLogic.PeekFp);
+			Assert.AreEqual(2.02819034E+09f, _rngLogic.PeekDouble);
 			Assert.AreEqual(0, TestData.Count);
 		}
 
 		[Test]
 		public void PeekFp_Twice_SameResult()
 		{
-			Assert.AreEqual(2.02819034E+09f, _rngLogic.PeekFp);
-			Assert.AreEqual(2.02819034E+09f, _rngLogic.PeekFp);
+			Assert.AreEqual(2.02819034E+09f, _rngLogic.PeekDouble);
+			Assert.AreEqual(2.02819034E+09f, _rngLogic.PeekDouble);
 			Assert.AreEqual(0, TestData.Count);
 		}
 
@@ -70,15 +70,15 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void NextFpCheck()
 		{
-			Assert.AreEqual(2.02819034E+09f, _rngLogic.NextFp);
+			Assert.AreEqual(2.02819034E+09f, _rngLogic.NextDouble);
 			Assert.AreEqual(1, TestData.Count);
 		}
 
 		[Test]
 		public void NextFp_Twice_NewResult()
 		{
-			Assert.AreEqual(2.02819034E+09f, _rngLogic.NextFp);
-			Assert.AreEqual(978780928.0f, _rngLogic.NextFp);
+			Assert.AreEqual(2.02819034E+09f, _rngLogic.NextDouble);
+			Assert.AreEqual(978780928.0f, _rngLogic.NextDouble);
 			Assert.AreEqual(2, TestData.Count);
 		}
 

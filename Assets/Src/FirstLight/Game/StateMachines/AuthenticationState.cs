@@ -274,7 +274,6 @@ namespace FirstLight.Game.StateMachines
 			var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
 			var appData = _dataService.GetData<AppData>();
 			var environment = "";
-			
 #if LIVE_SERVER
 			environment = "live";
 			PlayFabSettings.TitleId = "***REMOVED***";

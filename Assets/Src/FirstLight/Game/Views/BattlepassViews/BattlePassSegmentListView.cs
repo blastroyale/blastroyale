@@ -25,7 +25,9 @@ namespace FirstLight.Game.Views.BattlePassViews
 		private IGameDataProvider _gameDataProvider;
 		
 		public SimpleDataHelper<BattlePassSegmentData> Data { get; private set; }
-		
+
+		public bool FirstIntroShown { get; set; }
+
 		protected override void Start()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
@@ -65,16 +67,40 @@ namespace FirstLight.Game.Views.BattlePassViews
 				}
 			}
 
-			ScrollToBattlePassLevel();
+			StartCoroutine(ScrollToLevelCoroutine());
+		}
+
+		private IEnumerator ScrollToLevelCoroutine()
+		{
+			if (!FirstIntroShown)
+			{
+				FirstIntroShown = true;
+				
+				ScrollToBattlePassLevel(0,0);
+				yield return new WaitForSeconds(0.35f);
+			}
+
+			ScrollToBattlePassLevel(0.6f);
 		}
 
 		/// <summary>
 		/// Scrolls OSA to current redeemable BP level
 		/// </summary>
-		public void ScrollToBattlePassLevel()
+		public void ScrollToBattlePassLevel(float duration, int level = -1)
 		{
-			var index = Math.Clamp((int) _gameDataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints().Item1, 0, Data.Count - 1);
-			SmoothScrollTo(index, 0.3f, 0, -1f);
+			if (level == -1)
+			{
+				level = Math.Clamp((int) _gameDataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints().Item1, 0, Data.Count - 1);
+			}
+
+			if (duration < float.Epsilon)
+			{
+				ScrollTo(level,0, -1f);
+			}
+			else
+			{
+				SmoothScrollTo(level, duration, 0, -1f);
+			}
 		}
 
 		protected override BattlePassSegmentViewHolder CreateViewsHolder(int itemIndex)

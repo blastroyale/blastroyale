@@ -96,6 +96,7 @@ namespace FirstLight.Game.StateMachines
 			respawning.Event(_localPlayerAliveEvent).Target(alive);
 
 			final.OnEnter(CloseMatchHud);
+			final.OnEnter(CloseControlsHud);
 			final.OnEnter(UnsubscribeEvents);
 		}
 

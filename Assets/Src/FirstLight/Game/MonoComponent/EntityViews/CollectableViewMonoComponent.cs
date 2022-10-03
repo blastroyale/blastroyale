@@ -31,6 +31,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		private EntityRef _displayedCollector;
 		private CollectableIndicatorVfxMonoComponent _collectingVfx;
 
+		private bool _collected;
+
 		private void OnValidate()
 		{
 			_animation = _animation ? _animation : GetComponent<Animation>();
@@ -71,7 +73,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void OnStartedCollecting(EventOnStartedCollecting callback)
 		{
-			if (EntityView.EntityRef != callback.CollectableEntity) return;
+			if (_collected || EntityView.EntityRef != callback.CollectableEntity) return;
 
 			var startTime = callback.Game.Frames.Predicted.Time.AsFloat;
 			var endTime = callback.Collectable.CollectorsEndTime[callback.Player].AsFloat;
@@ -83,7 +85,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void OnStoppedCollecting(EventOnStoppedCollecting callback)
 		{
-			if (EntityView.EntityRef != callback.CollectableEntity) return;
+			if (_collected || EntityView.EntityRef != callback.CollectableEntity) return;
 
 			_collectors.Remove(callback.PlayerEntity);
 			RefreshVfx(_matchServices.SpectateService.SpectatedPlayer.Value);
@@ -91,7 +93,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void OnCollectableCollected(EventOnCollectableCollected callback)
 		{
-			if (EntityView.EntityRef != callback.CollectableEntity) return;
+			if (_collected || EntityView.EntityRef != callback.CollectableEntity) return;
+
+			_collected = true;
 
 			_collectors.Remove(callback.PlayerEntity);
 

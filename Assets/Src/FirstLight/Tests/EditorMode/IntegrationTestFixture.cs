@@ -46,11 +46,7 @@ namespace FirstLight.Tests.EditorMode
 		{
 			var serializedConfig = File.ReadAllText($"{_backendPath}/GameLogicService/gameConfig.json");
 			TestConfigs =  new ConfigsSerializer().Deserialize<ConfigsProvider>(serializedConfig);
-		}
-		
-		[SetUp]
-		public void SetUp()
-		{
+
 			var messageBroker = new MessageBrokerService();
 			var timeService = new TimeService();
 			

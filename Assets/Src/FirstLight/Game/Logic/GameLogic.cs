@@ -162,7 +162,7 @@ namespace FirstLight.Game.Logic
 		public void Init()
 		{
 			// ReSharper disable PossibleNullReferenceException
-			
+			AppLogic.Init();
 			(UniqueIdLogic as IGameLogicInitializer).Init();
 			(CurrencyLogic as IGameLogicInitializer).Init();
 			(ResourceLogic as IGameLogicInitializer).Init();

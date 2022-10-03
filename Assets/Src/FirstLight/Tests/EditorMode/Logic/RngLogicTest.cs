@@ -40,15 +40,15 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void PeekFpCheck()
 		{
-			Assert.AreEqual(3.21379567E+38f, _rngLogic.PeekFp);
+			Assert.AreEqual(2.02819034E+09f, _rngLogic.PeekFp);
 			Assert.AreEqual(0, TestData.Count);
 		}
 
 		[Test]
 		public void PeekFp_Twice_SameResult()
 		{
-			Assert.AreEqual(3.21379567E+38f, _rngLogic.PeekFp);
-			Assert.AreEqual(3.21379567E+38f, _rngLogic.PeekFp);
+			Assert.AreEqual(2.02819034E+09f, _rngLogic.PeekFp);
+			Assert.AreEqual(2.02819034E+09f, _rngLogic.PeekFp);
 			Assert.AreEqual(0, TestData.Count);
 		}
 
@@ -70,15 +70,15 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void NextFpCheck()
 		{
-			Assert.AreEqual(3.21379567E+38f, _rngLogic.NextFp);
+			Assert.AreEqual(2.02819034E+09f, _rngLogic.NextFp);
 			Assert.AreEqual(1, TestData.Count);
 		}
 
 		[Test]
 		public void NextFp_Twice_NewResult()
 		{
-			Assert.AreEqual(3.21379567E+38f, _rngLogic.NextFp);
-			Assert.AreEqual(1.55094019E+38f, _rngLogic.NextFp);
+			Assert.AreEqual(2.02819034E+09f, _rngLogic.NextFp);
+			Assert.AreEqual(978780928.0f, _rngLogic.NextFp);
 			Assert.AreEqual(2, TestData.Count);
 		}
 
@@ -115,15 +115,15 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void PeekFpRangeCheck()
 		{
-			Assert.AreEqual(0.944449723f, _rngLogic.PeekRange(0,1f));
+			Assert.AreEqual(5.96031571E-30f, _rngLogic.PeekRange(0,1f));
 			Assert.AreEqual(0, TestData.Count);
 		}
 
 		[Test]
 		public void PeekFpRange_Twice_SameResult()
 		{
-			Assert.AreEqual(0.944449723f, _rngLogic.PeekRange(0,1f));
-			Assert.AreEqual(0.944449723f, _rngLogic.PeekRange(0,1f));
+			Assert.AreEqual(5.96031571E-30f, _rngLogic.PeekRange(0,1f));
+			Assert.AreEqual(5.96031571E-30f, _rngLogic.PeekRange(0,1f));
 			Assert.AreEqual(0, TestData.Count);
 		}
 
@@ -137,7 +137,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			
 			TestData = new RngData { Count = 0, Seed = _seed, State = state };
 			
-			Assert.AreEqual(1f, _rngLogic.PeekRange(0,1f));
+			Assert.AreEqual(6.31088724E-30f, _rngLogic.PeekRange(0,1f));
 			Assert.AreEqual(0, TestData.Count);
 		}
 

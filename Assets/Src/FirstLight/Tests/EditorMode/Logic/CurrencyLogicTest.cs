@@ -72,6 +72,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 		{
 			foreach (var pair in currencies)
 			{
+				TestData.Currencies.Remove(pair.Key);
 				TestData.Currencies.Add(pair.Key, pair.Value);
 			}
 		}

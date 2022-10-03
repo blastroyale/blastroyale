@@ -35,7 +35,7 @@ namespace FirstLightEditor.StateChart.Tests
 		}
 
 		[Test]
-		public async void BasicSetup()
+		public async Task BasicSetup()
 		{
 			IWaitActivity activity = null;
 
@@ -84,7 +84,7 @@ namespace FirstLightEditor.StateChart.Tests
 		}
 
 		[Test]
-		public async void NestState_OuterEventTriggerAndActivityComplete_NoTransition()
+		public async Task NestState_OuterEventTriggerAndActivityComplete_NoTransition()
 		{
 			IWaitActivity activity = null;
 			
@@ -142,7 +142,7 @@ namespace FirstLightEditor.StateChart.Tests
 		}
 
 		[Test]
-		public async void SplitActivity_CompleteBoth()
+		public async Task SplitActivity_CompleteBoth()
 		{
 			IWaitActivity activity = null;
 			IWaitActivity activitySplit = null;
@@ -177,7 +177,7 @@ namespace FirstLightEditor.StateChart.Tests
 		}
 
 		[Test]
-		public async void SplitActivity_CompleteOnlyOneActivity()
+		public async Task SplitActivity_CompleteOnlyOneActivity()
 		{
 			IWaitActivity activity = null;
 

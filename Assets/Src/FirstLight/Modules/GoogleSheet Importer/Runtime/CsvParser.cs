@@ -213,16 +213,11 @@ namespace FirstLight.GoogleSheetImporter
 		/// <inheritdoc cref="ArrayParse{T}" />
 		public static object ArrayParse(string data, Type type, params Func<string, Type, object>[] deserializers)
 		{
-			var split = data.Split(ArraySplitChars);
+			var split = data.Split(ArraySplitChars, StringSplitOptions.RemoveEmptyEntries);
 			var list = (IList) Activator.CreateInstance(typeof(List<>).MakeGenericType(type));
 
 			foreach (var value in split)
 			{
-				if (string.IsNullOrEmpty(value))
-				{
-					continue;
-				}
-
 				list.Add(Parse(value, type, deserializers));
 			}
 

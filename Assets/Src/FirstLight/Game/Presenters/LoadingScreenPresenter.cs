@@ -1,3 +1,5 @@
+using System;
+using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using I2.Loc;
 using Sirenix.OdinInspector;
@@ -21,7 +23,12 @@ namespace FirstLight.Game.Presenters
 		/// Requests the loading game percentage value
 		/// </summary>
 		public float LoadingPercentage => _loadingBar.value;
-		
+
+		private void Awake()
+		{
+			_loadingBarText.text = VersionUtils.VersionExternal;
+		}
+
 		/// <summary>
 		/// Sets the loading screen to the given <paramref name="percentage"/>
 		/// </summary>
@@ -33,10 +40,6 @@ namespace FirstLight.Game.Presenters
 		/// <inheritdoc />
 		protected override void OnOpened()
 		{
-			var loadingTip = Random.Range(1, typeof(ScriptTerms.LoadingTips).GetFields().Length + 1).ToString();
-			
-			_loadingBarText.text = LocalizationManager.GetTranslation(ScriptTerms.LoadingTips.Loading_Tip_1.Replace("1", loadingTip));
-			
 			SetLoadingPercentage(0);
 			_animation.Rewind();
 			_animation.Play();

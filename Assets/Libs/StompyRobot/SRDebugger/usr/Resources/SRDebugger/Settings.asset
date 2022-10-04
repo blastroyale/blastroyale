@@ -61,7 +61,7 @@ MonoBehaviour:
   _profilerAlignment: 2
   _optionsAlignment: 3
   _consoleAlignment: 0
-  _triggerPosition: 1
+  _triggerPosition: 6
   _maximumConsoleEntries: 1500
   _enableEventSystemCreation: 0
   _automaticShowCursor: 1

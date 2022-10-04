@@ -64,6 +64,7 @@ namespace FirstLight.Game.Presenters
 		private IGameServices _services;
 		private bool _loadedCoreMatchAssets;
 		private bool _spectatorToggleTimeOut;
+		private bool _kickModeActive = false;
 
 		private Room CurrentRoom => _services.NetworkService.QuantumClient.CurrentRoom;
 		private bool RejoiningRoom => !_services.NetworkService.IsJoiningNewMatch;
@@ -474,6 +475,8 @@ namespace FirstLight.Game.Presenters
 			{
 				overlayObject.SetActive(true);
 			}
+
+			_kickModeActive = true;
 		}
 
 		private void DeactivateKickOverlay()
@@ -482,12 +485,17 @@ namespace FirstLight.Game.Presenters
 			{
 				overlayObject.SetActive(false);
 			}
+			
+			_kickModeActive = false;
 		}
 
 		private void RequestKickPlayer(Player player)
 		{
-			// You cannot kick yourself, for error avoidance reasons
-			if (player.UserId == _services.NetworkService.QuantumClient.LocalPlayer.UserId) return;
+			if (player.UserId == _services.NetworkService.QuantumClient.LocalPlayer.UserId ||
+			    !_kickModeActive || !_services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient)
+			{
+				return;
+			}
 
 			var title = string.Format(ScriptLocalization.MainMenu.MatchmakingKickConfirm, player.NickName).ToUpper();
 			var confirmButton = new GenericDialogButton

@@ -1,24 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
-using ExitGames.Client.Photon.StructWrapping;
-using FirstLight.Game.Commands;
-using FirstLight.Game.Configs;
-using FirstLight.Game.Data;
-using FirstLight.Game.Ids;
-using FirstLight.Game.Logic;
-using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.StateMachines;
 using FirstLight.Game.Utils;
-using FirstLight.Statechart;
-using NSubstitute;
 using NUnit.Framework;
-using PlayFab;
-using PlayFab.ClientModels;
-using Quantum;
-using Assert = NUnit.Framework.Assert;
 
 namespace FirstLight.Tests.EditorMode.Logic
 {

@@ -1242,11 +1242,11 @@ MonoBehaviour:
           RawValue: -61842
       Position:
         X:
-          RawValue: 3793924
+          RawValue: 3791849
         Y:
           RawValue: 1827
         Z:
-          RawValue: -914041
+          RawValue: -915688
       PhysicsMaterial:
         Id:
           Value: 0
@@ -1255,11 +1255,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 55193
+          RawValue: 46913
         Y:
           RawValue: 32768
         Z:
-          RawValue: 172690
+          RawValue: 115702
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: Coll
@@ -1337,11 +1337,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 55193
+          RawValue: 46913
         Y:
           RawValue: 32768
         Z:
-          RawValue: 172690
+          RawValue: 126063
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: Coll
@@ -1378,11 +1378,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 55193
+          RawValue: 41946
         Y:
           RawValue: 32768
         Z:
-          RawValue: 172690
+          RawValue: 131243
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: Coll
@@ -3080,11 +3080,11 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 65430
+          RawValue: 64338
         Z:
           RawValue: 0
         W:
-          RawValue: 3718
+          RawValue: -12472
       Position:
         X:
           RawValue: 5271144
@@ -3100,11 +3100,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 102496
+          RawValue: 135809
         Y:
           RawValue: 142119
         Z:
-          RawValue: 117648
+          RawValue: 97595
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: Coll
@@ -7118,7 +7118,7 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 131796
+          RawValue: 108071
         Y:
           RawValue: 32768
         Z:

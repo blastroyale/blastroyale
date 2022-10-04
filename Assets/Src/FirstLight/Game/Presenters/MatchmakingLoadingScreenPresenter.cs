@@ -491,8 +491,8 @@ namespace FirstLight.Game.Presenters
 
 		private void RequestKickPlayer(Player player)
 		{
-			// You cannot kick yourself, for error avoidance reasons
-			if (player.UserId == _services.NetworkService.QuantumClient.LocalPlayer.UserId || !_kickModeActive) return;
+			if (player.UserId == _services.NetworkService.QuantumClient.LocalPlayer.UserId || 
+			    !_kickModeActive || !player.IsMasterClient) return;
 
 			var title = string.Format(ScriptLocalization.MainMenu.MatchmakingKickConfirm, player.NickName).ToUpper();
 			var confirmButton = new GenericDialogButton

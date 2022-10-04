@@ -1,9 +1,13 @@
 using System;
 using System.IO;
 using Backend;
+using Backend.Game.Services;
 using ContainerApp.Authentication;
+using FirstLight.Server.SDK.Models;
+using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services
@@ -12,6 +16,14 @@ builder.Services
 
 var binPath = Path.GetDirectoryName(typeof(GameLogicWebWebService).Assembly.Location);
 ServerStartup.Setup(builder.Services, binPath);
+
+builder.Host.UseSerilog((hostBuilderContext, services, loggerConfiguration) =>
+{
+	loggerConfiguration.WriteTo.ApplicationInsights(TelemetryConfiguration.Active, TelemetryConverter.Traces);
+	Log.Logger = loggerConfiguration
+	             .Enrich.FromLogContext()
+	             .CreateLogger();
+});
 
 var app = builder.Build();
 app.UseCors(x => x

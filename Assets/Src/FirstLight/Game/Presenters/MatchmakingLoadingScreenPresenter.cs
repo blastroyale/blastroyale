@@ -492,7 +492,7 @@ namespace FirstLight.Game.Presenters
 		private void RequestKickPlayer(Player player)
 		{
 			if (player.UserId == _services.NetworkService.QuantumClient.LocalPlayer.UserId ||
-			    !_kickModeActive || !player.IsMasterClient)
+			    !_kickModeActive || _services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient)
 			{
 				return;
 			}

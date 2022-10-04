@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Firebase.Analytics;
 using FirstLight.Game.Data;
@@ -89,10 +90,32 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				var dic = new Dictionary<string, object>
 				{
 					{"client_version", VersionUtils.VersionInternal},
+					#if UNITY_ANDROID && !UNITY_EDITOR
+					{"advertising_id", GetAndroidAdvertiserId()},
+					#endif
 					{"vendor_id", SystemInfo.deviceUniqueIdentifier},
 				};
 				_analyticsService.LogEvent(AnalyticsEvents.GameLoadStart, dic);
 			}
+		}
+		
+		public static string GetAndroidAdvertiserId()
+		{
+			string advertisingID = "";
+			try
+			{
+				AndroidJavaClass up = new AndroidJavaClass ("com.unity3d.player.UnityPlayer");
+				AndroidJavaObject currentActivity = up.GetStatic<AndroidJavaObject> ("currentActivity");
+				AndroidJavaClass client = new AndroidJavaClass ("com.google.android.gms.ads.identifier.AdvertisingIdClient");
+				AndroidJavaObject adInfo = client.CallStatic<AndroidJavaObject> ("getAdvertisingIdInfo", currentActivity);
+     
+				advertisingID = adInfo.Call<string> ("getId").ToString();
+			}
+			catch (Exception ex)
+			{
+				Debug.LogError("Error acquiring Android AdvertiserId - "+ex.Message);
+			}
+			return advertisingID;
 		}
 		
 		/// <summary>

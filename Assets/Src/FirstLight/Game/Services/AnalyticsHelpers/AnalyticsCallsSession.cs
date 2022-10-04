@@ -99,24 +99,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			}
 		}
 		
-		public static string GetAndroidAdvertiserId()
-		{
-			string advertisingID = "";
-			try
-			{
-				AndroidJavaClass up = new AndroidJavaClass ("com.unity3d.player.UnityPlayer");
-				AndroidJavaObject currentActivity = up.GetStatic<AndroidJavaObject> ("currentActivity");
-				AndroidJavaClass client = new AndroidJavaClass ("com.google.android.gms.ads.identifier.AdvertisingIdClient");
-				AndroidJavaObject adInfo = client.CallStatic<AndroidJavaObject> ("getAdvertisingIdInfo", currentActivity);
-     
-				advertisingID = adInfo.Call<string> ("getId").ToString();
-			}
-			catch (Exception ex)
-			{
-				Debug.LogError("Error acquiring Android AdvertiserId - "+ex.Message);
-			}
-			return advertisingID;
-		}
+
 		
 		/// <summary>
 		/// Logs the first login Event with the given user <paramref name="id"/>
@@ -166,6 +149,25 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			};
 			
 			_analyticsService.LogEvent(AnalyticsEvents.GameLoaded, data);
+		}
+		
+		private static string GetAndroidAdvertiserId()
+		{
+			string advertisingID = "";
+			try
+			{
+				AndroidJavaClass up = new AndroidJavaClass ("com.unity3d.player.UnityPlayer");
+				AndroidJavaObject currentActivity = up.GetStatic<AndroidJavaObject> ("currentActivity");
+				AndroidJavaClass client = new AndroidJavaClass ("com.google.android.gms.ads.identifier.AdvertisingIdClient");
+				AndroidJavaObject adInfo = client.CallStatic<AndroidJavaObject> ("getAdvertisingIdInfo", currentActivity);
+     
+				advertisingID = adInfo.Call<string> ("getId").ToString();
+			}
+			catch (Exception ex)
+			{
+				Debug.LogError("Error acquiring Android AdvertiserId - "+ex.Message);
+			}
+			return advertisingID;
 		}
 	}
 }

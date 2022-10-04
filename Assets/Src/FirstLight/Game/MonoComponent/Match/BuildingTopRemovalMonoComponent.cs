@@ -62,22 +62,27 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void OnTriggerEnter(Collider other)
 		{
-			if (other.gameObject.TryGetComponent<PlayerCharacterViewMonoComponent>(out var player) &&
-			    player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
+			if (!other.gameObject.TryGetComponent<PlayerCharacterViewMonoComponent>(out var player)) return;
+
+			if (!_currentlyCollidingEntities.Contains(player.EntityRef))
 			{
 				_currentlyCollidingEntities.Add(player.EntityRef);
-				
+			}
+			
+			if (player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
+			{
 				UpdateBuildingTop(true);
 			}
 		}
 
 		private void OnTriggerExit(Collider other)
 		{
-			if (other.gameObject.TryGetComponent<PlayerCharacterViewMonoComponent>(out var player) &&
-			    player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
+			if (!other.gameObject.TryGetComponent<PlayerCharacterViewMonoComponent>(out var player)) return;
+			
+			_currentlyCollidingEntities.Remove(player.EntityRef);
+			
+			if (player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
 			{
-				_currentlyCollidingEntities.Remove(player.EntityRef);
-				
 				UpdateBuildingTop(false);
 			}
 		}

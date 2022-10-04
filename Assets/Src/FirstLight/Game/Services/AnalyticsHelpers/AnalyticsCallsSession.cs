@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Firebase.Analytics;
-using FirstLight.Game.Data;
-using FirstLight.Game.Infos;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
 using FirstLight.Services;
@@ -75,24 +73,28 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		/// </summary>
 		public void GameLoadStart()
 		{
-			if (!Application.RequestAdvertisingIdentifierAsync((id, enabled, msg) =>
-			    {
-				    var dic = new Dictionary<string, object>
-				    {
-					    {"client_version", VersionUtils.VersionInternal},
-					    {"advertising_id", id},
-					    {"advertising_tracking_enabled", enabled},
-					    {"vendor_id", SystemInfo.deviceUniqueIdentifier},
-				    };
-				    _analyticsService.LogEvent(AnalyticsEvents.GameLoadStart, dic);
-			    }))
+			// Async call for the AdvertisingId
+			var requestAdvertisingIdSuccess = !Application.RequestAdvertisingIdentifierAsync((id, enabled, msg) =>
 			{
 				var dic = new Dictionary<string, object>
 				{
 					{"client_version", VersionUtils.VersionInternal},
-					#if UNITY_ANDROID && !UNITY_EDITOR
+					{"advertising_id", id},
+					{"advertising_tracking_enabled", enabled},
+					{"vendor_id", SystemInfo.deviceUniqueIdentifier},
+				};
+				_analyticsService.LogEvent(AnalyticsEvents.GameLoadStart, dic);
+			});
+			
+			// If the async call fails we try another way
+			if (!requestAdvertisingIdSuccess)
+			{
+				var dic = new Dictionary<string, object>
+				{
+					{"client_version", VersionUtils.VersionInternal},
+#if UNITY_ANDROID && !UNITY_EDITOR
 					{"advertising_id", GetAndroidAdvertiserId()},
-					#endif
+#endif
 					{"vendor_id", SystemInfo.deviceUniqueIdentifier},
 				};
 				_analyticsService.LogEvent(AnalyticsEvents.GameLoadStart, dic);

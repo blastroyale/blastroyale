@@ -36,12 +36,6 @@ namespace Quantum.Systems
 				return;
 			}
 
-			if (collectable->IsCollected)
-			{
-				EntityDestroyer.Create(f, info.Entity, f.Time + FP._1);
-				return;
-			}
-
 			var endTime = collectable->CollectorsEndTime[player.Player];
 			if (endTime == FP._0 || f.Time < endTime)
 			{
@@ -55,9 +49,9 @@ namespace Quantum.Systems
 				return;
 			}
 
-			collectable->IsCollected = true;
-
 			Collect(f, info.Entity, info.Other, player.Player, collectable);
+			
+			f.Destroy(info.Entity);
 		}
 
 		public void OnTriggerExit3D(Frame f, ExitInfo3D info)

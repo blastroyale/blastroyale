@@ -3817,9 +3817,6 @@ namespace Quantum {
     [FieldOffset(0)]
     [HideInInspector()]
     public GameId GameId;
-    [FieldOffset(4)]
-    [HideInInspector()]
-    public QBoolean IsCollected;
     public FixedArray<FP> CollectorsEndTime {
       get {
         fixed (byte* p = _CollectorsEndTime_) { return new FixedArray<FP>(p, 8, 32); }
@@ -3830,14 +3827,12 @@ namespace Quantum {
         var hash = 433;
         hash = hash * 31 + HashCodeUtils.GetArrayHashCode(CollectorsEndTime);
         hash = hash * 31 + (Int32)GameId;
-        hash = hash * 31 + IsCollected.GetHashCode();
         return hash;
       }
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (Collectable*)ptr;
         serializer.Stream.Serialize((Int32*)&p->GameId);
-        QBoolean.Serialize(&p->IsCollected, serializer);
         FixedArray.Serialize(p->CollectorsEndTime, serializer, StaticDelegates.SerializeFP);
     }
   }
@@ -9519,8 +9514,6 @@ namespace Quantum.Prototypes {
     [HideInInspector()]
     [ArrayLengthAttribute(32)]
     public FP[] CollectorsEndTime = new FP[32];
-    [HideInInspector()]
-    public QBoolean IsCollected;
     partial void MaterializeUser(Frame frame, ref Collectable result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       Collectable component = default;
@@ -9532,7 +9525,6 @@ namespace Quantum.Prototypes {
         *result.CollectorsEndTime.GetPointer(i) = this.CollectorsEndTime[i];
       }
       result.GameId = this.GameId;
-      result.IsCollected = this.IsCollected;
       MaterializeUser(frame, ref result, in context);
     }
     public override void Dispatch(ComponentPrototypeVisitorBase visitor) {

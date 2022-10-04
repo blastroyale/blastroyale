@@ -57,6 +57,11 @@ namespace FirstLight.Services
 
 		protected virtual async void Despawner(float time)
 		{
+			if (time is < -float.Epsilon and > -1)
+			{
+				time = 0;
+			}
+			
 			await Task.Delay((int) (time * 1000));
 
 			if (this != null && gameObject != null)

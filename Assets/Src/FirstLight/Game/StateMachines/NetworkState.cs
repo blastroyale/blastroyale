@@ -710,7 +710,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void StartMatchmakingLockRoomTimer()
 		{
-			if (!_networkService.QuantumClient.LocalPlayer.IsMasterClient)
+			if (!_networkService.QuantumClient.LocalPlayer.IsMasterClient ||
+			    !_networkService.QuantumClient.CurrentRoom.IsMatchmakingRoom()) 
 			{
 				return;
 			}

@@ -2,7 +2,6 @@ component Collectable
 {
 	[HideInInspector] GameId GameId;
 	[HideInInspector] array<FP>[PLAYER_COUNT] CollectorsEndTime;
-	[HideInInspector] bool IsCollected;
 }
 
 synced event OnStartedCollecting

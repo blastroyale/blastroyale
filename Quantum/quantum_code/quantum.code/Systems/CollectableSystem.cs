@@ -12,7 +12,8 @@ namespace Quantum.Systems
 		public void OnTriggerEnter3D(Frame f, TriggerInfo3D info)
 		{
 			if (!f.Unsafe.TryGetPointer<Collectable>(info.Entity, out var collectable) ||
-			    !f.Has<AlivePlayerCharacter>(info.Other) || !f.TryGet<PlayerCharacter>(info.Other, out var player))
+			    !f.Has<AlivePlayerCharacter>(info.Other) || !f.TryGet<PlayerCharacter>(info.Other, out var player) ||
+			    f.Has<EntityDestroyer>(info.Entity))
 			{
 				return;
 			}
@@ -20,61 +21,44 @@ namespace Quantum.Systems
 			if (IsCollectableFilled(f, info.Entity, info.Other))
 			{
 				f.Events.OnCollectableBlocked(collectable->GameId, info.Entity, player.Player, info.Other);
+				return;
 			}
+
+			StartCollecting(f, player.Player, info.Other, collectable, info.Entity);
 		}
 
 		public void OnTrigger3D(Frame f, TriggerInfo3D info)
 		{
 			if (!f.Unsafe.TryGetPointer<Collectable>(info.Entity, out var collectable) ||
-			    !f.Has<AlivePlayerCharacter>(info.Other) || !f.TryGet<PlayerCharacter>(info.Other, out var player))
+			    !f.Has<AlivePlayerCharacter>(info.Other) || !f.TryGet<PlayerCharacter>(info.Other, out var player) ||
+			    f.Has<EntityDestroyer>(info.Entity))
 			{
 				return;
 			}
-
-			if (collectable->IsCollected)
-			{
-				f.Add<EntityDestroyer>(info.Entity);
-				return;
-			}
-
-			// If you are full on the stat the collectable is attempting to refill, then do not collect
-			if (IsCollectableFilled(f, info.Entity, info.Other)) return;
 
 			var endTime = collectable->CollectorsEndTime[player.Player];
-			var timeMod = f.Get<Stats>(info.Other).GetStatData(StatType.PickupSpeed).StatValue;
-
-			if (!collectable->IsCollecting(player.Player))
-			{
-				// If it's a consumable then we use CollectTime from consumable config
-				if (f.TryGet<Consumable>(info.Entity, out var consumable))
-				{
-					endTime = f.Time + FPMath.Max((consumable.CollectTime - timeMod), Constants.PICKUP_SPEED_MINIMUM);
-				}
-				// Otherwise we use global collect time
-				else
-				{
-					endTime = f.Time + FPMath.Max((f.GameConfig.CollectableCollectTime.Get(f) - timeMod), Constants.PICKUP_SPEED_MINIMUM);
-				}
-
-				collectable->CollectorsEndTime[player.Player] = endTime;
-
-				f.Events.OnStartedCollecting(info.Entity, *collectable, player.Player, info.Other);
-			}
-
-			if (f.Time < endTime)
+			if (endTime == FP._0 || f.Time < endTime)
 			{
 				return;
 			}
 
-			collectable->IsCollected = true;
+			if (IsCollectableFilled(f, info.Entity, info.Other))
+			{
+				f.Events.OnCollectableBlocked(collectable->GameId, info.Entity, player.Player, info.Other);
+				StopCollecting(f, info.Entity, info.Other, player.Player, collectable);
+				return;
+			}
 
 			Collect(f, info.Entity, info.Other, player.Player, collectable);
+			
+			f.Destroy(info.Entity);
 		}
 
 		public void OnTriggerExit3D(Frame f, ExitInfo3D info)
 		{
 			if (!f.Unsafe.TryGetPointer<Collectable>(info.Entity, out var collectable) ||
-			    !f.TryGet<PlayerCharacter>(info.Other, out var player))
+			    !f.Has<AlivePlayerCharacter>(info.Other) || !f.TryGet<PlayerCharacter>(info.Other, out var player) ||
+			    f.Has<EntityDestroyer>(info.Entity))
 			{
 				return;
 			}
@@ -96,12 +80,14 @@ namespace Quantum.Systems
 					case ConsumableType.Shield:
 						return stats.CurrentShield == stats.GetStatData(StatType.Shield).StatValue;
 					case ConsumableType.ShieldCapacity:
-						return stats.GetStatData(StatType.Shield).BaseValue == stats.GetStatData(StatType.Shield).StatValue &&
-							stats.CurrentShield == stats.GetStatData(StatType.Shield).StatValue;
+						return stats.GetStatData(StatType.Shield).BaseValue ==
+						       stats.GetStatData(StatType.Shield).StatValue &&
+						       stats.CurrentShield == stats.GetStatData(StatType.Shield).StatValue;
 					case ConsumableType.Ammo:
 						return playerCharacter.GetAmmoAmountFilled(f, player) == 1;
 				}
 			}
+
 			return false;
 		}
 
@@ -111,6 +97,13 @@ namespace Quantum.Systems
 			{
 				StopCollecting(f, collectable.Entity, entityDead, playerDead, collectable.Component);
 			}
+		}
+
+		private void StartCollecting(Frame f, PlayerRef player, EntityRef playerEntity, Collectable* collectable,
+		                             EntityRef collectableEntity)
+		{
+			collectable->CollectorsEndTime[player] = GetEndTime(f, collectableEntity, playerEntity);
+			f.Events.OnStartedCollecting(collectableEntity, *collectable, player, playerEntity);
 		}
 
 		private void StopCollecting(Frame f, EntityRef entity, EntityRef playerEntity, PlayerRef player,
@@ -139,13 +132,13 @@ namespace Quantum.Systems
 					gameId = GameId.AmmoSmall;
 					var weaponConfig = f.WeaponConfigs.GetConfig(equipment->Item.GameId);
 					var initialAmmo = weaponConfig.InitialAmmoFilled.Get(f);
-					var consumable = new Consumable { ConsumableType = ConsumableType.Ammo, Amount = initialAmmo };
+					var consumable = new Consumable {ConsumableType = ConsumableType.Ammo, Amount = initialAmmo};
 					var ammoWasEmpty = playerCharacter->GetAmmoAmountFilled(f, playerEntity) < FP.SmallestNonZero;
 
 					// Fake use a consumable to simulate it's natural life cycle
 					f.Add(entity, consumable);
 					consumable.Collect(f, entity, playerEntity, player);
-					
+
 					// Special case: having no ammo and collecting the weapon that is already in one of the slots
 					if (ammoWasEmpty && playerCharacter->HasMeleeWeapon(f, playerEntity))
 					{
@@ -175,6 +168,21 @@ namespace Quantum.Systems
 			}
 
 			f.Events.OnCollectableCollected(gameId, entity, player, playerEntity);
+		}
+
+		private FP GetEndTime(Frame f, EntityRef consumableEntity, EntityRef playerEntity)
+		{
+			var timeMod = f.Get<Stats>(playerEntity).GetStatData(StatType.PickupSpeed).StatValue;
+
+			// If it's a consumable then we use CollectTime from consumable config
+			if (f.TryGet<Consumable>(consumableEntity, out var consumable))
+			{
+				return f.Time + FPMath.Max((consumable.CollectTime - timeMod), Constants.PICKUP_SPEED_MINIMUM);
+			}
+
+			// Otherwise we use global collect time
+			return f.Time + FPMath.Max(f.GameConfig.CollectableCollectTime.Get(f) - timeMod,
+			                           Constants.PICKUP_SPEED_MINIMUM);
 		}
 	}
 }

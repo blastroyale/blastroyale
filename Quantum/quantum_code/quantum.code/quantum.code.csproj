@@ -205,6 +205,7 @@
     <Compile Include="Components\Chest.cs" />
     <Compile Include="Components\Collectable.cs" />
     <Compile Include="Components\Destructible.cs" />
+    <Compile Include="Components\EntityDestroyer.cs" />
     <Compile Include="Components\Equipment.cs" />
     <Compile Include="Components\GameContainer.cs" />
     <Compile Include="Components\PlayerMatchData.cs" />

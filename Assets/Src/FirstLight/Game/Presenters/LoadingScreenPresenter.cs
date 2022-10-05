@@ -26,7 +26,7 @@ namespace FirstLight.Game.Presenters
 
 		private void Awake()
 		{
-			_loadingBarText.text = VersionUtils.VersionExternal;
+			_loadingBarText.text = $"v{VersionUtils.VersionExternal}";
 		}
 
 		/// <summary>

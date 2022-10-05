@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Generic;
+using FirstLight.Game.Data;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Quantum;
@@ -10,6 +13,25 @@ namespace FirstLight.Game.Utils
 	/// </summary>
 	public static class EquipmentExtensions
 	{
+		/// <summary>
+		/// Shared encapsulated code to detect if a given item is broken.
+		/// This code is to be used in Hub & Game Servers to validate given equipments are valid.
+		/// </summary>
+		public static bool IsNftBroken(this EquipmentData equipmentData, UniqueId nftUniqueId)
+		{
+			if (!equipmentData.Inventory.TryGetValue(nftUniqueId, out var equipData))
+			{
+				return false;
+			}
+			if(!equipmentData.NftInventory.TryGetValue(nftUniqueId, out var nftData))
+			{
+				return false;
+			}
+			var lastRepairDate = DateTimeOffset.FromUnixTimeSeconds(nftData.LastRepairTimestamp).Date;
+			var durabilityTime = equipData.Durability * TimeSpan.FromDays(7);
+			var shouldBreakAt = lastRepairDate + durabilityTime;
+			return DateTime.UtcNow > shouldBreakAt;
+		}
 		
 		/// <summary>
 		/// Calculate equipment stats given a configuration.

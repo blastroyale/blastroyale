@@ -222,7 +222,8 @@ public class NftSynchronizer
 	    return new NftEquipmentData
 	    {
 		    TokenId = nft.token_id,
-		    ImageUrl = nft.image
+		    ImageUrl = nft.image,
+		    LastRepairTimestamp = nft.lastRepairTime
 	    };
     }
 }

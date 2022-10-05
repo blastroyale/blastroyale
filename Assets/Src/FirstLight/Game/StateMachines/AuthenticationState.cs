@@ -46,7 +46,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameBackendNetworkService _networkService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private IConfigsAdder _configsAdder;
-
 		private string _passwordRecoveryEmailTemplateId = "";
 		
 		public AuthenticationState(IGameDataProvider dataProvider, IGameServices services, IGameUiServiceInit uiService, IDataService dataService, 
@@ -323,7 +322,7 @@ namespace FirstLight.Game.StateMachines
 				
 			if (IsOutdated(titleVersion))
 			{
-				OpenGameUpdateDialog();
+				OpenGameUpdateDialog(titleVersion);
 				return;
 			}
 
@@ -399,7 +398,7 @@ namespace FirstLight.Game.StateMachines
 			activity?.Complete();
 		}
 
-		private void OpenGameUpdateDialog()
+		private void OpenGameUpdateDialog(string version)
 		{
 			var confirmButton = new AlertButton
 			{
@@ -408,8 +407,10 @@ namespace FirstLight.Game.StateMachines
 				Callback = OpenStore
 			};
 
-			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.NewGameUpdate, 
-			                               ScriptLocalization.General.UpdateGame, confirmButton);
+			var message = string.Format(ScriptLocalization.General.UpdateGame,
+			                            VersionUtils.VersionExternal, version);
+
+			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.NewGameUpdate, message, confirmButton);
 
 			void OpenStore()
 			{
@@ -433,8 +434,10 @@ namespace FirstLight.Game.StateMachines
 				}
 			};
 
-			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.Maintenance, 
-			                               ScriptLocalization.General.MaintenanceDescription, confirmButton);
+			var message = string.Format(ScriptLocalization.General.MaintenanceDescription,
+			                            VersionUtils.VersionExternal);
+
+			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.Maintenance, message, confirmButton);
 		}
 		
 		private void LoginClicked(string email, string password)

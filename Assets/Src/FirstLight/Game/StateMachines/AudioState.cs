@@ -321,11 +321,8 @@ namespace FirstLight.Game.StateMachines
 		private void OnMatchStartedMessage(MatchStartedMessage msg)
 		{
 			if (msg.IsResync) return;
-			
-			var gameModeId = _services.GameModeService.SelectedGameMode.Value.Entry.GameModeId;
-			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
 
-			if(!gameModeConfig.SkydiveSpawn)
+			if(!_services.NetworkService.CurrentRoomGameModeConfig.Value.SkydiveSpawn)
 			{
 				_services.AudioFxService.PlayClip2D(AudioId.Vo_GameStart, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
 			}

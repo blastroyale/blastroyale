@@ -184,9 +184,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			                    time, targetPosition, VfxId.GrenadeStunParabolic, VfxId.ImpactGrenadeStun);
 
 			var vfx = Services.VfxService.Spawn(VfxId.SpecialReticule) as SpecialReticuleVfxMonoComponent;
+			
+			var vfxTime = Mathf.Max(0, (callback.HazardData.EndTime - time).AsFloat);
 
-			vfx.SetTarget(targetPosition, callback.HazardData.Radius.AsFloat,
-			              (callback.HazardData.EndTime - time).AsFloat);
+			vfx.SetTarget(targetPosition, callback.HazardData.Radius.AsFloat,vfxTime);
 		}
 
 		private void HandleOnGrenadeUsed(EventOnGrenadeUsed callback)
@@ -204,8 +205,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			var vfx = Services.VfxService.Spawn(VfxId.SpecialReticule) as SpecialReticuleVfxMonoComponent;
 
-			vfx.SetTarget(targetPosition, callback.HazardData.Radius.AsFloat,
-			              (callback.HazardData.EndTime - time).AsFloat);
+			var vfxTime = Mathf.Max(0, (callback.HazardData.EndTime - time).AsFloat);
+
+			vfx.SetTarget(targetPosition, callback.HazardData.Radius.AsFloat,vfxTime);
 		}
 
 		private async void HandleParabolicUsed(FP launchTime, FP frameTime, Vector3 targetPosition,

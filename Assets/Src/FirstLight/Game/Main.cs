@@ -30,7 +30,6 @@ namespace FirstLight.Game
 
 		private void Awake()
 		{
-			Application.targetFrameRate = 30;
 			Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
 			FLog.Init();

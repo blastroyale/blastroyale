@@ -11,33 +11,62 @@ namespace FirstLight.Editor.EditorTools
 	///
 	/// NOTE: Only works in Play mode.
 	/// </summary>
-	public class StatDebuggerWindow : OdinMenuEditorWindow
+	public class StatDebuggerWindow : OdinEditorWindow
 	{
-		private LocalPlayerStats _LocalPlayerStats;
 		private PlayerRef _LocalPlayer;
+		private bool _Initialized = false;
+
+		[Header("Defence Stats")]
+		[ShowInInspector, ReadOnly]
+		public float Health = 0;
+		[ShowInInspector, ReadOnly]
+		public float ShieldCapacity = 0;
+		[ShowInInspector, ReadOnly]
+		public float MaxShieldCapacity = 0;
+		[ShowInInspector, ReadOnly]
+		public float Armor = 0;
+
+		[Header("Offence Stats")]
+		[ShowInInspector, ReadOnly]
+		public float Power = 0;
+		[ShowInInspector, ReadOnly]
+		public float AttackRange = 0;
+
+		[Header("Utility Stats")]
+		[ShowInInspector, ReadOnly]
+		public float PickupSpeed = 0;
+		[ShowInInspector, ReadOnly]
+		public float Speed = 0;
+		[ShowInInspector, ReadOnly]
+		public float AmmoCapacity = 0;
 
 		[MenuItem("FLG/Stat Debugger")]
 		private static void OpenWindow()
 		{
 			GetWindow<StatDebuggerWindow>("Stat Debugger").Show();
 		}
-		protected override OdinMenuTree BuildMenuTree()
+
+		protected override void OnGUI()
 		{
-			var tree = new OdinMenuTree();
+			base.OnGUI();
 
-			if (!Application.isPlaying)
+			if (Application.IsPlaying(this) && !_Initialized)
 			{
-				tree.Add("Play Mode Only", "Only available in Play mode.");
-				return tree;
+				QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, GetLocalPlayer);
+				QuantumEvent.Subscribe<EventOnPlayerEquipmentStatsChanged>(this, UpdateStats);
+				_Initialized = true;
 			}
+			if (!Application.IsPlaying(this) && _Initialized)
+			{
+				QuantumEvent.UnsubscribeListener(this);
+				_Initialized = false;
+			}
+		}
 
-			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, GetLocalPlayer);
-			QuantumEvent.Subscribe<EventOnPlayerEquipmentStatsChanged>(this, UpdateStats);
-			_LocalPlayerStats = new LocalPlayerStats();
-
-			tree.Add("Stat Debugger", _LocalPlayerStats);
-
-			return tree;
+		protected override void OnDestroy()
+		{
+			QuantumEvent.UnsubscribeListener(this);
+			base.OnDestroy();
 		}
 
 		public void GetLocalPlayer(EventOnLocalPlayerSpawned callback)
@@ -50,40 +79,20 @@ namespace FirstLight.Editor.EditorTools
 			if (callback.Player != _LocalPlayer)
 				return;
 
-			_LocalPlayerStats.health = callback.CurrentStats.GetStatData(StatType.Health).StatValue.AsFloat;
-			_LocalPlayerStats.shieldCapacity = callback.CurrentStats.GetStatData(StatType.Shield).StatValue.AsFloat;
-			_LocalPlayerStats.armor = callback.CurrentStats.GetStatData(StatType.Armour).StatValue.AsFloat;
+			Health = callback.CurrentStats.GetStatData(StatType.Health).StatValue.AsFloat;
+			ShieldCapacity = callback.CurrentStats.GetStatData(StatType.Shield).StatValue.AsFloat;
+			MaxShieldCapacity = callback.CurrentStats.GetStatData(StatType.Shield).BaseValue.AsFloat;
+			Armor = callback.CurrentStats.GetStatData(StatType.Armour).StatValue.AsFloat;
 
-			_LocalPlayerStats.attackRange = callback.CurrentStats.GetStatData(StatType.AttackRange).StatValue.AsFloat;
-			_LocalPlayerStats.attack = callback.CurrentStats.GetStatData(StatType.Power).StatValue.AsFloat;
+			AttackRange = callback.CurrentStats.GetStatData(StatType.AttackRange).StatValue.AsFloat;
+			Power = callback.CurrentStats.GetStatData(StatType.Power).StatValue.AsFloat;
 
-			_LocalPlayerStats.speed = callback.CurrentStats.GetStatData(StatType.Speed).StatValue.AsFloat;
-			_LocalPlayerStats.pickupSpeed = callback.CurrentStats.GetStatData(StatType.PickupSpeed).StatValue.AsFloat;
-			_LocalPlayerStats.ammoCapacity = callback.CurrentStats.GetStatData(StatType.AmmoCapacity).StatValue.AsFloat;
+			Speed = callback.CurrentStats.GetStatData(StatType.Speed).StatValue.AsFloat;
+			PickupSpeed = callback.CurrentStats.GetStatData(StatType.PickupSpeed).StatValue.AsFloat;
+			AmmoCapacity = callback.CurrentStats.GetStatData(StatType.AmmoCapacity).StatValue.AsFloat;
 
 			Repaint();
 		}
 
-		public class LocalPlayerStats
-		{
-			[ShowInInspector, Sirenix.OdinInspector.ReadOnly]
-			public float health = 0;
-			[ShowInInspector, Sirenix.OdinInspector.ReadOnly]
-			public float armor = 0;
-			[ShowInInspector, Sirenix.OdinInspector.ReadOnly]
-			public float shieldCapacity = 0;
-
-			[ShowInInspector, Sirenix.OdinInspector.ReadOnly]
-			public float attack = 0;
-			[ShowInInspector, Sirenix.OdinInspector.ReadOnly]
-			public float attackRange = 0;
-
-			[ShowInInspector, Sirenix.OdinInspector.ReadOnly]
-			public float pickupSpeed = 0;
-			[ShowInInspector, Sirenix.OdinInspector.ReadOnly]
-			public float speed = 0;
-			[ShowInInspector, Sirenix.OdinInspector.ReadOnly]
-			public float ammoCapacity = 0;
-		}
 	}
 }

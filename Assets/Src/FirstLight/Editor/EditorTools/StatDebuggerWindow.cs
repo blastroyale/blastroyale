@@ -50,13 +50,13 @@ namespace FirstLight.Editor.EditorTools
 		{
 			base.OnGUI();
 
-			if (Application.IsPlaying(this) && !_Initialized)
+			if (Application.isPlaying && !_Initialized)
 			{
 				QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, GetLocalPlayer);
 				QuantumEvent.Subscribe<EventOnPlayerEquipmentStatsChanged>(this, UpdateStats);
 				_Initialized = true;
 			}
-			if (!Application.IsPlaying(this) && _Initialized)
+			if (!Application.isPlaying && _Initialized)
 			{
 				QuantumEvent.UnsubscribeListener(this);
 				_Initialized = false;

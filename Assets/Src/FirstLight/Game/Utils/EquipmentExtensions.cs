@@ -40,8 +40,9 @@ namespace FirstLight.Game.Utils
 				          QuantumStatCalculator.CalculateWeaponStat(weaponConfig, statConfigs[(int) StatType.Power],
 				                                                    baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
 				stats.Add(EquipmentStatType.TargetRange, 
-				          QuantumStatCalculator.CalculateWeaponStat(weaponConfig, statConfigs[(int)StatType.AttackRange],
-				                                                    baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
+				          (QuantumStatCalculator.CalculateWeaponStat(weaponConfig, statConfigs[(int)StatType.AttackRange],
+				                                                    baseStatsConfig, statsConfig, statsMaterialConfig, equipment)
+				           + weaponConfig.AttackRange).AsFloat);
 				stats.Add(EquipmentStatType.PickupSpeed, 
 				          QuantumStatCalculator.CalculateWeaponStat(weaponConfig, statConfigs[(int)StatType.PickupSpeed],
 				                                                    baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
@@ -50,7 +51,7 @@ namespace FirstLight.Game.Utils
 				                                                    baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
 				stats.Add(EquipmentStatType.ShieldCapacity,
 						  QuantumStatCalculator.CalculateWeaponStat(weaponConfig, statConfigs[(int)StatType.Shield],
-																	baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
+						                                            baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
 
 				stats.Add(EquipmentStatType.AttackCooldown, weaponConfig.AttackCooldown.AsFloat);
 				stats.Add(EquipmentStatType.MinAttackAngle, weaponConfig.MinAttackAngle);

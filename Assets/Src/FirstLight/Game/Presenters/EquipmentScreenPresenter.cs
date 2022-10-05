@@ -267,21 +267,23 @@ namespace FirstLight.Game.Presenters
 						                      ? GameConstants.Visuals.MOVEMENT_SPEED_BEAUTIFIER
 						                      : 1f;
 					var selectedValue = value * statsBeautifier;
-			
+					
+					var format = stat switch
+					{
+						EquipmentStatType.ReloadSpeed => "N2",
+						EquipmentStatType.PowerToDamageRatio => "P0",
+						EquipmentStatType.AttackCooldown => "N2",
+						EquipmentStatType.TargetRange => "N2",
+						EquipmentStatType.PickupSpeed => "N2",
+						_ => "N0"
+					};
+					
 					if (equipment.Equipment.IsMaxLevel())
 					{
 						_statInfoViewPool.Spawn().SetInfo(stat, stat.GetTranslation(), selectedValue,
-						                                  statsAtMaxLevel[stat]);
+						                                  statsAtMaxLevel[stat], format);
 						continue;
 					}
-			
-					var format = stat switch
-					{
-						EquipmentStatType.ReloadSpeed => "N1",
-						EquipmentStatType.PowerToDamageRatio => "N2",
-						EquipmentStatType.AttackCooldown => "N2",
-						_ => "N0"
-					};
 					
 					var equippedValue = statsAtNextLevel[stat] * statsBeautifier;
 					var statText = selectedValue.ToString(format);

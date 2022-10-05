@@ -447,12 +447,12 @@ public partial class SROptions
 	}
 	
 	[Category("Progression")]
-	public void Add9BPP()
+	public void Add5BPP()
 	{
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
 		var services = MainInstaller.Resolve<IGameServices>();
 		
-		gameLogic.BattlePassLogic.AddBPP(9);
+		gameLogic.BattlePassLogic.AddBPP(5);
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}

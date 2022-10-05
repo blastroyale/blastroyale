@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SourceCollider: {fileID: 107448070876883993}
+  SourceCollider: {fileID: 0}
   Size:
     X:
       RawValue: 398329

@@ -1,7 +1,6 @@
+using System;
 using System.Collections.Generic;
 using Firebase.Analytics;
-using FirstLight.Game.Data;
-using FirstLight.Game.Infos;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
 using FirstLight.Services;
@@ -74,19 +73,35 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		/// </summary>
 		public void GameLoadStart()
 		{
-			var dic = new Dictionary<string, object>
+			// Async call for the AdvertisingId
+			var requestAdvertisingIdSuccess = !Application.RequestAdvertisingIdentifierAsync((id, enabled, msg) =>
 			{
-				{"client_version", VersionUtils.VersionInternal},
-#if UNITY_IOS
-				{"advertising_id", UnityEngine.iOS.Device.advertisingIdentifier},
-				{"vendor_id", SystemInfo.deviceUniqueIdentifier},
-#elif UNITY_ANDROID
-				{"advertising_id", SystemInfo.deviceUniqueIdentifier},
-				{"vendor_id", SystemInfo.deviceUniqueIdentifier},
+				var dic = new Dictionary<string, object>
+				{
+					{"client_version", VersionUtils.VersionInternal},
+					{"advertising_id", id},
+					{"advertising_tracking_enabled", enabled},
+					{"vendor_id", SystemInfo.deviceUniqueIdentifier},
+				};
+				_analyticsService.LogEvent(AnalyticsEvents.GameLoadStart, dic);
+			});
+			
+			// If the async call fails we try another way
+			if (!requestAdvertisingIdSuccess)
+			{
+				var dic = new Dictionary<string, object>
+				{
+					{"client_version", VersionUtils.VersionInternal},
+#if UNITY_ANDROID && !UNITY_EDITOR
+					{"advertising_id", GetAndroidAdvertiserId()},
 #endif
-			};
-			_analyticsService.LogEvent(AnalyticsEvents.GameLoadStart, dic);
+					{"vendor_id", SystemInfo.deviceUniqueIdentifier},
+				};
+				_analyticsService.LogEvent(AnalyticsEvents.GameLoadStart, dic);
+			}
 		}
+		
+
 		
 		/// <summary>
 		/// Logs the first login Event with the given user <paramref name="id"/>
@@ -136,6 +151,25 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			};
 			
 			_analyticsService.LogEvent(AnalyticsEvents.GameLoaded, data);
+		}
+		
+		private static string GetAndroidAdvertiserId()
+		{
+			string advertisingID = "";
+			try
+			{
+				AndroidJavaClass up = new AndroidJavaClass ("com.unity3d.player.UnityPlayer");
+				AndroidJavaObject currentActivity = up.GetStatic<AndroidJavaObject> ("currentActivity");
+				AndroidJavaClass client = new AndroidJavaClass ("com.google.android.gms.ads.identifier.AdvertisingIdClient");
+				AndroidJavaObject adInfo = client.CallStatic<AndroidJavaObject> ("getAdvertisingIdInfo", currentActivity);
+     
+				advertisingID = adInfo.Call<string> ("getId").ToString();
+			}
+			catch (Exception ex)
+			{
+				Debug.LogError("Error acquiring Android AdvertiserId - "+ex.Message);
+			}
+			return advertisingID;
 		}
 	}
 }

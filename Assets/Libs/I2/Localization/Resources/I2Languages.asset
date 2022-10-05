@@ -363,7 +363,8 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Game devs are running around like Bored Blast Apes in Royale Club
+      - Game devs are running around like Bored Blast Apes in Royale Club fixing
+        {0}
       - 
       - 
       Flags: 000000
@@ -390,7 +391,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Max Capacity
+      - Ammo Capacity
       - 
       - 
       Flags: 000000
@@ -977,7 +978,8 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Your game is out of date! Go to the app store to get the latest version.
+      - Your game version {0} is out of date! Go to the app store to get the latest
+        version {1}
       - 
       - 
       Flags: 000000
@@ -9205,7 +9207,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1664463773348
+    Google_LastUpdatedVersion: 1664877240904
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

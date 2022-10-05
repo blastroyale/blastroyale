@@ -30,7 +30,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private readonly Dictionary<EquipmentStatType, float> _maxValuesDictionary = new Dictionary<EquipmentStatType, float>
 		{
 			{ EquipmentStatType.Power, 500 },
-			{ EquipmentStatType.Hp, 200 },
+			{ EquipmentStatType.Hp, 510 },
 			{ EquipmentStatType.Speed, 0.5f },
 			{ EquipmentStatType.AttackCooldown, 2f },
 			{ EquipmentStatType.Armor, 10 },
@@ -44,7 +44,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			{ EquipmentStatType.PowerToDamageRatio, 2f },
 			{ EquipmentStatType.NumberOfShots, 10 },
 			{ EquipmentStatType.PickupSpeed, 4f },
-			{ EquipmentStatType.ShieldCapacity, 400 },
+			{ EquipmentStatType.ShieldCapacity, 700 },
 		};
 
 		/// <summary>

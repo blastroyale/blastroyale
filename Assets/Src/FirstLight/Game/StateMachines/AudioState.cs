@@ -75,6 +75,7 @@ namespace FirstLight.Game.StateMachines
 			var postGameSpectatorCheck = stateFactory.Choice("AUDIO - Spectator Check");
 
 			initial.Transition().Target(audioBase);
+			initial.OnExit(SubscribeMessages);
 
 			audioBase.Event(MainMenuState.MainMenuLoadedEvent).Target(mainMenu);
 
@@ -133,9 +134,13 @@ namespace FirstLight.Game.StateMachines
 			disconnected.Event(NetworkState.JoinedRoomEvent).Target(matchmaking);
 		}
 
-		private void SubscribeMatchEvents()
+		private void SubscribeMessages()
 		{
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
+		}
+
+		private void SubscribeMatchEvents()
+		{
 			QuantumEvent.SubscribeManual<EventOnNewShrinkingCircle>(this, OnNewShrinkingCircle);
 			QuantumEvent.SubscribeManual<EventOnPlayerSkydiveDrop>(this, OnPlayerSkydiveDrop);
 			QuantumEvent.SubscribeManual<EventOnPlayerDamaged>(this, OnPlayerDamaged);
@@ -164,8 +169,6 @@ namespace FirstLight.Game.StateMachines
 		private void UnsubscribeMatchEvents()
 		{
 			QuantumEvent.UnsubscribeListener(this);
-			_services.MessageBrokerService.UnsubscribeAll(this);
-			
 		}
 
 		private bool IsSpectator()
@@ -321,7 +324,7 @@ namespace FirstLight.Game.StateMachines
 			
 			var gameModeId = _services.GameModeService.SelectedGameMode.Value.Entry.GameModeId;
 			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
-			
+
 			if(!gameModeConfig.SkydiveSpawn)
 			{
 				_services.AudioFxService.PlayClip2D(AudioId.Vo_GameStart, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);

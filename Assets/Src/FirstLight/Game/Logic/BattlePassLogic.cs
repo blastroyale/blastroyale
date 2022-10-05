@@ -134,7 +134,7 @@ namespace FirstLight.Game.Logic
 		{
 			var config = GameLogic.ConfigsProvider.GetConfig<BattlePassConfig>();
 
-			return _currentPoints.Value > config.PointsPerLevel;
+			return _currentPoints.Value >= config.PointsPerLevel;
 		}
 
 		public void AddBPP(uint amount)

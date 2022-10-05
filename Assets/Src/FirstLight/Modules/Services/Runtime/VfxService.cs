@@ -57,7 +57,7 @@ namespace FirstLight.Services
 
 		protected virtual async void Despawner(float time)
 		{
-			if (time is < -float.Epsilon and > -1)
+			if (time is < 0 and > -1)
 			{
 				time = 0;
 			}

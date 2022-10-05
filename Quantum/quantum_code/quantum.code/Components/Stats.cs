@@ -205,7 +205,7 @@ namespace Quantum
 			f.Events.OnPlayerDamaged(spell, totalDamage, shieldDamageAmount, Math.Min(previousHealth, damageAmount), 
 			                         previousHealth, maxHealth, previousShield, maxShield);
 
-			if (damageAmount <= 0)
+			if (totalDamage <= 0)
 			{
 				f.Events.OnDamageBlocked(entity);
 				return;
@@ -232,11 +232,6 @@ namespace Quantum
 			var previousHealth = CurrentHealth;
 
 			SetCurrentHealth(f, entity, amount);
-
-			if (CurrentHealth == previousHealth && attacker != EntityRef.None)
-			{
-				f.Events.OnDamageBlocked(entity);
-			}
 
 			if (CurrentHealth != previousHealth && attacker != EntityRef.None)
 			{

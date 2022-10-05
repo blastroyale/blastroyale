@@ -31,6 +31,7 @@ namespace FirstLight.Game.StateMachines
 		private List<LoopedAudioClip> _currentClips = new List<LoopedAudioClip>();
 		private DateTime _voOneKillSfxAvailabilityTime = DateTime.UtcNow;
 		private DateTime _voClutchSfxAvailabilityTime = DateTime.UtcNow;
+		private bool _gameRunning;
 		
 		public AudioState(IGameDataProvider gameLogic, IGameServices services,
 		                  Action<IStatechartEvent> statechartTrigger)
@@ -95,7 +96,8 @@ namespace FirstLight.Game.StateMachines
 			gameModeCheck.Transition().Condition(ShouldUseDeathmatchSM).Target(deathmatch);
 			gameModeCheck.Transition().Condition(ShouldUseBattleRoyaleSM).Target(battleRoyale);
 			gameModeCheck.Transition().Target(battleRoyale);
-
+			gameModeCheck.OnExit(() => SetSimulationRunning(true));
+			
 			battleRoyale.Nest(_audioBrState.Setup).Target(postGameSpectatorCheck);
 			battleRoyale.Event(GameSimulationState.GameCompleteExitEvent).Target(postGameSpectatorCheck);
 			battleRoyale.Event(GameSimulationState.MatchEndedEvent).Target(postGameSpectatorCheck);
@@ -103,6 +105,7 @@ namespace FirstLight.Game.StateMachines
 			battleRoyale.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
 			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
 			battleRoyale.OnExit(UnsubscribeMatchEvents);
+			battleRoyale.OnExit(() => SetSimulationRunning(false));
 			
 			deathmatch.Nest(_audioDmState.Setup).Target(postGameSpectatorCheck);
 			deathmatch.Event(GameSimulationState.GameCompleteExitEvent).Target(postGameSpectatorCheck);
@@ -111,6 +114,7 @@ namespace FirstLight.Game.StateMachines
 			deathmatch.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
 			deathmatch.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
 			deathmatch.OnExit(UnsubscribeMatchEvents);
+			deathmatch.OnExit(() => SetSimulationRunning(false));
 
 			postGameSpectatorCheck.Transition().Condition(IsSpectator).OnTransition(StopMusicInstant).Target(audioBase);
 			postGameSpectatorCheck.Transition().Target(postGame);
@@ -419,6 +423,11 @@ namespace FirstLight.Game.StateMachines
 			CheckClips(nameof(EventOnAirDropCollected), callback.Entity);
 		}
 
+		private void SetSimulationRunning(bool running)
+		{
+			_gameRunning = running;
+		}
+		
 		private void OnNewShrinkingCircle(EventOnNewShrinkingCircle callback)
 		{
 			_services.CoroutineService.StartCoroutine(WaitForCircleShrinkCoroutine(callback));
@@ -439,7 +448,8 @@ namespace FirstLight.Game.StateMachines
 			var time = (circle.ShrinkingStartTime - f.Time - config.WarningTime).AsFloat;
    
 			yield return new WaitForSeconds(time);
-   
+			if (!_gameRunning) yield break;
+			
 			if (config.Step == stepForFinalCountdown)
 			{
 				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_CircleLastCountdown, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
@@ -448,6 +458,7 @@ namespace FirstLight.Game.StateMachines
 			time = (circle.ShrinkingStartTime - f.Time).AsFloat;
    
 			yield return new WaitForSeconds(time);
+			if (!_gameRunning) yield break;
    
 			if (config.Step <= maxStepForCircleClosing)
 			{

@@ -496,6 +496,14 @@ namespace FirstLight.Game.Utils
 		{
 			return (bool) player.CustomProperties[GameConstants.Network.PLAYER_PROPS_SPECTATOR];
 		}
+		
+		/// <summary>
+		/// Requests to check if player has loaded core match assets
+		/// </summary>
+		public static bool LoadedCoreMatchAssets(this Player player)
+		{
+			return (bool) player.CustomProperties[GameConstants.Network.PLAYER_PROPS_CORE_LOADED];
+		}
 
 		/// <summary>
 		/// Requests the current state of the given <paramref name="room"/> if it is ready to start the game or not

@@ -115,6 +115,7 @@ namespace FirstLight.Game.StateMachines
 			_dataService.LoadData<AppData>();
 			_gameLogic.InitLocal();
 			
+			_gameLogic.AppLogic.SetDetailLevel(_gameLogic.AppLogic.CurrentDetailLevel);
 			_services.AudioFxService.AudioListener.Listener.enabled = true;
 			
 			MMVibrationManager.SetHapticsActive(_gameLogic.AppLogic.IsHapticOn);

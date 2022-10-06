@@ -454,6 +454,7 @@ namespace FirstLight.Game.Presenters
 
 		private void ReadyToPlay()
 		{
+			DeactivateKickOverlay();
 			_loadingText.SetActive(true);
 			_lockRoomButton.gameObject.SetActive(false);
 			_leaveRoomButton.gameObject.SetActive(false);

@@ -352,8 +352,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
 			
-			_services.AudioFxService.WipeSoundQueue();
-			
 			var gameModeId = _services.GameModeService.SelectedGameMode.Value.Entry.GameModeId;
 			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
 

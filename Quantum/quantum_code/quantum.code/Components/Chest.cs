@@ -188,7 +188,8 @@ namespace Quantum
 			var playerRef = playerCharacter->Player;
 			var statsShields = f.Get<Stats>(playerEntity).GetStatData(StatType.Shield);
 			var drop = GameId.Random;
-			
+			var loadOutFull = GetNextLoadoutGearItem(f, playerCharacter, playerCharacter->GetLoadout(f)).GameId == GameId.Random;
+
 			foreach (var (chance, count) in config.RandomEquipment)
 			{
 				if (f.RNG->Next() > chance)
@@ -207,7 +208,7 @@ namespace Quantum
 					
 					// If a player hasn't reached full shields capacity then for the drop
 					// chances are: 50% equipment, 25% big shields capacity, 25% small shields capacity
-					if (statsShields.StatValue != statsShields.BaseValue)
+					if (statsShields.StatValue != statsShields.BaseValue && loadOutFull)
 					{
 						drop = QuantumHelpers.GetRandomItem(f, GameId.Random, GameId.Random, GameId.ShieldCapacityLarge, GameId.ShieldCapacitySmall);
 					}

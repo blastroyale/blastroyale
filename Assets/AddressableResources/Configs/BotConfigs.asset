@@ -214,7 +214,7 @@ MonoBehaviour:
       DecisionInterval:
         RawValue: 652739
       LookForTargetsToShootAtInterval:
-        RawValue: 78643
+        RawValue: 52429
       VisionRangeSqr:
         RawValue: 40960000
       LowArmourSensitivity:
@@ -234,7 +234,7 @@ MonoBehaviour:
       ChanceToAbandonTarget:
         RawValue: 6554
       CloseFightIntolerance:
-        RawValue: 14418
+        RawValue: 43254
       WanderRadius:
         RawValue: 786432
       AccuracySpreadAngle: 10
@@ -272,7 +272,7 @@ MonoBehaviour:
       ChanceToAbandonTarget:
         RawValue: 1311
       CloseFightIntolerance:
-        RawValue: 9830
+        RawValue: 29491
       WanderRadius:
         RawValue: 1048576
       AccuracySpreadAngle: 24
@@ -310,7 +310,7 @@ MonoBehaviour:
       ChanceToAbandonTarget:
         RawValue: 5898
       CloseFightIntolerance:
-        RawValue: 7864
+        RawValue: 23593
       WanderRadius:
         RawValue: 917504
       AccuracySpreadAngle: 16
@@ -328,7 +328,7 @@ MonoBehaviour:
       DecisionInterval:
         RawValue: 666501
       LookForTargetsToShootAtInterval:
-        RawValue: 85197
+        RawValue: 44564
       VisionRangeSqr:
         RawValue: 40960000
       LowArmourSensitivity:
@@ -348,7 +348,7 @@ MonoBehaviour:
       ChanceToAbandonTarget:
         RawValue: 7864
       CloseFightIntolerance:
-        RawValue: 11796
+        RawValue: 35389
       WanderRadius:
         RawValue: 851968
       AccuracySpreadAngle: 19
@@ -386,7 +386,7 @@ MonoBehaviour:
       ChanceToAbandonTarget:
         RawValue: 655
       CloseFightIntolerance:
-        RawValue: 7209
+        RawValue: 21627
       WanderRadius:
         RawValue: 983040
       AccuracySpreadAngle: 14

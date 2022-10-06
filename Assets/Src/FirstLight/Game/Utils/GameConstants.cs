@@ -72,7 +72,8 @@ namespace FirstLight.Game.Utils
 			public const float HIGH_LOOP_TRANSITION_DELAY = 2f;
 			
 			public const float LOW_HP_CLUTCH_THERSHOLD_PERCENT = 0.1f;
-			public const int VO_DUPLICATE_SFX_PREVENTION_SECONDS = 12;
+			public const int VO_SFX_SINGLE_KILL_PREVENTION_SECONDS = 12;
+			public const int VO_SFX_LEADERBOARD_PREVENTION_SECONDS = 3;
 		}
 
 		public static class Notifications

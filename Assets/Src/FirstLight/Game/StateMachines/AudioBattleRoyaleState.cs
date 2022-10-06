@@ -115,11 +115,11 @@ namespace FirstLight.Game.StateMachines
 
 			if (playersLeft == 10)
 			{
-				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_Alive10);
+				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_Alive10, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
 			}
 			else if (playersLeft == 2)
 			{
-				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_Alive2);
+				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_Alive2, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
 			}
 			
 			if (playersLeft <= GameConstants.Audio.BR_HIGH_PHASE_PLAYERS_LEFT_THRESHOLD && !_isHighIntensityPhase)

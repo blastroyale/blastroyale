@@ -596,7 +596,7 @@ namespace FirstLight.Game.StateMachines
 			else if (callback.CurrentMultiKill <= 1 && DateTime.UtcNow >= _voOneKillSfxAvailabilityTime)
 			{
 				_services.AudioFxService.PlayClipQueued2D(voMultiKillAudio, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
-				_voOneKillSfxAvailabilityTime = DateTime.UtcNow.AddSeconds(GameConstants.Audio.VO_DUPLICATE_SFX_PREVENTION_SECONDS);
+				_voOneKillSfxAvailabilityTime = DateTime.UtcNow.AddSeconds(GameConstants.Audio.VO_SFX_SINGLE_KILL_PREVENTION_SECONDS);
 			}
 			
 			// Clutch announcer
@@ -609,7 +609,7 @@ namespace FirstLight.Game.StateMachines
 			    DateTime.UtcNow >= _voClutchSfxAvailabilityTime) 
 			{
 				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_KillLowHp, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
-				_voClutchSfxAvailabilityTime = DateTime.UtcNow.AddSeconds(GameConstants.Audio.VO_DUPLICATE_SFX_PREVENTION_SECONDS);
+				_voClutchSfxAvailabilityTime = DateTime.UtcNow.AddSeconds(GameConstants.Audio.VO_SFX_SINGLE_KILL_PREVENTION_SECONDS);
 			}
 
 			// Killstreak announcer

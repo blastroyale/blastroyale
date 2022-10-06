@@ -73,7 +73,7 @@ namespace FirstLight.Game.Utils
 					MaxPlayers = isRandomMatchmaking
 						             ? (byte) maxPlayers
 						             : (byte) (maxPlayers + GameConstants.Data.MATCH_SPECTATOR_SPOTS),
-					PlayerTtl = GameConstants.Network.DEFAULT_PLAYER_TTL_MS
+					PlayerTtl = GameConstants.Network.PLAYER_LOBBY_TTL_MS
 				}
 			};
 
@@ -100,7 +100,7 @@ namespace FirstLight.Game.Utils
 				Lobby = TypedLobby.Default,
 				RoomOptions = new RoomOptions
 				{
-					PlayerTtl = GameConstants.Network.DEFAULT_PLAYER_TTL_MS,
+					PlayerTtl = GameConstants.Network.PLAYER_LOBBY_TTL_MS,
 					EmptyRoomTtl = GameConstants.Network.EMPTY_ROOM_TTL_MS
 				}
 			};

@@ -13,7 +13,7 @@ namespace FirstLight.Game.Services
 		None,
 		Menu,
 		Matchmaking,
-		Loading,
+		FinalPreload,
 		Simulation
 	}
 	
@@ -44,6 +44,11 @@ namespace FirstLight.Game.Services
 		/// Requests the check if the last disconnection was in matchmaking, before the match started
 		/// </summary>
 		LastDisconnectionLocation LastDisconnectLocation { get; }
+		
+		/// <summary>
+		/// Requests the name of the last room that the player disconnected from
+		/// </summary>
+		string LastConnectedRoomName { get; }
 
 		/// <summary>
 		/// Requests the ping status with the quantum server
@@ -103,6 +108,9 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc cref="IGameNetworkService.LastDisconnectLocation" />
 		new IObservableField<LastDisconnectionLocation> LastDisconnectLocation { get; }
 		
+		/// <inheritdoc cref="IGameNetworkService.LastConnectedRoomName" />
+		new IObservableField<string> LastConnectedRoomName { get; }
+		
 		/// <summary>
 		/// Checks if the current frame is having connections issues and if it is lagging
 		/// </summary>
@@ -121,6 +129,7 @@ namespace FirstLight.Game.Services
 		public IObservableField<bool> IsJoiningNewMatch { get; }
 		public IObservableList<Player> LastMatchPlayers { get; }
 		public IObservableField<LastDisconnectionLocation> LastDisconnectLocation { get; }
+		public IObservableField<string> LastConnectedRoomName { get; }
 		public QuantumLoadBalancingClient QuantumClient { get; }
 		public bool IsSpectorPlayer => QuantumClient.LocalPlayer.IsSpectator();
 		private IObservableField<bool> HasLag { get; }
@@ -129,6 +138,7 @@ namespace FirstLight.Game.Services
 		bool IGameNetworkService.IsJoiningNewMatch => IsJoiningNewMatch.Value;
 		IObservableListReader<Player> IGameNetworkService.LastMatchPlayers => LastMatchPlayers;
 		LastDisconnectionLocation IGameNetworkService.LastDisconnectLocation => LastDisconnectLocation.Value;
+		string IGameNetworkService.LastConnectedRoomName => LastConnectedRoomName.Value;
 		IObservableFieldReader<bool> IGameNetworkService.HasLag => HasLag;
 		
 		/// <inheritdoc />
@@ -192,6 +202,7 @@ namespace FirstLight.Game.Services
 			IsJoiningNewMatch = new ObservableField<bool>(false);
 			LastMatchPlayers = new ObservableList<Player>(new List<Player>());
 			LastDisconnectLocation = new ObservableField<LastDisconnectionLocation>(LastDisconnectionLocation.None);
+			LastConnectedRoomName = new ObservableField<string>("");
 			HasLag = new ObservableField<bool>(false);
 			UserId = new ObservableResolverField<string>(() => QuantumClient.UserId, SetUserId);
 		}

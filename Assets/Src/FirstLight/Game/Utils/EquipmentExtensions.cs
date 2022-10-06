@@ -28,7 +28,7 @@ namespace FirstLight.Game.Utils
 				return false;
 			}
 			var lastRepairDate = DateTimeOffset.FromUnixTimeSeconds(nftData.LastRepairTimestamp).Date;
-			var durabilityTime = equipData.Durability * TimeSpan.FromDays(7);
+			var durabilityTime = equipData.MaxDurability * TimeSpan.FromDays(7);
 			var shouldBreakAt = lastRepairDate + durabilityTime;
 			return DateTime.UtcNow > shouldBreakAt;
 		}

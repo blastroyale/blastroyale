@@ -186,7 +186,7 @@ namespace Quantum
 			var damageAmount = totalDamage;
 			var shieldDamageAmount = 0;
 
-			if (IsImmune)
+			if (IsImmune || totalDamage <= 0)
 			{
 				f.Events.OnDamageBlocked(entity);
 				return;
@@ -205,9 +205,8 @@ namespace Quantum
 			f.Events.OnPlayerDamaged(spell, totalDamage, shieldDamageAmount, Math.Min(previousHealth, damageAmount), 
 			                         previousHealth, maxHealth, previousShield, maxShield);
 
-			if (totalDamage <= 0)
+			if (damageAmount <= 0)
 			{
-				f.Events.OnDamageBlocked(entity);
 				return;
 			}
 

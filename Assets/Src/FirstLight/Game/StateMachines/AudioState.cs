@@ -136,9 +136,9 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeMessages()
 		{
-			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
+			_services.MessageBrokerService.Subscribe<MatchCountdownStartedMessage>(OnMatchCountdownStarted);
 		}
-
+		
 		private void SubscribeMatchEvents()
 		{
 			QuantumEvent.SubscribeManual<EventOnNewShrinkingCircle>(this, OnNewShrinkingCircle);
@@ -318,25 +318,30 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 		
-		private void OnMatchStartedMessage(MatchStartedMessage msg)
+		private void OnMatchCountdownStarted(MatchCountdownStartedMessage obj)
 		{
-			if (msg.IsResync) return;
-
-			if(!_services.NetworkService.CurrentRoomGameModeConfig.Value.SkydiveSpawn)
-			{
-				_services.AudioFxService.PlayClip2D(AudioId.Vo_GameStart, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
-			}
+			_services.CoroutineService.StartCoroutine(MatchCountdownCoroutine());
 		}
-		
+
+		private IEnumerator MatchCountdownCoroutine()
+		{
+			var waitOneSec = new WaitForSeconds(1f);
+			
+			_services.AudioFxService.PlayClip2D(AudioId.Vo_Countdown3, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
+			yield return waitOneSec;
+			_services.AudioFxService.PlayClip2D(AudioId.Vo_Countdown2, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
+			yield return waitOneSec;
+			_services.AudioFxService.PlayClip2D(AudioId.Vo_Countdown1, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
+			yield return waitOneSec;
+			_services.AudioFxService.PlayClip2D(AudioId.Vo_CountdownGo, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
+		}
+
 		private void OnPlayerAlive(EventOnPlayerAlive callback)
 		{
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
-
-			var gameModeId = _services.GameModeService.SelectedGameMode.Value.Entry.GameModeId;
-			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
-
+			
 			// Respawnable game-mode
-			if (gameModeConfig.Lives is 0 or > 1)
+			if (_services.NetworkService.CurrentRoomGameModeConfig.Value.Lives is 0 or > 1)
 			{
 				_services.AudioFxService.PlayClip3D(AudioId.PlayerRespawnLightningBolt, entityView.transform.position);
 				CheckClips(nameof(EventOnPlayerAlive), callback.Entity);

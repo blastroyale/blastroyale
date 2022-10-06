@@ -186,7 +186,7 @@ namespace Quantum
 			var damageAmount = (1-(armour / 100)) * rawDamage;
 			var shieldDamageAmount = 0;
 
-			if (IsImmune)
+			if (IsImmune || rawDamage <= 0)
 			{
 				f.Events.OnDamageBlocked(entity);
 				return;
@@ -207,7 +207,6 @@ namespace Quantum
 
 			if (damageAmount <= 0)
 			{
-				f.Events.OnDamageBlocked(entity);
 				return;
 			}
 
@@ -232,11 +231,6 @@ namespace Quantum
 			var previousHealth = CurrentHealth;
 
 			SetCurrentHealth(f, entity, amount);
-
-			if (CurrentHealth == previousHealth && attacker != EntityRef.None)
-			{
-				f.Events.OnDamageBlocked(entity);
-			}
 
 			if (CurrentHealth != previousHealth && attacker != EntityRef.None)
 			{

@@ -99,7 +99,8 @@ namespace FirstLight.Game.Utils
 		public static class Network
 		{
 			// Time control values
-			public const int DEFAULT_PLAYER_TTL_MS = 99999999;
+			public const int PLAYER_LOBBY_TTL_MS = 0;
+			public const int PLAYER_GAME_TTL_MS = 99999999;
 			public const int EMPTY_ROOM_TTL_MS = 10000;
 			public const int EMPTY_ROOM_PLAYTEST_TTL_MS = 1000;
 

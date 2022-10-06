@@ -730,9 +730,13 @@ namespace FirstLight.Game.StateMachines
 		{
 			var room = _networkService?.QuantumClient?.CurrentRoom;
 
-			if (room != null && room.IsOpen)
-			{
-				room.IsOpen = false;
+			if (room == null || !room.IsOpen) return;
+			
+			room.IsOpen = false;
+				
+			if(_networkService.QuantumClient.LocalPlayer.IsMasterClient) 
+			{ 
+				_networkService.QuantumClient.CurrentRoom.PlayerTtl = GameConstants.Network.PLAYER_GAME_TTL_MS;
 			}
 		}
 

@@ -154,6 +154,7 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.SubscribeManual<EventOnChestOpened>(this, OnEventOnChestOpened);
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
 			QuantumEvent.SubscribeManual<EventOnPlayerDead>(this, OnPlayerDead);
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
 			QuantumEvent.SubscribeManual<EventOnAirDropDropped>(this, OnAirdropDropped);
 			QuantumEvent.SubscribeManual<EventOnAirDropLanded>(this, OnAirdropLanded);
 			QuantumEvent.SubscribeManual<EventOnAirDropCollected>(this, OnAirdropCollected);
@@ -318,7 +319,7 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 		
-		private void OnMatchCountdownStarted(MatchCountdownStartedMessage obj)
+		private void OnMatchCountdownStarted(MatchCountdownStartedMessage msg)
 		{
 			_services.CoroutineService.StartCoroutine(MatchCountdownCoroutine());
 		}
@@ -501,16 +502,14 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayerDead(EventOnPlayerDead callback)
 		{
-			if (_matchServices.SpectateService.SpectatedPlayer.Value.Entity != callback.Entity) return;
+			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
 
-			_services.AudioFxService.WipeSoundQueue();
-			
-			_services.AudioFxService.PlayClip2D(AudioId.PlayerDeath);
-
-			if (QuantumRunner.Default.Game.PlayerIsLocal(callback.Player))
-			{
-				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_OnDeath, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
-			}
+			_services.AudioFxService.PlayClip3D(AudioId.PlayerDeath, entityView.transform.position);
+		}
+		
+		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)
+		{
+			_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_OnDeath, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
 		}
 
 		private void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)

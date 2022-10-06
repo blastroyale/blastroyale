@@ -64,10 +64,15 @@ namespace FirstLight.Game.Presenters
 				_menuButton.gameObject.SetActive(false);
 			}
 			
+			// Disconnecting during final preload means the game most likely started, player shouldn't be reconnecting and interfering
+			if (_services.NetworkService.LastDisconnectLocation == LastDisconnectionLocation.FinalPreload)
+			{
+				_reconnectButton.gameObject.SetActive(false);
+			}
 			// If disconnected in offline mode (playing solo), can't reconnect due to quantum simulation not running
 			// without at least 1 player connected in match at all times
-			if (_services.NetworkService.LastMatchPlayers.Count <= 1 &&
-			    _services.NetworkService.LastDisconnectLocation == LastDisconnectionLocation.Simulation)
+			else if (_services.NetworkService.LastDisconnectLocation == LastDisconnectionLocation.Simulation &&
+			         _services.NetworkService.LastMatchPlayers.Count <= 1)
 			{
 				_reconnectButton.gameObject.SetActive(false);
 				_menuButton.gameObject.SetActive(true);

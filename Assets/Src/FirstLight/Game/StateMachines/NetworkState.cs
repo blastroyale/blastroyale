@@ -391,8 +391,6 @@ namespace FirstLight.Game.StateMachines
 			};
 			_services.GenericDialogService.OpenDialog(title, false, confirmButton);
 
-			_requiresManualRoomReconnection = false;
-			
 			_statechartTrigger(JoinRoomFailedEvent);
 		}
 

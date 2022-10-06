@@ -224,7 +224,7 @@ namespace FirstLight.Game.StateMachines
 				}
 				else
 				{
-					_networkService.QuantumClient.ReconnectAndRejoinAutomatically();
+					_networkService.QuantumClient.ReconnectAndRejoin();
 				}
 			}
 			else

@@ -41,7 +41,7 @@ MonoBehaviour:
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 4055
+        RawValue: 1926
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
@@ -59,7 +59,7 @@ MonoBehaviour:
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 5345
+        RawValue: 2539
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
@@ -77,7 +77,7 @@ MonoBehaviour:
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 5806
+        RawValue: 2758
       SpeedRatioToBaseK:
         RawValue: 5806
       PowerRatioToBaseK:
@@ -95,7 +95,7 @@ MonoBehaviour:
       HpRatioToBaseK:
         RawValue: 2765
       ArmorRatioToBaseK:
-        RawValue: 6144
+        RawValue: 2918
       SpeedRatioToBaseK:
         RawValue: 6144
       PowerRatioToBaseK:
@@ -413,7 +413,7 @@ MonoBehaviour:
       AmmoCapacityRatioToBaseK:
         RawValue: 0
       ShieldCapacityRatioToBaseK:
-        RawValue: 2839
+        RawValue: 1622
     - Category: 15
       Material: 2
       HpRatioToBaseK:
@@ -431,7 +431,7 @@ MonoBehaviour:
       AmmoCapacityRatioToBaseK:
         RawValue: 0
       ShieldCapacityRatioToBaseK:
-        RawValue: 3742
+        RawValue: 2138
     - Category: 15
       Material: 3
       HpRatioToBaseK:
@@ -449,7 +449,7 @@ MonoBehaviour:
       AmmoCapacityRatioToBaseK:
         RawValue: 1422
       ShieldCapacityRatioToBaseK:
-        RawValue: 4064
+        RawValue: 2322
     - Category: 15
       Material: 4
       HpRatioToBaseK:
@@ -467,4 +467,4 @@ MonoBehaviour:
       AmmoCapacityRatioToBaseK:
         RawValue: 1505
       ShieldCapacityRatioToBaseK:
-        RawValue: 4301
+        RawValue: 2458

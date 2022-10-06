@@ -424,7 +424,16 @@ namespace FirstLight.Game.StateMachines
 		{
 			FLog.Info($"OnPlayerLeftRoom {player.NickName}");
 
-			StartMatchmakingLockRoomTimer();
+			var allPlayersReady = _networkService.QuantumClient.CurrentRoom.AreAllPlayersReady();
+				
+			if (_networkService.QuantumClient.CurrentRoom.IsMatchmakingRoom() && !allPlayersReady)
+			{
+				StartMatchmakingLockRoomTimer();
+			}
+			else if (allPlayersReady)
+			{
+				_statechartTrigger(MatchState.AllPlayersReadyEvent);
+			}
 		}
 
 		/// <inheritdoc />

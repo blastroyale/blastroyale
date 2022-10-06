@@ -208,9 +208,9 @@ namespace Quantum
 					
 					// If a player hasn't reached full shields capacity then for the drop
 					// chances are: 50% equipment, 25% big shields capacity, 25% small shields capacity
-					if (statsShields.StatValue != statsShields.BaseValue && loadOutFull)
+					if (statsShields.StatValue < statsShields.BaseValue && loadOutFull)
 					{
-						drop = QuantumHelpers.GetRandomItem(f, GameId.Random, GameId.Random, GameId.ShieldCapacityLarge, GameId.ShieldCapacitySmall);
+						drop = QuantumHelpers.GetRandomItem(f, GameId.ShieldCapacityLarge, GameId.ShieldCapacitySmall);
 					}
 					
 					// Equipment drop logic

@@ -108,8 +108,6 @@ namespace FirstLight.Game.StateMachines
 			var killsLeftForLeader = container.TargetProgress - container.CurrentProgress;
 			var matchData = container.GetPlayersMatchData(frame, out var leader);
 			
-			Debug.LogError(killsLeftForLeader);
-			
 			// Kills left announcer
 			if (!_killsLeftSfxPlayed3 && killsLeftForLeader == 3)
 			{

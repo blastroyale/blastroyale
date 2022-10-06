@@ -75,7 +75,6 @@ namespace FirstLight.Game.Presenters
 
 			_root.Q<Button>("EquipmentButton").clicked += OnEquipmentButtonClicked;
 			_root.Q<Button>("HeroesButton").clicked += OnHeroesButtonClicked;
-			_root.Q<Button>("MarketplaceButton").clicked += OnMarketplaceButtonClicked;
 			_root.Q<Button>("LeaderboardsButton").clicked += OnLeaderboardsButtonClicked;
 
 			// TODO: Move to shared code
@@ -153,11 +152,6 @@ namespace FirstLight.Game.Presenters
 		private void OnHeroesButtonClicked()
 		{
 			Data.OnHeroesButtonClicked();
-		}
-
-		private void OnMarketplaceButtonClicked()
-		{
-			Application.OpenURL(GameConstants.Links.MARKETPLACE_URL);
 		}
 
 		private void OnLeaderboardsButtonClicked()

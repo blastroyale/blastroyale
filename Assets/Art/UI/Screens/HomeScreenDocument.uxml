@@ -29,9 +29,6 @@
             <ui:Button text="HEROES" display-tooltip-when-elided="true" name="HeroesButton" class="button-regular font-italic font-style-h2 hidden-left">
                 <ui:VisualElement class="button-icon" />
             </ui:Button>
-            <ui:Button text="MARKETPLACE" display-tooltip-when-elided="true" name="MarketplaceButton" class="button-regular font-italic font-style-h2 hidden-left" style="letter-spacing: -1px;">
-                <ui:VisualElement class="button-icon" />
-            </ui:Button>
             <ui:Button text="LEADERBOARDS" display-tooltip-when-elided="true" name="LeaderboardsButton" class="button-regular font-italic font-style-h2 hidden-left" style="letter-spacing: -4px;">
                 <ui:VisualElement class="button-icon" />
             </ui:Button>

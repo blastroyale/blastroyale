@@ -573,7 +573,7 @@ namespace FirstLight.Game.StateMachines
 			
 			// Once match starts, TTL needs to be set to max so player can DC+RC easily
 			if(_networkService.QuantumClient.LocalPlayer.IsMasterClient) 
-			{ 
+			{
 				_networkService.QuantumClient.CurrentRoom.PlayerTtl = GameConstants.Network.PLAYER_GAME_TTL_MS;
 			}
 		}

@@ -13,7 +13,7 @@ namespace FirstLight.Game.Services
 		None,
 		Menu,
 		Matchmaking,
-		Loading,
+		FinalPreload,
 		Simulation
 	}
 	

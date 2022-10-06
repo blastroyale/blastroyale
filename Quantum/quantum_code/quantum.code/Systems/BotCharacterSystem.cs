@@ -179,7 +179,7 @@ namespace Quantum.Systems
 				filter.NavMeshAgent->ForceRepath(f);
 			}
 			
-			filter.BotCharacter->NextDecisionTime = f.Time + filter.BotCharacter->DecisionInterval + filter.BotCharacter->BotNameIndex*FP._0_01*FP._0_10;
+			filter.BotCharacter->NextDecisionTime = f.Time + filter.BotCharacter->DecisionInterval;
 			filter.BotCharacter->StuckDetectionPosition = filter.Transform->Position;
 			
 			if (TryUseSpecials(f, ref filter))
@@ -358,13 +358,8 @@ namespace Quantum.Systems
 				return true;
 			}
 
-			var distanceFromSafeAreaCenter =
-				FPVector2.Distance(filter.Transform->Position.XZ, circle.TargetCircleCenter);
-			var moveDistance = filter.BotCharacter->WanderRadius > distanceFromSafeAreaCenter
-				                   ? distanceFromSafeAreaCenter
-				                   : filter.BotCharacter->WanderRadius;
-
-			var sqrDistanceFromSafeAreaCenter = distanceFromSafeAreaCenter * distanceFromSafeAreaCenter;
+			var sqrDistanceFromSafeAreaCenter =
+				FPVector2.DistanceSquared(filter.Transform->Position.XZ, circle.TargetCircleCenter);
 			var sqrRadiusOfShrinkingCircle = circle.CurrentRadius * circle.CurrentRadius;
 			
 			// If a bot is inside the circle and the circle is not shrinking then a bot doesn't try to avoid it
@@ -383,7 +378,7 @@ namespace Quantum.Systems
 			var isGoing = sqrDistanceFromSafeAreaCenter / sqrSafeAreaRadius >
 			              filter.BotCharacter->ShrinkingCircleRiskTolerance;
 
-			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, safeCircleCenter, moveDistance);
+			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, safeCircleCenter, filter.BotCharacter->WanderRadius);
 
 			if (isGoing)
 			{
@@ -833,8 +828,9 @@ namespace Quantum.Systems
 					DeathMarker = deathMakers[f.RNG->Next(0, deathMakers.Count)],
 					BotNameIndex = botNamesIndices[listNamesIndex],
 					BehaviourType = botConfig.BehaviourType,
-					DecisionInterval = botConfig.DecisionInterval,
-					LookForTargetsToShootAtInterval = botConfig.LookForTargetsToShootAtInterval,
+					// We modify intervals to make them more unique to avoid performance spikes
+					DecisionInterval = botConfig.DecisionInterval + botNamesIndices[listNamesIndex] * FP._0_01 * FP._0_10,
+					LookForTargetsToShootAtInterval = botConfig.LookForTargetsToShootAtInterval + botNamesIndices[listNamesIndex] * FP._0_01 * FP._0_01,
 					VisionRangeSqr = botConfig.VisionRangeSqr,
 					LowArmourSensitivity = botConfig.LowArmourSensitivity,
 					LowHealthSensitivity = botConfig.LowHealthSensitivity,

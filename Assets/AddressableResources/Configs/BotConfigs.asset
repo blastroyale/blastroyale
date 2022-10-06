@@ -243,7 +243,7 @@ MonoBehaviour:
       SpecialAimingDeviation:
         RawValue: 294912
       ShrinkingCircleRiskTolerance:
-        RawValue: 53477
+        RawValue: 40108
       ChanceToSeekChests:
         RawValue: 19661
     - BehaviourType: 2
@@ -281,7 +281,7 @@ MonoBehaviour:
       SpecialAimingDeviation:
         RawValue: 131072
       ShrinkingCircleRiskTolerance:
-        RawValue: 35389
+        RawValue: 26542
       ChanceToSeekChests:
         RawValue: 19661
     - BehaviourType: 0
@@ -319,7 +319,7 @@ MonoBehaviour:
       SpecialAimingDeviation:
         RawValue: 229376
       ShrinkingCircleRiskTolerance:
-        RawValue: 51118
+        RawValue: 38339
       ChanceToSeekChests:
         RawValue: 19661
     - BehaviourType: 1
@@ -357,7 +357,7 @@ MonoBehaviour:
       SpecialAimingDeviation:
         RawValue: 196608
       ShrinkingCircleRiskTolerance:
-        RawValue: 58982
+        RawValue: 44237
       ChanceToSeekChests:
         RawValue: 19661
     - BehaviourType: 2
@@ -395,6 +395,6 @@ MonoBehaviour:
       SpecialAimingDeviation:
         RawValue: 262144
       ShrinkingCircleRiskTolerance:
-        RawValue: 39322
+        RawValue: 29491
       ChanceToSeekChests:
         RawValue: 19661

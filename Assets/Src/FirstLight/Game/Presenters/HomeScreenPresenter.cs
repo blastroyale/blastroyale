@@ -1,14 +1,12 @@
 using System;
-using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
-using UnityEngine;
-using FirstLight.Game.Utils;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
+using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using Quantum;
-using UnityEngine.PlayerLoop;
+using UnityEngine;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
 
@@ -77,7 +75,6 @@ namespace FirstLight.Game.Presenters
 
 			_root.Q<Button>("EquipmentButton").clicked += OnEquipmentButtonClicked;
 			_root.Q<Button>("HeroesButton").clicked += OnHeroesButtonClicked;
-			_root.Q<Button>("MarketplaceButton").clicked += OnMarketplaceButtonClicked;
 			_root.Q<Button>("LeaderboardsButton").clicked += OnLeaderboardsButtonClicked;
 
 			// TODO: Move to shared code
@@ -96,6 +93,8 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider.BattlePassDataProvider.CurrentLevel.InvokeObserve(OnBattlePassCurrentLevelChanged);
 			_gameDataProvider.BattlePassDataProvider.CurrentPoints.InvokeObserve(OnBattlePassCurrentPointsChanged);
 			_gameServices.GameModeService.SelectedGameMode.InvokeObserve(OnSelectedGameModeChanged);
+			
+			UpdateGameModeButton(_gameServices.GameModeService.SelectedGameMode.Value);
 		}
 
 		private void OnDestroy()
@@ -155,11 +154,6 @@ namespace FirstLight.Game.Presenters
 			Data.OnHeroesButtonClicked();
 		}
 
-		private void OnMarketplaceButtonClicked()
-		{
-			Application.OpenURL(GameConstants.Links.MARKETPLACE_URL);
-		}
-
 		private void OnLeaderboardsButtonClicked()
 		{
 			Data.OnLeaderboardClicked();
@@ -182,8 +176,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnSelectedGameModeChanged(GameModeInfo _, GameModeInfo current)
 		{
-			_gameModeLabel.text = current.Entry.GameModeId.ToUpper();
-			_gameTypeLabel.text = current.Entry.MatchType.ToString().ToUpper();
+			UpdateGameModeButton(current);
 		}
 
 		private void OnCSCurrencyChanged(GameId id, ulong previous, ulong current, ObservableUpdateType updateType)
@@ -216,6 +209,12 @@ namespace FirstLight.Game.Presenters
 			var maxLevel = _gameDataProvider.BattlePassDataProvider.MaxLevel;
 			var nextLevel = Math.Clamp(predictedLevel + 1, 0, maxLevel) + 1;
 			_battlePassLevelLabel.text = nextLevel.ToString();
+		}
+
+		private void UpdateGameModeButton(GameModeInfo current)
+		{
+			_gameModeLabel.text = current.Entry.GameModeId.ToUpper();
+			_gameTypeLabel.text = current.Entry.MatchType.ToString().ToUpper();
 		}
 
 		private void UpdateBattlePassPoints(uint predictedLevel, uint predictedPoints)

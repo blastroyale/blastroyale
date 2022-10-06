@@ -170,8 +170,8 @@ namespace FirstLight.Game.Ids
 		Vo_Alive2,
 		Vo_CircleClose,
 		Vo_CircleLastClose,
-		Vo_Countdown,
-		Vo_CountdownGo,
+		Deprecated1,
+		Deprecated2,
 		Vo_AirdropComing,
 		Vo_AirdropLanded,
 		Vo_LeaderboardTop,
@@ -184,6 +184,17 @@ namespace FirstLight.Game.Ids
 		PlayerKillLevel5,
 		PlayerKillLevel6,
 		Vo_CircleLastCountdown,
+		Vo_Countdown10,
+		Vo_Countdown9,
+		Vo_Countdown8,
+		Vo_Countdown7,
+		Vo_Countdown6,
+		Vo_Countdown5,
+		Vo_Countdown4,
+		Vo_Countdown3,
+		Vo_Countdown2,
+		Vo_Countdown1,
+		Vo_CountdownGo
 	}
 	
 	/// <summary>

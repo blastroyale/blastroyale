@@ -33,7 +33,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			{ EquipmentStatType.Hp, 510 },
 			{ EquipmentStatType.Speed, 0.5f },
 			{ EquipmentStatType.AttackCooldown, 2f },
-			{ EquipmentStatType.Armor, 10 },
+			{ EquipmentStatType.Armor, 0.11f },
 			{ EquipmentStatType.ProjectileSpeed, 20 },
 			{ EquipmentStatType.TargetRange, 15f },
 			{ EquipmentStatType.MaxCapacity, 200 },

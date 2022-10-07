@@ -53,7 +53,7 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_gameServices = MainInstaller.Resolve<IGameServices>();
 
-			_root = _document.rootVisualElement;
+			_root = _document.rootVisualElement.Q("root");
 
 			_playerNameLabel = _root.Q<Label>("PlayerNameLabel").Required();
 			_playerTrophiesLabel = _root.Q<Label>("PlayerTrophiesLabel").Required();
@@ -94,7 +94,7 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider.BattlePassDataProvider.CurrentPoints.InvokeObserve(OnBattlePassCurrentPointsChanged);
 			_gameServices.GameModeService.SelectedGameMode.InvokeObserve(OnSelectedGameModeChanged);
 			
-			UpdateGameModeButton(_gameServices.GameModeService.SelectedGameMode.Value);
+			_root.EnableInClassList("hidden", false);
 		}
 
 		private void OnDestroy()

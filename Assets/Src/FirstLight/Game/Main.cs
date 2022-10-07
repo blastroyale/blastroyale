@@ -31,9 +31,11 @@ namespace FirstLight.Game
 		private void Awake()
 		{
 			Screen.sleepTimeout = SleepTimeout.NeverSleep;
-
 			FLog.Init();
+		}
 
+		private void Start()
+		{
 			var messageBroker = new MessageBrokerService();
 			var timeService = new TimeService();
 			var dataService = new DataService();
@@ -44,11 +46,11 @@ namespace FirstLight.Game
 			var genericDialogService = new GenericDialogService(uiService);
 			var audioFxService = new GameAudioFxService(assetResolver);
 			var vfxService = new VfxService<VfxId>();
-			
+
 			var gameLogic = new GameLogic(messageBroker, timeService, dataService, configsProvider, audioFxService);
 			var gameServices = new GameServices(networkService, messageBroker, timeService, dataService,
-			                                    configsProvider, gameLogic, genericDialogService, 
-			                                    assetResolver, vfxService, audioFxService);
+				configsProvider, gameLogic, genericDialogService,
+				assetResolver, vfxService, audioFxService);
 
 			MainInstaller.Bind<IGameDataProvider>(gameLogic);
 			MainInstaller.Bind<IGameServices>(gameServices);
@@ -58,14 +60,12 @@ namespace FirstLight.Game
 			_services = gameServices;
 			_notificationStateMachine = new NotificationStateMachine(gameLogic, gameServices);
 			_gameStateMachine = new GameStateMachine(gameLogic, gameServices, uiService, networkService,
-			                                         configsProvider,
-			                                         assetResolver, dataService, vfxService);
+				configsProvider,
+				assetResolver, dataService, vfxService);
 
 			FLog.Verbose($"Initialized client version {VersionUtils.VersionExternal}");
-		}
 
-		private void Start()
-		{
+
 			_notificationStateMachine.Run();
 			_gameStateMachine.Run();
 			TrySetLocalServer();

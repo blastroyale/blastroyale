@@ -29,6 +29,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_entity = entity;
 			
 			ShieldIcon.SetActive(currentShield > 0);
+			UpdateShieldBar(currentShield);
 		}
 		
 		/// <inheritdoc />

@@ -806,6 +806,7 @@ namespace I2.Loc
 			public static string GameMode 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/GameMode"); } }
 			public static string HOME 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/HOME"); } }
 			public static string Haptic 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Haptic"); } }
+			public static string HighFpsModeSettings 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/HighFpsModeSettings"); } }
 			public static string HighResMode 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/HighResMode"); } }
 			public static string HoldToFire 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/HoldToFire"); } }
 			public static string HoldToFireDescription 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/HoldToFireDescription"); } }
@@ -1873,6 +1874,7 @@ namespace I2.Loc
 		    public const string GameMode = "MainMenu/GameMode";
 		    public const string HOME = "MainMenu/HOME";
 		    public const string Haptic = "MainMenu/Haptic";
+		    public const string HighFpsModeSettings = "MainMenu/HighFpsModeSettings";
 		    public const string HighResMode = "MainMenu/HighResMode";
 		    public const string HoldToFire = "MainMenu/HoldToFire";
 		    public const string HoldToFireDescription = "MainMenu/HoldToFireDescription";

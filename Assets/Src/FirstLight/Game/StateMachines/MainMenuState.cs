@@ -224,8 +224,8 @@ namespace FirstLight.Game.StateMachines
 		
 		private void ValidateCurrentGameMode()
 		{
-			var rankedMode = _services.GameModeService.Slots.ReadOnlyList.FirstOrDefault(x => x.Entry.MatchType == MatchType.Casual);
-			_services.GameModeService.SelectedGameMode.Value = rankedMode;
+			var gameMode = _services.GameModeService.Slots.ReadOnlyList.FirstOrDefault(x => x.Entry.MatchType == MatchType.Casual);
+			_services.GameModeService.SelectedGameMode.Value = gameMode;
 		}
 
 		private void SendMatchmakingReadyMessage()

@@ -148,11 +148,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 					                 : f.GetPlayerData(playerCharacter.Player).PlayerName;
 				
 				healthBar.HealthBarNameView.NameText.text = playerName;
-				healthBar.HealthBarShieldView.SetupView(entity, stats.CurrentShield);
 			}
 
 			healthBar.OverlayView.gameObject.SetActive(true);
 			healthBar.HealthBar.SetupView(entity, stats.CurrentHealth, maxHealth);
+			healthBar.HealthBarShieldView.SetupView(entity, stats.CurrentShield);
 			healthBar.OverlayView.Follow(anchor);
 		}
 

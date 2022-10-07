@@ -1,5 +1,4 @@
 using System;
-using FirstLight.FLogger;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
@@ -25,12 +24,12 @@ namespace FirstLight.Game.Presenters
 		}
 
 		[SerializeField] private UIDocument _document;
-		[SerializeField] private Camera _camera;
+
+		private VisualElement _root;
 
 		private TextField _emailField;
 		private TextField _passwordField;
-
-		private VisualElement _root;
+		private VisualElement _blockerElement;
 
 		private IGameServices _services;
 
@@ -38,21 +37,23 @@ namespace FirstLight.Game.Presenters
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 
-			_root = _document.rootVisualElement;
+			_root = _document.rootVisualElement.Q("root");
 
 			_emailField = _root.Q<TextField>("EmailTextField");
 			_passwordField = _root.Q<TextField>("PasswordTextField");
+			_blockerElement = _root.Q("Blocker");
 
 			_root.Q<Button>("LoginButton").clicked += OnLoginButtonClicked;
 			_root.Q<Button>("RegisterButton").clicked += OnRegisterButtonClicked;
 			_root.Q<Button>("ResetPasswordButton").clicked += OnResetPasswordButtonClicked;
 			_root.Q<Button>("PlayAsGuestButton").clicked += OnPlayAsGuestButtonClicked;
+
+			_root.EnableInClassList("hidden", false);
 		}
 
 		protected override void OnOpened()
 		{
 			base.OnOpened();
-			_camera.gameObject.SetActive(true);
 			if (_root == null) return; // First open
 
 			_root.EnableInClassList("hidden", false);
@@ -61,7 +62,7 @@ namespace FirstLight.Game.Presenters
 		protected override void OnClosed()
 		{
 			base.OnClosed();
-			_camera.gameObject.SetActive(false);
+
 			_root.EnableInClassList("hidden", true);
 		}
 
@@ -70,7 +71,7 @@ namespace FirstLight.Game.Presenters
 		/// </summary>
 		public void SetFrontDimBlockerActive(bool active)
 		{
-			// TODO: UIT Loader
+			_blockerElement.EnableInClassList("blocker-hidden", !active);
 		}
 
 		private void OnLoginButtonClicked()
@@ -92,7 +93,7 @@ namespace FirstLight.Game.Presenters
 			};
 
 			_services.GenericDialogService.OpenInputFieldDialog(ScriptLocalization.MainMenu.SendPasswordEmail,
-			                                                    "", confirmButton, true);
+				"", confirmButton, true);
 		}
 
 		private void OnPlayAsGuestButtonClicked()

@@ -236,3 +236,12 @@
     transition-timing-function: var(--out-animation-easing);
     transition-property: margin-top;
 }
+
+Button {
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+}
+
+Button:hover {
+    text-shadow: 0 0 0 rgb(159, 159, 159);
+}

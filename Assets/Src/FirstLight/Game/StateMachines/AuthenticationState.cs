@@ -38,7 +38,8 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _loginRegisterTransitionEvent = new StatechartEvent("Login Register Transition Clicked Event");
 		private readonly IStatechartEvent _loginCompletedEvent = new StatechartEvent("Login Completed Event");
 		private readonly IStatechartEvent _authenticationFailEvent = new StatechartEvent("Authentication Fail Event");
-
+		private readonly IStatechartEvent _authenticationRegisterFailEvent = new StatechartEvent("Authentication Register Fail Event");
+		
 		private readonly IGameDataProvider _dataProvider;
 		private readonly IGameServices _services;
 		private readonly IGameUiServiceInit _uiService;
@@ -105,6 +106,7 @@ namespace FirstLight.Game.StateMachines
 			authLogin.OnEnter(() => DimLoginRegisterScreens(true));
 			authLogin.Event(_loginCompletedEvent).OnTransition(CloseLoginRegisterScreens).Target(getServerState);
 			authLogin.Event(_authenticationFailEvent).Target(login);
+			authLogin.Event(_authenticationRegisterFailEvent).Target(register);
 			authLogin.OnExit(() => DimLoginRegisterScreens(false));
 			
 			getServerState.OnEnter(OpenLoadingScreen);
@@ -208,6 +210,13 @@ namespace FirstLight.Game.StateMachines
 			FLog.Error("Authentication Failed");
 			OnPlayFabError(error);
 			_statechartTrigger(_authenticationFailEvent);
+		}
+		
+		private void OnAuthenticationRegisterFail(PlayFabError error)
+		{
+			FLog.Error("Authentication Register Failed");
+			OnPlayFabError(error);
+			_statechartTrigger(_authenticationRegisterFailEvent);
 		}
 		
 		private void OnAutomaticAuthenticationFail(PlayFabError error)
@@ -491,7 +500,7 @@ namespace FirstLight.Game.StateMachines
 				Password = password
 			};
 
-			PlayFabClientAPI.RegisterPlayFabUser(register, _ => LoginClicked(email, password), OnAuthenticationFail);
+			PlayFabClientAPI.RegisterPlayFabUser(register, _ => LoginClicked(email, password), OnAuthenticationRegisterFail);
 		}
 		
 		private void OpenLoadingScreen()

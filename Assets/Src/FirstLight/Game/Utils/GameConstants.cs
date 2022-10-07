@@ -142,6 +142,9 @@ namespace FirstLight.Game.Utils
 			public const float RADIAL_LOCAL_POS_OFFSET = 0.1f;
 			public const float NEAR_DEATH_HEALTH_RATIO_THRESHOLD = 0.4f;
 
+			public const int LOW_FPS_MODE_TARGET = 30;
+			public const int HIGH_FPS_MODE_TARGET = 60;
+			
 			// Description post fix string tag
 			public const string DESCRIPTION_POSTFIX = "Description";
 

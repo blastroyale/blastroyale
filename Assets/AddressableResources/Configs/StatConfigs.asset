@@ -80,7 +80,7 @@ MonoBehaviour:
         RawValue: 983040
     - StatType: 6
       BaseValue:
-        RawValue: 13107
+        RawValue: 655360
       RarityMultiplier:
         RawValue: 68813
       LevelStepMultiplier:

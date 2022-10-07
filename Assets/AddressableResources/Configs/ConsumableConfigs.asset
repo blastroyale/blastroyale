@@ -50,7 +50,7 @@ MonoBehaviour:
         - Deathmatch
         Values:
         - RawValue: 26214400
-        - RawValue: 6553600
+        - RawValue: 2621440
       ConsumableCollectTime:
         Default:
           RawValue: 98304

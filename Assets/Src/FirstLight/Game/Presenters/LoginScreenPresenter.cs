@@ -33,10 +33,13 @@ namespace FirstLight.Game.Presenters
 
 		private IGameServices _services;
 
-		private void Start()
+		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
+		}
 
+		private void Start()
+		{
 			_root = _document.rootVisualElement.Q("root");
 
 			_emailField = _root.Q<TextField>("EmailTextField");

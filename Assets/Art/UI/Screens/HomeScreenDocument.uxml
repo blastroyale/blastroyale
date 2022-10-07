@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:Template name="CurrencyDisplay" src="project://database/Assets/Art/UI/Templates/CurrencyDisplay.uxml?fileID=9197481963319205126&amp;guid=328eeb5ffa7ba412e8d99f68c0f592c7&amp;type=3#CurrencyDisplay" />
     <Style src="project://database/Assets/Art/UI/Screens/HomeScreenStyle.uss?fileID=7433441132597879392&amp;guid=54dbd0d57987f4f398aea3e4722669ea&amp;type=3#HomeScreenStyle" />
-    <ui:VisualElement name="root" class="hidden" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0;">
+    <ui:VisualElement name="root" picking-mode="Ignore" class="hidden" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0;">
         <ui:VisualElement name="PlayerHolder" class="hidden-profile" style="position: absolute; left: 0; top: 0; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/HomeScreen/HeadlineCornerBack.png?fileID=21300000&amp;guid=a00a82499a7b54937bb2cf2b23aeb238&amp;type=3#HeadlineCornerBack&apos;); width: 790px; height: 220px;">
             <ui:VisualElement style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/HomeScreen/ProfileHeadlineBack.png?fileID=21300000&amp;guid=8f2de411e440e476a955e263066bcdfa&amp;type=3#ProfileHeadlineBack&apos;); width: 484px; height: 128px; margin-left: 315px;">
                 <ui:VisualElement style="position: absolute; width: 340px; height: 72px; rotate: -13deg; left: 31px; top: -14px; flex-direction: column-reverse;">
@@ -43,18 +43,15 @@
                 <ui:Button text="HEROES" display-tooltip-when-elided="true" name="HeroesButton" class="button-regular font-italic font-style-h2 hidden-left">
                     <ui:VisualElement class="button-icon" />
                 </ui:Button>
-                <ui:Button text="MARKETPLACE" display-tooltip-when-elided="true" name="MarketplaceButton" class="button-regular font-italic font-style-h2 hidden-left" style="letter-spacing: -1px;">
-                    <ui:VisualElement class="button-icon" />
-                </ui:Button>
                 <ui:Button text="LEADERBOARDS" display-tooltip-when-elided="true" name="LeaderboardsButton" class="button-regular font-italic font-style-h2 hidden-left" style="letter-spacing: -4px;">
                     <ui:VisualElement class="button-icon" />
                 </ui:Button>
                 <ui:VisualElement name="BattlePassHolder" class="hidden-left" style="flex-direction: row; align-items: flex-end;">
                     <ui:Button display-tooltip-when-elided="true" name="BattlePassButton" class="blastpassbutton" style="overflow: visible;">
-                        <ui:VisualElement style="justify-content: flex-start; align-items: stretch; flex-grow: 1; flex-direction: column;">
+                        <ui:VisualElement style="justify-content: flex-start; align-items: stretch; position: relative;">
                             <ui:Label text="BLAST PASS" name="Title" class="font-style-h1 font-italic" />
-                            <ui:Label text="LVL 1" display-tooltip-when-elided="true" name="BattlePassLevelLabel" class="font-bold" style="-unity-text-align: middle-right; font-size: 46px; margin-top: 0; margin-right: 37px; color: rgb(138, 22, 0); -unity-font-style: bold; margin-bottom: 10px;" />
-                            <ui:VisualElement style="height: 20px; padding-left: 2px; padding-right: 3px; padding-top: 2px; padding-bottom: 2px; right: 0; flex-direction: row; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/HomeScreen/BattlePassProgressBack.png?fileID=21300000&amp;guid=32610552af28844669cdba62234811ad&amp;type=3#BattlePassProgressBack&apos;); -unity-slice-left: 8; -unity-slice-right: 8; -unity-background-scale-mode: stretch-to-fill; margin-top: -15px; margin-left: 57px; margin-right: 19px;">
+                            <ui:Label text="LVL 1" display-tooltip-when-elided="true" name="BattlePassLevelLabel" class="font-bold" style="-unity-text-align: middle-right; font-size: 42px; margin-top: -18px; margin-right: 35px; color: rgb(138, 22, 0); -unity-font-style: bold; margin-bottom: 10px;" />
+                            <ui:VisualElement style="height: 20px; padding-left: 2px; padding-right: 3px; padding-top: 2px; padding-bottom: 2px; right: 0; flex-direction: row; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/HomeScreen/BattlePassProgressBack.png?fileID=21300000&amp;guid=32610552af28844669cdba62234811ad&amp;type=3#BattlePassProgressBack&apos;); -unity-slice-left: 8; -unity-slice-right: 8; -unity-background-scale-mode: stretch-to-fill; margin-top: -17px; margin-left: 57px; margin-right: 19px;">
                                 <ui:VisualElement name="BattlePassProgressElement" style="flex-grow: 1; flex-shrink: 0; flex-direction: row; flex-basis: 1px;" />
                             </ui:VisualElement>
                         </ui:VisualElement>

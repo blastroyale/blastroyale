@@ -10,7 +10,7 @@
                 <ui:VisualElement name="Container" style="flex-grow: 1; align-items: center; justify-content: space-between; padding-top: 48px; padding-bottom: 40px;">
                     <ui:TextField label="EMAIL" name="EmailTextField" class="font-italic input-field" />
                     <ui:TextField label="PASSWORD" name="PasswordTextField" password="true" class="font-italic input-field" style="margin-top: 28px; margin-bottom: 44px;" />
-                    <ui:Button text="LOGIN" name="LoginButton" class="font-italic button-flat-primary" />
+                    <ui:Button text="LOGIN" name="LoginButton" class="font-italic button-flat-primary" style="-unity-background-image-tint-color: rgba(255, 116, 0, 255);" />
                     <ui:Label text="OR" display-tooltip-when-elided="true" class="font-italic" style="color: rgb(122, 118, 167); font-size: 30px; margin-bottom: 8px;" />
                     <ui:Button text="REGISTER&#10;FIRST LIGHT ID" name="RegisterButton" class="button-flat-secondary" />
                     <ui:VisualElement style="flex-direction: row; justify-content: space-between;">

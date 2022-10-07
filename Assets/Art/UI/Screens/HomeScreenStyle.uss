@@ -106,7 +106,7 @@
 #BattlePassButton:active {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BattlepassButtonPressed.png?fileID=21300000&guid=3954eea7714304c3aacf010642a02d78&type=3#BattlepassButtonPressed');
     padding-top: 30px;
-    padding-right: 12px;
+    padding-right: 21px;
     padding-left: 0;
 }
 

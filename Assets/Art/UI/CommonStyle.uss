@@ -159,12 +159,14 @@ TextField > #unity-text-input {
     font-size: 47px;
     background-color: rgb(245, 203, 47);
     -unity-text-outline-color: rgb(100, 19, 0);
+    -unity-background-image-tint-color: rgb(255, 116, 0);
 }
 
 .button-flat-secondary {
     font-size: 42px;
     background-color: rgb(158, 99, 241);
     -unity-text-outline-color: rgb(0, 0, 0);
+    -unity-background-image-tint-color: rgb(90, 0, 217);
 }
 
 .button-flat-primary:hover {
@@ -176,9 +178,11 @@ TextField > #unity-text-input {
 }
 
 .button-flat-primary:active {
-    background-color: rgb(161, 135, 35);
+    background-color: rgb(171, 142, 33);
+    color: rgb(166, 166, 166);
 }
 
 .button-flat-secondary:active {
-    background-color: rgb(115, 73, 175);
+    background-color: rgb(76, 51, 152);
+    color: rgb(166, 166, 166);
 }

@@ -34,7 +34,7 @@ MonoBehaviour:
     PoolCapacityTrophiesModifier:
       RawValue: 655360000
   - Id: 26
-    PoolCapacity: 120
+    PoolCapacity: 60
     RestockIntervalMinutes: 180
     TotalRestockIntervalMinutes: 720
     UseNftData: 0

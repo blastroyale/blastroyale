@@ -174,15 +174,16 @@ namespace Quantum.Systems
 		{
 			var timeMod = f.Get<Stats>(playerEntity).GetStatData(StatType.PickupSpeed).StatValue;
 
-			// If it's a consumable then we use CollectTime from consumable config
+			// We default to global collect time
+			var endTime = (FP._1 - (timeMod / 100)) * f.GameConfig.CollectableCollectTime.Get(f);
+
+			// Unless it's a consumable in which case we use it's collect time
 			if (f.TryGet<Consumable>(consumableEntity, out var consumable))
 			{
-				return f.Time + FPMath.Max((consumable.CollectTime - timeMod), Constants.PICKUP_SPEED_MINIMUM);
+				endTime = ((FP._1 - timeMod / 100)) * consumable.CollectTime;
 			}
 
-			// Otherwise we use global collect time
-			return f.Time + FPMath.Max(f.GameConfig.CollectableCollectTime.Get(f) - timeMod,
-			                           Constants.PICKUP_SPEED_MINIMUM);
+			return f.Time + endTime;
 		}
 	}
 }

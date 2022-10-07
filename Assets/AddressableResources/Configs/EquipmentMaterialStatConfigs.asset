@@ -319,7 +319,7 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
-        RawValue: 9327
+        RawValue: 5886
       AmmoCapacityRatioToBaseK:
         RawValue: 0
       ShieldCapacityRatioToBaseK:
@@ -337,7 +337,7 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
-        RawValue: 12294
+        RawValue: 7759
       AmmoCapacityRatioToBaseK:
         RawValue: 0
       ShieldCapacityRatioToBaseK:
@@ -355,7 +355,7 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
-        RawValue: 13354
+        RawValue: 8428
       AmmoCapacityRatioToBaseK:
         RawValue: 0
       ShieldCapacityRatioToBaseK:
@@ -373,7 +373,7 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 4669
       PickupSpeedRatioToBaseK:
-        RawValue: 14131
+        RawValue: 8919
       AmmoCapacityRatioToBaseK:
         RawValue: 0
       ShieldCapacityRatioToBaseK:

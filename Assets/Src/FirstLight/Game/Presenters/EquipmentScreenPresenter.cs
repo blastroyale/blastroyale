@@ -272,6 +272,7 @@ namespace FirstLight.Game.Presenters
 					{
 						EquipmentStatType.ReloadSpeed => "N2",
 						EquipmentStatType.PowerToDamageRatio => "P0",
+						EquipmentStatType.Armor => "P0",
 						EquipmentStatType.AttackCooldown => "N2",
 						EquipmentStatType.TargetRange => "N2",
 						EquipmentStatType.PickupSpeed => "N2",

@@ -3,7 +3,6 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using I2.Loc;
-using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UIElements;
 
@@ -13,7 +12,7 @@ namespace FirstLight.Game.Presenters
 	/// This presenter handles showing the login screen
 	/// </summary>
 	[LoadSynchronously]
-	public class LoginScreenPresenter : UiCloseActivePresenterData<LoginScreenPresenter.StateData>
+	public class LoginScreenPresenter : UiToolkitPresenterData<LoginScreenPresenter.StateData>
 	{
 		public struct StateData
 		{
@@ -22,10 +21,6 @@ namespace FirstLight.Game.Presenters
 			public Action PlayAsGuestClicked;
 			public UnityAction<string> ForgotPasswordClicked;
 		}
-
-		[SerializeField] private UIDocument _document;
-
-		private VisualElement _root;
 
 		private TextField _emailField;
 		private TextField _passwordField;
@@ -38,35 +33,16 @@ namespace FirstLight.Game.Presenters
 			_services = MainInstaller.Resolve<IGameServices>();
 		}
 
-		private void Start()
+		protected override void QueryElements(VisualElement root)
 		{
-			_root = _document.rootVisualElement.Q("root");
+			_emailField = root.Q<TextField>("EmailTextField");
+			_passwordField = root.Q<TextField>("PasswordTextField");
+			_blockerElement = root.Q("Blocker");
 
-			_emailField = _root.Q<TextField>("EmailTextField");
-			_passwordField = _root.Q<TextField>("PasswordTextField");
-			_blockerElement = _root.Q("Blocker");
-
-			_root.Q<Button>("LoginButton").clicked += OnLoginButtonClicked;
-			_root.Q<Button>("RegisterButton").clicked += OnRegisterButtonClicked;
-			_root.Q<Button>("ResetPasswordButton").clicked += OnResetPasswordButtonClicked;
-			_root.Q<Button>("PlayAsGuestButton").clicked += OnPlayAsGuestButtonClicked;
-
-			_root.EnableInClassList("hidden", false);
-		}
-
-		protected override void OnOpened()
-		{
-			base.OnOpened();
-			if (_root == null) return; // First open
-
-			_root.EnableInClassList("hidden", false);
-		}
-
-		protected override void OnClosed()
-		{
-			base.OnClosed();
-
-			_root.EnableInClassList("hidden", true);
+			root.Q<Button>("LoginButton").clicked += OnLoginButtonClicked;
+			root.Q<Button>("RegisterButton").clicked += OnRegisterButtonClicked;
+			root.Q<Button>("ResetPasswordButton").clicked += OnResetPasswordButtonClicked;
+			root.Q<Button>("PlayAsGuestButton").clicked += OnPlayAsGuestButtonClicked;
 		}
 
 		/// <summary>

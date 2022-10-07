@@ -197,7 +197,7 @@ namespace FirstLight.Game.StateMachines
 
 			if (error.ErrorDetails != null)
 			{
-				FLog.Error(JsonConvert.SerializeObject(error.ErrorDetails));
+				FLog.Error("Authentication Fail - " + JsonConvert.SerializeObject(error.ErrorDetails));
 			}
 			
 			_services.GenericDialogService.OpenDialog(error.ErrorMessage, false, confirmButton);
@@ -207,14 +207,12 @@ namespace FirstLight.Game.StateMachines
 		
 		private void OnAuthenticationFail(PlayFabError error)
 		{
-			FLog.Error("Authentication Failed");
 			OnPlayFabError(error);
 			_statechartTrigger(_authenticationFailEvent);
 		}
 		
 		private void OnAuthenticationRegisterFail(PlayFabError error)
 		{
-			FLog.Error("Authentication Register Failed");
 			OnPlayFabError(error);
 			_statechartTrigger(_authenticationRegisterFailEvent);
 		}

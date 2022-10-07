@@ -110,8 +110,8 @@ MonoBehaviour:
     - Id: 19
       ChestType: 4
       RarityModifierRange:
-        Value1: 4
-        Value2: 6
+        Value1: 2
+        Value2: 4
       RandomEquipment:
       - Value1:
           RawValue: 65536

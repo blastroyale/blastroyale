@@ -182,11 +182,11 @@ namespace Quantum
 			var maxHealth = GetStatData(StatType.Health).StatValue.AsInt;
 			var maxShield = GetStatData(StatType.Shield).StatValue.AsInt;
 			var armour = GetStatData(StatType.Armour).StatValue.AsInt;
-			var rawDamage = (int)spell.PowerAmount;
-			var damageAmount = (1-(armour / 100)) * rawDamage;
+			var totalDamage = ((FP._1 - (armour / FP._100)) * (int)spell.PowerAmount).AsInt;
+			var damageAmount = totalDamage;
 			var shieldDamageAmount = 0;
 
-			if (IsImmune || rawDamage <= 0)
+			if (IsImmune || totalDamage <= 0)
 			{
 				f.Events.OnDamageBlocked(entity);
 				return;
@@ -202,7 +202,7 @@ namespace Quantum
 				SetCurrentShield(f, entity, previousShield - shieldDamageAmount, GetStatData(StatType.Shield).StatValue.AsInt);
 			}
 
-			f.Events.OnPlayerDamaged(spell, rawDamage, shieldDamageAmount, Math.Min(previousHealth, damageAmount), 
+			f.Events.OnPlayerDamaged(spell, totalDamage, shieldDamageAmount, Math.Min(previousHealth, damageAmount), 
 			                         previousHealth, maxHealth, previousShield, maxShield);
 
 			if (damageAmount <= 0)

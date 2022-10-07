@@ -187,8 +187,7 @@ namespace Quantum
 				&& playerCharacter->WeaponSlots[2].Weapon.GameId == GameId.Random;
 			var playerRef = playerCharacter->Player;
 			var statsShields = f.Get<Stats>(playerEntity).GetStatData(StatType.Shield);
-			var drop = GameId.Random;
-			var loadOutFull = GetNextLoadoutGearItem(f, playerCharacter, playerCharacter->GetLoadout(f)).GameId == GameId.Random;
+			var drop = GetNextLoadoutGearItem(f, playerCharacter, playerCharacter->GetLoadout(f)).GameId;
 
 			foreach (var (chance, count) in config.RandomEquipment)
 			{
@@ -205,16 +204,9 @@ namespace Quantum
 						skipDropNumber--;
 						continue;
 					}
-					
-					// If a player hasn't reached full shields capacity then for the drop
-					// chances are: 50% equipment, 25% big shields capacity, 25% small shields capacity
-					if (statsShields.StatValue < statsShields.BaseValue && loadOutFull)
-					{
-						drop = QuantumHelpers.GetRandomItem(f, GameId.ShieldCapacityLarge, GameId.ShieldCapacitySmall);
-					}
-					
+
 					// Equipment drop logic
-					if (drop == GameId.Random)
+					if (drop != GameId.Random)
 					{
 						//TODO: Currently a player has only 1 chance to get Weapon - from their first crate; this needs to be fixed, otherwise a player will have to pickup all gear before getting another weapon
 						//TODO: Currently this logic can drop two same equipment items, which shouldn't be the case
@@ -240,7 +232,14 @@ namespace Quantum
 							
 							continue;
 						}
-						
+
+						// If a player hasn't reached full shields capacity then for the drop
+						// chances are: 50% equipment, 25% big shields capacity, 25% small shields capacity
+						if (statsShields.StatValue < statsShields.BaseValue && drop == GameId.Random)
+						{
+							drop = QuantumHelpers.GetRandomItem(f, GameId.Random, GameId.Random, GameId.ShieldCapacityLarge, GameId.ShieldCapacitySmall);
+						}
+
 						// Second - drop a weapon if a player has no weapons equipped
 						if (noWeaponsEquipped)
 						{

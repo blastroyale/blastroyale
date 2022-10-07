@@ -205,7 +205,37 @@ namespace Quantum
 						continue;
 					}
 
-					// Equipment drop logic
+					// First drop a weapon if the player needs one
+					if (noWeaponsEquipped)
+					{
+						var weapon = gameContainer->GenerateNextWeapon(f);
+
+						// TODO: This should happen when we pick up a weapon, not when we drop it 
+						// When a player picks up a weapon we inherit all NFT
+						// attributes (except for the rarity and GameId) from the Record
+						if (hasLoadoutWeapon)
+						{
+							var originalGameId = weapon.GameId;
+							weapon = loadoutWeapon;
+							weapon.GameId = originalGameId;
+						}
+
+						ModifyEquipmentRarity(f, ref weapon, minimumRarity, gameContainer->DropPool.AverageRarity);
+						Collectable.DropEquipment(f, weapon, chestPosition, angleStep++);
+						chestItems.Add(new ChestItemDropped
+						{
+							ChestType = config.Id,
+							ChestPosition = chestPosition,
+							Player = playerCharacter->Player,
+							PlayerEntity = playerEntity,
+							ItemType = weapon.GameId,
+							Amount = 1,
+							AngleStepAroundChest = angleStep
+						});
+						continue;
+					}
+
+					// Second we drop equipment if it is available
 					if (drop != GameId.Random)
 					{
 						//TODO: Currently a player has only 1 chance to get Weapon - from their first crate; this needs to be fixed, otherwise a player will have to pickup all gear before getting another weapon
@@ -216,7 +246,7 @@ namespace Quantum
 						if (nextGearItem.IsValid())
 						{
 							playerCharacter->SetDroppedLoadoutItem(nextGearItem);
-							ModifyEquipmentRarity(f, ref nextGearItem, minimumRarity, gameContainer->DropPool.AverageRarity);
+							ModifyEquipmentRarity(f, ref nextGearItem, nextGearItem.Rarity, gameContainer->DropPool.AverageRarity);
 							Collectable.DropEquipment(f, nextGearItem, chestPosition, angleStep++, playerRef);
 							
 							chestItems.Add(new ChestItemDropped
@@ -229,49 +259,22 @@ namespace Quantum
 								Amount = 1,
 								AngleStepAroundChest = angleStep
 							});
-							
 							continue;
 						}
+						// In the edge case when a player has everything equipped and everything is of highest rarity we drop nothing
+						continue;
+					}
 
-						// If a player hasn't reached full shields capacity then for the drop
-						// chances are: 50% equipment, 25% big shields capacity, 25% small shields capacity
-						if (statsShields.StatValue < statsShields.BaseValue && drop == GameId.Random)
-						{
-							drop = QuantumHelpers.GetRandomItem(f, GameId.Random, GameId.Random, GameId.ShieldCapacityLarge, GameId.ShieldCapacitySmall);
-						}
+					//  If we have all equipment, and capacity left to drop, chose randomly between either a capacity upgrade or an equipment upgrade
+					// chances are: 50% equipment, 25% big shields capacity, 25% small shields capacity
+					if (statsShields.StatValue < statsShields.BaseValue && drop == GameId.Random)
+					{
+						drop = QuantumHelpers.GetRandomItem(f, GameId.Random, GameId.Random, GameId.ShieldCapacityLarge, GameId.ShieldCapacitySmall);
+					}
 
-						// Second - drop a weapon if a player has no weapons equipped
-						if (noWeaponsEquipped)
-						{
-							var weapon = gameContainer->GenerateNextWeapon(f);
-							
-							// TODO: This should happen when we pick up a weapon, not when we drop it 
-							// When a player picks up a weapon we inherit all NFT
-							// attributes (except for the rarity and GameId) from the Record
-							if (hasLoadoutWeapon)
-							{
-								var originalGameId = weapon.GameId;
-								weapon = loadoutWeapon;
-								weapon.GameId = originalGameId;
-							}
-							
-							ModifyEquipmentRarity(f, ref weapon, minimumRarity, gameContainer->DropPool.AverageRarity);
-							Collectable.DropEquipment(f, weapon, chestPosition, angleStep++);
-							chestItems.Add(new ChestItemDropped
-							{
-								ChestType = config.Id,
-								ChestPosition = chestPosition,
-								Player = playerCharacter->Player,
-								PlayerEntity = playerEntity,
-								ItemType = weapon.GameId,
-								Amount = 1,
-								AngleStepAroundChest = angleStep
-							});
-							
-							continue;
-						}
-						
-						// Third - if you have all your gear, and both weapons equipped, then we drop better versions of your equipped items
+					// Drop equipment upgrades if you rolled it
+					if(drop == GameId.Random)
+					{
 						var allEquipment = new List<Equipment>
 						{
 							playerCharacter->WeaponSlots[1].Weapon,
@@ -282,7 +285,7 @@ namespace Quantum
 							playerCharacter->Gear[3],
 							playerCharacter->Gear[4],
 						};
-						
+
 						// We loop through each piece of equipment in a random order
 						var randomList = allEquipment.OrderBy(r => f.RNG->Next()).ToList();
 						foreach (var equipment in randomList)
@@ -291,16 +294,16 @@ namespace Quantum
 							{
 								continue;
 							}
-							
+
 							// Modify the equipment rarity by the rarity of the chest being opened, and by 1 at minimum
 							var higherRarityEquipment = equipment;
 							var newMinimumRarity = (EquipmentRarity)((int)equipment.Rarity + 1);
-							
+
 							// We use "newMinimumRarity" as "median rarity" in this particular case to ensure
 							// that higher quality chests affect rarity improvement stronger
 							ModifyEquipmentRarity(f, ref higherRarityEquipment, newMinimumRarity, newMinimumRarity);
 							Collectable.DropEquipment(f, higherRarityEquipment, chestPosition, angleStep++, playerRef);
-							
+
 							chestItems.Add(new ChestItemDropped
 							{
 								ChestType = config.Id,
@@ -311,12 +314,9 @@ namespace Quantum
 								Amount = 1,
 								AngleStepAroundChest = angleStep
 							});
-							
+
 							break;
 						}
-						
-						// In the edge case when a player has everything equipped and everything is of highest rarity we drop nothing
-						
 						continue;
 					}
 					

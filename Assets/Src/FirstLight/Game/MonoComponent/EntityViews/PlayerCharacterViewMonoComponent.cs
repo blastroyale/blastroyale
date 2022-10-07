@@ -308,6 +308,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 			else
 			{
+				AnimatorWrapper.SetBool(Bools.Aim, false);
 				AnimatorWrapper.SetTrigger(Triggers.Victory);
 			}
 		}

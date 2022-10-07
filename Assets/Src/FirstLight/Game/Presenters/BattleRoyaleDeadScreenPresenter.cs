@@ -42,7 +42,7 @@ namespace FirstLight.Game.Presenters
 		{
 			base.OnOpened();
 			
-			if (Data.Killer != PlayerRef.None)
+			if (!QuantumRunner.Default.Game.PlayerIsLocal(Data.Killer) && Data.Killer != PlayerRef.None)
 			{
 				var f = QuantumRunner.Default.Game.Frames.Verified;
 				var playersData = f.GetSingleton<GameContainer>().PlayersData;

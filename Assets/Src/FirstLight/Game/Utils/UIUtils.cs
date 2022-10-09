@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Utils
@@ -19,6 +20,14 @@ namespace FirstLight.Game.Utils
 			}
 
 			return visualElement;
+		}
+
+		/// <summary>
+		/// Gets the position (center of content rect) of the <paramref name="element"/>, in screen coordinates.
+		/// </summary>
+		public static Vector2 GetPositionOnScreen(this VisualElement element)
+		{
+			return element.LocalToWorld(element.contentRect.center);
 		}
 	}
 }

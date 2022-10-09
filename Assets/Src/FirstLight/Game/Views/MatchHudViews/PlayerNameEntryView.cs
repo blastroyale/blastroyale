@@ -80,13 +80,15 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			_playerNameText.color = col;
 			_playerStatus.color = col;
-
 			_kickPlayerClicked = kickPlayerClickedCallback;
 		}
 
 		private void KickButtonClicked()
 		{
-			_kickPlayerClicked?.Invoke(Player);
+			if (Player != null)
+			{
+				_kickPlayerClicked?.Invoke(Player);
+			}
 		}
 	}
 }

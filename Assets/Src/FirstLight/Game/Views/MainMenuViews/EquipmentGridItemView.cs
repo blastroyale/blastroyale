@@ -66,6 +66,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		{
 		}
 
+		// ReSharper disable Unity.PerformanceAnalysis
 		protected override void OnUpdateItem(EquipmentGridItemData data)
 		{
 			var equipmentDataProvider = _gameDataProvider.EquipmentDataProvider;
@@ -91,8 +92,11 @@ namespace FirstLight.Game.Views.MainMenuViews
 			}
 
 			_notificationUniqueIdView.SetUniqueId(data.Id, data.PlayViewNotificationAnimation);
-			_equipmentCardView.Initialise(data.Equipment);
 			_uniqueId = data.Id;
+			
+#pragma warning disable CS4014
+			_equipmentCardView.Initialise(data.Equipment);
+#pragma warning restore CS4014
 		}
 
 		private void OnLoadoutUpdated(GameIdGroup key, UniqueId previousId, UniqueId newId,

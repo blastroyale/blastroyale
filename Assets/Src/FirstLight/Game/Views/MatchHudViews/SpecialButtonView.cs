@@ -39,7 +39,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Required] private UnityInputScreenControl _specialAimDirectionAdapter;
 		[SerializeField] private Color _activeColor;
 		[SerializeField] private Color _cooldownColor;
-		[SerializeField] private float _rectScale = 1f;
 
 		private float _firstCancelRadius;
 		private float _specialRadius;

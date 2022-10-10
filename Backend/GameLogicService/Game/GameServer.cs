@@ -140,7 +140,7 @@ public class GameServer
 	public BackendErrorResult GetErrorResult(LogicRequest request, Exception exp)
 	{
 		_log.LogError(exp, $"Unhandled Server Error for {request?.Command}");
-		_metrics.EmitFailure($"{exp.Message} at {exp.StackTrace} on {request?.Command}");
+		_metrics.EmitException(exp, $"{exp.Message} at {exp.StackTrace} on {request?.Command}");
 		return new BackendErrorResult()
 		{
 			Error = exp,

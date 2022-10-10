@@ -12,6 +12,7 @@ using PlayFab;
 using PlayFab.CloudScriptModels;
 using PlayFab.Json;
 using FirstLight.Server.SDK;
+using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Server.SDK.Services;
 using StandaloneServer;
@@ -69,5 +70,4 @@ app.MapPost("/CloudScript/ExecuteFunction", async (ctx) =>
 		data = res
 	}));
 });
-
 app.Run();

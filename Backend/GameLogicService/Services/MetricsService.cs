@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.Extensibility;
@@ -15,7 +16,7 @@ namespace Backend.Game.Services
 		
 		}
 
-		public void EmitFailure(string failure)
+		public void EmitException(Exception e, string failure)
 		{
 			
 		}
@@ -38,11 +39,11 @@ namespace Backend.Game.Services
 			_client.TrackEvent(metricName);
 		}
 
-		public void EmitFailure(string failure)
+		public void EmitException(Exception e, string failure)
 		{
-			_client.TrackException(null, new Dictionary<string, string>()
+			_client.TrackException(e, new Dictionary<string, string>()
 			{
-				{ "Error", failure }
+				{ "Message", failure }
 			});
 		}
 	}

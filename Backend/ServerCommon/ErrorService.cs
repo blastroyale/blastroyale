@@ -1,10 +1,10 @@
-using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using PlayFab;
+using PlayFab.Internal;
 
-namespace Backend.Game.Services
+namespace ServerCommon
 {
 	/// <summary>
 	/// Interface to handle any errors that happens during logic execution.
@@ -14,9 +14,9 @@ namespace Backend.Game.Services
 	public interface IErrorService<T>
 	{
 		/// <summary>
-		/// Handles error, logs it. Convert any type of error to a Logic Exception.
+		/// Handles potential errors.
 		/// </summary>
-		public LogicException HandleError(T error);
+		public void CheckErrors<T>(PlayFabResult<T> result) where T : PlayFabResultCommon;
 	}
 
 	/// <inheritdoc />
@@ -28,11 +28,13 @@ namespace Backend.Game.Services
 		{
 			_log = log;
 		}
-	
-		/// <inheritdoc />
-		public LogicException HandleError(PlayFabError error)
+
+		public void CheckErrors<T>(PlayFabResult<T> result) where T : PlayFabResultCommon
 		{
-			return new LogicException($"Playfab Error {error.ErrorMessage}: {JsonConvert.SerializeObject(error.ErrorDetails)}");
+			if (result.Error != null)
+			{
+				throw new LogicException($"Playfab Error {result.Error.ErrorMessage}: {JsonConvert.SerializeObject(result.Error.ErrorDetails)}");
+			}
 		}
 	}
 }

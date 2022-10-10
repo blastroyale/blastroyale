@@ -5,6 +5,7 @@ using PlayFab;
 using PlayFab.ServerModels;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Services;
+using ServerCommon;
 
 namespace Backend.Game.Services
 {
@@ -40,10 +41,7 @@ namespace Backend.Game.Services
     		}
     		var server = _server.CreateServer(playerId);
     		var result = await server.UpdateUserReadOnlyDataAsync(request);
-    		if (result.Error != null)
-    		{
-    			throw _errorService.HandleError(result.Error);
-    		}
+    		_errorService.CheckErrors(result);
         }
     	
     	/// <inheritdoc />
@@ -54,10 +52,9 @@ namespace Backend.Game.Services
     		{
     			PlayFabId = playfabId
     		});
-    		if (result.Error != null)
-    		{
-    			throw _errorService.HandleError(result.Error);
-    		}
+
+	        _errorService.CheckErrors(result);
+    		
     
     		var fabResult = result.Result.Data.ToDictionary(
     		                                                entry => entry.Key,

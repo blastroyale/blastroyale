@@ -15,6 +15,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\GameLogicService\GameLogicService.csproj" />
+      <ProjectReference Include="..\ServerCommon\ServerCommon.csproj" />
     </ItemGroup>
 
     <ItemGroup>

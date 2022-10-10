@@ -10,26 +10,15 @@ namespace Quantum
 		public static EntityRef Create(Frame f, QuantumShrinkingCircleConfig config,
 		                               FPVector3 positionOverride = new FPVector3())
 		{
-			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.AirDropPrototype.Id));
 			var circle = f.GetSingleton<ShrinkingCircle>();
-
-			// Calculate drop position
-			var dropPosition = positionOverride;
 			
-			if (dropPosition == FPVector3.Zero)
+			var dropPosition = positionOverride;
+			if (dropPosition == FPVector3.Zero && !GetDropPosition(f, circle, out dropPosition))
 			{
-				var radialDir = f.RNG->Next(0, FP.Rad_180 * 2);
-				var radius = FPMath.Lerp(circle.TargetRadius, circle.CurrentRadius, f.GameConfig.AirdropPositionOffsetMultiplier);
-				var areaCenter = FPVector2.Lerp(circle.TargetCircleCenter, circle.CurrentCircleCenter, f.GameConfig.AirdropPositionOffsetMultiplier);
-				var x = radius * FPMath.Sin(radialDir) + areaCenter.X;
-				var y = radius * FPMath.Cos(radialDir) + areaCenter.Y;
-				FPVector3 pos = new FPVector3(x, 0, y);
-				if (!QuantumHelpers.GetClosestAirdropPoint(f, pos, new FPVector3(areaCenter.X, 0, areaCenter.Y), radius,
-				                                           out dropPosition))
-				{
-					return EntityRef.None;
-				}
+				return EntityRef.None;
 			}
+			
+			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.AirDropPrototype.Id));
 			
 			// Move entity to the drop position at a predetermined height
 			var transform = f.Unsafe.GetPointer<Transform3D>(entity);
@@ -48,6 +37,19 @@ namespace Quantum
 			f.Add(entity, airDrop);
 
 			return entity;
+		}
+
+		private static bool GetDropPosition(Frame f, ShrinkingCircle circle, out FPVector3 dropPosition)
+		{
+			var radialDir = f.RNG->Next(0, FP.Rad_180 * 2);
+			var radius = FPMath.Lerp(circle.TargetRadius, circle.CurrentRadius, f.GameConfig.AirdropPositionOffsetMultiplier);
+			var areaCenter = FPVector2.Lerp(circle.TargetCircleCenter, circle.CurrentCircleCenter,
+			                                f.GameConfig.AirdropPositionOffsetMultiplier);
+			var x = radius * FPMath.Sin(radialDir) + areaCenter.X;
+			var y = radius * FPMath.Cos(radialDir) + areaCenter.Y;
+			FPVector3 pos = new FPVector3(x, 0, y);
+			return QuantumHelpers.GetClosestAirdropPoint(f, pos, new FPVector3(areaCenter.X, 0, areaCenter.Y), radius,
+			                                           out dropPosition);
 		}
 	}
 }

@@ -16,7 +16,7 @@ namespace FirstLight.Game.Presenters
 	/// This Presenter handles the Home Screen.
 	/// </summary>
 	[LoadSynchronously]
-	public class HomeScreenPresenter : UiCloseActivePresenterData<HomeScreenPresenter.StateData>
+	public class HomeScreenPresenter : UiToolkitPresenterData<HomeScreenPresenter.StateData>
 	{
 		public struct StateData
 		{
@@ -31,12 +31,9 @@ namespace FirstLight.Game.Presenters
 			public Action OnBattlePassClicked;
 		}
 
-		[SerializeField] private UIDocument _document;
-
-		private VisualElement _root;
-
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _gameServices;
+		private IMainMenuServices _mainMenuServices;
 
 		private Label _playerNameLabel;
 		private Label _playerTrophiesLabel;
@@ -48,44 +45,48 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _battlePassProgressElement;
 		private VisualElement _battlePassCrownIcon;
 
-		private void Start()
+		private void Awake()
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_gameServices = MainInstaller.Resolve<IGameServices>();
+		}
 
-			_root = _document.rootVisualElement.Q("root");
+		protected override void QueryElements(VisualElement root)
+		{
+			_playerNameLabel = root.Q<Label>("PlayerNameLabel").Required();
+			_playerTrophiesLabel = root.Q<Label>("PlayerTrophiesLabel").Required();
+			_gameModeLabel = root.Q<Label>("GameModeLabel").Required();
+			_gameTypeLabel = root.Q<Label>("GameTypeLabel").Required();
 
-			_playerNameLabel = _root.Q<Label>("PlayerNameLabel").Required();
-			_playerTrophiesLabel = _root.Q<Label>("PlayerTrophiesLabel").Required();
-			_gameModeLabel = _root.Q<Label>("GameModeLabel").Required();
-			_gameTypeLabel = _root.Q<Label>("GameTypeLabel").Required();
+			_csAmountLabel = root.Q<VisualElement>("CSCurrency").Q<Label>("Label").Required();
+			_blstAmountLabel = root.Q<VisualElement>("BLSTCurrency").Q<Label>("Label").Required();
+			_battlePassLevelLabel = root.Q<Label>("BattlePassLevelLabel").Required();
+			_battlePassProgressElement = root.Q<VisualElement>("BattlePassProgressElement").Required();
+			_battlePassCrownIcon = root.Q<VisualElement>("BattlePassCrownIcon").Required();
 
-			// TODO: Probably a better way to query this, with .Query<>
-			_csAmountLabel = _root.Q<VisualElement>("CSCurrency").Q<Label>("Label").Required();
-			_blstAmountLabel = _root.Q<VisualElement>("BLSTCurrency").Q<Label>("Label").Required();
-			_battlePassLevelLabel = _root.Q<Label>("BattlePassLevelLabel").Required();
-			_battlePassProgressElement = _root.Q<VisualElement>("BattlePassProgressElement").Required();
-			_battlePassCrownIcon = _root.Q<VisualElement>("BattlePassCrownIcon").Required();
+			root.Q<Button>("PlayButton").clicked += OnPlayButtonClicked;
+			root.Q<Button>("GameModeButton").clicked += OnGameModeClicked;
+			root.Q<Button>("SettingsButton").clicked += OnSettingsButtonClicked;
+			root.Q<Button>("BattlePassButton").clicked += OnBattlePassButtonClicked;
+			root.Q<Button>("CustomGameButton").clicked += OnCustomGameClicked;
 
-			_root.Q<Button>("PlayButton").clicked += OnPlayButtonClicked;
-			_root.Q<Button>("GameModeButton").clicked += OnGameModeClicked;
-			_root.Q<Button>("SettingsButton").clicked += OnSettingsButtonClicked;
-			_root.Q<Button>("BattlePassButton").clicked += OnBattlePassButtonClicked;
-			_root.Q<Button>("CustomGameButton").clicked += OnCustomGameClicked;
-
-			_root.Q<Button>("EquipmentButton").clicked += OnEquipmentButtonClicked;
-			_root.Q<Button>("HeroesButton").clicked += OnHeroesButtonClicked;
-			_root.Q<Button>("LeaderboardsButton").clicked += OnLeaderboardsButtonClicked;
+			root.Q<Button>("EquipmentButton").clicked += OnEquipmentButtonClicked;
+			root.Q<Button>("HeroesButton").clicked += OnHeroesButtonClicked;
+			root.Q<Button>("LeaderboardsButton").clicked += OnLeaderboardsButtonClicked;
 
 			// TODO: Move to shared code
-			_root.Query<Button>().Build().ForEach(b =>
+			root.Query<Button>().Build().ForEach(b =>
 			{
-				b.RegisterCallback<PointerDownEvent>(e => { _gameServices.AudioFxService.PlayClip2D(AudioId.ButtonClickForward); },
-				                                     TrickleDown.TrickleDown);
+				b.RegisterCallback<PointerDownEvent>(
+					e => { _gameServices.AudioFxService.PlayClip2D(AudioId.ButtonClickForward); },
+					TrickleDown.TrickleDown);
 			});
 
 			_playerNameLabel.RegisterCallback<ClickEvent>(OnPlayerNameClicked);
+		}
 
+		protected override void SubscribeToEvents()
+		{
 			_gameDataProvider.AppDataProvider.DisplayName.InvokeObserve(OnDisplayNameChanged);
 			_gameDataProvider.PlayerDataProvider.Trophies.InvokeObserve(OnTrophiesChanged);
 			_gameDataProvider.CurrencyDataProvider.Currencies.InvokeObserve(GameId.CS, OnCSCurrencyChanged);
@@ -93,30 +94,14 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider.BattlePassDataProvider.CurrentLevel.InvokeObserve(OnBattlePassCurrentLevelChanged);
 			_gameDataProvider.BattlePassDataProvider.CurrentPoints.InvokeObserve(OnBattlePassCurrentPointsChanged);
 			_gameServices.GameModeService.SelectedGameMode.InvokeObserve(OnSelectedGameModeChanged);
-			
-			_root.EnableInClassList("hidden", false);
 		}
 
-		private void OnDestroy()
+		protected override void UnsubscribeFromEvents()
 		{
 			_gameDataProvider.AppDataProvider.DisplayName.StopObserving(OnDisplayNameChanged);
 			_gameDataProvider.PlayerDataProvider.Trophies.StopObserving(OnTrophiesChanged);
 			_gameServices.GameModeService.SelectedGameMode.StopObserving(OnSelectedGameModeChanged);
 			_gameDataProvider.CurrencyDataProvider.Currencies.StopObserving(GameId.CS);
-		}
-
-		protected override void OnOpened()
-		{
-			base.OnOpened();
-			if (_root == null) return; // First open
-
-			_root.EnableInClassList("hidden", false);
-		}
-
-		protected override void OnClosed()
-		{
-			base.OnClosed();
-			_root.EnableInClassList("hidden", true);
 		}
 
 		private void OnPlayButtonClicked()
@@ -183,6 +168,8 @@ namespace FirstLight.Game.Presenters
 		{
 			if (id != GameId.CS) return;
 
+			//_mainMenuServices.UiVfxService.PlayVfx(GameId.CS, Vector3.zero, );
+
 			_csAmountLabel.text = current.ToString();
 		}
 
@@ -203,7 +190,7 @@ namespace FirstLight.Game.Presenters
 			var predictedLevelAndPoints = _gameDataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
 			UpdateBattlePassPoints(predictedLevelAndPoints.Item1, predictedLevelAndPoints.Item2);
 		}
-		
+
 		private void UpdateBattlePassLevel(uint predictedLevel)
 		{
 			var maxLevel = _gameDataProvider.BattlePassDataProvider.MaxLevel;
@@ -221,15 +208,35 @@ namespace FirstLight.Game.Presenters
 		{
 			var battlePassConfig = _gameServices.ConfigsProvider.GetConfig<BattlePassConfig>();
 			var hasRewards = _gameDataProvider.BattlePassDataProvider.IsRedeemable();
-			_battlePassProgressElement.style.flexGrow = Mathf.Clamp01((float) predictedPoints / battlePassConfig.PointsPerLevel);
+			_battlePassProgressElement.style.flexGrow =
+				Mathf.Clamp01((float) predictedPoints / battlePassConfig.PointsPerLevel);
 			_battlePassCrownIcon.style.display = hasRewards ? DisplayStyle.Flex : DisplayStyle.None;
 
 			if (predictedLevel == _gameDataProvider.BattlePassDataProvider.MaxLevel)
 			{
 				_battlePassProgressElement.style.flexGrow = 1f;
 			}
-			
+
 			UpdateBattlePassLevel(predictedLevel);
 		}
+
+		// private void OnPlayUiVfxMessage(PlayUiVfxMessage message)
+		// {
+		// 	var closure = message;
+		//
+		// 	if (message.Id == _targetID)
+		// 	{
+		// 		_mainMenuServices.UiVfxService.PlayVfx(message.Id, message.OriginWorldPosition,
+		// 			_animationTarget.position, () => RackupTween(UpdateAmountText));
+		// 	}
+		//
+		// 	void RackupTween(TweenCallback<float> textUpdated)
+		// 	{
+		// 		var targetValue = GetAmount();
+		// 		var initialValue = targetValue - (int) closure.Quantity;
+		//
+		// 		DOVirtual.Float(initialValue, targetValue, _rackupTextAnimDurationSeconds, textUpdated);
+		// 	}
+		// }
 	}
 }

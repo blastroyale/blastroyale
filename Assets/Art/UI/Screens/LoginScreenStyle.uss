@@ -35,6 +35,7 @@ Button {
     transition-duration: 0.5s;
     transition-property: top;
     top: 0;
+    transition-delay: 0.5s;
 }
 
 .hidden #PopupBackground {
@@ -42,11 +43,12 @@ Button {
     transition-timing-function: ease-in;
     transition-duration: 0.5s;
     transition-property: top;
+    transition-delay: 0.5s;
 }
 
 .hidden {
     display: none;
-    transition-delay: 0.5s;
+    transition-delay: 1s;
 }
 
 .background {
@@ -57,7 +59,7 @@ Button {
     position: absolute;
     justify-content: center;
     align-items: center;
-    background-image: url('project://database/Assets/Art/Textures/Ui/LoadingBkNoLogo.png?fileID=2800000&guid=20756f8f6e6857841a5b8bd4d761942a&type=3#LoadingBkNoLogo');
+    background-image: url('project://database/Assets/Art/Textures/Ui/Splashscreens%20&%20Logos/LoadingBkNoLogo.png?fileID=2800000&guid=20756f8f6e6857841a5b8bd4d761942a&type=3#LoadingBkNoLogo');
     -unity-background-scale-mode: scale-and-crop;
 }
 

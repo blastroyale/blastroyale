@@ -3465,10 +3465,10 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 15
+      RespawnTimeInSec: 25
       InitialSpawnDelayInSec: 0
       GameId:
-        Value: 18
+        Value: 20
       RarityModifier: 0
     Consumable: []
     DeadPlayerCharacter: []
@@ -3543,10 +3543,10 @@ MonoBehaviour:
       NextSpawnTime:
         RawValue: 0
       SpawnCount: 0
-      RespawnTimeInSec: 15
+      RespawnTimeInSec: 25
       InitialSpawnDelayInSec: 0
       GameId:
-        Value: 18
+        Value: 20
       RarityModifier: 0
     Consumable: []
     DeadPlayerCharacter: []

@@ -3440,7 +3440,7 @@ MonoBehaviour:
       RespawnTimeInSec: 25
       InitialSpawnDelayInSec: 0
       GameId:
-        Value: 21
+        Value: 20
       RarityModifier: 0
     Consumable: []
     DeadPlayerCharacter: []
@@ -3596,7 +3596,7 @@ MonoBehaviour:
       RespawnTimeInSec: 25
       InitialSpawnDelayInSec: 0
       GameId:
-        Value: 21
+        Value: 20
       RarityModifier: 0
     Consumable: []
     DeadPlayerCharacter: []

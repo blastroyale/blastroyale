@@ -125,12 +125,8 @@ MonoBehaviour:
       Amount:
         Default:
           RawValue: 26214400
-        Keys:
-        - BattleRoyale
-        - Deathmatch
-        Values:
-        - RawValue: 26214400
-        - RawValue: 13107200
+        Keys: []
+        Values: []
       ConsumableCollectTime:
         Default:
           RawValue: 117965

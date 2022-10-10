@@ -358,7 +358,45 @@ public partial class SROptions
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
-	
+
+	[Category("Equipment")]
+	public void GiveMaxPickupSpeedBuildEquipment()
+	{
+		var services = MainInstaller.Resolve<IGameServices>();
+		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
+
+		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.RoadHelmet,
+															   material: EquipmentMaterial.Golden,
+															   faction: EquipmentFaction.Dimensional,
+															   adjective: EquipmentAdjective.Divine,
+															   rarity: EquipmentRarity.LegendaryPlus,
+															   level: 35,
+															   grade: EquipmentGrade.GradeI));
+		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.MouseArmor,
+															   material: EquipmentMaterial.Golden,
+															   faction: EquipmentFaction.Chaos,
+															   adjective: EquipmentAdjective.Divine,
+															   rarity: EquipmentRarity.LegendaryPlus,
+															   level: 35,
+															   grade: EquipmentGrade.GradeI));
+		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.RoadShield,
+															   material: EquipmentMaterial.Golden,
+															   faction: EquipmentFaction.Dimensional,
+															   adjective: EquipmentAdjective.Divine,
+															   rarity: EquipmentRarity.LegendaryPlus,
+															   level: 35,
+															   grade: EquipmentGrade.GradeI));
+		gameLogic!.EquipmentLogic.AddToInventory(new Equipment(GameId.TikTokAmulet,
+															   material: EquipmentMaterial.Golden,
+															   faction: EquipmentFaction.Dimensional,
+															   adjective: EquipmentAdjective.Divine,
+															   rarity: EquipmentRarity.LegendaryPlus,
+															   level: 35,
+															   grade: EquipmentGrade.GradeI));
+
+		((GameCommandService)services.CommandService).ForceServerDataUpdate();
+	}
+
 	[Category("Equipment")]
 	public void UnlockOneEquipment()
 	{

@@ -14,7 +14,6 @@ namespace FirstLight.Game.Configs
 		{
 			public DetailLevel Name;
 			public int DetailLevelIndex;
-			public int Fps;
 		}
 		public enum DetailLevel
 		{
@@ -23,6 +22,4 @@ namespace FirstLight.Game.Configs
 
 		public List<DetailLevelConf> DetailLevels;
 	}
-	
-	
 }

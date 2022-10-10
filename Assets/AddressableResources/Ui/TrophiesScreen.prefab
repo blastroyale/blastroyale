@@ -844,7 +844,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animation: {fileID: 5650869647348978878}
-  _introAnimationClip: {fileID: 7400000, guid: 5678f620ad05d3345a0868aadb485b95, type: 2}
+  _introAnimationClip: {fileID: 7400000, guid: 85d6d96e0517b4258b3cbf6dd9477d78, type: 2}
   _outroAnimationClip: {fileID: 7400000, guid: f11b51d714a574633b01d67bfc2e561f, type: 2}
   _continueButton: {fileID: 572988705731158211}
   _newTrophiesSequenceUnfoldClip: {fileID: 7400000, guid: b18232d3f919d45ffbb0e29259d41572, type: 2}

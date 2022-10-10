@@ -72,7 +72,7 @@ namespace FirstLight.Game.Utils
 				                                                  statsConfig, statsMaterialConfig, equipment).AsFloat);
 				stats.Add(EquipmentStatType.Armor,
 				          QuantumStatCalculator.CalculateGearStat(statConfigs[(int) StatType.Armour], baseStatsConfig, 
-				                                                  statsConfig, statsMaterialConfig, equipment).AsFloat);
+				                                                  statsConfig, statsMaterialConfig, equipment).AsFloat / 100);
 				stats.Add(EquipmentStatType.Power,
 				          QuantumStatCalculator.CalculateGearStat(statConfigs[(int) StatType.Power], baseStatsConfig,
 				                                                  statsConfig, statsMaterialConfig, equipment).AsFloat);

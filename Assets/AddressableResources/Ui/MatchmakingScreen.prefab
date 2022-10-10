@@ -5054,7 +5054,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0fd5d80bd4322049bc64f60d1080ca0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MapSelectionView: {fileID: 4794623816901886568}
+  mapSelectionView: {fileID: 4794623816901886568}
   _rootObject: {fileID: 8028147853940128259}
   _lockRoomButton: {fileID: 3066388737401384843}
   _leaveRoomButton: {fileID: 2600167573563792202}

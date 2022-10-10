@@ -30,7 +30,7 @@ namespace FirstLight.Game.Presenters
 		{
 		}
 
-		public MapSelectionView MapSelectionView;
+		public MapSelectionView mapSelectionView;
 
 		[SerializeField, Required] private GameObject _rootObject;
 		[SerializeField, Required] private Button _lockRoomButton;
@@ -104,7 +104,7 @@ namespace FirstLight.Game.Presenters
 			var mapConfig = _services.NetworkService.CurrentRoomMapConfig.Value;
 			var gameModeConfig = _services.NetworkService.CurrentRoomGameModeConfig.Value;
 
-			MapSelectionView.SetupMapView(room.GetGameModeId(), room.GetMapId());
+			mapSelectionView.SetupMapView(room.GetGameModeId(), room.GetMapId());
 
 			if (RejoiningRoom)
 			{
@@ -186,7 +186,7 @@ namespace FirstLight.Game.Presenters
 
 		protected override void OnClosed()
 		{
-			MapSelectionView.CleanupMapView();
+			mapSelectionView.CleanupMapView();
 			_rootObject.SetActive(true);
 		}
 
@@ -454,6 +454,8 @@ namespace FirstLight.Game.Presenters
 
 		private void ReadyToPlay()
 		{
+			mapSelectionView.SelectionEnabled = false;
+			
 			DeactivateKickOverlay();
 			_loadingText.SetActive(true);
 			_lockRoomButton.gameObject.SetActive(false);

@@ -58,13 +58,13 @@ MonoBehaviour:
         Keys:
         - BattleRoyale
         - Deathmatch
-        Values: e803000020030000
+        Values: e803000090010000
       PlayerStartingShieldCapacity:
         Default: 200
         Keys:
         - BattleRoyale
         - Deathmatch
-        Values: c800000020030000
+        Values: c800000090010000
       CollectableCollectTime:
         Default:
           RawValue: 117965

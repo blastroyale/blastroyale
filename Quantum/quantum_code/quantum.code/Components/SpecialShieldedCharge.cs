@@ -14,15 +14,19 @@ namespace Quantum
 			var targetPosition = FPVector3.Zero;
 			var attackerPosition = f.Get<Transform3D>(e).Position;
 			attackerPosition.Y += Constants.ACTOR_AS_TARGET_Y_OFFSET;
-			var teamSource = f.Get<Targetable>(e).Team;
-			
+
+			if (!f.TryGet<Targetable>(e, out var targetable))
+			{
+				return false;
+			}
+
 			if (f.TryGet<BotCharacter>(e, out var bot))
 			{
 				// Try to find a target in a range automatically
 				var iterator = f.GetComponentIterator<Targetable>();
 				foreach (var target in iterator)
 				{
-					if (!QuantumHelpers.IsAttackable(f, target.Entity, teamSource) ||
+					if (!QuantumHelpers.IsAttackable(f, target.Entity, targetable.Team) ||
 					    !QuantumHelpers.IsEntityInRange(f, e, target.Entity, FP._0, maxRange))
 					{
 						continue;

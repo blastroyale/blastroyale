@@ -76,6 +76,16 @@ namespace Quantum
 			var isRespawning = f.GetSingleton<GameContainer>().PlayersData[Player].DeathCount > 0;
 			if (isRespawning)
 			{
+				var defaultSlot = WeaponSlots.GetPointer(Constants.WEAPON_INDEX_DEFAULT);
+				for (var i = 0; i < defaultSlot->Specials.Length; i++)
+				{
+					var special = defaultSlot->Specials[i];
+
+					special.AvailableTime = f.Time + special.InitialCooldown;
+
+					defaultSlot->Specials[i] = special;
+				}
+				
 				EquipSlotWeapon(f, e, Constants.WEAPON_INDEX_DEFAULT);
 			}
 			else

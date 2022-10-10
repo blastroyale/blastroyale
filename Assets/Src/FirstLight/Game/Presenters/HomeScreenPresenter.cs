@@ -1,13 +1,16 @@
 using System;
+using DG.Tweening;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using I2.Loc;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
@@ -60,10 +63,13 @@ namespace FirstLight.Game.Presenters
 		private Label _csPoolTimeLabel;
 		private Label _csPoolAmountLabel;
 
+		private bool _rewardsCollecting;
+
 		private void Awake()
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_gameServices = MainInstaller.Resolve<IGameServices>();
+			_mainMenuServices = MainInstaller.Resolve<IMainMenuServices>();
 		}
 
 		private void Update()
@@ -107,19 +113,30 @@ namespace FirstLight.Game.Presenters
 			root.Query<Button>().Build().ForEach(b =>
 			{
 				b.RegisterCallback<PointerDownEvent>(
-					e => { _gameServices.AudioFxService.PlayClip2D(AudioId.ButtonClickForward); },
+					_ => { _gameServices.AudioFxService.PlayClip2D(AudioId.ButtonClickForward); },
 					TrickleDown.TrickleDown);
 			});
 
 			_playerNameLabel.RegisterCallback<ClickEvent>(OnPlayerNameClicked);
+
+			_gameServices.MessageBrokerService.Subscribe<UnclaimedRewardsCollectingStartedMessage>(_ =>
+				_rewardsCollecting = true);
+			_gameServices.MessageBrokerService.Subscribe<UnclaimedRewardsCollectedMessage>(_ =>
+				_rewardsCollecting = false);
+		}
+
+		[Button]
+		public void SetCollecting(bool collecting)
+		{
+			_rewardsCollecting = collecting;
 		}
 
 		protected override void SubscribeToEvents()
 		{
 			_gameDataProvider.AppDataProvider.DisplayName.InvokeObserve(OnDisplayNameChanged);
 			_gameDataProvider.PlayerDataProvider.Trophies.InvokeObserve(OnTrophiesChanged);
-			_gameDataProvider.CurrencyDataProvider.Currencies.InvokeObserve(GameId.CS, OnCSCurrencyChanged);
-			_gameDataProvider.CurrencyDataProvider.Currencies.InvokeObserve(GameId.BLST, OnBLSTCurrencyChanged);
+			_gameDataProvider.CurrencyDataProvider.Currencies.InvokeObserve(GameId.CS, OnCurrencyChanged);
+			_gameDataProvider.CurrencyDataProvider.Currencies.InvokeObserve(GameId.BLST, OnCurrencyChanged);
 			_gameDataProvider.ResourceDataProvider.ResourcePools.InvokeObserve(GameId.CS, OnPoolChanged);
 			_gameDataProvider.ResourceDataProvider.ResourcePools.InvokeObserve(GameId.BPP, OnPoolChanged);
 			_gameDataProvider.BattlePassDataProvider.CurrentLevel.InvokeObserve(OnBattlePassCurrentLevelChanged);
@@ -136,6 +153,7 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider.CurrencyDataProvider.Currencies.StopObserving(GameId.BLST);
 			_gameDataProvider.ResourceDataProvider.ResourcePools.StopObserving(GameId.CS);
 			_gameDataProvider.ResourceDataProvider.ResourcePools.StopObserving(GameId.BPP);
+			_gameServices.MessageBrokerService.UnsubscribeAll(this);
 		}
 
 		private void OnPlayButtonClicked()
@@ -201,18 +219,22 @@ namespace FirstLight.Game.Presenters
 				current.Entry.MatchType == MatchType.Casual ? DisplayStyle.None : DisplayStyle.Flex;
 		}
 
-		private void OnCSCurrencyChanged(GameId id, ulong previous, ulong current, ObservableUpdateType updateType)
+		private void OnCurrencyChanged(GameId id, ulong previous, ulong current, ObservableUpdateType updateType)
 		{
-			if (id != GameId.CS) return;
+			if (id != GameId.CS && id != GameId.BLST) return;
 
-			_csAmountLabel.text = current.ToString();
-		}
-
-		private void OnBLSTCurrencyChanged(GameId id, ulong previous, ulong current, ObservableUpdateType updateType)
-		{
-			if (id != GameId.BLST) return;
-
-			_blstAmountLabel.text = current.ToString();
+			var label = GetRewardLabel(id);
+			if (_rewardsCollecting)
+			{
+				_mainMenuServices.UiVfxService.PlayVfx(id,
+					Root.GetPositionOnScreen(Root),
+					label.GetPositionOnScreen(Root),
+					() => { DOVirtual.Float(previous, current, 0.3f, val => { label.text = val.ToString("F0"); }); });
+			}
+			else
+			{
+				label.text = current.ToString();
+			}
 		}
 
 		private void OnPoolChanged(GameId id, ResourcePoolData previous, ResourcePoolData current,
@@ -281,23 +303,14 @@ namespace FirstLight.Game.Presenters
 			UpdateBattlePassLevel(predictedLevel);
 		}
 
-		// private void OnPlayUiVfxMessage(PlayUiVfxMessage message)
-		// {
-		// 	var closure = message;
-		//
-		// 	if (message.Id == _targetID)
-		// 	{
-		// 		_mainMenuServices.UiVfxService.PlayVfx(message.Id, message.OriginWorldPosition,
-		// 			_animationTarget.position, () => RackupTween(UpdateAmountText));
-		// 	}
-		//
-		// 	void RackupTween(TweenCallback<float> textUpdated)
-		// 	{
-		// 		var targetValue = GetAmount();
-		// 		var initialValue = targetValue - (int) closure.Quantity;
-		//
-		// 		DOVirtual.Float(initialValue, targetValue, _rackupTextAnimDurationSeconds, textUpdated);
-		// 	}
-		// }
+		private Label GetRewardLabel(GameId id)
+		{
+			return id switch
+			{
+				GameId.CS => _csAmountLabel,
+				GameId.BLST => _blstAmountLabel,
+				_ => throw new ArgumentOutOfRangeException(nameof(id), id, null)
+			};
+		}
 	}
 }

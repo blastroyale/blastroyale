@@ -485,6 +485,28 @@ public partial class SROptions
 	}
 	
 	[Category("Progression")]
+	public void Add5CS()
+	{
+		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
+		var services = MainInstaller.Resolve<IGameServices>();
+		
+		gameLogic.CurrencyLogic.AddCurrency(GameId.CS, 5);
+
+		//((GameCommandService) services.CommandService).ForceServerDataUpdate();
+	}
+	
+	[Category("Progression")]
+	public void Add5BLST()
+	{
+		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
+		var services = MainInstaller.Resolve<IGameServices>();
+		
+		gameLogic.CurrencyLogic.AddCurrency(GameId.BLST, 5);
+
+		//((GameCommandService) services.CommandService).ForceServerDataUpdate();
+	}
+	
+	[Category("Progression")]
 	public void Add5BPP()
 	{
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;

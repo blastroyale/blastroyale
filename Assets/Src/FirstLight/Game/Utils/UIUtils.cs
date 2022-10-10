@@ -24,10 +24,14 @@ namespace FirstLight.Game.Utils
 
 		/// <summary>
 		/// Gets the position (center of content rect) of the <paramref name="element"/>, in screen coordinates.
+		/// TODO: There has to be a better way to do this, without using the camera
 		/// </summary>
-		public static Vector2 GetPositionOnScreen(this VisualElement element)
+		public static Vector2 GetPositionOnScreen(this VisualElement element, VisualElement root)
 		{
-			return element.LocalToWorld(element.contentRect.center);
+			var viewportPoint = element.worldBound.center / root.worldBound.size;
+			viewportPoint.y = 1 - viewportPoint.y;
+			
+			return Camera.main.ViewportToScreenPoint(viewportPoint);
 		}
 	}
 }

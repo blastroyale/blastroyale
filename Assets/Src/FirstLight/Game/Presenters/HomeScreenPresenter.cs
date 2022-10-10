@@ -14,6 +14,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
+using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Presenters
 {
@@ -239,12 +240,16 @@ namespace FirstLight.Game.Presenters
 			{
 				_mainMenuServices.UiVfxService.PlayVfx(id,
 					i * 0.1f,
-					Root.GetPositionOnScreen(Root),
+					Root.GetPositionOnScreen(Root) + Random.insideUnitCircle * 100,
 					label.GetPositionOnScreen(Root),
-					() => { DOVirtual.Float(previous, current, 0.3f, val => { label.text = val.ToString("F0"); }); });
+					() =>
+					{
+						DOVirtual.Float(previous, current, 0.3f, val => { label.text = val.ToString("F0"); });
+						_gameServices.AudioFxService.PlayClip2D(AudioId.CounterTick1);
+					});
 			}
 		}
-		
+
 
 		private void OnPoolChanged(GameId id, ResourcePoolData previous, ResourcePoolData current,
 			ObservableUpdateType updateType)

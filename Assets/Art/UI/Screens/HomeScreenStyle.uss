@@ -248,10 +248,11 @@ Button:hover {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/PoolHeader.png?fileID=21300000&guid=fe2093cbd35914e9e9cd6c56ee79fca3&type=3#PoolHeader');
     width: 428px;
     height: 102px;
-    top: -40px;
+    top: -42px;
     left: -9px;
     flex-direction: row;
     justify-content: space-between;
     font-size: 28px;
     color: rgb(141, 132, 155);
+    align-items: stretch;
 }

@@ -26,10 +26,14 @@ namespace FirstLight.Game.Views
 			Action onComplete)
 		{
 			_image.sprite = sprite;
-			transform.position = originWorldPosition;
+			_image.enabled = false;
+
+			var t = transform;
+			t.position = originWorldPosition;
+			t.localScale = Vector3.zero;
 
 			_moveAnimation.useTargetAsV3 = false;
-			_moveAnimation.target = transform;
+			_moveAnimation.target = t;
 			_moveAnimation.endValueV3 = targetWorldPosition;
 			_moveAnimation.targetGO = _scaleAnimation.targetGO = gameObject;
 			_moveAnimation.delay = delay;
@@ -40,6 +44,7 @@ namespace FirstLight.Game.Views
 			_scaleAnimation.CreateTween(true);
 
 			_moveAnimation.tween.OnComplete(() => { onComplete(); });
+			_moveAnimation.tween.OnStart(() => { _image.enabled = true; });
 			_moveAnimation.tween.Play();
 			_scaleAnimation.tween.Play();
 		}

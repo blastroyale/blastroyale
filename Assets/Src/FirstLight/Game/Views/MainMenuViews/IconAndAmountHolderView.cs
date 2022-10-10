@@ -52,7 +52,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 			if (message.Id == _targetID)
 			{
-				_mainMenuServices.UiVfxService.PlayVfx(message.Id, message.OriginWorldPosition,
+				_mainMenuServices.UiVfxService.PlayVfx(message.Id, 0, message.OriginWorldPosition,
 				                                       _animationTarget.position, () => RackupTween(UpdateAmountText));
 			}
 

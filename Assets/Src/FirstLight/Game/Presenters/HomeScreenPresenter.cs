@@ -226,16 +226,26 @@ namespace FirstLight.Game.Presenters
 			var label = GetRewardLabel(id);
 			if (_rewardsCollecting)
 			{
-				_mainMenuServices.UiVfxService.PlayVfx(id,
-					Root.GetPositionOnScreen(Root),
-					label.GetPositionOnScreen(Root),
-					() => { DOVirtual.Float(previous, current, 0.3f, val => { label.text = val.ToString("F0"); }); });
+				AnimateCurrency(id, previous, current, label);
 			}
 			else
 			{
 				label.text = current.ToString();
 			}
 		}
+
+		private void AnimateCurrency(GameId id, ulong previous, ulong current, Label label)
+		{
+			for (int i = 0; i < Mathf.Min(10, current - previous); i++)
+			{
+				_mainMenuServices.UiVfxService.PlayVfx(id,
+					i * 0.1f,
+					Root.GetPositionOnScreen(Root),
+					label.GetPositionOnScreen(Root),
+					() => { DOVirtual.Float(previous, current, 0.3f, val => { label.text = val.ToString("F0"); }); });
+			}
+		}
+		
 
 		private void OnPoolChanged(GameId id, ResourcePoolData previous, ResourcePoolData current,
 			ObservableUpdateType updateType)

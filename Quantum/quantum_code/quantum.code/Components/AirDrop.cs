@@ -45,11 +45,35 @@ namespace Quantum
 			var radius = FPMath.Lerp(circle.TargetRadius, circle.CurrentRadius, f.GameConfig.AirdropPositionOffsetMultiplier);
 			var areaCenter = FPVector2.Lerp(circle.TargetCircleCenter, circle.CurrentCircleCenter,
 			                                f.GameConfig.AirdropPositionOffsetMultiplier);
+			var areaCenterV3 = new FPVector3(areaCenter.X, 0, areaCenter.Y);
 			var x = radius * FPMath.Sin(radialDir) + areaCenter.X;
 			var y = radius * FPMath.Cos(radialDir) + areaCenter.Y;
-			FPVector3 pos = new FPVector3(x, 0, y);
-			return QuantumHelpers.GetClosestAirdropPoint(f, pos, new FPVector3(areaCenter.X, 0, areaCenter.Y), radius,
-			                                           out dropPosition);
+			var pos = new FPVector3(x, 0, y);
+			var squareRadiusArea = radius * radius;
+			
+			var found = false;
+			var closestPoint = FPVector3.Zero;
+			var shortestDist = FP.MaxValue;
+
+			foreach(var spawner in f.GetComponentIterator<AirDropSpawner>())
+			{
+				var spawnerPos = spawner.Entity.GetPosition(f);
+				var distanceToSpawner = FPVector3.DistanceSquared(pos, spawnerPos);
+
+				var insideArea = FPVector3.DistanceSquared(spawnerPos, areaCenterV3) < squareRadiusArea;
+
+				if (distanceToSpawner < shortestDist & insideArea)
+				{
+					shortestDist = distanceToSpawner;
+					closestPoint = spawnerPos;
+
+					found = true;
+				}	
+			}
+
+			dropPosition = closestPoint;
+
+			return found;
 		}
 	}
 }

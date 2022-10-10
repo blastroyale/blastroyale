@@ -61,7 +61,13 @@ namespace FirstLight.Game.Views.MainMenuViews
 			var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(mapId);
 			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
 
-			_dropSelectionSize = config.DropSelectionSize;
+			if (config.DropSelectionSize == 0)
+			{
+				Debug.LogWarning("Map "+config.Map+" has a Drop Selection of 0 which would make the zoom infinite.");
+			}
+			
+			_dropSelectionSize = config.DropSelectionSize>0?config.DropSelectionSize:1f;
+
 			_mapImage.enabled = false;
 			_mapImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(config.Map, false);
 			_mapImage.enabled = true;

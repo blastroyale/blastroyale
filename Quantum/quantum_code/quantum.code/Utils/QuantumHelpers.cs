@@ -323,24 +323,32 @@ namespace Quantum
 		/// <summary>
 		/// Finds the closest <see cref="Transform3D.Position"/> of any object with component <see cref="AirDropSpawner"/> attached.
 		/// </summary>
-		public static FPVector3 GetClosestAirdropPoint(Frame f, FPVector3 targetPoint)
+		public static bool GetClosestAirdropPoint(Frame f, FPVector3 targetPoint, FPVector3 centerArea, FP radiusArea, out FPVector3 spawnerPosition)
 		{
 			var closestPoint = FPVector3.Zero;
 			var shortestDist = FP.MaxValue;
+			var squareRadiusArea = radiusArea * radiusArea;
+			var found = false;
 
 			foreach(var spawner in f.GetComponentIterator<AirDropSpawner>())
 			{
 				var spawnerPos = spawner.Entity.GetPosition(f);
-				var distanceToSpawner = FPVector3.DistanceSquared(targetPoint, spawnerPos); 
+				var distanceToSpawner = FPVector3.DistanceSquared(targetPoint, spawnerPos);
 
-				if (distanceToSpawner < shortestDist)
+				var insideArea = FPVector3.DistanceSquared(spawnerPos, centerArea) < squareRadiusArea;
+
+				if (distanceToSpawner < shortestDist & insideArea)
 				{
 					shortestDist = distanceToSpawner;
 					closestPoint = spawnerPos;
+
+					found = true;
 				}	
 			}
 
-			return closestPoint;
+			spawnerPosition = closestPoint;
+
+			return found;
 		}
 
 		/// <summary>

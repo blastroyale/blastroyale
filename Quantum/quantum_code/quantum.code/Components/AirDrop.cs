@@ -19,11 +19,16 @@ namespace Quantum
 			if (dropPosition == FPVector3.Zero)
 			{
 				var radialDir = f.RNG->Next(0, FP.Rad_180 * 2);
-				var radius = circle.TargetRadius * (1 + f.GameConfig.AirdropPositionOffsetMultiplier);
-				var x = radius * FPMath.Sin(radialDir) + circle.TargetCircleCenter.X;
-				var y = radius * FPMath.Cos(radialDir) + circle.TargetCircleCenter.Y;
+				var radius = FPMath.Lerp(circle.TargetRadius, circle.CurrentRadius, f.GameConfig.AirdropPositionOffsetMultiplier);
+				var areaCenter = FPVector2.Lerp(circle.TargetCircleCenter, circle.CurrentCircleCenter, f.GameConfig.AirdropPositionOffsetMultiplier);
+				var x = radius * FPMath.Sin(radialDir) + areaCenter.X;
+				var y = radius * FPMath.Cos(radialDir) + areaCenter.Y;
 				FPVector3 pos = new FPVector3(x, 0, y);
-				dropPosition = QuantumHelpers.GetClosestAirdropPoint(f, pos);
+				if (!QuantumHelpers.GetClosestAirdropPoint(f, pos, new FPVector3(areaCenter.X, 0, areaCenter.Y), radius,
+				                                           out dropPosition))
+				{
+					return EntityRef.None;
+				}
 			}
 			
 			// Move entity to the drop position at a predetermined height

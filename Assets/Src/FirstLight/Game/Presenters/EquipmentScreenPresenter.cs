@@ -275,7 +275,7 @@ namespace FirstLight.Game.Presenters
 						EquipmentStatType.Armor => "P0",
 						EquipmentStatType.AttackCooldown => "N2",
 						EquipmentStatType.TargetRange => "N2",
-						EquipmentStatType.PickupSpeed => "N2",
+						EquipmentStatType.PickupSpeed => "P0",
 						_ => "N0"
 					};
 					

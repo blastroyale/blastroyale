@@ -72,7 +72,7 @@ namespace FirstLight.Game.Utils
 				                                                  statsConfig, statsMaterialConfig, equipment).AsFloat);
 				stats.Add(EquipmentStatType.Armor,
 				          QuantumStatCalculator.CalculateGearStat(statConfigs[(int) StatType.Armour], baseStatsConfig, 
-				                                                  statsConfig, statsMaterialConfig, equipment).AsFloat / 100);
+				                                                  statsConfig, statsMaterialConfig, equipment).AsFloat / 100f);
 				stats.Add(EquipmentStatType.Power,
 				          QuantumStatCalculator.CalculateGearStat(statConfigs[(int) StatType.Power], baseStatsConfig,
 				                                                  statsConfig, statsMaterialConfig, equipment).AsFloat);
@@ -81,7 +81,7 @@ namespace FirstLight.Game.Utils
 						                                          statsConfig, statsMaterialConfig, equipment).AsFloat);
 				stats.Add(EquipmentStatType.PickupSpeed,
 				          QuantumStatCalculator.CalculateGearStat(statConfigs[(int) StatType.PickupSpeed], baseStatsConfig, 
-				                                                  statsConfig, statsMaterialConfig, equipment).AsFloat);
+				                                                  statsConfig, statsMaterialConfig, equipment).AsFloat / 100f);
 				stats.Add(EquipmentStatType.MaxCapacity,
 				          QuantumStatCalculator.CalculateGearStat(statConfigs[(int) StatType.AmmoCapacity], baseStatsConfig, 
 				                                                  statsConfig, statsMaterialConfig, equipment).AsFloat);

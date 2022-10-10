@@ -806,7 +806,7 @@ namespace I2.Loc
 			public static string GameMode 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/GameMode"); } }
 			public static string HOME 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/HOME"); } }
 			public static string Haptic 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Haptic"); } }
-			public static string HighFpsModeSettings 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/HighFpsModeSettings"); } }
+			public static string HighFpsModeSetting 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/HighFpsModeSetting"); } }
 			public static string HighResMode 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/HighResMode"); } }
 			public static string HoldToFire 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/HoldToFire"); } }
 			public static string HoldToFireDescription 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/HoldToFireDescription"); } }
@@ -883,6 +883,7 @@ namespace I2.Loc
 			public static string ResetPassword 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ResetPassword"); } }
 			public static string ResoucePoolFull 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ResoucePoolFull"); } }
 			public static string ResourceAmount 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ResourceAmount"); } }
+			public static string ResourcePoolRestock 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ResourcePoolRestock"); } }
 			public static string ResourceRestockTime 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/ResourceRestockTime"); } }
 			public static string RoomCreateOrJoin 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomCreateOrJoin"); } }
 			public static string RoomCurrentName 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/RoomCurrentName"); } }
@@ -1874,7 +1875,7 @@ namespace I2.Loc
 		    public const string GameMode = "MainMenu/GameMode";
 		    public const string HOME = "MainMenu/HOME";
 		    public const string Haptic = "MainMenu/Haptic";
-		    public const string HighFpsModeSettings = "MainMenu/HighFpsModeSettings";
+		    public const string HighFpsModeSetting = "MainMenu/HighFpsModeSetting";
 		    public const string HighResMode = "MainMenu/HighResMode";
 		    public const string HoldToFire = "MainMenu/HoldToFire";
 		    public const string HoldToFireDescription = "MainMenu/HoldToFireDescription";
@@ -1951,6 +1952,7 @@ namespace I2.Loc
 		    public const string ResetPassword = "MainMenu/ResetPassword";
 		    public const string ResoucePoolFull = "MainMenu/ResoucePoolFull";
 		    public const string ResourceAmount = "MainMenu/ResourceAmount";
+		    public const string ResourcePoolRestock = "MainMenu/ResourcePoolRestock";
 		    public const string ResourceRestockTime = "MainMenu/ResourceRestockTime";
 		    public const string RoomCreateOrJoin = "MainMenu/RoomCreateOrJoin";
 		    public const string RoomCurrentName = "MainMenu/RoomCurrentName";

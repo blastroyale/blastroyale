@@ -23,7 +23,6 @@ namespace FirstLight.Game.Presenters
 	[LoadSynchronously]
 	public class HomeScreenPresenter : UiToolkitPresenterData<HomeScreenPresenter.StateData>
 	{
-		private const string POOL_TIME_FORMAT = "+{0} {1} IN {2}";
 		private const string CS_POOL_AMOUNT_FORMAT = "<color=#FE6C07>{0}</color> / {1}";
 		private const string BPP_POOL_AMOUNT_FORMAT = "<color=#49D4D4>{0}</color> / {1}";
 
@@ -270,7 +269,7 @@ namespace FirstLight.Game.Presenters
 			}
 			else
 			{
-				timeLabel.text = string.Format(POOL_TIME_FORMAT,
+				timeLabel.text = string.Format(ScriptLocalization.MainMenu.ResourcePoolRestock,
 					poolInfo.RestockPerInterval,
 					id.ToString(),
 					timeLeft.ToHoursMinutesSeconds());

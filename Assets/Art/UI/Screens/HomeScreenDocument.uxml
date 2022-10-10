@@ -25,7 +25,7 @@
                 <ui:Instance template="CurrencyDisplay" name="BLSTCurrency" class="hidden-top" style="margin-right: 43px;" />
             </ui:VisualElement>
             <ui:VisualElement picking-mode="Ignore" style="height: 580px; width: 535px; position: absolute; right: 0; bottom: 0; flex-direction: column-reverse; align-items: flex-end; display: flex; margin-bottom: 36px; margin-right: 36px;">
-                <ui:VisualElement style="margin-top: 43px;">
+                <ui:VisualElement class="hidden-right" style="margin-top: 43px; transition-property: margin-right; transition-duration: 0.3s; transition-timing-function: ease-out;">
                     <ui:VisualElement name="CSPoolContainer" class="font-italic pool-container" style="background-image: none; left: auto; right: -9px;">
                         <ui:VisualElement style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/HomeScreen/PoolHeader.png?fileID=21300000&amp;guid=fe2093cbd35914e9e9cd6c56ee79fca3&amp;type=3#PoolHeader&apos;); scale: -1 1;" />
                         <ui:VisualElement style="position: absolute; left: 16px; top: 8px; right: 34px; bottom: 51px; flex-direction: row-reverse; justify-content: space-between; rotate: -3deg; align-items: center;">
@@ -35,7 +35,7 @@
                             <ui:VisualElement style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/HomeScreen/CS.png?fileID=21300000&amp;guid=d74b22177c5ba4ac6b9293d6c147e46e&amp;type=3#CS&apos;); width: 32px; height: 32px;" />
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:Button text="PLAY" display-tooltip-when-elided="true" name="PlayButton" enable-rich-text="false" class="play-button font-italic font-style-h1 hidden-right" />
+                    <ui:Button text="PLAY" display-tooltip-when-elided="true" name="PlayButton" enable-rich-text="false" class="play-button font-italic font-style-h1" />
                 </ui:VisualElement>
                 <ui:Button display-tooltip-when-elided="true" name="GameModeButton" class="hidden-right" style="flex-direction: column-reverse;">
                     <ui:VisualElement style="rotate: 0; margin-right: 38px; padding-bottom: 32px; align-items: flex-start;">

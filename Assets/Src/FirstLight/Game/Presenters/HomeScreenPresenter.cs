@@ -20,8 +20,7 @@ namespace FirstLight.Game.Presenters
 	[LoadSynchronously]
 	public class HomeScreenPresenter : UiToolkitPresenterData<HomeScreenPresenter.StateData>
 	{
-		private const string POOL_FULL = "+{0} {1} IN {2}h {3}m";
-		private const string POOL_TIME_FORMAT = "+{0} {1} IN {2}h {3}m";
+		private const string POOL_TIME_FORMAT = "+{0} {1} IN {2}";
 		private const string CS_POOL_AMOUNT_FORMAT = "<color=#FE6C07>{0}</color> / {1}";
 		private const string BPP_POOL_AMOUNT_FORMAT = "<color=#49D4D4>{0}</color> / {1}";
 
@@ -57,6 +56,7 @@ namespace FirstLight.Game.Presenters
 
 		private Label _bppPoolTimeLabel;
 		private Label _bppPoolAmountLabel;
+		private VisualElement _csPoolContainer;
 		private Label _csPoolTimeLabel;
 		private Label _csPoolAmountLabel;
 
@@ -83,8 +83,9 @@ namespace FirstLight.Game.Presenters
 
 			_bppPoolAmountLabel = root.Q<VisualElement>("BPPPoolContainer").Q<Label>("AmountLabel").Required();
 			_bppPoolTimeLabel = root.Q<VisualElement>("BPPPoolContainer").Q<Label>("RestockLabel").Required();
-			_csPoolAmountLabel = root.Q<VisualElement>("CSPoolContainer").Q<Label>("AmountLabel").Required();
-			_csPoolTimeLabel = root.Q<VisualElement>("CSPoolContainer").Q<Label>("RestockLabel").Required();
+			_csPoolContainer = root.Q<VisualElement>("CSPoolContainer").Required();
+			_csPoolAmountLabel = _csPoolContainer.Q<Label>("AmountLabel").Required();
+			_csPoolTimeLabel = _csPoolContainer.Q<Label>("RestockLabel").Required();
 
 			_csAmountLabel = root.Q<VisualElement>("CSCurrency").Q<Label>("Label").Required();
 			_blstAmountLabel = root.Q<VisualElement>("BLSTCurrency").Q<Label>("Label").Required();
@@ -194,7 +195,10 @@ namespace FirstLight.Game.Presenters
 
 		private void OnSelectedGameModeChanged(GameModeInfo _, GameModeInfo current)
 		{
-			UpdateGameModeButton(current);
+			_gameModeLabel.text = current.Entry.GameModeId.ToUpper();
+			_gameTypeLabel.text = current.Entry.MatchType.ToString().ToUpper();
+			_csPoolContainer.style.display =
+				current.Entry.MatchType == MatchType.Casual ? DisplayStyle.None : DisplayStyle.Flex;
 		}
 
 		private void OnCSCurrencyChanged(GameId id, ulong previous, ulong current, ObservableUpdateType updateType)
@@ -237,8 +241,7 @@ namespace FirstLight.Game.Presenters
 				timeLabel.text = string.Format(POOL_TIME_FORMAT,
 					poolInfo.RestockPerInterval,
 					id.ToString(),
-					timeLeft.Hours,
-					timeLeft.Minutes);
+					timeLeft.ToHoursMinutesSeconds());
 			}
 
 			amountLabel.text = string.Format(amountStringFormat, poolInfo.CurrentAmount, poolInfo.PoolCapacity);
@@ -260,12 +263,6 @@ namespace FirstLight.Game.Presenters
 			var maxLevel = _gameDataProvider.BattlePassDataProvider.MaxLevel;
 			var nextLevel = Math.Clamp(predictedLevel + 1, 0, maxLevel) + 1;
 			_battlePassLevelLabel.text = nextLevel.ToString();
-		}
-
-		private void UpdateGameModeButton(GameModeInfo current)
-		{
-			_gameModeLabel.text = current.Entry.GameModeId.ToUpper();
-			_gameTypeLabel.text = current.Entry.MatchType.ToString().ToUpper();
 		}
 
 		private void UpdateBattlePassPoints(uint predictedLevel, uint predictedPoints)

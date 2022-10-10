@@ -262,10 +262,8 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Formats a string in seconds to Hours and Minutes and Seconds.
 		/// </summary>
-		public static string ToHoursMinutesSeconds(this uint num)
+		public static string ToHoursMinutesSeconds(this TimeSpan ts)
 		{
-			var ts = TimeSpan.FromSeconds(num);
-
 			if (ts.Hours > 0)
 			{
 				return string.Format("{0}h {1}m {2}s", ts.Hours.ToString(), ts.Minutes.ToString(),

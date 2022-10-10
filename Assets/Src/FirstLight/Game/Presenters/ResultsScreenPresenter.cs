@@ -72,7 +72,7 @@ namespace FirstLight.Game.Presenters
 			var time = gameContainer.IsGameOver ? gameContainer.GameOverTime : f.Time;
 			var ts = TimeSpan.FromSeconds(time.AsFloat);
 			
-			_debugTotalMatchTimeText.text =  $"MATCH TIME: { ((uint) ts.TotalSeconds).ToHoursMinutesSeconds()}";
+			_debugTotalMatchTimeText.text =  $"MATCH TIME: {ts.ToHoursMinutesSeconds()}";
 		}
 		
 		

@@ -11,9 +11,13 @@
                     <ui:TextField label="EMAIL" name="EmailTextField" class="font-italic input-field" />
                     <ui:TextField label="USERNAME" name="UsernameTextField" password="true" class="font-italic input-field" style="margin-top: 22px; margin-bottom: 22px;" />
                     <ui:TextField label="PASSWORD" name="PasswordTextField" password="true" class="font-italic input-field" style="margin-bottom: 50px;" />
-                    <ui:Button text="REGISTER" name="RegisterButton" class="font-italic button-flat-primary" style="-unity-background-image-tint-color: rgb(255, 116, 0); width: 300px;" />
+                    <ui:VisualElement class="button-flat-outline">
+                        <ui:Button text="REGISTER" name="RegisterButton" class="font-italic button-flat-primary" style="-unity-background-image-tint-color: rgb(255, 116, 0); width: 300px;" />
+                    </ui:VisualElement>
                     <ui:Label text="OR" display-tooltip-when-elided="true" class="font-italic" style="color: rgb(122, 118, 167); font-size: 30px; margin-bottom: 8px;" />
-                    <ui:Button text="LOGIN WITH&#10;FIRSTLIGHT ID" name="LoginButton" class="button-flat-secondary" style="width: 300px;" />
+                    <ui:VisualElement class="button-flat-outline">
+                        <ui:Button text="LOGIN WITH&#10;FIRSTLIGHT ID" name="LoginButton" class="button-flat-secondary" style="width: 300px;" />
+                    </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="Blocker" class="blocker-hidden" style="background-color: rgba(0, 0, 0, 0.36); position: absolute; left: 0; top: 0; right: 0; bottom: 0; transition-duration: 0.3s;" />
             </ui:VisualElement>

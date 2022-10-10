@@ -29,9 +29,6 @@
     text-shadow: 5px 5px 0 rgb(139, 26, 3);
     -unity-text-align: middle-center;
     padding-bottom: 19px;
-    transition-duration: var(--in-animation-duration);
-    transition-timing-function: var(--in-animation-easing);
-    transition-property: margin-right;
 }
 
 #PlayButton:active {
@@ -251,7 +248,7 @@ Button:hover {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/PoolHeader.png?fileID=21300000&guid=fe2093cbd35914e9e9cd6c56ee79fca3&type=3#PoolHeader');
     width: 428px;
     height: 102px;
-    top: -38px;
+    top: -40px;
     left: -9px;
     flex-direction: row;
     justify-content: space-between;

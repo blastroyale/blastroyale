@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 using FirstLight.Game.Views.GridViews;
 using FirstLight.Game.Services;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Messages;
-using FirstLight.Game.Infos;
 using Quantum;
 using Sirenix.OdinInspector;
 using Button = UnityEngine.UI.Button;
@@ -53,7 +49,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 			_gameDataProvider.EquipmentDataProvider.Loadout.Observe(OnLoadoutUpdated);
 			_button.onClick.AddListener(OnButtonClick);
-			OnAwake();
 		}
 
 		private void OnDestroy()
@@ -62,12 +57,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
-		protected virtual void OnAwake()
-		{
-		}
-
-		// ReSharper disable Unity.PerformanceAnalysis
-		protected override void OnUpdateItem(EquipmentGridItemData data)
+		protected override async void OnUpdateItem(EquipmentGridItemData data)
 		{
 			var equipmentDataProvider = _gameDataProvider.EquipmentDataProvider;
 
@@ -80,12 +70,14 @@ namespace FirstLight.Game.Views.MainMenuViews
 			}
 			else
 			{
+				var info = equipmentDataProvider.GetInfo(data.Id);
+				_equippedImage.enabled = info.IsEquipped;
 				_cooldownImage.enabled = false;
 				_nftImage.gameObject.SetActive(false);
 			}
 
 			_selectedFrameImage.SetActive(data.IsSelected);
-			
+
 			if (data.IsSelected)
 			{
 				_gameDataProvider.UniqueIdDataProvider.NewIds.Remove(data.Id);
@@ -93,14 +85,12 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 			_notificationUniqueIdView.SetUniqueId(data.Id, data.PlayViewNotificationAnimation);
 			_uniqueId = data.Id;
-			
-#pragma warning disable CS4014
-			_equipmentCardView.Initialise(data.Equipment);
-#pragma warning restore CS4014
+
+			await _equipmentCardView.Initialise(data.Equipment);
 		}
 
 		private void OnLoadoutUpdated(GameIdGroup key, UniqueId previousId, UniqueId newId,
-		                              ObservableUpdateType updateType)
+			ObservableUpdateType updateType)
 		{
 			if (newId != _uniqueId || updateType != ObservableUpdateType.Added)
 			{

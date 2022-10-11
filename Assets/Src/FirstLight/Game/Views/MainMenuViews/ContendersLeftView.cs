@@ -64,8 +64,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private void UpdatePlayersAlive(Frame f)
 		{
-			var playersLeft = f.GetSingleton<GameContainer>().TargetProgress + 1 -
-			                  f.GetSingleton<GameContainer>().CurrentProgress;
+			var container = f.GetSingleton<GameContainer>();
+			var playersLeft = container.TargetProgress + 1 - container.CurrentProgress;
 
 			_contendersLeftText.text = _displayNumberOnly
 				                           ? playersLeft.ToString()

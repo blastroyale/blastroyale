@@ -29,9 +29,6 @@
     text-shadow: 5px 5px 0 rgb(139, 26, 3);
     -unity-text-align: middle-center;
     padding-bottom: 19px;
-    transition-duration: var(--in-animation-duration);
-    transition-timing-function: var(--in-animation-easing);
-    transition-property: margin-right;
 }
 
 #PlayButton:active {
@@ -85,7 +82,7 @@
 }
 
 #BattlePassButton #Title {
-    text-shadow: 5px 5px 0 rgb(139, 26, 3);
+    text-shadow: -5px 5px 0 rgb(139, 26, 3);
     font-size: 55px;
     -unity-font-style: bold;
     -unity-text-outline-width: 2px;
@@ -244,4 +241,18 @@ Button {
 
 Button:hover {
     text-shadow: 0 0 0 rgb(159, 159, 159);
+}
+
+.pool-container {
+    position: absolute;
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/PoolHeader.png?fileID=21300000&guid=fe2093cbd35914e9e9cd6c56ee79fca3&type=3#PoolHeader');
+    width: 428px;
+    height: 102px;
+    top: -42px;
+    left: -9px;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 28px;
+    color: rgb(141, 132, 155);
+    align-items: stretch;
 }

@@ -63,9 +63,11 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 51ac3af9acd824af591121ab7510c3df, type: 3}
   - {fileID: 21300000, guid: 5c34000b4db9d44d297310e0b968e481, type: 3}
   - {fileID: 21300000, guid: 6ed5495b8d7894f56ae9a5a2a64820af, type: 3}
+  - {fileID: 21300000, guid: fe2093cbd35914e9e9cd6c56ee79fca3, type: 3}
   - {fileID: 21300000, guid: 8368e60ca24ab4818929e5d7b2dd77f2, type: 3}
   - {fileID: 21300000, guid: edeb643c81c524ca28070f239ae51a4e, type: 3}
   - {fileID: 21300000, guid: 805b077c9a6dc4cc8acf308e183b7a0b, type: 3}
+  - {fileID: 21300000, guid: 100d689cc6ffc41f297345bcfc22f54e, type: 3}
   - {fileID: 21300000, guid: 3a7d899cc87a648b6ab9f1f3cf7035f2, type: 3}
   - {fileID: 21300000, guid: f074c3dd0ff0849fe90a973fd6fbd458, type: 3}
   - {fileID: 21300000, guid: 6ba4f24e4a43d4bb2aa74aa4de0a3139, type: 3}
@@ -99,9 +101,11 @@ SpriteAtlas:
   - IconHeroes
   - CurrencyBack
   - TappedEffect
+  - PoolHeader
   - ButtonMain
   - IconCustomGame
   - BattlePassProgress
+  - BPP
   - IconLeaderboards
   - IconEquipment
   - AddpartymemberButton

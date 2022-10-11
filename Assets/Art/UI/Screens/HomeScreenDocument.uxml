@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:Template name="CurrencyDisplay" src="project://database/Assets/Art/UI/Templates/CurrencyDisplay.uxml?fileID=9197481963319205126&amp;guid=328eeb5ffa7ba412e8d99f68c0f592c7&amp;type=3#CurrencyDisplay" />
     <Style src="project://database/Assets/Art/UI/Screens/HomeScreenStyle.uss?fileID=7433441132597879392&amp;guid=54dbd0d57987f4f398aea3e4722669ea&amp;type=3#HomeScreenStyle" />
-    <ui:VisualElement name="root" picking-mode="Ignore" class="hidden" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0;">
+    <ui:VisualElement name="root" picking-mode="Ignore" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0;">
         <ui:VisualElement name="PlayerHolder" class="hidden-profile" style="position: absolute; left: 0; top: 0; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/HomeScreen/HeadlineCornerBack.png?fileID=21300000&amp;guid=a00a82499a7b54937bb2cf2b23aeb238&amp;type=3#HeadlineCornerBack&apos;); width: 790px; height: 220px;">
             <ui:VisualElement style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/HomeScreen/ProfileHeadlineBack.png?fileID=21300000&amp;guid=8f2de411e440e476a955e263066bcdfa&amp;type=3#ProfileHeadlineBack&apos;); width: 484px; height: 128px; margin-left: 315px;">
                 <ui:VisualElement style="position: absolute; width: 340px; height: 72px; rotate: -13deg; left: 31px; top: -14px; flex-direction: column-reverse;">
@@ -25,7 +25,18 @@
                 <ui:Instance template="CurrencyDisplay" name="BLSTCurrency" class="hidden-top" style="margin-right: 43px;" />
             </ui:VisualElement>
             <ui:VisualElement picking-mode="Ignore" style="height: 580px; width: 535px; position: absolute; right: 0; bottom: 0; flex-direction: column-reverse; align-items: flex-end; display: flex; margin-bottom: 36px; margin-right: 36px;">
-                <ui:Button text="PLAY" display-tooltip-when-elided="true" name="PlayButton" enable-rich-text="false" class="play-button font-italic font-style-h1 hidden-right" />
+                <ui:VisualElement class="hidden-right" style="margin-top: 43px; transition-property: margin-right; transition-duration: 0.3s; transition-timing-function: ease-out;">
+                    <ui:VisualElement name="CSPoolContainer" class="font-italic pool-container" style="background-image: none; left: auto; right: -9px;">
+                        <ui:VisualElement style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/HomeScreen/PoolHeader.png?fileID=21300000&amp;guid=fe2093cbd35914e9e9cd6c56ee79fca3&amp;type=3#PoolHeader&apos;); scale: -1 1;" />
+                        <ui:VisualElement style="position: absolute; left: 16px; top: 11px; right: 34px; bottom: 51px; flex-direction: row-reverse; justify-content: space-between; rotate: -3deg; align-items: center;">
+                            <ui:Label text="+20 in 2h5m" display-tooltip-when-elided="true" name="RestockLabel" />
+                            <ui:VisualElement style="flex-grow: 1;" />
+                            <ui:Label text="&lt;color=#FE6C07&gt;20&lt;/color&gt; / 100&#10;" display-tooltip-when-elided="true" name="AmountLabel" />
+                            <ui:VisualElement style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/HomeScreen/CS.png?fileID=21300000&amp;guid=d74b22177c5ba4ac6b9293d6c147e46e&amp;type=3#CS&apos;); width: 32px; height: 32px;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:Button text="PLAY" display-tooltip-when-elided="true" name="PlayButton" enable-rich-text="false" class="play-button font-italic font-style-h1" />
+                </ui:VisualElement>
                 <ui:Button display-tooltip-when-elided="true" name="GameModeButton" class="hidden-right" style="flex-direction: column-reverse;">
                     <ui:VisualElement style="rotate: 0; margin-right: 38px; padding-bottom: 32px; align-items: flex-start;">
                         <ui:Label text="DEATHMATCH" display-tooltip-when-elided="true" name="GameModeLabel" class="font-italic font-style-h2" style="-unity-text-align: upper-right; font-size: 46px; padding-bottom: 0; margin-bottom: -3px;" />
@@ -47,6 +58,14 @@
                     <ui:VisualElement class="button-icon" />
                 </ui:Button>
                 <ui:VisualElement name="BattlePassHolder" class="hidden-left" style="flex-direction: row; align-items: flex-end;">
+                    <ui:VisualElement name="BPPPoolContainer" class="font-italic pool-container">
+                        <ui:VisualElement style="position: absolute; left: 16px; top: 11px; right: 34px; bottom: 51px; flex-direction: row; justify-content: space-between; rotate: 3deg; align-items: center;">
+                            <ui:Label text="+20 in 2h5m" display-tooltip-when-elided="true" name="RestockLabel" />
+                            <ui:VisualElement style="flex-grow: 1;" />
+                            <ui:Label text="&lt;color=#49D4D4&gt;20&lt;/color&gt; / 100&#10;" display-tooltip-when-elided="true" name="AmountLabel" />
+                            <ui:VisualElement style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/HomeScreen/BPP.png?fileID=21300000&amp;guid=100d689cc6ffc41f297345bcfc22f54e&amp;type=3#BPP&apos;); width: 32px; height: 32px;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
                     <ui:Button display-tooltip-when-elided="true" name="BattlePassButton" class="blastpassbutton" style="overflow: visible;">
                         <ui:VisualElement style="justify-content: flex-start; align-items: stretch; position: relative;">
                             <ui:Label text="BLAST PASS" name="Title" class="font-style-h1 font-italic" />

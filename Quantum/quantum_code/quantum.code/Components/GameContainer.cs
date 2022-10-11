@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Photon.Deterministic;
 
 namespace Quantum
 {
@@ -61,6 +62,16 @@ namespace Quantum
 			f.Events.OnGameProgressUpdated(previousProgress, CurrentProgress, TargetProgress);
 
 			if (CurrentProgress >= TargetProgress)
+			{
+				f.Signals.GameEnded();
+			}
+		}
+
+		internal void TestEveryoneIsDead(Frame f)
+		{
+			var playersAlive = f.ComponentCount<AlivePlayerCharacter>();
+
+			if (playersAlive == TargetProgress)
 			{
 				f.Signals.GameEnded();
 			}

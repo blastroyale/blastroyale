@@ -1,6 +1,6 @@
 using System;
+using System.Collections;
 using DG.Tweening;
-using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
@@ -11,7 +11,6 @@ using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using I2.Loc;
 using Quantum;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
@@ -25,6 +24,7 @@ namespace FirstLight.Game.Presenters
 	[LoadSynchronously]
 	public class HomeScreenPresenter : UiToolkitPresenterData<HomeScreenPresenter.StateData>
 	{
+		private const float CURRENCY_ANIM_DELAY = 2f;
 		private const string CS_POOL_AMOUNT_FORMAT = "<color=#FE6C07>{0}</color> / {1}";
 		private const string BPP_POOL_AMOUNT_FORMAT = "<color=#49D4D4>{0}</color> / {1}";
 
@@ -111,11 +111,6 @@ namespace FirstLight.Game.Presenters
 			});
 
 			_playerNameLabel.RegisterCallback<ClickEvent>(OnPlayerNameClicked);
-
-			_gameServices.MessageBrokerService.Subscribe<UnclaimedRewardsCollectingStartedMessage>(_ =>
-				_rewardsCollecting = true);
-			_gameServices.MessageBrokerService.Subscribe<UnclaimedRewardsCollectedMessage>(_ =>
-				_rewardsCollecting = false);
 		}
 
 		protected override void SubscribeToEvents()
@@ -130,6 +125,11 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider.BattlePassDataProvider.CurrentPoints.InvokeObserve(OnBattlePassCurrentPointsChanged);
 			_gameServices.GameModeService.SelectedGameMode.InvokeObserve(OnSelectedGameModeChanged);
 			_gameServices.TickService.SubscribeOnUpdate(UpdatePoolLabels, 1);
+
+			_gameServices.MessageBrokerService.Subscribe<UnclaimedRewardsCollectingStartedMessage>(_ =>
+				_rewardsCollecting = true);
+			_gameServices.MessageBrokerService.Subscribe<UnclaimedRewardsCollectedMessage>(_ =>
+				_rewardsCollecting = false);
 		}
 
 		protected override void UnsubscribeFromEvents()
@@ -215,7 +215,7 @@ namespace FirstLight.Game.Presenters
 			var label = GetRewardLabel(id);
 			if (_rewardsCollecting)
 			{
-				AnimateCurrency(id, previous, current, label);
+				StartCoroutine(AnimateCurrency(id, previous, current, label));
 			}
 			else
 			{
@@ -223,8 +223,10 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		private void AnimateCurrency(GameId id, ulong previous, ulong current, Label label)
+		private IEnumerator AnimateCurrency(GameId id, ulong previous, ulong current, Label label)
 		{
+			yield return new WaitForSeconds(CURRENCY_ANIM_DELAY);
+
 			for (int i = 0; i < Mathf.Min(10, current - previous); i++)
 			{
 				_mainMenuServices.UiVfxService.PlayVfx(id,
@@ -238,7 +240,6 @@ namespace FirstLight.Game.Presenters
 					});
 			}
 		}
-
 
 		private void OnPoolChanged(GameId id, ResourcePoolData previous, ResourcePoolData current,
 			ObservableUpdateType updateType)

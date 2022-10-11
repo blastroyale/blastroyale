@@ -1,5 +1,6 @@
 using System;
 using DG.Tweening;
+using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
@@ -72,14 +73,6 @@ namespace FirstLight.Game.Presenters
 			_mainMenuServices = MainInstaller.Resolve<IMainMenuServices>();
 		}
 
-		private void Update()
-		{
-			if (IsOpen)
-			{
-				UpdatePoolLabels();
-			}
-		}
-
 		protected override void QueryElements(VisualElement root)
 		{
 			_playerNameLabel = root.Q<Label>("PlayerNameLabel").Required();
@@ -125,12 +118,6 @@ namespace FirstLight.Game.Presenters
 				_rewardsCollecting = false);
 		}
 
-		[Button]
-		public void SetCollecting(bool collecting)
-		{
-			_rewardsCollecting = collecting;
-		}
-
 		protected override void SubscribeToEvents()
 		{
 			_gameDataProvider.AppDataProvider.DisplayName.InvokeObserve(OnDisplayNameChanged);
@@ -142,6 +129,7 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider.BattlePassDataProvider.CurrentLevel.InvokeObserve(OnBattlePassCurrentLevelChanged);
 			_gameDataProvider.BattlePassDataProvider.CurrentPoints.InvokeObserve(OnBattlePassCurrentPointsChanged);
 			_gameServices.GameModeService.SelectedGameMode.InvokeObserve(OnSelectedGameModeChanged);
+			_gameServices.TickService.SubscribeOnUpdate(UpdatePoolLabels, 1);
 		}
 
 		protected override void UnsubscribeFromEvents()
@@ -154,6 +142,7 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider.ResourceDataProvider.ResourcePools.StopObserving(GameId.CS);
 			_gameDataProvider.ResourceDataProvider.ResourcePools.StopObserving(GameId.BPP);
 			_gameServices.MessageBrokerService.UnsubscribeAll(this);
+			_gameServices.TickService.UnsubscribeAll(this);
 		}
 
 		private void OnPlayButtonClicked()
@@ -257,7 +246,7 @@ namespace FirstLight.Game.Presenters
 			UpdatePoolLabels();
 		}
 
-		private void UpdatePoolLabels()
+		private void UpdatePoolLabels(float _ = 0)
 		{
 			UpdatePool(GameId.BPP, BPP_POOL_AMOUNT_FORMAT, _bppPoolTimeLabel, _bppPoolAmountLabel);
 			UpdatePool(GameId.CS, CS_POOL_AMOUNT_FORMAT, _csPoolTimeLabel, _csPoolAmountLabel);

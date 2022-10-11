@@ -88,17 +88,18 @@ namespace FirstLight.Game.Views.BattlePassViews
 			if (data.PredictedCurrentLevel > data.SegmentLevel)
 			{
 				_progressBar.fillAmount = 1f;
-				_progressText.text = "";
+				_progressText.gameObject.SetActive(false);
 			}
 			else if (data.PredictedCurrentLevel == data.SegmentLevel)
 			{
 				_progressBar.fillAmount = (float) data.PredictedCurrentProgress / data.MaxProgress;
 				_progressText.text = $"{data.PredictedCurrentProgress}/{data.MaxProgress}";
+				_progressText.gameObject.SetActive(true);
 			}
 			else
 			{
 				_progressBar.fillAmount = 0;
-				_progressText.text = "";
+				_progressText.gameObject.SetActive(false);
 			}
 		}
 	}

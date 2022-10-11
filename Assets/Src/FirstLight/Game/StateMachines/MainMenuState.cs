@@ -9,11 +9,9 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Services;
 using FirstLight.Statechart;
 using FirstLight.UiService;
 using I2.Loc;
-using Quantum;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -99,7 +97,6 @@ namespace FirstLight.Game.StateMachines
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
 			var screenCheck = stateFactory.Choice("Main Screen Check");
-			var claimUnclaimedRewards = stateFactory.Transition("Claim Unclaimed Rewards");
 			var homeMenu = stateFactory.State("Home Menu");
 			var lootMenu = stateFactory.Nest("Loot Menu");
 			var heroesMenu = stateFactory.State("Heroes Menu");
@@ -117,7 +114,6 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(screenCheck);
 			initial.OnExit(OpenUiVfxPresenter);
 
-			screenCheck.Transition().Condition(HasUncollectedRewards).Target(claimUnclaimedRewards);
 			screenCheck.Transition().Condition(IsCurrentScreen<HomeScreenPresenter>).Target(defaultNameCheck);
 			screenCheck.Transition().Condition(IsCurrentScreen<LootScreenPresenter>).Target(lootMenu);
 			screenCheck.Transition().Condition(IsCurrentScreen<PlayerSkinScreenPresenter>).Target(heroesMenu);
@@ -126,10 +122,8 @@ namespace FirstLight.Game.StateMachines
 			defaultNameCheck.Transition().Condition(HasDefaultName).Target(enterNameDialog);
 			defaultNameCheck.Transition().Target(homeMenu);
 
-			claimUnclaimedRewards.OnEnter(ClaimUncollectedRewards);
-			claimUnclaimedRewards.Transition().Target(screenCheck);
-			
 			homeMenu.OnEnter(OpenPlayMenuUI);
+			homeMenu.OnEnter(TryClaimUncollectedRewards);
 			homeMenu.Event(_playClickedEvent).Target(playClickedCheck);
 			homeMenu.Event(_settingsMenuClickedEvent).Target(settingsMenu);
 			homeMenu.Event(_gameCompletedCheatEvent).Target(screenCheck);
@@ -183,7 +177,6 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeEvents()
 		{
-			_services.MessageBrokerService.Subscribe<UnclaimedRewardsCollectedMessage>(OnRewardsCollectedMessage);
 			_services.MessageBrokerService.Subscribe<GameCompletedRewardsMessage>(OnGameCompletedRewardsMessage);
 		}
 
@@ -197,29 +190,12 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(_gameCompletedCheatEvent);
 		}
 
-		private void OnRewardsCollectedMessage(UnclaimedRewardsCollectedMessage message)
+		private void TryClaimUncollectedRewards()
 		{
-			var position = _uiService.GetUi<GenericDialogIconPresenter>().IconPosition.position;
-
-			foreach (var reward in message.Rewards)
+			if (_gameDataProvider.RewardDataProvider.UnclaimedRewards.Count > 0)
 			{
-				_services.MessageBrokerService.Publish(new PlayUiVfxMessage
-				{
-					Id = reward.RewardId,
-					OriginWorldPosition = position,
-					Quantity = (uint) reward.Value
-				});
+				_services.CommandService.ExecuteCommand(new CollectUnclaimedRewardsCommand());
 			}
-		}
-
-		private bool HasUncollectedRewards()
-		{
-			return _gameDataProvider.RewardDataProvider.UnclaimedRewards.Count > 0;
-		}
-
-		private void ClaimUncollectedRewards()
-		{
-			_services.CommandService.ExecuteCommand(new CollectUnclaimedRewardsCommand());
 		}
 		
 		private void ValidateCurrentGameMode()

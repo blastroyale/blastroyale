@@ -67,6 +67,10 @@ namespace FirstLight.Game.Views
 			_cardMat.SetTexture(_frameShapeMaskId, _frameShapeMasks[rarityId].texture);
 			_cardMat.SetTexture(_nameTagId, _NameTagSprites[materialId].texture);
 			_cardMat.SetTexture(_adjectivePatternId, _adjectivePatternSprites[adjectiveId].texture);
+			
+			// Refreshes the material
+			_card.enabled = false;
+			_card.enabled = true;
 
 			_itemIcon.sprite =
 				await _services.AssetResolverService.RequestAsset<GameId, Sprite>(metadata.GameId, true, false);

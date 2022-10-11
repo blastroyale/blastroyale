@@ -1,11 +1,8 @@
 using System;
-using System.Collections;
-using DG.Tweening;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
@@ -14,7 +11,6 @@ using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
-using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Presenters
 {
@@ -24,7 +20,6 @@ namespace FirstLight.Game.Presenters
 	[LoadSynchronously]
 	public class HomeScreenPresenter : UiToolkitPresenterData<HomeScreenPresenter.StateData>
 	{
-		private const float CURRENCY_ANIM_DELAY = 2f;
 		private const string CS_POOL_AMOUNT_FORMAT = "<color=#FE6C07>{0}</color> / {1}";
 		private const string BPP_POOL_AMOUNT_FORMAT = "<color=#49D4D4>{0}</color> / {1}";
 
@@ -43,7 +38,6 @@ namespace FirstLight.Game.Presenters
 
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _gameServices;
-		private IMainMenuServices _mainMenuServices;
 
 		private Label _playerNameLabel;
 		private Label _playerTrophiesLabel;
@@ -70,7 +64,6 @@ namespace FirstLight.Game.Presenters
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_gameServices = MainInstaller.Resolve<IGameServices>();
-			_mainMenuServices = MainInstaller.Resolve<IMainMenuServices>();
 		}
 
 		protected override void QueryElements(VisualElement root)
@@ -86,8 +79,6 @@ namespace FirstLight.Game.Presenters
 			_csPoolAmountLabel = _csPoolContainer.Q<Label>("AmountLabel").Required();
 			_csPoolTimeLabel = _csPoolContainer.Q<Label>("RestockLabel").Required();
 
-			_csAmountLabel = root.Q<VisualElement>("CSCurrency").Q<Label>("Label").Required();
-			_blstAmountLabel = root.Q<VisualElement>("BLSTCurrency").Q<Label>("Label").Required();
 			_battlePassLevelLabel = root.Q<Label>("BattlePassLevelLabel").Required();
 			_battlePassProgressElement = root.Q<VisualElement>("BattlePassProgressElement").Required();
 			_battlePassCrownIcon = root.Q<VisualElement>("BattlePassCrownIcon").Required();
@@ -115,25 +106,20 @@ namespace FirstLight.Game.Presenters
 
 		protected override void SubscribeToEvents()
 		{
+			base.SubscribeToEvents();
 			_gameDataProvider.AppDataProvider.DisplayName.InvokeObserve(OnDisplayNameChanged);
 			_gameDataProvider.PlayerDataProvider.Trophies.InvokeObserve(OnTrophiesChanged);
-			_gameDataProvider.CurrencyDataProvider.Currencies.InvokeObserve(GameId.CS, OnCurrencyChanged);
-			_gameDataProvider.CurrencyDataProvider.Currencies.InvokeObserve(GameId.BLST, OnCurrencyChanged);
 			_gameDataProvider.ResourceDataProvider.ResourcePools.InvokeObserve(GameId.CS, OnPoolChanged);
 			_gameDataProvider.ResourceDataProvider.ResourcePools.InvokeObserve(GameId.BPP, OnPoolChanged);
 			_gameDataProvider.BattlePassDataProvider.CurrentLevel.InvokeObserve(OnBattlePassCurrentLevelChanged);
 			_gameDataProvider.BattlePassDataProvider.CurrentPoints.InvokeObserve(OnBattlePassCurrentPointsChanged);
 			_gameServices.GameModeService.SelectedGameMode.InvokeObserve(OnSelectedGameModeChanged);
 			_gameServices.TickService.SubscribeOnUpdate(UpdatePoolLabels, 1);
-
-			_gameServices.MessageBrokerService.Subscribe<UnclaimedRewardsCollectingStartedMessage>(_ =>
-				_rewardsCollecting = true);
-			_gameServices.MessageBrokerService.Subscribe<UnclaimedRewardsCollectedMessage>(_ =>
-				_rewardsCollecting = false);
 		}
 
 		protected override void UnsubscribeFromEvents()
 		{
+			base.UnsubscribeFromEvents();
 			_gameDataProvider.AppDataProvider.DisplayName.StopObserving(OnDisplayNameChanged);
 			_gameDataProvider.PlayerDataProvider.Trophies.StopObserving(OnTrophiesChanged);
 			_gameServices.GameModeService.SelectedGameMode.StopObserving(OnSelectedGameModeChanged);
@@ -206,39 +192,6 @@ namespace FirstLight.Game.Presenters
 			_gameTypeLabel.text = current.Entry.MatchType.ToString().ToUpper();
 			_csPoolContainer.style.display =
 				current.Entry.MatchType == MatchType.Casual ? DisplayStyle.None : DisplayStyle.Flex;
-		}
-
-		private void OnCurrencyChanged(GameId id, ulong previous, ulong current, ObservableUpdateType updateType)
-		{
-			if (id != GameId.CS && id != GameId.BLST) return;
-
-			var label = GetRewardLabel(id);
-			if (_rewardsCollecting)
-			{
-				StartCoroutine(AnimateCurrency(id, previous, current, label));
-			}
-			else
-			{
-				label.text = current.ToString();
-			}
-		}
-
-		private IEnumerator AnimateCurrency(GameId id, ulong previous, ulong current, Label label)
-		{
-			yield return new WaitForSeconds(CURRENCY_ANIM_DELAY);
-
-			for (int i = 0; i < Mathf.Min(10, current - previous); i++)
-			{
-				_mainMenuServices.UiVfxService.PlayVfx(id,
-					i * 0.1f,
-					Root.GetPositionOnScreen(Root) + Random.insideUnitCircle * 100,
-					label.GetPositionOnScreen(Root),
-					() =>
-					{
-						DOVirtual.Float(previous, current, 0.3f, val => { label.text = val.ToString("F0"); });
-						_gameServices.AudioFxService.PlayClip2D(AudioId.CounterTick1);
-					});
-			}
 		}
 
 		private void OnPoolChanged(GameId id, ResourcePoolData previous, ResourcePoolData current,
@@ -336,16 +289,6 @@ namespace FirstLight.Game.Presenters
 			}
 
 			UpdateBattlePassLevel(predictedLevel);
-		}
-
-		private Label GetRewardLabel(GameId id)
-		{
-			return id switch
-			{
-				GameId.CS => _csAmountLabel,
-				GameId.BLST => _blstAmountLabel,
-				_ => throw new ArgumentOutOfRangeException(nameof(id), id, null)
-			};
 		}
 	}
 }

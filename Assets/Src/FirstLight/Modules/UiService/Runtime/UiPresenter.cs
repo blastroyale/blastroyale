@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using FirstLight.Game.UIElements;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -160,6 +161,8 @@ namespace FirstLight.UiService
 
 		protected VisualElement Root;
 
+		private readonly List<IVisualElementLifecycle> _initializables = new();
+
 		/// <summary>
 		/// Called when the presenter is ready to have the <paramref name="root"/> <see cref="VisualElement"/> queried for elements.
 		/// </summary>
@@ -170,6 +173,10 @@ namespace FirstLight.UiService
 		/// </summary>
 		protected virtual void SubscribeToEvents()
 		{
+			foreach (var ie in _initializables)
+			{
+				ie.RuntimeInit();
+			}
 		}
 
 		/// <summary>
@@ -177,6 +184,10 @@ namespace FirstLight.UiService
 		/// </summary>
 		protected virtual void UnsubscribeFromEvents()
 		{
+			foreach (var ie in _initializables)
+			{
+				ie.RuntimeCleanup();
+			}
 		}
 
 		protected override void OnOpened()
@@ -185,6 +196,13 @@ namespace FirstLight.UiService
 			{
 				Root = _document.rootVisualElement.Q(UIConstants.ID_ROOT);
 				QueryElements(Root);
+
+				// TODO: There has to be a better way to make this query
+				_initializables.Clear();
+				Root.Query()
+					.Where(ve => ve is IVisualElementLifecycle)
+					.Build()
+					.ForEach(e => { _initializables.Add((IVisualElementLifecycle) e); });
 			}
 
 			Root.EnableInClassList(UIConstants.CLASS_HIDDEN, false);

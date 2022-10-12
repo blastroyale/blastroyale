@@ -186,7 +186,7 @@ namespace Quantum
 
 			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
 			var initialAmmo = weaponConfig.InitialAmmoFilled.Get(f);
-			var slot = GetWeaponEquipSlot(weapon, primary);
+			var slot = GetWeaponEquipSlot(f, weapon, primary);
 			var primaryWeapon = WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon;
 			if (primaryWeapon.IsValid() && weapon.GameId == primaryWeapon.GameId &&
 			    weapon.Rarity > primaryWeapon.Rarity)
@@ -448,8 +448,13 @@ namespace Quantum
 			return false;
 		}
 
-		private int GetWeaponEquipSlot(Equipment weapon, bool primary)
+		private int GetWeaponEquipSlot(Frame f, Equipment weapon, bool primary)
 		{
+			if (f.Context.GameModeConfig.SingleSlotMode)
+			{
+				return Constants.WEAPON_INDEX_PRIMARY;
+			}
+
 			for (int i = 0; i < WeaponSlots.Length; i++)
 			{
 				var equippedWeapon = WeaponSlots[i].Weapon;

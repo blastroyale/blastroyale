@@ -27,7 +27,7 @@ public class TestAnalyticsPlugin
 		_server.SetupInMemoryServer();
 		_analytics = _server.GetService<IServerAnalytics>() as InMemoryAnalytics;
 	}
-
+/*
 	[Test]
 	public void TestEndOfGameCalculationsCommandAnalytics()
 	{
@@ -60,6 +60,6 @@ public class TestAnalyticsPlugin
 		Assert.IsTrue(oldState.TryGetValue("Key1", out var value) && value == "Value1");
 		Assert.IsTrue(newState.TryGetValue("Key1", out var value2) && value2 == "Value1");
 	}
-
+*/
 
 }

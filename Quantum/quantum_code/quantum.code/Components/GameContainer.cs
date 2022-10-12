@@ -66,12 +66,17 @@ namespace Quantum
 				f.Signals.GameEnded();
 			}
 		}
-
+		
+		/// <summary>
+		/// Tests the game completion strategy where everyone should be dead but a certain amount of people defined in the TargetProgress
+		/// </summary>
 		internal void TestEveryoneIsDead(Frame f)
 		{
 			var playersAlive = f.ComponentCount<AlivePlayerCharacter>();
 
-			if (playersAlive == TargetProgress)
+			CurrentProgress = (uint)( f.PlayerCount - playersAlive);
+
+			if (CurrentProgress >= TargetProgress)
 			{
 				f.Signals.GameEnded();
 			}

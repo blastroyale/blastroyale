@@ -165,6 +165,8 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerSkydiveLand>(this, OnLocalSkydiveEnd);
 			QuantumEvent.SubscribeManual<EventOnPlayerAlive>(this, OnPlayerAlive);
 			QuantumEvent.SubscribeManual<EventOnPlayerSpawned>(this, OnPlayerSpawned);
+			QuantumEvent.SubscribeManual<EventOnPlayerWeaponChanged>(this, OnPlayerWeaponChanged);
+
 		}
 
 		private void UnsubscribeMatchEvents()
@@ -400,6 +402,17 @@ namespace FirstLight.Game.StateMachines
 
 			//TODO: replace this sfx with a proper sfx for your pickup being blocked
 			_services.AudioFxService.PlayClip3D(AudioId.CollectionStop, entityView.transform.position);
+		}
+
+		private void OnPlayerWeaponChanged(EventOnPlayerWeaponChanged callback)
+		{
+			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
+
+			if(callback.Weapon.GameId != GameId.Random)
+			{
+				_services.AudioFxService.PlayClip3D(AudioId.WeaponSwitch, entityView.transform.position);
+			}
+			//TODO: have a negative sound for trying to swap to an empty weapon slot or an unavailable weapon
 		}
 
 		private void OnCollectionStopped(EventOnStoppedCollecting callback)

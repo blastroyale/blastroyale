@@ -27,6 +27,7 @@ namespace Quantum.Systems
 				Team = (int) TeamType.Neutral
 			};
 
+			f.Add(entity, new PlayerCharacter());
 			f.Add(entity, targetable);
 			f.Add(entity, new Stats(component->Health, 0, 0, 0, 0, 0, 0, 0, 0));
 		}

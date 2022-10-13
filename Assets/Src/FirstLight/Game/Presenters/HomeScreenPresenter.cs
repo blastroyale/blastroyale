@@ -278,10 +278,38 @@ namespace FirstLight.Game.Presenters
 			UpdateBattlePassLevel(_gameDataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints().Item1);
 		}
 
-		private void OnBattlePassCurrentPointsChanged(uint _, uint current)
+		private void OnBattlePassCurrentPointsChanged(uint previous, uint current)
 		{
 			var predictedLevelAndPoints = _gameDataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
-			UpdateBattlePassPoints(predictedLevelAndPoints.Item1, predictedLevelAndPoints.Item2);
+
+			if (_rewardsCollecting)
+			{
+				StartCoroutine(AnimateBPP(GameId.BPP, previous, current, predictedLevelAndPoints.Item1,
+					predictedLevelAndPoints.Item2));
+			}
+			else
+			{
+				UpdateBattlePassPoints(predictedLevelAndPoints.Item1, predictedLevelAndPoints.Item2);
+			}
+		}
+
+		private IEnumerator AnimateBPP(GameId id, ulong previous, ulong current, uint predictedLevel,
+			uint predictedPoints)
+		{
+			yield return new WaitForSeconds(CURRENCY_ANIM_DELAY);
+
+			for (int i = 0; i < Mathf.Min(10, current - previous); i++)
+			{
+				_mainMenuServices.UiVfxService.PlayVfx(id,
+					i * 0.1f,
+					Root.GetPositionOnScreen(Root) + Random.insideUnitCircle * 100,
+					_battlePassProgressElement.GetPositionOnScreen(Root),
+					() =>
+					{
+						UpdateBattlePassPoints(predictedLevel, predictedPoints);
+						_gameServices.AudioFxService.PlayClip2D(AudioId.CounterTick1);
+					});
+			}
 		}
 
 		private void UpdateBattlePassLevel(uint predictedLevel)

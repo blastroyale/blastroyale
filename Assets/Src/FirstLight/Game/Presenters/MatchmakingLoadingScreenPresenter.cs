@@ -449,7 +449,14 @@ namespace FirstLight.Game.Presenters
 
 		private void OnLeaveRoomClicked()
 		{
-			_services.MessageBrokerService.Publish(new RoomLeaveClickedMessage());
+			var title = string.Format(ScriptLocalization.MainMenu.LeaveMatchMessage);
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.General.Yes,
+				ButtonOnClick = () => _services.MessageBrokerService.Publish(new RoomLeaveClickedMessage())
+			};
+
+			_services.GenericDialogService.OpenDialog(title, true, confirmButton);
 		}
 
 		private void ReadyToPlay()

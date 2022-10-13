@@ -87,7 +87,7 @@ stages:
     image: $(image_manual_override)
     registryLoginServer: $(registry)
     # Prod-specific params
-    environment: prod
+    environment: testnet-prod
     subscription: $(PROD-GAMELOGIC-SUBSCRIPTION-ID)
     minReplicas: 1
     maxReplicas: 4

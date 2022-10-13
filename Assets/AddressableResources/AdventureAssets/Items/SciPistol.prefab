@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6598001867628918023}
   - component: {fileID: 4173566605188204786}
   - component: {fileID: 6421503039465164372}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: ConeParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4996,7 +4996,7 @@ GameObject:
   - component: {fileID: 9161157253968186225}
   - component: {fileID: 7533596972645400332}
   - component: {fileID: 4830445440018871387}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: BulletFx (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9957,7 +9957,7 @@ GameObject:
   - component: {fileID: 3729672542854120729}
   - component: {fileID: 1858921455597260973}
   - component: {fileID: 2482429684140205119}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: ImpactMark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14910,7 +14910,7 @@ GameObject:
   - component: {fileID: 4679740967460809201}
   - component: {fileID: 8334622175379645977}
   - component: {fileID: 8798646331634334507}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19781,7 +19781,7 @@ GameObject:
   - component: {fileID: 4449877695089541556}
   - component: {fileID: 3035828906478758039}
   - component: {fileID: 7337453224065290619}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: OORGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24849,7 +24849,7 @@ GameObject:
   - component: {fileID: 2792961982639253647}
   - component: {fileID: 416773964909025855}
   - component: {fileID: 3474828132799770910}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: ImpactGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29921,6 +29921,7 @@ MonoBehaviour:
   - {fileID: 7337453224065290619}
   - {fileID: 8798646331634334507}
   - {fileID: 6421503039465164372}
+  _rendererRoots: []
   _mainRenderer: {fileID: 0}
 --- !u!1 &9220520278326147828
 GameObject:
@@ -29933,7 +29934,7 @@ GameObject:
   - component: {fileID: 4694416771510303381}
   - component: {fileID: 3231214072464701088}
   - component: {fileID: 2923568181026331408}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: ImpactSpark
   m_TagString: Untagged
   m_Icon: {fileID: 0}

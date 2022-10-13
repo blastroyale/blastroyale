@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 319093947679984669}
   - component: {fileID: 4081470569330484408}
   - component: {fileID: 6850330808670219720}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: ImpactSpark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4913,7 +4913,7 @@ GameObject:
   - component: {fileID: 4998040895179632841}
   - component: {fileID: 5718002747670267637}
   - component: {fileID: 484322344989870205}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: SmokeParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9795,7 +9795,7 @@ GameObject:
   - component: {fileID: 6373772693456712691}
   - component: {fileID: 7328350937302549901}
   - component: {fileID: 6836436583180737306}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: ImpactGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14785,6 +14785,7 @@ MonoBehaviour:
   - {fileID: 4107126355236718146}
   - {fileID: 484322344989870205}
   - {fileID: 3825899257050659150}
+  _rendererRoots: []
   _mainRenderer: {fileID: 0}
 --- !u!1 &4395550824055608633
 GameObject:
@@ -14880,7 +14881,7 @@ GameObject:
   - component: {fileID: 1952001920300037778}
   - component: {fileID: 7685314348594813282}
   - component: {fileID: 6608228970921030014}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: OORSmoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19762,7 +19763,7 @@ GameObject:
   - component: {fileID: 7620000276521690251}
   - component: {fileID: 744629963262276213}
   - component: {fileID: 3825899257050659150}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: ConeParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24830,7 +24831,7 @@ GameObject:
   - component: {fileID: 4811173340062649102}
   - component: {fileID: 4102448332760783618}
   - component: {fileID: 4107126355236718146}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29817,7 +29818,7 @@ GameObject:
   - component: {fileID: 6450780494620806675}
   - component: {fileID: 4914083836874484840}
   - component: {fileID: 4765790118264190557}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: BulletFx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34713,7 +34714,7 @@ GameObject:
   - component: {fileID: 2882911739289820566}
   - component: {fileID: 3593279711719281030}
   - component: {fileID: 2511222648497802897}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: ImpactMark
   m_TagString: Untagged
   m_Icon: {fileID: 0}

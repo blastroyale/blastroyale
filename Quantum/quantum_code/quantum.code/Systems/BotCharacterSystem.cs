@@ -102,7 +102,8 @@ namespace Quantum.Systems
 			var speed = f.Get<Stats>(filter.Entity).Values[(int) StatType.Speed].StatValue;
 			var weaponConfig = f.WeaponConfigs.GetConfig(filter.PlayerCharacter->CurrentWeapon.GameId);
 			
-			if (QuantumHelpers.IsDestroyed(f, target))
+			// We need to check also for AlivePlayerCharacter because with respawns we don't destroy Player Entities
+			if (QuantumHelpers.IsDestroyed(f, target) || !f.Has<AlivePlayerCharacter>(target))
 			{
 				ClearTarget(f, ref filter);
 			}
@@ -119,7 +120,7 @@ namespace Quantum.Systems
 			if (f.Time > filter.BotCharacter->NextLookForTargetsToShootAtTime)
 			{
 				// Check if target exists otherwise look for new enemies
-				if (!QuantumHelpers.IsDestroyed(f, target))
+				if (filter.BotCharacter->Target != EntityRef.None)
 				{
 					// Bots have a ChanceToAbandonTarget to stop shooting/tracking the target to allow more room for players to escape
 					if (f.RNG->Next() < filter.BotCharacter->ChanceToAbandonTarget)
@@ -135,36 +136,24 @@ namespace Quantum.Systems
 							FPMath.Max(FP._1_50, weaponTargetRange * filter.BotCharacter->CloseFightIntolerance);
 						var sqrDistanceToTarget = (f.Get<Transform3D>(target).Position - filter.Transform->Position)
 							.SqrMagnitude;
+						
 						// If target is too far then we stop attacking
 						if (sqrDistanceToTarget > weaponTargetRange * weaponTargetRange)
 						{
 							ClearTarget(f, ref filter);
 						}
-						// If the bot is too close then we do wander to change position
-						else if (sqrDistanceToTarget < FP._1_50)
+						// If the bot was moving towards enemy or not moving anywhere then we do distance checks to not get too close
+						else if ((filter.BotCharacter->MoveTarget == target || filter.BotCharacter->MoveTarget == EntityRef.None)
+						         && sqrDistanceToTarget < minDistanceToTarget * minDistanceToTarget)
 						{
-							Wander(f, ref filter);
-						}
-						// Otherwise we check to be not too close to target and if we are - then we stop moving closer
-						else if (sqrDistanceToTarget < minDistanceToTarget * minDistanceToTarget)
-						{
+							filter.BotCharacter->MoveTarget = EntityRef.None;
 							filter.NavMeshAgent->Stop(f, filter.Entity, true);
 						}
 					}
 				}
 				else
 				{
-					ClearTarget(f, ref filter);
 					CheckEnemiesToShooAt(f, ref filter, weaponConfig);
-				}
-				
-				// If bot had a target but now is doesn't AND the bot is not moving
-				// then we force them to think about their next action
-				if (target != EntityRef.None
-				    && filter.BotCharacter->Target == EntityRef.None
-				    && !filter.NavMeshAgent->IsActive)
-				{
-					filter.BotCharacter->NextDecisionTime = f.Time;
 				}
 				
 				filter.BotCharacter->NextLookForTargetsToShootAtTime =
@@ -175,13 +164,14 @@ namespace Quantum.Systems
 			if (filter.BotCharacter->MoveTarget != EntityRef.None && QuantumHelpers.IsDestroyed(f, filter.BotCharacter->MoveTarget))
 			{
 				filter.BotCharacter->MoveTarget = EntityRef.None;
+				filter.NavMeshAgent->Stop(f, filter.Entity, true);
 			}
 
 			var botStuckWandering = filter.NavMeshAgent->IsActive == false && filter.BotCharacter->MoveTarget == filter.Entity;
 
-			// Do not do any decision making if the time has not come, unless a bot stucked wandering or collected a target 
+			// Do not do any decision making if the time has not come, unless a bot stucked wandering or collected a target or has no one to shoot at
 			if (!botStuckWandering
-			    && filter.BotCharacter->MoveTarget != EntityRef.None
+			    && (filter.BotCharacter->MoveTarget != EntityRef.None || filter.BotCharacter->Target != EntityRef.None)
 			    && f.Time < filter.BotCharacter->NextDecisionTime)
 			{
 				return;
@@ -194,11 +184,11 @@ namespace Quantum.Systems
 			// hence why we are Forcing Repath;
 			// Another reason why a bot isn't going anywhere can be because the point they want to go to is
 			// unreachable due to how navmesh were baked or consumable placed
-			if (FPVector3.DistanceSquared(filter.BotCharacter->StuckDetectionPosition, 
-			                              filter.Transform->Position) < Constants.BOT_STUCK_DETECTION_DISTANCE)
-			{
-				filter.NavMeshAgent->ForceRepath(f);
-			}
+			// if (FPVector3.DistanceSquared(filter.BotCharacter->StuckDetectionPosition, 
+			//                               filter.Transform->Position) < Constants.BOT_STUCK_DETECTION_DISTANCE)
+			// {
+			// 	filter.NavMeshAgent->ForceRepath(f);
+			// }
 			
 			filter.BotCharacter->NextDecisionTime = f.Time + filter.BotCharacter->DecisionInterval;
 			filter.BotCharacter->StuckDetectionPosition = filter.Transform->Position;
@@ -282,7 +272,13 @@ namespace Quantum.Systems
 		private void ClearTarget(Frame f, ref BotCharacterFilter filter)
 		{
 			var speed = f.Get<Stats>(filter.Entity).Values[(int) StatType.Speed].StatValue;
-
+			
+			// If the bot was moving towards this enemy then we clear move target and force a bot to make a decision
+			if (filter.BotCharacter->MoveTarget == filter.BotCharacter->Target)
+			{
+				filter.BotCharacter->MoveTarget = EntityRef.None;
+				filter.NavMeshAgent->Stop(f, filter.Entity, true);
+			}
 			filter.BotCharacter->Target = EntityRef.None;
 			
 			var speedUpMutatorExists = f.Context.TryGetMutatorByType(MutatorType.Speed, out var speedUpMutatorConfig);
@@ -670,9 +666,16 @@ namespace Quantum.Systems
 			}
 
 			var weaponTargetRange = f.Get<Stats>(filter.Entity).GetStatData(StatType.AttackRange).StatValue;
-			var reverseDirection = (enemyPosition - botPosition).Normalized;
 			// Do not go closer than 1.5 meters to target
 			var offsetDistance = FPMath.Max(FP._1_50, weaponTargetRange * filter.BotCharacter->CloseFightIntolerance);
+			
+			// If we are closer than offset distance already then we don't move towards this target any closer
+			if (sqrDistance < offsetDistance * offsetDistance)
+			{
+				return false;
+			}
+			
+			var reverseDirection = (enemyPosition - botPosition).Normalized;
 			var offsetPosition = enemyPosition + reverseDirection * offsetDistance;
 
 			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, offsetPosition);

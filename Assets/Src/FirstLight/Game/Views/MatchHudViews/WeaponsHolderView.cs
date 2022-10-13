@@ -33,7 +33,24 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			_slots[Constants.WEAPON_INDEX_DEFAULT].SetEquipment(new Equipment(GameId.Hammer));
 			_slots[Constants.WEAPON_INDEX_PRIMARY].SetEquipment(Equipment.None);
 			_slots[Constants.WEAPON_INDEX_SECONDARY].SetEquipment(Equipment.None);
+
+			UpdateVisibleSlots();
+			
 			SetSelectedSlot(Constants.WEAPON_INDEX_DEFAULT);
+		}
+
+		private void UpdateVisibleSlots()
+		{
+			var frame = QuantumRunner.Default.Game.Frames.Verified;
+			var gameModeConfig = frame.Context.GameModeConfig;
+
+			if (gameModeConfig.SingleSlotMode)
+			{
+				for (var slotIndex = 0; slotIndex < _slots.Length ; slotIndex++)
+				{
+					_slots[slotIndex].gameObject.SetActive(slotIndex is Constants.WEAPON_INDEX_DEFAULT or Constants.WEAPON_INDEX_PRIMARY);
+				}
+			}
 		}
 
 		private void OnDestroy()

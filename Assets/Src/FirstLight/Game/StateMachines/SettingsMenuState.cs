@@ -185,14 +185,10 @@ namespace FirstLight.Game.StateMachines
 			};
 
 			_services.GenericDialogService.OpenDialog(title, false, confirmButton);
-			return;
 #else
 				var button = new FirstLight.NativeUi.AlertButton
 				{
-					Callback = () =>
-					{
-						_services.QuitGame("Closing unlink complete alert");
-					},
+					Callback = () => {_services.QuitGame("Closing unlink complete alert"); },
 					Style = FirstLight.NativeUi.AlertButtonStyle.Positive,
 					Text = ScriptLocalization.MainMenu.QuitGameButton
 				};

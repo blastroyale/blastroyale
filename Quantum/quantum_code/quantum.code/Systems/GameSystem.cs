@@ -63,7 +63,7 @@ namespace Quantum.Systems
 			if (f.Context.GameModeConfig.CompletionStrategy == GameCompletionStrategy.EveryoneDead)
 			{
 				var container = f.Unsafe.GetPointerSingleton<GameContainer>();
-				container->UpdateGameProgress(f, 1);
+				container->TestEveryoneIsDead(f);
 			}
 		}
 

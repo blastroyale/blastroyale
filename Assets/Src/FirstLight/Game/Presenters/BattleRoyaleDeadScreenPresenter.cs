@@ -41,17 +41,23 @@ namespace FirstLight.Game.Presenters
 		protected override void OnOpened()
 		{
 			base.OnOpened();
+
+			var game = QuantumRunner.Default.Game;
+			var f = game.Frames.Verified;
+			var playersData = f.GetSingleton<GameContainer>().PlayersData;
+			var localPlayer = game.GetLocalPlayers()[0];
 			
-			if (Data.Killer != PlayerRef.None)
+			if (Data.Killer != PlayerRef.None && Data.Killer != localPlayer)
 			{
-				var f = QuantumRunner.Default.Game.Frames.Verified;
-				var playersData = f.GetSingleton<GameContainer>().PlayersData;
 				var data = new QuantumPlayerMatchData(f, playersData[Data.Killer]);
+				
 				_killerText.text = string.Format(ScriptLocalization.AdventureMenu.FraggedBy, data.GetPlayerName());
 			}
 			else
 			{
-				_killerText.text = ScriptLocalization.AdventureMenu.YouDied;
+				var data = new QuantumPlayerMatchData(f, playersData[localPlayer]);
+				
+				_killerText.text = string.Format(ScriptLocalization.AdventureMenu.Suicide, data.GetPlayerName());
 			}
 		}
 

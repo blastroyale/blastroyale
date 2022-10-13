@@ -55,6 +55,9 @@ namespace Quantum
 
 		[FoldoutGroup("UI"), PropertyTooltip(DESC_SHOW_WEAPON_SLOTS)]
 		public bool ShowWeaponSlots;
+		
+		[FoldoutGroup("UI"), PropertyTooltip(DESC_SINGLE_SLOT_MODE)]
+		public bool SingleSlotMode;
 
 #endregion
 
@@ -163,6 +166,7 @@ namespace Quantum
 		private const string DESC_SHOW_TIMER = "Displays the countdown timer at the top center of the screen, along with other BR specific UIs. Requires ShrinkingCircle system to be enabled.";
 		private const string DESC_SHOW_UI_STANDINGS_EXTRA_INFO = "Displays additional information on the standings / leaderboards, like XP and Trophy count.";
 		private const string DESC_SHOW_WEAPON_SLOTS = "Displays weapon slots and enables the player to switch between weapons.";
+		private const string DESC_SINGLE_SLOT_MODE = "Only shows the melee slot and the first weapon slot";
 		private const string DESC_LIVES = "How many lives does the player have. Use 0 for infinite lives";
 		private const string DESC_DROP_WEAPON_ON_PICKUP = "Drops the player's equipped weapon if they pick up a better one.";
 		private const string DESC_SPAWN_WITH_LOADOUT = "Spawns the player with their loadout equipment equipped.";

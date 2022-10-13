@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using FirstLight.Game.Ids;
@@ -18,6 +19,8 @@ public partial class SROptions
 	{
 		MainInstaller.Resolve<IGameServices>().GameModeService.SelectedGameMode.Value =
 			new GameModeInfo(GameModeId, MatchType,
-			                 Mutators.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList());
+				string.IsNullOrEmpty(Mutators)
+					? new List<string>()
+					: Mutators.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList());
 	}
 }

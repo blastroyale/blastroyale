@@ -13,9 +13,7 @@ namespace FirstLight.Game.Services
 	public interface IUiVfxService
 	{
 		/// <inheritdoc cref="UiVfxPresenter.PlayAnimation(UnityEngine.Sprite,UnityEngine.Vector3,UnityEngine.Vector3,UnityEngine.Events.UnityAction)"/>
-		void PlayVfx(GameId id, Vector3 originWorldPosition, Vector3 targetWorldPosition, UnityAction onCompleteCallback);
-		/// <inheritdoc cref="UiVfxPresenter.PlayAnimation(UnityEngine.Sprite,UnityEngine.Vector3,UnityEngine.Transform,UnityEngine.Events.UnityAction)"/>
-		void PlayVfx(GameId id, Vector3 originWorldPosition, Transform target, UnityAction onCompleteCallback);
+		void PlayVfx(GameId id, float delay, Vector3 originWorldPosition, Vector3 targetWorldPosition, UnityAction onCompleteCallback);
 
 		/// <summary>
 		/// Plays the Floating Text animation with the given <paramref name="text"/>.
@@ -59,21 +57,13 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public async void PlayVfx(GameId id, Vector3 originWorldPosition, Vector3 targetWorldPosition, 
+		public async void PlayVfx(GameId id, float delay, Vector3 originWorldPosition, Vector3 targetWorldPosition, 
 		                    UnityAction onCompleteCallback)
 		{
 			var sprite = await _assetResolver.RequestAsset<GameId, Sprite>(id);
 
-			_presenter.Validate<UiVfxPresenter>()?.PlayAnimation(sprite, originWorldPosition, targetWorldPosition, 
+			_presenter.Validate<UiVfxPresenter>()?.PlayAnimation(sprite, delay, originWorldPosition, targetWorldPosition, 
 			                                                     onCompleteCallback);
-		}
-
-		/// <inheritdoc />
-		public async void PlayVfx(GameId id, Vector3 originWorldPosition, Transform target, UnityAction onCompleteCallback)
-		{
-			var sprite = await _assetResolver.RequestAsset<GameId, Sprite>(id);
-
-			_presenter.Validate<UiVfxPresenter>()?.PlayAnimation(sprite, originWorldPosition, target, onCompleteCallback);
 		}
 
 		/// <inheritdoc />

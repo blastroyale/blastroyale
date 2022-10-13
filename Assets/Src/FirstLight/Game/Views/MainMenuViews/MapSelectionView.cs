@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Text;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
@@ -32,13 +33,17 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private IGameServices _services;
 		private IGameDataProvider _dataProvider;
 		private RectTransform _rectTransform;
-		private bool _selectionEnabled = false;
 		private float _dropSelectionSize;
 
 		/// <summary>
 		/// Returns the player's selected point on the map in a normalized state
 		/// </summary>
 		public Vector2 NormalizedSelectionPoint { get; private set; }
+		
+		/// <summary>
+		/// Requests the state of selecting a drop point in the map
+		/// </summary>
+		public bool SelectionEnabled { get; set; }
 
 		[SuppressMessage("ReSharper", "PossibleNullReferenceException")]
 		private void Awake()
@@ -56,63 +61,67 @@ namespace FirstLight.Game.Views.MainMenuViews
 			var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(mapId);
 			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
 
-			_dropSelectionSize = config.DropSelectionSize;
+			if (config.DropSelectionSize == 0)
+			{
+				Debug.LogWarning("Map "+config.Map+" has a Drop Selection of 0 which would make the zoom infinite.");
+			}
+			
+			_dropSelectionSize = config.DropSelectionSize>0?config.DropSelectionSize:1f;
 
 			_mapImage.enabled = false;
 			_mapImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(config.Map, false);
 			_mapImage.enabled = true;
 			_mapImage.rectTransform.localScale = Vector3.one / _dropSelectionSize;
-			_selectionEnabled = gameModeConfig.SpawnSelection && !config.IsTestMap;
+			SelectionEnabled = gameModeConfig.SpawnSelection && !config.IsTestMap;
 
-			_selectedDropAreaText.gameObject.SetActive(_selectionEnabled);
-			_selectedPoint.gameObject.SetActive(_selectionEnabled);
+			_selectedDropAreaText.gameObject.SetActive(SelectionEnabled);
+			_selectedPoint.gameObject.SetActive(SelectionEnabled);
 
 			// Aspect ratio has to be calculated and set in ARF per-map, as the rect size is crucial in grid
 			// selection calculations. If you flat out set the ratio on ARF to something like 3-4, it will fit all map 
 			// images on the UI, but then landing location grid will be completely broken for BR game mode
 			_aspectRatioFitter.aspectRatio = (_mapImage.preferredWidth / _mapImage.preferredHeight);
 
-			if (_selectionEnabled)
+			if (SelectionEnabled)
 			{
 				var gridPosition = GetRandomGridPosition();
 				_services.AnalyticsService.MatchCalls.DefaultDropPosition = gridPosition;
 				SetGridPosition(gridPosition, false);
-				
-				if (TryGetDropPattern(out var pattern))
+
+				if (!TryGetDropPattern(out var pattern)) return;
+
+				var stringBuilder = new StringBuilder("(");
+				var gridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
+				var containerSize = _gridOverlay.rect.size;
+				var gridSize = gridConfigs.GetSize();
+				for (var y = 0; y < gridSize.y; y++)
 				{
-					var gridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
-					var containerSize = _gridOverlay.rect.size;
-					var gridSize = gridConfigs.GetSize();
-					string gridPath = "(";
-					for (int y = 0; y < gridSize.y; y++)
+					for (var x = 0; x < gridSize.x; x++)
 					{
-						for (int x = 0; x < gridSize.x; x++)
+						if (pattern[x][y])
 						{
-							if (pattern[x][y])
-							{
-								gridPath += "(" + x + "," + y + "),";
-								continue;
-							}
-
-							var go = new GameObject($"[{x},{y}]");
-							go.transform.parent = _gridOverlay.transform;
-							go.transform.localScale = Vector3.one;
-
-							var image = go.AddComponent<RawImage>();
-							image.color = _unavailableGridColor;
-
-							var rt = go.GetComponent<RectTransform>();
-							rt.anchoredPosition = new Vector2(containerSize.x / gridSize.x * x,
-							                                  containerSize.y / gridSize.y * (gridSize.y - y - 1)) -
-							                      containerSize / 2f + (containerSize / gridSize / 2);
-							rt.sizeDelta = containerSize / gridSize;
+							stringBuilder.Append($"({x},{y})");
+							continue;
 						}
-					}
 
-					gridPath += ")";
-				
-					_services.AnalyticsService.MatchCalls.PresentedMapPath = gridPath;
+						var go = new GameObject($"[{x},{y}]");
+						go.transform.parent = _gridOverlay.transform;
+						go.transform.localScale = Vector3.one;
+
+						var image = go.AddComponent<RawImage>();
+						image.color = _unavailableGridColor;
+
+						var rt = go.GetComponent<RectTransform>();
+						rt.anchoredPosition = new Vector2(containerSize.x / gridSize.x * x,
+						                                  containerSize.y / gridSize.y * (gridSize.y - y - 1)) -
+						                      containerSize / 2f + (containerSize / gridSize / 2);
+						rt.sizeDelta = containerSize / gridSize;
+					}
 				}
+
+				stringBuilder.Append(")");
+				
+				_services.AnalyticsService.MatchCalls.PresentedMapPath = stringBuilder.ToString();
 			}
 		}
 
@@ -127,11 +136,14 @@ namespace FirstLight.Game.Views.MainMenuViews
 		/// <inheritdoc />
 		public void OnPointerClick(PointerEventData eventData)
 		{
-			if (!_selectionEnabled) return;
+			if (!SelectionEnabled) return;
 
 			SetGridPosition(ScreenToGridPosition(eventData.position), true);
 		}
 
+		/// <summary>
+		/// Force-ly selects the water position on the map
+		/// </summary>
 		public void SelectWaterPosition()
 		{
 			var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();

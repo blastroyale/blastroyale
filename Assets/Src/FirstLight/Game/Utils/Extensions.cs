@@ -262,10 +262,8 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Formats a string in seconds to Hours and Minutes and Seconds.
 		/// </summary>
-		public static string ToHoursMinutesSeconds(this uint num)
+		public static string ToHoursMinutesSeconds(this TimeSpan ts)
 		{
-			var ts = TimeSpan.FromSeconds(num);
-
 			if (ts.Hours > 0)
 			{
 				return string.Format("{0}h {1}m {2}s", ts.Hours.ToString(), ts.Minutes.ToString(),
@@ -495,6 +493,14 @@ namespace FirstLight.Game.Utils
 		public static bool IsSpectator(this Player player)
 		{
 			return (bool) player.CustomProperties[GameConstants.Network.PLAYER_PROPS_SPECTATOR];
+		}
+		
+		/// <summary>
+		/// Requests to check if player has loaded core match assets
+		/// </summary>
+		public static bool LoadedCoreMatchAssets(this Player player)
+		{
+			return (bool) player.CustomProperties[GameConstants.Network.PLAYER_PROPS_CORE_LOADED];
 		}
 
 		/// <summary>

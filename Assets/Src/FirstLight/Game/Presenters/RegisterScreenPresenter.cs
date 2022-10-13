@@ -1,57 +1,57 @@
 using System;
-using UnityEngine;
-using TMPro;
-using Button = UnityEngine.UI.Button;
+using FirstLight.FLogger;
+using FirstLight.Game.Utils;
+using FirstLight.UiService;
+using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
 {
 	/// <summary>
 	/// This presenter handles showing the register screen
 	/// </summary>
-	public class RegisterScreenPresenter : AnimatedUiPresenterData<RegisterScreenPresenter.StateData>
+	[LoadSynchronously]
+	public class RegisterScreenPresenter : UiToolkitPresenterData<RegisterScreenPresenter.StateData>
 	{
 		public struct StateData
 		{
-			public Action<string,string,string> RegisterClicked;
+			public Action<string, string, string> RegisterClicked;
 			public Action GoToLoginClicked;
 		}
 
-		[SerializeField] private TMP_InputField _emailInputField;
-		[SerializeField] private TMP_InputField _nameInputField;
-		[SerializeField] private TMP_InputField _passwordInputField;
+		private TextField _emailField;
+		private TextField _usernameField;
+		private TextField _passwordField;
 
-		[SerializeField] private Button _goToLoginButton;
-		[SerializeField] private Button _registerButton;
+		private VisualElement _blockerElement;
 
-		[SerializeField] private GameObject _frontDimBlocker;
-		
-		private void Awake()
+		protected override void QueryElements(VisualElement root)
 		{
-			_goToLoginButton.onClick.AddListener(GoToLoginClicked);
-			_registerButton.onClick.AddListener(RegisterClicked);
+			_emailField = root.Q<TextField>("EmailTextField").Required();
+			_usernameField = root.Q<TextField>("UsernameTextField").Required();
+			_passwordField = root.Q<TextField>("PasswordTextField").Required();
+
+			_blockerElement = root.Q("Blocker").Required();
+
+			root.Q<Button>("LoginButton").clicked += OnLoginClicked;
+			root.Q<Button>("RegisterButton").clicked += OnRegisterClicked;
 		}
 
-		private void OnEnable()
-		{
-			SetFrontDimBlockerActive(false);
-		}
-		
 		/// <summary>
 		/// Sets the activity of the dimmed blocker image that covers the presenter
 		/// </summary>
 		public void SetFrontDimBlockerActive(bool active)
 		{
-			_frontDimBlocker.SetActive(active);
+			_blockerElement.EnableInClassList("blocker-hidden", !active);
 		}
 
-		private void RegisterClicked()
-		{
-			Data.RegisterClicked(_emailInputField.text, _nameInputField.text, _passwordInputField.text);
-		}
-
-		private void GoToLoginClicked()
+		private void OnLoginClicked()
 		{
 			Data.GoToLoginClicked();
+		}
+
+		private void OnRegisterClicked()
+		{
+			Data.RegisterClicked(_emailField.text, _usernameField.text, _passwordField.text);
 		}
 	}
 }

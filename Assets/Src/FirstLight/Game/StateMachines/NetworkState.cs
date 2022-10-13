@@ -49,9 +49,9 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameBackendNetworkService _networkService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private Coroutine _matchmakingCoroutine;
+		private bool _requiresManualRoomReconnection;
 
-		private QuantumRunnerConfigs QuantumRunnerConfigs =>
-			_services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
+		private QuantumRunnerConfigs QuantumRunnerConfigs => _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 
 		public NetworkState(IGameLogic gameLogic, IGameServices services, IGameUiService uiService,
 		                    IGameBackendNetworkService networkService, Action<IStatechartEvent> statechartTrigger)
@@ -216,9 +216,16 @@ namespace FirstLight.Game.StateMachines
 				{
 					_networkService.IsJoiningNewMatch.Value = true;
 					SetSpectatePlayerProperty(false);
+					
+					// TTL during matchmaking is 0 - we must connect to room manually again by name
+					// Rejoining room is handled OnMasterConnected
+					_requiresManualRoomReconnection = true;
+					_networkService.QuantumClient.ReconnectToMaster();
 				}
-
-				_networkService.QuantumClient.ReconnectAndRejoin();
+				else
+				{
+					_networkService.QuantumClient.ReconnectAndRejoin();
+				}
 			}
 			else
 			{
@@ -289,6 +296,13 @@ namespace FirstLight.Game.StateMachines
 			FLog.Info("OnConnectedToMaster");
 
 			_statechartTrigger(PhotonMasterConnectedEvent);
+
+			if (_requiresManualRoomReconnection &&
+			    _networkService.LastDisconnectLocation.Value == LastDisconnectionLocation.Matchmaking)
+			{
+				_requiresManualRoomReconnection = false;
+				JoinRoom(_networkService.LastConnectedRoomName.Value);
+			}
 		}
 
 		/// <inheritdoc />
@@ -333,6 +347,8 @@ namespace FirstLight.Game.StateMachines
 			FLog.Info("OnJoinedRoom");
 
 			_statechartTrigger(JoinedRoomEvent);
+
+			_networkService.LastConnectedRoomName.Value = _networkService.QuantumClient.CurrentRoom.Name;
 
 			if (_networkService.IsJoiningNewMatch.Value)
 			{
@@ -408,7 +424,16 @@ namespace FirstLight.Game.StateMachines
 		{
 			FLog.Info($"OnPlayerLeftRoom {player.NickName}");
 
-			StartMatchmakingLockRoomTimer();
+			var allPlayersReady = _networkService.QuantumClient.CurrentRoom.AreAllPlayersReady();
+				
+			if (_networkService.QuantumClient.CurrentRoom.IsMatchmakingRoom() && !allPlayersReady)
+			{
+				StartMatchmakingLockRoomTimer();
+			}
+			else if (allPlayersReady)
+			{
+				_statechartTrigger(MatchState.AllPlayersReadyEvent);
+			}
 		}
 
 		/// <inheritdoc />
@@ -544,6 +569,12 @@ namespace FirstLight.Game.StateMachines
 			foreach (var player in _networkService.QuantumClient.CurrentRoom.Players.Values)
 			{
 				_networkService.LastMatchPlayers.Add(player);
+			}
+			
+			// Once match starts, TTL needs to be set to max so player can DC+RC easily
+			if(_networkService.QuantumClient.LocalPlayer.IsMasterClient) 
+			{
+				_networkService.QuantumClient.CurrentRoom.PlayerTtl = GameConstants.Network.PLAYER_GAME_TTL_MS;
 			}
 		}
 
@@ -710,7 +741,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void StartMatchmakingLockRoomTimer()
 		{
-			if (!_networkService.QuantumClient.LocalPlayer.IsMasterClient)
+			if (!_networkService.QuantumClient.LocalPlayer.IsMasterClient ||
+			    !_networkService.QuantumClient.CurrentRoom.IsMatchmakingRoom()) 
 			{
 				return;
 			}

@@ -1,4 +1,7 @@
+using FirstLight.Game.UIElements;
+using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 // ReSharper disable CheckNamespace
 
@@ -16,21 +19,27 @@ namespace FirstLight.UiService
 		/// Requests the open status of the <see cref="UiPresenter"/>
 		/// </summary>
 		public bool IsOpen => gameObject.activeSelf;
-		
+
 		/// <summary>
 		/// Allows the ui presenter implementation to have extra behaviour when it is initialized
 		/// </summary>
-		protected virtual void OnInitialized() {}
-		
+		protected virtual void OnInitialized()
+		{
+		}
+
 		/// <summary>
 		/// Allows the ui presenter implementation to have extra behaviour when it is opened
 		/// </summary>
-		protected virtual void OnOpened() {}
+		protected virtual void OnOpened()
+		{
+		}
 
 		/// <summary>
 		/// Allows the ui presenter implementation to have extra behaviour when it is closed
 		/// </summary>
-		protected virtual void OnClosed() {}
+		protected virtual void OnClosed()
+		{
+		}
 
 		/// <summary>
 		/// Allows the ui presenter implementation to directly close the ui presenter without needing to call the service directly
@@ -39,7 +48,7 @@ namespace FirstLight.UiService
 		{
 			_uiService.CloseUi(this, false, destroy);
 		}
-		
+
 		internal void Init(IUiService uiService)
 		{
 			_uiService = uiService;
@@ -96,7 +105,9 @@ namespace FirstLight.UiService
 	/// Tags the <see cref="UiPresenter"/> as a <see cref="UiPresenterData{T}"/> to allow defining a specific state when
 	/// opening the UI via the <see cref="UiService"/>
 	/// </summary>
-	public interface IUiPresenterData {}
+	public interface IUiPresenterData
+	{
+	}
 
 	/// <inheritdoc cref="UiPresenter"/>
 	/// <remarks>
@@ -108,11 +119,13 @@ namespace FirstLight.UiService
 		/// The Ui data defined when opened via the <see cref="UiService"/>
 		/// </summary>
 		public T Data { get; protected set; }
-		
+
 		/// <summary>
 		/// Allows the ui presenter implementation to have extra behaviour when the data defined for the presenter is set
 		/// </summary>
-		protected virtual void OnSetData() {}
+		protected virtual void OnSetData()
+		{
+		}
 
 		internal void InternalSetData(T data)
 		{
@@ -138,6 +151,51 @@ namespace FirstLight.UiService
 			{
 				OnClosed();
 			}
+		}
+	}
+
+	public abstract class UiToolkitPresenterData<T> : UiCloseActivePresenterData<T> where T : struct
+	{
+		[SerializeField, Required] private UIDocument _document;
+
+		protected VisualElement Root;
+
+		/// <summary>
+		/// Called when the presenter is ready to have the <paramref name="root"/> <see cref="VisualElement"/> queried for elements.
+		/// </summary>
+		protected abstract void QueryElements(VisualElement root);
+
+		/// <summary>
+		/// Subscribe to callbacks / events. Triggered after <see cref="QueryElements"/>, on every screen open.
+		/// </summary>
+		protected virtual void SubscribeToEvents()
+		{
+		}
+
+		/// <summary>
+		/// Unsubscribe from callbacks / events.
+		/// </summary>
+		protected virtual void UnsubscribeFromEvents()
+		{
+		}
+
+		protected override void OnOpened()
+		{
+			if (Root == null)
+			{
+				Root = _document.rootVisualElement.Q(UIConstants.ID_ROOT);
+				QueryElements(Root);
+			}
+
+			Root.EnableInClassList(UIConstants.CLASS_HIDDEN, false);
+
+			SubscribeToEvents();
+		}
+
+		protected override void OnClosed()
+		{
+			Root.EnableInClassList(UIConstants.CLASS_HIDDEN, true);
+			UnsubscribeFromEvents();
 		}
 	}
 }

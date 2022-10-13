@@ -3,6 +3,17 @@
     --out-animation-easing: ease-in;
     --in-animation-duration: 0.3s;
     --in-animation-easing: ease-out;
+    --animation-delay-1: 0s;
+    --animation-delay-2: 0.1s;
+    --animation-delay-3: 0.2s;
+    --animation-delay-4: 0.3s;
+    --animation-delay-5: 0.4s;
+    --animation-total-duration: 0.7s;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
 }
 
 #PlayButton {
@@ -18,9 +29,6 @@
     text-shadow: 5px 5px 0 rgb(139, 26, 3);
     -unity-text-align: middle-center;
     padding-bottom: 19px;
-    transition-duration: var(--in-animation-duration);
-    transition-timing-function: var(--in-animation-easing);
-    transition-property: margin-right;
 }
 
 #PlayButton:active {
@@ -36,14 +44,14 @@
     margin-bottom: 7px;
     padding-left: 59px;
     padding-bottom: 4px;
-    transition-delay: 0.1s;
+    transition-delay: var(--animation-delay-2);
     transition-timing-function: var(--in-animation-easing);
     transition-property: margin-right;
     transition-duration: var(--in-animation-duration);
 }
 
 #CustomGameButton {
-    transition-delay: 0.2s;
+    transition-delay: var(--animation-delay-3);
     transition-property: margin-right;
     transition-duration: var(--in-animation-duration);
     transition-timing-function: var(--in-animation-easing);
@@ -74,11 +82,12 @@
 }
 
 #BattlePassButton #Title {
-    text-shadow: 5px 5px 0 rgb(139, 26, 3);
+    text-shadow: -5px 5px 0 rgb(139, 26, 3);
     font-size: 55px;
     -unity-font-style: bold;
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(141, 27, 0);
+    -unity-text-align: upper-center;
 }
 
 #BattlePassButton #BattlePassProgressElement {
@@ -94,7 +103,7 @@
 #BattlePassButton:active {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BattlepassButtonPressed.png?fileID=21300000&guid=3954eea7714304c3aacf010642a02d78&type=3#BattlepassButtonPressed');
     padding-top: 30px;
-    padding-right: 20px;
+    padding-right: 21px;
     padding-left: 0;
 }
 
@@ -115,7 +124,7 @@
     transition-duration: var(--in-animation-duration);
     transition-timing-function: var(--in-animation-easing);
     transition-property: margin-left;
-    transition-delay: 0.4s;
+    transition-delay: var(--animation-delay-5);
 }
 
 #EquipmentButton .button-icon {
@@ -126,29 +135,18 @@
     transition-duration: var(--in-animation-duration);
     transition-timing-function: var(--in-animation-easing);
     transition-property: margin-left;
-    transition-delay: 0.3s;
+    transition-delay: var(--animation-delay-4);
 }
 
 #HeroesButton .button-icon {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/IconHeroes.png?fileID=21300000&guid=51ac3af9acd824af591121ab7510c3df&type=3#IconHeroes');
 }
 
-#MarketplaceButton {
-    transition-duration: var(--in-animation-duration);
-    transition-timing-function: var(--in-animation-easing);
-    transition-property: margin-left;
-    transition-delay: 0.2s;
-}
-
-#MarketplaceButton .button-icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/IconMarketplace.png?fileID=21300000&guid=13c1b5f14115447f780402fd721baad8&type=3#IconMarketplace');
-}
-
 #LeaderboardsButton {
     transition-duration: var(--in-animation-duration);
     transition-timing-function: var(--in-animation-easing);
     transition-property: margin-left;
-    transition-delay: 0.1s;
+    transition-delay: var(--animation-delay-2);
 }
 
 #LeaderboardsButton .button-icon {
@@ -159,35 +157,35 @@
     transition-duration: var(--in-animation-duration);
     transition-timing-function: var(--in-animation-easing);
     transition-property: margin-left;
-    transition-delay: 0s;
+    transition-delay: var(--animation-delay-1);
 }
 
 #SettingsButton {
     transition-duration: var(--in-animation-duration);
     transition-timing-function: var(--in-animation-easing);
     transition-property: margin-top;
-    transition-delay: 0s;
+    transition-delay: var(--animation-delay-1);
 }
 
 #CSCurrency {
     transition-duration: var(--in-animation-duration);
     transition-timing-function: var(--in-animation-easing);
     transition-property: margin-top;
-    transition-delay: 0.1s;
+    transition-delay: var(--animation-delay-2);
 }
 
 #BLSTCurrency {
     transition-duration: var(--in-animation-duration);
     transition-timing-function: var(--in-animation-easing);
     transition-property: margin-top;
-    transition-delay: 0.2s;
+    transition-delay: var(--animation-delay-3);
 }
 
 #PlayerHolder {
     transition-duration: var(--in-animation-duration);
     transition-timing-function: var(--in-animation-easing);
     transition-property: margin-top;
-    transition-delay: 0s;
+    transition-delay: var(--animation-delay-1);
 }
 
 #CustomGameButton .button-icon {
@@ -205,7 +203,7 @@
 .hidden {
     visibility: hidden;
     display: none;
-    transition-delay: 0.7s;
+    transition-delay: var(--animation-total-duration);
 }
 
 .hidden .hidden-left {
@@ -234,4 +232,27 @@
     transition-duration: var(--out-animation-duration);
     transition-timing-function: var(--out-animation-easing);
     transition-property: margin-top;
+}
+
+Button {
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+}
+
+Button:hover {
+    text-shadow: 0 0 0 rgb(159, 159, 159);
+}
+
+.pool-container {
+    position: absolute;
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/PoolHeader.png?fileID=21300000&guid=fe2093cbd35914e9e9cd6c56ee79fca3&type=3#PoolHeader');
+    width: 428px;
+    height: 102px;
+    top: -42px;
+    left: -9px;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 28px;
+    color: rgb(141, 132, 155);
+    align-items: stretch;
 }

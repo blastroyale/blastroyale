@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using FirstLight.Game.MonoComponent.Vfx;
 using FirstLight.Game.Services;

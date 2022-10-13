@@ -62,7 +62,9 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 					if (ItemId != uniqueId)
 					{
+#pragma warning disable CS4014
 						_cardView.Initialise(equipment);
+#pragma warning restore CS4014
 					}
 
 					ItemId = uniqueId;

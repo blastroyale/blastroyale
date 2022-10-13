@@ -113,33 +113,55 @@ namespace Quantum.Systems
 			// Bots look for others to shoot at not on every frame
 			if (f.Time > filter.BotCharacter->NextLookForTargetsToShootAtTime)
 			{
-				// Bots also have a ChanceToAbandonTarget to stop shooting/tracking the target to allow more room for players to escape
-				if (f.RNG->Next() < filter.BotCharacter->ChanceToAbandonTarget)
+				// Check if target exists otherwise look for new enemies
+				if (!QuantumHelpers.IsDestroyed(f, target))
 				{
-					ClearTarget(f, ref filter);
-				}
-				else
-				{
-					// Check distance to target if it exists and stop the movement if target is closer
-					// than allowed by CloseFightIntolerance
-					if (!QuantumHelpers.IsDestroyed(f, target))
+					// Bots have a ChanceToAbandonTarget to stop shooting/tracking the target to allow more room for players to escape
+					if (f.RNG->Next() < filter.BotCharacter->ChanceToAbandonTarget)
+					{
+						ClearTarget(f, ref filter);
+					}
+					else
 					{
 						// Checking how close is the target and stop the movement if the target is closer
 						// than allowed by closefight intolerance
 						var weaponTargetRange = f.Get<Stats>(filter.Entity).GetStatData(StatType.AttackRange).StatValue;
 						var minDistanceToTarget =
-							FPMath.Max(FP._1, weaponTargetRange * filter.BotCharacter->CloseFightIntolerance);
+							FPMath.Max(FP._1_50, weaponTargetRange * filter.BotCharacter->CloseFightIntolerance);
 						var sqrDistanceToTarget = (f.Get<Transform3D>(target).Position - filter.Transform->Position)
 							.SqrMagnitude;
-						if (sqrDistanceToTarget < minDistanceToTarget * minDistanceToTarget)
+						// If target is too far then we stop attacking
+						if (sqrDistanceToTarget > weaponTargetRange * weaponTargetRange)
+						{
+							ClearTarget(f, ref filter);
+						}
+						// If the bot is too close then we do wander to change position
+						else if (sqrDistanceToTarget < FP._1_50)
+						{
+							Wander(f, ref filter);
+						}
+						// Otherwise we check to be not too close to target and if we are - then we stop moving closer
+						else if (sqrDistanceToTarget < minDistanceToTarget * minDistanceToTarget)
 						{
 							filter.NavMeshAgent->Stop(f, filter.Entity, true);
 						}
 					}
-
+				}
+				else
+				{
+					ClearTarget(f, ref filter);
 					CheckEnemiesToShooAt(f, ref filter, weaponConfig);
 				}
-
+				
+				// If bot had a target but now is doesn't AND the bot is not moving
+				// then we force them to think about their next action
+				if (target != EntityRef.None
+				    && filter.BotCharacter->Target == EntityRef.None
+				    && !filter.NavMeshAgent->IsActive)
+				{
+					filter.BotCharacter->NextDecisionTime = f.Time;
+				}
+				
 				filter.BotCharacter->NextLookForTargetsToShootAtTime =
 					f.Time + filter.BotCharacter->LookForTargetsToShootAtInterval;
 			}
@@ -150,9 +172,12 @@ namespace Quantum.Systems
 				filter.BotCharacter->MoveTarget = EntityRef.None;
 			}
 
-			// Do not do any decision making if the time has not come, unless a bot is not moving or has no target to reach
-			if (filter.NavMeshAgent->IsActive && filter.BotCharacter->MoveTarget != EntityRef.None
-			                                  && f.Time < filter.BotCharacter->NextDecisionTime)
+			var botStuckWandering = filter.NavMeshAgent->IsActive == false && filter.BotCharacter->MoveTarget == filter.Entity;
+
+			// Do not do any decision making if the time has not come, unless a bot stucked wandering or collected a target 
+			if (!botStuckWandering
+			    && filter.BotCharacter->MoveTarget != EntityRef.None
+			    && f.Time < filter.BotCharacter->NextDecisionTime)
 			{
 				return;
 			}
@@ -170,12 +195,28 @@ namespace Quantum.Systems
 				filter.NavMeshAgent->ForceRepath(f);
 			}
 			
-			filter.BotCharacter->NextDecisionTime = f.Time + filter.BotCharacter->DecisionInterval + filter.BotCharacter->BotNameIndex*FP._0_01*FP._0_10;
+			filter.BotCharacter->NextDecisionTime = f.Time + filter.BotCharacter->DecisionInterval;
 			filter.BotCharacter->StuckDetectionPosition = filter.Transform->Position;
 			
+			// We call ClearTarget after the use of special because real players can't shoot and use specials at the same time
+			// So we don't allow bots to do it as well
 			if (TryUseSpecials(f, ref filter))
 			{
 				ClearTarget(f, ref filter);
+			}
+			
+			// In case a bot has a gun and ammo but switched to a hammer - we switch back to a gun
+			if (filter.PlayerCharacter->HasMeleeWeapon(f, filter.Entity) &&
+			    filter.PlayerCharacter->GetAmmoAmountFilled(f, filter.Entity) > FP._0)
+			{
+				for (var slotIndex = 1; slotIndex < filter.PlayerCharacter->WeaponSlots.Length; slotIndex++)
+				{
+					if (filter.PlayerCharacter->WeaponSlots[slotIndex].Weapon.IsValid())
+					{
+						filter.PlayerCharacter->EquipSlotWeapon(f, filter.Entity, slotIndex);
+						break;
+					}
+				}
 			}
 
 			switch (filter.BotCharacter->BehaviourType)
@@ -183,10 +224,10 @@ namespace Quantum.Systems
 				case BotBehaviourType.Cautious:
 					var cautious = TryAvoidShrinkingCircle(f, ref filter)
 					               || TryGoForHealth(f, ref filter)
-					               || TryGoForCrates(f, ref filter)
 					               || TryGoForShield(f, ref filter)
 					               || TryGoForAmmo(f, ref filter)
 					               || TryGoForWeapons(f, ref filter)
+					               || TryGoForCrates(f, ref filter)
 					               || TryGoForRage(f, ref filter)
 					               || TryGoForEnemies(f, ref filter, weaponConfig)
 					               || Wander(f, ref filter);
@@ -195,9 +236,9 @@ namespace Quantum.Systems
 					var aggressive = TryAvoidShrinkingCircle(f, ref filter)
 					                 || TryGoForRage(f, ref filter)
 					                 || TryGoForWeapons(f, ref filter)
-					                 || TryGoForEnemies(f, ref filter, weaponConfig)
-					                 || TryGoForCrates(f, ref filter)
 					                 || TryGoForAmmo(f, ref filter)
+					                 || TryGoForCrates(f, ref filter)
+					                 || TryGoForEnemies(f, ref filter, weaponConfig)
 					                 || TryGoForShield(f, ref filter)
 					                 || TryGoForHealth(f, ref filter)
 					                 || Wander(f, ref filter);
@@ -207,8 +248,8 @@ namespace Quantum.Systems
 					               || TryGoForAmmo(f, ref filter)
 					               || TryGoForHealth(f, ref filter)
 					               || TryGoForWeapons(f, ref filter)
-					               || TryGoForCrates(f, ref filter)
 					               || TryGoForShield(f, ref filter)
+					               || TryGoForCrates(f, ref filter)
 					               || TryGoForEnemies(f, ref filter, weaponConfig)
 					               || TryGoForRage(f, ref filter)
 					               || Wander(f, ref filter);
@@ -251,18 +292,11 @@ namespace Quantum.Systems
 		{
 			var target = EntityRef.None;
 
-			// If the bot's weapon is empty then we clear the target and leave the method
-			if (filter.PlayerCharacter->IsAmmoEmpty(f, filter.Entity))
-			{
-				filter.BotCharacter->Target = EntityRef.None;
-				return;
-			}
-
-			// Otherwise, we do line/shapecasts for enemies in sight
+			// We do line/shapecasts for enemies in sight
 			// If there is a target in Sight then store this Target into the blackboard variable
 			// We check enemies one by one until we find a valid enemy in sight
 			// TODO: Select not a random, but the closest possible enemy to shoot at
-			var targetRange = f.Get<Stats>(filter.Entity).GetStatData(StatType.AttackRange).StatValue; 
+			var targetRange = f.Get<Stats>(filter.Entity).GetStatData(StatType.AttackRange).StatValue;
 			var botPosition = filter.Transform->Position;
 			var team = f.Get<Targetable>(filter.Entity).Team;
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(filter.Entity);
@@ -349,13 +383,8 @@ namespace Quantum.Systems
 				return true;
 			}
 
-			var distanceFromSafeAreaCenter =
-				FPVector2.Distance(filter.Transform->Position.XZ, circle.TargetCircleCenter);
-			var moveDistance = filter.BotCharacter->WanderRadius > distanceFromSafeAreaCenter
-				                   ? distanceFromSafeAreaCenter
-				                   : filter.BotCharacter->WanderRadius;
-
-			var sqrDistanceFromSafeAreaCenter = distanceFromSafeAreaCenter * distanceFromSafeAreaCenter;
+			var sqrDistanceFromSafeAreaCenter =
+				FPVector2.DistanceSquared(filter.Transform->Position.XZ, circle.TargetCircleCenter);
 			var sqrRadiusOfShrinkingCircle = circle.CurrentRadius * circle.CurrentRadius;
 			
 			// If a bot is inside the circle and the circle is not shrinking then a bot doesn't try to avoid it
@@ -374,7 +403,7 @@ namespace Quantum.Systems
 			var isGoing = sqrDistanceFromSafeAreaCenter / sqrSafeAreaRadius >
 			              filter.BotCharacter->ShrinkingCircleRiskTolerance;
 
-			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, safeCircleCenter, moveDistance);
+			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, safeCircleCenter, filter.BotCharacter->WanderRadius);
 
 			if (isGoing)
 			{
@@ -484,8 +513,10 @@ namespace Quantum.Systems
 			var ammoConsumablePosition = FPVector3.Zero;
 			var ammoConsumableEntity = EntityRef.None;
 
-			// If weapon has Unlimited ammo then don't go for more ammo
-			if (filter.PlayerCharacter->HasMeleeWeapon(f, filter.Entity))
+			// If weapon has Unlimited ammo then don't go for more ammo UNLESS a bot also has a gun in another slot 
+			if (filter.PlayerCharacter->HasMeleeWeapon(f, filter.Entity)
+			    && !filter.PlayerCharacter->WeaponSlots[1].Weapon.IsValid()
+			    && !filter.PlayerCharacter->WeaponSlots[2].Weapon.IsValid())
 			{
 				return false;
 			}
@@ -572,7 +603,7 @@ namespace Quantum.Systems
 					f.RNG->Next() < filter.BotCharacter->ChanceToSeekWeapons,
 				BotWeaponSearchStrategy.FindOneOrNoAmmoOrRandomChance =>
 					filter.PlayerCharacter->HasMeleeWeapon(f, filter.Entity) ||
-					filter.PlayerCharacter->IsAmmoEmpty(f, filter.Entity) ||
+					filter.PlayerCharacter->GetAmmoAmountFilled(f, filter.Entity) < FP.SmallestNonZero ||
 					f.RNG->Next() < filter.BotCharacter->ChanceToSeekWeapons,
 				_ => throw new ArgumentOutOfRangeException()
 			};
@@ -598,8 +629,7 @@ namespace Quantum.Systems
 		{
 			var isGoing = f.RNG->Next() < filter.BotCharacter->ChanceToSeekEnemies;
 
-			// If chance didn't work OR the bot's weapon is empty then we don't go for enemies
-			if (!isGoing || filter.PlayerCharacter->IsAmmoEmpty(f, filter.Entity))
+			if (!isGoing || filter.PlayerCharacter->HasMeleeWeapon(f, filter.Entity))
 			{
 				return false;
 			}
@@ -636,8 +666,8 @@ namespace Quantum.Systems
 
 			var weaponTargetRange = f.Get<Stats>(filter.Entity).GetStatData(StatType.AttackRange).StatValue;
 			var reverseDirection = (enemyPosition - botPosition).Normalized;
-			// Do not go closer than 1 meter to target
-			var offsetDistance = FPMath.Max(FP._1, weaponTargetRange * filter.BotCharacter->CloseFightIntolerance);
+			// Do not go closer than 1.5 meters to target
+			var offsetDistance = FPMath.Max(FP._1_50, weaponTargetRange * filter.BotCharacter->CloseFightIntolerance);
 			var offsetPosition = enemyPosition + reverseDirection * offsetDistance;
 
 			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, offsetPosition);
@@ -787,7 +817,7 @@ namespace Quantum.Systems
 		{
 			var distanceSqr = FPVector2.DistanceSquared(positionToCheck.XZ, circle.CurrentCircleCenter);
 
-			return distanceSqr <= circle.CurrentRadius;
+			return distanceSqr <= circle.CurrentRadius * circle.CurrentRadius;
 		}
 		
 		private void AddBots(Frame f, List<PlayerRef> botIds, uint baseTrophiesAmount)
@@ -824,8 +854,9 @@ namespace Quantum.Systems
 					DeathMarker = deathMakers[f.RNG->Next(0, deathMakers.Count)],
 					BotNameIndex = botNamesIndices[listNamesIndex],
 					BehaviourType = botConfig.BehaviourType,
-					DecisionInterval = botConfig.DecisionInterval,
-					LookForTargetsToShootAtInterval = botConfig.LookForTargetsToShootAtInterval,
+					// We modify intervals to make them more unique to avoid performance spikes
+					DecisionInterval = botConfig.DecisionInterval + botNamesIndices[listNamesIndex] * FP._0_01 * FP._0_10,
+					LookForTargetsToShootAtInterval = botConfig.LookForTargetsToShootAtInterval + botNamesIndices[listNamesIndex] * FP._0_01 * FP._0_01,
 					VisionRangeSqr = botConfig.VisionRangeSqr,
 					LowArmourSensitivity = botConfig.LowArmourSensitivity,
 					LowHealthSensitivity = botConfig.LowHealthSensitivity,
@@ -863,7 +894,9 @@ namespace Quantum.Systems
 				var eloRange = f.GameConfig.TrophyEloRange;
 
 				var trophies = (uint) Math.Max((int) baseTrophiesAmount + f.RNG->Next(-eloRange / 2, eloRange / 2), 0);
-
+				
+				// TODO: Give bots random weapon based on average quality that players have
+				// TODO: Give bots random gear based on average quality that players have and teach bots to pick up gear
 				playerCharacter->Init(f, botEntity, id, spawnerTransform, 1, trophies, botCharacter.Skin, 
 				                      botCharacter.DeathMarker, Array.Empty<Equipment>(), Equipment.None);
 			}

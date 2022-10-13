@@ -84,7 +84,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Cooldown
+      - Attack Cooldown
       - 
       - 
       Flags: 000000
@@ -318,7 +318,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - HP
+      - Max Health
       - 
       - 
       Flags: 000000
@@ -363,7 +363,8 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Game devs are running around like Bored Blast Apes in Royale Club
+      - Game devs are running around like Bored Blast Apes in Royale Club fixing
+        {0}
       - 
       - 
       Flags: 000000
@@ -381,7 +382,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Max Angle
+      - Accuracy Max Angle
       - 
       - 
       Flags: 000000
@@ -390,7 +391,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Max Capacity
+      - Ammo Capacity
       - 
       - 
       Flags: 000000
@@ -408,7 +409,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Min Angle
+      - Accuracy Min Angle
       - 
       - 
       Flags: 000000
@@ -734,7 +735,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Primary Special
+      - First Special
       - 
       - 
       Flags: 000000
@@ -887,7 +888,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Shield Capacity
+      - Shields Capacity
       - 
       - 
       Flags: 000000
@@ -950,7 +951,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Range
+      - Attack Range
       - 
       - 
       Flags: 000000
@@ -977,7 +978,8 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Your game is out of date! Go to the app store to get the latest version.
+      - Your game version {0} is out of date! Go to the app store to get the latest
+        version {1}
       - 
       - 
       Flags: 000000
@@ -2393,7 +2395,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - You must have at least 3 items equipped to play online.
+      - You must have at least 3 items equipped to play Ranked.
       - 
       - 
       Flags: 000000
@@ -3342,6 +3344,24 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: MainMenu/HighFpsModeSetting
+      TermType: 0
+      Description: 
+      Languages:
+      - High FPS Mode
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/ResourcePoolRestock
+      TermType: 0
+      Description: 
+      Languages:
+      - ' +{0} {1} IN {2}'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: AdventureMenu/AdventureCompleted
       TermType: 0
       Description: 
@@ -3823,7 +3843,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - '{0} TASTED DEATH!'
+      - '{0} chose DEATH!'
       - 
       - 
       Flags: 000000
@@ -7774,7 +7794,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Shield Small
+      - Shields Small
       - 
       - 
       Flags: 000000
@@ -7783,7 +7803,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Shield Large
+      - Shields Large
       - 
       - 
       Flags: 000000
@@ -7792,7 +7812,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Shield Capacity
+      - Shields Capacity
       - 
       - 
       Flags: 000000
@@ -7801,7 +7821,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Shield Capacity Small
+      - Shields Capacity Small
       - 
       - 
       Flags: 000000
@@ -7810,7 +7830,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Shield Capacity Large
+      - Shields Capacity Large
       - 
       - 
       Flags: 000000
@@ -9205,7 +9225,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1664463773348
+    Google_LastUpdatedVersion: 1665504246851
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

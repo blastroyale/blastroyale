@@ -29,31 +29,29 @@ namespace FirstLight.Game.Views.MainMenuViews
 		
 		private readonly Dictionary<EquipmentStatType, float> _maxValuesDictionary = new Dictionary<EquipmentStatType, float>
 		{
-			{ EquipmentStatType.Power, 3000 },
-			{ EquipmentStatType.Hp, 400 },
-			{ EquipmentStatType.Speed, 10f },
-			{ EquipmentStatType.AttackCooldown, 1.2f },
-			{ EquipmentStatType.Armor, 32 },
-			{ EquipmentStatType.ProjectileSpeed, 50 },
-			{ EquipmentStatType.TargetRange, 16 },
+			{ EquipmentStatType.Power, 500 },
+			{ EquipmentStatType.Hp, 510 },
+			{ EquipmentStatType.Speed, 0.5f },
+			{ EquipmentStatType.AttackCooldown, 2f },
+			{ EquipmentStatType.Armor, 0.11f },
+			{ EquipmentStatType.ProjectileSpeed, 20 },
+			{ EquipmentStatType.TargetRange, 15f },
 			{ EquipmentStatType.MaxCapacity, 200 },
-			{ EquipmentStatType.ReloadSpeed, 4 },
+			{ EquipmentStatType.ReloadSpeed, 4f },
 			{ EquipmentStatType.MinAttackAngle, 60 },
 			{ EquipmentStatType.MaxAttackAngle, 60 },
-			{ EquipmentStatType.SplashDamageRadius, 4 },
-			{ EquipmentStatType.PowerToDamageRatio, 2 },
+			{ EquipmentStatType.SplashDamageRadius, 4f },
+			{ EquipmentStatType.PowerToDamageRatio, 2f },
 			{ EquipmentStatType.NumberOfShots, 10 },
-			{ EquipmentStatType.PickupSpeed, 4f },
-			{ EquipmentStatType.ShieldCapacity, 500f },
+			{ EquipmentStatType.PickupSpeed, 0.25f },
+			{ EquipmentStatType.ShieldCapacity, 700 },
 		};
 
 		/// <summary>
 		/// Set the information of this specific item.
 		/// </summary>
-		public virtual void SetInfo(EquipmentStatType statType, string statText, float value, float maxValue)
+		public virtual void SetInfo(EquipmentStatType statType, string statText, float value, float maxValue, string format)
 		{
-			var format = statType == EquipmentStatType.ReloadSpeed ? "N1" : "N0";
-		
 			_statText.text = statText;
 			_valueText.text = value.ToString(format);
 			_valueTextComparison.text = "";

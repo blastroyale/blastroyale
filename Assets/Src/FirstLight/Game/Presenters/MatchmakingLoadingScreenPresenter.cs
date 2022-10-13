@@ -30,7 +30,7 @@ namespace FirstLight.Game.Presenters
 		{
 		}
 
-		public MapSelectionView MapSelectionView;
+		public MapSelectionView mapSelectionView;
 
 		[SerializeField, Required] private GameObject _rootObject;
 		[SerializeField, Required] private Button _lockRoomButton;
@@ -64,6 +64,7 @@ namespace FirstLight.Game.Presenters
 		private IGameServices _services;
 		private bool _loadedCoreMatchAssets;
 		private bool _spectatorToggleTimeOut;
+		private bool _kickModeActive = false;
 
 		private Room CurrentRoom => _services.NetworkService.QuantumClient.CurrentRoom;
 		private bool RejoiningRoom => !_services.NetworkService.IsJoiningNewMatch;
@@ -103,7 +104,7 @@ namespace FirstLight.Game.Presenters
 			var mapConfig = _services.NetworkService.CurrentRoomMapConfig.Value;
 			var gameModeConfig = _services.NetworkService.CurrentRoomGameModeConfig.Value;
 
-			MapSelectionView.SetupMapView(room.GetGameModeId(), room.GetMapId());
+			mapSelectionView.SetupMapView(room.GetGameModeId(), room.GetMapId());
 
 			if (RejoiningRoom)
 			{
@@ -185,7 +186,7 @@ namespace FirstLight.Game.Presenters
 
 		protected override void OnClosed()
 		{
-			MapSelectionView.CleanupMapView();
+			mapSelectionView.CleanupMapView();
 			_rootObject.SetActive(true);
 		}
 
@@ -453,6 +454,9 @@ namespace FirstLight.Game.Presenters
 
 		private void ReadyToPlay()
 		{
+			mapSelectionView.SelectionEnabled = false;
+			
+			DeactivateKickOverlay();
 			_loadingText.SetActive(true);
 			_lockRoomButton.gameObject.SetActive(false);
 			_leaveRoomButton.gameObject.SetActive(false);
@@ -474,6 +478,8 @@ namespace FirstLight.Game.Presenters
 			{
 				overlayObject.SetActive(true);
 			}
+
+			_kickModeActive = true;
 		}
 
 		private void DeactivateKickOverlay()
@@ -482,12 +488,18 @@ namespace FirstLight.Game.Presenters
 			{
 				overlayObject.SetActive(false);
 			}
+			
+			_kickModeActive = false;
 		}
 
 		private void RequestKickPlayer(Player player)
 		{
-			// You cannot kick yourself, for error avoidance reasons
-			if (player.UserId == _services.NetworkService.QuantumClient.LocalPlayer.UserId) return;
+			if (player.UserId == _services.NetworkService.QuantumClient.LocalPlayer.UserId ||
+			    !_kickModeActive || !_services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient ||
+			    !player.LoadedCoreMatchAssets())
+			{
+				return;
+			}
 
 			var title = string.Format(ScriptLocalization.MainMenu.MatchmakingKickConfirm, player.NickName).ToUpper();
 			var confirmButton = new GenericDialogButton
@@ -514,43 +526,5 @@ namespace FirstLight.Game.Presenters
 			_services.MessageBrokerService.Publish(new SpectatorModeToggledMessage() {IsSpectator = isOn});
 			_services.CoroutineService.StartCoroutine(TimeoutSpectatorToggleCoroutine());
 		}
-
-		/* This code is not needed at the moment. This is legacy code an necessary when adding the character 3D model
-		 again to the screen. Talk with Miguel about it 
-		 
-		private void OnSceneChanged(Scene previous, Scene current)
-		{
-			// Ignore scene changes that are not levels
-			if (current.buildIndex != -1)
-			{
-				return;
-			}
-		}
-
-		private void SetLayerState(bool state, bool forceUiAwakeCalls)
-		{
-			// Little hack to avoid UIs to spam over this screen
-			for (var i = 0; i < Data.UiService.TotalLayers; i++)
-			{
-				if (!Data.UiService.TryGetLayer(i, out var layer))
-				{
-					continue;
-				}
-
-				if (forceUiAwakeCalls)
-				{
-					layer.SetActive(!state);
-				
-					foreach (var canvas in layer.GetComponentsInChildren<UiPresenter>(true))
-					{
-						// To force the UI awake calls
-						canvas.gameObject.SetActive(true);
-						canvas.gameObject.SetActive(false);
-					}
-				}
-				
-				layer.SetActive(state);
-			}
-		}*/
 	}
 }

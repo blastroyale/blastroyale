@@ -3,6 +3,7 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Logic.RPC;
+using FirstLight.Game.Utils;
 using FirstLight.Services;
 using MoreMountains.NiceVibrations;
 using PlayFab;
@@ -58,9 +59,14 @@ namespace FirstLight.Game.Logic
 		bool UseDynamicJoystick { get; set; }
 		
 		/// <summary>
-		/// Resuests the current detail level of the game
+		/// Requests the current detail level of the game
 		/// </summary>
 		GraphicsConfig.DetailLevel CurrentDetailLevel { get; set; }
+		
+		/// <summary>
+		/// Requests the current FPS mode
+		/// </summary>
+		bool UseHighFpsMode { get; set; }
 
 		/// <summary>
 		/// Requests the player's title display name (excluding appended numbers)
@@ -96,6 +102,11 @@ namespace FirstLight.Game.Logic
 		/// Sets the resolution mode for the 3D rendering of the app
 		/// </summary>
 		void SetDetailLevel(GraphicsConfig.DetailLevel highRes);
+		
+		/// <summary>
+		/// Sets the low/high FPS mode for the app
+		/// </summary>
+		void SetFpsMode(bool useHighFpsMode);
 
 		/// <summary>
 		/// Marks the date when the game was last time reviewed
@@ -185,6 +196,17 @@ namespace FirstLight.Game.Logic
 				SetDetailLevel(value);
 			}
 		}
+		
+		/// <inheritdoc />
+		public bool UseHighFpsMode
+		{
+			get => Data.UseHighFpsMode;
+			set
+			{
+				Data.UseHighFpsMode = value;
+				SetFpsMode(value);
+			}
+		}
 
 		/// <inheritdoc />
 		public IObservableField<string> ConnectionRegion { get; private set; }
@@ -242,7 +264,16 @@ namespace FirstLight.Game.Logic
 			                               .Find(detailLevelConf => detailLevelConf.Name == detailLevel);
 
 			QualitySettings.SetQualityLevel(detailLevelConf.DetailLevelIndex);
-			Application.targetFrameRate = detailLevelConf.Fps;
+		}
+		
+		/// <inheritdoc />
+		public void SetFpsMode(bool useHighFpsMode)
+		{
+			var targetFps = useHighFpsMode
+				                ? GameConstants.Visuals.HIGH_FPS_MODE_TARGET
+				                : GameConstants.Visuals.LOW_FPS_MODE_TARGET;
+			
+			Application.targetFrameRate = targetFps;
 		}
 	}
 }

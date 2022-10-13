@@ -1,3 +1,4 @@
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.UiService;
 using FirstLight.Game.Utils;
@@ -37,6 +38,8 @@ namespace FirstLight.Game.Presenters
 			_firstToXKillsText.text = string.Format(ScriptLocalization.AdventureMenu.FirstToXKills,
 			                                        gameModeConfig.CompletionKillCount);
 
+			_services.MessageBrokerService.Publish(new MatchCountdownStartedMessage());
+			
 			this.LateCoroutineCall(_animation.clip.length, () => Close(true));
 		}
 	}

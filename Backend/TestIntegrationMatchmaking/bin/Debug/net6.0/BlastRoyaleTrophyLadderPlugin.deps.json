@@ -1,0 +1,150 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "BlastRoyaleTrophyLadderPlugin/1.0.0": {
+        "dependencies": {
+          "FirstLightServerSDK": "1.0.0",
+          "PlayFabAllSDK": "1.108.220118",
+          "FirstLight.DataExtensions": "0.0.0.0",
+          "FirstLight.Game": "0.0.0.0",
+          "FirstLight.Services": "0.0.0.0",
+          "PhotonDeterministic": "2.1.0.0",
+          "PhotonQuantum": "0.0.0.0",
+          "quantum.code": "2.1.0.0",
+          "quantum.core": "2.1.0.0"
+        },
+        "runtime": {
+          "BlastRoyaleTrophyLadderPlugin.dll": {}
+        }
+      },
+      "PlayFabAllSDK/1.108.220118": {
+        "runtime": {
+          "lib/netstandard2.0/PlayFabAllSDK.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "FirstLightServerSDK/1.0.0": {
+        "runtime": {
+          "FirstLightServerSDK.dll": {}
+        }
+      },
+      "FirstLight.DataExtensions/0.0.0.0": {
+        "runtime": {
+          "FirstLight.DataExtensions.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "FirstLight.Game/0.0.0.0": {
+        "runtime": {
+          "FirstLight.Game.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "FirstLight.Services/0.0.0.0": {
+        "runtime": {
+          "FirstLight.Services.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "PhotonDeterministic/2.1.0.0": {
+        "runtime": {
+          "PhotonDeterministic.dll": {
+            "assemblyVersion": "2.1.0.0",
+            "fileVersion": "2.1.0.0"
+          }
+        }
+      },
+      "PhotonQuantum/0.0.0.0": {
+        "runtime": {
+          "PhotonQuantum.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "quantum.code/2.1.0.0": {
+        "runtime": {
+          "quantum.code.dll": {
+            "assemblyVersion": "2.1.0.0",
+            "fileVersion": "2.1.0.0"
+          }
+        }
+      },
+      "quantum.core/2.1.0.0": {
+        "runtime": {
+          "quantum.core.dll": {
+            "assemblyVersion": "2.1.0.0",
+            "fileVersion": "2.1.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "BlastRoyaleTrophyLadderPlugin/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "PlayFabAllSDK/1.108.220118": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-wuYJ/l5eo1T/g06Aj24UeGwWprBhXFBhlW4gLY2bCRpvUQIlKwHr8lPtHI8wWVjWdD+e1z3TGypXd6rFfBKJrw==",
+      "path": "playfaballsdk/1.108.220118",
+      "hashPath": "playfaballsdk.1.108.220118.nupkg.sha512"
+    },
+    "FirstLightServerSDK/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "FirstLight.DataExtensions/0.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "FirstLight.Game/0.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "FirstLight.Services/0.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "PhotonDeterministic/2.1.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "PhotonQuantum/0.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "quantum.code/2.1.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "quantum.core/2.1.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

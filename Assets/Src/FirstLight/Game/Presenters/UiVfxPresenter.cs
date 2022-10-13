@@ -1,12 +1,11 @@
-using DG.Tweening;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Views;
 using FirstLight.Game.Views.MainMenuViews;
 using FirstLight.Services;
 using FirstLight.UiService;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 
 namespace FirstLight.Game.Presenters
 {
@@ -16,90 +15,35 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public class UiVfxPresenter : UiPresenter
 	{
-		[SerializeField, Required] private Image _imageRef;
-		[SerializeField, Required] private DOTweenAnimation _moveAnimation;
-		[SerializeField, Required] private DOTweenAnimation _scaleAnimation;
+		[SerializeField, Required] private UiVfxImage _imageRef;
 		[SerializeField, Required] private Transform _defaultFloatingTextTransform;
 		[SerializeField, Required] private MainMenuFloatingTextView _floatingTextRef;
 
-		private IObjectPool<Image> _imagePool;
+		private IObjectPool<UiVfxImage> _imagePool;
 		private IObjectPool<MainMenuFloatingTextView> _floatingTextPool;
 
 		private void Awake()
 		{
-			_imagePool = new GameObjectPool<Image>(10, _imageRef);
-			_floatingTextPool = new GameObjectPool<MainMenuFloatingTextView>(10, _floatingTextRef);
-			_moveAnimation.targetIsSelf = _scaleAnimation.targetIsSelf = false;
-			_moveAnimation.forcedTargetType = DOTweenAnimation.TargetType.Transform;
-			_moveAnimation.hasOnComplete = true;
+			_imagePool = new GameObjectPool<UiVfxImage>(2, _imageRef);
+			_floatingTextPool = new GameObjectPool<MainMenuFloatingTextView>(0, _floatingTextRef);
 		}
 
 		/// <summary>
 		/// Plays the VFX animation with the necessary information to play the moving animation to the given <paramref name="targetWorldPosition"/>
 		/// It will execute the given <paramref name="onCompleteCallback"/> when the VFX ends 
 		/// </summary>
-		public void PlayAnimation(Sprite sprite, Vector3 originWorldPosition, Vector3 targetWorldPosition,
-		                          UnityAction onCompleteCallback)
+		public void PlayAnimation(Sprite sprite, float delay, Vector3 originWorldPosition, Vector3 targetWorldPosition,
+			UnityAction onCompleteCallback)
 		{
 			var image = _imagePool.Spawn();
-			var imageTransform = image.transform;
-			var closure = onCompleteCallback;
 
-			image.sprite = sprite;
-			imageTransform.position = originWorldPosition;
-
-			_moveAnimation.useTargetAsV3 = false;
-			_moveAnimation.target = imageTransform;
-			_moveAnimation.endValueV3 = targetWorldPosition;
-			_moveAnimation.targetGO = _scaleAnimation.targetGO = image.gameObject;
-			
-			_moveAnimation.CreateTween();
-			_scaleAnimation.CreateTween();
-
-			_moveAnimation.tween.OnComplete(OnCompleteTween);
-			_moveAnimation.tween.Play();
-			_scaleAnimation.tween.Play();
-
-			void OnCompleteTween()
+			image.Play(sprite, delay, originWorldPosition, targetWorldPosition, () =>
 			{
-				closure?.Invoke();
 				_imagePool.Despawn(image);
-			}
+				onCompleteCallback?.Invoke();
+			});
 		}
 
-		/// <summary>
-		/// Plays the VFX animation with the necessary information to play the moving animation to the given <paramref name="target"/>
-		/// It will execute the given <paramref name="onCompleteCallback"/> when the VFX ends 
-		/// </summary>
-		public void PlayAnimation(Sprite sprite, Vector3 originWorldPosition, Transform target,
-		                          UnityAction onCompleteCallback)
-		{
-			var image = _imagePool.Spawn();
-			var imageTransform = image.transform;
-			var closure = onCompleteCallback;
-
-			image.sprite = sprite;
-			imageTransform.position = originWorldPosition;
-
-			_moveAnimation.useTargetAsV3 = true;
-			_moveAnimation.target = imageTransform;
-			_moveAnimation.endValueTransform = target;
-			_moveAnimation.targetGO = _scaleAnimation.targetGO = image.gameObject;
-			
-			_moveAnimation.CreateTween();
-			_scaleAnimation.CreateTween();
-
-			_moveAnimation.tween.OnComplete(OnCompleteTween);
-			_moveAnimation.tween.Play();
-			_scaleAnimation.tween.Play();
-
-			void OnCompleteTween()
-			{
-				closure?.Invoke();
-				_imagePool.Despawn(image);
-			}
-		}
-		
 		/// <summary>
 		/// Plays the Floating Text animation with the given <paramref name="string"/>.
 		/// </summary>
@@ -107,7 +51,7 @@ namespace FirstLight.Game.Presenters
 		{
 			PlayFloatingText(text, _defaultFloatingTextTransform.position);
 		}
-		
+
 		/// <summary>
 		/// Plays the Floating Text animation with the given <paramref name="string"/> from position <paramref name="position"/>.
 		/// </summary>
@@ -116,9 +60,8 @@ namespace FirstLight.Game.Presenters
 			var floatingText = _floatingTextPool.Spawn();
 
 			floatingText.transform.position = position;
-			
 			floatingText.SetText(text);
-			
+
 			this.LateCall(floatingText.AnimationLength, () => _floatingTextPool.Despawn(floatingText));
 		}
 	}

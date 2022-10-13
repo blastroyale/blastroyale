@@ -1845,7 +1845,7 @@ MonoBehaviour:
   Anchor: {fileID: 3377100522461410586}
   ClickClip: {fileID: 7400000, guid: 382a5c7d063224d16b5caae8326aa7fb, type: 2}
   PlaySound: 1
-  IsForward: 1
+  IsForward: 0
   OverrideClickSfxId: 0
 --- !u!114 &5455597854287630744
 MonoBehaviour:

@@ -47,6 +47,7 @@ namespace FirstLight.Game.Presenters
 			var playersData = f.GetSingleton<GameContainer>().PlayersData;
 			var localPlayer = game.GetLocalPlayers()[0];
 			
+
 			if (Data.Killer != PlayerRef.None && Data.Killer != localPlayer)
 			{
 				var data = new QuantumPlayerMatchData(f, playersData[Data.Killer]);

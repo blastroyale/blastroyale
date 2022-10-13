@@ -109,11 +109,29 @@ namespace Quantum.Systems
 			}
 			else
 			{
-				var speedUpMutatorExists = f.Context.TryGetMutatorByType(MutatorType.Speed, out var speedUpMutatorConfig);
-				speed *= weaponConfig.AimingMovementSpeed;
+				var weaponTargetRange = f.Get<Stats>(filter.Entity).GetStatData(StatType.AttackRange).StatValue;
+				var botPosition = filter.Transform->Position;
+				var team = f.Get<Targetable>(filter.Entity).Team;
+				var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(filter.Entity);
+
+				botPosition.Y += Constants.ACTOR_AS_TARGET_Y_OFFSET;
 				
-				kcc->MaxSpeed = speedUpMutatorExists?speed * speedUpMutatorConfig.Param1:speed;
-				QuantumHelpers.LookAt2d(f, filter.Entity, target);
+				if (TryToAimAtEnemy(f, ref filter, botPosition, team, weaponTargetRange, target, out var targetHit))
+				{
+					var speedUpMutatorExists = f.Context.TryGetMutatorByType(MutatorType.Speed, out var speedUpMutatorConfig);
+					speed *= weaponConfig.AimingMovementSpeed;
+					
+					kcc->MaxSpeed = speedUpMutatorExists?speed * speedUpMutatorConfig.Param1:speed;
+					
+					filter.BotCharacter->Target = targetHit;
+					QuantumHelpers.LookAt2d(f, filter.Entity, targetHit);
+					bb->Set(f, Constants.IsAimPressedKey, true);
+					target = targetHit;
+				}
+				else
+				{
+					ClearTarget(f, ref filter);
+				}
 			}
 
 			// Bots look for others to shoot at not on every frame
@@ -287,8 +305,12 @@ namespace Quantum.Systems
 			// When we clear the target we also return speed to normal
 			// because without a target bots don't shoot
 			f.Unsafe.GetPointer<CharacterController3D>(filter.Entity)->MaxSpeed = speed;
+			
+			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(filter.Entity);
+			bb->Set(f, Constants.IsAimPressedKey, false);
 		}
-
+		
+		// We loop through targetable entities trying to find if any is eligible to shoot at
 		private void CheckEnemiesToShooAt(Frame f, ref BotCharacterFilter filter, QuantumWeaponConfig weaponConfig)
 		{
 			var target = EntityRef.None;
@@ -306,26 +328,9 @@ namespace Quantum.Systems
 
 			foreach (var targetCandidate in f.GetComponentIterator<Targetable>())
 			{
-				if (!QuantumHelpers.IsAttackable(f, targetCandidate.Entity, team) ||
-				    !QuantumHelpers.IsEntityInRange(f, filter.Entity, targetCandidate.Entity, FP._0, targetRange))
+				if (TryToAimAtEnemy(f, ref filter, botPosition, team, targetRange, targetCandidate.Entity, out var targetHit))
 				{
-					continue;
-				}
-
-				var targetPosition = f.Get<Transform3D>(targetCandidate.Entity).Position;
-				targetPosition.Y += Constants.ACTOR_AS_TARGET_Y_OFFSET;
-
-				var hit = f.Physics3D.Linecast(botPosition,
-				                               targetPosition,
-				                               f.Context.TargetAllLayerMask,
-				                               QueryOptions.HitDynamics | QueryOptions.HitStatics |
-				                               QueryOptions.HitKinematics);
-
-				if (hit.HasValue)
-				{
-					target = hit.Value.Entity;
-
-					bb->Set(f, Constants.AimDirectionKey, (targetPosition - botPosition).XZ);
+					target = targetHit;
 					break;
 				}
 			}
@@ -333,6 +338,43 @@ namespace Quantum.Systems
 			filter.BotCharacter->Target = target;
 
 			bb->Set(f, Constants.IsAimPressedKey, target != EntityRef.None);
+		}
+		
+		// We check specific entity if a bot can hit it or not, to make a decision to aim or not to aim
+		// Note that as a result we can get another entity that is being hit, for instance if it appears between the bot and a target that we are checking
+		private bool TryToAimAtEnemy(Frame f, ref BotCharacterFilter filter, FPVector3 botPosition, int team,
+		                             FP targetRange, EntityRef targetToCheck, out EntityRef targetHit)
+		{
+			targetHit = EntityRef.None;
+			
+			if (!QuantumHelpers.IsAttackable(f, targetToCheck, team) ||
+			    !QuantumHelpers.IsEntityInRange(f, filter.Entity, targetToCheck, FP._0, targetRange))
+			{
+				return false;
+			}
+
+			var targetPosition = f.Get<Transform3D>(targetToCheck).Position;
+			targetPosition.Y += Constants.ACTOR_AS_TARGET_Y_OFFSET;
+
+			var hit = f.Physics3D.Linecast(botPosition,
+			                               targetPosition,
+			                               f.Context.TargetAllLayerMask,
+			                               QueryOptions.HitDynamics | QueryOptions.HitStatics |
+			                               QueryOptions.HitKinematics);
+			
+			// TODO: Ideally we shouldn't check "hit.Value.Entity != EntityRef.None" because layers should solve it,
+			// however sometimes we have a hit.HasValue but hit.Value.Entity is EntityRef.None which means we hit something that is not an Entity
+			if (hit.HasValue && hit.Value.Entity != EntityRef.None)
+			{
+				var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(filter.Entity);
+				
+				targetHit = hit.Value.Entity;
+				bb->Set(f, Constants.AimDirectionKey, (targetPosition - botPosition).XZ);
+				
+				return true;
+			}
+
+			return false;
 		}
 
 		// We check specials and try to use them depending on their type if possible

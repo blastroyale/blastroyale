@@ -21,10 +21,10 @@
                 <ui:Button display-tooltip-when-elided="true" name="SettingsButton" class="hidden-top" style="background-image: none; width: 120px; height: 100px; margin-top: -23px; margin-bottom: -11px; margin-left: 0; margin-right: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;">
                     <ui:VisualElement style="width: 66px; height: 66px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/HomeScreen/SettingsIcon.png?fileID=2800000&amp;guid=04713a4471ac6493ba0a2533be572841&amp;type=3#SettingsIcon&apos;); margin-left: 20px; margin-top: 20px;" />
                 </ui:Button>
-                <ui:Instance template="CurrencyDisplay" name="CSCurrency" class="hidden-top" style="margin-right: 10px; margin-top: 0;">
+                <ui:Instance template="CurrencyDisplay" name="CSCurrency" class="hidden-top" style="margin-right: 10px;">
                     <AttributeOverrides element-name="Label" text="3" />
                 </ui:Instance>
-                <ui:Instance template="CurrencyDisplay" name="BLSTCurrency" class="hidden-top" style="margin-right: 43px; margin-top: 0;" />
+                <ui:Instance template="CurrencyDisplay" name="BLSTCurrency" class="hidden-top" style="margin-right: 43px;" />
             </ui:VisualElement>
             <ui:VisualElement picking-mode="Ignore" style="height: 580px; width: 535px; position: absolute; right: 0; bottom: 0; flex-direction: column-reverse; align-items: flex-end; display: flex; margin-bottom: 36px; margin-right: 36px;">
                 <ui:VisualElement class="hidden-right" style="margin-top: 43px; transition-property: margin-right; transition-duration: 0.3s; transition-timing-function: ease-out;">

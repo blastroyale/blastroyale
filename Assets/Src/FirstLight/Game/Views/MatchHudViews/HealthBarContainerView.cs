@@ -270,9 +270,13 @@ namespace FirstLight.Game.Views.MatchHudViews
 					}
 
 					graphics[i].DOKill();
-					graphics[i].DOFade(0, GameConstants.Visuals.GAMEPLAY_POST_ATTACK_HIDE_DURATION)
-					           .SetEase(Ease.InCubic)
-					           .OnComplete(() => _pool.Despawn(this));
+					var tween = graphics[i].DOFade(0, GameConstants.Visuals.GAMEPLAY_POST_ATTACK_HIDE_DURATION)
+					                       .SetEase(Ease.InCubic);
+
+					if (i == 0)
+					{
+						tween.OnComplete(() => _pool?.Despawn(this));
+					}
 				}
 
 				return true;

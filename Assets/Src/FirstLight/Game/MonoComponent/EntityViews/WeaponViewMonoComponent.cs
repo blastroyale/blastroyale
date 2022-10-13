@@ -104,6 +104,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
+			if (_particleSystem.isPlaying)
+			{
+				_particleSystem.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+			}
+
 			// Particle System modules do not need to be reassigned back to the system; they are interfaces and not independent objects.
 			main.duration = config.AttackCooldown.AsFloat; 
 			main.startDelay = 0;

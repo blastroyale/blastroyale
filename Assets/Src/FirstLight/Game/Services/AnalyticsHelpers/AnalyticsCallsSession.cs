@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using Firebase.Analytics;
+using FirstLight.Game.Infos;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using Quantum;
 using UnityEngine;
@@ -16,6 +18,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 	public class AnalyticsCallsSession : AnalyticsCalls
 	{
 		private IDataProvider _dataProvider;
+		private IGameServices _services;
 		private IGameDataProvider _gameData;
 		
 		/// <summary>
@@ -43,12 +46,13 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			}
 		}
 
-		public AnalyticsCallsSession(IAnalyticsService analyticsService,
+		public AnalyticsCallsSession(IAnalyticsService analyticsService, IGameServices services,
 		                             IDataProvider dataProvider,
 		                             IGameDataProvider gameDataProvider) : base(analyticsService)
 		{
 			_gameData = gameDataProvider;
 			_dataProvider = dataProvider;
+			_services = services;
 		}
 
 		/// <summary>
@@ -139,7 +143,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		/// </summary>
 		public void GameLoaded()
 		{
-			//var loadout = _gameData.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both);
+			var loadout = _gameData.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both);
 			var inventory = _gameData.EquipmentDataProvider.GetInventoryEquipmentInfo(EquipmentFilter.NftOnly);
 
 			var data = new Dictionary<string, object>
@@ -147,7 +151,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"nfts_owned", inventory.Count},
 				{"blst_token_balance", (int) _gameData.CurrencyDataProvider.GetCurrencyAmount(GameId.BLST)},
 				{"cs_token_balance", (int) _gameData.CurrencyDataProvider.GetCurrencyAmount(GameId.CS)},
-				//{"total_power", loadout.GetTotalMight()}
+				{"total_power", loadout.GetTotalMight(_services.ConfigsProvider.GetConfigsDictionary<QuantumStatConfig>())}
 			};
 			
 			_analyticsService.LogEvent(AnalyticsEvents.GameLoaded, data);

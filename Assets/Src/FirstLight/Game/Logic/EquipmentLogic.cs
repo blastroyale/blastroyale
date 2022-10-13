@@ -365,10 +365,12 @@ namespace FirstLight.Game.Logic
 					throw new LogicException($"The player already has the given item Id '{itemId}' equipped");
 				}
 
-				Unequip(equippedId);
+				_loadout[slot] = itemId;
 			}
-
-			_loadout.Add(slot, itemId);
+			else
+			{
+				_loadout.Add(slot, itemId);
+			}
 		}
 
 		public void Unequip(UniqueId itemId)

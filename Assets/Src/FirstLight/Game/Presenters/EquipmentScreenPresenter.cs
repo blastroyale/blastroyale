@@ -372,7 +372,6 @@ namespace FirstLight.Game.Presenters
 
 		private void EquipItem(UniqueId item)
 		{
-			
 			_services.CommandService.ExecuteCommand(new EquipItemCommand { Item = item });
 			
 			UpdateEquipmentMenu();

@@ -72,7 +72,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 					EquipDefault();
 				}
 			}
-			else if(updateType == ObservableUpdateType.Added)
+			else if(updateType is ObservableUpdateType.Added or ObservableUpdateType.Updated)
 			{
 				await _characterViewComponent.EquipItem(_gameDataProvider.UniqueIdDataProvider.Ids[newId]);
 			}

@@ -70,7 +70,7 @@ namespace FirstLight.Game.Services
 		                        IGameDataProvider gameDataProvider,
 		                        IDataProvider dataProvider)
 		{
-			SessionCalls = new AnalyticsCallsSession(this, dataProvider, gameDataProvider);
+			SessionCalls = new AnalyticsCallsSession(this, services, dataProvider, gameDataProvider);
 			MatchCalls = new AnalyticsCallsMatch(this, services, gameDataProvider);
 			ErrorsCalls = new AnalyticsCallsErrors(this);
 		}

@@ -17,14 +17,6 @@ builder.Services
 var binPath = Path.GetDirectoryName(typeof(GameLogicWebWebService).Assembly.Location);
 ServerStartup.Setup(builder.Services, binPath);
 
-builder.Host.UseSerilog((hostBuilderContext, services, loggerConfiguration) =>
-{
-	loggerConfiguration.WriteTo.ApplicationInsights(TelemetryConfiguration.Active, TelemetryConverter.Traces);
-	Log.Logger = loggerConfiguration
-	             .Enrich.FromLogContext()
-	             .CreateLogger();
-});
-
 var app = builder.Build();
 app.UseCors(x => x
      .AllowAnyMethod()

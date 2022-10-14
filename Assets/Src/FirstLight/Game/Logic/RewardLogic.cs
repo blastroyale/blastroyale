@@ -104,7 +104,7 @@ namespace FirstLight.Game.Logic
 				GiveCSReward(rewards, rewardConfig);
 			}
 
-			if (FeatureFlags.BATTLE_PASS_ENABLED && matchType is MatchType.Ranked or MatchType.Casual)
+			if (matchType is MatchType.Ranked or MatchType.Casual)
 			{
 				GiveBPPReward(rewards, rewardConfig);
 			}

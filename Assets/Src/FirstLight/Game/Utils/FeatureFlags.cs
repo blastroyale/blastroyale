@@ -53,20 +53,10 @@ namespace FirstLight.Game.Utils
 		public static bool QUANTUM_CUSTOM_SERVER = false;
 
 		/// <summary>
-		/// If false, leaderboard button will be disabled on the home screen
-		/// </summary>
-		public static readonly bool LEADERBOARD_ACCESSIBLE = true;
-
-		/// <summary>
 		/// If true will load game configurations from remote server
 		/// </summary>
 		public static bool REMOTE_CONFIGURATION = false;
 
-		/// <summary>
-		/// If true we award BattlePass points (BPP) and show the BattlePass button on the home screen.
-		/// </summary>
-		public static bool BATTLE_PASS_ENABLED = true;
-		
 		/// <summary>
 		/// If true all matches will be handled as ranked matches
 		/// </summary>

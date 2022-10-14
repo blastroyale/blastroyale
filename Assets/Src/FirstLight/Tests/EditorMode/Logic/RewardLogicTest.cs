@@ -164,8 +164,6 @@ namespace FirstLight.Tests.EditorMode.Logic
 
 		private void SetupData()
 		{
-			FeatureFlags.BATTLE_PASS_ENABLED = true;
-			
 			var resourceInfoCS = new ResourcePoolInfo { WinnerRewardAmount = RESOURCEINFO_CSS_WINAMOUNT, CurrentAmount = RESOURCEINFO_CSS_STARTAMOUNT };
 			ResourceLogic.GetResourcePoolInfo(GameId.CS).Returns(resourceInfoCS);
 			var resourceInfoBPP = new ResourcePoolInfo { CurrentAmount = RESOURCEINFO_BPP_STARTAMOUNT };

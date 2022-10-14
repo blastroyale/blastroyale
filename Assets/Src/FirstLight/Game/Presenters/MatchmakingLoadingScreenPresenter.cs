@@ -84,6 +84,7 @@ namespace FirstLight.Game.Presenters
 			_lockRoomButton.onClick.AddListener(OnLockRoomClicked);
 			_leaveRoomButton.onClick.AddListener(OnLeaveRoomClicked);
 			_kickButton.onClick.AddListener(ActivateKickOverlay);
+			_botsToggle.onValueChanged.AddListener(OnBotsToggleChanged);
 			_cancelKickButton.onClick.AddListener(DeactivateKickOverlay);
 			_services.MessageBrokerService.Subscribe<CoreMatchAssetsLoadedMessage>(OnCoreMatchAssetsLoaded);
 			_services.MessageBrokerService.Subscribe<StartedFinalPreloadMessage>(OnStartedFinalPreloadMessage);
@@ -370,7 +371,8 @@ namespace FirstLight.Game.Presenters
 
 		private void CheckEnableLockRoomButton()
 		{
-			_lockRoomButton.interactable = CurrentRoom.GetRealPlayerAmount() > 0;
+			var realPlayers = CurrentRoom.GetRealPlayerAmount();
+			_lockRoomButton.interactable = realPlayers > 1 || realPlayers == 1 && _botsToggle.isOn;
 		}
 
 		private void SetSpectateInteractable(bool interactable)
@@ -480,6 +482,11 @@ namespace FirstLight.Game.Presenters
 			}
 
 			_kickModeActive = true;
+		}
+
+		private void OnBotsToggleChanged(bool _)
+		{
+			CheckEnableLockRoomButton();
 		}
 
 		private void DeactivateKickOverlay()

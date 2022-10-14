@@ -324,7 +324,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			var weapons = await _characterView.EquipWeapon(callback.Weapon.GameId);
 			
-			var f = QuantumRunner.Default.Game.Frames.Verified;
+			var f = callback.Game.Frames.Verified;
 			if (!f.Exists(EntityView.EntityRef))
 			{
 				return;

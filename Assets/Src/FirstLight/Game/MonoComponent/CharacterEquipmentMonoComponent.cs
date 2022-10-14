@@ -57,6 +57,7 @@ namespace FirstLight.Game.MonoComponent
 			if (this.IsDestroyed())
 			{
 				Destroy(instance);
+				return instances;
 			}
 			
 			if (_equipment.ContainsKey(slot))

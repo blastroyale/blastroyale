@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 7265637115171681204}
   - component: {fileID: 4614917984916820100}
   - component: {fileID: 1675698776148703335}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: ConeParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5069,6 +5069,7 @@ MonoBehaviour:
   - {fileID: 4012290542981401308}
   - {fileID: 5871192997882101194}
   - {fileID: 660038314848666461}
+  _rendererRoots: []
   _mainRenderer: {fileID: 0}
 --- !u!1 &1882858249818672691
 GameObject:
@@ -5081,7 +5082,7 @@ GameObject:
   - component: {fileID: 3635231518013538279}
   - component: {fileID: 4268716027824155998}
   - component: {fileID: 8093026393694487114}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10099,7 +10100,7 @@ GameObject:
   - component: {fileID: 1532388770019995427}
   - component: {fileID: 9150347952831942761}
   - component: {fileID: 4012290542981401308}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: ImpactMark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15052,7 +15053,7 @@ GameObject:
   - component: {fileID: 2952660383852924093}
   - component: {fileID: 2086147531273339283}
   - component: {fileID: 1270698466508669672}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: ImpactGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19923,7 +19924,7 @@ GameObject:
   - component: {fileID: 6220671135603893580}
   - component: {fileID: 4980192437088629479}
   - component: {fileID: 5871192997882101194}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: OORGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24825,7 +24826,7 @@ GameObject:
   - component: {fileID: 5827089140317000610}
   - component: {fileID: 2106711702608253259}
   - component: {fileID: 660038314848666461}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: RocketTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29649,7 +29650,7 @@ GameObject:
   - component: {fileID: 8323469758192111231}
   - component: {fileID: 6886483867433132347}
   - component: {fileID: 4148970742473127699}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: ImpactSpark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34686,7 +34687,7 @@ GameObject:
   - component: {fileID: 2333757854854927436}
   - component: {fileID: 4882091033777337113}
   - component: {fileID: 8994814111897518501}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Plasmaball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39687,7 +39688,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 44fd5f1c5b098e74c93a40474f9d7eb4, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 44fd5f1c5b098e74c93a40474f9d7eb4, type: 3}
       propertyPath: m_IsActive

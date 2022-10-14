@@ -167,7 +167,7 @@
     transition-delay: var(--animation-delay-1);
 }
 
-#SettingsButton:active {
+#SettingsButton:active > VisualElement {
     -unity-background-image-tint-color: rgb(126, 126, 126);
 }
 

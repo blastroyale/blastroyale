@@ -168,7 +168,7 @@ MonoBehaviour:
   isIndependentUpdate: 0
   autoKill: 1
   autoGenerate: 1
-  isActive: 1
+  isActive: 0
   isValid: 1
   target: {fileID: 2715078542509167946}
   animationType: 1
@@ -293,7 +293,7 @@ MonoBehaviour:
   isIndependentUpdate: 0
   autoKill: 1
   autoGenerate: 1
-  isActive: 1
+  isActive: 0
   isValid: 1
   target: {fileID: 2715078542509167946}
   animationType: 5

@@ -30,5 +30,11 @@ namespace Quantum.Systems
 				}
 			}
 		}
+
+		public override void OnEnabled(Frame f)
+		{
+			f.GetOrAddSingleton<GameContainer>();
+			base.OnEnabled(f);
+		}
 	}
 }

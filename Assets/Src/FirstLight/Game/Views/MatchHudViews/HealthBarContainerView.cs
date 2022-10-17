@@ -141,7 +141,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var anchor = entityView.GetComponent<HealthEntityBase>().HealthBarAnchor;
 			var maxHealth = stats.Values[(int) StatType.Health].StatValue.AsInt;
 
-			if (f.TryGet<PlayerCharacter>(entity, out var playerCharacter))
+			if (f.TryGet<DummyCharacter>(entity, out var dummyCharacter))
+			{
+				healthBar.HealthBarNameView.NameText.text = "Dummy " + entity.Index;
+			}
+			else if (f.TryGet<PlayerCharacter>(entity, out var playerCharacter))
 			{
 				var playerName = f.TryGet<BotCharacter>(entity, out var botCharacter)
 					                 ? Extensions.GetBotName(botCharacter.BotNameIndex.ToString())

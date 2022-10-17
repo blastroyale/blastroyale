@@ -4235,7 +4235,7 @@ MonoBehaviour:
   _outroAnimationClip: {fileID: 7400000, guid: 7be1f17802ffc7a4b9760000004a1f86, type: 2}
   _closeButton: {fileID: 1409716997960167216}
   _gridView: {fileID: 5224887894172489510}
-  _backButton: {fileID: 1310022849574322739}
+  _backButton: {fileID: 8248036852445243369}
   _screenTitleText: {fileID: 9121410942636120311}
   _titleText: {fileID: 6643532356626649313}
   _noItemsCollectedText: {fileID: 3634306823009468035}
@@ -5499,7 +5499,8 @@ GameObject:
   - component: {fileID: 7727359796391700212}
   - component: {fileID: 3923021667634577198}
   - component: {fileID: 8249568216361777768}
-  - component: {fileID: 1310022849574322739}
+  - component: {fileID: 1520642727849896299}
+  - component: {fileID: 8248036852445243369}
   m_Layer: 5
   m_Name: Blocker
   m_TagString: Untagged
@@ -5565,7 +5566,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1310022849574322739
+--- !u!111 &1520642727849896299
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5033359967413238927}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
+--- !u!114 &8248036852445243369
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5574,7 +5590,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5033359967413238927}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: b5f11d691ff49f24ca26aaa08dcf0448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -5587,8 +5603,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
-    m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -5609,6 +5625,17 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+  Animation: {fileID: 1520642727849896299}
+  RectTransform: {fileID: 7727359796391700212}
+  PressedEase: 1
+  PressedDuration: 0.1
+  PressedScale: {x: 0.95, y: 0.95, z: 1}
+  HapticType: 9
+  Anchor: {fileID: 0}
+  ClickClip: {fileID: 0}
+  PlaySound: 1
+  IsForward: 0
+  OverrideClickSfxId: 0
 --- !u!1 &5033648332391819267
 GameObject:
   m_ObjectHideFlags: 0
@@ -6294,7 +6321,7 @@ MonoBehaviour:
   Anchor: {fileID: 2505799615890111194}
   ClickClip: {fileID: 7400000, guid: 382a5c7d063224d16b5caae8326aa7fb, type: 2}
   PlaySound: 1
-  IsForward: 1
+  IsForward: 0
   OverrideClickSfxId: 0
 --- !u!114 &4290717589665861341
 MonoBehaviour:

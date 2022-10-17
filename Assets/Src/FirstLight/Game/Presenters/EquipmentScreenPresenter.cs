@@ -335,29 +335,11 @@ namespace FirstLight.Game.Presenters
 
 			if (item.IsEquipped)
 			{
-				var isWeapon = item.Equipment.IsWeapon();
-
-				// Can't unequip your last weapon.
-				if (isWeapon && dataProvider.GetInventoryEquipmentInfo(EquipmentFilter.Both)
-				                            .FindAll(info => info.Equipment.GameId.IsInGroup(GameIdGroup.Weapon)).Count == 1)
-				{
-					var confirmButton = new GenericDialogButton
-					{
-						ButtonText = ScriptLocalization.General.OK,
-						ButtonOnClick = Services.GenericDialogService.CloseDialog
-					};
-
-					Services.GenericDialogService.OpenDialog(ScriptLocalization.General.EquipLastWeaponWarning, false,
-					                                         confirmButton);
-
-					return;
-				}
-				
 				_services.AudioFxService.PlayClip2D(AudioId.UnequipEquipment);
 				UnequipItem(_selectedId);
 
 				// Equip Default/Melee weapon after unequipping a regular one
-				if (isWeapon)
+				if (item.Equipment.IsWeapon())
 				{
 					var defaultWeapon = dataProvider.Inventory.ReadOnlyDictionary
 					                                .FirstOrDefault(e => e.Value.IsWeapon() && e.Value.IsDefaultItem());
@@ -391,7 +373,6 @@ namespace FirstLight.Game.Presenters
 
 		private void EquipItem(UniqueId item)
 		{
-			
 			_services.CommandService.ExecuteCommand(new EquipItemCommand { Item = item });
 			
 			UpdateEquipmentMenu();

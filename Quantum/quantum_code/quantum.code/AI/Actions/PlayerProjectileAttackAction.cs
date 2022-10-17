@@ -25,7 +25,7 @@ namespace Quantum
 			var transform = f.Get<Transform3D>(e);
 			var position = transform.Position + (transform.Rotation * playerCharacter->ProjectileSpawnOffset);
 			var team = f.Get<Targetable>(e).Team;
-			var power = f.Get<Stats>(e).GetStatData(StatType.Power).StatValue;
+			var power = f.Get<Stats>(e).GetStatData(StatType.Power).StatValue * weaponConfig.PowerToDamageRatio;
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
 			var cVelocitySqr = kcc->Velocity.SqrMagnitude;
 			var maxSpeedSqr = kcc->MaxSpeed * kcc->MaxSpeed;
@@ -33,12 +33,10 @@ namespace Quantum
 
 			//targetAttackAngle depend on a current character velocity 
 			var targetAttackAngle = FPMath.Lerp(weaponConfig.MinAttackAngle, weaponConfig.MaxAttackAngle,
-												cVelocitySqr / maxSpeedSqr);
-
-			//accuracy modifier is found by getting a random angle between the min and max angle values,
-			//and then creating a rotation vector that is passed onto the projectile : only works for single shot weapons
-			var angle = targetAttackAngle / FP._2;
-			var shotAngle = weaponConfig.NumberOfShots == 1 ? f.RNG->Next(-angle, angle) : FP._0;
+			                                    cVelocitySqr / maxSpeedSqr);
+			var shotAngle = weaponConfig.NumberOfShots == 1 ?
+				                QuantumHelpers.GetSingleShotAngleAccuracyModifier(f, targetAttackAngle) :
+				                FP._0;
 			var newAngleVector = FPVector2.Rotate(aimingDirection, shotAngle * FP.Deg2Rad).XOY;
 
 			var projectile = new Projectile

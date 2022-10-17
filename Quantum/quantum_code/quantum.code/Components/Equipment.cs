@@ -82,8 +82,6 @@ namespace Quantum
 
 		/// <summary>
 		/// Checks if this item is the Hammer.
-		///
-		/// TODO: Might need different logic
 		/// </summary>
 		public bool IsDefaultItem() => GameId == GameId.Hammer;
 		
@@ -95,14 +93,18 @@ namespace Quantum
 			if (IsWeapon())
 			{
 				QuantumStatCalculator.CalculateWeaponStats(f, this, out var armour, out var health, out var speed, 
-				                                           out var power, out var attackRange, out var pickupSpeed);
-				return QuantumStatCalculator.GetTotalMight(armour,health,speed, power, attackRange, pickupSpeed);
+				                                           out var power, out var attackRange, out var pickupSpeed,
+				                                           out var ammoCapacity, out var shieldsCapacity);
+				return QuantumStatCalculator.GetTotalMight(f.StatConfigs.Dictionary, armour,health,speed, power, 
+				                                           attackRange, pickupSpeed, ammoCapacity, shieldsCapacity);
 			}
 			else
 			{
 				QuantumStatCalculator.CalculateGearStats(f, this, out var armour, out var health, out var speed, 
-				                                         out var power, out var attackRange, out var pickupSpeed);
-				return QuantumStatCalculator.GetTotalMight(armour,health,speed, power, attackRange, pickupSpeed);
+				                                         out var power, out var attackRange, out var pickupSpeed,
+				                                         out var ammoCapacity, out var shieldsCapacity);
+				return QuantumStatCalculator.GetTotalMight(f.StatConfigs.Dictionary,armour,health,speed, power, 
+				                                           attackRange, pickupSpeed, ammoCapacity, shieldsCapacity);
 			}
 		}
 

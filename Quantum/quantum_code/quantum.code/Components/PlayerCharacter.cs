@@ -76,6 +76,16 @@ namespace Quantum
 			var isRespawning = f.GetSingleton<GameContainer>().PlayersData[Player].DeathCount > 0;
 			if (isRespawning)
 			{
+				var defaultSlot = WeaponSlots.GetPointer(Constants.WEAPON_INDEX_DEFAULT);
+				for (var i = 0; i < defaultSlot->Specials.Length; i++)
+				{
+					var special = defaultSlot->Specials[i];
+
+					special.AvailableTime = f.Time + special.InitialCooldown;
+
+					defaultSlot->Specials[i] = special;
+				}
+				
 				EquipSlotWeapon(f, e, Constants.WEAPON_INDEX_DEFAULT);
 			}
 			else
@@ -176,20 +186,18 @@ namespace Quantum
 
 			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
 			var initialAmmo = weaponConfig.InitialAmmoFilled.Get(f);
-			var slot = GetWeaponEquipSlot(weapon, primary);
-			var primaryReplaced = false;
+			var slot = GetWeaponEquipSlot(f, weapon, primary);
 			var primaryWeapon = WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon;
 			if (primaryWeapon.IsValid() && weapon.GameId == primaryWeapon.GameId &&
 			    weapon.Rarity > primaryWeapon.Rarity)
 			{
 				slot = Constants.WEAPON_INDEX_PRIMARY;
-				primaryReplaced = true;
 			}
 
 			// Optionally drop the weapon if there's a different weapon in a slot
 			if (f.Context.GameModeConfig.DropWeaponOnPickup &&
 			    WeaponSlots[slot].Weapon.IsValid() &&
-			    (WeaponSlots[slot].Weapon.GameId != weapon.GameId || primaryReplaced))
+			    WeaponSlots[slot].Weapon.GameId != weapon.GameId)
 			{
 				var dropPosition = f.Get<Transform3D>(e).Position + FPVector3.Forward;
 				Collectable.DropEquipment(f, WeaponSlots[slot].Weapon, dropPosition, 0);
@@ -253,10 +261,11 @@ namespace Quantum
 			Assert.Check(!gear.IsWeapon(), gear);
 
 			var gearSlot = GetGearSlot(gear);
+			
 			Gear[gearSlot] = gear;
 			
 			f.Unsafe.GetPointer<Stats>(e)->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Gear);
-
+			
 			f.Events.OnPlayerGearChanged(Player, e, gear, gearSlot);
 		}
 
@@ -265,8 +274,7 @@ namespace Quantum
 		/// </summary>
 		public int GetAmmoAmount(Frame f, EntityRef e, out int maxAmmo)
 		{
-			maxAmmo = f.WeaponConfigs.GetConfig(CurrentWeapon.GameId).MaxAmmo.Get(f);
-
+			maxAmmo = f.Get<Stats>(e).GetStatData(StatType.AmmoCapacity).StatValue.AsInt;
 			return FPMath.FloorToInt(GetAmmoAmountFilled(f, e) * maxAmmo);
 		}
 
@@ -308,6 +316,17 @@ namespace Quantum
 			return (DroppedLoadoutFlags & (1 << shift)) != 0;
 		}
 
+		/// <summary>
+		/// Checks if we dropped a piece of equipment for specified slot.
+		///
+		/// This does not check if this item is actually in the loadout.
+		/// </summary>
+		public bool HasDroppedItemForSlot(int slotIndex)
+		{
+			var shift = slotIndex + 1;
+			return (DroppedLoadoutFlags & (1 << shift)) != 0;
+		}
+		
 		/// <summary>
 		/// Returns the slot index of <paramref name="equipment"/> for <see cref="Gear"/>.
 		/// </summary>
@@ -429,8 +448,13 @@ namespace Quantum
 			return false;
 		}
 
-		private int GetWeaponEquipSlot(Equipment weapon, bool primary)
+		private int GetWeaponEquipSlot(Frame f, Equipment weapon, bool primary)
 		{
+			if (f.Context.GameModeConfig.SingleSlotMode)
+			{
+				return Constants.WEAPON_INDEX_PRIMARY;
+			}
+
 			for (int i = 0; i < WeaponSlots.Length; i++)
 			{
 				var equippedWeapon = WeaponSlots[i].Weapon;

@@ -5,6 +5,7 @@ using FirstLight.Game.Utils;
 using FirstLight.NotificationService;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
+using NSubstitute;
 
 namespace FirstLight.Tests.EditorMode
 {
@@ -68,7 +69,7 @@ namespace FirstLight.Tests.EditorMode
 			TickService = new StubTickService();
 			CoroutineService = new StubCoroutineService();
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
-			NotificationService = new MobileNotificationService();
+			NotificationService = Substitute.For<INotificationService>();
 		}
 	}
 }

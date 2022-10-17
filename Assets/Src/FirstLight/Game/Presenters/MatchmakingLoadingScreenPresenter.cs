@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -29,7 +30,7 @@ namespace FirstLight.Game.Presenters
 		{
 		}
 
-		public MapSelectionView MapSelectionView;
+		public MapSelectionView mapSelectionView;
 
 		[SerializeField, Required] private GameObject _rootObject;
 		[SerializeField, Required] private Button _lockRoomButton;
@@ -44,6 +45,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private TextMeshProUGUI _selectedGameModeText;
 		[SerializeField, Required] private TextMeshProUGUI _playerCountText;
 		[SerializeField, Required] private TextMeshProUGUI _spectatorCountText;
+		[SerializeField, Required] private TextMeshProUGUI _topTitleText;
 		[SerializeField, Required] private GameObject[] _kickOverlayObjects;
 		[SerializeField, Required] private GameObject _loadingText;
 		[SerializeField, Required] private GameObject _roomNameRootObject;
@@ -60,9 +62,9 @@ namespace FirstLight.Game.Presenters
 
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
-		private float _playerFillWaitTime;
 		private bool _loadedCoreMatchAssets;
 		private bool _spectatorToggleTimeOut;
+		private bool _kickModeActive = false;
 
 		private Room CurrentRoom => _services.NetworkService.QuantumClient.CurrentRoom;
 		private bool RejoiningRoom => !_services.NetworkService.IsJoiningNewMatch;
@@ -82,6 +84,7 @@ namespace FirstLight.Game.Presenters
 			_lockRoomButton.onClick.AddListener(OnLockRoomClicked);
 			_leaveRoomButton.onClick.AddListener(OnLeaveRoomClicked);
 			_kickButton.onClick.AddListener(ActivateKickOverlay);
+			_botsToggle.onValueChanged.AddListener(OnBotsToggleChanged);
 			_cancelKickButton.onClick.AddListener(DeactivateKickOverlay);
 			_services.MessageBrokerService.Subscribe<CoreMatchAssetsLoadedMessage>(OnCoreMatchAssetsLoaded);
 			_services.MessageBrokerService.Subscribe<StartedFinalPreloadMessage>(OnStartedFinalPreloadMessage);
@@ -102,7 +105,7 @@ namespace FirstLight.Game.Presenters
 			var mapConfig = _services.NetworkService.CurrentRoomMapConfig.Value;
 			var gameModeConfig = _services.NetworkService.CurrentRoomGameModeConfig.Value;
 
-			MapSelectionView.SetupMapView(room.GetGameModeId(), room.GetMapId());
+			mapSelectionView.SetupMapView(room.GetGameModeId(), room.GetMapId());
 
 			if (RejoiningRoom)
 			{
@@ -137,14 +140,16 @@ namespace FirstLight.Game.Presenters
 			_kickButton.gameObject.SetActive(false);
 			_loadingText.SetActive(true);
 			_playersFoundText.text = $"{0}/{room.MaxPlayers.ToString()}";
-			_playerFillWaitTime =
-				_services.ConfigsProvider.GetConfig<QuantumGameConfig>().CasualMatchmakingTime.AsFloat /
-				room.GetRealPlayerCapacity();
+			
 			var matchType = room.GetMatchType();
 			var gameMode = room.GetGameModeId().ToUpper();
-			_selectedGameModeText.text =
-				string.Format(ScriptLocalization.MainMenu.SelectedGameModeValue, matchType.ToString().ToUpper(),
-				              gameMode);
+			var quantumGameConfigs = _services.ConfigsProvider.GetConfig<QuantumGameConfig>();
+			var minPlayers = matchType == MatchType.Ranked ? quantumGameConfigs.RankedMatchmakingMinPlayers : 0;
+			var matchmakingTime = matchType == MatchType.Ranked ? 
+				                      quantumGameConfigs.RankedMatchmakingTime.AsFloat :
+				                      quantumGameConfigs.CasualMatchmakingTime.AsFloat;
+			
+			_selectedGameModeText.text = string.Format(ScriptLocalization.MainMenu.SelectedGameModeValue, matchType.ToString().ToUpper(), gameMode);
 
 			UpdateRoomPlayerCounts();
 
@@ -156,12 +161,8 @@ namespace FirstLight.Game.Presenters
 				_playerCountHolder.SetActive(false);
 				_roomNameRootObject.SetActive(false);
 
-				if (matchType == MatchType.Casual)
-				{
-					StartCoroutine(MatchmakingTimeUpdateCoroutine(room.GetRealPlayerCapacity()));
-				}
-
 				UpdatePlayersWaitingImages(room.GetRealPlayerCapacity(), room.GetRealPlayerAmount());
+				StartCoroutine(MatchmakingTimerCoroutine(matchmakingTime, minPlayers));
 			}
 			else
 			{
@@ -173,6 +174,7 @@ namespace FirstLight.Game.Presenters
 				_playerMatchmakingRootObject.SetActive(false);
 				_playerCountHolder.SetActive(true);
 
+				_topTitleText.text = ScriptLocalization.MainMenu.PrepareForActionBasic;
 				_roomNameText.text = string.Format(ScriptLocalization.MainMenu.RoomCurrentName, room.GetRoomName());
 				_roomNameRootObject.SetActive(true);
 
@@ -185,7 +187,7 @@ namespace FirstLight.Game.Presenters
 
 		protected override void OnClosed()
 		{
-			MapSelectionView.CleanupMapView();
+			mapSelectionView.CleanupMapView();
 			_rootObject.SetActive(true);
 		}
 
@@ -232,12 +234,7 @@ namespace FirstLight.Game.Presenters
 		{
 			UpdateRoomPlayerCounts();
 			AddOrUpdatePlayerInList(newPlayer);
-
-			// For casual matches, MatchmakingTimeUpdateCoroutine handles the player waiting images
-			if (_services.NetworkService.CurrentRoomMatchType == MatchType.Ranked)
-			{
-				UpdatePlayersWaitingImages(CurrentRoom.GetRealPlayerCapacity(), CurrentRoom.GetRealPlayerAmount());
-			}
+			UpdatePlayersWaitingImages(CurrentRoom.GetRealPlayerCapacity(), CurrentRoom.GetRealPlayerAmount());
 		}
 
 		/// <inheritdoc />
@@ -245,12 +242,7 @@ namespace FirstLight.Game.Presenters
 		{
 			UpdateRoomPlayerCounts();
 			RemovePlayerInAllLists(otherPlayer);
-
-			// For casual matches, MatchmakingTimeUpdateCoroutine handles the player waiting images
-			if (_services.NetworkService.CurrentRoomMatchType == MatchType.Ranked)
-			{
-				UpdatePlayersWaitingImages(CurrentRoom.GetRealPlayerCapacity(), CurrentRoom.GetRealPlayerAmount());
-			}
+			UpdatePlayersWaitingImages(CurrentRoom.GetRealPlayerCapacity(), CurrentRoom.GetRealPlayerAmount());
 		}
 
 		/// <inheritdoc />
@@ -379,7 +371,8 @@ namespace FirstLight.Game.Presenters
 
 		private void CheckEnableLockRoomButton()
 		{
-			_lockRoomButton.interactable = CurrentRoom.GetRealPlayerAmount() > 0;
+			var realPlayers = CurrentRoom.GetRealPlayerAmount();
+			_lockRoomButton.interactable = realPlayers > 1 || realPlayers == 1 && _botsToggle.isOn;
 		}
 
 		private void SetSpectateInteractable(bool interactable)
@@ -411,21 +404,6 @@ namespace FirstLight.Game.Presenters
 			_playersFoundText.text = $"{playerAmount.ToString()}/{maxPlayers.ToString()}";
 		}
 
-		private IEnumerator MatchmakingTimeUpdateCoroutine(int maxPlayers)
-		{
-			for (var i = 0; i < _playersWaitingImage.Length && i < maxPlayers; i++)
-			{
-				UpdatePlayersWaitingImages(maxPlayers, i + 1);
-				yield return new WaitForSeconds(_playerFillWaitTime);
-			}
-
-			yield return new WaitForSeconds(0.5f);
-
-			_getReadyToRumbleText.gameObject.SetActive(true);
-			_playersFoundText.gameObject.SetActive(false);
-			_findingPlayersText.gameObject.SetActive(false);
-		}
-
 		private IEnumerator TimeoutSpectatorToggleCoroutine()
 		{
 			SetSpectateInteractable(false);
@@ -442,6 +420,29 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
+		private IEnumerator MatchmakingTimerCoroutine(float matchmakingTime, int minPlayers)
+		{
+			var roomCreateTime = CurrentRoom.GetRoomCreationDateTime();
+			var matchmakingEndTime = roomCreateTime.AddSeconds(matchmakingTime);
+
+			while (DateTime.UtcNow < matchmakingEndTime)
+			{
+				var timeLeft = (DateTime.UtcNow - matchmakingEndTime).Duration();
+				_topTitleText.text = string.Format(ScriptLocalization.MainMenu.PrepareForActionTimer, timeLeft.TotalSeconds.ToString("F0"));
+				
+				yield return null;
+			}
+
+			if (CurrentRoom.GetRealPlayerAmount() >= minPlayers)
+			{
+				_topTitleText.text = ScriptLocalization.MainMenu.PrepareForActionBasic;
+			}
+			else
+			{
+				_topTitleText.text = ScriptLocalization.MainMenu.PrepareForActionWaiting;
+			}
+		}
+
 		private void OnLockRoomClicked()
 		{
 			ReadyToPlay();
@@ -450,11 +451,21 @@ namespace FirstLight.Game.Presenters
 
 		private void OnLeaveRoomClicked()
 		{
-			_services.MessageBrokerService.Publish(new RoomLeaveClickedMessage());
+			var title = string.Format(ScriptLocalization.MainMenu.LeaveMatchMessage);
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.General.Yes,
+				ButtonOnClick = () => _services.MessageBrokerService.Publish(new RoomLeaveClickedMessage())
+			};
+
+			_services.GenericDialogService.OpenDialog(title, true, confirmButton);
 		}
 
 		private void ReadyToPlay()
 		{
+			mapSelectionView.SelectionEnabled = false;
+			
+			DeactivateKickOverlay();
 			_loadingText.SetActive(true);
 			_lockRoomButton.gameObject.SetActive(false);
 			_leaveRoomButton.gameObject.SetActive(false);
@@ -476,6 +487,13 @@ namespace FirstLight.Game.Presenters
 			{
 				overlayObject.SetActive(true);
 			}
+
+			_kickModeActive = true;
+		}
+
+		private void OnBotsToggleChanged(bool _)
+		{
+			CheckEnableLockRoomButton();
 		}
 
 		private void DeactivateKickOverlay()
@@ -484,12 +502,18 @@ namespace FirstLight.Game.Presenters
 			{
 				overlayObject.SetActive(false);
 			}
+			
+			_kickModeActive = false;
 		}
 
 		private void RequestKickPlayer(Player player)
 		{
-			// You cannot kick yourself, for error avoidance reasons
-			if (player.UserId == _services.NetworkService.QuantumClient.LocalPlayer.UserId) return;
+			if (player.UserId == _services.NetworkService.QuantumClient.LocalPlayer.UserId ||
+			    !_kickModeActive || !_services.NetworkService.QuantumClient.LocalPlayer.IsMasterClient ||
+			    !player.LoadedCoreMatchAssets())
+			{
+				return;
+			}
 
 			var title = string.Format(ScriptLocalization.MainMenu.MatchmakingKickConfirm, player.NickName).ToUpper();
 			var confirmButton = new GenericDialogButton
@@ -516,43 +540,5 @@ namespace FirstLight.Game.Presenters
 			_services.MessageBrokerService.Publish(new SpectatorModeToggledMessage() {IsSpectator = isOn});
 			_services.CoroutineService.StartCoroutine(TimeoutSpectatorToggleCoroutine());
 		}
-
-		/* This code is not needed at the moment. This is legacy code an necessary when adding the character 3D model
-		 again to the screen. Talk with Miguel about it 
-		 
-		private void OnSceneChanged(Scene previous, Scene current)
-		{
-			// Ignore scene changes that are not levels
-			if (current.buildIndex != -1)
-			{
-				return;
-			}
-		}
-
-		private void SetLayerState(bool state, bool forceUiAwakeCalls)
-		{
-			// Little hack to avoid UIs to spam over this screen
-			for (var i = 0; i < Data.UiService.TotalLayers; i++)
-			{
-				if (!Data.UiService.TryGetLayer(i, out var layer))
-				{
-					continue;
-				}
-
-				if (forceUiAwakeCalls)
-				{
-					layer.SetActive(!state);
-				
-					foreach (var canvas in layer.GetComponentsInChildren<UiPresenter>(true))
-					{
-						// To force the UI awake calls
-						canvas.gameObject.SetActive(true);
-						canvas.gameObject.SetActive(false);
-					}
-				}
-				
-				layer.SetActive(state);
-			}
-		}*/
 	}
 }

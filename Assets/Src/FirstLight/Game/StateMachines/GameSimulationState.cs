@@ -220,15 +220,12 @@ namespace FirstLight.Game.StateMachines
 
 		private void GiveMatchRewards()
 		{
+			if (IsSpectator()) return;
+			
 			var game = QuantumRunner.Default.Game;
 			var f = game.Frames.Verified;
-			var gameContainer = f.GetSingleton<GameContainer>();
-			var command = new EndOfGameCalculationsCommand
-			{
-				PlayersMatchData = gameContainer.GetPlayersMatchData(f, out _),
-				PlayfabToken = PlayFabSettings.staticPlayer.EntityToken
-			};
-			command.SetQuantumValues(new QuantumValues
+			var command = new EndOfGameCalculationsCommand();
+			command.FromFrame(f, new QuantumValues()
 			{
 				ExecutingPlayer = game.GetLocalPlayers()[0],
 				MatchType = _services.NetworkService.QuantumClient.CurrentRoom.GetMatchType()
@@ -389,7 +386,7 @@ namespace FirstLight.Game.StateMachines
 			var info = _gameDataProvider.PlayerDataProvider.PlayerInfo;
 			var loadout = _gameDataProvider.EquipmentDataProvider.Loadout;
 			var inventory = _gameDataProvider.EquipmentDataProvider.Inventory;
-			var spawnPosition = _uiService.GetUi<MatchmakingLoadingScreenPresenter>().MapSelectionView
+			var spawnPosition = _uiService.GetUi<MatchmakingLoadingScreenPresenter>().mapSelectionView
 			                              .NormalizedSelectionPoint;
 
 			if (!IsSpectator())
@@ -397,7 +394,7 @@ namespace FirstLight.Game.StateMachines
 				game.SendPlayerData(game.GetLocalPlayers()[0], new RuntimePlayer
 				{
 					PlayerId = _gameDataProvider.AppDataProvider.PlayerId,
-					PlayerName = _gameDataProvider.AppDataProvider.Nickname,
+					PlayerName = _gameDataProvider.AppDataProvider.DisplayNameTrimmed,
 					Skin = info.Skin,
 					DeathMarker = info.DeathMarker,
 					PlayerLevel = info.Level,

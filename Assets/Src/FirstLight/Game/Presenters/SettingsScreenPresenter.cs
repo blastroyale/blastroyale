@@ -24,11 +24,11 @@ namespace FirstLight.Game.Presenters
 		{
 			public Action LogoutClicked;
 			public Action OnClose;
+			public Action OnConnectIdClicked;
 			public Action OnServerSelectClicked;
 		}
 		
 		[SerializeField, Required] private TextMeshProUGUI _versionText;
-		[SerializeField, Required] private TextMeshProUGUI _fullNameText;
 		[SerializeField, Required] private Button _closeButton;
 		[SerializeField, Required] private Button _blockerButton;
 		[SerializeField, Required] private Button _logoutButton;
@@ -36,11 +36,16 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private UiToggleButtonView _sfxToggle;
 		[SerializeField, Required] private UiToggleButtonView _dialogueToggle;
 		[SerializeField, Required] private UiToggleButtonView _hapticToggle;
+		[SerializeField, Required] private UiToggleButtonView _dynamicJoystickToggle;
+		[SerializeField, Required] private UiToggleButtonView _highFpsToggle;
 		[SerializeField, Required] private DetailLevelToggleView _detailLevelView;
 		[SerializeField, Required] private Button _helpdesk;
 		[SerializeField, Required] private Button _faq;
 		[SerializeField, Required] private Button _serverSelectButton;
 		[SerializeField, Required] private TextMeshProUGUI _selectedServerText;
+		[SerializeField, Required] private Button _connectIdButton;
+		[SerializeField, Required] private TextMeshProUGUI _idConnectionStatusText;
+		[SerializeField, Required] private TextMeshProUGUI _idConnectionNameText;
 		
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
@@ -53,23 +58,40 @@ namespace FirstLight.Game.Presenters
 			_gameDataProvider.AppDataProvider.ConnectionRegion.InvokeObserve(OnConnectionRegionChange);
 
 			_versionText.text = VersionUtils.VersionInternal;
-			_fullNameText.text = string.Format(ScriptLocalization.General.UserId,
-			                                   _gameDataProvider.AppDataProvider.NicknameId.Value);
+
+			if (string.IsNullOrEmpty(_gameDataProvider.AppDataProvider.LastLoginEmail.Value))
+			{
+				_connectIdButton.gameObject.SetActive(true);
+				_idConnectionNameText.gameObject.SetActive(false);
+				_idConnectionStatusText.text = ScriptLocalization.MainMenu.FirstLightIdNeedConnection;
+			}
+			else
+			{
+				_connectIdButton.gameObject.SetActive(false);
+				_idConnectionNameText.gameObject.SetActive(true);
+				_idConnectionStatusText.text = ScriptLocalization.MainMenu.FirstLightIdConnected;
+				_idConnectionNameText.text = string.Format(ScriptLocalization.General.UserId,
+				                                           _gameDataProvider.AppDataProvider.DisplayName.Value);
+			}
 
 			_closeButton.onClick.AddListener(OnClosedCompleted);
 			_blockerButton.onClick.AddListener(OnBlockerButtonPressed);
 			_logoutButton.onClick.AddListener(OnLogoutClicked);
-
+			_connectIdButton.onClick.AddListener(OpenConnectId);
 			_backgroundMusicToggle.onValueChanged.AddListener(OnBgmChanged);
 			_sfxToggle.onValueChanged.AddListener(OnSfxChanged);
 			_dialogueToggle.onValueChanged.AddListener(OnDialogueChanged);
 			_hapticToggle.onValueChanged.AddListener(OnHapticChanged);
+			_dynamicJoystickToggle.onValueChanged.AddListener(OnDynamicJoystickChanged);
+			_highFpsToggle.onValueChanged.AddListener(OnHighFpsModeChanged);
 			_detailLevelView.ValueChanged += OnDetailLevelChanged;
 
 			_backgroundMusicToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsBgmEnabled);
 			_sfxToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsSfxEnabled);
 			_dialogueToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsDialogueEnabled);
 			_hapticToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsHapticOn);
+			_dynamicJoystickToggle.SetInitialValue(_gameDataProvider.AppDataProvider.UseDynamicJoystick);
+			_highFpsToggle.SetInitialValue(_gameDataProvider.AppDataProvider.UseHighFpsMode);
 			_detailLevelView.SetSelectedDetailLevel(_gameDataProvider.AppDataProvider.CurrentDetailLevel);
 			_blockerButton.onClick.AddListener(OnBlockerButtonPressed);
 			_helpdesk.onClick.AddListener(OnHelpdeskButtonPressed);
@@ -96,6 +118,11 @@ namespace FirstLight.Game.Presenters
 		{
 			_gameDataProvider?.AppDataProvider?.ConnectionRegion?.StopObserving(OnConnectionRegionChange);
 			Data.OnClose();
+		}
+
+		private void OpenConnectId()
+		{
+			Data.OnConnectIdClicked();
 		}
 
 		private void OpenServerSelect()
@@ -131,6 +158,16 @@ namespace FirstLight.Game.Presenters
 		private void OnHapticChanged(bool value)
 		{
 			_gameDataProvider.AppDataProvider.IsHapticOn = value;
+		}
+		
+		private void OnDynamicJoystickChanged(bool value)
+		{
+			_gameDataProvider.AppDataProvider.UseDynamicJoystick = value;
+		}
+		
+		private void OnHighFpsModeChanged(bool value)
+		{
+			_gameDataProvider.AppDataProvider.UseHighFpsMode = value;
 		}
 
 		private void OnDetailLevelChanged(GraphicsConfig.DetailLevel detailLevel)

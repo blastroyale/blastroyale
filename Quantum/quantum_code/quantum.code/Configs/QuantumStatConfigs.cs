@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Photon.Deterministic;
 
@@ -12,6 +12,8 @@ namespace Quantum
 		public FP RarityMultiplier;
 		public FP LevelStepMultiplier;
 		public FP GradeStepMultiplier;
+		public bool CeilToInt;
+		public FP ConversionToMightRate;
 	}
 
 	/// <summary>

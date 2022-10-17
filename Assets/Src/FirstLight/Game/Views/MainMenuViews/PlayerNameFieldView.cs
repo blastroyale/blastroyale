@@ -30,17 +30,17 @@ namespace FirstLight.Game.Views.MainMenuViews
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
-			_gameDataProvider.AppDataProvider.NicknameId.InvokeObserve(OnPlayerNameChanged);
+			_gameDataProvider.AppDataProvider.DisplayName.InvokeObserve(OnPlayerNameChanged);
 		}
 
 		private void OnDestroy()
 		{
-			_gameDataProvider?.AppDataProvider?.NicknameId?.StopObserving(OnPlayerNameChanged);
+			_gameDataProvider?.AppDataProvider?.DisplayName?.StopObserving(OnPlayerNameChanged);
 		}
 
 		private void OnPlayerNameChanged(string previousValue, string newValue)
 		{
-			_textField.text = _gameDataProvider.AppDataProvider.Nickname;
+			_textField.text = _gameDataProvider.AppDataProvider.DisplayNameTrimmed;
 		}
 	}
 }

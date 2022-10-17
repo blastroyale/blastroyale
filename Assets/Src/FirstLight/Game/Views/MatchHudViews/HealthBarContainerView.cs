@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using DG.Tweening;
 using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.EntityPrototypes;
@@ -106,11 +107,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 			
 			var f = QuantumRunner.Default?.Game?.Frames.Predicted;
 			var player = newPlayer.Entity.IsValid ? newPlayer : previousPlayer;
-			
+
 			SetupInitialHealthBar(f, player.Entity);
 		}
 
-		private void SetupInitialHealthBar(Frame f, EntityRef playerEntity)
+		private async void SetupInitialHealthBar(Frame f, EntityRef playerEntity)
 		{
 			if (f == null || !f.TryGet<AIBlackboardComponent>(playerEntity, out var blackboard) || 
 			    blackboard.GetBoolean(f, Constants.IsSkydiving) || 
@@ -119,6 +120,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 				_healthBarSpectatePlayer.OnDespawn();
 				return;
 			}
+
+			// Sometimes there is 1-frame race condition upon reconnection/setting up the health bar, where spectated health bar
+			// gets positioned incorrectly. There is most likely a better solution, but time is money, and I'm poor.
+			await Task.Yield();
 			
 			_healthBarSpectatePlayer.ResourceBarView.SetupView(f, playerEntity);
 			SetupHealthBar(f, playerEntity, _healthBarSpectatePlayer);
@@ -136,18 +141,22 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var anchor = entityView.GetComponent<HealthEntityBase>().HealthBarAnchor;
 			var maxHealth = stats.Values[(int) StatType.Health].StatValue.AsInt;
 
-			if (f.TryGet<PlayerCharacter>(entity, out var playerCharacter))
+			if (f.TryGet<DummyCharacter>(entity, out var dummyCharacter))
+			{
+				healthBar.HealthBarNameView.NameText.text = "Dummy " + entity.Index;
+			}
+			else if (f.TryGet<PlayerCharacter>(entity, out var playerCharacter))
 			{
 				var playerName = f.TryGet<BotCharacter>(entity, out var botCharacter)
 					                 ? Extensions.GetBotName(botCharacter.BotNameIndex.ToString())
 					                 : f.GetPlayerData(playerCharacter.Player).PlayerName;
 				
 				healthBar.HealthBarNameView.NameText.text = playerName;
-				healthBar.HealthBarShieldView.SetupView(entity, stats.CurrentShield);
 			}
 
 			healthBar.OverlayView.gameObject.SetActive(true);
 			healthBar.HealthBar.SetupView(entity, stats.CurrentHealth, maxHealth);
+			healthBar.HealthBarShieldView.SetupView(entity, stats.CurrentShield);
 			healthBar.OverlayView.Follow(anchor);
 		}
 
@@ -261,9 +270,13 @@ namespace FirstLight.Game.Views.MatchHudViews
 					}
 
 					graphics[i].DOKill();
-					graphics[i].DOFade(0, GameConstants.Visuals.GAMEPLAY_POST_ATTACK_HIDE_DURATION)
-					           .SetEase(Ease.InCubic)
-					           .OnComplete(() => _pool.Despawn(this));
+					var tween = graphics[i].DOFade(0, GameConstants.Visuals.GAMEPLAY_POST_ATTACK_HIDE_DURATION)
+					                       .SetEase(Ease.InCubic);
+
+					if (i == 0)
+					{
+						tween.OnComplete(() => _pool?.Despawn(this));
+					}
 				}
 
 				return true;

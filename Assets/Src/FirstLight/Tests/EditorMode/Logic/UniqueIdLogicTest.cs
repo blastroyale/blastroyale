@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
+using NSubstitute;
 using NUnit.Framework;
 using Quantum;
 using Assert = NUnit.Framework.Assert;
@@ -16,6 +18,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[SetUp]
 		public void Init()
 		{
+			DataService.GetData<AppData>().Returns(new AppData());
 			_uniqueIdLogic = new UniqueIdLogic(GameLogic, DataService);
 			_uniqueIdLogic.Init();
 		}

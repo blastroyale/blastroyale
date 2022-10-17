@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
@@ -8,7 +9,10 @@ using FirstLight.Game.Infos;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Services;
 using FirstLight.Game.Utils;
+using Photon.Deterministic;
 using Quantum;
+using UnityEngine;
+using Random = System.Random;
 
 namespace FirstLight.Game.Logic
 {
@@ -74,6 +78,11 @@ namespace FirstLight.Game.Logic
 		/// Requests to see if player has enough NFTs equipped for play
 		/// </summary>
 		bool EnoughLoadoutEquippedToPlay();
+
+		/// <summary>
+		/// Generates a new unique non-NFT piece of equipment from battle pass reward configs
+		/// </summary>
+		Equipment GenerateEquipmentFromBattlePassReward(BattlePassRewardConfig config);
 	}
 
 	/// <inheritdoc />
@@ -218,6 +227,73 @@ namespace FirstLight.Game.Logic
 			return Loadout.Count >= GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>().NftRequiredEquippedForPlay;
 		}
 
+		public Equipment GenerateEquipmentFromBattlePassReward(BattlePassRewardConfig config)
+		{
+			var gameId = config.GameId;
+
+			if (gameId.IsInGroup(GameIdGroup.Core))
+			{
+				var equipmentConfigs = GameLogic.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatConfig>();
+				var equipmentCategory = config.EquipmentCategory.Keys.ElementAt(GetWeightedRandomDictionaryIndex(config.EquipmentCategory));
+				var matchingEquipment =  equipmentConfigs.Where(x =>x.Id.IsInGroup(equipmentCategory)).ToList();
+				gameId = matchingEquipment[GameLogic.RngLogic.Range(0, matchingEquipment.Count)].Id;
+			}
+			
+			var rarity = config.Rarity.Keys.ElementAt(GetWeightedRandomDictionaryIndex(config.Rarity));
+			var grade = config.Grade.Keys.ElementAt(GetWeightedRandomDictionaryIndex(config.Grade));
+			var adjective = config.Adjective.Keys.ElementAt(GetWeightedRandomDictionaryIndex(config.Adjective));
+			var faction = config.Faction.Keys.ElementAt(GetWeightedRandomDictionaryIndex(config.Faction));
+			var material = config.Material.Keys.ElementAt(GetWeightedRandomDictionaryIndex(config.Material));
+			var edition = config.Edition.Keys.ElementAt(GetWeightedRandomDictionaryIndex(config.Edition));
+			
+			var maxDurability = (uint) GameLogic.RngLogic.Range(config.MaxDurability.Key, config.MaxDurability.Value);
+			
+			return new Equipment(gameId,
+			                             rarity: rarity,
+			                             adjective: adjective,
+			                             grade: grade, 
+			                             faction: faction,
+			                             material: material,
+			                             edition: edition,
+			                             maxDurability: maxDurability,
+			                             durability: maxDurability,
+			                             level: config.Level,
+			                             generation: config.Generation,
+			                             tuning: config.Tuning,
+			                             initialReplicationCounter: config.InitialReplicationCounter,
+			                             replicationCounter: config.InitialReplicationCounter
+			                            );
+		}
+
+		private int GetWeightedRandomDictionaryIndex<TKey, TValue>(SerializedDictionary<TKey, TValue> dictionary)
+		{
+			Dictionary<TKey, FP> rangeDictionary = dictionary as Dictionary<TKey, FP>;
+			List<Tuple<FP, FP>> indexRanges = new List<Tuple<FP, FP>>();
+
+			var currentRangeMax = FP._0;
+			
+			foreach (var valueMax in rangeDictionary.Values)
+			{
+				var min = currentRangeMax;
+				var max = min + valueMax;
+				indexRanges.Add(new Tuple<FP, FP>(min,max));
+
+				currentRangeMax = max;
+			}
+
+			var rand = GameLogic.RngLogic.Range(0, currentRangeMax);
+			
+			foreach (var range in indexRanges)
+			{
+				if (rand >= range.Item1 && rand < range.Item2)
+				{
+					return indexRanges.IndexOf(range);
+				}
+			}
+
+			throw new LogicException("Dictionary weighted random could not return a valid index.");
+		}
+
 		public UniqueId AddToInventory(Equipment equipment)
 		{
 			if (!equipment.GameId.IsInGroup(GameIdGroup.Equipment))
@@ -289,10 +365,12 @@ namespace FirstLight.Game.Logic
 					throw new LogicException($"The player already has the given item Id '{itemId}' equipped");
 				}
 
-				Unequip(equippedId);
+				_loadout[slot] = itemId;
 			}
-
-			_loadout.Add(slot, itemId);
+			else
+			{
+				_loadout.Add(slot, itemId);
+			}
 		}
 
 		public void Unequip(UniqueId itemId)

@@ -34,7 +34,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		private void HandleUpdateView(CallbackUpdateView callback)
 		{
 			var frame = callback.Game.Frames.Predicted;
-			if (!frame.TryGetSingleton<ShrinkingCircle>(out var circle))
+			if (!frame.TryGetSingleton<ShrinkingCircle>(out var circle) || circle.Step < 0)
 			{
 				return;
 			}

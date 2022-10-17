@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1170091508}
   - component: {fileID: 1170091510}
   - component: {fileID: 1170091509}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: ImpactGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4881,7 +4881,7 @@ GameObject:
   - component: {fileID: 1259127174}
   - component: {fileID: 1259127176}
   - component: {fileID: 1259127175}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: BulletFx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9777,7 +9777,7 @@ GameObject:
   - component: {fileID: 1364047489}
   - component: {fileID: 1364047491}
   - component: {fileID: 1364047490}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: SmokeParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14659,7 +14659,7 @@ GameObject:
   - component: {fileID: 1364640662}
   - component: {fileID: 1364640664}
   - component: {fileID: 1364640663}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: OORSmoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19541,7 +19541,7 @@ GameObject:
   - component: {fileID: 1870382936}
   - component: {fileID: 1870382938}
   - component: {fileID: 1870382937}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: ImpactMark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24411,7 +24411,7 @@ GameObject:
   - component: {fileID: 1983629359}
   - component: {fileID: 1983629361}
   - component: {fileID: 1983629360}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: ConeParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29281,7 +29281,7 @@ GameObject:
   - component: {fileID: 2042391197}
   - component: {fileID: 2042391199}
   - component: {fileID: 2042391198}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: ImpactSpark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34151,7 +34151,7 @@ GameObject:
   - component: {fileID: 2108136235}
   - component: {fileID: 2108136237}
   - component: {fileID: 2108136236}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39360,6 +39360,7 @@ MonoBehaviour:
   - {fileID: 2108136236}
   - {fileID: 1364047490}
   - {fileID: 1983629360}
+  _rendererRoots: []
   _mainRenderer: {fileID: 0}
 --- !u!1 &3279592572335567891
 GameObject:

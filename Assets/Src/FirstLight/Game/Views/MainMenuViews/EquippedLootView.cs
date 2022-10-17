@@ -17,7 +17,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 	public class EquippedLootView : MonoBehaviour
 	{
 		[SerializeField] protected GameIdGroup _slot;
-		[SerializeField, Required] protected EquipmentIconItemView _iconView;
+		[SerializeField, Required] protected EquipmentCardView _cardView;
 		[SerializeField, Required] protected Image _slotImage;
 		[SerializeField, Required] protected Button _button;
 
@@ -58,11 +58,13 @@ namespace FirstLight.Game.Views.MainMenuViews
 				else
 				{
 					_slotImage.enabled = false;
-					_iconView.gameObject.SetActive(true);
+					_cardView.gameObject.SetActive(true);
 
 					if (ItemId != uniqueId)
 					{
-						_iconView.SetInfo(uniqueId);
+#pragma warning disable CS4014
+						_cardView.Initialise(equipment);
+#pragma warning restore CS4014
 					}
 
 					ItemId = uniqueId;
@@ -78,7 +80,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		{
 			ItemId = UniqueId.Invalid;
 			_slotImage.enabled = true;
-			_iconView.gameObject.SetActive(false);
+			_cardView.gameObject.SetActive(false);
 		}
 
 		protected virtual void OnButtonClick()

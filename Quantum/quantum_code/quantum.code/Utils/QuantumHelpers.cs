@@ -321,29 +321,6 @@ namespace Quantum
 		}
 
 		/// <summary>
-		/// Finds the closest <see cref="Transform3D.Position"/> of any object with component <see cref="AirDropSpawner"/> attached.
-		/// </summary>
-		public static FPVector3 GetClosestAirdropPoint(Frame f, FPVector3 targetPoint)
-		{
-			var closestPoint = FPVector3.Zero;
-			var shortestDist = FP.MaxValue;
-
-			foreach(var spawner in f.GetComponentIterator<AirDropSpawner>())
-			{
-				var spawnerPos = spawner.Entity.GetPosition(f);
-				var distanceToSpawner = FPVector3.DistanceSquared(targetPoint, spawnerPos); 
-
-				if (distanceToSpawner < shortestDist)
-				{
-					shortestDist = distanceToSpawner;
-					closestPoint = spawnerPos;
-				}	
-			}
-
-			return closestPoint;
-		}
-
-		/// <summary>
 		/// Returns a random item from <paramref name="items"/>, with equal chance for each.
 		/// </summary>
 		public static T GetRandomItem<T>(Frame f, params T[] items)
@@ -357,6 +334,29 @@ namespace Quantum
 		public static FPVector3 GetPosition(this EntityRef entity, Frame f)
 		{
 			return f.Unsafe.GetPointer<Transform3D>(entity)->Position;
+		}
+		
+		/// <summary>
+		/// Calculates and returns an augmented shot angle based on approximation of normal distribution
+		/// </summary>
+		/// <remarks>
+		/// Accuracy modifier is found by approximate normal distribution random,
+		/// and then creating a rotation vector that is passed onto the projectile; only works for single shot weapons
+		/// </remarks>
+		public static FP GetSingleShotAngleAccuracyModifier(Frame f, FP targetAttackAngle)
+		{
+			var rngNumber = f.RNG->NextInclusive(0,100);
+			var angleStep = targetAttackAngle / Constants.APPRX_NORMAL_DISTRIBUTION.Length;
+			
+			for (var i = 0; i < Constants.APPRX_NORMAL_DISTRIBUTION.Length; i++)
+			{
+				if (rngNumber <= Constants.APPRX_NORMAL_DISTRIBUTION[i])
+				{
+					return f.RNG->Next(angleStep * i, angleStep * (i + 1)) - (targetAttackAngle / FP._2);
+				}
+			}
+			
+			return FP._0;
 		}
 	}
 }

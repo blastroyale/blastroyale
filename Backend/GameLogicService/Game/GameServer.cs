@@ -15,6 +15,7 @@ using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Server.SDK.Services;
 using IGameCommand = FirstLight.Game.Commands.IGameCommand;
+using FirstLight.Game.Commands;
 
 namespace Backend.Game
 {
@@ -65,7 +66,7 @@ public class GameServer
 			ValidateCommand(currentPlayerState, commandInstance, requestData);
 			
 			var newState = await _cmdHandler.ExecuteCommand(commandInstance, currentPlayerState);
-			_eventManager.CallEvent(new CommandFinishedEvent(playerId, commandInstance, newState, commandData));
+			_eventManager.CallEvent(new CommandFinishedEvent(playerId, commandInstance, newState, currentPlayerState, commandData));
 			await _state.UpdatePlayerState(playerId, newState);
 			
 			if(requestData.TryGetValue(CommandFields.ConfigurationVersion, out var clientConfigVersion))
@@ -84,10 +85,6 @@ public class GameServer
 				PlayFabId = playerId
 			};
 		}
-		catch (LogicException e)
-		{
-			return GetErrorResult(logicRequest, e);
-		}
 		finally
 		{
 			_mutex.Unlock(playerId);
@@ -105,7 +102,10 @@ public class GameServer
 		{
 			throw new LogicException("Insuficient permissions to run command");
 		}
-
+		if(cmd.ExecutionMode() == CommandExecutionMode.Quantum)
+		{
+			return true;
+		}
 		if (!cmdData.TryGetValue(CommandFields.Timestamp, out var currentCommandTimeString))
 		{
 			throw new LogicException($"Command data requires a timestamp to be ran: Key {CommandFields.Timestamp}");
@@ -137,11 +137,14 @@ public class GameServer
 	/// Returns a logic result to contain information about the logic exception that was
 	/// thrown to be acknowledge by the game client.
 	/// </summary>
-	private BackendLogicResult GetErrorResult(LogicRequest request, LogicException exp)
+	public BackendErrorResult GetErrorResult(LogicRequest request, Exception exp)
 	{
-		return new BackendLogicResult()
+		_log.LogError(exp, $"Unhandled Server Error for {request?.Command}");
+		_metrics.EmitException(exp, $"{exp.Message} at {exp.StackTrace} on {request?.Command}");
+		return new BackendErrorResult()
 		{
-			Command = request.Command,
+			Error = exp,
+			Command = request?.Command,
 			Data = new Dictionary<string, string>()
 			{
 				{ "LogicException", exp.Message }
@@ -159,7 +162,7 @@ public class GameServer
 			return true;
 		}
 		// TODO: Validate player access level in player state for admin commands (GMs)
-		if (cmd.AccessLevel == CommandAccessLevel.Service)
+		if (cmd.AccessLevel() == CommandAccessLevel.Service)
 		{
 			if (!FeatureFlags.QUANTUM_CUSTOM_SERVER)
 			{
@@ -168,7 +171,7 @@ public class GameServer
 			var secretKey = PlayFabSettings.staticSettings.DeveloperSecretKey;
 			return cmdData.TryGetValue("SecretKey", out var key) && key == secretKey;
 		}
-		return cmd.AccessLevel == CommandAccessLevel.Player; 
+		return cmd.AccessLevel() == CommandAccessLevel.Player; 
 	}
 }
 }

@@ -166,6 +166,7 @@ namespace FirstLight.Game.Presenters
 		{
 			var equipmentProvider = _gameDataProvider.EquipmentDataProvider;
 			var loadout = equipmentProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both);
+			var configs = _services.ConfigsProvider.GetConfigsDictionary<QuantumStatConfig>();
 
 			_statInfoViewPool?.DespawnAll();
 			_statSpecialInfoViewPool?.DespawnAll();
@@ -177,6 +178,7 @@ namespace FirstLight.Game.Presenters
 			}
 
 			var equipment = equipmentProvider.GetInfo(_selectedId);
+			var descriptionID = equipment.Equipment.GameId.GetTranslationTerm() + GameConstants.Visuals.DESCRIPTION_POSTFIX;
 
 			// Don't show Default/Melee weapon
 			if (equipment.Equipment.IsWeapon() && equipment.Equipment.IsDefaultItem())
@@ -184,9 +186,6 @@ namespace FirstLight.Game.Presenters
 				ShowStatsForEmptySlot();
 				return;
 			}
-
-			var descriptionID = equipment.Equipment.GameId.GetTranslationTerm() + GameConstants.Visuals.DESCRIPTION_POSTFIX;
-			var isWeapon = equipment.Equipment.GameId.IsInGroup(GameIdGroup.Weapon);
 
 			SetStatInfoData(equipment);
 
@@ -197,7 +196,7 @@ namespace FirstLight.Game.Presenters
 
 			// TODO: Add proper translation logic
 			_equipButtonText.SetText(equipment.IsEquipped ? ScriptLocalization.General.Unequip : ScriptLocalization.General.Equip);
-			_powerRatingText.text = string.Format(ScriptLocalization.MainMenu.MightRating, loadout.GetTotalMight().ToString());
+			_powerRatingText.text = string.Format(ScriptLocalization.MainMenu.MightRating, loadout.GetTotalMight(configs).ToString());
 			_itemTitleText.text = $"{equipment.Equipment.Adjective} {equipment.Equipment.GameId.GetTranslation()}";
 			_editionText.text = equipment.Equipment.Edition.ToString();
 			_materialText.text = equipment.Equipment.Material.ToString();
@@ -268,21 +267,24 @@ namespace FirstLight.Game.Presenters
 						                      ? GameConstants.Visuals.MOVEMENT_SPEED_BEAUTIFIER
 						                      : 1f;
 					var selectedValue = value * statsBeautifier;
-			
+					
+					var format = stat switch
+					{
+						EquipmentStatType.ReloadSpeed => "N2",
+						EquipmentStatType.PowerToDamageRatio => "P0",
+						EquipmentStatType.Armor => "P0",
+						EquipmentStatType.AttackCooldown => "N2",
+						EquipmentStatType.TargetRange => "N2",
+						EquipmentStatType.PickupSpeed => "P0",
+						_ => "N0"
+					};
+					
 					if (equipment.Equipment.IsMaxLevel())
 					{
 						_statInfoViewPool.Spawn().SetInfo(stat, stat.GetTranslation(), selectedValue,
-						                                  statsAtMaxLevel[stat]);
+						                                  statsAtMaxLevel[stat], format);
 						continue;
 					}
-			
-					var format = stat switch
-					{
-						EquipmentStatType.ReloadSpeed => "N1",
-						EquipmentStatType.PowerToDamageRatio => "N2",
-						EquipmentStatType.AttackCooldown => "N2",
-						_ => "N0"
-					};
 					
 					var equippedValue = statsAtNextLevel[stat] * statsBeautifier;
 					var statText = selectedValue.ToString(format);
@@ -326,34 +328,17 @@ namespace FirstLight.Game.Presenters
 		{
 			var dataProvider = _gameDataProvider.EquipmentDataProvider;
 			var loadout = dataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both);
-			var previousMight = loadout.GetTotalMight();
+			var configs = _services.ConfigsProvider.GetConfigsDictionary<QuantumStatConfig>();
+			var previousMight = loadout.GetTotalMight(configs);
 			var item = loadout.Find(infoItem => infoItem.Id == _selectedId);
 
 			if (item.IsEquipped)
 			{
-				var isWeapon = item.Equipment.IsWeapon();
-
-				// Can't unequip your last weapon.
-				if (isWeapon && dataProvider.GetInventoryEquipmentInfo(EquipmentFilter.Both)
-				                            .FindAll(info => info.Equipment.GameId.IsInGroup(GameIdGroup.Weapon)).Count == 1)
-				{
-					var confirmButton = new GenericDialogButton
-					{
-						ButtonText = ScriptLocalization.General.OK,
-						ButtonOnClick = Services.GenericDialogService.CloseDialog
-					};
-
-					Services.GenericDialogService.OpenDialog(ScriptLocalization.General.EquipLastWeaponWarning, false,
-					                                         confirmButton);
-
-					return;
-				}
-				
 				_services.AudioFxService.PlayClip2D(AudioId.UnequipEquipment);
 				UnequipItem(_selectedId);
 
 				// Equip Default/Melee weapon after unequipping a regular one
-				if (isWeapon)
+				if (item.Equipment.IsWeapon())
 				{
 					var defaultWeapon = dataProvider.Inventory.ReadOnlyDictionary
 					                                .FirstOrDefault(e => e.Value.IsWeapon() && e.Value.IsDefaultItem());
@@ -369,8 +354,9 @@ namespace FirstLight.Game.Presenters
 				_services.AudioFxService.PlayClip2D(AudioId.EquipEquipment);
 				EquipItem(_selectedId);
 			}
-			
-			var mightDiff =  Mathf.RoundToInt(dataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both).GetTotalMight() - previousMight);
+
+			var newLoadout = dataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both);
+			var mightDiff =  Mathf.RoundToInt(newLoadout.GetTotalMight(configs) - previousMight);
 			var postfix = mightDiff < 0 ? "-" : "+";
 
 			_powerChangeText.color = mightDiff < 0 ? Color.red : Color.green;
@@ -386,7 +372,6 @@ namespace FirstLight.Game.Presenters
 
 		private void EquipItem(UniqueId item)
 		{
-			
 			_services.CommandService.ExecuteCommand(new EquipItemCommand { Item = item });
 			
 			UpdateEquipmentMenu();

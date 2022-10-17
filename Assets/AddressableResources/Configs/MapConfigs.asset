@@ -21,21 +21,28 @@ MonoBehaviour:
     - Map: 137
       MaxPlayers: 12
       IsTestMap: 0
+      DropSelectionSize: 1
     - Map: 143
       MaxPlayers: 8
       IsTestMap: 0
+      DropSelectionSize: 1
     - Map: 144
       MaxPlayers: 7
       IsTestMap: 0
+      DropSelectionSize: 1
     - Map: 7
       MaxPlayers: 10
       IsTestMap: 0
+      DropSelectionSize: 1
     - Map: 8
       MaxPlayers: 8
       IsTestMap: 0
+      DropSelectionSize: 1
     - Map: 9
       MaxPlayers: 30
       IsTestMap: 0
+      DropSelectionSize: 0.8
     - Map: 11
       MaxPlayers: 1
       IsTestMap: 1
+      DropSelectionSize: 1

@@ -162,12 +162,12 @@ namespace FirstLight.Game.Logic
 			// https://firstlightgames.atlassian.net/wiki/spaces/BB/pages/1789034519/Pool+System#Taking-from-pools-setup
 
 			var loadoutItems = GameLogic.EquipmentLogic.GetLoadoutEquipmentInfo(EquipmentFilter.NftOnly);
+			var nftsEquipped = (uint) loadoutItems.Count;
 			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int)poolId);
 			var maxTake = poolConfig.BaseMaxTake;
 			var takeDecreaseMod = (double) poolConfig.MaxTakeDecreaseModifier;
 			var takeDecreaseExp = (double) poolConfig.TakeDecreaseExponent;
-			var nftsEquipped = (uint) GameLogic.EquipmentLogic.Loadout.Count;
-			
+
 			// ----- Increase CS max take per grade of equipped NFTs
 			var augmentedModSum = loadoutItems.GetAugmentedModSum(GameConfig, RewardModSumCalculation);
 			

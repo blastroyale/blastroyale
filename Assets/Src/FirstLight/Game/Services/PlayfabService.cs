@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
+using PlayFab.Json;
 using UnityEngine;
 
 namespace FirstLight.Game.Services
@@ -25,38 +26,55 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Updates the user nickname in playfab.
 		/// </summary>
-		void UpdateNickname(string newNickname);
+		void UpdateDisplayName(string newNickname, Action<UpdateUserTitleDisplayNameResult> onSuccess = null, Action<PlayFabError> onError = null);
 
 		/// <summary>
 		/// Requests current top leaderboard entries
 		/// </summary>
-		void GetTopRankLeaderboard(int amountOfEntries, Action<GetLeaderboardResult> onSuccess,
+		void GetTopRankLeaderboard(int amountOfEntries, Action<GetLeaderboardResult> onSuccess = null,
 		                           Action<PlayFabError> onError = null);
 
 		/// <summary>
 		/// Requests leaderboard entries around player with ID <paramref name="playfabID"/>
 		/// </summary>
 		void GetNeighborRankLeaderboard(int amountOfEntries,
-		                                Action<GetLeaderboardAroundPlayerResult> onSuccess,
+		                                Action<GetLeaderboardAroundPlayerResult> onSuccess = null,
 		                                Action<PlayFabError> onError = null);
 
 		/// <summary>
 		/// Calls the given cloudscript function with the given arguments.
 		/// </summary>
-		void CallFunction(string functionName, Action<ExecuteFunctionResult> onSuccess,
+		void CallFunction(string functionName, Action<ExecuteFunctionResult> onSuccess = null,
 		                  Action<PlayFabError> onError = null, object parameter = null);
+
+		/// <summary>
+		/// Unlinks this device current account
+		/// </summary>
+		void LinkDeviceID(Action successCallback = null, Action<PlayFabError> errorCallback = null);
+
+		/// <summary>
+		/// Unlinks this device current account
+		/// </summary>
+		void UnlinkDeviceID(Action successCallback = null, Action<PlayFabError> errorCallback = null);
+
+		/// <summary>
+		/// Updates anonymous account with provided registration data
+		/// </summary>
+		void AttachLoginDataToAccount(string email, string password, string displayName,
+		                              Action<AddUsernamePasswordResult> successCallback = null,
+		                              Action<PlayFabError> errorCallback = null);
 
 		/// <summary>
 		/// Reads the specific title data by the given key.
 		/// Throws an error if the key was not present.
 		/// </summary>
-		void GetTitleData(string key, Action<string> result);
+		void GetTitleData(string key, Action<string> callback);
 
 		/// <summary>
 		/// Obtains the server state of the logged in player
 		/// </summary>
 		void FetchServerState(Action<ServerState> callback);
-		
+
 		/// <summary>
 		/// Handles when a request errors out on playfab.
 		/// </summary>
@@ -66,27 +84,28 @@ namespace FirstLight.Game.Services
 	/// <inheritdoc cref="IPlayfabService" />
 	public class PlayfabService : IPlayfabService
 	{
-		private readonly IAppLogic _app;
+		private readonly IGameDataProvider _dataProvider;
 		private readonly IMessageBrokerService _msgBroker;
 
 		private readonly string _leaderboardLadderName;
 
-		public PlayfabService(IAppLogic app, IMessageBrokerService msgBroker, string leaderboardLadderName)
+		public PlayfabService(IGameDataProvider dataProvider, IMessageBrokerService msgBroker, string leaderboardLadderName)
 		{
-			_app = app;
+			_dataProvider = dataProvider;
 			_msgBroker = msgBroker;
 			_leaderboardLadderName = leaderboardLadderName;
 		}
 
 		/// <inheritdoc />
-		public void UpdateNickname(string newNickname)
+		public void UpdateDisplayName(string newNickname, Action<UpdateUserTitleDisplayNameResult> onSuccess = null, Action<PlayFabError> onError = null)
 		{
 			var request = new UpdateUserTitleDisplayNameRequest {DisplayName = newNickname};
-			PlayFabClientAPI.UpdateUserTitleDisplayName(request, OnResultCallback, HandleError);
+			PlayFabClientAPI.UpdateUserTitleDisplayName(request, OnSuccess, HandleError);
 
-			void OnResultCallback(UpdateUserTitleDisplayNameResult result)
+			void OnSuccess(UpdateUserTitleDisplayNameResult result)
 			{
-				_app.NicknameId.Value = result.DisplayName;
+				_dataProvider.AppDataProvider.DisplayName.Value = result.DisplayName;
+				onSuccess?.Invoke(result);
 			}
 		}
 
@@ -110,7 +129,7 @@ namespace FirstLight.Game.Services
 
 		/// <inheritdoc />
 		public void GetNeighborRankLeaderboard(int amountOfEntries,
-		                                       Action<GetLeaderboardAroundPlayerResult> onSuccess,
+		                                       Action<GetLeaderboardAroundPlayerResult> onSuccess = null,
 		                                       Action<PlayFabError> onError = null)
 		{
 			var neighborLeaderboardRequest = new GetLeaderboardAroundPlayerRequest()
@@ -127,7 +146,7 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public void CallFunction(string functionName, Action<ExecuteFunctionResult> onSuccess,
+		public void CallFunction(string functionName, Action<ExecuteFunctionResult> onSuccess = null,
 		                         Action<PlayFabError> onError = null, object parameter = null)
 		{
 			var request = new ExecuteFunctionRequest
@@ -138,30 +157,51 @@ namespace FirstLight.Game.Services
 				AuthenticationContext = PlayFabSettings.staticPlayer
 			};
 
-			PlayFabCloudScriptAPI.ExecuteFunction(request, onSuccess, onError ?? HandleError);
+			PlayFabCloudScriptAPI.ExecuteFunction(request, res =>
+			{
+				var exception = ExtractException(res);
+				if (exception != null)
+				{
+					throw exception;
+				}
+				onSuccess(res);
+			}, onError ?? HandleError);
+		}
+
+		/// <summary>
+		/// Playfab cannot return error codes by default. So we require to wrap errors inside ok results.
+		/// This function unpacks an exception packed with OK result so its visible on client
+		/// </summary>
+		private Exception ExtractException(ExecuteFunctionResult req)
+		{
+			var result = req.FunctionResult as JsonObject;
+			if (result.TryGetValue("error", out var error) && error != null)
+			{
+				return new Exception(error.ToString());
+			}
+			return null;
 		}
 
 		public void HandleError(PlayFabError error)
 		{
-			var descriptiveError =
-				$"{error.HttpCode} - {error.ErrorMessage} - {JsonConvert.SerializeObject(error.ErrorDetails)}";
+			var descriptiveError = $"{error.HttpCode} - {error.ErrorMessage} - {JsonConvert.SerializeObject(error.ErrorDetails)}";
 			FLog.Error(descriptiveError);
 
-			_msgBroker?.Publish(new ServerHttpError()
+			_msgBroker?.Publish(new ServerHttpErrorMessage()
 			{
 				ErrorCode = (HttpStatusCode) error.HttpCode,
 				Message = descriptiveError
 			});
 		}
-		
+
 		public void FetchServerState(Action<ServerState> callback)
 		{
 			PlayFabClientAPI.GetUserReadOnlyData(new GetUserDataRequest(), result =>
 			{
-				callback(new ServerState(result.Data.ToDictionary(
-					entry => entry.Key,
-					entry => entry.Value.Value)
-				));
+				callback.Invoke(new ServerState(result.Data
+				                               .ToDictionary(entry => entry.Key,
+				                                             entry =>
+					                                             entry.Value.Value)));
 			}, HandleError);
 		}
 
@@ -170,18 +210,108 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		public void GetTitleData(string key, Action<string> callback)
 		{
-			PlayFabClientAPI.GetTitleData(
-				new GetTitleDataRequest()
-					{ Keys = new List<string>() { key }},
-				res =>
+			PlayFabClientAPI.GetTitleData(new GetTitleDataRequest() {Keys = new List<string>() {key}}, res =>
+			{
+				if (!res.Data.TryGetValue(key, out var data))
 				{
-					if (!res.Data.TryGetValue(key, out var data))
-					{
-						data = null;
-					}
-					callback(data);
-				}, HandleError
-			);
+					data = null;
+				}
+
+				callback.Invoke(data);
+			}, HandleError);
+		}
+
+		/// <inheritdoc />
+		public void LinkDeviceID(Action successCallback = null, Action<PlayFabError> errorCallback = null)
+		{
+#if UNITY_EDITOR
+			var link = new LinkCustomIDRequest
+			{
+				CustomId = PlayFabSettings.DeviceUniqueIdentifier,
+				ForceLink = true
+			};
+
+			PlayFabClientAPI.LinkCustomID(link, _ => OnSuccess(), errorCallback);
+#elif UNITY_ANDROID
+			var link = new LinkAndroidDeviceIDRequest
+			{
+				AndroidDevice = SystemInfo.deviceModel,
+				OS = SystemInfo.operatingSystem,
+				AndroidDeviceId = PlayFabSettings.DeviceUniqueIdentifier,
+				ForceLink = true
+			};
+			
+			PlayFabClientAPI.LinkAndroidDeviceID(link, _ => OnSuccess(), errorCallback);
+
+#elif UNITY_IOS
+			var link = new LinkIOSDeviceIDRequest
+			{
+				DeviceModel = SystemInfo.deviceModel,
+				OS = SystemInfo.operatingSystem,
+				DeviceId = PlayFabSettings.DeviceUniqueIdentifier,
+				ForceLink = true
+			};
+			
+			PlayFabClientAPI.LinkIOSDeviceID(link, _ => OnSuccess(), errorCallback);
+#endif
+			void OnSuccess()
+			{
+				successCallback?.Invoke();
+				_dataProvider.AppDataProvider.DeviceID.Value = PlayFabSettings.DeviceUniqueIdentifier;
+			}
+		}
+
+		/// <inheritdoc />
+		public void UnlinkDeviceID(Action successCallback = null, Action<PlayFabError> errorCallback = null)
+		{
+#if UNITY_EDITOR
+			var unlinkRequest = new UnlinkCustomIDRequest
+			{
+				CustomId = PlayFabSettings.DeviceUniqueIdentifier
+			};
+
+			PlayFabClientAPI.UnlinkCustomID(unlinkRequest, _ => OnSuccess(), errorCallback);
+#elif UNITY_ANDROID
+			var unlinkRequest = new UnlinkAndroidDeviceIDRequest
+			{
+				AndroidDeviceId = PlayFabSettings.DeviceUniqueIdentifier,
+			};
+			
+			PlayFabClientAPI.UnlinkAndroidDeviceID(unlinkRequest, _ => OnSuccess(), errorCallback);
+#elif UNITY_IOS
+			var unlinkRequest = new UnlinkIOSDeviceIDRequest
+			{
+				DeviceId = PlayFabSettings.DeviceUniqueIdentifier,
+			};
+
+			PlayFabClientAPI.UnlinkIOSDeviceID(unlinkRequest, _ => OnSuccess(), errorCallback);
+#endif
+			void OnSuccess()
+			{
+				_dataProvider.AppDataProvider.DeviceID.Value = "";
+				successCallback?.Invoke();
+			}
+		}
+
+		/// <inheritdoc />
+		public void AttachLoginDataToAccount(string email, string password, string username,
+		                                     Action<AddUsernamePasswordResult> successCallback = null,
+		                                     Action<PlayFabError> errorCallback = null)
+		{
+			var addUsernamePasswordRequest = new AddUsernamePasswordRequest
+			{
+				Email = email,
+				Username = username,
+				Password = password
+			};
+
+			PlayFabClientAPI.AddUsernamePassword(addUsernamePasswordRequest, OnSuccess, errorCallback);
+
+			void OnSuccess(AddUsernamePasswordResult result)
+			{
+				_dataProvider.AppDataProvider.LastLoginEmail.Value = email;
+				successCallback?.Invoke(result);
+			}
 		}
 	}
 }

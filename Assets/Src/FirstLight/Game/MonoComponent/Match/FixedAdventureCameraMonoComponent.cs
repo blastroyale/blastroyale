@@ -47,7 +47,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, OnPlayerAlive);
 			QuantumEvent.Subscribe<EventOnPlayerSkydiveLand>(this, OnPlayerSkydiveLand);
-
+			
 			gameObject.SetActive(false);
 		}
 
@@ -71,6 +71,12 @@ namespace FirstLight.Game.MonoComponent.Match
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
 			if (!next.Entity.IsValid) return;
+			
+			// If local player died and camera is in spawn mode, reset back to adventure (death upon landing fix)
+			if (!_services.NetworkService.IsSpectorPlayer && ReferenceEquals(_cinemachineBrain.ActiveVirtualCamera, _spawnCamera))
+			{
+				SetActiveCamera(_adventureCamera);
+			}
 			
 			RefreshSpectator(next.Transform);
 			SnapCamera();

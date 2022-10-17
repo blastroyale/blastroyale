@@ -1,9 +1,10 @@
+using System;
 using System.Collections.Generic;
 using Firebase.Analytics;
-using FirstLight.Game.Data;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using Quantum;
 using UnityEngine;
@@ -17,6 +18,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 	public class AnalyticsCallsSession : AnalyticsCalls
 	{
 		private IDataProvider _dataProvider;
+		private IGameServices _services;
 		private IGameDataProvider _gameData;
 		
 		/// <summary>
@@ -44,12 +46,13 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			}
 		}
 
-		public AnalyticsCallsSession(IAnalyticsService analyticsService,
+		public AnalyticsCallsSession(IAnalyticsService analyticsService, IGameServices services,
 		                             IDataProvider dataProvider,
 		                             IGameDataProvider gameDataProvider) : base(analyticsService)
 		{
 			_gameData = gameDataProvider;
 			_dataProvider = dataProvider;
+			_services = services;
 		}
 
 		/// <summary>
@@ -74,19 +77,35 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		/// </summary>
 		public void GameLoadStart()
 		{
-			var dic = new Dictionary<string, object>
+			// Async call for the AdvertisingId
+			var requestAdvertisingIdSuccess = !Application.RequestAdvertisingIdentifierAsync((id, enabled, msg) =>
 			{
-				{"client_version", VersionUtils.VersionInternal},
-#if UNITY_IOS
-				{"advertising_id", UnityEngine.iOS.Device.advertisingIdentifier},
-				{"vendor_id", SystemInfo.deviceUniqueIdentifier},
-#elif UNITY_ANDROID
-				{"advertising_id", SystemInfo.deviceUniqueIdentifier},
-				{"vendor_id", SystemInfo.deviceUniqueIdentifier},
+				var dic = new Dictionary<string, object>
+				{
+					{"client_version", VersionUtils.VersionInternal},
+					{"advertising_id", id},
+					{"advertising_tracking_enabled", enabled},
+					{"vendor_id", SystemInfo.deviceUniqueIdentifier},
+				};
+				_analyticsService.LogEvent(AnalyticsEvents.GameLoadStart, dic);
+			});
+			
+			// If the async call fails we try another way
+			if (!requestAdvertisingIdSuccess)
+			{
+				var dic = new Dictionary<string, object>
+				{
+					{"client_version", VersionUtils.VersionInternal},
+#if UNITY_ANDROID && !UNITY_EDITOR
+					{"advertising_id", GetAndroidAdvertiserId()},
 #endif
-			};
-			_analyticsService.LogEvent(AnalyticsEvents.GameLoadStart, dic);
+					{"vendor_id", SystemInfo.deviceUniqueIdentifier},
+				};
+				_analyticsService.LogEvent(AnalyticsEvents.GameLoadStart, dic);
+			}
 		}
+		
+
 		
 		/// <summary>
 		/// Logs the first login Event with the given user <paramref name="id"/>
@@ -132,10 +151,29 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"nfts_owned", inventory.Count},
 				{"blst_token_balance", (int) _gameData.CurrencyDataProvider.GetCurrencyAmount(GameId.BLST)},
 				{"cs_token_balance", (int) _gameData.CurrencyDataProvider.GetCurrencyAmount(GameId.CS)},
-				{"total_power", loadout.GetTotalMight()}
+				{"total_power", loadout.GetTotalMight(_services.ConfigsProvider.GetConfigsDictionary<QuantumStatConfig>())}
 			};
 			
 			_analyticsService.LogEvent(AnalyticsEvents.GameLoaded, data);
+		}
+		
+		private static string GetAndroidAdvertiserId()
+		{
+			string advertisingID = "";
+			try
+			{
+				AndroidJavaClass up = new AndroidJavaClass ("com.unity3d.player.UnityPlayer");
+				AndroidJavaObject currentActivity = up.GetStatic<AndroidJavaObject> ("currentActivity");
+				AndroidJavaClass client = new AndroidJavaClass ("com.google.android.gms.ads.identifier.AdvertisingIdClient");
+				AndroidJavaObject adInfo = client.CallStatic<AndroidJavaObject> ("getAdvertisingIdInfo", currentActivity);
+     
+				advertisingID = adInfo.Call<string> ("getId").ToString();
+			}
+			catch (Exception ex)
+			{
+				Debug.LogError("Error acquiring Android AdvertiserId - "+ex.Message);
+			}
+			return advertisingID;
 		}
 	}
 }

@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Services;
+using Quantum;
+using Equipment = Quantum.Equipment;
 
 namespace FirstLight.Game.Messages
 {
@@ -17,7 +19,7 @@ namespace FirstLight.Game.Messages
 
 	public struct BattlePassLevelUpMessage : IMessage
 	{
-		public List<BattlePassRewardConfig> Rewards;
+		public List<Equipment> Rewards;
 		public uint newLevel;
 	}
 

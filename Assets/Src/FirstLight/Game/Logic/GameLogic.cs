@@ -12,7 +12,7 @@ namespace FirstLight.Game.Logic
 	public interface IGameLogicInitializer
 	{
 		/// <summary>
-		/// Initializes the Game Logic state to it's default initial values
+		/// Initializes the Game Logic states to its default values
 		/// </summary>
 		void Init();
 	}
@@ -146,13 +146,23 @@ namespace FirstLight.Game.Logic
 			RewardLogic = new RewardLogic(this, dataProvider);
 			BattlePassLogic = new BattlePassLogic(this, dataProvider);
 		}
+		
+		/// <summary>
+		/// Initializes the local-only Game Logic state to it's default values
+		/// </summary>
+		public void InitLocal()
+		{
+			// ReSharper disable PossibleNullReferenceException
+			
+			// AppLogic is initialized separately, earlier than rest of logic which requires data after auth
+			(AppLogic as IGameLogicInitializer).Init();
+		}
 
 		/// <inheritdoc />
 		public void Init()
 		{
 			// ReSharper disable PossibleNullReferenceException
-			
-			(AppLogic as IGameLogicInitializer).Init();
+			AppLogic.Init();
 			(UniqueIdLogic as IGameLogicInitializer).Init();
 			(CurrencyLogic as IGameLogicInitializer).Init();
 			(ResourceLogic as IGameLogicInitializer).Init();

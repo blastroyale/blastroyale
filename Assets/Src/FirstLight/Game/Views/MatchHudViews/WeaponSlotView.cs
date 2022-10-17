@@ -69,6 +69,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private Equipment _equipment;
 		private bool _selected;
+		private float _initialAnchoredPosY;
 
 		/// <summary>
 		/// Initializes this weapon slot
@@ -76,6 +77,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public void Init()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
+			_initialAnchoredPosY = _container.anchoredPosition.y;
 		}
 
 		/// <summary>
@@ -132,7 +134,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				_weaponGroup.alpha = 1f;
 
 				var pos = _container.anchoredPosition;
-				pos.y = 0f;
+				pos.y = _initialAnchoredPosY;
 				_container.anchoredPosition = pos;
 			}
 			else
@@ -153,7 +155,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 					_nameShadow.enabled = true;
 
 					var pos = _container.anchoredPosition;
-					pos.y = _selectedOffset;
+					pos.y = _initialAnchoredPosY + _selectedOffset;
 					_container.anchoredPosition = pos;
 				}
 				else
@@ -167,7 +169,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 					_nameShadow.enabled = false;
 
 					var pos = _container.anchoredPosition;
-					pos.y = 0f;
+					pos.y = _initialAnchoredPosY;
 					_container.anchoredPosition = pos;
 				}
 

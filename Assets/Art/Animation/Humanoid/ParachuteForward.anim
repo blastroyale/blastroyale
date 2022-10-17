@@ -83,7 +83,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: -64.722, y: -252.736, z: 96.857}
+        value: {x: -78.781, y: -225.891, z: 70.741}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -177,7 +177,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: Root_M/Spine1_M/Spine2_M/JetWing
+    path: Root_M/Spine1_M/GliderAnchor
     classID: 1
     script: {fileID: 0}
   m_PPtrCurves: []
@@ -189,7 +189,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 2615218218
+      path: 3314364343
       attribute: 2086281974
       script: {fileID: 0}
       typeID: 1
@@ -513,7 +513,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -64.722
+        value: -78.781
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -532,7 +532,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -252.736
+        value: -225.891
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -551,7 +551,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 96.857
+        value: 70.741
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -809,7 +809,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: Root_M/Spine1_M/Spine2_M/JetWing
+    path: Root_M/Spine1_M/GliderAnchor
     classID: 1
     script: {fileID: 0}
   m_EulerEditorCurves:
@@ -910,7 +910,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_R
+    path: Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_L
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -920,7 +920,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_R
+    path: Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_L
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -930,7 +930,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_R
+    path: Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_L
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1060,7 +1060,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_L
+    path: Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_R
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1070,7 +1070,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_L
+    path: Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_R
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1080,7 +1080,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_L
+    path: Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_R
     classID: 4
     script: {fileID: 0}
   m_HasGenericRootTransform: 0

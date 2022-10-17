@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
+using UnityEngine;
 
 // ReSharper disable once CheckNamespace
 
@@ -212,16 +213,11 @@ namespace FirstLight.GoogleSheetImporter
 		/// <inheritdoc cref="ArrayParse{T}" />
 		public static object ArrayParse(string data, Type type, params Func<string, Type, object>[] deserializers)
 		{
-			var split = data.Split(ArraySplitChars);
+			var split = data.Split(ArraySplitChars, StringSplitOptions.RemoveEmptyEntries);
 			var list = (IList) Activator.CreateInstance(typeof(List<>).MakeGenericType(type));
 
 			foreach (var value in split)
 			{
-				if (string.IsNullOrEmpty(value))
-				{
-					continue;
-				}
-
 				list.Add(Parse(value, type, deserializers));
 			}
 
@@ -260,6 +256,11 @@ namespace FirstLight.GoogleSheetImporter
 			var items = ArrayParse<string>(text, deserializers);
 			var dictionary = (IDictionary) Activator.CreateInstance(dictionaryType);
 
+			if (items.Count == 0)
+			{
+				return null;
+			}
+			
 			if (items[0].IndexOfAny(PairSplitChars) != -1)
 			{
 				foreach (var item in items)
@@ -354,11 +355,20 @@ namespace FirstLight.GoogleSheetImporter
 				return TypeDescriptor.GetConverter(type).ConvertFrom(text);
 			}
 
+			try
+			{
+
+			
 			if (type.IsValueType)
 			{
 				return Convert.ChangeType(text, type);
 			}
-
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				throw;
+			}
 			return JsonConvert.DeserializeObject($"\"{text}\"", type);
 		}
 

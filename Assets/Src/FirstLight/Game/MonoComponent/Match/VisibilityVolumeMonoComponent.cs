@@ -40,6 +40,7 @@ namespace FirstLight.Game.Views.MapViews
 			if (_currentlyCollidingPlayers.ContainsKey(callback.Entity))
 			{
 				_currentlyCollidingPlayers.Remove(callback.Entity);
+				CheckUpdateAllVisiblePlayers();
 			}
 		}
 
@@ -59,41 +60,39 @@ namespace FirstLight.Game.Views.MapViews
 
 		private void OnTriggerEnter(Collider other)
 		{
-			if (other.TryGetComponent<PlayerCharacterViewMonoComponent>(out var player))
+			if (!other.TryGetComponent<PlayerCharacterViewMonoComponent>(out var player)) return;
+			
+			if (!_currentlyCollidingPlayers.ContainsKey(player.EntityRef))
 			{
-				if (!_currentlyCollidingPlayers.ContainsKey(player.EntityRef))
-				{
-					_currentlyCollidingPlayers.Add(player.EntityRef, player);
-				}
+				_currentlyCollidingPlayers.Add(player.EntityRef, player);
+			}
 
-				player.CollidingVisibilityVolumes.Add(this);
+			player.CollidingVisibilityVolumes.Add(this);
 
-				if (player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
-				{
-					CheckUpdateAllVisiblePlayers();
-				}
-				else if (player.CollidingVisibilityVolumes.Count == 1)
-				{
-					CheckUpdateOneVisiblePlayer(player);
-				}
+			if (player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
+			{
+				CheckUpdateAllVisiblePlayers();
+			}
+			else if (player.CollidingVisibilityVolumes.Count == 1)
+			{
+				CheckUpdateOneVisiblePlayer(player);
 			}
 		}
 
 		private void OnTriggerExit(Collider other)
 		{
-			if (other.TryGetComponent<PlayerCharacterViewMonoComponent>(out var player))
-			{
-				_currentlyCollidingPlayers.Remove(player.EntityRef);
-				player.CollidingVisibilityVolumes.Remove(this);
+			if (!other.TryGetComponent<PlayerCharacterViewMonoComponent>(out var player)) return;
+			
+			_currentlyCollidingPlayers.Remove(player.EntityRef);
+			player.CollidingVisibilityVolumes.Remove(this);
 
-				if (player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
-				{
-					CheckUpdateAllVisiblePlayers();
-				}
-				else if (player.CollidingVisibilityVolumes.Count == 0)
-				{
-					CheckUpdateOneVisiblePlayer(player);
-				}
+			if (player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
+			{
+				CheckUpdateAllVisiblePlayers();
+			}
+			else if (player.CollidingVisibilityVolumes.Count == 0)
+			{
+				CheckUpdateOneVisiblePlayer(player);
 			}
 		}
 

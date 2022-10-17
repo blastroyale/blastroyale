@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -56,7 +57,6 @@ public class TestBlastRoyaleCommands
 		var command = new EndOfGameCalculationsCommand()
 		{
 			PlayersMatchData = matchData,
-			PlayfabToken = "noToken",
 			QuantumValues = new QuantumValues()
 			{
 				ExecutingPlayer = playerRef,
@@ -66,13 +66,16 @@ public class TestBlastRoyaleCommands
 		commandData[CommandFields.Timestamp] = "1";
 		commandData[CommandFields.ClientVersion] = "10.0.0";
 		commandData[CommandFields.Command] = ModelSerializer.Serialize(command).Value;
-		commandData["SecretKey"] = "invalid secret key";
-		var result = await _server.GetService<GameServer>().RunLogic(_server.GetTestPlayerID(), new LogicRequest()
+		var request = new LogicRequest()
 		{
 			Command = command.GetType().FullName,
 			Data = commandData,
-		});
-		Assert.IsTrue(result?.Data["LogicException"].Contains("permission"));
+		};
+		commandData["SecretKey"] = "invalid secret key";
+		Assert.ThrowsAsync<LogicException>(async () =>
+		{
+			await _server.GetService<GameServer>().RunLogic(_server.GetTestPlayerID(), request);
+		}, "Insuficient permissions to run command");
 	}
 
 	[Test]
@@ -86,6 +89,7 @@ public class TestBlastRoyaleCommands
 		{
 			new QuantumPlayerMatchData()
 			{
+				PlayerRank = 1,
 				Data = new PlayerMatchData()
 				{
 					Player = playerRef,
@@ -100,7 +104,6 @@ public class TestBlastRoyaleCommands
 		var command = new EndOfGameCalculationsCommand()
 		{
 			PlayersMatchData = matchData,
-			PlayfabToken = "noToken",
 			QuantumValues = new QuantumValues()
 			{
 				ExecutingPlayer = playerRef,

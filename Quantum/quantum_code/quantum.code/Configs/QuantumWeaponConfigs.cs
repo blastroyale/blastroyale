@@ -13,12 +13,13 @@ namespace Quantum
 		public FP AimingMovementSpeed;
 		public FP AimTime;
 		public FP AttackCooldown;
-		public QuantumGameModePair<FP> PowerToDamageRatio;
+		public FP PowerToDamageRatio;
 		public FP AttackHitSpeed;
 		public uint MinAttackAngle;
 		public uint MaxAttackAngle;
 		public uint NumberOfShots;
 		public uint NumberOfBursts;
+		public FP AttackRange;
 		public bool CanHitSameTarget;
 		public bool IsProjectile;
 		public FP SplashRadius;

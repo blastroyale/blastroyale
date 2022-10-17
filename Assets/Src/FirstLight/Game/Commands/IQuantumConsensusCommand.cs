@@ -16,31 +16,27 @@ namespace FirstLight.Game.Commands
 		public PlayerRef ExecutingPlayer;
 		public MatchType MatchType;
 	}
+
+	/// <summary>
+	/// Payload with needed information to be sent to quantum server to run quantum commands.
+	/// We dont need the command data, as we enrich the command server-side fully in authoritative manner.
+	/// </summary>
+	[Serializable]
+	public struct QuantumCommandPayload
+	{
+		public string Token;
+		public string CommandType;
+	}
 	
 	/// <summary>
-	/// Interface for service commands that requires to be agreed on inside a quantum game to be sent to server.
-	/// All, or ost of players must agree with the same TConsensed data to be sent to be able to validate the data
-	/// being sent is valid.
-	/// The command will impersonate the sending player from server.
+	/// Quantum Commands will be executed on client and also by quantum server at the end of every match.
 	/// </summary>
-	public interface IQuantumConsensusCommand
+	public interface IQuantumCommand
 	{
 		/// <summary>
-		/// Checks if the current command has consensus with other command
+		/// Fills command data from a given frame for a given player.
+		/// This will be called in client & quantum server.
 		/// </summary>
-		bool HasConsensus(IQuantumConsensusCommand command);
-
-		/// <summary>
-		/// Set quantum values to the command. This will be enriched in client & quantum.
-		/// To run command in client, client enriches this data there.
-		/// To ensure server authority, server will set same values from their side.
-		/// </summary>
-		/// <param name="player"></param>
-		void SetQuantumValues(QuantumValues values);
-
-		/// <summary>
-		/// Must return the issuer user session token to be validated server-side.
-		/// </summary>
-		public string GetSessionToken();
+		void FromFrame(Frame frame, QuantumValues QuantumValues);
 	}
 }

@@ -24,6 +24,10 @@ namespace FirstLight.Game.Utils
 		public static EnterRoomParams GetRoomCreateParams(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, MapGridConfigs gridConfigs,
 		                                                  string roomName, MatchType matchType, List<string> mutators, bool gameHasBots)
 		{
+			if (FeatureFlags.FORCE_RANKED)
+			{
+				matchType = MatchType.Ranked;
+			}
 			var isRandomMatchmaking = string.IsNullOrWhiteSpace(roomName);
 
 			var roomNameFinal = isRandomMatchmaking ? null : roomName;
@@ -69,7 +73,7 @@ namespace FirstLight.Game.Utils
 					MaxPlayers = isRandomMatchmaking
 						             ? (byte) maxPlayers
 						             : (byte) (maxPlayers + GameConstants.Data.MATCH_SPECTATOR_SPOTS),
-					PlayerTtl = GameConstants.Network.DEFAULT_PLAYER_TTL_MS
+					PlayerTtl = GameConstants.Network.PLAYER_LOBBY_TTL_MS
 				}
 			};
 
@@ -96,7 +100,7 @@ namespace FirstLight.Game.Utils
 				Lobby = TypedLobby.Default,
 				RoomOptions = new RoomOptions
 				{
-					PlayerTtl = GameConstants.Network.DEFAULT_PLAYER_TTL_MS,
+					PlayerTtl = GameConstants.Network.PLAYER_LOBBY_TTL_MS,
 					EmptyRoomTtl = GameConstants.Network.EMPTY_ROOM_TTL_MS
 				}
 			};
@@ -288,8 +292,6 @@ namespace FirstLight.Game.Utils
 					}
 				}
 			}
-
-
 			return dropPattern;
 		}
 

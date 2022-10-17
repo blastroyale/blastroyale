@@ -13,15 +13,18 @@ namespace FirstLight.Game.Data
 	[Serializable]
 	public class AppData
 	{
-		public string NickNameId;
+		public string DisplayName;
 		public string PlayerId;
 		public DateTime FirstLoginTime;
 		public DateTime LastLoginTime;
 		public DateTime LoginTime;
 		public bool IsFirstSession;
 
+		public bool UseDynamicJoystick = true;
+		
 		public string Environment;
 		public string DeviceId;
+		public string LastLoginEmail;
 		public string ConnectionRegion;
 		
 		public DateTime GameReviewDate;
@@ -31,7 +34,8 @@ namespace FirstLight.Game.Data
 		public bool HapticEnabled = true;
 		public bool DialogueEnabled = true;
 		public GraphicsConfig.DetailLevel CurrentDetailLevel = GraphicsConfig.DetailLevel.Medium;
-
+		public bool UseHighFpsMode = false;
+		
 		public List<UniqueId> NewUniqueIds = new ();
 		public List<GameId> GameIdsTagged = new ();
 		public List<UnlockSystem> SystemsTagged = new ();

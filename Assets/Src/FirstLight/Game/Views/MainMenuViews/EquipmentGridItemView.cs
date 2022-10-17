@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 using FirstLight.Game.Views.GridViews;
 using FirstLight.Game.Services;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Messages;
-using FirstLight.Game.Infos;
 using Quantum;
 using Sirenix.OdinInspector;
 using Button = UnityEngine.UI.Button;
@@ -32,7 +28,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			public Action<UniqueId> OnEquipmentClicked;
 		}
 
-		[SerializeField, Required] private EquipmentIconItemView _equipmentIconView;
+		[SerializeField, Required] private EquipmentCardView _equipmentCardView;
 		[SerializeField, Required] private Button _button;
 		[SerializeField, Required] private Image _equippedImage;
 		[SerializeField, Required] private Image _cooldownImage;
@@ -53,7 +49,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 			_gameDataProvider.EquipmentDataProvider.Loadout.Observe(OnLoadoutUpdated);
 			_button.onClick.AddListener(OnButtonClick);
-			OnAwake();
 		}
 
 		private void OnDestroy()
@@ -62,11 +57,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
-		protected virtual void OnAwake()
-		{
-		}
-
-		protected override void OnUpdateItem(EquipmentGridItemData data)
+		protected override async void OnUpdateItem(EquipmentGridItemData data)
 		{
 			var equipmentDataProvider = _gameDataProvider.EquipmentDataProvider;
 
@@ -79,24 +70,27 @@ namespace FirstLight.Game.Views.MainMenuViews
 			}
 			else
 			{
+				var info = equipmentDataProvider.GetInfo(data.Id);
+				_equippedImage.enabled = info.IsEquipped;
 				_cooldownImage.enabled = false;
 				_nftImage.gameObject.SetActive(false);
 			}
 
 			_selectedFrameImage.SetActive(data.IsSelected);
-			
+
 			if (data.IsSelected)
 			{
 				_gameDataProvider.UniqueIdDataProvider.NewIds.Remove(data.Id);
 			}
 
 			_notificationUniqueIdView.SetUniqueId(data.Id, data.PlayViewNotificationAnimation);
-			_equipmentIconView.SetInfo(data.Id);
 			_uniqueId = data.Id;
+
+			await _equipmentCardView.Initialise(data.Equipment);
 		}
 
 		private void OnLoadoutUpdated(GameIdGroup key, UniqueId previousId, UniqueId newId,
-		                              ObservableUpdateType updateType)
+			ObservableUpdateType updateType)
 		{
 			if (newId != _uniqueId || updateType != ObservableUpdateType.Added)
 			{

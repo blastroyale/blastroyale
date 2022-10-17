@@ -1,0 +1,96 @@
+# Game Logic server deployment pipeline
+# This pipeline is respsonsible for deploying the game logic code to the Azure container app.
+
+name: $(Rev:r)
+
+trigger: none
+pr: none
+
+resources:
+  pipelines:
+  - pipeline: build
+    source: 'Game Logic Server CI'
+    trigger: true
+  repositories:
+  - repository: templates
+    type: bitbucket
+    endpoint: bitbucket
+    ref: master
+    name: first-light/infrastructure
+    
+variables:
+- group: Secrets
+- group: Non-secrets
+- name: serviceConnection
+  value: AzureRM
+- name: repository
+  value: 'gamelogic'
+- name: appName
+  value: gamelogic
+- name: dockerfile
+  value: Dockerfile
+- name: vmImageName
+  value: 'ubuntu-latest'
+- name: buildPipelineId
+  value: build
+
+pool:
+  vmImage: $(vmImageName)
+
+stages:
+- template: pipelines/templates/containerapps-deploy.yml@templates
+  parameters:
+    appShortName: $(appName)
+    containerAppName: ca-gamelogic-flg-dev
+    resourceGroup: gamelogic-backendapp-dev-rg
+    serviceConnection: $(serviceConnection)
+    projectName: $(projectName)
+    buildPipelineId: $(buildPipelineId)
+    image: $(image_manual_override)
+    registryLoginServer: $(registry)
+    # Dev-specific params
+    environment: dev
+    subscription: $(DEV-GAMELOGIC-SUBSCRIPTION-ID)
+    minReplicas: 1
+    maxReplicas: 2
+    cpu: 1
+    memory: 2Gi
+    oneLineEnvVars: "'API_BLOCKCHAIN_SERVICE=blast-royale-equipment' 'API_SECRET=$(DEV-GAMELOGIC-API-SECRET)' 'API_URL=***REMOVED***/br-blockchain' 'APPLICATIONINSIGHTS_CONNECTION_STRING=InstrumentationKey=***REMOVED***;IngestionEndpoint=https://uksouth-1.in.applicationinsights.azure.com/;LiveEndpoint=https://uksouth.livediagnostics.monitor.azure.com/' 'DEV_MODE=TRUE' 'NFT_SYNC=false' 'PLAYFAB_DEV_SECRET_KEY=$(DEV-COMMON-PLAYFAB-SECRET-KEY)' 'PLAYFAB_SECRET_KEY=$(DEV-COMMON-PLAYFAB-SECRET-KEY)' 'PLAYFAB_TITLE=***REMOVED***' 'SqlConnectionString=$(DEV-MARKETPLACE-DB-CONNECTION-STRING)'"
+
+- template: pipelines/templates/containerapps-deploy.yml@templates
+  parameters:
+    appShortName: $(appName)
+    containerAppName: ca-gamelogic-flg-staging
+    resourceGroup: gamelogic-backendapp-staging-rg
+    serviceConnection: $(serviceConnection)
+    projectName: $(projectName)
+    buildPipelineId: $(buildPipelineId)
+    image: $(image_manual_override)
+    registryLoginServer: $(registry)
+    # Staging-specific params
+    environment: staging
+    subscription: $(STAGING-GAMELOGIC-SUBSCRIPTION-ID)
+    minReplicas: 2
+    maxReplicas: 4
+    cpu: 1
+    memory: 2Gi
+    oneLineEnvVars: "'API_BLOCKCHAIN_SERVICE=blast-royale-equipment' 'API_SECRET=$(STAGING-GAMELOGIC-API-SECRET)' 'API_URL=https://apim-marketplace-flg-staging.azure-api.net/br-blockchain' 'APPLICATIONINSIGHTS_CONNECTION_STRING=InstrumentationKey=***REMOVED***;IngestionEndpoint=https://uksouth-1.in.applicationinsights.azure.com/;LiveEndpoint=https://uksouth.livediagnostics.monitor.azure.com/' 'DEV_MODE=FALSE' 'NFT_SYNC=TRUE' 'PLAYFAB_DEV_SECRET_KEY=$(STAGING-COMMON-PLAYFAB-SECRET-KEY)' 'PLAYFAB_SECRET_KEY=$(STAGING-COMMON-PLAYFAB-SECRET-KEY)' 'PLAYFAB_TITLE=***REMOVED***' 'SqlConnectionString=$(STAGING-MARKETPLACE-DB-CONNECTION-STRING)'"
+
+- template: pipelines/templates/containerapps-deploy.yml@templates
+  parameters:
+    appShortName: $(appName)
+    containerAppName: ca-gamelogic-flg-prod
+    resourceGroup: gamelogic-backendapp-prod-rg
+    serviceConnection: $(serviceConnection)
+    projectName: $(projectName)
+    buildPipelineId: $(buildPipelineId)
+    image: $(image_manual_override)
+    registryLoginServer: $(registry)
+    # Prod-specific params
+    environment: prod
+    subscription: $(PROD-GAMELOGIC-SUBSCRIPTION-ID)
+    minReplicas: 1
+    maxReplicas: 4
+    cpu: 1
+    memory: 2Gi
+    oneLineEnvVars: "'API_BLOCKCHAIN_SERVICE=blast-royale-equipment' 'API_SECRET=$(PROD-GAMELOGIC-API-SECRET)' 'API_URL=https://apim-marketplace-flg-prod.azure-api.net/br-blockchain' 'APPLICATIONINSIGHTS_CONNECTION_STRING=InstrumentationKey=***REMOVED***;IngestionEndpoint=https://uksouth-1.in.applicationinsights.azure.com/;LiveEndpoint=https://uksouth.livediagnostics.monitor.azure.com/' 'DEV_MODE=FALSE' 'NFT_SYNC=FALSE' 'PLAYFAB_DEV_SECRET_KEY=$(PROD-COMMON-PLAYFAB-SECRET-KEY)' 'PLAYFAB_SECRET_KEY=$(PROD-COMMON-PLAYFAB-SECRET-KEY)' 'PLAYFAB_TITLE=302CF' 'SqlConnectionString=$(PROD-MARKETPLACE-DB-CONNECTION-STRING)'"

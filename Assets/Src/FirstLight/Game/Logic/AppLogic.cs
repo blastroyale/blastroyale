@@ -3,8 +3,11 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Logic.RPC;
+using FirstLight.Game.Utils;
 using FirstLight.Services;
 using MoreMountains.NiceVibrations;
+using PlayFab;
+using PlayFab.ClientModels;
 using Quantum;
 using UnityEngine;
 
@@ -39,7 +42,7 @@ namespace FirstLight.Game.Logic
 		/// Is Background Music enabled?
 		/// </summary>
 		bool IsBgmEnabled { get; set; }
-		
+
 		/// <summary>
 		/// Is dialogue enabled?
 		/// </summary>
@@ -51,40 +54,60 @@ namespace FirstLight.Game.Logic
 		bool IsHapticOn { get; set; }
 
 		/// <summary>
-		/// Resuests the current detail level of the game
+		/// Requests the enable property for dynamic movement joystick
+		/// </summary>
+		bool UseDynamicJoystick { get; set; }
+		
+		/// <summary>
+		/// Requests the current detail level of the game
 		/// </summary>
 		GraphicsConfig.DetailLevel CurrentDetailLevel { get; set; }
+		
+		/// <summary>
+		/// Requests the current FPS mode
+		/// </summary>
+		bool UseHighFpsMode { get; set; }
 
 		/// <summary>
-		/// Requests the player's Nickname
+		/// Requests the player's title display name (excluding appended numbers)
 		/// </summary>
-		string Nickname { get; }
+		string DisplayNameTrimmed { get; }
 
 		/// <summary>
 		/// Obtains the player unique id
 		/// </summary>
 		string PlayerId { get; }
-		
+
 		/// <summary>
 		/// Requests the last region that player was connected to
 		/// </summary>
 		IObservableField<string> ConnectionRegion { get; }
-		
+
 		/// <summary>
-		/// Requests the player's Nickname
+		/// Requests current device Id
 		/// </summary>
-		IObservableFieldReader<string> NicknameId { get; }
+		IObservableField<string> DeviceID { get; }
 		
 		/// <summary>
 		/// Requests current device Id
 		/// </summary>
-		IObservableFieldReader<string> DeviceId { get; }
-
+		IObservableField<string> LastLoginEmail { get; }
+		
+		/// <summary>
+		/// Requests the player's title display name (including appended numbers)
+		/// </summary>
+		IObservableField<string> DisplayName { get; }
+		
 		/// <summary>
 		/// Sets the resolution mode for the 3D rendering of the app
 		/// </summary>
 		void SetDetailLevel(GraphicsConfig.DetailLevel highRes);
 		
+		/// <summary>
+		/// Sets the low/high FPS mode for the app
+		/// </summary>
+		void SetFpsMode(bool useHighFpsMode);
+
 		/// <summary>
 		/// Marks the date when the game was last time reviewed
 		/// </summary>
@@ -94,24 +117,14 @@ namespace FirstLight.Game.Logic
 	/// <inheritdoc />
 	public interface IAppLogic : IAppDataProvider
 	{
-		/// <summary>
-		/// Requests and sets player nickname
-		/// </summary>
-		new IObservableField<string> NicknameId { get; }
-
-		/// <summary>
-		/// Unlinks this device current account
-		/// </summary>
-		void UnlinkDevice();
+		public void Init();
 	}
 
 	/// <inheritdoc cref="IAppLogic"/>
 	public class AppLogic : AbstractBaseLogic<AppData>, IAppLogic, IGameLogicInitializer
 	{
-		private readonly DateTime _defaultZeroTime = new (2020, 1, 1);
+		private readonly DateTime _defaultZeroTime = new(2020, 1, 1);
 		private readonly IAudioFxService<AudioId> _audioFxService;
-		
-		private IObservableField<string> _deviceId;
 
 		/// <inheritdoc />
 		public bool IsFirstSession => Data.IsFirstSession;
@@ -120,7 +133,7 @@ namespace FirstLight.Game.Logic
 		public bool IsGameReviewed => Data.GameReviewDate > _defaultZeroTime;
 
 		/// <inheritdoc />
-		public bool IsDeviceLinked => string.IsNullOrWhiteSpace(_deviceId.Value);
+		public bool IsDeviceLinked => string.IsNullOrWhiteSpace(DeviceID.Value);
 
 		/// <inheritdoc />
 		public bool IsSfxEnabled
@@ -165,6 +178,13 @@ namespace FirstLight.Game.Logic
 				MMVibrationManager.SetHapticsActive(value);
 			}
 		}
+		
+		/// <inheritdoc />
+		public bool UseDynamicJoystick
+		{
+			get => Data.UseDynamicJoystick;
+			set => Data.UseDynamicJoystick = value;
+		}
 
 		/// <inheritdoc />
 		public GraphicsConfig.DetailLevel CurrentDetailLevel
@@ -178,26 +198,35 @@ namespace FirstLight.Game.Logic
 		}
 		
 		/// <inheritdoc />
+		public bool UseHighFpsMode
+		{
+			get => Data.UseHighFpsMode;
+			set
+			{
+				Data.UseHighFpsMode = value;
+				SetFpsMode(value);
+			}
+		}
+
+		/// <inheritdoc />
 		public IObservableField<string> ConnectionRegion { get; private set; }
 
 		/// <inheritdoc />
-		public string Nickname => NicknameId == null || string.IsNullOrWhiteSpace(NicknameId.Value) || NicknameId.Value.Length < 5 ?
-			"" : NicknameId.Value.Substring(0, NicknameId.Value.Length - 5);
+		public IObservableField<string> DeviceID { get; private set; }
+		
+		/// <inheritdoc />
+		public IObservableField<string> LastLoginEmail { get; private set; }
+
+		/// <inheritdoc />
+		public IObservableField<string> DisplayName { get; private set; }
+
+		/// <inheritdoc />
+		public string DisplayNameTrimmed =>
+			DisplayName == null || string.IsNullOrWhiteSpace(DisplayName.Value) || DisplayName.Value.Length < 5
+				? "" : DisplayName.Value.Substring(0, DisplayName.Value.Length - 5);
 
 		/// <inheritdoc />
 		public string PlayerId => Data.PlayerId;
-
-		/// <inheritdoc />
-		public IObservableField<string> NicknameId { get; private set; }
-
-		/// <inheritdoc />
-		public IObservableField<string> SelectedGameModeId { get; private set; }
-
-		/// <inheritdoc />
-		IObservableFieldReader<string> IAppDataProvider.NicknameId => NicknameId;
-		
-		/// <inheritdoc />
-		IObservableFieldReader<string> IAppDataProvider.DeviceId => _deviceId;
 
 		public AppLogic(IGameLogic gameLogic, IDataProvider dataProvider, IAudioFxService<AudioId> audioFxService) :
 			base(gameLogic, dataProvider)
@@ -211,10 +240,10 @@ namespace FirstLight.Game.Logic
 			IsSfxEnabled = Data.SfxEnabled;
 			IsBgmEnabled = Data.BgmEnabled;
 			IsDialogueEnabled = Data.DialogueEnabled;
-			NicknameId = new ObservableResolverField<string>(() => Data.NickNameId, name => Data.NickNameId = name);
+			DisplayName = new ObservableResolverField<string>(() => Data.DisplayName, name => Data.DisplayName = name);
 			ConnectionRegion = new ObservableResolverField<string>(() => Data.ConnectionRegion, region => Data.ConnectionRegion = region);
-			_deviceId = new ObservableResolverField<string>(() => Data.DeviceId, linked => Data.DeviceId = linked);
-			SelectedGameModeId = new ObservableField<string>(GameLogic.ConfigsProvider.GetConfigsList<QuantumGameModeConfig>()[0].Id);
+			DeviceID = new ObservableResolverField<string>(() => Data.DeviceId, linked => Data.DeviceId = linked);
+			LastLoginEmail = new ObservableResolverField<string>(() => Data.LastLoginEmail, email => Data.LastLoginEmail = email);
 		}
 
 		/// <inheritdoc />
@@ -227,21 +256,24 @@ namespace FirstLight.Game.Logic
 
 			Data.GameReviewDate = GameLogic.TimeService.DateTimeUtcNow;
 		}
-		
+
 		/// <inheritdoc />
 		public void SetDetailLevel(GraphicsConfig.DetailLevel detailLevel)
 		{
 			var detailLevelConf = GameLogic.ConfigsProvider.GetConfig<GraphicsConfig>().DetailLevels
-			                        .Find(detailLevelConf => detailLevelConf.Name == detailLevel);
+			                               .Find(detailLevelConf => detailLevelConf.Name == detailLevel);
 
 			QualitySettings.SetQualityLevel(detailLevelConf.DetailLevelIndex);
-			Application.targetFrameRate = detailLevelConf.Fps;
 		}
-
+		
 		/// <inheritdoc />
-		public void UnlinkDevice()
+		public void SetFpsMode(bool useHighFpsMode)
 		{
-			_deviceId.Value = "";
+			var targetFps = useHighFpsMode
+				                ? GameConstants.Visuals.HIGH_FPS_MODE_TARGET
+				                : GameConstants.Visuals.LOW_FPS_MODE_TARGET;
+			
+			Application.targetFrameRate = targetFps;
 		}
 	}
 }

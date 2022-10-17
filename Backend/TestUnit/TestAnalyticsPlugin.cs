@@ -49,15 +49,16 @@ public class TestAnalyticsPlugin
 		{
 			{ "Key1", "Value1" }
 		};
-		_server.Services.GetService<IEventManager>().CallEvent(new CommandFinishedEvent("yolo", command, state, "{commanddata}"));
+		_server.Services.GetService<IEventManager>().CallEvent(new CommandFinishedEvent("yolo", command, state, state, "{commanddata}"));
 		
-		Assert.That(_analytics.FiredEvents.Count == 2);
+		Assert.That(_analytics.FiredEvents.Count == 1);
+		
+		var playerEvent = _analytics.FiredEvents.First();
 
-		var commandEvent = _analytics.FiredEvents.First();
-		var playerEvent = _analytics.FiredEvents.Last();
-
-		Assert.AreEqual("{commanddata}", commandEvent.Data["CommandData"]);
-		Assert.IsTrue(playerEvent.Data.TryGetValue("Key1", out var value) && value == "Value1");
+		var oldState = playerEvent.Data["old_state"] as ServerState;
+		var newState = playerEvent.Data["current_state"] as ServerState;
+		Assert.IsTrue(oldState.TryGetValue("Key1", out var value) && value == "Value1");
+		Assert.IsTrue(newState.TryGetValue("Key1", out var value2) && value2 == "Value1");
 	}
 
 

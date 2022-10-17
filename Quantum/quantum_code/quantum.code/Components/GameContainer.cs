@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Photon.Deterministic;
 
 namespace Quantum
 {
@@ -59,6 +60,21 @@ namespace Quantum
 			CurrentProgress += amount;
 
 			f.Events.OnGameProgressUpdated(previousProgress, CurrentProgress, TargetProgress);
+
+			if (CurrentProgress >= TargetProgress)
+			{
+				f.Signals.GameEnded();
+			}
+		}
+		
+		/// <summary>
+		/// Tests the game completion strategy where everyone should be dead but a certain amount of people defined in the TargetProgress
+		/// </summary>
+		internal void TestEveryoneIsDead(Frame f)
+		{
+			var playersAlive = f.ComponentCount<AlivePlayerCharacter>();
+
+			CurrentProgress = (uint)( f.PlayerCount - playersAlive);
 
 			if (CurrentProgress >= TargetProgress)
 			{

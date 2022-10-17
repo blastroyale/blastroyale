@@ -21,7 +21,7 @@ namespace FirstLight.Tests.EditorMode
 			_data = data;
 		}
 		
-		public void ExecuteCommand<TCommand>(TCommand command) where TCommand : struct, IGameCommand
+		public void ExecuteCommand<TCommand>(TCommand command) where TCommand : IGameCommand
 		{
 			var serialized = ModelSerializer.Serialize(command).Value;
 			var deserialized = ModelSerializer.Deserialize<TCommand>(serialized, command.GetType());

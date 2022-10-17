@@ -10,8 +10,7 @@ namespace FirstLight.Game.Utils
 	{
 		public static class Editor
 		{
-			public const string PREFS_USE_LOCAL_SERVER_KEY = "UseLocalServer";
-			public const string PREFS_ENABLE_STATE_MACHINE_DEBUG_KEY = "EnableStateMachineDebug";
+	
 		}
 
 		public static class Scenes
@@ -73,7 +72,8 @@ namespace FirstLight.Game.Utils
 			public const float HIGH_LOOP_TRANSITION_DELAY = 2f;
 			
 			public const float LOW_HP_CLUTCH_THERSHOLD_PERCENT = 0.1f;
-			public const int VO_DUPLICATE_SFX_PREVENTION_SECONDS = 12;
+			public const int VO_SFX_SINGLE_KILL_PREVENTION_SECONDS = 12;
+			public const int VO_SFX_LEADERBOARD_PREVENTION_SECONDS = 3;
 		}
 
 		public static class Notifications
@@ -100,7 +100,8 @@ namespace FirstLight.Game.Utils
 		public static class Network
 		{
 			// Time control values
-			public const int DEFAULT_PLAYER_TTL_MS = 30000;
+			public const int PLAYER_LOBBY_TTL_MS = 0;
+			public const int PLAYER_GAME_TTL_MS = 99999999;
 			public const int EMPTY_ROOM_TTL_MS = 10000;
 			public const int EMPTY_ROOM_PLAYTEST_TTL_MS = 1000;
 
@@ -141,6 +142,9 @@ namespace FirstLight.Game.Utils
 			public const float RADIAL_LOCAL_POS_OFFSET = 0.1f;
 			public const float NEAR_DEATH_HEALTH_RATIO_THRESHOLD = 0.4f;
 
+			public const int LOW_FPS_MODE_TARGET = 30;
+			public const int HIGH_FPS_MODE_TARGET = 60;
+			
 			// Description post fix string tag
 			public const string DESCRIPTION_POSTFIX = "Description";
 
@@ -162,6 +166,17 @@ namespace FirstLight.Game.Utils
 			public const string SHADER_MINIMAP_DRAW_PLAYERS = "MINIMAP_DRAW_PLAYERS";
 		}
 
+		public static class Controls
+		{
+			public const float DYNAMIC_JOYSTICK_THRESHOLD_MULT = 1.18f;
+			
+			public const float MOVEMENT_JOYSTICK_RADIUS_MULT = 0.95f;
+			
+			public const float SPECIAL_BUTTON_MAX_RADIUS_MULT = 1.75f;
+			public const float SPECIAL_BUTTON_FIRST_CANCEL_RADIUS_MULT = 1.15f;
+			public const float SPECIAL_BUTTON_CANCEL_RADIUS_MULT = 0.55f;
+		}
+		
 		public static class Haptics
 		{
 			// Platform dependent intensity as the vibrations vary greatly between android/iOS

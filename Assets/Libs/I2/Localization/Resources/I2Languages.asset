@@ -84,7 +84,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Cooldown
+      - Attack Cooldown
       - 
       - 
       Flags: 000000
@@ -318,7 +318,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - HP
+      - Max Health
       - 
       - 
       Flags: 000000
@@ -363,7 +363,8 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Game devs are running around like Bored Blast Apes in Royale Club
+      - Game devs are running around like Bored Blast Apes in Royale Club fixing
+        {0}
       - 
       - 
       Flags: 000000
@@ -381,7 +382,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Max Angle
+      - Accuracy Max Angle
       - 
       - 
       Flags: 000000
@@ -390,7 +391,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Max Capacity
+      - Ammo Capacity
       - 
       - 
       Flags: 000000
@@ -408,7 +409,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Min Angle
+      - Accuracy Min Angle
       - 
       - 
       Flags: 000000
@@ -721,11 +722,20 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: General/AmmoCapacity
+      TermType: 0
+      Description: 
+      Languages:
+      - Ammo Capacity
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: General/PrimarySpecial
       TermType: 0
       Description: 
       Languages:
-      - Primary Special
+      - First Special
       - 
       - 
       Flags: 000000
@@ -865,11 +875,20 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: General/Shield
+    - Term: General/ShieldCapacity2
       TermType: 0
       Description: 
       Languages:
       - Shields
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: General/ShieldCapacity
+      TermType: 0
+      Description: 
+      Languages:
+      - Shields Capacity
       - 
       - 
       Flags: 000000
@@ -932,7 +951,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Range
+      - Attack Range
       - 
       - 
       Flags: 000000
@@ -959,7 +978,8 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Your game is out of date! Go to the app store to get the latest version.
+      - Your game version {0} is out of date! Go to the app store to get the latest
+        version {1}
       - 
       - 
       Flags: 000000
@@ -2080,6 +2100,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: MainMenu/LeaveMatchMessage
+      TermType: 0
+      Description: 
+      Languages:
+      - Are you sure you want to leave the match?
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: MainMenu/Loading
       TermType: 0
       Description: 
@@ -2375,7 +2404,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - You must have at least 3 items equipped to play online.
+      - You must have at least 3 items equipped to play Ranked.
       - 
       - 
       Flags: 000000
@@ -2520,7 +2549,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Register
+      - Register First Light ID
       - 
       - 
       Flags: 000000
@@ -3080,6 +3109,268 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: MainMenu/RoomJoinCreateGameModeSelect
+      TermType: 0
+      Description: 
+      Languages:
+      - game mode
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/RoomJoinCreateMapSelect
+      TermType: 0
+      Description: 
+      Languages:
+      - map
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/RoomJoinCreateMutatorOneSelect
+      TermType: 0
+      Description: 
+      Languages:
+      - mutator 1
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/RoomJoinCreateMutatorTwoSelect
+      TermType: 0
+      Description: 
+      Languages:
+      - mutator 2
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/PlayAsGuestButton
+      TermType: 0
+      Description: 
+      Languages:
+      - Play as a Guest
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/ConnectFirstLightIdAdvice
+      TermType: 0
+      Description: 
+      Languages:
+      - to secure your progress and unlock more features!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/FirstLightIdConnected
+      TermType: 0
+      Description: 
+      Languages:
+      - First Light ID connected!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/FirstLightIdNeedConnection
+      TermType: 0
+      Description: 
+      Languages:
+      - First Light ID not connected!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/ConnectToNewFirstLightId
+      TermType: 0
+      Description: 
+      Languages:
+      - Connect new First Light ID
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/RegisterFirstLightId
+      TermType: 0
+      Description: 
+      Languages:
+      - Register new First Light ID
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/LoginFirstLightId
+      TermType: 0
+      Description: 
+      Languages:
+      - Login to existing First Light ID
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/PrepareForActionBasic
+      TermType: 0
+      Description: 
+      Languages:
+      - Prepare for action!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/PrepareForActionTimer
+      TermType: 0
+      Description: 
+      Languages:
+      - Starting in {0} sec!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/PrepareForActionWaiting
+      TermType: 0
+      Description: 
+      Languages:
+      - Waiting for players!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/ConnectFirstLightIdButton
+      TermType: 0
+      Description: 
+      Languages:
+      - Connect
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/FirstLightIdConnectionSuccess
+      TermType: 0
+      Description: 
+      Languages:
+      - First Light ID has been created and connected successfully! Your progress
+        is safe now.
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/DynamicJoystickSetting
+      TermType: 0
+      Description: 
+      Languages:
+      - Dynamic Movement Joystick
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/BattlepassRewardsReady
+      TermType: 0
+      Description: 
+      Languages:
+      - Ready to collect!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/BattlepassRewardsProgress
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0}/{1}'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/BattlepassClaimAll
+      TermType: 0
+      Description: 
+      Languages:
+      - Claim all rewards
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/BattlepassRewardClaimReady
+      TermType: 0
+      Description: 
+      Languages:
+      - Ready to claim!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/BattlepassRewardClaimFarOut
+      TermType: 0
+      Description: 
+      Languages:
+      - Reward at level {0}
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/BattlepassNothingToClaim
+      TermType: 0
+      Description: 
+      Languages:
+      - No rewards to claim. Play more games to unlock new rewards!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/BattlepassRewardClaimNext
+      TermType: 0
+      Description: 
+      Languages:
+      - Next Reward
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/BattlepassTitle
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/BattlepassCurrentLevel
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Current Level: {0}'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/BattlepassRewardDialogTitle
+      TermType: 0
+      Description: 
+      Languages:
+      - You got a reward!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/HighFpsModeSetting
+      TermType: 0
+      Description: 
+      Languages:
+      - High FPS Mode
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/ResourcePoolRestock
+      TermType: 0
+      Description: 
+      Languages:
+      - ' +{0} {1} IN {2}'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: AdventureMenu/AdventureCompleted
       TermType: 0
       Description: 
@@ -3561,7 +3852,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - '{0} TASTED DEATH!'
+      - '{0} chose DEATH!'
       - 
       - 
       Flags: 000000
@@ -3759,7 +4050,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 888
+      - Wacky Miggy
       - 
       - 
       Flags: 000000
@@ -3768,7 +4059,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 999
+      - Doc Gabriel
       - 
       - 
       Flags: 000000
@@ -3930,7 +4221,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Jupiter
+      - King Rob
       - 
       - 
       Flags: 000000
@@ -4272,7 +4563,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Anil
+      - Master Anil
       - 
       - 
       Flags: 000000
@@ -7512,7 +7803,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Shield Small
+      - Shields Small
       - 
       - 
       Flags: 000000
@@ -7521,7 +7812,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Shield Large
+      - Shields Large
       - 
       - 
       Flags: 000000
@@ -7530,7 +7821,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Shield Capacity
+      - Shields Capacity
       - 
       - 
       Flags: 000000
@@ -7539,7 +7830,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Shield Capacity Small
+      - Shields Capacity Small
       - 
       - 
       Flags: 000000
@@ -7548,7 +7839,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Shield Capacity Large
+      - Shields Capacity Large
       - 
       - 
       Flags: 000000
@@ -8246,6 +8537,51 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: GameIds/CoreCommon
+      TermType: 0
+      Description: 
+      Languages:
+      - Common Core
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: GameIds/CoreUncommon
+      TermType: 0
+      Description: 
+      Languages:
+      - Uncommon Core
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: GameIds/CoreRare
+      TermType: 0
+      Description: 
+      Languages:
+      - Rare Core
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: GameIds/CoreEpic
+      TermType: 0
+      Description: 
+      Languages:
+      - Epic Core
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: GameIds/CoreLegendary
+      TermType: 0
+      Description: 
+      Languages:
+      - Legendary Core
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: Shop/ConfirmPurchase
       TermType: 0
       Description: 
@@ -8898,7 +9234,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1663155695751
+    Google_LastUpdatedVersion: 1665671942896
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

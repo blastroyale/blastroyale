@@ -78,14 +78,18 @@ namespace FirstLightEditor.DataExtensions.Tests
 			
 			_observableList.Add(_previousValue);
 			_observableResolverList.Add(_previousValue);
-			_observableList[_index] = _previousValue;
-			_observableResolverList[_index] = _previousValue;
+			
+			_observableList[_index] = _newValue;
+			_list[_index] = _previousValue;
+			_observableResolverList[_index] = _newValue;
+			
 			_observableList.RemoveAt(_index);
+			_list[_index] = _newValue;
 			_observableResolverList.RemoveAt(_index);
 			
-			_caller.Received(2).Call(Arg.Any<int>(), _previousValue, _newValue, ObservableUpdateType.Added);
+			_caller.Received(2).Call(Arg.Any<int>(), Arg.Is(0), Arg.Is(_previousValue), ObservableUpdateType.Added);
 			_caller.Received(2).Call(_index, _previousValue, _newValue, ObservableUpdateType.Updated);
-			_caller.Received(2).Call(_index, _previousValue, _newValue, ObservableUpdateType.Removed);
+			_caller.Received(2).Call(_index, _newValue, 0, ObservableUpdateType.Removed);
 		}
 
 		[Test]
@@ -96,9 +100,9 @@ namespace FirstLightEditor.DataExtensions.Tests
 			_observableList.InvokeObserve(_index, _caller.Call);
 			_observableResolverList.InvokeObserve(_index, _caller.Call);
 			
-			_caller.DidNotReceive().Call(_index, _previousValue, _newValue, ObservableUpdateType.Added);
-			_caller.Received(2).Call(_index, _previousValue, _newValue, ObservableUpdateType.Updated);
-			_caller.DidNotReceive().Call(_index, _previousValue, _newValue, ObservableUpdateType.Removed);
+			_caller.DidNotReceive().Call(_index, _previousValue, _previousValue, ObservableUpdateType.Added);
+			_caller.Received(2).Call(_index, _previousValue, _previousValue, ObservableUpdateType.Updated);
+			_caller.DidNotReceive().Call(_index, _previousValue, _previousValue, ObservableUpdateType.Removed);
 		}
 
 		[Test]
@@ -115,7 +119,7 @@ namespace FirstLightEditor.DataExtensions.Tests
 			_observableResolverList.InvokeUpdate(_index);
 			
 			_caller.DidNotReceive().Call(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<int>(), ObservableUpdateType.Added);
-			_caller.Received(2).Call(_index, _previousValue, _newValue, ObservableUpdateType.Updated);
+			_caller.Received(2).Call(_index, _previousValue, _previousValue, ObservableUpdateType.Updated);
 			_caller.DidNotReceive().Call(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<int>(), ObservableUpdateType.Removed);
 		}
 

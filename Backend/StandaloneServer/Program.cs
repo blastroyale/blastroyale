@@ -12,6 +12,7 @@ using PlayFab;
 using PlayFab.CloudScriptModels;
 using PlayFab.Json;
 using FirstLight.Server.SDK;
+using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Server.SDK.Services;
 using StandaloneServer;
@@ -53,7 +54,6 @@ app.MapPost("/CloudScript/ExecuteFunction", async (ctx) =>
 	// TODO: Make attribute that implements service calls in both Azure Functions and Standalone to avoid this
 	PlayFabResult<BackendLogicResult?> result = functionRequest?.FunctionName switch
 	{
-		"SetupPlayerCommand" => await webServer.SetupPlayer(playerId),
 		"ExecuteCommand" => await webServer.RunLogic(playerId, logicRequest),
 		"GetPlayerData" => await webServer.GetPlayerData(playerId)
 	};
@@ -70,5 +70,4 @@ app.MapPost("/CloudScript/ExecuteFunction", async (ctx) =>
 		data = res
 	}));
 });
-
 app.Run();

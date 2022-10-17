@@ -86,14 +86,21 @@ namespace FirstLightEditor.DataExtensions.Tests
 			
 			_observableDictionary.Add(_key, _previousValue);
 			_observableResolverDictionary.Add(_key, _previousValue);
-			_observableDictionary[_key] = _previousValue;
-			_observableResolverDictionary[_key] = _previousValue;
+			
+			_mockDictionary[_key].Returns(_previousValue);
+			
+			_observableDictionary[_key] = _newValue;
+			
+			_mockDictionary[_key].Returns(_previousValue);
+			
+			_observableResolverDictionary[_key] = _newValue;
+			
 			_observableDictionary.Remove(_key);
 			_observableResolverDictionary.Remove(_key);
 			
-			_caller.Received(4).Call(_key, _previousValue, _newValue, ObservableUpdateType.Added);
+			_caller.Received(4).Call(_key, 0, _previousValue, ObservableUpdateType.Added);
 			_caller.Received(4).Call(_key, _previousValue, _newValue,ObservableUpdateType.Updated);
-			_caller.Received(4).Call(_key, _previousValue, _newValue, ObservableUpdateType.Removed);
+			_caller.Received(4).Call(_key, _newValue, 0, ObservableUpdateType.Removed);
 		}
 
 		[Test]

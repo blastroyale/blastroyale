@@ -46,11 +46,7 @@ namespace FirstLight.Tests.EditorMode
 		{
 			var serializedConfig = File.ReadAllText($"{_backendPath}/GameLogicService/gameConfig.json");
 			TestConfigs =  new ConfigsSerializer().Deserialize<ConfigsProvider>(serializedConfig);
-		}
-		
-		[SetUp]
-		public void SetUp()
-		{
+
 			var messageBroker = new MessageBrokerService();
 			var timeService = new TimeService();
 			
@@ -72,7 +68,6 @@ namespace FirstLight.Tests.EditorMode
 			TestStates = new GameStateMachine(TestLogic, TestServices, TestUI, TestNetwork,
 				TestConfigs,
 				TestAssetResolver, TestData, TestVfx);
-			TestStates.LogsEnabled = true;
 			
 			// TODO: Fix async issue with asset resolver on NUnit
 			// TestStates.Run();      // Not working due to async asset loading

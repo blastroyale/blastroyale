@@ -119,7 +119,7 @@ namespace FirstLight.Game.Views
 		/// <inheritdoc />
 		public override void OnPointerUp(PointerEventData eventData)
 		{
-			if (!CanAnimate || !IsInteractable())
+			if (!IsInteractable())
 			{
 				return;
 			}
@@ -143,10 +143,13 @@ namespace FirstLight.Game.Views
 						                                       : BUTTON_CLICK_BACKWAWRD_SFX);
 				}
 
-				Anchor.localScale = Vector3.one;
-				Animation.clip = ClickClip;
-				Animation.Rewind();
-				Animation.Play();
+				if (CanAnimate)
+				{
+					Anchor.localScale = Vector3.one;
+					Animation.clip = ClickClip;
+					Animation.Rewind();
+					Animation.Play();
+				}
 			}
 			else
 			{

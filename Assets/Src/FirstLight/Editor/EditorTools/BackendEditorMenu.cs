@@ -16,8 +16,6 @@ namespace FirstLight.Editor.EditorTools
 	/// </summary>
 	public static class BackendMenu
 	{
-		private const string USE_LOCAL_SERVER_KEY = "UseLocalServer";
-		
 		private static readonly string _unityPath = $"{Application.dataPath}/../Library/ScriptAssemblies/";
 		private static readonly string _quantumLibPath = $"{Application.dataPath}/../Assets/Libs/Photon/Quantum/Assemblies/";
 		
@@ -26,9 +24,10 @@ namespace FirstLight.Editor.EditorTools
 		
 		static BackendMenu()
 		{
-			if (!EditorPrefs.HasKey(USE_LOCAL_SERVER_KEY))
+			var cfg = FeatureFlags.GetLocalConfiguration();
+			if (cfg.UseLocalServer)
 			{
-				EditorPrefs.SetBool(USE_LOCAL_SERVER_KEY, false);
+				PlayFabSettings.LocalApiServer = "http://localhost:7274";
 			}
 		}
 		
@@ -122,7 +121,8 @@ namespace FirstLight.Editor.EditorTools
 		[MenuItem("FLG/Backend/Use Local Server")]
 		private static void UseLocalServer()
 		{
-			EditorPrefs.SetBool(USE_LOCAL_SERVER_KEY, true);
+			FeatureFlags.GetLocalConfiguration().UseLocalServer = true;
+			FeatureFlags.SaveLocalConfig();
 			PlayFabSettings.LocalApiServer = "http://localhost:7274";
 			Debug.Log("Requests will go to LOCAL server now");
 		}
@@ -130,9 +130,26 @@ namespace FirstLight.Editor.EditorTools
 		[MenuItem("FLG/Backend/Use Remote Server")]
 		private static void UseRemoteServer()
 		{
-			EditorPrefs.SetBool(USE_LOCAL_SERVER_KEY, false);
+			FeatureFlags.GetLocalConfiguration().UseLocalServer = false;
+			FeatureFlags.SaveLocalConfig();
 			PlayFabSettings.LocalApiServer = null;
 			Debug.Log("Requests will go to REMOTE server now");
+		}
+		
+		[MenuItem("FLG/Backend/Use Remote Configs")]
+		private static void UseRemoteConfigs()
+		{
+			FeatureFlags.GetLocalConfiguration().UseLocalConfigs = false;
+			FeatureFlags.SaveLocalConfig();
+			Debug.Log("Using Remote Configurations from Playfab");
+		}
+		
+		[MenuItem("FLG/Backend/Use Local Configs")]
+		private static void UseLocalConfigs()
+		{
+			FeatureFlags.GetLocalConfiguration().UseLocalConfigs = true;
+			FeatureFlags.SaveLocalConfig();
+			Debug.Log("Using Remote Configurations from Playfab");
 		}
 	}
 }

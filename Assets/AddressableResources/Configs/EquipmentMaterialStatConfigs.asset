@@ -32,12 +32,16 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
+      ShieldCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 13
       Material: 1
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 7168
+        RawValue: 1926
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
@@ -45,13 +49,17 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
+      ShieldCapacityRatioToBaseK:
         RawValue: 0
     - Category: 13
       Material: 2
       HpRatioToBaseK:
-        RawValue: 4096
-      ArmorRatioToBaseK:
         RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 2539
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
@@ -59,34 +67,46 @@ MonoBehaviour:
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
+      ShieldCapacityRatioToBaseK:
         RawValue: 0
     - Category: 13
       Material: 3
       HpRatioToBaseK:
-        RawValue: 3072
-      ArmorRatioToBaseK:
-        RawValue: 7680
-      SpeedRatioToBaseK:
         RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 2758
+      SpeedRatioToBaseK:
+        RawValue: 5806
       PowerRatioToBaseK:
         RawValue: 0
       AttackRangeRatioToBaseK:
         RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
+      ShieldCapacityRatioToBaseK:
         RawValue: 0
     - Category: 13
       Material: 4
       HpRatioToBaseK:
-        RawValue: 2731
+        RawValue: 2765
       ArmorRatioToBaseK:
-        RawValue: 6827
+        RawValue: 2918
       SpeedRatioToBaseK:
-        RawValue: 0
+        RawValue: 6144
       PowerRatioToBaseK:
         RawValue: 0
       AttackRangeRatioToBaseK:
-        RawValue: 1638
+        RawValue: 0
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
+      ShieldCapacityRatioToBaseK:
         RawValue: 0
     - Category: 11
       Material: 0
@@ -102,6 +122,10 @@ MonoBehaviour:
         RawValue: 0
       PickupSpeedRatioToBaseK:
         RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
+      ShieldCapacityRatioToBaseK:
+        RawValue: 0
     - Category: 11
       Material: 1
       HpRatioToBaseK:
@@ -111,10 +135,14 @@ MonoBehaviour:
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
-        RawValue: 1720
-      AttackRangeRatioToBaseK:
         RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 3082
       PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
+      ShieldCapacityRatioToBaseK:
         RawValue: 0
     - Category: 11
       Material: 2
@@ -127,244 +155,316 @@ MonoBehaviour:
       PowerRatioToBaseK:
         RawValue: 0
       AttackRangeRatioToBaseK:
+        RawValue: 4062
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
+      ShieldCapacityRatioToBaseK:
+        RawValue: 0
+    - Category: 11
+      Material: 3
+      HpRatioToBaseK:
+        RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 3251
+      AttackRangeRatioToBaseK:
+        RawValue: 4413
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
+      ShieldCapacityRatioToBaseK:
+        RawValue: 0
+    - Category: 11
+      Material: 4
+      HpRatioToBaseK:
+        RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 3441
+      AttackRangeRatioToBaseK:
+        RawValue: 4669
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
+      ShieldCapacityRatioToBaseK:
+        RawValue: 0
+    - Category: 17
+      Material: 0
+      HpRatioToBaseK:
+        RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
+      ShieldCapacityRatioToBaseK:
+        RawValue: 0
+    - Category: 17
+      Material: 1
+      HpRatioToBaseK:
+        RawValue: 1825
+      ArmorRatioToBaseK:
+        RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
+      ShieldCapacityRatioToBaseK:
+        RawValue: 0
+    - Category: 17
+      Material: 2
+      HpRatioToBaseK:
+        RawValue: 2405
+      ArmorRatioToBaseK:
+        RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
+      ShieldCapacityRatioToBaseK:
+        RawValue: 0
+    - Category: 17
+      Material: 3
+      HpRatioToBaseK:
+        RawValue: 2613
+      ArmorRatioToBaseK:
+        RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 1422
+      ShieldCapacityRatioToBaseK:
+        RawValue: 0
+    - Category: 17
+      Material: 4
+      HpRatioToBaseK:
+        RawValue: 2765
+      ArmorRatioToBaseK:
+        RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 3441
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 1505
+      ShieldCapacityRatioToBaseK:
+        RawValue: 0
+    - Category: 16
+      Material: 0
+      HpRatioToBaseK:
+        RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
+      ShieldCapacityRatioToBaseK:
+        RawValue: 0
+    - Category: 16
+      Material: 1
+      HpRatioToBaseK:
+        RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 9415
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
+      ShieldCapacityRatioToBaseK:
+        RawValue: 0
+    - Category: 16
+      Material: 2
+      HpRatioToBaseK:
+        RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 12411
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
+      ShieldCapacityRatioToBaseK:
+        RawValue: 0
+    - Category: 16
+      Material: 3
+      HpRatioToBaseK:
+        RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 5806
+      PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 13481
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
+      ShieldCapacityRatioToBaseK:
+        RawValue: 0
+    - Category: 16
+      Material: 4
+      HpRatioToBaseK:
+        RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 6144
+      PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 4669
+      PickupSpeedRatioToBaseK:
+        RawValue: 14265
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
+      ShieldCapacityRatioToBaseK:
+        RawValue: 0
+    - Category: 15
+      Material: 0
+      HpRatioToBaseK:
+        RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
+      ShieldCapacityRatioToBaseK:
+        RawValue: 0
+    - Category: 15
+      Material: 1
+      HpRatioToBaseK:
+        RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
+      ShieldCapacityRatioToBaseK:
+        RawValue: 1622
+    - Category: 15
+      Material: 2
+      HpRatioToBaseK:
+        RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 0
+      ShieldCapacityRatioToBaseK:
+        RawValue: 2138
+    - Category: 15
+      Material: 3
+      HpRatioToBaseK:
+        RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 0
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 1422
+      ShieldCapacityRatioToBaseK:
+        RawValue: 2322
+    - Category: 15
+      Material: 4
+      HpRatioToBaseK:
+        RawValue: 0
+      ArmorRatioToBaseK:
+        RawValue: 0
+      SpeedRatioToBaseK:
+        RawValue: 0
+      PowerRatioToBaseK:
+        RawValue: 3441
+      AttackRangeRatioToBaseK:
+        RawValue: 0
+      PickupSpeedRatioToBaseK:
+        RawValue: 0
+      AmmoCapacityRatioToBaseK:
+        RawValue: 1505
+      ShieldCapacityRatioToBaseK:
         RawValue: 2458
-      PickupSpeedRatioToBaseK:
-        RawValue: 0
-    - Category: 11
-      Material: 3
-      HpRatioToBaseK:
-        RawValue: 0
-      ArmorRatioToBaseK:
-        RawValue: 0
-      SpeedRatioToBaseK:
-        RawValue: 0
-      PowerRatioToBaseK:
-        RawValue: 1843
-      AttackRangeRatioToBaseK:
-        RawValue: 1843
-      PickupSpeedRatioToBaseK:
-        RawValue: 0
-    - Category: 11
-      Material: 4
-      HpRatioToBaseK:
-        RawValue: 0
-      ArmorRatioToBaseK:
-        RawValue: 0
-      SpeedRatioToBaseK:
-        RawValue: 1707
-      PowerRatioToBaseK:
-        RawValue: 1638
-      AttackRangeRatioToBaseK:
-        RawValue: 1638
-      PickupSpeedRatioToBaseK:
-        RawValue: 0
-    - Category: 17
-      Material: 0
-      HpRatioToBaseK:
-        RawValue: 0
-      ArmorRatioToBaseK:
-        RawValue: 0
-      SpeedRatioToBaseK:
-        RawValue: 0
-      PowerRatioToBaseK:
-        RawValue: 0
-      AttackRangeRatioToBaseK:
-        RawValue: 0
-      PickupSpeedRatioToBaseK:
-        RawValue: 0
-    - Category: 17
-      Material: 1
-      HpRatioToBaseK:
-        RawValue: 2867
-      ArmorRatioToBaseK:
-        RawValue: 0
-      SpeedRatioToBaseK:
-        RawValue: 0
-      PowerRatioToBaseK:
-        RawValue: 0
-      AttackRangeRatioToBaseK:
-        RawValue: 0
-      PickupSpeedRatioToBaseK:
-        RawValue: 0
-    - Category: 17
-      Material: 2
-      HpRatioToBaseK:
-        RawValue: 0
-      ArmorRatioToBaseK:
-        RawValue: 0
-      SpeedRatioToBaseK:
-        RawValue: 2560
-      PowerRatioToBaseK:
-        RawValue: 0
-      AttackRangeRatioToBaseK:
-        RawValue: 0
-      PickupSpeedRatioToBaseK:
-        RawValue: 0
-    - Category: 17
-      Material: 3
-      HpRatioToBaseK:
-        RawValue: 3072
-      ArmorRatioToBaseK:
-        RawValue: 0
-      SpeedRatioToBaseK:
-        RawValue: 1920
-      PowerRatioToBaseK:
-        RawValue: 0
-      AttackRangeRatioToBaseK:
-        RawValue: 0
-      PickupSpeedRatioToBaseK:
-        RawValue: 0
-    - Category: 17
-      Material: 4
-      HpRatioToBaseK:
-        RawValue: 2731
-      ArmorRatioToBaseK:
-        RawValue: 6827
-      SpeedRatioToBaseK:
-        RawValue: 1707
-      PowerRatioToBaseK:
-        RawValue: 0
-      AttackRangeRatioToBaseK:
-        RawValue: 0
-      PickupSpeedRatioToBaseK:
-        RawValue: 0
-    - Category: 16
-      Material: 0
-      HpRatioToBaseK:
-        RawValue: 0
-      ArmorRatioToBaseK:
-        RawValue: 0
-      SpeedRatioToBaseK:
-        RawValue: 0
-      PowerRatioToBaseK:
-        RawValue: 0
-      AttackRangeRatioToBaseK:
-        RawValue: 0
-      PickupSpeedRatioToBaseK:
-        RawValue: 0
-    - Category: 16
-      Material: 1
-      HpRatioToBaseK:
-        RawValue: 0
-      ArmorRatioToBaseK:
-        RawValue: 0
-      SpeedRatioToBaseK:
-        RawValue: 0
-      PowerRatioToBaseK:
-        RawValue: 1720
-      AttackRangeRatioToBaseK:
-        RawValue: 0
-      PickupSpeedRatioToBaseK:
-        RawValue: 0
-    - Category: 16
-      Material: 2
-      HpRatioToBaseK:
-        RawValue: 0
-      ArmorRatioToBaseK:
-        RawValue: 0
-      SpeedRatioToBaseK:
-        RawValue: 0
-      PowerRatioToBaseK:
-        RawValue: 0
-      AttackRangeRatioToBaseK:
-        RawValue: 0
-      PickupSpeedRatioToBaseK:
-        RawValue: 5120
-    - Category: 16
-      Material: 3
-      HpRatioToBaseK:
-        RawValue: 0
-      ArmorRatioToBaseK:
-        RawValue: 0
-      SpeedRatioToBaseK:
-        RawValue: 1920
-      PowerRatioToBaseK:
-        RawValue: 1843
-      AttackRangeRatioToBaseK:
-        RawValue: 0
-      PickupSpeedRatioToBaseK:
-        RawValue: 0
-    - Category: 16
-      Material: 4
-      HpRatioToBaseK:
-        RawValue: 0
-      ArmorRatioToBaseK:
-        RawValue: 0
-      SpeedRatioToBaseK:
-        RawValue: 1707
-      PowerRatioToBaseK:
-        RawValue: 0
-      AttackRangeRatioToBaseK:
-        RawValue: 1638
-      PickupSpeedRatioToBaseK:
-        RawValue: 3413
-    - Category: 15
-      Material: 0
-      HpRatioToBaseK:
-        RawValue: 0
-      ArmorRatioToBaseK:
-        RawValue: 0
-      SpeedRatioToBaseK:
-        RawValue: 0
-      PowerRatioToBaseK:
-        RawValue: 0
-      AttackRangeRatioToBaseK:
-        RawValue: 0
-      PickupSpeedRatioToBaseK:
-        RawValue: 393216
-    - Category: 15
-      Material: 1
-      HpRatioToBaseK:
-        RawValue: 0
-      ArmorRatioToBaseK:
-        RawValue: 7168
-      SpeedRatioToBaseK:
-        RawValue: 0
-      PowerRatioToBaseK:
-        RawValue: 0
-      AttackRangeRatioToBaseK:
-        RawValue: 0
-      PickupSpeedRatioToBaseK:
-        RawValue: 0
-    - Category: 15
-      Material: 2
-      HpRatioToBaseK:
-        RawValue: 0
-      ArmorRatioToBaseK:
-        RawValue: 0
-      SpeedRatioToBaseK:
-        RawValue: 0
-      PowerRatioToBaseK:
-        RawValue: 1720
-      AttackRangeRatioToBaseK:
-        RawValue: 0
-      PickupSpeedRatioToBaseK:
-        RawValue: 0
-    - Category: 15
-      Material: 3
-      HpRatioToBaseK:
-        RawValue: 0
-      ArmorRatioToBaseK:
-        RawValue: 7680
-      SpeedRatioToBaseK:
-        RawValue: 1920
-      PowerRatioToBaseK:
-        RawValue: 0
-      AttackRangeRatioToBaseK:
-        RawValue: 0
-      PickupSpeedRatioToBaseK:
-        RawValue: 0
-    - Category: 15
-      Material: 4
-      HpRatioToBaseK:
-        RawValue: 0
-      ArmorRatioToBaseK:
-        RawValue: 6827
-      SpeedRatioToBaseK:
-        RawValue: 1707
-      PowerRatioToBaseK:
-        RawValue: 1638
-      AttackRangeRatioToBaseK:
-        RawValue: 0
-      PickupSpeedRatioToBaseK:
-        RawValue: 0

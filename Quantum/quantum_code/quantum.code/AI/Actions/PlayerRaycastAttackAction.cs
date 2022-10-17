@@ -23,7 +23,7 @@ namespace Quantum
 			var position = f.Get<Transform3D>(e).Position + FPVector3.Up*FP._0_50;
 			var team = f.Get<Targetable>(e).Team;
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
-			var power = f.Get<Stats>(e).GetStatData(StatType.Power).StatValue;
+			var power = f.Get<Stats>(e).GetStatData(StatType.Power).StatValue * weaponConfig.PowerToDamageRatio;
 			var aimingDirection = bb->GetVector2(f, Constants.AimDirectionKey).Normalized;
 			var cVelocitySqr = kcc->Velocity.SqrMagnitude;
 			var maxSpeedSqr = kcc->MaxSpeed * kcc->MaxSpeed;
@@ -32,12 +32,10 @@ namespace Quantum
 			//targetAttackAngle depend on a current character velocity 
 			var targetAttackAngle = FPMath.Lerp(weaponConfig.MinAttackAngle, weaponConfig.MaxAttackAngle, 
 			                                    cVelocitySqr / maxSpeedSqr);
-
-			//accuracy modifier is found by getting a random angle between the min and max angle values,
-			//and then passing that through into the shot; Works only for single shot weapons
-			var angle = targetAttackAngle / FP._2;
-			var shotAngle = weaponConfig.NumberOfShots == 1 ? f.RNG->Next(-angle, angle) : FP._0;
-
+			var shotAngle = weaponConfig.NumberOfShots == 1 ?
+				                QuantumHelpers.GetSingleShotAngleAccuracyModifier(f, targetAttackAngle) :
+				                FP._0;
+			
 			//only do attackSpeed ramping if the weapon has it
 			var rampUpStartTime = bb->GetFP(f, Constants.RampUpTimeStart);
 			if (weaponConfig.InitialAttackRampUpTime != FP._0)

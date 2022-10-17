@@ -236,6 +236,11 @@ namespace Quantum {
     ConsumablePlatformSpawner = 140,
     Flag = 25,
     Tombstone = 37,
+    CoreCommon = 15,
+    CoreUncommon = 46,
+    CoreRare = 47,
+    CoreEpic = 48,
+    CoreLegendary = 59,
   }
   public enum GameIdGroup : int {
     GameDesign = 0,
@@ -246,6 +251,7 @@ namespace Quantum {
     Helmet = 13,
     Equipment = 12,
     Weapon = 11,
+    Melee = 20,
     Amulet = 16,
     Armor = 17,
     Shield = 15,
@@ -262,6 +268,7 @@ namespace Quantum {
     Platform = 37,
     Collection = 9,
     DeathMarker = 10,
+    Core = 22,
   }
   public enum GameSimulationStateMachine : int {
     Deathmatch,
@@ -291,6 +298,7 @@ namespace Quantum {
     Shield,
     AttackRange,
     PickupSpeed,
+    AmmoCapacity,
   }
   public enum StatusModifierType : int {
     None,
@@ -3529,15 +3537,17 @@ namespace Quantum {
     public const Int32 SIZE = 4;
     public const Int32 ALIGNMENT = 4;
     [FieldOffset(0)]
-    private fixed Byte _alignment_padding_[4];
+    public QBoolean InCircle;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 409;
+        hash = hash * 31 + InCircle.GetHashCode();
         return hash;
       }
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (AlivePlayerCharacter*)ptr;
+        QBoolean.Serialize(&p->InCircle, serializer);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -3807,9 +3817,6 @@ namespace Quantum {
     [FieldOffset(0)]
     [HideInInspector()]
     public GameId GameId;
-    [FieldOffset(4)]
-    [HideInInspector()]
-    public QBoolean IsCollected;
     public FixedArray<FP> CollectorsEndTime {
       get {
         fixed (byte* p = _CollectorsEndTime_) { return new FixedArray<FP>(p, 8, 32); }
@@ -3820,14 +3827,12 @@ namespace Quantum {
         var hash = 433;
         hash = hash * 31 + HashCodeUtils.GetArrayHashCode(CollectorsEndTime);
         hash = hash * 31 + (Int32)GameId;
-        hash = hash * 31 + IsCollected.GetHashCode();
         return hash;
       }
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (Collectable*)ptr;
         serializer.Stream.Serialize((Int32*)&p->GameId);
-        QBoolean.Serialize(&p->IsCollected, serializer);
         FixedArray.Serialize(p->CollectorsEndTime, serializer, StaticDelegates.SerializeFP);
     }
   }
@@ -3995,18 +4000,20 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct EntityDestroyer : Quantum.IComponent {
-    public const Int32 SIZE = 4;
-    public const Int32 ALIGNMENT = 4;
+    public const Int32 SIZE = 8;
+    public const Int32 ALIGNMENT = 8;
     [FieldOffset(0)]
-    private fixed Byte _alignment_padding_[4];
+    public FP time;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 463;
+        hash = hash * 31 + time.GetHashCode();
         return hash;
       }
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (EntityDestroyer*)ptr;
+        FP.Serialize(&p->time, serializer);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -4776,7 +4783,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Stats : Quantum.IComponent {
-    public const Int32 SIZE = 208;
+    public const Int32 SIZE = 232;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(0)]
     public Int32 CurrentHealth;
@@ -4797,8 +4804,8 @@ namespace Quantum {
     [FramePrinter.PtrQListAttribute(typeof(EntityRef))]
     private Quantum.Ptr SpellEffectsPtr;
     [FieldOffset(40)]
-    [FramePrinter.FixedArrayAttribute(typeof(StatData), 7)]
-    private fixed Byte _Values_[168];
+    [FramePrinter.FixedArrayAttribute(typeof(StatData), 8)]
+    private fixed Byte _Values_[192];
     public QListPtr<Modifier> Modifiers {
       get {
         return new QListPtr<Modifier>(ModifiersPtr);
@@ -4817,7 +4824,7 @@ namespace Quantum {
     }
     public FixedArray<StatData> Values {
       get {
-        fixed (byte* p = _Values_) { return new FixedArray<StatData>(p, 24, 7); }
+        fixed (byte* p = _Values_) { return new FixedArray<StatData>(p, 24, 8); }
       }
     }
     public override Int32 GetHashCode() {
@@ -5802,13 +5809,14 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnPlayerEquipmentStatsChanged OnPlayerEquipmentStatsChanged(PlayerRef Player, EntityRef Entity, Quantum.Stats PreviousStats, Quantum.Stats CurrentStats) {
+      public EventOnPlayerEquipmentStatsChanged OnPlayerEquipmentStatsChanged(PlayerRef Player, EntityRef Entity, Quantum.Stats PreviousStats, Quantum.Stats CurrentStats, Int32 CurrentMight) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnPlayerEquipmentStatsChanged>(EventOnPlayerEquipmentStatsChanged.ID);
         ev.Player = Player;
         ev.Entity = Entity;
         ev.PreviousStats = PreviousStats;
         ev.CurrentStats = CurrentStats;
+        ev.CurrentMight = CurrentMight;
         _f.AddEvent(ev);
         return ev;
       }
@@ -7793,6 +7801,7 @@ namespace Quantum {
     public EntityRef Entity;
     public Quantum.Stats PreviousStats;
     public Quantum.Stats CurrentStats;
+    public Int32 CurrentMight;
     protected EventOnPlayerEquipmentStatsChanged(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -7814,6 +7823,7 @@ namespace Quantum {
         hash = hash * 31 + Entity.GetHashCode();
         hash = hash * 31 + PreviousStats.GetHashCode();
         hash = hash * 31 + CurrentStats.GetHashCode();
+        hash = hash * 31 + CurrentMight.GetHashCode();
         return hash;
       }
     }
@@ -8485,7 +8495,7 @@ namespace Quantum {
     public const Int32 GEAR_INDEX_ARMOR = 3;
     public const Int32 GEAR_INDEX_SHIELD = 4;
     public const Int32 MAX_SPECIALS = 2;
-    public const Int32 TOTAL_STATS = 7;
+    public const Int32 TOTAL_STATS = 8;
   }
   public static unsafe partial class StaticDelegates {
     public static FrameSerializer.Delegate SerializeBlackboardEntry;
@@ -9205,8 +9215,7 @@ namespace Quantum.Prototypes {
   [System.SerializableAttribute()]
   [Prototype(typeof(AlivePlayerCharacter))]
   public sealed unsafe partial class AlivePlayerCharacter_Prototype : ComponentPrototype<AlivePlayerCharacter> {
-    [HideInInspector()]
-    public Int32 _empty_prototype_dummy_field_;
+    public QBoolean InCircle;
     partial void MaterializeUser(Frame frame, ref AlivePlayerCharacter result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       AlivePlayerCharacter component = default;
@@ -9214,6 +9223,7 @@ namespace Quantum.Prototypes {
       return f.Set(entity, component) == SetResult.ComponentAdded;
     }
     public void Materialize(Frame frame, ref AlivePlayerCharacter result, in PrototypeMaterializationContext context) {
+      result.InCircle = this.InCircle;
       MaterializeUser(frame, ref result, in context);
     }
     public override void Dispatch(ComponentPrototypeVisitorBase visitor) {
@@ -9504,8 +9514,6 @@ namespace Quantum.Prototypes {
     [HideInInspector()]
     [ArrayLengthAttribute(32)]
     public FP[] CollectorsEndTime = new FP[32];
-    [HideInInspector()]
-    public QBoolean IsCollected;
     partial void MaterializeUser(Frame frame, ref Collectable result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       Collectable component = default;
@@ -9517,7 +9525,6 @@ namespace Quantum.Prototypes {
         *result.CollectorsEndTime.GetPointer(i) = this.CollectorsEndTime[i];
       }
       result.GameId = this.GameId;
-      result.IsCollected = this.IsCollected;
       MaterializeUser(frame, ref result, in context);
     }
     public override void Dispatch(ComponentPrototypeVisitorBase visitor) {
@@ -9659,8 +9666,7 @@ namespace Quantum.Prototypes {
   [System.SerializableAttribute()]
   [Prototype(typeof(EntityDestroyer))]
   public sealed unsafe partial class EntityDestroyer_Prototype : ComponentPrototype<EntityDestroyer> {
-    [HideInInspector()]
-    public Int32 _empty_prototype_dummy_field_;
+    public FP time;
     partial void MaterializeUser(Frame frame, ref EntityDestroyer result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       EntityDestroyer component = default;
@@ -9668,6 +9674,7 @@ namespace Quantum.Prototypes {
       return f.Set(entity, component) == SetResult.ComponentAdded;
     }
     public void Materialize(Frame frame, ref EntityDestroyer result, in PrototypeMaterializationContext context) {
+      result.time = this.time;
       MaterializeUser(frame, ref result, in context);
     }
     public override void Dispatch(ComponentPrototypeVisitorBase visitor) {
@@ -10417,8 +10424,8 @@ namespace Quantum.Prototypes {
     public Int32 CurrentHealth;
     public Int32 CurrentShield;
     public QBoolean IsImmune;
-    [ArrayLengthAttribute(7)]
-    public StatData_Prototype[] Values = new StatData_Prototype[7];
+    [ArrayLengthAttribute(8)]
+    public StatData_Prototype[] Values = new StatData_Prototype[8];
     [DynamicCollectionAttribute()]
     public Modifier_Prototype[] Modifiers = {};
     [DynamicCollectionAttribute()]
@@ -10461,7 +10468,7 @@ namespace Quantum.Prototypes {
         }
         result.SpellEffects = list;
       }
-      for (int i = 0, count = PrototypeValidator.CheckLength(Values, 7, in context); i < count; ++i) {
+      for (int i = 0, count = PrototypeValidator.CheckLength(Values, 8, in context); i < count; ++i) {
         this.Values[i].Materialize(frame, ref *result.Values.GetPointer(i), in context);
       }
       MaterializeUser(frame, ref result, in context);

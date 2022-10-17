@@ -1,16 +1,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Services;
-using FirstLight.Game.Utils;
+using FirstLight.Server.SDK.Modules;
 using Photon.Hive.Plugin;
 using PlayFab;
 using PlayFab.CloudScriptModels;
 using PlayFab.ServerModels;
 using Quantum;
-using ServerSDK.Modules;
 
 namespace quantum.custom.plugin
 {
@@ -40,9 +40,9 @@ namespace quantum.custom.plugin
 		/// Requires a userId and a token to prove this was originated from an authenticated user.
 		/// The command will impersonate the given player.
 		/// </summary>
-		public void SendServerCommand(string userId, string token, EndGameConsensusCommandData command)
+		public void SendServerCommand(string userId, string token, IQuantumCommand command, bool async = true)
 		{
-			Log.Info($"Sending EndOfGameCalculationsCommand to {userId}");
+			Log.Info($"Sending command {command.GetType()} to {userId}");
 ;			var data = new Dictionary<string, string>();
 			data[CommandFields.Command] = ModelSerializer.Serialize(command).Value;
 			data["SecretKey"] = PlayFabSettings.staticSettings.DeveloperSecretKey;
@@ -51,8 +51,7 @@ namespace quantum.custom.plugin
 				FunctionName = "ExecuteCommand",
 				FunctionParameter = new LogicRequest()
 				{
-					// can't reference EndOfGameCalculationsCommand directly due to processor magic
-					Command = "FirstLight.Game.Commands.EndOfGameCalculationsCommand", 
+					Command = command.GetType().FullName, 
 					Data = data
 				},
 				AuthenticationContext = new PlayFabAuthenticationContext()
@@ -61,11 +60,10 @@ namespace quantum.custom.plugin
 					EntityToken = token,
 				}
 			};
-
 			HttpWrapper.Post(userId, "/CloudScript/ExecuteFunction", request, OnPlayfabCommand, new Dictionary<string, string>()
 			{
 				{ "X-EntityToken", token }
-			});
+			}, async);
 		}
 
 		/// <summary>
@@ -81,12 +79,15 @@ namespace quantum.custom.plugin
 			HttpWrapper.Post(playerId, "/Server/GetUserReadOnlyData", request, callback);
 		}
 		
-		private void OnPlayfabCommand(IHttpResponse response, object userState)
+		private void OnPlayfabCommand(IHttpResponse response, object userId)
 		{
 			if(response.HttpCode >= 400)
 			{
 				var dataString = response.ResponseData?.Length > 0 ? Encoding.UTF8.GetString(response.ResponseData) : "";
 				Log.Error($"Invalid PlayFab response to url {response.Request.Url} status {response.Status} data {dataString} text {response.ResponseText}");
+			} else
+			{
+				Log.Debug($"Request from {userId} OK");
 			}
 		}
 	}

@@ -48,7 +48,7 @@ namespace FirstLight.Game.StateMachines
 			var spawning = stateFactory.State("Spawning");
 			var resyncCheck = stateFactory.Choice("Resync Check");
 			var spectateCheck = stateFactory.Choice("Spectate Check");
-			var aliveCheck = stateFactory.Choice("Alive Check");
+			var resyncAliveCheck = stateFactory.Choice("Resync Alive Check");
 			
 			initial.Transition().Target(spectateCheck);
 			initial.OnExit(SubscribeEvents);
@@ -57,15 +57,16 @@ namespace FirstLight.Game.StateMachines
 			spectateCheck.Transition().Target(resyncCheck);
 			
 			resyncCheck.OnEnter(OpenMatchHud);
-			resyncCheck.Transition().Condition(IsRejoining).Target(aliveCheck);
+			resyncCheck.Transition().Condition(IsRejoining).Target(resyncAliveCheck);
 			resyncCheck.Transition().Target(spawning);
 			
-			aliveCheck.Transition().Condition(IsLocalPlayerAlive).Target(alive);
-			aliveCheck.Transition().Target(deadCheck);
+			resyncAliveCheck.OnEnter(CloseMatchmakingScreen);
+			resyncAliveCheck.Transition().Condition(IsLocalPlayerAlive).Target(alive);
+			resyncAliveCheck.Transition().Target(deadCheck);
 
 			spawning.Event(_localPlayerAliveEvent).Target(alive);
-			spawning.OnExit(CloseMatchmakingScreen);
-
+			
+			alive.OnEnter(CloseMatchmakingScreen);
 			alive.OnEnter(OpenControlsHud);
 			alive.Event(_localPlayerDeadEvent).Target(deadCheck);
 			alive.OnExit(CloseControlsHud);
@@ -78,7 +79,8 @@ namespace FirstLight.Game.StateMachines
 			dead.Event(_localPlayerExitEvent).Target(final);
 			dead.Event(_localPlayerSpectateEvent).Target(spectating);
 			dead.OnExit(CloseKillScreen);
-
+			
+			spectating.OnEnter(CloseMatchmakingScreen);
 			spectating.OnEnter(OpenMatchHud);
 			spectating.OnEnter(OpenSpectateHud);
 			spectating.Event(_localPlayerExitEvent).Target(final);
@@ -190,7 +192,10 @@ namespace FirstLight.Game.StateMachines
 		
 		private void CloseMatchmakingScreen()
 		{
-			_uiService.CloseUi<MatchmakingLoadingScreenPresenter>(false, true);
+			if (_uiService.HasUiPresenter<MatchmakingLoadingScreenPresenter>())
+			{
+				_uiService.CloseUi<MatchmakingLoadingScreenPresenter>(false, true);
+			}
 		}
 	}
 }

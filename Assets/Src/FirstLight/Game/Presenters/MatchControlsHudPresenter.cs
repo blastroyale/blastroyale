@@ -291,7 +291,7 @@ namespace FirstLight.Game.Presenters
 
 			MMVibrationManager.ContinuousHaptic(GameConstants.Haptics.PLAYER_KILL_INTENSITY,
 												GameConstants.Haptics.PLAYER_KILL_SHARPNESS,
-												GameConstants.Haptics.PLAYER_KILL_DURATION);												);
+												GameConstants.Haptics.PLAYER_KILL_DURATION);
 		}
 
 		private unsafe void OnEventOnLocalPlayerSpecialUsed(EventOnLocalPlayerSpecialUsed callback)

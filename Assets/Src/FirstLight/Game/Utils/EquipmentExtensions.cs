@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
@@ -17,18 +18,14 @@ namespace FirstLight.Game.Utils
 		/// Shared encapsulated code to detect if a given item is broken.
 		/// This code is to be used in Hub & Game Servers to validate given equipments are valid.
 		/// </summary>
-		public static bool IsNftBroken(this EquipmentData equipmentData, UniqueId nftUniqueId)
+		public static bool IsBroken(this Equipment equip, NftEquipmentData nftData)
 		{
-			if (!equipmentData.Inventory.TryGetValue(nftUniqueId, out var equipData))
-			{
-				return false;
-			}
-			if(!equipmentData.NftInventory.TryGetValue(nftUniqueId, out var nftData))
+			if (!FeatureFlags.ITEM_DURABILITY)
 			{
 				return false;
 			}
 			var lastRepairDate = DateTimeOffset.FromUnixTimeSeconds(nftData.LastRepairTimestamp).Date;
-			var durabilityTime = equipData.MaxDurability * TimeSpan.FromDays(7);
+			var durabilityTime = equip.MaxDurability * TimeSpan.FromDays(7);
 			var shouldBreakAt = lastRepairDate + durabilityTime;
 			return DateTime.UtcNow > shouldBreakAt;
 		}

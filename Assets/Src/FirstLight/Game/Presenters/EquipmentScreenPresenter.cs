@@ -11,6 +11,7 @@ using UnityEngine;
 using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Commands.OfflineCommands;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Infos;
 using FirstLight.Services;
 using I2.Loc;
@@ -188,7 +189,7 @@ namespace FirstLight.Game.Presenters
 			}
 
 			SetStatInfoData(equipment);
-
+			
 			if (_gameDataProvider.EquipmentDataProvider.NftInventory.ContainsKey(equipment.Id))
 			{
 				SetCooldownStatus();

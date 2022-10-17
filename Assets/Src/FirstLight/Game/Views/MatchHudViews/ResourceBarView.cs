@@ -45,7 +45,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			QuantumEvent.Subscribe<EventOnPlayerAmmoChanged>(this, HandleOnPlayerAmmoChanged);
 			QuantumEvent.Subscribe<EventOnPlayerWeaponChanged>(this, HandleOnPlayerWeaponChanged);
-			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, HandleOnPlayerAttacked);
 		}
 
 		private void HandleOnPlayerWeaponChanged(EventOnPlayerWeaponChanged callback)
@@ -57,21 +56,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			_currentWeapon = callback.Weapon.GameId;
 			SetSliderValue(callback.Game.Frames.Verified, callback.Entity);
-		}
-
-		private void HandleOnPlayerAttacked(EventOnPlayerAttack callback)
-		{
-			if (callback.PlayerEntity != _entity || !callback.WeaponConfig.IsMeleeWeapon)
-			{
-				return;
-			}
-
-			if (_coroutine != null)
-			{
-				StopCoroutine(_coroutine);
-			}
-			
-			_coroutine = StartCoroutine(MeleeCooldownCoroutine(callback.WeaponConfig.AttackCooldown.AsFloat));
 		}
 
 		private void HandleOnPlayerAmmoChanged(EventOnPlayerAmmoChanged callback)
@@ -106,23 +90,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 				return;
 			}
 			
-			_slider.value = player.HasMeleeWeapon(f, entity) ? 1f : player.GetAmmoAmountFilled(f, entity).AsFloat;
+			_slider.value = player.GetAmmoAmountFilled(f, entity).AsFloat;
 			_reloadBarImage.color = _primaryReloadColor;
-		}
-
-		private IEnumerator MeleeCooldownCoroutine(float cooldown)
-		{
-			var endTime = Time.time + cooldown;
-
-			while (Time.time < endTime)
-			{
-				_slider.value = Mathf.Lerp(1, 0, (endTime - Time.time) / cooldown);
-
-				yield return null;
-			}
-
-			_slider.value = 1f;
-			_coroutine = null;
 		}
 	}
 }

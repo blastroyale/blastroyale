@@ -14,6 +14,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Button = UnityEngine.UI.Button;
+using ExitGames.Client.Photon.StructWrapping;
 
 namespace FirstLight.Game.Presenters
 {
@@ -280,9 +281,11 @@ namespace FirstLight.Game.Presenters
 		private void OnPlayerAttackHit(EventOnPlayerAttackHit callback)
 		{
 			if (!callback.Game.PlayerIsLocal(callback.Player)) return;
-			var spell = callback.Spell;
 			var f = callback.Game.Frames.Predicted;
-			PlayHapticFeedbackForDamage(spell.PowerAmount, f.Get<Stats>(spell.Victim).GetStatData(StatType.Health).StatValue.AsFloat);
+			if (f.TryGet<Stats>(callback.HitEntity, out var hitEntityStats))
+			{
+				PlayHapticFeedbackForDamage(callback.TotalDamage.AsFloat, hitEntityStats.GetStatData(StatType.Health).StatValue.AsFloat);
+			}
 		}
 
 		private void OnPlayerKill(EventOnPlayerKilledPlayer callback)

@@ -48,7 +48,8 @@ namespace FirstLight.Game.Presenters
 			_weaponSlotButtons[2].onClick.AddListener(() => OnWeaponSlotClicked(2));
 			
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
-			QuantumEvent.Subscribe<EventOnPlayerDamaged>(this, OnPlayerDamaged);
+			QuantumEvent.Subscribe<EventOnPlayerAttackHit>(this, OnPlayerAttackHit);
+			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnPlayerKill);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveDrop>(this, OnLocalPlayerSkydiveDrop);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLanded);
@@ -276,18 +277,21 @@ namespace FirstLight.Game.Presenters
 			input.AimButton.Enable();
 		}
 
-		private void OnPlayerDamaged(EventOnPlayerDamaged callback)
+		private void OnPlayerAttackHit(EventOnPlayerAttackHit callback)
 		{
 			if (!callback.Game.PlayerIsLocal(callback.Player)) return;
-			
-			if (callback.ShieldDamage > 0)
-			{
-				PlayHapticFeedbackForDamage(callback.ShieldDamage, callback.MaxShield);
-			}
-			else if (callback.HealthDamage > 0)
-			{
-				PlayHapticFeedbackForDamage(callback.HealthDamage, callback.MaxHealth);
-			}
+			var spell = callback.Spell;
+			var f = callback.Game.Frames.Predicted;
+			PlayHapticFeedbackForDamage(spell.PowerAmount, f.Get<Stats>(spell.Victim).GetStatData(StatType.Health).StatValue.AsFloat);
+		}
+
+		private void OnPlayerKill(EventOnPlayerKilledPlayer callback)
+		{
+			if (!callback.Game.PlayerIsLocal(callback.PlayerKiller)) return;
+
+			MMVibrationManager.ContinuousHaptic(GameConstants.Haptics.PLAYER_KILL_INTENSITY,
+												GameConstants.Haptics.PLAYER_KILL_SHARPNESS,
+												GameConstants.Haptics.PLAYER_KILL_DURATION);												);
 		}
 
 		private unsafe void OnEventOnLocalPlayerSpecialUsed(EventOnLocalPlayerSpecialUsed callback)

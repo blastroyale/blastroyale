@@ -5826,13 +5826,14 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnPlayerAttackHit OnPlayerAttackHit(PlayerRef Player, EntityRef PlayerEntity, EntityRef HitEntity, FPVector3 HitPosition) {
+      public EventOnPlayerAttackHit OnPlayerAttackHit(PlayerRef Player, EntityRef PlayerEntity, EntityRef HitEntity, FPVector3 HitPosition, Spell Spell) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnPlayerAttackHit>(EventOnPlayerAttackHit.ID);
         ev.Player = Player;
         ev.PlayerEntity = PlayerEntity;
         ev.HitEntity = HitEntity;
         ev.HitPosition = HitPosition;
+        ev.Spell = Spell;
         _f.AddEvent(ev);
         return ev;
       }
@@ -7781,6 +7782,7 @@ namespace Quantum {
     public EntityRef PlayerEntity;
     public EntityRef HitEntity;
     public FPVector3 HitPosition;
+    public Spell Spell;
     protected EventOnPlayerAttackHit(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -7802,6 +7804,7 @@ namespace Quantum {
         hash = hash * 31 + PlayerEntity.GetHashCode();
         hash = hash * 31 + HitEntity.GetHashCode();
         hash = hash * 31 + HitPosition.GetHashCode();
+        hash = hash * 31 + Spell.GetHashCode();
         return hash;
       }
     }

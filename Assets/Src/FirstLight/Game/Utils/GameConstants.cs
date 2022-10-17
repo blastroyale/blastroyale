@@ -199,6 +199,12 @@ namespace FirstLight.Game.Utils
 			public const float GAME_START_DURATION = 0.25f;
 			public const float GAME_START_INTENSITY = 1f;
 			public const float GAME_START_SHARPNESS = 1f;
+
+			public const float PLAYER_KILL_DURATION = 0.3f;
+			public const float PLAYER_KILL_INTENSITY = 1;
+			public const float PLAYER_KILL_SHARPNESS = 1;
+
+
 		}
 	}
 }

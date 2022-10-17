@@ -11,13 +11,14 @@ namespace FirstLight.UiService
 		/// Attaches a view controller to a visual element, within a presenter. The view
 		/// object is created and initialized instantly.
 		/// </summary>
-		public static void AttachView<TElement, TView, TPData>(this TElement element,
-			UiToolkitPresenterData<TPData> presenter)
+		public static TElement AttachView<TElement, TView, TPData>(this TElement element,
+			UiToolkitPresenterData<TPData> presenter, out TView view)
 			where TElement : VisualElement
 			where TPData : struct
 			where TView : IUIView, new()
 		{
-			presenter.AddView(element, new TView());
+			presenter.AddView(element, view = new TView());
+			return element;
 		}
 	}
 }

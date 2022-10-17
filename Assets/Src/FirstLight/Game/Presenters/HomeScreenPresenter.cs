@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
@@ -11,6 +12,7 @@ using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
+using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Presenters
 {
@@ -20,6 +22,8 @@ namespace FirstLight.Game.Presenters
 	[LoadSynchronously]
 	public class HomeScreenPresenter : UiToolkitPresenterData<HomeScreenPresenter.StateData>
 	{
+		private const float CURRENCY_ANIM_DELAY = 2f;
+
 		private const string CS_POOL_AMOUNT_FORMAT = "<color=#FE6C07>{0}</color> / {1}";
 		private const string BPP_POOL_AMOUNT_FORMAT = "<color=#49D4D4>{0}</color> / {1}";
 
@@ -38,6 +42,7 @@ namespace FirstLight.Game.Presenters
 
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _gameServices;
+		private IMainMenuServices _mainMenuServices;
 
 		private Label _playerNameLabel;
 		private Label _playerTrophiesLabel;
@@ -64,6 +69,7 @@ namespace FirstLight.Game.Presenters
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_gameServices = MainInstaller.Resolve<IGameServices>();
+			_mainMenuServices = MainInstaller.Resolve<IMainMenuServices>();
 		}
 
 		protected override void QueryElements(VisualElement root)

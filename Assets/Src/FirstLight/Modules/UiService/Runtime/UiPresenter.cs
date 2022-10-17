@@ -161,21 +161,23 @@ namespace FirstLight.UiService
 
 		protected VisualElement Root;
 
-		private readonly List<IVisualElementLifecycle> _initializables = new();
+		private readonly Dictionary<VisualElement, IUIView> _views = new();
 
 		/// <summary>
 		/// Called when the presenter is ready to have the <paramref name="root"/> <see cref="VisualElement"/> queried for elements.
 		/// </summary>
-		protected abstract void QueryElements(VisualElement root);
+		protected virtual void QueryElements(VisualElement root)
+		{
+		}
 
 		/// <summary>
 		/// Subscribe to callbacks / events. Triggered after <see cref="QueryElements"/>, on every screen open.
 		/// </summary>
 		protected virtual void SubscribeToEvents()
 		{
-			foreach (var ie in _initializables)
+			foreach (var (_, view) in _views)
 			{
-				ie.RuntimeInit();
+				view.SubscribeToEvents();
 			}
 		}
 
@@ -184,10 +186,18 @@ namespace FirstLight.UiService
 		/// </summary>
 		protected virtual void UnsubscribeFromEvents()
 		{
-			foreach (var ie in _initializables)
+			foreach (var (_, view) in _views)
 			{
-				ie.RuntimeCleanup();
+				view.UnsubscribeFromEvents();
 			}
+		}
+
+		/// <summary>
+		/// Adds a <see cref="IUIView"/> view to the list of views, and handles it's lifecycle events.
+		/// </summary>
+		public void AddView(VisualElement element, IUIView view)
+		{
+			_views.Add(element, view);
 		}
 
 		protected override void OnOpened()
@@ -198,11 +208,16 @@ namespace FirstLight.UiService
 				QueryElements(Root);
 
 				// TODO: There has to be a better way to make this query
-				_initializables.Clear();
 				Root.Query()
-					.Where(ve => ve is IVisualElementLifecycle)
+					.Where(ve => typeof(IUIView).IsAssignableFrom(ve.GetType()))
 					.Build()
-					.ForEach(e => { _initializables.Add((IVisualElementLifecycle) e); });
+					.ForEach(e => { _views.Add(e, (IUIView) e); });
+
+
+				foreach (var (element, view) in _views)
+				{
+					view.RuntimeInit(element);
+				}
 			}
 
 			Root.EnableInClassList(UIConstants.CLASS_HIDDEN, false);

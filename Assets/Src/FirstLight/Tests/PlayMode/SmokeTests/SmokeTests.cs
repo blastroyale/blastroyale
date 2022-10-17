@@ -13,7 +13,6 @@ namespace FirstLight.Tests.PlayTests
 		[OneTimeSetUp]
 		public void Setup()
 		{
-		
 		}
 
 		[UnityTest]

@@ -104,7 +104,9 @@ namespace Backend.Plugins {
 			var loadedPlugins = new List<ServerPlugin>();
 			loadedPlugins.Add(new BlastRoyalePlugin());
 			loadedPlugins.Add(new TrophyLadderPlugin());
-			loadedPlugins.Add(new AnalyticsPlugin());
+			
+			// TODO: https://firstlightgames.atlassian.net/browse/BRG-886
+			//loadedPlugins.Add(new AnalyticsPlugin()); 
 			return loadedPlugins;
 		}
 		

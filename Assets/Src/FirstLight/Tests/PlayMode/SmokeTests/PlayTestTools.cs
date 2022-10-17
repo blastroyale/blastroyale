@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 using Object = UnityEngine.Object;
 
 namespace FirstLight.Tests.PlayTests
@@ -37,6 +38,15 @@ namespace FirstLight.Tests.PlayTests
 			if (timePassed >= timeout) {
 				throw new TimeoutException("Condition was not fulfilled for " + timeout + " seconds.");
 			}
+		}
+		
+		public static void ClickUIToolKitButton(UIDocument parent, string name)
+		{
+			var button = parent.rootVisualElement.Q<Button>(name);
+
+			var navigationSubmitEvent = NavigationSubmitEvent.GetPooled();
+			navigationSubmitEvent.target = button;
+			button.SendEvent(navigationSubmitEvent);
 		}
 	}
 }

@@ -1,0 +1,31 @@
+﻿{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:22903",
+      "sslPort": 44334
+    }
+  },
+  "profiles": {
+    "MatchmakingService": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:7258;http://localhost:5238",
+      "environmentVariables": {
+        "SqlConnectionString": "Server=localhost;Database=localDatabase;Port=5432;User Id=postgres;Password=localPassword;Ssl Mode=Allow;",
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "PLAYFAB_DEV_SECRET_KEY": "***REMOVED***",
+        "PLAYFAB_TITLE": "***REMOVED***"
+      }
+    },
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

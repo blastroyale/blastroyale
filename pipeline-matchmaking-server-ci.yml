@@ -1,0 +1,57 @@
+# Game Matchmaking server container build and release pipeline
+# This pipeline is respsonsible for building the matchmaking code and pushing it to the container registry
+
+name: $(Rev:r)
+
+trigger:
+  batch: true
+  branches:
+    include:
+    - develop
+  paths:
+    include:
+    - Backend
+    - pipeline-matchmaking-server-ci.yml
+pr: none
+
+resources:
+  repositories:
+  - repository: self
+  - repository: templates
+    type: bitbucket
+    endpoint: bitbucket
+    ref: master
+    name: first-light/infrastructure
+    
+variables:
+- group: Non-secrets
+- name: serviceConnection
+  value: AzureRM
+- name: repository
+  value: 'gamelogic'
+- name: dockerfile
+  value: MatchMakingService/Dockerfile
+- name: vmImageName
+  value: 'ubuntu-latest'
+
+pool:
+  vmImage: $(vmImageName)
+
+stages:
+- stage: Build
+  displayName: Build and push image
+  jobs:
+    - job: BuildPush
+      displayName: Build and push
+      steps:
+      - checkout: self
+        lfs: true
+        submodules: true
+      - template: pipelines/templates/docker-build-push.yml@templates
+        parameters:
+          serviceConnection: $(serviceConnection)
+          containerRegistry: $(REGISTRY_NAME)
+          repository: $(repository)
+          workingDirectory: Backend
+          buildArgs: |
+            -f $(dockerfile) . --no-cache

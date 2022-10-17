@@ -1,0 +1,182 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "BlastRoyaleCorePlugin/1.0.0": {
+        "dependencies": {
+          "FirstLightServerSDK": "1.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "6.0.0",
+          "Newtonsoft.Json": "13.0.1",
+          "PlayFabAllSDK": "1.108.220118",
+          "FirstLight.DataExtensions": "0.0.0.0",
+          "FirstLight.Game": "0.0.0.0",
+          "FirstLight.Services": "0.0.0.0",
+          "PhotonDeterministic": "2.1.0.0",
+          "PhotonQuantum": "0.0.0.0",
+          "quantum.code": "2.1.0.0",
+          "quantum.core": "2.1.0.0"
+        },
+        "runtime": {
+          "BlastRoyaleCorePlugin.dll": {}
+        }
+      },
+      "Microsoft.Extensions.Logging.Abstractions/6.0.0": {
+        "runtime": {
+          "lib/net6.0/Microsoft.Extensions.Logging.Abstractions.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.0.21.52210"
+          }
+        }
+      },
+      "Newtonsoft.Json/13.0.1": {
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "assemblyVersion": "13.0.0.0",
+            "fileVersion": "13.0.1.25517"
+          }
+        }
+      },
+      "PlayFabAllSDK/1.108.220118": {
+        "runtime": {
+          "lib/netstandard2.0/PlayFabAllSDK.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "FirstLightServerSDK/1.0.0": {
+        "runtime": {
+          "FirstLightServerSDK.dll": {}
+        }
+      },
+      "FirstLight.DataExtensions/0.0.0.0": {
+        "runtime": {
+          "FirstLight.DataExtensions.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "FirstLight.Game/0.0.0.0": {
+        "runtime": {
+          "FirstLight.Game.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "FirstLight.Services/0.0.0.0": {
+        "runtime": {
+          "FirstLight.Services.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "PhotonDeterministic/2.1.0.0": {
+        "runtime": {
+          "PhotonDeterministic.dll": {
+            "assemblyVersion": "2.1.0.0",
+            "fileVersion": "2.1.0.0"
+          }
+        }
+      },
+      "PhotonQuantum/0.0.0.0": {
+        "runtime": {
+          "PhotonQuantum.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "quantum.code/2.1.0.0": {
+        "runtime": {
+          "quantum.code.dll": {
+            "assemblyVersion": "2.1.0.0",
+            "fileVersion": "2.1.0.0"
+          }
+        }
+      },
+      "quantum.core/2.1.0.0": {
+        "runtime": {
+          "quantum.core.dll": {
+            "assemblyVersion": "2.1.0.0",
+            "fileVersion": "2.1.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "BlastRoyaleCorePlugin/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Extensions.Logging.Abstractions/6.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/HggWBbTwy8TgebGSX5DBZ24ndhzi93sHUBDvP1IxbZD7FDokYzdAr6+vbWGjw2XAfR2EJ1sfKUotpjHnFWPxA==",
+      "path": "microsoft.extensions.logging.abstractions/6.0.0",
+      "hashPath": "microsoft.extensions.logging.abstractions.6.0.0.nupkg.sha512"
+    },
+    "Newtonsoft.Json/13.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ppPFpBcvxdsfUonNcvITKqLl3bqxWbDCZIzDWHzjpdAHRFfZe0Dw9HmA0+za13IdyrgJwpkDTDA9fHaxOrt20A==",
+      "path": "newtonsoft.json/13.0.1",
+      "hashPath": "newtonsoft.json.13.0.1.nupkg.sha512"
+    },
+    "PlayFabAllSDK/1.108.220118": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-wuYJ/l5eo1T/g06Aj24UeGwWprBhXFBhlW4gLY2bCRpvUQIlKwHr8lPtHI8wWVjWdD+e1z3TGypXd6rFfBKJrw==",
+      "path": "playfaballsdk/1.108.220118",
+      "hashPath": "playfaballsdk.1.108.220118.nupkg.sha512"
+    },
+    "FirstLightServerSDK/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "FirstLight.DataExtensions/0.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "FirstLight.Game/0.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "FirstLight.Services/0.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "PhotonDeterministic/2.1.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "PhotonQuantum/0.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "quantum.code/2.1.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "quantum.core/2.1.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

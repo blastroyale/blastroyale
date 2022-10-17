@@ -53,24 +53,19 @@ namespace FirstLight.Game.Utils
 		public static bool QUANTUM_CUSTOM_SERVER = false;
 
 		/// <summary>
-		/// If false, leaderboard button will be disabled on the home screen
-		/// </summary>
-		public static readonly bool LEADERBOARD_ACCESSIBLE = true;
-
-		/// <summary>
 		/// If true will load game configurations from remote server
 		/// </summary>
 		public static bool REMOTE_CONFIGURATION = false;
 
 		/// <summary>
-		/// If true we award BattlePass points (BPP) and show the BattlePass button on the home screen.
-		/// </summary>
-		public static bool BATTLE_PASS_ENABLED = true;
-		
-		/// <summary>
 		/// If true all matches will be handled as ranked matches
 		/// </summary>
 		public static bool FORCE_RANKED = false;
+
+		/// <summary>
+		/// Enables / disables item durability checks
+		/// </summary>
+		public static bool ITEM_DURABILITY = false;
 
 		/// <summary>
 		/// Parses the feature flags from a given input dictionary.
@@ -88,7 +83,7 @@ namespace FirstLight.Game.Utils
 			{
 				COMMIT_VERSION_LOCK = commitVersionLock;
 			}
-
+			
 			if (TrySetFlag("REMOTE_CONFIGURATION", titleData, out var remoteConfig))
 			{
 				REMOTE_CONFIGURATION = remoteConfig;
@@ -97,6 +92,11 @@ namespace FirstLight.Game.Utils
 			if (TrySetFlag("FORCE_RANKED", titleData, out var forceRanked))
 			{
 				FORCE_RANKED = forceRanked;
+			}
+			
+			if (TrySetFlag("ITEM_DURABILITY", titleData, out var itemDurability))
+			{
+				ITEM_DURABILITY = itemDurability;
 			}
 			
 			ParseLocalFeatureFlags();

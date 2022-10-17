@@ -358,6 +358,19 @@ namespace FirstLight.Game.Logic
 			var gameId = GameLogic.UniqueIdLogic.Ids[itemId];
 			var slot = gameId.GetSlot();
 
+			if (!Inventory.TryGetValue(itemId, out var equipment))
+			{
+				throw new LogicException($"The player does not own item '{itemId}'");
+			}
+			
+			if (NftInventory.TryGetValue(itemId, out var nftData))
+			{
+				if (equipment.IsBroken(nftData))
+				{
+					throw new LogicException($"Item '{itemId}' is broken");
+				}
+			}
+
 			if (_loadout.TryGetValue(slot, out var equippedId))
 			{
 				if (equippedId == itemId)

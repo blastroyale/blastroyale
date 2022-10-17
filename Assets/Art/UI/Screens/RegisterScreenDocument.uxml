@@ -9,7 +9,7 @@
                 </ui:VisualElement>
                 <ui:VisualElement name="Container" style="flex-grow: 1; align-items: center; justify-content: space-between; padding-top: 48px; padding-bottom: 40px;">
                     <ui:TextField label="EMAIL" name="EmailTextField" class="font-italic input-field" />
-                    <ui:TextField label="USERNAME" name="UsernameTextField" password="true" class="font-italic input-field" style="margin-top: 22px; margin-bottom: 22px;" />
+                    <ui:TextField label="USERNAME" name="UsernameTextField" class="font-italic input-field" style="margin-top: 22px; margin-bottom: 22px;" />
                     <ui:TextField label="PASSWORD" name="PasswordTextField" password="true" class="font-italic input-field" style="margin-bottom: 50px;" />
                     <ui:VisualElement class="button-flat-outline">
                         <ui:Button text="REGISTER" name="RegisterButton" class="font-italic button-flat-primary" style="-unity-background-image-tint-color: rgb(255, 116, 0); width: 300px;" />

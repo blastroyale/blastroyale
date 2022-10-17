@@ -323,6 +323,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 
 			var weapons = await _characterView.EquipWeapon(callback.Weapon.GameId);
+			
+			var f = callback.Game.Frames.Verified;
+			if (!f.Exists(EntityView.EntityRef))
+			{
+				return;
+			}
 
 			for (var i = 0; i < weapons.Count; i++)
 			{

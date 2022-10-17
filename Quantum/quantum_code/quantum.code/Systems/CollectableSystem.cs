@@ -102,6 +102,8 @@ namespace Quantum.Systems
 		private void StartCollecting(Frame f, PlayerRef player, EntityRef playerEntity, Collectable* collectable,
 		                             EntityRef collectableEntity)
 		{
+			if (collectable->IsCollecting(player)) return;
+
 			collectable->CollectorsEndTime[player] = GetEndTime(f, collectableEntity, playerEntity);
 			f.Events.OnStartedCollecting(collectableEntity, *collectable, player, playerEntity);
 		}
@@ -109,13 +111,9 @@ namespace Quantum.Systems
 		private void StopCollecting(Frame f, EntityRef entity, EntityRef playerEntity, PlayerRef player,
 		                            Collectable* collectable)
 		{
-			if (!collectable->IsCollecting(player))
-			{
-				return;
-			}
+			if (!collectable->IsCollecting(player)) return;
 
 			collectable->CollectorsEndTime[player] = FP._0;
-
 			f.Events.OnStoppedCollecting(entity, player, playerEntity);
 		}
 

@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 6173720729520387432}
   - component: {fileID: 8202035712842655479}
   - component: {fileID: 8479397337943808347}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: ImpactGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5244,7 +5244,7 @@ GameObject:
   - component: {fileID: 2307958742751937317}
   - component: {fileID: 141992320202949272}
   - component: {fileID: 5962080958930081234}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: ImpactSpark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10114,7 +10114,7 @@ GameObject:
   - component: {fileID: 2921835592735700437}
   - component: {fileID: 8449039054819350785}
   - component: {fileID: 2927426723504251844}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: ConeParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14984,7 +14984,7 @@ GameObject:
   - component: {fileID: 8477479123833504227}
   - component: {fileID: 3183272109482338873}
   - component: {fileID: 7497214699223014455}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: OORSmoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19898,7 +19898,7 @@ GameObject:
   - component: {fileID: 773403202744006488}
   - component: {fileID: 7192515173974064228}
   - component: {fileID: 2686466951611175667}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: SmokeParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24812,7 +24812,7 @@ GameObject:
   - component: {fileID: 234338693003713143}
   - component: {fileID: 6472848961198324209}
   - component: {fileID: 8030625994436633200}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29767,7 +29767,7 @@ GameObject:
   - component: {fileID: 1849672409947367757}
   - component: {fileID: 6400150589929991849}
   - component: {fileID: 1619754360486928129}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: BulletFx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34663,7 +34663,7 @@ GameObject:
   - component: {fileID: 2548347293658470048}
   - component: {fileID: 6942334893900247217}
   - component: {fileID: 128768576721215129}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: ImpactMark
   m_TagString: Untagged
   m_Icon: {fileID: 0}

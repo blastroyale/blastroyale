@@ -167,6 +167,10 @@
     transition-delay: var(--animation-delay-1);
 }
 
+#SettingsButton:active > VisualElement {
+    -unity-background-image-tint-color: rgb(126, 126, 126);
+}
+
 #CSCurrency {
     transition-duration: var(--in-animation-duration);
     transition-timing-function: var(--in-animation-easing);

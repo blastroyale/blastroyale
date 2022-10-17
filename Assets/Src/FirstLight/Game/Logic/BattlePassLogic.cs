@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Services;
@@ -25,7 +26,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Gets the level and points that would be if current BPP was redeemed
 		/// </summary>
-		Tuple<uint, uint> GetPredictedLevelAndPoints();
+		Tuple<uint, uint> GetPredictedLevelAndPoints(int pointOverride = -1);
 
 		/// <summary>
 		/// The maximum (highest) level of the BattlePass.
@@ -47,7 +48,7 @@ namespace FirstLight.Game.Logic
 		/// Tells you if there are any points to redeem for levels and rewards, and gives you required points for
 		/// the next level.
 		/// </summary>
-		bool IsRedeemable();
+		bool IsRedeemable(int pointOverride = -1);
 	}
 
 	/// <inheritdoc />
@@ -96,10 +97,10 @@ namespace FirstLight.Game.Logic
 			_currentPoints = new ObservableResolverField<uint>(() => Data.BPPoints, val => Data.BPPoints = val);
 		}
 
-		public Tuple<uint, uint> GetPredictedLevelAndPoints()
+		public Tuple<uint, uint> GetPredictedLevelAndPoints(int pointOverride = -1)
 		{
 			var level = _currentLevel.Value;
-			var points = _currentPoints.Value;
+			var points = pointOverride >= 0 ? (uint) pointOverride : _currentPoints.Value;
 
 			var config = GameLogic.ConfigsProvider.GetConfig<BattlePassConfig>();
 
@@ -130,11 +131,12 @@ namespace FirstLight.Game.Logic
 			return GameLogic.ConfigsProvider.GetConfig<BattlePassRewardConfig>(levelConfig.RewardId);
 		}
 
-		public bool IsRedeemable()
+		public bool IsRedeemable(int pointOverride = -1)
 		{
 			var config = GameLogic.ConfigsProvider.GetConfig<BattlePassConfig>();
 
-			return _currentPoints.Value >= config.PointsPerLevel;
+			int points = pointOverride >= 0 ? pointOverride : (int) _currentPoints.Value;
+			return points >= config.PointsPerLevel;
 		}
 
 		public void AddBPP(uint amount)

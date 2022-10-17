@@ -275,13 +275,44 @@ namespace FirstLight.Game.Presenters
 
 		private void OnBattlePassCurrentLevelChanged(uint _, uint current)
 		{
-			UpdateBattlePassLevel(_gameDataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints().Item1);
+			if (!_rewardsCollecting)
+			{
+				UpdateBattlePassLevel(_gameDataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints().Item1);
+			}
 		}
 
-		private void OnBattlePassCurrentPointsChanged(uint _, uint current)
+		private void OnBattlePassCurrentPointsChanged(uint previous, uint current)
 		{
-			var predictedLevelAndPoints = _gameDataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
-			UpdateBattlePassPoints(predictedLevelAndPoints.Item1, predictedLevelAndPoints.Item2);
+			if (_rewardsCollecting)
+			{
+				StartCoroutine(AnimateBPP(GameId.BPP, previous, current));
+			}
+			else
+			{
+				var predictedLevelAndPoints = _gameDataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
+				UpdateBattlePassPoints(predictedLevelAndPoints.Item1, predictedLevelAndPoints.Item2);
+			}
+		}
+
+		private IEnumerator AnimateBPP(GameId id, ulong previous, ulong current)
+		{
+			yield return new WaitForSeconds(CURRENCY_ANIM_DELAY);
+
+			for (int i = 0; i < (int) (current - previous); i++)
+			{
+				int points = (int) previous + i + 1;
+				var predictedLevelAndPoints = _gameDataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints(points);
+
+				_mainMenuServices.UiVfxService.PlayVfx(id,
+					i * 0.1f,
+					Root.GetPositionOnScreen(Root) + Random.insideUnitCircle * 100,
+					_battlePassProgressElement.GetPositionOnScreen(Root),
+					() =>
+					{
+						UpdateBattlePassPoints(predictedLevelAndPoints.Item1, predictedLevelAndPoints.Item2, points);
+						_gameServices.AudioFxService.PlayClip2D(AudioId.CounterTick1);
+					});
+			}
 		}
 
 		private void UpdateBattlePassLevel(uint predictedLevel)
@@ -291,10 +322,10 @@ namespace FirstLight.Game.Presenters
 			_battlePassLevelLabel.text = nextLevel.ToString();
 		}
 
-		private void UpdateBattlePassPoints(uint predictedLevel, uint predictedPoints)
+		private void UpdateBattlePassPoints(uint predictedLevel, uint predictedPoints, int pointsOverride = -1)
 		{
 			var battlePassConfig = _gameServices.ConfigsProvider.GetConfig<BattlePassConfig>();
-			var hasRewards = _gameDataProvider.BattlePassDataProvider.IsRedeemable();
+			var hasRewards = _gameDataProvider.BattlePassDataProvider.IsRedeemable(pointsOverride);
 			_battlePassProgressElement.style.flexGrow =
 				Mathf.Clamp01((float) predictedPoints / battlePassConfig.PointsPerLevel);
 			_battlePassCrownIcon.style.display = hasRewards ? DisplayStyle.Flex : DisplayStyle.None;

@@ -12,6 +12,7 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public override void OnInit(Frame f)
 		{
+			f.GetOrAddSingleton<GameContainer>();
 			f.Global->Queries = f.AllocateList<EntityPair>(128);
 			f.Context.MapConfig = f.MapConfigs.GetConfig(f.RuntimeConfig.MapId);
 			f.Context.GameModeConfig = f.GameModeConfigs.GetConfig(f.RuntimeConfig.GameModeId);

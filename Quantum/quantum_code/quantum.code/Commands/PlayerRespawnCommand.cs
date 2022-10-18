@@ -21,7 +21,7 @@ namespace Quantum.Commands
 			if (!f.TryGet<DeadPlayerCharacter>(entity, out var deadPlayer) || 
 			    f.Time < deadPlayer.TimeOfDeath + f.GameConfig.PlayerRespawnTime)
 			{
-				throw new InvalidOperationException($"The player {playerRef} is not ready to be respawn yet");
+				Log.Error($"The player {playerRef} is not ready to be respawn yet");
 			}
 
 			var agent = f.Unsafe.GetPointer<HFSMAgent>(entity);

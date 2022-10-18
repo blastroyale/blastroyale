@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8709853206971877338}
-  - component: {fileID: 6632238814197866400}
   - component: {fileID: 2038229305707689117}
   m_Layer: 5
   m_Name: WeaponsHolder
@@ -41,22 +40,6 @@ RectTransform:
   m_AnchoredPosition: {x: -0.0000019073, y: 25}
   m_SizeDelta: {x: 449.3486, y: 187.9397}
   m_Pivot: {x: 0.5, y: 0}
---- !u!114 &6632238814197866400
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 194285906115883893}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb3325d99cd8cf54baac0278cac1d6b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _slots:
-  - {fileID: 1015186445677410935}
-  - {fileID: 9172691321193713012}
-  - {fileID: 6353272188110486423}
 --- !u!114 &2038229305707689117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,6 +262,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b448119e3559433583593ba4ecfaf120, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _slots:
+  - {fileID: 1015186445677410935}
+  - {fileID: 9172691321193713012}
+  - {fileID: 6353272188110486423}
   _specialButtons:
   - {fileID: 2387660755434332653}
   - {fileID: 8030084686762960181}
@@ -286,10 +273,6 @@ MonoBehaviour:
   - {fileID: 3447398606337825929}
   - {fileID: 2120427830526508390}
   - {fileID: 3389746616581589617}
-  _weaponSlotButtons:
-  - {fileID: 3626502624678355086}
-  - {fileID: 4831997867395798925}
-  - {fileID: 7236753782387548526}
   _weaponSlotsHolder: {fileID: 194285906115883893}
 --- !u!114 &1027417033953710780
 MonoBehaviour:
@@ -1170,17 +1153,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd26d8c7fdc1444b8472270fe3959ec7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7236753782387548526 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8151124542320932226, guid: 95638c5412039164ab1c1ff6b3832388, type: 3}
-  m_PrefabInstance: {fileID: 1544877250861421804}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5f11d691ff49f24ca26aaa08dcf0448, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &3607428244742316559
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1303,17 +1275,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2758850666544243002, guid: 95638c5412039164ab1c1ff6b3832388, type: 3}
   m_PrefabInstance: {fileID: 3607428244742316559}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4831997867395798925 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8151124542320932226, guid: 95638c5412039164ab1c1ff6b3832388, type: 3}
-  m_PrefabInstance: {fileID: 3607428244742316559}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5f11d691ff49f24ca26aaa08dcf0448, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &9172691321193713012 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5574289518252322683, guid: 95638c5412039164ab1c1ff6b3832388, type: 3}
@@ -1566,6 +1527,10 @@ PrefabInstance:
       propertyPath: m_fontSize
       value: 27.3
       objectReference: {fileID: 0}
+    - target: {fileID: 5574289518252322683, guid: 95638c5412039164ab1c1ff6b3832388, type: 3}
+      propertyPath: _button
+      value: 
+      objectReference: {fileID: 3626502624678355086}
     - target: {fileID: 8579843663414110870, guid: 95638c5412039164ab1c1ff6b3832388, type: 3}
       propertyPath: m_RaycastTarget
       value: 0

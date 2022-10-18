@@ -46,7 +46,7 @@ namespace Quantum.Systems
 			if (f.TryGet<PlayerCharacter>(filter.Spell->Attacker, out var attacker))
 			{
 				f.Events.OnPlayerAttackHit(attacker.Player, filter.Spell->Attacker, filter.Spell->Victim, 
-				                           filter.Spell->OriginalHitPosition);
+				                           filter.Spell->OriginalHitPosition, filter.Spell->PowerAmount);
 			}
 			
 			HandleHealth(f, *filter.Spell, false);

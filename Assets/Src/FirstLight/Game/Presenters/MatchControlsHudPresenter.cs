@@ -14,6 +14,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Button = UnityEngine.UI.Button;
+using ExitGames.Client.Photon.StructWrapping;
 
 namespace FirstLight.Game.Presenters
 {
@@ -48,7 +49,8 @@ namespace FirstLight.Game.Presenters
 			_weaponSlotButtons[2].onClick.AddListener(() => OnWeaponSlotClicked(2));
 			
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
-			QuantumEvent.Subscribe<EventOnPlayerDamaged>(this, OnPlayerDamaged);
+			QuantumEvent.Subscribe<EventOnPlayerAttackHit>(this, OnPlayerAttackHit);
+			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnPlayerKill);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveDrop>(this, OnLocalPlayerSkydiveDrop);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLanded);
@@ -276,18 +278,23 @@ namespace FirstLight.Game.Presenters
 			input.AimButton.Enable();
 		}
 
-		private void OnPlayerDamaged(EventOnPlayerDamaged callback)
+		private void OnPlayerAttackHit(EventOnPlayerAttackHit callback)
 		{
 			if (!callback.Game.PlayerIsLocal(callback.Player)) return;
-			
-			if (callback.ShieldDamage > 0)
+			var f = callback.Game.Frames.Predicted;
+			if (f.TryGet<Stats>(callback.HitEntity, out var hitEntityStats))
 			{
-				PlayHapticFeedbackForDamage(callback.ShieldDamage, callback.MaxShield);
+				PlayHapticFeedbackForDamage(callback.TotalDamage, hitEntityStats.GetStatData(StatType.Health).StatValue.AsFloat);
 			}
-			else if (callback.HealthDamage > 0)
-			{
-				PlayHapticFeedbackForDamage(callback.HealthDamage, callback.MaxHealth);
-			}
+		}
+
+		private void OnPlayerKill(EventOnPlayerKilledPlayer callback)
+		{
+			if (!callback.Game.PlayerIsLocal(callback.PlayerKiller)) return;
+
+			MMVibrationManager.ContinuousHaptic(GameConstants.Haptics.PLAYER_KILL_INTENSITY,
+												GameConstants.Haptics.PLAYER_KILL_SHARPNESS,
+												GameConstants.Haptics.PLAYER_KILL_DURATION);
 		}
 
 		private unsafe void OnEventOnLocalPlayerSpecialUsed(EventOnLocalPlayerSpecialUsed callback)

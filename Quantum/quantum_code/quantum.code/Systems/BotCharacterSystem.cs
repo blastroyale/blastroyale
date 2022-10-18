@@ -24,12 +24,10 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void OnPlayerDataSet(Frame f, PlayerRef playerRef)
 		{
-			var data = f.GetPlayerData(playerRef);
-			var playerTrophies= data?.PlayerTrophies ?? 1000u;
-			InitializeBots(f, playerTrophies);
+			InitializeBots(f);
 		}
 
-		private void InitializeBots(Frame f, uint baseTrophiesAmount)
+		private void InitializeBots(Frame f)
 		{
 			if (!f.Context.GameModeConfig.AllowBots || f.ComponentCount<BotCharacter>() > 0)
 			{
@@ -50,7 +48,7 @@ namespace Quantum.Systems
 
 			if (botIds.Count != playerLimit)
 			{
-				AddBots(f, botIds, baseTrophiesAmount);
+				AddBots(f, botIds);
 			}
 		}
 
@@ -870,7 +868,7 @@ namespace Quantum.Systems
 			return distanceSqr <= circle.CurrentRadius * circle.CurrentRadius;
 		}
 		
-		private void AddBots(Frame f, List<PlayerRef> botIds, uint baseTrophiesAmount)
+		private void AddBots(Frame f, List<PlayerRef> botIds)
 		{
 			var playerSpawners = GetFreeSpawnPoints(f);
 			var botConfigsList = GetBotConfigsList(f);
@@ -943,7 +941,7 @@ namespace Quantum.Systems
 				// Calculate bot trophies
 				var eloRange = f.GameConfig.TrophyEloRange;
 
-				var trophies = (uint) Math.Max((int) baseTrophiesAmount + f.RNG->Next(-eloRange / 2, eloRange / 2), 0);
+				var trophies = (uint) (f.GameConfig.BotsBaseTrophies + f.RNG->Next(-eloRange / 2, eloRange / 2));
 				
 				// TODO: Give bots random weapon based on average quality that players have
 				// TODO: Give bots random gear based on average quality that players have and teach bots to pick up gear

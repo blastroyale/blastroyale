@@ -43,8 +43,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			QuantumEvent.Subscribe<EventOnPlayerAmmoChanged>(this, HandleOnPlayerAmmoChanged);
 			QuantumEvent.Subscribe<EventOnPlayerWeaponChanged>(this, HandleOnPlayerWeaponChanged);
-
-			_slider.value = 0f;
 		}
 
 		private void HandleOnPlayerWeaponChanged(EventOnPlayerWeaponChanged callback)
@@ -89,7 +87,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				return;
 			}
-
+			Debug.LogWarning(player.GetAmmoAmountFilled(f, entity).AsFloat);
 			_slider.value = player.GetAmmoAmountFilled(f, entity).AsFloat;
 			_reloadBarImage.color = _primaryReloadColor;
 		}

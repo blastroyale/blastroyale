@@ -113,3 +113,4 @@ MonoBehaviour:
         RawValue: 1310720
       MultiKillResetTime:
         RawValue: 262144
+      BotsBaseTrophies: 1000

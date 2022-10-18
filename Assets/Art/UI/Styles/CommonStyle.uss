@@ -2,29 +2,30 @@
     --color-primary: rgb(240, 209, 94);
     --color-accent: rgb(196, 84, 122);
     --color-highlight: rgb(196, 84, 122);
-    --color-defauly: rgb(144, 98, 227);
+    --color-default: rgb(144, 98, 227);
     --color-body: rgb(148, 45, 68);
     transition-duration: 0.5s;
+
+    --font-regular: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Normal%20Regular.otf?fileID=12800000&guid=fc8266ceb95e44d6d812af34322286b7&type=3#Stawix - Amsi Pro Normal Regular');
+    --font-bold: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Condensed%20Bold.otf?fileID=12800000&guid=a3548c302ed824acb9afda8587ded4e7&type=3#Stawix - Amsi Pro Condensed Bold');
+    --font-italic: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Condensed%20Ultra%20Italic.otf?fileID=12800000&guid=6ff2428eb8a974c2281717afe377e3c6&type=3#Stawix - Amsi Pro Condensed Ultra Italic');
+    --font-light-italic: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Normal%20ExtraLight%20Italic.otf?fileID=12800000&guid=ecdd4df26ce474069865eb3673c40456&type=3#Stawix - Amsi Pro Normal ExtraLight Italic');
 }
 
 .font-regular {
-    -unity-font-definition: none;
-    -unity-font: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Normal%20Regular.otf?fileID=12800000&guid=fc8266ceb95e44d6d812af34322286b7&type=3#Stawix - Amsi Pro Normal Regular');
+    -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Normal%20Regular.otf?fileID=12800000&guid=fc8266ceb95e44d6d812af34322286b7&type=3#Stawix - Amsi Pro Normal Regular');
 }
 
 .font-bold {
-    -unity-font-definition: none;
-    -unity-font: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Condensed%20Bold.otf?fileID=12800000&guid=a3548c302ed824acb9afda8587ded4e7&type=3#Stawix - Amsi Pro Condensed Bold');
+    -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Condensed%20Bold.otf?fileID=12800000&guid=a3548c302ed824acb9afda8587ded4e7&type=3#Stawix - Amsi Pro Condensed Bold');
 }
 
 .font-italic {
-    -unity-font-definition: none;
-    -unity-font: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Condensed%20Ultra%20Italic.otf?fileID=12800000&guid=6ff2428eb8a974c2281717afe377e3c6&type=3#Stawix - Amsi Pro Condensed Ultra Italic');
+    -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Condensed%20Ultra%20Italic.otf?fileID=12800000&guid=6ff2428eb8a974c2281717afe377e3c6&type=3#Stawix - Amsi Pro Condensed Ultra Italic');
 }
 
 .font-light-italic {
-    -unity-font-definition: none;
-    -unity-font: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Normal%20ExtraLight%20Italic.otf?fileID=12800000&guid=ecdd4df26ce474069865eb3673c40456&type=3#Stawix - Amsi Pro Normal ExtraLight Italic');
+    -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Normal%20ExtraLight%20Italic.otf?fileID=12800000&guid=ecdd4df26ce474069865eb3673c40456&type=3#Stawix - Amsi Pro Normal ExtraLight Italic');
 }
 
 .font-style-h2 {
@@ -61,7 +62,7 @@ Button:hover {
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(0, 0, 0);
     overflow: visible;
-    -unity-background-image-tint-color: var(--color-defauly);
+    -unity-background-image-tint-color: var(--color-default);
     -unity-text-align: middle-center;
     align-items: center;
 }
@@ -128,10 +129,7 @@ TextField > #unity-text-input {
     padding-right: 40px;
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 2px;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-radius: 10px;
     border-left-width: 1px;
     border-right-width: 1px;
     border-top-width: 1px;
@@ -145,10 +143,7 @@ TextField > #unity-text-input {
     -unity-background-scale-mode: scale-and-crop;
     padding-top: 5px;
     padding-bottom: 5px;
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: 0;
-    margin-bottom: 0;
+    margin: 0;
 }
 
 .button-flat-outline {
@@ -157,10 +152,7 @@ TextField > #unity-text-input {
     border-top-width: 2px;
     border-bottom-width: 2px;
     -unity-text-outline-width: 4px;
-    border-top-left-radius: 12px;
-    border-bottom-left-radius: 12px;
-    border-top-right-radius: 12px;
-    border-bottom-right-radius: 12px;
+    border-radius: 12px;
     border-left-color: rgb(216, 214, 234);
     border-right-color: rgb(216, 214, 234);
     border-top-color: rgb(216, 214, 234);
@@ -205,10 +197,7 @@ TextField > #unity-text-input {
     border-right-color: rgb(59, 29, 144);
     border-top-color: rgb(59, 29, 144);
     border-bottom-color: rgb(59, 29, 144);
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-radius: 10px;
 }
 
 .button-flat-primary:hover {

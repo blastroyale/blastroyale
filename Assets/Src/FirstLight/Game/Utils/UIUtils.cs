@@ -30,7 +30,7 @@ namespace FirstLight.Game.Utils
 		{
 			var viewportPoint = element.worldBound.center / root.worldBound.size;
 			viewportPoint.y = 1 - viewportPoint.y;
-			
+
 			return Camera.main.ViewportToScreenPoint(viewportPoint);
 		}
 	}

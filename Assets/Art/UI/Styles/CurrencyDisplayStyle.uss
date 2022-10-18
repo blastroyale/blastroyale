@@ -1,0 +1,30 @@
+.currency-display {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/CurrencyBack.png?fileID=21300000&guid=5c34000b4db9d44d297310e0b968e481&type=3#CurrencyBack');
+    width: 197px;
+    height: 54px;
+    flex-direction: row;
+}
+
+.currency-display__icon {
+    width: 54px;
+    height: 54px;
+    margin-left: -17px;
+}
+
+.currency-display__icon--cs {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/CS.png?fileID=21300000&guid=d74b22177c5ba4ac6b9293d6c147e46e&type=3#CS');
+}
+
+.currency-display__icon--blst {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BLST.png?fileID=21300000&guid=b0ad58f6ca5c1472fa1fb6178491eb03&type=3#BLST');
+}
+
+.currency-display__label {
+    -unity-text-align: middle-left;
+    font-size: 42px;
+    margin-left: 30px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    -unity-font-definition: var(--font-italic);
+}

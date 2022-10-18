@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
@@ -22,6 +21,11 @@ namespace FirstLight.Game.Logic
 		/// Requests the list of rewards in buffer to be awarded to the player
 		/// </summary>
 		IObservableListReader<RewardData> UnclaimedRewards { get; }
+		
+		/// <summary>
+		/// Checks if we are currently collecting rewards (running <see cref="IRewardLogic.ClaimUncollectedRewards"/>).
+		/// </summary>
+		bool IsCollecting { get; }
 
 		/// <summary>
 		/// Generate a list of rewards based on the players <paramref name="matchData"/> performance from a game completed
@@ -50,6 +54,7 @@ namespace FirstLight.Game.Logic
 		private IObservableList<RewardData> _unclaimedRewards;
 
 		public IObservableListReader<RewardData> UnclaimedRewards => _unclaimedRewards;
+		public bool IsCollecting { get; private set; }
 
 		public RewardLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
 		{
@@ -170,6 +175,8 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public List<RewardData> ClaimUncollectedRewards()
 		{
+			IsCollecting = true;
+			
 			var rewards = new List<RewardData>(Data.UncollectedRewards.Count);
 
 			foreach (var reward in Data.UncollectedRewards)
@@ -178,6 +185,8 @@ namespace FirstLight.Game.Logic
 			}
 
 			Data.UncollectedRewards.Clear();
+			
+			IsCollecting = false;
 
 			return rewards;
 		}

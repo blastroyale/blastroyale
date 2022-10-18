@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using FirstLight.Game.UIElements;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -160,16 +161,24 @@ namespace FirstLight.UiService
 
 		protected VisualElement Root;
 
+		private readonly Dictionary<VisualElement, IUIView> _views = new();
+
 		/// <summary>
 		/// Called when the presenter is ready to have the <paramref name="root"/> <see cref="VisualElement"/> queried for elements.
 		/// </summary>
-		protected abstract void QueryElements(VisualElement root);
+		protected virtual void QueryElements(VisualElement root)
+		{
+		}
 
 		/// <summary>
 		/// Subscribe to callbacks / events. Triggered after <see cref="QueryElements"/>, on every screen open.
 		/// </summary>
 		protected virtual void SubscribeToEvents()
 		{
+			foreach (var (_, view) in _views)
+			{
+				view.SubscribeToEvents();
+			}
 		}
 
 		/// <summary>
@@ -177,6 +186,18 @@ namespace FirstLight.UiService
 		/// </summary>
 		protected virtual void UnsubscribeFromEvents()
 		{
+			foreach (var (_, view) in _views)
+			{
+				view.UnsubscribeFromEvents();
+			}
+		}
+
+		/// <summary>
+		/// Adds a <see cref="IUIView"/> view to the list of views, and handles it's lifecycle events.
+		/// </summary>
+		public void AddView(VisualElement element, IUIView view)
+		{
+			_views.Add(element, view);
 		}
 
 		protected override void OnOpened()
@@ -185,6 +206,18 @@ namespace FirstLight.UiService
 			{
 				Root = _document.rootVisualElement.Q(UIConstants.ID_ROOT);
 				QueryElements(Root);
+
+				// TODO: There has to be a better way to make this query
+				Root.Query()
+					.Where(ve => typeof(IUIView).IsAssignableFrom(ve.GetType()))
+					.Build()
+					.ForEach(e => { _views.Add(e, (IUIView) e); });
+
+
+				foreach (var (element, view) in _views)
+				{
+					view.RuntimeInit(element);
+				}
 			}
 
 			Root.EnableInClassList(UIConstants.CLASS_HIDDEN, false);

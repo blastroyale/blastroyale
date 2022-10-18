@@ -84,6 +84,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 734058f7d1ddca14da41f2d56d253dd0, type: 3}
   - {fileID: 21300000, guid: 8fb0ec6870d0c4c3f89a81afe077ea90, type: 3}
   - {fileID: 21300000, guid: a988dd399d737497f8f2a7ffb9814be7, type: 3}
+  - {fileID: 21300000, guid: a86e87494c00d43658e2b6e9edaeb9ad, type: 3}
   - {fileID: 21300000, guid: 0655db597a744f2499c7bf098e161522, type: 3}
   - {fileID: 21300000, guid: 1eebf889d9952494995383a7a0401e09, type: 3}
   - {fileID: 21300000, guid: 4358f599f237f4186a501d2d73007520, type: 3}
@@ -160,6 +161,7 @@ SpriteAtlas:
   - Female02Avatar
   - TimerBack
   - LightRaysColor
+  - GO-GOLOGO
   - JoystickThumbLeft
   - SkullKing
   - SpecialButtonDirectional

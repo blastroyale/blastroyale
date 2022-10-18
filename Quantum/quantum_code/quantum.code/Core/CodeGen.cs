@@ -5826,7 +5826,7 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnPlayerAttackHit OnPlayerAttackHit(PlayerRef Player, EntityRef PlayerEntity, EntityRef HitEntity, FPVector3 HitPosition, FP TotalDamage) {
+      public EventOnPlayerAttackHit OnPlayerAttackHit(PlayerRef Player, EntityRef PlayerEntity, EntityRef HitEntity, FPVector3 HitPosition, UInt32 TotalDamage) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnPlayerAttackHit>(EventOnPlayerAttackHit.ID);
         ev.Player = Player;
@@ -7782,7 +7782,7 @@ namespace Quantum {
     public EntityRef PlayerEntity;
     public EntityRef HitEntity;
     public FPVector3 HitPosition;
-    public FP TotalDamage;
+    public UInt32 TotalDamage;
     protected EventOnPlayerAttackHit(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }

@@ -127,7 +127,7 @@ synced event OnPlayerAttackHit
 	entity_ref PlayerEntity;
 	entity_ref HitEntity;
 	FPVector3 HitPosition;
-	FP TotalDamage;
+	UInt32 TotalDamage;
 }
 
 synced event OnPlayerStopAttack

@@ -284,7 +284,7 @@ namespace FirstLight.Game.Presenters
 			var f = callback.Game.Frames.Predicted;
 			if (f.TryGet<Stats>(callback.HitEntity, out var hitEntityStats))
 			{
-				PlayHapticFeedbackForDamage(callback.TotalDamage.AsFloat, hitEntityStats.GetStatData(StatType.Health).StatValue.AsFloat);
+				PlayHapticFeedbackForDamage(callback.TotalDamage, hitEntityStats.GetStatData(StatType.Health).StatValue.AsFloat);
 			}
 		}
 

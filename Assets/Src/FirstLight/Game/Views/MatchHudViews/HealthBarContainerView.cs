@@ -124,7 +124,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 			// Sometimes there is 1-frame race condition upon reconnection/setting up the health bar, where spectated health bar
 			// gets positioned incorrectly. There is most likely a better solution, but time is money, and I'm poor.
 			await Task.Yield();
-			
+
+			_healthBarSpectatePlayer.ResourceBarView.SetupView(f, playerEntity);
 			SetupHealthBar(f, playerEntity, _healthBarSpectatePlayer);
 		}
 		
@@ -157,7 +158,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			healthBar.HealthBar.SetupView(entity, stats.CurrentHealth, maxHealth);	
 			healthBar.HealthBarShieldView.SetupView(entity, stats.CurrentShield);
 			healthBar.OverlayView.Follow(anchor);
-			_healthBarSpectatePlayer.ResourceBarView.SetupView(f, entity);
 		}
 
 		private void OnGameplayEnded(MatchEndedMessage obj)

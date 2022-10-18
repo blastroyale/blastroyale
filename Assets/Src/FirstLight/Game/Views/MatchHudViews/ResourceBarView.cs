@@ -1,5 +1,7 @@
 using System.Collections;
+using Circuit;
 using FirstLight.Services;
+using Photon.Realtime;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -21,7 +23,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField] private Color _secondaryReloadColor;
 
 		private EntityRef _entity;
-		private Coroutine _coroutine;
 		private IObjectPool<GameObject> _separatorPool;
 		private GameId _currentWeapon;
 
@@ -32,7 +33,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			
 			QuantumEvent.UnsubscribeListener(this);
 		}
-		
+
 		/// <summary>
 		/// Updates this reload bar be configured to the given <paramref name="entity"/> with the given data
 		/// </summary>
@@ -45,6 +46,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			QuantumEvent.Subscribe<EventOnPlayerAmmoChanged>(this, HandleOnPlayerAmmoChanged);
 			QuantumEvent.Subscribe<EventOnPlayerWeaponChanged>(this, HandleOnPlayerWeaponChanged);
+
+			_slider.value = 0f;
 		}
 
 		private void HandleOnPlayerWeaponChanged(EventOnPlayerWeaponChanged callback)
@@ -89,7 +92,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				return;
 			}
-			
+
 			_slider.value = player.GetAmmoAmountFilled(f, entity).AsFloat;
 			_reloadBarImage.color = _primaryReloadColor;
 		}

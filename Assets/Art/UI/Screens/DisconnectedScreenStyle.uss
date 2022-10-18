@@ -4,6 +4,7 @@
     top: 0;
     right: 0;
     bottom: 0;
+    opacity: 1;
 }
 
 .popup-radius {
@@ -50,8 +51,18 @@ TextField > Label {
     -unity-background-scale-mode: scale-and-crop;
 }
 
-.blocker-hidden {
+.element-hidden {
     background-color: rgba(0, 0, 0, 0.45);
     display: none;
     transition-duration: 0.3s;
+}
+
+.unity-button {
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+.hidden {
+    transition-delay: 1s;
+    display: none;
 }

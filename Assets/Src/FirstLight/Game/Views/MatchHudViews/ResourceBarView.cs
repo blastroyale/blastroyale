@@ -87,7 +87,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				return;
 			}
-			Debug.LogWarning(player.GetAmmoAmountFilled(f, entity).AsFloat);
 			_slider.value = player.GetAmmoAmountFilled(f, entity).AsFloat;
 			_reloadBarImage.color = _primaryReloadColor;
 		}

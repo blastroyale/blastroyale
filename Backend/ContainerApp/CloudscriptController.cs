@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Backend;
 using FirstLight.Game.Logic;
+using GameLogicService.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -24,10 +25,21 @@ namespace ContainerApp.Cloudscript
 	public class CloudscriptController : ControllerBase
 	{
 		private ILogicWebService _logicServer;
+		private ShopService _shop;
 
-		public CloudscriptController(ILogicWebService logicServer)
+		public CloudscriptController(ILogicWebService logicServer, ShopService shop)
 		{
 			_logicServer = logicServer;
+			_shop = shop;
+		}
+		
+		[HttpPost]
+		[RequiresApiKey]
+		[Route("ConsumeValidatedPurchaseCommand")]
+		public async Task<dynamic> ConsumeValidatedPurchaseCommand([FromBody] CloudscriptRequest request)
+		{
+			var itemId = request.FunctionArgument.Data["item_id"];
+			return Ok(new CloudscriptResponse(await _shop.ProcessPurchaseRequest(request.PlayfabId, itemId)));
 		}
 		
 		[HttpPost]

@@ -1,6 +1,8 @@
+using System;
 using System.IO;
 using System.Text;
 using Backend;
+using ContainerApp.Cloudscript;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using Microsoft.AspNetCore.Builder;
@@ -15,6 +17,7 @@ using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Server.SDK.Services;
+using GameLogicService.Services;
 using StandaloneServer;
 
 // A minimalistic server wrapper for the game-server as a containerized rest api for local development & testing.
@@ -48,15 +51,17 @@ app.MapPost("/CloudScript/ExecuteFunction", async (ctx) =>
 	var logicString = functionRequest?.FunctionParameter as JsonObject;
 	var logicRequest = serializer.DeserializeObject<LogicRequest>(logicString?.ToString());
 	var webServer = app.Services.GetService<ILogicWebService>();
-	
+	var shop = app.Services.GetService<ShopService>();
+
 	logger.LogInformation($"Logic Request Contents: {logicString?.ToString()}");
 	
 	// TODO: Make attribute that implements service calls in both Azure Functions and Standalone to avoid this
 	PlayFabResult<BackendLogicResult?> result = functionRequest?.FunctionName switch
 	{
-		"RemovePlayerData" => await webServer.RemovePlayerData(playerId),
-		"ExecuteCommand" => await webServer.RunLogic(playerId, logicRequest),
-		"GetPlayerData"  => await webServer.GetPlayerData(playerId)
+		"ConsumeValidatedPurchaseCommand" => await shop.ProcessPurchaseRequest(playerId, logicRequest.Data["item_id"]),
+		"RemovePlayerData"                => await webServer.RemovePlayerData(playerId),
+		"ExecuteCommand"                  => await webServer.RunLogic(playerId, logicRequest),
+		"GetPlayerData"                   => await webServer.GetPlayerData(playerId)
 	};
 	var res = new ExecuteFunctionResult()
 	{

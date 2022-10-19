@@ -198,6 +198,7 @@ namespace FirstLight.Game.Logic
 			{
 				GameLogic.CurrencyLogic.AddCurrency(reward.RewardId, (uint) reward.Value);
 			}
+			// TODO: New box types
 			else
 			{
 				throw

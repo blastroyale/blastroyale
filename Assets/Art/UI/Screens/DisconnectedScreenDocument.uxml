@@ -8,13 +8,13 @@
                     <ui:Label text="CONNECTION LOST" display-tooltip-when-elided="true" name="Title" class="font-italic font-style-h2" />
                 </ui:VisualElement>
                 <ui:VisualElement name="Container">
-                    <ui:Label text="YOU HAVE BEEN DISCONNECTED FROM THE GAME." display-tooltip-when-elided="true" name="DisconnectedDesc" class="font-italic" style="color: rgb(122, 118, 167); font-size: 30px;" />
+                    <ui:Label text="YOU HAVE BEEN DISCONNECTED FROM THE GAME." display-tooltip-when-elided="true" name="DisconnectedDesc" class="font-italic" />
                     <ui:VisualElement name="HoriLayout" style="flex-direction: row; flex-shrink: 1;">
                         <ui:Button text="MAIN MENU" name="MenuButton" class="font-italic button-flat-primary" />
                         <ui:Button text="RECONNECT" name="ReconnectButton" class="font-italic button-flat-primary" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="Blocker" class="element-hidden" style="background-color: rgba(0, 0, 0, 0.36); position: absolute; left: 0; top: 0; right: 0; bottom: 0; transition-duration: 0.3s;" />
+                <ui:VisualElement name="Blocker" class="element-hidden" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

@@ -32,20 +32,19 @@ namespace FirstLight.Game.StateMachines
 	{
 		public static readonly IStatechartEvent PhotonMasterConnectedEvent = new StatechartEvent("NETWORK - Photon Master Connected Event");
 		public static readonly IStatechartEvent PhotonDisconnectedEvent = new StatechartEvent("NETWORK - Photon Disconnected Event");
-		public static readonly IStatechartEvent DisconnectedScreenBackEvent = new StatechartEvent("NETWORK - Disconnected Screen Back Event");
 		public static readonly IStatechartEvent CreateRoomFailedEvent = new StatechartEvent("NETWORK - Create Room Failed Event");
 		public static readonly IStatechartEvent JoinedRoomEvent = new StatechartEvent("NETWORK - Joined Room Event");
 		public static readonly IStatechartEvent JoinRoomFailedEvent = new StatechartEvent("NETWORK - Join Room Fail Event");
 		public static readonly IStatechartEvent LeftRoomEvent = new StatechartEvent("NETWORK - Left Room Event");
 		public static readonly IStatechartEvent RoomClosedEvent = new StatechartEvent("NETWORK - Room Closed Event");
 		public static readonly IStatechartEvent AttemptReconnectEvent = new StatechartEvent("NETWORK - Attempt Reconnect Event");
+		public static readonly IStatechartEvent DisconnectedScreenBackEvent = new StatechartEvent("NETWORK - Disconnected Screen Back Event");
 		public static readonly IStatechartEvent OpenServerSelectScreenEvent = new StatechartEvent("NETWORK - Open Server Select Screen Event");
 		public static readonly IStatechartEvent ConnectToNameServerFailEvent = new StatechartEvent("NETWORK - Connected To Name Fail Server Event");
 		public static readonly IStatechartEvent RegionListReceivedEvent = new StatechartEvent("NETWORK - Regions List Received");
 		
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _gameDataProvider;
-		private readonly IGameUiService _uiService;
 		private readonly IGameBackendNetworkService _networkService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private Coroutine _matchmakingCoroutine;
@@ -53,11 +52,10 @@ namespace FirstLight.Game.StateMachines
 
 		private QuantumRunnerConfigs QuantumRunnerConfigs => _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 
-		public NetworkState(IGameLogic gameLogic, IGameServices services, IGameUiService uiService,
+		public NetworkState(IGameLogic gameLogic, IGameServices services,
 		                    IGameBackendNetworkService networkService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
-			_uiService = uiService;
 			_gameDataProvider = gameLogic;
 			_networkService = networkService;
 			_statechartTrigger = statechartTrigger;
@@ -74,8 +72,7 @@ namespace FirstLight.Game.StateMachines
 			var initialConnection = stateFactory.State("NETWORK - Initial Connection");
 			var connected = stateFactory.State("NETWORK - Connected");
 			var disconnected = stateFactory.State("NETWORK - Disconnected");
-			var disconnectedScreen = stateFactory.State("NETWORK - Disconnected Screen");
-			var reconnecting = stateFactory.State("NETWORK - Reconnecting Screen");
+			var reconnecting = stateFactory.State("NETWORK - Reconnecting");
 			var disconnectForServerSelect = stateFactory.State("NETWORK - Disconnect Photon For Name Server");
 			var getAvailableRegions = stateFactory.State("NETWORK - Server Select Screen");
 			var serverSelectScreen = stateFactory.State("NETWORK - Get Available Regions");
@@ -87,12 +84,20 @@ namespace FirstLight.Game.StateMachines
 			initialConnection.OnEnter(ConnectPhoton);
 			initialConnection.Event(PhotonMasterConnectedEvent).Target(connected);
 
-			connected.Event(PhotonDisconnectedEvent).Target(disconnectedScreen);
-			connected.Event(OpenServerSelectScreenEvent).Target(disconnectForServerSelect);
-
 			connectionCheck.Transition().Condition(IsPhotonConnectedAndReady).Target(connected);
 			connectionCheck.Transition().Target(disconnected);
+			
+			connected.Event(PhotonDisconnectedEvent).Target(disconnected);
+			connected.Event(OpenServerSelectScreenEvent).Target(disconnectForServerSelect);
 
+			disconnected.OnEnter(UpdateDisconnectionLocation);
+			disconnected.Event(PhotonMasterConnectedEvent).Target(connected);
+			disconnected.Event(AttemptReconnectEvent).Target(reconnecting);
+			
+			reconnecting.OnEnter(ReconnectPhoton);
+			reconnecting.Event(PhotonMasterConnectedEvent).Target(connected);
+			reconnecting.Event(PhotonDisconnectedEvent).Target(disconnected);
+			
 			disconnectForServerSelect.OnEnter(OpenServerSelectScreen);
 			disconnectForServerSelect.OnEnter(DisconnectPhoton);
 			disconnectForServerSelect.Event(PhotonDisconnectedEvent).Target(getAvailableRegions);
@@ -104,21 +109,6 @@ namespace FirstLight.Game.StateMachines
 			serverSelectScreen.OnEnter(InitServerSelect);
 			serverSelectScreen.Event(PhotonMasterConnectedEvent).Target(connected);
 			serverSelectScreen.OnExit(CloseServerSelectScreen);
-
-			disconnectedScreen.OnEnter(UpdateDisconnectionLocation);
-			disconnectedScreen.OnEnter(OpenDisconnectedScreen);
-			disconnectedScreen.Event(AttemptReconnectEvent).Target(reconnecting);
-			disconnectedScreen.Event(DisconnectedScreenBackEvent).OnTransition(CloseDisconnectedScreen).Target(disconnected);
-
-			reconnecting.OnEnter(DimDisconnectedScreen);
-			reconnecting.Event(PhotonMasterConnectedEvent).Target(connected);
-			reconnecting.Event(JoinedRoomEvent).Target(connected);
-			reconnecting.Event(JoinRoomFailedEvent).Target(connected);
-			reconnecting.OnExit(UndimDisconnectedScreen);
-			reconnecting.OnExit(CloseDisconnectedScreen);
-
-			disconnected.OnEnter(ConnectPhoton);
-			disconnected.Event(PhotonMasterConnectedEvent).Target(connected);
 
 			final.OnEnter(UnsubscribeEvents);
 		}
@@ -170,17 +160,6 @@ namespace FirstLight.Game.StateMachines
 			return SceneManager.GetActiveScene().name != GameConstants.Scenes.SCENE_MAIN_MENU;
 		}
 
-		private void OpenDisconnectedScreen()
-		{
-			var data = new DisconnectedScreenPresenter.StateData
-			{
-				ReconnectClicked = OnAttemptReconnectClicked,
-				BackClicked = () => { _statechartTrigger(DisconnectedScreenBackEvent); }
-			};
-
-			_uiService.OpenUiAsync<DisconnectedScreenPresenter, DisconnectedScreenPresenter.StateData>(data);
-		}
-
 		private void OpenServerSelectScreen()
 		{
 			var data = new ServerSelectScreenPresenter.StateData
@@ -204,58 +183,9 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private void OnAttemptReconnectClicked()
-		{
-			_statechartTrigger(AttemptReconnectEvent);
-
-			if (CurrentSceneIsMatch())
-			{
-				_networkService.IsJoiningNewMatch.Value = false;
-
-				if (_networkService.LastDisconnectLocation.Value == LastDisconnectionLocation.Matchmaking)
-				{
-					_networkService.IsJoiningNewMatch.Value = true;
-					SetSpectatePlayerProperty(false);
-					
-					// TTL during matchmaking is 0 - we must connect to room manually again by name
-					// Rejoining room is handled OnMasterConnected
-					_requiresManualRoomReconnection = true;
-					_networkService.QuantumClient.ReconnectToMaster();
-				}
-				else
-				{
-					_networkService.QuantumClient.ReconnectAndRejoin();
-				}
-			}
-			else
-			{
-				_networkService.QuantumClient.ReconnectToMaster();
-			}
-		}
-
-		private void OpenLoadingScreen()
-		{
-			_uiService.OpenUi<LoadingScreenPresenter>();
-		}
-
-		private void CloseDisconnectedScreen()
-		{
-			_uiService.CloseUi<DisconnectedScreenPresenter>(false, true);
-		}
-
 		private void CloseServerSelectScreen()
 		{
 			_uiService.CloseUi<ServerSelectScreenPresenter>(false, true);
-		}
-
-		private void DimDisconnectedScreen()
-		{
-			_uiService.GetUi<DisconnectedScreenPresenter>().SetFrontDimBlockerActive(true);
-		}
-
-		private void UndimDisconnectedScreen()
-		{
-			_uiService.GetUi<DisconnectedScreenPresenter>().SetFrontDimBlockerActive(false);
 		}
 
 		private void SubscribeEvents()
@@ -816,6 +746,33 @@ namespace FirstLight.Game.StateMachines
 		private void ConnectPhotonToRegionMaster()
 		{
 			_networkService.QuantumClient.ConnectToRegionMaster(_gameDataProvider.AppDataProvider.ConnectionRegion.Value);
+		}
+		
+		private void ReconnectPhoton()
+		{
+			if (CurrentSceneIsMatch())
+			{
+				_networkService.IsJoiningNewMatch.Value = false;
+
+				if (_networkService.LastDisconnectLocation.Value == LastDisconnectionLocation.Matchmaking)
+				{
+					_networkService.IsJoiningNewMatch.Value = true;
+					SetSpectatePlayerProperty(false);
+					
+					// TTL during matchmaking is 0 - we must connect to room manually again by name
+					// Rejoining room is handled OnMasterConnected
+					_requiresManualRoomReconnection = true;
+					_networkService.QuantumClient.ReconnectToMaster();
+				}
+				else
+				{
+					_networkService.QuantumClient.ReconnectAndRejoin();
+				}
+			}
+			else
+			{
+				_networkService.QuantumClient.ReconnectToMaster();
+			}
 		}
 
 		private void DisconnectPhoton()

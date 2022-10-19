@@ -134,7 +134,7 @@ namespace FirstLight.Game.StateMachines
 			homeMenu.Event(_battlePassClickedEvent).Target(battlePass);
 			homeMenu.OnExit(ClosePlayMenuUI);
 
-			playClickedCheck.Transition().Condition(EnoughNftToPlay).OnTransition(SendMatchmakingReadyMessage).Target(roomWait);
+			playClickedCheck.Transition().Condition(EnoughNftToPlay).OnTransition(SendPlayReadyMessage).Target(roomWait);
 			playClickedCheck.Transition().Target(nftPlayRestricted);
 
 			roomWait.Event(NetworkState.JoinedRoomEvent).Target(final);
@@ -204,7 +204,7 @@ namespace FirstLight.Game.StateMachines
 			_services.GameModeService.SelectedGameMode.Value = gameMode;
 		}
 
-		private void SendMatchmakingReadyMessage()
+		private void SendPlayReadyMessage()
 		{
 			_services.MessageBrokerService.Publish(new PlayMatchmakingReadyMessage());
 		}
@@ -338,10 +338,35 @@ namespace FirstLight.Game.StateMachines
 			_uiService.OpenUi<HomeScreenPresenter, HomeScreenPresenter.StateData>(data);
 			_services.MessageBrokerService.Publish(new PlayScreenOpenedMessage());
 		}
+		
+		private void OpenDisconnectedScreen()
+		{
+			var data = new DisconnectedScreenPresenter.StateData
+			{
+				ReconnectClicked = () =>_statechartTrigger(NetworkState.AttemptReconnectEvent)
+			};
+
+			_uiService.OpenUiAsync<DisconnectedScreenPresenter, DisconnectedScreenPresenter.StateData>(data);
+		}
+
+		private void CloseDisconnectedScreen()
+		{
+			_uiService.CloseUi<DisconnectedScreenPresenter>(false, true);
+		}
 
 		private void ClosePlayMenuUI()
 		{
 			_uiService.CloseUi<HomeScreenPresenter>();
+		}
+		
+		private void DimDisconnectedScreen()
+		{
+			_uiService.GetUi<DisconnectedScreenPresenter>().SetFrontDimBlockerActive(true);
+		}
+
+		private void UndimDisconnectedScreen()
+		{
+			_uiService.GetUi<DisconnectedScreenPresenter>().SetFrontDimBlockerActive(false);
 		}
 
 		private void LoadingComplete()

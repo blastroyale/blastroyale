@@ -44,7 +44,7 @@ namespace FirstLight.Game.Services
 		public IReadOnlyList<Product> Products => _products;
 
 		private List<Product> _products;
-		private IObservableField<bool> _initialized;
+		private readonly IObservableField<bool> _initialized;
 
 		private readonly IGameCommandService _commandService;
 		private readonly IMessageBrokerService _messageBroker;
@@ -101,9 +101,18 @@ namespace FirstLight.Game.Services
 
 		public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs purchaseEvent)
 		{
-			FLog.Info($"Purchase processed: {purchaseEvent.purchasedProduct.definition.id}");
+			var fakeStore = IsFakeStore(purchaseEvent.purchasedProduct);
+			FLog.Info($"Purchase processed: {purchaseEvent.purchasedProduct.definition.id}, Fake store: {fakeStore}");
+			
+			if (fakeStore)
+			{
+				PurchaseValidated(purchaseEvent.purchasedProduct);
+			}
+			else
+			{
+				ValidateReceipt(purchaseEvent.purchasedProduct);
+			}
 
-			ValidateReceipt(purchaseEvent.purchasedProduct);
 			return PurchaseProcessingResult.Pending;
 		}
 
@@ -124,6 +133,7 @@ namespace FirstLight.Game.Services
 				Data = new Dictionary<string, string>
 				{
 					{"item_id", product.definition.id},
+					{"fake_store", IsFakeStore(product).ToString()}
 				}
 			};
 
@@ -144,7 +154,7 @@ namespace FirstLight.Game.Services
 		private void ValidateReceipt(Product product)
 		{
 			var cacheProduct = product;
-			var payload = JsonConvert.DeserializeObject<Dictionary<string, object>>(product.receipt)["Payload"]
+			var payload = JsonConvert.DeserializeObject<Dictionary<string, object>>(product.receipt)!["Payload"]
 				.ToString();
 			var currencyCode = product.metadata.isoCurrencyCode;
 			var price = product.metadata.localizedPrice * 100;
@@ -157,7 +167,7 @@ namespace FirstLight.Game.Services
 				ReceiptData = payload
 			};
 
-			PlayFabClientAPI.ValidateIOSReceipt(request, result => PurchaseValidated(cacheProduct), OnPlayFabError);
+			PlayFabClientAPI.ValidateIOSReceipt(request, _ => PurchaseValidated(cacheProduct), OnPlayFabError);
 #else
 			var data = JsonConvert.DeserializeObject<Dictionary<string, object>>(payload);
 			var request = new ValidateGooglePlayPurchaseRequest
@@ -168,13 +178,19 @@ namespace FirstLight.Game.Services
 				Signature = (string) data["signature"]
 			};
 			
-			PlayFabClientAPI.ValidateGooglePlayPurchase(request, result => PurchaseValidated(cacheProduct), GameCommandService.OnPlayFabError);
+			PlayFabClientAPI.ValidateGooglePlayPurchase(request, _ => PurchaseValidated(cacheProduct), GameCommandService.OnPlayFabError);
 #endif
 		}
 
 		private void OnPlayFabError(PlayFabError error)
 		{
 			FLog.Error($"PlayFab error: {error.ErrorMessage}");
+		}
+
+		private bool IsFakeStore(Product product)
+		{
+			return !product.hasReceipt || string.IsNullOrEmpty(product.receipt) ||
+				product.receipt.Contains("\"Store\":\"fake\"");
 		}
 	}
 }

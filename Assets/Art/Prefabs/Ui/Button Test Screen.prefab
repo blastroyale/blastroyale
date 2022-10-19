@@ -232,7 +232,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 130999
 --- !u!114 &8319965732889919071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -652,9 +652,11 @@ MonoBehaviour:
   PressedDuration: 0.1
   PressedScale: {x: 0.9, y: 0.9, z: 1}
   HapticType: 9
-  TapSoundFx: 0
   Anchor: {fileID: 1258992397951521644}
   ClickClip: {fileID: 7400000, guid: 8da4a1b66ec254299997f5be772934bd, type: 2}
+  PlaySound: 1
+  IsForward: 1
+  OverrideClickSfxId: 0
 --- !u!1 &1851220668391683322
 GameObject:
   m_ObjectHideFlags: 0
@@ -800,9 +802,11 @@ MonoBehaviour:
   PressedDuration: 0.1
   PressedScale: {x: 0.9, y: 0.9, z: 1}
   HapticType: 9
-  TapSoundFx: 0
   Anchor: {fileID: 4101457498960921087}
   ClickClip: {fileID: 7400000, guid: 47f4cc28b635045d0be5221018fbc0de, type: 2}
+  PlaySound: 1
+  IsForward: 1
+  OverrideClickSfxId: 0
 --- !u!1 &2000632268098942455
 GameObject:
   m_ObjectHideFlags: 0
@@ -1161,9 +1165,11 @@ MonoBehaviour:
   PressedDuration: 0.1
   PressedScale: {x: 0.9, y: 0.9, z: 1}
   HapticType: 9
-  TapSoundFx: 0
   Anchor: {fileID: 1288874407878676459}
   ClickClip: {fileID: 7400000, guid: 382a5c7d063224d16b5caae8326aa7fb, type: 2}
+  PlaySound: 1
+  IsForward: 1
+  OverrideClickSfxId: 0
 --- !u!1 &2745080669942189014
 GameObject:
   m_ObjectHideFlags: 0
@@ -1364,9 +1370,11 @@ MonoBehaviour:
   PressedDuration: 0.1
   PressedScale: {x: 0.9, y: 0.9, z: 1}
   HapticType: 9
-  TapSoundFx: 0
   Anchor: {fileID: 8113152267981106762}
   ClickClip: {fileID: 7400000, guid: 9156be79ceacb48e189707b85efafc35, type: 2}
+  PlaySound: 1
+  IsForward: 1
+  OverrideClickSfxId: 0
 --- !u!1 &3593085114320327864
 GameObject:
   m_ObjectHideFlags: 0
@@ -1626,9 +1634,11 @@ MonoBehaviour:
   PressedDuration: 0.1
   PressedScale: {x: 0.9, y: 0.9, z: 1}
   HapticType: 9
-  TapSoundFx: 0
   Anchor: {fileID: 84688731474141398}
   ClickClip: {fileID: 7400000, guid: 80887c2be4e674bfe8453355d0cfaf40, type: 2}
+  PlaySound: 1
+  IsForward: 1
+  OverrideClickSfxId: 0
 --- !u!1 &4438765599008911190
 GameObject:
   m_ObjectHideFlags: 0
@@ -2607,9 +2617,11 @@ MonoBehaviour:
   PressedDuration: 0.1
   PressedScale: {x: 0.9, y: 0.9, z: 1}
   HapticType: 9
-  TapSoundFx: 0
   Anchor: {fileID: 8357171297392619985}
   ClickClip: {fileID: 7400000, guid: 7df7ded7dc0c34026a4d960665bd5814, type: 2}
+  PlaySound: 1
+  IsForward: 1
+  OverrideClickSfxId: 0
 --- !u!1 &8655849649796394340
 GameObject:
   m_ObjectHideFlags: 0
@@ -2755,9 +2767,11 @@ MonoBehaviour:
   PressedDuration: 0.1
   PressedScale: {x: 0.9, y: 0.9, z: 1}
   HapticType: 9
-  TapSoundFx: 0
   Anchor: {fileID: 6887650865639677522}
   ClickClip: {fileID: 7400000, guid: d28addb3dd8d04ac3a54c98a457c0666, type: 2}
+  PlaySound: 1
+  IsForward: 1
+  OverrideClickSfxId: 0
 --- !u!1 &8858996986199929016
 GameObject:
   m_ObjectHideFlags: 0

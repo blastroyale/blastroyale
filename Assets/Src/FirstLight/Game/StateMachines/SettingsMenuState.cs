@@ -3,10 +3,12 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
+using FirstLight.NativeUi;
 using FirstLight.Statechart;
 using I2.Loc;
 using PlayFab;
 using PlayFab.ClientModels;
+using PlayFab.CloudScriptModels;
 using UnityEngine;
 
 namespace FirstLight.Game.StateMachines
@@ -89,7 +91,8 @@ namespace FirstLight.Game.StateMachines
 				LogoutClicked = TryLogOut,
 				OnClose = () => _statechartTrigger(_settingsCloseClickedEvent),
 				OnServerSelectClicked = () => _statechartTrigger(NetworkState.OpenServerSelectScreenEvent),
-				OnConnectIdClicked = () => _statechartTrigger(_connectIdClickedEvent)
+				OnConnectIdClicked = () => _statechartTrigger(_connectIdClickedEvent),
+				OnDeleteAccountClicked = () => _services.PlayfabService.CallFunction("RemovePlayerData", OnAccountDeleted)
 			};
 
 			_uiService.OpenUiAsync<SettingsScreenPresenter, SettingsScreenPresenter.StateData>(data);
@@ -209,6 +212,25 @@ namespace FirstLight.Game.StateMachines
 			};
 
 			_services.GenericDialogService.OpenDialog(msg.Message, false, confirmButton);
+		}
+
+		private void OnAccountDeleted(ExecuteFunctionResult res)
+		{
+			TryLogOut();
+			var button = new AlertButton
+			{
+				Callback = () =>
+				{
+					_services.QuitGame("Account Deleted");
+				},
+				Style = AlertButtonStyle.Negative,
+				Text = "Quit Game"
+			};
+			NativeUiService.ShowAlertPopUp(
+				false, 
+				ScriptLocalization.MainMenu.DeleteAccountConfirm, 
+				ScriptLocalization.MainMenu.DeleteAccountConfirmMessage, 
+				button);
 		}
 	}
 }

@@ -781,6 +781,9 @@ namespace I2.Loc
 			public static string DeathmatchPlayOnline 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DeathmatchPlayOnline"); } }
 			public static string DeathmatchPlayRoom 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DeathmatchPlayRoom"); } }
 			public static string DefeatedBossXTimes 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DefeatedBossXTimes"); } }
+			public static string DeleteAccountConfirm 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DeleteAccountConfirm"); } }
+			public static string DeleteAccountConfirmMessage 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DeleteAccountConfirmMessage"); } }
+			public static string DeleteAccountRequestMessage 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DeleteAccountRequestMessage"); } }
 			public static string Demo 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Demo"); } }
 			public static string DetailLevel 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DetailLevel"); } }
 			public static string DialogueSetting 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DialogueSetting"); } }
@@ -1851,6 +1854,9 @@ namespace I2.Loc
 		    public const string DeathmatchPlayOnline = "MainMenu/DeathmatchPlayOnline";
 		    public const string DeathmatchPlayRoom = "MainMenu/DeathmatchPlayRoom";
 		    public const string DefeatedBossXTimes = "MainMenu/DefeatedBossXTimes";
+		    public const string DeleteAccountConfirm = "MainMenu/DeleteAccountConfirm";
+		    public const string DeleteAccountConfirmMessage = "MainMenu/DeleteAccountConfirmMessage";
+		    public const string DeleteAccountRequestMessage = "MainMenu/DeleteAccountRequestMessage";
 		    public const string Demo = "MainMenu/Demo";
 		    public const string DetailLevel = "MainMenu/DetailLevel";
 		    public const string DialogueSetting = "MainMenu/DialogueSetting";

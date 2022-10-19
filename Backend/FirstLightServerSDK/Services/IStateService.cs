@@ -17,6 +17,11 @@ namespace FirstLight.Server.SDK.Services
 		/// Reads the player data and returns it as a ServerData type.
 		/// </summary>
 		public Task<ServerState> GetPlayerState(string playerId);
+
+		/// <summary>
+		/// Removes a given player state from server.
+		/// </summary>
+		public Task DeleteState(string playerId);
 	}
 }
 

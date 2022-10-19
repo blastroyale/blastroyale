@@ -42,9 +42,10 @@ namespace FirstLight.Game.Presenters
 		
 		protected override void QueryElements(VisualElement root)
 		{
-			_blockerElement = root.Q("Blocker");
-			_menuButton = root.Q("MenuButton");
-			_reconnectButton = root.Q("ReconnectButton");
+			_blockerElement = root.Q("Blocker").Required();
+			_menuButton = root.Q("MenuButton").Required();
+			_reconnectButton = root.Q("ReconnectButton").Required();
+			
 			root.Q<Button>("ReconnectButton").clicked += OnReconnectClicked;
 			root.Q<Button>("MenuButton").clicked += OnLeaveClicked;
 		}

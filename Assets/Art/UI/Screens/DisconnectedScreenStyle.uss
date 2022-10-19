@@ -1,12 +1,3 @@
-:root {
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    opacity: 1;
-}
-
 .popup-radius {
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
@@ -14,7 +5,7 @@
     border-bottom-right-radius: 20px;
 }
 
-TextField > Label {
+#TextField > #Label {
     margin-right: 15px;
     width: 150px;
     font-size: 33px;
@@ -65,4 +56,8 @@ TextField > Label {
 .hidden {
     transition-delay: 1s;
     display: none;
+}
+
+#Header > #Title {
+    -unity-text-align: upper-center;
 }

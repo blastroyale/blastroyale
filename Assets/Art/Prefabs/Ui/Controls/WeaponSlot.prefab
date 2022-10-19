@@ -626,6 +626,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd26d8c7fdc1444b8472270fe3959ec7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _button: {fileID: 8151124542320932226}
   _container: {fileID: 2758850666544243002}
   _weaponGroup: {fileID: 635783163375649088}
   _name: {fileID: 5105229970019092228}

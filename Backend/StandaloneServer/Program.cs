@@ -54,8 +54,9 @@ app.MapPost("/CloudScript/ExecuteFunction", async (ctx) =>
 	// TODO: Make attribute that implements service calls in both Azure Functions and Standalone to avoid this
 	PlayFabResult<BackendLogicResult?> result = functionRequest?.FunctionName switch
 	{
+		"RemovePlayerData" => await webServer.RemovePlayerData(playerId),
 		"ExecuteCommand" => await webServer.RunLogic(playerId, logicRequest),
-		"GetPlayerData" => await webServer.GetPlayerData(playerId)
+		"GetPlayerData"  => await webServer.GetPlayerData(playerId)
 	};
 	var res = new ExecuteFunctionResult()
 	{

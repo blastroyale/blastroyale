@@ -117,6 +117,7 @@ namespace FirstLight.Game.StateMachines
 
 			disconnected.OnEnter(OpenDisconnectedScreen);
 			disconnected.Event(NetworkState.PhotonMasterConnectedEvent).Target(screenCheck);
+			disconnected.OnEnter(CloseDisconnectedScreen);
 			
 			screenCheck.Transition().Condition(IsCurrentScreen<HomeScreenPresenter>).Target(defaultNameCheck);
 			screenCheck.Transition().Condition(IsCurrentScreen<LootScreenPresenter>).Target(lootMenu);

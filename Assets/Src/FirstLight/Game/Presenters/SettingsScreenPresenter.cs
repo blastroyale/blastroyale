@@ -26,12 +26,14 @@ namespace FirstLight.Game.Presenters
 			public Action OnClose;
 			public Action OnConnectIdClicked;
 			public Action OnServerSelectClicked;
+			public Action OnDeleteAccountClicked;
 		}
 		
 		[SerializeField, Required] private TextMeshProUGUI _versionText;
 		[SerializeField, Required] private Button _closeButton;
 		[SerializeField, Required] private Button _blockerButton;
 		[SerializeField, Required] private Button _logoutButton;
+		[SerializeField, Required] private Button _deleteAccountButton;
 		[SerializeField, Required] private UiToggleButtonView _backgroundMusicToggle;
 		[SerializeField, Required] private UiToggleButtonView _sfxToggle;
 		[SerializeField, Required] private UiToggleButtonView _dialogueToggle;
@@ -77,6 +79,7 @@ namespace FirstLight.Game.Presenters
 			_closeButton.onClick.AddListener(OnClosedCompleted);
 			_blockerButton.onClick.AddListener(OnBlockerButtonPressed);
 			_logoutButton.onClick.AddListener(OnLogoutClicked);
+			_deleteAccountButton.onClick.AddListener(OnDeleteAccountClicked);
 			_connectIdButton.onClick.AddListener(OpenConnectId);
 			_backgroundMusicToggle.onValueChanged.AddListener(OnBgmChanged);
 			_sfxToggle.onValueChanged.AddListener(OnSfxChanged);
@@ -184,6 +187,17 @@ namespace FirstLight.Game.Presenters
 				ButtonOnClick = new UnityAction(Data.LogoutClicked)
 			};
 
+			_services.GenericDialogService.OpenDialog(title, true, confirmButton);
+		}
+
+		private void OnDeleteAccountClicked()
+		{
+			var title = ScriptLocalization.MainMenu.DeleteAccountRequestMessage;
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.General.OK,
+				ButtonOnClick = new UnityAction(Data.OnDeleteAccountClicked)
+			};
 			_services.GenericDialogService.OpenDialog(title, true, confirmButton);
 		}
 

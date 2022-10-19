@@ -2293,7 +2293,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - What's your name Hero?
+      - What's your name Blaster?
       - 
       - 
       Flags: 000000
@@ -3367,6 +3367,33 @@ MonoBehaviour:
       Description: 
       Languages:
       - ' +{0} {1} IN {2}'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/DeleteAccountRequestMessage
+      TermType: 0
+      Description: 
+      Languages:
+      - Are you sure to delete your account ? This cannot be undone.
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/DeleteAccountConfirmMessage
+      TermType: 0
+      Description: 
+      Languages:
+      - Your account has been deleted. Your game will close now.
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/DeleteAccountConfirm
+      TermType: 0
+      Description: 
+      Languages:
+      - Account Deleted
       - 
       - 
       Flags: 000000
@@ -9003,7 +9030,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Congratulations Hero! Craft spice claimed!
+      - Congratulations Blaster! Craft spice claimed!
       - 
       - user.ts
       Flags: 000000
@@ -9234,7 +9261,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1665671942896
+    Google_LastUpdatedVersion: 1666106239703
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

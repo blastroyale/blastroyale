@@ -10,7 +10,7 @@ using FirstLight.UiService;
 using I2.Loc;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
 {
@@ -19,7 +19,8 @@ namespace FirstLight.Game.Presenters
 	/// - Reconnect to the Adventure
 	/// - Leave the Adventure to the Main menu
 	/// </summary>
-	public class DisconnectedScreenPresenter : UiPresenterData<DisconnectedScreenPresenter.StateData>
+	[LoadSynchronously]
+	public class DisconnectedScreenPresenter : UiToolkitPresenterData<DisconnectedScreenPresenter.StateData>
 	{
 		public struct StateData
 		{
@@ -28,25 +29,31 @@ namespace FirstLight.Game.Presenters
 		}
 
 		private const float TIMEOUT_DIM_SECONDS = 5f;
-
-		[SerializeField, Required] private Button _reconnectButton;
-		[SerializeField, Required] private Button _menuButton;
-		[SerializeField, Required] private GameObject _frontDimBlocker;
-
+		
+		private VisualElement _blockerElement;
+		private VisualElement _menuButton;
+		private VisualElement _reconnectButton;
 		private IGameServices _services;
-		private IGameDataProvider _gameDataProvider;
 		
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
+		}
+		
+		protected override void QueryElements(VisualElement root)
+		{
+			_blockerElement = root.Q("Blocker").Required();
+			_menuButton = root.Q("MenuButton").Required();
+			_reconnectButton = root.Q("ReconnectButton").Required();
 			
-			_reconnectButton.onClick.AddListener(OnReconnectClicked);
-			_menuButton.onClick.AddListener(OnLeaveClicked);
+			root.Q<Button>("ReconnectButton").clicked += OnReconnectClicked;
+			root.Q<Button>("MenuButton").clicked += OnLeaveClicked;
 		}
 
 		protected override void OnOpened()
 		{
+			base.OnOpened();
+			
 			SetFrontDimBlockerActive(false);
 
 			_services.AudioFxService.PlayClip2D(AudioId.DisconnectScreenAppear);
@@ -56,26 +63,26 @@ namespace FirstLight.Game.Presenters
 				OpenNoInternetPopup();
 			}
 			
-			_menuButton.gameObject.SetActive(_services.NetworkService.LastDisconnectLocation != LastDisconnectionLocation.Menu);
-
+			_menuButton.EnableInClassList("element-hidden", _services.NetworkService.LastDisconnectLocation == LastDisconnectionLocation.Menu);
+			
 			// Always force reconnect to ranked matches to prevent exploits
 			if (_services.GameModeService.SelectedGameMode.Value.Entry.MatchType == MatchType.Ranked)
 			{
-				_menuButton.gameObject.SetActive(false);
+				_menuButton.EnableInClassList("element-hidden", true);
 			}
 			
 			// Disconnecting during final preload means the game most likely started, player shouldn't be reconnecting and interfering
 			if (_services.NetworkService.LastDisconnectLocation == LastDisconnectionLocation.FinalPreload)
 			{
-				_reconnectButton.gameObject.SetActive(false);
+				_reconnectButton.EnableInClassList("element-hidden", true);
 			}
 			// If disconnected in offline mode (playing solo), can't reconnect due to quantum simulation not running
 			// without at least 1 player connected in match at all times
 			else if (_services.NetworkService.LastDisconnectLocation == LastDisconnectionLocation.Simulation &&
 			         _services.NetworkService.LastMatchPlayers.Count <= 1)
 			{
-				_reconnectButton.gameObject.SetActive(false);
-				_menuButton.gameObject.SetActive(true);
+				_menuButton.EnableInClassList("element-hidden", false);
+				_reconnectButton.EnableInClassList("element-hidden", true);
 				
 				var confirmButton = new GenericDialogButton
 				{
@@ -92,7 +99,7 @@ namespace FirstLight.Game.Presenters
 		/// </summary>
 		public void SetFrontDimBlockerActive(bool active)
 		{
-			_frontDimBlocker.SetActive(active);
+			_blockerElement.EnableInClassList("element-hidden", !active);
 		}
 
 		private void OnLeaveClicked()

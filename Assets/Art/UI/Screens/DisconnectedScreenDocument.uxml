@@ -1,0 +1,21 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Screens/DisconnectedScreenStyle.uss?fileID=7433441132597879392&amp;guid=968b6e338250e984388d510b63cd84bd&amp;type=3#DisconnectedScreenStyle" />
+    <ui:VisualElement name="root" class="background hidden">
+        <ui:VisualElement name="PopupBackground" class="popup-radius">
+            <ui:VisualElement name="PopupWindow" class="popup-radius popup-window">
+                <ui:VisualElement name="Header" class="background-purple" style="overflow: hidden;">
+                    <ui:VisualElement name="TitleDots" class="dots-pattern" style="top: -138px; left: -28px;" />
+                    <ui:Label text="CONNECTION LOST" display-tooltip-when-elided="true" name="Title" class="font-italic font-style-h2" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Container">
+                    <ui:Label text="YOU HAVE BEEN DISCONNECTED FROM THE GAME." display-tooltip-when-elided="true" name="DisconnectedDesc" class="font-italic" />
+                    <ui:VisualElement name="HoriLayout" style="flex-direction: row; flex-shrink: 1;">
+                        <ui:Button text="MAIN MENU" name="MenuButton" class="font-italic button-flat-primary" />
+                        <ui:Button text="RECONNECT" name="ReconnectButton" class="font-italic button-flat-primary" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="Blocker" class="element-hidden" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

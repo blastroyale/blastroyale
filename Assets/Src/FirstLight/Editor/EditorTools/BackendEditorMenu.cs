@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using FirstLight.Game.Configs;
@@ -5,9 +6,11 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using PlayFab;
+using PlayFab.AdminModels;
 using PlayFab.PfEditor;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Purchasing;
 
 namespace FirstLight.Editor.EditorTools
 {
@@ -17,11 +20,13 @@ namespace FirstLight.Editor.EditorTools
 	public static class BackendMenu
 	{
 		private static readonly string _unityPath = $"{Application.dataPath}/../Library/ScriptAssemblies/";
-		private static readonly string _quantumLibPath = $"{Application.dataPath}/../Assets/Libs/Photon/Quantum/Assemblies/";
-		
+
+		private static readonly string _quantumLibPath =
+			$"{Application.dataPath}/../Assets/Libs/Photon/Quantum/Assemblies/";
+
 		private static string _backendPath => $"{Application.dataPath}/../Backend";
 		private static string _backendLibsPath => $"{_backendPath}/Lib";
-		
+
 		static BackendMenu()
 		{
 			var cfg = FeatureFlags.GetLocalConfiguration();
@@ -30,7 +35,7 @@ namespace FirstLight.Editor.EditorTools
 				PlayFabSettings.LocalApiServer = "http://localhost:7274";
 			}
 		}
-		
+
 		private static void CopyAssembly(string from, string assemblyName)
 		{
 			var gameDllPath = $"{from}{assemblyName}";
@@ -39,9 +44,10 @@ namespace FirstLight.Editor.EditorTools
 			{
 				Directory.CreateDirectory(_backendLibsPath);
 			}
+
 			File.Copy(gameDllPath, destDll, true);
 		}
-		
+
 		[MenuItem("FLG/Backend/Copy DLLs")]
 		private static void MoveBackendDlls()
 		{
@@ -49,13 +55,13 @@ namespace FirstLight.Editor.EditorTools
 			CopyAssembly(_quantumLibPath, "quantum.code.dll");
 			CopyAssembly(_quantumLibPath, "quantum.core.dll");
 			CopyAssembly(_quantumLibPath, "PhotonDeterministic.dll");
-			  
+
 			// Script Assembly Dependencies
-			CopyAssembly(_unityPath,"FirstLight.DataExtensions.dll");
-			CopyAssembly(_unityPath,"FirstLight.Game.Server.dll"); 
-			CopyAssembly(_unityPath,"FirstLight.Game.dll"); 
-			CopyAssembly(_unityPath,"FirstLight.Services.dll");
-			CopyAssembly(_unityPath,"PhotonQuantum.dll");
+			CopyAssembly(_unityPath, "FirstLight.DataExtensions.dll");
+			CopyAssembly(_unityPath, "FirstLight.Game.Server.dll");
+			CopyAssembly(_unityPath, "FirstLight.Game.dll");
+			CopyAssembly(_unityPath, "FirstLight.Services.dll");
+			CopyAssembly(_unityPath, "PhotonQuantum.dll");
 		}
 
 		/// <summary>
@@ -71,12 +77,12 @@ namespace FirstLight.Editor.EditorTools
 			Debug.Log("Parsing Configs");
 			await Task.WhenAll(configsLoader.LoadConfigTasks(configs));
 			var serialiezd = serializer.Serialize(configs, "develop");
-			
-			File.WriteAllText ($"{_backendPath}/GameLogicService/gameConfig.json", serialiezd);
+
+			File.WriteAllText($"{_backendPath}/GameLogicService/gameConfig.json", serialiezd);
 			Debug.Log("Parsed and saved in backend folder");
 		}
-		
-#if UNITY_EDITOR && ENABLE_PLAYFABADMIN_API		
+
+#if UNITY_EDITOR && ENABLE_PLAYFABADMIN_API
 		/// <summary>
 		/// Uploads the last serialized configuration to dev playfab.
 		/// Playfab title is set in the Window -> Playfab -> Editor Extension menu
@@ -95,14 +101,15 @@ namespace FirstLight.Editor.EditorTools
 				var currentVersion = ulong.Parse(configVersion ?? "0");
 				var nextVersion = currentVersion + 1;
 				var title = PlayFabEditorDataService.ActiveTitle;
-				if(!EditorUtility.DisplayDialog("Confirm Version Update",
-					@$"Update configs from version {currentVersion} to {nextVersion} on environment {title.Name.ToUpper()} {title.Id.ToUpper()}?", "Confirm", "Cancel"))
+				if (!EditorUtility.DisplayDialog("Confirm Version Update",
+						@$"Update configs from version {currentVersion} to {nextVersion} on environment {title.Name.ToUpper()} {title.Id.ToUpper()}?",
+						"Confirm", "Cancel"))
 				{
 					return;
 				}
-				
+
 				var serialiezd = serializer.Serialize(configs, nextVersion.ToString());
-			
+
 				PlayFabShortcuts.SetTitleData(PlayfabConfigurationProvider.ConfigName, serialiezd);
 				PlayFabShortcuts.SetTitleData(PlayfabConfigurationProvider.ConfigVersion, nextVersion.ToString());
 				Debug.Log($"Configs uploaded to playfab and version bumped to {nextVersion}");
@@ -114,10 +121,10 @@ namespace FirstLight.Editor.EditorTools
 		private static void ForceUpdate()
 		{
 			var services = MainInstaller.Resolve<IGameServices>();
-			((GameCommandService)services.CommandService).ForceServerDataUpdate();
+			((GameCommandService) services.CommandService).ForceServerDataUpdate();
 			Debug.Log("Force Update Sent to Server");
 		}
-		
+
 		[MenuItem("FLG/Backend/Use Local Server")]
 		private static void UseLocalServer()
 		{
@@ -135,7 +142,7 @@ namespace FirstLight.Editor.EditorTools
 			PlayFabSettings.LocalApiServer = null;
 			Debug.Log("Requests will go to REMOTE server now");
 		}
-		
+
 		[MenuItem("FLG/Backend/Use Remote Configs")]
 		private static void UseRemoteConfigs()
 		{
@@ -143,13 +150,40 @@ namespace FirstLight.Editor.EditorTools
 			FeatureFlags.SaveLocalConfig();
 			Debug.Log("Using Remote Configurations from Playfab");
 		}
-		
+
 		[MenuItem("FLG/Backend/Use Local Configs")]
 		private static void UseLocalConfigs()
 		{
 			FeatureFlags.GetLocalConfiguration().UseLocalConfigs = true;
 			FeatureFlags.SaveLocalConfig();
 			Debug.Log("Using Remote Configurations from Playfab");
+		}
+
+		[MenuItem("FLG/Backend/Update IAP Catalog")]
+		private static void UpdateIAPCatalog()
+		{
+			var catalog = ProductCatalog.LoadDefaultCatalog();
+
+			var playfabCatalog = new List<CatalogItem>();
+
+			foreach (var item in catalog.allProducts)
+			{
+				var playfabItem = new CatalogItem()
+				{
+					ItemId = item.id,
+					Consumable = new CatalogItemConsumableInfo
+					{
+						UsageCount = 1
+					}
+				};
+
+				playfabCatalog.Add(playfabItem);
+			}
+
+			PlayFabAdminAPI.SetCatalogItems(
+				new UpdateCatalogItemsRequest {Catalog = playfabCatalog, CatalogVersion = "Store"},
+				_ => { Debug.Log("Catalog updated successfully."); },
+				error => { Debug.LogError($"Error updating catalog: {error.ErrorMessage}"); });
 		}
 	}
 }

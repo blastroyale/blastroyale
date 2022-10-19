@@ -5,23 +5,6 @@
     border-bottom-right-radius: 20px;
 }
 
-#TextField > #Label {
-    margin-right: 15px;
-    width: 150px;
-    font-size: 33px;
-}
-
-#PopupBackground {
-    width: 1000px;
-    height: 350px;
-    background-color: rgb(0, 0, 0);
-    transition-timing-function: ease-out;
-    transition-duration: 0.5s;
-    transition-property: top;
-    top: 0;
-    transition-delay: 0.5s;
-}
-
 .hidden #PopupBackground {
     top: -1000px;
     transition-timing-function: ease-in;
@@ -58,6 +41,43 @@
     display: none;
 }
 
+#PopupWindow {
+    position: absolute;
+    left: -10px;
+    top: -10px;
+    right: 10px;
+    bottom: 10px;
+    background-color: rgb(255, 255, 255);
+    overflow: hidden;
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+}
+
+#PopupBackground {
+    width: 1000px;
+    height: 350px;
+    background-color: rgb(0, 0, 0);
+    transition-timing-function: ease-out;
+    transition-duration: 0.5s;
+    transition-property: top;
+    top: 0;
+    transition-delay: 0.5s;
+}
+
 #Header > #Title {
     -unity-text-align: upper-center;
+}
+
+#Container {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 48px;
+    padding-bottom: 40px;
 }

@@ -16,6 +16,8 @@ using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Server.SDK.Services;
 using IGameCommand = FirstLight.Game.Commands.IGameCommand;
 using FirstLight.Game.Commands;
+using FirstLight.Game.Data;
+using Newtonsoft.Json;
 
 namespace Backend.Game
 {
@@ -77,6 +79,21 @@ public class GameServer
 					newState[CommandFields.ConfigurationVersion] = _gameConfigs.Version.ToString();
 				}
 			}
+			
+			// DEBUG HACK //
+			// ADDED TO DEBUG MISSING RNG DATA
+			var request = JsonConvert.SerializeObject(requestData);
+			var rngData = newState.DeserializeModel<RngData>();
+			if (rngData == null || rngData.Seed == 0)
+			{
+				throw new Exception($"[Tell Gabriel] Rng Data got wiped in memory during {cmdType}:{request}");
+			}
+			var remoteState = await _state.GetPlayerState(playerId);
+			if (!remoteState.ContainsKey(typeof(RngData).FullName))
+			{
+				throw new Exception($"[Tell Gabriel] Rng Data got wiped during state update {cmdType}:{request}");
+			}
+			// END DEBUG //
 			
 			return new BackendLogicResult()
 			{

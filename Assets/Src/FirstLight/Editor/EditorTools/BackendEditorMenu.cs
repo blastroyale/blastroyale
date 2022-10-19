@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -5,6 +6,7 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
+using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.AdminModels;
 using PlayFab.PfEditor;
@@ -162,28 +164,54 @@ namespace FirstLight.Editor.EditorTools
 		[MenuItem("FLG/Backend/Update IAP Catalog")]
 		private static void UpdateIAPCatalog()
 		{
-			var catalog = ProductCatalog.LoadDefaultCatalog();
-
-			var playfabCatalog = new List<CatalogItem>();
-
-			foreach (var item in catalog.allProducts)
+			Debug.Log("Requesting catalog items from PlayFab");
+			PlayFabAdminAPI.GetCatalogItems(new GetCatalogItemsRequest {CatalogVersion = "Store"}, result =>
 			{
-				var playfabItem = new CatalogItem()
+				Debug.Log("Request completed successfully.");
+				var catalog = new ProductCatalog
 				{
-					ItemId = item.id,
-					Consumable = new CatalogItemConsumableInfo
-					{
-						UsageCount = 1
-					}
+					enableCodelessAutoInitialization = false,
+					enableUnityGamingServicesAutoInitialization = true
 				};
 
-				playfabCatalog.Add(playfabItem);
-			}
+				foreach (var item in result.Catalog)
+				{
+					var catItem = new ProductCatalogItem()
+					{
+						id = item.ItemId
+					};
 
-			PlayFabAdminAPI.SetCatalogItems(
-				new UpdateCatalogItemsRequest {Catalog = playfabCatalog, CatalogVersion = "Store"},
-				_ => { Debug.Log("Catalog updated successfully."); },
-				error => { Debug.LogError($"Error updating catalog: {error.ErrorMessage}"); });
+					catItem.AddPayout();
+					catItem.Payouts[0].type = ProductCatalogPayout.ProductCatalogPayoutType.Item;
+					catItem.Payouts[0].quantity = (double) item.Consumable.UsageCount;
+					catItem.Payouts[0].data = item.CustomData;
+
+					Debug.Log("Virtual:");
+					foreach (var (key, value) in item.VirtualCurrencyPrices)
+					{
+						Debug.Log($"PRICE: {key}, {value}");
+					}
+
+					Debug.Log("Real:");
+					foreach (var (key, value) in item.RealCurrencyPrices)
+					{
+						Debug.Log($"PRICE: {key}, {value}");
+					}
+
+					var price = item.VirtualCurrencyPrices["RM"] / 100f;
+					catItem.applePriceTier = Mathf.RoundToInt(price);
+					catItem.googlePrice = new Price {value = (decimal) price};
+
+					catalog.Add(catItem);
+				}
+
+				// Save catalog to json
+				var catalogString = ProductCatalog.Serialize(catalog);
+				Debug.Log($"Saving catalog: {catalogString}");
+				File.WriteAllText(ProductCatalog.kCatalogPath, catalogString);
+
+				Debug.Log($"Catalog updated successfully.");
+			}, error => { Debug.LogError($"Error updating catalog: {error.ErrorMessage}"); });
 		}
 	}
 }

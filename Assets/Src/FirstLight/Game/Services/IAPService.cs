@@ -89,7 +89,7 @@ namespace FirstLight.Game.Services
 			_products = controller.products.all.ToList();
 
 			_initialized.Value = true;
-			FLog.Info($"IAP Initialized");
+			FLog.Info("IAP Initialized");
 		}
 
 		public void OnInitializeFailed(InitializationFailureReason error)

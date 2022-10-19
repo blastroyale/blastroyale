@@ -110,10 +110,14 @@ namespace FirstLight.Game.StateMachines
 			var roomJoinCreateMenu = stateFactory.State("Room Join Create Menu");
 			var nftPlayRestricted = stateFactory.Wait("Nft Restriction Pop Up");
 			var defaultNameCheck = stateFactory.Choice("Default Player Name Check");
-
+			var disconnected = stateFactory.State("Disconnected");
+			
 			initial.Transition().Target(screenCheck);
 			initial.OnExit(OpenUiVfxPresenter);
 
+			disconnected.OnEnter(OpenDisconnectedScreen);
+			disconnected.Event(NetworkState.PhotonMasterConnectedEvent).Target(screenCheck);
+			
 			screenCheck.Transition().Condition(IsCurrentScreen<HomeScreenPresenter>).Target(defaultNameCheck);
 			screenCheck.Transition().Condition(IsCurrentScreen<LootScreenPresenter>).Target(lootMenu);
 			screenCheck.Transition().Condition(IsCurrentScreen<PlayerSkinScreenPresenter>).Target(heroesMenu);
@@ -134,6 +138,7 @@ namespace FirstLight.Game.StateMachines
 			homeMenu.Event(_battlePassClickedEvent).Target(battlePass);
 			homeMenu.OnExit(ClosePlayMenuUI);
 
+			playClickedCheck.Transition().Condition(IsDisconnected).Target(disconnected);
 			playClickedCheck.Transition().Condition(EnoughNftToPlay).OnTransition(SendPlayReadyMessage).Target(roomWait);
 			playClickedCheck.Transition().Target(nftPlayRestricted);
 
@@ -213,6 +218,11 @@ namespace FirstLight.Game.StateMachines
 		{
 			return _services.GameModeService.SelectedGameMode.Value.Entry.MatchType == MatchType.Casual
 			       || _gameDataProvider.EquipmentDataProvider.EnoughLoadoutEquippedToPlay();
+		}
+		
+		private bool IsDisconnected()
+		{
+			return !_services.NetworkService.QuantumClient.IsConnectedAndReady;
 		}
 
 		private bool IsCurrentScreen<T>() where T : UiPresenter
@@ -343,7 +353,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new DisconnectedScreenPresenter.StateData
 			{
-				ReconnectClicked = () =>_statechartTrigger(NetworkState.AttemptReconnectEvent)
+				ReconnectClicked = () =>_statechartTrigger(NetworkState.DcScreenReconnectEvent)
 			};
 
 			_uiService.OpenUiAsync<DisconnectedScreenPresenter, DisconnectedScreenPresenter.StateData>(data);

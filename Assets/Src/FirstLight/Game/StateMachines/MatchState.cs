@@ -103,7 +103,7 @@ namespace FirstLight.Game.StateMachines
 			disconnected.OnEnter(CloseLoadingScreen);
 			disconnected.Event(NetworkState.JoinedRoomEvent).OnTransition(OpenMatchmakingScreen).Target(disconnectReload);
 			disconnected.Event(NetworkState.JoinRoomFailedEvent).Target(final);
-			disconnected.Event(NetworkState.DisconnectedScreenBackEvent).Target(final);
+			disconnected.Event(NetworkState.DcScreenBackEvent).Target(final);
 			
 			disconnectReload.WaitingFor(LoadMatchAssets).Target(postDisconnectReloadCheck);
 			

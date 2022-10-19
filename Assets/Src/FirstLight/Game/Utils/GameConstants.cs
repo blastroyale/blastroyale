@@ -99,6 +99,10 @@ namespace FirstLight.Game.Utils
 
 		public static class Network
 		{
+			// Network state tick settings
+			public const float NETWORK_QUANTUM_TICK_SECONDS = 0.1f;
+			public const float NETWORK_ATTEMPT_RECONNECT_SECONDS = 3f;
+
 			// Time control values
 			public const int PLAYER_LOBBY_TTL_MS = 0;
 			public const int PLAYER_GAME_TTL_MS = 99999999;

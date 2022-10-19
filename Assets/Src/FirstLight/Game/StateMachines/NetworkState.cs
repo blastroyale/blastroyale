@@ -37,8 +37,8 @@ namespace FirstLight.Game.StateMachines
 		public static readonly IStatechartEvent JoinRoomFailedEvent = new StatechartEvent("NETWORK - Join Room Fail Event");
 		public static readonly IStatechartEvent LeftRoomEvent = new StatechartEvent("NETWORK - Left Room Event");
 		public static readonly IStatechartEvent RoomClosedEvent = new StatechartEvent("NETWORK - Room Closed Event");
-		public static readonly IStatechartEvent AttemptReconnectEvent = new StatechartEvent("NETWORK - Attempt Reconnect Event");
-		public static readonly IStatechartEvent DisconnectedScreenBackEvent = new StatechartEvent("NETWORK - Disconnected Screen Back Event");
+		public static readonly IStatechartEvent DcScreenReconnectEvent = new StatechartEvent("NETWORK - Disconnect Screen Reconnect Event");
+		public static readonly IStatechartEvent DcScreenBackEvent = new StatechartEvent("NETWORK - Disconnected Screen Back Event");
 		public static readonly IStatechartEvent OpenServerSelectScreenEvent = new StatechartEvent("NETWORK - Open Server Select Screen Event");
 		public static readonly IStatechartEvent ConnectToNameServerFailEvent = new StatechartEvent("NETWORK - Connected To Name Fail Server Event");
 		public static readonly IStatechartEvent RegionListReceivedEvent = new StatechartEvent("NETWORK - Regions List Received");
@@ -89,10 +89,12 @@ namespace FirstLight.Game.StateMachines
 			
 			connected.Event(PhotonDisconnectedEvent).Target(disconnected);
 			connected.Event(OpenServerSelectScreenEvent).Target(disconnectForServerSelect);
-
+			
 			disconnected.OnEnter(UpdateDisconnectionLocation);
+			disconnected.OnEnter(SubscribeAutoReconnectTick);
 			disconnected.Event(PhotonMasterConnectedEvent).Target(connected);
-			disconnected.Event(AttemptReconnectEvent).Target(reconnecting);
+			disconnected.Event(DcScreenReconnectEvent).Target(reconnecting);
+			disconnected.OnExit(UnsubscribeAutoReconnectTick);
 			
 			reconnecting.OnEnter(ReconnectPhoton);
 			reconnecting.Event(PhotonMasterConnectedEvent).Target(connected);
@@ -190,7 +192,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeEvents()
 		{
-			_services.TickService.SubscribeOnUpdate(TickQuantumServer, 0.1f, true, true);
+			_services.TickService.SubscribeOnUpdate(TickQuantumServer, GameConstants.Network.NETWORK_QUANTUM_TICK_SECONDS, true, true);
 			_services.MessageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuit);
 			_services.MessageBrokerService.Subscribe<MatchSimulationStartedMessage>(OnMatchSimulationStartedMessage);
 			_services.MessageBrokerService.Subscribe<MatchSimulationEndedMessage>(OnMatchSimulationEndedMessage);
@@ -212,6 +214,16 @@ namespace FirstLight.Game.StateMachines
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 			_services?.TickService?.UnsubscribeAll(this);
 			QuantumCallback.UnsubscribeListener(this);
+		}
+
+		private void SubscribeAutoReconnectTick()
+		{
+			_services.TickService.SubscribeOnUpdate(TickReconnectAttempt, GameConstants.Network.NETWORK_ATTEMPT_RECONNECT_SECONDS, true, true);
+		}
+
+		private void UnsubscribeAutoReconnectTick()
+		{
+			_services?.TickService?.Unsubscribe(TickReconnectAttempt);
 		}
 
 		/// <inheritdoc />
@@ -410,8 +422,7 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(RegionListReceivedEvent);
 		}
 		
-
-		// NOTE: THIS DOES NOT EXECUTE ON MAIN THREAD BECAUSE QUANTUM IS QUANTUM
+		// NOTE: THIS DOES NOT EXECUTE ON MAIN THREAD BECAUSE PHOTON IS PHOTON
 		private void OnPingedRegions(RegionHandler regionHandler)
 		{
 			FLog.Info("OnPingedRegions" + regionHandler.GetResults());
@@ -664,9 +675,15 @@ namespace FirstLight.Game.StateMachines
 		private void TickQuantumServer(float deltaTime)
 		{
 			_networkService.QuantumClient.Service();
-
-			// TODO: Make the lag check in the game
-			//_networkService.CheckLag();
+			_networkService.CheckLag();
+		}
+		
+		private void TickReconnectAttempt(float deltaTime)
+		{
+			if (!_networkService.QuantumClient.IsConnected && Application.internetReachability != NetworkReachability.NotReachable)
+			{
+				ReconnectPhoton();
+			}
 		}
 
 		private void StartMatchmakingLockRoomTimer()

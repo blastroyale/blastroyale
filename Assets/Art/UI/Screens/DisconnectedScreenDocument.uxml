@@ -1,17 +1,17 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/DisconnectedScreenStyle.uss?fileID=7433441132597879392&amp;guid=968b6e338250e984388d510b63cd84bd&amp;type=3#DisconnectedScreenStyle" />
-    <ui:VisualElement name="root" class="background">
+    <ui:VisualElement name="root" class="background hidden">
         <ui:VisualElement name="PopupBackground" class="popup-radius">
-            <ui:VisualElement name="_" class="popup-radius" style="position: absolute; left: -10px; top: -10px; right: 10px; bottom: 10px; background-color: rgb(255, 255, 255); overflow: hidden; border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0);">
+            <ui:VisualElement name="PopupWindow" class="popup-radius popup-window">
                 <ui:VisualElement name="Header" class="background-purple" style="overflow: hidden;">
                     <ui:VisualElement name="TitleDots" class="dots-pattern" style="top: -138px; left: -28px;" />
                     <ui:Label text="CONNECTION LOST" display-tooltip-when-elided="true" name="Title" class="font-italic font-style-h2" />
                 </ui:VisualElement>
-                <ui:VisualElement name="Container" style="flex-grow: 1; align-items: center; justify-content: space-between; padding-top: 48px; padding-bottom: 40px;">
-                    <ui:Label text="YOU HAVE BEEN DISCONNECTED FROM THE GAME." display-tooltip-when-elided="true" name="DisconnectedDesc" class="font-italic" style="color: rgb(122, 118, 167); font-size: 30px; margin-bottom: 8px;" />
-                    <ui:VisualElement name="_" style="flex-direction: row; flex-shrink: 1;">
-                        <ui:Button text="MAIN MENU" name="MenuButton" class="font-italic button-flat-primary" style="-unity-background-image-tint-color: rgb(255, 116, 0);" />
-                        <ui:Button text="RECONNECT" name="ReconnectButton" class="font-italic button-flat-primary" style="-unity-background-image-tint-color: rgb(255, 116, 0);" />
+                <ui:VisualElement name="Container">
+                    <ui:Label text="YOU HAVE BEEN DISCONNECTED FROM THE GAME." display-tooltip-when-elided="true" name="DisconnectedDesc" class="font-italic" style="color: rgb(122, 118, 167); font-size: 30px;" />
+                    <ui:VisualElement name="HoriLayout" style="flex-direction: row; flex-shrink: 1;">
+                        <ui:Button text="MAIN MENU" name="MenuButton" class="font-italic button-flat-primary" />
+                        <ui:Button text="RECONNECT" name="ReconnectButton" class="font-italic button-flat-primary" />
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="Blocker" class="element-hidden" style="background-color: rgba(0, 0, 0, 0.36); position: absolute; left: 0; top: 0; right: 0; bottom: 0; transition-duration: 0.3s;" />

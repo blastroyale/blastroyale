@@ -198,6 +198,7 @@ namespace FirstLight.UiService
 		public void AddView(VisualElement element, IUIView view)
 		{
 			_views.Add(element, view);
+			view.Attached(element);
 		}
 
 		protected override void OnOpened()
@@ -211,13 +212,7 @@ namespace FirstLight.UiService
 				Root.Query()
 					.Where(ve => typeof(IUIView).IsAssignableFrom(ve.GetType()))
 					.Build()
-					.ForEach(e => { _views.Add(e, (IUIView) e); });
-
-
-				foreach (var (element, view) in _views)
-				{
-					view.RuntimeInit(element);
-				}
+					.ForEach(e => { AddView(e, (IUIView) e); });
 			}
 
 			Root.EnableInClassList(UIConstants.CLASS_HIDDEN, false);

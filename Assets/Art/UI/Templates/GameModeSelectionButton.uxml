@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" FLG="FirstLight.Game.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Templates/GameModeSelectionButtonStyle.uss?fileID=7433441132597879392&amp;guid=1a806c33bc7a34069a8b184b546c14e0&amp;type=3#GameModeSelectionButtonStyle" />
+    <Style src="project://database/Assets/Art/UI/Styles/CommonStyle.uss?fileID=7433441132597879392&amp;guid=724da097496fa4dabbe27f211fbcd3bf&amp;type=3#CommonStyle" />
+    <ui:Button text="Button" display-tooltip-when-elided="true" name="GameModeSelectionButton" class="GameModeSelectionButton" style="margin-left: 30px;">
+        <ui:VisualElement name="GameModeOutline" style="width: 529px; height: 763px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/GameModeSelection/ChosenModeStrokeBack.png?fileID=2800000&amp;guid=48a6c07dca92b42f7aa0fa5601f46878&amp;type=3#ChosenModeStrokeBack&apos;);">
+            <ui:VisualElement name="Frame" style="width: 517px; height: 750px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/GameModeSelection/ModeButtonVolume.png?fileID=2800000&amp;guid=3de95063ee79144fd871d50cf07f0bb9&amp;type=3#ModeButtonVolume&apos;); margin-left: 6px; margin-right: 6px; margin-top: 6px; margin-bottom: 6px;">
+                <ui:VisualElement name="gray_shape" style="background-image: url(&apos;project://database/Assets/Art/Textures/Ui/Loading/PopupBackPattern.png?fileID=2800000&amp;guid=ebf2caa297ec7a341a919dc9bc2f9ca1&amp;type=3#PopupBackPattern&apos;); width: 277px; height: 144px; position: absolute; bottom: 18px; right: 80px;" />
+                <ui:VisualElement style="bottom: 0; position: absolute; width: 100%; height: 250px;">
+                    <ui:Label text="CASUAL" display-tooltip-when-elided="true" name="MatchTypeLabel" class="font-italic" style="right: auto; -unity-text-align: upper-right; margin-right: 80px; color: rgb(108, 108, 108); font-size: 30px;" />
+                    <ui:Label text="BATTLE ROYALE" display-tooltip-when-elided="true" name="GameModeLabel" class="font-italic" style="-unity-font: url(&apos;project://database/Assets/Art/Fonts/JockeyOne/JockeyOne-Regular.otf?fileID=12800000&amp;guid=d5d7381a3d2fa9a449c2b5228e93dc4c&amp;type=3#JockeyOne-Regular&apos;); color: rgb(0, 0, 0); font-size: 55px; margin-left: 30px; -unity-text-align: middle-left;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:Button>
+</ui:UXML>

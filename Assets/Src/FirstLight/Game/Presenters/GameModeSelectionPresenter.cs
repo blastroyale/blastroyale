@@ -1,76 +1,113 @@
 using System;
 using System.Collections.Generic;
-using FirstLight.Game.Configs;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
-using UnityEngine;
 using FirstLight.Game.Utils;
-using FirstLight.Game.Logic;
-using FirstLight.Game.Views.MainMenuViews;
-using Sirenix.OdinInspector;
+using FirstLight.Game.Views;
+using FirstLight.UiService;
+using UnityEngine;
 using UnityEngine.Assertions;
-using Button = UnityEngine.UI.Button;
+using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
 {
-	/// <summary>
-	/// This Presenter handles game mode selector
-	/// </summary>
-	public class GameModeSelectionPresenter : AnimatedUiPresenterData<GameModeSelectionPresenter.StateData>
+	public class GameModeSelectionPresenter : UiToolkitPresenterData<GameModeSelectionPresenter.StateData>
 	{
+		[SerializeField] private VisualTreeAsset _buttonAsset;
+
+		private Button _closeButton;
+		private ScrollView _buttonsSlider;
+		private List<GameModeSelectionButtonView> _buttonViews;
+		
 		public struct StateData
 		{
 			public Action GameModeChosen;
+			public Action CustomGameChosen;
+			public Action LeaveGameModeSelection;
 		}
-
-		[SerializeField, Required] private RectTransform _slotsContainer;
-		[SerializeField, Required] private GameModeButtonView _slotPrefab;
-
-		[SerializeField, Required] private Button _backButton;
-
+		
 		private IGameServices _services;
 
-		private readonly List<GameModeButtonView> _slotViews = new();
-
-		private void Awake()
+		void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
+			_services.GameModeService.Slots.Observe(OnSlotUpdated);
 
-			_backButton.onClick.AddListener(OnBlockerButtonPressed);
+			_buttonViews = new List<GameModeSelectionButtonView>();
+		}
 
+		protected override void QueryElements(VisualElement root)
+		{
+			_buttonsSlider = root.Q<ScrollView>("ButtonsSlider").Required();
+			_closeButton = root.Q<Button>("CloseButton").Required();
+
+			_closeButton.clicked += OnCloseButtonClicked;
+			
+			// Add game modes buttons
 			foreach (var slot in _services.GameModeService.Slots)
 			{
-				var view = Instantiate(_slotPrefab, _slotsContainer);
-				view.Init(slot, OnModeButtonClicked);
-				_slotViews.Add(view);
+				var button = _buttonAsset.Instantiate();
+				button.AttachView(this, out GameModeSelectionButtonView view);
+				view.SetData(slot);
+				view.Clicked += OnModeButtonClicked;
+				_buttonViews.Add(view);
+
+				view.Selected = _services.GameModeService.SelectedGameMode.Value.Equals(slot);
+				
+				_buttonsSlider.Add(button);
 			}
 
-			_services.GameModeService.Slots.Observe(OnSlotUpdated);
+			// Add custom game button
+			var gameModeInfo = new GameModeInfo();
+			gameModeInfo.Entry.GameModeId = "Custom Game";
+			var createGameButton = _buttonAsset.Instantiate();
+			createGameButton.AttachView(this, out GameModeSelectionButtonView customGameView);
+			customGameView.SetData(gameModeInfo);
+			customGameView.Clicked += OnCustomGameClicked;
+			_buttonViews.Add(customGameView);
+			_buttonsSlider.Add(createGameButton);
+		}
+
+		private void OnCloseButtonClicked()
+		{
+			Data.LeaveGameModeSelection();
+		}
+
+		private void OnCustomGameClicked(GameModeSelectionButtonView info)
+		{
+			SelectButton(info);
+
+			Data.CustomGameChosen();
 		}
 
 		private void OnSlotUpdated(int index, GameModeInfo previous, GameModeInfo current,
-		                           ObservableUpdateType updateType)
+								   ObservableUpdateType updateType)
 		{
 			Assert.AreEqual(ObservableUpdateType.Updated, updateType);
 
-			_slotViews[index].Init(current, OnModeButtonClicked);
+			_buttonViews[index].SetData(current);
 		}
-
-		private void OnDestroy()
+		
+		private void OnModeButtonClicked(GameModeSelectionButtonView info)
 		{
-			_backButton.onClick.RemoveAllListeners();
-			_services.GameModeService.Slots.StopObserving(OnSlotUpdated);
-		}
-
-		private void OnModeButtonClicked(GameModeInfo info)
-		{
-			_services.GameModeService.SelectedGameMode.Value = info;
+			SelectButton(info);
+			
+			_services.GameModeService.SelectedGameMode.Value = info.GameModeInfo;
 			Data.GameModeChosen();
 		}
 
-		private void OnBlockerButtonPressed()
+		private void SelectButton(GameModeSelectionButtonView info)
 		{
-			Data.GameModeChosen();
+			if (info.Selected)
+			{
+				return;
+			}
+
+			foreach (var buttonView in _buttonViews)
+			{
+				buttonView.Selected = false;
+			}
+			
+			info.Selected = true;
 		}
 	}
 }

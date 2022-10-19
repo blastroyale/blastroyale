@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Screens/GameModeSelectionScreenStyle.uss?fileID=7433441132597879392&amp;guid=65b63b653515f438aa2452fed30ceae6&amp;type=3#GameModeSelectionScreenStyle" />
+    <Style src="project://database/Assets/Art/UI/Styles/CommonStyle.uss?fileID=7433441132597879392&amp;guid=724da097496fa4dabbe27f211fbcd3bf&amp;type=3#CommonStyle" />
+    <ui:VisualElement name="root" style="background-image: url(&apos;project://database/Assets/Art/Textures/Ui/Loading/gradient.png?fileID=2800000&amp;guid=74a80dda23f35e64bb7fb45e209baa76&amp;type=3#gradient&apos;); position: absolute; left: 0; top: 0; right: 0; bottom: 0;">
+        <ui:VisualElement name="backgroundPattern" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-image: url(&apos;project://database/Assets/Art/Textures/Ui/Loading/BackPattern.png?fileID=2800000&amp;guid=c7d122131f18b124aacdfd7b34d2b2de&amp;type=3#BackPattern&apos;);">
+            <ui:Button display-tooltip-when-elided="true" name="CloseButton" style="position: absolute; top: 20px; right: 20px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/CloseIcon.png?fileID=2800000&amp;guid=e842985e25fb24c4da30f691acbe1500&amp;type=3#CloseIcon&apos;); width: 112px; -unity-background-image-tint-color: rgb(255, 255, 255); background-color: rgba(188, 188, 188, 0); border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; height: 88px;" />
+            <ui:VisualElement name="TitleHolder" class="hidden-profile" style="position: absolute; left: 0; top: 0; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/HomeScreen/HeadlineCornerBack.png?fileID=21300000&amp;guid=a00a82499a7b54937bb2cf2b23aeb238&amp;type=3#HeadlineCornerBack&apos;); width: 790px; height: 220px;">
+                <ui:Label text="CHOOSE A MODE" display-tooltip-when-elided="true" name="Title" class="font-style-h1 font-italic" style="position: absolute; top: 40px; left: 100px;" />
+            </ui:VisualElement>
+            <ui:ScrollView name="ButtonsSlider" mode="Horizontal" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" vertical-page-size="-1" style="flex-direction: row; margin-top: auto; margin-bottom: auto; height: 800px; padding-left: 130px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

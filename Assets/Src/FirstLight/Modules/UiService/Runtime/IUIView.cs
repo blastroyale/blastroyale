@@ -8,7 +8,7 @@ namespace FirstLight.UiService
 		/// Called once, the first time the presenter screen is opened.
 		/// </summary>
 		/// <param name="element"></param>
-		void RuntimeInit(VisualElement element);
+		void Attached(VisualElement element);
 
 		/// <summary>
 		/// Called when runtime logic should be initialized (subscribing to events etc...)

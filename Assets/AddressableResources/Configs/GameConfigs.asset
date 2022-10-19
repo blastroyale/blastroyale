@@ -94,7 +94,7 @@ MonoBehaviour:
         RawValue: 16384
       TrophyEloRange: 50
       TrophyEloK:
-        RawValue: 163840
+        RawValue: 262144
       NftAssumedOwned: 40
       MinNftForEarnings: 3
       EarningsAugmentationStrengthDropMod:

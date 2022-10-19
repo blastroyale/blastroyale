@@ -224,10 +224,12 @@ namespace FirstLight.Game.StateMachines
 			var map = config.Map.ToString();
 			var entityService = new GameObject(nameof(EntityViewUpdaterService)).AddComponent<EntityViewUpdaterService>();
 			var matchServices = new MatchServices(entityService, _services);
+			
+			MainInstaller.Bind<IMatchServices>(matchServices);
+			
 			var runnerConfigs = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 			var sceneTask = _services.AssetResolverService.LoadSceneAsync($"Scenes/{map}.unity", LoadSceneMode.Additive);
 			
-			MainInstaller.Bind<IMatchServices>(matchServices);
 			// TODO ROB _assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<AudioAdventureAssetConfigs>());
 			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<MatchAssetConfigs>());
 			runnerConfigs.SetRuntimeConfig(gameModeConfig, config, mutatorIds);

@@ -1,11 +1,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using FirstLight.FLogger;
+using FirstLight.Game.Commands;
+using FirstLight.Game.Commands.OfflineCommands;
+using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Messages;
+using FirstLight.Server.SDK.Modules;
 using FirstLight.Services;
 using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ClientModels;
+using PlayFab.SharedModels;
 using UnityEngine;
 using UnityEngine.Purchasing;
 
@@ -46,7 +52,8 @@ namespace FirstLight.Game.Services
 
 		private IStoreController _store;
 
-		public IAPService(IGameCommandService commandService, IMessageBrokerService messageBroker, IPlayfabService playfabService)
+		public IAPService(IGameCommandService commandService, IMessageBrokerService messageBroker,
+						  IPlayfabService playfabService)
 		{
 			_commandService = commandService;
 			_messageBroker = messageBroker;
@@ -72,7 +79,7 @@ namespace FirstLight.Game.Services
 
 		public void BuyProduct(string id)
 		{
-			FLog.Warn($"Purchase initiated: {id}");
+			FLog.Info($"Purchase initiated: {id}");
 			_store.InitiatePurchase(id);
 		}
 
@@ -82,7 +89,7 @@ namespace FirstLight.Game.Services
 			_products = controller.products.all.ToList();
 
 			_initialized.Value = true;
-			FLog.Warn($"IAP Initialized");
+			FLog.Info($"IAP Initialized");
 		}
 
 		public void OnInitializeFailed(InitializationFailureReason error)
@@ -103,15 +110,35 @@ namespace FirstLight.Game.Services
 		public void OnPurchaseFailed(Product product, PurchaseFailureReason failureReason)
 		{
 			FLog.Warn($"Purchase failed: {product.definition.id}, {failureReason}");
-			_messageBroker.Publish(new IAPMessages.IAPPurchaseFailed {Reason = failureReason});
+			_messageBroker.Publish(new IAPPurchaseFailedMessage {Reason = failureReason});
 		}
 
 		private void PurchaseValidated(Product product)
 		{
 			FLog.Info($"Purchase validated: {product.definition.id}");
-			// TODO: Call Gabriel's API and on success add the item locally and call _store.ConfirmPendingPurchase(product);
 
-			_store.ConfirmPendingPurchase(product);
+			var request = new LogicRequest
+			{
+				Command = "ConsumeValidatedPurchaseCommand",
+				Platform = Application.platform.ToString(),
+				Data = new Dictionary<string, string>
+				{
+					{"item_id", product.definition.id},
+				}
+			};
+
+			_playfabService.CallFunction(request.Command, result =>
+			{
+				FLog.Info($"Purchase handled by the server: {product.definition.id}, {result.FunctionName}");
+
+				var logicResult =
+					JsonConvert.DeserializeObject<PlayFabResult<LogicResult>>(result.FunctionResult.ToString());
+				var reward = ModelSerializer.DeserializeFromData<RewardData>(logicResult!.Result.Data);
+
+				_commandService.ExecuteCommand(new AddIAPRewardCommand {Reward = reward});
+				_commandService.ExecuteCommand(new CollectIAPRewardCommand());
+				_store.ConfirmPendingPurchase(product);
+			}, OnPlayFabError, request);
 		}
 
 		private void ValidateReceipt(Product product)

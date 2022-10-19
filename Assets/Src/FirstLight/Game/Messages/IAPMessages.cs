@@ -1,17 +1,17 @@
+using System.Collections.Generic;
 using FirstLight.Services;
+using Quantum;
 using UnityEngine.Purchasing;
 
 namespace FirstLight.Game.Messages
 {
-	public class IAPMessages
+	public struct IAPPurchaseCompletedMessage : IMessage
 	{
-		public struct IAPPurchaseCompleted : IMessage
-		{
-		}
+		public List<Equipment> Rewards;
+	}
 
-		public struct IAPPurchaseFailed : IMessage
-		{
-			public PurchaseFailureReason Reason;
-		}
+	public struct IAPPurchaseFailedMessage : IMessage
+	{
+		public PurchaseFailureReason Reason;
 	}
 }

@@ -39,6 +39,7 @@ namespace FirstLight.Game.StateMachines
 		public static readonly IStatechartEvent RoomClosedEvent = new StatechartEvent("NETWORK - Room Closed Event");
 		public static readonly IStatechartEvent DcScreenReconnectEvent = new StatechartEvent("NETWORK - Disconnect Screen Reconnect Event");
 		public static readonly IStatechartEvent DcScreenBackEvent = new StatechartEvent("NETWORK - Disconnected Screen Back Event");
+		public static readonly IStatechartEvent ConnectToRegionMasterEvent = new StatechartEvent("NETWORK - Connect To Region Master");
 		public static readonly IStatechartEvent OpenServerSelectScreenEvent = new StatechartEvent("NETWORK - Open Server Select Screen Event");
 		public static readonly IStatechartEvent ConnectToNameServerFailEvent = new StatechartEvent("NETWORK - Connected To Name Fail Server Event");
 		public static readonly IStatechartEvent RegionListReceivedEvent = new StatechartEvent("NETWORK - Regions List Received");
@@ -75,7 +76,8 @@ namespace FirstLight.Game.StateMachines
 			var reconnecting = stateFactory.State("NETWORK - Reconnecting");
 			var disconnectForServerSelect = stateFactory.State("NETWORK - Disconnect Photon For Name Server");
 			var getAvailableRegions = stateFactory.State("NETWORK - Server Select Screen");
-			var serverSelectScreen = stateFactory.State("NETWORK - Get Available Regions");
+			var connectedToNameServer = stateFactory.State("NETWORK - Connected To Name Server");
+			var connectToRegionMaster = stateFactory.State("NETWORK - Connect To Region Master");
 			var connectionCheck = stateFactory.Choice("NETWORK - Connection Check");
 
 			initial.Transition().Target(initialConnection);
@@ -100,18 +102,19 @@ namespace FirstLight.Game.StateMachines
 			reconnecting.Event(PhotonMasterConnectedEvent).Target(connected);
 			reconnecting.Event(PhotonDisconnectedEvent).Target(disconnected);
 			
-			disconnectForServerSelect.OnEnter(OpenServerSelectScreen);
 			disconnectForServerSelect.OnEnter(DisconnectPhoton);
 			disconnectForServerSelect.Event(PhotonDisconnectedEvent).Target(getAvailableRegions);
 
 			getAvailableRegions.OnEnter(ConnectToNameServer);
-			getAvailableRegions.Event(RegionListReceivedEvent).Target(serverSelectScreen);
-			getAvailableRegions.Event(ConnectToNameServerFailEvent).OnTransition(CloseServerSelectScreen).Target(connectionCheck);
-			
-			serverSelectScreen.OnEnter(InitServerSelect);
-			serverSelectScreen.Event(PhotonMasterConnectedEvent).Target(connected);
-			serverSelectScreen.OnExit(CloseServerSelectScreen);
+			getAvailableRegions.Event(RegionListReceivedEvent).Target(connectedToNameServer);
+			getAvailableRegions.Event(ConnectToNameServerFailEvent).Target(disconnected);
 
+			connectedToNameServer.Event(ConnectToRegionMasterEvent).Target(connectToRegionMaster);
+			
+			connectToRegionMaster.OnEnter(ConnectPhotonToRegionMaster);
+			connectToRegionMaster.Event(PhotonMasterConnectedEvent).Target(connected);
+			connectToRegionMaster.Event(PhotonDisconnectedEvent).Target(disconnected);
+			
 			final.OnEnter(UnsubscribeEvents);
 		}
 		
@@ -160,34 +163,6 @@ namespace FirstLight.Game.StateMachines
 		private bool CurrentSceneIsMatch()
 		{
 			return SceneManager.GetActiveScene().name != GameConstants.Scenes.SCENE_MAIN_MENU;
-		}
-
-		private void OpenServerSelectScreen()
-		{
-			var data = new ServerSelectScreenPresenter.StateData
-			{
-				BackClicked = ConnectPhotonToRegionMaster,
-				RegionChosen = (region) =>
-				{
-					_gameDataProvider.AppDataProvider.ConnectionRegion.Value = region.Code;
-					ConnectPhotonToRegionMaster();
-				},
-			};
-
-			_uiService.OpenUiAsync<ServerSelectScreenPresenter, ServerSelectScreenPresenter.StateData>(data);
-		}
-		
-		private void InitServerSelect()
-		{
-			if (_uiService.HasUiPresenter<ServerSelectScreenPresenter>())
-			{
-				_uiService.GetUi<ServerSelectScreenPresenter>().InitServerSelectionList(_networkService.QuantumClient.RegionHandler);
-			}
-		}
-
-		private void CloseServerSelectScreen()
-		{
-			_uiService.CloseUi<ServerSelectScreenPresenter>(false, true);
 		}
 
 		private void SubscribeEvents()
@@ -417,6 +392,8 @@ namespace FirstLight.Game.StateMachines
 		{
 			FLog.Info("OnRegionListReceived " + regionHandler.GetResults());
 
+			_services.MessageBrokerService.Publish(new RegionListReceivedMessage(){RegionHandler = regionHandler});
+			
 			_networkService.QuantumClient.RegionHandler.PingMinimumOfRegions(OnPingedRegions, "");
 			
 			_statechartTrigger(RegionListReceivedEvent);
@@ -429,11 +406,7 @@ namespace FirstLight.Game.StateMachines
 
 			_services.ThreadService.MainThreadDispatcher.Enqueue(() =>
 			{
-				if (_uiService.HasUiPresenter<ServerSelectScreenPresenter>())
-				{
-					_uiService.GetUi<ServerSelectScreenPresenter>()
-					          .UpdateRegionPing(_networkService.QuantumClient.RegionHandler);
-				}
+				_services.MessageBrokerService.Publish(new PingedRegionsMessage(){RegionHandler = regionHandler});
 			});
 		}
 

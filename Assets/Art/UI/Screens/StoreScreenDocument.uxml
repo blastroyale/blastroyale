@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Screens/StoreScreenStyle.uss?fileID=7433441132597879392&amp;guid=4e78e87407db04df3a3f36ca0181c06c&amp;type=3#StoreScreenStyle" />
+    <FirstLight.Game.UIElements.SafeAreaElement name="root" class="hidden" style="justify-content: center; align-items: center;">
+        <ui:Button text="Button" display-tooltip-when-elided="true" name="BackButton" style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/HomeScreen/IconEquipment.png?fileID=21300000&amp;guid=f074c3dd0ff0849fe90a973fd6fbd458&amp;type=3#IconEquipment&apos;); height: 200px; width: 300px;" />
+    </FirstLight.Game.UIElements.SafeAreaElement>
+</ui:UXML>

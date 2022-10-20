@@ -294,7 +294,8 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new StoreScreenPresenter.StateData
 			{
-				BackClicked = () => { activity.Complete();}
+				BackClicked = () => { activity.Complete();},
+				OnPurchaseItem = PurchaseItem
 			};
 
 			_uiService.OpenUiAsync<StoreScreenPresenter, StoreScreenPresenter.StateData>(data);
@@ -303,6 +304,11 @@ namespace FirstLight.Game.StateMachines
 		private void CloseStore()
 		{
 			_uiService.CloseUi<StoreScreenPresenter>();
+		}
+
+		private void PurchaseItem(string id)
+		{
+			_services.IAPService.BuyProduct(id);
 		}
 
 		private void CloseBattlePassUI()

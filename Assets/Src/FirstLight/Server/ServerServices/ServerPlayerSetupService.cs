@@ -75,10 +75,10 @@ namespace Src.FirstLight.Server.ServerServices
 		private static PlayerData SetupInitialPlayerData(IdData idData, RngData rngData)
 		{
 			var rngSkin = Rng.Range(0, _initialSkins.Count, rngData.State, false);
-			var csPoolConfig = _configsProvider.GetConfig<ResourcePoolConfig>((int)GameId.CS);
-			var playerData = new PlayerData();
-			playerData.PlayerSkinId = _initialSkins[rngSkin];
-			playerData.ResourcePools.Add(GameId.CS, new ResourcePoolData(GameId.CS, csPoolConfig.PoolCapacity, DateTime.UtcNow));
+			var playerData = new PlayerData
+			{
+				PlayerSkinId = _initialSkins[rngSkin]
+			};
 			return playerData;
 		}
 	}

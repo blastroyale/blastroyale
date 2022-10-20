@@ -68,11 +68,6 @@ namespace FirstLight.Game.Logic
 		/// Converts the BattlePass Points to levels and rewards. Returns true if there was a level increase.
 		/// </summary>
 		bool RedeemBPP(out List<Equipment> rewards, out uint newLevel);
-
-		/// <summary>
-		/// Resets battlepass level and points back to 0
-		/// </summary>
-		void ResetBattlePass();
 	}
 
 	public class BattlePassLogic : AbstractBaseLogic<PlayerData>, IBattlePassLogic, IGameLogicInitializer
@@ -184,12 +179,6 @@ namespace FirstLight.Game.Logic
 			RedeemBPRewards(levels, out rewards);
 
 			return levels.Count > 0;
-		}
-
-		public void ResetBattlePass()
-		{
-			_currentLevel.Value = 0;
-			_currentPoints.Value = 0;
 		}
 
 		private void RedeemBPRewards(List<BattlePassRewardConfig> rewardConfigs, out List<Equipment> rewards)

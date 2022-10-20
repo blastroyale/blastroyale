@@ -45,6 +45,14 @@ namespace ContainerApp.Cloudscript
 		{
 			return Ok(new CloudscriptResponse(await _logicServer.GetPlayerData(request.PlayfabId)));
 		}
+		
+		[HttpPost]
+		[RequiresApiKey]
+		[Route("RemovePlayerData")]
+		public async Task<IActionResult> DeletePlayerData([FromBody] CloudscriptRequest request)
+		{
+			return Ok(new CloudscriptResponse(await _logicServer.RemovePlayerData(request.PlayfabId)));
+		}
 	}
 }
 

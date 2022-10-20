@@ -61,6 +61,15 @@ namespace Backend.Game.Services
     		                                                entry => entry.Value.Value);
     		return new ServerState(fabResult);
     	}
-    }
+
+		public async Task DeleteState(string playerId)
+		{
+			var result = await PlayFabServerAPI.DeletePlayerAsync(new()
+			{
+				PlayFabId = playerId
+			});
+			_errorService.CheckErrors(result);
+		}
+	}
 }
 

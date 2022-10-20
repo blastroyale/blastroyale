@@ -78,10 +78,10 @@ namespace FirstLight.Game.StateMachines
 			
 			initial.Transition().Target(initialAssets);
 			initial.OnExit(SubscribeEvents);
-
+			
 			initialAssets.WaitingFor(LoadCoreAssets).Target(internetCheck);
 			
-			internetCheck.Transition().Condition(IsOffline).OnTransition(OpenNoInternetPopUp).Target(final);
+			internetCheck.Transition().Condition(NetworkUtils.IsOffline).OnTransition(OpenNoInternetPopUp).Target(final);
 			internetCheck.Transition().Target(initialLoading);
 
 			initialLoading.Nest(_initialLoadingState.Setup).Target(authentication);
@@ -103,11 +103,6 @@ namespace FirstLight.Game.StateMachines
 		private void UnsubscribeEvents()
 		{
 			_services.MessageBrokerService.UnsubscribeAll(this);
-		}
-
-		private bool IsOffline()
-		{
-			return !NetworkUtils.IsOnline();
 		}
 
 		private void InitializeLocalLogic()

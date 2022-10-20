@@ -310,5 +310,29 @@ namespace FirstLight.Game.Utils
 		{
 			return Application.internetReachability != NetworkReachability.NotReachable;
 		}
+		
+		/// <summary>
+		/// Requests to check if the device is offline
+		/// </summary>
+		public static bool IsOffline()
+		{
+			return Application.internetReachability == NetworkReachability.NotReachable;
+		}
+
+		/// <summary>
+		/// Requests to check if the device is connected to internet, and Photon is connected
+		/// </summary>
+		public static bool IsOnlineAndConnected()
+		{
+			return IsOnline() && MainInstaller.Resolve<IGameServices>().NetworkService.QuantumClient.IsConnectedAndReady;
+		}
+		
+		/// <summary>
+		/// Requests to check if the device is disconnted from internet, or Photon is disconnected
+		/// </summary>
+		public static bool IsOfflineOrDisconnected()
+		{
+			return IsOffline() || !MainInstaller.Resolve<IGameServices>().NetworkService.QuantumClient.IsConnectedAndReady;
+		}
 	}
 }

@@ -88,7 +88,7 @@ namespace FirstLight.Game.StateMachines
 
 			mainMenuTransition.Transition().Target(mainMenu);
 			
-			disconnectedCheck.Transition().Condition(IsDisconnected).Target(disconnected);
+			disconnectedCheck.Transition().Condition(NetworkUtils.IsOfflineOrDisconnected).Target(disconnected);
 			disconnectedCheck.Transition().Target(mainMenuUnloading);
 			
 			disconnected.OnEnter(CloseAllUi);
@@ -124,8 +124,7 @@ namespace FirstLight.Game.StateMachines
 			
 			initial.Transition().Target(screenCheck);
 			initial.OnExit(OpenUiVfxPresenter);
-
-			screenCheck.Transition().Condition(IsDisconnected).Target(final);
+			
 			screenCheck.Transition().Condition(IsCurrentScreen<HomeScreenPresenter>).Target(defaultNameCheck);
 			screenCheck.Transition().Condition(IsCurrentScreen<LootScreenPresenter>).Target(lootMenu);
 			screenCheck.Transition().Condition(IsCurrentScreen<PlayerSkinScreenPresenter>).Target(heroesMenu);
@@ -170,8 +169,8 @@ namespace FirstLight.Game.StateMachines
 			
 			lootMenu.Nest(_lootMenuState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
 
-			heroesMenu.OnEnter(OpenHeroesMenuUI);
-			heroesMenu.OnExit(CloseHeroesMenuUI);
+			heroesMenu.OnEnter(OpenPlayerSkinScreenUI);
+			heroesMenu.OnExit(ClosePlayerSkinScreenUI);
 
 			roomJoinCreateMenu.OnEnter(OpenRoomJoinCreateMenuUI);
 			roomJoinCreateMenu.Event(_playClickedEvent).Target(roomWait);
@@ -225,11 +224,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			return _services.GameModeService.SelectedGameMode.Value.Entry.MatchType == MatchType.Casual
 				|| _gameDataProvider.EquipmentDataProvider.EnoughLoadoutEquippedToPlay();
-		}
-		
-		private bool IsDisconnected()
-		{
-			return !NetworkUtils.IsOnline() || !_services.NetworkService.QuantumClient.IsConnectedAndReady;
 		}
 
 		private bool IsCurrentScreen<T>() where T : UiPresenter
@@ -311,7 +305,7 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<BattlePassScreenPresenter>();
 		}
 		
-		private void OpenHeroesMenuUI()
+		private void OpenPlayerSkinScreenUI()
 		{
 			var data = new PlayerSkinScreenPresenter.StateData
 			{
@@ -321,7 +315,7 @@ namespace FirstLight.Game.StateMachines
 			_uiService.OpenUiAsync<PlayerSkinScreenPresenter, PlayerSkinScreenPresenter.StateData>(data);
 		}
 
-		private void CloseHeroesMenuUI()
+		private void ClosePlayerSkinScreenUI()
 		{
 			_uiService.CloseUi<PlayerSkinScreenPresenter>(false, true);
 		}
@@ -346,7 +340,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new HomeScreenPresenter.StateData
 			{
-				IsDisconnected = IsDisconnected,
 				OnPlayButtonClicked = PlayButtonClicked,
 				OnSettingsButtonClicked = () => _statechartTrigger(_settingsMenuClickedEvent),
 				OnLootButtonClicked = OnTabClickedCallback<LootScreenPresenter>,

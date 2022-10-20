@@ -136,6 +136,12 @@ namespace FirstLight.Game.Presenters
 
 		private void OnClaimRewardsClicked()
 		{
+			if (NetworkUtils.IsOfflineOrDisconnected())
+			{
+				_services.MessageBrokerService.Publish(new NetworkActionWhileDisconnectedMessage());
+				return;
+			}
+			
 			if (_gameDataProvider.BattlePassDataProvider.IsRedeemable())
 			{
 				_services.CommandService.ExecuteCommand(new RedeemBPPCommand());

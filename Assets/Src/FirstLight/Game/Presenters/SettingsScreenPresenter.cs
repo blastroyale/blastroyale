@@ -122,21 +122,45 @@ namespace FirstLight.Game.Presenters
 
 		private void OpenConnectId()
 		{
+			if (NetworkUtils.IsOfflineOrDisconnected())
+			{
+				_services.MessageBrokerService.Publish(new NetworkActionWhileDisconnectedMessage());
+				return;
+			}
+			
 			Data.OnConnectIdClicked();
 		}
 
 		private void OpenServerSelect()
 		{
+			if (NetworkUtils.IsOfflineOrDisconnected())
+			{
+				_services.MessageBrokerService.Publish(new NetworkActionWhileDisconnectedMessage());
+				return;
+			}
+
 			Data.OnServerSelectClicked();
 		}
 
 		private void OnHelpdeskButtonPressed()
 		{
+			if (NetworkUtils.IsOfflineOrDisconnected())
+			{
+				_services.MessageBrokerService.Publish(new NetworkActionWhileDisconnectedMessage());
+				return;
+			}
+
 			_services.HelpdeskService.StartConversation();
 		}
 
 		private void OnFaqButtonPressed()
 		{
+			if (NetworkUtils.IsOfflineOrDisconnected())
+			{
+				_services.MessageBrokerService.Publish(new NetworkActionWhileDisconnectedMessage());
+				return;
+			}
+
 			_services.HelpdeskService.ShowFaq();
 		}
 
@@ -177,6 +201,12 @@ namespace FirstLight.Game.Presenters
 		
 		private void OnLogoutClicked()
 		{
+			if (NetworkUtils.IsOfflineOrDisconnected())
+			{
+				_services.MessageBrokerService.Publish(new NetworkActionWhileDisconnectedMessage());
+				return;
+			}
+			
 			var title = string.Format(ScriptLocalization.MainMenu.LogoutConfirm);
 			var confirmButton = new GenericDialogButton
 			{

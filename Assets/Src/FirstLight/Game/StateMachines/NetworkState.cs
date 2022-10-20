@@ -189,7 +189,7 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<AssetReloadRequiredMessage>(OnAssetReloadRequiredMessage);
 			_services.MessageBrokerService.Subscribe<SpectatorModeToggledMessage>(OnSpectatorToggleMessage);
 			_services.MessageBrokerService.Subscribe<RequestKickPlayerMessage>(OnRequestKickPlayerMessage);
-			_services.MessageBrokerService.Subscribe<AttemptNetworkActionWhileDisconnectedMessage>(OnAttemptNetworkActionWhileDisconnected);
+			_services.MessageBrokerService.Subscribe<NetworkActionWhileDisconnectedMessage>(OnNetworkActionWhileDisconnected);
 		}
 
 		private void UnsubscribeEvents()
@@ -486,7 +486,7 @@ namespace FirstLight.Game.StateMachines
 			                                           SendOptions.SendReliable);
 		}
 		
-		private void OnAttemptNetworkActionWhileDisconnected(AttemptNetworkActionWhileDisconnectedMessage msg)
+		private void OnNetworkActionWhileDisconnected(NetworkActionWhileDisconnectedMessage msg)
 		{
 			if (!NetworkUtils.IsOnline() || !_networkService.QuantumClient.IsConnectedAndReady)
 			{

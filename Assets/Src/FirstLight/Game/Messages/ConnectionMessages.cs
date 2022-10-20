@@ -21,7 +21,7 @@ namespace FirstLight.Game.Messages
 	
 	public struct RegionListReceivedMessage : IMessage { public RegionHandler RegionHandler; }
 	
-	public struct AttemptNetworkActionWhileDisconnectedMessage : IMessage { }
+	public struct NetworkActionWhileDisconnectedMessage : IMessage { }
 	
 	public struct LagStartedMessage : IMessage { }
 	

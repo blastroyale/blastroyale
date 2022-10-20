@@ -30,8 +30,6 @@ namespace FirstLight.Game.Presenters
 
 		public struct StateData
 		{
-			public Func<bool> IsDisconnected;
-			
 			public Action OnPlayButtonClicked;
 			public Action OnSettingsButtonClicked;
 			public Action OnLootButtonClicked;
@@ -43,8 +41,8 @@ namespace FirstLight.Game.Presenters
 			public Action OnBattlePassClicked;
 		}
 
-		private IGameDataProvider _gameDataProvider;
-		private IGameServices _gameServices;
+		private IGameDataProvider _dataProvider;
+		private IGameServices _services;
 		private IMainMenuServices _mainMenuServices;
 
 		private Label _playerNameLabel;
@@ -70,8 +68,8 @@ namespace FirstLight.Game.Presenters
 
 		private void Awake()
 		{
-			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			_gameServices = MainInstaller.Resolve<IGameServices>();
+			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
+			_services = MainInstaller.Resolve<IGameServices>();
 			_mainMenuServices = MainInstaller.Resolve<IMainMenuServices>();
 		}
 
@@ -106,7 +104,7 @@ namespace FirstLight.Game.Presenters
 			root.Query<Button>().Build().ForEach(b =>
 			{
 				b.RegisterCallback<PointerDownEvent>(
-					_ => { _gameServices.AudioFxService.PlayClip2D(AudioId.ButtonClickForward); },
+					_ => { _services.AudioFxService.PlayClip2D(AudioId.ButtonClickForward); },
 					TrickleDown.TrickleDown);
 			});
 
@@ -116,35 +114,35 @@ namespace FirstLight.Game.Presenters
 		protected override void SubscribeToEvents()
 		{
 			base.SubscribeToEvents();
-			_gameDataProvider.AppDataProvider.DisplayName.InvokeObserve(OnDisplayNameChanged);
-			_gameDataProvider.PlayerDataProvider.Trophies.InvokeObserve(OnTrophiesChanged);
-			_gameDataProvider.ResourceDataProvider.ResourcePools.InvokeObserve(GameId.CS, OnPoolChanged);
-			_gameDataProvider.ResourceDataProvider.ResourcePools.InvokeObserve(GameId.BPP, OnPoolChanged);
-			_gameDataProvider.BattlePassDataProvider.CurrentLevel.InvokeObserve(OnBattlePassCurrentLevelChanged);
-			_gameDataProvider.BattlePassDataProvider.CurrentPoints.InvokeObserve(OnBattlePassCurrentPointsChanged);
-			_gameServices.GameModeService.SelectedGameMode.InvokeObserve(OnSelectedGameModeChanged);
-			_gameServices.TickService.SubscribeOnUpdate(UpdatePoolLabels, 1);
+			_dataProvider.AppDataProvider.DisplayName.InvokeObserve(OnDisplayNameChanged);
+			_dataProvider.PlayerDataProvider.Trophies.InvokeObserve(OnTrophiesChanged);
+			_dataProvider.ResourceDataProvider.ResourcePools.InvokeObserve(GameId.CS, OnPoolChanged);
+			_dataProvider.ResourceDataProvider.ResourcePools.InvokeObserve(GameId.BPP, OnPoolChanged);
+			_dataProvider.BattlePassDataProvider.CurrentLevel.InvokeObserve(OnBattlePassCurrentLevelChanged);
+			_dataProvider.BattlePassDataProvider.CurrentPoints.InvokeObserve(OnBattlePassCurrentPointsChanged);
+			_services.GameModeService.SelectedGameMode.InvokeObserve(OnSelectedGameModeChanged);
+			_services.TickService.SubscribeOnUpdate(UpdatePoolLabels, 1);
 		}
 
 		protected override void UnsubscribeFromEvents()
 		{
 			base.UnsubscribeFromEvents();
-			_gameDataProvider.AppDataProvider.DisplayName.StopObserving(OnDisplayNameChanged);
-			_gameDataProvider.PlayerDataProvider.Trophies.StopObserving(OnTrophiesChanged);
-			_gameServices.GameModeService.SelectedGameMode.StopObserving(OnSelectedGameModeChanged);
-			_gameDataProvider.CurrencyDataProvider.Currencies.StopObserving(GameId.CS);
-			_gameDataProvider.CurrencyDataProvider.Currencies.StopObserving(GameId.BLST);
-			_gameDataProvider.ResourceDataProvider.ResourcePools.StopObserving(GameId.CS);
-			_gameDataProvider.ResourceDataProvider.ResourcePools.StopObserving(GameId.BPP);
-			_gameServices.MessageBrokerService.UnsubscribeAll(this);
-			_gameServices.TickService.UnsubscribeAll(this);
+			_dataProvider.AppDataProvider.DisplayName.StopObserving(OnDisplayNameChanged);
+			_dataProvider.PlayerDataProvider.Trophies.StopObserving(OnTrophiesChanged);
+			_services.GameModeService.SelectedGameMode.StopObserving(OnSelectedGameModeChanged);
+			_dataProvider.CurrencyDataProvider.Currencies.StopObserving(GameId.CS);
+			_dataProvider.CurrencyDataProvider.Currencies.StopObserving(GameId.BLST);
+			_dataProvider.ResourceDataProvider.ResourcePools.StopObserving(GameId.CS);
+			_dataProvider.ResourceDataProvider.ResourcePools.StopObserving(GameId.BPP);
+			_services.MessageBrokerService.UnsubscribeAll(this);
+			_services.TickService.UnsubscribeAll(this);
 		}
 
 		private void OnPlayButtonClicked()
 		{
-			if (Data.IsDisconnected())
+			if (NetworkUtils.IsOfflineOrDisconnected())
 			{
-				_gameServices.MessageBrokerService.Publish(new AttemptNetworkActionWhileDisconnectedMessage());
+				_services.MessageBrokerService.Publish(new NetworkActionWhileDisconnectedMessage());
 				return;
 			}
 			
@@ -183,9 +181,9 @@ namespace FirstLight.Game.Presenters
 
 		private void OnLeaderboardsButtonClicked()
 		{
-			if (Data.IsDisconnected())
+			if (NetworkUtils.IsOfflineOrDisconnected())
 			{
-				_gameServices.MessageBrokerService.Publish(new AttemptNetworkActionWhileDisconnectedMessage());
+				_services.MessageBrokerService.Publish(new NetworkActionWhileDisconnectedMessage());
 				return;
 			}
 			
@@ -194,9 +192,9 @@ namespace FirstLight.Game.Presenters
 
 		private void OnPlayerNameClicked(ClickEvent evt)
 		{
-			if (Data.IsDisconnected())
+			if (NetworkUtils.IsOfflineOrDisconnected())
 			{
-				_gameServices.MessageBrokerService.Publish(new AttemptNetworkActionWhileDisconnectedMessage());
+				_services.MessageBrokerService.Publish(new NetworkActionWhileDisconnectedMessage());
 				return;
 			}
 			
@@ -210,7 +208,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnDisplayNameChanged(string _, string current)
 		{
-			_playerNameLabel.text = _gameDataProvider.AppDataProvider.DisplayNameTrimmed;
+			_playerNameLabel.text = _dataProvider.AppDataProvider.DisplayNameTrimmed;
 		}
 
 		private void OnSelectedGameModeChanged(GameModeInfo _, GameModeInfo current)
@@ -235,7 +233,7 @@ namespace FirstLight.Game.Presenters
 
 		private void UpdatePool(GameId id, string amountStringFormat, Label timeLabel, Label amountLabel)
 		{
-			var poolInfo = _gameDataProvider.ResourceDataProvider.GetResourcePoolInfo(id);
+			var poolInfo = _dataProvider.ResourceDataProvider.GetResourcePoolInfo(id);
 			var timeLeft = poolInfo.NextRestockTime - DateTime.UtcNow;
 
 			if (poolInfo.IsFull)
@@ -257,7 +255,7 @@ namespace FirstLight.Game.Presenters
 		{
 			if (!_rewardsCollecting)
 			{
-				UpdateBattlePassLevel(_gameDataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints().Item1);
+				UpdateBattlePassLevel(_dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints().Item1);
 			}
 		}
 
@@ -269,7 +267,7 @@ namespace FirstLight.Game.Presenters
 			}
 			else
 			{
-				var predictedLevelAndPoints = _gameDataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
+				var predictedLevelAndPoints = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
 				UpdateBattlePassPoints(predictedLevelAndPoints.Item1, predictedLevelAndPoints.Item2);
 			}
 		}
@@ -281,7 +279,7 @@ namespace FirstLight.Game.Presenters
 			for (int i = 0; i < (int) (current - previous); i++)
 			{
 				int points = (int) previous + i + 1;
-				var predictedLevelAndPoints = _gameDataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints(points);
+				var predictedLevelAndPoints = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints(points);
 
 				_mainMenuServices.UiVfxService.PlayVfx(id,
 					i * 0.1f,
@@ -290,27 +288,27 @@ namespace FirstLight.Game.Presenters
 					() =>
 					{
 						UpdateBattlePassPoints(predictedLevelAndPoints.Item1, predictedLevelAndPoints.Item2, points);
-						_gameServices.AudioFxService.PlayClip2D(AudioId.CounterTick1);
+						_services.AudioFxService.PlayClip2D(AudioId.CounterTick1);
 					});
 			}
 		}
 
 		private void UpdateBattlePassLevel(uint predictedLevel)
 		{
-			var maxLevel = _gameDataProvider.BattlePassDataProvider.MaxLevel;
+			var maxLevel = _dataProvider.BattlePassDataProvider.MaxLevel;
 			var nextLevel = Math.Clamp(predictedLevel + 1, 0, maxLevel) + 1;
 			_battlePassLevelLabel.text = nextLevel.ToString();
 		}
 
 		private void UpdateBattlePassPoints(uint predictedLevel, uint predictedPoints, int pointsOverride = -1)
 		{
-			var battlePassConfig = _gameServices.ConfigsProvider.GetConfig<BattlePassConfig>();
-			var hasRewards = _gameDataProvider.BattlePassDataProvider.IsRedeemable(pointsOverride);
+			var battlePassConfig = _services.ConfigsProvider.GetConfig<BattlePassConfig>();
+			var hasRewards = _dataProvider.BattlePassDataProvider.IsRedeemable(pointsOverride);
 			_battlePassProgressElement.style.flexGrow =
 				Mathf.Clamp01((float) predictedPoints / battlePassConfig.PointsPerLevel);
 			_battlePassCrownIcon.style.display = hasRewards ? DisplayStyle.Flex : DisplayStyle.None;
 
-			if (predictedLevel == _gameDataProvider.BattlePassDataProvider.MaxLevel)
+			if (predictedLevel == _dataProvider.BattlePassDataProvider.MaxLevel)
 			{
 				_battlePassProgressElement.style.flexGrow = 1f;
 			}

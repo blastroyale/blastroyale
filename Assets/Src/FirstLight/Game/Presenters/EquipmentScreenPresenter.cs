@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using FirstLight.Game.Commands.OfflineCommands;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Infos;
+using FirstLight.Game.Messages;
 using FirstLight.Services;
 using I2.Loc;
 using Quantum;
@@ -327,6 +328,12 @@ namespace FirstLight.Game.Presenters
 
 		private void OnEquipButtonClicked()
 		{
+			if (NetworkUtils.IsOfflineOrDisconnected())
+			{
+				_services.MessageBrokerService.Publish(new NetworkActionWhileDisconnectedMessage());
+				return;
+			}
+			
 			var dataProvider = _gameDataProvider.EquipmentDataProvider;
 			var loadout = dataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both);
 			var configs = _services.ConfigsProvider.GetConfigsDictionary<QuantumStatConfig>();

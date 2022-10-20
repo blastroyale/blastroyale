@@ -93,7 +93,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void UpdateValues(QuantumPlayerMatchData playerMatchData)
 		{
-			Debug.LogWarning($"Watching player {playerMatchData.PlayerName} {_currentlyFollowing.ToString()}");
 			_currentRankText.text = playerMatchData.PlayerRank.ToString();
 
 			_rankChangeAnimation.Rewind();

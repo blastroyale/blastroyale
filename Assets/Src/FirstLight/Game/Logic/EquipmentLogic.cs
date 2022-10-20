@@ -245,7 +245,6 @@ namespace FirstLight.Game.Logic
 			var faction = config.Faction.Keys.ElementAt(GetWeightedRandomDictionaryIndex(config.Faction));
 			var material = config.Material.Keys.ElementAt(GetWeightedRandomDictionaryIndex(config.Material));
 			var edition = config.Edition.Keys.ElementAt(GetWeightedRandomDictionaryIndex(config.Edition));
-			
 			var maxDurability = (uint) GameLogic.RngLogic.Range(config.MaxDurability.Key, config.MaxDurability.Value);
 			
 			return new Equipment(gameId,

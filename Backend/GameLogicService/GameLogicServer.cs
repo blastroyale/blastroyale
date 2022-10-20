@@ -5,10 +5,8 @@ using System.Threading.Tasks;
 using Backend.Game;
 using Backend.Game.Services;
 using Backend.Models;
-using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
-using FirstLight.Game.Utils;
 using Microsoft.Extensions.Logging;
 using PlayFab;
 using FirstLight.Server.SDK;
@@ -86,22 +84,6 @@ namespace Backend
 			try
 			{
 				var state = await _stateService.GetPlayerState(playerId);
-				
-				// PATCH FOR RNG PROBLEM //
-				if (!state.ContainsKey(typeof(RngData).FullName))
-				{
-					var seed = playerId.GetHashCode();
-					state.UpdateModel(new RngData()
-					{
-						Count = 0,
-						Seed = seed,
-						State = RngUtils.GenerateRngState(seed)
-					});
-					await _stateService.UpdatePlayerState(playerId, state);
-					_log.LogError($"Regenerated RngData for player {playerId}");
-				}
-				// END PATCH //
-				
 				if (!_setupService.IsSetup(state))
 				{
 					_log.LogInformation($"Setting up player {playerId}");

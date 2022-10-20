@@ -22,6 +22,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameLogicService", "GameLog
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContainerApp", "ContainerApp\ContainerApp.csproj", "{7EAA3DC4-BA84-4425-BDC7-AFCB97B44D58}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchmakingService", "MatchmakingService\MatchmakingService.csproj", "{28BD37B2-7E11-49E1-AD00-D8A6513992F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerCommon", "ServerCommon\ServerCommon.csproj", "{1A2148AC-B9C6-4DD2-9F97-7FFB78EFED5A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestUnitMatchmaking", "TestUnitMatchmaking\TestUnitMatchmaking.csproj", "{20007461-6EB6-4495-9E06-AB0C5A616FF6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -76,5 +82,21 @@ Global
 		{7EAA3DC4-BA84-4425-BDC7-AFCB97B44D58}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7EAA3DC4-BA84-4425-BDC7-AFCB97B44D58}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7EAA3DC4-BA84-4425-BDC7-AFCB97B44D58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28BD37B2-7E11-49E1-AD00-D8A6513992F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28BD37B2-7E11-49E1-AD00-D8A6513992F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28BD37B2-7E11-49E1-AD00-D8A6513992F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28BD37B2-7E11-49E1-AD00-D8A6513992F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A2148AC-B9C6-4DD2-9F97-7FFB78EFED5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A2148AC-B9C6-4DD2-9F97-7FFB78EFED5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A2148AC-B9C6-4DD2-9F97-7FFB78EFED5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A2148AC-B9C6-4DD2-9F97-7FFB78EFED5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20007461-6EB6-4495-9E06-AB0C5A616FF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20007461-6EB6-4495-9E06-AB0C5A616FF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20007461-6EB6-4495-9E06-AB0C5A616FF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20007461-6EB6-4495-9E06-AB0C5A616FF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{357C7ADA-ED76-42A1-9656-342B77F30F97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{357C7ADA-ED76-42A1-9656-342B77F30F97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{357C7ADA-ED76-42A1-9656-342B77F30F97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{357C7ADA-ED76-42A1-9656-342B77F30F97}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -30,3 +30,10 @@ After clicking this menu for this session all logic requests will be sent to the
 
 You can debug directly from Rider/Visual studio if you want. For that, open your Docker app and close the Backend container (but leave postgres running).
 After that you can simply run the project directly from Rider by clickin in the "Run" button. 
+
+### Blast Hub
+
+You can define to which blast hub your local server points in case you want
+to test some specific integration.
+
+For local runs that can be done in the StandaloneServer Properties -> launchSettings.json

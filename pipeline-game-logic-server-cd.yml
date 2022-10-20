@@ -9,8 +9,8 @@ pr: none
 resources:
   pipelines:
   - pipeline: build
-    source: 'Game Logic Server CI'
-    trigger: true
+    source: 'Game Logic Service CI'
+    trigger: false
   repositories:
   - repository: templates
     type: bitbucket
@@ -87,7 +87,7 @@ stages:
     image: $(image_manual_override)
     registryLoginServer: $(registry)
     # Prod-specific params
-    environment: prod
+    environment: testnet-prod
     subscription: $(PROD-GAMELOGIC-SUBSCRIPTION-ID)
     minReplicas: 1
     maxReplicas: 4

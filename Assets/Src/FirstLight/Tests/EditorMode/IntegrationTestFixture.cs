@@ -6,7 +6,6 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.StateMachines;
 using FirstLight.Game.Utils;
@@ -45,33 +44,37 @@ namespace FirstLight.Tests.EditorMode
 		public void SetupOnce()
 		{
 			var serializedConfig = File.ReadAllText($"{_backendPath}/GameLogicService/gameConfig.json");
-			TestConfigs =  new ConfigsSerializer().Deserialize<ConfigsProvider>(serializedConfig);
+			TestConfigs = new ConfigsSerializer().Deserialize<ConfigsProvider>(serializedConfig);
 
+			// TODO: Fix async issue with asset resolver on NUnit
+			// TestStates.Run();      // Not working due to async asset loading
+			WorkaroundForStateRun(); // Workaround for now
+		}
+
+		[SetUp]
+		public void Setup()
+		{
 			var messageBroker = new MessageBrokerService();
 			var timeService = new TimeService();
-			
+
 			TestUI = new GameUiService(new UiAssetLoader());
 			TestNetwork = new GameNetworkService(TestConfigs);
 			var genericDialogService = new GenericDialogService(TestUI);
 			var audioFxService = new GameAudioFxService(TestAssetResolver);
 			TestVfx = new VfxService<VfxId>();
 			var playerInputService = new PlayerInputService();
-			
+
 			TestData = SetupPlayer(TestConfigs);
 			TestLogic = new GameLogic(messageBroker, timeService, TestData, TestConfigs,
-				audioFxService);
-			TestServices = new StubGameServices(TestNetwork, messageBroker, timeService, TestData, 
-				TestConfigs, TestLogic, TestData, genericDialogService, 
-				TestAssetResolver, TestVfx, audioFxService, playerInputService);
+			                          audioFxService);
+			TestServices = new StubGameServices(TestNetwork, messageBroker, timeService, TestData,
+			                                    TestConfigs, TestLogic, TestData, genericDialogService,
+			                                    TestAssetResolver, TestVfx, audioFxService, playerInputService);
 			TestLogic.Init();
-			
+
 			TestStates = new GameStateMachine(TestLogic, TestServices, TestUI, TestNetwork,
-				TestConfigs,
-				TestAssetResolver, TestData, TestVfx);
-			
-			// TODO: Fix async issue with asset resolver on NUnit
-			// TestStates.Run();      // Not working due to async asset loading
-			WorkaroundForStateRun();  // Workaround for now
+			                                  TestConfigs,
+			                                  TestAssetResolver, TestData, TestVfx);
 
 			FLog.Init();
 
@@ -79,7 +82,7 @@ namespace FirstLight.Tests.EditorMode
 			integrationAppData.DeviceId = "integration_test";
 			//TestData.SaveData<AppData>();
 			PlayFabSettings.staticSettings.TitleId = "***REMOVED***";
-			
+
 			MainInstaller.Bind<IGameDataProvider>(TestLogic);
 			MainInstaller.Bind<IGameServices>(TestServices);
 		}

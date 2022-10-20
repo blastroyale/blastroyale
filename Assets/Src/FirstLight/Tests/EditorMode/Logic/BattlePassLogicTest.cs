@@ -145,12 +145,12 @@ namespace FirstLight.Tests.EditorMode.Logic
 			_battlePassLogic.AddBPP(9);
 			
 			Assert.IsFalse(_battlePassLogic.IsRedeemable());
-			Assert.AreEqual(10, pointsPerLevel);
+			Assert.AreEqual(10, pointsPerLevel.PointsPerLevel);
 
 			_battlePassLogic.AddBPP(5);
 
 			Assert.IsTrue(_battlePassLogic.IsRedeemable());
-			Assert.AreEqual(10, pointsPerLevel);
+			Assert.AreEqual(10, pointsPerLevel.PointsPerLevel);
 		}
 
 		[Test]

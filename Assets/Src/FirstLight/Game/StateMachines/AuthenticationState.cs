@@ -285,8 +285,8 @@ namespace FirstLight.Game.StateMachines
 			PlayFabSettings.TitleId = "***REMOVED***";
 			quantumSettings.AppSettings.AppIdRealtime = "***REMOVED***";
 			_passwordRecoveryEmailTemplateId = "***REMOVED***";
-#elif OFFCHAIN_SERVER
-			environment = "offchain";
+#elif LIVE_TESTNET_SERVER
+			environment = "live testnet";
 			PlayFabSettings.TitleId = "***REMOVED***";
 			quantumSettings.AppSettings.AppIdRealtime = "81262db7-24a2-4685-b386-65427c73ce9d";
 			_passwordRecoveryEmailTemplateId = "***REMOVED***";

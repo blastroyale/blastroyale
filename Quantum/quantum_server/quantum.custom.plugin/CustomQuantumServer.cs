@@ -271,14 +271,21 @@ namespace Quantum
 			}
 			var clientPlayer = RuntimePlayer.FromByteArray(setPlayerData.Data);
 			var equipmentData = ModelSerializer.DeserializeFromData<EquipmentData>(playfabData);
-			var serverHashes = equipmentData.Inventory.Values.Select(e => e.GetHashCode()).ToHashSet();
-
+			var validItemHashes = new HashSet<int>();
+			foreach (var itemTuple in equipmentData.Inventory)
+			{
+				if (!equipmentData.NftInventory.TryGetValue(itemTuple.Key, out var nftData) ||
+				    !itemTuple.Value.IsBroken(nftData))
+				{
+					validItemHashes.Add(itemTuple.Value.GetHashCode());
+				}
+			}
 			foreach (var clientEquip in clientPlayer.Loadout)
 			{
 				var clientEquiphash = clientEquip.GetHashCode();
-				if (!serverHashes.Contains(clientEquiphash))
+				if (!validItemHashes.Contains(clientEquiphash))
 				{
-					Log.Error($"Player {clientPlayer.PlayerId} tried to send equipment {clientEquip.GameId} hash {clientEquiphash} which he does not own");
+					Log.Error($"Player {clientPlayer.PlayerId} tried to send equipment {clientEquip.GameId} hash {clientEquiphash} which he does not own or cant be used atm");
 					return;
 				}
 			}

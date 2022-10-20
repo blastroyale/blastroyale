@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.1.1" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.1.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.1.0" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
+      <PackageReference Include="PlayFabAllSDK" Version="1.127.220718" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="FirstLight.Game">
+        <HintPath>..\Lib\FirstLight.Game.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+</Project>

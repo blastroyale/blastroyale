@@ -45,4 +45,3 @@ namespace Backend.Game.Services
 		}
 	}
 }
-

@@ -1,0 +1,9 @@
+{
+  "BlastRoyaleAnalyticsPlugin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "\/Users\/gabrielslomka\/Code\/blast-royale\/Backend\/BlastRoyaleAnalyticsPlugin",
+  "BlastRoyaleCorePlugin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "\/Users\/gabrielslomka\/Code\/blast-royale\/Backend\/BlastRoyaleCorePlugin",
+  "BlastRoyaleTrophyLadderPlugin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "\/Users\/gabrielslomka\/Code\/blast-royale\/Backend\/BlastRoyaleTrophyLadderPlugin",
+  "GameLogicService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "\/Users\/gabrielslomka\/Code\/blast-royale\/Backend\/GameLogicService",
+  "MatchmakingService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "\/Users\/gabrielslomka\/Code\/blast-royale\/Backend\/MatchmakingService",
+  "ServerCommon, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "\/Users\/gabrielslomka\/Code\/blast-royale\/Backend\/ServerCommon",
+  "FirstLightServerSDK, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "\/Users\/gabrielslomka\/Code\/blast-royale\/Backend\/FirstLightServerSDK"
+}

@@ -1,10 +1,14 @@
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using ExitGames.Client.Photon;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Photon.Realtime;
 using Quantum;
+using Debug = UnityEngine.Debug;
 
 namespace FirstLight.Game.Services
 {
@@ -120,7 +124,7 @@ namespace FirstLight.Game.Services
 	/// <inheritdoc cref="IGameNetworkService"/>
 	public class GameNetworkService : IGameBackendNetworkService
 	{
-		private const int _lagRoundtripThreshold = 500; // yellow > 200
+		private const int LAG_RTT_THRESHOLD_MS = 500;
 		
 		private IConfigsProvider _configsProvider;
 		private bool _isJoiningNewRoom;
@@ -206,15 +210,13 @@ namespace FirstLight.Game.Services
 			HasLag = new ObservableField<bool>(false);
 			UserId = new ObservableResolverField<string>(() => QuantumClient.UserId, SetUserId);
 		}
-
-		/// <inheritdoc />
+		
 		public void CheckLag()
 		{
-			/*var lastTimestamp = QuantumClient.LoadBalancingPeer.TimestampOfLastSocketReceive;
-			var roundTripCheck = QuantumClient.LoadBalancingPeer.LastRoundTripTime > _lagRoundtripThreshold;
-			var lastAckCheck = lastTimestamp > 0 && SupportClass.GetTickCount() - lastTimestamp > _lagRoundtripThreshold;
+			var roundTripCheck = QuantumClient.LoadBalancingPeer.LastRoundTripTime > LAG_RTT_THRESHOLD_MS;
+			var dcCheck = NetworkUtils.IsOfflineOrDisconnected();
 			
-			HasLag.Value = roundTripCheck || lastAckCheck;*/
+			HasLag.Value = roundTripCheck || dcCheck;
 		}
 
 		private void SetUserId(string id)

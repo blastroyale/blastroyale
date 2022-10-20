@@ -98,12 +98,13 @@ namespace FirstLight.Game.StateMachines
 			connected.Event(PhotonDisconnectedEvent).Target(disconnected);
 			connected.Event(OpenServerSelectScreenEvent).Target(disconnectForServerSelect);
 			
-			disconnected.OnEnter(UpdateDisconnectionLocation);
+			disconnected.OnEnter(UpdateDisconnectedVars);
 			disconnected.OnEnter(SubscribeDisconnectEvents);
 			disconnected.Event(PhotonMasterConnectedEvent).Target(connected);
 			disconnected.Event(DcScreenReconnectEvent).Target(reconnecting);
 			disconnected.OnExit(UnsubscribeDisconnectEvents);
 			
+			// TODO - TEST IF FAILING MASTER SERVER CONNECTION CALLS PhotonDisconnectedEvent - if not, stuff has to change here
 			reconnecting.OnEnter(ReconnectPhoton);
 			reconnecting.Event(PhotonMasterConnectedEvent).Target(connected);
 			reconnecting.Event(PhotonDisconnectedEvent).Target(disconnected);
@@ -123,7 +124,7 @@ namespace FirstLight.Game.StateMachines
 			
 			final.OnEnter(UnsubscribeEvents);
 		}
-		
+
 		/// <summary>
 		/// This method receives all photon events, but is only used for our custom in-game events
 		/// </summary>
@@ -156,7 +157,7 @@ namespace FirstLight.Game.StateMachines
 			
 		}
 
-		private void UpdateDisconnectionLocation()
+		private void UpdateDisconnectedVars()
 		{
 			// Only update DC location for main menu - match disconnections are more complex, and handled specifically
 			// inside of MatchState.
@@ -755,7 +756,7 @@ namespace FirstLight.Game.StateMachines
 
 			var settings = QuantumRunnerConfigs.PhotonServerSettings.AppSettings;
 			settings.FixedRegion = _gameDataProvider.AppDataProvider.ConnectionRegion.Value;
-
+			
 			UpdateQuantumClientProperties();
 			_networkService.QuantumClient.ConnectUsingSettings(settings, _gameDataProvider.AppDataProvider.DisplayNameTrimmed);
 		}

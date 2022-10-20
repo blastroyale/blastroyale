@@ -91,7 +91,7 @@ namespace FirstLight.Game.StateMachines
 			
 			gameSimulation.Nest(_gameSimulationState.Setup).Target(unloading);
 			gameSimulation.Event(NetworkState.PhotonCriticalDisconnectedEvent).OnTransition(OnDisconnectDuringSimulation).Target(unloading);
-			gameSimulation.Event(NetworkState.LeftRoomEvent).OnTransition(OnDisconnectDuringSimulation).Target(unloading);
+			//gameSimulation.Event(NetworkState.LeftRoomEvent).OnTransition(OnDisconnectDuringSimulation).Target(unloading);
 			
 			unloading.OnEnter(OpenLoadingScreen);
 			unloading.OnEnter(UnloadAllMatchAssets);
@@ -101,9 +101,11 @@ namespace FirstLight.Game.StateMachines
 			disconnectCheck.Transition().Target(disconnected);
 			
 			disconnected.OnEnter(CloseLoadingScreen);
+			disconnected.OnEnter(OpenDisconnectedScreen);
 			disconnected.Event(NetworkState.JoinedRoomEvent).OnTransition(OpenMatchmakingScreen).Target(disconnectReload);
 			disconnected.Event(NetworkState.JoinRoomFailedEvent).Target(final);
 			disconnected.Event(NetworkState.DcScreenBackEvent).Target(final);
+			disconnected.OnExit(CloseDisconnectedScreen);
 			
 			disconnectReload.WaitingFor(LoadMatchAssets).Target(postDisconnectReloadCheck);
 			
@@ -113,7 +115,7 @@ namespace FirstLight.Game.StateMachines
 			final.OnEnter(OpenLoadingScreen);
 			final.OnEnter(UnsubscribeEvents);
 		}
-		
+
 		public bool IsPhotonConnected()
 		{
 			return _services.NetworkService.QuantumClient.IsConnected;
@@ -157,6 +159,21 @@ namespace FirstLight.Game.StateMachines
 		private void CloseMatchmakingScreen()
 		{
 			_uiService.CloseUi<MatchmakingLoadingScreenPresenter>(false, true);
+		}
+		
+		private void OpenDisconnectedScreen()
+		{
+			var data = new DisconnectedScreenPresenter.StateData
+			{
+				ReconnectClicked = () =>_statechartTrigger(NetworkState.DcScreenReconnectEvent)
+			};
+
+			_uiService.OpenUiAsync<DisconnectedScreenPresenter, DisconnectedScreenPresenter.StateData>(data);
+		}
+		
+		private void CloseDisconnectedScreen()
+		{
+			_uiService.CloseUi<DisconnectedScreenPresenter>(false, true);
 		}
 
 		private void OpenLoadingScreen()

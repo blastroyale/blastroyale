@@ -4,6 +4,7 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
@@ -29,6 +30,8 @@ namespace FirstLight.Game.Presenters
 
 		public struct StateData
 		{
+			public Func<bool> IsDisconnected;
+			
 			public Action OnPlayButtonClicked;
 			public Action OnSettingsButtonClicked;
 			public Action OnLootButtonClicked;
@@ -139,6 +142,12 @@ namespace FirstLight.Game.Presenters
 
 		private void OnPlayButtonClicked()
 		{
+			if (Data.IsDisconnected())
+			{
+				_gameServices.MessageBrokerService.Publish(new AttemptNetworkActionWhileDisconnectedMessage());
+				return;
+			}
+			
 			Data.OnPlayButtonClicked();
 		}
 
@@ -174,11 +183,23 @@ namespace FirstLight.Game.Presenters
 
 		private void OnLeaderboardsButtonClicked()
 		{
+			if (Data.IsDisconnected())
+			{
+				_gameServices.MessageBrokerService.Publish(new AttemptNetworkActionWhileDisconnectedMessage());
+				return;
+			}
+			
 			Data.OnLeaderboardClicked();
 		}
 
 		private void OnPlayerNameClicked(ClickEvent evt)
 		{
+			if (Data.IsDisconnected())
+			{
+				_gameServices.MessageBrokerService.Publish(new AttemptNetworkActionWhileDisconnectedMessage());
+				return;
+			}
+			
 			Data.OnNameChangeClicked();
 		}
 

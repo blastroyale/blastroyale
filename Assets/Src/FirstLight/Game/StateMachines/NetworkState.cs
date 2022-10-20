@@ -32,24 +32,31 @@ namespace FirstLight.Game.StateMachines
 	{
 		public static readonly IStatechartEvent PhotonMasterConnectedEvent = new StatechartEvent("NETWORK - Photon Master Connected Event");
 		public static readonly IStatechartEvent PhotonDisconnectedEvent = new StatechartEvent("NETWORK - Photon Disconnected Event");
+		public static readonly IStatechartEvent PhotonCriticalDisconnectedEvent = new StatechartEvent("NETWORK - Photon Critical Disconnected Event");
+		
+		public static readonly IStatechartEvent ConnectToRegionMasterEvent = new StatechartEvent("NETWORK - Connect To Region Master");
+		public static readonly IStatechartEvent ConnectToNameServerFailEvent = new StatechartEvent("NETWORK - Connected To Name Fail Server Event");
+		public static readonly IStatechartEvent RegionListReceivedEvent = new StatechartEvent("NETWORK - Regions List Received");
+		
 		public static readonly IStatechartEvent CreateRoomFailedEvent = new StatechartEvent("NETWORK - Create Room Failed Event");
 		public static readonly IStatechartEvent JoinedRoomEvent = new StatechartEvent("NETWORK - Joined Room Event");
 		public static readonly IStatechartEvent JoinRoomFailedEvent = new StatechartEvent("NETWORK - Join Room Fail Event");
 		public static readonly IStatechartEvent LeftRoomEvent = new StatechartEvent("NETWORK - Left Room Event");
 		public static readonly IStatechartEvent RoomClosedEvent = new StatechartEvent("NETWORK - Room Closed Event");
+		
 		public static readonly IStatechartEvent DcScreenReconnectEvent = new StatechartEvent("NETWORK - Disconnect Screen Reconnect Event");
 		public static readonly IStatechartEvent DcScreenBackEvent = new StatechartEvent("NETWORK - Disconnected Screen Back Event");
-		public static readonly IStatechartEvent ConnectToRegionMasterEvent = new StatechartEvent("NETWORK - Connect To Region Master");
 		public static readonly IStatechartEvent OpenServerSelectScreenEvent = new StatechartEvent("NETWORK - Open Server Select Screen Event");
-		public static readonly IStatechartEvent ConnectToNameServerFailEvent = new StatechartEvent("NETWORK - Connected To Name Fail Server Event");
-		public static readonly IStatechartEvent RegionListReceivedEvent = new StatechartEvent("NETWORK - Regions List Received");
 		
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _gameDataProvider;
 		private readonly IGameBackendNetworkService _networkService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
+
+		private Coroutine _criticalDisconnectCoroutine;
 		private Coroutine _matchmakingCoroutine;
 		private bool _requiresManualRoomReconnection;
+		private bool _lastTickHadLag;
 
 		private QuantumRunnerConfigs QuantumRunnerConfigs => _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 
@@ -93,10 +100,10 @@ namespace FirstLight.Game.StateMachines
 			connected.Event(OpenServerSelectScreenEvent).Target(disconnectForServerSelect);
 			
 			disconnected.OnEnter(UpdateDisconnectionLocation);
-			disconnected.OnEnter(SubscribeAutoReconnectTick);
+			disconnected.OnEnter(SubscribeDisconnectEvents);
 			disconnected.Event(PhotonMasterConnectedEvent).Target(connected);
 			disconnected.Event(DcScreenReconnectEvent).Target(reconnecting);
-			disconnected.OnExit(UnsubscribeAutoReconnectTick);
+			disconnected.OnExit(UnsubscribeDisconnectEvents);
 			
 			reconnecting.OnEnter(ReconnectPhoton);
 			reconnecting.Event(PhotonMasterConnectedEvent).Target(connected);
@@ -182,6 +189,7 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<AssetReloadRequiredMessage>(OnAssetReloadRequiredMessage);
 			_services.MessageBrokerService.Subscribe<SpectatorModeToggledMessage>(OnSpectatorToggleMessage);
 			_services.MessageBrokerService.Subscribe<RequestKickPlayerMessage>(OnRequestKickPlayerMessage);
+			_services.MessageBrokerService.Subscribe<AttemptNetworkActionWhileDisconnectedMessage>(OnAttemptNetworkActionWhileDisconnected);
 		}
 
 		private void UnsubscribeEvents()
@@ -191,14 +199,26 @@ namespace FirstLight.Game.StateMachines
 			QuantumCallback.UnsubscribeListener(this);
 		}
 
-		private void SubscribeAutoReconnectTick()
+		private void SubscribeDisconnectEvents()
 		{
-			_services.TickService.SubscribeOnUpdate(TickReconnectAttempt, GameConstants.Network.NETWORK_ATTEMPT_RECONNECT_SECONDS, true, true);
+			//_services.TickService.SubscribeOnUpdate(TickReconnectAttempt, GameConstants.Network.NETWORK_ATTEMPT_RECONNECT_SECONDS, true, true);
+			_criticalDisconnectCoroutine = _services.CoroutineService.StartCoroutine(CriticalDisconnectCoroutine());
 		}
 
-		private void UnsubscribeAutoReconnectTick()
+		private void UnsubscribeDisconnectEvents()
 		{
-			_services?.TickService?.Unsubscribe(TickReconnectAttempt);
+			//_services.TickService.Unsubscribe(TickReconnectAttempt);
+
+			if (_criticalDisconnectCoroutine != null)
+			{
+				_services.CoroutineService.StopCoroutine(_criticalDisconnectCoroutine);
+			}
+		}
+
+		private IEnumerator CriticalDisconnectCoroutine()
+		{
+			yield return new WaitForSeconds(GameConstants.Network.CRITICAL_DISCONNECT_THRESHOLD_SECONDS);
+			_statechartTrigger(PhotonCriticalDisconnectedEvent);
 		}
 
 		/// <inheritdoc />
@@ -465,6 +485,14 @@ namespace FirstLight.Game.StateMachines
 			_networkService.QuantumClient.OpRaiseEvent((byte) QuantumCustomEvents.KickPlayer, msg.Player.ActorNumber, eventOptions,
 			                                           SendOptions.SendReliable);
 		}
+		
+		private void OnAttemptNetworkActionWhileDisconnected(AttemptNetworkActionWhileDisconnectedMessage msg)
+		{
+			if (!NetworkUtils.IsOnline() || !_networkService.QuantumClient.IsConnectedAndReady)
+			{
+				_statechartTrigger(PhotonCriticalDisconnectedEvent);
+			}
+		}
 
 		private void OnRoomLeaveClickedMessage(RoomLeaveClickedMessage msg)
 		{
@@ -648,12 +676,27 @@ namespace FirstLight.Game.StateMachines
 		private void TickQuantumServer(float deltaTime)
 		{
 			_networkService.QuantumClient.Service();
+			CheckLag();
+		}
+
+		private void CheckLag()
+		{
+			if (!_lastTickHadLag && _networkService.HasLag.Value)
+			{
+				_services.MessageBrokerService.Publish(new LagStartedMessage());
+			}
+			else if (_lastTickHadLag && !_networkService.HasLag.Value)
+			{
+				_services.MessageBrokerService.Publish(new LagEndedMessage());
+			}
+			
 			_networkService.CheckLag();
+			_lastTickHadLag = _networkService.HasLag.Value;
 		}
 		
 		private void TickReconnectAttempt(float deltaTime)
 		{
-			if (!_networkService.QuantumClient.IsConnected && Application.internetReachability != NetworkReachability.NotReachable)
+			if (!_networkService.QuantumClient.IsConnected && NetworkUtils.IsOnline())
 			{
 				ReconnectPhoton();
 			}
@@ -740,6 +783,8 @@ namespace FirstLight.Game.StateMachines
 		
 		private void ReconnectPhoton()
 		{
+			if (_networkService.QuantumClient.LoadBalancingPeer.PeerState == PeerStateValue.Connecting) return;
+			
 			if (CurrentSceneIsMatch())
 			{
 				_networkService.IsJoiningNewMatch.Value = false;

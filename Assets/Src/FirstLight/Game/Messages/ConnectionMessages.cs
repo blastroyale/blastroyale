@@ -17,13 +17,13 @@ namespace FirstLight.Game.Messages
 		public string Message;
 	}
 	
-	public struct PingedRegionsMessage : IMessage
-	{
-		public RegionHandler RegionHandler;
-	}
+	public struct PingedRegionsMessage : IMessage { public RegionHandler RegionHandler; }
 	
-	public struct RegionListReceivedMessage : IMessage
-	{
-		public RegionHandler RegionHandler;
-	}
+	public struct RegionListReceivedMessage : IMessage { public RegionHandler RegionHandler; }
+	
+	public struct AttemptNetworkActionWhileDisconnectedMessage : IMessage { }
+	
+	public struct LagStartedMessage : IMessage { }
+	
+	public struct LagEndedMessage : IMessage { }
 }

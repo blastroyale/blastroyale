@@ -81,7 +81,7 @@ namespace FirstLight.Game.StateMachines
 
 			initialAssets.WaitingFor(LoadCoreAssets).Target(internetCheck);
 			
-			internetCheck.Transition().Condition(InternetCheck).OnTransition(OpenNoInternetPopUp).Target(final);
+			internetCheck.Transition().Condition(IsOffline).OnTransition(OpenNoInternetPopUp).Target(final);
 			internetCheck.Transition().Target(initialLoading);
 
 			initialLoading.Nest(_initialLoadingState.Setup).Target(authentication);
@@ -105,9 +105,9 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.UnsubscribeAll(this);
 		}
 
-		private bool InternetCheck()
+		private bool IsOffline()
 		{
-			return Application.internetReachability == NetworkReachability.NotReachable;
+			return !NetworkUtils.IsOnline();
 		}
 
 		private void InitializeLocalLogic()

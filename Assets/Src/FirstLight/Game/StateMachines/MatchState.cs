@@ -171,7 +171,7 @@ namespace FirstLight.Game.StateMachines
 
 		private bool IsDisconnected()
 		{
-			return !_services.NetworkService.QuantumClient.IsConnected;
+			return !NetworkUtils.IsOnline() || !_services.NetworkService.QuantumClient.IsConnectedAndReady;
 		}
 
 		private bool IsRoomClosed()

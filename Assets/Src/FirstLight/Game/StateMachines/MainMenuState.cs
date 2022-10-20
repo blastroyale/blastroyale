@@ -71,7 +71,9 @@ namespace FirstLight.Game.StateMachines
 			var mainMenuUnloading = stateFactory.State("Main Menu Unloading");
 			var mainMenu = stateFactory.Nest("Main Menu");
 			var mainMenuTransition = stateFactory.Transition("Main Transition");
-
+			var disconnected = stateFactory.State("Disconnected");
+			var disconnectedCheck = stateFactory.Choice("Disconnected Final Choice");
+			
 			initial.Transition().Target(mainMenuLoading);
 			initial.OnExit(SubscribeEvents);
 
@@ -80,10 +82,19 @@ namespace FirstLight.Game.StateMachines
 			mainMenuLoading.Event(MainMenuLoadedEvent).Target(mainMenu);
 			mainMenuLoading.OnExit(LoadingComplete);
 
-			mainMenu.Nest(TabsMenuSetup).Target(mainMenuUnloading);
+			mainMenu.Nest(TabsMenuSetup).Target(disconnectedCheck);
+			mainMenu.Event(NetworkState.PhotonCriticalDisconnectedEvent).Target(disconnected);
 			mainMenu.Event(_tabButtonClickedEvent).Target(mainMenuTransition);
 
 			mainMenuTransition.Transition().Target(mainMenu);
+			
+			disconnectedCheck.Transition().Condition(IsDisconnected).Target(disconnected);
+			disconnectedCheck.Transition().Target(mainMenuUnloading);
+			
+			disconnected.OnEnter(CloseAllUi);
+			disconnected.OnEnter(OpenDisconnectedScreen);
+			disconnected.Event(NetworkState.PhotonMasterConnectedEvent).Target(mainMenu);
+			disconnected.OnExit(CloseDisconnectedScreen);
 
 			mainMenuUnloading.OnEnter(OpenLoadingScreen);
 			mainMenuUnloading.OnEnter(UnloadMainMenu);
@@ -110,15 +121,11 @@ namespace FirstLight.Game.StateMachines
 			var roomJoinCreateMenu = stateFactory.State("Room Join Create Menu");
 			var nftPlayRestricted = stateFactory.Wait("Nft Restriction Pop Up");
 			var defaultNameCheck = stateFactory.Choice("Default Player Name Check");
-			var disconnected = stateFactory.State("Disconnected");
 			
 			initial.Transition().Target(screenCheck);
 			initial.OnExit(OpenUiVfxPresenter);
 
-			disconnected.OnEnter(OpenDisconnectedScreen);
-			disconnected.Event(NetworkState.PhotonMasterConnectedEvent).Target(screenCheck);
-			disconnected.OnEnter(CloseDisconnectedScreen);
-			
+			screenCheck.Transition().Condition(IsDisconnected).Target(final);
 			screenCheck.Transition().Condition(IsCurrentScreen<HomeScreenPresenter>).Target(defaultNameCheck);
 			screenCheck.Transition().Condition(IsCurrentScreen<LootScreenPresenter>).Target(lootMenu);
 			screenCheck.Transition().Condition(IsCurrentScreen<PlayerSkinScreenPresenter>).Target(heroesMenu);
@@ -138,8 +145,7 @@ namespace FirstLight.Game.StateMachines
 			homeMenu.Event(_leaderboardClickedEvent).Target(leaderboard);
 			homeMenu.Event(_battlePassClickedEvent).Target(battlePass);
 			homeMenu.OnExit(ClosePlayMenuUI);
-
-			playClickedCheck.Transition().Condition(IsDisconnected).Target(disconnected);
+			
 			playClickedCheck.Transition().Condition(EnoughNftToPlay).OnTransition(SendPlayReadyMessage).Target(roomWait);
 			playClickedCheck.Transition().Target(nftPlayRestricted);
 
@@ -218,17 +224,22 @@ namespace FirstLight.Game.StateMachines
 		private bool EnoughNftToPlay()
 		{
 			return _services.GameModeService.SelectedGameMode.Value.Entry.MatchType == MatchType.Casual
-			       || _gameDataProvider.EquipmentDataProvider.EnoughLoadoutEquippedToPlay();
+				|| _gameDataProvider.EquipmentDataProvider.EnoughLoadoutEquippedToPlay();
 		}
 		
 		private bool IsDisconnected()
 		{
-			return !_services.NetworkService.QuantumClient.IsConnectedAndReady;
+			return !NetworkUtils.IsOnline() || !_services.NetworkService.QuantumClient.IsConnectedAndReady;
 		}
 
 		private bool IsCurrentScreen<T>() where T : UiPresenter
 		{
 			return _currentScreen == typeof(T);
+		}
+		
+		private void CloseAllUi()
+		{
+			_uiService.CloseAllUi();
 		}
 
 		private void OpenNftAmountInvalidDialog(IWaitActivity activity)
@@ -335,6 +346,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new HomeScreenPresenter.StateData
 			{
+				IsDisconnected = IsDisconnected,
 				OnPlayButtonClicked = PlayButtonClicked,
 				OnSettingsButtonClicked = () => _statechartTrigger(_settingsMenuClickedEvent),
 				OnLootButtonClicked = OnTabClickedCallback<LootScreenPresenter>,

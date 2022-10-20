@@ -302,5 +302,13 @@ namespace FirstLight.Game.Utils
 		{
 			return Math.Min((int) gameModeConfig.MaxPlayers, mapConfig.MaxPlayers);
 		}
+
+		/// <summary>
+		/// Requests to check if the device is online
+		/// </summary>
+		public static bool IsOnline()
+		{
+			return Application.internetReachability != NetworkReachability.NotReachable;
+		}
 	}
 }

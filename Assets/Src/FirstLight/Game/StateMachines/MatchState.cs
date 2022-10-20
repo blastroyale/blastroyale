@@ -73,7 +73,7 @@ namespace FirstLight.Game.StateMachines
 			loading.OnEnter(CloseLoadingScreen);
 			loading.WaitingFor(LoadMatchAssets).Target(roomCheck);
 			
-			roomCheck.Transition().Condition(IsDisconnected).OnTransition(CloseMatchmakingScreen).Target(unloading);
+			roomCheck.Transition().Condition(NetworkUtils.IsOfflineOrDisconnected).OnTransition(CloseMatchmakingScreen).Target(unloading);
 			roomCheck.Transition().Condition(IsRoomClosed).Target(playerReadyCheck);
 			roomCheck.Transition().Target(matchmaking);
 
@@ -90,7 +90,7 @@ namespace FirstLight.Game.StateMachines
 			playerReadyWait.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(OnDisconnectDuringFinalPreload).Target(unloading);
 			
 			gameSimulation.Nest(_gameSimulationState.Setup).Target(unloading);
-			gameSimulation.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(OnDisconnectDuringSimulation).Target(unloading);
+			gameSimulation.Event(NetworkState.PhotonCriticalDisconnectedEvent).OnTransition(OnDisconnectDuringSimulation).Target(unloading);
 			gameSimulation.Event(NetworkState.LeftRoomEvent).OnTransition(OnDisconnectDuringSimulation).Target(unloading);
 			
 			unloading.OnEnter(OpenLoadingScreen);
@@ -167,11 +167,6 @@ namespace FirstLight.Game.StateMachines
 		private void CloseLoadingScreen()
 		{
 			_uiService.CloseUi<LoadingScreenPresenter>();
-		}
-
-		private bool IsDisconnected()
-		{
-			return !NetworkUtils.IsOnline() || !_services.NetworkService.QuantumClient.IsConnectedAndReady;
 		}
 
 		private bool IsRoomClosed()

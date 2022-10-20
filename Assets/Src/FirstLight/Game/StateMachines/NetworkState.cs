@@ -56,7 +56,6 @@ namespace FirstLight.Game.StateMachines
 		private Coroutine _criticalDisconnectCoroutine;
 		private Coroutine _matchmakingCoroutine;
 		private bool _requiresManualRoomReconnection;
-		private bool _lastTickHadLag;
 
 		private QuantumRunnerConfigs QuantumRunnerConfigs => _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 
@@ -201,13 +200,13 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeDisconnectEvents()
 		{
-			//_services.TickService.SubscribeOnUpdate(TickReconnectAttempt, GameConstants.Network.NETWORK_ATTEMPT_RECONNECT_SECONDS, true, true);
+			_services.TickService.SubscribeOnUpdate(TickReconnectAttempt, GameConstants.Network.NETWORK_ATTEMPT_RECONNECT_SECONDS, true, true);
 			_criticalDisconnectCoroutine = _services.CoroutineService.StartCoroutine(CriticalDisconnectCoroutine());
 		}
 
 		private void UnsubscribeDisconnectEvents()
 		{
-			//_services.TickService.Unsubscribe(TickReconnectAttempt);
+			_services.TickService.Unsubscribe(TickReconnectAttempt);
 
 			if (_criticalDisconnectCoroutine != null)
 			{
@@ -676,24 +675,9 @@ namespace FirstLight.Game.StateMachines
 		private void TickQuantumServer(float deltaTime)
 		{
 			_networkService.QuantumClient.Service();
-			CheckLag();
+			_networkService.CheckLag();
 		}
 
-		private void CheckLag()
-		{
-			if (!_lastTickHadLag && _networkService.HasLag.Value)
-			{
-				_services.MessageBrokerService.Publish(new LagStartedMessage());
-			}
-			else if (_lastTickHadLag && !_networkService.HasLag.Value)
-			{
-				_services.MessageBrokerService.Publish(new LagEndedMessage());
-			}
-			
-			_networkService.CheckLag();
-			_lastTickHadLag = _networkService.HasLag.Value;
-		}
-		
 		private void TickReconnectAttempt(float deltaTime)
 		{
 			if (!_networkService.QuantumClient.IsConnected && NetworkUtils.IsOnline())

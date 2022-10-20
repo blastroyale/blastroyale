@@ -23,10 +23,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private IGameServices _services;
 		private IMatchServices _matchServices;
 		private int _fragTarget;
-
 		private PlayerRef _currentlyFollowing;
-
-		private bool _matchSimulationStarted;
 
 		private void Awake()
 		{
@@ -40,7 +37,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_targetFragsText.text = _fragTarget.ToString();
 			
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
-			_services.MessageBrokerService.Subscribe<MatchSimulationStartedMessage>(OnMatchSimulationStartedMessage);
+			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, OnPlayerAlive);
 			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnEventOnPlayerKilledPlayer);
 		}
@@ -52,24 +49,21 @@ namespace FirstLight.Game.Views.MatchHudViews
 			QuantumEvent.UnsubscribeListener(this);
 		}
 
-		private void OnMatchSimulationStartedMessage(MatchSimulationStartedMessage msg)
+		private void OnMatchStartedMessage(MatchStartedMessage msg)
 		{
-			_matchSimulationStarted = true;
-
-			if (_currentlyFollowing != PlayerRef.None)
-			{
-				UpdateFollowedPlayer(_currentlyFollowing, QuantumRunner.Default.Game.Frames.Predicted);
-			}
+			UpdateFollowedPlayer(_matchServices.SpectateService.SpectatedPlayer.Value.Player, msg.Game.Frames.Predicted);
 		}
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
+			if (!next.Entity.IsValid) return; // In case where we spawn Equipment Collectables with the map
+			
 			UpdateFollowedPlayer(next.Player, QuantumRunner.Default.Game.Frames.Predicted);
 		}
 		
 		private void OnPlayerAlive(EventOnPlayerAlive callback)
 		{
-			if (callback.Player != _matchServices.SpectateService.SpectatedPlayer.Value.Player || !_matchSimulationStarted) return;
+			if (callback.Player != _currentlyFollowing) return;
 			
 			var frame = callback.Game.Frames.Verified;
 			var gameContainer = frame.GetSingleton<GameContainer>();
@@ -80,8 +74,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
-			if (callback.PlayerKiller != _matchServices.SpectateService.SpectatedPlayer.Value.Player) return;
-			
 			var data = callback.PlayersMatchData;
 			
 			UpdateValues(data[_currentlyFollowing]);
@@ -91,7 +83,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			_currentlyFollowing = playerRef;
 
-			if (!_matchSimulationStarted) return;
+			if (_currentlyFollowing == PlayerRef.None) return;
 			
 			var gameContainer = f.GetSingleton<GameContainer>();
 			var data = gameContainer.GetPlayersMatchData(f, out _);
@@ -101,6 +93,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void UpdateValues(QuantumPlayerMatchData playerMatchData)
 		{
+			Debug.LogWarning($"Watching player {playerMatchData.PlayerName} {_currentlyFollowing.ToString()}");
 			_currentRankText.text = playerMatchData.PlayerRank.ToString();
 
 			_rankChangeAnimation.Rewind();

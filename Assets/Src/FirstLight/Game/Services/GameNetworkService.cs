@@ -124,7 +124,7 @@ namespace FirstLight.Game.Services
 	/// <inheritdoc cref="IGameNetworkService"/>
 	public class GameNetworkService : IGameBackendNetworkService
 	{
-		private const int LAG_RTT_THRESHOLD_MS = 180;
+		private const int LAG_RTT_THRESHOLD_MS = 160;
 		
 		private IConfigsProvider _configsProvider;
 		private bool _isJoiningNewRoom;

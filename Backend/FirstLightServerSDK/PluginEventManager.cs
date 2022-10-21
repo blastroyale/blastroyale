@@ -48,8 +48,8 @@ namespace FirstLight.Server.SDK
     		foreach(var listener in GetListeners(typeof(TEventType)))
     		{
     			var action = listener as Action<TEventType>;
-    			action.Invoke(ev);
-    		}
+				action?.Invoke(ev);
+			}
     	}
     
     	/// <summary>

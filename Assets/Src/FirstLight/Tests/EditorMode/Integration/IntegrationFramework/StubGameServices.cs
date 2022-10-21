@@ -1,8 +1,8 @@
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
-using FirstLight.Game.Utils;
 using FirstLight.NotificationService;
+using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using NSubstitute;

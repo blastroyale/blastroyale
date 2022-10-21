@@ -341,6 +341,13 @@ namespace FirstLight.Game.StateMachines
 			
 			FeatureFlags.ParseFlags(titleData);
 			
+			if (titleData.TryGetValue("PHOTON_APP", out var photonAppId))
+			{
+				var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
+				quantumSettings.AppSettings.AppIdRealtime = photonAppId;
+				FLog.Verbose("Setting up photon app id by playfab title data");
+			}
+			
 			_networkService.UserId.Value = result.PlayFabId;
 			appData.DisplayName = result.InfoResultPayload.AccountInfo.TitleInfo.DisplayName;
 			appData.FirstLoginTime = result.InfoResultPayload.AccountInfo.Created;

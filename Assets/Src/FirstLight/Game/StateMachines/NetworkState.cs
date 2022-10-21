@@ -201,6 +201,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeDisconnectEvents()
 		{
+			TickReconnectAttempt(0);
 			_services.TickService.SubscribeOnUpdate(TickReconnectAttempt, GameConstants.Network.NETWORK_ATTEMPT_RECONNECT_SECONDS, true, true);
 			_criticalDisconnectCoroutine = _services.CoroutineService.StartCoroutine(CriticalDisconnectCoroutine());
 		}
@@ -225,6 +226,7 @@ namespace FirstLight.Game.StateMachines
 		public void OnConnected()
 		{
 			FLog.Info("OnConnected");
+			Debug.LogError("<color=green>---------CONNECTADO DEL SERVIERO---------</color>");
 		}
 
 		/// <inheritdoc />
@@ -675,6 +677,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void TickQuantumServer(float deltaTime)
 		{
+			if(QuantumRunner.Default != null) Debug.LogError($"<color=green>QR.D</color>");
 			_networkService.QuantumClient.Service();
 			_networkService.CheckLag();
 		}
@@ -683,6 +686,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			if (!_networkService.QuantumClient.IsConnected && NetworkUtils.IsOnline())
 			{
+				Debug.LogError("<color=green>---------ATTEMPT RECONNECT---------</color>");
 				ReconnectPhoton();
 			}
 		}

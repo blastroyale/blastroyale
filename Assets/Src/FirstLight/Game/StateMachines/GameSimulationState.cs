@@ -98,6 +98,7 @@ namespace FirstLight.Game.StateMachines
 			battleRoyale.Event(MatchQuitEvent).OnTransition(() => MatchEndAnalytics(true)).Target(quitCheck);
 			battleRoyale.OnExit(PublishMatchEnded);
 
+			disconnected.OnEnter(StopSimulation);
 			disconnected.Event(NetworkState.JoinedRoomEvent).Target(startSimulation);
 			
 			quitCheck.Transition().Condition(IsSpectator).Target(final);

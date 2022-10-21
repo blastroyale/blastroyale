@@ -101,12 +101,14 @@ namespace FirstLight.Game.StateMachines
 			disconnected.OnEnter(UpdateDisconnectedVars);
 			disconnected.OnEnter(SubscribeDisconnectEvents);
 			disconnected.Event(PhotonMasterConnectedEvent).Target(connected);
+			disconnected.Event(JoinedRoomEvent).Target(connected);
 			disconnected.Event(DcScreenReconnectEvent).Target(reconnecting);
 			disconnected.OnExit(UnsubscribeDisconnectEvents);
 			
 			// TODO - TEST IF FAILING MASTER SERVER CONNECTION CALLS PhotonDisconnectedEvent - if not, stuff has to change here
 			reconnecting.OnEnter(ReconnectPhoton);
 			reconnecting.Event(PhotonMasterConnectedEvent).Target(connected);
+			reconnecting.Event(JoinedRoomEvent).Target(connected);
 			reconnecting.Event(PhotonDisconnectedEvent).Target(disconnected);
 			
 			disconnectForServerSelect.OnEnter(DisconnectPhoton);
@@ -199,11 +201,14 @@ namespace FirstLight.Game.StateMachines
 			QuantumCallback.UnsubscribeListener(this);
 		}
 
-		private void SubscribeDisconnectEvents()
+		private async void SubscribeDisconnectEvents()
 		{
-			TickReconnectAttempt(0);
 			_services.TickService.SubscribeOnUpdate(TickReconnectAttempt, GameConstants.Network.NETWORK_ATTEMPT_RECONNECT_SECONDS, true, true);
 			_criticalDisconnectCoroutine = _services.CoroutineService.StartCoroutine(CriticalDisconnectCoroutine());
+
+			await Task.Yield();
+		
+			TickReconnectAttempt(0);
 		}
 
 		private void UnsubscribeDisconnectEvents()
@@ -225,15 +230,15 @@ namespace FirstLight.Game.StateMachines
 		/// <inheritdoc />
 		public void OnConnected()
 		{
+			Debug.LogError("<color=green>---------CONNECTED---------</color>");
 			FLog.Info("OnConnected");
-			Debug.LogError("<color=green>---------CONNECTADO DEL SERVIERO---------</color>");
 		}
 
 		/// <inheritdoc />
 		public void OnConnectedToMaster()
 		{
 			FLog.Info("OnConnectedToMaster");
-
+			
 			_statechartTrigger(PhotonMasterConnectedEvent);
 
 			if (_requiresManualRoomReconnection &&
@@ -283,6 +288,7 @@ namespace FirstLight.Game.StateMachines
 		/// <inheritdoc />
 		public void OnJoinedRoom()
 		{
+			Debug.LogError("<color=green>---------JOINED ROOM---------</color>");
 			FLog.Info("OnJoinedRoom");
 
 			_statechartTrigger(JoinedRoomEvent);
@@ -677,14 +683,13 @@ namespace FirstLight.Game.StateMachines
 
 		private void TickQuantumServer(float deltaTime)
 		{
-			if(QuantumRunner.Default != null) Debug.LogError($"<color=green>QR.D</color>");
 			_networkService.QuantumClient.Service();
 			_networkService.CheckLag();
 		}
 
 		private void TickReconnectAttempt(float deltaTime)
 		{
-			if (!_networkService.QuantumClient.IsConnected && NetworkUtils.IsOnline())
+			if (!_networkService.QuantumClient.IsConnectedAndReady && NetworkUtils.IsOnline())
 			{
 				Debug.LogError("<color=green>---------ATTEMPT RECONNECT---------</color>");
 				ReconnectPhoton();
@@ -790,6 +795,7 @@ namespace FirstLight.Game.StateMachines
 				}
 				else
 				{
+					Debug.LogError("<color=green>---------RECONNECT AND REJOIN---------</color>");
 					_networkService.QuantumClient.ReconnectAndRejoin();
 				}
 			}

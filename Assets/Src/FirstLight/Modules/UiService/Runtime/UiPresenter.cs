@@ -14,6 +14,8 @@ namespace FirstLight.UiService
 	/// </summary>
 	public abstract class UiPresenter : MonoBehaviour
 	{
+		public float OpenDelayTimeSeconds = 0;
+		
 		private IUiService _uiService;
 
 		/// <summary>

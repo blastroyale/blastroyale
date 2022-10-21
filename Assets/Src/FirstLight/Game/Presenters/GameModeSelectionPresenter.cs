@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views;
@@ -13,10 +14,6 @@ namespace FirstLight.Game.Presenters
 	public class GameModeSelectionPresenter : UiToolkitPresenterData<GameModeSelectionPresenter.StateData>
 	{
 		[SerializeField] private VisualTreeAsset _buttonAsset;
-
-		private Button _closeButton;
-		private ScrollView _buttonsSlider;
-		private List<GameModeSelectionButtonView> _buttonViews;
 		
 		public struct StateData
 		{
@@ -24,11 +21,15 @@ namespace FirstLight.Game.Presenters
 			public Action CustomGameChosen;
 			public Action LeaveGameModeSelection;
 		}
-		
+
+		private Button _closeButton;
+		private ScrollView _buttonsSlider;
+		private List<GameModeSelectionButtonView> _buttonViews;
 		private IGameServices _services;
 
 		void Awake()
 		{
+			OpenDelayTimeSeconds = 0.7f;
 			_services = MainInstaller.Resolve<IGameServices>();
 			_services.GameModeService.Slots.Observe(OnSlotUpdated);
 
@@ -39,7 +40,6 @@ namespace FirstLight.Game.Presenters
 		{
 			_buttonsSlider = root.Q<ScrollView>("ButtonsSlider").Required();
 			_closeButton = root.Q<Button>("CloseButton").Required();
-
 			_closeButton.clicked += OnCloseButtonClicked;
 			
 			// Add game modes buttons
@@ -59,6 +59,7 @@ namespace FirstLight.Game.Presenters
 			// Add custom game button
 			var gameModeInfo = new GameModeInfo();
 			gameModeInfo.Entry.GameModeId = "Custom Game";
+			gameModeInfo.Entry.MatchType = MatchType.Custom;
 			var createGameButton = _buttonAsset.Instantiate();
 			createGameButton.AttachView(this, out GameModeSelectionButtonView customGameView);
 			customGameView.SetData(gameModeInfo);
@@ -74,8 +75,6 @@ namespace FirstLight.Game.Presenters
 
 		private void OnCustomGameClicked(GameModeSelectionButtonView info)
 		{
-			SelectButton(info);
-
 			Data.CustomGameChosen();
 		}
 

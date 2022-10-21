@@ -273,8 +273,15 @@ namespace FirstLight.UiService
 		/// <inheritdoc />
 		public async Task<T> OpenUiAsync<T>(bool openedException = false) where T : UiPresenter
 		{
+			var startTime = Time.time;
 			await GetUiAsync<T>();
+			
+			var ui = GetUi(typeof(T));
 
+			var remainingTime = Math.Max(0,ui.OpenDelayTimeSeconds - (Time.time - startTime));
+
+			await Task.Delay((int)(remainingTime * 1000));
+			
 			return OpenUi<T>(openedException);
 		}
 
@@ -344,7 +351,14 @@ namespace FirstLight.UiService
 		/// <inheritdoc />
 		public async Task<UiPresenter> OpenUiAsync<TData>(Type type, TData initialData, bool openedException = false) where TData : struct
 		{
+			var startTime = Time.time;
 			await GetUiAsync(type);
+			
+			var ui = GetUi(type);
+
+			var remainingTime =  Math.Max(0,ui.OpenDelayTimeSeconds - (Time.time - startTime));
+
+			await Task.Delay((int)(remainingTime * 1000));
 
 			return OpenUi(type, initialData, openedException);
 		}

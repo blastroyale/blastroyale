@@ -1,7 +1,7 @@
 using FirstLight.Game.Messages;
 using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Models;
-using Unity.Plastic.Newtonsoft.Json;
+using Newtonsoft.Json;
 
 
 namespace Src.FirstLight.Server

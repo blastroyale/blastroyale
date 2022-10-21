@@ -49,7 +49,8 @@ namespace GameLogicService.Services
 		/// Will search in players inventory for an item that references the given catalog item id.
 		/// If it finds, will consume the item and award its configured RewardData
 		/// </summary>
-		public async Task<PlayFabResult<BackendLogicResult>> ProcessPurchaseRequest(string playerId, string catalogItemId)
+		public async Task<PlayFabResult<BackendLogicResult>> ProcessPurchaseRequest(
+			string playerId, string catalogItemId, bool fakeStore)
 		{
 			_log.Log(LogLevel.Information, $"{playerId} is executing - ConsumeValidatedPurchaseCommand");
 
@@ -60,7 +61,10 @@ namespace GameLogicService.Services
 										   $"item id: {catalogItemId} - rewarding: {item.CustomData}");
 			
 			await ConvertInventoryItemToUserReadonlyDataItem(playerId, rewardData);
-			await ConsumeItem(playerId, item);
+			if (!fakeStore)
+			{
+				await ConsumeItem(playerId, item);
+			}
 			var result = new PlayFabResult<BackendLogicResult>
 			{
 				Result = new BackendLogicResult

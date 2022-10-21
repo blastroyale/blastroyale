@@ -181,12 +181,6 @@ namespace FirstLight.Game.Logic
 			return levels.Count > 0;
 		}
 
-		public void ResetBattlePass()
-		{
-			_currentLevel.Value = 0;
-			_currentPoints.Value = 0;
-		}
-
 		private void RedeemBPRewards(List<EquipmentRewardConfig> rewardConfigs, out List<Equipment> rewards)
 		{
 			rewards = new List<Equipment>();

@@ -1,9 +1,7 @@
 using System.Collections.Generic;
-using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
-using FirstLight.Services;
-using Quantum;
 using Equipment = Quantum.Equipment;
+using FirstLight.SDK.Services;
 
 namespace FirstLight.Game.Messages
 {

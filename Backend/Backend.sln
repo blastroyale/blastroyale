@@ -16,8 +16,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlastRoyaleTrophyLadderPlug
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerScripts", "ServerScripts\ServerScripts.csproj", "{7F2DDD83-CC93-41FD-94E8-7F223F638AB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlastRoyaleAnalyticsPlugin", "BlastRoyaleAnalyticsPlugin\BlastRoyaleAnalyticsPlugin.csproj", "{40F47742-2FEE-41B1-BD92-D091AB706DA5}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameLogicService", "GameLogicService\GameLogicService.csproj", "{F384ADA5-D1E9-4614-A740-70197086C14F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContainerApp", "ContainerApp\ContainerApp.csproj", "{7EAA3DC4-BA84-4425-BDC7-AFCB97B44D58}"

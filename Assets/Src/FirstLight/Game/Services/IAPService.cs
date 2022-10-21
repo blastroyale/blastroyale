@@ -103,7 +103,7 @@ namespace FirstLight.Game.Services
 		{
 			var fakeStore = IsFakeStore(purchaseEvent.purchasedProduct);
 			FLog.Info($"Purchase processed: {purchaseEvent.purchasedProduct.definition.id}, Fake store: {fakeStore}");
-			
+
 			if (fakeStore)
 			{
 				PurchaseValidated(purchaseEvent.purchasedProduct);
@@ -145,10 +145,15 @@ namespace FirstLight.Game.Services
 					JsonConvert.DeserializeObject<PlayFabResult<LogicResult>>(result.FunctionResult.ToString());
 				var reward = ModelSerializer.DeserializeFromData<RewardData>(logicResult!.Result.Data);
 
-				_commandService.ExecuteCommand(new AddIAPRewardCommand {Reward = reward});
+				// The first command (client only) syncs up client state with the server, as the
+				// server adds the reward item to UnclaimedRewards on its end, and we have to do the same.
+				_commandService.ExecuteCommand(new AddIAPRewardLocalCommand {Reward = reward});
+
+				// Second command is server and client, and collects the unclaimed reward.
 				_commandService.ExecuteCommand(new CollectIAPRewardCommand());
+
 				_store.ConfirmPendingPurchase(product);
-			}, OnPlayFabError, request);
+			}, _playfabService.HandleError, request);
 		}
 
 		private void ValidateReceipt(Product product)
@@ -167,7 +172,7 @@ namespace FirstLight.Game.Services
 				ReceiptData = payload
 			};
 
-			PlayFabClientAPI.ValidateIOSReceipt(request, _ => PurchaseValidated(cacheProduct), OnPlayFabError);
+			PlayFabClientAPI.ValidateIOSReceipt(request, _ => PurchaseValidated(cacheProduct), _playfabService.HandleError);
 #else
 			var data = JsonConvert.DeserializeObject<Dictionary<string, object>>(payload);
 			var request = new ValidateGooglePlayPurchaseRequest
@@ -178,13 +183,8 @@ namespace FirstLight.Game.Services
 				Signature = (string) data["signature"]
 			};
 			
-			PlayFabClientAPI.ValidateGooglePlayPurchase(request, _ => PurchaseValidated(cacheProduct), GameCommandService.OnPlayFabError);
+			PlayFabClientAPI.ValidateGooglePlayPurchase(request, _ => PurchaseValidated(cacheProduct), _playfabService.HandleError);
 #endif
-		}
-
-		private void OnPlayFabError(PlayFabError error)
-		{
-			FLog.Error($"PlayFab error: {error.ErrorMessage}");
 		}
 
 		private bool IsFakeStore(Product product)

@@ -9,7 +9,7 @@ namespace FirstLight.Game.Commands.OfflineCommands
 	/// Adds a reward to the local list of unclaimed rewards (used to sync up server
 	/// and client).
 	/// </summary>
-	public class AddIAPRewardCommand : IGameCommand
+	public class AddIAPRewardLocalCommand : IGameCommand
 	{
 		public RewardData Reward;
 

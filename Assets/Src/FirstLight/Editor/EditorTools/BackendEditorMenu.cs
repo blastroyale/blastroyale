@@ -186,18 +186,6 @@ namespace FirstLight.Editor.EditorTools
 					catItem.Payouts[0].quantity = (double) item.Consumable.UsageCount;
 					catItem.Payouts[0].data = item.CustomData;
 
-					Debug.Log("Virtual:");
-					foreach (var (key, value) in item.VirtualCurrencyPrices)
-					{
-						Debug.Log($"PRICE: {key}, {value}");
-					}
-
-					Debug.Log("Real:");
-					foreach (var (key, value) in item.RealCurrencyPrices)
-					{
-						Debug.Log($"PRICE: {key}, {value}");
-					}
-
 					var price = item.VirtualCurrencyPrices["RM"] / 100f;
 					catItem.applePriceTier = Mathf.RoundToInt(price);
 					catItem.googlePrice = new Price {value = (decimal) price};
@@ -210,7 +198,7 @@ namespace FirstLight.Editor.EditorTools
 				Debug.Log($"Saving catalog: {catalogString}");
 				File.WriteAllText(ProductCatalog.kCatalogPath, catalogString);
 
-				Debug.Log($"Catalog updated successfully.");
+				Debug.Log("Catalog updated successfully.");
 			}, error => { Debug.LogError($"Error updating catalog: {error.ErrorMessage}"); });
 		}
 	}

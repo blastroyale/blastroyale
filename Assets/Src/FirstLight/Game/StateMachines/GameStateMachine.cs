@@ -162,7 +162,7 @@ namespace FirstLight.Game.StateMachines
 			
 			await _uiService.LoadUiAsync<LoadingScreenPresenter>(true);
 			await Task.Delay(1000); // Delays 1 sec to play the loading screen animation
-			GameObject.DestroyImmediate(camera.gameObject);
+			GameObject.Destroy(camera.gameObject);
 			await Task.WhenAll(_uiService.LoadUiSetAsync((int) UiSetId.InitialLoadUi));
 		}
 	}

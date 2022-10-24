@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -14,31 +13,17 @@ using Button = UnityEngine.UIElements.Button;
 
 namespace FirstLight.Game.Views
 {
+	/// <summary>
+	/// This class manages the visual components of the GameModeSelectionButton elements in the GameModeSelectionScreen
+	/// </summary>
 	public class GameModeSelectionButtonView : IUIView
 	{
 		private const string SELECTED_CLASS = "selected";
-		
+		private const string VISIBLE_GAMEMODE_BUTTON = "visible-gamemodebutton";
+
 		public GameModeInfo GameModeInfo { get; private set; }
 		public event Action<GameModeSelectionButtonView> Clicked;
 		
-		private IGameServices _services;
-		private VisualElement _root;
-		private Button _button;
-		private Label _gameModeLabel;
-		private Label _gameModeDescriptionLabel;
-		private Label _gameModeTimerLabel;
-		private Label _modeTagTitleLabel;
-		private bool _selected;
-		private Coroutine _timerCoroutine;
-
-		private VisualElement _mutatorsPanel;
-		private List<VisualElement> _mutatorLines;
-
-		public GameModeSelectionButtonView()
-		{
-			_services = MainInstaller.Resolve<IGameServices>();
-		}
-
 		public bool Selected
 		{
 			get => _selected;
@@ -57,6 +42,28 @@ namespace FirstLight.Game.Views
 			}
 		}
 		
+		private IGameServices _services;
+		private VisualElement _root;
+		private Button _button;
+		private Label _gameModeLabel;
+		private Label _gameModeDescriptionLabel;
+		private Label _gameModeTimerLabel;
+		private Label _modeTagTitleLabel;
+		private bool _selected;
+		private Coroutine _timerCoroutine;
+
+		private VisualElement _mutatorsPanel;
+		private List<VisualElement> _mutatorLines;
+
+		private List<string> _gameModes = new (){"deathmatch", "battleroyale"};
+		private List<string> _matchTypes = new (){"ranked", "casual", "custom"};
+		private List<string> _mutators = new() {"speedup", "quickspecials", "healthyair"};
+
+		public GameModeSelectionButtonView()
+		{
+			_services = MainInstaller.Resolve<IGameServices>();
+		}
+
 		public void Attached(VisualElement element)
 		{
 			_root = element;
@@ -70,13 +77,17 @@ namespace FirstLight.Game.Views
 
 			_mutatorsPanel = _root.Q<VisualElement>("MutatorsPanel").Required();
 			_mutatorLines = _root.Query<VisualElement>("MutatorLine").ToList();
-		}
-
-		public void SubscribeToEvents()
-		{
+			
 			_button.clicked += () => Clicked?.Invoke(this);
 		}
 
+		/// <inheritdoc />
+		public void SubscribeToEvents()
+		{
+			UpdateTimer();
+		}
+
+		/// <inheritdoc />
 		public void UnsubscribeFromEvents()
 		{
 			if (_timerCoroutine != null)
@@ -85,18 +96,42 @@ namespace FirstLight.Game.Views
 			}
 		}
 
+		/// <summary>
+		/// Sets the data needed to fill the button's visuals
+		/// </summary>
+		/// <param name="orderNumber">Order of the button on the list</param>
+		/// <param name="gameModeInfo">Game mode data to fill the button's visuals</param>
+		public void SetData(int orderNumber, GameModeInfo gameModeInfo)
+		{
+			var visibleClass = VISIBLE_GAMEMODE_BUTTON + (orderNumber > 4 ? "" : orderNumber);
+			_button.AddToClassList(visibleClass);
+
+			SetData(gameModeInfo);
+		}
+
+		/// <summary>
+		/// Sets the data needed to fill the button's visuals
+		/// </summary>
+		/// <param name="gameModeInfo">Game mode data to fill the button's visuals</param>
 		public void SetData(GameModeInfo gameModeInfo)
 		{
 			GameModeInfo = gameModeInfo;
-
-			_button.AddToClassList(gameModeInfo.Entry.MatchType.ToString().ToLower());
-			_button.AddToClassList(gameModeInfo.Entry.GameModeId.ToLower());
-			_gameModeLabel.text = gameModeInfo.Entry.GameModeId.ToUpper();
-			_modeTagTitleLabel.text = gameModeInfo.Entry.MatchType == MatchType.Custom?"":gameModeInfo.Entry.MatchType.ToString().ToUpper();
+			
+			RemoveClasses();
+			
+			_button.AddToClassList(GameModeInfo.Entry.MatchType.ToString().ToLower());
+			_button.AddToClassList(GameModeInfo.Entry.GameModeId.ToLower());
+			_gameModeLabel.text = GameModeInfo.Entry.GameModeId.ToUpper();
+			_modeTagTitleLabel.text = GameModeInfo.Entry.MatchType == MatchType.Custom?"":GameModeInfo.Entry.MatchType.ToString().ToUpper();
 
 			UpdateDescription();
-			UpdateTimer();
 			UpdateMutators();
+		}
+
+		private void RemoveClasses()
+		{
+			_gameModes.ForEach(mode => _button.RemoveFromClassList(mode));
+			_matchTypes.ForEach(type => _button.RemoveFromClassList(type));
 		}
 
 		private void UpdateDescription()
@@ -114,7 +149,7 @@ namespace FirstLight.Game.Views
 
 		private void UpdateMutators()
 		{
-			if (GameModeInfo.Entry.Mutators == null || GameModeInfo.Entry.Mutators.Count == 0)
+			if (GameModeInfo.Entry.Mutators.Count == 0)
 			{
 				_mutatorsPanel.AddToClassList("hidden");
 				return;
@@ -163,6 +198,7 @@ namespace FirstLight.Game.Views
 			while (true)
 			{
 				var timeLeft = GameModeInfo.EndTime - DateTime.UtcNow;
+
 				_gameModeTimerLabel.text = timeLeft.ToString(@"hh\:mm\:ss");
 				yield return new WaitForSeconds(1);
 			}

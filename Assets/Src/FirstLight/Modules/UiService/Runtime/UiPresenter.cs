@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using FirstLight.Game.UIElements;
 using Sirenix.OdinInspector;
@@ -217,9 +218,16 @@ namespace FirstLight.UiService
 					.ForEach(e => { AddView(e, (IUIView) e); });
 			}
 
-			Root.EnableInClassList(UIConstants.CLASS_HIDDEN, false);
-
+			Root.EnableInClassList(UIConstants.CLASS_HIDDEN, true);
+			StartCoroutine(MakeVisible());
+			
 			SubscribeToEvents();
+		}
+
+		private IEnumerator MakeVisible()
+		{
+			yield return new WaitForEndOfFrame();
+			Root.EnableInClassList(UIConstants.CLASS_HIDDEN, false);
 		}
 
 		protected override void OnClosed()

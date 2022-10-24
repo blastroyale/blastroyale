@@ -6,28 +6,27 @@ using FirstLight.Game.Utils;
 using FirstLight.Game.Views;
 using FirstLight.UiService;
 using UnityEngine;
-using UnityEngine.Assertions;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
 {
 	public class GameModeSelectionPresenter : UiToolkitPresenterData<GameModeSelectionPresenter.StateData>
 	{
-		[SerializeField] private VisualTreeAsset _buttonAsset;
-		
 		public struct StateData
 		{
 			public Action GameModeChosen;
 			public Action CustomGameChosen;
 			public Action LeaveGameModeSelection;
 		}
+		
+		[SerializeField] private VisualTreeAsset _buttonAsset;
 
 		private Button _closeButton;
 		private ScrollView _buttonsSlider;
 		private List<GameModeSelectionButtonView> _buttonViews;
 		private IGameServices _services;
 
-		void Awake()
+		private void Awake()
 		{
 			OpenDelayTimeSeconds = 0.7f;
 			_services = MainInstaller.Resolve<IGameServices>();
@@ -41,13 +40,14 @@ namespace FirstLight.Game.Presenters
 			_buttonsSlider = root.Q<ScrollView>("ButtonsSlider").Required();
 			_closeButton = root.Q<Button>("CloseButton").Required();
 			_closeButton.clicked += OnCloseButtonClicked;
+			var orderNumber = 1;
 			
 			// Add game modes buttons
 			foreach (var slot in _services.GameModeService.Slots)
 			{
 				var button = _buttonAsset.Instantiate();
 				button.AttachView(this, out GameModeSelectionButtonView view);
-				view.SetData(slot);
+				view.SetData(orderNumber++, slot);
 				view.Clicked += OnModeButtonClicked;
 				_buttonViews.Add(view);
 
@@ -62,7 +62,7 @@ namespace FirstLight.Game.Presenters
 			gameModeInfo.Entry.MatchType = MatchType.Custom;
 			var createGameButton = _buttonAsset.Instantiate();
 			createGameButton.AttachView(this, out GameModeSelectionButtonView customGameView);
-			customGameView.SetData(gameModeInfo);
+			customGameView.SetData(orderNumber, gameModeInfo);
 			customGameView.Clicked += OnCustomGameClicked;
 			_buttonViews.Add(customGameView);
 			_buttonsSlider.Add(createGameButton);
@@ -81,8 +81,6 @@ namespace FirstLight.Game.Presenters
 		private void OnSlotUpdated(int index, GameModeInfo previous, GameModeInfo current,
 								   ObservableUpdateType updateType)
 		{
-			Assert.AreEqual(ObservableUpdateType.Updated, updateType);
-
 			_buttonViews[index].SetData(current);
 		}
 		

@@ -1,4 +1,4 @@
-#GameModeSelectionButton {
+#GameModeButton {
     width: 529px;
     height: 763px;
     margin-left: 30px;
@@ -10,7 +10,6 @@
     padding-top: 0;
     padding-bottom: 0;
     background-color: rgba(76, 76, 76, 0);
-    color: rgba(1, 0, 0, 0);
     border-left-color: rgba(0, 0, 0, 0);
     border-right-color: rgba(0, 0, 0, 0);
     border-top-color: rgba(0, 0, 0, 0);
@@ -25,39 +24,41 @@
     border-bottom-right-radius: 0;
 }
 
-#GameModeSelectionButton.selected {
+#GameModeButton.selected #Scalable {
     scale: 1.1 1.1;
-    transition-duration: 0.2s;
-    transition-timing-function: ease-out;
+    transition-property: scale;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+    transition-delay: 0s;
 }
 
-#GameModeSelectionButton #GameModeOutline {
+#GameModeButton #GameModeOutline {
     -unity-background-image-tint-color: rgba(1, 0, 0, 0);
 }
 
-#GameModeSelectionButton.selected #GameModeOutline {
+#GameModeButton.selected #GameModeOutline {
     -unity-background-image-tint-color: rgb(255, 255, 255);
 }
 
-#GameModeSelectionButton #GameModeIcon {
+#GameModeButton #GameModeIcon {
     width: 50px;
     height: 50px;
     margin-left: 40px;
 }
 
-#GameModeSelectionButton.battleroyale #GameModeIcon {
+#GameModeButton.battleroyale #GameModeIcon {
     background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/BattleRoyaleModeIcon.png?fileID=2800000&guid=c8082fa22a90a4b92b5cd7966cf32cc6&type=3#BattleRoyaleModeIcon');
 }
 
-#GameModeSelectionButton.deathmatch #GameModeIcon {
+#GameModeButton.deathmatch #GameModeIcon {
     background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/DeathmatchModeIcon.png?fileID=2800000&guid=b1b4a0f0d286243dca54199c42a09b34&type=3#DeathmatchModeIcon');
 }
 
-#GameModeSelectionButton.custom #GameModeIcon {
+#GameModeButton.custom #GameModeIcon {
     background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/CustomgameModeIcon.png?fileID=2800000&guid=4dcea76e0c52e43d6b931b8c957efe36&type=3#CustomgameModeIcon');
 }
 
-#GameModeSelectionButton #DataPanel {
+#GameModeButton #DataPanel {
     width: 404px;
     height: 189px;
     -unity-background-scale-mode: stretch-to-fill;
@@ -65,19 +66,19 @@
     position: absolute;
 }
 
-#GameModeSelectionButton.ranked #DataPanel {
+#GameModeButton.ranked #DataPanel {
     background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/RankedBody.svg?fileID=7388822144124034973&guid=34a106a79d75f45a687d46e86dfa3b0f&type=3#RankedBody');
     width: auto;
     height: auto;
 }
 
-#GameModeSelectionButton.casual #DataPanel {
+#GameModeButton.casual #DataPanel {
     background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/CasualNody.svg?fileID=7388822144124034973&guid=53a852d437769421f996b8197fdd7521&type=3#CasualNody');
     width: auto;
     height: auto;
 }
 
-#GameModeSelectionButton #GameModeLabel {
+#GameModeButton #GameModeLabel {
     font-size: 50px;
     margin-left: 5px;
     -unity-text-align: middle-left;
@@ -88,31 +89,31 @@
     color: rgb(0, 0, 0);
 }
 
-#GameModeSelectionButton.battleroyale #Top {
+#GameModeButton.battleroyale #Top {
     background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/BattleroyaleBackArt.png?fileID=2800000&guid=550c896610e0c478ea587216b78ee7f3&type=3#BattleroyaleBackArt');
 }
 
-#GameModeSelectionButton.deathmatch #Top {
+#GameModeButton.deathmatch #Top {
     background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/DeathmatchBackArt.png?fileID=2800000&guid=f622cd3d0b6fb4e3183f866053e0307b&type=3#DeathmatchBackArt');
 }
 
-#GameModeSelectionButton.custom #Top {
+#GameModeButton.custom #Top {
     background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/CustomGameArt.png?fileID=2800000&guid=5db528171ce7e43ceaaad19d38e24b92&type=3#CustomGameArt');
 }
 
-#GameModeSelectionButton.battleroyale #TopImage {
+#GameModeButton.battleroyale #TopImage {
     background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/BattleroyaleTopArt.png?fileID=2800000&guid=5ca4c1c7607e54a35a2cb0ec2facd30c&type=3#BattleroyaleTopArt');
     width: 491px;
     height: 466px;
 }
 
-#GameModeSelectionButton.deathmatch #TopImage {
+#GameModeButton.deathmatch #TopImage {
     background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/DeathmatchTopArt.png?fileID=2800000&guid=7ffb27509a1d146a8957bdb2a5922475&type=3#DeathmatchTopArt');
     width: 491px;
     height: 466px;
 }
 
-#GameModeSelectionButton #GameModeDescription {
+#GameModeButton #GameModeDescription {
     color: rgb(0, 0, 0);
     font-size: 30px;
     -unity-text-align: upper-left;
@@ -120,15 +121,15 @@
     white-space: normal;
 }
 
-#GameModeSelectionButton.ranked #GameModeDescription {
+#GameModeButton.ranked #GameModeDescription {
     color: rgb(120, 3, 23);
 }
 
-#GameModeSelectionButton.casual #GameModeDescription {
+#GameModeButton.casual #GameModeDescription {
     color: rgb(16, 59, 137);
 }
 
-#GameModeSelectionButton #GameModeTimer {
+#GameModeButton #GameModeTimer {
     color: rgb(0, 0, 0);
     font-size: 30px;
     -unity-text-align: upper-right;
@@ -141,15 +142,15 @@
     right: 30px;
 }
 
-#GameModeSelectionButton.ranked #GameModeTimer {
+#GameModeButton.ranked #GameModeTimer {
     color: rgb(155, 47, 38);
 }
 
-#GameModeSelectionButton.casual #GameModeTimer {
+#GameModeButton.casual #GameModeTimer {
     color: rgb(16, 59, 137);
 }
 
-#GameModeSelectionButton #MutatorsPanel {
+#GameModeButton #MutatorsPanel {
     width: 270px;
     height: auto;
     background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/MutatorsBack.svg?fileID=7388822144124034973&guid=0e58669687c4b4ff387d2604ced0f2ff&type=3#MutatorsBack');
@@ -162,16 +163,24 @@
     -unity-background-scale-mode: scale-and-crop;
 }
 
-#GameModeSelectionButton .mutator-icon {
+#GameModeButton .mutator-icon {
     width: 30px;
     height: 30px;
 }
 
-#GameModeSelectionButton .speedup-mutator .mutator-icon {
+#GameModeButton .speedup-mutator .mutator-icon {
     background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/SpeedUpMutatorIcon.png?fileID=21300000&guid=eab910956b2584d8aa5adae86fc70675&type=3#SpeedUpMutatorIcon');
 }
 
-#GameModeSelectionButton .mutator-title {
+#GameModeButton .quickspecials-mutator .mutator-icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/QuickSpecialsMutatorIcon.png?fileID=21300000&guid=1b7e8fb2c20bc42098c49527ddc17ff1&type=3#QuickSpecialsMutatorIcon');
+}
+
+#GameModeButton .healthyair-mutator .mutator-icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/HealthyAirMutatorIcon.png?fileID=21300000&guid=40a49e478e2a64d8ba5857e4e7116e77&type=3#HealthyAirMutatorIcon');
+}
+
+#GameModeButton .mutator-title {
     color: rgb(255, 255, 255);
     font-size: 27px;
     margin-left: 10px;
@@ -184,11 +193,11 @@
     padding-bottom: 0;
 }
 
-#GameModeSelectionButton #TopImage {
+#GameModeButton #TopImage {
     position: absolute;
 }
 
-#GameModeSelectionButton #Crown {
+#GameModeButton #Crown {
     position: absolute;
     left: 50%;
     right: 50%;
@@ -197,35 +206,89 @@
     top: -70px;
 }
 
-#GameModeSelectionButton.ranked #Crown {
+#GameModeButton.ranked #Crown {
     background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/RankedCrown.png?fileID=2800000&guid=a3323e773a3d94bfda84717a55d45241&type=3#RankedCrown');
 }
 
-#GameModeSelectionButton #ModeTag {
+#GameModeButton #ModeTag {
     width: 130px;
     height: 40px;
     right: -5px;
     top: -12px;
 }
 
-#GameModeSelectionButton.ranked #ModeTag {
+#GameModeButton.ranked #ModeTag {
     background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/Rankedtag.svg?fileID=7388822144124034973&guid=ca4852c7187dd4f74905faaea57ea057&type=3#Rankedtag');
 }
 
-#GameModeSelectionButton.casual #ModeTag {
+#GameModeButton.casual #ModeTag {
     background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/CasualTag.svg?fileID=7388822144124034973&guid=570f2f4b2fee6499a9ed88a5cc6bce97&type=3#CasualTag');
 }
 
-#GameModeSelectionButton #ModeTagTitle {
+#GameModeButton #ModeTagTitle {
     color: rgb(255, 255, 255);
     font-size: 30px;
     -unity-text-outline-width: 2px;
 }
 
-#GameModeSelectionButton.ranked #ModeTagTitle {
+#GameModeButton.ranked #ModeTagTitle {
     -unity-text-outline-color: rgb(177, 46, 0);
 }
 
-#GameModeSelectionButton.casual #ModeTagTitle {
+#GameModeButton.casual #ModeTagTitle {
     -unity-text-outline-color: rgb(0, 74, 158);
+}
+
+.hidden .hidden-gamemodebutton {
+    opacity: 0;
+    translate: 0 400px;
+}
+
+.visible-gamemodebutton1 {
+    opacity: 1;
+    transition-duration: 0.7s, 0.7s;
+    transition-property: opacity, translate;
+    transition-delay: 0.7s, 0.7s;
+    transition-timing-function: ease, ease-out-back;
+}
+
+.visible-gamemodebutton2 {
+    opacity: 1;
+    transition-duration: 0.7s, 0.7s;
+    transition-property: opacity, translate;
+    transition-delay: 0.9s, 0.9s;
+    transition-timing-function: ease, ease-out-back;
+}
+
+.visible-gamemodebutton3 {
+    opacity: 1;
+    transition-duration: 0.7s, 0.7s;
+    transition-property: opacity, translate;
+    transition-delay: 1.1s, 1.1s;
+    transition-timing-function: ease, ease-out-back;
+}
+
+.visible-gamemodebutton4 {
+    opacity: 1;
+    transition-duration: 0.7s, 0.7s;
+    transition-property: opacity, translate;
+    transition-delay: 1.3s, 1.3s;
+    transition-timing-function: ease, ease-out-back;
+}
+
+.visible-gamemodebutton {
+    opacity: 1;
+}
+
+.hidden .hidden-crown {
+    opacity: 0;
+    translate: 0 -100px;
+}
+
+.visible-crown {
+    opacity: 1;
+    transition-duration: 0.7s, 0.7s;
+    transition-property: opacity, translate;
+    transition-delay: 1.5s, 1.5s;
+    transition-timing-function: ease, ease-out-back;
 }

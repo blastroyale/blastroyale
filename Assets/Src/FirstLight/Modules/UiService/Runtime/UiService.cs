@@ -4,8 +4,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.ResourceProviders;
 
 // ReSharper disable CheckNamespace
 
@@ -274,10 +272,8 @@ namespace FirstLight.UiService
 		public async Task<T> OpenUiAsync<T>(bool openedException = false) where T : UiPresenter
 		{
 			var startTime = Time.time;
-			await GetUiAsync<T>();
+			var ui = await GetUiAsync<T>();
 			
-			var ui = GetUi(typeof(T));
-
 			var remainingTime = Math.Max(0,ui.OpenDelayTimeSeconds - (Time.time - startTime));
 
 			await Task.Delay((int)(remainingTime * 1000));

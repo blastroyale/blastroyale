@@ -1,4 +1,3 @@
-#if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,8 +8,6 @@ using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Newtonsoft.Json;
 using PlayFab;
-using PlayFab.AdminModels;
-using PlayFab.PfEditor;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Purchasing;
@@ -103,7 +100,7 @@ namespace FirstLight.Editor.EditorTools
 			{
 				var currentVersion = ulong.Parse(configVersion ?? "0");
 				var nextVersion = currentVersion + 1;
-				var title = PlayFabEditorDataService.ActiveTitle;
+				var title = PlayFab.PfEditor.PlayFabEditorDataService.ActiveTitle;
 				if (!EditorUtility.DisplayDialog("Confirm Version Update",
 						@$"Update configs from version {currentVersion} to {nextVersion} on environment {title.Name.ToUpper()} {title.Id.ToUpper()}?",
 						"Confirm", "Cancel"))
@@ -162,11 +159,12 @@ namespace FirstLight.Editor.EditorTools
 			Debug.Log("Using Remote Configurations from Playfab");
 		}
 
+#if ENABLE_PLAYFABADMIN_API
 		[MenuItem("FLG/Backend/Update IAP Catalog")]
 		private static void UpdateIAPCatalog()
 		{
 			Debug.Log("Requesting catalog items from PlayFab");
-			PlayFabAdminAPI.GetCatalogItems(new GetCatalogItemsRequest {CatalogVersion = "Store"}, result =>
+			PlayFabAdminAPI.GetCatalogItems(new PlayFab.AdminModels.GetCatalogItemsRequest {CatalogVersion = "Store"}, result =>
 			{
 				Debug.Log("Request completed successfully.");
 				var catalog = new ProductCatalog
@@ -202,6 +200,6 @@ namespace FirstLight.Editor.EditorTools
 				Debug.Log("Catalog updated successfully.");
 			}, error => { Debug.LogError($"Error updating catalog: {error.ErrorMessage}"); });
 		}
+#endif
 	}
 }
-#endif

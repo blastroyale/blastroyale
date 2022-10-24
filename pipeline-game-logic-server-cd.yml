@@ -10,7 +10,7 @@ resources:
   pipelines:
   - pipeline: build
     source: 'Game Logic Service CI'
-    trigger: false
+    trigger: true
   repositories:
   - repository: templates
     type: bitbucket

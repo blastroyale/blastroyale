@@ -25,6 +25,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, OnUpdateView, onlyIfActiveAndEnabled: true);
 		}
 
+		protected override void HandleGameDestroyed(CallbackGameDestroyed callback)
+		{
+			//base.HandleGameDestroyed(callback);
+		}
+
 		private void OnUpdateView(CallbackUpdateView callback)
 		{
 			var frame = callback.Game.Frames.Verified;

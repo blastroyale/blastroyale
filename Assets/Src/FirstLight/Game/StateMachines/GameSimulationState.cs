@@ -73,7 +73,7 @@ namespace FirstLight.Game.StateMachines
 			var quitCheck = stateFactory.Choice("Quit Check");
 			var gameRewards = stateFactory.Wait("Game Rewards Screen");
 			var trophiesGainLoss = stateFactory.Wait("Trophies Gain Loss Screen");
-			//var disconnected = stateFactory.State("Disconnected");
+			var disconnected = stateFactory.State("Disconnected");
 			
 			initial.Transition().Target(startSimulation);
 			initial.OnExit(SubscribeEvents);
@@ -93,13 +93,15 @@ namespace FirstLight.Game.StateMachines
 			deathmatch.OnExit(PublishMatchEnded);
 
 			battleRoyale.Nest(_battleRoyaleState.Setup).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
-			//battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
+			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
 			battleRoyale.Event(MatchEndedEvent).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
 			battleRoyale.Event(MatchQuitEvent).OnTransition(() => MatchEndAnalytics(true)).Target(quitCheck);
 			battleRoyale.OnExit(PublishMatchEnded);
 
-			//disconnected.OnEnter(StopSimulation);
-			//disconnected.Event(NetworkState.JoinedRoomEvent).Target(startSimulation);
+			disconnected.OnEnter(OpenDisconnectedScreen);
+			disconnected.OnEnter(StopSimulation);
+			disconnected.Event(NetworkState.JoinedRoomEvent).Target(startSimulation);
+			disconnected.OnExit(CloseDisconnectedScreen);
 			
 			quitCheck.Transition().Condition(IsSpectator).Target(final);
 			quitCheck.Transition().Target(gameEnded);
@@ -269,15 +271,29 @@ namespace FirstLight.Game.StateMachines
 			var client = _services.NetworkService.QuantumClient;
 			var configs = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 			var room = client.CurrentRoom;
+			
 			var startPlayersCount = client.CurrentRoom.GetRealPlayerCapacity();
-
+			
 			if (room.CustomProperties.TryGetValue(GameConstants.Network.ROOM_PROPS_BOTS, out var gameHasBots) &&
 			    !(bool) gameHasBots)
 			{
 				startPlayersCount = room.GetRealPlayerAmount();
 			}
+
+			if (!_services.NetworkService.IsJoiningNewMatch)
+			{
+				startPlayersCount = NetworkState._lastMatchStartedStartedPlayers;
+			}
 			
+			NetworkState._lastMatchStartedStartedPlayers = startPlayersCount;
+
 			var startParams = configs.GetDefaultStartParameters(startPlayersCount, IsSpectator());
+			
+			if (!_services.NetworkService.IsJoiningNewMatch)
+			{
+				Debug.LogError("------------------------restarting sim");
+				startParams = configs.GetDefaultStartParameters(startPlayersCount, IsSpectator(), NetworkState._frameSnapshotNumber, NetworkState._frameSnapshot);
+			}
 
 			startParams.NetworkClient = client;
 			
@@ -291,6 +307,21 @@ namespace FirstLight.Game.StateMachines
 			QuantumRunner.ShutdownAll();
 		}
 
+		private void OpenDisconnectedScreen()
+		{
+			var data = new DisconnectedScreenPresenter.StateData
+			{
+				ReconnectClicked = () => _services.MessageBrokerService.Publish(new AttemptManualReconnectionMessage())
+			};
+
+			_uiService.OpenUiAsync<DisconnectedScreenPresenter, DisconnectedScreenPresenter.StateData>(data);
+		}
+		
+		private void CloseDisconnectedScreen()
+		{
+			_uiService.CloseUi<DisconnectedScreenPresenter>(false, true);
+		}
+		
 		private void PublishMatchEnded()
 		{
 			_services.MessageBrokerService.Publish(new MatchEndedMessage());

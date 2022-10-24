@@ -90,7 +90,7 @@ namespace FirstLight.Game.StateMachines
 			playerReadyWait.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(OnDisconnectDuringFinalPreload).Target(unloading);
 			
 			gameSimulation.Nest(_gameSimulationState.Setup).Target(unloading);
-			gameSimulation.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(OnDisconnectDuringSimulation).Target(unloading);
+			gameSimulation.Event(NetworkState.PhotonCriticalDisconnectedEvent).OnTransition(OnDisconnectDuringSimulation).Target(unloading);
 			
 			unloading.OnEnter(OpenLoadingScreen);
 			unloading.OnEnter(UnloadAllMatchAssets);
@@ -145,7 +145,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnDisconnectDuringSimulation()
 		{
-			Debug.LogError("<color=green>---------SIMULATION CRITICAL DISCONNECT---------</color>");
+			Debug.LogError("<color=green>---------SIMULATION DISCONNECT---------</color>");
 			_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.Simulation;
 		}
 

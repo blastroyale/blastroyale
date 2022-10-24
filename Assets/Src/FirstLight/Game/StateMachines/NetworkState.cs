@@ -17,6 +17,7 @@ using FirstLight.Game.Utils;
 using FirstLight.NativeUi;
 using FirstLight.Statechart;
 using I2.Loc;
+using Photon.Deterministic;
 using Photon.Realtime;
 using Quantum;
 using UnityEngine;
@@ -168,6 +169,7 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeEvents()
 		{
 			_services.TickService.SubscribeOnUpdate(TickQuantumServer, GameConstants.Network.NETWORK_QUANTUM_TICK_SECONDS, true, true);
+			_services.TickService.SubscribeOnUpdate(TickFrameStorage, 0.06f, true, true);
 			_services.MessageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuit);
 			_services.MessageBrokerService.Subscribe<MatchSimulationStartedMessage>(OnMatchSimulationStartedMessage);
 			_services.MessageBrokerService.Subscribe<MatchSimulationEndedMessage>(OnMatchSimulationEndedMessage);
@@ -185,7 +187,7 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<NetworkActionWhileDisconnectedMessage>(OnNetworkActionWhileDisconnected);
 			_services.MessageBrokerService.Subscribe<AttemptManualReconnectionMessage>(OnAttemptManualReconnectionMessage);
 		}
-		
+
 		private void UnsubscribeEvents()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
@@ -195,12 +197,13 @@ namespace FirstLight.Game.StateMachines
 
 		private async void SubscribeDisconnectEvents()
 		{
-			_services.TickService.SubscribeOnUpdate(TickReconnectAttempt, GameConstants.Network.NETWORK_ATTEMPT_RECONNECT_SECONDS, true, true);
+			//TODO TEST
+			//_services.TickService.SubscribeOnUpdate(TickReconnectAttempt, GameConstants.Network.NETWORK_ATTEMPT_RECONNECT_SECONDS, true, true);
 			_criticalDisconnectCoroutine = _services.CoroutineService.StartCoroutine(CriticalDisconnectCoroutine());
 
 			await Task.Yield();
 		
-			TickReconnectAttempt(0);
+			//TickReconnectAttempt(0);
 		}
 
 		private void UnsubscribeDisconnectEvents()
@@ -680,6 +683,17 @@ namespace FirstLight.Game.StateMachines
 		{
 			_networkService.QuantumClient.Service();
 			_networkService.CheckLag();
+		}
+
+		public static byte[] _frameSnapshot;
+		public static int _frameSnapshotNumber;
+		public static int _lastMatchStartedStartedPlayers;
+		private void TickFrameStorage(float obj)
+		{
+			if (QuantumRunner.Default == null || QuantumRunner.Default.Game == null || QuantumRunner.Default.Game.Frames.Verified == null) return;
+
+			_frameSnapshot = QuantumRunner.Default.Game.Frames.Verified.Serialize(DeterministicFrameSerializeMode.Blit);
+			_frameSnapshotNumber = QuantumRunner.Default.Game.Frames.Verified.Number;
 		}
 
 		private void TickReconnectAttempt(float deltaTime)

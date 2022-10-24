@@ -123,6 +123,17 @@ namespace Quantum
 			f.Add(e, targetable);
 			f.Add<AlivePlayerCharacter>(e);
 
+			Log.Warn("weapon is " + GetLoadoutWeapon(f).GameId);
+			//add the player's equipment and weapon when they spawn
+			if(GetLoadoutWeapon(f).GameId != GameId.Random)
+				AddWeapon(f, e, GetLoadoutWeapon(f), false);
+			for(var i = 0; i < Gear.Length; i++)
+			{
+				Log.Warn("gear is " + Gear[i].GameId);
+				if (Gear[i].GameId != GameId.Random)
+					EquipGear(f, e, Gear[i]);
+			}
+
 			f.Events.OnPlayerAlive(Player, e, currentHealth, FPMath.RoundToInt(maxHealth));
 			f.Events.OnLocalPlayerAlive(Player, e, currentHealth, FPMath.RoundToInt(maxHealth));
 
@@ -130,6 +141,7 @@ namespace Quantum
 
 			StatusModifiers.AddStatusModifierToEntity(f, e, StatusModifierType.Immunity,
 			                                          f.GameConfig.PlayerAliveShieldDuration.Get(f));
+
 		}
 
 		/// <summary>

@@ -36,7 +36,7 @@ MonoBehaviour:
     UiType: FirstLight.Game.Presenters.DeathmatchDeadScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/Disconnected Screen.prefab
-    Layer: 8
+    Layer: 0
     UiType: FirstLight.Game.Presenters.DisconnectedScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/EquipmentScreen.prefab

@@ -4,12 +4,14 @@ using Backend.Game.Services;
 using FirstLight;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
+using FirstLight.SDK.Modules;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using NUnit.Framework;
 using Quantum;
 using FirstLight.Server.SDK.Services;
+using FirstLight.Services;
 using Assert = NUnit.Framework.Assert;
 
 public class TestServerLogic
@@ -33,7 +35,7 @@ public class TestServerLogic
 	{
 		var cfg = _server.GetService<IConfigsProvider>();
 		var state = _server.GetService<IServerStateService>().GetPlayerState(_server.GetTestPlayerID()).Result;
-		var logic = new GameServerLogic(cfg, new ServerPlayerDataProvider(state));
+		var logic = new GameServerLogic(cfg, new ServerPlayerDataProvider(state), new InMemoryMessageBrokerService());
 		logic.Init();
 	}
 	
@@ -54,7 +56,7 @@ public class TestServerLogic
 		{
 			SkinId = newSkin
 		};
-		var newState = _cmdHandler.ExecuteCommand(command, oldState).Result;
+		var newState = _cmdHandler.ExecuteCommand(playerId, command, oldState).Result;
 		var newPlayerData = newState.DeserializeModel<PlayerData>();
 		
 		Assert.AreEqual(newSkin, newPlayerData.PlayerSkinId);

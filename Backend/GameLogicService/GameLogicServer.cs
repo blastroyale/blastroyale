@@ -36,6 +36,11 @@ namespace Backend
 		/// Obtains the current player state.
 		/// </summary>
 		public Task<PlayFabResult<BackendLogicResult>> GetPlayerData(string playerId);
+		
+		/// <summary>
+		/// Removes the player from playfab.
+		/// </summary>
+		public Task<PlayFabResult<BackendLogicResult>> RemovePlayerData(string playerId);
 	}
 
 	public class GameLogicWebWebService : ILogicWebService
@@ -115,7 +120,27 @@ namespace Backend
 				return GetPlayfabError(errorResult);
 			}
 		}
-		
+
+		public async Task<PlayFabResult<BackendLogicResult>> RemovePlayerData(string playerId)
+		{
+			try
+			{
+				await _stateService.DeleteState(playerId);
+				return new PlayFabResult<BackendLogicResult>
+				{
+					Result = new BackendLogicResult
+					{
+						PlayFabId = playerId
+					}
+				};
+			}
+			catch (Exception e)
+			{
+				var errorResult = _server.GetErrorResult(null, e);
+				return GetPlayfabError(errorResult);
+			}
+		}
+
 		public async Task<PlayFabResult<BackendLogicResult>> SetupPlayer(string playerId)
 		{
 			var serverData = _setupService.GetInitialState(playerId);

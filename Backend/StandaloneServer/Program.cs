@@ -58,7 +58,7 @@ app.MapPost("/CloudScript/ExecuteFunction", async (ctx) =>
 	// TODO: Make attribute that implements service calls in both Azure Functions and Standalone to avoid this
 	PlayFabResult<BackendLogicResult?> result = functionRequest?.FunctionName switch
 	{
-		"ConsumeValidatedPurchaseCommand" => await shop.ProcessPurchaseRequest(playerId, logicRequest.Data["item_id"]),
+		"ConsumeValidatedPurchaseCommand" => await shop.ProcessPurchaseRequest(playerId, logicRequest.Data["item_id"], bool.Parse(logicRequest.Data["fake_store"])),
 		"RemovePlayerData"                => await webServer.RemovePlayerData(playerId),
 		"ExecuteCommand"                  => await webServer.RunLogic(playerId, logicRequest),
 		"GetPlayerData"                   => await webServer.GetPlayerData(playerId)

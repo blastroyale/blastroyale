@@ -78,7 +78,9 @@
                         </ui:VisualElement>
                         <ui:VisualElement name="BattlePassCrownIcon" style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/HomeScreen/BattlepassCrown.png?fileID=21300000&amp;guid=0009bb56e12594dd9a62134a948a4f74&amp;type=3#BattlepassCrown&apos;); width: 104px; height: 88px;" />
                     </ui:Button>
-                    <ui:Button text="Chest" display-tooltip-when-elided="true" name="ChestButton" class="button-regular font-italic font-style-h2" style="margin-left: 64px; -unity-background-image-tint-color: rgb(255, 247, 0); display: none;" />
+                    <ui:Button text="Store" display-tooltip-when-elided="true" name="StoreButton" class="button-regular font-italic font-style-h2" style="margin-left: 64px;" >
+                        <ui:VisualElement class="button-icon" />
+                    </ui:Button>
                 </ui:VisualElement>
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>

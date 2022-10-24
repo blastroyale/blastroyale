@@ -82,7 +82,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Generates a new unique non-NFT piece of equipment from battle pass reward configs
 		/// </summary>
-		Equipment GenerateEquipmentFromBattlePassReward(BattlePassRewardConfig config);
+		Equipment GenerateEquipmentFromConfig(EquipmentRewardConfig config);
 	}
 
 	/// <inheritdoc />
@@ -227,7 +227,7 @@ namespace FirstLight.Game.Logic
 			return Loadout.Count >= GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>().NftRequiredEquippedForPlay;
 		}
 
-		public Equipment GenerateEquipmentFromBattlePassReward(BattlePassRewardConfig config)
+		public Equipment GenerateEquipmentFromConfig(EquipmentRewardConfig config)
 		{
 			var gameId = config.GameId;
 

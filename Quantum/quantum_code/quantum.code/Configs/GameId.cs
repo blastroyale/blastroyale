@@ -679,33 +679,24 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
-					GameId.CoreCommon, new List<GameIdGroup>
-					{
-						GameIdGroup.Core
-					}.AsReadOnly()
-				},
-				{
-					GameId.CoreUncommon, new List<GameIdGroup>
-					{
-						GameIdGroup.Core
-					}.AsReadOnly()
-				},
-				{
 					GameId.CoreRare, new List<GameIdGroup>
 					{
-						GameIdGroup.Core
+						GameIdGroup.Core,
+						GameIdGroup.IAP
 					}.AsReadOnly()
 				},
 				{
 					GameId.CoreEpic, new List<GameIdGroup>
 					{
-						GameIdGroup.Core
+						GameIdGroup.Core,
+						GameIdGroup.IAP
 					}.AsReadOnly()
 				},
 				{
 					GameId.CoreLegendary, new List<GameIdGroup>
 					{
-						GameIdGroup.Core
+						GameIdGroup.Core,
+						GameIdGroup.IAP
 					}.AsReadOnly()
 				},
 			};
@@ -1004,8 +995,14 @@ namespace Quantum
 				{
 					GameIdGroup.Core, new List<GameId>
 					{
-						GameId.CoreCommon,
-						GameId.CoreUncommon,
+						GameId.CoreRare,
+						GameId.CoreEpic,
+						GameId.CoreLegendary
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.IAP, new List<GameId>
+					{
 						GameId.CoreRare,
 						GameId.CoreEpic,
 						GameId.CoreLegendary

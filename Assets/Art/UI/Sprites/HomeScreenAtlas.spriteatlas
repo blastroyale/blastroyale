@@ -44,6 +44,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 13c1b5f14115447f780402fd721baad8, type: 3}
   - {fileID: 21300000, guid: 32610552af28844669cdba62234811ad, type: 3}
   - {fileID: 21300000, guid: c9a202b2307fb49549d013e0c91bcb44, type: 3}
+  - {fileID: 21300000, guid: 436115e2e483240878a7960da24ecf96, type: 3}
   - {fileID: 21300000, guid: 123b7673eb1d048a486154a4e65c630b, type: 3}
   - {fileID: 21300000, guid: c89c05447743249abbe3605e15ac0c97, type: 3}
   - {fileID: 21300000, guid: 04713a4471ac6493ba0a2533be572841, type: 3}
@@ -54,6 +55,8 @@ SpriteAtlas:
   - {fileID: 21300000, guid: f064b826f895e4c4d8a88bc40e230288, type: 3}
   - {fileID: 21300000, guid: 03c6cb3603c124c059572bdae8edb057, type: 3}
   - {fileID: 21300000, guid: 0009bb56e12594dd9a62134a948a4f74, type: 3}
+  - {fileID: 21300000, guid: fde86d66aa4be49f6a78f43643b25628, type: 3}
+  - {fileID: 21300000, guid: ea92b2966dd434cc8bae1e7656cf39bf, type: 3}
   - {fileID: 21300000, guid: 807d21c6c7a6a477f910045d01d697bf, type: 3}
   - {fileID: 21300000, guid: b0ad58f6ca5c1472fa1fb6178491eb03, type: 3}
   - {fileID: 21300000, guid: 7b2a8cf62857f439d94b28d33014167f, type: 3}
@@ -69,6 +72,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 805b077c9a6dc4cc8acf308e183b7a0b, type: 3}
   - {fileID: 21300000, guid: 100d689cc6ffc41f297345bcfc22f54e, type: 3}
   - {fileID: 21300000, guid: 3a7d899cc87a648b6ab9f1f3cf7035f2, type: 3}
+  - {fileID: 21300000, guid: d55583bc74b8640228c63e20879b101c, type: 3}
   - {fileID: 21300000, guid: f074c3dd0ff0849fe90a973fd6fbd458, type: 3}
   - {fileID: 21300000, guid: 6ba4f24e4a43d4bb2aa74aa4de0a3139, type: 3}
   - {fileID: 21300000, guid: 5d610d5eb2b6d402e80eb23e2f4e974b, type: 3}
@@ -82,6 +86,7 @@ SpriteAtlas:
   - IconMarketplace
   - BattlePassProgressBack
   - ChangemodeButton
+  - CoreLegendary
   - DotsRotated
   - AvatarBack
   - SettingsIcon
@@ -92,6 +97,8 @@ SpriteAtlas:
   - LightSprite
   - Effect1
   - BattlepassCrown
+  - CoreRare
+  - CloseIcon
   - Effect2
   - BLST
   - PlayButton
@@ -107,6 +114,7 @@ SpriteAtlas:
   - BattlePassProgress
   - BPP
   - IconLeaderboards
+  - CoreEpic
   - IconEquipment
   - AddpartymemberButton
   - ProfileProgress

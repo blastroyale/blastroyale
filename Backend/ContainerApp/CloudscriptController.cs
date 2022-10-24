@@ -39,7 +39,8 @@ namespace ContainerApp.Cloudscript
 		public async Task<dynamic> ConsumeValidatedPurchaseCommand([FromBody] CloudscriptRequest request)
 		{
 			var itemId = request.FunctionArgument.Data["item_id"];
-			return Ok(new CloudscriptResponse(await _shop.ProcessPurchaseRequest(request.PlayfabId, itemId)));
+			var fakeStore = bool.Parse(request.FunctionArgument.Data["fake_store"]);
+			return Ok(new CloudscriptResponse(await _shop.ProcessPurchaseRequest(request.PlayfabId, itemId, fakeStore)));
 		}
 		
 		[HttpPost]

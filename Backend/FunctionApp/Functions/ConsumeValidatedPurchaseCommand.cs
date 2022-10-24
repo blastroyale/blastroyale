@@ -27,7 +27,7 @@ namespace Backend.Functions
 		{
 			var context = await ContextProcessor.ProcessContext<LogicRequest>(req);
 			var playerId = context.AuthenticationContext.PlayFabId;
-			return await _shop.ProcessPurchaseRequest(playerId, context.FunctionArgument.Data["item_id"]);
+			return await _shop.ProcessPurchaseRequest(playerId, context.FunctionArgument.Data["item_id"], bool.Parse(context.FunctionArgument.Data["fake_store"]));
 		}
 	}
 }

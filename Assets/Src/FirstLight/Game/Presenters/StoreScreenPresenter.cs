@@ -67,7 +67,8 @@ namespace FirstLight.Game.Presenters
 				ButtonOnClick = () => _gameServices.GenericDialogService.CloseDialog()
 			};
 
-			_gameServices.GenericDialogService.OpenDialog($"ERROR: {msg.Reason.ToString()}", false, confirmButton);
+			_gameServices.GenericDialogService.OpenDialog(
+				string.Format(ScriptLocalization.General.IapError, msg.Reason.ToString()), false, confirmButton);
 		}
 
 		private void OnPurchaseCompleted(IAPPurchaseCompletedMessage msg)

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using FirstLight.FLogger;
@@ -64,11 +65,15 @@ namespace FirstLight.Game.Services
 
 			var module = StandardPurchasingModule.Instance();
 
-			if (Debug.isDebugBuild)
-			{
-				module.useFakeStoreAlways = true;
-				module.useFakeStoreUIMode = FakeStoreUIMode.Default;
-			}
+#if DEVELOPMENT_BUILD
+			var useFakeStore = PlayerPrefs.GetInt("Debug.UseFakeStore", 1) == 1;
+			var fakeStoreUiMode =
+				Enum.Parse<FakeStoreUIMode>(PlayerPrefs.GetString("Debug.FakeStoreUiMode",
+					FakeStoreUIMode.Default.ToString()));
+
+			module.useFakeStoreAlways = useFakeStore;
+			module.useFakeStoreUIMode = fakeStoreUiMode;
+#endif
 
 			var builder = ConfigurationBuilder.Instance(module);
 
@@ -172,7 +177,8 @@ namespace FirstLight.Game.Services
 				ReceiptData = payload
 			};
 
-			PlayFabClientAPI.ValidateIOSReceipt(request, _ => PurchaseValidated(cacheProduct), _playfabService.HandleError);
+			PlayFabClientAPI.ValidateIOSReceipt(request, _ => PurchaseValidated(cacheProduct),
+				_playfabService.HandleError);
 #else
 			var data = JsonConvert.DeserializeObject<Dictionary<string, object>>(payload);
 			var request = new ValidateGooglePlayPurchaseRequest

@@ -643,6 +643,7 @@ namespace I2.Loc
 			public static string Heroes 		{ get{ return LocalizationManager.GetTranslation ("General/Heroes"); } }
 			public static string Home 		{ get{ return LocalizationManager.GetTranslation ("General/Home"); } }
 			public static string Hp 		{ get{ return LocalizationManager.GetTranslation ("General/Hp"); } }
+			public static string IapError 		{ get{ return LocalizationManager.GetTranslation ("General/IapError"); } }
 			public static string Leave 		{ get{ return LocalizationManager.GetTranslation ("General/Leave"); } }
 			public static string LeaveFeedback 		{ get{ return LocalizationManager.GetTranslation ("General/LeaveFeedback"); } }
 			public static string Level 		{ get{ return LocalizationManager.GetTranslation ("General/Level"); } }
@@ -1716,6 +1717,7 @@ namespace I2.Loc
 		    public const string Heroes = "General/Heroes";
 		    public const string Home = "General/Home";
 		    public const string Hp = "General/Hp";
+		    public const string IapError = "General/IapError";
 		    public const string Leave = "General/Leave";
 		    public const string LeaveFeedback = "General/LeaveFeedback";
 		    public const string Level = "General/Level";

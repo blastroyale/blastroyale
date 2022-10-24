@@ -1,8 +1,11 @@
+using System;
 using System.ComponentModel;
 using FirstLight.FLogger;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using UnityEngine;
+using UnityEngine.Purchasing;
 
 public partial class SROptions
 {
@@ -22,6 +25,18 @@ public partial class SROptions
 	public void PurchaseLegendaryCore()
 	{
 		PurchaseItem("com.firstlight.blastroyale.core.legendary");
+	}
+	
+	[Category("IAP")]
+	public bool UseFakeStore {
+		get => PlayerPrefs.GetInt("Debug.UseFakeStore", 1) == 1;
+		set => PlayerPrefs.SetInt("Debug.UseFakeStore", value ? 1 : 0);
+	}
+	
+	[Category("IAP")]
+	public FakeStoreUIMode FakeStoreUI {
+		get => Enum.Parse<FakeStoreUIMode>(PlayerPrefs.GetString("Debug.FakeStoreUiMode", FakeStoreUIMode.Default.ToString())) ;
+		set => PlayerPrefs.SetString("Debug.FakeStoreUiMode", value.ToString());
 	}
 
 	private void PurchaseItem(string id)

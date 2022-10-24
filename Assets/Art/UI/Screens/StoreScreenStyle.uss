@@ -1,3 +1,7 @@
+:root {
+    --transition-duration: 0.3s;
+}
+
 .background {
     background-color: rgba(0, 0, 0, 0.6);
     position: absolute;
@@ -8,24 +12,31 @@
     align-items: center;
     justify-content: center;
     display: flex;
+    transition-duration: var(--transition-duration);
 }
 
 .hidden {
     background-color: rgba(0, 0, 0, 0);
     display: none;
+    transition-property: display, background-color;
+    transition-duration: 0s, var(--transition-duration);
+    transition-delay: 0.4s, 0s;
 }
 
 .hidden .store-item {
-    top: -1000px;
+    translate: 0 -1000px;
 }
 
 .store-item {
     width: 450px;
     height: 700px;
-    transition-duration: 0.1s;
     background-color: rgba(0, 0, 0, 0);
     overflow: visible;
     border-width: 0;
+    transition-duration: var(--transition-duration);
+    transition-property: all;
+    translate: 0 0;
+    transition-timing-function: ease-in-out;
 }
 
 .store-item:active {
@@ -123,8 +134,31 @@
     border-right-width: 0;
     border-top-width: 0;
     border-bottom-width: 0;
+    transition-duration: var(--transition-duration);
+    transition-timing-function: ease-in-out;
 }
 
-.back-button:active {
-    -unity-background-image-tint-color: rgba(140, 140, 140, 255);
+.hidden .back-button {
+    translate: 0 -200px;
+}
+
+#ItemRare {
+    transition-delay: 0s;
+}
+
+#ItemEpic {
+    transition-delay: 0.05s;
+}
+
+#ItemLegendary {
+    transition-delay: 0.1s;
+}
+
+.blocker {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.43);
 }

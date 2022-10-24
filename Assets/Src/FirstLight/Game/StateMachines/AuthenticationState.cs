@@ -69,8 +69,10 @@ namespace FirstLight.Game.StateMachines
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
 			var login = stateFactory.State("Login");
+			var accountDeleted = stateFactory.State("Account Deleted");
 			var guestLogin = stateFactory.State("Guest Login");
 			var autoAuthCheck = stateFactory.Choice("Auto Auth Check");
+			var accountStateCheck = stateFactory.Choice("Account Deleted");
 			var register = stateFactory.State("Register");
 			var authLogin = stateFactory.State("Authentication Login");
 			var authLoginDevice = stateFactory.State("Login Device Authentication");
@@ -110,7 +112,12 @@ namespace FirstLight.Game.StateMachines
 			authLogin.OnExit(() => DimLoginRegisterScreens(false));
 			
 			getServerState.OnEnter(OpenLoadingScreen);
-			getServerState.WaitingFor(FinalStepsAuthentication).Target(final);
+			getServerState.WaitingFor(FinalStepsAuthentication).Target(accountStateCheck);
+
+			accountDeleted.OnEnter(AccountDeletedPopup);
+
+			accountStateCheck.Transition().Condition(IsAccountDeleted).Target(accountDeleted);
+			accountStateCheck.Transition().Target(final);
 			
 			final.OnEnter(UnsubscribeEvents);
 		}
@@ -395,9 +402,31 @@ namespace FirstLight.Game.StateMachines
 			void OnAuthenticationSuccess(GetPhotonAuthenticationTokenResult result)
 			{
 				_networkService.QuantumClient.AuthValues.AddAuthParameter("token", result.PhotonCustomAuthenticationToken);
-				
 				activity.Complete();
 			}
+		}
+
+		private void AccountDeletedPopup()
+		{
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.General.Confirm,
+				ButtonOnClick = () =>
+				{
+					_services.QuitGame("Deleted User");
+				}
+			};
+			_services.GenericDialogService.OpenDialog(ScriptLocalization.MainMenu.DeleteAccountConfirm, false, confirmButton);
+		}
+
+		private bool IsAccountDeleted()
+		{
+			var playerData = _dataService.GetData<PlayerData>();
+			if (playerData.Flags.HasFlag(PlayerFlags.Deleted))
+			{
+				return true;
+			}
+			return false;
 		}
 
 		private void OnPlayerDataObtained(ExecuteFunctionResult res, IWaitActivity activity)

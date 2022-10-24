@@ -61,20 +61,21 @@ namespace FirstLight.Game.Presenters
 		private void OnDestroy()
 		{
 			_indicatorContainerView?.Dispose();
+			QuantumCallback.UnsubscribeListener(this);
+			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
 		protected override void OnOpened()
 		{
 			_services.PlayerInputService.EnableInput();
+			QuantumCallback.Subscribe<CallbackGameResynced>(this, OnGameResync);
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, OnUpdateView);
 			QuantumCallback.Subscribe<CallbackPollInput>(this, PollInput);
 		}
 
 		protected override void OnClosed()
 		{
-			_services.MessageBrokerService.UnsubscribeAll(this);
 			_services.PlayerInputService.DisableInput();
-			QuantumCallback.UnsubscribeListener(this);
 		}
 
 		/// <inheritdoc />
@@ -197,6 +198,11 @@ namespace FirstLight.Game.Presenters
 		{
 			_indicatorContainerView.OnUpdate(callback.Game.Frames.Predicted);
 		}
+		
+		private void OnGameResync(CallbackGameResynced callback)
+		{
+			_indicatorContainerView.InstantiateAllIndicators();
+		}
 
 		private void OnMatchStartedMessage(MatchStartedMessage msg)
 		{
@@ -210,7 +216,7 @@ namespace FirstLight.Game.Presenters
 			}
 
 			var localPlayer = msg.Game.GetLocalPlayerData(false, out var f);
-
+			
 			if (!localPlayer.Entity.IsAlive(f))
 			{
 				return;

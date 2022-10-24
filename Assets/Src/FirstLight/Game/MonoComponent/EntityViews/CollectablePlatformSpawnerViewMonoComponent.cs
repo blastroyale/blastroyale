@@ -27,7 +27,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		protected override void HandleGameDestroyed(CallbackGameDestroyed callback)
 		{
-			//base.HandleGameDestroyed(callback);
+			// Override to remove gameObject destroy behavior.
+			// Collectable platforms should always be in the scene, never destroyed. Re-initialize instead only.
 		}
 
 		private void OnUpdateView(CallbackUpdateView callback)

@@ -295,7 +295,8 @@ namespace FirstLight.Game.StateMachines
 			var data = new StoreScreenPresenter.StateData
 			{
 				BackClicked = () => { activity.Complete();},
-				OnPurchaseItem = PurchaseItem
+				OnPurchaseItem = PurchaseItem,
+				UiService = _uiService
 			};
 
 			_uiService.OpenUiAsync<StoreScreenPresenter, StoreScreenPresenter.StateData>(data);

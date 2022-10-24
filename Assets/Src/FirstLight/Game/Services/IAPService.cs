@@ -64,11 +64,13 @@ namespace FirstLight.Game.Services
 
 			var module = StandardPurchasingModule.Instance();
 
+#if !FORCE_REAL_IAP
 			if (Debug.isDebugBuild)
 			{
 				module.useFakeStoreAlways = true;
 				module.useFakeStoreUIMode = FakeStoreUIMode.Default;
 			}
+#endif
 
 			var builder = ConfigurationBuilder.Instance(module);
 

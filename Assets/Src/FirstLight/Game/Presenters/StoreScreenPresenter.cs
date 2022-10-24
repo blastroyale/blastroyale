@@ -1,7 +1,14 @@
 using System;
-using FirstLight.FLogger;
+using System.Collections.Generic;
+using FirstLight.Game.Messages;
+using FirstLight.Game.Services;
+using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using I2.Loc;
+using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine.UIElements;
+using Button = UnityEngine.UIElements.Button;
 
 namespace FirstLight.Game.Presenters
 {
@@ -19,19 +26,95 @@ namespace FirstLight.Game.Presenters
 		{
 			public Action BackClicked;
 			public Action<string> OnPurchaseItem;
+			public IGameUiService UiService;
+		}
+
+		private IGameServices _gameServices;
+
+		private VisualElement _blocker;
+
+		private readonly Queue<Equipment> _pendingRewards = new();
+
+		private void Awake()
+		{
+			_gameServices = MainInstaller.Resolve<IGameServices>();
 		}
 
 		protected override void QueryElements(VisualElement root)
 		{
+			_blocker = root.Q("Blocker").Required();
+
 			root.Q<Button>("BackButton").clicked += Data.BackClicked;
 			root.Q<Button>("ItemRare").clicked += () => { BuyItem(ITEM_RARE_ID); };
 			root.Q<Button>("ItemEpic").clicked += () => { BuyItem(ITEM_EPIC_ID); };
 			root.Q<Button>("ItemLegendary").clicked += () => { BuyItem(ITEM_LEGENDARY_ID); };
 		}
 
+		protected override void SubscribeToEvents()
+		{
+			_gameServices.MessageBrokerService.Subscribe<IAPPurchaseCompletedMessage>(OnPurchaseCompleted);
+			_gameServices.MessageBrokerService.Subscribe<IAPPurchaseFailedMessage>(OnPurchaseFailed);
+		}
+
+		[Button]
+		private void OnPurchaseFailed(IAPPurchaseFailedMessage msg)
+		{
+			_blocker.style.display = DisplayStyle.None;
+
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.General.OK,
+				ButtonOnClick = () => _gameServices.GenericDialogService.CloseDialog()
+			};
+
+			_gameServices.GenericDialogService.OpenDialog($"ERROR: {msg.Reason.ToString()}", false, confirmButton);
+		}
+
+		private void OnPurchaseCompleted(IAPPurchaseCompletedMessage msg)
+		{
+			_pendingRewards.Clear();
+
+			foreach (var equipment in msg.Rewards)
+			{
+				_pendingRewards.Enqueue(equipment);
+			}
+
+			TryShowNextReward();
+		}
+
+		protected override void UnsubscribeFromEvents()
+		{
+			_gameServices.MessageBrokerService.UnsubscribeAll(this);
+		}
+
 		private void BuyItem(string id)
 		{
+			_blocker.style.display = DisplayStyle.Flex;
 			Data.OnPurchaseItem(id);
+		}
+
+		private void TryShowNextReward()
+		{
+			// Keep showing/dismissing the battle pass generic reward dialog recursively, until all have been shown
+			if (Data.UiService.HasUiPresenter<BattlepassRewardDialogPresenter>())
+			{
+				Data.UiService.CloseUi<BattlepassRewardDialogPresenter>();
+			}
+
+			if (!_pendingRewards.TryDequeue(out var reward))
+			{
+				_blocker.style.display = DisplayStyle.None;
+				return;
+			}
+
+			var data = new BattlepassRewardDialogPresenter.StateData()
+			{
+				ConfirmClicked = TryShowNextReward,
+				Reward = reward
+			};
+
+			Data.UiService
+				.OpenUiAsync<BattlepassRewardDialogPresenter, BattlepassRewardDialogPresenter.StateData>(data);
 		}
 	}
 }

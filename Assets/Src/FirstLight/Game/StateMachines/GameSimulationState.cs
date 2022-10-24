@@ -73,7 +73,7 @@ namespace FirstLight.Game.StateMachines
 			var quitCheck = stateFactory.Choice("Quit Check");
 			var gameRewards = stateFactory.Wait("Game Rewards Screen");
 			var trophiesGainLoss = stateFactory.Wait("Trophies Gain Loss Screen");
-			var disconnected = stateFactory.State("Disconnected");
+			//var disconnected = stateFactory.State("Disconnected");
 			
 			initial.Transition().Target(startSimulation);
 			initial.OnExit(SubscribeEvents);
@@ -93,13 +93,13 @@ namespace FirstLight.Game.StateMachines
 			deathmatch.OnExit(PublishMatchEnded);
 
 			battleRoyale.Nest(_battleRoyaleState.Setup).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
-			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
+			//battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
 			battleRoyale.Event(MatchEndedEvent).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
 			battleRoyale.Event(MatchQuitEvent).OnTransition(() => MatchEndAnalytics(true)).Target(quitCheck);
 			battleRoyale.OnExit(PublishMatchEnded);
 
-			disconnected.OnEnter(StopSimulation);
-			disconnected.Event(NetworkState.JoinedRoomEvent).Target(startSimulation);
+			//disconnected.OnEnter(StopSimulation);
+			//disconnected.Event(NetworkState.JoinedRoomEvent).Target(startSimulation);
 			
 			quitCheck.Transition().Condition(IsSpectator).Target(final);
 			quitCheck.Transition().Target(gameEnded);

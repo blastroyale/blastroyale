@@ -90,7 +90,7 @@ namespace FirstLight.Game.StateMachines
 			playerReadyWait.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(OnDisconnectDuringFinalPreload).Target(unloading);
 			
 			gameSimulation.Nest(_gameSimulationState.Setup).Target(unloading);
-			gameSimulation.Event(NetworkState.PhotonCriticalDisconnectedEvent).OnTransition(OnDisconnectDuringSimulation).Target(unloading);
+			gameSimulation.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(OnDisconnectDuringSimulation).Target(unloading);
 			
 			unloading.OnEnter(OpenLoadingScreen);
 			unloading.OnEnter(UnloadAllMatchAssets);
@@ -101,7 +101,7 @@ namespace FirstLight.Game.StateMachines
 			
 			disconnected.OnEnter(CloseLoadingScreen);
 			disconnected.OnEnter(OpenDisconnectedScreen);
-			disconnected.Event(NetworkState.JoinedRoomEvent).OnTransition(OpenMatchmakingScreen).Target(disconnectReload);
+			disconnected.Event(NetworkState.JoinedRoomEvent).OnTransition(OpenLoadingScreen).Target(disconnectReload);
 			disconnected.Event(NetworkState.JoinRoomFailedEvent).Target(final);
 			disconnected.Event(NetworkState.DcScreenBackEvent).Target(final);
 			disconnected.OnExit(CloseDisconnectedScreen);
@@ -110,6 +110,7 @@ namespace FirstLight.Game.StateMachines
 			
 			postDisconnectReloadCheck.Transition().Condition(IsRoomReadyForSimulation).Target(playerReadyCheck);
 			postDisconnectReloadCheck.Transition().Target(roomCheck);
+			postDisconnectReloadCheck.OnExit(CloseLoadingScreen);
 			
 			final.OnEnter(OpenLoadingScreen);
 			final.OnEnter(UnsubscribeEvents);
@@ -165,7 +166,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new DisconnectedScreenPresenter.StateData
 			{
-				ReconnectClicked = () =>_statechartTrigger(NetworkState.DcScreenReconnectEvent)
+				ReconnectClicked = () => _services.MessageBrokerService.Publish(new AttemptManualReconnectionMessage())
 			};
 
 			_uiService.OpenUiAsync<DisconnectedScreenPresenter, DisconnectedScreenPresenter.StateData>(data);

@@ -44,7 +44,6 @@ namespace FirstLight.Game.StateMachines
 		public static readonly IStatechartEvent LeftRoomEvent = new StatechartEvent("NETWORK - Left Room Event");
 		public static readonly IStatechartEvent RoomClosedEvent = new StatechartEvent("NETWORK - Room Closed Event");
 		
-		public static readonly IStatechartEvent DcScreenReconnectEvent = new StatechartEvent("NETWORK - Disconnect Screen Reconnect Event");
 		public static readonly IStatechartEvent DcScreenBackEvent = new StatechartEvent("NETWORK - Disconnected Screen Back Event");
 		public static readonly IStatechartEvent OpenServerSelectScreenEvent = new StatechartEvent("NETWORK - Open Server Select Screen Event");
 		
@@ -79,7 +78,6 @@ namespace FirstLight.Game.StateMachines
 			var initialConnection = stateFactory.State("NETWORK - Initial Connection");
 			var connected = stateFactory.State("NETWORK - Connected");
 			var disconnected = stateFactory.State("NETWORK - Disconnected");
-			var reconnecting = stateFactory.State("NETWORK - Reconnecting");
 			var disconnectForServerSelect = stateFactory.State("NETWORK - Disconnect Photon For Name Server");
 			var getAvailableRegions = stateFactory.State("NETWORK - Server Select Screen");
 			var connectedToNameServer = stateFactory.State("NETWORK - Connected To Name Server");
@@ -98,19 +96,12 @@ namespace FirstLight.Game.StateMachines
 			connected.Event(PhotonDisconnectedEvent).Target(disconnected);
 			connected.Event(OpenServerSelectScreenEvent).Target(disconnectForServerSelect);
 			
-			disconnected.OnEnter(UpdateDisconnectedVars);
+			disconnected.OnEnter(UpdateLastDisconnectLocation);
 			disconnected.OnEnter(SubscribeDisconnectEvents);
 			disconnected.Event(PhotonMasterConnectedEvent).Target(connected);
 			disconnected.Event(JoinedRoomEvent).Target(connected);
-			disconnected.Event(DcScreenReconnectEvent).Target(reconnecting);
-			disconnected.OnExit(UnsubscribeDisconnectEvents);
-			
-			// TODO - TEST IF FAILING MASTER SERVER CONNECTION CALLS PhotonDisconnectedEvent - if not, stuff has to change here
-			reconnecting.OnEnter(ReconnectPhoton);
-			reconnecting.Event(PhotonMasterConnectedEvent).Target(connected);
-			reconnecting.Event(JoinedRoomEvent).Target(connected);
-			reconnecting.Event(PhotonDisconnectedEvent).Target(disconnected);
-			
+			disconnected.OnEnter(UnsubscribeDisconnectEvents);
+
 			disconnectForServerSelect.OnEnter(DisconnectPhoton);
 			disconnectForServerSelect.Event(PhotonDisconnectedEvent).Target(getAvailableRegions);
 
@@ -159,7 +150,7 @@ namespace FirstLight.Game.StateMachines
 			
 		}
 
-		private void UpdateDisconnectedVars()
+		private void UpdateLastDisconnectLocation()
 		{
 			// Only update DC location for main menu - match disconnections are more complex, and handled specifically
 			// inside of MatchState.
@@ -192,8 +183,9 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<SpectatorModeToggledMessage>(OnSpectatorToggleMessage);
 			_services.MessageBrokerService.Subscribe<RequestKickPlayerMessage>(OnRequestKickPlayerMessage);
 			_services.MessageBrokerService.Subscribe<NetworkActionWhileDisconnectedMessage>(OnNetworkActionWhileDisconnected);
+			_services.MessageBrokerService.Subscribe<AttemptManualReconnectionMessage>(OnAttemptManualReconnectionMessage);
 		}
-
+		
 		private void UnsubscribeEvents()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
@@ -230,7 +222,6 @@ namespace FirstLight.Game.StateMachines
 		/// <inheritdoc />
 		public void OnConnected()
 		{
-			Debug.LogError("<color=green>---------CONNECTED---------</color>");
 			FLog.Info("OnConnected");
 		}
 
@@ -288,7 +279,6 @@ namespace FirstLight.Game.StateMachines
 		/// <inheritdoc />
 		public void OnJoinedRoom()
 		{
-			Debug.LogError("<color=green>---------JOINED ROOM---------</color>");
 			FLog.Info("OnJoinedRoom");
 
 			_statechartTrigger(JoinedRoomEvent);
@@ -494,6 +484,11 @@ namespace FirstLight.Game.StateMachines
 			                                           SendOptions.SendReliable);
 		}
 		
+		private void OnAttemptManualReconnectionMessage(AttemptManualReconnectionMessage obj)
+		{
+			ReconnectPhoton();
+		}
+		
 		private void OnNetworkActionWhileDisconnected(NetworkActionWhileDisconnectedMessage msg)
 		{
 			if (!NetworkUtils.IsOnline() || !_networkService.QuantumClient.IsConnectedAndReady)
@@ -691,7 +686,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			if (!_networkService.QuantumClient.IsConnectedAndReady && NetworkUtils.IsOnline())
 			{
-				Debug.LogError("<color=green>---------ATTEMPT RECONNECT---------</color>");
 				ReconnectPhoton();
 			}
 		}
@@ -795,7 +789,6 @@ namespace FirstLight.Game.StateMachines
 				}
 				else
 				{
-					Debug.LogError("<color=green>---------RECONNECT AND REJOIN---------</color>");
 					_networkService.QuantumClient.ReconnectAndRejoin();
 				}
 			}

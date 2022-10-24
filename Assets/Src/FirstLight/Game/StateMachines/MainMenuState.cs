@@ -359,7 +359,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new DisconnectedScreenPresenter.StateData
 			{
-				ReconnectClicked = () =>_statechartTrigger(NetworkState.DcScreenReconnectEvent)
+				ReconnectClicked = () => _services.MessageBrokerService.Publish(new AttemptManualReconnectionMessage())
 			};
 
 			_uiService.OpenUiAsync<DisconnectedScreenPresenter, DisconnectedScreenPresenter.StateData>(data);

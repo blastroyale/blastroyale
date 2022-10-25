@@ -101,6 +101,7 @@ namespace FirstLight.Game.StateMachines
 			disconnected.OnEnter(OpenDisconnectedScreen);
 			disconnected.OnEnter(StopSimulation);
 			disconnected.Event(NetworkState.JoinedRoomEvent).Target(startSimulation);
+			disconnected.Event(NetworkState.JoinRoomFailedEvent).Target(final);
 			disconnected.OnExit(CloseDisconnectedScreen);
 			
 			quitCheck.Transition().Condition(IsSpectator).Target(final);

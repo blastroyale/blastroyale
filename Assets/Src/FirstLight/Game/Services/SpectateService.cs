@@ -112,7 +112,8 @@ namespace FirstLight.Game.Services
 		public void OnMatchEnded()
 		{
 			_spectatedPlayer.StopObservingAll();
-
+			_spectatedPlayer.Value = new SpectatedPlayer();
+			
 			QuantumCallback.UnsubscribeListener(this);
 			QuantumEvent.UnsubscribeListener(this);
 		}

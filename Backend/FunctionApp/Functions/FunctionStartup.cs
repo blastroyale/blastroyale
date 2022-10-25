@@ -27,7 +27,7 @@ namespace Backend.Functions
 	{
 		public override void Configure(IFunctionsHostBuilder builder)
 		{
-			ServerStartup.Setup(builder.Services, builder.GetContext().ApplicationRootPath);
+			ServerStartup.Setup(builder.Services.AddMvc(), builder.GetContext().ApplicationRootPath);
 		}
 	}
 }

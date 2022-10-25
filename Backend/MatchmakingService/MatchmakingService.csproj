@@ -18,4 +18,13 @@
       <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.4.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Reference Include="FirstLight.Game">
+        <HintPath>..\Lib\FirstLight.Game.dll</HintPath>
+      </Reference>
+      <Reference Include="quantum.code">
+        <HintPath>..\Lib\quantum.code.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
 </Project>

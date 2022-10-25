@@ -53,11 +53,13 @@ public class FrameSnapshotService : IFrameSnapshotService, MatchServices.IMatchS
 		};
 	}
 	
+	/// <inheritdoc />
 	public FrameSnapshot GetLastStoredMatchSnapshot()
 	{
 		return _lastCapturedSnapshot;
 	}
 
+	/// <inheritdoc />
 	public void Dispose()
 	{
 		_dataService.GetData<AppData>().LastCapturedFrameSnapshot = _lastCapturedSnapshot;
@@ -65,10 +67,12 @@ public class FrameSnapshotService : IFrameSnapshotService, MatchServices.IMatchS
 		QuantumCallback.UnsubscribeListener(this);
 	}
 
+	/// <inheritdoc />
 	public void OnMatchStarted(QuantumGame game, bool isReconnect)
 	{
 	}
 
+	/// <inheritdoc />
 	public void OnMatchEnded()
 	{
 	}

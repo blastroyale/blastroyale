@@ -289,11 +289,10 @@ namespace FirstLight.Game.StateMachines
 			if (!_services.NetworkService.IsJoiningNewMatch && _services.NetworkService.LastMatchPlayers.Count == 1)
 			{
 				startParams = configs.GetDefaultStartParameters(_services.NetworkService.LastMatchPlayers.Count, IsSpectator(), _matchServices.FrameSnapshotService.GetLastStoredMatchSnapshot());
+				Debug.LogError("------------------------RESTARTING SIMULATION");
 			}
 			
 			startParams.NetworkClient = client;
-			
-			Debug.LogError("------------------------STARTING SIMULATION");
 			
 			QuantumRunner.StartGame(_services.NetworkService.UserId, startParams);
 			_services.MessageBrokerService.Publish(new MatchSimulationStartedMessage());

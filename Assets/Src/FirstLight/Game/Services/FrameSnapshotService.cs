@@ -14,7 +14,7 @@ using UnityEngine;
 /// This service provides the possibility of storing and retrieving match snapshots, which can be used to start 
 /// a quantum game from certain points.
 /// </summary>
-public interface IMatchFrameSnapshotService
+public interface IFrameSnapshotService
 {
 	/// <summary>
 	/// </summary>
@@ -31,7 +31,7 @@ public struct FrameSnapshot
 	public int SnapshotNumber;
 }
 
-public class FrameSnapshotService : IMatchFrameSnapshotService, MatchServices.IMatchService
+public class FrameSnapshotService : IFrameSnapshotService, MatchServices.IMatchService
 {
 	private FrameSnapshot _lastCapturedSnapshot;
 	private readonly IDataService _dataService;

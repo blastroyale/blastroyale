@@ -37,13 +37,12 @@ namespace FirstLight.Game.StateMachines
 		private bool _arePlayerAssetsLoaded = false;
 		private Action<IStatechartEvent> _statechartTrigger;
 		
-		public MatchState(IGameServices services, IDataService dataService, IGameBackendNetworkService networkService, IGameUiService uiService, IGameDataProvider gameDataProvider, 
+		public MatchState(IGameServices services, IGameBackendNetworkService networkService, IGameUiService uiService, IGameDataProvider gameDataProvider, 
 		                  IAssetAdderService assetAdderService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_statechartTrigger = statechartTrigger;
 			_services = services;
 			_networkService = networkService;
-			_dataService = dataService;
 			_uiService = uiService;
 			_assetAdderService = assetAdderService;
 			_gameSimulationState = new GameSimulationState(gameDataProvider, services, uiService, statechartTrigger);

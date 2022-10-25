@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -20,7 +21,7 @@ namespace FirstLight.Game.Views
 	{
 		private const string SELECTED_CLASS = "selected";
 		private const string VISIBLE_GAMEMODE_BUTTON = "visible-gamemodebutton";
-
+		
 		public GameModeInfo GameModeInfo { get; private set; }
 		public event Action<GameModeSelectionButtonView> Clicked;
 		
@@ -57,7 +58,6 @@ namespace FirstLight.Game.Views
 
 		private List<string> _gameModes = new (){"deathmatch", "battleroyale"};
 		private List<string> _matchTypes = new (){"ranked", "casual", "custom"};
-		private List<string> _mutators = new() {"speedup", "quickspecials", "healthyair"};
 
 		public GameModeSelectionButtonView()
 		{
@@ -198,7 +198,6 @@ namespace FirstLight.Game.Views
 			while (true)
 			{
 				var timeLeft = GameModeInfo.EndTime - DateTime.UtcNow;
-
 				_gameModeTimerLabel.text = timeLeft.ToString(@"hh\:mm\:ss");
 				yield return new WaitForSeconds(1);
 			}

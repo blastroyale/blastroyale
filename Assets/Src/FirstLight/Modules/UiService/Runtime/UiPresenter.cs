@@ -206,6 +206,7 @@ namespace FirstLight.UiService
 
 		protected override void OnOpened()
 		{
+			gameObject.SetActive(true);
 			if (Root == null)
 			{
 				Root = _document.rootVisualElement.Q(UIConstants.ID_ROOT);
@@ -234,6 +235,7 @@ namespace FirstLight.UiService
 		{
 			Root.EnableInClassList(UIConstants.CLASS_HIDDEN, true);
 			UnsubscribeFromEvents();
+			gameObject.SetActive(false);
 		}
 	}
 }

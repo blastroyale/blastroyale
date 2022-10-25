@@ -60,6 +60,7 @@ namespace FirstLight.Game.Presenters
 			var gameModeInfo = new GameModeInfo();
 			gameModeInfo.Entry.GameModeId = "Custom Game";
 			gameModeInfo.Entry.MatchType = MatchType.Custom;
+			gameModeInfo.Entry.Mutators = new List<string>();
 			var createGameButton = _buttonAsset.Instantiate();
 			createGameButton.AttachView(this, out GameModeSelectionButtonView customGameView);
 			customGameView.SetData(orderNumber, gameModeInfo);

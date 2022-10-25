@@ -70,7 +70,7 @@ MonoBehaviour:
       SingleSlotMode: 1
       Lives: 0
       DropWeaponOnPickup: 0
-      SpawnWithLoadout: 0
+      SpawnWithLoadout: 1
       SkydiveSpawn: 0
       SpawnSelection: 0
       SpawnPattern: 0

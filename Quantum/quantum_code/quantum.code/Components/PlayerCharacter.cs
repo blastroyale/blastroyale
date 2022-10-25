@@ -123,13 +123,11 @@ namespace Quantum
 			f.Add(e, targetable);
 			f.Add<AlivePlayerCharacter>(e);
 
-			Log.Warn("weapon is " + GetLoadoutWeapon(f).GameId);
 			//add the player's equipment and weapon when they spawn
-			if(GetLoadoutWeapon(f).GameId != GameId.Random)
+			if (GetLoadoutWeapon(f).GameId != GameId.Random)
 				AddWeapon(f, e, GetLoadoutWeapon(f), false);
-			for(var i = 0; i < Gear.Length; i++)
+			for (var i = 0; i < Gear.Length; i++)
 			{
-				Log.Warn("gear is " + Gear[i].GameId);
 				if (Gear[i].GameId != GameId.Random)
 					EquipGear(f, e, Gear[i]);
 			}

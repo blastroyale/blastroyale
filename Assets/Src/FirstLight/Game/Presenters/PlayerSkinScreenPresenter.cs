@@ -132,11 +132,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnSelectedPressed()
 		{
-			if (NetworkUtils.IsOfflineOrDisconnected())
-			{
-				_services.MessageBrokerService.Publish(new NetworkActionWhileDisconnectedMessage());
-				return;
-			}
+			if (!NetworkUtils.CheckAttemptNetworkAction()) return;
 			
 			_services.CommandService.ExecuteCommand(new UpdatePlayerSkinCommand { SkinId = _selectedId });
 		}

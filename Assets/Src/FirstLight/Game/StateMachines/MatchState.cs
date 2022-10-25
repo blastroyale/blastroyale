@@ -9,6 +9,7 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Services;
 using FirstLight.Statechart;
 using Photon.Deterministic;
 using Quantum;
@@ -30,16 +31,18 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameServices _services;
 		private readonly IGameBackendNetworkService _networkService;
 		private readonly IGameUiService _uiService;
+		private readonly IDataService _dataService;
 		private readonly IAssetAdderService _assetAdderService;
 		private bool _arePlayerAssetsLoaded = false;
 		private Action<IStatechartEvent> _statechartTrigger;
 		
-		public MatchState(IGameServices services, IGameBackendNetworkService networkService, IGameUiService uiService, IGameDataProvider gameDataProvider, 
+		public MatchState(IGameServices services, IDataService dataService, IGameBackendNetworkService networkService, IGameUiService uiService, IGameDataProvider gameDataProvider, 
 		                  IAssetAdderService assetAdderService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_statechartTrigger = statechartTrigger;
 			_services = services;
 			_networkService = networkService;
+			_dataService = dataService;
 			_uiService = uiService;
 			_assetAdderService = assetAdderService;
 			_gameSimulationState = new GameSimulationState(gameDataProvider, services, uiService, statechartTrigger);
@@ -236,7 +239,7 @@ namespace FirstLight.Game.StateMachines
 			var mutatorIds = _services.NetworkService.CurrentRoomMutatorIds;
 			var map = config.Map.ToString();
 			var entityService = new GameObject(nameof(EntityViewUpdaterService)).AddComponent<EntityViewUpdaterService>();
-			var matchServices = new MatchServices(entityService, _services);
+			var matchServices = new MatchServices(entityService, _services, _dataService);
 			var runnerConfigs = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 			var sceneTask = _services.AssetResolverService.LoadSceneAsync($"Scenes/{map}.unity", LoadSceneMode.Additive);
 			

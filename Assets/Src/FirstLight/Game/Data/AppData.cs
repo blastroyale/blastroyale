@@ -29,6 +29,8 @@ namespace FirstLight.Game.Data
 		
 		public DateTime GameReviewDate;
 
+		public FrameSnapshot LastCapturedFrameSnapshot;
+
 		public bool SfxEnabled = true;
 		public bool BgmEnabled = true;
 		public bool HapticEnabled = true;

@@ -18,6 +18,9 @@ namespace FirstLight.Game.Services
 		
 		/// <inheritdoc cref="IEntityViewUpdaterService"/>
 		public IEntityViewUpdaterService EntityViewUpdaterService { get; }
+		
+		/// <inheritdoc cref="IMatchFrameSnapshotService"/>
+		public IMatchFrameSnapshotService MatchFrameSnapshotService { get; }
 	}
 
 	internal class MatchServices : IMatchServices
@@ -51,12 +54,15 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc />
 		public IEntityViewUpdaterService EntityViewUpdaterService { get; }
 
-		public MatchServices(IEntityViewUpdaterService entityViewUpdaterService, IGameServices services)
+		public IMatchFrameSnapshotService MatchFrameSnapshotService { get; }
+
+		public MatchServices(IEntityViewUpdaterService entityViewUpdaterService, IGameServices services, IDataService dataService)
 		{
 			_messageBrokerService = services.MessageBrokerService;
 
 			EntityViewUpdaterService = entityViewUpdaterService;
 			SpectateService = Configure(new SpectateService(services, this));
+			MatchFrameSnapshotService = Configure(new FrameSnapshotService(dataService));
 
 			_messageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStart);
 			_messageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEnd);

@@ -690,8 +690,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			if (QuantumRunner.Default == null || QuantumRunner.Default.Game == null || QuantumRunner.Default.Game.Frames.Verified == null) return;
 
-			_frameSnapshot = QuantumRunner.Default.Game.Frames.Verified.Serialize(DeterministicFrameSerializeMode.Blit);
-			_frameSnapshotNumber = QuantumRunner.Default.Game.Frames.Verified.Number;
+			
 		}
 
 		private void TickReconnectAttempt(float deltaTime)

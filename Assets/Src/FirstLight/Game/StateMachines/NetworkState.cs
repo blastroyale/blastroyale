@@ -169,7 +169,6 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeEvents()
 		{
 			_services.TickService.SubscribeOnUpdate(TickQuantumServer, GameConstants.Network.NETWORK_QUANTUM_TICK_SECONDS, true, true);
-			_services.TickService.SubscribeOnUpdate(TickFrameStorage, 0.06f, true, true);
 			_services.MessageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuit);
 			_services.MessageBrokerService.Subscribe<MatchSimulationStartedMessage>(OnMatchSimulationStartedMessage);
 			_services.MessageBrokerService.Subscribe<MatchSimulationEndedMessage>(OnMatchSimulationEndedMessage);
@@ -682,15 +681,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			_networkService.QuantumClient.Service();
 			_networkService.CheckLag();
-		}
-
-		public static byte[] _frameSnapshot;
-		public static int _frameSnapshotNumber;
-		private void TickFrameStorage(float obj)
-		{
-			if (QuantumRunner.Default == null || QuantumRunner.Default.Game == null || QuantumRunner.Default.Game.Frames.Verified == null) return;
-
-			
 		}
 
 		private void TickReconnectAttempt(float deltaTime)

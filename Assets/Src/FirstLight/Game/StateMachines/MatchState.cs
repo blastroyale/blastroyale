@@ -33,6 +33,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameUiService _uiService;
 		private readonly IDataService _dataService;
 		private readonly IAssetAdderService _assetAdderService;
+		private IMatchServices _matchServices;
 		private bool _arePlayerAssetsLoaded = false;
 		private Action<IStatechartEvent> _statechartTrigger;
 		
@@ -45,7 +46,7 @@ namespace FirstLight.Game.StateMachines
 			_dataService = dataService;
 			_uiService = uiService;
 			_assetAdderService = assetAdderService;
-			_gameSimulationState = new GameSimulationState(gameDataProvider, services, uiService, statechartTrigger);
+			_gameSimulationState = new GameSimulationState(gameDataProvider, services, _matchServices, uiService, statechartTrigger);
 
 			_services.NetworkService.QuantumClient.AddCallbackTarget(this);
 		}
@@ -239,11 +240,11 @@ namespace FirstLight.Game.StateMachines
 			var mutatorIds = _services.NetworkService.CurrentRoomMutatorIds;
 			var map = config.Map.ToString();
 			var entityService = new GameObject(nameof(EntityViewUpdaterService)).AddComponent<EntityViewUpdaterService>();
-			var matchServices = new MatchServices(entityService, _services, _dataService);
+			_matchServices = new MatchServices(entityService, _services, _dataService);
 			var runnerConfigs = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 			var sceneTask = _services.AssetResolverService.LoadSceneAsync($"Scenes/{map}.unity", LoadSceneMode.Additive);
 			
-			MainInstaller.Bind<IMatchServices>(matchServices);
+			MainInstaller.Bind<IMatchServices>(_matchServices);
 			// TODO ROB _assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<AudioAdventureAssetConfigs>());
 			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<MatchAssetConfigs>());
 			runnerConfigs.SetRuntimeConfig(gameModeConfig, config, mutatorIds);

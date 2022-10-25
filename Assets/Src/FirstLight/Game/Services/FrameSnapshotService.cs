@@ -39,10 +39,10 @@ public class FrameSnapshotService : IMatchFrameSnapshotService, MatchServices.IM
 		_dataService = dataService;
 		_lastCapturedSnapshot = _dataService.GetData<AppData>().LastCapturedFrameSnapshot;
 
-		QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnQuantumUpdateView);
+		QuantumCallback.SubscribeManual<CallbackGameDestroyed>(this, OnQuantumGameDestroyed);
 	}
 
-	private void OnQuantumUpdateView(CallbackUpdateView callback)
+	private void OnQuantumGameDestroyed(CallbackGameDestroyed callback)
 	{
 		_lastCapturedSnapshot = new FrameSnapshot()
 		{

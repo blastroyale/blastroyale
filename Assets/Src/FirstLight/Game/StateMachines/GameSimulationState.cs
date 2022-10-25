@@ -37,17 +37,19 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameDataProvider _gameDataProvider;
 		private readonly IGameServices _services;
 		private readonly IGameUiService _uiService;
+		private readonly IMatchServices _matchServices;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private readonly IGameNetworkService _network;
 
 		private int _lastTrophyChange = 0;
 		private uint _trophiesBeforeLastChange = 0;
 
-		public GameSimulationState(IGameDataProvider gameDataProvider, IGameServices services, IGameUiService uiService,
+		public GameSimulationState(IGameDataProvider gameDataProvider, IGameServices services, IMatchServices matchServices, IGameUiService uiService,
 		                           Action<IStatechartEvent> statechartTrigger)
 		{
 			_gameDataProvider = gameDataProvider;
 			_services = services;
+			_matchServices = matchServices;
 			_uiService = uiService;
 			_statechartTrigger = statechartTrigger;
 			_deathmatchState = new DeathmatchState(gameDataProvider, services, uiService, statechartTrigger);
@@ -281,11 +283,11 @@ namespace FirstLight.Game.StateMachines
 				startPlayersCount = room.GetRealPlayerAmount();
 			}
 
-			var startParams = configs.GetDefaultStartParameters(startPlayersCount, IsSpectator());
+			var startParams = configs.GetDefaultStartParameters(startPlayersCount, IsSpectator(), new FrameSnapshot());
 			
 			if (!_services.NetworkService.IsJoiningNewMatch && _services.NetworkService.LastMatchPlayers.Count == 1)
 			{
-				startParams = configs.GetDefaultStartParameters(_services.NetworkService.LastMatchPlayers.Count, IsSpectator(), NetworkState._frameSnapshotNumber, NetworkState._frameSnapshot);
+				startParams = configs.GetDefaultStartParameters(_services.NetworkService.LastMatchPlayers.Count, IsSpectator(), _matchServices.FrameSnapshotService.GetLastStoredMatchSnapshot());
 			}
 			
 			startParams.NetworkClient = client;

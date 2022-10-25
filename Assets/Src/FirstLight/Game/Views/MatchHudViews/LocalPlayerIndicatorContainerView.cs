@@ -50,6 +50,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public void Init(EntityView playerView)
 		{
 			_localPlayerEntity = playerView.EntityRef;
+			
+			for (int i = 0; i < _specialIndicators.Length; i++)
+			{
+				_specialIndicators[i] = null;
+			}
 
 			foreach (var indicator in _indicators)
 			{
@@ -123,7 +128,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			
 			if (_specialIndicators[index] != null)
 			{
-				Object.Destroy(((MonoBehaviour) _specialIndicators[index]).gameObject);
+				Object.Destroy( ((MonoBehaviour) _specialIndicators[index]).gameObject);
 			}
 			
 			_specialIndicators[index] = Object.Instantiate((MonoBehaviour) _indicators[(int) config.Indicator])

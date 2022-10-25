@@ -328,11 +328,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnEquipButtonClicked()
 		{
-			if (NetworkUtils.IsOfflineOrDisconnected())
-			{
-				_services.MessageBrokerService.Publish(new NetworkActionWhileDisconnectedMessage());
-				return;
-			}
+			if (!NetworkUtils.CheckAttemptNetworkAction()) return;
 			
 			var dataProvider = _gameDataProvider.EquipmentDataProvider;
 			var loadout = dataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both);

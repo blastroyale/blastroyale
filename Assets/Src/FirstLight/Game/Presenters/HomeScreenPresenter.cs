@@ -140,11 +140,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnPlayButtonClicked()
 		{
-			if (NetworkUtils.IsOfflineOrDisconnected())
-			{
-				_services.MessageBrokerService.Publish(new NetworkActionWhileDisconnectedMessage());
-				return;
-			}
+			if (!NetworkUtils.CheckAttemptNetworkAction()) return;
 			
 			Data.OnPlayButtonClicked();
 		}
@@ -181,23 +177,15 @@ namespace FirstLight.Game.Presenters
 
 		private void OnLeaderboardsButtonClicked()
 		{
-			if (NetworkUtils.IsOfflineOrDisconnected())
-			{
-				_services.MessageBrokerService.Publish(new NetworkActionWhileDisconnectedMessage());
-				return;
-			}
+			if (!NetworkUtils.CheckAttemptNetworkAction()) return;
 			
 			Data.OnLeaderboardClicked();
 		}
 
 		private void OnPlayerNameClicked(ClickEvent evt)
 		{
-			if (NetworkUtils.IsOfflineOrDisconnected())
-			{
-				_services.MessageBrokerService.Publish(new NetworkActionWhileDisconnectedMessage());
-				return;
-			}
-			
+			if (!NetworkUtils.CheckAttemptNetworkAction()) return;
+
 			Data.OnNameChangeClicked();
 		}
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using ExitGames.Client.Photon;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using Photon.Realtime;
 using Quantum;
@@ -333,6 +334,21 @@ namespace FirstLight.Game.Utils
 		public static bool IsOfflineOrDisconnected()
 		{
 			return IsOffline() || !MainInstaller.Resolve<IGameServices>().NetworkService.QuantumClient.IsConnectedAndReady;
+		}
+
+		/// <summary>
+		/// Checks to see if a network action triggered by player input can be sent.
+		/// Sends a NetworkActionWhileDisconnectedMessage if not.
+		/// </summary>
+		public static bool CheckAttemptNetworkAction()
+		{
+			if (IsOfflineOrDisconnected())
+			{
+				MainInstaller.Resolve<IGameServices>().MessageBrokerService.Publish(new NetworkActionWhileDisconnectedMessage());
+				return false;
+			}
+
+			return true;
 		}
 	}
 }

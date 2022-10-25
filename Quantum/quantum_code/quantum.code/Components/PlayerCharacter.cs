@@ -126,9 +126,10 @@ namespace Quantum
 			//add the player's equipment and weapon when they spawn
 			if (GetLoadoutWeapon(f).GameId != GameId.Random)
 				AddWeapon(f, e, GetLoadoutWeapon(f), false);
+
 			for (var i = 0; i < Gear.Length; i++)
 			{
-				if (Gear[i].GameId != GameId.Random)
+				if (Gear[i].GameId != GameId.Random && Gear[i].GetEquipmentGroup() != GameIdGroup.Weapon)
 					EquipGear(f, e, Gear[i]);
 			}
 

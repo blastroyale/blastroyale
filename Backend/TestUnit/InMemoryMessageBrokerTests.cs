@@ -1,10 +1,9 @@
-﻿using FirstLight.Services;
+using FirstLight.SDK.Modules;
+using FirstLight.SDK.Services;
 using NSubstitute;
 using NUnit.Framework;
 
-// ReSharper disable once CheckNamespace
-
-namespace FirstLightEditor.Services.Tests
+namespace Tests
 {
 	public class MessageBrokerServiceTest
 	{
@@ -22,12 +21,12 @@ namespace FirstLightEditor.Services.Tests
 		private MessageType1 _messageType1;
 		private MessageType2 _messageType2;
 		private IMockSubscriber _subscriber;
-		private MessageBrokerService _messageBroker;
+		private InMemoryMessageBrokerService _messageBroker;
 
 		[SetUp]
 		public void Init()
 		{
-			_messageBroker = new MessageBrokerService();
+			_messageBroker = new InMemoryMessageBrokerService();
 			_subscriber = Substitute.For<IMockSubscriber>();
 			_messageType1 = new MessageType1();
 			_messageType2 = new MessageType2();

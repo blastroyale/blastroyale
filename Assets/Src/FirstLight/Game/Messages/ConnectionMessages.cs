@@ -1,8 +1,6 @@
-using System.Collections.Generic;
 using System.Net;
-using ExitGames.Client.Photon;
-using FirstLight.Services;
 using Photon.Realtime;
+using FirstLight.SDK.Services;
 
 namespace FirstLight.Game.Messages
 {

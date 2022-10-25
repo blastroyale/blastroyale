@@ -9,6 +9,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.StateMachines;
 using FirstLight.Game.Utils;
+using FirstLight.SDK.Modules;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using FirstLight.UiService;
@@ -54,7 +55,7 @@ namespace FirstLight.Tests.EditorMode
 		[SetUp]
 		public void Setup()
 		{
-			var messageBroker = new MessageBrokerService();
+			var messageBroker = new InMemoryMessageBrokerService();
 			var timeService = new TimeService();
 
 			TestUI = new GameUiService(new UiAssetLoader());

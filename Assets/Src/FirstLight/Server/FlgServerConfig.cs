@@ -18,7 +18,10 @@ namespace Src.FirstLight.Server
         /// </summary>
         public ServerPlugin[] GetPlugins()
         {
-            return new ServerPlugin[] { };
+            return new ServerPlugin[]
+            {
+                new ServerAnalyticsPlugin()
+            };
         }
 
         /// <summary>

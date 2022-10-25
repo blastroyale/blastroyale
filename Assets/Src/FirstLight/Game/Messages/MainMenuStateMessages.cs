@@ -1,10 +1,7 @@
 using System.Collections.Generic;
-using FirstLight.Game.Configs;
-using FirstLight.Game.Ids;
-using FirstLight.Game.Infos;
-using FirstLight.Services;
 using Photon.Realtime;
 using Quantum;
+using FirstLight.SDK.Services;
 
 namespace FirstLight.Game.Messages
 {

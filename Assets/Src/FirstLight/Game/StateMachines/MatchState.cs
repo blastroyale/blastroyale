@@ -46,7 +46,7 @@ namespace FirstLight.Game.StateMachines
 			_dataService = dataService;
 			_uiService = uiService;
 			_assetAdderService = assetAdderService;
-			_gameSimulationState = new GameSimulationState(gameDataProvider, services, _matchServices, uiService, statechartTrigger);
+			_gameSimulationState = new GameSimulationState(gameDataProvider, services, uiService, statechartTrigger);
 
 			_services.NetworkService.QuantumClient.AddCallbackTarget(this);
 		}

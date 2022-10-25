@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using FirstLight.Game.Views.MapViews;
 using Quantum;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -33,8 +33,14 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		protected virtual void Awake()
 		{
+			if (!MainInstaller.TryResolve<IMatchServices>(out var matchServices))
+			{
+				FLog.Error($"This '{this}' object is already destroyed");
+				return;
+			}
+			
 			Services = MainInstaller.Resolve<IGameServices>();
-			MatchServices = MainInstaller.Resolve<IMatchServices>();
+			MatchServices = matchServices;
 
 			OnAwake();
 		}

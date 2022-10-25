@@ -192,7 +192,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 			_services?.TickService?.UnsubscribeAll(this);
-			QuantumCallback.UnsubscribeListener(this);
 		}
 
 		private async void SubscribeDisconnectEvents()
@@ -687,7 +686,6 @@ namespace FirstLight.Game.StateMachines
 
 		public static byte[] _frameSnapshot;
 		public static int _frameSnapshotNumber;
-		public static int _lastMatchStartedStartedPlayers;
 		private void TickFrameStorage(float obj)
 		{
 			if (QuantumRunner.Default == null || QuantumRunner.Default.Game == null || QuantumRunner.Default.Game.Frames.Verified == null) return;

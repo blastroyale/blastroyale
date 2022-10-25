@@ -281,22 +281,16 @@ namespace FirstLight.Game.StateMachines
 				startPlayersCount = room.GetRealPlayerAmount();
 			}
 
-			if (!_services.NetworkService.IsJoiningNewMatch)
-			{
-				startPlayersCount = NetworkState._lastMatchStartedStartedPlayers;
-			}
-			
-			NetworkState._lastMatchStartedStartedPlayers = startPlayersCount;
-
 			var startParams = configs.GetDefaultStartParameters(startPlayersCount, IsSpectator());
 			
-			if (!_services.NetworkService.IsJoiningNewMatch)
+			if (!_services.NetworkService.IsJoiningNewMatch && _services.NetworkService.LastMatchPlayers.Count == 1)
 			{
-				Debug.LogError("------------------------restarting sim");
-				startParams = configs.GetDefaultStartParameters(startPlayersCount, IsSpectator(), NetworkState._frameSnapshotNumber, NetworkState._frameSnapshot);
+				startParams = configs.GetDefaultStartParameters(_services.NetworkService.LastMatchPlayers.Count, IsSpectator(), NetworkState._frameSnapshotNumber, NetworkState._frameSnapshot);
 			}
-
+			
 			startParams.NetworkClient = client;
+			
+			Debug.LogError("------------------------STARTING SIMULATION");
 			
 			QuantumRunner.StartGame(_services.NetworkService.UserId, startParams);
 			_services.MessageBrokerService.Publish(new MatchSimulationStartedMessage());

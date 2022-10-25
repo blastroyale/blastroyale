@@ -145,7 +145,6 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnDisconnectDuringSimulation()
 		{
-			Debug.LogError("<color=green>---------SIMULATION CRITICAL DISCONNECT---------</color>");
 			_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.Simulation;
 		}
 
@@ -164,6 +163,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void OpenDisconnectedScreen()
 		{
+			Debug.LogError("open DC screen now now now");
 			var data = new DisconnectedScreenPresenter.StateData
 			{
 				ReconnectClicked = () => _services.MessageBrokerService.Publish(new AttemptManualReconnectionMessage())

@@ -26,7 +26,7 @@ ILogger logger = loggerFactory.CreateLogger<GameLogicWebWebService>();
 // Setup Application
 var builder = WebApplication.CreateBuilder(args);
 var path = Path.GetDirectoryName(typeof(GameLogicWebWebService).Assembly.Location);
-ServerStartup.Setup(builder.Services, path);
+ServerStartup.Setup(builder.Services.AddMvc(), path);
 
 // Remove database dependency for local run for simplicity and saving laptop cpu
 builder.Services.RemoveAll(typeof(IServerMutex));

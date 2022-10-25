@@ -32,8 +32,11 @@ namespace ServerCommon
 		public void CheckErrors<T>(PlayFabResult<T> result) where T : PlayFabResultCommon
 		{
 			if (result.Error != null)
-			{
-				throw new LogicException($"Playfab Error {result.Error.ErrorMessage}: {JsonConvert.SerializeObject(result.Error.ErrorDetails)}");
+            {
+                var details = result.Error.ErrorDetails == null
+                    ? ""
+                    : JsonConvert.SerializeObject(result.Error.ErrorDetails);
+				throw new LogicException($"Playfab Error {result.Error.ErrorMessage}: {details}");
 			}
 		}
 	}

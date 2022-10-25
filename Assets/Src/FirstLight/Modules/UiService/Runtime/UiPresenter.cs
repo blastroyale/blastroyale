@@ -161,6 +161,7 @@ namespace FirstLight.UiService
 	public abstract class UiToolkitPresenterData<T> : UiCloseActivePresenterData<T> where T : struct
 	{
 		[SerializeField, Required] private UIDocument _document;
+		[SerializeField] private GameObject _background;
 
 		protected VisualElement Root;
 
@@ -206,7 +207,11 @@ namespace FirstLight.UiService
 
 		protected override void OnOpened()
 		{
-			gameObject.SetActive(true);
+			if (_background != null)
+			{
+				_background.SetActive(true);
+			}
+
 			if (Root == null)
 			{
 				Root = _document.rootVisualElement.Q(UIConstants.ID_ROOT);
@@ -235,7 +240,10 @@ namespace FirstLight.UiService
 		{
 			Root.EnableInClassList(UIConstants.CLASS_HIDDEN, true);
 			UnsubscribeFromEvents();
-			gameObject.SetActive(false);
+			if (_background != null)
+			{
+				_background.SetActive(false);
+			}
 		}
 	}
 }

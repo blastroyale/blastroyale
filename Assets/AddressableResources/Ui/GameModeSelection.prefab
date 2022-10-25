@@ -64,6 +64,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OpenDelayTimeSeconds: 0
   _document: {fileID: 1971436955827305704}
+  _background: {fileID: 4067513535748299492}
   _buttonAsset: {fileID: 9197481963319205126, guid: 1acd361f6f23744e4b060f6c7339014b, type: 3}
 --- !u!1001 &1875314729536829350
 PrefabInstance:
@@ -170,6 +171,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47834e62a2462406fb24478a1afc298a, type: 3}
+--- !u!1 &4067513535748299492 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2482823480601963842, guid: 47834e62a2462406fb24478a1afc298a, type: 3}
+  m_PrefabInstance: {fileID: 1875314729536829350}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &4067513535748299499 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2482823480601963853, guid: 47834e62a2462406fb24478a1afc298a, type: 3}

@@ -1,3 +1,9 @@
+.GameModeSelectionScreenStyle.hidden {
+    opacity: 0;
+    transition-property: opacity, display, visibility;
+    transition-duration: 0.7s, 0.7s, 0.7s;
+}
+
 .GameModeSelectionScreenStyle #TitleHolder {
     position: absolute;
     left: 0;

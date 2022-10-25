@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
@@ -87,19 +88,25 @@ namespace FirstLight.Game.Presenters
 		
 		private void OnModeButtonClicked(GameModeSelectionButtonView info)
 		{
-			SelectButton(info);
+			if (info.Selected)
+			{
+				return;
+			}
 			
+			SelectButton(info);
+
+			StartCoroutine(ChangeGameModeCoroutine(info));
+		}
+
+		private IEnumerator ChangeGameModeCoroutine(GameModeSelectionButtonView info)
+		{
+			yield return new WaitForSeconds(0.3f);
 			_services.GameModeService.SelectedGameMode.Value = info.GameModeInfo;
 			Data.GameModeChosen();
 		}
 
 		private void SelectButton(GameModeSelectionButtonView info)
 		{
-			if (info.Selected)
-			{
-				return;
-			}
-
 			foreach (var buttonView in _buttonViews)
 			{
 				buttonView.Selected = false;

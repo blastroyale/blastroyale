@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -174,9 +173,9 @@ namespace FirstLight.Game.Views
 		private void SetMutatorLine(VisualElement mutatorLine, string mutator)
 		{
 			mutatorLine.ClearClassList();
-			mutatorLine.AddToClassList(mutator + "-mutator");
+			mutatorLine.AddToClassList(mutator.ToLower() + "-mutator");
 			var mutatorTitle = mutatorLine.Q<Label>("MutatorTitle").Required();
-			mutatorTitle.text = mutator;
+			mutatorTitle.text = mutator.ToUpper();
 		}
 
 		private void UpdateTimer()
@@ -195,11 +194,12 @@ namespace FirstLight.Game.Views
 
 		private IEnumerator UpdateTimerCoroutine()
 		{
+			var wait = new WaitForSeconds(1);
 			while (true)
 			{
 				var timeLeft = GameModeInfo.EndTime - DateTime.UtcNow;
-				_gameModeTimerLabel.text = timeLeft.ToString(@"hh\:mm\:ss");
-				yield return new WaitForSeconds(1);
+				_gameModeTimerLabel.text = "LIMITED " + timeLeft.ToString(@"hh\:mm\:ss");
+				yield return wait;
 			}
 		}
 	}

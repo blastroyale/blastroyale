@@ -242,6 +242,7 @@ namespace FirstLight.Game.StateMachines
 				GameModeChosen = () =>
 				{
 					_services.MessageBrokerService.Publish(new SelectedGameModeMessage());
+					_statechartTrigger(_gameModeSelectedFinishedEvent);
 				},
 				CustomGameChosen = () =>
 				{

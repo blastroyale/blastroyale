@@ -238,8 +238,15 @@ namespace FirstLight.UiService
 
 		protected override void OnClosed()
 		{
+			StartCoroutine(CloseCoroutine());
+		}
+
+		private IEnumerator CloseCoroutine()
+		{
 			Root.EnableInClassList(UIConstants.CLASS_HIDDEN, true);
 			UnsubscribeFromEvents();
+			yield return new WaitForSeconds(0.7f);
+
 			if (_background != null)
 			{
 				_background.SetActive(false);

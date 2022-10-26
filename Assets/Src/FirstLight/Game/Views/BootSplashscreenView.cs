@@ -9,6 +9,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Game.Data;
 using Newtonsoft.Json;
 using Sirenix.OdinInspector;
+using Unity.Services.Core;
 using UnityEngine.Analytics;
 
 #pragma warning disable CS1998
@@ -45,6 +46,7 @@ namespace FirstLight.Game.Views
 
 			InitializePlugins();
 
+			await UnityServices.InitializeAsync();
 			await InitAtt();
 			await StartAnalytics();
 			StartSplashScreen();

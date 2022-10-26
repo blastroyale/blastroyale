@@ -1,17 +1,12 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using FirstLight.Game.Messages;
-using FirstLight.Game.MonoComponent.EntityPrototypes;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
 using UnityEngine;
 
-namespace FirstLight.Game.Views.MapViews
+namespace FirstLight.Game.MonoComponent.Match
 {
 	/// <summary>
 	/// This class handles showing/hiding player renderers inside and outside of visibility volumes based on various factors
@@ -27,7 +22,6 @@ namespace FirstLight.Game.Views.MapViews
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
-
 			_currentlyCollidingPlayers = new Dictionary<EntityRef, PlayerCharacterViewMonoComponent>();
 
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);

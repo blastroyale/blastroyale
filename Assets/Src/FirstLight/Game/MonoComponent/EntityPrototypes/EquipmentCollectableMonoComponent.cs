@@ -36,8 +36,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		protected override void OnEntityDestroyed(QuantumGame game)
 		{
-			_matchServices.SpectateService.SpectatedPlayer.StopObservingAll(this);
-			QuantumEvent.UnsubscribeListener(this);
+			_matchServices?.SpectateService?.SpectatedPlayer?.StopObservingAll(this);
 		}
 
 		private async Task<bool> ShowEquipment(QuantumGame game)
@@ -76,29 +75,27 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
-			if (!next.Entity.IsValid) return; // In case where we spawn Equipment Collectables with the map
+			var game = QuantumRunner.Default.Game;
+			
+			// In case where we spawn Equipment Collectables with the map or changed to a player that just collected a weapon
+			if (!next.Entity.IsValid || !TryGetComponentData<EquipmentCollectable>(game, out var collectable)) return; 
 
-			RefreshArrow(next.Entity);
+
+			ShowHigherRarityArrow(game.Frames.Verified, next.Entity, collectable);
 		}
 
 		private void HandleOnPlayerWeaponChanged(EventOnPlayerWeaponChanged callback)
 		{
-			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
+			// In the same frame the player collected weapon, will still execute this event because is "manual disposed"
+			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity|| 
+			    !TryGetComponentData<EquipmentCollectable>(callback.Game, out var collectable)) return;
 
-			RefreshArrow(callback.Entity);
+			ShowHigherRarityArrow(callback.Game.Frames.Verified, callback.Entity, collectable);
 		}
 
-		private void RefreshArrow(EntityRef playerEntity)
+		private void ShowHigherRarityArrow(Frame f, EntityRef playerEntity, EquipmentCollectable collectable)
 		{
-			var game = QuantumRunner.Default.Game;
-			ShowHigherRarityArrow(game, playerEntity, GetComponentData<EquipmentCollectable>(game));
-		}
-
-		private void ShowHigherRarityArrow(QuantumGame game, EntityRef playerEntity, EquipmentCollectable collectable)
-		{
-			if (!collectable.Item.IsWeapon() || !game.Frames.Verified.Exists(playerEntity)) return;
-
-			var playerCharacter = game.Frames.Verified.Get<PlayerCharacter>(playerEntity);
+			if (!collectable.Item.IsWeapon() || !f.TryGet<PlayerCharacter>(playerEntity, out var playerCharacter)) return;
 
 			var numOfSlots = playerCharacter.WeaponSlots.Length;
 			for (int slotIndex = 0; slotIndex < numOfSlots; slotIndex++)

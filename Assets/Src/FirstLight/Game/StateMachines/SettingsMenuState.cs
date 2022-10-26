@@ -3,7 +3,6 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
-using FirstLight.NativeUi;
 using FirstLight.Statechart;
 using I2.Loc;
 using PlayFab;
@@ -204,7 +203,8 @@ namespace FirstLight.Game.StateMachines
 		private void OnServerHttpErrorMessage(ServerHttpErrorMessage msg)
 		{
 			_services.AnalyticsService.CrashLog(msg.Message);
-
+			
+#if UNITY_EDITOR
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.OK,
@@ -212,25 +212,47 @@ namespace FirstLight.Game.StateMachines
 			};
 
 			_services.GenericDialogService.OpenDialog(msg.Message, false, confirmButton);
+#else
+			
+			var button = new NativeUi.AlertButton
+			{
+				Callback = () => { _statechartTrigger(_logoutFailedEvent); },
+				Style = NativeUi.AlertButtonStyle.Default,
+				Text = ScriptLocalization.General.OK
+			};
+
+			NativeUi.NativeUiService.ShowAlertPopUp(false,ScriptLocalization.MainMenu.PlayfabError, msg.Message, button);
+#endif
 		}
 
 		private void OnAccountDeleted(ExecuteFunctionResult res)
 		{
 			TryLogOut();
-			var button = new AlertButton
+			
+#if UNITY_EDITOR
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.MainMenu.QuitGameButton,
+				ButtonOnClick = () => { _statechartTrigger(_logoutFailedEvent); }
+			};
+
+			_services.GenericDialogService.OpenDialog(ScriptLocalization.MainMenu.DeleteAccountConfirmMessage, 
+			                                          false, confirmButton);
+#else
+			var button = new NativeUi.AlertButton
 			{
 				Callback = () =>
 				{
 					_services.QuitGame("Account Deleted");
 				},
-				Style = AlertButtonStyle.Negative,
-				Text = "Quit Game"
+				Style = NativeUi.AlertButtonStyle.Negative,
+				Text = ScriptLocalization.MainMenu.QuitGameButton
 			};
-			NativeUiService.ShowAlertPopUp(
-				false, 
-				ScriptLocalization.MainMenu.DeleteAccountConfirm, 
-				ScriptLocalization.MainMenu.DeleteAccountConfirmMessage, 
-				button);
+			NativeUi.NativeUiService.ShowAlertPopUp(false, 
+			                                        ScriptLocalization.MainMenu.DeleteAccountConfirm, 
+			                                        ScriptLocalization.MainMenu.DeleteAccountConfirmMessage, 
+			                                        button);
+#endif
 		}
 	}
 }

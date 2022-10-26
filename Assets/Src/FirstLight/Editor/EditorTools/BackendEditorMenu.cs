@@ -95,6 +95,11 @@ namespace FirstLight.Editor.EditorTools
 				var currentVersion = ulong.Parse(configVersion ?? "0");
 				var nextVersion = currentVersion + 1;
 				var title = PlayFabEditorDataService.ActiveTitle;
+				if (title == null)
+				{
+					EditorUtility.DisplayDialog("Enable Playfab Ext", "Please go to Windows -> Playfab and enable playfab EXT to use this", "Accept", "Forcefully Accept");
+					return;
+				}
 				if(!EditorUtility.DisplayDialog("Confirm Version Update",
 					@$"Update configs from version {currentVersion} to {nextVersion} on environment {title.Name.ToUpper()} {title.Id.ToUpper()}?", "Confirm", "Cancel"))
 				{

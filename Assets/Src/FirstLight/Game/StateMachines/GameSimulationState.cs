@@ -89,23 +89,21 @@ namespace FirstLight.Game.StateMachines
 			modeCheck.Transition().Target(battleRoyale);
 
 			deathmatch.Nest(_deathmatchState.Setup).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
-			deathmatch.Event(NetworkState.PhotonCriticalDisconnectedEvent).Target(disconnected);
+			deathmatch.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
 			deathmatch.Event(MatchEndedEvent).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
 			deathmatch.Event(MatchQuitEvent).OnTransition(() => MatchEndAnalytics(true)).Target(quitCheck);
 			deathmatch.OnExit(PublishMatchEnded);
 
 			battleRoyale.Nest(_battleRoyaleState.Setup).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
-			battleRoyale.Event(NetworkState.PhotonCriticalDisconnectedEvent).Target(disconnected);
+			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
 			battleRoyale.Event(MatchEndedEvent).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
 			battleRoyale.Event(MatchQuitEvent).OnTransition(() => MatchEndAnalytics(true)).Target(quitCheck);
 			battleRoyale.OnExit(PublishMatchEnded);
-
-			//disconnected.OnEnter(OpenDisconnectedScreen);
+			
 			disconnected.OnEnter(StopSimulation);
 			disconnected.Event(NetworkState.JoinedRoomEvent).Target(startSimulation);
 			disconnected.Event(NetworkState.JoinRoomFailedEvent).Target(final);
-			//disconnected.OnExit(CloseDisconnectedScreen);
-			
+
 			quitCheck.Transition().Condition(IsSpectator).Target(final);
 			quitCheck.Transition().Target(gameEnded);
 			
@@ -292,7 +290,7 @@ namespace FirstLight.Game.StateMachines
 				startParams = configs.GetDefaultStartParameters(_services.NetworkService.LastMatchPlayers.Count, IsSpectator(), _matchServices.FrameSnapshotService.GetLastStoredMatchSnapshot());
 			}
 			
-			Debug.LogError("------------------------RESTARTING SIMULATION");
+			Debug.LogError("------------------------STARTING SIMULATION");
 			
 			startParams.NetworkClient = client;
 			
@@ -302,25 +300,11 @@ namespace FirstLight.Game.StateMachines
 
 		private void StopSimulation()
 		{
+			Debug.LogError("------------------------ENDING SIMULATION");
 			_services.MessageBrokerService.Publish(new MatchSimulationEndedMessage());
 			QuantumRunner.ShutdownAll();
 		}
 
-		private void OpenDisconnectedScreen()
-		{
-			var data = new DisconnectedScreenPresenter.StateData
-			{
-				ReconnectClicked = () => _services.MessageBrokerService.Publish(new AttemptManualReconnectionMessage())
-			};
-
-			_uiService.OpenUiAsync<DisconnectedScreenPresenter, DisconnectedScreenPresenter.StateData>(data);
-		}
-		
-		private void CloseDisconnectedScreen()
-		{
-			_uiService.CloseUi<DisconnectedScreenPresenter>(false, true);
-		}
-		
 		private void PublishMatchEnded()
 		{
 			_services.MessageBrokerService.Publish(new MatchEndedMessage());

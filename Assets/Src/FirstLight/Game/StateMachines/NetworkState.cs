@@ -101,7 +101,7 @@ namespace FirstLight.Game.StateMachines
 			disconnected.OnEnter(SubscribeDisconnectEvents);
 			disconnected.Event(PhotonMasterConnectedEvent).Target(connected);
 			disconnected.Event(JoinedRoomEvent).Target(connected);
-			disconnected.OnEnter(UnsubscribeDisconnectEvents);
+			disconnected.OnExit(UnsubscribeDisconnectEvents);
 
 			disconnectForServerSelect.OnEnter(DisconnectPhoton);
 			disconnectForServerSelect.Event(PhotonDisconnectedEvent).Target(getAvailableRegions);
@@ -195,7 +195,7 @@ namespace FirstLight.Game.StateMachines
 
 		private async void SubscribeDisconnectEvents()
 		{
-			_services.TickService.SubscribeOnUpdate(TickReconnectAttempt, GameConstants.Network.NETWORK_ATTEMPT_RECONNECT_SECONDS, true, true);
+			_services.TickService.SubscribeOnUpdate(TickReconnectAttempt, GameConstants.Network.NETWORK_ATTEMPT_RECONNECT_SECONDS);
 			_criticalDisconnectCoroutine = _services.CoroutineService.StartCoroutine(CriticalDisconnectCoroutine());
 
 			await Task.Yield();

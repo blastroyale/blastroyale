@@ -192,18 +192,18 @@ namespace FirstLight.Game.Logic
 
 			var trophyChange = 0d;
 
-			// Losses
-			for (var i = 0; i < localPlayerData.PlayerRank; i++)
+			// Losses; Note: PlayerRank starts from 1, not from 0
+			for (var i = 0; i < localPlayerData.PlayerRank - 1; i++)
 			{
-				trophyChange += CalculateEloChange(0d, players[i].Data.PlayerTrophies, 
+				trophyChange += CalculateEloChange(0d, tempPlayers[i].Data.PlayerTrophies, 
 				                                   localPlayerData.Data.PlayerTrophies, gameConfig.TrophyEloRange,
 				                                   gameConfig.TrophyEloK.AsDouble);
 			}
 
-			// Wins
-			for (var i = (int) localPlayerData.PlayerRank + 1; i < players.Count; i++)
+			// Wins; Note: PlayerRank starts from 1, not from 0
+			for (var i = (int) localPlayerData.PlayerRank; i < players.Count; i++)
 			{
-				trophyChange += CalculateEloChange(1d, players[i].Data.PlayerTrophies, 
+				trophyChange += CalculateEloChange(1d, tempPlayers[i].Data.PlayerTrophies, 
 				                                   localPlayerData.Data.PlayerTrophies, gameConfig.TrophyEloRange,
 				                                   gameConfig.TrophyEloK.AsDouble);
 			}
@@ -215,7 +215,7 @@ namespace FirstLight.Game.Logic
 				finalTrophyChange = (int) -_trophies.Value;
 			}
 
-			_trophies.Value = Math.Max(0, _trophies.Value + (uint) finalTrophyChange);
+			_trophies.Value = (uint) Math.Max(0, _trophies.Value + finalTrophyChange);
 
 			return finalTrophyChange;
 		}
@@ -233,7 +233,7 @@ namespace FirstLight.Game.Logic
 
 		private double CalculateEloChange(double score, uint trophiesOpponent, uint trophiesPlayer, int eloRange, double eloK)
 		{
-			var eloBracket = Math.Pow(10, (trophiesOpponent - trophiesPlayer) / (float) eloRange);
+			var eloBracket = Math.Pow(10, ((int)trophiesOpponent - (int)trophiesPlayer) / (float) eloRange);
 			
 			return eloK * (score - 1 / (1 + eloBracket));
 		}

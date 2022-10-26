@@ -52,7 +52,17 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public void Init()
 		{
+			var defaultValues = new PlayerData().ResourcePools;
+			
 			_resourcePools = new ObservableDictionary<GameId, ResourcePoolData>(Data.ResourcePools);
+
+			foreach (var pair in defaultValues)
+			{
+				if (!_resourcePools.ContainsKey(pair.Key))
+				{
+					_resourcePools.Add(pair.Key, pair.Value);
+				}
+			}
 		}
 
 		/// <inheritdoc />
@@ -60,14 +70,7 @@ namespace FirstLight.Game.Logic
 		{
 			var poolConfig = GameLogic.ConfigsProvider.GetConfig<ResourcePoolConfig>((int) poolType);
 			var capacity = GetCurrentPoolCapacity(poolType, poolConfig.UseNftData);
-
-			if (!_resourcePools.TryGetValue(poolType, out var pool))
-			{
-				pool = new ResourcePoolData(poolType, capacity, DateTime.UtcNow);
-				
-				_resourcePools.Add(poolType, pool);
-			}
-
+			var pool = _resourcePools[poolType];
 			var totalRestock = poolConfig.TotalRestockIntervalMinutes / poolConfig.RestockIntervalMinutes;
 			var minutesElapsedSinceLastRestock = (DateTime.UtcNow - pool.LastPoolRestockTime).TotalMinutes;
 			var amountOfRestocks = (uint) Math.Floor(minutesElapsedSinceLastRestock / poolConfig.RestockIntervalMinutes);

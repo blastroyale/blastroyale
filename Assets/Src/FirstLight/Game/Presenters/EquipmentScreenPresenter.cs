@@ -273,11 +273,13 @@ namespace FirstLight.Game.Presenters
 					var format = stat switch
 					{
 						EquipmentStatType.ReloadSpeed => "N2",
-						EquipmentStatType.PowerToDamageRatio => "P0",
-						EquipmentStatType.Armor => "P0",
+						EquipmentStatType.PowerToDamageRatio => "P2",
+						EquipmentStatType.Armor => "P2",
 						EquipmentStatType.AttackCooldown => "N2",
-						EquipmentStatType.TargetRange => "N2",
-						EquipmentStatType.PickupSpeed => "P0",
+						EquipmentStatType.TargetRange => "N3",
+						EquipmentStatType.PickupSpeed => "P2",
+						EquipmentStatType.Speed => "N2",
+						EquipmentStatType.SplashDamageRadius => "N2",
 						_ => "N0"
 					};
 					

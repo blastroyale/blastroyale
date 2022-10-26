@@ -2,6 +2,7 @@ using FirstLight.Game.Logic;
 using System.Collections.Generic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using Quantum;
 
@@ -14,6 +15,7 @@ namespace FirstLight.Game.Commands
 	{
 		public List<QuantumPlayerMatchData> PlayersMatchData;
 		public QuantumValues QuantumValues;
+		private bool _validRewardsFromFrame = true;
 
 		public CommandAccessLevel AccessLevel() => CommandAccessLevel.Service;
 
@@ -22,6 +24,10 @@ namespace FirstLight.Game.Commands
 		/// <inheritdoc />
 		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)
 		{
+			if (!_validRewardsFromFrame)
+			{
+				return;
+			}
 			var matchData = PlayersMatchData;
 			var trophiesBeforeChange = gameLogic.PlayerLogic.Trophies.Value;
 			var matchType = QuantumValues.MatchType;
@@ -43,6 +49,11 @@ namespace FirstLight.Game.Commands
 			var gameContainer = frame.GetSingleton<GameContainer>();
 			PlayersMatchData = gameContainer.GetPlayersMatchData(frame, out _);
 			QuantumValues = quantumValues;
+			if (!frame.Context.GameModeConfig.AllowEarlyRewards && !gameContainer.IsGameCompleted &&
+				!gameContainer.IsGameOver)
+			{
+				_validRewardsFromFrame = false;
+			}
 		}
 	}
 }

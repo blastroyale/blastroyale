@@ -693,19 +693,22 @@ namespace Quantum
 				{
 					GameId.CoreRare, new List<GameIdGroup>
 					{
-						GameIdGroup.Core
+						GameIdGroup.Core,
+						GameIdGroup.IAP
 					}.AsReadOnly()
 				},
 				{
 					GameId.CoreEpic, new List<GameIdGroup>
 					{
-						GameIdGroup.Core
+						GameIdGroup.Core,
+						GameIdGroup.IAP
 					}.AsReadOnly()
 				},
 				{
 					GameId.CoreLegendary, new List<GameIdGroup>
 					{
-						GameIdGroup.Core
+						GameIdGroup.Core,
+						GameIdGroup.IAP
 					}.AsReadOnly()
 				},
 			};
@@ -1006,6 +1009,14 @@ namespace Quantum
 					{
 						GameId.CoreCommon,
 						GameId.CoreUncommon,
+						GameId.CoreRare,
+						GameId.CoreEpic,
+						GameId.CoreLegendary
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.IAP, new List<GameId>
+					{
 						GameId.CoreRare,
 						GameId.CoreEpic,
 						GameId.CoreLegendary

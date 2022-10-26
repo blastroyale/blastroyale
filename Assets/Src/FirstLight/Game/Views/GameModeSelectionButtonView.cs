@@ -135,7 +135,7 @@ namespace FirstLight.Game.Views
 
 		private void UpdateDescription()
 		{
-			if (GameModeInfo.Entry.GameModeId == "Custom Game")
+			if (GameModeInfo.Entry.GameModeId == GameConstants.GameModeId.FAKE_CUSTOMGAME_GAMEMODE)
 			{
 				_gameModeDescriptionLabel.text = ScriptLocalization.MainMenu.CustomGameDescription;
 				return;

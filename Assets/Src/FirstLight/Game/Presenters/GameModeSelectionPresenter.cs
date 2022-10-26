@@ -59,7 +59,7 @@ namespace FirstLight.Game.Presenters
 
 			// Add custom game button
 			var gameModeInfo = new GameModeInfo();
-			gameModeInfo.Entry.GameModeId = "Custom Game";
+			gameModeInfo.Entry.GameModeId = GameConstants.GameModeId.FAKE_CUSTOMGAME_GAMEMODE;
 			gameModeInfo.Entry.MatchType = MatchType.Custom;
 			gameModeInfo.Entry.Mutators = new List<string>();
 			var createGameButton = _buttonAsset.Instantiate();

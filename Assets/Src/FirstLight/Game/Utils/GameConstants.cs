@@ -206,5 +206,10 @@ namespace FirstLight.Game.Utils
 
 
 		}
+
+		public static class GameModeId
+		{
+			public static string FAKE_CUSTOMGAME_GAMEMODE = "Custom Game";
+		}
 	}
 }

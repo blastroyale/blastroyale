@@ -31,7 +31,7 @@ namespace FirstLight.Game.Logic
 		/// Generate a list of rewards based on the players <paramref name="matchData"/> performance from a game completed
 		/// </summary>
 		List<RewardData> CalculateMatchRewards(MatchType matchType, QuantumPlayerMatchData matchData,
-		                                       bool didPlayerQuit);
+		                                       bool didPlayerQuit, int playerCount);
 	}
 
 	/// <inheritdoc />
@@ -66,7 +66,7 @@ namespace FirstLight.Game.Logic
 		}
 
 		public List<RewardData> CalculateMatchRewards(MatchType matchType, QuantumPlayerMatchData matchData,
-		                                              bool didPlayerQuit)
+		                                              bool didPlayerQuit, int playerCount)
 		{
 			var rewards = new List<RewardData>();
 
@@ -75,7 +75,7 @@ namespace FirstLight.Game.Logic
 				throw new MatchDataEmptyLogicException();
 			}
 
-			// Currently, there is no plan on giving rewards on anything but BR mode
+			// We don't reward quitters and we don't reward players for Custom games
 			if (matchType == MatchType.Custom || didPlayerQuit)
 			{
 				return rewards;
@@ -88,8 +88,10 @@ namespace FirstLight.Game.Logic
 			                                     .OrderByDescending(x => x.Placement).ToList();
 
 			var rewardConfig = gameModeRewardConfigs[0];
-			var rankValue = matchData.PlayerRank;
-
+			
+			// We calculate rank value for rewards based on the number of players in a match versus maximum of 30
+			var rankValue = Math.Min(1 + Math.Round(30 / (float)playerCount) * (matchData.PlayerRank - 1), 30);
+			
 			foreach (var config in gameModeRewardConfigs)
 			{
 				if (rankValue > config.Placement)
@@ -155,7 +157,8 @@ namespace FirstLight.Game.Logic
 		public List<RewardData> GiveMatchRewards(MatchType matchType, QuantumPlayerMatchData matchData,
 		                                         bool didPlayerQuit)
 		{
-			var rewards = CalculateMatchRewards(matchType, matchData, didPlayerQuit);
+			var frame = QuantumRunner.Default.Game.Frames.Verified;
+			var rewards = CalculateMatchRewards(matchType, matchData, didPlayerQuit, frame.PlayerCount);
 
 			foreach (var reward in rewards)
 			{

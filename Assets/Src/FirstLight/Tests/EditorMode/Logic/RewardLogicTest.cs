@@ -44,7 +44,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 		public void CalculateMatchRewards_WinningPlacement_GetsCorrectRewards()
 		{
 			_matchData.PlayerRank = 1;
-			var rewards = _rewardLogic.CalculateMatchRewards(MatchType.Ranked, _matchData, false);
+			var rewards = _rewardLogic.CalculateMatchRewards(MatchType.Ranked, _matchData, false, 30);
 			
 			Assert.AreEqual(2, rewards.Count);
 			Assert.AreEqual(RESOURCEINFO_CSS_WINAMOUNT * PLACEMENT1_CS_PERCENTAGE / 100, rewards.Find(data => data.RewardId == GameId.CS).Value);
@@ -55,7 +55,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 		public void CalculateMatchRewards_NoWinningPlacement_GetsLastRewards()
 		{
 			_matchData.PlayerRank = 10;
-			var rewards = _rewardLogic.CalculateMatchRewards(MatchType.Ranked, _matchData, false);
+			var rewards = _rewardLogic.CalculateMatchRewards(MatchType.Ranked, _matchData, false, 30);
 			
 			Assert.AreEqual(2, rewards.Count);
 			Assert.AreEqual(RESOURCEINFO_CSS_WINAMOUNT * PLACEMENT3_CS_PERCENTAGE / 100, rewards.Find(data => data.RewardId == GameId.CS).Value);

@@ -107,7 +107,7 @@ namespace Quantum.Systems
 				var playerData = f.GetPlayerData(i);
 				var equipment = playerData?.Weapon;
 
-				if (!equipment.HasValue || !equipment.Value.IsValid())
+				if (!equipment.HasValue || !equipment.Value.IsValid() || equipment.Value.IsDefaultItem())
 				{
 					var index = f.RNG->Next(0, offPool.Count);
 					

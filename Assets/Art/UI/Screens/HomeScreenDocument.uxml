@@ -42,9 +42,6 @@
                         <ui:Label text="CASUAL" name="GameTypeLabel" class="font-italic font-style-h2" style="-unity-text-align: upper-right; font-size: 29px; margin-bottom: -3px; margin-left: -13px;" />
                     </ui:VisualElement>
                 </ui:Button>
-                <ui:Button text="CUSTOM GAME" display-tooltip-when-elided="true" name="CustomGameButton" class="button-with-icon button-with-icon--custom-game hidden-right" style="margin-bottom: 27px;">
-                    <ui:VisualElement name="ButtonIcon" class="button-with-icon__icon" />
-                </ui:Button>
                 <ui:Button text="SHOP" display-tooltip-when-elided="true" name="StoreButton" class="button-with-icon button-with-icon--yellow button-with-icon--shop hidden-right" style="margin-bottom: 27px;">
                     <ui:VisualElement class="button-with-icon__icon" />
                 </ui:Button>

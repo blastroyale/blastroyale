@@ -300,24 +300,5 @@ namespace FirstLight.Game.StateMachines
 			                                        button);
 #endif
 		}
-
-		private void OnAccountDeleted(ExecuteFunctionResult res)
-		{
-			TryLogOut();
-			var button = new AlertButton
-			{
-				Callback = () =>
-				{
-					_services.QuitGame("Account Deleted");
-				},
-				Style = AlertButtonStyle.Negative,
-				Text = "Quit Game"
-			};
-			NativeUiService.ShowAlertPopUp(
-				false, 
-				ScriptLocalization.MainMenu.DeleteAccountConfirm, 
-				ScriptLocalization.MainMenu.DeleteAccountConfirmMessage, 
-				button);
-		}
 	}
 }

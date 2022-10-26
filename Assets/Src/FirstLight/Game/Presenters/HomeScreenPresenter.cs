@@ -95,7 +95,6 @@ namespace FirstLight.Game.Presenters
 			root.Q<Button>("GameModeButton").clicked += Data.OnGameModeClicked;
 			root.Q<Button>("SettingsButton").clicked += Data.OnSettingsButtonClicked;
 			root.Q<Button>("BattlePassButton").clicked += Data.OnBattlePassClicked;
-			root.Q<Button>("CustomGameButton").clicked += Data.OnPlayRoomJoinCreateClicked;
 
 			root.Q<Button>("EquipmentButton").clicked += Data.OnLootButtonClicked;
 			root.Q<Button>("HeroesButton").clicked += Data.OnHeroesButtonClicked;

@@ -5799,7 +5799,7 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnPlayerAttack OnPlayerAttack(PlayerRef Player, EntityRef PlayerEntity, Equipment Weapon, QuantumWeaponConfig WeaponConfig, FP ShotDir, UInt32 AttackAngle) {
+      public EventOnPlayerAttack OnPlayerAttack(PlayerRef Player, EntityRef PlayerEntity, Equipment Weapon, QuantumWeaponConfig WeaponConfig, FP ShotDir, UInt32 AttackAngle, FP AttackRange) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnPlayerAttack>(EventOnPlayerAttack.ID);
         ev.Player = Player;
@@ -5808,6 +5808,7 @@ namespace Quantum {
         ev.WeaponConfig = WeaponConfig;
         ev.ShotDir = ShotDir;
         ev.AttackAngle = AttackAngle;
+        ev.AttackRange = AttackRange;
         _f.AddEvent(ev);
         return ev;
       }
@@ -7708,6 +7709,7 @@ namespace Quantum {
     public QuantumWeaponConfig WeaponConfig;
     public FP ShotDir;
     public UInt32 AttackAngle;
+    public FP AttackRange;
     protected EventOnPlayerAttack(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -7731,6 +7733,7 @@ namespace Quantum {
         hash = hash * 31 + WeaponConfig.GetHashCode();
         hash = hash * 31 + ShotDir.GetHashCode();
         hash = hash * 31 + AttackAngle.GetHashCode();
+        hash = hash * 31 + AttackRange.GetHashCode();
         return hash;
       }
     }

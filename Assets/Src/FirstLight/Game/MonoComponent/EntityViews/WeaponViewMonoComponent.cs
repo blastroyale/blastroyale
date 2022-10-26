@@ -60,6 +60,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				return;
 			}
 
+			var main = _particleSystem.main;
 			var shape = _particleSystem.shape;
 			var arc = 0;
 			var rotation = -(90f + callback.ShotDir.AsFloat);
@@ -73,7 +74,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			shape.arc = arc;
 			shape.arcMode = ParticleSystemShapeMultiModeValue.BurstSpread;
 			shape.rotation = new Vector3(90, rotation, 0);
-			
+			main.startLifetime = callback.AttackRange.AsFloat / config.AttackHitSpeed.AsFloat;
+
 		}
 
 		private void OnEventOnPlayerStopAttack(EventOnPlayerStopAttack callback)
@@ -116,7 +118,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			emission.rateOverTime = 0;
 			main.loop = false;
 			main.startSpeed = speed;
-			main.startLifetime = stats.GetStatData(StatType.AttackRange).StatValue.AsFloat / speed ;
 
 			emission.burstCount = 1;
 			var burst = emission.GetBurst(0);

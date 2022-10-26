@@ -32,6 +32,7 @@ MonoBehaviour:
       ShowUIStandingsExtraInfo: 1
       ShowWeaponSlots: 1
       SingleSlotMode: 0
+      DescriptionLocalisationKey: MainMenu/BattleRoyaleDescription
       Lives: 1
       DropWeaponOnPickup: 1
       SpawnWithLoadout: 0
@@ -68,6 +69,7 @@ MonoBehaviour:
       ShowUIStandingsExtraInfo: 0
       ShowWeaponSlots: 1
       SingleSlotMode: 1
+      DescriptionLocalisationKey: MainMenu/DeathmatchDescription
       Lives: 0
       DropWeaponOnPickup: 0
       SpawnWithLoadout: 0
@@ -102,6 +104,7 @@ MonoBehaviour:
       ShowUIStandingsExtraInfo: 1
       ShowWeaponSlots: 1
       SingleSlotMode: 0
+      DescriptionLocalisationKey: 
       Lives: 1
       DropWeaponOnPickup: 1
       SpawnWithLoadout: 0

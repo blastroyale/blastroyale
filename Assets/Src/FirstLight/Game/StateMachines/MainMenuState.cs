@@ -32,6 +32,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _roomJoinCreateClickedEvent = new StatechartEvent("Room Join Create Button Clicked Event");
 		private readonly IStatechartEvent _nameChangeClickedEvent = new StatechartEvent("Name Change Clicked Event");
 		private readonly IStatechartEvent _chooseGameModeClickedEvent = new StatechartEvent("Game Mode Clicked Event");
+		private readonly IStatechartEvent _gameModeSelectedFinishedEvent = new StatechartEvent("Game Mode Selected Finished Event");
 		private readonly IStatechartEvent _leaderboardClickedEvent = new StatechartEvent("Leaderboard Clicked Event");
 		private readonly IStatechartEvent _battlePassClickedEvent = new StatechartEvent("BattlePass Clicked Event");
 		private readonly IStatechartEvent _roomJoinCreateCloseClickedEvent = new StatechartEvent("Room Join Create Close Button Clicked Event");
@@ -114,7 +115,7 @@ namespace FirstLight.Game.StateMachines
 			var settingsMenu = stateFactory.Nest("Settings Menu");
 			var playClickedCheck = stateFactory.Choice("Play Button Clicked Check");
 			var roomWait = stateFactory.State("Room Joined Check");
-			var chooseGameMode = stateFactory.Wait("Enter Choose Game Mode");
+			var chooseGameMode = stateFactory.State("Enter Choose Game Mode");
 			var leaderboard = stateFactory.Wait("Leaderboard");
 			var battlePass = stateFactory.Wait("BattlePass");
 			var enterNameDialog = stateFactory.Nest("Enter Name Dialog");
@@ -138,7 +139,6 @@ namespace FirstLight.Game.StateMachines
 			homeMenu.Event(_playClickedEvent).Target(playClickedCheck);
 			homeMenu.Event(_settingsMenuClickedEvent).Target(settingsMenu);
 			homeMenu.Event(_gameCompletedCheatEvent).Target(screenCheck);
-			homeMenu.Event(_roomJoinCreateClickedEvent).Target(roomJoinCreateMenu);
 			homeMenu.Event(_nameChangeClickedEvent).Target(enterNameDialog);
 			homeMenu.Event(_chooseGameModeClickedEvent).Target(chooseGameMode);
 			homeMenu.Event(_leaderboardClickedEvent).Target(leaderboard);
@@ -152,7 +152,9 @@ namespace FirstLight.Game.StateMachines
 			roomWait.Event(NetworkState.JoinRoomFailedEvent).Target(homeMenu);
 			roomWait.Event(NetworkState.CreateRoomFailedEvent).Target(homeMenu);
 
-			chooseGameMode.WaitingFor(OpenGameModeSelectionUI).Target(homeMenu);
+			chooseGameMode.OnEnter(OpenGameModeSelectionUI);
+			chooseGameMode.Event(_gameModeSelectedFinishedEvent).Target(homeMenu);
+			chooseGameMode.Event(_roomJoinCreateClickedEvent).Target(roomJoinCreateMenu);
 			chooseGameMode.OnExit(CloseGameModeSelectionUI);
 			
 			leaderboard.WaitingFor(OpenLeaderboardUI).Target(homeMenu);
@@ -174,9 +176,9 @@ namespace FirstLight.Game.StateMachines
 
 			roomJoinCreateMenu.OnEnter(OpenRoomJoinCreateMenuUI);
 			roomJoinCreateMenu.Event(_playClickedEvent).Target(roomWait);
-			roomJoinCreateMenu.Event(_roomJoinCreateCloseClickedEvent).Target(homeMenu);
-			roomJoinCreateMenu.Event(NetworkState.JoinRoomFailedEvent).Target(homeMenu);
-			roomJoinCreateMenu.Event(NetworkState.CreateRoomFailedEvent).Target(homeMenu);
+			roomJoinCreateMenu.Event(_roomJoinCreateCloseClickedEvent).Target(chooseGameMode);
+			roomJoinCreateMenu.Event(NetworkState.JoinRoomFailedEvent).Target(chooseGameMode);
+			roomJoinCreateMenu.Event(NetworkState.CreateRoomFailedEvent).Target(chooseGameMode);
 			roomJoinCreateMenu.OnExit(CloseRoomJoinCreateMenuUI);
 		}
 
@@ -249,20 +251,26 @@ namespace FirstLight.Game.StateMachines
 				confirmButton);
 		}
 		
-		private void OpenGameModeSelectionUI(IWaitActivity activity)
+		private void OpenGameModeSelectionUI()
 		{
-			var cacheActivity = activity;
-
 			var data = new GameModeSelectionPresenter.StateData
 			{
 				GameModeChosen = () =>
 				{
 					_services.MessageBrokerService.Publish(new SelectedGameModeMessage());
-					cacheActivity.Complete();
+					_statechartTrigger(_gameModeSelectedFinishedEvent);
+				},
+				CustomGameChosen = () =>
+				{
+					_statechartTrigger(_roomJoinCreateClickedEvent);
+				},
+				LeaveGameModeSelection = () =>
+				{
+					_statechartTrigger(_gameModeSelectedFinishedEvent);
 				}
 			};
 			
-			_uiService.OpenUi<GameModeSelectionPresenter, GameModeSelectionPresenter.StateData>(data);
+			_uiService.OpenUiAsync<GameModeSelectionPresenter, GameModeSelectionPresenter.StateData>(data);
 		}
 
 		private void CloseGameModeSelectionUI()

@@ -34,9 +34,9 @@ namespace Quantum
 			//targetAttackAngle depend on a current character velocity 
 			var targetAttackAngle = FPMath.Lerp(weaponConfig.MinAttackAngle, weaponConfig.MaxAttackAngle,
 			                                    cVelocitySqr / maxSpeedSqr);
-			var shotAngle = weaponConfig.NumberOfShots == 1 ?
-				                QuantumHelpers.GetSingleShotAngleAccuracyModifier(f, targetAttackAngle) :
-				                FP._0;
+			var shotAngle = weaponConfig.NumberOfShots == 1 && !f.Context.TryGetMutatorByType(MutatorType.AbsoluteAccuracy, out _) ?
+				   QuantumHelpers.GetSingleShotAngleAccuracyModifier(f, targetAttackAngle) :
+				   FP._0;
 			var newAngleVector = FPVector2.Rotate(aimingDirection, shotAngle * FP.Deg2Rad).XOY;
 
 			var projectile = new Projectile

@@ -177,15 +177,11 @@ namespace FirstLight.Game.Presenters
 
 		private void OnLeaderboardsButtonClicked()
 		{
-			if (!NetworkUtils.CheckAttemptNetworkAction()) return;
-			
 			Data.OnLeaderboardClicked();
 		}
 
 		private void OnPlayerNameClicked(ClickEvent evt)
 		{
-			if (!NetworkUtils.CheckAttemptNetworkAction()) return;
-
 			Data.OnNameChangeClicked();
 		}
 

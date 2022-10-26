@@ -111,11 +111,15 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// <summary>
 		/// Setups all the indicators with the given data
 		/// </summary>
-		public void SetupWeaponInfo(GameId weaponId)
+		public void SetupWeaponInfo(Frame f, GameId weaponId)
 		{
 			_weaponConfig = _services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) weaponId);
 			_shootIndicatorId = _weaponConfig.MaxAttackAngle > 0 ? IndicatorVfxId.Cone : IndicatorVfxId.Line;
-			
+			if (f.Context.TryGetMutatorByType(MutatorType.AbsoluteAccuracy, out var mutatorConfig))
+			{
+				_shootIndicatorId = _weaponConfig.NumberOfShots > 1 ? IndicatorVfxId.Cone : IndicatorVfxId.Line;
+			}
+
 			ShootIndicator.SetVisualState(ShootIndicator.VisualState);
 		}
 
@@ -148,6 +152,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			
 			var minAttackAngle = _weaponConfig.MinAttackAngle;
 			var maxAttackAngle = _weaponConfig.MaxAttackAngle;
+
 			var lerp = Mathf.Lerp(minAttackAngle, maxAttackAngle, velocity.AsFloat / speed.AsFloat);
 			var angleInRad = maxAttackAngle == minAttackAngle ? maxAttackAngle : lerp;
 			

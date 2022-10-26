@@ -181,7 +181,6 @@ namespace FirstLight.Game.StateMachines
 		private void TryLogOut()
 		{
 			_services.PlayfabService.UnlinkDeviceID(OnUnlinkComplete);
-			_data.AppDataProvider.DeviceID.Value = null;
 		}
 
 		private void OnConnectIdComplete(AddUsernamePasswordResult result)
@@ -222,6 +221,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void OnUnlinkComplete()
 		{
+			_data.AppDataProvider.DeviceID.Value = null;
 			_services.HelpdeskService.Logout();
 			
 #if UNITY_EDITOR

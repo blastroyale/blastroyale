@@ -679,6 +679,18 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.CoreCommon, new List<GameIdGroup>
+					{
+						GameIdGroup.Core
+					}.AsReadOnly()
+				},
+				{
+					GameId.CoreUncommon, new List<GameIdGroup>
+					{
+						GameIdGroup.Core
+					}.AsReadOnly()
+				},
+				{
 					GameId.CoreRare, new List<GameIdGroup>
 					{
 						GameIdGroup.Core,
@@ -995,6 +1007,8 @@ namespace Quantum
 				{
 					GameIdGroup.Core, new List<GameId>
 					{
+						GameId.CoreCommon,
+						GameId.CoreUncommon,
 						GameId.CoreRare,
 						GameId.CoreEpic,
 						GameId.CoreLegendary

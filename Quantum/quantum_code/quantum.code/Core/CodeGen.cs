@@ -236,6 +236,8 @@ namespace Quantum {
     ConsumablePlatformSpawner = 140,
     Flag = 25,
     Tombstone = 37,
+    CoreCommon = 15,
+    CoreUncommon = 46,
     CoreRare = 47,
     CoreEpic = 48,
     CoreLegendary = 59,

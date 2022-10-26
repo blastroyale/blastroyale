@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
+using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;

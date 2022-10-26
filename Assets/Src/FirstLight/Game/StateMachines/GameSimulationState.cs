@@ -90,12 +90,14 @@ namespace FirstLight.Game.StateMachines
 			deathmatch.Nest(_deathmatchState.Setup).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
 			deathmatch.Event(MatchEndedEvent).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
 			deathmatch.Event(MatchQuitEvent).OnTransition(() => MatchEndAnalytics(true)).Target(quitCheck);
+			deathmatch.Event(GameCompleteExitEvent).Target(final);
 			deathmatch.OnExit(PublishMatchEnded);
 
 			battleRoyale.Nest(_battleRoyaleState.Setup).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
 			//battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
 			battleRoyale.Event(MatchEndedEvent).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
 			battleRoyale.Event(MatchQuitEvent).OnTransition(() => MatchEndAnalytics(true)).Target(quitCheck);
+			battleRoyale.Event(GameCompleteExitEvent).Target(final);
 			battleRoyale.OnExit(PublishMatchEnded);
 
 			//disconnected.OnEnter(StopSimulation);
@@ -220,8 +222,14 @@ namespace FirstLight.Game.StateMachines
 			{
 				QuantumRunner.Default.Game.SendCommand(new PlayerQuitCommand());
 			}
-			
-			_statechartTrigger(MatchQuitEvent);
+
+			if (_services.NetworkService.QuantumClient.CurrentRoom.GetMatchType() == MatchType.Custom)
+			{
+				_statechartTrigger(GameCompleteExitEvent);
+			}
+			{
+				_statechartTrigger(MatchQuitEvent);
+			}
 		}
 
 		private void GiveMatchRewards()

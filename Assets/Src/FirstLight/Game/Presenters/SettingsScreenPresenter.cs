@@ -130,6 +130,8 @@ namespace FirstLight.Game.Presenters
 
 		private void OpenServerSelect()
 		{
+			if (!NetworkUtils.CheckAttemptNetworkAction()) return;
+
 			Data.OnServerSelectClicked();
 		}
 
@@ -192,6 +194,8 @@ namespace FirstLight.Game.Presenters
 
 		private void OnDeleteAccountClicked()
 		{
+			if (!NetworkUtils.CheckAttemptNetworkAction()) return;
+			
 			var title = ScriptLocalization.MainMenu.DeleteAccountRequestMessage;
 			var confirmButton = new GenericDialogButton
 			{

@@ -32,10 +32,16 @@ namespace Quantum
 			//targetAttackAngle depend on a current character velocity 
 			var targetAttackAngle = FPMath.Lerp(weaponConfig.MinAttackAngle, weaponConfig.MaxAttackAngle, 
 			                                    cVelocitySqr / maxSpeedSqr);
+			
 			var shotAngle = weaponConfig.NumberOfShots == 1 ?
 				                QuantumHelpers.GetSingleShotAngleAccuracyModifier(f, targetAttackAngle) :
 				                FP._0;
-			
+
+			if (f.Context.TryGetMutatorByType(MutatorType.AbsoluteAccuracy, out var AbsoluteAccuracyConfig))
+			{
+				shotAngle = FP._0;
+			}
+
 			//only do attackSpeed ramping if the weapon has it
 			var rampUpStartTime = bb->GetFP(f, Constants.RampUpTimeStart);
 			if (weaponConfig.InitialAttackRampUpTime != FP._0)

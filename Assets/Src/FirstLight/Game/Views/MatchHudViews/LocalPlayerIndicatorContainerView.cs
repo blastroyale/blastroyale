@@ -123,6 +123,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 			
 			var minAttackAngle = _weaponConfig.MinAttackAngle;
 			var maxAttackAngle = _weaponConfig.MaxAttackAngle;
+			if(f.Context.TryGetMutatorByType(MutatorType.AbsoluteAccuracy, out var absoluteAccuracyConfig))
+			{
+				minAttackAngle = (uint)absoluteAccuracyConfig.Param1;
+				maxAttackAngle = (uint)absoluteAccuracyConfig.Param2;
+			}
+
 			var lerp = Mathf.Lerp(minAttackAngle, maxAttackAngle, velocity.AsFloat / speed.AsFloat);
 			var angleInRad = maxAttackAngle == minAttackAngle ? maxAttackAngle : lerp;
 			

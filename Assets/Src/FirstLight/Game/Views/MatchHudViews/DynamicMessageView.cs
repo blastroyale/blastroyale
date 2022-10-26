@@ -153,18 +153,16 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private async void ShowQueueMessage()
 		{
-			var message = _queue.Peek();
-
-			message.MessageEntry.gameObject.SetActive(true);
+			if (!_queue.TryDequeue(out var message)) return;
 			
+			message.MessageEntry.gameObject.SetActive(true);
+
 			await message.MessageEntry.DisplayMessage(message.TopText, message.BottomText);
 
 			if (this.IsDestroyed())
 			{
 				return;
 			}
-
-			_queue.Dequeue();
 
 			if (_queue.Count > 0)
 			{

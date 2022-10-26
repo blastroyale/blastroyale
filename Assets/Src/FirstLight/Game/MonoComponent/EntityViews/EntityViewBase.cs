@@ -33,7 +33,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		protected virtual void Awake()
 		{
-			if (!MainInstaller.TryResolve<IMatchServices>(out var matchServices))
+			// This is necessary because Views are loaded with Tasks and the player might already left the match when this is called
+			if (this.IsDestroyed() || !MainInstaller.TryResolve<IMatchServices>(out var matchServices))
 			{
 				FLog.Error($"This '{this}' object is already destroyed");
 				return;

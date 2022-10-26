@@ -31,8 +31,21 @@ namespace FirstLight.Game.Views.MapViews
 			_currentlyCollidingPlayers = new Dictionary<EntityRef, PlayerCharacterViewMonoComponent>();
 
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
+			_services.MessageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEnded);
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 			QuantumEvent.Subscribe<EventOnPlayerDead>(this, OnPlayerDead);
+		}
+		
+		private void OnDestroy()
+		{
+			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(OnSpectatedPlayerChanged);
+			_services?.MessageBrokerService?.UnsubscribeAll(this);
+			QuantumEvent.UnsubscribeListener(this);
+		}
+
+		private void OnMatchEnded(MatchEndedMessage callback)
+		{
+			_currentlyCollidingPlayers.Clear();
 		}
 
 		private void OnPlayerDead(EventOnPlayerDead callback)
@@ -42,12 +55,6 @@ namespace FirstLight.Game.Views.MapViews
 				_currentlyCollidingPlayers.Remove(callback.Entity);
 				CheckUpdateAllVisiblePlayers();
 			}
-		}
-
-		private void OnDestroy()
-		{
-			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(OnSpectatedPlayerChanged);
-			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
 		/// <summary>

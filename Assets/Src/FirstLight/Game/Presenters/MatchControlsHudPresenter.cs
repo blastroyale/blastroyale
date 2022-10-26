@@ -62,6 +62,7 @@ namespace FirstLight.Game.Presenters
 		{
 			_indicatorContainerView?.Dispose();
 			QuantumCallback.UnsubscribeListener(this);
+			QuantumEvent.UnsubscribeListener(this);
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.AdventureHudViews;
@@ -49,6 +50,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 				message.gameObject.SetActive(false);
 			}
 			
+			
+			_services.MessageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEnded);
 			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer, onlyIfActiveAndEnabled: true);
 			QuantumEvent.Subscribe<EventOnAirDropDropped>(this, OnAirDropDropped);
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, OnPlayerAlive);
@@ -58,6 +61,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void OnDestroy()
 		{
 			QuantumEvent.UnsubscribeListener(this);
+		}
+		
+		private void OnMatchEnded(MatchEndedMessage callback)
+		{
+			_queue.Clear();
 		}
 
 		private void OnPlayerAlive(EventOnPlayerAlive callback)

@@ -39,15 +39,24 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_timerOutline.SetActive(false);
 
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
+			_services.MessageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEnded);
 			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnNewShrinkingCircle>(this, OnNewShrinkingCircle);
 		}
-		
+
+		private void OnMatchEnded(MatchEndedMessage msg)
+		{
+			if (_timerCoroutine != null)
+			{
+				_services.CoroutineService.StopCoroutine(_timerCoroutine);
+			}
+		}
+
 		private void OnDestroy()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 			_services?.CoroutineService?.StopCoroutine(_timerCoroutine);
-			QuantumEvent.UnsubscribeListener(this);
+			QuantumCallback.UnsubscribeListener(this);
 		}
 
 		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
@@ -88,7 +97,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 			
 			_timerCoroutine = _services.CoroutineService.StartCoroutine(UpdateShrinkingCircleTimer(f));
-			
 		}
 
 		private IEnumerator UpdateShrinkingCircleTimer(Frame f)

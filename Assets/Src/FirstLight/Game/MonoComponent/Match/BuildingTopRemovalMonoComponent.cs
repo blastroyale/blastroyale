@@ -29,6 +29,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			_currentlyCollidingEntities = new List<EntityRef>();
 
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
+			_services.MessageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEnded);
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 			QuantumEvent.Subscribe<EventOnPlayerDead>(this, OnPlayerDead);
 		}
@@ -37,6 +38,12 @@ namespace FirstLight.Game.MonoComponent.Match
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(OnSpectatedPlayerChanged);
+			QuantumEvent.UnsubscribeListener(this);
+		}
+		
+		private void OnMatchEnded(MatchEndedMessage msg)
+		{
+			_currentlyCollidingEntities.Clear();
 		}
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)

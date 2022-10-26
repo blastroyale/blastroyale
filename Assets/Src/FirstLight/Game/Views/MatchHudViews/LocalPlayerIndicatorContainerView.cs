@@ -1,4 +1,5 @@
 using System;
+using FirstLight.Game.Configs;
 using FirstLight.Game.MonoComponent.Match;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -123,8 +124,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var isEmptied = playerCharacter->IsAmmoEmpty(f, _localPlayerEntity);
 			var speed = kcc->MaxSpeed * kcc->MaxSpeed;
 			var velocity = kcc->Velocity.SqrMagnitude;
-			var range = f.Get<Stats>(_localPlayerEntity).GetStatData(StatType.AttackRange).StatValue.AsFloat;
-			
+			var rangeStat = f.Get<Stats>(_localPlayerEntity).GetStatData(StatType.AttackRange).StatValue.AsFloat;
+			var range = Mathf.Lerp(rangeStat + _weaponConfig.AttackRangeAimBonus.AsFloat, rangeStat,
+												velocity.AsFloat / speed.AsFloat);
+
 			var minAttackAngle = _weaponConfig.MinAttackAngle;
 			var maxAttackAngle = _weaponConfig.MaxAttackAngle;
 

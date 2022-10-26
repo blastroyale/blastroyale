@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using FirstLight.Game.UIElements;
 using Sirenix.OdinInspector;
@@ -14,6 +15,8 @@ namespace FirstLight.UiService
 	/// </summary>
 	public abstract class UiPresenter : MonoBehaviour
 	{
+		public float OpenDelayTimeSeconds = 0;
+		
 		private IUiService _uiService;
 
 		/// <summary>
@@ -158,6 +161,7 @@ namespace FirstLight.UiService
 	public abstract class UiToolkitPresenterData<T> : UiCloseActivePresenterData<T> where T : struct
 	{
 		[SerializeField, Required] private UIDocument _document;
+		[SerializeField] private GameObject _background;
 
 		protected VisualElement Root;
 
@@ -198,10 +202,16 @@ namespace FirstLight.UiService
 		public void AddView(VisualElement element, IUIView view)
 		{
 			_views.Add(element, view);
+			view.Attached(element);
 		}
 
 		protected override void OnOpened()
 		{
+			if (_background != null)
+			{
+				_background.SetActive(true);
+			}
+
 			if (Root == null)
 			{
 				Root = _document.rootVisualElement.Q(UIConstants.ID_ROOT);
@@ -211,24 +221,36 @@ namespace FirstLight.UiService
 				Root.Query()
 					.Where(ve => typeof(IUIView).IsAssignableFrom(ve.GetType()))
 					.Build()
-					.ForEach(e => { _views.Add(e, (IUIView) e); });
-
-
-				foreach (var (element, view) in _views)
-				{
-					view.RuntimeInit(element);
-				}
+					.ForEach(e => { AddView(e, (IUIView) e); });
 			}
 
-			Root.EnableInClassList(UIConstants.CLASS_HIDDEN, false);
-
+			Root.EnableInClassList(UIConstants.CLASS_HIDDEN, true);
+			StartCoroutine(MakeVisible());
+			
 			SubscribeToEvents();
+		}
+
+		private IEnumerator MakeVisible()
+		{
+			yield return new WaitForEndOfFrame();
+			Root.EnableInClassList(UIConstants.CLASS_HIDDEN, false);
 		}
 
 		protected override void OnClosed()
 		{
+			StartCoroutine(CloseCoroutine());
+		}
+
+		private IEnumerator CloseCoroutine()
+		{
 			Root.EnableInClassList(UIConstants.CLASS_HIDDEN, true);
 			UnsubscribeFromEvents();
+			yield return new WaitForSeconds(0.7f);
+
+			if (_background != null)
+			{
+				_background.SetActive(false);
+			}
 		}
 	}
 }

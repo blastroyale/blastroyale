@@ -55,7 +55,7 @@ namespace FirstLight.Game.UIElements
 		}
 
 		/* IUIView: Called the first time this element is initialized (on first Open) */
-		public void RuntimeInit(VisualElement visualElement)
+		public void Attached(VisualElement visualElement)
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_mainMenuServices = MainInstaller.Resolve<IMainMenuServices>();

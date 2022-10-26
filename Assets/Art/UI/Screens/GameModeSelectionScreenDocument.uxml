@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Screens/GameModeSelectionScreenStyle.uss?fileID=7433441132597879392&amp;guid=65b63b653515f438aa2452fed30ceae6&amp;type=3#GameModeSelectionScreenStyle" />
+    <ui:VisualElement name="root" class="GameModeSelectionScreenStyle" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0;">
+        <ui:VisualElement name="backgroundPattern" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0;">
+            <ui:VisualElement name="TitleHolder" class="visible-opacity-title hidden-opacity-title">
+                <ui:Label text="CHOOSE A MODE" display-tooltip-when-elided="true" name="Title" class="font-style-h1 font-italic Title" />
+            </ui:VisualElement>
+            <ui:ScrollView name="ButtonsSlider" mode="Horizontal" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" vertical-page-size="-1" class="ButtonSlider" style="justify-content: space-between;" />
+            <ui:Button display-tooltip-when-elided="true" name="CloseButton" class="hidden-opacity-closebutton visible-opacity-closebutton">
+                <ui:VisualElement name="CloseButtonIcon" style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/CloseIcon.png?fileID=2800000&amp;guid=e842985e25fb24c4da30f691acbe1500&amp;type=3#CloseIcon&apos;); height: 88px; width: 112px; position: absolute; top: 30px; right: 100px;" />
+            </ui:Button>
+            <ui:Label text="Tap to choose mode" display-tooltip-when-elided="true" name="Instructions" class="font-style-normal hidden-opacity visible-opacity-instructions font-bold" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

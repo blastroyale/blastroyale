@@ -3375,7 +3375,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Are you sure to delete your account ? This cannot be undone.
+      - Are you sure you want to delete your account ? This cannot be undone.
       - 
       - 
       Flags: 000000
@@ -3384,7 +3384,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Your account has been deleted. Your game will close now.
+      - Your account will be deleted soon. Your game will close now.
       - 
       - 
       Flags: 000000
@@ -3394,6 +3394,33 @@ MonoBehaviour:
       Description: 
       Languages:
       - Account Deleted
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/BattleRoyaleDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - One life. Big map. Last player standing wins the match
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/DeathmatchDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Infinite respawns. First player to reach the max kills wins.
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/CustomGameDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Create your own game
       - 
       - 
       Flags: 000000
@@ -9261,7 +9288,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1666106239703
+    Google_LastUpdatedVersion: 1666371471661
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

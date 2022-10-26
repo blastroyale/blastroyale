@@ -66,6 +66,7 @@ MonoBehaviour:
   _document: {fileID: 1971436955827305704}
   _background: {fileID: 4067513535748299492}
   _buttonAsset: {fileID: 9197481963319205126, guid: 1acd361f6f23744e4b060f6c7339014b, type: 3}
+  _comingSoonAsset: {fileID: 9197481963319205126, guid: 5315f48beeb6344ae9df8b268f4fdcf1, type: 3}
 --- !u!1001 &1875314729536829350
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -348,7 +348,7 @@ namespace FirstLight.UiService
 		public async Task<UiPresenter> OpenUiAsync<TData>(Type type, TData initialData, bool openedException = false) where TData : struct
 		{
 			var startTime = Time.time;
-			var ui = await GetUiAsync<UiPresenter>();
+			var ui = await GetUiAsync(type);
 
 			var remainingTime =  Math.Max(0,ui.OpenDelayTimeSeconds - (Time.time - startTime));
 

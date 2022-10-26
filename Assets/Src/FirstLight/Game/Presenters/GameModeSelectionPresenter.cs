@@ -13,6 +13,8 @@ namespace FirstLight.Game.Presenters
 {
 	public class GameModeSelectionPresenter : UiToolkitPresenterData<GameModeSelectionPresenter.StateData>
 	{
+		private const string VISIBLE_GAMEMODE_BUTTON = "visible-gamemodebutton";
+		
 		public struct StateData
 		{
 			public Action GameModeChosen;
@@ -21,6 +23,7 @@ namespace FirstLight.Game.Presenters
 		}
 		
 		[SerializeField] private VisualTreeAsset _buttonAsset;
+		[SerializeField] private VisualTreeAsset _comingSoonAsset;
 
 		private Button _closeButton;
 		private ScrollView _buttonsSlider;
@@ -39,8 +42,8 @@ namespace FirstLight.Game.Presenters
 		protected override void QueryElements(VisualElement root)
 		{
 			_buttonsSlider = root.Q<ScrollView>("ButtonsSlider").Required();
-			_closeButton = root.Q<Button>("CloseButton").Required();
-			_closeButton.clicked += OnCloseButtonClicked;
+			root.Q<Button>("CloseButton").Required().clicked += OnCloseButtonClicked;
+			
 			var orderNumber = 1;
 			
 			// Add game modes buttons
@@ -48,7 +51,7 @@ namespace FirstLight.Game.Presenters
 			{
 				var button = _buttonAsset.Instantiate();
 				button.AttachView(this, out GameModeSelectionButtonView view);
-				view.SetData(orderNumber++, slot);
+				view.SetData(GetVisibleClass(orderNumber++), slot);
 				view.Clicked += OnModeButtonClicked;
 				_buttonViews.Add(view);
 
@@ -59,15 +62,26 @@ namespace FirstLight.Game.Presenters
 
 			// Add custom game button
 			var gameModeInfo = new GameModeInfo();
-			gameModeInfo.Entry.GameModeId = GameConstants.GameModeId.FAKE_CUSTOMGAME_GAMEMODE;
+			gameModeInfo.Entry.GameModeId = GameConstants.GameModeId.FAKEGAMEMODE_CUSTOMGAME;
 			gameModeInfo.Entry.MatchType = MatchType.Custom;
 			gameModeInfo.Entry.Mutators = new List<string>();
 			var createGameButton = _buttonAsset.Instantiate();
 			createGameButton.AttachView(this, out GameModeSelectionButtonView customGameView);
-			customGameView.SetData(orderNumber, gameModeInfo);
+			customGameView.SetData(GetVisibleClass(orderNumber++), gameModeInfo);
 			customGameView.Clicked += OnCustomGameClicked;
 			_buttonViews.Add(customGameView);
 			_buttonsSlider.Add(createGameButton);
+			
+			// Add Coming soon button
+			var comingSoonGameButton = _comingSoonAsset.Instantiate();
+			var comingSoonButtonRoot = comingSoonGameButton.Q<VisualElement>("ComingSoonGameModeButton");
+			comingSoonButtonRoot.AddToClassList(GetVisibleClass(orderNumber++));
+			_buttonsSlider.Add(comingSoonGameButton);
+		}
+
+		private string GetVisibleClass(int orderNumber)
+		{
+			return VISIBLE_GAMEMODE_BUTTON + (orderNumber > 4 ? "" : orderNumber);
 		}
 
 		private void OnCloseButtonClicked()

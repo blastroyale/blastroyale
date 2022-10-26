@@ -19,8 +19,7 @@ namespace FirstLight.Game.Views
 	public class GameModeSelectionButtonView : IUIView
 	{
 		private const string SELECTED_CLASS = "selected";
-		private const string VISIBLE_GAMEMODE_BUTTON = "visible-gamemodebutton";
-		
+
 		public GameModeInfo GameModeInfo { get; private set; }
 		public event Action<GameModeSelectionButtonView> Clicked;
 		
@@ -70,11 +69,11 @@ namespace FirstLight.Game.Views
 			_button = _root.Q<Button>().Required();
 			
 			_gameModeLabel = _root.Q<Label>("GameModeLabel").Required();
-			_gameModeDescriptionLabel = _root.Q<Label>("GameModeDescription").Required();
-			_gameModeTimerLabel = _root.Q<Label>("GameModeTimer").Required();
-			_modeTagTitleLabel = _root.Q<Label>("ModeTagTitle").Required();
+			_gameModeDescriptionLabel = _root.Q<Label>("GameModeDescription");
+			_gameModeTimerLabel = _root.Q<Label>("GameModeTimer");
+			_modeTagTitleLabel = _root.Q<Label>("ModeTagTitle");
 
-			_mutatorsPanel = _root.Q<VisualElement>("MutatorsPanel").Required();
+			_mutatorsPanel = _root.Q<VisualElement>("MutatorsPanel");
 			_mutatorLines = _root.Query<VisualElement>("MutatorLine").ToList();
 			
 			_button.clicked += () => Clicked?.Invoke(this);
@@ -100,9 +99,8 @@ namespace FirstLight.Game.Views
 		/// </summary>
 		/// <param name="orderNumber">Order of the button on the list</param>
 		/// <param name="gameModeInfo">Game mode data to fill the button's visuals</param>
-		public void SetData(int orderNumber, GameModeInfo gameModeInfo)
+		public void SetData(string visibleClass, GameModeInfo gameModeInfo)
 		{
-			var visibleClass = VISIBLE_GAMEMODE_BUTTON + (orderNumber > 4 ? "" : orderNumber);
 			_button.AddToClassList(visibleClass);
 
 			SetData(gameModeInfo);
@@ -135,7 +133,7 @@ namespace FirstLight.Game.Views
 
 		private void UpdateDescription()
 		{
-			if (GameModeInfo.Entry.GameModeId == GameConstants.GameModeId.FAKE_CUSTOMGAME_GAMEMODE)
+			if (GameModeInfo.Entry.GameModeId == GameConstants.GameModeId.FAKEGAMEMODE_CUSTOMGAME)
 			{
 				_gameModeDescriptionLabel.text = ScriptLocalization.MainMenu.CustomGameDescription;
 				return;

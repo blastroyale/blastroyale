@@ -278,6 +278,12 @@
     rotate: 5deg;
 }
 
+#ComingSoonGameModeImage {
+    width: 448px;
+    height: 650px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/Comingsoon%20mode.png?fileID=21300000&guid=ca852558102bb4ca6a3e2308c16e9189&type=3#Comingsoon mode');
+}
+
 .hidden .hidden-gamemodebutton {
     opacity: 0;
     translate: 0 400px;

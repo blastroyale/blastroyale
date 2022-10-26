@@ -1,4 +1,4 @@
-.GameModeSelectionScreenStyle #TitleHolder {
+#TitleHolder {
     position: absolute;
     left: 0;
     top: 0;
@@ -7,18 +7,18 @@
     height: 220px;
 }
 
-.GameModeSelectionScreenStyle #Title {
+#Title {
     position: absolute;
     top: 40px;
     left: 100px;
 }
 
-.GameModeSelectionScreenStyle #ButtonsSlider {
+#ButtonsSlider {
     flex-direction: row;
     margin-top: auto;
     margin-bottom: auto;
     height: auto;
-    padding-left: 130px;
+    padding-left: 90px;
     top: 0;
     bottom: 0;
     position: absolute;
@@ -27,7 +27,7 @@
     align-items: center;
 }
 
-.GameModeSelectionScreenStyle #CloseButton {
+#CloseButton {
     position: absolute;
     top: 0;
     right: 0;
@@ -48,7 +48,7 @@
     margin-bottom: 0;
 }
 
-.GameModeSelectionScreenStyle #Instructions {
+#Instructions {
     position: absolute;
     bottom: 8%;
     width: 100%;
@@ -107,6 +107,6 @@
     transition-delay: 2s;
 }
 
-.GameModeSelectionScreenStyle #unity-content-viewport {
+#unity-content-viewport {
     overflow: visible;
 }

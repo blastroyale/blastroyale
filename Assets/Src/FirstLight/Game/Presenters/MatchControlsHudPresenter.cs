@@ -189,7 +189,7 @@ namespace FirstLight.Game.Presenters
 			_weaponSlotsHolder.SetActive(f.Context.GameModeConfig.ShowWeaponSlots);
 			_services.PlayerInputService.Input.Gameplay.SetCallbacks(this);
 			_indicatorContainerView.Init(playerView);
-			_indicatorContainerView.SetupWeaponInfo(playerCharacter.CurrentWeapon.GameId);
+			_indicatorContainerView.SetupWeaponInfo(f, playerCharacter.CurrentWeapon.GameId);
 			SetupSpecialsInput(f.Time, *playerCharacter.WeaponSlot, playerView);
 		}
 
@@ -238,7 +238,7 @@ namespace FirstLight.Game.Presenters
 		{
 			var playerView = _matchServices.EntityViewUpdaterService.GetManualView(callback.Entity);
 			
-			_indicatorContainerView.SetupWeaponInfo(callback.WeaponSlot.Weapon.GameId);
+			_indicatorContainerView.SetupWeaponInfo(callback.Game.Frames.Verified, callback.WeaponSlot.Weapon.GameId);
 			SetupSpecialsInput(callback.Game.Frames.Predicted.Time, callback.WeaponSlot, playerView);
 		}
 

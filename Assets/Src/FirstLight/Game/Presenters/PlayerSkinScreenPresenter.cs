@@ -132,8 +132,6 @@ namespace FirstLight.Game.Presenters
 
 		private void OnSelectedPressed()
 		{
-			if (!NetworkUtils.CheckAttemptNetworkAction()) return;
-			
 			_services.CommandService.ExecuteCommand(new UpdatePlayerSkinCommand { SkinId = _selectedId });
 		}
 		

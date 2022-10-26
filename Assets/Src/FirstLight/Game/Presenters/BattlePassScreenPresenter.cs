@@ -136,8 +136,6 @@ namespace FirstLight.Game.Presenters
 
 		private void OnClaimRewardsClicked()
 		{
-			if (!NetworkUtils.CheckAttemptNetworkAction()) return;
-			
 			if (_gameDataProvider.BattlePassDataProvider.IsRedeemable())
 			{
 				_services.CommandService.ExecuteCommand(new RedeemBPPCommand());

@@ -125,8 +125,6 @@ namespace FirstLight.Game.Presenters
 
 		private void OpenConnectId()
 		{
-			if (!NetworkUtils.CheckAttemptNetworkAction()) return;
-			
 			Data.OnConnectIdClicked();
 		}
 
@@ -139,15 +137,11 @@ namespace FirstLight.Game.Presenters
 
 		private void OnHelpdeskButtonPressed()
 		{
-			if (!NetworkUtils.CheckAttemptNetworkAction()) return;
-
 			_services.HelpdeskService.StartConversation();
 		}
 
 		private void OnFaqButtonPressed()
 		{
-			if (!NetworkUtils.CheckAttemptNetworkAction()) return;
-
 			_services.HelpdeskService.ShowFaq();
 		}
 
@@ -188,8 +182,6 @@ namespace FirstLight.Game.Presenters
 		
 		private void OnLogoutClicked()
 		{
-			if (!NetworkUtils.CheckAttemptNetworkAction()) return;
-			
 			var title = string.Format(ScriptLocalization.MainMenu.LogoutConfirm);
 			var confirmButton = new GenericDialogButton
 			{
@@ -202,6 +194,8 @@ namespace FirstLight.Game.Presenters
 
 		private void OnDeleteAccountClicked()
 		{
+			if (!NetworkUtils.CheckAttemptNetworkAction()) return;
+			
 			var title = ScriptLocalization.MainMenu.DeleteAccountRequestMessage;
 			var confirmButton = new GenericDialogButton
 			{

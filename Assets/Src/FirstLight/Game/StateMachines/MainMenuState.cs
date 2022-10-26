@@ -72,7 +72,9 @@ namespace FirstLight.Game.StateMachines
 			var mainMenuUnloading = stateFactory.State("Main Menu Unloading");
 			var mainMenu = stateFactory.Nest("Main Menu");
 			var mainMenuTransition = stateFactory.Transition("Main Transition");
-
+			var disconnected = stateFactory.State("Disconnected");
+			var disconnectedCheck = stateFactory.Choice("Disconnected Final Choice");
+			
 			initial.Transition().Target(mainMenuLoading);
 			initial.OnExit(SubscribeEvents);
 
@@ -81,10 +83,19 @@ namespace FirstLight.Game.StateMachines
 			mainMenuLoading.Event(MainMenuLoadedEvent).Target(mainMenu);
 			mainMenuLoading.OnExit(LoadingComplete);
 
-			mainMenu.Nest(TabsMenuSetup).Target(mainMenuUnloading);
+			mainMenu.Nest(TabsMenuSetup).Target(disconnectedCheck);
+			mainMenu.Event(NetworkState.PhotonCriticalDisconnectedEvent).Target(disconnected);
 			mainMenu.Event(_tabButtonClickedEvent).Target(mainMenuTransition);
 
 			mainMenuTransition.Transition().Target(mainMenu);
+			
+			disconnectedCheck.Transition().Condition(NetworkUtils.IsOfflineOrDisconnected).Target(disconnected);
+			disconnectedCheck.Transition().Target(mainMenuUnloading);
+			
+			disconnected.OnEnter(CloseAllUi);
+			disconnected.OnEnter(OpenDisconnectedScreen);
+			disconnected.Event(NetworkState.PhotonMasterConnectedEvent).Target(mainMenu);
+			disconnected.OnExit(CloseDisconnectedScreen);
 
 			mainMenuUnloading.OnEnter(OpenLoadingScreen);
 			mainMenuUnloading.OnEnter(UnloadMainMenu);
@@ -111,10 +122,10 @@ namespace FirstLight.Game.StateMachines
 			var roomJoinCreateMenu = stateFactory.State("Room Join Create Menu");
 			var nftPlayRestricted = stateFactory.Wait("Nft Restriction Pop Up");
 			var defaultNameCheck = stateFactory.Choice("Default Player Name Check");
-
+			
 			initial.Transition().Target(screenCheck);
 			initial.OnExit(OpenUiVfxPresenter);
-
+			
 			screenCheck.Transition().Condition(IsCurrentScreen<HomeScreenPresenter>).Target(defaultNameCheck);
 			screenCheck.Transition().Condition(IsCurrentScreen<LootScreenPresenter>).Target(lootMenu);
 			screenCheck.Transition().Condition(IsCurrentScreen<PlayerSkinScreenPresenter>).Target(heroesMenu);
@@ -133,8 +144,8 @@ namespace FirstLight.Game.StateMachines
 			homeMenu.Event(_leaderboardClickedEvent).Target(leaderboard);
 			homeMenu.Event(_battlePassClickedEvent).Target(battlePass);
 			homeMenu.OnExit(ClosePlayMenuUI);
-
-			playClickedCheck.Transition().Condition(EnoughNftToPlay).OnTransition(SendMatchmakingReadyMessage).Target(roomWait);
+			
+			playClickedCheck.Transition().Condition(EnoughNftToPlay).OnTransition(SendPlayReadyMessage).Target(roomWait);
 			playClickedCheck.Transition().Target(nftPlayRestricted);
 
 			roomWait.Event(NetworkState.JoinedRoomEvent).Target(final);
@@ -160,8 +171,8 @@ namespace FirstLight.Game.StateMachines
 			
 			lootMenu.Nest(_lootMenuState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
 
-			heroesMenu.OnEnter(OpenHeroesMenuUI);
-			heroesMenu.OnExit(CloseHeroesMenuUI);
+			heroesMenu.OnEnter(OpenPlayerSkinScreenUI);
+			heroesMenu.OnExit(ClosePlayerSkinScreenUI);
 
 			roomJoinCreateMenu.OnEnter(OpenRoomJoinCreateMenuUI);
 			roomJoinCreateMenu.Event(_playClickedEvent).Target(roomWait);
@@ -206,7 +217,7 @@ namespace FirstLight.Game.StateMachines
 			_services.GameModeService.SelectedGameMode.Value = gameMode;
 		}
 
-		private void SendMatchmakingReadyMessage()
+		private void SendPlayReadyMessage()
 		{
 			_services.MessageBrokerService.Publish(new PlayMatchmakingReadyMessage());
 		}
@@ -214,12 +225,17 @@ namespace FirstLight.Game.StateMachines
 		private bool EnoughNftToPlay()
 		{
 			return _services.GameModeService.SelectedGameMode.Value.Entry.MatchType == MatchType.Casual
-			       || _gameDataProvider.EquipmentDataProvider.EnoughLoadoutEquippedToPlay();
+				|| _gameDataProvider.EquipmentDataProvider.EnoughLoadoutEquippedToPlay();
 		}
 
 		private bool IsCurrentScreen<T>() where T : UiPresenter
 		{
 			return _currentScreen == typeof(T);
+		}
+		
+		private void CloseAllUi()
+		{
+			_uiService.CloseAllUi();
 		}
 
 		private void OpenNftAmountInvalidDialog(IWaitActivity activity)
@@ -297,7 +313,7 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<BattlePassScreenPresenter>();
 		}
 		
-		private void OpenHeroesMenuUI()
+		private void OpenPlayerSkinScreenUI()
 		{
 			var data = new PlayerSkinScreenPresenter.StateData
 			{
@@ -307,7 +323,7 @@ namespace FirstLight.Game.StateMachines
 			_uiService.OpenUiAsync<PlayerSkinScreenPresenter, PlayerSkinScreenPresenter.StateData>(data);
 		}
 
-		private void CloseHeroesMenuUI()
+		private void ClosePlayerSkinScreenUI()
 		{
 			_uiService.CloseUi<PlayerSkinScreenPresenter>(false, true);
 		}
@@ -346,10 +362,35 @@ namespace FirstLight.Game.StateMachines
 			_uiService.OpenUi<HomeScreenPresenter, HomeScreenPresenter.StateData>(data);
 			_services.MessageBrokerService.Publish(new PlayScreenOpenedMessage());
 		}
+		
+		private void OpenDisconnectedScreen()
+		{
+			var data = new DisconnectedScreenPresenter.StateData
+			{
+				ReconnectClicked = () => _services.MessageBrokerService.Publish(new AttemptManualReconnectionMessage())
+			};
+
+			_uiService.OpenUiAsync<DisconnectedScreenPresenter, DisconnectedScreenPresenter.StateData>(data);
+		}
+
+		private void CloseDisconnectedScreen()
+		{
+			_uiService.CloseUi<DisconnectedScreenPresenter>(false, true);
+		}
 
 		private void ClosePlayMenuUI()
 		{
 			_uiService.CloseUi<HomeScreenPresenter>();
+		}
+		
+		private void DimDisconnectedScreen()
+		{
+			_uiService.GetUi<DisconnectedScreenPresenter>().SetFrontDimBlockerActive(true);
+		}
+
+		private void UndimDisconnectedScreen()
+		{
+			_uiService.GetUi<DisconnectedScreenPresenter>().SetFrontDimBlockerActive(false);
 		}
 
 		private void LoadingComplete()

@@ -26,14 +26,14 @@ public class TestServer
 	private IDataProvider _data;
 	private string? _testPlayerId = null;
 
-	public TestServer(IServerConfiguration cfg)
+	public TestServer(IBaseServiceConfiguration cfg)
 	{
 		SetupTestEnv();
 		_services = SetupServices().BuildServiceProvider();
 		UpdateDependencies(services =>
 		{
-			services.RemoveAll(typeof(IServerConfiguration));
-			services.AddSingleton<IServerConfiguration>(p => cfg);
+			services.RemoveAll(typeof(IBaseServiceConfiguration));
+			services.AddSingleton<IBaseServiceConfiguration>(p => cfg);
 		});
 	}
 	
@@ -106,7 +106,7 @@ public class TestServer
 	{
 		var commandData = new Dictionary<string, string>();
 		commandData[CommandFields.Timestamp] = "1";
-		commandData[CommandFields.ClientVersion] = GetService<IServerConfiguration>().MinClientVersion.ToString();
+		commandData[CommandFields.ClientVersion] = GetService<IBaseServiceConfiguration>().MinClientVersion.ToString();
 		commandData[CommandFields.Command] = ModelSerializer.Serialize(cmd).Value;
 		commandData["SecretKey"] = PlayFabSettings.staticSettings.DeveloperSecretKey;
 		return GetService<GameServer>()?.RunLogic(GetTestPlayerID(), new LogicRequest()
@@ -120,7 +120,7 @@ public class TestServer
 	{
 		var services = new ServiceCollection();
 		var testAppPath = Path.GetDirectoryName(typeof(GameLogicWebWebService).Assembly.Location);
-		ServerStartup.Setup(services, testAppPath);
+		ServerStartup.Setup(services.AddMvc(), testAppPath);
 		services.AddSingleton<IDataProvider, ServerTestData>();
 		services.AddSingleton<ITestPlayerSetup, TestPlayerSetup>();
 		services.RemoveAll<ILogger>();

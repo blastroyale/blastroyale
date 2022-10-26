@@ -16,7 +16,7 @@ namespace Backend.Db
 		/// <summary>
 		/// Sets up database for the game server. Will setup any specific database dependencies that have to be injected.
 		/// </summary>
-		public static void Setup(IServiceCollection services, IServerConfiguration config)
+		public static void Setup(IServiceCollection services, IBaseServiceConfiguration config)
 		{
 			if (config.DbConnectionString == null)
 			{

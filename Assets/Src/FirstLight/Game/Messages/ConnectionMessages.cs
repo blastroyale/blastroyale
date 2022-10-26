@@ -14,4 +14,11 @@ namespace FirstLight.Game.Messages
 		public HttpStatusCode ErrorCode;
 		public string Message;
 	}
+	
+	public struct PingedRegionsMessage : IMessage { public RegionHandler RegionHandler; }
+	
+	public struct RegionListReceivedMessage : IMessage { public RegionHandler RegionHandler; }
+	
+	public struct NetworkActionWhileDisconnectedMessage : IMessage { }
+	public struct AttemptManualReconnectionMessage : IMessage { }
 }

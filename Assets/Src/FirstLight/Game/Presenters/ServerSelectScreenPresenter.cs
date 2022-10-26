@@ -133,7 +133,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnConnectClicked()
 		{
-			if (Application.internetReachability == NetworkReachability.NotReachable)
+			if (!NetworkUtils.IsOnline())
 			{
 				OpenNoInternetPopup();
 				return;

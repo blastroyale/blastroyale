@@ -10,70 +10,73 @@ using Photon.Deterministic;
 using Quantum;
 using UnityEngine;
 
-/// <summary>
-/// This service provides the possibility of storing and retrieving match snapshots, which can be used to start 
-/// a quantum game from certain points.
-/// </summary>
-public interface IFrameSnapshotService
+namespace FirstLight.Game.Services
 {
 	/// <summary>
+	/// This service provides the possibility of storing and retrieving match snapshots, which can be used to start 
+	/// a quantum game from certain points.
 	/// </summary>
-	FrameSnapshot GetLastStoredMatchSnapshot();
-}
-
-/// <summary>
-/// Stores data of a frame captured from a quatnum game
-/// </summary>
-[Serializable]
-public struct FrameSnapshot
-{
-	public byte[] SnapshotBytes;
-	public int SnapshotNumber;
-}
-
-public class FrameSnapshotService : IFrameSnapshotService, MatchServices.IMatchService
-{
-	private FrameSnapshot _lastCapturedSnapshot;
-	private readonly IDataService _dataService;
-	
-	public FrameSnapshotService(IDataService dataService)
+	public interface IFrameSnapshotService
 	{
-		_dataService = dataService;
-		_lastCapturedSnapshot = _dataService.GetData<AppData>().LastCapturedFrameSnapshot;
-
-		QuantumCallback.SubscribeManual<CallbackGameDestroyed>(this, OnQuantumGameDestroyed);
+		/// <summary>
+		/// </summary>
+		FrameSnapshot GetLastStoredMatchSnapshot();
 	}
 
-	private void OnQuantumGameDestroyed(CallbackGameDestroyed callback)
+	/// <summary>
+	/// Stores data of a frame captured from a quatnum game
+	/// </summary>
+	[Serializable]
+	public struct FrameSnapshot
 	{
-		_lastCapturedSnapshot = new FrameSnapshot()
+		public byte[] SnapshotBytes;
+		public int SnapshotNumber;
+	}
+
+	public class FrameSnapshotService : IFrameSnapshotService, MatchServices.IMatchService
+	{
+		private FrameSnapshot _lastCapturedSnapshot;
+		private readonly IDataService _dataService;
+
+		public FrameSnapshotService(IDataService dataService)
 		{
-			SnapshotBytes = callback.Game.Frames.Verified.Serialize(DeterministicFrameSerializeMode.Blit),
-			SnapshotNumber = callback.Game.Frames.Verified.Number
-		};
-	}
-	
-	/// <inheritdoc />
-	public FrameSnapshot GetLastStoredMatchSnapshot()
-	{
-		return _lastCapturedSnapshot;
-	}
+			_dataService = dataService;
+			_lastCapturedSnapshot = _dataService.GetData<AppData>().LastCapturedFrameSnapshot;
 
-	/// <inheritdoc />
-	public void Dispose()
-	{
-		_dataService.GetData<AppData>().LastCapturedFrameSnapshot = _lastCapturedSnapshot;
-		_dataService.SaveData<AppData>();
-		QuantumCallback.UnsubscribeListener(this);
-	}
+			QuantumCallback.SubscribeManual<CallbackGameDestroyed>(this, OnQuantumGameDestroyed);
+		}
 
-	/// <inheritdoc />
-	public void OnMatchStarted(QuantumGame game, bool isReconnect)
-	{
-	}
+		private void OnQuantumGameDestroyed(CallbackGameDestroyed callback)
+		{
+			_lastCapturedSnapshot = new FrameSnapshot()
+			{
+				SnapshotBytes = callback.Game.Frames.Verified.Serialize(DeterministicFrameSerializeMode.Blit),
+				SnapshotNumber = callback.Game.Frames.Verified.Number
+			};
+		}
 
-	/// <inheritdoc />
-	public void OnMatchEnded()
-	{
+		/// <inheritdoc />
+		public FrameSnapshot GetLastStoredMatchSnapshot()
+		{
+			return _lastCapturedSnapshot;
+		}
+
+		/// <inheritdoc />
+		public void Dispose()
+		{
+			_dataService.GetData<AppData>().LastCapturedFrameSnapshot = _lastCapturedSnapshot;
+			_dataService.SaveData<AppData>();
+			QuantumCallback.UnsubscribeListener(this);
+		}
+
+		/// <inheritdoc />
+		public void OnMatchStarted(QuantumGame game, bool isReconnect)
+		{
+		}
+
+		/// <inheritdoc />
+		public void OnMatchEnded()
+		{
+		}
 	}
 }

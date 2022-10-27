@@ -87,7 +87,10 @@ namespace FirstLight.Game.Logic
 			// Currently, there is no plan on giving rewards on anything but BR mode
 			if (matchType == MatchType.Custom || didPlayerQuit)
 			{
-				GiveTrophiesReward(rewards, matchData, localMatchData, out trophyChange);
+				if (matchType == MatchType.Ranked && didPlayerQuit)
+				{
+					GiveTrophiesReward(rewards, matchData, localMatchData, out trophyChange);
+				}
 				return rewards;
 			}
 

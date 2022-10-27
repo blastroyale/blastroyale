@@ -105,11 +105,11 @@ namespace FirstLight.Tests.EditorMode.Logic
 		}
 
 		[Test]
-		public void GiveMatchRewards_PlayerQuit_RewardsNothing()
+		public void GiveMatchRewards_PlayerQuit_RewardsTrophies()
 		{
 			var rewards = _rewardLogic.GiveMatchRewards(MatchType.Ranked, _matchData, _executingPlayer, true, out _);
 
-			Assert.AreEqual(0, rewards.Count);
+			Assert.AreEqual(1, rewards.Count);
 		}
 
 		[Test]

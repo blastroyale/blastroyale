@@ -12,7 +12,7 @@ namespace FirstLight.Game.Configs
 	/// The rewards are non-NFTs, and are generated from a list of possibilities and ranges (GameID + Chance)
 	/// </summary>
 	[Serializable]
-	public struct BattlePassRewardConfig
+	public struct EquipmentRewardConfig
 	{
 		public int Id;
 		public GameId GameId;
@@ -31,15 +31,15 @@ namespace FirstLight.Game.Configs
 
 	}
 	/// <summary>
-	/// Scriptable Object tool to import the <seealso cref="BattlePassRewardConfigs"/> sheet data
+	/// Scriptable Object tool to import the <seealso cref="EquipmentRewardConfigs"/> sheet data
 	/// </summary>
 	[CreateAssetMenu(fileName = "BattlePassRewardConfigs",
-	                 menuName = "ScriptableObjects/Configs/BattlePassRewardConfigs")]
-	public class BattlePassRewardConfigs : ScriptableObject, IConfigsContainer<BattlePassRewardConfig>
+	                 menuName = "ScriptableObjects/Configs/EquipmentRewardConfigs")]
+	public class EquipmentRewardConfigs : ScriptableObject, IConfigsContainer<EquipmentRewardConfig>
 	{
-		[SerializeField] private List<BattlePassRewardConfig> _configs;
+		[SerializeField] private List<EquipmentRewardConfig> _configs;
 
-		public List<BattlePassRewardConfig> Configs
+		public List<EquipmentRewardConfig> Configs
 		{
 			get => _configs;
 			set => _configs = value;

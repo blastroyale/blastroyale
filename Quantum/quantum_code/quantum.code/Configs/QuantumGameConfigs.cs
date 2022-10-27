@@ -42,6 +42,7 @@ namespace Quantum
 		public FP AirdropRandomAreaMultiplier;
 		public FP AirdropHeight;
 		public FP MultiKillResetTime;
+		public uint BotsBaseTrophies;
 	}
 
 	/// <summary>

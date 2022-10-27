@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using FirstLight.FLogger;
 using FirstLight.Server.SDK.Modules;
 using PlayFab;
+using UnityEngine;
 
 // ReSharper disable RedundantDefaultMemberInitializer
 
@@ -137,7 +138,7 @@ namespace FirstLight.Game.Utils
 		{
 #if UNITY_EDITOR
 			UnityEditor.EditorPrefs.SetString("LocalFeatureFlags", ModelSerializer.Serialize(_localConfig).Value);
-			FLog.Verbose("Saved local config for feature flags");
+			Debug.Log("Saved local config for feature flags");
 #endif
 		}
 

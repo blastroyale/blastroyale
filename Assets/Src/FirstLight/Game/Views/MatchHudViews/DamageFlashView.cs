@@ -1,11 +1,10 @@
-using System;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace FirstLight.Game.Views.AdventureHudViews
+namespace FirstLight.Game.Views.MatchHudViews
 {
 	/// <summary>
 	/// Used to display the red flash that indicates to a player about damage received
@@ -22,7 +21,6 @@ namespace FirstLight.Game.Views.AdventureHudViews
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 

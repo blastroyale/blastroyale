@@ -100,7 +100,8 @@ namespace FirstLight.Game.StateMachines
 
 			//disconnected.OnEnter(StopSimulation);
 			//disconnected.Event(NetworkState.JoinedRoomEvent).Target(startSimulation);
-			
+
+			quitCheck.Transition().Condition(IsCustomMatch).Target(final);
 			quitCheck.Transition().Condition(IsSpectator).Target(final);
 			quitCheck.Transition().Target(gameEnded);
 			
@@ -145,6 +146,11 @@ namespace FirstLight.Game.StateMachines
 			QuantumCallback.UnsubscribeListener(this);
 		}
 
+		private bool IsCustomMatch()
+		{
+			return _services.NetworkService.QuantumClient.CurrentRoom.GetMatchType() == MatchType.Custom;
+		}
+		
 		private bool IsSpectator()
 		{
 			return _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator();
@@ -220,7 +226,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				QuantumRunner.Default.Game.SendCommand(new PlayerQuitCommand());
 			}
-			
+
 			_statechartTrigger(MatchQuitEvent);
 		}
 

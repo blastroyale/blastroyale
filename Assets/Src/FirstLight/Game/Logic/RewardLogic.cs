@@ -110,8 +110,8 @@ namespace FirstLight.Game.Logic
 				throw new MatchDataEmptyLogicException();
 			}
 
-			// We don't reward quitters and we don't reward players for Custom games
-			if (matchType == MatchType.Custom || source.DidPlayerQuit)
+			// We don't reward quitters and we don't reward players for Custom games or games played alone (if we ever allow it)
+			if (matchType == MatchType.Custom || source.DidPlayerQuit || source.GamePlayerCount == 1)
 			{
 				return rewards;
 			}
@@ -125,7 +125,7 @@ namespace FirstLight.Game.Logic
 			var rewardConfig = gameModeRewardConfigs[0];
 			
 			// We calculate rank value for rewards based on the number of players in a match versus maximum of 30
-			var rankValue = Math.Min(1 + Math.Round(30 / (double)source.GamePlayerCount) * (source.MatchData.PlayerRank - 1), 30);
+			var rankValue = Math.Min(1 + Math.Floor(30 / (double)(source.GamePlayerCount - 1) * (source.MatchData.PlayerRank - 1)), 30);
 			
 			foreach (var config in gameModeRewardConfigs)
 			{

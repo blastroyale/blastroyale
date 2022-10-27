@@ -41,6 +41,8 @@ namespace FirstLight.Game.Services
 
 	public class IAPService : IIAPService, IStoreListener
 	{
+		private const float NET_INCOME_MODIFIER = 0.7f;
+
 		public IObservableFieldReader<bool> Initialized => _initialized;
 		public IReadOnlyList<Product> Products => _products;
 
@@ -50,15 +52,18 @@ namespace FirstLight.Game.Services
 		private readonly IGameCommandService _commandService;
 		private readonly IMessageBrokerService _messageBroker;
 		private readonly IPlayfabService _playfabService;
+		private readonly IAnalyticsService _analyticsService;
 
 		private IStoreController _store;
+		private ProductCatalog _defaultCatalog;
 
 		public IAPService(IGameCommandService commandService, IMessageBrokerService messageBroker,
-						  IPlayfabService playfabService)
+						  IPlayfabService playfabService, IAnalyticsService analyticsService)
 		{
 			_commandService = commandService;
 			_messageBroker = messageBroker;
 			_playfabService = playfabService;
+			_analyticsService = analyticsService;
 
 			_products = new List<Product>();
 			_initialized = new ObservableField<bool>(false);
@@ -77,7 +82,8 @@ namespace FirstLight.Game.Services
 
 			var builder = ConfigurationBuilder.Instance(module);
 
-			IAPConfigurationHelper.PopulateConfigurationBuilder(ref builder, ProductCatalog.LoadDefaultCatalog());
+			IAPConfigurationHelper.PopulateConfigurationBuilder(ref builder,
+				_defaultCatalog = ProductCatalog.LoadDefaultCatalog());
 
 			UnityPurchasing.Initialize(this, builder);
 		}
@@ -150,6 +156,8 @@ namespace FirstLight.Game.Services
 					JsonConvert.DeserializeObject<PlayFabResult<LogicResult>>(result.FunctionResult.ToString());
 				var reward = ModelSerializer.DeserializeFromData<RewardData>(logicResult!.Result.Data);
 
+				SendAnalyticsEvent(product, reward);
+
 				// The first command (client only) syncs up client state with the server, as the
 				// server adds the reward item to UnclaimedRewards on its end, and we have to do the same.
 				_commandService.ExecuteCommand(new AddIAPRewardLocalCommand {Reward = reward});
@@ -197,6 +205,26 @@ namespace FirstLight.Game.Services
 		{
 			return !product.hasReceipt || string.IsNullOrEmpty(product.receipt) ||
 				product.receipt.Contains("\"Store\":\"fake\"");
+		}
+
+		private void SendAnalyticsEvent(Product product, RewardData reward)
+		{
+			if (IsFakeStore(product)) return;
+
+			var catalogItem = _defaultCatalog.allProducts.First(item => item.id == product.definition.id);
+
+			var data = new Dictionary<string, object>
+			{
+				{"currency", "USD"},
+				{"transaction_id", product.transactionID},
+				{"price", catalogItem.googlePrice.value},
+				{"dollar_gross", catalogItem.googlePrice.value},
+				{"dollar_net", catalogItem.googlePrice.value * (decimal) NET_INCOME_MODIFIER},
+				{"item_id", product.definition.id},
+				{"item_name", reward.RewardId.ToString()}
+			};
+
+			_analyticsService.LogEvent(AnalyticsEvents.Purchase, data);
 		}
 	}
 }

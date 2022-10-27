@@ -156,7 +156,7 @@ namespace FirstLight.Game.Services
 			CoroutineService = new CoroutineService();
 			PlayerInputService = new PlayerInputService();
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
-			IAPService = new IAPService(CommandService, MessageBrokerService, PlayfabService);
+			IAPService = new IAPService(CommandService, MessageBrokerService, PlayfabService, AnalyticsService);
 			NotificationService = new MobileNotificationService(
 			                                                    new
 				                                                    GameNotificationChannel(GameConstants.Notifications.NOTIFICATION_BOXES_CHANNEL,

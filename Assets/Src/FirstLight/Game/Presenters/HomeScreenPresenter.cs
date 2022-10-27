@@ -63,10 +63,7 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _csPoolContainer;
 		private Label _csPoolTimeLabel;
 		private Label _csPoolAmountLabel;
-
-		private bool _rewardsCollecting;
-
-
+		
 		private void Awake()
 		{
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
@@ -140,6 +137,8 @@ namespace FirstLight.Game.Presenters
 			_dataProvider.CurrencyDataProvider.Currencies.StopObserving(GameId.BLST);
 			_dataProvider.ResourceDataProvider.ResourcePools.StopObserving(GameId.CS);
 			_dataProvider.ResourceDataProvider.ResourcePools.StopObserving(GameId.BPP);
+			_dataProvider.BattlePassDataProvider.CurrentLevel.StopObserving(OnBattlePassCurrentLevelChanged);
+			_dataProvider.BattlePassDataProvider.CurrentPoints.StopObserving(OnBattlePassCurrentPointsChanged);
 			_services.MessageBrokerService.UnsubscribeAll(this);
 			_services.TickService.UnsubscribeAll(this);
 		}
@@ -201,7 +200,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnBattlePassCurrentLevelChanged(uint _, uint current)
 		{
-			if (!_rewardsCollecting)
+			if (!_dataProvider.RewardDataProvider.IsCollecting)
 			{
 				UpdateBattlePassLevel(_dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints().Item1);
 			}
@@ -209,7 +208,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnBattlePassCurrentPointsChanged(uint previous, uint current)
 		{
-			if (_rewardsCollecting || DebugUtils.DebugFlags.OverrideCurrencyChangedIsCollecting)
+			if (_dataProvider.RewardDataProvider.IsCollecting || DebugUtils.DebugFlags.OverrideCurrencyChangedIsCollecting)
 			{
 				StartCoroutine(AnimateBPP(GameId.BPP, previous, current));
 			}

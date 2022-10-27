@@ -78,6 +78,7 @@ namespace FirstLight.Game.StateMachines
 			var trophiesGainLoss = stateFactory.Wait("Trophies Gain Loss Screen");
 			var disconnectedPlayerCheck = stateFactory.Choice("Disconnected Player Check");
 			var disconnected = stateFactory.State("Disconnected");
+			var disconnectedCritical = stateFactory.State("Disconnected Critical");
 			
 			initial.Transition().Target(startSimulation);
 			initial.OnExit(SubscribeEvents);
@@ -109,8 +110,10 @@ namespace FirstLight.Game.StateMachines
 			
 			disconnected.OnEnter(StopSimulation);
 			disconnected.Event(NetworkState.JoinedRoomEvent).Target(startSimulation);
-			disconnected.Event(NetworkState.JoinRoomFailedEvent).Target(final);
+			disconnected.Event(NetworkState.JoinRoomFailedEvent).Target(disconnectedCritical);
 
+			disconnectedCritical.OnEnter(NotifyCriticalDisconnection);
+			
 			quitCheck.Transition().Condition(IsSpectator).Target(final);
 			quitCheck.Transition().Target(gameEnded);
 			
@@ -142,6 +145,11 @@ namespace FirstLight.Game.StateMachines
 		private bool IsSoloGame()
 		{
 			return _services.NetworkService.LastMatchPlayers.Count == 1;
+		}
+		
+		private void NotifyCriticalDisconnection()
+		{
+			_statechartTrigger(NetworkState.PhotonCriticalDisconnectedEvent);
 		}
 
 		private void OpenLowConnectionScreen()

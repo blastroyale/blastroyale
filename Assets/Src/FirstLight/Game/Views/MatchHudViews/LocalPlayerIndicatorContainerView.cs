@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using FirstLight.Game.MonoComponent.Match;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -101,9 +102,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 					_indicators[i] = null;
 					continue;
 				}
-
-				var obj = Object.Instantiate(indicator.OperationHandle.Convert<GameObject>().Result);
 				
+				var obj =  _services.AssetResolverService.RequestAsset<IndicatorVfxId, GameObject>((IndicatorVfxId)i, false, true).Result;
 				_indicators[i] = obj.GetComponent<IIndicator>();
 			}
 		}

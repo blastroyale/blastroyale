@@ -167,13 +167,13 @@ namespace FirstLight.Game.StateMachines
 		
 		private void OpenDisconnectedScreen()
 		{
-			Debug.LogError("open DC screen now now now");
 			var data = new DisconnectedScreenPresenter.StateData
 			{
-				ReconnectClicked = () => _services.MessageBrokerService.Publish(new AttemptManualReconnectionMessage())
+				ReconnectClicked = () => _services.MessageBrokerService.Publish(new AttemptManualReconnectionMessage()),
+				BackClicked = () => _statechartTrigger(NetworkState.DcScreenBackEvent)
 			};
 
-			_uiService.OpenUi<DisconnectedScreenPresenter, DisconnectedScreenPresenter.StateData>(data);
+			_uiService.OpenUiAsync<DisconnectedScreenPresenter, DisconnectedScreenPresenter.StateData>(data);
 		}
 		
 		private void CloseDisconnectedScreen()

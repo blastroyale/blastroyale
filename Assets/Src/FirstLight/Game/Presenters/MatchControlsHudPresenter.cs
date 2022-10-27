@@ -58,6 +58,9 @@ namespace FirstLight.Game.Presenters
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, OnWeaponChanged);
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponAdded>(this, OnLocalPlayerWeaponAdded);
 			QuantumEvent.Subscribe<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
+			QuantumCallback.Subscribe<CallbackGameResynced>(this, OnGameResync);
+			QuantumCallback.Subscribe<CallbackUpdateView>(this, OnUpdateView);
+			QuantumCallback.Subscribe<CallbackPollInput>(this, PollInput);
 		}
 
 		private void OnDestroy()
@@ -71,9 +74,6 @@ namespace FirstLight.Game.Presenters
 		protected override void OnOpened()
 		{
 			_services.PlayerInputService.EnableInput();
-			QuantumCallback.Subscribe<CallbackGameResynced>(this, OnGameResync);
-			QuantumCallback.Subscribe<CallbackUpdateView>(this, OnUpdateView);
-			QuantumCallback.Subscribe<CallbackPollInput>(this, PollInput);
 		}
 
 		protected override void OnClosed()

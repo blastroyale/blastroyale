@@ -57,7 +57,7 @@ namespace FirstLight.Game.Presenters
 
 			_services.AudioFxService.PlayClip2D(AudioId.DisconnectScreenAppear);
 			
-			if (!NetworkUtils.IsOnline())
+			if (NetworkUtils.IsOffline())
 			{
 				OpenNoInternetPopup();
 			}
@@ -108,7 +108,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnReconnectClicked()
 		{
-			if (!NetworkUtils.IsOnline())
+			if (NetworkUtils.IsOffline())
 			{
 				OpenNoInternetPopup();
 				return;
@@ -121,14 +121,13 @@ namespace FirstLight.Game.Presenters
 
 		private void OpenNoInternetPopup()
 		{
-			var button = new AlertButton
+			var confirmButton = new GenericDialogButton
 			{
-				Style = AlertButtonStyle.Positive,
-				Text = ScriptLocalization.General.Confirm
+				ButtonText = ScriptLocalization.General.OK,
+				ButtonOnClick = _services.GenericDialogService.CloseDialog
 			};
-
-			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.NoInternet,
-			                               ScriptLocalization.General.NoInternetDescription, button);
+			
+			_services.GenericDialogService.OpenDialog(ScriptLocalization.General.NoInternetDescription, false, confirmButton);
 		}
 	}
 }

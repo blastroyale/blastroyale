@@ -51,7 +51,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnRegisterClicked()
 		{
-			Data.RegisterClicked(_emailField.text, _usernameField.text, _passwordField.text);
+			Data.RegisterClicked(_emailField.text.Trim(), _usernameField.text.Trim(), _passwordField.text.Trim());
 		}
 	}
 }

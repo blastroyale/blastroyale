@@ -24,6 +24,12 @@ namespace FirstLight.Services
 		void Bind<T>(T instance) where T : class;
 
 		/// <summary>
+		/// Tries requesting the instance binded to the type <typeparamref name="T"/>
+		/// Returns true if the instance is not binded yet 
+		/// </summary>
+		bool TryResolve<T>(out T instance);
+
+		/// <summary>
 		/// Requests the instance binded to the type <typeparamref name="T"/>
 		/// </summary>
 		/// <exception cref="ArgumentException">
@@ -62,6 +68,16 @@ namespace FirstLight.Services
 			}
 
 			_bindings.Add(type, instance);
+		}
+
+		/// <inheritdoc />
+		public bool TryResolve<T>(out T instance)
+		{
+			var ret = _bindings.TryGetValue(typeof(T), out object inst);
+
+			instance = (T)inst;
+
+			return ret;
 		}
 
 		/// <inheritdoc />

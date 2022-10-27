@@ -15,6 +15,7 @@ using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Server.SDK.Services;
+using GameLogicService.Services;
 using ServerCommon;
 using ServerCommon.CommonServices;
 
@@ -34,6 +35,17 @@ namespace Backend
 			DbSetup.Setup(services, envConfig);
 			var pluginLoader = new PluginLoader();
 
+			var insightsConnection = envConfig.TelemetryConnectionString;
+			if (insightsConnection != null)
+			{
+				services.AddApplicationInsightsTelemetry(o => o.ConnectionString = insightsConnection);
+				services.AddSingleton<IMetricsService, AppInsightsMetrics>();
+			}
+			else
+			{
+				services.AddSingleton<IMetricsService, NoMetrics>();
+			}
+			services.AddSingleton<ShopService>();
 			services.AddSingleton<IServerAnalytics, PlaystreamAnalyticsService>();
 			services.AddSingleton<IPlayerSetupService, DefaultPlayerSetupService>();
 			services.AddSingleton<IPluginLogger, ServerPluginLogger>();

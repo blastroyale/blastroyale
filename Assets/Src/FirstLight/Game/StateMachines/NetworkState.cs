@@ -100,7 +100,7 @@ namespace FirstLight.Game.StateMachines
 			disconnected.OnEnter(SubscribeDisconnectEvents);
 			disconnected.Event(PhotonMasterConnectedEvent).Target(connected);
 			disconnected.Event(JoinedRoomEvent).Target(connected);
-			disconnected.OnEnter(UnsubscribeDisconnectEvents);
+			disconnected.OnExit(UnsubscribeDisconnectEvents);
 
 			disconnectForServerSelect.OnEnter(DisconnectPhoton);
 			disconnectForServerSelect.Event(PhotonDisconnectedEvent).Target(getAvailableRegions);
@@ -195,7 +195,7 @@ namespace FirstLight.Game.StateMachines
 
 		private async void SubscribeDisconnectEvents()
 		{
-			_services.TickService.SubscribeOnUpdate(TickReconnectAttempt, GameConstants.Network.NETWORK_ATTEMPT_RECONNECT_SECONDS, true, true);
+			_services.TickService.SubscribeOnUpdate(TickReconnectAttempt, GameConstants.Network.NETWORK_ATTEMPT_RECONNECT_SECONDS);
 			_criticalDisconnectCoroutine = _services.CoroutineService.StartCoroutine(CriticalDisconnectCoroutine());
 
 			await Task.Yield();
@@ -248,8 +248,6 @@ namespace FirstLight.Game.StateMachines
 			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Disconnection,
 			                                                   _services.NetworkService.QuantumClient.DisconnectedCause
 			                                                            .ToString());
-			_services.AnalyticsService
-			         .CrashLog($"Disconnected - {_services.NetworkService.QuantumClient.DisconnectedCause}");
 
 			_statechartTrigger(PhotonDisconnectedEvent);
 		}
@@ -604,7 +602,7 @@ namespace FirstLight.Game.StateMachines
 		private void StartRandomMatchmaking(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, List<string> mutators)
 		{
 			var matchType = _services.GameModeService.SelectedGameMode.Value.Entry.MatchType;
-			var gameHasBots = gameModeConfig.AllowBots && matchType != MatchType.Ranked;
+			var gameHasBots = gameModeConfig.AllowBots;
 			var gridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
 			var createParams =
 				NetworkUtils.GetRoomCreateParams(gameModeConfig, mapConfig, gridConfigs, null, matchType, mutators, gameHasBots);

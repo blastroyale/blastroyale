@@ -18,7 +18,7 @@ namespace BlastRoyaleNFTPlugin
 		{
 			var baseUrl = ReadPluginConfig("API_URL");
 			var blockchainUrl = ReadPluginConfig("API_BLOCKCHAIN_SERVICE");
-			var apiSecret = ReadPluginConfig("API_SECRET");
+			var apiSecret = ReadPluginConfig("API_KEY");
 			//var fullUrl = $"{baseUrl}/{blockchainUrl}/indexed?key={apiSecret}&playfabId=";
 			var fullUrl = $"{baseUrl}/{blockchainUrl}";
 			NftSync = new NftSynchronizer(fullUrl, apiSecret, context);

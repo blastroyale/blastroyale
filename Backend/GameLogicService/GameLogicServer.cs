@@ -116,7 +116,7 @@ namespace Backend
 		{
 			try
 			{
-				await _stateService.DeleteState(playerId);
+				await _stateService.DeletePlayerState(playerId);
 				return new PlayFabResult<BackendLogicResult>
 				{
 					Result = new BackendLogicResult

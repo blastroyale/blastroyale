@@ -296,7 +296,8 @@ namespace FirstLight.Game.StateMachines
 			{
 				BackClicked = () => { activity.Complete();},
 				OnPurchaseItem = PurchaseItem,
-				UiService = _uiService
+				UiService = _uiService,
+				IapProcessingFinished = OnIapProcessingFinished
 			};
 
 			_uiService.OpenUiAsync<StoreScreenPresenter, StoreScreenPresenter.StateData>(data);
@@ -309,7 +310,13 @@ namespace FirstLight.Game.StateMachines
 
 		private void PurchaseItem(string id)
 		{
+			_statechartTrigger(NetworkState.IapProcessStartedEvent);
 			_services.IAPService.BuyProduct(id);
+		}
+		
+		private void OnIapProcessingFinished()
+		{
+			_statechartTrigger(NetworkState.IapProcessFinishedEvent);
 		}
 
 		private void CloseBattlePassUI()

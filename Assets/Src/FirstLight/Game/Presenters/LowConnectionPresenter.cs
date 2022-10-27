@@ -42,7 +42,7 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements(VisualElement root)
 		{
-			_lowConnectionIcon = root.Q("LowConnectionIcon").Required();
+			_lowConnectionIcon = root.Q("PopupBackground").Required();
 		}
 
 		protected override void OnOpened()

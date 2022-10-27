@@ -25,6 +25,7 @@ namespace FirstLight.Game.Presenters
 		public struct StateData
 		{
 			public Action BackClicked;
+			public Action IapProcessingFinished;
 			public Action<string> OnPurchaseItem;
 			public IGameUiService UiService;
 		}
@@ -59,6 +60,8 @@ namespace FirstLight.Game.Presenters
 		[Button]
 		private void OnPurchaseFailed(IAPPurchaseFailedMessage msg)
 		{
+			Data.IapProcessingFinished();
+			
 			_blocker.style.display = DisplayStyle.None;
 
 			var confirmButton = new GenericDialogButton
@@ -73,6 +76,8 @@ namespace FirstLight.Game.Presenters
 
 		private void OnPurchaseCompleted(IAPPurchaseCompletedMessage msg)
 		{
+			Data.IapProcessingFinished();
+			
 			_pendingRewards.Clear();
 
 			foreach (var equipment in msg.Rewards)

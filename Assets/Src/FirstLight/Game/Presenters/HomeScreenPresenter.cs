@@ -13,7 +13,6 @@ using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
-using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Presenters
 {

@@ -1,10 +1,13 @@
 using System;
+using FirstLight.FLogger;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Statechart;
 using I2.Loc;
+using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
@@ -71,7 +74,7 @@ namespace FirstLight.Game.StateMachines
 			logoutWait.Event(_logoutFailedEvent).Target(final);
 
 			final.OnEnter(UnsubscribeEvents);
-		}
+		} 
 
 		private void SubscribeEvents()
 		{
@@ -145,6 +148,13 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnConnectIdError(PlayFabError error)
 		{
+			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.LinkGuestAccount, error.ErrorMessage);
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.General.OK,
+				ButtonOnClick = _services.GenericDialogService.CloseDialog
+			};
+			_services.GenericDialogService.OpenDialog(error.ErrorMessage, false, confirmButton);
 			SetConnectIdDim(false);
 		}
 

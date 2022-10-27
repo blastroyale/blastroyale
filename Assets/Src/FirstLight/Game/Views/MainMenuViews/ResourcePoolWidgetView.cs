@@ -77,17 +77,11 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 			var poolInfo = _dataProvider.ResourceDataProvider.GetResourcePoolInfo(_poolToObserve);
 
-			if (poolInfo.IsFull)
-			{
-				_restockText.text = string.Format(ScriptLocalization.MainMenu.ResoucePoolFull);
-			}
-			else
-			{
-				var timeDiff = poolInfo.NextRestockTime - DateTime.UtcNow;
-				
-				_restockText.text = string.Format(ScriptLocalization.MainMenu.ResourceRestockTime, poolInfo.RestockPerInterval,
-				                                  timeDiff.ToString(@"h\h\ mm\m"));
-			}
+			var timeDiff = poolInfo.NextRestockTime - DateTime.UtcNow;
+			
+			_restockText.text = string.Format(ScriptLocalization.MainMenu.ResourceRestockTime, poolInfo.RestockPerInterval,
+			                                  timeDiff.ToString(@"h\h\ mm\m"));
+			
 
 			_amountText.text = string.Format(ScriptLocalization.MainMenu.ResourceAmount, poolInfo.CurrentAmount.ToString(), 
 			                                 poolInfo.PoolCapacity);

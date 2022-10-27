@@ -256,8 +256,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.20336649
-      value: 0.8723824
+      time: 0.3738148
+      value: 0.95342946
       inSlope: -0.03031223
       outSlope: -0.03031223
       tangentMode: 0
@@ -265,8 +265,8 @@ MonoBehaviour:
       inWeight: 0.059936818
       outWeight: 0.28414086
     - serializedVersion: 3
-      time: 0.7557423
-      value: 0.88063395
+      time: 0.4901571
+      value: 0.95337
       inSlope: -0.019823262
       outSlope: -0.019823262
       tangentMode: 0
@@ -301,7 +301,7 @@ MonoBehaviour:
   forcedTargetType: 0
   autoPlay: 0
   useTargetAsV3: 0
-  endValueFloat: 1.3
+  endValueFloat: 2.5
   endValueV3: {x: 0, y: 0, z: 0}
   endValueV2: {x: 0, y: 0}
   endValueColor: {r: 1, g: 1, b: 1, a: 1}
@@ -500,6 +500,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b0ab10b9acf4f70a6dcda57a186c86d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OpenDelayTimeSeconds: 0
   _imageRef: {fileID: 2823971217050829139}
   _defaultFloatingTextTransform: {fileID: 2307000566391958281}
   _floatingTextRef: {fileID: 7984719702043888185}

@@ -282,7 +282,6 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeEvents()
 		{
 			_services.TickService.SubscribeOnUpdate(TickQuantumServer, 0.1f, true, true);
-			_services.MessageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuit);
 			_services.MessageBrokerService.Subscribe<MatchSimulationStartedMessage>(OnMatchSimulationStartedMessage);
 			_services.MessageBrokerService.Subscribe<MatchSimulationEndedMessage>(OnMatchSimulationEndedMessage);
 			_services.MessageBrokerService.Subscribe<PlayMatchmakingReadyMessage>(OnPlayMatchmakingReadyMessage);
@@ -668,11 +667,6 @@ namespace FirstLight.Game.StateMachines
 			};
 
 			_services.NetworkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
-		}
-
-		private void OnApplicationQuit(ApplicationQuitMessage data)
-		{
-			_networkService.QuantumClient.Disconnect();
 		}
 
 		private void StartRandomMatchmaking(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, List<string> mutators)

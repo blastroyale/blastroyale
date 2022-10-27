@@ -125,6 +125,7 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeEvents()
 		{
 			_services.MessageBrokerService.Subscribe<ServerHttpErrorMessage>(OnConnectionError);
+			_services.MessageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuit);
 		}
 
 		private void UnsubscribeEvents()
@@ -696,6 +697,11 @@ namespace FirstLight.Game.StateMachines
 			config.PhotonServerSettings.AppSettings.Protocol = connection;
 			
 			_services.AssetResolverService.UnloadAsset(config);
+		}
+		
+		private void OnApplicationQuit(ApplicationQuitMessage msg)
+		{
+			OpenLoadingScreen();
 		}
 	}
 }

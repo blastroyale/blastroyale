@@ -193,7 +193,7 @@ namespace FirstLight.Game.StateMachines
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.MainMenu.QuitGameButton,
-				ButtonOnClick = () => { UnityEditor.EditorApplication.isPlaying = false; }
+				ButtonOnClick = () => { _services.QuitGame("Closing due to logout"); }
 			};
 
 			_services.GenericDialogService.OpenDialog(title, false, confirmButton);
@@ -238,31 +238,6 @@ namespace FirstLight.Game.StateMachines
 		private void OnAccountDeleted(ExecuteFunctionResult res)
 		{
 			TryLogOut();
-			
-#if UNITY_EDITOR
-			var confirmButton = new GenericDialogButton
-			{
-				ButtonText = ScriptLocalization.MainMenu.QuitGameButton,
-				ButtonOnClick = () => { _statechartTrigger(_logoutFailedEvent); }
-			};
-
-			_services.GenericDialogService.OpenDialog(ScriptLocalization.MainMenu.DeleteAccountConfirmMessage, 
-			                                          false, confirmButton);
-#else
-			var button = new NativeUi.AlertButton
-			{
-				Callback = () =>
-				{
-					_services.QuitGame("Account Deleted");
-				},
-				Style = NativeUi.AlertButtonStyle.Negative,
-				Text = ScriptLocalization.MainMenu.QuitGameButton
-			};
-			NativeUi.NativeUiService.ShowAlertPopUp(false, 
-			                                        ScriptLocalization.MainMenu.DeleteAccountConfirm, 
-			                                        ScriptLocalization.MainMenu.DeleteAccountConfirmMessage, 
-			                                        button);
-#endif
 		}
 	}
 }

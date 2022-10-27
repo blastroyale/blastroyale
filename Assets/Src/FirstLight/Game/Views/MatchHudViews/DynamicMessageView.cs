@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using FirstLight.Game.Ids;
+﻿using System.Collections.Generic;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
@@ -8,7 +6,6 @@ using FirstLight.Game.Utils;
 using FirstLight.Game.Views.AdventureHudViews;
 using I2.Loc;
 using Quantum;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace FirstLight.Game.Views.MatchHudViews
@@ -39,11 +36,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
-			
-			var mapConfig = _services.NetworkService.CurrentRoomMapConfig.Value;
-			var gameModeConfig = _services.NetworkService.CurrentRoomGameModeConfig.Value;
-			var config = _services.ConfigsProvider.GetConfig<QuantumGameConfig>();
-			var maxPlayers = NetworkUtils.GetMaxPlayers(gameModeConfig, mapConfig);
 			
 			foreach (var message in _messages)
 			{
@@ -159,7 +151,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			await message.MessageEntry.DisplayMessage(message.TopText, message.BottomText);
 
-			if (this.IsDestroyed())
+			// Spectator might change during the message display
+			if (this.IsDestroyed() || _queue.Count == 0)
 			{
 				return;
 			}

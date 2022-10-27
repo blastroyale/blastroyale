@@ -85,6 +85,9 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc cref="IGameModeService"/>
 		public IGameModeService GameModeService { get; }
 		
+		/// <inheritdoc cref="IIAPService"/>
+		public IIAPService IAPService { get; }
+		
 		/// <summary>
 		/// Reason why the player quit the app
 		/// </summary>
@@ -121,6 +124,7 @@ namespace FirstLight.Game.Services
 		public IThreadService ThreadService { get; }
 		public IHelpdeskService HelpdeskService { get; }
 		public IGameModeService GameModeService { get; }
+		public IIAPService IAPService { get; }
 		public string QuitReason { get; set; }
 
 		public GameServices(IGameNetworkService networkService, IMessageBrokerService messageBrokerService,
@@ -152,6 +156,7 @@ namespace FirstLight.Game.Services
 			CoroutineService = new CoroutineService();
 			PlayerInputService = new PlayerInputService();
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
+			IAPService = new IAPService(CommandService, MessageBrokerService, PlayfabService);
 			NotificationService = new MobileNotificationService(
 			                                                    new
 				                                                    GameNotificationChannel(GameConstants.Notifications.NOTIFICATION_BOXES_CHANNEL,

@@ -22,6 +22,15 @@ if (builder.Environment.IsDevelopment())
 	});
 }
 
+if (builder.Environment.IsDevelopment())
+{
+	builder.Services.AddHttpLogging(options =>
+	{
+		options.LoggingFields = HttpLoggingFields.RequestPropertiesAndHeaders |
+								HttpLoggingFields.RequestBody;
+	});
+}
+
 var binPath = Path.GetDirectoryName(typeof(GameLogicWebWebService).Assembly.Location);
 ServerStartup.Setup(builder.Services.AddControllers(), binPath);
 

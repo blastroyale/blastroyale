@@ -115,7 +115,7 @@ namespace FirstLight.Game.Views.BattlePassViews
 		public uint PredictedCurrentLevel;
 		public uint PredictedCurrentProgress;
 		public uint MaxProgress;
-		public BattlePassRewardConfig RewardConfig;
+		public EquipmentRewardConfig RewardConfig;
 
 		public uint SegmentLevelForRewards => SegmentLevel + 1;
 	}

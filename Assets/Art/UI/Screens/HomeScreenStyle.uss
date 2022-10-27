@@ -67,13 +67,14 @@
 
 #PlayerNameLabel {
     position: absolute;
-    top: 101px;
-    left: 100px;
+    top: 90px;
+    left: 10px;
     rotate: -15deg;
-    -unity-text-align: middle-left;
-    width: 218px;
-    height: 50px;
+    -unity-text-align: lower-center;
+    width: 300px;
+    height: 70px;
     overflow: hidden;
+    white-space: normal;
 }
 
 #BattlePassButton {

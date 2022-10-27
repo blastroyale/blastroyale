@@ -29,7 +29,6 @@ namespace FirstLight.Game.Presenters
 	{
 		public struct StateData
 		{
-			public Action OnRespawnClicked;
 			public Dictionary<PlayerRef, Pair<int, int>> KillerData;
 		}
 		
@@ -138,8 +137,6 @@ namespace FirstLight.Game.Presenters
 
 		private void OnRespawnPressed()
 		{
-			_respawnButton.gameObject.SetActive(false);
-			Data.OnRespawnClicked();
 			QuantumRunner.Default.Game.SendCommand(new PlayerRespawnCommand());
 		}
 	}

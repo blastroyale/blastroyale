@@ -195,7 +195,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 				}
 			};
 
-			var bpRewardConfigs = new BattlePassRewardConfig[]
+			var bpRewardConfigs = new EquipmentRewardConfig[]
 			{
 				new()
 				{

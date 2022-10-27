@@ -121,14 +121,13 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void OnUpdateAim(Frame f, Quantum.Input* input, PlayerCharacter* playerCharacter, CharacterController3D* kcc)
 		{
 			var isEmptied = playerCharacter->IsAmmoEmpty(f, _localPlayerEntity);
+			var isAbsoluteAccuracy = f.Context.TryGetMutatorByType(MutatorType.AbsoluteAccuracy, out _);
 			var speed = kcc->MaxSpeed * kcc->MaxSpeed;
 			var velocity = kcc->Velocity.SqrMagnitude;
 			var range = f.Get<Stats>(_localPlayerEntity).GetStatData(StatType.AttackRange).StatValue.AsFloat;
 			
-			var minAttackAngle = f.Context.TryGetMutatorByType(MutatorType.AbsoluteAccuracy, out _) ? 
-				0 : _weaponConfig.MinAttackAngle;
-			var maxAttackAngle = f.Context.TryGetMutatorByType(MutatorType.AbsoluteAccuracy, out _) ? 
-				0 : _weaponConfig.MaxAttackAngle;
+			var minAttackAngle = isAbsoluteAccuracy ? 0 : _weaponConfig.MinAttackAngle;
+			var maxAttackAngle = isAbsoluteAccuracy ? 0 : _weaponConfig.MaxAttackAngle;
 
 			var lerp = Mathf.Lerp(minAttackAngle, maxAttackAngle, velocity.AsFloat / speed.AsFloat);
 			var angleInRad = maxAttackAngle == minAttackAngle ? maxAttackAngle : lerp;

@@ -4,10 +4,12 @@ using System.Linq;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.NativeUi;
 using FirstLight.UiService;
 using I2.Loc;
 using Quantum;
 using Sirenix.OdinInspector;
+using UnityEngine.Purchasing;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
 
@@ -65,7 +67,9 @@ namespace FirstLight.Game.Presenters
 			Data.IapProcessingFinished();
 
 			_blocker.style.display = DisplayStyle.None;
+			if (msg.Reason is PurchaseFailureReason.UserCancelled or PurchaseFailureReason.PaymentDeclined) return;
 
+#if UNITY_EDITOR
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.OK,
@@ -74,6 +78,9 @@ namespace FirstLight.Game.Presenters
 
 			_gameServices.GenericDialogService.OpenDialog(
 				string.Format(ScriptLocalization.General.IapError, msg.Reason.ToString()), false, confirmButton);
+#else
+			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.IapError, msg.Reason.ToString());
+#endif
 		}
 
 		private void OnPurchaseCompleted(IAPPurchaseCompletedMessage msg)

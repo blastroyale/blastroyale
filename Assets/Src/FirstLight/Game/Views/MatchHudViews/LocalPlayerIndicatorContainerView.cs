@@ -89,8 +89,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public void SetupWeaponInfo(Frame f, GameId weaponId)
 		{
 			_weaponConfig = _services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) weaponId);
-			_shootIndicatorId = _weaponConfig.MaxAttackAngle > 0 ? IndicatorVfxId.Cone : IndicatorVfxId.Line;
-			if (f.Context.TryGetMutatorByType(MutatorType.AbsoluteAccuracy, out var mutatorConfig))
+			_shootIndicatorId = _weaponConfig.MaxAttackAngle > 0  ? IndicatorVfxId.Cone : IndicatorVfxId.Line;
+			if (f.Context.TryGetMutatorByType(MutatorType.AbsoluteAccuracy, out _))
 			{
 				_shootIndicatorId = _weaponConfig.NumberOfShots > 1 ? IndicatorVfxId.Cone : IndicatorVfxId.Line;
 			}
@@ -121,16 +121,17 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void OnUpdateAim(Frame f, Quantum.Input* input, PlayerCharacter* playerCharacter, CharacterController3D* kcc)
 		{
 			var isEmptied = playerCharacter->IsAmmoEmpty(f, _localPlayerEntity);
-			var isAbsoluteAccuracy = f.Context.TryGetMutatorByType(MutatorType.AbsoluteAccuracy, out _);
+
 			var speed = kcc->MaxSpeed * kcc->MaxSpeed;
 			var velocity = kcc->Velocity.SqrMagnitude;
 			var range = f.Get<Stats>(_localPlayerEntity).GetStatData(StatType.AttackRange).StatValue.AsFloat;
 			
-			var minAttackAngle = isAbsoluteAccuracy ? 0 : _weaponConfig.MinAttackAngle;
-			var maxAttackAngle = isAbsoluteAccuracy ? 0 : _weaponConfig.MaxAttackAngle;
+			var minAttackAngle = _shootIndicatorId == IndicatorVfxId.Line ? 0 : _weaponConfig.MinAttackAngle;
+			var maxAttackAngle = _shootIndicatorId == IndicatorVfxId.Line ? 0 :_weaponConfig.MaxAttackAngle;
 
 			var lerp = Mathf.Lerp(minAttackAngle, maxAttackAngle, velocity.AsFloat / speed.AsFloat);
-			var angleInRad = maxAttackAngle == minAttackAngle ? maxAttackAngle : lerp;
+			var angleInRad = maxAttackAngle == minAttackAngle || f.Context.TryGetMutatorByType(MutatorType.AbsoluteAccuracy, out _) 
+				? minAttackAngle : lerp;
 			
 			// We use a formula to calculate the scale of a shooting indicator
 			var size = Mathf.Max(0.5f, Mathf.Tan(angleInRad * 0.5f * Mathf.Deg2Rad) * range * 2f);

@@ -19,6 +19,7 @@ namespace FirstLight.Game.Services
 	public interface IFrameSnapshotService
 	{
 		/// <summary>
+		/// Returns the last captured snapshot from when the last quantum game that was destroyed
 		/// </summary>
 		FrameSnapshot GetLastStoredMatchSnapshot();
 	}

@@ -36,7 +36,7 @@ namespace Quantum
 			var targetAttackAngle = isAccuracyMutator ?
 				weaponConfig.MinAttackAngle : FPMath.Lerp(weaponConfig.MinAttackAngle, weaponConfig.MaxAttackAngle,
 												cVelocitySqr / maxSpeedSqr);
-			var shotAngle = weaponConfig.NumberOfShots == 1 && !f.Context.TryGetMutatorByType(MutatorType.AbsoluteAccuracy, out _) ?
+			var shotAngle = weaponConfig.NumberOfShots == 1 && !isAccuracyMutator ?
 				   QuantumHelpers.GetSingleShotAngleAccuracyModifier(f, targetAttackAngle) :
 				   FP._0;
 			var newAngleVector = FPVector2.Rotate(aimingDirection, shotAngle * FP.Deg2Rad).XOY;

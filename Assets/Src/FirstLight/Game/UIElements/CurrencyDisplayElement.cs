@@ -37,6 +37,7 @@ namespace FirstLight.Game.UIElements
 
 		/* Other private variables */
 		private Tween _animationTween;
+		private VisualElement _originElement;
 
 		/* The internal structure of the element is created in the constructor. */
 		public CurrencyDisplayElement()
@@ -75,9 +76,17 @@ namespace FirstLight.Game.UIElements
 			_animationTween?.Kill();
 		}
 
+		/// <summary>
+		/// Sets the origin of the currency flying animation starting at another visual element
+		/// </summary>
+		public void SetAnimationOrigin(VisualElement originElement)
+		{
+			_originElement = originElement;
+		}
+
 		private void OnCurrencyChanged(GameId id, ulong previous, ulong current, ObservableUpdateType type)
 		{
-			if (_gameDataProvider.RewardDataProvider.IsCollecting)
+			if (_gameDataProvider.RewardDataProvider.IsCollecting || DebugUtils.DebugFlags.OverrideCurrencyChangedIsCollecting)
 			{
 				AnimateCurrency(previous, current);
 			}
@@ -95,9 +104,13 @@ namespace FirstLight.Game.UIElements
 			{
 				for (int i = 0; i < Mathf.Min(10, current - previous); i++)
 				{
+					var originPosition = _originElement != null
+						? _originElement.GetPositionOnScreen(GetRoot())
+						: GetRoot().GetPositionOnScreen(GetRoot()) + Random.insideUnitCircle * 100;
+					
 					_mainMenuServices.UiVfxService.PlayVfx(_currency,
 						i * 0.1f,
-						GetRoot().GetPositionOnScreen(GetRoot()) + Random.insideUnitCircle * 100,
+						originPosition,
 						_label.GetPositionOnScreen(GetRoot()),
 						() =>
 						{

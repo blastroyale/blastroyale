@@ -542,12 +542,23 @@ public partial class SROptions
 	[Category("Progression")]
 	public void ResetBpp()
 	{
-		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
 		var services = MainInstaller.Resolve<IGameServices>();
+		var dataProvider = services.DataSaver as IDataService;
+		var playerData = dataProvider.GetData<PlayerData>();
 
-		gameLogic.BattlePassLogic.ResetBattlePass();
+		playerData.BPLevel = 0;
+		playerData.BPPoints = 0;
+		
+		dataProvider.SaveData<PlayerData>();
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
+	}
+
+	[Category("Progression")]
+	public bool IsCollectedOverride
+	{
+		get => DebugUtils.DebugFlags.OverrideCurrencyChangedIsCollecting;
+		set => DebugUtils.DebugFlags.OverrideCurrencyChangedIsCollecting = value;
 	}
 	
 	[Category("Logging")]

@@ -6,7 +6,6 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic.RPC;
-using FirstLight.Game.Utils;
 using FirstLight.Services;
 using Quantum;
 
@@ -73,6 +72,15 @@ namespace FirstLight.Game.Logic
 		/// Collects all the unclaimed rewards in the player's inventory
 		/// </summary>
 		List<RewardData> ClaimUncollectedRewards();
+
+		List<Equipment> ClaimIAPRewards();
+
+		/// <summary>
+		/// Adds an IAP reward to the list of unclaimed rewards. This is used when doing an IAP, to
+		/// sync up the server and client, without having to do another request (since the server
+		/// adds it on it's end).
+		/// </summary>
+		void AddIAPReward(RewardData reward);
 	}
 
 	/// <inheritdoc cref="IRewardLogic"/>
@@ -209,20 +217,39 @@ namespace FirstLight.Game.Logic
 
 			foreach (var reward in Data.UncollectedRewards)
 			{
+				if (reward.RewardId.IsInGroup(GameIdGroup.IAP)) continue;
 				rewards.Add(ClaimReward(reward));
 			}
 
-			Data.UncollectedRewards.Clear();
+			Data.UncollectedRewards.RemoveAll(r => rewards.Contains(r));
 			
 			IsCollecting = false;
 
 			return rewards;
 		}
 
+		public List<Equipment> ClaimIAPRewards()
+		{
+			var rewards = new List<Equipment>(1);
+
+			foreach (var reward in Data.UncollectedRewards)
+			{
+				if (!reward.RewardId.IsInGroup(GameIdGroup.IAP)) continue;
+				rewards.Add(ClaimEquipmentReward(reward.RewardId));
+			}
+
+			Data.UncollectedRewards.RemoveAll(r => r.RewardId.IsInGroup(GameIdGroup.IAP));
+
+			return rewards;
+		}
+
+		public void AddIAPReward(RewardData reward)
+		{
+			Data.UncollectedRewards.Add(reward);
+		}
+
 		private RewardData ClaimReward(RewardData reward)
 		{
-			var groups = reward.RewardId.GetGroups();
-
 			if (reward.RewardId == GameId.XP)
 			{
 				GameLogic.PlayerLogic.AddXp((uint) reward.Value);
@@ -231,7 +258,7 @@ namespace FirstLight.Game.Logic
 			{
 				GameLogic.BattlePassLogic.AddBPP((uint) reward.Value);
 			}
-			else if (groups.Contains(GameIdGroup.Currency))
+			else if (reward.RewardId.IsInGroup(GameIdGroup.Currency))
 			{
 				GameLogic.CurrencyLogic.AddCurrency(reward.RewardId, (uint) reward.Value);
 			}
@@ -242,6 +269,16 @@ namespace FirstLight.Game.Logic
 			}
 
 			return reward;
+		}
+
+		private Equipment ClaimEquipmentReward(GameId id)
+		{
+			var config = GameLogic.ConfigsProvider.GetConfigsList<EquipmentRewardConfig>()
+				.First(cfg => cfg.GameId == id);
+
+			var equipment = GameLogic.EquipmentLogic.GenerateEquipmentFromConfig(config);
+			GameLogic.EquipmentLogic.AddToInventory(equipment);
+			return equipment;
 		}
 	}
 

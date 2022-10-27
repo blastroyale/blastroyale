@@ -226,11 +226,6 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			}
 			
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
-			var frame = callback.Game.Frames.Verified;
-			var container = frame.GetSingleton<GameContainer>();
-			
-			var playerData = container.GetPlayersMatchData(frame, out var leader)[callback.Player];
-
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", room.Name},
@@ -239,7 +234,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"mutators", string.Join(",",room.GetMutatorIds())},
 				{"item_type", callback.CollectableId.ToString()},
 				{"amount", 1},
-				{"player_name", playerData.PlayerName }
+				{"player_name", _gameData.AppDataProvider.DisplayNameTrimmed }
 			};
 			
 			_analyticsService.LogEvent(AnalyticsEvents.MatchPickupAction, data);

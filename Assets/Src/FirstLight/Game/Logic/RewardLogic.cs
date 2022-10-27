@@ -12,11 +12,31 @@ using Quantum;
 
 namespace FirstLight.Game.Logic
 {
+	/// <summary>
+	/// Object to represent the origin of a reward.
+	/// All information needed to be able to calculate a reward should be self
+	/// contained in this object.
+	/// </summary>
 	public class RewardSource
 	{
+		/// <summary>
+		/// Reflects if a player quit early in the game
+		/// </summary>
 		public bool DidPlayerQuit { get; set; }
+		
+		/// <summary>
+		/// Reflects how many players were participating in the game
+		/// </summary>
 		public int GamePlayerCount { get; set; }
+		
+		/// <summary>
+		/// Reflects the match data collected by quantum simulation
+		/// </summary>
 		public QuantumPlayerMatchData MatchData { get; set; }
+		
+		/// <summary>
+		/// Reflects the type of the given match
+		/// </summary>
 		public MatchType MatchType { get; set; }
 	}
 	

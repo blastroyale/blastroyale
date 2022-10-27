@@ -12,6 +12,34 @@ using Quantum;
 namespace FirstLight.Game.Logic
 {
 	/// <summary>
+	/// Object to represent the origin of a reward.
+	/// All information needed to be able to calculate a reward should be self
+	/// contained in this object.
+	/// </summary>
+	public class RewardSource
+	{
+		/// <summary>
+		/// Reflects if a player quit early in the game
+		/// </summary>
+		public bool DidPlayerQuit { get; set; }
+		
+		/// <summary>
+		/// Reflects how many players were participating in the game
+		/// </summary>
+		public int GamePlayerCount { get; set; }
+		
+		/// <summary>
+		/// Reflects the match data collected by quantum simulation
+		/// </summary>
+		public QuantumPlayerMatchData MatchData { get; set; }
+		
+		/// <summary>
+		/// Reflects the type of the given match
+		/// </summary>
+		public MatchType MatchType { get; set; }
+	}
+	
+	/// <summary>
 	/// This logic provides the necessary behaviour to manage the player's rewards
 	/// </summary>
 	public interface IRewardDataProvider
@@ -29,17 +57,16 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Generate a list of rewards based on the players <paramref name="matchData"/> performance from a game completed
 		/// </summary>
-		List<RewardData> CalculateMatchRewards(MatchType matchType, QuantumPlayerMatchData matchData,
-		                                       bool didPlayerQuit);
+		List<RewardData> CalculateMatchRewards(RewardSource source);
 	}
 
 	/// <inheritdoc />
 	public interface IRewardLogic : IRewardDataProvider
 	{
 		/// <summary>
-		/// Generate a list of rewards based on the players <paramref name="matchData"/> performance from a game completed
+		/// Generate a list of rewards based on the players <paramref name="RewardSource"/> performance from a game completed
 		/// </summary>
-		List<RewardData> GiveMatchRewards(MatchType matchType, QuantumPlayerMatchData matchData, bool didPlayerQuit);
+		List<RewardData> GiveMatchRewards(RewardSource source);
 
 		/// <summary>
 		/// Collects all the unclaimed rewards in the player's inventory
@@ -73,18 +100,18 @@ namespace FirstLight.Game.Logic
 			_unclaimedRewards = new ObservableList<RewardData>(Data.UncollectedRewards);
 		}
 
-		public List<RewardData> CalculateMatchRewards(MatchType matchType, QuantumPlayerMatchData matchData,
-		                                              bool didPlayerQuit)
+		public List<RewardData> CalculateMatchRewards(RewardSource source)
 		{
 			var rewards = new List<RewardData>();
-
-			if (matchData.PlayerRank == 0)
+			var matchType = source.MatchType;
+			
+			if (source.MatchData.PlayerRank == 0)
 			{
 				throw new MatchDataEmptyLogicException();
 			}
 
-			// Currently, there is no plan on giving rewards on anything but BR mode
-			if (matchType == MatchType.Custom || didPlayerQuit)
+			// We don't reward quitters and we don't reward players for Custom games or games played alone (if we ever allow it)
+			if (matchType == MatchType.Custom || source.DidPlayerQuit || source.GamePlayerCount == 1)
 			{
 				return rewards;
 			}
@@ -96,8 +123,10 @@ namespace FirstLight.Game.Logic
 			                                     .OrderByDescending(x => x.Placement).ToList();
 
 			var rewardConfig = gameModeRewardConfigs[0];
-			var rankValue = matchData.PlayerRank;
-
+			
+			// We calculate rank value for rewards based on the number of players in a match versus maximum of 30
+			var rankValue = Math.Min(1 + Math.Floor(30 / (double)(source.GamePlayerCount - 1) * (source.MatchData.PlayerRank - 1)), 30);
+			
 			foreach (var config in gameModeRewardConfigs)
 			{
 				if (rankValue > config.Placement)
@@ -160,10 +189,9 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public List<RewardData> GiveMatchRewards(MatchType matchType, QuantumPlayerMatchData matchData,
-		                                         bool didPlayerQuit)
+		public List<RewardData> GiveMatchRewards(RewardSource source)
 		{
-			var rewards = CalculateMatchRewards(matchType, matchData, didPlayerQuit);
+			var rewards = CalculateMatchRewards(source);
 
 			foreach (var reward in rewards)
 			{

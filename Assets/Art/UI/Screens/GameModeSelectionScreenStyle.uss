@@ -89,10 +89,10 @@
 }
 
 .hidden .hidden-opacity {
-    opacity: 1;
+    opacity: 0;
     transition-property: opacity;
     transition-duration: 0.5s;
-    transition-delay: 0.5s;
+    transition-delay: 0s;
 }
 
 .visible-opacity-instructions {
@@ -104,7 +104,8 @@
 }
 
 .hidden {
-    transition-delay: 2s;
+    transition-property: display, visibility;
+    transition-delay: 2s, 2s;
 }
 
 #unity-content-viewport {

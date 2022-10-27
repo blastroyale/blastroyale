@@ -110,7 +110,8 @@ namespace Backend
 					Result = new BackendLogicResult()
 					{
 						PlayFabId = playerId,
-						Data = await _stateService.GetPlayerState(playerId)
+						// TODO: Review serialization, playfab limit: 65536 bytes for cloudscript
+						// Data = await _stateService.GetPlayerState(playerId)
 					}
 				};
 			}

@@ -633,6 +633,7 @@ namespace I2.Loc
 			public static string EquipLastWeaponWarning 		{ get{ return LocalizationManager.GetTranslation ("General/EquipLastWeaponWarning"); } }
 			public static string Equipment 		{ get{ return LocalizationManager.GetTranslation ("General/Equipment"); } }
 			public static string Equipped 		{ get{ return LocalizationManager.GetTranslation ("General/Equipped"); } }
+			public static string ErrorGeneric 		{ get{ return LocalizationManager.GetTranslation ("General/ErrorGeneric"); } }
 			public static string ExitGame 		{ get{ return LocalizationManager.GetTranslation ("General/ExitGame"); } }
 			public static string FailureReason1 		{ get{ return LocalizationManager.GetTranslation ("General/FailureReason1"); } }
 			public static string FailureReason2 		{ get{ return LocalizationManager.GetTranslation ("General/FailureReason2"); } }
@@ -647,6 +648,7 @@ namespace I2.Loc
 			public static string Leave 		{ get{ return LocalizationManager.GetTranslation ("General/Leave"); } }
 			public static string LeaveFeedback 		{ get{ return LocalizationManager.GetTranslation ("General/LeaveFeedback"); } }
 			public static string Level 		{ get{ return LocalizationManager.GetTranslation ("General/Level"); } }
+			public static string LoginError 		{ get{ return LocalizationManager.GetTranslation ("General/LoginError"); } }
 			public static string Maintenance 		{ get{ return LocalizationManager.GetTranslation ("General/Maintenance"); } }
 			public static string MaintenanceDescription 		{ get{ return LocalizationManager.GetTranslation ("General/MaintenanceDescription"); } }
 			public static string Map 		{ get{ return LocalizationManager.GetTranslation ("General/Map"); } }
@@ -776,6 +778,7 @@ namespace I2.Loc
 			public static string Crates 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Crates"); } }
 			public static string CreateRoom 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/CreateRoom"); } }
 			public static string CurrentXP 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/CurrentXP"); } }
+			public static string CustomGame 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/CustomGame"); } }
 			public static string CustomGameDescription 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/CustomGameDescription"); } }
 			public static string CustomMatchBotsToggle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/CustomMatchBotsToggle"); } }
 			public static string CustomMatchSpectateToggle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/CustomMatchSpectateToggle"); } }
@@ -1710,6 +1713,7 @@ namespace I2.Loc
 		    public const string EquipLastWeaponWarning = "General/EquipLastWeaponWarning";
 		    public const string Equipment = "General/Equipment";
 		    public const string Equipped = "General/Equipped";
+		    public const string ErrorGeneric = "General/ErrorGeneric";
 		    public const string ExitGame = "General/ExitGame";
 		    public const string FailureReason1 = "General/FailureReason1";
 		    public const string FailureReason2 = "General/FailureReason2";
@@ -1724,6 +1728,7 @@ namespace I2.Loc
 		    public const string Leave = "General/Leave";
 		    public const string LeaveFeedback = "General/LeaveFeedback";
 		    public const string Level = "General/Level";
+		    public const string LoginError = "General/LoginError";
 		    public const string Maintenance = "General/Maintenance";
 		    public const string MaintenanceDescription = "General/MaintenanceDescription";
 		    public const string Map = "General/Map";
@@ -1853,6 +1858,7 @@ namespace I2.Loc
 		    public const string Crates = "MainMenu/Crates";
 		    public const string CreateRoom = "MainMenu/CreateRoom";
 		    public const string CurrentXP = "MainMenu/CurrentXP";
+		    public const string CustomGame = "MainMenu/CustomGame";
 		    public const string CustomGameDescription = "MainMenu/CustomGameDescription";
 		    public const string CustomMatchBotsToggle = "MainMenu/CustomMatchBotsToggle";
 		    public const string CustomMatchSpectateToggle = "MainMenu/CustomMatchSpectateToggle";

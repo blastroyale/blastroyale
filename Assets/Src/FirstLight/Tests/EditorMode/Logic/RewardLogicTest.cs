@@ -18,10 +18,12 @@ namespace FirstLight.Tests.EditorMode.Logic
 		private const int PLACEMENT1_CS_PERCENTAGE = 100; 
 		private const int PLACEMENT2_CS_PERCENTAGE = 50; 
 		private const int PLACEMENT3_CS_PERCENTAGE = 30;
+		private const int PLACEMENT4_CS_PERCENTAGE = 5;
 
 		private const int PLACEMENT1_BPP = 11;
 		private const int PLACEMENT2_BPP = 5;
 		private const int PLACEMENT3_BPP = 3;
+		private const int PLACEMENT4_BPP = 1;
 
 		private const int RESOURCEINFO_CSS_WINAMOUNT = 100;
 		private const int RESOURCEINFO_CSS_STARTAMOUNT = 100;
@@ -70,8 +72,8 @@ namespace FirstLight.Tests.EditorMode.Logic
 			});
 			
 			Assert.AreEqual(2, rewards.Count);
-			Assert.AreEqual(RESOURCEINFO_CSS_WINAMOUNT * PLACEMENT3_CS_PERCENTAGE / 100, rewards.Find(data => data.RewardId == GameId.CS).Value);
-			Assert.AreEqual(PLACEMENT3_BPP, rewards.Find(data => data.RewardId == GameId.BPP).Value);
+			Assert.AreEqual(RESOURCEINFO_CSS_WINAMOUNT * PLACEMENT4_CS_PERCENTAGE / 100, rewards.Find(data => data.RewardId == GameId.CS).Value);
+			Assert.AreEqual(PLACEMENT4_BPP, rewards.Find(data => data.RewardId == GameId.BPP).Value);
 		}
 
 		[Test]
@@ -104,8 +106,8 @@ namespace FirstLight.Tests.EditorMode.Logic
 			});
 			
 			Assert.AreEqual(2, rewards.Count);
-			Assert.AreEqual(RESOURCEINFO_CSS_WINAMOUNT * PLACEMENT3_CS_PERCENTAGE / 100, rewards.Find(data => data.RewardId == GameId.CS).Value);
-			Assert.AreEqual(PLACEMENT3_BPP, rewards.Find(data => data.RewardId == GameId.BPP).Value);
+			Assert.AreEqual(RESOURCEINFO_CSS_WINAMOUNT * PLACEMENT4_CS_PERCENTAGE / 100, rewards.Find(data => data.RewardId == GameId.CS).Value);
+			Assert.AreEqual(PLACEMENT4_BPP, rewards.Find(data => data.RewardId == GameId.BPP).Value);
 		}
 
 		[Test]
@@ -171,6 +173,40 @@ namespace FirstLight.Tests.EditorMode.Logic
 		}
 		
 		[Test]
+		public void GiveMatchRewards_9PlayersTotal_CameSecond_RewardedAsFourth()
+		{
+			_matchData.PlayerRank = 2;
+			var rewards = _rewardLogic.GiveMatchRewards(new RewardSource()
+			{
+				MatchType = MatchType.Ranked,
+				MatchData = _matchData,
+				DidPlayerQuit = false,
+				GamePlayerCount = 9
+			});
+			
+			Assert.AreEqual(2, rewards.Count);
+			Assert.AreEqual(RESOURCEINFO_CSS_WINAMOUNT * PLACEMENT4_CS_PERCENTAGE / 100, rewards.Find(data => data.RewardId == GameId.CS).Value);
+			Assert.AreEqual(PLACEMENT4_BPP, rewards.Find(data => data.RewardId == GameId.BPP).Value);
+		}
+		
+		[Test]
+		public void GiveMatchRewards_12PlayersTotal_CameSecond_RewardedAsThird()
+		{
+			_matchData.PlayerRank = 2;
+			var rewards = _rewardLogic.GiveMatchRewards(new RewardSource()
+			{
+				MatchType = MatchType.Ranked,
+				MatchData = _matchData,
+				DidPlayerQuit = false,
+				GamePlayerCount = 12
+			});
+			
+			Assert.AreEqual(2, rewards.Count);
+			Assert.AreEqual(RESOURCEINFO_CSS_WINAMOUNT * PLACEMENT3_CS_PERCENTAGE / 100, rewards.Find(data => data.RewardId == GameId.CS).Value);
+			Assert.AreEqual(PLACEMENT3_BPP, rewards.Find(data => data.RewardId == GameId.BPP).Value);
+		}
+		
+		[Test]
 		public void GiveMatchRewards_EmptyMatchData_RewardsNothing()
 		{
 			Assert.Throws<MatchDataEmptyLogicException>(() => _rewardLogic.GiveMatchRewards(new RewardSource()
@@ -229,7 +265,8 @@ namespace FirstLight.Tests.EditorMode.Logic
 			InitConfigData(config => config.Placement, 
 			               new MatchRewardConfig { Placement = 1, Rewards = new SerializedDictionary<GameId, uint> {{GameId.CS, PLACEMENT1_CS_PERCENTAGE}, {GameId.BPP, PLACEMENT1_BPP}}}, 
 			               new MatchRewardConfig { Placement = 2, Rewards = new SerializedDictionary<GameId, uint> { { GameId.CS, PLACEMENT2_CS_PERCENTAGE }, {GameId.BPP, PLACEMENT2_BPP}} }, 
-			               new MatchRewardConfig { Placement = 3, Rewards = new SerializedDictionary<GameId, uint> { { GameId.CS, PLACEMENT3_CS_PERCENTAGE }, {GameId.BPP, PLACEMENT3_BPP}} });
+			               new MatchRewardConfig { Placement = 3, Rewards = new SerializedDictionary<GameId, uint> { { GameId.CS, PLACEMENT3_CS_PERCENTAGE }, {GameId.BPP, PLACEMENT3_BPP}} },
+			               new MatchRewardConfig { Placement = 4, Rewards = new SerializedDictionary<GameId, uint> { { GameId.CS, PLACEMENT4_CS_PERCENTAGE }, {GameId.BPP, PLACEMENT4_BPP}} });
 		}
 
 		private void SetupZeroResources()

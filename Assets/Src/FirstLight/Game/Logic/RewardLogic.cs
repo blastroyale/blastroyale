@@ -12,6 +12,14 @@ using Quantum;
 
 namespace FirstLight.Game.Logic
 {
+	public class RewardSource
+	{
+		public bool DidPlayerQuit { get; set; }
+		public int GamePlayerCount { get; set; }
+		public QuantumPlayerMatchData MatchData { get; set; }
+		public MatchType MatchType { get; set; }
+	}
+	
 	/// <summary>
 	/// This logic provides the necessary behaviour to manage the player's rewards
 	/// </summary>
@@ -30,17 +38,16 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Generate a list of rewards based on the players <paramref name="matchData"/> performance from a game completed
 		/// </summary>
-		List<RewardData> CalculateMatchRewards(MatchType matchType, QuantumPlayerMatchData matchData,
-		                                       bool didPlayerQuit, int playerCount);
+		List<RewardData> CalculateMatchRewards(RewardSource source);
 	}
 
 	/// <inheritdoc />
 	public interface IRewardLogic : IRewardDataProvider
 	{
 		/// <summary>
-		/// Generate a list of rewards based on the players <paramref name="matchData"/> performance from a game completed
+		/// Generate a list of rewards based on the players <paramref name="RewardSource"/> performance from a game completed
 		/// </summary>
-		List<RewardData> GiveMatchRewards(MatchType matchType, QuantumPlayerMatchData matchData, bool didPlayerQuit);
+		List<RewardData> GiveMatchRewards(RewardSource source);
 
 		/// <summary>
 		/// Collects all the unclaimed rewards in the player's inventory
@@ -65,18 +72,18 @@ namespace FirstLight.Game.Logic
 			_unclaimedRewards = new ObservableList<RewardData>(Data.UncollectedRewards);
 		}
 
-		public List<RewardData> CalculateMatchRewards(MatchType matchType, QuantumPlayerMatchData matchData,
-		                                              bool didPlayerQuit, int playerCount)
+		public List<RewardData> CalculateMatchRewards(RewardSource source)
 		{
 			var rewards = new List<RewardData>();
-
-			if (matchData.PlayerRank == 0)
+			var matchType = source.MatchType;
+			
+			if (source.MatchData.PlayerRank == 0)
 			{
 				throw new MatchDataEmptyLogicException();
 			}
 
 			// We don't reward quitters and we don't reward players for Custom games
-			if (matchType == MatchType.Custom || didPlayerQuit)
+			if (matchType == MatchType.Custom || source.DidPlayerQuit)
 			{
 				return rewards;
 			}
@@ -90,7 +97,7 @@ namespace FirstLight.Game.Logic
 			var rewardConfig = gameModeRewardConfigs[0];
 			
 			// We calculate rank value for rewards based on the number of players in a match versus maximum of 30
-			var rankValue = Math.Min(1 + Math.Round(30 / (float)playerCount) * (matchData.PlayerRank - 1), 30);
+			var rankValue = Math.Min(1 + Math.Round(30 / (double)source.GamePlayerCount) * (source.MatchData.PlayerRank - 1), 30);
 			
 			foreach (var config in gameModeRewardConfigs)
 			{
@@ -154,11 +161,9 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public List<RewardData> GiveMatchRewards(MatchType matchType, QuantumPlayerMatchData matchData,
-		                                         bool didPlayerQuit)
+		public List<RewardData> GiveMatchRewards(RewardSource source)
 		{
-			var frame = QuantumRunner.Default.Game.Frames.Verified;
-			var rewards = CalculateMatchRewards(matchType, matchData, didPlayerQuit, frame.PlayerCount);
+			var rewards = CalculateMatchRewards(source);
 
 			foreach (var reward in rewards)
 			{

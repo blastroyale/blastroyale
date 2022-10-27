@@ -14,6 +14,7 @@ namespace FirstLight.Game.Commands
 	{
 		public List<QuantumPlayerMatchData> PlayersMatchData;
 		public QuantumValues QuantumValues;
+		private int _playerCount;
 
 		public CommandAccessLevel AccessLevel() => CommandAccessLevel.Service;
 
@@ -27,8 +28,14 @@ namespace FirstLight.Game.Commands
 			var matchType = QuantumValues.MatchType;
 			var trophyChange =
 				gameLogic.PlayerLogic.UpdateTrophies(matchType, matchData, QuantumValues.ExecutingPlayer);
-			var rewards =
-				gameLogic.RewardLogic.GiveMatchRewards(matchType, matchData[QuantumValues.ExecutingPlayer], false);
+			var rewardSource = new RewardSource()
+			{
+				MatchData = matchData[QuantumValues.ExecutingPlayer],
+				MatchType = matchType,
+				DidPlayerQuit = false,
+				GamePlayerCount = _playerCount
+			};
+			var rewards = gameLogic.RewardLogic.GiveMatchRewards(rewardSource);
 
 			gameLogic.MessageBrokerService.Publish(new GameCompletedRewardsMessage
 			{
@@ -43,6 +50,7 @@ namespace FirstLight.Game.Commands
 			var gameContainer = frame.GetSingleton<GameContainer>();
 			PlayersMatchData = gameContainer.GetPlayersMatchData(frame, out _);
 			QuantumValues = quantumValues;
+			_playerCount = frame.PlayerCount;
 		}
 	}
 }

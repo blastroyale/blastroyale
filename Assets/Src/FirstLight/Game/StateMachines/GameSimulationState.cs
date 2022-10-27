@@ -90,19 +90,18 @@ namespace FirstLight.Game.StateMachines
 			deathmatch.Nest(_deathmatchState.Setup).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
 			deathmatch.Event(MatchEndedEvent).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
 			deathmatch.Event(MatchQuitEvent).OnTransition(() => MatchEndAnalytics(true)).Target(quitCheck);
-			deathmatch.Event(GameCompleteExitEvent).Target(final);
 			deathmatch.OnExit(PublishMatchEnded);
 
 			battleRoyale.Nest(_battleRoyaleState.Setup).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
 			//battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
 			battleRoyale.Event(MatchEndedEvent).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
 			battleRoyale.Event(MatchQuitEvent).OnTransition(() => MatchEndAnalytics(true)).Target(quitCheck);
-			battleRoyale.Event(GameCompleteExitEvent).Target(final);
 			battleRoyale.OnExit(PublishMatchEnded);
 
 			//disconnected.OnEnter(StopSimulation);
 			//disconnected.Event(NetworkState.JoinedRoomEvent).Target(startSimulation);
-			
+
+			quitCheck.Transition().Condition(IsCustomMatch).Target(final);
 			quitCheck.Transition().Condition(IsSpectator).Target(final);
 			quitCheck.Transition().Target(gameEnded);
 			
@@ -147,6 +146,11 @@ namespace FirstLight.Game.StateMachines
 			QuantumCallback.UnsubscribeListener(this);
 		}
 
+		private bool IsCustomMatch()
+		{
+			return _services.NetworkService.QuantumClient.CurrentRoom.GetMatchType() == MatchType.Custom;
+		}
+		
 		private bool IsSpectator()
 		{
 			return _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator();
@@ -223,13 +227,7 @@ namespace FirstLight.Game.StateMachines
 				QuantumRunner.Default.Game.SendCommand(new PlayerQuitCommand());
 			}
 
-			if (_services.NetworkService.QuantumClient.CurrentRoom.GetMatchType() == MatchType.Custom)
-			{
-				_statechartTrigger(GameCompleteExitEvent);
-			}
-			{
-				_statechartTrigger(MatchQuitEvent);
-			}
+			_statechartTrigger(MatchQuitEvent);
 		}
 
 		private void GiveMatchRewards()

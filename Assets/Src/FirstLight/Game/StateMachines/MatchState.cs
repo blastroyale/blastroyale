@@ -247,7 +247,6 @@ namespace FirstLight.Game.StateMachines
 			var runnerConfigs = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 			var sceneTask = _services.AssetResolverService.LoadSceneAsync($"Scenes/{map}.unity", LoadSceneMode.Additive);
 			
-			MainInstaller.Bind<IMatchServices>(matchServices);
 			// TODO ROB _assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<AudioAdventureAssetConfigs>());
 			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<MatchAssetConfigs>());
 			runnerConfigs.SetRuntimeConfig(gameModeConfig, config, mutatorIds);

@@ -78,6 +78,7 @@ namespace FirstLight.Game.StateMachines
 			
 			initial.Transition().Target(startSimulation);
 			initial.OnExit(SubscribeEvents);
+			initial.OnExit(OpenLowConnectionScreen);
 
 			startSimulation.OnEnter(StartSimulation);
 			startSimulation.Event(SimulationStartedEvent).Target(modeCheck);
@@ -127,8 +128,19 @@ namespace FirstLight.Game.StateMachines
 			gameRewards.WaitingFor(OpenRewardsScreen).Target(final);
 			gameRewards.OnExit(CloseRewardsScreen);
 
+			final.OnEnter(CloseLowConnectionScreen);
 			final.OnEnter(StopSimulation);
 			final.OnEnter(UnsubscribeEvents);
+		}
+
+		private void OpenLowConnectionScreen()
+		{
+			_uiService.OpenUiAsync<LowConnectionPresenter, LowConnectionPresenter.StateData>(new LowConnectionPresenter.StateData());
+		}
+
+		private void CloseLowConnectionScreen()
+		{
+			_uiService.CloseUi<LowConnectionPresenter>(false, true);
 		}
 
 		private void SubscribeEvents()

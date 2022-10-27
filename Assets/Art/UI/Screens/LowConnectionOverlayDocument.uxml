@@ -1,6 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/DisconnectedScreenStyle.uss?fileID=7433441132597879392&amp;guid=968b6e338250e984388d510b63cd84bd&amp;type=3#DisconnectedScreenStyle" />
-    <ui:VisualElement name="root" class="background hidden">
-        <ui:VisualElement name="PopupBackground" />
+    <ui:VisualElement name="root" class="background" style="top: 0; right: 0; left: 0; bottom: 1px;">
+        <ui:VisualElement name="PopupBackground">
+            <ui:VisualElement name="LowConnectionIcon" style="flex-grow: 1;" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

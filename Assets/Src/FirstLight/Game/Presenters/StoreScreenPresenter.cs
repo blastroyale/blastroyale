@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -46,9 +47,10 @@ namespace FirstLight.Game.Presenters
 			_blocker = root.Q("Blocker").Required();
 
 			root.Q<Button>("BackButton").clicked += Data.BackClicked;
-			root.Q<Button>("ItemRare").clicked += () => { BuyItem(ITEM_RARE_ID); };
-			root.Q<Button>("ItemEpic").clicked += () => { BuyItem(ITEM_EPIC_ID); };
-			root.Q<Button>("ItemLegendary").clicked += () => { BuyItem(ITEM_LEGENDARY_ID); };
+
+			SetupItem("ItemRare", ITEM_RARE_ID);
+			SetupItem("ItemEpic", ITEM_EPIC_ID);
+			SetupItem("ItemLegendary", ITEM_LEGENDARY_ID);
 		}
 
 		protected override void SubscribeToEvents()
@@ -61,7 +63,7 @@ namespace FirstLight.Game.Presenters
 		private void OnPurchaseFailed(IAPPurchaseFailedMessage msg)
 		{
 			Data.IapProcessingFinished();
-			
+
 			_blocker.style.display = DisplayStyle.None;
 
 			var confirmButton = new GenericDialogButton
@@ -77,7 +79,7 @@ namespace FirstLight.Game.Presenters
 		private void OnPurchaseCompleted(IAPPurchaseCompletedMessage msg)
 		{
 			Data.IapProcessingFinished();
-			
+
 			_pendingRewards.Clear();
 
 			foreach (var equipment in msg.Rewards)
@@ -121,6 +123,17 @@ namespace FirstLight.Game.Presenters
 
 			Data.UiService
 				.OpenUiAsync<BattlepassRewardDialogPresenter, BattlepassRewardDialogPresenter.StateData>(data);
+		}
+
+		private void SetupItem(string uiId, string storeId)
+		{
+			var product = _gameServices.IAPService.Products.First(item => item.definition.id == storeId);
+
+			var button = Root.Q<Button>(uiId);
+			var priceLabel = button.Q<Label>("Price");
+
+			button.clicked += () => { BuyItem(storeId); };
+			priceLabel.text = product.metadata.localizedPriceString;
 		}
 	}
 }

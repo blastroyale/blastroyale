@@ -8,7 +8,7 @@
                 <ui:VisualElement name="_body" class="store-item__body">
                     <ui:Label text="RARE CORE" class="store-item__body__title store-item__body__title--rare" />
                     <ui:VisualElement class="store-item__body__icon store-item__body__icon--rare" />
-                    <ui:Label text="0.99€" class="store-item__body__price" />
+                    <ui:Label name="Price" text="0.99€" class="store-item__body__price" />
                 </ui:VisualElement>
             </ui:Button>
             <ui:Button name="ItemEpic" class="store-item" style="margin-left: 100px; margin-right: 100px;">
@@ -16,7 +16,7 @@
                 <ui:VisualElement name="_body" class="store-item__body">
                     <ui:Label text="EPIC CORE" class="store-item__body__title store-item__body__title--epic" />
                     <ui:VisualElement class="store-item__body__icon store-item__body__icon--epic" />
-                    <ui:Label text="1.99€" class="store-item__body__price" />
+                    <ui:Label name="Price" text="1.99€" class="store-item__body__price" />
                 </ui:VisualElement>
             </ui:Button>
             <ui:Button name="ItemLegendary" class="store-item">
@@ -24,7 +24,7 @@
                 <ui:VisualElement name="_body" class="store-item__body">
                     <ui:Label text="LEGENDARY CORE" class="store-item__body__title store-item__body__title--legendary" />
                     <ui:VisualElement class="store-item__body__icon store-item__body__icon--legendary" />
-                    <ui:Label text="2.99€" class="store-item__body__price" />
+                    <ui:Label name="Price" text="2.99€" class="store-item__body__price" />
                 </ui:VisualElement>
             </ui:Button>
         </FirstLight.Game.UIElements.SafeAreaElement>

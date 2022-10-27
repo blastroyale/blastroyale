@@ -58,7 +58,7 @@ namespace FirstLight.Game.Presenters
 
 			_services.AudioFxService.PlayClip2D(AudioId.DisconnectScreenAppear);
 			
-			if (Application.internetReachability == NetworkReachability.NotReachable)
+			if (!NetworkUtils.IsOnline())
 			{
 				OpenNoInternetPopup();
 			}
@@ -109,7 +109,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnReconnectClicked()
 		{
-			if (Application.internetReachability == NetworkReachability.NotReachable)
+			if (!NetworkUtils.IsOnline())
 			{
 				OpenNoInternetPopup();
 				return;

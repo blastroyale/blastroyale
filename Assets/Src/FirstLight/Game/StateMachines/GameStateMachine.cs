@@ -51,7 +51,7 @@ namespace FirstLight.Game.StateMachines
 			_initialLoadingState = new InitialLoadingState(services, uiService, assetAdderService, configsAdder, vfxService, Trigger);
 			_authenticationState = new AuthenticationState(gameLogic, services, uiService, dataService, networkService, Trigger, _configsAdder);
 			_audioState = new AudioState(gameLogic, services, Trigger);
-			_networkState = new NetworkState(gameLogic, services, uiService, networkService, Trigger);
+			_networkState = new NetworkState(gameLogic, services, networkService, Trigger);
 			_coreLoopState = new CoreLoopState(services, networkService, uiService, gameLogic, assetAdderService, Trigger);
 			_statechart = new Statechart.Statechart(Setup);
 		}
@@ -79,10 +79,10 @@ namespace FirstLight.Game.StateMachines
 			
 			initial.Transition().Target(initialAssets);
 			initial.OnExit(SubscribeEvents);
-
+			
 			initialAssets.WaitingFor(LoadCoreAssets).Target(internetCheck);
 			
-			internetCheck.Transition().Condition(InternetCheck).OnTransition(OpenNoInternetPopUp).Target(final);
+			internetCheck.Transition().Condition(NetworkUtils.IsOffline).OnTransition(OpenNoInternetPopUp).Target(final);
 			internetCheck.Transition().Target(initialLoading);
 
 			initialLoading.Nest(_initialLoadingState.Setup).Target(authentication);
@@ -104,11 +104,6 @@ namespace FirstLight.Game.StateMachines
 		private void UnsubscribeEvents()
 		{
 			_services.MessageBrokerService.UnsubscribeAll(this);
-		}
-
-		private bool InternetCheck()
-		{
-			return Application.internetReachability == NetworkReachability.NotReachable;
 		}
 
 		private void InitializeLocalLogic()
@@ -162,8 +157,8 @@ namespace FirstLight.Game.StateMachines
 			
 			await _uiService.LoadUiAsync<LoadingScreenPresenter>(true);
 			await Task.Delay(1000); // Delays 1 sec to play the loading screen animation
-			GameObject.Destroy(camera.gameObject);
 			await Task.WhenAll(_uiService.LoadUiSetAsync((int) UiSetId.InitialLoadUi));
+			GameObject.Destroy(camera.gameObject);
 		}
 	}
 }

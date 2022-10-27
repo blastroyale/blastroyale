@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using ExitGames.Client.Photon;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using Photon.Realtime;
 using Quantum;
@@ -301,6 +302,53 @@ namespace FirstLight.Game.Utils
 		public static int GetMaxPlayers(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig)
 		{
 			return Math.Min((int) gameModeConfig.MaxPlayers, mapConfig.MaxPlayers);
+		}
+
+		/// <summary>
+		/// Requests to check if the device is online
+		/// </summary>
+		public static bool IsOnline()
+		{
+			return Application.internetReachability != NetworkReachability.NotReachable;
+		}
+		
+		/// <summary>
+		/// Requests to check if the device is offline
+		/// </summary>
+		public static bool IsOffline()
+		{
+			return Application.internetReachability == NetworkReachability.NotReachable;
+		}
+
+		/// <summary>
+		/// Requests to check if the device is connected to internet, and Photon is connected
+		/// </summary>
+		public static bool IsOnlineAndConnected()
+		{
+			return IsOnline() && MainInstaller.Resolve<IGameServices>().NetworkService.QuantumClient.IsConnectedAndReady;
+		}
+		
+		/// <summary>
+		/// Requests to check if the device is disconnted from internet, or Photon is disconnected
+		/// </summary>
+		public static bool IsOfflineOrDisconnected()
+		{
+			return IsOffline() || !MainInstaller.Resolve<IGameServices>().NetworkService.QuantumClient.IsConnectedAndReady;
+		}
+
+		/// <summary>
+		/// Checks to see if a network action triggered by player input can be sent.
+		/// Sends a NetworkActionWhileDisconnectedMessage if not.
+		/// </summary>
+		public static bool CheckAttemptNetworkAction()
+		{
+			if (IsOfflineOrDisconnected())
+			{
+				MainInstaller.Resolve<IGameServices>().MessageBrokerService.Publish(new NetworkActionWhileDisconnectedMessage());
+				return false;
+			}
+
+			return true;
 		}
 	}
 }

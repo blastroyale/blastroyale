@@ -58,6 +58,9 @@ namespace Quantum
 		
 		[FoldoutGroup("UI"), PropertyTooltip(DESC_SINGLE_SLOT_MODE)]
 		public bool SingleSlotMode;
+		
+		[FoldoutGroup("UI"), PropertyTooltip(DESC_DESCRIPTION_LOCALISATION_KEY)]
+		public string DescriptionLocalisationKey;
 
 #endregion
 
@@ -124,9 +127,12 @@ namespace Quantum
 		[FoldoutGroup("Endgame"), PropertyTooltip(DESC_COMPLETION_STRATEGY)]
 		public GameCompletionStrategy CompletionStrategy;
 
-		[FoldoutGroup("Endgame"), ShowIf("@CompletionStrategy == GameCompletionStrategy.KillCount"),
+		[FoldoutGroup("Endgame"), ShowIf("@CompletionStrategy == GameCompletionStrategy.KillCount"), 
 		 PropertyTooltip(DESC_COMPLETION_KILL_COUNT)]
 		public uint CompletionKillCount;
+		
+		[FoldoutGroup("Endgame"), PropertyTooltip(DESC_ALLOW_EARLY_REWARDS)]
+		public bool AllowEarlyRewards;
 
 #endregion
 
@@ -167,6 +173,7 @@ namespace Quantum
 		private const string DESC_SHOW_UI_STANDINGS_EXTRA_INFO = "Displays additional information on the standings / leaderboards, like XP and Trophy count.";
 		private const string DESC_SHOW_WEAPON_SLOTS = "Displays weapon slots and enables the player to switch between weapons.";
 		private const string DESC_SINGLE_SLOT_MODE = "Only shows the melee slot and the first weapon slot";
+		private const string DESC_DESCRIPTION_LOCALISATION_KEY = "Localisation key for the description of this game mode";
 		private const string DESC_LIVES = "How many lives does the player have. Use 0 for infinite lives";
 		private const string DESC_DROP_WEAPON_ON_PICKUP = "Drops the player's equipped weapon if they pick up a better one.";
 		private const string DESC_SPAWN_WITH_LOADOUT = "Spawns the player with their loadout equipment equipped.";
@@ -185,6 +192,7 @@ namespace Quantum
 		private const string DESC_RANK_PROCESSOR = "How should we modify the player's rank on the leaderboards.";
 		private const string DESC_ALLOWED_MAPS = "Which maps are allowed to be played with this game mode.";
 		private const string DESC_COMPLETION_STRATEGY = "What should mark the end of a match.";
+		private const string DESC_ALLOW_EARLY_REWARDS = "Can player earn rewards mid-game ?";
 		private const string DESC_COMPLETION_KILL_COUNT = "How many kills must a player have to win the match.";
 		private const string DESC_GAME_SIMULATION_SM = "Which state machine to use for game simulation";
 		private const string DESC_AUDIO_SM = "Which state machine to use for audio.";

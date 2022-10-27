@@ -14,32 +14,31 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		protected override void OnAwake()
 		{
-			
 			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, OnEventOnPlayerAttack);
 			QuantumEvent.Subscribe<EventOnPlayerStopAttack>(this, OnEventOnPlayerStopAttack);
 			QuantumEvent.Subscribe<EventOnGameEnded>(this, OnEventOnGameEnded);
-			QuantumEvent.Subscribe<EventOnPlayerEquipmentStatsChanged>(this, OnStatsChanged);
+			QuantumEvent.Subscribe<EventOnPlayerWeaponChanged>(this, OnPlayerWeaponChanged);
 		}
-		
+
 		protected override void OnInit(QuantumGame game)
 		{
 			var f = game.Frames.Verified;
 			var playerCharacter = f.Get<PlayerCharacter>(EntityRef);
 			var stats = f.Get<Stats>(EntityRef);
 
-			UpdateParticleSystem((int)playerCharacter.CurrentWeapon.GameId, stats);
+			UpdateParticleSystem(playerCharacter.CurrentWeapon.GameId, stats);
 		}
 
-		private void OnStatsChanged(EventOnPlayerEquipmentStatsChanged callback)
+		private void OnPlayerWeaponChanged(EventOnPlayerWeaponChanged callback)
 		{
-			if (EntityRef != callback.Entity)
+			var f = callback.Game.Frames.Verified;
+			
+			if (EntityRef != callback.Entity || !f.TryGet<Stats>(callback.Entity, out var stats))
 			{
 				return;
 			}
-			var f = callback.Game.Frames.Verified;
-			var weaponGameId = f.Get<PlayerCharacter>(EntityRef).CurrentWeapon.GameId;
-			var stats = f.Get<Stats>(EntityRef);
-			UpdateParticleSystem((int)weaponGameId, stats);
+			
+			UpdateParticleSystem(callback.Weapon.GameId, stats);
 		}
 
 		private void OnEventOnPlayerAttack(EventOnPlayerAttack callback)
@@ -93,10 +92,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			_particleSystem.Stop();
 		}
 
-		private void UpdateParticleSystem(int weaponId, Stats stats)
+		private void UpdateParticleSystem(GameId weaponId, Stats stats)
 		{
-			var config = Services.ConfigsProvider.GetConfig<QuantumWeaponConfig>(weaponId);
-			
+			var config = Services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) weaponId);
 			var main = _particleSystem.main;
 			var emission = _particleSystem.emission;
 			var speed = config.AttackHitSpeed.AsFloat;

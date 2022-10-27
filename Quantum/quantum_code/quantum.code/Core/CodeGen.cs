@@ -269,6 +269,7 @@ namespace Quantum {
     Collection = 9,
     DeathMarker = 10,
     Core = 22,
+    IAP = 23,
   }
   public enum GameSimulationStateMachine : int {
     Deathmatch,

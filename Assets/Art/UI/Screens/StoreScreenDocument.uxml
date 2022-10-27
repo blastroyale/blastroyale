@@ -28,6 +28,8 @@
                 </ui:VisualElement>
             </ui:Button>
         </FirstLight.Game.UIElements.SafeAreaElement>
-        <ui:VisualElement name="Blocker" class="blocker" style="display: none;" />
+        <ui:VisualElement name="Blocker" class="blocker" style="display: none;">
+            <ui:Label text="Waiting..." class="blocker__title" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

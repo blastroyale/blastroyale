@@ -125,8 +125,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var velocity = kcc->Velocity.SqrMagnitude;
 			var range = f.Get<Stats>(_localPlayerEntity).GetStatData(StatType.AttackRange).StatValue.AsFloat;
 			
-			var minAttackAngle = _weaponConfig.MinAttackAngle;
-			var maxAttackAngle = _weaponConfig.MaxAttackAngle;
+			var minAttackAngle = f.Context.TryGetMutatorByType(MutatorType.AbsoluteAccuracy, out _) ? 
+				0 : _weaponConfig.MinAttackAngle;
+			var maxAttackAngle = f.Context.TryGetMutatorByType(MutatorType.AbsoluteAccuracy, out _) ? 
+				0 : _weaponConfig.MaxAttackAngle;
 
 			var lerp = Mathf.Lerp(minAttackAngle, maxAttackAngle, velocity.AsFloat / speed.AsFloat);
 			var angleInRad = maxAttackAngle == minAttackAngle ? maxAttackAngle : lerp;

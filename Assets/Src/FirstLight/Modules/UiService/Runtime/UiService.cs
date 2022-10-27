@@ -349,7 +349,7 @@ namespace FirstLight.UiService
 		{
 			var startTime = Time.time;
 			var ui = await GetUiAsync(type);
-
+			
 			var remainingTime =  Math.Max(0,ui.OpenDelayTimeSeconds - (Time.time - startTime));
 
 			await Task.Delay((int)(remainingTime * 1000));

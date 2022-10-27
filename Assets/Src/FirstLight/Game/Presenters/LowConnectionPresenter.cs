@@ -45,13 +45,6 @@ namespace FirstLight.Game.Presenters
 			_lowConnectionIcon = root.Q("PopupBackground").Required();
 		}
 
-		protected override void OnOpened()
-		{
-			base.OnOpened();
-
-			SetLowConnectionActive(false);
-		}
-		
 		private void OnLag(bool previous, bool hasLag)
 		{
 			SetLowConnectionActive(hasLag);
@@ -59,7 +52,7 @@ namespace FirstLight.Game.Presenters
 		
 		private void SetLowConnectionActive(bool active)
 		{
-			_lowConnectionIcon.EnableInClassList("hidden", !active);
+			_lowConnectionIcon?.EnableInClassList("hidden", !active);
 		}
 	}
 }

@@ -19,7 +19,6 @@ namespace FirstLight.Game.Presenters
 	/// - Reconnect to the Adventure
 	/// - Leave the Adventure to the Main menu
 	/// </summary>
-	[LoadSynchronously]
 	public class DisconnectedScreenPresenter : UiToolkitPresenterData<DisconnectedScreenPresenter.StateData>
 	{
 		public struct StateData

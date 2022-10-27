@@ -13,10 +13,10 @@
 }
 
 #PopupBackground {
-    width: 168px;
-    height: 150px;
+    width: 120px;
+    height: 105px;
     background-color: rgba(0, 0, 0, 0);
-    top: -25%;
+    top: -28%;
     background-image: url('project://database/Assets/Art/UI/Sprites/LowConnetionOverlay/ConnectionBackBg.png?fileID=2800000&guid=f05123de9759b9246851e4d4e90ea664&type=3#ConnectionBackBg');
     padding-left: 5px;
     padding-right: 5px;

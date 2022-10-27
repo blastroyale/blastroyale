@@ -195,13 +195,12 @@ namespace FirstLight.Game.StateMachines
 
 		private async void SubscribeDisconnectEvents()
 		{
-			// TODO ROB - UNCOMMENT
-			//_services.TickService.SubscribeOnUpdate(TickReconnectAttempt, GameConstants.Network.NETWORK_ATTEMPT_RECONNECT_SECONDS);
+			_services.TickService.SubscribeOnUpdate(TickReconnectAttempt, GameConstants.Network.NETWORK_ATTEMPT_RECONNECT_SECONDS);
 			_criticalDisconnectCoroutine = _services.CoroutineService.StartCoroutine(CriticalDisconnectCoroutine());
 
 			await Task.Yield();
 		
-			//TickReconnectAttempt(0);
+			TickReconnectAttempt(0);
 		}
 
 		private void UnsubscribeDisconnectEvents()

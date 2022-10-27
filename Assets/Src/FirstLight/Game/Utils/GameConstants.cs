@@ -103,8 +103,7 @@ namespace FirstLight.Game.Utils
 			public const float NETWORK_QUANTUM_TICK_SECONDS = 0.1f;
 			public const float NETWORK_ATTEMPT_RECONNECT_SECONDS = 0.5f;
 			
-			// TODO ROB - REVERT BACK UP TO 8f
-			public const float CRITICAL_DISCONNECT_THRESHOLD_SECONDS = 3f;
+			public const float CRITICAL_DISCONNECT_THRESHOLD_SECONDS = 10f;
 			
 			// Time control values
 			public const int PLAYER_LOBBY_TTL_MS = 0;

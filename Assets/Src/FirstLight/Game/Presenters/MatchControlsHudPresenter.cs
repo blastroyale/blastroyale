@@ -200,6 +200,7 @@ namespace FirstLight.Game.Presenters
 			_services.PlayerInputService.Input.Gameplay.SetCallbacks(this);
 			_indicatorContainerView.Init(playerView);
 			_indicatorContainerView.SetupWeaponInfo(f, playerCharacter.CurrentWeapon.GameId);
+			
 			SetupSpecialsInput(f.Time, *playerCharacter.WeaponSlot, playerView);
 			InitSlotsView(playerCharacter);
 		}
@@ -237,6 +238,10 @@ namespace FirstLight.Game.Presenters
 			if (f.Get<AIBlackboardComponent>(localPlayer.Entity).GetBoolean(f, Constants.IsSkydiving))
 			{
 				OnLocalPlayerSkydiveDrop(null);
+			}
+			else
+			{
+				OnLocalPlayerSkydiveLanded(null);
 			}
 		}
 

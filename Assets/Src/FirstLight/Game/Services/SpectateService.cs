@@ -113,9 +113,6 @@ namespace FirstLight.Game.Services
 		{
 			_spectatedPlayer.StopObservingAll();
 			_spectatedPlayer.Value = new SpectatedPlayer();
-			
-			QuantumCallback.UnsubscribeListener(this);
-			QuantumEvent.UnsubscribeListener(this);
 		}
 
 		public void SwipeLeft()

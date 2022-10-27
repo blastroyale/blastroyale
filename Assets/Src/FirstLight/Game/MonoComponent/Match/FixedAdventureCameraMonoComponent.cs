@@ -51,10 +51,10 @@ namespace FirstLight.Game.MonoComponent.Match
 			gameObject.SetActive(false);
 		}
 		
-		private void OnMatchSimulationStartedMessage(MatchSimulationStartedMessage obj)
+		private void OnMatchSimulationStartedMessage(MatchSimulationStartedMessage msg)
 		{
 			// This is subscribed here, instead of Awake(), because spectate service get disposed (and all callbacks wiped)
-			// when simulation ends. This needs to be here so upon soft disconnections we always observer the spectated player
+			// when simulation ends. This needs to be here so upon soft disconnections we always observe the spectated player
 			// even after the service dies and wipes the observe callback
 			_matchServices.SpectateService.SpectatedPlayer.InvokeObserve(OnSpectatedPlayerChanged);
 		}

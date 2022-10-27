@@ -282,7 +282,6 @@ namespace FirstLight.Game.StateMachines
 
 		private async void UnloadAllMatchAssets()
 		{
-			Debug.LogError("------------------------UNLOADING ASSETS");
 			var scene = SceneManager.GetActiveScene();
 			var configProvider = _services.ConfigsProvider;
 

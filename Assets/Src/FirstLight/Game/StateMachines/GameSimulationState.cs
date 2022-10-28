@@ -154,7 +154,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void CloseLowConnectionScreen()
 		{
-			_uiService.CloseUi<LowConnectionPresenter>(false, true);
+			_uiService.CloseUi<LowConnectionPresenter>(true);
 		}
 		
 		private void OpenDisconnectedMatchEndDialog()

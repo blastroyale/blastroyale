@@ -217,9 +217,12 @@ namespace FirstLight.Game.Presenters
 
 		private void OnMatchStartedMessage(MatchStartedMessage msg)
 		{
-			MMVibrationManager.ContinuousHaptic(GameConstants.Haptics.GAME_START_INTENSITY, 
-			                                    GameConstants.Haptics.GAME_START_SHARPNESS, 
-			                                    GameConstants.Haptics.GAME_START_DURATION);
+			if (!msg.IsResync)
+			{
+				MMVibrationManager.ContinuousHaptic(GameConstants.Haptics.GAME_START_INTENSITY, 
+													GameConstants.Haptics.GAME_START_SHARPNESS, 
+													GameConstants.Haptics.GAME_START_DURATION);
+			}
 
 			if (!msg.IsResync || _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
 			{

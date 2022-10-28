@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using FirstLight.FLogger;
 using UnityEngine;
 
 // ReSharper disable CheckNamespace
@@ -302,7 +303,7 @@ namespace FirstLight.UiService
 			
 			if (_visibleUiList.Contains(type))
 			{
-				Debug.LogWarning($"Is trying to open the {type.Name} ui but is already open");
+				FLog.Warn($"Is trying to open the {type.Name} ui but is already open");
 				return ui;
 			}
 
@@ -367,7 +368,7 @@ namespace FirstLight.UiService
 		{
 			if (!_visibleUiList.Contains(type))
 			{
-				Debug.LogWarning($"Is trying to close the {type.Name} ui but is not open");
+				FLog.Warn($"Is trying to close the {type.Name} ui but is not open");
 				return;
 			}
 

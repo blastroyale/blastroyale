@@ -300,6 +300,12 @@ namespace FirstLight.UiService
 		{
 			var ui = GetUi(type);
 			
+			if (_visibleUiList.Contains(type))
+			{
+				Debug.LogWarning($"Is trying to open the {type.Name} ui but is already open");
+				return ui;
+			}
+
 			ui.InternalOpen();
 			_visibleUiList.Add(type);
 
@@ -359,10 +365,14 @@ namespace FirstLight.UiService
 		/// <inheritdoc />
 		public void CloseUi(Type type, bool destroy = false)
 		{
-			_visibleUiList.Remove(type);
-			
-			var ui = GetUi(type);
+			if (!_visibleUiList.Contains(type))
+			{
+				Debug.LogWarning($"Is trying to close the {type.Name} ui but is not open");
+				return;
+			}
 
+			_visibleUiList.Remove(type);
+			var ui = GetUi(type); 
 			ui.InternalClose(destroy);
 		}
 

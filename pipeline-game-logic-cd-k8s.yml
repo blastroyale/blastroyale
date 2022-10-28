@@ -45,7 +45,7 @@ stages:
     helmRepoPassword: $(HELM-REPO-PASSWORD)
     envVars: |
       --set env.API_KEY=$(DEV-COMMON-API-KEY) \
-      --set env.API_URL="***REMOVED***"
+      --set env.API_URL="***REMOVED***" \
       --set env.APPLICATIONINSIGHTS_CONNECTION_STRING="$(DEV-COMMON-APP-INSIGHTS-CONNECTION-STRING)" \
       --set env.APPLICATION_ENVIRONMENT=dev \
       --set env.CONNECTION_STRING="$(DEV-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)" \
@@ -53,7 +53,8 @@ stages:
       --set env.NFT_SYNC=true \
       --set env.PLAYFAB_DEV_SECRET_KEY=$(DEV-COMMON-PLAYFAB-SECRET-KEY) \
       --set env.PLAYFAB_SECRET_KEY=$(DEV-COMMON-PLAYFAB-SECRET-KEY) \
-      --set env.PLAYFAB_TITLE=***REMOVED*** 
+      --set env.PLAYFAB_TITLE=***REMOVED*** \
+      --set env.SqlConnectionString="$(DEV-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)"
       
 - template: pipelines/release-helm-chart.yml@templates
   parameters:
@@ -70,7 +71,7 @@ stages:
     helmRepoPassword: $(HELM-REPO-PASSWORD)
     envVars: |
       --set env.API_KEY=$(STAGING-COMMON-API-KEY) \
-      --set env.API_URL="https://staging-hub-blockchain-service.blastroyale.com"
+      --set env.API_URL="https://staging-hub-blockchain-service.blastroyale.com" \
       --set env.APPLICATIONINSIGHTS_CONNECTION_STRING="$(STAGING-COMMON-APP-INSIGHTS-CONNECTION-STRING)" \
       --set env.APPLICATION_ENVIRONMENT=staging \
       --set env.CONNECTION_STRING="$(STAGING-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)" \
@@ -78,7 +79,8 @@ stages:
       --set env.NFT_SYNC=true \
       --set env.PLAYFAB_DEV_SECRET_KEY=$(STAGING-COMMON-PLAYFAB-SECRET-KEY) \
       --set env.PLAYFAB_SECRET_KEY=$(STAGING-COMMON-PLAYFAB-SECRET-KEY) \
-      --set env.PLAYFAB_TITLE=***REMOVED*** 
+      --set env.PLAYFAB_TITLE=***REMOVED*** \
+      --set env.SqlConnectionString="$(STAGING-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)"
       
 - template: pipelines/release-helm-chart.yml@templates
   parameters:
@@ -95,7 +97,7 @@ stages:
     helmRepoPassword: $(HELM-REPO-PASSWORD)
     envVars: |
       --set env.API_KEY=$(TESTNET-PROD-COMMON-API-KEY) \
-      --set env.API_URL="https://testnet-prod-blockchain-service.blastroyale.com"
+      --set env.API_URL="https://testnet-prod-blockchain-service.blastroyale.com" \
       --set env.APPLICATIONINSIGHTS_CONNECTION_STRING="$(TESTNET-PROD-COMMON-APP-INSIGHTS-CONNECTION-STRING)" \
       --set env.APPLICATION_ENVIRONMENT=testnet-prod \
       --set env.CONNECTION_STRING="$(TESTNET-PROD-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)" \
@@ -103,7 +105,8 @@ stages:
       --set env.NFT_SYNC=true \
       --set env.PLAYFAB_DEV_SECRET_KEY=$(TESTNET-PROD-COMMON-PLAYFAB-SECRET-KEY) \
       --set env.PLAYFAB_SECRET_KEY=$(TESTNET-PROD-COMMON-PLAYFAB-SECRET-KEY) \
-      --set env.PLAYFAB_TITLE=***REMOVED*** 
+      --set env.PLAYFAB_TITLE=***REMOVED*** \
+      --set env.SqlConnectionString="$(TESTNET-PROD-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)"
       
 - template: pipelines/release-helm-chart.yml@templates
   parameters:
@@ -120,7 +123,7 @@ stages:
     helmRepoPassword: $(HELM-REPO-PASSWORD)
     envVars: |
       --set env.API_KEY=$(MAINNET-PROD-COMMON-API-KEY) \
-      --set env.API_URL="https://mainnet-prod-blockchain-service.blastroyale.com"
+      --set env.API_URL="https://mainnet-prod-blockchain-service.blastroyale.com" \
       --set env.APPLICATIONINSIGHTS_CONNECTION_STRING="$(MAINNET-PROD-COMMON-APP-INSIGHTS-CONNECTION-STRING)" \
       --set env.APPLICATION_ENVIRONMENT=mainnet-prod \
       --set env.CONNECTION_STRING="$(MAINNET-PROD-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)" \
@@ -128,5 +131,6 @@ stages:
       --set env.NFT_SYNC=true \
       --set env.PLAYFAB_DEV_SECRET_KEY=$(MAINNET-PROD-COMMON-PLAYFAB-SECRET-KEY) \
       --set env.PLAYFAB_SECRET_KEY=$(MAINNET-PROD-COMMON-PLAYFAB-SECRET-KEY) \
-      --set env.PLAYFAB_TITLE=notset 
+      --set env.PLAYFAB_TITLE=notset \
+      --set env.SqlConnectionString="$(MAINNET-PROD-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)"
       

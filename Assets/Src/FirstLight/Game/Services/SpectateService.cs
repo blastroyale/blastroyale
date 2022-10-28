@@ -70,6 +70,7 @@ namespace FirstLight.Game.Services
 
 		public void Dispose()
 		{
+			_spectatedPlayer.StopObservingAll();
 			QuantumCallback.UnsubscribeListener(this);
 			QuantumEvent.UnsubscribeListener(this);
 		}
@@ -111,8 +112,6 @@ namespace FirstLight.Game.Services
 
 		public void OnMatchEnded()
 		{
-			_spectatedPlayer.StopObservingAll();
-			_spectatedPlayer.Value = new SpectatedPlayer();
 		}
 
 		public void SwipeLeft()
@@ -203,7 +202,7 @@ namespace FirstLight.Game.Services
 
 		private bool SetSpectatedEntity(EntityRef entity, PlayerRef player, bool safe = false)
 		{
-			if (_spectatedPlayer.Value.Entity == entity || !entity.IsValid) return false;
+			if (!entity.IsValid) return false;
 
 			if (_matchServices.EntityViewUpdaterService.TryGetView(entity, out var view))
 			{

@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Cinemachine;
 using FirstLight.FLogger;
@@ -41,7 +42,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			input.SpecialButton1.canceled += SetActiveCamera;
 			input.CancelButton.canceled += SetActiveCamera;
 			
-			_services.MessageBrokerService.Subscribe<MatchSimulationStartedMessage>(OnMatchSimulationStartedMessage);
+			_matchServices.SpectateService.SpectatedPlayer.InvokeObserve(OnSpectatedPlayerChanged);
 			_services.MessageBrokerService.Subscribe<SpectateSetCameraMessage>(OnSpectateSetCameraMessage);
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
 			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
@@ -49,14 +50,6 @@ namespace FirstLight.Game.MonoComponent.Match
 			QuantumEvent.Subscribe<EventOnPlayerSkydiveLand>(this, OnPlayerSkydiveLand);
 			
 			gameObject.SetActive(false);
-		}
-		
-		private void OnMatchSimulationStartedMessage(MatchSimulationStartedMessage msg)
-		{
-			// This is subscribed here, instead of Awake(), because spectate service get disposed (and all callbacks wiped)
-			// when simulation ends. This needs to be here so upon soft disconnections we always observe the spectated player
-			// even after the service dies and wipes the observe callback
-			_matchServices.SpectateService.SpectatedPlayer.InvokeObserve(OnSpectatedPlayerChanged);
 		}
 
 		private void OnDestroy()

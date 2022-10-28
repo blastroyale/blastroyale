@@ -36,7 +36,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_healthBarPlayerPool = new ObjectPool<PlayerHealthBarPoolObject>(4, PlayerHealthBarInstantiator);
 			_healthBarSpectatePlayer = SpectatePlayerHealthBarInstantiator();
 				
-			_services.MessageBrokerService.Subscribe<MatchSimulationStartedMessage>(OnMatchSimulationStartedMessage);
+			_matchServices.SpectateService.SpectatedPlayer.InvokeObserve(OnPlayerSpectateUpdate);
+			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);
 			_services.MessageBrokerService.Subscribe<MatchEndedMessage>(OnGameplayEnded);
 			QuantumEvent.Subscribe<EventOnPlayerAttackHit>(this, OnPlayerAttackHit);
 			QuantumEvent.Subscribe<EventOnPlayerSkydiveLand>(this, OnPlayerSkydiveLand);
@@ -46,9 +47,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_healthBarRef.gameObject.SetActive(false);
 		}
 
-		private void OnMatchSimulationStartedMessage(MatchSimulationStartedMessage obj)
+		private void OnMatchStarted(MatchStartedMessage msg)
 		{
-			_matchServices.SpectateService.SpectatedPlayer.InvokeObserve(OnPlayerSpectateUpdate);
+			//_matchServices.SpectateService.SpectatedPlayer.InvokeObserve(OnPlayerSpectateUpdate);
 		}
 
 		private void OnDestroy()

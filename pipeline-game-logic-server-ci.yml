@@ -55,3 +55,11 @@ stages:
           workingDirectory: Backend
           buildArgs: |
             -f $(dockerfile) . --no-cache
+      - template: pipelines/templates/docker-build-push.yml@templates
+        parameters:
+          serviceConnection: $(serviceConnection)
+          containerRegistry: firstlight
+          repository: game-logic-service
+          workingDirectory: Backend
+          buildArgs: |
+            -f $(dockerfile) . --no-cache

@@ -4,8 +4,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.ResourceProviders;
 
 // ReSharper disable CheckNamespace
 
@@ -273,8 +271,13 @@ namespace FirstLight.UiService
 		/// <inheritdoc />
 		public async Task<T> OpenUiAsync<T>(bool openedException = false) where T : UiPresenter
 		{
-			await GetUiAsync<T>();
+			var startTime = Time.time;
+			var ui = await GetUiAsync<T>();
+			
+			var remainingTime = Math.Max(0,ui.OpenDelayTimeSeconds - (Time.time - startTime));
 
+			await Task.Delay((int)(remainingTime * 1000));
+			
 			return OpenUi<T>(openedException);
 		}
 
@@ -344,7 +347,12 @@ namespace FirstLight.UiService
 		/// <inheritdoc />
 		public async Task<UiPresenter> OpenUiAsync<TData>(Type type, TData initialData, bool openedException = false) where TData : struct
 		{
-			await GetUiAsync(type);
+			var startTime = Time.time;
+			var ui = await GetUiAsync(type);
+
+			var remainingTime =  Math.Max(0,ui.OpenDelayTimeSeconds - (Time.time - startTime));
+
+			await Task.Delay((int)(remainingTime * 1000));
 
 			return OpenUi(type, initialData, openedException);
 		}

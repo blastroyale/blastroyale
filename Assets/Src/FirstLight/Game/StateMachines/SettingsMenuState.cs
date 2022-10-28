@@ -53,6 +53,7 @@ namespace FirstLight.Game.StateMachines
 			var final = stateFactory.Final("Final");
 			var settingsMenu = stateFactory.State("Settings Menu");
 			var connectId = stateFactory.State("Connect ID Screen");
+			var serverSelect = stateFactory.State("Server Select");
 			var logoutWait = stateFactory.State("Wait For Logout");
 
 			initial.Transition().Target(settingsMenu);
@@ -62,11 +63,16 @@ namespace FirstLight.Game.StateMachines
 			settingsMenu.Event(_settingsCloseClickedEvent).Target(final);
 			settingsMenu.Event(_logoutConfirmClickedEvent).Target(logoutWait);
 			settingsMenu.Event(_connectIdClickedEvent).Target(connectId);
+			settingsMenu.Event(NetworkState.OpenServerSelectScreenEvent).Target(serverSelect);
 			settingsMenu.OnExit(CloseSettingsMenuUI);
 			
 			connectId.OnEnter(OpenConnectIdScreen);
 			connectId.Event(_connectIdBackEvent).Target(settingsMenu);
 			connectId.OnExit(CloseConnectIdScreen);
+			
+			serverSelect.OnEnter(OpenServerSelectScreen);
+			serverSelect.Event(NetworkState.PhotonMasterConnectedEvent).Target(settingsMenu);
+			serverSelect.OnExit(CloseServerSelectScreen);
 			
 			logoutWait.OnEnter(TryLogOut);
 			logoutWait.Event(_logoutFailedEvent).Target(final);
@@ -77,6 +83,8 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeEvents()
 		{
 			_services.MessageBrokerService.Subscribe<ServerHttpErrorMessage>(OnServerHttpErrorMessage);
+			_services.MessageBrokerService.Subscribe<PingedRegionsMessage>(OnPingedRegionsMessage);
+			_services.MessageBrokerService.Subscribe<RegionListReceivedMessage>(OnRegionListReceivedMessage);
 		}
 
 		private void UnsubscribeEvents()
@@ -101,6 +109,43 @@ namespace FirstLight.Game.StateMachines
 		private void CloseSettingsMenuUI()
 		{
 			_uiService.CloseUi<SettingsScreenPresenter>(false, true);
+		}
+		
+		private void OpenServerSelectScreen()
+		{
+			var data = new ServerSelectScreenPresenter.StateData
+			{
+				BackClicked = () => _statechartTrigger(NetworkState.ConnectToRegionMasterEvent),
+				RegionChosen = (region) =>
+				{
+					_data.AppDataProvider.ConnectionRegion.Value = region.Code;
+					_statechartTrigger(NetworkState.ConnectToRegionMasterEvent);
+				},
+			};
+
+			_uiService.OpenUiAsync<ServerSelectScreenPresenter, ServerSelectScreenPresenter.StateData>(data);
+		}
+
+		private void CloseServerSelectScreen()
+		{
+			_uiService.CloseUi<ServerSelectScreenPresenter>(false, true);
+		}
+
+		private void OnRegionListReceivedMessage(RegionListReceivedMessage msg)
+		{
+			if (_uiService.HasUiPresenter<ServerSelectScreenPresenter>())
+			{
+				_uiService.GetUi<ServerSelectScreenPresenter>().InitServerSelectionList(_services.NetworkService.QuantumClient.RegionHandler);
+			}
+		}
+
+		private void OnPingedRegionsMessage(PingedRegionsMessage msg)
+		{
+			if (_uiService.HasUiPresenter<ServerSelectScreenPresenter>())
+			{
+				_uiService.GetUi<ServerSelectScreenPresenter>()
+					.UpdateRegionPing(_services.NetworkService.QuantumClient.RegionHandler);
+			}
 		}
 
 		private void OpenConnectIdScreen()
@@ -136,7 +181,6 @@ namespace FirstLight.Game.StateMachines
 		private void TryLogOut()
 		{
 			_services.PlayfabService.UnlinkDeviceID(OnUnlinkComplete);
-			_data.AppDataProvider.DeviceID.Value = null;
 		}
 
 		private void OnConnectIdComplete(AddUsernamePasswordResult result)
@@ -177,6 +221,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void OnUnlinkComplete()
 		{
+			_data.AppDataProvider.DeviceID.Value = null;
 			_services.HelpdeskService.Logout();
 			
 #if UNITY_EDITOR
@@ -204,7 +249,8 @@ namespace FirstLight.Game.StateMachines
 		private void OnServerHttpErrorMessage(ServerHttpErrorMessage msg)
 		{
 			_services.AnalyticsService.CrashLog(msg.Message);
-
+			
+#if UNITY_EDITOR
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.OK,
@@ -212,25 +258,47 @@ namespace FirstLight.Game.StateMachines
 			};
 
 			_services.GenericDialogService.OpenDialog(msg.Message, false, confirmButton);
+#else
+			
+			var button = new NativeUi.AlertButton
+			{
+				Callback = () => { _statechartTrigger(_logoutFailedEvent); },
+				Style = NativeUi.AlertButtonStyle.Default,
+				Text = ScriptLocalization.General.OK
+			};
+
+			NativeUi.NativeUiService.ShowAlertPopUp(false,ScriptLocalization.MainMenu.PlayfabError, msg.Message, button);
+#endif
 		}
 
 		private void OnAccountDeleted(ExecuteFunctionResult res)
 		{
 			TryLogOut();
-			var button = new AlertButton
+			
+#if UNITY_EDITOR
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.MainMenu.QuitGameButton,
+				ButtonOnClick = () => { _statechartTrigger(_logoutFailedEvent); }
+			};
+
+			_services.GenericDialogService.OpenDialog(ScriptLocalization.MainMenu.DeleteAccountConfirmMessage, 
+			                                          false, confirmButton);
+#else
+			var button = new NativeUi.AlertButton
 			{
 				Callback = () =>
 				{
 					_services.QuitGame("Account Deleted");
 				},
-				Style = AlertButtonStyle.Negative,
-				Text = "Quit Game"
+				Style = NativeUi.AlertButtonStyle.Negative,
+				Text = ScriptLocalization.MainMenu.QuitGameButton
 			};
-			NativeUiService.ShowAlertPopUp(
-				false, 
-				ScriptLocalization.MainMenu.DeleteAccountConfirm, 
-				ScriptLocalization.MainMenu.DeleteAccountConfirmMessage, 
-				button);
+			NativeUi.NativeUiService.ShowAlertPopUp(false, 
+			                                        ScriptLocalization.MainMenu.DeleteAccountConfirm, 
+			                                        ScriptLocalization.MainMenu.DeleteAccountConfirmMessage, 
+			                                        button);
+#endif
 		}
 	}
 }

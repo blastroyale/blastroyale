@@ -24,7 +24,8 @@
         "Localization",
         "MoreMountains.NiceVibrations.Haptics",
         "FirstLight.FLogger",
-        "PlayFabEditorExtensions"
+        "PlayFabEditorExtensions",
+        "UnityEngine.Purchasing.Stores"
     ],
     "includePlatforms": [
         "Editor"

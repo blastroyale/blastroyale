@@ -62,7 +62,17 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public void Init()
 		{
+			var defaultValues = new PlayerData().Currencies;
+			
 			_currencies = new ObservableDictionary<GameId, ulong>(Data.Currencies);
+
+			foreach (var pair in defaultValues)
+			{
+				if (!_currencies.ContainsKey(pair.Key))
+				{
+					_currencies.Add(pair.Key, pair.Value);
+				}
+			}
 		}
 
 		/// <inheritdoc />

@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Commands.OfflineCommands;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Messages;
 using FirstLight.SDK.Services;
@@ -37,6 +37,11 @@ namespace FirstLight.Game.Services
 		/// Buys the product defined by the given <paramref name="id"/>
 		/// </summary>
 		void BuyProduct(string id);
+
+		/// <summary>
+		/// Initializes the purchasing module.
+		/// </summary>
+		void Init();
 	}
 
 	public class IAPService : IIAPService, IStoreListener
@@ -53,21 +58,33 @@ namespace FirstLight.Game.Services
 		private readonly IMessageBrokerService _messageBroker;
 		private readonly IPlayfabService _playfabService;
 		private readonly IAnalyticsService _analyticsService;
+		private readonly IGameDataProvider _gameDataProvider;
 
 		private IStoreController _store;
 		private ProductCatalog _defaultCatalog;
 
 		public IAPService(IGameCommandService commandService, IMessageBrokerService messageBroker,
-						  IPlayfabService playfabService, IAnalyticsService analyticsService)
+						  IPlayfabService playfabService, IAnalyticsService analyticsService,
+						  IGameDataProvider gameDataProvider)
 		{
 			_commandService = commandService;
 			_messageBroker = messageBroker;
 			_playfabService = playfabService;
 			_analyticsService = analyticsService;
+			_gameDataProvider = gameDataProvider;
 
 			_products = new List<Product>();
 			_initialized = new ObservableField<bool>(false);
+		}
 
+		public void BuyProduct(string id)
+		{
+			FLog.Info($"Purchase initiated: {id}");
+			_store.InitiatePurchase(id);
+		}
+
+		public void Init()
+		{
 			var module = StandardPurchasingModule.Instance();
 
 #if DEVELOPMENT_BUILD
@@ -88,19 +105,24 @@ namespace FirstLight.Game.Services
 			UnityPurchasing.Initialize(this, builder);
 		}
 
-		public void BuyProduct(string id)
-		{
-			FLog.Info($"Purchase initiated: {id}");
-			_store.InitiatePurchase(id);
-		}
-
 		public void OnInitialized(IStoreController controller, IExtensionProvider extensions)
 		{
 			_store = controller;
 			_products = controller.products.all.ToList();
 
 			_initialized.Value = true;
-			FLog.Info("IAP Initialized");
+
+			var pendingRewards = _store.products.set.Any(product =>
+				!string.IsNullOrEmpty(product.receipt) && !string.IsNullOrEmpty(product.transactionID)
+			);
+			var unclaimedPurchases = _gameDataProvider.RewardDataProvider.HasUnclaimedPurchases();
+
+			if (!pendingRewards && unclaimedPurchases)
+			{
+				_commandService.ExecuteCommand(new CollectIAPRewardCommand());
+			}
+
+			FLog.Info($"IAP Initialized: Pending({pendingRewards}), Unclaimed({unclaimedPurchases})");
 		}
 
 		public void OnInitializeFailed(InitializationFailureReason error)
@@ -113,7 +135,10 @@ namespace FirstLight.Game.Services
 		public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs purchaseEvent)
 		{
 			var fakeStore = IsFakeStore(purchaseEvent.purchasedProduct);
-			FLog.Info($"Purchase processed: {purchaseEvent.purchasedProduct.definition.id}, Fake store: {fakeStore}");
+			var validated = _gameDataProvider.RewardDataProvider.HasUnclaimedPurchase(purchaseEvent.purchasedProduct);
+
+			FLog.Info(
+				$"Purchase processed: {purchaseEvent.purchasedProduct.definition.id}, Fake store: {fakeStore}, Validated: {validated}, TransactionId({purchaseEvent.purchasedProduct.transactionID})");
 
 			if (fakeStore)
 			{
@@ -121,7 +146,14 @@ namespace FirstLight.Game.Services
 			}
 			else
 			{
-				ValidateReceipt(purchaseEvent.purchasedProduct);
+				if (validated)
+				{
+					PurchaseValidated(purchaseEvent.purchasedProduct);
+				}
+				else
+				{
+					ValidateReceipt(purchaseEvent.purchasedProduct);
+				}
 			}
 
 			return PurchaseProcessingResult.Pending;
@@ -156,8 +188,6 @@ namespace FirstLight.Game.Services
 					JsonConvert.DeserializeObject<PlayFabResult<LogicResult>>(result.FunctionResult.ToString());
 				var reward = ModelSerializer.DeserializeFromData<RewardData>(logicResult!.Result.Data);
 
-				SendAnalyticsEvent(product, reward);
-
 				// The first command (client only) syncs up client state with the server, as the
 				// server adds the reward item to UnclaimedRewards on its end, and we have to do the same.
 				_commandService.ExecuteCommand(new AddIAPRewardLocalCommand {Reward = reward});
@@ -166,6 +196,8 @@ namespace FirstLight.Game.Services
 				_commandService.ExecuteCommand(new CollectIAPRewardCommand());
 
 				_store.ConfirmPendingPurchase(product);
+
+				SendAnalyticsEvent(product, reward);
 			}, _playfabService.HandleError, request);
 		}
 
@@ -213,13 +245,14 @@ namespace FirstLight.Game.Services
 
 			var catalogItem = _defaultCatalog.allProducts.First(item => item.id == product.definition.id);
 
+			float price = (float) catalogItem.googlePrice.value;
 			var data = new Dictionary<string, object>
 			{
 				{"currency", "USD"},
 				{"transaction_id", product.transactionID},
-				{"price", catalogItem.googlePrice.value},
-				{"dollar_gross", catalogItem.googlePrice.value},
-				{"dollar_net", catalogItem.googlePrice.value * (decimal) NET_INCOME_MODIFIER},
+				{"price", price},
+				{"dollar_gross", price},
+				{"dollar_net", price * NET_INCOME_MODIFIER},
 				{"item_id", product.definition.id},
 				{"item_name", reward.RewardId.ToString()}
 			};

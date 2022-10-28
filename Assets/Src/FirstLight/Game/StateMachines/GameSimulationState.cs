@@ -88,12 +88,14 @@ namespace FirstLight.Game.StateMachines
 			deathmatch.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnectedPlayerCheck);
 			deathmatch.Event(MatchEndedEvent).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
 			deathmatch.Event(MatchQuitEvent).OnTransition(() => MatchEndAnalytics(true)).Target(quitCheck);
+			deathmatch.OnExit(CleanUpMatch);
 			deathmatch.OnExit(PublishMatchEnded);
 
 			battleRoyale.Nest(_battleRoyaleState.Setup).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
 			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnectedPlayerCheck);
 			battleRoyale.Event(MatchEndedEvent).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
 			battleRoyale.Event(MatchQuitEvent).OnTransition(() => MatchEndAnalytics(true)).Target(quitCheck);
+			battleRoyale.OnExit(CleanUpMatch);
 			battleRoyale.OnExit(PublishMatchEnded);
 			
 			disconnectedPlayerCheck.Transition().Condition(IsSoloGame).OnTransition(OpenDisconnectedMatchEndDialog).Target(final);
@@ -334,6 +336,11 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.MessageBrokerService.Publish(new MatchSimulationEndedMessage());
 			QuantumRunner.ShutdownAll();
+		}
+		
+		private void CleanUpMatch()
+		{
+			_services.VfxService.DespawnAll();
 		}
 
 		private void PublishMatchEnded()

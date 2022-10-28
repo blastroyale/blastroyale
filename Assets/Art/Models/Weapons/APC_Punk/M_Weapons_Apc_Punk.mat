@@ -21,23 +21,20 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Weapons_Apc_Punk
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-  m_ValidKeywords:
-  - _EMISSION
-  - _METALLICSPECGLOSSMAP
+  m_Shader: {fileID: -6465566751694194690, guid: d9dfbf9d63b50c84fa42b9f84d42d33e, type: 3}
+  m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap:
-    RenderType: Opaque
+  stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - Texture2D_D73132B5:
-        m_Texture: {fileID: 2800000, guid: 2691d8b3e8fcaf1458d285f81ea8d6c7, type: 3}
+        m_Texture: {fileID: 2800000, guid: 862493a25331b9e40b4a65774045312a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -65,7 +62,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: b97befece011a2d458b6b0c972480da9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
@@ -73,7 +70,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: f84c7eef33d3e744cb411309e7000ccd, type: 3}
+        m_Texture: {fileID: 2800000, guid: 58641e0a0df3d3f428114b98d912d0aa, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -107,8 +104,8 @@ Material:
     m_Ints: []
     m_Floats:
     - BrightenMainTexture: 0.25
-    - Vector1_A3CA1DE4: 2
-    - Vector1_FA9A29A7: 2
+    - Vector1_A3CA1DE4: 1
+    - Vector1_FA9A29A7: 1
     - _AlphaClip: 0
     - _Blend: 0
     - _BlendOp: 0

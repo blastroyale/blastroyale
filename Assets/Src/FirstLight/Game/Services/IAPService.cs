@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Commands.OfflineCommands;
@@ -77,12 +78,6 @@ namespace FirstLight.Game.Services
 			_initialized = new ObservableField<bool>(false);
 		}
 
-		public void BuyProduct(string id)
-		{
-			FLog.Info($"Purchase initiated: {id}");
-			_store.InitiatePurchase(id);
-		}
-
 		public void Init()
 		{
 			var module = StandardPurchasingModule.Instance();
@@ -103,6 +98,12 @@ namespace FirstLight.Game.Services
 				_defaultCatalog = ProductCatalog.LoadDefaultCatalog());
 
 			UnityPurchasing.Initialize(this, builder);
+		}
+
+		public void BuyProduct(string id)
+		{
+			FLog.Info($"Purchase initiated: {id}");
+			_store.InitiatePurchase(id);
 		}
 
 		public void OnInitialized(IStoreController controller, IExtensionProvider extensions)

@@ -284,53 +284,46 @@ namespace FirstLight.UiService
 		/// <inheritdoc />
 		public T OpenUi<T>(bool openedException = false) where T : UiPresenter
 		{
-			return OpenUi(typeof(T), openedException) as T;
+			return OpenUi(typeof(T)) as T;
 		}
 
 		/// <inheritdoc />
-		public async Task<UiPresenter> OpenUiAsync(Type type, bool openedException = false)
+		public async Task<UiPresenter> OpenUiAsync(Type type)
 		{
 			await GetUiAsync(type);
 			
-			return OpenUi(type, openedException);
+			return OpenUi(type);
 		}
 		
 		/// <inheritdoc />
-		public UiPresenter OpenUi(Type type, bool openedException = false)
+		public UiPresenter OpenUi(Type type)
 		{
 			var ui = GetUi(type);
 			
-			if (!_visibleUiList.Contains(type))
-			{
-				ui.InternalOpen();
-				_visibleUiList.Add(type);
-			}
-			else if(openedException)
-			{
-				throw new InvalidOperationException($"Is trying to open the {type.Name} ui but is already open");
-			}
-			
+			ui.InternalOpen();
+			_visibleUiList.Add(type);
+
 			return ui;
 		}
 
 		/// <inheritdoc />
-		public T OpenUi<T, TData>(TData initialData, bool openedException = false) 
+		public T OpenUi<T, TData>(TData initialData) 
 			where T : class, IUiPresenterData 
 			where TData : struct
 		{
-			return OpenUi(typeof(T), initialData, openedException) as T;
+			return OpenUi(typeof(T), initialData) as T;
 		}
 		
 		/// <inheritdoc />
-		public async Task<T> OpenUiAsync<T, TData>(TData initialData, bool openedException = false) 
+		public async Task<T> OpenUiAsync<T, TData>(TData initialData) 
 			where T : class, IUiPresenterData 
 			where TData : struct
 		{
-			return await OpenUiAsync(typeof(T), initialData, openedException) as T;
+			return await OpenUiAsync(typeof(T), initialData) as T;
 		}
 
 		/// <inheritdoc />
-		public UiPresenter OpenUi<TData>(Type type, TData initialData, bool openedException = false) where TData : struct
+		public UiPresenter OpenUi<TData>(Type type, TData initialData) where TData : struct
 		{
 			var uiPresenterData = GetUi(type) as UiPresenterData<TData>;
 
@@ -341,11 +334,11 @@ namespace FirstLight.UiService
 			
 			uiPresenterData.InternalSetData(initialData);
 
-			return OpenUi(type, openedException);
+			return OpenUi(type);
 		}
 		
 		/// <inheritdoc />
-		public async Task<UiPresenter> OpenUiAsync<TData>(Type type, TData initialData, bool openedException = false) where TData : struct
+		public async Task<UiPresenter> OpenUiAsync<TData>(Type type, TData initialData) where TData : struct
 		{
 			var startTime = Time.time;
 			var ui = await GetUiAsync(type);
@@ -354,36 +347,29 @@ namespace FirstLight.UiService
 
 			await Task.Delay((int)(remainingTime * 1000));
 
-			return OpenUi(type, initialData, openedException);
+			return OpenUi(type, initialData);
 		}
 
 		/// <inheritdoc />
-		public void CloseUi<T>(bool closedException = false, bool destroy = false) where T : UiPresenter
+		public void CloseUi<T>(bool destroy = false) where T : UiPresenter
 		{
-			CloseUi(typeof(T), closedException, destroy);
+			CloseUi(typeof(T), destroy);
 		}
 
 		/// <inheritdoc />
-		public void CloseUi(Type type, bool closedException = false, bool destroy = false)
+		public void CloseUi(Type type, bool destroy = false)
 		{
-			if (_visibleUiList.Contains(type) || destroy)
-			{
-				_visibleUiList.Remove(type);
-				
-				var ui = GetUi(type);
+			_visibleUiList.Remove(type);
+			
+			var ui = GetUi(type);
 
-				ui.InternalClose(destroy);
-			}
-			else if(closedException)
-			{
-				throw new InvalidOperationException($"Is trying to close the {type.Name} ui but is not open");
-			}
+			ui.InternalClose(destroy);
 		}
 
 		/// <inheritdoc />
-		public void CloseUi<T>(T uiPresenter, bool closedException = false, bool destroy = false) where T : UiPresenter
+		public void CloseUi<T>(T uiPresenter, bool destroy = false) where T : UiPresenter
 		{
-			CloseUi(uiPresenter.GetType().UnderlyingSystemType, closedException, destroy);
+			CloseUi(uiPresenter.GetType().UnderlyingSystemType, destroy);
 		}
 
 		/// <inheritdoc />

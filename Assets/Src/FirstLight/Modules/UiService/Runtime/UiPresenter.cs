@@ -50,7 +50,7 @@ namespace FirstLight.UiService
 		/// </summary>
 		protected virtual void Close(bool destroy)
 		{
-			_uiService.CloseUi(this, false, destroy);
+			_uiService.CloseUi(this, destroy);
 		}
 
 		internal void Init(IUiService uiService)

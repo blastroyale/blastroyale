@@ -20,8 +20,6 @@ namespace Quantum.Systems
 			f.Context.TargetAllLayerMask = f.Layers.GetLayerMask("Default", "Playable Target", "Non Playable Target",
 			                                                     "Prop", "World", "Environment No Silhouette");
 
-			f.GetOrAddSingleton<GameContainer>();
-
 			foreach (var systemName in f.Context.GameModeConfig.Systems)
 			{
 				var systemType = Type.GetType(systemName);

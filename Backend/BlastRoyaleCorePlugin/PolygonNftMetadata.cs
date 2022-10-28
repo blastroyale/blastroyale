@@ -32,6 +32,7 @@ namespace BlastRoyaleNFTPlugin
 		public long maxDurability { get; set; }
 		public long manufacturer { get; set; }
 		public long initialReplicationCounter { get; set; }
+		public long lastRepairTime { get; set; }
 		public long tuning { get; set; }
 		public long grade { get; set; }
 		public long generation { get; set; }

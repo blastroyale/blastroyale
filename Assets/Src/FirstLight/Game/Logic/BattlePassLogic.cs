@@ -42,7 +42,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Returns the rewards received for a particular level.
 		/// </summary>
-		BattlePassRewardConfig GetRewardForLevel(uint level);
+		EquipmentRewardConfig GetRewardForLevel(uint level);
 
 		/// <summary>
 		/// Tells you if there are any points to redeem for levels and rewards, and gives you required points for
@@ -118,12 +118,12 @@ namespace FirstLight.Game.Logic
 			return (uint) Math.Max(0, points);
 		}
 
-		public BattlePassRewardConfig GetRewardForLevel(uint level)
+		public EquipmentRewardConfig GetRewardForLevel(uint level)
 		{
 			var config = GameLogic.ConfigsProvider.GetConfig<BattlePassConfig>();
 			var levelConfig = config.Levels[(int) level - 1];
 
-			return GameLogic.ConfigsProvider.GetConfig<BattlePassRewardConfig>(levelConfig.RewardId);
+			return GameLogic.ConfigsProvider.GetConfig<EquipmentRewardConfig>(levelConfig.RewardId);
 		}
 
 		public bool IsRedeemable(int pointOverride = -1)
@@ -159,14 +159,14 @@ namespace FirstLight.Game.Logic
 
 			var config = GameLogic.ConfigsProvider.GetConfig<BattlePassConfig>();
 
-			var levels = new List<BattlePassRewardConfig>();
+			var levels = new List<EquipmentRewardConfig>();
 
 			while (points >= config.PointsPerLevel)
 			{
 				points -= config.PointsPerLevel;
 				level++;
 
-				var rewardConfig = GameLogic.ConfigsProvider.GetConfig<BattlePassRewardConfig>(config.Levels[(int) level - 1].RewardId);
+				var rewardConfig = GameLogic.ConfigsProvider.GetConfig<EquipmentRewardConfig>(config.Levels[(int) level - 1].RewardId);
 
 				levels.Add(rewardConfig);
 			}
@@ -181,13 +181,13 @@ namespace FirstLight.Game.Logic
 			return levels.Count > 0;
 		}
 
-		private void RedeemBPRewards(List<BattlePassRewardConfig> rewardConfigs, out List<Equipment> rewards)
+		private void RedeemBPRewards(List<EquipmentRewardConfig> rewardConfigs, out List<Equipment> rewards)
 		{
 			rewards = new List<Equipment>();
 			
 			foreach (var reward in rewardConfigs)
 			{
-				var generatedEquipment = GameLogic.EquipmentLogic.GenerateEquipmentFromBattlePassReward(reward);
+				var generatedEquipment = GameLogic.EquipmentLogic.GenerateEquipmentFromConfig(reward);
 				GameLogic.EquipmentLogic.AddToInventory(generatedEquipment);
 				rewards.Add(generatedEquipment);
 			}

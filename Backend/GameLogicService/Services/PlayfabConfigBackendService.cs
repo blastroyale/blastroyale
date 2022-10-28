@@ -11,6 +11,22 @@ namespace Backend.Game.Services
 	public class PlayfabConfigurationBackendService : IConfigBackendService 
 	{
 		/// <summary>
+		/// Sets internal title data key value pair.
+		/// </summary>
+		private static async Task SetTitleData(string key, string data)
+		{
+			var result = await PlayFabAdminAPI.SetTitleDataAsync(new SetTitleDataRequest()
+			{
+				Key = key,
+				Value = data,
+			});
+			if (result.Error != null)
+			{
+				throw new Exception(result.Error.ErrorMessage);
+			}
+		}
+
+		/// <summary>
 		/// Gets an specific internal title key data
 		/// </summary>
 		private static async Task<string> GetTitleData(string key)

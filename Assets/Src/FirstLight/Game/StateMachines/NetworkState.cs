@@ -42,6 +42,9 @@ namespace FirstLight.Game.StateMachines
 		public static readonly IStatechartEvent OpenServerSelectScreenEvent = new StatechartEvent("NETWORK - Open Server Select Screen Event");
 		public static readonly IStatechartEvent ConnectToNameServerFailEvent = new StatechartEvent("NETWORK - Connected To Name Fail Server Event");
 		public static readonly IStatechartEvent RegionListReceivedEvent = new StatechartEvent("NETWORK - Regions List Received");
+		public static readonly IStatechartEvent IapProcessStartedEvent = new StatechartEvent("NETWORK - IAP Started Event");
+		public static readonly IStatechartEvent IapProcessFinishedEvent = new StatechartEvent("NETWORK - IAP Processed Event");
+		public static readonly IStatechartEvent ForceConnectionCheckEvent = new StatechartEvent("NETWORK - Force Connection Check Event");
 		
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _gameDataProvider;
@@ -80,7 +83,8 @@ namespace FirstLight.Game.StateMachines
 			var getAvailableRegions = stateFactory.State("NETWORK - Server Select Screen");
 			var serverSelectScreen = stateFactory.State("NETWORK - Get Available Regions");
 			var connectionCheck = stateFactory.Choice("NETWORK - Connection Check");
-
+			var iapProcessing = stateFactory.State("NETWORK - IAP Processing");
+			
 			initial.Transition().Target(initialConnection);
 			initial.OnExit(SubscribeEvents);
 
@@ -89,7 +93,11 @@ namespace FirstLight.Game.StateMachines
 
 			connected.Event(PhotonDisconnectedEvent).Target(disconnectedScreen);
 			connected.Event(OpenServerSelectScreenEvent).Target(disconnectForServerSelect);
-
+			connected.Event(IapProcessStartedEvent).Target(iapProcessing);
+			connected.Event(ForceConnectionCheckEvent).Target(connectionCheck);
+			
+			iapProcessing.Event(IapProcessFinishedEvent).OnTransition(HandleIapTransition).Target(connected);
+			
 			connectionCheck.Transition().Condition(IsPhotonConnectedAndReady).Target(connected);
 			connectionCheck.Transition().Target(disconnected);
 
@@ -204,6 +212,19 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
+		private void HandleIapTransition()
+		{
+			_services.CoroutineService.StartCoroutine(ConnectionCheckCoroutine());
+			OnAttemptReconnectClicked();
+		}
+
+		private IEnumerator ConnectionCheckCoroutine()
+		{
+			yield return new WaitForSeconds(7.5f);
+
+			_statechartTrigger(ForceConnectionCheckEvent);
+		}
+		
 		private void OnAttemptReconnectClicked()
 		{
 			_statechartTrigger(AttemptReconnectEvent);
@@ -261,7 +282,6 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeEvents()
 		{
 			_services.TickService.SubscribeOnUpdate(TickQuantumServer, 0.1f, true, true);
-			_services.MessageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuit);
 			_services.MessageBrokerService.Subscribe<MatchSimulationStartedMessage>(OnMatchSimulationStartedMessage);
 			_services.MessageBrokerService.Subscribe<MatchSimulationEndedMessage>(OnMatchSimulationEndedMessage);
 			_services.MessageBrokerService.Subscribe<PlayMatchmakingReadyMessage>(OnPlayMatchmakingReadyMessage);
@@ -313,8 +333,6 @@ namespace FirstLight.Game.StateMachines
 			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Disconnection,
 			                                                   _services.NetworkService.QuantumClient.DisconnectedCause
 			                                                            .ToString());
-			_services.AnalyticsService
-			         .CrashLog($"Disconnected - {_services.NetworkService.QuantumClient.DisconnectedCause}");
 
 			_statechartTrigger(PhotonDisconnectedEvent);
 		}
@@ -651,15 +669,10 @@ namespace FirstLight.Game.StateMachines
 			_services.NetworkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
 		}
 
-		private void OnApplicationQuit(ApplicationQuitMessage data)
-		{
-			_networkService.QuantumClient.Disconnect();
-		}
-
 		private void StartRandomMatchmaking(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, List<string> mutators)
 		{
 			var matchType = _services.GameModeService.SelectedGameMode.Value.Entry.MatchType;
-			var gameHasBots = gameModeConfig.AllowBots && matchType != MatchType.Ranked;
+			var gameHasBots = gameModeConfig.AllowBots;
 			var gridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
 			var createParams =
 				NetworkUtils.GetRoomCreateParams(gameModeConfig, mapConfig, gridConfigs, null, matchType, mutators, gameHasBots);

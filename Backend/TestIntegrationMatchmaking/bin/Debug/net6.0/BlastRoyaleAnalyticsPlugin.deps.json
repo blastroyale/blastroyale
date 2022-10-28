@@ -1,0 +1,128 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "BlastRoyaleAnalyticsPlugin/1.0.0": {
+        "dependencies": {
+          "FirstLightServerSDK": "1.0.0",
+          "FirstLight.Game": "0.0.0.0"
+        },
+        "runtime": {
+          "BlastRoyaleAnalyticsPlugin.dll": {}
+        }
+      },
+      "FirstLightServerSDK/1.0.0": {
+        "runtime": {
+          "FirstLightServerSDK.dll": {}
+        }
+      },
+      "FirstLight.Game/0.0.0.0": {
+        "runtime": {
+          "FirstLight.Game.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "quantum.code/2.1.0.0": {
+        "runtime": {
+          "quantum.code.dll": {
+            "assemblyVersion": "2.1.0.0",
+            "fileVersion": "2.1.0.0"
+          }
+        }
+      },
+      "FirstLight.Services/0.0.0.0": {
+        "runtime": {
+          "FirstLight.Services.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "PhotonQuantum/0.0.0.0": {
+        "runtime": {
+          "PhotonQuantum.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "quantum.core/2.1.0.0": {
+        "runtime": {
+          "quantum.core.dll": {
+            "assemblyVersion": "2.1.0.0",
+            "fileVersion": "2.1.0.0"
+          }
+        }
+      },
+      "PhotonDeterministic/2.1.0.0": {
+        "runtime": {
+          "PhotonDeterministic.dll": {
+            "assemblyVersion": "2.1.0.0",
+            "fileVersion": "2.1.0.0"
+          }
+        }
+      },
+      "FirstLight.DataExtensions/0.0.0.0": {
+        "runtime": {
+          "FirstLight.DataExtensions.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "BlastRoyaleAnalyticsPlugin/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "FirstLightServerSDK/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "FirstLight.Game/0.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "quantum.code/2.1.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "FirstLight.Services/0.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "PhotonQuantum/0.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "quantum.core/2.1.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "PhotonDeterministic/2.1.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "FirstLight.DataExtensions/0.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

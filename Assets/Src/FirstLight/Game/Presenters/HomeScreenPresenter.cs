@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using DG.Tweening;
+using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
@@ -39,6 +40,7 @@ namespace FirstLight.Game.Presenters
 			public Action OnGameModeClicked;
 			public Action OnLeaderboardClicked;
 			public Action OnBattlePassClicked;
+			public Action OnStoreClicked;
 		}
 
 		private IGameDataProvider _gameDataProvider;
@@ -92,15 +94,16 @@ namespace FirstLight.Game.Presenters
 			_battlePassProgressElement = root.Q<VisualElement>("BattlePassProgressElement").Required();
 			_battlePassCrownIcon = root.Q<VisualElement>("BattlePassCrownIcon").Required();
 
-			root.Q<Button>("PlayButton").clicked += OnPlayButtonClicked;
-			root.Q<Button>("GameModeButton").clicked += OnGameModeClicked;
-			root.Q<Button>("SettingsButton").clicked += OnSettingsButtonClicked;
-			root.Q<Button>("BattlePassButton").clicked += OnBattlePassButtonClicked;
-			root.Q<Button>("CustomGameButton").clicked += OnCustomGameClicked;
+			root.Q<Button>("PlayButton").clicked += Data.OnPlayButtonClicked;
+			root.Q<Button>("GameModeButton").clicked += Data.OnGameModeClicked;
+			root.Q<Button>("SettingsButton").clicked += Data.OnSettingsButtonClicked;
+			root.Q<Button>("BattlePassButton").clicked += Data.OnBattlePassClicked;
+			root.Q<Button>("CustomGameButton").clicked += Data.OnPlayRoomJoinCreateClicked;
 
-			root.Q<Button>("EquipmentButton").clicked += OnEquipmentButtonClicked;
-			root.Q<Button>("HeroesButton").clicked += OnHeroesButtonClicked;
-			root.Q<Button>("LeaderboardsButton").clicked += OnLeaderboardsButtonClicked;
+			root.Q<Button>("EquipmentButton").clicked += Data.OnLootButtonClicked;
+			root.Q<Button>("HeroesButton").clicked += Data.OnHeroesButtonClicked;
+			root.Q<Button>("LeaderboardsButton").clicked += Data.OnLeaderboardClicked;
+			root.Q<Button>("StoreButton").clicked += Data.OnStoreClicked;
 
 			// TODO: Move to shared code
 			root.Query<Button>().Build().ForEach(b =>
@@ -145,54 +148,21 @@ namespace FirstLight.Game.Presenters
 			_gameServices.TickService.UnsubscribeAll(this);
 		}
 
-		private void OnPlayButtonClicked()
-		{
-			Data.OnPlayButtonClicked();
-		}
-
-		private void OnGameModeClicked()
-		{
-			Data.OnGameModeClicked();
-		}
-
-		private void OnSettingsButtonClicked()
-		{
-			Data.OnSettingsButtonClicked();
-		}
-
-		private void OnBattlePassButtonClicked()
-		{
-			Data.OnBattlePassClicked();
-		}
-
-		private void OnCustomGameClicked()
-		{
-			Data.OnPlayRoomJoinCreateClicked();
-		}
-
-		private void OnEquipmentButtonClicked()
-		{
-			Data.OnLootButtonClicked();
-		}
-
-		private void OnHeroesButtonClicked()
-		{
-			Data.OnHeroesButtonClicked();
-		}
-
-		private void OnLeaderboardsButtonClicked()
-		{
-			Data.OnLeaderboardClicked();
-		}
-
 		private void OnPlayerNameClicked(ClickEvent evt)
 		{
 			Data.OnNameChangeClicked();
 		}
 
-		private void OnTrophiesChanged(uint _, uint current)
+		private void OnTrophiesChanged(uint previous, uint current)
 		{
-			_playerTrophiesLabel.text = current.ToString();
+			if (_rewardsCollecting && current > previous)
+			{
+				StartCoroutine(AnimateCurrency(GameId.Trophies, previous, current, _playerTrophiesLabel));
+			}
+			else
+			{
+				_playerTrophiesLabel.text = current.ToString();
+			}
 		}
 
 		private void OnDisplayNameChanged(string _, string current)
@@ -225,6 +195,8 @@ namespace FirstLight.Game.Presenters
 
 		private IEnumerator AnimateCurrency(GameId id, ulong previous, ulong current, Label label)
 		{
+			label.text = previous.ToString();
+
 			yield return new WaitForSeconds(CURRENCY_ANIM_DELAY);
 
 			for (int i = 0; i < Mathf.Min(10, current - previous); i++)

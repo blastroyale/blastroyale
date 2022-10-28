@@ -25,6 +25,8 @@ namespace Quantum.Systems
 					{
 						drop->Stage = AirDropStage.Announcing;
 						f.Events.OnAirDropDropped(filter.Entity, f.Get<AirDrop>(filter.Entity));
+
+						f.Unsafe.GetPointer<PhysicsCollider3D>(filter.Entity)->Enabled = false;
 					}
 
 					break;
@@ -40,8 +42,9 @@ namespace Quantum.Systems
 
 						f.Add<Chest>(filter.Entity, out var chest);
 						chest->Init(f, filter.Entity, drop->Position, FPQuaternion.Identity,
-						            f.ChestConfigs.GetConfig(drop->Chest));
-
+							f.ChestConfigs.GetConfig(drop->Chest));
+						
+						f.Unsafe.GetPointer<PhysicsCollider3D>(filter.Entity)->Enabled = true;
 						f.Events.OnAirDropLanded(filter.Entity, f.Get<AirDrop>(filter.Entity));
 					}
 

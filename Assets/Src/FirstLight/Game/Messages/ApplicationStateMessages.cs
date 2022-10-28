@@ -1,5 +1,5 @@
 using FirstLight.Server.SDK.Modules.GameConfiguration;
-using FirstLight.Services;
+using FirstLight.SDK.Services;
 
 namespace FirstLight.Game.Messages
 {

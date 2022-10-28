@@ -4,9 +4,11 @@ singleton component GameContainer
 	UInt32 CurrentProgress;
 	UInt32 TargetProgress;
 	bool IsGameOver;
+	bool IsGameStarted;
 	FP GameOverTime;
 	MutatorsState MutatorsState;
 	WeaponDropPool DropPool;
+	list<player_ref> RealPlayers;
 }
 
 struct MutatorsState
@@ -21,4 +23,5 @@ struct WeaponDropPool
 	array<Equipment>[PLAYER_COUNT] WeaponPool;
 }
 
+signal AllPlayersJoined();
 signal GameEnded();

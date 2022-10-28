@@ -82,7 +82,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Generates a new unique non-NFT piece of equipment from battle pass reward configs
 		/// </summary>
-		Equipment GenerateEquipmentFromBattlePassReward(BattlePassRewardConfig config);
+		Equipment GenerateEquipmentFromConfig(EquipmentRewardConfig config);
 	}
 
 	/// <inheritdoc />
@@ -227,7 +227,7 @@ namespace FirstLight.Game.Logic
 			return Loadout.Count >= GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>().NftRequiredEquippedForPlay;
 		}
 
-		public Equipment GenerateEquipmentFromBattlePassReward(BattlePassRewardConfig config)
+		public Equipment GenerateEquipmentFromConfig(EquipmentRewardConfig config)
 		{
 			var gameId = config.GameId;
 
@@ -356,6 +356,19 @@ namespace FirstLight.Game.Logic
 		{
 			var gameId = GameLogic.UniqueIdLogic.Ids[itemId];
 			var slot = gameId.GetSlot();
+
+			if (!Inventory.TryGetValue(itemId, out var equipment))
+			{
+				throw new LogicException($"The player does not own item '{itemId}'");
+			}
+			
+			if (NftInventory.TryGetValue(itemId, out var nftData))
+			{
+				if (equipment.IsBroken(nftData))
+				{
+					throw new LogicException($"Item '{itemId}' is broken");
+				}
+			}
 
 			if (_loadout.TryGetValue(slot, out var equippedId))
 			{

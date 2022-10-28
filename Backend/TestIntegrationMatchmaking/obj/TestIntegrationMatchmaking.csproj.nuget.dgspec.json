@@ -1,0 +1,616 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/gabrielslomka/Code/blast-royale/Backend/TestIntegrationMatchmaking/TestIntegrationMatchmaking.csproj": {}
+  },
+  "projects": {
+    "/Users/gabrielslomka/Code/blast-royale/Backend/BlastRoyaleAnalyticsPlugin/BlastRoyaleAnalyticsPlugin.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/gabrielslomka/Code/blast-royale/Backend/BlastRoyaleAnalyticsPlugin/BlastRoyaleAnalyticsPlugin.csproj",
+        "projectName": "BlastRoyaleAnalyticsPlugin",
+        "projectPath": "/Users/gabrielslomka/Code/blast-royale/Backend/BlastRoyaleAnalyticsPlugin/BlastRoyaleAnalyticsPlugin.csproj",
+        "packagesPath": "/Users/gabrielslomka/.nuget/packages/",
+        "outputPath": "/Users/gabrielslomka/Code/blast-royale/Backend/BlastRoyaleAnalyticsPlugin/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/gabrielslomka/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "/Users/gabrielslomka/Code/blast-royale/Backend/FirstLightServerSDK/FirstLightServerSDK.csproj": {
+                "projectPath": "/Users/gabrielslomka/Code/blast-royale/Backend/FirstLightServerSDK/FirstLightServerSDK.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/x64/sdk/6.0.102/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/gabrielslomka/Code/blast-royale/Backend/BlastRoyaleCorePlugin/BlastRoyaleCorePlugin.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/gabrielslomka/Code/blast-royale/Backend/BlastRoyaleCorePlugin/BlastRoyaleCorePlugin.csproj",
+        "projectName": "BlastRoyaleCorePlugin",
+        "projectPath": "/Users/gabrielslomka/Code/blast-royale/Backend/BlastRoyaleCorePlugin/BlastRoyaleCorePlugin.csproj",
+        "packagesPath": "/Users/gabrielslomka/.nuget/packages/",
+        "outputPath": "/Users/gabrielslomka/Code/blast-royale/Backend/BlastRoyaleCorePlugin/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/gabrielslomka/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "/Users/gabrielslomka/Code/blast-royale/Backend/FirstLightServerSDK/FirstLightServerSDK.csproj": {
+                "projectPath": "/Users/gabrielslomka/Code/blast-royale/Backend/FirstLightServerSDK/FirstLightServerSDK.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.Extensions.Logging.Abstractions": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
+            "PlayFabAllSDK": {
+              "target": "Package",
+              "version": "[1.108.220118, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/x64/sdk/6.0.102/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/gabrielslomka/Code/blast-royale/Backend/BlastRoyaleTrophyLadderPlugin/BlastRoyaleTrophyLadderPlugin.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/gabrielslomka/Code/blast-royale/Backend/BlastRoyaleTrophyLadderPlugin/BlastRoyaleTrophyLadderPlugin.csproj",
+        "projectName": "BlastRoyaleTrophyLadderPlugin",
+        "projectPath": "/Users/gabrielslomka/Code/blast-royale/Backend/BlastRoyaleTrophyLadderPlugin/BlastRoyaleTrophyLadderPlugin.csproj",
+        "packagesPath": "/Users/gabrielslomka/.nuget/packages/",
+        "outputPath": "/Users/gabrielslomka/Code/blast-royale/Backend/BlastRoyaleTrophyLadderPlugin/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/gabrielslomka/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "/Users/gabrielslomka/Code/blast-royale/Backend/FirstLightServerSDK/FirstLightServerSDK.csproj": {
+                "projectPath": "/Users/gabrielslomka/Code/blast-royale/Backend/FirstLightServerSDK/FirstLightServerSDK.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "PlayFabAllSDK": {
+              "target": "Package",
+              "version": "[1.108.220118, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/x64/sdk/6.0.102/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/gabrielslomka/Code/blast-royale/Backend/FirstLightServerSDK/FirstLightServerSDK.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/gabrielslomka/Code/blast-royale/Backend/FirstLightServerSDK/FirstLightServerSDK.csproj",
+        "projectName": "FirstLightServerSDK",
+        "projectPath": "/Users/gabrielslomka/Code/blast-royale/Backend/FirstLightServerSDK/FirstLightServerSDK.csproj",
+        "packagesPath": "/Users/gabrielslomka/.nuget/packages/",
+        "outputPath": "/Users/gabrielslomka/Code/blast-royale/Backend/FirstLightServerSDK/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/gabrielslomka/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net48"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net48": {
+            "targetAlias": "net48",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net48": {
+          "targetAlias": "net48",
+          "dependencies": {
+            "Microsoft.NETFramework.ReferenceAssemblies": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.0.2, )",
+              "autoReferenced": true
+            },
+            "Newtonsoft.Json": {
+              "include": "Compile, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "target": "Package",
+              "version": "[13.0.1, )"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/x64/sdk/6.0.102/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/gabrielslomka/Code/blast-royale/Backend/GameLogicService/GameLogicService.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/gabrielslomka/Code/blast-royale/Backend/GameLogicService/GameLogicService.csproj",
+        "projectName": "GameLogicService",
+        "projectPath": "/Users/gabrielslomka/Code/blast-royale/Backend/GameLogicService/GameLogicService.csproj",
+        "packagesPath": "/Users/gabrielslomka/.nuget/packages/",
+        "outputPath": "/Users/gabrielslomka/Code/blast-royale/Backend/GameLogicService/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/gabrielslomka/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "/Users/gabrielslomka/Code/blast-royale/Backend/BlastRoyaleAnalyticsPlugin/BlastRoyaleAnalyticsPlugin.csproj": {
+                "projectPath": "/Users/gabrielslomka/Code/blast-royale/Backend/BlastRoyaleAnalyticsPlugin/BlastRoyaleAnalyticsPlugin.csproj"
+              },
+              "/Users/gabrielslomka/Code/blast-royale/Backend/BlastRoyaleCorePlugin/BlastRoyaleCorePlugin.csproj": {
+                "projectPath": "/Users/gabrielslomka/Code/blast-royale/Backend/BlastRoyaleCorePlugin/BlastRoyaleCorePlugin.csproj"
+              },
+              "/Users/gabrielslomka/Code/blast-royale/Backend/BlastRoyaleTrophyLadderPlugin/BlastRoyaleTrophyLadderPlugin.csproj": {
+                "projectPath": "/Users/gabrielslomka/Code/blast-royale/Backend/BlastRoyaleTrophyLadderPlugin/BlastRoyaleTrophyLadderPlugin.csproj"
+              },
+              "/Users/gabrielslomka/Code/blast-royale/Backend/FirstLightServerSDK/FirstLightServerSDK.csproj": {
+                "projectPath": "/Users/gabrielslomka/Code/blast-royale/Backend/FirstLightServerSDK/FirstLightServerSDK.csproj"
+              },
+              "/Users/gabrielslomka/Code/blast-royale/Backend/ServerCommon/ServerCommon.csproj": {
+                "projectPath": "/Users/gabrielslomka/Code/blast-royale/Backend/ServerCommon/ServerCommon.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "DistributedLock": {
+              "target": "Package",
+              "version": "[2.3.0, )"
+            },
+            "DistributedLock.Postgres": {
+              "target": "Package",
+              "version": "[1.0.2, )"
+            },
+            "Microsoft.ApplicationInsights.AspNetCore": {
+              "target": "Package",
+              "version": "[2.21.0, )"
+            },
+            "Microsoft.Azure.Functions.Extensions": {
+              "target": "Package",
+              "version": "[1.1.0, )"
+            },
+            "Microsoft.NET.Sdk.Functions": {
+              "target": "Package",
+              "version": "[4.1.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[6.0.4, )"
+            },
+            "PlayFabCloudScriptPlugin": {
+              "target": "Package",
+              "version": "[1.53.190627-alpha, )"
+            },
+            "YamlDotNet": {
+              "target": "Package",
+              "version": "[11.2.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/x64/sdk/6.0.102/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/gabrielslomka/Code/blast-royale/Backend/MatchmakingService/MatchmakingService.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/gabrielslomka/Code/blast-royale/Backend/MatchmakingService/MatchmakingService.csproj",
+        "projectName": "MatchmakingService",
+        "projectPath": "/Users/gabrielslomka/Code/blast-royale/Backend/MatchmakingService/MatchmakingService.csproj",
+        "packagesPath": "/Users/gabrielslomka/.nuget/packages/",
+        "outputPath": "/Users/gabrielslomka/Code/blast-royale/Backend/MatchmakingService/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/gabrielslomka/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "/Users/gabrielslomka/Code/blast-royale/Backend/GameLogicService/GameLogicService.csproj": {
+                "projectPath": "/Users/gabrielslomka/Code/blast-royale/Backend/GameLogicService/GameLogicService.csproj"
+              },
+              "/Users/gabrielslomka/Code/blast-royale/Backend/ServerCommon/ServerCommon.csproj": {
+                "projectPath": "/Users/gabrielslomka/Code/blast-royale/Backend/ServerCommon/ServerCommon.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "PlayFabAllSDK": {
+              "target": "Package",
+              "version": "[1.138.220926, )"
+            },
+            "Swashbuckle.AspNetCore.Swagger": {
+              "target": "Package",
+              "version": "[6.4.0, )"
+            },
+            "Swashbuckle.AspNetCore.SwaggerGen": {
+              "target": "Package",
+              "version": "[6.4.0, )"
+            },
+            "Swashbuckle.AspNetCore.SwaggerUI": {
+              "target": "Package",
+              "version": "[6.4.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/x64/sdk/6.0.102/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/gabrielslomka/Code/blast-royale/Backend/ServerCommon/ServerCommon.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/gabrielslomka/Code/blast-royale/Backend/ServerCommon/ServerCommon.csproj",
+        "projectName": "ServerCommon",
+        "projectPath": "/Users/gabrielslomka/Code/blast-royale/Backend/ServerCommon/ServerCommon.csproj",
+        "packagesPath": "/Users/gabrielslomka/.nuget/packages/",
+        "outputPath": "/Users/gabrielslomka/Code/blast-royale/Backend/ServerCommon/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/gabrielslomka/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "/Users/gabrielslomka/Code/blast-royale/Backend/FirstLightServerSDK/FirstLightServerSDK.csproj": {
+                "projectPath": "/Users/gabrielslomka/Code/blast-royale/Backend/FirstLightServerSDK/FirstLightServerSDK.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.ApplicationInsights.AspNetCore": {
+              "target": "Package",
+              "version": "[2.21.0, )"
+            },
+            "Microsoft.AspNetCore.Http.Abstractions": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Abstractions": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Core": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[6.0.10, )"
+            },
+            "Microsoft.Azure.WebJobs": {
+              "target": "Package",
+              "version": "[3.0.23, )"
+            },
+            "Microsoft.Extensions.Configuration.Abstractions": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "Microsoft.Extensions.DependencyInjection.Abstractions": {
+              "target": "Package",
+              "version": "[7.0.0-rc.2.22472.3, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
+            "PlayFabAllSDK": {
+              "target": "Package",
+              "version": "[1.127.220718, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.4.0, )"
+            },
+            "Swashbuckle.AspNetCore.Swagger": {
+              "target": "Package",
+              "version": "[6.4.0, )"
+            },
+            "Swashbuckle.AspNetCore.SwaggerGen": {
+              "target": "Package",
+              "version": "[6.4.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/x64/sdk/6.0.102/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/gabrielslomka/Code/blast-royale/Backend/TestIntegrationMatchmaking/TestIntegrationMatchmaking.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/gabrielslomka/Code/blast-royale/Backend/TestIntegrationMatchmaking/TestIntegrationMatchmaking.csproj",
+        "projectName": "TestIntegrationMatchmaking",
+        "projectPath": "/Users/gabrielslomka/Code/blast-royale/Backend/TestIntegrationMatchmaking/TestIntegrationMatchmaking.csproj",
+        "packagesPath": "/Users/gabrielslomka/.nuget/packages/",
+        "outputPath": "/Users/gabrielslomka/Code/blast-royale/Backend/TestIntegrationMatchmaking/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/gabrielslomka/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "/Users/gabrielslomka/Code/blast-royale/Backend/MatchmakingService/MatchmakingService.csproj": {
+                "projectPath": "/Users/gabrielslomka/Code/blast-royale/Backend/MatchmakingService/MatchmakingService.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Mvc.Testing": {
+              "target": "Package",
+              "version": "[6.0.10, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[16.11.0, )"
+            },
+            "NUnit": {
+              "target": "Package",
+              "version": "[3.13.2, )"
+            },
+            "NUnit3TestAdapter": {
+              "target": "Package",
+              "version": "[4.0.0, )"
+            },
+            "coverlet.collector": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/x64/sdk/6.0.102/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

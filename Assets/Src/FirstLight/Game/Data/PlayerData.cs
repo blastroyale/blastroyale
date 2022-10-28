@@ -6,12 +6,22 @@ using Quantum;
 
 namespace FirstLight.Game.Data
 {
+	[Flags]
+	public enum PlayerFlags : byte
+	{
+		None = 0,
+		QA = 1 << 1,
+		Admin = 1 << 2,
+		Deleted = 1 << 3
+	}
+	
 	/// <summary>
 	/// Contains all the data in the scope of the Player 
 	/// </summary>
 	[Serializable]
 	public class PlayerData
 	{
+		public PlayerFlags Flags;
 		public uint Level = 1;
 		public uint Xp = 0;
 		public uint Trophies = 1000;
@@ -32,4 +42,5 @@ namespace FirstLight.Game.Data
 			{ GameId.BLST, 0 }
 		};
 	}
+	
 }

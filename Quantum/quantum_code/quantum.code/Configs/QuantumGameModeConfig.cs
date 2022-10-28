@@ -124,9 +124,12 @@ namespace Quantum
 		[FoldoutGroup("Endgame"), PropertyTooltip(DESC_COMPLETION_STRATEGY)]
 		public GameCompletionStrategy CompletionStrategy;
 
-		[FoldoutGroup("Endgame"), ShowIf("@CompletionStrategy == GameCompletionStrategy.KillCount"),
+		[FoldoutGroup("Endgame"), ShowIf("@CompletionStrategy == GameCompletionStrategy.KillCount"), 
 		 PropertyTooltip(DESC_COMPLETION_KILL_COUNT)]
 		public uint CompletionKillCount;
+		
+		[FoldoutGroup("Endgame"), PropertyTooltip(DESC_ALLOW_EARLY_REWARDS)]
+		public bool AllowEarlyRewards;
 
 #endregion
 
@@ -185,6 +188,7 @@ namespace Quantum
 		private const string DESC_RANK_PROCESSOR = "How should we modify the player's rank on the leaderboards.";
 		private const string DESC_ALLOWED_MAPS = "Which maps are allowed to be played with this game mode.";
 		private const string DESC_COMPLETION_STRATEGY = "What should mark the end of a match.";
+		private const string DESC_ALLOW_EARLY_REWARDS = "Can player earn rewards mid-game ?";
 		private const string DESC_COMPLETION_KILL_COUNT = "How many kills must a player have to win the match.";
 		private const string DESC_GAME_SIMULATION_SM = "Which state machine to use for game simulation";
 		private const string DESC_AUDIO_SM = "Which state machine to use for audio.";

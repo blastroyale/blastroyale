@@ -8,7 +8,7 @@ namespace Quantum.Systems
 	/// This system handles all the behaviour for the <see cref="PlayerCharacter"/> and it's dependent component states
 	/// </summary>
 	public unsafe class PlayerCharacterSystem : SystemMainThreadFilter<PlayerCharacterSystem.PlayerCharacterFilter>,
-	                                            ISignalOnPlayerDataSet, ISignalHealthIsZeroFromAttacker
+											ISignalHealthIsZeroFromAttacker, ISignalAllPlayersJoined
 	{
 		public struct PlayerCharacterFilter
 		{
@@ -22,9 +22,18 @@ namespace Quantum.Systems
 			ProcessPlayerInput(f, ref filter);
 			UpdateHealthPerSecMutator(f, ref filter);
 		}
-
+		
 		/// <inheritdoc />
-		public void OnPlayerDataSet(Frame f, PlayerRef playerRef)
+		public void AllPlayersJoined(Frame f)
+		{
+			var container = f.GetSingleton<GameContainer>();
+			foreach (var player in f.ResolveList(container.RealPlayers))
+			{
+				InstantiatePlayer(f, player);
+			}
+		}
+		
+		private void InstantiatePlayer(Frame f, PlayerRef playerRef)
 		{
 			var playerEntity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.PlayerCharacterPrototype.Id));
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
@@ -32,19 +41,18 @@ namespace Quantum.Systems
 			var gridSquareSize = FP._1 * f.Map.WorldSize / f.Map.GridSizeX / FP._2;
 			var spawnPosition = playerData.NormalizedSpawnPosition * f.Map.WorldSize +
 			                    new FPVector2(f.RNG->Next(-gridSquareSize, gridSquareSize),
-			                                  f.RNG->Next(-gridSquareSize, gridSquareSize));
-
+				                    f.RNG->Next(-gridSquareSize, gridSquareSize));
 			
 			var spawnTransform = new Transform3D {Position = FPVector3.Zero, Rotation = FPQuaternion.Identity};
 			var startingEquipment = f.Context.GameModeConfig.SpawnWithLoadout
-				                        ? playerData.Loadout :
-				                        Array.Empty<Equipment>();
+				? playerData.Loadout :
+				Array.Empty<Equipment>();
 
 			spawnTransform.Position = spawnPosition.XOY;
 
 			playerCharacter->Init(f, playerEntity, playerRef, spawnTransform, playerData.PlayerLevel,
-			                      playerData.PlayerTrophies, playerData.Skin, playerData.DeathMarker, startingEquipment,
-			                      playerData.Loadout.FirstOrDefault(e => e.IsWeapon()));
+				playerData.PlayerTrophies, playerData.Skin, playerData.DeathMarker, startingEquipment,
+				playerData.Loadout.FirstOrDefault(e => e.IsWeapon()));
 		}
 
 		/// <inheritdoc />

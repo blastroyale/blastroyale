@@ -29,6 +29,7 @@ namespace Backend.Game.Services
 
 		public void EmitUserEvent(string id, string eventName, AnalyticsData data)
 		{
+			_log.LogDebug($"Sending event {eventName} for user {id}");
 			PlayFabServerAPI.WritePlayerEventAsync(new WriteServerPlayerEventRequest()
 			{
 				PlayFabId = id,
@@ -45,4 +46,3 @@ namespace Backend.Game.Services
 		}
 	}
 }
-

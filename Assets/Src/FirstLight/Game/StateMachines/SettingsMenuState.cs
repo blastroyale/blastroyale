@@ -1,12 +1,16 @@
 using System;
+using FirstLight.FLogger;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Statechart;
 using I2.Loc;
+using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ClientModels;
+using PlayFab.CloudScriptModels;
 using UnityEngine;
 
 namespace FirstLight.Game.StateMachines
@@ -70,7 +74,7 @@ namespace FirstLight.Game.StateMachines
 			logoutWait.Event(_logoutFailedEvent).Target(final);
 
 			final.OnEnter(UnsubscribeEvents);
-		}
+		} 
 
 		private void SubscribeEvents()
 		{
@@ -89,7 +93,8 @@ namespace FirstLight.Game.StateMachines
 				LogoutClicked = TryLogOut,
 				OnClose = () => _statechartTrigger(_settingsCloseClickedEvent),
 				OnServerSelectClicked = () => _statechartTrigger(NetworkState.OpenServerSelectScreenEvent),
-				OnConnectIdClicked = () => _statechartTrigger(_connectIdClickedEvent)
+				OnConnectIdClicked = () => _statechartTrigger(_connectIdClickedEvent),
+				OnDeleteAccountClicked = () => _services.PlayfabService.CallFunction("RemovePlayerData", OnAccountDeleted)
 			};
 
 			_uiService.OpenUiAsync<SettingsScreenPresenter, SettingsScreenPresenter.StateData>(data);
@@ -143,6 +148,13 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnConnectIdError(PlayFabError error)
 		{
+			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.LinkGuestAccount, error.ErrorMessage);
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.General.OK,
+				ButtonOnClick = _services.GenericDialogService.CloseDialog
+			};
+			_services.GenericDialogService.OpenDialog(error.ErrorMessage, false, confirmButton);
 			SetConnectIdDim(false);
 		}
 
@@ -181,7 +193,7 @@ namespace FirstLight.Game.StateMachines
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.MainMenu.QuitGameButton,
-				ButtonOnClick = () => { UnityEditor.EditorApplication.isPlaying = false; }
+				ButtonOnClick = () => { _services.QuitGame("Closing due to logout"); }
 			};
 
 			_services.GenericDialogService.OpenDialog(title, false, confirmButton);
@@ -201,7 +213,8 @@ namespace FirstLight.Game.StateMachines
 		private void OnServerHttpErrorMessage(ServerHttpErrorMessage msg)
 		{
 			_services.AnalyticsService.CrashLog(msg.Message);
-
+			
+#if UNITY_EDITOR
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.OK,
@@ -209,6 +222,22 @@ namespace FirstLight.Game.StateMachines
 			};
 
 			_services.GenericDialogService.OpenDialog(msg.Message, false, confirmButton);
+#else
+			
+			var button = new NativeUi.AlertButton
+			{
+				Callback = () => { _statechartTrigger(_logoutFailedEvent); },
+				Style = NativeUi.AlertButtonStyle.Default,
+				Text = ScriptLocalization.General.OK
+			};
+
+			NativeUi.NativeUiService.ShowAlertPopUp(false,ScriptLocalization.MainMenu.PlayfabError, msg.Message, button);
+#endif
+		}
+
+		private void OnAccountDeleted(ExecuteFunctionResult res)
+		{
+			TryLogOut();
 		}
 	}
 }

@@ -1,10 +1,12 @@
 using System.Linq;
 using System.Threading.Tasks;
+using FirstLight.Game.Data;
 using Microsoft.Extensions.Logging;
 using PlayFab;
 using PlayFab.ServerModels;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Services;
+using ServerCommon;
 
 namespace Backend.Game.Services
 {
@@ -40,10 +42,7 @@ namespace Backend.Game.Services
     		}
     		var server = _server.CreateServer(playerId);
     		var result = await server.UpdateUserReadOnlyDataAsync(request);
-    		if (result.Error != null)
-    		{
-    			throw _errorService.HandleError(result.Error);
-    		}
+    		_errorService.CheckErrors(result);
         }
     	
     	/// <inheritdoc />
@@ -54,16 +53,27 @@ namespace Backend.Game.Services
     		{
     			PlayFabId = playfabId
     		});
-    		if (result.Error != null)
-    		{
-    			throw _errorService.HandleError(result.Error);
-    		}
-    
-    		var fabResult = result.Result.Data.ToDictionary(
+			_errorService.CheckErrors(result);
+			var fabResult = result.Result.Data.ToDictionary(
     		                                                entry => entry.Key,
     		                                                entry => entry.Value.Value);
     		return new ServerState(fabResult);
     	}
-    }
+
+		public async Task DeletePlayerState(string playerId)
+		{
+			var currentState = await GetPlayerState(playerId);
+			var playerData = currentState.DeserializeModel<PlayerData>();
+			// Set flag in case playfab delays the deletion
+			playerData.Flags |= PlayerFlags.Deleted;
+			currentState.UpdateModel(playerData);
+			await UpdatePlayerState(playerId, currentState);
+			var result = await PlayFabAdminAPI.DeleteMasterPlayerAccountAsync(new()
+			{
+				PlayFabId = playerId
+			});
+			_errorService.CheckErrors(result);
+		}
+	}
 }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ExitGames.Client.Photon;
+using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
@@ -270,7 +271,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				startPlayersCount = room.GetRealPlayerAmount();
 			}
-
+			
 			var startParams = configs.GetDefaultStartParameters(startPlayersCount, IsSpectator());
 
 			startParams.NetworkClient = client;
@@ -353,8 +354,8 @@ namespace FirstLight.Game.StateMachines
 			var data = new TrophiesScreenPresenter.StateData
 			{
 				ExitTrophyScreen = ContinueClicked,
-				LastTrophyChange = () => _lastTrophyChange,
-				TrophiesBeforeLastChange = () => _trophiesBeforeLastChange
+				LastTrophyChange = _lastTrophyChange,
+				TrophiesBeforeLastChange = _trophiesBeforeLastChange
 			};
 
 			_uiService.OpenUiAsync<TrophiesScreenPresenter, TrophiesScreenPresenter.StateData>(data);

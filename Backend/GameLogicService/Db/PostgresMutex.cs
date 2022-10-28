@@ -25,7 +25,7 @@ namespace Backend.Game
 		public async Task Lock(string userId)
 		{
 			var mutex = new PostgresDistributedLock(new PostgresAdvisoryLockKey(userId, allowHashing: true), _cfg.DbConnectionString);
-			_handles[userId] = await mutex.AcquireAsync();
+			_handles[userId] = await mutex.AcquireAsync(timeout: TimeSpan.FromSeconds(10));
 		}
 
 		/// <inheritdoc />

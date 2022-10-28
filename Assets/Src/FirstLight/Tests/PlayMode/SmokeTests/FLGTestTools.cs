@@ -2,7 +2,10 @@ using System.Collections;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Views.MainMenuViews;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
+using Button = UnityEngine.UI.Button;
+using Object = UnityEngine.Object;
+using Toggle = UnityEngine.UI.Toggle;
 
 namespace FirstLight.Tests.PlayTests
 {
@@ -50,20 +53,20 @@ namespace FirstLight.Tests.PlayTests
 
 		public static void ClickGameCompleteContinue()
 		{
-			var gameCompleteScreen = GameObject.FindObjectOfType<GameCompleteScreenPresenter>();
+			var gameCompleteScreen = Object.FindObjectOfType<GameCompleteScreenPresenter>();
 			var completeButton = gameCompleteScreen.gameObject.GetComponentInChildren<Button>();
 			completeButton.onClick.Invoke();
 		}
 
 		public static void SelectWaterPosition()
 		{
-			var map = GameObject.FindObjectOfType<MapSelectionView>();
+			var map = Object.FindObjectOfType<MapSelectionView>();
 			map.SelectWaterPosition();
 		}
 
 		public static void ClickCustomGameButton()
 		{
-			GameObject.Find("Play Room").GetComponent<Button>().onClick.Invoke();
+			TestTools.ClickUIToolKitButton(Object.FindObjectOfType<HomeScreenPresenter>().GetComponent<UIDocument>(), "CustomGameButton");
 		}
 
 		public static void ClickCreateRoom()

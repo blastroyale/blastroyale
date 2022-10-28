@@ -18,6 +18,12 @@ namespace FirstLight.Game.Utils
 			_installer.Bind(instance);
 		}
 
+		/// <inheritdoc cref="IInstaller.TryResolve{T}"/>
+		public static bool TryResolve<T>(out T instance)
+		{
+			return _installer.TryResolve(out instance);
+		}
+
 		/// <inheritdoc cref="IInstaller.Resolve{T}"/>
 		public static T Resolve<T>()
 		{

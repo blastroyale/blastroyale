@@ -2,13 +2,10 @@ using System;
 using System.Collections.Generic;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Services;
-using Photon.Deterministic;
 using Quantum;
-using UnityEngine;
 
 namespace FirstLight.Game.Logic
 {
@@ -55,7 +52,7 @@ namespace FirstLight.Game.Logic
 		/// Updates player's trophies (Elo) based on their ranking in the match, and returns the amount of trophies
 		/// added/removed
 		/// </summary>
-		int UpdateTrophies(MatchType matchType, List<QuantumPlayerMatchData> players, PlayerRef localPlayer);
+		void UpdateTrophies(int change);
 		
 		/// <summary>
 		/// Changes the player skin to <paramref name="skin"/>
@@ -180,44 +177,9 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public int UpdateTrophies(MatchType matchType, List<QuantumPlayerMatchData> players, PlayerRef localPlayer)
+		public void UpdateTrophies(int change)
 		{
-			if (matchType != MatchType.Ranked) return 0;
-			
-			var localPlayerData = players[localPlayer];
-			var gameConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
-			
-			var tempPlayers = new List<QuantumPlayerMatchData>(players);
-			tempPlayers.SortByPlayerRank(false);
-
-			var trophyChange = 0d;
-
-			// Losses
-			for (var i = 0; i < localPlayerData.PlayerRank; i++)
-			{
-				trophyChange += CalculateEloChange(0d, players[i].Data.PlayerTrophies, 
-				                                   localPlayerData.Data.PlayerTrophies, gameConfig.TrophyEloRange,
-				                                   gameConfig.TrophyEloK.AsDouble);
-			}
-
-			// Wins
-			for (var i = (int) localPlayerData.PlayerRank + 1; i < players.Count; i++)
-			{
-				trophyChange += CalculateEloChange(1d, players[i].Data.PlayerTrophies, 
-				                                   localPlayerData.Data.PlayerTrophies, gameConfig.TrophyEloRange,
-				                                   gameConfig.TrophyEloK.AsDouble);
-			}
-
-			var finalTrophyChange = (int)Math.Round(trophyChange);
-
-			if (finalTrophyChange < 0 && Math.Abs(finalTrophyChange) > _trophies.Value)
-			{
-				finalTrophyChange = (int) -_trophies.Value;
-			}
-
-			_trophies.Value = Math.Max(0, _trophies.Value + (uint) finalTrophyChange);
-
-			return finalTrophyChange;
+			_trophies.Value = (uint) Math.Max(0, _trophies.Value + change);
 		}
 
 		/// <inheritdoc />
@@ -229,13 +191,6 @@ namespace FirstLight.Game.Logic
 			}
 
 			Data.PlayerSkinId = skin;
-		}
-
-		private double CalculateEloChange(double score, uint trophiesOpponent, uint trophiesPlayer, int eloRange, double eloK)
-		{
-			var eloBracket = Math.Pow(10, (trophiesOpponent - trophiesPlayer) / (float) eloRange);
-			
-			return eloK * (score - 1 / (1 + eloBracket));
 		}
 	}
 }

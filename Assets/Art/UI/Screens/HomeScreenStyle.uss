@@ -206,6 +206,14 @@
     transition-delay: var(--animation-delay-1);
 }
 
+#BLSTCurrency #Icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BLST.png?fileID=21300000&guid=b0ad58f6ca5c1472fa1fb6178491eb03&type=3#BLST');
+}
+
+#CSCurrency #Icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/CS.png?fileID=21300000&guid=d74b22177c5ba4ac6b9293d6c147e46e&type=3#CS');
+}
+
 .hidden {
     visibility: hidden;
     display: none;

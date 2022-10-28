@@ -2,7 +2,6 @@ using FirstLight.Game.Logic;
 using System.Collections.Generic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
-using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using Quantum;
 
@@ -24,17 +23,13 @@ namespace FirstLight.Game.Commands
 		/// <inheritdoc />
 		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)
 		{
-			if (!_validRewardsFromFrame)
-			{
-				return;
-			}
+			if (!_validRewardsFromFrame) return;
+
 			var matchData = PlayersMatchData;
 			var trophiesBeforeChange = gameLogic.PlayerLogic.Trophies.Value;
 			var matchType = QuantumValues.MatchType;
-			var trophyChange =
-				gameLogic.PlayerLogic.UpdateTrophies(matchType, matchData, QuantumValues.ExecutingPlayer);
-			var rewards =
-				gameLogic.RewardLogic.GiveMatchRewards(matchType, matchData[QuantumValues.ExecutingPlayer], false);
+			var rewards = gameLogic.RewardLogic.GiveMatchRewards(
+				matchType, matchData, QuantumValues.ExecutingPlayer, false, out var trophyChange);
 
 			gameLogic.MessageBrokerService.Publish(new GameCompletedRewardsMessage
 			{

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using DG.Tweening;
+using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
@@ -152,9 +153,16 @@ namespace FirstLight.Game.Presenters
 			Data.OnNameChangeClicked();
 		}
 
-		private void OnTrophiesChanged(uint _, uint current)
+		private void OnTrophiesChanged(uint previous, uint current)
 		{
-			_playerTrophiesLabel.text = current.ToString();
+			if (_rewardsCollecting && current > previous)
+			{
+				StartCoroutine(AnimateCurrency(GameId.Trophies, previous, current, _playerTrophiesLabel));
+			}
+			else
+			{
+				_playerTrophiesLabel.text = current.ToString();
+			}
 		}
 
 		private void OnDisplayNameChanged(string _, string current)
@@ -187,6 +195,8 @@ namespace FirstLight.Game.Presenters
 
 		private IEnumerator AnimateCurrency(GameId id, ulong previous, ulong current, Label label)
 		{
+			label.text = previous.ToString();
+
 			yield return new WaitForSeconds(CURRENCY_ANIM_DELAY);
 
 			for (int i = 0; i < Mathf.Min(10, current - previous); i++)

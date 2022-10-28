@@ -24,8 +24,10 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Generate a list of rewards based on the players <paramref name="matchData"/> performance from a game completed
 		/// </summary>
-		List<RewardData> CalculateMatchRewards(MatchType matchType, QuantumPlayerMatchData matchData,
-		                                       bool didPlayerQuit);
+		List<RewardData> CalculateMatchRewards(MatchType matchType, List<QuantumPlayerMatchData> matchData,
+											   int executingPlayer,
+											   bool didPlayerQuit,
+											   out int trophyChange);
 	}
 
 	/// <inheritdoc />
@@ -34,7 +36,8 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Generate a list of rewards based on the players <paramref name="matchData"/> performance from a game completed
 		/// </summary>
-		List<RewardData> GiveMatchRewards(MatchType matchType, QuantumPlayerMatchData matchData, bool didPlayerQuit);
+		List<RewardData> GiveMatchRewards(MatchType matchType, List<QuantumPlayerMatchData> matchData,
+										  int executingPlayer, bool didPlayerQuit, out int trophyChange);
 
 		/// <summary>
 		/// Collects all the unclaimed rewards in the player's inventory
@@ -67,12 +70,16 @@ namespace FirstLight.Game.Logic
 			_unclaimedRewards = new ObservableList<RewardData>(Data.UncollectedRewards);
 		}
 
-		public List<RewardData> CalculateMatchRewards(MatchType matchType, QuantumPlayerMatchData matchData,
-		                                              bool didPlayerQuit)
+		public List<RewardData> CalculateMatchRewards(MatchType matchType, List<QuantumPlayerMatchData> matchData,
+													  int executingPlayer,
+													  bool didPlayerQuit,
+													  out int trophyChange)
 		{
 			var rewards = new List<RewardData>();
+			var localMatchData = matchData[executingPlayer];
+			trophyChange = 0;
 
-			if (matchData.PlayerRank == 0)
+			if (localMatchData.PlayerRank == 0)
 			{
 				throw new MatchDataEmptyLogicException();
 			}
@@ -80,17 +87,21 @@ namespace FirstLight.Game.Logic
 			// Currently, there is no plan on giving rewards on anything but BR mode
 			if (matchType == MatchType.Custom || didPlayerQuit)
 			{
+				if (matchType == MatchType.Ranked && didPlayerQuit)
+				{
+					GiveTrophiesReward(rewards, matchData, localMatchData, out trophyChange);
+				}
 				return rewards;
 			}
 
 			// Always perform ordering operation on the configs.
 			// If config data placement order changed in google sheet, it could silently screw up this algorithm.
 			var gameModeRewardConfigs = GameLogic.ConfigsProvider
-			                                     .GetConfigsList<MatchRewardConfig>()
-			                                     .OrderByDescending(x => x.Placement).ToList();
+				.GetConfigsList<MatchRewardConfig>()
+				.OrderByDescending(x => x.Placement).ToList();
 
 			var rewardConfig = gameModeRewardConfigs[0];
-			var rankValue = matchData.PlayerRank;
+			var rankValue = localMatchData.PlayerRank;
 
 			foreach (var config in gameModeRewardConfigs)
 			{
@@ -109,6 +120,7 @@ namespace FirstLight.Game.Logic
 			if (matchType == MatchType.Ranked)
 			{
 				GiveCSReward(rewards, rewardConfig);
+				GiveTrophiesReward(rewards, matchData, localMatchData, out trophyChange);
 			}
 
 			if (matchType is MatchType.Ranked or MatchType.Casual)
@@ -141,7 +153,7 @@ namespace FirstLight.Game.Logic
 			{
 				var info = GameLogic.ResourceLogic.GetResourcePoolInfo(GameId.BPP);
 				var withdrawn = (int) Math.Min(info.CurrentAmount, amount);
-				
+
 				var remainingPoints = GameLogic.BattlePassLogic.GetRemainingPoints();
 
 				withdrawn = (int) Math.Min(withdrawn, remainingPoints);
@@ -153,19 +165,69 @@ namespace FirstLight.Game.Logic
 			}
 		}
 
-		/// <inheritdoc />
-		public List<RewardData> GiveMatchRewards(MatchType matchType, QuantumPlayerMatchData matchData,
-		                                         bool didPlayerQuit)
+		private void GiveTrophiesReward(ICollection<RewardData> rewards,
+										IReadOnlyCollection<QuantumPlayerMatchData> players,
+										QuantumPlayerMatchData localPlayerData,
+										out int trophyChangeOut)
 		{
-			var rewards = CalculateMatchRewards(matchType, matchData, didPlayerQuit);
+			var gameConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
+
+			var tempPlayers = new List<QuantumPlayerMatchData>(players);
+			tempPlayers.SortByPlayerRank(false);
+
+			var trophyChange = 0d;
+
+			// Losses; Note: PlayerRank starts from 1, not from 0
+			for (var i = 0; i < localPlayerData.PlayerRank - 1; i++)
+			{
+				trophyChange += CalculateEloChange(0d, tempPlayers[i].Data.PlayerTrophies,
+					localPlayerData.Data.PlayerTrophies, gameConfig.TrophyEloRange,
+					gameConfig.TrophyEloK.AsDouble);
+			}
+
+			// Wins; Note: PlayerRank starts from 1, not from 0
+			for (var i = (int) localPlayerData.PlayerRank; i < players.Count; i++)
+			{
+				trophyChange += CalculateEloChange(1d, tempPlayers[i].Data.PlayerTrophies,
+					localPlayerData.Data.PlayerTrophies, gameConfig.TrophyEloRange,
+					gameConfig.TrophyEloK.AsDouble);
+			}
+
+			var finalTrophyChange = (int) Math.Round(trophyChange);
+
+			if (finalTrophyChange < 0 && Math.Abs(finalTrophyChange) > Data.Trophies)
+			{
+				finalTrophyChange = (int) -Data.Trophies;
+			}
+
+			trophyChangeOut = finalTrophyChange;
+			rewards.Add(new RewardData(GameId.Trophies, finalTrophyChange));
+		}
+
+		private double CalculateEloChange(double score, uint trophiesOpponent, uint trophiesPlayer, int eloRange,
+										  double eloK)
+		{
+			var eloBracket = Math.Pow(10, ((int) trophiesOpponent - (int) trophiesPlayer) / (float) eloRange);
+
+			return eloK * (score - 1 / (1 + eloBracket));
+		}
+
+		/// <inheritdoc />
+		public List<RewardData> GiveMatchRewards(MatchType matchType, List<QuantumPlayerMatchData> matchData,
+												 int executingPlayer,
+												 bool didPlayerQuit,
+												 out int trophyChange)
+		{
+			var rewards = CalculateMatchRewards(matchType, matchData, executingPlayer, didPlayerQuit, out trophyChange);
 
 			foreach (var reward in rewards)
 			{
 				var rewardData = reward;
-   
+
 				if (rewardData.RewardId.IsInGroup(GameIdGroup.ResourcePool))
 				{
-					rewardData.Value = (int) GameLogic.ResourceLogic.WithdrawFromResourcePool(reward.RewardId, (uint) reward.Value);
+					rewardData.Value =
+						(int) GameLogic.ResourceLogic.WithdrawFromResourcePool(reward.RewardId, (uint) reward.Value);
 				}
 
 				Data.UncollectedRewards.Add(rewardData);
@@ -220,6 +282,10 @@ namespace FirstLight.Game.Logic
 			{
 				GameLogic.BattlePassLogic.AddBPP((uint) reward.Value);
 			}
+			else if (reward.RewardId == GameId.Trophies)
+			{
+				GameLogic.PlayerLogic.UpdateTrophies(reward.Value);
+			}
 			else if (reward.RewardId.IsInGroup(GameIdGroup.Currency))
 			{
 				GameLogic.CurrencyLogic.AddCurrency(reward.RewardId, (uint) reward.Value);
@@ -248,10 +314,11 @@ namespace FirstLight.Game.Logic
 	{
 		private const string MATCH_DATA_EMPTY_EXCEPTION_MESSAGE =
 			"MatchData parameter should not be empty";
+
 		public MatchDataEmptyLogicException() : base(MATCH_DATA_EMPTY_EXCEPTION_MESSAGE)
 		{
 		}
- 
+
 		public MatchDataEmptyLogicException(string message, Exception inner) : base(message, inner)
 		{
 		}

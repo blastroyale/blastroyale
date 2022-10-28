@@ -10,7 +10,7 @@ resources:
     name: Infrastructure/core-templates
   pipelines:
   - pipeline: build
-    source: 'Blockchain build and push image'
+    source: 'Game Logic Service CI'
     trigger:
       branches:
         include:

@@ -87,7 +87,7 @@ MonoBehaviour:
       PowerToDamageRatio:
         RawValue: 39322
       AttackHitSpeed:
-        RawValue: 1638400
+        RawValue: 1310720
       MinAttackAngle: 7
       MaxAttackAngle: 14
       NumberOfShots: 1
@@ -133,9 +133,9 @@ MonoBehaviour:
       PowerToDamageRatio:
         RawValue: 16384
       AttackHitSpeed:
-        RawValue: 2162688
-      MinAttackAngle: 20
-      MaxAttackAngle: 45
+        RawValue: 1638400
+      MinAttackAngle: 25
+      MaxAttackAngle: 50
       NumberOfShots: 6
       NumberOfBursts: 2
       AttackRange:
@@ -179,9 +179,9 @@ MonoBehaviour:
       PowerToDamageRatio:
         RawValue: 22938
       AttackHitSpeed:
-        RawValue: 2162688
-      MinAttackAngle: 7
-      MaxAttackAngle: 10
+        RawValue: 1638400
+      MinAttackAngle: 3
+      MaxAttackAngle: 20
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
@@ -225,11 +225,11 @@ MonoBehaviour:
       PowerToDamageRatio:
         RawValue: 49152
       AttackHitSpeed:
-        RawValue: 2162688
+        RawValue: 1638400
       MinAttackAngle: 7
-      MaxAttackAngle: 10
+      MaxAttackAngle: 7
       NumberOfShots: 1
-      NumberOfBursts: 4
+      NumberOfBursts: 3
       AttackRange:
         RawValue: 655360
       AttackRangeAimBonus:
@@ -318,7 +318,7 @@ MonoBehaviour:
         RawValue: 32768
       AttackHitSpeed:
         RawValue: 786432
-      MinAttackAngle: 20
+      MinAttackAngle: 5
       MaxAttackAngle: 35
       NumberOfShots: 1
       NumberOfBursts: 3
@@ -409,7 +409,7 @@ MonoBehaviour:
       PowerToDamageRatio:
         RawValue: 32768
       AttackHitSpeed:
-        RawValue: 3276800
+        RawValue: 2162688
       MinAttackAngle: 0
       MaxAttackAngle: 0
       NumberOfShots: 1
@@ -455,7 +455,7 @@ MonoBehaviour:
       PowerToDamageRatio:
         RawValue: 13107
       AttackHitSpeed:
-        RawValue: 3276800
+        RawValue: 2162688
       MinAttackAngle: 33
       MaxAttackAngle: 33
       NumberOfShots: 7
@@ -501,9 +501,9 @@ MonoBehaviour:
       PowerToDamageRatio:
         RawValue: 9830
       AttackHitSpeed:
-        RawValue: 3276800
-      MinAttackAngle: 5
-      MaxAttackAngle: 5
+        RawValue: 2162688
+      MinAttackAngle: 15
+      MaxAttackAngle: 15
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
@@ -547,7 +547,7 @@ MonoBehaviour:
       PowerToDamageRatio:
         RawValue: 13107
       AttackHitSpeed:
-        RawValue: 3276800
+        RawValue: 2162688
       MinAttackAngle: 0
       MaxAttackAngle: 0
       NumberOfShots: 1
@@ -685,11 +685,11 @@ MonoBehaviour:
       PowerToDamageRatio:
         RawValue: 9830
       AttackHitSpeed:
-        RawValue: 5242880
-      MinAttackAngle: 5
-      MaxAttackAngle: 10
+        RawValue: 3276800
+      MinAttackAngle: 7
+      MaxAttackAngle: 7
       NumberOfShots: 1
-      NumberOfBursts: 1
+      NumberOfBursts: 6
       AttackRange:
         RawValue: 655360
       AttackRangeAimBonus:

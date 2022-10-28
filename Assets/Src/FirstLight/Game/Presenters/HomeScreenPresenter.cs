@@ -4,8 +4,8 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
+using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using I2.Loc;
@@ -13,7 +13,6 @@ using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
-using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Presenters
 {
@@ -34,7 +33,6 @@ namespace FirstLight.Game.Presenters
 			public Action OnSettingsButtonClicked;
 			public Action OnLootButtonClicked;
 			public Action OnHeroesButtonClicked;
-			public Action OnPlayRoomJoinCreateClicked;
 			public Action OnNameChangeClicked;
 			public Action OnGameModeClicked;
 			public Action OnLeaderboardClicked;
@@ -45,7 +43,8 @@ namespace FirstLight.Game.Presenters
 		private IGameDataProvider _dataProvider;
 		private IGameServices _services;
 		private IMainMenuServices _mainMenuServices;
-
+		
+		private Button _playButton;
 		private Label _playerNameLabel;
 		private Label _playerTrophiesLabel;
 
@@ -64,9 +63,7 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _csPoolContainer;
 		private Label _csPoolTimeLabel;
 		private Label _csPoolAmountLabel;
-
-		private bool _rewardsCollecting;
-
+		
 		private void Awake()
 		{
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
@@ -91,7 +88,12 @@ namespace FirstLight.Game.Presenters
 			_battlePassProgressElement = root.Q<VisualElement>("BattlePassProgressElement").Required();
 			_battlePassCrownIcon = root.Q<VisualElement>("BattlePassCrownIcon").Required();
 
-			root.Q<Button>("PlayButton").clicked += OnPlayButtonClicked;
+			_playButton = root.Q<Button>("PlayButton");
+			_playButton.clicked += OnPlayButtonClicked;
+
+			root.Q<CurrencyDisplayElement>("CSCurrency").SetAnimationOrigin(_playButton);
+			root.Q<CurrencyDisplayElement>("BLSTCurrency").SetAnimationOrigin(_playButton);
+			
 			root.Q<Button>("GameModeButton").clicked += Data.OnGameModeClicked;
 			root.Q<Button>("SettingsButton").clicked += Data.OnSettingsButtonClicked;
 			root.Q<Button>("BattlePassButton").clicked += Data.OnBattlePassClicked;
@@ -135,6 +137,8 @@ namespace FirstLight.Game.Presenters
 			_dataProvider.CurrencyDataProvider.Currencies.StopObserving(GameId.BLST);
 			_dataProvider.ResourceDataProvider.ResourcePools.StopObserving(GameId.CS);
 			_dataProvider.ResourceDataProvider.ResourcePools.StopObserving(GameId.BPP);
+			_dataProvider.BattlePassDataProvider.CurrentLevel.StopObserving(OnBattlePassCurrentLevelChanged);
+			_dataProvider.BattlePassDataProvider.CurrentPoints.StopObserving(OnBattlePassCurrentPointsChanged);
 			_services.MessageBrokerService.UnsubscribeAll(this);
 			_services.TickService.UnsubscribeAll(this);
 		}
@@ -186,24 +190,17 @@ namespace FirstLight.Game.Presenters
 			var poolInfo = _dataProvider.ResourceDataProvider.GetResourcePoolInfo(id);
 			var timeLeft = poolInfo.NextRestockTime - DateTime.UtcNow;
 
-			if (poolInfo.IsFull)
-			{
-				timeLabel.text = ScriptLocalization.MainMenu.ResoucePoolFull;
-			}
-			else
-			{
-				timeLabel.text = string.Format(ScriptLocalization.MainMenu.ResourcePoolRestock,
-					poolInfo.RestockPerInterval,
-					id.ToString(),
-					timeLeft.ToHoursMinutesSeconds());
-			}
+			timeLabel.text = string.Format(ScriptLocalization.MainMenu.ResourcePoolRestock,
+											poolInfo.RestockPerInterval,
+											id.ToString(),
+											timeLeft.ToHoursMinutesSeconds());
 
-			amountLabel.text = string.Format(amountStringFormat, poolInfo.CurrentAmount, poolInfo.PoolCapacity);
+				amountLabel.text = string.Format(amountStringFormat, poolInfo.CurrentAmount, poolInfo.PoolCapacity);
 		}
 
 		private void OnBattlePassCurrentLevelChanged(uint _, uint current)
 		{
-			if (!_rewardsCollecting)
+			if (!_dataProvider.RewardDataProvider.IsCollecting)
 			{
 				UpdateBattlePassLevel(_dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints().Item1);
 			}
@@ -211,7 +208,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnBattlePassCurrentPointsChanged(uint previous, uint current)
 		{
-			if (_rewardsCollecting)
+			if (_dataProvider.RewardDataProvider.IsCollecting || DebugUtils.DebugFlags.OverrideCurrencyChangedIsCollecting)
 			{
 				StartCoroutine(AnimateBPP(GameId.BPP, previous, current));
 			}
@@ -233,7 +230,7 @@ namespace FirstLight.Game.Presenters
 
 				_mainMenuServices.UiVfxService.PlayVfx(id,
 					i * 0.1f,
-					Root.GetPositionOnScreen(Root) + Random.insideUnitCircle * 100,
+					_playButton.GetPositionOnScreen(Root),
 					_battlePassProgressElement.GetPositionOnScreen(Root),
 					() =>
 					{

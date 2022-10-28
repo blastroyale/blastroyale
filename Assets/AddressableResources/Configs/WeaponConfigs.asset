@@ -226,12 +226,12 @@ MonoBehaviour:
         RawValue: 49152
       AttackHitSpeed:
         RawValue: 1638400
-      MinAttackAngle: 7
-      MaxAttackAngle: 7
+      MinAttackAngle: 3
+      MaxAttackAngle: 15
       NumberOfShots: 1
       NumberOfBursts: 3
       AttackRange:
-        RawValue: 655360
+        RawValue: 458752
       AttackRangeAimBonus:
         RawValue: 0
       CanHitSameTarget: 0
@@ -272,7 +272,7 @@ MonoBehaviour:
         RawValue: 78643
       AttackHitSpeed:
         RawValue: 3276800
-      MinAttackAngle: 7
+      MinAttackAngle: 3
       MaxAttackAngle: 35
       NumberOfShots: 1
       NumberOfBursts: 1
@@ -365,7 +365,7 @@ MonoBehaviour:
       AttackHitSpeed:
         RawValue: 2162688
       MinAttackAngle: 5
-      MaxAttackAngle: 20
+      MaxAttackAngle: 25
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
@@ -510,7 +510,7 @@ MonoBehaviour:
         RawValue: 458752
       AttackRangeAimBonus:
         RawValue: 0
-      CanHitSameTarget: 1
+      CanHitSameTarget: 0
       IsProjectile: 0
       SplashRadius:
         RawValue: 0
@@ -553,10 +553,10 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 1
       AttackRange:
-        RawValue: 557056
+        RawValue: 491520
       AttackRangeAimBonus:
         RawValue: 0
-      CanHitSameTarget: 1
+      CanHitSameTarget: 0
       IsProjectile: 0
       SplashRadius:
         RawValue: 0
@@ -740,7 +740,7 @@ MonoBehaviour:
         RawValue: 458752
       AttackRangeAimBonus:
         RawValue: 0
-      CanHitSameTarget: 0
+      CanHitSameTarget: 1
       IsProjectile: 0
       SplashRadius:
         RawValue: 0
@@ -924,7 +924,7 @@ MonoBehaviour:
         RawValue: 720896
       AttackRangeAimBonus:
         RawValue: 0
-      CanHitSameTarget: 1
+      CanHitSameTarget: 0
       IsProjectile: 0
       SplashRadius:
         RawValue: 0

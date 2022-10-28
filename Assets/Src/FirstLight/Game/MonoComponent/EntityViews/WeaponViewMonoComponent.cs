@@ -115,7 +115,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			main.maxParticles = 50;
 			emission.rateOverTime = 0;
 			main.loop = false;
-			main.startSpeed = config.NumberOfShots > 1 ? new ParticleSystem.MinMaxCurve(speed * 0.9f, speed * 1.1f) : speed;
+			main.startSpeed = config.NumberOfShots > 1 ? new ParticleSystem.MinMaxCurve(speed, speed * 1.2f) : speed;
 
 			emission.burstCount = 1;
 			var burst = emission.GetBurst(0);

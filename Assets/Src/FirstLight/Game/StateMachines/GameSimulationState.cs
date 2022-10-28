@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
@@ -107,6 +108,7 @@ namespace FirstLight.Game.StateMachines
 
 			disconnectedCritical.OnEnter(NotifyCriticalDisconnection);
 			
+			quitCheck.Transition().Condition(IsCustomMatch).Target(final);
 			quitCheck.Transition().Condition(IsSpectator).Target(final);
 			quitCheck.Transition().Target(gameEnded);
 			
@@ -188,6 +190,11 @@ namespace FirstLight.Game.StateMachines
 		private bool IsSpectator()
 		{
 			return _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator();
+		}
+		
+		private bool IsCustomMatch()
+		{
+			return _services.NetworkService.QuantumClient.CurrentRoom.GetMatchType() == MatchType.Custom;
 		}
 
 		private bool HasRewardsToClaim()

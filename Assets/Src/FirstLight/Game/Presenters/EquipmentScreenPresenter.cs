@@ -123,11 +123,11 @@ namespace FirstLight.Game.Presenters
 
 		// We override the OnClosed because we want to show the Loot menu before the close animation completes
 		// Also, we need to send command to update our loadout on the logic side
-		protected override void OnClosed()
+		protected override async Task OnClosed()
 		{
 			_showNotifications.Clear();
 
-			base.OnClosed();
+			await base.OnClosed();
 			Data.OnCloseClicked();
 		}
 

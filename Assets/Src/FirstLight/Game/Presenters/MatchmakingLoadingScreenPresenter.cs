@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -185,7 +186,7 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		protected override void OnClosed()
+		protected override async Task OnClosed()
 		{
 			mapSelectionView.CleanupMapView();
 			_rootObject.SetActive(true);

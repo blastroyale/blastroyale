@@ -146,7 +146,7 @@ namespace FirstLight.Game.StateMachines
 			homeMenu.Event(_leaderboardClickedEvent).Target(leaderboard);
 			homeMenu.Event(_battlePassClickedEvent).Target(battlePass);
 			homeMenu.Event(_storeClickedEvent).Target(store);
-			homeMenu.OnExit(ClosePlayMenuUI);
+			//homeMenu.OnExit(ClosePlayMenuUI);
 			
 			playClickedCheck.Transition().Condition(EnoughNftToPlay).OnTransition(SendPlayReadyMessage).Target(roomWait);
 			playClickedCheck.Transition().Target(nftPlayRestricted);
@@ -158,7 +158,7 @@ namespace FirstLight.Game.StateMachines
 			chooseGameMode.OnEnter(OpenGameModeSelectionUI);
 			chooseGameMode.Event(_gameModeSelectedFinishedEvent).Target(homeMenu);
 			chooseGameMode.Event(_roomJoinCreateClickedEvent).Target(roomJoinCreateMenu);
-			chooseGameMode.OnExit(CloseGameModeSelectionUI);
+			//chooseGameMode.OnExit(CloseGameModeSelectionUI);
 			
 			leaderboard.WaitingFor(OpenLeaderboardUI).Target(homeMenu);
 			leaderboard.OnExit(CloseLeaderboardUI);
@@ -276,7 +276,7 @@ namespace FirstLight.Game.StateMachines
 				}
 			};
 			
-			_uiService.OpenUiAsync<GameModeSelectionPresenter, GameModeSelectionPresenter.StateData>(data);
+			_uiService.OpenScreen<GameModeSelectionPresenter, GameModeSelectionPresenter.StateData>(data);
 		}
 
 		private void CloseGameModeSelectionUI()
@@ -387,7 +387,7 @@ namespace FirstLight.Game.StateMachines
 				OnStoreClicked = () => _statechartTrigger(_storeClickedEvent)
 			};
 
-			_uiService.OpenUi<HomeScreenPresenter, HomeScreenPresenter.StateData>(data);
+			_uiService.OpenScreen<HomeScreenPresenter, HomeScreenPresenter.StateData>(data);
 			_services.MessageBrokerService.Publish(new PlayScreenOpenedMessage());
 		}
 		

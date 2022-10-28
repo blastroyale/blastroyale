@@ -108,7 +108,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void CloseSettingsMenuUI()
 		{
-			_uiService.CloseUi<SettingsScreenPresenter>(false, true);
+			_uiService.CloseUi<SettingsScreenPresenter>(true);
 		}
 		
 		private void OpenServerSelectScreen()
@@ -128,7 +128,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void CloseServerSelectScreen()
 		{
-			_uiService.CloseUi<ServerSelectScreenPresenter>(false, true);
+			_uiService.CloseUi<ServerSelectScreenPresenter>(true);
 		}
 
 		private void OnRegionListReceivedMessage(RegionListReceivedMessage msg)

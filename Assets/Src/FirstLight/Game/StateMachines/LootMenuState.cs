@@ -154,7 +154,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void ClosePlayerSkinMenuUI()
 		{
-			_uiService.CloseUi<PlayerSkinScreenPresenter>(false, true);
+			_uiService.CloseUi<PlayerSkinScreenPresenter>(true);
 		}
 	}
 }

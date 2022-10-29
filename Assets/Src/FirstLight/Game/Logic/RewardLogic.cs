@@ -7,7 +7,9 @@ using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Services;
+using Newtonsoft.Json;
 using Quantum;
+using UnityEngine.Purchasing;
 
 namespace FirstLight.Game.Logic
 {
@@ -28,6 +30,18 @@ namespace FirstLight.Game.Logic
 											   int executingPlayer,
 											   bool didPlayerQuit,
 											   out int trophyChange);
+
+		/// <summary>
+		/// Check if the <see cref="UnclaimedRewards"/> list contains a reward that could
+		/// belong to a purchase made from the store.
+		/// </summary>
+		bool HasUnclaimedPurchase(Product product);
+
+		/// <summary>
+		/// Checks if there are any items belonging to the <see cref="GameIdGroup.IAP"/> in the
+		/// <see cref="UnclaimedRewards"/> list.
+		/// </summary>
+		bool HasUnclaimedPurchases();
 	}
 
 	/// <inheritdoc />
@@ -91,6 +105,7 @@ namespace FirstLight.Game.Logic
 				{
 					GiveTrophiesReward(rewards, matchData, localMatchData, out trophyChange);
 				}
+
 				return rewards;
 			}
 
@@ -129,6 +144,34 @@ namespace FirstLight.Game.Logic
 			}
 
 			return rewards;
+		}
+
+		public bool HasUnclaimedPurchase(Product product)
+		{
+			var productReward = JsonConvert.DeserializeObject<RewardData>(product.definition.payout.data);
+
+			foreach (var reward in _unclaimedRewards)
+			{
+				if (reward.RewardId == productReward.RewardId)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		public bool HasUnclaimedPurchases()
+		{
+			foreach (var reward in _unclaimedRewards)
+			{
+				if (reward.RewardId.IsInGroup(GameIdGroup.IAP))
+				{
+					return true;
+				}
+			}
+
+			return false;
 		}
 
 		private void GiveCSReward(ICollection<RewardData> rewards, MatchRewardConfig rewardConfig)

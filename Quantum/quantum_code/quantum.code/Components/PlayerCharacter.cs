@@ -32,6 +32,11 @@ namespace Quantum
 			transform->Position = spawnPosition.Position;
 			transform->Rotation = spawnPosition.Rotation;
 
+			if(f.Context.TryGetMutatorByType(MutatorType.HammerTime, out _))
+			{
+				loadoutWeapon = new Equipment(GameId.Hammer);
+			}
+
 			// The hammer should inherit ONLY the faction from your loadout weapon
 			WeaponSlots[Constants.WEAPON_INDEX_DEFAULT].Weapon = new Equipment(GameId.Hammer);
 			if (loadoutWeapon.IsValid())
@@ -450,6 +455,11 @@ namespace Quantum
 
 		private int GetWeaponEquipSlot(Frame f, Equipment weapon, bool primary)
 		{
+			if(f.Context.TryGetMutatorByType(MutatorType.HammerTime, out _))
+			{
+				return Constants.WEAPON_INDEX_DEFAULT;
+			}
+
 			if (f.Context.GameModeConfig.SingleSlotMode)
 			{
 				return Constants.WEAPON_INDEX_PRIMARY;

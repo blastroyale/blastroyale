@@ -72,8 +72,14 @@ namespace FirstLight.Game.Views
 			_card.enabled = false;
 			_card.enabled = true;
 
-			_itemIcon.sprite =
-				await _services.AssetResolverService.RequestAsset<GameId, Sprite>(metadata.GameId, true, false);
+			var sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(metadata.GameId, true, false);
+
+			if (this.IsDestroyed())
+			{
+				return;
+			}
+
+			_itemIcon.sprite = sprite;
 		}
 	}
 }

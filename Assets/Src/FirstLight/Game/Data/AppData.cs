@@ -38,7 +38,7 @@ namespace FirstLight.Game.Data
 		public bool DialogueEnabled = true;
 		public GraphicsConfig.DetailLevel CurrentDetailLevel = GraphicsConfig.DetailLevel.Medium;
 		public bool UseHighFpsMode = false;
-		
+		public GameModeRotationConfig.GameModeEntry LastGameMode;
 		public List<UniqueId> NewUniqueIds = new ();
 		public List<GameId> GameIdsTagged = new ();
 		public List<UnlockSystem> SystemsTagged = new ();

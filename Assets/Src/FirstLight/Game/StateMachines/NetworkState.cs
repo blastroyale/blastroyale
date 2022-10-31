@@ -47,6 +47,10 @@ namespace FirstLight.Game.StateMachines
 		
 		public static readonly IStatechartEvent DcScreenBackEvent = new StatechartEvent("NETWORK - Disconnected Screen Back Event");
 		public static readonly IStatechartEvent OpenServerSelectScreenEvent = new StatechartEvent("NETWORK - Open Server Select Screen Event");
+
+		public static readonly IStatechartEvent IapProcessStartedEvent = new StatechartEvent("NETWORK - IAP Started Event");
+		public static readonly IStatechartEvent IapProcessFinishedEvent = new StatechartEvent("NETWORK - IAP Processed Event");
+		public static readonly IStatechartEvent ForceConnectionCheckEvent = new StatechartEvent("NETWORK - Force Connection Check Event");
 		
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _gameDataProvider;
@@ -84,13 +88,16 @@ namespace FirstLight.Game.StateMachines
 			var connectedToNameServer = stateFactory.State("NETWORK - Connected To Name Server");
 			var connectToRegionMaster = stateFactory.State("NETWORK - Connect To Region Master");
 			var connectionCheck = stateFactory.Choice("NETWORK - Connection Check");
-
+			var iapProcessing = stateFactory.State("NETWORK - IAP Processing");
+			
 			initial.Transition().Target(initialConnection);
 			initial.OnExit(SubscribeEvents);
 
 			initialConnection.OnEnter(ConnectPhoton);
 			initialConnection.Event(PhotonMasterConnectedEvent).Target(connected);
-
+			
+			iapProcessing.Event(IapProcessFinishedEvent).OnTransition(HandleIapTransition).Target(connected);
+			
 			connectionCheck.Transition().Condition(IsPhotonConnectedAndReady).Target(connected);
 			connectionCheck.Transition().Target(disconnected);
 			
@@ -164,6 +171,19 @@ namespace FirstLight.Game.StateMachines
 		private bool CurrentSceneIsMatch()
 		{
 			return SceneManager.GetActiveScene().name != GameConstants.Scenes.SCENE_MAIN_MENU;
+		}
+
+		private void HandleIapTransition()
+		{
+			_services.CoroutineService.StartCoroutine(ConnectionCheckCoroutine());
+			ReconnectPhoton();
+		}
+
+		private IEnumerator ConnectionCheckCoroutine()
+		{
+			yield return new WaitForSeconds(7.5f);
+
+			_statechartTrigger(ForceConnectionCheckEvent);
 		}
 
 		private void SubscribeEvents()
@@ -593,7 +613,7 @@ namespace FirstLight.Game.StateMachines
 
 			_services.NetworkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
 		}
-
+		
 		private void OnApplicationQuit(ApplicationQuitMessage data)
 		{
 			_networkService.QuantumClient.Disconnect();

@@ -121,6 +121,7 @@ namespace FirstLight.Game.StateMachines
 		private void InitializeRemainingLogic()
 		{
 			_gameLogic.Init();
+			_services.IAPService.Init();
 			_services?.AnalyticsService.SessionCalls.GameLoaded();
 		}
 

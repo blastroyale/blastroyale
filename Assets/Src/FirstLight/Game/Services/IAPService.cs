@@ -5,6 +5,7 @@ using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Commands.OfflineCommands;
 using FirstLight.Game.Data.DataTypes;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Messages;
 using FirstLight.SDK.Services;
@@ -37,10 +38,17 @@ namespace FirstLight.Game.Services
 		/// Buys the product defined by the given <paramref name="id"/>
 		/// </summary>
 		void BuyProduct(string id);
+
+		/// <summary>
+		/// Initializes the purchasing module.
+		/// </summary>
+		void Init();
 	}
 
 	public class IAPService : IIAPService, IStoreListener
 	{
+		private const float NET_INCOME_MODIFIER = 0.7f;
+
 		public IObservableFieldReader<bool> Initialized => _initialized;
 		public IReadOnlyList<Product> Products => _products;
 
@@ -50,19 +58,28 @@ namespace FirstLight.Game.Services
 		private readonly IGameCommandService _commandService;
 		private readonly IMessageBrokerService _messageBroker;
 		private readonly IPlayfabService _playfabService;
+		private readonly IAnalyticsService _analyticsService;
+		private readonly IGameDataProvider _gameDataProvider;
 
 		private IStoreController _store;
+		private ProductCatalog _defaultCatalog;
 
 		public IAPService(IGameCommandService commandService, IMessageBrokerService messageBroker,
-						  IPlayfabService playfabService)
+						  IPlayfabService playfabService, IAnalyticsService analyticsService,
+						  IGameDataProvider gameDataProvider)
 		{
 			_commandService = commandService;
 			_messageBroker = messageBroker;
 			_playfabService = playfabService;
+			_analyticsService = analyticsService;
+			_gameDataProvider = gameDataProvider;
 
 			_products = new List<Product>();
 			_initialized = new ObservableField<bool>(false);
+		}
 
+		public void Init()
+		{
 			var module = StandardPurchasingModule.Instance();
 
 #if DEVELOPMENT_BUILD
@@ -77,7 +94,8 @@ namespace FirstLight.Game.Services
 
 			var builder = ConfigurationBuilder.Instance(module);
 
-			IAPConfigurationHelper.PopulateConfigurationBuilder(ref builder, ProductCatalog.LoadDefaultCatalog());
+			IAPConfigurationHelper.PopulateConfigurationBuilder(ref builder,
+				_defaultCatalog = ProductCatalog.LoadDefaultCatalog());
 
 			UnityPurchasing.Initialize(this, builder);
 		}
@@ -94,7 +112,18 @@ namespace FirstLight.Game.Services
 			_products = controller.products.all.ToList();
 
 			_initialized.Value = true;
-			FLog.Info("IAP Initialized");
+
+			var pendingRewards = _store.products.set.Any(product =>
+				!string.IsNullOrEmpty(product.receipt) && !string.IsNullOrEmpty(product.transactionID)
+			);
+			var unclaimedPurchases = _gameDataProvider.RewardDataProvider.HasUnclaimedPurchases();
+
+			if (!pendingRewards && unclaimedPurchases)
+			{
+				_commandService.ExecuteCommand(new CollectIAPRewardCommand());
+			}
+
+			FLog.Info($"IAP Initialized: Pending({pendingRewards}), Unclaimed({unclaimedPurchases})");
 		}
 
 		public void OnInitializeFailed(InitializationFailureReason error)
@@ -107,7 +136,10 @@ namespace FirstLight.Game.Services
 		public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs purchaseEvent)
 		{
 			var fakeStore = IsFakeStore(purchaseEvent.purchasedProduct);
-			FLog.Info($"Purchase processed: {purchaseEvent.purchasedProduct.definition.id}, Fake store: {fakeStore}");
+			var validated = _gameDataProvider.RewardDataProvider.HasUnclaimedPurchase(purchaseEvent.purchasedProduct);
+
+			FLog.Info(
+				$"Purchase processed: {purchaseEvent.purchasedProduct.definition.id}, Fake store: {fakeStore}, Validated: {validated}, TransactionId({purchaseEvent.purchasedProduct.transactionID})");
 
 			if (fakeStore)
 			{
@@ -115,7 +147,14 @@ namespace FirstLight.Game.Services
 			}
 			else
 			{
-				ValidateReceipt(purchaseEvent.purchasedProduct);
+				if (validated)
+				{
+					PurchaseValidated(purchaseEvent.purchasedProduct);
+				}
+				else
+				{
+					ValidateReceipt(purchaseEvent.purchasedProduct);
+				}
 			}
 
 			return PurchaseProcessingResult.Pending;
@@ -158,6 +197,8 @@ namespace FirstLight.Game.Services
 				_commandService.ExecuteCommand(new CollectIAPRewardCommand());
 
 				_store.ConfirmPendingPurchase(product);
+
+				SendAnalyticsEvent(product, reward);
 			}, _playfabService.HandleError, request);
 		}
 
@@ -197,6 +238,27 @@ namespace FirstLight.Game.Services
 		{
 			return !product.hasReceipt || string.IsNullOrEmpty(product.receipt) ||
 				product.receipt.Contains("\"Store\":\"fake\"");
+		}
+
+		private void SendAnalyticsEvent(Product product, RewardData reward)
+		{
+			if (IsFakeStore(product)) return;
+
+			var catalogItem = _defaultCatalog.allProducts.First(item => item.id == product.definition.id);
+
+			float price = (float) catalogItem.googlePrice.value;
+			var data = new Dictionary<string, object>
+			{
+				{"currency", "USD"},
+				{"transaction_id", product.transactionID},
+				{"price", price},
+				{"dollar_gross", price},
+				{"dollar_net", price * NET_INCOME_MODIFIER},
+				{"item_id", product.definition.id},
+				{"item_name", reward.RewardId.ToString()}
+			};
+
+			_analyticsService.LogEvent(AnalyticsEvents.Purchase, data);
 		}
 	}
 }

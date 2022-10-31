@@ -158,6 +158,9 @@ namespace FirstLight.Game.Presenters
 			for (var i = 0; i < rewards.Count; i++)
 			{
 				var id = rewards[i].RewardId;
+
+				// Don't process trophies here
+				if (id == GameId.Trophies) continue;
 				
 				if (!dictionary.ContainsKey(id))
 				{

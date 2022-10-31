@@ -1,5 +1,6 @@
 using System;
 using DG.Tweening;
+using FirstLight.FLogger;
 using UnityEngine;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Logic;
@@ -20,8 +21,8 @@ namespace FirstLight.Game.Presenters
 		public struct StateData
 		{
 			public Action ExitTrophyScreen;
-			public Func<int> LastTrophyChange;
-			public Func<uint> TrophiesBeforeLastChange;
+			public int LastTrophyChange;
+			public uint TrophiesBeforeLastChange;
 		}
 
 		private const int ANIM_STAGE_INITIAL = 0;
@@ -43,7 +44,7 @@ namespace FirstLight.Game.Presenters
 
 		public bool IsAnimating => _animation.isPlaying || _isTransferringTrophies;
 		public string TrophyChangePrefix => _trophyChange > 0 ? "+" : "";
-		
+
 		private void Awake()
 		{
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
@@ -55,8 +56,9 @@ namespace FirstLight.Game.Presenters
 		{
 			base.OnOpened();
 
-			_trophyChange = Data.LastTrophyChange();
-			
+			_trophyChange = Data.LastTrophyChange;
+			_currentTrophies = (int) Data.TrophiesBeforeLastChange + Data.LastTrophyChange;
+
 			if (_trophyChange > 0)
 			{
 				_trophiesStatusText.text = ScriptLocalization.MainMenu.TrophiesGained.ToUpper();
@@ -65,10 +67,9 @@ namespace FirstLight.Game.Presenters
 			{
 				_trophiesStatusText.text = ScriptLocalization.MainMenu.TrophiesLost.ToUpper();
 			}
-			
-			_currentTrophies = (int) _dataProvider.PlayerDataProvider.Trophies.Value;
+
 			_trophyChangeText.text = TrophyChangePrefix + _trophyChange;
-			_trophyTotalText.text = Data.TrophiesBeforeLastChange().ToString();
+			_trophyTotalText.text = Data.TrophiesBeforeLastChange.ToString();
 		}
 
 		/// <summary>
@@ -106,14 +107,12 @@ namespace FirstLight.Game.Presenters
 
 		private void TransferTrophies()
 		{
-			var trophiesBeforeChange =  Data.TrophiesBeforeLastChange();
+			var trophiesBeforeChange = Data.TrophiesBeforeLastChange;
 			_isTransferringTrophies = true;
-			
+
 			DOVirtual.Float(trophiesBeforeChange, _currentTrophies, TRANSFER_TROPHIES_DURATION,
-			                (currentTrophyValue) =>
-			                {
-				                _trophyTotalText.text = currentTrophyValue.ToString("F0");
-			                }).OnComplete(OnTransferTrophiesComplete);
+					(currentTrophyValue) => { _trophyTotalText.text = currentTrophyValue.ToString("F0"); })
+				.OnComplete(OnTransferTrophiesComplete);
 		}
 
 		private void OnTransferTrophiesComplete()

@@ -859,6 +859,7 @@ namespace I2.Loc
 			public static string NameTooShort 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NameTooShort"); } }
 			public static string NewEnemies 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NewEnemies"); } }
 			public static string NewFeatureUnlocked 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NewFeatureUnlocked"); } }
+			public static string NewGameModes 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NewGameModes"); } }
 			public static string NewItems 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NewItems"); } }
 			public static string NewMap 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NewMap"); } }
 			public static string NewUnlock 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/NewUnlock"); } }
@@ -1939,6 +1940,7 @@ namespace I2.Loc
 		    public const string NameTooShort = "MainMenu/NameTooShort";
 		    public const string NewEnemies = "MainMenu/NewEnemies";
 		    public const string NewFeatureUnlocked = "MainMenu/NewFeatureUnlocked";
+		    public const string NewGameModes = "MainMenu/NewGameModes";
 		    public const string NewItems = "MainMenu/NewItems";
 		    public const string NewMap = "MainMenu/NewMap";
 		    public const string NewUnlock = "MainMenu/NewUnlock";

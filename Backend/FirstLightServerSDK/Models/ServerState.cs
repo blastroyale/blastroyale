@@ -72,6 +72,11 @@ namespace FirstLight.Server.SDK.Models
     			{
     				if(this.TryGetValue(updatedType.FullName, out var oldData))
     				{
+						if (oldData == null)
+						{
+							// log no exp to just track
+							Console.WriteLine($"[Call Gabriel] Updated data for model {updatedType.Name} is null");
+						}
     					newStateToUpdate[updatedType.FullName] = oldData;
     				}
     			}

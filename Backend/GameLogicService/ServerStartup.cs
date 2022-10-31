@@ -17,6 +17,7 @@ using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Server.SDK.Services;
 using GameLogicService.Services;
 using ServerCommon;
+using ServerCommon.CommonServices;
 
 namespace Backend
 {
@@ -27,12 +28,13 @@ namespace Backend
 	/// </summary>
 	public static class ServerStartup
 	{
-		public static void Setup(IServiceCollection services, string appPath)
+		public static void Setup(IMvcBuilder builder, string appPath)
 		{
 			var envConfig = new EnvironmentVariablesConfigurationService(appPath);
-
+			var services = builder.Services;
 			DbSetup.Setup(services, envConfig);
 			var pluginLoader = new PluginLoader();
+
 			var insightsConnection = envConfig.TelemetryConnectionString;
 			if (insightsConnection != null)
 			{
@@ -48,14 +50,11 @@ namespace Backend
 			services.AddSingleton<IPlayerSetupService, DefaultPlayerSetupService>();
 			services.AddSingleton<IPluginLogger, ServerPluginLogger>();
 			services.AddSingleton<IErrorService<PlayFabError>, PlayfabErrorService>();
-			services.AddSingleton<IServerConfiguration>(p => envConfig);
+
 			services.AddSingleton<IServerStateService, PlayfabGameStateService>();
 			services.AddSingleton<IGameConfigurationService, GameConfigurationService>();
 			services.AddSingleton<IConfigBackendService, PlayfabConfigurationBackendService>();
-			services.AddSingleton<ILogger, ILogger>(l =>
-			{
-				return l.GetService<ILoggerFactory>().CreateLogger(LogCategories.CreateFunctionUserCategory("Common"));
-			});
+
 			services.AddSingleton<IPlayfabServer, PlayfabServerSettings>();
 			services.AddSingleton<ILogicWebService, GameLogicWebWebService>();
 			services.AddSingleton<JsonConverter, StringEnumConverter>();
@@ -71,21 +70,23 @@ namespace Backend
 				return eventManager;
 			});
 			services.AddSingleton<IConfigsProvider>(SetupConfigsProvider);
+			builder.SetupSharedServices(appPath);
 			pluginLoader.LoadServerSetup(services);
 		}
 
 		private static IConfigsProvider SetupConfigsProvider(IServiceProvider services)
 		{
 			var log = services.GetService<ILogger>();
-			services.GetService<IPlayfabServer>(); 
+			services.GetService<IPlayfabServer>();
 			var cfgSerializer = new ConfigsSerializer();
-			var env = services.GetService<IServerConfiguration>();
+			var env = services.GetService<IBaseServiceConfiguration>();
 			if (!env.RemoteGameConfiguration)
 			{
 				log.Log(LogLevel.Information, "Starting server with baked configs");
 				var bakedConfigs = File.ReadAllText(Path.Combine(env.AppPath, "gameConfig.json"));
 				return cfgSerializer.Deserialize<ConfigsProvider>(bakedConfigs);
 			}
+
 			log.Log(LogLevel.Information, "Downloading remote configurations");
 			var cfgBackend = services.GetService<IConfigBackendService>();
 			var task = cfgBackend.GetRemoteVersion();
@@ -97,4 +98,3 @@ namespace Backend
 		}
 	}
 }
-

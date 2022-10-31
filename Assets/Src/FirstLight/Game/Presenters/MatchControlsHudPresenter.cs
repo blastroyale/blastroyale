@@ -12,6 +12,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Button = UnityEngine.UI.Button;
+using ExitGames.Client.Photon.StructWrapping;
 
 namespace FirstLight.Game.Presenters
 {
@@ -48,7 +49,8 @@ namespace FirstLight.Game.Presenters
 			_specialButtons[1].OnCancelExit.AddListener(() => _indicatorContainerView.GetIndicator(1)?.SetVisualState(true));
 			
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
-			QuantumEvent.Subscribe<EventOnPlayerDamaged>(this, OnPlayerDamaged);
+			QuantumEvent.Subscribe<EventOnPlayerAttackHit>(this, OnPlayerAttackHit);
+			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnPlayerKill);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveDrop>(this, OnLocalPlayerSkydiveDrop);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSkydiveLand>(this, OnLocalPlayerSkydiveLanded);
@@ -196,7 +198,7 @@ namespace FirstLight.Game.Presenters
 			_weaponSlotsHolder.SetActive(f.Context.GameModeConfig.ShowWeaponSlots);
 			_services.PlayerInputService.Input.Gameplay.SetCallbacks(this);
 			_indicatorContainerView.Init(playerView);
-			_indicatorContainerView.SetupWeaponInfo(playerCharacter.CurrentWeapon.GameId);
+			_indicatorContainerView.SetupWeaponInfo(f, playerCharacter.CurrentWeapon.GameId);
 			SetupSpecialsInput(f.Time, *playerCharacter.WeaponSlot, playerView);
 			InitSlotsView(playerCharacter);
 		}
@@ -255,8 +257,8 @@ namespace FirstLight.Game.Presenters
 		{
 			var playerView = _matchServices.EntityViewUpdaterService.GetManualView(callback.Entity);
 			
-			_indicatorContainerView.SetupWeaponInfo(callback.WeaponSlot.Weapon.GameId);
-			SetupSpecialsInput(callback.Game.Frames.Predicted.Time, callback.WeaponSlot, playerView);
+			_indicatorContainerView.SetupWeaponInfo(callback.Game.Frames.Verified, callback.WeaponSlot.Weapon.GameId);
+			SetupSpecialsInput(callback.Game.Frames.Verified.Time, callback.WeaponSlot, playerView);
 			
 			for (var i = 0; i < _slots.Length; i++)
 			{
@@ -300,18 +302,23 @@ namespace FirstLight.Game.Presenters
 			input.AimButton.Enable();
 		}
 
-		private void OnPlayerDamaged(EventOnPlayerDamaged callback)
+		private void OnPlayerAttackHit(EventOnPlayerAttackHit callback)
 		{
 			if (!callback.Game.PlayerIsLocal(callback.Player)) return;
-			
-			if (callback.ShieldDamage > 0)
+			var f = callback.Game.Frames.Predicted;
+			if (f.TryGet<Stats>(callback.HitEntity, out var hitEntityStats))
 			{
-				PlayHapticFeedbackForDamage(callback.ShieldDamage, callback.MaxShield);
+				PlayHapticFeedbackForDamage(callback.TotalDamage, hitEntityStats.GetStatData(StatType.Health).StatValue.AsFloat);
 			}
-			else if (callback.HealthDamage > 0)
-			{
-				PlayHapticFeedbackForDamage(callback.HealthDamage, callback.MaxHealth);
-			}
+		}
+
+		private void OnPlayerKill(EventOnPlayerKilledPlayer callback)
+		{
+			if (!callback.Game.PlayerIsLocal(callback.PlayerKiller)) return;
+
+			MMVibrationManager.ContinuousHaptic(GameConstants.Haptics.PLAYER_KILL_INTENSITY,
+												GameConstants.Haptics.PLAYER_KILL_SHARPNESS,
+												GameConstants.Haptics.PLAYER_KILL_DURATION);
 		}
 
 		private unsafe void OnEventOnLocalPlayerSpecialUsed(EventOnLocalPlayerSpecialUsed callback)

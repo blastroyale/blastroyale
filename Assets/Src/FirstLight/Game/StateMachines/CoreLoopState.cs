@@ -59,6 +59,9 @@ namespace FirstLight.Game.StateMachines
 
 			connectionWaitToMenu.Event(NetworkState.PhotonMasterConnectedEvent).Target(mainMenu);
 			
+			// TODO - OFFLINE GAME LEAVE HANDLING, REMOVE THIS IN PHASE 2 OF REFACTOR - THIS IS TEMPORARY
+			connectionWaitToMenu.Event(NetworkState.JoinedRoomEvent).OnTransition(CallLeaveRoom).Target(mainMenu);
+			
 			mainMenu.Nest(_mainMenuState.Setup).Target(match);
 
 			match.Nest(_matchState.Setup).Target(connectionCheck);
@@ -78,6 +81,11 @@ namespace FirstLight.Game.StateMachines
 		private bool IsConnectedAndReady()
 		{
 			return _services.NetworkService.QuantumClient.IsConnectedAndReady;
+		}
+
+		private void CallLeaveRoom()
+		{
+			_services.MessageBrokerService.Publish(new RoomLeaveClickedMessage());
 		}
 	}
 }

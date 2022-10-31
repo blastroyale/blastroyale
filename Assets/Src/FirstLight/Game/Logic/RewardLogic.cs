@@ -14,6 +14,39 @@ using UnityEngine.Purchasing;
 namespace FirstLight.Game.Logic
 {
 	/// <summary>
+	/// Object to represent the origin of a reward.
+	/// All information needed to be able to calculate a reward should be self
+	/// contained in this object.
+	/// </summary>
+	public class RewardSource
+	{
+		/// <summary>
+		/// Reflects if a player quit early in the game
+		/// </summary>
+		public bool DidPlayerQuit { get; set; }
+		
+		/// <summary>
+		/// Reflects how many players were participating in the game
+		/// </summary>
+		public int GamePlayerCount { get; set; }
+		
+		/// <summary>
+		/// Reflects the match data collected by quantum simulation
+		/// </summary>
+		public List<QuantumPlayerMatchData> MatchData { get; set; }
+
+		/// <summary>
+		/// TODO
+		/// </summary>
+		public int ExecutingPlayer { get; set; }
+
+		/// <summary>
+		/// Reflects the type of the given match
+		/// </summary>
+		public MatchType MatchType { get; set; }
+	}
+	
+	/// <summary>
 	/// This logic provides the necessary behaviour to manage the player's rewards
 	/// </summary>
 	public interface IRewardDataProvider
@@ -22,13 +55,16 @@ namespace FirstLight.Game.Logic
 		/// Requests the list of rewards in buffer to be awarded to the player
 		/// </summary>
 		IObservableListReader<RewardData> UnclaimedRewards { get; }
+		
+		/// <summary>
+		/// Checks if we are currently collecting rewards (running <see cref="IRewardLogic.ClaimUncollectedRewards"/>).
+		/// </summary>
+		bool IsCollecting { get; }
 
 		/// <summary>
 		/// Generate a list of rewards based on the players <paramref name="matchData"/> performance from a game completed
 		/// </summary>
-		List<RewardData> CalculateMatchRewards(MatchType matchType, List<QuantumPlayerMatchData> matchData,
-											   int executingPlayer,
-											   bool didPlayerQuit,
+		List<RewardData> CalculateMatchRewards(RewardSource source,
 											   out int trophyChange);
 
 		/// <summary>
@@ -48,10 +84,9 @@ namespace FirstLight.Game.Logic
 	public interface IRewardLogic : IRewardDataProvider
 	{
 		/// <summary>
-		/// Generate a list of rewards based on the players <paramref name="matchData"/> performance from a game completed
+		/// Generate a list of rewards based on the players <paramref name="RewardSource"/> performance from a game completed
 		/// </summary>
-		List<RewardData> GiveMatchRewards(MatchType matchType, List<QuantumPlayerMatchData> matchData,
-										  int executingPlayer, bool didPlayerQuit, out int trophyChange);
+		List<RewardData> GiveMatchRewards(RewardSource source, out int trophyChange);
 
 		/// <summary>
 		/// Collects all the unclaimed rewards in the player's inventory
@@ -75,6 +110,8 @@ namespace FirstLight.Game.Logic
 
 		public IObservableListReader<RewardData> UnclaimedRewards => _unclaimedRewards;
 
+		public bool IsCollecting { get; private set; }
+
 		public RewardLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)
 		{
 		}
@@ -84,13 +121,11 @@ namespace FirstLight.Game.Logic
 			_unclaimedRewards = new ObservableList<RewardData>(Data.UncollectedRewards);
 		}
 
-		public List<RewardData> CalculateMatchRewards(MatchType matchType, List<QuantumPlayerMatchData> matchData,
-													  int executingPlayer,
-													  bool didPlayerQuit,
+		public List<RewardData> CalculateMatchRewards(RewardSource source,
 													  out int trophyChange)
 		{
 			var rewards = new List<RewardData>();
-			var localMatchData = matchData[executingPlayer];
+			var localMatchData = source.MatchData[source.ExecutingPlayer];
 			trophyChange = 0;
 
 			if (localMatchData.PlayerRank == 0)
@@ -98,12 +133,12 @@ namespace FirstLight.Game.Logic
 				throw new MatchDataEmptyLogicException();
 			}
 
-			// Currently, there is no plan on giving rewards on anything but BR mode
-			if (matchType == MatchType.Custom || didPlayerQuit)
+			// We don't reward quitters and we don't reward players for Custom games or games played alone (if we ever allow it)
+			if (source.MatchType == MatchType.Custom || source.DidPlayerQuit || source.GamePlayerCount == 1)
 			{
-				if (matchType == MatchType.Ranked && didPlayerQuit)
+				if (source.MatchType == MatchType.Ranked && source.DidPlayerQuit)
 				{
-					GiveTrophiesReward(rewards, matchData, localMatchData, out trophyChange);
+					GiveTrophiesReward(rewards, source.MatchData, localMatchData, out trophyChange);
 				}
 
 				return rewards;
@@ -116,8 +151,10 @@ namespace FirstLight.Game.Logic
 				.OrderByDescending(x => x.Placement).ToList();
 
 			var rewardConfig = gameModeRewardConfigs[0];
-			var rankValue = localMatchData.PlayerRank;
-
+			
+			// We calculate rank value for rewards based on the number of players in a match versus maximum of 30
+			var rankValue = Math.Min(1 + Math.Floor(30 / (double)(source.GamePlayerCount - 1) * (localMatchData.PlayerRank - 1)), 30);
+			
 			foreach (var config in gameModeRewardConfigs)
 			{
 				if (rankValue > config.Placement)
@@ -132,13 +169,13 @@ namespace FirstLight.Game.Logic
 				}
 			}
 
-			if (matchType == MatchType.Ranked)
+			if (source.MatchType == MatchType.Ranked)
 			{
 				GiveCSReward(rewards, rewardConfig);
-				GiveTrophiesReward(rewards, matchData, localMatchData, out trophyChange);
+				GiveTrophiesReward(rewards, source.MatchData, localMatchData, out trophyChange);
 			}
 
-			if (matchType is MatchType.Ranked or MatchType.Casual)
+			if (source.MatchType is MatchType.Ranked or MatchType.Casual)
 			{
 				GiveBPPReward(rewards, rewardConfig);
 			}
@@ -256,12 +293,9 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public List<RewardData> GiveMatchRewards(MatchType matchType, List<QuantumPlayerMatchData> matchData,
-												 int executingPlayer,
-												 bool didPlayerQuit,
-												 out int trophyChange)
+		public List<RewardData> GiveMatchRewards(RewardSource source, out int trophyChange)
 		{
-			var rewards = CalculateMatchRewards(matchType, matchData, executingPlayer, didPlayerQuit, out trophyChange);
+			var rewards = CalculateMatchRewards(source, out trophyChange);
 
 			foreach (var reward in rewards)
 			{
@@ -282,6 +316,8 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public List<RewardData> ClaimUncollectedRewards()
 		{
+			IsCollecting = true;
+			
 			var rewards = new List<RewardData>(Data.UncollectedRewards.Count);
 
 			foreach (var reward in Data.UncollectedRewards)
@@ -291,6 +327,8 @@ namespace FirstLight.Game.Logic
 			}
 
 			Data.UncollectedRewards.RemoveAll(r => rewards.Contains(r));
+			
+			IsCollecting = false;
 
 			return rewards;
 		}

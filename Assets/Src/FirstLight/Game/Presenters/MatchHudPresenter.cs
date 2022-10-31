@@ -111,7 +111,7 @@ namespace FirstLight.Game.Presenters
 			var playersData = gameContainer.PlayersData;
 			var canQuitMatch = true;
 			
-			if ( _services.NetworkService.CurrentRoomMatchType == MatchType.Ranked)
+			if (_services.NetworkService.CurrentRoomMatchType != MatchType.Custom)
 			{
 				var localPlayer = playersData[game.GetLocalPlayers()[0]];
 				var valid = localPlayer.IsValid;

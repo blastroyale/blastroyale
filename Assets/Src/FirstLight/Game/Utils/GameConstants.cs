@@ -131,6 +131,13 @@ namespace FirstLight.Game.Utils
 			public const float SERVER_SELECT_CONNECTION_TIMEOUT = 8f;
 			public const int PLAYER_NAME_APPENDED_NUMBERS = 5;
 		}
+		
+
+		public static class PlayFab
+		{
+			public const string VERSION_KEY = nameof(Application.version);
+			public const string MAINTENANCE_KEY = "version block";
+		}
 
 		public static class Network
 		{

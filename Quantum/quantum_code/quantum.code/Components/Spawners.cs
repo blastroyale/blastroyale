@@ -38,6 +38,11 @@ namespace Quantum
 		internal void Spawn(Frame f, EntityRef e)
 		{
 			var transform = f.Get<Transform3D>(e);
+			if((f.Context.TryGetMutatorByType(MutatorType.HammerTime, out _) && GameId.IsInGroup(GameIdGroup.Weapon)) || 
+				f.Context.TryGetMutatorByType(MutatorType.HammerTime, out _) && GameId == GameId.Random)
+			{
+				GameId = GameId.Hammer;
+			}
 
 			if (GameId.IsInGroup(GameIdGroup.Consumable))
 			{

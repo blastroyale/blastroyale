@@ -55,8 +55,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void OnDestroy()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
-			_services?.CoroutineService?.StopCoroutine(_timerCoroutine);
-			QuantumCallback.UnsubscribeListener(this);
+
+			if (_timerCoroutine != null)
+			{
+				_services?.CoroutineService?.StopCoroutine(_timerCoroutine);
+			}
 		}
 
 		private void OnPlayerSpawned(EventOnPlayerSpawned callback)

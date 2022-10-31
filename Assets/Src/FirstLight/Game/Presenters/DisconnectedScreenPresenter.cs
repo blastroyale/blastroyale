@@ -124,14 +124,14 @@ namespace FirstLight.Game.Presenters
 
 		private void OpenNoInternetPopup()
 		{
-			var confirmButton = new GenericDialogButton
+			var button = new AlertButton
 			{
-				ButtonText = ScriptLocalization.General.OK,
-				ButtonOnClick = _services.GenericDialogService.CloseDialog
+				Style = AlertButtonStyle.Positive,
+				Text = ScriptLocalization.General.Confirm
 			};
-
-			_services.GenericDialogService.OpenDialog(ScriptLocalization.General.NoInternetDescription, false,
-				confirmButton);
+			
+			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.NoInternet,
+				ScriptLocalization.General.NoInternetDescription, button);
 		}
 	}
 }

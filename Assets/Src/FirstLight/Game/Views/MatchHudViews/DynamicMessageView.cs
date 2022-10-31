@@ -52,7 +52,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void OnDestroy()
 		{
-			QuantumEvent.UnsubscribeListener(this);
+			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 		
 		private void OnMatchEnded(MatchEndedMessage callback)

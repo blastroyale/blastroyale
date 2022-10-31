@@ -116,7 +116,7 @@ namespace GameLogicService.Services
 		{
 			try
 			{
-				_mutex.Lock(playerId);
+				await _mutex.Lock(playerId);
 				var serverState = await _state.GetPlayerState(playerId);
 				var playerData = serverState.DeserializeModel<PlayerData>();
 				playerData.UncollectedRewards.Add(rewardData);

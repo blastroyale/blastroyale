@@ -17,6 +17,7 @@ using FirstLight.Game.Utils;
 using FirstLight.NativeUi;
 using FirstLight.Statechart;
 using I2.Loc;
+using Photon.Deterministic;
 using Photon.Realtime;
 using Quantum;
 using UnityEngine;
@@ -205,12 +206,11 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<NetworkActionWhileDisconnectedMessage>(OnNetworkActionWhileDisconnected);
 			_services.MessageBrokerService.Subscribe<AttemptManualReconnectionMessage>(OnAttemptManualReconnectionMessage);
 		}
-		
+
 		private void UnsubscribeEvents()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 			_services?.TickService?.UnsubscribeAll(this);
-			QuantumCallback.UnsubscribeListener(this);
 		}
 
 		private async void SubscribeDisconnectEvents()
@@ -803,6 +803,11 @@ namespace FirstLight.Game.StateMachines
 					// TTL during matchmaking is 0 - we must connect to room manually again by name
 					// Rejoining room is handled OnMasterConnected
 					_requiresManualRoomReconnection = true;
+					_networkService.QuantumClient.ReconnectToMaster();
+				}
+				else if(_services.NetworkService.LastMatchPlayers.Count == 1)
+				{
+					// We don't want to reconnect back to solo rooms - they don't work currently for resyncs
 					_networkService.QuantumClient.ReconnectToMaster();
 				}
 				else

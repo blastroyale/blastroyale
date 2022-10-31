@@ -58,6 +58,9 @@ namespace FirstLight.Game.Presenters
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, OnWeaponChanged);
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponAdded>(this, OnLocalPlayerWeaponAdded);
 			QuantumEvent.Subscribe<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
+			QuantumCallback.Subscribe<CallbackGameResynced>(this, OnGameResync);
+			QuantumCallback.Subscribe<CallbackUpdateView>(this, OnUpdateView);
+			QuantumCallback.Subscribe<CallbackPollInput>(this, PollInput);
 		}
 
 		private void OnDestroy()
@@ -69,15 +72,11 @@ namespace FirstLight.Game.Presenters
 		protected override void OnOpened()
 		{
 			_services.PlayerInputService.EnableInput();
-			QuantumCallback.Subscribe<CallbackUpdateView>(this, OnUpdateView);
-			QuantumCallback.Subscribe<CallbackPollInput>(this, PollInput);
 		}
 
 		protected override void OnClosed()
 		{
-			_services.MessageBrokerService.UnsubscribeAll(this);
 			_services.PlayerInputService.DisableInput();
-			QuantumCallback.UnsubscribeListener(this);
 		}
 
 		/// <inheritdoc />
@@ -199,6 +198,7 @@ namespace FirstLight.Game.Presenters
 			_services.PlayerInputService.Input.Gameplay.SetCallbacks(this);
 			_indicatorContainerView.Init(playerView);
 			_indicatorContainerView.SetupWeaponInfo(f, playerCharacter.CurrentWeapon.GameId);
+			
 			SetupSpecialsInput(f.Time, *playerCharacter.WeaponSlot, playerView);
 			InitSlotsView(playerCharacter);
 		}
@@ -207,12 +207,20 @@ namespace FirstLight.Game.Presenters
 		{
 			_indicatorContainerView.OnUpdate(callback.Game.Frames.Predicted);
 		}
+		
+		private void OnGameResync(CallbackGameResynced callback)
+		{
+			_indicatorContainerView.InstantiateAllIndicators();
+		}
 
 		private void OnMatchStartedMessage(MatchStartedMessage msg)
 		{
-			MMVibrationManager.ContinuousHaptic(GameConstants.Haptics.GAME_START_INTENSITY, 
-			                                    GameConstants.Haptics.GAME_START_SHARPNESS, 
-			                                    GameConstants.Haptics.GAME_START_DURATION);
+			if (!msg.IsResync)
+			{
+				MMVibrationManager.ContinuousHaptic(GameConstants.Haptics.GAME_START_INTENSITY, 
+													GameConstants.Haptics.GAME_START_SHARPNESS, 
+													GameConstants.Haptics.GAME_START_DURATION);
+			}
 
 			if (!msg.IsResync || _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
 			{
@@ -220,7 +228,7 @@ namespace FirstLight.Game.Presenters
 			}
 
 			var localPlayer = msg.Game.GetLocalPlayerData(false, out var f);
-
+			
 			if (!localPlayer.Entity.IsAlive(f))
 			{
 				return;
@@ -231,6 +239,10 @@ namespace FirstLight.Game.Presenters
 			if (f.Get<AIBlackboardComponent>(localPlayer.Entity).GetBoolean(f, Constants.IsSkydiving))
 			{
 				OnLocalPlayerSkydiveDrop(null);
+			}
+			else
+			{
+				OnLocalPlayerSkydiveLanded(null);
 			}
 		}
 

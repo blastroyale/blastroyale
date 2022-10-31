@@ -365,8 +365,8 @@ namespace FirstLight.Game.StateMachines
 			var data = new TrophiesScreenPresenter.StateData
 			{
 				ExitTrophyScreen = ContinueClicked,
-				LastTrophyChange = () => _lastTrophyChange,
-				TrophiesBeforeLastChange = () => _trophiesBeforeLastChange
+				LastTrophyChange = _lastTrophyChange,
+				TrophiesBeforeLastChange = _trophiesBeforeLastChange
 			};
 
 			_uiService.OpenUiAsync<TrophiesScreenPresenter, TrophiesScreenPresenter.StateData>(data);

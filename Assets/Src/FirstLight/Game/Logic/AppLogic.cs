@@ -3,6 +3,7 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Logic.RPC;
+using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Services;
 using MoreMountains.NiceVibrations;
@@ -77,6 +78,11 @@ namespace FirstLight.Game.Logic
 		/// Obtains the player unique id
 		/// </summary>
 		string PlayerId { get; }
+		
+		/// <summary>
+		/// Returns the last gamemode user has chosen
+		/// </summary>
+		GameModeRotationConfig.GameModeEntry LastGameMode { get; set; }
 
 		/// <summary>
 		/// Requests the last region that player was connected to
@@ -126,6 +132,7 @@ namespace FirstLight.Game.Logic
 		private readonly DateTime _defaultZeroTime = new(2020, 1, 1);
 		private readonly IAudioFxService<AudioId> _audioFxService;
 
+		
 		/// <inheritdoc />
 		public bool IsFirstSession => Data.IsFirstSession;
 
@@ -135,6 +142,12 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public bool IsDeviceLinked => string.IsNullOrWhiteSpace(DeviceID.Value);
 
+		public GameModeRotationConfig.GameModeEntry LastGameMode
+		{
+			get => Data.LastGameMode;
+			set => Data.LastGameMode = value;
+		}
+		
 		/// <inheritdoc />
 		public bool IsSfxEnabled
 		{

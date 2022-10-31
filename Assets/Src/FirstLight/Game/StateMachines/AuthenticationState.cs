@@ -125,6 +125,7 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeEvents()
 		{
 			_services.MessageBrokerService.Subscribe<ServerHttpErrorMessage>(OnConnectionError);
+			_services.MessageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuit);
 		}
 
 		private void UnsubscribeEvents()
@@ -431,8 +432,22 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayerDataObtained(ExecuteFunctionResult res, IWaitActivity activity)
 		{
+			
 			var serverResult = ModelSerializer.Deserialize<PlayFabResult<LogicResult>>(res.FunctionResult.ToString());
 			var data = serverResult.Result.Data;
+			if (data == null || data.Count == 0) // response too large, fetch directly
+			{
+				_services.PlayfabService.FetchServerState(state =>
+				{
+					_dataService.AddData(ModelSerializer.DeserializeFromData<RngData>(state));
+					_dataService.AddData(ModelSerializer.DeserializeFromData<IdData>(state));
+					_dataService.AddData(ModelSerializer.DeserializeFromData<PlayerData>(state));
+					_dataService.AddData(ModelSerializer.DeserializeFromData<EquipmentData>(state));
+					FLog.Verbose("Downloaded state from playfab");
+					activity?.Complete();
+				});
+				return;
+			}
 			_dataService.AddData(ModelSerializer.DeserializeFromData<RngData>(data));
 			_dataService.AddData(ModelSerializer.DeserializeFromData<IdData>(data));
 			_dataService.AddData(ModelSerializer.DeserializeFromData<PlayerData>(data));
@@ -682,6 +697,11 @@ namespace FirstLight.Game.StateMachines
 			config.PhotonServerSettings.AppSettings.Protocol = connection;
 			
 			_services.AssetResolverService.UnloadAsset(config);
+		}
+		
+		private void OnApplicationQuit(ApplicationQuitMessage msg)
+		{
+			OpenLoadingScreen();
 		}
 	}
 }

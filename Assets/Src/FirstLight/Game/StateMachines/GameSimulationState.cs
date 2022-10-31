@@ -338,7 +338,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void CloseResultScreen()
 		{
-			_uiService.CloseUi<ResultsScreenPresenter>(false, true);
+			_uiService.CloseUi<ResultsScreenPresenter>(true);
 		}
 
 		private void OpenRewardsScreen(IWaitActivity activity)
@@ -356,7 +356,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void CloseRewardsScreen()
 		{
-			_uiService.CloseUi<RewardsScreenPresenter>(false, true);
+			_uiService.CloseUi<RewardsScreenPresenter>(true);
 		}
 
 		private void OpenTrophiesScreen(IWaitActivity activity)
@@ -379,7 +379,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void CloseTrophiesScreen()
 		{
-			_uiService.CloseUi<TrophiesScreenPresenter>(false, true);
+			_uiService.CloseUi<TrophiesScreenPresenter>(true);
 		}
 
 		private void PublishMatchStartedMessage(QuantumGame game, bool isResync)

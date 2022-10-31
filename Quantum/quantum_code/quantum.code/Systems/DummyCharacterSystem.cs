@@ -28,10 +28,14 @@ namespace Quantum.Systems
 			
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(entity);
 			playerCharacter->Player = entity.Index;
-			//f.Unsafe.GetPointerSingleton<GameContainer>()->AddPlayer(f, playerCharacter->Player, entity, 0, 0, 0, 0);
+
+			f.GetOrAddSingleton<GameContainer>().AddPlayer(f, playerCharacter->Player, entity, 0, 0, 0, 0);
 
 			f.Add(entity, targetable);
 			f.Add(entity, new Stats(component->Health, 0, 0, 0, 0, 0, 0, 0, 0));
+
 		}
+		
+		
 	}
 }

@@ -33,8 +33,8 @@ namespace FirstLight.Game.Data
 		public bool BgmEnabled = true;
 		public bool HapticEnabled = true;
 		public bool DialogueEnabled = true;
+		public int FpsTarget = 30;
 		public GraphicsConfig.DetailLevel CurrentDetailLevel = GraphicsConfig.DetailLevel.Medium;
-		public bool UseHighFpsMode = false;
 		public GameModeRotationConfig.GameModeEntry LastGameMode;
 		public List<UniqueId> NewUniqueIds = new ();
 		public List<GameId> GameIdsTagged = new ();

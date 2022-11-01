@@ -8,6 +8,8 @@ namespace FirstLight.Game.UIElements
 	/// </summary>
 	public sealed class LocalizedTextField : TextField
 	{
+		private string labelLocalizationKey { get; set; }
+
 		public LocalizedTextField() : this(string.Empty)
 		{
 		}
@@ -20,9 +22,12 @@ namespace FirstLight.Game.UIElements
 		/// <summary>
 		/// Sets the label text to the localized string from <paramref name="key"/>.
 		/// </summary>
-		public void LocalizeLabel(string key)
+		public void LocalizeLabel(string labelKey)
 		{
-			label = LocalizationManager.TryGetTranslation(key, out var translation) ? translation : $"#{key}#";
+			labelLocalizationKey = labelKey;
+			label = LocalizationManager.TryGetTranslation(labelKey, out var translation)
+				? translation
+				: $"#{labelKey}#";
 		}
 
 		public new class UxmlFactory : UxmlFactory<LocalizedTextField, UxmlTraits>

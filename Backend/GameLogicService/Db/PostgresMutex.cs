@@ -14,9 +14,9 @@ namespace Backend.Game
 	public class PostgresMutex : IServerMutex
 	{
 		private Dictionary<string, PostgresDistributedLockHandle> _handles = new ();
-		private IServerConfiguration _cfg;
+		private IBaseServiceConfiguration _cfg;
 		
-		public PostgresMutex(IServerConfiguration cfg)
+		public PostgresMutex(IBaseServiceConfiguration cfg)
 		{
 			_cfg = cfg;
 		}

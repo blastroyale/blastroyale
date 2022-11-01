@@ -4,6 +4,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -42,10 +43,19 @@ public partial class SROptions
 	}
 	
 	[Category("Quantum")]
-	public void DisconnectQuantum()
+	public void DisconnectQuantumTimeout()
 	{
 		var services = MainInstaller.Resolve<IGameServices>();
-		services.NetworkService.QuantumClient.Disconnect();
+		services.NetworkService.QuantumClient.Disconnect(DisconnectCause.ClientTimeout);
+	}
+	
+	[Category("Quantum")]
+	public void DisconnectQuantumClientLogic()
+	{
+		// Disconnecting by client logic, as opposed to other methods, actually causes user first to leave the room, 
+		// which changes the expected networking behavior.
+		var services = MainInstaller.Resolve<IGameServices>();
+		services.NetworkService.QuantumClient.Disconnect(DisconnectCause.DisconnectByClientLogic);
 	}
 	
 	

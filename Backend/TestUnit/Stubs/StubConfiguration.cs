@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Hosting.Server;
 
 namespace Tests.Stubs
 {
-	public class StubConfiguration : IServerConfiguration
+	public class StubConfiguration : IBaseServiceConfiguration
 	{
 		public string AppPath { get; set; }
 		public string PlayfabTitle { get; set; }

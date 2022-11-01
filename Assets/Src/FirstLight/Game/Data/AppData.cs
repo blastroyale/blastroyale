@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Services;
 using Quantum;
 
 namespace FirstLight.Game.Data
@@ -28,6 +29,8 @@ namespace FirstLight.Game.Data
 		public string ConnectionRegion;
 		
 		public DateTime GameReviewDate;
+
+		public FrameSnapshot LastCapturedFrameSnapshot;
 
 		public bool SfxEnabled = true;
 		public bool BgmEnabled = true;

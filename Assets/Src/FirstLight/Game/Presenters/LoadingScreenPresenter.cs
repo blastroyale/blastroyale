@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using I2.Loc;
@@ -47,7 +48,7 @@ namespace FirstLight.Game.Presenters
 		}
 		
 		/// <inheritdoc />
-		protected override void OnClosed()
+		protected override async Task OnClosed()
 		{
 			SetLoadingPercentage(1f);
 		}

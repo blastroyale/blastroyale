@@ -25,15 +25,10 @@ namespace Quantum.Systems
 			}
 		}
 
-		public override void OnEnabled(Frame f)
-		{
-			f.Unsafe.GetOrAddSingletonPointer<GameContainer>()->RealPlayers = f.AllocateList<PlayerRef>();
-			base.OnEnabled(f);
-		}
-		
 		/// <inheritdoc />
 		public void OnAdded(Frame f, EntityRef entity, GameContainer* component)
 		{
+			component->RealPlayers = f.AllocateList<PlayerRef>();
 			switch (f.Context.GameModeConfig.CompletionStrategy)
 			{
 				case GameCompletionStrategy.Never:

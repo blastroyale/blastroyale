@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using FirstLight.Game.MonoComponent.Match;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -26,8 +27,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public LocalPlayerIndicatorContainerView(IGameServices services)
 		{
 			_services = services;
-			
-			InstantiatePlayerIndicators();
+			InstantiateAllIndicators();
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerAmmoEmpty>(this, HandleOnLocalPlayerAmmoEmpty);
 		}
 
@@ -51,6 +51,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public void Init(EntityView playerView)
 		{
 			_localPlayerEntity = playerView.EntityRef;
+			
+			for (int i = 0; i < _specialIndicators.Length; i++)
+			{
+				_specialIndicators[i] = null;
+			}
 
 			foreach (var indicator in _indicators)
 			{
@@ -82,15 +87,39 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_indicators[(int) IndicatorVfxId.Movement].SetTransformState(direction);
 			_indicators[(int) IndicatorVfxId.Movement].SetVisualState(isPressed);
 		}
+		
+		/// <summary>
+		///  Instantiates all possible indicators
+		/// </summary>
+		public void InstantiateAllIndicators()
+		{
+			var loader = _services.AssetResolverService;
+
+			for (var i = 0; i < (int) IndicatorVfxId.TOTAL; i++)
+			{
+				if (!loader.TryGetAssetReference<IndicatorVfxId, GameObject>((IndicatorVfxId)i, out var indicator))
+				{
+					_indicators[i] = null;
+					continue;
+				}
+				
+				var obj =  _services.AssetResolverService.RequestAsset<IndicatorVfxId, GameObject>((IndicatorVfxId)i, false, true).Result;
+				_indicators[i] = obj.GetComponent<IIndicator>();
+			}
+		}
 
 		/// <summary>
 		/// Setups all the indicators with the given data
 		/// </summary>
-		public void SetupWeaponInfo(GameId weaponId)
+		public void SetupWeaponInfo(Frame f, GameId weaponId)
 		{
 			_weaponConfig = _services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) weaponId);
-			_shootIndicatorId = _weaponConfig.MaxAttackAngle > 0 ? IndicatorVfxId.Cone : IndicatorVfxId.Line;
-			
+			_shootIndicatorId = _weaponConfig.MaxAttackAngle > 0  ? IndicatorVfxId.Cone : IndicatorVfxId.Line;
+			if (f.Context.TryGetMutatorByType(MutatorType.AbsoluteAccuracy, out _))
+			{
+				_shootIndicatorId = _weaponConfig.NumberOfShots > 1 ? IndicatorVfxId.Cone : IndicatorVfxId.Line;
+			}
+
 			ShootIndicator.SetVisualState(ShootIndicator.VisualState);
 		}
 
@@ -103,7 +132,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			
 			if (_specialIndicators[index] != null)
 			{
-				Object.Destroy(((MonoBehaviour) _specialIndicators[index]).gameObject);
+				Object.Destroy( ((MonoBehaviour) _specialIndicators[index]).gameObject);
 			}
 			
 			_specialIndicators[index] = Object.Instantiate((MonoBehaviour) _indicators[(int) config.Indicator])
@@ -117,14 +146,17 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void OnUpdateAim(Frame f, Quantum.Input* input, PlayerCharacter* playerCharacter, CharacterController3D* kcc)
 		{
 			var isEmptied = playerCharacter->IsAmmoEmpty(f, _localPlayerEntity);
+
 			var speed = kcc->MaxSpeed * kcc->MaxSpeed;
 			var velocity = kcc->Velocity.SqrMagnitude;
 			var range = f.Get<Stats>(_localPlayerEntity).GetStatData(StatType.AttackRange).StatValue.AsFloat;
 			
-			var minAttackAngle = _weaponConfig.MinAttackAngle;
-			var maxAttackAngle = _weaponConfig.MaxAttackAngle;
+			var minAttackAngle = _shootIndicatorId == IndicatorVfxId.Line ? 0 : _weaponConfig.MinAttackAngle;
+			var maxAttackAngle = _shootIndicatorId == IndicatorVfxId.Line ? 0 :_weaponConfig.MaxAttackAngle;
+
 			var lerp = Mathf.Lerp(minAttackAngle, maxAttackAngle, velocity.AsFloat / speed.AsFloat);
-			var angleInRad = maxAttackAngle == minAttackAngle ? maxAttackAngle : lerp;
+			var angleInRad = maxAttackAngle == minAttackAngle || f.Context.TryGetMutatorByType(MutatorType.AbsoluteAccuracy, out _) 
+				? minAttackAngle : lerp;
 			
 			// We use a formula to calculate the scale of a shooting indicator
 			var size = Mathf.Max(0.5f, Mathf.Tan(angleInRad * 0.5f * Mathf.Deg2Rad) * range * 2f);
@@ -139,24 +171,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			ShootIndicator.SetTransformState(input->AimingDirection.ToUnityVector2());
 			ShootIndicator.SetVisualState(input->IsShootButtonDown, isEmptied);
 			ShootIndicator.SetVisualProperties(size, 0, range);
-		}
-		
-		private void InstantiatePlayerIndicators()
-		{
-			var loader = _services.AssetResolverService;
-
-			for (var i = 0; i < (int) IndicatorVfxId.TOTAL; i++)
-			{
-				if (!loader.TryGetAssetReference<IndicatorVfxId, GameObject>((IndicatorVfxId)i, out var indicator))
-				{
-					_indicators[i] = null;
-					continue;
-				}
-
-				var obj = Object.Instantiate(indicator.OperationHandle.Convert<GameObject>().Result);
-				
-				_indicators[i] = obj.GetComponent<IIndicator>();
-			}
 		}
 
 		private void HandleOnLocalPlayerAmmoEmpty(EventOnLocalPlayerAmmoEmpty callback)

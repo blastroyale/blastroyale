@@ -26,7 +26,6 @@ namespace FirstLight.Game.Presenters
 	{
 		[SerializeField, Required] private Animation _animation;
 		[SerializeField, Required] private AnimationClip _introAnimationClip;
-		[SerializeField, Required] private GameObject _connectionIcon;
 		[SerializeField, Required] private Button _quitButton;
 		[SerializeField] private Button[] _standingsButtons;
 		[SerializeField, Required] private Button _leaderButton;
@@ -55,12 +54,10 @@ namespace FirstLight.Game.Presenters
 			{
 				standingsButton.onClick.AddListener(OnStandingsClicked);
 			}
-
-			_services.NetworkService.HasLag.InvokeObserve(OnLag);
+			
 			_leaderButton.onClick.AddListener(OnStandingsClicked);
 			_quitButton.onClick.AddListener(OnQuitClicked);
 			_equippedDebugText.gameObject.SetActive(false);
-			_connectionIcon.SetActive(false);
 			_standings.gameObject.SetActive(false);
 			_leaderHolderView.gameObject.SetActive(false);
 			
@@ -111,7 +108,7 @@ namespace FirstLight.Game.Presenters
 			var playersData = gameContainer.PlayersData;
 			var canQuitMatch = true;
 			
-			if ( _services.NetworkService.CurrentRoomMatchType == MatchType.Ranked)
+			if (_services.NetworkService.CurrentRoomMatchType != MatchType.Custom)
 			{
 				var localPlayer = playersData[game.GetLocalPlayers()[0]];
 				var valid = localPlayer.IsValid;
@@ -134,11 +131,6 @@ namespace FirstLight.Game.Presenters
 		private void OnQuitClicked()
 		{
 			_services.MessageBrokerService.Publish(new QuitGameClickedMessage());
-		}
-
-		private void OnLag(bool previous, bool hasLag)
-		{
-			_connectionIcon.SetActive(hasLag);
 		}
 
 		private void OnStandingsClicked()

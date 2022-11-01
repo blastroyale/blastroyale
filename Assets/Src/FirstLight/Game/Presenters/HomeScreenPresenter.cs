@@ -76,6 +76,8 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements(VisualElement root)
 		{
+			var storeButton = root.Q<Button>("StoreButton");
+			
 			_playerNameLabel = root.Q<Label>("PlayerNameLabel").Required();
 			_playerTrophiesLabel = root.Q<Label>("PlayerTrophiesLabel").Required();
 			_gameModeLabel = root.Q<Label>("GameModeLabel").Required();
@@ -104,7 +106,9 @@ namespace FirstLight.Game.Presenters
 			root.Q<Button>("EquipmentButton").clicked += Data.OnLootButtonClicked;
 			root.Q<Button>("HeroesButton").clicked += Data.OnHeroesButtonClicked;
 			root.Q<Button>("LeaderboardsButton").clicked += Data.OnLeaderboardClicked;
-			root.Q<Button>("StoreButton").clicked += Data.OnStoreClicked;
+			storeButton.clicked += Data.OnStoreClicked;
+			
+			storeButton.SetEnabled(FeatureFlags.STORE_ENABLED);
 
 			// TODO: Move to shared code
 			root.Query<Button>().Build().ForEach(b =>

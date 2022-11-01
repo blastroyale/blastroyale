@@ -35,6 +35,24 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: General/Ammo
+      TermType: 0
+      Description: 
+      Languages:
+      - Ammo
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: General/AmmoCapacity
+      TermType: 0
+      Description: 
+      Languages:
+      - Ammo Capacity
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: General/Appearance
       TermType: 0
       Description: 
@@ -67,15 +85,6 @@ MonoBehaviour:
       Description: 
       Languages:
       - Armour
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: General/Ammo
-      TermType: 0
-      Description: 
-      Languages:
-      - Ammo
       - 
       - 
       Flags: 000000
@@ -233,6 +242,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: General/ErrorGeneric
+      TermType: 0
+      Description: 
+      Languages:
+      - Error
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: General/ExitGame
       TermType: 0
       Description: 
@@ -323,6 +341,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: General/IapError
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Error: {0}'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: General/Leave
       TermType: 0
       Description: 
@@ -346,6 +373,15 @@ MonoBehaviour:
       Description: 
       Languages:
       - Level
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: General/LoginError
+      TermType: 0
+      Description: 
+      Languages:
+      - Invalid username, password, email or user already exists
       - 
       - 
       Flags: 000000
@@ -686,20 +722,20 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: General/PlacementMessage
-      TermType: 0
-      Description: 
-      Languages:
-      - You finished {0}
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
     - Term: General/PickupSpeed
       TermType: 0
       Description: 
       Languages:
       - Pickup Speed
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: General/PlacementMessage
+      TermType: 0
+      Description: 
+      Languages:
+      - You finished {0}
       - 
       - 
       Flags: 000000
@@ -718,15 +754,6 @@ MonoBehaviour:
       Description: 
       Languages:
       - Damage
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: General/AmmoCapacity
-      TermType: 0
-      Description: 
-      Languages:
-      - Ammo Capacity
       - 
       - 
       Flags: 000000
@@ -875,20 +902,20 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: General/ShieldCapacity2
-      TermType: 0
-      Description: 
-      Languages:
-      - Shields
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
     - Term: General/ShieldCapacity
       TermType: 0
       Description: 
       Languages:
       - Shields Capacity
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: General/ShieldCapacity2
+      TermType: 0
+      Description: 
+      Languages:
+      - Shields
       - 
       - 
       Flags: 000000
@@ -1043,33 +1070,6 @@ MonoBehaviour:
       Description: 
       Languages:
       - character
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: General/IapError
-      TermType: 0
-      Description: 
-      Languages:
-      - 'Error: {0}'
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: General/LoginError
-      TermType: 0
-      Description: 
-      Languages:
-      - Invalid username, password, email or user already exists
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: General/ErrorGeneric
-      TermType: 0
-      Description: 
-      Languages:
-      - Error
       - 
       - 
       Flags: 000000
@@ -1601,20 +1601,110 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: MainMenu/DialogueSetting
-      TermType: 0
-      Description: 
-      Languages:
-      - Dialogue
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
     - Term: MainMenu/BattleRoyale
       TermType: 0
       Description: 
       Languages:
       - Battle Royale
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/BattleRoyaleDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - One life. Big map. Last player standing wins the match
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/BattlepassClaimAll
+      TermType: 0
+      Description: 
+      Languages:
+      - Claim all rewards
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/BattlepassCurrentLevel
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Current Level: {0}'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/BattlepassNothingToClaim
+      TermType: 0
+      Description: 
+      Languages:
+      - No rewards to claim. Play more games to unlock new rewards!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/BattlepassRewardClaimFarOut
+      TermType: 0
+      Description: 
+      Languages:
+      - Reward at level {0}
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/BattlepassRewardClaimNext
+      TermType: 0
+      Description: 
+      Languages:
+      - Next Reward
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/BattlepassRewardClaimReady
+      TermType: 0
+      Description: 
+      Languages:
+      - Ready to claim!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/BattlepassRewardDialogTitle
+      TermType: 0
+      Description: 
+      Languages:
+      - You got a reward!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/BattlepassRewardsProgress
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0}/{1}'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/BattlepassRewardsReady
+      TermType: 0
+      Description: 
+      Languages:
+      - Ready to collect!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/BattlepassTitle
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast Pass
       - 
       - 
       Flags: 000000
@@ -1718,6 +1808,33 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: MainMenu/ConnectFirstLightIdAdvice
+      TermType: 0
+      Description: 
+      Languages:
+      - to secure your progress and unlock more features!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/ConnectFirstLightIdButton
+      TermType: 0
+      Description: 
+      Languages:
+      - Connect
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/ConnectToNewFirstLightId
+      TermType: 0
+      Description: 
+      Languages:
+      - Connect new First Light ID
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: MainMenu/ContainsAtLeast
       TermType: 0
       Description: 
@@ -1792,6 +1909,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: MainMenu/CustomGameDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Create your own game
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: MainMenu/CustomMatchBotsToggle
       TermType: 0
       Description: 
@@ -1815,6 +1941,15 @@ MonoBehaviour:
       Description: 
       Languages:
       - Deathmatch
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/DeathmatchDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Infinite respawns. First player to reach the max kills wins.
       - 
       - 
       Flags: 000000
@@ -1855,6 +1990,33 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: MainMenu/DeleteAccountConfirm
+      TermType: 0
+      Description: 
+      Languages:
+      - Account Deleted
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/DeleteAccountConfirmMessage
+      TermType: 0
+      Description: 
+      Languages:
+      - Your account will be deleted soon. Your game will close now.
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/DeleteAccountRequestMessage
+      TermType: 0
+      Description: 
+      Languages:
+      - Are you sure you want to delete your account ? This cannot be undone.
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: MainMenu/Demo
       TermType: 0
       Description: 
@@ -1869,6 +2031,15 @@ MonoBehaviour:
       Description: 
       Languages:
       - Detail Level
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/DialogueSetting
+      TermType: 0
+      Description: 
+      Languages:
+      - Dialogue
       - 
       - 
       Flags: 000000
@@ -1896,6 +2067,15 @@ MonoBehaviour:
       Description: 
       Languages:
       - This weapon is fired by dragging and releasing the right side joystick.
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/DynamicJoystickSetting
+      TermType: 0
+      Description: 
+      Languages:
+      - Dynamic Movement Joystick
       - 
       - 
       Flags: 000000
@@ -1951,6 +2131,34 @@ MonoBehaviour:
       Description: 
       Languages:
       - EVENTS COMING SOON!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/FirstLightIdConnected
+      TermType: 0
+      Description: 
+      Languages:
+      - First Light ID connected!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/FirstLightIdConnectionSuccess
+      TermType: 0
+      Description: 
+      Languages:
+      - First Light ID has been created and connected successfully! Your progress
+        is safe now.
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/FirstLightIdNeedConnection
+      TermType: 0
+      Description: 
+      Languages:
+      - First Light ID not connected!
       - 
       - 
       Flags: 000000
@@ -2033,6 +2241,15 @@ MonoBehaviour:
       Description: 
       Languages:
       - Haptic Feedback
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/HighFpsModeSetting
+      TermType: 0
+      Description: 
+      Languages:
+      - High FPS Mode
       - 
       - 
       Flags: 000000
@@ -2172,6 +2389,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: MainMenu/LoginFirstLightId
+      TermType: 0
+      Description: 
+      Languages:
+      - Login to existing First Light ID
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: MainMenu/LoginOrText
       TermType: 0
       Description: 
@@ -2249,6 +2475,42 @@ MonoBehaviour:
       Description: 
       Languages:
       - Manual Fire
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/MatchmakingKickButton
+      TermType: 0
+      Description: 
+      Languages:
+      - Kick Player
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/MatchmakingKickConfirm
+      TermType: 0
+      Description: 
+      Languages:
+      - Kick player '{0}' ?
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/MatchmakingKickInfo
+      TermType: 0
+      Description: 
+      Languages:
+      - Select a player to kick, or tap anywhere else to cancel
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/MatchmakingKickedNotification
+      TermType: 0
+      Description: 
+      Languages:
+      - You have been kicked from the room.
       - 
       - 
       Flags: 000000
@@ -2366,6 +2628,15 @@ MonoBehaviour:
       Description: 
       Languages:
       - '{0} UNLOCKED!'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/NewGameModes
+      TermType: 0
+      Description: 
+      Languages:
+      - New game modes available !
       - 
       - 
       Flags: 000000
@@ -2509,6 +2780,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: MainMenu/PlayAsGuestButton
+      TermType: 0
+      Description: 
+      Languages:
+      - Play as a Guest
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: MainMenu/PlayGame
       TermType: 0
       Description: 
@@ -2541,6 +2821,33 @@ MonoBehaviour:
       Description: 
       Languages:
       - 'POSSIBLE REWARDS: '
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/PrepareForActionBasic
+      TermType: 0
+      Description: 
+      Languages:
+      - Prepare for action!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/PrepareForActionTimer
+      TermType: 0
+      Description: 
+      Languages:
+      - Starting in {0} sec!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/PrepareForActionWaiting
+      TermType: 0
+      Description: 
+      Languages:
+      - Waiting for players!
       - 
       - 
       Flags: 000000
@@ -2586,6 +2893,15 @@ MonoBehaviour:
       Description: 
       Languages:
       - Register First Light ID
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/RegisterFirstLightId
+      TermType: 0
+      Description: 
+      Languages:
+      - Register new First Light ID
       - 
       - 
       Flags: 000000
@@ -2640,6 +2956,15 @@ MonoBehaviour:
       Description: 
       Languages:
       - '{0} / {1}'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/ResourcePoolRestock
+      TermType: 0
+      Description: 
+      Languages:
+      - ' +{0} {1} IN {2}'
       - 
       - 
       Flags: 000000
@@ -2700,6 +3025,42 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: MainMenu/RoomJoinCreateGameModeSelect
+      TermType: 0
+      Description: 
+      Languages:
+      - game mode
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/RoomJoinCreateMapSelect
+      TermType: 0
+      Description: 
+      Languages:
+      - map
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/RoomJoinCreateMutatorOneSelect
+      TermType: 0
+      Description: 
+      Languages:
+      - mutator 1
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/RoomJoinCreateMutatorTwoSelect
+      TermType: 0
+      Description: 
+      Languages:
+      - mutator 2
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: MainMenu/RoomJoinCreateTitle
       TermType: 0
       Description: 
@@ -2732,6 +3093,15 @@ MonoBehaviour:
       Description: 
       Languages:
       - Sound Effects
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/SelectDropZone
+      TermType: 0
+      Description: 
+      Languages:
+      - SELECT DROP ZONE
       - 
       - 
       Flags: 000000
@@ -2808,6 +3178,69 @@ MonoBehaviour:
       Description: 
       Languages:
       - A recovery link has been sent to the email.
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/ServerCurrent
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Server: {0}'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/ServerNameEu
+      TermType: 0
+      Description: 
+      Languages:
+      - Europe
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/ServerNameHk
+      TermType: 0
+      Description: 
+      Languages:
+      - Asia
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/ServerNameUs
+      TermType: 0
+      Description: 
+      Languages:
+      - America
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/ServerSelectButtonConnect
+      TermType: 0
+      Description: 
+      Languages:
+      - Connect
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/ServerSelectOption
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} ({1}ms)'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/ServerSelectTitle
+      TermType: 0
+      Description: 
+      Languages:
+      - Switch Server
       - 
       - 
       Flags: 000000
@@ -3033,439 +3466,6 @@ MonoBehaviour:
       Description: 
       Languages:
       - WEAPON IS AT MAX LEVEL
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/ServerCurrent
-      TermType: 0
-      Description: 
-      Languages:
-      - 'Server: {0}'
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/ServerSelectTitle
-      TermType: 0
-      Description: 
-      Languages:
-      - Switch Server
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/ServerSelectOption
-      TermType: 0
-      Description: 
-      Languages:
-      - '{0} ({1}ms)'
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/ServerSelectButtonConnect
-      TermType: 0
-      Description: 
-      Languages:
-      - Connect
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/ServerNameEu
-      TermType: 0
-      Description: 
-      Languages:
-      - Europe
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/ServerNameUs
-      TermType: 0
-      Description: 
-      Languages:
-      - America
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/ServerNameHk
-      TermType: 0
-      Description: 
-      Languages:
-      - Asia
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/SelectDropZone
-      TermType: 0
-      Description: 
-      Languages:
-      - SELECT DROP ZONE
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/MatchmakingKickButton
-      TermType: 0
-      Description: 
-      Languages:
-      - Kick Player
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/MatchmakingKickInfo
-      TermType: 0
-      Description: 
-      Languages:
-      - Select a player to kick, or tap anywhere else to cancel
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/MatchmakingKickConfirm
-      TermType: 0
-      Description: 
-      Languages:
-      - Kick player '{0}' ?
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/MatchmakingKickedNotification
-      TermType: 0
-      Description: 
-      Languages:
-      - You have been kicked from the room.
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/RoomJoinCreateGameModeSelect
-      TermType: 0
-      Description: 
-      Languages:
-      - game mode
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/RoomJoinCreateMapSelect
-      TermType: 0
-      Description: 
-      Languages:
-      - map
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/RoomJoinCreateMutatorOneSelect
-      TermType: 0
-      Description: 
-      Languages:
-      - mutator 1
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/RoomJoinCreateMutatorTwoSelect
-      TermType: 0
-      Description: 
-      Languages:
-      - mutator 2
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/PlayAsGuestButton
-      TermType: 0
-      Description: 
-      Languages:
-      - Play as a Guest
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/ConnectFirstLightIdAdvice
-      TermType: 0
-      Description: 
-      Languages:
-      - to secure your progress and unlock more features!
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/FirstLightIdConnected
-      TermType: 0
-      Description: 
-      Languages:
-      - First Light ID connected!
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/FirstLightIdNeedConnection
-      TermType: 0
-      Description: 
-      Languages:
-      - First Light ID not connected!
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/ConnectToNewFirstLightId
-      TermType: 0
-      Description: 
-      Languages:
-      - Connect new First Light ID
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/RegisterFirstLightId
-      TermType: 0
-      Description: 
-      Languages:
-      - Register new First Light ID
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/LoginFirstLightId
-      TermType: 0
-      Description: 
-      Languages:
-      - Login to existing First Light ID
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/PrepareForActionBasic
-      TermType: 0
-      Description: 
-      Languages:
-      - Prepare for action!
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/PrepareForActionTimer
-      TermType: 0
-      Description: 
-      Languages:
-      - Starting in {0} sec!
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/PrepareForActionWaiting
-      TermType: 0
-      Description: 
-      Languages:
-      - Waiting for players!
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/ConnectFirstLightIdButton
-      TermType: 0
-      Description: 
-      Languages:
-      - Connect
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/FirstLightIdConnectionSuccess
-      TermType: 0
-      Description: 
-      Languages:
-      - First Light ID has been created and connected successfully! Your progress
-        is safe now.
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/DynamicJoystickSetting
-      TermType: 0
-      Description: 
-      Languages:
-      - Dynamic Movement Joystick
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/BattlepassRewardsReady
-      TermType: 0
-      Description: 
-      Languages:
-      - Ready to collect!
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/BattlepassRewardsProgress
-      TermType: 0
-      Description: 
-      Languages:
-      - '{0}/{1}'
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/BattlepassClaimAll
-      TermType: 0
-      Description: 
-      Languages:
-      - Claim all rewards
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/BattlepassRewardClaimReady
-      TermType: 0
-      Description: 
-      Languages:
-      - Ready to claim!
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/BattlepassRewardClaimFarOut
-      TermType: 0
-      Description: 
-      Languages:
-      - Reward at level {0}
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/BattlepassNothingToClaim
-      TermType: 0
-      Description: 
-      Languages:
-      - No rewards to claim. Play more games to unlock new rewards!
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/BattlepassRewardClaimNext
-      TermType: 0
-      Description: 
-      Languages:
-      - Next Reward
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/BattlepassTitle
-      TermType: 0
-      Description: 
-      Languages:
-      - Blast Pass
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/BattlepassCurrentLevel
-      TermType: 0
-      Description: 
-      Languages:
-      - 'Current Level: {0}'
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/BattlepassRewardDialogTitle
-      TermType: 0
-      Description: 
-      Languages:
-      - You got a reward!
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/HighFpsModeSetting
-      TermType: 0
-      Description: 
-      Languages:
-      - High FPS Mode
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/ResourcePoolRestock
-      TermType: 0
-      Description: 
-      Languages:
-      - ' +{0} {1} IN {2}'
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/DeleteAccountRequestMessage
-      TermType: 0
-      Description: 
-      Languages:
-      - Are you sure you want to delete your account ? This cannot be undone.
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/DeleteAccountConfirmMessage
-      TermType: 0
-      Description: 
-      Languages:
-      - Your account will be deleted soon. Your game will close now.
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/DeleteAccountConfirm
-      TermType: 0
-      Description: 
-      Languages:
-      - Account Deleted
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/BattleRoyaleDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - One life. Big map. Last player standing wins the match
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/DeathmatchDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Infinite respawns. First player to reach the max kills wins.
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/CustomGameDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - Create your own game
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/NewGameModes
-      TermType: 0
-      Description: 
-      Languages:
-      - New game modes available !
       - 
       - 
       Flags: 000000
@@ -3731,11 +3731,29 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: AdventureMenu/KillMessageAmount
+      TermType: 0
+      Description: 
+      Languages:
+      - x{0}
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: AdventureMenu/Killing
       TermType: 0
       Description: 
       Languages:
       - KILLING
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: AdventureMenu/KillingSpreeMessage
+      TermType: 0
+      Description: 
+      Languages:
+      - Killing Spree
       - 
       - 
       Flags: 000000
@@ -3776,11 +3794,29 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: AdventureMenu/Might
+      TermType: 0
+      Description: 
+      Languages:
+      - MIGHT {0}
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: AdventureMenu/Multi
       TermType: 0
       Description: 
       Languages:
       - MULTI
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: AdventureMenu/MultikillMessage
+      TermType: 0
+      Description: 
+      Languages:
+      - Multi Kill
       - 
       - 
       Flags: 000000
@@ -3880,6 +3916,15 @@ MonoBehaviour:
       Description: 
       Languages:
       - Revives
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: AdventureMenu/Shield
+      TermType: 0
+      Description: 
+      Languages:
+      - SHIELD +{0}
       - 
       - 
       Flags: 000000
@@ -4015,51 +4060,6 @@ MonoBehaviour:
       Description: 
       Languages:
       - YOUR LOOT
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: AdventureMenu/Might
-      TermType: 0
-      Description: 
-      Languages:
-      - MIGHT {0}
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: AdventureMenu/Shield
-      TermType: 0
-      Description: 
-      Languages:
-      - SHIELD +{0}
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: AdventureMenu/MultikillMessage
-      TermType: 0
-      Description: 
-      Languages:
-      - Multi Kill
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: AdventureMenu/KillingSpreeMessage
-      TermType: 0
-      Description: 
-      Languages:
-      - Killing Spree
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: AdventureMenu/KillMessageAmount
-      TermType: 0
-      Description: 
-      Languages:
-      - x{0}
       - 
       - 
       Flags: 000000
@@ -5090,11 +5090,182 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: BotNames/Bot201
+      TermType: 0
+      Description: 
+      Languages:
+      - Blabbermouth
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot202
+      TermType: 0
+      Description: 
+      Languages:
+      - Hercules
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot203
+      TermType: 0
+      Description: 
+      Languages:
+      - Konversation
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot204
+      TermType: 0
+      Description: 
+      Languages:
+      - Lollipop
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot205
+      TermType: 0
+      Description: 
+      Languages:
+      - Smart
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot206
+      TermType: 0
+      Description: 
+      Languages:
+      - Hey
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot207
+      TermType: 0
+      Description: 
+      Languages:
+      - Bigmouth
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot208
+      TermType: 0
+      Description: 
+      Languages:
+      - Galore
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot209
+      TermType: 0
+      Description: 
+      Languages:
+      - Jovial
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: BotNames/Bot21
       TermType: 0
       Description: 
       Languages:
       - Pappy
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot210
+      TermType: 0
+      Description: 
+      Languages:
+      - Fat
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot211
+      TermType: 0
+      Description: 
+      Languages:
+      - Supersmart
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot212
+      TermType: 0
+      Description: 
+      Languages:
+      - BleepBloop
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot213
+      TermType: 0
+      Description: 
+      Languages:
+      - TheMonkey
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot214
+      TermType: 0
+      Description: 
+      Languages:
+      - Volter
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot215
+      TermType: 0
+      Description: 
+      Languages:
+      - Fintech
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot216
+      TermType: 0
+      Description: 
+      Languages:
+      - FunnyGuy
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot217
+      TermType: 0
+      Description: 
+      Languages:
+      - ReallyClever
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot218
+      TermType: 0
+      Description: 
+      Languages:
+      - Dimwit
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot219
+      TermType: 0
+      Description: 
+      Languages:
+      - OkaySir
       - 
       - 
       Flags: 000000
@@ -5108,11 +5279,191 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: BotNames/Bot220
+      TermType: 0
+      Description: 
+      Languages:
+      - Cybernetic
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot221
+      TermType: 0
+      Description: 
+      Languages:
+      - DigitalDave
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot222
+      TermType: 0
+      Description: 
+      Languages:
+      - MrRo
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot223
+      TermType: 0
+      Description: 
+      Languages:
+      - Pepper
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot224
+      TermType: 0
+      Description: 
+      Languages:
+      - Baxi
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot225
+      TermType: 0
+      Description: 
+      Languages:
+      - Tutorial
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot226
+      TermType: 0
+      Description: 
+      Languages:
+      - Cloud
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot227
+      TermType: 0
+      Description: 
+      Languages:
+      - Comet
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot228
+      TermType: 0
+      Description: 
+      Languages:
+      - Comet
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot229
+      TermType: 0
+      Description: 
+      Languages:
+      - Albus
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: BotNames/Bot23
       TermType: 0
       Description: 
       Languages:
       - Starter
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot230
+      TermType: 0
+      Description: 
+      Languages:
+      - Anthony
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot231
+      TermType: 0
+      Description: 
+      Languages:
+      - Brooke
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot232
+      TermType: 0
+      Description: 
+      Languages:
+      - Bumper
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot233
+      TermType: 0
+      Description: 
+      Languages:
+      - Chandler
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot234
+      TermType: 0
+      Description: 
+      Languages:
+      - Charlotte
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot235
+      TermType: 0
+      Description: 
+      Languages:
+      - SmartOne
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot236
+      TermType: 0
+      Description: 
+      Languages:
+      - Abracadabra
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot237
+      TermType: 0
+      Description: 
+      Languages:
+      - Creations
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot238
+      TermType: 0
+      Description: 
+      Languages:
+      - Alchemist
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot239
+      TermType: 0
+      Description: 
+      Languages:
+      - Alphius
       - 
       - 
       Flags: 000000
@@ -5126,11 +5477,191 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: BotNames/Bot240
+      TermType: 0
+      Description: 
+      Languages:
+      - Beast
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot241
+      TermType: 0
+      Description: 
+      Languages:
+      - ofHearts
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot242
+      TermType: 0
+      Description: 
+      Languages:
+      - Laser
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot243
+      TermType: 0
+      Description: 
+      Languages:
+      - MindReader
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot244
+      TermType: 0
+      Description: 
+      Languages:
+      - Proton
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot245
+      TermType: 0
+      Description: 
+      Languages:
+      - Hail
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot246
+      TermType: 0
+      Description: 
+      Languages:
+      - Tornado
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot247
+      TermType: 0
+      Description: 
+      Languages:
+      - Insightful
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot248
+      TermType: 0
+      Description: 
+      Languages:
+      - Rapid
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot249
+      TermType: 0
+      Description: 
+      Languages:
+      - ForHonor
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: BotNames/Bot25
       TermType: 0
       Description: 
       Languages:
       - Mystic
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot250
+      TermType: 0
+      Description: 
+      Languages:
+      - Self
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot251
+      TermType: 0
+      Description: 
+      Languages:
+      - Spy
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot252
+      TermType: 0
+      Description: 
+      Languages:
+      - Retel
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot253
+      TermType: 0
+      Description: 
+      Languages:
+      - Naya
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot254
+      TermType: 0
+      Description: 
+      Languages:
+      - Kabir
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot255
+      TermType: 0
+      Description: 
+      Languages:
+      - Ishaan
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot256
+      TermType: 0
+      Description: 
+      Languages:
+      - Jai
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot257
+      TermType: 0
+      Description: 
+      Languages:
+      - Inaya
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot258
+      TermType: 0
+      Description: 
+      Languages:
+      - Amar
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot259
+      TermType: 0
+      Description: 
+      Languages:
+      - Dhruv
       - 
       - 
       Flags: 000000
@@ -5144,11 +5675,191 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: BotNames/Bot260
+      TermType: 0
+      Description: 
+      Languages:
+      - Kanan
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot261
+      TermType: 0
+      Description: 
+      Languages:
+      - Ai
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot262
+      TermType: 0
+      Description: 
+      Languages:
+      - Fang
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot263
+      TermType: 0
+      Description: 
+      Languages:
+      - Jing
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot264
+      TermType: 0
+      Description: 
+      Languages:
+      - Li
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot265
+      TermType: 0
+      Description: 
+      Languages:
+      - Min
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot266
+      TermType: 0
+      Description: 
+      Languages:
+      - Yan
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot267
+      TermType: 0
+      Description: 
+      Languages:
+      - Xiu
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot268
+      TermType: 0
+      Description: 
+      Languages:
+      - Ya
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot269
+      TermType: 0
+      Description: 
+      Languages:
+      - Asahi
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: BotNames/Bot27
       TermType: 0
       Description: 
       Languages:
       - Moon
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot270
+      TermType: 0
+      Description: 
+      Languages:
+      - Haru
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot271
+      TermType: 0
+      Description: 
+      Languages:
+      - Akio
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot272
+      TermType: 0
+      Description: 
+      Languages:
+      - Akira
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot273
+      TermType: 0
+      Description: 
+      Languages:
+      - Haruto
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot274
+      TermType: 0
+      Description: 
+      Languages:
+      - Ahmya
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot275
+      TermType: 0
+      Description: 
+      Languages:
+      - Fumiko
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot276
+      TermType: 0
+      Description: 
+      Languages:
+      - Katana
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot277
+      TermType: 0
+      Description: 
+      Languages:
+      - Midori
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot278
+      TermType: 0
+      Description: 
+      Languages:
+      - Rika
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot279
+      TermType: 0
+      Description: 
+      Languages:
+      - Ahanu
       - 
       - 
       Flags: 000000
@@ -5162,11 +5873,191 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: BotNames/Bot280
+      TermType: 0
+      Description: 
+      Languages:
+      - Ahiga
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot281
+      TermType: 0
+      Description: 
+      Languages:
+      - Sakari
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot282
+      TermType: 0
+      Description: 
+      Languages:
+      - Urika
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot283
+      TermType: 0
+      Description: 
+      Languages:
+      - Winona
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot284
+      TermType: 0
+      Description: 
+      Languages:
+      - Adriel
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot285
+      TermType: 0
+      Description: 
+      Languages:
+      - Anakin
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot286
+      TermType: 0
+      Description: 
+      Languages:
+      - Kosumi
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot287
+      TermType: 0
+      Description: 
+      Languages:
+      - Nova
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot288
+      TermType: 0
+      Description: 
+      Languages:
+      - Wayra
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot289
+      TermType: 0
+      Description: 
+      Languages:
+      - Kieola
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: BotNames/Bot29
       TermType: 0
       Description: 
       Languages:
       - Kolbasa
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot290
+      TermType: 0
+      Description: 
+      Languages:
+      - Tuio1
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot291
+      TermType: 0
+      Description: 
+      Languages:
+      - Buela
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot292
+      TermType: 0
+      Description: 
+      Languages:
+      - n00b
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot293
+      TermType: 0
+      Description: 
+      Languages:
+      - l33t
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot294
+      TermType: 0
+      Description: 
+      Languages:
+      - H4x0r
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot295
+      TermType: 0
+      Description: 
+      Languages:
+      - pwnd
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot296
+      TermType: 0
+      Description: 
+      Languages:
+      - ch0p
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot297
+      TermType: 0
+      Description: 
+      Languages:
+      - zoombax
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot298
+      TermType: 0
+      Description: 
+      Languages:
+      - w00t
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot299
+      TermType: 0
+      Description: 
+      Languages:
+      - ub3r
       - 
       - 
       Flags: 000000
@@ -5185,6 +6076,24 @@ MonoBehaviour:
       Description: 
       Languages:
       - PewPew
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot300
+      TermType: 0
+      Description: 
+      Languages:
+      - poasdg
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: BotNames/Bot301
+      TermType: 0
+      Description: 
+      Languages:
+      - PassionDispenser
       - 
       - 
       Flags: 000000
@@ -5864,915 +6773,6 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: BotNames/Bot201
-      TermType: 0
-      Description: 
-      Languages:
-      - Blabbermouth
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot202
-      TermType: 0
-      Description: 
-      Languages:
-      - Hercules
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot203
-      TermType: 0
-      Description: 
-      Languages:
-      - Konversation
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot204
-      TermType: 0
-      Description: 
-      Languages:
-      - Lollipop
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot205
-      TermType: 0
-      Description: 
-      Languages:
-      - Smart
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot206
-      TermType: 0
-      Description: 
-      Languages:
-      - Hey
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot207
-      TermType: 0
-      Description: 
-      Languages:
-      - Bigmouth
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot208
-      TermType: 0
-      Description: 
-      Languages:
-      - Galore
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot209
-      TermType: 0
-      Description: 
-      Languages:
-      - Jovial
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot210
-      TermType: 0
-      Description: 
-      Languages:
-      - Fat
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot211
-      TermType: 0
-      Description: 
-      Languages:
-      - Supersmart
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot212
-      TermType: 0
-      Description: 
-      Languages:
-      - BleepBloop
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot213
-      TermType: 0
-      Description: 
-      Languages:
-      - TheMonkey
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot214
-      TermType: 0
-      Description: 
-      Languages:
-      - Volter
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot215
-      TermType: 0
-      Description: 
-      Languages:
-      - Fintech
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot216
-      TermType: 0
-      Description: 
-      Languages:
-      - FunnyGuy
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot217
-      TermType: 0
-      Description: 
-      Languages:
-      - ReallyClever
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot218
-      TermType: 0
-      Description: 
-      Languages:
-      - Dimwit
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot219
-      TermType: 0
-      Description: 
-      Languages:
-      - OkaySir
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot220
-      TermType: 0
-      Description: 
-      Languages:
-      - Cybernetic
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot221
-      TermType: 0
-      Description: 
-      Languages:
-      - DigitalDave
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot222
-      TermType: 0
-      Description: 
-      Languages:
-      - MrRo
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot223
-      TermType: 0
-      Description: 
-      Languages:
-      - Pepper
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot224
-      TermType: 0
-      Description: 
-      Languages:
-      - Baxi
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot225
-      TermType: 0
-      Description: 
-      Languages:
-      - Tutorial
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot226
-      TermType: 0
-      Description: 
-      Languages:
-      - Cloud
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot227
-      TermType: 0
-      Description: 
-      Languages:
-      - Comet
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot228
-      TermType: 0
-      Description: 
-      Languages:
-      - Comet
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot229
-      TermType: 0
-      Description: 
-      Languages:
-      - Albus
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot230
-      TermType: 0
-      Description: 
-      Languages:
-      - Anthony
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot231
-      TermType: 0
-      Description: 
-      Languages:
-      - Brooke
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot232
-      TermType: 0
-      Description: 
-      Languages:
-      - Bumper
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot233
-      TermType: 0
-      Description: 
-      Languages:
-      - Chandler
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot234
-      TermType: 0
-      Description: 
-      Languages:
-      - Charlotte
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot235
-      TermType: 0
-      Description: 
-      Languages:
-      - SmartOne
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot236
-      TermType: 0
-      Description: 
-      Languages:
-      - Abracadabra
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot237
-      TermType: 0
-      Description: 
-      Languages:
-      - Creations
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot238
-      TermType: 0
-      Description: 
-      Languages:
-      - Alchemist
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot239
-      TermType: 0
-      Description: 
-      Languages:
-      - Alphius
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot240
-      TermType: 0
-      Description: 
-      Languages:
-      - Beast
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot241
-      TermType: 0
-      Description: 
-      Languages:
-      - ofHearts
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot242
-      TermType: 0
-      Description: 
-      Languages:
-      - Laser
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot243
-      TermType: 0
-      Description: 
-      Languages:
-      - MindReader
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot244
-      TermType: 0
-      Description: 
-      Languages:
-      - Proton
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot245
-      TermType: 0
-      Description: 
-      Languages:
-      - Hail
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot246
-      TermType: 0
-      Description: 
-      Languages:
-      - Tornado
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot247
-      TermType: 0
-      Description: 
-      Languages:
-      - Insightful
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot248
-      TermType: 0
-      Description: 
-      Languages:
-      - Rapid
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot249
-      TermType: 0
-      Description: 
-      Languages:
-      - ForHonor
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot250
-      TermType: 0
-      Description: 
-      Languages:
-      - Self
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot251
-      TermType: 0
-      Description: 
-      Languages:
-      - Spy
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot252
-      TermType: 0
-      Description: 
-      Languages:
-      - Retel
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot253
-      TermType: 0
-      Description: 
-      Languages:
-      - Naya
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot254
-      TermType: 0
-      Description: 
-      Languages:
-      - Kabir
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot255
-      TermType: 0
-      Description: 
-      Languages:
-      - Ishaan
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot256
-      TermType: 0
-      Description: 
-      Languages:
-      - Jai
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot257
-      TermType: 0
-      Description: 
-      Languages:
-      - Inaya
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot258
-      TermType: 0
-      Description: 
-      Languages:
-      - Amar
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot259
-      TermType: 0
-      Description: 
-      Languages:
-      - Dhruv
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot260
-      TermType: 0
-      Description: 
-      Languages:
-      - Kanan
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot261
-      TermType: 0
-      Description: 
-      Languages:
-      - Ai
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot262
-      TermType: 0
-      Description: 
-      Languages:
-      - Fang
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot263
-      TermType: 0
-      Description: 
-      Languages:
-      - Jing
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot264
-      TermType: 0
-      Description: 
-      Languages:
-      - Li
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot265
-      TermType: 0
-      Description: 
-      Languages:
-      - Min
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot266
-      TermType: 0
-      Description: 
-      Languages:
-      - Yan
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot267
-      TermType: 0
-      Description: 
-      Languages:
-      - Xiu
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot268
-      TermType: 0
-      Description: 
-      Languages:
-      - Ya
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot269
-      TermType: 0
-      Description: 
-      Languages:
-      - Asahi
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot270
-      TermType: 0
-      Description: 
-      Languages:
-      - Haru
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot271
-      TermType: 0
-      Description: 
-      Languages:
-      - Akio
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot272
-      TermType: 0
-      Description: 
-      Languages:
-      - Akira
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot273
-      TermType: 0
-      Description: 
-      Languages:
-      - Haruto
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot274
-      TermType: 0
-      Description: 
-      Languages:
-      - Ahmya
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot275
-      TermType: 0
-      Description: 
-      Languages:
-      - Fumiko
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot276
-      TermType: 0
-      Description: 
-      Languages:
-      - Katana
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot277
-      TermType: 0
-      Description: 
-      Languages:
-      - Midori
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot278
-      TermType: 0
-      Description: 
-      Languages:
-      - Rika
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot279
-      TermType: 0
-      Description: 
-      Languages:
-      - Ahanu
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot280
-      TermType: 0
-      Description: 
-      Languages:
-      - Ahiga
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot281
-      TermType: 0
-      Description: 
-      Languages:
-      - Sakari
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot282
-      TermType: 0
-      Description: 
-      Languages:
-      - Urika
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot283
-      TermType: 0
-      Description: 
-      Languages:
-      - Winona
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot284
-      TermType: 0
-      Description: 
-      Languages:
-      - Adriel
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot285
-      TermType: 0
-      Description: 
-      Languages:
-      - Anakin
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot286
-      TermType: 0
-      Description: 
-      Languages:
-      - Kosumi
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot287
-      TermType: 0
-      Description: 
-      Languages:
-      - Nova
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot288
-      TermType: 0
-      Description: 
-      Languages:
-      - Wayra
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot289
-      TermType: 0
-      Description: 
-      Languages:
-      - Kieola
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot290
-      TermType: 0
-      Description: 
-      Languages:
-      - Tuio1
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot291
-      TermType: 0
-      Description: 
-      Languages:
-      - Buela
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot292
-      TermType: 0
-      Description: 
-      Languages:
-      - n00b
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot293
-      TermType: 0
-      Description: 
-      Languages:
-      - l33t
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot294
-      TermType: 0
-      Description: 
-      Languages:
-      - H4x0r
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot295
-      TermType: 0
-      Description: 
-      Languages:
-      - pwnd
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot296
-      TermType: 0
-      Description: 
-      Languages:
-      - ch0p
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot297
-      TermType: 0
-      Description: 
-      Languages:
-      - zoombax
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot298
-      TermType: 0
-      Description: 
-      Languages:
-      - w00t
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot299
-      TermType: 0
-      Description: 
-      Languages:
-      - ub3r
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot300
-      TermType: 0
-      Description: 
-      Languages:
-      - poasdg
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: BotNames/Bot301
-      TermType: 0
-      Description: 
-      Languages:
-      - PassionDispenser
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
     - Term: Notifications/AdventureUnlocked
       TermType: 0
       Description: 
@@ -6863,6 +6863,33 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: GameIds/Ammo
+      TermType: 0
+      Description: 
+      Languages:
+      - Ammo
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: GameIds/AmmoLarge
+      TermType: 0
+      Description: 
+      Languages:
+      - Ammo Large
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: GameIds/AmmoSmall
+      TermType: 0
+      Description: 
+      Languages:
+      - Ammo Small
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: GameIds/Amulet
       TermType: 0
       Description: 
@@ -6944,33 +6971,6 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: GameIds/Ammo
-      TermType: 0
-      Description: 
-      Languages:
-      - Ammo
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: GameIds/AmmoSmall
-      TermType: 0
-      Description: 
-      Languages:
-      - Ammo Small
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: GameIds/AmmoLarge
-      TermType: 0
-      Description: 
-      Languages:
-      - Ammo Large
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
     - Term: GameIds/BRGenesis
       TermType: 0
       Description: 
@@ -6994,6 +6994,15 @@ MonoBehaviour:
       Description: 
       Languages:
       - Baseball Helmet
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: GameIds/BattleRoyale
+      TermType: 0
+      Description: 
+      Languages:
+      - Battle Royale
       - 
       - 
       Flags: 000000
@@ -7061,6 +7070,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: GameIds/Casual
+      TermType: 0
+      Description: 
+      Languages:
+      - Casual
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: GameIds/ChickenDinner
       TermType: 0
       Description: 
@@ -7088,11 +7106,74 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: GameIds/CoreCommon
+      TermType: 0
+      Description: 
+      Languages:
+      - Common Core
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: GameIds/CoreEpic
+      TermType: 0
+      Description: 
+      Languages:
+      - Epic Core
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: GameIds/CoreLegendary
+      TermType: 0
+      Description: 
+      Languages:
+      - Legendary Core
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: GameIds/CoreRare
+      TermType: 0
+      Description: 
+      Languages:
+      - Rare Core
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: GameIds/CoreUncommon
+      TermType: 0
+      Description: 
+      Languages:
+      - Uncommon Core
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: GameIds/Custom
+      TermType: 0
+      Description: 
+      Languages:
+      - Custom
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: GameIds/DamagePill
       TermType: 0
       Description: 
       Languages:
       - Damage Up
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: GameIds/Deathmatch
+      TermType: 0
+      Description: 
+      Languages:
+      - Deathmatch
       - 
       - 
       Flags: 000000
@@ -7313,20 +7394,20 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: GameIds/HealthPill
-      TermType: 0
-      Description: 
-      Languages:
-      - Health Up
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
     - Term: GameIds/Health
       TermType: 0
       Description: 
       Languages:
       - Health
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: GameIds/HealthPill
+      TermType: 0
+      Description: 
+      Languages:
+      - Health Up
       - 
       - 
       Flags: 000000
@@ -7637,6 +7718,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: GameIds/Ranked
+      TermType: 0
+      Description: 
+      Languages:
+      - Ranked
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: GameIds/RareBox
       TermType: 0
       Description: 
@@ -7898,29 +7988,20 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: GameIds/ShieldSmall
-      TermType: 0
-      Description: 
-      Languages:
-      - Shields Small
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: GameIds/ShieldLarge
-      TermType: 0
-      Description: 
-      Languages:
-      - Shields Large
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
     - Term: GameIds/ShieldCapacity
       TermType: 0
       Description: 
       Languages:
       - Shields Capacity
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: GameIds/ShieldCapacityLarge
+      TermType: 0
+      Description: 
+      Languages:
+      - Shields Capacity Large
       - 
       - 
       Flags: 000000
@@ -7934,11 +8015,20 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: GameIds/ShieldCapacityLarge
+    - Term: GameIds/ShieldLarge
       TermType: 0
       Description: 
       Languages:
-      - Shields Capacity Large
+      - Shields Large
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: GameIds/ShieldSmall
+      TermType: 0
+      Description: 
+      Languages:
+      - Shields Small
       - 
       - 
       Flags: 000000
@@ -8456,6 +8546,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: GameIds/Tutorial
+      TermType: 0
+      Description: 
+      Languages:
+      - Tutorial
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: GameIds/UncommonBox
       TermType: 0
       Description: 
@@ -8582,105 +8681,6 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: GameIds/BattleRoyale
-      TermType: 0
-      Description: 
-      Languages:
-      - Battle Royale
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: GameIds/Deathmatch
-      TermType: 0
-      Description: 
-      Languages:
-      - Deathmatch
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: GameIds/Tutorial
-      TermType: 0
-      Description: 
-      Languages:
-      - Tutorial
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: GameIds/Ranked
-      TermType: 0
-      Description: 
-      Languages:
-      - Ranked
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: GameIds/Casual
-      TermType: 0
-      Description: 
-      Languages:
-      - Casual
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: GameIds/Custom
-      TermType: 0
-      Description: 
-      Languages:
-      - Custom
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: GameIds/CoreCommon
-      TermType: 0
-      Description: 
-      Languages:
-      - Common Core
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: GameIds/CoreUncommon
-      TermType: 0
-      Description: 
-      Languages:
-      - Uncommon Core
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: GameIds/CoreRare
-      TermType: 0
-      Description: 
-      Languages:
-      - Rare Core
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: GameIds/CoreEpic
-      TermType: 0
-      Description: 
-      Languages:
-      - Epic Core
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: GameIds/CoreLegendary
-      TermType: 0
-      Description: 
-      Languages:
-      - Legendary Core
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
     - Term: Shop/ConfirmPurchase
       TermType: 0
       Description: 
@@ -8780,234 +8780,6 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: Marketplace/HydrationError
-      TermType: 0
-      Description: 
-      Languages:
-      - There was an issue while initializing the Marketplace
-      - 
-      - NftStore.ts
-      Flags: 000000
-      Languages_Touch: []
-    - Term: Marketplace/FetchNFTError
-      TermType: 0
-      Description: 
-      Languages:
-      - There was a problem fetching equipment to display
-      - 
-      - NftStore.ts
-      Flags: 000000
-      Languages_Touch: []
-    - Term: Marketplace/FetchNFTStatsError
-      TermType: 0
-      Description: 
-      Languages:
-      - There was a problem looking for current equipment stats.
-      - 
-      - NftStore.ts
-      Flags: 000000
-      Languages_Touch: []
-    - Term: Marketplace/BuyNFTSuccess
-      TermType: 0
-      Description: 
-      Languages:
-      - You aquired a new piece of equipment! Check out your Inventory to view it!
-      - 
-      - NftStore.ts
-      Flags: 000000
-      Languages_Touch: []
-    - Term: Marketplace/BuyNFTError
-      TermType: 0
-      Description: 
-      Languages:
-      - Something went wrong during the buy process
-      - 
-      - NftStore.ts
-      Flags: 000000
-      Languages_Touch: []
-    - Term: Marketplace/BuyInProcess
-      TermType: 0
-      Description: 
-      Languages:
-      - A buy transaction is in progress. You can't buy another item until the transaction
-        finishes or is cancelled
-      - 
-      - NftStore.ts
-      Flags: 000000
-      Languages_Touch: []
-    - Term: Marketplace/SellNFTSuccess
-      TermType: 0
-      Description: 
-      Languages:
-      - Your equipment was listed succesfuly
-      - 
-      - NftStore.ts
-      Flags: 000000
-      Languages_Touch: []
-    - Term: Marketplace/SellNFTError
-      TermType: 0
-      Description: 
-      Languages:
-      - Equipment listing failed
-      - 
-      - NftStore.ts
-      Flags: 000000
-      Languages_Touch: []
-    - Term: Marketplace/SellInProcess
-      TermType: 0
-      Description: 
-      Languages:
-      - A sale transaction is in progress. You can't sell another item until the
-        transaction finishes or is cancelled
-      - 
-      - NftStore.ts
-      Flags: 000000
-      Languages_Touch: []
-    - Term: Marketplace/CancelSellSuccess
-      TermType: 0
-      Description: 
-      Languages:
-      - Your equipment sale was cancelled
-      - 
-      - NftStore.ts
-      Flags: 000000
-      Languages_Touch: []
-    - Term: Marketplace/CancelSellError
-      TermType: 0
-      Description: 
-      Languages:
-      - We were not able to cancel the equipment sale. Please try again
-      - 
-      - NftStore.ts
-      Flags: 000000
-      Languages_Touch: []
-    - Term: Marketplace/CancelInProcess
-      TermType: 0
-      Description: 
-      Languages:
-      - Cancel transaction in progress for this piece of equipment
-      - 
-      - NftStore.ts
-      Flags: 000000
-      Languages_Touch: []
-    - Term: Marketplace/NoWalletAddr
-      TermType: 0
-      Description: 
-      Languages:
-      - No wallet address.
-      - 
-      - NftStore.ts
-      Flags: 000000
-      Languages_Touch: []
-    - Term: Marketplace/NoContractAddr
-      TermType: 0
-      Description: 
-      Languages:
-      - No nft contract address
-      - 
-      - NftStore.ts
-      Flags: 000000
-      Languages_Touch: []
-    - Term: Marketplace/NoBLSTPrice
-      TermType: 0
-      Description: 
-      Languages:
-      - This piece of equipment doesn't have a price available for it.
-      - 
-      - NftStore.ts
-      Flags: 000000
-      Languages_Touch: []
-    - Term: Marketplace/NotEnoughBLST
-      TermType: 0
-      Description: 
-      Languages:
-      - You don't have enough $BLST to complete this action.
-      - 
-      - NftStore.ts
-      Flags: 000000
-      Languages_Touch: []
-    - Term: Marketplace/LoginTransactionExists
-      TermType: 0
-      Description: 
-      Languages:
-      - You have one login request pending. Please, finalize this one first before
-        requesting it again.
-      - 
-      - metamask.ts
-      Flags: 000000
-      Languages_Touch: []
-    - Term: Marketplace/ConnectionError
-      TermType: 0
-      Description: 
-      Languages:
-      - Metamask connection failed.
-      - 
-      - metamask.ts
-      Flags: 000000
-      Languages_Touch: []
-    - Term: Marketplace/ChainSwitchError
-      TermType: 0
-      Description: 
-      Languages:
-      - Metamask failed to switch chain network
-      - 
-      - metamask.ts
-      Flags: 000000
-      Languages_Touch: []
-    - Term: Marketplace/ChainAddError
-      TermType: 0
-      Description: 
-      Languages:
-      - Metamask failed to add chain network
-      - 
-      - metamask.ts
-      Flags: 000000
-      Languages_Touch: []
-    - Term: Marketplace/FetchBalanceError
-      TermType: 0
-      Description: 
-      Languages:
-      - Metamask failed to get the account balance
-      - 
-      - metamask.ts
-      Flags: 000000
-      Languages_Touch: []
-    - Term: Marketplace/EthEventsError
-      TermType: 0
-      Description: 
-      Languages:
-      - Failed to add wallet events, please refresh the page
-      - 
-      - metamask.ts
-      Flags: 000000
-      Languages_Touch: []
-    - Term: Marketplace/NoEthContext
-      TermType: 0
-      Description: 
-      Languages:
-      - No Ethereum context
-      - 
-      - metamask.ts
-      Flags: 000000
-      Languages_Touch: []
-    - Term: Marketplace/PasswordResetRequestSuccess
-      TermType: 0
-      Description: 
-      Languages:
-      - We sent an email with further instructions on how reset your password
-      - 
-      - user.ts
-      Flags: 000000
-      Languages_Touch: []
-    - Term: Marketplace/CheckWalletLinkError
-      TermType: 0
-      Description: 
-      Languages:
-      - Was not possible to verify the wallet link with the account
-      - 
-      - user.ts
-      Flags: 000000
-      Languages_Touch: []
     - Term: Marketplace/AccountRegisterError
       TermType: 0
       Description: 
@@ -9026,22 +8798,176 @@ MonoBehaviour:
       - user.ts
       Flags: 000000
       Languages_Touch: []
-    - Term: Marketplace/DisplayNameChangeError
+    - Term: Marketplace/BuyInProcess
       TermType: 0
       Description: 
       Languages:
-      - Display name was not updated
+      - A buy transaction is in progress. You can't buy another item until the transaction
+        finishes or is cancelled
+      - 
+      - NftStore.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/BuyLootboxError
+      TermType: 0
+      Description: 
+      Languages:
+      - We were not able to conclude your BlastBox buy transaction
+      - 
+      - lootbox.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/BuyLootboxSuccess
+      TermType: 0
+      Description: 
+      Languages:
+      - Congratulations. You have acquired a BlastBox!'
+      - 
+      - lootbox.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/BuyNFTError
+      TermType: 0
+      Description: 
+      Languages:
+      - Something went wrong during the buy process
+      - 
+      - NftStore.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/BuyNFTSuccess
+      TermType: 0
+      Description: 
+      Languages:
+      - You aquired a new piece of equipment! Check out your Inventory to view it!
+      - 
+      - NftStore.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/BuyValidationProofError
+      TermType: 0
+      Description: 
+      Languages:
+      - Validation Proof error when trying to buy.
+      - 
+      - lootbox.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/CancelInProcess
+      TermType: 0
+      Description: 
+      Languages:
+      - Cancel transaction in progress for this piece of equipment
+      - 
+      - NftStore.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/CancelSellError
+      TermType: 0
+      Description: 
+      Languages:
+      - We were not able to cancel the equipment sale. Please try again
+      - 
+      - NftStore.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/CancelSellSuccess
+      TermType: 0
+      Description: 
+      Languages:
+      - Your equipment sale was cancelled
+      - 
+      - NftStore.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/ChainAddError
+      TermType: 0
+      Description: 
+      Languages:
+      - Metamask failed to add chain network
+      - 
+      - metamask.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/ChainSwitchError
+      TermType: 0
+      Description: 
+      Languages:
+      - Metamask failed to switch chain network
+      - 
+      - metamask.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/CheckLootboxAvailabilityError
+      TermType: 0
+      Description: 
+      Languages:
+      - Unable to access BlastBox availability
+      - 
+      - lootbox.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/CheckVestingAmountError
+      TermType: 0
+      Description: 
+      Languages:
+      - There was a technical issue when trying to retrieve vesting collection information.
+      - 
+      - vesting.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/CheckWalletLinkError
+      TermType: 0
+      Description: 
+      Languages:
+      - Was not possible to verify the wallet link with the account
       - 
       - user.ts
       Flags: 000000
       Languages_Touch: []
-    - Term: Marketplace/DisplayNameChangeSuccess
+    - Term: Marketplace/ClaimVestingError
       TermType: 0
       Description: 
       Languages:
-      - Display name updated!
+      - There was an issue when trying to claim your tokens. Please try again.
       - 
-      - user.ts
+      - vesting.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/ClaimVestingNotAvailable
+      TermType: 0
+      Description: 
+      Languages:
+      - Claiming is currently unavailable. Try again later.
+      - 
+      - vesting.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/ClaimVestingScheduleError
+      TermType: 0
+      Description: 
+      Languages:
+      - Your schedule contract does not exist.
+      - 
+      - vesting.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/ClaimVestingSuccess
+      TermType: 0
+      Description: 
+      Languages:
+      - Congratulations! You just claimed your BLST tokens!!
+      - 
+      - vesting.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/ConnectionError
+      TermType: 0
+      Description: 
+      Languages:
+      - Metamask connection failed.
+      - 
+      - metamask.ts
       Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/ContactEmailChangeError
@@ -9062,29 +8988,29 @@ MonoBehaviour:
       - user.ts
       Flags: 000000
       Languages_Touch: []
-    - Term: Marketplace/LoginError
+    - Term: Marketplace/CraftSpiceAvailabilityError
       TermType: 0
       Description: 
       Languages:
-      - Login error
+      - Unable to check if claim is available. Please try again later
       - 
       - user.ts
       Flags: 000000
       Languages_Touch: []
-    - Term: Marketplace/WalletLinkError
+    - Term: Marketplace/CraftSpiceFetchError
       TermType: 0
       Description: 
       Languages:
-      - Signature failure. Wallet not linked
+      - There was an error fetching Craft Spice. Please try again
       - 
       - user.ts
       Flags: 000000
       Languages_Touch: []
-    - Term: Marketplace/WalletLinkSuccess
+    - Term: Marketplace/CraftSpiceMintError
       TermType: 0
       Description: 
       Languages:
-      - Blast-tastic! Your wallet was successfully linked to your account.
+      - Minting error. Nothing has been lost, but please try again
       - 
       - user.ts
       Flags: 000000
@@ -9107,76 +9033,94 @@ MonoBehaviour:
       - user.ts
       Flags: 000000
       Languages_Touch: []
-    - Term: Marketplace/CraftSpiceMintError
+    - Term: Marketplace/DisplayNameChangeError
       TermType: 0
       Description: 
       Languages:
-      - Minting error. Nothing has been lost, but please try again
+      - Display name was not updated
       - 
       - user.ts
       Flags: 000000
       Languages_Touch: []
-    - Term: Marketplace/CraftSpiceFetchError
+    - Term: Marketplace/DisplayNameChangeSuccess
       TermType: 0
       Description: 
       Languages:
-      - There was an error fetching Craft Spice. Please try again
+      - Display name updated!
       - 
       - user.ts
       Flags: 000000
       Languages_Touch: []
-    - Term: Marketplace/CraftSpiceAvailabilityError
+    - Term: Marketplace/EthEventsError
       TermType: 0
       Description: 
       Languages:
-      - Unable to check if claim is available. Please try again later
+      - Failed to add wallet events, please refresh the page
       - 
-      - user.ts
+      - metamask.ts
       Flags: 000000
       Languages_Touch: []
-    - Term: Marketplace/ClaimVestingScheduleError
+    - Term: Marketplace/FetchBalanceError
       TermType: 0
       Description: 
       Languages:
-      - Your schedule contract does not exist.
+      - Metamask failed to get the account balance
       - 
-      - vesting.ts
+      - metamask.ts
       Flags: 000000
       Languages_Touch: []
-    - Term: Marketplace/ClaimVestingError
+    - Term: Marketplace/FetchLootboxEquipError
       TermType: 0
       Description: 
       Languages:
-      - There was an issue when trying to claim your tokens. Please try again.
+      - Unable to display Blastbox contents
       - 
-      - vesting.ts
+      - lootbox.ts
       Flags: 000000
       Languages_Touch: []
-    - Term: Marketplace/ClaimVestingNotAvailable
+    - Term: Marketplace/FetchLootboxError
       TermType: 0
       Description: 
       Languages:
-      - Claiming is currently unavailable. Try again later.
+      - Unable to fetch BlastBox information
       - 
-      - vesting.ts
+      - lootbox.ts
       Flags: 000000
       Languages_Touch: []
-    - Term: Marketplace/CheckVestingAmountError
+    - Term: Marketplace/FetchNFTError
       TermType: 0
       Description: 
       Languages:
-      - There was a technical issue when trying to retrieve vesting collection information.
+      - There was a problem fetching equipment to display
       - 
-      - vesting.ts
+      - NftStore.ts
       Flags: 000000
       Languages_Touch: []
-    - Term: Marketplace/ClaimVestingSuccess
+    - Term: Marketplace/FetchNFTStatsError
       TermType: 0
       Description: 
       Languages:
-      - Congratulations! You just claimed your BLST tokens!!
+      - There was a problem looking for current equipment stats.
       - 
-      - vesting.ts
+      - NftStore.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/HydrationError
+      TermType: 0
+      Description: 
+      Languages:
+      - There was an issue while initializing the Marketplace
+      - 
+      - NftStore.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/InvalidNetwork
+      TermType: 0
+      Description: 
+      Languages:
+      - Connected to an invalid network. Please switch to the Polygon network.
+      - 
+      - app.ts
       Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/LoadConfigError
@@ -9197,13 +9141,23 @@ MonoBehaviour:
       - lootbox.ts
       Flags: 000000
       Languages_Touch: []
-    - Term: Marketplace/CheckLootboxAvailabilityError
+    - Term: Marketplace/LoginError
       TermType: 0
       Description: 
       Languages:
-      - Unable to access BlastBox availability
+      - Login error
       - 
-      - lootbox.ts
+      - user.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/LoginTransactionExists
+      TermType: 0
+      Description: 
+      Languages:
+      - You have one login request pending. Please, finalize this one first before
+        requesting it again.
+      - 
+      - metamask.ts
       Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/MerkleTreeGenerationError
@@ -9215,22 +9169,68 @@ MonoBehaviour:
       - lootbox.ts
       Flags: 000000
       Languages_Touch: []
-    - Term: Marketplace/FetchLootboxError
+    - Term: Marketplace/NoBLSTPrice
       TermType: 0
       Description: 
       Languages:
-      - Unable to fetch BlastBox information
+      - This piece of equipment doesn't have a price available for it.
       - 
-      - lootbox.ts
+      - NftStore.ts
       Flags: 000000
       Languages_Touch: []
-    - Term: Marketplace/FetchLootboxEquipError
+    - Term: Marketplace/NoContractAddr
       TermType: 0
       Description: 
       Languages:
-      - Unable to display Blastbox contents
+      - No nft contract address
       - 
-      - lootbox.ts
+      - NftStore.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/NoEthContext
+      TermType: 0
+      Description: 
+      Languages:
+      - No Ethereum context
+      - 
+      - metamask.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/NoLinkedWallet
+      TermType: 0
+      Description: 
+      Languages:
+      - Please complete your registration and link your wallet to your game account.
+        \n If you don't have one, click register.
+      - 
+      - app.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/NoWalletAddr
+      TermType: 0
+      Description: 
+      Languages:
+      - No wallet address.
+      - 
+      - NftStore.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/NoWalletConnected
+      TermType: 0
+      Description: 
+      Languages:
+      - You need to connect your wallet first.
+      - 
+      - app.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/NotEnoughBLST
+      TermType: 0
+      Description: 
+      Languages:
+      - You don't have enough $BLST to complete this action.
+      - 
+      - NftStore.ts
       Flags: 000000
       Languages_Touch: []
     - Term: Marketplace/OpenLootboxError
@@ -9238,15 +9238,6 @@ MonoBehaviour:
       Description: 
       Languages:
       - Unable to open Blastbox. Try again.
-      - 
-      - lootbox.ts
-      Flags: 000000
-      Languages_Touch: []
-    - Term: Marketplace/OpenLootboxSuccess
-      TermType: 0
-      Description: 
-      Languages:
-      - Blastbox opened succesfully!
       - 
       - lootbox.ts
       Flags: 000000
@@ -9260,59 +9251,371 @@ MonoBehaviour:
       - lootbox.ts
       Flags: 000000
       Languages_Touch: []
-    - Term: Marketplace/BuyValidationProofError
+    - Term: Marketplace/OpenLootboxSuccess
       TermType: 0
       Description: 
       Languages:
-      - Validation Proof error when trying to buy.
+      - Blastbox opened succesfully!
       - 
       - lootbox.ts
       Flags: 000000
       Languages_Touch: []
-    - Term: Marketplace/BuyLootboxError
+    - Term: Marketplace/PasswordResetRequestSuccess
       TermType: 0
       Description: 
       Languages:
-      - We were not able to conclude your BlastBox buy transaction
+      - We sent an email with further instructions on how reset your password
       - 
-      - lootbox.ts
+      - user.ts
       Flags: 000000
       Languages_Touch: []
-    - Term: Marketplace/BuyLootboxSuccess
+    - Term: Marketplace/SellInProcess
       TermType: 0
       Description: 
       Languages:
-      - Congratulations. You have acquired a BlastBox!'
+      - A sale transaction is in progress. You can't sell another item until the
+        transaction finishes or is cancelled
       - 
-      - lootbox.ts
+      - NftStore.ts
       Flags: 000000
       Languages_Touch: []
-    - Term: Marketplace/NoWalletConnected
+    - Term: Marketplace/SellNFTError
       TermType: 0
       Description: 
       Languages:
-      - You need to connect your wallet first.
+      - Equipment listing failed
       - 
-      - app.ts
+      - NftStore.ts
       Flags: 000000
       Languages_Touch: []
-    - Term: Marketplace/InvalidNetwork
+    - Term: Marketplace/SellNFTSuccess
       TermType: 0
       Description: 
       Languages:
-      - Connected to an invalid network. Please switch to the Polygon network.
+      - Your equipment was listed succesfuly
       - 
-      - app.ts
+      - NftStore.ts
       Flags: 000000
       Languages_Touch: []
-    - Term: Marketplace/NoLinkedWallet
+    - Term: Marketplace/WalletLinkError
       TermType: 0
       Description: 
       Languages:
-      - Please complete your registration and link your wallet to your game account.
-        \n If you don't have one, click register.
+      - Signature failure. Wallet not linked
       - 
-      - app.ts
+      - user.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Marketplace/WalletLinkSuccess
+      TermType: 0
+      Description: 
+      Languages:
+      - Blast-tastic! Your wallet was successfully linked to your account.
+      - 
+      - user.ts
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITShared/battle_royale
+      TermType: 0
+      Description: 
+      Languages:
+      - BATTLE ROYALE
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITShared/casual
+      TermType: 0
+      Description: 
+      Languages:
+      - CASUAL
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITShared/coming_soon
+      TermType: 0
+      Description: 
+      Languages:
+      - COMING SOON
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITShared/deathmatch
+      TermType: 0
+      Description: 
+      Languages:
+      - DEATHMATCH
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITShared/main_menu
+      TermType: 0
+      Description: 
+      Languages:
+      - MAIN MENU
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITShared/or
+      TermType: 0
+      Description: 
+      Languages:
+      - OR
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITShared/ranked
+      TermType: 0
+      Description: 
+      Languages:
+      - RANKED
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITShared/waiting
+      TermType: 0
+      Description: 
+      Languages:
+      - Waiting...
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/login
+      TermType: 0
+      Description: 
+      Languages:
+      - LOGIN
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/login_with_fl_id
+      TermType: 0
+      Description: 
+      Languages:
+      - LOGIN WITH FIRSTLIGHT ID
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/play_as_guest
+      TermType: 0
+      Description: 
+      Languages:
+      - 'PLAY AS
+
+        GUEST'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/register
+      TermType: 0
+      Description: 
+      Languages:
+      - REGISTER
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/register_fl_id
+      TermType: 0
+      Description: 
+      Languages:
+      - 'REGISTER
+
+        FIRST LIGHT ID'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/register_new_fl_id
+      TermType: 0
+      Description: 
+      Languages:
+      - REGISTER NEW FIRST LIGHT ID
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/reset_password
+      TermType: 0
+      Description: 
+      Languages:
+      - 'RESET
+
+        PASSWORD'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/email
+      TermType: 0
+      Description: 
+      Languages:
+      - EMAIL
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/username
+      TermType: 0
+      Description: 
+      Languages:
+      - USERNAME
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/password
+      TermType: 0
+      Description: 
+      Languages:
+      - PASSWORD
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITStore/epic_core
+      TermType: 0
+      Description: 
+      Languages:
+      - EPIC CORE
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITStore/legendary_core
+      TermType: 0
+      Description: 
+      Languages:
+      - LEGENDARY CORE
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITStore/price
+      TermType: 0
+      Description: 
+      Languages:
+      - Price
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITStore/rare_core
+      TermType: 0
+      Description: 
+      Languages:
+      - RARE CORE
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/blast_pass
+      TermType: 0
+      Description: 
+      Languages:
+      - BLAST PASS
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/equipment
+      TermType: 0
+      Description: 
+      Languages:
+      - EQUIPMENT
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/heroes
+      TermType: 0
+      Description: 
+      Languages:
+      - HEROES
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/leaderboards
+      TermType: 0
+      Description: 
+      Languages:
+      - LEADERBOARDS
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/play
+      TermType: 0
+      Description: 
+      Languages:
+      - PLAY
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/shop
+      TermType: 0
+      Description: 
+      Languages:
+      - SHOP
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITDisconnected/connection_lost
+      TermType: 0
+      Description: 
+      Languages:
+      - CONNECTION LOST
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITDisconnected/disconnected
+      TermType: 0
+      Description: 
+      Languages:
+      - YOU HAVE BEEN DISCONNECTED FROM THE GAME.
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITDisconnected/reconnect
+      TermType: 0
+      Description: 
+      Languages:
+      - RECONNECT
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITGameModeSelection/choose_a_mode
+      TermType: 0
+      Description: 
+      Languages:
+      - CHOOSE A MODE
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITGameModeSelection/tap_to_choose
+      TermType: 0
+      Description: 
+      Languages:
+      - Tap to choose mode
+      - 
+      - 
       Flags: 000000
       Languages_Touch: []
     CaseInsensitiveTerms: 0
@@ -9333,7 +9636,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1666905196209
+    Google_LastUpdatedVersion: 1667263340623
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

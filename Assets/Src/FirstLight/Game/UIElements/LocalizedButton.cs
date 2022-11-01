@@ -8,6 +8,8 @@ namespace FirstLight.Game.UIElements
 	/// </summary>
 	public sealed class LocalizedButton : Button
 	{
+		private string localizationKey { get; set; }
+		
 		public LocalizedButton() : this(string.Empty)
 		{
 		}
@@ -22,6 +24,7 @@ namespace FirstLight.Game.UIElements
 		/// </summary>
 		public void Localize(string key)
 		{
+			localizationKey = key;
 			text = LocalizationManager.TryGetTranslation(key, out var translation) ? translation : $"#{key}#";
 		}
 

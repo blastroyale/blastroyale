@@ -19,7 +19,7 @@ namespace FirstLight.UiService
 		private readonly IDictionary<int, UiSetConfig> _uiSets = new Dictionary<int, UiSetConfig>();
 		private readonly IList<Type> _visibleUiList = new List<Type>();
 		private readonly IList<GameObject> _layers = new List<GameObject>();
-		private IUiPresenterData _lastScreen;
+		private UiPresenter _lastScreen;
 		private Type _loadingSpinnerType;
 
 		public UiService(IUiAssetLoader assetLoader)
@@ -563,8 +563,21 @@ namespace FirstLight.UiService
 			}
 		}
 
+		public async Task<UiPresenter> OpenScreen<T>() where T : UiPresenter
+		{
+			if (_lastScreen != null)
+			{
+				await CloseUi(_lastScreen.GetType());
+			}
+
+			var ui = OpenUi(typeof(T));
+			_lastScreen = ui;
+
+			return ui;
+		}
+
 		/// <inheritdoc />
-		public async Task<T> OpenScreen<T, TData>(TData initialData) where T : class, IUiPresenterData where TData : struct
+		public async Task<T> OpenScreen<T, TData>(TData initialData) where T : UiPresenter, IUiPresenterData where TData : struct
 		{
 			if (_lastScreen != null)
 			{
@@ -575,6 +588,14 @@ namespace FirstLight.UiService
 			_lastScreen = ui;
 
 			return ui;
+		}
+
+		public async void CloseCurrentScreen()
+		{
+			if (_lastScreen != null)
+			{
+				await CloseUi(_lastScreen.GetType());
+			}
 		}
 
 		private UiReference GetReference(Type type)

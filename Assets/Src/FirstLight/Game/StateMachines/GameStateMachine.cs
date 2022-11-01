@@ -111,10 +111,11 @@ namespace FirstLight.Game.StateMachines
 			_dataService.LoadData<AppData>();
 			_gameLogic.InitLocal();
 			
-			_gameLogic.AppLogic.SetDetailLevel(_gameLogic.AppLogic.CurrentDetailLevel);
-			_gameLogic.AppLogic.SetFpsMode(_gameLogic.AppLogic.UseHighFpsMode);
 			_services.AudioFxService.AudioListener.Listener.enabled = true;
 			
+			// TODO: REMOVE BELOW if works properly by uncommenting AppLogic Init lines
+			_gameLogic.AppLogic.SetDetailLevel();
+			_gameLogic.AppLogic.SetFpsTarget();
 			MMVibrationManager.SetHapticsActive(_gameLogic.AppLogic.IsHapticOn);
 		}
 		

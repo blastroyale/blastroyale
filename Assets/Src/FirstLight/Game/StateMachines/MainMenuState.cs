@@ -441,7 +441,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OpenLoadingScreen()
 		{
-			_uiService.OpenUi<LoadingScreenPresenter>();
+			_uiService.OpenScreen<LoadingScreenPresenter>();
 		}
 
 		private void InvalidScreen()

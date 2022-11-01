@@ -66,6 +66,7 @@ LocalizedButton {
 #LoginButton {
     padding-left: 100px;
     padding-right: 100px;
+    width: 460px;
 }
 
 .blocker-hidden {

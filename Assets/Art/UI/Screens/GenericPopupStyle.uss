@@ -42,7 +42,7 @@
 }
 
 .popup-background-pattern {
-    background-image: url('project://database/Assets/Art/UI/Sprites/GenericPopups/PopupBackPattern.png?fileID=2800000&guid=ebf2caa297ec7a341a919dc9bc2f9ca1&type=3#PopupBackPattern');
+    background-image: url('project://database/Assets/Art/UI/Sprites/GenericPopups/PopupBackPattern.png?fileID=21300000&guid=ebf2caa297ec7a341a919dc9bc2f9ca1&type=3#PopupBackPattern');
     width: 650px;
     height: 336px;
     position: absolute;
@@ -88,7 +88,7 @@
 
 #PopupBackground {
     width: 700px;
-    height: 296px;
+    height: 300px;
     background-color: rgb(0, 0, 0);
     transition-timing-function: ease-out;
     transition-duration: 0.5s;
@@ -107,10 +107,10 @@
     flex-grow: 1;
     align-items: center;
     justify-content: space-between;
-    padding-top: 40px;
-    padding-bottom: 40px;
-    padding-left: 40px;
-    padding-right: 40px;
+    padding-top: 45px;
+    padding-bottom: 45px;
+    padding-left: 45px;
+    padding-right: 45px;
 }
 
 #Blocker {

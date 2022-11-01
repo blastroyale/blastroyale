@@ -220,7 +220,7 @@ namespace FirstLight.Game.Presenters
 			var poolInfo = _dataProvider.ResourceDataProvider.GetResourcePoolInfo(id);
 			var timeLeft = poolInfo.NextRestockTime - DateTime.UtcNow;
 
-			timeLabel.text = string.Format(ScriptLocalization.MainMenu.ResourcePoolRestock,
+			timeLabel.text = string.Format(ScriptLocalization.UITHomeScreen.resource_pool_restock,
 				poolInfo.RestockPerInterval,
 				id.ToString(),
 				timeLeft.ToHoursMinutesSeconds());

@@ -32,7 +32,6 @@ namespace FirstLight.Game.Presenters
 
 		private void Awake()
 		{
-			OpenDelayTimeSeconds = 0.7f;
 			_services = MainInstaller.Resolve<IGameServices>();
 			_services.GameModeService.Slots.Observe(OnSlotUpdated);
 

@@ -249,7 +249,7 @@
     transition-property: margin-top;
 }
 
-Button {
+Button, LocalizedButton {
     background-color: rgba(0, 0, 0, 0);
     border-width: 0;
 }

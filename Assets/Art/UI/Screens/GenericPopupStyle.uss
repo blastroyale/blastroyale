@@ -41,6 +41,33 @@
     display: none;
 }
 
+.popup-background-pattern {
+    background-image: url('project://database/Assets/Art/UI/Sprites/GenericPopups/PopupBackPattern.png?fileID=2800000&guid=ebf2caa297ec7a341a919dc9bc2f9ca1&type=3#PopupBackPattern');
+    width: 650px;
+    height: 336px;
+    position: absolute;
+}
+
+.dots-pattern--popup {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/DotsRotated.png?fileID=21300000&guid=123b7673eb1d048a486154a4e65c630b&type=3#DotsRotated');
+    -unity-background-image-tint-color: rgba(58, 58, 58, 0.35);
+    width: 602px;
+    height: 604px;
+    position: absolute;
+    left: -100px;
+    top: -100px;
+}
+
+.font-style-popup {
+    font-size: 30px;
+    letter-spacing: 1px;
+    color: rgb(90, 86, 125);
+}
+
+.popup-header {
+    height: 70px;
+}
+
 #PopupWindow {
     position: absolute;
     left: -10px;
@@ -61,7 +88,7 @@
 
 #PopupBackground {
     width: 700px;
-    height: 350px;
+    height: 296px;
     background-color: rgb(0, 0, 0);
     transition-timing-function: ease-out;
     transition-duration: 0.5s;
@@ -72,17 +99,18 @@
 
 #Header > #Title {
     -unity-text-align: middle-center;
-    height: 90px;
+    flex-grow: 1;
+    flex-shrink: 1;
 }
 
 #Container {
     flex-grow: 1;
     align-items: center;
     justify-content: space-between;
-    padding-top: 55px;
-    padding-bottom: 55px;
-    padding-left: 55px;
-    padding-right: 55px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    padding-left: 40px;
+    padding-right: 40px;
 }
 
 #Blocker {

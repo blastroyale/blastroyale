@@ -94,7 +94,7 @@ namespace FirstLight.Game.Presenters
 			_dialogueToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsDialogueEnabled);
 			_hapticToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsHapticOn);
 			_dynamicJoystickToggle.SetInitialValue(_gameDataProvider.AppDataProvider.UseDynamicJoystick);
-			_highFpsToggle.SetInitialValue(_gameDataProvider.AppDataProvider.UseHighFpsMode);
+			_highFpsToggle.SetInitialValue(_gameDataProvider.AppDataProvider.FpsTarget == GameConstants.Visuals.LOW_FPS_MODE_TARGET);
 			_detailLevelView.SetSelectedDetailLevel(_gameDataProvider.AppDataProvider.CurrentDetailLevel);
 			_blockerButton.onClick.AddListener(OnBlockerButtonPressed);
 			_helpdesk.onClick.AddListener(OnHelpdeskButtonPressed);
@@ -172,7 +172,11 @@ namespace FirstLight.Game.Presenters
 		
 		private void OnHighFpsModeChanged(bool value)
 		{
-			_gameDataProvider.AppDataProvider.UseHighFpsMode = value;
+			var targetFps = value
+				? GameConstants.Visuals.LOW_FPS_MODE_TARGET
+				: GameConstants.Visuals.HIGH_FPS_MODE_TARGET;
+			
+			_gameDataProvider.AppDataProvider.FpsTarget = targetFps;
 		}
 
 		private void OnDetailLevelChanged(GraphicsConfig.DetailLevel detailLevel)

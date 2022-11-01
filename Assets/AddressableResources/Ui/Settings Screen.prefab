@@ -6888,9 +6888,19 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 293.7983
       objectReference: {fileID: 0}
+    - target: {fileID: 4775453169985438894, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+      propertyPath: m_text
+      value: '60
+
+'
+      objectReference: {fileID: 0}
     - target: {fileID: 5769708838463548832, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
       propertyPath: m_RaycastTarget
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6330742539999291386, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
+      propertyPath: m_text
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6330742539999291386, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
       propertyPath: m_sharedMaterial

@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using FirstLight.Game.Input;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
@@ -74,7 +75,7 @@ namespace FirstLight.Game.Presenters
 			_services.PlayerInputService.EnableInput();
 		}
 
-		protected override void OnClosed()
+		protected override async Task OnClosed()
 		{
 			_services.PlayerInputService.DisableInput();
 		}

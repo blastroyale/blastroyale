@@ -67,16 +67,13 @@ namespace FirstLight.Game.StateMachines
 			settingsMenu.Event(_logoutConfirmClickedEvent).Target(logoutWait);
 			settingsMenu.Event(_connectIdClickedEvent).Target(connectId);
 			settingsMenu.Event(NetworkState.OpenServerSelectScreenEvent).Target(serverSelect);
-			settingsMenu.OnExit(CloseSettingsMenuUI);
-			
+
 			connectId.OnEnter(OpenConnectIdScreen);
 			connectId.Event(_connectIdBackEvent).Target(settingsMenu);
-			connectId.OnExit(CloseConnectIdScreen);
-			
+
 			serverSelect.OnEnter(OpenServerSelectScreen);
 			serverSelect.Event(NetworkState.PhotonMasterConnectedEvent).Target(settingsMenu);
-			serverSelect.OnExit(CloseServerSelectScreen);
-			
+
 			logoutWait.OnEnter(TryLogOut);
 			logoutWait.Event(_logoutFailedEvent).Target(final);
 
@@ -106,7 +103,7 @@ namespace FirstLight.Game.StateMachines
 				OnDeleteAccountClicked = () => _services.PlayfabService.CallFunction("RemovePlayerData", OnAccountDeleted)
 			};
 
-			_uiService.OpenUiAsync<SettingsScreenPresenter, SettingsScreenPresenter.StateData>(data);
+			_uiService.OpenScreen<SettingsScreenPresenter, SettingsScreenPresenter.StateData>(data);
 		}
 
 		private void CloseSettingsMenuUI()
@@ -126,7 +123,7 @@ namespace FirstLight.Game.StateMachines
 				},
 			};
 
-			_uiService.OpenUiAsync<ServerSelectScreenPresenter, ServerSelectScreenPresenter.StateData>(data);
+			_uiService.OpenScreen<ServerSelectScreenPresenter, ServerSelectScreenPresenter.StateData>(data);
 		}
 
 		private void CloseServerSelectScreen()
@@ -159,7 +156,7 @@ namespace FirstLight.Game.StateMachines
 				BackClicked = () => _statechartTrigger(_connectIdBackEvent)
 			};
 
-			_uiService.OpenUiAsync<ConnectIdScreenPresenter, ConnectIdScreenPresenter.StateData>(data);
+			_uiService.OpenScreen<ConnectIdScreenPresenter, ConnectIdScreenPresenter.StateData>(data);
 		}
 
 		private void CloseConnectIdScreen()

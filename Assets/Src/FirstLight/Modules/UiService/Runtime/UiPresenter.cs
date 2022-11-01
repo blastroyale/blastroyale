@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using FirstLight.Game.UIElements;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -15,8 +16,6 @@ namespace FirstLight.UiService
 	/// </summary>
 	public abstract class UiPresenter : MonoBehaviour
 	{
-		public float OpenDelayTimeSeconds = 0;
-		
 		private IUiService _uiService;
 
 		/// <summary>
@@ -41,7 +40,7 @@ namespace FirstLight.UiService
 		/// <summary>
 		/// Allows the ui presenter implementation to have extra behaviour when it is closed
 		/// </summary>
-		protected virtual void OnClosed()
+		protected virtual async Task OnClosed()
 		{
 		}
 
@@ -65,9 +64,9 @@ namespace FirstLight.UiService
 			OnOpened();
 		}
 
-		internal virtual void InternalClose(bool destroy)
+		internal virtual async Task InternalClose(bool destroy)
 		{
-			OnClosed();
+			await OnClosed();
 
 			if (gameObject == null)
 			{
@@ -92,7 +91,7 @@ namespace FirstLight.UiService
 	/// </summary>
 	public abstract class UiCloseActivePresenter : UiPresenter
 	{
-		internal override void InternalClose(bool destroy)
+		internal override async Task InternalClose(bool destroy)
 		{
 			if (destroy)
 			{
@@ -100,7 +99,7 @@ namespace FirstLight.UiService
 			}
 			else
 			{
-				OnClosed();
+				await OnClosed();
 			}
 		}
 	}
@@ -145,15 +144,15 @@ namespace FirstLight.UiService
 	/// </summary>
 	public abstract class UiCloseActivePresenterData<T> : UiPresenterData<T> where T : struct
 	{
-		internal override void InternalClose(bool destroy)
+		internal override async Task InternalClose(bool destroy)
 		{
 			if (destroy)
 			{
-				base.InternalClose(true);
+				await base.InternalClose(true);
 			}
 			else
 			{
-				OnClosed();
+				await OnClosed();
 			}
 		}
 	}
@@ -162,6 +161,7 @@ namespace FirstLight.UiService
 	{
 		[SerializeField, Required] private UIDocument _document;
 		[SerializeField] private GameObject _background;
+		[SerializeField] private int _millisecondsToClose = 0;
 
 		protected VisualElement Root;
 
@@ -236,17 +236,11 @@ namespace FirstLight.UiService
 			Root.EnableInClassList(UIConstants.CLASS_HIDDEN, false);
 		}
 
-		protected override void OnClosed()
-		{
-			StartCoroutine(CloseCoroutine());
-		}
-
-		private IEnumerator CloseCoroutine()
+		protected override async Task OnClosed()
 		{
 			Root.EnableInClassList(UIConstants.CLASS_HIDDEN, true);
 			UnsubscribeFromEvents();
-			yield return new WaitForSeconds(0.7f);
-
+			await Task.Delay(_millisecondsToClose);
 			if (_background != null)
 			{
 				_background.SetActive(false);

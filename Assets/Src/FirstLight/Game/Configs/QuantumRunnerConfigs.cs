@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using ExitGames.Client.Photon;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
 using Photon.Realtime;
@@ -54,7 +55,7 @@ namespace FirstLight.Game.Configs
 		/// <remarks>
 		/// Default values to start the Quantum simulation based on the current selected adventure
 		/// </remarks>
-		public QuantumRunner.StartParameters GetDefaultStartParameters(int playerCount, bool isSpectator)
+		public QuantumRunner.StartParameters GetDefaultStartParameters(int playerCount, bool isSpectator, FrameSnapshot frameSnapshot)
 		{
 			var gameMode = playerCount == 1 ? DeterministicGameMode.Local : DeterministicGameMode.Multiplayer;
 
@@ -68,8 +69,10 @@ namespace FirstLight.Game.Configs
 				DeterministicConfig = _deterministicConfigAsset.Config,
 				ReplayProvider  = null,
 				GameMode = IsOfflineMode ? DeterministicGameMode.Local : gameMode,
-				InitialFrame = 0,
+				InitialFrame = frameSnapshot.SnapshotNumber,
+				FrameData = frameSnapshot.SnapshotBytes,
 				RunnerId = "DEFAULT",
+				// TODO TEST - DISCONNECT BEHAVIOR ONLY (IN GAME, ALSO UPDATE STATE MACHINE)
 				QuitBehaviour = QuantumNetworkCommunicator.QuitBehaviour.LeaveRoom,
 				LocalPlayerCount = 1,
 				RecordingFlags = RecordingFlags.All,

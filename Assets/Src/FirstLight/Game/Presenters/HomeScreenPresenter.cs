@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using DG.Tweening;
+using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
@@ -13,6 +15,7 @@ using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
+using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Presenters
 {
@@ -43,7 +46,7 @@ namespace FirstLight.Game.Presenters
 		private IGameDataProvider _dataProvider;
 		private IGameServices _services;
 		private IMainMenuServices _mainMenuServices;
-		
+
 		private Button _playButton;
 		private Label _playerNameLabel;
 		private Label _playerTrophiesLabel;
@@ -63,7 +66,7 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _csPoolContainer;
 		private Label _csPoolTimeLabel;
 		private Label _csPoolAmountLabel;
-		
+
 		private void Awake()
 		{
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
@@ -93,7 +96,7 @@ namespace FirstLight.Game.Presenters
 
 			root.Q<CurrencyDisplayElement>("CSCurrency").SetAnimationOrigin(_playButton);
 			root.Q<CurrencyDisplayElement>("BLSTCurrency").SetAnimationOrigin(_playButton);
-			
+
 			root.Q<Button>("GameModeButton").clicked += Data.OnGameModeClicked;
 			root.Q<Button>("SettingsButton").clicked += Data.OnSettingsButtonClicked;
 			root.Q<Button>("BattlePassButton").clicked += Data.OnBattlePassClicked;
@@ -146,7 +149,7 @@ namespace FirstLight.Game.Presenters
 		private void OnPlayButtonClicked()
 		{
 			if (!NetworkUtils.CheckAttemptNetworkAction()) return;
-			
+
 			Data.OnPlayButtonClicked();
 		}
 
@@ -155,9 +158,16 @@ namespace FirstLight.Game.Presenters
 			Data.OnNameChangeClicked();
 		}
 
-		private void OnTrophiesChanged(uint _, uint current)
+		private void OnTrophiesChanged(uint previous, uint current)
 		{
-			_playerTrophiesLabel.text = current.ToString();
+			if (_dataProvider.RewardDataProvider.IsCollecting && current > previous)
+			{
+				StartCoroutine(AnimateCurrency(GameId.Trophies, previous, current, _playerTrophiesLabel));
+			}
+			else
+			{
+				_playerTrophiesLabel.text = current.ToString();
+			}
 		}
 
 		private void OnDisplayNameChanged(string _, string current)
@@ -173,8 +183,28 @@ namespace FirstLight.Game.Presenters
 				current.Entry.MatchType == MatchType.Casual ? DisplayStyle.None : DisplayStyle.Flex;
 		}
 
+		private IEnumerator AnimateCurrency(GameId id, ulong previous, ulong current, Label label)
+		{
+			label.text = previous.ToString();
+
+			yield return new WaitForSeconds(CURRENCY_ANIM_DELAY);
+
+			for (int i = 0; i < Mathf.Min(10, current - previous); i++)
+			{
+				_mainMenuServices.UiVfxService.PlayVfx(id,
+					i * 0.1f,
+					Root.GetPositionOnScreen(Root) + Random.insideUnitCircle * 100,
+					label.GetPositionOnScreen(Root),
+					() =>
+					{
+						DOVirtual.Float(previous, current, 0.3f, val => { label.text = val.ToString("F0"); });
+						_services.AudioFxService.PlayClip2D(AudioId.CounterTick1);
+					});
+			}
+		}
+
 		private void OnPoolChanged(GameId id, ResourcePoolData previous, ResourcePoolData current,
-			ObservableUpdateType updateType)
+								   ObservableUpdateType updateType)
 		{
 			UpdatePoolLabels();
 		}
@@ -190,12 +220,12 @@ namespace FirstLight.Game.Presenters
 			var poolInfo = _dataProvider.ResourceDataProvider.GetResourcePoolInfo(id);
 			var timeLeft = poolInfo.NextRestockTime - DateTime.UtcNow;
 
-			timeLabel.text = string.Format(ScriptLocalization.MainMenu.ResourcePoolRestock,
-											poolInfo.RestockPerInterval,
-											id.ToString(),
-											timeLeft.ToHoursMinutesSeconds());
+			timeLabel.text = string.Format(ScriptLocalization.UITHomeScreen.resource_pool_restock,
+				poolInfo.RestockPerInterval,
+				id.ToString(),
+				timeLeft.ToHoursMinutesSeconds());
 
-				amountLabel.text = string.Format(amountStringFormat, poolInfo.CurrentAmount, poolInfo.PoolCapacity);
+			amountLabel.text = string.Format(amountStringFormat, poolInfo.CurrentAmount, poolInfo.PoolCapacity);
 		}
 
 		private void OnBattlePassCurrentLevelChanged(uint _, uint current)
@@ -208,7 +238,8 @@ namespace FirstLight.Game.Presenters
 
 		private void OnBattlePassCurrentPointsChanged(uint previous, uint current)
 		{
-			if (_dataProvider.RewardDataProvider.IsCollecting || DebugUtils.DebugFlags.OverrideCurrencyChangedIsCollecting)
+			if (_dataProvider.RewardDataProvider.IsCollecting ||
+				DebugUtils.DebugFlags.OverrideCurrencyChangedIsCollecting)
 			{
 				StartCoroutine(AnimateBPP(GameId.BPP, previous, current));
 			}

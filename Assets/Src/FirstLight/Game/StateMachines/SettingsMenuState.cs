@@ -1,11 +1,14 @@
 using System;
+using FirstLight.FLogger;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.NativeUi;
 using FirstLight.Statechart;
 using I2.Loc;
+using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
@@ -75,7 +78,7 @@ namespace FirstLight.Game.StateMachines
 			logoutWait.Event(_logoutFailedEvent).Target(final);
 
 			final.OnEnter(UnsubscribeEvents);
-		}
+		} 
 
 		private void SubscribeEvents()
 		{
@@ -187,6 +190,13 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnConnectIdError(PlayFabError error)
 		{
+			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.LinkGuestAccount, error.ErrorMessage);
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.General.OK,
+				ButtonOnClick = _services.GenericDialogService.CloseDialog
+			};
+			_services.GenericDialogService.OpenDialog(error.ErrorMessage, false, confirmButton);
 			SetConnectIdDim(false);
 		}
 
@@ -226,7 +236,7 @@ namespace FirstLight.Game.StateMachines
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.MainMenu.QuitGameButton,
-				ButtonOnClick = () => { UnityEditor.EditorApplication.isPlaying = false; }
+				ButtonOnClick = () => { _services.QuitGame("Closing due to logout"); }
 			};
 
 			_services.GenericDialogService.OpenDialog(title, false, confirmButton);
@@ -271,31 +281,6 @@ namespace FirstLight.Game.StateMachines
 		private void OnAccountDeleted(ExecuteFunctionResult res)
 		{
 			TryLogOut();
-			
-#if UNITY_EDITOR
-			var confirmButton = new GenericDialogButton
-			{
-				ButtonText = ScriptLocalization.MainMenu.QuitGameButton,
-				ButtonOnClick = () => { _statechartTrigger(_logoutFailedEvent); }
-			};
-
-			_services.GenericDialogService.OpenDialog(ScriptLocalization.MainMenu.DeleteAccountConfirmMessage, 
-			                                          false, confirmButton);
-#else
-			var button = new NativeUi.AlertButton
-			{
-				Callback = () =>
-				{
-					_services.QuitGame("Account Deleted");
-				},
-				Style = NativeUi.AlertButtonStyle.Negative,
-				Text = ScriptLocalization.MainMenu.QuitGameButton
-			};
-			NativeUi.NativeUiService.ShowAlertPopUp(false, 
-			                                        ScriptLocalization.MainMenu.DeleteAccountConfirm, 
-			                                        ScriptLocalization.MainMenu.DeleteAccountConfirmMessage, 
-			                                        button);
-#endif
 		}
 	}
 }

@@ -22,8 +22,8 @@ namespace FirstLight.Game.Utils
 		{
 			public const string FEEDBACK_FORM = "https://forms.gle/2V4ffFNmRgoVAba89";
 			public const string DISCORD_SERVER = "https://discord.gg/blastroyale";
-			public const string APP_STORE_IOS = "https://apps.apple.com/gb/app/boss-hunt-heroes/id1557220333";
-			public const string APP_STORE_GOOGLE_PLAY = "https://play.google.com/store/apps/details?id=com.firstlightgames.phoenix";
+			public const string APP_STORE_IOS = "https://apps.apple.com/app/blast-royale/id1621071488";
+			public const string APP_STORE_GOOGLE_PLAY = "https://play.google.com/store/apps/details?id=com.firstlightgames.blastroyale";
 			#if LIVE_SERVER
 				public const string MARKETPLACE_URL = "https://marketplace.blastroyale.com/";
 			#elif STAGE_SERVER
@@ -31,6 +31,41 @@ namespace FirstLight.Game.Utils
 			#else
 				public const string MARKETPLACE_URL = "https://marketplace-dev.blastroyale.com/";
 			#endif
+		}
+
+		public static class Servers
+		{
+			public enum ServerEnvironments
+			{
+				Dev,
+				Stage,
+				Live,
+				LiveTesnet
+			}
+			
+#if LIVE_SERVER
+			public const ServerEnvironments SERVER_ENVIRONMENT = ServerEnvironments.Live;
+			public const string PLAYFAB_TITLE_ID = "***REMOVED***";
+			public const string PASSWORD_RECOVER_EMAIL = "***REMOVED***";
+			public const string QUANTUM_ID = "***REMOVED***";
+#elif LIVE_TESTNET_SERVER
+			public const ServerEnvironments SERVER_ENVIRONMENT = ServerEnvironments.LiveTesnet;
+			public const string PLAYFAB_TITLE_ID = "***REMOVED***";
+			public const string PASSWORD_RECOVER_EMAIL = "***REMOVED***";
+			public const string QUANTUM_ID = "81262db7-24a2-4685-b386-65427c73ce9d";
+#elif STAGE_SERVER
+			public const ServerEnvironments SERVER_ENVIRONMENT = ServerEnvironments.Stage;
+			public const string SERVER_ENVIRONMENT = nameof(ServerEnvironments.Stage);
+			public const string PLAYFAB_TITLE_ID = "***REMOVED***";
+			public const string PASSWORD_RECOVER_EMAIL = "***REMOVED***";
+			public const string QUANTUM_ID = "***REMOVED***";
+#else
+			public const ServerEnvironments SERVER_ENVIRONMENT = ServerEnvironments.Dev;
+			public const string PLAYFAB_TITLE_ID = "***REMOVED***";
+			public const string PASSWORD_RECOVER_EMAIL = "***REMOVED***";
+			public const string QUANTUM_ID = "***REMOVED***";
+#endif
+			public static readonly string SERVER_ENVIRONMENT_STRING = SERVER_ENVIRONMENT.ToString();
 		}
 
 		public static class Balance
@@ -101,14 +136,15 @@ namespace FirstLight.Game.Utils
 		{
 			// Network state time settings
 			public const float NETWORK_QUANTUM_TICK_SECONDS = 0.1f;
-			public const float NETWORK_ATTEMPT_RECONNECT_SECONDS = 3f;
+			public const float NETWORK_ATTEMPT_RECONNECT_SECONDS = 0.5f;
+			
 			public const float CRITICAL_DISCONNECT_THRESHOLD_SECONDS = 10f;
 			
 			// Time control values
 			public const int PLAYER_LOBBY_TTL_MS = 0;
 			public const int PLAYER_GAME_TTL_MS = 99999999;
-			public const int EMPTY_ROOM_TTL_MS = 10000;
-			public const int EMPTY_ROOM_PLAYTEST_TTL_MS = 1000;
+			public const int EMPTY_ROOM_TTL_MS = 30000;
+			public const int EMPTY_ROOM_PLAYTEST_TTL_MS = 3000;
 
 			// Player properties
 			// Loading properties are split into PLAYER_PROPS_CORE_LOADED and PLAYER_PROPS_ALL_LOADED - this is because
@@ -173,9 +209,8 @@ namespace FirstLight.Game.Utils
 
 		public static class Controls
 		{
-			public const float DYNAMIC_JOYSTICK_THRESHOLD_MULT = 1.18f;
-			
-			public const float MOVEMENT_JOYSTICK_RADIUS_MULT = 0.95f;
+			public const float DYNAMIC_JOYSTICK_THRESHOLD_MULT = 1f;
+			public const float MOVEMENT_JOYSTICK_RADIUS_MULT = 1f;
 			
 			public const float SPECIAL_BUTTON_MAX_RADIUS_MULT = 1.75f;
 			public const float SPECIAL_BUTTON_FIRST_CANCEL_RADIUS_MULT = 1.15f;

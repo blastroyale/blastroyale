@@ -190,6 +190,12 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeEvents()
 		{
 			_services.MessageBrokerService.Subscribe<GameCompletedRewardsMessage>(OnGameCompletedRewardsMessage);
+			_services.GameModeService.SelectedGameMode.Observe(OnGameModeChanged);
+		}
+
+		private void OnGameModeChanged(GameModeInfo previous, GameModeInfo next)
+		{
+			_gameDataProvider.AppDataProvider.LastGameMode = next.Entry;
 		}
 
 		private void UnsubscribeEvents()
@@ -212,6 +218,12 @@ namespace FirstLight.Game.StateMachines
 		
 		private void ValidateCurrentGameMode()
 		{
+			var lastGameMode = _gameDataProvider.AppDataProvider.LastGameMode;
+			if (_services.GameModeService.IsRotationGameModeValid(lastGameMode))
+			{
+				_services.GameModeService.SelectedGameMode.Value = new GameModeInfo(lastGameMode);
+				return;
+			}
 			var gameMode = _services.GameModeService.Slots.ReadOnlyList.FirstOrDefault(x => x.Entry.MatchType == MatchType.Casual);
 			_services.GameModeService.SelectedGameMode.Value = gameMode;
 		}
@@ -313,7 +325,8 @@ namespace FirstLight.Game.StateMachines
 			{
 				BackClicked = () => { activity.Complete();},
 				OnPurchaseItem = PurchaseItem,
-				UiService = _uiService
+				UiService = _uiService,
+				IapProcessingFinished = OnIapProcessingFinished
 			};
 
 			_uiService.OpenScreen<StoreScreenPresenter, StoreScreenPresenter.StateData>(data);
@@ -326,7 +339,13 @@ namespace FirstLight.Game.StateMachines
 
 		private void PurchaseItem(string id)
 		{
+			_statechartTrigger(NetworkState.IapProcessStartedEvent);
 			_services.IAPService.BuyProduct(id);
+		}
+		
+		private void OnIapProcessingFinished()
+		{
+			_statechartTrigger(NetworkState.IapProcessFinishedEvent);
 		}
 
 		private void CloseBattlePassUI()
@@ -487,7 +506,7 @@ namespace FirstLight.Game.StateMachines
 			
 			_statechartTrigger(MainMenuLoadedEvent);
 		}
-
+		
 		private async void UnloadMainMenu()
 		{
 			var configProvider = _services.ConfigsProvider;

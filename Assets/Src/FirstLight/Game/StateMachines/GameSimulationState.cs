@@ -1,9 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ExitGames.Client.Photon;
-using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
@@ -13,12 +10,9 @@ using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Statechart;
-using Photon.Deterministic;
-using Photon.Realtime;
-using PlayFab;
+using I2.Loc;
 using Quantum;
 using Quantum.Commands;
-using UnityEngine;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -37,6 +31,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameDataProvider _gameDataProvider;
 		private readonly IGameServices _services;
 		private readonly IGameUiService _uiService;
+		private IMatchServices _matchServices;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private readonly IGameNetworkService _network;
 
@@ -73,10 +68,13 @@ namespace FirstLight.Game.StateMachines
 			var quitCheck = stateFactory.Choice("Quit Check");
 			var gameRewards = stateFactory.Wait("Game Rewards Screen");
 			var trophiesGainLoss = stateFactory.Wait("Trophies Gain Loss Screen");
-			//var disconnected = stateFactory.State("Disconnected");
+			var disconnectedPlayerCheck = stateFactory.Choice("Disconnected Player Check");
+			var disconnected = stateFactory.State("Disconnected");
+			var disconnectedCritical = stateFactory.State("Disconnected Critical");
 			
 			initial.Transition().Target(startSimulation);
 			initial.OnExit(SubscribeEvents);
+			initial.OnExit(OpenLowConnectionScreen);
 
 			startSimulation.OnEnter(StartSimulation);
 			startSimulation.Event(SimulationStartedEvent).Target(modeCheck);
@@ -88,19 +86,28 @@ namespace FirstLight.Game.StateMachines
 			modeCheck.Transition().Target(battleRoyale);
 
 			deathmatch.Nest(_deathmatchState.Setup).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
+			deathmatch.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnectedPlayerCheck);
 			deathmatch.Event(MatchEndedEvent).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
 			deathmatch.Event(MatchQuitEvent).OnTransition(() => MatchEndAnalytics(true)).Target(quitCheck);
+			deathmatch.OnExit(CleanUpMatch);
 			deathmatch.OnExit(PublishMatchEnded);
 
 			battleRoyale.Nest(_battleRoyaleState.Setup).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
-			//battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
+			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnectedPlayerCheck);
 			battleRoyale.Event(MatchEndedEvent).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
 			battleRoyale.Event(MatchQuitEvent).OnTransition(() => MatchEndAnalytics(true)).Target(quitCheck);
+			battleRoyale.OnExit(CleanUpMatch);
 			battleRoyale.OnExit(PublishMatchEnded);
+			
+			disconnectedPlayerCheck.Transition().Condition(IsSoloGame).OnTransition(OpenDisconnectedMatchEndDialog).Target(final);
+			disconnectedPlayerCheck.Transition().Target(disconnected);
+			
+			disconnected.OnEnter(StopSimulation);
+			disconnected.Event(NetworkState.JoinedRoomEvent).Target(startSimulation);
+			disconnected.Event(NetworkState.JoinRoomFailedEvent).Target(disconnectedCritical);
 
-			//disconnected.OnEnter(StopSimulation);
-			//disconnected.Event(NetworkState.JoinedRoomEvent).Target(startSimulation);
-
+			disconnectedCritical.OnEnter(NotifyCriticalDisconnection);
+			
 			quitCheck.Transition().Condition(IsCustomMatch).Target(final);
 			quitCheck.Transition().Condition(IsSpectator).Target(final);
 			quitCheck.Transition().Target(gameEnded);
@@ -125,12 +132,46 @@ namespace FirstLight.Game.StateMachines
 			gameRewards.WaitingFor(OpenRewardsScreen).Target(final);
 			gameRewards.OnExit(CloseRewardsScreen);
 
+			final.OnEnter(CloseLowConnectionScreen);
 			final.OnEnter(StopSimulation);
 			final.OnEnter(UnsubscribeEvents);
 		}
 
+		private bool IsSoloGame()
+		{
+			return _services.NetworkService.LastMatchPlayers.Count == 1;
+		}
+		
+		private void NotifyCriticalDisconnection()
+		{
+			_statechartTrigger(NetworkState.PhotonCriticalDisconnectedEvent);
+		}
+
+		private void OpenLowConnectionScreen()
+		{
+			_uiService.OpenUiAsync<LowConnectionPresenter, LowConnectionPresenter.StateData>(new LowConnectionPresenter.StateData());
+		}
+
+		private void CloseLowConnectionScreen()
+		{
+			_uiService.CloseUi<LowConnectionPresenter>(true);
+		}
+		
+		private void OpenDisconnectedMatchEndDialog()
+		{
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.General.OK,
+				ButtonOnClick = _services.GenericDialogService.CloseDialog
+			};
+			
+			_services.GenericDialogService.OpenDialog(ScriptLocalization.MainMenu.DisconnectedMatchEndInfo.ToUpper(), false, confirmButton);
+		}
+
 		private void SubscribeEvents()
 		{
+			_matchServices = MainInstaller.Resolve<IMatchServices>();
+			
 			_services.MessageBrokerService.Subscribe<QuitGameClickedMessage>(OnQuitGameScreenClickedMessage);
 			_services.MessageBrokerService.Subscribe<GameCompletedRewardsMessage>(OnGameCompletedRewardsMessage);
 
@@ -146,14 +187,14 @@ namespace FirstLight.Game.StateMachines
 			QuantumCallback.UnsubscribeListener(this);
 		}
 
-		private bool IsCustomMatch()
-		{
-			return _services.NetworkService.QuantumClient.CurrentRoom.GetMatchType() == MatchType.Custom;
-		}
-		
 		private bool IsSpectator()
 		{
 			return _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator();
+		}
+		
+		private bool IsCustomMatch()
+		{
+			return _services.NetworkService.QuantumClient.CurrentRoom.GetMatchType() == MatchType.Custom;
 		}
 
 		private bool HasRewardsToClaim()
@@ -226,7 +267,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				QuantumRunner.Default.Game.SendCommand(new PlayerQuitCommand());
 			}
-
+			
 			_statechartTrigger(MatchQuitEvent);
 		}
 
@@ -275,15 +316,22 @@ namespace FirstLight.Game.StateMachines
 			var client = _services.NetworkService.QuantumClient;
 			var configs = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 			var room = client.CurrentRoom;
+			
 			var startPlayersCount = client.CurrentRoom.GetRealPlayerCapacity();
-
+			
 			if (room.CustomProperties.TryGetValue(GameConstants.Network.ROOM_PROPS_BOTS, out var gameHasBots) &&
 			    !(bool) gameHasBots)
 			{
 				startPlayersCount = room.GetRealPlayerAmount();
 			}
+
+			var startParams = configs.GetDefaultStartParameters(startPlayersCount, IsSpectator(), new FrameSnapshot());
 			
-			var startParams = configs.GetDefaultStartParameters(startPlayersCount, IsSpectator());
+			// Unused for now, once local snapshot issues are ironed out, resyncing solo games can be readded
+			if (!_services.NetworkService.IsJoiningNewMatch && _services.NetworkService.LastMatchPlayers.Count == 1)
+			{
+				startParams = configs.GetDefaultStartParameters(_services.NetworkService.LastMatchPlayers.Count, IsSpectator(), _matchServices.FrameSnapshotService.GetLastStoredMatchSnapshot());
+			}
 
 			startParams.NetworkClient = client;
 			
@@ -295,6 +343,11 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.MessageBrokerService.Publish(new MatchSimulationEndedMessage());
 			QuantumRunner.ShutdownAll();
+		}
+		
+		private void CleanUpMatch()
+		{
+			_services.VfxService.DespawnAll();
 		}
 
 		private void PublishMatchEnded()
@@ -365,8 +418,8 @@ namespace FirstLight.Game.StateMachines
 			var data = new TrophiesScreenPresenter.StateData
 			{
 				ExitTrophyScreen = ContinueClicked,
-				LastTrophyChange = () => _lastTrophyChange,
-				TrophiesBeforeLastChange = () => _trophiesBeforeLastChange
+				LastTrophyChange = _lastTrophyChange,
+				TrophiesBeforeLastChange = _trophiesBeforeLastChange
 			};
 
 			_uiService.OpenUiAsync<TrophiesScreenPresenter, TrophiesScreenPresenter.StateData>(data);

@@ -52,7 +52,7 @@ namespace FirstLight.Game.StateMachines
 			_authenticationState = new AuthenticationState(gameLogic, services, uiService, dataService, networkService, Trigger, _configsAdder);
 			_audioState = new AudioState(gameLogic, services, Trigger);
 			_networkState = new NetworkState(gameLogic, services, networkService, Trigger);
-			_coreLoopState = new CoreLoopState(services, networkService, uiService, gameLogic, assetAdderService, Trigger);
+			_coreLoopState = new CoreLoopState(services, dataService, networkService, uiService, gameLogic, assetAdderService, Trigger);
 			_statechart = new Statechart.Statechart(Setup);
 		}
 
@@ -121,6 +121,7 @@ namespace FirstLight.Game.StateMachines
 		private void InitializeRemainingLogic()
 		{
 			_gameLogic.Init();
+			_services.IAPService.Init();
 			_services?.AnalyticsService.SessionCalls.GameLoaded();
 		}
 

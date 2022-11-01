@@ -3,6 +3,7 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Logic.RPC;
+using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Services;
 using MoreMountains.NiceVibrations;
@@ -64,9 +65,9 @@ namespace FirstLight.Game.Logic
 		GraphicsConfig.DetailLevel CurrentDetailLevel { get; set; }
 		
 		/// <summary>
-		/// Requests the current FPS mode
+		/// Requests the current FPS target
 		/// </summary>
-		bool UseHighFpsMode { get; set; }
+		int FpsTarget { get; set; }
 
 		/// <summary>
 		/// Requests the player's title display name (excluding appended numbers)
@@ -77,6 +78,11 @@ namespace FirstLight.Game.Logic
 		/// Obtains the player unique id
 		/// </summary>
 		string PlayerId { get; }
+		
+		/// <summary>
+		/// Returns the last gamemode user has chosen
+		/// </summary>
+		GameModeRotationConfig.GameModeEntry LastGameMode { get; set; }
 
 		/// <summary>
 		/// Requests the last region that player was connected to
@@ -101,12 +107,12 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Sets the resolution mode for the 3D rendering of the app
 		/// </summary>
-		void SetDetailLevel(GraphicsConfig.DetailLevel highRes);
+		void SetDetailLevel();
 		
 		/// <summary>
-		/// Sets the low/high FPS mode for the app
+		/// Sets the app's FPS target
 		/// </summary>
-		void SetFpsMode(bool useHighFpsMode);
+		void SetFpsTarget();
 
 		/// <summary>
 		/// Marks the date when the game was last time reviewed
@@ -114,18 +120,18 @@ namespace FirstLight.Game.Logic
 		void MarkGameAsReviewed();
 	}
 
-	/// <inheritdoc />
-	public interface IAppLogic : IAppDataProvider
+	/// <inheritdoc cref="IAppLogic"/>
+	public interface IAppLogic : IAppDataProvider, IGameLogicInitializer
 	{
-		public void Init();
 	}
 
 	/// <inheritdoc cref="IAppLogic"/>
-	public class AppLogic : AbstractBaseLogic<AppData>, IAppLogic, IGameLogicInitializer
+	public class AppLogic : AbstractBaseLogic<AppData>, IAppLogic
 	{
 		private readonly DateTime _defaultZeroTime = new(2020, 1, 1);
 		private readonly IAudioFxService<AudioId> _audioFxService;
 
+		
 		/// <inheritdoc />
 		public bool IsFirstSession => Data.IsFirstSession;
 
@@ -135,6 +141,12 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public bool IsDeviceLinked => string.IsNullOrWhiteSpace(DeviceID.Value);
 
+		public GameModeRotationConfig.GameModeEntry LastGameMode
+		{
+			get => Data.LastGameMode;
+			set => Data.LastGameMode = value;
+		}
+		
 		/// <inheritdoc />
 		public bool IsSfxEnabled
 		{
@@ -193,18 +205,18 @@ namespace FirstLight.Game.Logic
 			set
 			{
 				Data.CurrentDetailLevel = value;
-				SetDetailLevel(value);
+				SetDetailLevel();
 			}
 		}
 		
 		/// <inheritdoc />
-		public bool UseHighFpsMode
+		public int FpsTarget
 		{
-			get => Data.UseHighFpsMode;
+			get => Data.FpsTarget;
 			set
 			{
-				Data.UseHighFpsMode = value;
-				SetFpsMode(value);
+				Data.FpsTarget = value;
+				SetFpsTarget();
 			}
 		}
 
@@ -240,6 +252,9 @@ namespace FirstLight.Game.Logic
 			IsSfxEnabled = Data.SfxEnabled;
 			IsBgmEnabled = Data.BgmEnabled;
 			IsDialogueEnabled = Data.DialogueEnabled;
+			//CurrentDetailLevel = Data.CurrentDetailLevel;
+			//FpsTarget = Data.FpsTarget;
+			//IsHapticOn = Data.HapticEnabled;
 			DisplayName = new ObservableResolverField<string>(() => Data.DisplayName, name => Data.DisplayName = name);
 			ConnectionRegion = new ObservableResolverField<string>(() => Data.ConnectionRegion, region => Data.ConnectionRegion = region);
 			DeviceID = new ObservableResolverField<string>(() => Data.DeviceId, linked => Data.DeviceId = linked);
@@ -258,22 +273,18 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public void SetDetailLevel(GraphicsConfig.DetailLevel detailLevel)
+		public void SetDetailLevel()
 		{
 			var detailLevelConf = GameLogic.ConfigsProvider.GetConfig<GraphicsConfig>().DetailLevels
-			                               .Find(detailLevelConf => detailLevelConf.Name == detailLevel);
+			                               .Find(detailLevelConf => detailLevelConf.Name == CurrentDetailLevel);
 
 			QualitySettings.SetQualityLevel(detailLevelConf.DetailLevelIndex);
 		}
 		
 		/// <inheritdoc />
-		public void SetFpsMode(bool useHighFpsMode)
+		public void SetFpsTarget()
 		{
-			var targetFps = useHighFpsMode
-				                ? GameConstants.Visuals.HIGH_FPS_MODE_TARGET
-				                : GameConstants.Visuals.LOW_FPS_MODE_TARGET;
-			
-			Application.targetFrameRate = targetFps;
+			Application.targetFrameRate = FpsTarget;
 		}
 	}
 }

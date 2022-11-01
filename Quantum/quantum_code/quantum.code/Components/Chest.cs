@@ -42,7 +42,7 @@ namespace Quantum
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
 			var isBot = f.Has<BotCharacter>(playerEntity);
 			var loadoutWeapon = isBot ? Equipment.None : playerCharacter->GetLoadoutWeapon(f);
-			var hasLoadoutWeapon = loadoutWeapon.IsValid();
+			var hasLoadoutWeapon = loadoutWeapon.IsValid() && !loadoutWeapon.IsDefaultItem();
 			var minimumRarity = hasLoadoutWeapon ? loadoutWeapon.Rarity : EquipmentRarity.Common;
 			var config = f.ChestConfigs.GetConfig(ChestType);
 			var stats = f.Get<Stats>(playerEntity);

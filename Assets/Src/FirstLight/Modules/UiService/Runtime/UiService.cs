@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using FirstLight.FLogger;
 using UnityEngine;
 
 // ReSharper disable CheckNamespace
@@ -18,6 +19,7 @@ namespace FirstLight.UiService
 		private readonly IDictionary<int, UiSetConfig> _uiSets = new Dictionary<int, UiSetConfig>();
 		private readonly IList<Type> _visibleUiList = new List<Type>();
 		private readonly IList<GameObject> _layers = new List<GameObject>();
+		private UiPresenter _lastScreen;
 		private Type _loadingSpinnerType;
 
 		public UiService(IUiAssetLoader assetLoader)
@@ -271,66 +273,60 @@ namespace FirstLight.UiService
 		/// <inheritdoc />
 		public async Task<T> OpenUiAsync<T>(bool openedException = false) where T : UiPresenter
 		{
-			var startTime = Time.time;
-			var ui = await GetUiAsync<T>();
-			
-			var remainingTime = Math.Max(0,ui.OpenDelayTimeSeconds - (Time.time - startTime));
+			await GetUiAsync<T>();
 
-			await Task.Delay((int)(remainingTime * 1000));
-			
 			return OpenUi<T>(openedException);
 		}
 
 		/// <inheritdoc />
 		public T OpenUi<T>(bool openedException = false) where T : UiPresenter
 		{
-			return OpenUi(typeof(T), openedException) as T;
+			return OpenUi(typeof(T)) as T;
 		}
 
 		/// <inheritdoc />
-		public async Task<UiPresenter> OpenUiAsync(Type type, bool openedException = false)
+		public async Task<UiPresenter> OpenUiAsync(Type type)
 		{
 			await GetUiAsync(type);
 			
-			return OpenUi(type, openedException);
+			return OpenUi(type);
 		}
 		
 		/// <inheritdoc />
-		public UiPresenter OpenUi(Type type, bool openedException = false)
+		public UiPresenter OpenUi(Type type)
 		{
 			var ui = GetUi(type);
 			
-			if (!_visibleUiList.Contains(type))
+			if (_visibleUiList.Contains(type))
 			{
-				ui.InternalOpen();
-				_visibleUiList.Add(type);
+				FLog.Warn($"Is trying to open the {type.Name} ui but is already open");
+				return ui;
 			}
-			else if(openedException)
-			{
-				throw new InvalidOperationException($"Is trying to open the {type.Name} ui but is already open");
-			}
-			
+
+			ui.InternalOpen();
+			_visibleUiList.Add(type);
+
 			return ui;
 		}
 
 		/// <inheritdoc />
-		public T OpenUi<T, TData>(TData initialData, bool openedException = false) 
+		public T OpenUi<T, TData>(TData initialData) 
 			where T : class, IUiPresenterData 
 			where TData : struct
 		{
-			return OpenUi(typeof(T), initialData, openedException) as T;
+			return OpenUi(typeof(T), initialData) as T;
 		}
 		
 		/// <inheritdoc />
-		public async Task<T> OpenUiAsync<T, TData>(TData initialData, bool openedException = false) 
+		public async Task<T> OpenUiAsync<T, TData>(TData initialData) 
 			where T : class, IUiPresenterData 
 			where TData : struct
 		{
-			return await OpenUiAsync(typeof(T), initialData, openedException) as T;
+			return await OpenUiAsync(typeof(T), initialData) as T;
 		}
 
 		/// <inheritdoc />
-		public UiPresenter OpenUi<TData>(Type type, TData initialData, bool openedException = false) where TData : struct
+		public UiPresenter OpenUi<TData>(Type type, TData initialData) where TData : struct
 		{
 			var uiPresenterData = GetUi(type) as UiPresenterData<TData>;
 
@@ -341,57 +337,55 @@ namespace FirstLight.UiService
 			
 			uiPresenterData.InternalSetData(initialData);
 
-			return OpenUi(type, openedException);
+			return OpenUi(type);
 		}
 		
 		/// <inheritdoc />
-		public async Task<UiPresenter> OpenUiAsync<TData>(Type type, TData initialData, bool openedException = false) where TData : struct
+		public async Task<UiPresenter> OpenUiAsync<TData>(Type type, TData initialData) where TData : struct
 		{
-			var startTime = Time.time;
-			var ui = await GetUiAsync(type);
+			await GetUiAsync(type);
 
-			var remainingTime =  Math.Max(0,ui.OpenDelayTimeSeconds - (Time.time - startTime));
-
-			await Task.Delay((int)(remainingTime * 1000));
-
-			return OpenUi(type, initialData, openedException);
+			return OpenUi(type, initialData);
 		}
 
 		/// <inheritdoc />
-		public void CloseUi<T>(bool closedException = false, bool destroy = false) where T : UiPresenter
+		public async Task CloseUi<T>(bool destroy = false) where T : UiPresenter
 		{
-			CloseUi(typeof(T), closedException, destroy);
+			await CloseUi(typeof(T), destroy);
 		}
 
 		/// <inheritdoc />
-		public void CloseUi(Type type, bool closedException = false, bool destroy = false)
+		public async Task CloseUi(Type type, bool destroy = false)
 		{
-			if (_visibleUiList.Contains(type) || destroy)
+			if (!_visibleUiList.Contains(type))
 			{
-				_visibleUiList.Remove(type);
-				
-				var ui = GetUi(type);
-
-				ui.InternalClose(destroy);
+				FLog.Warn($"Is trying to close the {type.Name} ui but is not open");
+				return;
 			}
-			else if(closedException)
+
+			if (_lastScreen!=null && _lastScreen.GetType() == type)
 			{
-				throw new InvalidOperationException($"Is trying to close the {type.Name} ui but is not open");
+				_lastScreen = null;
 			}
+
+			_visibleUiList.Remove(type);
+			var ui = GetUi(type); 
+
+			await ui.InternalClose(destroy);
 		}
 
 		/// <inheritdoc />
-		public void CloseUi<T>(T uiPresenter, bool closedException = false, bool destroy = false) where T : UiPresenter
+		public async Task CloseUi<T>(T uiPresenter, bool destroy = false) where T : UiPresenter
 		{
-			CloseUi(uiPresenter.GetType().UnderlyingSystemType, closedException, destroy);
+			await CloseUi(uiPresenter.GetType().UnderlyingSystemType, destroy);
 		}
 
 		/// <inheritdoc />
-		public void CloseAllUi()
+		public async Task CloseAllUi()
 		{
 			for (int i = 0; i < _visibleUiList.Count; i++)
 			{
-				GetUi(_visibleUiList[i]).InternalClose(false);
+				await GetUi(_visibleUiList[i]).InternalClose(false);
 				_visibleUiList.Remove(_visibleUiList[i]);
 			}
 			
@@ -399,7 +393,7 @@ namespace FirstLight.UiService
 		}
 
 		/// <inheritdoc />
-		public void CloseUiAndAllInFront<T>(params int[] excludeLayers) where T : UiPresenter
+		public async Task CloseUiAndAllInFront<T>(params int[] excludeLayers) where T : UiPresenter
 		{
 			var layers = new List<int>(excludeLayers);
 			
@@ -410,19 +404,19 @@ namespace FirstLight.UiService
 					continue;
 				}
 				
-				CloseAllUi(i);
+				await CloseAllUi(i);
 			}
 		}
 
 		/// <inheritdoc />
-		public void CloseAllUi(int layer)
+		public async Task CloseAllUi(int layer)
 		{
 			for (int i = 0; i < _visibleUiList.Count; i++)
 			{
 				var reference = GetReference(_visibleUiList[i]);
 				if (reference.Layer == layer)
 				{
-					reference.Presenter.InternalClose(false);
+					await reference.Presenter.InternalClose(false);
 					_visibleUiList.Remove(reference.UiType);
 				}
 			}
@@ -568,7 +562,42 @@ namespace FirstLight.UiService
 				CloseUi(set.UiConfigsType[i]);
 			}
 		}
-		
+
+		public async Task<UiPresenter> OpenScreen<T>() where T : UiPresenter
+		{
+			if (_lastScreen != null)
+			{
+				await CloseUi(_lastScreen.GetType());
+			}
+
+			var ui = OpenUi(typeof(T));
+			_lastScreen = ui;
+
+			return ui;
+		}
+
+		/// <inheritdoc />
+		public async Task<T> OpenScreen<T, TData>(TData initialData) where T : UiPresenter, IUiPresenterData where TData : struct
+		{
+			if (_lastScreen != null)
+			{
+				await CloseUi(_lastScreen.GetType());
+			}
+
+			var ui = await OpenUiAsync<T, TData>(initialData);
+			_lastScreen = ui;
+
+			return ui;
+		}
+
+		public async void CloseCurrentScreen()
+		{
+			if (_lastScreen != null)
+			{
+				await CloseUi(_lastScreen.GetType());
+			}
+		}
+
 		private UiReference GetReference(Type type)
 		{
 			UiReference uiReference;

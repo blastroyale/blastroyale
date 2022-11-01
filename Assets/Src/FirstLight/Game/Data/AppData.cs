@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Services;
 using Quantum;
 
 namespace FirstLight.Game.Data
@@ -29,13 +30,15 @@ namespace FirstLight.Game.Data
 		
 		public DateTime GameReviewDate;
 
+		public FrameSnapshot LastCapturedFrameSnapshot;
+
 		public bool SfxEnabled = true;
 		public bool BgmEnabled = true;
 		public bool HapticEnabled = true;
 		public bool DialogueEnabled = true;
+		public int FpsTarget = 30;
 		public GraphicsConfig.DetailLevel CurrentDetailLevel = GraphicsConfig.DetailLevel.Medium;
-		public bool UseHighFpsMode = false;
-		
+		public GameModeRotationConfig.GameModeEntry LastGameMode;
 		public List<UniqueId> NewUniqueIds = new ();
 		public List<GameId> GameIdsTagged = new ();
 		public List<UnlockSystem> SystemsTagged = new ();

@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using FirstLight.Game.MonoComponent.Match;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -26,8 +27,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public LocalPlayerIndicatorContainerView(IGameServices services)
 		{
 			_services = services;
-			
-			InstantiatePlayerIndicators();
+			InstantiateAllIndicators();
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerAmmoEmpty>(this, HandleOnLocalPlayerAmmoEmpty);
 		}
 
@@ -51,6 +51,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public void Init(EntityView playerView)
 		{
 			_localPlayerEntity = playerView.EntityRef;
+			
+			for (int i = 0; i < _specialIndicators.Length; i++)
+			{
+				_specialIndicators[i] = null;
+			}
 
 			foreach (var indicator in _indicators)
 			{
@@ -82,6 +87,26 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_indicators[(int) IndicatorVfxId.Movement].SetTransformState(direction);
 			_indicators[(int) IndicatorVfxId.Movement].SetVisualState(isPressed);
 		}
+		
+		/// <summary>
+		///  Instantiates all possible indicators
+		/// </summary>
+		public void InstantiateAllIndicators()
+		{
+			var loader = _services.AssetResolverService;
+
+			for (var i = 0; i < (int) IndicatorVfxId.TOTAL; i++)
+			{
+				if (!loader.TryGetAssetReference<IndicatorVfxId, GameObject>((IndicatorVfxId)i, out var indicator))
+				{
+					_indicators[i] = null;
+					continue;
+				}
+				
+				var obj =  _services.AssetResolverService.RequestAsset<IndicatorVfxId, GameObject>((IndicatorVfxId)i, false, true).Result;
+				_indicators[i] = obj.GetComponent<IIndicator>();
+			}
+		}
 
 		/// <summary>
 		/// Setups all the indicators with the given data
@@ -107,7 +132,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			
 			if (_specialIndicators[index] != null)
 			{
-				Object.Destroy(((MonoBehaviour) _specialIndicators[index]).gameObject);
+				Object.Destroy( ((MonoBehaviour) _specialIndicators[index]).gameObject);
 			}
 			
 			_specialIndicators[index] = Object.Instantiate((MonoBehaviour) _indicators[(int) config.Indicator])
@@ -146,24 +171,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			ShootIndicator.SetTransformState(input->AimingDirection.ToUnityVector2());
 			ShootIndicator.SetVisualState(input->IsShootButtonDown, isEmptied);
 			ShootIndicator.SetVisualProperties(size, 0, range);
-		}
-		
-		private void InstantiatePlayerIndicators()
-		{
-			var loader = _services.AssetResolverService;
-
-			for (var i = 0; i < (int) IndicatorVfxId.TOTAL; i++)
-			{
-				if (!loader.TryGetAssetReference<IndicatorVfxId, GameObject>((IndicatorVfxId)i, out var indicator))
-				{
-					_indicators[i] = null;
-					continue;
-				}
-
-				var obj = Object.Instantiate(indicator.OperationHandle.Convert<GameObject>().Result);
-				
-				_indicators[i] = obj.GetComponent<IIndicator>();
-			}
 		}
 
 		private void HandleOnLocalPlayerAmmoEmpty(EventOnLocalPlayerAmmoEmpty callback)

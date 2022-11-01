@@ -1,11 +1,14 @@
 using System;
+using FirstLight.FLogger;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.NativeUi;
 using FirstLight.Statechart;
 using I2.Loc;
+using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
@@ -64,21 +67,18 @@ namespace FirstLight.Game.StateMachines
 			settingsMenu.Event(_logoutConfirmClickedEvent).Target(logoutWait);
 			settingsMenu.Event(_connectIdClickedEvent).Target(connectId);
 			settingsMenu.Event(NetworkState.OpenServerSelectScreenEvent).Target(serverSelect);
-			settingsMenu.OnExit(CloseSettingsMenuUI);
-			
+
 			connectId.OnEnter(OpenConnectIdScreen);
 			connectId.Event(_connectIdBackEvent).Target(settingsMenu);
-			connectId.OnExit(CloseConnectIdScreen);
-			
+
 			serverSelect.OnEnter(OpenServerSelectScreen);
 			serverSelect.Event(NetworkState.PhotonMasterConnectedEvent).Target(settingsMenu);
-			serverSelect.OnExit(CloseServerSelectScreen);
-			
+
 			logoutWait.OnEnter(TryLogOut);
 			logoutWait.Event(_logoutFailedEvent).Target(final);
 
 			final.OnEnter(UnsubscribeEvents);
-		}
+		} 
 
 		private void SubscribeEvents()
 		{
@@ -103,12 +103,12 @@ namespace FirstLight.Game.StateMachines
 				OnDeleteAccountClicked = () => _services.PlayfabService.CallFunction("RemovePlayerData", OnAccountDeleted)
 			};
 
-			_uiService.OpenUiAsync<SettingsScreenPresenter, SettingsScreenPresenter.StateData>(data);
+			_uiService.OpenScreen<SettingsScreenPresenter, SettingsScreenPresenter.StateData>(data);
 		}
 
 		private void CloseSettingsMenuUI()
 		{
-			_uiService.CloseUi<SettingsScreenPresenter>(false, true);
+			_uiService.CloseUi<SettingsScreenPresenter>(true);
 		}
 		
 		private void OpenServerSelectScreen()
@@ -123,12 +123,12 @@ namespace FirstLight.Game.StateMachines
 				},
 			};
 
-			_uiService.OpenUiAsync<ServerSelectScreenPresenter, ServerSelectScreenPresenter.StateData>(data);
+			_uiService.OpenScreen<ServerSelectScreenPresenter, ServerSelectScreenPresenter.StateData>(data);
 		}
 
 		private void CloseServerSelectScreen()
 		{
-			_uiService.CloseUi<ServerSelectScreenPresenter>(false, true);
+			_uiService.CloseUi<ServerSelectScreenPresenter>(true);
 		}
 
 		private void OnRegionListReceivedMessage(RegionListReceivedMessage msg)
@@ -156,7 +156,7 @@ namespace FirstLight.Game.StateMachines
 				BackClicked = () => _statechartTrigger(_connectIdBackEvent)
 			};
 
-			_uiService.OpenUiAsync<ConnectIdScreenPresenter, ConnectIdScreenPresenter.StateData>(data);
+			_uiService.OpenScreen<ConnectIdScreenPresenter, ConnectIdScreenPresenter.StateData>(data);
 		}
 
 		private void CloseConnectIdScreen()
@@ -190,6 +190,13 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnConnectIdError(PlayFabError error)
 		{
+			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.LinkGuestAccount, error.ErrorMessage);
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.General.OK,
+				ButtonOnClick = _services.GenericDialogService.CloseDialog
+			};
+			_services.GenericDialogService.OpenDialog(error.ErrorMessage, false, confirmButton);
 			SetConnectIdDim(false);
 		}
 
@@ -229,7 +236,7 @@ namespace FirstLight.Game.StateMachines
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.MainMenu.QuitGameButton,
-				ButtonOnClick = () => { UnityEditor.EditorApplication.isPlaying = false; }
+				ButtonOnClick = () => { _services.QuitGame("Closing due to logout"); }
 			};
 
 			_services.GenericDialogService.OpenDialog(title, false, confirmButton);
@@ -274,31 +281,6 @@ namespace FirstLight.Game.StateMachines
 		private void OnAccountDeleted(ExecuteFunctionResult res)
 		{
 			TryLogOut();
-			
-#if UNITY_EDITOR
-			var confirmButton = new GenericDialogButton
-			{
-				ButtonText = ScriptLocalization.MainMenu.QuitGameButton,
-				ButtonOnClick = () => { _statechartTrigger(_logoutFailedEvent); }
-			};
-
-			_services.GenericDialogService.OpenDialog(ScriptLocalization.MainMenu.DeleteAccountConfirmMessage, 
-			                                          false, confirmButton);
-#else
-			var button = new NativeUi.AlertButton
-			{
-				Callback = () =>
-				{
-					_services.QuitGame("Account Deleted");
-				},
-				Style = NativeUi.AlertButtonStyle.Negative,
-				Text = ScriptLocalization.MainMenu.QuitGameButton
-			};
-			NativeUi.NativeUiService.ShowAlertPopUp(false, 
-			                                        ScriptLocalization.MainMenu.DeleteAccountConfirm, 
-			                                        ScriptLocalization.MainMenu.DeleteAccountConfirmMessage, 
-			                                        button);
-#endif
 		}
 	}
 }

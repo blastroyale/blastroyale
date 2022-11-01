@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.NativeUi;
 using FirstLight.UiService;
 using I2.Loc;
 using Quantum;
 using Sirenix.OdinInspector;
+using UnityEngine.Purchasing;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
 
@@ -25,6 +28,7 @@ namespace FirstLight.Game.Presenters
 		public struct StateData
 		{
 			public Action BackClicked;
+			public Action IapProcessingFinished;
 			public Action<string> OnPurchaseItem;
 			public IGameUiService UiService;
 		}
@@ -45,9 +49,10 @@ namespace FirstLight.Game.Presenters
 			_blocker = root.Q("Blocker").Required();
 
 			root.Q<Button>("BackButton").clicked += Data.BackClicked;
-			root.Q<Button>("ItemRare").clicked += () => { BuyItem(ITEM_RARE_ID); };
-			root.Q<Button>("ItemEpic").clicked += () => { BuyItem(ITEM_EPIC_ID); };
-			root.Q<Button>("ItemLegendary").clicked += () => { BuyItem(ITEM_LEGENDARY_ID); };
+
+			SetupItem("ItemRare", ITEM_RARE_ID);
+			SetupItem("ItemEpic", ITEM_EPIC_ID);
+			SetupItem("ItemLegendary", ITEM_LEGENDARY_ID);
 		}
 
 		protected override void SubscribeToEvents()
@@ -59,20 +64,36 @@ namespace FirstLight.Game.Presenters
 		[Button]
 		private void OnPurchaseFailed(IAPPurchaseFailedMessage msg)
 		{
-			_blocker.style.display = DisplayStyle.None;
+			Data.IapProcessingFinished();
 
+			_blocker.style.display = DisplayStyle.None;
+			if (msg.Reason is PurchaseFailureReason.UserCancelled or PurchaseFailureReason.PaymentDeclined) return;
+
+#if UNITY_EDITOR
 			var confirmButton = new GenericDialogButton
 			{
-				ButtonText = ScriptLocalization.General.OK,
+				ButtonText = ScriptLocalization.UITShared.ok,
 				ButtonOnClick = () => _gameServices.GenericDialogService.CloseDialog()
 			};
 
 			_gameServices.GenericDialogService.OpenDialog(
-				string.Format(ScriptLocalization.General.IapError, msg.Reason.ToString()), false, confirmButton);
+				string.Format(ScriptLocalization.UITStore.iap_error, msg.Reason.ToString()), false, confirmButton);
+#else
+			var button = new AlertButton
+			{
+				Style = AlertButtonStyle.Positive,
+				Text = ScriptLocalization.UITShared.ok
+			};
+
+			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.ErrorGeneric, msg.Reason.ToString(),
+				button);
+#endif
 		}
 
 		private void OnPurchaseCompleted(IAPPurchaseCompletedMessage msg)
 		{
+			Data.IapProcessingFinished();
+
 			_pendingRewards.Clear();
 
 			foreach (var equipment in msg.Rewards)
@@ -116,6 +137,17 @@ namespace FirstLight.Game.Presenters
 
 			Data.UiService
 				.OpenUiAsync<BattlepassRewardDialogPresenter, BattlepassRewardDialogPresenter.StateData>(data);
+		}
+
+		private void SetupItem(string uiId, string storeId)
+		{
+			var product = _gameServices.IAPService.Products.First(item => item.definition.id == storeId);
+
+			var button = Root.Q<Button>(uiId);
+			var priceLabel = button.Q<Label>("Price");
+
+			button.clicked += () => { BuyItem(storeId); };
+			priceLabel.text = product.metadata.localizedPriceString;
 		}
 	}
 }

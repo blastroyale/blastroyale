@@ -432,10 +432,9 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayerDataObtained(ExecuteFunctionResult res, IWaitActivity activity)
 		{
-			
 			var serverResult = ModelSerializer.Deserialize<PlayFabResult<LogicResult>>(res.FunctionResult.ToString());
 			var data = serverResult.Result.Data;
-			if (data == null || data.Count == 0) // response too large, fetch directly
+			if (data == null || !data.ContainsKey(typeof(PlayerData).FullName)) // response too large, fetch directly
 			{
 				_services.PlayfabService.FetchServerState(state =>
 				{

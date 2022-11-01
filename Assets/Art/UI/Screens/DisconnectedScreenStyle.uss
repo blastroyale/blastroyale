@@ -60,7 +60,7 @@
 }
 
 #PopupBackground {
-    width: 1000px;
+    width: 700px;
     height: 350px;
     background-color: rgb(0, 0, 0);
     transition-timing-function: ease-out;
@@ -71,20 +71,18 @@
 }
 
 #Header > #Title {
-    -unity-text-align: upper-center;
+    -unity-text-align: middle-center;
+    height: 90px;
 }
 
 #Container {
     flex-grow: 1;
     align-items: center;
     justify-content: space-between;
-    padding-top: 48px;
-    padding-bottom: 40px;
-}
-
-#DisconnectedDesc {
-    color: rgb(122, 118, 167);
-    font-size: 30px;
+    padding-top: 55px;
+    padding-bottom: 55px;
+    padding-left: 55px;
+    padding-right: 55px;
 }
 
 #Blocker {

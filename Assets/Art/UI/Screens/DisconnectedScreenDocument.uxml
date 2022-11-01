@@ -1,17 +1,17 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xmlns:flg="FirstLight.Game.UIElements" editor-extension-mode="False">
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/DisconnectedScreenStyle.uss?fileID=7433441132597879392&amp;guid=968b6e338250e984388d510b63cd84bd&amp;type=3#DisconnectedScreenStyle" />
     <ui:VisualElement name="root" class="background">
         <ui:VisualElement name="PopupBackground" class="popup-radius">
             <ui:VisualElement name="PopupWindow" class="popup-radius popup-window">
                 <ui:VisualElement name="Header" class="background-purple" style="overflow: hidden;">
                     <ui:VisualElement name="TitleDots" class="dots-pattern" style="top: -138px; left: -28px;" />
-                    <flg:LocalizedLabel localization-key="UITDisconnected/connection_lost" name="Title" class="font-italic font-style-h2" />
+                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITDisconnected/connection_lost" name="Title" class="font-italic font-style-h2" />
                 </ui:VisualElement>
                 <ui:VisualElement name="Container">
-                    <flg:LocalizedLabel localization-key="UITDisconnected/disconnected" name="DisconnectedDesc" class="font-italic" />
+                    <FirstLight.Game.UIElements.LocalizedLabel name="DisconnectedDesc" localization-key="disconnected" class="font-italic font-style-popup" />
                     <ui:VisualElement name="HoriLayout" style="flex-direction: row; flex-shrink: 1;">
-                        <flg:LocalizedButton localization-key="UITShared/main_menu" name="MenuButton" class="font-italic button-flat-primary" />
-                        <flg:LocalizedButton localization-key="UITDisconnected/reconnect" name="ReconnectButton" class="font-italic button-flat-primary" />
+                        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITShared/main_menu" name="MenuButton" class="font-italic button-flat-primary" />
+                        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITDisconnected/reconnect" name="ReconnectButton" class="font-italic button-flat-primary" />
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="Blocker" class="element-hidden" />

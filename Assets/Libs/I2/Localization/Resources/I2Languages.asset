@@ -2245,11 +2245,11 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: MainMenu/HighFpsModeSetting
+    - Term: MainMenu/FpsModeSetting
       TermType: 0
       Description: 
       Languages:
-      - High FPS Mode
+      - FPS Mode
       - 
       - 
       Flags: 000000
@@ -9360,6 +9360,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITShared/ok
+      TermType: 0
+      Description: 
+      Languages:
+      - OK
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITShared/or
       TermType: 0
       Description: 
@@ -9383,15 +9392,6 @@ MonoBehaviour:
       Description: 
       Languages:
       - Waiting...
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITShared/ok
-      TermType: 0
-      Description: 
-      Languages:
-      - OK
       - 
       - 
       Flags: 000000
@@ -9483,15 +9483,6 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITLoginRegister/username
-      TermType: 0
-      Description: 
-      Languages:
-      - USERNAME
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
     - Term: UITLoginRegister/send_password_recovery
       TermType: 0
       Description: 
@@ -9501,11 +9492,29 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITLoginRegister/username
+      TermType: 0
+      Description: 
+      Languages:
+      - USERNAME
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITStore/epic_core
       TermType: 0
       Description: 
       Languages:
       - EPIC CORE
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITStore/iap_error
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Error: {0}'
       - 
       - 
       Flags: 000000
@@ -9533,15 +9542,6 @@ MonoBehaviour:
       Description: 
       Languages:
       - RARE CORE
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITStore/iap_error
-      TermType: 0
-      Description: 
-      Languages:
-      - 'Error: {0}'
       - 
       - 
       Flags: 000000
@@ -9591,20 +9591,20 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITHomeScreen/shop
-      TermType: 0
-      Description: 
-      Languages:
-      - SHOP
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
     - Term: UITHomeScreen/resource_pool_restock
       TermType: 0
       Description: 
       Languages:
       - ' +{0} {1} IN {2}'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/shop
+      TermType: 0
+      Description: 
+      Languages:
+      - SHOP
       - 
       - 
       Flags: 000000
@@ -9622,7 +9622,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - YOU HAVE BEEN DISCONNECTED FROM THE GAME.
+      - YOU HAVE BEEN DISCONNECTED
       - 
       - 
       Flags: 000000
@@ -9645,20 +9645,20 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITGameModeSelection/tap_to_choose
-      TermType: 0
-      Description: 
-      Languages:
-      - Tap to choose mode
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
     - Term: UITGameModeSelection/custom_game_description
       TermType: 0
       Description: 
       Languages:
       - Create your own game
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITGameModeSelection/tap_to_choose
+      TermType: 0
+      Description: 
+      Languages:
+      - Tap to choose mode
       - 
       - 
       Flags: 000000
@@ -9681,7 +9681,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1667264713582
+    Google_LastUpdatedVersion: 1667305697575
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

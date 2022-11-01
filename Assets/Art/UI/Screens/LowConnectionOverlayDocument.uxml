@@ -1,4 +1,4 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xmlns:flg="FirstLight.Game.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/LowConnectionOverlayStyle.uss?fileID=7433441132597879392&amp;guid=7d607e8b19a23d24daa39b47db32111a&amp;type=3#LowConnectionOverlayStyle" />
     <ui:VisualElement name="root" class="background" style="top: 0; right: 0; left: 0; bottom: 1px;">
         <ui:VisualElement name="PopupBackground">

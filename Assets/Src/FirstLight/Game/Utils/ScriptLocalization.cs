@@ -1081,6 +1081,68 @@ namespace I2.Loc
 			public static string ToolTip_Ranked 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_Ranked"); } }
 			public static string ToolTip_Trophies 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_Trophies"); } }
 		}
+
+		public static class UITDisconnected
+		{
+			public static string connection_lost 		{ get{ return LocalizationManager.GetTranslation ("UITDisconnected/connection_lost"); } }
+			public static string disconnected 		{ get{ return LocalizationManager.GetTranslation ("UITDisconnected/disconnected"); } }
+			public static string reconnect 		{ get{ return LocalizationManager.GetTranslation ("UITDisconnected/reconnect"); } }
+		}
+
+		public static class UITGameModeSelection
+		{
+			public static string choose_a_mode 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/choose_a_mode"); } }
+			public static string custom_game_description 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/custom_game_description"); } }
+			public static string tap_to_choose 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/tap_to_choose"); } }
+		}
+
+		public static class UITHomeScreen
+		{
+			public static string blast_pass 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/blast_pass"); } }
+			public static string equipment 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/equipment"); } }
+			public static string heroes 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/heroes"); } }
+			public static string leaderboards 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/leaderboards"); } }
+			public static string play 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/play"); } }
+			public static string resource_pool_restock 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/resource_pool_restock"); } }
+			public static string shop 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/shop"); } }
+		}
+
+		public static class UITLoginRegister
+		{
+			public static string email 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/email"); } }
+			public static string login 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/login"); } }
+			public static string login_with_fl_id 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/login_with_fl_id"); } }
+			public static string password 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/password"); } }
+			public static string play_as_guest 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/play_as_guest"); } }
+			public static string register 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/register"); } }
+			public static string register_fl_id 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/register_fl_id"); } }
+			public static string register_new_fl_id 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/register_new_fl_id"); } }
+			public static string reset_password 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/reset_password"); } }
+			public static string send_password_recovery 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/send_password_recovery"); } }
+			public static string username 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/username"); } }
+		}
+
+		public static class UITShared
+		{
+			public static string battle_royale 		{ get{ return LocalizationManager.GetTranslation ("UITShared/battle_royale"); } }
+			public static string casual 		{ get{ return LocalizationManager.GetTranslation ("UITShared/casual"); } }
+			public static string coming_soon 		{ get{ return LocalizationManager.GetTranslation ("UITShared/coming_soon"); } }
+			public static string deathmatch 		{ get{ return LocalizationManager.GetTranslation ("UITShared/deathmatch"); } }
+			public static string main_menu 		{ get{ return LocalizationManager.GetTranslation ("UITShared/main_menu"); } }
+			public static string ok 		{ get{ return LocalizationManager.GetTranslation ("UITShared/ok"); } }
+			public static string or 		{ get{ return LocalizationManager.GetTranslation ("UITShared/or"); } }
+			public static string ranked 		{ get{ return LocalizationManager.GetTranslation ("UITShared/ranked"); } }
+			public static string waiting 		{ get{ return LocalizationManager.GetTranslation ("UITShared/waiting"); } }
+		}
+
+		public static class UITStore
+		{
+			public static string epic_core 		{ get{ return LocalizationManager.GetTranslation ("UITStore/epic_core"); } }
+			public static string iap_error 		{ get{ return LocalizationManager.GetTranslation ("UITStore/iap_error"); } }
+			public static string legendary_core 		{ get{ return LocalizationManager.GetTranslation ("UITStore/legendary_core"); } }
+			public static string price 		{ get{ return LocalizationManager.GetTranslation ("UITStore/price"); } }
+			public static string rare_core 		{ get{ return LocalizationManager.GetTranslation ("UITStore/rare_core"); } }
+		}
 	}
 
     public static class ScriptTerms
@@ -2161,6 +2223,68 @@ namespace I2.Loc
 		    public const string ToolTip_NftCooldown = "Tooltips/ToolTip_NftCooldown";
 		    public const string ToolTip_Ranked = "Tooltips/ToolTip_Ranked";
 		    public const string ToolTip_Trophies = "Tooltips/ToolTip_Trophies";
+		}
+
+		public static class UITDisconnected
+		{
+		    public const string connection_lost = "UITDisconnected/connection_lost";
+		    public const string disconnected = "UITDisconnected/disconnected";
+		    public const string reconnect = "UITDisconnected/reconnect";
+		}
+
+		public static class UITGameModeSelection
+		{
+		    public const string choose_a_mode = "UITGameModeSelection/choose_a_mode";
+		    public const string custom_game_description = "UITGameModeSelection/custom_game_description";
+		    public const string tap_to_choose = "UITGameModeSelection/tap_to_choose";
+		}
+
+		public static class UITHomeScreen
+		{
+		    public const string blast_pass = "UITHomeScreen/blast_pass";
+		    public const string equipment = "UITHomeScreen/equipment";
+		    public const string heroes = "UITHomeScreen/heroes";
+		    public const string leaderboards = "UITHomeScreen/leaderboards";
+		    public const string play = "UITHomeScreen/play";
+		    public const string resource_pool_restock = "UITHomeScreen/resource_pool_restock";
+		    public const string shop = "UITHomeScreen/shop";
+		}
+
+		public static class UITLoginRegister
+		{
+		    public const string email = "UITLoginRegister/email";
+		    public const string login = "UITLoginRegister/login";
+		    public const string login_with_fl_id = "UITLoginRegister/login_with_fl_id";
+		    public const string password = "UITLoginRegister/password";
+		    public const string play_as_guest = "UITLoginRegister/play_as_guest";
+		    public const string register = "UITLoginRegister/register";
+		    public const string register_fl_id = "UITLoginRegister/register_fl_id";
+		    public const string register_new_fl_id = "UITLoginRegister/register_new_fl_id";
+		    public const string reset_password = "UITLoginRegister/reset_password";
+		    public const string send_password_recovery = "UITLoginRegister/send_password_recovery";
+		    public const string username = "UITLoginRegister/username";
+		}
+
+		public static class UITShared
+		{
+		    public const string battle_royale = "UITShared/battle_royale";
+		    public const string casual = "UITShared/casual";
+		    public const string coming_soon = "UITShared/coming_soon";
+		    public const string deathmatch = "UITShared/deathmatch";
+		    public const string main_menu = "UITShared/main_menu";
+		    public const string ok = "UITShared/ok";
+		    public const string or = "UITShared/or";
+		    public const string ranked = "UITShared/ranked";
+		    public const string waiting = "UITShared/waiting";
+		}
+
+		public static class UITStore
+		{
+		    public const string epic_core = "UITStore/epic_core";
+		    public const string iap_error = "UITStore/iap_error";
+		    public const string legendary_core = "UITStore/legendary_core";
+		    public const string price = "UITStore/price";
+		    public const string rare_core = "UITStore/rare_core";
 		}
 	}
 }

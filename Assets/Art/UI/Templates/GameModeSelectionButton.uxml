@@ -15,8 +15,8 @@
                                 <ui:VisualElement name="GameModeIcon" style="-unity-background-image-tint-color: rgb(0, 0, 0); width: 46px; height: 46px;" />
                                 <ui:Label text="BATTLE ROYALE" display-tooltip-when-elided="true" name="GameModeLabel" class="font-italic" />
                             </ui:VisualElement>
-                            <ui:Label text="Infinite respawns, time-limited Whoever get most kills wins" display-tooltip-when-elided="true" name="GameModeDescription" class="font-bold" />
-                            <ui:Label text="LIMITED 29D 30H" display-tooltip-when-elided="true" name="GameModeTimer" class="font-italic" />
+                            <ui:Label text="Infinite respawns, time-limited Whoever get most kills wins" name="GameModeDescription" class="font-bold" />
+                            <ui:Label text="LIMITED 29D 30H" name="GameModeTimer" class="font-italic" />
                         </ui:VisualElement>
                         <ui:VisualElement name="MutatorsPanel" style="flex-direction: column-reverse; flex-grow: 0;">
                             <ui:VisualElement name="MutatorLine" class="speedup-mutator" style="flex-direction: row;">
@@ -31,7 +31,7 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="ModeTag" style="position: absolute;">
-                    <ui:Label text="RANKED" display-tooltip-when-elided="true" name="ModeTagTitle" class="font-italic" />
+                    <ui:Label text="RANKED" name="ModeTagTitle" class="font-italic" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="Crown" class="hidden-crown visible-crown" style="width: 517px; height: 240px; left: 10%; right: 0; top: -170px; align-items: center; justify-content: center;">

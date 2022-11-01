@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using FirstLight.Game.Messages;
+using FirstLight.SDK.Services;
 using FirstLight.Services;
 using Quantum;
 using Object = UnityEngine.Object;
@@ -17,6 +18,9 @@ namespace FirstLight.Game.Services
 		
 		/// <inheritdoc cref="IEntityViewUpdaterService"/>
 		public IEntityViewUpdaterService EntityViewUpdaterService { get; }
+		
+		/// <inheritdoc cref="IMatchFrameSnapshotService"/>
+		public IFrameSnapshotService FrameSnapshotService { get; }
 	}
 
 	internal class MatchServices : IMatchServices
@@ -50,12 +54,15 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc />
 		public IEntityViewUpdaterService EntityViewUpdaterService { get; }
 
-		public MatchServices(IEntityViewUpdaterService entityViewUpdaterService, IGameServices services)
+		public IFrameSnapshotService FrameSnapshotService { get; }
+
+		public MatchServices(IEntityViewUpdaterService entityViewUpdaterService, IGameServices services, IDataService dataService)
 		{
 			_messageBrokerService = services.MessageBrokerService;
 
 			EntityViewUpdaterService = entityViewUpdaterService;
 			SpectateService = Configure(new SpectateService(services, this));
+			FrameSnapshotService = Configure(new FrameSnapshotService(dataService));
 
 			_messageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStart);
 			_messageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEnd);

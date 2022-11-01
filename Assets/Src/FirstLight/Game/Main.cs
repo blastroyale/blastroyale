@@ -6,6 +6,7 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.StateMachines;
 using FirstLight.Game.Utils;
+using FirstLight.SDK.Modules;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using FirstLight.UiService;
@@ -36,7 +37,7 @@ namespace FirstLight.Game
 
 		private void Start()
 		{
-			var messageBroker = new MessageBrokerService();
+			var messageBroker = new InMemoryMessageBrokerService();
 			var timeService = new TimeService();
 			var dataService = new DataService();
 			var configsProvider = new ConfigsProvider();

@@ -1047,6 +1047,33 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: General/IapError
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Error: {0}'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: General/LoginError
+      TermType: 0
+      Description: 
+      Languages:
+      - Invalid username, password, email or user already exists
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: General/ErrorGeneric
+      TermType: 0
+      Description: 
+      Languages:
+      - Error
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: LoadingTips/Loading_Tip_1
       TermType: 0
       Description: 
@@ -1756,6 +1783,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: MainMenu/CustomGame
+      TermType: 0
+      Description: 
+      Languages:
+      - Custom Game
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: MainMenu/CustomMatchBotsToggle
       TermType: 0
       Description: 
@@ -1841,7 +1877,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Match ended by disconnection.
+      - Match ended by disconnection
       - 
       - 
       Flags: 000000
@@ -2293,7 +2329,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - What's your name Hero?
+      - What's your name Blaster?
       - 
       - 
       Flags: 000000
@@ -2522,7 +2558,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Quit
+      - Quit Game
       - 
       - 
       Flags: 000000
@@ -3367,6 +3403,69 @@ MonoBehaviour:
       Description: 
       Languages:
       - ' +{0} {1} IN {2}'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/DeleteAccountRequestMessage
+      TermType: 0
+      Description: 
+      Languages:
+      - Are you sure you want to delete your account ? This cannot be undone.
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/DeleteAccountConfirmMessage
+      TermType: 0
+      Description: 
+      Languages:
+      - Your account will be deleted soon. Your game will close now.
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/DeleteAccountConfirm
+      TermType: 0
+      Description: 
+      Languages:
+      - Account Deleted
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/BattleRoyaleDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - One life. Big map. Last player standing wins the match
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/DeathmatchDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Infinite respawns. First player to reach the max kills wins.
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/CustomGameDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - Create your own game
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/NewGameModes
+      TermType: 0
+      Description: 
+      Languages:
+      - New game modes available !
       - 
       - 
       Flags: 000000
@@ -9003,7 +9102,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Congratulations Hero! Craft spice claimed!
+      - Congratulations Blaster! Craft spice claimed!
       - 
       - user.ts
       Flags: 000000
@@ -9234,7 +9333,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1665671942896
+    Google_LastUpdatedVersion: 1666905196209
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

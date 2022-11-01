@@ -175,7 +175,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void CloseKillScreen()
 		{ 
-			_uiService.CloseUi<BattleRoyaleDeadScreenPresenter>(false, true);
+			_uiService.CloseUi<BattleRoyaleDeadScreenPresenter>(true);
 		}
 
 		private async void OpenSpectateHud()
@@ -194,7 +194,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			if (_uiService.HasUiPresenter<MatchmakingLoadingScreenPresenter>())
 			{
-				_uiService.CloseUi<MatchmakingLoadingScreenPresenter>(false, true);
+				_uiService.CloseUi<MatchmakingLoadingScreenPresenter>(true);
 			}
 		}
 	}

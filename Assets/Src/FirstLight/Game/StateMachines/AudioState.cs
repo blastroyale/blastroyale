@@ -100,20 +100,20 @@ namespace FirstLight.Game.StateMachines
 			gameModeCheck.OnExit(() => SetSimulationRunning(true));
 			
 			battleRoyale.Nest(_audioBrState.Setup).Target(postGameSpectatorCheck);
+			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
 			battleRoyale.Event(GameSimulationState.GameCompleteExitEvent).Target(postGameSpectatorCheck);
 			battleRoyale.Event(GameSimulationState.MatchEndedEvent).Target(postGameSpectatorCheck);
 			battleRoyale.Event(GameSimulationState.MatchQuitEvent).OnTransition(StopMusicInstant).Target(postGameSpectatorCheck);
 			battleRoyale.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
-			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
 			battleRoyale.OnExit(UnsubscribeMatchEvents);
 			battleRoyale.OnExit(() => SetSimulationRunning(false));
 			
 			deathmatch.Nest(_audioDmState.Setup).Target(postGameSpectatorCheck);
+			deathmatch.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
 			deathmatch.Event(GameSimulationState.GameCompleteExitEvent).Target(postGameSpectatorCheck);
 			deathmatch.Event(GameSimulationState.MatchEndedEvent).Target(postGameSpectatorCheck);
 			deathmatch.Event(GameSimulationState.MatchQuitEvent).OnTransition(StopMusicInstant).Target(postGameSpectatorCheck);
 			deathmatch.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
-			deathmatch.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
 			deathmatch.OnExit(UnsubscribeMatchEvents);
 			deathmatch.OnExit(() => SetSimulationRunning(false));
 

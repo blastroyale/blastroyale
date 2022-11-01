@@ -31,11 +31,11 @@ namespace FirstLight.Game.StateMachines
 
 		private Coroutine _csPoolTimerCoroutine;
 
-		public CoreLoopState(IGameServices services, IGameBackendNetworkService networkService, IGameUiService uiService, IGameLogic gameLogic, 
+		public CoreLoopState(IGameServices services, IDataService dataService, IGameBackendNetworkService networkService, IGameUiService uiService, IGameLogic gameLogic, 
 		                     IAssetAdderService assetAdderService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
-			_matchState = new MatchState(services, networkService, uiService, gameLogic, assetAdderService, statechartTrigger);
+			_matchState = new MatchState(services, dataService, networkService, uiService, gameLogic, assetAdderService, statechartTrigger);
 			_mainMenuState = new MainMenuState(services, uiService, gameLogic, assetAdderService, statechartTrigger);
 		}
 
@@ -48,20 +48,13 @@ namespace FirstLight.Game.StateMachines
 			var final = stateFactory.Final("Final");
 			var match = stateFactory.Nest("Match");
 			var mainMenu = stateFactory.Nest("Main Menu");
-			var connectionCheck = stateFactory.Choice("Connection Check");
-			var connectionWaitToMenu = stateFactory.State("Connection Wait to Menu");
 
-			initial.Transition().Target(connectionCheck);
+			initial.Transition().Target(mainMenu);
 			initial.OnExit(SubscribeEvents);
-			
-			connectionCheck.Transition().Condition(IsConnectedAndReady).Target(mainMenu);
-			connectionCheck.Transition().Target(connectionWaitToMenu);
-
-			connectionWaitToMenu.Event(NetworkState.PhotonMasterConnectedEvent).Target(mainMenu);
 			
 			mainMenu.Nest(_mainMenuState.Setup).Target(match);
 
-			match.Nest(_matchState.Setup).Target(connectionCheck);
+			match.Nest(_matchState.Setup).Target(mainMenu);
 
 			final.OnEnter(UnsubscribeEvents);
 		}
@@ -78,6 +71,11 @@ namespace FirstLight.Game.StateMachines
 		private bool IsConnectedAndReady()
 		{
 			return _services.NetworkService.QuantumClient.IsConnectedAndReady;
+		}
+
+		private void CallLeaveRoom()
+		{
+			_services.MessageBrokerService.Publish(new RoomLeaveClickedMessage());
 		}
 	}
 }

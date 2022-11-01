@@ -50,6 +50,8 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		protected override void OnEntityDestroyed(QuantumGame game)
 		{
+			if(game == null) return;
+			
 			var f = game.Frames.Verified;
 			var marker = f.GetSingleton<GameContainer>().PlayersData[_playerView.PlayerRef].PlayerDeathMarker;
 			

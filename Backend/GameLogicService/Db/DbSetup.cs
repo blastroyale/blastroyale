@@ -16,11 +16,11 @@ namespace Backend.Db
 		/// <summary>
 		/// Sets up database for the game server. Will setup any specific database dependencies that have to be injected.
 		/// </summary>
-		public static void Setup(IServiceCollection services, IServerConfiguration config)
+		public static void Setup(IServiceCollection services, IBaseServiceConfiguration config)
 		{
-			if (config.DbConnectionString == null)
+			if (string.IsNullOrEmpty(config.DbConnectionString))
 			{
-				throw new DataException("Database not configured. Please set 'SqlConnectionString' env var");
+				throw new DataException("Database not configured. Please set 'CONNECTION_STRING' env var");
 			}
 			services.AddDbContext<PlayersContext>(o => o.UseNpgsql(config.DbConnectionString));
 			services.AddSingleton<IServerMutex, PostgresMutex>();

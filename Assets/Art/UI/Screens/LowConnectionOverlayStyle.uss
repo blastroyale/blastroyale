@@ -1,0 +1,31 @@
+.background {
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+}
+
+.hidden {
+    display: none;
+}
+
+#PopupBackground {
+    width: 120px;
+    height: 105px;
+    background-color: rgba(0, 0, 0, 0);
+    top: -28%;
+    background-image: url('project://database/Assets/Art/UI/Sprites/LowConnetionOverlay/ConnectionBackBg.png?fileID=2800000&guid=f05123de9759b9246851e4d4e90ea664&type=3#ConnectionBackBg');
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#LowConnectionIcon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/LowConnetionOverlay/LowConnectionIcon.png?fileID=2800000&guid=cf92c5e7bfff44cff83b6af7c0e6c710&type=3#LowConnectionIcon');
+    background-color: rgba(0, 0, 0, 0);
+    -unity-background-scale-mode: scale-to-fit;
+}

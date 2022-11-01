@@ -82,7 +82,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Generates a new unique non-NFT piece of equipment from battle pass reward configs
 		/// </summary>
-		Equipment GenerateEquipmentFromBattlePassReward(BattlePassRewardConfig config);
+		Equipment GenerateEquipmentFromConfig(EquipmentRewardConfig config);
 	}
 
 	/// <inheritdoc />
@@ -227,7 +227,7 @@ namespace FirstLight.Game.Logic
 			return Loadout.Count >= GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>().NftRequiredEquippedForPlay;
 		}
 
-		public Equipment GenerateEquipmentFromBattlePassReward(BattlePassRewardConfig config)
+		public Equipment GenerateEquipmentFromConfig(EquipmentRewardConfig config)
 		{
 			var gameId = config.GameId;
 
@@ -245,7 +245,6 @@ namespace FirstLight.Game.Logic
 			var faction = config.Faction.Keys.ElementAt(GetWeightedRandomDictionaryIndex(config.Faction));
 			var material = config.Material.Keys.ElementAt(GetWeightedRandomDictionaryIndex(config.Material));
 			var edition = config.Edition.Keys.ElementAt(GetWeightedRandomDictionaryIndex(config.Edition));
-			
 			var maxDurability = (uint) GameLogic.RngLogic.Range(config.MaxDurability.Key, config.MaxDurability.Value);
 			
 			return new Equipment(gameId,

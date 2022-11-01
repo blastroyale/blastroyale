@@ -1,8 +1,8 @@
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
-using FirstLight.Game.Utils;
 using FirstLight.NotificationService;
+using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using NSubstitute;
@@ -33,6 +33,7 @@ namespace FirstLight.Tests.EditorMode
 		public virtual IThreadService ThreadService { get; }
 		public virtual IHelpdeskService HelpdeskService { get; }
 		public IGameModeService GameModeService { get; }
+		public IIAPService IAPService { get; }
 		public string QuitReason { get; set; }
 
 		public void QuitGame(string reason)
@@ -62,6 +63,7 @@ namespace FirstLight.Tests.EditorMode
 			ThreadService = new ThreadService();
 			HelpdeskService = new HelpdeskService();
 			GameModeService = new GameModeService(ConfigsProvider, ThreadService);
+			IAPService = null;
 			GuidService = new GuidService();
 			PlayfabService = new StubPlayfabService();
 			CommandService = new StubCommandService(gameLogic, dataProvider);

@@ -25,6 +25,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, OnUpdateView, onlyIfActiveAndEnabled: true);
 		}
 
+		protected override void HandleGameDestroyed(CallbackGameDestroyed callback)
+		{
+			// Override to remove gameObject destroy behavior.
+			// Collectable platforms should always be in the scene, never destroyed. Re-initialize instead only.
+		}
+
 		private void OnUpdateView(CallbackUpdateView callback)
 		{
 			var frame = callback.Game.Frames.Verified;

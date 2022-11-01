@@ -1,0 +1,172 @@
+:root {
+    --transition-duration: 0.3s;
+}
+
+.background {
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    transition-duration: var(--transition-duration);
+}
+
+.hidden {
+    background-color: rgba(0, 0, 0, 0);
+    display: none;
+    transition-property: display, background-color;
+    transition-duration: 0s, var(--transition-duration);
+    transition-delay: 0.4s, 0s;
+}
+
+.hidden .store-item {
+    translate: 0 -1000px;
+}
+
+.store-item {
+    width: 450px;
+    height: 700px;
+    background-color: rgba(0, 0, 0, 0);
+    overflow: visible;
+    border-width: 0;
+    transition-duration: var(--transition-duration);
+    transition-property: all;
+    translate: 0 0;
+    transition-timing-function: ease-in-out;
+}
+
+.store-item:active {
+    scale: 0.95 0.95;
+}
+
+.store-item__shadow {
+    border-radius: 20px;
+    background-color: rgb(0, 0, 0);
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: -10px;
+    bottom: -10px;
+}
+
+.store-item__body {
+    border-radius: 20px;
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.store-item__body__title {
+    margin: 0;
+    padding: 20px;
+    -unity-text-align: middle-center;
+    font-size: 50px;
+    -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Condensed%20Ultra%20Italic.otf?fileID=12800000&guid=6ff2428eb8a974c2281717afe377e3c6&type=3#Stawix - Amsi Pro Condensed Ultra Italic');
+    color: rgb(255, 255, 255);
+    width: 100%;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+}
+
+.store-item__body__title--rare {
+    background-color: rgb(9, 187, 255);
+}
+
+.store-item__body__title--epic {
+    background-color: rgb(186, 37, 25);
+}
+
+.store-item__body__title--legendary {
+    background-color: rgb(240, 209, 94);
+}
+
+.store-item__body__icon {
+    width: 280px;
+    height: 280px;
+}
+
+.store-item__body__icon--rare {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/CoreRare.png?fileID=21300000&guid=fde86d66aa4be49f6a78f43643b25628&type=3#CoreRare');
+}
+
+.store-item__body__icon--epic {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/CoreEpic.png?fileID=21300000&guid=d55583bc74b8640228c63e20879b101c&type=3#CoreEpic');
+}
+
+.store-item__body__icon--legendary {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/CoreLegendary.png?fileID=21300000&guid=436115e2e483240878a7960da24ecf96&type=3#CoreLegendary');
+}
+
+.store-item__body__price {
+    border-radius: 0;
+    width: 100%;
+    margin: 0;
+    padding: 20px;
+    -unity-text-align: middle-center;
+    font-size: 50px;
+    -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Condensed%20Ultra%20Italic.otf?fileID=12800000&guid=6ff2428eb8a974c2281717afe377e3c6&type=3#Stawix - Amsi Pro Condensed Ultra Italic');
+    color: rgb(255, 255, 255);
+    background-color: rgb(156, 98, 240);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+}
+
+.back-button {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/CloseIcon.png?fileID=21300000&guid=ea92b2966dd434cc8bae1e7656cf39bf&type=3#CloseIcon');
+    height: 88px;
+    width: 112px;
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    background-color: rgba(0, 0, 0, 0);
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    transition-duration: var(--transition-duration);
+    transition-timing-function: ease-in-out;
+}
+
+.hidden .back-button {
+    translate: 0 -200px;
+}
+
+#ItemRare {
+    transition-delay: 0s;
+}
+
+#ItemEpic {
+    transition-delay: 0.05s;
+}
+
+#ItemLegendary {
+    transition-delay: 0.1s;
+}
+
+.blocker {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.56);
+    align-items: center;
+    justify-content: center;
+}
+
+.blocker__title {
+    font-size: 100px;
+    -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Condensed%20Ultra%20Italic.otf?fileID=12800000&guid=6ff2428eb8a974c2281717afe377e3c6&type=3#Stawix - Amsi Pro Condensed Ultra Italic');
+    color: rgba(255, 255, 255, 255);
+}

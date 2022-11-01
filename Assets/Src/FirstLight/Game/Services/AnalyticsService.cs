@@ -32,6 +32,7 @@ namespace FirstLight.Game.Services
 		public static readonly string MatchChestOpenAction = "match_chest_open_action";
 		public static readonly string MatchChestItemDrop = "match_chest_item_drop";
 		public static readonly string Error = "error";
+		public static readonly string Purchase = "purchase";
 	}
 	
 	/// <summary>

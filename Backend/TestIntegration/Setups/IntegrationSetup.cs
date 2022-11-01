@@ -6,7 +6,7 @@ namespace IntegrationTests.Setups
 {
 	public class IntegrationSetup
 	{
-		public static IServerConfiguration GetIntegrationConfiguration()
+		public static IBaseServiceConfiguration GetIntegrationConfiguration()
 		{
 			return new StubConfiguration()
 			{

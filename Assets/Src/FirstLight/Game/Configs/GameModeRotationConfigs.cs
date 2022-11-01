@@ -15,7 +15,7 @@ namespace FirstLight.Game.Configs
 		public List<SlotWrapper> Slots;
 
 		[Serializable]
-		public struct GameModeEntry
+		public struct GameModeEntry : IEquatable<GameModeEntry>
 		{
 			public string GameModeId;
 			public MatchType MatchType;
@@ -32,6 +32,24 @@ namespace FirstLight.Game.Configs
 			{
 				return $"{GameModeId}, {MatchType}, Mutators({string.Join(",", Mutators)})";
 			}
+
+			public bool Equals(GameModeEntry other)
+			{
+				return GameModeId == other.GameModeId && MatchType == other.MatchType && Equals(Mutators, other.Mutators);
+			}
+
+			public override bool Equals(object obj)
+			{
+				return obj is GameModeEntry other && Equals(other);
+			}
+
+			public override int GetHashCode()
+			{
+				return HashCode.Combine(GameModeId, (int) MatchType, Mutators);
+			}
+			
+			public static bool operator !=(GameModeEntry obj1, GameModeEntry obj2) => !(obj1.Equals(obj2));
+			public static bool operator ==(GameModeEntry obj1, GameModeEntry obj2) => obj1.Equals(obj2);
 		}
 
 		[Serializable]

@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Cinemachine;
 using FirstLight.FLogger;
@@ -40,7 +41,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			input.SpecialButton1.started += SetActiveCamera;
 			input.SpecialButton1.canceled += SetActiveCamera;
 			input.CancelButton.canceled += SetActiveCamera;
-
+			
 			_matchServices.SpectateService.SpectatedPlayer.InvokeObserve(OnSpectatedPlayerChanged);
 			_services.MessageBrokerService.Subscribe<SpectateSetCameraMessage>(OnSpectateSetCameraMessage);
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStarted);

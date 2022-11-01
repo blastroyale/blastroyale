@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Logic;
+using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 
@@ -29,6 +32,13 @@ namespace FirstLight.Game.Services
 		/// rotating game modes change.
 		/// </summary>
 		IObservableListReader<GameModeInfo> Slots { get; }
+
+		/// <summary>
+		/// Checks if a given game-mode is a valid entry for the rotation.
+		/// Dates could be different hence not using `GameModeInfo` object as the same game mode
+		/// in different "seasons" might apply.
+		/// </summary>
+		bool IsRotationGameModeValid(GameModeRotationConfig.GameModeEntry gameMode);
 	}
 
 	public struct GameModeInfo
@@ -67,6 +77,21 @@ namespace FirstLight.Game.Services
 		public IObservableField<GameModeInfo> SelectedGameMode { get; }
 
 		public IObservableListReader<GameModeInfo> Slots => _slots;
+		public bool IsRotationGameModeValid(GameModeRotationConfig.GameModeEntry gameMode)
+		{
+			var config = _configsProvider.GetConfig<GameModeRotationConfig>();
+			foreach (var slot in config.Slots)
+			{
+				foreach (var entry in slot.Entries)
+				{
+					if (gameMode == entry)
+					{
+						return true;
+					}
+				}
+			}
+			return false;
+		}
 
 		public GameModeService(IConfigsProvider configsProvider, IThreadService threadService)
 		{
@@ -81,8 +106,9 @@ namespace FirstLight.Game.Services
 		public void Init()
 		{
 			var config = _configsProvider.GetConfig<GameModeRotationConfig>();
-			var firstGameMode = config.Slots[0][0];
-			SelectedGameMode.Value = new GameModeInfo(firstGameMode);
+			var firstSlotWrapper = config.Slots[0];
+			var gameModeEntry = firstSlotWrapper[0];
+			SelectedGameMode.Value = new GameModeInfo(gameModeEntry);
 
 			// Initially add empty objects which get updated by RefreshGameModes
 			for (var i = 0; i < config.Slots.Count; i++)

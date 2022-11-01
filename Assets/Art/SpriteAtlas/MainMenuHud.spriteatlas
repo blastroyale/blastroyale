@@ -124,6 +124,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 0b4a234e88ae7534dbf3125e851335e4, type: 3}
   - {fileID: 21300000, guid: 4036f65e5fe6a44adbd363b3240eefc2, type: 3}
   - {fileID: 21300000, guid: e89c739e4b69042788306cd569fa450b, type: 3}
+  - {fileID: 3286163911610860551, guid: 33082daec0b654a94b461bbabbc5488c, type: 3}
   - {fileID: 21300000, guid: 5ca855de7e12943dc935fc2d85028636, type: 3}
   - {fileID: 21300000, guid: b9ef66decbd9d47dabb594630c1a1e47, type: 3}
   - {fileID: 21300000, guid: ac1339de30ea4456583521d3b1a8e55d, type: 3}
@@ -213,6 +214,7 @@ SpriteAtlas:
   - HomeButtonFlipped
   - LootIconSkills
   - EquippedItem
+  - CardSprite
   - TopBarEnd
   - Group 28
   - Smear_Title_Black

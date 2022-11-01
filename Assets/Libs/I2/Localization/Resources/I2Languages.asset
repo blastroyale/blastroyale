@@ -9387,6 +9387,24 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITShared/ok
+      TermType: 0
+      Description: 
+      Languages:
+      - OK
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/email
+      TermType: 0
+      Description: 
+      Languages:
+      - EMAIL
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITLoginRegister/login
       TermType: 0
       Description: 
@@ -9401,6 +9419,15 @@ MonoBehaviour:
       Description: 
       Languages:
       - LOGIN WITH FIRSTLIGHT ID
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/password
+      TermType: 0
+      Description: 
+      Languages:
+      - PASSWORD
       - 
       - 
       Flags: 000000
@@ -9456,15 +9483,6 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITLoginRegister/email
-      TermType: 0
-      Description: 
-      Languages:
-      - EMAIL
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
     - Term: UITLoginRegister/username
       TermType: 0
       Description: 
@@ -9474,11 +9492,11 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITLoginRegister/password
+    - Term: UITLoginRegister/send_password_recovery
       TermType: 0
       Description: 
       Languages:
-      - PASSWORD
+      - Send Password Recovery Email
       - 
       - 
       Flags: 000000
@@ -9515,6 +9533,15 @@ MonoBehaviour:
       Description: 
       Languages:
       - RARE CORE
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITStore/iap_error
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Error: {0}'
       - 
       - 
       Flags: 000000
@@ -9573,6 +9600,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITHomeScreen/resource_pool_restock
+      TermType: 0
+      Description: 
+      Languages:
+      - ' +{0} {1} IN {2}'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITDisconnected/connection_lost
       TermType: 0
       Description: 
@@ -9618,6 +9654,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITGameModeSelection/custom_game_description
+      TermType: 0
+      Description: 
+      Languages:
+      - Create your own game
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -9636,7 +9681,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1667263340623
+    Google_LastUpdatedVersion: 1667264713582
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

@@ -72,10 +72,9 @@ namespace FirstLight.Game.StateMachines
 			initial.OnExit(SubscribeEvents);
 
 			loading.OnEnter(OpenMatchmakingScreen);
-			loading.OnEnter(CloseLoadingScreen);
 			loading.WaitingFor(LoadMatchAssets).Target(roomCheck);
 			
-			roomCheck.Transition().Condition(NetworkUtils.IsOfflineOrDisconnected).OnTransition(CloseMatchmakingScreen).Target(unloading);
+			roomCheck.Transition().Condition(NetworkUtils.IsOfflineOrDisconnected).Target(unloading);
 			roomCheck.Transition().Condition(IsRoomClosed).Target(playerReadyCheck);
 			roomCheck.Transition().Target(matchmaking);
 
@@ -94,17 +93,15 @@ namespace FirstLight.Game.StateMachines
 			gameSimulation.Nest(_gameSimulationState.Setup).Target(unloading);
 			gameSimulation.Event(NetworkState.PhotonCriticalDisconnectedEvent).OnTransition(OnDisconnectDuringSimulation).Target(disconnected);
 			
-			disconnected.OnEnter(CloseLoadingScreen);
 			disconnected.OnEnter(OpenDisconnectedScreen);
 			disconnected.Event(NetworkState.JoinedRoomEvent).Target(postDisconnectCheck);
 			disconnected.Event(NetworkState.JoinRoomFailedEvent).Target(final);
 			disconnected.Event(NetworkState.PhotonMasterConnectedEvent).Target(final);
 			disconnected.Event(NetworkState.DcScreenBackEvent).Target(final);
-			disconnected.OnExit(CloseDisconnectedScreen);
-			
+
 			postDisconnectCheck.Transition().Condition(IsRoomReadyForSimulation).Target(playerReadyCheck);
 			postDisconnectCheck.Transition().Target(roomCheck);
-			postDisconnectCheck.OnExit(CloseLoadingScreen);
+			postDisconnectCheck.OnExit(CloseCurrentScreen);
 			
 			unloading.OnEnter(OpenLoadingScreen);
 			unloading.OnEnter(UnloadAllMatchAssets);
@@ -131,7 +128,6 @@ namespace FirstLight.Game.StateMachines
 		private void OnDisconnectDuringMatchmaking()
 		{
 			_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.Matchmaking;
-			CloseMatchmakingScreen();
 		}
 		
 		private void OnDisconnectDuringFinalPreload()
@@ -150,14 +146,9 @@ namespace FirstLight.Game.StateMachines
 			var data = new MatchmakingLoadingScreenPresenter.StateData();
 
 			_services.AnalyticsService.MatchCalls.MatchInitiate();
-			_uiService.OpenUiAsync<MatchmakingLoadingScreenPresenter, MatchmakingLoadingScreenPresenter.StateData>(data);
+			_uiService.OpenScreen<MatchmakingLoadingScreenPresenter, MatchmakingLoadingScreenPresenter.StateData>(data);
 		}
 
-		private void CloseMatchmakingScreen()
-		{
-			_uiService.CloseUi<MatchmakingLoadingScreenPresenter>(true);
-		}
-		
 		private void OpenDisconnectedScreen()
 		{
 			var data = new DisconnectedScreenPresenter.StateData
@@ -166,22 +157,17 @@ namespace FirstLight.Game.StateMachines
 				BackClicked = () => _statechartTrigger(NetworkState.DcScreenBackEvent)
 			};
 
-			_uiService.OpenUiAsync<DisconnectedScreenPresenter, DisconnectedScreenPresenter.StateData>(data);
-		}
-		
-		private void CloseDisconnectedScreen()
-		{
-			_uiService.CloseUi<DisconnectedScreenPresenter>(true);
+			_uiService.OpenScreen<DisconnectedScreenPresenter, DisconnectedScreenPresenter.StateData>(data);
 		}
 
 		private void OpenLoadingScreen()
 		{
-			_uiService.OpenUi<LoadingScreenPresenter>();
+			_uiService.OpenScreen<LoadingScreenPresenter>();
 		}
 
-		private void CloseLoadingScreen()
+		private void CloseCurrentScreen()
 		{
-			_uiService.CloseUi<LoadingScreenPresenter>();
+			_uiService.CloseCurrentScreen();
 		}
 
 		private bool IsRoomClosed()

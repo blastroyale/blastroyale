@@ -9,6 +9,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Weapon_Mat_Flame
     second: {fileID: 2100000, guid: bfa7c28799dd24a419d1a78e5812cb02, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Weapon_Mat_Flame6
+    second: {fileID: 2100000, guid: bfa7c28799dd24a419d1a78e5812cb02, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

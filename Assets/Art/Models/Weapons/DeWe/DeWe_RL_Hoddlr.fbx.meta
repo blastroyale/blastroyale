@@ -1,9 +1,19 @@
 fileFormatVersion: 2
-guid: 1c21b11e51a8431428ad6cd386b3f608
+guid: 9874cdcc576755a4988738ea360c46c0
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Weapon_Mat_Flame
+    second: {fileID: 2100000, guid: bfa7c28799dd24a419d1a78e5812cb02, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Weapon_Mat_Flame3
+    second: {fileID: 2100000, guid: bfa7c28799dd24a419d1a78e5812cb02, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

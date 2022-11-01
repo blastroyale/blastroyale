@@ -3,7 +3,12 @@ guid: 6521feba275d9a142af8aa5b670f9f88
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Melee
+    second: {fileID: 2100000, guid: 060bc7058ab345446a1949a9dc9f677d, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

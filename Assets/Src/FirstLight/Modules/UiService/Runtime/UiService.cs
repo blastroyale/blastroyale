@@ -563,6 +563,7 @@ namespace FirstLight.UiService
 			}
 		}
 
+		/// <inheritdoc />
 		public async Task<T> OpenScreen<T, TData>(TData initialData) where T : class, IUiPresenterData where TData : struct
 		{
 			if (_lastScreen != null)

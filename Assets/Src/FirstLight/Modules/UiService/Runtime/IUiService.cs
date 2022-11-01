@@ -360,7 +360,9 @@ namespace FirstLight.UiService
 		
 		///<inheritdoc cref="OpenUi{T,TData}(TData, bool)"/>
 		/// <remarks>
-		/// Executes the call asynchronously while loading the Screen asset if needed
+		/// Executes the call asynchronously while loading the Screen asset if needed. It keeps track of the current open screen and
+		/// closes it if another one opens. This way it makes the new screen only open when the current one is finished closing.
+		/// Useful to let the current screen make an out animation before being replaced by a new screen.
 		/// </remarks>
 		Task<T> OpenScreen<T, TData>(TData initialData) 
 			where T : class, IUiPresenterData 

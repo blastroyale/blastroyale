@@ -92,8 +92,9 @@ namespace Quantum.Systems
 		private void SetupWeaponPool(Frame f, GameContainer* component)
 		{
 			var offPool = new List<GameId>(GameIdGroup.Weapon.GetIds());
-			var count = component->DropPool.WeaponPool.Length;
+			var count = f.Context.TryGetMutatorByType(MutatorType.HammerTime, out _) ? 0 : component->DropPool.WeaponPool.Length;
 			var rarity = 0;
+			var isHammerTimeMutator = f.Context.TryGetMutatorByType(MutatorType.HammerTime, out _);
 
 			offPool.Remove(GameId.Hammer);
 

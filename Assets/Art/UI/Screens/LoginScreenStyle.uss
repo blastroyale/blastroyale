@@ -17,13 +17,13 @@
     flex-grow: 1;
 }
 
-TextField > Label {
+LocalizedTextField > Label {
     margin-right: 15px;
     width: 150px;
     font-size: 33px;
 }
 
-Button {
+LocalizedButton {
     -unity-text-align: middle-center;
 }
 

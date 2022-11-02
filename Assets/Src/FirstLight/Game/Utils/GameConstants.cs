@@ -131,19 +131,27 @@ namespace FirstLight.Game.Utils
 			public const float SERVER_SELECT_CONNECTION_TIMEOUT = 8f;
 			public const int PLAYER_NAME_APPENDED_NUMBERS = 5;
 		}
+		
+
+		public static class PlayFab
+		{
+			public const string VERSION_KEY = nameof(Application.version);
+			public const string MAINTENANCE_KEY = "version block";
+		}
 
 		public static class Network
 		{
 			// Network state time settings
 			public const float NETWORK_QUANTUM_TICK_SECONDS = 0.1f;
-			public const float NETWORK_ATTEMPT_RECONNECT_SECONDS = 3f;
+			public const float NETWORK_ATTEMPT_RECONNECT_SECONDS = 0.5f;
+			
 			public const float CRITICAL_DISCONNECT_THRESHOLD_SECONDS = 10f;
 			
 			// Time control values
 			public const int PLAYER_LOBBY_TTL_MS = 0;
 			public const int PLAYER_GAME_TTL_MS = 99999999;
-			public const int EMPTY_ROOM_TTL_MS = 10000;
-			public const int EMPTY_ROOM_PLAYTEST_TTL_MS = 1000;
+			public const int EMPTY_ROOM_TTL_MS = 30000;
+			public const int EMPTY_ROOM_PLAYTEST_TTL_MS = 3000;
 
 			// Player properties
 			// Loading properties are split into PLAYER_PROPS_CORE_LOADED and PLAYER_PROPS_ALL_LOADED - this is because
@@ -208,9 +216,8 @@ namespace FirstLight.Game.Utils
 
 		public static class Controls
 		{
-			public const float DYNAMIC_JOYSTICK_THRESHOLD_MULT = 1.18f;
-			
-			public const float MOVEMENT_JOYSTICK_RADIUS_MULT = 0.95f;
+			public const float DYNAMIC_JOYSTICK_THRESHOLD_MULT = 1f;
+			public const float MOVEMENT_JOYSTICK_RADIUS_MULT = 1f;
 			
 			public const float SPECIAL_BUTTON_MAX_RADIUS_MULT = 1.75f;
 			public const float SPECIAL_BUTTON_FIRST_CANCEL_RADIUS_MULT = 1.15f;

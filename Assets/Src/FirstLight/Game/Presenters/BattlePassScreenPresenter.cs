@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -59,9 +60,9 @@ namespace FirstLight.Game.Presenters
 			CheckEnableRewardClaimButton();
 		}
 
-		protected override void OnClosed()
+		protected override async Task OnClosed()
 		{
-			base.OnClosed();
+			await base.OnClosed();
 			
 			_services.MessageBrokerService.Unsubscribe<BattlePassLevelUpMessage>(OnBattlePassLevelUp);
 			

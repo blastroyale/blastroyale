@@ -52,7 +52,7 @@ namespace FirstLight.Game.StateMachines
 			_authenticationState = new AuthenticationState(gameLogic, services, uiService, dataService, networkService, Trigger, _configsAdder);
 			_audioState = new AudioState(gameLogic, services, Trigger);
 			_networkState = new NetworkState(gameLogic, services, networkService, Trigger);
-			_coreLoopState = new CoreLoopState(services, networkService, uiService, gameLogic, assetAdderService, Trigger);
+			_coreLoopState = new CoreLoopState(services, dataService, networkService, uiService, gameLogic, assetAdderService, Trigger);
 			_statechart = new Statechart.Statechart(Setup);
 		}
 
@@ -111,10 +111,11 @@ namespace FirstLight.Game.StateMachines
 			_dataService.LoadData<AppData>();
 			_gameLogic.InitLocal();
 			
-			_gameLogic.AppLogic.SetDetailLevel(_gameLogic.AppLogic.CurrentDetailLevel);
-			_gameLogic.AppLogic.SetFpsMode(_gameLogic.AppLogic.UseHighFpsMode);
 			_services.AudioFxService.AudioListener.Listener.enabled = true;
 			
+			// TODO: REMOVE BELOW if works properly by uncommenting AppLogic Init lines
+			_gameLogic.AppLogic.SetDetailLevel();
+			_gameLogic.AppLogic.SetFpsTarget();
 			MMVibrationManager.SetHapticsActive(_gameLogic.AppLogic.IsHapticOn);
 		}
 		

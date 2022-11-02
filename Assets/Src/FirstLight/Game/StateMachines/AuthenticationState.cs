@@ -330,9 +330,9 @@ namespace FirstLight.Game.StateMachines
 			FLog.Verbose($"Logged in. PlayfabId={result.PlayFabId}");
 			//AppleApprovalHack(result);
 			
-			if(!titleData.TryGetValue(nameof(Application.version), out var titleVersion))
+			if(!titleData.TryGetValue(GameConstants.PlayFab.VERSION_KEY, out var titleVersion))
 			{
-				throw new Exception($"{nameof(Application.version)} not set in title data");
+				throw new Exception($"{GameConstants.PlayFab.VERSION_KEY} not set in title data");
 			}
 				
 			if (IsOutdated(titleVersion))
@@ -341,7 +341,7 @@ namespace FirstLight.Game.StateMachines
 				return;
 			}
 
-			if (titleData.TryGetValue($"{nameof(Application.version)} block", out var version) && IsOutdated(version))
+			if (titleData.TryGetValue(GameConstants.PlayFab.MAINTENANCE_KEY, out var version) && IsOutdated(version))
 			{
 				OpenGameBlockedDialog();
 				return;
@@ -371,7 +371,7 @@ namespace FirstLight.Game.StateMachines
 				var remoteStringConfig = titleData[PlayfabConfigurationProvider.ConfigName];
 				var serializer = new ConfigsSerializer();
 				var remoteConfig = serializer.Deserialize<PlayfabConfigurationProvider>(remoteStringConfig);
-				FLog.Verbose($"Updating config from version {_configsAdder.Version} to {remoteConfig.Version}");
+				FLog.Verbose($"Updating config from version {_configsAdder.Version.ToString()} to {remoteConfig.Version.ToString()}");
 				_services.MessageBrokerService.Publish(new ConfigurationUpdate()
 				{
 					NewConfig = remoteConfig,
@@ -432,10 +432,9 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayerDataObtained(ExecuteFunctionResult res, IWaitActivity activity)
 		{
-			
 			var serverResult = ModelSerializer.Deserialize<PlayFabResult<LogicResult>>(res.FunctionResult.ToString());
 			var data = serverResult.Result.Data;
-			if (data == null || data.Count == 0) // response too large, fetch directly
+			if (data == null || !data.ContainsKey(typeof(PlayerData).FullName)) // response too large, fetch directly
 			{
 				_services.PlayfabService.FetchServerState(state =>
 				{

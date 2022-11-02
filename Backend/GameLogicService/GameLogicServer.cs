@@ -101,7 +101,10 @@ namespace Backend
 				{
 					Result = new BackendLogicResult()
 					{
-						PlayFabId = playerId, Data = await _stateService.GetPlayerState(playerId)
+						PlayFabId = playerId, 
+						// TODO: Review data structures, response exceeded max playfab limit
+						// https://firstlightgames.atlassian.net/browse/BRG-1134
+						Data = new() // await _stateService.GetPlayerState(playerId) 
 					}
 				};
 			}

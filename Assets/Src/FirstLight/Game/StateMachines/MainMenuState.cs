@@ -146,8 +146,7 @@ namespace FirstLight.Game.StateMachines
 			homeMenu.Event(_leaderboardClickedEvent).Target(leaderboard);
 			homeMenu.Event(_battlePassClickedEvent).Target(battlePass);
 			homeMenu.Event(_storeClickedEvent).Target(store);
-			homeMenu.OnExit(ClosePlayMenuUI);
-			
+
 			playClickedCheck.Transition().Condition(EnoughNftToPlay).OnTransition(SendPlayReadyMessage).Target(roomWait);
 			playClickedCheck.Transition().Target(nftPlayRestricted);
 
@@ -158,16 +157,12 @@ namespace FirstLight.Game.StateMachines
 			chooseGameMode.OnEnter(OpenGameModeSelectionUI);
 			chooseGameMode.Event(_gameModeSelectedFinishedEvent).Target(homeMenu);
 			chooseGameMode.Event(_roomJoinCreateClickedEvent).Target(roomJoinCreateMenu);
-			chooseGameMode.OnExit(CloseGameModeSelectionUI);
-			
+
 			leaderboard.WaitingFor(OpenLeaderboardUI).Target(homeMenu);
-			leaderboard.OnExit(CloseLeaderboardUI);
-			
+
 			battlePass.WaitingFor(OpenBattlePassUI).Target(homeMenu);
-			battlePass.OnExit(CloseBattlePassUI);
-			
+
 			store.WaitingFor(OpenStore).Target(homeMenu);
-			store.OnExit(CloseStore);
 
 			enterNameDialog.Nest(_enterNameState.Setup).Target(homeMenu);
 			
@@ -178,14 +173,12 @@ namespace FirstLight.Game.StateMachines
 			lootMenu.Nest(_lootMenuState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
 
 			heroesMenu.OnEnter(OpenPlayerSkinScreenUI);
-			heroesMenu.OnExit(ClosePlayerSkinScreenUI);
 
 			roomJoinCreateMenu.OnEnter(OpenRoomJoinCreateMenuUI);
 			roomJoinCreateMenu.Event(_playClickedEvent).Target(roomWait);
 			roomJoinCreateMenu.Event(_roomJoinCreateCloseClickedEvent).Target(chooseGameMode);
 			roomJoinCreateMenu.Event(NetworkState.JoinRoomFailedEvent).Target(chooseGameMode);
 			roomJoinCreateMenu.Event(NetworkState.CreateRoomFailedEvent).Target(chooseGameMode);
-			roomJoinCreateMenu.OnExit(CloseRoomJoinCreateMenuUI);
 		}
 
 		private bool HasDefaultName()
@@ -288,7 +281,7 @@ namespace FirstLight.Game.StateMachines
 				}
 			};
 			
-			_uiService.OpenUiAsync<GameModeSelectionPresenter, GameModeSelectionPresenter.StateData>(data);
+			_uiService.OpenScreen<GameModeSelectionPresenter, GameModeSelectionPresenter.StateData>(data);
 		}
 
 		private void CloseGameModeSelectionUI()
@@ -305,7 +298,7 @@ namespace FirstLight.Game.StateMachines
 				BackClicked = () => { cacheActivity.Complete(); }
 			};
 			
-			_uiService.OpenUiAsync<LeaderboardScreenPresenter, LeaderboardScreenPresenter.StateData>(data);
+			_uiService.OpenScreen<LeaderboardScreenPresenter, LeaderboardScreenPresenter.StateData>(data);
 		}
 
 		private void CloseLeaderboardUI()
@@ -323,7 +316,7 @@ namespace FirstLight.Game.StateMachines
 				UiService = _uiService
 			};
 			
-			_uiService.OpenUiAsync<BattlePassScreenPresenter, BattlePassScreenPresenter.StateData>(data);
+			_uiService.OpenScreen<BattlePassScreenPresenter, BattlePassScreenPresenter.StateData>(data);
 		}
 
 		private void OpenStore(IWaitActivity activity)
@@ -336,7 +329,7 @@ namespace FirstLight.Game.StateMachines
 				IapProcessingFinished = OnIapProcessingFinished
 			};
 
-			_uiService.OpenUiAsync<StoreScreenPresenter, StoreScreenPresenter.StateData>(data);
+			_uiService.OpenScreen<StoreScreenPresenter, StoreScreenPresenter.StateData>(data);
 		}
 
 		private void CloseStore()
@@ -367,7 +360,7 @@ namespace FirstLight.Game.StateMachines
 				OnCloseClicked = OnTabClickedCallback<HomeScreenPresenter>,
 			};
 
-			_uiService.OpenUiAsync<PlayerSkinScreenPresenter, PlayerSkinScreenPresenter.StateData>(data);
+			_uiService.OpenScreen<PlayerSkinScreenPresenter, PlayerSkinScreenPresenter.StateData>(data);
 		}
 
 		private void ClosePlayerSkinScreenUI()
@@ -383,7 +376,7 @@ namespace FirstLight.Game.StateMachines
 				PlayClicked = PlayButtonClicked
 			};
 
-			_uiService.OpenUiAsync<RoomJoinCreateScreenPresenter, RoomJoinCreateScreenPresenter.StateData>(data);
+			_uiService.OpenScreen<RoomJoinCreateScreenPresenter, RoomJoinCreateScreenPresenter.StateData>(data);
 		}
 
 		private void CloseRoomJoinCreateMenuUI()
@@ -406,7 +399,7 @@ namespace FirstLight.Game.StateMachines
 				OnStoreClicked = () => _statechartTrigger(_storeClickedEvent)
 			};
 
-			_uiService.OpenUi<HomeScreenPresenter, HomeScreenPresenter.StateData>(data);
+			_uiService.OpenScreen<HomeScreenPresenter, HomeScreenPresenter.StateData>(data);
 			_services.MessageBrokerService.Publish(new PlayScreenOpenedMessage());
 		}
 		
@@ -448,7 +441,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OpenLoadingScreen()
 		{
-			_uiService.OpenUi<LoadingScreenPresenter>();
+			_uiService.OpenScreen<LoadingScreenPresenter>();
 		}
 
 		private void InvalidScreen()

@@ -11,7 +11,7 @@ namespace Quantum
 	public partial class ShouldPerformSkydiveDecision : HFSMDecision
 	{
 		/// <inheritdoc />
-		public override unsafe bool Decide(Frame f, EntityRef e)
+		public override unsafe bool Decide(Frame f, EntityRef e, ref AIContext aiContext)
 		{
 			return f.Context.GameModeConfig.SkydiveSpawn;
 		}

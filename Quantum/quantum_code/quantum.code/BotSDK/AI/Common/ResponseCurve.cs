@@ -13,6 +13,10 @@ namespace Quantum
 
 		[BotSDKHidden]
 		public FPAnimationCurve Curve;
+		
+		public bool Clamp01 = true;
+
+		public FP MultiplyFactor = 1;
 
 		// ========== AssetObject INTERFACE ===========================================================================
 
@@ -23,22 +27,25 @@ namespace Quantum
 
 		// ========== AIFunctionFP INTERFACE ==========================================================================
 
-		public override FP Execute(Frame frame, EntityRef entity)
+		public override FP Execute(Frame frame, EntityRef entity, ref AIContext aiContext)
 		{
-			return Execute((FrameThreadSafe)frame, entity);
+			return Execute((FrameThreadSafe)frame, entity, ref aiContext);
 		}
 
-		public override FP Execute(FrameThreadSafe frame, EntityRef entity = default)
+		public override FP Execute(FrameThreadSafe frame, EntityRef entity, ref AIContext aiContext)
 		{
 			if (Input.FunctionRef == default) return 0;
 
-			FP input = Input.ResolveFunction(frame, entity);
+			FP input = Input.ResolveFunction(frame, entity, ref aiContext);
 			FP result = Curve.Evaluate(input);
 
-			if (result > 1) result = 1;
-			else if (result < 0) result = 0;
+			if(Clamp01 == true)
+			{
+				if (result > 1) result = 1;
+				else if (result < 0) result = 0;
+			}
 
-			return result;
+			return result * MultiplyFactor;
 		}
 	}
 }

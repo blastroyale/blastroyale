@@ -40,9 +40,9 @@ namespace Quantum
 		/// Called whenever the BT execution includes this node as part of the current context
 		/// </summary>
 		/// <param name="btParams"></param>
-		public virtual void OnEnter(BTParams btParams) { }
+		public virtual void OnEnter(BTParams btParams, ref AIContext aiContext) { }
 
-		public virtual void OnEnterRunning(BTParams btParams) { }
+		public virtual void OnEnterRunning(BTParams btParams, ref AIContext aiContext) { }
 
 		/// <summary>
 		/// Called when traversing the tree upwards and the node is already finished with its job.
@@ -51,7 +51,7 @@ namespace Quantum
 		/// Dynamic Composites also remove themselves
 		/// </summary>
 		/// <param name="btParams"></param>
-		public virtual void OnExit(BTParams btParams) { }
+		public virtual void OnExit(BTParams btParams, ref AIContext aiContext) { }
 
 		public virtual void OnAbort(BTParams btParams)
 		{
@@ -61,7 +61,7 @@ namespace Quantum
 		/// Called when getting out of a sub-branch and this node is being discarded
 		/// </summary>
 		/// <param name="btParams"></param>
-		public unsafe virtual void OnReset(BTParams btParams)
+		public unsafe virtual void OnReset(BTParams btParams, ref AIContext aiContext)
 		{
 			SetStatus(btParams.FrameThreadSafe, BTStatus.Inactive, btParams.Agent);
 		}
@@ -73,12 +73,12 @@ namespace Quantum
 		/// </summary>
 		/// <param name="btParams"></param>
 		/// <returns></returns>
-		public virtual Boolean DryRun(BTParams btParams)
+		public virtual Boolean DryRun(BTParams btParams, ref AIContext aiContext)
 		{
 			return false;
 		}
 
-		public virtual Boolean OnDynamicRun(BTParams btParams)
+		public virtual Boolean OnDynamicRun(BTParams btParams, ref AIContext aiContext)
 		{
 			return true;
 		}
@@ -91,7 +91,7 @@ namespace Quantum
 		/// </summary>
 		/// <param name="btParams"></param>
 		/// <returns></returns>
-		protected abstract BTStatus OnUpdate(BTParams btParams);
+		protected abstract BTStatus OnUpdate(BTParams btParams, ref AIContext aiContext);
 
 		// ========== PUBLIC METHODS ==================================================================================
 
@@ -126,7 +126,7 @@ namespace Quantum
 			}
 		}
 
-		public BTStatus RunUpdate(BTParams btParams, bool continuingAbort = false)
+		public BTStatus RunUpdate(BTParams btParams, ref AIContext aiContext, bool continuingAbort = false)
 		{
 			var oldStatus = GetStatus(btParams.FrameThreadSafe, btParams.Agent);
 
@@ -149,13 +149,13 @@ namespace Quantum
 			// we already executed OnEnter before, so we don't repeat it
 			if (oldStatus == BTStatus.Inactive && continuingAbort == false)
 			{
-				OnEnter(btParams);
+				OnEnter(btParams, ref aiContext);
 			}
 
 			var newStatus = BTStatus.Failure;
 			try
 			{
-				newStatus = OnUpdate(btParams);
+				newStatus = OnUpdate(btParams, ref aiContext);
 
 				if (btParams.Agent->IsAborting)
 				{
@@ -165,14 +165,14 @@ namespace Quantum
 				// Used for debugging purposes
 				if (newStatus == BTStatus.Success)
 				{
-					BTManager.OnNodeSuccess?.Invoke(btParams.Entity, Guid.Value);
-					BTManager.OnNodeExit?.Invoke(btParams.Entity, Guid.Value);
+					BTManager.OnNodeSuccess?.Invoke(btParams.Entity, Guid.Value, btParams.IsCompound);
+					BTManager.OnNodeExit?.Invoke(btParams.Entity, Guid.Value, btParams.IsCompound);
 				}
 
 				if (newStatus == BTStatus.Failure)
 				{
-					BTManager.OnNodeFailure?.Invoke(btParams.Entity, Guid.Value);
-					BTManager.OnNodeExit?.Invoke(btParams.Entity, Guid.Value);
+					BTManager.OnNodeFailure?.Invoke(btParams.Entity, Guid.Value, btParams.IsCompound);
+					BTManager.OnNodeExit?.Invoke(btParams.Entity, Guid.Value, btParams.IsCompound);
 				}
 			}
 			catch (Exception e)
@@ -186,7 +186,7 @@ namespace Quantum
 			if ((newStatus == BTStatus.Running || newStatus == BTStatus.Success) &&
 					(oldStatus == BTStatus.Failure || oldStatus == BTStatus.Inactive))
 			{
-				OnEnterRunning(btParams);
+				OnEnterRunning(btParams, ref aiContext);
 			}
 
 			if (newStatus == BTStatus.Running && NodeType == BTNodeType.Leaf)

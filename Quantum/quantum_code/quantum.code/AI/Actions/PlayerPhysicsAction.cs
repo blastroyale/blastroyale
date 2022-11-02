@@ -14,7 +14,7 @@ namespace Quantum
 	public unsafe class PlayerPhysicsAction : AIAction
 	{
 		/// <inheritdoc />
-		public override void Update(Frame f, EntityRef e)
+		public override void Update(Frame f, EntityRef e, ref AIContext aiContext)
 		{
 			f.Unsafe.GetPointer<CharacterController3D>(e)->Move(f, e, FPVector3.Zero);
 		}

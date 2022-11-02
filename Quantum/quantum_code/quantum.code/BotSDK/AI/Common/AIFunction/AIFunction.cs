@@ -1,15 +1,15 @@
 ﻿namespace Quantum
 {
-	public unsafe abstract class AIFunction<T> : AIFunction
+	public unsafe class AIFunction<T> : AIFunction
 	{
-		public virtual T Execute(Frame frame, EntityRef entity)
+		public virtual T Execute(Frame frame, EntityRef entity, ref AIContext aiContext)
 		{
 			return default;
 		}
 
-		public virtual T Execute(FrameThreadSafe frame, EntityRef entity)
+		public virtual T Execute(FrameThreadSafe frame, EntityRef entity, ref AIContext aiContext)
 		{
-			return Execute((Frame)frame, entity);
+			return Execute((Frame)frame, entity, ref aiContext);
 		}
 	}
 }

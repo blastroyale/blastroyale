@@ -8,7 +8,7 @@ namespace Quantum
 	{
 		// ========== AIFunction INTERFACE ============================================================================
 
-		public override FP Execute(Frame frame, EntityRef entity)
+		public override FP Execute(Frame frame, EntityRef entity, ref AIContext aiContext)
 		{
 			return FP._0;
 		}

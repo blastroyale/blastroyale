@@ -10,7 +10,7 @@ namespace Quantum
 	public unsafe class AreSpecialsEmptyDecision : HFSMDecision
 	{
 		/// <inheritdoc />
-		public override bool Decide(Frame f, EntityRef e)
+		public override bool Decide(Frame f, EntityRef e, ref AIContext aiContext)
 		{
 			var specials = f.Unsafe.GetPointer<PlayerCharacter>(e)->WeaponSlot->Specials;
 

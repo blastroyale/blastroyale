@@ -90,7 +90,8 @@ namespace FirstLight.Game.Presenters
 						ButtonOnClick = () => _services.GenericDialogService.CloseDialog()
 					};
 
-					_services.GenericDialogService.OpenDialog(ScriptLocalization.MainMenu.DisconnectedMatchEndInfo,
+					_services.GenericDialogService.OpenChoiceDialog(ScriptLocalization.UITShared.info,
+						ScriptLocalization.MainMenu.DisconnectedMatchEndInfo,
 						false, confirmButton);
 				}
 			}

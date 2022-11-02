@@ -1097,13 +1097,6 @@ namespace I2.Loc
 			public static string tap_to_choose 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/tap_to_choose"); } }
 		}
 
-		public static class UITGeneric
-		{
-			public static string close 		{ get{ return LocalizationManager.GetTranslation ("UITGeneric/close"); } }
-			public static string empty 		{ get{ return LocalizationManager.GetTranslation ("UITGeneric/empty"); } }
-			public static string ok 		{ get{ return LocalizationManager.GetTranslation ("UITGeneric/ok"); } }
-		}
-
 		public static class UITHomeScreen
 		{
 			public static string blast_pass 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/blast_pass"); } }
@@ -1134,8 +1127,13 @@ namespace I2.Loc
 		{
 			public static string battle_royale 		{ get{ return LocalizationManager.GetTranslation ("UITShared/battle_royale"); } }
 			public static string casual 		{ get{ return LocalizationManager.GetTranslation ("UITShared/casual"); } }
+			public static string close 		{ get{ return LocalizationManager.GetTranslation ("UITShared/close"); } }
 			public static string coming_soon 		{ get{ return LocalizationManager.GetTranslation ("UITShared/coming_soon"); } }
+			public static string confirmation 		{ get{ return LocalizationManager.GetTranslation ("UITShared/confirmation"); } }
 			public static string deathmatch 		{ get{ return LocalizationManager.GetTranslation ("UITShared/deathmatch"); } }
+			public static string error 		{ get{ return LocalizationManager.GetTranslation ("UITShared/error"); } }
+			public static string info 		{ get{ return LocalizationManager.GetTranslation ("UITShared/info"); } }
+			public static string input 		{ get{ return LocalizationManager.GetTranslation ("UITShared/input"); } }
 			public static string main_menu 		{ get{ return LocalizationManager.GetTranslation ("UITShared/main_menu"); } }
 			public static string ok 		{ get{ return LocalizationManager.GetTranslation ("UITShared/ok"); } }
 			public static string or 		{ get{ return LocalizationManager.GetTranslation ("UITShared/or"); } }
@@ -2248,13 +2246,6 @@ namespace I2.Loc
 		    public const string tap_to_choose = "UITGameModeSelection/tap_to_choose";
 		}
 
-		public static class UITGeneric
-		{
-		    public const string close = "UITGeneric/close";
-		    public const string empty = "UITGeneric/empty";
-		    public const string ok = "UITGeneric/ok";
-		}
-
 		public static class UITHomeScreen
 		{
 		    public const string blast_pass = "UITHomeScreen/blast_pass";
@@ -2285,8 +2276,13 @@ namespace I2.Loc
 		{
 		    public const string battle_royale = "UITShared/battle_royale";
 		    public const string casual = "UITShared/casual";
+		    public const string close = "UITShared/close";
 		    public const string coming_soon = "UITShared/coming_soon";
+		    public const string confirmation = "UITShared/confirmation";
 		    public const string deathmatch = "UITShared/deathmatch";
+		    public const string error = "UITShared/error";
+		    public const string info = "UITShared/info";
+		    public const string input = "UITShared/input";
 		    public const string main_menu = "UITShared/main_menu";
 		    public const string ok = "UITShared/ok";
 		    public const string or = "UITShared/or";

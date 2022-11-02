@@ -258,7 +258,9 @@ namespace FirstLight.Game.StateMachines
 				ButtonText = ScriptLocalization.General.OK,
 				ButtonOnClick = () => { cacheActivity.Complete(); }
 			};
-			_services.GenericDialogService.OpenDialog(ScriptLocalization.MainMenu.NftRestrictionText, false,
+
+			_services.GenericDialogService.OpenChoiceDialog(ScriptLocalization.UITShared.error,
+				ScriptLocalization.MainMenu.NftRestrictionText, false,
 				confirmButton);
 		}
 		

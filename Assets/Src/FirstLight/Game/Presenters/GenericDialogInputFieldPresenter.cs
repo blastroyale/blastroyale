@@ -23,7 +23,7 @@ namespace FirstLight.Game.Presenters
 		/// Shows the input text field
 		/// If defined can call the <paramref name="closeCallback"/> when the Dialog is closed.
 		/// </summary>
-		public void SetInfo(string title, string initialInputText, GenericDialogButton<string> button, 
+		public void SetInfo(string title, string desc, string initialInputText, GenericDialogButton<string> button, 
 		                    bool showCloseButton, TMP_InputField.ContentType contentType = TMP_InputField.ContentType.Standard, Action<string> closeCallback = null)
 		{
 			var confirmButton = new GenericDialogButton
@@ -37,7 +37,7 @@ namespace FirstLight.Game.Presenters
 			_confirmButton = button;
 			_closeCallback = closeCallback;
 			
-			SetBaseInfo(title, showCloseButton, confirmButton, OnDeclineButtonClicked);
+			SetBaseInfo(title, desc, showCloseButton, confirmButton, OnDeclineButtonClicked);
 		}
 
 		private void OnConfirmButtonClicked()

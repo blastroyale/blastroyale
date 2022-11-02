@@ -452,14 +452,14 @@ namespace FirstLight.Game.Presenters
 
 		private void OnLeaveRoomClicked()
 		{
-			var title = string.Format(ScriptLocalization.MainMenu.LeaveMatchMessage);
+			var desc = string.Format(ScriptLocalization.MainMenu.LeaveMatchMessage);
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.Yes,
 				ButtonOnClick = () => _services.MessageBrokerService.Publish(new RoomLeaveClickedMessage())
 			};
 
-			_services.GenericDialogService.OpenDialog(title, true, confirmButton);
+			_services.GenericDialogService.OpenChoiceDialog(ScriptLocalization.UITShared.confirmation, desc, true, confirmButton);
 		}
 
 		private void ReadyToPlay()
@@ -516,7 +516,7 @@ namespace FirstLight.Game.Presenters
 				return;
 			}
 
-			var title = string.Format(ScriptLocalization.MainMenu.MatchmakingKickConfirm, player.NickName).ToUpper();
+			var desc = string.Format(ScriptLocalization.MainMenu.MatchmakingKickConfirm, player.NickName).ToUpper();
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.Yes.ToUpper(),
@@ -527,7 +527,7 @@ namespace FirstLight.Game.Presenters
 				}
 			};
 
-			_services.GenericDialogService.OpenDialog(title, true, confirmButton, DeactivateKickOverlay);
+			_services.GenericDialogService.OpenChoiceDialog(ScriptLocalization.UITShared.confirmation, desc, true, confirmButton, DeactivateKickOverlay);
 		}
 
 		private void OnSpectatorToggle(bool isOn)

@@ -94,7 +94,7 @@ namespace FirstLight.Game.Presenters
 				FLog.Error(JsonConvert.SerializeObject(error.ErrorDetails));
 			}
 
-			_services.GenericDialogService.OpenDialog(error.ErrorMessage, false, confirmButton);
+			_services.GenericDialogService.OpenChoiceDialog(ScriptLocalization.UITShared.error, error.ErrorMessage, false, confirmButton);
 			
 			Data.BackClicked();
 		}

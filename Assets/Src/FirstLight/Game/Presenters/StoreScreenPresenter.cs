@@ -76,7 +76,7 @@ namespace FirstLight.Game.Presenters
 				ButtonOnClick = () => _gameServices.GenericDialogService.CloseDialog()
 			};
 
-			_gameServices.GenericDialogService.OpenDialog(
+			_gameServices.GenericDialogService.OpenChoiceDialog(ScriptLocalization.UITShared.error, 
 				string.Format(ScriptLocalization.UITStore.iap_error, msg.Reason.ToString()), false, confirmButton);
 #else
 			var button = new AlertButton

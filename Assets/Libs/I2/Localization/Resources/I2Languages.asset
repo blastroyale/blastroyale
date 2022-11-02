@@ -9396,16 +9396,25 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITGeneric/ok
+    - Term: UITShared/info
       TermType: 0
       Description: 
       Languages:
-      - OK
+      - INFO
       - 
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITGeneric/close
+    - Term: UITShared/error
+      TermType: 0
+      Description: 
+      Languages:
+      - ERROR
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITShared/close
       TermType: 0
       Description: 
       Languages:
@@ -9414,11 +9423,20 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITGeneric/empty
+    - Term: UITShared/confirmation
       TermType: 0
       Description: 
       Languages:
+      - CONFIRMATION
       - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITShared/input
+      TermType: 0
+      Description: 
+      Languages:
+      - INPUT
       - 
       - 
       Flags: 000000
@@ -9717,7 +9735,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1667402512843
+    Google_LastUpdatedVersion: 1667409648792
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

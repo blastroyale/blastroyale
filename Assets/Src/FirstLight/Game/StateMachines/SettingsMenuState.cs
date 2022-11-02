@@ -196,7 +196,7 @@ namespace FirstLight.Game.StateMachines
 				ButtonText = ScriptLocalization.General.OK,
 				ButtonOnClick = _services.GenericDialogService.CloseDialog
 			};
-			_services.GenericDialogService.OpenDialog(error.ErrorMessage, false, confirmButton);
+			_services.GenericDialogService.OpenChoiceDialog(ScriptLocalization.UITShared.error, error.ErrorMessage, false, confirmButton);
 			SetConnectIdDim(false);
 		}
 
@@ -223,7 +223,7 @@ namespace FirstLight.Game.StateMachines
 				ButtonOnClick = _services.GenericDialogService.CloseDialog
 			};
 
-			_services.GenericDialogService.OpenDialog(title, false, confirmButton);
+			_services.GenericDialogService.OpenChoiceDialog(ScriptLocalization.UITShared.info, title, false, confirmButton);
 		}
 		
 		private void OnUnlinkComplete()
@@ -232,14 +232,14 @@ namespace FirstLight.Game.StateMachines
 			_services.HelpdeskService.Logout();
 			
 #if UNITY_EDITOR
-			var title = string.Format(ScriptLocalization.MainMenu.LogoutSuccessDesc);
+			var desc = string.Format(ScriptLocalization.MainMenu.LogoutSuccessDesc);
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.MainMenu.QuitGameButton,
 				ButtonOnClick = () => { _services.QuitGame("Closing due to logout"); }
 			};
 
-			_services.GenericDialogService.OpenDialog(title, false, confirmButton);
+			_services.GenericDialogService.OpenChoiceDialog(ScriptLocalization.UITShared.info, desc, false, confirmButton);
 #else
 				var button = new FirstLight.NativeUi.AlertButton
 				{
@@ -264,7 +264,7 @@ namespace FirstLight.Game.StateMachines
 				ButtonOnClick = () => { _statechartTrigger(_logoutFailedEvent); }
 			};
 
-			_services.GenericDialogService.OpenDialog(msg.Message, false, confirmButton);
+			_services.GenericDialogService.OpenChoiceDialog(ScriptLocalization.UITShared.error, msg.Message, false, confirmButton);
 #else
 			
 			var button = new NativeUi.AlertButton

@@ -165,7 +165,7 @@ namespace FirstLight.Game.StateMachines
 				ButtonOnClick = _services.GenericDialogService.CloseDialog
 			};
 			
-			_services.GenericDialogService.OpenDialog(ScriptLocalization.MainMenu.DisconnectedMatchEndInfo.ToUpper(), false, confirmButton);
+			_services.GenericDialogService.OpenChoiceDialog(ScriptLocalization.UITShared.info, ScriptLocalization.MainMenu.DisconnectedMatchEndInfo.ToUpper(), false, confirmButton);
 		}
 
 		private void SubscribeEvents()
@@ -256,7 +256,8 @@ namespace FirstLight.Game.StateMachines
 				ButtonOnClick = QuitGameConfirmedClicked
 			};
 
-			_services.GenericDialogService.OpenDialog(ScriptLocalization.AdventureMenu.AreYouSureQuit,
+			_services.GenericDialogService.OpenChoiceDialog(ScriptLocalization.UITShared.confirmation,
+				ScriptLocalization.AdventureMenu.AreYouSureQuit,
 				true, confirmButton);
 		}
 

@@ -136,26 +136,26 @@ namespace FirstLight.Game.StateMachines
 				OnKickPlayerEventReceived((int) photonEvent.CustomData, photonEvent.Sender);
 			}
 		}
-		
+
 		private void OnKickPlayerEventReceived(int userIdToLeave, int senderIndex)
 		{
 			if (_networkService.QuantumClient.LocalPlayer.ActorNumber != userIdToLeave ||
-			    !_networkService.QuantumClient.InRoom || 
-			    _networkService.QuantumClient.CurrentRoom.MasterClientId != senderIndex)
+				!_networkService.QuantumClient.InRoom ||
+				_networkService.QuantumClient.CurrentRoom.MasterClientId != senderIndex)
 			{
 				return;
 			}
 
 			LeaveRoom();
-				
-				var confirmButton = new GenericDialogButton
-				{
-					ButtonText = ScriptLocalization.General.OK.ToUpper(),
-					ButtonOnClick = _services.GenericDialogService.CloseDialog
-				};
 
-				_services.GenericDialogService.OpenDialog(ScriptLocalization.MainMenu.MatchmakingKickedNotification.ToUpper(), false, confirmButton);
-			
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.General.OK.ToUpper(),
+				ButtonOnClick = _services.GenericDialogService.CloseDialog
+			};
+
+			_services.GenericDialogService.OpenChoiceDialog(ScriptLocalization.UITShared.info,
+				ScriptLocalization.MainMenu.MatchmakingKickedNotification.ToUpper(), false, confirmButton);
 		}
 
 		private void UpdateLastDisconnectLocation()
@@ -283,13 +283,13 @@ namespace FirstLight.Game.StateMachines
 		{
 			FLog.Info($"OnCreateRoomFailed: {returnCode.ToString()} - {message}");
 
-			var title = string.Format(ScriptLocalization.MainMenu.RoomError, message);
+			var desc = string.Format(ScriptLocalization.MainMenu.RoomError, message);
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.OK,
 				ButtonOnClick = _services.GenericDialogService.CloseDialog
 			};
-			_services.GenericDialogService.OpenDialog(title, false, confirmButton);
+			_services.GenericDialogService.OpenChoiceDialog(ScriptLocalization.UITShared.error, desc, false, confirmButton);
 
 			_statechartTrigger(CreateRoomFailedEvent);
 		}
@@ -336,13 +336,13 @@ namespace FirstLight.Game.StateMachines
 		{
 			FLog.Info($"OnJoinRoomFailed: {returnCode.ToString()} - {message}");
 
-			var title = string.Format(ScriptLocalization.MainMenu.RoomError, message);
+			var desc = string.Format(ScriptLocalization.MainMenu.RoomError, message);
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.OK,
 				ButtonOnClick = _services.GenericDialogService.CloseDialog
 			};
-			_services.GenericDialogService.OpenDialog(title, false, confirmButton);
+			_services.GenericDialogService.OpenChoiceDialog(ScriptLocalization.UITShared.error, desc, false, confirmButton);
 
 			_statechartTrigger(JoinRoomFailedEvent);
 		}

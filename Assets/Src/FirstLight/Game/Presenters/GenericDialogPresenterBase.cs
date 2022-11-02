@@ -44,7 +44,7 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		protected void SetBaseInfo(string title, bool showCloseButton, GenericDialogButton button, Action closeCallback)
+		protected void SetBaseInfo(string title, string desc, bool showCloseButton, GenericDialogButton button, Action closeCallback)
 		{
 			TitleText.text = title;
 			_closeCallback = closeCallback;

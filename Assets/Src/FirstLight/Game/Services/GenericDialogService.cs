@@ -41,22 +41,13 @@ namespace FirstLight.Game.Services
 		/// to click on the close button.
 		/// Optionally if defined can call the <paramref name="closeCallback"/> when the Dialog is closed.
 		/// </summary>
-		void OpenDialog(string title, bool showCloseButton, GenericDialogButton button, Action closeCallback = null);
-		
-		/// <summary>
-		/// Shows the Generic Dialog with an icon box PopUp with the given information without an option for
-		/// the user except to click on the close button.
-		/// Optionally if defined can call the <paramref name="closeCallback"/> when the Dialog is closed.
-		/// </summary>
-		void OpenIconDialog<TId>(string title, string descriptionText, TId id, bool showCloseButton, 
-		                    GenericDialogButton button, Action closeCallback = null)
-			where TId : struct, Enum;
+		void OpenChoiceDialog(string title, string desc, bool showCloseButton, GenericDialogButton button, Action closeCallback = null);
 
 		/// <summary>
 		/// Shows an input field dialog box for the player to write specific string data.
 		/// Optionally if defined can call the <paramref name="closeCallback"/> when the Dialog is closed.
 		/// </summary>
-		void OpenInputFieldDialog(string title, string initialInputText, GenericDialogButton<string> button, 
+		void OpenInputFieldDialog(string title, string desc, string initialInputText, GenericDialogButton<string> button, 
 		                          bool showCloseButton, TMP_InputField.ContentType contentType = TMP_InputField.ContentType.Standard, Action<string> closeCallback = null);
 		
 		/// <summary>
@@ -88,37 +79,25 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public void OpenDialog(string title, bool showCloseButton = true, 
+		public void OpenChoiceDialog(string title, string desc, bool showCloseButton = true, 
 		                       GenericDialogButton button = new GenericDialogButton(), Action closeCallback = null)
 		{
 			var ui = _uiService.OpenUi<GenericDialogPresenter>();
 
 			_openDialogType = ui.GetType();
 			
-			ui.SetInfo(title, showCloseButton, button, closeCallback);
+			ui.SetInfo(title, desc, showCloseButton, button, closeCallback);
 		}
 
 		/// <inheritdoc />
-		public void OpenIconDialog<TId>(string title, string descriptionText, TId id, bool showCloseButton = true, 
-		                           GenericDialogButton button = new GenericDialogButton(), Action closeCallback = null)
-			where TId : struct, Enum
-		{
-			var ui = _uiService.OpenUi<GenericDialogIconPresenter>();
-
-			_openDialogType = ui.GetType();
-			
-			ui.SetInfo(title, descriptionText, id, showCloseButton, button, closeCallback);
-		}
-
-		/// <inheritdoc />
-		public void OpenInputFieldDialog(string title, string initialInputText, GenericDialogButton<string> button, 
+		public void OpenInputFieldDialog(string title, string desc, string initialInputText, GenericDialogButton<string> button, 
 		                                 bool showCloseButton, TMP_InputField.ContentType contentType = TMP_InputField.ContentType.Standard, Action<string> closeCallback = null)
 		{
 			var ui = _uiService.OpenUi<GenericDialogInputFieldPresenter>();
 
 			_openDialogType = ui.GetType();
 			
-			ui.SetInfo(title, initialInputText, button, showCloseButton, contentType, closeCallback);
+			ui.SetInfo(title, desc, initialInputText, button, showCloseButton, contentType, closeCallback);
 		}
 
 		/// <inheritdoc />

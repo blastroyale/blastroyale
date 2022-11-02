@@ -132,14 +132,14 @@ namespace FirstLight.Game.StateMachines
 		private void OpenNoInternetPopUp()
 		{
 #if UNITY_EDITOR
-			var title = string.Format(ScriptLocalization.General.NoInternet);
+			var desc = string.Format(ScriptLocalization.General.NoInternet);
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.ExitGame,
 				ButtonOnClick = () => { _services.QuitGame("Closing no internet popup"); }
 			};
 
-			_services.GenericDialogService.OpenDialog(title, false, confirmButton);
+			_services.GenericDialogService.OpenChoiceDialog(ScriptLocalization.UITShared.error, desc, false, confirmButton);
 #else
 			var button = new FirstLight.NativeUi.AlertButton
 			{

@@ -87,6 +87,7 @@
     transition-property: top;
     transition-delay: 0.5s;
     height: auto;
+    top: 0;
 }
 
 #PopupWindow {

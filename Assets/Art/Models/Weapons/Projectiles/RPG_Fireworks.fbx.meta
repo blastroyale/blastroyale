@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 90d77bf5b12c43e4cb5068a083330be2
+guid: 3cf1fa0bdaa9cb044ad73a607eaf38f1
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -7,18 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: ColourAtlas
-    second: {fileID: 2100000, guid: bfa7c28799dd24a419d1a78e5812cb02, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: M_Weapons
-    second: {fileID: 2100000, guid: aef912decb2bd9f4db4b3a6b5cb32692, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Weapon_Mat_Flame
-    second: {fileID: 2100000, guid: bfa7c28799dd24a419d1a78e5812cb02, type: 2}
+      name: lambert2
+    second: {fileID: 2100000, guid: b2bcfc4b0af72f240a5a1b07cf4f12b2, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -71,7 +61,7 @@ ModelImporter:
     skinWeightsMode: 0
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
-    optimizeBones: 0
+    optimizeBones: 1
     meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
@@ -114,7 +104,7 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
-  remapMaterialsIfMaterialImportModeIsNone: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0
   userData: 
   assetBundleName: 

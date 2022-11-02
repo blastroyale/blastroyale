@@ -34,7 +34,7 @@ namespace FirstLight.Game.UIElements
 		{
 		}
 
-		public new class UxmlTraits : VisualElement.UxmlTraits
+		public new class UxmlTraits : TextField.UxmlTraits
 		{
 			UxmlStringAttributeDescription _labelLocalizationKeyAttribute = new()
 			{

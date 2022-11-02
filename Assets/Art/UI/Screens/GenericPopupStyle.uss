@@ -74,7 +74,12 @@
     align-items: center;
 }
 
-.content-spacer {
+.content-spacer--small {
+    height: 10px;
+    width: 100%;
+}
+
+.content-spacer--medium {
     height: 25px;
     width: 100%;
 }

@@ -1100,6 +1100,7 @@ namespace I2.Loc
 		public static class UITGeneric
 		{
 			public static string close 		{ get{ return LocalizationManager.GetTranslation ("UITGeneric/close"); } }
+			public static string empty 		{ get{ return LocalizationManager.GetTranslation ("UITGeneric/empty"); } }
 			public static string ok 		{ get{ return LocalizationManager.GetTranslation ("UITGeneric/ok"); } }
 		}
 
@@ -2250,6 +2251,7 @@ namespace I2.Loc
 		public static class UITGeneric
 		{
 		    public const string close = "UITGeneric/close";
+		    public const string empty = "UITGeneric/empty";
 		    public const string ok = "UITGeneric/ok";
 		}
 

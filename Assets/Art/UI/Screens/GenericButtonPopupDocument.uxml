@@ -10,7 +10,7 @@
                 <ui:VisualElement name="Container">
                     <ui:VisualElement name="BackgroundPattern" class="popup-background-pattern" style="top: 26px; left: 179px;" />
                     <FirstLight.Game.UIElements.LocalizedLabel name="GenericDesc" localization-key="generic desc" focusable="false" class="font-italic font-style-popup content-desc-text" />
-                    <ui:VisualElement name="Spacer" class="content-spacer" />
+                    <ui:VisualElement name="Spacer" class="content-spacer--medium" />
                     <ui:VisualElement name="HoriLayout">
                         <FirstLight.Game.UIElements.LocalizedButton localization-key="cancel" name="CancelButton" class="font-italic button-flat-cancel" />
                         <FirstLight.Game.UIElements.LocalizedButton localization-key="confirm" name="ConfirmButton" class="font-italic button-flat-primary" />

@@ -808,6 +808,7 @@ namespace I2.Loc
 			public static string FirstLightIdConnectionSuccess 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/FirstLightIdConnectionSuccess"); } }
 			public static string FirstLightIdNeedConnection 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/FirstLightIdNeedConnection"); } }
 			public static string FirstVictoryRewards 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/FirstVictoryRewards"); } }
+			public static string FpsModeSetting 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/FpsModeSetting"); } }
 			public static string FreeSlot 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/FreeSlot"); } }
 			public static string Fuse 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Fuse"); } }
 			public static string FuseDescription 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/FuseDescription"); } }
@@ -816,7 +817,6 @@ namespace I2.Loc
 			public static string GameMode 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/GameMode"); } }
 			public static string HOME 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/HOME"); } }
 			public static string Haptic 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Haptic"); } }
-			public static string HighFpsModeSetting 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/HighFpsModeSetting"); } }
 			public static string HighResMode 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/HighResMode"); } }
 			public static string HoldToFire 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/HoldToFire"); } }
 			public static string HoldToFireDescription 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/HoldToFireDescription"); } }
@@ -1086,6 +1086,7 @@ namespace I2.Loc
 		{
 			public static string connection_lost 		{ get{ return LocalizationManager.GetTranslation ("UITDisconnected/connection_lost"); } }
 			public static string disconnected 		{ get{ return LocalizationManager.GetTranslation ("UITDisconnected/disconnected"); } }
+			public static string menu 		{ get{ return LocalizationManager.GetTranslation ("UITDisconnected/menu"); } }
 			public static string reconnect 		{ get{ return LocalizationManager.GetTranslation ("UITDisconnected/reconnect"); } }
 		}
 
@@ -1094,6 +1095,12 @@ namespace I2.Loc
 			public static string choose_a_mode 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/choose_a_mode"); } }
 			public static string custom_game_description 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/custom_game_description"); } }
 			public static string tap_to_choose 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/tap_to_choose"); } }
+		}
+
+		public static class UITGeneric
+		{
+			public static string close 		{ get{ return LocalizationManager.GetTranslation ("UITGeneric/close"); } }
+			public static string ok 		{ get{ return LocalizationManager.GetTranslation ("UITGeneric/ok"); } }
 		}
 
 		public static class UITHomeScreen
@@ -1951,6 +1958,7 @@ namespace I2.Loc
 		    public const string FirstLightIdConnectionSuccess = "MainMenu/FirstLightIdConnectionSuccess";
 		    public const string FirstLightIdNeedConnection = "MainMenu/FirstLightIdNeedConnection";
 		    public const string FirstVictoryRewards = "MainMenu/FirstVictoryRewards";
+		    public const string FpsModeSetting = "MainMenu/FpsModeSetting";
 		    public const string FreeSlot = "MainMenu/FreeSlot";
 		    public const string Fuse = "MainMenu/Fuse";
 		    public const string FuseDescription = "MainMenu/FuseDescription";
@@ -1959,7 +1967,6 @@ namespace I2.Loc
 		    public const string GameMode = "MainMenu/GameMode";
 		    public const string HOME = "MainMenu/HOME";
 		    public const string Haptic = "MainMenu/Haptic";
-		    public const string HighFpsModeSetting = "MainMenu/HighFpsModeSetting";
 		    public const string HighResMode = "MainMenu/HighResMode";
 		    public const string HoldToFire = "MainMenu/HoldToFire";
 		    public const string HoldToFireDescription = "MainMenu/HoldToFireDescription";
@@ -2229,6 +2236,7 @@ namespace I2.Loc
 		{
 		    public const string connection_lost = "UITDisconnected/connection_lost";
 		    public const string disconnected = "UITDisconnected/disconnected";
+		    public const string menu = "UITDisconnected/menu";
 		    public const string reconnect = "UITDisconnected/reconnect";
 		}
 
@@ -2237,6 +2245,12 @@ namespace I2.Loc
 		    public const string choose_a_mode = "UITGameModeSelection/choose_a_mode";
 		    public const string custom_game_description = "UITGameModeSelection/custom_game_description";
 		    public const string tap_to_choose = "UITGameModeSelection/tap_to_choose";
+		}
+
+		public static class UITGeneric
+		{
+		    public const string close = "UITGeneric/close";
+		    public const string ok = "UITGeneric/ok";
 		}
 
 		public static class UITHomeScreen

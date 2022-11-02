@@ -15,6 +15,14 @@
                         <FirstLight.Game.UIElements.LocalizedButton localization-key="cancel" name="CancelButton" class="font-italic button-flat-cancel" />
                         <FirstLight.Game.UIElements.LocalizedButton localization-key="confirm" name="ConfirmButton" class="font-italic button-flat-primary" />
                     </ui:VisualElement>
+                    <ui:VisualElement name="HoriLayout">
+                        <FirstLight.Game.UIElements.LocalizedButton localization-key="cancel" name="CancelButton" class="font-italic button-flat-cancel" />
+                        <FirstLight.Game.UIElements.LocalizedButton localization-key="confirm" name="ConfirmButton" class="font-italic button-flat-primary" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="HoriLayout">
+                        <FirstLight.Game.UIElements.LocalizedButton localization-key="cancel" name="CancelButton" class="font-italic button-flat-cancel" />
+                        <FirstLight.Game.UIElements.LocalizedButton localization-key="confirm" name="ConfirmButton" class="font-italic button-flat-primary" />
+                    </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="Blocker" class="element-hidden" />
             </ui:VisualElement>

@@ -68,6 +68,16 @@
     height: 70px;
 }
 
+.content-desc-text {
+    justify-content: center;
+    align-items: center;
+}
+
+.content-spacer {
+    height: 25px;
+    width: 100%;
+}
+
 #PopupWindow {
     position: absolute;
     left: -10px;
@@ -87,7 +97,7 @@
 }
 
 #PopupBackground {
-    width: 700px;
+    width: 725px;
     height: 300px;
     background-color: rgb(0, 0, 0);
     transition-timing-function: ease-out;
@@ -106,11 +116,11 @@
 #Container {
     flex-grow: 1;
     align-items: center;
-    justify-content: space-between;
-    padding-top: 45px;
-    padding-bottom: 45px;
-    padding-left: 45px;
-    padding-right: 45px;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 #Blocker {
@@ -121,4 +131,12 @@
     right: 0;
     bottom: 0;
     transition-duration: 0.3s;
+}
+
+#HoriLayout {
+    flex-direction: row;
+    flex-shrink: 1;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }

@@ -6859,7 +6859,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Adventure
-      - "\u041F\u0440\u0438\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u0435"
+      - 
       - 
       Flags: 000000
       Languages_Touch: []
@@ -6904,7 +6904,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Crossbow
-      - Hawk
+      - 
       - 
       Flags: 000000
       Languages_Touch: []
@@ -6949,7 +6949,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Scattergun
-      - Boomstick
+      - 
       - 
       Flags: 000000
       Languages_Touch: []
@@ -6958,7 +6958,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Hunting Rifle
-      - Falcon
+      - 
       - 
       Flags: 000000
       Languages_Touch: []
@@ -7228,7 +7228,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Equipment
-      - "\u0421\u043D\u0430\u0440\u044F\u0436\u0435\u043D\u0438\u0435"
+      - 
       - 
       Flags: 000000
       Languages_Touch: []
@@ -7570,7 +7570,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Daedalus
-      - Daedalus
+      - 
       - 
       Flags: 000000
       Languages_Touch: []
@@ -7579,7 +7579,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Pistol
-      - Mantis
+      - 
       - 
       Flags: 000000
       Languages_Touch: []
@@ -7597,7 +7597,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Shotgun
-      - Bulldog
+      - 
       - 
       Flags: 000000
       Languages_Touch: []
@@ -7606,7 +7606,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Sniper
-      - Rhino
+      - 
       - 
       Flags: 000000
       Languages_Touch: []
@@ -7921,7 +7921,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Laser Blaster
-      - Nova Blaster
+      - 
       - 
       Flags: 000000
       Languages_Touch: []
@@ -7930,7 +7930,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Plasma Cannon
-      - H.Y.P.E Launcher
+      - 
       - 
       Flags: 000000
       Languages_Touch: []
@@ -7939,7 +7939,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Electron Thrower
-      - 'Pulsar '
+      - 
       - 
       Flags: 000000
       Languages_Touch: []
@@ -7948,7 +7948,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Needle Gun
-      - Comet Slinger
+      - 
       - 
       Flags: 000000
       Languages_Touch: []
@@ -7957,7 +7957,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Laser Pistol
-      - Lunar Repeater
+      - 
       - 
       Flags: 000000
       Languages_Touch: []
@@ -7966,7 +7966,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Laser Rifle
-      - Solar Carbine
+      - 
       - 
       Flags: 000000
       Languages_Touch: []
@@ -7975,7 +7975,7 @@ MonoBehaviour:
       Description: 
       Languages:
       - Pulse Rifle
-      - Eclipse
+      - 
       - 
       Flags: 000000
       Languages_Touch: []
@@ -9396,6 +9396,24 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITGeneric/ok
+      TermType: 0
+      Description: 
+      Languages:
+      - OK
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITGeneric/close
+      TermType: 0
+      Description: 
+      Languages:
+      - CLOSE
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITLoginRegister/email
       TermType: 0
       Description: 
@@ -9636,6 +9654,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITDisconnected/menu
+      TermType: 0
+      Description: 
+      Languages:
+      - MAIN MENU
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITGameModeSelection/choose_a_mode
       TermType: 0
       Description: 
@@ -9681,7 +9708,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1667305697575
+    Google_LastUpdatedVersion: 1667399960898
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

@@ -385,7 +385,7 @@ GameObject:
   - component: {fileID: 2662432769406096417}
   - component: {fileID: 7306112839653272446}
   m_Layer: 5
-  m_Name: GenericInputField Dialog
+  m_Name: GenericInputFieldPopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

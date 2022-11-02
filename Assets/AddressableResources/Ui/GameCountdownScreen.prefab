@@ -647,7 +647,7 @@ GameObject:
   - component: {fileID: 2075252019181440802}
   - component: {fileID: 921446133432739721}
   m_Layer: 5
-  m_Name: GameCountdown Screen
+  m_Name: GameCountdownScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

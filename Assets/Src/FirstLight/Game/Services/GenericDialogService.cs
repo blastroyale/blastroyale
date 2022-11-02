@@ -51,15 +51,6 @@ namespace FirstLight.Game.Services
 		void OpenIconDialog<TId>(string title, string descriptionText, TId id, bool showCloseButton, 
 		                    GenericDialogButton button, Action closeCallback = null)
 			where TId : struct, Enum;
-		
-		/// <summary>
-		/// Shows the Generic Dialog box PopUp with an video with the given information without an option for the user except
-		/// to click on the close button.
-		/// Optionally if defined can call the <paramref name="closeCallback"/> when the Dialog is closed.
-		/// </summary>
-		void OpenVideoDialog<TId>(string title, string descriptionText, TId id, bool showCloseButton, 
-			GenericDialogButton button, Action closeCallback = null)
-			where TId : struct, Enum;
 
 		/// <summary>
 		/// Shows an input field dialog box for the player to write specific string data.
@@ -113,18 +104,6 @@ namespace FirstLight.Game.Services
 			where TId : struct, Enum
 		{
 			var ui = _uiService.OpenUi<GenericDialogIconPresenter>();
-
-			_openDialogType = ui.GetType();
-			
-			ui.SetInfo(title, descriptionText, id, showCloseButton, button, closeCallback);
-		}
-		
-		/// <inheritdoc />
-		public void OpenVideoDialog<TId>(string title, string descriptionText, TId id, bool showCloseButton, 
-			GenericDialogButton button, Action closeCallback = null)
-			where TId : struct, Enum
-		{
-			var ui = _uiService.OpenUi<GenericDialogVideoPresenter>();
 
 			_openDialogType = ui.GetType();
 			

@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 3877131081941758645}
   - component: {fileID: 7246123258471206172}
   m_Layer: 5
-  m_Name: UiTooltipContainer Screen
+  m_Name: UiTooltipContainerScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -250,9 +250,14 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnQuitGameScreenClickedMessage(QuitGameClickedMessage message)
 		{
-			var data = new QuitGameDialogPresenter.StateData {ConfirmClicked = QuitGameConfirmedClicked};
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.General.Yes,
+				ButtonOnClick = QuitGameConfirmedClicked
+			};
 
-			_uiService.OpenUi<QuitGameDialogPresenter, QuitGameDialogPresenter.StateData>(data);
+			_services.GenericDialogService.OpenDialog(ScriptLocalization.AdventureMenu.AreYouSureQuit,
+				true, confirmButton);
 		}
 
 		private void OnGameCompletedRewardsMessage(GameCompletedRewardsMessage message)

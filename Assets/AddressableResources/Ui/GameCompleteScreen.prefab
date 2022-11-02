@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 5463875698746868703}
   - component: {fileID: 1762364494020961875}
   m_Layer: 5
-  m_Name: GameComplete Screen
+  m_Name: GameCompleteScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -141,7 +141,7 @@ TextField > #unity-text-input, LocalizedTextField > #unity-text-input {
     position: absolute;
 }
 
-.button-flat-primary, .button-flat-secondary {
+.button-flat-primary, .button-flat-secondary, .button-flat-cancel {
     padding-left: 40px;
     padding-right: 40px;
     color: rgb(255, 255, 255);
@@ -187,17 +187,6 @@ TextField > #unity-text-input, LocalizedTextField > #unity-text-input {
     border-bottom-color: rgb(100, 19, 0);
 }
 
-.button-flat-secondary > .inner-outline {
-    border-left-color: rgb(100, 19, 0);
-    border-right-color: rgb(100, 19, 0);
-    border-top-color: rgb(100, 19, 0);
-    border-bottom-color: rgb(100, 19, 0);
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-}
-
 .button-flat-secondary {
     font-size: 42px;
     background-color: rgb(158, 99, 241);
@@ -209,12 +198,45 @@ TextField > #unity-text-input, LocalizedTextField > #unity-text-input {
     border-bottom-color: rgb(59, 29, 144);
 }
 
+.button-flat-cancel {
+    font-size: 42px;
+    background-color: rgb(253, 97, 97);
+    -unity-text-outline-color: rgb(145, 34, 14);
+    -unity-background-image-tint-color: rgb(158, 31, 42);
+    border-left-color: rgb(145, 34, 14);
+    border-right-color: rgb(145, 34, 14);
+    border-top-color: rgb(145, 34, 14);
+    border-bottom-color: rgb(145, 34, 14);
+}
+
+.button-flat-secondary > .inner-outline {
+    border-left-color: rgb(100, 19, 0);
+    border-right-color: rgb(100, 19, 0);
+    border-top-color: rgb(100, 19, 0);
+    border-bottom-color: rgb(100, 19, 0);
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
 .button-flat-secondary > .inner-outline {
     border-left-color: rgb(59, 29, 144);
     border-right-color: rgb(59, 29, 144);
     border-top-color: rgb(59, 29, 144);
     border-bottom-color: rgb(59, 29, 144);
     border-radius: 10px;
+}
+
+.button-flat-cancel > .inner-outline {
+    border-left-color: rgb(100, 19, 0);
+    border-right-color: rgb(100, 19, 0);
+    border-top-color: rgb(100, 19, 0);
+    border-bottom-color: rgb(100, 19, 0);
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
 .button-flat-primary:hover {
@@ -232,5 +254,14 @@ TextField > #unity-text-input, LocalizedTextField > #unity-text-input {
 
 .button-flat-secondary:active {
     background-color: rgb(76, 51, 152);
+    color: rgb(166, 166, 166);
+}
+
+.button-flat-cancel:hover {
+    background-color: rgb(253, 97, 97);
+}
+
+.button-flat-cancel:active {
+    background-color: rgb(202, 79, 79);
     color: rgb(166, 166, 166);
 }

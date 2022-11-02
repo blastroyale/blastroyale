@@ -15,7 +15,7 @@ using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using FirstLight.Statechart;
 using FirstLight.UiService;
-using I2.Loc; 
+using I2.Loc;
 using MoreMountains.NiceVibrations;
 using UnityEngine;
 
@@ -38,21 +38,24 @@ namespace FirstLight.Game.StateMachines
 		private readonly IConfigsAdder _configsAdder;
 		private readonly IGameUiServiceInit _uiService;
 
-		public GameStateMachine(GameLogic gameLogic, IGameServices services, IGameUiServiceInit uiService, 
-		                        IGameBackendNetworkService networkService, IConfigsAdder configsAdder, 
-		                        IAssetAdderService assetAdderService, IDataService dataService,
-		                        IVfxInternalService<VfxId> vfxService)
+		public GameStateMachine(GameLogic gameLogic, IGameServices services, IGameUiServiceInit uiService,
+								IGameBackendNetworkService networkService, IConfigsAdder configsAdder,
+								IAssetAdderService assetAdderService, IDataService dataService,
+								IVfxInternalService<VfxId> vfxService)
 		{
 			_dataService = dataService;
 			_gameLogic = gameLogic;
 			_services = services;
 			_uiService = uiService;
 			_configsAdder = configsAdder;
-			_initialLoadingState = new InitialLoadingState(services, uiService, assetAdderService, configsAdder, vfxService, Trigger);
-			_authenticationState = new AuthenticationState(gameLogic, services, uiService, dataService, networkService, Trigger, _configsAdder);
+			_initialLoadingState = new InitialLoadingState(services, uiService, assetAdderService, configsAdder,
+				vfxService, Trigger);
+			_authenticationState = new AuthenticationState(gameLogic, services, uiService, dataService, networkService,
+				Trigger, _configsAdder);
 			_audioState = new AudioState(gameLogic, services, Trigger);
 			_networkState = new NetworkState(gameLogic, services, networkService, Trigger);
-			_coreLoopState = new CoreLoopState(services, dataService, networkService, uiService, gameLogic, assetAdderService, Trigger);
+			_coreLoopState = new CoreLoopState(services, dataService, networkService, uiService, gameLogic,
+				assetAdderService, Trigger);
 			_statechart = new Statechart.Statechart(Setup);
 		}
 
@@ -76,29 +79,29 @@ namespace FirstLight.Game.StateMachines
 			var initialLoading = stateFactory.Nest("Initial Loading");
 			var authentication = stateFactory.Nest("Authentication");
 			var core = stateFactory.Split("Core");
-			
+
 			initial.Transition().Target(initialAssets);
 			initial.OnExit(SubscribeEvents);
-			
+
 			initialAssets.WaitingFor(LoadCoreAssets).Target(internetCheck);
-			
-			internetCheck.Transition().Condition(NetworkUtils.IsOffline).OnTransition(OpenNoInternetPopUp).Target(final);
+
+			internetCheck.Transition().Condition(NetworkUtils.IsOffline).OnTransition(OpenNoInternetPopUp)
+				.Target(final);
 			internetCheck.Transition().Target(initialLoading);
 
 			initialLoading.Nest(_initialLoadingState.Setup).Target(authentication);
 			initialLoading.OnExit(InitializeLocalLogic);
-			
+
 			authentication.Nest(_authenticationState.Setup).Target(core);
 			authentication.OnExit(InitializeRemainingLogic);
-			
+
 			core.Split(_audioState.Setup, _networkState.Setup, _coreLoopState.Setup).Target(final);
 
 			final.OnEnter(UnsubscribeEvents);
 		}
-		
+
 		private void SubscribeEvents()
 		{
-			
 		}
 
 		private void UnsubscribeEvents()
@@ -110,15 +113,15 @@ namespace FirstLight.Game.StateMachines
 		{
 			_dataService.LoadData<AppData>();
 			_gameLogic.InitLocal();
-			
+
 			_services.AudioFxService.AudioListener.Listener.enabled = true;
-			
+
 			// TODO: REMOVE BELOW if works properly by uncommenting AppLogic Init lines
 			_gameLogic.AppLogic.SetDetailLevel();
 			_gameLogic.AppLogic.SetFpsTarget();
 			MMVibrationManager.SetHapticsActive(_gameLogic.AppLogic.IsHapticOn);
 		}
-		
+
 		private void InitializeRemainingLogic()
 		{
 			_gameLogic.Init();
@@ -128,18 +131,26 @@ namespace FirstLight.Game.StateMachines
 
 		private void OpenNoInternetPopUp()
 		{
-			var button = new AlertButton
+#if UNITY_EDITOR
+			var title = string.Format(ScriptLocalization.General.NoInternet);
+			var confirmButton = new GenericDialogButton
 			{
-				Callback = () =>
-				{
-					_services.QuitGame("Closing no internet popup");
-				},
-				Style = AlertButtonStyle.Negative,
+				ButtonText = ScriptLocalization.General.ExitGame,
+				ButtonOnClick = () => { _services.QuitGame("Closing no internet popup"); }
+			};
+
+			_services.GenericDialogService.OpenDialog(title, false, confirmButton);
+#else
+			var button = new FirstLight.NativeUi.AlertButton
+			{
+				Callback = () => { _services.QuitGame("Closing no internet popup"); },
+				Style = FirstLight.NativeUi.AlertButtonStyle.Negative,
 				Text = ScriptLocalization.General.ExitGame
 			};
-			
-			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.NoInternet, 
-			                               ScriptLocalization.General.NoInternetDescription, button);
+
+			FirstLight.NativeUi.NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.NoInternet,
+				ScriptLocalization.General.NoInternetDescription, button);
+#endif
 		}
 
 		private async Task LoadCoreAssets()
@@ -149,14 +160,15 @@ namespace FirstLight.Game.StateMachines
 			var uiAddress = AddressableId.Configs_Settings_UiConfigs.GetConfig().Address;
 			var quantumAddress = AddressableId.Configs_Settings_QuantumRunnerConfigs.GetConfig().Address;
 			var asset = await _services.AssetResolverService.LoadAssetAsync<UiConfigs>(uiAddress);
-			var quantumAsset = await _services.AssetResolverService.LoadAssetAsync<QuantumRunnerConfigs>(quantumAddress);
+			var quantumAsset =
+				await _services.AssetResolverService.LoadAssetAsync<QuantumRunnerConfigs>(quantumAddress);
 
 			var camera = Camera.allCameras.First(c => c.gameObject.CompareTag("MainOverlayCamera"));
-			
+
 			_uiService.Init(asset);
 			_configsAdder.AddSingletonConfig(quantumAsset);
 			_services.AssetResolverService.UnloadAsset(asset);
-			
+
 			await _uiService.LoadUiAsync<LoadingScreenPresenter>(true);
 			await Task.Delay(1000); // Delays 1 sec to play the loading screen animation
 			await Task.WhenAll(_uiService.LoadUiSetAsync((int) UiSetId.InitialLoadUi));

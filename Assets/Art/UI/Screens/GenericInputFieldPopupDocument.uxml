@@ -3,7 +3,7 @@
     <ui:VisualElement name="root" class="background" style="top: 0; right: -3px; left: 5px; bottom: 0; -unity-text-align: middle-center;">
         <ui:VisualElement name="PopupBackground" class="popup-radius">
             <ui:VisualElement name="PopupWindow" class="popup-radius">
-                <ui:VisualElement name="Header" class="background-purple popup-header" style="overflow: hidden;">
+                <ui:VisualElement name="Header" class="background-purple popup-header">
                     <ui:VisualElement name="TitleDots" class="dots-pattern--popup" />
                     <FirstLight.Game.UIElements.LocalizedLabel localization-key="generic title" name="Title" class="font-italic font-style-h2" />
                 </ui:VisualElement>
@@ -11,14 +11,6 @@
                     <ui:VisualElement name="BackgroundPattern" class="popup-background-pattern" style="top: 26px; left: 179px;" />
                     <FirstLight.Game.UIElements.LocalizedLabel name="GenericDesc" localization-key="generic desc" focusable="false" class="font-italic font-style-popup content-desc-text" />
                     <ui:VisualElement name="Spacer" class="content-spacer" />
-                    <ui:VisualElement name="HoriLayout">
-                        <FirstLight.Game.UIElements.LocalizedButton localization-key="cancel" name="CancelButton" class="font-italic button-flat-cancel" />
-                        <FirstLight.Game.UIElements.LocalizedButton localization-key="confirm" name="ConfirmButton" class="font-italic button-flat-primary" />
-                    </ui:VisualElement>
-                    <ui:VisualElement name="HoriLayout">
-                        <FirstLight.Game.UIElements.LocalizedButton localization-key="cancel" name="CancelButton" class="font-italic button-flat-cancel" />
-                        <FirstLight.Game.UIElements.LocalizedButton localization-key="confirm" name="ConfirmButton" class="font-italic button-flat-primary" />
-                    </ui:VisualElement>
                     <ui:VisualElement name="HoriLayout">
                         <FirstLight.Game.UIElements.LocalizedButton localization-key="cancel" name="CancelButton" class="font-italic button-flat-cancel" />
                         <FirstLight.Game.UIElements.LocalizedButton localization-key="confirm" name="ConfirmButton" class="font-italic button-flat-primary" />

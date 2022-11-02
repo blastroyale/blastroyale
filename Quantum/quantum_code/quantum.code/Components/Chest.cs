@@ -51,12 +51,14 @@ namespace Quantum
 			var healthCheck = stats.CurrentHealth / stats.GetStatData(StatType.Health).StatValue < FP._0_20;
 			var chestItems = new List<ChestItemDropped>();
 			var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
-			
+			var poolSize = gameContainer->DropPool.PoolCounter;
+
 			// Empty primary slot and hasn't ever dropped a weapon => drop the one from loadout or a random one
 			// Empty primary slot and we dropped a weapon once => skip dropping a weapon here
 			// Busy primary slot => skip dropping a weapon here
+			// There are items in the pool to drop
 			if (!isBot && playerCharacter->WeaponSlots[1].Weapon.GameId == GameId.Random
-			           && !playerCharacter->HasDroppedItemForSlot(Constants.GEAR_INDEX_WEAPON))
+			           && !playerCharacter->HasDroppedItemForSlot(Constants.GEAR_INDEX_WEAPON) && poolSize > 0)
 			{
 				var weaponItem = hasLoadoutWeapon ? loadoutWeapon : gameContainer->GenerateNextWeapon(f);
 				
@@ -187,6 +189,8 @@ namespace Quantum
 				&& playerCharacter->WeaponSlots[2].Weapon.GameId == GameId.Random;
 			var playerRef = playerCharacter->Player;
 			var statsShields = f.Get<Stats>(playerEntity).GetStatData(StatType.Shield);
+			var poolSize = gameContainer->DropPool.PoolCounter;
+
 			var allEquipment = new List<Equipment>
 			{
 				playerCharacter->WeaponSlots[1].Weapon,
@@ -215,7 +219,7 @@ namespace Quantum
 					}
 
 					// First drop a weapon if the player needs one
-					if (noWeaponsEquipped)
+					if (noWeaponsEquipped && poolSize > 0)
 					{
 						var weapon = gameContainer->GenerateNextWeapon(f);
 

@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Linq;
 using Photon.Deterministic;
 
@@ -11,11 +12,6 @@ namespace Quantum
 		internal void Init(Frame f, EntityRef e, FPVector3 position, FPQuaternion rotation, Equipment equipment,
 		                   PlayerRef owner = new PlayerRef())
 		{
-			if(f.Context.TryGetMutatorByType(MutatorType.HammerTime, out _) && equipment.GameId.IsInGroup(GameIdGroup.Weapon))
-			{
-				equipment = new Equipment(GameId.Hammer);
-			}
-
 			var collectable = new Collectable {GameId = equipment.GameId};
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 

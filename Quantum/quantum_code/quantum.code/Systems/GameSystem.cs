@@ -43,7 +43,27 @@ namespace Quantum.Systems
 					throw new ArgumentOutOfRangeException();
 			}
 			SetupWeaponPool(f, component);
+
+			//this should destroy all components with the collectable platform destroyer component attached
+			foreach (var platform in f.GetComponentIterator<CollectablePlatformSpawner>())
+			{
+				if (platform.Component.GameId == GameId.Random || platform.Component.GameId.IsInGroup(GameIdGroup.Weapon))
+				{
+					f.Destroy(platform.Entity);
+				}
+			}
+
+			//this should destroy all components with the collectable platform destroyer component attached
+			foreach (var platform in f.GetComponentIterator<EquipmentCollectable>())
+			{
+				if (platform.Component.Item.GameId == GameId.Random || platform.Component.Item.GameId.IsInGroup(GameIdGroup.Weapon))
+				{
+					f.Destroy(platform.Entity);
+				}
+			}
 		}
+
+
 
 		/// <inheritdoc />
 		public void GameEnded(Frame f)
@@ -91,10 +111,10 @@ namespace Quantum.Systems
 
 		private void SetupWeaponPool(Frame f, GameContainer* component)
 		{
-			var offPool = new List<GameId>(GameIdGroup.Weapon.GetIds());
-			var count = f.Context.TryGetMutatorByType(MutatorType.HammerTime, out _) ? 0 : component->DropPool.WeaponPool.Length;
-			var rarity = 0;
 			var isHammerTimeMutator = f.Context.TryGetMutatorByType(MutatorType.HammerTime, out _);
+			var offPool = new List<GameId>(GameIdGroup.Weapon.GetIds());
+			var count = isHammerTimeMutator ? 0 : component->DropPool.WeaponPool.Length;
+			var rarity = 0;
 
 			offPool.Remove(GameId.Hammer);
 
@@ -116,11 +136,11 @@ namespace Quantum.Systems
 				}
 
 				rarity += (int) equipment.Value.Rarity;
-
 				component->DropPool.WeaponPool[i] = equipment.Value;
 			}
 
-			component->DropPool.AverageRarity = (EquipmentRarity) FPMath.FloorToInt((FP) rarity / count);
+			component->DropPool.PoolCounter = count;
+			component->DropPool.AverageRarity = (EquipmentRarity) FPMath.FloorToInt((FP) rarity / (count + 1));
 			component->DropPool.MedianRarity = component->DropPool.WeaponPool[count / 2].Rarity;
 		}
 		

@@ -31,9 +31,8 @@ namespace Quantum
 			var rangeStat = f.Get<Stats>(e).GetStatData(StatType.AttackRange).StatValue;
 
 			//targetAttackAngle depend on a current character velocity 
-			var targetAttackAngle = isAccuracyMutator? 
-				weaponConfig.MinAttackAngle : FPMath.Lerp(weaponConfig.MinAttackAngle, weaponConfig.MaxAttackAngle, 
-			                                    cVelocitySqr / maxSpeedSqr);
+			var targetAttackAngle = isAccuracyMutator ?
+				weaponConfig.MinAttackAngle : QuantumHelpers.GetDynamicAimValue(kcc, weaponConfig.MaxAttackAngle, weaponConfig.MinAttackAngle);
 			var shotAngle = weaponConfig.NumberOfShots == 1 && !isAccuracyMutator ?
 				   QuantumHelpers.GetSingleShotAngleAccuracyModifier(f, targetAttackAngle) :
 				   FP._0;
@@ -48,8 +47,7 @@ namespace Quantum
 				bb->Set(f, nameof(weaponConfig.AttackCooldown), currentAttackCooldown);
 			}
 
-			var attackRange = FPMath.Lerp(rangeStat + weaponConfig.AttackRangeAimBonus, rangeStat,
-												cVelocitySqr / maxSpeedSqr);
+			var attackRange = QuantumHelpers.GetDynamicAimValue(kcc, rangeStat, rangeStat + weaponConfig.AttackRangeAimBonus);
 
 			var raycastShot = new RaycastShots
 			{

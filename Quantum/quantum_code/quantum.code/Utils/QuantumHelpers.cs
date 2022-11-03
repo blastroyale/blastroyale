@@ -358,5 +358,16 @@ namespace Quantum
 			
 			return FP._0;
 		}
+
+		/// <summary>
+		/// Calculates a value based on your current movement value
+		/// </ summary>
+		public static FP GetDynamicAimValue(CharacterController3D* kcc, FP movingValue, FP stationaryValue)
+		{
+			var cVelocitySqr = kcc->Velocity.SqrMagnitude;
+			var maxSpeedSqr = kcc->MaxSpeed * kcc->MaxSpeed;
+			return FPMath.Lerp(stationaryValue, movingValue, cVelocitySqr / maxSpeedSqr);
+
+		}
 	}
 }

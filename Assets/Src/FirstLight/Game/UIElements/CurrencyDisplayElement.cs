@@ -24,7 +24,7 @@ namespace FirstLight.Game.UIElements
 		private const string LabelUssClassName = "currency-display__label";
 
 		/* UXML attributes */
-		private GameId _currency;
+		private GameId currency { get; set; }
 
 		/* VisualElements created within this element */
 		private readonly VisualElement _icon;
@@ -37,6 +37,7 @@ namespace FirstLight.Game.UIElements
 
 		/* Other private variables */
 		private Tween _animationTween;
+		private VisualElement _originElement;
 
 		/* The internal structure of the element is created in the constructor. */
 		public CurrencyDisplayElement()
@@ -55,7 +56,7 @@ namespace FirstLight.Game.UIElements
 		}
 
 		/* IUIView: Called the first time this element is initialized (on first Open) */
-		public void RuntimeInit(VisualElement visualElement)
+		public void Attached(VisualElement visualElement)
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_mainMenuServices = MainInstaller.Resolve<IMainMenuServices>();
@@ -65,7 +66,7 @@ namespace FirstLight.Game.UIElements
 		/* IUIView: Called by the presenter when the screen is opened */
 		public void SubscribeToEvents()
 		{
-			_gameDataProvider.CurrencyDataProvider.Currencies.InvokeObserve(_currency, OnCurrencyChanged);
+			_gameDataProvider.CurrencyDataProvider.Currencies.InvokeObserve(currency, OnCurrencyChanged);
 		}
 
 		/* IUIView: Called by the presenter when the screen is closed */
@@ -75,9 +76,17 @@ namespace FirstLight.Game.UIElements
 			_animationTween?.Kill();
 		}
 
+		/// <summary>
+		/// Sets the origin of the currency flying animation starting at another visual element
+		/// </summary>
+		public void SetAnimationOrigin(VisualElement originElement)
+		{
+			_originElement = originElement;
+		}
+
 		private void OnCurrencyChanged(GameId id, ulong previous, ulong current, ObservableUpdateType type)
 		{
-			if (_gameDataProvider.RewardDataProvider.IsCollecting)
+			if (_gameDataProvider.RewardDataProvider.IsCollecting || DebugUtils.DebugFlags.OverrideCurrencyChangedIsCollecting)
 			{
 				AnimateCurrency(previous, current);
 			}
@@ -95,9 +104,13 @@ namespace FirstLight.Game.UIElements
 			{
 				for (int i = 0; i < Mathf.Min(10, current - previous); i++)
 				{
-					_mainMenuServices.UiVfxService.PlayVfx(_currency,
+					var originPosition = _originElement != null
+						? _originElement.GetPositionOnScreen(GetRoot())
+						: GetRoot().GetPositionOnScreen(GetRoot()) + Random.insideUnitCircle * 100;
+					
+					_mainMenuServices.UiVfxService.PlayVfx(currency,
 						i * 0.1f,
-						GetRoot().GetPositionOnScreen(GetRoot()) + Random.insideUnitCircle * 100,
+						originPosition,
 						_label.GetPositionOnScreen(GetRoot()),
 						() =>
 						{
@@ -150,10 +163,10 @@ namespace FirstLight.Game.UIElements
 
 				var cde = (CurrencyDisplayElement) ve;
 
-				cde._currency = _currencyAttribute.GetValueFromBag(bag, cc);
+				cde.currency = _currencyAttribute.GetValueFromBag(bag, cc);
 				cde._icon.ClearClassList();
 				cde._icon.AddToClassList(IconUssClassName);
-				cde._icon.AddToClassList(cde._currency switch
+				cde._icon.AddToClassList(cde.currency switch
 				{
 					GameId.BLST => IconBlstUssClassName,
 					GameId.CS => IconCsUssClassName,

@@ -14,9 +14,9 @@ namespace Backend.Game
 	public class PostgresMutex : IServerMutex
 	{
 		private Dictionary<string, PostgresDistributedLockHandle> _handles = new ();
-		private IServerConfiguration _cfg;
+		private IBaseServiceConfiguration _cfg;
 		
-		public PostgresMutex(IServerConfiguration cfg)
+		public PostgresMutex(IBaseServiceConfiguration cfg)
 		{
 			_cfg = cfg;
 		}
@@ -25,7 +25,7 @@ namespace Backend.Game
 		public async Task Lock(string userId)
 		{
 			var mutex = new PostgresDistributedLock(new PostgresAdvisoryLockKey(userId, allowHashing: true), _cfg.DbConnectionString);
-			_handles[userId] = await mutex.AcquireAsync();
+			_handles[userId] = await mutex.AcquireAsync(timeout: TimeSpan.FromSeconds(10));
 		}
 
 		/// <inheritdoc />

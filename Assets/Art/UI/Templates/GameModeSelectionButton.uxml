@@ -1,0 +1,42 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" FLG="FirstLight.Game.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Templates/GameModeSelectionButtonStyle.uss?fileID=7433441132597879392&amp;guid=1a806c33bc7a34069a8b184b546c14e0&amp;type=3#GameModeSelectionButtonStyle" />
+    <ui:Button display-tooltip-when-elided="true" name="GameModeButton" class="hidden-gamemodebutton battleroyale ranked">
+        <ui:VisualElement name="Scalable">
+            <ui:VisualElement name="Glow" style="width: 700px; left: -100px;" />
+            <ui:VisualElement name="GameModeOutline" style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/GameModeSelection/ChosenModeStrokeBack.svg?fileID=7388822144124034973&amp;guid=950169b3c70c74f56bf34c8472b416fe&amp;type=3#ChosenModeStrokeBack&apos;);">
+                <ui:VisualElement name="Frame" style="width: 517px; height: 750px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/GameModeSelection/ButtonBack.png?fileID=2800000&amp;guid=e8f9490de6f124c18836af353c4e927e&amp;type=3#ButtonBack&apos;); margin-left: 6px; margin-right: 6px; margin-top: 6px; margin-bottom: 6px; -unity-background-image-tint-color: rgb(255, 255, 255);">
+                    <ui:VisualElement name="TopMask" style="width: 502px; height: 731px; margin-left: 2px; overflow: hidden; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/GameModeSelection/ModeButton.svg?fileID=7388822144124034973&amp;guid=396868652aab04b298372850f07f4a48&amp;type=3#ModeButton&apos;); margin-top: 2px; -unity-background-image-tint-color: rgba(255, 255, 255, 0);">
+                        <ui:VisualElement name="Top" style="width: 512px; height: 512px; display: flex; -unity-background-scale-mode: scale-and-crop; overflow: hidden; visibility: visible;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="TopImage" />
+                    <ui:VisualElement name="BottomMask" style="margin-left: 2px; margin-top: 3px; position: absolute; width: 502px; height: 731px; overflow: hidden; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/GameModeSelection/ModeButton.svg?fileID=7388822144124034973&amp;guid=396868652aab04b298372850f07f4a48&amp;type=3#ModeButton&apos;); -unity-background-image-tint-color: rgba(1, 0, 0, 0);">
+                        <ui:VisualElement name="DataPanel" style="position: absolute;">
+                            <ui:VisualElement name="GameMode" style="flex-direction: row; margin-top: 30px;">
+                                <ui:VisualElement name="GameModeIcon" style="-unity-background-image-tint-color: rgb(0, 0, 0); width: 46px; height: 46px;" />
+                                <ui:Label text="BATTLE ROYALE" display-tooltip-when-elided="true" name="GameModeLabel" class="font-italic" />
+                            </ui:VisualElement>
+                            <ui:Label text="Infinite respawns, time-limited Whoever get most kills wins" name="GameModeDescription" class="font-bold" />
+                            <ui:Label text="LIMITED 29D 30H" name="GameModeTimer" class="font-italic" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="MutatorsPanel" style="flex-direction: column-reverse; flex-grow: 0;">
+                            <ui:VisualElement name="MutatorLine" class="speedup-mutator" style="flex-direction: row;">
+                                <ui:VisualElement name="MutatorIcon" class="mutator-icon" />
+                                <ui:Label text="MUTATOR 2" display-tooltip-when-elided="true" name="MutatorTitle" class="mutator-title font-italic" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="MutatorLine" class="speedup-mutator" style="flex-direction: row;">
+                                <ui:VisualElement name="MutatorIcon" class="mutator-icon" />
+                                <ui:Label text="MUTATOR 1" display-tooltip-when-elided="true" name="MutatorTitle" class="mutator-title font-italic" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="ModeTag" style="position: absolute;">
+                    <ui:Label text="RANKED" name="ModeTagTitle" class="font-italic" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="Crown" class="hidden-crown visible-crown" style="width: 517px; height: 240px; left: 10%; right: 0; top: -170px; align-items: center; justify-content: center;">
+                <ui:VisualElement name="CrownImage" style="width: 86px; height: 58px;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:Button>
+</ui:UXML>

@@ -69,8 +69,10 @@ namespace FirstLight.Game.StateMachines
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
 			var login = stateFactory.State("Login");
+			var accountDeleted = stateFactory.State("Account Deleted");
 			var guestLogin = stateFactory.State("Guest Login");
 			var autoAuthCheck = stateFactory.Choice("Auto Auth Check");
+			var accountStateCheck = stateFactory.Choice("Account Deleted");
 			var register = stateFactory.State("Register");
 			var authLogin = stateFactory.State("Authentication Login");
 			var authLoginDevice = stateFactory.State("Login Device Authentication");
@@ -110,7 +112,12 @@ namespace FirstLight.Game.StateMachines
 			authLogin.OnExit(() => DimLoginRegisterScreens(false));
 			
 			getServerState.OnEnter(OpenLoadingScreen);
-			getServerState.WaitingFor(FinalStepsAuthentication).Target(final);
+			getServerState.WaitingFor(FinalStepsAuthentication).Target(accountStateCheck);
+
+			accountDeleted.OnEnter(AccountDeletedPopup);
+
+			accountStateCheck.Transition().Condition(IsAccountDeleted).Target(accountDeleted);
+			accountStateCheck.Transition().Target(final);
 			
 			final.OnEnter(UnsubscribeEvents);
 		}
@@ -118,6 +125,7 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeEvents()
 		{
 			_services.MessageBrokerService.Subscribe<ServerHttpErrorMessage>(OnConnectionError);
+			_services.MessageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuit);
 		}
 
 		private void UnsubscribeEvents()
@@ -303,7 +311,7 @@ namespace FirstLight.Game.StateMachines
 			
 			if (environment != appData.Environment)
 			{
-				var newData = appData.Copy();
+				var newData = appData.CopyForNewEnvironment();
 
 				newData.Environment = environment;
 				
@@ -322,9 +330,9 @@ namespace FirstLight.Game.StateMachines
 			FLog.Verbose($"Logged in. PlayfabId={result.PlayFabId}");
 			//AppleApprovalHack(result);
 			
-			if(!titleData.TryGetValue(nameof(Application.version), out var titleVersion))
+			if(!titleData.TryGetValue(GameConstants.PlayFab.VERSION_KEY, out var titleVersion))
 			{
-				throw new Exception($"{nameof(Application.version)} not set in title data");
+				throw new Exception($"{GameConstants.PlayFab.VERSION_KEY} not set in title data");
 			}
 				
 			if (IsOutdated(titleVersion))
@@ -333,13 +341,20 @@ namespace FirstLight.Game.StateMachines
 				return;
 			}
 
-			if (titleData.TryGetValue($"{nameof(Application.version)} block", out var version) && IsOutdated(version))
+			if (titleData.TryGetValue(GameConstants.PlayFab.MAINTENANCE_KEY, out var version) && IsOutdated(version))
 			{
 				OpenGameBlockedDialog();
 				return;
 			}
 			
 			FeatureFlags.ParseFlags(titleData);
+			
+			if (titleData.TryGetValue("PHOTON_APP", out var photonAppId))
+			{
+				var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
+				quantumSettings.AppSettings.AppIdRealtime = photonAppId;
+				FLog.Verbose("Setting up photon app id by playfab title data");
+			}
 			
 			_networkService.UserId.Value = result.PlayFabId;
 			appData.DisplayName = result.InfoResultPayload.AccountInfo.TitleInfo.DisplayName;
@@ -356,7 +371,7 @@ namespace FirstLight.Game.StateMachines
 				var remoteStringConfig = titleData[PlayfabConfigurationProvider.ConfigName];
 				var serializer = new ConfigsSerializer();
 				var remoteConfig = serializer.Deserialize<PlayfabConfigurationProvider>(remoteStringConfig);
-				FLog.Verbose($"Updating config from version {_configsAdder.Version} to {remoteConfig.Version}");
+				FLog.Verbose($"Updating config from version {_configsAdder.Version.ToString()} to {remoteConfig.Version.ToString()}");
 				_services.MessageBrokerService.Publish(new ConfigurationUpdate()
 				{
 					NewConfig = remoteConfig,
@@ -388,15 +403,50 @@ namespace FirstLight.Game.StateMachines
 			void OnAuthenticationSuccess(GetPhotonAuthenticationTokenResult result)
 			{
 				_networkService.QuantumClient.AuthValues.AddAuthParameter("token", result.PhotonCustomAuthenticationToken);
-				
 				activity.Complete();
 			}
+		}
+
+		private void AccountDeletedPopup()
+		{
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.General.Confirm,
+				ButtonOnClick = () =>
+				{
+					_services.QuitGame("Deleted User");
+				}
+			};
+			_services.GenericDialogService.OpenDialog(ScriptLocalization.MainMenu.DeleteAccountConfirm, false, confirmButton);
+		}
+
+		private bool IsAccountDeleted()
+		{
+			var playerData = _dataService.GetData<PlayerData>();
+			if (playerData.Flags.HasFlag(PlayerFlags.Deleted))
+			{
+				return true;
+			}
+			return false;
 		}
 
 		private void OnPlayerDataObtained(ExecuteFunctionResult res, IWaitActivity activity)
 		{
 			var serverResult = ModelSerializer.Deserialize<PlayFabResult<LogicResult>>(res.FunctionResult.ToString());
 			var data = serverResult.Result.Data;
+			if (data == null || !data.ContainsKey(typeof(PlayerData).FullName)) // response too large, fetch directly
+			{
+				_services.PlayfabService.FetchServerState(state =>
+				{
+					_dataService.AddData(ModelSerializer.DeserializeFromData<RngData>(state));
+					_dataService.AddData(ModelSerializer.DeserializeFromData<IdData>(state));
+					_dataService.AddData(ModelSerializer.DeserializeFromData<PlayerData>(state));
+					_dataService.AddData(ModelSerializer.DeserializeFromData<EquipmentData>(state));
+					FLog.Verbose("Downloaded state from playfab");
+					activity?.Complete();
+				});
+				return;
+			}
 			_dataService.AddData(ModelSerializer.DeserializeFromData<RngData>(data));
 			_dataService.AddData(ModelSerializer.DeserializeFromData<IdData>(data));
 			_dataService.AddData(ModelSerializer.DeserializeFromData<PlayerData>(data));
@@ -646,6 +696,11 @@ namespace FirstLight.Game.StateMachines
 			config.PhotonServerSettings.AppSettings.Protocol = connection;
 			
 			_services.AssetResolverService.UnloadAsset(config);
+		}
+		
+		private void OnApplicationQuit(ApplicationQuitMessage msg)
+		{
+			OpenLoadingScreen();
 		}
 	}
 }

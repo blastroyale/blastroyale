@@ -20,11 +20,11 @@ MonoBehaviour:
     QuantumConfigs:
     - StatType: 0
       BaseValue:
-        RawValue: 32768000
+        RawValue: 29491200
       RarityMultiplier:
         RawValue: 68583
       LevelStepMultiplier:
-        RawValue: 328
+        RawValue: 3277
       GradeStepMultiplier:
         RawValue: 2785
       CeilToInt: 1
@@ -32,11 +32,11 @@ MonoBehaviour:
         RawValue: 5898
     - StatType: 1
       BaseValue:
-        RawValue: 13107200
+        RawValue: 11796480
       RarityMultiplier:
         RawValue: 68583
       LevelStepMultiplier:
-        RawValue: 328
+        RawValue: 3277
       GradeStepMultiplier:
         RawValue: 2785
       CeilToInt: 1
@@ -48,7 +48,7 @@ MonoBehaviour:
       RarityMultiplier:
         RawValue: 68813
       LevelStepMultiplier:
-        RawValue: 321
+        RawValue: 393
       GradeStepMultiplier:
         RawValue: 2720
       CeilToInt: 0
@@ -63,16 +63,16 @@ MonoBehaviour:
         RawValue: 223
       GradeStepMultiplier:
         RawValue: 1901
-      CeilToInt: 1
+      CeilToInt: 0
       ConversionToMightRate:
         RawValue: 272630
     - StatType: 5
       BaseValue:
-        RawValue: 65536
+        RawValue: 13107
       RarityMultiplier:
         RawValue: 68583
       LevelStepMultiplier:
-        RawValue: 328
+        RawValue: 10813
       GradeStepMultiplier:
         RawValue: 2785
       CeilToInt: 0
@@ -104,11 +104,11 @@ MonoBehaviour:
         RawValue: 327680
     - StatType: 4
       BaseValue:
-        RawValue: 32768000
+        RawValue: 29491200
       RarityMultiplier:
         RawValue: 68583
       LevelStepMultiplier:
-        RawValue: 328
+        RawValue: 3277
       GradeStepMultiplier:
         RawValue: 2785
       CeilToInt: 1

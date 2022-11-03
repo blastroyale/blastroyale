@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using FirstLight.Game.Commands.OfflineCommands;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Infos;
+using FirstLight.Game.Messages;
 using FirstLight.Services;
 using I2.Loc;
 using Quantum;
@@ -122,11 +123,11 @@ namespace FirstLight.Game.Presenters
 
 		// We override the OnClosed because we want to show the Loot menu before the close animation completes
 		// Also, we need to send command to update our loadout on the logic side
-		protected override void OnClosed()
+		protected override async Task OnClosed()
 		{
 			_showNotifications.Clear();
 
-			base.OnClosed();
+			await base.OnClosed();
 			Data.OnCloseClicked();
 		}
 
@@ -272,11 +273,13 @@ namespace FirstLight.Game.Presenters
 					var format = stat switch
 					{
 						EquipmentStatType.ReloadSpeed => "N2",
-						EquipmentStatType.PowerToDamageRatio => "P0",
-						EquipmentStatType.Armor => "P0",
+						EquipmentStatType.PowerToDamageRatio => "P2",
+						EquipmentStatType.Armor => "P2",
 						EquipmentStatType.AttackCooldown => "N2",
-						EquipmentStatType.TargetRange => "N2",
-						EquipmentStatType.PickupSpeed => "P0",
+						EquipmentStatType.TargetRange => "N3",
+						EquipmentStatType.PickupSpeed => "P2",
+						EquipmentStatType.Speed => "N2",
+						EquipmentStatType.SplashDamageRadius => "N2",
 						_ => "N0"
 					};
 					

@@ -21,7 +21,7 @@ namespace FirstLight.Server.SDK.Services
 		/// <summary>
 		/// Removes a given player state from server.
 		/// </summary>
-		public Task DeleteState(string playerId);
+		public Task DeletePlayerState(string playerId);
 	}
 }
 

@@ -24,7 +24,7 @@ public class InMemoryPlayerState : IServerStateService
 		return state;
 	}
 
-	public async Task DeleteState(string playerId)
+	public async Task DeletePlayerState(string playerId)
 	{
 		_states.Remove(playerId);
 	}

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using FirstLight.FLogger;
 using FirstLight.Server.SDK.Modules;
 using PlayFab;
+using UnityEngine;
 
 // ReSharper disable RedundantDefaultMemberInitializer
 
@@ -68,6 +69,11 @@ namespace FirstLight.Game.Utils
 		public static bool ITEM_DURABILITY = false;
 
 		/// <summary>
+		/// Enables / disables the store button in the home screen
+		/// </summary>
+		public static bool STORE_ENABLED = false;
+
+		/// <summary>
 		/// Parses the feature flags from a given input dictionary.
 		/// Keys of the dictionary will be matched as title feature flag keys referenced on the attributes.
 		/// Values will be converted to boolean ('true' or 'false)
@@ -97,6 +103,11 @@ namespace FirstLight.Game.Utils
 			if (TrySetFlag("ITEM_DURABILITY", titleData, out var itemDurability))
 			{
 				ITEM_DURABILITY = itemDurability;
+			}
+			
+			if (TrySetFlag("STORE_ENABLED", titleData, out var storeEnabled))
+			{
+				STORE_ENABLED = storeEnabled;
 			}
 			
 			ParseLocalFeatureFlags();
@@ -137,7 +148,7 @@ namespace FirstLight.Game.Utils
 		{
 #if UNITY_EDITOR
 			UnityEditor.EditorPrefs.SetString("LocalFeatureFlags", ModelSerializer.Serialize(_localConfig).Value);
-			FLog.Verbose("Saved local config for feature flags");
+			Debug.Log("Saved local config for feature flags");
 #endif
 		}
 

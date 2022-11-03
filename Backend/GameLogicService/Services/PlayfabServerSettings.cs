@@ -19,7 +19,7 @@ namespace Backend.Game.Services
 	/// </summary>
 	public class PlayfabServerSettings : IPlayfabServer
 	{
-		public PlayfabServerSettings(IServerConfiguration cfg)
+		public PlayfabServerSettings(IBaseServiceConfiguration cfg)
 		{
 			SecretKey = cfg.PlayfabSecretKey;
 			TitleId = cfg.PlayfabTitle;

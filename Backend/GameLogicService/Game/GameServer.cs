@@ -33,10 +33,10 @@ public class GameServer
 	private IServerMutex _mutex;
 	private IEventManager _eventManager;
 	private IMetricsService _metrics;
-	private IServerConfiguration _serverConfig;
+	private IBaseServiceConfiguration _baseServiceConfig;
 	private IConfigsProvider _gameConfigs;
 
-	public GameServer(IConfigsProvider gameConfigs, IServerConfiguration serverConfig, IServerCommahdHandler cmdHandler, ILogger log, IServerStateService state, IServerMutex mutex, IEventManager eventManager, IMetricsService metrics)
+	public GameServer(IConfigsProvider gameConfigs, IBaseServiceConfiguration baseServiceConfig, IServerCommahdHandler cmdHandler, ILogger log, IServerStateService state, IServerMutex mutex, IEventManager eventManager, IMetricsService metrics)
 	{
 		_cmdHandler = cmdHandler;
 		_log = log;
@@ -44,7 +44,7 @@ public class GameServer
 		_mutex = mutex;
 		_eventManager = eventManager;
 		_metrics = metrics;
-		_serverConfig = serverConfig;
+		_baseServiceConfig = baseServiceConfig;
 		_gameConfigs = gameConfigs;
 	}
 	
@@ -71,35 +71,20 @@ public class GameServer
 			_eventManager.CallEvent(new CommandFinishedEvent(playerId, commandInstance, newState, currentPlayerState, commandData));
 			await _state.UpdatePlayerState(playerId, newState);
 			
+			var response = new Dictionary<string, string>();
 			if(requestData.TryGetValue(CommandFields.ConfigurationVersion, out var clientConfigVersion))
 			{
 				var clientConfigVersionNumber = ulong.Parse(clientConfigVersion);
 				if (_gameConfigs.Version > clientConfigVersionNumber)
 				{
-					newState[CommandFields.ConfigurationVersion] = _gameConfigs.Version.ToString();
+					response[CommandFields.ConfigurationVersion] = _gameConfigs.Version.ToString();
 				}
 			}
-			
-			// DEBUG HACK //
-			// ADDED TO DEBUG MISSING RNG DATA
-			var request = JsonConvert.SerializeObject(requestData);
-			var rngData = newState.DeserializeModel<RngData>();
-			if (rngData == null || rngData.Seed == 0)
-			{
-				throw new Exception($"[Tell Gabriel] Rng Data got wiped in memory during {cmdType}:{request}");
-			}
-
-			var remoteState = await _state.GetPlayerState(playerId);
-			if (!remoteState.ContainsKey(typeof(RngData).FullName))
-			{
-				throw new Exception($"[Tell Gabriel] Rng Data got wiped during state update {cmdType}:{request}");
-			}
-			// END DEBUG //
 			
 			return new BackendLogicResult()
 			{
 				Command = cmdType,
-				Data = newState,
+				Data = response,
 				PlayFabId = playerId
 			};
 		}
@@ -134,7 +119,7 @@ public class GameServer
 			throw new LogicException($"Command data requires a version to be ran: Key {CommandFields.ClientVersion}");
 		}
 
-		var minVersion = _serverConfig.MinClientVersion;
+		var minVersion = _baseServiceConfig.MinClientVersion;
 		var clientVersion = new Version(clientVersionString);
 		if (clientVersion < minVersion)
 		{
@@ -175,7 +160,7 @@ public class GameServer
 	/// </summary>s
 	private bool HasAccess(ServerState playerState, IGameCommand cmd, Dictionary<string,string> cmdData)
 	{
-		if (_serverConfig.DevelopmentMode)
+		if (_baseServiceConfig.DevelopmentMode)
 		{
 			return true;
 		}

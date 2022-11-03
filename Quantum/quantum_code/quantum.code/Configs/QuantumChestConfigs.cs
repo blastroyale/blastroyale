@@ -51,11 +51,11 @@ namespace Quantum
 		{
 			return type switch
 			{
-				ChestType.Common => _dictionary[GameId.ChestCommon],
-				ChestType.Uncommon => _dictionary[GameId.ChestUncommon],
-				ChestType.Rare => _dictionary[GameId.ChestRare],
-				ChestType.Epic => _dictionary[GameId.ChestEpic],
-				ChestType.Legendary => _dictionary[GameId.ChestLegendary],
+				ChestType.Common => GetConfig(GameId.ChestCommon),
+				ChestType.Uncommon => GetConfig(GameId.ChestUncommon),
+				ChestType.Rare => GetConfig(GameId.ChestRare),
+				ChestType.Epic => GetConfig(GameId.ChestEpic),
+				ChestType.Legendary => GetConfig(GameId.ChestLegendary),
 				_ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
 			};
 		}

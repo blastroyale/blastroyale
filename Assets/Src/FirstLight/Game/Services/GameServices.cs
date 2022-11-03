@@ -1,6 +1,7 @@
 using FirstLight.Game.Logic;
 using FirstLight.Services;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
 using FirstLight.NotificationService;
 using FirstLight.SDK.Services;
@@ -85,6 +86,9 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc cref="IGameModeService"/>
 		public IGameModeService GameModeService { get; }
 		
+		/// <inheritdoc cref="IIAPService"/>
+		public IIAPService IAPService { get; }
+		
 		/// <summary>
 		/// Reason why the player quit the app
 		/// </summary>
@@ -121,6 +125,7 @@ namespace FirstLight.Game.Services
 		public IThreadService ThreadService { get; }
 		public IHelpdeskService HelpdeskService { get; }
 		public IGameModeService GameModeService { get; }
+		public IIAPService IAPService { get; }
 		public string QuitReason { get; set; }
 
 		public GameServices(IGameNetworkService networkService, IMessageBrokerService messageBrokerService,
@@ -152,6 +157,7 @@ namespace FirstLight.Game.Services
 			CoroutineService = new CoroutineService();
 			PlayerInputService = new PlayerInputService();
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
+			IAPService = new IAPService(CommandService, MessageBrokerService, PlayfabService, AnalyticsService, gameLogic);
 			NotificationService = new MobileNotificationService(
 			                                                    new
 				                                                    GameNotificationChannel(GameConstants.Notifications.NOTIFICATION_BOXES_CHANNEL,
@@ -168,10 +174,15 @@ namespace FirstLight.Game.Services
 		}
 		
 		/// <inheritdoc />
-		public void QuitGame(string reason)
+		public void QuitGame(string reason) 
 		{
+			MessageBrokerService.Publish(new ApplicationQuitMessage());
 			QuitReason = reason;
-			Application.Quit();
+			#if UNITY_EDITOR
+				UnityEditor.EditorApplication.isPlaying = false;
+			#else
+				Application.Quit(); // Apple does not allow to close the app so might not work on iOS :<
+			#endif
 		}
 	}
 }

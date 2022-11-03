@@ -1,0 +1,35 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xmlns:flg="FirstLight.Game.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Screens/StoreScreenStyle.uss?fileID=7433441132597879392&amp;guid=4e78e87407db04df3a3f36ca0181c06c&amp;type=3#StoreScreenStyle" />
+    <ui:VisualElement name="root" class="background">
+        <flg:SafeAreaElement style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; align-items: center; flex-direction: row; justify-content: center;">
+            <ui:Button name="BackButton" class="back-button" />
+            <ui:Button name="ItemRare" class="store-item">
+                <ui:VisualElement name="_shadow" class="store-item__shadow" />
+                <ui:VisualElement name="_body" class="store-item__body">
+                    <flg:LocalizedLabel localization-key="UITStore/rare_core" class="store-item__body__title store-item__body__title--rare" />
+                    <ui:VisualElement class="store-item__body__icon store-item__body__icon--rare" />
+                    <ui:Label name="Price" text="0.99€" class="store-item__body__price" />
+                </ui:VisualElement>
+            </ui:Button>
+            <ui:Button name="ItemEpic" class="store-item" style="margin-left: 100px; margin-right: 100px;">
+                <ui:VisualElement name="_shadow" class="store-item__shadow" />
+                <ui:VisualElement name="_body" class="store-item__body">
+                    <flg:LocalizedLabel localization-key="UITStore/epic_core" class="store-item__body__title store-item__body__title--epic" />
+                    <ui:VisualElement class="store-item__body__icon store-item__body__icon--epic" />
+                    <ui:Label name="Price" text="1.99€" class="store-item__body__price" />
+                </ui:VisualElement>
+            </ui:Button>
+            <ui:Button name="ItemLegendary" class="store-item">
+                <ui:VisualElement name="_shadow" class="store-item__shadow" />
+                <ui:VisualElement name="_body" class="store-item__body">
+                    <flg:LocalizedLabel localization-key="UITStore/legendary_core" class="store-item__body__title store-item__body__title--legendary" />
+                    <ui:VisualElement class="store-item__body__icon store-item__body__icon--legendary" />
+                    <ui:Label name="Price" text="2.99€" class="store-item__body__price" />
+                </ui:VisualElement>
+            </ui:Button>
+        </flg:SafeAreaElement>
+        <ui:VisualElement name="Blocker" class="blocker" style="display: none;">
+            <flg:LocalizedLabel localization-key="UITShared/waiting" class="blocker__title" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

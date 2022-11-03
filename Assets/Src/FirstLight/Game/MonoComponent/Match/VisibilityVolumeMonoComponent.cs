@@ -1,17 +1,12 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using FirstLight.Game.Messages;
-using FirstLight.Game.MonoComponent.EntityPrototypes;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
 using UnityEngine;
 
-namespace FirstLight.Game.Views.MapViews
+namespace FirstLight.Game.MonoComponent.Match
 {
 	/// <summary>
 	/// This class handles showing/hiding player renderers inside and outside of visibility volumes based on various factors
@@ -27,12 +22,23 @@ namespace FirstLight.Game.Views.MapViews
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
-
 			_currentlyCollidingPlayers = new Dictionary<EntityRef, PlayerCharacterViewMonoComponent>();
 
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
+			_services.MessageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEnded);
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 			QuantumEvent.Subscribe<EventOnPlayerDead>(this, OnPlayerDead);
+		}
+		
+		private void OnDestroy()
+		{
+			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(OnSpectatedPlayerChanged);
+			_services?.MessageBrokerService?.UnsubscribeAll(this);
+		}
+
+		private void OnMatchEnded(MatchEndedMessage callback)
+		{
+			_currentlyCollidingPlayers.Clear();
 		}
 
 		private void OnPlayerDead(EventOnPlayerDead callback)
@@ -42,12 +48,6 @@ namespace FirstLight.Game.Views.MapViews
 				_currentlyCollidingPlayers.Remove(callback.Entity);
 				CheckUpdateAllVisiblePlayers();
 			}
-		}
-
-		private void OnDestroy()
-		{
-			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(OnSpectatedPlayerChanged);
-			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
 		/// <summary>

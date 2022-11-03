@@ -55,7 +55,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnLoginButtonClicked()
 		{
-			Data.LoginClicked(_emailField.text, _passwordField.text);
+			Data.LoginClicked(_emailField.text.Trim(), _passwordField.text.Trim());
 		}
 
 		private void OnRegisterButtonClicked()
@@ -67,11 +67,11 @@ namespace FirstLight.Game.Presenters
 		{
 			var confirmButton = new GenericDialogButton<string>
 			{
-				ButtonText = ScriptLocalization.General.OK,
+				ButtonText = ScriptLocalization.UITShared.ok,
 				ButtonOnClick = Data.ForgotPasswordClicked
 			};
 
-			_services.GenericDialogService.OpenInputFieldDialog(ScriptLocalization.MainMenu.SendPasswordEmail,
+			_services.GenericDialogService.OpenInputFieldDialog(ScriptLocalization.UITLoginRegister.send_password_recovery,
 				"", confirmButton, true);
 		}
 

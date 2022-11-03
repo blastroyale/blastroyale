@@ -1,10 +1,12 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using FirstLight.Game.Logic.RPC;
+using FirstLight.Server.SDK.Modules;
+using PlayFab;
 
 namespace ContainerApp.Cloudscript
 {
-	/// <summary>
+    /// <summary>
 	/// Objects that represent cloudscript response formats
 	/// </summary>
 	[Serializable]
@@ -16,6 +18,17 @@ namespace ContainerApp.Cloudscript
 		public LogicRequest? FunctionArgument { get; set; }
 		
 		public string PlayfabId => CallerEntityProfile?.Lineage?.MasterPlayerAccountId;
+        
+        public PlayFabAuthenticationContext GetAuthContext()
+        {
+           
+            var authContext = ModelSerializer.DeserializeFromData<PlayFabAuthenticationContext>(FunctionArgument.Data);
+            if (authContext == null)
+            {
+                throw new Exception("AuthenticationContext key not present in function argument data");
+            }
+            return authContext;
+        }
 	}
 
 	[Serializable]
@@ -35,7 +48,7 @@ namespace ContainerApp.Cloudscript
 		public string? Id { get; set; }
 	}
 
-	[Serializable]
+    [Serializable]
 	public class PlayfabLineage
 	{
 		[Required(ErrorMessage = "MasterPlayerAccountId is required")]

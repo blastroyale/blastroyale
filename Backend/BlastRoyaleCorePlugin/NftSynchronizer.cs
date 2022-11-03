@@ -43,7 +43,7 @@ public class NftSynchronizer
     {
 	    try
 	    {
-		    _ctx.PlayerMutex.Lock(playfabId);
+		    await _ctx.PlayerMutex.Lock(playfabId);
 		    var serverState = await _ctx.ServerState.GetPlayerState(playfabId);
 		    var equipmentData = serverState.DeserializeModel<EquipmentData>();
 		    var lastBlockchainUpdate = await RequestBlockchainLastUpdate(playfabId);

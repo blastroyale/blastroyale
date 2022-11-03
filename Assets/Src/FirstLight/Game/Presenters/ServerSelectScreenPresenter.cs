@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -51,9 +52,9 @@ namespace FirstLight.Game.Presenters
 			SetFrontDimBlockerActive(true);
 		}
 
-		protected override void OnClosed()
+		protected override async Task OnClosed()
 		{
-			base.OnClosed();
+			await base.OnClosed();
 
 			if (_fadeBlockerCoroutine != null)
 			{
@@ -133,7 +134,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnConnectClicked()
 		{
-			if (Application.internetReachability == NetworkReachability.NotReachable)
+			if (!NetworkUtils.IsOnline())
 			{
 				OpenNoInternetPopup();
 				return;

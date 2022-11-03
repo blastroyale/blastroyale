@@ -46,7 +46,18 @@ namespace FirstLight.GoogleSheetImporter
 						continue;
 					}
 
-					dictionary.Add(headlines[j], values[j].Trim());
+					// fix for any extra invalid columns
+					// two empty columns in a row are parsed as a single empty value 
+					// e.g (one,two,,) ir parsed as [one, two, ""]
+					if(j >= values.Length) 
+					{
+						dictionary.Add(headlines[j], "");
+						
+					}
+					else
+					{
+						dictionary.Add(headlines[j], values[j].Trim());
+					}
 				}
 
 				list.Add(dictionary);

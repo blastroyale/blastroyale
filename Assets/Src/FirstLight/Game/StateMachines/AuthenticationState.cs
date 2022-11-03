@@ -208,7 +208,7 @@ namespace FirstLight.Game.StateMachines
 				FLog.Error("Authentication Fail - " + JsonConvert.SerializeObject(error.ErrorDetails));
 			}
 			
-			_services.GenericDialogService.OpenChoiceDialog(ScriptLocalization.UITShared.error, error.ErrorMessage, false, confirmButton);
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, error.ErrorMessage, false, confirmButton);
 			
 			DimLoginRegisterScreens(false);
 		}
@@ -418,7 +418,7 @@ namespace FirstLight.Game.StateMachines
 				}
 			};
 			
-			_services.GenericDialogService.OpenChoiceDialog(ScriptLocalization.UITShared.error, ScriptLocalization.MainMenu.DeleteAccountConfirm, false, confirmButton);
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, ScriptLocalization.MainMenu.DeleteAccountConfirm, false, confirmButton);
 		}
 
 		private bool IsAccountDeleted()
@@ -643,7 +643,7 @@ namespace FirstLight.Game.StateMachines
 				ButtonOnClick = _services.GenericDialogService.CloseDialog
 			};
 
-			_services.GenericDialogService.OpenChoiceDialog(ScriptLocalization.UITShared.info,
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.info,
 				ScriptLocalization.MainMenu.SendPasswordEmailConfirm, false,
 				confirmButton);
 		}

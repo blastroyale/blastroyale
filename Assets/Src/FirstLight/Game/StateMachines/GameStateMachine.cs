@@ -139,7 +139,7 @@ namespace FirstLight.Game.StateMachines
 				ButtonOnClick = () => { _services.QuitGame("Closing no internet popup"); }
 			};
 
-			_services.GenericDialogService.OpenChoiceDialog(ScriptLocalization.UITShared.error, desc, false, confirmButton);
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, desc, false, confirmButton);
 #else
 			var button = new FirstLight.NativeUi.AlertButton
 			{

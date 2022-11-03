@@ -87,7 +87,7 @@ namespace FirstLight.Game.StateMachines
 				ButtonOnClick = OnNameSet
 			};
 			
-			_services.GenericDialogService.OpenInputFieldDialog(ScriptLocalization.UITShared.input, ScriptLocalization.MainMenu.NameHeroTitle, 
+			_services.GenericDialogService.OpenInputDialog(ScriptLocalization.UITShared.input, ScriptLocalization.MainMenu.NameHeroTitle, 
 			                                                    _dataProvider.AppDataProvider.DisplayNameTrimmed, 
 			                                                    confirmButton, false);
 		}
@@ -100,7 +100,7 @@ namespace FirstLight.Game.StateMachines
 				ButtonOnClick = OnNameInvalidAcknowledged
 			};
 			
-			_services.GenericDialogService.OpenChoiceDialog(ScriptLocalization.UITShared.error, _nameInvalidStatus,false, okButton);
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, _nameInvalidStatus,false, okButton);
 		}
 
 		private void OnNameSet(string newName)

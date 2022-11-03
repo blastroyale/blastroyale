@@ -77,7 +77,7 @@ namespace FirstLight.Game.Presenters
 				ButtonOnClick = OnRoomJoinClicked
 			};
 
-			_services.GenericDialogService.OpenInputFieldDialog(ScriptLocalization.UITShared.info, ScriptLocalization.MainMenu.RoomJoinCode,
+			_services.GenericDialogService.OpenInputDialog(ScriptLocalization.UITShared.info, ScriptLocalization.MainMenu.RoomJoinCode,
 			                                                    "", confirmButton, true,
 			                                                    TMP_InputField.ContentType.IntegerNumber);
 		}

@@ -50,7 +50,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 				ButtonOnClick = CloseDialog
 			};
 
-			_services.GenericDialogService.OpenChoiceDialog(ScriptLocalization.UITShared.info,
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.info,
 				LocalizationManager.GetTranslation(descriptionTerm),
 				false,
 				confirmButton);

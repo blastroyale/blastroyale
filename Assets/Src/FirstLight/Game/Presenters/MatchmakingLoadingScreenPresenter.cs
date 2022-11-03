@@ -459,7 +459,7 @@ namespace FirstLight.Game.Presenters
 				ButtonOnClick = () => _services.MessageBrokerService.Publish(new RoomLeaveClickedMessage())
 			};
 
-			_services.GenericDialogService.OpenChoiceDialog(ScriptLocalization.UITShared.confirmation, desc, true, confirmButton);
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.confirmation, desc, true, confirmButton);
 		}
 
 		private void ReadyToPlay()
@@ -527,7 +527,7 @@ namespace FirstLight.Game.Presenters
 				}
 			};
 
-			_services.GenericDialogService.OpenChoiceDialog(ScriptLocalization.UITShared.confirmation, desc, true, confirmButton, DeactivateKickOverlay);
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.confirmation, desc, true, confirmButton, DeactivateKickOverlay);
 		}
 
 		private void OnSpectatorToggle(bool isOn)

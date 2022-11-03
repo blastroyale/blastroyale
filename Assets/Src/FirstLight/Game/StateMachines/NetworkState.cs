@@ -154,7 +154,7 @@ namespace FirstLight.Game.StateMachines
 				ButtonOnClick = _services.GenericDialogService.CloseDialog
 			};
 
-			_services.GenericDialogService.OpenChoiceDialog(ScriptLocalization.UITShared.info,
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.info,
 				ScriptLocalization.MainMenu.MatchmakingKickedNotification.ToUpper(), false, confirmButton);
 		}
 
@@ -289,7 +289,7 @@ namespace FirstLight.Game.StateMachines
 				ButtonText = ScriptLocalization.General.OK,
 				ButtonOnClick = _services.GenericDialogService.CloseDialog
 			};
-			_services.GenericDialogService.OpenChoiceDialog(ScriptLocalization.UITShared.error, desc, false, confirmButton);
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, desc, false, confirmButton);
 
 			_statechartTrigger(CreateRoomFailedEvent);
 		}
@@ -342,7 +342,7 @@ namespace FirstLight.Game.StateMachines
 				ButtonText = ScriptLocalization.General.OK,
 				ButtonOnClick = _services.GenericDialogService.CloseDialog
 			};
-			_services.GenericDialogService.OpenChoiceDialog(ScriptLocalization.UITShared.error, desc, false, confirmButton);
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, desc, false, confirmButton);
 
 			_statechartTrigger(JoinRoomFailedEvent);
 		}

@@ -332,7 +332,7 @@ GameObject:
   - component: {fileID: 7306112839653272446}
   - component: {fileID: 3306343390431924697}
   m_Layer: 5
-  m_Name: BattlepassRewardPopup
+  m_Name: BattlepassRewardDialog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

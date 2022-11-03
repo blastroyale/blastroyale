@@ -41,13 +41,13 @@ namespace FirstLight.Game.Services
 		/// to click on the close button.
 		/// Optionally if defined can call the <paramref name="closeCallback"/> when the Dialog is closed.
 		/// </summary>
-		void OpenChoiceDialog(string title, string desc, bool showCloseButton, GenericDialogButton button, Action closeCallback = null);
+		void OpenButtonDialog(string title, string desc, bool showCloseButton, GenericDialogButton button, Action closeCallback = null);
 
 		/// <summary>
 		/// Shows an input field dialog box for the player to write specific string data.
 		/// Optionally if defined can call the <paramref name="closeCallback"/> when the Dialog is closed.
 		/// </summary>
-		void OpenInputFieldDialog(string title, string desc, string initialInputText, GenericDialogButton<string> button, 
+		void OpenInputDialog(string title, string desc, string initialInputText, GenericDialogButton<string> button, 
 		                          bool showCloseButton, TMP_InputField.ContentType contentType = TMP_InputField.ContentType.Standard, Action<string> closeCallback = null);
 		
 		/// <summary>
@@ -79,7 +79,7 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public void OpenChoiceDialog(string title, string desc, bool showCloseButton = true, 
+		public void OpenButtonDialog(string title, string desc, bool showCloseButton = true, 
 		                       GenericDialogButton button = new GenericDialogButton(), Action closeCallback = null)
 		{
 			var ui = _uiService.OpenUi<GenericDialogPresenter>();
@@ -90,10 +90,10 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public void OpenInputFieldDialog(string title, string desc, string initialInputText, GenericDialogButton<string> button, 
+		public void OpenInputDialog(string title, string desc, string initialInputText, GenericDialogButton<string> button, 
 		                                 bool showCloseButton, TMP_InputField.ContentType contentType = TMP_InputField.ContentType.Standard, Action<string> closeCallback = null)
 		{
-			var ui = _uiService.OpenUi<GenericDialogInputFieldPresenter>();
+			var ui = _uiService.OpenUi<GenericDialogInputPresenter>();
 
 			_openDialogType = ui.GetType();
 			

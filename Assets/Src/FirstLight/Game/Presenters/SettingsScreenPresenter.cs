@@ -193,7 +193,7 @@ namespace FirstLight.Game.Presenters
 				ButtonOnClick = new UnityAction(Data.LogoutClicked)
 			};
 
-			_services.GenericDialogService.OpenChoiceDialog(ScriptLocalization.UITShared.confirmation, desc, true, confirmButton);
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.confirmation, desc, true, confirmButton);
 		}
 
 		private void OnDeleteAccountClicked()
@@ -207,7 +207,7 @@ namespace FirstLight.Game.Presenters
 				ButtonOnClick = new UnityAction(Data.OnDeleteAccountClicked)
 			};
 			
-			_services.GenericDialogService.OpenChoiceDialog(ScriptLocalization.UITShared.confirmation, desc, true, confirmButton);
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.confirmation, desc, true, confirmButton);
 		}
 
 		private void OnBlockerButtonPressed()

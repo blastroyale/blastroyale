@@ -16,7 +16,7 @@ namespace Quantum
 		/// This Leaf never fails, nor takes more than one frame to finish,
 		/// so we always return Success.
 		/// </summary>
-		protected override BTStatus OnUpdate(BTParams btParams)
+		protected override BTStatus OnUpdate(BTParams btParams, ref AIContext aiContext)
 		{
 			Log.Info(Message + " | Frame: " + btParams.Frame.Number);
 

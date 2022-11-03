@@ -11,7 +11,7 @@ namespace Quantum
 
 		// ========== BTService INTERFACE =============================================================================
 
-		protected unsafe override void OnUpdate(BTParams btParams)
+		protected unsafe override void OnUpdate(BTParams btParams, ref AIContext aiContext)
 		{
 			Log.Info($"[BT SERVICE] { Message } | Frame: {btParams.Frame.Number}");
 		}

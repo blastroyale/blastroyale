@@ -9,7 +9,7 @@ namespace Quantum
 		public AIBlackboardValueKey Key;
 		public AIParamFP Value;
 
-		public override unsafe void Update(Frame frame, EntityRef entity)
+		public override unsafe void Update(Frame frame, EntityRef entity, ref AIContext aiContext)
 		{
 			var blackboard = frame.Unsafe.GetPointer<AIBlackboardComponent>(entity);
 

@@ -19,23 +19,23 @@ namespace Quantum
 			endTimesList.Add(0);
 		}
 
-		public virtual void RunUpdate(BTParams btParams)
+		public virtual void RunUpdate(BTParams btParams, ref AIContext aiContext)
 		{
 			var endTime = GetEndTime(btParams.FrameThreadSafe, btParams.Agent);
 			if (btParams.Frame.BotSDKGameTime() >= endTime)
 			{
-				OnUpdate(btParams);
+				OnUpdate(btParams, ref aiContext);
 				SetEndTime(btParams.FrameThreadSafe, btParams.Agent);
 			}
 		}
 
-		public virtual void OnEnter(BTParams btParams)
+		public virtual void OnEnter(BTParams btParams, ref AIContext aiContext)
 		{
 			SetEndTime(btParams.FrameThreadSafe, btParams.Agent);
 
 			if(RunOnEnter == true)
 			{
-				OnUpdate(btParams);
+				OnUpdate(btParams, ref aiContext);
 			}
 		}
 
@@ -43,7 +43,7 @@ namespace Quantum
 		/// Called whenever the Service is part of the current subtree
 		/// and its waiting time is already over
 		/// </summary>
-		protected abstract void OnUpdate(BTParams btParams);
+		protected abstract void OnUpdate(BTParams btParams, ref AIContext aiContext);
 
 		// ========== PUBLIC METHODS ==================================================================================
 
@@ -59,7 +59,7 @@ namespace Quantum
 			return endTime[Id];
 		}
 
-		public static void TickServices(BTParams btParams)
+		public static void TickServices(BTParams btParams, ref AIContext aiContext)
 		{
 			var activeServicesList = btParams.FrameThreadSafe.ResolveList<AssetRefBTService>(btParams.Agent->ActiveServices);
 
@@ -68,7 +68,7 @@ namespace Quantum
 				var service = btParams.FrameThreadSafe.FindAsset<BTService>(activeServicesList[i].Id);
 				try
 				{
-					service.RunUpdate(btParams);
+					service.RunUpdate(btParams, ref aiContext);
 				}
 				catch (Exception e)
 				{

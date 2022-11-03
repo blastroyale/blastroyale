@@ -8,8 +8,6 @@ namespace Quantum
 	/// </summary>
 	public unsafe class BotSDKSystem : SystemSignalsOnly, ISignalOnComponentAdded<HFSMAgent>,
 																												ISignalOnComponentAdded<BTAgent>, ISignalOnComponentRemoved<BTAgent>,
-																												ISignalOnComponentAdded<UTAgent>, ISignalOnComponentRemoved<UTAgent>,
-																												ISignalOnComponentAdded<GOAPAgent>, ISignalOnComponentRemoved<GOAPAgent>,
 																												ISignalOnComponentRemoved<AIBlackboardComponent>
 	{
 		// ========== HFSM ============================================================================================
@@ -33,41 +31,13 @@ namespace Quantum
 			// is not initialized yet, then it is initialized here;
 			if (component->Tree != default)
 			{
-				component->Initialize(frame, entity, component, component->Tree, false);
+				component->Initialize(frame, entity, component, component->Tree, false, false);
 			}
 		}
 
 		public void OnRemoved(Frame frame, EntityRef entity, BTAgent* component)
 		{
 			component->Free(frame);
-		}
-
-		// ========== UT ============================================================================================
-
-		public void OnAdded(Frame frame, EntityRef entity, UTAgent* component)
-		{
-			UTManager.Init(frame, &component->UtilityReasoner, component->UtilityReasoner.UTRoot, entity);
-		}
-
-		public void OnRemoved(Frame frame, EntityRef entity, UTAgent* component)
-		{
-			component->UtilityReasoner.Free(frame);
-		}
-
-		// ========== GOAP ============================================================================================
-
-		void ISignalOnComponentAdded<GOAPAgent>.OnAdded(Frame frame, EntityRef entity, GOAPAgent* component)
-		{
-			if (component->Root == default)
-				return;
-
-			var rootAsset = frame.FindAsset<GOAPRoot>(component->Root.Id);
-			GOAPManager.Initialize(frame, entity, rootAsset);
-		}
-
-		void ISignalOnComponentRemoved<GOAPAgent>.OnRemoved(Frame frame, EntityRef entity, GOAPAgent* component)
-		{
-			GOAPManager.Deinitialize(frame, entity);
 		}
 
 		// ========== BLACKBOARD ============================================================================================

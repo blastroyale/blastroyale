@@ -12,7 +12,7 @@ namespace Quantum
 	public partial class IsProjectileAttackDecision : HFSMDecision
 	{
 		/// <inheritdoc />
-		public override unsafe bool Decide(Frame f, EntityRef e)
+		public override unsafe bool Decide(Frame f, EntityRef e, ref AIContext aiContext)
 		{
 			var weaponId = f.Unsafe.GetPointer<PlayerCharacter>(e)->CurrentWeapon.GameId;
 			

@@ -24,7 +24,7 @@ namespace FirstLight.Game.UIElements
 		private const string LabelUssClassName = "currency-display__label";
 
 		/* UXML attributes */
-		private GameId _currency;
+		private GameId currency { get; set; }
 
 		/* VisualElements created within this element */
 		private readonly VisualElement _icon;
@@ -66,7 +66,7 @@ namespace FirstLight.Game.UIElements
 		/* IUIView: Called by the presenter when the screen is opened */
 		public void SubscribeToEvents()
 		{
-			_gameDataProvider.CurrencyDataProvider.Currencies.InvokeObserve(_currency, OnCurrencyChanged);
+			_gameDataProvider.CurrencyDataProvider.Currencies.InvokeObserve(currency, OnCurrencyChanged);
 		}
 
 		/* IUIView: Called by the presenter when the screen is closed */
@@ -108,7 +108,7 @@ namespace FirstLight.Game.UIElements
 						? _originElement.GetPositionOnScreen(GetRoot())
 						: GetRoot().GetPositionOnScreen(GetRoot()) + Random.insideUnitCircle * 100;
 					
-					_mainMenuServices.UiVfxService.PlayVfx(_currency,
+					_mainMenuServices.UiVfxService.PlayVfx(currency,
 						i * 0.1f,
 						originPosition,
 						_label.GetPositionOnScreen(GetRoot()),
@@ -163,10 +163,10 @@ namespace FirstLight.Game.UIElements
 
 				var cde = (CurrencyDisplayElement) ve;
 
-				cde._currency = _currencyAttribute.GetValueFromBag(bag, cc);
+				cde.currency = _currencyAttribute.GetValueFromBag(bag, cc);
 				cde._icon.ClearClassList();
 				cde._icon.AddToClassList(IconUssClassName);
-				cde._icon.AddToClassList(cde._currency switch
+				cde._icon.AddToClassList(cde.currency switch
 				{
 					GameId.BLST => IconBlstUssClassName,
 					GameId.CS => IconCsUssClassName,

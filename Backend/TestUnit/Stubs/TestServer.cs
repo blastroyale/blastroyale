@@ -92,7 +92,7 @@ public class TestServer
 			services.RemoveAll(typeof(IServerStateService)); 
 			services.RemoveAll(typeof(ITestPlayerSetup));
 			services.RemoveAll(typeof(IServerMutex));
-			services.AddSingleton<IServerStateService, InMemoryPlayerState>();
+			services.AddSingleton<IServerStateService>(p => new InMemoryPlayerState());
 			services.AddSingleton<ITestPlayerSetup, InMemoryTestSetup>();
 			services.AddSingleton<IServerMutex, InMemoryMutex>();
 			services.AddSingleton<IServerAnalytics, InMemoryAnalytics>();
@@ -133,7 +133,7 @@ public class TestServer
 		Environment.SetEnvironmentVariable("SqlConnectionString", "Server=localhost;Database=localDatabase;Port=5432;User Id=postgres;Password=localPassword;Ssl Mode=Allow;");
 		Environment.SetEnvironmentVariable("API_URL", "stub-api", EnvironmentVariableTarget.Process);
 		Environment.SetEnvironmentVariable("API_BLOCKCHAIN_SERVICE", "stub-service", EnvironmentVariableTarget.Process);
-		Environment.SetEnvironmentVariable("API_SECRET", "stub-key", EnvironmentVariableTarget.Process);
+		Environment.SetEnvironmentVariable("API_KEY", "stub-key", EnvironmentVariableTarget.Process);
 		Environment.SetEnvironmentVariable("PLAYFAB_DEV_SECRET_KEY", "***REMOVED***", EnvironmentVariableTarget.Process);
 		Environment.SetEnvironmentVariable("PLAYFAB_TITLE", "***REMOVED***", EnvironmentVariableTarget.Process);
 		Environment.SetEnvironmentVariable("REMOTE_CONFIGURATION", "false", EnvironmentVariableTarget.Process);

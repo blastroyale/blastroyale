@@ -366,8 +366,11 @@ namespace Quantum
 		{
 			var cVelocitySqr = kcc->Velocity.SqrMagnitude;
 			var maxSpeedSqr = kcc->MaxSpeed * kcc->MaxSpeed;
+			if (maxSpeedSqr == 0)
+			{
+				return 0;
+			}
 			return FPMath.Lerp(stationaryValue, movingValue, cVelocitySqr / maxSpeedSqr);
-
 		}
 	}
 }

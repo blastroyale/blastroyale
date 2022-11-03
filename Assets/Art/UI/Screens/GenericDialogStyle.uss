@@ -1,3 +1,11 @@
+:root {
+    --out-animation-duration: 0.3s;
+    --out-animation-easing: ease-in;
+    --in-animation-duration: 0.3s;
+    --in-animation-easing: ease-out;
+    --animation-property: top;
+}
+
 .popup-radius {
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
@@ -7,10 +15,9 @@
 
 .hidden #PopupBackground {
     top: -1000px;
-    transition-timing-function: ease-in;
-    transition-duration: 0.5s;
-    transition-property: top;
-    transition-delay: 0.5s;
+    transition-timing-function: var(--in-animation-easing);
+    transition-duration: var(--in-animation-duration);
+    transition-property: var(--animation-property);
 }
 
 .background {
@@ -81,10 +88,9 @@
 #PopupBackground {
     width: 725px;
     background-color: rgb(0, 0, 0);
-    transition-timing-function: ease-out;
-    transition-duration: 0.5s;
-    transition-property: top;
-    transition-delay: 0.5s;
+    transition-timing-function: var(--out-animation-easing);
+    transition-duration: var(--out-animation-duration);
+    transition-property: var(--animation-property);
     height: auto;
     top: 0;
 }

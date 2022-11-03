@@ -44,9 +44,8 @@ namespace Quantum.Systems
 				                    f.RNG->Next(-gridSquareSize, gridSquareSize));
 			
 			var spawnTransform = new Transform3D {Position = FPVector3.Zero, Rotation = FPQuaternion.Identity};
-			var startingEquipment = f.Context.GameModeConfig.SpawnWithLoadout
-				? playerData.Loadout :
-				Array.Empty<Equipment>();
+			var startingEquipment = f.Context.GameModeConfig.SpawnWithLoadout ? 
+				playerData.Loadout : Array.Empty<Equipment>();
 
 			spawnTransform.Position = spawnPosition.XOY;
 

@@ -1,4 +1,3 @@
-using System.ComponentModel;
 using System.Linq;
 using Photon.Deterministic;
 
@@ -33,6 +32,7 @@ namespace Quantum
 			var isBot = f.Has<BotCharacter>(playerEntity);
 
 			var loadoutWeapon = playerCharacter->GetLoadoutWeapon(f);
+
 
 			if (Item.IsWeapon())
 			{

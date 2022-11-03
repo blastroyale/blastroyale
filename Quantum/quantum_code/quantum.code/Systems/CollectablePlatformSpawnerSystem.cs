@@ -18,7 +18,6 @@ namespace Quantum.Systems
 		public void OnAdded(Frame f, EntityRef entity, CollectablePlatformSpawner* component)
 		{
 			component->NextSpawnTime = f.Time + component->InitialSpawnDelayInSec;
-
 		}
 		
 		/// <inheritdoc />

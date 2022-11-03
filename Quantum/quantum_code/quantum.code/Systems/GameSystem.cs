@@ -44,26 +44,18 @@ namespace Quantum.Systems
 			}
 			SetupWeaponPool(f, component);
 
-			//this should destroy all components with the collectable platform destroyer component attached
-			foreach (var platform in f.GetComponentIterator<CollectablePlatformSpawner>())
+			if(f.Context.TryGetMutatorByType(MutatorType.HammerTime, out _))
 			{
-				if (platform.Component.GameId == GameId.Random || platform.Component.GameId.IsInGroup(GameIdGroup.Weapon))
+				foreach (var platform in f.GetComponentIterator<CollectablePlatformSpawner>())
 				{
-					f.Destroy(platform.Entity);
-				}
-			}
-
-			//this should destroy all components with the collectable platform destroyer component attached
-			foreach (var platform in f.GetComponentIterator<EquipmentCollectable>())
-			{
-				if (platform.Component.Item.GameId == GameId.Random || platform.Component.Item.GameId.IsInGroup(GameIdGroup.Weapon))
-				{
-					f.Destroy(platform.Entity);
+					//TODO: instead of comparing to the weapon group, check against the hammertime params to see which drops to leave
+					if (platform.Component.GameId == GameId.Random || platform.Component.GameId.IsInGroup(GameIdGroup.Weapon))
+					{
+						f.Destroy(platform.Entity);
+					}
 				}
 			}
 		}
-
-
 
 		/// <inheritdoc />
 		public void GameEnded(Frame f)

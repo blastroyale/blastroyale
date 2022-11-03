@@ -78,8 +78,8 @@ namespace FirstLight.Game.Presenters
 			};
 
 			_services.GenericDialogService.OpenInputDialog(ScriptLocalization.UITShared.info, ScriptLocalization.MainMenu.RoomJoinCode,
-			                                                    "", confirmButton, true,
-			                                                    TMP_InputField.ContentType.IntegerNumber);
+			                                                    "", confirmButton, true/*,
+			                                                    TMP_InputField.ContentType.IntegerNumber*/);
 		}
 
 		private void OnRoomJoinClicked(string roomNameInput)

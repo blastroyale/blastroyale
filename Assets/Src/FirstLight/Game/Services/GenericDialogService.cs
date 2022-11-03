@@ -48,7 +48,7 @@ namespace FirstLight.Game.Services
 		/// Optionally if defined can call the <paramref name="closeCallback"/> when the Dialog is closed.
 		/// </summary>
 		void OpenInputDialog(string title, string desc, string initialInputText, GenericDialogButton<string> button, 
-		                          bool showCloseButton, TMP_InputField.ContentType contentType = TMP_InputField.ContentType.Standard, Action<string> closeCallback = null);
+		                          bool showCloseButton, /*TMP_InputField.ContentType contentType = TMP_InputField.ContentType.Standard,*/ Action<string> closeCallback = null);
 		
 		/// <summary>
 		/// Closes the <see cref="GenericDialogPresenter"/> if opened
@@ -91,13 +91,13 @@ namespace FirstLight.Game.Services
 
 		/// <inheritdoc />
 		public void OpenInputDialog(string title, string desc, string initialInputText, GenericDialogButton<string> button, 
-		                                 bool showCloseButton, TMP_InputField.ContentType contentType = TMP_InputField.ContentType.Standard, Action<string> closeCallback = null)
+		                                 bool showCloseButton, /*TMP_InputField.ContentType contentType = TMP_InputField.ContentType.Standard,*/ Action<string> closeCallback = null)
 		{
 			var ui = _uiService.OpenUi<GenericInputDialogPresenter>();
 
 			_openDialogType = ui.GetType();
 			
-			ui.SetInfo(title, desc, initialInputText, button, showCloseButton, contentType, closeCallback);
+			ui.SetInfo(title, desc, initialInputText, button, showCloseButton, /*contentType,*/ closeCallback);
 		}
 
 		/// <inheritdoc />

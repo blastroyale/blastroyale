@@ -33,4 +33,28 @@ public partial class SROptions
 			FLog.Warn("Close callback.");
 		}
 	}
+	
+	[Category("Other")]
+	public void OpenInputDialog()
+	{
+		var button = new GenericDialogButton<string>
+		{
+			ButtonText = "Confirm",
+			ButtonOnClick = CallbackConfirm
+		};
+
+		MainInstaller.Resolve<IGameServices>().GenericDialogService.OpenInputDialog("THIS IS TITLE!",
+			"THE PLAYERS WON'T READ ANY OF THIS!",
+			"Input", button, true, CallbackClose);
+
+		void CallbackConfirm(string input)
+		{
+			FLog.Warn("Confirm callback - " + input);
+		}
+		
+		void CallbackClose(string input)
+		{
+			FLog.Warn("Close callback - " + input);
+		}
+	}
 }

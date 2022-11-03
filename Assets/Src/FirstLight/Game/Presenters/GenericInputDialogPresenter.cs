@@ -1,22 +1,25 @@
 ﻿using System;
 using FirstLight.Game.Services;
-using Sirenix.OdinInspector;
-using TMPro;
-using UnityEngine;
+using FirstLight.Game.Utils;
+using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
 {
 	/// <inheritdoc />
 	public class GenericInputDialogPresenter : GenericDialogPresenterBase
 	{
-		[SerializeField, Required] private TMP_InputField _textField;
-
 		private GenericDialogButton<string> _confirmButton;
 		private Action<string> _closeCallback;
+		private TextField _inputField;
 
-		private void OnValidate()
+		protected override void QueryElements(VisualElement root)
 		{
-			_textField = _textField == null ? GetComponent<TMP_InputField>() : _textField;
+			base.QueryElements(root);
+
+			_inputField = root.Q<TextField>().Required();
+
+			_closeCallback = null;
+			_confirmButton = new GenericDialogButton<string>();
 		}
 		
 		/// <summary>
@@ -24,7 +27,7 @@ namespace FirstLight.Game.Presenters
 		/// If defined can call the <paramref name="closeCallback"/> when the Dialog is closed.
 		/// </summary>
 		public void SetInfo(string title, string desc, string initialInputText, GenericDialogButton<string> button, 
-		                    bool showCloseButton, TMP_InputField.ContentType contentType = TMP_InputField.ContentType.Standard, Action<string> closeCallback = null)
+		                    bool showCloseButton, /*TMP_InputField.ContentType contentType = TMP_InputField.ContentType.Standard,*/ Action<string> closeCallback = null)
 		{
 			var confirmButton = new GenericDialogButton
 			{
@@ -32,22 +35,23 @@ namespace FirstLight.Game.Presenters
 				ButtonOnClick = OnConfirmButtonClicked
 			};
 
-			_textField.contentType = contentType;
-			_textField.text = initialInputText;
+			// TODO: this is critical. Makes me sad.
+			//_inputField.contentType = contentType;
+			_inputField.value = initialInputText;
 			_confirmButton = button;
 			_closeCallback = closeCallback;
 			
-			SetBaseInfo(title, desc, showCloseButton, confirmButton, OnDeclineButtonClicked);
+			SetBaseInfo(title, desc, showCloseButton, confirmButton, OnCloseButtonClicked);
 		}
 
 		private void OnConfirmButtonClicked()
 		{
-			_confirmButton.ButtonOnClick(_textField.text);
+			_confirmButton.ButtonOnClick(_inputField.text);
 		}
 
-		private void OnDeclineButtonClicked()
+		private void OnCloseButtonClicked()
 		{
-			_closeCallback?.Invoke(_textField.text);
+			_closeCallback?.Invoke(_inputField.text);
 		}
 	}
 }

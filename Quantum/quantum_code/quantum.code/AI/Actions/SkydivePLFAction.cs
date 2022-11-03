@@ -10,7 +10,7 @@ namespace Quantum
 	                   GenerateAssetResetMethod = false)]
 	public unsafe class SkydivePLFAction : AIAction
 	{
-		public override void Update(Frame f, EntityRef e)
+		public override void Update(Frame f, EntityRef e, ref AIContext aiContext)
 		{
 			var player = f.Get<PlayerCharacter>(e);
 			f.Events.OnLocalPlayerSkydivePLF(player.Player, e);

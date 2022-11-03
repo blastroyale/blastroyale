@@ -15,7 +15,7 @@ namespace Quantum
 	public unsafe class PlayerProjectileAttackAction : AIAction
 	{
 		/// <inheritdoc />
-		public override void Update(Frame f, EntityRef e)
+		public override void Update(Frame f, EntityRef e, ref AIContext aiContext)
 		{
 			var isAccuracyMutator = f.Context.TryGetMutatorByType(MutatorType.AbsoluteAccuracy, out _);
 			var kcc = f.Unsafe.GetPointer<CharacterController3D>(e);

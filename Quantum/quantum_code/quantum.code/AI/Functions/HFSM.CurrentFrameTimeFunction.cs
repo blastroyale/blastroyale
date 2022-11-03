@@ -12,7 +12,7 @@ namespace Quantum
 	public class CurrentFrameTimeFunction : AIFunction<FP>
 	{
 		/// <inheritdoc />
-		public override FP Execute(Frame f, EntityRef e)
+		public override FP Execute(Frame f, EntityRef e, ref AIContext aiContext)
 		{
 			return f.Time;
 		}

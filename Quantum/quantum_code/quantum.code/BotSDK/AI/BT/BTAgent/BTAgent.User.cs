@@ -23,7 +23,7 @@ namespace Quantum
 			return frame.FindAsset<AIConfig>(Config.Id);
 		}
 
-		public void Initialize(Frame frame, EntityRef entityRef, BTAgent* agent, AssetRefBTNode tree, bool force = false)
+		public void Initialize(Frame frame, EntityRef entityRef, BTAgent* agent, AssetRefBTNode tree, bool force = false, bool isCompound = false)
 		{
 			if (this.Tree != default && force == false)
 				return;
@@ -61,7 +61,7 @@ namespace Quantum
 			treeAsset.InitializeTree(frame, agent, blackboard);
 
 			// -- Trigger the debugging event (mostly for the Unity side)
-			BTManager.OnSetupDebugger?.Invoke(entityRef, treeAsset.Path);
+			BTManager.OnSetupDebugger?.Invoke(entityRef, treeAsset.Path, isCompound);
 		}
 
 		public void Free(Frame frame)
@@ -74,17 +74,26 @@ namespace Quantum
 			frame.FreeList<AssetRefBTComposite>(DynamicComposites);
 		}
 
-		public void Update(ref BTParams btParams)
+		public void Update(ref BTParams btParams, ref AIContext aiContext)
 		{
+			AssetRefBTNode tree = btParams.Agent->Tree;
+			if(tree != default)
+			{
+				// We always load the root asset to force it's Loaded callback to be called, if it was not yet
+				// The root then also the entire tree, forcing the Loaded calls
+				// This is useful for late joiners who did not have the tree loaded yet, thus potentially having non-cached data
+				btParams.Frame.FindAsset<BTRoot>(tree.Id);
+			}
+
 			if (btParams.Agent->Current == null)
 			{
 				btParams.Agent->Current = btParams.Agent->Tree;
 			}
 
-			RunDynamicComposites(btParams);
+			RunDynamicComposites(btParams, ref aiContext);
 
 			BTNode node = btParams.FrameThreadSafe.FindAsset<BTNode>(btParams.Agent->Current.Id);
-			UpdateSubtree(btParams, node);
+			UpdateSubtree(btParams, node, ref aiContext);
 
 			BTManager.ClearBTParams(btParams);
 		}
@@ -111,7 +120,7 @@ namespace Quantum
 
 		// Used to react to blackboard changes which are observed by Decorators
 		// This is triggered by the Blackboard Entry itself, which has a list of Decorators that observes it
-		public unsafe void OnDecoratorReaction(BTParams btParams, BTNode node, BTAbort abort, out bool abortSelf, out bool abortLowerPriotity)
+		public unsafe void OnDecoratorReaction(BTParams btParams, BTNode node, BTAbort abort, out bool abortSelf, out bool abortLowerPriotity, ref AIContext aiContext)
 		{
 			abortSelf = false;
 			abortLowerPriotity = false;
@@ -121,7 +130,7 @@ namespace Quantum
 			if (abort.IsSelf() && (status == BTStatus.Running || status == BTStatus.Inactive))
 			{
 				// Check condition again
-				if (node.DryRun(btParams) == false)
+				if (node.DryRun(btParams, ref aiContext) == false)
 				{
 					abortSelf = true;
 					node.OnAbort(btParams);
@@ -140,7 +149,7 @@ namespace Quantum
 		// We run the dynamic composites contained on the current sub-tree (if any)
 		// If any of them result in "False", we abort the current sub-tree
 		// and take the execution back to the topmost decorator so the agent can choose another path
-		private void RunDynamicComposites(BTParams btParams)
+		private void RunDynamicComposites(BTParams btParams, ref AIContext aiContext)
 		{
 			var frame = btParams.FrameThreadSafe;
 			var dynamicComposites = frame.ResolveList<AssetRefBTComposite>(DynamicComposites);
@@ -149,22 +158,22 @@ namespace Quantum
 			{
 				var compositeRef = dynamicComposites.GetPointer(i);
 				var composite = frame.FindAsset<BTComposite>(compositeRef->Id);
-				var dynamicResult = composite.OnDynamicRun(btParams);
+				var dynamicResult = composite.OnDynamicRun(btParams, ref aiContext);
 
 				if (dynamicResult == false)
 				{
 					btParams.Agent->Current = composite.TopmostDecorator;
 					dynamicComposites.Remove(*compositeRef);
-					composite.OnReset(btParams);
+					composite.OnReset(btParams, ref aiContext);
 					return;
 				}
 			}
 		}
 
-		private void UpdateSubtree(BTParams btParams, BTNode node, bool continuingAbort = false)
+		private void UpdateSubtree(BTParams btParams, BTNode node, ref AIContext aiContext, bool continuingAbort = false)
 		{
 			// Start updating the tree from the Current agent's node
-			var result = node.RunUpdate(btParams, continuingAbort);
+			var result = node.RunUpdate(btParams, ref aiContext, continuingAbort);
 
 			// If the current node completes, go up in the tree until we hit a composite
 			// Run that one. On success or fail continue going up.
@@ -172,13 +181,13 @@ namespace Quantum
 			{
 				// As we are traversing the tree up, we allow nodes to remove any
 				// data that is only needed locally
-				node.OnExit(btParams);
+				node.OnExit(btParams, ref aiContext);
 
 				node = node.Parent;
 				if (node.NodeType == BTNodeType.Composite)
 				{
 					((BTComposite)node).ChildCompletedRunning(btParams, result);
-					result = node.RunUpdate(btParams, continuingAbort);
+					result = node.RunUpdate(btParams, ref aiContext, continuingAbort);
 				}
 
 				if (node.NodeType == BTNodeType.Decorator)
@@ -187,14 +196,14 @@ namespace Quantum
 				}
 			}
 
-			BTService.TickServices(btParams);
+			BTService.TickServices(btParams, ref aiContext);
 
 			if (result != BTStatus.Running)
 			{
 				BTNode tree = btParams.FrameThreadSafe.FindAsset<BTNode>(btParams.Agent->Tree.Id);
-				tree.OnReset(btParams);
+				tree.OnReset(btParams, ref aiContext);
 				btParams.Agent->Current = btParams.Agent->Tree;
-				BTManager.OnTreeCompleted?.Invoke(btParams.Entity);
+				BTManager.OnTreeCompleted?.Invoke(btParams.Entity, btParams.IsCompound);
 				//Log.Info("Behaviour Tree completed with result '{0}'. It will re-start from '{1}'", result, btParams.Agent->Current.Id);
 			}
 		}

@@ -66,11 +66,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4dfa3bd69d6bbe4791f949734721431, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animation: {fileID: 0}
-  _introAnimationClip: {fileID: 7400000, guid: d048311dbfd41084cbbf3ee2a3ec9086, type: 2}
-  _outroAnimationClip: {fileID: 7400000, guid: 6e141fcd58e9e624598ffe05aef9546d, type: 2}
-  TitleText: {fileID: 0}
-  ConfirmButtonText: {fileID: 0}
-  CloseButton: {fileID: 0}
-  ConfirmButton: {fileID: 0}
-  BlockerButton: {fileID: 0}
+  _document: {fileID: 3504483672137433832}
+  _background: {fileID: 0}
+  _millisecondsToClose: 300

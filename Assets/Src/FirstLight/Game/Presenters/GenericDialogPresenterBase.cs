@@ -27,6 +27,7 @@ namespace FirstLight.Game.Presenters
 		private Button _blockerButton;
 		
 		private Action _closeCallback;
+		private Action _confirmCallback;
 
 		private void CloseRequested()
 		{
@@ -35,11 +36,13 @@ namespace FirstLight.Game.Presenters
 		
 		protected override void Close(bool destroy)
 		{
-			// TODO - check if removing this IsOpenedComplete breaks things
-			//if (IsOpenedComplete)
-			{
-				base.Close(destroy);
-			}
+			// TODO - check if IsOpenedComplete check needs to be added to prevent "closing too early" edge cases
+			base.Close(destroy);
+				
+			_confirmButton.clicked -= CloseRequested;
+			_cancelButton.clicked -= CloseRequested;
+			_blockerButton.clicked -= CloseRequested;
+			_confirmButton.clicked -= _confirmCallback;
 		}
 
 		protected override Task OnClosed()
@@ -56,28 +59,32 @@ namespace FirstLight.Game.Presenters
 			_confirmButton = root.Q<Button>("ConfirmButton").Required();
 			_cancelButton = root.Q<Button>("CancelButton").Required();
 			_blockerButton = root.Q<Button>("BlockerButton").Required();
+
+			_confirmCallback = null;
+			_closeCallback = null;
 		}
 
 		protected void SetBaseInfo(string title, string desc, bool showCloseButton, GenericDialogButton button, Action closeCallback)
 		{
 			_titleLabel.text = title;
+			_descLabel.text = desc;
 			_closeCallback = closeCallback;
-
+			_cancelButton.SetDisplayActive(showCloseButton);
+			
 			if (button.IsEmpty)
 			{
 				_confirmButton.SetDisplayActive(false);
 			}
 			else
 			{
+				_confirmCallback = button.ButtonOnClick;
 				_confirmButton.text = button.ButtonText;
 
 				_confirmButton.SetDisplayActive(true);
+				_confirmButton.clicked += _confirmCallback;
 				_confirmButton.clicked += CloseRequested;
-				_confirmButton.clicked += button.ButtonOnClick;
 			}
 
-			_cancelButton.SetDisplayActive(showCloseButton);
-			
 			if (showCloseButton)
 			{
 				_cancelButton.clicked += CloseRequested;

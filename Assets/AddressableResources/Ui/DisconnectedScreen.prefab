@@ -67,9 +67,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc30029abf6648e7855e47262f86be79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OpenDelayTimeSeconds: 0
   _document: {fileID: 3811839224865797129}
   _background: {fileID: 5611427587587686392}
+  _millisecondsToClose: 300
 --- !u!1001 &8046535484760576698
 PrefabInstance:
   m_ObjectHideFlags: 0

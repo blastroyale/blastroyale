@@ -7,7 +7,7 @@ using UnityEngine;
 namespace FirstLight.Game.Presenters
 {
 	/// <inheritdoc />
-	public class GenericDialogInputPresenter : GenericDialogPresenterBase
+	public class GenericInputDialogPresenter : GenericDialogPresenterBase
 	{
 		[SerializeField, Required] private TMP_InputField _textField;
 

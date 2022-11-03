@@ -93,7 +93,7 @@ namespace FirstLight.Game.Services
 		public void OpenInputDialog(string title, string desc, string initialInputText, GenericDialogButton<string> button, 
 		                                 bool showCloseButton, TMP_InputField.ContentType contentType = TMP_InputField.ContentType.Standard, Action<string> closeCallback = null)
 		{
-			var ui = _uiService.OpenUi<GenericDialogInputPresenter>();
+			var ui = _uiService.OpenUi<GenericInputDialogPresenter>();
 
 			_openDialogType = ui.GetType();
 			

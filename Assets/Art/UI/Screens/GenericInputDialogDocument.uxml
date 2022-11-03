@@ -1,24 +1,24 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/Art/UI/Screens/GenericPopupStyle.uss?fileID=7433441132597879392&amp;guid=d1862850e9c3aaa4aa77ed63ff317bf3&amp;type=3#GenericPopupStyle" />
+    <Style src="project://database/Assets/Art/UI/Screens/GenericDialogStyle.uss?fileID=7433441132597879392&amp;guid=d1862850e9c3aaa4aa77ed63ff317bf3&amp;type=3#GenericDialogStyle" />
+    <ui:Button display-tooltip-when-elided="false" name="BlockerButton" enable-rich-text="false" class="element-hidden" />
     <ui:VisualElement name="root" class="background" style="top: 0; right: -3px; left: 5px; bottom: 0; -unity-text-align: middle-center;">
         <ui:VisualElement name="PopupBackground" class="popup-radius">
             <ui:VisualElement name="PopupWindow" class="popup-radius">
                 <ui:VisualElement name="Header" class="background-purple popup-header">
                     <ui:VisualElement name="TitleDots" class="dots-pattern--popup" />
-                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="generic title" name="Title" class="font-italic font-style-h2" />
+                    <ui:Label name="Title" text="TITLE GOES HERE" class="font-italic font-style-h2" />
                 </ui:VisualElement>
                 <ui:VisualElement name="Container">
-                    <FirstLight.Game.UIElements.LocalizedLabel name="GenericDesc" localization-key="generic desc" focusable="false" class="font-italic font-style-popup content-desc-text" />
+                    <ui:Label name="Desc" text="DESC GOES HERE" class="font-italic font-style-popup content-desc-text" />
                     <ui:VisualElement name="BackgroundPattern" class="popup-background-pattern" style="top: 69px; left: 258px;" />
                     <ui:VisualElement name="Spacer" class="content-spacer--small" />
                     <ui:TextField name="InputTextField" text="..." value="..." max-length="34" class="font-italic input-field" style="-unity-text-align: middle-center;" />
                     <ui:VisualElement name="Spacer" class="content-spacer--medium" />
                     <ui:VisualElement name="HoriLayout">
-                        <FirstLight.Game.UIElements.LocalizedButton localization-key="cancel" name="CancelButton" class="font-italic button-flat-cancel" />
-                        <FirstLight.Game.UIElements.LocalizedButton localization-key="confirm" name="ConfirmButton" class="font-italic button-flat-primary" />
+                        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITShared/cancel" name="CancelButton" class="font-italic button-flat-cancel" />
+                        <ui:Button name="ConfirmButton" text="CONFIRM" class="font-italic button-flat-primary" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="Blocker" class="element-hidden" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

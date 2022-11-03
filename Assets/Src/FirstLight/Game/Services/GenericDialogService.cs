@@ -11,7 +11,7 @@ namespace FirstLight.Game.Services
 	public struct GenericDialogButton
 	{
 		public string ButtonText;
-		public UnityAction ButtonOnClick;
+		public Action ButtonOnClick;
 
 		/// <summary>
 		/// Requests the state of the button, if it has listeners or not for it

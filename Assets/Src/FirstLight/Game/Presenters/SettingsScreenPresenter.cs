@@ -190,7 +190,7 @@ namespace FirstLight.Game.Presenters
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.OK,
-				ButtonOnClick = new UnityAction(Data.LogoutClicked)
+				ButtonOnClick = Data.LogoutClicked
 			};
 
 			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.confirmation, desc, true, confirmButton);
@@ -204,7 +204,7 @@ namespace FirstLight.Game.Presenters
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.OK,
-				ButtonOnClick = new UnityAction(Data.OnDeleteAccountClicked)
+				ButtonOnClick = Data.OnDeleteAccountClicked
 			};
 			
 			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.confirmation, desc, true, confirmButton);

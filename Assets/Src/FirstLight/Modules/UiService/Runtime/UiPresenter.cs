@@ -164,7 +164,6 @@ namespace FirstLight.UiService
 		[SerializeField] private int _millisecondsToClose = 0;
 
 		protected VisualElement Root;
-
 		private readonly Dictionary<VisualElement, IUIView> _views = new();
 
 		/// <summary>
@@ -223,28 +222,32 @@ namespace FirstLight.UiService
 					.Build()
 					.ForEach(e => { AddView(e, (IUIView) e); });
 			}
-
+			
 			Root.EnableInClassList(UIConstants.CLASS_HIDDEN, true);
 			StartCoroutine(MakeVisible());
 			
 			SubscribeToEvents();
 		}
 
-		private IEnumerator MakeVisible()
-		{
-			yield return new WaitForEndOfFrame();
-			Root.EnableInClassList(UIConstants.CLASS_HIDDEN, false);
-		}
-
 		protected override async Task OnClosed()
 		{
 			Root.EnableInClassList(UIConstants.CLASS_HIDDEN, true);
+			
 			UnsubscribeFromEvents();
+
 			await Task.Delay(_millisecondsToClose);
+
 			if (_background != null)
 			{
 				_background.SetActive(false);
 			}
+		}
+		
+		private IEnumerator MakeVisible()
+		{
+			yield return new WaitForEndOfFrame();
+			
+			Root.EnableInClassList(UIConstants.CLASS_HIDDEN, false);
 		}
 	}
 }

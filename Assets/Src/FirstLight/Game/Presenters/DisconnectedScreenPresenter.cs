@@ -4,6 +4,7 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
+using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.NativeUi;
 using FirstLight.UiService;
@@ -65,23 +66,23 @@ namespace FirstLight.Game.Presenters
 			// Disconnecting in main menu, players should only be able to reconnect
 			if (_services.NetworkService.LastDisconnectLocation == LastDisconnectionLocation.FinalPreload)
 			{
-				_menuButton.EnableInClassList("element-hidden", true);
-				_reconnectButton.EnableInClassList("element-hidden", false);
+				_menuButton.SetDisplayActive(false);
+				_reconnectButton.SetDisplayActive(true);
 			}
 			// Disconnecting during final preload means the game most likely started, player shouldn't be reconnecting and interfering
 			if (_services.NetworkService.LastDisconnectLocation == LastDisconnectionLocation.FinalPreload)
 			{
-				_menuButton.EnableInClassList("element-hidden", false);
-				_reconnectButton.EnableInClassList("element-hidden", true);
+				_menuButton.SetDisplayActive(true);
+				_reconnectButton.SetDisplayActive(false);
 			}
 			// If disconnected in simulation:
 			// Solo matches - you currently cannot reconnect as quantum simulation is not running
 			// Multiplayer matches - you must only reconnect
 			else if (_services.NetworkService.LastDisconnectLocation == LastDisconnectionLocation.Simulation)
 			{
-				_menuButton.EnableInClassList("element-hidden", _services.NetworkService.LastMatchPlayers.Count > 1);
-				_reconnectButton.EnableInClassList("element-hidden", false);
-				
+				_menuButton.SetDisplayActive(_services.NetworkService.LastMatchPlayers.Count <= 1);
+				_reconnectButton.SetDisplayActive(true);
+
 				if (_services.NetworkService.LastMatchPlayers.Count <= 1)
 				{
 					var confirmButton = new GenericDialogButton
@@ -102,7 +103,7 @@ namespace FirstLight.Game.Presenters
 		/// </summary>
 		public void SetFrontDimBlockerActive(bool active)
 		{
-			_blockerElement.EnableInClassList("element-hidden", !active);
+			_blockerElement.EnableInClassList(UIConstants.ELEMENT_HIDDEN, !active);
 		}
 
 		private void OnLeaveClicked()

@@ -16,6 +16,10 @@
     display: none;
 }
 
+.element-hidden {
+    display: none;
+}
+
 .font-regular {
     -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Normal%20Regular.otf?fileID=12800000&guid=fc8266ceb95e44d6d812af34322286b7&type=3#Stawix - Amsi Pro Normal Regular');
 }

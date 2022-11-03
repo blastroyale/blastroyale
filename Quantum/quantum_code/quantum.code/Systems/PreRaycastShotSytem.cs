@@ -42,7 +42,7 @@ namespace Quantum.Systems
 			for (var i = 0; i < shot->NumberOfShots; i++)
 			{
 				angle += angleStep;
-				
+
 				var direction = FPVector2.Rotate(shot->Direction, angle * FP.Deg2Rad).XOY * speed;
 				var previousPosition = shot->SpawnPosition + direction * previousTime;
 				var currentPosition = shot->SpawnPosition + direction * deltaTime;

@@ -144,6 +144,13 @@ public class NftSynchronizer
     {
 	    var equipment = NftToGameEquipment(nft);
 	    var nftEquipment = NftToGameNftEquipment(nft);
+	    
+		if (equipment.GameId == GameId.Random)
+		{
+			_ctx.Log.LogError($"User {playfabId} had invalid token {nft.token_id}, skipping it");
+			return;
+		}
+	    
         var nextId = ++idData.UniqueIdCounter;
         
         nftEquipment.InsertionTimestamp = DateTime.UtcNow.Ticks;

@@ -5841,7 +5841,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 803093299297845896, guid: 26726c268156d3d478f60d4aaf6f2848, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -6.89
       objectReference: {fileID: 0}
     - target: {fileID: 803093299297845896, guid: 26726c268156d3d478f60d4aaf6f2848, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5878,6 +5878,10 @@ PrefabInstance:
     - target: {fileID: 803093299297845897, guid: 26726c268156d3d478f60d4aaf6f2848, type: 3}
       propertyPath: m_Name
       value: ShrinkingCircleSetup
+      objectReference: {fileID: 0}
+    - target: {fileID: 803093299297845897, guid: 26726c268156d3d478f60d4aaf6f2848, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7682541575006371302, guid: 26726c268156d3d478f60d4aaf6f2848, type: 3}
       propertyPath: _lineWidth

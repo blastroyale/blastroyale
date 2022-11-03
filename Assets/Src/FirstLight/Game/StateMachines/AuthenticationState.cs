@@ -311,7 +311,7 @@ namespace FirstLight.Game.StateMachines
 			
 			if (environment != appData.Environment)
 			{
-				var newData = appData.Copy();
+				var newData = appData.CopyForNewEnvironment();
 
 				newData.Environment = environment;
 				

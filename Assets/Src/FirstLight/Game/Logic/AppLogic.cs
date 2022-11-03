@@ -83,6 +83,11 @@ namespace FirstLight.Game.Logic
 		/// Returns the last gamemode user has chosen
 		/// </summary>
 		GameModeRotationConfig.GameModeEntry LastGameMode { get; set; }
+		
+		/// <summary>
+		/// Gets last current custom game options used
+		/// </summary>
+		CustomGameOptions LastCustomGameOptions { get; }
 
 		/// <summary>
 		/// Requests the last region that player was connected to
@@ -115,6 +120,12 @@ namespace FirstLight.Game.Logic
 		void SetFpsTarget();
 
 		/// <summary>
+		/// Sets last custom game options
+		/// </summary>
+		/// <param name="options"></param>
+		void SetLastCustomGameOptions(CustomGameOptions options);
+
+		/// <summary>
 		/// Marks the date when the game was last time reviewed
 		/// </summary>
 		void MarkGameAsReviewed();
@@ -138,6 +149,9 @@ namespace FirstLight.Game.Logic
 		/// <inheritdoc />
 		public bool IsGameReviewed => Data.GameReviewDate > _defaultZeroTime;
 
+		/// <inheritdoc />
+		public CustomGameOptions LastCustomGameOptions => Data.LastCustomGameOptions;
+		
 		/// <inheritdoc />
 		public bool IsDeviceLinked => string.IsNullOrWhiteSpace(DeviceID.Value);
 
@@ -259,6 +273,11 @@ namespace FirstLight.Game.Logic
 			ConnectionRegion = new ObservableResolverField<string>(() => Data.ConnectionRegion, region => Data.ConnectionRegion = region);
 			DeviceID = new ObservableResolverField<string>(() => Data.DeviceId, linked => Data.DeviceId = linked);
 			LastLoginEmail = new ObservableResolverField<string>(() => Data.LastLoginEmail, email => Data.LastLoginEmail = email);
+		}
+
+		public void SetLastCustomGameOptions(CustomGameOptions options)
+		{
+			Data.LastCustomGameOptions = options;
 		}
 
 		/// <inheritdoc />

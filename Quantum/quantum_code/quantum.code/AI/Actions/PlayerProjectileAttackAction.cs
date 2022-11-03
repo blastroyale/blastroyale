@@ -28,18 +28,16 @@ namespace Quantum
 			var team = f.Get<Targetable>(e).Team;
 			var power = f.Get<Stats>(e).GetStatData(StatType.Power).StatValue * weaponConfig.PowerToDamageRatio;
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
-			var cVelocitySqr = kcc->Velocity.SqrMagnitude;
-			var maxSpeedSqr = kcc->MaxSpeed * kcc->MaxSpeed;
-			var attackRange = f.Get<Stats>(e).GetStatData(StatType.AttackRange).StatValue;
+			var rangeStat = f.Get<Stats>(e).GetStatData(StatType.AttackRange).StatValue;
 
 			//targetAttackAngle depend on a current character velocity
 			var targetAttackAngle = isAccuracyMutator ?
-				weaponConfig.MinAttackAngle : FPMath.Lerp(weaponConfig.MinAttackAngle, weaponConfig.MaxAttackAngle,
-												cVelocitySqr / maxSpeedSqr);
+				weaponConfig.MinAttackAngle : QuantumHelpers.GetDynamicAimValue(kcc, weaponConfig.MaxAttackAngle, weaponConfig.MinAttackAngle);
 			var shotAngle = weaponConfig.NumberOfShots == 1 && !isAccuracyMutator ?
 				   QuantumHelpers.GetSingleShotAngleAccuracyModifier(f, targetAttackAngle) :
 				   FP._0;
 			var newAngleVector = FPVector2.Rotate(aimingDirection, shotAngle * FP.Deg2Rad).XOY;
+			var attackRange = QuantumHelpers.GetDynamicAimValue(kcc, rangeStat, rangeStat + weaponConfig.AttackRangeAimBonus);  
 
 			var projectile = new Projectile
 			{
@@ -61,7 +59,7 @@ namespace Quantum
 			playerCharacter->ReduceAmmo(f, e, 1);
 			bb->Set(f, Constants.BurstShotCount, bb->GetFP(f, Constants.BurstShotCount) - 1);
 
-			f.Events.OnPlayerAttack(player, e, playerCharacter->CurrentWeapon, weaponConfig, shotAngle, (uint)targetAttackAngle);
+			f.Events.OnPlayerAttack(player, e, playerCharacter->CurrentWeapon, weaponConfig, shotAngle, (uint)targetAttackAngle, attackRange);
 			Projectile.Create(f, projectile);
 		}
 	}

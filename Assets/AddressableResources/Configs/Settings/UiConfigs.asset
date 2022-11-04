@@ -56,7 +56,7 @@ MonoBehaviour:
     UiType: FirstLight.Game.Presenters.GameModeSelectionPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/GenericButtonDialog.prefab
-    Layer: 0
+    Layer: 8
     UiType: FirstLight.Game.Presenters.GenericDialogPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/GenericInputDialog.prefab

@@ -286,7 +286,7 @@ namespace FirstLight.Game.Presenters
 		private void UpdateBattlePassPoints(uint predictedLevel, uint predictedPoints, int pointsOverride = -1)
 		{
 			var hasRewards = _dataProvider.BattlePassDataProvider.IsRedeemable(pointsOverride);
-			var currentPointsPerLevel = _dataProvider.BattlePassDataProvider.GetRequiredPointsForNextLevel((int)predictedLevel);
+			var currentPointsPerLevel = _dataProvider.BattlePassDataProvider.GetRequiredPointsForLevel((int)predictedLevel);
 
 			_battlePassProgressElement.style.flexGrow =
 				Mathf.Clamp01((float)predictedPoints / currentPointsPerLevel);

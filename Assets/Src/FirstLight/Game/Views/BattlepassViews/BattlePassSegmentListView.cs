@@ -57,7 +57,7 @@ namespace FirstLight.Game.Views.BattlePassViews
 				Data.List[i].CurrentProgress = _gameDataProvider.BattlePassDataProvider.CurrentPoints.Value;
 				Data.List[i].PredictedCurrentLevel = redeemedProgress.Item1;
 				Data.List[i].PredictedCurrentProgress = redeemedProgress.Item2;
-				Data.List[i].MaxProgress = _gameDataProvider.BattlePassDataProvider.GetRequiredPointsForNextLevel(i);
+				Data.List[i].MaxProgress = _gameDataProvider.BattlePassDataProvider.GetRequiredPointsForLevel(i);
 				Data.List[i].RewardConfig = rewardConfig[battlePassConfig.Levels[i].RewardId];
 
 				var viewsHolder = GetItemViewsHolderIfVisible(i);
@@ -134,7 +134,7 @@ namespace FirstLight.Game.Views.BattlePassViews
 					CurrentProgress = _gameDataProvider.BattlePassDataProvider.CurrentPoints.Value,
 					PredictedCurrentLevel = redeemedProgress.Item1,
 					PredictedCurrentProgress = redeemedProgress.Item2,
-					MaxProgress = _gameDataProvider.BattlePassDataProvider.GetRequiredPointsForNextLevel(i),
+					MaxProgress = _gameDataProvider.BattlePassDataProvider.GetRequiredPointsForLevel(i),
 					RewardConfig = rewardConfig[battlePassConfig.Levels[i].RewardId]
 				};
 				

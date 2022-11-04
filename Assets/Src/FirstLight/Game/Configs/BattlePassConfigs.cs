@@ -8,7 +8,7 @@ namespace FirstLight.Game.Configs
 	[Serializable]
 	public struct BattlePassConfig
 	{
-		public uint PointsPerLevel;
+		public uint DefaultPointsPerLevel;
 		public List<BattlePassLevel> Levels;
 
 		[Serializable]

@@ -43,7 +43,7 @@ public class NftSynchronizer
     {
 	    try
 	    {
-		    _ctx.PlayerMutex.Lock(playfabId);
+		    await _ctx.PlayerMutex.Lock(playfabId);
 		    var serverState = await _ctx.ServerState.GetPlayerState(playfabId);
 		    var equipmentData = serverState.DeserializeModel<EquipmentData>();
 		    var lastBlockchainUpdate = await RequestBlockchainLastUpdate(playfabId);
@@ -57,7 +57,7 @@ public class NftSynchronizer
 		    var idData = serverState.DeserializeModel<IdData>();
 		    var ownedNftsInBlockchain = await RequestBlockchainIndexedNfts(playfabId);
 		    var ownedNftsInGame = new Dictionary<string, UniqueId>();
-		    var ownedTokensInBlockchain = new HashSet<string>(ownedNftsInBlockchain.Select(nft => nft.token_id));
+		    var ownedTokensInBlockchain = ownedNftsInBlockchain.ToDictionary(nft => nft.token_id, nft => nft);
 
 		    foreach (var (id, nftEquipmentData) in equipmentData.NftInventory)
 		    {
@@ -82,15 +82,18 @@ public class NftSynchronizer
 			    }
 		    }
 
-		    // Removing unowned NFTS
-		    foreach (var ownedTokenId in ownedNftsInGame)
+		    // Removing unowned NFTS & updating outdated nfts
+		    foreach (var (tokenId, equipmentUniqueId) in ownedNftsInGame)
 		    {
-			    if (!ownedTokensInBlockchain.Contains(ownedTokenId.Key))
+			    if (!ownedTokensInBlockchain.TryGetValue(tokenId, out var nft))
 			    {
-				    _ctx.Log.LogInformation($"Removed item {ownedTokenId} from user {playfabId}");
-				    var item = equipmentData.NftInventory[ownedTokenId.Value];
-				    RemoveEquipment(playfabId, ownedTokenId.Value, equipmentData, playerData, idData);
+				    _ctx.Log.LogInformation($"Removed item {tokenId} from user {playfabId}");
+					RemoveEquipment(playfabId, equipmentUniqueId, equipmentData, playerData, idData);
 			    }
+				else
+				{
+					UpdateNft(nft, equipmentData, equipmentUniqueId);
+				}
 		    }
 
 		    equipmentData.LastUpdateTimestamp = lastBlockchainUpdate;
@@ -104,6 +107,21 @@ public class NftSynchronizer
 		    _ctx.PlayerMutex.Unlock(playfabId);
 	    }
     }
+
+	/// <summary>
+	/// Attempts to update specific fields for already owned nfts
+	/// </summary>
+	private void UpdateNft(PolygonNFTMetadata nft, EquipmentData equipmentData, UniqueId equipmentUniqueId)
+	{
+		var nftData = equipmentData.NftInventory[equipmentUniqueId];
+		var equipment = equipmentData.Inventory[equipmentUniqueId];
+		
+		equipment.Level = Convert.ToUInt32(nft.level);
+		nftData.LastRepairTimestamp = nft.lastRepairTime;
+		
+		equipmentData.NftInventory[equipmentUniqueId] = nftData;
+		equipmentData.Inventory[equipmentUniqueId] = equipment;
+	}
 
 	/// <summary>
 	/// Request for all indexed nfts for a given wallet.
@@ -144,6 +162,13 @@ public class NftSynchronizer
     {
 	    var equipment = NftToGameEquipment(nft);
 	    var nftEquipment = NftToGameNftEquipment(nft);
+	    
+		if (equipment.GameId == GameId.Random)
+		{
+			_ctx.Log.LogError($"User {playfabId} had invalid token {nft.token_id}, skipping it");
+			return;
+		}
+	    
         var nextId = ++idData.UniqueIdCounter;
         
         nftEquipment.InsertionTimestamp = DateTime.UtcNow.Ticks;

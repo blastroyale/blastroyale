@@ -10,7 +10,7 @@ namespace Quantum
 	public unsafe class PlayerChangeDefaultWeapon : AIAction
 	{
 		/// <inheritdoc />
-		public override void Update(Frame f, EntityRef e)
+		public override void Update(Frame f, EntityRef e, ref AIContext aiContext)
 		{
 			f.Unsafe.GetPointer<PlayerCharacter>(e)->EquipSlotWeapon(f, e, 0);
 		}

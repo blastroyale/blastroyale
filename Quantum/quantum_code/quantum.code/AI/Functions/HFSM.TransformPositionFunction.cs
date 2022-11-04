@@ -13,7 +13,7 @@ namespace Quantum
 	public class TransformPositionFunction : AIFunction<FPVector3>
 	{
 		/// <inheritdoc />
-		public override FPVector3 Execute(Frame f, EntityRef e)
+		public override FPVector3 Execute(Frame f, EntityRef e, ref AIContext aiContext)
 		{
 			return f.Get<Transform3D>(e).Position;
 		}

@@ -25,9 +25,9 @@ namespace Quantum
 			agent->AddFPData(frame, 0);
 		}
 
-		public override void OnEnter(BTParams btParams)
+		public override void OnEnter(BTParams btParams, ref AIContext aiContext)
 		{
-			base.OnEnter(btParams);
+			base.OnEnter(btParams, ref aiContext);
 
 			FP currentTime;
 			FP endTime;
@@ -41,7 +41,7 @@ namespace Quantum
 			btParams.Agent->SetFPData(btParams.FrameThreadSafe, endTime, EndTimeIndex.Index);
 		}
 
-		protected override BTStatus OnUpdate(BTParams btParams)
+		protected override BTStatus OnUpdate(BTParams btParams, ref AIContext aiContext)
 		{
 			FP currentTime;
 			FP endTime;

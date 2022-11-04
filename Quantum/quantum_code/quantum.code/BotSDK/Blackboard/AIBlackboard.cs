@@ -31,7 +31,11 @@ namespace Quantum
 		public Int32 GetEntryID(string key)
 		{
 			Assert.Check(string.IsNullOrEmpty(key) == false, "The Key cannot be empty or null.");
-			Assert.Check(Map.ContainsKey(key) == true, "Key {0} not present in the Blackboard", key);
+			
+			if(Map.ContainsKey(key) == false)
+			{
+				Log.Info($"Key {0} not present in the Blackboard", key);
+			}
 
 			return Map[key];
 		}

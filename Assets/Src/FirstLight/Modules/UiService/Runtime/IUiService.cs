@@ -357,16 +357,26 @@ namespace FirstLight.UiService
 		/// </exception>
 		void CloseUiSet(int setId);
 		
+		/// <summary>
+		/// Opens and returns the screen of given <paramref name="type"/>. It keeps track of the current open screen and
+		/// closes it if another one opens. This way it makes the new screen only open when the current one is finished closing.
+		/// Useful to let the current screen make an out animation before being replaced by a new screen.
+		/// </summary>
+		Task<UiPresenter> OpenScreen<T>() where T : UiPresenter;
 		
-		///<inheritdoc cref="OpenUi{T,TData}(TData, bool)"/>
-		/// <remarks>
+		/// <summary>
 		/// Executes the call asynchronously while loading the Screen asset if needed. It keeps track of the current open screen and
 		/// closes it if another one opens. This way it makes the new screen only open when the current one is finished closing.
 		/// Useful to let the current screen make an out animation before being replaced by a new screen.
-		/// </remarks>
+		/// </summary>
 		Task<T> OpenScreen<T, TData>(TData initialData) 
-			where T : class, IUiPresenterData 
+			where T : UiPresenter, IUiPresenterData 
 			where TData : struct;
+
+		/// <summary>
+		/// It closes the current open screen that was opened by OpenScreen
+		/// </summary>
+		void CloseCurrentScreen();
 	}
 
 	/// <inheritdoc />

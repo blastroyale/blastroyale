@@ -9,10 +9,10 @@ namespace FirstLight.Game.UIElements
 	/// </summary>
 	public class SafeAreaElement : VisualElement
 	{
-		private bool _safeAreaTop = true;
-		private bool _safeAreaBottom = true;
-		private bool _safeAreaLeft = true;
-		private bool _safeAreaRight = true;
+		private bool applyTop { get; set; }
+		private bool applyBottom { get; set; }
+		private bool applyLeft { get; set; }
+		private bool applyRight { get; set; }
 
 		public SafeAreaElement()
 		{
@@ -35,10 +35,10 @@ namespace FirstLight.Game.UIElements
 				var rightBottom =
 					RuntimePanelUtils.ScreenToPanel(panel, new Vector2(Screen.width - safeArea.xMax, safeArea.yMin));
 
-				if (_safeAreaTop) style.marginTop = leftTop.y;
-				if (_safeAreaBottom) style.marginBottom = rightBottom.y;
-				if (_safeAreaLeft) style.marginLeft = leftTop.x;
-				if (_safeAreaRight) style.marginRight = rightBottom.x;
+				if (applyTop) style.marginTop = leftTop.y;
+				if (applyBottom) style.marginBottom = rightBottom.y;
+				if (applyLeft) style.marginLeft = leftTop.x;
+				if (applyRight) style.marginRight = rightBottom.x;
 			}
 			catch (InvalidCastException)
 			{
@@ -83,10 +83,10 @@ namespace FirstLight.Game.UIElements
 			public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
 			{
 				base.Init(ve, bag, cc);
-				((SafeAreaElement) ve)._safeAreaTop = _applyTopAttribute.GetValueFromBag(bag, cc);
-				((SafeAreaElement) ve)._safeAreaBottom = _applyBottomAttribute.GetValueFromBag(bag, cc);
-				((SafeAreaElement) ve)._safeAreaLeft = _applyLeftAttribute.GetValueFromBag(bag, cc);
-				((SafeAreaElement) ve)._safeAreaRight = _applyRightAttribute.GetValueFromBag(bag, cc);
+				((SafeAreaElement) ve).applyTop = _applyTopAttribute.GetValueFromBag(bag, cc);
+				((SafeAreaElement) ve).applyBottom = _applyBottomAttribute.GetValueFromBag(bag, cc);
+				((SafeAreaElement) ve).applyLeft = _applyLeftAttribute.GetValueFromBag(bag, cc);
+				((SafeAreaElement) ve).applyRight = _applyRightAttribute.GetValueFromBag(bag, cc);
 			}
 		}
 	}

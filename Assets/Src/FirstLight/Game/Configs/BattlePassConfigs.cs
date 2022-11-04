@@ -15,6 +15,7 @@ namespace FirstLight.Game.Configs
 		public struct BattlePassLevel
 		{
 			public int RewardId;
+			public uint PointsForNextLevel;
 		}
 	}
 

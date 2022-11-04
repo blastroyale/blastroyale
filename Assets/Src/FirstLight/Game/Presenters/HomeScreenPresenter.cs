@@ -286,8 +286,13 @@ namespace FirstLight.Game.Presenters
 		{
 			var battlePassConfig = _services.ConfigsProvider.GetConfig<BattlePassConfig>();
 			var hasRewards = _dataProvider.BattlePassDataProvider.IsRedeemable(pointsOverride);
+			var levelConfig = battlePassConfig.Levels[(int)predictedLevel - 1];
+
+			var currentPointsPerLevel =  levelConfig.PointsForNextLevel == 0 ?
+				battlePassConfig.PointsPerLevel : levelConfig.PointsForNextLevel;
+
 			_battlePassProgressElement.style.flexGrow =
-				Mathf.Clamp01((float) predictedPoints / battlePassConfig.PointsPerLevel);
+				Mathf.Clamp01((float) predictedPoints / currentPointsPerLevel);
 			_battlePassCrownIcon.style.display = hasRewards ? DisplayStyle.Flex : DisplayStyle.None;
 
 			if (predictedLevel == _dataProvider.BattlePassDataProvider.MaxLevel)

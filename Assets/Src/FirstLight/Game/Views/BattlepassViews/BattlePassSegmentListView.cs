@@ -50,15 +50,20 @@ namespace FirstLight.Game.Views.BattlePassViews
 			var rewardConfig = _services.ConfigsProvider.GetConfigsList<EquipmentRewardConfig>();
 			var redeemedProgress = _gameDataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
 
+
 			for (int i = 0; i < Data.List.Count; i++)
 			{
+				var levelConfig = battlePassConfig.Levels[i];
+				var currentPointsPerLevel = levelConfig.PointsForNextLevel == 0 ?
+					battlePassConfig.PointsPerLevel : levelConfig.PointsForNextLevel;
+
 				Data.List[i].SegmentLevel = (uint) i;
 				Data.List[i].CurrentLevel = _gameDataProvider.BattlePassDataProvider.CurrentLevel.Value;
 				Data.List[i].CurrentProgress = _gameDataProvider.BattlePassDataProvider.CurrentPoints.Value;
 				Data.List[i].PredictedCurrentLevel = redeemedProgress.Item1;
 				Data.List[i].PredictedCurrentProgress = redeemedProgress.Item2;
-				Data.List[i].MaxProgress = battlePassConfig.PointsPerLevel;
-				Data.List[i].RewardConfig = rewardConfig[battlePassConfig.Levels[i].RewardId];
+				Data.List[i].MaxProgress = currentPointsPerLevel;
+				Data.List[i].RewardConfig = rewardConfig[levelConfig.RewardId];
 				
 				var viewsHolder = GetItemViewsHolderIfVisible(i);
 				if (viewsHolder != null)
@@ -127,6 +132,10 @@ namespace FirstLight.Game.Views.BattlePassViews
 			
 			for (int i = 0; i < newSegments.Length; ++i)
 			{
+				var levelConfig = battlePassConfig.Levels[i];
+				var currentPointsPerLevel = levelConfig.PointsForNextLevel == 0 ?
+					battlePassConfig.PointsPerLevel : levelConfig.PointsForNextLevel;
+
 				var model = new BattlePassSegmentData
 				{
 					SegmentLevel = (uint)i,
@@ -134,8 +143,8 @@ namespace FirstLight.Game.Views.BattlePassViews
 					CurrentProgress = _gameDataProvider.BattlePassDataProvider.CurrentPoints.Value,
 					PredictedCurrentLevel = redeemedProgress.Item1,
 					PredictedCurrentProgress = redeemedProgress.Item2,
-					MaxProgress = battlePassConfig.PointsPerLevel,
-					RewardConfig = rewardConfig[battlePassConfig.Levels[i].RewardId]
+					MaxProgress = currentPointsPerLevel,
+					RewardConfig = rewardConfig[levelConfig.RewardId]
 				};
 				
 				newSegments[i] = model;

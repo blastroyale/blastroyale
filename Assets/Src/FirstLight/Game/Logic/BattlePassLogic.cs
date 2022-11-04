@@ -5,6 +5,8 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Services;
 using Quantum;
+using UnityEngine;
+using static Cinemachine.DocumentationSortingAttribute;
 
 namespace FirstLight.Game.Logic
 {
@@ -96,12 +98,11 @@ namespace FirstLight.Game.Logic
 		{
 			var level = _currentLevel.Value;
 			var points = pointOverride >= 0 ? (uint) pointOverride : _currentPoints.Value;
+			var currentLevelPoints = GetCurrentLevelPoints();
 
-			var config = GameLogic.ConfigsProvider.GetConfig<BattlePassConfig>();
-
-			while (points >= config.PointsPerLevel)
+			while (points >= currentLevelPoints)
 			{
-				points -= config.PointsPerLevel;
+				points -= currentLevelPoints;
 				level++;
 			}
 
@@ -111,7 +112,7 @@ namespace FirstLight.Game.Logic
 		public uint GetRemainingPoints()
 		{
 			var levelsTillMax = MaxLevel - _currentLevel.Value;
-			var ppl = GameLogic.ConfigsProvider.GetConfig<BattlePassConfig>().PointsPerLevel;
+			var ppl =GetCurrentLevelPoints();
 
 			var points = (int) levelsTillMax * (int) ppl - (int) _currentPoints.Value;
 
@@ -128,10 +129,8 @@ namespace FirstLight.Game.Logic
 
 		public bool IsRedeemable(int pointOverride = -1)
 		{
-			var config = GameLogic.ConfigsProvider.GetConfig<BattlePassConfig>();
-
 			int points = pointOverride >= 0 ? pointOverride : (int) _currentPoints.Value;
-			return points >= config.PointsPerLevel;
+			return points >= GetCurrentLevelPoints();
 		}
 
 		public void AddBPP(uint amount)
@@ -161,9 +160,11 @@ namespace FirstLight.Game.Logic
 
 			var levels = new List<EquipmentRewardConfig>();
 
-			while (points >= config.PointsPerLevel)
+			var currentPointsPerLevel = GetCurrentLevelPoints();
+
+			while (points >= currentPointsPerLevel)
 			{
-				points -= config.PointsPerLevel;
+				points -= currentPointsPerLevel;
 				level++;
 
 				var rewardConfig = GameLogic.ConfigsProvider.GetConfig<EquipmentRewardConfig>(config.Levels[(int) level - 1].RewardId);
@@ -191,6 +192,20 @@ namespace FirstLight.Game.Logic
 				GameLogic.EquipmentLogic.AddToInventory(generatedEquipment);
 				rewards.Add(generatedEquipment);
 			}
+		}
+
+		/// <summary>
+		/// Gets the amount of points requried to complete the current level
+		/// </summary>
+		public uint GetCurrentLevelPoints()
+		{
+			var level = _currentLevel.Value;
+			var config = GameLogic.ConfigsProvider.GetConfig<BattlePassConfig>();
+			var levelConfig = config.Levels[(int)level];
+
+			//if the points for next is 0, then use default value, otherwise use custom level value
+			return levelConfig.PointsForNextLevel == 0 ?
+				config.PointsPerLevel : levelConfig.PointsForNextLevel;
 		}
 	}
 }

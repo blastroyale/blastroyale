@@ -36,7 +36,7 @@ MonoBehaviour:
     UiType: FirstLight.Game.Presenters.DeathmatchDeadScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/Disconnected Screen.prefab
-    Layer: 8
+    Layer: 7
     UiType: FirstLight.Game.Presenters.DisconnectedScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/EquipmentScreen.prefab
@@ -98,6 +98,10 @@ MonoBehaviour:
   - AddressableAddress: Ui/Loot Screen.prefab
     Layer: 0
     UiType: FirstLight.Game.Presenters.LootScreenPresenter, FirstLight.Game, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - AddressableAddress: Ui/LowConnectionOverlay.prefab
+    Layer: 0
+    UiType: FirstLight.Game.Presenters.LowConnectionPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/MainMenu Hud.prefab
     Layer: 4
@@ -199,8 +203,6 @@ MonoBehaviour:
     - FirstLight.Game.Presenters.HomeScreenPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.UiTooltipPresenter, FirstLight.Game, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    - FirstLight.Game.Presenters.GameModeSelectionPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   - SetId: 2
     UiConfigsType:

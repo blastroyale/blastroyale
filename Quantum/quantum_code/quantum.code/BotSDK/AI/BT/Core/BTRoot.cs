@@ -21,13 +21,13 @@ namespace Quantum
 			}
 		}
 
-		protected unsafe override BTStatus OnUpdate(BTParams btParams)
+		protected unsafe override BTStatus OnUpdate(BTParams btParams, ref AIContext aiContext)
 		{
 			btParams.Agent->Current = this;
 
 			if (_childInstance != null)
 			{
-				return _childInstance.RunUpdate(btParams);
+				return _childInstance.RunUpdate(btParams, ref aiContext);
 			}
 
 			return BTStatus.Success;

@@ -5,16 +5,6 @@ using FirstLight.SDK.Services;
 
 namespace FirstLight.Game.Messages
 {
-	public struct UnclaimedRewardsCollectingStartedMessage : IMessage
-	{
-		public List<RewardData> Rewards;
-	}
-
-	public struct UnclaimedRewardsCollectedMessage : IMessage
-	{
-		public List<RewardData> Rewards;
-	}
-
 	public struct BattlePassLevelUpMessage : IMessage
 	{
 		public List<Equipment> Rewards;

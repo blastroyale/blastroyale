@@ -1,3 +1,3 @@
-version: 2.1.0 RC2N 1083
-date: 2022-07-26 21:02:34
-git: 2.1/develop (2b9752913)
+version: 2.1.2 Stable 1129
+date: 2022-11-02 08:47:11
+git: 2.1/develop (35743e068)

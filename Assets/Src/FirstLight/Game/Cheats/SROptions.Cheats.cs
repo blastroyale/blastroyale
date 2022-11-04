@@ -553,6 +553,13 @@ public partial class SROptions
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
+
+	[Category("Progression")]
+	public bool IsCollectedOverride
+	{
+		get => DebugUtils.DebugFlags.OverrideCurrencyChangedIsCollecting;
+		set => DebugUtils.DebugFlags.OverrideCurrencyChangedIsCollecting = value;
+	}
 	
 	[Category("Logging")]
 	public void LogCurrentRoomInfo()

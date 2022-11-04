@@ -26,20 +26,20 @@ namespace Backend.Game.Services
 	{
 		private IConfigsAdder _configs;
 		private IConfigBackendService _configBackend;
-		private IServerConfiguration _serverConfig;
+		private IBaseServiceConfiguration _baseServiceConfig;
 		private ILogger _log;
 
-		public GameConfigurationService(ILogger log, IConfigsProvider configs, IConfigBackendService configBackend, IServerConfiguration serverConfig)
+		public GameConfigurationService(ILogger log, IConfigsProvider configs, IConfigBackendService configBackend, IBaseServiceConfiguration baseServiceConfig)
 		{
 			_configs = configs as IConfigsAdder;
 			_log = log;
 			_configBackend = configBackend;
-			_serverConfig = serverConfig;
+			_baseServiceConfig = baseServiceConfig;
 		}
 
 		public async Task<IConfigsProvider> GetGameConfigs()
 		{
-			if (_serverConfig.RemoteGameConfiguration)
+			if (_baseServiceConfig.RemoteGameConfiguration)
 			{
 				await CheckForUpdates();
 			}

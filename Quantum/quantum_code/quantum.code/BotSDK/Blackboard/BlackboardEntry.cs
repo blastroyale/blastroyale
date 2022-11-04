@@ -11,6 +11,17 @@ namespace Quantum
 		/// <param name="btParams"></param>
 		public void TriggerDecorators(BTParams btParams)
 		{
+			AIContext aiContext = new AIContext();
+			TriggerDecorators(btParams, ref aiContext);
+		}
+
+		/// <summary>
+		/// Iterate through all Decorators that watches this Blackboard entry
+		/// Re-check the Decorators so it can check if an abort is needed
+		/// </summary>
+		/// <param name="btParams"></param>
+		public void TriggerDecorators(BTParams btParams, ref AIContext aiContext)
+		{
 			var frame = btParams.FrameThreadSafe;
 
 			// If the reactive decorators list was already allocated...
@@ -22,7 +33,7 @@ namespace Quantum
 				{
 					var reactiveDecoratorRef = reactiveDecorators[i];
 					var decoratorInstance = frame.FindAsset<BTDecorator>(reactiveDecoratorRef.Id);
-					btParams.Agent->OnDecoratorReaction(btParams, decoratorInstance, decoratorInstance.AbortType, out bool abortSelf, out bool abortLowerPriority);
+					btParams.Agent->OnDecoratorReaction(btParams, decoratorInstance, decoratorInstance.AbortType, out bool abortSelf, out bool abortLowerPriority, ref aiContext);
 
 					// If at least one Decorator resulted in abort, we stop and return already
 					if (abortSelf == true)

@@ -14,7 +14,7 @@ namespace Quantum
 		public StatType Stat;
 
 		/// <inheritdoc />
-		public override FP Execute(Frame f, EntityRef e)
+		public override FP Execute(Frame f, EntityRef e, ref AIContext aiContext)
 		{
 			return f.Get<Stats>(e).GetStatData(Stat).StatValue;
 		}

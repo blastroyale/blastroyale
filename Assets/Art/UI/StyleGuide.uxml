@@ -1,5 +1,4 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/Art/UI/CommonStyle.uss?fileID=7433441132597879392&amp;guid=724da097496fa4dabbe27f211fbcd3bf&amp;type=3#CommonStyle" />
-    <ui:Button text="BUTTON" display-tooltip-when-elided="true" class="button-flat" />
-    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" text="filler text" />
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xmlns:FLG="FirstLight.Game.UIElements"
+         editor-extension-mode="False" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <FLG:CurrencyDisplayElement currency="CS"/>
 </ui:UXML>

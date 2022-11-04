@@ -13,7 +13,7 @@ namespace Quantum
 		public EValueComparison Comparison = EValueComparison.MoreThan;
 		public AIParamFP DesiredValue;
 
-		public override unsafe bool Decide(Frame frame, EntityRef entity)
+		public override unsafe bool Decide(Frame frame, EntityRef entity, ref AIContext aiContext)
 		{
 			var blackboard = frame.Unsafe.GetPointer<AIBlackboardComponent>(entity);
 

@@ -24,19 +24,19 @@ namespace Quantum
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		protected override int GetFunctionValue(Frame frame, EntityRef entity)
+		protected override int GetFunctionValue(Frame frame, EntityRef entity, ref AIContext aiContext)
 		{
-			return GetFunctionValue((FrameThreadSafe)frame, entity);
+			return GetFunctionValue((FrameThreadSafe)frame, entity, ref aiContext);
 		}
 
-		protected override int GetFunctionValue(FrameThreadSafe frame, EntityRef entity)
+		protected override int GetFunctionValue(FrameThreadSafe frame, EntityRef entity, ref AIContext aiContext)
 		{
 			if (_cachedFunction == null)
 			{
 				_cachedFunction = frame.FindAsset<AIFunction<int>>(FunctionRef.Id);
 			}
 
-			return _cachedFunction.Execute(frame, entity);
+			return _cachedFunction.Execute(frame, entity, ref aiContext);
 		}
 	}
 
@@ -59,19 +59,19 @@ namespace Quantum
 			return configPair.Value.Boolean;
 		}
 
-		protected override bool GetFunctionValue(Frame frame, EntityRef entity)
+		protected override bool GetFunctionValue(Frame frame, EntityRef entity, ref AIContext aiContext)
 		{
-			return GetFunctionValue((FrameThreadSafe)frame, entity);
+			return GetFunctionValue((FrameThreadSafe)frame, entity, ref aiContext);
 		}
 
-		protected override bool GetFunctionValue(FrameThreadSafe frame, EntityRef entity)
+		protected override bool GetFunctionValue(FrameThreadSafe frame, EntityRef entity, ref AIContext aiContext)
 		{
 			if (_cachedFunction == null)
 			{
 				_cachedFunction = frame.FindAsset<AIFunction<bool>>(FunctionRef.Id);
 			}
 
-			return _cachedFunction.Execute(frame, entity);
+			return _cachedFunction.Execute(frame, entity, ref aiContext);
 		}
 	}
 
@@ -94,19 +94,19 @@ namespace Quantum
 			return configPair.Value.Byte;
 		}
 
-		protected override byte GetFunctionValue(Frame frame, EntityRef entity)
+		protected override byte GetFunctionValue(Frame frame, EntityRef entity, ref AIContext aiContext)
 		{
-			return GetFunctionValue((FrameThreadSafe)frame, entity);
+			return GetFunctionValue((FrameThreadSafe)frame, entity, ref aiContext);
 		}
 
-		protected override byte GetFunctionValue(FrameThreadSafe frame, EntityRef entity)
+		protected override byte GetFunctionValue(FrameThreadSafe frame, EntityRef entity, ref AIContext aiContext)
 		{
 			if (_cachedFunction == null)
 			{
 				_cachedFunction = frame.FindAsset<AIFunction<byte>>(FunctionRef.Id);
 			}
 
-			return _cachedFunction.Execute(frame, entity);
+			return _cachedFunction.Execute(frame, entity, ref aiContext);
 		}
 	}
 
@@ -129,19 +129,19 @@ namespace Quantum
 			return configPair.Value.FP;
 		}
 
-		protected override FP GetFunctionValue(Frame frame, EntityRef entity)
+		protected override FP GetFunctionValue(Frame frame, EntityRef entity, ref AIContext aiContext)
 		{
-			return GetFunctionValue((FrameThreadSafe)frame, entity);
+			return GetFunctionValue((FrameThreadSafe)frame, entity, ref aiContext);
 		}
 
-		protected override FP GetFunctionValue(FrameThreadSafe frame, EntityRef entity)
+		protected override FP GetFunctionValue(FrameThreadSafe frame, EntityRef entity, ref AIContext aiContext)
 		{
 			if (_cachedFunction == null)
 			{
 				_cachedFunction = frame.FindAsset<AIFunction<FP>>(FunctionRef.Id);
 			}
 
-			return _cachedFunction.Execute(frame, entity);
+			return _cachedFunction.Execute(frame, entity, ref aiContext);
 		}
 	}
 
@@ -164,19 +164,19 @@ namespace Quantum
 			return configPair.Value.FPVector2;
 		}
 
-		protected override FPVector2 GetFunctionValue(Frame frame, EntityRef entity)
+		protected override FPVector2 GetFunctionValue(Frame frame, EntityRef entity, ref AIContext aiContext)
 		{
-			return GetFunctionValue((FrameThreadSafe)frame, entity);
+			return GetFunctionValue((FrameThreadSafe)frame, entity, ref aiContext);
 		}
 
-		protected override FPVector2 GetFunctionValue(FrameThreadSafe frame, EntityRef entity)
+		protected override FPVector2 GetFunctionValue(FrameThreadSafe frame, EntityRef entity, ref AIContext aiContext)
 		{
 			if (_cachedFunction == null)
 			{
 				_cachedFunction = frame.FindAsset<AIFunction<FPVector2>>(FunctionRef.Id);
 			}
 
-			return _cachedFunction.Execute(frame, entity);
+			return _cachedFunction.Execute(frame, entity, ref aiContext);
 		}
 	}
 
@@ -199,19 +199,19 @@ namespace Quantum
 			return configPair.Value.FPVector3;
 		}
 
-		protected override FPVector3 GetFunctionValue(Frame frame, EntityRef entity)
+		protected override FPVector3 GetFunctionValue(Frame frame, EntityRef entity, ref AIContext aiContext)
 		{
-			return GetFunctionValue((FrameThreadSafe)frame, entity);
+			return GetFunctionValue((FrameThreadSafe)frame, entity, ref aiContext);
 		}
 
-		protected override FPVector3 GetFunctionValue(FrameThreadSafe frame, EntityRef entity)
+		protected override FPVector3 GetFunctionValue(FrameThreadSafe frame, EntityRef entity, ref AIContext aiContext)
 		{
 			if (_cachedFunction == null)
 			{
 				_cachedFunction = frame.FindAsset<AIFunction<FPVector3>>(FunctionRef.Id);
 			}
 
-			return _cachedFunction.Execute(frame, entity);
+			return _cachedFunction.Execute(frame, entity, ref aiContext);
 		}
 	}
 
@@ -234,19 +234,19 @@ namespace Quantum
 			return configPair.Value.String;
 		}
 
-		protected override string GetFunctionValue(Frame frame, EntityRef entity)
+		protected override string GetFunctionValue(Frame frame, EntityRef entity, ref AIContext aiContext)
 		{
-			return GetFunctionValue((FrameThreadSafe)frame, entity);
+			return GetFunctionValue((FrameThreadSafe)frame, entity, ref aiContext);
 		}
 
-		protected override string GetFunctionValue(FrameThreadSafe frame, EntityRef entity)
+		protected override string GetFunctionValue(FrameThreadSafe frame, EntityRef entity, ref AIContext aiContext)
 		{
 			if (_cachedFunction == null)
 			{
 				_cachedFunction = frame.FindAsset<AIFunction<string>>(FunctionRef.Id);
 			}
 
-			return _cachedFunction.Execute(frame, entity);
+			return _cachedFunction.Execute(frame, entity, ref aiContext);
 		}
 	}
 
@@ -269,19 +269,19 @@ namespace Quantum
 			return configPair.Value.EntityRef;
 		}
 
-		protected override EntityRef GetFunctionValue(Frame frame, EntityRef entity)
+		protected override EntityRef GetFunctionValue(Frame frame, EntityRef entity, ref AIContext aiContext)
 		{
-			return GetFunctionValue((FrameThreadSafe)frame, entity);
+			return GetFunctionValue((FrameThreadSafe)frame, entity, ref aiContext);
 		}
 
-		protected override EntityRef GetFunctionValue(FrameThreadSafe frame, EntityRef entity)
+		protected override EntityRef GetFunctionValue(FrameThreadSafe frame, EntityRef entity, ref AIContext aiContext)
 		{
 			if (_cachedFunction == null)
 			{
 				_cachedFunction = frame.FindAsset<AIFunction<EntityRef>>(FunctionRef.Id);
 			}
 
-			return _cachedFunction.Execute(frame, entity);
+			return _cachedFunction.Execute(frame, entity, ref aiContext);
 		}
 	}
 
@@ -304,19 +304,19 @@ namespace Quantum
 			return configPair.Value.AssetRef;
 		}
 
-		protected override AssetRef GetFunctionValue(Frame frame, EntityRef entity)
+		protected override AssetRef GetFunctionValue(Frame frame, EntityRef entity, ref AIContext aiContext)
 		{
-			return GetFunctionValue((FrameThreadSafe)frame, entity);
+			return GetFunctionValue((FrameThreadSafe)frame, entity, ref aiContext);
 		}
 
-		protected override AssetRef GetFunctionValue(FrameThreadSafe frame, EntityRef entity)
+		protected override AssetRef GetFunctionValue(FrameThreadSafe frame, EntityRef entity, ref AIContext aiContext)
 		{
 			if (_cachedFunction == null)
 			{
 				_cachedFunction = frame.FindAsset<AIFunction<AssetRef>>(FunctionRef.Id);
 			}
 
-			return _cachedFunction.Execute(frame, entity);
+			return _cachedFunction.Execute(frame, entity, ref aiContext);
 		}
 	}
 }

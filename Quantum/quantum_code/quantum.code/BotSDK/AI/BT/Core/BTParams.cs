@@ -12,6 +12,7 @@ namespace Quantum
 		public BTAgent* Agent { [MethodImpl(MethodImplOptions.AggressiveInlining)] get => _agent; }
 		public EntityRef Entity { [MethodImpl(MethodImplOptions.AggressiveInlining)] get => _entity; }
 		public AIBlackboardComponent* Blackboard { [MethodImpl(MethodImplOptions.AggressiveInlining)] get => _blackboard; }
+		public bool IsCompound { [MethodImpl(MethodImplOptions.AggressiveInlining)] get => _isCompound; }
 
 		public BTParamsUser UserParams { [MethodImpl(MethodImplOptions.AggressiveInlining)] get => _userParams; set => _userParams = value; }
 
@@ -21,17 +22,19 @@ namespace Quantum
 		private BTAgent* _agent;
 		private EntityRef _entity;
 		private AIBlackboardComponent* _blackboard;
+		private bool _isCompound;
 
 		private BTParamsUser _userParams;
 
 		// ========== PUBLIC METHODS ==================================================================================
 
-		public void SetDefaultParams(FrameThreadSafe frame, BTAgent* agent, EntityRef entity, AIBlackboardComponent* blackboard = null)
+		public void SetDefaultParams(FrameThreadSafe frame, BTAgent* agent, EntityRef entity, bool isCompound, AIBlackboardComponent* blackboard = null)
 		{
 			_frame = frame;
 			_agent = agent;
 			_entity = entity;
 			_blackboard = blackboard;
+			_isCompound = isCompound;
 		}
 
 		public void Reset()
@@ -40,6 +43,7 @@ namespace Quantum
 			_agent = default;
 			_entity = default;
 			_blackboard = default;
+			_isCompound = default;
 
 			_userParams = default;
 		}

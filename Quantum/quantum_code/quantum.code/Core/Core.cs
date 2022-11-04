@@ -2390,6 +2390,13 @@ namespace Quantum {
     /// </summary>
     public const int DisableSharedChecksumSerializer = 1 << 1;
     /// <summary>
+    /// By default, a Quantum session creates additional frame instances to cache previous states that can
+    /// be used for interpolation, notably for transform interpolations on the View.
+    /// Set this flag if you want to disable this behaviour (e.g. a server-side or console-only simulation),
+    /// reducing memory allocations and the time spent copying states over.
+    /// </summary>
+    public const int DisableInterpolatableStates = 1 << 2;
+    /// <summary>
     /// Custom user flags start from this value. Flags are accessible with <see cref="QuantumGame.GameFlags"/>.
     /// </summary>
     public const int CustomFlagsStart = 1 << 16;
@@ -2637,7 +2644,24 @@ namespace Quantum {
         _systemsRoot = SystemSetup.CreateSystems(Configurations.Runtime, Configurations.Simulation).Where(x => x != null).ToArray();
         _systemsAll = _systemsRoot.SelectMany(x => x.Hierarchy).ToArray();
 
-        Int32 heapCount = 4;
+        // the simulator creates at least one frame (Verified)
+        Int32 heapCount = 1;
+
+        // additional frame (Predicted) in predicted sessions
+        if (Session.IsPredicted) {
+          heapCount++;
+        }
+
+        // additional frame (Previous) in interpolatable sessions
+        if (Session.IsInterpolatable) {
+          heapCount++;
+        }
+
+        // additional frame (Previous Update Predicted) if the session is both predicted and interpolatable
+        if (Session.IsPredicted && Session.IsInterpolatable) {
+          heapCount++;
+        }
+
         heapCount += Math.Max(0, Configurations.Simulation.HeapExtraCount);
         heapCount += Math.Max(0, HeapExtraCount);
         heapCount += SnapshotsCreateBuffers(Session.SessionConfig.UpdateFPS,
@@ -2846,8 +2870,10 @@ namespace Quantum {
       Frames.Verified = (Frame)Session.FrameVerified;
       Frames.PreviousUpdatePredicted = (Frame)Session.PreviousUpdateFramePredicted;
 
-      var f = (float)(Session.AccumulatedTime / Frames.Predicted.DeltaTime.AsFloat);
-      InterpolationFactor = f < 0.0f ? 0.0f : f > 1.0f ? 1.0f : f; // Clamp01
+      if (Session.IsStalling == false) {
+        var f = (float)(Session.AccumulatedTime / Frames.Predicted.DeltaTime.AsFloat);
+        InterpolationFactor = f < 0.0f ? 0.0f : f > 1.0f ? 1.0f : f; // Clamp01
+      }
 
       InvokeOnUpdateView();
       InvokeEvents();
@@ -3248,31 +3274,33 @@ namespace Quantum {
     void InvokeEvents() {
       while (_context.Events.Count > 0) {
         var head = _context.Events.PopHead();
-        _context.ReleaseEvent(head);
+        try {
+          if (head.Synced) {
+            if (Session.IsFrameVerified(head.Tick)) {
+              RaiseEvent(head);
+            }
+          } else {
+            // calculate hash code
+            var key = new EventKey(head.Tick, head.Id, head.GetHashCode());
 
-        if (head.Synced) {
-          if (Session.IsFrameVerified(head.Tick)) {
-            RaiseEvent(head);
+            // if frame is verified, CONFIRM the event in the temp collection of hashes
+            bool confirmed = Session.IsFrameVerified(head.Tick);
+
+            // if this was already raised, do nothing
+            if (!_eventsTriggered.TryGetValue(key, out var alreadyConfirmed)) {
+              // dont trigger this again
+              _eventsTriggered.Add(key, confirmed);
+              // trigger event
+              RaiseEvent(head);
+              // enqueue confirmation
+              _eventsConfirmationQueue.Enqueue(key);
+            } else if (confirmed && !alreadyConfirmed) {
+              // confirm this event is definitive...
+              _eventsTriggered[key] = confirmed;
+            }
           }
-        } else {
-          // calculate hash code
-          var key = new EventKey(head.Tick, head.Id, head.GetHashCode());
-
-          // if frame is verified, CONFIRM the event in the temp collection of hashes
-          bool confirmed = Session.IsFrameVerified(head.Tick);
-
-          // if this was already raised, do nothing
-          if (!_eventsTriggered.TryGetValue(key, out var alreadyConfirmed)) {
-            // dont trigger this again
-            _eventsTriggered.Add(key, confirmed);
-            // trigger event
-            RaiseEvent(head);
-            // enqueue confirmation
-            _eventsConfirmationQueue.Enqueue(key);
-          } else if (confirmed && !alreadyConfirmed) {
-            // confirm this event is definitive...
-            _eventsTriggered[key] = confirmed;
-          }
+        } finally {
+          _context.ReleaseEvent(head);
         }
       }
 
@@ -4692,6 +4720,18 @@ namespace Quantum {
       input.Rpc         = temp.Rpc;
     }
 
+    public static void Clear(this DeterministicTickInputSet set) {
+      set.Tick = default;
+
+      if (set.Inputs == null) {
+        return;
+      }
+
+      for (int i = 0; i < set.Inputs.Length; i++) {
+        set.Inputs[i].Clear();
+      }
+    }
+
     public static bool IsComplete(this DeterministicTickInputSet set) {
       for (int i = 0; i < set.Inputs.Length; i++) {
         if (set.Inputs[i].Tick == 0) {
@@ -4731,6 +4771,138 @@ namespace Quantum {
   }
 }
 
+
+// Replay/RingBufferInputProvider.cs
+
+namespace Quantum {
+  public class RingBufferInputProvider : IDeterministicReplayProvider {
+    private readonly DeterministicTickInputSet[] _inputs;
+
+    private readonly int _capacity;
+    private int _startFrame;
+
+    public RingBufferInputProvider(DeterministicSessionConfig config, int capacity = 256) : this(config.PlayerCount, config.RollbackWindow, capacity) {
+    }
+
+    public RingBufferInputProvider(DeterministicTickInputSet[] inputList) {
+      _startFrame = inputList.Length == 0 ? 0 : inputList[0].Tick;
+
+      // Use external list as our own
+      _inputs = inputList;
+      _capacity = inputList?.Length ?? 0;
+
+      for (int i = 0; i < _inputs.Length; i++) {
+        for (int j = 0; j < inputList[i].Inputs.Length; j++) {
+          inputList[i].Inputs[j].Sent = true;
+        }
+      }
+    }
+
+    public RingBufferInputProvider(int playerCount, int startFrame, int capacity) {
+      _startFrame  = startFrame;
+
+      _capacity = Math.Max(0, capacity);
+      _inputs = new DeterministicTickInputSet[_capacity];
+      
+      for (int i = 0; i < _inputs.Length; i++) {
+        _inputs[i].Inputs = new DeterministicTickInput[playerCount];
+
+        for (int j = 0; j < playerCount; j++) {
+          _inputs[i].Inputs[j] = new DeterministicTickInput();
+        }
+      }
+    }
+
+    public void Clear(int startFrame) {
+      _startFrame = startFrame;
+
+      for (int i = 0; i < _inputs.Length; i++) {
+        _inputs[i].Clear();
+      }
+    }
+
+    public void OnInputConfirmed(QuantumGame game, DeterministicFrameInputTemp input) {
+      if (TryGetInputSetIndex(input.Frame, out var index) == false) {
+        return;
+      }
+
+      _inputs[index].Inputs[input.Player].Set(input);
+    }
+
+    public void InjectInput(DeterministicTickInput input, bool localReplay) {
+      if (TryGetInputSetIndex(input.Tick, out var index) == false) {
+        return;
+      }
+
+      _inputs[index].Inputs[input.PlayerIndex].CopyFrom(input);
+
+      if (localReplay) {
+        _inputs[index].Inputs[input.PlayerIndex].Sent = true;
+      }
+    }
+
+    public void AddRpc(int player, byte[] data, bool command) {
+    }
+
+    public bool CanSimulate(int frame) {
+      if (frame < _startFrame) {
+        return false;
+      }
+
+      var index = ToIndex(frame);
+
+      return _inputs[index].Tick == frame && _inputs[index].IsComplete();
+    }
+
+    public QTuple<byte[], bool> GetRpc(int frame, int player) {
+      var index = ToIndex(frame);
+
+      if (frame < _startFrame || _inputs[index].Tick != frame) {
+        return default;
+      }
+
+      var playerInput = _inputs[index].Inputs[player];
+
+      return QTuple.Create(playerInput.Rpc, (playerInput.Flags & DeterministicInputFlags.Command) == DeterministicInputFlags.Command);
+    }
+
+    public DeterministicFrameInputTemp GetInput(int frame, int player) {
+      var index = ToIndex(frame);
+
+      if (frame < _startFrame || _inputs[index].Tick != frame) {
+        return default;
+      }
+      
+      var playerInput = _inputs[index].Inputs[player];
+      return DeterministicFrameInputTemp.Verified(frame, player, null, playerInput.DataArray, playerInput.DataLength, playerInput.Flags);
+    }
+
+    private int ToIndex(int frame) {
+      return (frame - _startFrame) % _capacity;
+    }
+    
+    private bool TryGetInputSetIndex(int tick, out int index) {
+      if (tick < _startFrame) {
+        // if starting to record from a frame following a snapshot,
+        // confirmed inputs from previous frames can still arrive
+        index = -1;
+        return false;
+      }
+      
+      index = ToIndex(tick);
+      ref var set = ref _inputs[index];
+
+      if (set.Tick != tick) {
+        set.Clear();
+        set.Tick = tick;
+      }
+
+      Assert.Check(set.Tick == tick, set.Tick, tick);
+
+      return true;
+    }
+  }
+}
 
 // Replay/SessionContainer.cs
 
@@ -4851,6 +5023,7 @@ namespace Quantum {
       sessionArgs.FrameData = null;
       sessionArgs.SessionConfig = null;
       sessionArgs.RuntimeConfig = null;
+      sessionArgs.DisableInterpolatableStates = (startParams.GameFlags & QuantumGameFlags.DisableInterpolatableStates) == QuantumGameFlags.DisableInterpolatableStates;
       Start(startParams, sessionArgs, _sessionConfig.PlayerCount, clientId, logInitForConsole, taskRunner);
     }
 
@@ -4874,6 +5047,7 @@ namespace Quantum {
       sessionArgs.FrameData = frameData;
       sessionArgs.SessionConfig = null;
       sessionArgs.RuntimeConfig = null;
+      sessionArgs.DisableInterpolatableStates = (startParams.GameFlags & QuantumGameFlags.DisableInterpolatableStates) == QuantumGameFlags.DisableInterpolatableStates;
       Start(startParams, sessionArgs, 0, clientId, logInitForConsole, taskRunner);
     }
 
@@ -4892,6 +5066,7 @@ namespace Quantum {
             // console first
             if (logInitForConsole) {
               Log.InitForConsole();
+              DeterministicLog.InitForConsole();
             }
 
             // try to figure out platform if not set
@@ -5037,6 +5212,7 @@ namespace Quantum.Legacy {
             // console first
             if (logInitForConsole) {
               Log.InitForConsole();
+              DeterministicLog.InitForConsole();
             }
 
             // try to figure out platform if not set
@@ -5096,6 +5272,7 @@ namespace Quantum.Legacy {
       args.SessionConfig         = config;
       args.PlatformInfo          = info;
       args.RuntimeConfig         = RuntimeConfig.ToByteArray(runtimeConfig);
+      args.DisableInterpolatableStates = (gameFlags & QuantumGameFlags.DisableInterpolatableStates) == QuantumGameFlags.DisableInterpolatableStates;
 
       session = new DeterministicSession(args);
       session.Join("server", config.PlayerCount);
@@ -5146,7 +5323,7 @@ namespace Quantum.Task {
 
     }
 
-    protected sealed override TaskHandle Schedule(Frame f, TaskHandle taskHandle) {
+    protected override TaskHandle Schedule(Frame f, TaskHandle taskHandle) {
       var slicesCount = Math.Max(1, Math.Min(SlicesCount, MAX_SLICES_COUNT));
       return f.Context.TaskContext.AddArrayTask(_arrayTaskDelegateHandle, null, f.ComponentCount<T>(includePendingRemoval: true), taskHandle, slicesCount);
     }
@@ -5193,7 +5370,7 @@ namespace Quantum.Task {
 
     }
 
-    protected sealed override TaskHandle Schedule(Frame f, TaskHandle taskHandle) {
+    protected override TaskHandle Schedule(Frame f, TaskHandle taskHandle) {
       // figure out smallest block iterator
       var taskSize = f.ComponentCount(_filterMeta.ComponentTypes[0], includePendingRemoval: true);
 
@@ -5548,7 +5725,7 @@ namespace Quantum.Task {
 
     }
 
-    protected sealed override TaskHandle Schedule(Frame f, TaskHandle taskHandle) {
+    protected override TaskHandle Schedule(Frame f, TaskHandle taskHandle) {
       // reset indexer
       _sliceIndexer = -1;
       
@@ -5606,7 +5783,7 @@ namespace Quantum.Task {
 
     }
 
-    protected sealed override TaskHandle Schedule(Frame f, TaskHandle taskHandle) {
+    protected override TaskHandle Schedule(Frame f, TaskHandle taskHandle) {
       // reset indexer
       _sliceIndexer = -1;
 

@@ -16,7 +16,7 @@ namespace Quantum
 		public AIParamFP Distance;
 
 		/// <inheritdoc />
-		public override bool Decide(Frame f, EntityRef e)
+		public override bool Decide(Frame f, EntityRef e, ref AIContext aiContext)
 		{
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
 

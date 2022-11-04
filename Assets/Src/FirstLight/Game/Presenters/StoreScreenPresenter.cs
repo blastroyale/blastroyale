@@ -72,17 +72,17 @@ namespace FirstLight.Game.Presenters
 #if UNITY_EDITOR
 			var confirmButton = new GenericDialogButton
 			{
-				ButtonText = ScriptLocalization.General.OK,
+				ButtonText = ScriptLocalization.UITShared.ok,
 				ButtonOnClick = () => _gameServices.GenericDialogService.CloseDialog()
 			};
 
 			_gameServices.GenericDialogService.OpenDialog(
-				string.Format(ScriptLocalization.General.IapError, msg.Reason.ToString()), false, confirmButton);
+				string.Format(ScriptLocalization.UITStore.iap_error, msg.Reason.ToString()), false, confirmButton);
 #else
 			var button = new AlertButton
 			{
 				Style = AlertButtonStyle.Positive,
-				Text = ScriptLocalization.General.OK
+				Text = ScriptLocalization.UITShared.ok
 			};
 
 			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.ErrorGeneric, msg.Reason.ToString(),

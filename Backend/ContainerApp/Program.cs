@@ -12,9 +12,15 @@ using Microsoft.Extensions.Hosting;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services
-       .AddControllers()
-       .AddNewtonsoftJson(); // cloudscript specifically requires newtonsoft as it does not add [Serializable] attrs
+
+if (builder.Environment.IsDevelopment())
+{
+	builder.Services.AddHttpLogging(options =>
+	{
+		options.LoggingFields = HttpLoggingFields.RequestPropertiesAndHeaders |
+								HttpLoggingFields.RequestBody;
+	});
+}
 
 if (builder.Environment.IsDevelopment())
 {
@@ -26,7 +32,7 @@ if (builder.Environment.IsDevelopment())
 }
 
 var binPath = Path.GetDirectoryName(typeof(GameLogicWebWebService).Assembly.Location);
-ServerStartup.Setup(builder.Services, binPath);
+ServerStartup.Setup(builder.Services.AddControllers(), binPath);
 
 var app = builder.Build();
 app.UseCors(x => x
@@ -42,3 +48,5 @@ app.UseAuthorization();
 app.UseMiddleware<ApiKeyMiddleware>();
 app.MapControllers();
 app.Run();
+
+public partial class Program { } // expose to integration tests

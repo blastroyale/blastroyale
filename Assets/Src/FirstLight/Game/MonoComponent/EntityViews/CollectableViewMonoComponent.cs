@@ -111,7 +111,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void RefreshVfx(SpectatedPlayer spectatedPlayer)
 		{
-			var hasVfx = _displayedCollector != EntityRef.None;
+			// Upon reconnections, if somebody is collecting an item, OnStartedCollecting event can fire
+			// before SpectateService.OnMatchStarted fires, so for a frame the player might be invalid.
+			if (spectatedPlayer.Transform == null) return;
+			
+				var hasVfx = _displayedCollector != EntityRef.None;
 			_displayedCollector = _collectors.TryGetValue(spectatedPlayer.Entity, out var collectingData)
 				                      ? spectatedPlayer.Entity
 				                      : EntityRef.None;

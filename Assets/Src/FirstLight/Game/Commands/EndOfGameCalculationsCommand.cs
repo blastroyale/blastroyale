@@ -2,7 +2,6 @@ using FirstLight.Game.Logic;
 using System.Collections.Generic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
-using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using Quantum;
 
@@ -15,6 +14,8 @@ namespace FirstLight.Game.Commands
 	{
 		public List<QuantumPlayerMatchData> PlayersMatchData;
 		public QuantumValues QuantumValues;
+		
+		private int _playerCount;
 		private bool _validRewardsFromFrame = true;
 
 		public CommandAccessLevel AccessLevel() => CommandAccessLevel.Service;
@@ -28,13 +29,19 @@ namespace FirstLight.Game.Commands
 			{
 				return;
 			}
+			
 			var matchData = PlayersMatchData;
 			var trophiesBeforeChange = gameLogic.PlayerLogic.Trophies.Value;
 			var matchType = QuantumValues.MatchType;
-			var trophyChange =
-				gameLogic.PlayerLogic.UpdateTrophies(matchType, matchData, QuantumValues.ExecutingPlayer);
-			var rewards =
-				gameLogic.RewardLogic.GiveMatchRewards(matchType, matchData[QuantumValues.ExecutingPlayer], false);
+			var rewardSource = new RewardSource()
+			{
+				MatchData = matchData,
+				ExecutingPlayer = QuantumValues.ExecutingPlayer,
+				MatchType = matchType,
+				DidPlayerQuit = false,
+				GamePlayerCount = _playerCount
+			};
+			var rewards = gameLogic.RewardLogic.GiveMatchRewards(rewardSource, out var trophyChange);
 
 			gameLogic.MessageBrokerService.Publish(new GameCompletedRewardsMessage
 			{
@@ -49,6 +56,8 @@ namespace FirstLight.Game.Commands
 			var gameContainer = frame.GetSingleton<GameContainer>();
 			PlayersMatchData = gameContainer.GetPlayersMatchData(frame, out _);
 			QuantumValues = quantumValues;
+			_playerCount = frame.PlayerCount;
+			
 			if (!frame.Context.GameModeConfig.AllowEarlyRewards && !gameContainer.IsGameCompleted &&
 				!gameContainer.IsGameOver)
 			{

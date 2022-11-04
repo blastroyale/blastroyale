@@ -36,11 +36,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_healthBarPlayerPool = new ObjectPool<PlayerHealthBarPoolObject>(4, PlayerHealthBarInstantiator);
 			_healthBarSpectatePlayer = SpectatePlayerHealthBarInstantiator();
 				
+			_matchServices.SpectateService.SpectatedPlayer.InvokeObserve(OnPlayerSpectateUpdate);
+			_services.MessageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEnded);
 			QuantumEvent.Subscribe<EventOnPlayerAttackHit>(this, OnPlayerAttackHit);
 			QuantumEvent.Subscribe<EventOnPlayerSkydiveLand>(this, OnPlayerSkydiveLand);
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, OnPlayerAlive);
-			_services.MessageBrokerService.Subscribe<MatchEndedMessage>(OnGameplayEnded);
-			_matchServices.SpectateService.SpectatedPlayer.InvokeObserve(OnPlayerSpectateUpdate);
 			
 			_healthBarSpectateRef.gameObject.SetActive(false);
 			_healthBarRef.gameObject.SetActive(false);
@@ -124,7 +124,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			// Sometimes there is 1-frame race condition upon reconnection/setting up the health bar, where spectated health bar
 			// gets positioned incorrectly. There is most likely a better solution, but time is money, and I'm poor.
 			await Task.Yield();
-			
+
 			_healthBarSpectatePlayer.ResourceBarView.SetupView(f, playerEntity);
 			SetupHealthBar(f, playerEntity, _healthBarSpectatePlayer);
 		}
@@ -160,7 +160,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			healthBar.OverlayView.Follow(anchor);
 		}
 
-		private void OnGameplayEnded(MatchEndedMessage obj)
+		private void OnMatchEnded(MatchEndedMessage msg)
 		{
 			_healthBarSpectatePlayer.OnDespawn();
 			_healthBarPlayerPool.DespawnAll();

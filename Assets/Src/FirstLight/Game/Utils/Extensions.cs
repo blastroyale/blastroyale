@@ -266,8 +266,7 @@ namespace FirstLight.Game.Utils
 		{
 			if (ts.Hours > 0)
 			{
-				return string.Format("{0}h {1}m {2}s", ts.Hours.ToString(), ts.Minutes.ToString(),
-				                     ts.Seconds.ToString());
+				return string.Format("{0}h {1}m", ts.Hours.ToString(), ts.Minutes.ToString());
 			}
 
 			if (ts.Minutes > 0)

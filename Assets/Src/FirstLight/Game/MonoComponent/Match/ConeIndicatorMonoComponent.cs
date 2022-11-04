@@ -1,3 +1,4 @@
+using System;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -10,7 +11,7 @@ namespace FirstLight.Game.MonoComponent.Match
 	public class ConeIndicatorMonoComponent : MonoBehaviour, IIndicator
 	{
 		private static readonly int _color = Shader.PropertyToID("_Color");
-		
+
 		[SerializeField] private Color _reloadColor = new Color(255, 64, 118);
 		[SerializeField, Required] private MeshRenderer _indicator;
 		[SerializeField] private float _localHeight = 0.25f;
@@ -19,6 +20,7 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		/// <inheritdoc />
 		public bool VisualState => _indicator.enabled;
+
 		/// <inheritdoc />
 		public IndicatorVfxId IndicatorVfxId => IndicatorVfxId.Cone;
 
@@ -63,7 +65,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			{
 				return;
 			}
-			
+
 			_rotation = Quaternion.LookRotation(new Vector3(position.x, 0f, position.y), Vector3.up);
 			transform.rotation = _rotation;
 		}

@@ -14,12 +14,8 @@ namespace FirstLight.Game.Presenters
 	/// Creates a Generic Dialog for showing information to the player usually for yes / no choices.
 	/// Usually used for pointing out something informative to players.
 	/// </summary>
-	public abstract class GenericDialogPresenterBase :  UiToolkitPresenterData<GenericDialogPresenterBase.StateData>
+	public abstract class GenericDialogPresenterBase :  UiToolkitPresenter
 	{
-		public struct StateData
-		{
-		}
-
 		private Label _titleLabel;
 		private Label _descLabel;
 		private Button _confirmButton;

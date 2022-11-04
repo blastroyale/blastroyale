@@ -157,6 +157,9 @@ namespace FirstLight.UiService
 		}
 	}
 
+	/// <summary>
+	/// This class is the UiToolkit implementation of UiCloseActivePresenterData
+	/// </summary>
 	public abstract class UiToolkitPresenterData<T> : UiCloseActivePresenterData<T> where T : struct
 	{
 		[SerializeField, Required] private UIDocument _document;
@@ -248,6 +251,17 @@ namespace FirstLight.UiService
 			yield return new WaitForEndOfFrame();
 			
 			Root.EnableInClassList(UIConstants.CLASS_HIDDEN, false);
+		}
+	}
+
+	/// <summary>
+	/// This is an implementation of UiToolkitPresenterData that allows instantiation of a UiToolkitPresenterData
+	/// without a StateData parameter as constructor 
+	/// </summary>
+	public abstract class UiToolkitPresenter : UiToolkitPresenterData<UiToolkitPresenter.StateData>
+	{
+		public struct StateData
+		{
 		}
 	}
 }

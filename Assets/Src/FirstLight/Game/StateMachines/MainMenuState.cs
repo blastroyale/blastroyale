@@ -93,10 +93,8 @@ namespace FirstLight.Game.StateMachines
 			disconnectedCheck.Transition().Condition(NetworkUtils.IsOfflineOrDisconnected).Target(disconnected);
 			disconnectedCheck.Transition().Target(mainMenuUnloading);
 			
-			disconnected.OnEnter(CloseAllUi);
 			disconnected.OnEnter(OpenDisconnectedScreen);
 			disconnected.Event(NetworkState.PhotonMasterConnectedEvent).Target(mainMenu);
-			disconnected.OnExit(CloseDisconnectedScreen);
 
 			mainMenuUnloading.OnEnter(OpenLoadingScreen);
 			mainMenuUnloading.OnEnter(UnloadMainMenu);
@@ -242,11 +240,6 @@ namespace FirstLight.Game.StateMachines
 		private bool IsCurrentScreen<T>() where T : UiPresenter
 		{
 			return _currentScreen == typeof(T);
-		}
-		
-		private void CloseAllUi()
-		{
-			_uiService.CloseAllUi();
 		}
 
 		private void OpenNftAmountInvalidDialog(IWaitActivity activity)
@@ -412,12 +405,7 @@ namespace FirstLight.Game.StateMachines
 				ReconnectClicked = () => _services.MessageBrokerService.Publish(new AttemptManualReconnectionMessage())
 			};
 
-			_uiService.OpenUiAsync<DisconnectedScreenPresenter, DisconnectedScreenPresenter.StateData>(data);
-		}
-
-		private void CloseDisconnectedScreen()
-		{
-			_uiService.CloseUi<DisconnectedScreenPresenter>(true);
+			_uiService.OpenScreen<DisconnectedScreenPresenter, DisconnectedScreenPresenter.StateData>(data);
 		}
 
 		private void ClosePlayMenuUI()

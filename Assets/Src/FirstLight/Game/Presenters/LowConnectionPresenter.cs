@@ -20,12 +20,8 @@ namespace FirstLight.Game.Presenters
 	/// - Leave the Adventure to the Main menu
 	/// </summary>
 	[LoadSynchronously]
-	public class LowConnectionPresenter : UiToolkitPresenterData<LowConnectionPresenter.StateData>
+	public class LowConnectionPresenter : UiToolkitPresenter
 	{
-		public struct StateData
-		{
-		}
-
 		private VisualElement _lowConnectionIcon;
 		private IGameServices _services;
 		

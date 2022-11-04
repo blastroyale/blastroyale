@@ -1,6 +1,7 @@
 ﻿using System;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
@@ -15,7 +16,7 @@ namespace FirstLight.Game.Presenters
 		protected override void QueryElements(VisualElement root)
 		{
 			base.QueryElements(root);
-
+			
 			_inputField = root.Q<TextField>().Required();
 
 			_closeCallback = null;
@@ -27,7 +28,7 @@ namespace FirstLight.Game.Presenters
 		/// If defined can call the <paramref name="closeCallback"/> when the Dialog is closed.
 		/// </summary>
 		public void SetInfo(string title, string desc, string initialInputText, GenericDialogButton<string> button, 
-		                    bool showCloseButton, /*TMP_InputField.ContentType contentType = TMP_InputField.ContentType.Standard,*/ Action<string> closeCallback = null)
+		                    bool showCloseButton, Action<string> closeCallback = null)
 		{
 			var confirmButton = new GenericDialogButton
 			{
@@ -35,7 +36,7 @@ namespace FirstLight.Game.Presenters
 				ButtonOnClick = OnConfirmButtonClicked
 			};
 
-			// TODO: this is critical. Makes me sad.
+			// TODO: this is critical. Makes me sad. Reimplmenet
 			//_inputField.contentType = contentType;
 			_inputField.value = initialInputText;
 			_confirmButton = button;

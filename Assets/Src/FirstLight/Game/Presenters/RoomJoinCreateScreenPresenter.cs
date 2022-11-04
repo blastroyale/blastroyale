@@ -77,9 +77,9 @@ namespace FirstLight.Game.Presenters
 				ButtonOnClick = OnRoomJoinClicked
 			};
 
+			// TODO - open with IntegerNumber content type when technology evolves to support that
 			_services.GenericDialogService.OpenInputDialog(ScriptLocalization.UITShared.info, ScriptLocalization.MainMenu.RoomJoinCode,
-			                                                    "", confirmButton, true/*,
-			                                                    TMP_InputField.ContentType.IntegerNumber*/);
+			                                                    "", confirmButton, true);
 		}
 
 		private void OnRoomJoinClicked(string roomNameInput)

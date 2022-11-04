@@ -149,7 +149,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OpenLowConnectionScreen()
 		{
-			_uiService.OpenUiAsync<LowConnectionPresenter, LowConnectionPresenter.StateData>(new LowConnectionPresenter.StateData());
+			_uiService.OpenUiAsync<LowConnectionPresenter>();
 		}
 
 		private void CloseLowConnectionScreen()

@@ -20,6 +20,7 @@ namespace FirstLight.Game.Presenters
 	/// - Reconnect to the Adventure
 	/// - Leave the Adventure to the Main menu
 	/// </summary>
+	[LoadSynchronously]
 	public class DisconnectedScreenPresenter : UiToolkitPresenterData<DisconnectedScreenPresenter.StateData>
 	{
 		public struct StateData
@@ -31,8 +32,8 @@ namespace FirstLight.Game.Presenters
 		private const float TIMEOUT_DIM_SECONDS = 5f;
 
 		private VisualElement _blockerElement;
-		private VisualElement _menuButton;
-		private VisualElement _reconnectButton;
+		private Button _menuButton;
+		private Button _reconnectButton;
 		private IGameServices _services;
 
 		private void Awake()
@@ -43,11 +44,11 @@ namespace FirstLight.Game.Presenters
 		protected override void QueryElements(VisualElement root)
 		{
 			_blockerElement = root.Q("Blocker").Required();
-			_menuButton = root.Q("MenuButton").Required();
-			_reconnectButton = root.Q("ReconnectButton").Required();
+			_menuButton =root.Q<Button>("MenuButton").Required();
+			_reconnectButton = root.Q<Button>("ReconnectButton").Required();
 
-			root.Q<Button>("ReconnectButton").clicked += OnReconnectClicked;
-			root.Q<Button>("MenuButton").clicked += OnLeaveClicked;
+			_reconnectButton.clicked += OnReconnectClicked;
+			_menuButton.clicked += OnLeaveClicked;
 		}
 
 		protected override void OnOpened()
@@ -64,7 +65,7 @@ namespace FirstLight.Game.Presenters
 			}
 			
 			// Disconnecting in main menu, players should only be able to reconnect
-			if (_services.NetworkService.LastDisconnectLocation == LastDisconnectionLocation.FinalPreload)
+			if (_services.NetworkService.LastDisconnectLocation == LastDisconnectionLocation.Menu)
 			{
 				_menuButton.SetDisplayActive(false);
 				_reconnectButton.SetDisplayActive(true);

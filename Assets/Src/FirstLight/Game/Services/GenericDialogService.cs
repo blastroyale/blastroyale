@@ -89,9 +89,10 @@ namespace FirstLight.Game.Services
 			ui.SetInfo(title, desc, showCloseButton, button, closeCallback);
 		}
 
+		// TODO - Support different "content types" - requires refactor on UIT TextField
 		/// <inheritdoc />
 		public void OpenInputDialog(string title, string desc, string initialInputText, GenericDialogButton<string> button, 
-		                                 bool showCloseButton, /*TMP_InputField.ContentType contentType = TMP_InputField.ContentType.Standard,*/ Action<string> closeCallback = null)
+		                                 bool showCloseButton, Action<string> closeCallback = null)
 		{
 			var ui = _uiService.OpenUi<GenericInputDialogPresenter>();
 

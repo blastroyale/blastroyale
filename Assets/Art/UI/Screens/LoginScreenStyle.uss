@@ -7,10 +7,7 @@
 }
 
 .popup-radius {
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
+    border-radius: 20px;
 }
 
 #unity-text-input {
@@ -66,6 +63,7 @@ LocalizedButton {
 #LoginButton {
     padding-left: 100px;
     padding-right: 100px;
+    width: 460px;
 }
 
 .blocker-hidden {

@@ -10,6 +10,7 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Input;
+using FirstLight.Game.UIElements;
 using FirstLight.Services;
 using I2.Loc;
 using Photon.Realtime;
@@ -17,6 +18,8 @@ using Quantum;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Playables;
+using UnityEngine.UIElements;
+using EventBase = Quantum.EventBase;
 using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Utils
@@ -555,6 +558,15 @@ namespace FirstLight.Game.Utils
 			}
 
 			return gameplayActions.SpecialButton1;
+		}
+
+		/// <summary>
+		/// Sets ".element-hidden" class active/inactive, which sets the Display property of a VE.
+		/// </summary>
+		public static void SetDisplayActive(this VisualElement element, bool active)
+		{
+			// Enabling the class means that the element will become hidden
+			element.EnableInClassList(UIConstants.ELEMENT_HIDDEN, !active);
 		}
 	}
 }

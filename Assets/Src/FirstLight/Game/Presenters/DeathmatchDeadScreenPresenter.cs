@@ -100,7 +100,7 @@ namespace FirstLight.Game.Presenters
 				ButtonOnClick = OnExitConfirmed
 			};
 
-			_services.GenericDialogService.OpenDialog(ScriptLocalization.General.ConfirmQuit, true, confirmButton);
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.confirmation, ScriptLocalization.General.ConfirmQuit, true, confirmButton);
 		}
 
 		private void OnExitConfirmed()

@@ -5,6 +5,8 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Services;
 using Quantum;
+using UnityEngine;
+using static Cinemachine.DocumentationSortingAttribute;
 
 namespace FirstLight.Game.Logic
 {
@@ -27,6 +29,11 @@ namespace FirstLight.Game.Logic
 		/// Gets the level and points that would be if current BPP was redeemed
 		/// </summary>
 		Tuple<uint, uint> GetPredictedLevelAndPoints(int pointOverride = -1);
+
+		/// <summary>
+		/// Gets the amount of points requried to complete the specified level
+		/// </summary>
+		uint GetRequiredPointsForLevel(int desiredLevel);
 
 		/// <summary>
 		/// The maximum (highest) level of the BattlePass.
@@ -96,13 +103,13 @@ namespace FirstLight.Game.Logic
 		{
 			var level = _currentLevel.Value;
 			var points = pointOverride >= 0 ? (uint) pointOverride : _currentPoints.Value;
+			var currentLevelPoints = GetRequiredPointsForLevel((int)level);
 
-			var config = GameLogic.ConfigsProvider.GetConfig<BattlePassConfig>();
-
-			while (points >= config.PointsPerLevel)
+			while (points >= currentLevelPoints)
 			{
-				points -= config.PointsPerLevel;
+				points -= currentLevelPoints;
 				level++;
+				currentLevelPoints = GetRequiredPointsForLevel((int)level);
 			}
 
 			return new Tuple<uint, uint>(level,points);
@@ -110,12 +117,13 @@ namespace FirstLight.Game.Logic
 
 		public uint GetRemainingPoints()
 		{
-			var levelsTillMax = MaxLevel - _currentLevel.Value;
-			var ppl = GameLogic.ConfigsProvider.GetConfig<BattlePassConfig>().PointsPerLevel;
+			uint points = 0;	
+			for (uint i = MaxLevel - 1; i > _currentLevel.Value; i--)
+			{
+				points += GetRequiredPointsForLevel((int)i);
+			}
 
-			var points = (int) levelsTillMax * (int) ppl - (int) _currentPoints.Value;
-
-			return (uint) Math.Max(0, points);
+			return points;
 		}
 
 		public EquipmentRewardConfig GetRewardForLevel(uint level)
@@ -128,10 +136,8 @@ namespace FirstLight.Game.Logic
 
 		public bool IsRedeemable(int pointOverride = -1)
 		{
-			var config = GameLogic.ConfigsProvider.GetConfig<BattlePassConfig>();
-
 			int points = pointOverride >= 0 ? pointOverride : (int) _currentPoints.Value;
-			return points >= config.PointsPerLevel;
+			return points >= GetRequiredPointsForLevel((int)_currentLevel.Value);
 		}
 
 		public void AddBPP(uint amount)
@@ -146,9 +152,7 @@ namespace FirstLight.Game.Logic
 
 		public void AddLevels(uint amount, out List<Equipment> rewards, out uint newLevel)
 		{
-			var config = GameLogic.ConfigsProvider.GetConfig<BattlePassConfig>();
-
-			AddBPP(config.PointsPerLevel * amount);
+			AddBPP(GetRequiredPointsForLevel((int)_currentLevel.Value) * amount);
 			RedeemBPP(out rewards, out newLevel);
 		}
 
@@ -156,19 +160,21 @@ namespace FirstLight.Game.Logic
 		{
 			var level = _currentLevel.Value;
 			var points = _currentPoints.Value;
-
 			var config = GameLogic.ConfigsProvider.GetConfig<BattlePassConfig>();
-
 			var levels = new List<EquipmentRewardConfig>();
 
-			while (points >= config.PointsPerLevel)
+			var currentPointsPerLevel = GetRequiredPointsForLevel((int)_currentLevel.Value);
+
+			while (points >= currentPointsPerLevel)
 			{
-				points -= config.PointsPerLevel;
+				points -= currentPointsPerLevel;
 				level++;
 
 				var rewardConfig = GameLogic.ConfigsProvider.GetConfig<EquipmentRewardConfig>(config.Levels[(int) level - 1].RewardId);
 
 				levels.Add(rewardConfig);
+
+				currentPointsPerLevel = GetRequiredPointsForLevel((int)level);
 			}
 
 			_currentLevel.Value = level;
@@ -191,6 +197,16 @@ namespace FirstLight.Game.Logic
 				GameLogic.EquipmentLogic.AddToInventory(generatedEquipment);
 				rewards.Add(generatedEquipment);
 			}
+		}
+
+		public uint GetRequiredPointsForLevel(int desiredLevel)
+		{
+			var config = GameLogic.ConfigsProvider.GetConfig<BattlePassConfig>();
+			var levelConfig = config.Levels[desiredLevel];
+
+			//if the points for next is 0, then use default value, otherwise use custom level value
+			return levelConfig.PointsForNextLevel == 0 ?
+				config.DefaultPointsPerLevel : levelConfig.PointsForNextLevel;
 		}
 	}
 }

@@ -71,7 +71,8 @@ namespace FirstLight.Game.Presenters
 				ButtonOnClick = Data.ForgotPasswordClicked
 			};
 
-			_services.GenericDialogService.OpenInputFieldDialog(ScriptLocalization.UITLoginRegister.send_password_recovery,
+			_services.GenericDialogService.OpenInputDialog(ScriptLocalization.UITShared.info,
+				ScriptLocalization.UITLoginRegister.send_password_recovery,
 				"", confirmButton, true);
 		}
 

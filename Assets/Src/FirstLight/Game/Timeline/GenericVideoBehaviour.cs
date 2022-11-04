@@ -26,7 +26,10 @@ namespace FirstLight.Game.Timeline
 				ButtonOnClick = Resume
 			};
 			
-			Services.GenericDialogService.OpenVideoDialog(Title.ToString(), Description.ToString(), VideoId, false, confirmButton);
+			// Legacy video dialogs have been removed, but preserved all the FTUE related functionality just in case 
+			// we need to reference it. This is required for FtueTrack.cs
+			
+			// Services.GenericDialogService.OpenVideoDialog(Title.ToString(), Description.ToString(), VideoId, false, confirmButton);
 		}
 	}
 }

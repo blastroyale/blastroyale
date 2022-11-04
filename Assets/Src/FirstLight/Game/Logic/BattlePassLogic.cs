@@ -30,6 +30,9 @@ namespace FirstLight.Game.Logic
 		/// </summary>
 		Tuple<uint, uint> GetPredictedLevelAndPoints(int pointOverride = -1);
 
+		/// <summary>
+		/// Gets the amount of points requried to complete the specified level
+		/// </summary>
 		uint GetRequiredPointsForLevel(int desiredLevel);
 
 		/// <summary>
@@ -120,7 +123,7 @@ namespace FirstLight.Game.Logic
 				points += GetRequiredPointsForLevel((int)i);
 			}
 
-			return Math.Max(0, points);
+			return points;
 		}
 
 		public EquipmentRewardConfig GetRewardForLevel(uint level)
@@ -196,9 +199,6 @@ namespace FirstLight.Game.Logic
 			}
 		}
 
-		/// <summary>
-		/// Gets the amount of points requried to complete the specified level
-		/// </summary>
 		public uint GetRequiredPointsForLevel(int desiredLevel)
 		{
 			var config = GameLogic.ConfigsProvider.GetConfig<BattlePassConfig>();

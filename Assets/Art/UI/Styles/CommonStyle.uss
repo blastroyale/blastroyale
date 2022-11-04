@@ -143,6 +143,8 @@ TextField > #unity-text-input, LocalizedTextField > #unity-text-input {
     width: 602px;
     height: 604px;
     position: absolute;
+    left: -100px;
+    top: -100px;
 }
 
 .button-flat-primary, .button-flat-secondary, .button-flat-cancel {

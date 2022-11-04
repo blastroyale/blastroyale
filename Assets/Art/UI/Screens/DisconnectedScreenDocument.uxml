@@ -5,7 +5,7 @@
         <ui:VisualElement name="PopupBackground" class="popup-radius">
             <ui:VisualElement name="PopupWindow" class="popup-radius">
                 <ui:VisualElement name="Header" class="background-purple popup-header" style="overflow: hidden;">
-                    <ui:VisualElement name="TitleDots" class="dots-pattern--popup" />
+                    <ui:VisualElement name="TitleDots" class="dots-pattern" />
                     <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITDisconnected/connection_lost" name="Title" class="font-italic font-style-h2" />
                 </ui:VisualElement>
                 <ui:VisualElement name="Container">

@@ -5,7 +5,7 @@
         <ui:VisualElement name="PopupBackground" class="popup-radius">
             <ui:VisualElement name="PopupWindow" class="popup-radius">
                 <ui:VisualElement name="Header" class="background-purple popup-header">
-                    <ui:VisualElement name="TitleDots" class="dots-pattern--popup" />
+                    <ui:VisualElement name="TitleDots" class="dots-pattern" />
                     <ui:Label name="Title" text="TITLE GOES HERE" class="font-italic font-style-h2" />
                 </ui:VisualElement>
                 <ui:VisualElement name="Container">

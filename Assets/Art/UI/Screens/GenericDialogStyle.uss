@@ -1,9 +1,9 @@
 :root {
-    --out-animation-duration: 0.3s;
+    --out-animation-duration: 0.5s;
     --out-animation-easing: ease-in;
-    --in-animation-duration: 0.3s;
+    --in-animation-duration: 0.5s;
     --in-animation-easing: ease-out;
-    --animation-property: top;
+    --animation-property: translate;
 }
 
 .popup-radius {
@@ -14,7 +14,7 @@
 }
 
 .hidden #PopupBackground {
-    top: -1000px;
+    translate: 0px -1000px;
     transition-timing-function: var(--in-animation-easing);
     transition-duration: var(--in-animation-duration);
     transition-property: var(--animation-property);
@@ -47,16 +47,6 @@
     width: 650px;
     height: 336px;
     position: absolute;
-}
-
-.dots-pattern--popup {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/DotsRotated.png?fileID=21300000&guid=123b7673eb1d048a486154a4e65c630b&type=3#DotsRotated');
-    -unity-background-image-tint-color: rgba(58, 58, 58, 0.35);
-    width: 602px;
-    height: 604px;
-    position: absolute;
-    left: -100px;
-    top: -100px;
 }
 
 .font-style-popup {
@@ -92,7 +82,7 @@
     transition-duration: var(--out-animation-duration);
     transition-property: var(--animation-property);
     height: auto;
-    top: 0;
+    translate: 0px 0px;
 }
 
 #PopupWindow {
@@ -106,6 +96,10 @@
     border-right-color: rgb(0, 0, 0);
     border-top-color: rgb(0, 0, 0);
     border-bottom-color: rgb(0, 0, 0);
+    top: -10px;
+    left: -10px;
+    right: 10px;
+    bottom: 10px;
 }
 
 #Container {

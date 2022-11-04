@@ -17,6 +17,12 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void OnAdded(Frame f, EntityRef entity, CollectablePlatformSpawner* component)
 		{
+			//TODO: instead of comparing to the weapon group, check against the hammertime params to see which drops to leave
+			if (f.Context.TryGetMutatorByType(MutatorType.HammerTime, out _) &&
+				(component->GameId == GameId.Random || component->GameId.IsInGroup(GameIdGroup.Weapon)))
+			{
+				f.Destroy(entity);
+			}
 			component->NextSpawnTime = f.Time + component->InitialSpawnDelayInSec;
 		}
 		

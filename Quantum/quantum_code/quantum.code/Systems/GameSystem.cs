@@ -43,18 +43,6 @@ namespace Quantum.Systems
 					throw new ArgumentOutOfRangeException();
 			}
 			SetupWeaponPool(f, component);
-
-			if(f.Context.TryGetMutatorByType(MutatorType.HammerTime, out _))
-			{
-				foreach (var platform in f.GetComponentIterator<CollectablePlatformSpawner>())
-				{
-					//TODO: instead of comparing to the weapon group, check against the hammertime params to see which drops to leave
-					if (platform.Component.GameId == GameId.Random || platform.Component.GameId.IsInGroup(GameIdGroup.Weapon))
-					{
-						f.Destroy(platform.Entity);
-					}
-				}
-			}
 		}
 
 		/// <inheritdoc />

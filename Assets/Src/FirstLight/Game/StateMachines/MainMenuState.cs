@@ -327,11 +327,6 @@ namespace FirstLight.Game.StateMachines
 			_uiService.OpenScreen<StoreScreenPresenter, StoreScreenPresenter.StateData>(data);
 		}
 
-		private void CloseStore()
-		{
-			_uiService.CloseUi<StoreScreenPresenter>();
-		}
-
 		private void PurchaseItem(string id)
 		{
 			_statechartTrigger(NetworkState.IapProcessStartedEvent);
@@ -358,11 +353,6 @@ namespace FirstLight.Game.StateMachines
 			_uiService.OpenScreen<PlayerSkinScreenPresenter, PlayerSkinScreenPresenter.StateData>(data);
 		}
 
-		private void ClosePlayerSkinScreenUI()
-		{
-			_uiService.CloseUi<PlayerSkinScreenPresenter>(true);
-		}
-
 		private void OpenRoomJoinCreateMenuUI()
 		{
 			var data = new RoomJoinCreateScreenPresenter.StateData
@@ -372,11 +362,6 @@ namespace FirstLight.Game.StateMachines
 			};
 
 			_uiService.OpenScreen<RoomJoinCreateScreenPresenter, RoomJoinCreateScreenPresenter.StateData>(data);
-		}
-
-		private void CloseRoomJoinCreateMenuUI()
-		{
-			_uiService.CloseUi<RoomJoinCreateScreenPresenter>(true);
 		}
 
 		private void OpenPlayMenuUI()
@@ -406,21 +391,6 @@ namespace FirstLight.Game.StateMachines
 			};
 
 			_uiService.OpenScreen<DisconnectedScreenPresenter, DisconnectedScreenPresenter.StateData>(data);
-		}
-
-		private void ClosePlayMenuUI()
-		{
-			_uiService.CloseUi<HomeScreenPresenter>();
-		}
-		
-		private void DimDisconnectedScreen()
-		{
-			_uiService.GetUi<DisconnectedScreenPresenter>().SetFrontDimBlockerActive(true);
-		}
-
-		private void UndimDisconnectedScreen()
-		{
-			_uiService.GetUi<DisconnectedScreenPresenter>().SetFrontDimBlockerActive(false);
 		}
 
 		private void LoadingComplete()

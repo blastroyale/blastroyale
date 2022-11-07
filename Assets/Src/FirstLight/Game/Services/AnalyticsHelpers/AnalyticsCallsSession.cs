@@ -114,6 +114,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		{
 			Analytics.SetUserId(id);
 			FirebaseAnalytics.SetUserId(id);
+			SingularSDK.SetCustomUserId(id);
 
 			var loginData = new Dictionary<string, object> 		{
 				{"client_version", VersionUtils.VersionInternal },
@@ -134,6 +135,8 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			};
 			
 			// FB.LogAppEvent(AnalyticsEvents.PlayerLogin, null, loginData);
+
+			SingularSDK.Event(loginData, AnalyticsEvents.PlayerLogin);
 			
 			_analyticsService.LogEvent(AnalyticsEvents.PlayerLogin, loginData);
 		}

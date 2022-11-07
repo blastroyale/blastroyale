@@ -1,0 +1,6 @@
+struct WeaponDropPool
+{
+	EquipmentRarity AverageRarity;
+	EquipmentRarity MedianRarity;
+	array<Equipment>[PLAYER_COUNT] WeaponPool;
+}

@@ -2959,15 +2959,13 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct WeaponDropPool {
-    public const Int32 SIZE = 2064;
-    public const Int32 ALIGNMENT = 8;
+    public const Int32 SIZE = 2056;
+    public const Int32 ALIGNMENT = 4;
     [FieldOffset(0)]
     public EquipmentRarity AverageRarity;
     [FieldOffset(4)]
     public EquipmentRarity MedianRarity;
     [FieldOffset(8)]
-    public FP PoolCounter;
-    [FieldOffset(16)]
     [FramePrinter.FixedArrayAttribute(typeof(Equipment), 32)]
     private fixed Byte _WeaponPool_[2048];
     public FixedArray<Equipment> WeaponPool {
@@ -2980,7 +2978,6 @@ namespace Quantum {
         var hash = 353;
         hash = hash * 31 + (Int32)AverageRarity;
         hash = hash * 31 + (Int32)MedianRarity;
-        hash = hash * 31 + PoolCounter.GetHashCode();
         hash = hash * 31 + HashCodeUtils.GetArrayHashCode(WeaponPool);
         return hash;
       }
@@ -2989,7 +2986,6 @@ namespace Quantum {
         var p = (WeaponDropPool*)ptr;
         serializer.Stream.Serialize((Int32*)&p->AverageRarity);
         serializer.Stream.Serialize((Int32*)&p->MedianRarity);
-        FP.Serialize(&p->PoolCounter, serializer);
         FixedArray.Serialize(p->WeaponPool, serializer, StaticDelegates.SerializeEquipment);
     }
   }
@@ -4012,39 +4008,28 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct GameContainer : Quantum.IComponentSingleton {
-    public const Int32 SIZE = 5688;
+    public const Int32 SIZE = 5672;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(12)]
+    [FieldOffset(8)]
     public UInt32 CurrentProgress;
-    [FieldOffset(3624)]
+    [FieldOffset(3616)]
     public WeaponDropPool DropPool;
-    [FieldOffset(24)]
+    [FieldOffset(16)]
     public FP GameOverTime;
     [FieldOffset(0)]
     public QBoolean IsGameOver;
     [FieldOffset(4)]
     public QBoolean IsGameStarted;
-    [FieldOffset(32)]
+    [FieldOffset(24)]
     public MutatorsState MutatorsState;
-    [FieldOffset(40)]
+    [FieldOffset(32)]
     [FramePrinter.FixedArrayAttribute(typeof(PlayerMatchData), 32)]
     private fixed Byte _PlayersData_[3584];
-    [FieldOffset(8)]
-    [FramePrinter.PtrQListAttribute(typeof(PlayerRef))]
-    private Quantum.Ptr RealPlayersPtr;
-    [FieldOffset(16)]
+    [FieldOffset(12)]
     public UInt32 TargetProgress;
     public FixedArray<PlayerMatchData> PlayersData {
       get {
         fixed (byte* p = _PlayersData_) { return new FixedArray<PlayerMatchData>(p, 112, 32); }
-      }
-    }
-    public QListPtr<PlayerRef> RealPlayers {
-      get {
-        return new QListPtr<PlayerRef>(RealPlayersPtr);
-      }
-      set {
-        RealPlayersPtr = value.Ptr;
       }
     }
     public override Int32 GetHashCode() {
@@ -4057,23 +4042,14 @@ namespace Quantum {
         hash = hash * 31 + IsGameStarted.GetHashCode();
         hash = hash * 31 + MutatorsState.GetHashCode();
         hash = hash * 31 + HashCodeUtils.GetArrayHashCode(PlayersData);
-        hash = hash * 31 + RealPlayersPtr.GetHashCode();
         hash = hash * 31 + TargetProgress.GetHashCode();
         return hash;
       }
-    }
-    public void ClearPointers(Frame f, EntityRef entity) {
-      RealPlayersPtr = default;
-    }
-    public static void OnRemoved(FrameBase frame, EntityRef entity, void* ptr) {
-      var p = (GameContainer*)ptr;
-      p->ClearPointers((Frame)frame, entity);
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (GameContainer*)ptr;
         QBoolean.Serialize(&p->IsGameOver, serializer);
         QBoolean.Serialize(&p->IsGameStarted, serializer);
-        QList.Serialize(p->RealPlayers, &p->RealPlayersPtr, serializer, StaticDelegates.SerializePlayerRef);
         serializer.Stream.Serialize(&p->CurrentProgress);
         serializer.Stream.Serialize(&p->TargetProgress);
         FP.Serialize(&p->GameOverTime, serializer);
@@ -4834,7 +4810,7 @@ namespace Quantum {
         ComponentTypeId.Add<Quantum.EntityDestroyer>(Quantum.EntityDestroyer.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.EquipmentCollectable>(Quantum.EquipmentCollectable.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.GOAPAgent>(Quantum.GOAPAgent.Serialize, null, null, ComponentFlags.None);
-        ComponentTypeId.Add<Quantum.GameContainer>(Quantum.GameContainer.Serialize, null, Quantum.GameContainer.OnRemoved, ComponentFlags.Singleton);
+        ComponentTypeId.Add<Quantum.GameContainer>(Quantum.GameContainer.Serialize, null, null, ComponentFlags.Singleton);
         ComponentTypeId.Add<Quantum.HFSMAgent>(Quantum.HFSMAgent.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.Hazard>(Quantum.Hazard.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.Immunity>(Quantum.Immunity.Serialize, null, null, ComponentFlags.None);
@@ -8390,7 +8366,6 @@ namespace Quantum {
     public static FrameSerializer.Delegate SerializeAssetRefBTDecorator;
     public static FrameSerializer.Delegate SerializeBTAgent;
     public static FrameSerializer.Delegate SerializePlayerMatchData;
-    public static FrameSerializer.Delegate SerializePlayerRef;
     public static FrameSerializer.Delegate SerializeEquipment;
     public static FrameSerializer.Delegate SerializeWeaponSlot;
     public static FrameSerializer.Delegate SerializeInt32;
@@ -8410,7 +8385,6 @@ namespace Quantum {
       SerializeAssetRefBTDecorator = Quantum.AssetRefBTDecorator.Serialize;
       SerializeBTAgent = Quantum.BTAgent.Serialize;
       SerializePlayerMatchData = Quantum.PlayerMatchData.Serialize;
-      SerializePlayerRef = PlayerRef.Serialize;
       SerializeEquipment = Quantum.Equipment.Serialize;
       SerializeWeaponSlot = Quantum.WeaponSlot.Serialize;
       SerializeInt32 = (v, s) => {{ s.Stream.Serialize((Int32*)v); }};
@@ -9700,8 +9674,6 @@ namespace Quantum.Prototypes {
     public FP GameOverTime;
     public MutatorsState_Prototype MutatorsState;
     public WeaponDropPool_Prototype DropPool;
-    [DynamicCollectionAttribute()]
-    public PlayerRef[] RealPlayers = {};
     partial void MaterializeUser(Frame frame, ref GameContainer result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       GameContainer component = default;
@@ -9717,17 +9689,6 @@ namespace Quantum.Prototypes {
       this.MutatorsState.Materialize(frame, ref result.MutatorsState, in context);
       for (int i = 0, count = PrototypeValidator.CheckLength(PlayersData, 32, in context); i < count; ++i) {
         this.PlayersData[i].Materialize(frame, ref *result.PlayersData.GetPointer(i), in context);
-      }
-      if (this.RealPlayers.Length == 0) {
-        result.RealPlayers = default;
-      } else {
-        var list = frame.AllocateList(result.RealPlayers, this.RealPlayers.Length);
-        for (int i = 0; i < this.RealPlayers.Length; ++i) {
-          PlayerRef tmp = default;
-          tmp = this.RealPlayers[i];
-          list.Add(tmp);
-        }
-        result.RealPlayers = list;
       }
       result.TargetProgress = this.TargetProgress;
       MaterializeUser(frame, ref result, in context);
@@ -10462,12 +10423,10 @@ namespace Quantum.Prototypes {
     public EquipmentRarity_Prototype MedianRarity;
     [ArrayLengthAttribute(32)]
     public Equipment_Prototype[] WeaponPool = new Equipment_Prototype[32];
-    public FP PoolCounter;
     partial void MaterializeUser(Frame frame, ref WeaponDropPool result, in PrototypeMaterializationContext context);
     public void Materialize(Frame frame, ref WeaponDropPool result, in PrototypeMaterializationContext context) {
       result.AverageRarity = this.AverageRarity;
       result.MedianRarity = this.MedianRarity;
-      result.PoolCounter = this.PoolCounter;
       for (int i = 0, count = PrototypeValidator.CheckLength(WeaponPool, 32, in context); i < count; ++i) {
         this.WeaponPool[i].Materialize(frame, ref *result.WeaponPool.GetPointer(i), in context);
       }

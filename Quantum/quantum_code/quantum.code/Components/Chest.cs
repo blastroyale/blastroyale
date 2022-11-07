@@ -51,14 +51,15 @@ namespace Quantum
 			var healthCheck = stats.CurrentHealth / stats.GetStatData(StatType.Health).StatValue < FP._0_20;
 			var chestItems = new List<ChestItemDropped>();
 			var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
-			var poolSize = gameContainer->DropPool.PoolCounter;
 
 			// Empty primary slot and hasn't ever dropped a weapon => drop the one from loadout or a random one
 			// Empty primary slot and we dropped a weapon once => skip dropping a weapon here
 			// Busy primary slot => skip dropping a weapon here
 			// There are items in the pool to drop
-			if (!isBot && playerCharacter->WeaponSlots[1].Weapon.GameId == GameId.Random
-			           && !playerCharacter->HasDroppedItemForSlot(Constants.GEAR_INDEX_WEAPON) && poolSize > 0)
+			if (playerCharacter->WeaponSlots[1].Weapon.GameId == GameId.Random && 
+				!playerCharacter->HasDroppedItemForSlot(Constants.GEAR_INDEX_WEAPON) && 
+				!gameContainer->DropPool.IsPoolEmpty && 
+				!isBot)
 			{
 				var weaponItem = hasLoadoutWeapon ? loadoutWeapon : gameContainer->GenerateNextWeapon(f);
 				
@@ -78,10 +79,8 @@ namespace Quantum
 				});
 			}
 
-			// Drop "PowerUps" (equipment / shield upgrade)
 			DropPowerUps(f, playerEntity, config, playerCharacter, gameContainer, minimumRarity, loadoutWeapon,
 			             chestPosition, ref angleStep, chestItems, chestItems.Count);
-			// Drop small and large consumables
 			DropSmallConsumable(f, playerEntity, playerRef, config, ammoCheck, shieldCheck, healthCheck,
 			                    chestPosition, ref angleStep, chestItems);
 			DropLargeConsumable(f, playerEntity, playerRef,config, ammoCheck, shieldCheck,
@@ -189,7 +188,6 @@ namespace Quantum
 				&& playerCharacter->WeaponSlots[2].Weapon.GameId == GameId.Random;
 			var playerRef = playerCharacter->Player;
 			var statsShields = f.Get<Stats>(playerEntity).GetStatData(StatType.Shield);
-			var poolSize = gameContainer->DropPool.PoolCounter;
 
 			var allEquipment = new List<Equipment>
 			{
@@ -219,7 +217,7 @@ namespace Quantum
 					}
 
 					// First drop a weapon if the player needs one
-					if (noWeaponsEquipped && poolSize > 0)
+					if (noWeaponsEquipped && !gameContainer->DropPool.IsPoolEmpty)
 					{
 						var weapon = gameContainer->GenerateNextWeapon(f);
 

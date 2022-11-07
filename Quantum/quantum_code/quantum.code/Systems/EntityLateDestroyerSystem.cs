@@ -12,11 +12,11 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public override void Update(Frame f)
 		{
-			var it = f.GetComponentIterator<EntityDestroyer>();
+			var it = f.Unsafe.GetComponentBlockIterator<EntityDestroyer>();
 
 			foreach (var filter in it)
 			{
-				if (filter.Component.time == FP._0 || filter.Component.time <= f.Time)
+				if (filter.Component->time == FP._0 || filter.Component->time <= f.Time)
 				{
 					f.Destroy(filter.Entity);
 				}

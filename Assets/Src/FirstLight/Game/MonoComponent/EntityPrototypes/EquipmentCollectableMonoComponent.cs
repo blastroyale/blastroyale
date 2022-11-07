@@ -85,7 +85,6 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			// In case where we spawn Equipment Collectables with the map or changed to a player that just collected a weapon
 			if (!next.Entity.IsValid || !TryGetComponentData<EquipmentCollectable>(game, out var collectable)) return; 
 
-
 			ShowHigherRarityArrow(game.Frames.Verified, next.Entity, collectable);
 		}
 

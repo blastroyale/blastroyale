@@ -47,7 +47,7 @@ namespace FirstLight.Game.Presenters
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			
-			_closeButton.onClick.AddListener(OnClosed);
+			_closeButton.onClick.AddListener(()=>OnClosed());
 			_selectButton.onClick.AddListener(OnSelectedPressed);
 			
 			_services.MessageBrokerService.Subscribe<PlayerSkinUpdatedMessage>(OnUpdatePlayerSkinMessage);
@@ -60,9 +60,9 @@ namespace FirstLight.Game.Presenters
 		}
 
 		// We override the OnClosed because we want to show the Loot menu before the close animation completes
-		protected override void OnClosed()
+		protected override async Task OnClosed()
 		{
-			base.OnClosed();
+			await base.OnClosed();
 			Data.OnCloseClicked();
 		}
 

@@ -8,7 +8,7 @@ namespace Quantum
 	{
 		// ========== AIFunction INTERFACE ============================================================================
 
-		public override FPVector2 Execute(Frame frame, EntityRef entity)
+		public override FPVector2 Execute(Frame frame, EntityRef entity, ref AIContext aiContext)
 		{
 			return FPVector2.Zero;
 		}

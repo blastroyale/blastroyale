@@ -67,11 +67,12 @@ namespace FirstLight.Game.Presenters
 		{
 			var confirmButton = new GenericDialogButton<string>
 			{
-				ButtonText = ScriptLocalization.General.OK,
+				ButtonText = ScriptLocalization.UITShared.ok,
 				ButtonOnClick = Data.ForgotPasswordClicked
 			};
 
-			_services.GenericDialogService.OpenInputFieldDialog(ScriptLocalization.MainMenu.SendPasswordEmail,
+			_services.GenericDialogService.OpenInputDialog(ScriptLocalization.UITShared.info,
+				ScriptLocalization.UITLoginRegister.send_password_recovery,
 				"", confirmButton, true);
 		}
 

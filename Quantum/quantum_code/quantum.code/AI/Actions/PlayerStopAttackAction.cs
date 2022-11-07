@@ -10,7 +10,7 @@ namespace Quantum
 	public class PlayerStopAttackAction : AIAction
 	{
 		/// <inheritdoc />
-		public override void Update(Frame f, EntityRef e)
+		public override void Update(Frame f, EntityRef e, ref AIContext aiContext)
 		{
 			var player = f.Get<PlayerCharacter>(e).Player;
 			

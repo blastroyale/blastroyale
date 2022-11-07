@@ -24,7 +24,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchmakingService", "Match
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerCommon", "ServerCommon\ServerCommon.csproj", "{1A2148AC-B9C6-4DD2-9F97-7FFB78EFED5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestUnitMatchmaking", "TestUnitMatchmaking\TestUnitMatchmaking.csproj", "{20007461-6EB6-4495-9E06-AB0C5A616FF6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestIntegrationMatchmaking", "TestIntegrationMatchmaking\TestIntegrationMatchmaking.csproj", "{20007461-6EB6-4495-9E06-AB0C5A616FF6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,12 +1,24 @@
 using System;
 using System.Collections.Generic;
-using System.Numerics;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Services;
 using Quantum;
 
 namespace FirstLight.Game.Data
 {
+
+	/// <summary>
+	/// Represents user custom game preferences, set in last custom game played.
+	/// </summary>
+	[Serializable]
+	public class CustomGameOptions
+	{
+		public List<string> Mutators = new();
+		public int GameModeIndex;
+		public int MapIndex;
+	}
+	
 	/// <summary>
 	/// Contains all the data in the scope of the Game's App
 	/// </summary>
@@ -29,6 +41,8 @@ namespace FirstLight.Game.Data
 		
 		public DateTime GameReviewDate;
 
+		public FrameSnapshot LastCapturedFrameSnapshot;
+
 		public bool SfxEnabled = true;
 		public bool BgmEnabled = true;
 		public bool HapticEnabled = true;
@@ -39,15 +53,25 @@ namespace FirstLight.Game.Data
 		public List<UniqueId> NewUniqueIds = new ();
 		public List<GameId> GameIdsTagged = new ();
 		public List<UnlockSystem> SystemsTagged = new ();
+		public CustomGameOptions LastCustomGameOptions = new();
 		
-		public AppData Copy()
+		/// <summary>
+		/// Copies base values for when user logs in to a new environment.
+		/// We want to maintain a few settings across environments, those settings
+		/// should be added to this copy method.
+		/// </summary>
+		public AppData CopyForNewEnvironment()
 		{
 			return new AppData
 			{
 				SfxEnabled = this.SfxEnabled,
 				BgmEnabled = this.BgmEnabled,
 				HapticEnabled = this.HapticEnabled,
-				CurrentDetailLevel = this.CurrentDetailLevel
+				CurrentDetailLevel = this.CurrentDetailLevel,
+				UseDynamicJoystick = this.UseDynamicJoystick,
+				DialogueEnabled = this.DialogueEnabled,
+				ConnectionRegion = this.ConnectionRegion,
+				FpsTarget = this.FpsTarget
 			};
 		}
 	}

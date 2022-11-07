@@ -57,6 +57,11 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			OnInit(game);
 		}
 		
+		protected virtual void HandleGameDestroyed(CallbackGameDestroyed callback)
+		{
+			Destroy(gameObject);
+		}
+		
 		protected virtual void OnAwake() { }
 
 		protected virtual void OnInit(QuantumGame game) { }
@@ -134,11 +139,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				
 				return newMat;
 			}
-		}
-
-		private void HandleGameDestroyed(CallbackGameDestroyed callback)
-		{
-			Destroy(gameObject);
 		}
 	}
 }

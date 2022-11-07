@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
@@ -34,11 +36,12 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private TMP_Dropdown[] _mutatorsSelections;
 
 		private IGameServices _services;
+		private IGameDataProvider _gameDataProvider;
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-
+			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_gameModeSelection.onValueChanged.AddListener(FillMapSelectionList);
 			
 			FillGameModesSelectionList();
@@ -56,6 +59,30 @@ namespace FirstLight.Game.Presenters
 			else
 			{
 				Destroy(_playtestButton);
+			}
+
+			SetPreviouslyUsedValues();
+		}
+
+		private void SetPreviouslyUsedValues()
+		{
+			var lastUsedOptions = _gameDataProvider.AppDataProvider.LastCustomGameOptions;
+			if (lastUsedOptions != null)
+			{
+				if (_gameModeSelection.options.Count > lastUsedOptions.GameModeIndex)
+				{
+					_gameModeSelection.value = lastUsedOptions.GameModeIndex;
+				}
+
+				if (lastUsedOptions.Mutators?.Count > 0)
+				{
+					SetMutatorsList(lastUsedOptions.Mutators);
+				}
+
+				if (lastUsedOptions.MapIndex < _mapSelection.options.Count)
+				{
+					_mapSelection.value = lastUsedOptions.MapIndex;
+				}
 			}
 		}
 
@@ -77,9 +104,9 @@ namespace FirstLight.Game.Presenters
 				ButtonOnClick = OnRoomJoinClicked
 			};
 
-			_services.GenericDialogService.OpenInputFieldDialog(ScriptLocalization.MainMenu.RoomJoinCode,
-			                                                    "", confirmButton, true,
-			                                                    TMP_InputField.ContentType.IntegerNumber);
+			// TODO - open with IntegerNumber content type when technology evolves to support that
+			_services.GenericDialogService.OpenInputDialog(ScriptLocalization.UITShared.info, ScriptLocalization.MainMenu.RoomJoinCode,
+			                                                    "", confirmButton, true);
 		}
 
 		private void OnRoomJoinClicked(string roomNameInput)
@@ -88,8 +115,19 @@ namespace FirstLight.Game.Presenters
 			Data.PlayClicked();
 		}
 
+		private CustomGameOptions GetChosenOptions()
+		{
+			return new CustomGameOptions()
+			{
+				GameModeIndex = _gameModeSelection.value,
+				Mutators = GetMutatorsList(),
+				MapIndex = _mapSelection.value
+			};
+		}
+
 		private void PlaytestClicked()
 		{
+			var a = _gameModeSelection.options[_gameModeSelection.value];
 			var gameModeConfig = ((GameModeDropdownMenuOption) _gameModeSelection.options[_gameModeSelection.value]).GameModeConfig;
 			var mapConfig = ((MapDropdownMenuOption) _mapSelection.options[_mapSelection.value]).MapConfig;
 			var message = new PlayCreateRoomClickedMessage
@@ -97,7 +135,7 @@ namespace FirstLight.Game.Presenters
 				RoomName = GameConstants.Network.ROOM_NAME_PLAYTEST,
 				GameModeConfig = gameModeConfig,
 				MapConfig = mapConfig,
-				Mutators = GetMutatorsList(),
+				CustomGameOptions = GetChosenOptions(),
 				JoinIfExists = true
 			};
 
@@ -118,7 +156,7 @@ namespace FirstLight.Game.Presenters
 				RoomName = roomName,
 				GameModeConfig = gameModeConfig,
 				MapConfig = mapConfig,
-				Mutators = GetMutatorsList()
+				CustomGameOptions = GetChosenOptions()
 			};
 
 			_services.MessageBrokerService.Publish(message);
@@ -142,6 +180,20 @@ namespace FirstLight.Game.Presenters
 			}
 
 			return mutators;
+		}
+		
+		private void SetMutatorsList(List<string> mutators)
+		{
+			var usedMutators = new List<string>(mutators);
+			foreach (var mutatorDropdown in _mutatorsSelections)
+			{
+				var presentMutator = mutatorDropdown.options.FirstOrDefault(o => usedMutators.Contains(o.text));
+				if (presentMutator != null)
+				{
+					usedMutators.Remove(presentMutator.text);
+					mutatorDropdown.value = mutatorDropdown.options.IndexOf(presentMutator);
+				}
+			}
 		}
 
 		private void FillMutatorsSelectionList()

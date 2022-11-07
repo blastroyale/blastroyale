@@ -93,8 +93,9 @@ namespace FirstLight.Services
 			{
 				return;
 			}
-			
-			PlayerPrefs.SetString(type.Name, JsonConvert.SerializeObject(_data[type].Data));
+
+			var jsonData = JsonConvert.SerializeObject(_data[type].Data);
+			PlayerPrefs.SetString(type.Name, jsonData);
 			PlayerPrefs.Save();
 		}
 

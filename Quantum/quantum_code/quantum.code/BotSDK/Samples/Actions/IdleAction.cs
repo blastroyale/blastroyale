@@ -8,7 +8,7 @@ namespace Quantum
 	[AssetObjectConfig(GenerateLinkingScripts = true, GenerateAssetCreateMenu = false, GenerateAssetResetMethod = false)]
 	public partial class IdleAction : AIAction
 	{
-		public override unsafe void Update(Frame frame, EntityRef entity)
+		public override unsafe void Update(Frame frame, EntityRef entity, ref AIContext aiContext)
 		{
 		}
 	}

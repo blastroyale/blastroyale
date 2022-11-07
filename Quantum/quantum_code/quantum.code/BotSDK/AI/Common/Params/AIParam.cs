@@ -27,20 +27,26 @@ namespace Quantum
 		protected abstract T GetBlackboardValue(BlackboardValue value);
 		protected abstract T GetConfigValue(AIConfig.KeyValuePair configPair);
 
-		protected abstract T GetFunctionValue(Frame frame, EntityRef entity);
-		protected abstract T GetFunctionValue(FrameThreadSafe frame, EntityRef entity);
+		protected abstract T GetFunctionValue(Frame frame, EntityRef entity, ref AIContext aiContext);
+		protected abstract T GetFunctionValue(FrameThreadSafe frame, EntityRef entity, ref AIContext aiContext);
 
 		// ========== PUBLIC METHODS ==================================================================================
 
 		public T Resolve(Frame frame, EntityRef entity, AIBlackboardComponent* blackboard, AIConfig aiConfig)
 		{
-			return Resolve((FrameThreadSafe)frame, entity, blackboard, aiConfig);
+			AIContext aiContext = new AIContext();
+			return Resolve((FrameThreadSafe)frame, entity, blackboard, aiConfig, ref aiContext);
+		}
+
+		public T Resolve(Frame frame, EntityRef entity, AIBlackboardComponent* blackboard, AIConfig aiConfig, ref AIContext aiContext)
+		{
+			return Resolve((FrameThreadSafe)frame, entity, blackboard, aiConfig, ref aiContext);
 		}
 
 		/// <summary>
 		/// Use this to solve the AIParam value when the source of the value is unkown
 		/// </summary>
-		public T Resolve(FrameThreadSafe frame, EntityRef entity, AIBlackboardComponent* blackboard, AIConfig aiConfig)
+		public T Resolve(FrameThreadSafe frame, EntityRef entity, AIBlackboardComponent* blackboard, AIConfig aiConfig, ref AIContext aiContext)
 		{
 			if (Source == AIParamSource.Value || (Source != AIParamSource.Function && string.IsNullOrEmpty(Key) == true))
 				return DefaultValue;
@@ -56,7 +62,7 @@ namespace Quantum
 					return configPair != null ? GetConfigValue(configPair) : DefaultValue;
 
 				case AIParamSource.Function:
-					return GetFunctionValue(frame, entity);
+					return GetFunctionValue(frame, entity, ref aiContext);
 			}
 
 			return default(T);
@@ -103,17 +109,17 @@ namespace Quantum
 		/// <summary>
 		/// Use this if the it is known that the AIParam stores specifically a Func
 		/// </summary>
-		public unsafe T ResolveFunction(Frame frame, EntityRef entity)
+		public unsafe T ResolveFunction(Frame frame, EntityRef entity, ref AIContext aiContext)
 		{
-			return ResolveFunction((FrameThreadSafe)frame, entity);
+			return ResolveFunction((FrameThreadSafe)frame, entity, ref aiContext);
 		}
 
 		/// <summary>
 		/// Use this if the it is known that the AIParam stores specifically a Func
 		/// </summary>
-		public unsafe T ResolveFunction(FrameThreadSafe frame, EntityRef entity)
+		public unsafe T ResolveFunction(FrameThreadSafe frame, EntityRef entity, ref AIContext aiContext)
 		{
-			return GetFunctionValue(frame, entity);
+			return GetFunctionValue(frame, entity, ref aiContext);
 		}
 	}
 }

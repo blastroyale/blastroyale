@@ -59,16 +59,13 @@ namespace FirstLight.Game.StateMachines
 			lootMenuState.Event(_skinClickedEvent).Target(playerSkinPopupState);
 			lootMenuState.Event(_allGearClickedEvent).OnTransition(SetAllGearSlot).Target(equipmentScreenState);
 			lootMenuState.Event(_backButtonClickedEvent).Target(final);
-			lootMenuState.OnExit(CloseLootMenuUI);
 
 			equipmentScreenState.OnEnter(OpenEquipmentMenuUI);
 			equipmentScreenState.Event(_equipmentScreenCloseClickedEvent).Target(lootMenuState);
-			equipmentScreenState.OnExit(CloseEquipmentMenuUI);
 
 			playerSkinPopupState.OnEnter(OpenPlayerSkinMenuUI);
 			playerSkinPopupState.Event(_playerSkinClickedEvent).Target(lootMenuState);
 			playerSkinPopupState.Event(_playerSkinClosedEvent).Target(lootMenuState);
-			playerSkinPopupState.OnExit(ClosePlayerSkinMenuUI);
 
 			final.OnEnter(SendLoadoutUpdateCommand);
 			final.OnEnter(UnsubscribeEvents);
@@ -95,7 +92,7 @@ namespace FirstLight.Game.StateMachines
 				OnLootBackButtonClicked = () => _statechartTrigger(_backButtonClickedEvent)
 			};
 
-			_uiService.OpenUiAsync<LootScreenPresenter, LootScreenPresenter.StateData>(data);
+			_uiService.OpenScreen<LootScreenPresenter, LootScreenPresenter.StateData>(data);
 		}
 
 		private void CloseLootMenuUI()
@@ -134,7 +131,7 @@ namespace FirstLight.Game.StateMachines
 				OnCloseClicked = () => _statechartTrigger(_equipmentScreenCloseClickedEvent)
 			};
 
-			_uiService.OpenUiAsync<EquipmentScreenPresenter, EquipmentScreenPresenter.StateData>(data);
+			_uiService.OpenScreen<EquipmentScreenPresenter, EquipmentScreenPresenter.StateData>(data);
 		}
 		
 		private void CloseEquipmentMenuUI()
@@ -149,12 +146,12 @@ namespace FirstLight.Game.StateMachines
 				OnCloseClicked = () => _statechartTrigger(_playerSkinClosedEvent),
 			};
 			
-			_uiService.OpenUiAsync<PlayerSkinScreenPresenter, PlayerSkinScreenPresenter.StateData>(data);
+			_uiService.OpenScreen<PlayerSkinScreenPresenter, PlayerSkinScreenPresenter.StateData>(data);
 		}
 		
 		private void ClosePlayerSkinMenuUI()
 		{
-			_uiService.CloseUi<PlayerSkinScreenPresenter>(false, true);
+			_uiService.CloseUi<PlayerSkinScreenPresenter>(true);
 		}
 	}
 }

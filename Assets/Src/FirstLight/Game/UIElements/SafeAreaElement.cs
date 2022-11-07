@@ -9,9 +9,10 @@ namespace FirstLight.Game.UIElements
 	/// </summary>
 	public class SafeAreaElement : VisualElement
 	{
-		public new class UxmlFactory : UxmlFactory<SafeAreaElement, UxmlTraits>
-		{
-		}
+		private bool applyTop { get; set; }
+		private bool applyBottom { get; set; }
+		private bool applyLeft { get; set; }
+		private bool applyRight { get; set; }
 
 		public SafeAreaElement()
 		{
@@ -34,14 +35,58 @@ namespace FirstLight.Game.UIElements
 				var rightBottom =
 					RuntimePanelUtils.ScreenToPanel(panel, new Vector2(Screen.width - safeArea.xMax, safeArea.yMin));
 
-				style.marginLeft = leftTop.x;
-				style.marginTop = leftTop.y;
-				style.marginRight = rightBottom.x;
-				style.marginBottom = rightBottom.y;
+				if (applyTop) style.marginTop = leftTop.y;
+				if (applyBottom) style.marginBottom = rightBottom.y;
+				if (applyLeft) style.marginLeft = leftTop.x;
+				if (applyRight) style.marginRight = rightBottom.x;
 			}
 			catch (InvalidCastException)
 			{
 				// Can be ignored, only for editor.
+			}
+		}
+
+		public new class UxmlFactory : UxmlFactory<SafeAreaElement, UxmlTraits>
+		{
+		}
+
+		public new class UxmlTraits : VisualElement.UxmlTraits
+		{
+			private readonly UxmlBoolAttributeDescription _applyTopAttribute = new()
+			{
+				name = "apply-top",
+				defaultValue = true,
+				use = UxmlAttributeDescription.Use.Optional
+			};
+
+			private readonly UxmlBoolAttributeDescription _applyBottomAttribute = new()
+			{
+				name = "apply-bottom",
+				defaultValue = true,
+				use = UxmlAttributeDescription.Use.Optional
+			};
+
+			private readonly UxmlBoolAttributeDescription _applyLeftAttribute = new()
+			{
+				name = "apply-left",
+				defaultValue = true,
+				use = UxmlAttributeDescription.Use.Optional
+			};
+
+			private readonly UxmlBoolAttributeDescription _applyRightAttribute = new()
+			{
+				name = "apply-right",
+				defaultValue = true,
+				use = UxmlAttributeDescription.Use.Optional
+			};
+
+			public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
+			{
+				base.Init(ve, bag, cc);
+				((SafeAreaElement) ve).applyTop = _applyTopAttribute.GetValueFromBag(bag, cc);
+				((SafeAreaElement) ve).applyBottom = _applyBottomAttribute.GetValueFromBag(bag, cc);
+				((SafeAreaElement) ve).applyLeft = _applyLeftAttribute.GetValueFromBag(bag, cc);
+				((SafeAreaElement) ve).applyRight = _applyRightAttribute.GetValueFromBag(bag, cc);
 			}
 		}
 	}

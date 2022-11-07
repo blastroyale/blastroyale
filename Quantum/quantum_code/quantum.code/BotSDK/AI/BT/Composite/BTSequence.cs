@@ -11,7 +11,7 @@ namespace Quantum
 	{
 		// ========== PROTECTED METHODS ===============================================================================
 
-		protected override BTStatus OnUpdate(BTParams btParams)
+		protected override BTStatus OnUpdate(BTParams btParams, ref AIContext aiContext)
 		{
 			BTStatus status = BTStatus.Success;
 
@@ -19,7 +19,7 @@ namespace Quantum
 			{
 				var currentChildId = GetCurrentChild(btParams.FrameThreadSafe, btParams.Agent);
 				var child = _childInstances[currentChildId];
-				status = child.RunUpdate(btParams);
+				status = child.RunUpdate(btParams, ref aiContext);
 
 				if (status == BTStatus.Abort)
 				{
@@ -63,8 +63,11 @@ namespace Quantum
 				SetStatus(btParams.FrameThreadSafe, BTStatus.Failure, btParams.Agent);
 
 				// Trigger the debugging callbacks
-				BTManager.OnNodeFailure?.Invoke(btParams.Entity, Guid.Value);
-				BTManager.OnNodeExit?.Invoke(btParams.Entity, Guid.Value);
+				if (btParams.IsCompound == false)
+				{
+					BTManager.OnNodeFailure?.Invoke(btParams.Entity, Guid.Value, btParams.IsCompound);
+					BTManager.OnNodeExit?.Invoke(btParams.Entity, Guid.Value, btParams.IsCompound);
+				}
 			}
 			else
 			{

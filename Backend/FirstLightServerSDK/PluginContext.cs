@@ -19,7 +19,7 @@ namespace FirstLight.Server.SDK
 		public readonly IServerMutex? PlayerMutex;
 		public readonly IMetricsService? Metrics;
 		public readonly IServerAnalytics? Analytics;
-		public readonly IServerConfiguration? ServerConfig;
+		public readonly IBaseServiceConfiguration? ServerConfig;
 
 		public PluginContext(IEventManager evManager, IServiceProvider services)
 		{
@@ -29,7 +29,7 @@ namespace FirstLight.Server.SDK
 			PlayerMutex = services.GetService(typeof(IServerMutex)) as IServerMutex;
 			Metrics = services.GetService(typeof(IMetricsService)) as IMetricsService;
 			Analytics = services.GetService(typeof(IServerAnalytics)) as IServerAnalytics;
-			ServerConfig = services.GetService(typeof(IServerConfiguration)) as IServerConfiguration;
+			ServerConfig = services.GetService(typeof(IBaseServiceConfiguration)) as IBaseServiceConfiguration;
 		}
 
 		/// <summary>

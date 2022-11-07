@@ -225,7 +225,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			if (_uiService.HasUiPresenter<MatchmakingLoadingScreenPresenter>())
 			{
-				_uiService.CloseUi<MatchmakingLoadingScreenPresenter>(false, true);
+				_uiService.CloseUi<MatchmakingLoadingScreenPresenter>(true);
 			}
 		}
 

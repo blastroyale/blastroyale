@@ -130,6 +130,8 @@ namespace FirstLight.Game.Presenters
 
 		private void OpenServerSelect()
 		{
+			if (!NetworkUtils.CheckAttemptNetworkAction()) return;
+
 			Data.OnServerSelectClicked();
 		}
 
@@ -184,25 +186,28 @@ namespace FirstLight.Game.Presenters
 		
 		private void OnLogoutClicked()
 		{
-			var title = string.Format(ScriptLocalization.MainMenu.LogoutConfirm);
+			var desc = string.Format(ScriptLocalization.MainMenu.LogoutConfirm);
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.OK,
-				ButtonOnClick = new UnityAction(Data.LogoutClicked)
+				ButtonOnClick = Data.LogoutClicked
 			};
 
-			_services.GenericDialogService.OpenDialog(title, true, confirmButton);
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.confirmation, desc, true, confirmButton);
 		}
 
 		private void OnDeleteAccountClicked()
 		{
-			var title = ScriptLocalization.MainMenu.DeleteAccountRequestMessage;
+			if (!NetworkUtils.CheckAttemptNetworkAction()) return;
+
+			var desc = ScriptLocalization.MainMenu.DeleteAccountRequestMessage;
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.OK,
-				ButtonOnClick = new UnityAction(Data.OnDeleteAccountClicked)
+				ButtonOnClick = Data.OnDeleteAccountClicked
 			};
-			_services.GenericDialogService.OpenDialog(title, true, confirmButton);
+			
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.confirmation, desc, true, confirmButton);
 		}
 
 		private void OnBlockerButtonPressed()

@@ -28,7 +28,7 @@ namespace Quantum
 
 		// ========== PROTECTED MEMBERS ===============================================================================
 
-		protected BTService[] _serviceInstances;
+		[NonSerialized] protected BTService[] _serviceInstances;
 
 		// ========== BTDecorator INTERFACE ===========================================================================
 
@@ -43,23 +43,27 @@ namespace Quantum
 			}
 		}
 
-		public override void OnEnterRunning(BTParams btParams)
+		public override void OnEnterRunning(BTParams btParams, ref AIContext aiContext)
 		{
 			var activeServicesList = btParams.FrameThreadSafe.ResolveList<AssetRefBTService>(btParams.Agent->ActiveServices);
 			for (int i = 0; i < _serviceInstances.Length; i++)
 			{
-				_serviceInstances[i].OnEnter(btParams);
+				_serviceInstances[i].OnEnter(btParams, ref aiContext);
 				activeServicesList.Add(Services[i]);
 			}
 		}
 
-		public override void OnEnter(BTParams btParams)
+		public override void OnEnter(BTParams btParams, ref AIContext aiContext)
 		{
-			base.OnEnter(btParams);
-			BTManager.OnNodeEnter?.Invoke(btParams.Entity, Guid.Value);
+			base.OnEnter(btParams, ref aiContext);
+
+			if (btParams.IsCompound == false)
+			{
+				BTManager.OnNodeEnter?.Invoke(btParams.Entity, Guid.Value, btParams.IsCompound);
+			}
 		}
 
-		public override void OnExit(BTParams btParams)
+		public override void OnExit(BTParams btParams, ref AIContext aiContext)
 		{
 			var activeServicesList = btParams.FrameThreadSafe.ResolveList<AssetRefBTService>(btParams.Agent->ActiveServices);
 			for (Int32 i = 0; i < _serviceInstances.Length; i++)
@@ -67,13 +71,13 @@ namespace Quantum
 				activeServicesList.Remove(Services[i]);
 			}
 
-			BTManager.OnNodeExit?.Invoke(btParams.Entity, Guid.Value);
+			BTManager.OnNodeExit?.Invoke(btParams.Entity, Guid.Value, btParams.IsCompound);
 		}
 
-		public override void OnReset(BTParams btParams)
+		public override void OnReset(BTParams btParams, ref AIContext aiContext)
 		{
-			base.OnReset(btParams);
-			OnExit(btParams);
+			base.OnReset(btParams, ref aiContext);
+			OnExit(btParams, ref aiContext);
 		}
 
 		// ========== AssetObject INTERFACE ===========================================================================

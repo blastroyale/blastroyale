@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Threading.Tasks;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -185,7 +186,7 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		protected override void OnClosed()
+		protected override async Task OnClosed()
 		{
 			mapSelectionView.CleanupMapView();
 			_rootObject.SetActive(true);
@@ -451,14 +452,14 @@ namespace FirstLight.Game.Presenters
 
 		private void OnLeaveRoomClicked()
 		{
-			var title = string.Format(ScriptLocalization.MainMenu.LeaveMatchMessage);
+			var desc = string.Format(ScriptLocalization.MainMenu.LeaveMatchMessage);
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.Yes,
 				ButtonOnClick = () => _services.MessageBrokerService.Publish(new RoomLeaveClickedMessage())
 			};
 
-			_services.GenericDialogService.OpenDialog(title, true, confirmButton);
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.confirmation, desc, true, confirmButton);
 		}
 
 		private void ReadyToPlay()
@@ -515,7 +516,7 @@ namespace FirstLight.Game.Presenters
 				return;
 			}
 
-			var title = string.Format(ScriptLocalization.MainMenu.MatchmakingKickConfirm, player.NickName).ToUpper();
+			var desc = string.Format(ScriptLocalization.MainMenu.MatchmakingKickConfirm, player.NickName).ToUpper();
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.Yes.ToUpper(),
@@ -526,7 +527,7 @@ namespace FirstLight.Game.Presenters
 				}
 			};
 
-			_services.GenericDialogService.OpenDialog(title, true, confirmButton, DeactivateKickOverlay);
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.confirmation, desc, true, confirmButton, DeactivateKickOverlay);
 		}
 
 		private void OnSpectatorToggle(bool isOn)

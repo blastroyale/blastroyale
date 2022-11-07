@@ -9,7 +9,7 @@ namespace Quantum
 		public AIBlackboardValueKey Key;
 		public AIParamBool DesiredValue;
 
-		public override unsafe bool Decide(Frame frame, EntityRef entity)
+		public override unsafe bool Decide(Frame frame, EntityRef entity, ref AIContext aiContext)
 		{
 			var blackboard = frame.Unsafe.GetPointer<AIBlackboardComponent>(entity);
 

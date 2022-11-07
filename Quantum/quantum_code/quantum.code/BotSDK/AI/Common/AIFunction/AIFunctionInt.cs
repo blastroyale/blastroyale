@@ -6,7 +6,7 @@
 	{
 		// ========== AIFunction INTERFACE ============================================================================
 
-		public override int Execute(Frame frame, EntityRef entity)
+		public override int Execute(Frame frame, EntityRef entity, ref AIContext aiContext)
 		{
 			return 0;
 		}

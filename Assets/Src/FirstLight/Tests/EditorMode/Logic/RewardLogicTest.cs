@@ -47,8 +47,15 @@ namespace FirstLight.Tests.EditorMode.Logic
 		public void CalculateMatchRewards_WinningPlacement_GetsCorrectRewards()
 		{
 			SetPlayerRank(1, 10);
-			var rewards =
-				_rewardLogic.CalculateMatchRewards(MatchType.Ranked, _matchData, _executingPlayer, false, out _);
+
+			var rewards = _rewardLogic.CalculateMatchRewards(new RewardSource
+			{
+				MatchType = MatchType.Ranked,
+				MatchData = _matchData,
+				ExecutingPlayer = _executingPlayer,
+				DidPlayerQuit = false,
+				GamePlayerCount = _matchData.Count
+			}, out _);
 
 			Assert.AreEqual(3, rewards.Count);
 			Assert.AreEqual(RESOURCEINFO_CSS_WINAMOUNT * PLACEMENT1_CS_PERCENTAGE / 100,
@@ -60,8 +67,14 @@ namespace FirstLight.Tests.EditorMode.Logic
 		public void CalculateMatchRewards_NoWinningPlacement_GetsLastRewards()
 		{
 			SetPlayerRank(10, 10);
-			var rewards =
-				_rewardLogic.CalculateMatchRewards(MatchType.Ranked, _matchData, _executingPlayer, false, out _);
+			var rewards = _rewardLogic.CalculateMatchRewards(new RewardSource
+			{
+				MatchType = MatchType.Ranked,
+				MatchData = _matchData,
+				ExecutingPlayer = _executingPlayer,
+				DidPlayerQuit = false,
+				GamePlayerCount = _matchData.Count
+			}, out _);
 
 			Assert.AreEqual(3, rewards.Count);
 			Assert.AreEqual(RESOURCEINFO_CSS_WINAMOUNT * PLACEMENT3_CS_PERCENTAGE / 100,
@@ -73,7 +86,14 @@ namespace FirstLight.Tests.EditorMode.Logic
 		public void GiveMatchRewards_WinningPlacement_GetsCorrectRewards()
 		{
 			SetPlayerRank(1, 10);
-			var rewards = _rewardLogic.GiveMatchRewards(MatchType.Ranked, _matchData, _executingPlayer, false, out _);
+			var rewards = _rewardLogic.CalculateMatchRewards(new RewardSource
+			{
+				MatchType = MatchType.Ranked,
+				MatchData = _matchData,
+				ExecutingPlayer = _executingPlayer,
+				DidPlayerQuit = false,
+				GamePlayerCount = _matchData.Count
+			}, out _);
 
 			Assert.AreEqual(3, rewards.Count);
 			Assert.AreEqual(RESOURCEINFO_CSS_WINAMOUNT * PLACEMENT1_CS_PERCENTAGE / 100,
@@ -85,7 +105,14 @@ namespace FirstLight.Tests.EditorMode.Logic
 		public void GiveMatchRewards_NoWinningPlacement_GetsLastRewards()
 		{
 			SetPlayerRank(10, 10);
-			var rewards = _rewardLogic.GiveMatchRewards(MatchType.Ranked, _matchData, _executingPlayer, false, out _);
+			var rewards = _rewardLogic.CalculateMatchRewards(new RewardSource
+			{
+				MatchType = MatchType.Ranked,
+				MatchData = _matchData,
+				ExecutingPlayer = _executingPlayer,
+				DidPlayerQuit = false,
+				GamePlayerCount = _matchData.Count
+			}, out _);
 
 			Assert.AreEqual(3, rewards.Count);
 			Assert.AreEqual(RESOURCEINFO_CSS_WINAMOUNT * PLACEMENT3_CS_PERCENTAGE / 100,
@@ -98,8 +125,14 @@ namespace FirstLight.Tests.EditorMode.Logic
 		{
 			SetPlayerRank(1, 10);
 			SetupZeroResources();
-			var rewards = _rewardLogic.GiveMatchRewards(MatchType.Ranked, _matchData, _executingPlayer, false, out _);
-
+			var rewards = _rewardLogic.CalculateMatchRewards(new RewardSource
+			{
+				MatchType = MatchType.Ranked,
+				MatchData = _matchData,
+				ExecutingPlayer = _executingPlayer,
+				DidPlayerQuit = false,
+				GamePlayerCount = _matchData.Count
+			}, out _);
 
 			Assert.AreEqual(1, rewards.Count);
 		}
@@ -107,7 +140,14 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void GiveMatchRewards_PlayerQuit_RewardsTrophies()
 		{
-			var rewards = _rewardLogic.GiveMatchRewards(MatchType.Ranked, _matchData, _executingPlayer, true, out _);
+			var rewards = _rewardLogic.CalculateMatchRewards(new RewardSource
+			{
+				MatchType = MatchType.Ranked,
+				MatchData = _matchData,
+				ExecutingPlayer = _executingPlayer,
+				DidPlayerQuit = true,
+				GamePlayerCount = _matchData.Count
+			}, out _);
 
 			Assert.AreEqual(1, rewards.Count);
 		}
@@ -116,7 +156,14 @@ namespace FirstLight.Tests.EditorMode.Logic
 		public void GiveMatchRewards_Custom_RewardsNothing()
 		{
 			SetPlayerRank(1, 10);
-			var rewards = _rewardLogic.GiveMatchRewards(MatchType.Custom, _matchData, _executingPlayer, false, out _);
+			var rewards = _rewardLogic.CalculateMatchRewards(new RewardSource
+			{
+				MatchType = MatchType.Custom,
+				MatchData = _matchData,
+				ExecutingPlayer = _executingPlayer,
+				DidPlayerQuit = false,
+				GamePlayerCount = _matchData.Count
+			}, out _);
 
 			Assert.AreEqual(0, rewards.Count);
 		}
@@ -125,7 +172,14 @@ namespace FirstLight.Tests.EditorMode.Logic
 		public void GiveMatchRewards_Casual_OnlyRewardsBPP()
 		{
 			SetPlayerRank(1, 10);
-			var rewards = _rewardLogic.GiveMatchRewards(MatchType.Casual, _matchData, _executingPlayer, false, out _);
+			var rewards = _rewardLogic.CalculateMatchRewards(new RewardSource
+			{
+				MatchType = MatchType.Casual,
+				MatchData = _matchData,
+				ExecutingPlayer = _executingPlayer,
+				DidPlayerQuit = false,
+				GamePlayerCount = _matchData.Count
+			}, out _);
 
 			Assert.AreEqual(1, rewards.Count);
 			Assert.AreEqual(PLACEMENT1_BPP, rewards.Find(data => data.RewardId == GameId.BPP).Value);
@@ -134,8 +188,17 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void GiveMatchRewards_EmptyMatchData_RewardsNothing()
 		{
-			Assert.Throws<MatchDataEmptyLogicException>(() => _rewardLogic.GiveMatchRewards(MatchType.Ranked,
-				new List<QuantumPlayerMatchData> {new()}, 0, false, out _));
+			Assert.Throws<MatchDataEmptyLogicException>(() =>
+			{
+				_rewardLogic.CalculateMatchRewards(new RewardSource
+				{
+					MatchType = MatchType.Ranked,
+					MatchData = new List<QuantumPlayerMatchData> {new()},
+					ExecutingPlayer = 0,
+					DidPlayerQuit = false,
+					GamePlayerCount = 0
+				}, out _);
+			});
 		}
 
 		[Test]

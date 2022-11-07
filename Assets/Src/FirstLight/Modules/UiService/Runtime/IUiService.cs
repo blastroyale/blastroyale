@@ -185,7 +185,7 @@ namespace FirstLight.UiService
 		/// <remarks>
 		/// Executes the call asynchronously while loading the UI asset
 		/// </remarks>
-		Task<UiPresenter> OpenUiAsync(Type type, bool openedException = false);
+		Task<UiPresenter> OpenUiAsync(Type type);
 		
 		/// <summary>
 		/// Opens and returns the UI of given <paramref name="type"/>.
@@ -195,13 +195,13 @@ namespace FirstLight.UiService
 		/// <exception cref="KeyNotFoundException">
 		/// Thrown if the service does NOT contain an <see cref="UiPresenter"/> of the given <paramref name="type"/>
 		/// </exception>
-		UiPresenter OpenUi(Type type, bool openedException = false);
+		UiPresenter OpenUi(Type type);
 
 		///<inheritdoc cref="OpenUi{T,TData}(TData, bool)"/>
 		/// <remarks>
 		/// Executes the call asynchronously while loading the UI asset
 		/// </remarks>
-		Task<T> OpenUiAsync<T, TData>(TData initialData, bool openedException = false) 
+		Task<T> OpenUiAsync<T, TData>(TData initialData) 
 			where T : class, IUiPresenterData 
 			where TData : struct;
 		
@@ -209,7 +209,7 @@ namespace FirstLight.UiService
 		/// <remarks>
 		/// It sets the given <paramref name="initialData"/> data BEFORE opening the UI
 		/// </remarks>
-		T OpenUi<T, TData>(TData initialData, bool openedException = false) 
+		T OpenUi<T, TData>(TData initialData) 
 			where T : class, IUiPresenterData 
 			where TData : struct;
 
@@ -217,7 +217,7 @@ namespace FirstLight.UiService
 		/// <remarks>
 		/// Executes the call asynchronously while loading the UI asset
 		/// </remarks>
-		Task<UiPresenter> OpenUiAsync<TData>(Type type, TData initialData, bool openedException = false) where TData : struct;
+		Task<UiPresenter> OpenUiAsync<TData>(Type type, TData initialData) where TData : struct;
 		
 		///<inheritdoc cref="OpenUi(Type, bool)"/>
 		/// <exception cref="ArgumentException">
@@ -226,7 +226,7 @@ namespace FirstLight.UiService
 		/// <remarks>
 		/// It sets the given <paramref name="initialData"/> data BEFORE opening the UI
 		/// </remarks>
-		UiPresenter OpenUi<TData>(Type type, TData initialData, bool openedException = false) where TData : struct;
+		UiPresenter OpenUi<TData>(Type type, TData initialData) where TData : struct;
 
 		/// <summary>
 		/// Closes and returns the UI of given type <typeparamref name="T"/>.
@@ -236,7 +236,7 @@ namespace FirstLight.UiService
 		/// <exception cref="KeyNotFoundException">
 		/// Thrown if the service does NOT contain an <see cref="UiPresenter"/> of the given type <typeparamref name="T"/>
 		/// </exception>
-		void CloseUi<T>(bool closedException = false, bool destroy = false) where T : UiPresenter;
+		Task CloseUi<T>(bool destroy = false) where T : UiPresenter;
 
 		/// <summary>
 		/// Closes and returns the UI of given <paramref name="type"/>.
@@ -246,7 +246,7 @@ namespace FirstLight.UiService
 		/// <exception cref="KeyNotFoundException">
 		/// Thrown if the service does NOT contain an <see cref="UiPresenter"/> of the given <paramref name="type"/>
 		/// </exception>
-		void CloseUi(Type type, bool closedException = false, bool destroy = false);
+		Task CloseUi(Type type, bool destroy = false);
 
 		/// <summary>
 		/// Closes and returns the same given <paramref name="uiPresenter"/>.
@@ -256,17 +256,17 @@ namespace FirstLight.UiService
 		/// <exception cref="KeyNotFoundException">
 		/// Thrown if the service does NOT contain the given <paramref name="uiPresenter"/>
 		/// </exception>
-		void CloseUi<T>(T uiPresenter, bool closedException = false, bool destroy = false) where T : UiPresenter;
+		Task CloseUi<T>(T uiPresenter, bool destroy = false) where T : UiPresenter;
 
 		/// <summary>
 		/// Closes all the visible <seealso cref="UiPresenter"/>
 		/// </summary>
-		void CloseAllUi();
+		Task CloseAllUi();
 
 		/// <summary>
 		/// Closes all the visible <seealso cref="UiPresenter"/> in the given <paramref name="layer"/>
 		/// </summary>
-		void CloseAllUi(int layer);
+		Task CloseAllUi(int layer);
 
 		/// <summary>
 		/// Closes all the visible <seealso cref="UiPresenter"/> in front or in the same layer of the given type <typeparamref name="T"/>
@@ -275,7 +275,7 @@ namespace FirstLight.UiService
 		/// <exception cref="KeyNotFoundException">
 		/// Thrown if the service does NOT contain an <see cref="UiPresenter"/> of the given type <typeparamref name="T"/>
 		/// </exception>
-		void CloseUiAndAllInFront<T>(params int[] excludeLayers) where T : UiPresenter;
+		Task CloseUiAndAllInFront<T>(params int[] excludeLayers) where T : UiPresenter;
 
 		/// <summary>
 		/// Adds the given <paramref name="uiSet"/> to the service
@@ -356,6 +356,27 @@ namespace FirstLight.UiService
 		/// You need to add it first by calling <seealso cref="AddUiSet"/>
 		/// </exception>
 		void CloseUiSet(int setId);
+		
+		/// <summary>
+		/// Opens and returns the screen of given <paramref name="type"/>. It keeps track of the current open screen and
+		/// closes it if another one opens. This way it makes the new screen only open when the current one is finished closing.
+		/// Useful to let the current screen make an out animation before being replaced by a new screen.
+		/// </summary>
+		Task<UiPresenter> OpenScreen<T>() where T : UiPresenter;
+		
+		/// <summary>
+		/// Executes the call asynchronously while loading the Screen asset if needed. It keeps track of the current open screen and
+		/// closes it if another one opens. This way it makes the new screen only open when the current one is finished closing.
+		/// Useful to let the current screen make an out animation before being replaced by a new screen.
+		/// </summary>
+		Task<T> OpenScreen<T, TData>(TData initialData) 
+			where T : UiPresenter, IUiPresenterData 
+			where TData : struct;
+
+		/// <summary>
+		/// It closes the current open screen that was opened by OpenScreen
+		/// </summary>
+		void CloseCurrentScreen();
 	}
 
 	/// <inheritdoc />

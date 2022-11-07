@@ -24,9 +24,9 @@ namespace Quantum
 			agent->AddFPData(frame, 0);
 		}
 
-		protected override BTStatus OnUpdate(BTParams btParams)
+		protected override BTStatus OnUpdate(BTParams btParams, ref AIContext aiContext)
 		{
-			var result = base.OnUpdate(btParams);
+			var result = base.OnUpdate(btParams, ref aiContext);
 
 			// We let the time check, which happens on the DryRun, happen
 			// If it results in success, then we store on the BTAgent the time value of the moment that it happened
@@ -44,7 +44,7 @@ namespace Quantum
 
 		// We get the Start Time stored on the BTAgent, then we check if the time + cooldown is already over
 		// If it is not over, then we return False, blocking the execution of the children nodes
-		public override Boolean DryRun(BTParams btParams)
+		public override Boolean DryRun(BTParams btParams, ref AIContext aiContext)
 		{
 			var frame = btParams.Frame;
 			var entity = btParams.Entity;

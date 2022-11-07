@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Backend.Game.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -25,13 +26,13 @@ namespace ContainerApp.Controllers
 		
 		[HttpGet]
 		[Route("get")]
-		public async Task<dynamic> GetLeaderboard(string name, int position)
+		public async Task<dynamic> GetLeaderboard(string name, int position, int limit)
 		{
 			var result = await PlayFabServerAPI.GetLeaderboardAsync(new GetLeaderboardRequest()
 			{
 				StatisticName = name,
 				StartPosition = position,
-				MaxResultsCount = 30
+				MaxResultsCount = Math.Min(200, limit)
 			});
 			_errorHandler.CheckErrors(result);
 			return Ok(result.Result.Leaderboard);

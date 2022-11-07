@@ -1024,7 +1024,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -2
   m_TargetDisplay: 0
 --- !u!114 &245661252922543532
 MonoBehaviour:
@@ -1245,10 +1245,9 @@ MonoBehaviour:
   HapticType: 9
   Anchor: {fileID: 4597082287453976392}
   ClickClip: {fileID: 7400000, guid: d28addb3dd8d04ac3a54c98a457c0666, type: 2}
+  PlaySound: 1
   IsForward: 1
-  OverrideSfx: 0
-  OverrideSfxClip:
-    _selection: MainMenuStart
+  OverrideClickSfxId: 0
 --- !u!114 &4653538354760085548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2098,10 +2097,9 @@ MonoBehaviour:
   HapticType: 9
   Anchor: {fileID: 7721676766063524768}
   ClickClip: {fileID: 7400000, guid: d28addb3dd8d04ac3a54c98a457c0666, type: 2}
+  PlaySound: 1
   IsForward: 1
-  OverrideSfx: 0
-  OverrideSfxClip:
-    _selection: MainMenuStart
+  OverrideClickSfxId: 0
 --- !u!114 &7721676766767409977
 MonoBehaviour:
   m_ObjectHideFlags: 0

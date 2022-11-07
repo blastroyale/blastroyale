@@ -324,7 +324,7 @@ namespace Quantum.Systems
 
 			botPosition.Y += Constants.ACTOR_AS_TARGET_Y_OFFSET;
 
-			foreach (var targetCandidate in f.GetComponentIterator<Targetable>())
+			foreach (var targetCandidate in f.Unsafe.GetComponentBlockIterator<Targetable>())
 			{
 				if (TryToAimAtEnemy(f, ref filter, botPosition, team, targetRange, targetCandidate.Entity, out var targetHit))
 				{
@@ -676,7 +676,7 @@ namespace Quantum.Systems
 			}
 
 			var enemyPosition = FPVector3.Zero;
-			var iterator = f.GetComponentIterator<Targetable>();
+			var iterator = f.Unsafe.GetComponentBlockIterator<Targetable>();
 			var sqrDistance = FP.MaxValue;
 			var team = f.Get<Targetable>(filter.Entity).Team;
 			var botPosition = filter.Transform->Position;
@@ -760,7 +760,7 @@ namespace Quantum.Systems
 		                                     int consumablePowerAmount, out FPVector3 consumablePosition, out EntityRef consumableEntity)
 		{
 			var botPosition = filter.Transform->Position;
-			var iterator = f.GetComponentIterator<Consumable>();
+			var iterator = f.Unsafe.GetComponentBlockIterator<Consumable>();
 			var sqrDistance = FP.MaxValue;
 			var hasShrinkingCircle = f.TryGetSingleton<ShrinkingCircle>(out var circle);
 			
@@ -769,8 +769,8 @@ namespace Quantum.Systems
 
 			foreach (var consumableCandidate in iterator)
 			{
-				if (consumableCandidate.Component.ConsumableType != consumableType ||
-				    consumablePowerAmount != -1 && consumablePowerAmount != consumableCandidate.Component.Amount)
+				if (consumableCandidate.Component->ConsumableType != consumableType ||
+				    consumablePowerAmount != -1 && consumablePowerAmount != consumableCandidate.Component->Amount)
 				{
 					continue;
 				}
@@ -794,7 +794,7 @@ namespace Quantum.Systems
 		private bool TryGetClosestWeapon(Frame f, ref BotCharacterFilter filter, out FPVector3 weaponPickupPosition, out EntityRef weaponPickupEntity)
 		{
 			var botPosition = filter.Transform->Position;
-			var iterator = f.GetComponentIterator<EquipmentCollectable>();
+			var iterator = f.Unsafe.GetComponentBlockIterator<EquipmentCollectable>();
 			var sqrDistance = FP.MaxValue;
 			var hasShrinkingCircle = f.TryGetSingleton<ShrinkingCircle>(out var circle);
 			var totalAmmo = filter.PlayerCharacter->GetAmmoAmount(f, filter.Entity, out var maxAmmo);
@@ -830,7 +830,7 @@ namespace Quantum.Systems
 		private bool TryGetClosestChest(Frame f, ref BotCharacterFilter filter, out FPVector3 chestPosition, out EntityRef chestEntity)
 		{
 			var botPosition = filter.Transform->Position;
-			var iterator = f.GetComponentIterator<Chest>();
+			var iterator = f.Unsafe.GetComponentBlockIterator<Chest>();
 			var sqrDistance = FP.MaxValue;
 			var hasShrinkingCircle = f.TryGetSingleton<ShrinkingCircle>(out var circle);
 			chestPosition = FPVector3.Zero;

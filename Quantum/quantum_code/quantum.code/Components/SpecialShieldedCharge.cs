@@ -23,7 +23,7 @@ namespace Quantum
 			if (f.TryGet<BotCharacter>(e, out var bot))
 			{
 				// Try to find a target in a range automatically
-				var iterator = f.GetComponentIterator<Targetable>();
+				var iterator = f.Unsafe.GetComponentBlockIterator<Targetable>();
 				foreach (var target in iterator)
 				{
 					if (!QuantumHelpers.IsAttackable(f, target.Entity, targetable.Team) ||

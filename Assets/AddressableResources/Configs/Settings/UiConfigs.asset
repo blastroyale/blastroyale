@@ -16,7 +16,7 @@ MonoBehaviour:
     FirstLight.Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _configs:
   - AddressableAddress: Ui/Battle Royale Dead Screen.prefab
-    Layer: 2
+    Layer: -2
     UiType: FirstLight.Game.Presenters.BattleRoyaleDeadScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/BattlepassRewardDialog.prefab
@@ -32,7 +32,7 @@ MonoBehaviour:
     UiType: FirstLight.Game.Presenters.ConnectIdScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/DeathmatchDeadScreen.prefab
-    Layer: 2
+    Layer: -2
     UiType: FirstLight.Game.Presenters.DeathmatchDeadScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/DisconnectedScreen.prefab
@@ -44,11 +44,11 @@ MonoBehaviour:
     UiType: FirstLight.Game.Presenters.EquipmentScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/GameCompleteScreen.prefab
-    Layer: 0
+    Layer: -2
     UiType: FirstLight.Game.Presenters.GameCompleteScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/GameCountdownScreen.prefab
-    Layer: 0
+    Layer: -2
     UiType: FirstLight.Game.Presenters.GameCountdownScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/GameModeSelection.prefab
@@ -56,7 +56,7 @@ MonoBehaviour:
     UiType: FirstLight.Game.Presenters.GameModeSelectionPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/GenericButtonDialog.prefab
-    Layer: 0
+    Layer: 8
     UiType: FirstLight.Game.Presenters.GenericDialogPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/GenericInputDialog.prefab
@@ -88,7 +88,7 @@ MonoBehaviour:
     UiType: FirstLight.Game.Presenters.LootScreenPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/LowConnectionOverlay.prefab
-    Layer: 0
+    Layer: -2
     UiType: FirstLight.Game.Presenters.LowConnectionPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/MainMenu Hud.prefab
@@ -96,19 +96,19 @@ MonoBehaviour:
     UiType: FirstLight.Game.Presenters.MainMenuHudPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/Match Controls Hud.prefab
-    Layer: 1
+    Layer: -3
     UiType: FirstLight.Game.Presenters.MatchControlsHudPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/Match Hud.prefab
-    Layer: 2
+    Layer: -2
     UiType: FirstLight.Game.Presenters.MatchHudPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/Match World Hud.prefab
-    Layer: 0
+    Layer: -2
     UiType: FirstLight.Game.Presenters.MatchWorldHudPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/MatchmakingScreen.prefab
-    Layer: 6
+    Layer: -1
     UiType: FirstLight.Game.Presenters.MatchmakingLoadingScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/PlayerSkinSelectScreen.prefab
@@ -120,7 +120,7 @@ MonoBehaviour:
     UiType: FirstLight.Game.Presenters.RegisterScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/ResultsScreen.prefab
-    Layer: 0
+    Layer: -2
     UiType: FirstLight.Game.Presenters.ResultsScreenPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/RewardsScreen.prefab
@@ -140,7 +140,7 @@ MonoBehaviour:
     UiType: FirstLight.Game.Presenters.SettingsScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/SpectateHud.prefab
-    Layer: 2
+    Layer: -2
     UiType: FirstLight.Game.Presenters.SpectateHudPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/StoreScreen.prefab

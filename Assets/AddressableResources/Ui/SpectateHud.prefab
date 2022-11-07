@@ -715,10 +715,9 @@ MonoBehaviour:
   HapticType: 9
   Anchor: {fileID: 7379966750884735449}
   ClickClip: {fileID: 7400000, guid: d28addb3dd8d04ac3a54c98a457c0666, type: 2}
+  PlaySound: 1
   IsForward: 1
-  OverrideSfx: 0
-  OverrideSfxClip:
-    _selection: MainMenuStart
+  OverrideClickSfxId: 0
 --- !u!222 &222753077631989678
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1107,10 +1106,9 @@ MonoBehaviour:
   HapticType: 9
   Anchor: {fileID: 2372059561310645048}
   ClickClip: {fileID: 7400000, guid: d28addb3dd8d04ac3a54c98a457c0666, type: 2}
+  PlaySound: 1
   IsForward: 1
-  OverrideSfx: 0
-  OverrideSfxClip:
-    _selection: MainMenuStart
+  OverrideClickSfxId: 0
 --- !u!222 &3707031201086908547
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1640,10 +1638,9 @@ MonoBehaviour:
   HapticType: 9
   Anchor: {fileID: 1955416207800767185}
   ClickClip: {fileID: 7400000, guid: d28addb3dd8d04ac3a54c98a457c0666, type: 2}
+  PlaySound: 1
   IsForward: 1
-  OverrideSfx: 0
-  OverrideSfxClip:
-    _selection: MainMenuStart
+  OverrideClickSfxId: 0
 --- !u!222 &5357312325945273736
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1734,7 +1731,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 2
+  m_SortingOrder: -2
   m_TargetDisplay: 0
 --- !u!114 &4972148216472435591
 MonoBehaviour:
@@ -1800,18 +1797,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ed8ea55d4ec459f97b4e7a76b3b66b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _leaveButton: {fileID: 0}
   _nextPlayerButton: {fileID: 8543701836158375058}
   _previousPlayerButton: {fileID: 8996560792306902102}
   _camera1Button: {fileID: 1115670343949859271}
   _camera2Button: {fileID: 3074994554442859540}
   _camera3Button: {fileID: 7740377313324487171}
-  _standingsButtons:
-  - {fileID: 0}
-  - {fileID: 0}
-  _scoreHolderView: {fileID: 0}
-  _contendersLeftHolderView: {fileID: 0}
-  _standings: {fileID: 0}
 --- !u!1 &7715719434733357800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1997,10 +1987,9 @@ MonoBehaviour:
   HapticType: 9
   Anchor: {fileID: 61484571677118448}
   ClickClip: {fileID: 7400000, guid: d28addb3dd8d04ac3a54c98a457c0666, type: 2}
+  PlaySound: 1
   IsForward: 1
-  OverrideSfx: 0
-  OverrideSfxClip:
-    _selection: MainMenuStart
+  OverrideClickSfxId: 0
 --- !u!222 &1041355286619654214
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2138,10 +2127,9 @@ MonoBehaviour:
   HapticType: 9
   Anchor: {fileID: 7210306172792082979}
   ClickClip: {fileID: 7400000, guid: d28addb3dd8d04ac3a54c98a457c0666, type: 2}
+  PlaySound: 1
   IsForward: 1
-  OverrideSfx: 0
-  OverrideSfxClip:
-    _selection: MainMenuStart
+  OverrideClickSfxId: 0
 --- !u!222 &1535775872538635211
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -35,17 +35,17 @@ namespace Quantum.Systems
 
 			circle->GetMovingCircle(f, out var center, out var radius);
 
-			foreach (var pair in f.GetComponentIterator<AlivePlayerCharacter>())
+			foreach (var pair in f.Unsafe.GetComponentBlockIterator<AlivePlayerCharacter>())
 			{
 				var transform = f.Get<Transform3D>(pair.Entity);
 				var position = transform.Position;
 				var isInside = (position.XZ - center).SqrMagnitude < radius * radius;
 
-				if (pair.Component.InCircle && isInside)
+				if (pair.Component->InCircle && isInside)
 				{
 					RemoveShrinkingDamage(f, pair.Entity);
 				}
-				else if(!pair.Component.InCircle && !isInside)
+				else if(!pair.Component->InCircle && !isInside)
 				{
 					AddShrinkingDamage(f, pair.Entity, position);
 				}
@@ -93,7 +93,7 @@ namespace Quantum.Systems
 
 			// When we change a step of a circle, we need to remove current spell from all players
 			// So in update the up-to-date spell will be added
-			foreach (var pair in f.GetComponentIterator<AlivePlayerCharacter>())
+			foreach (var pair in f.Unsafe.GetComponentBlockIterator<AlivePlayerCharacter>())
 			{
 				RemoveShrinkingDamage(f, pair.Entity);
 			}

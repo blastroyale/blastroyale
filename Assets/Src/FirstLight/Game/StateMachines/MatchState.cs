@@ -133,7 +133,7 @@ namespace FirstLight.Game.StateMachines
 		private void OnDisconnectDuringFinalPreload()
 		{
 			_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.FinalPreload;
-			_uiService.CloseUi<MatchmakingLoadingScreenPresenter>();
+			_uiService.CloseUi<CustomLobbyScreenPresenter>();
 		}
 
 		private void OnDisconnectDuringSimulation()
@@ -143,10 +143,10 @@ namespace FirstLight.Game.StateMachines
 
 		private void OpenMatchmakingScreen()
 		{
-			var data = new MatchmakingLoadingScreenPresenter.StateData();
+			var data = new CustomLobbyScreenPresenter.StateData();
 
 			_services.AnalyticsService.MatchCalls.MatchInitiate();
-			_uiService.OpenScreen<MatchmakingLoadingScreenPresenter, MatchmakingLoadingScreenPresenter.StateData>(data);
+			_uiService.OpenScreen<CustomLobbyScreenPresenter, CustomLobbyScreenPresenter.StateData>(data);
 		}
 
 		private void OpenDisconnectedScreen()

@@ -3110,7 +3110,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 2
+  m_SortingOrder: -2
   m_TargetDisplay: 0
 --- !u!114 &245661252922543532
 MonoBehaviour:
@@ -3141,7 +3141,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9975c16f7e97c4cf6ac567f4f4da4abf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OpenDelayTimeSeconds: 0
   _animation: {fileID: 5599650718675860058}
   _introAnimationClip: {fileID: 7400000, guid: 2624d57e29f09434f9da0b8eec0e6796, type: 2}
   _quitButton: {fileID: 1532407260596321951}

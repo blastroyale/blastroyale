@@ -53,7 +53,7 @@ MonoBehaviour:
   m_PanelSettings: {fileID: 11400000, guid: 5fd65fc44ec1c4925b7b13946cd5626e, type: 2}
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: 0c9f46a59cf9f3745a3349dca1c74df2, type: 3}
-  m_SortingOrder: 10
+  m_SortingOrder: 0
 --- !u!114 &4387137842881832132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,6 +66,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db6731c812d8d924693918dbec14cedb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OpenDelayTimeSeconds: 0
   _document: {fileID: 3811839224865797129}
   _background: {fileID: 0}
+  _millisecondsToClose: 0

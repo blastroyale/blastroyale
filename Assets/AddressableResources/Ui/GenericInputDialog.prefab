@@ -53,7 +53,6 @@ MonoBehaviour:
   _document: {fileID: 2874876588455144223}
   _background: {fileID: 0}
   _millisecondsToClose: 500
-  _textField: {fileID: 0}
 --- !u!114 &2874876588455144223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,4 +68,4 @@ MonoBehaviour:
   m_PanelSettings: {fileID: 11400000, guid: 5fd65fc44ec1c4925b7b13946cd5626e, type: 2}
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: 3a81265e44ef5d74c8a54f51dd15f6ef, type: 3}
-  m_SortingOrder: 10
+  m_SortingOrder: 8

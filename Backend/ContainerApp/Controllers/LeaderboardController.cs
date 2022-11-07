@@ -37,5 +37,19 @@ namespace ContainerApp.Controllers
 			_errorHandler.CheckErrors(result);
 			return Ok(result.Result.Leaderboard);
 		}
+		
+		[HttpGet]
+		[Route("getrank")]
+		public async Task<dynamic> GetPlayerRank(string name, string playerId)
+		{
+			var result = await PlayFabServerAPI.GetLeaderboardAroundUserAsync(new ()
+			{
+				StatisticName = name,
+				PlayFabId = playerId,
+				MaxResultsCount = 1
+			});
+			_errorHandler.CheckErrors(result);
+			return Ok(result.Result.Leaderboard);
+		}
 	}
 }

@@ -39,7 +39,7 @@ namespace BlastRoyaleNFTPlugin
 		/// Function that syncrhonizes blockchain data to game data.
 		/// Will add missing NFT's and remove NFT's that are not owned anymore by the user.
 		/// </summary>
-		public async Task SyncAllNfts(string playfabId)
+		public async Task<bool> SyncAllNfts(string playfabId)
 		{
 			try
 			{
@@ -47,10 +47,10 @@ namespace BlastRoyaleNFTPlugin
 				var serverState = await _ctx.ServerState.GetPlayerState(playfabId);
 				var equipmentData = serverState.DeserializeModel<EquipmentData>();
 				var lastBlockchainUpdate = await RequestBlockchainLastUpdate(playfabId);
-				if (equipmentData.LastUpdateTimestamp > lastBlockchainUpdate)
+				if (equipmentData.LastUpdateTimestamp >= lastBlockchainUpdate)
 				{
 					_ctx.Log.LogDebug($"{playfabId} had up-to-date NFT's");
-					return;
+					return false;
 				}
 
 				var playerData = serverState.DeserializeModel<PlayerData>();
@@ -102,6 +102,7 @@ namespace BlastRoyaleNFTPlugin
 				serverState.UpdateModel(idData);
 				serverState.UpdateModel(playerData);
 				await _ctx.ServerState.UpdatePlayerState(playfabId, serverState);
+				return true;
 			}
 			finally
 			{

@@ -42,6 +42,7 @@ namespace FirstLight.Game.Services
 	{
 		public AnalyticsCallsSession SessionCalls { get; }
 		public AnalyticsCallsMatch MatchCalls { get; }
+		public AnalyticsEconomy EconomyCalls { get; }
 		public AnalyticsCallsErrors ErrorsCalls { get; }
 
 		/// <summary>
@@ -65,6 +66,7 @@ namespace FirstLight.Game.Services
 	{
 		public AnalyticsCallsSession SessionCalls { get; private set; }
 		public AnalyticsCallsMatch MatchCalls { get; private set; }
+		public AnalyticsEconomy EconomyCalls { get; private set; }
 		public AnalyticsCallsErrors ErrorsCalls { get; private set; }
 
 		public AnalyticsService(IGameServices services,
@@ -73,6 +75,7 @@ namespace FirstLight.Game.Services
 		{
 			SessionCalls = new AnalyticsCallsSession(this, services, dataProvider, gameDataProvider);
 			MatchCalls = new AnalyticsCallsMatch(this, services, gameDataProvider);
+			EconomyCalls = new AnalyticsEconomy(this);
 			ErrorsCalls = new AnalyticsCallsErrors(this);
 		}
 

@@ -1,0 +1,25 @@
+.equipment-cat-button {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/CommonItemButton.png?fileID=21300000&guid=db6aed0c5abfe43cc8c60b70c979e786&type=3#CommonItemButton');
+    width: 608px;
+    height: 140px;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    background-color: rgba(0, 0, 0, 0);
+    overflow: visible;
+}
+
+.equipment-cat-button:active {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/CommonItemButtonPressed.png?fileID=21300000&guid=2caf71907fd3e4fcba0a2d7647e48f43&type=3#CommonItemButtonPressed');
+}
+
+.equipment-cat-button__level {
+    -unity-font-definition: var(--font-italic);
+    position: absolute;
+    right: 13px;
+    top: -16px;
+    font-size: 33px;
+    color: rgba(255, 255, 255, 255);
+    text-shadow: 3px 3px 0 rgba(0, 0, 0, 255);
+}

@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Screens/EquipmentScreenStyle.uss?fileID=7433441132597879392&amp;guid=4db877ea6f2aa4a9e89b2280626e6649&amp;type=3#EquipmentScreenStyle" />
+    <ui:VisualElement name="root" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0;">
+        <FirstLight.Game.UIElements.SafeAreaElement>
+            <ui:VisualElement style="position: absolute; top: 184px; bottom: 83px; left: 164px; justify-content: space-between;">
+                <ui:Button class="equipment-cat-button">
+                    <ui:Label text="LV5" name="Level" class="equipment-cat-button__level" style="position: absolute;" />
+                </ui:Button>
+            </ui:VisualElement>
+        </FirstLight.Game.UIElements.SafeAreaElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="reference" style="background-image: url(&apos;project://database/Assets/Art/UI/References/Equipment.png?fileID=2800000&amp;guid=0d81297f70f2841aea17ba4fc7712bb1&amp;type=3#Equipment&apos;); width: 2340px; height: 1080px; opacity: 1; display: flex;" />
+</ui:UXML>

@@ -149,7 +149,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OpenLowConnectionScreen()
 		{
-			_uiService.OpenUiAsync<LowConnectionPresenter, LowConnectionPresenter.StateData>(new LowConnectionPresenter.StateData());
+			_uiService.OpenUiAsync<LowConnectionPresenter>();
 		}
 
 		private void CloseLowConnectionScreen()
@@ -165,7 +165,7 @@ namespace FirstLight.Game.StateMachines
 				ButtonOnClick = _services.GenericDialogService.CloseDialog
 			};
 			
-			_services.GenericDialogService.OpenDialog(ScriptLocalization.MainMenu.DisconnectedMatchEndInfo.ToUpper(), false, confirmButton);
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.info, ScriptLocalization.MainMenu.DisconnectedMatchEndInfo.ToUpper(), false, confirmButton);
 		}
 
 		private void SubscribeEvents()
@@ -250,9 +250,15 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnQuitGameScreenClickedMessage(QuitGameClickedMessage message)
 		{
-			var data = new QuitGameDialogPresenter.StateData {ConfirmClicked = QuitGameConfirmedClicked};
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.General.Yes,
+				ButtonOnClick = QuitGameConfirmedClicked
+			};
 
-			_uiService.OpenUi<QuitGameDialogPresenter, QuitGameDialogPresenter.StateData>(data);
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.confirmation,
+				ScriptLocalization.AdventureMenu.AreYouSureQuit,
+				true, confirmButton);
 		}
 
 		private void OnGameCompletedRewardsMessage(GameCompletedRewardsMessage message)
@@ -451,6 +457,7 @@ namespace FirstLight.Game.StateMachines
 			var info = _gameDataProvider.PlayerDataProvider.PlayerInfo;
 			var loadout = _gameDataProvider.EquipmentDataProvider.Loadout;
 			var inventory = _gameDataProvider.EquipmentDataProvider.Inventory;
+			var f = game.Frames.Verified;
 			var spawnPosition = _uiService.GetUi<MatchmakingLoadingScreenPresenter>().mapSelectionView
 			                              .NormalizedSelectionPoint;
 
@@ -465,7 +472,8 @@ namespace FirstLight.Game.StateMachines
 					PlayerLevel = info.Level,
 					PlayerTrophies = info.TotalTrophies,
 					NormalizedSpawnPosition = spawnPosition.ToFPVector2(),
-					Loadout = loadout.ReadOnlyDictionary.Values.Select(id => inventory[id]).ToArray()
+					Loadout = f.Context.TryGetMutatorByType(MutatorType.HammerTime, out _ ) ? 
+						Array.Empty<Equipment>() : loadout.ReadOnlyDictionary.Values.Select(id => inventory[id]).ToArray()
 				});
 			}
 		}

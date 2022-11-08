@@ -20,6 +20,7 @@ namespace Quantum
 		public uint NumberOfShots;
 		public uint NumberOfBursts;
 		public FP AttackRange;
+		public FP AttackRangeAimBonus;
 		public bool CanHitSameTarget;
 		public bool IsProjectile;
 		public FP SplashRadius;

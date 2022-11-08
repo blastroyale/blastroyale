@@ -7,7 +7,7 @@ namespace Quantum
 	[AssetObjectConfig(GenerateLinkingScripts = true, GenerateAssetCreateMenu = false, GenerateAssetResetMethod = false)]
 	public partial class TrueDecision : HFSMDecision
 	{
-		public override unsafe bool Decide(Frame frame, EntityRef entity)
+		public override unsafe bool Decide(Frame frame, EntityRef entity, ref AIContext aiContext)
 		{
 			return true;
 		}

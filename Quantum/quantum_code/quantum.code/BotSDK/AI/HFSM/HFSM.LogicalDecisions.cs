@@ -36,16 +36,16 @@ namespace Quantum
 	[AssetObjectConfig(GenerateLinkingScripts = true, GenerateAssetCreateMenu = false, GenerateAssetResetMethod = false)]
 	public partial class HFSMOrDecision : HFSMLogicalDecision
 	{
-		public override bool DecideThreadSafe(FrameThreadSafe frame, EntityRef entity)
+		public override bool DecideThreadSafe(FrameThreadSafe frame, EntityRef entity, ref AIContext aiContext)
 		{
-			return CheckDecisions(frame, entity);
+			return CheckDecisions(frame, entity, ref aiContext);
 		}
 
-		private bool CheckDecisions(FrameThreadSafe frame, EntityRef entity)
+		private bool CheckDecisions(FrameThreadSafe frame, EntityRef entity, ref AIContext aiContext)
 		{
 			foreach (var decision in _decisions)
 			{
-				if (decision.DecideThreadSafe(frame, entity) == true)
+				if (decision.DecideThreadSafe(frame, entity, ref aiContext) == true)
 					return true;
 			}
 			return false;
@@ -58,16 +58,16 @@ namespace Quantum
 	[AssetObjectConfig(GenerateLinkingScripts = true, GenerateAssetCreateMenu = false, GenerateAssetResetMethod = false)]
 	public partial class HFSMAndDecision : HFSMLogicalDecision
 	{
-		public override bool DecideThreadSafe(FrameThreadSafe frame, EntityRef entity)
+		public override bool DecideThreadSafe(FrameThreadSafe frame, EntityRef entity, ref AIContext aiContext)
 		{
-			return CheckDecisions(frame, entity);
+			return CheckDecisions(frame, entity, ref aiContext);
 		}
 
-		public bool CheckDecisions(FrameThreadSafe frame, EntityRef entity)
+		public bool CheckDecisions(FrameThreadSafe frame, EntityRef entity, ref AIContext aiContext)
 		{
 			foreach (var decision in _decisions)
 			{
-				if (decision.DecideThreadSafe(frame, entity) == false)
+				if (decision.DecideThreadSafe(frame, entity, ref aiContext) == false)
 					return false;
 			}
 			return true;
@@ -81,14 +81,14 @@ namespace Quantum
 	public partial class HFSMNotDecision : HFSMLogicalDecision
 	{
 
-		public override bool DecideThreadSafe(FrameThreadSafe frame, EntityRef entity)
+		public override bool DecideThreadSafe(FrameThreadSafe frame, EntityRef entity, ref AIContext aiContext)
 		{
-			return CheckDecisions(frame, entity);
+			return CheckDecisions(frame, entity, ref aiContext);
 		}
 
-		public bool CheckDecisions(FrameThreadSafe frame, EntityRef entity)
+		public bool CheckDecisions(FrameThreadSafe frame, EntityRef entity, ref AIContext aiContext)
 		{
-			return !_decisions[0].DecideThreadSafe(frame, entity);
+			return !_decisions[0].DecideThreadSafe(frame, entity, ref aiContext);
 		}
 	}
 }

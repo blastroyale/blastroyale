@@ -55,23 +55,7 @@ namespace Quantum
 			FindAsset<QuantumShrinkingCircleConfigs>(RuntimeConfig.ShrinkingCircleConfigs.Id);
 		
 		internal QuantumMutatorConfigs MutatorConfigs => FindAsset<QuantumMutatorConfigs>(RuntimeConfig.MutatorConfigs.Id);
-
-		/// <summary>
-		/// Requests the list of <typeparamref name="T"/> that can be iterated over.
-		/// Use this with caution because creates garbage. A good use is to allow indexing on a execution loop
-		/// </summary>
-		public List<EntityComponentPair<T>> ComponentList<T>() where T : unmanaged, IComponent
-		{
-			var list = new List<EntityComponentPair<T>>();
-
-			foreach (var pair in GetComponentIterator<T>())
-			{
-				list.Add(pair);
-			}
-
-			return list;
-		}
-
+		
 		/// <summary>
 		/// Requests the list of <typeparamref name="T"/> pointers that can be iterated over.
 		/// Use this with caution because creates garbage. A good use is to allow indexing on a execution loop

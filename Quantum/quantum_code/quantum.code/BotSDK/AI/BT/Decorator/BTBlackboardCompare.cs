@@ -17,9 +17,9 @@ namespace Quantum
 
 		// ========== BTNode INTERFACE ================================================================================
 
-		public override void OnEnter(BTParams btParams)
+		public override void OnEnter(BTParams btParams, ref AIContext aiContext)
 		{
-			base.OnEnter(btParams);
+			base.OnEnter(btParams, ref aiContext);
 
 			// Whenever we enter this Decorator...
 			// We register it as a Reactive Decorator so, whenever the entries are changed,
@@ -28,9 +28,10 @@ namespace Quantum
 			btParams.Blackboard->RegisterReactiveDecorator(btParams.Frame, BlackboardKeyB.Key, this);
 		}
 
-		public override void OnExit(BTParams btParams)
+		public override void OnExit(BTParams btParams, ref AIContext aiContext)
 		{
-			base.OnExit(btParams);
+			base.OnExit(btParams, ref aiContext);
+
 			// Whenever the execution goes higher, it means that this Decorator isn't in the current subtree anymore
 			// So we unregister this Decorator from the Reactive list. This means that if the Blackboard entries
 			// get changed, this Decorator will not react anymore
@@ -43,7 +44,7 @@ namespace Quantum
 		// 1 - When the execution is goign DOWN on the tree and this Decorator is found
 		// 2 - If changes to the observed blackboard entries happen
 		// 3 - If this is inside a Dynamic Composite node
-		public override Boolean DryRun(BTParams btParams)
+		public override Boolean DryRun(BTParams btParams, ref AIContext aiContext)
 		{
 			var blackboard = btParams.Blackboard;
 			var A = blackboard->GetInteger(btParams.Frame, BlackboardKeyA.Key);

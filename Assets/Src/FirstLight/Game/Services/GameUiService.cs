@@ -27,11 +27,12 @@ namespace FirstLight.Game.Services
 	/// <inheritdoc cref="IGameUiService"/>
 	public class GameUiService : UiService.UiService, IGameUiServiceInit
 	{
-		public const int LayerCount = 10;
+		public const int MinDefaultLayer = -3;
+		public const int MaxDefaultLayer = 10;
 		
 		public GameUiService(IUiAssetLoader assetLoader) : base(assetLoader)
 		{
-			AddLayer(LayerCount);
+			AddLayers(MinDefaultLayer, MaxDefaultLayer);
 		}
 		
 		/// <inheritdoc />

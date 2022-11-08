@@ -41,6 +41,7 @@ namespace FirstLight.Game.Presenters
 			public Action OnLeaderboardClicked;
 			public Action OnBattlePassClicked;
 			public Action OnStoreClicked;
+			public Action OnDiscordClicked;
 		}
 
 		private IGameDataProvider _dataProvider;
@@ -110,6 +111,9 @@ namespace FirstLight.Game.Presenters
 			
 			storeButton.SetEnabled(FeatureFlags.STORE_ENABLED);
 
+			var discordButton = root.Q<Button>("DiscordButton");
+			discordButton.clicked += Data.OnDiscordClicked;
+			
 			// TODO: Move to shared code
 			root.Query<Button>().Build().ForEach(b =>
 			{
@@ -250,6 +254,7 @@ namespace FirstLight.Game.Presenters
 			else
 			{
 				var predictedLevelAndPoints = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
+
 				UpdateBattlePassPoints(predictedLevelAndPoints.Item1, predictedLevelAndPoints.Item2);
 			}
 		}
@@ -284,10 +289,11 @@ namespace FirstLight.Game.Presenters
 
 		private void UpdateBattlePassPoints(uint predictedLevel, uint predictedPoints, int pointsOverride = -1)
 		{
-			var battlePassConfig = _services.ConfigsProvider.GetConfig<BattlePassConfig>();
 			var hasRewards = _dataProvider.BattlePassDataProvider.IsRedeemable(pointsOverride);
+			var currentPointsPerLevel = _dataProvider.BattlePassDataProvider.GetRequiredPointsForLevel((int)predictedLevel);
+
 			_battlePassProgressElement.style.flexGrow =
-				Mathf.Clamp01((float) predictedPoints / battlePassConfig.PointsPerLevel);
+				Mathf.Clamp01((float)predictedPoints / currentPointsPerLevel);
 			_battlePassCrownIcon.style.display = hasRewards ? DisplayStyle.Flex : DisplayStyle.None;
 
 			if (predictedLevel == _dataProvider.BattlePassDataProvider.MaxLevel)

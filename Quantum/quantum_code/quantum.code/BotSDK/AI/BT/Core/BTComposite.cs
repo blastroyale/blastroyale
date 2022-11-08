@@ -41,9 +41,9 @@ namespace Quantum
 
 		// ========== PROTECTED MEMBERS ===============================================================================
 
-		protected BTNode[] _childInstances;
-		protected BTService[] _serviceInstances;
-		protected BTNode _topmostDecoratorInstance;
+		[NonSerialized] protected BTNode[] _childInstances;
+		[NonSerialized] protected BTService[] _serviceInstances;
+		[NonSerialized] protected BTNode _topmostDecoratorInstance;
 
 		// ========== BTNode INTERFACE ================================================================================
 
@@ -60,19 +60,22 @@ namespace Quantum
 			}
 		}
 
-		public override void OnEnter(BTParams btParams)
+		public override void OnEnter(BTParams btParams, ref AIContext aiContext)
 		{
-			BTManager.OnNodeEnter?.Invoke(btParams.Entity, Guid.Value);
+			if(btParams.IsCompound == false)
+			{
+				BTManager.OnNodeEnter?.Invoke(btParams.Entity, Guid.Value, btParams.IsCompound);
+			}
 			SetCurrentChild(btParams.FrameThreadSafe, 0, btParams.Agent);
 		}
 
-		public override void OnEnterRunning(BTParams btParams)
+		public override void OnEnterRunning(BTParams btParams, ref AIContext aiContext)
 		{
 			var activeServicesList = btParams.FrameThreadSafe.ResolveList<AssetRefBTService>(btParams.Agent->ActiveServices);
 
 			for (Int32 i = 0; i < _serviceInstances.Length; i++)
 			{
-				_serviceInstances[i].OnEnter(btParams);
+				_serviceInstances[i].OnEnter(btParams, ref aiContext);
 
 				activeServicesList.Add(Services[i]);
 			}
@@ -84,21 +87,24 @@ namespace Quantum
 			}
 		}
 
-		public override void OnReset(BTParams btParams)
+		public override void OnReset(BTParams btParams, ref AIContext aiContext)
 		{
-			base.OnReset(btParams);
+			base.OnReset(btParams, ref aiContext);
 
-			OnExit(btParams);
+			OnExit(btParams, ref aiContext);
 
 			for (Int32 i = 0; i < _childInstances.Length; i++)
-				_childInstances[i].OnReset(btParams);
+				_childInstances[i].OnReset(btParams, ref aiContext);
 		}
 
-		public override void OnExit(BTParams btParams)
+		public override void OnExit(BTParams btParams, ref AIContext aiContext)
 		{
-			base.OnExit(btParams);
+			base.OnExit(btParams, ref aiContext);
 
-			BTManager.OnNodeExit?.Invoke(btParams.Entity, Guid.Value);
+			if (btParams.IsCompound == false)
+			{
+				BTManager.OnNodeExit?.Invoke(btParams.Entity, Guid.Value, btParams.IsCompound);
+			}
 
 			var activeServicesList = btParams.FrameThreadSafe.ResolveList<AssetRefBTService>(btParams.Agent->ActiveServices);
 			for (Int32 i = 0; i < _serviceInstances.Length; i++)
@@ -113,11 +119,11 @@ namespace Quantum
 			}
 		}
 
-		public override bool OnDynamicRun(BTParams btParams)
+		public override bool OnDynamicRun(BTParams btParams, ref AIContext aiContext)
 		{
 			if (_topmostDecoratorInstance != null)
 			{
-				return _topmostDecoratorInstance.OnDynamicRun(btParams);
+				return _topmostDecoratorInstance.OnDynamicRun(btParams, ref aiContext);
 			}
 
 			return true;

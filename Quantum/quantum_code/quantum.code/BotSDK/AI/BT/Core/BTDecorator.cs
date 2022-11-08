@@ -1,4 +1,5 @@
 ﻿using Photon.Deterministic;
+using System;
 
 namespace Quantum
 {
@@ -28,36 +29,36 @@ namespace Quantum
 
 		// ========== PROTECTED MEMBERS ===============================================================================
 
-		protected BTNode _childInstance;
+		[NonSerialized] protected BTNode _childInstance;
 
 		// ========== BTDecorator INTERFACE ===========================================================================
 
-		public override void OnReset(BTParams btParams)
+		public override void OnReset(BTParams btParams, ref AIContext aiContext)
 		{
-			base.OnReset(btParams);
+			base.OnReset(btParams, ref aiContext);
 
-			OnExit(btParams);
+			OnExit(btParams, ref aiContext);
 
 			if (_childInstance != null)
-				_childInstance.OnReset(btParams);
+				_childInstance.OnReset(btParams, ref aiContext);
 
-			BTManager.OnDecoratorReset?.Invoke(btParams.Entity, Guid.Value);
+			BTManager.OnDecoratorReset?.Invoke(btParams.Entity, Guid.Value, btParams.IsCompound);
 		}
 
-		public override void OnExit(BTParams btParams)
+		public override void OnExit(BTParams btParams, ref AIContext aiContext)
 		{
-			base.OnExit(btParams);
+			base.OnExit(btParams, ref aiContext);
 		}
 
-		protected override BTStatus OnUpdate(BTParams btParams)
+		protected override BTStatus OnUpdate(BTParams btParams, ref AIContext aiContext)
 		{
-			if (DryRun(btParams) == true)
+			if (DryRun(btParams, ref aiContext) == true)
 			{
-				BTManager.OnDecoratorChecked?.Invoke(btParams.Entity, Guid.Value, true);
+				BTManager.OnDecoratorChecked?.Invoke(btParams.Entity, Guid.Value, true, btParams.IsCompound);
 
 				if (_childInstance != null)
 				{
-					var childResult = _childInstance.RunUpdate(btParams);
+					var childResult = _childInstance.RunUpdate(btParams, ref aiContext);
 					if (childResult == BTStatus.Abort)
 					{
 						EvaluateAbortNode(btParams);
@@ -71,14 +72,14 @@ namespace Quantum
 				return BTStatus.Success;
 			}
 
-			BTManager.OnDecoratorChecked?.Invoke(btParams.Entity, Guid.Value, false);
+			BTManager.OnDecoratorChecked?.Invoke(btParams.Entity, Guid.Value, false, btParams.IsCompound);
 
 			return BTStatus.Failure;
 		}
 
-		public override bool OnDynamicRun(BTParams btParams)
+		public override bool OnDynamicRun(BTParams btParams, ref AIContext aiContext)
 		{
-			var result = DryRun(btParams);
+			var result = DryRun(btParams, ref aiContext);
 			if (result == false)
 			{
 				return false;
@@ -89,7 +90,7 @@ namespace Quantum
 			}
 			else
 			{
-				return ChildInstance.OnDynamicRun(btParams);
+				return ChildInstance.OnDynamicRun(btParams, ref aiContext);
 			}
 		}
 

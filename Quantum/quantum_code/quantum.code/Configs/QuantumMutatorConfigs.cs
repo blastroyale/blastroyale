@@ -9,7 +9,8 @@ namespace Quantum
 		SpecialsCooldowns,
 		Speed,
 		HealthPerSeconds,
-		AbsoluteAccuracy
+		AbsoluteAccuracy,
+		HammerTime
 	}
 
 	[Serializable]

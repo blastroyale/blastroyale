@@ -32,7 +32,7 @@ namespace FirstLight.Game.UIElements
 		{
 		}
 
-		public new class UxmlTraits : VisualElement.UxmlTraits
+		public new class UxmlTraits : Button.UxmlTraits
 		{
 			UxmlStringAttributeDescription _localizationKeyAttribute = new()
 			{

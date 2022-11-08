@@ -12,13 +12,13 @@ namespace Quantum
 
 		// ========== AIAction INTERFACE ================================================================================
 
-		public virtual void Update(Frame frame, EntityRef entity)
+		public virtual void Update(Frame frame, EntityRef entity, ref AIContext aiContext)
 		{
 		}
 
-		public virtual void Update(FrameThreadSafe frame, EntityRef entity)
+		public virtual void Update(FrameThreadSafe frame, EntityRef entity, ref AIContext aiContext)
 		{
-			Update((Frame)frame, entity);
+			Update((Frame)frame, entity, ref aiContext);
 		}
 
 		public virtual int NextAction(Frame frame, EntityRef entity) { return NEXT_ACTION_DEFAULT; }

@@ -35,6 +35,8 @@ namespace FirstLight.Game.UIElements
 			this.text = text;
 			this.minFontSize = minFontSize;
 			this.maxFontSize = maxFontSize;
+
+			RegisterCallback<GeometryChangedEvent>(OnGeometryChanged);
 		}
 
 		private void OnGeometryChanged(GeometryChangedEvent evt)
@@ -86,7 +88,6 @@ namespace FirstLight.Game.UIElements
 				var instance = (AutoSizeLabel) ve;
 				instance.minFontSize = Mathf.Max(_minFontSize.GetValueFromBag(bag, cc), 1);
 				instance.maxFontSize = Mathf.Max(_maxFontSize.GetValueFromBag(bag, cc), 1);
-				instance.RegisterCallback<GeometryChangedEvent>(instance.OnGeometryChanged);
 
 				base.Init(ve, bag, cc);
 			}

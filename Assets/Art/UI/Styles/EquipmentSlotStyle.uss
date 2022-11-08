@@ -104,13 +104,14 @@
     -unity-text-outline-color: rgb(0, 0, 0);
     white-space: normal;
     margin-left: 10px;
+    height: 70px;
 }
 
 .equipment-slot__title--name {
     position: absolute;
     left: 288px;
-    top: 23px;
-    max-width: 300px;
+    top: 13px;
+    width: 290px;
 }
 
 .equipment-slot__durability-icon {
@@ -163,7 +164,6 @@
     align-items: center;
     justify-content: center;
     flex-direction: row;
-    padding-bottom: 9px;
 }
 
 .equipment-slot--filled .equipment-slot__holder--empty {

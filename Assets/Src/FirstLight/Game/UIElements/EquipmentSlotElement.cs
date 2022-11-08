@@ -66,9 +66,9 @@ namespace FirstLight.Game.UIElements
 			filledElement.Add(_categoryIcon = new VisualElement {name = "category"});
 			_categoryIcon.AddToClassList(UssCategoryIcon);
 
-			filledElement.Add(_equipmentName = new Label(string.Format(
-				ScriptLocalization.UITEquipment.item_name_lvl,
-				"APO SNIPER", 5)
+			filledElement.Add(_equipmentName = new AutoSizeLabel(
+				string.Format(ScriptLocalization.UITEquipment.item_name_lvl, "APO SNIPER", 5),
+				35, 45
 			) {name = "equipment-name"});
 			_equipmentName.AddToClassList(UssEquipmentTitle);
 			_equipmentName.AddToClassList(UssEquipmentTitleName);
@@ -170,7 +170,10 @@ namespace FirstLight.Game.UIElements
 				var cat = _categoryAttribute.GetValueFromBag(bag, cc);
 
 				ece.Category = cat;
-				ece._categoryIcon.AddToClassList(UssCategoryIconModifier + cat.ToString().ToLowerInvariant());
+
+				var categoryClass = UssCategoryIconModifier + cat.ToString().ToLowerInvariant();
+				ece._categoryIcon.AddToClassList(categoryClass);
+				ece._emptyCategoryIcon.AddToClassList(categoryClass);
 
 				ece._emptyTitle.Localize(
 					string.Format(EMPTY_LOC_KEY, cat.ToString().ToLowerInvariant())

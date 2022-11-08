@@ -82,6 +82,9 @@ namespace FirstLight.Game.Presenters
 			var playerData = container.GetPlayersMatchData(frame, out var leader);
 			var playerWinner = playerData[leader];
 			
+			// We need to wait because no animations can start on the first frame of UIToolkit
+			yield return new WaitForEndOfFrame();
+
 			// Show match ended
 			ShowDarkOverlay();
 			ShowMatchEnded();

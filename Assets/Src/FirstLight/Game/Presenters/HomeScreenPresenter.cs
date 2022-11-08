@@ -41,6 +41,7 @@ namespace FirstLight.Game.Presenters
 			public Action OnLeaderboardClicked;
 			public Action OnBattlePassClicked;
 			public Action OnStoreClicked;
+			public Action OnDiscordClicked;
 		}
 
 		private IGameDataProvider _dataProvider;
@@ -110,6 +111,9 @@ namespace FirstLight.Game.Presenters
 			
 			storeButton.SetEnabled(FeatureFlags.STORE_ENABLED);
 
+			var discordButton = root.Q<Button>("DiscordButton");
+			discordButton.clicked += Data.OnDiscordClicked;
+			
 			// TODO: Move to shared code
 			root.Query<Button>().Build().ForEach(b =>
 			{

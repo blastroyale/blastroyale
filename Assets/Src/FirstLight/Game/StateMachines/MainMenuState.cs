@@ -376,13 +376,14 @@ namespace FirstLight.Game.StateMachines
 				OnGameModeClicked = () => _statechartTrigger(_chooseGameModeClickedEvent),
 				OnLeaderboardClicked = () => _statechartTrigger(_leaderboardClickedEvent),
 				OnBattlePassClicked = () => _statechartTrigger(_battlePassClickedEvent),
-				OnStoreClicked = () => _statechartTrigger(_storeClickedEvent)
+				OnStoreClicked = () => _statechartTrigger(_storeClickedEvent),
+				OnDiscordClicked = DiscordButtonClicked
 			};
 
 			_uiService.OpenScreen<HomeScreenPresenter, HomeScreenPresenter.StateData>(data);
 			_services.MessageBrokerService.Publish(new PlayScreenOpenedMessage());
 		}
-		
+
 		private void OpenDisconnectedScreen()
 		{
 			var data = new DisconnectedScreenPresenter.StateData
@@ -486,6 +487,11 @@ namespace FirstLight.Game.StateMachines
 			MainInstaller.CleanDispose<IMainMenuServices>();
 
 			_statechartTrigger(MainMenuUnloadedEvent);
+		}
+		
+		private void DiscordButtonClicked()
+		{
+			Application.OpenURL(GameConstants.Links.DISCORD_SERVER);
 		}
 	}
 }

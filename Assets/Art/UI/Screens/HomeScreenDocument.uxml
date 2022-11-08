@@ -42,9 +42,12 @@
                         <ui:Label text="CASUAL" name="GameTypeLabel" class="font-italic font-style-h2" style="-unity-text-align: upper-right; font-size: 29px; margin-bottom: -3px; margin-left: -13px;" />
                     </ui:VisualElement>
                 </ui:Button>
-                <flg:LocalizedButton localization-key="UITHomeScreen/shop" name="StoreButton" class="button-with-icon button-with-icon--yellow button-with-icon--shop hidden-right" style="margin-bottom: 27px;">
+                <flg:LocalizedButton localization-key="UITHomeScreen/shop" name="StoreButton" class="button-with-icon button-with-icon--yellow button-with-icon--shop hidden-right" style="margin-bottom: 57px;">
                     <ui:VisualElement class="button-with-icon__icon" />
                 </flg:LocalizedButton>
+                <ui:Button text="DISCORD" name="DiscordButton" class="button-with-icon button-with-icon--small button-with-icon--discord hidden-right" style="margin-bottom: 67px;">
+                    <ui:VisualElement class="button-with-icon__icon" />
+                </ui:Button>
             </ui:VisualElement>
             <ui:VisualElement picking-mode="Ignore" style="position: absolute; left: 0; top: 245px; bottom: 0; justify-content: space-between; margin-bottom: 36px; margin-left: 36px;">
                 <flg:LocalizedButton localization-key="UITHomeScreen/equipment" name="EquipmentButton" class="hidden-left button-with-icon button-with-icon--equipment">

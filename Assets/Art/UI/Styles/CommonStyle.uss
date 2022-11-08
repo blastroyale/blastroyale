@@ -78,10 +78,17 @@ Button, LocalizedButton {
     align-items: center;
 }
 
+.button-with-icon--small {
+    width: 182px;
+    height: 100px;
+    padding-top: 50px;
+}
+
 .button-with-icon--yellow
 {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMainYellow.png?fileID=21300000&guid=728932854c02c47ddb4057b68d3c91c7&type=3#ButtonMainYellow');
 }
+
 
 .button-with-icon__icon {
     width: auto;
@@ -89,7 +96,7 @@ Button, LocalizedButton {
     position: absolute;
     left: 0;
     right: 0;
-    top: -23px;
+    top: -40%;
     overflow: visible;
     -unity-background-scale-mode: scale-to-fit;
 }
@@ -99,14 +106,24 @@ Button, LocalizedButton {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMainPressed.png?fileID=21300000&guid=5cb1a9853b14740c980813b57e5d03f3&type=3#ButtonMainPressed');
 }
 
+.button-with-icon--small:active {
+    padding-top: 60px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMainPressed.png?fileID=21300000&guid=5cb1a9853b14740c980813b57e5d03f3&type=3#ButtonMainPressed');
+}
+
 .button-with-icon--yellow:active
 {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMainYellowPressed.png?fileID=21300000&guid=c96062ca698c645258fbf9555f558741&type=3#ButtonMainYellowPressed');
 }
 
-.button-with-icon:active > .button-with-icon__icon {
-    top: -15px;
+.button-with-icon--small > .button-with-icon__icon {
+    height: 80px;
 }
+
+.button-with-icon:active > .button-with-icon__icon {
+    top: -40%;
+}
+
 
 TextField, LocalizedTextField {
     align-items: stretch;

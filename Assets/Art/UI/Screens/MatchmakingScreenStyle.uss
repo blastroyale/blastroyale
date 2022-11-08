@@ -8,8 +8,8 @@
 
 .mode-holder {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/HeadlineCornerBack.png?fileID=21300000&guid=a00a82499a7b54937bb2cf2b23aeb238&type=3#HeadlineCornerBack');
-    width: 790px;
-    height: 220px;
+    width: 95%;
+    height: 92%;
     flex-direction: row;
     padding-left: 40px;
 }
@@ -29,19 +29,73 @@
     height: 80%;
 }
 
+.background {
+    background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/MatchmakingBg.png?fileID=2800000&guid=b62bd3a008f181c41802bcf390918d3c&type=3#MatchmakingBg');
+    width: 100%;
+    height: 100%;
+    -unity-background-scale-mode: scale-and-crop;
+}
+
+.player-image {
+    position: absolute;
+    width: 800px;
+    height: 800px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/Player.png?fileID=2800000&guid=9bf7b0db9f8824b4dbd1701c2e204610&type=3#Player');
+    top: 20%;
+    left: 25%;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.player-amount-holder {
+    flex-direction: row;
+    height: 40%;
+    left: 50px;
+    bottom: 50px;
+}
+
+.player-amount-holder__loading-icon {
+    height: 100%;
+    width: 100px;
+    background-image: url('project://database/Assets/Art/Textures/Ui/Loading/LoadingSpinner.png?fileID=2800000&guid=6e7b0bf3f17e34708b4d4dfcb7aae788&type=3#LoadingSpinner');
+    -unity-background-scale-mode: scale-to-fit;
+    margin-right: 25px;
+}
+
+.player-amount-holder__location-label {
+    font-size: 90px;
+}
+
+.player-amount-holder__player-label {
+    font-size: 90px;
+}
+
+.left-screen-holder {
+    width: 30%;
+    height: 100%;
+}
+
+.left-screen-holder__top {
+    flex-grow: 1;
+}
+
+.left-screen-holder__bottom {
+    flex-grow: 1;
+    justify-content: flex-end;
+}
+
 #ModeHolderBg {
     background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/HeadlineHighlight.png?fileID=21300000&guid=97008515db6874b47820ca1592ee79d5&type=3#HeadlineHighlight');
-    width: 835px;
-    height: 245px;
+    width: 100%;
+    height: 40%;
 }
 
 #ModeDesc {
     position: absolute;
     white-space: normal;
-    font-size: 30px;
-    width: 300px;
+    font-size: 50px;
+    width: 650px;
     height: 300px;
-    top: 225px;
-    left: 225px;
+    top: 100%;
+    left: 10%;
     -unity-text-align: upper-center;
 }

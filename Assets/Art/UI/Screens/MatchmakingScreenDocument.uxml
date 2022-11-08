@@ -1,12 +1,26 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/MatchmakingScreenStyle.uss?fileID=7433441132597879392&amp;guid=054969067d16dbd4b99f57bc2f230e20&amp;type=3#MatchmakingScreenStyle" />
-    <ui:VisualElement name="root" picking-mode="Ignore" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0;">
-        <ui:VisualElement name="ModeHolderBg">
-            <ui:VisualElement name="ModeHolder" class="mode-holder">
-                <ui:VisualElement name="Icon" class="mode-holder__icon" />
-                <ui:Label name="Label" text="BATTLE ROYALE&#10;SOLO" class="font-italic font-style-h2 mode-holder__label" />
+    <ui:VisualElement name="root" picking-mode="Ignore" class="background">
+        <ui:VisualElement name="LeftScreenHolder" class="left-screen-holder">
+            <ui:VisualElement name="Top" class="left-screen-holder__top">
+                <ui:VisualElement name="ModeHolderBg">
+                    <ui:VisualElement name="ModeHolder" class="mode-holder">
+                        <ui:VisualElement name="Icon" class="mode-holder__icon" />
+                        <ui:Label name="Label" text="BATTLE ROYALE&#10;SOLO" class="font-italic font-style-h2 mode-holder__label" />
+                    </ui:VisualElement>
+                    <ui:Label name="ModeDesc" text="LAST PLAYER STANDING&#10;WINS THE MATCH" class="font-italic ModeDesc" />
+                </ui:VisualElement>
             </ui:VisualElement>
-            <ui:Label name="ModeDesc" text="LAST PLAYER STANDING  WINS THE MATCH" class="font-italic ModeDesc" />
+            <ui:VisualElement name="Bottom" class="left-screen-holder__bottom">
+                <ui:VisualElement name="PlayerAmountHolder" class="player-amount-holder">
+                    <ui:VisualElement name="LoadingIcon" class="player-amount-holder__loading-icon" />
+                    <ui:VisualElement name="Labels" style="justify-content: center;">
+                        <ui:Label name="PlayerLabel" text="5/30" class="font-italic font-style-h2 player-amount-holder__player-label" />
+                        <ui:Label name="LocationLabel" text="LOCATION" class="font-italic font-style-h2 player-amount-holder__location-label" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
         </ui:VisualElement>
+        <ui:VisualElement name="PlayerImage" class="player-image" />
     </ui:VisualElement>
 </ui:UXML>

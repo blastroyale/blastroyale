@@ -2,17 +2,13 @@ using System;
 using System.Collections;
 using Cinemachine;
 using FirstLight.Game.Services;
-using FirstLight.Game.Timeline;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
-using I2.Loc;
 using Quantum;
 using Sirenix.OdinInspector;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Playables;
-using Button = UnityEngine.UI.Button;
-using UnityEngine.UI;
+using Button = UnityEngine.UIElements.Button;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
@@ -24,6 +20,10 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public class GameCompleteScreenPresenter : UiToolkitPresenterData<GameCompleteScreenPresenter.StateData>
 	{
+		private const string HIDDEN = "hidden";
+		private const string HIDDEN_START = "hidden-start";
+		private const string HIDDEN_END = "hidden-end";
+		
 		public struct StateData
 		{
 			public Action ContinueClicked;
@@ -36,6 +36,14 @@ namespace FirstLight.Game.Presenters
 		private IMatchServices _matchService;
 		private IGameServices _services;
 
+		private VisualElement _darkOverlay;
+		private VisualElement _matchEndTitle;
+		private VisualElement _blastedTitle;
+		private VisualElement _youWinTitle;
+		private VisualElement _winnerContainer;
+		private Label _nameLabel;
+		private Button _nextButton;
+
 		private void Awake()
 		{
 			_matchService = MainInstaller.Resolve<IMatchServices>();
@@ -46,6 +54,15 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements(VisualElement root)
 		{
+			_darkOverlay = root.Q<VisualElement>("DarkOverlay").Required();
+			_matchEndTitle = root.Q<VisualElement>("MatchEndedTitle").Required();
+			_blastedTitle = root.Q<VisualElement>("BlastedTitle").Required();
+			_youWinTitle = root.Q<VisualElement>("YouWinTitle").Required();
+			_winnerContainer = root.Q<VisualElement>("Winner").Required();
+			_nameLabel = root.Q<Label>("NameLabel").Required();
+			_nextButton = root.Q<Button>("NextButton").Required();
+
+			_nextButton.clicked += OnContinueButtonClicked;
 		}
 
 		protected override void OnOpened()
@@ -53,6 +70,8 @@ namespace FirstLight.Game.Presenters
 			base.OnOpened();
 
 			SetupCamera();
+
+			StartCoroutine(MatchEndStepsCoroutine());
 		}
 
 		private IEnumerator MatchEndStepsCoroutine()
@@ -64,29 +83,90 @@ namespace FirstLight.Game.Presenters
 			var playerWinner = playerData[leader];
 			
 			// Show match ended
+			ShowDarkOverlay();
+			ShowMatchEnded();
+			yield return new WaitForSeconds(3);
+			HideMatchEnded();
+			HideDarkOverlay();
 			
+			yield return new WaitForSeconds(1);
 			
 			// Show Victory / Blasted
 			if (game.PlayerIsLocal(leader))
 			{
 				// Victory
+				ShowDarkOverlay();
+				ShowYouWin();
+				yield return new WaitForSeconds(3);
+				HideYouWin();
+				HideDarkOverlay();
 			}
-			else if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
-			{
-				// Game over after spectating
-			}
-			else
+			else if (!_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
 			{
 				// Blasted
+				ShowDarkOverlay();
+				ShowBlasted();
+				yield return new WaitForSeconds(3);
+				HideBlasted();
+				HideDarkOverlay();
 			}
 
 			// Show winner
-			var name = string.Format(ScriptLocalization.AdventureMenu.PlayerWon, playerWinner.GetPlayerName());
+			ShowWinner(playerWinner.GetPlayerName());
 			PlayerWinnerCameraAnimation(playerWinner);
 
 			_playerWinnerEntity = playerWinner.Data.Entity;
+		}
 
-			yield return null;
+		private void ShowDarkOverlay()
+		{
+			_darkOverlay.EnableInClassList(HIDDEN, false);
+		}
+
+		private void HideDarkOverlay()
+		{
+			_darkOverlay.EnableInClassList(HIDDEN, true);
+		}
+		
+		private void ShowMatchEnded()
+		{
+			_matchEndTitle.RemoveFromClassList(HIDDEN_START);
+		}
+		
+		private void HideMatchEnded()
+		{
+			_matchEndTitle.AddToClassList(HIDDEN_END);
+		}
+		
+		private void ShowYouWin()
+		{
+			_youWinTitle.RemoveFromClassList(HIDDEN_START);
+		}
+		
+		private void HideYouWin()
+		{
+			_youWinTitle.AddToClassList(HIDDEN_END);
+		}
+		
+		private void ShowBlasted()
+		{
+			_blastedTitle.RemoveFromClassList(HIDDEN_START);
+		}
+		
+		private void HideBlasted()
+		{
+			_blastedTitle.AddToClassList(HIDDEN_END);
+		}
+		
+		private void ShowWinner(string winnerName)
+		{
+			_nameLabel.text = winnerName;
+			_winnerContainer.RemoveFromClassList(HIDDEN_START);
+		}
+		
+		private void HideWinner()
+		{
+			_winnerContainer.AddToClassList(HIDDEN_END);
 		}
 
 		private void PlayerWinnerCameraAnimation(QuantumPlayerMatchData playerWinner)

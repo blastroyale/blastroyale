@@ -35,8 +35,8 @@ namespace FirstLight.Game.UIElements
 		private const string UssEquipmentTitleName = UssEquipmentTitle + "--name";
 		private const string UssPlusRarity = UssBlock + "__plus-rarity";
 		private const string UssEquipmentImage = UssBlock + "__equipment-image";
+		private const string UssEquipmentImageShadow = UssEquipmentImage + "--shadow";
 		private const string UssDurabilityIcon = UssBlock + "__durability-icon";
-		private const string UssLevel = UssBlock + "__level";
 		private const string UssDurabilityProgressBg = UssBlock + "__durability-progress-bg";
 		private const string UssDurabilityProgress = UssBlock + "__durability-progress";
 
@@ -48,7 +48,7 @@ namespace FirstLight.Game.UIElements
 		private readonly LocalizedLabel _emptyTitle;
 		private readonly VisualElement _plusRarity;
 		private readonly VisualElement _equipmentImage;
-		private readonly Label _level;
+		private readonly VisualElement _equipmentImageShadow;
 		private readonly VisualElement _factionIcon;
 		private readonly VisualElement _durabilityProgress;
 
@@ -66,12 +66,19 @@ namespace FirstLight.Game.UIElements
 			filledElement.Add(_categoryIcon = new VisualElement {name = "category"});
 			_categoryIcon.AddToClassList(UssCategoryIcon);
 
-			filledElement.Add(_equipmentName = new Label("APO SNIPER") {name = "equipment-name"});
+			filledElement.Add(_equipmentName = new Label(string.Format(
+				ScriptLocalization.UITEquipment.item_name_lvl,
+				"APO SNIPER", 5)
+			) {name = "equipment-name"});
 			_equipmentName.AddToClassList(UssEquipmentTitle);
 			_equipmentName.AddToClassList(UssEquipmentTitleName);
 
 			filledElement.Add(_plusRarity = new VisualElement {name = "plus-rarity"});
 			_plusRarity.AddToClassList(UssPlusRarity);
+
+			filledElement.Add(_equipmentImageShadow = new VisualElement {name = "equipment-image-shadow"});
+			_equipmentImageShadow.AddToClassList(UssEquipmentImage);
+			_equipmentImageShadow.AddToClassList(UssEquipmentImageShadow);
 
 			filledElement.Add(_equipmentImage = new VisualElement {name = "equipment-image"});
 			_equipmentImage.AddToClassList(UssEquipmentImage);
@@ -79,10 +86,6 @@ namespace FirstLight.Game.UIElements
 			var durabilityIcon = new VisualElement {name = "durability-icon"};
 			filledElement.Add(durabilityIcon);
 			durabilityIcon.AddToClassList(UssDurabilityIcon);
-
-			filledElement.Add(_level = new Label(string.Format(ScriptLocalization.UITEquipment.lvl, "5"))
-				{name = "level"});
-			_level.AddToClassList(UssLevel);
 
 			filledElement.Add(_factionIcon = new VisualElement {name = "faction-icon"});
 			_factionIcon.AddToClassList(UssFactionIcon);
@@ -122,6 +125,9 @@ namespace FirstLight.Game.UIElements
 
 				_equipmentName.text = equipment.GameId.GetTranslation();
 
+				_equipmentName.text = string.Format(ScriptLocalization.UITEquipment.item_name_lvl,
+					equipment.GameId.GetTranslation(), equipment.Level);
+
 				_factionIcon.RemoveModifiers();
 				_factionIcon.AddToClassList(UssFactionIconModifier + equipment.Faction.ToString().ToLowerInvariant());
 
@@ -130,13 +136,12 @@ namespace FirstLight.Game.UIElements
 
 				_plusRarity.style.display = (int) equipment.Rarity % 2 == 1 ? DisplayStyle.Flex : DisplayStyle.None;
 
-				_level.text = string.Format(ScriptLocalization.UITEquipment.lvl, equipment.Level);
-
 				// TODO: This should be handled better.
 				var services = MainInstaller.Resolve<IGameServices>();
 				var sprite = await services.AssetResolverService.RequestAsset<GameId, Sprite>(
 					equipment.GameId, instantiate: false);
-				_equipmentImage.style.backgroundImage = new StyleBackground(sprite);
+				_equipmentImage.style.backgroundImage =
+					_equipmentImageShadow.style.backgroundImage = new StyleBackground(sprite);
 			}
 			else
 			{

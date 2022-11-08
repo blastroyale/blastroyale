@@ -65,18 +65,6 @@
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/NoItemButtonPressed.png?fileID=21300000&guid=7f4a1623a0e7a4ad89f807ed8323a21d&type=3#NoItemButtonPressed');
 }
 
-.equipment-slot__level {
-    -unity-font-definition: var(--font-italic);
-    position: absolute;
-    right: 10px;
-    top: -22px;
-    font-size: 33px;
-    color: rgb(255, 255, 255);
-    text-shadow: 3px 3px 0 rgb(0, 0, 0);
-    -unity-text-outline-width: 1px;
-    -unity-text-outline-color: rgb(0, 0, 0);
-}
-
 .equipment-slot__plus-rarity {
     position: absolute;
     left: 0;
@@ -97,17 +85,25 @@
     -unity-background-scale-mode: scale-to-fit;
 }
 
+.equipment-slot__equipment-image--shadow {
+    left: 5px;
+    top: 10px;
+    bottom: 5px;
+    -unity-background-image-tint-color: black;
+}
+
 .equipment-slot__title {
     -unity-font-definition: var(--font-italic);
     color: rgb(255, 255, 255);
     font-size: 45px;
-    height: 54px;
     -unity-text-align: middle-left;
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
     padding: 0;
     margin: 0 0 0 6px;
     -unity-text-outline-width: 1px;
     -unity-text-outline-color: rgb(0, 0, 0);
+    white-space: normal;
+    margin-left: 10px;
 }
 
 .equipment-slot__title--name {

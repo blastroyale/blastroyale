@@ -26,9 +26,9 @@ SpriteAtlas:
       padding: 4
       blockOffset: 1
       allowAlphaSplitting: 0
-      enableRotation: 1
+      enableRotation: 0
       enableTightPacking: 1
-      enableAlphaDilation: 0
+      enableAlphaDilation: 1
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
@@ -38,6 +38,7 @@ SpriteAtlas:
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: 787f6e10544e24075863e3f881de6467, type: 3}
   - {fileID: 21300000, guid: 2caf71907fd3e4fcba0a2d7647e48f43, type: 3}
   - {fileID: 21300000, guid: 92aa9ee015ead471c8db4d1ef1537183, type: 3}
   - {fileID: 21300000, guid: 8f2de411e440e476a955e263066bcdfa, type: 3}
@@ -59,6 +60,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 04713a4471ac6493ba0a2533be572841, type: 3}
   - {fileID: 21300000, guid: 119d947463d914dde82656f9069a791f, type: 3}
   - {fileID: 21300000, guid: 7e685384ba859494b9ae07c5aa187a57, type: 3}
+  - {fileID: 21300000, guid: 28dcc9c4107ff41dbb89eb08d4f2b1ec, type: 3}
   - {fileID: 21300000, guid: 31d12f25720b448729c80bbf0a160cfe, type: 3}
   - {fileID: 21300000, guid: cf4abf5541a924d0da5e2d5681f54665, type: 3}
   - {fileID: 21300000, guid: 728932854c02c47ddb4057b68d3c91c7, type: 3}
@@ -125,6 +127,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 872fe08ff0fbc4f64b229d591f48d144, type: 3}
   - {fileID: 21300000, guid: cc4bebaf13b9943d1b1da524b151099d, type: 3}
   m_PackedSpriteNamesToIndex:
+  - CoinIcon
   - CommonItemButtonPressed
   - AirstrikeAbilityIcon
   - ProfileHeadlineBack
@@ -146,6 +149,7 @@ SpriteAtlas:
   - SettingsIcon
   - StatsBack
   - GrenadeAbilityIcon
+  - ShopIcon
   - AbilityButton
   - GradientAndDots
   - ButtonMainYellow

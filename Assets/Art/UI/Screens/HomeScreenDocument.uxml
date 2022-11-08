@@ -20,6 +20,7 @@
                 <ui:Button display-tooltip-when-elided="true" name="SettingsButton" class="hidden-top" style="background-image: none; padding-left: 0; padding-right: 0; padding-bottom: 0; padding-top: 0;">
                     <ui:VisualElement style="width: 66px; height: 66px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/HomeScreen/SettingsIcon.png?fileID=2800000&amp;guid=04713a4471ac6493ba0a2533be572841&amp;type=3#SettingsIcon&apos;); margin-left: 20px; margin-top: 20px; margin-right: 20px; margin-bottom: 20px;" />
                 </ui:Button>
+                <flg:CurrencyDisplayElement name="CoinCurrency" currency="COIN" class="hidden-top" style="margin-right: 50px;" />
                 <flg:CurrencyDisplayElement name="CSCurrency" currency="CS" class="hidden-top" style="margin-right: 50px;" />
                 <flg:CurrencyDisplayElement name="BLSTCurrency" currency="BLST" class="hidden-top" style="margin-right: 50px;" />
             </ui:VisualElement>

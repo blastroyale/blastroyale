@@ -82,15 +82,17 @@
     left: 0;
     top: 0;
     right: 0;
-    bottom: 0;
-    width: 200px;
+    bottom: 5px;
+    width: 202px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/PlusRarity.png?fileID=21300000&guid=b065780dc4a794729900bc9b9db132fa&type=3#PlusRarity');
+    -unity-background-scale-mode: scale-to-fit;
 }
 
 .equipment-slot__equipment-image {
     position: absolute;
     left: 0;
-    top: 0;
-    bottom: 0;
+    top: 5px;
+    bottom: 10px;
     width: 200px;
     -unity-background-scale-mode: scale-to-fit;
 }

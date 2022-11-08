@@ -15,7 +15,7 @@
 }
 
 .mode-holder__icon {
-    background-image: url('project://database/Assets/Art/Textures/Ui/AdventureWorldHud/Minimap/ParachuteIcon.png?fileID=2800000&guid=4cdc926b1dcce4247827b4a62daf35d3&type=3#ParachuteIcon');
+    background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/ParachuteTiltedIcon.png?fileID=2800000&guid=697fd322f71214d6b833edbacad512c7&type=3#ParachuteTiltedIcon');
     width: 75px;
     -unity-background-scale-mode: scale-to-fit;
     height: 80%;
@@ -56,7 +56,7 @@
 .player-amount-holder__loading-icon {
     height: 100%;
     width: 100px;
-    background-image: url('project://database/Assets/Art/Textures/Ui/Loading/LoadingSpinner.png?fileID=2800000&guid=6e7b0bf3f17e34708b4d4dfcb7aae788&type=3#LoadingSpinner');
+    background-image: url('project://database/Assets/Art/Textures/Ui/Loading/LoadingSpinnerThick.png?fileID=2800000&guid=baccbbd5ac3184df18f5aabbc6649ef8&type=3#LoadingSpinnerThick');
     -unity-background-scale-mode: scale-to-fit;
     margin-right: 25px;
 }

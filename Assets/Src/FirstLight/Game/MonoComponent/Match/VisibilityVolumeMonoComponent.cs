@@ -62,12 +62,11 @@ namespace FirstLight.Game.MonoComponent.Match
 		{
 			if (!other.TryGetComponent<PlayerCharacterViewMonoComponent>(out var player)) return;
 			
-			if (!_currentlyCollidingPlayers.ContainsKey(player.EntityRef))
-			{
-				_currentlyCollidingPlayers.Add(player.EntityRef, player);
-			}
+			_currentlyCollidingPlayers.TryAdd(player.EntityRef, player);
 
 			player.CollidingVisibilityVolumes.Add(this);
+			
+			Debug.LogError(_currentlyCollidingPlayers.Count);
 
 			if (player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
 			{
@@ -83,8 +82,16 @@ namespace FirstLight.Game.MonoComponent.Match
 		{
 			if (!other.TryGetComponent<PlayerCharacterViewMonoComponent>(out var player)) return;
 			
-			_currentlyCollidingPlayers.Remove(player.EntityRef);
 			player.CollidingVisibilityVolumes.Remove(this);
+
+			// If ALL instances of this GO vis volume have been removed from player, only then the player is considered
+			// not inside the volume anymore
+			if (!player.CollidingVisibilityVolumes.Contains(this))
+			{
+				_currentlyCollidingPlayers.Remove(player.EntityRef);
+			}
+
+			Debug.LogError(_currentlyCollidingPlayers.Count);
 
 			if (player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
 			{

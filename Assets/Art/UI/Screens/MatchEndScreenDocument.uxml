@@ -1,0 +1,17 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Screens/MatchEndScreenStyle.uss?fileID=7433441132597879392&amp;guid=f5539ff175bea410cbef64a7bcb9aba8&amp;type=3#MatchEndScreenStyle" />
+    <ui:VisualElement name="DarkOverlay" class="dark-overlay" />
+    <ui:VisualElement name="CenteredParent" class="centered-parent">
+        <ui:VisualElement name="MatchEndedTitle" class="match-ended-title hidden-start" />
+        <ui:VisualElement name="BlastedTitle" class="blasted-title hidden-start" style="align-items: center;">
+            <ui:VisualElement name="Bg" class="blasted-title__bg" />
+            <ui:VisualElement name="Stain" class="blasted-title__stain" />
+            <ui:VisualElement name="Text" class="blasted-title__text" />
+        </ui:VisualElement>
+        <ui:VisualElement name="YouWinTitle" class="you-win-title">
+            <ui:VisualElement name="Bg" class="you-win-title__bg" />
+            <ui:VisualElement name="Crown" class="you-win-title__crown" />
+            <ui:VisualElement name="Text" class="you-win-title__text" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

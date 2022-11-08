@@ -64,7 +64,8 @@ public class GameServer
 			var commandInstance = _cmdHandler.BuildCommandInstance(commandData, cmdType);
 			var currentPlayerState = await _state.GetPlayerState(playerId);
 			ValidateCommand(currentPlayerState, commandInstance, requestData);
-			
+
+			var response = new Dictionary<string, string>();
 			var newState = await _cmdHandler.ExecuteCommand(playerId, commandInstance, currentPlayerState);
 			_eventManager.CallEvent(new CommandFinishedEvent(playerId, commandInstance, newState, currentPlayerState, commandData));
 			await _state.UpdatePlayerState(playerId, newState);
@@ -74,14 +75,14 @@ public class GameServer
 				var clientConfigVersionNumber = ulong.Parse(clientConfigVersion);
 				if (_gameConfigs.Version > clientConfigVersionNumber)
 				{
-					newState[CommandFields.ConfigurationVersion] = _gameConfigs.Version.ToString();
+					response[CommandFields.ConfigurationVersion] = _gameConfigs.Version.ToString();
 				}
 			}
 			
 			return new BackendLogicResult()
 			{
 				Command = cmdType,
-				Data = newState,
+				Data = response,
 				PlayFabId = playerId
 			};
 		}

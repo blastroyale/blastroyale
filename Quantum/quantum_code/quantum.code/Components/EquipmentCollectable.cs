@@ -32,7 +32,7 @@ namespace Quantum
 			var isBot = f.Has<BotCharacter>(playerEntity);
 
 			var loadoutWeapon = playerCharacter->GetLoadoutWeapon(f);
-			
+
 
 			if (Item.IsWeapon())
 			{

@@ -34,7 +34,5 @@ namespace Quantum.Systems
 			f.Add(entity, new Stats(component->Health, 0, 0, 0, 0, 0, 0, 0, 0));
 
 		}
-		
-		
 	}
 }

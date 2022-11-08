@@ -42,3 +42,9 @@ MonoBehaviour:
         RawValue: 0
       Param2:
         RawValue: 0
+    - Id: HammerTime
+      Type: 4
+      Param1:
+        RawValue: 0
+      Param2:
+        RawValue: 0

@@ -189,10 +189,11 @@ namespace FirstLight.Game.Presenters
 			var playerView = _matchServices.EntityViewUpdaterService.GetManualView(entity);
 			var playerCharacter = f.Get<PlayerCharacter>(entity);
 			var isSingleMode = f.Context.GameModeConfig.SingleSlotMode;
-			
+			var isHammerTime = f.Context.TryGetMutatorByType(MutatorType.HammerTime, out _);
 			for (var i = 0; i < _slots.Length; i++)
 			{
-				_slots[i].gameObject.SetActive(!isSingleMode || i != Constants.WEAPON_INDEX_SECONDARY);
+				var showSlot = isHammerTime ? i == Constants.WEAPON_INDEX_DEFAULT : (!isSingleMode || i != Constants.WEAPON_INDEX_SECONDARY);
+				_slots[i].gameObject.SetActive(showSlot);
 			}
 			
 			_weaponSlotsHolder.SetActive(f.Context.GameModeConfig.ShowWeaponSlots);

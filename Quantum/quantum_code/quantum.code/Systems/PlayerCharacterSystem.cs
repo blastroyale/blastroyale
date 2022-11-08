@@ -77,6 +77,17 @@ namespace Quantum.Systems
 			{
 				Collectable.DropEquipment(f, playerDead->CurrentWeapon, deathPosition, step);
 				step++;
+			} 
+			else if (gameModeConfig.WeaponDeathDropStrategy == DeathDropsStrategy.Deathmatch && 
+				f.RNG->Next() <= f.GameConfig.DeathDropLargeShieldChance)
+			{
+				Collectable.DropConsumable(f, GameId.AmmoLarge, deathPosition, step, false);
+				step++;
+			}
+			else if (gameModeConfig.WeaponDeathDropStrategy == DeathDropsStrategy.Deathmatch)
+			{
+				Collectable.DropConsumable(f, GameId.AmmoSmall, deathPosition, step, false);
+				step++;
 			}
 
 			// Try to drop Health pack

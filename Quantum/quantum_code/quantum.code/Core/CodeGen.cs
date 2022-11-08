@@ -63,6 +63,7 @@ namespace Quantum {
     None = 0,
     Normal = 1,
     NormalWithFallback = 2,
+    Deathmatch = 3,
   }
   [Flags()]
   public enum EWorldState : uint {

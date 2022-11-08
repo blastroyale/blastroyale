@@ -134,7 +134,7 @@ namespace FirstLight.Game.UIElements
 				var durability = (float) equipment.Durability / equipment.MaxDurability;
 				_durabilityProgress.style.flexGrow = durability;
 
-				_plusRarity.style.display = (int) equipment.Rarity % 2 == 1 ? DisplayStyle.Flex : DisplayStyle.None;
+				_plusRarity.SetDisplayActive((int) equipment.Rarity % 2 == 1);
 
 				// TODO: This should be handled better.
 				var services = MainInstaller.Resolve<IGameServices>();

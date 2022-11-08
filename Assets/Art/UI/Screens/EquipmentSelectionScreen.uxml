@@ -1,0 +1,30 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Screens/EquipmentSelectionStyle.uss?fileID=7433441132597879392&amp;guid=8fc46d39308164f9ea03e3d23a20629d&amp;type=3#EquipmentSelectionStyle" />
+    <Style src="project://database/Assets/Art/UI/Styles/EquipmentCardStyle.uss?fileID=7433441132597879392&amp;guid=1cc2b13c5be2a42cc84a1b72e0c15b89&amp;type=3#EquipmentCardStyle" />
+    <ui:VisualElement name="reference" style="background-image: url(&apos;project://database/Assets/Art/UI/References/EquipmentSelection.png?fileID=2800000&amp;guid=d893d0b9269fa4130839322d219cad38&amp;type=3#EquipmentSelection&apos;); width: 2340px; height: 1080px; position: absolute;" />
+    <ui:VisualElement name="root">
+        <FirstLight.Game.UIElements.SafeAreaElement>
+            <ui:VisualElement style="position: absolute; top: 186px; left: 677px;">
+                <ui:VisualElement class="equipment-card">
+                    <ui:VisualElement name="Rarity" class="equipment-card__rarity" />
+                    <ui:VisualElement name="PlusRarity" class="equipment-card__plus-rarity" />
+                    <ui:VisualElement name="Item" />
+                    <ui:VisualElement name="BadgeHolder" class="equipment-card__badge-holder">
+                        <ui:VisualElement name="NFTBadge" class="equipment-card__badge-nft" />
+                        <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITEquipment/loaned" name="LoanedBadge" class="equipment-card__badge-loaned" />
+                    </ui:VisualElement>
+                    <ui:Label text="IV" name="Grade" class="equipment-card__grade" />
+                    <ui:VisualElement name="Faction" class="equipment-card__faction" />
+                    <ui:VisualElement name="Material" class="equipment-card__material" />
+                    <ui:Label text="&lt;size=65%&gt;LV&lt;/size&gt;15" name="Level" class="equipment-card__level" />
+                    <ui:Label text="ROCKET LAUNCHER" name="Name" class="equipment-card__name" />
+                    <ui:VisualElement name="AdjCatHolder" class="equipment-card__adj-cat-holder">
+                        <ui:VisualElement name="Category" class="equipment-card__category" />
+                        <ui:Label text="MAGNIFICENT" name="Adjective" class="equipment-card__adjective" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <FirstLight.Game.UIElements.EquipmentCardElement focusable="true" style="margin-top: 16px;" />
+            </ui:VisualElement>
+        </FirstLight.Game.UIElements.SafeAreaElement>
+    </ui:VisualElement>
+</ui:UXML>

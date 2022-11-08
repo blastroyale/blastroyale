@@ -1,4 +1,5 @@
 using System;
+using FirstLight.Game.Configs;
 using System.Threading.Tasks;
 using FirstLight.Game.MonoComponent.Match;
 using FirstLight.Game.Services;
@@ -147,14 +148,13 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			var isEmptied = playerCharacter->IsAmmoEmpty(f, _localPlayerEntity);
 
-			var speed = kcc->MaxSpeed * kcc->MaxSpeed;
-			var velocity = kcc->Velocity.SqrMagnitude;
-			var range = f.Get<Stats>(_localPlayerEntity).GetStatData(StatType.AttackRange).StatValue.AsFloat;
-			
+			var rangeStat = f.Get<Stats>(_localPlayerEntity).GetStatData(StatType.AttackRange).StatValue;
+			var range = QuantumHelpers.GetDynamicAimValue(kcc, rangeStat + _weaponConfig.AttackRangeAimBonus, rangeStat).AsFloat;
+
 			var minAttackAngle = _shootIndicatorId == IndicatorVfxId.Line ? 0 : _weaponConfig.MinAttackAngle;
 			var maxAttackAngle = _shootIndicatorId == IndicatorVfxId.Line ? 0 :_weaponConfig.MaxAttackAngle;
 
-			var lerp = Mathf.Lerp(minAttackAngle, maxAttackAngle, velocity.AsFloat / speed.AsFloat);
+			var lerp = QuantumHelpers.GetDynamicAimValue(kcc,maxAttackAngle, minAttackAngle).AsFloat;
 			var angleInRad = maxAttackAngle == minAttackAngle || f.Context.TryGetMutatorByType(MutatorType.AbsoluteAccuracy, out _) 
 				? minAttackAngle : lerp;
 			

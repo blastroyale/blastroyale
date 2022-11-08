@@ -18,7 +18,7 @@ namespace FirstLight.UiService
 		private readonly IDictionary<Type, UiConfig> _uiConfigs = new Dictionary<Type, UiConfig>();
 		private readonly IDictionary<int, UiSetConfig> _uiSets = new Dictionary<int, UiSetConfig>();
 		private readonly IList<Type> _visibleUiList = new List<Type>();
-		private readonly IList<GameObject> _layers = new List<GameObject>();
+		private readonly IDictionary<int, GameObject> _layers = new Dictionary<int, GameObject>();
 		private UiPresenter _lastScreen;
 		private Type _loadingSpinnerType;
 
@@ -52,15 +52,25 @@ namespace FirstLight.UiService
 		/// <inheritdoc />
 		public GameObject AddLayer(int layer)
 		{
-			for(int i = _layers.Count; i <= layer; i++)
-			{
-				var newObj = new GameObject($"Layer {i.ToString()}");
-				
-				newObj.transform.position = Vector3.zero;
-				_layers.Add(newObj);
-			}
+			if (_layers.ContainsKey(layer)) return _layers[layer];
+			
+			var newObj = new GameObject($"Layer {layer.ToString()}");
+			newObj.transform.position = Vector3.zero;
+			_layers.Add(layer, newObj);
 
 			return _layers[layer];
+		}
+		
+		protected void AddLayers(int min, int max)
+		{
+			for (int i = min; i <= max; i++)
+			{
+				if (_layers.ContainsKey(i)) continue;
+				
+				var newObj = new GameObject($"Layer {i.ToString()}");
+				newObj.transform.position = Vector3.zero;
+				_layers.TryAdd(i, newObj);
+			}
 		}
 
 		/// <inheritdoc />
@@ -168,8 +178,7 @@ namespace FirstLight.UiService
 			}
 
 			var layer = AddLayer(config.Layer);
-
-
+			
 			GameObject gameObject;
 			if (Attribute.IsDefined(type, typeof(LoadSynchronouslyAttribute)))
 			{

@@ -13,6 +13,11 @@ component BTAgent {
 	Int32 AbortNodeId;
 }
 
+component CompoundBTAgent
+{
+	list<BTAgent> BTAgents;
+}
+
 struct BTDataIndex{
 	Int32 Index;
 }

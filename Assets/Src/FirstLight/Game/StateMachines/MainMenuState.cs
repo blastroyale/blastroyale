@@ -93,10 +93,8 @@ namespace FirstLight.Game.StateMachines
 			disconnectedCheck.Transition().Condition(NetworkUtils.IsOfflineOrDisconnected).Target(disconnected);
 			disconnectedCheck.Transition().Target(mainMenuUnloading);
 			
-			disconnected.OnEnter(CloseAllUi);
 			disconnected.OnEnter(OpenDisconnectedScreen);
 			disconnected.Event(NetworkState.PhotonMasterConnectedEvent).Target(mainMenu);
-			disconnected.OnExit(CloseDisconnectedScreen);
 
 			mainMenuUnloading.OnEnter(OpenLoadingScreen);
 			mainMenuUnloading.OnEnter(UnloadMainMenu);
@@ -243,11 +241,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			return _currentScreen == typeof(T);
 		}
-		
-		private void CloseAllUi()
-		{
-			_uiService.CloseAllUi();
-		}
 
 		private void OpenNftAmountInvalidDialog(IWaitActivity activity)
 		{
@@ -258,7 +251,9 @@ namespace FirstLight.Game.StateMachines
 				ButtonText = ScriptLocalization.General.OK,
 				ButtonOnClick = () => { cacheActivity.Complete(); }
 			};
-			_services.GenericDialogService.OpenDialog(ScriptLocalization.MainMenu.NftRestrictionText, false,
+
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error,
+				ScriptLocalization.MainMenu.NftRestrictionText, false,
 				confirmButton);
 		}
 		
@@ -332,11 +327,6 @@ namespace FirstLight.Game.StateMachines
 			_uiService.OpenScreen<StoreScreenPresenter, StoreScreenPresenter.StateData>(data);
 		}
 
-		private void CloseStore()
-		{
-			_uiService.CloseUi<StoreScreenPresenter>();
-		}
-
 		private void PurchaseItem(string id)
 		{
 			_statechartTrigger(NetworkState.IapProcessStartedEvent);
@@ -363,11 +353,6 @@ namespace FirstLight.Game.StateMachines
 			_uiService.OpenScreen<PlayerSkinScreenPresenter, PlayerSkinScreenPresenter.StateData>(data);
 		}
 
-		private void ClosePlayerSkinScreenUI()
-		{
-			_uiService.CloseUi<PlayerSkinScreenPresenter>(true);
-		}
-
 		private void OpenRoomJoinCreateMenuUI()
 		{
 			var data = new RoomJoinCreateScreenPresenter.StateData
@@ -377,11 +362,6 @@ namespace FirstLight.Game.StateMachines
 			};
 
 			_uiService.OpenScreen<RoomJoinCreateScreenPresenter, RoomJoinCreateScreenPresenter.StateData>(data);
-		}
-
-		private void CloseRoomJoinCreateMenuUI()
-		{
-			_uiService.CloseUi<RoomJoinCreateScreenPresenter>(true);
 		}
 
 		private void OpenPlayMenuUI()
@@ -410,27 +390,7 @@ namespace FirstLight.Game.StateMachines
 				ReconnectClicked = () => _services.MessageBrokerService.Publish(new AttemptManualReconnectionMessage())
 			};
 
-			_uiService.OpenUiAsync<DisconnectedScreenPresenter, DisconnectedScreenPresenter.StateData>(data);
-		}
-
-		private void CloseDisconnectedScreen()
-		{
-			_uiService.CloseUi<DisconnectedScreenPresenter>(true);
-		}
-
-		private void ClosePlayMenuUI()
-		{
-			_uiService.CloseUi<HomeScreenPresenter>();
-		}
-		
-		private void DimDisconnectedScreen()
-		{
-			_uiService.GetUi<DisconnectedScreenPresenter>().SetFrontDimBlockerActive(true);
-		}
-
-		private void UndimDisconnectedScreen()
-		{
-			_uiService.GetUi<DisconnectedScreenPresenter>().SetFrontDimBlockerActive(false);
+			_uiService.OpenScreen<DisconnectedScreenPresenter, DisconnectedScreenPresenter.StateData>(data);
 		}
 
 		private void LoadingComplete()

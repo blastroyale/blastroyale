@@ -4,6 +4,7 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
+using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.NativeUi;
 using FirstLight.UiService;
@@ -19,6 +20,7 @@ namespace FirstLight.Game.Presenters
 	/// - Reconnect to the Adventure
 	/// - Leave the Adventure to the Main menu
 	/// </summary>
+	[LoadSynchronously]
 	public class DisconnectedScreenPresenter : UiToolkitPresenterData<DisconnectedScreenPresenter.StateData>
 	{
 		public struct StateData
@@ -30,8 +32,8 @@ namespace FirstLight.Game.Presenters
 		private const float TIMEOUT_DIM_SECONDS = 5f;
 
 		private VisualElement _blockerElement;
-		private VisualElement _menuButton;
-		private VisualElement _reconnectButton;
+		private Button _menuButton;
+		private Button _reconnectButton;
 		private IGameServices _services;
 
 		private void Awake()
@@ -42,11 +44,11 @@ namespace FirstLight.Game.Presenters
 		protected override void QueryElements(VisualElement root)
 		{
 			_blockerElement = root.Q("Blocker").Required();
-			_menuButton = root.Q("MenuButton").Required();
-			_reconnectButton = root.Q("ReconnectButton").Required();
+			_menuButton =root.Q<Button>("MenuButton").Required();
+			_reconnectButton = root.Q<Button>("ReconnectButton").Required();
 
-			root.Q<Button>("ReconnectButton").clicked += OnReconnectClicked;
-			root.Q<Button>("MenuButton").clicked += OnLeaveClicked;
+			_reconnectButton.clicked += OnReconnectClicked;
+			_menuButton.clicked += OnLeaveClicked;
 		}
 
 		protected override void OnOpened()
@@ -63,25 +65,25 @@ namespace FirstLight.Game.Presenters
 			}
 			
 			// Disconnecting in main menu, players should only be able to reconnect
-			if (_services.NetworkService.LastDisconnectLocation == LastDisconnectionLocation.FinalPreload)
+			if (_services.NetworkService.LastDisconnectLocation == LastDisconnectionLocation.Menu)
 			{
-				_menuButton.EnableInClassList("element-hidden", true);
-				_reconnectButton.EnableInClassList("element-hidden", false);
+				_menuButton.SetDisplayActive(false);
+				_reconnectButton.SetDisplayActive(true);
 			}
 			// Disconnecting during final preload means the game most likely started, player shouldn't be reconnecting and interfering
 			if (_services.NetworkService.LastDisconnectLocation == LastDisconnectionLocation.FinalPreload)
 			{
-				_menuButton.EnableInClassList("element-hidden", false);
-				_reconnectButton.EnableInClassList("element-hidden", true);
+				_menuButton.SetDisplayActive(true);
+				_reconnectButton.SetDisplayActive(false);
 			}
 			// If disconnected in simulation:
 			// Solo matches - you currently cannot reconnect as quantum simulation is not running
 			// Multiplayer matches - you must only reconnect
 			else if (_services.NetworkService.LastDisconnectLocation == LastDisconnectionLocation.Simulation)
 			{
-				_menuButton.EnableInClassList("element-hidden", _services.NetworkService.LastMatchPlayers.Count > 1);
-				_reconnectButton.EnableInClassList("element-hidden", false);
-				
+				_menuButton.SetDisplayActive(_services.NetworkService.LastMatchPlayers.Count <= 1);
+				_reconnectButton.SetDisplayActive(true);
+
 				if (_services.NetworkService.LastMatchPlayers.Count <= 1)
 				{
 					var confirmButton = new GenericDialogButton
@@ -90,7 +92,8 @@ namespace FirstLight.Game.Presenters
 						ButtonOnClick = () => _services.GenericDialogService.CloseDialog()
 					};
 
-					_services.GenericDialogService.OpenDialog(ScriptLocalization.MainMenu.DisconnectedMatchEndInfo,
+					_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.info,
+						ScriptLocalization.MainMenu.DisconnectedMatchEndInfo,
 						false, confirmButton);
 				}
 			}
@@ -101,7 +104,7 @@ namespace FirstLight.Game.Presenters
 		/// </summary>
 		public void SetFrontDimBlockerActive(bool active)
 		{
-			_blockerElement.EnableInClassList("element-hidden", !active);
+			_blockerElement.EnableInClassList(UIConstants.ELEMENT_HIDDEN, !active);
 		}
 
 		private void OnLeaveClicked()

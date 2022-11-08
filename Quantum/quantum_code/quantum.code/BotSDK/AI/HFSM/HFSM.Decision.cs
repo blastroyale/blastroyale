@@ -11,14 +11,14 @@ namespace Quantum
 
 		// ========== HFSMDecision INTERFACE ==========================================================================
 
-		public virtual Boolean Decide(Frame frame, EntityRef entity)
+		public virtual Boolean Decide(Frame frame, EntityRef entity, ref AIContext aiContext)
 		{
 			return false;
 		}
 
-		public virtual Boolean DecideThreadSafe(FrameThreadSafe frame, EntityRef entity)
+		public virtual Boolean DecideThreadSafe(FrameThreadSafe frame, EntityRef entity, ref AIContext aiContext)
 		{
-			return Decide((Frame)frame, entity);
+			return Decide((Frame)frame, entity, ref aiContext);
 		}
 	}
 }

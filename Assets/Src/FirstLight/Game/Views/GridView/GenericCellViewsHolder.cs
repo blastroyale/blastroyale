@@ -1,5 +1,4 @@
-﻿
-namespace FirstLight.Game.Views.GridViews
+﻿namespace FirstLight.Game.Views.GridViews
 {
 	/// <summary>
 	/// A generic views holder for optimised scroll view adapters in the game. 

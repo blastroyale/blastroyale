@@ -15,7 +15,7 @@ namespace Quantum
 		public AIParamFPVector3 VelocityModifier;
 
 		/// <inheritdoc />
-		public override void Update(Frame f, EntityRef e)
+		public override void Update(Frame f, EntityRef e, ref AIContext aiContext)
 		{
 			if (f.Has<BotCharacter>(e))
 			{

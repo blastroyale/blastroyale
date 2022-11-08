@@ -1,3 +1,62 @@
+# 2.1.2
+
+## Stable
+
+### Build 1129 (Nov 01, 2022)
+
+- Upgraded the version of Photon Realtime shipped with the Quantum SDK to 4.1.6.18f2 (23. September 2022 - rev6505)
+
+**What's New**
+
+- `RingBufferInputProvider`, an Input Provider that reuses a fixed number of input sets to feed inputs to a simulation. Used by default in the custom Quantum plugin sample
+- `QuantumGameFlag` that can disable interpolatable states in the simulation, reducing memory allocation and frame copies when there is no use for interpolation (e.g. Spectator and Replay console runners and Server simulations)
+- 2D and 3D Physics Bodies `MassInverse` properties, a way to access and modify the value directly as it is stored on the component (inverse mass)
+
+**Improvements**
+
+- The distribution of generated hash codes when a large number of `GetHashCode` methods must be code-generated
+- Reduced the allocation of frame heaps when the game mode does not need to allocate all frames instances (e.g. Replay, Server sim and console applications)
+
+**Changes**
+
+- On Unity 2019 and newer, Quantum modules are no longer toggled in the Quantum Editor Settings, but are now defined in the `PhotonQuantum` and `PhotonQuantumEditor` assembly definitions.  
+If these asmdefs are removed from the project, the following modules must be explicitly added to the Project Settings in order to be used: `QUANTUM_ENABLE_PHYSICS2D`, `QUANTUM_ENABLE_PHYSICS3D`, `QUANTUM_ENABLE_AI` and `QUANTUM_ENABLE_TERRAIN`
+- Unity 2018 - Addressables packages references are not automatically added when toggling `QUANTUM_ADDRESSABLES` define
+
+**Bug Fixes**
+
+- Fixed: Code-gen issue that could cause an `IndexOutOfRangeException` if a large enough number of `GetHashCode` instances were emitted
+- Fixed: Issue in the 2D and 3D Physics engines when creating physics entries for a compound shape and the entries buffer had to be expanded, which could cause an access to memory that had already been disposed
+- Fixed: Custom plugin sample not including the server flag in the game flags, which could cause server-only events to not be raised on the server simulation
+- Fixed: Missing `Photon.Deterministic.DeterministicLog.InitForConsole()` calls in the default console runners and session containers
+- Fixed: `EntityViewUpdater` not performing smooth prediction error correction in `Spectator` mode (rarely necessary) and wrongly performing this correction if the simulation was forced to run in Lockstep
+- Fixed: An issue in the 2D and 3D KCC clamping of `MaxSpeed` if the current `Velocity` is in the opposite direction of the intended movement
+- Fixed: `TooltipAttribute` being ignored for `FPAnimationCurve` fields
+- Fixed: Quantum shortcut Unity window error message spamming
+
+# 2.1.1
+
+## Stable
+
+### Build 1122 (Sep 26, 2022)
+
+**What's New**
+
+- Added `USER_CODE.txt` files to highlight directories inside the Quantum Unity scripts hierarchy that can be used for user generated code that has to be inside the Quantum assembly definition (partial asset classes for example)
+- Inspector tooltips on `EntityView` prediction error correction settings
+
+**Changes**
+
+- PhotonQuantum.asmdef and PhotonQuantumEditor.asmdef now auto-detect the presence of Addressables and core modules for Unity 2019.1 and newer. Older version still need to use the toggles in `QuantumEditorSettings` and global defines
+
+**Bug Fixes**
+
+- Fixed: Prototype/View assets of a new prefab not being referenceable without AssetDB refresh
+- Fixed: "Unreachable code detected" warning when physics modules are disabled
+- Fixed: 2D Quantum static polygon colliders marked to be baked as static edges now also have their gizmos drawn as static edges
+- Fixed: Potential `DivideByZeroException` on 2D Physics' Circle-Edge narrow check if the edge extent is small enough but not zero
+- Fixed: Static physics callbacks only being called if both the respective static and dynamic callback flags were set
+
 # 2.1.0
 
 **Breaking Changes**
@@ -176,7 +235,239 @@ The navigation agent will move on the navmesh by default. But for better visual 
 
 - **Shape Cast Soft Tolerance**: A shape cast resolution that fails to find an acceptable result below the defined Hard Tolerance within the Max Iterations allowed will still return positive if the best result found so far is below this soft threshold. In these cases, increasing this threshold enhances the probability of false-positives, while decreasing it enhances false-negatives.
 
+## F1
+
+### Build 1116 (Sep 14, 2022)
+
+- Marking 2.1.0 final
+
 ## RC2N
+
+### Build 1115 (Sep 13, 2022)
+
+**What's New**
+
+- Asset create shortcut to create a `3D>Character Controller Entity`
+
+### Build 1112 (Sep 08, 2022)
+
+**Improvements**
+
+- When playing on Editor, 2D Joints gizmos are now drawn by polling the frame state, similarly to how it is done for other components
+
+**Bug Fixes**
+
+- Fixed: An issue with the construction of islands in the 3D Physics Engine when using joints (introduced on build 1097)
+
+### Build 1111 (Sep 07, 2022)
+
+**Changes**
+
+- `QuantumRunnerLocalDebug` now hides the `Save and Reload` GUI button by default (toggle `DisplaySaveAndReloadButton` to change)
+
+**Bug Fixes**
+
+- Fixed: The bake flag `QuantumMapDataBakeFlags.ClearUnityNavMesh` now actually clears the global navmesh (when NavmeshSurfaces are not used) after the baking
+- Fixed: "namespace modification was detected" warning for `QuantumCustomEditors.cs`
+
+### Build 1110 (Sep 05, 2022)
+
+**What's New**
+
+- `OnReleased` overridable method to all Quantum Events, called when the event instance is released to its internal pool
+- The AssetDBInspector window got a search field (search for guid and filename) and improved its gui performance
+
+**Changes**
+
+- The client now sends non-reliable messages as `Unsequenced` which will slightly reduce the bandwith and improve the network performance
+
+### Build 1109 (Sep 02, 2022)
+
+**Bug Fixes**
+
+- Fixed: An issue in the navigation introduced with build 1100 that affected `SetTarget()` with `AutomaticTargetCorrection` disabled. For 3D always enable `AutomaticTargetCorrection`
+
+### Build 1108 (Sep 01, 2022)
+
+**What's New**
+
+- Added feedback on the inspector when default Unity navmesh areas are selected for Quantum Region conversion
+
+**Bug Fixes**
+
+- Fixed: "Failed To Load Script Object" message in the inspector for qprefabs
+
+### Build 1105 (Aug 30, 2022)
+
+**Bug Fixes**
+
+- Fixed: Mismatched enum backing type
+- Fixed: Using imported types as dictionary keys
+
+### Build 1104 (Aug 30, 2022)
+
+**What's New**
+
+- Alternative, on the Map asset, to serialize the static triangles metadata or to compute it during deserialization
+
+**Bug Fixes**
+
+- Fixed: Quantum codegen tool parameter usage for the `codeintegration_unity` (introduced in build 1102)
+
+### Build 1103 (Aug 26, 2022)
+
+**What's New**
+
+- 2D and 3D trigger callbacks can now be ignored through the `IgnoreTrigger` property in the callback info
+
+**Bug Fixes**
+
+- Fixed: Physics OnExit callbacks being called even if all collisions were ignored
+
+### Build 1102 (Aug 25, 2022)
+
+**What's New**
+
+- In Debug mode, the Quantum simulator now raises a warning when resetting the frame state to one whose number is smaller than the rollback window
+- Overloads to `Photon.Deterministic.Log.Info`, `.Warn` and `Error` methods that explicitly accept 1-3 arguments and can avoid the implict allocation of arguments' array
+- Quantum codegen tools now support `--help` command to list their usage and `--version`
+
+### Build 1101 (Aug 24, 2022)
+
+**What's New**
+
+- Frame `IsCullable` method to check if an entity can be culled during predictions if out of a defined prediction area
+
+**Changes**
+
+- `FrameContext.InPredictionArea` is now marked as `virtual` and can be overriden with a custom implementation
+- `Schedule` method overrides on built-in multi-threaded systems are no longer marked as sealed
+
+### Build 1100 (Aug 22, 2022)
+
+**Bug Fixes**
+
+- Fixed: Changed `Navmesh.FindClosestTriangle()` to always prefer triangles that fit the x,z position while inside the provided `radius`. The fixes issues where agents get displaced on a 3D navmesh when starting a path. If `automaticTargetCorrection` is set to `false` no correction is attempted anymore., which not recommended for 3D navmeshes
+
+### Build 1099 (Aug 22, 2022)
+
+**Bug Fixes**
+
+- Fixed: Static colliders' `Settings` field being null after `AddComponent`
+
+### Build 1097 (Aug 18, 2022)
+
+**Bug Fixes**
+
+- Fixed: An issue on physics callbacks of CCD collisions where ignoring the first non-trigger collision would not allow subsequent ones to have their callbacks called
+- Fixed: QuantumJsonSerializer not recognizing NaN values for float and double fixed-size buffers
+
+### Build 1096 (Aug 17, 2022)
+
+**What's New**
+
+- Float and double fixed-sized buffers support for QuantumJsonSerializer
+
+**Bug Fixes**
+
+- Fixed: An issue that could cause an `AssertException` inside the `AvoidanceBroadphase` when using world positions > 500
+
+### Build 1095 (Aug 16, 2022)
+
+**What's New**
+
+- `Log.Info`, `.Warn` and `.Error` overloads that accept a string format and an explicit number of parameters (1-3) and avoid implicit array allocations
+
+**Changes**
+
+- The physics engines will now ignore and log a warning in Debug mode when an entity's physics collider has a `None` shape
+
+**Bug Fixes**
+
+- Fixed: Local simulation (offline) stalling if feeding the simulator with a delta-time greater than rollback-window (usually triggered when using `Default` as `SimulationConfig.DeltaTimeType` )
+- Fixed: An issue that could cause errors on the navigation broadphase when `AvoidanceRanges` were 0 or less
+
+### Build 1094 (Aug 15, 2022)
+
+**What's New**
+
+- Navmesh support for `Transform2DVertical`
+
+### Build 1093 (Aug 12, 2022)
+
+**Bug Fixes**
+
+- Fixed: Fixing an issue with the navmesh agent using `VerticalPositioning.Physics` that caused the raycast always start with height 1 and now uses the navmesh `MinAgentRadius`
+
+### Build 1092 (Aug 11, 2022)
+
+**Bug Fixes**
+
+- Fixed: An issue with 3D navmesh agents using `MovementType.Transform` and `VerticalPositioning.None`, where the y value of the agent position was occationally modified
+- Fixed: Correctly clear manually baked navmesh surfaces during BakeAll to avoid Unity namesh asset file duplications
+
+### Build 1091 (Aug 10, 2022)
+
+**Improvements**
+
+- Reduced the upwards bandwidth usage on Quantum clients
+
+### Build 1089 (Aug 09, 2022)
+
+**What's New**
+
+- `QuantumEditorSettings.ColliderGizmosStyle`, `StaticColliderGizmoStyle` and `JointGizmosStyle`
+
+**Changes**
+
+- `GizmoUtils.Draw()` methods do not change the color alpha anymore, `selected` will add a brightness highlight effect instead which is configurable by `QuantumEditorSettings.GizmoSelectedBrightness`
+- Meaning of `DeterministicSimulator.FramesPredicted` changed from "How much is prediction ahead of verified state" to "How many predictd frames were simulated in last Unity update"
+- Circle gizmos no longer displays wireframe
+
+**Bug Fixes**
+
+- Fixed: Interpolation jitter when simulation IsStalling = true
+- Fixed: IsStalling flag now correctly returns true when simulation is stalling
+
+### Build 1088 (Aug 08, 2022)
+
+**What's New**
+
+- The 2D and 3D physics solvers from v2.0 can now be used instead of the new solvers introduced on v2.1 by selecting `Legacy Gauss Seidel` in the `SimulationConfig.SolverType`
+- `QuantumEditorSettings.DrawColliderGizmos` - a way to enable/disable gizmos for Quantum colliders
+- FrameDiffer now displays the Photon nickname of each diff origin
+
+**Bug Fixes**
+
+- Fixed: `QuantumFrameDiffer` not attaching to CallbackChecksumErrorFrameDump callback in the Editor
+
+### Build 1087 (Aug 05, 2022)
+
+**Bug Fixes**
+
+- Fixed: Issue in the 2D Physics collision solver that could cause miscomputations in the friction impulses applied during the collision resolution
+
+### Build 1086 (Aug 04, 2022)
+
+**Bug Fixes**
+
+- Fixed: 2D and 3D Physics Joints serialization, which could cause desyncs when late-joining using a snapshot
+
+### Build 1085 (Aug 03, 2022)
+
+**Bug Fixes**
+
+- Fixed: An issue that could cause static meshes to be baked with inverted normals if the world scale of the GameObject that holds the component has negative scale in an even number of axes
+
+### Build 1084 (Aug 01, 2022)
+
+**What's New**
+
+- `FPVector3.UseableMin` and `.UseableMax`; and `FPVector2.MinValue`, `.MaxValue`, `.UseableMin` and `.UseableMax`
+
+**Changes**
+
+- `QHashSet` requested capacity on allocation is now automatically rounded up to the next prime number. This prevents issues with invalid capacities (<= 0) and improves hash distribution
 
 ### Build 1083 (Jul 26, 2022)
 

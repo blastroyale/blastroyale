@@ -1,4 +1,5 @@
 using I2.Loc;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.UIElements
@@ -17,6 +18,13 @@ namespace FirstLight.Game.UIElements
 		public LocalizedTextField(string labelKey)
 		{
 			LocalizeLabel(labelKey);
+			//this.RegisterCallback<ClickEvent>(OnClick);
+		}
+
+		private void OnClick(ClickEvent evt)
+		{
+			// TODO - implement content type for keyboards
+			//var keyboard = TouchScreenKeyboard.Open("", TouchScreenKeyboardType.DecimalPad, false, false, true);
 		}
 
 		/// <summary>
@@ -34,7 +42,7 @@ namespace FirstLight.Game.UIElements
 		{
 		}
 
-		public new class UxmlTraits : VisualElement.UxmlTraits
+		public new class UxmlTraits : TextField.UxmlTraits
 		{
 			UxmlStringAttributeDescription _labelLocalizationKeyAttribute = new()
 			{

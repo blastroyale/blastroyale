@@ -106,6 +106,7 @@ synced event OnPlayerAttack
 	QuantumWeaponConfig WeaponConfig;
 	FP ShotDir;
 	UInt32 AttackAngle;
+	FP AttackRange;
 }
 
 synced event OnPlayerDamaged

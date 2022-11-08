@@ -11,7 +11,7 @@ namespace Quantum
 	public partial class IsCharacterGroundedDecision : HFSMDecision
 	{
 		/// <inheritdoc />
-		public override bool Decide(Frame f, EntityRef e)
+		public override bool Decide(Frame f, EntityRef e, ref AIContext aiContext)
 		{
 			return f.Get<CharacterController3D>(e).Grounded;
 		}

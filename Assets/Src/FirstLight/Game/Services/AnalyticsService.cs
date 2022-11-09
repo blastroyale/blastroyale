@@ -46,9 +46,10 @@ namespace FirstLight.Game.Services
 		public AnalyticsCallsErrors ErrorsCalls { get; }
 
 		/// <summary>
-		/// Logs an analytics event with the given <paramref name="eventName"/>
+		/// Logs an analytics event with the given <paramref name="eventName"/>.
+		/// <paramref name="isCriticalEvent"/> represents data that are critical to send to any data end point no matter what
 		/// </summary>
-		void LogEvent(string eventName, Dictionary<string, object> parameters = null);
+		void LogEvent(string eventName, Dictionary<string, object> parameters = null, bool isCriticalEvent = true);
 		
 		/// <summary>
 		/// Logs a crash with the given <paramref name="message"/>
@@ -80,7 +81,7 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public void LogEvent(string eventName, Dictionary<string, object> parameters)
+		public void LogEvent(string eventName, Dictionary<string, object> parameters = null, bool isCriticalEvent = true)
 		{
 			//Debug.Log("Analytics event "+eventName+": "+JsonConvert.SerializeObject(parameters));
    
@@ -98,6 +99,11 @@ namespace FirstLight.Game.Services
 				// Unity
 				Analytics.CustomEvent(eventName);
 				return;
+			}
+
+			if (isCriticalEvent)
+			{
+				SingularSDK.Event(parameters, eventName);
 			}
    
 			// Prepare parameters for Unity and Firebase

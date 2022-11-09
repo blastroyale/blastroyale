@@ -47,8 +47,6 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"PlayerId", PlayFabSettings.staticPlayer.PlayFabId}
 			};
 			
-			SingularSDK.Event(data, AnalyticsEvents.MatchInitiate);
-			
 			_analyticsService.LogEvent(AnalyticsEvents.MatchInitiate, data);
 		}
 		
@@ -94,8 +92,6 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				data.Add("drop_open_grid", PresentedMapPath);
 			}
 			
-			SingularSDK.Event(data, AnalyticsEvents.MatchStart);
-			
 			_analyticsService.LogEvent(AnalyticsEvents.MatchStart, data);
 		}
 
@@ -121,8 +117,6 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"match_time", matchTime},
 				{"player_rank", matchData.PlayerRank},
 			};
-			
-			SingularSDK.Event(data, AnalyticsEvents.MatchEnd);
 			
 			_analyticsService.LogEvent(AnalyticsEvents.MatchEnd, data);
 		}
@@ -155,9 +149,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"killer_name", (killerData.Data.IsBot?"Bot":"") + killerData.PlayerName}
 			};
 			
-			SingularSDK.Event(data, AnalyticsEvents.MatchKillAction);
-			
-			_analyticsService.LogEvent(AnalyticsEvents.MatchKillAction, data);
+			_analyticsService.LogEvent(AnalyticsEvents.MatchKillAction, data, false);
 		}
 
 		/// <summary>
@@ -187,7 +179,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"player_name", playerData.PlayerName }
 			};
 			
-			_analyticsService.LogEvent(AnalyticsEvents.MatchChestOpenAction, data);
+			_analyticsService.LogEvent(AnalyticsEvents.MatchChestOpenAction, data, false);
 
 			foreach (var item in callback.Items)
 			{
@@ -220,7 +212,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"angle_step_around_chest", chestItemDropped.AngleStepAroundChest}
 			};
 			
-			_analyticsService.LogEvent(AnalyticsEvents.MatchChestItemDrop, data);
+			_analyticsService.LogEvent(AnalyticsEvents.MatchChestItemDrop, data, false);
 		}
 		
 		/// <summary>
@@ -245,7 +237,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"player_name", _gameData.AppDataProvider.DisplayNameTrimmed }
 			};
 			
-			_analyticsService.LogEvent(AnalyticsEvents.MatchPickupAction, data);
+			_analyticsService.LogEvent(AnalyticsEvents.MatchPickupAction, data, false);
 		}
 	}
 }

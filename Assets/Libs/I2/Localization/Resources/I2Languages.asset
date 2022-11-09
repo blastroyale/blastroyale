@@ -9726,11 +9726,11 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITEquipment/item_name_lvl
+    - Term: UITEquipment/lvl
       TermType: 0
       Description: 
       Languages:
-      - <line-height=70%>{0} <size=70%>LV</size>{1}
+      - LV<size=40px>{0}</size>
       - 
       - 
       Flags: 000000

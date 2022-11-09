@@ -372,5 +372,15 @@ namespace Quantum
 			}
 			return FPMath.Lerp(stationaryValue, movingValue, cVelocitySqr / maxSpeedSqr);
 		}
+
+		/// <summary>
+		/// Returns the aiming directionof the player, and the looking direction if you are not aiming
+		/// </summary>
+		public static FPVector2 GetAimDirection(Frame f, AIBlackboardComponent* bb, Transform3D* transform)
+		{
+			var aimStickDirection = bb->GetVector2(f, Constants.AimDirectionKey).Normalized;
+			var lookDirection = (transform->Rotation * FPVector3.Forward).XZ.Normalized;
+			return aimStickDirection == FPVector2.Zero ? lookDirection : aimStickDirection;
+		}
 	}
 }

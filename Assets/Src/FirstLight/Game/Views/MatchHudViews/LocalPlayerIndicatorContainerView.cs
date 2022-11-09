@@ -147,7 +147,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void OnUpdateAim(Frame f, Quantum.Input* input, PlayerCharacter* playerCharacter, CharacterController3D* kcc)
 		{
 			var isEmptied = playerCharacter->IsAmmoEmpty(f, _localPlayerEntity);
+			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(_localPlayerEntity);
+			var transform = f.Unsafe.GetPointer<Transform3D>(_localPlayerEntity);
 
+			var aimDirection = new Vector2(QuantumHelpers.GetAimDirection(f, bb, transform).X.AsFloat, QuantumHelpers.GetAimDirection(f, bb, transform).Y.AsFloat);
 			var rangeStat = f.Get<Stats>(_localPlayerEntity).GetStatData(StatType.AttackRange).StatValue;
 			var range = QuantumHelpers.GetDynamicAimValue(kcc, rangeStat + _weaponConfig.AttackRangeAimBonus, rangeStat).AsFloat;
 
@@ -168,7 +171,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				size = _weaponConfig.SplashRadius.AsFloat * 2f;
 			}
 
-			ShootIndicator.SetTransformState(input->AimingDirection.ToUnityVector2());
+			ShootIndicator.SetTransformState(aimDirection);
 			ShootIndicator.SetVisualState(input->IsShootButtonDown, isEmptied);
 			ShootIndicator.SetVisualProperties(size, 0, range);
 		}

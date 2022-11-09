@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5463875698746868703}
   - component: {fileID: 1762364494020961875}
   - component: {fileID: 8972878521055575445}
+  - component: {fileID: 349798974756258200}
   m_Layer: 5
   m_Name: GameCompleteScreen
   m_TagString: Untagged
@@ -111,6 +112,8 @@ PlayableDirector:
     value: {fileID: 7539857680047334055}
   - key: {fileID: 8985903971482280579, guid: 80708ffd9a8fd574f888cba3ddda1909, type: 2}
     value: {fileID: 4873889311737371740}
+  - key: {fileID: 455434027566755189, guid: 80708ffd9a8fd574f888cba3ddda1909, type: 2}
+    value: {fileID: 349798974756258200}
   m_ExposedReferences:
     m_References:
     - 70efdfe235e2e624fa338a0659f323c7: {fileID: 0}
@@ -149,6 +152,69 @@ MonoBehaviour:
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: 25fbfe9e689904853b2e43daecb018c6, type: 3}
   m_SortingOrder: 0
+--- !u!114 &349798974756258200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 97830902685001743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: 15822c1f6b76d4d6f8f49e1f9c8b84a5, type: 2}
+    - {fileID: 11400000, guid: dd6ba7304b0294e718ff377de7993097, type: 2}
+    - {fileID: 11400000, guid: 5707d2e2c60e64219932925a424a0667, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7760493653446936332}
+          m_TargetAssemblyTypeName: FirstLight.Game.Presenters.GameCompleteScreenPresenter,
+            FirstLight.Game
+          m_MethodName: ShowMessage
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7760493653446936332}
+          m_TargetAssemblyTypeName: FirstLight.Game.Presenters.GameCompleteScreenPresenter,
+            FirstLight.Game
+          m_MethodName: HideMessage
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7760493653446936332}
+          m_TargetAssemblyTypeName: FirstLight.Game.Presenters.GameCompleteScreenPresenter,
+            FirstLight.Game
+          m_MethodName: ShowWinner
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1897978878035542869
 GameObject:
   m_ObjectHideFlags: 0

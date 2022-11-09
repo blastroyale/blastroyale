@@ -45,6 +45,14 @@ namespace FirstLight.Game.Presenters
 		private Label _nameLabel;
 		private Button _nextButton;
 
+		private QuantumGame _game;
+		private QuantumGame _frame;
+		private GameContainer _container;
+
+		private bool _localWinner;
+		private bool _isSpectator;
+		private string _winnerName;
+
 		private void Awake()
 		{
 			_matchService = MainInstaller.Resolve<IMatchServices>();
@@ -71,8 +79,18 @@ namespace FirstLight.Game.Presenters
 			base.OnOpened();
 
 			SetupCamera();
+			
+			var game = QuantumRunner.Default.Game;
+			var frame = game.Frames.Verified;
+			var container = frame.GetSingleton<GameContainer>();
+			var playerData = container.GetPlayersMatchData(frame, out var leader);
+			var playerWinner = playerData[leader];
+			
+			_playerWinnerEntity = playerWinner.Data.Entity;
+			_localWinner = game.PlayerIsLocal(leader);
+			_winnerName = playerWinner.GetPlayerName();
 
-			StartCoroutine(MatchEndStepsCoroutine());
+			PlayTimeline();
 		}
 
 		protected override Task OnClosed()
@@ -81,53 +99,72 @@ namespace FirstLight.Game.Presenters
 			return base.OnClosed();
 		}
 
-		private IEnumerator MatchEndStepsCoroutine()
+		/// <summary>
+		/// Shows the match end message depending on the type of player winner/spectator/loser
+		/// </summary>
+		public void ShowMessage()
 		{
-			var game = QuantumRunner.Default.Game;
-			var frame = game.Frames.Verified;
-			var container = frame.GetSingleton<GameContainer>();
-			var playerData = container.GetPlayersMatchData(frame, out var leader);
-			var playerWinner = playerData[leader];
-			
-			// We need to wait because no animations can start on the first frame of UIToolkit
-			yield return new WaitForEndOfFrame();
-			
 			// Show Victory / Blasted
-			if (game.PlayerIsLocal(leader))
+			if (_localWinner)
 			{
 				// Victory
 				ShowDarkOverlay();
 				ShowYouWin();
-				yield return new WaitForSeconds(3);
-				HideYouWin();
-				HideDarkOverlay();
 			}
 			else if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
 			{
 				// Show match ended
 				ShowDarkOverlay();
 				ShowMatchEnded();
-				yield return new WaitForSeconds(3);
-				HideMatchEnded();
-				HideDarkOverlay();
 			}
 			else
 			{
 				// Blasted
 				ShowDarkOverlay();
 				ShowBlasted();
-				yield return new WaitForSeconds(3);
+			}
+		}
+
+		/// <summary>
+		/// Hides the match end message
+		/// </summary>
+		public void HideMessage()
+		{
+			// Show Victory / Blasted
+			if (_localWinner)
+			{
+				// Victory
+				HideYouWin();
+				HideDarkOverlay();
+			}
+			else if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
+			{
+				// Show match ended
+				HideMatchEnded();
+				HideDarkOverlay();
+			}
+			else
+			{
+				// Blasted
 				HideBlasted();
 				HideDarkOverlay();
 			}
-
-			// Show winner
-			ShowWinner(playerWinner.GetPlayerName());
-			PlayerWinnerCameraAnimation(playerWinner);
-
-			_playerWinnerEntity = playerWinner.Data.Entity;
 		}
 
+		/// <summary>
+		/// Shows the winner name and the "next" button
+		/// </summary>
+		public void ShowWinner()
+		{
+			_nameLabel.text = _winnerName;
+			_winnerContainer.RemoveFromClassList(HIDDEN_START);
+		}
+		
+		private void HideWinner()
+		{
+			_winnerContainer.AddToClassList(HIDDEN_END);
+		}
+		
 		private void ShowDarkOverlay()
 		{
 			_darkOverlay.EnableInClassList(HIDDEN, false);
@@ -167,21 +204,10 @@ namespace FirstLight.Game.Presenters
 		{
 			_blastedTitle.AddToClassList(HIDDEN_END);
 		}
-		
-		private void ShowWinner(string winnerName)
-		{
-			_nameLabel.text = winnerName;
-			_winnerContainer.RemoveFromClassList(HIDDEN_START);
-		}
-		
-		private void HideWinner()
-		{
-			_winnerContainer.AddToClassList(HIDDEN_END);
-		}
 
-		private void PlayerWinnerCameraAnimation(QuantumPlayerMatchData playerWinner)
+		private void PlayTimeline()
 		{
-			if (_matchService.EntityViewUpdaterService.TryGetView(playerWinner.Data.Entity, out var entityView))
+			if (_matchService.EntityViewUpdaterService.TryGetView(_playerWinnerEntity, out var entityView))
 			{
 				var entityViewTransform = entityView.transform;
 

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Threading.Tasks;
 using Cinemachine;
 using FirstLight.Game.Services;
+using FirstLight.Game.Timeline;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using Quantum;
@@ -19,7 +20,7 @@ namespace FirstLight.Game.Presenters
 	/// - Showing the Game Complete info
 	/// - Go to the winners screen
 	/// </summary>
-	public class GameCompleteScreenPresenter : UiToolkitPresenterData<GameCompleteScreenPresenter.StateData>
+	public class GameCompleteScreenPresenter : UiToolkitPresenterData<GameCompleteScreenPresenter.StateData>, INotificationReceiver
 	{
 		private const string HIDDEN = "hidden";
 		private const string HIDDEN_START = "hidden-start";
@@ -97,6 +98,16 @@ namespace FirstLight.Game.Presenters
 		{
 			HideWinner();
 			return base.OnClosed();
+		}
+		
+		public void OnNotify(Playable origin, INotification notification, object context)
+		{
+			var playVfxMarker = notification as PlayVfxMarker;
+
+			if (playVfxMarker != null && !_playerProxyCamera.LookAt.IsDestroyed())
+			{
+				_services.VfxService.Spawn(playVfxMarker.Vfx).transform.position = _playerProxyCamera.LookAt.position;
+			}
 		}
 
 		/// <summary>

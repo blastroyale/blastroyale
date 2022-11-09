@@ -35,7 +35,7 @@
     top: 15%;
     transition-property: opacity, scale;
     transition-duration: 0.3s, 0.3s;
-    transition-delay: 0.2s, 0.2s;
+    transition-delay: 0s, 0s;
 }
 
 .match-ended-title.hidden-start {
@@ -143,6 +143,7 @@
     top: -20px;
     transition-property: opacity, scale;
     transition-duration: 0.2s, 0.2s;
+    transition-delay: 0.3s, 0s;
 }
 
 .hidden-start .you-win-title__crown {
@@ -158,6 +159,7 @@
     top: 70px;
     transition-property: opacity, scale;
     transition-duration: 0.2s, 0.2s;
+    transition-delay: 0.2s, 0.2s;
 }
 
 .hidden-start .you-win-title__text {

@@ -457,6 +457,7 @@ namespace FirstLight.Game.StateMachines
 			var info = _gameDataProvider.PlayerDataProvider.PlayerInfo;
 			var loadout = _gameDataProvider.EquipmentDataProvider.Loadout;
 			var inventory = _gameDataProvider.EquipmentDataProvider.Inventory;
+			var f = game.Frames.Verified;
 			var spawnPosition = _uiService.GetUi<MatchmakingLoadingScreenPresenter>().mapSelectionView
 			                              .NormalizedSelectionPoint;
 
@@ -471,7 +472,8 @@ namespace FirstLight.Game.StateMachines
 					PlayerLevel = info.Level,
 					PlayerTrophies = info.TotalTrophies,
 					NormalizedSpawnPosition = spawnPosition.ToFPVector2(),
-					Loadout = loadout.ReadOnlyDictionary.Values.Select(id => inventory[id]).ToArray()
+					Loadout = f.Context.TryGetMutatorByType(MutatorType.HammerTime, out _ ) ? 
+						Array.Empty<Equipment>() : loadout.ReadOnlyDictionary.Values.Select(id => inventory[id]).ToArray()
 				});
 			}
 		}

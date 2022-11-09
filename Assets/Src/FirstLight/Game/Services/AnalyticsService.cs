@@ -42,12 +42,14 @@ namespace FirstLight.Game.Services
 	{
 		public AnalyticsCallsSession SessionCalls { get; }
 		public AnalyticsCallsMatch MatchCalls { get; }
+		public AnalyticsEconomy EconomyCalls { get; }
 		public AnalyticsCallsErrors ErrorsCalls { get; }
 
 		/// <summary>
-		/// Logs an analytics event with the given <paramref name="eventName"/>
+		/// Logs an analytics event with the given <paramref name="eventName"/>.
+		/// <paramref name="isCriticalEvent"/> represents data that are critical to send to any data end point no matter what
 		/// </summary>
-		void LogEvent(string eventName, Dictionary<string, object> parameters = null);
+		void LogEvent(string eventName, Dictionary<string, object> parameters = null, bool isCriticalEvent = true);
 		
 		/// <summary>
 		/// Logs a crash with the given <paramref name="message"/>
@@ -65,6 +67,7 @@ namespace FirstLight.Game.Services
 	{
 		public AnalyticsCallsSession SessionCalls { get; private set; }
 		public AnalyticsCallsMatch MatchCalls { get; private set; }
+		public AnalyticsEconomy EconomyCalls { get; private set; }
 		public AnalyticsCallsErrors ErrorsCalls { get; private set; }
 
 		public AnalyticsService(IGameServices services,
@@ -73,11 +76,12 @@ namespace FirstLight.Game.Services
 		{
 			SessionCalls = new AnalyticsCallsSession(this, services, dataProvider, gameDataProvider);
 			MatchCalls = new AnalyticsCallsMatch(this, services, gameDataProvider);
+			EconomyCalls = new AnalyticsEconomy(this);
 			ErrorsCalls = new AnalyticsCallsErrors(this);
 		}
 
 		/// <inheritdoc />
-		public void LogEvent(string eventName, Dictionary<string, object> parameters)
+		public void LogEvent(string eventName, Dictionary<string, object> parameters = null, bool isCriticalEvent = true)
 		{
 			//Debug.Log("Analytics event "+eventName+": "+JsonConvert.SerializeObject(parameters));
    
@@ -95,6 +99,11 @@ namespace FirstLight.Game.Services
 				// Unity
 				Analytics.CustomEvent(eventName);
 				return;
+			}
+
+			if (isCriticalEvent)
+			{
+				SingularSDK.Event(parameters, eventName);
 			}
    
 			// Prepare parameters for Unity and Firebase

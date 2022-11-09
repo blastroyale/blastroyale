@@ -26,7 +26,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"description", description}
 			};
 			
-			_analyticsService.LogEvent(AnalyticsEvents.Error, data);
+			_analyticsService.LogEvent(AnalyticsEvents.Error, data, false);
 		}
 	}
 }

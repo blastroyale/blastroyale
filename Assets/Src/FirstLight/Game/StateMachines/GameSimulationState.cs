@@ -34,15 +34,17 @@ namespace FirstLight.Game.StateMachines
 		private IMatchServices _matchServices;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private readonly IGameNetworkService _network;
+		private readonly IGameBackendNetworkService _networkService;
 
 		private int _lastTrophyChange = 0;
 		private uint _trophiesBeforeLastChange = 0;
 
-		public GameSimulationState(IGameDataProvider gameDataProvider, IGameServices services, IGameUiService uiService,
-		                           Action<IStatechartEvent> statechartTrigger)
+		public GameSimulationState(IGameDataProvider gameDataProvider, IGameServices services, IGameBackendNetworkService networkService, 
+								   IGameUiService uiService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_gameDataProvider = gameDataProvider;
 			_services = services;
+			_networkService = networkService;
 			_uiService = uiService;
 			_statechartTrigger = statechartTrigger;
 			_deathmatchState = new DeathmatchState(gameDataProvider, services, uiService, statechartTrigger);
@@ -86,14 +88,14 @@ namespace FirstLight.Game.StateMachines
 			modeCheck.Transition().Target(battleRoyale);
 
 			deathmatch.Nest(_deathmatchState.Setup).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
-			deathmatch.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnectedPlayerCheck);
+			deathmatch.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(OnDisconnectDuringSimulation).Target(disconnectedPlayerCheck);
 			deathmatch.Event(MatchEndedEvent).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
 			deathmatch.Event(MatchQuitEvent).OnTransition(() => MatchEndAnalytics(true)).Target(quitCheck);
 			deathmatch.OnExit(CleanUpMatch);
 			deathmatch.OnExit(PublishMatchEnded);
 
 			battleRoyale.Nest(_battleRoyaleState.Setup).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
-			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnectedPlayerCheck);
+			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(OnDisconnectDuringSimulation).Target(disconnectedPlayerCheck);
 			battleRoyale.Event(MatchEndedEvent).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
 			battleRoyale.Event(MatchQuitEvent).OnTransition(() => MatchEndAnalytics(true)).Target(quitCheck);
 			battleRoyale.OnExit(CleanUpMatch);
@@ -140,6 +142,11 @@ namespace FirstLight.Game.StateMachines
 		private bool IsSoloGame()
 		{
 			return _services.NetworkService.LastMatchPlayers.Count == 1;
+		}
+		
+		private void OnDisconnectDuringSimulation()
+		{
+			_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.Simulation;
 		}
 		
 		private void NotifyCriticalDisconnection()

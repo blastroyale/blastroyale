@@ -29,6 +29,7 @@ namespace FirstLight.Game.Presenters
 	{
 		public struct StateData
 		{
+			public Action LeaveRoomClicked;
 		}
 
 		public MapSelectionView mapSelectionView;
@@ -183,6 +184,11 @@ namespace FirstLight.Game.Presenters
 				{
 					AddOrUpdatePlayerInList(playerKvp.Value);
 				}
+			}
+			
+			if(_services.NetworkService.QuantumClient.LocalPlayer.LoadedCoreMatchAssets())
+			{
+				OnCoreMatchAssetsLoaded(new CoreMatchAssetsLoadedMessage());
 			}
 		}
 
@@ -456,7 +462,11 @@ namespace FirstLight.Game.Presenters
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.Yes,
-				ButtonOnClick = () => _services.MessageBrokerService.Publish(new RoomLeaveClickedMessage())
+				ButtonOnClick = () =>
+				{
+					_services.MessageBrokerService.Publish(new RoomLeaveClickedMessage());
+					Data.LeaveRoomClicked();
+				}
 			};
 
 			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.confirmation, desc, true, confirmButton);

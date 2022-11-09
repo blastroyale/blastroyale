@@ -253,11 +253,12 @@ namespace FirstLight.Game.StateMachines
 			
 			_statechartTrigger(PhotonMasterConnectedEvent);
 
+			// Reconnections during matchmaking screen require manual reconnection to the room, due to TTL 0
 			if (_requiresManualRoomReconnection &&
 			    _networkService.LastDisconnectLocation.Value == LastDisconnectionLocation.Matchmaking)
 			{
 				_requiresManualRoomReconnection = false;
-				JoinRoom(_networkService.LastConnectedRoomName.Value);
+				JoinRoom(_networkService.LastConnectedRoomName.Value, false);
 			}
 		}
 
@@ -643,7 +644,7 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private void JoinRoom(string roomName)
+		private void JoinRoom(string roomName, bool resetLastDcLocation = true)
 		{
 			var enterParams = NetworkUtils.GetRoomEnterParams(roomName);
 
@@ -655,7 +656,12 @@ namespace FirstLight.Game.StateMachines
 			{
 				SetSpectatePlayerProperty(false);
 				_networkService.IsJoiningNewMatch.Value = true;
-				_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.None;
+
+				if (resetLastDcLocation)
+				{
+					_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.None;
+				}
+				
 				_networkService.QuantumClient.OpJoinRoom(enterParams);
 			}
 		}

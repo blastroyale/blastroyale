@@ -5,7 +5,7 @@
         <ui:VisualElement name="DarkOverlay" class="dark-overlay" />
         <ui:VisualElement name="CenteredParent" class="centered-parent">
             <ui:VisualElement name="MatchEndedTitle" class="match-ended-title hidden-start" />
-            <ui:VisualElement name="BlastedTitle" class="blasted-title hidden-start" style="align-items: center;">
+            <ui:VisualElement name="BlastedTitle" class="blasted-title hidden-start">
                 <ui:VisualElement name="Bg" class="blasted-title__bg" />
                 <ui:VisualElement name="Stain" class="blasted-title__stain" />
                 <ui:VisualElement name="Text" class="blasted-title__text" />
@@ -21,7 +21,7 @@
                 <ui:Label text="WINNER" display-tooltip-when-elided="true" name="WinnerLabel" class="winner__title__winner-label font-italic font-style-normal" />
                 <ui:Label text="PLAYER NAME" display-tooltip-when-elided="true" name="NameLabel" class="font-italic winner__title__name-label font-style-normal" />
             </ui:VisualElement>
-            <ui:Button display-tooltip-when-elided="true" name="NextButton" class="winner__next-button" style="border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0;">
+            <ui:Button display-tooltip-when-elided="true" name="NextButton" class="winner__next-button">
                 <ui:Label text="NEXT →" display-tooltip-when-elided="true" name="Label" class="font-italic font-style-normal winner__next-button__label" />
             </ui:Button>
         </ui:VisualElement>

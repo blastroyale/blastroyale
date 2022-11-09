@@ -22,9 +22,9 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public class GameCompleteScreenPresenter : UiToolkitPresenterData<GameCompleteScreenPresenter.StateData>, INotificationReceiver
 	{
-		private const string HIDDEN = "hidden";
-		private const string HIDDEN_START = "hidden-start";
-		private const string HIDDEN_END = "hidden-end";
+		private const string UssHidden = "hidden";
+		private const string UssHiddenStart = "hidden-start";
+		private const string UssHiddenEnd = "hidden-end";
 		
 		public struct StateData
 		{
@@ -58,8 +58,6 @@ namespace FirstLight.Game.Presenters
 		{
 			_matchService = MainInstaller.Resolve<IMatchServices>();
 			_services = MainInstaller.Resolve<IGameServices>();
-
-			QuantumEvent.Subscribe<EventOnPlayerLeft>(this, OnEventOnPlayerLeft);
 		}
 
 		protected override void QueryElements(VisualElement root)
@@ -73,6 +71,16 @@ namespace FirstLight.Game.Presenters
 			_nextButton = root.Q<Button>("NextButton").Required();
 
 			_nextButton.clicked += OnContinueButtonClicked;
+		}
+
+		protected override void SubscribeToEvents()
+		{
+			QuantumEvent.Subscribe<EventOnPlayerLeft>(this, OnEventOnPlayerLeft);
+		}
+
+		protected override void UnsubscribeFromEvents()
+		{
+			QuantumEvent.UnsubscribeListener<EventOnPlayerLeft>(this);
 		}
 
 		protected override void OnOpened()
@@ -168,52 +176,52 @@ namespace FirstLight.Game.Presenters
 		public void ShowWinner()
 		{
 			_nameLabel.text = _winnerName;
-			_winnerContainer.RemoveFromClassList(HIDDEN_START);
+			_winnerContainer.RemoveFromClassList(UssHiddenStart);
 		}
 		
 		private void HideWinner()
 		{
-			_winnerContainer.AddToClassList(HIDDEN_END);
+			_winnerContainer.AddToClassList(UssHiddenEnd);
 		}
 		
 		private void ShowDarkOverlay()
 		{
-			_darkOverlay.EnableInClassList(HIDDEN, false);
+			_darkOverlay.EnableInClassList(UssHidden, false);
 		}
 
 		private void HideDarkOverlay()
 		{
-			_darkOverlay.EnableInClassList(HIDDEN, true);
+			_darkOverlay.EnableInClassList(UssHidden, true);
 		}
 		
 		private void ShowMatchEnded()
 		{
-			_matchEndTitle.RemoveFromClassList(HIDDEN_START);
+			_matchEndTitle.RemoveFromClassList(UssHiddenStart);
 		}
 		
 		private void HideMatchEnded()
 		{
-			_matchEndTitle.AddToClassList(HIDDEN_END);
+			_matchEndTitle.AddToClassList(UssHiddenEnd);
 		}
 		
 		private void ShowYouWin()
 		{
-			_youWinTitle.RemoveFromClassList(HIDDEN_START);
+			_youWinTitle.RemoveFromClassList(UssHiddenStart);
 		}
 		
 		private void HideYouWin()
 		{
-			_youWinTitle.AddToClassList(HIDDEN_END);
+			_youWinTitle.AddToClassList(UssHiddenEnd);
 		}
 		
 		private void ShowBlasted()
 		{
-			_blastedTitle.RemoveFromClassList(HIDDEN_START);
+			_blastedTitle.RemoveFromClassList(UssHiddenStart);
 		}
 		
 		private void HideBlasted()
 		{
-			_blastedTitle.AddToClassList(HIDDEN_END);
+			_blastedTitle.AddToClassList(UssHiddenEnd);
 		}
 
 		private void PlayTimeline()

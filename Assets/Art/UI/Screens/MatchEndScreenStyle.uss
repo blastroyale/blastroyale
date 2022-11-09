@@ -189,6 +189,7 @@
     transition-property: opacity, scale;
     transition-duration: 0.2s, 0.2s;
 }
+
 .hidden-start .winner__title {
     opacity: 0;
     scale: 1.3 1.3;
@@ -200,7 +201,7 @@
     rotate: -10deg;
     left: 230px;
     font-size: 58px;
-    color: rgba(185, 65, 21, 255);
+    color: rgb(185, 65, 21);
     transition-property: opacity, scale;
     transition-delay: 0.2s, 0.2s;
     transition-duration: 0.2s, 0.2s;
@@ -216,11 +217,11 @@
     top: 130px;
     rotate: -10deg;
     left: 290px;
-    text-shadow: 4px 4px 0 rgba(185, 65, 21, 255);
-    -unity-text-outline-color: rgba(185, 65, 21, 255);
+    text-shadow: 4px 4px 0 rgb(185, 65, 21);
+    -unity-text-outline-color: rgb(185, 65, 21);
     font-size: 58px;
     -unity-text-outline-width: 2px;
-    color: rgba(255, 255, 255, 255);
+    color: rgb(255, 255, 255);
     transition-property: opacity, scale;
     transition-delay: 0.3s, 0.3s;
     transition-duration: 0.2s, 0.2s;
@@ -245,6 +246,10 @@
     margin-bottom: 0;
     transition-property: opacity, scale;
     transition-duration: 0.2s, 0.2s;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
 }
 
 .hidden-start .winner__next-button {

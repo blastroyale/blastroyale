@@ -20,11 +20,11 @@ namespace FirstLight.Game.Commands
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Server;
 
 		/// <inheritdoc />
-		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)
+		public void Execute(CommandExecutionContext ctx)
 		{
-			gameLogic.EquipmentLogic.SetLoadout(SlotsToUpdate);
+			ctx.Logic.EquipmentLogic().SetLoadout(SlotsToUpdate);
 			
-			gameLogic.MessageBrokerService.Publish(new UpdatedLoadoutMessage { SlotsUpdated = SlotsToUpdate });
+			ctx.Services.MessageBrokerService().Publish(new UpdatedLoadoutMessage { SlotsUpdated = SlotsToUpdate });
 		}
 	}
 }

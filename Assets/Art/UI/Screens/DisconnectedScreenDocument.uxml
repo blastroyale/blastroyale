@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/Art/UI/Screens/GenericDialogStyle.uss?fileID=7433441132597879392&amp;guid=d1862850e9c3aaa4aa77ed63ff317bf3&amp;type=3#GenericDialogStyle" />
+    <Style src="project://database/Assets/Art/UI/Styles/GenericDialogStyle.uss?fileID=7433441132597879392&amp;guid=d1862850e9c3aaa4aa77ed63ff317bf3&amp;type=3#GenericDialogStyle" />
     <ui:VisualElement name="root" class="background">
         <ui:Button name="BlockerButton" class="blocker-button" style="visibility: hidden;" />
         <ui:VisualElement name="PopupBackground" class="popup-radius">
@@ -17,6 +17,7 @@
                         <FirstLight.Game.UIElements.LocalizedButton localization-key="UITDisconnected/reconnect" name="ReconnectButton" class="font-italic button-flat-primary" />
                     </ui:VisualElement>
                 </ui:VisualElement>
+                <ui:VisualElement name="Dim" class="element-hidden" style="background-color: rgba(0, 0, 0, 0.36); position: absolute; left: 0; top: 0; right: 0; bottom: 0; transition-duration: 0.3s;" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

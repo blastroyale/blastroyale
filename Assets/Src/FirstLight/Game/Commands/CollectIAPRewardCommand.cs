@@ -15,10 +15,10 @@ namespace FirstLight.Game.Commands
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Server;
 
 		/// <inheritdoc />
-		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)
+		public void Execute(CommandExecutionContext ctx)
 		{
-			var rewards = gameLogic.RewardLogic.ClaimIAPRewards();
-			gameLogic.MessageBrokerService.Publish(new IAPPurchaseCompletedMessage {Rewards = rewards});
+			var rewards = ctx.Logic.RewardLogic().ClaimIAPRewards();
+			ctx.Services.MessageBrokerService().Publish(new IAPPurchaseCompletedMessage {Rewards = rewards});
 		}
 	}
 }

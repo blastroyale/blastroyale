@@ -18,9 +18,9 @@ namespace FirstLight.Game.Commands.OfflineCommands
 
 
 		/// <inheritdoc />
-		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)
+		public void Execute(CommandExecutionContext ctx)
 		{
-			gameLogic.EquipmentLogic.Unequip(Item);
+			ctx.Logic.EquipmentLogic().Unequip(Item);
 		}
 	}
 }

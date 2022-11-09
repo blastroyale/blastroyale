@@ -69,7 +69,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		/// </summary>
 		public void Heartbeat()
 		{
-			_analyticsService.LogEvent(AnalyticsEvents.SessionHeartbeat);
+			_analyticsService.LogEvent(AnalyticsEvents.SessionHeartbeat, null, false);
 		}
 
 		/// <summary>
@@ -114,6 +114,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		{
 			Analytics.SetUserId(id);
 			FirebaseAnalytics.SetUserId(id);
+			SingularSDK.SetCustomUserId(id);
 
 			var loginData = new Dictionary<string, object> 		{
 				{"client_version", VersionUtils.VersionInternal },
@@ -132,8 +133,6 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"battery_status", SystemInfo.batteryStatus},
 				{"memory_readable", SRFileUtil.GetBytesReadable((long) SystemInfo.systemMemorySize*1024*1024)},
 			};
-			
-			// FB.LogAppEvent(AnalyticsEvents.PlayerLogin, null, loginData);
 			
 			_analyticsService.LogEvent(AnalyticsEvents.PlayerLogin, loginData);
 		}
@@ -157,6 +156,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			_analyticsService.LogEvent(AnalyticsEvents.GameLoaded, data);
 		}
 		
+#if UNITY_ANDROID
 		private static string GetAndroidAdvertiserId()
 		{
 			string advertisingID = "";
@@ -175,5 +175,6 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			}
 			return advertisingID;
 		}
+#endif
 	}
 }

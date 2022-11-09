@@ -49,6 +49,7 @@ namespace FirstLight.Game.Views
 			await UnityServices.InitializeAsync();
 			await InitAtt();
 			await StartAnalytics();
+			SingularSDK.InitializeSingularSDK();
 			StartSplashScreen();
 			MergeScenes(asyncOperation);
 		}

@@ -221,7 +221,7 @@ namespace FirstLight.Game.StateMachines
 
 			await Task.Yield();
 		
-			//TickReconnectAttempt(0);
+			TickReconnectAttempt(0);
 		}
 
 		private void UnsubscribeDisconnectEvents()
@@ -712,7 +712,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			if (!_networkService.QuantumClient.IsConnectedAndReady && NetworkUtils.IsOnline())
 			{
-				//ReconnectPhoton();
+				ReconnectPhoton();
 			}
 		}
 

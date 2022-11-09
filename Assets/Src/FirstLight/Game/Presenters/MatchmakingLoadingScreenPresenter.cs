@@ -184,6 +184,11 @@ namespace FirstLight.Game.Presenters
 					AddOrUpdatePlayerInList(playerKvp.Value);
 				}
 			}
+			
+			if(_services.NetworkService.QuantumClient.LocalPlayer.LoadedCoreMatchAssets())
+			{
+				OnCoreMatchAssetsLoaded(new CoreMatchAssetsLoadedMessage());
+			}
 		}
 
 		protected override async Task OnClosed()

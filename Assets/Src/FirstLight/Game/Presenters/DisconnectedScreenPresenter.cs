@@ -120,6 +120,8 @@ namespace FirstLight.Game.Presenters
 				return;
 			}
 
+			SetFrontDimBlockerActive(true);
+			
 			// Just in case reconnect stalls, undim the blocker after X seconds
 			this.LateCoroutineCall(TIMEOUT_DIM_SECONDS, () => { SetFrontDimBlockerActive(false); });
 			Data.ReconnectClicked();

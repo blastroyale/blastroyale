@@ -468,6 +468,18 @@ namespace FirstLight.Game.StateMachines
 			var spawnPosition = _uiService.GetUi<MatchmakingLoadingScreenPresenter>().mapSelectionView
 			                              .NormalizedSelectionPoint;
 
+			var newloadout = loadout.ReadOnlyDictionary.Values.Select(id => inventory[id]).ToList();
+			if(f.Context.TryGetMutatorByType(MutatorType.HammerTime, out _))
+			{
+				for(int i = newloadout.Count -1; i >= 0; i--)
+				{
+					if (newloadout[i].GameId.IsInGroup(GameIdGroup.Weapon))
+					{
+						newloadout.RemoveAt(i);
+					}
+				}
+			}
+			
 			if (!IsSpectator())
 			{
 				game.SendPlayerData(game.GetLocalPlayers()[0], new RuntimePlayer
@@ -479,8 +491,7 @@ namespace FirstLight.Game.StateMachines
 					PlayerLevel = info.Level,
 					PlayerTrophies = info.TotalTrophies,
 					NormalizedSpawnPosition = spawnPosition.ToFPVector2(),
-					Loadout = f.Context.TryGetMutatorByType(MutatorType.HammerTime, out _ ) ? 
-						Array.Empty<Equipment>() : loadout.ReadOnlyDictionary.Values.Select(id => inventory[id]).ToArray()
+					Loadout = newloadout.ToArray()
 				});
 			}
 		}

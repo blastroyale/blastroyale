@@ -163,7 +163,7 @@ MonoBehaviour:
   ddlTimeoutSec: 0
   sessionTimeoutSec: 0
   shortlinkResolveTimeout: 0
-  SKANEnabled: 0
+  SKANEnabled: 1
   manualSKANConversionManagement: 0
   waitForTrackingAuthorizationWithTimeoutInterval: 0
 --- !u!4 &345734335

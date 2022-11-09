@@ -148,6 +148,7 @@ namespace FirstLight.Game.StateMachines
 			playClickedCheck.Transition().Condition(EnoughNftToPlay).OnTransition(SendPlayReadyMessage).Target(roomWait);
 			playClickedCheck.Transition().Target(nftPlayRestricted);
 
+			roomWait.OnEnter(CloseCurrentScreen);
 			roomWait.Event(NetworkState.JoinedRoomEvent).Target(final);
 			roomWait.Event(NetworkState.JoinRoomFailedEvent).Target(homeMenu);
 			roomWait.Event(NetworkState.CreateRoomFailedEvent).Target(homeMenu);
@@ -178,7 +179,7 @@ namespace FirstLight.Game.StateMachines
 			roomJoinCreateMenu.Event(NetworkState.JoinRoomFailedEvent).Target(chooseGameMode);
 			roomJoinCreateMenu.Event(NetworkState.CreateRoomFailedEvent).Target(chooseGameMode);
 		}
-
+		
 		private bool HasDefaultName()
 		{
 			return _gameDataProvider.AppDataProvider.DisplayNameTrimmed == GameConstants.PlayerName.DEFAULT_PLAYER_NAME ||
@@ -362,6 +363,11 @@ namespace FirstLight.Game.StateMachines
 			};
 
 			_uiService.OpenScreen<RoomJoinCreateScreenPresenter, RoomJoinCreateScreenPresenter.StateData>(data);
+		}
+		
+		private void CloseCurrentScreen()
+		{
+			_uiService.CloseCurrentScreen();
 		}
 
 		private void OpenPlayMenuUI()

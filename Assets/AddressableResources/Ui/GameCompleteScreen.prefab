@@ -55,7 +55,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _document: {fileID: 8972878521055575445}
   _background: {fileID: 0}
-  _millisecondsToClose: 0
+  _millisecondsToClose: 200
   _playerProxyCamera: {fileID: 363049482451675675}
   _director: {fileID: 1762364494020961875}
 --- !u!225 &5463875698746868703

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Threading.Tasks;
 using Cinemachine;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -74,6 +75,12 @@ namespace FirstLight.Game.Presenters
 			StartCoroutine(MatchEndStepsCoroutine());
 		}
 
+		protected override Task OnClosed()
+		{
+			HideWinner();
+			return base.OnClosed();
+		}
+
 		private IEnumerator MatchEndStepsCoroutine()
 		{
 			var game = QuantumRunner.Default.Game;
@@ -84,15 +91,6 @@ namespace FirstLight.Game.Presenters
 			
 			// We need to wait because no animations can start on the first frame of UIToolkit
 			yield return new WaitForEndOfFrame();
-
-			// Show match ended
-			ShowDarkOverlay();
-			ShowMatchEnded();
-			yield return new WaitForSeconds(3);
-			HideMatchEnded();
-			HideDarkOverlay();
-			
-			yield return new WaitForSeconds(1);
 			
 			// Show Victory / Blasted
 			if (game.PlayerIsLocal(leader))
@@ -104,7 +102,16 @@ namespace FirstLight.Game.Presenters
 				HideYouWin();
 				HideDarkOverlay();
 			}
-			else if (!_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
+			else if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
+			{
+				// Show match ended
+				ShowDarkOverlay();
+				ShowMatchEnded();
+				yield return new WaitForSeconds(3);
+				HideMatchEnded();
+				HideDarkOverlay();
+			}
+			else
 			{
 				// Blasted
 				ShowDarkOverlay();

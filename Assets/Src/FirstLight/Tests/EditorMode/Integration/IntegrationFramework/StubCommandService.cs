@@ -1,3 +1,5 @@
+using System;
+using System.Security.Cryptography;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
@@ -14,18 +16,22 @@ namespace FirstLight.Tests.EditorMode
 
 		private IGameLogic _logic;
 		private IDataProvider _data;
+		private IGameServices _services;
 		
-		public StubCommandService(IGameLogic logic, IDataProvider data)
+		public StubCommandService(IGameLogic logic, IDataProvider data, IGameServices services)
 		{
 			_logic = logic;
 			_data = data;
+			_services = services;
 		}
 		
 		public void ExecuteCommand<TCommand>(TCommand command) where TCommand : IGameCommand
 		{
 			var serialized = ModelSerializer.Serialize(command).Value;
 			var deserialized = ModelSerializer.Deserialize<TCommand>(serialized, command.GetType());
-			deserialized.Execute(_logic, _data);
+			var ctx = new CommandExecutionContext(new LogicContainer().Build(_logic), new ServiceContainer().Build(_services),
+				_data);
+			deserialized.Execute(ctx);
 		}
 	}
 

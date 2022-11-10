@@ -171,7 +171,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				size = _weaponConfig.SplashRadius.AsFloat * 2f;
 			}
 
-			ShootIndicator.SetTransformState(aimDirection);
+			ShootIndicator.SetTransformState(aimDirection.normalized);
 			ShootIndicator.SetVisualState(input->IsShootButtonDown, isEmptied);
 			ShootIndicator.SetVisualProperties(size, 0, range);
 		}

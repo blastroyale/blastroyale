@@ -378,8 +378,8 @@ namespace Quantum
 		/// </summary>
 		public static FPVector2 GetAimDirection(Frame f, AIBlackboardComponent* bb, Transform3D* transform)
 		{
-			var aimStickDirection = bb->GetVector2(f, Constants.AimDirectionKey).Normalized;
-			var lookDirection = (transform->Rotation * FPVector3.Forward).XZ.Normalized;
+			var aimStickDirection = bb->GetVector2(f, Constants.AimDirectionKey);
+			var lookDirection = (transform->Rotation * FPVector3.Forward).XZ;
 			return aimStickDirection == FPVector2.Zero ? lookDirection : aimStickDirection;
 		}
 	}

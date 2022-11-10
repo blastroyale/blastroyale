@@ -28,7 +28,7 @@ namespace Quantum
 			var power = f.Get<Stats>(e).GetStatData(StatType.Power).StatValue * weaponConfig.PowerToDamageRatio;
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
 			var rangeStat = f.Get<Stats>(e).GetStatData(StatType.AttackRange).StatValue;
-			var aimingDirection = QuantumHelpers.GetAimDirection(f, bb, transform);
+			var aimingDirection = QuantumHelpers.GetAimDirection(f, bb, transform).Normalized;
 
 			//targetAttackAngle depend on a current character velocity
 			var targetAttackAngle = isAccuracyMutator ?

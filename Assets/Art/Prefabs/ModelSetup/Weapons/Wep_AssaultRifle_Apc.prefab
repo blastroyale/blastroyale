@@ -121,6 +121,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: -2710785702842704322, guid: 44e293596d333be41bf411fd1d103d68, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 44e293596d333be41bf411fd1d103d68, type: 3}
       propertyPath: m_Name
       value: DeWe_AR_Francisco
@@ -132,6 +136,10 @@ PrefabInstance:
     - target: {fileID: 1715521641780365699, guid: 44e293596d333be41bf411fd1d103d68, type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1715521641780365699, guid: 44e293596d333be41bf411fd1d103d68, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 44e293596d333be41bf411fd1d103d68, type: 3}

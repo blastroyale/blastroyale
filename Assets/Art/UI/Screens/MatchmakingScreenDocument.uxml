@@ -34,6 +34,11 @@
                         <ui:VisualElement name="DropzoneShadow" class="dropzone-path__shadow" />
                     </ui:VisualElement>
                 </ui:VisualElement>
+                <ui:VisualElement name="MapMarker" picking-mode="Ignore" class="map-marker">
+                    <ui:VisualElement name="PlaceNameBg" class="map-marker__place-name-bg" style="justify-content: center; align-items: center;">
+                        <ui:Label name="PlaceNameLabel" text="PLACE NAME" class="font-italic asda" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
                 <ui:VisualElement name="DropzoneBg" picking-mode="Ignore" class="map-holder__dropzone-bg">
                     <FirstLight.Game.UIElements.LocalizedLabel display-tooltip-when-elided="true" localization-key="UITMatchmaking/select_dropzone" name="DropzoneLabel" class="font-style-h2 font-italic" />
                 </ui:VisualElement>

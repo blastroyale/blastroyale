@@ -98,20 +98,7 @@ namespace Quantum.Systems
 			var spawnTransform = new Transform3D {Position = FPVector3.Zero, Rotation = FPQuaternion.Identity};
 			var spawnWithWeapon = f.Context.GameModeConfig.SpawnWithWeapon;
 			var spawnWithGear = f.Context.GameModeConfig.SpawnWithGear;
-
-			var newLoadout = playerData.Loadout.ToList();
-			for (int i = newLoadout.Count - 1; i >= 0; i--)
-			{
-				if (!spawnWithWeapon && newLoadout[i].GameId.IsInGroup(GameIdGroup.Weapon))
-				{
-					newLoadout.RemoveAt(i);
-				}
-				else if (!spawnWithGear && newLoadout[i].GameId.IsInGroup(GameIdGroup.Gear))
-				{
-					newLoadout.RemoveAt(i);
-				}
-			}
-			var startingEquipment = newLoadout.ToArray();
+			var startingEquipment = playerData.Loadout;
 
 			spawnTransform.Position = spawnPosition.XOY;
 

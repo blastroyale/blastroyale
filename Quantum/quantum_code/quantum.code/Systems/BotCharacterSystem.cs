@@ -24,10 +24,12 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void OnPlayerDataSet(Frame f, PlayerRef playerRef)
 		{
-			InitializeBots(f);
+			var data = f.GetPlayerData(playerRef);
+			var playerTrophies= data?.PlayerTrophies ?? 1000u;
+			InitializeBots(f, playerTrophies);
 		}
 
-		private void InitializeBots(Frame f)
+		private void InitializeBots(Frame f, uint baseTrophiesAmount)
 		{
 			if (!f.Context.GameModeConfig.AllowBots || f.ComponentCount<BotCharacter>() > 0)
 			{
@@ -48,7 +50,7 @@ namespace Quantum.Systems
 
 			if (botIds.Count != playerLimit)
 			{
-				AddBots(f, botIds);
+				AddBots(f, botIds, baseTrophiesAmount);
 			}
 		}
 
@@ -268,11 +270,11 @@ namespace Quantum.Systems
 			}
 		}
 
-		private List<QuantumBotConfig> GetBotConfigsList(Frame f)
+		private List<QuantumBotConfig> GetBotConfigsList(Frame f, int botsDifficulty)
 		{
 			var list = new List<QuantumBotConfig>();
 			var configs = f.BotConfigs.QuantumConfigs;
-			var difficultyLevel = Constants.BOT_DIFFICULTY_LEVEL;
+			var difficultyLevel = botsDifficulty;
 
 			foreach (var botConfig in configs)
 			{
@@ -868,14 +870,16 @@ namespace Quantum.Systems
 			return distanceSqr <= circle.CurrentRadius * circle.CurrentRadius;
 		}
 		
-		private void AddBots(Frame f, List<PlayerRef> botIds)
+		private void AddBots(Frame f, List<PlayerRef> botIds, uint baseTrophiesAmount)
 		{
 			var playerSpawners = GetFreeSpawnPoints(f);
-			var botConfigsList = GetBotConfigsList(f);
 			var botNamesIndices = new List<int>();
 			var deathMakers = GameIdGroup.DeathMarker.GetIds();
 			var botItems = GameIdGroup.BotItem.GetIds();
 			var skinOptions = GameIdGroup.PlayerSkin.GetIds().Where(item => botItems.Contains(item)).ToArray();
+			var botsDifficulty = (int)FPMath.Floor((baseTrophiesAmount - 1000) / FP._100);
+			botsDifficulty = FPMath.Clamp(botsDifficulty, 0, f.GameConfig.BotsMaxDifficulty);
+			var botConfigsList = GetBotConfigsList(f, botsDifficulty);
 
 			for (var i = 0; i < f.GameConfig.BotsNameCount; i++)
 			{
@@ -927,6 +931,7 @@ namespace Quantum.Systems
 					StuckDetectionPosition = FPVector3.Zero
 				};
 
+				
 				botNamesIndices.RemoveAt(listNamesIndex);
 
 				if (playerSpawners.Count > 1)
@@ -939,7 +944,7 @@ namespace Quantum.Systems
 				f.Add(botEntity, botCharacter);
 
 				// Calculate bot trophies
-				var trophies = (uint) (f.GameConfig.BotsBaseTrophies + f.RNG->Next(-50, 50));
+				var trophies = (uint) ((botsDifficulty * 100) + 1000 + f.RNG->Next(-50, 50));
 				
 				// TODO: Give bots random weapon based on average quality that players have
 				// TODO: Give bots random gear based on average quality that players have and teach bots to pick up gear

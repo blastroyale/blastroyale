@@ -20,7 +20,7 @@ MonoBehaviour:
     QuantumConfigs:
     - BehaviourType: 1
       GameMode: Deathmatch
-      Difficulty: 1
+      Difficulty: 0
       DecisionInterval:
         RawValue: 78643
       LookForTargetsToShootAtInterval:
@@ -58,7 +58,7 @@ MonoBehaviour:
         RawValue: 0
     - BehaviourType: 2
       GameMode: Deathmatch
-      Difficulty: 1
+      Difficulty: 0
       DecisionInterval:
         RawValue: 65536
       LookForTargetsToShootAtInterval:
@@ -96,7 +96,7 @@ MonoBehaviour:
         RawValue: 0
     - BehaviourType: 0
       GameMode: Deathmatch
-      Difficulty: 1
+      Difficulty: 0
       DecisionInterval:
         RawValue: 100925
       LookForTargetsToShootAtInterval:
@@ -134,7 +134,7 @@ MonoBehaviour:
         RawValue: 0
     - BehaviourType: 1
       GameMode: Deathmatch
-      Difficulty: 1
+      Difficulty: 0
       DecisionInterval:
         RawValue: 96338
       LookForTargetsToShootAtInterval:
@@ -172,7 +172,7 @@ MonoBehaviour:
         RawValue: 0
     - BehaviourType: 2
       GameMode: Deathmatch
-      Difficulty: 1
+      Difficulty: 0
       DecisionInterval:
         RawValue: 75366
       LookForTargetsToShootAtInterval:
@@ -210,7 +210,7 @@ MonoBehaviour:
         RawValue: 0
     - BehaviourType: 1
       GameMode: BattleRoyale
-      Difficulty: 1
+      Difficulty: 0
       DecisionInterval:
         RawValue: 652739
       LookForTargetsToShootAtInterval:
@@ -248,7 +248,7 @@ MonoBehaviour:
         RawValue: 22938
     - BehaviourType: 0
       GameMode: BattleRoyale
-      Difficulty: 1
+      Difficulty: 0
       DecisionInterval:
         RawValue: 642253
       LookForTargetsToShootAtInterval:
@@ -286,7 +286,7 @@ MonoBehaviour:
         RawValue: 22938
     - BehaviourType: 0
       GameMode: BattleRoyale
-      Difficulty: 1
+      Difficulty: 0
       DecisionInterval:
         RawValue: 670433
       LookForTargetsToShootAtInterval:
@@ -324,7 +324,7 @@ MonoBehaviour:
         RawValue: 22938
     - BehaviourType: 1
       GameMode: BattleRoyale
-      Difficulty: 1
+      Difficulty: 0
       DecisionInterval:
         RawValue: 666501
       LookForTargetsToShootAtInterval:
@@ -362,7 +362,7 @@ MonoBehaviour:
         RawValue: 22938
     - BehaviourType: 2
       GameMode: BattleRoyale
-      Difficulty: 1
+      Difficulty: 0
       DecisionInterval:
         RawValue: 649462
       LookForTargetsToShootAtInterval:

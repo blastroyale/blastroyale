@@ -46,7 +46,6 @@ namespace FirstLight.Game.Presenters
 		
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
-		private bool _respawnPressed;
 
 		private void Awake()
 		{
@@ -71,8 +70,7 @@ namespace FirstLight.Game.Presenters
 			var killerMatchData = playerData[deadPlayer.Killer];
 			var localName = _gameDataProvider.AppDataProvider.DisplayNameTrimmed;
 			var isSuicide = localPlayer == deadPlayer.Killer;
-
-			_respawnPressed = false;
+			
 			_killTrackerHolder.SetActive(!isSuicide);
 			_standings.Initialise(playerData.Count, false, false);
 			_standings.UpdateStandings(playerData);
@@ -140,12 +138,11 @@ namespace FirstLight.Game.Presenters
 
 		private void OnRespawnPressed()
 		{
-			if (_respawnPressed)
+			if (!_respawnButton.interactable)
 			{
 				return;
 			}
 
-			_respawnPressed = true;
 			_respawnButton.interactable = false;
 			QuantumRunner.Default.Game.SendCommand(new PlayerRespawnCommand());
 		}

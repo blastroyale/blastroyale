@@ -45,6 +45,7 @@ namespace Quantum
 			ModelSerializer.RegisterConverter(new QuantumVector3Converter());
 		}
 
+		#region Server Simulation
 		public override void OnDeterministicStartSession()
 		{
 			lock (_initializationLock) 
@@ -190,6 +191,7 @@ namespace Quantum
 			data = gameSession.Session.FrameVerified.Serialize(DeterministicFrameSerializeMode.Serialize);
 			return true;
 		}
+		#endregion
 
 		public int GetClientIndexByActorNumber(int actorNr) => _actorNrToIndex[actorNr];
 

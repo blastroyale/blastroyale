@@ -198,14 +198,14 @@
     -unity-background-image-tint-color: rgb(126, 126, 126);
 }
 
-#CSCurrency {
+#BLSTCurrency {
     transition-duration: var(--in-animation-duration);
     transition-timing-function: var(--in-animation-easing);
     transition-property: margin-top;
     transition-delay: var(--animation-delay-2);
 }
 
-#BLSTCurrency {
+#CSCurrency {
     transition-duration: var(--in-animation-duration);
     transition-timing-function: var(--in-animation-easing);
     transition-property: margin-top;

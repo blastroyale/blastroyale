@@ -5,11 +5,7 @@
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
         <LangVersion>9</LangVersion>
     </PropertyGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\FunctionApp\FunctionApp.csproj" />
-    </ItemGroup>
-
+    
     <ItemGroup>
       <Reference Include="FirstLight.DataExtensions">
         <HintPath>..\Lib\FirstLight.DataExtensions.dll</HintPath>
@@ -45,6 +41,12 @@
 
     <ItemGroup>
       <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ContainerApp\ContainerApp.csproj" />
+      <ProjectReference Include="..\FirstLightServerSDK\FirstLightServerSDK.csproj" />
+      <ProjectReference Include="..\GameLogicService\GameLogicService.csproj" />
     </ItemGroup>
 
 </Project>

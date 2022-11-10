@@ -47,8 +47,24 @@ namespace Quantum.Systems
 				                    f.RNG->Next(-gridSquareSize, gridSquareSize));
 			
 			var spawnTransform = new Transform3D {Position = FPVector3.Zero, Rotation = FPQuaternion.Identity};
-			var startingEquipment = f.Context.GameModeConfig.SpawnWithLoadout ? 
-				playerData.Loadout : Array.Empty<Equipment>();
+			var spawnWithWeapon = f.Context.GameModeConfig.SpawnWithWeapon;
+			var spawnWithGear = f.Context.GameModeConfig.SpawnWithGear;
+			Log.Warn("spawn with weapon is " + spawnWithWeapon + " @ bottom");
+
+			var newLoadout = playerData.Loadout.ToList();
+			for (int i = newLoadout.Count - 1; i >= 0; i--)
+			{
+				if (!spawnWithWeapon && newLoadout[i].GameId.IsInGroup(GameIdGroup.Weapon))
+				{
+					Log.Warn("remove weapon @ bottom");
+					newLoadout.RemoveAt(i);
+				}
+				else if (!spawnWithGear && newLoadout[i].GameId.IsInGroup(GameIdGroup.Gear))
+				{
+					newLoadout.RemoveAt(i);
+				}
+			}
+			var startingEquipment = newLoadout.ToArray();
 
 			spawnTransform.Position = spawnPosition.XOY;
 
@@ -78,17 +94,6 @@ namespace Quantum.Systems
 				Collectable.DropEquipment(f, playerDead->CurrentWeapon, deathPosition, step);
 				step++;
 			} 
-			else if (gameModeConfig.WeaponDeathDropStrategy == DeathDropsStrategy.Deathmatch && 
-				f.RNG->Next() <= f.GameConfig.DeathDropLargeShieldChance)
-			{
-				Collectable.DropConsumable(f, GameId.AmmoLarge, deathPosition, step, false);
-				step++;
-			}
-			else if (gameModeConfig.WeaponDeathDropStrategy == DeathDropsStrategy.Deathmatch)
-			{
-				Collectable.DropConsumable(f, GameId.AmmoSmall, deathPosition, step, false);
-				step++;
-			}
 
 			// Try to drop Health pack
 			if (gameModeConfig.HealthDeathDropStrategy >= DeathDropsStrategy.Normal &&
@@ -128,9 +133,24 @@ namespace Quantum.Systems
 											  f.RNG->Next(-gridSquareSize, gridSquareSize));
 			
 			var spawnTransform = new Transform3D {Position = FPVector3.Zero, Rotation = FPQuaternion.Identity};
-			var startingEquipment = f.Context.GameModeConfig.SpawnWithLoadout
-										? playerData.Loadout :
-										Array.Empty<Equipment>();
+			var spawnWithWeapon = f.Context.GameModeConfig.SpawnWithWeapon;
+			var spawnWithGear = f.Context.GameModeConfig.SpawnWithGear;
+			Log.Warn("spawn with weapon is " + spawnWithWeapon);
+
+			var newLoadout = playerData.Loadout.ToList();
+			for (int i = newLoadout.Count - 1; i >= 0; i--)
+			{
+				if (!spawnWithWeapon && newLoadout[i].GameId.IsInGroup(GameIdGroup.Weapon))
+				{
+					Log.Warn("Remove Weapon");
+					newLoadout.RemoveAt(i);
+				}
+				else if (!spawnWithGear && newLoadout[i].GameId.IsInGroup(GameIdGroup.Gear))
+				{
+					newLoadout.RemoveAt(i);
+				}
+			}
+			var startingEquipment = newLoadout.ToArray();
 
 			spawnTransform.Position = spawnPosition.XOY;
 

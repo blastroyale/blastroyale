@@ -73,8 +73,11 @@ namespace Quantum
 		[FoldoutGroup("Player"), PropertyTooltip(DESC_DROP_WEAPON_ON_PICKUP)]
 		public bool DropWeaponOnPickup;
 
-		[HorizontalGroup("Player/H1"), BoxGroup("Player/H1/Spawning"), PropertyTooltip(DESC_SPAWN_WITH_LOADOUT)]
-		public bool SpawnWithLoadout;
+		[HorizontalGroup("Player/H1"), BoxGroup("Player/H1/Spawning"), PropertyTooltip(DESC_SPAWN_WITH_GEAR)]
+		public bool SpawnWithGear;
+
+		[HorizontalGroup("Player/H1"), BoxGroup("Player/H1/Spawning"), PropertyTooltip(DESC_SPAWN_WITH_WEAPON)]
+		public bool SpawnWithWeapon;
 
 		[BoxGroup("Player/H1/Spawning"), PropertyTooltip(DESC_SKYDIVE_SPAWN)]
 		public bool SkydiveSpawn;
@@ -176,7 +179,8 @@ namespace Quantum
 		private const string DESC_DESCRIPTION_LOCALISATION_KEY = "Localisation key for the description of this game mode";
 		private const string DESC_LIVES = "How many lives does the player have. Use 0 for infinite lives";
 		private const string DESC_DROP_WEAPON_ON_PICKUP = "Drops the player's equipped weapon if they pick up a better one.";
-		private const string DESC_SPAWN_WITH_LOADOUT = "Spawns the player with their loadout equipment equipped.";
+		private const string DESC_SPAWN_WITH_GEAR = "Spawns the player with their loadout gear equipped.";
+		private const string DESC_SPAWN_WITH_WEAPON = "Spawns the player with their loadout weapon equipped.";
 		private const string DESC_SKYDIVE_SPAWN = "Drops the player from a height when spawning.";
 		private const string DESC_SPAWN_SELECTION = "Enables the player to select a spawn position on the map.";
 		private const string DESC_SPAWN_PATTERN = "Limits spawn selection to a path on the map.";

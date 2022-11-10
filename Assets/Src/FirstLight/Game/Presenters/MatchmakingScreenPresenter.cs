@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using FirstLight.UiService;
@@ -11,6 +12,7 @@ namespace FirstLight.Game.Presenters
 	{
 		public struct StateData
 		{
+			public Action LeaveRoomClicked;
 		}
 
 		public void OnPlayerEnteredRoom(Player newPlayer)

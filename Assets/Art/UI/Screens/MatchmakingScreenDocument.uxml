@@ -1,6 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/MatchmakingScreenStyle.uss?fileID=7433441132597879392&amp;guid=054969067d16dbd4b99f57bc2f230e20&amp;type=3#MatchmakingScreenStyle" />
-    <ui:VisualElement name="root" picking-mode="Ignore" class="background">
+    <ui:VisualElement name="root" picking-mode="Ignore" class="background" style="flex-direction: row;">
+        <ui:VisualElement name="PlayerImage" class="player-image" />
         <ui:VisualElement name="LeftScreenHolder" class="left-screen-holder">
             <ui:VisualElement name="Top" class="left-screen-holder__top">
                 <ui:VisualElement name="ModeHolderBg">
@@ -21,6 +22,12 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="PlayerImage" class="player-image" />
+        <ui:VisualElement name="RightScreenHolder" class="right-screen-holder">
+            <ui:VisualElement name="MapHolder" class="map-holder">
+                <ui:VisualElement name="Mask" class="map-holder__mask">
+                    <ui:VisualElement name="MapImage" class="map-holder__map-image" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

@@ -465,8 +465,9 @@ namespace FirstLight.Game.StateMachines
 			var loadout = _gameDataProvider.EquipmentDataProvider.Loadout;
 			var inventory = _gameDataProvider.EquipmentDataProvider.Inventory;
 			var f = game.Frames.Verified;
-			var spawnPosition = _uiService.GetUi<MatchmakingLoadingScreenPresenter>().mapSelectionView
-			                              .NormalizedSelectionPoint;
+			// TODO ROB
+			//var spawnPosition = _uiService.GetUi<MatchmakingScreenPresenter>().mapSelectionView
+			//                              .NormalizedSelectionPoint;
 
 			var newloadout = loadout.ReadOnlyDictionary.Values.Select(id => inventory[id]).ToList();
 			if(f.Context.TryGetMutatorByType(MutatorType.HammerTime, out _))
@@ -490,7 +491,8 @@ namespace FirstLight.Game.StateMachines
 					DeathMarker = info.DeathMarker,
 					PlayerLevel = info.Level,
 					PlayerTrophies = info.TotalTrophies,
-					NormalizedSpawnPosition = spawnPosition.ToFPVector2(),
+					// TODO ROB
+					//NormalizedSpawnPosition = spawnPosition.ToFPVector2(),
 					Loadout = newloadout.ToArray()
 				});
 			}

@@ -8,6 +8,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
 using NSubstitute;
 using NUnit.Framework;
+using Photon.Deterministic;
 using Quantum;
 using UnityEngine;
 using Assert = NUnit.Framework.Assert;
@@ -248,6 +249,8 @@ namespace FirstLight.Tests.EditorMode.Logic
 			SetPlayerRank(1, 10);
 
 			InitConfigData(new QuantumMapConfig {Map = (GameId) _matchData[_executingPlayer].MapId});
+
+			InitConfigData(new QuantumGameConfig {TrophyEloK = 4, TrophyEloRange = 400, TrophyMinChange = FP._0_05});
 
 			InitConfigData(config => config.Placement,
 				new MatchRewardConfig

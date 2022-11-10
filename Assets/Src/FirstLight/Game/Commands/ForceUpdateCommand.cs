@@ -22,23 +22,23 @@ namespace FirstLight.Game.Commands
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Server;
 
 		/// <inheritdoc />
-		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)
+		public void Execute(CommandExecutionContext ctx)
 		{
 			if (PlayerData != null)
 			{
-				PlayerData.CopyPropertiesShallowTo(dataProvider.GetData<PlayerData>());
+				PlayerData.CopyPropertiesShallowTo(ctx.Data.GetData<PlayerData>());
 			}
 			if (RngData != null)
 			{
-				RngData.CopyPropertiesShallowTo(dataProvider.GetData<RngData>());
+				RngData.CopyPropertiesShallowTo(ctx.Data.GetData<RngData>());
 			}
 			if (IdData != null)
 			{
-				IdData.CopyPropertiesShallowTo(dataProvider.GetData<IdData>());
+				IdData.CopyPropertiesShallowTo(ctx.Data.GetData<IdData>());
 			}
 			if (EquipmentData != null)
 			{
-				EquipmentData.CopyPropertiesShallowTo(dataProvider.GetData<EquipmentData>());
+				EquipmentData.CopyPropertiesShallowTo(ctx.Data.GetData<EquipmentData>());
 			}
 		}
 	}

@@ -23,6 +23,7 @@ namespace FirstLight.Game.Services
 {
 	/// <summary>
 	/// Defines the required user permission level to access a given command.
+	/// TODO: Move to server SDK
 	/// </summary>
 	public enum CommandAccessLevel
 	{
@@ -54,6 +55,7 @@ namespace FirstLight.Game.Services
 
 	/// <summary>
 	/// Refers to dictionary keys used in the data sent to server.
+	/// TODO: Move to server SDK
 	/// </summary>
 	public static class CommandFields
 	{
@@ -87,6 +89,7 @@ namespace FirstLight.Game.Services
 		private readonly Queue<IGameCommand> _commandQueue;
 		private readonly IPlayfabService _playfab;
 		private readonly IGameNetworkService _network;
+		private readonly CommandExecutionContext _commandContext;
 
 		public GameCommandService(IPlayfabService playfabService, IGameLogic gameLogic, IDataService dataService,
 								  IGameServices services, IGameNetworkService network)
@@ -99,6 +102,8 @@ namespace FirstLight.Game.Services
 			_network = network;
 			ModelSerializer.RegisterConverter(new QuantumVector2Converter());
 			ModelSerializer.RegisterConverter(new QuantumVector3Converter());
+			_commandContext = new CommandExecutionContext(
+				new LogicContainer().Build(gameLogic), new ServiceContainer().Build(services), dataService);
 		}
 
 		/// <summary>
@@ -166,7 +171,7 @@ namespace FirstLight.Game.Services
 						EnqueueCommandToServer(command);
 						break;
 				}
-				command.Execute(_gameLogic, _dataService);
+				command.Execute(_commandContext);
 			}
 			catch (Exception e)
 			{

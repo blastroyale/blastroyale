@@ -23,7 +23,7 @@ namespace FirstLight.Game.Commands
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Quantum;
 
 		/// <inheritdoc />
-		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)
+		public void Execute(CommandExecutionContext ctx)
 		{
 			if (!_validRewardsFromFrame)
 			{
@@ -31,7 +31,7 @@ namespace FirstLight.Game.Commands
 			}
 			
 			var matchData = PlayersMatchData;
-			var trophiesBeforeChange = gameLogic.PlayerLogic.Trophies.Value;
+			var trophiesBeforeChange = ctx.Logic.PlayerLogic().Trophies.Value;
 			var matchType = QuantumValues.MatchType;
 			var rewardSource = new RewardSource()
 			{
@@ -41,9 +41,9 @@ namespace FirstLight.Game.Commands
 				DidPlayerQuit = false,
 				GamePlayerCount = _playerCount
 			};
-			var rewards = gameLogic.RewardLogic.GiveMatchRewards(rewardSource, out var trophyChange);
+			var rewards = ctx.Logic.RewardLogic().GiveMatchRewards(rewardSource, out var trophyChange);
 
-			gameLogic.MessageBrokerService.Publish(new GameCompletedRewardsMessage
+			ctx.Services.MessageBrokerService().Publish(new GameCompletedRewardsMessage
 			{
 				Rewards = rewards,
 				TrophiesChange = trophyChange,

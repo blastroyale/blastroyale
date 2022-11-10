@@ -152,7 +152,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			var aimDirection = new Vector2(QuantumHelpers.GetAimDirection(f, bb, transform).X.AsFloat, QuantumHelpers.GetAimDirection(f, bb, transform).Y.AsFloat);
 			var rangeStat = f.Get<Stats>(_localPlayerEntity).GetStatData(StatType.AttackRange).StatValue;
-			var range = QuantumHelpers.GetDynamicAimValue(kcc, rangeStat + _weaponConfig.AttackRangeAimBonus, rangeStat).AsFloat;
+			var range = QuantumHelpers.GetDynamicAimValue(kcc, rangeStat, rangeStat + _weaponConfig.AttackRangeAimBonus).AsFloat;
 
 			var minAttackAngle = _shootIndicatorId == IndicatorVfxId.Line ? 0 : _weaponConfig.MinAttackAngle;
 			var maxAttackAngle = _shootIndicatorId == IndicatorVfxId.Line ? 0 :_weaponConfig.MaxAttackAngle;

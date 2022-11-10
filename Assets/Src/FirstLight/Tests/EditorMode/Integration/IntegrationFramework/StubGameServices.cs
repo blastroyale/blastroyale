@@ -66,7 +66,7 @@ namespace FirstLight.Tests.EditorMode
 			IAPService = null;
 			GuidService = new GuidService();
 			PlayfabService = new StubPlayfabService();
-			CommandService = new StubCommandService(gameLogic, dataProvider);
+			CommandService = new StubCommandService(gameLogic, dataProvider, this);
 			PoolService = new PoolService();
 			TickService = new StubTickService();
 			CoroutineService = new StubCoroutineService();

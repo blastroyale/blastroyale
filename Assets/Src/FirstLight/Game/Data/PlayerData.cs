@@ -39,7 +39,8 @@ namespace FirstLight.Game.Data
 		public readonly Dictionary<GameId, ulong> Currencies = new (new GameIdComparer())
 		{
 			{ GameId.CS, 0 },
-			{ GameId.BLST, 0 }
+			{ GameId.BLST, 0 },
+			{ GameId.COIN, 0 }
 		};
 	}
 	

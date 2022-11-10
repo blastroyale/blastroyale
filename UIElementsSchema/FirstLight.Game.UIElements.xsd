@@ -5,6 +5,7 @@
     <xs:restriction base="xs:string">
       <xs:enumeration value="CS" />
       <xs:enumeration value="BLST" />
+      <xs:enumeration value="COIN" />
     </xs:restriction>
   </xs:simpleType>
   <xs:complexType name="CurrencyDisplayElementType">

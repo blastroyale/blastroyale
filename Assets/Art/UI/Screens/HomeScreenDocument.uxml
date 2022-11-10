@@ -20,6 +20,7 @@
                 <ui:Button display-tooltip-when-elided="true" name="SettingsButton" class="hidden-top" style="background-image: none; padding-left: 0; padding-right: 0; padding-bottom: 0; padding-top: 0;">
                     <ui:VisualElement style="width: 66px; height: 66px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/HomeScreen/SettingsIcon.png?fileID=2800000&amp;guid=04713a4471ac6493ba0a2533be572841&amp;type=3#SettingsIcon&apos;); margin-left: 20px; margin-top: 20px; margin-right: 20px; margin-bottom: 20px;" />
                 </ui:Button>
+                <flg:CurrencyDisplayElement name="CoinCurrency" currency="COIN" class="hidden-top" style="margin-right: 50px;" />
                 <flg:CurrencyDisplayElement name="CSCurrency" currency="CS" class="hidden-top" style="margin-right: 50px;" />
                 <flg:CurrencyDisplayElement name="BLSTCurrency" currency="BLST" class="hidden-top" style="margin-right: 50px;" />
             </ui:VisualElement>
@@ -42,9 +43,12 @@
                         <ui:Label text="CASUAL" name="GameTypeLabel" class="font-italic font-style-h2" style="-unity-text-align: upper-right; font-size: 29px; margin-bottom: -3px; margin-left: -13px;" />
                     </ui:VisualElement>
                 </ui:Button>
-                <flg:LocalizedButton localization-key="UITHomeScreen/shop" name="StoreButton" class="button-with-icon button-with-icon--yellow button-with-icon--shop hidden-right" style="margin-bottom: 27px;">
+                <flg:LocalizedButton localization-key="UITHomeScreen/shop" name="StoreButton" class="button-with-icon button-with-icon--yellow button-with-icon--shop hidden-right" style="margin-bottom: 57px;">
                     <ui:VisualElement class="button-with-icon__icon" />
                 </flg:LocalizedButton>
+                <ui:Button text="DISCORD" name="DiscordButton" class="button-with-icon button-with-icon--small button-with-icon--discord hidden-right" style="margin-bottom: 67px;">
+                    <ui:VisualElement class="button-with-icon__icon" />
+                </ui:Button>
             </ui:VisualElement>
             <ui:VisualElement picking-mode="Ignore" style="position: absolute; left: 0; top: 245px; bottom: 0; justify-content: space-between; margin-bottom: 36px; margin-left: 36px;">
                 <flg:LocalizedButton localization-key="UITHomeScreen/equipment" name="EquipmentButton" class="hidden-left button-with-icon button-with-icon--equipment">

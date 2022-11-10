@@ -13,6 +13,21 @@ namespace Quantum.Systems
 			public Transform3D* Transform;
 			public CollectablePlatformSpawner* Spawner;
 		}
+
+		/// <inheritdoc />
+		public override void OnInit(Frame f)
+		{
+			if (!f.Context.TryGetMutatorByType(MutatorType.HammerTime, out _)) return;
+			
+			foreach (var pair in f.Unsafe.GetComponentBlockIterator<CollectablePlatformSpawner>())
+			{
+				//TODO: instead of comparing to the weapon group, check against the hammertime params to see which drops to leave
+				if (pair.Component->GameId == GameId.Random || pair.Component->GameId.IsInGroup(GameIdGroup.Weapon))
+				{
+					f.Destroy(pair.Entity);
+				}
+			}
+		}
 		
 		/// <inheritdoc />
 		public void OnAdded(Frame f, EntityRef entity, CollectablePlatformSpawner* component)

@@ -11,13 +11,18 @@ namespace Quantum.Systems
 	                                 ISignalGameEnded, ISignalPlayerDead, ISignalPlayerKilledPlayer, ISignalOnPlayerDataSet
 	{
 
-		private static FP PLAYERS_JOIN_TIMEOUT = 5;
+		/// <summary>
+		/// Time while the simulation will wait for players to connect to start the game.
+		/// This has to take in account server web requests to validate user data
+		/// </summary>
+		private static FP PLAYERS_JOIN_TIMEOUT = 60;
 		
 		/// <inheritdoc />
 		public override void Update(Frame f)
 		{
 			f.ResolveList(f.Global->Queries).Clear();
 			var container = f.Unsafe.GetPointerSingleton<GameContainer>();
+			
 			if (!container->IsGameStarted && f.Time > PLAYERS_JOIN_TIMEOUT)
 			{
 				f.Signals.AllPlayersJoined();
@@ -28,7 +33,6 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void OnAdded(Frame f, EntityRef entity, GameContainer* component)
 		{
-			component->RealPlayers = f.AllocateList<PlayerRef>();
 			switch (f.Context.GameModeConfig.CompletionStrategy)
 			{
 				case GameCompletionStrategy.Never:
@@ -91,8 +95,9 @@ namespace Quantum.Systems
 
 		private void SetupWeaponPool(Frame f, GameContainer* component)
 		{
+			var isHammerTimeMutator = f.Context.TryGetMutatorByType(MutatorType.HammerTime, out _);
 			var offPool = new List<GameId>(GameIdGroup.Weapon.GetIds());
-			var count = component->DropPool.WeaponPool.Length;
+			var count = isHammerTimeMutator ? 0 : component->DropPool.WeaponPool.Length;
 			var rarity = 0;
 
 			offPool.Remove(GameId.Hammer);
@@ -115,45 +120,44 @@ namespace Quantum.Systems
 				}
 
 				rarity += (int) equipment.Value.Rarity;
-
 				component->DropPool.WeaponPool[i] = equipment.Value;
 			}
 
-			component->DropPool.AverageRarity = (EquipmentRarity) FPMath.FloorToInt((FP) rarity / count);
+			component->DropPool.AverageRarity = (EquipmentRarity) FPMath.FloorToInt((FP) rarity / (count + 1));
 			component->DropPool.MedianRarity = component->DropPool.WeaponPool[count / 2].Rarity;
 		}
 		
 		public void OnPlayerDataSet(Frame f, PlayerRef player)
 		{
 			var container = f.Unsafe.GetPointerSingleton<GameContainer>();
-			if (!container->IsGameStarted)
+
+			if (container->IsGameStarted) return;
+			
+			if (HaveAllPlayersJoined(f))
 			{
-				var realPlayers = f.ResolveList(container->RealPlayers);
-				realPlayers.Add(player);
-				var expectedPlayers = GetExpectedPlayerCount(f);
-				if (f.Time > PLAYERS_JOIN_TIMEOUT || realPlayers.Count == expectedPlayers)
-				{
-					f.Signals.AllPlayersJoined();
-					container->IsGameStarted = true;
-				}
+				f.Signals.AllPlayersJoined();
+				container->IsGameStarted = true;
 			}
 		}
-		
-		/// <summary>
-		/// Gets how many real players are expected to be present on the game.
-		/// Does not take bots into account and does not require player components.
-		/// </summary>
-		private int GetExpectedPlayerCount(Frame f)
+
+		private bool HaveAllPlayersJoined(Frame f)
 		{
-			var count = 0;
+			var setupPlayers = 0;
+			var expectedPlayers = 0;
+			
 			for (var x = 0; x < f.PlayerCount; x++)
 			{
 				if ((f.GetPlayerInputFlags(x) & DeterministicInputFlags.PlayerNotPresent) == 0)
 				{
-					count++;
+					expectedPlayers++;
+				}
+
+				if (f.GetPlayerData(x) != null)
+				{
+					setupPlayers++;
 				}
 			}
-			return count;
+			return setupPlayers == expectedPlayers;
 		}
 	}
 }

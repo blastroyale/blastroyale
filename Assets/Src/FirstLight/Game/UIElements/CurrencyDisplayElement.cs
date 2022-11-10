@@ -21,6 +21,7 @@ namespace FirstLight.Game.UIElements
 		private const string IconUssClassName = "currency-display__icon";
 		private const string IconCsUssClassName = "currency-display__icon--cs";
 		private const string IconBlstUssClassName = "currency-display__icon--blst";
+		private const string IconCoinUssClassName = "currency-display__icon--coin";
 		private const string LabelUssClassName = "currency-display__label";
 
 		/* UXML attributes */
@@ -146,7 +147,7 @@ namespace FirstLight.Game.UIElements
 			{
 				name = "currency",
 				defaultValue = GameId.CS,
-				restriction = new UxmlEnumeration {values = new[] {GameId.CS.ToString(), GameId.BLST.ToString()}},
+				restriction = new UxmlEnumeration {values = new[] {GameId.CS.ToString(), GameId.BLST.ToString(), GameId.COIN.ToString()}},
 				use = UxmlAttributeDescription.Use.Required
 			};
 
@@ -169,8 +170,9 @@ namespace FirstLight.Game.UIElements
 				cde._icon.AddToClassList(cde.currency switch
 				{
 					GameId.BLST => IconBlstUssClassName,
-					GameId.CS => IconCsUssClassName,
-					_ => ""
+					GameId.CS   => IconCsUssClassName,
+					GameId.COIN   => IconCoinUssClassName,
+					_           => ""
 				});
 			}
 		}

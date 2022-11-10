@@ -45,6 +45,6 @@ namespace FirstLight.Game.Commands
 		/// <summary>
 		/// Executes the command logic
 		/// </summary>
-		void Execute(IGameLogic gameLogic, IDataProvider dataProvider);
+		void Execute(CommandExecutionContext ctx);
 	}
 }

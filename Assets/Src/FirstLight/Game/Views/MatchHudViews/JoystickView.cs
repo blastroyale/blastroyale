@@ -33,8 +33,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_defaultJoystickPos = _joystick.anchoredPosition;
-			_joystickRadius = ((_joystick.rect.size.x / 2f) * _joystick.localScale.x) *
-			                  GameConstants.Controls.MOVEMENT_JOYSTICK_RADIUS_MULT;
+			_joystickRadius = ((_joystick.rect.size.x / 2f) * _joystick.localScale.x) * GameConstants.Controls.MOVEMENT_JOYSTICK_RADIUS_MULT;
 			_joystickCorrectionRadius = _joystickRadius * GameConstants.Controls.DYNAMIC_JOYSTICK_THRESHOLD_MULT;
 			
 			if (_dynamicJoystickCompatible)

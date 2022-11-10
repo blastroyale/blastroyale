@@ -34,7 +34,6 @@ namespace FirstLight.Game.Presenters
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_services.GameModeService.Slots.Observe(OnSlotUpdated);
-
 			_buttonViews = new List<GameModeSelectionButtonView>();
 		}
 

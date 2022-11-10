@@ -65,8 +65,6 @@ namespace FirstLight.Game.MonoComponent.Match
 			_currentlyCollidingPlayers.TryAdd(player.EntityRef, player);
 
 			player.CollidingVisibilityVolumes.Add(this);
-			
-			Debug.LogError(_currentlyCollidingPlayers.Count);
 
 			if (player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
 			{
@@ -90,8 +88,6 @@ namespace FirstLight.Game.MonoComponent.Match
 			{
 				_currentlyCollidingPlayers.Remove(player.EntityRef);
 			}
-
-			Debug.LogError(_currentlyCollidingPlayers.Count);
 
 			if (player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
 			{

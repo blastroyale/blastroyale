@@ -1090,6 +1090,17 @@ namespace I2.Loc
 			public static string reconnect 		{ get{ return LocalizationManager.GetTranslation ("UITDisconnected/reconnect"); } }
 		}
 
+		public static class UITEquipment
+		{
+			public static string lvl 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/lvl"); } }
+			public static string might 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/might"); } }
+			public static string no_amulet 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/no_amulet"); } }
+			public static string no_armor 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/no_armor"); } }
+			public static string no_helmet 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/no_helmet"); } }
+			public static string no_shield 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/no_shield"); } }
+			public static string no_weapon 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/no_weapon"); } }
+		}
+
 		public static class UITGameModeSelection
 		{
 			public static string choose_a_mode 		{ get{ return LocalizationManager.GetTranslation ("UITGameModeSelection/choose_a_mode"); } }
@@ -2238,6 +2249,17 @@ namespace I2.Loc
 		    public const string disconnected = "UITDisconnected/disconnected";
 		    public const string menu = "UITDisconnected/menu";
 		    public const string reconnect = "UITDisconnected/reconnect";
+		}
+
+		public static class UITEquipment
+		{
+		    public const string lvl = "UITEquipment/lvl";
+		    public const string might = "UITEquipment/might";
+		    public const string no_amulet = "UITEquipment/no_amulet";
+		    public const string no_armor = "UITEquipment/no_armor";
+		    public const string no_helmet = "UITEquipment/no_helmet";
+		    public const string no_shield = "UITEquipment/no_shield";
+		    public const string no_weapon = "UITEquipment/no_weapon";
 		}
 
 		public static class UITGameModeSelection

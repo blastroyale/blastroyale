@@ -944,7 +944,7 @@ namespace Quantum.Systems
 				f.Add(botEntity, botCharacter);
 
 				// Calculate bot trophies
-				var trophies = (uint) ((botsDifficulty + 1) * 1000 + f.RNG->Next(-50, 50));
+				var trophies = (uint) ((botsDifficulty * 100) + 1000 + f.RNG->Next(-50, 50));
 				
 				// TODO: Give bots random weapon based on average quality that players have
 				// TODO: Give bots random gear based on average quality that players have and teach bots to pick up gear

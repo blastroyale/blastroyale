@@ -39,7 +39,7 @@
         <HintPath>..\Lib\quantum.code.dll</HintPath>
          <ReferencePath>..\Lib\quantum.code.dll</ReferencePath>
       </Reference>
-      <Reference Include="quantum.core, Version=2.1.0.0, Culture=neutral, PublicKeyToken=null">
+      <Reference Include="quantum.core">
         <HintPath>..\Lib\quantum.core.dll</HintPath>
       </Reference>
       <Reference Include="Sirenix.OdinInspector.Attributes">
@@ -65,7 +65,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\FunctionApp\FunctionApp.csproj" />
       <ProjectReference Include="..\FirstLightServerSDK\FirstLightServerSDK.csproj" />
+      <ProjectReference Include="..\GameLogicService\GameLogicService.csproj" />
     </ItemGroup>
 </Project>

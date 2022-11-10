@@ -43,7 +43,7 @@ public class TestDataService
 		var playerId = _server.GetTestPlayerID();
 		var readData = _service.GetPlayerState(playerId).Result;
 
-		readData.UpdateModel(new PlayerData());
+		readData.UpdateModel(new PlayerData() { Level = 5 });
 		var onlyUpdated = readData.GetOnlyUpdatedState();
 
 		Assert.AreEqual(1, readData.UpdatedTypes.Count);

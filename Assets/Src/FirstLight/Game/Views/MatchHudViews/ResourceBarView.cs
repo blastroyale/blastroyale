@@ -34,12 +34,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// <summary>
 		/// Updates this reload bar be configured to the given <paramref name="entity"/> with the given data
 		/// </summary>
-		public void SetupView(Frame f, EntityRef entity)
+		public void SetupView(Frame f, PlayerCharacter player, EntityRef entity)
 		{
 			_entity = entity;
-			SetSliderValue(f, entity);
+			_currentWeapon = player.CurrentWeapon.GameId;
 			
-			_currentWeapon = f.Get<PlayerCharacter>(entity).CurrentWeapon.GameId;
+			SetSliderValue(f, player);
 
 			QuantumEvent.Subscribe<EventOnPlayerAmmoChanged>(this, HandleOnPlayerAmmoChanged);
 			QuantumEvent.Subscribe<EventOnPlayerWeaponChanged>(this, HandleOnPlayerWeaponChanged);
@@ -47,13 +47,15 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void HandleOnPlayerWeaponChanged(EventOnPlayerWeaponChanged callback)
 		{
-			if (callback.Entity != _entity)
+			var f = callback.Game.Frames.Verified;
+			
+			if (callback.Entity != _entity || f.TryGet<PlayerCharacter>(callback.Entity, out var player))
 			{
 				return;
 			}
 
 			_currentWeapon = callback.Weapon.GameId;
-			SetSliderValue(callback.Game.Frames.Verified, callback.Entity);
+			SetSliderValue(f, player);
 		}
 
 		private void HandleOnPlayerAmmoChanged(EventOnPlayerAmmoChanged callback)
@@ -81,13 +83,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 		}
 
-		private void SetSliderValue(Frame f, EntityRef entity)
+		private void SetSliderValue(Frame f, PlayerCharacter player)
 		{
-			if (!f.TryGet<PlayerCharacter>(entity, out var player))
-			{
-				return;
-			}
-			_slider.value = player.GetAmmoAmountFilled(f, entity).AsFloat;
+			_slider.value = player.GetAmmoAmountFilled(f, _entity).AsFloat;
 			_reloadBarImage.color = _primaryReloadColor;
 		}
 	}

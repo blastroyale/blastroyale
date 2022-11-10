@@ -539,9 +539,11 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static PlayerMatchData GetLocalPlayerData(this QuantumGame game, bool isVerified, out Frame f)
 		{
+			var localPlayers = game.GetLocalPlayers();
+			
 			f = isVerified ? game.Frames.Verified : game.Frames.Predicted;
 			
-			return f.GetSingleton<GameContainer>().PlayersData[game.GetLocalPlayers()[0]];
+			return localPlayers.Length == 0 ? new PlayerMatchData() : f.GetSingleton<GameContainer>().PlayersData[game.GetLocalPlayers()[0]];
 		}
 
 		/// <summary>

@@ -205,7 +205,7 @@ namespace FirstLight.Game.Logic
 			container.Add(logic.RewardLogic);
 			container.Add(logic.PlayerLogic);
 			container.Add(logic.BattlePassLogic);
-			container.Add(logic.RewardLogic);
+			container.Add(logic.EquipmentLogic);
 			return container;
 		}
 

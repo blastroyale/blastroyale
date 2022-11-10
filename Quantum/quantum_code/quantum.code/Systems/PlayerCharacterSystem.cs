@@ -35,7 +35,7 @@ namespace Quantum.Systems
 				InstantiatePlayer(f, i, playerData);
 			}
 		}
-		
+
 		/// <inheritdoc />
 		public void HealthIsZeroFromAttacker(Frame f, EntityRef entity, EntityRef attacker)
 		{
@@ -56,7 +56,7 @@ namespace Quantum.Systems
 			{
 				Collectable.DropEquipment(f, playerDead->CurrentWeapon, deathPosition, step);
 				step++;
-			} 
+			}
 
 			// Try to drop Health pack
 			if (gameModeConfig.HealthDeathDropStrategy >= DeathDropsStrategy.Normal &&

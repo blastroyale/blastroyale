@@ -44,7 +44,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				foreach (var entityViewBase in components)
 				{
 					entityViewBase.SetEntityView(runner.Game, entityView);
-
 				}
 			}
 		}

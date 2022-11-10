@@ -130,7 +130,6 @@ namespace Quantum
 
 			StatusModifiers.AddStatusModifierToEntity(f, e, StatusModifierType.Immunity,
 			                                          f.GameConfig.PlayerAliveShieldDuration.Get(f));
-
 		}
 
 		/// <summary>

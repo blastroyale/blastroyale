@@ -27,6 +27,7 @@
     flex-grow: 1;
     font-size: 55px;
     height: 80%;
+    -unity-text-outline-width: 3px;
 }
 
 .background {
@@ -55,6 +56,11 @@
     bottom: 50px;
 }
 
+.player-amount-holder__labels {
+    justify-content: center;
+    align-items: flex-start;
+}
+
 .player-amount-holder__loading-icon {
     height: 100%;
     width: 100px;
@@ -65,14 +71,23 @@
 
 .player-amount-holder__location-label {
     font-size: 90px;
+    -unity-text-outline-width: 3px;
+    -unity-text-outline-color: rgb(94, 19, 42);
+    text-shadow: 5px 5px 0 rgb(100, 20, 45);
+    color: rgba(214, 76, 123, 255);
+    -unity-font-style: normal;
+    margin-top: -20px;
 }
 
 .player-amount-holder__player-label {
     font-size: 90px;
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(64, 57, 99);
+    text-shadow: 5px 5px 0 rgb(64, 57, 99);
 }
 
 .left-screen-holder {
-    width: 30%;
+    width: 700px;
     height: 100%;
 }
 
@@ -95,7 +110,7 @@
     background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/MapBack.png?fileID=2800000&guid=51f92536db4534a42a8f4395b5ff89ae&type=3#MapBack');
     -unity-background-scale-mode: scale-to-fit;
     width: 100%;
-    height: 80%;
+    height: 70%;
     top: 5%;
     align-items: center;
     justify-content: center;
@@ -118,6 +133,53 @@
     -unity-background-scale-mode: scale-and-crop;
 }
 
+.map-holder__dropzone-bg {
+    position: absolute;
+    background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/SelectdropzoneBg.png?fileID=2800000&guid=9f183781b309b0a44bf9e678b77eb11a&type=3#SelectdropzoneBg');
+    width: 125%;
+    height: 45%;
+    top: 82%;
+    -unity-background-scale-mode: scale-to-fit;
+    justify-content: center;
+    align-items: center;
+}
+
+.map-holder__dropzone-bg > LocalizedLabel {
+    font-size: 90px;
+    rotate: -5deg;
+    -unity-font-style: normal;
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(100, 20, 45);
+    text-shadow: 5px 5px 0 rgb(100, 20, 45);
+}
+
+.dropzone-path {
+    position: absolute;
+    height: 225%;
+    width: 150%;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-between;
+}
+
+.dropzone-path__shadow {
+    background-color: rgba(0, 0, 0, 0.7);
+    width: 40%;
+    align-items: auto;
+}
+
+.dropzone-path__path {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+.dropzone-path__path > #Plane {
+    background-image: url('project://database/Assets/Art/Textures/Ui/AdventureWorldHud/Minimap/AirplaneIcon.png?fileID=2800000&guid=526a739286f93464497b3041da810a0f&type=3#AirplaneIcon');
+    width: 75px;
+    height: 75px;
+}
+
 #ModeHolderBg {
     background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/HeadlineHighlight.png?fileID=21300000&guid=97008515db6874b47820ca1592ee79d5&type=3#HeadlineHighlight');
     width: 100%;
@@ -127,7 +189,7 @@
 #ModeDesc {
     position: absolute;
     white-space: normal;
-    font-size: 50px;
+    font-size: 40px;
     width: 650px;
     height: 300px;
     top: 100%;

@@ -7,7 +7,7 @@
                 <ui:VisualElement name="ModeHolderBg">
                     <ui:VisualElement name="ModeHolder" class="mode-holder">
                         <ui:VisualElement name="Icon" class="mode-holder__icon" />
-                        <ui:Label name="Label" text="BATTLE ROYALE&#10;SOLO" class="font-italic font-style-h2 mode-holder__label" />
+                        <ui:Label name="Label" text="BATTLE ROYALE&#10;SOLO" class="font-italic font-style-h2 mode-holder__label" style="-unity-text-outline-width: 2px; -unity-text-outline-color: rgb(22, 20, 38); text-shadow: 5px 5px 0 rgb(22, 20, 38); -unity-font-style: bold;" />
                     </ui:VisualElement>
                     <ui:Label name="ModeDesc" text="LAST PLAYER STANDING&#10;WINS THE MATCH" class="font-italic ModeDesc" />
                 </ui:VisualElement>
@@ -15,7 +15,7 @@
             <ui:VisualElement name="Bottom" class="left-screen-holder__bottom">
                 <ui:VisualElement name="PlayerAmountHolder" class="player-amount-holder">
                     <ui:VisualElement name="LoadingIcon" class="player-amount-holder__loading-icon" />
-                    <ui:VisualElement name="Labels" style="justify-content: center;">
+                    <ui:VisualElement name="Labels" class="player-amount-holder__labels">
                         <ui:Label name="PlayerLabel" text="5/30" class="font-italic font-style-h2 player-amount-holder__player-label" />
                         <ui:Label name="LocationLabel" text="LOCATION" class="font-italic font-style-h2 player-amount-holder__location-label" />
                     </ui:VisualElement>
@@ -24,8 +24,18 @@
         </ui:VisualElement>
         <ui:VisualElement name="RightScreenHolder" class="right-screen-holder">
             <ui:VisualElement name="MapHolder" class="map-holder">
-                <ui:VisualElement name="Mask" class="map-holder__mask">
+                <ui:VisualElement name="MapMask" class="map-holder__mask">
                     <ui:VisualElement name="MapImage" class="map-holder__map-image" />
+                    <ui:VisualElement name="DropzonePath" class="dropzone-path">
+                        <ui:VisualElement name="DropzoneShadow" class="dropzone-path__shadow" />
+                        <ui:VisualElement name="DropzonePath" picking-mode="Ignore" class="dropzone-path__path">
+                            <ui:VisualElement name="Plane" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="DropzoneShadow" class="dropzone-path__shadow" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="DropzoneBg" picking-mode="Ignore" class="map-holder__dropzone-bg">
+                    <FirstLight.Game.UIElements.LocalizedLabel display-tooltip-when-elided="true" localization-key="UITMatchmaking/select_dropzone" name="DropzoneLabel" class="font-style-h2 font-italic" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>

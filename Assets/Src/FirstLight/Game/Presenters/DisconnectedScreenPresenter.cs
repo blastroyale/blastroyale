@@ -31,7 +31,7 @@ namespace FirstLight.Game.Presenters
 
 		private const float TIMEOUT_DIM_SECONDS = 5f;
 
-		private VisualElement _blockerElement;
+		private VisualElement _dimElement;
 		private Button _menuButton;
 		private Button _reconnectButton;
 		private IGameServices _services;
@@ -43,7 +43,7 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements(VisualElement root)
 		{
-			_blockerElement = root.Q("Blocker").Required();
+			_dimElement = root.Q("Dim").Required();
 			_menuButton =root.Q<Button>("MenuButton").Required();
 			_reconnectButton = root.Q<Button>("ReconnectButton").Required();
 
@@ -65,7 +65,7 @@ namespace FirstLight.Game.Presenters
 			}
 			
 			// Disconnecting in main menu, players should only be able to reconnect
-			if (_services.NetworkService.LastDisconnectLocation == LastDisconnectionLocation.Menu)
+			if (_services.NetworkService.LastDisconnectLocation is LastDisconnectionLocation.Menu or LastDisconnectionLocation.Matchmaking)
 			{
 				_menuButton.SetDisplayActive(false);
 				_reconnectButton.SetDisplayActive(true);
@@ -104,12 +104,12 @@ namespace FirstLight.Game.Presenters
 		/// </summary>
 		public void SetFrontDimBlockerActive(bool active)
 		{
-			_blockerElement.EnableInClassList(UIConstants.ELEMENT_HIDDEN, !active);
+			_dimElement.EnableInClassList(UIConstants.ELEMENT_HIDDEN, !active);
 		}
 
 		private void OnLeaveClicked()
 		{
-			Data.BackClicked.Invoke();
+			Data.BackClicked();
 		}
 
 		private void OnReconnectClicked()
@@ -120,9 +120,11 @@ namespace FirstLight.Game.Presenters
 				return;
 			}
 
+			SetFrontDimBlockerActive(true);
+			
 			// Just in case reconnect stalls, undim the blocker after X seconds
 			this.LateCoroutineCall(TIMEOUT_DIM_SECONDS, () => { SetFrontDimBlockerActive(false); });
-			Data.ReconnectClicked.Invoke();
+			Data.ReconnectClicked();
 		}
 
 		private void OpenNoInternetPopup()

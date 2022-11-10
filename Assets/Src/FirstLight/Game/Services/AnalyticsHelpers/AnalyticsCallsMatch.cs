@@ -149,7 +149,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"killer_name", (killerData.Data.IsBot?"Bot":"") + killerData.PlayerName}
 			};
 			
-			_analyticsService.LogEvent(AnalyticsEvents.MatchKillAction, data);
+			_analyticsService.LogEvent(AnalyticsEvents.MatchKillAction, data, false);
 		}
 
 		/// <summary>
@@ -179,7 +179,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"player_name", playerData.PlayerName }
 			};
 			
-			_analyticsService.LogEvent(AnalyticsEvents.MatchChestOpenAction, data);
+			_analyticsService.LogEvent(AnalyticsEvents.MatchChestOpenAction, data, false);
 
 			foreach (var item in callback.Items)
 			{
@@ -212,7 +212,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"angle_step_around_chest", chestItemDropped.AngleStepAroundChest}
 			};
 			
-			_analyticsService.LogEvent(AnalyticsEvents.MatchChestItemDrop, data);
+			_analyticsService.LogEvent(AnalyticsEvents.MatchChestItemDrop, data, false);
 		}
 		
 		/// <summary>
@@ -237,7 +237,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"player_name", _gameData.AppDataProvider.DisplayNameTrimmed }
 			};
 			
-			_analyticsService.LogEvent(AnalyticsEvents.MatchPickupAction, data);
+			_analyticsService.LogEvent(AnalyticsEvents.MatchPickupAction, data, false);
 		}
 	}
 }

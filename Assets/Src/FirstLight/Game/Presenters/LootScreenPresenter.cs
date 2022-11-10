@@ -1,46 +1,31 @@
 using System;
-using UnityEngine;
-using UnityEngine.UI;
-using FirstLight.Game.Ids;
+using System.Collections.Generic;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
+using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
-using FirstLight.Game.Views.MainMenuViews;
+using FirstLight.UiService;
 using I2.Loc;
 using Quantum;
-using Sirenix.OdinInspector;
-using TMPro;
-using Button = UnityEngine.UI.Button;
+using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
 {
 	/// <summary>
 	/// This Presenter handles the Loot Screen, where players can equip items and upgrade loot.
 	/// </summary>
-	public class LootScreenPresenter : AnimatedUiPresenterData<LootScreenPresenter.StateData>
+	public class LootScreenPresenter : UiToolkitPresenterData<LootScreenPresenter.StateData>
 	{
 		public struct StateData
 		{
-			public Action OnAllGearClicked;
 			public Action<GameIdGroup> OnSlotButtonClicked;
-			public Action<UniqueId> OnEquipmentButtonClicked;
-			public Action OnChangeSkinClicked;
-			public Action OnLootBackButtonClicked;
+			public Action OnBackButtonClicked;
 		}
 
-		[SerializeField] private FilterLootView[] _filterButtons;
-		[SerializeField] private EquippedLootView[] _equipmentButtons;
-		[SerializeField, Required] private Button _allGearButton;
-		[SerializeField, Required] private Button _changeSkinButton;
-		[SerializeField, Required] private Button _backButton;
-		[SerializeField, Required] private TextMeshProUGUI _playerNameText;
-		[SerializeField, Required] private TextMeshProUGUI _playerLevelText;
-		[SerializeField, Required] private TextMeshProUGUI _powerRatingText;
-		[SerializeField, Required] private TextMeshProUGUI _powerValueText;
-		[SerializeField, Required] private Slider _playerLevelSlider;
-		[SerializeField, Required] private Image _playerLevelBadge;
-		[SerializeField, Required] private Button _blockerButton;
+		private List<EquipmentSlotElement> _categories;
+		private VisualElement _specialsHolder;
+		private Label _mightLabel;
 
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
@@ -49,90 +34,72 @@ namespace FirstLight.Game.Presenters
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			_allGearButton.onClick.AddListener(OnAllGearClicked);
-			_changeSkinButton.onClick.AddListener(OnChangeSkinClicked);
-			_backButton.onClick.AddListener(OnBackButtonPressed);
-			_blockerButton.onClick.AddListener(OnBlockerButtonPressed);
-
-			foreach (var button in _equipmentButtons)
-			{
-				button.OnClick.AddListener(OnSlotClicked);
-			}
-
-			foreach (var button in _filterButtons)
-			{
-				button.OnClick.AddListener(OnSlotClicked);
-			}
-
-			LoadPlayerLevelInformation();
 		}
 
-		protected override void OnSetData()
+		protected override void QueryElements(VisualElement root)
 		{
-			base.OnSetData();
+			_specialsHolder = root.Q("SpecialsHolder").Required();
+			_mightLabel = root.Q<Label>("MightLabel").Required();
+			_categories = root.Query<EquipmentSlotElement>().Build().ToList();
 
-			LoadPlayerLevelInformation();
+			foreach (var cat in _categories)
+			{
+				cat.clicked += () => Data.OnSlotButtonClicked(cat.Category);
+			}
+
+			root.Q<ImageButton>("CloseButton").clicked += Data.OnBackButtonClicked;
+			root.Q<ImageButton>("ScreenHeader").clicked += Data.OnBackButtonClicked;
 		}
 
 		protected override void OnOpened()
 		{
 			base.OnOpened();
 
-			foreach (var button in _equipmentButtons)
-			{
-				button.UpdateItem();
-			}
-
-			foreach (var filterButton in _filterButtons)
-			{
-				filterButton.SetNotificationState();
-			}
-
-			SetBasicPlayerInformation();
+			RefreshCategories();
+			RefreshSpecials();
+			RefreshMight();
 		}
 
-		private void SetBasicPlayerInformation()
+		private void RefreshCategories()
+		{
+			foreach (var element in _categories)
+			{
+				if (_gameDataProvider.EquipmentDataProvider.Loadout.TryGetValue(element.Category, out var uniqueId))
+				{
+					var equipment = _gameDataProvider.EquipmentDataProvider.Inventory[uniqueId];
+					element.SetEquipment(equipment);
+				}
+				else
+				{
+					element.SetEquipment(default);
+				}
+			}
+		}
+
+		private void RefreshSpecials()
+		{
+			_specialsHolder.Clear();
+
+			if (_gameDataProvider.EquipmentDataProvider.Loadout.TryGetValue(GameIdGroup.Weapon, out var uniqueId))
+			{
+				var info = _gameDataProvider.EquipmentDataProvider.GetInfo(uniqueId);
+
+				foreach (var (type, value) in info.Stats)
+				{
+					if (value > 0 && type is EquipmentStatType.SpecialId0 or EquipmentStatType.SpecialId1)
+					{
+						_specialsHolder.Add(new SpecialDisplayElement((GameId) value));
+					}
+				}
+			}
+		}
+
+		private void RefreshMight()
 		{
 			var loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both);
 			var might = loadout.GetTotalMight(_services.ConfigsProvider.GetConfigsDictionary<QuantumStatConfig>());
-			
-			_playerNameText.text = _gameDataProvider.AppDataProvider.DisplayNameTrimmed;
-			_powerRatingText.text = ScriptLocalization.MainMenu.TotalMight;
-			_powerValueText.text = might.ToString("F0");
-		}
 
-		private async void LoadPlayerLevelInformation()
-		{
-			var info = _gameDataProvider.PlayerDataProvider.PlayerInfo;
-			
-			_playerLevelBadge.sprite = await _services.AssetResolverService.RequestAsset<int, Sprite>((int) info.Level);
-			_playerLevelText.text = info.Level.ToString("N0");
-			_playerLevelSlider.value = (float) info.Xp / info.Config.LevelUpXP;
-		}
-
-		private void OnAllGearClicked()
-		{
-			Data.OnAllGearClicked();
-		}
-
-		private void OnSlotClicked(GameIdGroup slot)
-		{
-			Data.OnSlotButtonClicked(slot);
-		}
-
-		private void OnChangeSkinClicked()
-		{
-			Data.OnChangeSkinClicked();
-		}
-
-		private void OnBackButtonPressed()
-		{
-			Data.OnLootBackButtonClicked();
-		}
-
-		private void OnBlockerButtonPressed()
-		{
-			Data.OnLootBackButtonClicked();
+			_mightLabel.text = string.Format(ScriptLocalization.UITEquipment.might, might.ToString("F0"));
 		}
 	}
 }

@@ -11,7 +11,11 @@ namespace Quantum.Systems
 	                                 ISignalGameEnded, ISignalPlayerDead, ISignalPlayerKilledPlayer, ISignalOnPlayerDataSet
 	{
 
-		private static FP PLAYERS_JOIN_TIMEOUT = 5;
+		/// <summary>
+		/// Time while the simulation will wait for players to connect to start the game.
+		/// This has to take in account server web requests to validate user data
+		/// </summary>
+		private static FP PLAYERS_JOIN_TIMEOUT = 60;
 		
 		/// <inheritdoc />
 		public override void Update(Frame f)
@@ -126,7 +130,7 @@ namespace Quantum.Systems
 		public void OnPlayerDataSet(Frame f, PlayerRef player)
 		{
 			var container = f.Unsafe.GetPointerSingleton<GameContainer>();
-			
+
 			if (container->IsGameStarted) return;
 			
 			if (HaveAllPlayersJoined(f))

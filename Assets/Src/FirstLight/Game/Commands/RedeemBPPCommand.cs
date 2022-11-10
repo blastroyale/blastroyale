@@ -11,11 +11,11 @@ namespace FirstLight.Game.Commands
 
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Server;
 
-		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)
+		public void Execute(CommandExecutionContext ctx)
 		{
-			if (gameLogic.BattlePassLogic.RedeemBPP(out var rewards, out var newLevel))
+			if (ctx.Logic.BattlePassLogic().RedeemBPP(out var rewards, out var newLevel))
 			{
-				gameLogic.MessageBrokerService.Publish(new BattlePassLevelUpMessage
+				ctx.Services.MessageBrokerService().Publish(new BattlePassLevelUpMessage
 				{
 					Rewards = rewards,
 					newLevel = newLevel

@@ -80,7 +80,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			if (callback.CurrentMultiKill == 1)
 			{
-				var killerIsLocal = QuantumRunner.Default.Game.PlayerIsLocal(callback.PlayerKiller);
+				var killerIsLocal = callback.Game.PlayerIsLocal(callback.PlayerKiller);
 				var deadName = callback.PlayersMatchData[callback.PlayerDead].GetPlayerName();
 				var topText = killerIsLocal
 					? ScriptLocalization.AdventureMenu.Kill

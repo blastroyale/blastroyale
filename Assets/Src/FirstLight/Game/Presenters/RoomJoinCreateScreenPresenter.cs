@@ -171,7 +171,7 @@ namespace FirstLight.Game.Presenters
 			{
 				var mutatorMenuOption = _mutatorsSelections[i].options[_mutatorsSelections[i].value];
 				
-				if (mutatorMenuOption.text.Length == 0)
+				if (mutatorMenuOption.text.Equals("None"))
 				{
 					continue;
 				}
@@ -203,7 +203,7 @@ namespace FirstLight.Game.Presenters
 			foreach (var mutatorsSelection in _mutatorsSelections)
 			{
 				mutatorsSelection.options.Clear();
-				mutatorsSelection.options.Add(new TMP_Dropdown.OptionData(""));
+				mutatorsSelection.options.Add(new TMP_Dropdown.OptionData("None"));
 
 				foreach (var mutatorConfig in mutatorConfigs)
 				{

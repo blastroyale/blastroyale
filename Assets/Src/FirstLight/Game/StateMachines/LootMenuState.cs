@@ -85,11 +85,8 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new LootScreenPresenter.StateData
 			{
-				OnEquipmentButtonClicked = EquipmentButtonClicked,
-				OnAllGearClicked = () => _statechartTrigger(_allGearClickedEvent),
 				OnSlotButtonClicked = SlotButtonClicked,
-				OnChangeSkinClicked = () => _statechartTrigger(_skinClickedEvent),
-				OnLootBackButtonClicked = () => _statechartTrigger(_backButtonClickedEvent)
+				OnBackButtonClicked = () => _statechartTrigger(_backButtonClickedEvent)
 			};
 
 			_uiService.OpenScreen<LootScreenPresenter, LootScreenPresenter.StateData>(data);

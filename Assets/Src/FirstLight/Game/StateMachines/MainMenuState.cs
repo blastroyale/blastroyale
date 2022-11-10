@@ -148,6 +148,7 @@ namespace FirstLight.Game.StateMachines
 			playClickedCheck.Transition().Condition(EnoughNftToPlay).OnTransition(SendPlayReadyMessage).Target(roomWait);
 			playClickedCheck.Transition().Target(nftPlayRestricted);
 
+			roomWait.OnEnter(CloseCurrentScreen);
 			roomWait.Event(NetworkState.JoinedRoomEvent).Target(final);
 			roomWait.Event(NetworkState.JoinRoomFailedEvent).Target(homeMenu);
 			roomWait.Event(NetworkState.CreateRoomFailedEvent).Target(homeMenu);
@@ -178,7 +179,7 @@ namespace FirstLight.Game.StateMachines
 			roomJoinCreateMenu.Event(NetworkState.JoinRoomFailedEvent).Target(chooseGameMode);
 			roomJoinCreateMenu.Event(NetworkState.CreateRoomFailedEvent).Target(chooseGameMode);
 		}
-
+		
 		private bool HasDefaultName()
 		{
 			return _gameDataProvider.AppDataProvider.DisplayNameTrimmed == GameConstants.PlayerName.DEFAULT_PLAYER_NAME ||
@@ -363,6 +364,11 @@ namespace FirstLight.Game.StateMachines
 
 			_uiService.OpenScreen<RoomJoinCreateScreenPresenter, RoomJoinCreateScreenPresenter.StateData>(data);
 		}
+		
+		private void CloseCurrentScreen()
+		{
+			_uiService.CloseCurrentScreen();
+		}
 
 		private void OpenPlayMenuUI()
 		{
@@ -376,13 +382,14 @@ namespace FirstLight.Game.StateMachines
 				OnGameModeClicked = () => _statechartTrigger(_chooseGameModeClickedEvent),
 				OnLeaderboardClicked = () => _statechartTrigger(_leaderboardClickedEvent),
 				OnBattlePassClicked = () => _statechartTrigger(_battlePassClickedEvent),
-				OnStoreClicked = () => _statechartTrigger(_storeClickedEvent)
+				OnStoreClicked = () => _statechartTrigger(_storeClickedEvent),
+				OnDiscordClicked = DiscordButtonClicked
 			};
 
 			_uiService.OpenScreen<HomeScreenPresenter, HomeScreenPresenter.StateData>(data);
 			_services.MessageBrokerService.Publish(new PlayScreenOpenedMessage());
 		}
-		
+
 		private void OpenDisconnectedScreen()
 		{
 			var data = new DisconnectedScreenPresenter.StateData
@@ -486,6 +493,11 @@ namespace FirstLight.Game.StateMachines
 			MainInstaller.CleanDispose<IMainMenuServices>();
 
 			_statechartTrigger(MainMenuUnloadedEvent);
+		}
+		
+		private void DiscordButtonClicked()
+		{
+			Application.OpenURL(GameConstants.Links.DISCORD_SERVER);
 		}
 	}
 }

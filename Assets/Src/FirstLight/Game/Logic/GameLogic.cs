@@ -1,9 +1,12 @@
+using System;
+using System.Collections.Generic;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
+using Photon.Deterministic.Protocol;
 
 namespace FirstLight.Game.Logic
 {
@@ -173,4 +176,43 @@ namespace FirstLight.Game.Logic
 			(BattlePassLogic as IGameLogicInitializer).Init();
 		}
 	}
+	
+	
+	/// <summary>
+	/// Exposes blast royale typed services into generic services container
+	/// </summary>
+	public static class BlastRoyaleServicesContainer
+	{
+		public static ServiceContainer Build(this ServiceContainer container, IGameServices services)
+		{
+			container.Add(services.MessageBrokerService);
+			return container;
+		}
+		
+		public static IMessageBrokerService MessageBrokerService(this ServiceContainer c)
+		{
+			return c.Get<IMessageBrokerService>();
+		}
+	}
+	
+	/// <summary>
+	/// Exposes blast royale typed logic objects from generic container
+	/// </summary>
+	public static class BlastRoyaleLogicContainer 
+	{
+		public static LogicContainer Build(this LogicContainer container, IGameLogic logic)
+		{
+			container.Add(logic.RewardLogic);
+			container.Add(logic.PlayerLogic);
+			container.Add(logic.BattlePassLogic);
+			container.Add(logic.EquipmentLogic);
+			return container;
+		}
+
+		public static IRewardLogic RewardLogic(this LogicContainer c) => c.Get<IRewardLogic>();
+		public static IPlayerLogic PlayerLogic(this LogicContainer c) => c.Get<IPlayerLogic>();
+		public static IBattlePassLogic BattlePassLogic(this LogicContainer c) => c.Get<IBattlePassLogic>();
+		public static IEquipmentLogic EquipmentLogic(this LogicContainer c) => c.Get<IEquipmentLogic>();
+	}
+
 }

@@ -2172,6 +2172,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: MainMenu/FpsModeSetting
+      TermType: 0
+      Description: 
+      Languages:
+      - FPS Mode
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: MainMenu/FreeSlot
       TermType: 0
       Description: 
@@ -2241,15 +2250,6 @@ MonoBehaviour:
       Description: 
       Languages:
       - Haptic Feedback
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/FpsModeSetting
-      TermType: 0
-      Description: 
-      Languages:
-      - FPS Mode
       - 
       - 
       Flags: 000000
@@ -4064,11 +4064,20 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: AdventureMenu/SpectatedKilled
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} KILLED'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: BotNames/Bot1
       TermType: 0
       Description: 
       Languages:
-      - Pig Benis
+      - John
       - 
       - 
       Flags: 000000
@@ -4086,7 +4095,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - MCFC0MUFC3
+      - T-Bone
       - 
       - 
       Flags: 000000
@@ -4140,7 +4149,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - B0RIS
+      - Tony Shark
       - 
       - 
       Flags: 000000
@@ -4194,7 +4203,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - W1NK1E
+      - jeager
       - 
       - 
       Flags: 000000
@@ -4212,7 +4221,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - X-Rated
+      - PG
       - 
       - 
       Flags: 000000
@@ -4221,7 +4230,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - BBC
+      - Silver Girl
       - 
       - 
       Flags: 000000
@@ -4284,7 +4293,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Karlygash
+      - Karly
       - 
       - 
       Flags: 000000
@@ -4365,7 +4374,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - PP-TIME
+      - Pootle
       - 
       - 
       Flags: 000000
@@ -4518,7 +4527,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 2 HOT 4 U
+      - 2 Door
       - 
       - 
       Flags: 000000
@@ -4527,7 +4536,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Nice Treat
+      - Nindinin
       - 
       - 
       Flags: 000000
@@ -4536,7 +4545,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Fancy Pants
+      - 'Fancy '
       - 
       - 
       Flags: 000000
@@ -4563,7 +4572,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Milkman
+      - Fireman
       - 
       - 
       Flags: 000000
@@ -4743,7 +4752,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Mo Lester
+      - Madchester
       - 
       - 
       Flags: 000000
@@ -4752,7 +4761,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Dick Hurtz
+      - Dicky Ticker
       - 
       - 
       Flags: 000000
@@ -4761,7 +4770,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Fay Jina
+      - Shadow
       - 
       - 
       Flags: 000000
@@ -4779,7 +4788,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Halfling
+      - Jump Leads
       - 
       - 
       Flags: 000000
@@ -4806,7 +4815,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Horned God
+      - Banjo
       - 
       - 
       Flags: 000000
@@ -5184,7 +5193,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Fat
+      - Captain
       - 
       - 
       Flags: 000000
@@ -5256,7 +5265,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Dimwit
+      - Daggers
       - 
       - 
       Flags: 000000
@@ -5868,7 +5877,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - BigD2000
+      - Bigish
       - 
       - 
       Flags: 000000
@@ -6111,7 +6120,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Banger Man
+      - Bangers Mash
       - 
       - 
       Flags: 000000
@@ -6201,7 +6210,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - BANGBOT23
+      - LEBOT23
       - 
       - 
       Flags: 000000
@@ -6255,7 +6264,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 69420
+      - BrokenDevelop
       - 
       - 
       Flags: 000000
@@ -6327,7 +6336,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - WWIII
+      - WOW
       - 
       - 
       Flags: 000000
@@ -6372,7 +6381,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - NETFLIX
+      - 24 Pound
       - 
       - 
       Flags: 000000
@@ -6417,7 +6426,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - B0TeB0I
+      - BOI BOI
       - 
       - 
       Flags: 000000
@@ -6498,7 +6507,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - KK SLIDER
+      - KK M8
       - 
       - 
       Flags: 000000
@@ -6561,7 +6570,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Snowflake
+      - SR NEE
       - 
       - 
       Flags: 000000
@@ -6570,7 +6579,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Triggered
+      - Tagged
       - 
       - 
       Flags: 000000
@@ -6615,7 +6624,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Fur Q
+      - Furry
       - 
       - 
       Flags: 000000
@@ -6705,7 +6714,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - PREDATOR
+      - PANGDANG
       - 
       - 
       Flags: 000000
@@ -6894,7 +6903,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Amulet
+      - AMULET
       - 
       - 
       Flags: 000000
@@ -6903,7 +6912,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Crossbow
+      - CROSSBOW
       - 
       - 
       Flags: 000000
@@ -6912,7 +6921,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Minigun
+      - MINIGUN
       - 
       - 
       Flags: 000000
@@ -6930,7 +6939,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Assault Rifle
+      - ASSAULT RIFLE
       - 
       - 
       Flags: 000000
@@ -6948,7 +6957,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Scattergun
+      - SCATTERGUN
       - 
       - 
       Flags: 000000
@@ -6957,7 +6966,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Hunting Rifle
+      - HUNTING RIFLE
       - 
       - 
       Flags: 000000
@@ -6966,7 +6975,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Armour
+      - ARMOR
       - 
       - 
       Flags: 000000
@@ -6984,7 +6993,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Baseball Armor
+      - BASEBALL ARMOR
       - 
       - 
       Flags: 000000
@@ -6993,7 +7002,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Baseball Helmet
+      - BASEBALL HELMET
       - 
       - 
       Flags: 000000
@@ -7281,7 +7290,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Footbull Armor
+      - FOOTBULL ARMOR
       - 
       - 
       Flags: 000000
@@ -7290,7 +7299,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Footbull Helmet
+      - FOOTBULL HELMET
       - 
       - 
       Flags: 000000
@@ -7353,7 +7362,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Turtle
+      - TURTLE
       - 
       - 
       Flags: 000000
@@ -7416,7 +7425,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Helmet
+      - HELMET
       - 
       - 
       Flags: 000000
@@ -7425,7 +7434,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Hockey Mask
+      - HOCKEY MASK
       - 
       - 
       Flags: 000000
@@ -7533,7 +7542,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Maus Helmet
+      - MAUS HELMET
       - 
       - 
       Flags: 000000
@@ -7551,7 +7560,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Heavy MG
+      - HEAVY MG
       - 
       - 
       Flags: 000000
@@ -7560,7 +7569,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Grenade Launcher
+      - GRENADE LAUNCHER
       - 
       - 
       Flags: 000000
@@ -7569,7 +7578,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Daedalus
+      - DAEDALUS
       - 
       - 
       Flags: 000000
@@ -7578,7 +7587,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Pistol
+      - PISTOL
       - 
       - 
       Flags: 000000
@@ -7587,7 +7596,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Carbine
+      - CARBINE
       - 
       - 
       Flags: 000000
@@ -7596,7 +7605,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Shotgun
+      - SHOTGUN
       - 
       - 
       Flags: 000000
@@ -7605,7 +7614,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Sniper
+      - SNIPER
       - 
       - 
       Flags: 000000
@@ -7614,7 +7623,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Mouse Amulet
+      - MOUSE AMULET
       - 
       - 
       Flags: 000000
@@ -7632,7 +7641,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Mouse Armor
+      - MOUSE ARMOR
       - 
       - 
       Flags: 000000
@@ -7668,7 +7677,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Mouse Shield
+      - MOUSE SHIELD
       - 
       - 
       Flags: 000000
@@ -7758,7 +7767,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Riot Amulet
+      - RIOT AMULET
       - 
       - 
       Flags: 000000
@@ -7776,7 +7785,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Riot Armor
+      - RIOT ARMOR
       - 
       - 
       Flags: 000000
@@ -7812,7 +7821,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Riot Helmet
+      - RIOT HELMET
       - 
       - 
       Flags: 000000
@@ -7830,7 +7839,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Riot Shield
+      - RIOT SHIELD
       - 
       - 
       Flags: 000000
@@ -7848,7 +7857,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Road Cone
+      - ROAD CONE
       - 
       - 
       Flags: 000000
@@ -7857,7 +7866,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Road Shield
+      - ROAD SHIELD
       - 
       - 
       Flags: 000000
@@ -7866,7 +7875,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Traffic Armor
+      - TRAFFIC ARMOR
       - 
       - 
       Flags: 000000
@@ -7920,7 +7929,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Laser Blaster
+      - LASER BLASTER
       - 
       - 
       Flags: 000000
@@ -7929,7 +7938,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Plasma Cannon
+      - PLASMA CANNON
       - 
       - 
       Flags: 000000
@@ -7938,7 +7947,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Electron Thrower
+      - ELECTRON THROWER
       - 
       - 
       Flags: 000000
@@ -7947,7 +7956,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Needle Gun
+      - NEEDLE GUN
       - 
       - 
       Flags: 000000
@@ -7956,7 +7965,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Laser Pistol
+      - LASER PISTOL
       - 
       - 
       Flags: 000000
@@ -7965,7 +7974,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Laser Rifle
+      - LASER RIFLE
       - 
       - 
       Flags: 000000
@@ -7974,7 +7983,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Pulse Rifle
+      - PULSE RIFLE
       - 
       - 
       Flags: 000000
@@ -7983,7 +7992,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Shield
+      - SHIELD
       - 
       - 
       Flags: 000000
@@ -8055,7 +8064,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Soldier Amulet
+      - SOLDIER AMULET
       - 
       - 
       Flags: 000000
@@ -8073,7 +8082,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Soldier Armor
+      - SOLDIER ARMOR
       - 
       - 
       Flags: 000000
@@ -8109,7 +8118,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Soldier Helmet
+      - SOLDIER HELMET
       - 
       - 
       Flags: 000000
@@ -8127,7 +8136,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Soldier Shield
+      - SOLDIER SHIELD
       - 
       - 
       Flags: 000000
@@ -8433,7 +8442,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Sky Laser Beam
+      - SKY LASER BEAM
       - 
       - 
       Flags: 000000
@@ -8532,7 +8541,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - TikTok Amulet
+      - TIKTOK AMULET
       - 
       - 
       Flags: 000000
@@ -8586,7 +8595,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Warrior Amulet
+      - WARRIOR AMULET
       - 
       - 
       Flags: 000000
@@ -8604,7 +8613,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Warrior Armor
+      - WARRIOR ARMOR
       - 
       - 
       Flags: 000000
@@ -8640,7 +8649,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Warrior Helmet
+      - WARRIOR HELMET
       - 
       - 
       Flags: 000000
@@ -8658,7 +8667,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Warrior Shield
+      - WARRIOR SHIELD
       - 
       - 
       Flags: 000000
@@ -8676,7 +8685,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Weapon
+      - WEAPON
       - 
       - 
       Flags: 000000
@@ -9315,11 +9324,29 @@ MonoBehaviour:
       - user.ts
       Flags: 000000
       Languages_Touch: []
+    - Term: UITShared/back_to
+      TermType: 0
+      Description: 
+      Languages:
+      - BACK TO {0}
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITShared/battle_royale
       TermType: 0
       Description: 
       Languages:
       - BATTLE ROYALE
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITShared/cancel
+      TermType: 0
+      Description: 
+      Languages:
+      - CANCEL
       - 
       - 
       Flags: 000000
@@ -9333,6 +9360,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITShared/close
+      TermType: 0
+      Description: 
+      Languages:
+      - CLOSE
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITShared/coming_soon
       TermType: 0
       Description: 
@@ -9342,11 +9378,47 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITShared/confirmation
+      TermType: 0
+      Description: 
+      Languages:
+      - CONFIRMATION
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITShared/deathmatch
       TermType: 0
       Description: 
       Languages:
       - DEATHMATCH
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITShared/error
+      TermType: 0
+      Description: 
+      Languages:
+      - ERROR
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITShared/info
+      TermType: 0
+      Description: 
+      Languages:
+      - INFO
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITShared/input
+      TermType: 0
+      Description: 
+      Languages:
+      - INPUT
       - 
       - 
       Flags: 000000
@@ -9392,60 +9464,6 @@ MonoBehaviour:
       Description: 
       Languages:
       - Waiting...
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITShared/info
-      TermType: 0
-      Description: 
-      Languages:
-      - INFO
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITShared/error
-      TermType: 0
-      Description: 
-      Languages:
-      - ERROR
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITShared/close
-      TermType: 0
-      Description: 
-      Languages:
-      - CLOSE
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITShared/confirmation
-      TermType: 0
-      Description: 
-      Languages:
-      - CONFIRMATION
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITShared/input
-      TermType: 0
-      Description: 
-      Languages:
-      - INPUT
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITShared/cancel
-      TermType: 0
-      Description: 
-      Languages:
-      - CANCEL
       - 
       - 
       Flags: 000000
@@ -9681,20 +9699,20 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITDisconnected/reconnect
-      TermType: 0
-      Description: 
-      Languages:
-      - RECONNECT
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
     - Term: UITDisconnected/menu
       TermType: 0
       Description: 
       Languages:
       - MAIN MENU
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITDisconnected/reconnect
+      TermType: 0
+      Description: 
+      Languages:
+      - RECONNECT
       - 
       - 
       Flags: 000000
@@ -9726,6 +9744,141 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITEquipment/card_lvl
+      TermType: 0
+      Description: 
+      Languages:
+      - <size=65%>LV</size>{0}
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/equipment
+      TermType: 0
+      Description: 
+      Languages:
+      - EQUIPMENT
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/item_name_lvl
+      TermType: 0
+      Description: 
+      Languages:
+      - <line-height=70%>{0} <size=70%>LV</size>{1}
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/loaned
+      TermType: 0
+      Description: 
+      Languages:
+      - LOANED
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/might
+      TermType: 0
+      Description: 
+      Languages:
+      - MIGHT <size=60px>{0}</size>
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/no_amulet
+      TermType: 0
+      Description: 
+      Languages:
+      - NO AMULET
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/no_armor
+      TermType: 0
+      Description: 
+      Languages:
+      - NO ARMOR
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/no_helmet
+      TermType: 0
+      Description: 
+      Languages:
+      - NO HELMET
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/no_shield
+      TermType: 0
+      Description: 
+      Languages:
+      - NO SHIELD
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/no_weapon
+      TermType: 0
+      Description: 
+      Languages:
+      - NO WEAPON
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/selection_amulet
+      TermType: 0
+      Description: 
+      Languages:
+      - AMULET SELECTION
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/selection_armor
+      TermType: 0
+      Description: 
+      Languages:
+      - ARMOR SELECTION
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/selection_helmet
+      TermType: 0
+      Description: 
+      Languages:
+      - HELMET SELECTION
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/selection_shield
+      TermType: 0
+      Description: 
+      Languages:
+      - SHIELD SELECTION
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/selection_weapon
+      TermType: 0
+      Description: 
+      Languages:
+      - WEAPON SELECTION
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -9744,7 +9897,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1667479039597
+    Google_LastUpdatedVersion: 1668017390481
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

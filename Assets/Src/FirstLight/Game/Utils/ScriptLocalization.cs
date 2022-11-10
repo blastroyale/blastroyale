@@ -64,6 +64,7 @@ namespace I2.Loc
 			public static string SpectateCam3 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/SpectateCam3"); } }
 			public static string SpectateNextPlayer 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/SpectateNextPlayer"); } }
 			public static string SpectatePrevPlayer 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/SpectatePrevPlayer"); } }
+			public static string SpectatedKilled 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/SpectatedKilled"); } }
 			public static string Spree 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Spree"); } }
 			public static string Suicide 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/Suicide"); } }
 			public static string TimeOver 		{ get{ return LocalizationManager.GetTranslation ("AdventureMenu/TimeOver"); } }
@@ -1099,6 +1100,11 @@ namespace I2.Loc
 			public static string no_helmet 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/no_helmet"); } }
 			public static string no_shield 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/no_shield"); } }
 			public static string no_weapon 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/no_weapon"); } }
+			public static string selection_amulet 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/selection_amulet"); } }
+			public static string selection_armor 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/selection_armor"); } }
+			public static string selection_helmet 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/selection_helmet"); } }
+			public static string selection_shield 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/selection_shield"); } }
+			public static string selection_weapon 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/selection_weapon"); } }
 		}
 
 		public static class UITGameModeSelection
@@ -1136,6 +1142,7 @@ namespace I2.Loc
 
 		public static class UITShared
 		{
+			public static string back_to 		{ get{ return LocalizationManager.GetTranslation ("UITShared/back_to"); } }
 			public static string battle_royale 		{ get{ return LocalizationManager.GetTranslation ("UITShared/battle_royale"); } }
 			public static string cancel 		{ get{ return LocalizationManager.GetTranslation ("UITShared/cancel"); } }
 			public static string casual 		{ get{ return LocalizationManager.GetTranslation ("UITShared/casual"); } }
@@ -1225,6 +1232,7 @@ namespace I2.Loc
 		    public const string SpectateCam3 = "AdventureMenu/SpectateCam3";
 		    public const string SpectateNextPlayer = "AdventureMenu/SpectateNextPlayer";
 		    public const string SpectatePrevPlayer = "AdventureMenu/SpectatePrevPlayer";
+		    public const string SpectatedKilled = "AdventureMenu/SpectatedKilled";
 		    public const string Spree = "AdventureMenu/Spree";
 		    public const string Suicide = "AdventureMenu/Suicide";
 		    public const string TimeOver = "AdventureMenu/TimeOver";
@@ -2253,13 +2261,21 @@ namespace I2.Loc
 
 		public static class UITEquipment
 		{
-		    public const string lvl = "UITEquipment/lvl";
+		    public const string card_lvl = "UITEquipment/card_lvl";
+		    public const string equipment = "UITEquipment/equipment";
+		    public const string item_name_lvl = "UITEquipment/item_name_lvl";
+		    public const string loaned = "UITEquipment/loaned";
 		    public const string might = "UITEquipment/might";
 		    public const string no_amulet = "UITEquipment/no_amulet";
 		    public const string no_armor = "UITEquipment/no_armor";
 		    public const string no_helmet = "UITEquipment/no_helmet";
 		    public const string no_shield = "UITEquipment/no_shield";
 		    public const string no_weapon = "UITEquipment/no_weapon";
+		    public const string selection_amulet = "UITEquipment/selection_amulet";
+		    public const string selection_armor = "UITEquipment/selection_armor";
+		    public const string selection_helmet = "UITEquipment/selection_helmet";
+		    public const string selection_shield = "UITEquipment/selection_shield";
+		    public const string selection_weapon = "UITEquipment/selection_weapon";
 		}
 
 		public static class UITGameModeSelection
@@ -2297,6 +2313,7 @@ namespace I2.Loc
 
 		public static class UITShared
 		{
+		    public const string back_to = "UITShared/back_to";
 		    public const string battle_royale = "UITShared/battle_royale";
 		    public const string cancel = "UITShared/cancel";
 		    public const string casual = "UITShared/casual";

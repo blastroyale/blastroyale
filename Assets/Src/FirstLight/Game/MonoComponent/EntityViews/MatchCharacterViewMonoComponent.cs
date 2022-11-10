@@ -39,16 +39,24 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			for (var i = 0; i < weapons.Count; i++)
 			{
-				if (weapons[i] != null)
-				{
-					var components = weapons[i].GetComponents<EntityViewBase>();
+				var components = weapons[i].GetComponents<EntityViewBase>();
 
-					foreach (var entityViewBase in components)
-					{
-						entityViewBase.SetEntityView(runner.Game, entityView);
-					}
+				foreach (var entityViewBase in components)
+				{
+					entityViewBase.SetEntityView(runner.Game, entityView);
+
 				}
-				
+
+				/*				if (weapons[i] != null)
+								{
+									var components = weapons[i].GetComponents<EntityViewBase>();
+
+									foreach (var entityViewBase in components)
+									{
+										entityViewBase.SetEntityView(runner.Game, entityView);
+									}
+								}*/
+
 			}
 		}
 	}

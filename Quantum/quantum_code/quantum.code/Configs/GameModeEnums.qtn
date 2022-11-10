@@ -21,7 +21,7 @@ enum DeathDropsStrategy
 {
 	None = 0,
 	Normal = 1,
-	NormalWithFallback = 2,
+	NormalWithFallback = 2
 }
 
 enum GameCompletionStrategy

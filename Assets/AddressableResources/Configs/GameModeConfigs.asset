@@ -79,7 +79,7 @@ MonoBehaviour:
       SkydiveSpawn: 0
       SpawnSelection: 0
       SpawnPattern: 0
-      WeaponDeathDropStrategy: 3
+      WeaponDeathDropStrategy: 0
       HealthDeathDropStrategy: 0
       ShieldDeathDropStrategy: 0
       DeathMarker: 0

@@ -36,43 +36,6 @@ namespace Quantum.Systems
 			}
 		}
 		
-		private void InstantiatePlayer(Frame f, PlayerRef playerRef)
-		{
-			var playerEntity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.PlayerCharacterPrototype.Id));
-			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
-			var playerData = f.GetPlayerData(playerRef);
-			var gridSquareSize = FP._1 * f.Map.WorldSize / f.Map.GridSizeX / FP._2;
-			var spawnPosition = playerData.NormalizedSpawnPosition * f.Map.WorldSize +
-			                    new FPVector2(f.RNG->Next(-gridSquareSize, gridSquareSize),
-				                    f.RNG->Next(-gridSquareSize, gridSquareSize));
-			
-			var spawnTransform = new Transform3D {Position = FPVector3.Zero, Rotation = FPQuaternion.Identity};
-			var spawnWithWeapon = f.Context.GameModeConfig.SpawnWithWeapon;
-			var spawnWithGear = f.Context.GameModeConfig.SpawnWithGear;
-			Log.Warn("spawn with weapon is " + spawnWithWeapon + " @ bottom");
-
-			var newLoadout = playerData.Loadout.ToList();
-			for (int i = newLoadout.Count - 1; i >= 0; i--)
-			{
-				if (!spawnWithWeapon && newLoadout[i].GameId.IsInGroup(GameIdGroup.Weapon))
-				{
-					Log.Warn("remove weapon @ bottom");
-					newLoadout.RemoveAt(i);
-				}
-				else if (!spawnWithGear && newLoadout[i].GameId.IsInGroup(GameIdGroup.Gear))
-				{
-					newLoadout.RemoveAt(i);
-				}
-			}
-			var startingEquipment = newLoadout.ToArray();
-
-			spawnTransform.Position = spawnPosition.XOY;
-
-			playerCharacter->Init(f, playerEntity, playerRef, spawnTransform, playerData.PlayerLevel,
-				playerData.PlayerTrophies, playerData.Skin, playerData.DeathMarker, startingEquipment,
-				playerData.Loadout.FirstOrDefault(e => e.IsWeapon()));
-		}
-
 		/// <inheritdoc />
 		public void HealthIsZeroFromAttacker(Frame f, EntityRef entity, EntityRef attacker)
 		{
@@ -135,14 +98,12 @@ namespace Quantum.Systems
 			var spawnTransform = new Transform3D {Position = FPVector3.Zero, Rotation = FPQuaternion.Identity};
 			var spawnWithWeapon = f.Context.GameModeConfig.SpawnWithWeapon;
 			var spawnWithGear = f.Context.GameModeConfig.SpawnWithGear;
-			Log.Warn("spawn with weapon is " + spawnWithWeapon);
 
 			var newLoadout = playerData.Loadout.ToList();
 			for (int i = newLoadout.Count - 1; i >= 0; i--)
 			{
 				if (!spawnWithWeapon && newLoadout[i].GameId.IsInGroup(GameIdGroup.Weapon))
 				{
-					Log.Warn("Remove Weapon");
 					newLoadout.RemoveAt(i);
 				}
 				else if (!spawnWithGear && newLoadout[i].GameId.IsInGroup(GameIdGroup.Gear))

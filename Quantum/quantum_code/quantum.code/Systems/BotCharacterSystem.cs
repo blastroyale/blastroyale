@@ -24,10 +24,12 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void OnPlayerDataSet(Frame f, PlayerRef playerRef)
 		{
-			InitializeBots(f);
+			var data = f.GetPlayerData(playerRef);
+			var playerTrophies= data?.PlayerTrophies ?? 1000u;
+			InitializeBots(f, playerTrophies);
 		}
 
-		private void InitializeBots(Frame f)
+		private void InitializeBots(Frame f, uint baseTrophiesAmount)
 		{
 			if (!f.Context.GameModeConfig.AllowBots || f.ComponentCount<BotCharacter>() > 0)
 			{
@@ -48,7 +50,7 @@ namespace Quantum.Systems
 
 			if (botIds.Count != playerLimit)
 			{
-				AddBots(f, botIds);
+				AddBots(f, botIds, baseTrophiesAmount);
 			}
 		}
 
@@ -268,11 +270,11 @@ namespace Quantum.Systems
 			}
 		}
 
-		private List<QuantumBotConfig> GetBotConfigsList(Frame f)
+		private List<QuantumBotConfig> GetBotConfigsList(Frame f, int botsDifficulty)
 		{
 			var list = new List<QuantumBotConfig>();
 			var configs = f.BotConfigs.QuantumConfigs;
-			var difficultyLevel = Constants.BOT_DIFFICULTY_LEVEL;
+			var difficultyLevel = botsDifficulty;
 
 			foreach (var botConfig in configs)
 			{
@@ -324,7 +326,7 @@ namespace Quantum.Systems
 
 			botPosition.Y += Constants.ACTOR_AS_TARGET_Y_OFFSET;
 
-			foreach (var targetCandidate in f.GetComponentIterator<Targetable>())
+			foreach (var targetCandidate in f.Unsafe.GetComponentBlockIterator<Targetable>())
 			{
 				if (TryToAimAtEnemy(f, ref filter, botPosition, team, targetRange, targetCandidate.Entity, out var targetHit))
 				{
@@ -676,7 +678,7 @@ namespace Quantum.Systems
 			}
 
 			var enemyPosition = FPVector3.Zero;
-			var iterator = f.GetComponentIterator<Targetable>();
+			var iterator = f.Unsafe.GetComponentBlockIterator<Targetable>();
 			var sqrDistance = FP.MaxValue;
 			var team = f.Get<Targetable>(filter.Entity).Team;
 			var botPosition = filter.Transform->Position;
@@ -760,7 +762,7 @@ namespace Quantum.Systems
 		                                     int consumablePowerAmount, out FPVector3 consumablePosition, out EntityRef consumableEntity)
 		{
 			var botPosition = filter.Transform->Position;
-			var iterator = f.GetComponentIterator<Consumable>();
+			var iterator = f.Unsafe.GetComponentBlockIterator<Consumable>();
 			var sqrDistance = FP.MaxValue;
 			var hasShrinkingCircle = f.TryGetSingleton<ShrinkingCircle>(out var circle);
 			
@@ -769,8 +771,8 @@ namespace Quantum.Systems
 
 			foreach (var consumableCandidate in iterator)
 			{
-				if (consumableCandidate.Component.ConsumableType != consumableType ||
-				    consumablePowerAmount != -1 && consumablePowerAmount != consumableCandidate.Component.Amount)
+				if (consumableCandidate.Component->ConsumableType != consumableType ||
+				    consumablePowerAmount != -1 && consumablePowerAmount != consumableCandidate.Component->Amount)
 				{
 					continue;
 				}
@@ -794,7 +796,7 @@ namespace Quantum.Systems
 		private bool TryGetClosestWeapon(Frame f, ref BotCharacterFilter filter, out FPVector3 weaponPickupPosition, out EntityRef weaponPickupEntity)
 		{
 			var botPosition = filter.Transform->Position;
-			var iterator = f.GetComponentIterator<EquipmentCollectable>();
+			var iterator = f.Unsafe.GetComponentBlockIterator<EquipmentCollectable>();
 			var sqrDistance = FP.MaxValue;
 			var hasShrinkingCircle = f.TryGetSingleton<ShrinkingCircle>(out var circle);
 			var totalAmmo = filter.PlayerCharacter->GetAmmoAmount(f, filter.Entity, out var maxAmmo);
@@ -830,7 +832,7 @@ namespace Quantum.Systems
 		private bool TryGetClosestChest(Frame f, ref BotCharacterFilter filter, out FPVector3 chestPosition, out EntityRef chestEntity)
 		{
 			var botPosition = filter.Transform->Position;
-			var iterator = f.GetComponentIterator<Chest>();
+			var iterator = f.Unsafe.GetComponentBlockIterator<Chest>();
 			var sqrDistance = FP.MaxValue;
 			var hasShrinkingCircle = f.TryGetSingleton<ShrinkingCircle>(out var circle);
 			chestPosition = FPVector3.Zero;
@@ -868,14 +870,16 @@ namespace Quantum.Systems
 			return distanceSqr <= circle.CurrentRadius * circle.CurrentRadius;
 		}
 		
-		private void AddBots(Frame f, List<PlayerRef> botIds)
+		private void AddBots(Frame f, List<PlayerRef> botIds, uint baseTrophiesAmount)
 		{
 			var playerSpawners = GetFreeSpawnPoints(f);
-			var botConfigsList = GetBotConfigsList(f);
 			var botNamesIndices = new List<int>();
 			var deathMakers = GameIdGroup.DeathMarker.GetIds();
 			var botItems = GameIdGroup.BotItem.GetIds();
 			var skinOptions = GameIdGroup.PlayerSkin.GetIds().Where(item => botItems.Contains(item)).ToArray();
+			var botsDifficulty = (int)FPMath.Floor((baseTrophiesAmount - 1000) / FP._100);
+			botsDifficulty = FPMath.Clamp(botsDifficulty, 0, f.GameConfig.BotsMaxDifficulty);
+			var botConfigsList = GetBotConfigsList(f, botsDifficulty);
 
 			for (var i = 0; i < f.GameConfig.BotsNameCount; i++)
 			{
@@ -927,6 +931,7 @@ namespace Quantum.Systems
 					StuckDetectionPosition = FPVector3.Zero
 				};
 
+				
 				botNamesIndices.RemoveAt(listNamesIndex);
 
 				if (playerSpawners.Count > 1)
@@ -939,9 +944,7 @@ namespace Quantum.Systems
 				f.Add(botEntity, botCharacter);
 
 				// Calculate bot trophies
-				var eloRange = f.GameConfig.TrophyEloRange;
-
-				var trophies = (uint) (f.GameConfig.BotsBaseTrophies + f.RNG->Next(-eloRange / 2, eloRange / 2));
+				var trophies = (uint) ((botsDifficulty * 100) + 1000 + f.RNG->Next(-50, 50));
 				
 				// TODO: Give bots random weapon based on average quality that players have
 				// TODO: Give bots random gear based on average quality that players have and teach bots to pick up gear

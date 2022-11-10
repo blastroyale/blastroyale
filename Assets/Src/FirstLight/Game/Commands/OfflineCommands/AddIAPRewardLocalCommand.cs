@@ -17,9 +17,9 @@ namespace FirstLight.Game.Commands.OfflineCommands
 
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.ClientOnly;
 
-		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)
+		public void Execute(CommandExecutionContext ctx)
 		{
-			gameLogic.RewardLogic.AddIAPReward(Reward);
+			ctx.Logic.RewardLogic().AddIAPReward(Reward);
 		}
 	}
 }

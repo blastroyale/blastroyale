@@ -18,10 +18,10 @@ namespace FirstLight.Game.Commands
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Server;
 
 		/// <inheritdoc />
-		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)
+		public void Execute(CommandExecutionContext ctx)
 		{
-			gameLogic.PlayerLogic.ChangePlayerSkin(SkinId);
-			gameLogic.MessageBrokerService.Publish(new PlayerSkinUpdatedMessage { SkinId = SkinId });
+			ctx.Logic.PlayerLogic().ChangePlayerSkin(SkinId);
+			ctx.Services.MessageBrokerService().Publish(new PlayerSkinUpdatedMessage { SkinId = SkinId });
 		}
 	}
 }

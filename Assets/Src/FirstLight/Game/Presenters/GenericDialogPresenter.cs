@@ -11,9 +11,9 @@ namespace FirstLight.Game.Presenters
 		/// If the given <paramref name="showCloseButton"/> is true, then will show the close button icon on the dialog.
 		/// Optionally if defined can call the <paramref name="closeCallback"/> when the Dialog is closed.
 		/// </summary>
-		public void SetInfo(string title, bool showCloseButton, GenericDialogButton button, Action closeCallback = null)
+		public void SetInfo(string title, string desc, bool showCloseButton, GenericDialogButton button, Action closeCallback = null)
 		{
-			SetBaseInfo(title, showCloseButton, button, closeCallback);
+			SetBaseInfo(title, desc, showCloseButton, button, closeCallback);
 		}
 	}
 }

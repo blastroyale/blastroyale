@@ -140,17 +140,17 @@ namespace FirstLight.Tests.EditorMode.Logic
 		{
 			Assert.AreEqual(0, _battlePassLogic.CurrentPoints.Value);
 			Assert.AreEqual(0, _battlePassLogic.CurrentLevel.Value);
-			var pointsPerLevel = ConfigsProvider.GetConfig<BattlePassConfig>();
-			
+			var pointsPerLevel = _battlePassLogic.GetRequiredPointsForLevel((int)_battlePassLogic.CurrentLevel.Value);
+
 			_battlePassLogic.AddBPP(9);
 			
 			Assert.IsFalse(_battlePassLogic.IsRedeemable());
-			Assert.AreEqual(10, pointsPerLevel.PointsPerLevel);
+			Assert.AreEqual(10, pointsPerLevel);
 
 			_battlePassLogic.AddBPP(5);
 
 			Assert.IsTrue(_battlePassLogic.IsRedeemable());
-			Assert.AreEqual(10, pointsPerLevel.PointsPerLevel);
+			Assert.AreEqual(10, pointsPerLevel);
 		}
 
 		[Test]
@@ -173,7 +173,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 		{
 			var bpConfig = new BattlePassConfig
 			{
-				PointsPerLevel = 10,
+				DefaultPointsPerLevel = 10,
 				Levels = new List<BattlePassConfig.BattlePassLevel>
 				{
 					new()

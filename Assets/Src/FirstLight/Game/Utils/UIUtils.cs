@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -32,6 +33,22 @@ namespace FirstLight.Game.Utils
 			viewportPoint.y = 1 - viewportPoint.y;
 
 			return Camera.main.ViewportToScreenPoint(viewportPoint);
+		}
+
+		/// <summary>
+		/// Removes all BEM modifiers from the class list.
+		/// </summary>
+		public static void RemoveModifiers(this VisualElement element)
+		{
+			var classes = element.GetClasses().ToList();
+
+			foreach (var clazz in classes)
+			{
+				if (clazz.Contains("--"))
+				{
+					element.RemoveFromClassList(clazz);
+				}
+			}
 		}
 	}
 }

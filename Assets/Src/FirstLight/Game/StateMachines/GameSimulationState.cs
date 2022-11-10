@@ -34,15 +34,17 @@ namespace FirstLight.Game.StateMachines
 		private IMatchServices _matchServices;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private readonly IGameNetworkService _network;
+		private readonly IGameBackendNetworkService _networkService;
 
 		private int _lastTrophyChange = 0;
 		private uint _trophiesBeforeLastChange = 0;
 
-		public GameSimulationState(IGameDataProvider gameDataProvider, IGameServices services, IGameUiService uiService,
-		                           Action<IStatechartEvent> statechartTrigger)
+		public GameSimulationState(IGameDataProvider gameDataProvider, IGameServices services, IGameBackendNetworkService networkService, 
+								   IGameUiService uiService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_gameDataProvider = gameDataProvider;
 			_services = services;
+			_networkService = networkService;
 			_uiService = uiService;
 			_statechartTrigger = statechartTrigger;
 			_deathmatchState = new DeathmatchState(gameDataProvider, services, uiService, statechartTrigger);
@@ -86,14 +88,14 @@ namespace FirstLight.Game.StateMachines
 			modeCheck.Transition().Target(battleRoyale);
 
 			deathmatch.Nest(_deathmatchState.Setup).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
-			deathmatch.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnectedPlayerCheck);
+			deathmatch.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(OnDisconnectDuringSimulation).Target(disconnectedPlayerCheck);
 			deathmatch.Event(MatchEndedEvent).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
 			deathmatch.Event(MatchQuitEvent).OnTransition(() => MatchEndAnalytics(true)).Target(quitCheck);
 			deathmatch.OnExit(CleanUpMatch);
 			deathmatch.OnExit(PublishMatchEnded);
 
 			battleRoyale.Nest(_battleRoyaleState.Setup).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
-			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnectedPlayerCheck);
+			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(OnDisconnectDuringSimulation).Target(disconnectedPlayerCheck);
 			battleRoyale.Event(MatchEndedEvent).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
 			battleRoyale.Event(MatchQuitEvent).OnTransition(() => MatchEndAnalytics(true)).Target(quitCheck);
 			battleRoyale.OnExit(CleanUpMatch);
@@ -142,6 +144,11 @@ namespace FirstLight.Game.StateMachines
 			return _services.NetworkService.LastMatchPlayers.Count == 1;
 		}
 		
+		private void OnDisconnectDuringSimulation()
+		{
+			_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.Simulation;
+		}
+		
 		private void NotifyCriticalDisconnection()
 		{
 			_statechartTrigger(NetworkState.PhotonCriticalDisconnectedEvent);
@@ -149,7 +156,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OpenLowConnectionScreen()
 		{
-			_uiService.OpenUiAsync<LowConnectionPresenter, LowConnectionPresenter.StateData>(new LowConnectionPresenter.StateData());
+			_uiService.OpenUiAsync<LowConnectionPresenter>();
 		}
 
 		private void CloseLowConnectionScreen()
@@ -165,7 +172,7 @@ namespace FirstLight.Game.StateMachines
 				ButtonOnClick = _services.GenericDialogService.CloseDialog
 			};
 			
-			_services.GenericDialogService.OpenDialog(ScriptLocalization.MainMenu.DisconnectedMatchEndInfo.ToUpper(), false, confirmButton);
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.info, ScriptLocalization.MainMenu.DisconnectedMatchEndInfo.ToUpper(), false, confirmButton);
 		}
 
 		private void SubscribeEvents()
@@ -250,9 +257,15 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnQuitGameScreenClickedMessage(QuitGameClickedMessage message)
 		{
-			var data = new QuitGameDialogPresenter.StateData {ConfirmClicked = QuitGameConfirmedClicked};
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.General.Yes,
+				ButtonOnClick = QuitGameConfirmedClicked
+			};
 
-			_uiService.OpenUi<QuitGameDialogPresenter, QuitGameDialogPresenter.StateData>(data);
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.confirmation,
+				ScriptLocalization.AdventureMenu.AreYouSureQuit,
+				true, confirmButton);
 		}
 
 		private void OnGameCompletedRewardsMessage(GameCompletedRewardsMessage message)
@@ -451,9 +464,22 @@ namespace FirstLight.Game.StateMachines
 			var info = _gameDataProvider.PlayerDataProvider.PlayerInfo;
 			var loadout = _gameDataProvider.EquipmentDataProvider.Loadout;
 			var inventory = _gameDataProvider.EquipmentDataProvider.Inventory;
+			var f = game.Frames.Verified;
 			var spawnPosition = _uiService.GetUi<MatchmakingLoadingScreenPresenter>().mapSelectionView
 			                              .NormalizedSelectionPoint;
 
+			var newloadout = loadout.ReadOnlyDictionary.Values.Select(id => inventory[id]).ToList();
+			if(f.Context.TryGetMutatorByType(MutatorType.HammerTime, out _))
+			{
+				for(int i = newloadout.Count -1; i >= 0; i--)
+				{
+					if (newloadout[i].GameId.IsInGroup(GameIdGroup.Weapon))
+					{
+						newloadout.RemoveAt(i);
+					}
+				}
+			}
+			
 			if (!IsSpectator())
 			{
 				game.SendPlayerData(game.GetLocalPlayers()[0], new RuntimePlayer
@@ -465,7 +491,7 @@ namespace FirstLight.Game.StateMachines
 					PlayerLevel = info.Level,
 					PlayerTrophies = info.TotalTrophies,
 					NormalizedSpawnPosition = spawnPosition.ToFPVector2(),
-					Loadout = loadout.ReadOnlyDictionary.Values.Select(id => inventory[id]).ToArray()
+					Loadout = newloadout.ToArray()
 				});
 			}
 		}

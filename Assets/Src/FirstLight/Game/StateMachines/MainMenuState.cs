@@ -93,10 +93,8 @@ namespace FirstLight.Game.StateMachines
 			disconnectedCheck.Transition().Condition(NetworkUtils.IsOfflineOrDisconnected).Target(disconnected);
 			disconnectedCheck.Transition().Target(mainMenuUnloading);
 			
-			disconnected.OnEnter(CloseAllUi);
 			disconnected.OnEnter(OpenDisconnectedScreen);
 			disconnected.Event(NetworkState.PhotonMasterConnectedEvent).Target(mainMenu);
-			disconnected.OnExit(CloseDisconnectedScreen);
 
 			mainMenuUnloading.OnEnter(OpenLoadingScreen);
 			mainMenuUnloading.OnEnter(UnloadMainMenu);
@@ -150,6 +148,7 @@ namespace FirstLight.Game.StateMachines
 			playClickedCheck.Transition().Condition(EnoughNftToPlay).OnTransition(SendPlayReadyMessage).Target(roomWait);
 			playClickedCheck.Transition().Target(nftPlayRestricted);
 
+			roomWait.OnEnter(CloseCurrentScreen);
 			roomWait.Event(NetworkState.JoinedRoomEvent).Target(final);
 			roomWait.Event(NetworkState.JoinRoomFailedEvent).Target(homeMenu);
 			roomWait.Event(NetworkState.CreateRoomFailedEvent).Target(homeMenu);
@@ -180,7 +179,7 @@ namespace FirstLight.Game.StateMachines
 			roomJoinCreateMenu.Event(NetworkState.JoinRoomFailedEvent).Target(chooseGameMode);
 			roomJoinCreateMenu.Event(NetworkState.CreateRoomFailedEvent).Target(chooseGameMode);
 		}
-
+		
 		private bool HasDefaultName()
 		{
 			return _gameDataProvider.AppDataProvider.DisplayNameTrimmed == GameConstants.PlayerName.DEFAULT_PLAYER_NAME ||
@@ -243,11 +242,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			return _currentScreen == typeof(T);
 		}
-		
-		private void CloseAllUi()
-		{
-			_uiService.CloseAllUi();
-		}
 
 		private void OpenNftAmountInvalidDialog(IWaitActivity activity)
 		{
@@ -258,7 +252,9 @@ namespace FirstLight.Game.StateMachines
 				ButtonText = ScriptLocalization.General.OK,
 				ButtonOnClick = () => { cacheActivity.Complete(); }
 			};
-			_services.GenericDialogService.OpenDialog(ScriptLocalization.MainMenu.NftRestrictionText, false,
+
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error,
+				ScriptLocalization.MainMenu.NftRestrictionText, false,
 				confirmButton);
 		}
 		
@@ -332,11 +328,6 @@ namespace FirstLight.Game.StateMachines
 			_uiService.OpenScreen<StoreScreenPresenter, StoreScreenPresenter.StateData>(data);
 		}
 
-		private void CloseStore()
-		{
-			_uiService.CloseUi<StoreScreenPresenter>();
-		}
-
 		private void PurchaseItem(string id)
 		{
 			_statechartTrigger(NetworkState.IapProcessStartedEvent);
@@ -363,11 +354,6 @@ namespace FirstLight.Game.StateMachines
 			_uiService.OpenScreen<PlayerSkinScreenPresenter, PlayerSkinScreenPresenter.StateData>(data);
 		}
 
-		private void ClosePlayerSkinScreenUI()
-		{
-			_uiService.CloseUi<PlayerSkinScreenPresenter>(true);
-		}
-
 		private void OpenRoomJoinCreateMenuUI()
 		{
 			var data = new RoomJoinCreateScreenPresenter.StateData
@@ -378,10 +364,10 @@ namespace FirstLight.Game.StateMachines
 
 			_uiService.OpenScreen<RoomJoinCreateScreenPresenter, RoomJoinCreateScreenPresenter.StateData>(data);
 		}
-
-		private void CloseRoomJoinCreateMenuUI()
+		
+		private void CloseCurrentScreen()
 		{
-			_uiService.CloseUi<RoomJoinCreateScreenPresenter>(true);
+			_uiService.CloseCurrentScreen();
 		}
 
 		private void OpenPlayMenuUI()
@@ -396,13 +382,14 @@ namespace FirstLight.Game.StateMachines
 				OnGameModeClicked = () => _statechartTrigger(_chooseGameModeClickedEvent),
 				OnLeaderboardClicked = () => _statechartTrigger(_leaderboardClickedEvent),
 				OnBattlePassClicked = () => _statechartTrigger(_battlePassClickedEvent),
-				OnStoreClicked = () => _statechartTrigger(_storeClickedEvent)
+				OnStoreClicked = () => _statechartTrigger(_storeClickedEvent),
+				OnDiscordClicked = DiscordButtonClicked
 			};
 
 			_uiService.OpenScreen<HomeScreenPresenter, HomeScreenPresenter.StateData>(data);
 			_services.MessageBrokerService.Publish(new PlayScreenOpenedMessage());
 		}
-		
+
 		private void OpenDisconnectedScreen()
 		{
 			var data = new DisconnectedScreenPresenter.StateData
@@ -410,27 +397,7 @@ namespace FirstLight.Game.StateMachines
 				ReconnectClicked = () => _services.MessageBrokerService.Publish(new AttemptManualReconnectionMessage())
 			};
 
-			_uiService.OpenUiAsync<DisconnectedScreenPresenter, DisconnectedScreenPresenter.StateData>(data);
-		}
-
-		private void CloseDisconnectedScreen()
-		{
-			_uiService.CloseUi<DisconnectedScreenPresenter>(true);
-		}
-
-		private void ClosePlayMenuUI()
-		{
-			_uiService.CloseUi<HomeScreenPresenter>();
-		}
-		
-		private void DimDisconnectedScreen()
-		{
-			_uiService.GetUi<DisconnectedScreenPresenter>().SetFrontDimBlockerActive(true);
-		}
-
-		private void UndimDisconnectedScreen()
-		{
-			_uiService.GetUi<DisconnectedScreenPresenter>().SetFrontDimBlockerActive(false);
+			_uiService.OpenScreen<DisconnectedScreenPresenter, DisconnectedScreenPresenter.StateData>(data);
 		}
 
 		private void LoadingComplete()
@@ -526,6 +493,11 @@ namespace FirstLight.Game.StateMachines
 			MainInstaller.CleanDispose<IMainMenuServices>();
 
 			_statechartTrigger(MainMenuUnloadedEvent);
+		}
+		
+		private void DiscordButtonClicked()
+		{
+			Application.OpenURL(GameConstants.Links.DISCORD_SERVER);
 		}
 	}
 }

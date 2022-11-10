@@ -100,7 +100,7 @@ namespace FirstLight.Game.Presenters
 				ButtonOnClick = OnExitConfirmed
 			};
 
-			_services.GenericDialogService.OpenDialog(ScriptLocalization.General.ConfirmQuit, true, confirmButton);
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.confirmation, ScriptLocalization.General.ConfirmQuit, true, confirmButton);
 		}
 
 		private void OnExitConfirmed()
@@ -122,6 +122,7 @@ namespace FirstLight.Game.Presenters
 
 			_respawnSlider.value = 0;
 			_respawnButton.gameObject.SetActive(true);
+			_respawnButton.interactable = true;
 
 			while (Time.time < endTime)
 			{
@@ -137,6 +138,12 @@ namespace FirstLight.Game.Presenters
 
 		private void OnRespawnPressed()
 		{
+			if (!_respawnButton.interactable)
+			{
+				return;
+			}
+
+			_respawnButton.interactable = false;
 			QuantumRunner.Default.Game.SendCommand(new PlayerRespawnCommand());
 		}
 	}

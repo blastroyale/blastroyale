@@ -29,6 +29,7 @@ namespace FirstLight.Game.Presenters
 	{
 		public struct StateData
 		{
+			public Action LeaveRoomClicked;
 		}
 
 		public MapSelectionView mapSelectionView;
@@ -183,6 +184,11 @@ namespace FirstLight.Game.Presenters
 				{
 					AddOrUpdatePlayerInList(playerKvp.Value);
 				}
+			}
+			
+			if(_services.NetworkService.QuantumClient.LocalPlayer.LoadedCoreMatchAssets())
+			{
+				OnCoreMatchAssetsLoaded(new CoreMatchAssetsLoadedMessage());
 			}
 		}
 
@@ -452,14 +458,18 @@ namespace FirstLight.Game.Presenters
 
 		private void OnLeaveRoomClicked()
 		{
-			var title = string.Format(ScriptLocalization.MainMenu.LeaveMatchMessage);
+			var desc = string.Format(ScriptLocalization.MainMenu.LeaveMatchMessage);
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.Yes,
-				ButtonOnClick = () => _services.MessageBrokerService.Publish(new RoomLeaveClickedMessage())
+				ButtonOnClick = () =>
+				{
+					_services.MessageBrokerService.Publish(new RoomLeaveClickedMessage());
+					Data.LeaveRoomClicked();
+				}
 			};
 
-			_services.GenericDialogService.OpenDialog(title, true, confirmButton);
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.confirmation, desc, true, confirmButton);
 		}
 
 		private void ReadyToPlay()
@@ -516,7 +526,7 @@ namespace FirstLight.Game.Presenters
 				return;
 			}
 
-			var title = string.Format(ScriptLocalization.MainMenu.MatchmakingKickConfirm, player.NickName).ToUpper();
+			var desc = string.Format(ScriptLocalization.MainMenu.MatchmakingKickConfirm, player.NickName).ToUpper();
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.Yes.ToUpper(),
@@ -527,7 +537,7 @@ namespace FirstLight.Game.Presenters
 				}
 			};
 
-			_services.GenericDialogService.OpenDialog(title, true, confirmButton, DeactivateKickOverlay);
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.confirmation, desc, true, confirmButton, DeactivateKickOverlay);
 		}
 
 		private void OnSpectatorToggle(bool isOn)

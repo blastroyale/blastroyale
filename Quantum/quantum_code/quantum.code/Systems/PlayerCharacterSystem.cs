@@ -26,33 +26,14 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void AllPlayersJoined(Frame f)
 		{
-			var container = f.GetSingleton<GameContainer>();
-			foreach (var player in f.ResolveList(container.RealPlayers))
+			for (var i = 0; i < f.PlayerCount; i++)
 			{
-				InstantiatePlayer(f, player);
+				var playerData = f.GetPlayerData(i);
+
+				if (playerData == null) continue;
+				
+				InstantiatePlayer(f, i, playerData);
 			}
-		}
-		
-		private void InstantiatePlayer(Frame f, PlayerRef playerRef)
-		{
-			var playerEntity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.PlayerCharacterPrototype.Id));
-			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
-			var playerData = f.GetPlayerData(playerRef);
-			var gridSquareSize = FP._1 * f.Map.WorldSize / f.Map.GridSizeX / FP._2;
-			var spawnPosition = playerData.NormalizedSpawnPosition * f.Map.WorldSize +
-			                    new FPVector2(f.RNG->Next(-gridSquareSize, gridSquareSize),
-				                    f.RNG->Next(-gridSquareSize, gridSquareSize));
-			
-			var spawnTransform = new Transform3D {Position = FPVector3.Zero, Rotation = FPQuaternion.Identity};
-			var startingEquipment = f.Context.GameModeConfig.SpawnWithLoadout
-				? playerData.Loadout :
-				Array.Empty<Equipment>();
-
-			spawnTransform.Position = spawnPosition.XOY;
-
-			playerCharacter->Init(f, playerEntity, playerRef, spawnTransform, playerData.PlayerLevel,
-				playerData.PlayerTrophies, playerData.Skin, playerData.DeathMarker, startingEquipment,
-				playerData.Loadout.FirstOrDefault(e => e.IsWeapon()));
 		}
 
 		/// <inheritdoc />
@@ -103,6 +84,27 @@ namespace Quantum.Systems
 			{
 				Collectable.DropConsumable(f, GameId.ShieldSmall, deathPosition, step, false);
 			}
+		}
+		
+		private void InstantiatePlayer(Frame f, PlayerRef playerRef, RuntimePlayer playerData)
+		{
+			var playerEntity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.PlayerCharacterPrototype.Id));
+			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
+			var gridSquareSize = FP._1 * f.Map.WorldSize / f.Map.GridSizeX / FP._2;
+			var spawnPosition = playerData.NormalizedSpawnPosition * f.Map.WorldSize +
+								new FPVector2(f.RNG->Next(-gridSquareSize, gridSquareSize),
+											  f.RNG->Next(-gridSquareSize, gridSquareSize));
+			
+			var spawnTransform = new Transform3D {Position = FPVector3.Zero, Rotation = FPQuaternion.Identity};
+			var startingEquipment = f.Context.GameModeConfig.SpawnWithLoadout
+										? playerData.Loadout :
+										Array.Empty<Equipment>();
+
+			spawnTransform.Position = spawnPosition.XOY;
+
+			playerCharacter->Init(f, playerEntity, playerRef, spawnTransform, playerData.PlayerLevel,
+								  playerData.PlayerTrophies, playerData.Skin, playerData.DeathMarker, startingEquipment,
+								  playerData.Loadout.FirstOrDefault(e => e.IsWeapon()));
 		}
 
 		private void ProcessPlayerInput(Frame f, ref PlayerCharacterFilter filter)

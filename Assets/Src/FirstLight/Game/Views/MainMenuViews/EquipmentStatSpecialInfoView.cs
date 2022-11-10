@@ -19,14 +19,14 @@ namespace FirstLight.Game.Views.MainMenuViews
 		[SerializeField, Required] private TextMeshProUGUI _specialText;
 		[SerializeField, Required] private TextMeshProUGUI _headingText;
 		[SerializeField, Required] private Button _specialButton;
-		
+
 		private IGameServices _services;
 		private GameId _specialGameId;
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-			
+
 			_specialButton.onClick.AddListener(ShowInfoPopup);
 		}
 
@@ -50,11 +50,12 @@ namespace FirstLight.Game.Views.MainMenuViews
 				ButtonOnClick = CloseDialog
 			};
 
-			_services.GenericDialogService.OpenDialog(LocalizationManager.GetTranslation(descriptionTerm), 
-			                                          false,
-			                                          confirmButton);
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.info,
+				LocalizationManager.GetTranslation(descriptionTerm),
+				false,
+				confirmButton);
 		}
-		
+
 		private void CloseDialog()
 		{
 			_services.GenericDialogService.CloseDialog();

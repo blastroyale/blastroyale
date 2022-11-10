@@ -1,9 +1,12 @@
 using System;
+using System.Threading.Tasks;
 using FirstLight.Game.Services;
+using FirstLight.Game.Utils;
+using FirstLight.UiService;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
 {
@@ -11,65 +14,78 @@ namespace FirstLight.Game.Presenters
 	/// Creates a Generic Dialog for showing information to the player usually for yes / no choices.
 	/// Usually used for pointing out something informative to players.
 	/// </summary>
-	public abstract class GenericDialogPresenterBase : AnimatedUiPresenter
+	public abstract class GenericDialogPresenterBase :  UiToolkitPresenter
 	{
-		[SerializeField, Required] protected TextMeshProUGUI TitleText;
-		[SerializeField, Required] protected TextMeshProUGUI ConfirmButtonText;
-		[SerializeField, Required] protected Button CloseButton;
-		[SerializeField, Required] protected Button ConfirmButton;
-		[SerializeField, Required] protected Button BlockerButton;
-
+		private Label _titleLabel;
+		private Label _descLabel;
+		private Button _confirmButton;
+		private Button _cancelButton;
+		private Button _blockerButton;
+		
 		private Action _closeCallback;
-
-		private void Awake()
-		{
-			CloseButton.onClick.AddListener(CloseRequested);
-			BlockerButton.onClick.AddListener(CloseRequested);
-
-			OnAwake();
-		}
+		private Action _confirmCallback;
 
 		private void CloseRequested()
 		{
 			Close(false);
 		}
-
-		protected virtual void OnAwake() { }
-
+		
 		protected override void Close(bool destroy)
 		{
-			if (IsOpenedComplete)
-			{
-				base.Close(destroy);
-			}
+			// TODO - check if IsOpenedComplete check needs to be added to prevent "closing too early" edge cases
+			base.Close(destroy);
+				
+			_confirmButton.clicked -= CloseRequested;
+			_cancelButton.clicked -= CloseRequested;
+			_blockerButton.clicked -= CloseRequested;
+			_confirmButton.clicked -= _confirmCallback;
 		}
 
-		protected void SetBaseInfo(string title, bool showCloseButton, GenericDialogButton button, Action closeCallback)
+		protected override Task OnClosed()
 		{
-			TitleText.text = title;
-			_closeCallback = closeCallback;
+			_closeCallback?.Invoke();
+			return base.OnClosed();
+		}
 
+		protected override void QueryElements(VisualElement root)
+		{
+			_titleLabel = root.Q<Label>("Title").Required();
+			_descLabel = root.Q<Label>("Desc").Required();
+
+			_confirmButton = root.Q<Button>("ConfirmButton").Required();
+			_cancelButton = root.Q<Button>("CancelButton").Required();
+			_blockerButton = root.Q<Button>("BlockerButton").Required();
+
+			_confirmCallback = null;
+			_closeCallback = null;
+		}
+
+		protected void SetBaseInfo(string title, string desc, bool showCloseButton, GenericDialogButton button, Action closeCallback)
+		{
+			_titleLabel.text = title;
+			_descLabel.text = desc;
+			_closeCallback = closeCallback;
+			_cancelButton.SetDisplayActive(showCloseButton);
+			
 			if (button.IsEmpty)
 			{
-				ConfirmButton.gameObject.SetActive(false);
+				_confirmButton.SetDisplayActive(false);
 			}
 			else
 			{
-				ConfirmButtonText.text = button.ButtonText;
-				
-				ConfirmButton.gameObject.SetActive(true);
-				ConfirmButton.onClick.RemoveAllListeners();
-				ConfirmButton.onClick.AddListener(CloseRequested);
-				ConfirmButton.onClick.AddListener(button.ButtonOnClick);
-			}
-			
-			CloseButton.gameObject.SetActive(showCloseButton);
-			BlockerButton.enabled = showCloseButton;
-		}
+				_confirmCallback = button.ButtonOnClick;
+				_confirmButton.text = button.ButtonText;
 
-		protected override void OnClosedCompleted()
-		{
-			_closeCallback?.Invoke();
+				_confirmButton.SetDisplayActive(true);
+				_confirmButton.clicked += _confirmCallback;
+				_confirmButton.clicked += CloseRequested;
+			}
+
+			if (showCloseButton)
+			{
+				_cancelButton.clicked += CloseRequested;
+				_blockerButton.clicked += CloseRequested;
+			}
 		}
 	}
 }

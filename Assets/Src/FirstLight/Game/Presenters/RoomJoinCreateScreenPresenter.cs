@@ -104,9 +104,9 @@ namespace FirstLight.Game.Presenters
 				ButtonOnClick = OnRoomJoinClicked
 			};
 
-			_services.GenericDialogService.OpenInputFieldDialog(ScriptLocalization.MainMenu.RoomJoinCode,
-			                                                    "", confirmButton, true,
-			                                                    TMP_InputField.ContentType.IntegerNumber);
+			// TODO - open with IntegerNumber content type when technology evolves to support that
+			_services.GenericDialogService.OpenInputDialog(ScriptLocalization.UITShared.info, ScriptLocalization.MainMenu.RoomJoinCode,
+			                                                    "", confirmButton, true);
 		}
 
 		private void OnRoomJoinClicked(string roomNameInput)
@@ -171,7 +171,7 @@ namespace FirstLight.Game.Presenters
 			{
 				var mutatorMenuOption = _mutatorsSelections[i].options[_mutatorsSelections[i].value];
 				
-				if (mutatorMenuOption.text.Length == 0)
+				if (mutatorMenuOption.text.Equals("None"))
 				{
 					continue;
 				}
@@ -203,7 +203,7 @@ namespace FirstLight.Game.Presenters
 			foreach (var mutatorsSelection in _mutatorsSelections)
 			{
 				mutatorsSelection.options.Clear();
-				mutatorsSelection.options.Add(new TMP_Dropdown.OptionData(""));
+				mutatorsSelection.options.Add(new TMP_Dropdown.OptionData("None"));
 
 				foreach (var mutatorConfig in mutatorConfigs)
 				{

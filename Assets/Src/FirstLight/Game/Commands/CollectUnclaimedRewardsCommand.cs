@@ -14,9 +14,9 @@ namespace FirstLight.Game.Commands
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Server;
 
 		/// <inheritdoc />
-		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)
+		public void Execute(CommandExecutionContext ctx)
 		{
-			gameLogic.RewardLogic.ClaimUncollectedRewards();
+			ctx.Logic.RewardLogic().ClaimUncollectedRewards();
 		}
 	}
 }

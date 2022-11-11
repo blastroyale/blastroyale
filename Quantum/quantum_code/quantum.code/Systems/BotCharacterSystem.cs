@@ -369,7 +369,16 @@ namespace Quantum.Systems
 				var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(filter.Entity);
 				
 				targetHit = hit.Value.Entity;
-				bb->Set(f, Constants.AimDirectionKey, (targetPosition - botPosition).XZ);
+				
+				// Apply bots inaccuracy
+				var aimDirection = (targetPosition - botPosition).XZ;
+				if (filter.BotCharacter->AccuracySpreadAngle > 0)
+				{
+					var angleHalfInRad = (filter.BotCharacter->AccuracySpreadAngle * FP.Deg2Rad) / FP._2;
+					aimDirection = FPVector2.Rotate(aimDirection, f.RNG->Next(-angleHalfInRad, angleHalfInRad));
+				}
+				
+				bb->Set(f, Constants.AimDirectionKey, aimDirection);
 				
 				return true;
 			}

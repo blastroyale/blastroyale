@@ -1,51 +1,45 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/MatchmakingScreenStyle.uss?fileID=7433441132597879392&amp;guid=054969067d16dbd4b99f57bc2f230e20&amp;type=3#MatchmakingScreenStyle" />
-    <ui:VisualElement name="root" picking-mode="Ignore" class="background" style="flex-direction: row;">
-        <ui:VisualElement name="LeftScreenHolder" class="left-screen-holder">
-            <ui:VisualElement name="Top" class="left-screen-holder__top">
-                <ui:VisualElement name="ModeHolderBg">
-                    <ui:VisualElement name="ModeHolder" class="mode-holder">
-                        <ui:VisualElement name="Icon" class="mode-holder__icon" />
-                        <ui:Label name="Label" text="BATTLE ROYALE&#10;SOLO" class="font-italic font-style-h2 mode-holder__label" style="-unity-text-outline-width: 2px; -unity-text-outline-color: rgb(22, 20, 38); text-shadow: 5px 5px 0 rgb(22, 20, 38); -unity-font-style: bold;" />
-                    </ui:VisualElement>
-                    <ui:Label name="ModeDesc" text="LAST PLAYER STANDING&#10;WINS THE MATCH" class="font-italic ModeDesc" />
+    <ui:VisualElement name="root" picking-mode="Ignore" class="background fill-parent">
+        <FirstLight.Game.UIElements.SafeAreaElement class="safe-area">
+            <ui:VisualElement name="PlayerImage" class="player-image" />
+            <ui:VisualElement name="PlayerAmountHolder" class="player-amount-holder">
+                <ui:VisualElement name="LoadingIcon" class="player-amount-holder__loading-icon" />
+                <ui:VisualElement name="Labels" class="player-amount-holder__labels">
+                    <ui:Label name="PlayerLabel" text="5/30" class="font-italic font-style-h2 player-amount-holder__player-label" />
+                    <ui:Label name="LocationLabel" text="LOCATION" class="font-italic font-style-h2 player-amount-holder__location-label" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="Bottom" class="left-screen-holder__bottom">
-                <ui:VisualElement name="PlayerAmountHolder" class="player-amount-holder">
-                    <ui:VisualElement name="LoadingIcon" class="player-amount-holder__loading-icon" />
-                    <ui:VisualElement name="Labels" class="player-amount-holder__labels">
-                        <ui:Label name="PlayerLabel" text="5/30" class="font-italic font-style-h2 player-amount-holder__player-label" />
-                        <ui:Label name="LocationLabel" text="LOCATION" class="font-italic font-style-h2 player-amount-holder__location-label" />
-                    </ui:VisualElement>
-                </ui:VisualElement>
-            </ui:VisualElement>
-        </ui:VisualElement>
-        <ui:VisualElement name="RightScreenHolder" class="right-screen-holder">
-            <ui:VisualElement name="MapHolder" class="map-holder">
-                <ui:VisualElement name="MapMask" class="map-holder__mask">
-                    <ui:VisualElement name="MapImage" class="map-holder__map-image" />
-                    <ui:VisualElement name="DropzonePathRoot" class="dropzone-path">
-                        <ui:VisualElement name="DropzoneShadow" class="dropzone-path__shadow" />
-                        <ui:VisualElement name="DropzonePath" picking-mode="Ignore" class="dropzone-path__path">
-                            <ui:VisualElement name="Plane" />
+            <ui:Label name="ModeDesc" text="LAST PLAYER STANDING&#10;WINS THE MATCH" class="mode-description" />
+            <FirstLight.Game.UIElements.ImageButton name="CloseButton" class="button-close" />
+            <ui:VisualElement name="Map" class="map">
+                <ui:VisualElement name="Mask" class="map__mask">
+                    <ui:VisualElement name="MapImage" class="map__image" />
+                    <ui:VisualElement name="DropZone" class="dropzone">
+                        <ui:VisualElement name="ShadowLeft" class="dropzone__shadow dropzone__shadow--left" />
+                        <ui:VisualElement name="Path" picking-mode="Ignore" class="dropzone__path">
+                            <ui:VisualElement name="Plane" class="dropzone__plane" />
                         </ui:VisualElement>
-                        <ui:VisualElement name="DropzoneShadow" class="dropzone-path__shadow" />
+                        <ui:VisualElement name="ShadowRight" class="dropzone__shadow dropzone__shadow--right" />
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="MapMarker" picking-mode="Ignore" class="map-marker">
-                    <ui:VisualElement name="PlaceNameBg" class="map-marker__place-name-bg" style="justify-content: center; align-items: center;">
-                        <ui:Label name="PlaceNameLabel" text="PLACE NAME" class="font-italic asda" />
-                    </ui:VisualElement>
+                    <ui:Label name="PlaceNameLabel" text="PLACE NAME" class="map-marker__title" />
+                    <ui:VisualElement name="Marker" class="map-marker__marker" />
                 </ui:VisualElement>
-                <ui:VisualElement name="DropzoneBg" picking-mode="Ignore" class="map-holder__dropzone-bg">
-                    <ui:Label name="DropzoneLabel" text="DROPZONE/MAP NAME" class="font-style-h2 font-italic" />
+                <ui:VisualElement name="TitleBg" picking-mode="Ignore" class="map__title-bg">
+                    <ui:Label text="DROPZONE/MAP NAME" name="Title" class="map__title" />
                 </ui:VisualElement>
             </ui:VisualElement>
-        </ui:VisualElement>
-        <ui:VisualElement name="FullScreenHolder" class="full-screen-holder">
-            <ui:VisualElement name="PlayerImage" class="player-image" />
-            <ui:Button name="LeaveButton" />
+        </FirstLight.Game.UIElements.SafeAreaElement>
+        <ui:VisualElement name="ModeHeader" class="header">
+            <ui:VisualElement class="header__background" />
+            <ui:VisualElement class="header__foreground" />
+            <FirstLight.Game.UIElements.SafeAreaElement name="SafeAreaHolder" apply-right="false" apply-bottom="false" apply-top="false" class="header__holder">
+                <ui:VisualElement name="Icon" class="header__icon" />
+                <ui:Label name="Label" text="BATTLE ROYALE&#10;SOLO" class="header__title" />
+            </FirstLight.Game.UIElements.SafeAreaElement>
         </ui:VisualElement>
     </ui:VisualElement>
+    <ui:VisualElement name="reference" style="background-image: url(&apos;project://database/Assets/Art/UI/References/Matchmaking.png?fileID=2800000&amp;guid=781b036314a414a1c950d328cfc9a9e4&amp;type=3#Matchmaking&apos;); width: 2340px; height: 1080px; display: none;" />
 </ui:UXML>

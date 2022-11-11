@@ -6,30 +6,6 @@
     --animation-total-duration: 0.7s;
 }
 
-.mode-holder {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/HeadlineCornerBack.png?fileID=21300000&guid=a00a82499a7b54937bb2cf2b23aeb238&type=3#HeadlineCornerBack');
-    width: 95%;
-    height: 92%;
-    flex-direction: row;
-    padding-left: 40px;
-}
-
-.mode-holder__icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/ParachuteTiltedIcon.png?fileID=2800000&guid=697fd322f71214d6b833edbacad512c7&type=3#ParachuteTiltedIcon');
-    width: 75px;
-    -unity-background-scale-mode: scale-to-fit;
-    height: 80%;
-}
-
-.mode-holder__label {
-    -unity-text-align: middle-left;
-    padding-left: 25px;
-    flex-grow: 1;
-    font-size: 55px;
-    height: 80%;
-    -unity-text-outline-width: 3px;
-}
-
 .background {
     background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/MatchmakingBg.png?fileID=2800000&guid=b62bd3a008f181c41802bcf390918d3c&type=3#MatchmakingBg');
     width: 100%;
@@ -41,9 +17,9 @@
 
 .player-amount-holder {
     flex-direction: row;
-    height: 40%;
     left: 50px;
     bottom: 50px;
+    position: absolute;
 }
 
 .player-amount-holder__labels {
@@ -76,136 +52,40 @@
     text-shadow: 5px 5px 0 rgb(64, 57, 99);
 }
 
-.left-screen-holder {
-    width: 700px;
-    height: 100%;
-}
-
-.left-screen-holder__top {
-    flex-grow: 1;
-}
-
-.left-screen-holder__bottom {
-    flex-grow: 1;
-    justify-content: flex-end;
-}
-
-.right-screen-holder {
-    width: 900px;
-    height: 100%;
-    right: 6%;
-}
-
-.map-holder {
-    background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/MapBack.png?fileID=2800000&guid=51f92536db4534a42a8f4395b5ff89ae&type=3#MapBack');
-    -unity-background-scale-mode: scale-to-fit;
-    width: 100%;
-    height: 70%;
-    top: 5%;
-    align-items: center;
-    justify-content: center;
-}
-
-.map-holder__mask {
-    background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/CircleMask.svg?fileID=7388822144124034973&guid=2faf20de6b535b54f93e074b0daa472e&type=3#CircleMask');
-    overflow: hidden;
-    width: 98%;
-    height: 98%;
-    -unity-background-scale-mode: scale-to-fit;
-    align-items: center;
-    justify-content: center;
-}
-
-.map-holder__map-image {
-    width: 100%;
-    height: 100%;
-    background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/BRGenesis.png?fileID=2800000&guid=d54eb0711a6ab8e45a698fa12ebb578b&type=3#BRGenesis');
-    -unity-background-scale-mode: scale-and-crop;
-}
-
-.map-holder__dropzone-bg {
+.dropzone {
     position: absolute;
-    background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/SelectdropzoneBg.png?fileID=2800000&guid=9f183781b309b0a44bf9e678b77eb11a&type=3#SelectdropzoneBg');
-    width: 125%;
-    height: 45%;
-    top: 82%;
-    -unity-background-scale-mode: scale-to-fit;
-    justify-content: center;
-    align-items: center;
-}
-
-.map-holder__dropzone-bg > Label {
-    font-size: 90px;
-    rotate: -5deg;
-    -unity-font-style: normal;
-    -unity-text-outline-width: 2px;
-    -unity-text-outline-color: rgb(100, 20, 45);
-    text-shadow: 5px 5px 0 rgb(100, 20, 45);
-}
-
-.dropzone-path {
-    position: absolute;
-    height: 225%;
-    width: 150%;
     flex-direction: row;
     align-items: stretch;
     justify-content: space-between;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
 }
 
-.dropzone-path__shadow {
+.dropzone__shadow {
     background-color: rgba(0, 0, 0, 0.7);
-    width: 40%;
     align-items: auto;
-}
-
-.dropzone-path__path {
     flex-grow: 1;
+    margin-top: -700px;
+    margin-bottom: -700px;
+}
+
+.dropzone__shadow--left {
+    margin-left: -700px;
+}
+
+.dropzone__shadow--right {
+    margin-right: -700px;
+}
+
+.dropzone__path {
     align-items: center;
     justify-content: center;
+    width: 150px;
 }
 
-.map-marker {
-    position: absolute;
-    width: 100px;
-    height: 125px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/MapMarker.png?fileID=2800000&guid=d5fdce7e14ab2304093a3fcd1cbc38e0&type=3#MapMarker');
-    -unity-background-scale-mode: scale-to-fit;
-    justify-content: center;
-    align-items: center;
-}
-
-.map-marker__place-name-bg {
-    background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/PlaceNameBg.png?fileID=2800000&guid=2ffb416fc541b194bb7ff89f55b748eb&type=3#PlaceNameBg');
-    -unity-slice-left: 10;
-    -unity-slice-top: 10;
-    -unity-slice-right: 10;
-    -unity-slice-bottom: 10;
-    position: absolute;
-    width: 250px;
-    height: 45px;
-    bottom: 135px;
-    justify-content: center;
-    align-items: center;
-}
-
-.map-marker__place-name-bg > Label {
-    flex-wrap: nowrap;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    -unity-text-align: middle-center;
-    font-size: 25px;
-}
-
-.full-screen-holder {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    justify-content: center;
-    align-items: center;
-}
-
-.full-screen-holder > #PlayerImage {
+.player-image {
     position: absolute;
     width: 30%;
     height: 50%;
@@ -215,48 +95,168 @@
     -unity-background-scale-mode: scale-to-fit;
 }
 
-.full-screen-holder > #LeaveButton {
-    position: absolute;
-    top: 50px;
-    right: 75px;
-    width: 145px;
-    border-left-width: 0;
-    border-right-width: 0;
-    border-top-width: 0;
-    border-bottom-width: 0;
-    height: 145px;
-    background-color: rgba(188, 188, 188, 0);
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-    background-image: url('project://database/Assets/Art/UI/Sprites/CloseIcon.png?fileID=2800000&guid=e842985e25fb24c4da30f691acbe1500&type=3#CloseIcon');
-    -unity-background-scale-mode: scale-to-fit;
-}
-
-#Plane {
+.dropzone__plane {
     background-image: url('project://database/Assets/Art/Textures/Ui/AdventureWorldHud/Minimap/AirplaneIcon.png?fileID=2800000&guid=526a739286f93464497b3041da810a0f&type=3#AirplaneIcon');
     width: 75px;
     height: 75px;
 }
 
-#ModeHolderBg {
-    background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/HeadlineHighlight.png?fileID=21300000&guid=97008515db6874b47820ca1592ee79d5&type=3#HeadlineHighlight');
-    width: 100%;
-    height: 40%;
-}
-
-#ModeDesc {
+.mode-description {
     position: absolute;
     white-space: normal;
-    font-size: 40px;
-    width: 650px;
-    height: 300px;
-    top: 100%;
-    left: 10%;
+    font-size: 32px;
+    top: 200px;
+    left: 132px;
     -unity-text-align: upper-center;
+    -unity-font-definition: var(--font-italic);
+}
+
+.map {
+    width: 800px;
+    height: 800px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/MapBack.png?fileID=21300000&guid=51f92536db4534a42a8f4395b5ff89ae&type=3#MapBack');
+    align-items: center;
+    justify-content: center;
+    margin-right: 156px;
+    margin-bottom: 86px;
+}
+
+.map__image {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/BRGenesis.png?fileID=2800000&guid=d54eb0711a6ab8e45a698fa12ebb578b&type=3#BRGenesis');
+    -unity-background-scale-mode: scale-and-crop;
+}
+
+.map__mask {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    right: 10px;
+    bottom: 10px;
+    overflow: hidden;
+    background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/CircleMask.svg?fileID=7388822144124034973&guid=2faf20de6b535b54f93e074b0daa472e&type=3#CircleMask');
+}
+
+.map__title-bg {
+    width: 932px;
+    height: 275px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/SelectdropzoneBg.png?fileID=21300000&guid=9f183781b309b0a44bf9e678b77eb11a&type=3#SelectdropzoneBg');
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: -150px;
+}
+
+.map__title {
+    font-size: 90px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 2px;
+    -unity-font-definition: var(--font-italic);
+    -unity-text-outline-color: rgb(0, 0, 0);
+    rotate: -8deg;
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+}
+
+.map-marker {
+    justify-content: center;
+    align-items: center;
+    transform-origin: bottom;
+    bottom: 95px;
+}
+
+.map-marker__title {
+    background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/PlaceNameBg.png?fileID=2800000&guid=2ffb416fc541b194bb7ff89f55b748eb&type=3#PlaceNameBg');
+    -unity-slice-left: 10;
+    -unity-slice-top: 10;
+    -unity-slice-right: 10;
+    -unity-slice-bottom: 10;
+    -unity-font-definition: var(--font-italic);
+    font-size: 25px;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 6px;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+.map-marker__marker {
+    background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/MapMarker.png?fileID=21300000&guid=d5fdce7e14ab2304093a3fcd1cbc38e0&type=3#MapMarker');
+    width: 90px;
+    height: 132px;
+}
+
+.header {
+    background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/HeadlineHighlight.png?fileID=21300000&guid=97008515db6874b47820ca1592ee79d5&type=3#HeadlineHighlight');
+    width: 646px;
+    height: 184px;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.header__title {
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(22, 20, 38);
+    text-shadow: 5px 5px 0 rgb(22, 20, 38);
+    -unity-font-style: bold;
+    -unity-font-definition: var(--font-italic);
+    font-size: 60px;
+    color: rgb(255, 255, 255);
+    margin-left: 30px;
+    -unity-paragraph-spacing: -30px;
+}
+
+.header__icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/ParachuteTiltedIcon.png?fileID=2800000&guid=697fd322f71214d6b833edbacad512c7&type=3#ParachuteTiltedIcon');
+    width: 75px;
+    -unity-background-scale-mode: scale-to-fit;
+    height: 75px;
+}
+
+.header__holder {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/HeadlineCornerBack.png?fileID=21300000&guid=a00a82499a7b54937bb2cf2b23aeb238&type=3#HeadlineCornerBack');
+    width: 95%;
+    height: 92%;
+    flex-direction: row;
+    padding-left: 40px;
+    align-items: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.header__background {
+    background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/HeadlineHighlight.png?fileID=21300000&guid=97008515db6874b47820ca1592ee79d5&type=3#HeadlineHighlight');
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.header__foreground {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/HeadlineCornerBack.png?fileID=21300000&guid=a00a82499a7b54937bb2cf2b23aeb238&type=3#HeadlineCornerBack');
+    position: absolute;
+    left: 0;
+    top: -10px;
+    right: 0;
+    bottom: 10px;
+}
+
+.safe-area {
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    align-items: flex-end;
+    justify-content: center;
+    position: absolute;
 }

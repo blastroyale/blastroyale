@@ -302,3 +302,11 @@ TextField > #unity-text-input, LocalizedTextField > #unity-text-input {
 .button-close:active { 
     -unity-background-image-tint-color: rgb(128, 128, 128);
 }
+
+.fill-parent {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}

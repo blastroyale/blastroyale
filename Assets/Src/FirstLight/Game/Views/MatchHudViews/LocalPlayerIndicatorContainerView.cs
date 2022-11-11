@@ -149,9 +149,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			var isEmptied = playerCharacter->IsAmmoEmpty(f, _localPlayerEntity);
 			var transform = f.Unsafe.GetPointer<Transform3D>(_localPlayerEntity);
-			var aimDirRaw = QuantumHelpers.GetAimDirection(input->AimingDirection, transform->Rotation);
+			var aimDirection = QuantumHelpers.GetAimDirection(input->AimingDirection, transform->Rotation).Normalized.ToUnityVector2();
 
-			var aimDirection = new Vector2(aimDirRaw.X.AsFloat, aimDirRaw.Y.AsFloat).normalized;
 			var rangeStat = f.Get<Stats>(_localPlayerEntity).GetStatData(StatType.AttackRange).StatValue;
 			var range = QuantumHelpers.GetDynamicAimValue(kcc, rangeStat, rangeStat + _weaponConfig.AttackRangeAimBonus).AsFloat;
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using FirstLight.Game.Services;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -47,6 +48,13 @@ namespace FirstLight.Tests.PlayTests
 			var navigationSubmitEvent = NavigationSubmitEvent.GetPooled();
 			navigationSubmitEvent.target = button;
 			button.SendEvent(navigationSubmitEvent);
+		}
+		public static void ClickUIToolKitButtons(UIDocument parent, string name)
+		{
+			//var button = parent.rootVisualElement.Q<Button>(name);
+			//var navigationSubmitEvent = NavigationSubmitEvent.GetPooled();
+			//navigationSubmitEvent.target = button;
+			//button.SendEvent(navigationSubmitEvent);
 		}
 	}
 }

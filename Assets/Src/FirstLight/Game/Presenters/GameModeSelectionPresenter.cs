@@ -48,6 +48,7 @@ namespace FirstLight.Game.Presenters
 			foreach (var slot in _services.GameModeService.Slots)
 			{
 				var button = _buttonAsset.Instantiate();
+				button.userData = slot;
 				button.AttachView(this, out GameModeSelectionButtonView view);
 				view.SetData(GetVisibleClass(orderNumber++), slot);
 				view.Clicked += OnModeButtonClicked;

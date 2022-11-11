@@ -8,7 +8,7 @@ namespace Quantum.Systems
 	/// This system handles the behaviour when the game systems, the ending and is the final countdown to quit the screen
 	/// </summary>
 	public unsafe class GameSystem : SystemMainThread, ISignalOnComponentAdded<GameContainer>,
-	                                 ISignalGameEnded, ISignalPlayerDead, ISignalPlayerKilledPlayer, ISignalOnPlayerDataSet
+	                                 ISignalGameEnded, ISignalPlayerDead, ISignalPlayerKilledPlayer, ISignalOnPlayerDataSet, ISignalAllPlayersJoined
 	{
 
 		/// <summary>
@@ -158,6 +158,11 @@ namespace Quantum.Systems
 				}
 			}
 			return setupPlayers == expectedPlayers;
+		}
+
+		public void AllPlayersJoined(Frame f)
+		{
+			f.Events.OnAllPlayersJoined();
 		}
 	}
 }

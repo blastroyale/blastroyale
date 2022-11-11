@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Commands;
@@ -468,16 +469,20 @@ namespace FirstLight.Game.StateMachines
 			var spawnPosition = _uiService.GetUi<MatchmakingLoadingScreenPresenter>().mapSelectionView
 			                              .NormalizedSelectionPoint;
 
-			var newloadout = loadout.ReadOnlyDictionary.Values.Select(id => inventory[id]).ToList();
-			if(f.Context.TryGetMutatorByType(MutatorType.HammerTime, out _))
+			var finalLoadOut = new List<Equipment>();
+			foreach(var item in loadout.ReadOnlyDictionary.Values.ToList())
 			{
-				for(int i = newloadout.Count -1; i >= 0; i--)
+				var itemId = inventory[item.Id];
+				if(itemId.GameId.IsInGroup(GameIdGroup.Gear) && !f.Context.GameModeConfig.SpawnWithGear)
 				{
-					if (newloadout[i].GameId.IsInGroup(GameIdGroup.Weapon))
-					{
-						newloadout.RemoveAt(i);
-					}
+					continue;
 				}
+				else if (itemId.GameId.IsInGroup(GameIdGroup.Weapon) && 
+					(!f.Context.GameModeConfig.SpawnWithWeapon || f.Context.TryGetMutatorByType(MutatorType.HammerTime, out _)))
+				{
+					continue;
+				}
+				finalLoadOut.Add(inventory[item.Id]);
 			}
 			
 			if (!IsSpectator())
@@ -491,7 +496,7 @@ namespace FirstLight.Game.StateMachines
 					PlayerLevel = info.Level,
 					PlayerTrophies = info.TotalTrophies,
 					NormalizedSpawnPosition = spawnPosition.ToFPVector2(),
-					Loadout = newloadout.ToArray()
+					Loadout = finalLoadOut.ToArray()
 				});
 			}
 		}

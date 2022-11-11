@@ -251,6 +251,7 @@ namespace Quantum {
     Map = 8,
     Helmet = 13,
     Equipment = 12,
+    Gear = 24,
     Weapon = 11,
     Melee = 20,
     Amulet = 16,

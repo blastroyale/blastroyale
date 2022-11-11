@@ -215,7 +215,7 @@
     -unity-background-scale-mode: scale-to-fit;
 }
 
-.full-screen-holder > #CloseButton {
+.full-screen-holder > #LeaveButton {
     position: absolute;
     top: 50px;
     right: 75px;

@@ -107,7 +107,7 @@ namespace FirstLight.Game.Presenters
 			var mapConfig = _services.NetworkService.CurrentRoomMapConfig.Value;
 			var gameModeConfig = _services.NetworkService.CurrentRoomGameModeConfig.Value;
 
-			mapSelectionView.SetupMapView(room.GetGameModeId(), room.GetMapId());
+			mapSelectionView.SetupMapView(room.GetGameModeId(), room.GetMapId(), room.GetDropzonePosRot());
 
 			if (RejoiningRoom)
 			{

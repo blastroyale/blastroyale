@@ -382,6 +382,14 @@ namespace FirstLight.Game.Utils
 		{
 			return new DateTime((long) room.CustomProperties[GameConstants.Network.ROOM_PROPS_CREATION_TICKS]);
 		}
+		
+		/// <summary>
+		/// Obtains the current dropzone pos+rot vector3 for the given <paramref name="room"/>
+		/// </summary>
+		public static Vector3 GetDropzonePosRot(this Room room)
+		{
+			return (Vector3) room.CustomProperties[GameConstants.Network.DROP_ZONE_POS_ROT];
+		}
 
 		/// <summary>
 		/// Obtains the list of mutators enabled in the given <paramref name="room"/>

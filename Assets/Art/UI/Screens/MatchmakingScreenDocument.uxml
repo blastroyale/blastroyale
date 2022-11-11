@@ -25,7 +25,7 @@
             <ui:VisualElement name="MapHolder" class="map-holder">
                 <ui:VisualElement name="MapMask" class="map-holder__mask">
                     <ui:VisualElement name="MapImage" class="map-holder__map-image" />
-                    <ui:VisualElement name="DropzonePath" class="dropzone-path">
+                    <ui:VisualElement name="DropzonePathRoot" class="dropzone-path">
                         <ui:VisualElement name="DropzoneShadow" class="dropzone-path__shadow" />
                         <ui:VisualElement name="DropzonePath" picking-mode="Ignore" class="dropzone-path__path">
                             <ui:VisualElement name="Plane" />
@@ -45,7 +45,7 @@
         </ui:VisualElement>
         <ui:VisualElement name="FullScreenHolder" class="full-screen-holder">
             <ui:VisualElement name="PlayerImage" class="player-image" />
-            <ui:VisualElement name="CloseButton" />
+            <ui:Button name="LeaveButton" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

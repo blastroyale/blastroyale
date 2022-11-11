@@ -115,6 +115,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public void SetupWeaponInfo(Frame f, GameId weaponId)
 		{
 			_weaponConfig = _services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) weaponId);
+			ShootIndicator.SetVisualState(false);
 			_shootIndicatorId = _weaponConfig.MaxAttackAngle > 0  ? IndicatorVfxId.Cone : IndicatorVfxId.Line;
 			if (f.Context.TryGetMutatorByType(MutatorType.AbsoluteAccuracy, out _))
 			{

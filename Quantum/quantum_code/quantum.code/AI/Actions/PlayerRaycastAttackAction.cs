@@ -29,7 +29,7 @@ namespace Quantum
 			var cVelocitySqr = kcc->Velocity.SqrMagnitude;
 			var maxSpeedSqr = kcc->MaxSpeed * kcc->MaxSpeed;
 			var rangeStat = f.Get<Stats>(e).GetStatData(StatType.AttackRange).StatValue;
-			var aimingDirection = QuantumHelpers.GetAimDirection(f, bb, transform).Normalized;
+			var aimingDirection = QuantumHelpers.GetAimDirection(f, bb->GetVector2(f, Constants.AimDirectionKey), transform->Rotation).Normalized;
 
 
 			//targetAttackAngle depend on a current character velocity 

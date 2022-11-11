@@ -376,11 +376,10 @@ namespace Quantum
 		/// <summary>
 		/// Returns the aiming directionof the player, and the looking direction if you are not aiming
 		/// </summary>
-		public static FPVector2 GetAimDirection(Frame f, AIBlackboardComponent* bb, Transform3D* transform)
+		public static FPVector2 GetAimDirection(Frame f, FPVector2 attackDirection, FPQuaternion rotation)
 		{
-			var aimStickDirection = bb->GetVector2(f, Constants.AimDirectionKey);
-			var lookDirection = (transform->Rotation * FPVector3.Forward).XZ;
-			return aimStickDirection == FPVector2.Zero ? lookDirection : aimStickDirection;
+			var lookDirection = (rotation * FPVector3.Forward).XY;
+			return attackDirection == FPVector2.Zero ? lookDirection : attackDirection;
 		}
 	}
 }

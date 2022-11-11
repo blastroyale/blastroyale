@@ -22,13 +22,13 @@ namespace Quantum
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(e);
 			var weaponConfig = f.WeaponConfigs.GetConfig(playerCharacter->CurrentWeapon.GameId);
 			var player = playerCharacter->Player;
-			var aimingDirection = f.Get<AIBlackboardComponent>(e).GetVector2(f, Constants.AimDirectionKey).Normalized;
-			var transform = f.Get<Transform3D>(e);
-			var position = transform.Position + (transform.Rotation * playerCharacter->ProjectileSpawnOffset);
+			var transform = f.Unsafe.GetPointer<Transform3D>(e);
+			var position = transform->Position + (transform->Rotation * playerCharacter->ProjectileSpawnOffset);
 			var team = f.Get<Targetable>(e).Team;
 			var power = f.Get<Stats>(e).GetStatData(StatType.Power).StatValue * weaponConfig.PowerToDamageRatio;
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
 			var rangeStat = f.Get<Stats>(e).GetStatData(StatType.AttackRange).StatValue;
+			var aimingDirection = QuantumHelpers.GetAimDirection(bb->GetVector2(f, Constants.AimDirectionKey), transform->Rotation).Normalized;
 
 			//targetAttackAngle depend on a current character velocity
 			var targetAttackAngle = isAccuracyMutator ?

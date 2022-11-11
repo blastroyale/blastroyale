@@ -100,11 +100,6 @@ namespace FirstLight.Game.Presenters
 		
 		private void OnModeButtonClicked(GameModeSelectionButtonView info)
 		{
-			if (info.Selected)
-			{
-				return;
-			}
-			
 			SelectButton(info);
 
 			StartCoroutine(ChangeGameModeCoroutine(info));

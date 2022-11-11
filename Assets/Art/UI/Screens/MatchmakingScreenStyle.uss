@@ -15,6 +15,16 @@
     justify-content: space-between;
 }
 
+.safe-area {
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    align-items: flex-end;
+    justify-content: center;
+    position: absolute;
+}
+
 .player-amount-holder {
     flex-direction: row;
     left: 50px;
@@ -57,32 +67,35 @@
     flex-direction: row;
     align-items: stretch;
     justify-content: space-between;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
+    left: -50%;
+    top: -50%;
+    right: -50%;
+    bottom: -50%;
 }
 
 .dropzone__shadow {
     background-color: rgba(0, 0, 0, 0.7);
     align-items: auto;
     flex-grow: 1;
-    margin-top: -700px;
-    margin-bottom: -700px;
-}
-
-.dropzone__shadow--left {
-    margin-left: -700px;
-}
-
-.dropzone__shadow--right {
-    margin-right: -700px;
 }
 
 .dropzone__path {
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     width: 150px;
+}
+
+.dropzone__plane {
+    background-image: url('project://database/Assets/Art/Textures/Ui/AdventureWorldHud/Minimap/AirplaneIcon.png?fileID=2800000&guid=526a739286f93464497b3041da810a0f&type=3#AirplaneIcon');
+    width: 75px;
+    height: 75px;
+    transition-duration: 3s;
+    transition-timing-function: linear;
+    bottom: 0;
+}
+
+.dropzone__plane--top {
+    bottom: 100%;
 }
 
 .player-image {
@@ -93,12 +106,6 @@
     top: 25%;
     left: 20%;
     -unity-background-scale-mode: scale-to-fit;
-}
-
-.dropzone__plane {
-    background-image: url('project://database/Assets/Art/Textures/Ui/AdventureWorldHud/Minimap/AirplaneIcon.png?fileID=2800000&guid=526a739286f93464497b3041da810a0f&type=3#AirplaneIcon');
-    width: 75px;
-    height: 75px;
 }
 
 .mode-description {
@@ -249,14 +256,4 @@
     top: -10px;
     right: 0;
     bottom: 10px;
-}
-
-.safe-area {
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    align-items: flex-end;
-    justify-content: center;
-    position: absolute;
 }

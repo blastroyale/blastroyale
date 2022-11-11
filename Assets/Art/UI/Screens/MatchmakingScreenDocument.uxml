@@ -16,11 +16,11 @@
                 <ui:VisualElement name="Mask" class="map__mask">
                     <ui:VisualElement name="MapImage" class="map__image" />
                     <ui:VisualElement name="DropZone" class="dropzone">
-                        <ui:VisualElement name="ShadowLeft" class="dropzone__shadow dropzone__shadow--left" />
+                        <ui:VisualElement name="ShadowLeft" class="dropzone__shadow" />
                         <ui:VisualElement name="Path" picking-mode="Ignore" class="dropzone__path">
                             <ui:VisualElement name="Plane" class="dropzone__plane" />
                         </ui:VisualElement>
-                        <ui:VisualElement name="ShadowRight" class="dropzone__shadow dropzone__shadow--right" />
+                        <ui:VisualElement name="ShadowRight" class="dropzone__shadow" />
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="MapMarker" picking-mode="Ignore" class="map-marker">

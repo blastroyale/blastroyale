@@ -1,7 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/MatchmakingScreenStyle.uss?fileID=7433441132597879392&amp;guid=054969067d16dbd4b99f57bc2f230e20&amp;type=3#MatchmakingScreenStyle" />
     <ui:VisualElement name="root" picking-mode="Ignore" class="background" style="flex-direction: row;">
-        <ui:VisualElement name="PlayerImage" class="player-image" />
         <ui:VisualElement name="LeftScreenHolder" class="left-screen-holder">
             <ui:VisualElement name="Top" class="left-screen-holder__top">
                 <ui:VisualElement name="ModeHolderBg">
@@ -40,9 +39,13 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="DropzoneBg" picking-mode="Ignore" class="map-holder__dropzone-bg">
-                    <FirstLight.Game.UIElements.LocalizedLabel display-tooltip-when-elided="true" localization-key="UITMatchmaking/select_dropzone" name="DropzoneLabel" class="font-style-h2 font-italic" />
+                    <ui:Label name="DropzoneLabel" text="DROPZONE/MAP NAME" class="font-style-h2 font-italic" />
                 </ui:VisualElement>
             </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="FullScreenHolder" class="full-screen-holder">
+            <ui:VisualElement name="PlayerImage" class="player-image" />
+            <ui:VisualElement name="CloseButton" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

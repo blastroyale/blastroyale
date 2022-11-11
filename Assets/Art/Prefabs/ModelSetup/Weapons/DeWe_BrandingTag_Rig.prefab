@@ -287,8 +287,8 @@ MonoBehaviour:
   m_Data:
     m_ConstrainedObject: {fileID: 3819766190006488676}
     m_Source: {fileID: 1585504267744248454}
-    m_DampPosition: 0
-    m_DampRotation: 0.5
+    m_DampPosition: 0.3
+    m_DampRotation: 1
     m_MaintainAim: 1
 --- !u!1 &4441371350386859794
 GameObject:
@@ -386,8 +386,8 @@ MonoBehaviour:
   m_Data:
     m_ConstrainedObject: {fileID: 1585504267744248454}
     m_Source: {fileID: 3631587977436850331}
-    m_DampPosition: 0
-    m_DampRotation: 0.5
+    m_DampPosition: 0.3
+    m_DampRotation: 1
     m_MaintainAim: 1
 --- !u!1 &8931078064224666863
 GameObject:

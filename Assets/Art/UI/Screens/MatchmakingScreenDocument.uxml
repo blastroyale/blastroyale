@@ -15,7 +15,7 @@
             <ui:VisualElement name="Map" class="map">
                 <ui:VisualElement name="Mask" class="map__mask">
                     <ui:VisualElement name="MapImage" class="map__image" />
-                    <ui:VisualElement name="DropZone" class="dropzone">
+                    <ui:VisualElement name="DropZone" picking-mode="Ignore" class="dropzone">
                         <ui:VisualElement name="ShadowLeft" class="dropzone__shadow" />
                         <ui:VisualElement name="Path" picking-mode="Ignore" class="dropzone__path">
                             <ui:VisualElement name="Plane" class="dropzone__plane" />
@@ -24,8 +24,8 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="MapMarker" picking-mode="Ignore" class="map-marker">
-                    <ui:Label name="PlaceNameLabel" text="PLACE NAME" class="map-marker__title" />
-                    <ui:VisualElement name="Marker" class="map-marker__marker" />
+                    <ui:Label name="PlaceNameLabel" text="PLACE NAME" picking-mode="Ignore" class="map-marker__title" />
+                    <ui:VisualElement name="Marker" picking-mode="Ignore" class="map-marker__marker" />
                 </ui:VisualElement>
                 <ui:VisualElement name="TitleBg" picking-mode="Ignore" class="map__title-bg">
                     <ui:Label text="DROPZONE/MAP NAME" name="Title" class="map__title" />

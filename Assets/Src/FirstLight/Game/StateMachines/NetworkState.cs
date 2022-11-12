@@ -627,8 +627,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var matchType = _services.GameModeService.SelectedGameMode.Value.Entry.MatchType;
 			var gameHasBots = gameModeConfig.AllowBots;
-			var createParams =
-				NetworkUtils.GetRoomCreateParams(gameModeConfig, mapConfig, GetRandomDropzonePosRot(), null, matchType, mutators, gameHasBots);
+			var createParams = NetworkUtils.GetRoomCreateParams(gameModeConfig, mapConfig, GetRandomDropzonePosRot(), null, matchType, mutators, gameHasBots);
 			var joinRandomParams = NetworkUtils.GetJoinRandomRoomParams(gameModeConfig, mapConfig, matchType, mutators);
 
 			QuantumRunnerConfigs.IsOfflineMode = NetworkUtils.GetMaxPlayers(gameModeConfig, mapConfig) == 1;

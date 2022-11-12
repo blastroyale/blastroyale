@@ -171,6 +171,7 @@ namespace FirstLight.Game.Utils
 			
 			properties.Add(GameConstants.Network.ROOM_PROPS_BOTS, gameHasBots);
 
+			// TODO - RENAME "SpawnPattern"
 			if (gameModeConfig.SpawnPattern)
 			{
 				properties.Add(GameConstants.Network.DROP_ZONE_POS_ROT, dropzonePosRot);

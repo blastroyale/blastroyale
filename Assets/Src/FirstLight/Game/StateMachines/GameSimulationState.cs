@@ -14,6 +14,7 @@ using FirstLight.Statechart;
 using I2.Loc;
 using Quantum;
 using Quantum.Commands;
+using UnityEngine;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -391,7 +392,7 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<GameCompleteScreenPresenter>();
 		}
 
-		private void ResultsScreen(IWaitActivity activity)
+		private async void ResultsScreen(IWaitActivity activity)
 		{
 			var cacheActivity = activity;
 			var data = new ResultsScreenPresenter.StateData
@@ -399,8 +400,8 @@ namespace FirstLight.Game.StateMachines
 				ContinueButtonClicked = () => cacheActivity.Complete(),
 				HomeButtonClicked = () => cacheActivity.Complete(),
 			};
-
-			_uiService.OpenUiAsync<ResultsScreenPresenter, ResultsScreenPresenter.StateData>(data);
+			
+			await _uiService.OpenUiAsync<ResultsScreenPresenter, ResultsScreenPresenter.StateData>(data);
 		}
 
 		private void CloseResultScreen()

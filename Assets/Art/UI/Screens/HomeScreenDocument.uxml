@@ -1,4 +1,4 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xmlns:flg="FirstLight.Game.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/HomeScreenStyle.uss?fileID=7433441132597879392&amp;guid=54dbd0d57987f4f398aea3e4722669ea&amp;type=3#HomeScreenStyle" />
     <ui:VisualElement name="root" picking-mode="Ignore" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0;">
         <ui:VisualElement name="PlayerHolder" class="hidden-profile" style="position: absolute; left: 0; top: 0; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/HomeScreen/HeadlineCornerBack.png?fileID=21300000&amp;guid=a00a82499a7b54937bb2cf2b23aeb238&amp;type=3#HeadlineCornerBack&apos;); width: 790px; height: 220px;">
@@ -15,14 +15,14 @@
             </ui:VisualElement>
             <ui:Label text="PLAYER NAME" name="PlayerNameLabel" class="font-italic font-style-h2" />
         </ui:VisualElement>
-        <flg:SafeAreaElement picking-mode="Ignore" style="align-items: center; justify-content: center;">
+        <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore" style="align-items: center; justify-content: center;">
             <ui:VisualElement picking-mode="Ignore" style="flex-direction: row-reverse; position: absolute; top: 0; right: 0; margin-right: 36px; margin-top: 23px; align-items: center; transition-property: margin-top; transition-duration: 0.5s; transition-timing-function: ease-in;">
                 <ui:Button display-tooltip-when-elided="true" name="SettingsButton" class="hidden-top" style="background-image: none; padding-left: 0; padding-right: 0; padding-bottom: 0; padding-top: 0;">
                     <ui:VisualElement style="width: 66px; height: 66px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/HomeScreen/SettingsIcon.png?fileID=2800000&amp;guid=04713a4471ac6493ba0a2533be572841&amp;type=3#SettingsIcon&apos;); margin-left: 20px; margin-top: 20px; margin-right: 20px; margin-bottom: 20px;" />
                 </ui:Button>
-                <flg:CurrencyDisplayElement name="CoinCurrency" currency="COIN" class="hidden-top" style="margin-right: 50px;" />
-                <flg:CurrencyDisplayElement name="CSCurrency" currency="CS" class="hidden-top" style="margin-right: 50px;" />
-                <flg:CurrencyDisplayElement name="BLSTCurrency" currency="BLST" class="hidden-top" style="margin-right: 50px;" />
+                <FirstLight.Game.UIElements.CurrencyDisplayElement name="CoinCurrency" currency="COIN" class="hidden-top" style="margin-right: 50px;" />
+                <FirstLight.Game.UIElements.CurrencyDisplayElement name="CSCurrency" currency="CS" class="hidden-top" style="margin-right: 50px;" />
+                <FirstLight.Game.UIElements.CurrencyDisplayElement name="BLSTCurrency" currency="BLST" class="hidden-top" style="margin-right: 50px;" />
             </ui:VisualElement>
             <ui:VisualElement picking-mode="Ignore" style="width: 535px; position: absolute; right: 0; bottom: 0; flex-direction: column-reverse; align-items: flex-end; display: flex; margin-bottom: 36px; margin-right: 36px;">
                 <ui:VisualElement class="hidden-right" style="margin-top: 43px; transition-property: margin-right; transition-duration: 0.3s; transition-timing-function: ease-out;">
@@ -35,7 +35,7 @@
                             <ui:VisualElement style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/HomeScreen/CS.png?fileID=21300000&amp;guid=d74b22177c5ba4ac6b9293d6c147e46e&amp;type=3#CS&apos;); width: 32px; height: 32px;" />
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <flg:LocalizedButton localization-key="UITHomeScreen/play" name="PlayButton" class="play-button font-italic font-style-h1" />
+                    <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/play" name="PlayButton" class="play-button font-italic font-style-h1" />
                 </ui:VisualElement>
                 <ui:Button name="GameModeButton" class="hidden-right" style="flex-direction: column-reverse;">
                     <ui:VisualElement style="rotate: 0; margin-right: 38px; padding-bottom: 32px; align-items: flex-start;">
@@ -43,23 +43,23 @@
                         <ui:Label text="CASUAL" name="GameTypeLabel" class="font-italic font-style-h2" style="-unity-text-align: upper-right; font-size: 29px; margin-bottom: -3px; margin-left: -13px;" />
                     </ui:VisualElement>
                 </ui:Button>
-                <flg:LocalizedButton localization-key="UITHomeScreen/shop" name="StoreButton" class="button-with-icon button-with-icon--yellow button-with-icon--shop hidden-right" style="margin-bottom: 57px;">
+                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/shop" name="StoreButton" class="button-with-icon button-with-icon--yellow button-with-icon--shop hidden-right" style="margin-bottom: 57px;">
                     <ui:VisualElement class="button-with-icon__icon" />
-                </flg:LocalizedButton>
+                </FirstLight.Game.UIElements.LocalizedButton>
                 <ui:Button text="DISCORD" name="DiscordButton" class="button-with-icon button-with-icon--small button-with-icon--discord hidden-right" style="margin-bottom: 67px;">
                     <ui:VisualElement class="button-with-icon__icon" />
                 </ui:Button>
             </ui:VisualElement>
             <ui:VisualElement picking-mode="Ignore" style="position: absolute; left: 0; top: 245px; bottom: 0; justify-content: space-between; margin-bottom: 36px; margin-left: 36px;">
-                <flg:LocalizedButton localization-key="UITHomeScreen/equipment" name="EquipmentButton" class="hidden-left button-with-icon button-with-icon--equipment">
+                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/equipment" name="EquipmentButton" class="hidden-left button-with-icon button-with-icon--equipment">
                     <ui:VisualElement class="button-with-icon__icon" />
-                </flg:LocalizedButton>
-                <flg:LocalizedButton localization-key="UITHomeScreen/heroes" name="HeroesButton" class="hidden-left button-with-icon button-with-icon--heroes">
+                </FirstLight.Game.UIElements.LocalizedButton>
+                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/heroes" name="HeroesButton" class="hidden-left button-with-icon button-with-icon--heroes">
                     <ui:VisualElement class="button-with-icon__icon" />
-                </flg:LocalizedButton>
-                <flg:LocalizedButton localization-key="UITHomeScreen/leaderboards" name="LeaderboardsButton" class="hidden-left button-with-icon button-with-icon--leaderboards" style="letter-spacing: -4px;">
+                </FirstLight.Game.UIElements.LocalizedButton>
+                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/leaderboards" name="LeaderboardsButton" class="hidden-left button-with-icon button-with-icon--leaderboards" style="letter-spacing: -4px;">
                     <ui:VisualElement class="button-with-icon__icon" />
-                </flg:LocalizedButton>
+                </FirstLight.Game.UIElements.LocalizedButton>
                 <ui:VisualElement name="BattlePassHolder" class="hidden-left" style="flex-direction: row; align-items: flex-end;">
                     <ui:VisualElement name="BPPPoolContainer" class="font-italic pool-container">
                         <ui:VisualElement style="position: absolute; left: 16px; top: 11px; right: 34px; bottom: 51px; flex-direction: row; justify-content: space-between; rotate: 3deg; align-items: center;">
@@ -70,9 +70,9 @@
                         </ui:VisualElement>
                     </ui:VisualElement>
                     <ui:Button name="BattlePassButton" class="blastpassbutton" style="overflow: visible;">
-                        <ui:VisualElement style="justify-content: flex-start; align-items: stretch; position: relative;">
-                            <flg:LocalizedButton localization-key="UITHomeScreen/blast_pass" name="Title" class="font-style-h1 font-italic" />
-                            <ui:Label text="LVL 1" name="BattlePassLevelLabel" class="font-bold" style="-unity-text-align: middle-right; font-size: 42px; margin-top: -18px; margin-right: 35px; color: rgb(138, 22, 0); -unity-font-style: bold; margin-bottom: 10px;" />
+                        <ui:VisualElement picking-mode="Ignore" style="justify-content: flex-start; align-items: stretch; position: relative;">
+                            <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/blast_pass" name="Title" picking-mode="Ignore" class="font-style-h1 font-italic" />
+                            <ui:Label text="LVL 1" name="BattlePassLevelLabel" picking-mode="Ignore" class="font-bold" style="-unity-text-align: middle-right; font-size: 42px; margin-top: -18px; margin-right: 35px; color: rgb(138, 22, 0); -unity-font-style: bold; margin-bottom: 10px;" />
                             <ui:VisualElement style="height: 20px; padding-left: 2px; padding-right: 3px; padding-top: 2px; padding-bottom: 2px; right: 0; flex-direction: row; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/HomeScreen/BattlePassProgressBack.png?fileID=21300000&amp;guid=32610552af28844669cdba62234811ad&amp;type=3#BattlePassProgressBack&apos;); -unity-slice-left: 8; -unity-slice-right: 8; -unity-background-scale-mode: stretch-to-fill; margin-top: -17px; margin-left: 57px; margin-right: 19px;">
                                 <ui:VisualElement name="BattlePassProgressElement" style="flex-grow: 1; flex-shrink: 0; flex-direction: row; flex-basis: 1px;" />
                             </ui:VisualElement>
@@ -81,6 +81,6 @@
                     </ui:Button>
                 </ui:VisualElement>
             </ui:VisualElement>
-        </flg:SafeAreaElement>
+        </FirstLight.Game.UIElements.SafeAreaElement>
     </ui:VisualElement>
 </ui:UXML>

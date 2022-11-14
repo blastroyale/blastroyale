@@ -136,7 +136,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			}
 			
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
-			var deadData = playerKilledEvent.PlayersMatchData[playerKilledEvent.PlayerKiller];
+			var deadData = playerKilledEvent.PlayersMatchData[playerKilledEvent.PlayerDead];
 
 			var data = new Dictionary<string, object>
 			{

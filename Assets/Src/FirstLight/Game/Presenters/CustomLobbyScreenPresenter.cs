@@ -145,11 +145,11 @@ namespace FirstLight.Game.Presenters
 			
 			var matchType = room.GetMatchType();
 			var gameMode = room.GetGameModeId().ToUpper();
-			var quantumGameConfigs = _services.ConfigsProvider.GetConfig<QuantumGameConfig>();
-			var minPlayers = matchType == MatchType.Ranked ? quantumGameConfigs.RankedMatchmakingMinPlayers : 0;
+			var quantumGameConfig = _services.ConfigsProvider.GetConfig<QuantumGameConfig>();
+			var minPlayers = matchType == MatchType.Ranked ? quantumGameConfig.RankedMatchmakingMinPlayers : 0;
 			var matchmakingTime = matchType == MatchType.Ranked ? 
-				                      quantumGameConfigs.RankedMatchmakingTime.AsFloat :
-				                      quantumGameConfigs.CasualMatchmakingTime.AsFloat;
+				                      quantumGameConfig.RankedMatchmakingTime.AsFloat :
+				                      quantumGameConfig.CasualMatchmakingTime.AsFloat;
 			
 			_selectedGameModeText.text = string.Format(ScriptLocalization.MainMenu.SelectedGameModeValue, matchType.ToString().ToUpper(), gameMode);
 

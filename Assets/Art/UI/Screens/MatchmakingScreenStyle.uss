@@ -37,10 +37,10 @@
 .header__title {
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(22, 20, 38);
-    text-shadow: 5px 5px 0 rgb(22, 20, 38);
+    text-shadow: 3px 3px 0 rgb(22, 20, 38);
     -unity-font-style: bold;
     -unity-font-definition: var(--font-italic);
-    font-size: 60px;
+    font-size: 55px;
     color: rgb(255, 255, 255);
     margin-left: 30px;
     -unity-paragraph-spacing: -30px;
@@ -51,6 +51,17 @@
     width: 75px;
     -unity-background-scale-mode: scale-to-fit;
     height: 75px;
+}
+
+.header__icon-shadow {
+    position: absolute;
+    left: 3px;
+    top: 3px;
+    background-color: rgba(0, 0, 0, 0);
+    width: 75px;
+    height: 75px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/ParachuteTiltedIcon.png?fileID=2800000&guid=697fd322f71214d6b833edbacad512c7&type=3#ParachuteTiltedIcon');
+    -unity-background-image-tint-color: rgb(24, 17, 34);
 }
 
 .header__holder {
@@ -85,14 +96,22 @@
     bottom: 10px;
 }
 
-.mode-description {
+.mode-desc {
     position: absolute;
-    white-space: normal;
-    font-size: 32px;
-    top: 200px;
-    left: 132px;
-    -unity-text-align: upper-center;
+    -unity-text-align: middle-left;
+    font-size: 30px;
+    left: 148px;
+    top: 212px;
     -unity-font-definition: var(--font-italic);
+}
+
+.mode-desc__bot {
+    position: absolute;
+    -unity-text-align: middle-left;
+    font-size: 30px;
+    left: 150px;
+    -unity-font-definition: var(--font-italic);
+    top: 10px;
 }
 
 .player-image {
@@ -119,27 +138,27 @@
 
 .player-amount-holder__loading-icon {
     height: 100%;
-    width: 100px;
+    width: 75px;
     background-image: url('project://database/Assets/Art/Textures/Ui/Loading/LoadingSpinnerThick.png?fileID=2800000&guid=baccbbd5ac3184df18f5aabbc6649ef8&type=3#LoadingSpinnerThick');
     -unity-background-scale-mode: scale-to-fit;
     margin-right: 25px;
 }
 
 .player-amount-holder__location-label {
-    font-size: 90px;
-    -unity-text-outline-width: 3px;
-    -unity-text-outline-color: rgb(94, 19, 42);
-    text-shadow: 5px 5px 0 rgb(100, 20, 45);
+    font-size: 58px;
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(49, 46, 71);
+    text-shadow: 3px 3px 0 rgb(108, 8, 40);
     color: rgb(214, 76, 123);
-    -unity-font-style: normal;
+    -unity-font-style: bold;
     margin-top: -20px;
 }
 
 .player-amount-holder__player-label {
-    font-size: 90px;
+    font-size: 68px;
     -unity-text-outline-width: 2px;
-    -unity-text-outline-color: rgb(64, 57, 99);
-    text-shadow: 5px 5px 0 rgb(64, 57, 99);
+    -unity-text-outline-color: rgb(49, 46, 71);
+    text-shadow: 3px 3px 0 rgb(49, 46, 71);
 }
 
 .dropzone {
@@ -154,7 +173,7 @@
 }
 
 .dropzone__shadow {
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(37, 26, 79, 0.6);
     align-items: auto;
     flex-grow: 1;
 }
@@ -179,8 +198,8 @@
 }
 
 .map {
-    width: 800px;
-    height: 800px;
+    width: 700px;
+    height: 700px;
     background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/MapBack.png?fileID=21300000&guid=51f92536db4534a42a8f4395b5ff89ae&type=3#MapBack');
     align-items: center;
     justify-content: center;
@@ -209,13 +228,15 @@
 }
 
 .map__title {
-    font-size: 90px;
+    font-size: 70px;
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 2px;
     -unity-font-definition: var(--font-italic);
-    -unity-text-outline-color: rgb(0, 0, 0);
-    rotate: -8deg;
-    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    -unity-text-outline-color: rgb(107, 8, 41);
+    rotate: -5deg;
+    text-shadow: 5px 5px 0 rgb(107, 8, 41);
+    -unity-font-style: bold;
+    display: flex;
 }
 
 .map__title-bg {
@@ -226,6 +247,7 @@
     justify-content: center;
     position: absolute;
     bottom: -150px;
+    display: flex;
 }
 
 .map-marker {

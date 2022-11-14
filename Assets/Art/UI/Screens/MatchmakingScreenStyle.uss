@@ -98,20 +98,22 @@
 
 .mode-desc {
     position: absolute;
+    left: 100px;
+    top: 225px;
+    flex-direction: row;
+}
+
+.mode-desc__top {
     -unity-text-align: middle-left;
     font-size: 30px;
-    left: 148px;
-    top: 212px;
     -unity-font-definition: var(--font-italic);
 }
 
 .mode-desc__bot {
-    position: absolute;
     -unity-text-align: middle-left;
     font-size: 30px;
-    left: 150px;
     -unity-font-definition: var(--font-italic);
-    top: 10px;
+    left: -115px;
 }
 
 .player-image {

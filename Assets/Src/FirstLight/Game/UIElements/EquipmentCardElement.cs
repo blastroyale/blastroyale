@@ -1,3 +1,5 @@
+using System;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using I2.Loc;
@@ -10,8 +12,13 @@ namespace FirstLight.Game.UIElements
 {
 	public class EquipmentCardElement : ImageButton
 	{
-		private const string UssBlock = "equipment-card";
+		private const string ADJECTIVE_LOC_KEY = "UITEquipment/adjective_{0}";
 
+		private const string UssBlock = "equipment-card";
+		private const string UssBlockSelected = UssBlock + "--selected";
+
+		private const string UssSelected = UssBlock + "__selected-bg";
+		private const string UssBackground = UssBlock + "__background";
 		private const string UssRarity = UssBlock + "__rarity";
 		private const string UssRarityModifier = UssRarity + "--";
 		private const string UssCardHolder = UssBlock + "__card-holder";
@@ -32,10 +39,14 @@ namespace FirstLight.Game.UIElements
 		private const string UssBadgeHolder = UssBlock + "__badge-holder";
 		private const string UssBadgeNft = UssBlock + "__badge-nft";
 		private const string UssBadgeLoaned = UssBlock + "__badge-loaned";
+		private const string UssBadgeEquipped= UssBlock + "__badge-equipped";
 
+		public Equipment Equipment { get; private set; }
+		public UniqueId UniqueId { get; private set; }
 
 		private VisualElement _nftBadge;
 		private VisualElement _loanedBadge;
+		private VisualElement _equippedBadge;
 
 		private VisualElement _image;
 		private VisualElement _imageShadow;
@@ -50,6 +61,10 @@ namespace FirstLight.Game.UIElements
 		private Label _name;
 		private Label _adjective;
 
+		/// <summary>
+		/// Triggered when the card is clicked
+		/// </summary>
+		public new event Action<Equipment, UniqueId> clicked;
 
 		public EquipmentCardElement() : this(Equipment.None)
 		{
@@ -59,6 +74,14 @@ namespace FirstLight.Game.UIElements
 		{
 			AddToClassList(UssBlock);
 
+			var selectedbg = new VisualElement {name = "selected-bg"};
+			Add(selectedbg);
+			selectedbg.AddToClassList(UssSelected);
+
+			var background = new VisualElement {name = "background"};
+			Add(background);
+			background.AddToClassList(UssBackground);
+			
 			var cardHolder = new VisualElement {name = "holder"};
 			Add(cardHolder);
 			cardHolder.AddToClassList(UssCardHolder);
@@ -86,6 +109,10 @@ namespace FirstLight.Game.UIElements
 				badgeHolder.Add(
 					_loanedBadge = new Label(ScriptLocalization.UITEquipment.loaned) {name = "badge-loaned"});
 				_loanedBadge.AddToClassList(UssBadgeLoaned);
+				
+				badgeHolder.Add(
+					_equippedBadge = new Label(ScriptLocalization.UITEquipment.equipped) {name = "badge-equipped"});
+				_equippedBadge.AddToClassList(UssBadgeEquipped);
 			}
 
 			cardHolder.Add(_grade = new Label("IV") {name = "grade"});
@@ -115,15 +142,44 @@ namespace FirstLight.Game.UIElements
 				_adjective.AddToClassList(UssAdjective);
 			}
 
+			base.clicked += () => clicked?.Invoke(Equipment, UniqueId);
+
 			if (equipment.IsValid())
 			{
-				SetEquipment(equipment);
+				SetData(equipment, UniqueId.Invalid);
 			}
 		}
 
-		public async void SetEquipment(Equipment equipment, bool loaned = false, bool nft = false)
+		public void SetSelected(bool selected)
+		{
+			if (selected)
+			{
+				AddToClassList(UssBlockSelected);
+			}
+			else
+			{
+				RemoveFromClassList(UssBlockSelected);
+			}
+		}
+
+		public void SetEquipped(bool equipped)
+		{
+			_equippedBadge.SetDisplayActive(equipped);
+		}
+
+		public StyleBackground GetEquipmentImage()
+		{
+			return _image.style.backgroundImage;
+		}
+
+		public async void SetData(Equipment equipment, UniqueId id, bool loaned = false, bool nft = false, bool equipped = false)
 		{
 			Assert.IsTrue(equipment.IsValid());
+
+			if (id == UniqueId) return;
+
+			Equipment = equipment;
+			UniqueId = id;
 
 			_rarity.RemoveModifiers();
 			_rarity.AddToClassList(UssRarityModifier +
@@ -146,9 +202,12 @@ namespace FirstLight.Game.UIElements
 			_category.AddToClassList(UssCategoryModifier + equipment.GetEquipmentGroup().ToString().ToLowerInvariant());
 
 			_adjective.text = equipment.Adjective.ToString().ToUpperInvariant(); // TODO: Add localization
+			_adjective.text = string.Format(ADJECTIVE_LOC_KEY, equipment.Adjective.ToString().ToLowerInvariant())
+				.LocalizeKey();
 
 			_loanedBadge.SetDisplayActive(loaned);
 			_nftBadge.SetDisplayActive(nft);
+			_equippedBadge.SetDisplayActive(equipped);
 
 			// TODO: This should be handled better.
 			var services = MainInstaller.Resolve<IGameServices>();

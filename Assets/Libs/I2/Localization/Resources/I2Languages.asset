@@ -9821,7 +9821,7 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITMatchmaking/br_mode_desc
+    - Term: UITMatchmaking/br_mode_desc_top
       TermType: 0
       Description: 
       Languages:
@@ -9830,7 +9830,16 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITMatchmaking/dm_mode_desc
+    - Term: UITMatchmaking/br_mode_desc_bot
+      TermType: 0
+      Description: 
+      Languages:
+      - WINS THE MATCH
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITMatchmaking/dm_mode_desc_top
       TermType: 0
       Description: 
       Languages:
@@ -9839,7 +9848,7 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITMatchmaking/wins_the_match
+    - Term: UITMatchmaking/dm_mode_desc_bot
       TermType: 0
       Description: 
       Languages:
@@ -9857,40 +9866,38 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITMatchmaking/loading_status_timer
+    - Term: UITMatchmaking/button_leave
       TermType: 0
       Description: 
       Languages:
-      - MATCHMAKING {0}s
+      - LEAVE
       - 
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITMatchmaking/loading_status_waiting
+    - Term: UITMatchmaking/loading
       TermType: 0
       Description: 
       Languages:
-      - WAITING FOR PLAYERS
+      - LOADING
       - 
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITMatchmaking/loading_status_starting
+    - Term: UITMatchmaking/matchmaking
       TermType: 0
       Description: 
       Languages:
-      - PREPARE FOR BLAST OFF!
+      - MATCHMAKING
       - 
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITMatchmaking/mode_header_title
+    - Term: UITMatchmaking/waiting
       TermType: 0
       Description: 
       Languages:
-      - '{0}
-
-        {1}'
+      - WAITING
       - 
       - 
       Flags: 000000
@@ -10282,70 +10289,6 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITEquipment/details_no_amulet
-      TermType: 0
-      Description: 
-      Languages:
-      - 'YOU HAVE NO
-
-        AMULETS'
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/details_no_armor
-      TermType: 0
-      Description: 
-      Languages:
-      - 'YOU HAVE NO
-
-        ARMORS'
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/details_no_helmet
-      TermType: 0
-      Description: 
-      Languages:
-      - 'YOU HAVE NO
-
-        HELMETS'
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/details_no_shield
-      TermType: 0
-      Description: 
-      Languages:
-      - 'YOU HAVE NO
-
-        SHIELDS'
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/details_no_weapon
-      TermType: 0
-      Description: 
-      Languages:
-      - 'YOU HAVE NO
-
-        WEAPONS'
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITWinners/winners
-      TermType: 0
-      Description: 
-      Languages:
-      - WINNERS
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -10364,7 +10307,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1668773509109
+    Google_LastUpdatedVersion: 1668618701787
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

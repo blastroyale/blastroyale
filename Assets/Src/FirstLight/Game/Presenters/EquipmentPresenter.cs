@@ -16,7 +16,7 @@ namespace FirstLight.Game.Presenters
 	/// This Presenter handles the Loot Screen, where players can equip items and upgrade loot.
 	/// </summary>
 	[LoadSynchronously]
-	public class LootScreenPresenter : UiToolkitPresenterData<LootScreenPresenter.StateData>
+	public class EquipmentPresenter : UiToolkitPresenterData<EquipmentPresenter.StateData>
 	{
 		public struct StateData
 		{

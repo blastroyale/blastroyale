@@ -3,6 +3,7 @@ using System.Linq;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
+using I2.Loc;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -76,6 +77,24 @@ namespace FirstLight.Game.Utils
 					element.RemoveFromClassList(clazz);
 				}
 			}
+		}
+
+		/// <summary>
+		/// Localizes a string, assuming it's a key, and displays the key if localization isn't found.
+		/// </summary>
+		public static string LocalizeKey(this string key)
+		{
+			return LocalizationManager.TryGetTranslation(key, out var translation)
+				? translation
+				: $"#{key}#";
+		}
+
+		public static void DisableScrollbars(this ListView listView)
+		{
+			var scroller = listView.Q<ScrollView>();
+
+			scroller.verticalScrollerVisibility = ScrollerVisibility.Hidden;
+			scroller.horizontalScrollerVisibility = ScrollerVisibility.Hidden;
 		}
 	}
 }

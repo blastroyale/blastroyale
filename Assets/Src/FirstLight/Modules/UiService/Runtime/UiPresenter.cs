@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -61,7 +62,15 @@ namespace FirstLight.UiService
 		internal void InternalOpen()
 		{
 			gameObject.SetActive(true);
-			OnOpened();
+			try
+			{
+				OnOpened();
+			}
+			catch (Exception e)
+			{
+				Debug.LogError(e);
+				throw;
+			}
 		}
 
 		internal virtual async Task InternalClose(bool destroy)

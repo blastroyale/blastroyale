@@ -127,7 +127,7 @@ namespace FirstLight.Game.StateMachines
 			initial.OnExit(OpenUiVfxPresenter);
 			
 			screenCheck.Transition().Condition(IsCurrentScreen<HomeScreenPresenter>).Target(defaultNameCheck);
-			screenCheck.Transition().Condition(IsCurrentScreen<LootScreenPresenter>).Target(lootMenu);
+			screenCheck.Transition().Condition(IsCurrentScreen<EquipmentPresenter>).Target(lootMenu);
 			screenCheck.Transition().Condition(IsCurrentScreen<PlayerSkinScreenPresenter>).Target(heroesMenu);
 			screenCheck.Transition().OnTransition(InvalidScreen).Target(final);
 			
@@ -376,7 +376,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				OnPlayButtonClicked = PlayButtonClicked,
 				OnSettingsButtonClicked = () => _statechartTrigger(_settingsMenuClickedEvent),
-				OnLootButtonClicked = OnTabClickedCallback<LootScreenPresenter>,
+				OnLootButtonClicked = OnTabClickedCallback<EquipmentPresenter>,
 				OnHeroesButtonClicked = OnTabClickedCallback<PlayerSkinScreenPresenter>,
 				OnNameChangeClicked = () => _statechartTrigger(_nameChangeClickedEvent),
 				OnGameModeClicked = () => _statechartTrigger(_chooseGameModeClickedEvent),

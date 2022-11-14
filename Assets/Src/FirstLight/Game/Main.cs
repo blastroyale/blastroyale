@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -31,6 +32,7 @@ namespace FirstLight.Game
 
 		private void Awake()
 		{
+			System.Threading.Tasks.TaskScheduler.UnobservedTaskException += (_, e) => Debug.LogException(e.Exception);
 			Screen.sleepTimeout = SleepTimeout.NeverSleep;
 			FLog.Init();
 		}

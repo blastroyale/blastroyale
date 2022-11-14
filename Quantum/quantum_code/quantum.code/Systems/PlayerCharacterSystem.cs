@@ -94,16 +94,12 @@ namespace Quantum.Systems
 			var spawnPosition = playerData.NormalizedSpawnPosition * f.Map.WorldSize +
 								new FPVector2(f.RNG->Next(-gridSquareSize, gridSquareSize),
 											  f.RNG->Next(-gridSquareSize, gridSquareSize));
-			
 			var spawnTransform = new Transform3D {Position = FPVector3.Zero, Rotation = FPQuaternion.Identity};
-			var startingEquipment = f.Context.GameModeConfig.SpawnWithLoadout
-										? playerData.Loadout :
-										Array.Empty<Equipment>();
 
 			spawnTransform.Position = spawnPosition.XOY;
 
 			playerCharacter->Init(f, playerEntity, playerRef, spawnTransform, playerData.PlayerLevel,
-								  playerData.PlayerTrophies, playerData.Skin, playerData.DeathMarker, startingEquipment,
+								  playerData.PlayerTrophies, playerData.Skin, playerData.DeathMarker, playerData.Loadout,
 								  playerData.Loadout.FirstOrDefault(e => e.IsWeapon()));
 		}
 

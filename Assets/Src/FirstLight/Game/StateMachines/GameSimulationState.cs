@@ -476,7 +476,6 @@ namespace FirstLight.Game.StateMachines
 			foreach(var item in loadout.ReadOnlyDictionary.Values.ToList())
 			{
 				var itemId = inventory[item.Id];
-				//Debug.LogWarning(itemId.GameId);
 				if(itemId.GameId.IsInGroup(GameIdGroup.Gear) && !f.Context.GameModeConfig.SpawnWithGear)
 				{
 					continue;

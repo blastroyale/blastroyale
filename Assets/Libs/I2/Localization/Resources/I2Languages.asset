@@ -9468,7 +9468,7 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITSettings/logout_title
+    - Term: UITSettings/logout
       TermType: 0
       Description: 
       Languages:
@@ -9477,11 +9477,70 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITSettings/delete_account_title
+    - Term: UITSettings/delete_account
       TermType: 0
       Description: 
       Languages:
       - DELETE ACCOUNT
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITSettings/logout_confirm_desc
+      TermType: 0
+      Description: 
+      Languages:
+      - ARE YOU SURE YOU WANT TO LOG OUT?
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITSettings/logout_success_title
+      TermType: 0
+      Description: 
+      Languages:
+      - LOGGED OUT SUCCESSFULLY
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITSettings/logout_success_desc
+      TermType: 0
+      Description: 
+      Languages:
+      - RESTART THE GAME TO LOGIN TO A NEW ACCOUNT
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITSettings/account_deleted_title
+      TermType: 0
+      Description: 
+      Languages:
+      - ACCOUNT DELETED
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITSettings/account_deleted_desc
+      TermType: 0
+      Description: 
+      Languages:
+      - 'YOUR ACCOUNT WILL BE DELETED SOON.
+
+        THE GAME WILL CLOSE NOW.'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITSettings/delete_account_request_desc
+      TermType: 0
+      Description: 
+      Languages:
+      - 'ARE YOU SURE YOU WANT TO DELETE YOUR ACCOUNT?
+
+        THIS ACTION CANNOT
+        BE UNDONE.'
       - 
       - 
       Flags: 000000
@@ -10032,7 +10091,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1668509539507
+    Google_LastUpdatedVersion: 1668510757600
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

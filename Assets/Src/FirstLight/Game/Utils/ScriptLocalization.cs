@@ -1162,8 +1162,14 @@ namespace I2.Loc
 
 		public static class UITSettings
 		{
-			public static string delete_account_title 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/delete_account_title"); } }
-			public static string logout_title 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/logout_title"); } }
+			public static string account_deleted_desc 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/account_deleted_desc"); } }
+			public static string account_deleted_title 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/account_deleted_title"); } }
+			public static string delete_account 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/delete_account"); } }
+			public static string delete_account_request_desc 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/delete_account_request_desc"); } }
+			public static string logout 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/logout"); } }
+			public static string logout_confirm_desc 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/logout_confirm_desc"); } }
+			public static string logout_success_desc 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/logout_success_desc"); } }
+			public static string logout_success_title 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/logout_success_title"); } }
 		}
 
 		public static class UITShared
@@ -2356,8 +2362,14 @@ namespace I2.Loc
 
 		public static class UITSettings
 		{
-		    public const string delete_account_title = "UITSettings/delete_account_title";
-		    public const string logout_title = "UITSettings/logout_title";
+		    public const string account_deleted_desc = "UITSettings/account_deleted_desc";
+		    public const string account_deleted_title = "UITSettings/account_deleted_title";
+		    public const string delete_account = "UITSettings/delete_account";
+		    public const string delete_account_request_desc = "UITSettings/delete_account_request_desc";
+		    public const string logout = "UITSettings/logout";
+		    public const string logout_confirm_desc = "UITSettings/logout_confirm_desc";
+		    public const string logout_success_desc = "UITSettings/logout_success_desc";
+		    public const string logout_success_title = "UITSettings/logout_success_title";
 		}
 
 		public static class UITShared

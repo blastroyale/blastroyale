@@ -186,28 +186,30 @@ namespace FirstLight.Game.Presenters
 		
 		private void OnLogoutClicked()
 		{
-			var desc = string.Format(ScriptLocalization.MainMenu.LogoutConfirm);
+			var title = ScriptLocalization.UITShared.confirmation;
+			var desc = ScriptLocalization.UITSettings.logout_confirm_desc;
 			var confirmButton = new GenericDialogButton
 			{
-				ButtonText = ScriptLocalization.General.OK,
+				ButtonText = ScriptLocalization.UITSettings.logout,
 				ButtonOnClick = Data.LogoutClicked
 			};
 
-			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.confirmation, desc, true, confirmButton);
+			_services.GenericDialogService.OpenButtonDialog(title, desc, true, confirmButton);
 		}
 
 		private void OnDeleteAccountClicked()
 		{
 			if (!NetworkUtils.CheckAttemptNetworkAction()) return;
 
-			var desc = ScriptLocalization.MainMenu.DeleteAccountRequestMessage;
+			var title = ScriptLocalization.UITShared.confirmation;
+			var desc = ScriptLocalization.UITSettings.delete_account_request_desc;
 			var confirmButton = new GenericDialogButton
 			{
-				ButtonText = ScriptLocalization.UITSettings.delete_account_title,
+				ButtonText = ScriptLocalization.UITSettings.delete_account,
 				ButtonOnClick = Data.OnDeleteAccountClicked
 			};
 			
-			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.confirmation, desc, true, confirmButton);
+			_services.GenericDialogService.OpenButtonDialog(title, desc, true, confirmButton);
 		}
 
 		private void OnBlockerButtonPressed()

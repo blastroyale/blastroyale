@@ -22,36 +22,24 @@ namespace FirstLight.Tests.PlayTests
 		public IEnumerator WhenEnterGameDieReturnToMainMenu_NoErrors()
 		{
 			yield return TestTools.LoadSceneAndWaitUntilDone("Boot");
-			yield return new WaitForSeconds(1f);
 			yield return FLGTestTools.WaitForMainMenu();
-			yield return new WaitForSeconds(1f);
-			FLGTestTools.ClickCustomGameButton();
-			yield return new WaitForSeconds(1f);
-			yield return FLGTestTools.WaitForCustomGameMenu();
-			yield return new WaitForSeconds(1f);
+
+			//FLGTestTools.ClickCustomGameButton();
+			//yield return FLGTestTools.WaitForCustomGameMenu();
+
 			FLGTestTools.ClickCreateRoom();
-			yield return new WaitForSeconds(1f);
 			yield return FLGTestTools.WaitForMatchMakingScreen();
-			yield return new WaitForSeconds(1f);
 			FLGTestTools.ClickLockRoomAndPlay();
-			yield return new WaitForSeconds(1f);
 			FLGTestTools.SelectWaterPosition();
-			yield return new WaitForSeconds(1f);
 			yield return FLGTestTools.WaitForBRDeadScreenScreen();
-			yield return new WaitForSeconds(1f);
 			FLGTestTools.ClickDeadScreenLeave();
-			yield return new WaitForSeconds(1f);
 			yield return FLGTestTools.WaitForGameCompleteScreen();
 			// Wait for Game Complete Screen continue button to appear
 			var gameCompleteScreen = GameObject.FindObjectOfType<GameCompleteScreenPresenter>();
 			yield return TestTools.UntilChildOfType<Button>(gameCompleteScreen.gameObject);
-			yield return new WaitForSeconds(1f);
 			FLGTestTools.ClickGameCompleteContinue();
-			yield return new WaitForSeconds(1f);
 			yield return FLGTestTools.WaitForResultsScreen();
-			yield return new WaitForSeconds(1f);
 			FLGTestTools.ClickResultsHome();
-			yield return new WaitForSeconds(1f);
 			yield return FLGTestTools.WaitForMainMenu();
 		}
 

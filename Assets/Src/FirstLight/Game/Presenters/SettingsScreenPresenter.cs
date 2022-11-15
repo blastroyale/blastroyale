@@ -203,7 +203,7 @@ namespace FirstLight.Game.Presenters
 			var desc = ScriptLocalization.MainMenu.DeleteAccountRequestMessage;
 			var confirmButton = new GenericDialogButton
 			{
-				ButtonText = ScriptLocalization.General.OK,
+				ButtonText = ScriptLocalization.UITSettings.delete_account_title,
 				ButtonOnClick = Data.OnDeleteAccountClicked
 			};
 			

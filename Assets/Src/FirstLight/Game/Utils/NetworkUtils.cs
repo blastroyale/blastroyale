@@ -17,8 +17,8 @@ namespace FirstLight.Game.Utils
 	/// </summary>
 	public static class NetworkUtils
 	{
-		public const char ROOM_SEPARATOR = '#';
-
+		public static string RoomCommitLockData => GameConstants.Network.ROOM_META_SEPARATOR + VersionUtils.Commit;
+		
 		/// <summary>
 		/// Returns a room parameters used for creation of custom and matchmaking rooms
 		/// </summary>
@@ -37,7 +37,7 @@ namespace FirstLight.Game.Utils
 			
 			if (FeatureFlags.COMMIT_VERSION_LOCK && !isRandomMatchmaking)
 			{
-				roomNameFinal += ROOM_SEPARATOR + VersionUtils.Commit;
+				roomNameFinal += RoomCommitLockData;
 			}
 
 			if (!isRandomMatchmaking)
@@ -90,7 +90,7 @@ namespace FirstLight.Game.Utils
 
 			if (FeatureFlags.COMMIT_VERSION_LOCK)
 			{
-				roomNameFinal += ROOM_SEPARATOR + VersionUtils.Commit;
+				roomNameFinal += RoomCommitLockData;
 			}
 
 			return new EnterRoomParams

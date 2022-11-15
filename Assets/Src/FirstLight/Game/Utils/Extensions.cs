@@ -382,6 +382,14 @@ namespace FirstLight.Game.Utils
 		{
 			return new DateTime((long) room.CustomProperties[GameConstants.Network.ROOM_PROPS_CREATION_TICKS]);
 		}
+		
+		/// <summary>
+		/// Obtains the current room creation time (created with UTC.Now)
+		/// </summary>
+		public static string StripRoomCommitLock(this string roomName)
+		{
+			return roomName.Replace(NetworkUtils.RoomCommitLockData, "");
+		}
 
 		/// <summary>
 		/// Obtains the list of mutators enabled in the given <paramref name="room"/>
@@ -397,7 +405,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static string GetRoomName(this Room room)
 		{
-			return room.Name.Split(NetworkUtils.ROOM_SEPARATOR)[0];
+			return room.Name.Split(GameConstants.Network.ROOM_META_SEPARATOR)[0];
 		}
 
 		/// <summary>

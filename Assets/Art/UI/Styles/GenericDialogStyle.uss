@@ -63,6 +63,7 @@
 .content-desc-text {
     justify-content: center;
     align-items: center;
+    white-space: normal;
 }
 
 .content-spacer--small {

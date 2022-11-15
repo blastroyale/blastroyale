@@ -39,9 +39,12 @@ namespace Quantum
 				WeaponSlots[Constants.WEAPON_INDEX_DEFAULT].Weapon.Faction = loadoutWeapon.Faction;
 			}
 			
-			foreach (var item in startingEquipment)
+			if(f.Context.GameModeConfig.SpawnWithGear || f.Context.GameModeConfig.SpawnWithWeapon)
 			{
-				Gear[GetGearSlot(item)] = item;
+				foreach (var item in startingEquipment)
+				{
+					Gear[GetGearSlot(item)] = item;
+				}
 			}
 
 			// This makes the entity debuggable in BotSDK. Access debugger inspector from circuit editor and see

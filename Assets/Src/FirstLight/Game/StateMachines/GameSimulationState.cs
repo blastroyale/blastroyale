@@ -470,10 +470,13 @@ namespace FirstLight.Game.StateMachines
 			var spawnPosition = _uiService.GetUi<MatchmakingLoadingScreenPresenter>().mapSelectionView
 			                              .NormalizedSelectionPoint;
 
+			var spawnWithloadout = f.Context.GameModeConfig.SpawnWithGear || f.Context.GameModeConfig.SpawnWithWeapon;
+
 			var finalLoadOut = new List<Equipment>();
 			foreach(var item in loadout.ReadOnlyDictionary.Values.ToList())
 			{
 				var itemId = inventory[item.Id];
+				//Debug.LogWarning(itemId.GameId);
 				if(itemId.GameId.IsInGroup(GameIdGroup.Gear) && !f.Context.GameModeConfig.SpawnWithGear)
 				{
 					continue;
@@ -485,7 +488,7 @@ namespace FirstLight.Game.StateMachines
 				}
 				finalLoadOut.Add(inventory[item.Id]);
 			}
-			
+
 			if (!IsSpectator())
 			{
 				game.SendPlayerData(game.GetLocalPlayers()[0], new RuntimePlayer
@@ -497,7 +500,8 @@ namespace FirstLight.Game.StateMachines
 					PlayerLevel = info.Level,
 					PlayerTrophies = info.TotalTrophies,
 					NormalizedSpawnPosition = spawnPosition.ToFPVector2(),
-					Loadout = finalLoadOut.ToArray()
+					Loadout = spawnWithloadout ? 
+						finalLoadOut.ToArray() : loadout.ReadOnlyDictionary.Values.Select(id => inventory[id]).ToArray()
 				});
 			}
 		}

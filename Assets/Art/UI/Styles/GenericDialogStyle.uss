@@ -76,6 +76,13 @@
     width: 100%;
 }
 
+.input-field__generic {
+}
+
+.input-field__generic > TextInput {
+    -unity-text-align: middle-center;
+}
+
 #PopupBackground {
     width: 725px;
     background-color: rgb(0, 0, 0);

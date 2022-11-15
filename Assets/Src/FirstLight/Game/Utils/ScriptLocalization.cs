@@ -1124,7 +1124,8 @@ namespace I2.Loc
 			public static string equipment 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/equipment"); } }
 			public static string heroes 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/heroes"); } }
 			public static string leaderboards 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/leaderboards"); } }
-			public static string name_change 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/name_change"); } }
+			public static string new_name 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/new_name"); } }
+			public static string new_name_desc 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/new_name_desc"); } }
 			public static string play 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/play"); } }
 			public static string resource_pool_restock 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/resource_pool_restock"); } }
 			public static string shop 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/shop"); } }
@@ -2317,7 +2318,8 @@ namespace I2.Loc
 		    public const string equipment = "UITHomeScreen/equipment";
 		    public const string heroes = "UITHomeScreen/heroes";
 		    public const string leaderboards = "UITHomeScreen/leaderboards";
-		    public const string name_change = "UITHomeScreen/name_change";
+		    public const string new_name = "UITHomeScreen/new_name";
+		    public const string new_name_desc = "UITHomeScreen/new_name_desc";
 		    public const string play = "UITHomeScreen/play";
 		    public const string resource_pool_restock = "UITHomeScreen/resource_pool_restock";
 		    public const string shop = "UITHomeScreen/shop";

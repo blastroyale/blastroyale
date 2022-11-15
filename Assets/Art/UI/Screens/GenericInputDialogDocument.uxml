@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/Art/UI/Screens/GenericDialogStyle.uss?fileID=7433441132597879392&amp;guid=d1862850e9c3aaa4aa77ed63ff317bf3&amp;type=3#GenericDialogStyle" />
+    <Style src="project://database/Assets/Art/UI/Styles/GenericDialogStyle.uss?fileID=7433441132597879392&amp;guid=d1862850e9c3aaa4aa77ed63ff317bf3&amp;type=3#GenericDialogStyle" />
     <ui:VisualElement name="root" class="background" style="-unity-text-align: middle-center;">
         <ui:Button name="BlockerButton" class="blocker-button" />
         <ui:VisualElement name="PopupBackground" class="popup-radius">
@@ -12,7 +12,7 @@
                     <ui:Label name="Desc" text="DESC GOES HERE" class="font-italic font-style-popup content-desc-text" />
                     <ui:VisualElement name="BackgroundPattern" class="popup-background-pattern" style="top: 69px; left: 258px;" />
                     <ui:VisualElement name="Spacer" class="content-spacer--small" />
-                    <ui:TextField name="InputTextField" text="..." value="..." max-length="34" class="font-italic input-field" style="-unity-text-align: middle-center;" />
+                    <ui:TextField name="InputTextField" text="INPUT GOES HERE" value="..." max-length="34" class="font-italic input-field input-field__generic" />
                     <ui:VisualElement name="Spacer" class="content-spacer--medium" />
                     <ui:VisualElement name="Spacer" class="content-spacer--medium" />
                     <ui:VisualElement name="HoriLayout">

@@ -9699,11 +9699,20 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITHomeScreen/name_change
+    - Term: UITHomeScreen/new_name
       TermType: 0
       Description: 
       Languages:
+      - NEW NAME
       - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/new_name_desc
+      TermType: 0
+      Description: 
+      Languages:
+      - What's your name Blaster?
       - 
       - 
       Flags: 000000
@@ -10023,7 +10032,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1668508795757
+    Google_LastUpdatedVersion: 1668509539507
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

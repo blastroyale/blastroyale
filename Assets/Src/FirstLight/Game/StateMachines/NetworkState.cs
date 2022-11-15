@@ -540,6 +540,7 @@ namespace FirstLight.Game.StateMachines
 			if(_networkService.QuantumClient.LocalPlayer.IsMasterClient) 
 			{
 				_networkService.QuantumClient.CurrentRoom.PlayerTtl = GameConstants.Network.PLAYER_GAME_TTL_MS;
+				_networkService.QuantumClient.CurrentRoom.EmptyRoomTtl = GameConstants.Network.EMPTY_ROOM_GAME_TTL_MS;
 			}
 		}
 

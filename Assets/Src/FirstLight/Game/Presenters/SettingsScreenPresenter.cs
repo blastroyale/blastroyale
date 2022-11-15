@@ -186,6 +186,8 @@ namespace FirstLight.Game.Presenters
 		
 		private void OnLogoutClicked()
 		{
+			if (!NetworkUtils.CheckAttemptNetworkAction()) return;
+			
 			var title = ScriptLocalization.UITShared.confirmation;
 			var desc = ScriptLocalization.UITSettings.logout_confirm_desc;
 			var confirmButton = new GenericDialogButton

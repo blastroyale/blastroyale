@@ -150,7 +150,8 @@ namespace FirstLight.Game.Utils
 			// Time control values
 			public const int PLAYER_LOBBY_TTL_MS = 0;
 			public const int PLAYER_GAME_TTL_MS = 99999999;
-			public const int EMPTY_ROOM_TTL_MS = 30000;
+			public const int EMPTY_ROOM_LOBBY_TTL_MS = 3000;
+			public const int EMPTY_ROOM_GAME_TTL_MS = 30000;
 			public const int EMPTY_ROOM_PLAYTEST_TTL_MS = 3000;
 
 			// Player properties

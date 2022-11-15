@@ -1,8 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/LowConnectionOverlayStyle.uss?fileID=7433441132597879392&amp;guid=7d607e8b19a23d24daa39b47db32111a&amp;type=3#LowConnectionOverlayStyle" />
     <ui:VisualElement name="root" picking-mode="Ignore" class="background">
-        <FirstLight.Game.UIElements.SafeAreaElement apply-bottom="false" apply-right="false" name="SafeAreaHolder" class="safe-area">
-            <ui:VisualElement name="LowConnectionBg" class="low-connection">
+        <FirstLight.Game.UIElements.SafeAreaElement apply-bottom="false" apply-right="false" name="SafeAreaHolder" picking-mode="Ignore" class="safe-area">
+            <ui:VisualElement name="LowConnectionBg" picking-mode="Ignore" class="low-connection">
                 <ui:VisualElement name="Icon" class="low-connection__icon" />
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>

@@ -336,3 +336,14 @@
     width: 70px;
     height: 82px;
 }
+
+.no-equipment-label {
+    position: absolute;
+    left: 124px;
+    top: 252px;
+    font-size: 54px;
+    -unity-text-align: middle-center;
+    -unity-font-definition: var(--font-italic);
+    color: rgba(255, 255, 255, 255);
+    text-shadow: 3px 3px 0 rgba(0, 0, 0, 255);
+}

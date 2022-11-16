@@ -39,7 +39,7 @@ namespace FirstLight.Game.UIElements
 		private const string UssBadgeHolder = UssBlock + "__badge-holder";
 		private const string UssBadgeNft = UssBlock + "__badge-nft";
 		private const string UssBadgeLoaned = UssBlock + "__badge-loaned";
-		private const string UssBadgeEquipped= UssBlock + "__badge-equipped";
+		private const string UssBadgeEquipped = UssBlock + "__badge-equipped";
 
 		public Equipment Equipment { get; private set; }
 		public UniqueId UniqueId { get; private set; }
@@ -81,7 +81,7 @@ namespace FirstLight.Game.UIElements
 			var background = new VisualElement {name = "background"};
 			Add(background);
 			background.AddToClassList(UssBackground);
-			
+
 			var cardHolder = new VisualElement {name = "holder"};
 			Add(cardHolder);
 			cardHolder.AddToClassList(UssCardHolder);
@@ -109,7 +109,7 @@ namespace FirstLight.Game.UIElements
 				badgeHolder.Add(
 					_loanedBadge = new Label(ScriptLocalization.UITEquipment.loaned) {name = "badge-loaned"});
 				_loanedBadge.AddToClassList(UssBadgeLoaned);
-				
+
 				badgeHolder.Add(
 					_equippedBadge = new Label(ScriptLocalization.UITEquipment.equipped) {name = "badge-equipped"});
 				_equippedBadge.AddToClassList(UssBadgeEquipped);
@@ -172,7 +172,8 @@ namespace FirstLight.Game.UIElements
 			return _image.style.backgroundImage;
 		}
 
-		public async void SetData(Equipment equipment, UniqueId id, bool loaned = false, bool nft = false, bool equipped = false)
+		public async void SetData(Equipment equipment, UniqueId id, bool loaned = false, bool nft = false,
+								  bool equipped = false)
 		{
 			Assert.IsTrue(equipment.IsValid());
 
@@ -211,10 +212,15 @@ namespace FirstLight.Game.UIElements
 
 			// TODO: This should be handled better.
 			var services = MainInstaller.Resolve<IGameServices>();
+			_image.style.backgroundImage = null;
 			var sprite = await services.AssetResolverService.RequestAsset<GameId, Sprite>(
 				equipment.GameId, instantiate: false);
-			_image.style.backgroundImage =
-				_imageShadow.style.backgroundImage = new StyleBackground(sprite);
+
+			if (this.IsAttached())
+			{
+				_image.style.backgroundImage =
+					_imageShadow.style.backgroundImage = new StyleBackground(sprite);
+			}
 		}
 
 		public new class UxmlFactory : UxmlFactory<EquipmentCardElement, UxmlTraits>

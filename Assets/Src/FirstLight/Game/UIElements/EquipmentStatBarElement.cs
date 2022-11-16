@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using FirstLight.Game.Infos;
+using FirstLight.Game.Utils;
 using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -73,7 +74,7 @@ namespace FirstLight.Game.UIElements
 
 		public void SetValue(EquipmentStatType type, float value)
 		{
-			_title.text = type.ToString(); // TODO: Fix this
+			_title.text = type.GetTranslation();
 			_amount.text = Mathf.RoundToInt(value).ToString();
 
 			var percentage = value / MAX_VALUES[type];

@@ -89,12 +89,23 @@ namespace FirstLight.Game.Utils
 				: $"#{key}#";
 		}
 
+		/// <summary>
+		/// Disables the scrollbar visibility on a ListView
+		/// </summary>
 		public static void DisableScrollbars(this ListView listView)
 		{
 			var scroller = listView.Q<ScrollView>();
 
 			scroller.verticalScrollerVisibility = ScrollerVisibility.Hidden;
 			scroller.horizontalScrollerVisibility = ScrollerVisibility.Hidden;
+		}
+
+		/// <summary>
+		/// Checks if this element is attached to a panel.
+		/// </summary>
+		public static bool IsAttached(this VisualElement element)
+		{
+			return element.panel != null;
 		}
 	}
 }

@@ -9,6 +9,7 @@
                 <ui:VisualElement name="Icon" class="might__icon" />
             </ui:VisualElement>
             <FirstLight.Game.UIElements.ImageButton name="CloseButton" class="button-close" />
+            <ui:Label name="MissingEquipment" text="YOU HAVE NO&#10;WEAPONS" class="no-equipment-label" />
             <ui:ListView name="EquipmentList" fixed-item-height="400" selection-type="None" show-bound-collection-size="false" class="equipment-list" />
             <ui:VisualElement name="Details" picking-mode="Ignore" class="details">
                 <ui:VisualElement name="NameHolder" picking-mode="Ignore" class="details__name-holder">

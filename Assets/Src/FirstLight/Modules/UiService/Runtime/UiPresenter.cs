@@ -62,15 +62,8 @@ namespace FirstLight.UiService
 		internal void InternalOpen()
 		{
 			gameObject.SetActive(true);
-			try
-			{
-				OnOpened();
-			}
-			catch (Exception e)
-			{
-				Debug.LogError(e);
-				throw;
-			}
+
+			OnOpened();
 		}
 
 		internal virtual async Task InternalClose(bool destroy)

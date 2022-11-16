@@ -10289,6 +10289,61 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITEquipment/details_no_amulet
+      TermType: 0
+      Description: 
+      Languages:
+      - 'YOU HAVE NO
+
+        AMULETS'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/details_no_armor
+      TermType: 0
+      Description: 
+      Languages:
+      - 'YOU HAVE NO
+
+        ARMORS'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/details_no_helmet
+      TermType: 0
+      Description: 
+      Languages:
+      - 'YOU HAVE NO
+
+        HELMETS'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/details_no_shield
+      TermType: 0
+      Description: 
+      Languages:
+      - 'YOU HAVE NO
+
+        SHIELDS'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/details_no_weapon
+      TermType: 0
+      Description: 
+      Languages:
+      - 'YOU HAVE NO
+
+        WEAPONS'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -10307,7 +10362,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1668618701787
+    Google_LastUpdatedVersion: 1668625942831
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

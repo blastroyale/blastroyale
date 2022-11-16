@@ -31,6 +31,7 @@ namespace FirstLight.Game.Presenters
 		private const string HEADER_LOC_KEY = "UITEquipment/selection_{0}";
 		private const string ADJECTIVE_LOC_KEY = "UITEquipment/adjective_{0}";
 		private const string RARITY_LOC_KEY = "UITEquipment/rarity_{0}";
+		private const string NO_ITEMS_LOC_KEY = "UITEquipment/details_no_{0}";
 		private const string DURABILITY_AMOUNT = "{0}/{1}";
 
 		private const string UssEquipmentTagRarity = "equipment-tag--rarity";
@@ -49,9 +50,10 @@ namespace FirstLight.Game.Presenters
 		private ListView _equipmentList;
 		private Label _mightLabel;
 
+		private VisualElement _details;
+		private Label _missingEquipment;
 		private Label _equipmentName;
 		private VisualElement _equipmentIcon;
-		private VisualElement _tagHolder;
 		private ListView _statsList;
 		private VisualElement _durabilityBar;
 		private Label _durabilityAmount;
@@ -87,10 +89,13 @@ namespace FirstLight.Game.Presenters
 			_equipmentList = root.Q<ListView>("EquipmentList").Required();
 			_equipmentList.DisableScrollbars();
 			_mightLabel = root.Q<Label>("MightLabel").Required();
+			_missingEquipment = root.Q<Label>("MissingEquipment").Required();
+			_missingEquipment.text = string.Format(NO_ITEMS_LOC_KEY, Data.EquipmentSlot.ToString().ToLowerInvariant())
+				.LocalizeKey();
 
+			_details = root.Q("Details").Required();
 			_equipmentName = root.Q<Label>("EquipmentName").Required();
 			_equipmentIcon = root.Q("EquipmentIcon").Required();
-			_tagHolder = root.Q("TagHolder").Required();
 			_statsList = root.Q<ListView>("StatsList").Required();
 			_statsList.DisableScrollbars();
 
@@ -158,8 +163,6 @@ namespace FirstLight.Game.Presenters
 
 			for (var i = 0; i < items.Count; i += 2)
 			{
-				if (i >= items.Count) break;
-
 				var item1 = items[i];
 
 				if (i + 1 >= items.Count)
@@ -179,7 +182,6 @@ namespace FirstLight.Game.Presenters
 				}
 			}
 
-			_selectedItem = _equipmentListRows.Count > 0 ? _equipmentListRows[0].Item1.UniqueId : UniqueId.Invalid;
 			if (!_gameDataProvider.EquipmentDataProvider.Loadout.TryGetValue(Data.EquipmentSlot, out _equippedItem))
 			{
 				_equippedItem = UniqueId.Invalid;
@@ -187,17 +189,25 @@ namespace FirstLight.Game.Presenters
 
 			_equipmentList.itemsSource = _equipmentListRows;
 			_equipmentList.RefreshItems();
-			_equipmentList.ScrollToItem(0);
+
+			if (_equipmentListRows.Count == 0)
+			{
+				_missingEquipment.style.display = DisplayStyle.Flex;
+				_selectedItem = UniqueId.Invalid;
+			}
+			else
+			{
+				_missingEquipment.style.display = DisplayStyle.None;
+				_selectedItem = _equipmentListRows[0].Item1.UniqueId;
+				_equipmentList.ScrollToItem(0);
+			}
 		}
 
 		private async void UpdateEquipmentDetails()
 		{
-			if (_selectedItem == UniqueId.Invalid)
-			{
-				// TODO: Nothing selected / no items
+			_details.style.display = _selectedItem == UniqueId.Invalid ? DisplayStyle.None : DisplayStyle.Flex;
 
-				return;
-			}
+			if (_selectedItem == UniqueId.Invalid) return;
 
 			var info = _gameDataProvider.EquipmentDataProvider.GetInfo(_selectedItem);
 
@@ -409,21 +419,6 @@ namespace FirstLight.Game.Presenters
 				_services.AudioFxService.PlayClip2D(AudioId.EquipEquipment);
 				EquipItem(_selectedItem);
 			}
-
-			// TODO: Might
-			// var newLoadout = dataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both);
-			// var mightDiff = Mathf.RoundToInt(newLoadout.GetTotalMight(configs) - previousMight);
-			// var postfix = mightDiff < 0 ? "-" : "+";
-
-			// _powerChangeText.color = mightDiff < 0 ? Color.red : Color.green;
-			//
-			// if (Mathf.Abs(mightDiff) > float.Epsilon)
-			// {
-			// 	_powerChangeText.text = $"{ScriptLocalization.MainMenu.MightRating} {postfix} {Mathf.Abs(mightDiff).ToString()}";
-			// 	_powerChangeText.enabled = true;
-			// 	_powerChangeAnimation.Rewind();
-			// 	_powerChangeAnimation.Play();
-			// }
 		}
 
 		private void EquipItem(UniqueId item)

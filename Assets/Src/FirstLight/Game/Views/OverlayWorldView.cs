@@ -36,7 +36,12 @@ namespace FirstLight.Game.Views
 
 		private void LateUpdate()
 		{
-			var position = _isTargetFollow ? _target.position : _position;
+			var position = _position;
+
+			if (_isTargetFollow && _target != null)
+			{
+				position = _target.position;
+			}
 
 			if (_camera != null)
 			{

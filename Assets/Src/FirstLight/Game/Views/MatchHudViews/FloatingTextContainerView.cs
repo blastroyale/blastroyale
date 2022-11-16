@@ -254,7 +254,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			Info
 		}
 
-		private struct FloatingTextPoolObject : IPoolEntitySpawn, IPoolEntityDespawn
+		private class FloatingTextPoolObject : IPoolEntitySpawn, IPoolEntityDespawn
 		{
 			public FloatingTextView FloatingTextView;
 			public OverlayWorldView OverlayWorldView;

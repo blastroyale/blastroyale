@@ -279,7 +279,12 @@ namespace FirstLight.Services
 
 		protected T SpawnEntity()
 		{
-			var entity = _stack.Count == 0 ? _instantiator.Invoke(SampleEntity) : _stack.Pop();
+			do
+			{
+				var entity = _stack.Count == 0 ? _instantiator.Invoke(SampleEntity) : _stack.Pop();
+			} 
+			while (entity == null);
+			
 			
 			SpawnedEntities.Add(entity);
 
@@ -404,8 +409,12 @@ namespace FirstLight.Services
 		/// <inheritdoc />
 		public override T Spawn()
 		{
-			var entity = SpawnEntity();
-
+			do
+			{
+				var entity = SpawnEntity();
+			} 
+			while (expression);
+			
 			entity.gameObject.SetActive(true);
 			CallOnSpawned(entity);
 

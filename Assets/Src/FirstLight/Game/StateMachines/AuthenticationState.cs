@@ -547,7 +547,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				Email = email,
 				DisplayName = username,
-				Username = username,
+				Username = username.Replace(" ", ""),
 				Password = password
 			};
 

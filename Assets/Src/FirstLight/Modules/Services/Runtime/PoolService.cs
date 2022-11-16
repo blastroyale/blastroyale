@@ -285,6 +285,8 @@ namespace FirstLight.Services
 			{ 
 				entity = _stack.Count == 0 ? _instantiator.Invoke(SampleEntity) : _stack.Pop();
 			} 
+			// Need to do while loop and check as parent objects could have destroyed the entity/gameobject before it could
+			// be properly disposed by pool service
 			while (entity == null);
 			
 			SpawnedEntities.Add(entity);
@@ -418,7 +420,8 @@ namespace FirstLight.Services
 				entity = SpawnEntity();
 			} 
 			// ReSharper disable once ConditionIsAlwaysTrueOrFalse
-			// entity
+			// Need to do while loop and check as parent objects could have destroyed the entity/gameobject before it could
+			// be properly disposed by pool service
 			while (entity == null || entity.gameObject == null);
 			
 			entity.gameObject.SetActive(true);

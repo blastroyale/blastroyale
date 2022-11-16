@@ -124,10 +124,13 @@ namespace FirstLight.Game.Services
 	/// <inheritdoc cref="IGameNetworkService"/>
 	public class GameNetworkService : IGameBackendNetworkService
 	{
-		private const int LAG_RTT_THRESHOLD_MS = 200;
+		private const int LAG_RTT_THRESHOLD_MS = 300;
+		private const int STORE_RTT_AMOUNT = 10;
 		
 		private IConfigsProvider _configsProvider;
 		private bool _isJoiningNewRoom;
+		private Queue<int> LastRttQueue;
+		private int CurrentRttTotal;
 		
 		public IObservableField<string> UserId { get; }
 		public IObservableField<bool> IsJoiningNewMatch { get; }
@@ -199,6 +202,8 @@ namespace FirstLight.Game.Services
 			}
 		}
 
+		private int RttAverage => CurrentRttTotal / LastRttQueue.Count;
+
 		public GameNetworkService(IConfigsProvider configsProvider)
 		{
 			_configsProvider = configsProvider;
@@ -209,11 +214,21 @@ namespace FirstLight.Game.Services
 			LastConnectedRoomName = new ObservableField<string>("");
 			HasLag = new ObservableField<bool>(false);
 			UserId = new ObservableResolverField<string>(() => QuantumClient.UserId, SetUserId);
+			LastRttQueue = new Queue<int>();
 		}
 		
 		public void CheckLag()
 		{
-			var roundTripCheck = QuantumClient.LoadBalancingPeer.LastRoundTripTime > LAG_RTT_THRESHOLD_MS;
+			var newRtt = QuantumClient.LoadBalancingPeer.LastRoundTripTime;
+			LastRttQueue.Enqueue(newRtt);
+			CurrentRttTotal += newRtt;
+			
+			if (LastRttQueue.Count > STORE_RTT_AMOUNT)
+			{
+				CurrentRttTotal -= LastRttQueue.Dequeue();
+			}
+
+			var roundTripCheck = RttAverage > LAG_RTT_THRESHOLD_MS;
 			var dcCheck = NetworkUtils.IsOfflineOrDisconnected();
 
 			HasLag.Value = roundTripCheck || dcCheck;

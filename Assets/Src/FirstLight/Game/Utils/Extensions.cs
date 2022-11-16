@@ -360,6 +360,22 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
+		/// Returns true if the given <paramref name="room"/> is a playtest room
+		/// </summary>
+		public static bool IsPlayTestRoom(this Room room)
+		{
+			return room.Name.Contains(GameConstants.Network.ROOM_NAME_PLAYTEST);
+		}
+		
+		/// <summary>
+		/// Returns true if the given <paramref name="roomName"/> is a playtest room
+		/// </summary>
+		public static bool IsPlayTestRoom(this string roomName)
+		{
+			return roomName.Contains(GameConstants.Network.ROOM_NAME_PLAYTEST);
+		}
+		
+		/// <summary>
 		/// Obtains the current selected map id in the given <paramref name="room"/>
 		/// </summary>
 		public static int GetMapId(this Room room)

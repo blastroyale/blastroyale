@@ -42,7 +42,7 @@ namespace FirstLight.Game.Utils
 
 			if (!isRandomMatchmaking)
 			{
-				emptyTtl = roomNameFinal.Contains(GameConstants.Network.ROOM_NAME_PLAYTEST)
+				emptyTtl = roomNameFinal.IsPlayTestRoom()
 					           ? GameConstants.Network.EMPTY_ROOM_PLAYTEST_TTL_MS
 					           : GameConstants.Network.EMPTY_ROOM_LOBBY_TTL_MS;
 			}

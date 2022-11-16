@@ -32,7 +32,7 @@ namespace FirstLight.Services
 	/// <summary>
 	/// This interface allows to self despawn by maintaining the reference of the pool that created it
 	/// </summary>
-	public interface IPoolEntityObject<T>
+	public interface IPoolEntityObject<T> where T : class
 	{
 		/// <summary>
 		/// Called by the <see cref="IObjectPool{T}"/> to initialize by the given <paramref name="pool"/>
@@ -58,7 +58,7 @@ namespace FirstLight.Services
 	}
 	
 	/// <inheritdoc />
-	public interface IObjectPool<T> : IObjectPool
+	public interface IObjectPool<T> : IObjectPool where T : class
 	{
 		/// <summary>
 		/// Requests the collection of already spawned elements as a read only list
@@ -108,7 +108,7 @@ namespace FirstLight.Services
 	/// This service allows to manage multiple pools of different types.
 	/// The service can only a single pool of the same type. 
 	/// </summary>
-	public interface IPoolService : IDisposable
+	public interface IPoolService : IDisposable 
 	{
 		/// <summary>
 		/// Adds the given <paramref name="pool"/> of <typeparamref name="T"/> to the service
@@ -116,41 +116,41 @@ namespace FirstLight.Services
 		/// <exception cref="ArgumentException">
 		/// Thrown if the service already has a pool of the given <typeparamref name="T"/> type
 		/// </exception>
-		void AddPool<T>(IObjectPool<T> pool);
+		void AddPool<T>(IObjectPool<T> pool) where T : class;
 
 		/// <summary>
 		/// Removes the pool of the given <typeparamref name="T"/>
 		/// </summary>
-		void RemovePool<T>();
+		void RemovePool<T>() where T : class;
 
 		/// <summary>
 		/// Checks if exists a pool of the given type already exists or needs to be added before calling <seealso cref="Spawn{T}"/>
 		/// </summary>
-		bool HasPool<T>();
+		bool HasPool<T>() where T : class;
 
 		/// <inheritdoc cref="HasPool{T}"/>
 		bool HasPool(Type type);
 
 		/// <inheritdoc cref="IObjectPool{T}.IsSpawned"/>
-		bool IsSpawned<T>(Func<T, bool> conditionCheck);
+		bool IsSpawned<T>(Func<T, bool> conditionCheck) where T : class;
 		
 		/// <inheritdoc cref="IObjectPool{T}.Spawn"/>
 		/// <exception cref="ArgumentException">
 		/// Thrown if the service does not contains a pool of the given <typeparamref name="T"/> type
 		/// </exception>
-		T Spawn<T>();
+		T Spawn<T>() where T : class;
 		
 		/// <inheritdoc cref="IObjectPool{T}.Despawn"/>
 		/// <exception cref="ArgumentException">
 		/// Thrown if the service does not contains a pool of the given <typeparamref name="T"/> type
 		/// </exception>
-		bool Despawn<T>(T entity);
+		bool Despawn<T>(T entity) where T : class;
 
 		/// <inheritdoc cref="IObjectPool{T}.DespawnAll"/>
 		/// <exception cref="ArgumentException">
 		/// Thrown if the service does not contains a pool of the given <typeparamref name="T"/> type
 		/// </exception>
-		void DespawnAll<T>();
+		void DespawnAll<T>() where T : class;
 		
 		/// <summary>
 		/// Clears the contents out of this service.
@@ -160,7 +160,7 @@ namespace FirstLight.Services
 	}
 
 	/// <inheritdoc />
-	public abstract class ObjectPoolBase<T> : IObjectPool<T>
+	public abstract class ObjectPoolBase<T> : IObjectPool<T>  where T : class
 	{
 		public readonly T SampleEntity;
 		
@@ -279,12 +279,13 @@ namespace FirstLight.Services
 
 		protected T SpawnEntity()
 		{
+			T entity = null;
+			
 			do
-			{
-				var entity = _stack.Count == 0 ? _instantiator.Invoke(SampleEntity) : _stack.Pop();
+			{ 
+				entity = _stack.Count == 0 ? _instantiator.Invoke(SampleEntity) : _stack.Pop();
 			} 
 			while (entity == null);
-			
 			
 			SpawnedEntities.Add(entity);
 
@@ -300,7 +301,7 @@ namespace FirstLight.Services
 	}
 
 	/// <inheritdoc />
-	public class ObjectPool<T> : ObjectPoolBase<T>
+	public class ObjectPool<T> : ObjectPoolBase<T> where T : class
 	{
 		public ObjectPool(uint initSize, Func<T> instantiator) : base(initSize, instantiator(), entityRef => instantiator.Invoke())
 		{
@@ -311,12 +312,13 @@ namespace FirstLight.Services
 	/// <remarks>
 	/// Useful to for pools that use object references to create new instances (ex: GameObjects)
 	/// </remarks>
-	public class ObjectRefPool<T> : ObjectPoolBase<T>
+	public class ObjectRefPool<T> : ObjectPoolBase<T> where T : class
 	{
 		public ObjectRefPool(uint initSize, T sampleEntity, Func<T, T> instantiator) : base(initSize, sampleEntity, instantiator)
 		{
 		}
 	}
+	
 	/// <inheritdoc />
 	/// <remarks>
 	/// Useful to for pools that use object references to create new <see cref="GameObject"/>
@@ -409,11 +411,15 @@ namespace FirstLight.Services
 		/// <inheritdoc />
 		public override T Spawn()
 		{
+			T entity = null;
+			
 			do
-			{
-				var entity = SpawnEntity();
+			{ 
+				entity = SpawnEntity();
 			} 
-			while (expression);
+			// ReSharper disable once ConditionIsAlwaysTrueOrFalse
+			// entity
+			while (entity == null || entity.gameObject == null);
 			
 			entity.gameObject.SetActive(true);
 			CallOnSpawned(entity);
@@ -428,7 +434,7 @@ namespace FirstLight.Services
 			{
 				entity.gameObject.SetActive(false);
 				
-				if (DespawnToSampleParent && SampleEntity != null && !SampleEntity.Equals(null))
+				if (DespawnToSampleParent && SampleEntity is not null && !SampleEntity.Equals(null))
 				{
 					entity.transform.SetParent(SampleEntity.transform.parent);
 				}
@@ -455,6 +461,7 @@ namespace FirstLight.Services
 		/// </summary>
 		public static T Instantiator(T entityRef)
 		{
+			// ReSharper disable once MergeConditionalExpression
 			var parent = entityRef == null ? null : entityRef.transform.parent;
 			var instance = Object.Instantiate(entityRef, parent, true);
 
@@ -470,19 +477,19 @@ namespace FirstLight.Services
 		private readonly IDictionary<Type, IObjectPool> _pools = new Dictionary<Type, IObjectPool>();
 
 		/// <inheritdoc />
-		public void AddPool<T>(IObjectPool<T> pool)
+		public void AddPool<T>(IObjectPool<T> pool) where T : class
 		{
 			_pools.Add(typeof(T), pool);
 		}
 
 		/// <inheritdoc />
-		public void RemovePool<T>()
+		public void RemovePool<T>() where T : class
 		{
 			_pools.Remove(typeof(T));
 		}
 
 		/// <inheritdoc />
-		public bool HasPool<T>()
+		public bool HasPool<T>() where T : class
 		{
 			return HasPool(typeof(T));
 		}
@@ -494,25 +501,25 @@ namespace FirstLight.Services
 		}
 
 		/// <inheritdoc />
-		public bool IsSpawned<T>(Func<T, bool> conditionCheck)
+		public bool IsSpawned<T>(Func<T, bool> conditionCheck) where T : class
 		{
 			return GetPool<T>().IsSpawned(conditionCheck);
 		}
 
 		/// <inheritdoc />
-		public T Spawn<T>()
+		public T Spawn<T>() where T : class
 		{
 			return GetPool<T>().Spawn();
 		}
 
 		/// <inheritdoc />
-		public bool Despawn<T>(T entity)
+		public bool Despawn<T>(T entity) where T : class
 		{
 			return GetPool<T>().Despawn(entity);
 		}
 
 		/// <inheritdoc />
-		public void DespawnAll<T>()
+		public void DespawnAll<T>() where T : class
 		{
 			GetPool<T>().DespawnAll();
 		}
@@ -538,7 +545,7 @@ namespace FirstLight.Services
 			_pools.Clear();
 		}
 
-		private IObjectPool<T> GetPool<T>()
+		private IObjectPool<T> GetPool<T>() where T : class
 		{
 			if (!_pools.TryGetValue(typeof(T), out var pool))
 			{

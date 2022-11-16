@@ -18,10 +18,9 @@ resources:
   repositories:
   - repository: self
   - repository: templates
-    type: bitbucket
-    endpoint: bitbucket
-    ref: master
-    name: first-light/infrastructure
+    type: git
+    ref: main
+    name: Infrastructure/core-templates
     
 variables:
 - group: Non-secrets
@@ -47,15 +46,7 @@ stages:
       - checkout: self
         lfs: true
         submodules: true
-      - template: pipelines/templates/docker-build-push.yml@templates
-        parameters:
-          serviceConnection: $(serviceConnection)
-          containerRegistry: $(REGISTRY_NAME)
-          repository: $(repository)
-          workingDirectory: Backend
-          buildArgs: |
-            -f $(dockerfile) . --no-cache
-      - template: pipelines/templates/docker-build-push.yml@templates
+      - template: pipelines/docker-build-push.yml@templates
         parameters:
           serviceConnection: $(serviceConnection)
           containerRegistry: firstlight

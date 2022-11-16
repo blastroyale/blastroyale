@@ -55,7 +55,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
 			var frame = QuantumRunner.Default.Game.Frames.Predicted;
-			var stats = frame.Get<Stats>(_matchServices.SpectateService.SpectatedPlayer.Value.Entity);
+			
+			// In case where we change to a player that just died
+			if (!next.Entity.IsValid || !frame.TryGet<Stats>(next.Entity, out var stats)) return;
 			
 			SetVignetteIntensity(stats.CurrentHealth, stats.Values[(int) StatType.Health].StatValue.AsInt);
 		}

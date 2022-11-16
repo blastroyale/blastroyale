@@ -242,7 +242,7 @@ namespace Quantum
 		/// <summary>
 		/// Tries to set the player's weapon to the given <paramref name="weaponGameId"/> that player already has
 		/// </summary>
-		internal bool TryEquipExistingWeaponID(Frame f, EntityRef e, GameId weaponGameId)
+		internal bool TryEquipExistingWeaponId(Frame f, EntityRef e, GameId weaponGameId)
 		{
 			for (int i = 0; i < WeaponSlots.Length; i++)
 			{
@@ -259,7 +259,7 @@ namespace Quantum
 		/// <summary>
 		/// Equips a gear item to the correct gear slot (old one is replaced).
 		/// </summary>
-		public void EquipGear(Frame f, EntityRef e, Equipment gear)
+		internal void EquipGear(Frame f, EntityRef e, Equipment gear)
 		{
 			Assert.Check(!gear.IsWeapon(), gear);
 
@@ -298,6 +298,14 @@ namespace Quantum
 		public bool IsAmmoEmpty(Frame f, EntityRef e)
 		{
 			return !HasMeleeWeapon(f, e) && GetAmmoAmountFilled(f, e) < FP.SmallestNonZero;
+		}
+
+		/// <summary>
+		/// Requests the state of the player if is skydiving or not
+		/// </summary>
+		public bool IsSkydiving(Frame f, EntityRef e)
+		{
+			return f.Unsafe.TryGetPointer<AIBlackboardComponent>(e, out var bb) && bb->GetBoolean(f, Constants.IsSkydiving);
 		}
 
 		/// <summary>

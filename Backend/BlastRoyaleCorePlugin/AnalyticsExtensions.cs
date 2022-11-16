@@ -1,4 +1,5 @@
 using FirstLight.Server.SDK.Models;
+using Newtonsoft.Json;
 using Quantum;
 
 namespace BlastRoyaleNFTPlugin
@@ -23,6 +24,7 @@ namespace BlastRoyaleNFTPlugin
 				{"adjective", equipment.Adjective },
 				{"material", equipment.Material },
 				{"level", equipment.Level },
+				{"groups", JsonConvert.SerializeObject(equipment.GameId.GetGroups())}
 			};
 		}
 	}

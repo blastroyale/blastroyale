@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
+using Newtonsoft.Json;
 using PlayFab;
 using Quantum;
 using UnityEngine;
@@ -83,8 +84,8 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"item_shield", shieldId},
 				{"item_armour", armorId},
 				{"item_amulet", amuletId},
-				{"drop_location_default", DefaultDropPosition},
-				{"drop_location_final", SelectedDropPosition}
+				{"drop_location_default", JsonConvert.SerializeObject(DefaultDropPosition)},
+				{"drop_location_final", JsonConvert.SerializeObject(SelectedDropPosition)}
 			};
 
 			if (PresentedMapPath != null)
@@ -136,7 +137,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			}
 			
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
-			var deadData = playerKilledEvent.PlayersMatchData[playerKilledEvent.PlayerKiller];
+			var deadData = playerKilledEvent.PlayersMatchData[playerKilledEvent.PlayerDead];
 
 			var data = new Dictionary<string, object>
 			{

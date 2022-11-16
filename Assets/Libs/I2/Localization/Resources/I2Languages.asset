@@ -9717,6 +9717,42 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITMatchmaking/select_dropzone
+      TermType: 0
+      Description: 
+      Languages:
+      - SELECT DROP ZONE
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITMatchmaking/br_mode_desc
+      TermType: 0
+      Description: 
+      Languages:
+      - LAST PLAYER STANDING WINS THE MATCH
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITMatchmaking/dm_mode_desc
+      TermType: 0
+      Description: 
+      Languages:
+      - FIRST PLAYER TO REACH TARGET KILLS WINS THE MATCH
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITMatchmaking/current_player_amount
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0}/{1}'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITGameModeSelection/choose_a_mode
       TermType: 0
       Description: 
@@ -9879,6 +9915,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITEquipment/lvl
+      TermType: 0
+      Description: 
+      Languages:
+      - <size=65%>LV</size>{0}
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -9897,7 +9942,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1668017390481
+    Google_LastUpdatedVersion: 1668161506405
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

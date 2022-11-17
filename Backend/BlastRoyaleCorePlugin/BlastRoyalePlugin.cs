@@ -19,6 +19,7 @@ namespace BlastRoyaleNFTPlugin
 			var baseUrl = ReadPluginConfig("API_URL");
 			var apiSecret = ReadPluginConfig("API_KEY");
 			var fullUrl = $"{baseUrl}/blast-royale-equipment";
+			context.Log.LogInformation($"Using blockchain URL at {fullUrl}");
 			NftSync = new NftSynchronizer(fullUrl, apiSecret, context);
 			if (context.ServerConfig.NftSync)
 			{

@@ -123,7 +123,7 @@ stages:
     helmRepoPassword: $(HELM-REPO-PASSWORD)
     envVars: |
       --set env.API_KEY=$(MAINNET-PROD-COMMON-API-KEY) \
-      --set env.API_URL="https://mainnet-prod-blockchain-service.blastroyale.com" \
+      --set env.API_URL=https://mainnet-prod-hub-blockchain-service.blastroyale.com \
       --set env.APPLICATIONINSIGHTS_CONNECTION_STRING="$(MAINNET-PROD-COMMON-APP-INSIGHTS-CONNECTION-STRING)" \
       --set env.APPLICATION_ENVIRONMENT=mainnet-prod \
       --set env.CONNECTION_STRING="$(MAINNET-PROD-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)" \

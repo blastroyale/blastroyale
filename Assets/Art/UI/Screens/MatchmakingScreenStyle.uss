@@ -126,19 +126,19 @@
     -unity-background-scale-mode: scale-to-fit;
 }
 
-.player-amount-holder {
+.load-status-holder {
     flex-direction: row;
     left: 50px;
     bottom: 50px;
     position: absolute;
 }
 
-.player-amount-holder__labels {
+.load-status-holder__labels {
     justify-content: center;
     align-items: flex-start;
 }
 
-.player-amount-holder__loading-icon {
+.load-status-holder__loading-icon {
     height: 100%;
     width: 75px;
     background-image: url('project://database/Assets/Art/Textures/Ui/Loading/LoadingSpinnerThick.png?fileID=2800000&guid=baccbbd5ac3184df18f5aabbc6649ef8&type=3#LoadingSpinnerThick');
@@ -146,7 +146,7 @@
     margin-right: 25px;
 }
 
-.player-amount-holder__location-label {
+.load-status-holder__location-label {
     font-size: 58px;
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(49, 46, 71);
@@ -156,7 +156,7 @@
     margin-top: -20px;
 }
 
-.player-amount-holder__player-label {
+.load-status-holder__player-label {
     font-size: 68px;
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(49, 46, 71);
@@ -255,7 +255,7 @@
 .map-marker {
     justify-content: center;
     align-items: center;
-    bottom: 95px;
+    bottom: 65px;
 }
 
 .map-marker__title {
@@ -273,6 +273,8 @@
     padding-top: 6px;
     padding-bottom: 5px;
     margin-bottom: 15px;
+    position: absolute;
+    bottom: 125px;
 }
 
 .map-marker__marker {

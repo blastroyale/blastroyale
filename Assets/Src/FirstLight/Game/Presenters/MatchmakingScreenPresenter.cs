@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
@@ -40,6 +41,7 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _mapImage;
 		private Label _loadStatusLabel;
 		private Label _locationLabel;
+		private Label _placeNameLabel;
 		private IGameServices _services;
 
 		private void Awake()
@@ -59,22 +61,46 @@ namespace FirstLight.Game.Presenters
 			_dropzonePath = root.Q("Path").Required();
 			_loadStatusLabel = root.Q<Label>("LoadStatusLabel").Required();
 			_locationLabel = root.Q<Label>("LocationLabel").Required();
-
+			_placeNameLabel = root.Q<Label>("PlaceNameLabel").Required();
+			
 			_closeButton.clicked += OnCloseClicked;
 			_mapHolder.RegisterCallback<GeometryChangedEvent>(InitMap);
 		}
 
 		private void OnMapClicked(ClickEvent evt)
 		{
-			if (!IsWithinMapRadius(evt.localPosition)) return;
+			SelectMapPosition(evt.localPosition);
+		}
 
+		private void SelectMapPosition(Vector2 localPos)
+		{
+			if (!IsWithinMapRadius(localPos)) return;
+
+			var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
 			var mapRadius = _mapImage.contentRect.width / 2;
-
-			_services.MatchmakingService.NormalizedMapSelectedPosition = new Vector2(
-				evt.localPosition.x / _mapImage.contentRect.width, evt.localPosition.y / _mapImage.contentRect.height);
-
-			var offsetCoors = new Vector3(evt.localPosition.x - mapRadius, evt.localPosition.y - mapRadius, 0);
+			
+			// Set map marker at click point
+			var offsetCoors = new Vector3(localPos.x - mapRadius, localPos.y - mapRadius, 0);
 			_mapMarker.transform.position = offsetCoors;
+			
+			// Set normalized position used for spawning in quantum
+			var normSelectPos = new Vector2(localPos.x / _mapImage.contentRect.width, localPos.y / _mapImage.contentRect.height);
+			_services.MatchmakingService.NormalizedMapSelectedPosition = normSelectPos;
+
+			// Set map grid config related data
+			var gridX = Mathf.RoundToInt(mapGridConfigs.GetSize().x * normSelectPos.x);
+			var gridY = Mathf.RoundToInt(mapGridConfigs.GetSize().y * normSelectPos.y);
+			var selectedGrid = mapGridConfigs.GetConfig(gridX, gridY);
+
+			if (selectedGrid.IsValidNamedArea)
+			{
+				_placeNameLabel.SetDisplayActive(true);
+				_placeNameLabel.text = selectedGrid.AreaName.ToUpper();
+			}
+			else
+			{
+				_placeNameLabel.SetDisplayActive(false);
+			}
 		}
 
 		private bool IsWithinMapRadius(Vector3 dropPos)
@@ -124,7 +150,8 @@ namespace FirstLight.Game.Presenters
 
 			_dropzone.transform.position = new Vector3(posX, posY);
 			_dropzone.transform.rotation = Quaternion.Euler(0, 0, dropzonePosRot.z);
-			_mapMarker.transform.position = new Vector3(posX, posY);
+			
+			SelectMapPosition(new Vector2(posX, posY));
 
 			_mapImage.RegisterCallback<ClickEvent>(OnMapClicked);
 		}

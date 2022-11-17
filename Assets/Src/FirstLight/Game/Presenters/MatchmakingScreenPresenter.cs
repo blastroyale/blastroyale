@@ -69,7 +69,7 @@ namespace FirstLight.Game.Presenters
 			_placeNameLabel = root.Q<Label>("PlaceNameLabel").Required();
 			_modeTitleLabel = root.Q<Label>("HeaderTitle").Required();
 			_modeDescTopLabel = root.Q<Label>("ModeDescTop").Required();
-			_modeDescTopLabel = root.Q<Label>("ModeDescBot").Required();
+			_modeDescBotLabel = root.Q<Label>("ModeDescBot").Required();
 			
 			_closeButton.clicked += OnCloseClicked;
 			_mapHolder.RegisterCallback<GeometryChangedEvent>(InitMap);
@@ -139,7 +139,7 @@ namespace FirstLight.Game.Presenters
 			_modeTitleLabel.text = string.Format(ScriptLocalization.UITMatchmaking.mode_header_title,
 				gameMode.GetTranslationGameIdString().ToUpper(), matchType.GetTranslation().ToUpper());
 			_modeDescTopLabel.text = modeDesc[0];
-			_modeDescTopLabel.text = modeDesc[1];
+			_modeDescBotLabel.text = modeDesc[1];
 			
 			_services.CoroutineService.StartCoroutine(MatchmakingTimerCoroutine(matchmakingTime, minPlayers));
 

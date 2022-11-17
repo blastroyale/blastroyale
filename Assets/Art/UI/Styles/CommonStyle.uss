@@ -17,6 +17,7 @@
 }
 
 .element-hidden {
+    visibility: hidden;
     display: none;
 }
 

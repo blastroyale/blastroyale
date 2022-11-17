@@ -466,9 +466,7 @@ namespace FirstLight.Game.StateMachines
 			var loadout = _gameDataProvider.EquipmentDataProvider.Loadout;
 			var inventory = _gameDataProvider.EquipmentDataProvider.Inventory;
 			var f = game.Frames.Verified;
-			// TODO ROB
-			//var spawnPosition = _uiService.GetUi<MatchmakingLoadingScreenPresenter>().mapSelectionView
-			//                              .NormalizedSelectionPoint;
+			var spawnPosition = _services.MatchmakingService.NormalizedMapSelectedPosition;
 
 			var finalLoadOut = new List<Equipment>();
 			foreach(var item in loadout.ReadOnlyDictionary.Values.ToList())
@@ -496,8 +494,7 @@ namespace FirstLight.Game.StateMachines
 					DeathMarker = info.DeathMarker,
 					PlayerLevel = info.Level,
 					PlayerTrophies = info.TotalTrophies,
-					// TODO ROB
-					//NormalizedSpawnPosition = spawnPosition.ToFPVector2(),
+					NormalizedSpawnPosition = spawnPosition.ToFPVector2(),
 					Loadout = finalLoadOut.ToArray()
 				});
 			}

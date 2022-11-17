@@ -103,11 +103,6 @@
     transition-timing-function: ease;
 }
 
-.hidden {
-    transition-property: display, visibility;
-    transition-delay: 2s, 2s;
-}
-
 #unity-content-viewport {
     overflow: visible;
 }

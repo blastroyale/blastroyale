@@ -56,12 +56,10 @@ namespace FirstLight.Game.StateMachines
 			equipmentState.Event(_slotClickedEvent).Target(equipmentSelectionState);
 			equipmentState.Event(_backButtonClickedEvent).Target(final);
 			equipmentState.Event(_closeButtonClickedEvent).Target(final);
-			equipmentState.OnExit(CloseEquipmentScreen);
 
 			equipmentSelectionState.OnEnter(OpenEquipmentSelectionScreen);
 			equipmentSelectionState.Event(_backButtonClickedEvent).Target(equipmentState);
 			equipmentSelectionState.Event(_closeButtonClickedEvent).Target(final);
-			equipmentSelectionState.OnExit(CloseEquipmentSelectionScreen);
 
 			final.OnEnter(SendLoadoutUpdateCommand);
 		}
@@ -76,11 +74,6 @@ namespace FirstLight.Game.StateMachines
 			};
 
 			_uiService.OpenScreen<EquipmentPresenter, EquipmentPresenter.StateData>(data);
-		}
-
-		private void CloseEquipmentScreen()
-		{
-			_uiService.CloseUi<EquipmentPresenter>();
 		}
 
 		private void SendLoadoutUpdateCommand()
@@ -106,11 +99,6 @@ namespace FirstLight.Game.StateMachines
 			};
 
 			_uiService.OpenScreen<EquipmentSelectionPresenter, EquipmentSelectionPresenter.StateData>(data);
-		}
-
-		private void CloseEquipmentSelectionScreen()
-		{
-			_uiService.CloseUi<EquipmentSelectionPresenter>();
 		}
 	}
 }

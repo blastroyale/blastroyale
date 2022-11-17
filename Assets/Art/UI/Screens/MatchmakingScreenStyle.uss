@@ -149,7 +149,7 @@
 .load-status-holder__location-label {
     font-size: 58px;
     -unity-text-outline-width: 2px;
-    -unity-text-outline-color: rgb(49, 46, 71);
+    -unity-text-outline-color: rgb(91, 2, 19);
     text-shadow: 3px 3px 0 rgb(108, 8, 40);
     color: rgb(214, 76, 123);
     -unity-font-style: bold;

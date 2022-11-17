@@ -1,5 +1,8 @@
 using System;
 using System.Linq;
+using FirstLight.Game.Ids;
+using FirstLight.Game.Services;
+using FirstLight.Game.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -21,6 +24,28 @@ namespace FirstLight.Game.Utils
 			}
 
 			return visualElement;
+		}
+
+		/// <summary>
+		/// Sets up pointer down SFX callbacks for all elements with the "sfx-click" class.
+		/// </summary>
+		public static void SetupClicks(this VisualElement root, IGameServices gameServices)
+		{
+			foreach (var ve in root.Query(null, UIConstants.SFX_CLICK_FORWARDS).Build())
+			{
+				ve.RegisterCallback<PointerDownEvent, IGameServices>(
+					(_, service) => { service.AudioFxService.PlayClip2D(AudioId.ButtonClickForward); },
+					gameServices,
+					TrickleDown.TrickleDown);
+			}
+
+			foreach (var ve in root.Query(null, UIConstants.SFX_CLICK_BACKWARDS).Build())
+			{
+				ve.RegisterCallback<PointerDownEvent, IGameServices>(
+					(_, service) => { service.AudioFxService.PlayClip2D(AudioId.ButtonClickBackward); },
+					gameServices,
+					TrickleDown.TrickleDown);
+			}
 		}
 
 		/// <summary>

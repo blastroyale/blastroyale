@@ -49,6 +49,8 @@ namespace FirstLight.Game.Presenters
 
 			root.Q<ImageButton>("CloseButton").clicked += Data.OnBackButtonClicked;
 			root.Q<ImageButton>("ScreenHeader").clicked += Data.OnBackButtonClicked;
+			
+			root.SetupClicks(_services);
 		}
 
 		protected override void OnOpened()

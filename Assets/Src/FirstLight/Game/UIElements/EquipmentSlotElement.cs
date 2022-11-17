@@ -56,6 +56,7 @@ namespace FirstLight.Game.UIElements
 		{
 			AddToClassList(UssBlock);
 			AddToClassList(UssBlockFilled);
+			AddToClassList(UIConstants.SFX_CLICK_FORWARDS);
 
 			var filledElement = new VisualElement {name = "filled"};
 			Add(filledElement);

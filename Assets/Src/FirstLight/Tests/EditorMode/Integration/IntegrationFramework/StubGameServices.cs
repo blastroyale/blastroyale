@@ -33,6 +33,7 @@ namespace FirstLight.Tests.EditorMode
 		public virtual IThreadService ThreadService { get; }
 		public virtual IHelpdeskService HelpdeskService { get; }
 		public IGameModeService GameModeService { get; }
+		public IMatchmakingService MatchmakingService { get; }
 		public IIAPService IAPService { get; }
 		public string QuitReason { get; set; }
 
@@ -60,6 +61,7 @@ namespace FirstLight.Tests.EditorMode
 			PlayerInputService = playerInputService;
 			VfxService = vfxService;
 
+			MatchmakingService = new MatchmakingService();
 			ThreadService = new ThreadService();
 			HelpdeskService = new HelpdeskService();
 			GameModeService = new GameModeService(ConfigsProvider, ThreadService);

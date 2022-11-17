@@ -466,8 +466,7 @@ namespace FirstLight.Game.StateMachines
 			var loadout = _gameDataProvider.EquipmentDataProvider.Loadout;
 			var inventory = _gameDataProvider.EquipmentDataProvider.Inventory;
 			var f = game.Frames.Verified;
-			var spawnPosition = _uiService.GetUi<MatchmakingLoadingScreenPresenter>().mapSelectionView
-			                              .NormalizedSelectionPoint;
+			var spawnPosition = _services.MatchmakingService.NormalizedMapSelectedPosition;
 
 			var finalLoadOut = new List<Equipment>();
 			foreach(var item in loadout.ReadOnlyDictionary.Values.ToList())

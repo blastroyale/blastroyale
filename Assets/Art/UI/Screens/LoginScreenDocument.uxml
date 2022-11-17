@@ -1,4 +1,4 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xmlns:flg="FirstLight.Game.UIElements" editor-extension-mode="False">
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:flg="FirstLight.Game.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/LoginScreenStyle.uss?fileID=7433441132597879392&amp;guid=62c1d9d88fd9646f987a3c9d8d48a713&amp;type=3#LoginScreenStyle" />
     <ui:VisualElement name="root" class="background" style="top: 0; right: 0; left: 0; bottom: 0;">
         <ui:VisualElement name="PopupBackground" class="popup-radius">
@@ -11,7 +11,7 @@
                     <flg:LocalizedTextField label-localization-key="UITLoginRegister/email" name="EmailTextField" class="font-italic input-field" />
                     <flg:LocalizedTextField label-localization-key="UITLoginRegister/password" name="PasswordTextField" password="true" class="font-italic input-field" style="margin-top: 28px; margin-bottom: 44px;" />
                     <ui:VisualElement class="button-flat-outline">
-                        <flg:LocalizedButton localization-key="UITLoginRegister/login" name="LoginButton" class="font-italic button-flat-primary" style="-unity-background-image-tint-color: rgb(255, 116, 0);" />
+                        <flg:LocalizedButton localization-key="UITLoginRegister/login" name="LoginButton" class="font-italic button-flat-primary" />
                     </ui:VisualElement>
                     <flg:LocalizedLabel localization-key="UITShared/or" class="font-italic" style="color: rgb(122, 118, 167); font-size: 30px; margin-bottom: 8px;" />
                     <ui:VisualElement class="button-flat-outline">

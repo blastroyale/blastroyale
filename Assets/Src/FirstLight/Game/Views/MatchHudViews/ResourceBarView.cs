@@ -49,7 +49,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			var f = callback.Game.Frames.Verified;
 			
-			if (callback.Entity != _entity || f.TryGet<PlayerCharacter>(callback.Entity, out var player))
+			if (callback.Entity != _entity || !f.TryGet<PlayerCharacter>(callback.Entity, out var player))
 			{
 				return;
 			}

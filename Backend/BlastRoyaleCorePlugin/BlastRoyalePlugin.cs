@@ -17,10 +17,8 @@ namespace BlastRoyaleNFTPlugin
 		public override void OnEnable(PluginContext context)
 		{
 			var baseUrl = ReadPluginConfig("API_URL");
-			var blockchainUrl = ReadPluginConfig("API_BLOCKCHAIN_SERVICE");
 			var apiSecret = ReadPluginConfig("API_KEY");
-			//var fullUrl = $"{baseUrl}/{blockchainUrl}/indexed?key={apiSecret}&playfabId=";
-			var fullUrl = $"{baseUrl}/{blockchainUrl}";
+			var fullUrl = $"{baseUrl}/blast-royale-equipment";
 			NftSync = new NftSynchronizer(fullUrl, apiSecret, context);
 			if (context.ServerConfig.NftSync)
 			{

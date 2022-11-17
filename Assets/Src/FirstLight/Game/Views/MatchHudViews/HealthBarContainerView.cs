@@ -56,8 +56,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			var spectateEntity = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
 			var f = callback.Game.Frames.Verified;
-
-			if (spectateEntity != callback.Entity || f.TryGet<PlayerCharacter>(callback.Entity, out var playerCharacter))
+			
+			if (spectateEntity != callback.Entity || !f.TryGet<PlayerCharacter>(callback.Entity, out var playerCharacter))
 			{
 				return;
 			}

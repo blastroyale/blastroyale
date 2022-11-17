@@ -15,6 +15,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// This Presenter handles the Loot Screen, where players can equip items and upgrade loot.
 	/// </summary>
+	[LoadSynchronously]
 	public class LootScreenPresenter : UiToolkitPresenterData<LootScreenPresenter.StateData>
 	{
 		public struct StateData
@@ -86,11 +87,16 @@ namespace FirstLight.Game.Presenters
 			{
 				var info = _gameDataProvider.EquipmentDataProvider.GetInfo(uniqueId);
 
+				var index = 0;
 				foreach (var (type, value) in info.Stats)
 				{
 					if (value > 0 && type is EquipmentStatType.SpecialId0 or EquipmentStatType.SpecialId1)
 					{
-						_specialsHolder.Add(new SpecialDisplayElement((GameId) value));
+						var element = new SpecialDisplayElement((GameId) value);
+						element.AddToClassList($"anim-delay-{index}");
+						element.AddToClassList("anim-translate");
+						element.AddToClassList("anim-translate-left-m");
+						index++;
 					}
 				}
 			}

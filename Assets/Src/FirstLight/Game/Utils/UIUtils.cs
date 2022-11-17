@@ -63,12 +63,14 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Removes all BEM modifiers from the class list.
 		/// </summary>
-		public static void RemoveModifiers(this VisualElement element)
+		public static void RemoveModifiers(this VisualElement element, bool skipAnimations = true)
 		{
 			var classes = element.GetClasses().ToList();
 
 			foreach (var clazz in classes)
 			{
+				if(skipAnimations && clazz.StartsWith("anim")) continue;
+
 				if (clazz.Contains("--"))
 				{
 					element.RemoveFromClassList(clazz);

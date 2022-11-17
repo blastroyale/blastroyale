@@ -36,12 +36,16 @@ namespace FirstLight.Game.Presenters
 		private ImageButton _closeButton;
 		private VisualElement _dropzone;
 		private VisualElement _mapHolder;
+		private VisualElement _mapTitleBg;
 		private VisualElement _mapMarker;
 		private VisualElement _dropzonePath;
 		private VisualElement _mapImage;
 		private Label _loadStatusLabel;
 		private Label _locationLabel;
 		private Label _placeNameLabel;
+		private Label _modeTitleLabel;
+		private Label _modeDescTopLabel;
+		private Label _modeDescBotLabel;
 		private IGameServices _services;
 
 		private void Awake()
@@ -59,9 +63,13 @@ namespace FirstLight.Game.Presenters
 			_mapImage = root.Q("MapImage").Required();
 			_mapMarker = root.Q("MapMarker").Required();
 			_dropzonePath = root.Q("Path").Required();
+			_mapTitleBg = root.Q("MapTitleBg").Required();
 			_loadStatusLabel = root.Q<Label>("LoadStatusLabel").Required();
 			_locationLabel = root.Q<Label>("LocationLabel").Required();
 			_placeNameLabel = root.Q<Label>("PlaceNameLabel").Required();
+			_modeTitleLabel = root.Q<Label>("HeaderTitle").Required();
+			_modeDescTopLabel = root.Q<Label>("ModeDescTop").Required();
+			_modeDescTopLabel = root.Q<Label>("ModeDescBot").Required();
 			
 			_closeButton.clicked += OnCloseClicked;
 			_mapHolder.RegisterCallback<GeometryChangedEvent>(InitMap);
@@ -78,13 +86,14 @@ namespace FirstLight.Game.Presenters
 
 			var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
 			var mapRadius = _mapImage.contentRect.width / 2;
-			
+
 			// Set map marker at click point
 			var offsetCoors = new Vector3(localPos.x - mapRadius, localPos.y - mapRadius, 0);
 			_mapMarker.transform.position = offsetCoors;
-			
+
 			// Set normalized position used for spawning in quantum
-			var normSelectPos = new Vector2(localPos.x / _mapImage.contentRect.width, localPos.y / _mapImage.contentRect.height);
+			var normSelectPos = new Vector2(localPos.x / _mapImage.contentRect.width,
+				localPos.y / _mapImage.contentRect.height);
 			_services.MatchmakingService.NormalizedMapSelectedPosition = normSelectPos;
 
 			// Set map grid config related data
@@ -116,24 +125,31 @@ namespace FirstLight.Game.Presenters
 		private async void InitMap(GeometryChangedEvent evt)
 		{
 			var matchType = CurrentRoom.GetMatchType();
+			var gameMode = CurrentRoom.GetGameModeId();
 			var gameModeConfig = _services.NetworkService.CurrentRoomGameModeConfig.Value;
 			var mapConfig = _services.NetworkService.CurrentRoomMapConfig.Value;
 			var quantumGameConfig = _services.ConfigsProvider.GetConfig<QuantumGameConfig>();
 			var minPlayers = matchType == MatchType.Ranked ? quantumGameConfig.RankedMatchmakingMinPlayers : 0;
+			var modeDesc = GetGameModeDescriptions(gameModeConfig.CompletionStrategy);
 			var matchmakingTime = matchType == MatchType.Ranked
 				? quantumGameConfig.RankedMatchmakingTime.AsFloat
 				: quantumGameConfig.CasualMatchmakingTime.AsFloat;
-
+			
+			_locationLabel.text = mapConfig.Map.GetTranslation();
+			_modeTitleLabel.text = string.Format(ScriptLocalization.UITMatchmaking.mode_header_title,
+				gameMode.GetTranslationGameIdString().ToUpper(), matchType.GetTranslation().ToUpper());
+			_modeDescTopLabel.text = modeDesc[0];
+			_modeDescTopLabel.text = modeDesc[1];
+			
 			_services.CoroutineService.StartCoroutine(MatchmakingTimerCoroutine(matchmakingTime, minPlayers));
 
-			_locationLabel.text = mapConfig.Map.GetTranslation();
-			
 			if (!gameModeConfig.SkydiveSpawn)
 			{
 				var sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(mapConfig.Map, false);
 				_mapImage.style.backgroundImage = new StyleBackground(sprite);
 				_dropzone.SetDisplayActive(false);
 				_mapMarker.SetDisplayActive(false);
+				_mapTitleBg.SetDisplayActive(false);
 				return;
 			}
 
@@ -150,7 +166,7 @@ namespace FirstLight.Game.Presenters
 
 			_dropzone.transform.position = new Vector3(posX, posY);
 			_dropzone.transform.rotation = Quaternion.Euler(0, 0, dropzonePosRot.z);
-			
+
 			SelectMapPosition(new Vector2(posX, posY));
 
 			_mapImage.RegisterCallback<ClickEvent>(OnMapClicked);
@@ -185,26 +201,36 @@ namespace FirstLight.Game.Presenters
 			{
 				var timeLeft = (DateTime.UtcNow - matchmakingEndTime).Duration();
 				_loadStatusLabel.text = string.Format(ScriptLocalization.UITMatchmaking.loading_status_timer,
-					timeLeft.TotalSeconds.ToString("F0")) + PlayerCountString();
+					timeLeft.TotalSeconds.ToString("F0"));
 
 				yield return null;
 			}
 
 			if (CurrentRoom.GetRealPlayerAmount() >= minPlayers)
 			{
-				_loadStatusLabel.text = ScriptLocalization.UITMatchmaking.loading_status_starting + PlayerCountString();
+				_loadStatusLabel.text = ScriptLocalization.UITMatchmaking.loading_status_starting;
 			}
 			else
 			{
-				_loadStatusLabel.text = ScriptLocalization.UITMatchmaking.loading_status_waiting + PlayerCountString();
+				_loadStatusLabel.text = ScriptLocalization.UITMatchmaking.loading_status_waiting;
 			}
 		}
 
-		private string PlayerCountString()
+		private string[] GetGameModeDescriptions(GameCompletionStrategy strategy)
+		{
+			var descriptions = new string[2];
+			descriptions[0] = strategy.GetTranslation();
+			descriptions[1] = ScriptLocalization.UITMatchmaking.wins_the_match;
+			
+			return descriptions;
+		}
+
+		private string GetPlayerCountString()
 		{
 			return Debug.isDebugBuild
 				? ""
-				: " | " + string.Format(ScriptLocalization.UITMatchmaking.current_player_amount, CurrentRoom.PlayerCount);
+				: " | " + string.Format(ScriptLocalization.UITMatchmaking.current_player_amount,
+					CurrentRoom.PlayerCount);
 		}
 
 		public void OnCloseClicked()

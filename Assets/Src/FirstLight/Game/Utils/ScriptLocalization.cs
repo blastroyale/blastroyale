@@ -1178,16 +1178,15 @@ namespace I2.Loc
 
 		public static class UITMatchmaking
 		{
-			public static string br_mode_desc_bot 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/br_mode_desc_bot"); } }
-			public static string br_mode_desc_top 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/br_mode_desc_top"); } }
-			public static string button_leave 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/button_leave"); } }
+			public static string br_mode_desc 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/br_mode_desc"); } }
 			public static string current_player_amount 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/current_player_amount"); } }
-			public static string dm_mode_desc_bot 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/dm_mode_desc_bot"); } }
-			public static string dm_mode_desc_top 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/dm_mode_desc_top"); } }
+			public static string dm_mode_desc 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/dm_mode_desc"); } }
 			public static string loading_status_starting 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/loading_status_starting"); } }
 			public static string loading_status_timer 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/loading_status_timer"); } }
 			public static string loading_status_waiting 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/loading_status_waiting"); } }
+			public static string mode_header_title 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/mode_header_title"); } }
 			public static string select_dropzone 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/select_dropzone"); } }
+			public static string wins_the_match 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/wins_the_match"); } }
 		}
 
 		public static class UITSettings
@@ -2408,16 +2407,15 @@ namespace I2.Loc
 
 		public static class UITMatchmaking
 		{
-		    public const string br_mode_desc_bot = "UITMatchmaking/br_mode_desc_bot";
-		    public const string br_mode_desc_top = "UITMatchmaking/br_mode_desc_top";
-		    public const string button_leave = "UITMatchmaking/button_leave";
+		    public const string br_mode_desc = "UITMatchmaking/br_mode_desc";
 		    public const string current_player_amount = "UITMatchmaking/current_player_amount";
-		    public const string dm_mode_desc_bot = "UITMatchmaking/dm_mode_desc_bot";
-		    public const string dm_mode_desc_top = "UITMatchmaking/dm_mode_desc_top";
+		    public const string dm_mode_desc = "UITMatchmaking/dm_mode_desc";
 		    public const string loading_status_starting = "UITMatchmaking/loading_status_starting";
 		    public const string loading_status_timer = "UITMatchmaking/loading_status_timer";
 		    public const string loading_status_waiting = "UITMatchmaking/loading_status_waiting";
+		    public const string mode_header_title = "UITMatchmaking/mode_header_title";
 		    public const string select_dropzone = "UITMatchmaking/select_dropzone";
+		    public const string wins_the_match = "UITMatchmaking/wins_the_match";
 		}
 
 		public static class UITSettings

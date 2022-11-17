@@ -54,6 +54,14 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
+		/// Requests the localized text representing the given <paramref name="gameId"/> as a string
+		/// </summary>
+		public static string GetTranslationGameIdString(this string gameId)
+		{
+			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.GameIds)}/{gameId}");
+		}
+		
+		/// <summary>
 		/// Requests the localized text representing the given <paramref name="stat"/>
 		/// </summary>
 		public static string GetTranslation(this StatType stat)
@@ -125,6 +133,27 @@ namespace FirstLight.Game.Utils
 				case "hk":
 					return ScriptLocalization.MainMenu.ServerNameHk;
 
+				default:
+					return "";
+			}
+		}
+		
+		/// <summary>
+		/// Gets the translation for the given<paramref name="strategy"/>
+		/// </summary>
+		public static string GetTranslation(this GameCompletionStrategy strategy)
+		{
+			switch (strategy)
+			{
+				case GameCompletionStrategy.Never:
+					return "";
+				
+				case GameCompletionStrategy.EveryoneDead:
+					return ScriptLocalization.UITMatchmaking.br_mode_desc;
+				
+				case GameCompletionStrategy.KillCount:
+					return ScriptLocalization.UITMatchmaking.dm_mode_desc;
+				
 				default:
 					return "";
 			}

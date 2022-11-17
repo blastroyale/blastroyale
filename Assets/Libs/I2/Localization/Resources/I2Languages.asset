@@ -9830,7 +9830,7 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITMatchmaking/br_mode_desc_top
+    - Term: UITMatchmaking/br_mode_desc
       TermType: 0
       Description: 
       Languages:
@@ -9839,16 +9839,7 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITMatchmaking/br_mode_desc_bot
-      TermType: 0
-      Description: 
-      Languages:
-      - WINS THE MATCH
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITMatchmaking/dm_mode_desc_top
+    - Term: UITMatchmaking/dm_mode_desc
       TermType: 0
       Description: 
       Languages:
@@ -9857,7 +9848,7 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITMatchmaking/dm_mode_desc_bot
+    - Term: UITMatchmaking/wins_the_match
       TermType: 0
       Description: 
       Languages:
@@ -9871,15 +9862,6 @@ MonoBehaviour:
       Description: 
       Languages:
       - '{0}/{1}'
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITMatchmaking/button_leave
-      TermType: 0
-      Description: 
-      Languages:
-      - LEAVE
       - 
       - 
       Flags: 000000
@@ -9907,6 +9889,17 @@ MonoBehaviour:
       Description: 
       Languages:
       - PREPARE FOR BLAST OFF!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITMatchmaking/mode_header_title
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0}
+
+        {1}'
       - 
       - 
       Flags: 000000
@@ -10371,7 +10364,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1668699667209
+    Google_LastUpdatedVersion: 1668705655299
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

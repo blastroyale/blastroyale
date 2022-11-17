@@ -87,6 +87,7 @@ namespace FirstLight.Game.StateMachines
 			playerReadyCheck.Transition().Target(playerReadyWait);
 			
 			playerReadyWait.OnEnter(PreloadPlayerMatchAssets);
+			playerReadyWait.OnEnter(DismissGenericPopups);
 			playerReadyWait.Event(AllPlayersReadyEvent).Target(gameSimulation);
 			playerReadyWait.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(OnDisconnectDuringFinalPreload).Target(unloading);
 			playerReadyWait.Event(NetworkState.LeftRoomEvent).OnTransition(OnDisconnectDuringFinalPreload).Target(unloading);
@@ -355,6 +356,11 @@ namespace FirstLight.Game.StateMachines
 			tasks.Add(_services.AudioFxService.LoadAudioClips(_services.ConfigsProvider.GetConfig<AudioMatchAssetConfigs>().ConfigsDictionary));
 			
 			return tasks;
+		}
+		
+		private void DismissGenericPopups()
+		{
+			_services.GenericDialogService.CloseDialog();
 		}
 
 		private async void PreloadPlayerMatchAssets()

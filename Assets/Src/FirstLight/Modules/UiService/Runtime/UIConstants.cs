@@ -19,5 +19,15 @@ namespace FirstLight.Game.UIElements
 		/// This class is toggled on individual non-root elements to hide them
 		/// </summary>
 		public const string ELEMENT_HIDDEN = "element-hidden";
+		
+		/// <summary>
+		/// Adds the forward click SFX to the element (on pointer down).
+		/// </summary>
+		public const string SFX_CLICK_FORWARDS = "sfx-click-forwards";
+		
+		/// <summary>
+		/// Adds the backwards click SFX to the element (on pointer down).
+		/// </summary>
+		public const string SFX_CLICK_BACKWARDS = "sfx-click-backwards";
 	}
 }

@@ -168,7 +168,7 @@ namespace FirstLight.Game.UIElements
 				ece._categoryIcon.AddToClassList(UssCategoryIconModifier + cat.ToString().ToLowerInvariant());
 
 				ece._emptyTitle.Localize(
-					string.Format(EMPTY_LOC_KEY, GameIdGroup.Weapon.ToString().ToLowerInvariant())
+					string.Format(EMPTY_LOC_KEY, cat.ToString().ToLowerInvariant())
 				);
 			}
 		}

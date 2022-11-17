@@ -3,11 +3,11 @@
     <ui:VisualElement name="root" picking-mode="Ignore" class="background fill-parent">
         <FirstLight.Game.UIElements.SafeAreaElement class="safe-area">
             <ui:VisualElement name="PlayerImage" class="player-image" />
-            <ui:VisualElement name="PlayerAmountHolder" class="player-amount-holder">
-                <ui:VisualElement name="LoadingIcon" class="player-amount-holder__loading-icon" />
-                <ui:VisualElement name="Labels" class="player-amount-holder__labels">
-                    <ui:Label name="PlayerCountLabel" text="5/30" class="font-italic font-style-h2 player-amount-holder__player-label" />
-                    <ui:Label name="LocationLabel" text="LOCATION" class="font-italic font-style-h2 player-amount-holder__location-label" />
+            <ui:VisualElement name="PlayerAmountHolder" class="load-status-holder">
+                <ui:VisualElement name="LoadingIcon" class="load-status-holder__loading-icon" />
+                <ui:VisualElement name="Labels" class="load-status-holder__labels">
+                    <ui:Label name="LoadStatusLabel" text="5/30" class="font-italic font-style-h2 load-status-holder__player-label" />
+                    <ui:Label name="LocationLabel" text="LOCATION" class="font-italic font-style-h2 load-status-holder__location-label" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="ModeHolder" class="mode-desc">

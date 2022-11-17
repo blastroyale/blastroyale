@@ -22,7 +22,8 @@ namespace FirstLight.Game.Presenters
 	/// In future iteration with new custom lobby screen, this screen will become a loading screen for both
 	/// matchmaking and custom lobby, just before players are dropped into the match.
 	/// </summary>
-	public class MatchmakingScreenPresenter : UiToolkitPresenterData<MatchmakingScreenPresenter.StateData>, IInRoomCallbacks
+	public class MatchmakingScreenPresenter : UiToolkitPresenterData<MatchmakingScreenPresenter.StateData>,
+											  IInRoomCallbacks
 	{
 		public struct StateData
 		{
@@ -37,15 +38,15 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _mapMarker;
 		private VisualElement _dropzonePath;
 		private VisualElement _mapImage;
-		private Label _mapTitleLabel;
-		private Label _playerCountLabel;
+		private Label _loadStatusLabel;
+		private Label _locationLabel;
 		private IGameServices _services;
-		
+
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 		}
-		
+
 		protected override void QueryElements(VisualElement root)
 		{
 			base.QueryElements(root);
@@ -56,9 +57,9 @@ namespace FirstLight.Game.Presenters
 			_mapImage = root.Q("MapImage").Required();
 			_mapMarker = root.Q("MapMarker").Required();
 			_dropzonePath = root.Q("Path").Required();
-			_mapTitleLabel = root.Q<Label>("Title").Required();
-			_playerCountLabel = root.Q<Label>("PlayerCountLabel").Required();
-			
+			_loadStatusLabel = root.Q<Label>("LoadStatusLabel").Required();
+			_locationLabel = root.Q<Label>("LocationLabel").Required();
+
 			_closeButton.clicked += OnCloseClicked;
 			_mapHolder.RegisterCallback<GeometryChangedEvent>(InitMap);
 		}
@@ -66,82 +67,117 @@ namespace FirstLight.Game.Presenters
 		private void OnMapClicked(ClickEvent evt)
 		{
 			if (!IsWithinMapRadius(evt.localPosition)) return;
-			
+
 			var mapRadius = _mapImage.contentRect.width / 2;
+
+			_services.MatchmakingService.NormalizedMapSelectedPosition = new Vector2(
+				evt.localPosition.x / _mapImage.contentRect.width, evt.localPosition.y / _mapImage.contentRect.height);
+
 			var offsetCoors = new Vector3(evt.localPosition.x - mapRadius, evt.localPosition.y - mapRadius, 0);
-			
-			// For some reason, the map marker is always offset by width/2 of the map in both width and height, no matter what...
 			_mapMarker.transform.position = offsetCoors;
 		}
 
 		private bool IsWithinMapRadius(Vector3 dropPos)
 		{
 			var mapRadius = _mapImage.contentRect.width / 2;
-			var mapCenter = new Vector3(_mapImage.transform.position.x + mapRadius, _mapImage.transform.position.y + mapRadius, _mapImage.transform.position.z);
+			var mapCenter = new Vector3(_mapImage.transform.position.x + mapRadius,
+				_mapImage.transform.position.y + mapRadius, _mapImage.transform.position.z);
 			var withinMapRadius = Vector3.Distance(mapCenter, dropPos) < mapRadius;
 
 			return withinMapRadius;
 		}
-		
+
 		private async void InitMap(GeometryChangedEvent evt)
 		{
+			var matchType = CurrentRoom.GetMatchType();
 			var gameModeConfig = _services.NetworkService.CurrentRoomGameModeConfig.Value;
 			var mapConfig = _services.NetworkService.CurrentRoomMapConfig.Value;
+			var quantumGameConfig = _services.ConfigsProvider.GetConfig<QuantumGameConfig>();
+			var minPlayers = matchType == MatchType.Ranked ? quantumGameConfig.RankedMatchmakingMinPlayers : 0;
+			var matchmakingTime = matchType == MatchType.Ranked
+				? quantumGameConfig.RankedMatchmakingTime.AsFloat
+				: quantumGameConfig.CasualMatchmakingTime.AsFloat;
 
+			_services.CoroutineService.StartCoroutine(MatchmakingTimerCoroutine(matchmakingTime, minPlayers));
+
+			_locationLabel.text = mapConfig.Map.GetTranslation();
+			
 			if (!gameModeConfig.SkydiveSpawn)
 			{
 				var sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(mapConfig.Map, false);
 				_mapImage.style.backgroundImage = new StyleBackground(sprite);
-				_mapTitleLabel.text = mapConfig.Map.GetTranslation();
 				_dropzone.SetDisplayActive(false);
 				_mapMarker.SetDisplayActive(false);
 				return;
 			}
-			
-			_mapTitleLabel.text = ScriptLocalization.UITMatchmaking.select_dropzone;
 
+			InitSkydiveSpawnMapData();
+		}
+
+		private void InitSkydiveSpawnMapData()
+		{
 			// Init DZ position/rotation
 			var dropzonePosRot = CurrentRoom.GetDropzonePosRot();
 			var mapDiameter = _mapHolder.contentRect.width;
 			var posX = mapDiameter * dropzonePosRot.x;
 			var posY = mapDiameter * dropzonePosRot.y;
-			
+
 			_dropzone.transform.position = new Vector3(posX, posY);
-			_dropzone.transform.rotation = Quaternion.Euler(0,0,dropzonePosRot.z);
+			_dropzone.transform.rotation = Quaternion.Euler(0, 0, dropzonePosRot.z);
 			_mapMarker.transform.position = new Vector3(posX, posY);
-			
+
 			_mapImage.RegisterCallback<ClickEvent>(OnMapClicked);
 		}
 
 		public void OnPlayerEnteredRoom(Player newPlayer)
 		{
-			UpdatePlayerCountText();
 		}
 
 		public void OnPlayerLeftRoom(Player otherPlayer)
 		{
-			UpdatePlayerCountText();
 		}
 
 		public void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
 		{
-			
 		}
 
 		public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
 		{
-			
 		}
 
 		public void OnMasterClientSwitched(Player newMasterClient)
 		{
-			
 		}
 
-		private void UpdatePlayerCountText()
+		private IEnumerator MatchmakingTimerCoroutine(float matchmakingTime, int minPlayers)
 		{
-			var playerCountString = string.Format(ScriptLocalization.UITMatchmaking.current_player_amount, CurrentRoom.PlayerCount);
-			//var statusString
+			var roomCreateTime = CurrentRoom.GetRoomCreationDateTime();
+			var matchmakingEndTime = roomCreateTime.AddSeconds(matchmakingTime);
+
+			while (DateTime.UtcNow < matchmakingEndTime)
+			{
+				var timeLeft = (DateTime.UtcNow - matchmakingEndTime).Duration();
+				_loadStatusLabel.text = string.Format(ScriptLocalization.UITMatchmaking.loading_status_timer,
+					timeLeft.TotalSeconds.ToString("F0")) + PlayerCountString();
+
+				yield return null;
+			}
+
+			if (CurrentRoom.GetRealPlayerAmount() >= minPlayers)
+			{
+				_loadStatusLabel.text = ScriptLocalization.UITMatchmaking.loading_status_starting + PlayerCountString();
+			}
+			else
+			{
+				_loadStatusLabel.text = ScriptLocalization.UITMatchmaking.loading_status_waiting + PlayerCountString();
+			}
+		}
+
+		private string PlayerCountString()
+		{
+			return Debug.isDebugBuild
+				? ""
+				: " | " + string.Format(ScriptLocalization.UITMatchmaking.current_player_amount, CurrentRoom.PlayerCount);
 		}
 
 		public void OnCloseClicked()

@@ -131,6 +131,6 @@ stages:
       --set env.NFT_SYNC=true \
       --set env.PLAYFAB_DEV_SECRET_KEY=$(MAINNET-PROD-COMMON-PLAYFAB-SECRET-KEY) \
       --set env.PLAYFAB_SECRET_KEY=$(MAINNET-PROD-COMMON-PLAYFAB-SECRET-KEY) \
-      --set env.PLAYFAB_TITLE=notset \
+      --set env.PLAYFAB_TITLE=***REMOVED*** \
       --set env.SqlConnectionString="$(MAINNET-PROD-BLOCKCHAIN-DB-CONNECTION-STRING-K8S)"
       

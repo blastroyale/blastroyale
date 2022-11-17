@@ -123,8 +123,8 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc />
 		public void CloseDialog()
 		{
-			Assert.IsNotNull(_openDialogType);
-			
+			if (_openDialogType == null) return;
+	
 			_uiService.CloseUi(_openDialogType);
 
 			_openDialogType = null;

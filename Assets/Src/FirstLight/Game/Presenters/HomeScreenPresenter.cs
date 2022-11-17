@@ -229,12 +229,19 @@ namespace FirstLight.Game.Presenters
 			var poolInfo = _dataProvider.ResourceDataProvider.GetResourcePoolInfo(id);
 			var timeLeft = poolInfo.NextRestockTime - DateTime.UtcNow;
 
-			timeLabel.text = string.Format(ScriptLocalization.UITHomeScreen.resource_pool_restock,
-				poolInfo.RestockPerInterval,
-				id.ToString(),
-				timeLeft.ToHoursMinutesSeconds());
-
 			amountLabel.text = string.Format(amountStringFormat, poolInfo.CurrentAmount, poolInfo.PoolCapacity);
+			
+			if (poolInfo.IsFull)
+			{
+				timeLabel.text = string.Empty;
+			}
+			else
+			{
+				timeLabel.text = string.Format(ScriptLocalization.UITHomeScreen.resource_pool_restock,
+					poolInfo.RestockPerInterval,
+					id.ToString(),
+					timeLeft.ToHoursMinutesSeconds());
+			}
 		}
 
 		private void OnBattlePassCurrentLevelChanged(uint _, uint current)

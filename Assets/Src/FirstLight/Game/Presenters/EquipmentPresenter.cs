@@ -94,9 +94,7 @@ namespace FirstLight.Game.Presenters
 					if (value > 0 && type is EquipmentStatType.SpecialId0 or EquipmentStatType.SpecialId1)
 					{
 						var element = new SpecialDisplayElement((GameId) value);
-						element.AddToClassList($"anim-delay-{index}");
-						element.AddToClassList("anim-translate");
-						element.AddToClassList("anim-translate-left-m");
+						_specialsHolder.Add(element);
 						index++;
 					}
 				}

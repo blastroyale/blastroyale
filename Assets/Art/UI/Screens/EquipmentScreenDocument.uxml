@@ -17,9 +17,9 @@
                 <FirstLight.Game.UIElements.EquipmentSlotElement class="anim-delay-0 anim-translate anim-translate--right-xxl" category="Armor" name="ArmorCategory" />
             </ui:VisualElement>
             <FirstLight.Game.UIElements.ImageButton name="CloseButton" class="button-close sfx-click-backwards anim-delay-0 anim-fade" />
-            <ui:VisualElement name="SpecialsHolder" class="specials-holder">
-                <FirstLight.Game.UIElements.SpecialDisplayElement class="anim-delay-1 anim-translate anim-translate--left-m" />
-                <FirstLight.Game.UIElements.SpecialDisplayElement class="anim-delay-0 anim-translate anim-translate--left-m" />
+            <ui:VisualElement name="SpecialsHolder" class="specials-holder anim-delay-0 anim-translate anim-translate--left-m">
+                <FirstLight.Game.UIElements.SpecialDisplayElement />
+                <FirstLight.Game.UIElements.SpecialDisplayElement />
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
     </ui:VisualElement>

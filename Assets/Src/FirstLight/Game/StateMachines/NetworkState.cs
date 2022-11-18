@@ -255,7 +255,7 @@ namespace FirstLight.Game.StateMachines
 			    _networkService.LastDisconnectLocation.Value == LastDisconnectionLocation.Matchmaking)
 			{
 				_requiresManualRoomReconnection = false;
-				JoinRoom(_networkService.LastConnectedRoomName.Value.StripRoomCommitLock(), false);
+				JoinRoom(_networkService.LastConnectedRoomName.Value.TrimRoomCommitLock(), false);
 			}
 		}
 

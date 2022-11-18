@@ -96,6 +96,16 @@
     bottom: 10px;
 }
 
+.debug-player-count {
+    position: absolute;
+    right: 25px;
+    bottom: 25px;
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    font-size: 50px;
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+}
+
 .mode-desc {
     position: absolute;
     left: 100px;

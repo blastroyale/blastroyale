@@ -46,6 +46,7 @@ namespace FirstLight.Game.Presenters
 		private Label _modeTitleLabel;
 		private Label _modeDescTopLabel;
 		private Label _modeDescBotLabel;
+		private Label _debugPlayerCountLabel;
 		private IGameServices _services;
 
 		private void Awake()
@@ -70,7 +71,8 @@ namespace FirstLight.Game.Presenters
 			_modeTitleLabel = root.Q<Label>("HeaderTitle").Required();
 			_modeDescTopLabel = root.Q<Label>("ModeDescTop").Required();
 			_modeDescBotLabel = root.Q<Label>("ModeDescBot").Required();
-			
+			_debugPlayerCountLabel = root.Q<Label>("DebugPlayerCount").Required();
+
 			_closeButton.clicked += OnCloseClicked;
 			_mapHolder.RegisterCallback<GeometryChangedEvent>(InitMap);
 		}
@@ -93,7 +95,7 @@ namespace FirstLight.Game.Presenters
 
 			// Set normalized position used for spawning in quantum
 			var normSelectPos = new Vector2(localPos.x / _mapImage.contentRect.width,
-				localPos.y / _mapImage.contentRect.height);
+											localPos.y / _mapImage.contentRect.height);
 			_services.MatchmakingService.NormalizedMapSelectedPosition = normSelectPos;
 
 			// Set map grid config related data
@@ -116,7 +118,7 @@ namespace FirstLight.Game.Presenters
 		{
 			var mapRadius = _mapImage.contentRect.width / 2;
 			var mapCenter = new Vector3(_mapImage.transform.position.x + mapRadius,
-				_mapImage.transform.position.y + mapRadius, _mapImage.transform.position.z);
+										_mapImage.transform.position.y + mapRadius, _mapImage.transform.position.z);
 			var withinMapRadius = Vector3.Distance(mapCenter, dropPos) < mapRadius;
 
 			return withinMapRadius;
@@ -132,15 +134,18 @@ namespace FirstLight.Game.Presenters
 			var minPlayers = matchType == MatchType.Ranked ? quantumGameConfig.RankedMatchmakingMinPlayers : 0;
 			var modeDesc = GetGameModeDescriptions(gameModeConfig.CompletionStrategy);
 			var matchmakingTime = matchType == MatchType.Ranked
-				? quantumGameConfig.RankedMatchmakingTime.AsFloat
-				: quantumGameConfig.CasualMatchmakingTime.AsFloat;
-			
+									  ? quantumGameConfig.RankedMatchmakingTime.AsFloat
+									  : quantumGameConfig.CasualMatchmakingTime.AsFloat;
+
 			_locationLabel.text = mapConfig.Map.GetTranslation();
 			_modeTitleLabel.text = string.Format(ScriptLocalization.UITMatchmaking.mode_header_title,
-				gameMode.GetTranslationGameIdString().ToUpper(), matchType.GetTranslation().ToUpper());
+												 gameMode.GetTranslationGameIdString().ToUpper(),
+												 matchType.GetTranslation().ToUpper());
 			_modeDescTopLabel.text = modeDesc[0];
 			_modeDescBotLabel.text = modeDesc[1];
 			
+			UpdatePlayerCount();
+
 			_services.CoroutineService.StartCoroutine(MatchmakingTimerCoroutine(matchmakingTime, minPlayers));
 
 			if (!gameModeConfig.SkydiveSpawn)
@@ -174,10 +179,20 @@ namespace FirstLight.Game.Presenters
 
 		public void OnPlayerEnteredRoom(Player newPlayer)
 		{
+			UpdatePlayerCount();
 		}
 
 		public void OnPlayerLeftRoom(Player otherPlayer)
 		{
+			UpdatePlayerCount();
+		}
+
+		private void UpdatePlayerCount()
+		{
+			_debugPlayerCountLabel.text = Debug.isDebugBuild
+											  ? string.Format(ScriptLocalization.UITMatchmaking.current_player_amount,
+															  CurrentRoom.GetRealPlayerAmount(), CurrentRoom.GetRealPlayerCapacity())
+											  : "";
 		}
 
 		public void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
@@ -201,7 +216,7 @@ namespace FirstLight.Game.Presenters
 			{
 				var timeLeft = (DateTime.UtcNow - matchmakingEndTime).Duration();
 				_loadStatusLabel.text = string.Format(ScriptLocalization.UITMatchmaking.loading_status_timer,
-					timeLeft.TotalSeconds.ToString("F0"));
+													  timeLeft.TotalSeconds.ToString("F0"));
 
 				yield return null;
 			}
@@ -221,16 +236,8 @@ namespace FirstLight.Game.Presenters
 			var descriptions = new string[2];
 			descriptions[0] = strategy.GetTranslation();
 			descriptions[1] = ScriptLocalization.UITMatchmaking.wins_the_match;
-			
-			return descriptions;
-		}
 
-		private string GetPlayerCountString()
-		{
-			return Debug.isDebugBuild
-				? ""
-				: " | " + string.Format(ScriptLocalization.UITMatchmaking.current_player_amount,
-					CurrentRoom.PlayerCount);
+			return descriptions;
 		}
 
 		public void OnCloseClicked()

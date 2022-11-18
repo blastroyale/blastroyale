@@ -101,6 +101,22 @@
     translate: -800px 0;
 }
 
+.hidden .anim-translate--up-xxl {
+    translate: 0 1000px;
+}
+
+.hidden .anim-translate--down-xxl {
+    translate: 0 -1000px;
+}
+
+.hidden .anim-translate--left-xxl {
+    translate: 1000px 0;
+}
+
+.hidden .anim-translate--right-xxl {
+    translate: -1000px 0;
+}
+
 .hidden .anim-translate--up-xxxl {
     translate: 0 1200px;
 }

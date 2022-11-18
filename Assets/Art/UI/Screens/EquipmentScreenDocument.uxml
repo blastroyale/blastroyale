@@ -15,11 +15,11 @@
                 <ui:VisualElement name="Icon" class="might__icon" />
             </ui:VisualElement>
             <ui:VisualElement name="CategoryHolder" class="category-holder">
-                <FirstLight.Game.UIElements.EquipmentSlotElement class="anim-delay-4 anim-translate anim-translate--right-xl" category="Weapon" name="WeaponCategory" />
-                <FirstLight.Game.UIElements.EquipmentSlotElement class="anim-delay-3 anim-translate anim-translate--right-xl" category="Helmet" name="HelmetCategory" />
-                <FirstLight.Game.UIElements.EquipmentSlotElement class="anim-delay-2 anim-translate anim-translate--right-xl" category="Shield" name="ShieldCategory" />
-                <FirstLight.Game.UIElements.EquipmentSlotElement class="anim-delay-1 anim-translate anim-translate--right-xl" category="Amulet" name="AmuletCategory" />
-                <FirstLight.Game.UIElements.EquipmentSlotElement class="anim-delay-0 anim-translate anim-translate--right-xl" category="Armor" name="ArmorCategory" />
+                <FirstLight.Game.UIElements.EquipmentSlotElement class="anim-delay-4 anim-translate anim-translate--right-xxl" category="Weapon" name="WeaponCategory" />
+                <FirstLight.Game.UIElements.EquipmentSlotElement class="anim-delay-3 anim-translate anim-translate--right-xxl" category="Helmet" name="HelmetCategory" />
+                <FirstLight.Game.UIElements.EquipmentSlotElement class="anim-delay-2 anim-translate anim-translate--right-xxl" category="Shield" name="ShieldCategory" />
+                <FirstLight.Game.UIElements.EquipmentSlotElement class="anim-delay-1 anim-translate anim-translate--right-xxl" category="Amulet" name="AmuletCategory" />
+                <FirstLight.Game.UIElements.EquipmentSlotElement class="anim-delay-0 anim-translate anim-translate--right-xxl" category="Armor" name="ArmorCategory" />
                 <ui:Button class="equipment-slot" style="display: none; top: 337px;">
                     <ui:VisualElement name="Filled" class="equipment-slot__filled-holder" style="display: none;">
                         <ui:VisualElement name="CategoryIcon" class="equipment-slot__category-icon" />

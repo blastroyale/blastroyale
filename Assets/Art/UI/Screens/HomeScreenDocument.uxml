@@ -51,16 +51,16 @@
                 </ui:Button>
             </ui:VisualElement>
             <ui:VisualElement picking-mode="Ignore" style="position: absolute; left: 0; top: 245px; bottom: 0; justify-content: space-between; margin-bottom: 36px; margin-left: 36px;">
-                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/equipment" name="EquipmentButton" class="button-with-icon button-with-icon--equipment anim-delay-3 anim-translate anim-translate--right-l">
+                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/equipment" name="EquipmentButton" class="button-with-icon button-with-icon--equipment anim-delay-3 anim-translate anim-translate--right-xl">
                     <ui:VisualElement class="button-with-icon__icon" />
                 </FirstLight.Game.UIElements.LocalizedButton>
-                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/heroes" name="HeroesButton" class="button-with-icon button-with-icon--heroes anim-delay-2 anim-translate anim-translate--right-l">
+                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/heroes" name="HeroesButton" class="button-with-icon button-with-icon--heroes anim-delay-2 anim-translate anim-translate--right-xl">
                     <ui:VisualElement class="button-with-icon__icon" />
                 </FirstLight.Game.UIElements.LocalizedButton>
-                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/leaderboards" name="LeaderboardsButton" class="button-with-icon button-with-icon--leaderboards anim-delay-1 anim-translate anim-translate--right-l" style="letter-spacing: -4px;">
+                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/leaderboards" name="LeaderboardsButton" class="button-with-icon button-with-icon--leaderboards anim-delay-1 anim-translate anim-translate--right-xl" style="letter-spacing: -4px;">
                     <ui:VisualElement class="button-with-icon__icon" />
                 </FirstLight.Game.UIElements.LocalizedButton>
-                <ui:VisualElement name="BattlePassHolder" class="anim-delay-0 anim-translate anim-translate--right-l" style="flex-direction: row; align-items: flex-end;">
+                <ui:VisualElement name="BattlePassHolder" class="anim-delay-0 anim-translate anim-translate--right-xl" style="flex-direction: row; align-items: flex-end;">
                     <ui:VisualElement name="BPPPoolContainer" class="font-italic pool-container">
                         <ui:VisualElement style="position: absolute; left: 16px; top: 11px; right: 34px; bottom: 51px; flex-direction: row; justify-content: space-between; rotate: 3deg; align-items: center;">
                             <ui:Label text="+20 in 2h5m" name="RestockLabel" />

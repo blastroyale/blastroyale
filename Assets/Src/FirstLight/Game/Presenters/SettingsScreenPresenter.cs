@@ -51,30 +51,13 @@ namespace FirstLight.Game.Presenters
 		
 		private IGameDataProvider _gameDataProvider;
 		private IGameServices _services;
-
+		
 		private void Awake()
 		{
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
 			
 			_gameDataProvider.AppDataProvider.ConnectionRegion.InvokeObserve(OnConnectionRegionChange);
-
-			_versionText.text = VersionUtils.VersionInternal;
-
-			if (string.IsNullOrEmpty(_gameDataProvider.AppDataProvider.LastLoginEmail.Value))
-			{
-				_connectIdButton.gameObject.SetActive(true);
-				_idConnectionNameText.gameObject.SetActive(false);
-				_idConnectionStatusText.text = ScriptLocalization.MainMenu.FirstLightIdNeedConnection;
-			}
-			else
-			{
-				_connectIdButton.gameObject.SetActive(false);
-				_idConnectionNameText.gameObject.SetActive(true);
-				_idConnectionStatusText.text = ScriptLocalization.MainMenu.FirstLightIdConnected;
-				_idConnectionNameText.text = string.Format(ScriptLocalization.General.UserId,
-				                                           _gameDataProvider.AppDataProvider.DisplayName.Value);
-			}
 
 			_closeButton.onClick.AddListener(OnClosedCompleted);
 			_blockerButton.onClick.AddListener(OnBlockerButtonPressed);
@@ -88,7 +71,32 @@ namespace FirstLight.Game.Presenters
 			_dynamicJoystickToggle.onValueChanged.AddListener(OnDynamicJoystickChanged);
 			_highFpsToggle.onValueChanged.AddListener(OnHighFpsModeChanged);
 			_detailLevelView.ValueChanged += OnDetailLevelChanged;
-
+			_helpdesk.onClick.AddListener(OnHelpdeskButtonPressed);
+			_faq.onClick.AddListener(OnFaqButtonPressed);
+			_serverSelectButton.onClick.AddListener(OpenServerSelect);
+		}
+		
+		protected override void OnOpened()
+		{
+			base.OnOpened();
+			
+			if (string.IsNullOrEmpty(_gameDataProvider.AppDataProvider.LastLoginEmail.Value))
+			{
+				_connectIdButton.gameObject.SetActive(true);
+				_idConnectionNameText.gameObject.SetActive(false);
+				_idConnectionStatusText.text = ScriptLocalization.MainMenu.FirstLightIdNeedConnection;
+			}
+			else
+			{
+				_connectIdButton.gameObject.SetActive(false);
+				_idConnectionNameText.gameObject.SetActive(true);
+				_idConnectionStatusText.text = ScriptLocalization.MainMenu.FirstLightIdConnected;
+				_idConnectionNameText.text = string.Format(ScriptLocalization.General.UserId,
+														   _gameDataProvider.AppDataProvider.DisplayName.Value);
+			}
+			
+			_versionText.text = VersionUtils.VersionInternal;
+			
 			_backgroundMusicToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsBgmEnabled);
 			_sfxToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsSfxEnabled);
 			_dialogueToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsDialogueEnabled);
@@ -96,10 +104,6 @@ namespace FirstLight.Game.Presenters
 			_dynamicJoystickToggle.SetInitialValue(_gameDataProvider.AppDataProvider.UseDynamicJoystick);
 			_highFpsToggle.SetInitialValue(_gameDataProvider.AppDataProvider.FpsTarget == GameConstants.Visuals.LOW_FPS_MODE_TARGET);
 			_detailLevelView.SetSelectedDetailLevel(_gameDataProvider.AppDataProvider.CurrentDetailLevel);
-			_blockerButton.onClick.AddListener(OnBlockerButtonPressed);
-			_helpdesk.onClick.AddListener(OnHelpdeskButtonPressed);
-			_faq.onClick.AddListener(OnFaqButtonPressed);
-			_serverSelectButton.onClick.AddListener(OpenServerSelect);
 			_logoutButton.gameObject.SetActive(FeatureFlags.EMAIL_AUTH);
 
 			var regionName = _gameDataProvider.AppDataProvider.ConnectionRegion.Value.GetPhotonRegionTranslation();

@@ -22,6 +22,7 @@ namespace FirstLight.Game.Presenters
 	/// <summary>
 	/// Handles the equipment selection screen.
 	/// </summary>
+	[LoadSynchronously]
 	public class EquipmentSelectionPresenter : UiToolkitPresenterData<EquipmentSelectionPresenter.StateData>
 	{
 		private const string HEADER_LOC_KEY = "UITEquipment/selection_{0}";
@@ -102,7 +103,7 @@ namespace FirstLight.Game.Presenters
 
 			_durabilityBar = root.Q("DurabilityProgress").Required();
 			_durabilityAmount = root.Q<Label>("DurabilityAmount").Required();
-			_equipButton = root.Q<Button>("EquipButton");
+			_equipButton = root.Q<Button>("EquipButton").Required();
 
 			root.Q<ImageButton>("CloseButton").clicked += Data.OnCloseClicked;
 			_equipButton.clicked += OnEquipClicked;
@@ -153,6 +154,10 @@ namespace FirstLight.Game.Presenters
 			var items = _gameDataProvider.EquipmentDataProvider.Inventory.ReadOnlyDictionary
 				.Where(kvp => kvp.Value.GameId.IsInGroup(Data.EquipmentSlot))
 				.ToList();
+
+			// Sort items by GameID (string)
+			items.Sort((x, y) =>
+				string.Compare(x.Value.GameId.ToString(), y.Value.GameId.ToString(), StringComparison.Ordinal));
 
 			_equipmentListRows = new List<EquipmentListRow>(items.Count / 2);
 			_itemRowMap = new Dictionary<UniqueId, int>(items.Count / 2);
@@ -247,24 +252,24 @@ namespace FirstLight.Game.Presenters
 			_special0Tag.RemoveModifiers();
 			if (info.Stats.TryGetValue(EquipmentStatType.SpecialId0, out var special0))
 			{
-				var special0id = (GameId) special0;
+				var special0ID = (GameId) special0;
 				_special0Tag.style.display = DisplayStyle.Flex;
 				_special0Tag.AddToClassList(UssEquipmentTagSpecial);
 				_special0Tag.AddToClassList(string.Format(UssEquipmentTagSpecialModifier,
-					special0id.ToString().Replace("Special", "").ToLowerInvariant()));
-				_special0Tag.Q<Label>("Title").text = special0id.GetTranslation();
+					special0ID.ToString().Replace("Special", "").ToLowerInvariant()));
+				_special0Tag.Q<Label>("Title").text = special0ID.GetTranslation();
 			}
 
 			_special1Tag.style.display = DisplayStyle.None;
 			_special1Tag.RemoveModifiers();
 			if (info.Stats.TryGetValue(EquipmentStatType.SpecialId1, out var special1))
 			{
-				var special1id = (GameId) special1;
+				var special1ID = (GameId) special1;
 				_special1Tag.style.display = DisplayStyle.Flex;
 				_special1Tag.AddToClassList(UssEquipmentTagSpecial);
 				_special1Tag.AddToClassList(string.Format(UssEquipmentTagSpecialModifier,
-					special1id.ToString().Replace("Special", "").ToLowerInvariant()));
-				_special1Tag.Q<Label>("Title").text = special1id.GetTranslation();
+					special1ID.ToString().Replace("Special", "").ToLowerInvariant()));
+				_special1Tag.Q<Label>("Title").text = special1ID.GetTranslation();
 			}
 
 			// Icon
@@ -389,8 +394,6 @@ namespace FirstLight.Game.Presenters
 		{
 			var dataProvider = _gameDataProvider.EquipmentDataProvider;
 			var loadout = dataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both);
-			var configs = _services.ConfigsProvider.GetConfigsDictionary<QuantumStatConfig>();
-			var previousMight = loadout.GetTotalMight(configs);
 			var item = loadout.Find(infoItem => infoItem.Id == _selectedItem);
 
 			if (item.IsEquipped)
@@ -429,8 +432,8 @@ namespace FirstLight.Game.Presenters
 
 		private class EquipmentListRow
 		{
-			public Item Item1 { get; private set; }
-			public Item Item2 { get; private set; }
+			public Item Item1 { get; }
+			public Item Item2 { get; }
 
 			public EquipmentListRow(Item item1, Item item2)
 			{
@@ -440,8 +443,8 @@ namespace FirstLight.Game.Presenters
 
 			internal class Item
 			{
-				public UniqueId UniqueId { get; private set; }
-				public Equipment Equipment { get; private set; }
+				public UniqueId UniqueId { get; }
+				public Equipment Equipment { get; }
 
 				public Item(UniqueId uniqueId, Equipment equipment)
 				{

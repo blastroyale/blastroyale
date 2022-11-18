@@ -14,6 +14,7 @@ using FirstLight.Statechart;
 using I2.Loc;
 using Quantum;
 using Quantum.Commands;
+using UnityEngine;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -391,7 +392,7 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<GameCompleteScreenPresenter>();
 		}
 
-		private void ResultsScreen(IWaitActivity activity)
+		private async void ResultsScreen(IWaitActivity activity)
 		{
 			var cacheActivity = activity;
 			var data = new ResultsScreenPresenter.StateData
@@ -399,8 +400,8 @@ namespace FirstLight.Game.StateMachines
 				ContinueButtonClicked = () => cacheActivity.Complete(),
 				HomeButtonClicked = () => cacheActivity.Complete(),
 			};
-
-			_uiService.OpenUiAsync<ResultsScreenPresenter, ResultsScreenPresenter.StateData>(data);
+			
+			await _uiService.OpenUiAsync<ResultsScreenPresenter, ResultsScreenPresenter.StateData>(data);
 		}
 
 		private void CloseResultScreen()
@@ -468,6 +469,8 @@ namespace FirstLight.Game.StateMachines
 			var f = game.Frames.Verified;
 			var spawnPosition = _services.MatchmakingService.NormalizedMapSelectedPosition;
 
+			var spawnWithloadout = f.Context.GameModeConfig.SpawnWithGear || f.Context.GameModeConfig.SpawnWithWeapon;
+
 			var finalLoadOut = new List<Equipment>();
 			foreach(var item in loadout.ReadOnlyDictionary.Values.ToList())
 			{
@@ -483,7 +486,7 @@ namespace FirstLight.Game.StateMachines
 				}
 				finalLoadOut.Add(inventory[item.Id]);
 			}
-			
+
 			if (!IsSpectator())
 			{
 				game.SendPlayerData(game.GetLocalPlayers()[0], new RuntimePlayer
@@ -495,7 +498,8 @@ namespace FirstLight.Game.StateMachines
 					PlayerLevel = info.Level,
 					PlayerTrophies = info.TotalTrophies,
 					NormalizedSpawnPosition = spawnPosition.ToFPVector2(),
-					Loadout = finalLoadOut.ToArray()
+					Loadout = spawnWithloadout ? 
+						finalLoadOut.ToArray() : loadout.ReadOnlyDictionary.Values.Select(id => inventory[id]).ToArray()
 				});
 			}
 		}

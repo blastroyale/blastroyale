@@ -11,11 +11,6 @@
     --font-light-italic: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Normal%20ExtraLight%20Italic.otf?fileID=12800000&guid=ecdd4df26ce474069865eb3673c40456&type=3#Stawix - Amsi Pro Normal ExtraLight Italic');
 }
 
-.hidden {
-    visibility: hidden;
-    display: none;
-}
-
 .element-hidden {
     display: none;
 }

@@ -66,8 +66,7 @@ namespace FirstLight.Game.StateMachines
 			var playerReadyWait = stateFactory.State("Player Ready Wait");
 			var gameSimulation = stateFactory.Nest("Game Simulation");
 			var unloading = stateFactory.State("Unloading");
-			var disconnectedMm = stateFactory.State("Disconnected Matchmaking");
-			var disconnectedGame = stateFactory.State("Disconnected Game Simulation");
+			var disconnected = stateFactory.State("Disconnected");
 			var postDisconnectCheck = stateFactory.Choice("Post Reload Check");
 		
 			initial.Transition().Target(loading);
@@ -79,7 +78,7 @@ namespace FirstLight.Game.StateMachines
 			roomCheck.Transition().Condition(NetworkUtils.IsOfflineOrDisconnected).Target(unloading);
 			roomCheck.Transition().Target(matchmaking);
 
-			matchmaking.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(OnDisconnectDuringMatchmaking).Target(disconnectedMm);
+			matchmaking.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(OnDisconnectDuringMatchmaking).Target(disconnected);
 			matchmaking.Event(NetworkState.RoomClosedEvent).Target(playerReadyCheck);
 			matchmaking.Event(LeaveRoomClicked).Target(unloading);
 
@@ -88,23 +87,19 @@ namespace FirstLight.Game.StateMachines
 			playerReadyCheck.Transition().Target(playerReadyWait);
 			
 			playerReadyWait.OnEnter(PreloadPlayerMatchAssets);
+			playerReadyWait.OnEnter(DismissGenericPopups);
 			playerReadyWait.Event(AllPlayersReadyEvent).Target(gameSimulation);
 			playerReadyWait.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(OnDisconnectDuringFinalPreload).Target(unloading);
 			playerReadyWait.Event(NetworkState.LeftRoomEvent).OnTransition(OnDisconnectDuringFinalPreload).Target(unloading);
 			
 			gameSimulation.Nest(_gameSimulationState.Setup).Target(unloading);
-			gameSimulation.Event(NetworkState.PhotonCriticalDisconnectedEvent).OnTransition(OnDisconnectDuringSimulation).Target(disconnectedGame);
+			gameSimulation.Event(NetworkState.PhotonCriticalDisconnectedEvent).OnTransition(OnDisconnectDuringSimulation).Target(disconnected);
 
-			disconnectedMm.OnEnter(OpenDisconnectedScreen);
-			disconnectedMm.Event(NetworkState.JoinedRoomEvent).Target(postDisconnectCheck);
-			disconnectedMm.Event(NetworkState.JoinRoomFailedEvent).Target(unloading);
-			disconnectedMm.Event(NetworkState.DcScreenBackEvent).Target(unloading);
+			disconnected.OnEnter(OpenDisconnectedScreen);
+			disconnected.Event(NetworkState.JoinedRoomEvent).Target(postDisconnectCheck);
+			disconnected.Event(NetworkState.JoinRoomFailedEvent).Target(unloading);
+			disconnected.Event(NetworkState.DcScreenBackEvent).Target(unloading);
 			
-			disconnectedGame.OnEnter(OpenDisconnectedScreen);
-			disconnectedGame.Event(NetworkState.PhotonMasterConnectedEvent).Target(postDisconnectCheck);
-			disconnectedGame.Event(NetworkState.JoinRoomFailedEvent).OnTransition(CloseCurrentScreen).Target(unloading);
-			disconnectedGame.Event(NetworkState.DcScreenBackEvent).Target(unloading);
-
 			postDisconnectCheck.Transition().Condition(HasDisconnectedDuringMatchmaking).OnTransition(OnReloadToMatchmaking).Target(matchmaking);
 			postDisconnectCheck.Transition().Condition(HasDisconnectedDuringSimulation).OnTransition(CloseCurrentScreen).Target(playerReadyCheck);
 			postDisconnectCheck.Transition().OnTransition(CloseCurrentScreen).Target(unloading);
@@ -361,6 +356,11 @@ namespace FirstLight.Game.StateMachines
 			tasks.Add(_services.AudioFxService.LoadAudioClips(_services.ConfigsProvider.GetConfig<AudioMatchAssetConfigs>().ConfigsDictionary));
 			
 			return tasks;
+		}
+		
+		private void DismissGenericPopups()
+		{
+			_services.GenericDialogService.CloseDialog();
 		}
 
 		private async void PreloadPlayerMatchAssets()

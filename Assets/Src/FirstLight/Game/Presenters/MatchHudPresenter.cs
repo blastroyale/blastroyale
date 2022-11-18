@@ -92,40 +92,28 @@ namespace FirstLight.Game.Presenters
 		
 		private void OnMatchStartedMessage(MatchStartedMessage msg)
 		{
-			CheckEnableQuitFunctionality();
+			CheckEnableQuitFunctionality(msg.Game);
 		}
 		
 		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
 		{
-			CheckEnableQuitFunctionality();
+			CheckEnableQuitFunctionality(callback.Game);
 		}
 
-		private void CheckEnableQuitFunctionality()
+		private void CheckEnableQuitFunctionality(QuantumGame game)
 		{
-			var game = QuantumRunner.Default.Game;
-			var frame = game.Frames.Verified;
-			var gameContainer = frame.GetSingleton<GameContainer>();
-			var playersData = gameContainer.PlayersData;
+			var localPlayer = game.GetLocalPlayerData(true, out var f);
 			var canQuitMatch = true;
 			
 			if (_services.NetworkService.CurrentRoomMatchType != MatchType.Custom)
 			{
-				var localPlayer = playersData[game.GetLocalPlayers()[0]];
 				var valid = localPlayer.IsValid;
-				var exists = frame.Exists(localPlayer.Entity);
+				var exists = f.Exists(localPlayer.Entity);
 
 				canQuitMatch = !valid || !exists;
 			}
 
 			_quitButton.gameObject.SetActive(canQuitMatch);
-
-#if DEVELOPMENT_BUILD
-			if (SROptions.Current.EnableEquipmentDebug)
-			{
-				_equippedDebugText.gameObject.SetActive(true);
-				QuantumEvent.Subscribe<EventOnPlayerEquipmentStatsChanged>(this, OnPlayerEquipmentStatsChanged);
-			}
-#endif
 		}
 
 		private void OnQuitClicked()
@@ -142,46 +130,6 @@ namespace FirstLight.Game.Presenters
 			
 			_standings.UpdateStandings(playerData);
 			_standings.gameObject.SetActive(true);
-		}
-
-		private void OnPlayerEquipmentStatsChanged(EventOnPlayerEquipmentStatsChanged callback)
-		{
-			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
-
-			var playerCharacter = QuantumRunner.Default.Game.Frames.Verified.Get<PlayerCharacter>(callback.Entity);
-
-			var sb = new StringBuilder();
-
-			sb.AppendLine("Weapon:");
-			AppendEquipmentDebugText(sb, playerCharacter.CurrentWeapon);
-
-			sb.AppendLine("\nGear:");
-			for (int i = 0; i < playerCharacter.Gear.Length; i++)
-			{
-				var gear = playerCharacter.Gear[i];
-				if (gear.IsValid())
-				{
-					AppendEquipmentDebugText(sb, gear);
-				}
-			}
-
-			_equippedDebugText.text = sb.ToString();
-		}
-
-		private static void AppendEquipmentDebugText(StringBuilder sb, Equipment equipment)
-		{
-			sb.AppendLine(equipment.GameId.ToString());
-
-			sb.Append(equipment.Adjective.ToString());
-			sb.Append(" Level ");
-			sb.Append(equipment.Level);
-			sb.Append(" ");
-			sb.AppendLine(equipment.Grade.ToString());
-
-			sb.Append(equipment.Faction.ToString());
-			sb.Append(" ");
-			sb.AppendLine(equipment.Rarity.ToString());
-			sb.AppendLine();
 		}
 	}
 }

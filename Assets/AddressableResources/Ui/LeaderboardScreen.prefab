@@ -120,7 +120,7 @@ MonoBehaviour:
   _backgroundImage: {fileID: 1104101084942641412}
   _topRanksColor: {r: 0.39215687, g: 0.09803922, b: 0, a: 0.6862745}
   _rewardedRanksColor: {r: 0.25490198, g: 0, b: 0.5294118, a: 0.6862745}
-  _nonRewardedRanksColor: {r: 0, g: 0, b: 0, a: 0.5882353}
+  _nonRewardedRanksColor: {r: 1, g: 1, b: 1, a: 1}
   _youTextColor: {r: 1, g: 0.8302624, b: 0, a: 1}
 --- !u!1 &618377485612766772
 GameObject:

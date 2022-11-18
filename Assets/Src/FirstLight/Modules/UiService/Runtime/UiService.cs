@@ -576,6 +576,8 @@ namespace FirstLight.UiService
 		{
 			if (_lastScreen != null)
 			{
+				if (_lastScreen.GetType() == typeof(T)) return null;
+
 				await CloseUi(_lastScreen.GetType());
 			}
 
@@ -590,6 +592,8 @@ namespace FirstLight.UiService
 		{
 			if (_lastScreen != null)
 			{
+				if (_lastScreen.GetType() == typeof(T)) return null;
+				
 				await CloseUi(_lastScreen.GetType());
 			}
 

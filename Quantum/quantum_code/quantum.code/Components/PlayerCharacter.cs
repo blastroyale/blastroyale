@@ -39,9 +39,12 @@ namespace Quantum
 				WeaponSlots[Constants.WEAPON_INDEX_DEFAULT].Weapon.Faction = loadoutWeapon.Faction;
 			}
 			
-			foreach (var item in startingEquipment)
+			if(f.Context.GameModeConfig.SpawnWithGear || f.Context.GameModeConfig.SpawnWithWeapon)
 			{
-				Gear[GetGearSlot(item)] = item;
+				foreach (var item in startingEquipment)
+				{
+					Gear[GetGearSlot(item)] = item;
+				}
 			}
 
 			// This makes the entity debuggable in BotSDK. Access debugger inspector from circuit editor and see
@@ -239,7 +242,7 @@ namespace Quantum
 		/// <summary>
 		/// Tries to set the player's weapon to the given <paramref name="weaponGameId"/> that player already has
 		/// </summary>
-		internal bool TryEquipExistingWeaponID(Frame f, EntityRef e, GameId weaponGameId)
+		internal bool TryEquipExistingWeaponId(Frame f, EntityRef e, GameId weaponGameId)
 		{
 			for (int i = 0; i < WeaponSlots.Length; i++)
 			{
@@ -256,7 +259,7 @@ namespace Quantum
 		/// <summary>
 		/// Equips a gear item to the correct gear slot (old one is replaced).
 		/// </summary>
-		public void EquipGear(Frame f, EntityRef e, Equipment gear)
+		internal void EquipGear(Frame f, EntityRef e, Equipment gear)
 		{
 			Assert.Check(!gear.IsWeapon(), gear);
 
@@ -295,6 +298,14 @@ namespace Quantum
 		public bool IsAmmoEmpty(Frame f, EntityRef e)
 		{
 			return !HasMeleeWeapon(f, e) && GetAmmoAmountFilled(f, e) < FP.SmallestNonZero;
+		}
+
+		/// <summary>
+		/// Requests the state of the player if is skydiving or not
+		/// </summary>
+		public bool IsSkydiving(Frame f, EntityRef e)
+		{
+			return f.Unsafe.TryGetPointer<AIBlackboardComponent>(e, out var bb) && bb->GetBoolean(f, Constants.IsSkydiving);
 		}
 
 		/// <summary>
@@ -395,19 +406,20 @@ namespace Quantum
 			{
 				return;
 			}
-
+			
+			var prevAmmoFilled = GetAmmoAmountFilled(f, e);
 			var ammo = GetAmmoAmount(f, e, out var maxAmmo);
 			var newAmmoFilled = FPMath.Min(GetAmmoAmountFilled(f, e) + amount, FP._1);
 			var newAmmo = FPMath.FloorToInt(newAmmoFilled * maxAmmo);
 
 			f.Unsafe.GetPointer<AIBlackboardComponent>(e)->Set(f, Constants.AmmoFilledKey, newAmmoFilled);
 
-			if (HasMeleeWeapon(f, e) || ammo == newAmmo)
+			if (prevAmmoFilled == newAmmoFilled)
 			{
 				return;
 			}
 
-			f.Events.OnPlayerAmmoChanged(Player, e, ammo, newAmmo, maxAmmo);
+			f.Events.OnPlayerAmmoChanged(Player, e, ammo, newAmmo, maxAmmo, newAmmoFilled);
 		}
 
 		/// <summary>
@@ -427,7 +439,7 @@ namespace Quantum
 			var finalAmmoFilled = FPMath.Max(GetAmmoAmountFilled(f, e) - ((FP._1 / maxAmmo) * amount), FP._0);
 
 			f.Unsafe.GetPointer<AIBlackboardComponent>(e)->Set(f, Constants.AmmoFilledKey, finalAmmoFilled);
-			f.Events.OnPlayerAmmoChanged(Player, e, ammo, currentAmmo, maxAmmo);
+			f.Events.OnPlayerAmmoChanged(Player, e, ammo, currentAmmo, maxAmmo, finalAmmoFilled); 
 		}
 
 		/// <summary>

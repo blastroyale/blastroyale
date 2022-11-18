@@ -67,8 +67,7 @@ namespace FirstLight.Game.StateMachines
 			settingsMenu.Event(_logoutConfirmClickedEvent).Target(logoutWait);
 			settingsMenu.Event(_connectIdClickedEvent).Target(connectId);
 			settingsMenu.Event(NetworkState.OpenServerSelectScreenEvent).Target(serverSelect);
-			//settingsMenu.OnEnter(CloseSettingsScreen);
-			
+
 			connectId.OnEnter(OpenConnectIdUI);
 			connectId.Event(_connectIdBackEvent).Target(settingsMenu);
 			connectId.OnExit(CloseConnectIdUI);

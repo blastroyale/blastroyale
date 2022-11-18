@@ -74,6 +74,8 @@ component BotCharacter
 	
 	// [0;1] where 0 is "never seek" and 1 is "always seek"
 	FP ChanceToSeekChests;
+	
+	UInt32 LoadoutGearNumber;
 }
 
 synced event OnDummyCharacterKilled

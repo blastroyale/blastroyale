@@ -236,6 +236,7 @@ namespace Quantum.Systems
 			{
 				case BotBehaviourType.Cautious:
 					var cautious = TryAvoidShrinkingCircle(f, ref filter)
+					               || TryGoForGear(f, ref filter)
 					               || TryGoForHealth(f, ref filter)
 					               || TryGoForShield(f, ref filter)
 					               || TryGoForAmmo(f, ref filter)
@@ -247,6 +248,7 @@ namespace Quantum.Systems
 					break;
 				case BotBehaviourType.Aggressive:
 					var aggressive = TryAvoidShrinkingCircle(f, ref filter)
+					                 || TryGoForGear(f, ref filter)
 					                 || TryGoForRage(f, ref filter)
 					                 || TryGoForWeapons(f, ref filter)
 					                 || TryGoForAmmo(f, ref filter)
@@ -258,6 +260,7 @@ namespace Quantum.Systems
 					break;
 				case BotBehaviourType.Balanced:
 					var balanced = TryAvoidShrinkingCircle(f, ref filter)
+					               || TryGoForGear(f, ref filter)
 					               || TryGoForAmmo(f, ref filter)
 					               || TryGoForHealth(f, ref filter)
 					               || TryGoForWeapons(f, ref filter)
@@ -641,6 +644,30 @@ namespace Quantum.Systems
 			return isGoing;
 		}
 
+		private bool TryGoForGear(Frame f, ref BotCharacterFilter filter)
+		{
+			var gearPickupPosition = FPVector3.Zero;
+			var gearPickupEntity = EntityRef.None;
+
+			var isGoing = filter.BotCharacter->LoadoutGearNumber > 0;
+
+			isGoing = isGoing && TryGetClosestGear(f, ref filter, out gearPickupPosition, out gearPickupEntity);
+			
+			if (isGoing && filter.NavMeshAgent->IsActive && filter.BotCharacter->MoveTarget == gearPickupEntity)
+			{
+				return true;
+			}
+
+			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, gearPickupPosition);
+
+			if (isGoing)
+			{
+				filter.BotCharacter->MoveTarget = gearPickupEntity;
+			}
+
+			return isGoing;
+		}
+		
 		private bool TryGoForWeapons(Frame f, ref BotCharacterFilter filter)
 		{
 			var weaponPickupPosition = FPVector3.Zero;
@@ -802,6 +829,38 @@ namespace Quantum.Systems
 			return consumablePosition != FPVector3.Zero;
 		}
 
+		private bool TryGetClosestGear(Frame f, ref BotCharacterFilter filter, out FPVector3 gearPickupPosition, out EntityRef gearPickupEntity)
+		{
+			var botPosition = filter.Transform->Position;
+			var iterator = f.Unsafe.GetComponentBlockIterator<EquipmentCollectable>();
+			var sqrDistance = FP.MaxValue;
+			var hasShrinkingCircle = f.TryGetSingleton<ShrinkingCircle>(out var circle);
+			gearPickupPosition = FPVector3.Zero;
+			gearPickupEntity = EntityRef.None;
+
+			foreach (var gearCandidate in iterator)
+			{
+				if (!f.Get<Collectable>(gearCandidate.Entity).GameId.IsInGroup(GameIdGroup.Gear))
+				{
+					continue;
+				}
+
+				var positionCandidate = f.Get<Transform3D>(gearCandidate.Entity).Position;
+				var newSqrDistance = (positionCandidate - botPosition).SqrMagnitude;
+
+				if (IsInVisionRange(newSqrDistance, ref filter)
+					&& newSqrDistance < sqrDistance
+					&& (!hasShrinkingCircle || IsInCircle(ref filter, circle, positionCandidate)))
+				{
+					sqrDistance = newSqrDistance;
+					gearPickupPosition = positionCandidate;
+					gearPickupEntity = gearCandidate.Entity;
+				}
+			}
+
+			return gearPickupPosition != FPVector3.Zero;
+		}
+		
 		private bool TryGetClosestWeapon(Frame f, ref BotCharacterFilter filter, out FPVector3 weaponPickupPosition, out EntityRef weaponPickupEntity)
 		{
 			var botPosition = filter.Transform->Position;
@@ -937,7 +996,8 @@ namespace Quantum.Systems
 					NextDecisionTime = FP._0,
 					NextLookForTargetsToShootAtTime = FP._0,
 					CurrentEvasionStepEndTime = FP._0,
-					StuckDetectionPosition = FPVector3.Zero
+					StuckDetectionPosition = FPVector3.Zero,
+					LoadoutGearNumber = botConfig.LoadoutGearNumber
 				};
 
 				

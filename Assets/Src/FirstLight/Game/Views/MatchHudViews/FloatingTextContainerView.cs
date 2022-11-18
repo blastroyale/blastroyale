@@ -81,25 +81,23 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void OnCollectableBlocked(EventOnCollectableBlocked callback)
 		{
-			if (callback.PlayerEntity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
+			if (callback.PlayerEntity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity ||
+			    !callback.Game.Frames.Verified.TryGet<Consumable>(callback.CollectableEntity, out var consumable)) return;
 
-			if (callback.Game.Frames.Verified.TryGet<Consumable>(callback.CollectableEntity, out var consumable))
+			var textColor = consumable.ConsumableType switch
 			{
-				var textColor = consumable.ConsumableType switch
-				{
-					ConsumableType.Health => _healthGainTextColor,
-					ConsumableType.Ammo => _ammoTextColor,
-					ConsumableType.Shield => _shieldGainTextColor,
-					ConsumableType.ShieldCapacity => _shieldGainTextColor,
-					_ => throw new
-						     ArgumentOutOfRangeException($"Text color not defined for {consumable.ConsumableType}.")
-				};
+				ConsumableType.Health => _healthGainTextColor,
+				ConsumableType.Ammo => _ammoTextColor,
+				ConsumableType.Shield => _shieldGainTextColor,
+				ConsumableType.ShieldCapacity => _shieldGainTextColor,
+				_ => throw new
+					     ArgumentOutOfRangeException($"Text color not defined for {consumable.ConsumableType}.")
+			};
 
-				EnqueueText(callback.PlayerEntity, "MAX", textColor, MessageType.Info,
-				            consumable.ConsumableType is ConsumableType.Shield or ConsumableType.ShieldCapacity
-					            ? _iconArmour
-					            : null);
-			}
+			var icon = consumable.ConsumableType is ConsumableType.Shield or ConsumableType.ShieldCapacity
+				           ? _iconArmour
+				           : null;
+			EnqueueText(callback.PlayerEntity, "MAX", textColor, MessageType.Info, icon);
 		}
 
 		private void OnCollectableCollected(EventOnCollectableCollected callback)
@@ -256,7 +254,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			Info
 		}
 
-		private struct FloatingTextPoolObject : IPoolEntitySpawn, IPoolEntityDespawn
+		private class FloatingTextPoolObject : IPoolEntitySpawn, IPoolEntityDespawn
 		{
 			public FloatingTextView FloatingTextView;
 			public OverlayWorldView OverlayWorldView;

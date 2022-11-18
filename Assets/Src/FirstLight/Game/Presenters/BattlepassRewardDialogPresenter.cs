@@ -38,6 +38,12 @@ namespace FirstLight.Game.Presenters
 			
 			_rewardCard.gameObject.SetActive(false);
 			await _rewardCard.Initialise(Data.Reward);
+
+			if (this.IsDestroyed())
+			{
+				return;
+			}
+			
 			_rewardCard.gameObject.SetActive(true);
 		}
 

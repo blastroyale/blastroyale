@@ -17,8 +17,8 @@ namespace FirstLight.Game.Utils
 	/// </summary>
 	public static class NetworkUtils
 	{
-		public const char ROOM_SEPARATOR = '#';
-
+		public static string RoomCommitLockData => GameConstants.Network.ROOM_META_SEPARATOR + VersionUtils.Commit;
+		
 		/// <summary>
 		/// Returns a room parameters used for creation of custom and matchmaking rooms
 		/// </summary>
@@ -37,18 +37,18 @@ namespace FirstLight.Game.Utils
 			
 			if (FeatureFlags.COMMIT_VERSION_LOCK && !isRandomMatchmaking)
 			{
-				roomNameFinal += ROOM_SEPARATOR + VersionUtils.Commit;
+				roomNameFinal += RoomCommitLockData;
 			}
 
 			if (!isRandomMatchmaking)
 			{
-				emptyTtl = roomNameFinal.Contains(GameConstants.Network.ROOM_NAME_PLAYTEST)
+				emptyTtl = roomNameFinal.IsPlayTestRoom()
 					           ? GameConstants.Network.EMPTY_ROOM_PLAYTEST_TTL_MS
-					           : GameConstants.Network.EMPTY_ROOM_TTL_MS;
+					           : GameConstants.Network.EMPTY_ROOM_LOBBY_TTL_MS;
 			}
 			else
 			{
-				emptyTtl = GameConstants.Network.EMPTY_ROOM_TTL_MS;
+				emptyTtl = GameConstants.Network.EMPTY_ROOM_LOBBY_TTL_MS;
 			}
 
 			var roomParams = new EnterRoomParams
@@ -90,7 +90,7 @@ namespace FirstLight.Game.Utils
 
 			if (FeatureFlags.COMMIT_VERSION_LOCK)
 			{
-				roomNameFinal += ROOM_SEPARATOR + VersionUtils.Commit;
+				roomNameFinal += RoomCommitLockData;
 			}
 
 			return new EnterRoomParams
@@ -102,7 +102,7 @@ namespace FirstLight.Game.Utils
 				RoomOptions = new RoomOptions
 				{
 					PlayerTtl = GameConstants.Network.PLAYER_LOBBY_TTL_MS,
-					EmptyRoomTtl = GameConstants.Network.EMPTY_ROOM_TTL_MS
+					EmptyRoomTtl = GameConstants.Network.EMPTY_ROOM_LOBBY_TTL_MS
 				}
 			};
 		}

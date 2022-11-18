@@ -63,6 +63,7 @@
 .content-desc-text {
     justify-content: center;
     align-items: center;
+    white-space: normal;
 }
 
 .content-spacer--small {
@@ -73,6 +74,13 @@
 .content-spacer--medium {
     height: 25px;
     width: 100%;
+}
+
+.input-field__generic {
+}
+
+.input-field__generic > TextInput {
+    -unity-text-align: middle-center;
 }
 
 #PopupBackground {

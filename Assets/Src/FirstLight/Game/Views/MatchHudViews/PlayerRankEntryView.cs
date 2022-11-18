@@ -54,13 +54,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 				_rewardAmountText.text = "-";
 			}
 
-			if (localPlayer)
-			{
-				_rankText.color = _youTextColor;
-				_playerNameText.color = _youTextColor;
-				_trophiesText.color = _youTextColor;
-				_rewardAmountText.color = _youTextColor;
-			}
+			var currentColor = localPlayer ? _youTextColor : _nonRewardedRanksColor;
+
+			_rankText.color = currentColor;
+			_playerNameText.color = currentColor;
+			_trophiesText.color = currentColor;
+			_rewardAmountText.color = currentColor;
 		}
 	}
 }

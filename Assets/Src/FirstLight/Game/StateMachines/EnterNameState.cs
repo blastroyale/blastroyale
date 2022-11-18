@@ -83,11 +83,11 @@ namespace FirstLight.Game.StateMachines
 		{
 			var confirmButton = new GenericDialogButton<string>
 			{
-				ButtonText = ScriptLocalization.General.Yes,
+				ButtonText = ScriptLocalization.General.OK,
 				ButtonOnClick = OnNameSet
 			};
 			
-			_services.GenericDialogService.OpenInputDialog(ScriptLocalization.UITShared.input, ScriptLocalization.MainMenu.NameHeroTitle, 
+			_services.GenericDialogService.OpenInputDialog(ScriptLocalization.UITHomeScreen.new_name, ScriptLocalization.UITHomeScreen.new_name_desc, 
 			                                                    _dataProvider.AppDataProvider.DisplayNameTrimmed, 
 			                                                    confirmButton, false);
 		}

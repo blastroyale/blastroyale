@@ -6,17 +6,6 @@
     justify-content: space-between;
 }
 
-.hidden {
-    opacity: 0;
-    transition-duration: 0.7s;
-    transition-timing-function: ease-in-out;
-}
-
-#root {
-    transition-duration: 0.7s;
-    transition-timing-function: ease-in-out;
-}
-
 .screen-header {
     position: absolute;
     left: -60px;

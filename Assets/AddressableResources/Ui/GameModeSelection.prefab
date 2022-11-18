@@ -64,7 +64,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _document: {fileID: 1971436955827305704}
   _background: {fileID: 4067513535748299492}
-  _millisecondsToClose: 700
+  _millisecondsToClose: 0
   _buttonAsset: {fileID: 9197481963319205126, guid: 1acd361f6f23744e4b060f6c7339014b, type: 3}
   _comingSoonAsset: {fileID: 9197481963319205126, guid: 5315f48beeb6344ae9df8b268f4fdcf1, type: 3}
 --- !u!1001 &1875314729536829350
@@ -165,6 +165,14 @@ PrefabInstance:
     - target: {fileID: 2482823480601963853, guid: 47834e62a2462406fb24478a1afc298a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482823480709534009, guid: 47834e62a2462406fb24478a1afc298a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482823480709534009, guid: 47834e62a2462406fb24478a1afc298a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.7
       objectReference: {fileID: 0}
     - target: {fileID: 2482823481383450958, guid: 47834e62a2462406fb24478a1afc298a, type: 3}
       propertyPath: m_RaycastTarget

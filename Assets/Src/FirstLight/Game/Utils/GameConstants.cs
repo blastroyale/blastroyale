@@ -144,14 +144,15 @@ namespace FirstLight.Game.Utils
 		{
 			// Network state time settings
 			public const float NETWORK_QUANTUM_TICK_SECONDS = 0.1f;
-			public const float NETWORK_ATTEMPT_RECONNECT_SECONDS = 0.5f;
+			public const float NETWORK_ATTEMPT_RECONNECT_SECONDS = 0.25f;
 			
 			public const float CRITICAL_DISCONNECT_THRESHOLD_SECONDS = 10f;
 			
 			// Time control values
 			public const int PLAYER_LOBBY_TTL_MS = 0;
 			public const int PLAYER_GAME_TTL_MS = 99999999;
-			public const int EMPTY_ROOM_TTL_MS = 30000;
+			public const int EMPTY_ROOM_LOBBY_TTL_MS = 3000;
+			public const int EMPTY_ROOM_GAME_TTL_MS = 30000;
 			public const int EMPTY_ROOM_PLAYTEST_TTL_MS = 3000;
 
 			// Player properties
@@ -175,6 +176,8 @@ namespace FirstLight.Game.Utils
 			public const string ROOM_PROPS_MATCH_TYPE = "matchType";
 
 			public const string DEFAULT_REGION = "eu";
+			
+			public const char ROOM_META_SEPARATOR = '#';
 			
 			public const string LEADERBOARD_LADDER_NAME = "Trophies Ladder";
 			public const int LEADERBOARD_TOP_RANK_AMOUNT = 20;

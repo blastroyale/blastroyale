@@ -80,6 +80,7 @@ synced event OnPlayerAmmoChanged
 	Int32 PreviousAmmo;
 	Int32 CurrentAmmo;
 	Int32 MaxAmmo;
+	FP FilledAmmo;
 }
 
 synced event OnPlayerWeaponChanged

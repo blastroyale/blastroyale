@@ -224,7 +224,7 @@ namespace FirstLight.Game.Presenters
 			_durabilityBar.style.flexGrow = info.Equipment.Durability / info.Equipment.MaxDurability;
 
 			// Stats
-			_statItems = info.Stats.Where(pair => EquipmentStatBarElement.CanShowStat(pair.Key)).ToList();
+			_statItems = info.Stats.Where(pair => EquipmentStatBarElement.CanShowStat(pair.Key, pair.Value)).ToList();
 			_statItems.Sort((x1, x2) => x1.Key.CompareTo(x2.Key));
 			_statsList.itemsSource = _statItems;
 			_statsList.RefreshItems();

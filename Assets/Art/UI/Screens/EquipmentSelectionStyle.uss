@@ -133,19 +133,19 @@
 }
 
 .equipment-tag--rarity-uncommon {
-    background-color: rgb(102, 141, 103);
+    background-color: rgb(170, 223, 110);
 }
 
 .equipment-tag--rarity-rare {
-    background-color: rgb(49, 124, 216);
+    background-color: rgb(83, 189, 255);
 }
 
 .equipment-tag--rarity-epic {
-    background-color: rgb(200, 67, 81);
+    background-color: rgb(255, 107, 107);
 }
 
 .equipment-tag--rarity-legendary {
-    background-color: rgb(253, 154, 44);
+    background-color: rgb(255, 193, 64);
 }
 
 .equipment-tag--special {
@@ -333,6 +333,6 @@
     font-size: 54px;
     -unity-text-align: middle-center;
     -unity-font-definition: var(--font-italic);
-    color: rgba(255, 255, 255, 255);
-    text-shadow: 3px 3px 0 rgba(0, 0, 0, 255);
+    color: rgb(255, 255, 255);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
 }

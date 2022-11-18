@@ -36,11 +36,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private float _dropSelectionSize;
 
 		/// <summary>
-		/// Returns the player's selected point on the map in a normalized state
-		/// </summary>
-		public Vector2 NormalizedSelectionPoint { get; private set; }
-		
-		/// <summary>
 		/// Requests the state of selecting a drop point in the map
 		/// </summary>
 		public bool SelectionEnabled { get; set; }
@@ -174,7 +169,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			var localSize = _rectTransform.sizeDelta;
 			_selectedPoint.anchoredPosition = localPosition;
 			_selectedDropAreaText.text = mapGridConfigs.GetTranslation(gridConfig.AreaName);
-			NormalizedSelectionPoint = new Vector2(localPosition.x / localSize.x, localPosition.y / localSize.y) * _dropSelectionSize;
+			_services.MatchmakingService.NormalizedMapSelectedPosition = new Vector2(localPosition.x / localSize.x, localPosition.y / localSize.y) * _dropSelectionSize;
 
 			_selectedDropAreaRoot.SetActive(gridConfig.IsValidNamedArea);
 		}

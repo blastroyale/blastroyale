@@ -1,6 +1,7 @@
 using System;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Server.SDK.Services;
 using Newtonsoft.Json;
 
@@ -20,6 +21,7 @@ namespace FirstLight.Server.SDK
 		public readonly IMetricsService? Metrics;
 		public readonly IServerAnalytics? Analytics;
 		public readonly IBaseServiceConfiguration? ServerConfig;
+		public readonly IConfigsProvider? GameConfig;
 
 		public PluginContext(IEventManager evManager, IServiceProvider services)
 		{
@@ -30,6 +32,7 @@ namespace FirstLight.Server.SDK
 			Metrics = services.GetService(typeof(IMetricsService)) as IMetricsService;
 			Analytics = services.GetService(typeof(IServerAnalytics)) as IServerAnalytics;
 			ServerConfig = services.GetService(typeof(IBaseServiceConfiguration)) as IBaseServiceConfiguration;
+			GameConfig = services.GetService(typeof(IConfigsProvider)) as IConfigsProvider;
 		}
 
 		/// <summary>

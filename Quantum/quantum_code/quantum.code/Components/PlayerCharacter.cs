@@ -406,19 +406,20 @@ namespace Quantum
 			{
 				return;
 			}
-
+			
+			var prevAmmoFilled = GetAmmoAmountFilled(f, e);
 			var ammo = GetAmmoAmount(f, e, out var maxAmmo);
 			var newAmmoFilled = FPMath.Min(GetAmmoAmountFilled(f, e) + amount, FP._1);
 			var newAmmo = FPMath.FloorToInt(newAmmoFilled * maxAmmo);
 
 			f.Unsafe.GetPointer<AIBlackboardComponent>(e)->Set(f, Constants.AmmoFilledKey, newAmmoFilled);
 
-			if (HasMeleeWeapon(f, e) || ammo == newAmmo)
+			if (prevAmmoFilled == newAmmoFilled)
 			{
 				return;
 			}
 
-			f.Events.OnPlayerAmmoChanged(Player, e, ammo, newAmmo, maxAmmo);
+			f.Events.OnPlayerAmmoChanged(Player, e, ammo, newAmmo, maxAmmo, newAmmoFilled);
 		}
 
 		/// <summary>
@@ -438,7 +439,7 @@ namespace Quantum
 			var finalAmmoFilled = FPMath.Max(GetAmmoAmountFilled(f, e) - ((FP._1 / maxAmmo) * amount), FP._0);
 
 			f.Unsafe.GetPointer<AIBlackboardComponent>(e)->Set(f, Constants.AmmoFilledKey, finalAmmoFilled);
-			f.Events.OnPlayerAmmoChanged(Player, e, ammo, currentAmmo, maxAmmo);
+			f.Events.OnPlayerAmmoChanged(Player, e, ammo, currentAmmo, maxAmmo, finalAmmoFilled); 
 		}
 
 		/// <summary>

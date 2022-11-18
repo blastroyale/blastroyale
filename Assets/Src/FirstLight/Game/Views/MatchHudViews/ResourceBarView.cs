@@ -64,15 +64,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				return;
 			}
-			
-			// If the weapon is not melee
-			if (callback.MaxAmmo > 0)
-			{
-				_slider.value = callback.CurrentAmmo / (float)callback.MaxAmmo;
-			}
-			
-			_reloadBarImage.color = _primaryReloadColor;
 
+			_slider.value = callback.FilledAmmo.AsFloat;
+			_reloadBarImage.color = _primaryReloadColor;
 			
 			if (callback.CurrentAmmo <= 0 && _currentWeapon != GameId.Random && _currentWeapon != GameId.Hammer)
 			{

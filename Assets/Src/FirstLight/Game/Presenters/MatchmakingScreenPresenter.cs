@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -38,7 +39,6 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _mapHolder;
 		private VisualElement _mapTitleBg;
 		private VisualElement _mapMarker;
-		private VisualElement _dropzonePath;
 		private VisualElement _mapImage;
 		private Label _loadStatusLabel;
 		private Label _locationLabel;
@@ -48,6 +48,7 @@ namespace FirstLight.Game.Presenters
 		private Label _modeDescBotLabel;
 		private Label _debugPlayerCountLabel;
 		private IGameServices _services;
+		private Coroutine _matchmakingTimerCoroutine;
 
 		private void Awake()
 		{
@@ -63,7 +64,6 @@ namespace FirstLight.Game.Presenters
 			_mapHolder = root.Q("Map").Required();
 			_mapImage = root.Q("MapImage").Required();
 			_mapMarker = root.Q("MapMarker").Required();
-			_dropzonePath = root.Q("Path").Required();
 			_mapTitleBg = root.Q("MapTitleBg").Required();
 			_loadStatusLabel = root.Q<Label>("LoadStatusLabel").Required();
 			_locationLabel = root.Q<Label>("LocationLabel").Required();
@@ -75,6 +75,8 @@ namespace FirstLight.Game.Presenters
 
 			_closeButton.clicked += OnCloseClicked;
 			_mapHolder.RegisterCallback<GeometryChangedEvent>(InitMap);
+			
+			_services.MessageBrokerService.Subscribe<StartedFinalPreloadMessage>(OnStartedFinalPreloadMessage);
 		}
 
 		private void OnMapClicked(ClickEvent evt)
@@ -84,10 +86,12 @@ namespace FirstLight.Game.Presenters
 
 		private void SelectMapPosition(Vector2 localPos, bool offsetCoors, bool checkClickWithinRadius)
 		{
-			if (checkClickWithinRadius && !IsWithinMapRadius(localPos)) return;
+			//if (checkClickWithinRadius && !IsWithinMapRadius(localPos)) return;
 
 			var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
 			var mapRadius = _mapImage.contentRect.width / 2;
+
+			_dropzone.SetDisplayActive(false);
 			
 			// Set map marker at click point
 			if (offsetCoors)
@@ -98,16 +102,16 @@ namespace FirstLight.Game.Presenters
 			_mapMarker.transform.position = localPos;
 
 			// Set normalized position used for spawning in quantum
-			var normX = Mathf.InverseLerp(-_mapImage.contentRect.width, _mapImage.contentRect.width,localPos.x);
-			var normY = Mathf.InverseLerp(-_mapImage.contentRect.height, _mapImage.contentRect.height,localPos.y);
+			var normX = Mathf.InverseLerp(-mapRadius, mapRadius,localPos.x);
+			var normY = Mathf.InverseLerp(-mapRadius, mapRadius,localPos.y);
 			var normSelectPos = new Vector2(normX, normY);
 			_services.MatchmakingService.NormalizedMapSelectedPosition = normSelectPos;
-
+			
 			// Set map grid config related data
-			var gridX = Mathf.RoundToInt(mapGridConfigs.GetSize().x * normSelectPos.x);
-			var gridY = Mathf.RoundToInt(mapGridConfigs.GetSize().y * normSelectPos.y);
+			var gridX = Mathf.FloorToInt(mapGridConfigs.GetSize().x * normSelectPos.x);
+			var gridY = Mathf.FloorToInt(mapGridConfigs.GetSize().y * normSelectPos.y);
 			var selectedGrid = mapGridConfigs.GetConfig(gridX, gridY);
-
+			
 			if (selectedGrid.IsValidNamedArea)
 			{
 				_placeNameLabel.SetDisplayActive(true);
@@ -150,7 +154,7 @@ namespace FirstLight.Game.Presenters
 			
 			UpdatePlayerCount();
 
-			_services.CoroutineService.StartCoroutine(MatchmakingTimerCoroutine(matchmakingTime, minPlayers));
+			_matchmakingTimerCoroutine = _services.CoroutineService.StartCoroutine(MatchmakingTimerCoroutine(matchmakingTime, minPlayers));
 
 			if (!gameModeConfig.SkydiveSpawn)
 			{
@@ -190,6 +194,17 @@ namespace FirstLight.Game.Presenters
 		{
 			UpdatePlayerCount();
 		}
+		
+		private void OnStartedFinalPreloadMessage(StartedFinalPreloadMessage obj)
+		{
+			if (_matchmakingTimerCoroutine != null)
+			{
+				_services.CoroutineService.StopCoroutine(_matchmakingTimerCoroutine);
+			}
+			
+			_closeButton.SetDisplayActive(false);
+			_loadStatusLabel.text = ScriptLocalization.UITMatchmaking.loading_status_starting;
+		}
 
 		private void UpdatePlayerCount()
 		{
@@ -197,18 +212,6 @@ namespace FirstLight.Game.Presenters
 											  ? string.Format(ScriptLocalization.UITMatchmaking.current_player_amount,
 															  CurrentRoom.GetRealPlayerAmount(), CurrentRoom.GetRealPlayerCapacity())
 											  : "";
-		}
-
-		public void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
-		{
-		}
-
-		public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
-		{
-		}
-
-		public void OnMasterClientSwitched(Player newMasterClient)
-		{
 		}
 
 		private IEnumerator MatchmakingTimerCoroutine(float matchmakingTime, int minPlayers)
@@ -243,8 +246,20 @@ namespace FirstLight.Game.Presenters
 
 			return descriptions;
 		}
+		
+		public void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
+		{
+		}
 
-		public void OnCloseClicked()
+		public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
+		{
+		}
+
+		public void OnMasterClientSwitched(Player newMasterClient)
+		{
+		}
+
+		private void OnCloseClicked()
 		{
 			Data.LeaveRoomClicked();
 		}

@@ -215,8 +215,8 @@
     background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/MapBack.png?fileID=21300000&guid=51f92536db4534a42a8f4395b5ff89ae&type=3#MapBack');
     align-items: center;
     justify-content: center;
-    margin-right: 156px;
-    margin-bottom: 86px;
+    right: 200px;
+    bottom: 35px;
 }
 
 .map__mask {

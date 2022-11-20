@@ -79,23 +79,28 @@ namespace FirstLight.Game.Presenters
 
 		private void OnMapClicked(ClickEvent evt)
 		{
-			SelectMapPosition(evt.localPosition);
+			SelectMapPosition(evt.localPosition, true, true);
 		}
 
-		private void SelectMapPosition(Vector2 localPos)
+		private void SelectMapPosition(Vector2 localPos, bool offsetCoors, bool checkClickWithinRadius)
 		{
-			if (!IsWithinMapRadius(localPos)) return;
+			if (checkClickWithinRadius && !IsWithinMapRadius(localPos)) return;
 
 			var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
 			var mapRadius = _mapImage.contentRect.width / 2;
-
+			
 			// Set map marker at click point
-			var offsetCoors = new Vector3(localPos.x - mapRadius, localPos.y - mapRadius, 0);
-			_mapMarker.transform.position = offsetCoors;
+			if (offsetCoors)
+			{
+				localPos = new Vector3(localPos.x - mapRadius, localPos.y - mapRadius, 0);
+			}
+			
+			_mapMarker.transform.position = localPos;
 
 			// Set normalized position used for spawning in quantum
-			var normSelectPos = new Vector2(localPos.x / _mapImage.contentRect.width,
-											localPos.y / _mapImage.contentRect.height);
+			var normX = Mathf.InverseLerp(-_mapImage.contentRect.width, _mapImage.contentRect.width,localPos.x);
+			var normY = Mathf.InverseLerp(-_mapImage.contentRect.height, _mapImage.contentRect.height,localPos.y);
+			var normSelectPos = new Vector2(normX, normY);
 			_services.MatchmakingService.NormalizedMapSelectedPosition = normSelectPos;
 
 			// Set map grid config related data
@@ -119,9 +124,8 @@ namespace FirstLight.Game.Presenters
 			var mapRadius = _mapImage.contentRect.width / 2;
 			var mapCenter = new Vector3(_mapImage.transform.position.x + mapRadius,
 										_mapImage.transform.position.y + mapRadius, _mapImage.transform.position.z);
-			var withinMapRadius = Vector3.Distance(mapCenter, dropPos) < mapRadius;
-
-			return withinMapRadius;
+			
+			return Vector3.Distance(mapCenter, dropPos) < mapRadius;
 		}
 
 		private async void InitMap(GeometryChangedEvent evt)
@@ -172,7 +176,7 @@ namespace FirstLight.Game.Presenters
 			_dropzone.transform.position = new Vector3(posX, posY);
 			_dropzone.transform.rotation = Quaternion.Euler(0, 0, dropzonePosRot.z);
 
-			SelectMapPosition(new Vector2(posX, posY));
+			SelectMapPosition(new Vector2(posX, posY), false, false);
 
 			_mapImage.RegisterCallback<ClickEvent>(OnMapClicked);
 		}

@@ -24,6 +24,7 @@ namespace FirstLight.Game.Presenters
 	/// In future iteration with new custom lobby screen, this screen will become a loading screen for both
 	/// matchmaking and custom lobby, just before players are dropped into the match.
 	/// </summary>
+	[LoadSynchronously]
 	public class MatchmakingScreenPresenter : UiToolkitPresenterData<MatchmakingScreenPresenter.StateData>,
 											  IInRoomCallbacks
 	{
@@ -86,13 +87,11 @@ namespace FirstLight.Game.Presenters
 
 		private void SelectMapPosition(Vector2 localPos, bool offsetCoors, bool checkClickWithinRadius)
 		{
-			//if (checkClickWithinRadius && !IsWithinMapRadius(localPos)) return;
+			if (checkClickWithinRadius && !IsWithinMapRadius(localPos)) return;
 
 			var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
 			var mapRadius = _mapImage.contentRect.width / 2;
 
-			_dropzone.SetDisplayActive(false);
-			
 			// Set map marker at click point
 			if (offsetCoors)
 			{

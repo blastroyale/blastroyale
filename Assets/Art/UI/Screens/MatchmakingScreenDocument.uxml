@@ -13,7 +13,7 @@
             <ui:Label name="DebugPlayerCount" text="30/30" class="font-italic font-style-h2 debug-player-count" />
             <ui:VisualElement name="ModeHolder" class="mode-desc">
                 <ui:Label name="ModeDescTop" text="LAST PLAYER STANDING" class="mode-desc__top" />
-                <ui:Label name="ModeDescBot" text="WINS THE MATCH" class="mode-desc__bot" style="position: relative; top: 29px;" />
+                <ui:Label name="ModeDescBot" text="WINS THE MATCH" class="mode-desc__bot"/>
             </ui:VisualElement>
             <FirstLight.Game.UIElements.ImageButton name="CloseButton" class="button-close" />
             <ui:VisualElement name="Map" class="map">

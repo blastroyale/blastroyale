@@ -175,11 +175,11 @@ namespace FirstLight.Game.Presenters
 
 			if (!gameModeConfig.SkydiveSpawn)
 			{
-				var sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(mapConfig.Map, false);
-				_mapImage.style.backgroundImage = new StyleBackground(sprite);
 				_dropzone.SetDisplayActive(false);
 				_mapMarker.SetDisplayActive(false);
 				_mapTitleBg.SetDisplayActive(false);
+				var sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(mapConfig.Map, false);
+				_mapImage.style.backgroundImage = new StyleBackground(sprite);
 				return;
 			}
 

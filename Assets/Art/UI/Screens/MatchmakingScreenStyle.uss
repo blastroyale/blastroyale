@@ -125,6 +125,8 @@
     font-size: 30px;
     -unity-font-definition: var(--font-italic);
     left: -115px;
+    top: 29px;
+    position: relative; 
 }
 
 .player-image {

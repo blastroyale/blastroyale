@@ -16,7 +16,7 @@
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/AirstrikeAbilityIcon.png?fileID=21300000&guid=92aa9ee015ead471c8db4d1ef1537183&type=3#AirstrikeAbilityIcon');
 }
 
-.special-display__icon--stungrenade {
+.special-display__icon--aimingstungrenade {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/StungrenadeAbilityIcon.png?fileID=21300000&guid=92c19ed84f46647beb03749afc2579e6&type=3#StungrenadeAbilityIcon');
 }
 
@@ -33,5 +33,9 @@
 }
 
 .special-display__icon--defaultdash {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/HazardAbilityIcon.png?fileID=21300000&guid=c534c12f0a9d0453a9c207ee445a826d&type=3#HazardAbilityIcon');
+}
+
+.special-display__icon--skylaserbeam {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/HazardAbilityIcon.png?fileID=21300000&guid=c534c12f0a9d0453a9c207ee445a826d&type=3#HazardAbilityIcon');
 }

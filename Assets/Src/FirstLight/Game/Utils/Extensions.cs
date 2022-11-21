@@ -111,7 +111,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static string GetTranslation(this EquipmentStatType stat)
 		{
-			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.General)}/{stat.ToString()}");
+			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.General)}/{stat.ToString()}").ToUpperInvariant();
 		}
 
 		/// <summary>

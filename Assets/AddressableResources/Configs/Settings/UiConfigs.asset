@@ -45,7 +45,11 @@ MonoBehaviour:
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/EquipmentScreen.prefab
     Layer: 0
-    UiType: FirstLight.Game.Presenters.EquipmentScreenPresenter, FirstLight.Game,
+    UiType: FirstLight.Game.Presenters.EquipmentPresenter, FirstLight.Game, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - AddressableAddress: Ui/EquipmentSelectionScreen.prefab
+    Layer: 0
+    UiType: FirstLight.Game.Presenters.EquipmentSelectionPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/GameCompleteScreen.prefab
     Layer: -2
@@ -86,10 +90,6 @@ MonoBehaviour:
   - AddressableAddress: Ui/LoginScreen.prefab
     Layer: 3
     UiType: FirstLight.Game.Presenters.LoginScreenPresenter, FirstLight.Game, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  - AddressableAddress: Ui/LootScreen.prefab
-    Layer: 0
-    UiType: FirstLight.Game.Presenters.LootScreenPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/LowConnectionOverlay.prefab
     Layer: -2

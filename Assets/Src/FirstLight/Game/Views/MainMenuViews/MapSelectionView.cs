@@ -68,7 +68,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 			_selectedDropAreaText.gameObject.SetActive(SelectionEnabled);
 			_selectedPoint.gameObject.SetActive(SelectionEnabled);
-
+			_dropzoneLayout.gameObject.SetActive(SelectionEnabled);
+			
 			// Aspect ratio has to be calculated and set in ARF per-map, as the rect size is crucial in grid
 			// selection calculations. If you flat out set the ratio on ARF to something like 3-4, it will fit all map 
 			// images on the UI, but then landing location grid will be completely broken for BR game mode

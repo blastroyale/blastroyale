@@ -107,7 +107,12 @@ namespace FirstLight.Game.Presenters
 			var mapConfig = _services.NetworkService.CurrentRoomMapConfig.Value;
 			var gameModeConfig = _services.NetworkService.CurrentRoomGameModeConfig.Value;
 
-			mapSelectionView.SetupMapView(room.GetGameModeId(), room.GetMapId(), room.GetDropzonePosRot());
+			// This whole script will be culled when custom games are introduced.
+			// This conditional code limits the garbage to this script only
+			Vector3 dropzonePosRot = CurrentRoom.CustomProperties.ContainsKey(GameConstants.Network.DROP_ZONE_POS_ROT)
+				? room.GetDropzonePosRot()
+				: Vector3.zero;
+			mapSelectionView.SetupMapView(room.GetGameModeId(), room.GetMapId(), dropzonePosRot);
 
 			if (RejoiningRoom)
 			{

@@ -71,7 +71,7 @@ namespace FirstLight.Game.Utils
 		public static class Balance
 		{
 			public const float MAP_ROTATION_TIME_MINUTES = 10;
-			public const float MAP_DROPZONE_POS_RADIUS_PERCENT = 0.35f;
+			public const float MAP_DROPZONE_POS_RADIUS_PERCENT = 0.2f;
 		}
 
 		public static class Audio

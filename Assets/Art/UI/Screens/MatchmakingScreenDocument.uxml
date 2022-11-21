@@ -4,7 +4,7 @@
         <FirstLight.Game.UIElements.SafeAreaElement class="safe-area">
             <ui:VisualElement name="PlayerImage" class="player-image" />
             <ui:VisualElement name="PlayerAmountHolder" class="load-status-holder">
-                <ui:VisualElement name="LoadingIcon" class="load-status-holder__loading-icon" />
+                <FirstLight.Game.UIElements.LoadingSpinnerElement name="LoadIcon" rotationsPerSecond="1" class="load-status-holder__loading-icon" />
                 <ui:VisualElement name="Labels" class="load-status-holder__labels">
                     <ui:Label name="LoadStatusLabel" text="5/30" class="font-italic font-style-h2 load-status-holder__player-label" />
                     <ui:Label name="LocationLabel" text="LOCATION" class="font-italic font-style-h2 load-status-holder__location-label" />

@@ -260,7 +260,18 @@ namespace FirstLight.Game.Presenters
 
 		private void OnCloseClicked()
 		{
-			Data.LeaveRoomClicked();
+			var desc = string.Format(ScriptLocalization.MainMenu.LeaveMatchMessage);
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.General.Yes,
+				ButtonOnClick = () =>
+				{
+					_services.MessageBrokerService.Publish(new RoomLeaveClickedMessage());
+					Data.LeaveRoomClicked();
+				}
+			};
+
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.confirmation, desc, true, confirmButton);
 		}
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Photon.Deterministic;
 
 namespace Quantum
@@ -70,6 +71,17 @@ namespace Quantum
 			}
 
 			return list;
+		}
+		
+		/// <summary>
+		/// Returns all player datas
+		/// </summary>
+		/// <returns></returns>
+		public IEnumerable<RuntimePlayer> GetAllPlayerDatas()
+		{
+			return _playerData.Iterator()
+				.Select(kp => kp.Value.Player)
+				.Where(p => p != null);
 		}
 	}
 }

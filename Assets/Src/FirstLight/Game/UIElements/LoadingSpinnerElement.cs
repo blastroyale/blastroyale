@@ -31,7 +31,7 @@ namespace FirstLight.Game.UIElements
 		private IGameServices _gameServices;
 
 		/* Other private variables */
-		private Tween _animationTween;
+		private ValueAnimation<float> _animationTween;
 		private VisualElement _rotElement;
 
 		/* The internal structure of the element is created in the constructor. */
@@ -57,20 +57,21 @@ namespace FirstLight.Game.UIElements
 		/* IUIView: Called by the presenter when the screen is closed */
 		public void UnsubscribeFromEvents()
 		{
-			_animationTween?.Kill(false);
+			if (_animationTween.isRunning)
+			{
+				_animationTween.Stop();
+			}
 		}
 
 		private void AnimateRotation()
 		{
-			_animationTween?.Kill(false);
-
-			_rotElement.transform.rotation = Quaternion.Euler(0,0,0);
-			
-			_animationTween = DOVirtual.Float(0, 1f, 1f / rotationsPerSecond, percent =>
+			_animationTween = _rotElement.experimental.animation.Start(0f, 1f, (int)(1000 / rotationsPerSecond), (ve, val) =>
 			{
-				var currentRot = Mathf.Lerp(0, 360, percent);
-				_rotElement.transform.rotation = Quaternion.Euler(0,0,currentRot);
-			}).OnComplete(AnimateRotation).SetEase(Ease.Linear);
+				ve.transform.rotation = Quaternion.Euler(0, 0, 360 * val);
+			});
+			_animationTween.Ease(Easing.Linear);
+			_animationTween.KeepAlive();
+			_animationTween.OnCompleted(() => { _animationTween.Start(); });
 		}
 
 		/* The factory is at the bottom - this allows you to use the element in UXML with it's C# class name */

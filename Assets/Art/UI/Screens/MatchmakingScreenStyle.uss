@@ -4,6 +4,7 @@
     --in-animation-duration: 0.3s;
     --in-animation-easing: ease-out;
     --animation-total-duration: 0.7s;
+    --map-marker-easing: ease-in-out-elastic;
 }
 
 .background {
@@ -287,7 +288,7 @@
     bottom: 125px;
 }
 
-.map-marker__marker {
+.map-marker__icon {
     background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/MapMarker.png?fileID=21300000&guid=d5fdce7e14ab2304093a3fcd1cbc38e0&type=3#MapMarker');
     width: 90px;
     height: 132px;

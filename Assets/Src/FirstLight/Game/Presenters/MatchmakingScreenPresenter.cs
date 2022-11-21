@@ -40,10 +40,11 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _mapHolder;
 		private VisualElement _mapTitleBg;
 		private VisualElement _mapMarker;
+		private VisualElement _mapMarkerIcon;
 		private VisualElement _mapImage;
+		private Label _mapMarkerTitle;
 		private Label _loadStatusLabel;
 		private Label _locationLabel;
-		private Label _placeNameLabel;
 		private Label _modeTitleLabel;
 		private Label _modeDescTopLabel;
 		private Label _modeDescBotLabel;
@@ -65,10 +66,11 @@ namespace FirstLight.Game.Presenters
 			_mapHolder = root.Q("Map").Required();
 			_mapImage = root.Q("MapImage").Required();
 			_mapMarker = root.Q("MapMarker").Required();
+			_mapMarkerTitle = root.Q<Label>("MapMarkerTitle").Required();
+			_mapMarkerIcon = root.Q("MapMarkerIcon").Required();
 			_mapTitleBg = root.Q("MapTitleBg").Required();
 			_loadStatusLabel = root.Q<Label>("LoadStatusLabel").Required();
 			_locationLabel = root.Q<Label>("LocationLabel").Required();
-			_placeNameLabel = root.Q<Label>("PlaceNameLabel").Required();
 			_modeTitleLabel = root.Q<Label>("HeaderTitle").Required();
 			_modeDescTopLabel = root.Q<Label>("ModeDescTop").Required();
 			_modeDescBotLabel = root.Q<Label>("ModeDescBot").Required();
@@ -98,7 +100,7 @@ namespace FirstLight.Game.Presenters
 		private void SelectMapPosition(Vector2 localPos, bool offsetCoors, bool checkClickWithinRadius)
 		{
 			if (checkClickWithinRadius && !IsWithinMapRadius(localPos)) return;
-
+			
 			var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
 			var mapDiameter = _mapImage.contentRect.width;
 			var mapRadius = mapDiameter / 2;
@@ -127,12 +129,12 @@ namespace FirstLight.Game.Presenters
 			
 			if (selectedGrid.IsValidNamedArea)
 			{
-				_placeNameLabel.SetDisplayActive(true);
-				_placeNameLabel.text = selectedGrid.AreaName.ToUpper();
+				_mapMarkerTitle.SetDisplayActive(true);
+				_mapMarkerTitle.text = selectedGrid.AreaName.ToUpper();
 			}
 			else
 			{
-				_placeNameLabel.SetDisplayActive(false);
+				_mapMarkerTitle.SetDisplayActive(false);
 			}
 		}
 

@@ -90,7 +90,8 @@ namespace FirstLight.Game.Presenters
 			if (checkClickWithinRadius && !IsWithinMapRadius(localPos)) return;
 
 			var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
-			var mapRadius = _mapImage.contentRect.width / 2;
+			var mapDiameter = _mapImage.contentRect.width;
+			var mapRadius = mapDiameter / 2;
 
 			// Set map marker at click point
 			if (offsetCoors)
@@ -100,15 +101,18 @@ namespace FirstLight.Game.Presenters
 			
 			_mapMarker.transform.position = localPos;
 
-			// Set normalized position used for spawning in quantum
-			var normX = Mathf.InverseLerp(-mapRadius, mapRadius,localPos.x);
-			var normY = Mathf.InverseLerp(-mapRadius, mapRadius,localPos.y);
-			var normSelectPos = new Vector2(normX, normY);
-			_services.MatchmakingService.NormalizedMapSelectedPosition = normSelectPos;
+			// Get normalized position for spawn positions in quantum, -0.5 to 0.5 range
+			var quantumSelectPos = new Vector2(localPos.x / mapDiameter, -localPos.y / mapDiameter);
+			_services.MatchmakingService.NormalizedMapSelectedPosition = quantumSelectPos;
+
+			// Get normalized position for the whole map, 0-1 range, used for grid configs
+			var mapNormX = Mathf.InverseLerp(-mapRadius, mapRadius,localPos.x);
+			var mapNormY = Mathf.InverseLerp(-mapRadius, mapRadius,localPos.y);
+			var mapSelectNorm = new Vector2(mapNormX, mapNormY);
 			
 			// Set map grid config related data
-			var gridX = Mathf.FloorToInt(mapGridConfigs.GetSize().x * normSelectPos.x);
-			var gridY = Mathf.FloorToInt(mapGridConfigs.GetSize().y * normSelectPos.y);
+			var gridX = Mathf.FloorToInt(mapGridConfigs.GetSize().x * mapSelectNorm.x);
+			var gridY = Mathf.FloorToInt(mapGridConfigs.GetSize().y * mapSelectNorm.y);
 			var selectedGrid = mapGridConfigs.GetConfig(gridX, gridY);
 			
 			if (selectedGrid.IsValidNamedArea)

@@ -137,7 +137,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_selectedPoint.anchoredPosition = localPosition;
 			_selectedDropAreaText.text = mapGridConfigs.GetTranslation(gridConfig.AreaName);
 			_services.MatchmakingService.NormalizedMapSelectedPosition = new Vector2(localPosition.x / localSize.x, localPosition.y / localSize.y) * _dropSelectionSize;
-
+			Debug.LogError(_services.MatchmakingService.NormalizedMapSelectedPosition);
 			_selectedDropAreaRoot.SetActive(gridConfig.IsValidNamedArea);
 		}
 

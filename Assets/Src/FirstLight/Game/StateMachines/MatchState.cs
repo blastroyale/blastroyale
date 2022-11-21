@@ -63,7 +63,6 @@ namespace FirstLight.Game.StateMachines
 			var roomCheck = stateFactory.Choice("Room Check");
 			var roomTypeCheck = stateFactory.Choice("Room Type Check");
 			var matchmaking = stateFactory.State("Matchmaking");
-			var customLobby = stateFactory.State("Custom Lobby");
 			var playerReadyCheck = stateFactory.Choice("Player Ready Check");
 			var playerReadyWait = stateFactory.State("Player Ready Wait");
 			var gameSimulation = stateFactory.Nest("Game Simulation");
@@ -79,15 +78,8 @@ namespace FirstLight.Game.StateMachines
 			
 			roomCheck.Transition().Condition(NetworkUtils.IsOfflineOrDisconnected).Target(unloading);
 			roomCheck.Transition().Condition(IsRoomClosed).Target(playerReadyCheck);
-			roomCheck.Transition().Target(roomTypeCheck);
+			roomCheck.Transition().Target(matchmaking);
 
-			roomTypeCheck.Transition().Condition(_networkService.QuantumClient.CurrentRoom.IsMatchmakingRoom).Target(matchmaking);
-			roomTypeCheck.Transition().Target(customLobby);
-			
-			customLobby.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(OnDisconnectDuringMatchmaking).Target(disconnected);
-			customLobby.Event(NetworkState.RoomClosedEvent).Target(playerReadyCheck);
-			customLobby.Event(LeaveRoomClicked).Target(unloading);
-			
 			matchmaking.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(OnDisconnectDuringMatchmaking).Target(disconnected);
 			matchmaking.Event(NetworkState.RoomClosedEvent).Target(playerReadyCheck);
 			matchmaking.Event(LeaveRoomClicked).Target(unloading);

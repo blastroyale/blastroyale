@@ -30,7 +30,6 @@ namespace FirstLight.Game.Presenters
 		public struct StateData
 		{
 			public Action LeaveRoomClicked;
-			public Action<Vector2> MapPositionSelected;
 		}
 
 		public MapSelectionView mapSelectionView;

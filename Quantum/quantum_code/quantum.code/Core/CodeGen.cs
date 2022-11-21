@@ -3606,6 +3606,8 @@ namespace Quantum {
     public GameId DeathMarker;
     [FieldOffset(112)]
     public FP DecisionInterval;
+    [FieldOffset(20)]
+    public UInt32 LoadoutGearNumber;
     [FieldOffset(120)]
     public FP LookForTargetsToShootAtInterval;
     [FieldOffset(128)]
@@ -3651,6 +3653,7 @@ namespace Quantum {
         hash = hash * 31 + CurrentEvasionStepEndTime.GetHashCode();
         hash = hash * 31 + (Int32)DeathMarker;
         hash = hash * 31 + DecisionInterval.GetHashCode();
+        hash = hash * 31 + LoadoutGearNumber.GetHashCode();
         hash = hash * 31 + LookForTargetsToShootAtInterval.GetHashCode();
         hash = hash * 31 + LowAmmoSensitivity.GetHashCode();
         hash = hash * 31 + LowArmourSensitivity.GetHashCode();
@@ -3675,6 +3678,7 @@ namespace Quantum {
         serializer.Stream.Serialize((Int32*)&p->Skin);
         serializer.Stream.Serialize(&p->BotNameIndex);
         serializer.Stream.Serialize(&p->AccuracySpreadAngle);
+        serializer.Stream.Serialize(&p->LoadoutGearNumber);
         EntityRef.Serialize(&p->MoveTarget, serializer);
         EntityRef.Serialize(&p->Target, serializer);
         FP.Serialize(&p->ChanceToAbandonTarget, serializer);
@@ -9315,6 +9319,7 @@ namespace Quantum.Prototypes {
     public FP SpecialAimingDeviation;
     public FP ShrinkingCircleRiskTolerance;
     public FP ChanceToSeekChests;
+    public UInt32 LoadoutGearNumber;
     partial void MaterializeUser(Frame frame, ref BotCharacter result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       BotCharacter component = default;
@@ -9336,6 +9341,7 @@ namespace Quantum.Prototypes {
       result.CurrentEvasionStepEndTime = this.CurrentEvasionStepEndTime;
       result.DeathMarker = this.DeathMarker;
       result.DecisionInterval = this.DecisionInterval;
+      result.LoadoutGearNumber = this.LoadoutGearNumber;
       result.LookForTargetsToShootAtInterval = this.LookForTargetsToShootAtInterval;
       result.LowAmmoSensitivity = this.LowAmmoSensitivity;
       result.LowArmourSensitivity = this.LowArmourSensitivity;

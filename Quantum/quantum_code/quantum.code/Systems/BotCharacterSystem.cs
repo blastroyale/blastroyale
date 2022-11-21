@@ -1015,8 +1015,8 @@ namespace Quantum.Systems
 				// Calculate bot trophies
 				var trophies = (uint) ((botsDifficulty * 100) + 1000 + f.RNG->Next(-50, 50));
 				
-				// TODO: Give bots random weapon based on average quality that players have
-				// TODO: Give bots random gear based on average quality that players have and teach bots to pick up gear
+				// TODO: Give bots random weapon based on median quality that players have
+				// TODO: Give bots random gear in their loadout initially based on median quality that players have
 				playerCharacter->Init(f, botEntity, id, spawnerTransform, 1, trophies, botCharacter.Skin, 
 				                      botCharacter.DeathMarker, Array.Empty<Equipment>(), Equipment.None);
 			}

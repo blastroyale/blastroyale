@@ -68,7 +68,8 @@ namespace FirstLight.Game.StateMachines
 			var unloading = stateFactory.State("Unloading");
 			var disconnected = stateFactory.State("Disconnected");
 			var postDisconnectCheck = stateFactory.Choice("Post Reload Check");
-		
+			var lateJoinCheck = stateFactory.Choice("Late Join Check");
+			
 			initial.Transition().Target(loading);
 			initial.OnExit(SubscribeEvents);
 
@@ -76,8 +77,11 @@ namespace FirstLight.Game.StateMachines
 			loading.WaitingFor(LoadMatchAssets).Target(roomCheck);
 			
 			roomCheck.Transition().Condition(NetworkUtils.IsOfflineOrDisconnected).Target(unloading);
-			roomCheck.Transition().Target(matchmaking);
+			roomCheck.Transition().Target(lateJoinCheck);
 
+			lateJoinCheck.Transition().Condition(IsRoomClosed).Target(playerReadyCheck);
+			lateJoinCheck.Transition().Target(matchmaking);
+			
 			matchmaking.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(OnDisconnectDuringMatchmaking).Target(disconnected);
 			matchmaking.Event(NetworkState.RoomClosedEvent).Target(playerReadyCheck);
 			matchmaking.Event(LeaveRoomClicked).Target(unloading);
@@ -109,6 +113,11 @@ namespace FirstLight.Game.StateMachines
 			unloading.Event(MatchUnloadedEvent).Target(final);
 			
 			final.OnEnter(UnsubscribeEvents);
+		}
+
+		private bool IsRoomClosed()
+		{
+			return !_networkService.QuantumClient.CurrentRoom.IsOpen;
 		}
 
 		private void OnReloadToMatchmaking()

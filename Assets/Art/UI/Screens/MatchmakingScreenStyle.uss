@@ -126,7 +126,7 @@
     -unity-font-definition: var(--font-italic);
     left: -115px;
     top: 29px;
-    position: relative; 
+    position: relative;
 }
 
 .player-image {
@@ -154,8 +154,6 @@
 .load-status-holder__loading-icon {
     height: 100%;
     width: 75px;
-    background-image: url('project://database/Assets/Art/Textures/Ui/Loading/LoadingSpinnerThick.png?fileID=2800000&guid=baccbbd5ac3184df18f5aabbc6649ef8&type=3#LoadingSpinnerThick');
-    -unity-background-scale-mode: scale-to-fit;
     margin-right: 25px;
 }
 

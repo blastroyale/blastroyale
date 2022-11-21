@@ -5,7 +5,6 @@ using Button = UnityEngine.UI.Button;
 using Slider = UnityEngine.UI.Slider; 
 using System;
 using System.Collections;
-using System.Linq;
 using FirstLight.Game.Services;
 using FirstLight.Game.Views.MainMenuViews;
 using Sirenix.OdinInspector;
@@ -31,10 +30,12 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private TextMeshProUGUI _debugTotalMatchTimeText;
 		
 		private IGameServices _services;
+		private IMatchServices _matchServices;
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
+			_matchServices = MainInstaller.Resolve<IMatchServices>();
 
 			_gotoNextButton.onClick.AddListener(ContinueButtonClicked);
 			_gotoMainMenuButton.onClick.AddListener(HomeButtonClicked);
@@ -42,13 +43,11 @@ namespace FirstLight.Game.Presenters
 
 		protected override void OnOpened()
 		{
-			var game = QuantumRunner.Default.Game;
-			var frame = game.Frames.Verified;
-			var playerData = frame.GetSingleton<GameContainer>().GetPlayersMatchData(frame, out _);
-			var showStandingsExtra = frame.Context.GameModeConfig.ShowUIStandingsExtraInfo;
+			var playerData = _matchServices.MatchDataService.QuantumPlayerMatchData;
+			var showStandingsExtra = _matchServices.MatchDataService.ShowUIStandingsExtraInfo;
 			
 			_standings.Initialise(playerData.Count, showStandingsExtra, true);
-			_standings.UpdateStandings(playerData);
+			_standings.UpdateStandings(playerData, _matchServices.MatchDataService.LocalPlayer);
 			
 			// Only play the animation after Results Award sprites have been loaded.
 			_animation.clip = _introAnimationClip;
@@ -58,22 +57,22 @@ namespace FirstLight.Game.Presenters
 
 			_debugTotalMatchTimeText.enabled = Debug.isDebugBuild;
 			
-			if (Debug.isDebugBuild)
-			{
-				ShowDebugMatchTime();
-			}
+			// if (Debug.isDebugBuild)
+			// {
+			// 	ShowDebugMatchTime();
+			// }
 		}
 
-		private void ShowDebugMatchTime()
-		{
-			var game = QuantumRunner.Default.Game;
-			var f = game.Frames.Verified;
-			var gameContainer = f.GetSingleton<GameContainer>();
-			var time = gameContainer.IsGameOver ? gameContainer.GameOverTime : f.Time;
-			var ts = TimeSpan.FromSeconds(time.AsFloat);
-			
-			_debugTotalMatchTimeText.text =  $"MATCH TIME: {ts.ToHoursMinutesSeconds()}";
-		}
+		// private void ShowDebugMatchTime()
+		// {
+		// 	var game = QuantumRunner.Default.Game;
+		// 	var f = game.Frames.Verified;
+		// 	var gameContainer = f.GetSingleton<GameContainer>();
+		// 	var time = gameContainer.IsGameOver ? gameContainer.GameOverTime : f.Time;
+		// 	var ts = TimeSpan.FromSeconds(time.AsFloat);
+		// 	
+		// 	_debugTotalMatchTimeText.text =  $"MATCH TIME: {ts.ToHoursMinutesSeconds()}";
+		// }
 		
 		
 		private IEnumerator TimeUpdateCoroutine()

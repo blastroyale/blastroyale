@@ -30,6 +30,7 @@ namespace FirstLight.Game.Presenters
 		public struct StateData
 		{
 			public Action LeaveRoomClicked;
+			public Action<Vector2> MapPositionSelected;
 		}
 
 		public MapSelectionView mapSelectionView;
@@ -61,8 +62,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private GameObject _botsToggleObjectRoot;
 		[SerializeField, Required] private GameObject _spectateToggleObjectRoot;
 		[SerializeField] private Color _spectateDisabledColor;
-
-		private IGameDataProvider _gameDataProvider;
+		
 		private IGameServices _services;
 		private bool _loadedCoreMatchAssets;
 		private bool _spectatorToggleTimeOut;
@@ -73,7 +73,6 @@ namespace FirstLight.Game.Presenters
 
 		private void Awake()
 		{
-			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_services = MainInstaller.Resolve<IGameServices>();
 
 			foreach (var image in _playersWaitingImage)

@@ -576,10 +576,12 @@ namespace FirstLight.UiService
 		{
 			if (_lastScreen != null)
 			{
-				await CloseUi(_lastScreen.GetType());
+				if (_lastScreen.GetType() == typeof(T)) return null;
+
+				await CloseUi(_lastScreen.GetType(), true);
 			}
 
-			var ui = OpenUi(typeof(T));
+			var ui = await OpenUiAsync(typeof(T));
 			_lastScreen = ui;
 
 			return ui;
@@ -590,7 +592,9 @@ namespace FirstLight.UiService
 		{
 			if (_lastScreen != null)
 			{
-				await CloseUi(_lastScreen.GetType());
+				if (_lastScreen.GetType() == typeof(T)) return null;
+				
+				await CloseUi(_lastScreen.GetType(), true);
 			}
 
 			var ui = await OpenUiAsync<T, TData>(initialData);
@@ -603,7 +607,7 @@ namespace FirstLight.UiService
 		{
 			if (_lastScreen != null)
 			{
-				await CloseUi(_lastScreen.GetType());
+				await CloseUi(_lastScreen.GetType(), true);
 			}
 		}
 

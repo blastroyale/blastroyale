@@ -1,0 +1,107 @@
+#root {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.title-holder {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/HeadlineCornerBack.png?fileID=21300000&guid=a00a82499a7b54937bb2cf2b23aeb238&type=3#HeadlineCornerBack');
+    width: 790px;
+    height: 220px;
+}
+
+.title-holder__title {
+    position: absolute;
+    top: 50px;
+    left: 100px;
+}
+
+.next-button {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    background-image: url('project://database/Assets/Art/UI/Sprites/MatchEnd/NextButton.png?fileID=21300000&guid=7b7f8b5eb966f4fb38b88e5573f3a921&type=3#NextButton');
+    width: 562px;
+    height: 194px;
+    background-color: rgba(255, 255, 255, 0);
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    transition-property: opacity, scale;
+    transition-duration: 0.2s, 0.2s;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+}
+
+.next-button__label {
+    width: 260px;
+    top: 80px;
+    left: 250px;
+    text-shadow: 4px 4px 0 rgb(185, 65, 21);
+    -unity-text-outline-color: rgb(185, 65, 21);
+    font-size: 70px;
+    -unity-text-outline-width: 2px;
+    color: rgb(255, 255, 255);
+}
+
+.name-shadow {
+    background-image: url('project://database/Assets/Art/UI/Sprites/WinnersScreen/NameBackPlacements.png?fileID=2800000&guid=01c8d564f11f34c4d896e9873871b0d9&type=3#NameBackPlacements');
+    width: 466px;
+    height: 92px;
+    position: absolute;
+    left: -170px;
+}
+
+.player {
+    position: absolute;
+    justify-content: center;
+}
+
+.player__badge {
+    width: 118px;
+    height: 118px;
+    position: absolute;
+    right: 140px;
+}
+
+.player__player-name {
+    position: absolute;
+    left: -120px;
+    font-size: 60px;
+}
+
+.player1 {
+    left: 50%;
+    right: 50%;
+    bottom: 10%;
+}
+
+.player1 .player__badge {
+    background-image: url('project://database/Assets/Art/UI/Sprites/WinnersScreen/1stMedal.png?fileID=2800000&guid=8a5c4e50794e840a0b7073f5fc6cf1e6&type=3#1stMedal');
+}
+
+.player2 {
+    bottom: 10%;
+    translate: -550px -150px;
+}
+
+.player2 .player__badge {
+    background-image: url('project://database/Assets/Art/UI/Sprites/WinnersScreen/2ndMedal.png?fileID=2800000&guid=cce9e1a787e5a484996db5d377217342&type=3#2ndMedal');
+}
+
+.player3 {
+    bottom: 10%;
+    translate: 550px -150px;
+}
+
+.player3 .player__badge {
+    background-image: url('project://database/Assets/Art/UI/Sprites/WinnersScreen/3rdMedal.png?fileID=2800000&guid=e2a057641f1b142ca91082917b41cffe&type=3#3rdMedal');
+}

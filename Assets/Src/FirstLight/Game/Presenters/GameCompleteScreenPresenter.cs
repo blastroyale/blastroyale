@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Threading.Tasks;
 using Cinemachine;
 using FirstLight.Game.Services;
@@ -10,8 +9,8 @@ using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Playables;
-using Button = UnityEngine.UIElements.Button;
 using UnityEngine.UIElements;
+using Button = UnityEngine.UIElements.Button;
 
 namespace FirstLight.Game.Presenters
 {

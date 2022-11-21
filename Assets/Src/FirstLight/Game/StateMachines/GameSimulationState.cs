@@ -14,6 +14,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using I2.Loc;
+using Newtonsoft.Json;
 using Quantum;
 using Quantum.Commands;
 using UnityEngine;
@@ -169,31 +170,12 @@ namespace FirstLight.Game.StateMachines
 			{
 				Equipment weapon = default;
 				List<Equipment> loadout = null;
-				
-				if (frame.TryGet<PlayerCharacter>(quantumPlayerData.Data.Entity, out var playerCharacter))
-				{
-					weapon = playerCharacter.CurrentWeapon;
 
-					// Gear
-					loadout = new List<Equipment>();
-
-					for (int i = 0; i < playerCharacter.Gear.Length; i++)
-					{
-						var item = playerCharacter.Gear[i];
-						if (item.IsValid())
-						{
-							loadout.Add(item);
-						}
-					}
-				}
-				else
+				var playerRuntimeData = frame.GetPlayerData(quantumPlayerData.Data.Player);
+				if (playerRuntimeData != null)
 				{
-					var playerRuntimeData = frame.GetPlayerData(quantumPlayerData.Data.Player);
-					if (playerRuntimeData != null)
-					{
-						weapon = playerRuntimeData.Weapon;
-						loadout = playerRuntimeData.Loadout.ToList();
-					}
+					weapon = playerRuntimeData.Weapon;
+					loadout = playerRuntimeData.Loadout.ToList();
 				}
 
 				var playerData = new PlayerMatchData(quantumPlayerData.Data.Player, quantumPlayerData, weapon, loadout??new List<Equipment>());

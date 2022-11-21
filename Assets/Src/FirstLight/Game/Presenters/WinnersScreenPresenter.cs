@@ -1,9 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Cinemachine;
-using FirstLight.Game.Infos;
 using FirstLight.Game.MonoComponent.MainMenu;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -74,9 +72,9 @@ namespace FirstLight.Game.Presenters
 			
 			_character1.AnimateVictory();
 
-			_playerName1.text = playerData[0].PlayerName;
-			_playerName2.text = playerData[1].PlayerName;
-			_playerName3.text = playerData[2].PlayerName;
+			_playerName1.text = playerData[0].GetPlayerName();
+			_playerName2.text = playerData[1].GetPlayerName();
+			_playerName3.text = playerData[2].GetPlayerName();
 		}
 	}
 }

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using Newtonsoft.Json;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -33,7 +34,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			_services = MainInstaller.Resolve<IGameServices>();
 			if (_testModel != null)
 			{
-				_testModel.SetActive(false);
+				Destroy(_testModel);
 			}
 		}
 
@@ -71,10 +72,12 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 
 			cacheTransform.localPosition = Vector3.zero;
 			cacheTransform.localRotation = Quaternion.identity;
-			cacheTransform.localScale = Vector3.one;
+
 			_characterViewComponent = instance.GetComponent<MainMenuCharacterViewComponent>();
 
 			await _characterViewComponent.Init(_equipment);
+			
+			cacheTransform.localScale = Vector3.one;
 
 			instance.SetActive(true);
 

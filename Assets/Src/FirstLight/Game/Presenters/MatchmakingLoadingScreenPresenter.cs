@@ -229,6 +229,8 @@ namespace FirstLight.Game.Presenters
 
 		private void OnStartedFinalPreloadMessage(StartedFinalPreloadMessage msg)
 		{
+			_leaveRoomButton.gameObject.SetActive(false);
+			
 			foreach (var playerKvp in CurrentRoom.Players)
 			{
 				AddOrUpdatePlayerInList(playerKvp.Value);

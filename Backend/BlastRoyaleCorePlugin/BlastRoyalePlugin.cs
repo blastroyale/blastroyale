@@ -17,7 +17,6 @@ namespace BlastRoyaleNFTPlugin
 		public override void OnEnable(PluginContext context)
 		{
 			var baseUrl = ReadPluginConfig("API_URL");
-			var blockchainUrl = ReadPluginConfig("API_BLOCKCHAIN_SERVICE");
 			var apiSecret = ReadPluginConfig("API_KEY");
 			var fullUrl = $"{baseUrl}/blast-royale-equipment";
 			context.Log.LogInformation($"Using blockchain URL at {fullUrl}");

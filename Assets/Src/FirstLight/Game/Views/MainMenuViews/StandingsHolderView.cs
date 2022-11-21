@@ -53,6 +53,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_extraInfo.SetActive(showExtra);
 			_blockerButton.gameObject.SetActive(enableBlockerButton);
 			_services = MainInstaller.Resolve<IGameServices>();
+
+			UpdateBoardRows(playerCount);
 		}
 
 		/// <summary>

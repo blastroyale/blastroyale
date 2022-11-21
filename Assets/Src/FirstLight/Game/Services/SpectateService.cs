@@ -101,9 +101,14 @@ namespace FirstLight.Game.Services
 			// This stupidity along with all the TryGetNextPlayer nonsense is needed because apparently Quantum lags
 			// behind when we're in Spectate mode, meaning that we aren't able to fetch the initial spectated player
 			// on the first frame the same way we can in normal mode. SMH.
-			TrySetSpectateModePlayer(callback.Game);
+			if (!_spectatedPlayer.Value.Entity.IsValid && 
+			    _gameServices.NetworkService.QuantumClient.LocalPlayer.IsSpectator() && 
+			    TryGetNextPlayer(callback.Game, out var player))
+			{
+				SetSpectatedEntity(player.Key, player.Value, true);
+			}
 
-			if (_spectatedPlayer.Value.Transform != null)
+			if (callback.Game.Frames.Predicted.Exists(_spectatedPlayer.Value.Entity))
 			{
 				callback.Game.SetPredictionArea(_spectatedPlayer.Value.Transform.position.ToFPVector3(),
 				                                _playerVisionRange);
@@ -166,16 +171,6 @@ namespace FirstLight.Game.Services
 			return false;
 		}
 
-		private void TrySetSpectateModePlayer(QuantumGame game)
-		{
-			// Spectator mode - set new player to follow, only once
-			if (_gameServices.NetworkService.QuantumClient.LocalPlayer.IsSpectator() && !_spectatedPlayer.Value.Entity.IsValid &&
-			    TryGetNextPlayer(game, out var player))
-			{
-				SetSpectatedEntity(player.Key, player.Value, true);
-			}
-		}
-
 		private void OnEventOnPlayerDead(EventOnPlayerDead callback)
 		{
 			if (callback.Entity != _spectatedPlayer.Value.Entity)
@@ -202,8 +197,6 @@ namespace FirstLight.Game.Services
 
 		private bool SetSpectatedEntity(EntityRef entity, PlayerRef player, bool safe = false)
 		{
-			if (!entity.IsValid) return false;
-
 			if (_matchServices.EntityViewUpdaterService.TryGetView(entity, out var view))
 			{
 				_spectatedPlayer.Value = new SpectatedPlayer(entity, player, view.transform);
@@ -211,7 +204,9 @@ namespace FirstLight.Game.Services
 				return true;
 			}
 			
-			if (!safe)
+			_spectatedPlayer.Value = new SpectatedPlayer();
+			
+			if (entity.IsValid && !safe)
 			{
 				throw new Exception($"Could not fetch EntityView for {entity}");
 			}

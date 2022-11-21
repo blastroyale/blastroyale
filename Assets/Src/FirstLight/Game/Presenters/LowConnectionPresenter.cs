@@ -38,7 +38,7 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements(VisualElement root)
 		{
-			_lowConnectionIcon = root.Q("PopupBackground").Required();
+			_lowConnectionIcon = root.Q("LowConnectionBg").Required();
 		}
 
 		private void OnLag(bool previous, bool hasLag)

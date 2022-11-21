@@ -214,14 +214,10 @@ namespace FirstLight.Game.StateMachines
 			_services?.TickService?.UnsubscribeAll(this);
 		}
 
-		private async void SubscribeDisconnectEvents()
+		private void SubscribeDisconnectEvents()
 		{
 			_services.TickService.SubscribeOnUpdate(TickReconnectAttempt, GameConstants.Network.NETWORK_ATTEMPT_RECONNECT_SECONDS);
 			_criticalDisconnectCoroutine = _services.CoroutineService.StartCoroutine(CriticalDisconnectCoroutine());
-
-			await Task.Yield();
-		
-			TickReconnectAttempt(0);
 		}
 
 		private void UnsubscribeDisconnectEvents()
@@ -258,7 +254,7 @@ namespace FirstLight.Game.StateMachines
 			    _networkService.LastDisconnectLocation.Value == LastDisconnectionLocation.Matchmaking)
 			{
 				_requiresManualRoomReconnection = false;
-				JoinRoom(_networkService.LastConnectedRoomName.Value, false);
+				JoinRoom(_networkService.LastConnectedRoomName.Value.StripRoomCommitLock(), false);
 			}
 		}
 
@@ -540,6 +536,11 @@ namespace FirstLight.Game.StateMachines
 			if(_networkService.QuantumClient.LocalPlayer.IsMasterClient) 
 			{
 				_networkService.QuantumClient.CurrentRoom.PlayerTtl = GameConstants.Network.PLAYER_GAME_TTL_MS;
+				
+				if(!_networkService.QuantumClient.CurrentRoom.IsPlayTestRoom())
+				{
+					_networkService.QuantumClient.CurrentRoom.EmptyRoomTtl = GameConstants.Network.EMPTY_ROOM_GAME_TTL_MS;
+				}
 			}
 		}
 

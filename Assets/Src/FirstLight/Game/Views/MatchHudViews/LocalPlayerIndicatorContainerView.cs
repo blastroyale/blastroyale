@@ -28,7 +28,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public LocalPlayerIndicatorContainerView(IGameServices services)
 		{
 			_services = services;
-			InstantiateAllIndicators();
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerAmmoEmpty>(this, HandleOnLocalPlayerAmmoEmpty);
 		}
 

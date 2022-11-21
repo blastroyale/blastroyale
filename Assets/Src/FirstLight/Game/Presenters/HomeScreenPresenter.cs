@@ -198,7 +198,7 @@ namespace FirstLight.Game.Presenters
 
 			yield return new WaitForSeconds(CURRENCY_ANIM_DELAY);
 
-			for (int i = 0; i < Mathf.Min(10, current - previous); i++)
+			for (int i = 0; i < Mathf.Clamp(current - previous, 1, 20); i++)
 			{
 				_mainMenuServices.UiVfxService.PlayVfx(id,
 					i * 0.1f,
@@ -229,12 +229,19 @@ namespace FirstLight.Game.Presenters
 			var poolInfo = _dataProvider.ResourceDataProvider.GetResourcePoolInfo(id);
 			var timeLeft = poolInfo.NextRestockTime - DateTime.UtcNow;
 
-			timeLabel.text = string.Format(ScriptLocalization.UITHomeScreen.resource_pool_restock,
-				poolInfo.RestockPerInterval,
-				id.ToString(),
-				timeLeft.ToHoursMinutesSeconds());
-
 			amountLabel.text = string.Format(amountStringFormat, poolInfo.CurrentAmount, poolInfo.PoolCapacity);
+			
+			if (poolInfo.IsFull)
+			{
+				timeLabel.text = string.Empty;
+			}
+			else
+			{
+				timeLabel.text = string.Format(ScriptLocalization.UITHomeScreen.resource_pool_restock,
+					poolInfo.RestockPerInterval,
+					id.ToString(),
+					timeLeft.ToHoursMinutesSeconds());
+			}
 		}
 
 		private void OnBattlePassCurrentLevelChanged(uint _, uint current)
@@ -264,9 +271,12 @@ namespace FirstLight.Game.Presenters
 		{
 			yield return new WaitForSeconds(CURRENCY_ANIM_DELAY);
 
-			for (int i = 0; i < (int) (current - previous); i++)
+			var pointsDiff = current - previous;
+			var pointsToAnimate = Mathf.Clamp(current - previous, 3, 10);
+			var pointsModifier = pointsDiff / pointsToAnimate;
+			for (int i = 0; i < pointsToAnimate; i++)
 			{
-				int points = (int) previous + i + 1;
+				int points = (int) previous + Mathf.RoundToInt(i * pointsModifier) + 1;
 				var predictedLevelAndPoints = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints(points);
 
 				_mainMenuServices.UiVfxService.PlayVfx(id,

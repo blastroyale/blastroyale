@@ -200,6 +200,36 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <summary>
+		/// When server returns an exception after a command was executed
+		/// </summary>
+		private void OnCommandException(string exceptionMsg)
+		{
+#if UNITY_EDITOR
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = "OK",
+				ButtonOnClick = () =>
+				{
+					_services.AnalyticsService.CrashLog(exceptionMsg);
+					_services.QuitGame("Server desynch");
+				}
+			};
+			_services.GenericDialogService.OpenButtonDialog("Server Error", exceptionMsg, false, confirmButton);
+#else
+			NativeUiService.ShowAlertPopUp(false, "Error", "Desynch", new AlertButton
+			{
+				Callback = () =>
+				{
+					_services.AnalyticsService.CrashLog(exceptionMsg);
+					_services.QuitGame("Server desynch");
+				},
+				Style = AlertButtonStyle.Negative,
+				Text = "Quit Game"
+			});
+#endif
+		}
+
+		/// <summary>
 		/// Sends a command to override playfab data with what the client is sending.
 		/// Will only be enabled for testing and debugging purposes.
 		/// </summary>
@@ -297,7 +327,7 @@ namespace FirstLight.Game.Services
 			// Command returned 200 but a expected logic exception happened due
 			if (logicResult.Result.Data.TryGetValue("LogicException", out var logicException))
 			{
-				throw new LogicException(logicException);
+				OnCommandException(logicException);
 			}
 			if (FeatureFlags.REMOTE_CONFIGURATION &&
 				logicResult.Result.Data.TryGetValue(CommandFields.ConfigurationVersion, out var serverConfigVersion))

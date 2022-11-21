@@ -28,24 +28,6 @@ LocalizedButton {
     width: 1000px;
     height: 780px;
     background-color: rgb(0, 0, 0);
-    transition-timing-function: ease-out;
-    transition-duration: 0.5s;
-    transition-property: top;
-    top: 0;
-    transition-delay: 0.5s;
-}
-
-.hidden #PopupBackground {
-    top: -1000px;
-    transition-timing-function: ease-in;
-    transition-duration: 0.5s;
-    transition-property: top;
-    transition-delay: 0.5s;
-}
-
-.hidden {
-    display: none;
-    transition-delay: 1s;
 }
 
 .background {
@@ -63,11 +45,14 @@ LocalizedButton {
 #LoginButton {
     padding-left: 100px;
     padding-right: 100px;
-    width: 460px;
 }
 
 .blocker-hidden {
     background-color: rgba(0, 0, 0, 0.45);
     display: none;
     transition-duration: 0.3s;
+}
+
+#Header {
+    background-color: rgb(128, 87, 227);
 }

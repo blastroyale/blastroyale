@@ -34,7 +34,8 @@ namespace FirstLight.Game.Presenters
 		}
 
 		private Room CurrentRoom => _services.NetworkService.QuantumClient.CurrentRoom;
-
+		private bool RejoiningRoom => !_services.NetworkService.IsJoiningNewMatch;
+		
 		private ImageButton _closeButton;
 		private VisualElement _dropzone;
 		private VisualElement _mapHolder;
@@ -51,6 +52,7 @@ namespace FirstLight.Game.Presenters
 		private Label _debugPlayerCountLabel;
 		private IGameServices _services;
 		private Coroutine _matchmakingTimerCoroutine;
+		private bool _dropSelectionAllowed;
 
 		private void Awake()
 		{
@@ -99,7 +101,7 @@ namespace FirstLight.Game.Presenters
 
 		private void SelectMapPosition(Vector2 localPos, bool offsetCoors, bool checkClickWithinRadius)
 		{
-			if (checkClickWithinRadius && !IsWithinMapRadius(localPos)) return;
+			if (!_dropSelectionAllowed || (checkClickWithinRadius && !IsWithinMapRadius(localPos))) return;
 			
 			var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
 			var mapDiameter = _mapImage.contentRect.width;
@@ -171,7 +173,7 @@ namespace FirstLight.Game.Presenters
 			
 			UpdatePlayerCount();
 
-			_matchmakingTimerCoroutine = _services.CoroutineService.StartCoroutine(MatchmakingTimerCoroutine(matchmakingTime, minPlayers));
+			
 
 			if (!gameModeConfig.SkydiveSpawn)
 			{
@@ -181,6 +183,17 @@ namespace FirstLight.Game.Presenters
 				var sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(mapConfig.Map, false);
 				_mapImage.style.backgroundImage = new StyleBackground(sprite);
 				return;
+			}
+
+			_dropSelectionAllowed = !RejoiningRoom;
+
+			if (RejoiningRoom)
+			{
+				OnStartedFinalPreloadMessage(new StartedFinalPreloadMessage());
+			}
+			else
+			{
+				_matchmakingTimerCoroutine = _services.CoroutineService.StartCoroutine(MatchmakingTimerCoroutine(matchmakingTime, minPlayers));
 			}
 
 			InitSkydiveSpawnMapData();
@@ -221,6 +234,7 @@ namespace FirstLight.Game.Presenters
 			
 			_closeButton.SetDisplayActive(false);
 			_loadStatusLabel.text = ScriptLocalization.UITMatchmaking.loading_status_starting;
+			_dropSelectionAllowed = false;
 		}
 
 		private void UpdatePlayerCount()

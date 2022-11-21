@@ -79,7 +79,7 @@ namespace FirstLight.Game.StateMachines
 			
 			roomCheck.Transition().Condition(NetworkUtils.IsOfflineOrDisconnected).Target(unloading);
 			roomCheck.Transition().Condition(IsRoomClosed).Target(playerReadyCheck);
-			roomCheck.Transition().Target(matchmaking);
+			roomCheck.Transition().Target(roomTypeCheck);
 
 			roomTypeCheck.Transition().Condition(_networkService.QuantumClient.CurrentRoom.IsMatchmakingRoom).Target(matchmaking);
 			roomTypeCheck.Transition().Target(customLobby);

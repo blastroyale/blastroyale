@@ -1093,8 +1093,21 @@ namespace I2.Loc
 
 		public static class UITEquipment
 		{
+			public static string adjective_cool 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/adjective_cool"); } }
+			public static string adjective_divine 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/adjective_divine"); } }
+			public static string adjective_exquisite 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/adjective_exquisite"); } }
+			public static string adjective_magnificent 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/adjective_magnificent"); } }
+			public static string adjective_majestic 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/adjective_majestic"); } }
+			public static string adjective_marvelous 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/adjective_marvelous"); } }
+			public static string adjective_ornate 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/adjective_ornate"); } }
+			public static string adjective_regular 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/adjective_regular"); } }
+			public static string adjective_royal 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/adjective_royal"); } }
+			public static string ajdective_posh 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/ajdective_posh"); } }
 			public static string card_lvl 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/card_lvl"); } }
+			public static string equip 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/equip"); } }
 			public static string equipment 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/equipment"); } }
+			public static string equipment_details_title 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/equipment_details_title"); } }
+			public static string equipped 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/equipped"); } }
 			public static string item_name_lvl 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/item_name_lvl"); } }
 			public static string loaned 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/loaned"); } }
 			public static string lvl 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/lvl"); } }
@@ -1109,6 +1122,7 @@ namespace I2.Loc
 			public static string selection_helmet 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/selection_helmet"); } }
 			public static string selection_shield 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/selection_shield"); } }
 			public static string selection_weapon 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/selection_weapon"); } }
+			public static string unequip 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/unequip"); } }
 		}
 
 		public static class UITGameModeSelection
@@ -2293,8 +2307,21 @@ namespace I2.Loc
 
 		public static class UITEquipment
 		{
+		    public const string adjective_cool = "UITEquipment/adjective_cool";
+		    public const string adjective_divine = "UITEquipment/adjective_divine";
+		    public const string adjective_exquisite = "UITEquipment/adjective_exquisite";
+		    public const string adjective_magnificent = "UITEquipment/adjective_magnificent";
+		    public const string adjective_majestic = "UITEquipment/adjective_majestic";
+		    public const string adjective_marvelous = "UITEquipment/adjective_marvelous";
+		    public const string adjective_ornate = "UITEquipment/adjective_ornate";
+		    public const string adjective_regular = "UITEquipment/adjective_regular";
+		    public const string adjective_royal = "UITEquipment/adjective_royal";
+		    public const string ajdective_posh = "UITEquipment/ajdective_posh";
 		    public const string card_lvl = "UITEquipment/card_lvl";
+		    public const string equip = "UITEquipment/equip";
 		    public const string equipment = "UITEquipment/equipment";
+		    public const string equipment_details_title = "UITEquipment/equipment_details_title";
+		    public const string equipped = "UITEquipment/equipped";
 		    public const string item_name_lvl = "UITEquipment/item_name_lvl";
 		    public const string loaned = "UITEquipment/loaned";
 		    public const string lvl = "UITEquipment/lvl";
@@ -2309,6 +2336,7 @@ namespace I2.Loc
 		    public const string selection_helmet = "UITEquipment/selection_helmet";
 		    public const string selection_shield = "UITEquipment/selection_shield";
 		    public const string selection_weapon = "UITEquipment/selection_weapon";
+		    public const string unequip = "UITEquipment/unequip";
 		}
 
 		public static class UITGameModeSelection

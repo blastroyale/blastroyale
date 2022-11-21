@@ -8172,7 +8172,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Aimed Airstrike
+      - AIMED AIRSTRIKE
       - 
       - 
       Flags: 000000
@@ -8190,7 +8190,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Grenade
+      - GRENADE
       - 
       - 
       Flags: 000000
@@ -8208,7 +8208,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Aimed Healing Sphere
+      - AIMED HEALING SPHERE
       - 
       - 
       Flags: 000000
@@ -8226,7 +8226,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Aimed Invisibility
+      - AIMED INVISIBILITY
       - 
       - 
       Flags: 000000
@@ -8244,7 +8244,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Aimed Rage
+      - AIMED RAGE
       - 
       - 
       Flags: 000000
@@ -8262,7 +8262,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Aimed Shield
+      - AIMED SHIELD
       - 
       - 
       Flags: 000000
@@ -8280,7 +8280,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Stun Grenade
+      - STUN GRENADE
       - 
       - 
       Flags: 000000
@@ -8298,7 +8298,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Airstrike
+      - AIRSTRIKE
       - 
       - 
       Flags: 000000
@@ -8316,7 +8316,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Healing Sphere
+      - HEALING SPHERE
       - 
       - 
       Flags: 000000
@@ -8334,7 +8334,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Healing Field
+      - HEALING FIELD
       - 
       - 
       Flags: 000000
@@ -8352,7 +8352,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Healing Mode
+      - HEALING MODE
       - 
       - 
       Flags: 000000
@@ -8370,7 +8370,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Invisibility Mode
+      - INVISIBILITY
       - 
       - 
       Flags: 000000
@@ -8388,7 +8388,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Rage
+      - RAGE
       - 
       - 
       Flags: 000000
@@ -8406,7 +8406,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Shield
+      - SHIELD
       - 
       - 
       Flags: 000000
@@ -8424,7 +8424,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Shielded Charge
+      - SHIELDED CHARGE
       - 
       - 
       Flags: 000000
@@ -8460,7 +8460,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Stun Splash
+      - STUN SPLASH
       - 
       - 
       Flags: 000000
@@ -10073,6 +10073,277 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITEquipment/equipment_details_title
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} {1} LV<size=120%>{2}</size>'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/adjective_regular
+      TermType: 0
+      Description: 
+      Languages:
+      - REGULAR
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/adjective_cool
+      TermType: 0
+      Description: 
+      Languages:
+      - COOL
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/adjective_ornate
+      TermType: 0
+      Description: 
+      Languages:
+      - ORNATE
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/adjective_posh
+      TermType: 0
+      Description: 
+      Languages:
+      - POSH
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/adjective_exquisite
+      TermType: 0
+      Description: 
+      Languages:
+      - EXQUISITE
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/adjective_majestic
+      TermType: 0
+      Description: 
+      Languages:
+      - MAJESTIC
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/adjective_marvelous
+      TermType: 0
+      Description: 
+      Languages:
+      - MARVELOUS
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/adjective_magnificent
+      TermType: 0
+      Description: 
+      Languages:
+      - MAGNIFICENT
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/adjective_royal
+      TermType: 0
+      Description: 
+      Languages:
+      - ROYAL
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/adjective_divine
+      TermType: 0
+      Description: 
+      Languages:
+      - DIVINE
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/equipped
+      TermType: 0
+      Description: 
+      Languages:
+      - EQUIPPED
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/equip
+      TermType: 0
+      Description: 
+      Languages:
+      - EQUIP
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/unequip
+      TermType: 0
+      Description: 
+      Languages:
+      - UNEQUIP
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/rarity_common
+      TermType: 0
+      Description: 
+      Languages:
+      - COMMON
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/rarity_commonplus
+      TermType: 0
+      Description: 
+      Languages:
+      - COMMON PLUS
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/rarity_uncommon
+      TermType: 0
+      Description: 
+      Languages:
+      - UNCOMMON
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/rarity_uncommonplus
+      TermType: 0
+      Description: 
+      Languages:
+      - UNCOMMON PLUS
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/rarity_rare
+      TermType: 0
+      Description: 
+      Languages:
+      - RARE
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/rarity_rareplus
+      TermType: 0
+      Description: 
+      Languages:
+      - RARE PLUS
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/rarity_epic
+      TermType: 0
+      Description: 
+      Languages:
+      - EPIC
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/rarity_epicplus
+      TermType: 0
+      Description: 
+      Languages:
+      - EPIC PLUS
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/rarity_legendary
+      TermType: 0
+      Description: 
+      Languages:
+      - LEGENDARY
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/rarity_legendaryplus
+      TermType: 0
+      Description: 
+      Languages:
+      - LEGENDARY PLUS
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/details_no_amulet
+      TermType: 0
+      Description: 
+      Languages:
+      - 'YOU HAVE NO
+
+        AMULETS'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/details_no_armor
+      TermType: 0
+      Description: 
+      Languages:
+      - 'YOU HAVE NO
+
+        ARMORS'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/details_no_helmet
+      TermType: 0
+      Description: 
+      Languages:
+      - 'YOU HAVE NO
+
+        HELMETS'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/details_no_shield
+      TermType: 0
+      Description: 
+      Languages:
+      - 'YOU HAVE NO
+
+        SHIELDS'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/details_no_weapon
+      TermType: 0
+      Description: 
+      Languages:
+      - 'YOU HAVE NO
+
+        WEAPONS'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -10091,7 +10362,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1668510757600
+    Google_LastUpdatedVersion: 1668625942831
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

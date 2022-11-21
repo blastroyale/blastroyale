@@ -27,11 +27,9 @@ namespace FirstLight.Game.Views.MainMenuViews
 		[SerializeField, Required] private Camera _uiCamera;
 		[SerializeField, Required] private AspectRatioFitter _aspectRatioFitter;
 		[SerializeField, Required] private Image _mapImage;
-		[SerializeField, Required] private RectTransform _gridOverlay;
-		[SerializeField] private Color _unavailableGridColor;
-
+		[SerializeField, Required] private Transform _dropzoneLayout;
+		
 		private IGameServices _services;
-		private IGameDataProvider _dataProvider;
 		private RectTransform _rectTransform;
 		private float _dropSelectionSize;
 
@@ -44,7 +42,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_rectTransform = transform as RectTransform;
 		}
 
@@ -79,27 +76,23 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 			if (SelectionEnabled)
 			{
-				var defaultDropPos = new Vector2Int((int) dropzonePosRot.x, (int) dropzonePosRot.y);
-				_services.AnalyticsService.MatchCalls.DefaultDropPosition = defaultDropPos;
+				var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
+				var defaultX = Mathf.FloorToInt(mapGridConfigs.GetSize().x / 2f);
+				var defaultY = Mathf.FloorToInt(mapGridConfigs.GetSize().x / 2f);
+				var defaultDropPos = new Vector2Int(defaultX, defaultY);
+				
 				SetGridPosition(defaultDropPos, false);
+				_dropzoneLayout.rotation = Quaternion.Euler(0,0,dropzonePosRot.z);
 
+				_services.AnalyticsService.MatchCalls.DefaultDropPosition = defaultDropPos;
 				_services.AnalyticsService.MatchCalls.PresentedMapPath = dropzonePosRot.ToString();
 			}
-		}
-
-		/// <summary>
-		/// Cleans up entities that aren't required anymore.
-		/// </summary>
-		public void CleanupMapView()
-		{
-			_gridOverlay.DestroyChildren();
 		}
 
 		/// <inheritdoc />
 		public void OnPointerClick(PointerEventData eventData)
 		{
 			if (!SelectionEnabled) return;
-
 			SetGridPosition(ScreenToGridPosition(eventData.position), true);
 		}
 
@@ -137,22 +130,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_selectedPoint.anchoredPosition = localPosition;
 			_selectedDropAreaText.text = mapGridConfigs.GetTranslation(gridConfig.AreaName);
 			_services.MatchmakingService.NormalizedMapSelectedPosition = new Vector2(localPosition.x / localSize.x, localPosition.y / localSize.y) * _dropSelectionSize;
-			Debug.LogError(_services.MatchmakingService.NormalizedMapSelectedPosition);
 			_selectedDropAreaRoot.SetActive(gridConfig.IsValidNamedArea);
-		}
-
-		private Vector2Int GetRandomGridPosition()
-		{
-			var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
-			var gridSize = mapGridConfigs.GetSize();
-
-			Vector2Int position;
-			do
-			{
-				position = new Vector2Int(Random.Range(0, gridSize.x), Random.Range(0, gridSize.y));
-			} while (!IsValidPosition(position, false));
-
-			return position;
 		}
 
 		private Vector2Int ScreenToGridPosition(Vector2 pointer)

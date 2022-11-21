@@ -194,7 +194,6 @@ namespace FirstLight.Game.Presenters
 
 		protected override async Task OnClosed()
 		{
-			mapSelectionView.CleanupMapView();
 			_rootObject.SetActive(true);
 		}
 

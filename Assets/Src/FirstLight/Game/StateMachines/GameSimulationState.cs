@@ -468,7 +468,6 @@ namespace FirstLight.Game.StateMachines
 			var inventory = _gameDataProvider.EquipmentDataProvider.Inventory;
 			var f = game.Frames.Verified;
 			var spawnPosition = _services.MatchmakingService.NormalizedMapSelectedPosition;
-			Debug.LogError(spawnPosition);
 
 			var spawnWithloadout = f.Context.GameModeConfig.SpawnWithGear || f.Context.GameModeConfig.SpawnWithWeapon;
 

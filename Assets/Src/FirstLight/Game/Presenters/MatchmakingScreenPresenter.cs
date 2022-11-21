@@ -80,6 +80,16 @@ namespace FirstLight.Game.Presenters
 			_services.MessageBrokerService.Subscribe<StartedFinalPreloadMessage>(OnStartedFinalPreloadMessage);
 		}
 
+		protected override void UnsubscribeFromEvents()
+		{
+			base.UnsubscribeFromEvents();
+			
+			if (_matchmakingTimerCoroutine != null)
+			{
+				_services.CoroutineService.StopCoroutine(_matchmakingTimerCoroutine);
+			}
+		}
+
 		private void OnMapClicked(ClickEvent evt)
 		{
 			SelectMapPosition(evt.localPosition, true, true);
@@ -137,6 +147,8 @@ namespace FirstLight.Game.Presenters
 
 		private async void InitMap(GeometryChangedEvent evt)
 		{
+			if (CurrentRoom == null) return;
+			
 			var matchType = CurrentRoom.GetMatchType();
 			var gameMode = CurrentRoom.GetGameModeId();
 			var gameModeConfig = _services.NetworkService.CurrentRoomGameModeConfig.Value;

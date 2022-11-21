@@ -140,7 +140,7 @@ namespace Quantum.Systems
 					// Special case: having no ammo and collecting the weapon that is already in one of the slots
 					if (ammoWasEmpty && playerCharacter->HasMeleeWeapon(f, playerEntity))
 					{
-						playerCharacter->TryEquipExistingWeaponID(f, playerEntity, equipment->Item.GameId);
+						playerCharacter->TryEquipExistingWeaponId(f, playerEntity, equipment->Item.GameId);
 					}
 				}
 				else

@@ -1,0 +1,145 @@
+:root {
+    --base-duration: 0.3s;
+    --base-easing: ease-out;
+}
+
+.hidden {
+    display: none;
+}
+
+.anim-delay-0 {
+    transition-delay: 0s;
+}
+
+.anim-delay-1 {
+    transition-delay: 0.05s;
+}
+
+.anim-delay-2 {
+    transition-delay: 0.1s;
+}
+
+.anim-delay-3 {
+    transition-delay: 0.15s;
+}
+
+.anim-delay-4 {
+    transition-delay: 0.2s;
+}
+
+.anim-delay-5 {
+    transition-delay: 0.25s;
+}
+
+.anim-translate {
+    transition-property: translate;
+    transition-duration: var(--base-duration);
+    transition-timing-function: var(--base-easing);
+}
+
+.hidden .anim-translate--up-s {
+    translate: 0 200px;
+}
+
+.hidden .anim-translate--down-s {
+    translate: 0 -200px;
+}
+
+.hidden .anim-translate--left-s {
+    translate: 200px 0;
+}
+
+.hidden .anim-translate--right-s {
+    translate: -200px 0;
+}
+
+.hidden .anim-translate--up-m {
+    translate: 0 400px;
+}
+
+.hidden .anim-translate--down-m {
+    translate: 0 -400px;
+}
+
+.hidden .anim-translate--left-m {
+    translate: 400px 0;
+}
+
+.hidden .anim-translate--right-m {
+    translate: -400px 0;
+}
+
+.hidden .anim-translate--up-l {
+    translate: 0 600px;
+}
+
+.hidden .anim-translate--down-l {
+    translate: 0 -600px;
+}
+
+.hidden .anim-translate--left-l {
+    translate: 600px 0;
+}
+
+.hidden .anim-translate--right-l {
+    translate: -600px 0;
+}
+
+.hidden .anim-translate--up-xl {
+    translate: 0 800px;
+}
+
+.hidden .anim-translate--down-xl {
+    translate: 0 -800px;
+}
+
+.hidden .anim-translate--left-xl {
+    translate: 800px 0;
+}
+
+.hidden .anim-translate--right-xl {
+    translate: -800px 0;
+}
+
+.hidden .anim-translate--up-xxl {
+    translate: 0 1000px;
+}
+
+.hidden .anim-translate--down-xxl {
+    translate: 0 -1000px;
+}
+
+.hidden .anim-translate--left-xxl {
+    translate: 1000px 0;
+}
+
+.hidden .anim-translate--right-xxl {
+    translate: -1000px 0;
+}
+
+.hidden .anim-translate--up-xxxl {
+    translate: 0 1200px;
+}
+
+.hidden .anim-translate--down-xxxl {
+    translate: 0 -1200px;
+}
+
+.hidden .anim-translate--left-xxxl {
+    translate: 1200px 0;
+}
+
+.hidden .anim-translate--right-xxxl {
+    translate: -1200px 0;
+}
+
+.anim-fade {
+    transition-property: opacity;
+    transition-duration: var(--base-duration);
+    transition-timing-function: var(--base-easing);
+}
+
+.hidden .anim-fade {
+    opacity: 0;
+}
+

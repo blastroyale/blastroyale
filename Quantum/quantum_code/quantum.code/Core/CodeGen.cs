@@ -5594,7 +5594,7 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnPlayerAmmoChanged OnPlayerAmmoChanged(PlayerRef Player, EntityRef Entity, Int32 PreviousAmmo, Int32 CurrentAmmo, Int32 MaxAmmo) {
+      public EventOnPlayerAmmoChanged OnPlayerAmmoChanged(PlayerRef Player, EntityRef Entity, Int32 PreviousAmmo, Int32 CurrentAmmo, Int32 MaxAmmo, FP FilledAmmo) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnPlayerAmmoChanged>(EventOnPlayerAmmoChanged.ID);
         ev.Player = Player;
@@ -5602,6 +5602,7 @@ namespace Quantum {
         ev.PreviousAmmo = PreviousAmmo;
         ev.CurrentAmmo = CurrentAmmo;
         ev.MaxAmmo = MaxAmmo;
+        ev.FilledAmmo = FilledAmmo;
         _f.AddEvent(ev);
         return ev;
       }
@@ -7464,6 +7465,7 @@ namespace Quantum {
     public Int32 PreviousAmmo;
     public Int32 CurrentAmmo;
     public Int32 MaxAmmo;
+    public FP FilledAmmo;
     protected EventOnPlayerAmmoChanged(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -7486,6 +7488,7 @@ namespace Quantum {
         hash = hash * 31 + PreviousAmmo.GetHashCode();
         hash = hash * 31 + CurrentAmmo.GetHashCode();
         hash = hash * 31 + MaxAmmo.GetHashCode();
+        hash = hash * 31 + FilledAmmo.GetHashCode();
         return hash;
       }
     }

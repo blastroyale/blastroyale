@@ -16,8 +16,11 @@ namespace BlastRoyaleNFTPlugin
 	/// </summary>
 	public class TrophyLadderPlugin : ServerPlugin
 	{
+		private PluginContext _ctx;
+		
 		public override void OnEnable(PluginContext context)
 		{
+			_ctx = context;
 			context.PluginEventManager.RegisterListener<CommandFinishedEvent>(OnCommandFinished);
 			SetupLeaderboard();
 		}
@@ -49,6 +52,12 @@ namespace BlastRoyaleNFTPlugin
 						StatisticName = GameConstants.Network.LEADERBOARD_LADDER_NAME
 					}
 				},
+			}).ContinueWith(response =>
+			{
+				if (response.Result.Error != null)
+				{
+					_ctx.Log.LogError(response.Result.Error.GenerateErrorReport());
+				}
 			});
 		}
 	}

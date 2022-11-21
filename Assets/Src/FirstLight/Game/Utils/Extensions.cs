@@ -360,6 +360,22 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
+		/// Returns true if the given <paramref name="room"/> is a playtest room
+		/// </summary>
+		public static bool IsPlayTestRoom(this Room room)
+		{
+			return room.Name.Contains(GameConstants.Network.ROOM_NAME_PLAYTEST);
+		}
+		
+		/// <summary>
+		/// Returns true if the given <paramref name="roomName"/> is a playtest room
+		/// </summary>
+		public static bool IsPlayTestRoom(this string roomName)
+		{
+			return roomName.Contains(GameConstants.Network.ROOM_NAME_PLAYTEST);
+		}
+		
+		/// <summary>
 		/// Obtains the current selected map id in the given <paramref name="room"/>
 		/// </summary>
 		public static int GetMapId(this Room room)
@@ -382,6 +398,14 @@ namespace FirstLight.Game.Utils
 		{
 			return new DateTime((long) room.CustomProperties[GameConstants.Network.ROOM_PROPS_CREATION_TICKS]);
 		}
+		
+		/// <summary>
+		/// Obtains the current room creation time (created with UTC.Now)
+		/// </summary>
+		public static string StripRoomCommitLock(this string roomName)
+		{
+			return roomName.Replace(NetworkUtils.RoomCommitLockData, "");
+		}
 
 		/// <summary>
 		/// Obtains the list of mutators enabled in the given <paramref name="room"/>
@@ -397,7 +421,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static string GetRoomName(this Room room)
 		{
-			return room.Name.Split(NetworkUtils.ROOM_SEPARATOR)[0];
+			return room.Name.Split(GameConstants.Network.ROOM_META_SEPARATOR)[0];
 		}
 
 		/// <summary>
@@ -542,9 +566,11 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static PlayerMatchData GetLocalPlayerData(this QuantumGame game, bool isVerified, out Frame f)
 		{
+			var localPlayers = game.GetLocalPlayers();
+			
 			f = isVerified ? game.Frames.Verified : game.Frames.Predicted;
 			
-			return f.GetSingleton<GameContainer>().PlayersData[game.GetLocalPlayers()[0]];
+			return localPlayers.Length == 0 ? new PlayerMatchData() : f.GetSingleton<GameContainer>().PlayersData[game.GetLocalPlayers()[0]];
 		}
 
 		/// <summary>

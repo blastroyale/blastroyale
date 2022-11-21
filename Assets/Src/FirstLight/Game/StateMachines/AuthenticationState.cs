@@ -114,7 +114,7 @@ namespace FirstLight.Game.StateMachines
 			getServerState.OnEnter(OpenLoadingScreen);
 			getServerState.WaitingFor(FinalStepsAuthentication).Target(accountStateCheck);
 
-			accountDeleted.OnEnter(AccountDeletedPopup);
+			accountDeleted.OnEnter(ShowAccountDeletedPopup);
 
 			accountStateCheck.Transition().Condition(IsAccountDeleted).Target(accountDeleted);
 			accountStateCheck.Transition().Target(final);
@@ -407,18 +407,20 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private void AccountDeletedPopup()
+		private void ShowAccountDeletedPopup()
 		{
+			var title = ScriptLocalization.UITSettings.account_deleted_title;
+			var desc = ScriptLocalization.UITSettings.account_deleted_desc;
 			var confirmButton = new GenericDialogButton
 			{
-				ButtonText = ScriptLocalization.General.Confirm,
+				ButtonText = ScriptLocalization.UITShared.ok,
 				ButtonOnClick = () =>
 				{
 					_services.QuitGame("Deleted User");
 				}
 			};
 			
-			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, ScriptLocalization.MainMenu.DeleteAccountConfirm, false, confirmButton);
+			_services.GenericDialogService.OpenButtonDialog(title, desc,false, confirmButton);
 		}
 
 		private bool IsAccountDeleted()
@@ -545,7 +547,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				Email = email,
 				DisplayName = username,
-				Username = username,
+				Username = username.Replace(" ", ""),
 				Password = password
 			};
 

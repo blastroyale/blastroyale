@@ -231,15 +231,17 @@ namespace FirstLight.Game.StateMachines
 			_data.AppDataProvider.DeviceID.Value = null;
 			_services.HelpdeskService.Logout();
 			
+			var title = ScriptLocalization.UITShared.info;
+			var desc = ScriptLocalization.UITSettings.logout_success_desc;
+			
 #if UNITY_EDITOR
-			var desc = string.Format(ScriptLocalization.MainMenu.LogoutSuccessDesc);
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.MainMenu.QuitGameButton,
 				ButtonOnClick = () => { _services.QuitGame("Closing due to logout"); }
 			};
 
-			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.info, desc, false, confirmButton);
+			_services.GenericDialogService.OpenButtonDialog(title, desc, false, confirmButton);
 #else
 				var button = new FirstLight.NativeUi.AlertButton
 				{
@@ -248,8 +250,7 @@ namespace FirstLight.Game.StateMachines
 					Text = ScriptLocalization.MainMenu.QuitGameButton
 				};
 
-				FirstLight.NativeUi.NativeUiService.ShowAlertPopUp(false, ScriptLocalization.MainMenu.LogoutSuccessTitle,
-				                               ScriptLocalization.MainMenu.LogoutSuccessDesc, button);
+				FirstLight.NativeUi.NativeUiService.ShowAlertPopUp(false, title, desc, button);
 #endif
 		}
 		

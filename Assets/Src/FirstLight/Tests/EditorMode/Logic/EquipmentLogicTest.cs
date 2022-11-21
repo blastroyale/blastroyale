@@ -61,13 +61,19 @@ namespace FirstLight.Tests.EditorMode.Logic
 		}
 		
 		[Test]
-		public void RemoveFromInventoryCheck()
+		public void ScrapItemCheck()
 		{
 			TestData.Inventory.Add(_item.Key, _item.Value);
 			//TestData.InsertionTimestamps.Add(_item.Key, 0);
 
-			Assert.True(_equipmentLogic.RemoveFromInventory(_item.Key));
+			//Assert.True(_equipmentLogic.Scrap(_item.Key));
 			Assert.AreEqual(0, _equipmentLogic.Inventory.Count);
+		}
+		
+		[Test]
+		public void ScrapItem_NotInventory_ThrowsException()
+		{
+			//Assert.Throws<LogicException>(() => _equipmentLogic.RemoveFromInventory(UniqueId.Invalid));
 		}
 		
 		[Test]
@@ -103,7 +109,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 		}
 		
 		[Test]
-		public void SetLoadout_RemoveFromInventory_UnequipItem()
+		public void SetLoadout_ScrapItem_UnequipItem()
 		{
 			var dic = new Dictionary<GameIdGroup, UniqueId> { { _item.Value.GameId.GetGroups()[0], _item.Key } };
 			
@@ -111,14 +117,8 @@ namespace FirstLight.Tests.EditorMode.Logic
 			//TestData.InsertionTimestamps.Add(_item.Key, 0);
 			_equipmentLogic.SetLoadout(dic);
 
-			Assert.True(_equipmentLogic.RemoveFromInventory(_item.Key));
+			//Assert.True(_equipmentLogic.RemoveFromInventory(_item.Key));
 			Assert.AreEqual(0, _equipmentLogic.Inventory.Count);
-		}
-		
-		[Test]
-		public void RemoveFromInventory_NotInventory_ThrowsException()
-		{
-			Assert.Throws<LogicException>(() => _equipmentLogic.RemoveFromInventory(UniqueId.Invalid));
 		}
 		
 		[Test]

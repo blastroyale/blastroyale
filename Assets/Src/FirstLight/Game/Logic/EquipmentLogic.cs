@@ -11,8 +11,6 @@ using FirstLight.Services;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
 using Quantum;
-using UnityEngine;
-using Random = System.Random;
 
 namespace FirstLight.Game.Logic
 {
@@ -94,14 +92,15 @@ namespace FirstLight.Game.Logic
 		UniqueId AddToInventory(Equipment equipment);
 
 		/// <summary>
-		/// Tries to remove an item from inventory, and returns true if a removal was successful
-		/// </summary>
-		bool RemoveFromInventory(UniqueId equipment);
-
-		/// <summary>
 		/// Sets the loadout for each slot in given <paramref name="newLoadout"/>
 		/// </summary>
 		void SetLoadout(IDictionary<GameIdGroup, UniqueId> newLoadout);
+
+		/// <summary>
+		/// Scraps the equipment of the given <paramref name="itemId"/> and returns the <see cref="EquipmentInfo"/> of
+		/// the scrapped item
+		/// </summary>
+		EquipmentInfo Scrap(UniqueId itemId);
 		
 		/// <summary>
 		/// Equips the given <paramref name="itemId"/> to the player's Equipment slot.
@@ -144,6 +143,7 @@ namespace FirstLight.Game.Logic
 			{
 				Id = id,
 				Equipment = equipment,
+				ScrappingValue = GetScrappingValue(equipment),
 				IsNft = _nftInventory.ContainsKey(id),
 				IsEquipped = _loadout.TryGetValue(equipment.GameId.GetSlot(), out var equipId) && equipId == id,
 				Stats = GetEquipmentStats(equipment)
@@ -264,35 +264,6 @@ namespace FirstLight.Game.Logic
 			                            );
 		}
 
-		private int GetWeightedRandomDictionaryIndex<TKey, TValue>(SerializedDictionary<TKey, TValue> dictionary)
-		{
-			Dictionary<TKey, FP> rangeDictionary = dictionary as Dictionary<TKey, FP>;
-			List<Tuple<FP, FP>> indexRanges = new List<Tuple<FP, FP>>();
-
-			var currentRangeMax = FP._0;
-			
-			foreach (var valueMax in rangeDictionary.Values)
-			{
-				var min = currentRangeMax;
-				var max = min + valueMax;
-				indexRanges.Add(new Tuple<FP, FP>(min,max));
-
-				currentRangeMax = max;
-			}
-
-			var rand = GameLogic.RngLogic.Range(0, currentRangeMax);
-			
-			foreach (var range in indexRanges)
-			{
-				if (rand >= range.Item1 && rand < range.Item2)
-				{
-					return indexRanges.IndexOf(range);
-				}
-			}
-
-			throw new LogicException("Dictionary weighted random could not return a valid index.");
-		}
-
 		public UniqueId AddToInventory(Equipment equipment)
 		{
 			if (!equipment.GameId.IsInGroup(GameIdGroup.Equipment))
@@ -306,29 +277,6 @@ namespace FirstLight.Game.Logic
 			_inventory.Add(id, equipment);
 			
 			return id;
-		}
-
-		public bool RemoveFromInventory(UniqueId equipment)
-		{
-			if (!_inventory.ContainsKey(equipment))
-			{
-				throw new LogicException($"The given '{equipment}' id is not in the inventory");
-			}
-
-			// Unequip the item before removing it from inventory
-			var gameId = GameLogic.UniqueIdLogic.Ids[equipment];
-			var slot = gameId.GetSlot();
-
-			if (_loadout.TryGetValue(slot, out var equippedId))
-			{
-				Unequip(equippedId);
-			}
-
-			_inventory.Remove(equipment);
-			
-			GameLogic.UniqueIdLogic.RemoveId(equipment);
-			
-			return true;
 		}
 
 		public void SetLoadout(IDictionary<GameIdGroup, UniqueId> newLoadout)
@@ -350,6 +298,20 @@ namespace FirstLight.Game.Logic
 					Unequip(_loadout[slot]);
 				}
 			}
+		}
+
+		public EquipmentInfo Scrap(UniqueId itemId)
+		{
+			var info = GetInfo(itemId);
+
+			if (info.IsNft)
+			{
+				throw new LogicException("Not allowed to scrap items on the client, only on the hub");
+			}
+
+			RemoveFromInventory(itemId);
+
+			return info;
 		}
 
 		public void Equip(UniqueId itemId)
@@ -397,6 +359,70 @@ namespace FirstLight.Game.Logic
 			}
 
 			_loadout.Remove(slot);
+		}
+
+		private Pair<GameId, int> GetScrappingValue(Equipment equipment)
+		{
+			var resourceType = GameId.COIN;
+			var config = GameLogic.ConfigsProvider.GetConfig<ScrapConfig>((int) resourceType);
+			var rarityValue =
+				Math.Ceiling(config.BaseValue * Math.Pow(config.GrowthMultiplier.AsFloat, (int)equipment.Rarity + 1));
+			var adjectiveValue = Math.Sqrt(Math.Pow(config.AdjectiveCostK.AsFloat, (int)equipment.Adjective + 1));
+			var gradeValue = Math.Pow(config.GradeMultiplier.AsFloat, (int)equipment.Grade + 1);
+			var levelMultiplier = (((int)equipment.Level + 1) * config.LevelMultiplier).AsDouble;
+			var ret = (int) (rarityValue + adjectiveValue + ((rarityValue + adjectiveValue) * levelMultiplier * gradeValue));
+
+			return new Pair<GameId, int>(resourceType, ret);
+		}
+
+		private int GetWeightedRandomDictionaryIndex<TKey, TValue>(SerializedDictionary<TKey, TValue> dictionary)
+		{
+			var rangeDictionary = dictionary as Dictionary<TKey, FP>;
+			var indexRanges = new List<Tuple<FP, FP>>();
+			var currentRangeMax = FP._0;
+			
+			foreach (var valueMax in rangeDictionary.Values)
+			{
+				var min = currentRangeMax;
+				var max = min + valueMax;
+				indexRanges.Add(new Tuple<FP, FP>(min,max));
+
+				currentRangeMax = max;
+			}
+
+			var rand = GameLogic.RngLogic.Range(0, currentRangeMax);
+			
+			foreach (var range in indexRanges)
+			{
+				if (rand >= range.Item1 && rand < range.Item2)
+				{
+					return indexRanges.IndexOf(range);
+				}
+			}
+
+			throw new LogicException("Dictionary weighted random could not return a valid index.");
+		}
+
+		private bool RemoveFromInventory(UniqueId equipment)
+		{
+			if (!_inventory.ContainsKey(equipment))
+			{
+				throw new LogicException($"The given '{equipment}' id is not in the inventory");
+			}
+
+			// Unequip the item before removing it from inventory
+			var gameId = GameLogic.UniqueIdLogic.Ids[equipment];
+			var slot = gameId.GetSlot();
+
+			if (_loadout.TryGetValue(slot, out var equippedId))
+			{
+				Unequip(equippedId);
+			}
+
+			_inventory.Remove(equipment);
+			GameLogic.UniqueIdLogic.RemoveId(equipment);
+			
+			return true;
 		}
 	}
 }

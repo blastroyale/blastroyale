@@ -5,6 +5,9 @@ using FirstLight.Services;
 
 namespace FirstLight.Game.Commands
 {
+	/// <summary>
+	/// Award the BPP and
+	/// </summary>
 	public struct RedeemBPPCommand : IGameCommand
 	{
 		public CommandAccessLevel AccessLevel() => CommandAccessLevel.Player;

@@ -11,15 +11,15 @@ namespace Quantum
 
 		// ========== BTNode INTERFACE ================================================================================
 
-		protected override BTStatus OnUpdate(BTParams btParams)
+		protected override BTStatus OnUpdate(BTParams btParams, ref AIContext aiContext)
 		{
 			if (_childInstance != null)
-				_childInstance.RunUpdate(btParams);
+				_childInstance.RunUpdate(btParams, ref aiContext);
 
 			return Result;
 		}
 
-		public override Boolean DryRun(BTParams btParams)
+		public override Boolean DryRun(BTParams btParams, ref AIContext aiContext)
 		{
 			return true;
 		}

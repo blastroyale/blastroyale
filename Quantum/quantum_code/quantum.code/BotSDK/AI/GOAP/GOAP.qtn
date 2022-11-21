@@ -1,45 +1,9 @@
-﻿#define MAX_PLAN_SIZE 6
-
-asset GOAPRoot;
+﻿asset GOAPRoot;
 asset GOAPGoal;
 asset GOAPAction;
 asset GOAPBackValidation;
 asset GOAPHeuristic;
 
-singleton component GOAPData
-{
-	asset_ref<GOAPHeuristic> HeuristicCost;
-}
-
 component GOAPAgent
 {
-	asset_ref<GOAPRoot> Root;
-	AssetRefAIConfig Config;
-
-	[ExcludeFromPrototype]
-	GOAPState CurrentState;
-
-	[ExcludeFromPrototype]
-	asset_ref<GOAPGoal> CurrentGoal;
-	[ExcludeFromPrototype]
-	GOAPState GoalState;
-
-	[ExcludeFromPrototype]
-	sbyte CurrentActionIndex;
-	[ExcludeFromPrototype]
-	sbyte LastProcessedActionIndex;
-	[ExcludeFromPrototype]
-	byte CurrentPlanSize;
-	[ExcludeFromPrototype]
-	array<asset_ref<GOAPAction>>[MAX_PLAN_SIZE] Plan;
-
-	[ExcludeFromPrototype]
-	FP CurrentActionTime;
-	[ExcludeFromPrototype]
-	FP CurrentGoalTime;
-	[ExcludeFromPrototype]
-	FP InterruptionCheckCooldown;
-
-	[ExcludeFromPrototype]
-	list<FP> GoalDisableTimes;
 }

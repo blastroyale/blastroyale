@@ -46,12 +46,12 @@ MonoBehaviour:
         Values: 580200002c010000
       PlayerDefaultSpeed:
         Default:
-          RawValue: 180224
+          RawValue: 163840
         Keys:
         - BattleRoyale
         - Deathmatch
         Values:
-        - RawValue: 180224
+        - RawValue: 163840
         - RawValue: 245760
       PlayerMaxShieldCapacity:
         Default: 1000
@@ -92,9 +92,11 @@ MonoBehaviour:
         RawValue: 3277
       DeathDropSmallShieldChance:
         RawValue: 16384
-      TrophyEloRange: 50
+      TrophyEloRange: 400
       TrophyEloK:
         RawValue: 262144
+      TrophyMinChange:
+        RawValue: 3277
       NftAssumedOwned: 40
       MinNftForEarnings: 3
       EarningsAugmentationStrengthDropMod:
@@ -113,4 +115,4 @@ MonoBehaviour:
         RawValue: 1310720
       MultiKillResetTime:
         RawValue: 262144
-      BotsBaseTrophies: 1000
+      BotsMaxDifficulty: 2

@@ -25,8 +25,20 @@ namespace FirstLight.Game.MonoComponent.Match
 			_currentlyCollidingPlayers = new Dictionary<EntityRef, PlayerCharacterViewMonoComponent>();
 
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
+			_services.MessageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEnded);
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 			QuantumEvent.Subscribe<EventOnPlayerDead>(this, OnPlayerDead);
+		}
+		
+		private void OnDestroy()
+		{
+			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(OnSpectatedPlayerChanged);
+			_services?.MessageBrokerService?.UnsubscribeAll(this);
+		}
+
+		private void OnMatchEnded(MatchEndedMessage callback)
+		{
+			_currentlyCollidingPlayers.Clear();
 		}
 
 		private void OnPlayerDead(EventOnPlayerDead callback)
@@ -36,12 +48,6 @@ namespace FirstLight.Game.MonoComponent.Match
 				_currentlyCollidingPlayers.Remove(callback.Entity);
 				CheckUpdateAllVisiblePlayers();
 			}
-		}
-
-		private void OnDestroy()
-		{
-			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(OnSpectatedPlayerChanged);
-			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
 		/// <summary>
@@ -56,10 +62,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		{
 			if (!other.TryGetComponent<PlayerCharacterViewMonoComponent>(out var player)) return;
 			
-			if (!_currentlyCollidingPlayers.ContainsKey(player.EntityRef))
-			{
-				_currentlyCollidingPlayers.Add(player.EntityRef, player);
-			}
+			_currentlyCollidingPlayers.TryAdd(player.EntityRef, player);
 
 			player.CollidingVisibilityVolumes.Add(this);
 
@@ -77,8 +80,14 @@ namespace FirstLight.Game.MonoComponent.Match
 		{
 			if (!other.TryGetComponent<PlayerCharacterViewMonoComponent>(out var player)) return;
 			
-			_currentlyCollidingPlayers.Remove(player.EntityRef);
 			player.CollidingVisibilityVolumes.Remove(this);
+
+			// If ALL instances of this GO vis volume have been removed from player, only then the player is considered
+			// not inside the volume anymore
+			if (!player.CollidingVisibilityVolumes.Contains(this))
+			{
+				_currentlyCollidingPlayers.Remove(player.EntityRef);
+			}
 
 			if (player.EntityRef == _matchServices.SpectateService.SpectatedPlayer.Value.Entity)
 			{

@@ -52,14 +52,8 @@ namespace Backend
 		private readonly IEventManager _eventManager;
 		private readonly IStateMigrator<ServerState> _migrator;
 
-		public GameLogicWebWebService(
-				IEventManager eventManager,
-				ILogger log,
-				IStateMigrator<ServerState> migrator,
-				IPlayerSetupService service,
-				IServerStateService stateService,
-				GameServer server
-				)
+		public GameLogicWebWebService(IEventManager eventManager, ILogger log, IStateMigrator<ServerState> migrator,
+									  IPlayerSetupService service, IServerStateService stateService, GameServer server)
 		{
 			_setupService = service;
 			_stateService = stateService;
@@ -73,10 +67,7 @@ namespace Backend
 		{
 			try
 			{
-				return new PlayFabResult<BackendLogicResult>
-				{
-					Result = await _server.RunLogic(playerId, request)
-				};
+				return new PlayFabResult<BackendLogicResult> {Result = await _server.RunLogic(playerId, request)};
 			}
 			catch (Exception e)
 			{
@@ -100,7 +91,8 @@ namespace Backend
 					if (versionUpdates > 0)
 					{
 						await _stateService.UpdatePlayerState(playerId, state);
-						_log.LogDebug($"Bumped state for {playerId} by {versionUpdates} versions, ending in version {state.GetVersion()}");
+						_log.LogDebug(
+							$"Bumped state for {playerId} by {versionUpdates} versions, ending in version {state.GetVersion()}");
 					}
 				}
 
@@ -109,9 +101,10 @@ namespace Backend
 				{
 					Result = new BackendLogicResult()
 					{
-						PlayFabId = playerId,
-						// TODO: Review serialization, playfab limit: 65536 bytes for cloudscript
-						// Data = await _stateService.GetPlayerState(playerId)
+						PlayFabId = playerId, 
+						// TODO: Review data structures, response exceeded max playfab limit
+						// https://firstlightgames.atlassian.net/browse/BRG-1134
+						Data = new() // await _stateService.GetPlayerState(playerId) 
 					}
 				};
 			}
@@ -148,11 +141,7 @@ namespace Backend
 			await _stateService.UpdatePlayerState(playerId, serverData);
 			return new PlayFabResult<BackendLogicResult>
 			{
-				Result = new BackendLogicResult
-				{
-					PlayFabId = playerId,
-					Data = serverData
-				}
+				Result = new BackendLogicResult {PlayFabId = playerId, Data = serverData}
 			};
 		}
 
@@ -167,14 +156,17 @@ namespace Backend
 				{
 					HttpCode = 500,
 					Error = PlayFabErrorCode.Unknown,
-					ErrorMessage = errorResult.Error != null ? 
-						               errorResult.Error.Message : 
-						               errorResult?.Data?.Values.First(),
+					ErrorMessage =
+						errorResult.Error != null
+							? errorResult.Error.Message
+							: errorResult?.Data?.Values.First(),
 					ErrorDetails = new Dictionary<string, string[]>()
 					{
-						{ "Exception", errorResult.Error != null ? 
-							               new[] {errorResult.Error.StackTrace} : 
-							               errorResult?.Data?.Values.ToArray() 
+						{
+							"Exception",
+							errorResult.Error != null
+								? new[] {errorResult.Error.StackTrace}
+								: errorResult?.Data?.Values.ToArray()
 						}
 					}
 				},
@@ -183,4 +175,3 @@ namespace Backend
 		}
 	}
 }
-

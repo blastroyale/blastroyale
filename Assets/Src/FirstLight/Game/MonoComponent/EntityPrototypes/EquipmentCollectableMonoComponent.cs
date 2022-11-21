@@ -22,13 +22,13 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		protected override async void OnEntityInstantiated(QuantumGame game)
 		{
+			var collectable = GetComponentData<EquipmentCollectable>(game);
+			
+			_matchServices = MainInstaller.Resolve<IMatchServices>();
+			
 			_collectableView.SetEntityView(game, EntityView);
 
-			_matchServices = MainInstaller.Resolve<IMatchServices>();
-
-			if (await ShowEquipment(game)) return;
-
-			await ShowRarityEffect(game);
+			if (!await TryShowEquipment(collectable.Item.GameId) || !await TryShowRarityEffect(collectable.Item.Rarity)) return;
 
 			_matchServices.SpectateService.SpectatedPlayer.InvokeObserve(OnSpectatedPlayerChanged);
 			QuantumEvent.Subscribe<EventOnPlayerWeaponChanged>(this, HandleOnPlayerWeaponChanged);
@@ -39,15 +39,14 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			_matchServices?.SpectateService?.SpectatedPlayer?.StopObservingAll(this);
 		}
 
-		private async Task<bool> ShowEquipment(QuantumGame game)
+		private async Task<bool> TryShowEquipment(GameId item)
 		{
-			var collectable = GetComponentData<Collectable>(game);
-			var instance = await Services.AssetResolverService.RequestAsset<GameId, GameObject>(collectable.GameId);
+			var instance = await Services.AssetResolverService.RequestAsset<GameId, GameObject>(item);
 
 			if (this.IsDestroyed())
 			{
 				Destroy(instance);
-				return true;
+				return false;
 			}
 
 			var cacheTransform = instance.transform;
@@ -56,46 +55,48 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			cacheTransform.localScale = Vector3.one;
 			cacheTransform.localRotation = Quaternion.identity;
 
-			return false;
+			return true;
 		}
 
-		private async Task ShowRarityEffect(QuantumGame game)
+		private async Task<bool> TryShowRarityEffect(EquipmentRarity rarity)
 		{
-			var equipmentCollectable = GetComponentData<EquipmentCollectable>(game);
+			var instance = await Services.AssetResolverService.RequestAsset<EquipmentRarity, GameObject>(rarity);
 
-			var rarity = equipmentCollectable.Item.Rarity;
-			var effect = await Services.AssetResolverService.RequestAsset<EquipmentRarity, GameObject>(rarity);
-			var effectTransform = effect.transform;
+			if (this.IsDestroyed())
+			{
+				Destroy(instance);
+				return false;
+			}
+			
+			var effectTransform = instance.transform;
 
 			effectTransform.SetParent(transform);
 			effectTransform.localPosition = Vector3.zero;
 			effectTransform.localScale = Vector3.one;
 			effectTransform.localRotation = Quaternion.identity;
+
+			return true;
 		}
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
-			var game = QuantumRunner.Default.Game;
-			
-			// In case where we spawn Equipment Collectables with the map or changed to a player that just collected a weapon
-			if (!next.Entity.IsValid || !TryGetComponentData<EquipmentCollectable>(game, out var collectable)) return; 
+			if (!next.Entity.IsValid) return; 
 
-
-			ShowHigherRarityArrow(game.Frames.Verified, next.Entity, collectable);
+			ShowHigherRarityArrow(QuantumRunner.Default.Game.Frames.Verified, next.Entity);
 		}
 
 		private void HandleOnPlayerWeaponChanged(EventOnPlayerWeaponChanged callback)
 		{
-			// In the same frame the player collected weapon, will still execute this event because is "manual disposed"
-			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity|| 
-			    !TryGetComponentData<EquipmentCollectable>(callback.Game, out var collectable)) return;
+			if (callback.Entity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity) return;
 
-			ShowHigherRarityArrow(callback.Game.Frames.Verified, callback.Entity, collectable);
+			ShowHigherRarityArrow(callback.Game.Frames.Verified, callback.Entity);
 		}
 
-		private void ShowHigherRarityArrow(Frame f, EntityRef playerEntity, EquipmentCollectable collectable)
+		private void ShowHigherRarityArrow(Frame f, EntityRef playerEntity)
 		{
-			if (!collectable.Item.IsWeapon() || !f.TryGet<PlayerCharacter>(playerEntity, out var playerCharacter)) return;
+			if (!f.TryGet<EquipmentCollectable>(EntityView.EntityRef, out var collectable) || 
+			    !collectable.Item.IsWeapon() || 
+			    !f.TryGet<PlayerCharacter>(playerEntity, out var playerCharacter)) return;
 
 			var numOfSlots = playerCharacter.WeaponSlots.Length;
 			for (int slotIndex = 0; slotIndex < numOfSlots; slotIndex++)

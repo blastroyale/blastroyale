@@ -433,13 +433,6 @@ public partial class SROptions
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
 
-	// TODO: Delete this when we have a proper implementation of rarity representation in game
-	[Category("Equipment")]
-	public bool EnableEquipmentDebug {
-		get => PlayerPrefs.GetInt("Debug.EnableEquipmentDebug", 0) == 1;
-		set => PlayerPrefs.SetInt("Debug.EnableEquipmentDebug", value ? 1 : 0);
-	}
-
 	[Category("Marketing")]
 	public void ToggleControllerGameUI()
 	{
@@ -552,6 +545,13 @@ public partial class SROptions
 		dataProvider.SaveData<PlayerData>();
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
+	}
+
+	[Category("Progression")]
+	public bool IsCollectedOverride
+	{
+		get => DebugUtils.DebugFlags.OverrideCurrencyChangedIsCollecting;
+		set => DebugUtils.DebugFlags.OverrideCurrencyChangedIsCollecting = value;
 	}
 	
 	[Category("Logging")]

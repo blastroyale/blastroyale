@@ -4,9 +4,11 @@ using System.Reflection;
 using System.Threading.Tasks;
 using FirstLight;
 using FirstLight.Game.Commands;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.SDK.Services;
 using FirstLight.Server.SDK;
 using Microsoft.Extensions.Logging;
 using FirstLight.Server.SDK.Models;
@@ -58,8 +60,12 @@ namespace Backend.Game.Services
 			var dataProvider = new ServerPlayerDataProvider(currentState);
 			var msgBroker = new GameServerLogicMessageBroker(userId, _eventManager, _log);
 			var logic = new GameServerLogic(await _cfg.GetGameConfigs(), dataProvider, msgBroker);
+			var serviceContainer = new ServiceContainer();
+			serviceContainer.Add<IMessageBrokerService>(msgBroker);
+			var logicContainer = new LogicContainer().Build(logic);
+			var commandContext = new CommandExecutionContext(logicContainer, serviceContainer, dataProvider);
 			logic.Init();
-			cmd.Execute(logic, dataProvider);
+			cmd.Execute(commandContext);
 			var newState = dataProvider.GetUpdatedState();
 			return newState;
 		}

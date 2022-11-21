@@ -1,27 +1,31 @@
 using System;
+using System.Collections;
+using System.Threading.Tasks;
 using Cinemachine;
 using FirstLight.Game.Services;
 using FirstLight.Game.Timeline;
 using FirstLight.Game.Utils;
-using I2.Loc;
+using FirstLight.UiService;
 using Quantum;
 using Sirenix.OdinInspector;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Playables;
-using Button = UnityEngine.UI.Button;
-using UnityEngine.UI;
+using Button = UnityEngine.UIElements.Button;
+using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
 {
 	/// <summary>
 	/// This Presenter handles the Game Complete Screen UI by:
 	/// - Showing the Game Complete info
-	/// - Go to the main menu
+	/// - Go to the winners screen
 	/// </summary>
-	public class GameCompleteScreenPresenter : AnimatedUiPresenterData<GameCompleteScreenPresenter.StateData>,
-	                                           INotificationReceiver
+	public class GameCompleteScreenPresenter : UiToolkitPresenterData<GameCompleteScreenPresenter.StateData>, INotificationReceiver
 	{
+		private const string UssHidden = "hidden";
+		private const string UssHiddenStart = "hidden-start";
+		private const string UssHiddenEnd = "hidden-end";
+		
 		public struct StateData
 		{
 			public Action ContinueClicked;
@@ -29,101 +33,200 @@ namespace FirstLight.Game.Presenters
 
 		[SerializeField, Required] private CinemachineVirtualCamera _playerProxyCamera;
 		[SerializeField, Required] protected PlayableDirector _director;
-		[SerializeField, Required] private GameObject _winningPlayerRoot;
-		[SerializeField, Required] private TextMeshProUGUI _winningPlayerText;
-		[SerializeField, Required] private TextMeshProUGUI _titleText;
-		[SerializeField, Required] private Image _emojiImage;
-		[SerializeField, Required] private Sprite _happyEmojiSprite;
-		[SerializeField, Required] private Sprite _sickEmojiSprite;
-		[SerializeField, Required] private Button _gotoResultsMenuButton;
-		[SerializeField, Required] private GameObject[] _shineAnimObjects;
 
 		private EntityRef _playerWinnerEntity;
 		private IMatchServices _matchService;
 		private IGameServices _services;
 
+		private VisualElement _darkOverlay;
+		private VisualElement _matchEndTitle;
+		private VisualElement _blastedTitle;
+		private VisualElement _youWinTitle;
+		private VisualElement _winnerContainer;
+		private Label _nameLabel;
+		private Button _nextButton;
+
+		private QuantumGame _game;
+		private QuantumGame _frame;
+		private GameContainer _container;
+
+		private bool _localWinner;
+		private bool _isSpectator;
+		private string _winnerName;
+
 		private void Awake()
 		{
 			_matchService = MainInstaller.Resolve<IMatchServices>();
 			_services = MainInstaller.Resolve<IGameServices>();
+		}
 
-			_gotoResultsMenuButton.onClick.AddListener(OnContinueButtonClicked);
+		protected override void QueryElements(VisualElement root)
+		{
+			_darkOverlay = root.Q<VisualElement>("DarkOverlay").Required();
+			_matchEndTitle = root.Q<VisualElement>("MatchEndedTitle").Required();
+			_blastedTitle = root.Q<VisualElement>("BlastedTitle").Required();
+			_youWinTitle = root.Q<VisualElement>("YouWinTitle").Required();
+			_winnerContainer = root.Q<VisualElement>("Winner").Required();
+			_nameLabel = root.Q<Label>("NameLabel").Required();
+			_nextButton = root.Q<Button>("NextButton").Required();
 
+			_nextButton.clicked += OnContinueButtonClicked;
+		}
+
+		protected override void SubscribeToEvents()
+		{
 			QuantumEvent.Subscribe<EventOnPlayerLeft>(this, OnEventOnPlayerLeft);
 		}
 
-		public void OnNotify(Playable origin, INotification notification, object context)
+		protected override void UnsubscribeFromEvents()
 		{
-			var playVfxMarker = notification as PlayVfxMarker;
-
-			if (playVfxMarker != null && !_playerProxyCamera.LookAt.IsDestroyed())
-			{
-				Services.VfxService.Spawn(playVfxMarker.Vfx).transform.position = _playerProxyCamera.LookAt.position;
-			}
+			QuantumEvent.UnsubscribeListener<EventOnPlayerLeft>(this);
 		}
 
 		protected override void OnOpened()
 		{
 			base.OnOpened();
 
-			var cinemachineBrain = Camera.main.gameObject.GetComponent<CinemachineBrain>();
-
-			foreach (var output in _director.playableAsset.outputs)
-			{
-				if (output.outputTargetType == typeof(CinemachineBrain))
-				{
-					_director.SetGenericBinding(output.sourceObject, cinemachineBrain);
-				}
-			}
-
+			SetupCamera();
+			
 			var game = QuantumRunner.Default.Game;
 			var frame = game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
 			var playerData = container.GetPlayersMatchData(frame, out var leader);
 			var playerWinner = playerData[leader];
+			
+			_playerWinnerEntity = playerWinner.Data.Entity;
+			_localWinner = game.PlayerIsLocal(leader);
+			_winnerName = playerWinner.GetPlayerName();
 
-			if (game.PlayerIsLocal(leader))
+			PlayTimeline();
+		}
+
+		protected override Task OnClosed()
+		{
+			HideWinner();
+			return base.OnClosed();
+		}
+		
+		public void OnNotify(Playable origin, INotification notification, object context)
+		{
+			var playVfxMarker = notification as PlayVfxMarker;
+
+			if (playVfxMarker != null && !_playerProxyCamera.LookAt.IsDestroyed())
 			{
-				_emojiImage.sprite = _happyEmojiSprite;
-				_titleText.text = ScriptLocalization.General.Victory_;
+				_services.VfxService.Spawn(playVfxMarker.Vfx).transform.position = _playerProxyCamera.LookAt.position;
+			}
+		}
+
+		/// <summary>
+		/// Shows the match end message depending on the type of player winner/spectator/loser
+		/// </summary>
+		public void ShowMessage()
+		{
+			// Show Victory / Blasted
+			if (_localWinner)
+			{
+				// Victory
+				ShowDarkOverlay();
+				ShowYouWin();
 			}
 			else if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
 			{
-				_titleText.text = ScriptLocalization.AdventureMenu.GameOver;
+				// Show match ended
+				ShowDarkOverlay();
+				ShowMatchEnded();
 			}
 			else
 			{
-				var localPlayerData = playerData[game.GetLocalPlayers()[0]];
-				var placement = ((int) localPlayerData.PlayerRank).GetOrdinalTranslation();
-
-				_emojiImage.sprite = _sickEmojiSprite;
-				_titleText.text = string.Format(ScriptLocalization.General.PlacementMessage,
-				                                localPlayerData.PlayerRank + placement);
+				// Blasted
+				ShowDarkOverlay();
+				ShowBlasted();
 			}
+		}
 
-			if (container.IsGameOver)
+		/// <summary>
+		/// Hides the match end message
+		/// </summary>
+		public void HideMessage()
+		{
+			// Show Victory / Blasted
+			if (_localWinner)
 			{
-				_winningPlayerRoot.gameObject.SetActive(true);
-				foreach (var shine in _shineAnimObjects)
-				{
-					shine.SetActive(true);
-				}
-
-				_winningPlayerText.text =
-					string.Format(ScriptLocalization.AdventureMenu.PlayerWon, playerWinner.GetPlayerName());
+				// Victory
+				HideYouWin();
+				HideDarkOverlay();
+			}
+			else if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
+			{
+				// Show match ended
+				HideMatchEnded();
+				HideDarkOverlay();
 			}
 			else
 			{
-				foreach (var shine in _shineAnimObjects)
-				{
-					shine.SetActive(false);
-				}
-
-				_winningPlayerRoot.gameObject.SetActive(false);
+				// Blasted
+				HideBlasted();
+				HideDarkOverlay();
 			}
-			
+		}
 
-			if (_matchService.EntityViewUpdaterService.TryGetView(playerWinner.Data.Entity, out var entityView))
+		/// <summary>
+		/// Shows the winner name and the "next" button
+		/// </summary>
+		public void ShowWinner()
+		{
+			_nameLabel.text = _winnerName;
+			_winnerContainer.RemoveFromClassList(UssHiddenStart);
+		}
+		
+		private void HideWinner()
+		{
+			_winnerContainer.AddToClassList(UssHiddenEnd);
+		}
+		
+		private void ShowDarkOverlay()
+		{
+			_darkOverlay.EnableInClassList(UssHidden, false);
+		}
+
+		private void HideDarkOverlay()
+		{
+			_darkOverlay.EnableInClassList(UssHidden, true);
+		}
+		
+		private void ShowMatchEnded()
+		{
+			_matchEndTitle.RemoveFromClassList(UssHiddenStart);
+		}
+		
+		private void HideMatchEnded()
+		{
+			_matchEndTitle.AddToClassList(UssHiddenEnd);
+		}
+		
+		private void ShowYouWin()
+		{
+			_youWinTitle.RemoveFromClassList(UssHiddenStart);
+		}
+		
+		private void HideYouWin()
+		{
+			_youWinTitle.AddToClassList(UssHiddenEnd);
+		}
+		
+		private void ShowBlasted()
+		{
+			_blastedTitle.RemoveFromClassList(UssHiddenStart);
+		}
+		
+		private void HideBlasted()
+		{
+			_blastedTitle.AddToClassList(UssHiddenEnd);
+		}
+
+		private void PlayTimeline()
+		{
+			if (_matchService.EntityViewUpdaterService.TryGetView(_playerWinnerEntity, out var entityView))
 			{
 				var entityViewTransform = entityView.transform;
 
@@ -133,8 +236,19 @@ namespace FirstLight.Game.Presenters
 
 				_director.Play();
 			}
+		}
 
-			_playerWinnerEntity = playerWinner.Data.Entity;
+		private void SetupCamera()
+		{
+			var cinemachineBrain = Camera.main.gameObject.GetComponent<CinemachineBrain>();
+
+			foreach (var output in _director.playableAsset.outputs)
+			{
+				if (output.outputTargetType == typeof(CinemachineBrain))
+				{
+					_director.SetGenericBinding(output.sourceObject, cinemachineBrain);
+				}
+			}
 		}
 
 		private void OnContinueButtonClicked()

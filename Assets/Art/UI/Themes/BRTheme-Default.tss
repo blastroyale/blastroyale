@@ -1,6 +1,11 @@
 @import url("unity-theme://default");
 
-@import url("/Assets/Art/UI/CommonStyle.uss");
+@import url("/Assets/Art/UI/Styles/CommonStyle.uss");
+@import url("/Assets/Art/UI/Styles/Transitions.uss");
+@import url("/Assets/Art/UI/Styles/CurrencyDisplayStyle.uss");
+
+
+
 
 
 

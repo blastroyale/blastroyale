@@ -7,23 +7,20 @@
 }
 
 .popup-radius {
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
+    border-radius: 20px;
 }
 
 #unity-text-input {
     flex-grow: 1;
 }
 
-TextField > Label {
+LocalizedTextField > Label {
     margin-right: 15px;
     width: 150px;
     font-size: 33px;
 }
 
-Button {
+LocalizedButton {
     -unity-text-align: middle-center;
 }
 
@@ -31,24 +28,6 @@ Button {
     width: 1000px;
     height: 780px;
     background-color: rgb(0, 0, 0);
-    transition-timing-function: ease-out;
-    transition-duration: 0.5s;
-    transition-property: top;
-    top: 0;
-    transition-delay: 0.5s;
-}
-
-.hidden #PopupBackground {
-    top: -1000px;
-    transition-timing-function: ease-in;
-    transition-duration: 0.5s;
-    transition-property: top;
-    transition-delay: 0.5s;
-}
-
-.hidden {
-    display: none;
-    transition-delay: 1s;
 }
 
 .background {

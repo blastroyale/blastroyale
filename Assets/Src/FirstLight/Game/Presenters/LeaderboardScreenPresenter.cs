@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
@@ -54,9 +55,9 @@ namespace FirstLight.Game.Presenters
 			_backButton.onClick.RemoveAllListeners();
 		}
 		
-		protected override void OnClosed()
+		protected override async Task OnClosed()
 		{
-			base.OnClosed();
+			await base.OnClosed();
 
 			_playerRankPool.DespawnAll();
 			_farRankLeaderboardRoot.SetActive(false);
@@ -93,7 +94,7 @@ namespace FirstLight.Game.Presenters
 				FLog.Error(JsonConvert.SerializeObject(error.ErrorDetails));
 			}
 
-			_services.GenericDialogService.OpenDialog(error.ErrorMessage, false, confirmButton);
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, error.ErrorMessage, false, confirmButton);
 			
 			Data.BackClicked();
 		}

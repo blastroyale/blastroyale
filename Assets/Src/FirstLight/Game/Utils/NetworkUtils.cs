@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using ExitGames.Client.Photon;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using Photon.Realtime;
 using Quantum;
@@ -16,8 +17,8 @@ namespace FirstLight.Game.Utils
 	/// </summary>
 	public static class NetworkUtils
 	{
-		public const char ROOM_SEPARATOR = '#';
-
+		public static string RoomCommitLockData => GameConstants.Network.ROOM_META_SEPARATOR + VersionUtils.Commit;
+		
 		/// <summary>
 		/// Returns a room parameters used for creation of custom and matchmaking rooms
 		/// </summary>
@@ -36,18 +37,18 @@ namespace FirstLight.Game.Utils
 			
 			if (FeatureFlags.COMMIT_VERSION_LOCK && !isRandomMatchmaking)
 			{
-				roomNameFinal += ROOM_SEPARATOR + VersionUtils.Commit;
+				roomNameFinal += RoomCommitLockData;
 			}
 
 			if (!isRandomMatchmaking)
 			{
-				emptyTtl = roomNameFinal.Contains(GameConstants.Network.ROOM_NAME_PLAYTEST)
+				emptyTtl = roomNameFinal.IsPlayTestRoom()
 					           ? GameConstants.Network.EMPTY_ROOM_PLAYTEST_TTL_MS
-					           : GameConstants.Network.EMPTY_ROOM_TTL_MS;
+					           : GameConstants.Network.EMPTY_ROOM_LOBBY_TTL_MS;
 			}
 			else
 			{
-				emptyTtl = GameConstants.Network.EMPTY_ROOM_TTL_MS;
+				emptyTtl = GameConstants.Network.EMPTY_ROOM_LOBBY_TTL_MS;
 			}
 
 			var roomParams = new EnterRoomParams
@@ -89,7 +90,7 @@ namespace FirstLight.Game.Utils
 
 			if (FeatureFlags.COMMIT_VERSION_LOCK)
 			{
-				roomNameFinal += ROOM_SEPARATOR + VersionUtils.Commit;
+				roomNameFinal += RoomCommitLockData;
 			}
 
 			return new EnterRoomParams
@@ -101,7 +102,7 @@ namespace FirstLight.Game.Utils
 				RoomOptions = new RoomOptions
 				{
 					PlayerTtl = GameConstants.Network.PLAYER_LOBBY_TTL_MS,
-					EmptyRoomTtl = GameConstants.Network.EMPTY_ROOM_TTL_MS
+					EmptyRoomTtl = GameConstants.Network.EMPTY_ROOM_LOBBY_TTL_MS
 				}
 			};
 		}
@@ -301,6 +302,53 @@ namespace FirstLight.Game.Utils
 		public static int GetMaxPlayers(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig)
 		{
 			return Math.Min((int) gameModeConfig.MaxPlayers, mapConfig.MaxPlayers);
+		}
+
+		/// <summary>
+		/// Requests to check if the device is online
+		/// </summary>
+		public static bool IsOnline()
+		{
+			return Application.internetReachability != NetworkReachability.NotReachable;
+		}
+		
+		/// <summary>
+		/// Requests to check if the device is offline
+		/// </summary>
+		public static bool IsOffline()
+		{
+			return Application.internetReachability == NetworkReachability.NotReachable;
+		}
+
+		/// <summary>
+		/// Requests to check if the device is connected to internet, and Photon is connected
+		/// </summary>
+		public static bool IsOnlineAndConnected()
+		{
+			return IsOnline() && MainInstaller.Resolve<IGameServices>().NetworkService.QuantumClient.IsConnectedAndReady;
+		}
+		
+		/// <summary>
+		/// Requests to check if the device is disconnted from internet, or Photon is disconnected
+		/// </summary>
+		public static bool IsOfflineOrDisconnected()
+		{
+			return IsOffline() || !MainInstaller.Resolve<IGameServices>().NetworkService.QuantumClient.IsConnectedAndReady;
+		}
+
+		/// <summary>
+		/// Checks to see if a network action triggered by player input can be sent.
+		/// Sends a NetworkActionWhileDisconnectedMessage if not.
+		/// </summary>
+		public static bool CheckAttemptNetworkAction()
+		{
+			if (IsOfflineOrDisconnected())
+			{
+				MainInstaller.Resolve<IGameServices>().MessageBrokerService.Publish(new NetworkActionWhileDisconnectedMessage());
+				return false;
+			}
+
+			return true;
 		}
 	}
 }

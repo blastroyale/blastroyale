@@ -36,11 +36,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_healthBarPlayerPool = new ObjectPool<PlayerHealthBarPoolObject>(4, PlayerHealthBarInstantiator);
 			_healthBarSpectatePlayer = SpectatePlayerHealthBarInstantiator();
 				
+			_matchServices.SpectateService.SpectatedPlayer.InvokeObserve(OnPlayerSpectateUpdate);
+			_services.MessageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEnded);
 			QuantumEvent.Subscribe<EventOnPlayerAttackHit>(this, OnPlayerAttackHit);
 			QuantumEvent.Subscribe<EventOnPlayerSkydiveLand>(this, OnPlayerSkydiveLand);
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, OnPlayerAlive);
-			_services.MessageBrokerService.Subscribe<MatchEndedMessage>(OnGameplayEnded);
-			_matchServices.SpectateService.SpectatedPlayer.InvokeObserve(OnPlayerSpectateUpdate);
 			
 			_healthBarSpectateRef.gameObject.SetActive(false);
 			_healthBarRef.gameObject.SetActive(false);
@@ -55,14 +55,15 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void OnPlayerSkydiveLand(EventOnPlayerSkydiveLand callback)
 		{
 			var spectateEntity = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
-
-			if (spectateEntity != callback.Entity)
+			var f = callback.Game.Frames.Verified;
+			
+			if (spectateEntity != callback.Entity || !f.TryGet<PlayerCharacter>(callback.Entity, out var playerCharacter))
 			{
 				return;
 			}
 			
-			_healthBarSpectatePlayer.ResourceBarView.SetupView(callback.Game.Frames.Verified, callback.Entity);
-			SetupHealthBar(callback.Game.Frames.Verified, callback.Entity, _healthBarSpectatePlayer);
+			_healthBarSpectatePlayer.ResourceBarView.SetupView(f, playerCharacter, callback.Entity);
+			SetupHealthBar(f, callback.Entity, _healthBarSpectatePlayer);
 		}
 
 		private void OnPlayerAttackHit(EventOnPlayerAttackHit obj)
@@ -105,7 +106,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			if (!newPlayer.Entity.IsValid) return;
 			
-			var f = QuantumRunner.Default?.Game?.Frames.Predicted;
+			var f = QuantumRunner.Default.Game.Frames.Predicted;
 			var player = newPlayer.Entity.IsValid ? newPlayer : previousPlayer;
 
 			SetupInitialHealthBar(f, player.Entity);
@@ -113,9 +114,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private async void SetupInitialHealthBar(Frame f, EntityRef playerEntity)
 		{
-			if (f == null || !f.TryGet<AIBlackboardComponent>(playerEntity, out var blackboard) || 
-			    blackboard.GetBoolean(f, Constants.IsSkydiving) || 
-			    !f.Context.GameModeConfig.SkydiveSpawn && !f.Has<AlivePlayerCharacter>(playerEntity))
+			if (f == null || !f.Context.GameModeConfig.SkydiveSpawn ||
+			    !f.Has<AlivePlayerCharacter>(playerEntity) || 
+			    !f.TryGet<PlayerCharacter>(playerEntity, out var playerCharacter) || 
+			    playerCharacter.IsSkydiving(f, playerEntity))
 			{
 				_healthBarSpectatePlayer.OnDespawn();
 				return;
@@ -124,8 +126,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 			// Sometimes there is 1-frame race condition upon reconnection/setting up the health bar, where spectated health bar
 			// gets positioned incorrectly. There is most likely a better solution, but time is money, and I'm poor.
 			await Task.Yield();
-			
-			_healthBarSpectatePlayer.ResourceBarView.SetupView(f, playerEntity);
+
+			_healthBarSpectatePlayer.ResourceBarView.SetupView(f, playerCharacter, playerEntity);
 			SetupHealthBar(f, playerEntity, _healthBarSpectatePlayer);
 		}
 		
@@ -160,7 +162,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			healthBar.OverlayView.Follow(anchor);
 		}
 
-		private void OnGameplayEnded(MatchEndedMessage obj)
+		private void OnMatchEnded(MatchEndedMessage msg)
 		{
 			_healthBarSpectatePlayer.OnDespawn();
 			_healthBarPlayerPool.DespawnAll();

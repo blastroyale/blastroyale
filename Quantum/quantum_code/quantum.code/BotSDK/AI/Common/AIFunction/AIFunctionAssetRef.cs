@@ -6,7 +6,7 @@
 	{
 		// ========== AIFunction INTERFACE ============================================================================
 
-		public override AssetRef Execute(Frame frame, EntityRef entity)
+		public override AssetRef Execute(Frame frame, EntityRef entity, ref AIContext aiContext)
 		{
 			return null;
 		}

@@ -9,14 +9,14 @@ namespace Quantum
 		public AIBlackboardValueKey Key;
 		public AIParamInt IncrementAmount;
 
-		public override unsafe void Update(Frame frame, EntityRef entity)
+		public override unsafe void Update(Frame frame, EntityRef entity, ref AIContext aiContext)
 		{
 			var blackboard = frame.Unsafe.GetPointer<AIBlackboardComponent>(entity);
 
 			var agent = frame.Unsafe.GetPointer<HFSMAgent>(entity);
 			var aiConfig = agent->GetConfig(frame);
 
-			var incrementValue = IncrementAmount.Resolve(frame, entity, blackboard, aiConfig);
+			var incrementValue = IncrementAmount.Resolve(frame, entity, blackboard, aiConfig, ref aiContext);
 
 			var currentAmount = blackboard->GetInteger(frame, Key.Key);
 			currentAmount += incrementValue;

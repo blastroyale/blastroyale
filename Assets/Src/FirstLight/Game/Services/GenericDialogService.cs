@@ -11,7 +11,7 @@ namespace FirstLight.Game.Services
 	public struct GenericDialogButton
 	{
 		public string ButtonText;
-		public UnityAction ButtonOnClick;
+		public Action ButtonOnClick;
 
 		/// <summary>
 		/// Requests the state of the button, if it has listeners or not for it
@@ -41,32 +41,14 @@ namespace FirstLight.Game.Services
 		/// to click on the close button.
 		/// Optionally if defined can call the <paramref name="closeCallback"/> when the Dialog is closed.
 		/// </summary>
-		void OpenDialog(string title, bool showCloseButton, GenericDialogButton button, Action closeCallback = null);
-		
-		/// <summary>
-		/// Shows the Generic Dialog with an icon box PopUp with the given information without an option for
-		/// the user except to click on the close button.
-		/// Optionally if defined can call the <paramref name="closeCallback"/> when the Dialog is closed.
-		/// </summary>
-		void OpenIconDialog<TId>(string title, string descriptionText, TId id, bool showCloseButton, 
-		                    GenericDialogButton button, Action closeCallback = null)
-			where TId : struct, Enum;
-		
-		/// <summary>
-		/// Shows the Generic Dialog box PopUp with an video with the given information without an option for the user except
-		/// to click on the close button.
-		/// Optionally if defined can call the <paramref name="closeCallback"/> when the Dialog is closed.
-		/// </summary>
-		void OpenVideoDialog<TId>(string title, string descriptionText, TId id, bool showCloseButton, 
-			GenericDialogButton button, Action closeCallback = null)
-			where TId : struct, Enum;
+		void OpenButtonDialog(string title, string desc, bool showCloseButton, GenericDialogButton button, Action closeCallback = null);
 
 		/// <summary>
 		/// Shows an input field dialog box for the player to write specific string data.
 		/// Optionally if defined can call the <paramref name="closeCallback"/> when the Dialog is closed.
 		/// </summary>
-		void OpenInputFieldDialog(string title, string initialInputText, GenericDialogButton<string> button, 
-		                          bool showCloseButton, TMP_InputField.ContentType contentType = TMP_InputField.ContentType.Standard, Action<string> closeCallback = null);
+		void OpenInputDialog(string title, string desc, string initialInputText, GenericDialogButton<string> button, 
+		                          bool showCloseButton, /*TMP_InputField.ContentType contentType = TMP_InputField.ContentType.Standard,*/ Action<string> closeCallback = null);
 		
 		/// <summary>
 		/// Closes the <see cref="GenericDialogPresenter"/> if opened
@@ -97,49 +79,26 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public void OpenDialog(string title, bool showCloseButton = true, 
+		public void OpenButtonDialog(string title, string desc, bool showCloseButton = true, 
 		                       GenericDialogButton button = new GenericDialogButton(), Action closeCallback = null)
 		{
 			var ui = _uiService.OpenUi<GenericDialogPresenter>();
 
 			_openDialogType = ui.GetType();
 			
-			ui.SetInfo(title, showCloseButton, button, closeCallback);
+			ui.SetInfo(title, desc, showCloseButton, button, closeCallback);
 		}
 
+		// TODO - Support different "content types" - requires refactor on UIT TextField
 		/// <inheritdoc />
-		public void OpenIconDialog<TId>(string title, string descriptionText, TId id, bool showCloseButton = true, 
-		                           GenericDialogButton button = new GenericDialogButton(), Action closeCallback = null)
-			where TId : struct, Enum
+		public void OpenInputDialog(string title, string desc, string initialInputText, GenericDialogButton<string> button, 
+		                                 bool showCloseButton, Action<string> closeCallback = null)
 		{
-			var ui = _uiService.OpenUi<GenericDialogIconPresenter>();
+			var ui = _uiService.OpenUi<GenericInputDialogPresenter>();
 
 			_openDialogType = ui.GetType();
 			
-			ui.SetInfo(title, descriptionText, id, showCloseButton, button, closeCallback);
-		}
-		
-		/// <inheritdoc />
-		public void OpenVideoDialog<TId>(string title, string descriptionText, TId id, bool showCloseButton, 
-			GenericDialogButton button, Action closeCallback = null)
-			where TId : struct, Enum
-		{
-			var ui = _uiService.OpenUi<GenericDialogVideoPresenter>();
-
-			_openDialogType = ui.GetType();
-			
-			ui.SetInfo(title, descriptionText, id, showCloseButton, button, closeCallback);
-		}
-
-		/// <inheritdoc />
-		public void OpenInputFieldDialog(string title, string initialInputText, GenericDialogButton<string> button, 
-		                                 bool showCloseButton, TMP_InputField.ContentType contentType = TMP_InputField.ContentType.Standard, Action<string> closeCallback = null)
-		{
-			var ui = _uiService.OpenUi<GenericDialogInputFieldPresenter>();
-
-			_openDialogType = ui.GetType();
-			
-			ui.SetInfo(title, initialInputText, button, showCloseButton, contentType, closeCallback);
+			ui.SetInfo(title, desc, initialInputText, button, showCloseButton, /*contentType,*/ closeCallback);
 		}
 
 		/// <inheritdoc />
@@ -164,8 +123,8 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc />
 		public void CloseDialog()
 		{
-			Assert.IsNotNull(_openDialogType);
-			
+			if (_openDialogType == null) return;
+	
 			_uiService.CloseUi(_openDialogType);
 
 			_openDialogType = null;

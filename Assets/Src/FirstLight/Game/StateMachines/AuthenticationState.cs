@@ -114,7 +114,7 @@ namespace FirstLight.Game.StateMachines
 			getServerState.OnEnter(OpenLoadingScreen);
 			getServerState.WaitingFor(FinalStepsAuthentication).Target(accountStateCheck);
 
-			accountDeleted.OnEnter(AccountDeletedPopup);
+			accountDeleted.OnEnter(ShowAccountDeletedPopup);
 
 			accountStateCheck.Transition().Condition(IsAccountDeleted).Target(accountDeleted);
 			accountStateCheck.Transition().Target(final);
@@ -208,7 +208,7 @@ namespace FirstLight.Game.StateMachines
 				FLog.Error("Authentication Fail - " + JsonConvert.SerializeObject(error.ErrorDetails));
 			}
 			
-			_services.GenericDialogService.OpenDialog(error.ErrorMessage, false, confirmButton);
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, error.ErrorMessage, false, confirmButton);
 			
 			DimLoginRegisterScreens(false);
 		}
@@ -311,7 +311,7 @@ namespace FirstLight.Game.StateMachines
 			
 			if (environment != appData.Environment)
 			{
-				var newData = appData.Copy();
+				var newData = appData.CopyForNewEnvironment();
 
 				newData.Environment = environment;
 				
@@ -407,17 +407,20 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private void AccountDeletedPopup()
+		private void ShowAccountDeletedPopup()
 		{
+			var title = ScriptLocalization.UITSettings.account_deleted_title;
+			var desc = ScriptLocalization.UITSettings.account_deleted_desc;
 			var confirmButton = new GenericDialogButton
 			{
-				ButtonText = ScriptLocalization.General.Confirm,
+				ButtonText = ScriptLocalization.UITShared.ok,
 				ButtonOnClick = () =>
 				{
 					_services.QuitGame("Deleted User");
 				}
 			};
-			_services.GenericDialogService.OpenDialog(ScriptLocalization.MainMenu.DeleteAccountConfirm, false, confirmButton);
+			
+			_services.GenericDialogService.OpenButtonDialog(title, desc,false, confirmButton);
 		}
 
 		private bool IsAccountDeleted()
@@ -432,10 +435,9 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayerDataObtained(ExecuteFunctionResult res, IWaitActivity activity)
 		{
-			
 			var serverResult = ModelSerializer.Deserialize<PlayFabResult<LogicResult>>(res.FunctionResult.ToString());
 			var data = serverResult.Result.Data;
-			if (data == null || data.Count == 0) // response too large, fetch directly
+			if (data == null || !data.ContainsKey(typeof(PlayerData).FullName)) // response too large, fetch directly
 			{
 				_services.PlayfabService.FetchServerState(state =>
 				{
@@ -545,7 +547,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				Email = email,
 				DisplayName = username,
-				Username = username,
+				Username = username.Replace(" ", ""),
 				Password = password
 			};
 
@@ -642,8 +644,9 @@ namespace FirstLight.Game.StateMachines
 				ButtonOnClick = _services.GenericDialogService.CloseDialog
 			};
 
-			_services.GenericDialogService.OpenDialog(ScriptLocalization.MainMenu.SendPasswordEmailConfirm, false,
-			                                         confirmButton);
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.info,
+				ScriptLocalization.MainMenu.SendPasswordEmailConfirm, false,
+				confirmButton);
 		}
 		
 		private void SetLinkedDevice(bool linked)

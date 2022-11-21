@@ -1,0 +1,148 @@
+:root {
+    --out-animation-duration: 0.5s;
+    --out-animation-easing: ease-in;
+    --in-animation-duration: 0.5s;
+    --in-animation-easing: ease-out;
+    --animation-property: translate;
+}
+
+.popup-radius {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.hidden #PopupBackground {
+    translate: 0 -1000px;
+    transition-timing-function: var(--in-animation-easing);
+    transition-duration: var(--in-animation-duration);
+    transition-property: var(--animation-property);
+}
+
+.background {
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    background-image: none;
+    -unity-background-scale-mode: scale-and-crop;
+}
+
+.unity-button {
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+.hidden {
+    transition-delay: 1s;
+    display: none;
+}
+
+.popup-background-pattern {
+    background-image: url('project://database/Assets/Art/UI/Sprites/GenericDialogs/PopupBackPattern.png?fileID=21300000&guid=ebf2caa297ec7a341a919dc9bc2f9ca1&type=3#PopupBackPattern');
+    width: 650px;
+    height: 336px;
+    position: absolute;
+}
+
+.font-style-popup {
+    font-size: 30px;
+    letter-spacing: 1px;
+    color: rgb(90, 86, 125);
+}
+
+.popup-header {
+    height: 70px;
+    overflow: hidden;
+}
+
+.content-desc-text {
+    justify-content: center;
+    align-items: center;
+    white-space: normal;
+}
+
+.content-spacer--small {
+    height: 10px;
+    width: 100%;
+}
+
+.content-spacer--medium {
+    height: 25px;
+    width: 100%;
+}
+
+.input-field__generic {
+}
+
+.input-field__generic > TextInput {
+    -unity-text-align: middle-center;
+}
+
+#PopupBackground {
+    width: 725px;
+    background-color: rgb(0, 0, 0);
+    transition-timing-function: var(--out-animation-easing);
+    transition-duration: var(--out-animation-duration);
+    transition-property: var(--animation-property);
+    height: auto;
+    translate: 0 0;
+}
+
+#PopupWindow {
+    background-color: rgb(255, 255, 255);
+    overflow: hidden;
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    top: -10px;
+    left: -10px;
+    right: 10px;
+    bottom: 10px;
+}
+
+#Container {
+    flex-grow: 0;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+#Header > #Title {
+    -unity-text-align: middle-center;
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+#HoriLayout {
+    flex-direction: row;
+    flex-shrink: 1;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+#BlockerButton {
+    visibility: visible;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    -unity-background-image-tint-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.76);
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+}

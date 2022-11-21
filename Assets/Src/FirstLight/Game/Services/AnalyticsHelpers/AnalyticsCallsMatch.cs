@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
+using Newtonsoft.Json;
 using PlayFab;
 using Quantum;
 using UnityEngine;
@@ -83,8 +84,8 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"item_shield", shieldId},
 				{"item_armour", armorId},
 				{"item_amulet", amuletId},
-				{"drop_location_default", DefaultDropPosition},
-				{"drop_location_final", SelectedDropPosition}
+				{"drop_location_default", JsonConvert.SerializeObject(DefaultDropPosition)},
+				{"drop_location_final", JsonConvert.SerializeObject(SelectedDropPosition)}
 			};
 
 			if (PresentedMapPath != null)
@@ -136,7 +137,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			}
 			
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
-			var deadData = playerKilledEvent.PlayersMatchData[playerKilledEvent.PlayerKiller];
+			var deadData = playerKilledEvent.PlayersMatchData[playerKilledEvent.PlayerDead];
 
 			var data = new Dictionary<string, object>
 			{
@@ -149,7 +150,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"killer_name", (killerData.Data.IsBot?"Bot":"") + killerData.PlayerName}
 			};
 			
-			_analyticsService.LogEvent(AnalyticsEvents.MatchKillAction, data);
+			_analyticsService.LogEvent(AnalyticsEvents.MatchKillAction, data, false);
 		}
 
 		/// <summary>
@@ -179,7 +180,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"player_name", playerData.PlayerName }
 			};
 			
-			_analyticsService.LogEvent(AnalyticsEvents.MatchChestOpenAction, data);
+			_analyticsService.LogEvent(AnalyticsEvents.MatchChestOpenAction, data, false);
 
 			foreach (var item in callback.Items)
 			{
@@ -212,7 +213,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"angle_step_around_chest", chestItemDropped.AngleStepAroundChest}
 			};
 			
-			_analyticsService.LogEvent(AnalyticsEvents.MatchChestItemDrop, data);
+			_analyticsService.LogEvent(AnalyticsEvents.MatchChestItemDrop, data, false);
 		}
 		
 		/// <summary>
@@ -237,7 +238,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"player_name", _gameData.AppDataProvider.DisplayNameTrimmed }
 			};
 			
-			_analyticsService.LogEvent(AnalyticsEvents.MatchPickupAction, data);
+			_analyticsService.LogEvent(AnalyticsEvents.MatchPickupAction, data, false);
 		}
 	}
 }

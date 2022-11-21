@@ -25,9 +25,9 @@ namespace Quantum
 			agent->AddIntData(frame, 0);
 		}
 
-		public override void OnEnter(BTParams btParams)
+		public override void OnEnter(BTParams btParams, ref AIContext aiContext)
 		{
-			base.OnEnter(btParams);
+			base.OnEnter(btParams, ref aiContext);
 
 			var frame = btParams.Frame;
 			var currentTime = frame.DeltaTime * frame.Number;
@@ -36,14 +36,14 @@ namespace Quantum
 			btParams.Agent->SetIntData(frame, 0, IterationCountIndex.Index);
 		}
 
-		protected override BTStatus OnUpdate(BTParams btParams)
+		protected override BTStatus OnUpdate(BTParams btParams, ref AIContext aiContext)
 		{
 			var frame = btParams.Frame;
 
 			int iteration = btParams.Agent->GetIntData(frame, IterationCountIndex.Index) + 1;
 			btParams.Agent->SetIntData(frame, iteration, IterationCountIndex.Index);
 
-			if (DryRun(btParams) == false)
+			if (DryRun(btParams, ref aiContext) == false)
 			{
 				return BTStatus.Success;
 			}
@@ -52,13 +52,13 @@ namespace Quantum
 			if (_childInstance != null)
 			{
 				_childInstance.SetStatus(btParams.Frame, BTStatus.Inactive, btParams.Agent);
-				childResult = _childInstance.RunUpdate(btParams);
+				childResult = _childInstance.RunUpdate(btParams, ref aiContext);
 			}
 
 			return childResult;
 		}
 
-		public override Boolean DryRun(BTParams btParams)
+		public override Boolean DryRun(BTParams btParams, ref AIContext aiContext)
 		{
 			if (LoopForever && LoopTimeout < FP._0)
 			{

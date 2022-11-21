@@ -10,6 +10,7 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Input;
+using FirstLight.Game.UIElements;
 using FirstLight.Services;
 using I2.Loc;
 using Photon.Realtime;
@@ -17,6 +18,8 @@ using Quantum;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Playables;
+using UnityEngine.UIElements;
+using EventBase = Quantum.EventBase;
 using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Utils
@@ -266,8 +269,7 @@ namespace FirstLight.Game.Utils
 		{
 			if (ts.Hours > 0)
 			{
-				return string.Format("{0}h {1}m {2}s", ts.Hours.ToString(), ts.Minutes.ToString(),
-				                     ts.Seconds.ToString());
+				return string.Format("{0}h {1}m", ts.Hours.ToString(), ts.Minutes.ToString());
 			}
 
 			if (ts.Minutes > 0)
@@ -358,6 +360,22 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
+		/// Returns true if the given <paramref name="room"/> is a playtest room
+		/// </summary>
+		public static bool IsPlayTestRoom(this Room room)
+		{
+			return room.Name.Contains(GameConstants.Network.ROOM_NAME_PLAYTEST);
+		}
+		
+		/// <summary>
+		/// Returns true if the given <paramref name="roomName"/> is a playtest room
+		/// </summary>
+		public static bool IsPlayTestRoom(this string roomName)
+		{
+			return roomName.Contains(GameConstants.Network.ROOM_NAME_PLAYTEST);
+		}
+		
+		/// <summary>
 		/// Obtains the current selected map id in the given <paramref name="room"/>
 		/// </summary>
 		public static int GetMapId(this Room room)
@@ -380,6 +398,14 @@ namespace FirstLight.Game.Utils
 		{
 			return new DateTime((long) room.CustomProperties[GameConstants.Network.ROOM_PROPS_CREATION_TICKS]);
 		}
+		
+		/// <summary>
+		/// Obtains the current room creation time (created with UTC.Now)
+		/// </summary>
+		public static string StripRoomCommitLock(this string roomName)
+		{
+			return roomName.Replace(NetworkUtils.RoomCommitLockData, "");
+		}
 
 		/// <summary>
 		/// Obtains the list of mutators enabled in the given <paramref name="room"/>
@@ -395,7 +421,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static string GetRoomName(this Room room)
 		{
-			return room.Name.Split(NetworkUtils.ROOM_SEPARATOR)[0];
+			return room.Name.Split(GameConstants.Network.ROOM_META_SEPARATOR)[0];
 		}
 
 		/// <summary>
@@ -512,8 +538,7 @@ namespace FirstLight.Game.Utils
 			foreach (var playerKvp in room.Players)
 			{
 				if (!playerKvp.Value.CustomProperties.TryGetValue(GameConstants.Network.PLAYER_PROPS_ALL_LOADED,
-				                                                  out var propertyValue) ||
-				    !(bool) propertyValue)
+				                                                  out var propertyValue) || !(bool) propertyValue)
 				{
 					return false;
 				}
@@ -540,9 +565,11 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static PlayerMatchData GetLocalPlayerData(this QuantumGame game, bool isVerified, out Frame f)
 		{
+			var localPlayers = game.GetLocalPlayers();
+			
 			f = isVerified ? game.Frames.Verified : game.Frames.Predicted;
 			
-			return f.GetSingleton<GameContainer>().PlayersData[game.GetLocalPlayers()[0]];
+			return localPlayers.Length == 0 ? new PlayerMatchData() : f.GetSingleton<GameContainer>().PlayersData[game.GetLocalPlayers()[0]];
 		}
 
 		/// <summary>
@@ -556,6 +583,15 @@ namespace FirstLight.Game.Utils
 			}
 
 			return gameplayActions.SpecialButton1;
+		}
+
+		/// <summary>
+		/// Sets ".element-hidden" class active/inactive, which sets the Display property of a VE.
+		/// </summary>
+		public static void SetDisplayActive(this VisualElement element, bool active)
+		{
+			// Enabling the class means that the element will become hidden
+			element.EnableInClassList(UIConstants.ELEMENT_HIDDEN, !active);
 		}
 	}
 }

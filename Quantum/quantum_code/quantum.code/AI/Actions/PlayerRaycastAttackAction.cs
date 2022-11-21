@@ -14,28 +14,30 @@ namespace Quantum
 	public unsafe class PlayerRaycastAttackAction : AIAction
 	{
 		/// <inheritdoc />
-		public override void Update(Frame f, EntityRef e)
+		public override void Update(Frame f, EntityRef e, ref AIContext aiContext)
 		{
+			var isAccuracyMutator = f.Context.TryGetMutatorByType(MutatorType.AbsoluteAccuracy, out _);
 			var kcc = f.Unsafe.GetPointer<CharacterController3D>(e);
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(e);
+			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 			var weaponConfig = f.WeaponConfigs.GetConfig(playerCharacter->CurrentWeapon.GameId);
 			var player = playerCharacter->Player;
 			var position = f.Get<Transform3D>(e).Position + FPVector3.Up*FP._0_50;
 			var team = f.Get<Targetable>(e).Team;
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
 			var power = f.Get<Stats>(e).GetStatData(StatType.Power).StatValue * weaponConfig.PowerToDamageRatio;
-			var aimingDirection = bb->GetVector2(f, Constants.AimDirectionKey).Normalized;
 			var cVelocitySqr = kcc->Velocity.SqrMagnitude;
 			var maxSpeedSqr = kcc->MaxSpeed * kcc->MaxSpeed;
-			var attackRange = f.Get<Stats>(e).GetStatData(StatType.AttackRange).StatValue;
+			var rangeStat = f.Get<Stats>(e).GetStatData(StatType.AttackRange).StatValue;
+			var aimingDirection = QuantumHelpers.GetAimDirection(bb->GetVector2(f, Constants.AimDirectionKey), transform->Rotation).Normalized;
 
 			//targetAttackAngle depend on a current character velocity 
-			var targetAttackAngle = FPMath.Lerp(weaponConfig.MinAttackAngle, weaponConfig.MaxAttackAngle, 
-			                                    cVelocitySqr / maxSpeedSqr);
-			var shotAngle = weaponConfig.NumberOfShots == 1 ?
-				                QuantumHelpers.GetSingleShotAngleAccuracyModifier(f, targetAttackAngle) :
-				                FP._0;
-			
+			var targetAttackAngle = isAccuracyMutator ?
+				weaponConfig.MinAttackAngle : QuantumHelpers.GetDynamicAimValue(kcc, weaponConfig.MaxAttackAngle, weaponConfig.MinAttackAngle);
+			var shotAngle = weaponConfig.NumberOfShots == 1 && !isAccuracyMutator ?
+				   QuantumHelpers.GetSingleShotAngleAccuracyModifier(f, targetAttackAngle) :
+				   FP._0;
+
 			//only do attackSpeed ramping if the weapon has it
 			var rampUpStartTime = bb->GetFP(f, Constants.RampUpTimeStart);
 			if (weaponConfig.InitialAttackRampUpTime != FP._0)
@@ -45,6 +47,8 @@ namespace Quantum
 					timeDiff / weaponConfig.InitialAttackRampUpTime);
 				bb->Set(f, nameof(weaponConfig.AttackCooldown), currentAttackCooldown);
 			}
+
+			var attackRange = QuantumHelpers.GetDynamicAimValue(kcc, rangeStat, rangeStat + weaponConfig.AttackRangeAimBonus);
 
 			var raycastShot = new RaycastShots
 			{
@@ -70,7 +74,7 @@ namespace Quantum
 			bb->Set(f, Constants.BurstShotCount, bb->GetFP(f, Constants.BurstShotCount) - 1);
 
 			f.Add(f.Create(), raycastShot);
-			f.Events.OnPlayerAttack(player, e, playerCharacter->CurrentWeapon, weaponConfig, shotAngle, (uint)targetAttackAngle);
+			f.Events.OnPlayerAttack(player, e, playerCharacter->CurrentWeapon, weaponConfig, shotAngle, (uint)targetAttackAngle, attackRange);
 		}
 	}
 }

@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -31,9 +33,17 @@ namespace FirstLight.Game
 
 		private void Awake()
 		{
+			System.Threading.Tasks.TaskScheduler.UnobservedTaskException += TaskExceptionLogging;
 			Screen.sleepTimeout = SleepTimeout.NeverSleep;
+			
 			FLog.Init();
 		}
+
+		private void OnDestroy()
+		{
+			System.Threading.Tasks.TaskScheduler.UnobservedTaskException -= TaskExceptionLogging;
+		}
+
 
 		private void Start()
 		{
@@ -78,7 +88,8 @@ namespace FirstLight.Game
 		{
 			if (isPaused)
 			{
-				_services.DataSaver.SaveAllData();
+				_services?.DataSaver?.SaveAllData();
+				
 				_pauseCoroutine = StartCoroutine(EndAppCoroutine());
 			}
 			else if (_pauseCoroutine != null)
@@ -88,13 +99,13 @@ namespace FirstLight.Game
 				_pauseCoroutine = null;
 			}
 
-			_services?.MessageBrokerService.Publish(new ApplicationPausedMessage {IsPaused = isPaused});
+			_services?.MessageBrokerService?.Publish(new ApplicationPausedMessage {IsPaused = isPaused});
 		}
 
 		private void OnApplicationQuit()
 		{
 			_services?.DataSaver?.SaveAllData();
-			_services?.AnalyticsService.SessionCalls.SessionEnd(_services?.QuitReason);
+			_services?.AnalyticsService?.SessionCalls?.SessionEnd(_services?.QuitReason);
 		}
 
 		private void TrySetLocalServer()
@@ -115,11 +126,26 @@ namespace FirstLight.Game
 
 		private IEnumerator HeartbeatCoroutine()
 		{
+			var waitForSeconds = new WaitForSeconds(30);
+			
 			while (true)
 			{
-				yield return new WaitForSeconds(30);
+				yield return waitForSeconds;
 				_services?.AnalyticsService.SessionCalls.Heartbeat();
 			}
+		}
+
+		private void TaskExceptionLogging(object sender, UnobservedTaskExceptionEventArgs e)
+		{
+			if (sender.GetType().GetGenericTypeDefinition() == typeof(Task<>))
+			{
+				var task = sender as Task<object>;
+				var objName = task.Result is UnityEngine.Object ? ((UnityEngine.Object)task.Result).name : task.Result.ToString();
+				
+				Debug.LogError($"Task exception sent by the object {objName}");
+			}
+			
+			Debug.LogException(e.Exception);
 		}
 	}
 }

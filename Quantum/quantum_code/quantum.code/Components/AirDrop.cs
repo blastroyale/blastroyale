@@ -55,7 +55,7 @@ namespace Quantum
 			var closestPoint = FPVector3.Zero;
 			var shortestDist = FP.MaxValue;
 
-			foreach(var spawner in f.GetComponentIterator<AirDropSpawner>())
+			foreach(var spawner in f.Unsafe.GetComponentBlockIterator<AirDropSpawner>())
 			{
 				var spawnerPos = spawner.Entity.GetPosition(f);
 				var distanceToSpawner = FPVector3.DistanceSquared(pos, spawnerPos);

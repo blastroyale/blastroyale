@@ -1,10 +1,14 @@
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using ExitGames.Client.Photon;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Photon.Realtime;
 using Quantum;
+using Debug = UnityEngine.Debug;
 
 namespace FirstLight.Game.Services
 {
@@ -120,10 +124,13 @@ namespace FirstLight.Game.Services
 	/// <inheritdoc cref="IGameNetworkService"/>
 	public class GameNetworkService : IGameBackendNetworkService
 	{
-		private const int _lagRoundtripThreshold = 500; // yellow > 200
+		private const int LAG_RTT_THRESHOLD_MS = 300;
+		private const int STORE_RTT_AMOUNT = 10;
 		
 		private IConfigsProvider _configsProvider;
 		private bool _isJoiningNewRoom;
+		private Queue<int> LastRttQueue;
+		private int CurrentRttTotal;
 		
 		public IObservableField<string> UserId { get; }
 		public IObservableField<bool> IsJoiningNewMatch { get; }
@@ -195,6 +202,8 @@ namespace FirstLight.Game.Services
 			}
 		}
 
+		private int RttAverage => CurrentRttTotal / LastRttQueue.Count;
+
 		public GameNetworkService(IConfigsProvider configsProvider)
 		{
 			_configsProvider = configsProvider;
@@ -205,16 +214,24 @@ namespace FirstLight.Game.Services
 			LastConnectedRoomName = new ObservableField<string>("");
 			HasLag = new ObservableField<bool>(false);
 			UserId = new ObservableResolverField<string>(() => QuantumClient.UserId, SetUserId);
+			LastRttQueue = new Queue<int>();
 		}
-
-		/// <inheritdoc />
+		
 		public void CheckLag()
 		{
-			/*var lastTimestamp = QuantumClient.LoadBalancingPeer.TimestampOfLastSocketReceive;
-			var roundTripCheck = QuantumClient.LoadBalancingPeer.LastRoundTripTime > _lagRoundtripThreshold;
-			var lastAckCheck = lastTimestamp > 0 && SupportClass.GetTickCount() - lastTimestamp > _lagRoundtripThreshold;
+			var newRtt = QuantumClient.LoadBalancingPeer.LastRoundTripTime;
+			LastRttQueue.Enqueue(newRtt);
+			CurrentRttTotal += newRtt;
 			
-			HasLag.Value = roundTripCheck || lastAckCheck;*/
+			if (LastRttQueue.Count > STORE_RTT_AMOUNT)
+			{
+				CurrentRttTotal -= LastRttQueue.Dequeue();
+			}
+
+			var roundTripCheck = RttAverage > LAG_RTT_THRESHOLD_MS;
+			var dcCheck = NetworkUtils.IsOfflineOrDisconnected();
+
+			HasLag.Value = roundTripCheck || dcCheck;
 		}
 
 		private void SetUserId(string id)

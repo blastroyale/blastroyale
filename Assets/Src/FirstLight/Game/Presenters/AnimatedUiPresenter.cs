@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Threading.Tasks;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
@@ -35,7 +36,7 @@ namespace FirstLight.Game.Presenters
 			Services = MainInstaller.Resolve<IGameServices>();
 		}
 
-		protected override void OnClosed()
+		protected override async Task OnClosed()
 		{
 			if (_coroutine != null)
 			{
@@ -138,7 +139,7 @@ namespace FirstLight.Game.Presenters
 			Services = MainInstaller.Resolve<IGameServices>();
 		}
 
-		protected override void OnClosed()
+		protected override async Task OnClosed()
 		{
 			if (_coroutine != null)
 			{

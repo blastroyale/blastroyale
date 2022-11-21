@@ -16,13 +16,13 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public override void OnDisabled(Frame f)
 		{
-			foreach (var spell in f.GetComponentIterator<Spell>())
+			foreach (var spell in f.Unsafe.GetComponentBlockIterator<Spell>())
 			{
 				f.Destroy(spell.Entity);
 			}
-			foreach (var stat in f.GetComponentIterator<Stats>())
+			foreach (var stat in f.Unsafe.GetComponentBlockIterator<Stats>())
 			{
-				f.ResolveList(stat.Component.SpellEffects).Clear();
+				f.ResolveList(stat.Component->SpellEffects).Clear();
 			}
 		}
 
@@ -46,7 +46,7 @@ namespace Quantum.Systems
 			if (f.TryGet<PlayerCharacter>(filter.Spell->Attacker, out var attacker))
 			{
 				f.Events.OnPlayerAttackHit(attacker.Player, filter.Spell->Attacker, filter.Spell->Victim, 
-				                           filter.Spell->OriginalHitPosition);
+				                           filter.Spell->OriginalHitPosition, filter.Spell->PowerAmount);
 			}
 			
 			HandleHealth(f, *filter.Spell, false);

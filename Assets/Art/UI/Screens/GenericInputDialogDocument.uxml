@@ -1,0 +1,26 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Styles/GenericDialogStyle.uss?fileID=7433441132597879392&amp;guid=d1862850e9c3aaa4aa77ed63ff317bf3&amp;type=3#GenericDialogStyle" />
+    <ui:VisualElement name="root" class="background" style="-unity-text-align: middle-center;">
+        <ui:Button name="BlockerButton" class="blocker-button" />
+        <ui:VisualElement name="PopupBackground" class="popup-radius">
+            <ui:VisualElement name="PopupWindow" class="popup-radius">
+                <ui:VisualElement name="Header" class="background-purple popup-header">
+                    <ui:VisualElement name="TitleDots" class="dots-pattern" />
+                    <ui:Label name="Title" text="TITLE GOES HERE" class="font-italic font-style-h2" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Container">
+                    <ui:Label name="Desc" text="DESC GOES HERE" class="font-italic font-style-popup content-desc-text" />
+                    <ui:VisualElement name="BackgroundPattern" class="popup-background-pattern" style="top: 69px; left: 258px;" />
+                    <ui:VisualElement name="Spacer" class="content-spacer--small" />
+                    <ui:TextField name="InputTextField" text="INPUT GOES HERE" value="..." max-length="34" class="font-italic input-field input-field__generic" />
+                    <ui:VisualElement name="Spacer" class="content-spacer--medium" />
+                    <ui:VisualElement name="Spacer" class="content-spacer--medium" />
+                    <ui:VisualElement name="HoriLayout">
+                        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITShared/cancel" name="CancelButton" class="font-italic button-flat-cancel" />
+                        <ui:Button name="ConfirmButton" text="CONFIRM" class="font-italic button-flat-primary" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

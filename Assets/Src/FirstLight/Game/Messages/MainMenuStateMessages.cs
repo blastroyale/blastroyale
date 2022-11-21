@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using FirstLight.Game.Data;
 using Photon.Realtime;
 using Quantum;
 using FirstLight.SDK.Services;
@@ -31,7 +31,7 @@ namespace FirstLight.Game.Messages
 		public string RoomName;
 		public QuantumGameModeConfig GameModeConfig;
 		public QuantumMapConfig MapConfig;
-		public List<string> Mutators;
+		public CustomGameOptions CustomGameOptions;
 		public bool JoinIfExists;
 	}
 }

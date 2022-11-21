@@ -83,11 +83,11 @@ namespace FirstLight.Game.StateMachines
 		{
 			var confirmButton = new GenericDialogButton<string>
 			{
-				ButtonText = ScriptLocalization.General.Yes,
+				ButtonText = ScriptLocalization.General.OK,
 				ButtonOnClick = OnNameSet
 			};
 			
-			_services.GenericDialogService.OpenInputFieldDialog(ScriptLocalization.MainMenu.NameHeroTitle, 
+			_services.GenericDialogService.OpenInputDialog(ScriptLocalization.UITHomeScreen.new_name, ScriptLocalization.UITHomeScreen.new_name_desc, 
 			                                                    _dataProvider.AppDataProvider.DisplayNameTrimmed, 
 			                                                    confirmButton, false);
 		}
@@ -100,7 +100,7 @@ namespace FirstLight.Game.StateMachines
 				ButtonOnClick = OnNameInvalidAcknowledged
 			};
 			
-			_services.GenericDialogService.OpenDialog(_nameInvalidStatus,false, okButton);
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, _nameInvalidStatus,false, okButton);
 		}
 
 		private void OnNameSet(string newName)

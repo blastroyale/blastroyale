@@ -3,6 +3,7 @@ enum GameId
 {
 	Random = 0,
 	RealMoney = 125,
+	COIN = 61,
 	BLST = 14,
 	CS = 12,
 	XP = 3,
@@ -109,6 +110,7 @@ enum GameIdGroup
 	Map = 8,
 	Helmet = 13,
 	Equipment = 12,
+	Gear = 24,
 	Weapon = 11,
 	Melee = 20,
 	Amulet = 16,

@@ -1,3 +1,8 @@
+synced event OnAllPlayersJoined
+{
+    UInt32 NumberOfPlayers;
+}
+
 synced event OnGameEnded
 {
 	player_ref PlayerLeader;

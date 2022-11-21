@@ -68,6 +68,12 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.COIN, new List<GameIdGroup>
+					{
+						GameIdGroup.Currency
+					}.AsReadOnly()
+				},
+				{
 					GameId.BLST, new List<GameIdGroup>
 					{
 						GameIdGroup.Currency
@@ -151,56 +157,64 @@ namespace Quantum
 					GameId.MausHelmet, new List<GameIdGroup>
 					{
 						GameIdGroup.Helmet,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Gear
 					}.AsReadOnly()
 				},
 				{
 					GameId.SoldierHelmet, new List<GameIdGroup>
 					{
 						GameIdGroup.Helmet,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Gear
 					}.AsReadOnly()
 				},
 				{
 					GameId.RiotHelmet, new List<GameIdGroup>
 					{
 						GameIdGroup.Helmet,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Gear
 					}.AsReadOnly()
 				},
 				{
 					GameId.WarriorHelmet, new List<GameIdGroup>
 					{
 						GameIdGroup.Helmet,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Gear
 					}.AsReadOnly()
 				},
 				{
 					GameId.RoadHelmet, new List<GameIdGroup>
 					{
 						GameIdGroup.Helmet,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Gear
 					}.AsReadOnly()
 				},
 				{
 					GameId.FootballHelmet, new List<GameIdGroup>
 					{
 						GameIdGroup.Helmet,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Gear
 					}.AsReadOnly()
 				},
 				{
 					GameId.BaseballHelmet, new List<GameIdGroup>
 					{
 						GameIdGroup.Helmet,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Gear
 					}.AsReadOnly()
 				},
 				{
 					GameId.HockeyHelmet, new List<GameIdGroup>
 					{
 						GameIdGroup.Helmet,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Gear
 					}.AsReadOnly()
 				},
 				{
@@ -362,119 +376,136 @@ namespace Quantum
 					GameId.MouseAmulet, new List<GameIdGroup>
 					{
 						GameIdGroup.Amulet,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Gear
 					}.AsReadOnly()
 				},
 				{
 					GameId.RiotAmulet, new List<GameIdGroup>
 					{
 						GameIdGroup.Amulet,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Gear
 					}.AsReadOnly()
 				},
 				{
 					GameId.SoldierAmulet, new List<GameIdGroup>
 					{
 						GameIdGroup.Amulet,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Gear
 					}.AsReadOnly()
 				},
 				{
 					GameId.WarriorAmulet, new List<GameIdGroup>
 					{
 						GameIdGroup.Amulet,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Gear
 					}.AsReadOnly()
 				},
 				{
 					GameId.TikTokAmulet, new List<GameIdGroup>
 					{
 						GameIdGroup.Amulet,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Gear
 					}.AsReadOnly()
 				},
 				{
 					GameId.MouseArmor, new List<GameIdGroup>
 					{
 						GameIdGroup.Armor,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Gear
 					}.AsReadOnly()
 				},
 				{
 					GameId.RiotArmor, new List<GameIdGroup>
 					{
 						GameIdGroup.Armor,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Gear
 					}.AsReadOnly()
 				},
 				{
 					GameId.SoldierArmor, new List<GameIdGroup>
 					{
 						GameIdGroup.Armor,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Gear
 					}.AsReadOnly()
 				},
 				{
 					GameId.WarriorArmor, new List<GameIdGroup>
 					{
 						GameIdGroup.Armor,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Gear
 					}.AsReadOnly()
 				},
 				{
 					GameId.RoadSignArmour, new List<GameIdGroup>
 					{
 						GameIdGroup.Armor,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Gear
 					}.AsReadOnly()
 				},
 				{
 					GameId.BaseballArmor, new List<GameIdGroup>
 					{
 						GameIdGroup.Armor,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Gear
 					}.AsReadOnly()
 				},
 				{
 					GameId.FootballArmor, new List<GameIdGroup>
 					{
 						GameIdGroup.Armor,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Gear
 					}.AsReadOnly()
 				},
 				{
 					GameId.MouseShield, new List<GameIdGroup>
 					{
 						GameIdGroup.Shield,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Gear
 					}.AsReadOnly()
 				},
 				{
 					GameId.SoldierShield, new List<GameIdGroup>
 					{
 						GameIdGroup.Shield,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Gear
 					}.AsReadOnly()
 				},
 				{
 					GameId.WarriorShield, new List<GameIdGroup>
 					{
 						GameIdGroup.Shield,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Gear
 					}.AsReadOnly()
 				},
 				{
 					GameId.RiotShield, new List<GameIdGroup>
 					{
 						GameIdGroup.Shield,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Gear
 					}.AsReadOnly()
 				},
 				{
 					GameId.RoadShield, new List<GameIdGroup>
 					{
 						GameIdGroup.Shield,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Gear
 					}.AsReadOnly()
 				},
 				{
@@ -726,6 +757,7 @@ namespace Quantum
 					GameIdGroup.Currency, new List<GameId>
 					{
 						GameId.RealMoney,
+						GameId.COIN,
 						GameId.BLST,
 						GameId.CS
 					}.AsReadOnly()
@@ -804,6 +836,36 @@ namespace Quantum
 						GameId.SciSniper,
 						GameId.SciCannon,
 						GameId.SciMelter,
+						GameId.MouseAmulet,
+						GameId.RiotAmulet,
+						GameId.SoldierAmulet,
+						GameId.WarriorAmulet,
+						GameId.TikTokAmulet,
+						GameId.MouseArmor,
+						GameId.RiotArmor,
+						GameId.SoldierArmor,
+						GameId.WarriorArmor,
+						GameId.RoadSignArmour,
+						GameId.BaseballArmor,
+						GameId.FootballArmor,
+						GameId.MouseShield,
+						GameId.SoldierShield,
+						GameId.WarriorShield,
+						GameId.RiotShield,
+						GameId.RoadShield
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.Gear, new List<GameId>
+					{
+						GameId.MausHelmet,
+						GameId.SoldierHelmet,
+						GameId.RiotHelmet,
+						GameId.WarriorHelmet,
+						GameId.RoadHelmet,
+						GameId.FootballHelmet,
+						GameId.BaseballHelmet,
+						GameId.HockeyHelmet,
 						GameId.MouseAmulet,
 						GameId.RiotAmulet,
 						GameId.SoldierAmulet,

@@ -1,0 +1,36 @@
+.background {
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.hidden {
+    display: none;
+}
+
+.low-connection {
+    width: 120px;
+    height: 105px;
+    background-color: rgba(0, 0, 0, 0);
+    top: 180px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/LowConnetionOverlay/ConnectionBackBg.png?fileID=2800000&guid=f05123de9759b9246851e4d4e90ea664&type=3#ConnectionBackBg');
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    position: relative;
+}
+
+.low-connection__icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/LowConnetionOverlay/LowConnectionIcon.png?fileID=2800000&guid=cf92c5e7bfff44cff83b6af7c0e6c710&type=3#LowConnectionIcon');
+    background-color: rgba(0, 0, 0, 0);
+    -unity-background-scale-mode: scale-to-fit;
+    flex-grow: 1;
+}
+
+.safe-area {
+    width: 100%;
+    height: 100%;
+    align-items: center;
+}

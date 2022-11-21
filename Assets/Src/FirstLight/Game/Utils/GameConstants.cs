@@ -141,11 +141,18 @@ namespace FirstLight.Game.Utils
 
 		public static class Network
 		{
+			// Network state time settings
+			public const float NETWORK_QUANTUM_TICK_SECONDS = 0.1f;
+			public const float NETWORK_ATTEMPT_RECONNECT_SECONDS = 0.25f;
+			
+			public const float CRITICAL_DISCONNECT_THRESHOLD_SECONDS = 10f;
+			
 			// Time control values
 			public const int PLAYER_LOBBY_TTL_MS = 0;
 			public const int PLAYER_GAME_TTL_MS = 99999999;
-			public const int EMPTY_ROOM_TTL_MS = 10000;
-			public const int EMPTY_ROOM_PLAYTEST_TTL_MS = 1000;
+			public const int EMPTY_ROOM_LOBBY_TTL_MS = 3000;
+			public const int EMPTY_ROOM_GAME_TTL_MS = 30000;
+			public const int EMPTY_ROOM_PLAYTEST_TTL_MS = 3000;
 
 			// Player properties
 			// Loading properties are split into PLAYER_PROPS_CORE_LOADED and PLAYER_PROPS_ALL_LOADED - this is because
@@ -168,6 +175,8 @@ namespace FirstLight.Game.Utils
 			public const string ROOM_PROPS_MATCH_TYPE = "matchType";
 
 			public const string DEFAULT_REGION = "eu";
+			
+			public const char ROOM_META_SEPARATOR = '#';
 			
 			public const string LEADERBOARD_LADDER_NAME = "Trophies Ladder";
 			public const int LEADERBOARD_TOP_RANK_AMOUNT = 20;
@@ -210,9 +219,8 @@ namespace FirstLight.Game.Utils
 
 		public static class Controls
 		{
-			public const float DYNAMIC_JOYSTICK_THRESHOLD_MULT = 1.18f;
-			
-			public const float MOVEMENT_JOYSTICK_RADIUS_MULT = 0.95f;
+			public const float DYNAMIC_JOYSTICK_THRESHOLD_MULT = 1f;
+			public const float MOVEMENT_JOYSTICK_RADIUS_MULT = 1f;
 			
 			public const float SPECIAL_BUTTON_MAX_RADIUS_MULT = 1.75f;
 			public const float SPECIAL_BUTTON_FIRST_CANCEL_RADIUS_MULT = 1.15f;
@@ -241,6 +249,17 @@ namespace FirstLight.Game.Utils
 			public const float GAME_START_DURATION = 0.25f;
 			public const float GAME_START_INTENSITY = 1f;
 			public const float GAME_START_SHARPNESS = 1f;
+
+			public const float PLAYER_KILL_DURATION = 0.1f;
+			public const float PLAYER_KILL_INTENSITY = 1;
+			public const float PLAYER_KILL_SHARPNESS = 1;
+
+
+		}
+
+		public static class GameModeId
+		{
+			public static string FAKEGAMEMODE_CUSTOMGAME = "Custom Game";
 		}
 	}
 }

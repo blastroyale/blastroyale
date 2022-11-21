@@ -247,18 +247,7 @@ namespace FirstLight.Game.Services
 			var catalogItem = _defaultCatalog.allProducts.First(item => item.id == product.definition.id);
 
 			float price = (float) catalogItem.googlePrice.value;
-			var data = new Dictionary<string, object>
-			{
-				{"currency", "USD"},
-				{"transaction_id", product.transactionID},
-				{"price", price},
-				{"dollar_gross", price},
-				{"dollar_net", price * NET_INCOME_MODIFIER},
-				{"item_id", product.definition.id},
-				{"item_name", reward.RewardId.ToString()}
-			};
-
-			_analyticsService.LogEvent(AnalyticsEvents.Purchase, data);
+			_analyticsService.EconomyCalls.Purchase(product, reward, price, NET_INCOME_MODIFIER);
 		}
 	}
 }

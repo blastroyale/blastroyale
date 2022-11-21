@@ -28,14 +28,7 @@ namespace Quantum
 				}
 			}
 
-			if (_mutators.ContainsKey(type))
-			{
-				quantumMutatorConfig = _mutators[type];
-				return true;
-			}
-
-			quantumMutatorConfig = default;
-			return false;
+			return _mutators.TryGetValue(type, out quantumMutatorConfig);
 		}
 	}
 }

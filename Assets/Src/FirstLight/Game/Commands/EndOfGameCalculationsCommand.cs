@@ -14,6 +14,8 @@ namespace FirstLight.Game.Commands
 	{
 		public List<QuantumPlayerMatchData> PlayersMatchData;
 		public QuantumValues QuantumValues;
+		
+		private int _playerCount;
 		private bool _validRewardsFromFrame = true;
 
 		public CommandAccessLevel AccessLevel() => CommandAccessLevel.Service;
@@ -21,17 +23,27 @@ namespace FirstLight.Game.Commands
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Quantum;
 
 		/// <inheritdoc />
-		public void Execute(IGameLogic gameLogic, IDataProvider dataProvider)
+		public void Execute(CommandExecutionContext ctx)
 		{
-			if (!_validRewardsFromFrame) return;
-
+			if (!_validRewardsFromFrame)
+			{
+				return;
+			}
+			
 			var matchData = PlayersMatchData;
-			var trophiesBeforeChange = gameLogic.PlayerLogic.Trophies.Value;
+			var trophiesBeforeChange = ctx.Logic.PlayerLogic().Trophies.Value;
 			var matchType = QuantumValues.MatchType;
-			var rewards = gameLogic.RewardLogic.GiveMatchRewards(
-				matchType, matchData, QuantumValues.ExecutingPlayer, false, out var trophyChange);
+			var rewardSource = new RewardSource()
+			{
+				MatchData = matchData,
+				ExecutingPlayer = QuantumValues.ExecutingPlayer,
+				MatchType = matchType,
+				DidPlayerQuit = false,
+				GamePlayerCount = _playerCount
+			};
+			var rewards = ctx.Logic.RewardLogic().GiveMatchRewards(rewardSource, out var trophyChange);
 
-			gameLogic.MessageBrokerService.Publish(new GameCompletedRewardsMessage
+			ctx.Services.MessageBrokerService().Publish(new GameCompletedRewardsMessage
 			{
 				Rewards = rewards,
 				TrophiesChange = trophyChange,
@@ -44,6 +56,8 @@ namespace FirstLight.Game.Commands
 			var gameContainer = frame.GetSingleton<GameContainer>();
 			PlayersMatchData = gameContainer.GetPlayersMatchData(frame, out _);
 			QuantumValues = quantumValues;
+			_playerCount = frame.PlayerCount;
+			
 			if (!frame.Context.GameModeConfig.AllowEarlyRewards && !gameContainer.IsGameCompleted &&
 				!gameContainer.IsGameOver)
 			{

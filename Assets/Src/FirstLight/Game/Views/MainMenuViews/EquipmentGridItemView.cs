@@ -57,7 +57,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
-		protected override async void OnUpdateItem(EquipmentGridItemData data)
+		protected override void OnUpdateItem(EquipmentGridItemData data)
 		{
 			var equipmentDataProvider = _gameDataProvider.EquipmentDataProvider;
 
@@ -86,7 +86,9 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_notificationUniqueIdView.SetUniqueId(data.Id, data.PlayViewNotificationAnimation);
 			_uniqueId = data.Id;
 
-			await _equipmentCardView.Initialise(data.Equipment);
+#pragma warning disable CS4014
+			_equipmentCardView.Initialise(data.Equipment);
+#pragma warning restore CS4014
 		}
 
 		private void OnLoadoutUpdated(GameIdGroup key, UniqueId previousId, UniqueId newId,

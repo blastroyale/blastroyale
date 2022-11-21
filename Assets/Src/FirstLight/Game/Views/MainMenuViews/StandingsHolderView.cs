@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MatchHudViews;
@@ -9,6 +7,7 @@ using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Button = UnityEngine.UI.Button;
 
 namespace FirstLight.Game.Views.MainMenuViews
 {
@@ -24,7 +23,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		[SerializeField, Required] private RectTransform _contentTransform;
 		[SerializeField] private int _verticalEntrySpacing = 14;
-		[SerializeField, Required] private UnityEngine.UI.Button _blockerButton;
+		[SerializeField, Required] private Button _blockerButton;
 
 		private readonly List<PlayerResultEntryView> _playerResultPool = new();
 		private IGameServices _services;
@@ -34,6 +33,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_services = MainInstaller.Resolve<IGameServices>();
 			_blockerButton.onClick.AddListener(OnCloseClicked);
 			_resultEntryViewRef.gameObject.SetActive(false);
+			
+			QuantumEvent.Subscribe<EventOnAllPlayersJoined>(this, OnAllPlayerJoined);
 			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnEventOnPlayerKilledPlayer,
 			                                                  onlyIfActiveAndEnabled: true);
 		}
@@ -52,7 +53,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_extraInfo.SetActive(showExtra);
 			_blockerButton.gameObject.SetActive(enableBlockerButton);
 			_services = MainInstaller.Resolve<IGameServices>();
-			
+
 			UpdateBoardRows(playerCount);
 		}
 
@@ -95,7 +96,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			}
 
 			// Remove extra entries
-			for (var j = _playerResultPool.Count; j > _playerResultPool.Count; j--)
+			for (var j = _playerResultPool.Count - 1; j >= playerCount; j--)
 			{
 				_playerResultPool.RemoveAt(j);
 			}
@@ -118,6 +119,12 @@ namespace FirstLight.Game.Views.MainMenuViews
 		/// The scoreboard could update whilst it's open, e.g. players killed whilst looking at it, etc.
 		/// </summary>
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
+		{
+			UpdateBoardRows(callback.PlayersMatchData.Count);
+			UpdateStandings(callback.PlayersMatchData);
+		}
+		
+		private void OnAllPlayerJoined(EventOnAllPlayersJoined callback)
 		{
 			UpdateBoardRows(callback.PlayersMatchData.Count);
 			UpdateStandings(callback.PlayersMatchData);

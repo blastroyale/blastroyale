@@ -39,24 +39,6 @@
     margin-bottom: 7px;
     padding-left: 59px;
     padding-bottom: 4px;
-    transition-delay: var(--animation-delay-2);
-    transition-timing-function: var(--in-animation-easing);
-    transition-property: margin-right;
-    transition-duration: var(--in-animation-duration);
-}
-
-#CustomGameButton {
-    transition-delay: var(--animation-delay-3);
-    transition-property: margin-right;
-    transition-duration: var(--in-animation-duration);
-    transition-timing-function: var(--in-animation-easing);
-}
-
-#StoreButton {
-    transition-delay: var(--animation-delay-4);
-    transition-property: margin-right;
-    transition-duration: var(--in-animation-duration);
-    transition-timing-function: var(--in-animation-easing);
 }
 
 #GameModeButton:active {
@@ -67,13 +49,14 @@
 
 #PlayerNameLabel {
     position: absolute;
-    top: 101px;
-    left: 100px;
+    top: 90px;
+    left: 10px;
     rotate: -15deg;
-    -unity-text-align: middle-left;
-    width: 218px;
-    height: 50px;
+    -unity-text-align: lower-center;
+    width: 300px;
+    height: 70px;
     overflow: hidden;
+    white-space: normal;
 }
 
 #BattlePassButton {
@@ -122,34 +105,6 @@
     color: rgb(146, 137, 162);
 }
 
-#EquipmentButton {
-    transition-duration: var(--in-animation-duration);
-    transition-timing-function: var(--in-animation-easing);
-    transition-property: margin-left;
-    transition-delay: var(--animation-delay-4);
-}
-
-#HeroesButton {
-    transition-duration: var(--in-animation-duration);
-    transition-timing-function: var(--in-animation-easing);
-    transition-property: margin-left;
-    transition-delay: var(--animation-delay-3);
-}
-
-#LeaderboardsButton {
-    transition-duration: var(--in-animation-duration);
-    transition-timing-function: var(--in-animation-easing);
-    transition-property: margin-left;
-    transition-delay: var(--animation-delay-2);
-}
-
-#BattlePassHolder {
-    transition-duration: var(--in-animation-duration);
-    transition-timing-function: var(--in-animation-easing);
-    transition-property: margin-left;
-    transition-delay: var(--animation-delay-1);
-}
-
 .button-with-icon--store > .button-with-icon__icon {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/IconEquipment.png?fileID=21300000&guid=f074c3dd0ff0849fe90a973fd6fbd458&type=3#IconEquipment');
 }
@@ -170,85 +125,20 @@
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/IconShop.png?fileID=21300000&guid=2ea4ca43a1f724d659125eeae517ed2a&type=3#IconShop');
 }
 
-.button-with-icon--custom-game > .button-with-icon__icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/IconCustomGame.png?fileID=21300000&guid=edeb643c81c524ca28070f239ae51a4e&type=3#IconCustomGame');
+.button-with-icon--discord > .button-with-icon__icon {
+    height: 70px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/DiscordIcon.png?fileID=2800000&guid=b67fedbb7c0d341c4b54768891f247ed&type=3#DiscordIcon');
 }
 
-#SettingsButton {
-    transition-duration: var(--in-animation-duration);
-    transition-timing-function: var(--in-animation-easing);
-    transition-property: margin-top;
-    transition-delay: var(--animation-delay-1);
+.button-with-icon--custom-game > .button-with-icon__icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/IconCustomGame.png?fileID=21300000&guid=edeb643c81c524ca28070f239ae51a4e&type=3#IconCustomGame');
 }
 
 #SettingsButton:active > VisualElement {
     -unity-background-image-tint-color: rgb(126, 126, 126);
 }
 
-#CSCurrency {
-    transition-duration: var(--in-animation-duration);
-    transition-timing-function: var(--in-animation-easing);
-    transition-property: margin-top;
-    transition-delay: var(--animation-delay-2);
-}
-
-#BLSTCurrency {
-    transition-duration: var(--in-animation-duration);
-    transition-timing-function: var(--in-animation-easing);
-    transition-property: margin-top;
-    transition-delay: var(--animation-delay-3);
-}
-
-#PlayerHolder {
-    transition-duration: var(--in-animation-duration);
-    transition-timing-function: var(--in-animation-easing);
-    transition-property: margin-top;
-    transition-delay: var(--animation-delay-1);
-}
-
-#BLSTCurrency #Icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BLST.png?fileID=21300000&guid=b0ad58f6ca5c1472fa1fb6178491eb03&type=3#BLST');
-}
-
-#CSCurrency #Icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/CS.png?fileID=21300000&guid=d74b22177c5ba4ac6b9293d6c147e46e&type=3#CS');
-}
-
-.hidden {
-    visibility: hidden;
-    display: none;
-    transition-delay: var(--animation-total-duration);
-}
-
-.hidden .hidden-left {
-    margin-left: -1000px;
-    transition-duration: var(--out-animation-duration);
-    transition-timing-function: var(--out-animation-easing);
-    transition-property: margin-left;
-}
-
-.hidden .hidden-right {
-    margin-right: -700px;
-    transition-duration: var(--out-animation-duration);
-    transition-timing-function: var(--out-animation-easing);
-    transition-property: margin-right;
-}
-
-.hidden .hidden-top {
-    margin-top: -200px;
-    transition-duration: var(--out-animation-duration);
-    transition-timing-function: var(--out-animation-easing);
-    transition-property: margin-top;
-}
-
-.hidden .hidden-profile {
-    margin-top: -300px;
-    transition-duration: var(--out-animation-duration);
-    transition-timing-function: var(--out-animation-easing);
-    transition-property: margin-top;
-}
-
-Button {
+Button, LocalizedButton {
     background-color: rgba(0, 0, 0, 0);
     border-width: 0;
 }

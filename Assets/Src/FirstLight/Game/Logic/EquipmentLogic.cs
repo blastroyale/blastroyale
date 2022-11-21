@@ -366,9 +366,9 @@ namespace FirstLight.Game.Logic
 			var resourceType = GameId.COIN;
 			var config = GameLogic.ConfigsProvider.GetConfig<ScrapConfig>((int) resourceType);
 			var rarityValue =
-				Math.Ceiling(config.BaseValue * Math.Pow(config.GrowthMultiplier.AsFloat, (int)equipment.Rarity + 1));
-			var adjectiveValue = Math.Sqrt(Math.Pow(config.AdjectiveCostK.AsFloat, (int)equipment.Adjective + 1));
-			var gradeValue = Math.Pow(config.GradeMultiplier.AsFloat, (int)equipment.Grade + 1);
+				Math.Ceiling(config.BaseValue * Math.Pow(config.GrowthMultiplier.AsDouble, (int)equipment.Rarity + 1));
+			var adjectiveValue = Math.Sqrt(Math.Pow(config.AdjectiveCostK.AsDouble, (int)equipment.Adjective + 1));
+			var gradeValue = Math.Pow(config.GradeMultiplier.AsDouble, (int)equipment.Grade + 1);
 			var levelMultiplier = (((int)equipment.Level + 1) * config.LevelMultiplier).AsDouble;
 			var ret = (int) (rarityValue + adjectiveValue + ((rarityValue + adjectiveValue) * levelMultiplier * gradeValue));
 

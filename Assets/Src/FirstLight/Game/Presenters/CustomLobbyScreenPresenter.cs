@@ -24,7 +24,7 @@ namespace FirstLight.Game.Presenters
 	/// This Presenter handles the Players Waiting Screen UI by:
 	/// - Showing the loading status
 	/// </summary>
-	public class MatchmakingLoadingScreenPresenter : UiPresenterData<MatchmakingLoadingScreenPresenter.StateData>,
+	public class CustomLobbyScreenPresenter : UiPresenterData<CustomLobbyScreenPresenter.StateData>,
 	                                                 IInRoomCallbacks
 	{
 		public struct StateData
@@ -107,7 +107,7 @@ namespace FirstLight.Game.Presenters
 			var mapConfig = _services.NetworkService.CurrentRoomMapConfig.Value;
 			var gameModeConfig = _services.NetworkService.CurrentRoomGameModeConfig.Value;
 
-			mapSelectionView.SetupMapView(room.GetGameModeId(), room.GetMapId());
+			mapSelectionView.SetupMapView(room.GetGameModeId(), room.GetMapId(), room.GetDropzonePosRot());
 
 			if (RejoiningRoom)
 			{
@@ -145,11 +145,11 @@ namespace FirstLight.Game.Presenters
 			
 			var matchType = room.GetMatchType();
 			var gameMode = room.GetGameModeId().ToUpper();
-			var quantumGameConfigs = _services.ConfigsProvider.GetConfig<QuantumGameConfig>();
-			var minPlayers = matchType == MatchType.Ranked ? quantumGameConfigs.RankedMatchmakingMinPlayers : 0;
+			var quantumGameConfig = _services.ConfigsProvider.GetConfig<QuantumGameConfig>();
+			var minPlayers = matchType == MatchType.Ranked ? quantumGameConfig.RankedMatchmakingMinPlayers : 0;
 			var matchmakingTime = matchType == MatchType.Ranked ? 
-				                      quantumGameConfigs.RankedMatchmakingTime.AsFloat :
-				                      quantumGameConfigs.CasualMatchmakingTime.AsFloat;
+				                      quantumGameConfig.RankedMatchmakingTime.AsFloat :
+				                      quantumGameConfig.CasualMatchmakingTime.AsFloat;
 			
 			_selectedGameModeText.text = string.Format(ScriptLocalization.MainMenu.SelectedGameModeValue, matchType.ToString().ToUpper(), gameMode);
 
@@ -194,7 +194,6 @@ namespace FirstLight.Game.Presenters
 
 		protected override async Task OnClosed()
 		{
-			mapSelectionView.CleanupMapView();
 			_rootObject.SetActive(true);
 		}
 

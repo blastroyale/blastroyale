@@ -61,7 +61,6 @@ namespace FirstLight.Game.StateMachines
 			var final = stateFactory.Final("Final");
 			var loading = stateFactory.TaskWait("Loading Assets");
 			var roomCheck = stateFactory.Choice("Room Check");
-			var roomTypeCheck = stateFactory.Choice("Room Type Check");
 			var matchmaking = stateFactory.State("Matchmaking");
 			var playerReadyCheck = stateFactory.Choice("Player Ready Check");
 			var playerReadyWait = stateFactory.State("Player Ready Wait");
@@ -102,7 +101,7 @@ namespace FirstLight.Game.StateMachines
 			disconnected.Event(NetworkState.JoinRoomFailedEvent).Target(unloading);
 			disconnected.Event(NetworkState.DcScreenBackEvent).Target(unloading);
 			
-			postDisconnectCheck.Transition().Condition(HasDisconnectedDuringMatchmaking).OnTransition(OnReloadToMatchmaking).Target(roomTypeCheck);
+			postDisconnectCheck.Transition().Condition(HasDisconnectedDuringMatchmaking).OnTransition(OnReloadToMatchmaking).Target(matchmaking);
 			postDisconnectCheck.Transition().Condition(HasDisconnectedDuringSimulation).OnTransition(CloseCurrentScreen).Target(playerReadyCheck);
 			postDisconnectCheck.Transition().OnTransition(CloseCurrentScreen).Target(unloading);
 			

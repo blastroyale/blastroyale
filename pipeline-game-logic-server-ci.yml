@@ -29,7 +29,7 @@ variables:
 - name: repository
   value: 'gamelogic'
 - name: dockerfile
-  value: ContainerApp/Dockerfile
+  value: GameLogicService/Dockerfile
 - name: vmImageName
   value: 'ubuntu-latest'
 

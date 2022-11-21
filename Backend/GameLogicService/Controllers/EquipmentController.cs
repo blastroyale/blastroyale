@@ -6,7 +6,7 @@ using Quantum;
 using ServerShared.Authentication.ApiKey;
 
 
-namespace ContainerApp.Cloudscript
+namespace GameLogicApp.Cloudscript
 {
 	[ApiController]
 	[Route("equipment")]

@@ -7,7 +7,7 @@ using PlayFab.ServerModels;
 using ServerCommon;
 
 
-namespace ContainerApp.Controllers
+namespace GameLogicApp.Controllers
 {
 	[ApiController]
 	[Route("leaderboard")]

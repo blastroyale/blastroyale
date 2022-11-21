@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 using PlayFab;
 using ServerShared.Authentication.ApiKey;
 
-namespace ContainerApp.Cloudscript
+namespace GameLogicApp.Cloudscript
 {
 	/// <summary>
 	/// Controller that uses playfab signature API to communicate with playfab cloud script.

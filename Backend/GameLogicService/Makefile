@@ -1,16 +1,7 @@
 
 
-check_azure:
-	az functionapp deployment list-publishing-credentials --name DevFirstLightBackend --resource-group Dev_Backend
+build:
+	cd .. && docker build -t game-logic-service-local --no-cache -f  GameLogicService/Dockerfile .
 
-update:
-	cd Scripts && python update_dlls.py
-
-zip:
-	zip -r backend.zip .
-
-deploy:
-	az functionapp deployment source config-zip -g Dev_Backend -n DevFirstLightBackend --src ./backend.zip
-	
-jenkins: update zip deploy
-	echo "Deployed to Azure"
+run:
+	docker run -d -p 80:80 game-logic-service-local

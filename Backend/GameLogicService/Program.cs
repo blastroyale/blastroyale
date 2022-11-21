@@ -1,15 +1,10 @@
-using System;
 using System.IO;
 using Backend;
-using Backend.Game.Services;
-using ContainerApp.Authentication;
-using FirstLight.Server.SDK.Models;
-using Microsoft.ApplicationInsights.Extensibility;
+using GameLogicApp.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +13,7 @@ if (builder.Environment.IsDevelopment())
 	builder.Services.AddHttpLogging(options =>
 	{
 		options.LoggingFields = HttpLoggingFields.RequestPropertiesAndHeaders |
-								HttpLoggingFields.RequestBody;
+			HttpLoggingFields.RequestBody;
 	});
 }
 
@@ -27,7 +22,7 @@ if (builder.Environment.IsDevelopment())
 	builder.Services.AddHttpLogging(options =>
 	{
 		options.LoggingFields = HttpLoggingFields.RequestPropertiesAndHeaders |
-								HttpLoggingFields.RequestBody;
+			HttpLoggingFields.RequestBody;
 	});
 }
 
@@ -36,10 +31,10 @@ ServerStartup.Setup(builder.Services.AddControllers(), binPath);
 
 var app = builder.Build();
 app.UseCors(x => x
-     .AllowAnyMethod()
-     .AllowAnyHeader()
-     .SetIsOriginAllowed(origin => true) // playfab origin is dynamic
-     .AllowCredentials());
+	.AllowAnyMethod()
+	.AllowAnyHeader()
+	.SetIsOriginAllowed(origin => true) // playfab origin is dynamic
+	.AllowCredentials());
 
 
 app.UseHttpsRedirection();
@@ -49,4 +44,6 @@ app.UseMiddleware<ApiKeyMiddleware>();
 app.MapControllers();
 app.Run();
 
-public partial class Program { } // expose to integration tests
+public partial class Program
+{
+} // make it accessible in tests

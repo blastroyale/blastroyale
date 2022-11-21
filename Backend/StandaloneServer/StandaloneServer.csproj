@@ -44,7 +44,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ContainerApp\ContainerApp.csproj" />
       <ProjectReference Include="..\FirstLightServerSDK\FirstLightServerSDK.csproj" />
       <ProjectReference Include="..\GameLogicService\GameLogicService.csproj" />
     </ItemGroup>

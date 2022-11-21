@@ -10,7 +10,7 @@ namespace Quantum.Systems
 	/// This system handles all the behaviour for the <see cref="BotCharacter"/>
 	/// </summary>
 	public unsafe class BotCharacterSystem : SystemMainThreadFilter<BotCharacterSystem.BotCharacterFilter>,
-	                                         ISignalOnPlayerDataSet
+	                                         ISignalAllPlayersJoined
 	{
 		public struct BotCharacterFilter
 		{
@@ -22,11 +22,13 @@ namespace Quantum.Systems
 		}
 		
 		/// <inheritdoc />
-		public void OnPlayerDataSet(Frame f, PlayerRef playerRef)
+		public void AllPlayersJoined(Frame f)
 		{
-			var data = f.GetPlayerData(playerRef);
-			var playerTrophies= data?.PlayerTrophies ?? 1000u;
-			InitializeBots(f, playerTrophies);
+			var averagePlayerTrophies = Convert.ToUInt32(
+				Math.Round(
+					f.GetAllPlayerDatas()
+						.Average(p => p.PlayerTrophies)));
+			InitializeBots(f, averagePlayerTrophies);
 		}
 
 		private void InitializeBots(Frame f, uint baseTrophiesAmount)

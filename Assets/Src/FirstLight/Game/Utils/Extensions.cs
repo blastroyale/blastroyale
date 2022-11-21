@@ -82,7 +82,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static string GetTranslation(this EquipmentStatType stat)
 		{
-			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.General)}/{stat.ToString()}");
+			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.General)}/{stat.ToString()}").ToUpperInvariant();
 		}
 
 		/// <summary>
@@ -538,8 +538,7 @@ namespace FirstLight.Game.Utils
 			foreach (var playerKvp in room.Players)
 			{
 				if (!playerKvp.Value.CustomProperties.TryGetValue(GameConstants.Network.PLAYER_PROPS_ALL_LOADED,
-				                                                  out var propertyValue) ||
-				    !(bool) propertyValue)
+				                                                  out var propertyValue) || !(bool) propertyValue)
 				{
 					return false;
 				}

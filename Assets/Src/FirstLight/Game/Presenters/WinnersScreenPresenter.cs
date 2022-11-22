@@ -13,11 +13,14 @@ using Button = UnityEngine.UIElements.Button;
 
 namespace FirstLight.Game.Presenters
 {
+	/// <summary>
+	/// Presenter for the winners screen, which shows who are the top 3 winners of the game
+	/// </summary>
 	public class WinnersScreenPresenter : UiToolkitPresenterData<WinnersScreenPresenter.StateData>
 	{
-		[SerializeField] private MenuCharacterMonoComponent _character1;
-		[SerializeField] private MenuCharacterMonoComponent _character2;
-		[SerializeField] private MenuCharacterMonoComponent _character3;
+		[SerializeField] private MenuCharacterView _character1;
+		[SerializeField] private MenuCharacterView _character2;
+		[SerializeField] private MenuCharacterView _character3;
 		[SerializeField] private CinemachineVirtualCamera _camera;
 		
 		public struct StateData

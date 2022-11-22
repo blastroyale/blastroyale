@@ -17,8 +17,15 @@
 
 .title-holder__title {
     position: absolute;
-    top: 50px;
-    left: 100px;
+    top: 62px;
+    left: 103px;
+    -unity-font-definition: var(--font-italic);
+    font-size: 90px;
+    -unity-font-style: bold;
+    text-shadow: 5px 5px 0 rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
 }
 
 .next-button {
@@ -50,6 +57,8 @@
     font-size: 70px;
     -unity-text-outline-width: 2px;
     color: rgb(255, 255, 255);
+    -unity-font-definition: var(--font-italic);
+    -unity-font-style: bold;
 }
 
 .name-shadow {
@@ -76,6 +85,12 @@
     position: absolute;
     left: -120px;
     font-size: 60px;
+    -unity-font-definition: var(--font-italic);
+    -unity-font-style: bold;
+    text-shadow: 5px 5px 0 rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
 }
 
 .player1 {

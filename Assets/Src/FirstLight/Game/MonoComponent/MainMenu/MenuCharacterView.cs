@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using FirstLight.Game.Infos;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using Newtonsoft.Json;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -14,7 +12,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 	/// <summary>
 	/// This Mono component controls loading and creation of player character equipment items and skin.
 	/// </summary>
-	public class MenuCharacterMonoComponent : MonoBehaviour
+	public class MenuCharacterView : MonoBehaviour
 	{
 		private readonly int _equipRightHandHash = Animator.StringToHash("equip_hand_r");
 		private readonly int _equipBodyHash = Animator.StringToHash("equip_body");

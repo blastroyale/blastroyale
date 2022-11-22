@@ -56,24 +56,7 @@ namespace FirstLight.Game.Presenters
 			// StartCoroutine(TimeUpdateCoroutine()); Enable to force a replay after Time Coroutine finishes.
 
 			_debugTotalMatchTimeText.enabled = Debug.isDebugBuild;
-			
-			// if (Debug.isDebugBuild)
-			// {
-			// 	ShowDebugMatchTime();
-			// }
 		}
-
-		// private void ShowDebugMatchTime()
-		// {
-		// 	var game = QuantumRunner.Default.Game;
-		// 	var f = game.Frames.Verified;
-		// 	var gameContainer = f.GetSingleton<GameContainer>();
-		// 	var time = gameContainer.IsGameOver ? gameContainer.GameOverTime : f.Time;
-		// 	var ts = TimeSpan.FromSeconds(time.AsFloat);
-		// 	
-		// 	_debugTotalMatchTimeText.text =  $"MATCH TIME: {ts.ToHoursMinutesSeconds()}";
-		// }
-		
 		
 		private IEnumerator TimeUpdateCoroutine()
 		{

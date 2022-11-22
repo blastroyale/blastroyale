@@ -155,40 +155,6 @@ namespace FirstLight.Game.StateMachines
 			MainInstaller.CleanDispose<IMatchServices>();
 		}
 
-		private void UpdateMatchEndData()
-		{
-			var game = QuantumRunner.Default.Game;
-			var frame = game.Frames.Verified;
-			
-			var quantumPlayerMatchData = frame.GetSingleton<GameContainer>().GetPlayersMatchData(frame, out _);
-
-			_matchServices.MatchDataService.QuantumPlayerMatchData = quantumPlayerMatchData;
-
-			_matchServices.MatchDataService.PlayerMatchData = new Dictionary<PlayerRef, PlayerMatchData>();
-			
-			foreach (var quantumPlayerData in quantumPlayerMatchData)
-			{
-				Equipment weapon = default;
-				List<Equipment> loadout = null;
-
-				var playerRuntimeData = frame.GetPlayerData(quantumPlayerData.Data.Player);
-				if (playerRuntimeData != null)
-				{
-					weapon = playerRuntimeData.Weapon;
-					loadout = playerRuntimeData.Loadout.ToList();
-				}
-
-				var playerData = new PlayerMatchData(quantumPlayerData.Data.Player, quantumPlayerData, weapon, loadout??new List<Equipment>());
-				_matchServices.MatchDataService.PlayerMatchData.Add(playerData.PlayerRef, playerData);
-			}
-
-			_matchServices.MatchDataService.ShowUIStandingsExtraInfo =
-				frame.Context.GameModeConfig.ShowUIStandingsExtraInfo;
-			_matchServices.MatchDataService.LocalPlayer = QuantumRunner.Default.Game.GetLocalPlayers()[0];
-
-			GiveMatchRewards();
-		}
-
 		private bool IsSoloGame()
 		{
 			return _services.NetworkService.LastMatchPlayers.Count == 1;
@@ -399,7 +365,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void StopSimulation()
 		{
-			UpdateMatchEndData();
+			GiveMatchRewards();
 			_services.MessageBrokerService.Publish(new MatchSimulationEndedMessage());
 			QuantumRunner.ShutdownAll();
 		}

@@ -28,6 +28,22 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			await Task.WhenAll(list);
 		}
 		
+		/// <summary>
+		/// Equip this character with the equipment data given in the <paramref name="info"/>
+		/// </summary>
+		public async Task Init(List<Equipment> items)
+		{
+			var list = new List<Task>();
+			
+			foreach (var item in items)
+			{
+				// TODO mihak: Make this into a single Equip method call
+				list.Add(item.IsWeapon() ? EquipWeapon(item.GameId) : EquipItem(item.GameId));
+			}
+
+			await Task.WhenAll(list);
+		}
+		
 		public void OnPointerClick(PointerEventData eventData)
 		{
 			if (eventData.dragging)

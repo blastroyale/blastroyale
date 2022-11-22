@@ -1,64 +1,42 @@
-using System.Collections.Generic;
 using System.Linq;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
-using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
-using Sirenix.OdinInspector;
-using UnityEngine;
-using UnityEngine.Events;
 
 namespace FirstLight.Game.MonoComponent.MainMenu
 {
 	/// <summary>
-	/// This Mono component controls loading and creation of player character equipment items and skin.
+	/// This monocomponent extends the BaseCharacterMonoComponent to listen to changed in the player's equipment and update the 3d model accordingly
 	/// </summary>
-	public class MainMenuCharacterMonoComponent : MonoBehaviour
+	public class MainMenuCharacterMonoComponent : BaseCharacterMonoComponent
 	{
-		private readonly int _equipRightHandHash = Animator.StringToHash("equip_hand_r");
-		private readonly int _equipBodyHash = Animator.StringToHash("equip_body");
-		private readonly int _victoryHash = Animator.StringToHash("victory");
-
-		[SerializeField, Required] private UnityEvent _characterLoadedEvent;
-		[SerializeField, Required] private Transform _frontEndLootCamera;
-		[SerializeField, Required] private Transform _characterAnchor;
-
-		private Quaternion _defaultCharacterRotation;
-		private MainMenuCharacterViewComponent _characterViewComponent;
 		private IGameDataProvider _gameDataProvider;
-		private IGameServices _services;
-		private Animator _animator;
 
-		private void Awake()
+		protected override void Awake()
 		{
-			_services = MainInstaller.Resolve<IGameServices>();
+			base.Awake();
+			
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-
-			_defaultCharacterRotation = transform.localRotation;
 
 			_gameDataProvider.EquipmentDataProvider.Loadout.Observe(OnLoadoutUpdated);
 			_services.MessageBrokerService.Subscribe<PlayerSkinUpdatedMessage>(OnChangeCharacterSkinMessage);
 			_services.MessageBrokerService.Subscribe<UpdatedLoadoutMessage>(OnUpdatedLoadoutMessage);
 		}
 
-		private void Start()
+		private async void Start()
 		{
 			var skin = _gameDataProvider.PlayerDataProvider.PlayerInfo.Skin;
+			var loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both);
 
-			_services.AssetResolverService.RequestAsset<GameId, GameObject>(skin, true, true, SkinLoaded);
+			await UpdateSkin(skin, loadout);
 		}
 
 		private void OnDestroy()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
 			_gameDataProvider?.EquipmentDataProvider?.Loadout?.StopObservingAll(this);
-		}
-
-		private async void EquipDefault()
-		{
-			await _characterViewComponent.EquipItem(GameId.Hammer);
 		}
 
 		private async void OnLoadoutUpdated(GameIdGroup key, UniqueId previousId, UniqueId newId, ObservableUpdateType updateType)
@@ -90,45 +68,45 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			}
 		}
 
-		private void OnChangeCharacterSkinMessage(PlayerSkinUpdatedMessage callback)
+		private async void OnChangeCharacterSkinMessage(PlayerSkinUpdatedMessage callback)
 		{
 			Destroy(_characterViewComponent.gameObject);
-
-			_services.AssetResolverService.RequestAsset<GameId, GameObject>(callback.SkinId, true, true, SkinLoaded);
+			
+			await UpdateSkin(callback.SkinId, _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both));
 		}
 
-		private async void SkinLoaded(GameId id, GameObject instance, bool instantiated)
-		{
-			// Check that the player hasn't changed the skin again while we were loading
-			if (this.IsDestroyed() || id != _gameDataProvider.PlayerDataProvider.PlayerInfo.Skin)
-			{
-				Destroy(instance);
-				return;
-			}
-
-			instance.SetActive(false);
-
-			var cacheTransform = instance.transform;
-			var loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both);
-
-			cacheTransform.SetParent(_characterAnchor);
-
-			cacheTransform.localPosition = Vector3.zero;
-			cacheTransform.localRotation = Quaternion.identity;
-			_characterViewComponent = instance.GetComponent<MainMenuCharacterViewComponent>();
-
-			await _characterViewComponent.Init(loadout);
-
-			if (!_gameDataProvider.EquipmentDataProvider.Loadout.ContainsKey(GameIdGroup.Weapon))
-			{
-				EquipDefault();
-			}
-			
-			instance.SetActive(true);
-
-			_animator = instance.GetComponent<Animator>();
-			
-			_characterLoadedEvent?.Invoke();
-		}
+		// private async void SkinLoaded(GameId id, GameObject instance, bool instantiated)
+		// {
+		// 	// Check that the player hasn't changed the skin again while we were loading
+		// 	if (this.IsDestroyed() || id != _gameDataProvider.PlayerDataProvider.PlayerInfo.Skin)
+		// 	{
+		// 		Destroy(instance);
+		// 		return;
+		// 	}
+		//
+		// 	instance.SetActive(false);
+		//
+		// 	var cacheTransform = instance.transform;
+		// 	var loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both);
+		//
+		// 	cacheTransform.SetParent(_characterAnchor);
+		//
+		// 	cacheTransform.localPosition = Vector3.zero;
+		// 	cacheTransform.localRotation = Quaternion.identity;
+		// 	_characterViewComponent = instance.GetComponent<MainMenuCharacterViewComponent>();
+		//
+		// 	await _characterViewComponent.Init(loadout);
+		//
+		// 	if (!_gameDataProvider.EquipmentDataProvider.Loadout.ContainsKey(GameIdGroup.Weapon))
+		// 	{
+		// 		EquipDefault();
+		// 	}
+		// 	
+		// 	instance.SetActive(true);
+		//
+		// 	_animator = instance.GetComponent<Animator>();
+		// 	
+		// 	_characterLoadedEvent?.Invoke();
+		// }
 	}
 }

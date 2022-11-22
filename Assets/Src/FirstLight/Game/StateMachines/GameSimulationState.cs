@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cinemachine;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Configs.AssetConfigs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -12,9 +14,12 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using I2.Loc;
+using Newtonsoft.Json;
 using Quantum;
 using Quantum.Commands;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using PlayerMatchData = FirstLight.Game.Services.PlayerMatchData;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -33,6 +38,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameDataProvider _gameDataProvider;
 		private readonly IGameServices _services;
 		private readonly IGameUiService _uiService;
+		private readonly IAssetAdderService _assetAdderService;
 		private IMatchServices _matchServices;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private readonly IGameNetworkService _network;
@@ -42,7 +48,7 @@ namespace FirstLight.Game.StateMachines
 		private uint _trophiesBeforeLastChange = 0;
 
 		public GameSimulationState(IGameDataProvider gameDataProvider, IGameServices services, IGameBackendNetworkService networkService, 
-								   IGameUiService uiService, Action<IStatechartEvent> statechartTrigger)
+								   IGameUiService uiService, Action<IStatechartEvent> statechartTrigger, IAssetAdderService assetAdderService)
 		{
 			_gameDataProvider = gameDataProvider;
 			_services = services;
@@ -51,6 +57,7 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger = statechartTrigger;
 			_deathmatchState = new DeathmatchState(gameDataProvider, services, uiService, statechartTrigger);
 			_battleRoyaleState = new BattleRoyaleState(services, uiService, statechartTrigger);
+			_assetAdderService = assetAdderService;
 		}
 
 		/// <summary>
@@ -66,6 +73,7 @@ namespace FirstLight.Game.StateMachines
 			var modeCheck = stateFactory.Choice("Game Mode Check");
 			var startSimulation = stateFactory.State("Start Simulation");
 			var gameEnded = stateFactory.State("Game Ended Screen");
+			var winners = stateFactory.Wait("Winners Screen");
 			var gameResults = stateFactory.Wait("Game Results Screen");
 			var rewardsCheck = stateFactory.Choice("Rewards Choice");
 			var trophiesCheck = stateFactory.Choice("Trophies Choice");
@@ -117,28 +125,34 @@ namespace FirstLight.Game.StateMachines
 			quitCheck.Transition().Target(gameEnded);
 			
 			gameEnded.OnEnter(OpenGameCompleteScreen);
-			gameEnded.Event(GameCompleteExitEvent).Target(gameResults);
-			gameEnded.OnExit(CloseCompleteScreen);
-	
-			gameResults.OnEnter(GiveMatchRewards);
+			gameEnded.Event(GameCompleteExitEvent).Target(winners);
+
+			winners.OnEnter(StopSimulation);
+			winners.OnEnter(UnsubscribeEvents);
+			winners.OnEnter(UnloadAllMatchAssets);
+			winners.OnEnter(UnloadMatchAssetConfigs);
+			winners.WaitingFor(OpenWinnersScreen).Target(gameResults);
+			
 			gameResults.WaitingFor(ResultsScreen).Target(trophiesCheck);
-			gameResults.OnExit(CloseResultScreen);
 
 			trophiesCheck.Transition().Condition(HasTrophyChangeToDisplay).Target(trophiesGainLoss);
 			trophiesCheck.Transition().Target(rewardsCheck);
 
 			trophiesGainLoss.WaitingFor(OpenTrophiesScreen).Target(rewardsCheck);
-			trophiesGainLoss.OnExit(CloseTrophiesScreen);
 
 			rewardsCheck.Transition().Condition(HasRewardsToClaim).Target(gameRewards);
 			rewardsCheck.Transition().Target(final);
 
 			gameRewards.WaitingFor(OpenRewardsScreen).Target(final);
-			gameRewards.OnExit(CloseRewardsScreen);
+			
+			final.OnEnter(UnloadMatchEnd);
+		}
 
-			final.OnEnter(CloseLowConnectionScreen);
-			final.OnEnter(StopSimulation);
-			final.OnEnter(UnsubscribeEvents);
+		private void UnloadMatchEnd()
+		{
+			var configProvider = _services.ConfigsProvider;
+			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<MainMenuAssetConfigs>());
+			MainInstaller.CleanDispose<IMatchServices>();
 		}
 
 		private bool IsSoloGame()
@@ -158,14 +172,9 @@ namespace FirstLight.Game.StateMachines
 
 		private void OpenLowConnectionScreen()
 		{
-			_uiService.OpenUiAsync<LowConnectionPresenter>();
+			_uiService.OpenScreen<LowConnectionPresenter>();
 		}
 
-		private void CloseLowConnectionScreen()
-		{
-			_uiService.CloseUi<LowConnectionPresenter>(true);
-		}
-		
 		private void OpenDisconnectedMatchEndDialog()
 		{
 			var confirmButton = new GenericDialogButton
@@ -356,6 +365,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void StopSimulation()
 		{
+			GiveMatchRewards();
 			_services.MessageBrokerService.Publish(new MatchSimulationEndedMessage());
 			QuantumRunner.ShutdownAll();
 		}
@@ -367,7 +377,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void PublishMatchEnded()
 		{
-			_services.MessageBrokerService.Publish(new MatchEndedMessage());
+			_services.MessageBrokerService.Publish(new MatchEndedMessage(){Game = QuantumRunner.Default.Game});
 		}
 
 		private void OpenAdventureWorldHud()
@@ -379,7 +389,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new GameCompleteScreenPresenter.StateData {ContinueClicked = ContinueClicked};
 
-			_uiService.OpenUi<GameCompleteScreenPresenter, GameCompleteScreenPresenter.StateData>(data);
+			_uiService.OpenScreen<GameCompleteScreenPresenter, GameCompleteScreenPresenter.StateData>(data);
 
 			void ContinueClicked()
 			{
@@ -387,9 +397,12 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private void CloseCompleteScreen()
+		private async void OpenWinnersScreen(IWaitActivity activity)
 		{
-			_uiService.CloseUi<GameCompleteScreenPresenter>();
+			var cacheActivity = activity;
+			var data = new WinnersScreenPresenter.StateData {ContinueClicked = () => cacheActivity.Complete()};
+
+			await _uiService.OpenScreen<WinnersScreenPresenter, WinnersScreenPresenter.StateData>(data);
 		}
 
 		private async void ResultsScreen(IWaitActivity activity)
@@ -401,20 +414,15 @@ namespace FirstLight.Game.StateMachines
 				HomeButtonClicked = () => cacheActivity.Complete(),
 			};
 			
-			await _uiService.OpenUiAsync<ResultsScreenPresenter, ResultsScreenPresenter.StateData>(data);
+			await _uiService.OpenScreen<ResultsScreenPresenter, ResultsScreenPresenter.StateData>(data);
 		}
 
-		private void CloseResultScreen()
-		{
-			_uiService.CloseUi<ResultsScreenPresenter>(true);
-		}
-
-		private void OpenRewardsScreen(IWaitActivity activity)
+		private async void OpenRewardsScreen(IWaitActivity activity)
 		{
 			var cacheActivity = activity;
 			var data = new RewardsScreenPresenter.StateData {MainMenuClicked = ContinueClicked};
 
-			_uiService.OpenUiAsync<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(data);
+			await _uiService.OpenScreen<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(data);
 
 			void ContinueClicked()
 			{
@@ -422,12 +430,7 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private void CloseRewardsScreen()
-		{
-			_uiService.CloseUi<RewardsScreenPresenter>(true);
-		}
-
-		private void OpenTrophiesScreen(IWaitActivity activity)
+		private async void OpenTrophiesScreen(IWaitActivity activity)
 		{
 			var cacheActivity = activity;
 			var data = new TrophiesScreenPresenter.StateData
@@ -437,17 +440,37 @@ namespace FirstLight.Game.StateMachines
 				TrophiesBeforeLastChange = _trophiesBeforeLastChange
 			};
 
-			_uiService.OpenUiAsync<TrophiesScreenPresenter, TrophiesScreenPresenter.StateData>(data);
+			await _uiService.OpenScreen<TrophiesScreenPresenter, TrophiesScreenPresenter.StateData>(data);
 
 			void ContinueClicked()
 			{
 				cacheActivity.Complete();
 			}
 		}
-
-		private void CloseTrophiesScreen()
+		private void UnloadMatchAssetConfigs()
 		{
-			_uiService.CloseUi<TrophiesScreenPresenter>(true);
+			var configProvider = _services.ConfigsProvider;
+			_services.AudioFxService.UnloadAudioClips(configProvider.GetConfig<AudioMatchAssetConfigs>().ConfigsDictionary);
+			_services.AssetResolverService.UnloadAssets<EquipmentRarity, GameObject>(false);
+			_services.AssetResolverService.UnloadAssets<IndicatorVfxId, GameObject>(false);
+			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<MatchAssetConfigs>());
+			_assetAdderService.AddConfigs(configProvider.GetConfig<MainMenuAssetConfigs>());
+		}
+		
+
+		private async void UnloadAllMatchAssets()
+		{
+			var scene = SceneManager.GetActiveScene();
+			var configProvider = _services.ConfigsProvider;
+			
+			_uiService.UnloadUiSet((int) UiSetId.MatchUi);
+			_services.AudioFxService.DetachAudioListener();
+			await _services.AssetResolverService.UnloadSceneAsync(scene);
+			
+			_services.VfxService.DespawnAll();
+			_services.AudioFxService.UnloadAudioClips(configProvider.GetConfig<AudioMatchAssetConfigs>().ConfigsDictionary);
+
+			Resources.UnloadUnusedAssets();
 		}
 
 		private void PublishMatchStartedMessage(QuantumGame game, bool isResync)

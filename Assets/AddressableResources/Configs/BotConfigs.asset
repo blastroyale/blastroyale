@@ -57,6 +57,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 0
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 360448
     - BehaviourType: 2
       GameMode: Deathmatch
       Difficulty: 0
@@ -96,6 +98,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 0
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 360448
     - BehaviourType: 0
       GameMode: Deathmatch
       Difficulty: 0
@@ -135,6 +139,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 0
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 360448
     - BehaviourType: 1
       GameMode: Deathmatch
       Difficulty: 0
@@ -174,6 +180,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 0
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 360448
     - BehaviourType: 2
       GameMode: Deathmatch
       Difficulty: 0
@@ -213,6 +221,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 0
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 360448
     - BehaviourType: 1
       GameMode: Deathmatch
       Difficulty: 1
@@ -252,6 +262,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 0
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 442368
     - BehaviourType: 2
       GameMode: Deathmatch
       Difficulty: 1
@@ -291,6 +303,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 0
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 442368
     - BehaviourType: 0
       GameMode: Deathmatch
       Difficulty: 1
@@ -330,6 +344,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 0
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 442368
     - BehaviourType: 1
       GameMode: Deathmatch
       Difficulty: 1
@@ -369,6 +385,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 0
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 442368
     - BehaviourType: 2
       GameMode: Deathmatch
       Difficulty: 1
@@ -408,6 +426,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 0
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 442368
     - BehaviourType: 1
       GameMode: Deathmatch
       Difficulty: 2
@@ -447,6 +467,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 0
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 524288
     - BehaviourType: 2
       GameMode: Deathmatch
       Difficulty: 2
@@ -486,6 +508,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 0
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 524288
     - BehaviourType: 0
       GameMode: Deathmatch
       Difficulty: 2
@@ -525,6 +549,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 0
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 524288
     - BehaviourType: 1
       GameMode: Deathmatch
       Difficulty: 2
@@ -564,6 +590,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 0
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 524288
     - BehaviourType: 2
       GameMode: Deathmatch
       Difficulty: 2
@@ -603,6 +631,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 0
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 524288
     - BehaviourType: 1
       GameMode: Deathmatch
       Difficulty: 3
@@ -642,6 +672,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 0
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 606208
     - BehaviourType: 2
       GameMode: Deathmatch
       Difficulty: 3
@@ -681,6 +713,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 0
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 606208
     - BehaviourType: 0
       GameMode: Deathmatch
       Difficulty: 3
@@ -720,6 +754,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 0
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 606208
     - BehaviourType: 1
       GameMode: Deathmatch
       Difficulty: 3
@@ -759,6 +795,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 0
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 606208
     - BehaviourType: 2
       GameMode: Deathmatch
       Difficulty: 3
@@ -798,6 +836,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 0
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 606208
     - BehaviourType: 1
       GameMode: Deathmatch
       Difficulty: 4
@@ -837,6 +877,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 0
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 688128
     - BehaviourType: 2
       GameMode: Deathmatch
       Difficulty: 4
@@ -876,6 +918,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 0
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 688128
     - BehaviourType: 0
       GameMode: Deathmatch
       Difficulty: 4
@@ -915,6 +959,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 0
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 688128
     - BehaviourType: 1
       GameMode: Deathmatch
       Difficulty: 4
@@ -954,6 +1000,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 0
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 688128
     - BehaviourType: 2
       GameMode: Deathmatch
       Difficulty: 4
@@ -993,6 +1041,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 0
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 688128
     - BehaviourType: 1
       GameMode: Deathmatch
       Difficulty: 5
@@ -1032,6 +1082,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 0
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 983040
     - BehaviourType: 2
       GameMode: Deathmatch
       Difficulty: 5
@@ -1071,6 +1123,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 0
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 983040
     - BehaviourType: 0
       GameMode: Deathmatch
       Difficulty: 5
@@ -1110,6 +1164,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 0
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 983040
     - BehaviourType: 1
       GameMode: Deathmatch
       Difficulty: 5
@@ -1149,6 +1205,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 0
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 983040
     - BehaviourType: 2
       GameMode: Deathmatch
       Difficulty: 5
@@ -1188,6 +1246,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 0
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 983040
     - BehaviourType: 1
       GameMode: BattleRoyale
       Difficulty: 0
@@ -1227,6 +1287,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 9830
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 360448
     - BehaviourType: 0
       GameMode: BattleRoyale
       Difficulty: 0
@@ -1266,6 +1328,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 7864
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 360448
     - BehaviourType: 0
       GameMode: BattleRoyale
       Difficulty: 0
@@ -1305,6 +1369,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 5898
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 360448
     - BehaviourType: 1
       GameMode: BattleRoyale
       Difficulty: 0
@@ -1344,6 +1410,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 6554
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 360448
     - BehaviourType: 0
       GameMode: BattleRoyale
       Difficulty: 0
@@ -1383,6 +1451,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 6554
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 360448
     - BehaviourType: 1
       GameMode: BattleRoyale
       Difficulty: 1
@@ -1422,6 +1492,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 22938
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 442368
     - BehaviourType: 0
       GameMode: BattleRoyale
       Difficulty: 1
@@ -1461,6 +1533,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 22938
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 442368
     - BehaviourType: 0
       GameMode: BattleRoyale
       Difficulty: 1
@@ -1500,6 +1574,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 22938
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 442368
     - BehaviourType: 1
       GameMode: BattleRoyale
       Difficulty: 1
@@ -1539,6 +1615,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 22938
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 442368
     - BehaviourType: 2
       GameMode: BattleRoyale
       Difficulty: 1
@@ -1578,6 +1656,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 22938
       LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 442368
     - BehaviourType: 1
       GameMode: BattleRoyale
       Difficulty: 2
@@ -1617,6 +1697,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 22938
       LoadoutGearNumber: 1
+      MaxAimingRange:
+        RawValue: 524288
     - BehaviourType: 0
       GameMode: BattleRoyale
       Difficulty: 2
@@ -1656,6 +1738,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 22938
       LoadoutGearNumber: 1
+      MaxAimingRange:
+        RawValue: 524288
     - BehaviourType: 0
       GameMode: BattleRoyale
       Difficulty: 2
@@ -1695,6 +1779,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 22938
       LoadoutGearNumber: 1
+      MaxAimingRange:
+        RawValue: 524288
     - BehaviourType: 1
       GameMode: BattleRoyale
       Difficulty: 2
@@ -1734,6 +1820,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 22938
       LoadoutGearNumber: 1
+      MaxAimingRange:
+        RawValue: 524288
     - BehaviourType: 2
       GameMode: BattleRoyale
       Difficulty: 2
@@ -1773,6 +1861,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 22938
       LoadoutGearNumber: 1
+      MaxAimingRange:
+        RawValue: 524288
     - BehaviourType: 1
       GameMode: BattleRoyale
       Difficulty: 3
@@ -1812,6 +1902,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 26214
       LoadoutGearNumber: 2
+      MaxAimingRange:
+        RawValue: 606208
     - BehaviourType: 0
       GameMode: BattleRoyale
       Difficulty: 3
@@ -1851,6 +1943,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 26214
       LoadoutGearNumber: 2
+      MaxAimingRange:
+        RawValue: 606208
     - BehaviourType: 0
       GameMode: BattleRoyale
       Difficulty: 3
@@ -1890,6 +1984,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 26214
       LoadoutGearNumber: 2
+      MaxAimingRange:
+        RawValue: 606208
     - BehaviourType: 1
       GameMode: BattleRoyale
       Difficulty: 3
@@ -1929,6 +2025,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 26214
       LoadoutGearNumber: 2
+      MaxAimingRange:
+        RawValue: 606208
     - BehaviourType: 2
       GameMode: BattleRoyale
       Difficulty: 3
@@ -1968,6 +2066,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 26214
       LoadoutGearNumber: 2
+      MaxAimingRange:
+        RawValue: 606208
     - BehaviourType: 1
       GameMode: BattleRoyale
       Difficulty: 4
@@ -2007,6 +2107,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 29491
       LoadoutGearNumber: 3
+      MaxAimingRange:
+        RawValue: 688128
     - BehaviourType: 0
       GameMode: BattleRoyale
       Difficulty: 4
@@ -2046,6 +2148,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 29491
       LoadoutGearNumber: 3
+      MaxAimingRange:
+        RawValue: 688128
     - BehaviourType: 0
       GameMode: BattleRoyale
       Difficulty: 4
@@ -2085,6 +2189,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 29491
       LoadoutGearNumber: 3
+      MaxAimingRange:
+        RawValue: 688128
     - BehaviourType: 1
       GameMode: BattleRoyale
       Difficulty: 4
@@ -2124,6 +2230,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 29491
       LoadoutGearNumber: 3
+      MaxAimingRange:
+        RawValue: 688128
     - BehaviourType: 2
       GameMode: BattleRoyale
       Difficulty: 4
@@ -2163,6 +2271,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 29491
       LoadoutGearNumber: 3
+      MaxAimingRange:
+        RawValue: 688128
     - BehaviourType: 1
       GameMode: BattleRoyale
       Difficulty: 5
@@ -2202,6 +2312,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 32768
       LoadoutGearNumber: 4
+      MaxAimingRange:
+        RawValue: 983040
     - BehaviourType: 0
       GameMode: BattleRoyale
       Difficulty: 5
@@ -2241,6 +2353,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 32768
       LoadoutGearNumber: 4
+      MaxAimingRange:
+        RawValue: 983040
     - BehaviourType: 0
       GameMode: BattleRoyale
       Difficulty: 5
@@ -2280,6 +2394,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 32768
       LoadoutGearNumber: 4
+      MaxAimingRange:
+        RawValue: 983040
     - BehaviourType: 1
       GameMode: BattleRoyale
       Difficulty: 5
@@ -2319,6 +2435,8 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 32768
       LoadoutGearNumber: 4
+      MaxAimingRange:
+        RawValue: 983040
     - BehaviourType: 2
       GameMode: BattleRoyale
       Difficulty: 5
@@ -2358,3 +2476,5 @@ MonoBehaviour:
       ChanceToSeekChests:
         RawValue: 32768
       LoadoutGearNumber: 4
+      MaxAimingRange:
+        RawValue: 983040

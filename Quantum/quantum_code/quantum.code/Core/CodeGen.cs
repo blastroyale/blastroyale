@@ -3576,7 +3576,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct BotCharacter : Quantum.IComponent {
-    public const Int32 SIZE = 224;
+    public const Int32 SIZE = 232;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(16)]
     public UInt32 AccuracySpreadAngle;
@@ -3616,25 +3616,27 @@ namespace Quantum {
     public FP LowArmourSensitivity;
     [FieldOffset(144)]
     public FP LowHealthSensitivity;
+    [FieldOffset(152)]
+    public FP MaxAimingRange;
     [FieldOffset(24)]
     public EntityRef MoveTarget;
-    [FieldOffset(152)]
-    public FP NextDecisionTime;
     [FieldOffset(160)]
-    public FP NextLookForTargetsToShootAtTime;
+    public FP NextDecisionTime;
     [FieldOffset(168)]
+    public FP NextLookForTargetsToShootAtTime;
+    [FieldOffset(176)]
     public FP ShrinkingCircleRiskTolerance;
     [FieldOffset(8)]
     public GameId Skin;
-    [FieldOffset(176)]
+    [FieldOffset(184)]
     public FP SpecialAimingDeviation;
-    [FieldOffset(200)]
+    [FieldOffset(208)]
     public FPVector3 StuckDetectionPosition;
     [FieldOffset(32)]
     public EntityRef Target;
-    [FieldOffset(184)]
-    public FP VisionRangeSqr;
     [FieldOffset(192)]
+    public FP VisionRangeSqr;
+    [FieldOffset(200)]
     public FP WanderRadius;
     public override Int32 GetHashCode() {
       unchecked { 
@@ -3658,6 +3660,7 @@ namespace Quantum {
         hash = hash * 31 + LowAmmoSensitivity.GetHashCode();
         hash = hash * 31 + LowArmourSensitivity.GetHashCode();
         hash = hash * 31 + LowHealthSensitivity.GetHashCode();
+        hash = hash * 31 + MaxAimingRange.GetHashCode();
         hash = hash * 31 + MoveTarget.GetHashCode();
         hash = hash * 31 + NextDecisionTime.GetHashCode();
         hash = hash * 31 + NextLookForTargetsToShootAtTime.GetHashCode();
@@ -3695,6 +3698,7 @@ namespace Quantum {
         FP.Serialize(&p->LowAmmoSensitivity, serializer);
         FP.Serialize(&p->LowArmourSensitivity, serializer);
         FP.Serialize(&p->LowHealthSensitivity, serializer);
+        FP.Serialize(&p->MaxAimingRange, serializer);
         FP.Serialize(&p->NextDecisionTime, serializer);
         FP.Serialize(&p->NextLookForTargetsToShootAtTime, serializer);
         FP.Serialize(&p->ShrinkingCircleRiskTolerance, serializer);
@@ -9320,6 +9324,7 @@ namespace Quantum.Prototypes {
     public FP ShrinkingCircleRiskTolerance;
     public FP ChanceToSeekChests;
     public UInt32 LoadoutGearNumber;
+    public FP MaxAimingRange;
     partial void MaterializeUser(Frame frame, ref BotCharacter result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       BotCharacter component = default;
@@ -9346,6 +9351,7 @@ namespace Quantum.Prototypes {
       result.LowAmmoSensitivity = this.LowAmmoSensitivity;
       result.LowArmourSensitivity = this.LowArmourSensitivity;
       result.LowHealthSensitivity = this.LowHealthSensitivity;
+      result.MaxAimingRange = this.MaxAimingRange;
       PrototypeValidator.FindMapEntity(this.MoveTarget, in context, out result.MoveTarget);
       result.NextDecisionTime = this.NextDecisionTime;
       result.NextLookForTargetsToShootAtTime = this.NextLookForTargetsToShootAtTime;

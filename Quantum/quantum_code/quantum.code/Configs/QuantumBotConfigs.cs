@@ -29,6 +29,7 @@ namespace Quantum
 		public FP ShrinkingCircleRiskTolerance;
 		public FP ChanceToSeekChests;
 		public uint LoadoutGearNumber;
+		public FP MaxAimingRange;
 	}
 	
 	/// <summary>

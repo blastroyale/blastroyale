@@ -111,7 +111,7 @@ namespace Quantum.Systems
 			}
 			else
 			{
-				var weaponTargetRange = f.Get<Stats>(filter.Entity).GetStatData(StatType.AttackRange).StatValue;
+				var weaponTargetRange = FPMath.Min(f.Get<Stats>(filter.Entity).GetStatData(StatType.AttackRange).StatValue, filter.BotCharacter->MaxAimingRange);
 				var botPosition = filter.Transform->Position;
 				var team = f.Get<Targetable>(filter.Entity).Team;
 				var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(filter.Entity);
@@ -151,7 +151,7 @@ namespace Quantum.Systems
 					{
 						// Checking how close is the target and stop the movement if the target is closer
 						// than allowed by closefight intolerance
-						var weaponTargetRange = f.Get<Stats>(filter.Entity).GetStatData(StatType.AttackRange).StatValue;
+						var weaponTargetRange = FPMath.Min(f.Get<Stats>(filter.Entity).GetStatData(StatType.AttackRange).StatValue, filter.BotCharacter->MaxAimingRange);
 						var minDistanceToTarget =
 							FPMath.Max(FP._1_50, weaponTargetRange * filter.BotCharacter->CloseFightIntolerance);
 						var sqrDistanceToTarget = (f.Get<Transform3D>(target).Position - filter.Transform->Position)
@@ -324,7 +324,7 @@ namespace Quantum.Systems
 			// If there is a target in Sight then store this Target into the blackboard variable
 			// We check enemies one by one until we find a valid enemy in sight
 			// TODO: Select not a random, but the closest possible enemy to shoot at
-			var targetRange = f.Get<Stats>(filter.Entity).GetStatData(StatType.AttackRange).StatValue;
+			var weaponTargetRange = FPMath.Min(f.Get<Stats>(filter.Entity).GetStatData(StatType.AttackRange).StatValue, filter.BotCharacter->MaxAimingRange);
 			var botPosition = filter.Transform->Position;
 			var team = f.Get<Targetable>(filter.Entity).Team;
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(filter.Entity);
@@ -333,7 +333,7 @@ namespace Quantum.Systems
 
 			foreach (var targetCandidate in f.Unsafe.GetComponentBlockIterator<Targetable>())
 			{
-				if (TryToAimAtEnemy(f, ref filter, botPosition, team, targetRange, targetCandidate.Entity, out var targetHit))
+				if (TryToAimAtEnemy(f, ref filter, botPosition, team, weaponTargetRange, targetCandidate.Entity, out var targetHit))
 				{
 					target = targetHit;
 					break;
@@ -745,7 +745,7 @@ namespace Quantum.Systems
 				return false;
 			}
 
-			var weaponTargetRange = f.Get<Stats>(filter.Entity).GetStatData(StatType.AttackRange).StatValue;
+			var weaponTargetRange = FPMath.Min(f.Get<Stats>(filter.Entity).GetStatData(StatType.AttackRange).StatValue, filter.BotCharacter->MaxAimingRange);
 			// Do not go closer than 1.5 meters to target
 			var offsetDistance = FPMath.Max(FP._1_50, weaponTargetRange * filter.BotCharacter->CloseFightIntolerance);
 			
@@ -999,7 +999,8 @@ namespace Quantum.Systems
 					NextLookForTargetsToShootAtTime = FP._0,
 					CurrentEvasionStepEndTime = FP._0,
 					StuckDetectionPosition = FPVector3.Zero,
-					LoadoutGearNumber = botConfig.LoadoutGearNumber
+					LoadoutGearNumber = botConfig.LoadoutGearNumber,
+					MaxAimingRange = botConfig.MaxAimingRange
 				};
 
 				

@@ -1150,10 +1150,10 @@ namespace I2.Loc
 		public static class UITHomeScreen
 		{
 			public static string blast_pass 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/blast_pass"); } }
+			public static string enter_your_name 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/enter_your_name"); } }
 			public static string equipment 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/equipment"); } }
 			public static string heroes 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/heroes"); } }
 			public static string leaderboards 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/leaderboards"); } }
-			public static string new_name 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/new_name"); } }
 			public static string new_name_desc 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/new_name_desc"); } }
 			public static string play 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/play"); } }
 			public static string resource_pool_restock 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/resource_pool_restock"); } }
@@ -2383,10 +2383,10 @@ namespace I2.Loc
 		public static class UITHomeScreen
 		{
 		    public const string blast_pass = "UITHomeScreen/blast_pass";
+		    public const string enter_your_name = "UITHomeScreen/enter_your_name";
 		    public const string equipment = "UITHomeScreen/equipment";
 		    public const string heroes = "UITHomeScreen/heroes";
 		    public const string leaderboards = "UITHomeScreen/leaderboards";
-		    public const string new_name = "UITHomeScreen/new_name";
 		    public const string new_name_desc = "UITHomeScreen/new_name_desc";
 		    public const string play = "UITHomeScreen/play";
 		    public const string resource_pool_restock = "UITHomeScreen/resource_pool_restock";

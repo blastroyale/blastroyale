@@ -56,15 +56,37 @@ namespace FirstLight.Tests.EditorMode.Integration
 			var equip = new Equipment() {GameId = GameId.HockeyHelmet};
 			var itemUniqueId = TestLogic.EquipmentLogic.AddToInventory(equip);
 			var info = TestLogic.EquipmentLogic.GetInfo(itemUniqueId);
+			var data = TestData.GetData<PlayerData>();
 
 			TestServices.CommandService.ExecuteCommand(new ScrapItemCommand()
 			{
 				Item = itemUniqueId
 			});
 
-			var data = TestData.GetData<PlayerData>();
 			
 			Assert.AreEqual(info.ScrappingValue.Value, data.Currencies[info.ScrappingValue.Key]);
+		}
+		
+		/// <summary>
+		/// Ensuring upgrade item command deducts the correct ammount of of the upgrade cost
+		/// </summary>
+		[Test]
+		public void UpgradeItemCommand()
+		{
+			var equip = new Equipment() {GameId = GameId.HockeyHelmet, MaxLevel = 1};
+			var itemUniqueId = TestLogic.EquipmentLogic.AddToInventory(equip);
+			var info = TestLogic.EquipmentLogic.GetInfo(itemUniqueId);
+			var data = TestData.GetData<PlayerData>();
+
+			data.Currencies[info.UpgradeCost.Key] = info.UpgradeCost.Value;
+
+			TestServices.CommandService.ExecuteCommand(new UpgradeItemCommand()
+			{
+				Item = itemUniqueId
+			});
+
+			Assert.AreEqual(0, data.Currencies[info.UpgradeCost.Key]);
+			Assert.AreEqual(1, TestLogic.EquipmentLogic.Inventory[itemUniqueId].Level);
 		}
 	}
 }

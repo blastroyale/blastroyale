@@ -12,4 +12,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 764a5c0085fd4f51ad78e68adfb1eb77, type: 3}
   m_Name: UpgradeDataConfigs
   m_EditorClassIdentifier: 
-  _configs: []
+  _configs:
+  - ResourceType: 61
+    BaseValue: 200
+    GrowthMultiplier:
+      RawValue: 98304
+    AdjectiveCostK:
+      RawValue: 170394
+    AdjectiveCostScale: 30
+    GradeMultiplier:
+      RawValue: 75366
+    LevelMultiplier:
+      RawValue: 1966
+    DurabilityDivider: 20
+  - ResourceType: 3
+    BaseValue: 180
+    GrowthMultiplier:
+      RawValue: 86114
+    AdjectiveCostK:
+      RawValue: 160563
+    AdjectiveCostScale: 10
+    GradeMultiplier:
+      RawValue: 75301
+    LevelMultiplier:
+      RawValue: 983
+    DurabilityDivider: 48
+  - ResourceType: 12
+    BaseValue: 100
+    GrowthMultiplier:
+      RawValue: 94175
+    AdjectiveCostK:
+      RawValue: 147456
+    AdjectiveCostScale: 20
+    GradeMultiplier:
+      RawValue: 75301
+    LevelMultiplier:
+      RawValue: 1638
+    DurabilityDivider: 48

@@ -6,7 +6,7 @@ using FirstLight.Services;
 namespace FirstLight.Game.Commands
 {
 	/// <summary>
-	/// Award the BPP and
+	/// Award the BPP to the player and if the player reaches a new level, gives automatically the reward
 	/// </summary>
 	public struct RedeemBPPCommand : IGameCommand
 	{

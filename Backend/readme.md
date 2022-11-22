@@ -13,7 +13,6 @@ More info: https://firstlightgames.atlassian.net/wiki/spaces/BB/pages/1914437633
 ### Project Structure
 
 /BlastRoyale<PluginName> - Server-side Plugin projects.
-/FunctionApp - Azure Function Network Layer implementation
 /GameLogicService - Core logic service code
 /ServerScripts - Developer scripts & utilities for debugging
 /ServerSDK - SDK shared with the game-client. Required to use .net framework 4.8

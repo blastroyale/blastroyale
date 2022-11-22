@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Text;
 using Backend;
-using ContainerApp.Cloudscript;
+using GameLogicApp.Cloudscript;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using Microsoft.AspNetCore.Builder;

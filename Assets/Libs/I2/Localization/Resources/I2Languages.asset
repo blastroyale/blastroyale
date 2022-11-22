@@ -9821,7 +9821,7 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITMatchmaking/br_mode_desc_top
+    - Term: UITMatchmaking/br_mode_desc
       TermType: 0
       Description: 
       Languages:
@@ -9830,16 +9830,7 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITMatchmaking/br_mode_desc_bot
-      TermType: 0
-      Description: 
-      Languages:
-      - WINS THE MATCH
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITMatchmaking/dm_mode_desc_top
+    - Term: UITMatchmaking/dm_mode_desc
       TermType: 0
       Description: 
       Languages:
@@ -9848,7 +9839,7 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITMatchmaking/dm_mode_desc_bot
+    - Term: UITMatchmaking/wins_the_match
       TermType: 0
       Description: 
       Languages:
@@ -9866,38 +9857,40 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITMatchmaking/button_leave
+    - Term: UITMatchmaking/loading_status_timer
       TermType: 0
       Description: 
       Languages:
-      - LEAVE
+      - MATCHMAKING {0}s
       - 
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITMatchmaking/loading
+    - Term: UITMatchmaking/loading_status_waiting
       TermType: 0
       Description: 
       Languages:
-      - LOADING
+      - WAITING FOR PLAYERS
       - 
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITMatchmaking/matchmaking
+    - Term: UITMatchmaking/loading_status_starting
       TermType: 0
       Description: 
       Languages:
-      - MATCHMAKING
+      - PREPARE FOR BLAST OFF!
       - 
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITMatchmaking/waiting
+    - Term: UITMatchmaking/mode_header_title
       TermType: 0
       Description: 
       Languages:
-      - WAITING
+      - '{0}
+
+        {1}'
       - 
       - 
       Flags: 000000
@@ -10344,6 +10337,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITWinners/winners
+      TermType: 0
+      Description: 
+      Languages:
+      - WINNERS
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -10362,7 +10364,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1668625942831
+    Google_LastUpdatedVersion: 1668773509109
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

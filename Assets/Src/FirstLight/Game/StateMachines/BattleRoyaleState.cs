@@ -192,9 +192,14 @@ namespace FirstLight.Game.StateMachines
 		
 		private void CloseMatchmakingScreen()
 		{
-			if (_uiService.HasUiPresenter<MatchmakingLoadingScreenPresenter>())
+			if (_uiService.HasUiPresenter<CustomLobbyScreenPresenter>())
 			{
-				_uiService.CloseUi<MatchmakingLoadingScreenPresenter>(true);
+				_uiService.CloseUi<CustomLobbyScreenPresenter>(true);
+			}
+			
+			if (_uiService.HasUiPresenter<MatchmakingScreenPresenter>())
+			{
+				_uiService.CloseCurrentScreen();
 			}
 		}
 	}

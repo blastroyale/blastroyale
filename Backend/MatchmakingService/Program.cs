@@ -1,6 +1,6 @@
 using System;
 using System.IO;
-using ContainerApp.Authentication;
+using GameLogicApp.Authentication;
 using Firstlight.Matchmaking;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;

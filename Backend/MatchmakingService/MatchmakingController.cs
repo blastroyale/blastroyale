@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ContainerApp.Cloudscript;
+using GameLogicApp.Cloudscript;
 using Microsoft.AspNetCore.Mvc;
 using ServerShared.Authentication.ApiKey;
 

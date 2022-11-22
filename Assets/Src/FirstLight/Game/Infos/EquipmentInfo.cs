@@ -39,6 +39,7 @@ namespace FirstLight.Game.Infos
 	{
 		public UniqueId Id;
 		public Equipment Equipment;
+		public Pair<GameId, int> ScrappingValue;
 		public bool IsEquipped;
 		public bool IsNft;
 		public Dictionary<EquipmentStatType, float> Stats;

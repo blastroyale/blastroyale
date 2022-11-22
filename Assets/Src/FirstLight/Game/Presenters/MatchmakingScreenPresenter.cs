@@ -171,9 +171,9 @@ namespace FirstLight.Game.Presenters
 			_modeDescTopLabel.text = modeDesc[0];
 			_modeDescBotLabel.text = modeDesc[1];
 			
-			UpdatePlayerCount();
-
+			_closeButton.SetDisplayActive(true);
 			
+			UpdatePlayerCount();
 
 			if (!gameModeConfig.SkydiveSpawn)
 			{

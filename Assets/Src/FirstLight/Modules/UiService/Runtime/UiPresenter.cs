@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -61,6 +62,7 @@ namespace FirstLight.UiService
 		internal void InternalOpen()
 		{
 			gameObject.SetActive(true);
+
 			OnOpened();
 		}
 

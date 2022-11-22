@@ -27,11 +27,9 @@ namespace FirstLight.Game.Views.MainMenuViews
 		[SerializeField, Required] private Camera _uiCamera;
 		[SerializeField, Required] private AspectRatioFitter _aspectRatioFitter;
 		[SerializeField, Required] private Image _mapImage;
-		[SerializeField, Required] private RectTransform _gridOverlay;
-		[SerializeField] private Color _unavailableGridColor;
-
+		[SerializeField, Required] private Transform _dropzoneLayout;
+		
 		private IGameServices _services;
-		private IGameDataProvider _dataProvider;
 		private RectTransform _rectTransform;
 		private float _dropSelectionSize;
 
@@ -44,14 +42,13 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_rectTransform = transform as RectTransform;
 		}
 
 		/// <summary>
 		/// Setup the map visuals to look awesome on the screen and selects a random point in battle royale mode
 		/// </summary>
-		public async void SetupMapView(string gameModeId, int mapId)
+		public async void SetupMapView(string gameModeId, int mapId, Vector3 dropzonePosRot)
 		{
 			var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(mapId);
 			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
@@ -71,7 +68,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 			_selectedDropAreaText.gameObject.SetActive(SelectionEnabled);
 			_selectedPoint.gameObject.SetActive(SelectionEnabled);
-
+			_dropzoneLayout.gameObject.SetActive(SelectionEnabled);
+			
 			// Aspect ratio has to be calculated and set in ARF per-map, as the rect size is crucial in grid
 			// selection calculations. If you flat out set the ratio on ARF to something like 3-4, it will fit all map 
 			// images on the UI, but then landing location grid will be completely broken for BR game mode
@@ -79,60 +77,23 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 			if (SelectionEnabled)
 			{
-				var gridPosition = GetRandomGridPosition();
-				_services.AnalyticsService.MatchCalls.DefaultDropPosition = gridPosition;
-				SetGridPosition(gridPosition, false);
-
-				if (!TryGetDropPattern(out var pattern)) return;
-
-				var stringBuilder = new StringBuilder("(");
-				var gridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
-				var containerSize = _gridOverlay.rect.size;
-				var gridSize = gridConfigs.GetSize();
-				for (var y = 0; y < gridSize.y; y++)
-				{
-					for (var x = 0; x < gridSize.x; x++)
-					{
-						if (pattern[x][y])
-						{
-							stringBuilder.Append($"({x},{y})");
-							continue;
-						}
-
-						var go = new GameObject($"[{x},{y}]");
-						go.transform.parent = _gridOverlay.transform;
-						go.transform.localScale = Vector3.one;
-
-						var image = go.AddComponent<RawImage>();
-						image.color = _unavailableGridColor;
-
-						var rt = go.GetComponent<RectTransform>();
-						rt.anchoredPosition = new Vector2(containerSize.x / gridSize.x * x,
-						                                  containerSize.y / gridSize.y * (gridSize.y - y - 1)) -
-						                      containerSize / 2f + (containerSize / gridSize / 2);
-						rt.sizeDelta = containerSize / gridSize;
-					}
-				}
-
-				stringBuilder.Append(")");
+				var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
+				var defaultX = Mathf.FloorToInt(mapGridConfigs.GetSize().x / 2f);
+				var defaultY = Mathf.FloorToInt(mapGridConfigs.GetSize().x / 2f);
+				var defaultDropPos = new Vector2Int(defaultX, defaultY);
 				
-				_services.AnalyticsService.MatchCalls.PresentedMapPath = stringBuilder.ToString();
-			}
-		}
+				SetGridPosition(defaultDropPos, false);
+				_dropzoneLayout.rotation = Quaternion.Euler(0,0,dropzonePosRot.z);
 
-		/// <summary>
-		/// Cleans up entities that aren't required anymore.
-		/// </summary>
-		public void CleanupMapView()
-		{
-			_gridOverlay.DestroyChildren();
+				_services.AnalyticsService.MatchCalls.DefaultDropPosition = defaultDropPos;
+				_services.AnalyticsService.MatchCalls.PresentedMapPath = dropzonePosRot.ToString();
+			}
 		}
 
 		/// <inheritdoc />
 		public void OnPointerClick(PointerEventData eventData)
 		{
 			if (!SelectionEnabled) return;
-
 			SetGridPosition(ScreenToGridPosition(eventData.position), true);
 		}
 
@@ -170,22 +131,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_selectedPoint.anchoredPosition = localPosition;
 			_selectedDropAreaText.text = mapGridConfigs.GetTranslation(gridConfig.AreaName);
 			_services.MatchmakingService.NormalizedMapSelectedPosition = new Vector2(localPosition.x / localSize.x, localPosition.y / localSize.y) * _dropSelectionSize;
-
 			_selectedDropAreaRoot.SetActive(gridConfig.IsValidNamedArea);
-		}
-
-		private Vector2Int GetRandomGridPosition()
-		{
-			var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
-			var gridSize = mapGridConfigs.GetSize();
-
-			Vector2Int position;
-			do
-			{
-				position = new Vector2Int(Random.Range(0, gridSize.x), Random.Range(0, gridSize.y));
-			} while (!IsValidPosition(position, false));
-
-			return position;
 		}
 
 		private Vector2Int ScreenToGridPosition(Vector2 pointer)
@@ -222,21 +168,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		{
 			var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
 
-			return (!TryGetDropPattern(out var pattern) || pattern[position.x][position.y]) &&
-			       (includeWater || mapGridConfigs.GetConfig(position.x,position.y).IsValidNamedArea);
-		}
-
-		private bool TryGetDropPattern(out bool[][] pattern)
-		{
-			if (_services.NetworkService.QuantumClient.CurrentRoom.CustomProperties
-			             .TryGetValue(GameConstants.Network.ROOM_PROPS_DROP_PATTERN, out var dropPattern))
-			{
-				pattern = (bool[][]) dropPattern;
-				return true;
-			}
-
-			pattern = Array.Empty<bool[]>();
-			return false;
+			return (includeWater || mapGridConfigs.GetConfig(position.x,position.y).IsValidNamedArea);
 		}
 	}
 }

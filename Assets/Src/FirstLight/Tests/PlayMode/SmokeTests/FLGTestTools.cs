@@ -23,7 +23,7 @@ namespace FirstLight.Tests.PlayTests
 		
 		public static IEnumerator WaitForMatchMakingScreen()
 		{
-			yield return TestTools.UntilObjectOfType<MatchmakingLoadingScreenPresenter>();
+			yield return TestTools.UntilObjectOfType<CustomLobbyScreenPresenter>();
 		}
 		
 		public static IEnumerator WaitForGameCompleteScreen()

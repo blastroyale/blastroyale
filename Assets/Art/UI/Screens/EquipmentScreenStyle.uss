@@ -21,9 +21,11 @@
     font-size: 54px;
     -unity-font-definition: var(--font-italic);
     color: rgb(255, 255, 255);
-    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    text-shadow: 5px 5px 0 rgb(0, 0, 0);
     margin: 0;
     padding: 0;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgba(0, 0, 0, 255);
 }
 
 .screen-header__subtitle {
@@ -33,6 +35,8 @@
     margin: 0 0 0 75px;
     padding: 0;
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgba(0, 0, 0, 255);
 }
 
 .screen-header:active .screen-header__subtitle {

@@ -17,7 +17,7 @@ using FirstLight.Server.SDK.Services;
 namespace Backend
 {
 	/// <summary>
-	/// Represents the functionality of the game logic service. (AKA Game FunctionApp).
+	/// Represents the functionality of the game logic service. 
 	/// Responsible for abstracting any networking layer needed to communicate with the server functionality.
 	/// </summary>
 	public interface ILogicWebService

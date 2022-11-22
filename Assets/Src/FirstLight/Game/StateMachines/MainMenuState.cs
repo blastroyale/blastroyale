@@ -44,7 +44,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameDataProvider _gameDataProvider;
 		private readonly IAssetAdderService _assetAdderService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
-		private readonly LootMenuState _lootMenuState;
+		private readonly EquipmentMenuState _equipmentMenuState;
 		private readonly SettingsMenuState _settingsMenuState;
 		private readonly EnterNameState _enterNameState;
 		private Type _currentScreen;
@@ -57,7 +57,7 @@ namespace FirstLight.Game.StateMachines
 			_gameDataProvider = gameLogic;
 			_assetAdderService = assetAdderService;
 			_statechartTrigger = statechartTrigger;
-			_lootMenuState = new LootMenuState(services, uiService, gameLogic, statechartTrigger);
+			_equipmentMenuState = new EquipmentMenuState(services, uiService, gameLogic, statechartTrigger);
 			_enterNameState = new EnterNameState(services, uiService, gameLogic, statechartTrigger);
 			_settingsMenuState = new SettingsMenuState(gameLogic, services, gameLogic, uiService, statechartTrigger);
 		}
@@ -127,7 +127,7 @@ namespace FirstLight.Game.StateMachines
 			initial.OnExit(OpenUiVfxPresenter);
 			
 			screenCheck.Transition().Condition(IsCurrentScreen<HomeScreenPresenter>).Target(defaultNameCheck);
-			screenCheck.Transition().Condition(IsCurrentScreen<LootScreenPresenter>).Target(lootMenu);
+			screenCheck.Transition().Condition(IsCurrentScreen<EquipmentPresenter>).Target(lootMenu);
 			screenCheck.Transition().Condition(IsCurrentScreen<PlayerSkinScreenPresenter>).Target(heroesMenu);
 			screenCheck.Transition().OnTransition(InvalidScreen).Target(final);
 			
@@ -169,7 +169,7 @@ namespace FirstLight.Game.StateMachines
 
 			settingsMenu.Nest(_settingsMenuState.Setup).Target(homeMenu);
 			
-			lootMenu.Nest(_lootMenuState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
+			lootMenu.Nest(_equipmentMenuState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
 
 			heroesMenu.OnEnter(OpenPlayerSkinScreenUI);
 
@@ -376,7 +376,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				OnPlayButtonClicked = PlayButtonClicked,
 				OnSettingsButtonClicked = () => _statechartTrigger(_settingsMenuClickedEvent),
-				OnLootButtonClicked = OnTabClickedCallback<LootScreenPresenter>,
+				OnLootButtonClicked = OnTabClickedCallback<EquipmentPresenter>,
 				OnHeroesButtonClicked = OnTabClickedCallback<PlayerSkinScreenPresenter>,
 				OnNameChangeClicked = () => _statechartTrigger(_nameChangeClickedEvent),
 				OnGameModeClicked = () => _statechartTrigger(_chooseGameModeClickedEvent),

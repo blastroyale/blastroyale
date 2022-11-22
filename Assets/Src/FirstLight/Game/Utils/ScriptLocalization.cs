@@ -1093,8 +1093,26 @@ namespace I2.Loc
 
 		public static class UITEquipment
 		{
+			public static string adjective_cool 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/adjective_cool"); } }
+			public static string adjective_divine 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/adjective_divine"); } }
+			public static string adjective_exquisite 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/adjective_exquisite"); } }
+			public static string adjective_magnificent 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/adjective_magnificent"); } }
+			public static string adjective_majestic 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/adjective_majestic"); } }
+			public static string adjective_marvelous 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/adjective_marvelous"); } }
+			public static string adjective_ornate 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/adjective_ornate"); } }
+			public static string adjective_posh 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/adjective_posh"); } }
+			public static string adjective_regular 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/adjective_regular"); } }
+			public static string adjective_royal 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/adjective_royal"); } }
 			public static string card_lvl 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/card_lvl"); } }
+			public static string details_no_amulet 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/details_no_amulet"); } }
+			public static string details_no_armor 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/details_no_armor"); } }
+			public static string details_no_helmet 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/details_no_helmet"); } }
+			public static string details_no_shield 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/details_no_shield"); } }
+			public static string details_no_weapon 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/details_no_weapon"); } }
+			public static string equip 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/equip"); } }
 			public static string equipment 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/equipment"); } }
+			public static string equipment_details_title 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/equipment_details_title"); } }
+			public static string equipped 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/equipped"); } }
 			public static string item_name_lvl 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/item_name_lvl"); } }
 			public static string loaned 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/loaned"); } }
 			public static string lvl 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/lvl"); } }
@@ -1104,11 +1122,22 @@ namespace I2.Loc
 			public static string no_helmet 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/no_helmet"); } }
 			public static string no_shield 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/no_shield"); } }
 			public static string no_weapon 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/no_weapon"); } }
+			public static string rarity_common 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/rarity_common"); } }
+			public static string rarity_commonplus 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/rarity_commonplus"); } }
+			public static string rarity_epic 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/rarity_epic"); } }
+			public static string rarity_epicplus 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/rarity_epicplus"); } }
+			public static string rarity_legendary 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/rarity_legendary"); } }
+			public static string rarity_legendaryplus 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/rarity_legendaryplus"); } }
+			public static string rarity_rare 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/rarity_rare"); } }
+			public static string rarity_rareplus 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/rarity_rareplus"); } }
+			public static string rarity_uncommon 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/rarity_uncommon"); } }
+			public static string rarity_uncommonplus 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/rarity_uncommonplus"); } }
 			public static string selection_amulet 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/selection_amulet"); } }
 			public static string selection_armor 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/selection_armor"); } }
 			public static string selection_helmet 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/selection_helmet"); } }
 			public static string selection_shield 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/selection_shield"); } }
 			public static string selection_weapon 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/selection_weapon"); } }
+			public static string unequip 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/unequip"); } }
 		}
 
 		public static class UITGameModeSelection
@@ -1148,16 +1177,15 @@ namespace I2.Loc
 
 		public static class UITMatchmaking
 		{
-			public static string br_mode_desc_bot 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/br_mode_desc_bot"); } }
-			public static string br_mode_desc_top 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/br_mode_desc_top"); } }
-			public static string button_leave 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/button_leave"); } }
+			public static string br_mode_desc 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/br_mode_desc"); } }
 			public static string current_player_amount 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/current_player_amount"); } }
-			public static string dm_mode_desc_bot 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/dm_mode_desc_bot"); } }
-			public static string dm_mode_desc_top 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/dm_mode_desc_top"); } }
-			public static string loading 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/loading"); } }
-			public static string matchmaking 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/matchmaking"); } }
+			public static string dm_mode_desc 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/dm_mode_desc"); } }
+			public static string loading_status_starting 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/loading_status_starting"); } }
+			public static string loading_status_timer 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/loading_status_timer"); } }
+			public static string loading_status_waiting 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/loading_status_waiting"); } }
+			public static string mode_header_title 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/mode_header_title"); } }
 			public static string select_dropzone 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/select_dropzone"); } }
-			public static string waiting 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/waiting"); } }
+			public static string wins_the_match 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/wins_the_match"); } }
 		}
 
 		public static class UITSettings
@@ -1199,6 +1227,11 @@ namespace I2.Loc
 			public static string legendary_core 		{ get{ return LocalizationManager.GetTranslation ("UITStore/legendary_core"); } }
 			public static string price 		{ get{ return LocalizationManager.GetTranslation ("UITStore/price"); } }
 			public static string rare_core 		{ get{ return LocalizationManager.GetTranslation ("UITStore/rare_core"); } }
+		}
+
+		public static class UITWinners
+		{
+			public static string winners 		{ get{ return LocalizationManager.GetTranslation ("UITWinners/winners"); } }
 		}
 	}
 
@@ -2293,8 +2326,26 @@ namespace I2.Loc
 
 		public static class UITEquipment
 		{
+		    public const string adjective_cool = "UITEquipment/adjective_cool";
+		    public const string adjective_divine = "UITEquipment/adjective_divine";
+		    public const string adjective_exquisite = "UITEquipment/adjective_exquisite";
+		    public const string adjective_magnificent = "UITEquipment/adjective_magnificent";
+		    public const string adjective_majestic = "UITEquipment/adjective_majestic";
+		    public const string adjective_marvelous = "UITEquipment/adjective_marvelous";
+		    public const string adjective_ornate = "UITEquipment/adjective_ornate";
+		    public const string adjective_posh = "UITEquipment/adjective_posh";
+		    public const string adjective_regular = "UITEquipment/adjective_regular";
+		    public const string adjective_royal = "UITEquipment/adjective_royal";
 		    public const string card_lvl = "UITEquipment/card_lvl";
+		    public const string details_no_amulet = "UITEquipment/details_no_amulet";
+		    public const string details_no_armor = "UITEquipment/details_no_armor";
+		    public const string details_no_helmet = "UITEquipment/details_no_helmet";
+		    public const string details_no_shield = "UITEquipment/details_no_shield";
+		    public const string details_no_weapon = "UITEquipment/details_no_weapon";
+		    public const string equip = "UITEquipment/equip";
 		    public const string equipment = "UITEquipment/equipment";
+		    public const string equipment_details_title = "UITEquipment/equipment_details_title";
+		    public const string equipped = "UITEquipment/equipped";
 		    public const string item_name_lvl = "UITEquipment/item_name_lvl";
 		    public const string loaned = "UITEquipment/loaned";
 		    public const string lvl = "UITEquipment/lvl";
@@ -2304,11 +2355,22 @@ namespace I2.Loc
 		    public const string no_helmet = "UITEquipment/no_helmet";
 		    public const string no_shield = "UITEquipment/no_shield";
 		    public const string no_weapon = "UITEquipment/no_weapon";
+		    public const string rarity_common = "UITEquipment/rarity_common";
+		    public const string rarity_commonplus = "UITEquipment/rarity_commonplus";
+		    public const string rarity_epic = "UITEquipment/rarity_epic";
+		    public const string rarity_epicplus = "UITEquipment/rarity_epicplus";
+		    public const string rarity_legendary = "UITEquipment/rarity_legendary";
+		    public const string rarity_legendaryplus = "UITEquipment/rarity_legendaryplus";
+		    public const string rarity_rare = "UITEquipment/rarity_rare";
+		    public const string rarity_rareplus = "UITEquipment/rarity_rareplus";
+		    public const string rarity_uncommon = "UITEquipment/rarity_uncommon";
+		    public const string rarity_uncommonplus = "UITEquipment/rarity_uncommonplus";
 		    public const string selection_amulet = "UITEquipment/selection_amulet";
 		    public const string selection_armor = "UITEquipment/selection_armor";
 		    public const string selection_helmet = "UITEquipment/selection_helmet";
 		    public const string selection_shield = "UITEquipment/selection_shield";
 		    public const string selection_weapon = "UITEquipment/selection_weapon";
+		    public const string unequip = "UITEquipment/unequip";
 		}
 
 		public static class UITGameModeSelection
@@ -2348,16 +2410,15 @@ namespace I2.Loc
 
 		public static class UITMatchmaking
 		{
-		    public const string br_mode_desc_bot = "UITMatchmaking/br_mode_desc_bot";
-		    public const string br_mode_desc_top = "UITMatchmaking/br_mode_desc_top";
-		    public const string button_leave = "UITMatchmaking/button_leave";
+		    public const string br_mode_desc = "UITMatchmaking/br_mode_desc";
 		    public const string current_player_amount = "UITMatchmaking/current_player_amount";
-		    public const string dm_mode_desc_bot = "UITMatchmaking/dm_mode_desc_bot";
-		    public const string dm_mode_desc_top = "UITMatchmaking/dm_mode_desc_top";
-		    public const string loading = "UITMatchmaking/loading";
-		    public const string matchmaking = "UITMatchmaking/matchmaking";
+		    public const string dm_mode_desc = "UITMatchmaking/dm_mode_desc";
+		    public const string loading_status_starting = "UITMatchmaking/loading_status_starting";
+		    public const string loading_status_timer = "UITMatchmaking/loading_status_timer";
+		    public const string loading_status_waiting = "UITMatchmaking/loading_status_waiting";
+		    public const string mode_header_title = "UITMatchmaking/mode_header_title";
 		    public const string select_dropzone = "UITMatchmaking/select_dropzone";
-		    public const string waiting = "UITMatchmaking/waiting";
+		    public const string wins_the_match = "UITMatchmaking/wins_the_match";
 		}
 
 		public static class UITSettings
@@ -2399,6 +2460,11 @@ namespace I2.Loc
 		    public const string legendary_core = "UITStore/legendary_core";
 		    public const string price = "UITStore/price";
 		    public const string rare_core = "UITStore/rare_core";
+		}
+
+		public static class UITWinners
+		{
+		    public const string winners = "UITWinners/winners";
 		}
 	}
 }

@@ -1,9 +1,4 @@
 :root {
-    --out-animation-duration: 0.5s;
-    --out-animation-easing: ease-in;
-    --in-animation-duration: 0.5s;
-    --in-animation-easing: ease-out;
-    --animation-property: translate;
 }
 
 .screen-root {
@@ -25,18 +20,7 @@
 .popup {
     width: 725px;
     background-color: rgb(0, 0, 0);
-    transition-timing-function: var(--out-animation-easing);
-    transition-duration: var(--out-animation-duration);
-    transition-property: var(--animation-property);
     height: auto;
-    translate: 0 0;
-}
-
-.hidden.popup {
-    translate: 0 -1000px;
-    transition-timing-function: var(--in-animation-easing);
-    transition-duration: var(--in-animation-duration);
-    transition-property: var(--animation-property);
 }
 
 .popup__window {

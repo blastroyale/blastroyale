@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/Art/UI/Styles/GenericDialogStyle.uss?fileID=7433441132597879392&amp;guid=d1862850e9c3aaa4aa77ed63ff317bf3&amp;type=3#GenericDialogStyle" />
     <ui:VisualElement name="root" class="screen-root" style="-unity-text-align: middle-center;">
         <ui:Button name="BlockerButton" class="blocker" />
-        <ui:VisualElement name="Popup" class="popup popup-radius">
+        <ui:VisualElement name="Popup" class="popup popup-radius anim-delay-0 anim-translate anim-translate--down-xxxl">
             <ui:VisualElement name="Window" class="popup-radius popup__window">
                 <ui:VisualElement name="Header" class="background-purple window__header">
                     <ui:VisualElement name="TitleDots" class="dots-pattern" />

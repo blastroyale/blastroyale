@@ -199,7 +199,32 @@ namespace Quantum
 				playerCharacter->Gear[3],
 				playerCharacter->Gear[4],
 			};
-
+			
+			// In case we are giving equipment to a bot - we gather a random loadout based on LoadoutGearNumber of a bot
+			var botLoadout = new List<Equipment>();
+			if (f.Unsafe.TryGetPointer<BotCharacter>(playerEntity, out var botCharacter) && botCharacter->LoadoutGearNumber > 0)
+			{
+				var medianRarity = gameContainer->DropPool.MedianRarity;
+				var helmetsList = new List<GameId>(GameIdGroup.Helmet.GetIds());
+				var shieldsList = new List<GameId>(GameIdGroup.Shield.GetIds());
+				var armorsList = new List<GameId>(GameIdGroup.Armor.GetIds());
+				var amuletsList = new List<GameId>(GameIdGroup.Amulet.GetIds());
+				
+				botLoadout.Add(new Equipment{GameId = helmetsList[f.RNG->Next(0, helmetsList.Count)], Rarity = medianRarity });
+				if (botCharacter->LoadoutGearNumber > 1)
+				{
+					botLoadout.Add(new Equipment{GameId = shieldsList[f.RNG->Next(0, shieldsList.Count)], Rarity = medianRarity});
+				}
+				if (botCharacter->LoadoutGearNumber > 2)
+				{
+					botLoadout.Add(new Equipment{GameId = armorsList[f.RNG->Next(0, armorsList.Count)], Rarity = medianRarity});
+				}
+				if (botCharacter->LoadoutGearNumber > 3)
+				{
+					botLoadout.Add(new Equipment{GameId = amuletsList[f.RNG->Next(0, amuletsList.Count)], Rarity = medianRarity});
+				}
+			}
+			
 			foreach (var (chance, count) in config.RandomEquipment)
 			{
 				if (f.RNG->Next() > chance)
@@ -216,7 +241,7 @@ namespace Quantum
 						continue;
 					}
 
-					// First drop a weapon if the player needs one
+					// First, drop a weapon if the player needs one
 					if (noWeaponsEquipped && !gameContainer->DropPool.IsPoolEmpty)
 					{
 						var weapon = gameContainer->GenerateNextWeapon(f);
@@ -250,8 +275,16 @@ namespace Quantum
 						continue;
 					}
 					
-					// Second we drop equipment from their loadout if it is all valid and we haven't dropped them all already
-					var drop = GetNextLoadoutGearItem(f, playerCharacter, playerCharacter->GetLoadout(f));
+					// Second, we drop equipment from their loadout if it is all valid and we haven't dropped them all already
+					Equipment drop;
+					if (!f.Has<BotCharacter>(playerEntity))
+					{
+						drop = GetNextLoadoutGearItem(f, playerCharacter, playerCharacter->GetLoadout(f));
+					}
+					else
+					{
+						drop = GetNextLoadoutGearItem(f, playerCharacter, botLoadout.ToArray());
+					}
 					
 					if (drop.GameId != GameId.Random && drop.IsValid())
 					{

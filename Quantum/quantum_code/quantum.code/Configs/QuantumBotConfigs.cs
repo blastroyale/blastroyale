@@ -28,6 +28,8 @@ namespace Quantum
 		public FP SpecialAimingDeviation;
 		public FP ShrinkingCircleRiskTolerance;
 		public FP ChanceToSeekChests;
+		public uint LoadoutGearNumber;
+		public FP MaxAimingRange;
 	}
 	
 	/// <summary>

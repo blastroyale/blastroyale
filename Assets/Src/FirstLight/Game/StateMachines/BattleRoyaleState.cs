@@ -186,5 +186,18 @@ namespace FirstLight.Game.StateMachines
 		{
 			_uiService.CloseUi<SpectateHudPresenter>();
 		}
+		
+		private void CloseMatchmakingScreen()
+		{
+			if (_uiService.HasUiPresenter<CustomLobbyScreenPresenter>())
+			{
+				_uiService.CloseUi<CustomLobbyScreenPresenter>(true);
+			}
+			
+			if (_uiService.HasUiPresenter<MatchmakingScreenPresenter>())
+			{
+				_uiService.CloseCurrentScreen();
+			}
+		}
 	}
 }

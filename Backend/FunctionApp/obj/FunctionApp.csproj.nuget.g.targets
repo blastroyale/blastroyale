@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)microsoft.net.sdk.functions/4.1.0/build/Microsoft.NET.Sdk.Functions.targets" Condition="Exists('$(NuGetPackageRoot)microsoft.net.sdk.functions/4.1.0/build/Microsoft.NET.Sdk.Functions.targets')" />
+    <Import Project="$(NuGetPackageRoot)microsoft.data.sqlclient.sni/2.1.1/buildTransitive/net46/Microsoft.Data.SqlClient.SNI.targets" Condition="Exists('$(NuGetPackageRoot)microsoft.data.sqlclient.sni/2.1.1/buildTransitive/net46/Microsoft.Data.SqlClient.SNI.targets')" />
+  </ImportGroup>
+</Project>

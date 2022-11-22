@@ -48,6 +48,35 @@ namespace FirstLight.Game.Utils
 			int appendedNumberAmount = GameConstants.Data.PLAYER_NAME_APPENDED_NUMBERS;
 			return playerName.Remove(playerName.Length - appendedNumberAmount, appendedNumberAmount);
 		}
+		
+		/// <summary>
+		/// Gets the translation for the given<paramref name="strategy"/>
+		/// </summary>
+		public static string GetTranslation(this GameCompletionStrategy strategy)
+		{
+			switch (strategy)
+			{
+				case GameCompletionStrategy.Never:
+					return "";
+				
+				case GameCompletionStrategy.EveryoneDead:
+					return ScriptLocalization.UITMatchmaking.br_mode_desc;
+				
+				case GameCompletionStrategy.KillCount:
+					return ScriptLocalization.UITMatchmaking.dm_mode_desc;
+				
+				default:
+					return "";
+			}
+		}
+		
+		/// <summary>
+		/// Requests the localized text representing the given <paramref name="gameId"/> as a string
+		/// </summary>
+		public static string GetTranslationGameIdString(this string gameId)
+		{
+			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.GameIds)}/{gameId}");
+		}
 
 		/// <summary>
 		/// Requests the localized text representing the given <paramref name="stat"/>
@@ -396,9 +425,17 @@ namespace FirstLight.Game.Utils
 		}
 		
 		/// <summary>
+		/// Obtains the current dropzone pos+rot vector3 for the given <paramref name="room"/>
+		/// </summary>
+		public static Vector3 GetDropzonePosRot(this Room room)
+		{
+			return (Vector3) room.CustomProperties[GameConstants.Network.DROP_ZONE_POS_ROT];
+		}
+		
+		/// <summary>
 		/// Obtains the current room creation time (created with UTC.Now)
 		/// </summary>
-		public static string StripRoomCommitLock(this string roomName)
+		public static string TrimRoomCommitLock(this string roomName)
 		{
 			return roomName.Replace(NetworkUtils.RoomCommitLockData, "");
 		}

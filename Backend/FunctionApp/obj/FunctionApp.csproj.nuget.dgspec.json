@@ -1,0 +1,399 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/faustofonseca/dev/blast-royale/Backend/FunctionApp/FunctionApp.csproj": {}
+  },
+  "projects": {
+    "/Users/faustofonseca/dev/blast-royale/Backend/BlastRoyaleCorePlugin/BlastRoyaleCorePlugin.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/faustofonseca/dev/blast-royale/Backend/BlastRoyaleCorePlugin/BlastRoyaleCorePlugin.csproj",
+        "projectName": "BlastRoyaleCorePlugin",
+        "projectPath": "/Users/faustofonseca/dev/blast-royale/Backend/BlastRoyaleCorePlugin/BlastRoyaleCorePlugin.csproj",
+        "packagesPath": "/Users/faustofonseca/.nuget/packages/",
+        "outputPath": "/Users/faustofonseca/dev/blast-royale/Backend/BlastRoyaleCorePlugin/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/faustofonseca/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net60": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "/Users/faustofonseca/dev/blast-royale/Backend/FirstLightServerSDK/FirstLightServerSDK.csproj": {
+                "projectPath": "/Users/faustofonseca/dev/blast-royale/Backend/FirstLightServerSDK/FirstLightServerSDK.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net60": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.Extensions.Logging.Abstractions": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
+            "PlayFabAllSDK": {
+              "target": "Package",
+              "version": "[1.108.220118, )"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/Library/Frameworks/Mono.framework/Versions/6.12.0/lib/mono/msbuild/Current/bin/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/faustofonseca/dev/blast-royale/Backend/BlastRoyaleTrophyLadderPlugin/BlastRoyaleTrophyLadderPlugin.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/faustofonseca/dev/blast-royale/Backend/BlastRoyaleTrophyLadderPlugin/BlastRoyaleTrophyLadderPlugin.csproj",
+        "projectName": "BlastRoyaleTrophyLadderPlugin",
+        "projectPath": "/Users/faustofonseca/dev/blast-royale/Backend/BlastRoyaleTrophyLadderPlugin/BlastRoyaleTrophyLadderPlugin.csproj",
+        "packagesPath": "/Users/faustofonseca/.nuget/packages/",
+        "outputPath": "/Users/faustofonseca/dev/blast-royale/Backend/BlastRoyaleTrophyLadderPlugin/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/faustofonseca/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net60": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "/Users/faustofonseca/dev/blast-royale/Backend/FirstLightServerSDK/FirstLightServerSDK.csproj": {
+                "projectPath": "/Users/faustofonseca/dev/blast-royale/Backend/FirstLightServerSDK/FirstLightServerSDK.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net60": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "PlayFabAllSDK": {
+              "target": "Package",
+              "version": "[1.108.220118, )"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/Library/Frameworks/Mono.framework/Versions/6.12.0/lib/mono/msbuild/Current/bin/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/faustofonseca/dev/blast-royale/Backend/FirstLightServerSDK/FirstLightServerSDK.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/faustofonseca/dev/blast-royale/Backend/FirstLightServerSDK/FirstLightServerSDK.csproj",
+        "projectName": "FirstLightServerSDK",
+        "projectPath": "/Users/faustofonseca/dev/blast-royale/Backend/FirstLightServerSDK/FirstLightServerSDK.csproj",
+        "packagesPath": "/Users/faustofonseca/.nuget/packages/",
+        "outputPath": "/Users/faustofonseca/dev/blast-royale/Backend/FirstLightServerSDK/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/faustofonseca/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net48"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net48": {
+            "targetAlias": "net48",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net48": {
+          "targetAlias": "net48",
+          "dependencies": {
+            "Newtonsoft.Json": {
+              "include": "Compile, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "target": "Package",
+              "version": "[13.0.1, )"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/Library/Frameworks/Mono.framework/Versions/6.12.0/lib/mono/msbuild/Current/bin/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/faustofonseca/dev/blast-royale/Backend/FunctionApp/FunctionApp.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/faustofonseca/dev/blast-royale/Backend/FunctionApp/FunctionApp.csproj",
+        "projectName": "FunctionApp",
+        "projectPath": "/Users/faustofonseca/dev/blast-royale/Backend/FunctionApp/FunctionApp.csproj",
+        "packagesPath": "/Users/faustofonseca/.nuget/packages/",
+        "outputPath": "/Users/faustofonseca/dev/blast-royale/Backend/FunctionApp/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/faustofonseca/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net60": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "/Users/faustofonseca/dev/blast-royale/Backend/BlastRoyaleAnalyticsPlugin/BlastRoyaleAnalyticsPlugin.csproj": {
+                "projectPath": "/Users/faustofonseca/dev/blast-royale/Backend/BlastRoyaleAnalyticsPlugin/BlastRoyaleAnalyticsPlugin.csproj"
+              },
+              "/Users/faustofonseca/dev/blast-royale/Backend/BlastRoyaleCorePlugin/BlastRoyaleCorePlugin.csproj": {
+                "projectPath": "/Users/faustofonseca/dev/blast-royale/Backend/BlastRoyaleCorePlugin/BlastRoyaleCorePlugin.csproj"
+              },
+              "/Users/faustofonseca/dev/blast-royale/Backend/BlastRoyaleTrophyLadderPlugin/BlastRoyaleTrophyLadderPlugin.csproj": {
+                "projectPath": "/Users/faustofonseca/dev/blast-royale/Backend/BlastRoyaleTrophyLadderPlugin/BlastRoyaleTrophyLadderPlugin.csproj"
+              },
+              "/Users/faustofonseca/dev/blast-royale/Backend/FirstLightServerSDK/FirstLightServerSDK.csproj": {
+                "projectPath": "/Users/faustofonseca/dev/blast-royale/Backend/FirstLightServerSDK/FirstLightServerSDK.csproj"
+              },
+              "/Users/faustofonseca/dev/blast-royale/Backend/GameLogicService/GameLogicService.csproj": {
+                "projectPath": "/Users/faustofonseca/dev/blast-royale/Backend/GameLogicService/GameLogicService.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net60": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "DistributedLock": {
+              "target": "Package",
+              "version": "[2.3.0, )"
+            },
+            "DistributedLock.Postgres": {
+              "target": "Package",
+              "version": "[1.0.2, )"
+            },
+            "Microsoft.ApplicationInsights.AspNetCore": {
+              "target": "Package",
+              "version": "[2.21.0, )"
+            },
+            "Microsoft.Azure.Functions.Extensions": {
+              "target": "Package",
+              "version": "[1.1.0, )"
+            },
+            "Microsoft.NET.Sdk.Functions": {
+              "target": "Package",
+              "version": "[4.1.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[6.0.4, )"
+            },
+            "PlayFabCloudScriptPlugin": {
+              "target": "Package",
+              "version": "[1.53.190627-alpha, )"
+            },
+            "YamlDotNet": {
+              "target": "Package",
+              "version": "[11.2.1, )"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/Library/Frameworks/Mono.framework/Versions/6.12.0/lib/mono/msbuild/Current/bin/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/faustofonseca/dev/blast-royale/Backend/GameLogicService/GameLogicService.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/faustofonseca/dev/blast-royale/Backend/GameLogicService/GameLogicService.csproj",
+        "projectName": "GameLogicService",
+        "projectPath": "/Users/faustofonseca/dev/blast-royale/Backend/GameLogicService/GameLogicService.csproj",
+        "packagesPath": "/Users/faustofonseca/.nuget/packages/",
+        "outputPath": "/Users/faustofonseca/dev/blast-royale/Backend/GameLogicService/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/faustofonseca/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net60": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "/Users/faustofonseca/dev/blast-royale/Backend/BlastRoyaleAnalyticsPlugin/BlastRoyaleAnalyticsPlugin.csproj": {
+                "projectPath": "/Users/faustofonseca/dev/blast-royale/Backend/BlastRoyaleAnalyticsPlugin/BlastRoyaleAnalyticsPlugin.csproj"
+              },
+              "/Users/faustofonseca/dev/blast-royale/Backend/BlastRoyaleCorePlugin/BlastRoyaleCorePlugin.csproj": {
+                "projectPath": "/Users/faustofonseca/dev/blast-royale/Backend/BlastRoyaleCorePlugin/BlastRoyaleCorePlugin.csproj"
+              },
+              "/Users/faustofonseca/dev/blast-royale/Backend/BlastRoyaleTrophyLadderPlugin/BlastRoyaleTrophyLadderPlugin.csproj": {
+                "projectPath": "/Users/faustofonseca/dev/blast-royale/Backend/BlastRoyaleTrophyLadderPlugin/BlastRoyaleTrophyLadderPlugin.csproj"
+              },
+              "/Users/faustofonseca/dev/blast-royale/Backend/FirstLightServerSDK/FirstLightServerSDK.csproj": {
+                "projectPath": "/Users/faustofonseca/dev/blast-royale/Backend/FirstLightServerSDK/FirstLightServerSDK.csproj"
+              },
+              "/Users/faustofonseca/dev/blast-royale/Backend/ServerCommon/ServerCommon.csproj": {
+                "projectPath": "/Users/faustofonseca/dev/blast-royale/Backend/ServerCommon/ServerCommon.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net60": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "DistributedLock": {
+              "target": "Package",
+              "version": "[2.3.0, )"
+            },
+            "DistributedLock.Postgres": {
+              "target": "Package",
+              "version": "[1.0.2, )"
+            },
+            "Microsoft.ApplicationInsights.AspNetCore": {
+              "target": "Package",
+              "version": "[2.21.0, )"
+            },
+            "Microsoft.ApplicationInsights.TraceListener": {
+              "target": "Package",
+              "version": "[2.21.0, )"
+            },
+            "Microsoft.Azure.Functions.Extensions": {
+              "target": "Package",
+              "version": "[1.1.0, )"
+            },
+            "Microsoft.NET.Sdk.Functions": {
+              "target": "Package",
+              "version": "[4.1.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[6.0.4, )"
+            },
+            "PlayFabCloudScriptPlugin": {
+              "target": "Package",
+              "version": "[1.53.190627-alpha, )"
+            },
+            "YamlDotNet": {
+              "target": "Package",
+              "version": "[11.2.1, )"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/Library/Frameworks/Mono.framework/Versions/6.12.0/lib/mono/msbuild/Current/bin/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/faustofonseca/dev/blast-royale/Backend/ServerCommon/ServerCommon.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/faustofonseca/dev/blast-royale/Backend/ServerCommon/ServerCommon.csproj",
+        "projectName": "ServerCommon",
+        "projectPath": "/Users/faustofonseca/dev/blast-royale/Backend/ServerCommon/ServerCommon.csproj",
+        "packagesPath": "/Users/faustofonseca/.nuget/packages/",
+        "outputPath": "/Users/faustofonseca/dev/blast-royale/Backend/ServerCommon/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/faustofonseca/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net60": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net60": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Http.Abstractions": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Abstractions": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Core": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[6.0.10, )"
+            },
+            "Microsoft.Extensions.Configuration.Abstractions": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
+            "PlayFabAllSDK": {
+              "target": "Package",
+              "version": "[1.127.220718, )"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/Library/Frameworks/Mono.framework/Versions/6.12.0/lib/mono/msbuild/Current/bin/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

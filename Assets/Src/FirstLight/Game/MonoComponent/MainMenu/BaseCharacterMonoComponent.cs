@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using FirstLight.Game.Infos;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
@@ -12,22 +14,23 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 	/// <summary>
 	/// This Mono component controls loading and creation of player character equipment items and skin.
 	/// </summary>
-	public class MenuCharacterView : MonoBehaviour
+	public class BaseCharacterMonoComponent : MonoBehaviour
 	{
-		private readonly int _equipRightHandHash = Animator.StringToHash("equip_hand_r");
-		private readonly int _equipBodyHash = Animator.StringToHash("equip_body");
-		private readonly int _victoryHash = Animator.StringToHash("victory");
+		protected readonly int _equipRightHandHash = Animator.StringToHash("equip_hand_r");
+		protected readonly int _equipBodyHash = Animator.StringToHash("equip_body");
+		protected readonly int _victoryHash = Animator.StringToHash("victory");
 
-		[SerializeField, Required] private UnityEvent _characterLoadedEvent;
-		[SerializeField, Required] private Transform _characterAnchor;
-		[SerializeField] private GameObject _testModel;
+		[SerializeField, Required] protected UnityEvent _characterLoadedEvent;
+		[SerializeField, Required] protected Transform _characterAnchor;
+		[SerializeField] protected GameObject _testModel;
 		
-		private MainMenuCharacterViewComponent _characterViewComponent;
-		private IGameServices _services;
-		private Animator _animator;
+		protected MainMenuCharacterViewComponent _characterViewComponent;
+		protected IGameServices _services;
+		protected Animator _animator;
+		
 		private List<Equipment> _equipment;
 
-		private void Awake()
+		protected virtual void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			if (_testModel != null)
@@ -36,7 +39,14 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			}
 		}
 
-		public async Task UpdateSkin(GameId skin, List<Equipment> equipment)
+		public async Task UpdateSkin(GameId skin, List<EquipmentInfo> equipment = null)
+		{
+			var equipmentList = equipment?.Select(equipmentInfo => equipmentInfo.Equipment).ToList();
+
+			await UpdateSkin(skin, equipmentList);
+		}
+		
+		public async Task UpdateSkin(GameId skin, List<Equipment> equipment = null)
 		{
 			if (_characterViewComponent != null && _characterViewComponent.gameObject != null)
 			{
@@ -55,7 +65,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			_animator.SetTrigger(_victoryHash);
 		}
 
-		private async void EquipDefault()
+		protected async void EquipDefault()
 		{
 			await _characterViewComponent.EquipItem(GameId.Hammer);
 		}
@@ -73,8 +83,11 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 
 			_characterViewComponent = instance.GetComponent<MainMenuCharacterViewComponent>();
 
-			await _characterViewComponent.Init(_equipment);
-			
+			if (_equipment != null)
+			{
+				await _characterViewComponent.Init(_equipment);
+			}
+
 			cacheTransform.localScale = Vector3.one;
 
 			instance.SetActive(true);

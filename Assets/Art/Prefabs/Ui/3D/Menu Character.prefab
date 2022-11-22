@@ -49,6 +49,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   _characterAnchor: {fileID: 9095007496563583927}
+  _testModel: {fileID: 3583433628730792228}
 --- !u!1 &7580072928638046774
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,7 +227,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3683233572467130224, guid: 999f9c7d42d9e4f02a596d61739c9f74, type: 3}
       propertyPath: _rigidbodies.Array.size
-      value: 583
+      value: 616
       objectReference: {fileID: 0}
     - target: {fileID: 3683233572467130224, guid: 999f9c7d42d9e4f02a596d61739c9f74, type: 3}
       propertyPath: _rigidbodies.Array.data[506]
@@ -718,6 +719,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 999f9c7d42d9e4f02a596d61739c9f74, type: 3}
+--- !u!1 &3583433628730792228 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7375663578542200319, guid: 999f9c7d42d9e4f02a596d61739c9f74, type: 3}
+  m_PrefabInstance: {fileID: 6332473479270190299}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4247238917302010782 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7858867518742138693, guid: 999f9c7d42d9e4f02a596d61739c9f74, type: 3}

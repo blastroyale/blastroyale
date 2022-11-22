@@ -43,11 +43,11 @@ namespace FirstLight.Game.Presenters
 
 		protected override void OnOpened()
 		{
-			var playerData = _matchServices.MatchDataService.QuantumPlayerMatchData;
-			var showStandingsExtra = _matchServices.MatchDataService.ShowUIStandingsExtraInfo;
+			var playerData = _matchServices.MatchEndDataService.QuantumPlayerMatchData;
+			var showStandingsExtra = _matchServices.MatchEndDataService.ShowUIStandingsExtraInfo;
 			
 			_standings.Initialise(playerData.Count, showStandingsExtra, true);
-			_standings.UpdateStandings(playerData, _matchServices.MatchDataService.LocalPlayer);
+			_standings.UpdateStandings(playerData, _matchServices.MatchEndDataService.LocalPlayer);
 			
 			// Only play the animation after Results Award sprites have been loaded.
 			_animation.clip = _introAnimationClip;

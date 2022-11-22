@@ -18,9 +18,9 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public class WinnersScreenPresenter : UiToolkitPresenterData<WinnersScreenPresenter.StateData>
 	{
-		[SerializeField] private MenuCharacterView _character1;
-		[SerializeField] private MenuCharacterView _character2;
-		[SerializeField] private MenuCharacterView _character3;
+		[SerializeField] private BaseCharacterMonoComponent _character1;
+		[SerializeField] private BaseCharacterMonoComponent _character2;
+		[SerializeField] private BaseCharacterMonoComponent _character3;
 		[SerializeField] private CinemachineVirtualCamera _camera;
 		
 		public struct StateData
@@ -66,12 +66,12 @@ namespace FirstLight.Game.Presenters
 
 		private async void UpdateCharacters()
 		{
-			var playerData = _matchServices.MatchDataService.QuantumPlayerMatchData;
+			var playerData = _matchServices.MatchEndDataService.QuantumPlayerMatchData;
 			playerData.SortByPlayerRank(false);
 
-			await Task.WhenAll(_character1.UpdateSkin(playerData[0].Data.PlayerSkin, _matchServices.MatchDataService.PlayerMatchData[playerData[0].Data.Player].Gear.ToList()),
-								_character2.UpdateSkin(playerData[1].Data.PlayerSkin, _matchServices.MatchDataService.PlayerMatchData[playerData[1].Data.Player].Gear.ToList()),
-								_character3.UpdateSkin(playerData[3].Data.PlayerSkin, _matchServices.MatchDataService.PlayerMatchData[playerData[2].Data.Player].Gear.ToList()));
+			await Task.WhenAll(_character1.UpdateSkin(playerData[0].Data.PlayerSkin, _matchServices.MatchEndDataService.PlayerMatchData[playerData[0].Data.Player].Gear.ToList()),
+								_character2.UpdateSkin(playerData[1].Data.PlayerSkin, _matchServices.MatchEndDataService.PlayerMatchData[playerData[1].Data.Player].Gear.ToList()),
+								_character3.UpdateSkin(playerData[3].Data.PlayerSkin, _matchServices.MatchEndDataService.PlayerMatchData[playerData[2].Data.Player].Gear.ToList()));
 			
 			_character1.AnimateVictory();
 

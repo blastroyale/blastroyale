@@ -1,13 +1,15 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using FirstLight.Game.Utils;
 using Quantum;
 
 namespace FirstLight.Game.Services
 {
 	/// <summary>
-	/// Service that holds all the data from the match to be used once the simulation is over
+	/// Service that holds all the data from the match to be used once the simulation is over. It's only updated when the game is over.
 	/// </summary>
-	public interface IMatchDataService
+	public interface IMatchEndDataService
 	{
 		List<QuantumPlayerMatchData> QuantumPlayerMatchData { get; set; }
 		
@@ -36,23 +38,21 @@ namespace FirstLight.Game.Services
 	}
 	
 	/// <inheritdoc />
-	public class MatchDataService : IMatchDataService
+	public class MatchEndDataService : IMatchEndDataService
 	{
 		public List<QuantumPlayerMatchData> QuantumPlayerMatchData { get; set; }
 		public bool ShowUIStandingsExtraInfo { get; set; }
 		public PlayerRef LocalPlayer { get; set; }
 		public Dictionary<PlayerRef, PlayerMatchData> PlayerMatchData { get; set; }
 
-		public MatchDataService()
+		public MatchEndDataService(QuantumGame game)
 		{
-			QuantumEvent.SubscribeManual<EventOnGameEnded>(this, HandleOnGameEnded);
+			FetchEndOfMatchData(game);
 		}
 
-		private void HandleOnGameEnded(EventOnGameEnded callback)
+		private void FetchEndOfMatchData(QuantumGame  game)
 		{
-			var game = QuantumRunner.Default.Game;
 			var frame = game.Frames.Verified;
-			
 			var quantumPlayerMatchData = frame.GetSingleton<GameContainer>().GetPlayersMatchData(frame, out _);
 
 			QuantumPlayerMatchData = quantumPlayerMatchData;
@@ -77,7 +77,7 @@ namespace FirstLight.Game.Services
 
 			ShowUIStandingsExtraInfo =
 				frame.Context.GameModeConfig.ShowUIStandingsExtraInfo;
-			LocalPlayer = QuantumRunner.Default.Game.GetLocalPlayers()[0];
+			LocalPlayer = game.GetLocalPlayerRef();
 		}
 	}
 }

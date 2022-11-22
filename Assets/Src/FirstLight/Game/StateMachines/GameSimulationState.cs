@@ -377,7 +377,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void PublishMatchEnded()
 		{
-			_services.MessageBrokerService.Publish(new MatchEndedMessage());
+			_services.MessageBrokerService.Publish(new MatchEndedMessage(){Game = QuantumRunner.Default.Game});
 		}
 
 		private void OpenAdventureWorldHud()

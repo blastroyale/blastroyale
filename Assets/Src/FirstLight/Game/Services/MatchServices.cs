@@ -22,8 +22,8 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc cref="IMatchFrameSnapshotService"/>
 		public IFrameSnapshotService FrameSnapshotService { get; }
 		
-		/// <inheritdoc cref="IMatchDataService"/>
-		public IMatchDataService MatchDataService { get; }
+		/// <inheritdoc cref="IMatchEndDataService"/>
+		public IMatchEndDataService MatchEndDataService { get; }
 	}
 
 	internal class MatchServices : IMatchServices
@@ -49,6 +49,7 @@ namespace FirstLight.Game.Services
 			void OnMatchEnded();
 		}
 
+		private MatchEndDataService _matchEndDataService;
 		private readonly IMessageBrokerService _messageBrokerService;
 		private readonly List<IMatchService> _services = new();
 		
@@ -58,7 +59,7 @@ namespace FirstLight.Game.Services
 		public IEntityViewUpdaterService EntityViewUpdaterService { get; }
 
 		public IFrameSnapshotService FrameSnapshotService { get; }
-		public IMatchDataService MatchDataService { get; }
+		public IMatchEndDataService MatchEndDataService => _matchEndDataService;
 
 		public MatchServices(IEntityViewUpdaterService entityViewUpdaterService, IGameServices services, IDataService dataService)
 		{
@@ -67,7 +68,6 @@ namespace FirstLight.Game.Services
 			EntityViewUpdaterService = entityViewUpdaterService;
 			SpectateService = Configure(new SpectateService(services, this));
 			FrameSnapshotService = Configure(new FrameSnapshotService(dataService));
-			MatchDataService = new MatchDataService();
 
 			_messageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStart);
 			_messageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEnd);
@@ -86,6 +86,7 @@ namespace FirstLight.Game.Services
 
 		private void OnMatchStart(MatchStartedMessage message)
 		{
+			_matchEndDataService = null;
 			foreach (var service in _services)
 			{
 				service.OnMatchStarted(message.Game, message.IsResync);
@@ -94,6 +95,7 @@ namespace FirstLight.Game.Services
 
 		private void OnMatchEnd(MatchEndedMessage message)
 		{
+			_matchEndDataService = new MatchEndDataService(message.Game);
 			foreach (var service in _services)
 			{
 				service.OnMatchEnded();

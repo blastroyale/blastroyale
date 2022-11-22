@@ -40,8 +40,11 @@ namespace FirstLight.Game.UIElements
 		private const string UssEquipmentTitle = UssBlock + "__title";
 		private const string UssEquipmentTitleName = UssEquipmentTitle + "--name";
 		private const string UssPlusRarity = UssBlock + "__plus-rarity";
+
 		private const string UssEquipmentImage = UssBlock + "__equipment-image";
 		private const string UssEquipmentImageShadow = UssEquipmentImage + "--shadow";
+		private const string UssEquipmentImageCategoryModifier = UssEquipmentImage + "--category-";
+
 		private const string UssDurabilityIcon = UssBlock + "__durability-icon";
 		private const string UssDurabilityProgressBg = UssBlock + "__durability-progress-bg";
 		private const string UssDurabilityProgress = UssBlock + "__durability-progress";
@@ -52,7 +55,9 @@ namespace FirstLight.Game.UIElements
 		private readonly VisualElement _emptyCategoryIcon;
 		private readonly Label _equipmentName;
 		private readonly Label _equipmentLevel;
+
 		private readonly LocalizedLabel _emptyTitle;
+		private readonly VisualElement _emptyEquipmentImage;
 		private readonly VisualElement _plusRarity;
 		private readonly VisualElement _equipmentImage;
 		private readonly VisualElement _equipmentImageShadow;
@@ -77,7 +82,7 @@ namespace FirstLight.Game.UIElements
 				_categoryIcon.AddToClassList(UssCategoryIcon);
 
 				filledElement.Add(_equipmentName = new AutoSizeLabel(
-					string.Format(ScriptLocalization.UITEquipment.item_name_lvl, "APO SNIPER"),
+					string.Format(ScriptLocalization.UITEquipment.item_name_lvl, "SOOPERDOOPER LOOTERSHOOTER"),
 					35, 45
 				) {name = "equipment-name"});
 				_equipmentName.AddToClassList(UssEquipmentTitle);
@@ -142,6 +147,10 @@ namespace FirstLight.Game.UIElements
 
 				emptyElement.Add(_emptyTitle = new LocalizedLabel {name = "title"});
 				_emptyTitle.AddToClassList(UssEquipmentTitle);
+
+				emptyElement.Add(_emptyEquipmentImage = new VisualElement {name = "equipment-image"});
+				_emptyEquipmentImage.AddToClassList(UssEquipmentImage);
+				_emptyEquipmentImage.AddToClassList(UssEquipmentImageShadow);
 			}
 		}
 
@@ -185,6 +194,8 @@ namespace FirstLight.Game.UIElements
 			else
 			{
 				AddToClassList(UssBlockEmpty);
+				_emptyEquipmentImage.RemoveModifiers();
+				_emptyEquipmentImage.AddToClassList(UssEquipmentImageShadow);
 			}
 		}
 
@@ -207,12 +218,15 @@ namespace FirstLight.Game.UIElements
 
 				var ece = (EquipmentSlotElement) ve;
 				var cat = _categoryAttribute.GetValueFromBag(bag, cc);
+				var catStr = cat.ToString().ToLowerInvariant();
 
 				ece.Category = cat;
 
-				var categoryClass = UssCategoryIconModifier + cat.ToString().ToLowerInvariant();
+				var categoryClass = UssCategoryIconModifier + catStr;
 				ece._categoryIcon.AddToClassList(categoryClass);
 				ece._emptyCategoryIcon.AddToClassList(categoryClass);
+
+				ece._emptyEquipmentImage.AddToClassList(UssEquipmentImageCategoryModifier + catStr);
 
 				ece._emptyTitle.Localize(
 					string.Format(EMPTY_LOC_KEY, cat.ToString().ToLowerInvariant())

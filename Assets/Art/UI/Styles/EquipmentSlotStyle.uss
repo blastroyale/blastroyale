@@ -92,6 +92,26 @@
     -unity-background-image-tint-color: black;
 }
 
+.equipment-slot__equipment-image--category-weapon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/WeaponEmptySlotIcon.png?fileID=21300000&guid=2242dcbd235394ffaa30eb599d68b376&type=3#WeaponEmptySlotIcon');
+}
+
+.equipment-slot__equipment-image--category-armor {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/ArmourEmptySlotIcon.png?fileID=21300000&guid=61511c97b754449238274a3cd95feb49&type=3#ArmourEmptySlotIcon');
+}
+
+.equipment-slot__equipment-image--category-amulet {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/AmuletEmptySlotIcon.png?fileID=21300000&guid=2545eacbca71a496a9d0bf7997e6bd4e&type=3#AmuletEmptySlotIcon');
+}
+
+.equipment-slot__equipment-image--category-shield {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/ShieldEmptySlotIcon.png?fileID=21300000&guid=0cbf9fde965644520b0b915ee8ada48e&type=3#ShieldEmptySlotIcon');
+}
+
+.equipment-slot__equipment-image--category-helmet {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/HelmetEmptySlotIcon.png?fileID=21300000&guid=31d84b6fb540b4b2aa56c00750dfa110&type=3#HelmetEmptySlotIcon');
+}
+
 .equipment-slot__title {
     -unity-font-definition: var(--font-italic);
     color: rgb(255, 255, 255);

@@ -7,7 +7,7 @@ namespace FirstLight.Game.Commands
 	/// <summary>
 	/// Scraps an Non-NFT item and awards the player resources 
 	/// </summary>
-	public class ScrapItemCommand : IGameCommand
+	public struct ScrapItemCommand : IGameCommand
 	{
 		public UniqueId Item;
 		

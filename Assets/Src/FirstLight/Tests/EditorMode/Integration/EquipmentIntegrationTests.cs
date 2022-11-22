@@ -1,19 +1,13 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using FirstLight.Game.Commands;
-using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
-using FirstLight.Game.Logic;
-using FirstLight.Game.Logic.RPC;
-using NSubstitute;
 using NUnit.Framework;
 using Quantum;
 using Assert = NUnit.Framework.Assert;
 using Equipment = Quantum.Equipment;
 
-namespace FirstLight.Tests.EditorMode.Logic
+namespace FirstLight.Tests.EditorMode.Integration
 {
 	public class EquipmentIntegrationTest : IntegrationTestFixture
 	{
@@ -51,6 +45,26 @@ namespace FirstLight.Tests.EditorMode.Logic
 			var data = TestData.GetData<PlayerData>();
 			
 			Assert.AreEqual(itemUniqueId, data.Equipped[GameIdGroup.Helmet]);
+		}
+		
+		/// <summary>
+		/// Ensuring scrap item command rewards the correct ammount of te scrap result
+		/// </summary>
+		[Test]
+		public void ScrapItemCommand()
+		{
+			var equip = new Equipment() {GameId = GameId.HockeyHelmet};
+			var itemUniqueId = TestLogic.EquipmentLogic.AddToInventory(equip);
+			var info = TestLogic.EquipmentLogic.GetInfo(itemUniqueId);
+
+			TestServices.CommandService.ExecuteCommand(new ScrapItemCommand()
+			{
+				Item = itemUniqueId
+			});
+
+			var data = TestData.GetData<PlayerData>();
+			
+			Assert.AreEqual(info.ScrappingValue.Value, data.Currencies[info.ScrappingValue.Key]);
 		}
 	}
 }

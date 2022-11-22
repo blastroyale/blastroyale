@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
@@ -66,14 +67,26 @@ namespace FirstLight.Tests.EditorMode.Logic
 			TestData.Inventory.Add(_item.Key, _item.Value);
 			//TestData.InsertionTimestamps.Add(_item.Key, 0);
 
-			//Assert.True(_equipmentLogic.Scrap(_item.Key));
+			var info = _equipmentLogic.Scrap(_item.Key);
+			
+			Assert.AreEqual(info.ScrappingValue.Key, GameId.COIN);
+			Assert.AreEqual(info.ScrappingValue.Value, 0);
 			Assert.AreEqual(0, _equipmentLogic.Inventory.Count);
 		}
 		
 		[Test]
 		public void ScrapItem_NotInventory_ThrowsException()
 		{
-			//Assert.Throws<LogicException>(() => _equipmentLogic.RemoveFromInventory(UniqueId.Invalid));
+			Assert.Throws<KeyNotFoundException>(() => _equipmentLogic.Scrap(UniqueId.Invalid));
+		}
+		
+		[Test]
+		public void ScrapItem_NFTItem_ThrowsException()
+		{
+			TestData.Inventory.Add(_item.Key, _item.Value);
+			TestData.NftInventory.Add(_item.Key, new NftEquipmentData());
+			
+			Assert.Throws<LogicException>(() => _equipmentLogic.Scrap(_item.Key));
 		}
 		
 		[Test]
@@ -111,13 +124,14 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void SetLoadout_ScrapItem_UnequipItem()
 		{
-			var dic = new Dictionary<GameIdGroup, UniqueId> { { _item.Value.GameId.GetGroups()[0], _item.Key } };
+			var group = _item.Value.GameId.GetGroups()[0];
 			
 			TestData.Inventory.Add(_item.Key, _item.Value);
 			//TestData.InsertionTimestamps.Add(_item.Key, 0);
-			_equipmentLogic.SetLoadout(dic);
+			_equipmentLogic.SetLoadout(new Dictionary<GameIdGroup, UniqueId> { { group, _item.Key } });
+			_equipmentLogic.Scrap(_item.Key);;
 
-			//Assert.True(_equipmentLogic.RemoveFromInventory(_item.Key));
+			Assert.AreEqual(0, _equipmentLogic.Loadout.Count);
 			Assert.AreEqual(0, _equipmentLogic.Inventory.Count);
 		}
 		

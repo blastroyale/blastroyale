@@ -132,6 +132,7 @@ namespace Quantum
 
 			if (previousShieldCapacity.AsInt == maxShieldCapacity.AsInt)
 			{
+				SetCurrentShield(f, entity, CurrentShield + amount, previousShieldCapacity.AsInt);
 				return;
 			}
 

@@ -71,11 +71,13 @@ namespace FirstLight.Game.Presenters
 				if (_gameDataProvider.EquipmentDataProvider.Loadout.TryGetValue(element.Category, out var uniqueId))
 				{
 					var equipment = _gameDataProvider.EquipmentDataProvider.Inventory[uniqueId];
-					element.SetEquipment(equipment);
+					var nft = _gameDataProvider.EquipmentDataProvider.TryGetNftInfo(uniqueId, out _);
+
+					element.SetEquipment(equipment, nft, false);
 				}
 				else
 				{
-					element.SetEquipment(default);
+					element.SetEquipment(default, false, false);
 				}
 			}
 		}

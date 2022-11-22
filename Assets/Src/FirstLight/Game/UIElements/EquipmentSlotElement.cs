@@ -31,6 +31,12 @@ namespace FirstLight.Game.UIElements
 		private const string UssFactionIcon = UssBlock + "__faction-icon";
 		private const string UssFactionIconModifier = UssFactionIcon + "--";
 
+		private const string UssBadgeHolder = UssBlock + "__badge-holder";
+		private const string UssBadge = UssBlock + "__badge";
+		private const string UssBadgeNft = UssBadge + "--nft";
+		private const string UssBadgeLoaned = UssBadge + "--loaned";
+
+		private const string UssEquipmentLevel = UssBlock + "__level";
 		private const string UssEquipmentTitle = UssBlock + "__title";
 		private const string UssEquipmentTitleName = UssEquipmentTitle + "--name";
 		private const string UssPlusRarity = UssBlock + "__plus-rarity";
@@ -45,12 +51,15 @@ namespace FirstLight.Game.UIElements
 		private readonly VisualElement _categoryIcon;
 		private readonly VisualElement _emptyCategoryIcon;
 		private readonly Label _equipmentName;
+		private readonly Label _equipmentLevel;
 		private readonly LocalizedLabel _emptyTitle;
 		private readonly VisualElement _plusRarity;
 		private readonly VisualElement _equipmentImage;
 		private readonly VisualElement _equipmentImageShadow;
 		private readonly VisualElement _factionIcon;
 		private readonly VisualElement _durabilityProgress;
+		private readonly VisualElement _badgeNft;
+		private readonly VisualElement _badgeLoaned;
 
 		public EquipmentSlotElement()
 		{
@@ -59,62 +68,88 @@ namespace FirstLight.Game.UIElements
 			AddToClassList(UIConstants.SFX_CLICK_FORWARDS);
 
 			var filledElement = new VisualElement {name = "filled"};
-			Add(filledElement);
-			filledElement.AddToClassList(UssHolder);
-			filledElement.AddToClassList(UssHolderFilled);
+			{
+				Add(filledElement);
+				filledElement.AddToClassList(UssHolder);
+				filledElement.AddToClassList(UssHolderFilled);
 
-			filledElement.Add(_categoryIcon = new VisualElement {name = "category"});
-			_categoryIcon.AddToClassList(UssCategoryIcon);
+				filledElement.Add(_categoryIcon = new VisualElement {name = "category"});
+				_categoryIcon.AddToClassList(UssCategoryIcon);
 
-			filledElement.Add(_equipmentName = new AutoSizeLabel(
-				string.Format(ScriptLocalization.UITEquipment.item_name_lvl, "APO SNIPER", 5),
-				35, 45
-			) {name = "equipment-name"});
-			_equipmentName.AddToClassList(UssEquipmentTitle);
-			_equipmentName.AddToClassList(UssEquipmentTitleName);
+				filledElement.Add(_equipmentName = new AutoSizeLabel(
+					string.Format(ScriptLocalization.UITEquipment.item_name_lvl, "APO SNIPER"),
+					35, 45
+				) {name = "equipment-name"});
+				_equipmentName.AddToClassList(UssEquipmentTitle);
+				_equipmentName.AddToClassList(UssEquipmentTitleName);
 
-			filledElement.Add(_plusRarity = new VisualElement {name = "plus-rarity"});
-			_plusRarity.AddToClassList(UssPlusRarity);
+				filledElement.Add(_equipmentLevel =
+					new Label(string.Format(ScriptLocalization.UITEquipment.card_lvl, 5))
+						{name = "level"});
+				_equipmentLevel.AddToClassList(UssEquipmentLevel);
 
-			filledElement.Add(_equipmentImageShadow = new VisualElement {name = "equipment-image-shadow"});
-			_equipmentImageShadow.AddToClassList(UssEquipmentImage);
-			_equipmentImageShadow.AddToClassList(UssEquipmentImageShadow);
+				filledElement.Add(_plusRarity = new VisualElement {name = "plus-rarity"});
+				_plusRarity.AddToClassList(UssPlusRarity);
 
-			filledElement.Add(_equipmentImage = new VisualElement {name = "equipment-image"});
-			_equipmentImage.AddToClassList(UssEquipmentImage);
+				filledElement.Add(_equipmentImageShadow = new VisualElement {name = "equipment-image-shadow"});
+				_equipmentImageShadow.AddToClassList(UssEquipmentImage);
+				_equipmentImageShadow.AddToClassList(UssEquipmentImageShadow);
 
-			var durabilityIcon = new VisualElement {name = "durability-icon"};
-			filledElement.Add(durabilityIcon);
-			durabilityIcon.AddToClassList(UssDurabilityIcon);
+				filledElement.Add(_equipmentImage = new VisualElement {name = "equipment-image"});
+				_equipmentImage.AddToClassList(UssEquipmentImage);
 
-			filledElement.Add(_factionIcon = new VisualElement {name = "faction-icon"});
-			_factionIcon.AddToClassList(UssFactionIcon);
+				var badgeHolder = new VisualElement {name = "badge-holder"};
+				{
+					filledElement.Add(badgeHolder);
+					badgeHolder.AddToClassList(UssBadgeHolder);
 
-			var durabilityProgressBg = new VisualElement {name = "durability-progress-bg"};
-			filledElement.Add(durabilityProgressBg);
-			durabilityProgressBg.AddToClassList(UssDurabilityProgressBg);
+					badgeHolder.Add(_badgeNft = new VisualElement {name = "badge-nft"});
+					_badgeNft.AddToClassList(UssBadge);
+					_badgeNft.AddToClassList(UssBadgeNft);
 
-			durabilityProgressBg.Add(_durabilityProgress = new VisualElement {name = "durability-progress"});
-			_durabilityProgress.AddToClassList(UssDurabilityProgress);
+					badgeHolder.Add(
+						_badgeLoaned = new Label(ScriptLocalization.UITEquipment.loaned) {name = "badge-loaned"});
+					_badgeLoaned.AddToClassList(UssBadge);
+					_badgeLoaned.AddToClassList(UssBadgeLoaned);
+				}
+
+				filledElement.Add(_factionIcon = new VisualElement {name = "faction-icon"});
+				_factionIcon.AddToClassList(UssFactionIcon);
+
+				var durabilityProgressBg = new VisualElement {name = "durability-progress-bg"};
+				{
+					filledElement.Add(durabilityProgressBg);
+					durabilityProgressBg.AddToClassList(UssDurabilityProgressBg);
+
+					durabilityProgressBg.Add(_durabilityProgress = new VisualElement {name = "durability-progress"});
+					_durabilityProgress.AddToClassList(UssDurabilityProgress);
+				}
+
+				var durabilityIcon = new VisualElement {name = "durability-icon"};
+				filledElement.Add(durabilityIcon);
+				durabilityIcon.AddToClassList(UssDurabilityIcon);
+			}
 
 			var emptyElement = new VisualElement {name = "empty"};
-			Add(emptyElement);
-			emptyElement.AddToClassList(UssHolder);
-			emptyElement.AddToClassList(UssHolderEmpty);
+			{
+				Add(emptyElement);
+				emptyElement.AddToClassList(UssHolder);
+				emptyElement.AddToClassList(UssHolderEmpty);
 
-			emptyElement.Add(_emptyCategoryIcon = new VisualElement {name = "category"});
-			_emptyCategoryIcon.AddToClassList(UssCategoryIcon);
-			_emptyCategoryIcon.AddToClassList(UssCategoryIconEmpty);
+				emptyElement.Add(_emptyCategoryIcon = new VisualElement {name = "category"});
+				_emptyCategoryIcon.AddToClassList(UssCategoryIcon);
+				_emptyCategoryIcon.AddToClassList(UssCategoryIconEmpty);
 
-			emptyElement.Add(_emptyTitle = new LocalizedLabel {name = "title"});
-			_emptyTitle.AddToClassList(UssEquipmentTitle);
+				emptyElement.Add(_emptyTitle = new LocalizedLabel {name = "title"});
+				_emptyTitle.AddToClassList(UssEquipmentTitle);
+			}
 		}
 
 
 		/// <summary>
 		/// Sets the equipment item that should be displayed on this element. Use default for empty.
 		/// </summary>
-		public async void SetEquipment(Equipment equipment)
+		public async void SetEquipment(Equipment equipment, bool nft, bool loaned)
 		{
 			this.RemoveModifiers();
 
@@ -126,7 +161,8 @@ namespace FirstLight.Game.UIElements
 				_equipmentName.text = equipment.GameId.GetTranslation();
 
 				_equipmentName.text = string.Format(ScriptLocalization.UITEquipment.item_name_lvl,
-					equipment.GameId.GetTranslation(), equipment.Level);
+					equipment.GameId.GetTranslation());
+				_equipmentLevel.text = string.Format(ScriptLocalization.UITEquipment.card_lvl, equipment.Level);
 
 				_factionIcon.RemoveModifiers();
 				_factionIcon.AddToClassList(UssFactionIconModifier + equipment.Faction.ToString().ToLowerInvariant());
@@ -135,6 +171,9 @@ namespace FirstLight.Game.UIElements
 				_durabilityProgress.style.flexGrow = durability;
 
 				_plusRarity.SetDisplayActive((int) equipment.Rarity % 2 == 1);
+
+				_badgeNft.SetDisplayActive(nft);
+				_badgeLoaned.SetDisplayActive(loaned);
 
 				// TODO: This should be handled better.
 				var services = MainInstaller.Resolve<IGameServices>();

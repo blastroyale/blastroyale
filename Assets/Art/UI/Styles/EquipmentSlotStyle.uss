@@ -114,6 +114,53 @@
     width: 290px;
 }
 
+.equipment-slot__level {
+    -unity-font-definition: var(--font-italic);
+    color: rgb(255, 255, 255);
+    font-size: 45px;
+    -unity-text-align: middle-center;
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    padding: 0;
+    margin: 0;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    white-space: normal;
+    margin-left: 10px;
+    height: 70px;
+    position: absolute;
+    left: 175px;
+    top: -33px;
+}
+
+.equipment-slot__badge-holder {
+    flex-direction: row;
+    position: absolute;
+    left: -32px;
+    top: -17px;
+}
+
+.equipment-slot__badge {
+}
+
+.equipment-slot__badge--nft {
+    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/NFTbadge.png?fileID=21300000&guid=98913c2e22bec40af85e06978ea6cc76&type=3#NFTbadge');
+    width: 74px;
+    height: 32px;
+    margin-right: 10px;
+}
+
+.equipment-slot__badge--loaned {
+    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/LabelLoaned.png?fileID=21300000&guid=3ee01365867634fe2846a8881e33a3ab&type=3#LabelLoaned');
+    -unity-text-align: middle-center;
+    -unity-font-definition: var(--font-italic);
+    font-size: 22px;
+    color: rgb(255, 255, 255);
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 0;
+    padding-top: 2px;
+}
+
 .equipment-slot__durability-icon {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/DurabilityIcon.png?fileID=21300000&guid=c23c775b5c0864573b27d89f2a6a6a04&type=3#DurabilityIcon');
     width: 40px;

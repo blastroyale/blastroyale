@@ -572,7 +572,14 @@ namespace FirstLight.UiService
 			}
 		}
 
-		public async Task<UiPresenter> OpenScreen<T>() where T : UiPresenter
+		/// <inheritdoc />
+		public async void OpenScreen<T>() where T : UiPresenter
+		{
+			await OpenScreenAsync<T>();
+		}
+
+		/// <inheritdoc />
+		public async Task<UiPresenter> OpenScreenAsync<T>() where T : UiPresenter
 		{
 			if (_lastScreen != null)
 			{
@@ -588,7 +595,13 @@ namespace FirstLight.UiService
 		}
 
 		/// <inheritdoc />
-		public async Task<T> OpenScreen<T, TData>(TData initialData) where T : UiPresenter, IUiPresenterData where TData : struct
+		public async void OpenScreen<T, TData>(TData initialData) where T : UiPresenter, IUiPresenterData where TData : struct
+		{
+			await OpenScreenAsync<T, TData>(initialData);
+		}
+
+		/// <inheritdoc />
+		public async Task<T> OpenScreenAsync<T, TData>(TData initialData) where T : UiPresenter, IUiPresenterData where TData : struct
 		{
 			if (_lastScreen != null)
 			{

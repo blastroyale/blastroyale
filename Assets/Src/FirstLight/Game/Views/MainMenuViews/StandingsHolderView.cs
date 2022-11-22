@@ -124,13 +124,13 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
 			UpdateBoardRows(callback.PlayersMatchData.Count);
-			UpdateStandings(callback.PlayersMatchData, QuantumRunner.Default.Game.GetLocalPlayers()[0]);
+			UpdateStandings(callback.PlayersMatchData, callback.Game.GetLocalPlayerRef());
 		}
 		
 		private void OnAllPlayerJoined(EventOnAllPlayersJoined callback)
 		{
 			UpdateBoardRows(callback.PlayersMatchData.Count);
-			UpdateStandings(callback.PlayersMatchData, QuantumRunner.Default.Game.GetLocalPlayers()[0]);
+			UpdateStandings(callback.PlayersMatchData, callback.Game.GetLocalPlayerRef());
 		}
 	}
 }

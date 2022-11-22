@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Infos;
+using FirstLight.Game.MonoComponent.MainMenu;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using Quantum;
@@ -9,7 +10,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace FirstLight.Game.MonoComponent.MainMenu
+namespace FirstLight.Game.MonoComponent
 {
 	/// <summary>
 	/// This Mono component controls loading and creation of player character equipment items and skin.

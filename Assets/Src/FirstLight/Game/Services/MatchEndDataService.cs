@@ -11,13 +11,26 @@ namespace FirstLight.Game.Services
 	/// </summary>
 	public interface IMatchEndDataService
 	{
-		List<QuantumPlayerMatchData> QuantumPlayerMatchData { get; set; }
+		// TODO: Remove this property once all the match end screens are redone and use PlayerMatchData instead
+		/// <summary>
+		/// List of all the QuantumPlayerData at the end of the game. Used in the places that need the frame.GetSingleton<GameContainer>().GetPlayersMatchData
+		/// </summary>
+		List<QuantumPlayerMatchData> QuantumPlayerMatchData { get; }
 		
-		bool ShowUIStandingsExtraInfo { get; set; }
+		/// <summary>
+		/// Config value used to know if the match end leaderboard should show the extra info
+		/// </summary>
+		bool ShowUIStandingsExtraInfo { get; }
 		
-		PlayerRef LocalPlayer { get; set; }
+		/// <summary>
+		/// LocalPlayer at the end of the game. Will be PlayerRef.None if we're spectators
+		/// </summary>
+		PlayerRef LocalPlayer { get; }
 
-		Dictionary<PlayerRef, PlayerMatchData> PlayerMatchData { get; set; }
+		/// <summary>
+		/// Information about all the players that played in the match that ended.
+		/// </summary>
+		Dictionary<PlayerRef, PlayerMatchData> PlayerMatchData { get; }
 	}
 
 	public struct PlayerMatchData
@@ -40,9 +53,13 @@ namespace FirstLight.Game.Services
 	/// <inheritdoc />
 	public class MatchEndDataService : IMatchEndDataService
 	{
+		/// <inheritdoc />
 		public List<QuantumPlayerMatchData> QuantumPlayerMatchData { get; set; }
+		/// <inheritdoc />
 		public bool ShowUIStandingsExtraInfo { get; set; }
+		/// <inheritdoc />
 		public PlayerRef LocalPlayer { get; set; }
+		/// <inheritdoc />
 		public Dictionary<PlayerRef, PlayerMatchData> PlayerMatchData { get; set; }
 
 		public MatchEndDataService(QuantumGame game)

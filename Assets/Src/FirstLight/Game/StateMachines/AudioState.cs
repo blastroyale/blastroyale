@@ -611,9 +611,16 @@ namespace FirstLight.Game.StateMachines
 				_services.AudioFxService.PlayClipQueued2D(voMultiKillAudio, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
 				_voOneKillSfxAvailabilityTime = DateTime.UtcNow.AddSeconds(GameConstants.Audio.VO_SFX_SINGLE_KILL_PREVENTION_SECONDS);
 			}
+
+			// Killstreak announcer
+			_services.AudioFxService.PlayClipQueued2D(voKillstreakAudio);
 			
 			// Clutch announcer
-			var stats = frame.Get<Stats>(callback.EntityKiller);
+			if (!frame.TryGet<Stats>(callback.EntityKiller, out var stats))
+			{
+				return;
+			}
+			
 			var maxHealth = stats.Values[(int) StatType.Health].StatValue.AsInt;
 			var maxShield = stats.Values[(int) StatType.Shield].StatValue.AsInt;
 			var percent = (maxHealth + maxShield) / (stats.CurrentHealth + stats.CurrentShield);
@@ -624,9 +631,6 @@ namespace FirstLight.Game.StateMachines
 				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_KillLowHp, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
 				_voClutchSfxAvailabilityTime = DateTime.UtcNow.AddSeconds(GameConstants.Audio.VO_SFX_SINGLE_KILL_PREVENTION_SECONDS);
 			}
-
-			// Killstreak announcer
-			_services.AudioFxService.PlayClipQueued2D(voKillstreakAudio);
 		}
 
 		private void OnEventOnChestOpened(EventOnChestOpened callback)

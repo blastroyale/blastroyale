@@ -203,6 +203,8 @@ namespace FirstLight.Game.Logic
 		public static LogicContainer Build(this LogicContainer container, IGameLogic logic)
 		{
 			container.Add(logic.RewardLogic);
+			container.Add(logic.CurrencyLogic);
+			container.Add(logic.ResourceLogic);
 			container.Add(logic.PlayerLogic);
 			container.Add(logic.BattlePassLogic);
 			container.Add(logic.EquipmentLogic);
@@ -210,6 +212,8 @@ namespace FirstLight.Game.Logic
 		}
 
 		public static IRewardLogic RewardLogic(this LogicContainer c) => c.Get<IRewardLogic>();
+		public static ICurrencyLogic CurrencyLogic(this LogicContainer c) => c.Get<ICurrencyLogic>();
+		public static IResourceLogic ResourceLogic(this LogicContainer c) => c.Get<IResourceLogic>();
 		public static IPlayerLogic PlayerLogic(this LogicContainer c) => c.Get<IPlayerLogic>();
 		public static IBattlePassLogic BattlePassLogic(this LogicContainer c) => c.Get<IBattlePassLogic>();
 		public static IEquipmentLogic EquipmentLogic(this LogicContainer c) => c.Get<IEquipmentLogic>();

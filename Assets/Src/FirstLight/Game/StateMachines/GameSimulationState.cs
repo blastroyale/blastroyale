@@ -397,15 +397,15 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private async void OpenWinnersScreen(IWaitActivity activity)
+		private void OpenWinnersScreen(IWaitActivity activity)
 		{
 			var cacheActivity = activity;
 			var data = new WinnersScreenPresenter.StateData {ContinueClicked = () => cacheActivity.Complete()};
 
-			await _uiService.OpenScreen<WinnersScreenPresenter, WinnersScreenPresenter.StateData>(data);
+			_uiService.OpenScreen<WinnersScreenPresenter, WinnersScreenPresenter.StateData>(data);
 		}
 
-		private async void ResultsScreen(IWaitActivity activity)
+		private void ResultsScreen(IWaitActivity activity)
 		{
 			var cacheActivity = activity;
 			var data = new ResultsScreenPresenter.StateData
@@ -414,15 +414,15 @@ namespace FirstLight.Game.StateMachines
 				HomeButtonClicked = () => cacheActivity.Complete(),
 			};
 			
-			await _uiService.OpenScreen<ResultsScreenPresenter, ResultsScreenPresenter.StateData>(data);
+			_uiService.OpenScreen<ResultsScreenPresenter, ResultsScreenPresenter.StateData>(data);
 		}
 
-		private async void OpenRewardsScreen(IWaitActivity activity)
+		private void OpenRewardsScreen(IWaitActivity activity)
 		{
 			var cacheActivity = activity;
 			var data = new RewardsScreenPresenter.StateData {MainMenuClicked = ContinueClicked};
 
-			await _uiService.OpenScreen<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(data);
+			_uiService.OpenScreen<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(data);
 
 			void ContinueClicked()
 			{
@@ -430,7 +430,7 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private async void OpenTrophiesScreen(IWaitActivity activity)
+		private void OpenTrophiesScreen(IWaitActivity activity)
 		{
 			var cacheActivity = activity;
 			var data = new TrophiesScreenPresenter.StateData
@@ -440,7 +440,7 @@ namespace FirstLight.Game.StateMachines
 				TrophiesBeforeLastChange = _trophiesBeforeLastChange
 			};
 
-			await _uiService.OpenScreen<TrophiesScreenPresenter, TrophiesScreenPresenter.StateData>(data);
+			_uiService.OpenScreen<TrophiesScreenPresenter, TrophiesScreenPresenter.StateData>(data);
 
 			void ContinueClicked()
 			{

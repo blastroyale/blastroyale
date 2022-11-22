@@ -142,8 +142,11 @@ namespace FirstLight.Game.StateMachines
 		private void OnDisconnectDuringFinalPreload()
 		{
 			_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.FinalPreload;
-			_uiService.CloseUi<MatchmakingScreenPresenter>();
-			_uiService.CloseUi<CustomLobbyScreenPresenter>();
+
+			if (_uiService.HasUiPresenter <CustomLobbyScreenPresenter>())
+			{
+				_uiService.CloseUi<CustomLobbyScreenPresenter>();
+			}
 		}
 
 		private void OnDisconnectDuringSimulation()

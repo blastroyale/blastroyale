@@ -8,6 +8,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using NSubstitute;
 using NUnit.Framework;
+using Photon.Deterministic;
 using Quantum;
 using Assert = NUnit.Framework.Assert;
 using Equipment = Quantum.Equipment;
@@ -16,7 +17,6 @@ namespace FirstLight.Tests.EditorMode.Logic
 {
 	public class EquipmentLogicTest : MockedTestFixture<EquipmentData>
 	{
-		private PlayerData _playerData;
 		private Pair<UniqueId, Equipment> _item;
 		private EquipmentLogic _equipmentLogic;
 
@@ -27,12 +27,19 @@ namespace FirstLight.Tests.EditorMode.Logic
 			
 			_item = SetupItem(1, GameId.ApoCrossbow, 1, 2);
 			_equipmentLogic = new EquipmentLogic(GameLogic, DataService);
-			_playerData = Activator.CreateInstance<PlayerData>();
 			
 			mockStatsConfigs.GetConfig(Arg.Do<Equipment>(_ => new QuantumEquipmentStatConfig()));
 			InitConfigData(mockStatsConfigs);
 			InitConfigData(new QuantumWeaponConfig { Specials = new List<GameId> { GameId.SpecialShieldSelf, GameId.SpecialShieldSelf } });
-			DataService.GetData<PlayerData>().Returns(x => _playerData);
+			InitConfigData(new ScrapConfig
+			{
+				ResourceType = GameId.COIN,
+				BaseValue = 200,
+				GrowthMultiplier = FP.FromString("1.5"),
+				AdjectiveCostK = FP.FromString("2.6"),
+				GradeMultiplier = FP.FromString("1.15"),
+				LevelMultiplier = FP.FromString("0.03")
+			});
 			_equipmentLogic.Init();
 		}
 		
@@ -69,8 +76,8 @@ namespace FirstLight.Tests.EditorMode.Logic
 
 			var info = _equipmentLogic.Scrap(_item.Key);
 			
-			Assert.AreEqual(info.ScrappingValue.Key, GameId.COIN);
-			Assert.AreEqual(info.ScrappingValue.Value, 0);
+			Assert.AreEqual(GameId.COIN, info.ScrappingValue.Key);
+			Assert.AreEqual(338, info.ScrappingValue.Value);
 			Assert.AreEqual(0, _equipmentLogic.Inventory.Count);
 		}
 		
@@ -144,7 +151,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			_equipmentLogic.Equip(_item.Key);
 
 			Assert.True(_equipmentLogic.GetInfo(_item.Key).IsEquipped);
-			Assert.True(_playerData.Equipped.ContainsValue(_item.Key));
+			Assert.AreEqual(1, _equipmentLogic.Loadout.Count);
 		}
 		
 		[Test]
@@ -161,9 +168,8 @@ namespace FirstLight.Tests.EditorMode.Logic
 			_equipmentLogic.Equip(gear.Key);
 
 			Assert.True(_equipmentLogic.GetInfo(_item.Key).IsEquipped);
-			Assert.True(_playerData.Equipped.ContainsValue(_item.Key));
 			Assert.True(_equipmentLogic.GetInfo(gear.Key).IsEquipped);
-			Assert.True(_playerData.Equipped.ContainsValue(gear.Key));
+			Assert.AreEqual(2, _equipmentLogic.Loadout.Count);
 		}
 		
 		[Test]
@@ -181,8 +187,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 
 			Assert.False(_equipmentLogic.GetInfo(item.Key).IsEquipped);
 			Assert.True(_equipmentLogic.GetInfo(_item.Key).IsEquipped);
-			Assert.False(_playerData.Equipped.ContainsValue(item.Key));
-			Assert.True(_playerData.Equipped.ContainsValue(_item.Key));
+			Assert.AreEqual(1, _equipmentLogic.Loadout.Count);
 		}
 		
 		[Test]
@@ -196,12 +201,12 @@ namespace FirstLight.Tests.EditorMode.Logic
 		{
 			TestData.Inventory.Add(_item.Key, _item.Value);
 			//TestData.InsertionTimestamps.Add(_item.Key, 0);
-			_playerData.Equipped.Add(GameIdGroup.Weapon, _item.Key);
 			
+			_equipmentLogic.Equip(_item.Key);
 			_equipmentLogic.Unequip(_item.Key);
 
 			Assert.False(_equipmentLogic.GetInfo(_item.Key).IsEquipped);
-			Assert.False(_playerData.Equipped.ContainsValue(_item.Key));
+			Assert.AreEqual(0, _equipmentLogic.Loadout.Count);
 		}
 		
 		[Test]

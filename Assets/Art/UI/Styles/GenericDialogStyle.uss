@@ -11,6 +11,7 @@
     align-items: center;
     background-image: none;
     -unity-background-scale-mode: scale-and-crop;
+    -unity-text-align: middle-center;
 }
 
 .popup-radius {
@@ -65,7 +66,6 @@
     top: 0;
     right: 0;
     bottom: 0;
-    transition-duration: 0.3s;
 }
 
 .header__title {

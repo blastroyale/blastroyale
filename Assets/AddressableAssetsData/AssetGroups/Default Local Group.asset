@@ -91,46 +91,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - GenerateIds
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: adcee24aa1f8de34890c151b2bf130ba
-    m_Address: MainMenuAssets/Skin/M_Char_PlayerMale02HQ.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0d9fa05dc01825a459d84c86ad3e9fb3
-    m_Address: Assets/AddressableResources/MainMenuAssets/Skin/M_Char_PlayerMale01HQ.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 60753d809615339478986baefc096481
-    m_Address: Assets/AddressableResources/MainMenuAssets/Skin/M_Char_PlayerFemale02HQ.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a701003fb071cfa40aae2cfb7e82d023
-    m_Address: Assets/AddressableResources/MainMenuAssets/Skin/M_Char_PlayerFemale01HQ.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e47155306986b714c98e87e1523d952f
-    m_Address: MainMenuAssets/Skin/T_Char_Female01HQ_N.tga
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c8fc7f33e74e9f84c80d8e6c9a66d713
-    m_Address: Assets/AddressableResources/MainMenuAssets/Skin/T_Char_Female02HQ_N.tga
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 699d53005f3d5e24a9370588ac0fbbc7
-    m_Address: Assets/AddressableResources/MainMenuAssets/Skin/T_Char_Male01HQ_N.tga
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 12543b546d982ba4fa519ab7d7ac8e75
-    m_Address: Assets/AddressableResources/MainMenuAssets/Skin/T_Char_Male02HQ_N.tga
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 84d0e2bd97df24e95a85e355dd79a2b5, type: 2}
   m_SchemaSet:

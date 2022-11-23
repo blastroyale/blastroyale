@@ -22,7 +22,7 @@ namespace FirstLight.Game.Presenters
 		public struct StateData
 		{
 			public Action<GameIdGroup> OnSlotButtonClicked;
-			public Action OnCloseClicked;
+			public Action OnHomeClicked;
 			public Action OnBackClicked;
 		}
 
@@ -50,8 +50,9 @@ namespace FirstLight.Game.Presenters
 				cat.clicked += () => Data.OnSlotButtonClicked(cat.Category);
 			}
 
-			root.Q<ImageButton>("CloseButton").clicked += Data.OnCloseClicked;
-			root.Q<ImageButton>("Header").clicked += Data.OnBackClicked;
+			var header = root.Q<ScreenHeaderElement>("Header").Required();
+			header.backClicked += Data.OnBackClicked;
+			header.homeClicked += Data.OnHomeClicked;
 
 			root.SetupClicks(_services);
 		}

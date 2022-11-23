@@ -84,6 +84,9 @@ namespace FirstLight.Game.Presenters
 		protected override void QueryElements(VisualElement root)
 		{
 			_header = root.Q<ScreenHeaderElement>("Header").Required();
+			_header.backClicked += Data.OnBackClicked;
+			_header.homeClicked += Data.OnCloseClicked;
+
 			_equipmentList = root.Q<ListView>("EquipmentList").Required();
 			_equipmentList.DisableScrollbars();
 			_mightLabel = root.Q<Label>("MightLabel").Required();
@@ -106,9 +109,7 @@ namespace FirstLight.Game.Presenters
 			_durabilityAmount = root.Q<Label>("DurabilityAmount").Required();
 			_equipButton = root.Q<Button>("EquipButton").Required();
 
-			root.Q<ImageButton>("CloseButton").clicked += Data.OnCloseClicked;
 			_equipButton.clicked += OnEquipClicked;
-			_header.clicked += Data.OnBackClicked;
 
 			_equipmentList.makeItem = MakeEquipmentListItem;
 			_equipmentList.bindItem = BindEquipmentListItem;

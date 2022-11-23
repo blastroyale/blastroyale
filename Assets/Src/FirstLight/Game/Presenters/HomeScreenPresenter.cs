@@ -86,7 +86,7 @@ namespace FirstLight.Game.Presenters
 			_gameModeLabel = root.Q<Label>("GameModeLabel").Required();
 			_gameTypeLabel = root.Q<Label>("GameTypeLabel").Required();
 
-			_equipmentNotification = root.Q("EquipmentNotification").Required();
+			_equipmentNotification = root.Q<VisualElement>("EquipmentNotification").Required();
 
 			_bppPoolAmountLabel = root.Q<VisualElement>("BPPPoolContainer").Q<Label>("AmountLabel").Required();
 			_bppPoolTimeLabel = root.Q<VisualElement>("BPPPoolContainer").Q<Label>("RestockLabel").Required();

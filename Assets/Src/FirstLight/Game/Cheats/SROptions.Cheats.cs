@@ -415,24 +415,6 @@ public partial class SROptions
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
 
-	[Category("Equipment")]
-	public void RemoveAllNonNftEquipment()
-	{
-		var services = MainInstaller.Resolve<IGameServices>();
-		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
-
-		var deletionKeys = new List<UniqueId>();
-
-		var nonNftIds = gameLogic.EquipmentLogic.GetInventoryEquipmentInfo(EquipmentFilter.NoNftOnly).Select(e => e.Id).ToList();
-		deletionKeys.AddRange(nonNftIds);
-
-		foreach (var key in deletionKeys)
-		{
-			gameLogic.EquipmentLogic.RemoveFromInventory(key);
-		}
-		((GameCommandService) services.CommandService).ForceServerDataUpdate();
-	}
-
 	[Category("Marketing")]
 	public void ToggleControllerGameUI()
 	{

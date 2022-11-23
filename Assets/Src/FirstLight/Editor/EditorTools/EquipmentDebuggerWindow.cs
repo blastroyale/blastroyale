@@ -61,12 +61,12 @@ namespace FirstLight.Editor.EditorTools
 			}
 
 			[Button]
-			public void Delete()
+			public void Scrap()
 			{
 				var services = MainInstaller.Resolve<IGameServices>();
 				var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
 
-				gameLogic.EquipmentLogic.RemoveFromInventory(_id);
+				gameLogic.EquipmentLogic.Scrap(_id);
 				((GameCommandService) services.CommandService).ForceServerDataUpdate();
 			}
 		}

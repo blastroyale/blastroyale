@@ -87,7 +87,7 @@ namespace FirstLight.Game.StateMachines
 				ButtonOnClick = OnNameSet
 			};
 			
-			_services.GenericDialogService.OpenInputDialog(ScriptLocalization.UITHomeScreen.new_name, ScriptLocalization.UITHomeScreen.new_name_desc, 
+			_services.GenericDialogService.OpenInputDialog(ScriptLocalization.UITHomeScreen.enter_your_name, ScriptLocalization.UITHomeScreen.new_name_desc, 
 			                                                    _dataProvider.AppDataProvider.DisplayNameTrimmed, 
 			                                                    confirmButton, false);
 		}

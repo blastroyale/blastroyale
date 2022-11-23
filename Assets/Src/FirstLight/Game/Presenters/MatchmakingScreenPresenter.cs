@@ -1,7 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Messages;
@@ -79,6 +77,12 @@ namespace FirstLight.Game.Presenters
 			_debugPlayerCountLabel = root.Q<Label>("DebugPlayerCount").Required();
 
 			_closeButton.clicked += OnCloseClicked;
+		}
+
+		protected override void SubscribeToEvents()
+		{
+			base.SubscribeToEvents();
+			
 			_mapHolder.RegisterCallback<GeometryChangedEvent>(InitMap);
 			
 			_services.MessageBrokerService.Subscribe<StartedFinalPreloadMessage>(OnStartedFinalPreloadMessage);
@@ -92,6 +96,10 @@ namespace FirstLight.Game.Presenters
 			{
 				_services.CoroutineService.StopCoroutine(_matchmakingTimerCoroutine);
 			}
+			
+			_mapHolder.UnregisterCallback<GeometryChangedEvent>(InitMap);
+			
+			_services.MessageBrokerService.Unsubscribe<StartedFinalPreloadMessage>(OnStartedFinalPreloadMessage);
 		}
 
 		private void OnMapClicked(ClickEvent evt)
@@ -171,9 +179,9 @@ namespace FirstLight.Game.Presenters
 			_modeDescTopLabel.text = modeDesc[0];
 			_modeDescBotLabel.text = modeDesc[1];
 			
-			UpdatePlayerCount();
-
+			_closeButton.SetDisplayActive(true);
 			
+			UpdatePlayerCount();
 
 			if (!gameModeConfig.SkydiveSpawn)
 			{

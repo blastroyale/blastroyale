@@ -60,14 +60,17 @@ namespace FirstLight.Game.Views.MainMenuViews
 		/// <summary>
 		/// Updates the standings order and view based on the given <paramref name="playerData"/>
 		/// </summary>
-		public void UpdateStandings(List<QuantumPlayerMatchData> playerData)
+		public void UpdateStandings(List<QuantumPlayerMatchData> playerData, PlayerRef localPlayer)
 		{
+			if (_playerResultPool.Count != playerData.Count)
+			{
+				UpdateBoardRows(playerData.Count);
+			}
+			
 			playerData.SortByPlayerRank(false);
 			
 			if (!_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
 			{
-				var localPlayer = QuantumRunner.Default.Game.GetLocalPlayers()[0];
-
 				for (var i = 0; i < playerData.Count; i++)
 				{
 					var isLocalPlayer = localPlayer == playerData[i].Data.Player;
@@ -121,13 +124,13 @@ namespace FirstLight.Game.Views.MainMenuViews
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
 			UpdateBoardRows(callback.PlayersMatchData.Count);
-			UpdateStandings(callback.PlayersMatchData);
+			UpdateStandings(callback.PlayersMatchData, callback.Game.GetLocalPlayerRef());
 		}
 		
 		private void OnAllPlayerJoined(EventOnAllPlayersJoined callback)
 		{
 			UpdateBoardRows(callback.PlayersMatchData.Count);
-			UpdateStandings(callback.PlayersMatchData);
+			UpdateStandings(callback.PlayersMatchData, callback.Game.GetLocalPlayerRef());
 		}
 	}
 }

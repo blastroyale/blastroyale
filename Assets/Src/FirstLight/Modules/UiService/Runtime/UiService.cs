@@ -572,29 +572,42 @@ namespace FirstLight.UiService
 			}
 		}
 
-		public async Task<UiPresenter> OpenScreen<T>() where T : UiPresenter
+		/// <inheritdoc />
+		public async void OpenScreen<T>() where T : UiPresenter
+		{
+			await OpenScreenAsync<T>();
+		}
+
+		/// <inheritdoc />
+		public async Task<UiPresenter> OpenScreenAsync<T>() where T : UiPresenter
 		{
 			if (_lastScreen != null)
 			{
 				if (_lastScreen.GetType() == typeof(T)) return null;
 
-				await CloseUi(_lastScreen.GetType());
+				await CloseUi(_lastScreen.GetType(), true);
 			}
 
-			var ui = OpenUi(typeof(T));
+			var ui = await OpenUiAsync(typeof(T));
 			_lastScreen = ui;
 
 			return ui;
 		}
 
 		/// <inheritdoc />
-		public async Task<T> OpenScreen<T, TData>(TData initialData) where T : UiPresenter, IUiPresenterData where TData : struct
+		public async void OpenScreen<T, TData>(TData initialData) where T : UiPresenter, IUiPresenterData where TData : struct
+		{
+			await OpenScreenAsync<T, TData>(initialData);
+		}
+
+		/// <inheritdoc />
+		public async Task<T> OpenScreenAsync<T, TData>(TData initialData) where T : UiPresenter, IUiPresenterData where TData : struct
 		{
 			if (_lastScreen != null)
 			{
 				if (_lastScreen.GetType() == typeof(T)) return null;
 				
-				await CloseUi(_lastScreen.GetType());
+				await CloseUi(_lastScreen.GetType(), true);
 			}
 
 			var ui = await OpenUiAsync<T, TData>(initialData);
@@ -607,7 +620,7 @@ namespace FirstLight.UiService
 		{
 			if (_lastScreen != null)
 			{
-				await CloseUi(_lastScreen.GetType());
+				await CloseUi(_lastScreen.GetType(), true);
 			}
 		}
 

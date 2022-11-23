@@ -60,13 +60,11 @@ namespace FirstLight.Game.StateMachines
 			resyncCheck.Transition().Condition(IsRejoining).Target(resyncAliveCheck);
 			resyncCheck.Transition().Target(spawning);
 			
-			resyncAliveCheck.OnEnter(CloseMatchmakingScreen);
 			resyncAliveCheck.Transition().Condition(IsLocalPlayerAlive).Target(alive);
 			resyncAliveCheck.Transition().Target(deadCheck);
 
 			spawning.Event(_localPlayerAliveEvent).Target(alive);
 			
-			alive.OnEnter(CloseMatchmakingScreen);
 			alive.OnEnter(OpenControlsHud);
 			alive.Event(_localPlayerDeadEvent).Target(deadCheck);
 			alive.OnExit(CloseControlsHud);
@@ -80,7 +78,6 @@ namespace FirstLight.Game.StateMachines
 			dead.Event(_localPlayerSpectateEvent).Target(spectating);
 			dead.OnExit(CloseKillScreen);
 			
-			spectating.OnEnter(CloseMatchmakingScreen);
 			spectating.OnEnter(OpenMatchHud);
 			spectating.OnEnter(OpenSpectateHud);
 			spectating.Event(_localPlayerExitEvent).Target(final);
@@ -188,19 +185,6 @@ namespace FirstLight.Game.StateMachines
 		private void CloseSpectateHud()
 		{
 			_uiService.CloseUi<SpectateHudPresenter>();
-		}
-		
-		private void CloseMatchmakingScreen()
-		{
-			if (_uiService.HasUiPresenter<CustomLobbyScreenPresenter>())
-			{
-				_uiService.CloseUi<CustomLobbyScreenPresenter>(true);
-			}
-			
-			if (_uiService.HasUiPresenter<MatchmakingScreenPresenter>())
-			{
-				_uiService.CloseCurrentScreen();
-			}
 		}
 	}
 }

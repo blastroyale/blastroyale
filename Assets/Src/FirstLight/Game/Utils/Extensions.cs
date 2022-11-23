@@ -5,13 +5,10 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using FirstLight.Game.Configs;
-using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Input;
 using FirstLight.Game.UIElements;
-using FirstLight.Services;
 using I2.Loc;
 using Photon.Realtime;
 using Quantum;
@@ -20,7 +17,6 @@ using UnityEngine.InputSystem;
 using UnityEngine.Playables;
 using UnityEngine.UIElements;
 using EventBase = Quantum.EventBase;
-using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Utils
 {
@@ -607,6 +603,17 @@ namespace FirstLight.Game.Utils
 			f = isVerified ? game.Frames.Verified : game.Frames.Predicted;
 			
 			return localPlayers.Length == 0 ? new PlayerMatchData() : f.GetSingleton<GameContainer>().PlayersData[game.GetLocalPlayers()[0]];
+		}
+		
+		/// <summary>
+		/// Requests the <see cref="PlayerRef"/> of the current local player playing the game.
+		/// If there is no local player in the match (ex: spectator in the match), returns <see cref="PlayerRef.None"/>
+		/// </summary>
+		public static PlayerRef GetLocalPlayerRef(this QuantumGame game)
+		{
+			var localPlayers = game.GetLocalPlayers();
+   
+			return localPlayers.Length == 0 ? PlayerRef.None : localPlayers[0];
 		}
 
 		/// <summary>

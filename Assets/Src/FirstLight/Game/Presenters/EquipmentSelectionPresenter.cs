@@ -7,6 +7,7 @@ using FirstLight.Game.Utils;
 using System.Linq;
 using System.Threading.Tasks;
 using DG.Tweening;
+using FirstLight.FLogger;
 using FirstLight.Game.Commands.OfflineCommands;
 using FirstLight.Game.Infos;
 using FirstLight.Game.UIElements;
@@ -188,9 +189,6 @@ namespace FirstLight.Game.Presenters
 				_equippedItem = UniqueId.Invalid;
 			}
 
-			_equipmentList.itemsSource = _equipmentListRows;
-			_equipmentList.RefreshItems();
-
 			if (_equipmentListRows.Count == 0)
 			{
 				_missingEquipment.style.display = DisplayStyle.Flex;
@@ -201,7 +199,13 @@ namespace FirstLight.Game.Presenters
 				_missingEquipment.style.display = DisplayStyle.None;
 				_selectedItem = _equipmentListRows[0].Item1.UniqueId;
 				_equipmentList.ScrollToItem(0);
+
+				// Set the first item as viewed
+				_gameDataProvider.UniqueIdDataProvider.NewIds.Remove(_selectedItem);
 			}
+
+			_equipmentList.itemsSource = _equipmentListRows;
+			_equipmentList.RefreshItems();
 		}
 
 		private async void UpdateEquipmentDetails()
@@ -276,6 +280,9 @@ namespace FirstLight.Game.Presenters
 			_equipmentIcon.style.backgroundImage = new StyleBackground(
 				await _services.AssetResolverService.RequestAsset<GameId, Sprite>(
 					info.Equipment.GameId, instantiate: false));
+
+			// Set item as viewed
+			_gameDataProvider.UniqueIdDataProvider.NewIds.Remove(_selectedItem);
 		}
 
 		private void UpdateEquipButton()
@@ -348,13 +355,17 @@ namespace FirstLight.Game.Presenters
 			var card2 = visualElement.Q<EquipmentCardElement>("item-2");
 
 			card1.SetData(row.Item1.Equipment, row.Item1.UniqueId, false,
-				_gameDataProvider.EquipmentDataProvider.NftInventory.ContainsKey(row.Item1.UniqueId));
+				_gameDataProvider.EquipmentDataProvider.NftInventory.ContainsKey(row.Item1.UniqueId),
+				card1.UniqueId == _equippedItem,
+				_gameDataProvider.UniqueIdDataProvider.NewIds.Contains(row.Item1.UniqueId));
 
 			if (row.Item2 != null)
 			{
 				card2.SetDisplayActive(true);
 				card2.SetData(row.Item2.Equipment, row.Item2.UniqueId, false,
-					_gameDataProvider.EquipmentDataProvider.NftInventory.ContainsKey(row.Item2.UniqueId));
+					_gameDataProvider.EquipmentDataProvider.NftInventory.ContainsKey(row.Item2.UniqueId),
+					card2.UniqueId == _equippedItem,
+					_gameDataProvider.UniqueIdDataProvider.NewIds.Contains(row.Item2.UniqueId));
 			}
 			else
 			{
@@ -363,9 +374,6 @@ namespace FirstLight.Game.Presenters
 
 			card1.SetSelected(card1.UniqueId == _selectedItem);
 			card2.SetSelected(card2.UniqueId == _selectedItem);
-
-			card1.SetEquipped(card1.UniqueId == _equippedItem);
-			card2.SetEquipped(card2.UniqueId == _equippedItem);
 		}
 
 		private void BindEquipmentStatListItem(VisualElement visualElement, int index)

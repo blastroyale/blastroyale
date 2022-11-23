@@ -39,6 +39,7 @@ namespace FirstLight.Game.UIElements
 		private const string UssEquipmentLevel = UssBlock + "__level";
 		private const string UssEquipmentTitle = UssBlock + "__title";
 		private const string UssEquipmentTitleName = UssEquipmentTitle + "--name";
+
 		private const string UssPlusRarity = UssBlock + "__plus-rarity";
 
 		private const string UssEquipmentImage = UssBlock + "__equipment-image";
@@ -48,6 +49,9 @@ namespace FirstLight.Game.UIElements
 		private const string UssDurabilityIcon = UssBlock + "__durability-icon";
 		private const string UssDurabilityProgressBg = UssBlock + "__durability-progress-bg";
 		private const string UssDurabilityProgress = UssBlock + "__durability-progress";
+
+		private const string UssNotification = UssBlock + "__notification";
+		private const string UssNotificationIcon = "notification-icon";
 
 		public GameIdGroup Category { get; set; }
 
@@ -65,6 +69,7 @@ namespace FirstLight.Game.UIElements
 		private readonly VisualElement _durabilityProgress;
 		private readonly VisualElement _badgeNft;
 		private readonly VisualElement _badgeLoaned;
+		private readonly VisualElement _notificationIcon;
 
 		public EquipmentSlotElement()
 		{
@@ -133,6 +138,10 @@ namespace FirstLight.Game.UIElements
 				var durabilityIcon = new VisualElement {name = "durability-icon"};
 				filledElement.Add(durabilityIcon);
 				durabilityIcon.AddToClassList(UssDurabilityIcon);
+
+				filledElement.Add(_notificationIcon = new VisualElement {name = "notification"});
+				_notificationIcon.AddToClassList(UssNotification);
+				_notificationIcon.AddToClassList(UssNotificationIcon);
 			}
 
 			var emptyElement = new VisualElement {name = "empty"};
@@ -158,7 +167,7 @@ namespace FirstLight.Game.UIElements
 		/// <summary>
 		/// Sets the equipment item that should be displayed on this element. Use default for empty.
 		/// </summary>
-		public async void SetEquipment(Equipment equipment, bool nft, bool loaned)
+		public async void SetEquipment(Equipment equipment, bool nft, bool loaned, bool notification)
 		{
 			this.RemoveModifiers();
 
@@ -183,6 +192,7 @@ namespace FirstLight.Game.UIElements
 
 				_badgeNft.SetDisplayActive(nft);
 				_badgeLoaned.SetDisplayActive(loaned);
+				_notificationIcon.SetDisplayActive(notification);
 
 				// TODO: This should be handled better.
 				var services = MainInstaller.Resolve<IGameServices>();

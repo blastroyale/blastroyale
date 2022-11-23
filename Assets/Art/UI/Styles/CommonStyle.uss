@@ -80,9 +80,18 @@ Button, LocalizedButton {
     padding-top: 50px;
 }
 
-.button-with-icon--yellow
-{
+.button-with-icon--yellow {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMainYellow.png?fileID=21300000&guid=728932854c02c47ddb4057b68d3c91c7&type=3#ButtonMainYellow');
+}
+
+.button-with-icon__notification {
+    position: absolute;
+    top: -17px;
+    right: -13px;
+}
+
+.button-with-icon:active .button-with-icon__notification {
+    top: -11px;
 }
 
 .button-with-icon__icon {
@@ -106,8 +115,7 @@ Button, LocalizedButton {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMainPressed.png?fileID=21300000&guid=5cb1a9853b14740c980813b57e5d03f3&type=3#ButtonMainPressed');
 }
 
-.button-with-icon--yellow:active
-{
+.button-with-icon--yellow:active {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMainYellowPressed.png?fileID=21300000&guid=c96062ca698c645258fbf9555f558741&type=3#ButtonMainYellowPressed');
 }
 
@@ -293,7 +301,7 @@ TextField > #unity-text-input, LocalizedTextField > #unity-text-input {
     background-color: rgba(0, 0, 0, 0);
 }
 
-.button-close:active { 
+.button-close:active {
     -unity-background-image-tint-color: rgb(128, 128, 128);
 }
 
@@ -303,4 +311,10 @@ TextField > #unity-text-input, LocalizedTextField > #unity-text-input {
     left: 0;
     right: 0;
     bottom: 0;
+}
+
+.notification-icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/NotificationIcon.png?fileID=21300000&guid=c80b34267e95148f09ef82211411a3ff&type=3#NotificationIcon');
+    width: 38px;
+    height: 38px;
 }

@@ -51,7 +51,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 13c1b5f14115447f780402fd721baad8, type: 3}
   - {fileID: 21300000, guid: 32610552af28844669cdba62234811ad, type: 3}
   - {fileID: 21300000, guid: c9a202b2307fb49549d013e0c91bcb44, type: 3}
-  - {fileID: 21300000, guid: 392430c2b8f8c4703b6a93135a0f0151, type: 3}
   - {fileID: 21300000, guid: a128a1c2f19734f3093e01eca21e66f9, type: 3}
   - {fileID: 21300000, guid: 436115e2e483240878a7960da24ecf96, type: 3}
   - {fileID: 21300000, guid: 1ae4b523bf2014a5195275870be2db40, type: 3}
@@ -86,6 +85,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 7b2a8cf62857f439d94b28d33014167f, type: 3}
   - {fileID: 21300000, guid: d74b22177c5ba4ac6b9293d6c147e46e, type: 3}
   - {fileID: 21300000, guid: ced4ec4712f46447c839dd524606a26e, type: 3}
+  - {fileID: 21300000, guid: 61511c97b754449238274a3cd95feb49, type: 3}
   - {fileID: 21300000, guid: 3954eea7714304c3aacf010642a02d78, type: 3}
   - {fileID: 21300000, guid: b7cd89b76a1db44ad866b85c1d61c758, type: 3}
   - {fileID: 21300000, guid: 30292db7ed06e40ae91381ca33584ea6, type: 3}
@@ -110,6 +110,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 7a4e7b5b5c7a24e8d825caff768a93f0, type: 3}
   - {fileID: 21300000, guid: cf7b87ab3ada8418985f6341d9929ea5, type: 3}
   - {fileID: 21300000, guid: fe2093cbd35914e9e9cd6c56ee79fca3, type: 3}
+  - {fileID: 21300000, guid: 2545eacbca71a496a9d0bf7997e6bd4e, type: 3}
   - {fileID: 21300000, guid: 8368e60ca24ab4818929e5d7b2dd77f2, type: 3}
   - {fileID: 21300000, guid: db6aed0c5abfe43cc8c60b70c979e786, type: 3}
   - {fileID: 21300000, guid: edeb643c81c524ca28070f239ae51a4e, type: 3}
@@ -153,7 +154,6 @@ SpriteAtlas:
   - IconMarketplace
   - BattlePassProgressBack
   - ChangemodeButton
-  - NotificationCircle
   - LegendaryItemButtonPressed
   - CoreLegendary
   - RareItemButtonPressed
@@ -188,6 +188,7 @@ SpriteAtlas:
   - PlayButton
   - CS
   - ChosenBG
+  - ArmourEmptySlotIcon
   - BattlepassButtonPressed
   - UncommonItemButton
   - UncommonItemButtonPressed
@@ -212,6 +213,7 @@ SpriteAtlas:
   - WeaponIcon
   - EpicItemButton
   - PoolHeader
+  - AmuletEmptySlotIcon
   - ButtonMain
   - CommonItemButton
   - IconCustomGame

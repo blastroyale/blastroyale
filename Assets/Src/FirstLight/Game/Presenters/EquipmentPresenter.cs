@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
@@ -51,7 +52,7 @@ namespace FirstLight.Game.Presenters
 
 			root.Q<ImageButton>("CloseButton").clicked += Data.OnCloseClicked;
 			root.Q<ImageButton>("Header").clicked += Data.OnBackClicked;
-			
+
 			root.SetupClicks(_services);
 		}
 
@@ -68,16 +69,20 @@ namespace FirstLight.Game.Presenters
 		{
 			foreach (var element in _categories)
 			{
+				var unseenItems = _gameDataProvider.EquipmentDataProvider.Inventory
+					.Any(pair => pair.Value.GameId.IsInGroup(element.Category) &&
+						_gameDataProvider.UniqueIdDataProvider.NewIds.Contains(pair.Key));
+
 				if (_gameDataProvider.EquipmentDataProvider.Loadout.TryGetValue(element.Category, out var uniqueId))
 				{
 					var equipment = _gameDataProvider.EquipmentDataProvider.Inventory[uniqueId];
 					var nft = _gameDataProvider.EquipmentDataProvider.TryGetNftInfo(uniqueId, out _);
 
-					element.SetEquipment(equipment, nft, false);
+					element.SetEquipment(equipment, nft, false, unseenItems);
 				}
 				else
 				{
-					element.SetEquipment(default, false, false);
+					element.SetEquipment(default, false, false, unseenItems);
 				}
 			}
 		}

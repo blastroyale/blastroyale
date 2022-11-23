@@ -53,6 +53,7 @@
             <ui:VisualElement picking-mode="Ignore" style="position: absolute; left: 0; top: 245px; bottom: 0; justify-content: space-between; margin-bottom: 36px; margin-left: 36px;">
                 <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/equipment" name="EquipmentButton" class="button-with-icon button-with-icon--equipment anim-delay-3 anim-translate anim-translate--right-xl">
                     <ui:VisualElement class="button-with-icon__icon" />
+                    <ui:VisualElement name="EquipmentNotification" class="notification-icon button-with-icon__notification" />
                 </FirstLight.Game.UIElements.LocalizedButton>
                 <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/heroes" name="HeroesButton" class="button-with-icon button-with-icon--heroes anim-delay-2 anim-translate anim-translate--right-xl">
                     <ui:VisualElement class="button-with-icon__icon" />

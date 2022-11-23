@@ -52,6 +52,8 @@ namespace FirstLight.Game.Presenters
 		private Label _playerNameLabel;
 		private Label _playerTrophiesLabel;
 
+		private VisualElement _equipmentNotification;
+
 		private Label _gameModeLabel;
 		private Label _gameTypeLabel;
 
@@ -83,6 +85,8 @@ namespace FirstLight.Game.Presenters
 			_playerTrophiesLabel = root.Q<Label>("PlayerTrophiesLabel").Required();
 			_gameModeLabel = root.Q<Label>("GameModeLabel").Required();
 			_gameTypeLabel = root.Q<Label>("GameTypeLabel").Required();
+
+			_equipmentNotification = root.Q("EquipmentNotification").Required();
 
 			_bppPoolAmountLabel = root.Q<VisualElement>("BPPPoolContainer").Q<Label>("AmountLabel").Required();
 			_bppPoolTimeLabel = root.Q<VisualElement>("BPPPoolContainer").Q<Label>("RestockLabel").Required();
@@ -124,6 +128,12 @@ namespace FirstLight.Game.Presenters
 			});
 
 			_playerNameLabel.RegisterCallback<ClickEvent>(OnPlayerNameClicked);
+		}
+
+		protected override void OnOpened()
+		{
+			base.OnOpened();
+			_equipmentNotification.SetDisplayActive(_dataProvider.UniqueIdDataProvider.NewIds.Count > 0);
 		}
 
 		protected override void SubscribeToEvents()

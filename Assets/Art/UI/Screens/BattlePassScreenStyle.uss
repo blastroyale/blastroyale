@@ -26,4 +26,37 @@
     position: absolute;
 }
 
-.unity-progress-bar.
+.season-header__bpp-bar {
+    width: 335px;
+    height: 35px;
+    justify-content: center;
+}
+
+.season-header__bpp-bar > .unity-progress-bar__container {
+    min-height: 100%;
+    max-height: 100%;
+}
+
+.season-level {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.season-level__label {
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(22, 20, 38);
+    text-shadow: 3px 3px 0 rgb(22, 20, 38);
+    -unity-font-style: bold;
+    -unity-font-definition: var(--font-italic);
+    font-size: 50px;
+    color: rgb(255, 255, 255);
+    -unity-paragraph-spacing: -30px;
+    top: 5px;
+}
+
+.season-level__label--big {
+    font-size: 72px;
+    margin-left: 4px;
+    top: 0;
+}

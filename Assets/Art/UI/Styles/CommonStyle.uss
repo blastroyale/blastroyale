@@ -304,3 +304,61 @@ TextField > #unity-text-input, LocalizedTextField > #unity-text-input {
     right: 0;
     bottom: 0;
 }
+
+.height-spacer {
+    width: 100%;
+    height: 5px;
+}
+
+.height-spacer--s {
+    height: 10px;
+}
+
+.height-spacer--m {
+    height: 20px;
+}
+
+.height-spacer--b {
+    height: 30px;
+}
+
+.height-spacer--xl {
+    height: 50px;
+}
+
+.height-spacer--xxl {
+    height: 75px;
+}
+
+.height-spacer--xxxl {
+    height: 125px;
+}
+
+.width-spacer {
+    height: 100%;
+    width: 5px;
+}
+
+.width-spacer--s {
+    width: 10px;
+}
+
+.width-spacer--m {
+    width: 20px;
+}
+
+.width-spacer--b {
+    width: 30px;
+}
+
+.width-spacer--xl {
+    width: 50px;
+}
+
+.width-spacer--xxl {
+    width: 75px;
+}
+
+.width-spacer--xxxl {
+    width: 125px;
+}

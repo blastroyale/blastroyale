@@ -8,7 +8,7 @@
 .currency-display__icon {
     width: 54px;
     height: 54px;
-    margin-left: -17px;
+    margin-left: -25px;
 }
 
 .currency-display__icon--cs {

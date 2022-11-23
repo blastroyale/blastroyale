@@ -126,23 +126,6 @@
     color: rgb(90, 86, 125);
 }
 
-.spacer {
-    width: 100%;
-    height: 5px;
-}
-
-.spacer--small {
-    height: 10px;
-}
-
-.spacer--medium {
-    height: 20px;
-}
-
-.spacer--big {
-    height: 30px;
-}
-
 .input-field > .unity-text-field__input {
     -unity-text-align: middle-center;
 }

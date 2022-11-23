@@ -62,7 +62,7 @@ MonoBehaviour:
         Key: HasMeleeWeapon
     - Type: 3
       Key:
-        Key: NextShotTime
+        Key: NextTapTime
     - Type: 4
       Key:
         Key: MoveDirection

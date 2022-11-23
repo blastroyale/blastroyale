@@ -824,7 +824,7 @@ MonoBehaviour:
         RawValue: 19661
       AttackHitSpeed:
         RawValue: 2162688
-      MinAttackAngle: 6
+      MinAttackAngle: 3
       MaxAttackAngle: 30
       NumberOfShots: 3
       NumberOfBursts: 1
@@ -916,8 +916,8 @@ MonoBehaviour:
         RawValue: 52429
       AttackHitSpeed:
         RawValue: 5898240
-      MinAttackAngle: 5
-      MaxAttackAngle: 5
+      MinAttackAngle: 3
+      MaxAttackAngle: 3
       NumberOfShots: 1
       NumberOfBursts: 2
       AttackRange:

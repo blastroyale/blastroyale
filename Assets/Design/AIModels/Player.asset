@@ -22,7 +22,7 @@ MonoBehaviour:
     <Type>Photon.Deterministic.FP, PhotonDeterministic</Type>\r\n      <Default></Default>\r\n     
     <Flags>0</Flags>\r\n      <VarMode>MetaField</VarMode>\r\n      <TypeMode>Value</TypeMode>\r\n     
     <Scope>Blackboard</Scope>\r\n    </Var>\r\n    <Key>0838d8f3-22d7-40c4-867c-7020dfd70273</Key>\r\n   
-    <Var>\r\n      <Id>0838d8f3-22d7-40c4-867c-7020dfd70273</Id>\r\n      <Name>NextShotTime</Name>\r\n     
+    <Var>\r\n      <Id>0838d8f3-22d7-40c4-867c-7020dfd70273</Id>\r\n      <Name>NextTapTime</Name>\r\n     
     <Type>Photon.Deterministic.FP, PhotonDeterministic</Type>\r\n      <Default></Default>\r\n     
     <Flags>0</Flags>\r\n      <VarMode>MetaField</VarMode>\r\n      <TypeMode>Value</TypeMode>\r\n     
     <Scope>Blackboard</Scope>\r\n    </Var>\r\n    <Key>0bea951a-faa7-47d8-ad58-c882e1549dac</Key>\r\n   
@@ -1685,7 +1685,7 @@ MonoBehaviour:
     </Data>\r\n      </Data>\r\n      <ChildrenStatesCount>0</ChildrenStatesCount>\r\n   
     </Node>\r\n    <Key>79f7aa86-f0b1-4b47-aff6-ef21689fa355</Key>\r\n    <Node>\r\n     
     <Id>79f7aa86-f0b1-4b47-aff6-ef21689fa355</Id>\r\n      <Name>(Logical) AND</Name>\r\n     
-    <Comment />\r\n      <Graph>d1234780-ae90-4f37-9ad5-6ad4bc54919c</Graph>\r\n     
+    <Comment></Comment>\r\n      <Graph>d1234780-ae90-4f37-9ad5-6ad4bc54919c</Graph>\r\n     
     <Parent>$decisionAnd</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n      <Flags>0</Flags>\r\n     
     <Position>81|88||0</Position>\r\n      <StaticIn Count=\"2\">\r\n        <Slot>\r\n         
     <Id>$a</Id>\r\n          <Name></Name>\r\n          <Value />\r\n          <Type>$decision</Type>\r\n         
@@ -1864,7 +1864,7 @@ MonoBehaviour:
     <TypeMode>Value</TypeMode>\r\n        </Slot>\r\n      </StaticIn>\r\n      <StaticOut
     Count=\"0\" />\r\n      <Groups Count=\"0\" />\r\n      <Data Count=\"0\" />\r\n     
     <ChildrenStatesCount>0</ChildrenStatesCount>\r\n    </Node>\r\n    <Key>86bc7310-9390-4018-9b2e-0083b81ef32e</Key>\r\n   
-    <Node>\r\n      <Id>86bc7310-9390-4018-9b2e-0083b81ef32e</Id>\r\n      <Name>NextShotTime</Name>\r\n     
+    <Node>\r\n      <Id>86bc7310-9390-4018-9b2e-0083b81ef32e</Id>\r\n      <Name>NextTapTime</Name>\r\n     
     <Comment></Comment>\r\n      <Graph>d1234780-ae90-4f37-9ad5-6ad4bc54919c</Graph>\r\n     
     <Parent>$blackboardRef</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n     
     <Flags>0</Flags>\r\n      <Position>-311|106||0</Position>\r\n      <StaticIn
@@ -1987,7 +1987,7 @@ MonoBehaviour:
     </Data>\r\n        <Data>\r\n          <Name></Name>\r\n          <Value />\r\n       
     </Data>\r\n      </Data>\r\n      <ChildrenStatesCount>0</ChildrenStatesCount>\r\n   
     </Node>\r\n    <Key>8f6d1d09-f25f-434e-b7dd-21118bb672e9</Key>\r\n    <Node>\r\n     
-    <Id>8f6d1d09-f25f-434e-b7dd-21118bb672e9</Id>\r\n      <Name>NextShotTime</Name>\r\n     
+    <Id>8f6d1d09-f25f-434e-b7dd-21118bb672e9</Id>\r\n      <Name>NextTapTime</Name>\r\n     
     <Comment></Comment>\r\n      <Graph>409057db-9b5f-4641-a204-cdf30dba1773</Graph>\r\n     
     <Parent>$blackboardRef</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n     
     <Flags>0</Flags>\r\n      <Position>425|88||0</Position>\r\n      <StaticIn Count=\"0\"
@@ -4155,8 +4155,8 @@ MonoBehaviour:
     <Id>cfab6980-e60f-4081-9f1e-a14fe1a0b18e</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
     <ZoomOffset>0|0||0</ZoomOffset>\r\n      <PanOffset>-37|561||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>d1234780-ae90-4f37-9ad5-6ad4bc54919c</Key>\r\n    <GraphData>\r\n     
-    <Id>d1234780-ae90-4f37-9ad5-6ad4bc54919c</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
-    <ZoomOffset>4|6||0</ZoomOffset>\r\n      <PanOffset>204|94||0</PanOffset>\r\n   
+    <Id>d1234780-ae90-4f37-9ad5-6ad4bc54919c</Id>\r\n      <ZoomLevel>0.94</ZoomLevel>\r\n     
+    <ZoomOffset>26|19||0</ZoomOffset>\r\n      <PanOffset>471|110||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>d30bb036-e154-4643-80ab-20adcba18723</Key>\r\n    <GraphData>\r\n     
     <Id>d30bb036-e154-4643-80ab-20adcba18723</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
     <ZoomOffset>-14|-11||0</ZoomOffset>\r\n      <PanOffset>445|126||0</PanOffset>\r\n   

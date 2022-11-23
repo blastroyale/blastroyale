@@ -87,6 +87,21 @@
     position: absolute;
 }
 
+.content__background-input-popup {
+    top: 69px;
+    left: 258px;
+}
+
+.content__background--button-popup {
+    top: 26px;
+    left: 179px;
+}
+
+.content__background--dc-popup {
+    top: 26px;
+    left: 179px;
+}
+
 .content__controls {
     flex-direction: row;
     flex-shrink: 1;

@@ -20,13 +20,13 @@ MonoBehaviour:
     QuantumConfigs:
     - Step: 1
       DelayTime:
-        RawValue: 1966080
+        RawValue: 1638400
       WarningTime:
-        RawValue: 2293760
+        RawValue: 2949120
       ShrinkingTime:
         RawValue: 3932160
       ShrinkingSizeK:
-        RawValue: 32768
+        RawValue: 36045
       MaxHealthDamage:
         RawValue: 1638
       AirdropChance:
@@ -47,7 +47,7 @@ MonoBehaviour:
       ShrinkingTime:
         RawValue: 1966080
       ShrinkingSizeK:
-        RawValue: 29491
+        RawValue: 32768
       MaxHealthDamage:
         RawValue: 3277
       AirdropChance:
@@ -68,7 +68,7 @@ MonoBehaviour:
       ShrinkingTime:
         RawValue: 983040
       ShrinkingSizeK:
-        RawValue: 26214
+        RawValue: 19661
       MaxHealthDamage:
         RawValue: 6554
       AirdropChance:
@@ -91,7 +91,7 @@ MonoBehaviour:
       ShrinkingSizeK:
         RawValue: 66
       MaxHealthDamage:
-        RawValue: 9830
+        RawValue: 13107
       AirdropChance:
         RawValue: 0
       AirdropStartTimeRange:

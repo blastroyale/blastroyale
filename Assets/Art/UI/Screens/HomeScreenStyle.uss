@@ -218,12 +218,11 @@ LocalizedButton {
 
 .left-buttons {
     position: absolute;
-    left: 0;
+    left: 36px;
     top: 245px;
-    bottom: 0;
+    bottom: 36px;
     justify-content: space-between;
-    margin-bottom: 36px;
-    margin-left: 36px;
+    flex-direction: column-reverse;
 }
 
 .top-buttons {
@@ -234,9 +233,6 @@ LocalizedButton {
     margin-right: 36px;
     margin-top: 23px;
     align-items: center;
-    transition-property: margin-top;
-    transition-duration: 0.5s;
-    transition-timing-function: ease-in;
 }
 
 .right-buttons {

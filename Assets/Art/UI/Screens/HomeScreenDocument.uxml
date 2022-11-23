@@ -37,16 +37,6 @@
                 </ui:Button>
             </ui:VisualElement>
             <ui:VisualElement picking-mode="Ignore" name="LeftButtons" class="left-buttons">
-                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/equipment" name="EquipmentButton" class="button-with-icon button-with-icon--equipment anim-delay-3 anim-translate anim-translate--right-xl">
-                    <ui:VisualElement class="button-with-icon__icon" />
-                    <ui:VisualElement name="EquipmentNotification" class="notification-icon button-with-icon__notification" />
-                </FirstLight.Game.UIElements.LocalizedButton>
-                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/heroes" name="HeroesButton" class="button-with-icon button-with-icon--heroes anim-delay-2 anim-translate anim-translate--right-xl">
-                    <ui:VisualElement class="button-with-icon__icon" />
-                </FirstLight.Game.UIElements.LocalizedButton>
-                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/leaderboards" name="LeaderboardsButton" class="button-with-icon button-with-icon--leaderboards anim-delay-1 anim-translate anim-translate--right-xl" style="letter-spacing: -4px;">
-                    <ui:VisualElement class="button-with-icon__icon" />
-                </FirstLight.Game.UIElements.LocalizedButton>
                 <ui:VisualElement name="BattlePassHolder" class="anim-delay-0 anim-translate anim-translate--right-xl" style="flex-direction: row; align-items: flex-end;">
                     <ui:VisualElement name="BPPPoolContainer" class="font-italic pool-container">
                         <ui:VisualElement style="position: absolute; left: 16px; top: 11px; right: 34px; bottom: 51px; flex-direction: row; justify-content: space-between; rotate: 3deg; align-items: center;">
@@ -67,6 +57,16 @@
                         <ui:VisualElement name="BattlePassCrownIcon" style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/HomeScreen/BattlepassCrown.png?fileID=21300000&amp;guid=0009bb56e12594dd9a62134a948a4f74&amp;type=3#BattlepassCrown&apos;); width: 104px; height: 88px;" />
                     </ui:Button>
                 </ui:VisualElement>
+                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/leaderboards" name="LeaderboardsButton" class="button-with-icon button-with-icon--leaderboards anim-delay-1 anim-translate anim-translate--right-xl" style="letter-spacing: -4px;">
+                    <ui:VisualElement class="button-with-icon__icon" />
+                </FirstLight.Game.UIElements.LocalizedButton>
+                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/heroes" name="HeroesButton" class="button-with-icon button-with-icon--heroes anim-delay-2 anim-translate anim-translate--right-xl">
+                    <ui:VisualElement class="button-with-icon__icon" />
+                </FirstLight.Game.UIElements.LocalizedButton>
+                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/equipment" name="EquipmentButton" class="button-with-icon button-with-icon--equipment anim-delay-3 anim-translate anim-translate--right-xl">
+                    <ui:VisualElement class="button-with-icon__icon" />
+                    <ui:VisualElement name="EquipmentNotification" class="notification-icon button-with-icon__notification" />
+                </FirstLight.Game.UIElements.LocalizedButton>
             </ui:VisualElement>
             <FirstLight.Game.UIElements.ImageButton name="Header" class="player-header">
                 <ui:VisualElement name="ProfileHolder" class="player-header__profile-holder">

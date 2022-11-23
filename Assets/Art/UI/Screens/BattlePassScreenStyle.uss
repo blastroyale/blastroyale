@@ -7,13 +7,8 @@
     --map-marker-easing: ease-in-out-elastic;
 }
 
-.background {
-    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/BattlePassSeason1Image.png?fileID=21300000&guid=842bcd9fd00c89e4092f70a552d59200&type=3#BattlePassSeason1Image');
-    width: 100%;
-    height: 100%;
-    -unity-background-scale-mode: scale-to-fit;
-    align-items: auto;
-    justify-content: space-between;
+.screen-root {
+    flex-direction: column-reverse;
 }
 
 .safe-area {
@@ -27,16 +22,22 @@
 }
 
 .season-header {
-    position: absolute;
-    top: 0;
+    height: 116px;
+    -unity-background-image-tint-color: rgb(0, 0, 0);
+    position: relative;
+    width: 100%;
+}
+
+.season-header__content {
+    position: relative;
     background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/TopHeaderBack.png?fileID=2800000&guid=aaff47116a62f45e0a362688aa274e19&type=3#TopHeaderBack');
-    height: 114px;
-    right: 0;
     -unity-background-scale-mode: scale-and-crop;
     align-items: center;
     justify-content: center;
     flex-direction: row;
+    bottom: 5px;
     width: 100%;
+    height: 100%;
 }
 
 .season-level {
@@ -107,4 +108,40 @@
     width: 100%;
     height: 100%;
     position: absolute;
+}
+
+.season-content {
+    flex-direction: row-reverse;
+    flex-grow: 1;
+    width: 100%;
+}
+
+.season-rewards-scroll {
+    -unity-background-image-tint-color: rgba(255, 0, 0, 255);
+    background-color: rgba(255, 0, 0, 255);
+}
+
+.season-background {
+    height: 100%;
+    overflow: visible;
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/SeasonImageMask.svg?fileID=7388822144124034973&guid=5ae5efccf21c11e469ef6c4f820ee2b8&type=3#SeasonImageMask');
+    width: 425px;
+    -unity-background-image-tint-color: rgb(0, 0, 0);
+}
+
+.season-background__mask {
+    position: absolute;
+    height: 100%;
+    overflow: hidden;
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/SeasonImageMask.svg?fileID=7388822144124034973&guid=5ae5efccf21c11e469ef6c4f820ee2b8&type=3#SeasonImageMask');
+    width: 425px;
+    left: -3px;
+}
+
+.season-background__image {
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/BattlePassSeason1Image.png?fileID=2800000&guid=842bcd9fd00c89e4092f70a552d59200&type=3#BattlePassSeason1Image');
+    height: 100%;
+    -unity-background-scale-mode: scale-and-crop;
+    width: 100%;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
 }

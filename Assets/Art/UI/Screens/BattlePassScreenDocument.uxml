@@ -1,32 +1,38 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/BattlePassScreenStyle.uss?fileID=7433441132597879392&amp;guid=dc4d7d108099c400695438f2df23550d&amp;type=3#BattlePassScreenStyle" />
-    <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent">
-        <ui:VisualElement name="LeftBgMask" style="position: absolute; height: 100%; overflow: hidden; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/BattlePass/SeasonImageMask.svg?fileID=7388822144124034973&amp;guid=5ae5efccf21c11e469ef6c4f820ee2b8&amp;type=3#SeasonImageMask&apos;); width: 425px;">
-            <ui:VisualElement name="Background" style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/BattlePass/BattlePassSeason1Image.png?fileID=2800000&amp;guid=842bcd9fd00c89e4092f70a552d59200&amp;type=3#BattlePassSeason1Image&apos;); height: 100%; -unity-background-scale-mode: scale-and-crop; width: 100%; -unity-background-image-tint-color: rgb(255, 255, 255);" />
+    <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent screen-root" style="align-items: flex-end;">
+        <ui:VisualElement name="SeasonContent" class="season-content" style="justify-content: space-between;">
+            <ui:ScrollView mode="Horizontal" name="RewardsScrollView" class="season-rewards-scroll" style="width: 100%;" />
+            <ui:VisualElement name="Background" class="season-background">
+                <ui:VisualElement name="Mask" class="season-content__background-mask season-background__mask">
+                    <ui:VisualElement name="Image" class="season-content__background-image season-background__image" />
+                </ui:VisualElement>
+            </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="SeasonHeader" class="season-header">
-            <ui:VisualElement name="CurrentLevel" class="season-level">
-                <ui:Label text="LV" display-tooltip-when-elided="true" name="Label" class="season-level__label" />
-                <ui:Label text="0" display-tooltip-when-elided="true" name="Value" class="season-level__label season-level__label--big" />
+        <ui:VisualElement name="SeasonHeader" class="season-header" style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/BattlePass/TopHeaderBack.png?fileID=2800000&amp;guid=aaff47116a62f45e0a362688aa274e19&amp;type=3#TopHeaderBack&apos;);">
+            <ui:VisualElement name="Content" class="season-header__content">
+                <ui:VisualElement name="CurrentLevel" class="season-level">
+                    <ui:Label text="LV" display-tooltip-when-elided="true" name="Label" class="season-level__label" />
+                    <ui:Label text="0" display-tooltip-when-elided="true" name="Value" class="season-level__label season-level__label--big" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Spacer" class="width-spacer width-spacer--xl" />
+                <ui:VisualElement name="BppBar" class="bpp-bar" style="align-items: flex-start; justify-content: center;">
+                    <ui:VisualElement name="Background" class="bpp-bar__background" />
+                    <ui:Label text="0 / 100" display-tooltip-when-elided="true" name="ProgressLabel" class="bpp-bar__label" />
+                    <ui:VisualElement name="Progress" class="bpp-bar__progress" />
+                    <ui:VisualElement name="Icon" class="bpp-bar__icon" style="left: -30px;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Spacer" class="width-spacer" />
+                <ui:VisualElement name="NextLevel" class="season-level">
+                    <ui:Label text="LV" display-tooltip-when-elided="true" name="Label" class="season-level__label" />
+                    <ui:Label text="1" display-tooltip-when-elided="true" name="Value" class="season-level__label season-level__label--big" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Spacer" class="width-spacer width-spacer--xxxl" />
+                <FirstLight.Game.UIElements.CurrencyDisplayElement name="CurrencyDisplayElement" />
+                <ui:VisualElement name="Spacer" class="width-spacer width-spacer--xl" />
+                <FirstLight.Game.UIElements.CurrencyDisplayElement name="CurrencyDisplayElement" currency="COIN" />
             </ui:VisualElement>
-            <ui:VisualElement name="Spacer" class="width-spacer width-spacer--xl" />
-            <ui:VisualElement name="BppBar" class="bpp-bar" style="align-items: flex-start; justify-content: center;">
-                <ui:VisualElement name="Background" class="bpp-bar__background" />
-                <ui:Label text="0 / 100" display-tooltip-when-elided="true" name="ProgressLabel" class="bpp-bar__label" />
-                <ui:VisualElement name="Progress" class="bpp-bar__progress" />
-                <ui:VisualElement name="Icon" class="bpp-bar__icon" style="left: -30px;" />
-            </ui:VisualElement>
-            <ui:VisualElement name="Spacer" class="width-spacer" />
-            <ui:VisualElement name="NextLevel" class="season-level">
-                <ui:Label text="LV" display-tooltip-when-elided="true" name="Label" class="season-level__label" />
-                <ui:Label text="1" display-tooltip-when-elided="true" name="Value" class="season-level__label season-level__label--big" />
-            </ui:VisualElement>
-            <ui:VisualElement name="Spacer" class="width-spacer width-spacer--xxxl" />
-            <FirstLight.Game.UIElements.CurrencyDisplayElement name="CurrencyDisplayElement" />
-            <ui:VisualElement name="Spacer" class="width-spacer width-spacer--xl" />
-            <FirstLight.Game.UIElements.CurrencyDisplayElement name="CurrencyDisplayElement" currency="COIN" />
         </ui:VisualElement>
-        <ui:VisualElement name="BpContent" />
         <ui:VisualElement name="reference" style="left: 0; position: absolute; background-image: url(&apos;project://database/Assets/Art/UI/References/Battle%20Pass.png?fileID=2800000&amp;guid=40ad9298235317e47978e24927712d61&amp;type=3#Battle Pass&apos;); -unity-background-image-tint-color: rgba(255, 255, 255, 0); -unity-background-scale-mode: scale-to-fit; top: 0; right: 0; bottom: 0; width: 100%; height: 100%;" />
     </ui:VisualElement>
 </ui:UXML>

@@ -66,7 +66,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			var playerData = callback.PlayersMatchData;
 			
 			_standings.Initialise(playerData.Count, true, true);
-			_standings.UpdateStandings(playerData);
+			_standings.UpdateStandings(playerData, QuantumRunner.Default.Game.GetLocalPlayers()[0]);
 			_services?.TickService?.UnsubscribeOnUpdate(UpdateTick);
 		}
 	}

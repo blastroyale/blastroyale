@@ -45,6 +45,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 4755d43108e94404e975817fcc3c9d0b, type: 3}
   - {fileID: 21300000, guid: 5d7be741d92a744a2a2d412f5b68af0a, type: 3}
   - {fileID: 21300000, guid: 4d4555713b6f541ebad6dd66f91c9429, type: 3}
+  - {fileID: 21300000, guid: 7daa27819b9ff40648f92f624119dfc4, type: 3}
   - {fileID: 21300000, guid: 6dee9891204ef4f5b90a2210c56088a9, type: 3}
   - {fileID: 21300000, guid: 2d7f74c10ed3b4352a100dc9e2226f88, type: 3}
   - {fileID: 21300000, guid: a41b7ad1342264cde80e52208dd22e10, type: 3}
@@ -100,7 +101,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 51ac3af9acd824af591121ab7510c3df, type: 3}
   - {fileID: 21300000, guid: 35a3807ace83b4e35bcf7ce6678cf14e, type: 3}
   - {fileID: 21300000, guid: 0749ff9a80c8c4d5093baf7e8a4e1d7a, type: 3}
-  - {fileID: 21300000, guid: f67f8aaae9a194c24b455483cf06f31c, type: 3}
   - {fileID: 21300000, guid: c96062ca698c645258fbf9555f558741, type: 3}
   - {fileID: 21300000, guid: c49ac5caad3204b44b684f7822d4f353, type: 3}
   - {fileID: 21300000, guid: 5c34000b4db9d44d297310e0b968e481, type: 3}
@@ -148,6 +148,7 @@ SpriteAtlas:
   - PlayButtonPressed
   - EquippedBadge
   - ProfileProgressBack
+  - TooltipwithTail
   - HomeButton
   - DurabilityBar
   - LegendaryItemButton
@@ -203,7 +204,6 @@ SpriteAtlas:
   - IconHeroes
   - CooldownCS
   - SpecialsBg_FOR_REF_
-  - BackIcon
   - ButtonMainYellowPressed
   - NoItemButton
   - CurrencyBack

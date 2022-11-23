@@ -318,3 +318,26 @@ TextField > #unity-text-input, LocalizedTextField > #unity-text-input {
     width: 38px;
     height: 38px;
 }
+
+.tooltip {
+    font-size: 32px;
+    -unity-font-definition: var(--font-italic);
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/TooltipwithTail.png?fileID=21300000&guid=7daa27819b9ff40648f92f624119dfc4&type=3#TooltipwithTail');
+    color: rgba(186, 161, 230, 255);
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding-left: 20px;
+    padding-right: 31px;
+    padding-top: 26px;
+    padding-bottom: 14px;
+}
+
+.tooltip-holder {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+}

@@ -318,7 +318,7 @@ TextField > #unity-text-input, LocalizedTextField > #unity-text-input {
     height: 20px;
 }
 
-.height-spacer--b {
+.height-spacer--l {
     height: 30px;
 }
 
@@ -347,7 +347,7 @@ TextField > #unity-text-input, LocalizedTextField > #unity-text-input {
     width: 20px;
 }
 
-.width-spacer--b {
+.width-spacer--l {
     width: 30px;
 }
 

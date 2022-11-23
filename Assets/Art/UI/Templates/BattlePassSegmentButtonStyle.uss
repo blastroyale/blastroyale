@@ -1,0 +1,67 @@
+.progress-bar {
+    width: 100%;
+    height: 80px;
+    align-items: flex-start;
+    justify-content: center;
+    left: 10px;
+    position: absolute;
+}
+
+.progress-bar__background {
+    height: 35px;
+    width: 100%;
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/BattlePassProgressBarBack.png?fileID=21300000&guid=f9373e661daa449dd955560f25434839&type=3#BattlePassProgressBarBack');
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    flex-direction: row;
+    position: absolute;
+}
+
+.progress-bar__progress {
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/BattlePassProgressBar.png?fileID=21300000&guid=b0d1b38a7908e49b0a5d5651fb141c6f&type=3#BattlePassProgressBar');
+    flex-grow: 1;
+    position: absolute;
+    height: 35px;
+}
+
+.level {
+    width: 80px;
+    height: 80px;
+    justify-content: center;
+    align-items: center;
+    left: -40px;
+}
+
+.level__bg-not-complete {
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/BPLevelCircle.png?fileID=2800000&guid=cb0eeaa443e8b406989f58c20f9ef269&type=3#BPLevelCircle');
+    position: absolute;
+    -unity-background-scale-mode: scale-to-fit;
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+}
+
+.level__bg-complete {
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/BPLevelCirclePassed.png?fileID=2800000&guid=bd9a5051dffb647c5adcdbb79b5a79ac&type=3#BPLevelCirclePassed');
+    position: absolute;
+    -unity-background-scale-mode: scale-to-fit;
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+}
+
+.level__label {
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(22, 20, 38);
+    text-shadow: 3px 3px 0 rgb(22, 20, 38);
+    -unity-font-style: bold;
+    -unity-font-definition: var(--font-italic);
+    font-size: 50px;
+    color: rgb(255, 255, 255);
+    -unity-paragraph-spacing: -30px;
+    width: 100%;
+    height: 100%;
+    -unity-text-align: middle-center;
+}

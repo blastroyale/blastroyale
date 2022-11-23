@@ -69,16 +69,8 @@
     height: 45px;
 }
 
-.bpp-bar__icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/BPPicon.png?fileID=21300000&guid=a03eed5b5c5a74c3c85f91bba0a50b81&type=3#BPPicon');
-    width: 60px;
-    height: 60px;
-    position: absolute;
-    left: 0;
-}
-
 .bpp-bar__background {
-    height: 45px;
+    height: 100%;
     width: 296px;
     background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/BPPBarBack.png?fileID=21300000&guid=ddf33ec916e6b4b54993768a10ca208d&type=3#BPPBarBack');
     padding-left: 2px;
@@ -93,7 +85,15 @@
     background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/BPPBar.png?fileID=21300000&guid=f63e212478a7f4fec8c790922a819e4c&type=3#BPPBar');
     flex-grow: 1;
     position: absolute;
-    height: 45px;
+    height: 100%;
+}
+
+.bpp-bar__icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/BPPicon.png?fileID=21300000&guid=a03eed5b5c5a74c3c85f91bba0a50b81&type=3#BPPicon');
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    left: 0;
 }
 
 .bpp-bar__label {
@@ -114,11 +114,16 @@
     flex-direction: row-reverse;
     flex-grow: 1;
     width: 100%;
+    align-items: center;
 }
 
 .season-rewards-scroll {
     -unity-background-image-tint-color: rgba(255, 0, 0, 255);
     background-color: rgba(255, 0, 0, 255);
+    position: absolute;
+    height: 800px;
+    left: 345px;
+    right: 0;
 }
 
 .season-background {
@@ -127,6 +132,8 @@
     background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/SeasonImageMask.svg?fileID=7388822144124034973&guid=5ae5efccf21c11e469ef6c4f820ee2b8&type=3#SeasonImageMask');
     width: 425px;
     -unity-background-image-tint-color: rgb(0, 0, 0);
+    position: absolute;
+    left: 0;
 }
 
 .season-background__mask {

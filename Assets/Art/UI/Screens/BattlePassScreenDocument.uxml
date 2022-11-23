@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/Art/UI/Screens/BattlePassScreenStyle.uss?fileID=7433441132597879392&amp;guid=dc4d7d108099c400695438f2df23550d&amp;type=3#BattlePassScreenStyle" />
     <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent screen-root" style="align-items: flex-end;">
         <ui:VisualElement name="SeasonContent" class="season-content" style="justify-content: space-between;">
-            <ui:ScrollView mode="Horizontal" name="RewardsScrollView" class="season-rewards-scroll" style="width: 100%;" />
+            <ui:ScrollView mode="Horizontal" name="RewardsScrollView" class="season-rewards-scroll" />
             <ui:VisualElement name="Background" class="season-background">
                 <ui:VisualElement name="Mask" class="season-content__background-mask season-background__mask">
                     <ui:VisualElement name="Image" class="season-content__background-image season-background__image" />

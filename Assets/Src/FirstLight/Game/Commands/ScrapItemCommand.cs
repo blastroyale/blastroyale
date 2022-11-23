@@ -19,7 +19,7 @@ namespace FirstLight.Game.Commands
 		{
 			var info = ctx.Logic.EquipmentLogic().Scrap(Item);
 			
-			ctx.Logic.CurrencyLogic().AddCurrency(info.ScrappingValue.Key, (ulong) info.ScrappingValue.Value);
+			ctx.Logic.CurrencyLogic().AddCurrency(info.ScrappingValue.Key, info.ScrappingValue.Value);
 		}
 	}
 }

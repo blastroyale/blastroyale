@@ -308,8 +308,7 @@ namespace FirstLight.Game.StateMachines
 
 			var data = new BattlePassScreenPresenter.StateData
 			{
-				BackClicked = () => { cacheActivity.Complete(); },
-				UiService = _uiService
+				BackClicked = () => { cacheActivity.Complete(); }
 			};
 			
 			_uiService.OpenScreen<BattlePassScreenPresenter, BattlePassScreenPresenter.StateData>(data);

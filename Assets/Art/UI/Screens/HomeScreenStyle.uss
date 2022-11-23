@@ -215,3 +215,38 @@ LocalizedButton {
     white-space: normal;
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
 }
+
+.left-buttons {
+    position: absolute;
+    left: 0;
+    top: 245px;
+    bottom: 0;
+    justify-content: space-between;
+    margin-bottom: 36px;
+    margin-left: 36px;
+}
+
+.top-buttons {
+    flex-direction: row-reverse;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 36px;
+    margin-top: 23px;
+    align-items: center;
+    transition-property: margin-top;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in;
+}
+
+.right-buttons {
+    width: 535px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    display: flex;
+    margin-bottom: 36px;
+    margin-right: 36px;
+}

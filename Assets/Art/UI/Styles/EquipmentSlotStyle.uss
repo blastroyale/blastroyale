@@ -92,6 +92,26 @@
     -unity-background-image-tint-color: black;
 }
 
+.equipment-slot__equipment-image--category-weapon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/WeaponEmptySlotIcon.png?fileID=21300000&guid=2242dcbd235394ffaa30eb599d68b376&type=3#WeaponEmptySlotIcon');
+}
+
+.equipment-slot__equipment-image--category-armor {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/ArmourEmptySlotIcon.png?fileID=21300000&guid=61511c97b754449238274a3cd95feb49&type=3#ArmourEmptySlotIcon');
+}
+
+.equipment-slot__equipment-image--category-amulet {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/AmuletEmptySlotIcon.png?fileID=21300000&guid=2545eacbca71a496a9d0bf7997e6bd4e&type=3#AmuletEmptySlotIcon');
+}
+
+.equipment-slot__equipment-image--category-shield {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/ShieldEmptySlotIcon.png?fileID=21300000&guid=0cbf9fde965644520b0b915ee8ada48e&type=3#ShieldEmptySlotIcon');
+}
+
+.equipment-slot__equipment-image--category-helmet {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/HelmetEmptySlotIcon.png?fileID=21300000&guid=31d84b6fb540b4b2aa56c00750dfa110&type=3#HelmetEmptySlotIcon');
+}
+
 .equipment-slot__title {
     -unity-font-definition: var(--font-italic);
     color: rgb(255, 255, 255);
@@ -112,6 +132,53 @@
     left: 288px;
     top: 13px;
     width: 290px;
+}
+
+.equipment-slot__level {
+    -unity-font-definition: var(--font-italic);
+    color: rgb(255, 255, 255);
+    font-size: 45px;
+    -unity-text-align: middle-center;
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    padding: 0;
+    margin: 0;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    white-space: normal;
+    margin-left: 10px;
+    height: 70px;
+    position: absolute;
+    left: 175px;
+    top: -33px;
+}
+
+.equipment-slot__badge-holder {
+    flex-direction: row;
+    position: absolute;
+    left: -32px;
+    top: -17px;
+}
+
+.equipment-slot__badge {
+}
+
+.equipment-slot__badge--nft {
+    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/NFTbadge.png?fileID=21300000&guid=98913c2e22bec40af85e06978ea6cc76&type=3#NFTbadge');
+    width: 74px;
+    height: 32px;
+    margin-right: 10px;
+}
+
+.equipment-slot__badge--loaned {
+    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/LabelLoaned.png?fileID=21300000&guid=3ee01365867634fe2846a8881e33a3ab&type=3#LabelLoaned');
+    -unity-text-align: middle-center;
+    -unity-font-definition: var(--font-italic);
+    font-size: 22px;
+    color: rgb(255, 255, 255);
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 0;
+    padding-top: 2px;
 }
 
 .equipment-slot__durability-icon {
@@ -245,4 +312,10 @@
 
 .equipment-slot__faction-icon--shadow {
     background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/Factions_Shadow.png?fileID=21300000&guid=f84a265cda3db4a378eeff90c26294b0&type=3#Factions_Shadow');
+}
+
+.equipment-slot__notification {
+    position: absolute;
+    top: -17px;
+    right: -13px;
 }

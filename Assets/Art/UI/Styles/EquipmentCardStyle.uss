@@ -304,3 +304,9 @@
     padding-bottom: 0;
     padding-top: 2px;
 }
+
+.equipment-card__notification {
+    position: absolute;
+    top: -17px;
+    right: -13px;
+}

@@ -1,20 +1,29 @@
 .screen-header {
     position: absolute;
-    left: -60px;
-    top: -30px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/HeadlineCornerBack.png?fileID=21300000&guid=a00a82499a7b54937bb2cf2b23aeb238&type=3#HeadlineCornerBack');
-    width: 790px;
-    height: 220px;
+    left: 0;
+    right: 0;
+    overflow: hidden;
 }
 
 .screen-header__safe-area-holder {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding-left: 100px;
-    padding-top: 61px;
+    flex-grow: 1;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.screen-header__separator {
+    flex-grow: 1;
+}
+
+.screen-header__home {
+    background-image: url('project://database/Assets/Art/UI/Sprites/Header/HomebuttonBack.png?fileID=21300000&guid=f23748b7de1224ba39c941f04a7aaa96&type=3#HomebuttonBack');
+    width: 550px;
+    height: 166px;
+    margin-right: -392px;
+}
+
+.screen-header__home:active {
+    background-image: url('project://database/Assets/Art/UI/Sprites/Header/HomebuttonBackPressed.png?fileID=21300000&guid=4389613eb61db486b8ddb825da78487a&type=3#HomebuttonBackPressed');
 }
 
 .screen-header__title {
@@ -25,32 +34,33 @@
     margin: 0;
     padding: 0;
     -unity-text-outline-width: 1px;
-    -unity-text-outline-color: rgba(0, 0, 0, 255);
+    -unity-text-outline-color: rgb(0, 0, 0);
+    -unity-text-align: middle-left;
+    padding-bottom: 25px;
 }
 
-.screen-header__subtitle {
-    font-size: 32px;
-    color: rgb(106, 128, 189);
-    -unity-font-definition: var(--font-italic);
-    margin: 0 0 0 75px;
-    padding: 0;
-    text-shadow: 3px 3px 0 rgb(0, 0, 0);
-    -unity-text-outline-width: 1px;
-    -unity-text-outline-color: rgba(0, 0, 0, 255);
+.screen-header__back {
+    background-image: url('project://database/Assets/Art/UI/Sprites/Header/HeadlineBack.png?fileID=21300000&guid=8c5fc907c7ac74e9ea1bbd30c58be442&type=3#HeadlineBack');
+    width: 742px;
+    height: 178px;
+    margin-left: -424px;
 }
 
-.screen-header:active .screen-header__subtitle {
-    color: rgb(69, 84, 124);
+.screen-header__back:active {
+    background-image: url('project://database/Assets/Art/UI/Sprites/Header/HeadlineBackPressed.png?fileID=21300000&guid=7485a1a423f1e430892305217ee57018&type=3#HeadlineBackPressed');
 }
 
-.screen-header__back-icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/BackIcon.png?fileID=21300000&guid=f67f8aaae9a194c24b455483cf06f31c&type=3#BackIcon');
-    width: 22px;
-    height: 28px;
-    margin-left: -30px;
-    margin-top: 2px;
+.screen-header--simple {
 }
 
-.screen-header:active .screen-header__back-icon {
-    -unity-background-image-tint-color: rgb(150, 150, 150);
+.screen-header--simple .screen-header__home {
+    display: none;
+}
+
+.screen-header--simple .screen-header__back {
+    background-image: url('project://database/Assets/Art/UI/Sprites/Header/Headline.png?fileID=21300000&guid=c5ec35c903c644752a1e9aa07e09fa77&type=3#Headline');
+    width: 1110px;
+    height: 192px;
+    margin-left: -487px;
+    margin-right: -502px;
 }

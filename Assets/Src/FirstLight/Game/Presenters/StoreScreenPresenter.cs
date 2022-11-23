@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
+using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.NativeUi;
 using FirstLight.UiService;
@@ -27,15 +28,18 @@ namespace FirstLight.Game.Presenters
 
 		public struct StateData
 		{
-			public Action BackClicked;
 			public Action IapProcessingFinished;
 			public Action<string> OnPurchaseItem;
 			public IGameUiService UiService;
+			
+			public Action OnHomeClicked;
+			public Action OnBackClicked;
 		}
 
 		private IGameServices _gameServices;
 
 		private VisualElement _blocker;
+		private ScreenHeaderElement _header;
 
 		private readonly Queue<Equipment> _pendingRewards = new();
 
@@ -48,7 +52,9 @@ namespace FirstLight.Game.Presenters
 		{
 			_blocker = root.Q("Blocker").Required();
 
-			root.Q<Button>("BackButton").clicked += Data.BackClicked;
+			_header = root.Q<ScreenHeaderElement>("Header").Required();
+			_header.backClicked += Data.OnBackClicked;
+			_header.homeClicked += Data.OnHomeClicked;
 
 			SetupItem("ItemRare", ITEM_RARE_ID);
 			SetupItem("ItemEpic", ITEM_EPIC_ID);

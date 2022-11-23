@@ -8,7 +8,6 @@
                 <ui:Label text="MIGHT &lt;size=64px&gt;192&lt;/size&gt;" display-tooltip-when-elided="true" name="MightLabel" class="might__label" />
                 <ui:VisualElement name="Icon" class="might__icon" />
             </ui:VisualElement>
-            <FirstLight.Game.UIElements.ImageButton name="CloseButton" class="button-close sfx-click-backwards anim-delay-0 anim-fade" />
             <ui:Label name="MissingEquipment" text="YOU HAVE NO&#10;WEAPONS" class="no-equipment-label" />
             <ui:ListView name="EquipmentList" fixed-item-height="400" selection-type="None" show-bound-collection-size="false" class="equipment-list anim-delay-0 anim-translate anim-translate--right-xxl" />
             <ui:VisualElement name="Details" picking-mode="Ignore" class="details">
@@ -51,6 +50,6 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
-        <FirstLight.Game.UIElements.ScreenHeaderElement title-key="UITEquipment/selection_weapon" subtitle-key="UITEquipment/equipment" name="Header" class="anim-delay-0 anim-fade" />
+        <FirstLight.Game.UIElements.ScreenHeaderElement title-key="UITEquipment/selection_weapon" subtitle-key="UITEquipment/equipment" name="Header" />
     </ui:VisualElement>
 </ui:UXML>

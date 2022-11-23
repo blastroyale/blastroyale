@@ -1,22 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/HomeScreenStyle.uss?fileID=7433441132597879392&amp;guid=54dbd0d57987f4f398aea3e4722669ea&amp;type=3#HomeScreenStyle" />
     <ui:VisualElement name="root" picking-mode="Ignore" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0;">
-        <ui:VisualElement name="PlayerHolder" class="anim-delay-0 anim-fade" style="position: absolute; left: 0; top: 0; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/HomeScreen/HeadlineCornerBack.png?fileID=21300000&amp;guid=a00a82499a7b54937bb2cf2b23aeb238&amp;type=3#HeadlineCornerBack&apos;); width: 790px; height: 220px;">
-            <ui:VisualElement style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/HomeScreen/ProfileHeadlineBack.png?fileID=21300000&amp;guid=8f2de411e440e476a955e263066bcdfa&amp;type=3#ProfileHeadlineBack&apos;); width: 484px; height: 128px; margin-left: 315px;">
-                <ui:VisualElement style="position: absolute; width: 340px; height: 72px; rotate: -13deg; left: 31px; top: -14px; flex-direction: column-reverse;">
-                    <ui:VisualElement style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/HomeScreen/ProfileProgressBack.png?fileID=21300000&amp;guid=4d4555713b6f541ebad6dd66f91c9429&amp;type=3#ProfileProgressBack&apos;); flex-grow: 1; padding-left: 1px; padding-right: 1px; padding-top: 1px; padding-bottom: 1px; flex-direction: row;">
-                        <ui:VisualElement name="PlayerLevelProgressElement" style="flex-grow: 1; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/HomeScreen/ProfileProgress.png?fileID=21300000&amp;guid=5d610d5eb2b6d402e80eb23e2f4e974b&amp;type=3#ProfileProgress&apos;);" />
-                    </ui:VisualElement>
-                    <ui:VisualElement style="flex-direction: row; justify-content: flex-start; align-items: center; margin-bottom: 6px;">
-                        <ui:VisualElement style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/HomeScreen/Trophy.png?fileID=21300000&amp;guid=872fe08ff0fbc4f64b229d591f48d144&amp;type=3#Trophy&apos;); width: 32px; height: 32px; margin-left: 16px;" />
-                        <ui:Label text="143" name="PlayerTrophiesLabel" class="font-italic font-style-h2" style="margin-left: 6px;" />
-                    </ui:VisualElement>
-                </ui:VisualElement>
-            </ui:VisualElement>
-            <ui:Label text="PLAYER NAME" name="PlayerNameLabel" class="font-italic font-style-h2" />
-        </ui:VisualElement>
         <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore" style="align-items: center; justify-content: center;">
-            <ui:VisualElement picking-mode="Ignore" style="flex-direction: row-reverse; position: absolute; top: 0; right: 0; margin-right: 36px; margin-top: 23px; align-items: center; transition-property: margin-top; transition-duration: 0.5s; transition-timing-function: ease-in;">
+            <ui:VisualElement picking-mode="Ignore" name="TopButtons" class="top-buttons">
                 <ui:Button display-tooltip-when-elided="true" name="SettingsButton" class="anim-delay-0 anim-translate anim-translate--down-s" style="background-image: none; padding-left: 0; padding-right: 0; padding-bottom: 0; padding-top: 0;">
                     <ui:VisualElement style="width: 66px; height: 66px; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/HomeScreen/SettingsIcon.png?fileID=2800000&amp;guid=04713a4471ac6493ba0a2533be572841&amp;type=3#SettingsIcon&apos;); margin-left: 20px; margin-top: 20px; margin-right: 20px; margin-bottom: 20px;" />
                 </ui:Button>
@@ -24,7 +10,7 @@
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="CSCurrency" currency="CS" class="anim-delay-2 anim-translate anim-translate--down-s" style="margin-right: 50px;" />
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="BLSTCurrency" currency="BLST" class="anim-delay-3 anim-translate anim-translate--down-s" style="margin-right: 50px;" />
             </ui:VisualElement>
-            <ui:VisualElement picking-mode="Ignore" style="width: 535px; position: absolute; right: 0; bottom: 0; flex-direction: column-reverse; align-items: flex-end; display: flex; margin-bottom: 36px; margin-right: 36px;">
+            <ui:VisualElement picking-mode="Ignore" name="RightButtons" class="right-buttons">
                 <ui:VisualElement class="anim-delay-0 anim-translate anim-translate--left-l" style="margin-top: 43px;">
                     <ui:VisualElement name="CSPoolContainer" class="font-italic pool-container" style="background-image: none; left: auto; right: -9px;">
                         <ui:VisualElement style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/HomeScreen/PoolHeader.png?fileID=21300000&amp;guid=fe2093cbd35914e9e9cd6c56ee79fca3&amp;type=3#PoolHeader&apos;); scale: -1 1;" />
@@ -50,16 +36,7 @@
                     <ui:VisualElement class="button-with-icon__icon" />
                 </ui:Button>
             </ui:VisualElement>
-            <ui:VisualElement picking-mode="Ignore" style="position: absolute; left: 0; top: 245px; bottom: 0; justify-content: space-between; margin-bottom: 36px; margin-left: 36px;">
-                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/equipment" name="EquipmentButton" class="button-with-icon button-with-icon--equipment anim-delay-3 anim-translate anim-translate--right-xl">
-                    <ui:VisualElement class="button-with-icon__icon" />
-                </FirstLight.Game.UIElements.LocalizedButton>
-                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/heroes" name="HeroesButton" class="button-with-icon button-with-icon--heroes anim-delay-2 anim-translate anim-translate--right-xl">
-                    <ui:VisualElement class="button-with-icon__icon" />
-                </FirstLight.Game.UIElements.LocalizedButton>
-                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/leaderboards" name="LeaderboardsButton" class="button-with-icon button-with-icon--leaderboards anim-delay-1 anim-translate anim-translate--right-xl" style="letter-spacing: -4px;">
-                    <ui:VisualElement class="button-with-icon__icon" />
-                </FirstLight.Game.UIElements.LocalizedButton>
+            <ui:VisualElement picking-mode="Ignore" name="LeftButtons" class="left-buttons">
                 <ui:VisualElement name="BattlePassHolder" class="anim-delay-0 anim-translate anim-translate--right-xl" style="flex-direction: row; align-items: flex-end;">
                     <ui:VisualElement name="BPPPoolContainer" class="font-italic pool-container">
                         <ui:VisualElement style="position: absolute; left: 16px; top: 11px; right: 34px; bottom: 51px; flex-direction: row; justify-content: space-between; rotate: 3deg; align-items: center;">
@@ -80,7 +57,26 @@
                         <ui:VisualElement name="BattlePassCrownIcon" style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/HomeScreen/BattlepassCrown.png?fileID=21300000&amp;guid=0009bb56e12594dd9a62134a948a4f74&amp;type=3#BattlepassCrown&apos;); width: 104px; height: 88px;" />
                     </ui:Button>
                 </ui:VisualElement>
+                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/leaderboards" name="LeaderboardsButton" class="button-with-icon button-with-icon--leaderboards anim-delay-1 anim-translate anim-translate--right-xl" style="letter-spacing: -4px;">
+                    <ui:VisualElement class="button-with-icon__icon" />
+                </FirstLight.Game.UIElements.LocalizedButton>
+                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/heroes" name="HeroesButton" class="button-with-icon button-with-icon--heroes anim-delay-2 anim-translate anim-translate--right-xl">
+                    <ui:VisualElement class="button-with-icon__icon" />
+                </FirstLight.Game.UIElements.LocalizedButton>
+                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/equipment" name="EquipmentButton" class="button-with-icon button-with-icon--equipment anim-delay-3 anim-translate anim-translate--right-xl">
+                    <ui:VisualElement class="button-with-icon__icon" />
+                    <ui:VisualElement name="EquipmentNotification" class="notification-icon button-with-icon__notification" />
+                </FirstLight.Game.UIElements.LocalizedButton>
             </ui:VisualElement>
+            <FirstLight.Game.UIElements.ImageButton name="Header" class="player-header">
+                <ui:VisualElement name="ProfileHolder" class="player-header__profile-holder">
+                    <ui:Label text="PLAYER NAME" name="Name" class="player-header__name" />
+                </ui:VisualElement>
+                <ui:VisualElement name="TrophiesHolder" class="player-header__trophies-holder">
+                    <ui:VisualElement name="TrophyIcon" class="player-header__trophy-icon" />
+                    <ui:Label text="69420" name="TrophiesAmount" class="player-header__trophies_label" />
+                </ui:VisualElement>
+            </FirstLight.Game.UIElements.ImageButton>
         </FirstLight.Game.UIElements.SafeAreaElement>
     </ui:VisualElement>
 </ui:UXML>

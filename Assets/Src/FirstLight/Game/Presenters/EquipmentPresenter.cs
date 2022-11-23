@@ -101,7 +101,10 @@ namespace FirstLight.Game.Presenters
 				{
 					if (value > 0 && type is EquipmentStatType.SpecialId0 or EquipmentStatType.SpecialId1)
 					{
-						var element = new SpecialDisplayElement((GameId) value);
+						var specialId = (GameId) value;
+						var element = new SpecialDisplayElement(specialId);
+						element.clicked+= () => element.OpenTooltip(Root, specialId.GetTranslationDescription(), 20, 20);
+						
 						_specialsHolder.Add(element);
 						index++;
 					}

@@ -331,6 +331,7 @@ TextField > #unity-text-input, LocalizedTextField > #unity-text-input {
     padding-right: 31px;
     padding-top: 26px;
     padding-bottom: 14px;
+    opacity: 0;
 }
 
 .tooltip-holder {

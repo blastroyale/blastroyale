@@ -1,12 +1,15 @@
 using System;
 using System.Linq;
+using System.Security.Cryptography;
 using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using I2.Loc;
+using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.UIElements.Experimental;
 
 namespace FirstLight.Game.Utils
 {
@@ -122,7 +125,9 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Opens a tooltip for <paramref name="element"/> (bottom left).
 		/// </summary>
-		public static void OpenTooltip(this VisualElement element, VisualElement root, string content)
+		public static void OpenTooltip(this VisualElement element, VisualElement root, string content, int offsetX = 0,
+									   int offsetY = 0)
+
 		{
 			var blocker = new VisualElement();
 			root.Add(blocker);
@@ -137,12 +142,16 @@ namespace FirstLight.Game.Utils
 			{
 				var pos = element.worldBound.position;
 				var rootBound = root.worldBound;
-				
-				pos.x -= rootBound.width;
-				pos.y += element.worldBound.height;
+
+				pos.x -= rootBound.width - offsetX;
+				pos.y += element.worldBound.height - offsetY;
 
 				tooltip.transform.position = pos;
 			});
+
+			tooltip.experimental.animation
+				.Start(0f, 1f, 200, (ve, val) => ve.style.opacity = val)
+				.Ease(Easing.Linear);
 
 			blocker.Add(tooltip);
 		}

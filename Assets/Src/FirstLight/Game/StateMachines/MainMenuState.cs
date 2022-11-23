@@ -374,7 +374,7 @@ namespace FirstLight.Game.StateMachines
 				OnSettingsButtonClicked = () => _statechartTrigger(_settingsMenuClickedEvent),
 				OnLootButtonClicked = OnTabClickedCallback<EquipmentPresenter>,
 				OnHeroesButtonClicked = OnTabClickedCallback<PlayerSkinScreenPresenter>,
-				OnNameChangeClicked = () => _statechartTrigger(_nameChangeClickedEvent),
+				OnProfileClicked = () => _statechartTrigger(_nameChangeClickedEvent),
 				OnGameModeClicked = () => _statechartTrigger(_chooseGameModeClickedEvent),
 				OnLeaderboardClicked = () => _statechartTrigger(_leaderboardClickedEvent),
 				OnBattlePassClicked = () => _statechartTrigger(_battlePassClickedEvent),

@@ -41,8 +41,8 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 787f6e10544e24075863e3f881de6467, type: 3}
   - {fileID: 21300000, guid: 2caf71907fd3e4fcba0a2d7647e48f43, type: 3}
   - {fileID: 21300000, guid: 92aa9ee015ead471c8db4d1ef1537183, type: 3}
-  - {fileID: 21300000, guid: a3c233019ab8c48d2bf69c10b0c8c5a6, type: 3}
   - {fileID: 21300000, guid: 8f2de411e440e476a955e263066bcdfa, type: 3}
+  - {fileID: 21300000, guid: 6492ef21818934d678d3bb23d9a22645, type: 3}
   - {fileID: 21300000, guid: 4755d43108e94404e975817fcc3c9d0b, type: 3}
   - {fileID: 21300000, guid: 5d7be741d92a744a2a2d412f5b68af0a, type: 3}
   - {fileID: 21300000, guid: 4d4555713b6f541ebad6dd66f91c9429, type: 3}
@@ -101,6 +101,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 88529a998aeeb470b882949759eef90b, type: 3}
   - {fileID: 21300000, guid: 51ac3af9acd824af591121ab7510c3df, type: 3}
   - {fileID: 21300000, guid: 35a3807ace83b4e35bcf7ce6678cf14e, type: 3}
+  - {fileID: 21300000, guid: 1596519a5d00c4b3c87f4014fe12dbab, type: 3}
   - {fileID: 21300000, guid: 0749ff9a80c8c4d5093baf7e8a4e1d7a, type: 3}
   - {fileID: 21300000, guid: c96062ca698c645258fbf9555f558741, type: 3}
   - {fileID: 21300000, guid: c49ac5caad3204b44b684f7822d4f353, type: 3}
@@ -125,7 +126,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: abcf917df72d242a482c9f221840fbb2, type: 3}
   - {fileID: 21300000, guid: f8f36b8ddbc99493d8cef7036713fba5, type: 3}
   - {fileID: 21300000, guid: 8605e2ad805d4449cb6ea728529f837b, type: 3}
-  - {fileID: 21300000, guid: df6b84bd95bae4807b1511e0f4a17fe6, type: 3}
   - {fileID: 21300000, guid: 59c03abd060c94099b1a500c6e60d1f7, type: 3}
   - {fileID: 21300000, guid: 2242dcbd235394ffaa30eb599d68b376, type: 3}
   - {fileID: 21300000, guid: f074c3dd0ff0849fe90a973fd6fbd458, type: 3}
@@ -146,8 +146,8 @@ SpriteAtlas:
   - CoinIcon
   - CommonItemButtonPressed
   - AirstrikeAbilityIcon
-  - PlayerProfileBack
   - ProfileHeadlineBack
+  - PlayerProfileBack
   - PlayButtonPressed
   - EquippedBadge
   - ProfileProgressBack
@@ -206,6 +206,7 @@ SpriteAtlas:
   - ArmourIcon
   - IconHeroes
   - CooldownCS
+  - PlayerProfileBackPressed
   - SpecialsBg_FOR_REF_
   - ButtonMainYellowPressed
   - NoItemButton
@@ -230,7 +231,6 @@ SpriteAtlas:
   - MightIcon
   - StatBarBg
   - CSCooldownIcon
-  - PlayerProfileBackPressed
   - BadgeSprite
   - WeaponEmptySlotIcon
   - IconEquipment

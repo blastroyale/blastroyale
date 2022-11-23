@@ -1,20 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/HomeScreenStyle.uss?fileID=7433441132597879392&amp;guid=54dbd0d57987f4f398aea3e4722669ea&amp;type=3#HomeScreenStyle" />
     <ui:VisualElement name="root" picking-mode="Ignore" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0;">
-        <ui:VisualElement name="PlayerHolder" class="anim-delay-0 anim-fade" style="position: absolute; left: 0; top: 0; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/HomeScreen/HeadlineCornerBack.png?fileID=21300000&amp;guid=a00a82499a7b54937bb2cf2b23aeb238&amp;type=3#HeadlineCornerBack&apos;); width: 790px; height: 220px;">
-            <ui:VisualElement style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/HomeScreen/ProfileHeadlineBack.png?fileID=21300000&amp;guid=8f2de411e440e476a955e263066bcdfa&amp;type=3#ProfileHeadlineBack&apos;); width: 484px; height: 128px; margin-left: 315px;">
-                <ui:VisualElement style="position: absolute; width: 340px; height: 72px; rotate: -13deg; left: 31px; top: -14px; flex-direction: column-reverse;">
-                    <ui:VisualElement style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/HomeScreen/ProfileProgressBack.png?fileID=21300000&amp;guid=4d4555713b6f541ebad6dd66f91c9429&amp;type=3#ProfileProgressBack&apos;); flex-grow: 1; padding-left: 1px; padding-right: 1px; padding-top: 1px; padding-bottom: 1px; flex-direction: row;">
-                        <ui:VisualElement name="PlayerLevelProgressElement" style="flex-grow: 1; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/HomeScreen/ProfileProgress.png?fileID=21300000&amp;guid=5d610d5eb2b6d402e80eb23e2f4e974b&amp;type=3#ProfileProgress&apos;);" />
-                    </ui:VisualElement>
-                    <ui:VisualElement style="flex-direction: row; justify-content: flex-start; align-items: center; margin-bottom: 6px;">
-                        <ui:VisualElement style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/HomeScreen/Trophy.png?fileID=21300000&amp;guid=872fe08ff0fbc4f64b229d591f48d144&amp;type=3#Trophy&apos;); width: 32px; height: 32px; margin-left: 16px;" />
-                        <ui:Label text="143" name="PlayerTrophiesLabel" class="font-italic font-style-h2" style="margin-left: 6px;" />
-                    </ui:VisualElement>
-                </ui:VisualElement>
-            </ui:VisualElement>
-            <ui:Label text="PLAYER NAME" name="PlayerNameLabel" class="font-italic font-style-h2" />
-        </ui:VisualElement>
         <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore" style="align-items: center; justify-content: center;">
             <ui:VisualElement picking-mode="Ignore" style="flex-direction: row-reverse; position: absolute; top: 0; right: 0; margin-right: 36px; margin-top: 23px; align-items: center; transition-property: margin-top; transition-duration: 0.5s; transition-timing-function: ease-in;">
                 <ui:Button display-tooltip-when-elided="true" name="SettingsButton" class="anim-delay-0 anim-translate anim-translate--down-s" style="background-image: none; padding-left: 0; padding-right: 0; padding-bottom: 0; padding-top: 0;">
@@ -82,6 +68,15 @@
                     </ui:Button>
                 </ui:VisualElement>
             </ui:VisualElement>
+            <FirstLight.Game.UIElements.ImageButton name="Header" class="player-header">
+                <ui:VisualElement name="ProfileHolder" class="player-header__profile-holder">
+                    <ui:Label text="PLAYER NAME" name="Name" class="player-header__name" />
+                </ui:VisualElement>
+                <ui:VisualElement name="TrophiesHolder" class="player-header__trophies-holder">
+                    <ui:VisualElement name="TrophyIcon" class="player-header__trophy-icon" />
+                    <ui:Label text="69420" name="TrophiesAmount" class="player-header__trophies_label" />
+                </ui:VisualElement>
+            </FirstLight.Game.UIElements.ImageButton>
         </FirstLight.Game.UIElements.SafeAreaElement>
     </ui:VisualElement>
 </ui:UXML>

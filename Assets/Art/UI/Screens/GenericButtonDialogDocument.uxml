@@ -1,18 +1,18 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/Art/UI/Screens/GenericDialogStyle.uss?fileID=7433441132597879392&amp;guid=d1862850e9c3aaa4aa77ed63ff317bf3&amp;type=3#GenericDialogStyle" />
-    <ui:VisualElement name="root" class="background" style="-unity-text-align: middle-center;">
-        <ui:Button name="BlockerButton" class="blocker-button" />
-        <ui:VisualElement name="PopupBackground" class="popup-radius">
-            <ui:VisualElement name="PopupWindow" class="popup-radius">
-                <ui:VisualElement name="Header" class="background-purple popup-header" style="overflow: hidden;">
+    <Style src="project://database/Assets/Art/UI/Styles/GenericDialogStyle.uss?fileID=7433441132597879392&amp;guid=d1862850e9c3aaa4aa77ed63ff317bf3&amp;type=3#GenericDialogStyle" />
+    <ui:VisualElement name="root" class="screen-root">
+        <ui:Button name="BlockerButton" class="blocker" />
+        <ui:VisualElement name="Popup" class="popup popup-radius anim-delay-0 anim-translate anim-translate--down-xxxl">
+            <ui:VisualElement name="Window" class="popup-radius popup__window">
+                <ui:VisualElement name="Header" class="background-purple window__header">
                     <ui:VisualElement name="TitleDots" class="dots-pattern" />
                     <ui:Label name="Title" text="TITLE TEXT GOES HERE" class="font-italic font-style-h2" />
                 </ui:VisualElement>
-                <ui:VisualElement name="Container">
-                    <ui:VisualElement name="BackgroundPattern" class="popup-background-pattern" style="top: 26px; left: 179px;" />
-                    <ui:Label name="Desc" focusable="false" text="DESC TEXT GOES HERE" class="font-italic font-style-popup content-desc-text" />
-                    <ui:VisualElement name="Spacer" class="content-spacer--medium" />
-                    <ui:VisualElement name="HoriLayout">
+                <ui:VisualElement name="Content" class="window__content">
+                    <ui:VisualElement name="BackgroundPattern" class="content__background content__background--button-popup" />
+                    <ui:Label name="Desc" focusable="false" text="DESC TEXT GOES HERE" class="font-italic font-style-popup content__desc" />
+                    <ui:VisualElement name="Spacer" class="spacer spacer--medium" />
+                    <ui:VisualElement name="Controls" class="content__controls">
                         <FirstLight.Game.UIElements.LocalizedButton localization-key="UITShared/cancel" name="CancelButton" class="font-italic button-flat-cancel" />
                         <ui:Button localization-key="confirm" name="ConfirmButton" text="CONFIRM" class="font-italic button-flat-primary" />
                     </ui:VisualElement>

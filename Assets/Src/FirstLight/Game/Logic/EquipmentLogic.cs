@@ -117,6 +117,11 @@ namespace FirstLight.Game.Logic
 		/// </summary>
 		void Upgrade(UniqueId itemId);
 
+		/// <summary>
+		/// Repairs the equipment of the given <paramref name="itemId"/> to full durability
+		/// </summary>
+		void Repair(UniqueId itemId);
+
 	}
 	
 	/// <inheritdoc cref="IEquipmentLogic"/>
@@ -150,6 +155,7 @@ namespace FirstLight.Game.Logic
 				Equipment = equipment,
 				ScrappingValue = GetScrappingValue(equipment),
 				UpgradeCost = GetUpgradeCost(equipment),
+				RepairCost = GetUpgradeCost(equipment),
 				IsNft = _nftInventory.ContainsKey(id),
 				IsEquipped = _loadout.TryGetValue(equipment.GameId.GetSlot(), out var equipId) && equipId == id,
 				Stats = GetEquipmentStats(equipment)
@@ -386,18 +392,38 @@ namespace FirstLight.Game.Logic
 			_inventory[itemId] = equipment;
 		}
 
+		public void Repair(UniqueId itemId)
+		{
+			var equipment = _inventory[itemId];
+
+			if (_nftInventory.ContainsKey(itemId))
+			{
+				throw new LogicException($"Not allowed to scrap NFT items on the client, only on the hub and {itemId} is a NFT");
+			}
+			
+			if (equipment.Durability == equipment.MaxDurability)
+			{
+				throw new LogicException($"Item {itemId} is already fully repaired");
+			}
+
+			equipment.TotalRestoredDurability += equipment.MaxDurability - equipment.Durability;
+			equipment.Durability = equipment.MaxDurability;
+
+			_inventory[itemId] = equipment;
+		}
+
 		private Pair<GameId, uint> GetScrappingValue(Equipment equipment)
 		{
 			var resourceType = GameId.COIN;
 			var config = GameLogic.ConfigsProvider.GetConfig<ScrapConfig>((int) resourceType);
 			var rarityValue =
-				Math.Ceiling(config.BaseValue * Math.Pow(config.GrowthMultiplier.AsDouble, (int)equipment.Rarity + 1));
-			var adjectiveValue = Math.Sqrt(Math.Pow(config.AdjectiveCostK.AsDouble, (int)equipment.Adjective + 1));
-			var gradeValue = Math.Pow(config.GradeMultiplier.AsDouble, (int)equipment.Grade + 1);
-			var levelMultiplier = (((int)equipment.Level + 1) * config.LevelMultiplier).AsDouble;
-			var ret = rarityValue + adjectiveValue + ((rarityValue + adjectiveValue) * levelMultiplier * gradeValue);
+				Math.Ceiling(config.BaseValue * Math.Pow(config.GrowthMultiplier.AsDouble, (int)equipment.Rarity));
+			var adjectiveValue = Math.Sqrt(Math.Pow(config.AdjectiveCostK.AsDouble, (int)equipment.Adjective));
+			var gradeValue = Math.Pow(config.GradeMultiplier.AsDouble, (int)equipment.Grade);
+			var levelMultiplier = ((int) equipment.Level * config.LevelMultiplier).AsDouble;
+			var winValue = rarityValue + adjectiveValue + ((rarityValue + adjectiveValue) * levelMultiplier * gradeValue);
 
-			return new Pair<GameId, uint>(resourceType, (uint) Math.Round(ret));
+			return new Pair<GameId, uint>(resourceType, (uint) Math.Round(winValue));
 		}
 
 		private Pair<GameId, uint> GetUpgradeCost(Equipment equipment)
@@ -405,16 +431,28 @@ namespace FirstLight.Game.Logic
 			var resourceType = GameId.COIN;
 			var config = GameLogic.ConfigsProvider.GetConfig<UpgradeDataConfig>((int) resourceType);
 			var rarityValue = Math.Ceiling(config.BaseValue *
-			                               Math.Pow(config.GrowthMultiplier.AsDouble, (int)equipment.Rarity + 1));
-			var adjectiveValue = Math.Sqrt(Math.Pow(config.AdjectiveCostK.AsDouble, (int)equipment.Adjective + 1)) -
+			                               Math.Pow(config.GrowthMultiplier.AsDouble, (int)equipment.Rarity));
+			var adjectiveValue = Math.Sqrt(Math.Pow(config.AdjectiveCostK.AsDouble, (int)equipment.Adjective)) -
 			                     config.AdjectiveCostScale;
-			var gradeValue = Math.Pow(config.GradeMultiplier.AsDouble, (int)equipment.Grade + 1);
-			var levelMultiplier = (((int)equipment.Level + 1) * config.LevelMultiplier).AsDouble;
-			var ret = rarityValue + adjectiveValue + 
-			          ((rarityValue + adjectiveValue) * (equipment.Level - 1) * 
+			var gradeValue = Math.Pow(config.GradeMultiplier.AsDouble, (int)equipment.Grade);
+			var levelMultiplier = ((int)equipment.Level * config.LevelMultiplier).AsDouble;
+			var cost = rarityValue + adjectiveValue + 
+			          ((rarityValue + adjectiveValue) * (int) equipment.Level * 
 				          levelMultiplier * gradeValue * equipment.MaxDurability / config.DurabilityDivider);
 
-			return new Pair<GameId, uint>(resourceType, (uint) Math.Round(ret));
+			return new Pair<GameId, uint>(resourceType, (uint) Math.Round(cost));
+		}
+
+		private Pair<GameId, uint> GetRepairCost(Equipment equipment)
+		{
+			var resourceType = GameId.COIN;
+			var restoredAmount = (double) (equipment.MaxDurability - equipment.Durability);
+			var config = GameLogic.ConfigsProvider.GetConfig<RepairDataConfig>((int) resourceType);
+			var cost =
+				Math.Pow((int) equipment.TotalRestoredDurability * config.DurabilityCostIncreasePerPoint.AsDouble * restoredAmount,
+				         config.BasePower.AsDouble) * (int) config.BaseRepairCost;
+
+			return new Pair<GameId, uint>(resourceType, (uint) Math.Round(cost));
 		}
 
 		private int GetWeightedRandomDictionaryIndex<TKey, TValue>(SerializedDictionary<TKey, TValue> dictionary)

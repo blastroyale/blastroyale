@@ -10,6 +10,7 @@ using NSubstitute;
 using NUnit.Framework;
 using Photon.Deterministic;
 using Quantum;
+using UnityEngine;
 using Assert = NUnit.Framework.Assert;
 using Equipment = Quantum.Equipment;
 
@@ -125,7 +126,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void Equip_WeaponAndGear_Check()
 		{
-			var gear = SetupItem(2, GameId.MausHelmet, 1, 1);
+			var gear = SetupItem(2, GameId.MausHelmet, 1);
 			
 			TestData.Inventory.Add(gear.Key, gear.Value);
 			//TestData.InsertionTimestamps.Add(_item.Key, 0);
@@ -196,7 +197,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			var info = _equipmentLogic.Scrap(_item.Key);
 			
 			Assert.AreEqual(GameId.COIN, info.ScrappingValue.Key);
-			Assert.AreEqual(338, info.ScrappingValue.Value);
+			Assert.AreEqual(212, info.ScrappingValue.Value);
 			Assert.AreEqual(0, _equipmentLogic.Inventory.Count);
 		}
 		
@@ -241,19 +242,56 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void UpgradeItem_MaxLevel_ThrowsException()
 		{
-			_equipmentLogic.Upgrade(_item.Key);
+			var item = SetupItem(2, GameId.MausHelmet, 1);
 			
-			Assert.Throws<LogicException>(() => _equipmentLogic.Upgrade(_item.Key));
+			TestData.Inventory.Add(item.Key, item.Value);
+			
+			Assert.Throws<LogicException>(() => _equipmentLogic.Upgrade(item.Key));
+		}
+		
+		[Test]
+		public void RepairItemCheck()
+		{
+			var item = SetupItem(2, GameId.MausHelmet, 1, 0);
+			
+			TestData.Inventory.Add(item.Key, item.Value);
+			//TestData.InsertionTimestamps.Add(_item.Key, 0);
+
+			_equipmentLogic.Repair(item.Key);
+
+			var resultItem = _equipmentLogic.Inventory[item.Key]; 
+			Assert.AreEqual(resultItem.MaxDurability, resultItem.Durability);
+			Assert.AreEqual(resultItem.MaxDurability, resultItem.TotalRestoredDurability);
+		}
+		
+		[Test]
+		public void RepairItem_NotInventory_ThrowsException()
+		{
+			Assert.Throws<KeyNotFoundException>(() => _equipmentLogic.Repair(UniqueId.Invalid));
+		}
+		
+		[Test]
+		public void RepairItem_NFTItem_ThrowsException()
+		{
+			TestData.NftInventory.Add(_item.Key, new NftEquipmentData());
+			
+			Assert.Throws<LogicException>(() => _equipmentLogic.Repair(_item.Key));
+		}
+		
+		[Test]
+		public void RepairItem_FullRepaired_ThrowsException()
+		{
+			Assert.Throws<LogicException>(() => _equipmentLogic.Repair(_item.Key));
 		}
 
-		private Pair<UniqueId, Equipment> SetupItem(UniqueId id, GameId gameId, uint level = 1, uint maxLevel = 2)
+		private Pair<UniqueId, Equipment> SetupItem(UniqueId id, GameId gameId, uint maxLevel = 2, uint durability = 4)
 		{
 			var item = new Equipment(gameId)
 			{
-				Level = level,
-				MaxLevel = maxLevel
+				Level = 1,
+				MaxLevel = maxLevel,
+				Durability = durability
 			};
-
 			UniqueIdLogic.Ids[id].Returns(gameId);
 			UniqueIdLogic.GenerateNewUniqueId(gameId).Returns(id);
 

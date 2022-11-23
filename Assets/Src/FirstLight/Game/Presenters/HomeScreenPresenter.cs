@@ -64,6 +64,7 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _battlePassProgressElement;
 		private VisualElement _battlePassCrownIcon;
 
+		private VisualElement _bppPoolContainer;
 		private Label _bppPoolTimeLabel;
 		private Label _bppPoolAmountLabel;
 		private VisualElement _csPoolContainer;
@@ -89,8 +90,9 @@ namespace FirstLight.Game.Presenters
 
 			_equipmentNotification = root.Q<VisualElement>("EquipmentNotification").Required();
 
-			_bppPoolAmountLabel = root.Q<VisualElement>("BPPPoolContainer").Q<Label>("AmountLabel").Required();
-			_bppPoolTimeLabel = root.Q<VisualElement>("BPPPoolContainer").Q<Label>("RestockLabel").Required();
+			_bppPoolContainer = root.Q<VisualElement>("BPPPoolContainer").Required();
+			_bppPoolAmountLabel = _bppPoolContainer.Q<Label>("AmountLabel").Required();
+			_bppPoolTimeLabel = _bppPoolContainer.Q<Label>("RestockLabel").Required();
 			_csPoolContainer = root.Q<VisualElement>("CSPoolContainer").Required();
 			_csPoolAmountLabel = _csPoolContainer.Q<Label>("AmountLabel").Required();
 			_csPoolTimeLabel = _csPoolContainer.Q<Label>("RestockLabel").Required();
@@ -106,9 +108,9 @@ namespace FirstLight.Game.Presenters
 			root.Q<CurrencyDisplayElement>("BLSTCurrency").SetAnimationOrigin(_playButton);
 			root.Q<CurrencyDisplayElement>("CoinCurrency").SetAnimationOrigin(_playButton);
 
-			root.Q<Button>("GameModeButton").clicked += Data.OnGameModeClicked;
-			root.Q<Button>("SettingsButton").clicked += Data.OnSettingsButtonClicked;
-			root.Q<Button>("BattlePassButton").clicked += Data.OnBattlePassClicked;
+			root.Q<ImageButton>("GameModeButton").clicked += Data.OnGameModeClicked;
+			root.Q<ImageButton>("SettingsButton").clicked += Data.OnSettingsButtonClicked;
+			root.Q<ImageButton>("BattlePassButton").clicked += Data.OnBattlePassClicked;
 
 			root.Q<Button>("EquipmentButton").clicked += Data.OnLootButtonClicked;
 			root.Q<Button>("HeroesButton").clicked += Data.OnHeroesButtonClicked;
@@ -116,18 +118,12 @@ namespace FirstLight.Game.Presenters
 
 			var storeButton = root.Q<Button>("StoreButton");
 			storeButton.clicked += Data.OnStoreClicked;
-			storeButton.SetEnabled(FeatureFlags.STORE_ENABLED);
+			storeButton.SetDisplayActive(FeatureFlags.STORE_ENABLED);
 
 			var discordButton = root.Q<Button>("DiscordButton");
 			discordButton.clicked += Data.OnDiscordClicked;
 
-			// TODO: Move to shared code
-			root.Query<Button>().Build().ForEach(b =>
-			{
-				b.RegisterCallback<PointerDownEvent>(
-					_ => { _services.AudioFxService.PlayClip2D(AudioId.ButtonClickForward); },
-					TrickleDown.TrickleDown);
-			});
+			root.SetupClicks(_services);
 		}
 
 		protected override void OnOpened()

@@ -1,26 +1,7 @@
 :root {
-    --out-animation-duration: 0.5s;
-    --out-animation-easing: ease-in;
-    --in-animation-duration: 0.5s;
-    --in-animation-easing: ease-out;
-    --animation-property: translate;
 }
 
-.popup-radius {
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-}
-
-.hidden #PopupBackground {
-    translate: 0 -1000px;
-    transition-timing-function: var(--in-animation-easing);
-    transition-duration: var(--in-animation-duration);
-    transition-property: var(--animation-property);
-}
-
-.background {
+.screen-root {
     left: 0;
     top: 0;
     right: 0;
@@ -30,70 +11,20 @@
     align-items: center;
     background-image: none;
     -unity-background-scale-mode: scale-and-crop;
-}
-
-.unity-button {
-    margin-right: 15px;
-    margin-left: 15px;
-}
-
-.hidden {
-    transition-delay: 1s;
-    display: none;
-}
-
-.popup-background-pattern {
-    background-image: url('project://database/Assets/Art/UI/Sprites/GenericDialogs/PopupBackPattern.png?fileID=21300000&guid=ebf2caa297ec7a341a919dc9bc2f9ca1&type=3#PopupBackPattern');
-    width: 650px;
-    height: 336px;
-    position: absolute;
-}
-
-.font-style-popup {
-    font-size: 30px;
-    letter-spacing: 1px;
-    color: rgb(90, 86, 125);
-}
-
-.popup-header {
-    height: 70px;
-    overflow: hidden;
-}
-
-.content-desc-text {
-    justify-content: center;
-    align-items: center;
-    white-space: normal;
-}
-
-.content-spacer--small {
-    height: 10px;
-    width: 100%;
-}
-
-.content-spacer--medium {
-    height: 25px;
-    width: 100%;
-}
-
-.input-field__generic {
-}
-
-.input-field__generic > TextInput {
     -unity-text-align: middle-center;
 }
 
-#PopupBackground {
-    width: 725px;
-    background-color: rgb(0, 0, 0);
-    transition-timing-function: var(--out-animation-easing);
-    transition-duration: var(--out-animation-duration);
-    transition-property: var(--animation-property);
-    height: auto;
-    translate: 0 0;
+.popup-radius {
+    border-radius: 20px;
 }
 
-#PopupWindow {
+.popup {
+    width: 725px;
+    background-color: rgb(0, 0, 0);
+    height: auto;
+}
+
+.popup__window {
     background-color: rgb(255, 255, 255);
     overflow: hidden;
     border-left-width: 2px;
@@ -110,7 +41,15 @@
     bottom: 10px;
 }
 
-#Container {
+.window__header {
+    height: 70px;
+    overflow: hidden;
+    background-color: rgb(128, 87, 227);
+    align-items: center;
+    justify-content: center;
+}
+
+.window__content {
     flex-grow: 0;
     align-items: center;
     justify-content: center;
@@ -120,13 +59,50 @@
     padding-bottom: 25px;
 }
 
-#Header > #Title {
+.window__dim {
+    background-color: rgba(0, 0, 0, 0.36);
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.header__title {
     -unity-text-align: middle-center;
     flex-grow: 1;
     flex-shrink: 1;
 }
 
-#HoriLayout {
+.content__desc {
+    justify-content: center;
+    align-items: center;
+    white-space: normal;
+}
+
+.content__background {
+    background-image: url('project://database/Assets/Art/UI/Sprites/GenericDialogs/PopupBackPattern.png?fileID=21300000&guid=ebf2caa297ec7a341a919dc9bc2f9ca1&type=3#PopupBackPattern');
+    width: 650px;
+    height: 336px;
+    position: absolute;
+}
+
+.content__background-input-popup {
+    top: 69px;
+    left: 258px;
+}
+
+.content__background--button-popup {
+    top: 26px;
+    left: 179px;
+}
+
+.content__background--dc-popup {
+    top: 26px;
+    left: 179px;
+}
+
+.content__controls {
     flex-direction: row;
     flex-shrink: 1;
     justify-content: center;
@@ -134,7 +110,44 @@
     width: 100%;
 }
 
-#BlockerButton {
+.unity-button {
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+.hidden {
+    transition-delay: 1s;
+    display: none;
+}
+
+.font-style-popup {
+    font-size: 30px;
+    letter-spacing: 1px;
+    color: rgb(90, 86, 125);
+}
+
+.spacer {
+    width: 100%;
+    height: 5px;
+}
+
+.spacer--small {
+    height: 10px;
+}
+
+.spacer--medium {
+    height: 20px;
+}
+
+.spacer--big {
+    height: 30px;
+}
+
+.input-field > .unity-text-field__input {
+    -unity-text-align: middle-center;
+}
+
+.blocker {
     visibility: visible;
     width: 100%;
     height: 100%;
@@ -145,8 +158,4 @@
     border-right-width: 0;
     border-top-width: 0;
     border-bottom-width: 0;
-}
-
-#Header {
-    background-color: rgb(128, 87, 227);
 }

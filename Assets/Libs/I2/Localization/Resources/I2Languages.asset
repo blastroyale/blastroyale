@@ -9758,11 +9758,11 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITHomeScreen/new_name
+    - Term: UITHomeScreen/enter_your_name
       TermType: 0
       Description: 
       Languages:
-      - NEW NAME
+      - ENTER YOUR NAME
       - 
       - 
       Flags: 000000
@@ -9944,7 +9944,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - <line-height=70%>{0} <size=70%>LV</size>{1}
+      - <line-height=70%>{0}
       - 
       - 
       Flags: 000000
@@ -10364,7 +10364,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1669042370723
+    Google_LastUpdatedVersion: 1669114307039
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

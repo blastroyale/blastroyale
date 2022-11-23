@@ -132,7 +132,7 @@ Button, LocalizedButton {
     -unity-background-scale-mode: scale-to-fit;
 }
 
-TextField, LocalizedTextField {
+.unity-text-field {
     align-items: stretch;
     -unity-text-align: middle-left;
     font-size: 35px;
@@ -140,12 +140,12 @@ TextField, LocalizedTextField {
     height: 71px;
 }
 
-TextField > Label, LocalizedTextField > Label {
+.unity-text-field__label {
     -unity-text-align: middle-right;
     color: rgb(90, 86, 125);
 }
 
-TextField > #unity-text-input, LocalizedTextField > #unity-text-input {
+.unity-text-field__input {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/InputFieldBackground.png?fileID=21300000&guid=6a9373e55276b4254b7304c8d38f2dc6&type=3#InputFieldBackground');
     border-left-width: 0;
     border-right-width: 0;

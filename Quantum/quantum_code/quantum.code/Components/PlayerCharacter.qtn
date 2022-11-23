@@ -29,6 +29,7 @@ struct WeaponSlot
 {
 	Equipment Weapon;
 	array<Special>[MAX_SPECIALS] Specials;
+	UInt32 MagazineShotCount;
 }
 
 component PlayerCharacter

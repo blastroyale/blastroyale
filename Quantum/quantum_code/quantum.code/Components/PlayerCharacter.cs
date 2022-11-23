@@ -75,6 +75,7 @@ namespace Quantum
 			{
 				WeaponSlots[i] = default;
 			}
+			
 
 			var isRespawning = f.GetSingleton<GameContainer>().PlayersData[Player].DeathCount > 0;
 			if (isRespawning)
@@ -207,7 +208,7 @@ namespace Quantum
 			}
 
 			WeaponSlots[slot].Weapon = weapon;
-
+			WeaponSlots[slot].MagazineShotCount = weaponConfig.MagazineSize;
 			GainAmmo(f, e, initialAmmo - GetAmmoAmountFilled(f, e));
 
 			f.Events.OnLocalPlayerWeaponAdded(Player, e, weapon, slot);
@@ -235,7 +236,7 @@ namespace Quantum
 		internal void EquipSlotWeapon(Frame f, EntityRef e, int slot)
 		{
 			SetSlotWeapon(f, e, slot);
-			
+			HFSMManager.TriggerEvent(f, e, Constants.ChangeWeaponEvent);
 			f.Events.OnPlayerWeaponChanged(Player, e, slot);
 		}
 
@@ -270,6 +271,14 @@ namespace Quantum
 			f.Unsafe.GetPointer<Stats>(e)->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Gear);
 			
 			f.Events.OnPlayerGearChanged(Player, e, gear, gearSlot);
+		}
+
+		/// <summary>
+		/// Returns the magazine shot count for a specified <paramref name="slot"/>
+		/// </summary>
+		public int GetMagShotCount(int slot)
+		{
+			return (int)WeaponSlot[slot].MagazineShotCount;
 		}
 
 		/// <summary>
@@ -438,6 +447,11 @@ namespace Quantum
 			var currentAmmo = Math.Min(newAmmo, maxAmmo);
 			var finalAmmoFilled = FPMath.Max(GetAmmoAmountFilled(f, e) - ((FP._1 / maxAmmo) * amount), FP._0);
 
+			if(GetMagShotCount(CurrentWeaponSlot) > 0)
+			{
+				WeaponSlot[CurrentWeaponSlot].MagazineShotCount -= 1; //reduces the magazine counter when you spend ammo
+			}
+
 			f.Unsafe.GetPointer<AIBlackboardComponent>(e)->Set(f, Constants.AmmoFilledKey, finalAmmoFilled);
 			f.Events.OnPlayerAmmoChanged(Player, e, ammo, currentAmmo, maxAmmo, finalAmmoFilled); 
 		}
@@ -495,6 +509,8 @@ namespace Quantum
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AttackCooldown), weaponConfig.AttackCooldown);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AimingMovementSpeed), weaponConfig.AimingMovementSpeed);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.NumberOfBursts), weaponConfig.NumberOfBursts);
+			blackboard->Set(f, nameof(QuantumWeaponConfig.ReloadTime), weaponConfig.ReloadTime);
+			blackboard->Set(f, nameof(QuantumWeaponConfig.MagazineSize), (int)weaponConfig.MagazineSize);
 			blackboard->Set(f, Constants.HasMeleeWeaponKey, weaponConfig.IsMeleeWeapon);
 			blackboard->Set(f, Constants.BurstTimeDelay, burstCooldown);
 			
@@ -502,5 +518,7 @@ namespace Quantum
 
 			return weaponConfig;
 		}
+
+		
 	}
 }

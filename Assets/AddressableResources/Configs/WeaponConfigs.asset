@@ -62,6 +62,9 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       KnockbackAmount: 20
+      MagazineSize: 0
+      ReloadTime:
+        RawValue: 0
     - Id: 60
       InitialAmmoFilled:
         Default:
@@ -108,6 +111,9 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 114688
       KnockbackAmount: 0
+      MagazineSize: 10
+      ReloadTime:
+        RawValue: 131072
     - Id: 71
       InitialAmmoFilled:
         Default:
@@ -154,6 +160,9 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       KnockbackAmount: 0
+      MagazineSize: 0
+      ReloadTime:
+        RawValue: 0
     - Id: 78
       InitialAmmoFilled:
         Default:
@@ -200,6 +209,9 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 52429
       KnockbackAmount: 0
+      MagazineSize: 0
+      ReloadTime:
+        RawValue: 0
     - Id: 79
       InitialAmmoFilled:
         Default:
@@ -246,6 +258,9 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       KnockbackAmount: 0
+      MagazineSize: 0
+      ReloadTime:
+        RawValue: 0
     - Id: 84
       InitialAmmoFilled:
         Default:
@@ -292,6 +307,9 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       KnockbackAmount: 0
+      MagazineSize: 0
+      ReloadTime:
+        RawValue: 0
     - Id: 86
       InitialAmmoFilled:
         Default:
@@ -338,6 +356,9 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       KnockbackAmount: 0
+      MagazineSize: 0
+      ReloadTime:
+        RawValue: 0
     - Id: 87
       InitialAmmoFilled:
         Default:
@@ -384,6 +405,9 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 81920
       KnockbackAmount: 0
+      MagazineSize: 0
+      ReloadTime:
+        RawValue: 0
     - Id: 88
       InitialAmmoFilled:
         Default:
@@ -430,6 +454,9 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       KnockbackAmount: 0
+      MagazineSize: 0
+      ReloadTime:
+        RawValue: 0
     - Id: 90
       InitialAmmoFilled:
         Default:
@@ -476,6 +503,9 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       KnockbackAmount: 0
+      MagazineSize: 0
+      ReloadTime:
+        RawValue: 0
     - Id: 91
       InitialAmmoFilled:
         Default:
@@ -522,6 +552,9 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       KnockbackAmount: 0
+      MagazineSize: 0
+      ReloadTime:
+        RawValue: 0
     - Id: 92
       InitialAmmoFilled:
         Default:
@@ -568,6 +601,9 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       KnockbackAmount: 0
+      MagazineSize: 0
+      ReloadTime:
+        RawValue: 0
     - Id: 93
       InitialAmmoFilled:
         Default:
@@ -614,6 +650,9 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       KnockbackAmount: 20
+      MagazineSize: 0
+      ReloadTime:
+        RawValue: 0
     - Id: 94
       InitialAmmoFilled:
         Default:
@@ -660,6 +699,9 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       KnockbackAmount: 0
+      MagazineSize: 0
+      ReloadTime:
+        RawValue: 0
     - Id: 95
       InitialAmmoFilled:
         Default:
@@ -706,6 +748,9 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       KnockbackAmount: 0
+      MagazineSize: 0
+      ReloadTime:
+        RawValue: 0
     - Id: 96
       InitialAmmoFilled:
         Default:
@@ -752,6 +797,9 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       KnockbackAmount: 0
+      MagazineSize: 0
+      ReloadTime:
+        RawValue: 0
     - Id: 97
       InitialAmmoFilled:
         Default:
@@ -798,6 +846,9 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 131072
       KnockbackAmount: 0
+      MagazineSize: 0
+      ReloadTime:
+        RawValue: 0
     - Id: 98
       InitialAmmoFilled:
         Default:
@@ -844,6 +895,9 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       KnockbackAmount: 0
+      MagazineSize: 0
+      ReloadTime:
+        RawValue: 0
     - Id: 99
       InitialAmmoFilled:
         Default:
@@ -890,6 +944,9 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       KnockbackAmount: 0
+      MagazineSize: 0
+      ReloadTime:
+        RawValue: 0
     - Id: 100
       InitialAmmoFilled:
         Default:
@@ -936,6 +993,9 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       KnockbackAmount: 0
+      MagazineSize: 0
+      ReloadTime:
+        RawValue: 0
     - Id: 101
       InitialAmmoFilled:
         Default:
@@ -982,6 +1042,9 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       KnockbackAmount: 0
+      MagazineSize: 0
+      ReloadTime:
+        RawValue: 0
     - Id: 103
       InitialAmmoFilled:
         Default:
@@ -1028,3 +1091,6 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       KnockbackAmount: 0
+      MagazineSize: 0
+      ReloadTime:
+        RawValue: 0

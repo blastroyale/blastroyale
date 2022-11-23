@@ -1,6 +1,10 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" FLG="FirstLight.Game.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Templates/BattlePassSegmentButtonStyle.uss?fileID=7433441132597879392&amp;guid=085e3e990597b6b47bd7e65b60a2c14a&amp;type=3#BattlePassSegmentButtonStyle" />
     <ui:VisualElement name="BattlePassSegment" style="align-items: flex-start; justify-content: flex-end; width: 400px; height: 475px; position: relative; background-color: rgb(255, 0, 0); left: 414px; top: 325px;">
+        <ui:VisualElement name="Reward" class="reward">
+            <FirstLight.Game.UIElements.ImageButton name="RewardButton" class="reward__button" />
+            <ui:VisualElement name="Blocker" class="reward__blocker" />
+        </ui:VisualElement>
         <ui:VisualElement name="ProgressBar" class="progress-bar">
             <ui:VisualElement name="Background" class="progress-bar__background" />
             <ui:VisualElement name="Progress" class="progress-bar__progress" />
@@ -11,5 +15,5 @@
             <ui:Label text="9" display-tooltip-when-elided="true" name="LevelLabel" class="level__label" />
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="reference" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; -unity-background-image-tint-color: rgba(255, 255, 255, 0); background-image: url(&apos;project://database/Assets/Art/UI/References/Battle%20Pass.png?fileID=2800000&amp;guid=40ad9298235317e47978e24927712d61&amp;type=3#Battle Pass&apos;); -unity-background-scale-mode: scale-to-fit;" />
+    <ui:VisualElement name="reference" class="reward__blocker" />
 </ui:UXML>

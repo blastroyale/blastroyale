@@ -95,12 +95,6 @@ namespace FirstLight.Game.Logic
 		/// Sets the loadout for each slot in given <paramref name="newLoadout"/>
 		/// </summary>
 		void SetLoadout(IDictionary<GameIdGroup, UniqueId> newLoadout);
-
-		/// <summary>
-		/// Scraps the equipment of the given <paramref name="itemId"/> and returns the <see cref="EquipmentInfo"/> of
-		/// the scrapped item
-		/// </summary>
-		EquipmentInfo Scrap(UniqueId itemId);
 		
 		/// <summary>
 		/// Equips the given <paramref name="itemId"/> to the player's Equipment slot.
@@ -111,6 +105,17 @@ namespace FirstLight.Game.Logic
 		/// Unequips the given <paramref name="itemId"/> from the player's Equipment slot.
 		/// </summary>
 		void Unequip(UniqueId itemId);
+
+		/// <summary>
+		/// Scraps the equipment of the given <paramref name="itemId"/> and returns the <see cref="EquipmentInfo"/> of
+		/// the scrapped item
+		/// </summary>
+		EquipmentInfo Scrap(UniqueId itemId);
+
+		/// <summary>
+		/// Upgrades the equipment of the given <paramref name="itemId"/> by one level
+		/// </summary>
+		void Upgrade(UniqueId itemId);
 
 	}
 	
@@ -144,6 +149,7 @@ namespace FirstLight.Game.Logic
 				Id = id,
 				Equipment = equipment,
 				ScrappingValue = GetScrappingValue(equipment),
+				UpgradeCost = GetUpgradeCost(equipment),
 				IsNft = _nftInventory.ContainsKey(id),
 				IsEquipped = _loadout.TryGetValue(equipment.GameId.GetSlot(), out var equipId) && equipId == id,
 				Stats = GetEquipmentStats(equipment)
@@ -300,20 +306,6 @@ namespace FirstLight.Game.Logic
 			}
 		}
 
-		public EquipmentInfo Scrap(UniqueId itemId)
-		{
-			var info = GetInfo(itemId);
-
-			if (info.IsNft)
-			{
-				throw new LogicException("Not allowed to scrap items on the client, only on the hub");
-			}
-
-			RemoveFromInventory(itemId);
-
-			return info;
-		}
-
 		public void Equip(UniqueId itemId)
 		{
 			var gameId = GameLogic.UniqueIdLogic.Ids[itemId];
@@ -361,7 +353,40 @@ namespace FirstLight.Game.Logic
 			_loadout.Remove(slot);
 		}
 
-		private Pair<GameId, int> GetScrappingValue(Equipment equipment)
+		public EquipmentInfo Scrap(UniqueId itemId)
+		{
+			var info = GetInfo(itemId);
+
+			if (info.IsNft)
+			{
+				throw new LogicException($"Not allowed to scrap NFT items on the client, only on the hub and {itemId} is a NFT");
+			}
+
+			RemoveFromInventory(itemId);
+
+			return info;
+		}
+
+		public void Upgrade(UniqueId itemId)
+		{
+			var equipment = _inventory[itemId];
+
+			if (_nftInventory.ContainsKey(itemId))
+			{
+				throw new LogicException($"Not allowed to scrap NFT items on the client, only on the hub and {itemId} is a NFT");
+			}
+			
+			if (equipment.IsMaxLevel())
+			{
+				throw new LogicException($"Item {itemId} is already at max level {equipment.Level} and cannot be upgraded further");
+			}
+
+			equipment.Level++;
+
+			_inventory[itemId] = equipment;
+		}
+
+		private Pair<GameId, uint> GetScrappingValue(Equipment equipment)
 		{
 			var resourceType = GameId.COIN;
 			var config = GameLogic.ConfigsProvider.GetConfig<ScrapConfig>((int) resourceType);
@@ -370,9 +395,26 @@ namespace FirstLight.Game.Logic
 			var adjectiveValue = Math.Sqrt(Math.Pow(config.AdjectiveCostK.AsDouble, (int)equipment.Adjective + 1));
 			var gradeValue = Math.Pow(config.GradeMultiplier.AsDouble, (int)equipment.Grade + 1);
 			var levelMultiplier = (((int)equipment.Level + 1) * config.LevelMultiplier).AsDouble;
-			var ret = (int) (rarityValue + adjectiveValue + ((rarityValue + adjectiveValue) * levelMultiplier * gradeValue));
+			var ret = rarityValue + adjectiveValue + ((rarityValue + adjectiveValue) * levelMultiplier * gradeValue);
 
-			return new Pair<GameId, int>(resourceType, ret);
+			return new Pair<GameId, uint>(resourceType, (uint) Math.Round(ret));
+		}
+
+		private Pair<GameId, uint> GetUpgradeCost(Equipment equipment)
+		{
+			var resourceType = GameId.COIN;
+			var config = GameLogic.ConfigsProvider.GetConfig<UpgradeDataConfig>((int) resourceType);
+			var rarityValue = Math.Ceiling(config.BaseValue *
+			                               Math.Pow(config.GrowthMultiplier.AsDouble, (int)equipment.Rarity + 1));
+			var adjectiveValue = Math.Sqrt(Math.Pow(config.AdjectiveCostK.AsDouble, (int)equipment.Adjective + 1)) -
+			                     config.AdjectiveCostScale;
+			var gradeValue = Math.Pow(config.GradeMultiplier.AsDouble, (int)equipment.Grade + 1);
+			var levelMultiplier = (((int)equipment.Level + 1) * config.LevelMultiplier).AsDouble;
+			var ret = rarityValue + adjectiveValue + 
+			          ((rarityValue + adjectiveValue) * (equipment.Level - 1) * 
+				          levelMultiplier * gradeValue * equipment.MaxDurability / config.DurabilityDivider);
+
+			return new Pair<GameId, uint>(resourceType, (uint) Math.Round(ret));
 		}
 
 		private int GetWeightedRandomDictionaryIndex<TKey, TValue>(SerializedDictionary<TKey, TValue> dictionary)

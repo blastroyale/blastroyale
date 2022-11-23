@@ -50,6 +50,6 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
-        <FirstLight.Game.UIElements.ScreenHeaderElement title-key="UITEquipment/selection_weapon" subtitle-key="UITEquipment/equipment" name="Header" class="anim-delay-0 anim-fade" />
+        <FirstLight.Game.UIElements.ScreenHeaderElement title-key="UITEquipment/selection_weapon" subtitle-key="UITEquipment/equipment" name="Header" />
     </ui:VisualElement>
 </ui:UXML>

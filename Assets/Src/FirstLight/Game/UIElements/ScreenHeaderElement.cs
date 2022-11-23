@@ -36,6 +36,8 @@ namespace FirstLight.Game.UIElements
 		public ScreenHeaderElement()
 		{
 			AddToClassList(UssBlock);
+			AddToClassList("anim-delay-0");
+			AddToClassList("anim-fade");
 
 			var safeAreaContainer = new SafeAreaElement(true, false, true, true);
 			safeAreaContainer.AddToClassList(UssSafeAreaHolder);

@@ -17,6 +17,7 @@ using I2.Loc;
 using Newtonsoft.Json;
 using Quantum;
 using Quantum.Commands;
+using Quantum.Task;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using PlayerMatchData = FirstLight.Game.Services.PlayerMatchData;
@@ -73,6 +74,7 @@ namespace FirstLight.Game.StateMachines
 			var modeCheck = stateFactory.Choice("Game Mode Check");
 			var startSimulation = stateFactory.State("Start Simulation");
 			var gameEnded = stateFactory.State("Game Ended Screen");
+			var transitionToGameEndUI = stateFactory.Wait("Transition to game End UI");
 			var winners = stateFactory.Wait("Winners Screen");
 			var gameResults = stateFactory.Wait("Game Results Screen");
 			var rewardsCheck = stateFactory.Choice("Rewards Choice");
@@ -125,12 +127,10 @@ namespace FirstLight.Game.StateMachines
 			quitCheck.Transition().Target(gameEnded);
 			
 			gameEnded.OnEnter(OpenGameCompleteScreen);
-			gameEnded.Event(GameCompleteExitEvent).Target(winners);
+			gameEnded.Event(GameCompleteExitEvent).Target(transitionToGameEndUI);
+			
+			transitionToGameEndUI.WaitingFor(UnloadSimulation).Target(winners);
 
-			winners.OnEnter(StopSimulation);
-			winners.OnEnter(UnsubscribeEvents);
-			winners.OnEnter(UnloadAllMatchAssets);
-			winners.OnEnter(UnloadMatchAssetConfigs);
 			winners.WaitingFor(OpenWinnersScreen).Target(gameResults);
 			
 			gameResults.WaitingFor(ResultsScreen).Target(trophiesCheck);
@@ -146,6 +146,27 @@ namespace FirstLight.Game.StateMachines
 			gameRewards.WaitingFor(OpenRewardsScreen).Target(final);
 			
 			final.OnEnter(UnloadMatchEnd);
+		}
+
+		private async void UnloadSimulation(IWaitActivity activity)
+		{
+			await _uiService.OpenUiAsync<SwipeScreenPresenter>();
+			await Task.Delay(1500);
+			
+			StopSimulation();
+			UnsubscribeEvents();
+			await Task.Delay(100);
+			await UnloadAllMatchAssets();
+			UnloadMatchAssetConfigs();
+			
+			await Task.Delay(1000);
+
+			activity.Complete();
+		}
+
+		private void CloseSwipeTransition()
+		{
+			_uiService.CloseUi<SwipeScreenPresenter>(true);
 		}
 
 		private void UnloadMatchEnd()
@@ -401,7 +422,8 @@ namespace FirstLight.Game.StateMachines
 		{
 			var cacheActivity = activity;
 			var data = new WinnersScreenPresenter.StateData {ContinueClicked = () => cacheActivity.Complete()};
-
+			
+			CloseSwipeTransition();
 			_uiService.OpenScreen<WinnersScreenPresenter, WinnersScreenPresenter.StateData>(data);
 		}
 
@@ -458,7 +480,7 @@ namespace FirstLight.Game.StateMachines
 		}
 		
 
-		private async void UnloadAllMatchAssets()
+		private async Task UnloadAllMatchAssets()
 		{
 			var scene = SceneManager.GetActiveScene();
 			var configProvider = _services.ConfigsProvider;

@@ -128,7 +128,7 @@
     height: 30px;
 }
 
-.input-field > TextInput {
+.input-field > .unity-text-field__input {
     -unity-text-align: middle-center;
 }
 

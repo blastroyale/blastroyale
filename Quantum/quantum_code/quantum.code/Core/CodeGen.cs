@@ -2996,7 +2996,7 @@ namespace Quantum {
     public const Int32 SIZE = 232;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(0)]
-    public UInt32 MagazineShotCount;
+    public Int32 MagazineShotCount;
     [FieldOffset(72)]
     [FramePrinter.FixedArrayAttribute(typeof(Special), 2)]
     private fixed Byte _Specials_[160];
@@ -10493,7 +10493,7 @@ namespace Quantum.Prototypes {
     public Equipment_Prototype Weapon;
     [ArrayLengthAttribute(2)]
     public Special_Prototype[] Specials = new Special_Prototype[2];
-    public UInt32 MagazineShotCount;
+    public Int32 MagazineShotCount;
     partial void MaterializeUser(Frame frame, ref WeaponSlot result, in PrototypeMaterializationContext context);
     public void Materialize(Frame frame, ref WeaponSlot result, in PrototypeMaterializationContext context) {
       result.MagazineShotCount = this.MagazineShotCount;

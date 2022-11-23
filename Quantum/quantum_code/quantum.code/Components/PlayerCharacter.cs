@@ -25,6 +25,7 @@ namespace Quantum
 			var blackboard = new AIBlackboardComponent();
 			var kcc = new CharacterController3D();
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
+			
 
 			Player = playerRef;
 			CurrentWeaponSlot = 0;
@@ -38,8 +39,11 @@ namespace Quantum
 			{
 				WeaponSlots[Constants.WEAPON_INDEX_DEFAULT].Weapon.Faction = loadoutWeapon.Faction;
 			}
-			
-			if(f.Context.GameModeConfig.SpawnWithGear || f.Context.GameModeConfig.SpawnWithWeapon)
+
+			var config = f.WeaponConfigs.GetConfig(CurrentWeapon.GameId);
+			WeaponSlots.GetPointer(Constants.WEAPON_INDEX_DEFAULT)->MagazineShotCount = config.MagazineSize;
+
+			if (f.Context.GameModeConfig.SpawnWithGear || f.Context.GameModeConfig.SpawnWithWeapon)
 			{
 				foreach (var item in startingEquipment)
 				{
@@ -208,7 +212,7 @@ namespace Quantum
 			}
 
 			WeaponSlots[slot].Weapon = weapon;
-			WeaponSlots[slot].MagazineShotCount = weaponConfig.MagazineSize;
+			WeaponSlots.GetPointer(slot)->MagazineShotCount = weaponConfig.MagazineSize;
 			GainAmmo(f, e, initialAmmo - GetAmmoAmountFilled(f, e));
 
 			f.Events.OnLocalPlayerWeaponAdded(Player, e, weapon, slot);
@@ -278,7 +282,7 @@ namespace Quantum
 		/// </summary>
 		public int GetMagShotCount(int slot)
 		{
-			return (int)WeaponSlot[slot].MagazineShotCount;
+			return WeaponSlots.GetPointer(slot)->MagazineShotCount;
 		}
 
 		/// <summary>
@@ -449,7 +453,7 @@ namespace Quantum
 
 			if(GetMagShotCount(CurrentWeaponSlot) > 0)
 			{
-				WeaponSlot[CurrentWeaponSlot].MagazineShotCount -= 1; //reduces the magazine counter when you spend ammo
+				WeaponSlots.GetPointer(CurrentWeaponSlot)->MagazineShotCount -= 1; //reduces the magazine counter when you spend ammo
 			}
 
 			f.Unsafe.GetPointer<AIBlackboardComponent>(e)->Set(f, Constants.AmmoFilledKey, finalAmmoFilled);

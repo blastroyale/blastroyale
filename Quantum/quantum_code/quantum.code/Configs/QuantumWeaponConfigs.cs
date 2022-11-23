@@ -29,7 +29,7 @@ namespace Quantum
 		public FP InitialAttackCooldown;
 		public FP InitialAttackRampUpTime;
 		public uint KnockbackAmount;
-		public uint MagazineSize;
+		public int MagazineSize;
 		public FP ReloadTime;
 
 		/// <summary>

@@ -62,7 +62,7 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       KnockbackAmount: 20
-      MagazineSize: 0
+      MagazineSize: -1
       ReloadTime:
         RawValue: 0
     - Id: 60

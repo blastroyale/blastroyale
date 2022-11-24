@@ -7,12 +7,14 @@ using System.Security.Cryptography;
 using System.Text;
 using FirstLight.Game.Configs;
 using FirstLight.Game.MonoComponent;
+using FirstLight.Game.Utils;
 using I2.Loc;
 using Newtonsoft.Json;
 using Quantum;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using UnityEditor;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Equipment = Quantum.Equipment;
@@ -245,11 +247,15 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 				}
 			}
 
+			var layer = UnityEngine.LayerMask.NameToLayer("Default");
+				
 			var operationHandle = await Addressables.LoadAssetsAsync<GameObject>(keys as IEnumerable, addressable =>
 			{
 				if (Enum.TryParse(addressable.name, out GameId gameId))
 				{
 					var go = Instantiate(addressable, _markerTransform);
+					go.SetLayer(layer, true);
+					go.SetActive(false);
 					_assetDictionary.Add(gameId, go);
 				}
 				else
@@ -278,17 +284,17 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 						continue;
 					}
 
-					for (var rarityIndex = 0; rarityIndex < (int) EquipmentRarity.TOTAL; rarityIndex++)
+					//for (var rarityIndex = 0; rarityIndex < (int) EquipmentRarity.TOTAL; rarityIndex++)
 					{
-						for (var materialIndex = 0; materialIndex < (int) EquipmentMaterial.TOTAL; materialIndex++)
+						//for (var materialIndex = 0; materialIndex < (int) EquipmentMaterial.TOTAL; materialIndex++)
 						{
-							for (var factionIndex = 0; factionIndex < (int) EquipmentFaction.TOTAL; factionIndex++)
+							//for (var factionIndex = 0; factionIndex < (int) EquipmentFaction.TOTAL; factionIndex++)
 							{
-								for (var gradeIndex = 0; gradeIndex < (int) EquipmentGrade.TOTAL; gradeIndex++)
+								//for (var gradeIndex = 0; gradeIndex < (int) EquipmentGrade.TOTAL; gradeIndex++)
 								{
-									for (var adjectiveIndex = 0;
-									     adjectiveIndex < (int) EquipmentAdjective.TOTAL;
-									     adjectiveIndex++)
+								//	for (var adjectiveIndex = 0;
+								//	     adjectiveIndex < (int) EquipmentAdjective.TOTAL;
+								//	     adjectiveIndex++)
 									{
 										metadata.name =
 											LocalizationManager.GetTranslation($"GameIds/{gameId.ToString()}");
@@ -299,18 +305,19 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 										var config = baseEquipmentStatConfigs.Configs.First(c => c.Id == gameId);
 										metadata.attibutesDictionary["manufacturer"] = (int) config.Manufacturer;
 
-										metadata.attibutesDictionary["rarity"] = rarityIndex;
-										metadata.attibutesDictionary["material"] = materialIndex;
-										metadata.attibutesDictionary["faction"] = factionIndex;
-										metadata.attibutesDictionary["grade"] = gradeIndex;
-										metadata.attibutesDictionary["adjective"] = adjectiveIndex;
+										metadata.attibutesDictionary["rarity"] = 0;
+										metadata.attibutesDictionary["material"] = 0;
+										metadata.attibutesDictionary["faction"] = 0;
+										metadata.attibutesDictionary["grade"] = 0;
+										metadata.attibutesDictionary["adjective"] = 0;
 
 										var hash = GenerateImageFilenameHash(metadata);
 										metadata.image =
 											$"{_webMarketplaceUri}/nftimages/{_subFolderId}/{_collectionId}/{hash}.png";
 
 										ExportRenderTextureFromMetadata(metadata, backgroundErcRenderable);
-
+										
+										
 										imagesExportedCount++;
 									}
 								}
@@ -391,8 +398,7 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 
 			if (_renderTextureMode == RenderTextureMode.Standalone || _renderTextureMode == RenderTextureMode.Both)
 			{
-				WriteRenderTextureToDisk($"{Path.GetFileNameWithoutExtension(metadata.image)}_standalone",
-				                         _renderTextureStandalone, true);
+				WriteRenderTextureToDisk($"{gameId.ToString()}_standalone", _renderTextureStandalone, true);
 			}
 
 			go.SetActive(false);
@@ -452,6 +458,7 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 
 				var minCroppedWidth = -1;
 				var maxCroppedWidth = -1;
+				
 
 				for (var i = 0; i < height; i++)
 				{
@@ -475,7 +482,7 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 						}
 					}
 				}
-
+				
 				var minCroppedHeight = -1;
 				var maxCroppedHeight = -1;
 
@@ -502,6 +509,7 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 						}
 					}
 				}
+				
 
 				maxCroppedHeight = image.height - maxCroppedHeight;
 				minCroppedHeight = image.height - minCroppedHeight;
@@ -510,6 +518,9 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 				var copyHeight = Math.Abs(maxCroppedHeight - minCroppedHeight);
 
 				Texture2D copyTexture = new Texture2D(copyWidth, copyHeight);
+				
+				Debug.Log($"read pixels: {minCroppedWidth} {maxCroppedHeight} {copyWidth} {copyHeight}");
+				
 				copyTexture.ReadPixels(new Rect(minCroppedWidth, maxCroppedHeight, copyWidth, copyHeight), 0, 0);
 				copyTexture.Apply();
 

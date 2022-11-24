@@ -3,7 +3,7 @@
 namespace Quantum
 {
 	/// <summary>
-	/// This decision checks if the give Int source matches the desired value in a comparison check
+	/// This decision checks if the given Int source matches the desired value in a comparison check
 	/// </summary>
 	[Serializable]
 	[AssetObjectConfig(GenerateLinkingScripts = true, GenerateAssetCreateMenu = false, GenerateAssetResetMethod = false)]

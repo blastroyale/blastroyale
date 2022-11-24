@@ -3,7 +3,7 @@ using System;
 namespace Quantum
 {
 	/// <summary>
-	/// This action processes when the <see cref="PlayerCharacter"/> <see cref="Weapon"/> is empty
+	/// This action will refill the MagShotCOunt of the <see cref="PlayerCharacter"/>'s current weapon
 	/// </summary>
 	[Serializable]
 	[AssetObjectConfig(GenerateLinkingScripts = true, GenerateAssetCreateMenu = false, GenerateAssetResetMethod = false)]

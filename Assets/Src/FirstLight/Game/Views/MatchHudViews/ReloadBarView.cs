@@ -1,10 +1,4 @@
-using Circuit;
-using FirstLight.Game.Configs;
-using FirstLight.Game.Utils;
-using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
-using NSubstitute;
-using Photon.Realtime;
 using Quantum;
 using Sirenix.OdinInspector;
 using System.Collections;
@@ -42,7 +36,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public void SetupView(Frame f, PlayerCharacter player, EntityRef entity)
 		{
 			_entity = entity;
-			_reloadTimerImage.fillAmount = 0;
 			SetSliderValue(f, player);
 			
 			QuantumEvent.Subscribe<EventOnPlayerAmmoChanged>(this, HandleOnPlayerAmmoChanged);
@@ -60,8 +53,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 
 			SetSliderValue(f, player);
-
 			_reloadTime = callback.ReloadTime.AsFloat;
+
 			if (_reloadAnim != null)
 			{
 				StopCoroutine(_reloadAnim);
@@ -82,7 +75,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				StopCoroutine(_reloadAnim);
 			}
-			_reloadTimerImage.fillAmount = 0;
 
 			SetSliderValue(f, player);
 		}
@@ -108,6 +100,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			var magShotCount = player.GetMagShotCount(f, player.CurrentWeaponSlot, out var magSize);
 			_slider.value = (float)magShotCount / magSize;
+			_reloadTimerImage.fillAmount = 0;
 		}
 
 		IEnumerator ReloadAnimation(Frame f, PlayerCharacter player)
@@ -116,7 +109,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			if (magShotCount == magSize || magShotCount < 0 || _reloadTime == 0)
 			{
-				_reloadTimerImage.fillAmount = 0;
 				yield break;
 			}
 
@@ -128,9 +120,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				yield return new WaitForEndOfFrame();
 				_reloadTimerImage.fillAmount = (f.Time.AsFloat - startTime) / _reloadTime;
 			}
-
 			_slider.value = magSize;
-			_reloadTimerImage.fillAmount = 0;
 		}
 	}
 

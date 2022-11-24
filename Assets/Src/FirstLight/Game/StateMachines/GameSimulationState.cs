@@ -156,6 +156,9 @@ namespace FirstLight.Game.StateMachines
 			
 			StopSimulation();
 			UnsubscribeEvents();
+			
+			// Yield for a frame to give time for Quantum to unload all the memory before all assets are unloaded from Unity
+			await Task.Yield();
 			await UnloadAllMatchAssets();
 			UnloadMatchAssetConfigs();
 			

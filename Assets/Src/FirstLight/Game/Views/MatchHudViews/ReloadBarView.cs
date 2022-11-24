@@ -15,7 +15,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 	{
 		[SerializeField, Required] private Slider _slider;
 		[SerializeField, Required] private GameObject _separatorRef;
-		[SerializeField, Required] private Image _reloadTimerImage;
+		[SerializeField, Required] private Slider _reloadTimeSlider;
 
 		private Coroutine _reloadAnim;
 		private float _reloadTime;
@@ -100,7 +100,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			var magShotCount = player.GetMagShotCount(f, player.CurrentWeaponSlot, out var magSize);
 			_slider.value = (float)magShotCount / magSize;
-			_reloadTimerImage.fillAmount = 0;
+			_reloadTimeSlider.value = 0;
+			_reloadTimeSlider.gameObject.SetActive(false);
 		}
 
 		IEnumerator ReloadAnimation(Frame f, PlayerCharacter player)
@@ -112,15 +113,18 @@ namespace FirstLight.Game.Views.MatchHudViews
 				yield break;
 			}
 
+			_reloadTimeSlider.gameObject.SetActive(true);
 			float startTime = f.Time.AsFloat;
 			float endTime = startTime + _reloadTime;
 
 			while (f.Time.AsFloat < endTime)
 			{
 				yield return new WaitForEndOfFrame();
-				_reloadTimerImage.fillAmount = (f.Time.AsFloat - startTime) / _reloadTime;
+				_reloadTimeSlider.value = (f.Time.AsFloat - startTime) / _reloadTime;
 			}
+
 			_slider.value = magSize;
+			_reloadTimeSlider.gameObject.SetActive(false);
 		}
 	}
 

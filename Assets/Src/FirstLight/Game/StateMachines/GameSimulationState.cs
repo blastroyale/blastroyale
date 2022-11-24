@@ -418,13 +418,13 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private void OpenWinnersScreen(IWaitActivity activity)
+		private async void OpenWinnersScreen(IWaitActivity activity)
 		{
 			var cacheActivity = activity;
 			var data = new WinnersScreenPresenter.StateData {ContinueClicked = () => cacheActivity.Complete()};
-			
+
+			await _uiService.OpenScreenAsync<WinnersScreenPresenter, WinnersScreenPresenter.StateData>(data);
 			CloseSwipeTransition();
-			_uiService.OpenScreen<WinnersScreenPresenter, WinnersScreenPresenter.StateData>(data);
 		}
 
 		private void ResultsScreen(IWaitActivity activity)

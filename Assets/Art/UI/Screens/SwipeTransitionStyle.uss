@@ -72,7 +72,7 @@
 }
 
 .hidden-start .message {
-    translate: -150px 150px;
+    translate: -150px 75px;
     transition-property: translate, opacity;
     transition-duration: 0.3s, 0.3s;
     transition-delay: 1s, 1s;

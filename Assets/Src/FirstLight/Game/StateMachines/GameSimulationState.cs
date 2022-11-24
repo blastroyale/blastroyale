@@ -151,14 +151,17 @@ namespace FirstLight.Game.StateMachines
 		private async void UnloadSimulation(IWaitActivity activity)
 		{
 			await _uiService.OpenUiAsync<SwipeScreenPresenter>();
+			// Delay to let the swipe animation finish its intro without being choppy
 			await Task.Delay(1500);
 			
 			StopSimulation();
 			UnsubscribeEvents();
+			// Delay to prevent an error happening where EntityView was being accessed after it was destroyed
 			await Task.Delay(100);
 			await UnloadAllMatchAssets();
 			UnloadMatchAssetConfigs();
 			
+			// Delay to make sure we can read the swipe transition message even if the rest is too fast
 			await Task.Delay(1000);
 
 			activity.Complete();

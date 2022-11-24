@@ -7,6 +7,9 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
 {
+	/// <summary>
+	/// Presenter for the swipe transition 
+	/// </summary>
 	public class SwipeScreenPresenter : UiToolkitPresenter
 	{
 		private VisualElement _swipeParent;
@@ -15,13 +18,6 @@ namespace FirstLight.Game.Presenters
 		{
 			_swipeParent = root.Q<VisualElement>("SwipeParent").Required();	
 		}
-		
-		protected override void OnOpened()
-		{
-			base.OnOpened();
-
-			StartCoroutine(MakeVisible());
-		}
 
 		protected override Task OnClosed()
 		{
@@ -29,10 +25,8 @@ namespace FirstLight.Game.Presenters
 			return base.OnClosed();
 		}
 
-		private IEnumerator MakeVisible()
+		protected override void OnTransitionsReady()
 		{
-			yield return new WaitForEndOfFrame();
-			
 			_swipeParent.RemoveFromClassList("hidden-start");
 		}
 	}

@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 using ExitGames.Client.Photon;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
-using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Utils;
@@ -141,10 +142,12 @@ namespace FirstLight.Game.Services
 		{
 			_playfab.FetchServerState(state =>
 			{
-				_dataService.AddData(state.DeserializeModel<PlayerData>());
-				_dataService.AddData(state.DeserializeModel<RngData>());
-				_dataService.AddData(state.DeserializeModel<EquipmentData>());
-				_dataService.AddData(state.DeserializeModel<IdData>());
+				foreach (var typeFullName in state.Keys)
+				{
+					var type = Assembly.GetExecutingAssembly().GetType(typeFullName);
+					_dataService.AddData(type, ModelSerializer.DeserializeFromData(type, state));
+				}
+
 				FLog.Verbose("Fetched user state from server");
 				OnServerExecutionFinished(lastCommand);
 			});
@@ -235,13 +238,8 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		public void ForceServerDataUpdate()
 		{
-			EnqueueCommandToServer(new ForceUpdateCommand()
-			{
-				IdData = _dataService.GetData<IdData>(),
-				RngData = _dataService.GetData<RngData>(),
-				PlayerData = _dataService.GetData<PlayerData>(),
-				EquipmentData = _dataService.GetData<EquipmentData>()
-			});
+			var data = _dataService.GetKeys().ToDictionary(type => type, type => _dataService.GetData(type));
+			EnqueueCommandToServer(new ForceUpdateCommand(data: data));
 		}
 
 		/// <summary>

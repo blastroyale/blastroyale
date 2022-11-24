@@ -19,6 +19,7 @@ namespace Quantum
 			var player = f.Unsafe.GetPointer<PlayerCharacter>(e);
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
+			transform->Position.Y = FP._0;
 			transform->Position += FPVector3.Up * SkydiveHeight.Resolve(f, e, bb, null);
 
 			player->Spawn(f, e);

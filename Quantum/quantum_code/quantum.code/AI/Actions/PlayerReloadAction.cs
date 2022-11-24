@@ -15,8 +15,7 @@ namespace Quantum
 			//do the reload here
 			var pc = f.Unsafe.GetPointer<PlayerCharacter>(e);
 			var weaponConfig = f.WeaponConfigs.GetConfig(pc->CurrentWeapon.GameId);
-
-			pc->WeaponSlots[pc->CurrentWeaponSlot].MagazineShotCount = weaponConfig.MagazineSize;
+			pc->WeaponSlots.GetPointer(pc->CurrentWeaponSlot)->MagazineShotCount = weaponConfig.MagazineSize;
 		}
 	}
 }

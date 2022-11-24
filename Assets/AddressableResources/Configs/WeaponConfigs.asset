@@ -32,6 +32,9 @@ MonoBehaviour:
         Default: -1
         Keys: []
         Values: 
+      MagazineSize: -1
+      ReloadTime:
+        RawValue: 0
       AimingMovementSpeed:
         RawValue: 19661
       TapCooldown:
@@ -62,9 +65,6 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       KnockbackAmount: 20
-      MagazineSize: -1
-      ReloadTime:
-        RawValue: 0
     - Id: 60
       InitialAmmoFilled:
         Default:
@@ -81,6 +81,9 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: 2400000018000000
+      MagazineSize: 10
+      ReloadTime:
+        RawValue: 131072
       AimingMovementSpeed:
         RawValue: 52429
       TapCooldown:
@@ -111,9 +114,6 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 114688
       KnockbackAmount: 0
-      MagazineSize: 10
-      ReloadTime:
-        RawValue: 131072
     - Id: 71
       InitialAmmoFilled:
         Default:
@@ -130,6 +130,9 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: 2400000012000000
+      MagazineSize: 10
+      ReloadTime:
+        RawValue: 131072
       AimingMovementSpeed:
         RawValue: 52429
       TapCooldown:
@@ -160,9 +163,6 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       KnockbackAmount: 0
-      MagazineSize: 0
-      ReloadTime:
-        RawValue: 0
     - Id: 78
       InitialAmmoFilled:
         Default:
@@ -179,6 +179,9 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: 2c0100004b000000
+      MagazineSize: 10
+      ReloadTime:
+        RawValue: 131072
       AimingMovementSpeed:
         RawValue: 65536
       TapCooldown:
@@ -209,9 +212,6 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 52429
       KnockbackAmount: 0
-      MagazineSize: 0
-      ReloadTime:
-        RawValue: 0
     - Id: 79
       InitialAmmoFilled:
         Default:
@@ -228,6 +228,9 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: c800000032000000
+      MagazineSize: 10
+      ReloadTime:
+        RawValue: 131072
       AimingMovementSpeed:
         RawValue: 52429
       TapCooldown:
@@ -258,9 +261,6 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       KnockbackAmount: 0
-      MagazineSize: 0
-      ReloadTime:
-        RawValue: 0
     - Id: 84
       InitialAmmoFilled:
         Default:
@@ -277,6 +277,9 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: 170000000c000000
+      MagazineSize: 10
+      ReloadTime:
+        RawValue: 131072
       AimingMovementSpeed:
         RawValue: 52429
       TapCooldown:
@@ -307,9 +310,6 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       KnockbackAmount: 0
-      MagazineSize: 0
-      ReloadTime:
-        RawValue: 0
     - Id: 86
       InitialAmmoFilled:
         Default:
@@ -326,6 +326,9 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: 3200000014000000
+      MagazineSize: 10
+      ReloadTime:
+        RawValue: 131072
       AimingMovementSpeed:
         RawValue: 52429
       TapCooldown:
@@ -356,9 +359,6 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       KnockbackAmount: 0
-      MagazineSize: 0
-      ReloadTime:
-        RawValue: 0
     - Id: 87
       InitialAmmoFilled:
         Default:
@@ -375,6 +375,9 @@ MonoBehaviour:
         - BattleRoyale
         - 'Deathmatch '
         Values: a500000064000000
+      MagazineSize: 10
+      ReloadTime:
+        RawValue: 131072
       AimingMovementSpeed:
         RawValue: 52429
       TapCooldown:
@@ -405,9 +408,6 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 81920
       KnockbackAmount: 0
-      MagazineSize: 0
-      ReloadTime:
-        RawValue: 0
     - Id: 88
       InitialAmmoFilled:
         Default:
@@ -424,6 +424,9 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: 6400000024000000
+      MagazineSize: 10
+      ReloadTime:
+        RawValue: 131072
       AimingMovementSpeed:
         RawValue: 65536
       TapCooldown:
@@ -454,9 +457,6 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       KnockbackAmount: 0
-      MagazineSize: 0
-      ReloadTime:
-        RawValue: 0
     - Id: 90
       InitialAmmoFilled:
         Default:
@@ -473,6 +473,9 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: 240000000c000000
+      MagazineSize: 10
+      ReloadTime:
+        RawValue: 131072
       AimingMovementSpeed:
         RawValue: 32768
       TapCooldown:
@@ -503,9 +506,6 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       KnockbackAmount: 0
-      MagazineSize: 0
-      ReloadTime:
-        RawValue: 0
     - Id: 91
       InitialAmmoFilled:
         Default:
@@ -522,6 +522,9 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: 2c01000046000000
+      MagazineSize: 10
+      ReloadTime:
+        RawValue: 131072
       AimingMovementSpeed:
         RawValue: 72090
       TapCooldown:
@@ -552,9 +555,6 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       KnockbackAmount: 0
-      MagazineSize: 0
-      ReloadTime:
-        RawValue: 0
     - Id: 92
       InitialAmmoFilled:
         Default:
@@ -571,6 +571,9 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: c800000032000000
+      MagazineSize: 10
+      ReloadTime:
+        RawValue: 131072
       AimingMovementSpeed:
         RawValue: 52429
       TapCooldown:
@@ -601,9 +604,6 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       KnockbackAmount: 0
-      MagazineSize: 0
-      ReloadTime:
-        RawValue: 0
     - Id: 93
       InitialAmmoFilled:
         Default:
@@ -620,6 +620,9 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: 1e0000000c000000
+      MagazineSize: 10
+      ReloadTime:
+        RawValue: 131072
       AimingMovementSpeed:
         RawValue: 32768
       TapCooldown:
@@ -650,9 +653,6 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       KnockbackAmount: 20
-      MagazineSize: 0
-      ReloadTime:
-        RawValue: 0
     - Id: 94
       InitialAmmoFilled:
         Default:
@@ -669,6 +669,9 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: 230000000f000000
+      MagazineSize: 10
+      ReloadTime:
+        RawValue: 131072
       AimingMovementSpeed:
         RawValue: 52429
       TapCooldown:
@@ -699,9 +702,6 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       KnockbackAmount: 0
-      MagazineSize: 0
-      ReloadTime:
-        RawValue: 0
     - Id: 95
       InitialAmmoFilled:
         Default:
@@ -718,6 +718,9 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: 960000004b000000
+      MagazineSize: 10
+      ReloadTime:
+        RawValue: 131072
       AimingMovementSpeed:
         RawValue: 21627
       TapCooldown:
@@ -748,9 +751,6 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       KnockbackAmount: 0
-      MagazineSize: 0
-      ReloadTime:
-        RawValue: 0
     - Id: 96
       InitialAmmoFilled:
         Default:
@@ -767,6 +767,9 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: 3200000018000000
+      MagazineSize: 10
+      ReloadTime:
+        RawValue: 131072
       AimingMovementSpeed:
         RawValue: 65536
       TapCooldown:
@@ -797,9 +800,6 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       KnockbackAmount: 0
-      MagazineSize: 0
-      ReloadTime:
-        RawValue: 0
     - Id: 97
       InitialAmmoFilled:
         Default:
@@ -816,6 +816,9 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: 1e0000000c000000
+      MagazineSize: 10
+      ReloadTime:
+        RawValue: 131072
       AimingMovementSpeed:
         RawValue: 52429
       TapCooldown:
@@ -846,9 +849,6 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 131072
       KnockbackAmount: 0
-      MagazineSize: 0
-      ReloadTime:
-        RawValue: 0
     - Id: 98
       InitialAmmoFilled:
         Default:
@@ -865,6 +865,9 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: c80000004b000000
+      MagazineSize: 10
+      ReloadTime:
+        RawValue: 131072
       AimingMovementSpeed:
         RawValue: 65536
       TapCooldown:
@@ -895,9 +898,6 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       KnockbackAmount: 0
-      MagazineSize: 0
-      ReloadTime:
-        RawValue: 0
     - Id: 99
       InitialAmmoFilled:
         Default:
@@ -914,6 +914,9 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: 6400000032000000
+      MagazineSize: 10
+      ReloadTime:
+        RawValue: 131072
       AimingMovementSpeed:
         RawValue: 52429
       TapCooldown:
@@ -944,9 +947,6 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       KnockbackAmount: 0
-      MagazineSize: 0
-      ReloadTime:
-        RawValue: 0
     - Id: 100
       InitialAmmoFilled:
         Default:
@@ -963,6 +963,9 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: 1900000020000000
+      MagazineSize: 10
+      ReloadTime:
+        RawValue: 131072
       AimingMovementSpeed:
         RawValue: 52429
       TapCooldown:
@@ -993,9 +996,6 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       KnockbackAmount: 0
-      MagazineSize: 0
-      ReloadTime:
-        RawValue: 0
     - Id: 101
       InitialAmmoFilled:
         Default:
@@ -1012,6 +1012,9 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: 1e0000000a000000
+      MagazineSize: 10
+      ReloadTime:
+        RawValue: 131072
       AimingMovementSpeed:
         RawValue: 52429
       TapCooldown:
@@ -1042,9 +1045,6 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       KnockbackAmount: 0
-      MagazineSize: 0
-      ReloadTime:
-        RawValue: 0
     - Id: 103
       InitialAmmoFilled:
         Default:
@@ -1061,6 +1061,9 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: c80000004b000000
+      MagazineSize: 10
+      ReloadTime:
+        RawValue: 131072
       AimingMovementSpeed:
         RawValue: 65536
       TapCooldown:
@@ -1091,6 +1094,3 @@ MonoBehaviour:
       InitialAttackRampUpTime:
         RawValue: 0
       KnockbackAmount: 0
-      MagazineSize: 0
-      ReloadTime:
-        RawValue: 0

@@ -240,9 +240,9 @@ namespace Quantum
 		internal void EquipSlotWeapon(Frame f, EntityRef e, int slot)
 		{
 			SetSlotWeapon(f, e, slot);
-			HFSMManager.TriggerEvent(f, e, Constants.ChangeWeaponEvent);
 			var reloadTime = f.WeaponConfigs.GetConfig(WeaponSlots.GetPointer(slot)->Weapon.GameId).ReloadTime;
 			f.Events.OnPlayerWeaponChanged(Player, e, slot, reloadTime);
+			HFSMManager.TriggerEvent(f, e, Constants.ChangeWeaponEvent);
 		}
 
 		/// <summary>

@@ -11,7 +11,7 @@ namespace Quantum
 		public QuantumGameModePair<FP> InitialAmmoFilled;
 		public QuantumGameModePair<int> MaxAmmo;
 		public FP AimingMovementSpeed;
-		public FP AimTime;
+		public FP TapCooldown;
 		public FP AttackCooldown;
 		public FP PowerToDamageRatio;
 		public FP AttackHitSpeed;

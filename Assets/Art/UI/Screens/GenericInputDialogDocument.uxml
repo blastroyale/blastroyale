@@ -12,12 +12,12 @@
                     <ui:Label name="Desc" text="DESC GOES HERE" class="font-italic font-style-popup content__desc" />
                     <ui:VisualElement name="BackgroundPattern" class="content__background content__background-input-popup" />
                     <ui:VisualElement name="Spacer" class="spacer content-spacer--small" />
-                    <ui:TextField name="InputTextField" text="INPUT GOES HERE" value="..." max-length="34" class="font-italic input-field input-field__generic" />
+                    <FirstLight.Game.UIElements.ContentTypeTextField name="InputTextField" text="INPUT GOES HERE" value="..." max-length="34" class="font-italic input-field input-field__generic" />
                     <ui:VisualElement name="Spacer" class="spacer spacer--medium" />
                     <ui:VisualElement name="Spacer" class="spacer spacer--medium" />
                     <ui:VisualElement name="Controls" class="content__controls">
-                        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITShared/cancel" name="CancelButton" class="font-italic button-flat-cancel" />
-                        <ui:Button name="ConfirmButton" text="CONFIRM" class="font-italic button-flat-primary" />
+                        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITShared/cancel" name="CancelButton" class="font-italic button-flat-cancel sfx-click-forwards" />
+                        <ui:Button name="ConfirmButton" text="CONFIRM" class="font-italic button-flat-primary sfx-click-forwards" />
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>

@@ -267,14 +267,9 @@ namespace FirstLight.Game.StateMachines
 					_services.MessageBrokerService.Publish(new SelectedGameModeMessage());
 					_statechartTrigger(_gameModeSelectedFinishedEvent);
 				},
-				CustomGameChosen = () =>
-				{
-					_statechartTrigger(_roomJoinCreateClickedEvent);
-				},
-				LeaveGameModeSelection = () =>
-				{
-					_statechartTrigger(_gameModeSelectedFinishedEvent);
-				}
+				CustomGameChosen = () => _statechartTrigger(_roomJoinCreateClickedEvent),
+				OnBackClicked = () => _statechartTrigger(_gameModeSelectedFinishedEvent),
+				OnHomeClicked = () => _statechartTrigger(_gameModeSelectedFinishedEvent)
 			};
 			
 			_uiService.OpenScreen<GameModeSelectionPresenter, GameModeSelectionPresenter.StateData>(data);
@@ -319,7 +314,8 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new StoreScreenPresenter.StateData
 			{
-				BackClicked = () => { activity.Complete();},
+				OnBackClicked = () => { activity.Complete();},
+				OnHomeClicked = () => { activity.Complete();},
 				OnPurchaseItem = PurchaseItem,
 				UiService = _uiService,
 				IapProcessingFinished = OnIapProcessingFinished
@@ -378,7 +374,7 @@ namespace FirstLight.Game.StateMachines
 				OnSettingsButtonClicked = () => _statechartTrigger(_settingsMenuClickedEvent),
 				OnLootButtonClicked = OnTabClickedCallback<EquipmentPresenter>,
 				OnHeroesButtonClicked = OnTabClickedCallback<PlayerSkinScreenPresenter>,
-				OnNameChangeClicked = () => _statechartTrigger(_nameChangeClickedEvent),
+				OnProfileClicked = () => _statechartTrigger(_nameChangeClickedEvent),
 				OnGameModeClicked = () => _statechartTrigger(_chooseGameModeClickedEvent),
 				OnLeaderboardClicked = () => _statechartTrigger(_leaderboardClickedEvent),
 				OnBattlePassClicked = () => _statechartTrigger(_battlePassClickedEvent),

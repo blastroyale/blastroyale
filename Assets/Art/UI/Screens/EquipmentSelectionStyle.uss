@@ -35,6 +35,7 @@
     height: 82px;
     align-items: center;
     margin-bottom: 23px;
+    width: 507px;
 }
 
 .details__name {
@@ -51,8 +52,9 @@
     margin-top: 0;
     margin-bottom: 0;
     -unity-text-align: middle-left;
-    width: 450px;
     white-space: normal;
+    flex-grow: 1;
+    width: 400px;
 }
 
 .details__icon {

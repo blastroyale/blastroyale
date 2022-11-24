@@ -9970,7 +9970,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 3
+      scalar: 3.5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -10990,8 +10990,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0, g: 0, b: 0, a: 0.78431374}
-        key1: {r: 0, g: 0, b: 0, a: 0.78431374}
+        key0: {r: 0, g: 0, b: 0, a: 0.8235294}
+        key1: {r: 0, g: 0, b: 0, a: 0.8235294}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -24680,6 +24680,26 @@ PrefabInstance:
       propertyPath: prewarm
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4906539945772704550, guid: 109e26d5ac2922d47a26d1cdded35f8b, type: 3}
+      propertyPath: RotationModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4906539945772704550, guid: 109e26d5ac2922d47a26d1cdded35f8b, type: 3}
+      propertyPath: InitialModule.rotation3D
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4906539945772704550, guid: 109e26d5ac2922d47a26d1cdded35f8b, type: 3}
+      propertyPath: InitialModule.startRotation.scalar
+      value: 0.7853981
+      objectReference: {fileID: 0}
+    - target: {fileID: 4906539945772704550, guid: 109e26d5ac2922d47a26d1cdded35f8b, type: 3}
+      propertyPath: InitialModule.startRotationX.scalar
+      value: 0.7853981
+      objectReference: {fileID: 0}
+    - target: {fileID: 4906539945772704550, guid: 109e26d5ac2922d47a26d1cdded35f8b, type: 3}
+      propertyPath: InitialModule.startRotationY.scalar
+      value: 0.7853981
+      objectReference: {fileID: 0}
     - target: {fileID: 5288402067754337069, guid: 109e26d5ac2922d47a26d1cdded35f8b, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -24723,6 +24743,30 @@ PrefabInstance:
     - target: {fileID: 5288402067754337069, guid: 109e26d5ac2922d47a26d1cdded35f8b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5478063846180501990, guid: 109e26d5ac2922d47a26d1cdded35f8b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 55709945279c77b4f91c5d74cad2b5f8, type: 2}
+    - target: {fileID: 6349094201186007701, guid: 109e26d5ac2922d47a26d1cdded35f8b, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7929935357772233857, guid: 109e26d5ac2922d47a26d1cdded35f8b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7929935357772233857, guid: 109e26d5ac2922d47a26d1cdded35f8b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7929935357772233857, guid: 109e26d5ac2922d47a26d1cdded35f8b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7929935357772233857, guid: 109e26d5ac2922d47a26d1cdded35f8b, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 109e26d5ac2922d47a26d1cdded35f8b, type: 3}

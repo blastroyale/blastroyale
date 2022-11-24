@@ -80,9 +80,18 @@ Button, LocalizedButton {
     padding-top: 50px;
 }
 
-.button-with-icon--yellow
-{
+.button-with-icon--yellow {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMainYellow.png?fileID=21300000&guid=728932854c02c47ddb4057b68d3c91c7&type=3#ButtonMainYellow');
+}
+
+.button-with-icon__notification {
+    position: absolute;
+    top: -17px;
+    right: -13px;
+}
+
+.button-with-icon:active .button-with-icon__notification {
+    top: -11px;
 }
 
 .button-with-icon__icon {
@@ -106,8 +115,7 @@ Button, LocalizedButton {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMainPressed.png?fileID=21300000&guid=5cb1a9853b14740c980813b57e5d03f3&type=3#ButtonMainPressed');
 }
 
-.button-with-icon--yellow:active
-{
+.button-with-icon--yellow:active {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMainYellowPressed.png?fileID=21300000&guid=c96062ca698c645258fbf9555f558741&type=3#ButtonMainYellowPressed');
 }
 
@@ -124,7 +132,7 @@ Button, LocalizedButton {
     -unity-background-scale-mode: scale-to-fit;
 }
 
-TextField, LocalizedTextField {
+.unity-text-field {
     align-items: stretch;
     -unity-text-align: middle-left;
     font-size: 35px;
@@ -132,12 +140,12 @@ TextField, LocalizedTextField {
     height: 71px;
 }
 
-TextField > Label, LocalizedTextField > Label {
+.unity-text-field__label {
     -unity-text-align: middle-right;
     color: rgb(90, 86, 125);
 }
 
-TextField > #unity-text-input, LocalizedTextField > #unity-text-input {
+.unity-text-field__input {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/InputFieldBackground.png?fileID=21300000&guid=6a9373e55276b4254b7304c8d38f2dc6&type=3#InputFieldBackground');
     border-left-width: 0;
     border-right-width: 0;
@@ -293,7 +301,7 @@ TextField > #unity-text-input, LocalizedTextField > #unity-text-input {
     background-color: rgba(0, 0, 0, 0);
 }
 
-.button-close:active { 
+.button-close:active {
     -unity-background-image-tint-color: rgb(128, 128, 128);
 }
 
@@ -303,4 +311,34 @@ TextField > #unity-text-input, LocalizedTextField > #unity-text-input {
     left: 0;
     right: 0;
     bottom: 0;
+}
+
+.notification-icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/NotificationIcon.png?fileID=21300000&guid=c80b34267e95148f09ef82211411a3ff&type=3#NotificationIcon');
+    width: 38px;
+    height: 38px;
+}
+
+.tooltip {
+    font-size: 32px;
+    -unity-font-definition: var(--font-italic);
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/TooltipwithTail.png?fileID=21300000&guid=7daa27819b9ff40648f92f624119dfc4&type=3#TooltipwithTail');
+    color: rgba(186, 161, 230, 255);
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding-left: 20px;
+    padding-right: 31px;
+    padding-top: 26px;
+    padding-bottom: 14px;
+    opacity: 0;
+}
+
+.tooltip-holder {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    flex-direction: column;
 }

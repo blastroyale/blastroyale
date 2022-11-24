@@ -106,7 +106,7 @@ namespace FirstLight.Game.Presenters
 
 			// TODO - open with IntegerNumber content type when technology evolves to support that
 			_services.GenericDialogService.OpenInputDialog(ScriptLocalization.UITShared.info, ScriptLocalization.MainMenu.RoomJoinCode,
-			                                                    "", confirmButton, true);
+			                                                    "", confirmButton, true, null, TouchScreenKeyboardType.NumberPad);
 		}
 
 		private void OnRoomJoinClicked(string roomNameInput)

@@ -1,30 +1,5 @@
-:root {
-    --transition-duration: 0.3s;
-}
-
 .background {
     background-color: rgba(0, 0, 0, 0.6);
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    transition-duration: var(--transition-duration);
-}
-
-.hidden {
-    background-color: rgba(0, 0, 0, 0);
-    display: none;
-    transition-property: display, background-color;
-    transition-duration: 0s, var(--transition-duration);
-    transition-delay: 0.4s, 0s;
-}
-
-.hidden .store-item {
-    translate: 0 -1000px;
 }
 
 .store-item {
@@ -33,10 +8,6 @@
     background-color: rgba(0, 0, 0, 0);
     overflow: visible;
     border-width: 0;
-    transition-duration: var(--transition-duration);
-    transition-property: all;
-    translate: 0 0;
-    transition-timing-function: ease-in-out;
 }
 
 .store-item:active {
@@ -122,38 +93,6 @@
     -unity-text-outline-color: rgb(0, 0, 0);
 }
 
-.back-button {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/CloseIcon.png?fileID=21300000&guid=ea92b2966dd434cc8bae1e7656cf39bf&type=3#CloseIcon');
-    height: 88px;
-    width: 112px;
-    position: absolute;
-    top: 40px;
-    right: 40px;
-    background-color: rgba(0, 0, 0, 0);
-    border-left-width: 0;
-    border-right-width: 0;
-    border-top-width: 0;
-    border-bottom-width: 0;
-    transition-duration: var(--transition-duration);
-    transition-timing-function: ease-in-out;
-}
-
-.hidden .back-button {
-    translate: 0 -200px;
-}
-
-#ItemRare {
-    transition-delay: 0s;
-}
-
-#ItemEpic {
-    transition-delay: 0.05s;
-}
-
-#ItemLegendary {
-    transition-delay: 0.1s;
-}
-
 .blocker {
     position: absolute;
     left: 0;
@@ -168,5 +107,12 @@
 .blocker__title {
     font-size: 100px;
     -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Condensed%20Ultra%20Italic.otf?fileID=12800000&guid=6ff2428eb8a974c2281717afe377e3c6&type=3#Stawix - Amsi Pro Condensed Ultra Italic');
-    color: rgba(255, 255, 255, 255);
+    color: rgb(255, 255, 255);
+}
+
+.items-holder {
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    top: 100px;
 }

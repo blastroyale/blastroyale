@@ -8163,7 +8163,11 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Attracts all enemies around and explodes after a few seconds
+      - 'Attracts all enemies
+
+        around and explodes
+
+        after a few seconds.'
       - 
       - 
       Flags: 000000
@@ -8181,7 +8185,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Splash Damage across a targeted area
+      - 'Splash Damage across
+
+        a targeted area'
       - 
       - 
       Flags: 000000
@@ -8199,7 +8205,12 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Damages all enemies within the blast radius of a thrown grenade
+      - 'Damages all enemies
+
+        within the blast radius
+
+        of a thrown
+        grenade.'
       - 
       - 
       Flags: 000000
@@ -8217,7 +8228,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Places a healing sphere in a targetted position
+      - 'Places a healing sphere
+
+        in a targetted position.'
       - 
       - 
       Flags: 000000
@@ -8235,7 +8248,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - All players within a fixed area go Invisible
+      - 'All players within a
+
+        fixed area go Invisible.'
       - 
       - 
       Flags: 000000
@@ -8253,7 +8268,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - All players within a fixed area gain Rage status
+      - 'All players within a fixed
+
+        area gain Rage status.'
       - 
       - 
       Flags: 000000
@@ -8271,7 +8288,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Places a shield which all friendly players can use
+      - 'Places a shield which
+
+        all friendly players can use'
       - 
       - 
       Flags: 000000
@@ -8289,7 +8308,12 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Stuns all enemies within the blast radius of a thrown grenade
+      - 'Stuns all enemies within
+
+        the blast radius of a
+
+        thrown
+        grenade.'
       - 
       - 
       Flags: 000000
@@ -8307,7 +8331,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Splash Damage over a large area
+      - 'Splash Damage over
+
+        a large area.'
       - 
       - 
       Flags: 000000
@@ -8325,7 +8351,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Heals all players within a fixed area
+      - 'Heals all players
+
+        within a fixed area.'
       - 
       - 
       Flags: 000000
@@ -8343,7 +8371,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Heals all friendly players within the healing field
+      - 'Heals all friendly players
+
+        within the healing field'
       - 
       - 
       Flags: 000000
@@ -8361,7 +8391,11 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Heals any player targetted by your weapon. Be a team player!
+      - 'Heals any player targetted
+
+        by your weapon. Be a
+
+        team player!.'
       - 
       - 
       Flags: 000000
@@ -8379,7 +8413,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Go invisible, causing enemies to stop targetting you
+      - 'Go invisible, causing
+
+        enemies to stop targetting you.'
       - 
       - 
       Flags: 000000
@@ -8397,7 +8433,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Go into Rage mode and inflict more damage per second
+      - 'Go into Rage mode and
+
+        inflict more damage per second.'
       - 
       - 
       Flags: 000000
@@ -8415,7 +8453,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Activates a shield around your character
+      - 'Activates a shield
+
+        around your character.'
       - 
       - 
       Flags: 000000
@@ -8433,7 +8473,12 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Dash that stuns enemies on the way and greatly increases aggro
+      - 'Dash that stuns enemies
+
+        on the way and greatly
+
+        increases
+        aggro.'
       - 
       - 
       Flags: 000000
@@ -8451,7 +8496,11 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Instant high power damage in a small but focussed area
+      - 'Instant high power
+
+        damage in a small
+
+        but focussed area.'
       - 
       - 
       Flags: 000000
@@ -8469,7 +8518,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Stuns all enemies with a large area
+      - 'Stuns all enemies
+
+        with a large area.'
       - 
       - 
       Flags: 000000
@@ -9695,6 +9746,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITStore/shop
+      TermType: 0
+      Description: 
+      Languages:
+      - SHOP
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITHomeScreen/blast_pass
       TermType: 0
       Description: 
@@ -10373,7 +10433,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1669202923644
+    Google_LastUpdatedVersion: 1669220714804
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

@@ -41,6 +41,9 @@ namespace FirstLight.Game.UIElements
 		private const string UssBadgeLoaned = UssBlock + "__badge-loaned";
 		private const string UssBadgeEquipped = UssBlock + "__badge-equipped";
 
+		private const string UssNotification = UssBlock + "__notification";
+		private const string UssNotificationIcon = "notification-icon";
+
 		public Equipment Equipment { get; private set; }
 		public UniqueId UniqueId { get; private set; }
 
@@ -55,6 +58,7 @@ namespace FirstLight.Game.UIElements
 		private VisualElement _faction;
 		private VisualElement _material;
 		private VisualElement _category;
+		private VisualElement _notification;
 
 		private Label _grade;
 		private Label _level;
@@ -142,6 +146,10 @@ namespace FirstLight.Game.UIElements
 				_adjective.AddToClassList(UssAdjective);
 			}
 
+			cardHolder.Add(_notification = new VisualElement());
+			_notification.AddToClassList(UssNotification);
+			_notification.AddToClassList(UssNotificationIcon);
+
 			base.clicked += () => clicked?.Invoke(Equipment, UniqueId);
 
 			if (equipment.IsValid())
@@ -162,20 +170,15 @@ namespace FirstLight.Game.UIElements
 			}
 		}
 
-		public void SetEquipped(bool equipped)
-		{
-			_equippedBadge.SetDisplayActive(equipped);
-		}
-
-		public StyleBackground GetEquipmentImage()
-		{
-			return _image.style.backgroundImage;
-		}
-
 		public async void SetData(Equipment equipment, UniqueId id, bool loaned = false, bool nft = false,
-								  bool equipped = false)
+								  bool equipped = false, bool notification = false)
 		{
 			Assert.IsTrue(equipment.IsValid());
+
+			_loanedBadge.SetDisplayActive(loaned);
+			_nftBadge.SetDisplayActive(nft);
+			_equippedBadge.SetDisplayActive(equipped);
+			_notification.SetDisplayActive(notification);
 
 			if (id == UniqueId) return;
 
@@ -205,10 +208,6 @@ namespace FirstLight.Game.UIElements
 			_adjective.text = equipment.Adjective.ToString().ToUpperInvariant(); // TODO: Add localization
 			_adjective.text = string.Format(ADJECTIVE_LOC_KEY, equipment.Adjective.ToString().ToLowerInvariant())
 				.LocalizeKey();
-
-			_loanedBadge.SetDisplayActive(loaned);
-			_nftBadge.SetDisplayActive(nft);
-			_equippedBadge.SetDisplayActive(equipped);
 
 			// TODO: This should be handled better.
 			var services = MainInstaller.Resolve<IGameServices>();

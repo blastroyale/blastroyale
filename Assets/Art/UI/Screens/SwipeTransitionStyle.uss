@@ -8,9 +8,10 @@
     align-items: center;
     transition-property: translate;
     transition-duration: 1s;
-    translate: 0% 0%;
+    translate: 0 0;
     transition-timing-function: ease-out;
     justify-content: center;
+    transition-delay: 0s;
 }
 
 .red-element {
@@ -63,10 +64,11 @@
 }
 
 .hidden-start.swipe-parent {
-    translate: 400% 0;
+    translate: 15000px 0;
     transition-property: translate;
     transition-duration: 1s;
     transition-timing-function: ease-out;
+    transition-delay: 0s;
 }
 
 .hidden-start .message {
@@ -86,7 +88,7 @@
 }
 
 .hidden-end.swipe-parent {
-    translate: -400% 0;
+    translate: -15000px 0;
     transition-property: translate;
     transition-duration: 1s;
     transition-timing-function: ease-out;

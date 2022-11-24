@@ -1,11 +1,15 @@
 using System;
 using System.Linq;
+using System.Security.Cryptography;
+using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using I2.Loc;
+using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.UIElements.Experimental;
 
 namespace FirstLight.Game.Utils
 {
@@ -53,10 +57,20 @@ namespace FirstLight.Game.Utils
 		/// Gets the position (center of content rect) of the <paramref name="element"/>, in screen coordinates.
 		/// TODO: There has to be a better way to do this, without using the camera
 		/// </summary>
-		public static Vector2 GetPositionOnScreen(this VisualElement element, VisualElement root)
+		public static Vector2 GetPositionOnScreen(this VisualElement element, VisualElement root, bool invertY = true,
+												  bool invertX = false)
 		{
 			var viewportPoint = element.worldBound.center / root.worldBound.size;
-			viewportPoint.y = 1 - viewportPoint.y;
+
+			if (invertX)
+			{
+				viewportPoint.x = 1f - viewportPoint.x;
+			}
+
+			if (invertY)
+			{
+				viewportPoint.y = 1f - viewportPoint.y;
+			}
 
 			return Camera.main.ViewportToScreenPoint(viewportPoint);
 		}
@@ -70,7 +84,7 @@ namespace FirstLight.Game.Utils
 
 			foreach (var clazz in classes)
 			{
-				if(skipAnimations && clazz.StartsWith("anim")) continue;
+				if (skipAnimations && clazz.StartsWith("anim")) continue;
 
 				if (clazz.Contains("--"))
 				{
@@ -106,6 +120,40 @@ namespace FirstLight.Game.Utils
 		public static bool IsAttached(this VisualElement element)
 		{
 			return element.panel != null;
+		}
+
+		/// <summary>
+		/// Opens a tooltip for <paramref name="element"/> (bottom left).
+		/// </summary>
+		public static void OpenTooltip(this VisualElement element, VisualElement root, string content, int offsetX = 0,
+									   int offsetY = 0)
+
+		{
+			var blocker = new VisualElement();
+			root.Add(blocker);
+			blocker.AddToClassList("tooltip-holder");
+			blocker.RegisterCallback<ClickEvent, VisualElement>((_, ve) => { ve.RemoveFromHierarchy(); }, blocker,
+				TrickleDown.TrickleDown);
+
+			var tooltip = new Label(content);
+
+			tooltip.AddToClassList("tooltip");
+			tooltip.RegisterCallback<AttachToPanelEvent>(ev =>
+			{
+				var pos = element.worldBound.position;
+				var rootBound = root.worldBound;
+
+				pos.x -= rootBound.width - offsetX;
+				pos.y += element.worldBound.height - offsetY;
+
+				tooltip.transform.position = pos;
+			});
+
+			tooltip.experimental.animation
+				.Start(0f, 1f, 200, (ve, val) => ve.style.opacity = val)
+				.Ease(Easing.Linear);
+
+			blocker.Add(tooltip);
 		}
 	}
 }

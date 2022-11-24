@@ -42,16 +42,17 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 2caf71907fd3e4fcba0a2d7647e48f43, type: 3}
   - {fileID: 21300000, guid: 92aa9ee015ead471c8db4d1ef1537183, type: 3}
   - {fileID: 21300000, guid: 8f2de411e440e476a955e263066bcdfa, type: 3}
+  - {fileID: 21300000, guid: 6492ef21818934d678d3bb23d9a22645, type: 3}
   - {fileID: 21300000, guid: 4755d43108e94404e975817fcc3c9d0b, type: 3}
   - {fileID: 21300000, guid: 5d7be741d92a744a2a2d412f5b68af0a, type: 3}
   - {fileID: 21300000, guid: 4d4555713b6f541ebad6dd66f91c9429, type: 3}
+  - {fileID: 21300000, guid: 7daa27819b9ff40648f92f624119dfc4, type: 3}
   - {fileID: 21300000, guid: 6dee9891204ef4f5b90a2210c56088a9, type: 3}
   - {fileID: 21300000, guid: 2d7f74c10ed3b4352a100dc9e2226f88, type: 3}
   - {fileID: 21300000, guid: a41b7ad1342264cde80e52208dd22e10, type: 3}
   - {fileID: 21300000, guid: 13c1b5f14115447f780402fd721baad8, type: 3}
   - {fileID: 21300000, guid: 32610552af28844669cdba62234811ad, type: 3}
   - {fileID: 21300000, guid: c9a202b2307fb49549d013e0c91bcb44, type: 3}
-  - {fileID: 21300000, guid: 392430c2b8f8c4703b6a93135a0f0151, type: 3}
   - {fileID: 21300000, guid: a128a1c2f19734f3093e01eca21e66f9, type: 3}
   - {fileID: 21300000, guid: 436115e2e483240878a7960da24ecf96, type: 3}
   - {fileID: 21300000, guid: 1ae4b523bf2014a5195275870be2db40, type: 3}
@@ -86,6 +87,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 7b2a8cf62857f439d94b28d33014167f, type: 3}
   - {fileID: 21300000, guid: d74b22177c5ba4ac6b9293d6c147e46e, type: 3}
   - {fileID: 21300000, guid: ced4ec4712f46447c839dd524606a26e, type: 3}
+  - {fileID: 21300000, guid: 61511c97b754449238274a3cd95feb49, type: 3}
   - {fileID: 21300000, guid: 3954eea7714304c3aacf010642a02d78, type: 3}
   - {fileID: 21300000, guid: b7cd89b76a1db44ad866b85c1d61c758, type: 3}
   - {fileID: 21300000, guid: 30292db7ed06e40ae91381ca33584ea6, type: 3}
@@ -99,8 +101,8 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 88529a998aeeb470b882949759eef90b, type: 3}
   - {fileID: 21300000, guid: 51ac3af9acd824af591121ab7510c3df, type: 3}
   - {fileID: 21300000, guid: 35a3807ace83b4e35bcf7ce6678cf14e, type: 3}
+  - {fileID: 21300000, guid: 1596519a5d00c4b3c87f4014fe12dbab, type: 3}
   - {fileID: 21300000, guid: 0749ff9a80c8c4d5093baf7e8a4e1d7a, type: 3}
-  - {fileID: 21300000, guid: f67f8aaae9a194c24b455483cf06f31c, type: 3}
   - {fileID: 21300000, guid: c96062ca698c645258fbf9555f558741, type: 3}
   - {fileID: 21300000, guid: c49ac5caad3204b44b684f7822d4f353, type: 3}
   - {fileID: 21300000, guid: 5c34000b4db9d44d297310e0b968e481, type: 3}
@@ -110,6 +112,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 7a4e7b5b5c7a24e8d825caff768a93f0, type: 3}
   - {fileID: 21300000, guid: cf7b87ab3ada8418985f6341d9929ea5, type: 3}
   - {fileID: 21300000, guid: fe2093cbd35914e9e9cd6c56ee79fca3, type: 3}
+  - {fileID: 21300000, guid: 2545eacbca71a496a9d0bf7997e6bd4e, type: 3}
   - {fileID: 21300000, guid: 8368e60ca24ab4818929e5d7b2dd77f2, type: 3}
   - {fileID: 21300000, guid: db6aed0c5abfe43cc8c60b70c979e786, type: 3}
   - {fileID: 21300000, guid: edeb643c81c524ca28070f239ae51a4e, type: 3}
@@ -144,16 +147,17 @@ SpriteAtlas:
   - CommonItemButtonPressed
   - AirstrikeAbilityIcon
   - ProfileHeadlineBack
+  - PlayerProfileBack
   - PlayButtonPressed
   - EquippedBadge
   - ProfileProgressBack
+  - TooltipwithTail
   - HomeButton
   - DurabilityBar
   - LegendaryItemButton
   - IconMarketplace
   - BattlePassProgressBack
   - ChangemodeButton
-  - NotificationCircle
   - LegendaryItemButtonPressed
   - CoreLegendary
   - RareItemButtonPressed
@@ -188,6 +192,7 @@ SpriteAtlas:
   - PlayButton
   - CS
   - ChosenBG
+  - ArmourEmptySlotIcon
   - BattlepassButtonPressed
   - UncommonItemButton
   - UncommonItemButtonPressed
@@ -201,8 +206,8 @@ SpriteAtlas:
   - ArmourIcon
   - IconHeroes
   - CooldownCS
+  - PlayerProfileBackPressed
   - SpecialsBg_FOR_REF_
-  - BackIcon
   - ButtonMainYellowPressed
   - NoItemButton
   - CurrencyBack
@@ -212,6 +217,7 @@ SpriteAtlas:
   - WeaponIcon
   - EpicItemButton
   - PoolHeader
+  - AmuletEmptySlotIcon
   - ButtonMain
   - CommonItemButton
   - IconCustomGame

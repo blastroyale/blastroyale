@@ -23,7 +23,7 @@ MonoBehaviour:
         Key: AmmoFilled
     - Type: 3
       Key:
-        Key: AimTime
+        Key: TapCooldown
     - Type: 3
       Key:
         Key: StunDuration

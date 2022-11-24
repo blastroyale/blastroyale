@@ -1,6 +1,5 @@
+using System;
 using FirstLight.Game.Utils;
-using I2.Loc;
-using Quantum.Prototypes;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.UIElements
@@ -8,39 +7,58 @@ namespace FirstLight.Game.UIElements
 	/// <summary>
 	/// Displays the common header element with a title and a subtitle.
 	/// </summary>
-	public class ScreenHeaderElement : ImageButton
+	public class ScreenHeaderElement : VisualElement
 	{
 		private const string UssBlock = "screen-header";
 
 		private const string UssSafeAreaHolder = UssBlock + "__safe-area-holder";
 		private const string UssTitle = UssBlock + "__title";
-		private const string UssSubtitle = UssBlock + "__subtitle";
-		private const string UssBackIcon = UssBlock + "__back-icon";
+		private const string UssHome = UssBlock + "__home";
+		private const string UssBack = UssBlock + "__back";
+		private const string UssSeparator = UssBlock + "__separator";
+		
+		/// <summary>
+		/// Triggered when the home button is clicked.
+		/// </summary>
+		public event Action homeClicked;
+		
+		/// <summary>
+		/// Triggered when the back button is clicked.
+		/// </summary>
+		public event Action backClicked;
 
-		public string titleKey { get; set; }
-		public string subtitleKey { get; set; }
-		public bool subtitleBack { get; set; }
+		private string titleKey { get; set; }
 
 		private readonly Label _title;
-		private readonly Label _subtitle;
-		private readonly VisualElement _backIcon;
+		private readonly ImageButton _back;
+		private readonly ImageButton _home;
 
 		public ScreenHeaderElement()
 		{
 			AddToClassList(UssBlock);
+			AddToClassList("anim-delay-0");
+			AddToClassList("anim-fade");
 
-			var safeAreaContainer = new SafeAreaElement(true, false, true, false);
+			var safeAreaContainer = new SafeAreaElement(true, false, true, true);
 			safeAreaContainer.AddToClassList(UssSafeAreaHolder);
 			Add(safeAreaContainer);
+
+			safeAreaContainer.Add(_back = new ImageButton {name = "back"});
+			_back.AddToClassList(UssBack);
+			_back.AddToClassList(UIConstants.SFX_CLICK_BACKWARDS);
+			_back.clicked += () => backClicked?.Invoke();
 
 			safeAreaContainer.Add(_title = new Label("TITLE") {name = "title"});
 			_title.AddToClassList(UssTitle);
 
-			safeAreaContainer.Add(_subtitle = new Label("SUBTITLE") {name = "subtitle"});
-			_subtitle.AddToClassList(UssSubtitle);
+			var separator = new VisualElement();
+			separator.AddToClassList(UssSeparator);
+			safeAreaContainer.Add(separator);
 
-			_subtitle.Add(_backIcon = new VisualElement {name = "back-icon"});
-			_backIcon.AddToClassList(UssBackIcon);
+			safeAreaContainer.Add(_home = new ImageButton {name = "home"});
+			_home.AddToClassList(UssHome);
+			_home.AddToClassList(UIConstants.SFX_CLICK_BACKWARDS);
+			_home.clicked += () => homeClicked?.Invoke();
 		}
 
 		/// <summary>
@@ -49,33 +67,6 @@ namespace FirstLight.Game.UIElements
 		public void SetTitle(string title)
 		{
 			_title.text = title;
-		}
-
-		/// <summary>
-		/// Sets the subtitle of the header element (should be already localized). If
-		/// <paramref name="back"/> is true it will append "BACK TO" and show a back icon.
-		/// </summary>
-		public void SetSubtitle(string subtitle, bool back = true)
-		{
-			if (string.IsNullOrEmpty(subtitle))
-			{
-				_subtitle.SetDisplayActive(false);
-			}
-			else
-			{
-				_subtitle.SetDisplayActive(true);
-
-				if (back)
-				{
-					_subtitle.text = string.Format(ScriptLocalization.UITShared.back_to, subtitle);
-					_backIcon.SetDisplayActive(true);
-				}
-				else
-				{
-					_subtitle.text = subtitle;
-					_backIcon.SetDisplayActive(false);
-				}
-			}
 		}
 
 		public new class UxmlFactory : UxmlFactory<ScreenHeaderElement, UxmlTraits>
@@ -90,31 +81,14 @@ namespace FirstLight.Game.UIElements
 				use = UxmlAttributeDescription.Use.Required
 			};
 
-			private readonly UxmlStringAttributeDescription _subtitleKeyAttribute = new()
-			{
-				name = "subtitle-key",
-				use = UxmlAttributeDescription.Use.Optional,
-				defaultValue = ""
-			};
-
-			private readonly UxmlBoolAttributeDescription _subtitleBackAttribute = new()
-			{
-				name = "subtitle-back",
-				use = UxmlAttributeDescription.Use.Optional,
-				defaultValue = true
-			};
-
 			public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
 			{
 				base.Init(ve, bag, cc);
 
 				var she = (ScreenHeaderElement) ve;
 				she.titleKey = _titleKeyAttribute.GetValueFromBag(bag, cc);
-				she.subtitleKey = _subtitleKeyAttribute.GetValueFromBag(bag, cc);
-				she.subtitleBack = _subtitleBackAttribute.GetValueFromBag(bag, cc);
 
 				she.SetTitle(she.titleKey.LocalizeKey());
-				she.SetSubtitle(string.IsNullOrEmpty(she.subtitleKey) ? null : she.subtitleKey.LocalizeKey());
 			}
 		}
 	}

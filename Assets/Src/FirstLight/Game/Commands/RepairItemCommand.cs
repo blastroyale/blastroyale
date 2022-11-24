@@ -1,13 +1,13 @@
-﻿using FirstLight.Game.Ids;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 
 namespace FirstLight.Game.Commands
 {
 	/// <summary>
-	/// Upgrades an Non-NFT item and awards the player resources 
+	/// Scraps an Non-NFT item and awards the player resources 
 	/// </summary>
-	public struct UpgradeItemCommand : IGameCommand
+	public struct RepairItemCommand : IGameCommand
 	{
 		public UniqueId Item;
 		
@@ -19,10 +19,10 @@ namespace FirstLight.Game.Commands
 		{
 			var logic = ctx.Logic.EquipmentLogic();
 			var item = logic.Inventory[Item];
-			var cost = logic.GetUpgradeCost(item, false);
+			var cost = logic.GetRepairCost(item, false);
 			
 			ctx.Logic.CurrencyLogic().DeductCurrency(cost.Key, cost.Value);
-			logic.Upgrade(Item);
+			logic.Repair(Item);
 		}
 	}
 }

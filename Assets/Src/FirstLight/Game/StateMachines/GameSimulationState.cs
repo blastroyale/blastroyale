@@ -156,8 +156,6 @@ namespace FirstLight.Game.StateMachines
 			
 			StopSimulation();
 			UnsubscribeEvents();
-			// Delay to prevent an error happening where EntityView was being accessed after it was destroyed
-			await Task.Delay(100);
 			await UnloadAllMatchAssets();
 			UnloadMatchAssetConfigs();
 			
@@ -174,8 +172,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void UnloadMatchEnd()
 		{
-			var configProvider = _services.ConfigsProvider;
-			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<MainMenuAssetConfigs>());
+			// Unload the assets loaded in UnloadMatchAssets method
+			_services.AssetResolverService.UnloadAssets(true, _services.ConfigsProvider.GetConfig<MainMenuAssetConfigs>());
 			MainInstaller.CleanDispose<IMatchServices>();
 		}
 
@@ -479,6 +477,8 @@ namespace FirstLight.Game.StateMachines
 			_services.AssetResolverService.UnloadAssets<EquipmentRarity, GameObject>(false);
 			_services.AssetResolverService.UnloadAssets<IndicatorVfxId, GameObject>(false);
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<MatchAssetConfigs>());
+			
+			// Load the Menu asset configs to show the player skins and visuals in the end game menus
 			_assetAdderService.AddConfigs(configProvider.GetConfig<MainMenuAssetConfigs>());
 		}
 		
@@ -527,7 +527,7 @@ namespace FirstLight.Game.StateMachines
 				{
 					continue;
 				}
-				else if (itemId.GameId.IsInGroup(GameIdGroup.Weapon) && 
+				if (itemId.GameId.IsInGroup(GameIdGroup.Weapon) && 
 					(!f.Context.GameModeConfig.SpawnWithWeapon || f.Context.TryGetMutatorByType(MutatorType.HammerTime, out _)))
 				{
 					continue;

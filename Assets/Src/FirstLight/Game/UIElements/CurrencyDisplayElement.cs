@@ -54,6 +54,13 @@ namespace FirstLight.Game.UIElements
 			_label = new Label("1234");
 			_label.AddToClassList(LabelUssClassName);
 			Add(_label);
+			
+			RegisterCallback<ClickEvent>(OnClicked);
+		}
+
+		private void OnClicked(ClickEvent evt)
+		{
+			this.OpenTooltip(panel.visualTree, currency.GetTranslationDescription());
 		}
 
 		/* IUIView: Called the first time this element is initialized (on first Open) */

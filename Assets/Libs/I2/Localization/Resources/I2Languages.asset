@@ -8741,6 +8741,45 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: GameIds/COINDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - 'This is the text that
+
+        describes the COIN
+
+        currency.'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: GameIds/BLSTDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - 'This is the text that
+
+        describes the BLST
+
+        currency.'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: GameIds/CSDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - 'This is the text that
+
+        describes the CS
+
+        currency.'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: Shop/ConfirmPurchase
       TermType: 0
       Description: 
@@ -9836,6 +9875,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITHomeScreen/discord
+      TermType: 0
+      Description: 
+      Languages:
+      - DISCORD
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITDisconnected/connection_lost
       TermType: 0
       Description: 
@@ -10433,7 +10481,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1669220714804
+    Google_LastUpdatedVersion: 1669240762736
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

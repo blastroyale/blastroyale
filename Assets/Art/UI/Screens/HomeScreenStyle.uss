@@ -1,149 +1,32 @@
-#PlayButton {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/PlayButton.png?fileID=21300000&guid=7b2a8cf62857f439d94b28d33014167f&type=3#PlayButton');
-    width: 535px;
-    height: 193px;
-    font-size: 70px;
-    color: rgb(255, 255, 255);
-    -unity-font-style: bold;
-    -unity-text-outline-width: 2px;
-    -unity-text-outline-color: rgb(141, 27, 0);
-    padding-left: 38px;
-    text-shadow: 5px 5px 0 rgb(139, 26, 3);
-    -unity-text-align: middle-center;
-    padding-bottom: 19px;
-}
-
-#PlayButton:active {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/PlayButtonPressed.png?fileID=21300000&guid=4755d43108e94404e975817fcc3c9d0b&type=3#PlayButtonPressed');
-    padding-left: 62px;
-    padding-top: 20px;
-}
-
-#GameModeButton {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ChangemodeButton.png?fileID=2800000&guid=c9a202b2307fb49549d013e0c91bcb44&type=3#ChangemodeButton');
-    width: 414px;
-    height: 168px;
-    margin-bottom: 7px;
-    padding-left: 59px;
-    padding-bottom: 4px;
-}
-
-#GameModeButton:active {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ChangemodeButtonPressed.png?fileID=21300000&guid=71761bd5e01a740118d4f5b0de3cb413&type=3#ChangemodeButtonPressed');
-    padding-left: 68px;
-    padding-top: 45px;
-}
-
-#PlayerNameLabel {
+.top-buttons {
+    flex-direction: row-reverse;
     position: absolute;
-    top: 90px;
-    left: 10px;
-    rotate: -15deg;
-    -unity-text-align: lower-center;
-    width: 300px;
-    height: 70px;
-    overflow: hidden;
-    white-space: normal;
+    top: 23px;
+    right: 36px;
+    align-items: center;
 }
 
-#BattlePassButton {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BattlepassButton.png?fileID=21300000&guid=2944494fed89644cabdbd0b3da73c0e3&type=3#BattlepassButton');
-    width: 479px;
-    height: 179px;
-    padding-top: 24px;
-}
-
-#BattlePassButton #Title {
-    text-shadow: -5px 5px 0 rgb(139, 26, 3);
-    font-size: 55px;
-    -unity-font-style: bold;
-    -unity-text-outline-width: 2px;
-    -unity-text-outline-color: rgb(141, 27, 0);
-    -unity-text-align: upper-center;
-}
-
-#BattlePassButton #BattlePassProgressElement {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BattlePassProgress.png?fileID=21300000&guid=805b077c9a6dc4cc8acf308e183b7a0b&type=3#BattlePassProgress');
-}
-
-#BattlePassButton #BattlePassCrownIcon {
+.main-buttons {
     position: absolute;
-    top: -27px;
-    right: 5px;
-}
-
-#BattlePassButton:active {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BattlepassButtonPressed.png?fileID=21300000&guid=3954eea7714304c3aacf010642a02d78&type=3#BattlepassButtonPressed');
-    padding-top: 30px;
-    padding-right: 21px;
-    padding-left: 0;
-}
-
-#BattlePassButton:active #BattlePassCrownIcon {
-    position: absolute;
-    top: -20px;
-    right: 13px;
-}
-
-#GameModeButton #GameTypeLabel {
-    color: rgb(146, 137, 162);
-}
-
-.button-with-icon--store > .button-with-icon__icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/IconEquipment.png?fileID=21300000&guid=f074c3dd0ff0849fe90a973fd6fbd458&type=3#IconEquipment');
-}
-
-.button-with-icon--equipment > .button-with-icon__icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/IconEquipment.png?fileID=21300000&guid=f074c3dd0ff0849fe90a973fd6fbd458&type=3#IconEquipment');
-}
-
-.button-with-icon--heroes > .button-with-icon__icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/IconHeroes.png?fileID=21300000&guid=51ac3af9acd824af591121ab7510c3df&type=3#IconHeroes');
-}
-
-.button-with-icon--leaderboards > .button-with-icon__icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/IconLeaderboards.png?fileID=21300000&guid=3a7d899cc87a648b6ab9f1f3cf7035f2&type=3#IconLeaderboards');
-}
-
-.button-with-icon--shop > .button-with-icon__icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/IconShop.png?fileID=21300000&guid=2ea4ca43a1f724d659125eeae517ed2a&type=3#IconShop');
-}
-
-.button-with-icon--discord > .button-with-icon__icon {
-    height: 70px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/DiscordIcon.png?fileID=2800000&guid=b67fedbb7c0d341c4b54768891f247ed&type=3#DiscordIcon');
-}
-
-.button-with-icon--custom-game > .button-with-icon__icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/IconCustomGame.png?fileID=21300000&guid=edeb643c81c524ca28070f239ae51a4e&type=3#IconCustomGame');
-}
-
-#SettingsButton:active > VisualElement {
-    -unity-background-image-tint-color: rgb(126, 126, 126);
-}
-
-Button {
-    background-color: rgba(0, 0, 0, 0);
-    border-width: 0;
-}
-
-LocalizedButton {
-    background-color: rgba(0, 0, 0, 0);
-    border-width: 0;
-}
-
-.pool-container {
-    position: absolute;
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/PoolHeader.png?fileID=21300000&guid=fe2093cbd35914e9e9cd6c56ee79fca3&type=3#PoolHeader');
-    width: 428px;
-    height: 102px;
-    top: -42px;
-    left: -9px;
-    flex-direction: row;
+    top: 245px;
+    bottom: 36px;
+    flex-direction: column;
     justify-content: space-between;
-    font-size: 28px;
-    color: rgb(141, 132, 155);
-    align-items: stretch;
+}
+
+.main-buttons--left {
+    left: 36px;
+    align-items: flex-start;
+}
+
+.main-buttons--right {
+    right: 36px;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.currency-display {
+    margin-right: 50px;
 }
 
 .player-header {
@@ -216,33 +99,270 @@ LocalizedButton {
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
 }
 
-.left-buttons {
-    position: absolute;
-    left: 36px;
-    top: 245px;
-    bottom: 36px;
-    justify-content: space-between;
-    flex-direction: column-reverse;
+.battle-pass-button {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BattlepassButton.png?fileID=21300000&guid=2944494fed89644cabdbd0b3da73c0e3&type=3#BattlepassButton');
+    width: 479px;
+    height: 179px;
 }
 
-.top-buttons {
-    flex-direction: row-reverse;
+.battle-pass-button:active {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BattlepassButtonPressed.png?fileID=21300000&guid=3954eea7714304c3aacf010642a02d78&type=3#BattlepassButtonPressed');
+}
+
+.battle-pass-button__holder {
     position: absolute;
+    left: 0;
     top: 0;
     right: 0;
-    margin-right: 36px;
-    margin-top: 23px;
+    bottom: 0;
+}
+
+.battle-pass-button:active .battle-pass-button__holder {
+    left: -8px;
+    top: 8px;
+    right: 8px;
+    bottom: -8px;
+}
+
+.battle-pass-button__crown {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BattlepassCrown.png?fileID=21300000&guid=0009bb56e12594dd9a62134a948a4f74&type=3#BattlepassCrown');
+    width: 104px;
+    height: 88px;
+    position: absolute;
+    top: -27px;
+    right: 5px;
+}
+
+.battle-pass-button__title {
+    text-shadow: -5px 5px 0 rgb(139, 26, 3);
+    font-size: 55px;
+    -unity-font-style: bold;
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(141, 27, 0);
+    -unity-text-align: upper-center;
+    -unity-font-definition: var(--font-italic);
+    color: rgb(255, 255, 255);
+    margin: 0;
+    padding: 0;
+    left: 43px;
+    right: 28px;
+    top: 26px;
+    position: absolute;
+}
+
+.battle-pass-button__level {
+    -unity-text-align: middle-right;
+    font-size: 42px;
+    -unity-font-definition: var(--font-bold);
+    color: rgb(138, 22, 0);
+    -unity-font-style: bold;
+    position: absolute;
+    bottom: 55px;
+    right: 40px;
+}
+
+.battle-pass-button__progress-bg {
+    height: 20px;
+    padding: 2px;
+    flex-direction: row;
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BattlePassProgressBack.png?fileID=21300000&guid=32610552af28844669cdba62234811ad&type=3#BattlePassProgressBack');
+    -unity-background-scale-mode: stretch-to-fill;
+    position: absolute;
+    bottom: 40px;
+    left: 57px;
+    right: 19px;
+}
+
+.battle-pass-button__progress {
+    padding: 2px;
+    flex-direction: row;
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BattlePassProgress.png?fileID=21300000&guid=805b077c9a6dc4cc8acf308e183b7a0b&type=3#BattlePassProgress');
+    -unity-background-scale-mode: stretch-to-fill;
+    flex-grow: 0.5;
+}
+
+.play-button {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/PlayButton.png?fileID=21300000&guid=7b2a8cf62857f439d94b28d33014167f&type=3#PlayButton');
+    width: 535px;
+    height: 193px;
+    font-size: 70px;
+    color: rgb(255, 255, 255);
+    -unity-font-style: bold;
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(141, 27, 0);
+    padding-left: 38px;
+    text-shadow: 5px 5px 0 rgb(139, 26, 3);
+    -unity-text-align: middle-center;
+    padding-bottom: 19px;
+    background-color: rgba(0, 0, 0, 0);
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+}
+
+.play-button:active {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/PlayButtonPressed.png?fileID=21300000&guid=4755d43108e94404e975817fcc3c9d0b&type=3#PlayButtonPressed');
+    padding-left: 50px;
+    padding-top: 27px;
+}
+
+.game-mode-button {
+    flex-direction: column-reverse;
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ChangemodeButton.png?fileID=2800000&guid=c9a202b2307fb49549d013e0c91bcb44&type=3#ChangemodeButton');
+    width: 414px;
+    height: 168px;
+    margin-bottom: 7px;
+    padding-left: 59px;
+    padding-bottom: 4px;
+}
+
+.game-mode-button:active {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ChangemodeButtonPressed.png?fileID=21300000&guid=71761bd5e01a740118d4f5b0de3cb413&type=3#ChangemodeButtonPressed');
+    padding-left: 68px;
+    padding-top: 45px;
+}
+
+.game-mode-button__holder {
+    rotate: -5deg;
+    margin-right: 38px;
+    padding-bottom: 32px;
+    align-items: flex-start;
+    transform-origin: left top;
+}
+
+.game-mode-button__mode {
+    -unity-text-align: upper-right;
+    font-size: 46px;
+    padding-bottom: 0;
+    margin-bottom: -3px;
+    -unity-font-definition: var(--font-italic);
+    text-shadow: 5px 5px 0 rgba(0, 0, 0, 0.53);
+    color: rgb(255, 255, 255);
+}
+
+.game-mode-button__type {
+    -unity-text-align: upper-right;
+    font-size: 29px;
+    margin-bottom: -3px;
+    margin-left: -8px;
+    -unity-font-definition: var(--font-italic);
+    text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.53);
+    color: rgb(146, 137, 162);
+}
+
+.resource-pool {
+    position: absolute;
+    width: 428px;
+    height: 102px;
+    flex-direction: row;
+    -unity-font-definition: var(--font-italic);
+    justify-content: space-between;
+    font-size: 28px;
+    color: rgb(141, 132, 155);
+    align-items: stretch;
+}
+
+.resource-pool--bpp {
+    left: -9px;
+    top: -42px;
+}
+
+.resource-pool--cs {
+    right: -9px;
+    top: -42px;
+}
+
+.resource-pool__holder {
+    position: absolute;
+    left: 16px;
+    top: 11px;
+    right: 34px;
+    bottom: 51px;
+    justify-content: space-between;
     align-items: center;
 }
 
-.right-buttons {
-    width: 535px;
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    flex-direction: column-reverse;
-    align-items: flex-end;
-    display: flex;
-    margin-bottom: 36px;
-    margin-right: 36px;
+.resource-pool--bpp .resource-pool__holder {
+    flex-direction: row;
+    rotate: 3deg;
+}
+
+.resource-pool--cs .resource-pool__holder {
+    flex-direction: row-reverse;
+    rotate: -3deg;
+}
+
+.resource-pool__separator {
+    flex-grow: 1;
+}
+
+.resource-pool__icon {
+    width: 32px;
+    height: 32px;
+}
+
+.resource-pool--bpp .resource-pool__icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BPP.png?fileID=21300000&guid=100d689cc6ffc41f297345bcfc22f54e&type=3#BPP');
+}
+
+.resource-pool--cs .resource-pool__icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/CS.png?fileID=21300000&guid=d74b22177c5ba4ac6b9293d6c147e46e&type=3#CS');
+}
+
+.resource-pool__background {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/PoolHeader.png?fileID=21300000&guid=fe2093cbd35914e9e9cd6c56ee79fca3&type=3#PoolHeader');
+    width: 428px;
+    height: 102px;
+}
+
+.resource-pool--cs .resource-pool__background {
+    scale: -1 1;
+}
+
+.settings-button {
+}
+
+.settings-button:active .settings-button__icon {
+    -unity-background-image-tint-color: rgb(126, 126, 126);
+}
+
+.settings-button__icon {
+    width: 66px;
+    height: 66px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/SettingsIcon.png?fileID=2800000&guid=04713a4471ac6493ba0a2533be572841&type=3#SettingsIcon');
+    margin: 20px;
+}
+
+.button-with-icon--store > .button-with-icon__icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/IconEquipment.png?fileID=21300000&guid=f074c3dd0ff0849fe90a973fd6fbd458&type=3#IconEquipment');
+}
+
+.button-with-icon--equipment > .button-with-icon__icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/IconEquipment.png?fileID=21300000&guid=f074c3dd0ff0849fe90a973fd6fbd458&type=3#IconEquipment');
+}
+
+.button-with-icon--heroes > .button-with-icon__icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/IconHeroes.png?fileID=21300000&guid=51ac3af9acd824af591121ab7510c3df&type=3#IconHeroes');
+}
+
+.button-with-icon--leaderboards > .button-with-icon__icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/IconLeaderboards.png?fileID=21300000&guid=3a7d899cc87a648b6ab9f1f3cf7035f2&type=3#IconLeaderboards');
+}
+
+.button-with-icon--shop > .button-with-icon__icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/IconShop.png?fileID=21300000&guid=2ea4ca43a1f724d659125eeae517ed2a&type=3#IconShop');
+}
+
+.button-with-icon--discord > .button-with-icon__icon {
+    height: 70px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/DiscordIcon.png?fileID=2800000&guid=b67fedbb7c0d341c4b54768891f247ed&type=3#DiscordIcon');
+}
+
+.button-with-icon--custom-game > .button-with-icon__icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/IconCustomGame.png?fileID=21300000&guid=edeb643c81c524ca28070f239ae51a4e&type=3#IconCustomGame');
+}
+
+#LeaderboardsButton {
+    letter-spacing: -4px;
 }

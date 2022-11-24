@@ -35,13 +35,13 @@ Material:
     m_Ints: []
     m_Floats:
     - Vector1_25ED908C: 25
-    - Vector1_35733DCC: 2.88
+    - Vector1_35733DCC: 0
     - Vector1_3D4E58FA: 0.35
     - Vector1_3F7EACDD: 1
     - Vector1_70D6C424: 0.1
     - Vector1_910C4AAA: 0
     - Vector1_A451679A: 15
-    - Vector1_D6B3B009: 0.1
+    - Vector1_D6B3B009: 1
     - Vector1_DDEF11E3: 500
     - Vector1_DEBD983F: 0.13
     - Vector1_F8DFA3E9: 0.25

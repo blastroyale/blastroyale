@@ -33,9 +33,9 @@ MonoBehaviour:
         RawValue: 39322
       AirdropStartTimeRange:
         Value1:
-          RawValue: 983040
+          RawValue: 851968
         Value2:
-          RawValue: 1638400
+          RawValue: 1245184
       AirdropDropDuration:
         RawValue: 983040
       AirdropChest: 19
@@ -56,7 +56,7 @@ MonoBehaviour:
         Value1:
           RawValue: 327680
         Value2:
-          RawValue: 983040
+          RawValue: 917504
       AirdropDropDuration:
         RawValue: 983040
       AirdropChest: 19

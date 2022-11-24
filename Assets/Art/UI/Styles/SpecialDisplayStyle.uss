@@ -6,10 +6,6 @@
     justify-content: center;
 }
 
-.special-display:active {
-   -unity-background-image-tint-color: rgb(180, 180, 180);
-}
-
 .special-display__icon {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/AirstrikeAbilityIcon.png?fileID=21300000&guid=92aa9ee015ead471c8db4d1ef1537183&type=3#AirstrikeAbilityIcon');
     width: 84px;

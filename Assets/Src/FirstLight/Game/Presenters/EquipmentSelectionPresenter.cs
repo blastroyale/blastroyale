@@ -116,6 +116,8 @@ namespace FirstLight.Game.Presenters
 
 			_statsList.makeItem = MakeEquipmentStatListItem;
 			_statsList.bindItem = BindEquipmentStatListItem;
+			
+			root.SetupClicks(_services);
 		}
 
 		protected override void OnOpened()

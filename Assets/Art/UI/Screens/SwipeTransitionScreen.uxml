@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/SwipeTransitionStyle.uss?fileID=7433441132597879392&amp;guid=59ad4f06f767f416d99efd0eedceb502&amp;type=3#SwipeTransitionStyle" />
     <ui:VisualElement name="root" class="fill-parent">
-        <ui:VisualElement name="SwipeParent" class="swipe-parent">
+        <ui:VisualElement name="SwipeParent" class="swipe-parent hidden-start">
             <ui:VisualElement name="BlueElement" class="blue-element" />
             <ui:VisualElement name="YellowElement" class="yellow-element" />
             <ui:VisualElement name="RedElement" class="red-element" />

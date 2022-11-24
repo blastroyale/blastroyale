@@ -1,6 +1,5 @@
 ﻿using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Services;
 
 namespace FirstLight.Game.Commands
@@ -18,15 +17,12 @@ namespace FirstLight.Game.Commands
 
 		public void Execute(CommandExecutionContext ctx)
 		{
-			var info = ctx.Logic.EquipmentLogic().GetInfo(Item);
+			var logic = ctx.Logic.EquipmentLogic();
+			var item = logic.Inventory[Item];
+			var cost = logic.GetUpgradeCost(item, false);
 			
-			if (info.IsNft)
-			{
-				throw new LogicException($"Not allowed to scrap NFT items on the client, only on the hub and {Item} is a NFT");
-			}
-			
-			ctx.Logic.CurrencyLogic().DeductCurrency(info.UpgradeCost.Key, info.UpgradeCost.Value);
-			ctx.Logic.EquipmentLogic().Upgrade(Item);
+			ctx.Logic.CurrencyLogic().DeductCurrency(cost.Key, cost.Value);
+			logic.Upgrade(Item);
 		}
 	}
 }

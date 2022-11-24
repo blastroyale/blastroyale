@@ -97,18 +97,18 @@ namespace FirstLight.Tests.EditorMode.Integration
 		{
 			var equip = new Equipment() {GameId = GameId.HockeyHelmet, MaxDurability = 2};
 			var itemUniqueId = TestLogic.EquipmentLogic.AddToInventory(equip);
-			var info = TestLogic.EquipmentLogic.GetInfo(itemUniqueId);
+			var cost = TestLogic.EquipmentLogic.GetRepairCost(equip, false);
 			var data = TestData.GetData<PlayerData>();
 
-			data.Currencies[info.RepairCost.Key] = info.RepairCost.Value;
+			data.Currencies[cost.Key] = cost.Value;
 
 			TestServices.CommandService.ExecuteCommand(new RepairItemCommand()
 			{
 				Item = itemUniqueId
 			});
 
-			Assert.AreEqual(0, data.Currencies[info.UpgradeCost.Key]);
-			Assert.AreEqual(info.Equipment.MaxDurability, TestLogic.EquipmentLogic.Inventory[itemUniqueId].Durability);
+			Assert.AreEqual(0, data.Currencies[cost.Key]);
+			Assert.AreEqual(equip.MaxDurability, TestLogic.EquipmentLogic.Inventory[itemUniqueId].Durability);
 		}
 	}
 }

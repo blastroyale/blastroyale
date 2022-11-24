@@ -17,9 +17,9 @@ namespace FirstLight.Game.Commands
 
 		public void Execute(CommandExecutionContext ctx)
 		{
-			var info = ctx.Logic.EquipmentLogic().Scrap(Item);
+			var reward = ctx.Logic.EquipmentLogic().Scrap(Item);;
 			
-			ctx.Logic.CurrencyLogic().AddCurrency(info.ScrappingValue.Key, info.ScrappingValue.Value);
+			ctx.Logic.CurrencyLogic().AddCurrency(reward.Key, reward.Value);
 		}
 	}
 }

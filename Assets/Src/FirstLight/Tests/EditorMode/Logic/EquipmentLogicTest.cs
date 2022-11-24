@@ -194,10 +194,10 @@ namespace FirstLight.Tests.EditorMode.Logic
 		{
 			//TestData.InsertionTimestamps.Add(_item.Key, 0);
 
-			var info = _equipmentLogic.Scrap(_item.Key);
+			var reward = _equipmentLogic.Scrap(_item.Key);
 			
-			Assert.AreEqual(GameId.COIN, info.ScrappingValue.Key);
-			Assert.AreEqual(212, info.ScrappingValue.Value);
+			Assert.AreEqual(GameId.COIN, reward.Key);
+			Assert.AreEqual(212, reward.Value);
 			Assert.AreEqual(0, _equipmentLogic.Inventory.Count);
 		}
 		

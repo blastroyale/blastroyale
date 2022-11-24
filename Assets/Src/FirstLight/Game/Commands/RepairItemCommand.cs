@@ -17,10 +17,12 @@ namespace FirstLight.Game.Commands
 
 		public void Execute(CommandExecutionContext ctx)
 		{
-			var info = ctx.Logic.EquipmentLogic().GetInfo(Item);
+			var logic = ctx.Logic.EquipmentLogic();
+			var item = logic.Inventory[Item];
+			var cost = logic.GetRepairCost(item, false);
 			
-			ctx.Logic.CurrencyLogic().DeductCurrency(info.RepairCost.Key, info.RepairCost.Value);
-			ctx.Logic.EquipmentLogic().Repair(Item);
+			ctx.Logic.CurrencyLogic().DeductCurrency(cost.Key, cost.Value);
+			logic.Repair(Item);
 		}
 	}
 }

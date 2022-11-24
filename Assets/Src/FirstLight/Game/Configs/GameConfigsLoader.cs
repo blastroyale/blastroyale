@@ -68,6 +68,7 @@ namespace FirstLight.Game.Configs
 				LoadConfig<MutatorConfigs>(AddressableId.Configs_MutatorConfigs, asset => configsAdder.AddConfigs(data => data.Id.GetHashCode(), asset.Configs)),
 				LoadConfig<ScrapConfigs>(AddressableId.Configs_ScrapConfigs, asset => configsAdder.AddConfigs(data => (int) data.ResourceType, asset.Configs)),
 				LoadConfig<UpgradeDataConfigs>(AddressableId.Configs_UpgradeDataConfigs, asset => configsAdder.AddConfigs(data => (int) data.ResourceType, asset.Configs)),
+				LoadConfig<RepairDataConfigs>(AddressableId.Configs_RepairDataConfigs, asset => configsAdder.AddConfigs(data => (int) data.ResourceType, asset.Configs)),
 			};
 		}
 	

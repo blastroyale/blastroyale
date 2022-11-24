@@ -19,6 +19,7 @@ namespace Quantum
 			var isAccuracyMutator = f.Context.TryGetMutatorByType(MutatorType.AbsoluteAccuracy, out _);
 			var kcc = f.Unsafe.GetPointer<CharacterController3D>(e);
 			var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(e);
+			var stats = f.Unsafe.GetPointer<Stats>(e);
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 			var weaponConfig = f.WeaponConfigs.GetConfig(playerCharacter->CurrentWeapon.GameId);
 			var player = playerCharacter->Player;
@@ -69,8 +70,8 @@ namespace Quantum
 				NumberOfShots = weaponConfig.NumberOfShots,
 				AccuracyModifier = shotAngle
 			};
-			
-			playerCharacter->ReduceAmmo(f, e, 1);
+
+			stats->ReduceAmmo(f, e, 1);
 			bb->Set(f, Constants.BurstShotCount, bb->GetFP(f, Constants.BurstShotCount) - 1);
 
 			f.Add(f.Create(), raycastShot);

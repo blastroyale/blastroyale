@@ -21,6 +21,7 @@ namespace Quantum
 		{
 			CurrentHealth = baseHealth.AsInt;
 			CurrentShield = 0;
+			CurrentAmmo = 0;
 			CurrentStatusModifierDuration = FP._0;
 			CurrentStatusModifierEndTime = FP._0;
 			CurrentStatusModifierType = StatusModifierType.None;
@@ -109,6 +110,55 @@ namespace Quantum
 			list.RemoveAt(index);
 
 			f.Events.OnStatModifierRemoved(entity, modifier);
+		}
+
+		/// <summary>
+		/// Adds ammo to your pool where <paramref name="amount"/> is a % of your total ammo
+		/// </summary>
+		internal void GainAmmoPercent(Frame f, EntityRef e,FP amount)
+		{
+			var maxAmmo = GetStatData(StatType.AmmoCapacity).StatValue.AsInt;
+			var player = f.Get<PlayerCharacter>(e);
+			SetCurrentAmmo(f, player, e, CurrentAmmo + (maxAmmo * amount).AsInt);
+		}
+
+		/// <summary>
+		/// Reduces the given ammo count by <paramref name="amount"/> of this <paramref name="e"/> player's entity
+		/// </summary>
+		internal void ReduceAmmo(Frame f, EntityRef e, int amount)
+		{
+			var player = f.Get<PlayerCharacter>(e);
+			var maxAmmo = GetStatData(StatType.AmmoCapacity).BaseValue.AsInt;
+			var magShotCount = player.GetMagShotCount(f, player.CurrentWeaponSlot, out var magSize);
+
+			// Only consume a shot from the magazine if it has a magazine size and there is still ammo left in the mag
+			if (magSize > 0 && magShotCount > 0)
+			{
+				player.WeaponSlots.GetPointer(player.CurrentWeaponSlot)->MagazineShotCount -= 1;
+			}
+
+			// Do not do reduce for melee weapons or if your weapon does not consume ammo
+			if (!player.HasMeleeWeapon(f, e) || maxAmmo > 1)
+			{
+				SetCurrentAmmo(f, player, e, CurrentAmmo - amount);
+			}
+		}
+
+		/// <summary>
+		/// Set's the <paramref name="player"/>'s ammo count to <paramref name="value"/> clamped between 0 and MaxAmmo
+		/// </summary>
+		internal void SetCurrentAmmo(Frame f, PlayerCharacter player, EntityRef e, int value, bool ignoreClamp = false)
+		{
+			var previousAmmo = CurrentAmmo;
+			var maxAmmo = GetStatData(StatType.AmmoCapacity).BaseValue.AsInt;
+			var magSize = f.WeaponConfigs.GetConfig(player.CurrentWeapon.GameId).MagazineSize;
+
+			CurrentAmmo = ignoreClamp ? value : FPMath.Clamp(value, 0, maxAmmo);
+
+			if (CurrentAmmo != previousAmmo)
+			{
+				f.Events.OnPlayerAmmoChanged(player.Player, e, previousAmmo, CurrentAmmo, maxAmmo, CurrentAmmo / maxAmmo, magSize);
+			}
 		}
 
 		/// <summary>

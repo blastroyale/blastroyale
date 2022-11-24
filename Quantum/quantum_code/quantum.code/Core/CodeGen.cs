@@ -4650,27 +4650,29 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Stats : Quantum.IComponent {
-    public const Int32 SIZE = 232;
+    public const Int32 SIZE = 240;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(0)]
-    public Int32 CurrentHealth;
+    public Int32 CurrentAmmo;
     [FieldOffset(4)]
-    public Int32 CurrentShield;
-    [FieldOffset(24)]
-    public FP CurrentStatusModifierDuration;
-    [FieldOffset(32)]
-    public FP CurrentStatusModifierEndTime;
-    [FieldOffset(20)]
-    public StatusModifierType CurrentStatusModifierType;
+    public Int32 CurrentHealth;
     [FieldOffset(8)]
-    public QBoolean IsImmune;
+    public Int32 CurrentShield;
+    [FieldOffset(32)]
+    public FP CurrentStatusModifierDuration;
+    [FieldOffset(40)]
+    public FP CurrentStatusModifierEndTime;
+    [FieldOffset(24)]
+    public StatusModifierType CurrentStatusModifierType;
     [FieldOffset(12)]
+    public QBoolean IsImmune;
+    [FieldOffset(16)]
     [FramePrinter.PtrQListAttribute(typeof(Modifier))]
     private Quantum.Ptr ModifiersPtr;
-    [FieldOffset(16)]
+    [FieldOffset(20)]
     [FramePrinter.PtrQListAttribute(typeof(EntityRef))]
     private Quantum.Ptr SpellEffectsPtr;
-    [FieldOffset(40)]
+    [FieldOffset(48)]
     [FramePrinter.FixedArrayAttribute(typeof(StatData), 8)]
     private fixed Byte _Values_[192];
     public QListPtr<Modifier> Modifiers {
@@ -4697,6 +4699,7 @@ namespace Quantum {
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 593;
+        hash = hash * 31 + CurrentAmmo.GetHashCode();
         hash = hash * 31 + CurrentHealth.GetHashCode();
         hash = hash * 31 + CurrentShield.GetHashCode();
         hash = hash * 31 + CurrentStatusModifierDuration.GetHashCode();
@@ -4719,6 +4722,7 @@ namespace Quantum {
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (Stats*)ptr;
+        serializer.Stream.Serialize(&p->CurrentAmmo);
         serializer.Stream.Serialize(&p->CurrentHealth);
         serializer.Stream.Serialize(&p->CurrentShield);
         QBoolean.Serialize(&p->IsImmune, serializer);
@@ -10345,6 +10349,7 @@ namespace Quantum.Prototypes {
   public sealed unsafe partial class Stats_Prototype : ComponentPrototype<Stats> {
     public Int32 CurrentHealth;
     public Int32 CurrentShield;
+    public Int32 CurrentAmmo;
     public QBoolean IsImmune;
     [ArrayLengthAttribute(8)]
     public StatData_Prototype[] Values = new StatData_Prototype[8];
@@ -10362,6 +10367,7 @@ namespace Quantum.Prototypes {
       return f.Set(entity, component) == SetResult.ComponentAdded;
     }
     public void Materialize(Frame frame, ref Stats result, in PrototypeMaterializationContext context) {
+      result.CurrentAmmo = this.CurrentAmmo;
       result.CurrentHealth = this.CurrentHealth;
       result.CurrentShield = this.CurrentShield;
       result.CurrentStatusModifierDuration = this.CurrentStatusModifierDuration;

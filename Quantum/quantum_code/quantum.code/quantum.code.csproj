@@ -86,6 +86,7 @@
     <Compile Include="AI\Functions\HFSM.FPVector2SqrtMagnitudeFunction.cs" />
     <Compile Include="AI\Functions\HFSM.FPVector3SqrtMagnitudeFunction.cs" />
     <Compile Include="AI\Functions\HFSM.FPSumFunction.cs" />
+    <Compile Include="AI\Functions\HFSM.GetAmmoCountFunction.cs" />
     <Compile Include="AI\Functions\HFSM.StatFunction.cs" />
     <Compile Include="AI\Functions\HFSM.FPMultiplierFunction.cs" />
     <Compile Include="AI\Functions\HFSM.FPVector3SumFunction.cs" />

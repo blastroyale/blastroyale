@@ -15,6 +15,7 @@ using Photon.Deterministic;
 using Quantum;
 using Assert = NUnit.Framework.Assert;
 using ModelSerializer = FirstLight.Server.SDK.Modules.ModelSerializer;
+using PlayerMatchData = Quantum.PlayerMatchData;
 
 /// <summary>
 /// Test suit to test specific blast royale commands.
@@ -41,7 +42,7 @@ public class TestBlastRoyaleCommands
 		};
 		var matchData = new QuantumPlayerMatchData[]
 		{
-			new QuantumPlayerMatchData()
+			new()
 			{
 				Data = new PlayerMatchData()
 				{

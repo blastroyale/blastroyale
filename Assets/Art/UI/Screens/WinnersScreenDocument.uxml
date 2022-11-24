@@ -1,9 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/WinnersScreenStyle.uss?fileID=7433441132597879392&amp;guid=1b8399f713a08466282bd37caf45866d&amp;type=3#WinnersScreenStyle" />
     <ui:VisualElement name="root" class="fill-parent" style="align-items: center;">
-        <ui:VisualElement name="TitleHolder" class="visible-opacity-title hidden-opacity-title title-holder">
-            <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITWinners/winners" name="Title" text="DEFEAT&#10;" class="font-style-h1 font-italic title-holder__title" style="top: 62px; left: 103px; font-size: 90px;" />
-        </ui:VisualElement>
         <ui:Button display-tooltip-when-elided="true" name="NextButton" class="next-button">
             <ui:Label text="NEXT →" display-tooltip-when-elided="true" name="Label" class="next-button__label" />
         </ui:Button>
@@ -22,5 +19,6 @@
             <ui:VisualElement name="Badge" class="player__badge" />
             <ui:Label text="PLAYERNAME" display-tooltip-when-elided="true" name="PlayerName3" class="font-style-h1 font-italic player__player-name" />
         </ui:VisualElement>
+        <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITWinners/winners" class="screen-header--simple" />
     </ui:VisualElement>
 </ui:UXML>

@@ -70,7 +70,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				OnSlotButtonClicked = SlotButtonClicked,
 				OnBackClicked = () => _statechartTrigger(_backButtonClickedEvent),
-				OnCloseClicked = () => _statechartTrigger(_closeButtonClickedEvent)
+				OnHomeClicked = () => _statechartTrigger(_closeButtonClickedEvent)
 			};
 
 			_uiService.OpenScreen<EquipmentPresenter, EquipmentPresenter.StateData>(data);

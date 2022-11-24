@@ -34,8 +34,8 @@ MonoBehaviour:
         Values: 
       AimingMovementSpeed:
         RawValue: 19661
-      AimTime:
-        RawValue: 655
+      TapCooldown:
+        RawValue: 49152
       AttackCooldown:
         RawValue: 49152
       PowerToDamageRatio:
@@ -80,8 +80,8 @@ MonoBehaviour:
         Values: 2400000018000000
       AimingMovementSpeed:
         RawValue: 52429
-      AimTime:
-        RawValue: 8192
+      TapCooldown:
+        RawValue: 32768
       AttackCooldown:
         RawValue: 32768
       PowerToDamageRatio:
@@ -126,8 +126,8 @@ MonoBehaviour:
         Values: 2400000012000000
       AimingMovementSpeed:
         RawValue: 52429
-      AimTime:
-        RawValue: 13107
+      TapCooldown:
+        RawValue: 52429
       AttackCooldown:
         RawValue: 52429
       PowerToDamageRatio:
@@ -172,8 +172,8 @@ MonoBehaviour:
         Values: 2c0100004b000000
       AimingMovementSpeed:
         RawValue: 65536
-      AimTime:
-        RawValue: 8192
+      TapCooldown:
+        RawValue: 5243
       AttackCooldown:
         RawValue: 5243
       PowerToDamageRatio:
@@ -218,8 +218,8 @@ MonoBehaviour:
         Values: c800000032000000
       AimingMovementSpeed:
         RawValue: 52429
-      AimTime:
-        RawValue: 8192
+      TapCooldown:
+        RawValue: 29491
       AttackCooldown:
         RawValue: 29491
       PowerToDamageRatio:
@@ -264,8 +264,8 @@ MonoBehaviour:
         Values: 170000000c000000
       AimingMovementSpeed:
         RawValue: 52429
-      AimTime:
-        RawValue: 16384
+      TapCooldown:
+        RawValue: 52429
       AttackCooldown:
         RawValue: 52429
       PowerToDamageRatio:
@@ -310,8 +310,8 @@ MonoBehaviour:
         Values: 3200000014000000
       AimingMovementSpeed:
         RawValue: 52429
-      AimTime:
-        RawValue: 39322
+      TapCooldown:
+        RawValue: 65536
       AttackCooldown:
         RawValue: 65536
       PowerToDamageRatio:
@@ -356,8 +356,8 @@ MonoBehaviour:
         Values: a500000064000000
       AimingMovementSpeed:
         RawValue: 52429
-      AimTime:
-        RawValue: 8192
+      TapCooldown:
+        RawValue: 655
       AttackCooldown:
         RawValue: 655
       PowerToDamageRatio:
@@ -402,8 +402,8 @@ MonoBehaviour:
         Values: 6400000024000000
       AimingMovementSpeed:
         RawValue: 65536
-      AimTime:
-        RawValue: 3277
+      TapCooldown:
+        RawValue: 19661
       AttackCooldown:
         RawValue: 19661
       PowerToDamageRatio:
@@ -448,8 +448,8 @@ MonoBehaviour:
         Values: 240000000c000000
       AimingMovementSpeed:
         RawValue: 32768
-      AimTime:
-        RawValue: 19661
+      TapCooldown:
+        RawValue: 43647
       AttackCooldown:
         RawValue: 43647
       PowerToDamageRatio:
@@ -494,8 +494,8 @@ MonoBehaviour:
         Values: 2c01000046000000
       AimingMovementSpeed:
         RawValue: 72090
-      AimTime:
-        RawValue: 13107
+      TapCooldown:
+        RawValue: 5243
       AttackCooldown:
         RawValue: 5243
       PowerToDamageRatio:
@@ -540,8 +540,8 @@ MonoBehaviour:
         Values: c800000032000000
       AimingMovementSpeed:
         RawValue: 52429
-      AimTime:
-        RawValue: 13107
+      TapCooldown:
+        RawValue: 7864
       AttackCooldown:
         RawValue: 7864
       PowerToDamageRatio:
@@ -586,8 +586,8 @@ MonoBehaviour:
         Values: 1e0000000c000000
       AimingMovementSpeed:
         RawValue: 32768
-      AimTime:
-        RawValue: 19661
+      TapCooldown:
+        RawValue: 65536
       AttackCooldown:
         RawValue: 65536
       PowerToDamageRatio:
@@ -632,8 +632,8 @@ MonoBehaviour:
         Values: 230000000f000000
       AimingMovementSpeed:
         RawValue: 52429
-      AimTime:
-        RawValue: 39322
+      TapCooldown:
+        RawValue: 36045
       AttackCooldown:
         RawValue: 36045
       PowerToDamageRatio:
@@ -678,8 +678,8 @@ MonoBehaviour:
         Values: 960000004b000000
       AimingMovementSpeed:
         RawValue: 21627
-      AimTime:
-        RawValue: 26214
+      TapCooldown:
+        RawValue: 21627
       AttackCooldown:
         RawValue: 21627
       PowerToDamageRatio:
@@ -724,8 +724,8 @@ MonoBehaviour:
         Values: 3200000018000000
       AimingMovementSpeed:
         RawValue: 65536
-      AimTime:
-        RawValue: 19661
+      TapCooldown:
+        RawValue: 32768
       AttackCooldown:
         RawValue: 32768
       PowerToDamageRatio:
@@ -770,8 +770,8 @@ MonoBehaviour:
         Values: 1e0000000c000000
       AimingMovementSpeed:
         RawValue: 52429
-      AimTime:
-        RawValue: 26214
+      TapCooldown:
+        RawValue: 13107
       AttackCooldown:
         RawValue: 13107
       PowerToDamageRatio:
@@ -816,8 +816,8 @@ MonoBehaviour:
         Values: c80000004b000000
       AimingMovementSpeed:
         RawValue: 65536
-      AimTime:
-        RawValue: 9830
+      TapCooldown:
+        RawValue: 7864
       AttackCooldown:
         RawValue: 7864
       PowerToDamageRatio:
@@ -862,8 +862,8 @@ MonoBehaviour:
         Values: 6400000032000000
       AimingMovementSpeed:
         RawValue: 52429
-      AimTime:
-        RawValue: 13107
+      TapCooldown:
+        RawValue: 10486
       AttackCooldown:
         RawValue: 10486
       PowerToDamageRatio:
@@ -908,8 +908,8 @@ MonoBehaviour:
         Values: 1900000020000000
       AimingMovementSpeed:
         RawValue: 52429
-      AimTime:
-        RawValue: 26214
+      TapCooldown:
+        RawValue: 52429
       AttackCooldown:
         RawValue: 52429
       PowerToDamageRatio:
@@ -954,7 +954,7 @@ MonoBehaviour:
         Values: 1e0000000a000000
       AimingMovementSpeed:
         RawValue: 52429
-      AimTime:
+      TapCooldown:
         RawValue: 52429
       AttackCooldown:
         RawValue: 52429
@@ -1000,8 +1000,8 @@ MonoBehaviour:
         Values: c80000004b000000
       AimingMovementSpeed:
         RawValue: 65536
-      AimTime:
-        RawValue: 19661
+      TapCooldown:
+        RawValue: 3277
       AttackCooldown:
         RawValue: 3277
       PowerToDamageRatio:

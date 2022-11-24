@@ -241,7 +241,8 @@ namespace Quantum
 		{
 			SetSlotWeapon(f, e, slot);
 			HFSMManager.TriggerEvent(f, e, Constants.ChangeWeaponEvent);
-			f.Events.OnPlayerWeaponChanged(Player, e, slot);
+			var reloadTime = f.WeaponConfigs.GetConfig(WeaponSlots.GetPointer(slot)->Weapon.GameId).ReloadTime;
+			f.Events.OnPlayerWeaponChanged(Player, e, slot, reloadTime);
 		}
 
 		/// <summary>
@@ -280,8 +281,9 @@ namespace Quantum
 		/// <summary>
 		/// Returns the magazine shot count for a specified <paramref name="slot"/>
 		/// </summary>
-		public int GetMagShotCount(int slot)
+		public int GetMagShotCount(Frame f, int slot, out int magSize)
 		{
+			magSize = f.WeaponConfigs.GetConfig(WeaponSlots.GetPointer(slot)->Weapon.GameId).MagazineSize;
 			return WeaponSlots.GetPointer(slot)->MagazineShotCount;
 		}
 
@@ -431,8 +433,8 @@ namespace Quantum
 			{
 				return;
 			}
-
-			f.Events.OnPlayerAmmoChanged(Player, e, ammo, newAmmo, maxAmmo, newAmmoFilled);
+			var magSize = f.WeaponConfigs.GetConfig(CurrentWeapon.GameId).MagazineSize;
+			f.Events.OnPlayerAmmoChanged(Player, e, ammo, newAmmo, maxAmmo, newAmmoFilled, magSize);
 		}
 
 		/// <summary>
@@ -451,13 +453,13 @@ namespace Quantum
 			var currentAmmo = Math.Min(newAmmo, maxAmmo);
 			var finalAmmoFilled = FPMath.Max(GetAmmoAmountFilled(f, e) - ((FP._1 / maxAmmo) * amount), FP._0);
 
-			if(GetMagShotCount(CurrentWeaponSlot) > 0)
+			if(GetMagShotCount(f, CurrentWeaponSlot, out var magSize) > 0)
 			{
 				WeaponSlots.GetPointer(CurrentWeaponSlot)->MagazineShotCount -= 1; //reduces the magazine counter when you spend ammo
 			}
 
 			f.Unsafe.GetPointer<AIBlackboardComponent>(e)->Set(f, Constants.AmmoFilledKey, finalAmmoFilled);
-			f.Events.OnPlayerAmmoChanged(Player, e, ammo, currentAmmo, maxAmmo, finalAmmoFilled); 
+			f.Events.OnPlayerAmmoChanged(Player, e, ammo, currentAmmo, maxAmmo, finalAmmoFilled, magSize); 
 		}
 
 		/// <summary>

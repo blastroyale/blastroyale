@@ -122,7 +122,7 @@ MonoBehaviour:
     <Type>Photon.Deterministic.FPVector3, PhotonDeterministic</Type>\r\n      <Default></Default>\r\n     
     <Flags>0</Flags>\r\n      <VarMode>MetaField</VarMode>\r\n      <TypeMode>Value</TypeMode>\r\n     
     <Scope>Constant</Scope>\r\n    </Var>\r\n    <Key>ea74f07f-495a-43de-9a86-aa791b839c2d</Key>\r\n   
-    <Var>\r\n      <Id>ea74f07f-495a-43de-9a86-aa791b839c2d</Id>\r\n      <Name>AimTime</Name>\r\n     
+    <Var>\r\n      <Id>ea74f07f-495a-43de-9a86-aa791b839c2d</Id>\r\n      <Name>TapCooldown</Name>\r\n     
     <Type>Photon.Deterministic.FP, PhotonDeterministic</Type>\r\n      <Default></Default>\r\n     
     <Flags>0</Flags>\r\n      <VarMode>MetaField</VarMode>\r\n      <TypeMode>Value</TypeMode>\r\n     
     <Scope>Blackboard</Scope>\r\n    </Var>\r\n    <Key>f8606155-e125-409f-a91c-6a9e8f6c7b7a</Key>\r\n   
@@ -636,7 +636,7 @@ MonoBehaviour:
     <Data>\r\n          <Name>Guid</Name>\r\n          <Value Type=\"System.Int64,
     mscorlib\">2793138403379056272</Value>\r\n        </Data>\r\n      </Data>\r\n     
     <ChildrenStatesCount>0</ChildrenStatesCount>\r\n    </Node>\r\n    <Key>1f3b5a31-e773-4314-ad3b-6bdeffd67010</Key>\r\n   
-    <Node>\r\n      <Id>1f3b5a31-e773-4314-ad3b-6bdeffd67010</Id>\r\n      <Name>AimTime</Name>\r\n     
+    <Node>\r\n      <Id>1f3b5a31-e773-4314-ad3b-6bdeffd67010</Id>\r\n      <Name>TapCooldown</Name>\r\n     
     <Comment></Comment>\r\n      <Graph>409057db-9b5f-4641-a204-cdf30dba1773</Graph>\r\n     
     <Parent>$blackboardRef</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n     
     <Flags>0</Flags>\r\n      <Position>439|153||0</Position>\r\n      <StaticIn
@@ -4601,8 +4601,8 @@ MonoBehaviour:
     <Id>88cfda32-e8f5-4539-8802-8cb1bccffd7c</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
     <ZoomOffset>0|0||0</ZoomOffset>\r\n      <PanOffset>511|178||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>98a9ccc5-49fd-4069-b090-c33275ae3ee5</Key>\r\n    <GraphData>\r\n     
-    <Id>98a9ccc5-49fd-4069-b090-c33275ae3ee5</Id>\r\n      <ZoomLevel>0.76</ZoomLevel>\r\n     
-    <ZoomOffset>-364|-201||0</ZoomOffset>\r\n      <PanOffset>792|-103||0</PanOffset>\r\n   
+    <Id>98a9ccc5-49fd-4069-b090-c33275ae3ee5</Id>\r\n      <ZoomLevel>0.94</ZoomLevel>\r\n     
+    <ZoomOffset>-458|-254||0</ZoomOffset>\r\n      <PanOffset>698|-65||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>a228e418-0ba9-4529-a211-1e721041c206</Key>\r\n    <GraphData>\r\n     
     <Id>a228e418-0ba9-4529-a211-1e721041c206</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
     <ZoomOffset>0|0||0</ZoomOffset>\r\n      <PanOffset>272|230||0</PanOffset>\r\n   
@@ -4644,7 +4644,7 @@ MonoBehaviour:
     <ZoomOffset>0|0||0</ZoomOffset>\r\n      <PanOffset>-37|561||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>d1234780-ae90-4f37-9ad5-6ad4bc54919c</Key>\r\n    <GraphData>\r\n     
     <Id>d1234780-ae90-4f37-9ad5-6ad4bc54919c</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
-    <ZoomOffset>-2|-69||0</ZoomOffset>\r\n      <PanOffset>288|95||0</PanOffset>\r\n   
+    <ZoomOffset>-2|-69||0</ZoomOffset>\r\n      <PanOffset>322|98||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>d30bb036-e154-4643-80ab-20adcba18723</Key>\r\n    <GraphData>\r\n     
     <Id>d30bb036-e154-4643-80ab-20adcba18723</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
     <ZoomOffset>-14|-11||0</ZoomOffset>\r\n      <PanOffset>445|126||0</PanOffset>\r\n   
@@ -4671,5 +4671,5 @@ MonoBehaviour:
   DocumentId: 98a9ccc5-49fd-4069-b090-c33275ae3ee5
   DocumentNameOverride: 
   History: []
-  LastCompiledHistoryID: 84804a7b-9777-40d5-a0ae-d34c52aa58f0
+  LastCompiledHistoryID: 594d1c96-a332-45c9-a32c-b1d59593e9c2
   IsOutdated: 0

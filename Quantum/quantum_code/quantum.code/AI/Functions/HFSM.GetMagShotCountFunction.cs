@@ -15,7 +15,7 @@ namespace Quantum
 		public override int Execute(Frame f, EntityRef e, ref AIContext aiContext)
 		{
 			var pc = f.Get<PlayerCharacter>(e);
-			return pc.GetMagShotCount(pc.CurrentWeaponSlot);
+			return pc.GetMagShotCount(f, pc.CurrentWeaponSlot, out _);
 		}
 	}
 }

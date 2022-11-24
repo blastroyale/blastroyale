@@ -81,6 +81,7 @@ synced event OnPlayerAmmoChanged
 	Int32 CurrentAmmo;
 	Int32 MaxAmmo;
 	FP FilledAmmo;
+	Int32 MagSize;
 }
 
 synced event OnPlayerWeaponChanged
@@ -89,6 +90,7 @@ synced event OnPlayerWeaponChanged
 	entity_ref Entity;
 	Equipment Weapon;
 	Int32 Slot;
+	FP ReloadTime;
 }
 
 synced event OnPlayerGearChanged
@@ -219,6 +221,7 @@ synced event OnLocalPlayerWeaponChanged
 	entity_ref Entity;
 	WeaponSlot WeaponSlot;
 	Int32 Slot;
+	FP ReloadTime;
 }
 
 synced event OnLocalPlayerSpecialUsed

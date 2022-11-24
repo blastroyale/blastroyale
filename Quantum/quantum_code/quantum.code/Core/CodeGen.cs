@@ -5606,7 +5606,7 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnPlayerAmmoChanged OnPlayerAmmoChanged(PlayerRef Player, EntityRef Entity, Int32 PreviousAmmo, Int32 CurrentAmmo, Int32 MaxAmmo, FP FilledAmmo) {
+      public EventOnPlayerAmmoChanged OnPlayerAmmoChanged(PlayerRef Player, EntityRef Entity, Int32 PreviousAmmo, Int32 CurrentAmmo, Int32 MaxAmmo, FP FilledAmmo, Int32 MagSize) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnPlayerAmmoChanged>(EventOnPlayerAmmoChanged.ID);
         ev.Player = Player;
@@ -5615,16 +5615,18 @@ namespace Quantum {
         ev.CurrentAmmo = CurrentAmmo;
         ev.MaxAmmo = MaxAmmo;
         ev.FilledAmmo = FilledAmmo;
+        ev.MagSize = MagSize;
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnPlayerWeaponChanged OnPlayerWeaponChanged(PlayerRef Player, EntityRef Entity, Equipment Weapon, Int32 Slot) {
+      public EventOnPlayerWeaponChanged OnPlayerWeaponChanged(PlayerRef Player, EntityRef Entity, Equipment Weapon, Int32 Slot, FP ReloadTime) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnPlayerWeaponChanged>(EventOnPlayerWeaponChanged.ID);
         ev.Player = Player;
         ev.Entity = Entity;
         ev.Weapon = Weapon;
         ev.Slot = Slot;
+        ev.ReloadTime = ReloadTime;
         _f.AddEvent(ev);
         return ev;
       }
@@ -5786,7 +5788,7 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnLocalPlayerWeaponChanged OnLocalPlayerWeaponChanged(PlayerRef Player, EntityRef Entity, WeaponSlot WeaponSlot, Int32 Slot) {
+      public EventOnLocalPlayerWeaponChanged OnLocalPlayerWeaponChanged(PlayerRef Player, EntityRef Entity, WeaponSlot WeaponSlot, Int32 Slot, FP ReloadTime) {
         if (_f.Context.IsLocalPlayer(Player) == false) return null;
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnLocalPlayerWeaponChanged>(EventOnLocalPlayerWeaponChanged.ID);
@@ -5794,6 +5796,7 @@ namespace Quantum {
         ev.Entity = Entity;
         ev.WeaponSlot = WeaponSlot;
         ev.Slot = Slot;
+        ev.ReloadTime = ReloadTime;
         _f.AddEvent(ev);
         return ev;
       }
@@ -7478,6 +7481,7 @@ namespace Quantum {
     public Int32 CurrentAmmo;
     public Int32 MaxAmmo;
     public FP FilledAmmo;
+    public Int32 MagSize;
     protected EventOnPlayerAmmoChanged(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -7501,6 +7505,7 @@ namespace Quantum {
         hash = hash * 31 + CurrentAmmo.GetHashCode();
         hash = hash * 31 + MaxAmmo.GetHashCode();
         hash = hash * 31 + FilledAmmo.GetHashCode();
+        hash = hash * 31 + MagSize.GetHashCode();
         return hash;
       }
     }
@@ -7511,6 +7516,7 @@ namespace Quantum {
     public EntityRef Entity;
     public Equipment Weapon;
     public Int32 Slot;
+    public FP ReloadTime;
     protected EventOnPlayerWeaponChanged(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -7532,6 +7538,7 @@ namespace Quantum {
         hash = hash * 31 + Entity.GetHashCode();
         hash = hash * 31 + Weapon.GetHashCode();
         hash = hash * 31 + Slot.GetHashCode();
+        hash = hash * 31 + ReloadTime.GetHashCode();
         return hash;
       }
     }
@@ -8007,6 +8014,7 @@ namespace Quantum {
     public EntityRef Entity;
     public WeaponSlot WeaponSlot;
     public Int32 Slot;
+    public FP ReloadTime;
     protected EventOnLocalPlayerWeaponChanged(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -8028,6 +8036,7 @@ namespace Quantum {
         hash = hash * 31 + Entity.GetHashCode();
         hash = hash * 31 + WeaponSlot.GetHashCode();
         hash = hash * 31 + Slot.GetHashCode();
+        hash = hash * 31 + ReloadTime.GetHashCode();
         return hash;
       }
     }

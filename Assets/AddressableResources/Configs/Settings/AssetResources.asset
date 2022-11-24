@@ -132,11 +132,11 @@ MonoBehaviour:
         Id:
           Value: 507213235080836660
       Address: QuantumAssets/Spawners/LegacyWeaponPlatformSpawner.prefab[LegacyWeaponPlatformSpawnerEntityView]
-    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|FPMultiplierFunction_3
+    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|FPMultiplierFunction_2
       AssetRef:
         Id:
           Value: 513288819591249207
-      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[FPMultiplierFunction_3]
+      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[FPMultiplierFunction_2]
     - Path: AddressableResources/QuantumAssets/Collectables/AirDrop|EntityPrototype
       AssetRef:
         Id:
@@ -237,11 +237,11 @@ MonoBehaviour:
         Id:
           Value: 920157354207779733
       Address: Maps/FloodCity_mesh.asset
-    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TransformPositionFunction_4
+    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TransformPositionFunction_5
       AssetRef:
         Id:
           Value: 921026657203260951
-      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[TransformPositionFunction_4]
+      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[TransformPositionFunction_5]
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|SkydiveStartAction_2
       AssetRef:
         Id:
@@ -407,21 +407,21 @@ MonoBehaviour:
         Id:
           Value: 1767223204703182348
       Address: Maps/FloodCity_NavMesh.asset
-    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CurrentFrameTimeFunction_5
+    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CurrentFrameTimeFunction_4
       AssetRef:
         Id:
           Value: 1779133467843059503
-      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[CurrentFrameTimeFunction_5]
+      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[CurrentFrameTimeFunction_4]
     - Path: AddressableResources/Configs/CustomAssetConfigs
       AssetRef:
         Id:
           Value: 1782342916809032400
       Address: Configs/CustomAssetConfigs.asset
-    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|FPSumFunction_2
+    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|FPSumFunction_1
       AssetRef:
         Id:
           Value: 1802445561166894999
-      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[FPSumFunction_2]
+      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[FPSumFunction_1]
     - Path: AddressableResources/Maps/TinyTemple_NavMesh
       AssetRef:
         Id:
@@ -513,11 +513,11 @@ MonoBehaviour:
         Id:
           Value: 2355334850334224486
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[No Ammo_19]
-    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|StatFunction_1
+    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|StatFunction_3
       AssetRef:
         Id:
           Value: 2376350444509102939
-      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[StatFunction_1]
+      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[StatFunction_3]
     - Path: AddressableResources/QuantumAssets/Spawners/PlatformSpawner|EntityPrototype
       AssetRef:
         Id:

@@ -340,7 +340,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e766eaa966e928b4382ff49639c7c35d, type: 3}
-  m_Name: FPSumFunction_2
+  m_Name: FPSumFunction_1
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
@@ -349,12 +349,12 @@ MonoBehaviour:
         Value: 0
   Settings_FPSumFunction:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|FPSumFunction_2
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|FPSumFunction_1
       Guid:
         Value: 1802445561166894999
     First:
       Source: 3
-      Key: AimTime
+      Key: TapCooldown
       DefaultValue:
         RawValue: 0
       FunctionRef:
@@ -809,7 +809,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91d508eaeb39e554399f66483f345bb4, type: 3}
-  m_Name: FPMultiplierFunction_3
+  m_Name: FPMultiplierFunction_2
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
@@ -818,7 +818,7 @@ MonoBehaviour:
         Value: 0
   Settings_FPMultiplierFunction:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|FPMultiplierFunction_3
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|FPMultiplierFunction_2
       Guid:
         Value: 513288819591249207
     First:
@@ -1398,7 +1398,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f2463dfe08cf5d4fa3322344a5ef716, type: 3}
-  m_Name: CurrentFrameTimeFunction_5
+  m_Name: CurrentFrameTimeFunction_4
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
@@ -1407,7 +1407,7 @@ MonoBehaviour:
         Value: 0
   Settings_CurrentFrameTimeFunction:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CurrentFrameTimeFunction_5
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CurrentFrameTimeFunction_4
       Guid:
         Value: 1779133467843059503
 --- !u!114 &351525348488594257
@@ -1743,7 +1743,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d89328aa82134331a7f443e1357ab01, type: 3}
-  m_Name: TransformPositionFunction_4
+  m_Name: TransformPositionFunction_5
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
@@ -1752,7 +1752,7 @@ MonoBehaviour:
         Value: 0
   Settings_TransformPositionFunction:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TransformPositionFunction_4
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TransformPositionFunction_5
       Guid:
         Value: 921026657203260951
 --- !u!114 &1888827352593639623
@@ -1871,7 +1871,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 52bfe97ccb2f62a458d59f8b881d1eab, type: 3}
-  m_Name: StatFunction_1
+  m_Name: StatFunction_3
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
@@ -1880,7 +1880,7 @@ MonoBehaviour:
         Value: 0
   Settings_StatFunction:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|StatFunction_1
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|StatFunction_3
       Guid:
         Value: 2376350444509102939
     Stat: 2

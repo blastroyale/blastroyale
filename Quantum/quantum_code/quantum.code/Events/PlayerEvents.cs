@@ -31,17 +31,17 @@ namespace Quantum
 	{
 		public unsafe partial struct FrameEvents
 		{
-			public void OnPlayerWeaponChanged(PlayerRef player, EntityRef entity, int slot)
+			public void OnPlayerWeaponChanged(PlayerRef player, EntityRef entity, int slot, FP reloadTime)
 			{
 				var playerCharacter = _f.Unsafe.GetPointer<PlayerCharacter>(entity);
-				var ev = OnPlayerWeaponChanged(player, entity, playerCharacter->CurrentWeapon, slot);
+				var ev = OnPlayerWeaponChanged(player, entity, playerCharacter->CurrentWeapon, slot, reloadTime);
 
 				if (ev == null)
 				{
 					return;
 				}
 
-				OnLocalPlayerWeaponChanged(player, entity, *playerCharacter->WeaponSlot, slot);
+				OnLocalPlayerWeaponChanged(player, entity, *playerCharacter->WeaponSlot, slot, reloadTime);
 			}
 
 			public void OnLocalPlayerDead(PlayerRef player, PlayerRef killer, EntityRef killerEntity)

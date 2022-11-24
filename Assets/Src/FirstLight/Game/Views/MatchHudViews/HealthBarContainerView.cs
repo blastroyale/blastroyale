@@ -63,6 +63,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 			
 			_healthBarSpectatePlayer.ResourceBarView.SetupView(f, playerCharacter, callback.Entity);
+			_healthBarSpectatePlayer.ReloadBarView.SetupView(f, playerCharacter, callback.Entity);
 			SetupHealthBar(f, callback.Entity, _healthBarSpectatePlayer);
 		}
 
@@ -128,6 +129,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			await Task.Yield();
 
 			_healthBarSpectatePlayer.ResourceBarView.SetupView(f, playerCharacter, playerEntity);
+			_healthBarSpectatePlayer.ReloadBarView.SetupView(f, playerCharacter, playerEntity);
 			SetupHealthBar(f, playerEntity, _healthBarSpectatePlayer);
 		}
 		
@@ -178,6 +180,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				HealthBar = instance.GetComponent<HealthBarView>(),
 				HealthBarNameView = instance.GetComponent<HealthBarNameView>(),
 				ResourceBarView = instance.GetComponent<ResourceBarView>(),
+				ReloadBarView = instance.GetComponent<ReloadBarView>(),
 				HealthBarShieldView = instance.GetComponent<HealthBarShieldView>()
 			};
 		}
@@ -204,12 +207,14 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private class SpectatePlayerHealthBarObject : PlayerHealthBarPoolObject
 		{
 			public ResourceBarView ResourceBarView;
-		
+			public ReloadBarView ReloadBarView;
+
 			/// <inheritdoc />
 			public override void OnDespawn()
 			{
 				base.OnDespawn();
 				ResourceBarView.OnDespawn();
+				ReloadBarView.OnDespawn();
 			}
 		}
 

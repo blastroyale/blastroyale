@@ -17,6 +17,7 @@ using I2.Loc;
 using Newtonsoft.Json;
 using Quantum;
 using Quantum.Commands;
+using Quantum.Task;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using PlayerMatchData = FirstLight.Game.Services.PlayerMatchData;
@@ -73,6 +74,7 @@ namespace FirstLight.Game.StateMachines
 			var modeCheck = stateFactory.Choice("Game Mode Check");
 			var startSimulation = stateFactory.State("Start Simulation");
 			var gameEnded = stateFactory.State("Game Ended Screen");
+			var transitionToGameEndUI = stateFactory.Wait("Transition to game End UI");
 			var winners = stateFactory.Wait("Winners Screen");
 			var gameResults = stateFactory.Wait("Game Results Screen");
 			var rewardsCheck = stateFactory.Choice("Rewards Choice");
@@ -125,12 +127,10 @@ namespace FirstLight.Game.StateMachines
 			quitCheck.Transition().Target(gameEnded);
 			
 			gameEnded.OnEnter(OpenGameCompleteScreen);
-			gameEnded.Event(GameCompleteExitEvent).Target(winners);
+			gameEnded.Event(GameCompleteExitEvent).Target(transitionToGameEndUI);
+			
+			transitionToGameEndUI.WaitingFor(UnloadSimulation).Target(winners);
 
-			winners.OnEnter(StopSimulation);
-			winners.OnEnter(UnsubscribeEvents);
-			winners.OnEnter(UnloadAllMatchAssets);
-			winners.OnEnter(UnloadMatchAssetConfigs);
 			winners.WaitingFor(OpenWinnersScreen).Target(gameResults);
 			
 			gameResults.WaitingFor(ResultsScreen).Target(trophiesCheck);
@@ -148,10 +148,35 @@ namespace FirstLight.Game.StateMachines
 			final.OnEnter(UnloadMatchEnd);
 		}
 
+		private async void UnloadSimulation(IWaitActivity activity)
+		{
+			await _uiService.OpenUiAsync<SwipeScreenPresenter>();
+			// Delay to let the swipe animation finish its intro without being choppy
+			await Task.Delay(1500);
+			
+			StopSimulation();
+			UnsubscribeEvents();
+			
+			// Yield for a frame to give time for Quantum to unload all the memory before all assets are unloaded from Unity
+			await Task.Yield();
+			await UnloadAllMatchAssets();
+			UnloadMatchAssetConfigs();
+			
+			// Delay to make sure we can read the swipe transition message even if the rest is too fast
+			await Task.Delay(1000);
+
+			activity.Complete();
+		}
+
+		private void CloseSwipeTransition()
+		{
+			_uiService.CloseUi<SwipeScreenPresenter>(true);
+		}
+
 		private void UnloadMatchEnd()
 		{
-			var configProvider = _services.ConfigsProvider;
-			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<MainMenuAssetConfigs>());
+			// Unload the assets loaded in UnloadMatchAssets method
+			_services.AssetResolverService.UnloadAssets(true, _services.ConfigsProvider.GetConfig<MainMenuAssetConfigs>());
 			MainInstaller.CleanDispose<IMatchServices>();
 		}
 
@@ -397,12 +422,13 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private void OpenWinnersScreen(IWaitActivity activity)
+		private async void OpenWinnersScreen(IWaitActivity activity)
 		{
 			var cacheActivity = activity;
 			var data = new WinnersScreenPresenter.StateData {ContinueClicked = () => cacheActivity.Complete()};
 
-			_uiService.OpenScreen<WinnersScreenPresenter, WinnersScreenPresenter.StateData>(data);
+			await _uiService.OpenScreenAsync<WinnersScreenPresenter, WinnersScreenPresenter.StateData>(data);
+			CloseSwipeTransition();
 		}
 
 		private void ResultsScreen(IWaitActivity activity)
@@ -454,11 +480,13 @@ namespace FirstLight.Game.StateMachines
 			_services.AssetResolverService.UnloadAssets<EquipmentRarity, GameObject>(false);
 			_services.AssetResolverService.UnloadAssets<IndicatorVfxId, GameObject>(false);
 			_services.AssetResolverService.UnloadAssets(true, configProvider.GetConfig<MatchAssetConfigs>());
+			
+			// Load the Menu asset configs to show the player skins and visuals in the end game menus
 			_assetAdderService.AddConfigs(configProvider.GetConfig<MainMenuAssetConfigs>());
 		}
 		
 
-		private async void UnloadAllMatchAssets()
+		private async Task UnloadAllMatchAssets()
 		{
 			var scene = SceneManager.GetActiveScene();
 			var configProvider = _services.ConfigsProvider;
@@ -502,7 +530,7 @@ namespace FirstLight.Game.StateMachines
 				{
 					continue;
 				}
-				else if (itemId.GameId.IsInGroup(GameIdGroup.Weapon) && 
+				if (itemId.GameId.IsInGroup(GameIdGroup.Weapon) && 
 					(!f.Context.GameModeConfig.SpawnWithWeapon || f.Context.TryGetMutatorByType(MutatorType.HammerTime, out _)))
 				{
 					continue;

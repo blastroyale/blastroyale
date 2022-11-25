@@ -88,6 +88,11 @@ namespace FirstLight.Game.MonoComponent
 			{
 				await _characterViewComponent.Init(_equipment);
 			}
+			
+			if (_equipment == null || !_equipment.Exists(equipment => equipment.IsWeapon()))
+			{
+				EquipDefault();
+			}
 
 			cacheTransform.localScale = Vector3.one;
 

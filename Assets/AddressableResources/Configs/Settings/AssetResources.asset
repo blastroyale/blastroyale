@@ -382,6 +382,11 @@ MonoBehaviour:
         Id:
           Value: 1782342916809032400
       Address: Configs/CustomAssetConfigs.asset
+    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|FPSumFunction_0
+      AssetRef:
+        Id:
+          Value: 1802445561166894999
+      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[FPSumFunction_0]
     - Path: AddressableResources/Maps/TinyTemple_NavMesh
       AssetRef:
         Id:

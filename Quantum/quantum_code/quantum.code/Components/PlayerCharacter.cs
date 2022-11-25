@@ -209,9 +209,11 @@ namespace Quantum
 				Collectable.DropEquipment(f, WeaponSlots[slot].Weapon, dropPosition, 0);
 			}
 
-			WeaponSlots.GetPointer(slot)->MagazineShotCount = weaponConfig.MagazineSize;
-			WeaponSlots.GetPointer(slot)->ReloadTime = weaponConfig.ReloadTime;
-			WeaponSlots.GetPointer(slot)->MagazineSize = weaponConfig.MagazineSize;
+			var targetSlot = WeaponSlots.GetPointer(slot);
+			targetSlot->MagazineShotCount = weaponConfig.MagazineSize;
+			targetSlot->ReloadTime = weaponConfig.ReloadTime;
+			targetSlot->MagazineSize = weaponConfig.MagazineSize;
+
 			WeaponSlots[slot].Weapon = weapon;
 			GainAmmo(f, e, initialAmmo - GetAmmoAmountFilled(f, e));
 
@@ -240,7 +242,7 @@ namespace Quantum
 		internal void EquipSlotWeapon(Frame f, EntityRef e, int slot)
 		{
 			SetSlotWeapon(f, e, slot);
-			f.Events.OnPlayerWeaponChanged(Player, e, slot, WeaponSlots.GetPointer(CurrentWeaponSlot)->ReloadTime);
+			f.Events.OnPlayerWeaponChanged(Player, e, slot);
 			HFSMManager.TriggerEvent(f, e, Constants.ChangeWeaponEvent);
 		}
 
@@ -433,12 +435,9 @@ namespace Quantum
 		internal void ReduceAmmo(Frame f, EntityRef e, uint amount)
 		{
 			//melee weapons should use the magazine
-			var magShotCount = WeaponSlots.GetPointer(CurrentWeaponSlot)->MagazineShotCount;
-			var magSize = WeaponSlots.GetPointer(CurrentWeaponSlot)->MagazineSize;
-
-			if (magSize > 0 && magShotCount > 0)
+			if (WeaponSlot->MagazineSize > 0 && WeaponSlot->MagazineShotCount > 0)
 			{
-				WeaponSlots.GetPointer(CurrentWeaponSlot)->MagazineShotCount -= 1;
+				WeaponSlot->MagazineShotCount -= 1;
 			}
 
 			// Do not do reduce for melee weapons or if your weapon is empty
@@ -453,7 +452,7 @@ namespace Quantum
 			var finalAmmoFilled = FPMath.Max(GetAmmoAmountFilled(f, e) - ((FP._1 / maxAmmo) * amount), FP._0);
 
 			f.Unsafe.GetPointer<AIBlackboardComponent>(e)->Set(f, Constants.AmmoFilledKey, finalAmmoFilled);
-			f.Events.OnPlayerAmmoChanged(Player, e, ammo, currentAmmo, maxAmmo, finalAmmoFilled, magSize); 
+			f.Events.OnPlayerAmmoChanged(Player, e, ammo, currentAmmo, maxAmmo, finalAmmoFilled, WeaponSlot->MagazineSize); 
 		}
 
 		/// <summary>

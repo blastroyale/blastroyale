@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -61,6 +62,7 @@ namespace FirstLight.UiService
 		internal void InternalOpen()
 		{
 			gameObject.SetActive(true);
+
 			OnOpened();
 		}
 
@@ -207,6 +209,11 @@ namespace FirstLight.UiService
 			view.Attached(element);
 		}
 
+		protected virtual void OnTransitionsReady()
+		{
+			
+		}
+
 		protected override void OnOpened()
 		{
 			if (_background != null)
@@ -228,7 +235,7 @@ namespace FirstLight.UiService
 			
 			Root.EnableInClassList(UIConstants.CLASS_HIDDEN, true);
 			StartCoroutine(MakeVisible());
-			
+
 			SubscribeToEvents();
 		}
 
@@ -251,6 +258,8 @@ namespace FirstLight.UiService
 			yield return new WaitForEndOfFrame();
 			
 			Root.EnableInClassList(UIConstants.CLASS_HIDDEN, false);
+			
+			OnTransitionsReady();
 		}
 	}
 

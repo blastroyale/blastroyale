@@ -416,28 +416,15 @@ public partial class SROptions
 	}
 
 	[Category("Equipment")]
-	public void RemoveAllNonNftEquipment()
+	public void SetAllEquipmentNew()
 	{
-		var services = MainInstaller.Resolve<IGameServices>();
-		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
+		var gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 
-		var deletionKeys = new List<UniqueId>();
-
-		var nonNftIds = gameLogic.EquipmentLogic.GetInventoryEquipmentInfo(EquipmentFilter.NoNftOnly).Select(e => e.Id).ToList();
-		deletionKeys.AddRange(nonNftIds);
-
-		foreach (var key in deletionKeys)
+		gameDataProvider.UniqueIdDataProvider.NewIds.Clear();
+		foreach (var (id, _) in gameDataProvider.EquipmentDataProvider.Inventory)
 		{
-			gameLogic.EquipmentLogic.RemoveFromInventory(key);
+			gameDataProvider.UniqueIdDataProvider.NewIds.Add(id);
 		}
-		((GameCommandService) services.CommandService).ForceServerDataUpdate();
-	}
-
-	// TODO: Delete this when we have a proper implementation of rarity representation in game
-	[Category("Equipment")]
-	public bool EnableEquipmentDebug {
-		get => PlayerPrefs.GetInt("Debug.EnableEquipmentDebug", 0) == 1;
-		set => PlayerPrefs.SetInt("Debug.EnableEquipmentDebug", value ? 1 : 0);
 	}
 
 	[Category("Marketing")]

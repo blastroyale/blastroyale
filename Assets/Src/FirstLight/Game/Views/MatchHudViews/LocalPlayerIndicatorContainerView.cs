@@ -28,7 +28,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public LocalPlayerIndicatorContainerView(IGameServices services)
 		{
 			_services = services;
-			InstantiateAllIndicators();
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerAmmoEmpty>(this, HandleOnLocalPlayerAmmoEmpty);
 		}
 
@@ -115,6 +114,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public void SetupWeaponInfo(Frame f, GameId weaponId)
 		{
 			_weaponConfig = _services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) weaponId);
+			ShootIndicator.SetVisualState(false);
 			_shootIndicatorId = _weaponConfig.MaxAttackAngle > 0  ? IndicatorVfxId.Cone : IndicatorVfxId.Line;
 			if (f.Context.TryGetMutatorByType(MutatorType.AbsoluteAccuracy, out _))
 			{
@@ -147,6 +147,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void OnUpdateAim(Frame f, Quantum.Input* input, PlayerCharacter* playerCharacter, CharacterController3D* kcc)
 		{
 			var isEmptied = playerCharacter->IsAmmoEmpty(f, _localPlayerEntity);
+			var transform = f.Unsafe.GetPointer<Transform3D>(_localPlayerEntity);
+			var aimDirection = QuantumHelpers.GetAimDirection(input->AimingDirection, transform->Rotation).Normalized.ToUnityVector2();
 
 			var rangeStat = f.Get<Stats>(_localPlayerEntity).GetStatData(StatType.AttackRange).StatValue;
 			var range = QuantumHelpers.GetDynamicAimValue(kcc, rangeStat, rangeStat + _weaponConfig.AttackRangeAimBonus).AsFloat;
@@ -168,7 +170,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				size = _weaponConfig.SplashRadius.AsFloat * 2f;
 			}
 
-			ShootIndicator.SetTransformState(input->AimingDirection.ToUnityVector2());
+			ShootIndicator.SetTransformState(aimDirection);
 			ShootIndicator.SetVisualState(input->IsShootButtonDown, isEmptied);
 			ShootIndicator.SetVisualProperties(size, 0, range);
 		}

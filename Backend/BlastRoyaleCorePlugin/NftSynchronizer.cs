@@ -181,7 +181,11 @@ namespace BlastRoyaleNFTPlugin
 			equipmentData.Inventory.Add(nextId, equipment);
 			equipmentData.NftInventory.Add(nextId, nftEquipment);
 			idData.GameIds.Add(nextId, equipment.GameId);
-			_ctx.Analytics.EmitUserEvent(playfabId, "nft_add", equipment.ToAnalyticsData());
+
+			var analytics = equipment.ToAnalyticsData();
+			analytics["token_id"] = nft.token_id;
+			analytics["unique_id"] = nextId;
+			_ctx.Analytics.EmitUserEvent(playfabId, "nft_add", analytics);
 		}
 
 		/// <summary>
@@ -192,10 +196,16 @@ namespace BlastRoyaleNFTPlugin
 									 PlayerData playerData, IdData idData)
 		{
 			var equipment = nftEquipment.Inventory[uniqueId];
+			var nftData = nftEquipment.NftInventory[uniqueId];
+			
 			nftEquipment.Inventory.Remove(uniqueId);
 			nftEquipment.NftInventory.Remove(uniqueId);
 			idData.GameIds.Remove(uniqueId);
-			_ctx.Analytics.EmitUserEvent(playfabId, "nft_remove", equipment.ToAnalyticsData());
+			
+			var analytics = equipment.ToAnalyticsData();
+			analytics["token_id"] = nftData.TokenId;
+			analytics["unique_id"] = uniqueId;
+			_ctx.Analytics.EmitUserEvent(playfabId, "nft_remove", analytics);
 			var equippedGroups = playerData.Equipped.Keys.ToList();
 			foreach (var group in equippedGroups)
 			{

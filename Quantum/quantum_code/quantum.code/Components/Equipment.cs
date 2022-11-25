@@ -35,14 +35,15 @@ namespace Quantum
 		                 EquipmentAdjective adjective = EquipmentAdjective.Regular,
 		                 EquipmentMaterial material = EquipmentMaterial.Plastic,
 		                 EquipmentManufacturer manufacturer = EquipmentManufacturer.Military,
-		                 uint maxDurability = 100,
+		                 uint maxDurability = 4,
 		                 uint maxLevel = 10,
 		                 uint initialReplicationCounter = 0,
 		                 uint tuning = 0,
 		                 uint level = 0,
 		                 uint generation = 0,
 		                 uint replicationCounter = 0,
-		                 uint durability = 100)
+		                 uint durability = 4,
+						 uint totalRestoredDurability = 0)
 		{
 			GameId = gameId;
 
@@ -63,6 +64,7 @@ namespace Quantum
 			Generation = generation;
 			ReplicationCounter = replicationCounter;
 			Durability = durability;
+			TotalRestoredDurability = totalRestoredDurability;
 		}
 
 		/// <summary>

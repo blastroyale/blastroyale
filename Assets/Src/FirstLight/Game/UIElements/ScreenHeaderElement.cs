@@ -1,0 +1,95 @@
+using System;
+using FirstLight.Game.Utils;
+using UnityEngine.UIElements;
+
+namespace FirstLight.Game.UIElements
+{
+	/// <summary>
+	/// Displays the common header element with a title and a subtitle.
+	/// </summary>
+	public class ScreenHeaderElement : VisualElement
+	{
+		private const string UssBlock = "screen-header";
+
+		private const string UssSafeAreaHolder = UssBlock + "__safe-area-holder";
+		private const string UssTitle = UssBlock + "__title";
+		private const string UssHome = UssBlock + "__home";
+		private const string UssBack = UssBlock + "__back";
+		private const string UssSeparator = UssBlock + "__separator";
+		
+		/// <summary>
+		/// Triggered when the home button is clicked.
+		/// </summary>
+		public event Action homeClicked;
+		
+		/// <summary>
+		/// Triggered when the back button is clicked.
+		/// </summary>
+		public event Action backClicked;
+
+		private string titleKey { get; set; }
+
+		private readonly Label _title;
+		private readonly ImageButton _back;
+		private readonly ImageButton _home;
+
+		public ScreenHeaderElement()
+		{
+			AddToClassList(UssBlock);
+			AddToClassList("anim-delay-0");
+			AddToClassList("anim-fade");
+
+			var safeAreaContainer = new SafeAreaElement(true, false, true, true);
+			safeAreaContainer.AddToClassList(UssSafeAreaHolder);
+			Add(safeAreaContainer);
+
+			safeAreaContainer.Add(_back = new ImageButton {name = "back"});
+			_back.AddToClassList(UssBack);
+			_back.AddToClassList(UIConstants.SFX_CLICK_BACKWARDS);
+			_back.clicked += () => backClicked?.Invoke();
+
+			safeAreaContainer.Add(_title = new Label("TITLE") {name = "title"});
+			_title.AddToClassList(UssTitle);
+
+			var separator = new VisualElement();
+			separator.AddToClassList(UssSeparator);
+			safeAreaContainer.Add(separator);
+
+			safeAreaContainer.Add(_home = new ImageButton {name = "home"});
+			_home.AddToClassList(UssHome);
+			_home.AddToClassList(UIConstants.SFX_CLICK_BACKWARDS);
+			_home.clicked += () => homeClicked?.Invoke();
+		}
+
+		/// <summary>
+		/// Sets the title of the header element (should be already localized).
+		/// </summary>
+		public void SetTitle(string title)
+		{
+			_title.text = title;
+		}
+
+		public new class UxmlFactory : UxmlFactory<ScreenHeaderElement, UxmlTraits>
+		{
+		}
+
+		public new class UxmlTraits : ImageButton.UxmlTraits
+		{
+			private readonly UxmlStringAttributeDescription _titleKeyAttribute = new()
+			{
+				name = "title-key",
+				use = UxmlAttributeDescription.Use.Required
+			};
+
+			public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
+			{
+				base.Init(ve, bag, cc);
+
+				var she = (ScreenHeaderElement) ve;
+				she.titleKey = _titleKeyAttribute.GetValueFromBag(bag, cc);
+
+				she.SetTitle(she.titleKey.LocalizeKey());
+			}
+		}
+	}
+}

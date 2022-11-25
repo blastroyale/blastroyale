@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-using FirstLight.Game.Services;
+using FirstLight.Game.UIElements;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -41,20 +41,29 @@ namespace FirstLight.Tests.PlayTests
 			}
 		}
 		
+		public static UIDocument GetUIDocument<T>() where T : Component
+		{
+			var pt = Object.FindObjectOfType<T>();
+			if(pt != null) return pt.GetComponent<UIDocument>();
+			return null;
+		}
+
 		public static void ClickUIToolKitButton(UIDocument parent, string name)
 		{
+			if(parent == null) { throw new NullReferenceException($"UI Document for {name} not found"); }
 			var button = parent.rootVisualElement.Q<Button>(name);
-
 			var navigationSubmitEvent = NavigationSubmitEvent.GetPooled();
 			navigationSubmitEvent.target = button;
 			button.SendEvent(navigationSubmitEvent);
 		}
-		public static void ClickUIToolKitButtons(UIDocument parent, string name)
+
+		public static void ClickUIToolKitImageButton(UIDocument parent, string name)
 		{
-			//var button = parent.rootVisualElement.Q<Button>(name);
-			//var navigationSubmitEvent = NavigationSubmitEvent.GetPooled();
-			//navigationSubmitEvent.target = button;
-			//button.SendEvent(navigationSubmitEvent);
+			if(parent == null) { throw new NullReferenceException($"UI Document for {name} not found"); }
+			var button = parent.rootVisualElement.Q<ImageButton>(name);
+			var navigationSubmitEvent = NavigationSubmitEvent.GetPooled();
+			navigationSubmitEvent.target = button;
+			button.SendEvent(navigationSubmitEvent);
 		}
 	}
 }

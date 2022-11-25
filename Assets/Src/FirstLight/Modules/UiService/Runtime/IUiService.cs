@@ -362,17 +362,33 @@ namespace FirstLight.UiService
 		/// closes it if another one opens. This way it makes the new screen only open when the current one is finished closing.
 		/// Useful to let the current screen make an out animation before being replaced by a new screen.
 		/// </summary>
-		Task<UiPresenter> OpenScreen<T>() where T : UiPresenter;
+		void OpenScreen<T>() where T : UiPresenter;
+		
+		/// <summary>
+		/// Opens and returns the screen of given <paramref name="type"/>. It keeps track of the current open screen and
+		/// closes it if another one opens. This way it makes the new screen only open when the current one is finished closing.
+		/// Useful to let the current screen make an out animation before being replaced by a new screen.
+		/// </summary>
+		Task<UiPresenter> OpenScreenAsync<T>() where T : UiPresenter;
 		
 		/// <summary>
 		/// Executes the call asynchronously while loading the Screen asset if needed. It keeps track of the current open screen and
 		/// closes it if another one opens. This way it makes the new screen only open when the current one is finished closing.
 		/// Useful to let the current screen make an out animation before being replaced by a new screen.
 		/// </summary>
-		Task<T> OpenScreen<T, TData>(TData initialData) 
+		void OpenScreen<T, TData>(TData initialData) 
 			where T : UiPresenter, IUiPresenterData 
 			where TData : struct;
-
+		
+		/// <summary>
+		/// Executes the call asynchronously while loading the Screen asset if needed. It keeps track of the current open screen and
+		/// closes it if another one opens. This way it makes the new screen only open when the current one is finished closing.
+		/// Useful to let the current screen make an out animation before being replaced by a new screen.
+		/// </summary>
+		Task<T> OpenScreenAsync<T, TData>(TData initialData) 
+			where T : UiPresenter, IUiPresenterData 
+			where TData : struct;
+		
 		/// <summary>
 		/// It closes the current open screen that was opened by OpenScreen
 		/// </summary>

@@ -50,6 +50,7 @@ namespace FirstLight.Game.Presenters
 			_specialButtons[1].OnCancelExit.AddListener(() => _indicatorContainerView.GetIndicator(1)?.SetVisualState(true));
 			
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
+			_services.MessageBrokerService.Subscribe<MatchSimulationStartedMessage>(OnMatchSimulationStartedMessage);
 			QuantumEvent.Subscribe<EventOnPlayerAttackHit>(this, OnPlayerAttackHit);
 			QuantumEvent.Subscribe<EventOnPlayerKilledPlayer>(this, OnPlayerKill);
 			QuantumEvent.Subscribe<EventOnLocalPlayerSpawned>(this, OnLocalPlayerSpawned);
@@ -59,7 +60,6 @@ namespace FirstLight.Game.Presenters
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponChanged>(this, OnWeaponChanged);
 			QuantumEvent.Subscribe<EventOnLocalPlayerWeaponAdded>(this, OnLocalPlayerWeaponAdded);
 			QuantumEvent.Subscribe<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
-			QuantumCallback.Subscribe<CallbackGameResynced>(this, OnGameResync);
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, OnUpdateView);
 			QuantumCallback.Subscribe<CallbackPollInput>(this, PollInput);
 		}
@@ -210,7 +210,7 @@ namespace FirstLight.Game.Presenters
 			_indicatorContainerView.OnUpdate(callback.Game.Frames.Predicted);
 		}
 		
-		private void OnGameResync(CallbackGameResynced callback)
+		private void OnMatchSimulationStartedMessage(MatchSimulationStartedMessage msg)
 		{
 			_indicatorContainerView.InstantiateAllIndicators();
 		}

@@ -5,13 +5,10 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using FirstLight.Game.Configs;
-using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Input;
 using FirstLight.Game.UIElements;
-using FirstLight.Services;
 using I2.Loc;
 using Photon.Realtime;
 using Quantum;
@@ -20,7 +17,6 @@ using UnityEngine.InputSystem;
 using UnityEngine.Playables;
 using UnityEngine.UIElements;
 using EventBase = Quantum.EventBase;
-using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Utils
 {
@@ -52,6 +48,35 @@ namespace FirstLight.Game.Utils
 			int appendedNumberAmount = GameConstants.Data.PLAYER_NAME_APPENDED_NUMBERS;
 			return playerName.Remove(playerName.Length - appendedNumberAmount, appendedNumberAmount);
 		}
+		
+		/// <summary>
+		/// Gets the translation for the given<paramref name="strategy"/>
+		/// </summary>
+		public static string GetTranslation(this GameCompletionStrategy strategy)
+		{
+			switch (strategy)
+			{
+				case GameCompletionStrategy.Never:
+					return "";
+				
+				case GameCompletionStrategy.EveryoneDead:
+					return ScriptLocalization.UITMatchmaking.br_mode_desc;
+				
+				case GameCompletionStrategy.KillCount:
+					return ScriptLocalization.UITMatchmaking.dm_mode_desc;
+				
+				default:
+					return "";
+			}
+		}
+		
+		/// <summary>
+		/// Requests the localized text representing the given <paramref name="gameId"/> as a string
+		/// </summary>
+		public static string GetTranslationGameIdString(this string gameId)
+		{
+			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.GameIds)}/{gameId}");
+		}
 
 		/// <summary>
 		/// Requests the localized text representing the given <paramref name="stat"/>
@@ -68,6 +93,14 @@ namespace FirstLight.Game.Utils
 		{
 			return LocalizationManager.GetTranslation(id.GetTranslationTerm());
 		}
+		
+		/// <summary>
+		/// Get's the translation string of the given <paramref name="id"/> + Description;
+		/// </summary>
+		public static string GetTranslationDescription(this GameId id)
+		{
+			return LocalizationManager.GetTranslation(id.GetTranslationTerm() + "Description");
+		}
 
 		/// <summary>
 		/// Get's the translation string of the given <paramref name="id"/>
@@ -82,7 +115,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static string GetTranslation(this EquipmentStatType stat)
 		{
-			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.General)}/{stat.ToString()}");
+			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.General)}/{stat.ToString()}").ToUpperInvariant();
 		}
 
 		/// <summary>
@@ -100,6 +133,8 @@ namespace FirstLight.Game.Utils
 		{
 			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.GameIds)}/{id.ToString()}");
 		}
+		
+		
 
 		/// <summary>
 		/// Gets the translation string of the given <paramref name="group"/>
@@ -360,6 +395,22 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
+		/// Returns true if the given <paramref name="room"/> is a playtest room
+		/// </summary>
+		public static bool IsPlayTestRoom(this Room room)
+		{
+			return room.Name.Contains(GameConstants.Network.ROOM_NAME_PLAYTEST);
+		}
+		
+		/// <summary>
+		/// Returns true if the given <paramref name="roomName"/> is a playtest room
+		/// </summary>
+		public static bool IsPlayTestRoom(this string roomName)
+		{
+			return roomName.Contains(GameConstants.Network.ROOM_NAME_PLAYTEST);
+		}
+		
+		/// <summary>
 		/// Obtains the current selected map id in the given <paramref name="room"/>
 		/// </summary>
 		public static int GetMapId(this Room room)
@@ -382,6 +433,22 @@ namespace FirstLight.Game.Utils
 		{
 			return new DateTime((long) room.CustomProperties[GameConstants.Network.ROOM_PROPS_CREATION_TICKS]);
 		}
+		
+		/// <summary>
+		/// Obtains the current dropzone pos+rot vector3 for the given <paramref name="room"/>
+		/// </summary>
+		public static Vector3 GetDropzonePosRot(this Room room)
+		{
+			return (Vector3) room.CustomProperties[GameConstants.Network.DROP_ZONE_POS_ROT];
+		}
+		
+		/// <summary>
+		/// Obtains the current room creation time (created with UTC.Now)
+		/// </summary>
+		public static string TrimRoomCommitLock(this string roomName)
+		{
+			return roomName.Replace(NetworkUtils.RoomCommitLockData, "");
+		}
 
 		/// <summary>
 		/// Obtains the list of mutators enabled in the given <paramref name="room"/>
@@ -397,7 +464,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static string GetRoomName(this Room room)
 		{
-			return room.Name.Split(NetworkUtils.ROOM_SEPARATOR)[0];
+			return room.Name.Split(GameConstants.Network.ROOM_META_SEPARATOR)[0];
 		}
 
 		/// <summary>
@@ -514,8 +581,7 @@ namespace FirstLight.Game.Utils
 			foreach (var playerKvp in room.Players)
 			{
 				if (!playerKvp.Value.CustomProperties.TryGetValue(GameConstants.Network.PLAYER_PROPS_ALL_LOADED,
-				                                                  out var propertyValue) ||
-				    !(bool) propertyValue)
+				                                                  out var propertyValue) || !(bool) propertyValue)
 				{
 					return false;
 				}
@@ -542,9 +608,22 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static PlayerMatchData GetLocalPlayerData(this QuantumGame game, bool isVerified, out Frame f)
 		{
+			var localPlayers = game.GetLocalPlayers();
+			
 			f = isVerified ? game.Frames.Verified : game.Frames.Predicted;
 			
-			return f.GetSingleton<GameContainer>().PlayersData[game.GetLocalPlayers()[0]];
+			return localPlayers.Length == 0 ? new PlayerMatchData() : f.GetSingleton<GameContainer>().PlayersData[game.GetLocalPlayers()[0]];
+		}
+		
+		/// <summary>
+		/// Requests the <see cref="PlayerRef"/> of the current local player playing the game.
+		/// If there is no local player in the match (ex: spectator in the match), returns <see cref="PlayerRef.None"/>
+		/// </summary>
+		public static PlayerRef GetLocalPlayerRef(this QuantumGame game)
+		{
+			var localPlayers = game.GetLocalPlayers();
+   
+			return localPlayers.Length == 0 ? PlayerRef.None : localPlayers[0];
 		}
 
 		/// <summary>

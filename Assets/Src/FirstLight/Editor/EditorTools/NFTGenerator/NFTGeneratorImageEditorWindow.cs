@@ -7,12 +7,14 @@ using System.Security.Cryptography;
 using System.Text;
 using FirstLight.Game.Configs;
 using FirstLight.Game.MonoComponent;
+using FirstLight.Game.Utils;
 using I2.Loc;
 using Newtonsoft.Json;
 using Quantum;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using UnityEditor;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Equipment = Quantum.Equipment;
@@ -35,8 +37,7 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 
 		private enum TextureMode
 		{
-			Png,
-			Jpg
+			Png
 		}
 
 		[MenuItem("FLG/NFT Generator ImageEditorWindow")]
@@ -245,11 +246,15 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 				}
 			}
 
+			var layer = UnityEngine.LayerMask.NameToLayer("Default");
+				
 			var operationHandle = await Addressables.LoadAssetsAsync<GameObject>(keys as IEnumerable, addressable =>
 			{
 				if (Enum.TryParse(addressable.name, out GameId gameId))
 				{
 					var go = Instantiate(addressable, _markerTransform);
+					go.SetLayer(layer, true);
+					go.SetActive(false);
 					_assetDictionary.Add(gameId, go);
 				}
 				else
@@ -272,7 +277,7 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 				for (var subCategoryIndex = 0; subCategoryIndex < ids.Count; subCategoryIndex++)
 				{
 					var gameId = ids.ElementAt(subCategoryIndex);
-
+					
 					if (gameId == GameId.Hammer)
 					{
 						continue;
@@ -292,25 +297,25 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 									{
 										metadata.name =
 											LocalizationManager.GetTranslation($"GameIds/{gameId.ToString()}");
-										metadata.attibutesDictionary["category"] =
-											(int) gameIdGroups.ElementAt(categoryIndex);
+										metadata.attibutesDictionary["category"] = (int) gameIdGroups.ElementAt(categoryIndex);
 										metadata.attibutesDictionary["subCategory"] = (int) gameId;
 
 										var config = baseEquipmentStatConfigs.Configs.First(c => c.Id == gameId);
 										metadata.attibutesDictionary["manufacturer"] = (int) config.Manufacturer;
 
-										metadata.attibutesDictionary["rarity"] = rarityIndex;
-										metadata.attibutesDictionary["material"] = materialIndex;
-										metadata.attibutesDictionary["faction"] = factionIndex;
-										metadata.attibutesDictionary["grade"] = gradeIndex;
-										metadata.attibutesDictionary["adjective"] = adjectiveIndex;
+										metadata.attibutesDictionary["rarity"] = 0;
+										metadata.attibutesDictionary["material"] = 0;
+										metadata.attibutesDictionary["faction"] = 0;
+										metadata.attibutesDictionary["grade"] = 0;
+										metadata.attibutesDictionary["adjective"] = 0;
 
 										var hash = GenerateImageFilenameHash(metadata);
 										metadata.image =
 											$"{_webMarketplaceUri}/nftimages/{_subFolderId}/{_collectionId}/{hash}.png";
 
 										ExportRenderTextureFromMetadata(metadata, backgroundErcRenderable);
-
+										
+										
 										imagesExportedCount++;
 									}
 								}
@@ -329,7 +334,7 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 
 			Debug.Log($"Exported [{imagesExportedCount}] image combinations");
 		}
-
+		
 
 		/// <summary>
 		/// Export a render texture image given a metadata object and renderable background
@@ -355,21 +360,18 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 				Rarity = (EquipmentRarity) metadata.attibutesDictionary["rarity"],
 			});
 			
-
-			var bounds = GetBounds(go);
+			
+			var bounds = GetBounds(go); 
 			go.transform.position = -bounds.center;
+			
+			var size = bounds.size;
+			var max = Mathf.Max(size.x, size.y, size.z);
+			var frustumHeight = max  / _camera.aspect;
 
-
-			var max = bounds.size;
-			var radius = max.magnitude / 2f;
-			var horizontalFOV =
-				2f * Mathf.Atan(Mathf.Tan(_camera.fieldOfView * Mathf.Deg2Rad / 2f) * _camera.aspect) *
-				Mathf.Rad2Deg;
-			var fov = Mathf.Min(_camera.fieldOfView, horizontalFOV);
-			var dist = radius / (Mathf.Sin(fov * Mathf.Deg2Rad / 2f));
-
-			_camera.transform.position = new Vector3(-dist, 0, 0);
-
+			var margin = 1.3f;
+			var distance = (frustumHeight * margin) * 0.5f / Mathf.Tan(_camera.fieldOfView * 0.5f * Mathf.Deg2Rad);
+			_camera.transform.position = new Vector3(-distance, 0, 0);
+			
 			_canvas.SetActive(true);
 
 			backgroundErcRenderable?.Initialise(new Equipment()
@@ -391,8 +393,7 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 
 			if (_renderTextureMode == RenderTextureMode.Standalone || _renderTextureMode == RenderTextureMode.Both)
 			{
-				WriteRenderTextureToDisk($"{Path.GetFileNameWithoutExtension(metadata.image)}_standalone",
-				                         _renderTextureStandalone, true);
+				WriteRenderTextureToDisk($"{Path.GetFileNameWithoutExtension(metadata.image)}_standalone", _renderTextureStandalone, true);
 			}
 
 			go.SetActive(false);
@@ -421,6 +422,8 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 				return hash;
 			}
 		}
+		
+
 
 		/// <summary>
 		///  Write render texture image to disk given a file path and render texture object
@@ -502,15 +505,13 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 						}
 					}
 				}
-
-				maxCroppedHeight = image.height - maxCroppedHeight;
-				minCroppedHeight = image.height - minCroppedHeight;
+				
 
 				var copyWidth = Math.Abs(maxCroppedWidth - minCroppedWidth);
 				var copyHeight = Math.Abs(maxCroppedHeight - minCroppedHeight);
 
 				Texture2D copyTexture = new Texture2D(copyWidth, copyHeight);
-				copyTexture.ReadPixels(new Rect(minCroppedWidth, maxCroppedHeight, copyWidth, copyHeight), 0, 0);
+				copyTexture.ReadPixels(new Rect(minCroppedWidth, minCroppedHeight, copyWidth, copyHeight), 0, 0);
 				copyTexture.Apply();
 
 				RenderTexture.active = null;

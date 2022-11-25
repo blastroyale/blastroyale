@@ -126,7 +126,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_gameLogic.Init();
 			_services.IAPService.Init();
-			_services?.AnalyticsService.SessionCalls.GameLoaded();
+			_services.AnalyticsService.SessionCalls.GameLoaded();
 		}
 
 		private void OpenNoInternetPopUp()

@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 using ExitGames.Client.Photon;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
-using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Utils;
@@ -141,10 +142,12 @@ namespace FirstLight.Game.Services
 		{
 			_playfab.FetchServerState(state =>
 			{
-				_dataService.AddData(state.DeserializeModel<PlayerData>());
-				_dataService.AddData(state.DeserializeModel<RngData>());
-				_dataService.AddData(state.DeserializeModel<EquipmentData>());
-				_dataService.AddData(state.DeserializeModel<IdData>());
+				foreach (var typeFullName in state.Keys)
+				{
+					var type = Assembly.GetExecutingAssembly().GetType(typeFullName);
+					_dataService.AddData(type, ModelSerializer.DeserializeFromData(type, state));
+				}
+
 				FLog.Verbose("Fetched user state from server");
 				OnServerExecutionFinished(lastCommand);
 			});
@@ -200,18 +203,43 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <summary>
+		/// When server returns an exception after a command was executed
+		/// </summary>
+		private void OnCommandException(string exceptionMsg)
+		{
+#if UNITY_EDITOR
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = "OK",
+				ButtonOnClick = () =>
+				{
+					_services.AnalyticsService.CrashLog(exceptionMsg);
+					_services.QuitGame("Server desynch");
+				}
+			};
+			_services.GenericDialogService.OpenButtonDialog("Server Error", exceptionMsg, false, confirmButton);
+#else
+			NativeUiService.ShowAlertPopUp(false, "Error", "Desynch", new AlertButton
+			{
+				Callback = () =>
+				{
+					_services.AnalyticsService.CrashLog(exceptionMsg);
+					_services.QuitGame("Server desynch");
+				},
+				Style = AlertButtonStyle.Negative,
+				Text = "Quit Game"
+			});
+#endif
+		}
+
+		/// <summary>
 		/// Sends a command to override playfab data with what the client is sending.
 		/// Will only be enabled for testing and debugging purposes.
 		/// </summary>
 		public void ForceServerDataUpdate()
 		{
-			EnqueueCommandToServer(new ForceUpdateCommand()
-			{
-				IdData = _dataService.GetData<IdData>(),
-				RngData = _dataService.GetData<RngData>(),
-				PlayerData = _dataService.GetData<PlayerData>(),
-				EquipmentData = _dataService.GetData<EquipmentData>()
-			});
+			var data = _dataService.GetKeys().ToDictionary(type => type, type => _dataService.GetData(type));
+			EnqueueCommandToServer(new ForceUpdateCommand(data: data));
 		}
 
 		/// <summary>
@@ -297,7 +325,7 @@ namespace FirstLight.Game.Services
 			// Command returned 200 but a expected logic exception happened due
 			if (logicResult.Result.Data.TryGetValue("LogicException", out var logicException))
 			{
-				throw new LogicException(logicException);
+				OnCommandException(logicException);
 			}
 			if (FeatureFlags.REMOTE_CONFIGURATION &&
 				logicResult.Result.Data.TryGetValue(CommandFields.ConfigurationVersion, out var serverConfigVersion))

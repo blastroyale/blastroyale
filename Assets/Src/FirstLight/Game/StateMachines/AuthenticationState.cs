@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Net;
+using System.Reflection;
 using ExitGames.Client.Photon;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
@@ -114,7 +116,7 @@ namespace FirstLight.Game.StateMachines
 			getServerState.OnEnter(OpenLoadingScreen);
 			getServerState.WaitingFor(FinalStepsAuthentication).Target(accountStateCheck);
 
-			accountDeleted.OnEnter(AccountDeletedPopup);
+			accountDeleted.OnEnter(ShowAccountDeletedPopup);
 
 			accountStateCheck.Transition().Condition(IsAccountDeleted).Target(accountDeleted);
 			accountStateCheck.Transition().Target(final);
@@ -407,18 +409,20 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private void AccountDeletedPopup()
+		private void ShowAccountDeletedPopup()
 		{
+			var title = ScriptLocalization.UITSettings.account_deleted_title;
+			var desc = ScriptLocalization.UITSettings.account_deleted_desc;
 			var confirmButton = new GenericDialogButton
 			{
-				ButtonText = ScriptLocalization.General.Confirm,
+				ButtonText = ScriptLocalization.UITShared.ok,
 				ButtonOnClick = () =>
 				{
 					_services.QuitGame("Deleted User");
 				}
 			};
 			
-			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, ScriptLocalization.MainMenu.DeleteAccountConfirm, false, confirmButton);
+			_services.GenericDialogService.OpenButtonDialog(title, desc,false, confirmButton);
 		}
 
 		private bool IsAccountDeleted()
@@ -430,30 +434,38 @@ namespace FirstLight.Game.StateMachines
 			}
 			return false;
 		}
+		/// <summary>
+		/// Add all of the data in <paramref name="state"/> to the data service 
+		/// </summary>
+		private void AddDataToService(IWaitActivity activity, Dictionary<string, string> state)
+		{
+			foreach (var typeFullName in state.Keys)
+			{
+				var type = Assembly.GetExecutingAssembly().GetType(typeFullName);
+				_dataService.AddData(type, ModelSerializer.DeserializeFromData(type, state));
+			}
+
+			activity?.Complete();
+		}
+
 
 		private void OnPlayerDataObtained(ExecuteFunctionResult res, IWaitActivity activity)
 		{
 			var serverResult = ModelSerializer.Deserialize<PlayFabResult<LogicResult>>(res.FunctionResult.ToString());
 			var data = serverResult.Result.Data;
+			
 			if (data == null || !data.ContainsKey(typeof(PlayerData).FullName)) // response too large, fetch directly
 			{
 				_services.PlayfabService.FetchServerState(state =>
 				{
-					_dataService.AddData(ModelSerializer.DeserializeFromData<RngData>(state));
-					_dataService.AddData(ModelSerializer.DeserializeFromData<IdData>(state));
-					_dataService.AddData(ModelSerializer.DeserializeFromData<PlayerData>(state));
-					_dataService.AddData(ModelSerializer.DeserializeFromData<EquipmentData>(state));
+					AddDataToService(activity, state);
 					FLog.Verbose("Downloaded state from playfab");
-					activity?.Complete();
 				});
 				return;
 			}
-			_dataService.AddData(ModelSerializer.DeserializeFromData<RngData>(data));
-			_dataService.AddData(ModelSerializer.DeserializeFromData<IdData>(data));
-			_dataService.AddData(ModelSerializer.DeserializeFromData<PlayerData>(data));
-			_dataService.AddData(ModelSerializer.DeserializeFromData<EquipmentData>(data));
+
+			AddDataToService(activity, data);
 			FLog.Verbose("Downloaded state from server");
-			activity?.Complete();
 		}
 
 		private void OpenGameUpdateDialog(string version)
@@ -545,7 +557,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				Email = email,
 				DisplayName = username,
-				Username = username,
+				Username = username.Replace(" ", ""),
 				Password = password
 			};
 

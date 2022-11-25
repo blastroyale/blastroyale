@@ -74,6 +74,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Converts the BattlePass Points to levels and rewards. Returns true if there was a level increase.
 		/// </summary>
+		/// TODO: Use the reward logic & commands to award the blast rewards
 		bool RedeemBPP(out List<Equipment> rewards, out uint newLevel);
 	}
 

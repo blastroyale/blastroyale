@@ -11,8 +11,6 @@ using FirstLight.Services;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
 using Quantum;
-using UnityEngine;
-using Random = System.Random;
 
 namespace FirstLight.Game.Logic
 {
@@ -42,6 +40,21 @@ namespace FirstLight.Game.Logic
 		/// Requests the player's non NFT inventory.
 		/// </summary>
 		IObservableDictionaryReader<UniqueId, NftEquipmentData> NftInventory { get; }
+
+		/// <summary>
+		/// Requests the given's <paramref name="equipment"/> scrapping reward
+		/// </summary>
+		Pair<GameId, uint> GetScrappingReward(Equipment equipment, bool isNft);
+
+		/// <summary>
+		/// Requests the given's <paramref name="equipment"/> upgrade cost for 1 level
+		/// </summary>
+		Pair<GameId, uint> GetUpgradeCost(Equipment equipment, bool isNft);
+
+		/// <summary>
+		/// Requests the given's <paramref name="equipment"/> repair cost
+		/// </summary>
+		Pair<GameId, uint> GetRepairCost(Equipment equipment, bool isNft);
 
 		/// <summary>
 		/// Requests the <see cref="EquipmentInfo"/> for the given <paramref name="id"/>
@@ -94,11 +107,6 @@ namespace FirstLight.Game.Logic
 		UniqueId AddToInventory(Equipment equipment);
 
 		/// <summary>
-		/// Tries to remove an item from inventory, and returns true if a removal was successful
-		/// </summary>
-		bool RemoveFromInventory(UniqueId equipment);
-
-		/// <summary>
 		/// Sets the loadout for each slot in given <paramref name="newLoadout"/>
 		/// </summary>
 		void SetLoadout(IDictionary<GameIdGroup, UniqueId> newLoadout);
@@ -112,6 +120,21 @@ namespace FirstLight.Game.Logic
 		/// Unequips the given <paramref name="itemId"/> from the player's Equipment slot.
 		/// </summary>
 		void Unequip(UniqueId itemId);
+
+		/// <summary>
+		/// Scraps the equipment of the given <paramref name="itemId"/> and returns the reward of scrapping the item
+		/// </summary>
+		Pair<GameId, uint> Scrap(UniqueId itemId);
+
+		/// <summary>
+		/// Upgrades the equipment of the given <paramref name="itemId"/> by one level
+		/// </summary>
+		void Upgrade(UniqueId itemId);
+
+		/// <summary>
+		/// Repairs the equipment of the given <paramref name="itemId"/> to full durability
+		/// </summary>
+		void Repair(UniqueId itemId);
 
 	}
 	
@@ -135,16 +158,63 @@ namespace FirstLight.Game.Logic
 			_inventory = new ObservableDictionary<UniqueId, Equipment>(Data.Inventory);
 			_nftInventory = new ObservableDictionary<UniqueId, NftEquipmentData>(Data.NftInventory);
 		}
+
+		public Pair<GameId, uint> GetScrappingReward(Equipment equipment, bool isNft)
+		{
+			var resourceType = isNft ? GameId.CS : GameId.COIN;
+			var config = GameLogic.ConfigsProvider.GetConfig<ScrapConfig>((int) resourceType);
+			var rarityValue =
+				Math.Ceiling(config.BaseValue * Math.Pow(config.GrowthMultiplier.AsDouble, (int)equipment.Rarity));
+			var adjectiveValue = Math.Sqrt(Math.Pow(config.AdjectiveCostK.AsDouble, (int)equipment.Adjective));
+			var gradeValue = Math.Pow(config.GradeMultiplier.AsDouble, (int)equipment.Grade);
+			var levelMultiplier = ((int) equipment.Level * config.LevelMultiplier).AsDouble;
+			var winValue = rarityValue + adjectiveValue + ((rarityValue + adjectiveValue) * levelMultiplier * gradeValue);
+
+			return new Pair<GameId, uint>(resourceType, (uint) Math.Round(winValue));
+		}
+
+		public Pair<GameId, uint> GetUpgradeCost(Equipment equipment, bool isNft)
+		{
+			var resourceType = isNft ? GameId.CS : GameId.COIN;
+			var config = GameLogic.ConfigsProvider.GetConfig<UpgradeDataConfig>((int) resourceType);
+			var rarityValue = Math.Ceiling(config.BaseValue *
+			                               Math.Pow(config.GrowthMultiplier.AsDouble, (int)equipment.Rarity));
+			var adjectiveValue = Math.Sqrt(Math.Pow(config.AdjectiveCostK.AsDouble, (int)equipment.Adjective)) -
+			                     config.AdjectiveCostScale;
+			var gradeValue = Math.Pow(config.GradeMultiplier.AsDouble, (int)equipment.Grade);
+			var levelMultiplier = ((int)equipment.Level * config.LevelMultiplier).AsDouble;
+			var cost = rarityValue + adjectiveValue + 
+			          ((rarityValue + adjectiveValue) * (int) equipment.Level * 
+				          levelMultiplier * gradeValue * equipment.MaxDurability / config.DurabilityDivider);
+
+			return new Pair<GameId, uint>(resourceType, (uint) Math.Round(cost));
+		}
+
+		public Pair<GameId, uint> GetRepairCost(Equipment equipment, bool isNft)
+		{
+			var resourceType = isNft ? GameId.CS : GameId.COIN;
+			var restoredAmount = (double) (equipment.MaxDurability - equipment.Durability);
+			var config = GameLogic.ConfigsProvider.GetConfig<RepairDataConfig>((int) resourceType);
+			var cost =
+				Math.Pow((int) equipment.TotalRestoredDurability * config.DurabilityCostIncreasePerPoint.AsDouble * restoredAmount,
+				         config.BasePower.AsDouble) * (int) config.BaseRepairCost;
+
+			return new Pair<GameId, uint>(resourceType, (uint) Math.Round(cost));
+		}
 		
 		public EquipmentInfo GetInfo(UniqueId id)
 		{
 			var equipment = _inventory[id];
+			var isNft = _nftInventory.ContainsKey(id);
 			
 			return new EquipmentInfo
 			{
 				Id = id,
 				Equipment = equipment,
-				IsNft = _nftInventory.ContainsKey(id),
+				ScrappingValue = GetScrappingReward(equipment, isNft),
+				UpgradeCost = GetUpgradeCost(equipment, isNft),
+				RepairCost = GetRepairCost(equipment, isNft),
+				IsNft = isNft,
 				IsEquipped = _loadout.TryGetValue(equipment.GameId.GetSlot(), out var equipId) && equipId == id,
 				Stats = GetEquipmentStats(equipment)
 			};
@@ -264,35 +334,6 @@ namespace FirstLight.Game.Logic
 			                            );
 		}
 
-		private int GetWeightedRandomDictionaryIndex<TKey, TValue>(SerializedDictionary<TKey, TValue> dictionary)
-		{
-			Dictionary<TKey, FP> rangeDictionary = dictionary as Dictionary<TKey, FP>;
-			List<Tuple<FP, FP>> indexRanges = new List<Tuple<FP, FP>>();
-
-			var currentRangeMax = FP._0;
-			
-			foreach (var valueMax in rangeDictionary.Values)
-			{
-				var min = currentRangeMax;
-				var max = min + valueMax;
-				indexRanges.Add(new Tuple<FP, FP>(min,max));
-
-				currentRangeMax = max;
-			}
-
-			var rand = GameLogic.RngLogic.Range(0, currentRangeMax);
-			
-			foreach (var range in indexRanges)
-			{
-				if (rand >= range.Item1 && rand < range.Item2)
-				{
-					return indexRanges.IndexOf(range);
-				}
-			}
-
-			throw new LogicException("Dictionary weighted random could not return a valid index.");
-		}
-
 		public UniqueId AddToInventory(Equipment equipment)
 		{
 			if (!equipment.GameId.IsInGroup(GameIdGroup.Equipment))
@@ -306,29 +347,6 @@ namespace FirstLight.Game.Logic
 			_inventory.Add(id, equipment);
 			
 			return id;
-		}
-
-		public bool RemoveFromInventory(UniqueId equipment)
-		{
-			if (!_inventory.ContainsKey(equipment))
-			{
-				throw new LogicException($"The given '{equipment}' id is not in the inventory");
-			}
-
-			// Unequip the item before removing it from inventory
-			var gameId = GameLogic.UniqueIdLogic.Ids[equipment];
-			var slot = gameId.GetSlot();
-
-			if (_loadout.TryGetValue(slot, out var equippedId))
-			{
-				Unequip(equippedId);
-			}
-
-			_inventory.Remove(equipment);
-			
-			GameLogic.UniqueIdLogic.RemoveId(equipment);
-			
-			return true;
 		}
 
 		public void SetLoadout(IDictionary<GameIdGroup, UniqueId> newLoadout)
@@ -397,6 +415,110 @@ namespace FirstLight.Game.Logic
 			}
 
 			_loadout.Remove(slot);
+		}
+
+		public Pair<GameId, uint> Scrap(UniqueId itemId)
+		{
+			var equipment = _inventory[itemId];
+			var reward = GetScrappingReward(equipment, false);
+
+			if (_nftInventory.ContainsKey(itemId))
+			{
+				throw new LogicException($"Not allowed to scrap NFT items on the client, only on the hub and {itemId} is a NFT");
+			}
+
+			RemoveFromInventory(itemId);
+
+			return reward;
+		}
+
+		public void Upgrade(UniqueId itemId)
+		{
+			var equipment = _inventory[itemId];
+
+			if (_nftInventory.ContainsKey(itemId))
+			{
+				throw new LogicException($"Not allowed to scrap NFT items on the client, only on the hub and {itemId} is a NFT");
+			}
+			
+			if (equipment.IsMaxLevel())
+			{
+				throw new LogicException($"Item {itemId} is already at max level {equipment.Level} and cannot be upgraded further");
+			}
+
+			equipment.Level++;
+
+			_inventory[itemId] = equipment;
+		}
+
+		public void Repair(UniqueId itemId)
+		{
+			var equipment = _inventory[itemId];
+
+			if (_nftInventory.ContainsKey(itemId))
+			{
+				throw new LogicException($"Not allowed to scrap NFT items on the client, only on the hub and {itemId} is a NFT");
+			}
+			
+			if (equipment.Durability == equipment.MaxDurability)
+			{
+				throw new LogicException($"Item {itemId} is already fully repaired");
+			}
+
+			equipment.TotalRestoredDurability += equipment.MaxDurability - equipment.Durability;
+			equipment.Durability = equipment.MaxDurability;
+
+			_inventory[itemId] = equipment;
+		}
+
+		private int GetWeightedRandomDictionaryIndex<TKey, TValue>(SerializedDictionary<TKey, TValue> dictionary)
+		{
+			var rangeDictionary = dictionary as Dictionary<TKey, FP>;
+			var indexRanges = new List<Tuple<FP, FP>>();
+			var currentRangeMax = FP._0;
+			
+			foreach (var valueMax in rangeDictionary.Values)
+			{
+				var min = currentRangeMax;
+				var max = min + valueMax;
+				indexRanges.Add(new Tuple<FP, FP>(min,max));
+
+				currentRangeMax = max;
+			}
+
+			var rand = GameLogic.RngLogic.Range(0, currentRangeMax);
+			
+			foreach (var range in indexRanges)
+			{
+				if (rand >= range.Item1 && rand < range.Item2)
+				{
+					return indexRanges.IndexOf(range);
+				}
+			}
+
+			throw new LogicException("Dictionary weighted random could not return a valid index.");
+		}
+
+		private bool RemoveFromInventory(UniqueId equipment)
+		{
+			if (!_inventory.ContainsKey(equipment))
+			{
+				throw new LogicException($"The given '{equipment}' id is not in the inventory");
+			}
+
+			// Unequip the item before removing it from inventory
+			var gameId = GameLogic.UniqueIdLogic.Ids[equipment];
+			var slot = gameId.GetSlot();
+
+			if (_loadout.TryGetValue(slot, out var equippedId))
+			{
+				Unequip(equippedId);
+			}
+
+			_inventory.Remove(equipment);
+			GameLogic.UniqueIdLogic.RemoveId(equipment);
+			
+			return true;
 		}
 	}
 }

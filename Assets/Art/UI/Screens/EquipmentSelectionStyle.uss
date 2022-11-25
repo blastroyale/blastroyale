@@ -1,0 +1,344 @@
+.equipment-list {
+    position: absolute;
+    left: 42px;
+    bottom: 40px;
+    top: 164px;
+    width: 730px;
+}
+
+.equipment-list .unity-list-view__item:hover {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.currency-holder {
+    position: absolute;
+    top: 35px;
+    right: 164px;
+    flex-direction: row-reverse;
+}
+
+.currency-holder .currency-display {
+    margin-left: 30px;
+}
+
+.details {
+    position: absolute;
+    top: 29px;
+    right: 46px;
+    bottom: 30px;
+    width: 625px;
+    justify-content: space-between;
+}
+
+.details__name-holder {
+    flex-direction: row;
+    height: 82px;
+    align-items: center;
+    margin-bottom: 23px;
+    width: 507px;
+}
+
+.details__name {
+    -unity-font-definition: var(--font-italic);
+    color: rgb(255, 255, 255);
+    text-shadow: 4px 4px 0 rgb(0, 0, 0);
+    font-size: 38px;
+    margin-left: 5px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    -unity-text-align: middle-left;
+    white-space: normal;
+    flex-grow: 1;
+    width: 400px;
+}
+
+.details__icon {
+    height: 70px;
+    width: 65px;
+    -unity-background-scale-mode: scale-to-fit;
+    margin-right: 5px;
+}
+
+.equipment-tag {
+    height: 50px;
+    width: 290px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: rgb(45, 41, 80);
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    color: rgb(104, 97, 166);
+    -unity-font-definition: var(--font-italic);
+    font-size: 30px;
+    align-items: stretch;
+    flex-direction: row;
+    margin-bottom: 18px;
+    -unity-text-align: middle-left;
+    -unity-paragraph-spacing: -30px;
+}
+
+.equipment-tag__icon {
+    width: 55px;
+    margin-right: 20px;
+    margin-left: 16px;
+    font-size: 30px;
+    top: 0;
+    bottom: 0;
+    position: relative;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.equipment-tag__label {
+    flex-grow: 1;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 5px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    top: 0;
+    bottom: 0;
+}
+
+.equipment-tag--cooldown .equipment-tag__icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/CSCooldownIcon.png?fileID=21300000&guid=8605e2ad805d4449cb6ea728529f837b&type=3#CSCooldownIcon');
+    width: 30px;
+}
+
+.equipment-tag--rarity {
+    color: rgb(255, 255, 255);
+    -unity-text-align: middle-center;
+}
+
+.equipment-tag--rarity .equipment-tag__label {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.equipment-tag--rarity-common {
+    background-color: rgb(185, 185, 185);
+}
+
+.equipment-tag--rarity-uncommon {
+    background-color: rgb(170, 223, 110);
+}
+
+.equipment-tag--rarity-rare {
+    background-color: rgb(83, 189, 255);
+}
+
+.equipment-tag--rarity-epic {
+    background-color: rgb(255, 107, 107);
+}
+
+.equipment-tag--rarity-legendary {
+    background-color: rgb(255, 193, 64);
+}
+
+.equipment-tag--special {
+    color: rgb(212, 75, 120);
+    flex-direction: row;
+    height: 72px;
+}
+
+.equipment-tag--special-aimingairstrike .equipment-tag__icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/AirstrikeAbilityIcon.png?fileID=21300000&guid=92aa9ee015ead471c8db4d1ef1537183&type=3#AirstrikeAbilityIcon');
+}
+
+.equipment-tag--special-aimingstungrenade .equipment-tag__icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/StungrenadeAbilityIcon.png?fileID=21300000&guid=92c19ed84f46647beb03749afc2579e6&type=3#StungrenadeAbilityIcon');
+}
+
+.equipment-tag--special-shieldself .equipment-tag__icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/ShieldSelfAbilityIcon.png?fileID=21300000&guid=9ce32da6b5d8649268577d10b5917e09&type=3#ShieldSelfAbilityIcon');
+}
+
+.equipment-tag--special-shieldedcharge .equipment-tag__icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/ShieldedchargeAbilityIcon.png?fileID=21300000&guid=18681f2bfea5b4e8488dee8622c91fee&type=3#ShieldedchargeAbilityIcon');
+}
+
+.equipment-tag--special-aiminggrenade .equipment-tag__icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/GrenadeAbilityIcon.png?fileID=21300000&guid=7e685384ba859494b9ae07c5aa187a57&type=3#GrenadeAbilityIcon');
+}
+
+.equipment-tag--special-defaultdash .equipment-tag__icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/HazardAbilityIcon.png?fileID=21300000&guid=c534c12f0a9d0453a9c207ee445a826d&type=3#HazardAbilityIcon');
+}
+
+.equipment-tag--special-skylaserbeam .equipment-tag__icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/HazardAbilityIcon.png?fileID=21300000&guid=c534c12f0a9d0453a9c207ee445a826d&type=3#HazardAbilityIcon');
+}
+
+.tag-holder {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.details__buttons-holder {
+    height: 182px;
+    align-items: center;
+    justify-content: center;
+}
+
+.equipment-durability {
+    height: 120px;
+    color: rgb(248, 199, 46);
+    -unity-font-definition: var(--font-italic);
+    -unity-text-outline-width: 1px;
+    font-size: 32px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+}
+
+.equipment-durability__progress {
+    flex-grow: 0.5;
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/DurabilityBar.png?fileID=21300000&guid=2d7f74c10ed3b4352a100dc9e2226f88&type=3#DurabilityBar');
+}
+
+.equipment-durability__progress-bg {
+    height: 18px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/DurabilityBarBg.png?fileID=21300000&guid=6154e24dd9964404b854e387ded58774&type=3#DurabilityBarBg');
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    flex-direction: row;
+    position: absolute;
+    left: 28px;
+    top: 18px;
+    right: 0;
+}
+
+.equipment-durability__icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/DurabilityIcon.png?fileID=21300000&guid=c23c775b5c0864573b27d89f2a6a6a04&type=3#DurabilityIcon');
+    width: 40px;
+    height: 40px;
+    margin-left: 2px;
+    margin-top: 2px;
+    position: absolute;
+}
+
+.equipment-durability__progress-label {
+    -unity-text-align: upper-center;
+    margin-top: -9px;
+    margin-left: 11px;
+}
+
+.stats-list {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.stats-list .unity-list-view__item:hover {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.button-long {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMainYellow.png?fileID=21300000&guid=728932854c02c47ddb4057b68d3c91c7&type=3#ButtonMainYellow');
+    width: 307px;
+    height: 85px;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    background-color: rgba(0, 0, 0, 0);
+    -unity-font-definition: var(--font-italic);
+    font-size: 42px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(157, 35, 11);
+    text-shadow: 3px 3px 0 rgb(157, 35, 10);
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 7px;
+    -unity-text-align: middle-center;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.button-long:active {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMainYellowPressed.png?fileID=21300000&guid=c96062ca698c645258fbf9555f558741&type=3#ButtonMainYellowPressed');
+    padding-bottom: 0;
+}
+
+.test {
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.stats-list-holder {
+    flex-grow: 1;
+}
+
+.equipment-durability__title {
+    margin-left: 31px;
+    margin-top: 28px;
+    margin-right: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.might {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.might__label {
+    -unity-font-definition: var(--font-italic);
+    font-size: 54px;
+    color: rgb(248, 199, 46);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    -unity-text-align: middle-left;
+    margin-right: 9px;
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+}
+
+.might__icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/MightIcon.png?fileID=21300000&guid=abcf917df72d242a482c9f221840fbb2&type=3#MightIcon');
+    width: 70px;
+    height: 82px;
+}
+
+.no-equipment-label {
+    position: absolute;
+    left: 124px;
+    top: 252px;
+    font-size: 54px;
+    -unity-text-align: middle-center;
+    -unity-font-definition: var(--font-italic);
+    color: rgb(255, 255, 255);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+}

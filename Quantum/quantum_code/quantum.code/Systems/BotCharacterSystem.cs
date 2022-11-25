@@ -10,7 +10,7 @@ namespace Quantum.Systems
 	/// This system handles all the behaviour for the <see cref="BotCharacter"/>
 	/// </summary>
 	public unsafe class BotCharacterSystem : SystemMainThreadFilter<BotCharacterSystem.BotCharacterFilter>,
-	                                         ISignalOnPlayerDataSet
+	                                         ISignalAllPlayersJoined
 	{
 		public struct BotCharacterFilter
 		{
@@ -22,11 +22,13 @@ namespace Quantum.Systems
 		}
 		
 		/// <inheritdoc />
-		public void OnPlayerDataSet(Frame f, PlayerRef playerRef)
+		public void AllPlayersJoined(Frame f)
 		{
-			var data = f.GetPlayerData(playerRef);
-			var playerTrophies= data?.PlayerTrophies ?? 1000u;
-			InitializeBots(f, playerTrophies);
+			var averagePlayerTrophies = Convert.ToUInt32(
+				Math.Round(
+					f.GetAllPlayerDatas()
+						.Average(p => p.PlayerTrophies)));
+			InitializeBots(f, averagePlayerTrophies);
 		}
 
 		private void InitializeBots(Frame f, uint baseTrophiesAmount)
@@ -86,6 +88,7 @@ namespace Quantum.Systems
 			// even the internal gravitational one, is being processed ONLY when we call the "Move" method
 			if (!kcc->Grounded)
 			{
+				kcc->Velocity = FPVector3.Down * FP._8;
 				kcc->Move(f, filter.Entity, FPVector3.Zero);
 				
 				// TODO Nik: Make a specific branching decision in case we skydive in Battle Royale
@@ -109,7 +112,7 @@ namespace Quantum.Systems
 			}
 			else
 			{
-				var weaponTargetRange = f.Get<Stats>(filter.Entity).GetStatData(StatType.AttackRange).StatValue;
+				var weaponTargetRange = FPMath.Min(f.Get<Stats>(filter.Entity).GetStatData(StatType.AttackRange).StatValue, filter.BotCharacter->MaxAimingRange);
 				var botPosition = filter.Transform->Position;
 				var team = f.Get<Targetable>(filter.Entity).Team;
 				var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(filter.Entity);
@@ -149,7 +152,7 @@ namespace Quantum.Systems
 					{
 						// Checking how close is the target and stop the movement if the target is closer
 						// than allowed by closefight intolerance
-						var weaponTargetRange = f.Get<Stats>(filter.Entity).GetStatData(StatType.AttackRange).StatValue;
+						var weaponTargetRange = FPMath.Min(f.Get<Stats>(filter.Entity).GetStatData(StatType.AttackRange).StatValue, filter.BotCharacter->MaxAimingRange);
 						var minDistanceToTarget =
 							FPMath.Max(FP._1_50, weaponTargetRange * filter.BotCharacter->CloseFightIntolerance);
 						var sqrDistanceToTarget = (f.Get<Transform3D>(target).Position - filter.Transform->Position)
@@ -236,6 +239,7 @@ namespace Quantum.Systems
 			{
 				case BotBehaviourType.Cautious:
 					var cautious = TryAvoidShrinkingCircle(f, ref filter)
+					               || TryGoForGear(f, ref filter)
 					               || TryGoForHealth(f, ref filter)
 					               || TryGoForShield(f, ref filter)
 					               || TryGoForAmmo(f, ref filter)
@@ -247,6 +251,7 @@ namespace Quantum.Systems
 					break;
 				case BotBehaviourType.Aggressive:
 					var aggressive = TryAvoidShrinkingCircle(f, ref filter)
+					                 || TryGoForGear(f, ref filter)
 					                 || TryGoForRage(f, ref filter)
 					                 || TryGoForWeapons(f, ref filter)
 					                 || TryGoForAmmo(f, ref filter)
@@ -258,6 +263,7 @@ namespace Quantum.Systems
 					break;
 				case BotBehaviourType.Balanced:
 					var balanced = TryAvoidShrinkingCircle(f, ref filter)
+					               || TryGoForGear(f, ref filter)
 					               || TryGoForAmmo(f, ref filter)
 					               || TryGoForHealth(f, ref filter)
 					               || TryGoForWeapons(f, ref filter)
@@ -319,7 +325,7 @@ namespace Quantum.Systems
 			// If there is a target in Sight then store this Target into the blackboard variable
 			// We check enemies one by one until we find a valid enemy in sight
 			// TODO: Select not a random, but the closest possible enemy to shoot at
-			var targetRange = f.Get<Stats>(filter.Entity).GetStatData(StatType.AttackRange).StatValue;
+			var weaponTargetRange = FPMath.Min(f.Get<Stats>(filter.Entity).GetStatData(StatType.AttackRange).StatValue, filter.BotCharacter->MaxAimingRange);
 			var botPosition = filter.Transform->Position;
 			var team = f.Get<Targetable>(filter.Entity).Team;
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(filter.Entity);
@@ -328,7 +334,7 @@ namespace Quantum.Systems
 
 			foreach (var targetCandidate in f.Unsafe.GetComponentBlockIterator<Targetable>())
 			{
-				if (TryToAimAtEnemy(f, ref filter, botPosition, team, targetRange, targetCandidate.Entity, out var targetHit))
+				if (TryToAimAtEnemy(f, ref filter, botPosition, team, weaponTargetRange, targetCandidate.Entity, out var targetHit))
 				{
 					target = targetHit;
 					break;
@@ -369,7 +375,16 @@ namespace Quantum.Systems
 				var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(filter.Entity);
 				
 				targetHit = hit.Value.Entity;
-				bb->Set(f, Constants.AimDirectionKey, (targetPosition - botPosition).XZ);
+				
+				// Apply bots inaccuracy
+				var aimDirection = (targetPosition - botPosition).XZ;
+				if (filter.BotCharacter->AccuracySpreadAngle > 0)
+				{
+					var angleHalfInRad = (filter.BotCharacter->AccuracySpreadAngle * FP.Deg2Rad) / FP._2;
+					aimDirection = FPVector2.Rotate(aimDirection, f.RNG->Next(-angleHalfInRad, angleHalfInRad));
+				}
+				
+				bb->Set(f, Constants.AimDirectionKey, aimDirection);
 				
 				return true;
 			}
@@ -632,6 +647,30 @@ namespace Quantum.Systems
 			return isGoing;
 		}
 
+		private bool TryGoForGear(Frame f, ref BotCharacterFilter filter)
+		{
+			var gearPickupPosition = FPVector3.Zero;
+			var gearPickupEntity = EntityRef.None;
+
+			var isGoing = filter.BotCharacter->LoadoutGearNumber > 0;
+
+			isGoing = isGoing && TryGetClosestGear(f, ref filter, out gearPickupPosition, out gearPickupEntity);
+			
+			if (isGoing && filter.NavMeshAgent->IsActive && filter.BotCharacter->MoveTarget == gearPickupEntity)
+			{
+				return true;
+			}
+
+			isGoing = isGoing && QuantumHelpers.SetClosestTarget(f, filter.Entity, gearPickupPosition);
+
+			if (isGoing)
+			{
+				filter.BotCharacter->MoveTarget = gearPickupEntity;
+			}
+
+			return isGoing;
+		}
+		
 		private bool TryGoForWeapons(Frame f, ref BotCharacterFilter filter)
 		{
 			var weaponPickupPosition = FPVector3.Zero;
@@ -707,7 +746,7 @@ namespace Quantum.Systems
 				return false;
 			}
 
-			var weaponTargetRange = f.Get<Stats>(filter.Entity).GetStatData(StatType.AttackRange).StatValue;
+			var weaponTargetRange = FPMath.Min(f.Get<Stats>(filter.Entity).GetStatData(StatType.AttackRange).StatValue, filter.BotCharacter->MaxAimingRange);
 			// Do not go closer than 1.5 meters to target
 			var offsetDistance = FPMath.Max(FP._1_50, weaponTargetRange * filter.BotCharacter->CloseFightIntolerance);
 			
@@ -793,6 +832,38 @@ namespace Quantum.Systems
 			return consumablePosition != FPVector3.Zero;
 		}
 
+		private bool TryGetClosestGear(Frame f, ref BotCharacterFilter filter, out FPVector3 gearPickupPosition, out EntityRef gearPickupEntity)
+		{
+			var botPosition = filter.Transform->Position;
+			var iterator = f.Unsafe.GetComponentBlockIterator<EquipmentCollectable>();
+			var sqrDistance = FP.MaxValue;
+			var hasShrinkingCircle = f.TryGetSingleton<ShrinkingCircle>(out var circle);
+			gearPickupPosition = FPVector3.Zero;
+			gearPickupEntity = EntityRef.None;
+
+			foreach (var gearCandidate in iterator)
+			{
+				if (!f.Get<Collectable>(gearCandidate.Entity).GameId.IsInGroup(GameIdGroup.Gear))
+				{
+					continue;
+				}
+
+				var positionCandidate = f.Get<Transform3D>(gearCandidate.Entity).Position;
+				var newSqrDistance = (positionCandidate - botPosition).SqrMagnitude;
+
+				if (IsInVisionRange(newSqrDistance, ref filter)
+					&& newSqrDistance < sqrDistance
+					&& (!hasShrinkingCircle || IsInCircle(ref filter, circle, positionCandidate)))
+				{
+					sqrDistance = newSqrDistance;
+					gearPickupPosition = positionCandidate;
+					gearPickupEntity = gearCandidate.Entity;
+				}
+			}
+
+			return gearPickupPosition != FPVector3.Zero;
+		}
+		
 		private bool TryGetClosestWeapon(Frame f, ref BotCharacterFilter filter, out FPVector3 weaponPickupPosition, out EntityRef weaponPickupEntity)
 		{
 			var botPosition = filter.Transform->Position;
@@ -928,7 +999,9 @@ namespace Quantum.Systems
 					NextDecisionTime = FP._0,
 					NextLookForTargetsToShootAtTime = FP._0,
 					CurrentEvasionStepEndTime = FP._0,
-					StuckDetectionPosition = FPVector3.Zero
+					StuckDetectionPosition = FPVector3.Zero,
+					LoadoutGearNumber = botConfig.LoadoutGearNumber,
+					MaxAimingRange = botConfig.MaxAimingRange
 				};
 
 				
@@ -946,8 +1019,8 @@ namespace Quantum.Systems
 				// Calculate bot trophies
 				var trophies = (uint) ((botsDifficulty * 100) + 1000 + f.RNG->Next(-50, 50));
 				
-				// TODO: Give bots random weapon based on average quality that players have
-				// TODO: Give bots random gear based on average quality that players have and teach bots to pick up gear
+				// TODO: Give bots random weapon based on median quality that players have
+				// TODO: Give bots random gear in their loadout initially based on median quality that players have
 				playerCharacter->Init(f, botEntity, id, spawnerTransform, 1, trophies, botCharacter.Skin, 
 				                      botCharacter.DeathMarker, Array.Empty<Equipment>(), Equipment.None);
 			}

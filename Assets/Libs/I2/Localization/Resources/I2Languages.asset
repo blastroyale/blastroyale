@@ -2003,7 +2003,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Your account will be deleted soon. Your game will close now.
+      - "Your account will be deleted soon. \nYour game will close now."
       - 
       - 
       Flags: 000000
@@ -2012,7 +2012,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Are you sure you want to delete your account ? This cannot be undone.
+      - "Are you sure you want to delete your account ? \nThis cannot be undone."
       - 
       - 
       Flags: 000000
@@ -7254,7 +7254,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Red Dawn
+      - Jada Green
       - 
       - 
       Flags: 000000
@@ -7263,7 +7263,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Mint Crush
+      - Cat Carter
       - 
       - 
       Flags: 000000
@@ -7524,7 +7524,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Action Dan
+      - Beef Chegwin
       - 
       - 
       Flags: 000000
@@ -7533,7 +7533,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Beef Chegwin
+      - Hugo Marks
       - 
       - 
       Flags: 000000
@@ -7560,7 +7560,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - HEAVY MG
+      - ModHeavyMachineGun
       - 
       - 
       Flags: 000000
@@ -8163,7 +8163,11 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Attracts all enemies around and explodes after a few seconds
+      - 'Attracts all enemies
+
+        around and explodes
+
+        after a few seconds.'
       - 
       - 
       Flags: 000000
@@ -8172,7 +8176,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Aimed Airstrike
+      - AIMED AIRSTRIKE
       - 
       - 
       Flags: 000000
@@ -8181,7 +8185,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Splash Damage across a targeted area
+      - 'Splash Damage across
+
+        a targeted area'
       - 
       - 
       Flags: 000000
@@ -8190,7 +8196,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Grenade
+      - GRENADE
       - 
       - 
       Flags: 000000
@@ -8199,7 +8205,12 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Damages all enemies within the blast radius of a thrown grenade
+      - 'Damages all enemies
+
+        within the blast radius
+
+        of a thrown
+        grenade.'
       - 
       - 
       Flags: 000000
@@ -8208,7 +8219,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Aimed Healing Sphere
+      - AIMED HEALING SPHERE
       - 
       - 
       Flags: 000000
@@ -8217,7 +8228,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Places a healing sphere in a targetted position
+      - 'Places a healing sphere
+
+        in a targetted position.'
       - 
       - 
       Flags: 000000
@@ -8226,7 +8239,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Aimed Invisibility
+      - AIMED INVISIBILITY
       - 
       - 
       Flags: 000000
@@ -8235,7 +8248,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - All players within a fixed area go Invisible
+      - 'All players within a
+
+        fixed area go Invisible.'
       - 
       - 
       Flags: 000000
@@ -8244,7 +8259,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Aimed Rage
+      - AIMED RAGE
       - 
       - 
       Flags: 000000
@@ -8253,7 +8268,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - All players within a fixed area gain Rage status
+      - 'All players within a fixed
+
+        area gain Rage status.'
       - 
       - 
       Flags: 000000
@@ -8262,7 +8279,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Aimed Shield
+      - AIMED SHIELD
       - 
       - 
       Flags: 000000
@@ -8271,7 +8288,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Places a shield which all friendly players can use
+      - 'Places a shield which
+
+        all friendly players can use'
       - 
       - 
       Flags: 000000
@@ -8280,7 +8299,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Stun Grenade
+      - STUN GRENADE
       - 
       - 
       Flags: 000000
@@ -8289,7 +8308,12 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Stuns all enemies within the blast radius of a thrown grenade
+      - 'Stuns all enemies within
+
+        the blast radius of a
+
+        thrown
+        grenade.'
       - 
       - 
       Flags: 000000
@@ -8298,7 +8322,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Airstrike
+      - AIRSTRIKE
       - 
       - 
       Flags: 000000
@@ -8307,7 +8331,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Splash Damage over a large area
+      - 'Splash Damage over
+
+        a large area.'
       - 
       - 
       Flags: 000000
@@ -8316,7 +8342,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Healing Sphere
+      - HEALING SPHERE
       - 
       - 
       Flags: 000000
@@ -8325,7 +8351,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Heals all players within a fixed area
+      - 'Heals all players
+
+        within a fixed area.'
       - 
       - 
       Flags: 000000
@@ -8334,7 +8362,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Healing Field
+      - HEALING FIELD
       - 
       - 
       Flags: 000000
@@ -8343,7 +8371,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Heals all friendly players within the healing field
+      - 'Heals all friendly players
+
+        within the healing field'
       - 
       - 
       Flags: 000000
@@ -8352,7 +8382,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Healing Mode
+      - HEALING MODE
       - 
       - 
       Flags: 000000
@@ -8361,7 +8391,11 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Heals any player targetted by your weapon. Be a team player!
+      - 'Heals any player targetted
+
+        by your weapon. Be a
+
+        team player!.'
       - 
       - 
       Flags: 000000
@@ -8370,7 +8404,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Invisibility Mode
+      - INVISIBILITY
       - 
       - 
       Flags: 000000
@@ -8379,7 +8413,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Go invisible, causing enemies to stop targetting you
+      - 'Go invisible, causing
+
+        enemies to stop targetting you.'
       - 
       - 
       Flags: 000000
@@ -8388,7 +8424,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Rage
+      - RAGE
       - 
       - 
       Flags: 000000
@@ -8397,7 +8433,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Go into Rage mode and inflict more damage per second
+      - 'Go into Rage mode and
+
+        inflict more damage per second.'
       - 
       - 
       Flags: 000000
@@ -8406,7 +8444,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Shield
+      - SHIELD
       - 
       - 
       Flags: 000000
@@ -8415,7 +8453,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Activates a shield around your character
+      - 'Activates a shield
+
+        around your character.'
       - 
       - 
       Flags: 000000
@@ -8424,7 +8464,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Shielded Charge
+      - SHIELDED CHARGE
       - 
       - 
       Flags: 000000
@@ -8433,7 +8473,12 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Dash that stuns enemies on the way and greatly increases aggro
+      - 'Dash that stuns enemies
+
+        on the way and greatly
+
+        increases
+        aggro.'
       - 
       - 
       Flags: 000000
@@ -8451,7 +8496,11 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Instant high power damage in a small but focussed area
+      - 'Instant high power
+
+        damage in a small
+
+        but focussed area.'
       - 
       - 
       Flags: 000000
@@ -8460,7 +8509,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Stun Splash
+      - STUN SPLASH
       - 
       - 
       Flags: 000000
@@ -8469,7 +8518,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Stuns all enemies with a large area
+      - 'Stuns all enemies
+
+        with a large area.'
       - 
       - 
       Flags: 000000
@@ -8686,6 +8737,45 @@ MonoBehaviour:
       Description: 
       Languages:
       - WEAPON
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: GameIds/COINDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - 'This is the text that
+
+        describes the COIN
+
+        currency.'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: GameIds/BLSTDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - 'This is the text that
+
+        describes the BLST
+
+        currency.'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: GameIds/CSDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - 'This is the text that
+
+        describes the CS
+
+        currency.'
       - 
       - 
       Flags: 000000
@@ -9468,6 +9558,83 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITSettings/logout
+      TermType: 0
+      Description: 
+      Languages:
+      - LOGOUT
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITSettings/delete_account
+      TermType: 0
+      Description: 
+      Languages:
+      - DELETE ACCOUNT
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITSettings/logout_confirm_desc
+      TermType: 0
+      Description: 
+      Languages:
+      - ARE YOU SURE YOU WANT TO LOG OUT?
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITSettings/logout_success_title
+      TermType: 0
+      Description: 
+      Languages:
+      - LOGGED OUT SUCCESSFULLY
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITSettings/logout_success_desc
+      TermType: 0
+      Description: 
+      Languages:
+      - RESTART THE GAME TO LOGIN TO A NEW ACCOUNT
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITSettings/account_deleted_title
+      TermType: 0
+      Description: 
+      Languages:
+      - ACCOUNT DELETED
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITSettings/account_deleted_desc
+      TermType: 0
+      Description: 
+      Languages:
+      - 'YOUR ACCOUNT WILL BE DELETED SOON.
+
+        THE GAME WILL CLOSE NOW.'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITSettings/delete_account_request_desc
+      TermType: 0
+      Description: 
+      Languages:
+      - 'ARE YOU SURE YOU WANT TO DELETE YOUR ACCOUNT?
+
+        THIS ACTION CANNOT
+        BE UNDONE.'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITLoginRegister/email
       TermType: 0
       Description: 
@@ -9618,6 +9785,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITStore/shop
+      TermType: 0
+      Description: 
+      Languages:
+      - SHOP
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITHomeScreen/blast_pass
       TermType: 0
       Description: 
@@ -9681,6 +9857,33 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITHomeScreen/enter_your_name
+      TermType: 0
+      Description: 
+      Languages:
+      - ENTER YOUR NAME
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/new_name_desc
+      TermType: 0
+      Description: 
+      Languages:
+      - What's your name Blaster?
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/discord
+      TermType: 0
+      Description: 
+      Languages:
+      - DISCORD
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITDisconnected/connection_lost
       TermType: 0
       Description: 
@@ -9713,6 +9916,89 @@ MonoBehaviour:
       Description: 
       Languages:
       - RECONNECT
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITMatchmaking/select_dropzone
+      TermType: 0
+      Description: 
+      Languages:
+      - SELECT DROP ZONE
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITMatchmaking/br_mode_desc
+      TermType: 0
+      Description: 
+      Languages:
+      - LAST PLAYER STANDING
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITMatchmaking/dm_mode_desc
+      TermType: 0
+      Description: 
+      Languages:
+      - FIRST PLAYER TO REACH TARGET KILLS
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITMatchmaking/wins_the_match
+      TermType: 0
+      Description: 
+      Languages:
+      - WINS THE MATCH
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITMatchmaking/current_player_amount
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0}/{1}'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITMatchmaking/loading_status_timer
+      TermType: 0
+      Description: 
+      Languages:
+      - MATCHMAKING {0}s
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITMatchmaking/loading_status_waiting
+      TermType: 0
+      Description: 
+      Languages:
+      - WAITING FOR PLAYERS
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITMatchmaking/loading_status_starting
+      TermType: 0
+      Description: 
+      Languages:
+      - PREPARE FOR BLAST OFF!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITMatchmaking/mode_header_title
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0}
+
+        {1}'
       - 
       - 
       Flags: 000000
@@ -9766,7 +10052,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - <line-height=70%>{0} <size=70%>LV</size>{1}
+      - <line-height=70%>{0}
       - 
       - 
       Flags: 000000
@@ -9879,6 +10165,304 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITEquipment/lvl
+      TermType: 0
+      Description: 
+      Languages:
+      - <size=65%>LV</size>{0}
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/equipment_details_title
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} {1} LV<size=120%>{2}</size>'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/adjective_regular
+      TermType: 0
+      Description: 
+      Languages:
+      - REGULAR
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/adjective_cool
+      TermType: 0
+      Description: 
+      Languages:
+      - COOL
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/adjective_ornate
+      TermType: 0
+      Description: 
+      Languages:
+      - ORNATE
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/adjective_posh
+      TermType: 0
+      Description: 
+      Languages:
+      - POSH
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/adjective_exquisite
+      TermType: 0
+      Description: 
+      Languages:
+      - EXQUISITE
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/adjective_majestic
+      TermType: 0
+      Description: 
+      Languages:
+      - MAJESTIC
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/adjective_marvelous
+      TermType: 0
+      Description: 
+      Languages:
+      - MARVELOUS
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/adjective_magnificent
+      TermType: 0
+      Description: 
+      Languages:
+      - MAGNIFICENT
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/adjective_royal
+      TermType: 0
+      Description: 
+      Languages:
+      - ROYAL
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/adjective_divine
+      TermType: 0
+      Description: 
+      Languages:
+      - DIVINE
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/equipped
+      TermType: 0
+      Description: 
+      Languages:
+      - EQUIPPED
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/equip
+      TermType: 0
+      Description: 
+      Languages:
+      - EQUIP
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/unequip
+      TermType: 0
+      Description: 
+      Languages:
+      - UNEQUIP
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/rarity_common
+      TermType: 0
+      Description: 
+      Languages:
+      - COMMON
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/rarity_commonplus
+      TermType: 0
+      Description: 
+      Languages:
+      - COMMON PLUS
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/rarity_uncommon
+      TermType: 0
+      Description: 
+      Languages:
+      - UNCOMMON
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/rarity_uncommonplus
+      TermType: 0
+      Description: 
+      Languages:
+      - UNCOMMON PLUS
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/rarity_rare
+      TermType: 0
+      Description: 
+      Languages:
+      - RARE
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/rarity_rareplus
+      TermType: 0
+      Description: 
+      Languages:
+      - RARE PLUS
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/rarity_epic
+      TermType: 0
+      Description: 
+      Languages:
+      - EPIC
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/rarity_epicplus
+      TermType: 0
+      Description: 
+      Languages:
+      - EPIC PLUS
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/rarity_legendary
+      TermType: 0
+      Description: 
+      Languages:
+      - LEGENDARY
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/rarity_legendaryplus
+      TermType: 0
+      Description: 
+      Languages:
+      - LEGENDARY PLUS
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/details_no_amulet
+      TermType: 0
+      Description: 
+      Languages:
+      - 'YOU HAVE NO
+
+        AMULETS'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/details_no_armor
+      TermType: 0
+      Description: 
+      Languages:
+      - 'YOU HAVE NO
+
+        ARMORS'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/details_no_helmet
+      TermType: 0
+      Description: 
+      Languages:
+      - 'YOU HAVE NO
+
+        HELMETS'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/details_no_shield
+      TermType: 0
+      Description: 
+      Languages:
+      - 'YOU HAVE NO
+
+        SHIELDS'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/details_no_weapon
+      TermType: 0
+      Description: 
+      Languages:
+      - 'YOU HAVE NO
+
+        WEAPONS'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITWinners/winners
+      TermType: 0
+      Description: 
+      Languages:
+      - WINNERS
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITSwipeTransition/lets_blast
+      TermType: 0
+      Description: 
+      Languages:
+      - LET'S BLAST
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -9897,7 +10481,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1668017390481
+    Google_LastUpdatedVersion: 1669240762736
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
 using DG.Tweening;
-using FirstLight.FLogger;
-using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -36,7 +34,7 @@ namespace FirstLight.Game.Presenters
 			public Action OnSettingsButtonClicked;
 			public Action OnLootButtonClicked;
 			public Action OnHeroesButtonClicked;
-			public Action OnNameChangeClicked;
+			public Action OnProfileClicked;
 			public Action OnGameModeClicked;
 			public Action OnLeaderboardClicked;
 			public Action OnBattlePassClicked;
@@ -49,8 +47,12 @@ namespace FirstLight.Game.Presenters
 		private IMainMenuServices _mainMenuServices;
 
 		private Button _playButton;
+
+		private ImageButton _header;
 		private Label _playerNameLabel;
 		private Label _playerTrophiesLabel;
+
+		private VisualElement _equipmentNotification;
 
 		private Label _gameModeLabel;
 		private Label _gameTypeLabel;
@@ -62,6 +64,7 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _battlePassProgressElement;
 		private VisualElement _battlePassCrownIcon;
 
+		private VisualElement _bppPoolContainer;
 		private Label _bppPoolTimeLabel;
 		private Label _bppPoolAmountLabel;
 		private VisualElement _csPoolContainer;
@@ -77,15 +80,19 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements(VisualElement root)
 		{
-			var storeButton = root.Q<Button>("StoreButton");
-			
-			_playerNameLabel = root.Q<Label>("PlayerNameLabel").Required();
-			_playerTrophiesLabel = root.Q<Label>("PlayerTrophiesLabel").Required();
+			_header = root.Q<ImageButton>("Header").Required();
+			_header.clicked += Data.OnProfileClicked;
+			_playerNameLabel = _header.Q<Label>("Name").Required();
+			_playerTrophiesLabel = _header.Q<Label>("TrophiesAmount").Required();
+
 			_gameModeLabel = root.Q<Label>("GameModeLabel").Required();
 			_gameTypeLabel = root.Q<Label>("GameTypeLabel").Required();
 
-			_bppPoolAmountLabel = root.Q<VisualElement>("BPPPoolContainer").Q<Label>("AmountLabel").Required();
-			_bppPoolTimeLabel = root.Q<VisualElement>("BPPPoolContainer").Q<Label>("RestockLabel").Required();
+			_equipmentNotification = root.Q<VisualElement>("EquipmentNotification").Required();
+
+			_bppPoolContainer = root.Q<VisualElement>("BPPPoolContainer").Required();
+			_bppPoolAmountLabel = _bppPoolContainer.Q<Label>("AmountLabel").Required();
+			_bppPoolTimeLabel = _bppPoolContainer.Q<Label>("RestockLabel").Required();
 			_csPoolContainer = root.Q<VisualElement>("CSPoolContainer").Required();
 			_csPoolAmountLabel = _csPoolContainer.Q<Label>("AmountLabel").Required();
 			_csPoolTimeLabel = _csPoolContainer.Q<Label>("RestockLabel").Required();
@@ -100,30 +107,29 @@ namespace FirstLight.Game.Presenters
 			root.Q<CurrencyDisplayElement>("CSCurrency").SetAnimationOrigin(_playButton);
 			root.Q<CurrencyDisplayElement>("BLSTCurrency").SetAnimationOrigin(_playButton);
 			root.Q<CurrencyDisplayElement>("CoinCurrency").SetAnimationOrigin(_playButton);
-			
-			root.Q<Button>("GameModeButton").clicked += Data.OnGameModeClicked;
-			root.Q<Button>("SettingsButton").clicked += Data.OnSettingsButtonClicked;
-			root.Q<Button>("BattlePassButton").clicked += Data.OnBattlePassClicked;
+
+			root.Q<ImageButton>("GameModeButton").clicked += Data.OnGameModeClicked;
+			root.Q<ImageButton>("SettingsButton").clicked += Data.OnSettingsButtonClicked;
+			root.Q<ImageButton>("BattlePassButton").clicked += Data.OnBattlePassClicked;
 
 			root.Q<Button>("EquipmentButton").clicked += Data.OnLootButtonClicked;
 			root.Q<Button>("HeroesButton").clicked += Data.OnHeroesButtonClicked;
 			root.Q<Button>("LeaderboardsButton").clicked += Data.OnLeaderboardClicked;
+
+			var storeButton = root.Q<Button>("StoreButton");
 			storeButton.clicked += Data.OnStoreClicked;
-			
-			storeButton.SetEnabled(FeatureFlags.STORE_ENABLED);
+			storeButton.SetDisplayActive(FeatureFlags.STORE_ENABLED);
 
 			var discordButton = root.Q<Button>("DiscordButton");
 			discordButton.clicked += Data.OnDiscordClicked;
-			
-			// TODO: Move to shared code
-			root.Query<Button>().Build().ForEach(b =>
-			{
-				b.RegisterCallback<PointerDownEvent>(
-					_ => { _services.AudioFxService.PlayClip2D(AudioId.ButtonClickForward); },
-					TrickleDown.TrickleDown);
-			});
 
-			_playerNameLabel.RegisterCallback<ClickEvent>(OnPlayerNameClicked);
+			root.SetupClicks(_services);
+		}
+
+		protected override void OnOpened()
+		{
+			base.OnOpened();
+			_equipmentNotification.SetDisplayActive(_dataProvider.UniqueIdDataProvider.NewIds.Count > 0);
 		}
 
 		protected override void SubscribeToEvents()
@@ -162,11 +168,6 @@ namespace FirstLight.Game.Presenters
 			Data.OnPlayButtonClicked();
 		}
 
-		private void OnPlayerNameClicked(ClickEvent evt)
-		{
-			Data.OnNameChangeClicked();
-		}
-
 		private void OnTrophiesChanged(uint previous, uint current)
 		{
 			if (_dataProvider.RewardDataProvider.IsCollecting && current > previous)
@@ -198,7 +199,7 @@ namespace FirstLight.Game.Presenters
 
 			yield return new WaitForSeconds(CURRENCY_ANIM_DELAY);
 
-			for (int i = 0; i < Mathf.Min(10, current - previous); i++)
+			for (int i = 0; i < Mathf.Clamp(current - previous, 1, 20); i++)
 			{
 				_mainMenuServices.UiVfxService.PlayVfx(id,
 					i * 0.1f,
@@ -229,12 +230,19 @@ namespace FirstLight.Game.Presenters
 			var poolInfo = _dataProvider.ResourceDataProvider.GetResourcePoolInfo(id);
 			var timeLeft = poolInfo.NextRestockTime - DateTime.UtcNow;
 
-			timeLabel.text = string.Format(ScriptLocalization.UITHomeScreen.resource_pool_restock,
-				poolInfo.RestockPerInterval,
-				id.ToString(),
-				timeLeft.ToHoursMinutesSeconds());
-
 			amountLabel.text = string.Format(amountStringFormat, poolInfo.CurrentAmount, poolInfo.PoolCapacity);
+
+			if (poolInfo.IsFull)
+			{
+				timeLabel.text = string.Empty;
+			}
+			else
+			{
+				timeLabel.text = string.Format(ScriptLocalization.UITHomeScreen.resource_pool_restock,
+					poolInfo.RestockPerInterval,
+					id.ToString(),
+					timeLeft.ToHoursMinutesSeconds());
+			}
 		}
 
 		private void OnBattlePassCurrentLevelChanged(uint _, uint current)
@@ -264,9 +272,12 @@ namespace FirstLight.Game.Presenters
 		{
 			yield return new WaitForSeconds(CURRENCY_ANIM_DELAY);
 
-			for (int i = 0; i < (int) (current - previous); i++)
+			var pointsDiff = current - previous;
+			var pointsToAnimate = Mathf.Clamp(current - previous, 3, 10);
+			var pointsModifier = pointsDiff / pointsToAnimate;
+			for (int i = 0; i < pointsToAnimate; i++)
 			{
-				int points = (int) previous + i + 1;
+				int points = (int) previous + Mathf.RoundToInt(i * pointsModifier) + 1;
 				var predictedLevelAndPoints = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints(points);
 
 				_mainMenuServices.UiVfxService.PlayVfx(id,
@@ -291,10 +302,11 @@ namespace FirstLight.Game.Presenters
 		private void UpdateBattlePassPoints(uint predictedLevel, uint predictedPoints, int pointsOverride = -1)
 		{
 			var hasRewards = _dataProvider.BattlePassDataProvider.IsRedeemable(pointsOverride);
-			var currentPointsPerLevel = _dataProvider.BattlePassDataProvider.GetRequiredPointsForLevel((int)predictedLevel);
+			var currentPointsPerLevel =
+				_dataProvider.BattlePassDataProvider.GetRequiredPointsForLevel((int) predictedLevel);
 
 			_battlePassProgressElement.style.flexGrow =
-				Mathf.Clamp01((float)predictedPoints / currentPointsPerLevel);
+				Mathf.Clamp01((float) predictedPoints / currentPointsPerLevel);
 			_battlePassCrownIcon.style.display = hasRewards ? DisplayStyle.Flex : DisplayStyle.None;
 
 			if (predictedLevel == _dataProvider.BattlePassDataProvider.MaxLevel)

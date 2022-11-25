@@ -37,8 +37,7 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 
 		private enum TextureMode
 		{
-			Png,
-			Jpg
+			Png
 		}
 
 		[MenuItem("FLG/NFT Generator ImageEditorWindow")]
@@ -278,28 +277,27 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 				for (var subCategoryIndex = 0; subCategoryIndex < ids.Count; subCategoryIndex++)
 				{
 					var gameId = ids.ElementAt(subCategoryIndex);
-
+					
 					if (gameId == GameId.Hammer)
 					{
 						continue;
 					}
 
-					//for (var rarityIndex = 0; rarityIndex < (int) EquipmentRarity.TOTAL; rarityIndex++)
+					for (var rarityIndex = 0; rarityIndex < (int) EquipmentRarity.TOTAL; rarityIndex++)
 					{
-						//for (var materialIndex = 0; materialIndex < (int) EquipmentMaterial.TOTAL; materialIndex++)
+						for (var materialIndex = 0; materialIndex < (int) EquipmentMaterial.TOTAL; materialIndex++)
 						{
-							//for (var factionIndex = 0; factionIndex < (int) EquipmentFaction.TOTAL; factionIndex++)
+							for (var factionIndex = 0; factionIndex < (int) EquipmentFaction.TOTAL; factionIndex++)
 							{
-								//for (var gradeIndex = 0; gradeIndex < (int) EquipmentGrade.TOTAL; gradeIndex++)
+								for (var gradeIndex = 0; gradeIndex < (int) EquipmentGrade.TOTAL; gradeIndex++)
 								{
-								//	for (var adjectiveIndex = 0;
-								//	     adjectiveIndex < (int) EquipmentAdjective.TOTAL;
-								//	     adjectiveIndex++)
+									for (var adjectiveIndex = 0;
+									     adjectiveIndex < (int) EquipmentAdjective.TOTAL;
+									     adjectiveIndex++)
 									{
 										metadata.name =
 											LocalizationManager.GetTranslation($"GameIds/{gameId.ToString()}");
-										metadata.attibutesDictionary["category"] =
-											(int) gameIdGroups.ElementAt(categoryIndex);
+										metadata.attibutesDictionary["category"] = (int) gameIdGroups.ElementAt(categoryIndex);
 										metadata.attibutesDictionary["subCategory"] = (int) gameId;
 
 										var config = baseEquipmentStatConfigs.Configs.First(c => c.Id == gameId);
@@ -336,7 +334,7 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 
 			Debug.Log($"Exported [{imagesExportedCount}] image combinations");
 		}
-
+		
 
 		/// <summary>
 		/// Export a render texture image given a metadata object and renderable background
@@ -362,21 +360,18 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 				Rarity = (EquipmentRarity) metadata.attibutesDictionary["rarity"],
 			});
 			
-
-			var bounds = GetBounds(go);
+			
+			var bounds = GetBounds(go); 
 			go.transform.position = -bounds.center;
+			
+			var size = bounds.size;
+			var max = Mathf.Max(size.x, size.y, size.z);
+			var frustumHeight = max  / _camera.aspect;
 
-
-			var max = bounds.size;
-			var radius = max.magnitude / 2f;
-			var horizontalFOV =
-				2f * Mathf.Atan(Mathf.Tan(_camera.fieldOfView * Mathf.Deg2Rad / 2f) * _camera.aspect) *
-				Mathf.Rad2Deg;
-			var fov = Mathf.Min(_camera.fieldOfView, horizontalFOV);
-			var dist = radius / (Mathf.Sin(fov * Mathf.Deg2Rad / 2f));
-
-			_camera.transform.position = new Vector3(-dist, 0, 0);
-
+			var margin = 1.3f;
+			var distance = (frustumHeight * margin) * 0.5f / Mathf.Tan(_camera.fieldOfView * 0.5f * Mathf.Deg2Rad);
+			_camera.transform.position = new Vector3(-distance, 0, 0);
+			
 			_canvas.SetActive(true);
 
 			backgroundErcRenderable?.Initialise(new Equipment()
@@ -398,7 +393,7 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 
 			if (_renderTextureMode == RenderTextureMode.Standalone || _renderTextureMode == RenderTextureMode.Both)
 			{
-				WriteRenderTextureToDisk($"{gameId.ToString()}_standalone", _renderTextureStandalone, true);
+				WriteRenderTextureToDisk($"{Path.GetFileNameWithoutExtension(metadata.image)}_standalone", _renderTextureStandalone, true);
 			}
 
 			go.SetActive(false);
@@ -427,6 +422,8 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 				return hash;
 			}
 		}
+		
+
 
 		/// <summary>
 		///  Write render texture image to disk given a file path and render texture object
@@ -458,7 +455,6 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 
 				var minCroppedWidth = -1;
 				var maxCroppedWidth = -1;
-				
 
 				for (var i = 0; i < height; i++)
 				{
@@ -482,7 +478,7 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 						}
 					}
 				}
-				
+
 				var minCroppedHeight = -1;
 				var maxCroppedHeight = -1;
 
@@ -511,17 +507,11 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 				}
 				
 
-				maxCroppedHeight = image.height - maxCroppedHeight;
-				minCroppedHeight = image.height - minCroppedHeight;
-
 				var copyWidth = Math.Abs(maxCroppedWidth - minCroppedWidth);
 				var copyHeight = Math.Abs(maxCroppedHeight - minCroppedHeight);
 
 				Texture2D copyTexture = new Texture2D(copyWidth, copyHeight);
-				
-				Debug.Log($"read pixels: {minCroppedWidth} {maxCroppedHeight} {copyWidth} {copyHeight}");
-				
-				copyTexture.ReadPixels(new Rect(minCroppedWidth, maxCroppedHeight, copyWidth, copyHeight), 0, 0);
+				copyTexture.ReadPixels(new Rect(minCroppedWidth, minCroppedHeight, copyWidth, copyHeight), 0, 0);
 				copyTexture.Apply();
 
 				RenderTexture.active = null;

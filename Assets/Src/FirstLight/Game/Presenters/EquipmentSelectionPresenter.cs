@@ -357,7 +357,7 @@ namespace FirstLight.Game.Presenters
 			var card1 = visualElement.Q<EquipmentCardElement>("item-1");
 			var card2 = visualElement.Q<EquipmentCardElement>("item-2");
 
-			card1.SetData(row.Item1.Equipment, row.Item1.UniqueId, false,
+			card1.SetEquipment(row.Item1.Equipment, row.Item1.UniqueId, false,
 				_gameDataProvider.EquipmentDataProvider.NftInventory.ContainsKey(row.Item1.UniqueId),
 				card1.UniqueId == _equippedItem,
 				_gameDataProvider.UniqueIdDataProvider.NewIds.Contains(row.Item1.UniqueId));
@@ -365,7 +365,7 @@ namespace FirstLight.Game.Presenters
 			if (row.Item2 != null)
 			{
 				card2.SetDisplayActive(true);
-				card2.SetData(row.Item2.Equipment, row.Item2.UniqueId, false,
+				card2.SetEquipment(row.Item2.Equipment, row.Item2.UniqueId, false,
 					_gameDataProvider.EquipmentDataProvider.NftInventory.ContainsKey(row.Item2.UniqueId),
 					card2.UniqueId == _equippedItem,
 					_gameDataProvider.UniqueIdDataProvider.NewIds.Contains(row.Item2.UniqueId));

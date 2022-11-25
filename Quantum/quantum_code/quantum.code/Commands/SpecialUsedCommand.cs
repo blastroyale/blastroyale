@@ -29,10 +29,16 @@ namespace Quantum.Commands
 			{
 				return;
 			}
-			
+
+			var aimInputProcessed = AimInput;
 			var special = playerCharacter->WeaponSlot->Specials[SpecialIndex];
 			
-			if (special.TryActivate(f, characterEntity, AimInput, SpecialIndex))
+			if (aimInputProcessed.SqrMagnitude < FP.SmallestNonZero && f.TryGet<Transform3D>(characterEntity, out var transform))
+			{
+				aimInputProcessed = (transform.Rotation * FPVector3.Forward).XZ.Normalized * FP._0_50;
+			}
+			
+			if (special.TryActivate(f, characterEntity, aimInputProcessed, SpecialIndex))
 			{
 				playerCharacter->WeaponSlot->Specials[SpecialIndex] = special;
 			}

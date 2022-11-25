@@ -74,39 +74,5 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 			
 			await UpdateSkin(callback.SkinId, _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both));
 		}
-
-		// private async void SkinLoaded(GameId id, GameObject instance, bool instantiated)
-		// {
-		// 	// Check that the player hasn't changed the skin again while we were loading
-		// 	if (this.IsDestroyed() || id != _gameDataProvider.PlayerDataProvider.PlayerInfo.Skin)
-		// 	{
-		// 		Destroy(instance);
-		// 		return;
-		// 	}
-		//
-		// 	instance.SetActive(false);
-		//
-		// 	var cacheTransform = instance.transform;
-		// 	var loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both);
-		//
-		// 	cacheTransform.SetParent(_characterAnchor);
-		//
-		// 	cacheTransform.localPosition = Vector3.zero;
-		// 	cacheTransform.localRotation = Quaternion.identity;
-		// 	_characterViewComponent = instance.GetComponent<MainMenuCharacterViewComponent>();
-		//
-		// 	await _characterViewComponent.Init(loadout);
-		//
-		// 	if (!_gameDataProvider.EquipmentDataProvider.Loadout.ContainsKey(GameIdGroup.Weapon))
-		// 	{
-		// 		EquipDefault();
-		// 	}
-		// 	
-		// 	instance.SetActive(true);
-		//
-		// 	_animator = instance.GetComponent<Animator>();
-		// 	
-		// 	_characterLoadedEvent?.Invoke();
-		// }
 	}
 }

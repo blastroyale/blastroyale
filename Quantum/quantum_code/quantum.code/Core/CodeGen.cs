@@ -2993,14 +2993,18 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct WeaponSlot {
-    public const Int32 SIZE = 232;
+    public const Int32 SIZE = 240;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(0)]
     public Int32 MagazineShotCount;
-    [FieldOffset(72)]
+    [FieldOffset(4)]
+    public Int32 MagazineSize;
+    [FieldOffset(8)]
+    public FP ReloadTime;
+    [FieldOffset(80)]
     [FramePrinter.FixedArrayAttribute(typeof(Special), 2)]
     private fixed Byte _Specials_[160];
-    [FieldOffset(4)]
+    [FieldOffset(16)]
     public Equipment Weapon;
     public FixedArray<Special> Specials {
       get {
@@ -3011,6 +3015,8 @@ namespace Quantum {
       unchecked { 
         var hash = 359;
         hash = hash * 31 + MagazineShotCount.GetHashCode();
+        hash = hash * 31 + MagazineSize.GetHashCode();
+        hash = hash * 31 + ReloadTime.GetHashCode();
         hash = hash * 31 + HashCodeUtils.GetArrayHashCode(Specials);
         hash = hash * 31 + Weapon.GetHashCode();
         return hash;
@@ -3019,6 +3025,8 @@ namespace Quantum {
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (WeaponSlot*)ptr;
         serializer.Stream.Serialize(&p->MagazineShotCount);
+        serializer.Stream.Serialize(&p->MagazineSize);
+        FP.Serialize(&p->ReloadTime, serializer);
         Quantum.Equipment.Serialize(&p->Weapon, serializer);
         FixedArray.Serialize(p->Specials, serializer, StaticDelegates.SerializeSpecial);
     }
@@ -4186,7 +4194,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct PlayerCharacter : Quantum.IComponent {
-    public const Int32 SIZE = 1080;
+    public const Int32 SIZE = 1104;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(16)]
     public AssetRefAIBlackboard BlackboardRef;
@@ -4212,7 +4220,7 @@ namespace Quantum {
     [FieldOffset(384)]
     [HideInInspector()]
     [FramePrinter.FixedArrayAttribute(typeof(WeaponSlot), 3)]
-    private fixed Byte _WeaponSlots_[696];
+    private fixed Byte _WeaponSlots_[720];
     public FixedArray<Equipment> Gear {
       get {
         fixed (byte* p = _Gear_) { return new FixedArray<Equipment>(p, 64, 5); }
@@ -4220,7 +4228,7 @@ namespace Quantum {
     }
     public FixedArray<WeaponSlot> WeaponSlots {
       get {
-        fixed (byte* p = _WeaponSlots_) { return new FixedArray<WeaponSlot>(p, 232, 3); }
+        fixed (byte* p = _WeaponSlots_) { return new FixedArray<WeaponSlot>(p, 240, 3); }
       }
     }
     public override Int32 GetHashCode() {
@@ -10503,9 +10511,13 @@ namespace Quantum.Prototypes {
     [ArrayLengthAttribute(2)]
     public Special_Prototype[] Specials = new Special_Prototype[2];
     public Int32 MagazineShotCount;
+    public Int32 MagazineSize;
+    public FP ReloadTime;
     partial void MaterializeUser(Frame frame, ref WeaponSlot result, in PrototypeMaterializationContext context);
     public void Materialize(Frame frame, ref WeaponSlot result, in PrototypeMaterializationContext context) {
       result.MagazineShotCount = this.MagazineShotCount;
+      result.MagazineSize = this.MagazineSize;
+      result.ReloadTime = this.ReloadTime;
       for (int i = 0, count = PrototypeValidator.CheckLength(Specials, 2, in context); i < count; ++i) {
         this.Specials[i].Materialize(frame, ref *result.Specials.GetPointer(i), in context);
       }

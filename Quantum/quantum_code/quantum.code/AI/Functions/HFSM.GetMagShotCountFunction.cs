@@ -12,10 +12,10 @@ namespace Quantum
 	public class GetMagShotCountFunction : AIFunction<int>
 	{
 		/// <inheritdoc />
-		public override int Execute(Frame f, EntityRef e, ref AIContext aiContext)
+		public unsafe override int Execute(Frame f, EntityRef e, ref AIContext aiContext)
 		{
-			var pc = f.Get<PlayerCharacter>(e);
-			return pc.GetMagShotCount(f, pc.CurrentWeaponSlot, out _);
+			var pc = f.Unsafe.GetPointer<PlayerCharacter>(e);
+			return pc->GetMagShotCount(f, pc->CurrentWeaponSlot, out _);
 		}
 	}
 }

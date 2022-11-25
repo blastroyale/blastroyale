@@ -15,7 +15,7 @@ namespace Quantum
 		public unsafe override int Execute(Frame f, EntityRef e, ref AIContext aiContext)
 		{
 			var pc = f.Unsafe.GetPointer<PlayerCharacter>(e);
-			return pc->GetMagShotCount(f, pc->CurrentWeaponSlot, out _);
+			return pc->WeaponSlots.GetPointer(pc->CurrentWeaponSlot)->MagazineShotCount;
 		}
 	}
 }

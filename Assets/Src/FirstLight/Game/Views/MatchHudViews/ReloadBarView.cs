@@ -96,7 +96,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void SetSliderValue(Frame f, PlayerCharacter player)
 		{
-			var magShotCount = player.GetMagShotCount(f, player.CurrentWeaponSlot, out var magSize);
+			var magShotCount = player.WeaponSlots[player.CurrentWeaponSlot].MagazineShotCount;
+			var magSize = player.WeaponSlots[player.CurrentWeaponSlot].MagazineSize;
 			_slider.value = (float)magShotCount / magSize;
 			_reloadTimeSlider.value = 0;
 			_reloadTimeSlider.gameObject.SetActive(false);
@@ -104,7 +105,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		IEnumerator ReloadAnimation(Frame f, PlayerCharacter player)
 		{
-			var magShotCount = player.GetMagShotCount(f, player.CurrentWeaponSlot, out var magSize);
+			var magShotCount = player.WeaponSlots[player.CurrentWeaponSlot].MagazineShotCount;
+			var magSize = player.WeaponSlots[player.CurrentWeaponSlot].MagazineSize;
 			var reloadTime = player.WeaponSlots[player.CurrentWeaponSlot].ReloadTime.AsFloat;
 
 			if (magShotCount == magSize || magShotCount < 0 || reloadTime == 0)

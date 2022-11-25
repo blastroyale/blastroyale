@@ -209,9 +209,9 @@ namespace Quantum
 				Collectable.DropEquipment(f, WeaponSlots[slot].Weapon, dropPosition, 0);
 			}
 
-			WeaponSlots[slot].MagazineSize = weaponConfig.MagazineSize;
-			WeaponSlots[slot].MagazineShotCount = weaponConfig.MagazineSize;
-			WeaponSlots[slot].ReloadTime = weaponConfig.ReloadTime;
+			WeaponSlots.GetPointer(slot)->MagazineShotCount = weaponConfig.MagazineSize;
+			WeaponSlots.GetPointer(slot)->ReloadTime = weaponConfig.ReloadTime;
+			WeaponSlots.GetPointer(slot)->MagazineSize = weaponConfig.MagazineSize;
 			WeaponSlots[slot].Weapon = weapon;
 			GainAmmo(f, e, initialAmmo - GetAmmoAmountFilled(f, e));
 
@@ -240,7 +240,7 @@ namespace Quantum
 		internal void EquipSlotWeapon(Frame f, EntityRef e, int slot)
 		{
 			SetSlotWeapon(f, e, slot);
-			f.Events.OnPlayerWeaponChanged(Player, e, slot, WeaponSlot[slot].ReloadTime);
+			f.Events.OnPlayerWeaponChanged(Player, e, slot, WeaponSlots.GetPointer(CurrentWeaponSlot)->ReloadTime);
 			HFSMManager.TriggerEvent(f, e, Constants.ChangeWeaponEvent);
 		}
 
@@ -275,15 +275,6 @@ namespace Quantum
 			f.Unsafe.GetPointer<Stats>(e)->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Gear);
 			
 			f.Events.OnPlayerGearChanged(Player, e, gear, gearSlot);
-		}
-
-		/// <summary>
-		/// Returns the magazine shot count for a specified <paramref name="slot"/>
-		/// </summary>
-		public int GetMagShotCount(Frame f, int slot, out int magSize)
-		{
-			magSize = WeaponSlots.GetPointer(slot)->MagazineSize;
-			return WeaponSlots.GetPointer(slot)->MagazineShotCount;
 		}
 
 		/// <summary>
@@ -442,7 +433,9 @@ namespace Quantum
 		internal void ReduceAmmo(Frame f, EntityRef e, uint amount)
 		{
 			//melee weapons should use the magazine
-			var magShotCount = GetMagShotCount(f, CurrentWeaponSlot, out var magSize);
+			var magShotCount = WeaponSlots.GetPointer(CurrentWeaponSlot)->MagazineShotCount;
+			var magSize = WeaponSlots.GetPointer(CurrentWeaponSlot)->MagazineSize;
+
 			if (magSize > 0 && magShotCount > 0)
 			{
 				WeaponSlots.GetPointer(CurrentWeaponSlot)->MagazineShotCount -= 1;

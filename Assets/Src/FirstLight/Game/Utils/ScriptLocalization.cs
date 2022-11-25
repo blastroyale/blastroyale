@@ -1229,6 +1229,11 @@ namespace I2.Loc
 			public static string rare_core 		{ get{ return LocalizationManager.GetTranslation ("UITStore/rare_core"); } }
 		}
 
+		public static class UITSwipeTransition
+		{
+			public static string lets_blast 		{ get{ return LocalizationManager.GetTranslation ("UITSwipeTransition/lets_blast"); } }
+		}
+
 		public static class UITWinners
 		{
 			public static string winners 		{ get{ return LocalizationManager.GetTranslation ("UITWinners/winners"); } }
@@ -2460,6 +2465,11 @@ namespace I2.Loc
 		    public const string legendary_core = "UITStore/legendary_core";
 		    public const string price = "UITStore/price";
 		    public const string rare_core = "UITStore/rare_core";
+		}
+
+		public static class UITSwipeTransition
+		{
+		    public const string lets_blast = "UITSwipeTransition/lets_blast";
 		}
 
 		public static class UITWinners

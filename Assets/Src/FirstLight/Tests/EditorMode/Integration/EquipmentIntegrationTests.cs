@@ -88,5 +88,27 @@ namespace FirstLight.Tests.EditorMode.Integration
 			Assert.AreEqual(0, data.Currencies[info.UpgradeCost.Key]);
 			Assert.AreEqual(1, TestLogic.EquipmentLogic.Inventory[itemUniqueId].Level);
 		}
+		
+		/// <summary>
+		/// Ensuring repair item command deducts the correct ammount of the repair cost
+		/// </summary>
+		[Test]
+		public void RepairItemCommand()
+		{
+			var equip = new Equipment() {GameId = GameId.HockeyHelmet, MaxDurability = 2};
+			var itemUniqueId = TestLogic.EquipmentLogic.AddToInventory(equip);
+			var cost = TestLogic.EquipmentLogic.GetRepairCost(equip, false);
+			var data = TestData.GetData<PlayerData>();
+
+			data.Currencies[cost.Key] = cost.Value;
+
+			TestServices.CommandService.ExecuteCommand(new RepairItemCommand()
+			{
+				Item = itemUniqueId
+			});
+
+			Assert.AreEqual(0, data.Currencies[cost.Key]);
+			Assert.AreEqual(equip.MaxDurability, TestLogic.EquipmentLogic.Inventory[itemUniqueId].Durability);
+		}
 	}
 }

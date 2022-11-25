@@ -20,6 +20,7 @@ struct Equipment
 	UInt32 Generation;
 	UInt32 ReplicationCounter;
 	UInt32 Durability;
+	UInt32 TotalRestoredDurability;
 }
 
 enum EquipmentEdition

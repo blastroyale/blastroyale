@@ -211,8 +211,10 @@ namespace Quantum
 				Collectable.DropEquipment(f, WeaponSlots[slot].Weapon, dropPosition, 0);
 			}
 
-			WeaponSlots[slot].Weapon = weapon;
 			WeaponSlots.GetPointer(slot)->MagazineShotCount = weaponConfig.MagazineSize;
+			WeaponSlots.GetPointer(slot)->ReloadTime = weaponConfig.ReloadTime;
+			WeaponSlots.GetPointer(slot)->MagazineSize = weaponConfig.MagazineSize;
+			WeaponSlots[slot].Weapon = weapon;
 
 			stats.GainAmmoPercent(f, e, initialAmmo - (stats.CurrentAmmo / stats.GetStatData(StatType.AmmoCapacity).StatValue));
 
@@ -241,8 +243,7 @@ namespace Quantum
 		internal void EquipSlotWeapon(Frame f, EntityRef e, int slot)
 		{
 			SetSlotWeapon(f, e, slot);
-			var reloadTime = f.WeaponConfigs.GetConfig(WeaponSlots.GetPointer(slot)->Weapon.GameId).ReloadTime;
-			f.Events.OnPlayerWeaponChanged(Player, e, slot, reloadTime);
+			f.Events.OnPlayerWeaponChanged(Player, e, slot, WeaponSlots.GetPointer(CurrentWeaponSlot)->ReloadTime);
 			HFSMManager.TriggerEvent(f, e, Constants.ChangeWeaponEvent);
 		}
 
@@ -277,15 +278,6 @@ namespace Quantum
 			f.Unsafe.GetPointer<Stats>(e)->RefreshEquipmentStats(f, Player, e, CurrentWeapon, Gear);
 			
 			f.Events.OnPlayerGearChanged(Player, e, gear, gearSlot);
-		}
-
-		/// <summary>
-		/// Returns the magazine shot count for a specified <paramref name="slot"/>
-		/// </summary>
-		public int GetMagShotCount(Frame f, int slot, out int magSize)
-		{
-			magSize = f.WeaponConfigs.GetConfig(WeaponSlots.GetPointer(slot)->Weapon.GameId).MagazineSize;
-			return WeaponSlots.GetPointer(slot)->MagazineShotCount;
 		}
 
 		/// <summary>

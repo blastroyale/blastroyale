@@ -18,7 +18,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Required] private Slider _reloadTimeSlider;
 
 		private Coroutine _reloadAnim;
-		private float _reloadTime;
 		private EntityRef _entity;
 		private IObjectPool<GameObject> _separatorPool;
 
@@ -53,7 +52,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 
 			SetSliderValue(f, player);
-			_reloadTime = callback.ReloadTime.AsFloat;
 
 			if (_reloadAnim != null)
 			{
@@ -98,7 +96,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void SetSliderValue(Frame f, PlayerCharacter player)
 		{
-			var magShotCount = player.GetMagShotCount(f, player.CurrentWeaponSlot, out var magSize);
+			var magShotCount = player.WeaponSlots[player.CurrentWeaponSlot].MagazineShotCount;
+			var magSize = player.WeaponSlots[player.CurrentWeaponSlot].MagazineSize;
 			_slider.value = (float)magShotCount / magSize;
 			_reloadTimeSlider.value = 0;
 			_reloadTimeSlider.gameObject.SetActive(false);
@@ -106,21 +105,23 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		IEnumerator ReloadAnimation(Frame f, PlayerCharacter player)
 		{
-			var magShotCount = player.GetMagShotCount(f, player.CurrentWeaponSlot, out var magSize);
+			var magShotCount = player.WeaponSlots[player.CurrentWeaponSlot].MagazineShotCount;
+			var magSize = player.WeaponSlots[player.CurrentWeaponSlot].MagazineSize;
+			var reloadTime = player.WeaponSlots[player.CurrentWeaponSlot].ReloadTime.AsFloat;
 
-			if (magShotCount == magSize || magShotCount < 0 || _reloadTime == 0)
+			if (magShotCount == magSize || magShotCount < 0 || reloadTime == 0)
 			{
 				yield break;
 			}
 
 			_reloadTimeSlider.gameObject.SetActive(true);
 			float startTime = f.Time.AsFloat;
-			float endTime = startTime + _reloadTime;
+			float endTime = startTime + reloadTime;
 
 			while (f.Time.AsFloat < endTime)
 			{
 				yield return new WaitForEndOfFrame();
-				_reloadTimeSlider.value = (f.Time.AsFloat - startTime) / _reloadTime;
+				_reloadTimeSlider.value = (f.Time.AsFloat - startTime) / reloadTime;
 			}
 
 			_slider.value = magSize;

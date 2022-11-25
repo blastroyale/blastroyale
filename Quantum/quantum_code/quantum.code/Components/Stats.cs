@@ -129,7 +129,8 @@ namespace Quantum
 		{
 			var player = f.Get<PlayerCharacter>(e);
 			var maxAmmo = GetStatData(StatType.AmmoCapacity).BaseValue.AsInt;
-			var magShotCount = player.GetMagShotCount(f, player.CurrentWeaponSlot, out var magSize);
+			var magShotCount = player.WeaponSlots.GetPointer(player.CurrentWeaponSlot)->MagazineShotCount;
+			var magSize = player.WeaponSlots.GetPointer(player.CurrentWeaponSlot)->MagazineSize;
 
 			// Only consume a shot from the magazine if it has a magazine size and there is still ammo left in the mag
 			if (magSize > 0 && magShotCount > 0)

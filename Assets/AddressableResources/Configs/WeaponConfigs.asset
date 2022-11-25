@@ -130,9 +130,9 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: 2400000012000000
-      MagazineSize: 2
+      MagazineSize: 8
       ReloadTime:
-        RawValue: 16384
+        RawValue: 163840
       AimingMovementSpeed:
         RawValue: 52429
       TapCooldown:
@@ -279,11 +279,11 @@ MonoBehaviour:
         Values: 170000000c000000
       MagazineSize: 4
       ReloadTime:
-        RawValue: 131072
+        RawValue: 65536
       AimingMovementSpeed:
         RawValue: 52429
       TapCooldown:
-        RawValue: 52429
+        RawValue: 32768
       AttackCooldown:
         RawValue: 52429
       PowerToDamageRatio:
@@ -326,7 +326,7 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: 3200000014000000
-      MagazineSize: 12
+      MagazineSize: 9
       ReloadTime:
         RawValue: 98304
       AimingMovementSpeed:
@@ -375,9 +375,9 @@ MonoBehaviour:
         - BattleRoyale
         - 'Deathmatch '
         Values: a500000064000000
-      MagazineSize: -1
+      MagazineSize: 80
       ReloadTime:
-        RawValue: 0
+        RawValue: 196608
       AimingMovementSpeed:
         RawValue: 52429
       TapCooldown:
@@ -430,7 +430,7 @@ MonoBehaviour:
       AimingMovementSpeed:
         RawValue: 65536
       TapCooldown:
-        RawValue: 19661
+        RawValue: 16384
       AttackCooldown:
         RawValue: 19661
       PowerToDamageRatio:
@@ -473,9 +473,9 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: 240000000c000000
-      MagazineSize: 6
+      MagazineSize: 1
       ReloadTime:
-        RawValue: 98304
+        RawValue: 16384
       AimingMovementSpeed:
         RawValue: 32768
       TapCooldown:
@@ -620,9 +620,9 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: 1e0000000c000000
-      MagazineSize: 1
+      MagazineSize: 10
       ReloadTime:
-        RawValue: 65536
+        RawValue: 196608
       AimingMovementSpeed:
         RawValue: 32768
       TapCooldown:
@@ -718,9 +718,9 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: 960000004b000000
-      MagazineSize: 30
+      MagazineSize: 60
       ReloadTime:
-        RawValue: 163840
+        RawValue: 229376
       AimingMovementSpeed:
         RawValue: 21627
       TapCooldown:
@@ -963,15 +963,15 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: 1900000020000000
-      MagazineSize: 6
+      MagazineSize: 2
       ReloadTime:
-        RawValue: 98304
+        RawValue: 52429
       AimingMovementSpeed:
         RawValue: 52429
       TapCooldown:
         RawValue: 52429
       AttackCooldown:
-        RawValue: 52429
+        RawValue: 5243
       PowerToDamageRatio:
         RawValue: 52429
       AttackHitSpeed:
@@ -979,7 +979,7 @@ MonoBehaviour:
       MinAttackAngle: 3
       MaxAttackAngle: 3
       NumberOfShots: 1
-      NumberOfBursts: 2
+      NumberOfBursts: 1
       AttackRange:
         RawValue: 688128
       AttackRangeAimBonus:

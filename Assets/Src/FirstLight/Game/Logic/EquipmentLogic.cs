@@ -42,6 +42,21 @@ namespace FirstLight.Game.Logic
 		IObservableDictionaryReader<UniqueId, NftEquipmentData> NftInventory { get; }
 
 		/// <summary>
+		/// Requests the given's <paramref name="equipment"/> scrapping reward
+		/// </summary>
+		Pair<GameId, uint> GetScrappingReward(Equipment equipment, bool isNft);
+
+		/// <summary>
+		/// Requests the given's <paramref name="equipment"/> upgrade cost for 1 level
+		/// </summary>
+		Pair<GameId, uint> GetUpgradeCost(Equipment equipment, bool isNft);
+
+		/// <summary>
+		/// Requests the given's <paramref name="equipment"/> repair cost
+		/// </summary>
+		Pair<GameId, uint> GetRepairCost(Equipment equipment, bool isNft);
+
+		/// <summary>
 		/// Requests the <see cref="EquipmentInfo"/> for the given <paramref name="id"/>
 		/// </summary>
 		EquipmentInfo GetInfo(UniqueId id);
@@ -107,15 +122,19 @@ namespace FirstLight.Game.Logic
 		void Unequip(UniqueId itemId);
 
 		/// <summary>
-		/// Scraps the equipment of the given <paramref name="itemId"/> and returns the <see cref="EquipmentInfo"/> of
-		/// the scrapped item
+		/// Scraps the equipment of the given <paramref name="itemId"/> and returns the reward of scrapping the item
 		/// </summary>
-		EquipmentInfo Scrap(UniqueId itemId);
+		Pair<GameId, uint> Scrap(UniqueId itemId);
 
 		/// <summary>
 		/// Upgrades the equipment of the given <paramref name="itemId"/> by one level
 		/// </summary>
 		void Upgrade(UniqueId itemId);
+
+		/// <summary>
+		/// Repairs the equipment of the given <paramref name="itemId"/> to full durability
+		/// </summary>
+		void Repair(UniqueId itemId);
 
 	}
 	
@@ -139,18 +158,63 @@ namespace FirstLight.Game.Logic
 			_inventory = new ObservableDictionary<UniqueId, Equipment>(Data.Inventory);
 			_nftInventory = new ObservableDictionary<UniqueId, NftEquipmentData>(Data.NftInventory);
 		}
+
+		public Pair<GameId, uint> GetScrappingReward(Equipment equipment, bool isNft)
+		{
+			var resourceType = isNft ? GameId.CS : GameId.COIN;
+			var config = GameLogic.ConfigsProvider.GetConfig<ScrapConfig>((int) resourceType);
+			var rarityValue =
+				Math.Ceiling(config.BaseValue * Math.Pow(config.GrowthMultiplier.AsDouble, (int)equipment.Rarity));
+			var adjectiveValue = Math.Sqrt(Math.Pow(config.AdjectiveCostK.AsDouble, (int)equipment.Adjective));
+			var gradeValue = Math.Pow(config.GradeMultiplier.AsDouble, (int)equipment.Grade);
+			var levelMultiplier = ((int) equipment.Level * config.LevelMultiplier).AsDouble;
+			var winValue = rarityValue + adjectiveValue + ((rarityValue + adjectiveValue) * levelMultiplier * gradeValue);
+
+			return new Pair<GameId, uint>(resourceType, (uint) Math.Round(winValue));
+		}
+
+		public Pair<GameId, uint> GetUpgradeCost(Equipment equipment, bool isNft)
+		{
+			var resourceType = isNft ? GameId.CS : GameId.COIN;
+			var config = GameLogic.ConfigsProvider.GetConfig<UpgradeDataConfig>((int) resourceType);
+			var rarityValue = Math.Ceiling(config.BaseValue *
+			                               Math.Pow(config.GrowthMultiplier.AsDouble, (int)equipment.Rarity));
+			var adjectiveValue = Math.Sqrt(Math.Pow(config.AdjectiveCostK.AsDouble, (int)equipment.Adjective)) -
+			                     config.AdjectiveCostScale;
+			var gradeValue = Math.Pow(config.GradeMultiplier.AsDouble, (int)equipment.Grade);
+			var levelMultiplier = ((int)equipment.Level * config.LevelMultiplier).AsDouble;
+			var cost = rarityValue + adjectiveValue + 
+			          ((rarityValue + adjectiveValue) * (int) equipment.Level * 
+				          levelMultiplier * gradeValue * equipment.MaxDurability / config.DurabilityDivider);
+
+			return new Pair<GameId, uint>(resourceType, (uint) Math.Round(cost));
+		}
+
+		public Pair<GameId, uint> GetRepairCost(Equipment equipment, bool isNft)
+		{
+			var resourceType = isNft ? GameId.CS : GameId.COIN;
+			var restoredAmount = (double) (equipment.MaxDurability - equipment.Durability);
+			var config = GameLogic.ConfigsProvider.GetConfig<RepairDataConfig>((int) resourceType);
+			var cost =
+				Math.Pow((int) equipment.TotalRestoredDurability * config.DurabilityCostIncreasePerPoint.AsDouble * restoredAmount,
+				         config.BasePower.AsDouble) * (int) config.BaseRepairCost;
+
+			return new Pair<GameId, uint>(resourceType, (uint) Math.Round(cost));
+		}
 		
 		public EquipmentInfo GetInfo(UniqueId id)
 		{
 			var equipment = _inventory[id];
+			var isNft = _nftInventory.ContainsKey(id);
 			
 			return new EquipmentInfo
 			{
 				Id = id,
 				Equipment = equipment,
-				ScrappingValue = GetScrappingValue(equipment),
-				UpgradeCost = GetUpgradeCost(equipment),
-				IsNft = _nftInventory.ContainsKey(id),
+				ScrappingValue = GetScrappingReward(equipment, isNft),
+				UpgradeCost = GetUpgradeCost(equipment, isNft),
+				RepairCost = GetRepairCost(equipment, isNft),
+				IsNft = isNft,
 				IsEquipped = _loadout.TryGetValue(equipment.GameId.GetSlot(), out var equipId) && equipId == id,
 				Stats = GetEquipmentStats(equipment)
 			};
@@ -353,18 +417,19 @@ namespace FirstLight.Game.Logic
 			_loadout.Remove(slot);
 		}
 
-		public EquipmentInfo Scrap(UniqueId itemId)
+		public Pair<GameId, uint> Scrap(UniqueId itemId)
 		{
-			var info = GetInfo(itemId);
+			var equipment = _inventory[itemId];
+			var reward = GetScrappingReward(equipment, false);
 
-			if (info.IsNft)
+			if (_nftInventory.ContainsKey(itemId))
 			{
 				throw new LogicException($"Not allowed to scrap NFT items on the client, only on the hub and {itemId} is a NFT");
 			}
 
 			RemoveFromInventory(itemId);
 
-			return info;
+			return reward;
 		}
 
 		public void Upgrade(UniqueId itemId)
@@ -386,35 +451,24 @@ namespace FirstLight.Game.Logic
 			_inventory[itemId] = equipment;
 		}
 
-		private Pair<GameId, uint> GetScrappingValue(Equipment equipment)
+		public void Repair(UniqueId itemId)
 		{
-			var resourceType = GameId.COIN;
-			var config = GameLogic.ConfigsProvider.GetConfig<ScrapConfig>((int) resourceType);
-			var rarityValue =
-				Math.Ceiling(config.BaseValue * Math.Pow(config.GrowthMultiplier.AsDouble, (int)equipment.Rarity + 1));
-			var adjectiveValue = Math.Sqrt(Math.Pow(config.AdjectiveCostK.AsDouble, (int)equipment.Adjective + 1));
-			var gradeValue = Math.Pow(config.GradeMultiplier.AsDouble, (int)equipment.Grade + 1);
-			var levelMultiplier = (((int)equipment.Level + 1) * config.LevelMultiplier).AsDouble;
-			var ret = rarityValue + adjectiveValue + ((rarityValue + adjectiveValue) * levelMultiplier * gradeValue);
+			var equipment = _inventory[itemId];
 
-			return new Pair<GameId, uint>(resourceType, (uint) Math.Round(ret));
-		}
+			if (_nftInventory.ContainsKey(itemId))
+			{
+				throw new LogicException($"Not allowed to scrap NFT items on the client, only on the hub and {itemId} is a NFT");
+			}
+			
+			if (equipment.Durability == equipment.MaxDurability)
+			{
+				throw new LogicException($"Item {itemId} is already fully repaired");
+			}
 
-		private Pair<GameId, uint> GetUpgradeCost(Equipment equipment)
-		{
-			var resourceType = GameId.COIN;
-			var config = GameLogic.ConfigsProvider.GetConfig<UpgradeDataConfig>((int) resourceType);
-			var rarityValue = Math.Ceiling(config.BaseValue *
-			                               Math.Pow(config.GrowthMultiplier.AsDouble, (int)equipment.Rarity + 1));
-			var adjectiveValue = Math.Sqrt(Math.Pow(config.AdjectiveCostK.AsDouble, (int)equipment.Adjective + 1)) -
-			                     config.AdjectiveCostScale;
-			var gradeValue = Math.Pow(config.GradeMultiplier.AsDouble, (int)equipment.Grade + 1);
-			var levelMultiplier = (((int)equipment.Level + 1) * config.LevelMultiplier).AsDouble;
-			var ret = rarityValue + adjectiveValue + 
-			          ((rarityValue + adjectiveValue) * (equipment.Level - 1) * 
-				          levelMultiplier * gradeValue * equipment.MaxDurability / config.DurabilityDivider);
+			equipment.TotalRestoredDurability += equipment.MaxDurability - equipment.Durability;
+			equipment.Durability = equipment.MaxDurability;
 
-			return new Pair<GameId, uint>(resourceType, (uint) Math.Round(ret));
+			_inventory[itemId] = equipment;
 		}
 
 		private int GetWeightedRandomDictionaryIndex<TKey, TValue>(SerializedDictionary<TKey, TValue> dictionary)

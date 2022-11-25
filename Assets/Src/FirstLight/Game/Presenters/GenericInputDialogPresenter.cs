@@ -14,6 +14,13 @@ namespace FirstLight.Game.Presenters
 		private Action<string> _closeCallback;
 		private ContentTypeTextField _inputField;
 
+		private IGameServices _services;
+
+		private void Awake()
+		{
+			_services = MainInstaller.Resolve<IGameServices>();
+		}
+		
 		protected override void QueryElements(VisualElement root)
 		{
 			base.QueryElements(root);
@@ -22,6 +29,8 @@ namespace FirstLight.Game.Presenters
 
 			_closeCallback = null;
 			_confirmButton = new GenericDialogButton<string>();
+			
+			root.SetupClicks(_services);
 		}
 		
 		/// <summary>

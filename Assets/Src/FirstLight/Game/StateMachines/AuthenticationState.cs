@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Net;
+using System.Reflection;
 using ExitGames.Client.Photon;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
@@ -432,30 +434,38 @@ namespace FirstLight.Game.StateMachines
 			}
 			return false;
 		}
+		/// <summary>
+		/// Add all of the data in <paramref name="state"/> to the data service 
+		/// </summary>
+		private void AddDataToService(IWaitActivity activity, Dictionary<string, string> state)
+		{
+			foreach (var typeFullName in state.Keys)
+			{
+				var type = Assembly.GetExecutingAssembly().GetType(typeFullName);
+				_dataService.AddData(type, ModelSerializer.DeserializeFromData(type, state));
+			}
+
+			activity?.Complete();
+		}
+
 
 		private void OnPlayerDataObtained(ExecuteFunctionResult res, IWaitActivity activity)
 		{
 			var serverResult = ModelSerializer.Deserialize<PlayFabResult<LogicResult>>(res.FunctionResult.ToString());
 			var data = serverResult.Result.Data;
+			
 			if (data == null || !data.ContainsKey(typeof(PlayerData).FullName)) // response too large, fetch directly
 			{
 				_services.PlayfabService.FetchServerState(state =>
 				{
-					_dataService.AddData(ModelSerializer.DeserializeFromData<RngData>(state));
-					_dataService.AddData(ModelSerializer.DeserializeFromData<IdData>(state));
-					_dataService.AddData(ModelSerializer.DeserializeFromData<PlayerData>(state));
-					_dataService.AddData(ModelSerializer.DeserializeFromData<EquipmentData>(state));
+					AddDataToService(activity, state);
 					FLog.Verbose("Downloaded state from playfab");
-					activity?.Complete();
 				});
 				return;
 			}
-			_dataService.AddData(ModelSerializer.DeserializeFromData<RngData>(data));
-			_dataService.AddData(ModelSerializer.DeserializeFromData<IdData>(data));
-			_dataService.AddData(ModelSerializer.DeserializeFromData<PlayerData>(data));
-			_dataService.AddData(ModelSerializer.DeserializeFromData<EquipmentData>(data));
+
+			AddDataToService(activity, data);
 			FLog.Verbose("Downloaded state from server");
-			activity?.Complete();
 		}
 
 		private void OpenGameUpdateDialog(string version)

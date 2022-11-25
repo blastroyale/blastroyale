@@ -28,7 +28,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		private async void Start()
 		{
 			var skin = _gameDataProvider.PlayerDataProvider.PlayerInfo.Skin;
-			var loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both);
+			var loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All);
 
 			await UpdateSkin(skin, loadout);
 		}
@@ -72,7 +72,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		{
 			Destroy(_characterViewComponent.gameObject);
 			
-			await UpdateSkin(callback.SkinId, _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both));
+			await UpdateSkin(callback.SkinId, _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All));
 		}
 	}
 }

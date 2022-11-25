@@ -75,7 +75,6 @@ namespace FirstLight.Tests.EditorMode.Logic
 			var group = _item.Value.GameId.GetGroups()[0];
 			var dic = new Dictionary<GameIdGroup, UniqueId> { { group, _item.Key } };
 			
-			//TestData.InsertionTimestamps.Add(_item.Key, 0);
 			_equipmentLogic.SetLoadout(dic);
 
 			Assert.AreEqual(1, _equipmentLogic.Loadout.Count);
@@ -89,8 +88,6 @@ namespace FirstLight.Tests.EditorMode.Logic
 			var group = _item.Value.GameId.GetGroups()[0];
 			
 			TestData.Inventory.Add(item.Key, item.Value);
-			//TestData.InsertionTimestamps.Add(_item.Key, 0);
-			//TestData.InsertionTimestamps.Add(item.Key, 0);
 			_equipmentLogic.SetLoadout(new Dictionary<GameIdGroup, UniqueId> { { group, _item.Key } });
 			_equipmentLogic.SetLoadout(new Dictionary<GameIdGroup, UniqueId> { { group, item.Key } });
 
@@ -104,7 +101,6 @@ namespace FirstLight.Tests.EditorMode.Logic
 		{
 			var group = _item.Value.GameId.GetGroups()[0];
 			
-			//TestData.InsertionTimestamps.Add(_item.Key, 0);
 			_equipmentLogic.SetLoadout(new Dictionary<GameIdGroup, UniqueId> { { group, _item.Key } });
 			_equipmentLogic.Scrap(_item.Key);;
 
@@ -115,8 +111,6 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void EquipCheck()
 		{
-			//TestData.InsertionTimestamps.Add(_item.Key, 0);
-			
 			_equipmentLogic.Equip(_item.Key);
 
 			Assert.True(_equipmentLogic.GetInfo(_item.Key).IsEquipped);
@@ -129,8 +123,6 @@ namespace FirstLight.Tests.EditorMode.Logic
 			var gear = SetupItem(2, GameId.MausHelmet, 1);
 			
 			TestData.Inventory.Add(gear.Key, gear.Value);
-			//TestData.InsertionTimestamps.Add(_item.Key, 0);
-			//TestData.InsertionTimestamps.Add(gear.Key, 0);
 			
 			_equipmentLogic.Equip(_item.Key);
 			_equipmentLogic.Equip(gear.Key);
@@ -146,8 +138,6 @@ namespace FirstLight.Tests.EditorMode.Logic
 			var item = SetupItem(2, _item.Value.GameId);
 			
 			TestData.Inventory.Add(item.Key, item.Value);
-			//TestData.InsertionTimestamps.Add(_item.Key, 0);
-			//TestData.InsertionTimestamps.Add(item.Key, 0);
 			
 			_equipmentLogic.Equip(item.Key);
 			_equipmentLogic.Equip(_item.Key);
@@ -166,8 +156,6 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void UnequipCheck()
 		{
-			//TestData.InsertionTimestamps.Add(_item.Key, 0);
-			
 			_equipmentLogic.Equip(_item.Key);
 			_equipmentLogic.Unequip(_item.Key);
 
@@ -178,8 +166,6 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void Unequip_EmptySlot_ThrowsException()
 		{
-			//TestData.InsertionTimestamps.Add(_item.Key, 0);
-			
 			Assert.Throws<LogicException>(() => _equipmentLogic.Unequip(_item.Key));
 		}
 		
@@ -192,8 +178,6 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void ScrapItemCheck()
 		{
-			//TestData.InsertionTimestamps.Add(_item.Key, 0);
-
 			var reward = _equipmentLogic.Scrap(_item.Key);
 			
 			Assert.AreEqual(GameId.COIN, reward.Key);
@@ -218,8 +202,6 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void UpgradeItemCheck()
 		{
-			//TestData.InsertionTimestamps.Add(_item.Key, 0);
-
 			_equipmentLogic.Upgrade(_item.Key);
 			
 			Assert.AreEqual(2, _equipmentLogic.Inventory[_item.Key].Level);
@@ -252,15 +234,10 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void RepairItemCheck()
 		{
-			var item = SetupItem(2, GameId.MausHelmet, 1, 0);
-			
-			TestData.Inventory.Add(item.Key, item.Value);
-			//TestData.InsertionTimestamps.Add(_item.Key, 0);
+			_equipmentLogic.Repair(_item.Key);
 
-			_equipmentLogic.Repair(item.Key);
-
-			var resultItem = _equipmentLogic.Inventory[item.Key]; 
-			Assert.AreEqual(resultItem.MaxDurability, resultItem.Durability);
+			var resultItem = _equipmentLogic.Inventory[_item.Key]; 
+			Assert.AreEqual(Is.EqualTo(DateTime.UtcNow.Ticks).Within(1), resultItem.LastRepairTimestamp);
 			Assert.AreEqual(resultItem.MaxDurability, resultItem.TotalRestoredDurability);
 		}
 		
@@ -281,16 +258,20 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void RepairItem_FullRepaired_ThrowsException()
 		{
-			Assert.Throws<LogicException>(() => _equipmentLogic.Repair(_item.Key));
+			var item = SetupItem(2, GameId.MausHelmet, 1, DateTime.UtcNow.Ticks);
+			
+			TestData.Inventory.Add(item.Key, item.Value);
+			
+			Assert.Throws<LogicException>(() => _equipmentLogic.Repair(item.Key));
 		}
 
-		private Pair<UniqueId, Equipment> SetupItem(UniqueId id, GameId gameId, uint maxLevel = 2, uint durability = 4)
+		private Pair<UniqueId, Equipment> SetupItem(UniqueId id, GameId gameId, uint maxLevel = 2, long durabilityTimeStamp = 0)
 		{
 			var item = new Equipment(gameId)
 			{
 				Level = 1,
 				MaxLevel = maxLevel,
-				Durability = durability
+				LastRepairTimestamp = durabilityTimeStamp
 			};
 			UniqueIdLogic.Ids[id].Returns(gameId);
 			UniqueIdLogic.GenerateNewUniqueId(gameId).Returns(id);

@@ -34,6 +34,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private TMP_Dropdown _gameModeSelection;
 		[SerializeField, Required] private TMP_Dropdown _mapSelection;
 		[SerializeField, Required] private TMP_Dropdown[] _mutatorsSelections;
+		[SerializeField, Required] private Animation _animationScrollingBackground;
 
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
@@ -62,6 +63,13 @@ namespace FirstLight.Game.Presenters
 			}
 
 			SetPreviouslyUsedValues();
+		}
+
+		protected override void OnOpened()
+		{
+			base.OnOpened();
+			_animationScrollingBackground.Rewind();
+			_animationScrollingBackground.Play();
 		}
 
 		private void SetPreviouslyUsedValues()

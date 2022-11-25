@@ -38,24 +38,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			_entity = entity;
 			_currentWeapon = player.CurrentWeapon.GameId;
-			
-			SetSliderValue(f, player);
-
+		
 			QuantumEvent.Subscribe<EventOnPlayerAmmoChanged>(this, HandleOnPlayerAmmoChanged);
-			QuantumEvent.Subscribe<EventOnPlayerWeaponChanged>(this, HandleOnPlayerWeaponChanged);
-		}
-
-		private void HandleOnPlayerWeaponChanged(EventOnPlayerWeaponChanged callback)
-		{
-			var f = callback.Game.Frames.Verified;
-			
-			if (callback.Entity != _entity || !f.TryGet<PlayerCharacter>(callback.Entity, out var player))
-			{
-				return;
-			}
-
-			_currentWeapon = callback.Weapon.GameId;
-			SetSliderValue(f, player);
 		}
 
 		private void HandleOnPlayerAmmoChanged(EventOnPlayerAmmoChanged callback)
@@ -65,7 +49,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 				return;
 			}
 
-			_slider.value = callback.FilledAmmo.AsFloat;
+			_slider.value = (float)callback.CurrentAmmo / callback.MaxAmmo;
+
 			_reloadBarImage.color = _primaryReloadColor;
 			
 			if (callback.CurrentAmmo <= 0 && _currentWeapon != GameId.Random && _currentWeapon != GameId.Hammer)
@@ -75,12 +60,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 				_capacityUsedAnimation.Rewind();
 				_capacityUsedAnimation.Play();
 			}
-		}
-
-		private void SetSliderValue(Frame f, PlayerCharacter player)
-		{
-			_slider.value = player.GetAmmoAmountFilled(f, _entity).AsFloat;
-			_reloadBarImage.color = _primaryReloadColor;
 		}
 	}
 }

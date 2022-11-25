@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   Xml: "<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<Document>\r\n  <Id>98a9ccc5-49fd-4069-b090-c33275ae3ee5</Id>\r\n 
-    <Version>1</Version>\r\n  <Meta>false</Meta>\r\n  <Graph>98a9ccc5-49fd-4069-b090-c33275ae3ee5</Graph>\r\n 
+    <Version>1</Version>\r\n  <Meta>false</Meta>\r\n  <Graph>768883d4-4da9-44aa-93b2-89f451d9cee8</Graph>\r\n 
     <DebugKey>4925a2b7-7c54-4516-b52b-44c05797a704</DebugKey>\r\n  <Flags>0</Flags>\r\n 
     <Parent>$statemachine</Parent>\r\n  <Error Count=\"0\" />\r\n  <Comments Count=\"0\"
     />\r\n  <StickyNotes Count=\"0\" />\r\n  <HiddenActionsDecisions Count=\"0\"
@@ -535,6 +535,20 @@ MonoBehaviour:
     Count=\"1\">\r\n        <Data>\r\n          <Name>Guid</Name>\r\n          <Value
     Type=\"System.Int64, mscorlib\">679108917589745186</Value>\r\n        </Data>\r\n     
     </Data>\r\n      <ChildrenStatesCount>0</ChildrenStatesCount>\r\n    </Node>\r\n   
+    <Key>18c612ce-51a0-439d-b10a-5ec08053ac3f</Key>\r\n    <Node>\r\n      <Id>18c612ce-51a0-439d-b10a-5ec08053ac3f</Id>\r\n     
+    <Name>GetAmmoCountFunction</Name>\r\n      <Comment></Comment>\r\n      <Graph>0686750a-f11c-498e-b4e4-7a937303436f</Graph>\r\n     
+    <Parent>GetAmmoCountFunction</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n     
+    <Flags>0</Flags>\r\n      <Position>-562|19||0</Position>\r\n      <StaticIn
+    Count=\"0\" />\r\n      <StaticOut Count=\"1\">\r\n        <Slot>\r\n         
+    <Id>$result</Id>\r\n          <Name>R (FP)</Name>\r\n          <Value Type=\"Quantum.DefaultAIFunctionFP,
+    quantum.code\">Quantum.DefaultAIFunctionFP</Value>\r\n          <Type>Quantum.AIFunction`1[[Photon.Deterministic.FP,
+    PhotonDeterministic]], quantum.code</Type>\r\n          <Mode>Out</Mode>\r\n         
+    <Flags>0</Flags>\r\n          <TypeMode>Value</TypeMode>\r\n        </Slot>\r\n     
+    </StaticOut>\r\n      <Groups Count=\"0\" />\r\n      <Data Count=\"2\">\r\n       
+    <Data>\r\n          <Name>$guid</Name>\r\n          <Value Type=\"@string\">00000000-0000-0000-0000-000000000000</Value>\r\n       
+    </Data>\r\n        <Data>\r\n          <Name>Guid</Name>\r\n          <Value
+    Type=\"System.Int64, mscorlib\">3508688966372729502</Value>\r\n        </Data>\r\n     
+    </Data>\r\n      <ChildrenStatesCount>0</ChildrenStatesCount>\r\n    </Node>\r\n   
     <Key>191cfa04-af70-4863-8200-8926bc09a16b</Key>\r\n    <Node>\r\n      <Id>191cfa04-af70-4863-8200-8926bc09a16b</Id>\r\n     
     <Name>Transition</Name>\r\n      <Comment></Comment>\r\n      <Graph>c4fbaf2e-f25a-4ca5-aad7-b72b603f9695</Graph>\r\n     
     <Parent>$transition</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n      <Flags>129</Flags>\r\n     
@@ -602,23 +616,9 @@ MonoBehaviour:
     <Value Type=\"@string\">efe68bdd-2574-4a79-ae63-96cb119e5682</Value>\r\n       
     </Data>\r\n        <Data>\r\n          <Name></Name>\r\n          <Value />\r\n       
     </Data>\r\n      </Data>\r\n      <ChildrenStatesCount>0</ChildrenStatesCount>\r\n   
-    </Node>\r\n    <Key>1b032928-6d80-460b-9ae6-82b4b2c1ef98</Key>\r\n    <Node>\r\n     
-    <Id>1b032928-6d80-460b-9ae6-82b4b2c1ef98</Id>\r\n      <Name>GetAmmoCountFunction</Name>\r\n     
-    <Comment />\r\n      <Graph>0686750a-f11c-498e-b4e4-7a937303436f</Graph>\r\n     
-    <Parent>GetAmmoCountFunction</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n     
-    <Flags>0</Flags>\r\n      <Position>-554|13||0</Position>\r\n      <StaticIn
-    Count=\"0\" />\r\n      <StaticOut Count=\"1\">\r\n        <Slot>\r\n         
-    <Id>$result</Id>\r\n          <Name>R (FP)</Name>\r\n          <Value Type=\"Quantum.DefaultAIFunctionFP,
-    quantum.code\">Quantum.DefaultAIFunctionFP</Value>\r\n          <Type>Quantum.AIFunction`1[[Photon.Deterministic.FP,
-    PhotonDeterministic]], quantum.code</Type>\r\n          <Mode>Out</Mode>\r\n         
-    <Flags>0</Flags>\r\n          <TypeMode>Value</TypeMode>\r\n        </Slot>\r\n     
-    </StaticOut>\r\n      <Groups Count=\"0\" />\r\n      <Data Count=\"2\">\r\n       
-    <Data>\r\n          <Name>$guid</Name>\r\n          <Value Type=\"@string\">00000000-0000-0000-0000-000000000000</Value>\r\n       
-    </Data>\r\n        <Data>\r\n          <Name>Guid</Name>\r\n          <Value
-    Type=\"System.Int64, mscorlib\">3197436477430655669</Value>\r\n        </Data>\r\n     
-    </Data>\r\n      <ChildrenStatesCount>0</ChildrenStatesCount>\r\n    </Node>\r\n   
-    <Key>1de56b18-2d3a-48df-bd04-5b7de625256b</Key>\r\n    <Node>\r\n      <Id>1de56b18-2d3a-48df-bd04-5b7de625256b</Id>\r\n     
-    <Name>PlayerStopAttackAction</Name>\r\n      <Comment></Comment>\r\n      <Graph>02809f7a-0c2b-4380-8705-e1690c2bc891</Graph>\r\n     
+    </Node>\r\n    <Key>1de56b18-2d3a-48df-bd04-5b7de625256b</Key>\r\n    <Node>\r\n     
+    <Id>1de56b18-2d3a-48df-bd04-5b7de625256b</Id>\r\n      <Name>PlayerStopAttackAction</Name>\r\n     
+    <Comment></Comment>\r\n      <Graph>02809f7a-0c2b-4380-8705-e1690c2bc891</Graph>\r\n     
     <Parent>PlayerStopAttackAction</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n     
     <Flags>0</Flags>\r\n      <Position>203|-12||0</Position>\r\n      <StaticIn
     Count=\"2\">\r\n        <Slot>\r\n          <Id>$exec</Id>\r\n          <Name></Name>\r\n         
@@ -795,7 +795,7 @@ MonoBehaviour:
     Type=\"System.Int64, mscorlib\">2838018030188143315</Value>\r\n        </Data>\r\n     
     </Data>\r\n      <ChildrenStatesCount>0</ChildrenStatesCount>\r\n    </Node>\r\n   
     <Key>2c4d35f5-470e-495c-a4de-bdd29037d37c</Key>\r\n    <Node>\r\n      <Id>2c4d35f5-470e-495c-a4de-bdd29037d37c</Id>\r\n     
-    <Name>CheckFPDecision</Name>\r\n      <Comment />\r\n      <Graph>0686750a-f11c-498e-b4e4-7a937303436f</Graph>\r\n     
+    <Name>CheckFPDecision</Name>\r\n      <Comment></Comment>\r\n      <Graph>0686750a-f11c-498e-b4e4-7a937303436f</Graph>\r\n     
     <Parent>$decision/CheckFPDecision</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n     
     <Flags>0</Flags>\r\n      <Position>-350|16||0</Position>\r\n      <StaticIn
     Count=\"4\">\r\n        <Slot>\r\n          <Id>Source</Id>\r\n          <Name>Source</Name>\r\n         
@@ -1293,9 +1293,23 @@ MonoBehaviour:
     Type=\"@string\">00000000-0000-0000-0000-000000000000</Value>\r\n        </Data>\r\n       
     <Data>\r\n          <Name>Guid</Name>\r\n          <Value Type=\"System.Int64,
     mscorlib\">3421082571123964008</Value>\r\n        </Data>\r\n      </Data>\r\n     
-    <ChildrenStatesCount>0</ChildrenStatesCount>\r\n    </Node>\r\n    <Key>4b3c10c1-80ca-42b4-924b-fab85970b3fc</Key>\r\n   
-    <Node>\r\n      <Id>4b3c10c1-80ca-42b4-924b-fab85970b3fc</Id>\r\n      <Name>CheckFPDecision</Name>\r\n     
-    <Comment />\r\n      <Graph>c4fbaf2e-f25a-4ca5-aad7-b72b603f9695</Graph>\r\n     
+    <ChildrenStatesCount>0</ChildrenStatesCount>\r\n    </Node>\r\n    <Key>4a9ac3b8-51d8-47db-9620-168b32192d7c</Key>\r\n   
+    <Node>\r\n      <Id>4a9ac3b8-51d8-47db-9620-168b32192d7c</Id>\r\n      <Name>GetAmmoCountFunction</Name>\r\n     
+    <Comment></Comment>\r\n      <Graph>c4fbaf2e-f25a-4ca5-aad7-b72b603f9695</Graph>\r\n     
+    <Parent>GetAmmoCountFunction</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n     
+    <Flags>0</Flags>\r\n      <Position>-266|-150||0</Position>\r\n      <StaticIn
+    Count=\"0\" />\r\n      <StaticOut Count=\"1\">\r\n        <Slot>\r\n         
+    <Id>$result</Id>\r\n          <Name>R (FP)</Name>\r\n          <Value Type=\"Quantum.DefaultAIFunctionFP,
+    quantum.code\">Quantum.DefaultAIFunctionFP</Value>\r\n          <Type>Quantum.AIFunction`1[[Photon.Deterministic.FP,
+    PhotonDeterministic]], quantum.code</Type>\r\n          <Mode>Out</Mode>\r\n         
+    <Flags>0</Flags>\r\n          <TypeMode>Value</TypeMode>\r\n        </Slot>\r\n     
+    </StaticOut>\r\n      <Groups Count=\"0\" />\r\n      <Data Count=\"2\">\r\n       
+    <Data>\r\n          <Name>$guid</Name>\r\n          <Value Type=\"@string\">00000000-0000-0000-0000-000000000000</Value>\r\n       
+    </Data>\r\n        <Data>\r\n          <Name>Guid</Name>\r\n          <Value
+    Type=\"System.Int64, mscorlib\">3143211133257788471</Value>\r\n        </Data>\r\n     
+    </Data>\r\n      <ChildrenStatesCount>0</ChildrenStatesCount>\r\n    </Node>\r\n   
+    <Key>4b3c10c1-80ca-42b4-924b-fab85970b3fc</Key>\r\n    <Node>\r\n      <Id>4b3c10c1-80ca-42b4-924b-fab85970b3fc</Id>\r\n     
+    <Name>CheckFPDecision</Name>\r\n      <Comment></Comment>\r\n      <Graph>c4fbaf2e-f25a-4ca5-aad7-b72b603f9695</Graph>\r\n     
     <Parent>$decision/CheckFPDecision</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n     
     <Flags>0</Flags>\r\n      <Position>-56|-157||0</Position>\r\n      <StaticIn
     Count=\"4\">\r\n        <Slot>\r\n          <Id>Source</Id>\r\n          <Name>Source</Name>\r\n         
@@ -1607,20 +1621,6 @@ MonoBehaviour:
     <Data>\r\n          <Name>$default</Name>\r\n          <Value Type=\"@boolean\">False</Value>\r\n       
     </Data>\r\n        <Data>\r\n          <Name>Guid</Name>\r\n          <Value
     Type=\"System.Int64, mscorlib\">1748583720847686</Value>\r\n        </Data>\r\n     
-    </Data>\r\n      <ChildrenStatesCount>0</ChildrenStatesCount>\r\n    </Node>\r\n   
-    <Key>69f908a6-9085-4ad3-9d4a-69a757c27ca2</Key>\r\n    <Node>\r\n      <Id>69f908a6-9085-4ad3-9d4a-69a757c27ca2</Id>\r\n     
-    <Name>GetAmmoCountFunction</Name>\r\n      <Comment />\r\n      <Graph>c4fbaf2e-f25a-4ca5-aad7-b72b603f9695</Graph>\r\n     
-    <Parent>GetAmmoCountFunction</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n     
-    <Flags>0</Flags>\r\n      <Position>-290|-156||0</Position>\r\n      <StaticIn
-    Count=\"0\" />\r\n      <StaticOut Count=\"1\">\r\n        <Slot>\r\n         
-    <Id>$result</Id>\r\n          <Name>R (FP)</Name>\r\n          <Value Type=\"Quantum.DefaultAIFunctionFP,
-    quantum.code\">Quantum.DefaultAIFunctionFP</Value>\r\n          <Type>Quantum.AIFunction`1[[Photon.Deterministic.FP,
-    PhotonDeterministic]], quantum.code</Type>\r\n          <Mode>Out</Mode>\r\n         
-    <Flags>0</Flags>\r\n          <TypeMode>Value</TypeMode>\r\n        </Slot>\r\n     
-    </StaticOut>\r\n      <Groups Count=\"0\" />\r\n      <Data Count=\"2\">\r\n       
-    <Data>\r\n          <Name>$guid</Name>\r\n          <Value Type=\"@string\">00000000-0000-0000-0000-000000000000</Value>\r\n       
-    </Data>\r\n        <Data>\r\n          <Name>Guid</Name>\r\n          <Value
-    Type=\"System.Int64, mscorlib\">3239999388396725293</Value>\r\n        </Data>\r\n     
     </Data>\r\n      <ChildrenStatesCount>0</ChildrenStatesCount>\r\n    </Node>\r\n   
     <Key>6a977287-f1fe-4b51-b12a-b30eba9f8f54</Key>\r\n    <Node>\r\n      <Id>6a977287-f1fe-4b51-b12a-b30eba9f8f54</Id>\r\n     
     <Name>BlackboardVar</Name>\r\n      <Comment></Comment>\r\n      <Graph>98a9ccc5-49fd-4069-b090-c33275ae3ee5</Graph>\r\n     
@@ -3967,19 +3967,19 @@ MonoBehaviour:
     Type=\"System.Int64, mscorlib\">1802445561166894999</Value>\r\n        </Data>\r\n     
     </Data>\r\n      <ChildrenStatesCount>0</ChildrenStatesCount>\r\n    </Node>\r\n 
     </Nodes>\r\n  <Types Count=\"0\" />\r\n  <Links Count=\"149\">\r\n    <Link>\r\n     
-    <Id>d7ca95ad-c8f3-48b7-b5b1-668b3539e767</Id>\r\n      <FromNode>69f908a6-9085-4ad3-9d4a-69a757c27ca2</FromNode>\r\n     
+    <Id>196e95ee-4233-4532-b7a9-d791eb26bf04</Id>\r\n      <FromNode>4a9ac3b8-51d8-47db-9620-168b32192d7c</FromNode>\r\n     
     <FromSlot>$result</FromSlot>\r\n      <ToNode>4b3c10c1-80ca-42b4-924b-fab85970b3fc</ToNode>\r\n     
     <ToSlot>Source</ToSlot>\r\n      <Flags>4</Flags>\r\n      <DebugIndex>-1</DebugIndex>\r\n   
-    </Link>\r\n    <Link>\r\n      <Id>d6ff6aae-ae58-4a8f-8b9c-64adc4c6ddc9</Id>\r\n     
-    <FromNode>4b3c10c1-80ca-42b4-924b-fab85970b3fc</FromNode>\r\n      <FromSlot>$decisionOut</FromSlot>\r\n     
-    <ToNode>3f085c97-f4a8-41bd-8112-3eeb23deca29</ToNode>\r\n      <ToSlot>$a</ToSlot>\r\n     
-    <Flags>4</Flags>\r\n      <DebugIndex>-1</DebugIndex>\r\n    </Link>\r\n    <Link>\r\n     
-    <Id>c093f9d6-a898-43d2-b55f-d73f8d0f3c89</Id>\r\n      <FromNode>2c4d35f5-470e-495c-a4de-bdd29037d37c</FromNode>\r\n     
-    <FromSlot>$decisionOut</FromSlot>\r\n      <ToNode>3288c837-e4be-4069-91c1-7a1074af8dc5</ToNode>\r\n     
-    <ToSlot>$a</ToSlot>\r\n      <Flags>4</Flags>\r\n      <DebugIndex>-1</DebugIndex>\r\n   
-    </Link>\r\n    <Link>\r\n      <Id>08757cc8-65e3-44e1-9315-d62f8d9fa1d0</Id>\r\n     
-    <FromNode>1b032928-6d80-460b-9ae6-82b4b2c1ef98</FromNode>\r\n      <FromSlot>$result</FromSlot>\r\n     
+    </Link>\r\n    <Link>\r\n      <Id>11ac4fbb-dbfc-4d4a-a78b-76cd11556cb5</Id>\r\n     
+    <FromNode>18c612ce-51a0-439d-b10a-5ec08053ac3f</FromNode>\r\n      <FromSlot>$result</FromSlot>\r\n     
     <ToNode>2c4d35f5-470e-495c-a4de-bdd29037d37c</ToNode>\r\n      <ToSlot>Source</ToSlot>\r\n     
+    <Flags>4</Flags>\r\n      <DebugIndex>-1</DebugIndex>\r\n    </Link>\r\n    <Link>\r\n     
+    <Id>d6ff6aae-ae58-4a8f-8b9c-64adc4c6ddc9</Id>\r\n      <FromNode>4b3c10c1-80ca-42b4-924b-fab85970b3fc</FromNode>\r\n     
+    <FromSlot>$decisionOut</FromSlot>\r\n      <ToNode>3f085c97-f4a8-41bd-8112-3eeb23deca29</ToNode>\r\n     
+    <ToSlot>$a</ToSlot>\r\n      <Flags>4</Flags>\r\n      <DebugIndex>-1</DebugIndex>\r\n   
+    </Link>\r\n    <Link>\r\n      <Id>c093f9d6-a898-43d2-b55f-d73f8d0f3c89</Id>\r\n     
+    <FromNode>2c4d35f5-470e-495c-a4de-bdd29037d37c</FromNode>\r\n      <FromSlot>$decisionOut</FromSlot>\r\n     
+    <ToNode>3288c837-e4be-4069-91c1-7a1074af8dc5</ToNode>\r\n      <ToSlot>$a</ToSlot>\r\n     
     <Flags>4</Flags>\r\n      <DebugIndex>-1</DebugIndex>\r\n    </Link>\r\n    <Link>\r\n     
     <Id>de6dec14-a36d-4e36-be08-f6091be8e785</Id>\r\n      <FromNode>17c3e109-08d7-4a77-9a33-332baf568fd9</FromNode>\r\n     
     <FromSlot>$decisionOut</FromSlot>\r\n      <ToNode>3c74c7d9-f97a-411f-94af-ee3823bc9da3</ToNode>\r\n     
@@ -4572,8 +4572,8 @@ MonoBehaviour:
     <Id>750f1613-a139-4a5b-ba90-8381dc83c7ba</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
     <ZoomOffset>0|0||0</ZoomOffset>\r\n      <PanOffset>-78|504||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>768883d4-4da9-44aa-93b2-89f451d9cee8</Key>\r\n    <GraphData>\r\n     
-    <Id>768883d4-4da9-44aa-93b2-89f451d9cee8</Id>\r\n      <ZoomLevel>0.7</ZoomLevel>\r\n     
-    <ZoomOffset>-582|-479||0</ZoomOffset>\r\n      <PanOffset>601|1004||0</PanOffset>\r\n   
+    <Id>768883d4-4da9-44aa-93b2-89f451d9cee8</Id>\r\n      <ZoomLevel>0.82</ZoomLevel>\r\n     
+    <ZoomOffset>-658|-516||0</ZoomOffset>\r\n      <PanOffset>456|920||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>808550d3-3eb8-4b6f-ab7b-bf45f0a27587</Key>\r\n    <GraphData>\r\n     
     <Id>808550d3-3eb8-4b6f-ab7b-bf45f0a27587</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
     <ZoomOffset>7|-23||0</ZoomOffset>\r\n      <PanOffset>124|168||0</PanOffset>\r\n   
@@ -4660,5 +4660,5 @@ MonoBehaviour:
   DocumentId: 98a9ccc5-49fd-4069-b090-c33275ae3ee5
   DocumentNameOverride: 
   History: []
-  LastCompiledHistoryID: 8bd7d947-cb9c-4e56-a0fb-7883338827cc
+  LastCompiledHistoryID: 10b22c7b-9a27-4432-82cc-6bec3a5d3702
   IsOutdated: 0

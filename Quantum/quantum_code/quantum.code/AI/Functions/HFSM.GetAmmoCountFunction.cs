@@ -12,9 +12,9 @@ namespace Quantum
 	public class GetAmmoCountFunction : AIFunction<FP>
 	{
 		/// <inheritdoc />
-		public override FP Execute(Frame f, EntityRef e, ref AIContext aiContext)
+		public unsafe override FP Execute(Frame f, EntityRef e, ref AIContext aiContext)
 		{
-			return f.Get<Stats>(e).CurrentAmmo;
+			return f.Unsafe.GetPointer<Stats>(e)->CurrentAmmo;
 		}
 	}
 }

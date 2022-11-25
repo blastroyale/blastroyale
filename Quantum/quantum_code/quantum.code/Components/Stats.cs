@@ -119,7 +119,7 @@ namespace Quantum
 		{
 			var maxAmmo = GetStatData(StatType.AmmoCapacity).StatValue.AsInt;
 			var player = f.Get<PlayerCharacter>(e);
-			SetCurrentAmmo(f, player, e, CurrentAmmo + (maxAmmo * amount).AsInt);
+			SetCurrentAmmo(f, player, e, CurrentAmmo + (amount * maxAmmo).AsInt);
 		}
 
 		/// <summary>
@@ -127,21 +127,13 @@ namespace Quantum
 		/// </summary>
 		internal void ReduceAmmo(Frame f, EntityRef e, int amount)
 		{
-			var player = f.Get<PlayerCharacter>(e);
+			var player = f.Unsafe.GetPointer<PlayerCharacter>(e);
 			var maxAmmo = GetStatData(StatType.AmmoCapacity).BaseValue.AsInt;
-			var magShotCount = player.WeaponSlots.GetPointer(player.CurrentWeaponSlot)->MagazineShotCount;
-			var magSize = player.WeaponSlots.GetPointer(player.CurrentWeaponSlot)->MagazineSize;
-
-			// Only consume a shot from the magazine if it has a magazine size and there is still ammo left in the mag
-			if (magSize > 0 && magShotCount > 0)
-			{
-				player.WeaponSlots.GetPointer(player.CurrentWeaponSlot)->MagazineShotCount -= 1;
-			}
 
 			// Do not do reduce for melee weapons or if your weapon does not consume ammo
-			if (!player.HasMeleeWeapon(f, e) || maxAmmo > 1)
+			if (!player->HasMeleeWeapon(f, e))
 			{
-				SetCurrentAmmo(f, player, e, CurrentAmmo - amount);
+				SetCurrentAmmo(f, *player, e, CurrentAmmo - amount);
 			}
 		}
 
@@ -151,14 +143,14 @@ namespace Quantum
 		internal void SetCurrentAmmo(Frame f, PlayerCharacter player, EntityRef e, int value, bool ignoreClamp = false)
 		{
 			var previousAmmo = CurrentAmmo;
-			var maxAmmo = GetStatData(StatType.AmmoCapacity).BaseValue.AsInt;
+			var maxAmmo = GetStatData(StatType.AmmoCapacity).StatValue.AsInt;
 			var magSize = f.WeaponConfigs.GetConfig(player.CurrentWeapon.GameId).MagazineSize;
 
 			CurrentAmmo = ignoreClamp ? value : FPMath.Clamp(value, 0, maxAmmo);
 
 			if (CurrentAmmo != previousAmmo)
 			{
-				f.Events.OnPlayerAmmoChanged(player.Player, e, previousAmmo, CurrentAmmo, maxAmmo, CurrentAmmo / maxAmmo, magSize);
+				f.Events.OnPlayerAmmoChanged(player.Player, e, CurrentAmmo, maxAmmo, magSize);
 			}
 		}
 
@@ -326,7 +318,7 @@ namespace Quantum
 			//TODO: Move default (health, speed, shields) values into StatData configs
 			health += f.GameConfig.PlayerDefaultHealth.Get(f);
 			speed += f.GameConfig.PlayerDefaultSpeed.Get(f);
-			ammoCapacity += weaponConfig.MaxAmmo.Get(f);
+			ammoCapacity += f.GameConfig.PlayerDefaultAmmoCapacity.Get(f);
 			maxShields += shieldCapacity.AsInt;
 			startingShields += shieldCapacity.AsInt;
 			

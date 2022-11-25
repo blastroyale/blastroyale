@@ -5622,15 +5622,13 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnPlayerAmmoChanged OnPlayerAmmoChanged(PlayerRef Player, EntityRef Entity, Int32 PreviousAmmo, Int32 CurrentAmmo, Int32 MaxAmmo, FP FilledAmmo, Int32 MagSize) {
+      public EventOnPlayerAmmoChanged OnPlayerAmmoChanged(PlayerRef Player, EntityRef Entity, Int32 CurrentAmmo, Int32 MaxAmmo, Int32 MagSize) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnPlayerAmmoChanged>(EventOnPlayerAmmoChanged.ID);
         ev.Player = Player;
         ev.Entity = Entity;
-        ev.PreviousAmmo = PreviousAmmo;
         ev.CurrentAmmo = CurrentAmmo;
         ev.MaxAmmo = MaxAmmo;
-        ev.FilledAmmo = FilledAmmo;
         ev.MagSize = MagSize;
         _f.AddEvent(ev);
         return ev;
@@ -7493,10 +7491,8 @@ namespace Quantum {
     public new const Int32 ID = 53;
     public PlayerRef Player;
     public EntityRef Entity;
-    public Int32 PreviousAmmo;
     public Int32 CurrentAmmo;
     public Int32 MaxAmmo;
-    public FP FilledAmmo;
     public Int32 MagSize;
     protected EventOnPlayerAmmoChanged(Int32 id, EventFlags flags) : 
         base(id, flags) {
@@ -7517,10 +7513,8 @@ namespace Quantum {
         var hash = 313;
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + Entity.GetHashCode();
-        hash = hash * 31 + PreviousAmmo.GetHashCode();
         hash = hash * 31 + CurrentAmmo.GetHashCode();
         hash = hash * 31 + MaxAmmo.GetHashCode();
-        hash = hash * 31 + FilledAmmo.GetHashCode();
         hash = hash * 31 + MagSize.GetHashCode();
         return hash;
       }

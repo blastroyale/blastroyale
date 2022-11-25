@@ -194,7 +194,7 @@ namespace Quantum
 			var initialAmmo = weaponConfig.InitialAmmoFilled.Get(f);
 			var slot = GetWeaponEquipSlot(f, weapon, primary);
 			var primaryWeapon = WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon;
-			var stats = f.Get<Stats>(e);
+			var stats = f.Unsafe.GetPointer<Stats>(e);
 
 			if (primaryWeapon.IsValid() && weapon.GameId == primaryWeapon.GameId &&
 			    weapon.Rarity > primaryWeapon.Rarity)
@@ -216,7 +216,8 @@ namespace Quantum
 			WeaponSlots.GetPointer(slot)->MagazineSize = weaponConfig.MagazineSize;
 			WeaponSlots[slot].Weapon = weapon;
 
-			stats.GainAmmoPercent(f, e, initialAmmo - (stats.CurrentAmmo / stats.GetStatData(StatType.AmmoCapacity).StatValue));
+			//Log.Warn(stats.CurrentAmmo / stats.GetStatData(StatType.AmmoCapacity).StatValue);
+			stats->GainAmmoPercent(f, e, initialAmmo);
 
 			f.Events.OnLocalPlayerWeaponAdded(Player, e, weapon, slot);
 			
@@ -283,31 +284,29 @@ namespace Quantum
 		/// <summary>
 		/// Requests the total amount of ammo the <paramref name="e"/> player has
 		/// </summary>
-		public int GetAmmoAmount(Frame f, EntityRef e, out int maxAmmo)
-		{
-			maxAmmo = f.Get<Stats>(e).GetStatData(StatType.AmmoCapacity).StatValue.AsInt;
-			return FPMath.FloorToInt(GetAmmoAmountFilled(f, e) * maxAmmo);
-		}
-
-		/// <summary>
-		/// Requests the total amount of ammo the <paramref name="e"/> player has
-		/// </summary>
 		public FP GetAmmoAmountFilled(Frame f, EntityRef e)
 		{
 			var stats = f.Get<Stats>(e);
 			return stats.CurrentAmmo / stats.GetStatData(StatType.AmmoCapacity).StatValue;
 		}
 
-		/// <summary>
-		/// Requests if the current weapon equipped by the player is empty of ammo or not.
-		/// </summary>
-		/// <remarks>
-		/// It will be always false for melee weapons. Use <see cref="HasMeleeWeapon"/> to double check the state.
-		/// </remarks>
-		public bool IsAmmoEmpty(Frame f, EntityRef e)
+		public void ReduceMag(Frame f, EntityRef e)
 		{
-			return !HasMeleeWeapon(f, e) && GetAmmoAmountFilled(f, e) < FP.SmallestNonZero;
+			var stats = f.Unsafe.GetPointer<Stats>(e);
+			var ammoCost = (stats->GetStatData(StatType.AmmoCapacity).BaseValue / f.WeaponConfigs.GetConfig(CurrentWeapon.GameId).MaxAmmo.Get(f)).AsInt;
+
+			// reduce magazine count if your weapon uses a magazine
+			if (WeaponSlots[CurrentWeaponSlot].MagazineShotCount > 0 && WeaponSlots[CurrentWeaponSlot].MagazineSize > 0)
+			{
+				WeaponSlots.GetPointer(CurrentWeaponSlot)->MagazineShotCount -= 1;
+				f.Events.OnPlayerAmmoChanged(Player, e, stats->CurrentAmmo, stats->GetStatData(StatType.AmmoCapacity).StatValue.AsInt, WeaponSlots[CurrentWeaponSlot].MagazineSize);
+			}
+			else // reduce ammo directly if your weapon does not use an ammo count
+			{
+				stats->ReduceAmmo(f, e, ammoCost);
+			}
 		}
+
 
 		/// <summary>
 		/// Requests the state of the player if is skydiving or not

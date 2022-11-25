@@ -44,6 +44,12 @@ MonoBehaviour:
         - BattleRoyale
         - Deathmatch
         Values: 580200002c010000
+      PlayerDefaultAmmoCapacity:
+        Default: 250
+        Keys:
+        - BattleRoyale
+        - Deathmatch
+        Values: fa00000064000000
       PlayerDefaultSpeed:
         Default:
           RawValue: 163840

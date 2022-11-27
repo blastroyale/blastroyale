@@ -36,7 +36,7 @@ namespace FirstLight.Tests.EditorMode.Integration
 			{
 				GameId = GameId.HockeyHelmet, 
 				MaxDurability = 2, 
-				LastRepairTimestamp = TestLogic.TimeService.UnixTimeNow
+				LastRepairTimestamp = TestLogic.TimeService.DateTimeUtcNow.Ticks
 			};
 			var itemUniqueId = TestLogic.EquipmentLogic.AddToInventory(equip);
 
@@ -117,7 +117,7 @@ namespace FirstLight.Tests.EditorMode.Integration
 
 			Assert.AreEqual(0, data.Currencies[cost.Key]);
 			Assert.AreEqual(equip.MaxDurability, info.CurrentDurability);
-			Assert.That(info.Equipment.LastRepairTimestamp, Is.EqualTo(TestLogic.TimeService.UnixTimeNow).Within(1));
+			Assert.That(info.Equipment.LastRepairTimestamp, Is.EqualTo(TestLogic.TimeService.DateTimeUtcNow.Ticks).Within(10000));
 		}
 	}
 }

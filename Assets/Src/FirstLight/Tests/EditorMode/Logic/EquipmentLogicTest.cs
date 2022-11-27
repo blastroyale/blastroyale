@@ -242,7 +242,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			_equipmentLogic.Repair(item.Key);
 
 			var resultItem = _equipmentLogic.Inventory[item.Key]; 
-			Assert.That(resultItem.LastRepairTimestamp, Is.EqualTo(TimeService.UnixTimeNow).Within(1));
+			Assert.That(resultItem.LastRepairTimestamp, Is.EqualTo(TimeService.DateTimeUtcNow.Ticks).Within(1));
 			Assert.AreEqual(resultItem.MaxDurability, resultItem.TotalRestoredDurability);
 		}
 		
@@ -272,7 +272,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			{
 				Level = 1,
 				MaxLevel = maxLevel,
-				LastRepairTimestamp = durabilityTimeStamp < 0 ? DateTime.UtcNow.Ticks : durabilityTimeStamp
+				LastRepairTimestamp = durabilityTimeStamp < 0 ? TimeService.DateTimeUtcNow.Ticks : durabilityTimeStamp
 			};
 			UniqueIdLogic.Ids[id].Returns(gameId);
 			UniqueIdLogic.GenerateNewUniqueId(gameId).Returns(id);

@@ -31,6 +31,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			
 			TestData.Inventory.Add(_item.Key, _item.Value);
 			mockStatsConfigs.GetConfig(Arg.Do<Equipment>(_ => new QuantumEquipmentStatConfig()));
+			InitConfigData(new QuantumGameConfig { NftDurabilityDropDays = 7, NonNftDurabilityDropDays = 7 });
 			InitConfigData(mockStatsConfigs);
 			InitConfigData(new QuantumWeaponConfig { Specials = new List<GameId> { GameId.SpecialShieldSelf, GameId.SpecialShieldSelf } });
 			InitConfigData(new ScrapConfig
@@ -234,10 +235,14 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void RepairItemCheck()
 		{
-			_equipmentLogic.Repair(_item.Key);
+			var item = SetupItem(2, GameId.MausHelmet, 1, 0);
+			
+			TestData.Inventory.Add(item.Key, item.Value);
+			
+			_equipmentLogic.Repair(item.Key);
 
-			var resultItem = _equipmentLogic.Inventory[_item.Key]; 
-			Assert.AreEqual(Is.EqualTo(DateTime.UtcNow.Ticks).Within(1), resultItem.LastRepairTimestamp);
+			var resultItem = _equipmentLogic.Inventory[item.Key]; 
+			Assert.That(resultItem.LastRepairTimestamp, Is.EqualTo(TimeService.UnixTimeNow).Within(1));
 			Assert.AreEqual(resultItem.MaxDurability, resultItem.TotalRestoredDurability);
 		}
 		
@@ -258,20 +263,16 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void RepairItem_FullRepaired_ThrowsException()
 		{
-			var item = SetupItem(2, GameId.MausHelmet, 1, DateTime.UtcNow.Ticks);
-			
-			TestData.Inventory.Add(item.Key, item.Value);
-			
-			Assert.Throws<LogicException>(() => _equipmentLogic.Repair(item.Key));
+			Assert.Throws<LogicException>(() => _equipmentLogic.Repair(_item.Key));
 		}
 
-		private Pair<UniqueId, Equipment> SetupItem(UniqueId id, GameId gameId, uint maxLevel = 2, long durabilityTimeStamp = 0)
+		private Pair<UniqueId, Equipment> SetupItem(UniqueId id, GameId gameId, uint maxLevel = 2, long durabilityTimeStamp = -1)
 		{
 			var item = new Equipment(gameId)
 			{
 				Level = 1,
 				MaxLevel = maxLevel,
-				LastRepairTimestamp = durabilityTimeStamp
+				LastRepairTimestamp = durabilityTimeStamp < 0 ? DateTime.UtcNow.Ticks : durabilityTimeStamp
 			};
 			UniqueIdLogic.Ids[id].Returns(gameId);
 			UniqueIdLogic.GenerateNewUniqueId(gameId).Returns(id);

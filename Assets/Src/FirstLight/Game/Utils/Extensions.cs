@@ -10,6 +10,7 @@ using FirstLight.Game.Infos;
 using FirstLight.Game.Input;
 using FirstLight.Game.UIElements;
 using I2.Loc;
+using Photon.Deterministic;
 using Photon.Realtime;
 using Quantum;
 using UnityEngine;
@@ -25,6 +26,31 @@ namespace FirstLight.Game.Utils
 	/// </summary>
 	public static class Extensions
 	{
+		/// <summary>
+		/// Shared encapsulated code to detect if a given given <paramref name="equipment"/> is broken.
+		/// This code is to be used in Hub & Game Servers to validate given equipments are valid.
+		/// </summary>
+		public static bool IsBroken(this Equipment equipment, bool isNft, QuantumGameConfig config)
+		{
+			return equipment.GetCurrentDurability(isNft, config, DateTime.UtcNow.Ticks) == 0;
+		}
+		
+		/// <summary>
+		/// Shared encapsulated code to request the current's <paramref name="equipment"/> durability on the
+		/// given <paramref name="timestamp"/>.
+		/// This code is to be used in Hub & Game Servers to validate given equipments are valid.
+		/// </summary>
+		public static uint GetCurrentDurability(this Equipment equipment, bool isNft, QuantumGameConfig config, long timestamp)
+		{
+			var rustTime = new TimeSpan(timestamp - equipment.LastRepairTimestamp);
+			var dropDays = isNft ? config.NftDurabilityDropDays : config.NonNftDurabilityDropDays;
+			var durabilityDropped = (uint) FPMath.FloorToInt((int) rustTime.TotalDays / dropDays);
+			
+			Debug.Log(durabilityDropped + " "+ timestamp + " "+ rustTime.TotalDays + " " + equipment.LastRepairTimestamp);
+
+			return equipment.MaxDurability - Math.Min(durabilityDropped, equipment.MaxDurability);
+		}
+
 		/// <summary>
 		/// Requests the hierarchy path in the scene of the given game object
 		/// </summary>

@@ -32,7 +32,12 @@ namespace FirstLight.Tests.EditorMode.Integration
 		[Test]
 		public void TestSetLoadoutCommand()
 		{
-			var equip = new Equipment() {GameId = GameId.HockeyHelmet};
+			var equip = new Equipment()
+			{
+				GameId = GameId.HockeyHelmet, 
+				MaxDurability = 2, 
+				LastRepairTimestamp = TestLogic.TimeService.UnixTimeNow
+			};
 			var itemUniqueId = TestLogic.EquipmentLogic.AddToInventory(equip);
 
 			TestServices.CommandService.ExecuteCommand(new UpdateLoadoutCommand()
@@ -112,7 +117,7 @@ namespace FirstLight.Tests.EditorMode.Integration
 
 			Assert.AreEqual(0, data.Currencies[cost.Key]);
 			Assert.AreEqual(equip.MaxDurability, info.CurrentDurability);
-			Assert.AreEqual(Is.EqualTo(DateTime.UtcNow.Ticks).Within(1), info.Equipment.LastRepairTimestamp);
+			Assert.That(info.Equipment.LastRepairTimestamp, Is.EqualTo(TestLogic.TimeService.UnixTimeNow).Within(1));
 		}
 	}
 }

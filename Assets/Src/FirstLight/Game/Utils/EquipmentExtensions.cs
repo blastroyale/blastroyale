@@ -1,11 +1,8 @@
 using System;
 using System.Collections.Generic;
-using FirstLight.Game.Configs;
-using FirstLight.Game.Data;
-using FirstLight.Game.Data.DataTypes;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
+using Photon.Deterministic;
 using Quantum;
 
 namespace FirstLight.Game.Utils
@@ -18,9 +15,18 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// TODO: Gabriel delete when we update the backend
 		/// </summary>
-		public static bool IsBroken(this Equipment equipment, bool isNft)
+		public static bool IsBroken(this Equipment equipment)
 		{
-			return equipment.IsBroken(isNft, new QuantumGameConfig { NonNftDurabilityDropDays = 7, NftDurabilityDropDays = 7 });
+			return equipment.GetCurrentDurability(DateTime.UtcNow.Ticks) == 0;
+		}
+		
+		
+		/// <summary>
+		/// TODO: Gabriel delete when we update the backend
+		/// </summary>
+		public static uint GetCurrentDurability(this Equipment equipment, long timestamp)
+		{
+			return equipment.GetCurrentDurability(false, default, DateTime.UtcNow.Ticks);
 		}
 		
 		
@@ -41,7 +47,9 @@ namespace FirstLight.Game.Utils
 		public static uint GetCurrentDurability(this Equipment equipment, bool isNft, QuantumGameConfig config, long timestamp)
 		{
 			var rustTime = new TimeSpan(timestamp - equipment.LastRepairTimestamp);
-			var dropDays = isNft ? config.NftDurabilityDropDays : config.NonNftDurabilityDropDays;
+			//var dropDays = isNft ? config.NftDurabilityDropDays : config.NonNftDurabilityDropDays;
+			// TODO: Gabriel delete when we update the backend
+			var dropDays = FP._7;
 			var durabilityDropped = (uint) Math.Floor(rustTime.TotalDays / dropDays.AsDouble);
 
 			return equipment.MaxDurability - Math.Min(durabilityDropped, equipment.MaxDurability);

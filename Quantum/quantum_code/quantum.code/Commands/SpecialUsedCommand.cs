@@ -35,7 +35,7 @@ namespace Quantum.Commands
 			
 			if (aimInputProcessed.SqrMagnitude < FP.SmallestNonZero && f.TryGet<Transform3D>(characterEntity, out var transform))
 			{
-				aimInputProcessed = (transform.Rotation * FPVector3.Forward).XZ.Normalized * (FP._0_75 + FP._0_10);
+				aimInputProcessed = (transform.Rotation * FPVector3.Forward).XZ.Normalized * Constants.TAP_TO_USE_SPECIAL_AIMING_OFFSET;
 			}
 			
 			if (special.TryActivate(f, characterEntity, aimInputProcessed, SpecialIndex))

@@ -82,28 +82,28 @@ public partial class SROptions
 
 		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[0].Id, rarity: EquipmentRarity.RarePlus,
 		                                                      adjective: EquipmentAdjective.Regular,
-		                                                      grade: EquipmentGrade.GradeV, durability: 50,
+		                                                      grade: EquipmentGrade.GradeV,
 		                                                      level: 3));
 		
 		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[5].Id, rarity: EquipmentRarity.Rare,
 		                                                      adjective: EquipmentAdjective.Exquisite,
-		                                                      grade: EquipmentGrade.GradeIII, durability: 70,
+		                                                      grade: EquipmentGrade.GradeIII,
 		                                                      level: 3));
 		
 		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[12].Id, rarity: EquipmentRarity.Uncommon,
 		                                                      adjective: EquipmentAdjective.Cool,
-		                                                      grade: EquipmentGrade.GradeIII, durability: 65,
+		                                                      grade: EquipmentGrade.GradeIII,
 		                                                      level: 3));
 		
 		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[17].Id, rarity: EquipmentRarity.Legendary,
 		                                                      adjective: EquipmentAdjective.Royal,
-		                                                      grade: EquipmentGrade.GradeI, durability: 34,
+		                                                      grade: EquipmentGrade.GradeI,
 		                                                      level: 3));
 		
 		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[40].Id,
 		                                                      rarity: EquipmentRarity.LegendaryPlus,
 		                                                      adjective: EquipmentAdjective.Divine,
-		                                                      grade: EquipmentGrade.GradeIV, durability: 97,
+		                                                      grade: EquipmentGrade.GradeIV,
 		                                                      level: 3));
 		
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
@@ -124,7 +124,7 @@ public partial class SROptions
 			gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[i].Id,
 			                                                      rarity: EquipmentRarity.Epic,
 			                                                      adjective: EquipmentAdjective.Exquisite,
-			                                                      grade: EquipmentGrade.GradeIII, durability: 100, maxDurability:100,
+			                                                      grade: EquipmentGrade.GradeIII, maxDurability:100,
 			                                                      level: 3));
 		}
 
@@ -409,7 +409,7 @@ public partial class SROptions
 		gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[rand].Id,
 		                                                      rarity: EquipmentRarity.Epic,
 		                                                      adjective: EquipmentAdjective.Exquisite,
-		                                                      grade: EquipmentGrade.GradeIII, durability: 100, maxDurability:100,
+		                                                      grade: EquipmentGrade.GradeIII, maxDurability:100,
 		                                                      level: 3));
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();

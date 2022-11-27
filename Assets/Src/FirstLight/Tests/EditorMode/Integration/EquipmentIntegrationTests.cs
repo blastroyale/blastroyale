@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
@@ -31,7 +32,12 @@ namespace FirstLight.Tests.EditorMode.Integration
 		[Test]
 		public void TestSetLoadoutCommand()
 		{
-			var equip = new Equipment() {GameId = GameId.HockeyHelmet};
+			var equip = new Equipment()
+			{
+				GameId = GameId.HockeyHelmet, 
+				MaxDurability = 2, 
+				LastRepairTimestamp = TestLogic.TimeService.DateTimeUtcNow.Ticks
+			};
 			var itemUniqueId = TestLogic.EquipmentLogic.AddToInventory(equip);
 
 			TestServices.CommandService.ExecuteCommand(new UpdateLoadoutCommand()
@@ -55,7 +61,7 @@ namespace FirstLight.Tests.EditorMode.Integration
 		{
 			var equip = new Equipment() {GameId = GameId.HockeyHelmet};
 			var itemUniqueId = TestLogic.EquipmentLogic.AddToInventory(equip);
-			var info = TestLogic.EquipmentLogic.GetInfo(itemUniqueId);
+			var reward = TestLogic.EquipmentLogic.GetScrappingReward(equip, false);
 			var data = TestData.GetData<PlayerData>();
 
 			TestServices.CommandService.ExecuteCommand(new ScrapItemCommand()
@@ -64,7 +70,7 @@ namespace FirstLight.Tests.EditorMode.Integration
 			});
 
 			
-			Assert.AreEqual(info.ScrappingValue.Value, data.Currencies[info.ScrappingValue.Key]);
+			Assert.AreEqual(reward.Value, data.Currencies[reward.Key]);
 		}
 		
 		/// <summary>
@@ -75,17 +81,17 @@ namespace FirstLight.Tests.EditorMode.Integration
 		{
 			var equip = new Equipment() {GameId = GameId.HockeyHelmet, MaxLevel = 1};
 			var itemUniqueId = TestLogic.EquipmentLogic.AddToInventory(equip);
-			var info = TestLogic.EquipmentLogic.GetInfo(itemUniqueId);
+			var cost = TestLogic.EquipmentLogic.GetUpgradeCost(equip, false);
 			var data = TestData.GetData<PlayerData>();
 
-			data.Currencies[info.UpgradeCost.Key] = info.UpgradeCost.Value;
+			data.Currencies[cost.Key] = cost.Value;
 
 			TestServices.CommandService.ExecuteCommand(new UpgradeItemCommand()
 			{
 				Item = itemUniqueId
 			});
 
-			Assert.AreEqual(0, data.Currencies[info.UpgradeCost.Key]);
+			Assert.AreEqual(0, data.Currencies[cost.Key]);
 			Assert.AreEqual(1, TestLogic.EquipmentLogic.Inventory[itemUniqueId].Level);
 		}
 		
@@ -107,8 +113,11 @@ namespace FirstLight.Tests.EditorMode.Integration
 				Item = itemUniqueId
 			});
 
+			var info = TestLogic.EquipmentLogic.GetInfo(itemUniqueId);
+
 			Assert.AreEqual(0, data.Currencies[cost.Key]);
-			Assert.AreEqual(equip.MaxDurability, TestLogic.EquipmentLogic.Inventory[itemUniqueId].Durability);
+			Assert.AreEqual(equip.MaxDurability, info.CurrentDurability);
+			Assert.That(info.Equipment.LastRepairTimestamp, Is.EqualTo(TestLogic.TimeService.DateTimeUtcNow.Ticks).Within(10000));
 		}
 	}
 }

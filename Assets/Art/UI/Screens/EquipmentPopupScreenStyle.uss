@@ -1,0 +1,203 @@
+.background {
+    background-color: rgba(0, 0, 0, 0.69);
+}
+
+.equipment-popup {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/PopupBody.png?fileID=21300000&guid=bf2d7851df5a6446dae79ae1cfb1d162&type=3#PopupBody');
+    width: 1350px;
+    height: 820px;
+    top: 30px;
+    -unity-font-definition: var(--font-italic);
+    color: rgb(255, 255, 255);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    font-size: 38px;
+}
+
+.equipment-popup__title {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/PopupHeadlineBack.png?fileID=21300000&guid=ff3c23692f55f40659654f6bd236c6cd&type=3#PopupHeadlineBack');
+    -unity-text-align: middle-center;
+    height: 86px;
+    margin-right: 0;
+    margin-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 20px;
+    padding-right: 120px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.equipment-popup__close {
+    position: absolute;
+    right: 0;
+    top: -5px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/CloseButton.png?fileID=21300000&guid=b7956d44c6a494f05a62eb5015f9cd72&type=3#CloseButton');
+    height: 90px;
+    width: 104px;
+}
+
+.equipment-popup__close:active {
+    position: absolute;
+    right: 0;
+    top: -5px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/CloseButtonPressed.png?fileID=21300000&guid=373221336b615467fa8bab6411b3dc39&type=3#CloseButtonPressed');
+}
+
+.equipment-popup__content {
+    position: absolute;
+    left: 500px;
+    top: 86px;
+    right: 0;
+    bottom: 0;
+}
+
+.top-buttons {
+    flex-direction: row-reverse;
+    position: absolute;
+    top: 30px;
+    right: 187px;
+    align-items: center;
+}
+
+.currency-display {
+    scale: 0.8 0.8;
+}
+
+.currency-glow {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/LightSprite.png?fileID=21300000&guid=f064b826f895e4c4d8a88bc40e230288&type=3#LightSprite');
+    width: 758px;
+    height: 378px;
+    position: absolute;
+    right: -174px;
+    top: -264px;
+    -unity-background-image-tint-color: rgba(255, 0, 114, 0.52);
+}
+
+.safe-area {
+    align-items: center;
+    justify-content: center;
+}
+
+.equipment-popup__card-holder {
+    position: absolute;
+    left: 0;
+    top: 86px;
+    bottom: 0;
+    width: 500px;
+    align-items: center;
+    justify-content: center;
+}
+
+.content-scrapping {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 110px;
+    padding-bottom: 30px;
+}
+
+.button-red {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/CancelButton.png?fileID=21300000&guid=ccdeaedddcd164707b37b8404a10b7c9&type=3#CancelButton');
+    width: 306px;
+    height: 88px;
+}
+
+.button-ppurple {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/SecondaryButton.png?fileID=21300000&guid=59b9eee3525d947a3bfd185b778e4783&type=3#SecondaryButton');
+    width: 306px;
+    height: 88px;
+}
+
+.equipment-popup__button-container {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 666px;
+}
+
+.content-scrapping__amount-holder {
+    background-color: rgb(23, 20, 38);
+    width: 369px;
+    height: 130px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: -69px;
+    font-size: 50px;
+}
+
+.content-scrapping__amount-icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/CoinIcon.png?fileID=21300000&guid=787f6e10544e24075863e3f881de6467&type=3#CoinIcon');
+    width: 60px;
+    height: 60px;
+    margin-right: 30px;
+}
+
+.equipment-popup__bh-holder {
+    color: rgba(148, 140, 197, 255);
+    flex-direction: row;
+    align-items: center;
+    font-size: 32px;
+    justify-content: flex-end;
+    right: 46px;
+    position: absolute;
+    bottom: 45px;
+}
+
+.equipment-popup__bh-logo {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/BlastHubLogo.png?fileID=21300000&guid=6ae296c811996471796b156699805c8f&type=3#BlastHubLogo');
+    width: 260px;
+    height: 52px;
+    margin-left: 39px;
+}
+
+.button-yellow {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/MainButton.png?fileID=21300000&guid=612390a1cd22a4403b85c7fb5cb7c4d1&type=3#MainButton');
+    width: 306px;
+    height: 88px;
+}
+
+.content-scrapping__button {
+    margin-top: 85px;
+}
+
+.content-repairing__durability {
+    width: 610px;
+}
+
+.content-repairing {
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 30px;
+    padding-top: 182px;
+}
+
+.content-upgrading {
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 30px;
+    padding-top: 109px;
+    color: rgba(244, 200, 42, 255);
+}
+
+.content-upgrading__level-holder {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 359px;
+    font-size: 36px;
+    align-items: center;
+}
+
+.content-upgrading__arrow-icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/CoinIcon.png?fileID=21300000&guid=787f6e10544e24075863e3f881de6467&type=3#CoinIcon');
+    width: 50px;
+    height: 50px;
+}
+
+.content-upgrading__stats-list {
+    flex-grow: 1;
+    width: 600px;
+}

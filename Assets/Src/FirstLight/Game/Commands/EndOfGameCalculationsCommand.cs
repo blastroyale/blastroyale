@@ -1,8 +1,8 @@
 using FirstLight.Game.Logic;
 using System.Collections.Generic;
+using System.Linq;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
-using FirstLight.Services;
 using Quantum;
 
 namespace FirstLight.Game.Commands
@@ -14,9 +14,7 @@ namespace FirstLight.Game.Commands
 	{
 		public List<QuantumPlayerMatchData> PlayersMatchData;
 		public QuantumValues QuantumValues;
-		
-		private int _playerCount;
-		private bool _validRewardsFromFrame = true;
+		public bool ValidRewardsFromFrame = true;
 
 		public CommandAccessLevel AccessLevel() => CommandAccessLevel.Service;
 
@@ -25,7 +23,7 @@ namespace FirstLight.Game.Commands
 		/// <inheritdoc />
 		public void Execute(CommandExecutionContext ctx)
 		{
-			if (!_validRewardsFromFrame)
+			if (!ValidRewardsFromFrame)
 			{
 				return;
 			}
@@ -39,7 +37,7 @@ namespace FirstLight.Game.Commands
 				ExecutingPlayer = QuantumValues.ExecutingPlayer,
 				MatchType = matchType,
 				DidPlayerQuit = false,
-				GamePlayerCount = _playerCount
+				GamePlayerCount = matchData.Select(d => !d.Data.IsBot).Count()
 			};
 			var rewards = ctx.Logic.RewardLogic().GiveMatchRewards(rewardSource, out var trophyChange);
 
@@ -56,12 +54,11 @@ namespace FirstLight.Game.Commands
 			var gameContainer = frame.GetSingleton<GameContainer>();
 			PlayersMatchData = gameContainer.GetPlayersMatchData(frame, out _);
 			QuantumValues = quantumValues;
-			_playerCount = frame.PlayerCount;
-			
+
 			if (!frame.Context.GameModeConfig.AllowEarlyRewards && !gameContainer.IsGameCompleted &&
 				!gameContainer.IsGameOver)
 			{
-				_validRewardsFromFrame = false;
+				ValidRewardsFromFrame = false;
 			}
 		}
 	}

@@ -209,11 +209,9 @@ namespace Quantum
 				Collectable.DropEquipment(f, WeaponSlots[slot].Weapon, dropPosition, 0);
 			}
 
-			var targetSlot = WeaponSlots.GetPointer(slot);
 			WeaponSlot[slot].MagazineShotCount = weaponConfig.MagazineSize;
 			WeaponSlot[slot].ReloadTime = weaponConfig.ReloadTime;
 			WeaponSlot[slot].MagazineSize = weaponConfig.MagazineSize;
-
 			WeaponSlots[slot].Weapon = weapon;
 			GainAmmo(f, e, initialAmmo - GetAmmoAmountFilled(f, e));
 

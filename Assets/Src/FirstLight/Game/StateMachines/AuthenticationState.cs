@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Reflection;
 using ExitGames.Client.Photon;
@@ -246,6 +247,7 @@ namespace FirstLight.Game.StateMachines
 			var deviceId = _dataService.GetData<AppData>().DeviceId;
 			var infoParams = new GetPlayerCombinedInfoRequestParams
 			{
+				GetPlayerProfile = true,
 				GetUserAccountInfo = true,
 				GetTitleData = true
 			};
@@ -516,6 +518,7 @@ namespace FirstLight.Game.StateMachines
 			
 			var infoParams = new GetPlayerCombinedInfoRequestParams
 			{
+				GetPlayerProfile = true,
 				GetUserAccountInfo = true,
 				GetTitleData = true
 			};
@@ -536,6 +539,11 @@ namespace FirstLight.Game.StateMachines
 			var userId = result.PlayFabId;
 			var email = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
 			var userName = result.InfoResultPayload.AccountInfo.Username;
+			var contactEmails = result.InfoResultPayload.PlayerProfile.ContactEmailAddresses;
+			if (contactEmails == null || contactEmails.Count == 0 || !contactEmails.Any(e => e != null && e.EmailAddress.Contains("@")))
+			{
+				_services.PlayfabService.UpdateEmail(email);
+			}
 
 			_services.HelpdeskService.Login(userId, email, userName);
 
@@ -563,7 +571,7 @@ namespace FirstLight.Game.StateMachines
 
 			PlayFabClientAPI.RegisterPlayFabUser(register, _ => LoginClicked(email, password), OnAuthenticationRegisterFail);
 		}
-		
+
 		private void OpenLoadingScreen()
 		{
 			_uiService.OpenUi<LoadingScreenPresenter>();

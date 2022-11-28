@@ -217,7 +217,7 @@ namespace Quantum
 			targetSlot->MagazineSize = weaponConfig.MagazineSize;
 			WeaponSlots[slot].Weapon = weapon;
 
-			stats->GainAmmoPercent(f, e, initialAmmo - ((FP)stats->CurrentAmmo / stats->GetStatData(StatType.AmmoCapacity).StatValue));
+			stats->GainAmmoPercent(f, e, initialAmmo - GetAmmoAmountFilled(f, e));
 
 			f.Events.OnLocalPlayerWeaponAdded(Player, e, weapon, slot);
 			

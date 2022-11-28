@@ -113,13 +113,24 @@
     position: absolute;
 }
 
-.reward__outline {
+.reward__ready-to-claim-outline {
+    left: -5px;
+    top: -5px;
+    right: -5px;
+    bottom: 15px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/ClaimRewardOutline.png?fileID=2800000&guid=8bda900808592449aafbdc6498ba944a&type=3#ClaimRewardOutline');
+    -unity-background-scale-mode: scale-to-fit;
+    position: absolute;
+}
+
+.reward__button-outline {
     left: 6px;
     top: 6px;
     right: 14px;
     bottom: 40px;
     background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/RewardButtonOutline.png?fileID=2800000&guid=57e23c21c38ad444b8edc6fd8e9eac32&type=3#RewardButtonOutline');
     position: absolute;
+    -unity-background-scale-mode: scale-to-fit;
 }
 
 .reward__checkmark {
@@ -138,6 +149,14 @@
     position: absolute;
 }
 
+.reward-holder__image {
+    width: 200px;
+    height: 200px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/RandomEquipQuestionMark.png?fileID=2800000&guid=c591772ba9b2b2d468919ccdc75df7a5&type=3#RandomEquipQuestionMark');
+    -unity-background-scale-mode: scale-to-fit;
+    position: absolute;
+}
+
 .reward-holder__rarity {
     width: 250px;
     height: 250px;
@@ -146,10 +165,29 @@
     position: absolute;
 }
 
-.reward-holder__image {
-    width: 175px;
-    height: 175px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/RandomEquipQuestionMark.png?fileID=2800000&guid=c591772ba9b2b2d468919ccdc75df7a5&type=3#RandomEquipQuestionMark');
+.claim-bubble {
     -unity-background-scale-mode: scale-to-fit;
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/TapToClaim.png?fileID=2800000&guid=dd13a282a4ccd406f9e1fba93a72a527&type=3#TapToClaim');
+    width: 372px;
+    height: 132px;
     position: absolute;
+    top: -90px;
+    left: 180px;
+    align-items: center;
+    justify-content: center;
+}
+
+.claim-bubble__label {
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(156, 36, 12);
+    text-shadow: 3px 3px 0 rgb(156, 36, 12);
+    -unity-font-definition: var(--font-italic);
+    font-size: 40px;
+    color: rgb(255, 255, 255);
+    right: 30px;
+    left: 30px;
+    position: absolute;
+    -unity-text-align: middle-center;
+    bottom: 72px;
+    -unity-font-style: bold;
 }

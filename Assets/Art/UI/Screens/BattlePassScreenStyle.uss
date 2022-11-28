@@ -189,7 +189,6 @@
     -unity-font-definition: var(--font-italic);
     font-size: 36px;
     color: rgb(255, 255, 255);
-    -unity-paragraph-spacing: -30px;
     top: 0;
     bottom: 0;
     right: 0;

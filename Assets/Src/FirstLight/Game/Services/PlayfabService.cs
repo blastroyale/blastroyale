@@ -80,6 +80,11 @@ namespace FirstLight.Game.Services
 		/// Handles when a request errors out on playfab.
 		/// </summary>
 		void HandleError(PlayFabError error);
+
+		/// <summary>
+		/// Updates user contact email address
+		/// </summary>
+		void UpdateEmail(string newEmail, Action<AddOrUpdateContactEmailResult> callback = null);
 	}
 
 	/// <inheritdoc cref="IPlayfabService" />
@@ -195,6 +200,15 @@ namespace FirstLight.Game.Services
 			});
 		}
 
+		public void UpdateEmail(string newEmail, Action<AddOrUpdateContactEmailResult> callback = null)
+		{
+			var emailUpdate = new AddOrUpdateContactEmailRequest()
+			{
+				EmailAddress = newEmail
+			};
+			PlayFabClientAPI.AddOrUpdateContactEmail(emailUpdate, callback, HandleError);
+		}
+
 		public void FetchServerState(Action<ServerState> callback)
 		{
 			PlayFabClientAPI.GetUserReadOnlyData(new GetUserDataRequest(), result =>
@@ -305,12 +319,14 @@ namespace FirstLight.Game.Services
 				Username = username,
 				Password = password
 			};
+		
 
 			PlayFabClientAPI.AddUsernamePassword(addUsernamePasswordRequest, OnSuccess, errorCallback);
 
 			void OnSuccess(AddUsernamePasswordResult result)
 			{
 				_dataProvider.AppDataProvider.LastLoginEmail.Value = email;
+				UpdateEmail(email);
 				successCallback?.Invoke(result);
 			}
 		}

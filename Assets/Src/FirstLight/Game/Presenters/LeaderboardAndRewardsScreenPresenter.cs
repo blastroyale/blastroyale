@@ -52,10 +52,7 @@ namespace FirstLight.Game.Presenters
 		protected override void QueryElements(VisualElement root)
 		{
 			_leaderboardScrollView = root.Q<ScrollView>("LeaderboardScrollView").Required();
-#if UNITY_EDITOR
-			// Scrollview doesn't let us drag scroll with the mouse, so this will help us test in the editor
-			_leaderboardScrollView.verticalScrollerVisibility = ScrollerVisibility.AlwaysVisible;
-#endif
+
 			_nextButton = root.Q<Button>("NextButton").Required();
 			_nextButton.clicked += Data.ContinueClicked;
 			

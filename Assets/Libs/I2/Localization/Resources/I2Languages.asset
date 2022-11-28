@@ -6984,7 +6984,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - GENESIS
+      - BLAST ISLAND
       - 
       - 
       Flags: 000000
@@ -10463,6 +10463,51 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITLeaderboards/player
+      TermType: 0
+      Description: 
+      Languages:
+      - PLAYER
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITLeaderboards/kills
+      TermType: 0
+      Description: 
+      Languages:
+      - K
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITLeaderboards/deaths
+      TermType: 0
+      Description: 
+      Languages:
+      - D
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITLeaderboards/trophies
+      TermType: 0
+      Description: 
+      Languages:
+      - TROPHIES
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITLeaderboards/placements
+      TermType: 0
+      Description: 
+      Languages:
+      - PLACEMENTS
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -10481,7 +10526,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1669240762736
+    Google_LastUpdatedVersion: 1669313607138
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

@@ -166,7 +166,8 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.SubscribeManual<EventOnPlayerAlive>(this, OnPlayerAlive);
 			QuantumEvent.SubscribeManual<EventOnPlayerSpawned>(this, OnPlayerSpawned);
 			QuantumEvent.SubscribeManual<EventOnPlayerWeaponChanged>(this, OnPlayerWeaponChanged);
-
+			QuantumEvent.SubscribeManual<EventOnPlayerReloadStart>(this, OnPlayerStartReload);
+			QuantumEvent.SubscribeManual<EventOnPlayerMagazineReloaded>(this, OnPlayerMagazineReloaded);
 		}
 
 		private void UnsubscribeMatchEvents()
@@ -406,6 +407,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayerWeaponChanged(EventOnPlayerWeaponChanged callback)
 		{
+			CheckClips(nameof(EventOnPlayerWeaponChanged), callback.Entity);
+
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
 
 			if(callback.Weapon.GameId != GameId.Random)
@@ -439,6 +442,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			CheckClips(nameof(EventOnAirDropCollected), callback.Entity);
 		}
+
 
 		private void SetSimulationRunning(bool running)
 		{
@@ -511,6 +515,43 @@ namespace FirstLight.Game.StateMachines
 			_currentClips.Add(new LoopedAudioClip(flareSfx, despawnEvents, callback.Entity));
 
 			_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_AirdropLanded, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
+		}
+
+		private void OnPlayerStartReload(EventOnPlayerReloadStart callback)
+		{
+			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
+
+			var audioId = AudioId.None;
+			switch(callback.Weapon.Manufacturer)
+			{
+				case EquipmentManufacturer.Military:
+					audioId = AudioId.ReloadMmsLoop;
+					break;
+
+				case EquipmentManufacturer.Futuristic:
+					audioId = AudioId.ReloadEdiLoop;
+					break;
+
+				case EquipmentManufacturer.Apocalyptic:
+					audioId = AudioId.ReloadPlaLoop;
+					break; 
+			}
+
+			var despawnEvents = new[] 
+			{ 
+				nameof(EventOnPlayerMagazineReloaded), 
+				nameof (EventOnPlayerAttack),
+				nameof(EventOnPlayerWeaponChanged)
+			};
+
+			var position = entityView.transform.position;
+			var reloadSfx = _services.AudioFxService.PlayClip3D(audioId, position);
+			_currentClips.Add(new LoopedAudioClip(reloadSfx, despawnEvents, callback.Entity));
+		}
+
+		private void OnPlayerMagazineReloaded(EventOnPlayerMagazineReloaded callback)
+		{
+			CheckClips(nameof(EventOnPlayerMagazineReloaded), callback.Entity);
 		}
 
 		private void OnPlayerDead(EventOnPlayerDead callback)
@@ -791,6 +832,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayerAttack(EventOnPlayerAttack callback)
 		{
+			CheckClips(nameof(EventOnPlayerAttack), callback.PlayerEntity);
+
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView)) return;
 			
 			var weaponConfig = _services.ConfigsProvider.GetConfig<AudioWeaponConfig>((int) callback.Weapon.GameId);

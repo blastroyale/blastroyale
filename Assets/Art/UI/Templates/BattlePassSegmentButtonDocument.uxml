@@ -1,9 +1,16 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" FLG="FirstLight.Game.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Templates/BattlePassSegmentButtonStyle.uss?fileID=7433441132597879392&amp;guid=085e3e990597b6b47bd7e65b60a2c14a&amp;type=3#BattlePassSegmentButtonStyle" />
-    <ui:VisualElement name="BattlePassSegment" style="align-items: flex-start; justify-content: flex-end; width: 400px; height: 475px; position: relative; background-color: rgb(255, 0, 0); left: 414px; top: 325px;">
+    <ui:VisualElement name="BattlePassSegment" class="segment">
         <ui:VisualElement name="Reward" class="reward">
-            <FirstLight.Game.UIElements.ImageButton name="RewardButton" class="reward__button" />
+            <FirstLight.Game.UIElements.ImageButton name="Button" class="reward__button" />
             <ui:VisualElement name="Blocker" class="reward__blocker" />
+            <ui:VisualElement name="Outline" class="reward__outline" />
+            <ui:VisualElement name="Checkmark" class="reward__checkmark" />
+            <ui:VisualElement name="RewardHolder" class="reward__reward-holder">
+                <ui:VisualElement name="RewardRarity" class="reward-holder__rarity" />
+                <ui:VisualElement name="RewardImage" class="reward-holder__image" />
+            </ui:VisualElement>
+            <FirstLight.Game.UIElements.AutoSizeLabel text="REWARD" display-tooltip-when-elided="true" name="Title" class="reward__title" />
         </ui:VisualElement>
         <ui:VisualElement name="ProgressBar" class="progress-bar">
             <ui:VisualElement name="Background" class="progress-bar__background" />
@@ -15,5 +22,4 @@
             <ui:Label text="9" display-tooltip-when-elided="true" name="LevelLabel" class="level__label" />
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="reference" class="reward__blocker" />
 </ui:UXML>

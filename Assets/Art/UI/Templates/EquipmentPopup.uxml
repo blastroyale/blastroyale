@@ -1,0 +1,19 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Templates/EquipmentPopupStyle.uss?fileID=7433441132597879392&amp;guid=f94e5ce933248497cb64ddc715782042&amp;type=3#EquipmentPopupStyle" />
+    <ui:VisualElement name="reference-scrap" style="background-image: url(&apos;project://database/Assets/Art/UI/References/EquipmentPopupScrapping.png?fileID=2800000&amp;guid=19bd3e58e2586481a83093363f764055&amp;type=3#EquipmentPopupScrapping&apos;); width: 2340px; height: 1080px; position: absolute;" />
+    <ui:VisualElement name="root" class="fill-parent">
+        <ui:VisualElement name="Background" class="background fill-parent" />
+        <FirstLight.Game.UIElements.SafeAreaElement class="fill-parent safe-area">
+            <ui:VisualElement name="EquipmentPopup" class="equipment-popup">
+                <ui:Label text="SCRAPPING ITEM" name="Title" class="equipment-popup__title" />
+                <FirstLight.Game.UIElements.ImageButton name="Close" class="equipment-popup__close" />
+                <ui:VisualElement name="Content" class="equipment-popup__content" />
+            </ui:VisualElement>
+            <ui:VisualElement picking-mode="Ignore" name="TopButtons" class="top-buttons">
+                <ui:VisualElement name="CurrencyGlow" class="currency-glow anim-delay-0 anim-fade" />
+                <FirstLight.Game.UIElements.CurrencyDisplayElement name="CSCurrency" currency="CS" class="anim-delay-0 anim-translate anim-translate--down-s" />
+                <FirstLight.Game.UIElements.CurrencyDisplayElement name="BLSTCurrency" currency="BLST" class="anim-delay-1 anim-translate anim-translate--down-s" />
+            </ui:VisualElement>
+        </FirstLight.Game.UIElements.SafeAreaElement>
+    </ui:VisualElement>
+</ui:UXML>

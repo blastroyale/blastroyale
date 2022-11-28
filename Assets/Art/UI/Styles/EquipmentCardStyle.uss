@@ -5,6 +5,18 @@
     transition-duration: 0.2s;
 }
 
+.equipment-card--marketplace .equipment-card__level {
+    display: none;
+}
+
+.equipment-card--marketplace .equipment-card__badge-holder {
+    display: none;
+}
+
+.equipment-card--marketplace .equipment-card__notification {
+    display: none;
+}
+
 .equipment-card__background {
     position: absolute;
     top: 0;

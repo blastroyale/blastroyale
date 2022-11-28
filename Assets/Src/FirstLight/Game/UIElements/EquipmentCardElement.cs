@@ -27,7 +27,7 @@ namespace FirstLight.Game.UIElements
 		private const string UssImageShadow = UssImage + "--shadow";
 		private const string UssGrade = UssBlock + "__grade";
 		private const string UssFaction = UssBlock + "__faction";
-		private const string UssFactionModifier = UssBlock + "--";
+		private const string UssFactionModifier = UssFaction + "--";
 		private const string UssMaterial = UssBlock + "__material";
 		private const string UssMaterialModifier = UssMaterial + "--";
 		private const string UssLevel = UssBlock + "__level";
@@ -154,7 +154,7 @@ namespace FirstLight.Game.UIElements
 
 			if (equipment.IsValid())
 			{
-				SetData(equipment, UniqueId.Invalid);
+				SetEquipment(equipment, UniqueId.Invalid);
 			}
 		}
 
@@ -170,8 +170,8 @@ namespace FirstLight.Game.UIElements
 			}
 		}
 
-		public async void SetData(Equipment equipment, UniqueId id, bool loaned = false, bool nft = false,
-								  bool equipped = false, bool notification = false)
+		public void SetEquipment(Equipment equipment, UniqueId id, bool loaned = false, bool nft = false,
+								 bool equipped = false, bool notification = false, bool loadEditorSprite = false)
 		{
 			Assert.IsTrue(equipment.IsValid());
 
@@ -209,16 +209,33 @@ namespace FirstLight.Game.UIElements
 			_adjective.text = string.Format(ADJECTIVE_LOC_KEY, equipment.Adjective.ToString().ToLowerInvariant())
 				.LocalizeKey();
 
-			// TODO: This should be handled better.
-			var services = MainInstaller.Resolve<IGameServices>();
-			_image.style.backgroundImage = null;
-			var sprite = await services.AssetResolverService.RequestAsset<GameId, Sprite>(
-				equipment.GameId, instantiate: false);
+			LoadImage(loadEditorSprite);
+		}
 
-			if (this.IsAttached())
+		private async void LoadImage(bool loadEditorSprite)
+		{
+			if (!loadEditorSprite)
 			{
+				// TODO: This should be handled better.
+				var services = MainInstaller.Resolve<IGameServices>();
+				_image.style.backgroundImage = null;
+				var sprite = await services.AssetResolverService.RequestAsset<GameId, Sprite>(
+					Equipment.GameId, instantiate: false);
+
+				if (this.IsAttached())
+				{
+					_image.style.backgroundImage =
+						_imageShadow.style.backgroundImage = new StyleBackground(sprite);
+				}
+			}
+			else
+			{
+#if UNITY_EDITOR
 				_image.style.backgroundImage =
-					_imageShadow.style.backgroundImage = new StyleBackground(sprite);
+					_imageShadow.style.backgroundImage = new StyleBackground(
+						UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>(
+							$"Assets/AddressableResources/Sprites/Equipment/{Equipment.GetEquipmentGroup().ToString()}/{Equipment.GameId.ToString()}.png"));
+#endif
 			}
 		}
 

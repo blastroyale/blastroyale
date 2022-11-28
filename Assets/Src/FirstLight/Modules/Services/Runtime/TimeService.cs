@@ -77,7 +77,7 @@ namespace FirstLight.Services
 	/// <inheritdoc cref="ITimeService"/>
 	public class TimeService : ITimeManipulator
 	{
-		private static readonly DateTime UnixInitialTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+		public static readonly DateTime UnixInitialTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
 		private float _initialUnityTime;
 		private float _extraTime;

@@ -20,43 +20,49 @@ MonoBehaviour:
     Entries:
     - Type: 3
       Key:
-        Key: RampUpTimeStart
-    - Type: 3
-      Key:
-        Key: BurstShotCount
+        Key: AmmoFilled
     - Type: 3
       Key:
         Key: TapCooldown
     - Type: 3
       Key:
-        Key: AmmoFilled
-    - Type: 0
-      Key:
-        Key: IsShooting
+        Key: StunDuration
     - Type: 3
       Key:
         Key: AimingMovementSpeed
     - Type: 3
       Key:
-        Key: StunDuration
-    - Type: 3
+        Key: BurstShotCount
+    - Type: 0
       Key:
-        Key: BurstTimeDelay
+        Key: IsShooting
     - Type: 0
       Key:
         Key: IsSkydiving
+    - Type: 3
+      Key:
+        Key: RampUpTimeStart
+    - Type: 3
+      Key:
+        Key: ReloadTime
     - Type: 4
       Key:
         Key: AimDirection
+    - Type: 2
+      Key:
+        Key: MagazineSize
+    - Type: 3
+      Key:
+        Key: BurstTimeDelay
+    - Type: 3
+      Key:
+        Key: InitialAttackCooldown
     - Type: 3
       Key:
         Key: NumberOfBursts
     - Type: 0
       Key:
         Key: IsAimPressed
-    - Type: 3
-      Key:
-        Key: InitialAttackCooldown
     - Type: 0
       Key:
         Key: HasMeleeWeapon

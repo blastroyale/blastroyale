@@ -10,6 +10,8 @@ namespace Quantum
 		public GameId Id;
 		public QuantumGameModePair<FP> InitialAmmoFilled;
 		public QuantumGameModePair<int> MaxAmmo;
+		public int MagazineSize;
+		public FP ReloadTime;
 		public FP AimingMovementSpeed;
 		public FP TapCooldown;
 		public FP AttackCooldown;
@@ -29,7 +31,7 @@ namespace Quantum
 		public FP InitialAttackCooldown;
 		public FP InitialAttackRampUpTime;
 		public uint KnockbackAmount;
-
+		
 		/// <summary>
 		/// Requests if this config is from a melee weapon
 		/// <remarks>

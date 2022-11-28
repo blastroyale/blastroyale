@@ -142,3 +142,13 @@ MonoBehaviour:
       PointsForNextLevel: 0
     - RewardId: 6
       PointsForNextLevel: 0
+    - RewardId: 3
+      PointsForNextLevel: 0
+    - RewardId: 4
+      PointsForNextLevel: 0
+    - RewardId: 3
+      PointsForNextLevel: 0
+    - RewardId: 5
+      PointsForNextLevel: 0
+    - RewardId: 6
+      PointsForNextLevel: 0

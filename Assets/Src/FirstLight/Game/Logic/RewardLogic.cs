@@ -233,7 +233,6 @@ namespace FirstLight.Game.Logic
 			{
 				var info = GameLogic.ResourceLogic.GetResourcePoolInfo(GameId.BPP);
 				var withdrawn = (int) Math.Min(info.CurrentAmount, amount);
-
 				var remainingPoints = GameLogic.BattlePassLogic.GetRemainingPoints();
 
 				withdrawn = (int) Math.Min(withdrawn, remainingPoints);

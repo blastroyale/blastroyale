@@ -227,8 +227,8 @@ namespace FirstLight.Game.Presenters
 
 			// Durability
 			_durabilityAmount.text =
-				string.Format(DURABILITY_AMOUNT, info.Equipment.Durability, info.Equipment.MaxDurability);
-			_durabilityBar.style.flexGrow = info.Equipment.Durability / info.Equipment.MaxDurability;
+				string.Format(DURABILITY_AMOUNT, info.CurrentDurability.ToString(), info.Equipment.MaxDurability.ToString());
+			_durabilityBar.style.flexGrow = info.CurrentDurability / info.Equipment.MaxDurability;
 
 			// Stats
 			_statItems = info.Stats.Where(pair => EquipmentStatBarElement.CanShowStat(pair.Key, pair.Value)).ToList();
@@ -297,7 +297,7 @@ namespace FirstLight.Game.Presenters
 
 		private void UpdateMight(bool animate = true)
 		{
-			var loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both);
+			var loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All);
 			var might = loadout.GetTotalMight(_services.ConfigsProvider.GetConfigsDictionary<QuantumStatConfig>());
 
 			_mightTweener?.Kill();
@@ -404,7 +404,7 @@ namespace FirstLight.Game.Presenters
 		private void OnEquipClicked()
 		{
 			var dataProvider = _gameDataProvider.EquipmentDataProvider;
-			var loadout = dataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both);
+			var loadout = dataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All);
 			var item = loadout.Find(infoItem => infoItem.Id == _selectedItem);
 
 			if (item.IsEquipped)

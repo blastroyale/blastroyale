@@ -29,6 +29,9 @@ struct WeaponSlot
 {
 	Equipment Weapon;
 	array<Special>[MAX_SPECIALS] Specials;
+	int MagazineShotCount;
+	int MagazineSize;
+	FP ReloadTime;
 }
 
 component PlayerCharacter

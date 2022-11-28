@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Commands;
@@ -12,6 +13,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using FirstLight.UiService;
 using I2.Loc;
+using Quantum;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -109,7 +111,7 @@ namespace FirstLight.Game.StateMachines
 			var final = stateFactory.Final("Final");
 			var screenCheck = stateFactory.Choice("Main Screen Check");
 			var homeMenu = stateFactory.State("Home Menu");
-			var lootMenu = stateFactory.Nest("Loot Menu");
+			var equipmentMenu = stateFactory.Nest("Equipment Menu");
 			var heroesMenu = stateFactory.State("Heroes Menu");
 			var settingsMenu = stateFactory.Nest("Settings Menu");
 			var playClickedCheck = stateFactory.Choice("Play Button Clicked Check");
@@ -120,14 +122,16 @@ namespace FirstLight.Game.StateMachines
 			var store = stateFactory.Wait("Store");
 			var enterNameDialog = stateFactory.Nest("Enter Name Dialog");
 			var roomJoinCreateMenu = stateFactory.State("Room Join Create Menu");
-			var nftPlayRestricted = stateFactory.Wait("Nft Restriction Pop Up");
+			var loadoutRestricted = stateFactory.Wait("Loadout Restriction Pop Up");
+			var brokenItems = stateFactory.Wait("Broken Items Pop Up");
 			var defaultNameCheck = stateFactory.Choice("Default Player Name Check");
 			
 			initial.Transition().Target(screenCheck);
 			initial.OnExit(OpenUiVfxPresenter);
 			
+			screenCheck.Transition().Condition(CheckItemsBroken).Target(brokenItems);
 			screenCheck.Transition().Condition(IsCurrentScreen<HomeScreenPresenter>).Target(defaultNameCheck);
-			screenCheck.Transition().Condition(IsCurrentScreen<EquipmentPresenter>).Target(lootMenu);
+			screenCheck.Transition().Condition(IsCurrentScreen<EquipmentPresenter>).Target(equipmentMenu);
 			screenCheck.Transition().Condition(IsCurrentScreen<PlayerSkinScreenPresenter>).Target(heroesMenu);
 			screenCheck.Transition().OnTransition(InvalidScreen).Target(final);
 			
@@ -145,8 +149,9 @@ namespace FirstLight.Game.StateMachines
 			homeMenu.Event(_battlePassClickedEvent).Target(battlePass);
 			homeMenu.Event(_storeClickedEvent).Target(store);
 
-			playClickedCheck.Transition().Condition(EnoughNftToPlay).OnTransition(SendPlayReadyMessage).Target(roomWait);
-			playClickedCheck.Transition().Target(nftPlayRestricted);
+			playClickedCheck.Transition().Condition(LoadoutCountCheckToPlay).Target(loadoutRestricted);
+			playClickedCheck.Transition().Condition(CheckItemsBroken).Target(brokenItems);
+			playClickedCheck.Transition().OnTransition(SendPlayReadyMessage).Target(roomWait);
 
 			roomWait.OnEnter(CloseCurrentScreen);
 			roomWait.Event(NetworkState.JoinedRoomEvent).Target(final);
@@ -165,11 +170,13 @@ namespace FirstLight.Game.StateMachines
 
 			enterNameDialog.Nest(_enterNameState.Setup).Target(homeMenu);
 			
-			nftPlayRestricted.WaitingFor(OpenNftAmountInvalidDialog).Target(homeMenu);
+			brokenItems.WaitingFor(OpenBrokenItemsPopUp).Target(homeMenu);
+			
+			loadoutRestricted.WaitingFor(OpenItemsAmountInvalidDialog).Target(homeMenu);
 
 			settingsMenu.Nest(_settingsMenuState.Setup).Target(homeMenu);
 			
-			lootMenu.Nest(_equipmentMenuState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
+			equipmentMenu.Nest(_equipmentMenuState.Setup).OnTransition(SetCurrentScreen<HomeScreenPresenter>).Target(screenCheck);
 
 			heroesMenu.OnEnter(OpenPlayerSkinScreenUI);
 
@@ -179,7 +186,7 @@ namespace FirstLight.Game.StateMachines
 			roomJoinCreateMenu.Event(NetworkState.JoinRoomFailedEvent).Target(chooseGameMode);
 			roomJoinCreateMenu.Event(NetworkState.CreateRoomFailedEvent).Target(chooseGameMode);
 		}
-		
+
 		private bool HasDefaultName()
 		{
 			return _gameDataProvider.AppDataProvider.DisplayNameTrimmed == GameConstants.PlayerName.DEFAULT_PLAYER_NAME ||
@@ -232,10 +239,17 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Publish(new PlayMatchmakingReadyMessage());
 		}
 		
-		private bool EnoughNftToPlay()
+		private bool LoadoutCountCheckToPlay()
 		{
-			return _services.GameModeService.SelectedGameMode.Value.Entry.MatchType == MatchType.Casual
-				|| _gameDataProvider.EquipmentDataProvider.EnoughLoadoutEquippedToPlay();
+			return _services.GameModeService.SelectedGameMode.Value.Entry.MatchType != MatchType.Casual
+				&& !_gameDataProvider.EquipmentDataProvider.EnoughLoadoutEquippedToPlay();
+		}
+
+		private bool CheckItemsBroken()
+		{
+			var infos = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Unbroken);
+
+			return infos.Count != _gameDataProvider.EquipmentDataProvider.Loadout.Count;
 		}
 
 		private bool IsCurrentScreen<T>() where T : UiPresenter
@@ -243,7 +257,27 @@ namespace FirstLight.Game.StateMachines
 			return _currentScreen == typeof(T);
 		}
 
-		private void OpenNftAmountInvalidDialog(IWaitActivity activity)
+		private void OpenBrokenItemsPopUp(IWaitActivity activity)
+		{
+			var infos = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All);
+			var loadout = new Dictionary<GameIdGroup, UniqueId>();
+
+			foreach (var info in infos)
+			{
+				if (!info.IsBroken)
+				{
+					loadout.Add(info.Equipment.GameId.GetSlot(), info.Id);
+				}
+			}
+			
+			_services.CommandService.ExecuteCommand(new UpdateLoadoutCommand {SlotsToUpdate = loadout});
+			
+			// TODO: Miha add here the correct pop up
+
+			activity.Complete();
+		}
+
+		private void OpenItemsAmountInvalidDialog(IWaitActivity activity)
 		{
 			var cacheActivity = activity;
 

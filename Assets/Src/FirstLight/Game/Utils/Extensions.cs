@@ -10,6 +10,7 @@ using FirstLight.Game.Infos;
 using FirstLight.Game.Input;
 using FirstLight.Game.UIElements;
 using I2.Loc;
+using Photon.Deterministic;
 using Photon.Realtime;
 using Quantum;
 using UnityEngine;

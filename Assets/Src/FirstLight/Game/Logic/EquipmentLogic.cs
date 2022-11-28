@@ -16,9 +16,11 @@ namespace FirstLight.Game.Logic
 {
 	public enum EquipmentFilter
 	{
-		Both,
+		All,
 		NftOnly,
-		NoNftOnly
+		NoNftOnly,
+		Broken,
+		Unbroken
 	}
 	
 	/// <summary>
@@ -62,12 +64,6 @@ namespace FirstLight.Game.Logic
 		EquipmentInfo GetInfo(UniqueId id);
 
 		/// <summary>
-		/// Requests the <see cref="NftEquipmentInfo"/> for the given <paramref name="id"/>
-		/// </summary>
-		/// <exception cref="LogicException"> Thrown when the given <paramref name="id"/> is not of a NFT equipment type </exception>
-		NftEquipmentInfo GetNftInfo(UniqueId id);
-
-		/// <summary>
 		/// Requests the <see cref="EquipmentInfo"/> for the given <paramref name="id"/>
 		/// </summary>
 		bool TryGetNftInfo(UniqueId id, out NftEquipmentInfo nftEquipmentInfo);
@@ -81,11 +77,6 @@ namespace FirstLight.Game.Logic
 		/// Requests the <see cref="EquipmentInfo"/> for all the inventory with the given <paramref name="filter"/>
 		/// </summary>
 		List<EquipmentInfo> GetInventoryEquipmentInfo(EquipmentFilter filter);
-
-		/// <summary>
-		/// Request the stats a specific piece of equipment has
-		/// </summary>
-		Dictionary<EquipmentStatType, float> GetEquipmentStats(Equipment equipment);
 
 		/// <summary>
 		/// Requests to see if player has enough NFTs equipped for play
@@ -193,8 +184,11 @@ namespace FirstLight.Game.Logic
 		public Pair<GameId, uint> GetRepairCost(Equipment equipment, bool isNft)
 		{
 			var resourceType = isNft ? GameId.CS : GameId.COIN;
-			var restoredAmount = (double) (equipment.MaxDurability - equipment.Durability);
 			var config = GameLogic.ConfigsProvider.GetConfig<RepairDataConfig>((int) resourceType);
+			var durability =
+				equipment.GetCurrentDurability(isNft, GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>(),
+				                               GameLogic.TimeService.DateTimeUtcNow.Ticks);
+			var restoredAmount = (double) (equipment.MaxDurability - durability);
 			var cost =
 				Math.Pow((int) equipment.TotalRestoredDurability * config.DurabilityCostIncreasePerPoint.AsDouble * restoredAmount,
 				         config.BasePower.AsDouble) * (int) config.BaseRepairCost;
@@ -206,6 +200,9 @@ namespace FirstLight.Game.Logic
 		{
 			var equipment = _inventory[id];
 			var isNft = _nftInventory.ContainsKey(id);
+			var durability =
+				equipment.GetCurrentDurability(isNft, GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>(),
+				                               GameLogic.TimeService.DateTimeUtcNow.Ticks);
 			
 			return new EquipmentInfo
 			{
@@ -214,20 +211,11 @@ namespace FirstLight.Game.Logic
 				ScrappingValue = GetScrappingReward(equipment, isNft),
 				UpgradeCost = GetUpgradeCost(equipment, isNft),
 				RepairCost = GetRepairCost(equipment, isNft),
+				CurrentDurability = durability,
 				IsNft = isNft,
 				IsEquipped = _loadout.TryGetValue(equipment.GameId.GetSlot(), out var equipId) && equipId == id,
-				Stats = GetEquipmentStats(equipment)
+				Stats = equipment.GetStats(GameLogic.ConfigsProvider)
 			};
-		}
-
-		public NftEquipmentInfo GetNftInfo(UniqueId id)
-		{
-			if (!TryGetNftInfo(id, out var info))
-			{
-				throw new LogicException($"The given '{id}' id is not an equipment of NFT type");
-			}
-
-			return info;
 		}
 
 		public bool TryGetNftInfo(UniqueId id, out NftEquipmentInfo nftEquipmentInfo)
@@ -252,12 +240,22 @@ namespace FirstLight.Game.Logic
 		public List<EquipmentInfo> GetLoadoutEquipmentInfo(EquipmentFilter filter)
 		{
 			var ret = new List<EquipmentInfo>();
+			var config = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
+			var timestamp = GameLogic.TimeService.DateTimeUtcNow.Ticks;
 
 			foreach (var (slot, id) in _loadout)
 			{
-				var contains = Data.NftInventory.ContainsKey(id);
+				var contains = _nftInventory.ContainsKey(id);
 				
 				if (filter == EquipmentFilter.NftOnly && !contains || filter == EquipmentFilter.NoNftOnly && contains)
+				{
+					continue;
+				}
+
+				var durability = _inventory[id].GetCurrentDurability(contains, config, timestamp);
+
+				if (filter == EquipmentFilter.Broken && durability > 0 ||
+				    filter == EquipmentFilter.Unbroken && durability == 0)
 				{
 					continue;
 				}
@@ -271,12 +269,22 @@ namespace FirstLight.Game.Logic
 		public List<EquipmentInfo> GetInventoryEquipmentInfo(EquipmentFilter filter)
 		{
 			var ret = new List<EquipmentInfo>();
+			var config = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
+			var timestamp = GameLogic.TimeService.DateTimeUtcNow.Ticks;
 
 			foreach (var (id, equipment) in _inventory)
 			{
-				var contains = Data.NftInventory.ContainsKey(id);
+				var contains = _nftInventory.ContainsKey(id);
 				
 				if (filter == EquipmentFilter.NftOnly && !contains || filter == EquipmentFilter.NoNftOnly && contains)
+				{
+					continue;
+				}
+
+				var durability = _inventory[id].GetCurrentDurability(contains, config, timestamp);
+
+				if (filter == EquipmentFilter.Broken && durability > 0 ||
+				    filter == EquipmentFilter.Unbroken && durability == 0)
 				{
 					continue;
 				}
@@ -285,11 +293,6 @@ namespace FirstLight.Game.Logic
 			}
 
 			return ret;
-		}
-
-		public Dictionary<EquipmentStatType, float> GetEquipmentStats(Equipment equipment)
-		{
-			return equipment.GetStats(GameLogic.ConfigsProvider);
 		}
 
 		public bool EnoughLoadoutEquippedToPlay()
@@ -317,21 +320,20 @@ namespace FirstLight.Game.Logic
 			var edition = config.Edition.Keys.ElementAt(GetWeightedRandomDictionaryIndex(config.Edition));
 			var maxDurability = (uint) GameLogic.RngLogic.Range(config.MaxDurability.Key, config.MaxDurability.Value);
 			
-			return new Equipment(gameId,
-			                             rarity: rarity,
-			                             adjective: adjective,
-			                             grade: grade, 
-			                             faction: faction,
-			                             material: material,
-			                             edition: edition,
-			                             maxDurability: maxDurability,
-			                             durability: maxDurability,
-			                             level: config.Level,
-			                             generation: config.Generation,
-			                             tuning: config.Tuning,
-			                             initialReplicationCounter: config.InitialReplicationCounter,
-			                             replicationCounter: config.InitialReplicationCounter
-			                            );
+			return new Equipment(gameId: gameId,
+			                     rarity: rarity,
+			                     adjective: adjective,
+			                     grade: grade, 
+			                     faction: faction,
+			                     material: material,
+			                     edition: edition,
+			                     maxDurability: maxDurability,
+			                     level: config.Level,
+			                     generation: config.Generation,
+			                     tuning: config.Tuning,
+			                     initialReplicationCounter: config.InitialReplicationCounter,
+			                     replicationCounter: config.InitialReplicationCounter,
+			                     lastRepairTimestamp: DateTime.UtcNow.Ticks);
 		}
 
 		public UniqueId AddToInventory(Equipment equipment)
@@ -374,18 +376,16 @@ namespace FirstLight.Game.Logic
 		{
 			var gameId = GameLogic.UniqueIdLogic.Ids[itemId];
 			var slot = gameId.GetSlot();
+			var config = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
 
 			if (!Inventory.TryGetValue(itemId, out var equipment))
 			{
 				throw new LogicException($"The player does not own item '{itemId}'");
 			}
 			
-			if (NftInventory.TryGetValue(itemId, out var nftData))
+			if (equipment.GetCurrentDurability(NftInventory.ContainsKey(itemId), config, GameLogic.TimeService.DateTimeUtcNow.Ticks) == 0)
 			{
-				if (equipment.IsBroken(nftData))
-				{
-					throw new LogicException($"Item '{itemId}' is broken");
-				}
+				throw new LogicException($"Item '{itemId}' is broken");
 			}
 
 			if (_loadout.TryGetValue(slot, out var equippedId))
@@ -454,19 +454,21 @@ namespace FirstLight.Game.Logic
 		public void Repair(UniqueId itemId)
 		{
 			var equipment = _inventory[itemId];
+			var config = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
+			var durability = equipment.GetCurrentDurability(false, config, GameLogic.TimeService.DateTimeUtcNow.Ticks);
 
 			if (_nftInventory.ContainsKey(itemId))
 			{
 				throw new LogicException($"Not allowed to scrap NFT items on the client, only on the hub and {itemId} is a NFT");
 			}
 			
-			if (equipment.Durability == equipment.MaxDurability)
+			if (durability == equipment.MaxDurability)
 			{
 				throw new LogicException($"Item {itemId} is already fully repaired");
 			}
 
-			equipment.TotalRestoredDurability += equipment.MaxDurability - equipment.Durability;
-			equipment.Durability = equipment.MaxDurability;
+			equipment.TotalRestoredDurability += equipment.MaxDurability - durability;
+			equipment.LastRepairTimestamp = GameLogic.TimeService.DateTimeUtcNow.Ticks;
 
 			_inventory[itemId] = equipment;
 		}
@@ -506,7 +508,6 @@ namespace FirstLight.Game.Logic
 				throw new LogicException($"The given '{equipment}' id is not in the inventory");
 			}
 
-			// Unequip the item before removing it from inventory
 			var gameId = GameLogic.UniqueIdLogic.Ids[equipment];
 			var slot = gameId.GetSlot();
 

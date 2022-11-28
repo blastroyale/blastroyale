@@ -210,9 +210,9 @@ namespace Quantum
 			}
 
 			var targetSlot = WeaponSlots.GetPointer(slot);
-			targetSlot->MagazineShotCount = weaponConfig.MagazineSize;
-			targetSlot->ReloadTime = weaponConfig.ReloadTime;
-			targetSlot->MagazineSize = weaponConfig.MagazineSize;
+			WeaponSlot[slot].MagazineShotCount = weaponConfig.MagazineSize;
+			WeaponSlot[slot].ReloadTime = weaponConfig.ReloadTime;
+			WeaponSlot[slot].MagazineSize = weaponConfig.MagazineSize;
 
 			WeaponSlots[slot].Weapon = weapon;
 			GainAmmo(f, e, initialAmmo - GetAmmoAmountFilled(f, e));
@@ -434,10 +434,11 @@ namespace Quantum
 		/// </summary>
 		internal void ReduceAmmo(Frame f, EntityRef e, uint amount)
 		{
+			var slot = WeaponSlot;
 			//melee weapons should use the magazine
-			if (WeaponSlot->MagazineSize > 0 && WeaponSlot->MagazineShotCount > 0)
+			if (slot->MagazineSize > 0 && slot->MagazineShotCount > 0)
 			{
-				WeaponSlot->MagazineShotCount -= 1;
+				slot->MagazineShotCount -= 1;
 			}
 
 			// Do not do reduce for melee weapons or if your weapon is empty
@@ -452,7 +453,7 @@ namespace Quantum
 			var finalAmmoFilled = FPMath.Max(GetAmmoAmountFilled(f, e) - ((FP._1 / maxAmmo) * amount), FP._0);
 
 			f.Unsafe.GetPointer<AIBlackboardComponent>(e)->Set(f, Constants.AmmoFilledKey, finalAmmoFilled);
-			f.Events.OnPlayerAmmoChanged(Player, e, ammo, currentAmmo, maxAmmo, finalAmmoFilled, WeaponSlot->MagazineSize); 
+			f.Events.OnPlayerAmmoChanged(Player, e, ammo, currentAmmo, maxAmmo, finalAmmoFilled, slot->MagazineSize); 
 		}
 
 		/// <summary>

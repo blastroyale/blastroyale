@@ -13,8 +13,8 @@ namespace Quantum
 		public unsafe override void Update(Frame f, EntityRef e, ref AIContext aiContext)
 		{
 			//do the reload here
-			var pc = f.Unsafe.GetPointer<PlayerCharacter>(e);
-			pc->WeaponSlots.GetPointer(pc->CurrentWeaponSlot)->MagazineShotCount = pc->WeaponSlots.GetPointer(pc->CurrentWeaponSlot)->MagazineSize;
+			var slot = f.Unsafe.GetPointer<PlayerCharacter>(e)->WeaponSlot;
+			slot->MagazineShotCount = slot->MagazineSize;
 		}
 	}
 }

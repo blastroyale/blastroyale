@@ -117,7 +117,7 @@ namespace FirstLight.Tests.EditorMode.Integration
 
 			Assert.AreEqual(0, data.Currencies[cost.Key]);
 			Assert.AreEqual(equip.MaxDurability, info.CurrentDurability);
-			Assert.That(info.Equipment.LastRepairTimestamp, Is.EqualTo(TestLogic.TimeService.DateTimeUtcNow.Ticks).Within(10000));
+			Assert.That(info.Equipment.LastRepairTimestamp, Is.EqualTo(TestLogic.TimeService.DateTimeUtcNow.Ticks).Within(TimeSpan.TicksPerSecond * 3));
 		}
 	}
 }

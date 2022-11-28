@@ -320,21 +320,20 @@ namespace FirstLight.Game.Logic
 			var edition = config.Edition.Keys.ElementAt(GetWeightedRandomDictionaryIndex(config.Edition));
 			var maxDurability = (uint) GameLogic.RngLogic.Range(config.MaxDurability.Key, config.MaxDurability.Value);
 			
-			return new Equipment(gameId,
-			                             rarity: rarity,
-			                             adjective: adjective,
-			                             grade: grade, 
-			                             faction: faction,
-			                             material: material,
-			                             edition: edition,
-			                             maxDurability: maxDurability,
-			                             lastRepairTimestamp: 0,
-			                             level: config.Level,
-			                             generation: config.Generation,
-			                             tuning: config.Tuning,
-			                             initialReplicationCounter: config.InitialReplicationCounter,
-			                             replicationCounter: config.InitialReplicationCounter
-			                            );
+			return new Equipment(gameId: gameId,
+			                     rarity: rarity,
+			                     adjective: adjective,
+			                     grade: grade, 
+			                     faction: faction,
+			                     material: material,
+			                     edition: edition,
+			                     maxDurability: maxDurability,
+			                     level: config.Level,
+			                     generation: config.Generation,
+			                     tuning: config.Tuning,
+			                     initialReplicationCounter: config.InitialReplicationCounter,
+			                     replicationCounter: config.InitialReplicationCounter,
+			                     lastRepairTimestamp: DateTime.UtcNow.Ticks);
 		}
 
 		public UniqueId AddToInventory(Equipment equipment)

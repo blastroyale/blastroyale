@@ -274,6 +274,7 @@ MonoBehaviour:
   - {fileID: 2120427830526508390}
   - {fileID: 3389746616581589617}
   _weaponSlotsHolder: {fileID: 194285906115883893}
+  _gunSwitchButton: {fileID: 512187332771914931}
 --- !u!114 &1027417033953710780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -411,7 +412,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 467, y: 744}
+  m_AnchoredPosition: {x: 500, y: 680}
   m_SizeDelta: {x: 146.44952, y: 165}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1187575380498670375

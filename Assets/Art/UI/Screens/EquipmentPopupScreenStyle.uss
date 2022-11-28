@@ -13,18 +13,20 @@
     font-size: 38px;
 }
 
+.equipment-popup--full-page .equipment-popup__card-holder {
+    display: none;
+}
+
+.equipment-popup--full-page .equipment-popup__content {
+    left: 0;
+}
+
 .equipment-popup__title {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/PopupHeadlineBack.png?fileID=21300000&guid=ff3c23692f55f40659654f6bd236c6cd&type=3#PopupHeadlineBack');
     -unity-text-align: middle-center;
     height: 86px;
-    margin-right: 0;
-    margin-left: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-left: 20px;
-    padding-right: 120px;
-    padding-top: 0;
-    padding-bottom: 0;
+    margin: 0;
+    padding: 0 120px 0 20px;
 }
 
 .equipment-popup__close {
@@ -106,10 +108,7 @@
     background-color: rgb(23, 20, 38);
     width: 369px;
     height: 130px;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-radius: 10px;
     flex-direction: row;
     align-items: center;
     justify-content: center;
@@ -125,6 +124,7 @@
 }
 
 .equipment-popup__bh-holder {
+    display: none;
     color: rgb(148, 140, 197);
     flex-direction: row;
     align-items: center;
@@ -142,22 +142,11 @@
     margin-left: 39px;
 }
 
-.button-yellow {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/MainButton.png?fileID=21300000&guid=612390a1cd22a4403b85c7fb5cb7c4d1&type=3#MainButton');
-    width: 306px;
-    height: 88px;
-}
-
-.button-yellow:active {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/MainButtonPressed.png?fileID=21300000&guid=b81a6025b90aa4f9ab75bc05486c2882&type=3#MainButtonPressed');
+.content-scrapping {
 }
 
 .content-scrapping__button {
     margin-top: 85px;
-}
-
-.content-repairing__durability {
-    width: 610px;
 }
 
 .content-repairing {
@@ -165,6 +154,10 @@
     justify-content: space-between;
     padding-bottom: 30px;
     padding-top: 182px;
+}
+
+.content-repairing__durability {
+    width: 610px;
 }
 
 .content-upgrading {
@@ -197,4 +190,53 @@
 
 .content-upgrading__stats-list .unity-list-view__item:hover {
     background-color: rgba(0, 0, 0, 0);
+}
+
+.content-rusted {
+    justify-content: space-between;
+    padding-top: 66px;
+    padding-bottom: 25px;
+    -unity-text-align: upper-center;
+    padding-left: 42px;
+    padding-right: 42px;
+}
+
+.content-rusted__scrollview {
+    height: 333px;
+}
+
+.content-rusted__scrollview .unity-scroll-view__content-viewport {
+    align-items: center;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 0;
+    padding-bottom: 15px;
+    flex-direction: column;
+}
+
+.content-rusted__bottom-holder {
+    height: 124px;
+}
+
+.content-rusted__hub-logo {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/BlastHubLogo.png?fileID=21300000&guid=6ae296c811996471796b156699805c8f&type=3#BlastHubLogo');
+    width: 260px;
+    height: 52px;
+    position: absolute;
+    left: 9px;
+    bottom: 12px;
+}
+
+.content-rusted__button {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 0;
+}
+
+.content-rusted__button--got-it {
+    right: 50px;
+}
+
+.content-rusted__button--go-repair {
+    right: 385px;
 }

@@ -115,7 +115,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new EquipmentPopupPresenter.StateData
 			{
-				EquipmentId = _uiService.GetUi<EquipmentSelectionPresenter>().SelectedItem,
+				EquipmentIds = new[] {_uiService.GetUi<EquipmentSelectionPresenter>().SelectedItem},
 				PopupMode = mode,
 				OnActionConfirmed = OnPopupActionConfirmed,
 				OnCloseClicked = () => _statechartTrigger(_closeButtonClickedEvent)
@@ -142,7 +142,7 @@ namespace FirstLight.Game.StateMachines
 				default:
 					throw new ArgumentOutOfRangeException(nameof(mode), mode, null);
 			}
-			
+
 			_uiService.GetUi<EquipmentSelectionPresenter>().RefreshItems(!sameItem);
 
 			_statechartTrigger(_itemProcessedEvent);

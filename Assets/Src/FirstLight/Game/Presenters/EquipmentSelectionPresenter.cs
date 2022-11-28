@@ -161,7 +161,7 @@ namespace FirstLight.Game.Presenters
 		{
 			UpdateEquipmentList(resetSelected);
 			UpdateEquipmentDetails();
-			UpdateEquipButton();
+			UpdateEquipButtonText();
 			UpdateMight(false);
 		}
 
@@ -173,7 +173,7 @@ namespace FirstLight.Game.Presenters
 
 			if (previousItem != UniqueId.Invalid) _equipmentList.RefreshItem(_itemRowMap[previousItem]);
 			if (_equippedItem != UniqueId.Invalid) _equipmentList.RefreshItem(_itemRowMap[_equippedItem]);
-			UpdateEquipButton();
+			UpdateEquipButtonText();
 			UpdateMight();
 		}
 
@@ -312,6 +312,9 @@ namespace FirstLight.Game.Presenters
 			_upgradeButton.SetEnabled(!info.Equipment.IsMaxLevel());
 			_repairButton.SetPrice(info.RepairCost, !HasEnoughCurrency(info.RepairCost));
 			_repairButton.SetEnabled(info.CurrentDurability < info.Equipment.MaxDurability);
+			
+			// Equip Button
+			_equipButton.SetEnabled(!info.IsBroken);
 
 			// Icon
 			_equipmentIcon.style.backgroundImage = new StyleBackground(
@@ -327,7 +330,7 @@ namespace FirstLight.Game.Presenters
 			return cost.Value <= _gameDataProvider.CurrencyDataProvider.GetCurrencyAmount(cost.Key);
 		}
 
-		private void UpdateEquipButton()
+		private void UpdateEquipButtonText()
 		{
 			_equipButton.text = _equippedItem == SelectedItem
 				? ScriptLocalization.UITEquipment.unequip
@@ -437,7 +440,7 @@ namespace FirstLight.Game.Presenters
 
 			_equipmentList.RefreshItem(_itemRowMap[previousItem]);
 			_equipmentList.RefreshItem(_itemRowMap[SelectedItem]);
-			UpdateEquipButton();
+			UpdateEquipButtonText();
 		}
 
 		private void OnEquipClicked()

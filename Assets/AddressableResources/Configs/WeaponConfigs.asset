@@ -475,7 +475,7 @@ MonoBehaviour:
         Values: 240000000c000000
       MagazineSize: 1
       ReloadTime:
-        RawValue: 16384
+        RawValue: 32768
       AimingMovementSpeed:
         RawValue: 32768
       TapCooldown:

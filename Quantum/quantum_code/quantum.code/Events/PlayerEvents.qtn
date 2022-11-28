@@ -88,7 +88,6 @@ synced event OnPlayerWeaponChanged
 	entity_ref Entity;
 	Equipment Weapon;
 	Int32 Slot;
-	FP ReloadTime;
 }
 
 synced event OnPlayerGearChanged
@@ -219,7 +218,6 @@ synced event OnLocalPlayerWeaponChanged
 	entity_ref Entity;
 	WeaponSlot WeaponSlot;
 	Int32 Slot;
-	FP ReloadTime;
 }
 
 synced event OnLocalPlayerSpecialUsed

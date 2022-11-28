@@ -122,3 +122,7 @@ MonoBehaviour:
       MultiKillResetTime:
         RawValue: 262144
       BotsMaxDifficulty: 5
+      NftDurabilityDropDays:
+        RawValue: 458752
+      NonNftDurabilityDropDays:
+        RawValue: 458752

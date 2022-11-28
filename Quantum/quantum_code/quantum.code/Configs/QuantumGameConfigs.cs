@@ -45,6 +45,8 @@ namespace Quantum
 		public FP AirdropHeight;
 		public FP MultiKillResetTime;
 		public int BotsMaxDifficulty;
+		public FP NftDurabilityDropDays;
+		public FP NonNftDurabilityDropDays;
 	}
 
 	/// <summary>

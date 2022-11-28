@@ -1,3 +1,4 @@
+using FirstLight.Game.Utils;
 using FirstLight.Services;
 using Quantum;
 using Sirenix.OdinInspector;
@@ -62,13 +63,13 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void HandleOnPlayerAmmoChanged(EventOnPlayerAmmoChanged callback)
 		{
-			if (callback.Entity != _entity)
+			var f = callback.Game.Frames.Verified;
+
+			if (callback.Entity != _entity || !f.TryGet<PlayerCharacter>(callback.Entity, out var player))
 			{
 				return;
 			}
 
-			var f = callback.Game.Frames.Verified;
-			var player = f.Get<PlayerCharacter>(callback.Entity);
 			if (_reloadAnim != null)
 			{
 				StopCoroutine(_reloadAnim);
@@ -79,13 +80,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void HandleOnPlayerStopAttack(EventOnPlayerStopAttack callback)
 		{
-			if (callback.PlayerEntity != _entity)
+			var f = callback.Game.Frames.Verified;
+			if (callback.PlayerEntity != _entity || !f.TryGet<PlayerCharacter>(callback.PlayerEntity, out var player))
 			{
 				return;
 			}
-
-			var f = callback.Game.Frames.Verified;
-			var player = f.Get<PlayerCharacter>(callback.PlayerEntity);
 
 			if (_reloadAnim != null)
 			{
@@ -96,18 +95,18 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void SetSliderValue(Frame f, PlayerCharacter player)
 		{
-			var magShotCount = player.WeaponSlots[player.CurrentWeaponSlot].MagazineShotCount;
-			var magSize = player.WeaponSlots[player.CurrentWeaponSlot].MagazineSize;
-			_slider.value = (float)magShotCount / magSize;
+			var slot = player.WeaponSlots[player.CurrentWeaponSlot];
+			_slider.value = (float)slot.MagazineShotCount / slot.MagazineSize;
 			_reloadTimeSlider.value = 0;
 			_reloadTimeSlider.gameObject.SetActive(false);
 		}
 
 		IEnumerator ReloadAnimation(Frame f, PlayerCharacter player)
 		{
-			var magShotCount = player.WeaponSlots[player.CurrentWeaponSlot].MagazineShotCount;
-			var magSize = player.WeaponSlots[player.CurrentWeaponSlot].MagazineSize;
-			var reloadTime = player.WeaponSlots[player.CurrentWeaponSlot].ReloadTime.AsFloat;
+			var slot = player.WeaponSlots[player.CurrentWeaponSlot];
+			var magShotCount = slot.MagazineShotCount;
+			var magSize = slot.MagazineSize;
+			var reloadTime = slot.ReloadTime.AsFloat;
 
 			if (magShotCount == magSize || magShotCount < 0 || reloadTime == 0)
 			{

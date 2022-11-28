@@ -13,15 +13,14 @@ namespace Quantum
 		public unsafe override void Update(Frame f, EntityRef e, ref AIContext aiContext)
 		{
 			//do the reload here
-			var pc = f.Unsafe.GetPointer<PlayerCharacter>(e);
+			var slot = f.Unsafe.GetPointer<PlayerCharacter>(e)->WeaponSlot;
 			var stats = f.Unsafe.GetPointer<Stats>(e);
-			var currentWeapon =* pc->WeaponSlots.GetPointer(pc->CurrentWeaponSlot);
-			var diff = currentWeapon.MagazineSize - currentWeapon.MagazineShotCount;
-			var ammoCost = (stats->GetStatData(StatType.AmmoCapacity).BaseValue / f.WeaponConfigs.GetConfig(pc->CurrentWeapon.GameId).MaxAmmo.Get(f)).AsInt;
+			var diff = slot->MagazineSize - slot->MagazineShotCount;
+			var ammoCost = (stats->GetStatData(StatType.AmmoCapacity).BaseValue / f.WeaponConfigs.GetConfig(slot->Weapon.GameId).MaxAmmo.Get(f)).AsInt;
 			stats->ReduceAmmo(f, e, diff * ammoCost);
 			if(stats->CurrentAmmo > 0)
 			{
-				pc->WeaponSlots.GetPointer(pc->CurrentWeaponSlot)->MagazineShotCount += diff;
+				slot->MagazineShotCount += diff;
 			}
 			
 		}

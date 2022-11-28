@@ -18,6 +18,11 @@ namespace Quantum
 		/// An invalid piece of equipment
 		/// </summary>
 		public static Equipment None => new Equipment();
+		
+		/// <summary>
+		/// The default equipment weapon <see cref="GameId"/>
+		/// </summary>
+		public static GameId DefaultWeapon => GameId.Hammer;
 
 		/// <summary>
 		/// Requests the list of <see cref="GameIdGroup"/> slots ready to be equipped

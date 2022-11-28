@@ -126,11 +126,17 @@ public partial class SROptions
 
 		for (var i = 0; i < equipmentConfigs.Count; i++)
 		{
+			if (equipmentConfigs[i].Id == Equipment.DefaultWeapon)
+			{
+				continue;
+			}
+			
 			gameLogic.EquipmentLogic.AddToInventory(new Equipment(equipmentConfigs[i].Id,
 			                                                      rarity: EquipmentRarity.Epic,
 			                                                      adjective: EquipmentAdjective.Exquisite,
 			                                                      grade: EquipmentGrade.GradeIII, maxDurability:100,
-			                                                      level: 3));
+			                                                      level: 3, 
+			                                                      lastRepairTimestamp: DateTime.UtcNow.Ticks));
 		}
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();

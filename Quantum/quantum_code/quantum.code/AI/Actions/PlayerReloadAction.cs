@@ -21,8 +21,8 @@ namespace Quantum
 			if(stats->CurrentAmmo > 0)
 			{
 				slot->MagazineShotCount += diff;
+				f.Events.OnPlayerMagazineReloaded(f.Unsafe.GetPointer<PlayerCharacter>(e)->Player, e, slot->Weapon);
 			}
-			
 		}
 	}
 }

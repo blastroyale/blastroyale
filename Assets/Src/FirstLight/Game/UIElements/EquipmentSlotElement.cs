@@ -194,11 +194,11 @@ namespace FirstLight.Game.UIElements
 
 			_durabilityProgress.style.flexGrow = (float) info.CurrentDurability / equipment.MaxDurability;
 
-			_plusRarity.SetDisplayActive((int) equipment.Rarity % 2 == 1);
+				_plusRarity.SetDisplay((int) equipment.Rarity % 2 == 1);
 
-			_badgeNft.SetDisplayActive(info.IsNft);
-			_badgeLoaned.SetDisplayActive(loaned);
-			_notificationIcon.SetDisplayActive(notification);
+				_badgeNft.SetDisplay(info.IsNft);
+				_badgeLoaned.SetDisplay(loaned);
+				_notificationIcon.SetDisplay(notification);
 
 			// TODO: This should be handled better.
 			var services = MainInstaller.Resolve<IGameServices>();

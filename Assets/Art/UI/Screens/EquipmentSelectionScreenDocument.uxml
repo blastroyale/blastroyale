@@ -36,9 +36,12 @@
                 <ui:VisualElement class="stats-list-holder anim-delay-2 anim-translate anim-translate--left-xxl">
                     <ui:ListView name="StatsList" fixed-item-height="80" selection-type="None" show-bound-collection-size="false" horizontal-scrolling="false" class="stats-list" />
                 </ui:VisualElement>
-                <ui:Instance template="EquipmentDurability" name="EquipmentDurability" />
+                <ui:Instance template="EquipmentDurability" name="EquipmentDurability" class="anim-delay-1 anim-translate anim-translate--left-xxl" />
                 <ui:VisualElement name="ButtonsHolder" class="details__buttons-holder anim-delay-0 anim-translate anim-translate--left-xxl">
-                    <ui:Button text="EQUIP" name="EquipButton" class="button-long" />
+                    <FirstLight.Game.UIElements.LocalizedButton localization-key="UITEquipment/scrap" name="ScrapButton" class="button-long" />
+                    <FirstLight.Game.UIElements.LocalizedButton localization-key="UITEquipment/upgrade" name="UpgradeButton" class="button-long" />
+                    <FirstLight.Game.UIElements.LocalizedButton localization-key="UITEquipment/repair" name="RepairButton" class="button-long" />
+                    <FirstLight.Game.UIElements.LocalizedButton localization-key="UITEquipment/equip" name="EquipButton" class="button-long button-long--yellow" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>

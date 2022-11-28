@@ -175,10 +175,10 @@ namespace FirstLight.Game.UIElements
 		{
 			Assert.IsTrue(equipment.IsValid());
 
-			_loanedBadge.SetDisplayActive(loaned);
-			_nftBadge.SetDisplayActive(nft);
-			_equippedBadge.SetDisplayActive(equipped);
-			_notification.SetDisplayActive(notification);
+			_loanedBadge.SetDisplay(loaned);
+			_nftBadge.SetDisplay(nft);
+			_equippedBadge.SetDisplay(equipped);
+			_notification.SetDisplay(notification);
 
 			if (id == UniqueId) return;
 
@@ -189,7 +189,7 @@ namespace FirstLight.Game.UIElements
 			_rarity.AddToClassList(UssRarityModifier +
 				equipment.Rarity.ToString().Replace("Plus", "").ToLowerInvariant());
 
-			_plusRarity.SetDisplayActive((int) equipment.Rarity % 2 == 1);
+			_plusRarity.SetDisplay((int) equipment.Rarity % 2 == 1);
 
 			_grade.text = equipment.Grade.ToString().Replace("Grade", "");
 

@@ -42,7 +42,12 @@ namespace FirstLight.Game.Presenters
 			public GameIdGroup EquipmentSlot;
 			public Action OnCloseClicked;
 			public Action OnBackClicked;
+			public Action OnScrapClicked;
+			public Action OnUpgradeClicked;
+			public Action OnRepairClicked;
 		}
+		
+		public UniqueId SelectedItem { get; private set; }
 
 		private ScreenHeaderElement _header;
 		private ListView _equipmentList;
@@ -55,7 +60,11 @@ namespace FirstLight.Game.Presenters
 		private ListView _statsList;
 		private VisualElement _durabilityBar;
 		private Label _durabilityAmount;
+		
 		private Button _equipButton;
+		private Button _scrapButton;
+		private Button _upgradeButton;
+		private Button _repairButton;
 
 		private VisualElement _cooldownTag;
 		private VisualElement _rarityTag;
@@ -72,7 +81,6 @@ namespace FirstLight.Game.Presenters
 		private Tweener _mightTweener;
 		private float _currentMight;
 
-		private UniqueId _selectedItem;
 		private UniqueId _equippedItem;
 
 		private void Awake()
@@ -107,9 +115,16 @@ namespace FirstLight.Game.Presenters
 
 			_durabilityBar = root.Q("DurabilityProgress").Required();
 			_durabilityAmount = root.Q<Label>("DurabilityAmount").Required();
+			
 			_equipButton = root.Q<Button>("EquipButton").Required();
+			_scrapButton = root.Q<Button>("ScrapButton").Required();
+			_upgradeButton = root.Q<Button>("UpgradeButton").Required();
+			_repairButton = root.Q<Button>("RepairButton").Required();
 
 			_equipButton.clicked += OnEquipClicked;
+			_scrapButton.clicked += Data.OnScrapClicked;
+			_upgradeButton.clicked += Data.OnUpgradeClicked;
+			_repairButton.clicked += Data.OnRepairClicked;
 
 			_equipmentList.makeItem = MakeEquipmentListItem;
 			_equipmentList.bindItem = BindEquipmentListItem;
@@ -195,16 +210,16 @@ namespace FirstLight.Game.Presenters
 			if (_equipmentListRows.Count == 0)
 			{
 				_missingEquipment.style.display = DisplayStyle.Flex;
-				_selectedItem = UniqueId.Invalid;
+				SelectedItem = UniqueId.Invalid;
 			}
 			else
 			{
 				_missingEquipment.style.display = DisplayStyle.None;
-				_selectedItem = _equipmentListRows[0].Item1.UniqueId;
+				SelectedItem = _equipmentListRows[0].Item1.UniqueId;
 				_equipmentList.ScrollToItem(0);
 
 				// Set the first item as viewed
-				_gameDataProvider.UniqueIdDataProvider.NewIds.Remove(_selectedItem);
+				_gameDataProvider.UniqueIdDataProvider.NewIds.Remove(SelectedItem);
 			}
 
 			_equipmentList.itemsSource = _equipmentListRows;
@@ -213,11 +228,11 @@ namespace FirstLight.Game.Presenters
 
 		private async void UpdateEquipmentDetails()
 		{
-			_details.style.display = _selectedItem == UniqueId.Invalid ? DisplayStyle.None : DisplayStyle.Flex;
+			_details.style.display = SelectedItem == UniqueId.Invalid ? DisplayStyle.None : DisplayStyle.Flex;
 
-			if (_selectedItem == UniqueId.Invalid) return;
+			if (SelectedItem == UniqueId.Invalid) return;
 
-			var info = _gameDataProvider.EquipmentDataProvider.GetInfo(_selectedItem);
+			var info = _gameDataProvider.EquipmentDataProvider.GetInfo(SelectedItem);
 
 			// Title
 			_equipmentName.text = string.Format(ScriptLocalization.UITEquipment.equipment_details_title,
@@ -238,7 +253,7 @@ namespace FirstLight.Game.Presenters
 
 			// Cooldown tag
 			_cooldownTag.style.visibility = Visibility.Hidden;
-			if (_gameDataProvider.EquipmentDataProvider.TryGetNftInfo(_selectedItem, out var nftInfo))
+			if (_gameDataProvider.EquipmentDataProvider.TryGetNftInfo(SelectedItem, out var nftInfo))
 			{
 				if (nftInfo.IsOnCooldown)
 				{
@@ -285,12 +300,12 @@ namespace FirstLight.Game.Presenters
 					info.Equipment.GameId, instantiate: false));
 
 			// Set item as viewed
-			_gameDataProvider.UniqueIdDataProvider.NewIds.Remove(_selectedItem);
+			_gameDataProvider.UniqueIdDataProvider.NewIds.Remove(SelectedItem);
 		}
 
 		private void UpdateEquipButton()
 		{
-			_equipButton.text = _equippedItem == _selectedItem
+			_equipButton.text = _equippedItem == SelectedItem
 				? ScriptLocalization.UITEquipment.unequip
 				: ScriptLocalization.UITEquipment.equip;
 		}
@@ -364,7 +379,7 @@ namespace FirstLight.Game.Presenters
 
 			if (row.Item2 != null)
 			{
-				card2.SetDisplayActive(true);
+				card2.SetDisplay(true);
 				card2.SetEquipment(row.Item2.Equipment, row.Item2.UniqueId, false,
 					_gameDataProvider.EquipmentDataProvider.NftInventory.ContainsKey(row.Item2.UniqueId),
 					card2.UniqueId == _equippedItem,
@@ -372,11 +387,11 @@ namespace FirstLight.Game.Presenters
 			}
 			else
 			{
-				card2.SetDisplayActive(false);
+				card2.SetDisplay(false);
 			}
 
-			card1.SetSelected(card1.UniqueId == _selectedItem);
-			card2.SetSelected(card2.UniqueId == _selectedItem);
+			card1.SetSelected(card1.UniqueId == SelectedItem);
+			card2.SetSelected(card2.UniqueId == SelectedItem);
 		}
 
 		private void BindEquipmentStatListItem(VisualElement visualElement, int index)
@@ -389,15 +404,15 @@ namespace FirstLight.Game.Presenters
 
 		private void OnEquipmentClicked(Equipment equipment, UniqueId id)
 		{
-			if (id == _selectedItem) return;
+			if (id == SelectedItem) return;
 
-			var previousItem = _selectedItem;
+			var previousItem = SelectedItem;
 
-			_selectedItem = id;
+			SelectedItem = id;
 			UpdateEquipmentDetails();
 
 			_equipmentList.RefreshItem(_itemRowMap[previousItem]);
-			_equipmentList.RefreshItem(_itemRowMap[_selectedItem]);
+			_equipmentList.RefreshItem(_itemRowMap[SelectedItem]);
 			UpdateEquipButton();
 		}
 
@@ -405,12 +420,12 @@ namespace FirstLight.Game.Presenters
 		{
 			var dataProvider = _gameDataProvider.EquipmentDataProvider;
 			var loadout = dataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All);
-			var item = loadout.Find(infoItem => infoItem.Id == _selectedItem);
+			var item = loadout.Find(infoItem => infoItem.Id == SelectedItem);
 
 			if (item.IsEquipped)
 			{
 				_services.AudioFxService.PlayClip2D(AudioId.UnequipEquipment);
-				UnequipItem(_selectedItem);
+				UnequipItem(SelectedItem);
 
 				// Equip Default/Melee weapon after unequipping a regular one
 				if (item.Equipment.IsWeapon())
@@ -427,7 +442,7 @@ namespace FirstLight.Game.Presenters
 			else
 			{
 				_services.AudioFxService.PlayClip2D(AudioId.EquipEquipment);
-				EquipItem(_selectedItem);
+				EquipItem(SelectedItem);
 			}
 		}
 

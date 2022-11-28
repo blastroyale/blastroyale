@@ -12,6 +12,7 @@ using FirstLight.Game.UIElements;
 using I2.Loc;
 using Photon.Deterministic;
 using Photon.Realtime;
+using PlayFab.MultiplayerModels;
 using Quantum;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -641,12 +642,20 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
-		/// Sets ".element-hidden" class active/inactive, which sets the Display property of a VE.
+		/// Sets the Display style property of an element.
 		/// </summary>
-		public static void SetDisplayActive(this VisualElement element, bool active)
+		public static void SetDisplay(this VisualElement element, bool active)
 		{
 			// Enabling the class means that the element will become hidden
-			element.EnableInClassList(UIConstants.ELEMENT_HIDDEN, !active);
+			element.style.display = active ? DisplayStyle.Flex : DisplayStyle.None;
+		}
+
+		/// <summary>
+		/// Sets the Visibility style property of an element.
+		/// </summary>
+		public static void SetVisibility(this VisualElement element, bool visible)
+		{
+			element.style.visibility = visible ? Visibility.Visible : Visibility.Hidden;
 		}
 	}
 }

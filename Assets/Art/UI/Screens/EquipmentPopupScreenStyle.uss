@@ -180,7 +180,6 @@
     justify-content: space-between;
     padding-bottom: 30px;
     padding-top: 109px;
-    color: rgba(244, 200, 42, 255);
 }
 
 .content-upgrading__level-holder {
@@ -189,6 +188,7 @@
     width: 359px;
     font-size: 36px;
     align-items: center;
+    color: rgba(244, 200, 42, 255);
 }
 
 .content-upgrading__arrow-icon {

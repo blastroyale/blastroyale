@@ -95,6 +95,13 @@ namespace FirstLight.Game.UIElements
 			}
 		}
 
+		public void SetUpgradeValue(EquipmentStatType type, float currentValue, float nextValue)
+		{
+			SetValue(type, currentValue);
+			
+			// TODO: Set next value
+		}
+
 		public static bool CanShowStat(EquipmentStatType type, float value)
 		{
 			if (!MAX_VALUES.TryGetValue(type, out var maxValue)) return false;

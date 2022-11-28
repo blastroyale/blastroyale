@@ -192,9 +192,11 @@
 }
 
 .details__buttons-holder {
-    height: 182px;
+    height: 200px;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .stats-list {
@@ -210,9 +212,9 @@
 }
 
 .button-long {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMainYellow.png?fileID=21300000&guid=728932854c02c47ddb4057b68d3c91c7&type=3#ButtonMainYellow');
-    width: 307px;
-    height: 85px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/SecondaryButton.png?fileID=21300000&guid=59b9eee3525d947a3bfd185b778e4783&type=3#SecondaryButton');
+    width: 306px;
+    height: 88px;
     border-left-width: 0;
     border-right-width: 0;
     border-top-width: 0;
@@ -222,17 +224,18 @@
     font-size: 42px;
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 1px;
-    -unity-text-outline-color: rgb(157, 35, 11);
-    text-shadow: 3px 3px 0 rgb(157, 35, 10);
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0;
-    padding-bottom: 7px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    padding: 0 0 7px;
     -unity-text-align: middle-center;
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: 0;
-    margin-bottom: 0;
+    margin: 0;
+    margin-bottom: 11px;
+}
+
+.button-long--yellow {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/MainButton.png?fileID=21300000&guid=612390a1cd22a4403b85c7fb5cb7c4d1&type=3#MainButton');
+    -unity-text-outline-color: rgba(157, 35, 11, 255);
+    text-shadow: 3px 3px 0 rgba(157, 35, 10, 255);
 }
 
 .button-long:active {

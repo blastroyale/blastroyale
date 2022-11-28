@@ -49,6 +49,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 4d4555713b6f541ebad6dd66f91c9429, type: 3}
   - {fileID: 21300000, guid: 7daa27819b9ff40648f92f624119dfc4, type: 3}
   - {fileID: 21300000, guid: 6dee9891204ef4f5b90a2210c56088a9, type: 3}
+  - {fileID: 21300000, guid: 612390a1cd22a4403b85c7fb5cb7c4d1, type: 3}
   - {fileID: 21300000, guid: 2d7f74c10ed3b4352a100dc9e2226f88, type: 3}
   - {fileID: 21300000, guid: a41b7ad1342264cde80e52208dd22e10, type: 3}
   - {fileID: 21300000, guid: 13c1b5f14115447f780402fd721baad8, type: 3}
@@ -62,6 +63,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 2ea4ca43a1f724d659125eeae517ed2a, type: 3}
   - {fileID: 21300000, guid: 123b7673eb1d048a486154a4e65c630b, type: 3}
   - {fileID: 21300000, guid: 3cd14ec38c7b043f1b9600fd0547f7d3, type: 3}
+  - {fileID: 21300000, guid: 59b9eee3525d947a3bfd185b778e4783, type: 3}
   - {fileID: 21300000, guid: c89c05447743249abbe3605e15ac0c97, type: 3}
   - {fileID: 21300000, guid: 04713a4471ac6493ba0a2533be572841, type: 3}
   - {fileID: 21300000, guid: b7956d44c6a494f05a62eb5015f9cd72, type: 3}
@@ -95,6 +97,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: b7cd89b76a1db44ad866b85c1d61c758, type: 3}
   - {fileID: 21300000, guid: 30292db7ed06e40ae91381ca33584ea6, type: 3}
   - {fileID: 21300000, guid: 518daeb709c5f40ad97273bbfbd590ab, type: 3}
+  - {fileID: 21300000, guid: a8b60a487e5824b17a059af336cba3ec, type: 3}
   - {fileID: 21300000, guid: 22a7e5684e19148148119fff62ec74f1, type: 3}
   - {fileID: 21300000, guid: ee4e6b68e6f2642e2bb41626e7d79b7c, type: 3}
   - {fileID: 21300000, guid: 6ae296c811996471796b156699805c8f, type: 3}
@@ -135,6 +138,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 59c03abd060c94099b1a500c6e60d1f7, type: 3}
   - {fileID: 21300000, guid: 2242dcbd235394ffaa30eb599d68b376, type: 3}
   - {fileID: 21300000, guid: f074c3dd0ff0849fe90a973fd6fbd458, type: 3}
+  - {fileID: 21300000, guid: ccdeaedddcd164707b37b8404a10b7c9, type: 3}
   - {fileID: 21300000, guid: 0c95fb2e870394ce49dfe1855ec97738, type: 3}
   - {fileID: 21300000, guid: 6ba4f24e4a43d4bb2aa74aa4de0a3139, type: 3}
   - {fileID: 21300000, guid: 5d610d5eb2b6d402e80eb23e2f4e974b, type: 3}
@@ -160,6 +164,7 @@ SpriteAtlas:
   - ProfileProgressBack
   - TooltipwithTail
   - HomeButton
+  - MainButton
   - DurabilityBar
   - LegendaryItemButton
   - IconMarketplace
@@ -173,6 +178,7 @@ SpriteAtlas:
   - IconShop
   - DotsRotated
   - BacklightRarity
+  - SecondaryButton
   - AvatarBack
   - SettingsIcon
   - CloseButton
@@ -206,6 +212,7 @@ SpriteAtlas:
   - UncommonItemButton
   - UncommonItemButtonPressed
   - StatBarBg_Length_For_REF_
+  - DurabilityBarUpgrade
   - NotificationArrow
   - ChosenBgGradient
   - BlastHubLogo
@@ -246,6 +253,7 @@ SpriteAtlas:
   - BadgeSprite
   - WeaponEmptySlotIcon
   - IconEquipment
+  - CancelButton
   - HelmetIcon
   - AddpartymemberButton
   - ProfileProgress

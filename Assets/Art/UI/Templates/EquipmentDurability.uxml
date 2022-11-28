@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Styles/EquipmentDurabilityStyle.uss?fileID=7433441132597879392&amp;guid=033e6a8fbabb44ad86f6bc6fd37d856a&amp;type=3#EquipmentDurabilityStyle" />
-    <ui:VisualElement name="DurabilityHolder" class="equipment-durability anim-delay-1 anim-translate anim-translate--left-xxl">
+    <ui:VisualElement name="DurabilityHolder" class="equipment-durability">
         <ui:Label text="DURABILITY" display-tooltip-when-elided="true" name="Title" class="equipment-durability__title" />
         <ui:Label text="+42" name="DurabilityPlusAmount" class="equipment-durability__title equipment-durability__plus-amount" />
         <ui:VisualElement name="ProgressHolder">

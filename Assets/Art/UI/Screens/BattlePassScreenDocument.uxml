@@ -1,16 +1,31 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="BattlePassSegmentButtonDocument" src="project://database/Assets/Art/UI/Templates/BattlePassSegmentButtonDocument.uxml?fileID=9197481963319205126&amp;guid=b696482fc2572a84da652c85e867d617&amp;type=3#BattlePassSegmentButtonDocument" />
     <Style src="project://database/Assets/Art/UI/Screens/BattlePassScreenStyle.uss?fileID=7433441132597879392&amp;guid=dc4d7d108099c400695438f2df23550d&amp;type=3#BattlePassScreenStyle" />
     <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent screen-root">
         <ui:VisualElement name="SeasonContent" class="season-content" style="justify-content: space-between;">
-            <ui:ScrollView focusable="true" name="RewardsScroll" mode="Horizontal" touch-scroll-type="Elastic" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="season-content__scroll" />
+            <ui:ScrollView focusable="true" name="RewardsScroll" mode="Horizontal" touch-scroll-type="Elastic" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="season-content__scroll">
+                <ui:Instance template="BattlePassSegmentButtonDocument" name="BattlePassSegmentButtonDocument" />
+                <ui:Instance template="BattlePassSegmentButtonDocument" name="BattlePassSegmentButtonDocument" />
+                <ui:Instance template="BattlePassSegmentButtonDocument" name="BattlePassSegmentButtonDocument" />
+                <ui:Instance template="BattlePassSegmentButtonDocument" name="BattlePassSegmentButtonDocument" />
+            </ui:ScrollView>
             <ui:VisualElement name="SeasonImage" class="season-content__season-image">
                 <ui:VisualElement name="Mask" class="season-image__mask">
                     <ui:VisualElement name="Image" class="season-image__image" />
                 </ui:VisualElement>
             </ui:VisualElement>
+            <FirstLight.Game.UIElements.LocalizedButton text="##" name="ClaimButton" style="position: absolute; bottom: 0; right: 0;" />
+            <ui:VisualElement name="SeasonInfo" class="season-info" style="width: 50%;">
+                <ui:VisualElement name="SeasonEndInfo" class="season-info__season-end">
+                    <FirstLight.Game.UIElements.LocalizedLabel text="##" name="SeasonEndsLabel" localization-key="UITBattlePass/season_ends_in" class="season-info__label" />
+                    <ui:Label text=" 10D 10H" display-tooltip-when-elided="true" name="TimeLeftLabel" class="season-info__label season-info__label--yellow" />
+                </ui:VisualElement>
+                <FirstLight.Game.UIElements.LocalizedLabel text="##" name="GameplayInfo" localization-key="UITBattlePass/play_games_info" class="season-info__label" />
+            </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="SeasonHeader" class="header" style="background-image: url(&apos;project://database/Assets/Art/UI/Sprites/BattlePass/TopHeaderBack.png?fileID=2800000&amp;guid=aaff47116a62f45e0a362688aa274e19&amp;type=3#TopHeaderBack&apos;);">
-            <ui:VisualElement name="Content" class="header__content">
+        <ui:VisualElement name="SeasonHeader" class="season-header">
+            <ui:VisualElement name="Background" class="season-header__background" />
+            <ui:VisualElement name="Content" class="season-header__content">
                 <ui:VisualElement name="CurrentLevel" class="season-level">
                     <ui:Label text="LV" display-tooltip-when-elided="true" name="Label" class="season-level__label" />
                     <ui:Label text="0" display-tooltip-when-elided="true" name="Value" class="season-level__label season-level__label--big" />

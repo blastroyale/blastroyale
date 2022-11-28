@@ -6984,7 +6984,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - GENESIS
+      - BLAST ISLAND
       - 
       - 
       Flags: 000000
@@ -10003,6 +10003,78 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITBattlePass/season_ends_in
+      TermType: 0
+      Description: 
+      Languages:
+      - 'SEASON ENDS IN '
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITBattlePass/season_time_left_big
+      TermType: 0
+      Description: 
+      Languages:
+      - ' {0}d {1}h'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITBattlePass/season_time_left_small
+      TermType: 0
+      Description: 
+      Languages:
+      - ' {0}h {1}m'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITBattlePass/bp_level
+      TermType: 0
+      Description: 
+      Languages:
+      - LV
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITBattlePass/play_games_info
+      TermType: 0
+      Description: 
+      Languages:
+      - PLAY GAMES AND UNLOCK REWARDS!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITBattlePass/claim_all_rewards
+      TermType: 0
+      Description: 
+      Languages:
+      - CLAIM ALL REWARDS
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITBattlePass/tap_to_claim
+      TermType: 0
+      Description: 
+      Languages:
+      - TAP TO CLAIM
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITBattlePass/season_number
+      TermType: 0
+      Description: 
+      Languages:
+      - SEASON {0}
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITGameModeSelection/choose_a_mode
       TermType: 0
       Description: 
@@ -10445,6 +10517,123 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITEquipment/popup_scrap_are_you_sure
+      TermType: 0
+      Description: 
+      Languages:
+      - ARE YOU SURE YOU WANT TO SCRAP THIS ITEM FOR
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/popup_cannot_undo_action
+      TermType: 0
+      Description: 
+      Languages:
+      - YOU CANNOT UNDO THIS ACTION
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/popup_yes_scrap
+      TermType: 0
+      Description: 
+      Languages:
+      - YES, SCRAP
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/popup_perform_action
+      TermType: 0
+      Description: 
+      Languages:
+      - You can perform this action on
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/popup_restore_durability
+      TermType: 0
+      Description: 
+      Languages:
+      - RESTORE DURABILITY TO MAX
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/popup_scrapping_item
+      TermType: 0
+      Description: 
+      Languages:
+      - SCRAPPING ITEM
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/popup_requirements
+      TermType: 0
+      Description: 
+      Languages:
+      - REQUIREMENTS
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/popup_upgrading_item
+      TermType: 0
+      Description: 
+      Languages:
+      - UPGRADING ITEM
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/popup_upgrade_lvl
+      TermType: 0
+      Description: 
+      Languages:
+      - LV<size=52px>{0}
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/scrap
+      TermType: 0
+      Description: 
+      Languages:
+      - SCRAP
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/upgrade
+      TermType: 0
+      Description: 
+      Languages:
+      - UPGRADE
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/repair
+      TermType: 0
+      Description: 
+      Languages:
+      - REPAIR
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/popup_repairing_item
+      TermType: 0
+      Description: 
+      Languages:
+      - REPAIRING ITEM
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITWinners/winners
       TermType: 0
       Description: 
@@ -10459,6 +10648,51 @@ MonoBehaviour:
       Description: 
       Languages:
       - LET'S BLAST
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITLeaderboards/player
+      TermType: 0
+      Description: 
+      Languages:
+      - PLAYER
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITLeaderboards/kills
+      TermType: 0
+      Description: 
+      Languages:
+      - K
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITLeaderboards/deaths
+      TermType: 0
+      Description: 
+      Languages:
+      - D
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITLeaderboards/trophies
+      TermType: 0
+      Description: 
+      Languages:
+      - TROPHIES
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITLeaderboards/placements
+      TermType: 0
+      Description: 
+      Languages:
+      - PLACEMENTS
       - 
       - 
       Flags: 000000
@@ -10481,7 +10715,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1669240762736
+    Google_LastUpdatedVersion: 1669651179224
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

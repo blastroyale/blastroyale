@@ -32,6 +32,7 @@ namespace FirstLight.Game.Presenters
 		private List<BattlePassSegmentData> _segmentData;
 		private List<BattlePassSegmentView> _segmentViews;
 		private ScrollView _rewardsScroll;
+		private ScreenHeaderElement _screenHeader;
 
 		private void Awake()
 		{ 
@@ -50,7 +51,12 @@ namespace FirstLight.Game.Presenters
 			base.QueryElements(root);
 
 			_rewardsScroll = root.Q<ScrollView>("RewardsScroll").Required();
+			_screenHeader = root.Q<ScreenHeaderElement>("Header").Required();
 			
+			_screenHeader.SetTitle(string.Format(ScriptLocalization.UITBattlePass.season_number, "1"));
+			_screenHeader.backClicked += Data.BackClicked;
+			_screenHeader.backClicked += Data.BackClicked;
+
 			SpawnAllSegments();
 		}
 

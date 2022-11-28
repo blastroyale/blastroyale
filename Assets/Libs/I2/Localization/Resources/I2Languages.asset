@@ -10048,11 +10048,11 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITBattlePass/claim_all_rewards
+    - Term: UITBattlePass/claim_all
       TermType: 0
       Description: 
       Languages:
-      - CLAIM ALL REWARDS
+      - CLAIM ALL
       - 
       - 
       Flags: 000000
@@ -10715,7 +10715,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1669651179224
+    Google_LastUpdatedVersion: 1669655259864
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

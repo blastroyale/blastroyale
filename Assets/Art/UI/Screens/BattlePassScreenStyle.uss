@@ -76,6 +76,8 @@
 .bpp-bar {
     width: 300px;
     height: 45px;
+    align-items: flex-start;
+    justify-content: center;
 }
 
 .bpp-bar__background {
@@ -102,7 +104,7 @@
     width: 60px;
     height: 60px;
     position: absolute;
-    left: 0;
+    left: -30px;
 }
 
 .bpp-bar__label {
@@ -124,6 +126,7 @@
     flex-grow: 1;
     width: 100%;
     align-items: center;
+    justify-content: space-between;
 }
 
 .season-content__scroll {
@@ -170,6 +173,7 @@
     flex-direction: row;
     left: 400px;
     flex-grow: 1;
+    right: 0;
 }
 
 .season-info__season-end {
@@ -194,4 +198,28 @@
 
 .season-info__label--yellow {
     color: rgb(252, 211, 49);
+}
+
+.claim-button {
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/MainButton.png?fileID=21300000&guid=1c5b1e0f6e789ec43a771b64556e3a8d&type=3#MainButton');
+    -unity-font-style: bold;
+    -unity-font-definition: var(--font-italic);
+    font-size: 50px;
+    text-shadow: 3px 3px 0 rgb(156, 36, 12);
+    color: rgb(255, 255, 255);
+    width: 350px;
+    height: 100px;
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(156, 36, 12);
+    overflow: visible;
+    -unity-text-align: middle-center;
+    align-items: center;
+    white-space: normal;
+    margin-right: 50px;
+    padding-bottom: 15px;
+}
+
+.claim-button:active {
+    padding-top: 70px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/MainButtonPressed.png?fileID=21300000&guid=ba6fb635d5b0a5144bf13ab3038819ba&type=3#MainButtonPressed');
 }

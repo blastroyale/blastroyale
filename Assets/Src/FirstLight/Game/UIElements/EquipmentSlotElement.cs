@@ -1,3 +1,4 @@
+using FirstLight.Game.Infos;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using I2.Loc;
@@ -167,46 +168,44 @@ namespace FirstLight.Game.UIElements
 		/// <summary>
 		/// Sets the equipment item that should be displayed on this element. Use default for empty.
 		/// </summary>
-		public async void SetEquipment(Equipment equipment, bool nft, bool loaned, bool notification)
+		public async void SetEquipment(EquipmentInfo info, bool loaned, bool notification)
 		{
+			var equipment = info.Equipment;
 			this.RemoveModifiers();
 
-			if (equipment.IsValid() && !equipment.IsDefaultItem())
-			{
-				AddToClassList(UssBlockFilled);
-				AddToClassList(UssBlockModifier + equipment.Rarity.ToString().ToLowerInvariant().Replace("plus", ""));
-
-				_equipmentName.text = equipment.GameId.GetTranslation();
-
-				_equipmentName.text = string.Format(ScriptLocalization.UITEquipment.item_name_lvl,
-					equipment.GameId.GetTranslation());
-				_equipmentLevel.text = string.Format(ScriptLocalization.UITEquipment.card_lvl, equipment.Level);
-
-				_factionIcon.RemoveModifiers();
-				_factionIcon.AddToClassList(UssFactionIconModifier + equipment.Faction.ToString().ToLowerInvariant());
-
-				var durability = (float) equipment.Durability / equipment.MaxDurability;
-				_durabilityProgress.style.flexGrow = durability;
-
-				_plusRarity.SetDisplayActive((int) equipment.Rarity % 2 == 1);
-
-				_badgeNft.SetDisplayActive(nft);
-				_badgeLoaned.SetDisplayActive(loaned);
-				_notificationIcon.SetDisplayActive(notification);
-
-				// TODO: This should be handled better.
-				var services = MainInstaller.Resolve<IGameServices>();
-				var sprite = await services.AssetResolverService.RequestAsset<GameId, Sprite>(
-					equipment.GameId, instantiate: false);
-				_equipmentImage.style.backgroundImage =
-					_equipmentImageShadow.style.backgroundImage = new StyleBackground(sprite);
-			}
-			else
+			if (!equipment.IsValid() && !equipment.IsDefaultItem())
 			{
 				AddToClassList(UssBlockEmpty);
 				_emptyEquipmentImage.RemoveModifiers();
 				_emptyEquipmentImage.AddToClassList(UssEquipmentImageShadow);
+
+				return;
 			}
+			
+			AddToClassList(UssBlockFilled);
+			AddToClassList(UssBlockModifier + equipment.Rarity.ToString().ToLowerInvariant().Replace("plus", ""));
+
+			_equipmentName.text = string.Format(ScriptLocalization.UITEquipment.item_name_lvl,
+			                                    equipment.GameId.GetTranslation());
+			_equipmentLevel.text = string.Format(ScriptLocalization.UITEquipment.card_lvl, equipment.Level);
+
+			_factionIcon.RemoveModifiers();
+			_factionIcon.AddToClassList(UssFactionIconModifier + equipment.Faction.ToString().ToLowerInvariant());
+
+			_durabilityProgress.style.flexGrow = (float) info.CurrentDurability / equipment.MaxDurability;
+
+			_plusRarity.SetDisplayActive((int) equipment.Rarity % 2 == 1);
+
+			_badgeNft.SetDisplayActive(info.IsNft);
+			_badgeLoaned.SetDisplayActive(loaned);
+			_notificationIcon.SetDisplayActive(notification);
+
+			// TODO: This should be handled better.
+			var services = MainInstaller.Resolve<IGameServices>();
+			var sprite = await services.AssetResolverService.RequestAsset<GameId, Sprite>(
+			              equipment.GameId, instantiate: false);
+			_equipmentImage.style.backgroundImage =
+				_equipmentImageShadow.style.backgroundImage = new StyleBackground(sprite);
 		}
 
 		public new class UxmlFactory : UxmlFactory<EquipmentSlotElement, UxmlTraits>

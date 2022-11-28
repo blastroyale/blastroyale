@@ -76,14 +76,13 @@ namespace FirstLight.Game.Presenters
 
 				if (_gameDataProvider.EquipmentDataProvider.Loadout.TryGetValue(element.Category, out var uniqueId))
 				{
-					var equipment = _gameDataProvider.EquipmentDataProvider.Inventory[uniqueId];
-					var nft = _gameDataProvider.EquipmentDataProvider.TryGetNftInfo(uniqueId, out _);
+					var info = _gameDataProvider.EquipmentDataProvider.GetInfo(uniqueId);
 
-					element.SetEquipment(equipment, nft, false, unseenItems);
+					element.SetEquipment(info, false, unseenItems);
 				}
 				else
 				{
-					element.SetEquipment(default, false, false, unseenItems);
+					element.SetEquipment(default, false, unseenItems);
 				}
 			}
 		}
@@ -114,7 +113,7 @@ namespace FirstLight.Game.Presenters
 
 		private void RefreshMight()
 		{
-			var loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both);
+			var loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All);
 			var might = loadout.GetTotalMight(_services.ConfigsProvider.GetConfigsDictionary<QuantumStatConfig>());
 
 			_mightLabel.text = string.Format(ScriptLocalization.UITEquipment.might, might.ToString("F0"));

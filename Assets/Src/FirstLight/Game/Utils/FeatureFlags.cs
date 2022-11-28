@@ -64,11 +64,6 @@ namespace FirstLight.Game.Utils
 		public static bool FORCE_RANKED = false;
 
 		/// <summary>
-		/// Enables / disables item durability checks
-		/// </summary>
-		public static bool ITEM_DURABILITY = false;
-
-		/// <summary>
 		/// Enables / disables the store button in the home screen
 		/// </summary>
 		public static bool STORE_ENABLED = false;
@@ -98,11 +93,6 @@ namespace FirstLight.Game.Utils
 			if (TrySetFlag("FORCE_RANKED", titleData, out var forceRanked))
 			{
 				FORCE_RANKED = forceRanked;
-			}
-			
-			if (TrySetFlag("ITEM_DURABILITY", titleData, out var itemDurability))
-			{
-				ITEM_DURABILITY = itemDurability;
 			}
 			
 			if (TrySetFlag("STORE_ENABLED", titleData, out var storeEnabled))

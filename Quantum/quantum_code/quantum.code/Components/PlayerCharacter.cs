@@ -216,7 +216,7 @@ namespace Quantum
 			WeaponSlot[slot].MagazineSize = weaponConfig.MagazineSize;
 			WeaponSlots[slot].Weapon = weapon;
 
-			stats->GainAmmoPercent(f, e, initialAmmo);
+			stats->GainAmmoPercent(f, e, initialAmmo - ((FP)stats->CurrentAmmo / stats->GetStatData(StatType.AmmoCapacity).StatValue));
 
 			f.Events.OnLocalPlayerWeaponAdded(Player, e, weapon, slot);
 			
@@ -289,6 +289,9 @@ namespace Quantum
 			return stats.CurrentAmmo / stats.GetStatData(StatType.AmmoCapacity).StatValue;
 		}
 
+		/// <summary>
+		/// Subtracts one shot from the magazine of the weapon that entity <paramref name="e"/> player currently has equipped
+		/// </summary>
 		public void ReduceMag(Frame f, EntityRef e)
 		{
 			var slot = WeaponSlot;
@@ -306,7 +309,6 @@ namespace Quantum
 				stats->ReduceAmmo(f, e, ammoCost);
 			}
 		}
-
 
 		/// <summary>
 		/// Requests the state of the player if is skydiving or not

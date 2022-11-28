@@ -291,14 +291,15 @@ namespace Quantum
 
 		public void ReduceMag(Frame f, EntityRef e)
 		{
+			var slot = WeaponSlot;
 			var stats = f.Unsafe.GetPointer<Stats>(e);
 			var ammoCost = (stats->GetStatData(StatType.AmmoCapacity).BaseValue / f.WeaponConfigs.GetConfig(CurrentWeapon.GameId).MaxAmmo.Get(f)).AsInt;
 
 			// reduce magazine count if your weapon uses a magazine
-			if (WeaponSlots[CurrentWeaponSlot].MagazineShotCount > 0 && WeaponSlots[CurrentWeaponSlot].MagazineSize > 0)
+			if (slot->MagazineShotCount > 0 && slot->MagazineSize > 0)
 			{
-				WeaponSlots.GetPointer(CurrentWeaponSlot)->MagazineShotCount -= 1;
-				f.Events.OnPlayerAmmoChanged(Player, e, stats->CurrentAmmo, stats->GetStatData(StatType.AmmoCapacity).StatValue.AsInt, WeaponSlots[CurrentWeaponSlot].MagazineSize);
+				slot->MagazineShotCount -= 1;
+				f.Events.OnPlayerAmmoChanged(Player, e, stats->CurrentAmmo, stats->GetStatData(StatType.AmmoCapacity).StatValue.AsInt, slot->MagazineSize);
 			}
 			else // reduce ammo directly if your weapon does not use an ammo count
 			{

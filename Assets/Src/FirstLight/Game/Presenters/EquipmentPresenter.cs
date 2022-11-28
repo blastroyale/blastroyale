@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
@@ -21,7 +22,7 @@ namespace FirstLight.Game.Presenters
 		public struct StateData
 		{
 			public Action<GameIdGroup> OnSlotButtonClicked;
-			public Action OnCloseClicked;
+			public Action OnHomeClicked;
 			public Action OnBackClicked;
 		}
 
@@ -49,9 +50,10 @@ namespace FirstLight.Game.Presenters
 				cat.clicked += () => Data.OnSlotButtonClicked(cat.Category);
 			}
 
-			root.Q<ImageButton>("CloseButton").clicked += Data.OnCloseClicked;
-			root.Q<ImageButton>("Header").clicked += Data.OnBackClicked;
-			
+			var header = root.Q<ScreenHeaderElement>("Header").Required();
+			header.backClicked += Data.OnBackClicked;
+			header.homeClicked += Data.OnHomeClicked;
+
 			root.SetupClicks(_services);
 		}
 
@@ -68,14 +70,19 @@ namespace FirstLight.Game.Presenters
 		{
 			foreach (var element in _categories)
 			{
+				var unseenItems = _gameDataProvider.EquipmentDataProvider.Inventory
+					.Any(pair => pair.Value.GameId.IsInGroup(element.Category) &&
+						_gameDataProvider.UniqueIdDataProvider.NewIds.Contains(pair.Key));
+
 				if (_gameDataProvider.EquipmentDataProvider.Loadout.TryGetValue(element.Category, out var uniqueId))
 				{
-					var equipment = _gameDataProvider.EquipmentDataProvider.Inventory[uniqueId];
-					element.SetEquipment(equipment);
+					var info = _gameDataProvider.EquipmentDataProvider.GetInfo(uniqueId);
+
+					element.SetEquipment(info, false, unseenItems);
 				}
 				else
 				{
-					element.SetEquipment(default);
+					element.SetEquipment(default, false, unseenItems);
 				}
 			}
 		}
@@ -93,7 +100,10 @@ namespace FirstLight.Game.Presenters
 				{
 					if (value > 0 && type is EquipmentStatType.SpecialId0 or EquipmentStatType.SpecialId1)
 					{
-						var element = new SpecialDisplayElement((GameId) value);
+						var specialId = (GameId) value;
+						var element = new SpecialDisplayElement(specialId);
+						element.clicked+= () => element.OpenTooltip(Root, specialId.GetTranslationDescription(), 20, 20);
+						
 						_specialsHolder.Add(element);
 						index++;
 					}
@@ -103,7 +113,7 @@ namespace FirstLight.Game.Presenters
 
 		private void RefreshMight()
 		{
-			var loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both);
+			var loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All);
 			var might = loadout.GetTotalMight(_services.ConfigsProvider.GetConfigsDictionary<QuantumStatConfig>());
 
 			_mightLabel.text = string.Format(ScriptLocalization.UITEquipment.might, might.ToString("F0"));

@@ -37,6 +37,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: M_Collision
+    second: {fileID: 2100000, guid: 8cfb2472d6ca73d49a503682b1bbc573, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: M_ColorAtlas
     second: {fileID: 2100000, guid: bc31393375bdcce478995e048d720af2, type: 2}
   - first:

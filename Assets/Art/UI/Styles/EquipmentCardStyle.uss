@@ -5,6 +5,18 @@
     transition-duration: 0.2s;
 }
 
+.equipment-card--marketplace .equipment-card__level {
+    display: none;
+}
+
+.equipment-card--marketplace .equipment-card__badge-holder {
+    display: none;
+}
+
+.equipment-card--marketplace .equipment-card__notification {
+    display: none;
+}
+
 .equipment-card__background {
     position: absolute;
     top: 0;
@@ -303,4 +315,10 @@
     padding-right: 15px;
     padding-bottom: 0;
     padding-top: 2px;
+}
+
+.equipment-card__notification {
+    position: absolute;
+    top: -17px;
+    right: -13px;
 }

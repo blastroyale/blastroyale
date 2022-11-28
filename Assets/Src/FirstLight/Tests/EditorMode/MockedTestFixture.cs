@@ -115,6 +115,7 @@ namespace FirstLight.Tests.EditorMode
 			GameServices.TimeService.Returns(TimeService);
 			GameServices.ConfigsProvider.Returns(ConfigsProvider);
 
+			TimeService.UnixTimeNow.Returns(DateTime.UtcNow.Ticks);
 			TimeService.DateTimeUtcNow.Returns(DateTime.UtcNow);
 		}
 

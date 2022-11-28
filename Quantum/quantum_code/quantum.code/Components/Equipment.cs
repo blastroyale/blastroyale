@@ -35,14 +35,15 @@ namespace Quantum
 		                 EquipmentAdjective adjective = EquipmentAdjective.Regular,
 		                 EquipmentMaterial material = EquipmentMaterial.Plastic,
 		                 EquipmentManufacturer manufacturer = EquipmentManufacturer.Military,
-		                 uint maxDurability = 100,
+		                 uint maxDurability = 4,
 		                 uint maxLevel = 10,
 		                 uint initialReplicationCounter = 0,
 		                 uint tuning = 0,
 		                 uint level = 0,
 		                 uint generation = 0,
 		                 uint replicationCounter = 0,
-		                 uint durability = 100)
+						 uint totalRestoredDurability = 0,
+						 long lastRepairTimestamp = 0)
 		{
 			GameId = gameId;
 
@@ -62,7 +63,9 @@ namespace Quantum
 			Level = level;
 			Generation = generation;
 			ReplicationCounter = replicationCounter;
-			Durability = durability;
+			TotalRestoredDurability = totalRestoredDurability;
+
+			LastRepairTimestamp = lastRepairTimestamp;
 		}
 
 		/// <summary>
@@ -130,7 +133,7 @@ namespace Quantum
 		public bool Equals(Equipment other, bool ignoreRarity)
 		{
 			return (ignoreRarity || Rarity == other.Rarity) && Adjective == other.Adjective &&
-			       Durability == other.Durability && Edition == other.Edition &&
+			       LastRepairTimestamp == other.LastRepairTimestamp && Edition == other.Edition &&
 			       Faction == other.Faction && GameId == other.GameId && Generation == other.Generation &&
 			       Grade == other.Grade && InitialReplicationCounter == other.InitialReplicationCounter &&
 			       Level == other.Level && Manufacturer == other.Manufacturer && Material == other.Material &&

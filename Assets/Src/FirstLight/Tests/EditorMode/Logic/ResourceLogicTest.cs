@@ -109,20 +109,20 @@ namespace FirstLight.Tests.EditorMode.Logic
 		{
 			var nftList = new List<EquipmentInfo>
 			{
-				new() { Equipment = new Equipment(GameId.BaseballArmor, rarity: EquipmentRarity.RarePlus, grade: EquipmentGrade.GradeV, adjective: EquipmentAdjective.Regular, durability: 50, maxDurability: 100 )},
-				new() { Equipment = new Equipment(GameId.SciCannon, rarity: EquipmentRarity.Rare, grade: EquipmentGrade.GradeIII, adjective: EquipmentAdjective.Exquisite, durability: 70, maxDurability: 100 )},
-				new() { Equipment = new Equipment(GameId.MouseAmulet, rarity: EquipmentRarity.Uncommon, grade: EquipmentGrade.GradeIII, adjective: EquipmentAdjective.Cool, durability: 65, maxDurability: 100 )},
-				new() { Equipment = new Equipment(GameId.RoadShield, rarity: EquipmentRarity.Legendary, grade: EquipmentGrade.GradeI, adjective: EquipmentAdjective.Royal, durability: 34, maxDurability: 100 )},
-				new() { Equipment = new Equipment(GameId.BaseballHelmet, rarity: EquipmentRarity.LegendaryPlus, grade: EquipmentGrade.GradeIV, adjective: EquipmentAdjective.Divine, durability: 97, maxDurability: 100 )},
+				new() { Equipment = new Equipment(GameId.BaseballArmor, rarity: EquipmentRarity.RarePlus, grade: EquipmentGrade.GradeV, adjective: EquipmentAdjective.Regular, maxDurability: 100 ), CurrentDurability = 50},
+				new() { Equipment = new Equipment(GameId.SciCannon, rarity: EquipmentRarity.Rare, grade: EquipmentGrade.GradeIII, adjective: EquipmentAdjective.Exquisite, maxDurability: 100 ), CurrentDurability = 70},
+				new() { Equipment = new Equipment(GameId.MouseAmulet, rarity: EquipmentRarity.Uncommon, grade: EquipmentGrade.GradeIII, adjective: EquipmentAdjective.Cool, maxDurability: 100 ), CurrentDurability = 65},
+				new() { Equipment = new Equipment(GameId.RoadShield, rarity: EquipmentRarity.Legendary, grade: EquipmentGrade.GradeI, adjective: EquipmentAdjective.Royal, maxDurability: 100 ), CurrentDurability = 34},
+				new() { Equipment = new Equipment(GameId.BaseballHelmet, rarity: EquipmentRarity.LegendaryPlus, grade: EquipmentGrade.GradeIV, adjective: EquipmentAdjective.Divine, maxDurability: 100 ), CurrentDurability = 97},
 			};
 			
 			var nonNftList = new List<EquipmentInfo>
 			{
-				new() { Equipment = new Equipment(GameId.FootballArmor, rarity: EquipmentRarity.Common, grade: EquipmentGrade.GradeIV, adjective: EquipmentAdjective.Regular, durability: 90, maxDurability: 100 )},
-				new() { Equipment = new Equipment(GameId.ModPistol, rarity: EquipmentRarity.Common, grade: EquipmentGrade.GradeIII, adjective: EquipmentAdjective.Regular, durability: 80, maxDurability: 100 )},
-				new() { Equipment = new Equipment(GameId.RiotAmulet, rarity: EquipmentRarity.Uncommon, grade: EquipmentGrade.GradeIII, adjective: EquipmentAdjective.Cool, durability: 65, maxDurability: 100 )},
-				new() { Equipment = new Equipment(GameId.WarriorShield, rarity: EquipmentRarity.CommonPlus, grade: EquipmentGrade.GradeIII, adjective: EquipmentAdjective.Regular, durability: 66, maxDurability: 100 )},
-				new() { Equipment = new Equipment(GameId.HockeyHelmet, rarity: EquipmentRarity.Rare, grade: EquipmentGrade.GradeV, adjective: EquipmentAdjective.Regular, durability: 100, maxDurability: 100 )},
+				new() { Equipment = new Equipment(GameId.FootballArmor, rarity: EquipmentRarity.Common, grade: EquipmentGrade.GradeIV, adjective: EquipmentAdjective.Regular, maxDurability: 100 ), CurrentDurability = 90},
+				new() { Equipment = new Equipment(GameId.ModPistol, rarity: EquipmentRarity.Common, grade: EquipmentGrade.GradeIII, adjective: EquipmentAdjective.Regular, maxDurability: 100 ), CurrentDurability = 80},
+				new() { Equipment = new Equipment(GameId.RiotAmulet, rarity: EquipmentRarity.Uncommon, grade: EquipmentGrade.GradeIII, adjective: EquipmentAdjective.Cool, maxDurability: 100 ), CurrentDurability = 65},
+				new() { Equipment = new Equipment(GameId.WarriorShield, rarity: EquipmentRarity.CommonPlus, grade: EquipmentGrade.GradeIII, adjective: EquipmentAdjective.Regular, maxDurability: 100 ), CurrentDurability = 66},
+				new() { Equipment = new Equipment(GameId.HockeyHelmet, rarity: EquipmentRarity.Rare, grade: EquipmentGrade.GradeV, adjective: EquipmentAdjective.Regular, maxDurability: 100 ), CurrentDurability = 100},
 			};
 
 			var bothList = new List<EquipmentInfo>();
@@ -151,8 +151,8 @@ namespace FirstLight.Tests.EditorMode.Logic
 			EquipmentLogic.GetLoadoutEquipmentInfo(EquipmentFilter.NftOnly).Returns(nftList);
 			EquipmentLogic.GetInventoryEquipmentInfo(EquipmentFilter.NoNftOnly).Returns(nonNftList);
 			EquipmentLogic.GetLoadoutEquipmentInfo(EquipmentFilter.NoNftOnly).Returns(nonNftList);
-			EquipmentLogic.GetInventoryEquipmentInfo(EquipmentFilter.Both).Returns(bothList);
-			EquipmentLogic.GetLoadoutEquipmentInfo(EquipmentFilter.Both).Returns(bothList);
+			EquipmentLogic.GetInventoryEquipmentInfo(EquipmentFilter.All).Returns(bothList);
+			EquipmentLogic.GetLoadoutEquipmentInfo(EquipmentFilter.All).Returns(bothList);
 
 			InitConfigData(_poolConfig);
 			InitConfigData(new QuantumGameConfig { NftAssumedOwned = 40, MinNftForEarnings = 3, EarningsAugmentationStrengthSteepnessMod = FP.FromString("3"), EarningsAugmentationStrengthDropMod = FP.FromString("0.08")});

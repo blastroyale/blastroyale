@@ -61,12 +61,11 @@ namespace FirstLight.Game.Views.MainMenuViews
 		{
 			var equipmentDataProvider = _gameDataProvider.EquipmentDataProvider;
 
-			if (_gameDataProvider.EquipmentDataProvider.NftInventory.ContainsKey(data.Id))
+			if (_gameDataProvider.EquipmentDataProvider.TryGetNftInfo(data.Id, out var nftInfo))
 			{
-				var info = equipmentDataProvider.GetNftInfo(data.Id);
-				_equippedImage.enabled = info.EquipmentInfo.IsEquipped;
-				_cooldownImage.enabled = info.IsOnCooldown;
-				_nftImage.gameObject.SetActive(!info.IsOnCooldown);
+				_equippedImage.enabled = nftInfo.EquipmentInfo.IsEquipped;
+				_cooldownImage.enabled = nftInfo.IsOnCooldown;
+				_nftImage.gameObject.SetActive(!nftInfo.IsOnCooldown);
 			}
 			else
 			{

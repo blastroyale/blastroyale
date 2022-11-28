@@ -23,21 +23,15 @@ namespace FirstLight.Game.MonoComponent
 
 		[SerializeField, Required] protected UnityEvent _characterLoadedEvent;
 		[SerializeField, Required] protected Transform _characterAnchor;
-		[SerializeField] protected GameObject _testModel;
 		
 		protected MainMenuCharacterViewComponent _characterViewComponent;
 		protected IGameServices _services;
 		protected Animator _animator;
-		
-		private List<Equipment> _equipment;
+		protected List<Equipment> _equipment = new List<Equipment>();
 
 		protected virtual void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-			if (_testModel != null)
-			{
-				Destroy(_testModel);
-			}
 		}
 
 		public async Task UpdateSkin(GameId skin, List<EquipmentInfo> equipment = null)
@@ -87,6 +81,11 @@ namespace FirstLight.Game.MonoComponent
 			if (_equipment != null)
 			{
 				await _characterViewComponent.Init(_equipment);
+			}
+			
+			if (_equipment == null || !_equipment.Exists(equipment => equipment.IsWeapon()))
+			{
+				EquipDefault();
 			}
 
 			cacheTransform.localScale = Vector3.one;

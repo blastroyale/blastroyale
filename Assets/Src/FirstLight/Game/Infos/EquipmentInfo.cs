@@ -39,10 +39,18 @@ namespace FirstLight.Game.Infos
 	{
 		public UniqueId Id;
 		public Equipment Equipment;
-		public Pair<GameId, int> ScrappingValue;
+		public Pair<GameId, uint> ScrappingValue;
+		public Pair<GameId, uint> UpgradeCost;
+		public Pair<GameId, uint> RepairCost;
+		public uint CurrentDurability;
 		public bool IsEquipped;
 		public bool IsNft;
 		public Dictionary<EquipmentStatType, float> Stats;
+
+		/// <summary>
+		/// Check if the item is broken or not
+		/// </summary>
+		public bool IsBroken => CurrentDurability == 0;
 	}
 	
 	public struct NftEquipmentInfo
@@ -119,7 +127,7 @@ namespace FirstLight.Game.Infos
 			
 			foreach (var nft in items)
 			{
-				total += nft.Equipment.Durability;
+				total += nft.CurrentDurability;
 				maxDurability += nft.Equipment.MaxDurability;
 			}
 

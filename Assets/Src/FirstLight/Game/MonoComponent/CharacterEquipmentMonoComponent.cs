@@ -76,6 +76,7 @@ namespace FirstLight.Game.MonoComponent
 				
 				piece.localPosition = Vector3.zero;
 				piece.localRotation = Quaternion.identity;
+				piece.localScale = Vector3.one;
 				
 				if (piece.TryGetComponent<RenderersContainerMonoComponent>(out var renderContainer))
 				{

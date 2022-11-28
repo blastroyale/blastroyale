@@ -117,19 +117,19 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				// Set "stun" bool to false in advance to allow stun outro animation to play
 				duration -= _animator.GetFloat(GameConstants.Visuals.STUN_OUTRO_TIME_ANIMATOR_PARAM);
 
-				_stunCoroutine = Services.CoroutineService.StartCoroutine(StunCoroutine(duration));
+				_stunCoroutine = StartCoroutine(StunCoroutine(duration));
 			}
 
 			if (statusType == StatusModifierType.Star)
 			{
 				// Scale UP the character if it has a Star status
-				_starCoroutine = Services.CoroutineService.StartCoroutine(StarCoroutine(duration));
+				_starCoroutine = StartCoroutine(StarCoroutine(duration));
 			}
 
 			if (statusType.TryGetVfx(out MaterialVfxId materialVfx))
 			{
 				RenderersContainerProxy.SetMaterial(materialVfx, ShadowCastingMode.On, true);
-				_materialsCoroutine = Services.CoroutineService.StartCoroutine(ResetMaterials(duration));
+				_materialsCoroutine = StartCoroutine(ResetMaterials(duration));
 			}
 			else if (statusType.TryGetVfx(out VfxId vfx))
 			{
@@ -262,20 +262,20 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 			if (_materialsCoroutine != null)
 			{
-				Services.CoroutineService.StopCoroutine(_materialsCoroutine);
+				StopCoroutine(_materialsCoroutine);
 				RenderersContainerProxy.ResetToOriginalMaterials();
 				_materialsCoroutine = null;
 			}
 
 			if (_stunCoroutine != null)
 			{
-				Services.CoroutineService.StopCoroutine(_stunCoroutine);
+				StopCoroutine(_stunCoroutine);
 				FinishStun();
 			}
 
 			if (_starCoroutine != null)
 			{
-				Services.CoroutineService.StopCoroutine(_starCoroutine);
+				StopCoroutine(_starCoroutine);
 				FinishStar();
 			}
 		}

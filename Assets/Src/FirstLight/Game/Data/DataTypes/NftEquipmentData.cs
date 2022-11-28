@@ -7,7 +7,6 @@ namespace FirstLight.Game.Data.DataTypes
 	{
 		public string TokenId;
 		public long InsertionTimestamp;
-		public long LastRepairTimestamp;
 		public string ImageUrl;
 
 		/// <summary>

@@ -10,6 +10,7 @@ using FirstLight.Game.Infos;
 using FirstLight.Game.Input;
 using FirstLight.Game.UIElements;
 using I2.Loc;
+using Photon.Deterministic;
 using Photon.Realtime;
 using Quantum;
 using UnityEngine;
@@ -93,6 +94,14 @@ namespace FirstLight.Game.Utils
 		{
 			return LocalizationManager.GetTranslation(id.GetTranslationTerm());
 		}
+		
+		/// <summary>
+		/// Get's the translation string of the given <paramref name="id"/> + Description;
+		/// </summary>
+		public static string GetTranslationDescription(this GameId id)
+		{
+			return LocalizationManager.GetTranslation(id.GetTranslationTerm() + "Description");
+		}
 
 		/// <summary>
 		/// Get's the translation string of the given <paramref name="id"/>
@@ -125,6 +134,8 @@ namespace FirstLight.Game.Utils
 		{
 			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.GameIds)}/{id.ToString()}");
 		}
+		
+		
 
 		/// <summary>
 		/// Gets the translation string of the given <paramref name="group"/>

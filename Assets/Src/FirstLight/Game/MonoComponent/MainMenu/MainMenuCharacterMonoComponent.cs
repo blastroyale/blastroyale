@@ -28,7 +28,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		private async void Start()
 		{
 			var skin = _gameDataProvider.PlayerDataProvider.PlayerInfo.Skin;
-			var loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both);
+			var loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All);
 
 			await UpdateSkin(skin, loadout);
 		}
@@ -41,6 +41,24 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 
 		private async void OnLoadoutUpdated(GameIdGroup key, UniqueId previousId, UniqueId newId, ObservableUpdateType updateType)
 		{
+			// This happens when the system auto unequips/equips items during the loading of screen
+			if (_characterViewComponent == null)
+			{
+				var index = _equipment.FindIndex(item => item.GameId.GetSlot() == key);
+				
+				if (index > -1)
+				{
+					_equipment.RemoveAt(index);
+				}
+
+				if (updateType is ObservableUpdateType.Added or ObservableUpdateType.Updated)
+				{
+					_equipment.Add(_gameDataProvider.EquipmentDataProvider.Inventory[newId]);
+				}
+
+				return;
+			}
+			
 			if (updateType == ObservableUpdateType.Removed)
 			{
 				_characterViewComponent.UnequipItem(key);
@@ -72,41 +90,7 @@ namespace FirstLight.Game.MonoComponent.MainMenu
 		{
 			Destroy(_characterViewComponent.gameObject);
 			
-			await UpdateSkin(callback.SkinId, _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both));
+			await UpdateSkin(callback.SkinId, _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All));
 		}
-
-		// private async void SkinLoaded(GameId id, GameObject instance, bool instantiated)
-		// {
-		// 	// Check that the player hasn't changed the skin again while we were loading
-		// 	if (this.IsDestroyed() || id != _gameDataProvider.PlayerDataProvider.PlayerInfo.Skin)
-		// 	{
-		// 		Destroy(instance);
-		// 		return;
-		// 	}
-		//
-		// 	instance.SetActive(false);
-		//
-		// 	var cacheTransform = instance.transform;
-		// 	var loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both);
-		//
-		// 	cacheTransform.SetParent(_characterAnchor);
-		//
-		// 	cacheTransform.localPosition = Vector3.zero;
-		// 	cacheTransform.localRotation = Quaternion.identity;
-		// 	_characterViewComponent = instance.GetComponent<MainMenuCharacterViewComponent>();
-		//
-		// 	await _characterViewComponent.Init(loadout);
-		//
-		// 	if (!_gameDataProvider.EquipmentDataProvider.Loadout.ContainsKey(GameIdGroup.Weapon))
-		// 	{
-		// 		EquipDefault();
-		// 	}
-		// 	
-		// 	instance.SetActive(true);
-		//
-		// 	_animator = instance.GetComponent<Animator>();
-		// 	
-		// 	_characterLoadedEvent?.Invoke();
-		// }
 	}
 }

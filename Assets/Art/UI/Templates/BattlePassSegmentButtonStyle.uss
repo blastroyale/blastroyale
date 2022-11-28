@@ -1,11 +1,8 @@
 .segment {
-    align-items: flex-start;
-    justify-content: flex-end;
     width: 475px;
-    height: 475px;
-    position: relative;
-    left: 414px;
-    top: 325px;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
 }
 
 .progress-bar {
@@ -13,8 +10,7 @@
     height: 80px;
     align-items: flex-start;
     justify-content: center;
-    left: 10px;
-    position: absolute;
+    position: relative;
 }
 
 .progress-bar__background {
@@ -36,7 +32,7 @@
     height: 35px;
 }
 
-.level {
+.progress-bar__level {
     width: 80px;
     height: 80px;
     justify-content: center;
@@ -45,7 +41,7 @@
     position: absolute;
 }
 
-.level__label {
+.progress-bar__level-label {
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(22, 20, 38);
     text-shadow: 3px 3px 0 rgb(22, 20, 38);
@@ -59,7 +55,7 @@
     -unity-text-align: middle-center;
 }
 
-.level__bg-not-complete {
+.progress-bar__level-incomplete {
     background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/BPLevelCircle.png?fileID=2800000&guid=cb0eeaa443e8b406989f58c20f9ef269&type=3#BPLevelCircle');
     position: absolute;
     -unity-background-scale-mode: scale-to-fit;
@@ -68,7 +64,7 @@
     height: 100%;
 }
 
-.level__bg-complete {
+.progress-bar__level-complete {
     background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/BPLevelCirclePassed.png?fileID=2800000&guid=bd9a5051dffb647c5adcdbb79b5a79ac&type=3#BPLevelCirclePassed');
     position: absolute;
     -unity-background-scale-mode: scale-to-fit;
@@ -80,8 +76,8 @@
 .reward {
     width: 356px;
     height: 400px;
-    left: -165px;
-    bottom: 100px;
+    left: -225px;
+    bottom: 40px;
     justify-content: center;
     align-items: center;
 }

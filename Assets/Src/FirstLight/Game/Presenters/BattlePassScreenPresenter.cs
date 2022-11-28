@@ -1,18 +1,18 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using FirstLight.Game.Commands;
-using FirstLight.Game.Logic;
+using FirstLight.Game.Configs;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
+using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
-using FirstLight.Game.Views.BattlePassViews;
+using FirstLight.Game.Views;
 using FirstLight.UiService;
 using I2.Loc;
 using Quantum;
-using Sirenix.OdinInspector;
-using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
 {
@@ -22,10 +22,59 @@ namespace FirstLight.Game.Presenters
 	/// </summary>
 	public class BattlePassScreenPresenter : UiToolkitPresenterData<BattlePassScreenPresenter.StateData>
 	{
-		
 		public struct StateData
 		{
 			public Action BackClicked;
 		}
+
+		[SerializeField] private VisualTreeAsset _battlePassSegmentAsset;
+		
+		private List<BattlePassSegmentData> _segmentData;
+		private List<BattlePassSegmentView> _segmentViews;
+		private ScrollView _rewardsScroll;
+
+		private void Awake()
+		{ 
+			_segmentViews = new List<BattlePassSegmentView>();
+			_segmentData = new List<BattlePassSegmentData>();
+			_segmentData.Add(new BattlePassSegmentData());
+			_segmentData.Add(new BattlePassSegmentData());
+			_segmentData.Add(new BattlePassSegmentData());
+			_segmentData.Add(new BattlePassSegmentData());
+			_segmentData.Add(new BattlePassSegmentData());
+			_segmentData.Add(new BattlePassSegmentData());
+		}
+		
+		protected override void QueryElements(VisualElement root)
+		{
+			base.QueryElements(root);
+
+			_rewardsScroll = root.Q<ScrollView>("RewardsScroll").Required();
+			
+			SpawnAllSegments();
+		}
+
+		private void SpawnAllSegments()
+		{
+			foreach (var segment in _segmentData)
+			{
+				var segmentInstance = _battlePassSegmentAsset.Instantiate();
+				segmentInstance.AttachView(this, out BattlePassSegmentView view);
+				view.SetData(segment);
+				view.Clicked += OnSegmentRewardClicked;
+				_segmentViews.Add(view);
+				_rewardsScroll.Add(segmentInstance);
+			}
+		}
+
+		private void OnSegmentRewardClicked(BattlePassSegmentView view)
+		{
+			
+		}
+	}
+	
+	public struct BattlePassSegmentData
+	{
+	
 	}
 }

@@ -1,13 +1,14 @@
 .currency-display {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/CurrencyBack.png?fileID=21300000&guid=5c34000b4db9d44d297310e0b968e481&type=3#CurrencyBack');
-    width: 197px;
-    height: 54px;
+    width: 200px;
+    height: 55px;
     flex-direction: row;
+    align-items: center;
 }
 
 .currency-display__icon {
-    width: 54px;
-    height: 54px;
+    width: 60px;
+    height: 60px;
     margin-left: -25px;
 }
 

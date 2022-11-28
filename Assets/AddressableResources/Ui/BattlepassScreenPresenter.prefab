@@ -83,6 +83,7 @@ MonoBehaviour:
   _document: {fileID: 7388267820579563775}
   _background: {fileID: 4554462650237584422}
   _millisecondsToClose: 0
+  _battlePassSegmentAsset: {fileID: 9197481963319205126, guid: b696482fc2572a84da652c85e867d617, type: 3}
 --- !u!1001 &2107809331250817380
 PrefabInstance:
   m_ObjectHideFlags: 0

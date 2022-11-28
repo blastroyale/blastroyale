@@ -68,7 +68,7 @@
     width: 758px;
     height: 378px;
     position: absolute;
-    right: -174px;
+    right: -87px;
     top: -264px;
     -unity-background-image-tint-color: rgba(255, 0, 114, 0.52);
 }
@@ -94,18 +94,6 @@
     align-items: center;
     padding-top: 110px;
     padding-bottom: 30px;
-}
-
-.button-red {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/CancelButton.png?fileID=21300000&guid=ccdeaedddcd164707b37b8404a10b7c9&type=3#CancelButton');
-    width: 306px;
-    height: 88px;
-}
-
-.button-ppurple {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/SecondaryButton.png?fileID=21300000&guid=59b9eee3525d947a3bfd185b778e4783&type=3#SecondaryButton');
-    width: 306px;
-    height: 88px;
 }
 
 .equipment-popup__button-container {
@@ -137,7 +125,7 @@
 }
 
 .equipment-popup__bh-holder {
-    color: rgba(148, 140, 197, 255);
+    color: rgb(148, 140, 197);
     flex-direction: row;
     align-items: center;
     font-size: 32px;
@@ -160,6 +148,10 @@
     height: 88px;
 }
 
+.button-yellow:active {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/MainButtonPressed.png?fileID=21300000&guid=b81a6025b90aa4f9ab75bc05486c2882&type=3#MainButtonPressed');
+}
+
 .content-scrapping__button {
     margin-top: 85px;
 }
@@ -179,7 +171,7 @@
     align-items: center;
     justify-content: space-between;
     padding-bottom: 30px;
-    padding-top: 109px;
+    padding-top: 73px;
 }
 
 .content-upgrading__level-holder {
@@ -188,7 +180,8 @@
     width: 359px;
     font-size: 36px;
     align-items: center;
-    color: rgba(244, 200, 42, 255);
+    color: rgb(244, 200, 42);
+    margin-bottom: 73px;
 }
 
 .content-upgrading__arrow-icon {
@@ -200,4 +193,8 @@
 .content-upgrading__stats-list {
     flex-grow: 1;
     width: 600px;
+}
+
+.content-upgrading__stats-list .unity-list-view__item:hover {
+    background-color: rgba(0, 0, 0, 0);
 }

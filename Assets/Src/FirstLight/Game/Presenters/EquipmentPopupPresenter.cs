@@ -7,6 +7,7 @@ using FirstLight.Game.UIElements;
 using FirstLight.Game.Views.UITK;
 using FirstLight.UiService;
 using I2.Loc;
+using Quantum;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
@@ -22,7 +23,7 @@ namespace FirstLight.Game.Presenters
 			public Mode PopupMode;
 			public UniqueId EquipmentId;
 			public Action OnCloseClicked;
-			public Action<Mode> OnActionConfirmed;
+			public Action<Mode, UniqueId> OnActionConfirmed;
 		}
 
 		private IGameServices _services;
@@ -84,19 +85,24 @@ namespace FirstLight.Game.Presenters
 			{
 				case Mode.Scrap:
 					_title.text = ScriptLocalization.UITEquipment.popup_scrapping_item;
-					_scrapView.SetData(info, () => Data.OnActionConfirmed(Mode.Scrap), Data.OnCloseClicked);
+					_scrapView.SetData(info, () => Data.OnActionConfirmed(Mode.Scrap, Data.EquipmentId), Data.OnCloseClicked);
 					break;
 				case Mode.Upgrade:
 					_title.text = ScriptLocalization.UITEquipment.popup_upgrading_item;
-					_upgradeView.SetData(info, () => Data.OnActionConfirmed(Mode.Upgrade));
+					_upgradeView.SetData(info, () => Data.OnActionConfirmed(Mode.Upgrade, Data.EquipmentId), !HasEnoughCurrency(info.UpgradeCost));
 					break;
 				case Mode.Repair:
 					_title.text = ScriptLocalization.UITEquipment.popup_repairing_item;
-					_repairView.SetData(info, () => Data.OnActionConfirmed(Mode.Repair));
+					_repairView.SetData(info, () => Data.OnActionConfirmed(Mode.Repair, Data.EquipmentId), !HasEnoughCurrency(info.RepairCost));
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
+		}
+		
+		private bool HasEnoughCurrency(Pair<GameId, uint> cost)
+		{
+			return cost.Value <= _gameDataProvider.CurrencyDataProvider.GetCurrencyAmount(cost.Key);
 		}
 
 		public enum Mode

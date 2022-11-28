@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Utils;
 using UnityEngine;
@@ -13,14 +14,20 @@ namespace FirstLight.Game.UIElements
 		private const string UssBlock = "equipment-stat";
 
 		private const string UssTitleLabel = UssBlock + "__title-label";
+		private const string UssAmountHolder = UssBlock + "__amount-holder";
 		private const string UssAmountLabel = UssBlock + "__amount-label";
+		private const string UssAmountLabelNext = UssBlock + "__amount-label--next";
+		private const string UssAmountArrow = UssBlock + "__amount-arrow";
 		private const string UssBg = UssBlock + "__bg";
 		private const string UssProgressBg = UssBlock + "__progress-bg";
 		private const string UssProgressSlice = UssBlock + "__progress-slice";
+		private const string UssProgressSliceGreen = UssProgressSlice + "--green";
 
 		private readonly VisualElement[] _progressSlices;
 		private readonly Label _title;
 		private readonly Label _amount;
+		private readonly VisualElement _amountArrow;
+		private readonly Label _amountNext;
 
 		private static readonly Dictionary<EquipmentStatType, float> MAX_VALUES = new()
 		{
@@ -73,33 +80,54 @@ namespace FirstLight.Game.UIElements
 			Add(_title = new Label("ATTACK") {name = "title"});
 			_title.AddToClassList(UssTitleLabel);
 
-			Add(_amount = new Label("269") {name = "amount"});
-			_amount.AddToClassList(UssAmountLabel);
+			var amountHolder = new VisualElement {name = "amount-holder"};
+			amountHolder.AddToClassList(UssAmountHolder);
+			Add(amountHolder);
+			{
+				amountHolder.Add(_amount = new Label("269") {name = "amount"});
+				_amount.AddToClassList(UssAmountLabel);
+
+				amountHolder.Add(_amountArrow = new VisualElement {name = "arrow"});
+				_amountArrow.AddToClassList(UssAmountArrow);
+
+				amountHolder.Add(_amountNext = new Label("290") {name = "amount-next"});
+				_amountNext.AddToClassList(UssAmountLabel);
+				_amountNext.AddToClassList(UssAmountLabelNext);
+			}
+
+			SetValue(EquipmentStatType.Hp, 500,  true, 700);
 		}
 
-		public void SetValue(EquipmentStatType type, float value)
+		public void SetValue(EquipmentStatType type, float currentValue, bool showUpgrade = false, float nextValue = 0f)
 		{
 			_title.text = type.GetTranslation();
-			_amount.text = value.ToString(GetValueFormat(type));
+			_amount.text = currentValue.ToString(GetValueFormat(type));
+			_amountNext.text = nextValue.ToString(GetValueFormat(type));
+			_amountNext.SetDisplay(showUpgrade);
+			_amountArrow.SetDisplay(showUpgrade);
 
-			var percentage = value / MAX_VALUES[type];
+			var percentage = currentValue / MAX_VALUES[type];
+			var percentageNext = nextValue / MAX_VALUES[type];
 			if (INVERT_VALUES.Contains(type))
 			{
 				percentage = 1f - percentage;
+				percentageNext = 1f - percentageNext;
 			}
 
 			for (int i = 0; i < SLICES; i++)
 			{
-				_progressSlices[i].style.visibility =
-					percentage >= (float) (i + 1) / SLICES ? Visibility.Visible : Visibility.Hidden;
-			}
-		}
+				var slice = _progressSlices[i];
+				var sliceShown = percentage >= (float) (i + 1) / SLICES;
+				var sliceNextShown = percentageNext >= (float) (i + 1) / SLICES;
+				
+				slice.RemoveModifiers();
+				slice.SetVisibility(sliceShown || sliceNextShown);
 
-		public void SetUpgradeValue(EquipmentStatType type, float currentValue, float nextValue)
-		{
-			SetValue(type, currentValue);
-			
-			// TODO: Set next value
+				if (showUpgrade && !sliceShown && sliceNextShown)
+				{
+					slice.AddToClassList(UssProgressSliceGreen);
+				}
+			}
 		}
 
 		public static bool CanShowStat(EquipmentStatType type, float value)

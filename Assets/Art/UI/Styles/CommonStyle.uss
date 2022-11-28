@@ -53,7 +53,12 @@
     -unity-text-outline-color: rgb(0, 0, 0);
 }
 
-Button, LocalizedButton {
+Button {
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+}
+
+LocalizedButton {
     background-color: rgba(0, 0, 0, 0);
     border-width: 0;
 }
@@ -167,7 +172,49 @@ Button, LocalizedButton {
     top: -100px;
 }
 
-.button-flat-primary, .button-flat-secondary, .button-flat-cancel {
+.button-flat-primary {
+    padding-left: 40px;
+    padding-right: 40px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 2px;
+    border-radius: 10px;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    min-height: 70px;
+    -unity-font-definition: var(--font-italic);
+    -unity-paragraph-spacing: -30px;
+    -unity-font-style: bold;
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/GradientAndDots.png?fileID=21300000&guid=cf4abf5541a924d0da5e2d5681f54665&type=3#GradientAndDots');
+    -unity-background-scale-mode: scale-and-crop;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 0;
+}
+
+.button-flat-secondary {
+    padding-left: 40px;
+    padding-right: 40px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 2px;
+    border-radius: 10px;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    min-height: 70px;
+    -unity-font-definition: var(--font-italic);
+    -unity-paragraph-spacing: -30px;
+    -unity-font-style: bold;
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/GradientAndDots.png?fileID=21300000&guid=cf4abf5541a924d0da5e2d5681f54665&type=3#GradientAndDots');
+    -unity-background-scale-mode: scale-and-crop;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 0;
+}
+
+.button-flat-cancel {
     padding-left: 40px;
     padding-right: 40px;
     color: rgb(255, 255, 255);
@@ -323,7 +370,7 @@ Button, LocalizedButton {
     font-size: 32px;
     -unity-font-definition: var(--font-italic);
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/TooltipwithTail.png?fileID=21300000&guid=7daa27819b9ff40648f92f624119dfc4&type=3#TooltipwithTail');
-    color: rgba(186, 161, 230, 255);
+    color: rgb(186, 161, 230);
     position: absolute;
     top: 0;
     right: 0;
@@ -354,4 +401,104 @@ Button, LocalizedButton {
 
 .unity-button:hover {
     background-color: rgba(0, 0, 0, 0);
+}
+
+.button-long {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/SecondaryButton.png?fileID=21300000&guid=59b9eee3525d947a3bfd185b778e4783&type=3#SecondaryButton');
+    width: 306px;
+    height: 88px;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    background-color: rgba(0, 0, 0, 0);
+    -unity-font-definition: var(--font-italic);
+    font-size: 42px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    padding: 0 0 7px;
+    -unity-text-align: middle-center;
+    margin: 0;
+    margin-bottom: 11px;
+    overflow: visible;
+    align-items: stretch;
+    justify-content: center;
+}
+
+.button-long:active {
+    padding-bottom: 0;
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/SecondaryButtonPressed.png?fileID=21300000&guid=433a70b320ed9443399653eebb4799d5&type=3#SecondaryButtonPressed');
+}
+
+.button-long--yellow {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/MainButton.png?fileID=21300000&guid=612390a1cd22a4403b85c7fb5cb7c4d1&type=3#MainButton');
+    -unity-text-outline-color: rgb(157, 35, 11);
+    text-shadow: 3px 3px 0 rgb(157, 35, 10);
+}
+
+.button-long--yellow:active {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMainYellowPressed.png?fileID=21300000&guid=c96062ca698c645258fbf9555f558741&type=3#ButtonMainYellowPressed');
+}
+
+.button-long--red {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/CancelButton.png?fileID=21300000&guid=ccdeaedddcd164707b37b8404a10b7c9&type=3#CancelButton');
+}
+
+.button-long--red:active {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/CancelButtonPressed.png?fileID=21300000&guid=1394041b722714dbc8bb4a592d103cf0&type=3#CancelButtonPressed');
+}
+
+.button-long--price {
+    padding-bottom: 16px;
+    -unity-text-align: lower-center;
+}
+
+.price-button {
+}
+
+.price-button:active .price-button__holder {
+    top: 3px;
+    bottom: 5px;
+}
+
+.price-button__holder {
+    position: absolute;
+    left: 0;
+    top: -2px;
+    right: 0;
+    bottom: 10px;
+}
+
+.price-button__price-holder {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.price-button__price {
+    flex-shrink: 1;
+}
+
+.price-button__price--insufficient {
+    color: rgb(233, 58, 58);
+}
+
+.price-button__icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BPP.png?fileID=21300000&guid=100d689cc6ffc41f297345bcfc22f54e&type=3#BPP');
+    width: 30px;
+    height: 30px;
+}
+
+.price-button__icon--cs {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/CS.png?fileID=21300000&guid=d74b22177c5ba4ac6b9293d6c147e46e&type=3#CS');
+}
+
+.price-button__icon--blst {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BLST.png?fileID=21300000&guid=b0ad58f6ca5c1472fa1fb6178491eb03&type=3#BLST');
+}
+
+.price-button__icon--coin {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/CoinIcon.png?fileID=21300000&guid=787f6e10544e24075863e3f881de6467&type=3#CoinIcon');
 }

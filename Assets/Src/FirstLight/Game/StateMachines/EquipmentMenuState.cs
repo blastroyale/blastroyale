@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Statechart;
-using FirstLight.Game.Utils;
 using Quantum;
 
 namespace FirstLight.Game.StateMachines
@@ -21,6 +18,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _scrapClickedEvent = new StatechartEvent("Scrap Clicked Event");
 		private readonly IStatechartEvent _upgradeClickedEvent = new StatechartEvent("Upgrade Clicked Event");
 		private readonly IStatechartEvent _repairClickedEvent = new StatechartEvent("Repair Clicked Event");
+		private readonly IStatechartEvent _itemProcessedEvent = new StatechartEvent("Item Processed Event");
 
 		private readonly IStatechartEvent _backButtonClickedEvent =
 			new StatechartEvent("Equipment Back Button Clicked Event");
@@ -76,14 +74,17 @@ namespace FirstLight.Game.StateMachines
 
 			scrapState.OnEnter(OpenScrapPopup);
 			scrapState.Event(_closeButtonClickedEvent).Target(equipmentSelectionState);
+			scrapState.Event(_itemProcessedEvent).Target(equipmentSelectionState);
 			scrapState.OnExit(CloseEquipmentPopup);
 
 			upgradeState.OnEnter(OpenUpgradePopup);
 			upgradeState.Event(_closeButtonClickedEvent).Target(equipmentSelectionState);
+			upgradeState.Event(_itemProcessedEvent).Target(equipmentSelectionState);
 			upgradeState.OnExit(CloseEquipmentPopup);
 
 			repairState.OnEnter(OpenRepairPopup);
 			repairState.Event(_closeButtonClickedEvent).Target(equipmentSelectionState);
+			repairState.Event(_itemProcessedEvent).Target(equipmentSelectionState);
 			repairState.OnExit(CloseEquipmentPopup);
 
 			final.OnEnter(SendLoadoutUpdateCommand);
@@ -123,24 +124,28 @@ namespace FirstLight.Game.StateMachines
 			await _uiService.OpenUiAsync<EquipmentPopupPresenter, EquipmentPopupPresenter.StateData>(data);
 		}
 
-		private void OnPopupActionConfirmed(EquipmentPopupPresenter.Mode mode)
+		private void OnPopupActionConfirmed(EquipmentPopupPresenter.Mode mode, UniqueId id)
 		{
+			bool sameItem = true;
 			switch (mode)
 			{
 				case EquipmentPopupPresenter.Mode.Scrap:
-					// TODO: Do the thing
+					sameItem = false;
+					_services.CommandService.ExecuteCommand(new ScrapItemCommand {Item = id});
 					break;
 				case EquipmentPopupPresenter.Mode.Upgrade:
-					// TODO: Do the thing
+					_services.CommandService.ExecuteCommand(new UpgradeItemCommand {Item = id});
 					break;
 				case EquipmentPopupPresenter.Mode.Repair:
-					// TODO: Do the thing
+					_services.CommandService.ExecuteCommand(new RepairItemCommand {Item = id});
 					break;
 				default:
 					throw new ArgumentOutOfRangeException(nameof(mode), mode, null);
 			}
+			
+			_uiService.GetUi<EquipmentSelectionPresenter>().RefreshItems(!sameItem);
 
-			CloseEquipmentPopup();
+			_statechartTrigger(_itemProcessedEvent);
 		}
 
 		private void OpenEquipmentScreen()

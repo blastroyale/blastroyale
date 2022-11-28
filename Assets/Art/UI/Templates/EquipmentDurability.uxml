@@ -5,10 +5,11 @@
         <ui:Label text="+42" name="DurabilityPlusAmount" class="equipment-durability__title equipment-durability__plus-amount" />
         <ui:VisualElement name="ProgressHolder">
             <ui:VisualElement name="DurabilityProgressBg" class="equipment-durability__progress-bg">
+                <ui:VisualElement name="GreenBg" class="equipment-durability__progress-green" />
                 <ui:VisualElement name="DurabilityProgress" class="equipment-durability__progress" />
             </ui:VisualElement>
             <ui:VisualElement name="Icon" class="equipment-durability__icon" />
-            <ui:Label text="132/180" display-tooltip-when-elided="true" name="DurabilityAmount" class="equipment-durability__progress-label" />
+            <ui:Label text="132/180" name="DurabilityAmount" class="equipment-durability__progress-label" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

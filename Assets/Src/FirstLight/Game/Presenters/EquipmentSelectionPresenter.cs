@@ -14,6 +14,7 @@ using FirstLight.Game.UIElements;
 using FirstLight.UiService;
 using I2.Loc;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
@@ -46,7 +47,7 @@ namespace FirstLight.Game.Presenters
 			public Action OnUpgradeClicked;
 			public Action OnRepairClicked;
 		}
-		
+
 		public UniqueId SelectedItem { get; private set; }
 
 		private ScreenHeaderElement _header;
@@ -60,11 +61,11 @@ namespace FirstLight.Game.Presenters
 		private ListView _statsList;
 		private VisualElement _durabilityBar;
 		private Label _durabilityAmount;
-		
+
 		private Button _equipButton;
-		private Button _scrapButton;
-		private Button _upgradeButton;
-		private Button _repairButton;
+		private PriceButton _scrapButton;
+		private PriceButton _upgradeButton;
+		private PriceButton _repairButton;
 
 		private VisualElement _cooldownTag;
 		private VisualElement _rarityTag;
@@ -115,11 +116,11 @@ namespace FirstLight.Game.Presenters
 
 			_durabilityBar = root.Q("DurabilityProgress").Required();
 			_durabilityAmount = root.Q<Label>("DurabilityAmount").Required();
-			
+
 			_equipButton = root.Q<Button>("EquipButton").Required();
-			_scrapButton = root.Q<Button>("ScrapButton").Required();
-			_upgradeButton = root.Q<Button>("UpgradeButton").Required();
-			_repairButton = root.Q<Button>("RepairButton").Required();
+			_scrapButton = root.Q<PriceButton>("ScrapButton").Required();
+			_upgradeButton = root.Q<PriceButton>("UpgradeButton").Required();
+			_repairButton = root.Q<PriceButton>("RepairButton").Required();
 
 			_equipButton.clicked += OnEquipClicked;
 			_scrapButton.clicked += Data.OnScrapClicked;
@@ -131,7 +132,7 @@ namespace FirstLight.Game.Presenters
 
 			_statsList.makeItem = MakeEquipmentStatListItem;
 			_statsList.bindItem = BindEquipmentStatListItem;
-			
+
 			root.SetupClicks(_services);
 		}
 
@@ -142,10 +143,7 @@ namespace FirstLight.Game.Presenters
 			_header.SetTitle(LocalizationManager.GetTranslation(
 				string.Format(HEADER_LOC_KEY, Data.EquipmentSlot.ToString().ToLowerInvariant())));
 
-			UpdateEquipmentList();
-			UpdateEquipmentDetails();
-			UpdateEquipButton();
-			UpdateMight(false);
+			RefreshItems(true);
 
 			_gameDataProvider.EquipmentDataProvider.Loadout.Observe(Data.EquipmentSlot, OnLoadoutUpdated);
 		}
@@ -154,6 +152,17 @@ namespace FirstLight.Game.Presenters
 		{
 			_gameDataProvider.EquipmentDataProvider.Loadout.StopObservingAll(this);
 			return base.OnClosed();
+		}
+
+		/// <summary>
+		/// Refreshes the equipment details / info.
+		/// </summary>
+		public void RefreshItems(bool resetSelected)
+		{
+			UpdateEquipmentList(resetSelected);
+			UpdateEquipmentDetails();
+			UpdateEquipButton();
+			UpdateMight(false);
 		}
 
 		private void OnLoadoutUpdated(GameIdGroup group, UniqueId previous, UniqueId current, ObservableUpdateType type)
@@ -168,7 +177,7 @@ namespace FirstLight.Game.Presenters
 			UpdateMight();
 		}
 
-		private void UpdateEquipmentList()
+		private void UpdateEquipmentList(bool resetSelected)
 		{
 			var items = _gameDataProvider.EquipmentDataProvider.Inventory.ReadOnlyDictionary
 				.Where(kvp => kvp.Value.GameId.IsInGroup(Data.EquipmentSlot))
@@ -207,19 +216,22 @@ namespace FirstLight.Game.Presenters
 				_equippedItem = UniqueId.Invalid;
 			}
 
-			if (_equipmentListRows.Count == 0)
+			if (resetSelected)
 			{
-				_missingEquipment.style.display = DisplayStyle.Flex;
-				SelectedItem = UniqueId.Invalid;
-			}
-			else
-			{
-				_missingEquipment.style.display = DisplayStyle.None;
-				SelectedItem = _equipmentListRows[0].Item1.UniqueId;
-				_equipmentList.ScrollToItem(0);
+				if (_equipmentListRows.Count == 0)
+				{
+					_missingEquipment.style.display = DisplayStyle.Flex;
+					SelectedItem = UniqueId.Invalid;
+				}
+				else
+				{
+					_missingEquipment.style.display = DisplayStyle.None;
+					SelectedItem = _equipmentListRows[0].Item1.UniqueId;
+					_equipmentList.ScrollToItem(0);
 
-				// Set the first item as viewed
-				_gameDataProvider.UniqueIdDataProvider.NewIds.Remove(SelectedItem);
+					// Set the first item as viewed
+					_gameDataProvider.UniqueIdDataProvider.NewIds.Remove(SelectedItem);
+				}
 			}
 
 			_equipmentList.itemsSource = _equipmentListRows;
@@ -294,6 +306,13 @@ namespace FirstLight.Game.Presenters
 				_special1Tag.Q<Label>("Title").text = special1ID.GetTranslation();
 			}
 
+			// Prices
+			_scrapButton.SetPrice(info.ScrappingValue);
+			_upgradeButton.SetPrice(info.UpgradeCost, !HasEnoughCurrency(info.UpgradeCost));
+			_upgradeButton.SetEnabled(!info.Equipment.IsMaxLevel());
+			_repairButton.SetPrice(info.RepairCost, !HasEnoughCurrency(info.RepairCost));
+			_repairButton.SetEnabled(info.CurrentDurability < info.Equipment.MaxDurability);
+
 			// Icon
 			_equipmentIcon.style.backgroundImage = new StyleBackground(
 				await _services.AssetResolverService.RequestAsset<GameId, Sprite>(
@@ -301,6 +320,11 @@ namespace FirstLight.Game.Presenters
 
 			// Set item as viewed
 			_gameDataProvider.UniqueIdDataProvider.NewIds.Remove(SelectedItem);
+		}
+
+		private bool HasEnoughCurrency(Pair<GameId, uint> cost)
+		{
+			return cost.Value <= _gameDataProvider.CurrencyDataProvider.GetCurrencyAmount(cost.Key);
 		}
 
 		private void UpdateEquipButton()
@@ -374,7 +398,7 @@ namespace FirstLight.Game.Presenters
 
 			card1.SetEquipment(row.Item1.Equipment, row.Item1.UniqueId, false,
 				_gameDataProvider.EquipmentDataProvider.NftInventory.ContainsKey(row.Item1.UniqueId),
-				card1.UniqueId == _equippedItem,
+				row.Item1.UniqueId == _equippedItem,
 				_gameDataProvider.UniqueIdDataProvider.NewIds.Contains(row.Item1.UniqueId));
 
 			if (row.Item2 != null)
@@ -382,7 +406,7 @@ namespace FirstLight.Game.Presenters
 				card2.SetDisplay(true);
 				card2.SetEquipment(row.Item2.Equipment, row.Item2.UniqueId, false,
 					_gameDataProvider.EquipmentDataProvider.NftInventory.ContainsKey(row.Item2.UniqueId),
-					card2.UniqueId == _equippedItem,
+					row.Item2.UniqueId == _equippedItem,
 					_gameDataProvider.UniqueIdDataProvider.NewIds.Contains(row.Item2.UniqueId));
 			}
 			else

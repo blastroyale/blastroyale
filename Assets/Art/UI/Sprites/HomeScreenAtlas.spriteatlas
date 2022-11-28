@@ -62,6 +62,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 373221336b615467fa8bab6411b3dc39, type: 3}
   - {fileID: 21300000, guid: 2ea4ca43a1f724d659125eeae517ed2a, type: 3}
   - {fileID: 21300000, guid: 123b7673eb1d048a486154a4e65c630b, type: 3}
+  - {fileID: 21300000, guid: 433a70b320ed9443399653eebb4799d5, type: 3}
   - {fileID: 21300000, guid: 3cd14ec38c7b043f1b9600fd0547f7d3, type: 3}
   - {fileID: 21300000, guid: 59b9eee3525d947a3bfd185b778e4783, type: 3}
   - {fileID: 21300000, guid: c89c05447743249abbe3605e15ac0c97, type: 3}
@@ -70,6 +71,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 119d947463d914dde82656f9069a791f, type: 3}
   - {fileID: 21300000, guid: 7e685384ba859494b9ae07c5aa187a57, type: 3}
   - {fileID: 21300000, guid: 28dcc9c4107ff41dbb89eb08d4f2b1ec, type: 3}
+  - {fileID: 21300000, guid: b81a6025b90aa4f9ab75bc05486c2882, type: 3}
   - {fileID: 21300000, guid: 31d12f25720b448729c80bbf0a160cfe, type: 3}
   - {fileID: 21300000, guid: cf4abf5541a924d0da5e2d5681f54665, type: 3}
   - {fileID: 21300000, guid: 728932854c02c47ddb4057b68d3c91c7, type: 3}
@@ -115,6 +117,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: c96062ca698c645258fbf9555f558741, type: 3}
   - {fileID: 21300000, guid: c49ac5caad3204b44b684f7822d4f353, type: 3}
   - {fileID: 21300000, guid: 5c34000b4db9d44d297310e0b968e481, type: 3}
+  - {fileID: 21300000, guid: 1394041b722714dbc8bb4a592d103cf0, type: 3}
   - {fileID: 21300000, guid: 18681f2bfea5b4e8488dee8622c91fee, type: 3}
   - {fileID: 21300000, guid: c23c775b5c0864573b27d89f2a6a6a04, type: 3}
   - {fileID: 21300000, guid: 6ed5495b8d7894f56ae9a5a2a64820af, type: 3}
@@ -177,6 +180,7 @@ SpriteAtlas:
   - CloseButtonPressed
   - IconShop
   - DotsRotated
+  - SecondaryButtonPressed
   - BacklightRarity
   - SecondaryButton
   - AvatarBack
@@ -185,6 +189,7 @@ SpriteAtlas:
   - StatsBack
   - GrenadeAbilityIcon
   - ShopIcon
+  - MainButtonPressed
   - AbilityButton
   - GradientAndDots
   - ButtonMainYellow
@@ -230,6 +235,7 @@ SpriteAtlas:
   - ButtonMainYellowPressed
   - NoItemButton
   - CurrencyBack
+  - CancelButtonPressed
   - ShieldedchargeAbilityIcon
   - DurabilityIcon
   - TappedEffect

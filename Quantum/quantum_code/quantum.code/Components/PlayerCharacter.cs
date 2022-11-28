@@ -211,9 +211,10 @@ namespace Quantum
 				Collectable.DropEquipment(f, WeaponSlots[slot].Weapon, dropPosition, 0);
 			}
 
-			WeaponSlot[slot].MagazineShotCount = weaponConfig.MagazineSize;
-			WeaponSlot[slot].ReloadTime = weaponConfig.ReloadTime;
-			WeaponSlot[slot].MagazineSize = weaponConfig.MagazineSize;
+			var targetSlot = WeaponSlots.GetPointer(slot);
+			targetSlot->MagazineShotCount = weaponConfig.MagazineSize;
+			targetSlot->ReloadTime = weaponConfig.ReloadTime;
+			targetSlot->MagazineSize = weaponConfig.MagazineSize;
 			WeaponSlots[slot].Weapon = weapon;
 
 			stats->GainAmmoPercent(f, e, initialAmmo - ((FP)stats->CurrentAmmo / stats->GetStatData(StatType.AmmoCapacity).StatValue));
@@ -233,7 +234,7 @@ namespace Quantum
 
 				WeaponSlots.GetPointer(slot)->Specials[i] = special;
 			}
-			
+
 			EquipSlotWeapon(f, e, slot);
 		}
 

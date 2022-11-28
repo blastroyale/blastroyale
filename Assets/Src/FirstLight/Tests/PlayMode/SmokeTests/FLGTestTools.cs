@@ -1,6 +1,8 @@
 using System.Collections;
 using FirstLight.Game.Presenters;
+using FirstLight.Game.Views;
 using FirstLight.Game.Views.MainMenuViews;
+using FirstLight.UiService;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UI.Button;
@@ -9,6 +11,7 @@ using Toggle = UnityEngine.UI.Toggle;
 
 namespace FirstLight.Tests.PlayTests
 {
+#region WAIT_FOR_MENU
 	public class FLGTestTools
 	{
 		public static IEnumerator WaitForMainMenu()
@@ -40,7 +43,13 @@ namespace FirstLight.Tests.PlayTests
 		{
 			yield return TestTools.UntilObjectOfType<ResultsScreenPresenter>();
 		}
+#endregion
 		
+		public static void ClickPlayButton()
+		{
+			TestTools.ClickUIToolKitButton(Object.FindObjectOfType<HomeScreenPresenter>().GetComponent<UIDocument>(), "PlayButton");
+		}
+	
 		public static void ClickResultsHome()
 		{
 			GameObject.Find("UiButtonSlim_Blue_Home").GetComponent<Button>().onClick.Invoke();

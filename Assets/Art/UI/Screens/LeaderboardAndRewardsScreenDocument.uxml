@@ -5,7 +5,7 @@
             <ui:Label text="NEXT →" display-tooltip-when-elided="true" name="Label" class="next-button__label" />
         </ui:Button>
         <ui:Label text="9. PLAYERNAME" display-tooltip-when-elided="true" name="PlayerName" class="player-name" />
-        <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITLeaderboards/placements" class="screen-header--simple" />
+        <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITLeaderboards/placements" subtitle-key="UITLeaderboards/battleroyale" class="screen-header--simple" />
         <ui:VisualElement name="LeaderboardPanel" class="leaderboard-panel">
             <ui:VisualElement name="LeaderboardHeader" class="leaderboard-header">
                 <ui:Label text="#" display-tooltip-when-elided="true" name="RankNumber" class="header-label leaderboard-header__rank-number" />

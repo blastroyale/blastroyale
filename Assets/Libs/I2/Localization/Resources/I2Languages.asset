@@ -6912,7 +6912,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - CROSSBOW
+      - NELLYBERT
       - 
       - 
       Flags: 000000
@@ -6921,7 +6921,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - MINIGUN
+      - FOR-Q
       - 
       - 
       Flags: 000000
@@ -6930,7 +6930,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - RPG
+      - B-BOMBUR
       - 
       - 
       Flags: 000000
@@ -6939,7 +6939,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - ASSAULT RIFLE
+      - MINE NOW
       - 
       - 
       Flags: 000000
@@ -6948,7 +6948,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - SMG
+      - SNM
       - 
       - 
       Flags: 000000
@@ -6957,7 +6957,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - SCATTERGUN
+      - RUTTEGER
       - 
       - 
       Flags: 000000
@@ -6966,7 +6966,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - HUNTING RIFLE
+      - MOSQUWEETO
       - 
       - 
       Flags: 000000
@@ -7560,7 +7560,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - ModHeavyMachineGun
+      - BUST4
       - 
       - 
       Flags: 000000
@@ -7569,7 +7569,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - GRENADE LAUNCHER
+      - BRD-E
       - 
       - 
       Flags: 000000
@@ -7578,7 +7578,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - DAEDALUS
+      - 7AHM
       - 
       - 
       Flags: 000000
@@ -7587,7 +7587,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - PISTOL
+      - B-D13
       - 
       - 
       Flags: 000000
@@ -7596,7 +7596,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - CARBINE
+      - T-PU5H4
       - 
       - 
       Flags: 000000
@@ -7605,7 +7605,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - SHOTGUN
+      - L&L 94
       - 
       - 
       Flags: 000000
@@ -7614,7 +7614,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - SNIPER
+      - 1N1-E5TA
       - 
       - 
       Flags: 000000
@@ -7929,7 +7929,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - LASER BLASTER
+      - REXXX
       - 
       - 
       Flags: 000000
@@ -7938,7 +7938,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - PLASMA CANNON
+      - SPECIAL BEAM
       - 
       - 
       Flags: 000000
@@ -7947,7 +7947,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - ELECTRON THROWER
+      - DOOMBA
       - 
       - 
       Flags: 000000
@@ -7956,7 +7956,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - NEEDLE GUN
+      - IRVIN
       - 
       - 
       Flags: 000000
@@ -7965,7 +7965,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - LASER PISTOL
+      - PECKARD
       - 
       - 
       Flags: 000000
@@ -7974,7 +7974,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - LASER RIFLE
+      - EQUES-2
       - 
       - 
       Flags: 000000
@@ -7983,7 +7983,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - PULSE RIFLE
+      - ROOK
       - 
       - 
       Flags: 000000
@@ -9558,6 +9558,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITShared/got_it
+      TermType: 0
+      Description: 
+      Languages:
+      - GOT IT
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITSettings/logout
       TermType: 0
       Description: 
@@ -9999,6 +10008,78 @@ MonoBehaviour:
       - '{0}
 
         {1}'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITBattlePass/season_ends_in
+      TermType: 0
+      Description: 
+      Languages:
+      - 'SEASON ENDS IN '
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITBattlePass/season_time_left_big
+      TermType: 0
+      Description: 
+      Languages:
+      - ' {0}d {1}h'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITBattlePass/season_time_left_small
+      TermType: 0
+      Description: 
+      Languages:
+      - ' {0}h {1}m'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITBattlePass/bp_level
+      TermType: 0
+      Description: 
+      Languages:
+      - LV
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITBattlePass/play_games_info
+      TermType: 0
+      Description: 
+      Languages:
+      - PLAY GAMES AND UNLOCK REWARDS!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITBattlePass/claim_all
+      TermType: 0
+      Description: 
+      Languages:
+      - CLAIM ALL
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITBattlePass/tap_to_claim
+      TermType: 0
+      Description: 
+      Languages:
+      - TAP TO CLAIM
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITBattlePass/season_number
+      TermType: 0
+      Description: 
+      Languages:
+      - SEASON {0}
       - 
       - 
       Flags: 000000
@@ -10445,6 +10526,152 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITEquipment/popup_scrap_are_you_sure
+      TermType: 0
+      Description: 
+      Languages:
+      - ARE YOU SURE YOU WANT TO SCRAP THIS ITEM FOR
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/popup_cannot_undo_action
+      TermType: 0
+      Description: 
+      Languages:
+      - YOU CANNOT UNDO THIS ACTION
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/popup_yes_scrap
+      TermType: 0
+      Description: 
+      Languages:
+      - YES, SCRAP
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/popup_perform_action
+      TermType: 0
+      Description: 
+      Languages:
+      - You can perform this action on
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/popup_restore_durability
+      TermType: 0
+      Description: 
+      Languages:
+      - RESTORE DURABILITY TO MAX
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/popup_scrapping_item
+      TermType: 0
+      Description: 
+      Languages:
+      - SCRAPPING ITEM
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/popup_requirements
+      TermType: 0
+      Description: 
+      Languages:
+      - REQUIREMENTS
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/popup_upgrading_item
+      TermType: 0
+      Description: 
+      Languages:
+      - UPGRADING ITEM
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/popup_upgrade_lvl
+      TermType: 0
+      Description: 
+      Languages:
+      - LV<size=52px>{0}
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/scrap
+      TermType: 0
+      Description: 
+      Languages:
+      - SCRAP
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/upgrade
+      TermType: 0
+      Description: 
+      Languages:
+      - UPGRADE
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/repair
+      TermType: 0
+      Description: 
+      Languages:
+      - REPAIR
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/popup_repairing_item
+      TermType: 0
+      Description: 
+      Languages:
+      - REPAIRING ITEM
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/popup_items_rusted
+      TermType: 0
+      Description: 
+      Languages:
+      - YOUR ITEMS HAVE RUSTED
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/popup_go_repair
+      TermType: 0
+      Description: 
+      Languages:
+      - GO REPAIR
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/popup_items_unequipped
+      TermType: 0
+      Description: 
+      Languages:
+      - 'ITEMS WERE UNEQUIPPED
+
+        REPAIR ITEMS TO BE ABLE TO EQUIP THEM AGAIN'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITWinners/winners
       TermType: 0
       Description: 
@@ -10499,11 +10726,20 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITLeaderboards/placements
+    - Term: UITLeaderboards/standings
       TermType: 0
       Description: 
       Languages:
-      - PLACEMENTS
+      - STANDINGS
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITLeaderboards/battleroyale
+      TermType: 0
+      Description: 
+      Languages:
+      - BATTLE ROYALE
       - 
       - 
       Flags: 000000
@@ -10526,7 +10762,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1669313607138
+    Google_LastUpdatedVersion: 1669721981835
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

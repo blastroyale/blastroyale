@@ -32,10 +32,10 @@ namespace FirstLight.Game.Views
 		}
 		
 		/// <summary>
-		/// Sets the data needed to fill the button's visuals
+		/// Sets the data needed to fill leaderboard entry's data
 		/// </summary>
-		/// <param name="orderNumber">Order of the button on the list</param>
-		/// <param name="gameModeInfo">Game mode data to fill the button's visuals</param>
+		/// <param name="data">All the match data from the player we're showing</param>
+		/// <param name="isLocalPlayer">If this is the local player</param>
 		public void SetData(QuantumPlayerMatchData data, bool isLocalPlayer)
 		{
 			if (data.PlayerRank <= 3)

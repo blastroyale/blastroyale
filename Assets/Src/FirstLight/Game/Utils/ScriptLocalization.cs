@@ -1138,7 +1138,9 @@ namespace I2.Loc
 			public static string no_shield 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/no_shield"); } }
 			public static string no_weapon 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/no_weapon"); } }
 			public static string popup_cannot_undo_action 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/popup_cannot_undo_action"); } }
+			public static string popup_go_repair 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/popup_go_repair"); } }
 			public static string popup_items_rusted 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/popup_items_rusted"); } }
+			public static string popup_items_unequipped 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/popup_items_unequipped"); } }
 			public static string popup_perform_action 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/popup_perform_action"); } }
 			public static string popup_repairing_item 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/popup_repairing_item"); } }
 			public static string popup_requirements 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/popup_requirements"); } }
@@ -1192,10 +1194,11 @@ namespace I2.Loc
 
 		public static class UITLeaderboards
 		{
+			public static string battleroyale 		{ get{ return LocalizationManager.GetTranslation ("UITLeaderboards/battleroyale"); } }
 			public static string deaths 		{ get{ return LocalizationManager.GetTranslation ("UITLeaderboards/deaths"); } }
 			public static string kills 		{ get{ return LocalizationManager.GetTranslation ("UITLeaderboards/kills"); } }
-			public static string placements 		{ get{ return LocalizationManager.GetTranslation ("UITLeaderboards/placements"); } }
 			public static string player 		{ get{ return LocalizationManager.GetTranslation ("UITLeaderboards/player"); } }
+			public static string standings 		{ get{ return LocalizationManager.GetTranslation ("UITLeaderboards/standings"); } }
 			public static string trophies 		{ get{ return LocalizationManager.GetTranslation ("UITLeaderboards/trophies"); } }
 		}
 
@@ -1250,6 +1253,7 @@ namespace I2.Loc
 			public static string confirmation 		{ get{ return LocalizationManager.GetTranslation ("UITShared/confirmation"); } }
 			public static string deathmatch 		{ get{ return LocalizationManager.GetTranslation ("UITShared/deathmatch"); } }
 			public static string error 		{ get{ return LocalizationManager.GetTranslation ("UITShared/error"); } }
+			public static string got_it 		{ get{ return LocalizationManager.GetTranslation ("UITShared/got_it"); } }
 			public static string info 		{ get{ return LocalizationManager.GetTranslation ("UITShared/info"); } }
 			public static string input 		{ get{ return LocalizationManager.GetTranslation ("UITShared/input"); } }
 			public static string main_menu 		{ get{ return LocalizationManager.GetTranslation ("UITShared/main_menu"); } }
@@ -2416,7 +2420,9 @@ namespace I2.Loc
 		    public const string no_shield = "UITEquipment/no_shield";
 		    public const string no_weapon = "UITEquipment/no_weapon";
 		    public const string popup_cannot_undo_action = "UITEquipment/popup_cannot_undo_action";
+		    public const string popup_go_repair = "UITEquipment/popup_go_repair";
 		    public const string popup_items_rusted = "UITEquipment/popup_items_rusted";
+		    public const string popup_items_unequipped = "UITEquipment/popup_items_unequipped";
 		    public const string popup_perform_action = "UITEquipment/popup_perform_action";
 		    public const string popup_repairing_item = "UITEquipment/popup_repairing_item";
 		    public const string popup_requirements = "UITEquipment/popup_requirements";
@@ -2470,10 +2476,11 @@ namespace I2.Loc
 
 		public static class UITLeaderboards
 		{
+		    public const string battleroyale = "UITLeaderboards/battleroyale";
 		    public const string deaths = "UITLeaderboards/deaths";
 		    public const string kills = "UITLeaderboards/kills";
-		    public const string placements = "UITLeaderboards/placements";
 		    public const string player = "UITLeaderboards/player";
+		    public const string standings = "UITLeaderboards/standings";
 		    public const string trophies = "UITLeaderboards/trophies";
 		}
 
@@ -2528,6 +2535,7 @@ namespace I2.Loc
 		    public const string confirmation = "UITShared/confirmation";
 		    public const string deathmatch = "UITShared/deathmatch";
 		    public const string error = "UITShared/error";
+		    public const string got_it = "UITShared/got_it";
 		    public const string info = "UITShared/info";
 		    public const string input = "UITShared/input";
 		    public const string main_menu = "UITShared/main_menu";

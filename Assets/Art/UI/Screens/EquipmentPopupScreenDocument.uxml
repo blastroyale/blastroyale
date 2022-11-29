@@ -3,7 +3,7 @@
     <Style src="project://database/Assets/Art/UI/Screens/EquipmentPopupScreenStyle.uss?fileID=7433441132597879392&amp;guid=f94e5ce933248497cb64ddc715782042&amp;type=3#EquipmentPopupScreenStyle" />
     <Style src="project://database/Assets/Art/UI/Styles/EquipmentCardStyle.uss?fileID=7433441132597879392&amp;guid=1cc2b13c5be2a42cc84a1b72e0c15b89&amp;type=3#EquipmentCardStyle" />
     <Style src="project://database/Assets/Art/UI/Styles/EquipmentStatBarStyle.uss?fileID=7433441132597879392&amp;guid=3f98db78bba74198b5adda7525e11796&amp;type=3#EquipmentStatBarStyle" />
-    <ui:VisualElement name="root" class="fill-parent" style="top: 0; right: 0; left: 0; bottom: 0;">
+    <ui:VisualElement name="root" class="fill-parent">
         <ui:VisualElement name="Background" class="background fill-parent anim-delay-0 anim-fade" />
         <FirstLight.Game.UIElements.SafeAreaElement class="fill-parent safe-area">
             <ui:VisualElement picking-mode="Ignore" name="TopButtons" class="top-buttons">
@@ -12,7 +12,7 @@
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="CSCurrency" currency="CS" class="anim-delay-0 anim-translate anim-translate--down-s" />
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="BLSTCurrency" currency="BLST" class="anim-delay-1 anim-translate anim-translate--down-s" />
             </ui:VisualElement>
-            <ui:VisualElement name="EquipmentPopup" class="equipment-popup anim-delay-0 anim-translate anim-translate--down-xxxl equipment-popup--full-page">
+            <ui:VisualElement name="EquipmentPopup" class="equipment-popup anim-delay-0 anim-translate anim-translate--down-xxxl">
                 <ui:Label name="Title" text="SCRAPPING ITEM" class="equipment-popup__title" />
                 <FirstLight.Game.UIElements.ImageButton name="CloseButton" class="equipment-popup__close" />
                 <ui:VisualElement name="CardHolder" class="equipment-popup__card-holder">
@@ -23,7 +23,7 @@
                     <ui:VisualElement class="equipment-popup__bh-logo" />
                 </ui:VisualElement>
                 <ui:VisualElement name="Content" class="equipment-popup__content">
-                    <ui:VisualElement name="Rusted" class="fill-parent content-rusted">
+                    <ui:VisualElement name="Rusted" class="fill-parent content-rusted" style="display: none;">
                         <ui:ScrollView horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" mode="Horizontal" name="ScrollView" class="content-rusted__scrollview" />
                         <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITEquipment/popup_items_unequipped" />
                         <ui:VisualElement name="BottomHolder" class="content-rusted__bottom-holder">
@@ -32,7 +32,7 @@
                             <FirstLight.Game.UIElements.LocalizedButton localization-key="UITEquipment/popup_go_repair" name="RepairButton" class="button-long button-long--yellow content-rusted__button content-rusted__button--go-repair" />
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement name="Scrapping" class="fill-parent content-scrapping" style="display: none;">
+                    <ui:VisualElement name="Scrapping" class="fill-parent content-scrapping">
                         <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITEquipment/popup_scrap_are_you_sure" />
                         <ui:VisualElement class="content-scrapping__amount-holder">
                             <ui:VisualElement name="Icon" class="content-scrapping__amount-icon" />
@@ -52,7 +52,7 @@
                     <ui:VisualElement name="Upgrading" class="fill-parent content-upgrading" style="display: none;">
                         <ui:VisualElement name="LevelHolder" class="content-upgrading__level-holder">
                             <ui:Label text="LV&lt;size=52px&gt;14" name="LevelCurrent" />
-                            <ui:VisualElement name="RightArrow" class="content-upgrading__arrow-icon" style="background-image: none;" />
+                            <ui:VisualElement name="RightArrow" class="content-upgrading__arrow-icon" />
                             <ui:Label text="LV&lt;size=52px&gt;15" name="LevelNext" />
                         </ui:VisualElement>
                         <ui:ListView name="StatsList" fixed-item-height="80" selection-type="None" show-bound-collection-size="false" class="content-upgrading__stats-list" />
@@ -62,5 +62,4 @@
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
     </ui:VisualElement>
-    <ui:VisualElement style="background-image: url(&apos;project://database/Assets/Art/UI/References/EquipmentPopupRusted.png?fileID=2800000&amp;guid=721e6d510b85240e4a9b62f5716d446e&amp;type=3#EquipmentPopupRusted&apos;); width: 2340px; height: 1080px; top: 0; opacity: 1; display: none;" />
 </ui:UXML>

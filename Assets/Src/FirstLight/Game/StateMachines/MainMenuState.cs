@@ -126,7 +126,7 @@ namespace FirstLight.Game.StateMachines
 			var enterNameDialog = stateFactory.Nest("Enter Name Dialog");
 			var roomJoinCreateMenu = stateFactory.State("Room Join Create Menu");
 			var loadoutRestricted = stateFactory.Wait("Loadout Restriction Pop Up");
-			var brokenItems = stateFactory.Wait("Broken Items Pop Up");
+			var brokenItems = stateFactory.State("Broken Items Pop Up");
 			var defaultNameCheck = stateFactory.Choice("Default Player Name Check");
 			
 			initial.Transition().Target(screenCheck);

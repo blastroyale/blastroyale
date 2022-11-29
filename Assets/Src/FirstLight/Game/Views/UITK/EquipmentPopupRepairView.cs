@@ -1,6 +1,5 @@
 using System;
 using FirstLight.Game.Infos;
-using FirstLight.Game.Logic;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using FirstLight.FLogger;
 using FirstLight.Game.Infos;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -9,6 +8,9 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views.UITK
 {
+	/// <summary>
+	/// Handles the rusted items content on the equipment popup
+	/// </summary>
 	public class EquipmentPopupRustedView : IUIView
 	{
 		private ScrollView _scrollView;

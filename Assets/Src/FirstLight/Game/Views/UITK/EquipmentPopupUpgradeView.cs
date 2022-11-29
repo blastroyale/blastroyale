@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using FirstLight.Game.Infos;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
@@ -22,8 +21,7 @@ namespace FirstLight.Game.Views.UITK
 
 		private Action _confirmAction;
 
-		private List<Tuple<EquipmentStatType, float, float>> _statItems = new();
-
+		private readonly List<Tuple<EquipmentStatType, float, float>> _statItems = new();
 
 		public void Attached(VisualElement element)
 		{
@@ -32,6 +30,8 @@ namespace FirstLight.Game.Views.UITK
 			_statsList = element.Q<ListView>("StatsList").Required();
 			_upgradeButton = element.Q<PriceButton>("UpgradeButton").Required();
 
+			_statsList.DisableScrollbars();
+			
 			_upgradeButton.clicked += () => _confirmAction();
 		}
 

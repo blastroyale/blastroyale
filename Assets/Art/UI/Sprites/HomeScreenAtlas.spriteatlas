@@ -110,6 +110,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: de5f0779c90894ec5a155693daed6608, type: 3}
   - {fileID: 21300000, guid: 88529a998aeeb470b882949759eef90b, type: 3}
   - {fileID: 21300000, guid: 51ac3af9acd824af591121ab7510c3df, type: 3}
+  - {fileID: 21300000, guid: b155921a84e5e41b192fe64b14618713, type: 3}
   - {fileID: 21300000, guid: ed61c65a78b4a4ef386fb271c884d7ca, type: 3}
   - {fileID: 21300000, guid: 35a3807ace83b4e35bcf7ce6678cf14e, type: 3}
   - {fileID: 21300000, guid: 1596519a5d00c4b3c87f4014fe12dbab, type: 3}
@@ -228,6 +229,7 @@ SpriteAtlas:
   - InfoButton
   - ArmourIcon
   - IconHeroes
+  - GreyButton
   - CurrenciesBack
   - CooldownCS
   - PlayerProfileBackPressed

@@ -6912,7 +6912,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - CROSSBOW
+      - NELLYBERT
       - 
       - 
       Flags: 000000
@@ -6921,7 +6921,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - MINIGUN
+      - FOR-Q
       - 
       - 
       Flags: 000000
@@ -6930,7 +6930,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - RPG
+      - B-BOMBUR
       - 
       - 
       Flags: 000000
@@ -6939,7 +6939,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - ASSAULT RIFLE
+      - MINE NOW
       - 
       - 
       Flags: 000000
@@ -6948,7 +6948,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - SMG
+      - SNM
       - 
       - 
       Flags: 000000
@@ -6957,7 +6957,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - SCATTERGUN
+      - RUTTEGER
       - 
       - 
       Flags: 000000
@@ -6966,7 +6966,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - HUNTING RIFLE
+      - MOSQUWEETO
       - 
       - 
       Flags: 000000
@@ -7569,7 +7569,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - GRENADE LAUNCHER
+      - BRD-E
       - 
       - 
       Flags: 000000
@@ -7578,7 +7578,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - DAEDALUS
+      - 7AHM
       - 
       - 
       Flags: 000000
@@ -7587,7 +7587,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - PISTOL
+      - B-D13
       - 
       - 
       Flags: 000000
@@ -7596,7 +7596,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - CARBINE
+      - T-PU5H4
       - 
       - 
       Flags: 000000
@@ -7605,7 +7605,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - SHOTGUN
+      - L&L 94
       - 
       - 
       Flags: 000000
@@ -7614,7 +7614,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - SNIPER
+      - 1N1-E5TA
       - 
       - 
       Flags: 000000
@@ -7929,7 +7929,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - LASER BLASTER
+      - REXXX
       - 
       - 
       Flags: 000000
@@ -7938,7 +7938,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - PLASMA CANNON
+      - SPECIAL BEAM
       - 
       - 
       Flags: 000000
@@ -7947,7 +7947,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - ELECTRON THROWER
+      - DOOMBA
       - 
       - 
       Flags: 000000
@@ -7956,7 +7956,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - NEEDLE GUN
+      - IRVIN
       - 
       - 
       Flags: 000000
@@ -7965,7 +7965,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - LASER PISTOL
+      - PECKARD
       - 
       - 
       Flags: 000000
@@ -7974,7 +7974,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - LASER RIFLE
+      - EQUES-2
       - 
       - 
       Flags: 000000
@@ -7983,7 +7983,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - PULSE RIFLE
+      - ROOK
       - 
       - 
       Flags: 000000

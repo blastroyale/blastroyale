@@ -13,6 +13,7 @@ namespace FirstLight.Game.UIElements
 
 		private const string UssSafeAreaHolder = UssBlock + "__safe-area-holder";
 		private const string UssTitle = UssBlock + "__title";
+		private const string UssSubTitle = UssBlock + "__subtitle";
 		private const string UssHome = UssBlock + "__home";
 		private const string UssBack = UssBlock + "__back";
 		private const string UssSeparator = UssBlock + "__separator";
@@ -28,8 +29,10 @@ namespace FirstLight.Game.UIElements
 		public event Action backClicked;
 
 		private string titleKey { get; set; }
+		private string subtitleKey { get; set; }
 
 		private readonly Label _title;
+		private readonly Label _subTitle;
 		private readonly ImageButton _back;
 		private readonly ImageButton _home;
 
@@ -50,6 +53,9 @@ namespace FirstLight.Game.UIElements
 
 			safeAreaContainer.Add(_title = new Label("TITLE") {name = "title"});
 			_title.AddToClassList(UssTitle);
+			
+			safeAreaContainer.Add(_subTitle = new Label("SUBTITLE") {name = "subtitle"});
+			_subTitle.AddToClassList(UssSubTitle);
 
 			var separator = new VisualElement();
 			separator.AddToClassList(UssSeparator);
@@ -64,9 +70,18 @@ namespace FirstLight.Game.UIElements
 		/// <summary>
 		/// Sets the title of the header element (should be already localized).
 		/// </summary>
-		public void SetTitle(string title)
+		public void SetTitle(string title, string subtitle = "")
 		{
 			_title.text = title;
+			if (string.IsNullOrWhiteSpace(subtitle))
+			{
+				_subTitle.style.display = DisplayStyle.None;
+			}
+			else
+			{
+				_subTitle.style.display = DisplayStyle.Flex;
+				_subTitle.text = subtitle;
+			}
 		}
 
 		public new class UxmlFactory : UxmlFactory<ScreenHeaderElement, UxmlTraits>
@@ -80,6 +95,12 @@ namespace FirstLight.Game.UIElements
 				name = "title-key",
 				use = UxmlAttributeDescription.Use.Required
 			};
+			
+			private readonly UxmlStringAttributeDescription _subTitleKeyAttribute = new()
+			{
+				name = "subtitle-key",
+				use = UxmlAttributeDescription.Use.Optional
+			};
 
 			public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
 			{
@@ -87,8 +108,10 @@ namespace FirstLight.Game.UIElements
 
 				var she = (ScreenHeaderElement) ve;
 				she.titleKey = _titleKeyAttribute.GetValueFromBag(bag, cc);
+				she.subtitleKey = _subTitleKeyAttribute.GetValueFromBag(bag, cc);
 
-				she.SetTitle(she.titleKey.LocalizeKey());
+				she.SetTitle(she.titleKey.LocalizeKey(), 
+					string.IsNullOrWhiteSpace(she.subtitleKey)?"":she.subtitleKey.LocalizeKey());
 			}
 		}
 	}

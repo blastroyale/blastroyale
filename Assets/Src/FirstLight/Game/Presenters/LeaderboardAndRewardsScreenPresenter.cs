@@ -14,6 +14,11 @@ namespace FirstLight.Game.Presenters
 {
 	public class LeaderboardAndRewardsScreenPresenter : UiToolkitPresenterData<LeaderboardAndRewardsScreenPresenter.StateData>
 	{
+		private const string UssFirst = "first";
+		private const string UssSecond = "second";
+		private const string UssThird = "third";
+		private const string UssSpectator = "spectator";
+		
 		[SerializeField] private BaseCharacterMonoComponent _character;
 		[SerializeField] private Camera _camera;
 		[SerializeField] private VisualTreeAsset _leaderboardEntryAsset;
@@ -22,7 +27,7 @@ namespace FirstLight.Game.Presenters
 		{
 			public Action ContinueClicked;
 		}
-		
+
 		private IMatchServices _matchServices;
 
 		private Button _nextButton;
@@ -72,9 +77,9 @@ namespace FirstLight.Game.Presenters
 			}
 			
 			// Cleanup in case the screen is re-used
-			_playerName.RemoveFromClassList("first");
-			_playerName.RemoveFromClassList("second");
-			_playerName.RemoveFromClassList("third");
+			_playerName.RemoveFromClassList(UssFirst);
+			_playerName.RemoveFromClassList(UssSecond);
+			_playerName.RemoveFromClassList(UssThird);
 			
 			var playerData = _matchServices.MatchEndDataService.PlayerMatchData;
 			var localPlayerData = playerData[_matchServices.MatchEndDataService.LocalPlayer];
@@ -86,9 +91,9 @@ namespace FirstLight.Game.Presenters
 			{
 				var rankClass = localPlayerData.QuantumPlayerMatchData.PlayerRank switch
 				{
-					1 => "first",
-					2 => "second",
-					3 => "third",
+					1 => UssFirst,
+					2 => UssSecond,
+					3 => UssThird,
 					_ => ""
 				};
 				_playerName.AddToClassList(rankClass);
@@ -105,7 +110,7 @@ namespace FirstLight.Game.Presenters
 		{
 			if (_matchServices.MatchEndDataService.LocalPlayer == PlayerRef.None)
 			{
-				Root.AddToClassList("spectator");
+				Root.AddToClassList(UssSpectator);
 			}
 
 			var entries = _matchServices.MatchEndDataService.QuantumPlayerMatchData;

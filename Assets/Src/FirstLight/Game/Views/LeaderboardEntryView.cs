@@ -1,4 +1,3 @@
-using System;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using Quantum;
@@ -11,6 +10,11 @@ namespace FirstLight.Game.Views
 	/// </summary>
 	public class LeaderboardEntryView : IUIView
 	{
+		private const string UssFirst = "first";
+		private const string UssSecond = "second";
+		private const string UssThird = "third";
+		private const string UssLocal = "local";
+		
 		private VisualElement _root;
 		private VisualElement _parent;
 		private Label _rankNumber;
@@ -42,9 +46,9 @@ namespace FirstLight.Game.Views
 			{
 				var rankClass = data.PlayerRank switch
 				{
-					1 => "first",
-					2 => "second",
-					3 => "third",
+					1 => UssFirst,
+					2 => UssSecond,
+					3 => UssThird,
 					_ => ""
 				};
 				
@@ -57,7 +61,7 @@ namespace FirstLight.Game.Views
 
 			if (isLocalPlayer)
 			{
-				_root.AddToClassList("local");
+				_root.AddToClassList(UssLocal);
 			}
 
 			_playerName.text = data.GetPlayerName();

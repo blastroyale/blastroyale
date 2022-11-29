@@ -8,8 +8,8 @@
             <ui:Label text="12" display-tooltip-when-elided="true" name="Kills" class="kills" />
             <ui:Label text="5" display-tooltip-when-elided="true" name="Deaths" class="deaths" style="left: 200px;" />
             <ui:VisualElement name="TrophiesBar" class="trophies-bar">
-                <ui:Label text="1400" display-tooltip-when-elided="true" name="TrophiesAmount" class="trophies-amount" />
                 <ui:VisualElement name="TrophiesIcon" class="trophies-icon" />
+                <ui:Label text="1400" display-tooltip-when-elided="true" name="TrophiesAmount" class="trophies-amount" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

@@ -140,8 +140,8 @@
     -unity-slice-left: 18;
     -unity-slice-right: 18;
     align-items: center;
-    padding-right: 30px;
-    flex-direction: row-reverse;
+    flex-direction: row;
+    padding-left: 30px;
 }
 
 .trophies-icon {

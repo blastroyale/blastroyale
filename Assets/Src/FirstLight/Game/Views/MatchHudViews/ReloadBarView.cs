@@ -36,11 +36,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public void SetupView(Frame f, PlayerCharacter player, EntityRef entity)
 		{
 			_entity = entity;
-			SetSliderValue(f, player);
+			SetSliderValue(player);
 			
-			QuantumEvent.Subscribe<EventOnPlayerAmmoChanged>(this, HandleOnPlayerAmmoChanged);
+			QuantumEvent.Subscribe<EventOnPlayerMagazineChanged>(this, HandleOnPlayerMagazineChanged);
 			QuantumEvent.Subscribe<EventOnPlayerWeaponChanged>(this, HandleOnPlayerWeaponChanged);
-			QuantumEvent.Subscribe<EventOnPlayerStopAttack>(this, HandleOnPlayerStopAttack);
+			QuantumEvent.Subscribe<EventOnPlayerReloadStart>(this, HandleOnPlayerStartReload);
 		}
 
 		private void HandleOnPlayerWeaponChanged(EventOnPlayerWeaponChanged callback)
@@ -52,7 +52,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				return;
 			}
 
-			SetSliderValue(f, player);
+			SetSliderValue(player);
 
 			if (_reloadAnim != null)
 			{
@@ -61,7 +61,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_reloadAnim = StartCoroutine(ReloadAnimation(f, player));
 		}
 
-		private void HandleOnPlayerAmmoChanged(EventOnPlayerAmmoChanged callback)
+		private void HandleOnPlayerMagazineChanged(EventOnPlayerMagazineChanged callback)
 		{
 			var f = callback.Game.Frames.Verified;
 
@@ -75,13 +75,13 @@ namespace FirstLight.Game.Views.MatchHudViews
 				StopCoroutine(_reloadAnim);
 			}
 
-			SetSliderValue(f, player);
+			SetSliderValue(player);
 		}
 
-		private void HandleOnPlayerStopAttack(EventOnPlayerStopAttack callback)
+		private void HandleOnPlayerStartReload(EventOnPlayerReloadStart callback)
 		{
 			var f = callback.Game.Frames.Verified;
-			if (callback.PlayerEntity != _entity || !f.TryGet<PlayerCharacter>(callback.PlayerEntity, out var player))
+			if (callback.Entity != _entity || !f.TryGet<PlayerCharacter>(callback.Entity, out var player))
 			{
 				return;
 			}
@@ -93,7 +93,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_reloadAnim = StartCoroutine(ReloadAnimation(f, player));
 		}
 
-		private void SetSliderValue(Frame f, PlayerCharacter player)
+		private void SetSliderValue(PlayerCharacter player)
 		{
 			var slot = player.WeaponSlots[player.CurrentWeaponSlot];
 			_slider.value = (float)slot.MagazineShotCount / slot.MagazineSize;
@@ -123,7 +123,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				_reloadTimeSlider.value = (f.Time.AsFloat - startTime) / reloadTime;
 			}
 
-			_slider.value = magSize;
+			SetSliderValue(player);
 			_reloadTimeSlider.gameObject.SetActive(false);
 		}
 	}

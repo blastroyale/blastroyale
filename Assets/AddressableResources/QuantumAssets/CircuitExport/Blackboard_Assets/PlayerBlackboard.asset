@@ -20,6 +20,9 @@ MonoBehaviour:
     Entries:
     - Type: 3
       Key:
+        Key: AmmoFilled
+    - Type: 3
+      Key:
         Key: TapCooldown
     - Type: 3
       Key:

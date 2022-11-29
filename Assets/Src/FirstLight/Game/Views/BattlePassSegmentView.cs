@@ -20,16 +20,15 @@ namespace FirstLight.Game.Views
 	public class BattlePassSegmentView : IUIView
 	{
 		private const string UssRewardHolderRarity = "reward-holder__rarity";
-		private const string UssRewardButtonOutline = "reward__button-outline";
 		private const string UssRarityCommon = UssRewardHolderRarity + "--common";
 		private const string UssRarityUncommon = UssRewardHolderRarity + "--uncommon";
 		private const string UssRarityRare = UssRewardHolderRarity + "--rare";
 		private const string UssRarityEpic = UssRewardHolderRarity + "--epic";
 		private const string UssRarityLegendary = UssRewardHolderRarity + "--legendary";
 		private const string UssRarityRainbow = UssRewardHolderRarity + "--rainbow";
-		private const string UssOutlineClaimed = UssRewardButtonOutline + "--claimed";
-		private const string UssOutlineNotClaimed = UssRewardButtonOutline + "--not-claimed";
-
+		
+		private const string UssOutlineClaimed = "reward__button-outline--claimed";
+		private const string UssLevelBgComplete = "progress-bar__level-bg--complete";
 		public event Action<BattlePassSegmentView> Clicked;
 
 		private VisualElement _root;
@@ -41,7 +40,8 @@ namespace FirstLight.Game.Views
 		private VisualElement _readyToClaimOutline;
 		private VisualElement _progressBarFill;
 		private VisualElement _progressBackground;
-		private VisualElement _checkmark;
+		private VisualElement _claimStatusCheckmark;
+		private VisualElement _levelBg;
 		private AutoSizeLabel _title;
 		private AutoSizeLabel _levelNumber;
 		private ImageButton _button;
@@ -58,7 +58,8 @@ namespace FirstLight.Game.Views
 			_claimStatusOutline = _root.Q("Outline").Required();
 			_readyToClaimOutline = _root.Q("ReadyToClaim").Required();
 			_claimBubble = _root.Q("ClaimBubble").Required();
-			_checkmark = _root.Q("Checkmark").Required();
+			_claimStatusCheckmark = _root.Q("Checkmark").Required();
+			_levelBg = _root.Q("LevelBg").Required();
 			_button = _root.Q<ImageButton>("Button").Required();
 			_rarityImage = _root.Q("RewardRarity").Required();
 			_title = _root.Q<AutoSizeLabel>("Title");
@@ -78,48 +79,47 @@ namespace FirstLight.Game.Views
 		/// <summary>
 		/// Sets the data needed to fill the segment visuals
 		/// </summary>
-		public async void InitWithData(BattlePassSegmentData data)
+		public void InitWithData(BattlePassSegmentData data)
 		{
 			_data = data;
+			
 			var levelForUi = _data.SegmentLevelForRewards + 1;
 			var isRewardClaimed = _data.CurrentLevel >= data.SegmentLevelForRewards;
 
 			_title.text = GetRewardName(_data.RewardConfig.GameId);
 			_levelNumber.text = levelForUi.ToString();
 
-			_rarityImage.AddToClassList(GetRarityStyle(_data.RewardConfig.GameId));
+			var rarityStyle = GetRarityStyle(_data.RewardConfig.GameId);
+			if(!_rarityImage.ClassListContains(rarityStyle))
+			{
+				_rarityImage.AddToClassList(rarityStyle);
+			}
 
-			_claimStatusOutline.AddToClassList(isRewardClaimed ? UssOutlineClaimed : UssOutlineNotClaimed);
-			_readyToClaimOutline.SetDisplayActive(_data.PredictedCurrentLevel == _data.SegmentLevelForRewards);
-
-			_progressBackground.SetDisplayActive(_data.SegmentLevelForRewards != _data.MaxLevel);
-			_progressBarFill.SetDisplayActive(_data.SegmentLevelForRewards != _data.MaxLevel);
-
+			_levelBg.EnableInClassList(UssLevelBgComplete, data.PredictedCurrentLevel >= data.SegmentLevel);
+			_claimStatusOutline.EnableInClassList(UssOutlineClaimed, isRewardClaimed);
+			_claimStatusCheckmark.SetDisplayActive(isRewardClaimed);
+			_readyToClaimOutline.SetDisplayActive(_data.PredictedCurrentLevel >= _data.SegmentLevelForRewards);
 			_claimBubble.SetDisplayActive(!isRewardClaimed && _data.SegmentLevelForRewards == _data.PredictedCurrentLevel);
+			_blocker.SetDisplayActive(_data.PredictedCurrentLevel != _data.SegmentLevelForRewards);
 			
-			_checkmark.SetDisplayActive(isRewardClaimed);
-			
-			SetProgressFill(_data.PredictedCurrentLevel > _data.SegmentLevelForRewards
-				? 1f
-				: (float) _data.PredictedCurrentProgress / data.MaxProgress);
-		}
-
-		/// <summary>
-		/// Sets the data needed to fill the segment visuals
-		/// </summary>
-		public void InitMinimalWithData(uint segmentLevel, uint predictedCurrentLevel, uint predictedCurrentProgress, uint maxProgress)
-		{
-			_levelNumber.text = (segmentLevel + 1).ToString();
-			_rewardRoot.SetVisible(false);
-
-			SetProgressFill(predictedCurrentLevel > segmentLevel ? 1f : (float) predictedCurrentProgress / maxProgress);
+			if (data.PredictedCurrentLevel > data.SegmentLevel)
+			{
+				SetProgressFill(1f);
+			}
+			else if (data.PredictedCurrentLevel == data.SegmentLevel)
+			{
+				SetProgressFill((float) data.PredictedCurrentProgress / data.MaxProgress);
+			}
+			else
+			{
+				SetProgressFill(0);
+			}
 		}
 
 		private void SetProgressFill(float percent)
 		{
 			var barWidth = _progressBackground.contentRect.width;
-			var contentRect = _progressBarFill.contentRect;
-			contentRect.width = barWidth * percent;
+			_progressBarFill.style.width = barWidth * percent;
 		}
 
 		private string GetRarityStyle(GameId id)

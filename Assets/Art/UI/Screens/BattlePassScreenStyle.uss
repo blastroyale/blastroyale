@@ -94,7 +94,6 @@
 
 .bpp-bar__progress {
     background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/BPPBar.png?fileID=21300000&guid=f63e212478a7f4fec8c790922a819e4c&type=3#BPPBar');
-    flex-grow: 1;
     position: absolute;
     height: 100%;
 }

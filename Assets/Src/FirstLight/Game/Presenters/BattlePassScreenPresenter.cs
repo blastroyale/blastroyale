@@ -46,19 +46,22 @@ namespace FirstLight.Game.Presenters
 		private ScreenHeaderElement _screenHeader;
 		
 		private IGameServices _services;
-		private IGameDataProvider _gameDataProvider;
+		private IGameDataProvider _dataProvider;
 		private List<BattlePassSegmentData> _segmentData;
-		private List<BattlePassSegmentView> _segmentViews;
+		private List<KeyValuePair<BattlePassSegmentView, VisualElement>> _segmentViewsAndElements;
+
+		private bool _initialized = false;
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
-			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			_segmentViews = new List<BattlePassSegmentView>();
+			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
+			_segmentViewsAndElements = new List<KeyValuePair<BattlePassSegmentView, VisualElement>>();
 			_segmentData = new List<BattlePassSegmentData>();
+			_dataProvider.BattlePassDataProvider.CurrentPoints.Observe(OnBpPointsChanged);
 		}
-
-		protected override void QueryElements(VisualElement root)
+		
+		protected override async void QueryElements(VisualElement root)
 		{
 			base.QueryElements(root);
 
@@ -74,22 +77,41 @@ namespace FirstLight.Game.Presenters
 			_screenHeader.backClicked += Data.BackClicked;
 			_screenHeader.homeClicked += Data.BackClicked;
 
+			await Task.Yield();
+			
 			InitScreen();
+			SpawnInitSegments();
+
+			_initialized = true;
+		}
+		
+		private void OnBpPointsChanged(uint previous, uint next)
+		{
+			if (!_initialized) return;
+			
+			InitScreen();
+			UpdateSegments();
 		}
 
 		private void InitScreen()
 		{
+			_segmentData.Clear();
+			
 			var battlePassConfig = _services.ConfigsProvider.GetConfig<BattlePassConfig>();
 			var rewardConfig = _services.ConfigsProvider.GetConfigsList<EquipmentRewardConfig>();
-			var predictedProgress = _gameDataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
-			var currentLevel = _gameDataProvider.BattlePassDataProvider.CurrentLevel.Value;
-			var currentProgress = _gameDataProvider.BattlePassDataProvider.CurrentPoints.Value;
+			var predictedProgress = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
+			var currentLevel = _dataProvider.BattlePassDataProvider.CurrentLevel.Value;
+			var currentProgress = _dataProvider.BattlePassDataProvider.CurrentPoints.Value;
 			
-			var predictedMaxProgress = _gameDataProvider.BattlePassDataProvider.GetRequiredPointsForLevel((int)predictedProgress.Item1);
+			var predictedMaxProgress = _dataProvider.BattlePassDataProvider.GetRequiredPointsForLevel((int)predictedProgress.Item1);
 			_bppProgressLabel.text = predictedProgress.Item2 + "/" + predictedMaxProgress;
 			_currentLevelLabel.text = (predictedProgress.Item1 + 1).ToString();
 			_nextLevelLabel.text = (predictedProgress.Item1 + 2).ToString();
 			
+			var barMaxWidth = _bppProgressBackground.contentRect.width;
+			var predictedProgressPercent = (float) predictedProgress.Item2 / predictedMaxProgress;
+			_bppProgressFill.style.width = barMaxWidth * predictedProgressPercent;
+
 			for (int i = 0; i < battlePassConfig.Levels.Count; ++i)
 			{
 				var data = new BattlePassSegmentData
@@ -99,41 +121,62 @@ namespace FirstLight.Game.Presenters
 					CurrentProgress = currentProgress,
 					PredictedCurrentLevel = predictedProgress.Item1,
 					PredictedCurrentProgress = predictedProgress.Item2,
-					MaxProgress = _gameDataProvider.BattlePassDataProvider.GetRequiredPointsForLevel(i),
-					MaxLevel = _gameDataProvider.BattlePassDataProvider.MaxLevel,
+					MaxProgress = _dataProvider.BattlePassDataProvider.GetRequiredPointsForLevel(i),
+					MaxLevel = _dataProvider.BattlePassDataProvider.MaxLevel,
 					RewardConfig = rewardConfig[battlePassConfig.Levels[i].RewardId]
 				};
 
 				_segmentData.Add(data);
+
+				if (i > 2) break;
 			}
+		}
 
-			// Add filler to start and end of BP so it looks nicer on the ends
-			AddFillerToBp();
-
-			// Add level 1 of battle pass, for aesthetics/UX
-			var segment1 = _battlePassSegmentAsset.Instantiate();
-			segment1.AttachView(this, out BattlePassSegmentView viewOne);
-			viewOne.InitMinimalWithData(0, predictedProgress.Item1, predictedProgress.Item2,
-				_gameDataProvider.BattlePassDataProvider.MaxLevel);
-			_segmentViews.Add(viewOne);
-			_rewardsScroll.Add(segment1);
-
+		private void SpawnInitSegments()
+		{
+			var predictedProgress = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
+			
+			// Add filler to start of BP so it looks nicer
+			SpawnScrollFiller();
+			
 			foreach (var segment in _segmentData)
 			{
 				var segmentInstance = _battlePassSegmentAsset.Instantiate();
 				segmentInstance.AttachView(this, out BattlePassSegmentView view);
 				view.InitWithData(segment);
 				view.Clicked += OnSegmentRewardClicked;
-				_segmentViews.Add(view);
+				_segmentViewsAndElements.Add(new KeyValuePair<BattlePassSegmentView, VisualElement>(view, segmentInstance));
 				_rewardsScroll.Add(segmentInstance);
+				
+			}
+			
+			// TODO FIND WAY TO OVERLAY BP LEVEL ON TOP OF THE PROGRESS BARS OF NEARBY ITEMS
+
+			// Shuffle all the items to front so they 
+			for (int i = _segmentViewsAndElements.Count-1; i >= 0; i--)
+			{
+			//	_segmentViewsAndElements[i].Value.BringToFront();
+			}
+			
+			// Shuffle all the items to front so they 
+			for (int i = 0; i < _segmentViewsAndElements.Count; i++)
+			{
+				//_segmentViewsAndElements[i].Value.BringToFront();
 			}
 
-			AddFillerToBp();
-
-			// SmoothScrollTo(10);
+			// Add filler to end of BP so it looks nicer
+			SpawnScrollFiller();
 		}
 
-		private void SmoothScrollTo(int index)
+		private void UpdateSegments()
+		{
+			for (int i = 0; i < _segmentViewsAndElements.Count; i++)
+			{
+				_segmentViewsAndElements[i].Key.InitWithData(_segmentData[i]);
+			}
+		}
+
+		private void ScrollToBpLevel(int index)
 		{
 			// TODO TEST IF CORRECT REWARD IS SCROLLED
 			var targetX = ((index + 1) * BP_SEGMENT_WIDTH) - (_rewardsScroll.contentRect.width / 2);
@@ -146,7 +189,7 @@ namespace FirstLight.Game.Presenters
 			}).SetEase(_scrollEaseMode);
 		}
 
-		private void AddFillerToBp()
+		private void SpawnScrollFiller()
 		{
 			var filler = new VisualElement {name = "background"};
 			_rewardsScroll.Add(filler);

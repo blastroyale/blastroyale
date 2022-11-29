@@ -110,11 +110,6 @@
     width: 100%;
 }
 
-.unity-button {
-    margin-right: 15px;
-    margin-left: 15px;
-}
-
 .hidden {
     transition-delay: 1s;
     display: none;
@@ -158,4 +153,9 @@
     border-right-width: 0;
     border-top-width: 0;
     border-bottom-width: 0;
+}
+
+.button-spacer {
+    height: 0;
+    width: 42px;
 }

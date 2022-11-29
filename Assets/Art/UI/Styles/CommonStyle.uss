@@ -11,9 +11,43 @@
     --font-light-italic: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Normal%20ExtraLight%20Italic.otf?fileID=12800000&guid=ecdd4df26ce474069865eb3673c40456&type=3#Stawix - Amsi Pro Normal ExtraLight Italic');
 }
 
-.element-hidden {
-    visibility: hidden;
-    display: none;
+.unity-button {
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+}
+
+.unity-button:active {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.unity-button:hover {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+
+.unity-text-field {
+    align-items: stretch;
+    -unity-text-align: middle-left;
+    font-size: 35px;
+    width: 678px;
+    height: 71px;
+}
+
+.unity-text-field__label {
+    -unity-text-align: middle-right;
+    color: rgb(90, 86, 125);
+}
+
+.unity-text-field__input {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/InputFieldBackground.png?fileID=21300000&guid=6a9373e55276b4254b7304c8d38f2dc6&type=3#InputFieldBackground');
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    background-color: rgba(255, 255, 255, 0);
+    color: rgb(90, 86, 125);
+    -unity-text-align: middle-left;
+    padding-left: 26px;
 }
 
 .font-regular {
@@ -53,16 +87,6 @@
     -unity-text-outline-color: rgb(0, 0, 0);
 }
 
-Button {
-    background-color: rgba(0, 0, 0, 0);
-    border-width: 0;
-}
-
-LocalizedButton {
-    background-color: rgba(0, 0, 0, 0);
-    border-width: 0;
-}
-
 .button-with-icon {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMain.png?fileID=21300000&guid=8368e60ca24ab4818929e5d7b2dd77f2&type=3#ButtonMain');
     -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Condensed%20Ultra%20Italic.otf?fileID=12800000&guid=6ff2428eb8a974c2281717afe377e3c6&type=3#Stawix - Amsi Pro Condensed Ultra Italic');
@@ -79,14 +103,28 @@ LocalizedButton {
     align-items: center;
 }
 
+.button-with-icon:active {
+    padding-top: 70px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMainPressed.png?fileID=21300000&guid=5cb1a9853b14740c980813b57e5d03f3&type=3#ButtonMainPressed');
+}
+
 .button-with-icon--small {
     width: 182px;
     height: 100px;
     padding-top: 50px;
 }
 
+.button-with-icon--small:active {
+    padding-top: 60px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMainPressed.png?fileID=21300000&guid=5cb1a9853b14740c980813b57e5d03f3&type=3#ButtonMainPressed');
+}
+
 .button-with-icon--yellow {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMainYellow.png?fileID=21300000&guid=728932854c02c47ddb4057b68d3c91c7&type=3#ButtonMainYellow');
+}
+
+.button-with-icon--yellow:active {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMainYellowPressed.png?fileID=21300000&guid=c96062ca698c645258fbf9555f558741&type=3#ButtonMainYellowPressed');
 }
 
 .button-with-icon__notification {
@@ -110,20 +148,6 @@ LocalizedButton {
     -unity-background-scale-mode: scale-to-fit;
 }
 
-.button-with-icon:active {
-    padding-top: 70px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMainPressed.png?fileID=21300000&guid=5cb1a9853b14740c980813b57e5d03f3&type=3#ButtonMainPressed');
-}
-
-.button-with-icon--small:active {
-    padding-top: 60px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMainPressed.png?fileID=21300000&guid=5cb1a9853b14740c980813b57e5d03f3&type=3#ButtonMainPressed');
-}
-
-.button-with-icon--yellow:active {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMainYellowPressed.png?fileID=21300000&guid=c96062ca698c645258fbf9555f558741&type=3#ButtonMainYellowPressed');
-}
-
 .button-with-icon--small > .button-with-icon__icon {
     height: 80px;
 }
@@ -137,31 +161,6 @@ LocalizedButton {
     -unity-background-scale-mode: scale-to-fit;
 }
 
-.unity-text-field {
-    align-items: stretch;
-    -unity-text-align: middle-left;
-    font-size: 35px;
-    width: 678px;
-    height: 71px;
-}
-
-.unity-text-field__label {
-    -unity-text-align: middle-right;
-    color: rgb(90, 86, 125);
-}
-
-.unity-text-field__input {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/InputFieldBackground.png?fileID=21300000&guid=6a9373e55276b4254b7304c8d38f2dc6&type=3#InputFieldBackground');
-    border-left-width: 0;
-    border-right-width: 0;
-    border-top-width: 0;
-    border-bottom-width: 0;
-    background-color: rgba(255, 255, 255, 0);
-    color: rgb(90, 86, 125);
-    -unity-text-align: middle-left;
-    padding-left: 26px;
-}
-
 .dots-pattern {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/DotsRotated.png?fileID=21300000&guid=123b7673eb1d048a486154a4e65c630b&type=3#DotsRotated');
     -unity-background-image-tint-color: rgba(58, 58, 58, 0.35);
@@ -172,9 +171,8 @@ LocalizedButton {
     top: -100px;
 }
 
-.button-flat-primary {
-    padding-left: 40px;
-    padding-right: 40px;
+.button-flat {
+    font-size: 42px;
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 2px;
     border-radius: 10px;
@@ -188,51 +186,39 @@ LocalizedButton {
     -unity-font-style: bold;
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/GradientAndDots.png?fileID=21300000&guid=cf4abf5541a924d0da5e2d5681f54665&type=3#GradientAndDots');
     -unity-background-scale-mode: scale-and-crop;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding: 5px 40px;
     margin: 0;
 }
 
-.button-flat-secondary {
-    padding-left: 40px;
-    padding-right: 40px;
-    color: rgb(255, 255, 255);
-    -unity-text-outline-width: 2px;
-    border-radius: 10px;
-    border-left-width: 1px;
-    border-right-width: 1px;
-    border-top-width: 1px;
-    border-bottom-width: 1px;
-    min-height: 70px;
-    -unity-font-definition: var(--font-italic);
-    -unity-paragraph-spacing: -30px;
-    -unity-font-style: bold;
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/GradientAndDots.png?fileID=21300000&guid=cf4abf5541a924d0da5e2d5681f54665&type=3#GradientAndDots');
-    -unity-background-scale-mode: scale-and-crop;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    margin: 0;
+.button-flat--primary {
+    font-size: 47px;
+    background-color: rgb(245, 203, 47);
+    -unity-text-outline-color: rgb(100, 19, 0);
+    -unity-background-image-tint-color: rgb(255, 116, 0);
+    border-left-color: rgb(100, 19, 0);
+    border-right-color: rgb(100, 19, 0);
+    border-top-color: rgb(100, 19, 0);
+    border-bottom-color: rgb(100, 19, 0);
 }
 
-.button-flat-cancel {
-    padding-left: 40px;
-    padding-right: 40px;
-    color: rgb(255, 255, 255);
-    -unity-text-outline-width: 2px;
-    border-radius: 10px;
-    border-left-width: 1px;
-    border-right-width: 1px;
-    border-top-width: 1px;
-    border-bottom-width: 1px;
-    min-height: 70px;
-    -unity-font-definition: var(--font-italic);
-    -unity-paragraph-spacing: -30px;
-    -unity-font-style: bold;
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/GradientAndDots.png?fileID=21300000&guid=cf4abf5541a924d0da5e2d5681f54665&type=3#GradientAndDots');
-    -unity-background-scale-mode: scale-and-crop;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    margin: 0;
+.button-flat--secondary {
+    background-color: rgb(158, 99, 241);
+    -unity-text-outline-color: rgb(59, 29, 144);
+    -unity-background-image-tint-color: rgb(59, 29, 144);
+    border-left-color: rgb(59, 29, 144);
+    border-right-color: rgb(59, 29, 144);
+    border-top-color: rgb(59, 29, 144);
+    border-bottom-color: rgb(59, 29, 144);
+}
+
+.button-flat--cancel {
+    background-color: rgb(253, 97, 97);
+    -unity-text-outline-color: rgb(145, 34, 14);
+    -unity-background-image-tint-color: rgb(158, 31, 42);
+    border-left-color: rgb(145, 34, 14);
+    border-right-color: rgb(145, 34, 14);
+    border-top-color: rgb(145, 34, 14);
+    border-bottom-color: rgb(145, 34, 14);
 }
 
 .button-flat-outline {
@@ -246,28 +232,6 @@ LocalizedButton {
     border-right-color: rgb(216, 214, 234);
     border-top-color: rgb(216, 214, 234);
     border-bottom-color: rgb(216, 214, 234);
-}
-
-.button-flat-primary {
-    font-size: 47px;
-    background-color: rgb(245, 203, 47);
-    -unity-text-outline-color: rgb(100, 19, 0);
-    -unity-background-image-tint-color: rgb(255, 116, 0);
-    border-left-color: rgb(100, 19, 0);
-    border-right-color: rgb(100, 19, 0);
-    border-top-color: rgb(100, 19, 0);
-    border-bottom-color: rgb(100, 19, 0);
-}
-
-.button-flat-secondary {
-    font-size: 42px;
-    background-color: rgb(158, 99, 241);
-    -unity-text-outline-color: rgb(59, 29, 144);
-    -unity-background-image-tint-color: rgb(59, 29, 144);
-    border-left-color: rgb(59, 29, 144);
-    border-right-color: rgb(59, 29, 144);
-    border-top-color: rgb(59, 29, 144);
-    border-bottom-color: rgb(59, 29, 144);
 }
 
 .button-flat-cancel {
@@ -388,19 +352,6 @@ LocalizedButton {
     left: 0;
     right: 0;
     flex-direction: column;
-}
-
-.unity-button {
-    background-color: rgba(0, 0, 0, 0);
-    border-width: 0;
-}
-
-.unity-button:active {
-    background-color: rgba(0, 0, 0, 0);
-}
-
-.unity-button:hover {
-    background-color: rgba(0, 0, 0, 0);
 }
 
 .button-long {

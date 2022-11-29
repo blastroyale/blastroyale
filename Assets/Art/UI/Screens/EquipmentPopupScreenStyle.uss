@@ -1,5 +1,5 @@
 .background {
-    background-color: rgba(0, 0, 0, 0.69);
+    background-color: rgba(0, 0, 0, 0.8);
 }
 
 .equipment-popup {

@@ -12,11 +12,15 @@ using Button = UnityEngine.UIElements.Button;
 
 namespace FirstLight.Game.Presenters
 {
+	/// <summary>
+	/// Presenter for the Leaderboards and Rewards Screen
+	/// </summary>
 	public class LeaderboardAndRewardsScreenPresenter : UiToolkitPresenterData<LeaderboardAndRewardsScreenPresenter.StateData>
 	{
-		private const string UssFirst = "first";
-		private const string UssSecond = "second";
-		private const string UssThird = "third";
+		private const string UssPlayerName = "player-name";
+		private const string UssFirst = UssPlayerName + "--first";
+		private const string UssSecond = UssPlayerName + "--second";
+		private const string UssThird = UssPlayerName + "--third";
 		private const string UssSpectator = "spectator";
 		
 		[SerializeField] private BaseCharacterMonoComponent _character;
@@ -77,9 +81,7 @@ namespace FirstLight.Game.Presenters
 			}
 			
 			// Cleanup in case the screen is re-used
-			_playerName.RemoveFromClassList(UssFirst);
-			_playerName.RemoveFromClassList(UssSecond);
-			_playerName.RemoveFromClassList(UssThird);
+			_playerName.RemoveModifiers();
 			
 			var playerData = _matchServices.MatchEndDataService.PlayerMatchData;
 			var localPlayerData = playerData[_matchServices.MatchEndDataService.LocalPlayer];

@@ -10,13 +10,14 @@ namespace FirstLight.Game.Views
 	/// </summary>
 	public class LeaderboardEntryView : IUIView
 	{
-		private const string UssFirst = "first";
-		private const string UssSecond = "second";
-		private const string UssThird = "third";
-		private const string UssLocal = "local";
+		private const string UssLeaderboardEntry = "leaderboard-entry";
+		private const string UssLeaderboardEntryFirst = UssLeaderboardEntry+"--first";
+		private const string UssLeaderboardEntrySecond = UssLeaderboardEntry+"--second";
+		private const string UssLeaderboardEntryThird = UssLeaderboardEntry+"--third";
+		private const string UssLeaderboardEntryLocal = UssLeaderboardEntry+"--local";
 		
 		private VisualElement _root;
-		private VisualElement _parent;
+		private VisualElement _leaderboardEntry;
 		private Label _rankNumber;
 		private Label _playerName;
 		private Label _kills;
@@ -27,7 +28,7 @@ namespace FirstLight.Game.Views
 		{
 			_root = element;
 			
-			_parent = _root.Q<VisualElement>("LeaderboardEntryParent").Required();
+			_leaderboardEntry = _root.Q<VisualElement>("LeaderboardEntryParent").Required();
 			_rankNumber = _root.Q<Label>("RankNumber").Required();
 			_playerName = _root.Q<Label>("PlayerName").Required();
 			_kills = _root.Q<Label>("Kills").Required();
@@ -42,17 +43,19 @@ namespace FirstLight.Game.Views
 		/// <param name="isLocalPlayer">If this is the local player</param>
 		public void SetData(QuantumPlayerMatchData data, bool isLocalPlayer)
 		{
+			_leaderboardEntry.RemoveModifiers();
+			
 			if (data.PlayerRank <= 3)
 			{
 				var rankClass = data.PlayerRank switch
 				{
-					1 => UssFirst,
-					2 => UssSecond,
-					3 => UssThird,
+					1 => UssLeaderboardEntryFirst,
+					2 => UssLeaderboardEntrySecond,
+					3 => UssLeaderboardEntryThird,
 					_ => ""
 				};
 				
-				_root.AddToClassList(rankClass);
+				_leaderboardEntry.AddToClassList(rankClass);
 			}
 			else
 			{
@@ -61,7 +64,7 @@ namespace FirstLight.Game.Views
 
 			if (isLocalPlayer)
 			{
-				_root.AddToClassList(UssLocal);
+				_leaderboardEntry.AddToClassList(UssLeaderboardEntryLocal);
 			}
 
 			_playerName.text = data.GetPlayerName();
@@ -69,7 +72,7 @@ namespace FirstLight.Game.Views
 			_deaths.text = data.Data.DeathCount.ToString();
 			_trophies.text = data.Data.PlayerTrophies.ToString();
 
-			_parent.style.marginRight = 50 + (data.PlayerRank - 1) * 10;
+			_leaderboardEntry.style.marginRight = 50 + (data.PlayerRank - 1) * 10;
 		}
 
 		public void SubscribeToEvents()

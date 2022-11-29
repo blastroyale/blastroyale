@@ -1,11 +1,11 @@
-.parent {
+.leaderboard-entry-positioner {
     width: 100%;
     height: 80px;
     align-items: flex-end;
     justify-content: center;
 }
 
-.entry {
+.leaderboard-entry {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/StatsBack.png?fileID=21300000&guid=119d947463d914dde82656f9069a791f&type=3#StatsBack');
     -unity-slice-left: 18;
     -unity-slice-top: 0;
@@ -19,12 +19,12 @@
     margin-right: 70px;
 }
 
-.local .entry {
+.leaderboard-entry--local {
     background-image: url('project://database/Assets/Art/UI/Sprites/Leaderboards/CurrentPlayerBack.png?fileID=2800000&guid=afa908952e5254323b1e9bffac5a1b74&type=3#CurrentPlayerBack');
     scale: 1.05 1.05;
 }
 
-.rank-number {
+.leaderboard-entry__rank-number {
     -unity-font-definition: var(--font-italic);
     font-size: 36px;
     -unity-font-style: normal;
@@ -33,50 +33,50 @@
     position: absolute;
 }
 
-.first .rank-number {
+.leaderboard-entry--first .leaderboard-entry__rank-number {
     display: none;
 }
 
-.second .rank-number {
+.leaderboard-entry--second .leaderboard-entry__rank-number {
     display: none;
 }
 
-.third .rank-number {
+.leaderboard-entry--third .leaderboard-entry__rank-number {
     display: none;
 }
 
-.local .rank-number {
+.leaderboard-entry--local .leaderboard-entry__rank-number {
     color: rgb(233, 226, 225);
 }
 
-.rank-badge {
+.leaderboard-entry__rank-badge {
     position: absolute;
     left: 40px;
     display: none;
 }
 
-.first .rank-badge {
+.leaderboard-entry--first .leaderboard-entry__rank-badge {
     background-image: url('project://database/Assets/Art/UI/Sprites/WinnersScreen/1stMedal.png?fileID=2800000&guid=8a5c4e50794e840a0b7073f5fc6cf1e6&type=3#1stMedal');
     width: 70px;
     height: 70px;
     display: flex;
 }
 
-.second .rank-badge {
+.leaderboard-entry--second .leaderboard-entry__rank-badge {
     background-image: url('project://database/Assets/Art/UI/Sprites/WinnersScreen/2ndMedal.png?fileID=2800000&guid=cce9e1a787e5a484996db5d377217342&type=3#2ndMedal');
     width: 70px;
     height: 70px;
     display: flex;
 }
 
-.third .rank-badge {
+.leaderboard-entry--third .leaderboard-entry__rank-badge {
     background-image: url('project://database/Assets/Art/UI/Sprites/WinnersScreen/3rdMedal.png?fileID=2800000&guid=e2a057641f1b142ca91082917b41cffe&type=3#3rdMedal');
     width: 70px;
     height: 70px;
     display: flex;
 }
 
-.entry__player-name {
+.leaderboard-entry__player-name {
     -unity-font-definition: var(--font-italic);
     font-size: 36px;
     -unity-font-style: normal;
@@ -85,23 +85,23 @@
     position: absolute;
 }
 
-.first .entry__player-name {
+.leaderboard-entry--first .leaderboard-entry__player-name {
     color: rgb(248, 199, 46);
 }
 
-.second .entry__player-name {
+.leaderboard-entry--second .leaderboard-entry__player-name {
     color: rgb(153, 176, 221);
 }
 
-.third .entry__player-name {
+.leaderboard-entry--third .leaderboard-entry__player-name {
     color: rgb(161, 103, 65);
 }
 
-.local .entry__player-name {
+.leaderboard-entry--local .leaderboard-entry__player-name {
     color: rgb(233, 226, 225);
 }
 
-.kills {
+.leaderboard-entry__kills {
     -unity-font-definition: var(--font-italic);
     font-size: 36px;
     -unity-font-style: normal;
@@ -111,11 +111,11 @@
     -unity-text-align: upper-right;
 }
 
-.local .kills {
+.leaderboard-entry--local .leaderboard-entry__kills {
     color: rgb(233, 226, 225);
 }
 
-.deaths {
+.leaderboard-entry__deaths {
     -unity-font-definition: var(--font-italic);
     font-size: 36px;
     -unity-font-style: normal;
@@ -125,11 +125,11 @@
     -unity-text-align: upper-right;
 }
 
-.local .deaths {
+.leaderboard-entry--local .leaderboard-entry__deaths {
     color: rgb(233, 226, 225);
 }
 
-.trophies-bar {
+.leaderboard-entry__trophies-bar {
     background-image: url('project://database/Assets/Art/UI/Sprites/Leaderboards/StatsBlackBack.png?fileID=21300000&guid=d49b2a8c0f8344da4a317261f81e6850&type=3#StatsBlackBack');
     top: 0;
     right: 0;
@@ -144,14 +144,14 @@
     padding-left: 30px;
 }
 
-.trophies-icon {
+.leaderboard-entry__trophies-icon {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/Trophy.png?fileID=2800000&guid=872fe08ff0fbc4f64b229d591f48d144&type=3#Trophy');
     width: 44px;
     height: 44px;
     margin-right: 10px;
 }
 
-.trophies-amount {
+.leaderboard-entry__trophies-amount {
     -unity-font-definition: var(--font-italic);
     font-size: 36px;
     -unity-font-style: normal;

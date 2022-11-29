@@ -56,17 +56,17 @@
     -unity-text-outline-color: rgb(0, 0, 0);
 }
 
-.first .player-name__badge {
+.player-name--first .player-name__badge {
     background-image: url('project://database/Assets/Art/UI/Sprites/WinnersScreen/1stMedal.png?fileID=21300000&guid=8a5c4e50794e840a0b7073f5fc6cf1e6&type=3#1stMedal');
     display: flex;
 }
 
-.second .player-name__badge {
+.player-name--second .player-name__badge {
     background-image: url('project://database/Assets/Art/UI/Sprites/WinnersScreen/2ndMedal.png?fileID=21300000&guid=cce9e1a787e5a484996db5d377217342&type=3#2ndMedal');
     display: flex;
 }
 
-.third .player-name__badge {
+.player-name--third .player-name__badge {
     background-image: url('project://database/Assets/Art/UI/Sprites/WinnersScreen/3rdMedal.png?fileID=21300000&guid=e2a057641f1b142ca91082917b41cffe&type=3#3rdMedal');
     display: flex;
 }

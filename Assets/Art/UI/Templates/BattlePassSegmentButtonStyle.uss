@@ -160,9 +160,9 @@
 .reward-holder__rarity {
     width: 250px;
     height: 250px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/RandomEquipLegendary.png?fileID=2800000&guid=dac37f21a15a6644f8c118c1a575a0cc&type=3#RandomEquipLegendary');
     -unity-background-scale-mode: scale-to-fit;
     position: absolute;
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/RandomEquipGlowRainbow.png?fileID=2800000&guid=ba026468af4bad847845da813eb40cc9&type=3#RandomEquipGlowRainbow');
 }
 
 .claim-bubble {
@@ -190,4 +190,28 @@
     -unity-text-align: middle-center;
     bottom: 72px;
     -unity-font-style: bold;
+}
+
+.reward-holder__rarity--common {
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/RandomEquipGlowCommon.png?fileID=2800000&guid=a49be92fdecf54e4ebae741388eb08a5&type=3#RandomEquipGlowCommon');
+}
+
+.reward-holder__rarity--uncommon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/RandomEquipGlowUncommon.png?fileID=2800000&guid=c353a5b0b54fa1a428fbd490ac07c187&type=3#RandomEquipGlowUncommon');
+}
+
+.reward-holder__rarity--rare {
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/RandomEquipGlowRare.png?fileID=2800000&guid=2ffde50b427995c41993e8678806c97f&type=3#RandomEquipGlowRare');
+}
+
+.reward-holder__rarity--epic {
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/RandomEquipGlowEpic.png?fileID=2800000&guid=f3b79b519dcd8c64994e6b26993ee1b7&type=3#RandomEquipGlowEpic');
+}
+
+.reward-holder__rarity--legendary {
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/RandomEquipGlowLegendary.png?fileID=2800000&guid=dac37f21a15a6644f8c118c1a575a0cc&type=3#RandomEquipGlowLegendary');
+}
+
+.reward-holder__rarity--rainbow {
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/RandomEquipGlowRainbow.png?fileID=2800000&guid=ba026468af4bad847845da813eb40cc9&type=3#RandomEquipGlowRainbow');
 }

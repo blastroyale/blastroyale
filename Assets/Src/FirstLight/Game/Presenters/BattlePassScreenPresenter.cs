@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using DG.Tweening;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -29,8 +31,11 @@ namespace FirstLight.Game.Presenters
 		}
 
 		private const string USS_SEGMENT_FILLER = "bp-segment-filler";
-
+		private const float BP_SEGMENT_WIDTH = 475f;
+		
 		[SerializeField] private VisualTreeAsset _battlePassSegmentAsset;
+		[SerializeField] private DG.Tweening.Ease _scrollEaseMode;
+		[SerializeField] private float _scrollToDuration;
 		
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
@@ -57,7 +62,7 @@ namespace FirstLight.Game.Presenters
 			
 			_screenHeader.SetTitle(string.Format(ScriptLocalization.UITBattlePass.season_number, "1"));
 			_screenHeader.backClicked += Data.BackClicked;
-			_screenHeader.backClicked += Data.BackClicked;
+			_screenHeader.homeClicked += Data.BackClicked;
 
 			SpawnAllSegments();
 		}
@@ -96,8 +101,24 @@ namespace FirstLight.Game.Presenters
 				_rewardsScroll.Add(segmentInstance);
 			}
 			AddFillerToBp();
+
+			// SmoothScrollTo(10);
 		}
 
+		private void SmoothScrollTo(int index)
+		{
+			// TODO TEST IF CORRECT REWARD IS SCROLLED
+			var targetX = ((index + 1) * BP_SEGMENT_WIDTH) - (_rewardsScroll.contentRect.width/2);
+
+			DOVirtual.Float(0, 1f, _scrollToDuration, percent =>
+			{
+				var currentScroll = _rewardsScroll.scrollOffset;
+				
+				_rewardsScroll.scrollOffset = new Vector2(targetX * percent, currentScroll.y);
+				
+			}).SetEase(_scrollEaseMode);
+		}
+		
 		private void AddFillerToBp()
 		{
 			var filler = new VisualElement {name = "background"};

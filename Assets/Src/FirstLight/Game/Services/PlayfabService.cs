@@ -202,6 +202,7 @@ namespace FirstLight.Game.Services
 
 		public void UpdateEmail(string newEmail, Action<AddOrUpdateContactEmailResult> callback = null)
 		{
+			FLog.Info("Updating user email to "+newEmail);
 			var emailUpdate = new AddOrUpdateContactEmailRequest()
 			{
 				EmailAddress = newEmail

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
@@ -27,7 +28,12 @@ namespace FirstLight.Game.Presenters
 			public Action BackClicked;
 		}
 
+		private const string USS_SEGMENT_FILLER = "bp-segment-filler";
+
 		[SerializeField] private VisualTreeAsset _battlePassSegmentAsset;
+		
+		private IGameServices _services;
+		private IGameDataProvider _gameDataProvider;
 		
 		private List<BattlePassSegmentData> _segmentData;
 		private List<BattlePassSegmentView> _segmentViews;
@@ -36,14 +42,10 @@ namespace FirstLight.Game.Presenters
 
 		private void Awake()
 		{ 
+			_services = MainInstaller.Resolve<IGameServices>();
+			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_segmentViews = new List<BattlePassSegmentView>();
 			_segmentData = new List<BattlePassSegmentData>();
-			_segmentData.Add(new BattlePassSegmentData());
-			_segmentData.Add(new BattlePassSegmentData());
-			_segmentData.Add(new BattlePassSegmentData());
-			_segmentData.Add(new BattlePassSegmentData());
-			_segmentData.Add(new BattlePassSegmentData());
-			_segmentData.Add(new BattlePassSegmentData());
 		}
 		
 		protected override void QueryElements(VisualElement root)
@@ -62,6 +64,28 @@ namespace FirstLight.Game.Presenters
 
 		private void SpawnAllSegments()
 		{
+			var battlePassConfig = _services.ConfigsProvider.GetConfig<BattlePassConfig>();
+			var rewardConfig = _services.ConfigsProvider.GetConfigsList<EquipmentRewardConfig>();
+			var redeemedProgress = _gameDataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
+			
+			for (int i = 0; i < battlePassConfig.Levels.Count; ++i)
+			{
+				var data = new BattlePassSegmentData
+				{
+					SegmentLevel = (uint) i,
+					CurrentLevel = _gameDataProvider.BattlePassDataProvider.CurrentLevel.Value,
+					CurrentProgress = _gameDataProvider.BattlePassDataProvider.CurrentPoints.Value,
+					PredictedCurrentLevel = redeemedProgress.Item1,
+					PredictedCurrentProgress = redeemedProgress.Item2,
+					MaxProgress = _gameDataProvider.BattlePassDataProvider.GetRequiredPointsForLevel(i),
+					RewardConfig = rewardConfig[battlePassConfig.Levels[i].RewardId]
+				};
+				
+				_segmentData.Add(data);
+			}
+			
+			// Add filler to start and end of BP so it looks nicer on the ends
+			AddFillerToBp();
 			foreach (var segment in _segmentData)
 			{
 				var segmentInstance = _battlePassSegmentAsset.Instantiate();
@@ -71,16 +95,20 @@ namespace FirstLight.Game.Presenters
 				_segmentViews.Add(view);
 				_rewardsScroll.Add(segmentInstance);
 			}
+			AddFillerToBp();
+		}
+
+		private void AddFillerToBp()
+		{
+			var filler = new VisualElement {name = "background"};
+			_rewardsScroll.Add(filler);
+			filler.pickingMode = PickingMode.Ignore;
+			filler.AddToClassList(USS_SEGMENT_FILLER);
 		}
 
 		private void OnSegmentRewardClicked(BattlePassSegmentView view)
 		{
 			
 		}
-	}
-	
-	public struct BattlePassSegmentData
-	{
-	
 	}
 }

@@ -19,7 +19,7 @@ namespace FirstLight.Game.Views.BattlePassViews
 	/// This class is an OSA implementation of a view holder. It handles spawning and controlling battle pass segment
 	/// view holders.
 	/// </summary>
-	public class BattlePassSegmentListView : OSA<BaseParamsWithPrefab, BattlePassSegmentViewHolder>
+	public class LegacyBattlePassSegmentListView : OSA<BaseParamsWithPrefab, LegacyBattlePassSegmentViewHolder>
 	{
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
@@ -39,35 +39,6 @@ namespace FirstLight.Game.Views.BattlePassViews
 			base.Start();
 			
 			LoadBattlePassData();
-		}
-
-		/// <summary>
-		/// Updates all BP segments with the most recent BP data
-		/// </summary>
-		public void UpdateAllSegments()
-		{
-			var battlePassConfig = _services.ConfigsProvider.GetConfig<BattlePassConfig>();
-			var rewardConfig = _services.ConfigsProvider.GetConfigsList<EquipmentRewardConfig>();
-			var redeemedProgress = _gameDataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
-			
-			for (int i = 0; i < Data.List.Count; i++)
-			{
-				Data.List[i].SegmentLevel = (uint) i;
-				Data.List[i].CurrentLevel = _gameDataProvider.BattlePassDataProvider.CurrentLevel.Value;
-				Data.List[i].CurrentProgress = _gameDataProvider.BattlePassDataProvider.CurrentPoints.Value;
-				Data.List[i].PredictedCurrentLevel = redeemedProgress.Item1;
-				Data.List[i].PredictedCurrentProgress = redeemedProgress.Item2;
-				Data.List[i].MaxProgress = _gameDataProvider.BattlePassDataProvider.GetRequiredPointsForLevel(i);
-				Data.List[i].RewardConfig = rewardConfig[battlePassConfig.Levels[i].RewardId];
-
-				var viewsHolder = GetItemViewsHolderIfVisible(i);
-				if (viewsHolder != null)
-				{
-					viewsHolder.View.Init(Data.List[i]);
-				}
-			}
-
-			StartCoroutine(ScrollToLevelCoroutine());
 		}
 
 		private IEnumerator ScrollToLevelCoroutine()
@@ -103,16 +74,16 @@ namespace FirstLight.Game.Views.BattlePassViews
 			}
 		}
 
-		protected override BattlePassSegmentViewHolder CreateViewsHolder(int itemIndex)
+		protected override LegacyBattlePassSegmentViewHolder CreateViewsHolder(int itemIndex)
 		{
-			var instance = new BattlePassSegmentViewHolder();
+			var instance = new LegacyBattlePassSegmentViewHolder();
 			
 			instance.Init(_Params.ItemPrefab, _Params.Content, itemIndex);
 
 			return instance;
 		}
 
-		protected override void UpdateViewsHolder(BattlePassSegmentViewHolder newOrRecycled)
+		protected override void UpdateViewsHolder(LegacyBattlePassSegmentViewHolder newOrRecycled)
 		{
 			BattlePassSegmentData model = Data[newOrRecycled.ItemIndex];
 			newOrRecycled.View.Init(model);

@@ -222,3 +222,8 @@
     padding-top: 70px;
     background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/MainButtonPressed.png?fileID=21300000&guid=ba6fb635d5b0a5144bf13ab3038819ba&type=3#MainButtonPressed');
 }
+
+.bp-segment-filler {
+    width: 475px;
+    height: 100%;
+}

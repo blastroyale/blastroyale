@@ -16,7 +16,7 @@ namespace FirstLight.Game.Views.BattlePassViews
 	/// <summary>
 	/// This class handles displaying relevant information about a level of a battle pass (progress, rewards)
 	/// </summary>
-	public class BattlePassSegmentView : MonoBehaviour
+	public class LegacyBattlePassSegmentView : MonoBehaviour
 	{
 		[SerializeField, Required] private TextMeshProUGUI _levelText;
 		[SerializeField, Required] private TextMeshProUGUI _progressText;
@@ -102,21 +102,5 @@ namespace FirstLight.Game.Views.BattlePassViews
 				_progressText.gameObject.SetActive(false);
 			}
 		}
-	}
-	
-	/// <summary>
-	/// This class holds the data used to update BattlePassSegmentViews
-	/// </summary>
-	public class BattlePassSegmentData
-	{
-		public uint SegmentLevel;
-		public uint CurrentLevel;
-		public uint CurrentProgress;
-		public uint PredictedCurrentLevel;
-		public uint PredictedCurrentProgress;
-		public uint MaxProgress;
-		public EquipmentRewardConfig RewardConfig;
-
-		public uint SegmentLevelForRewards => SegmentLevel + 1;
 	}
 }

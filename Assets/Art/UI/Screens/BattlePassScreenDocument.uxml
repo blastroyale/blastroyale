@@ -1,14 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:Template name="BattlePassSegmentButtonDocument" src="project://database/Assets/Art/UI/Templates/BattlePassSegmentButtonDocument.uxml?fileID=9197481963319205126&amp;guid=b696482fc2572a84da652c85e867d617&amp;type=3#BattlePassSegmentButtonDocument" />
     <Style src="project://database/Assets/Art/UI/Screens/BattlePassScreenStyle.uss?fileID=7433441132597879392&amp;guid=dc4d7d108099c400695438f2df23550d&amp;type=3#BattlePassScreenStyle" />
     <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent screen-root">
         <ui:VisualElement name="SeasonContent" class="season-content">
-            <ui:ScrollView focusable="true" name="RewardsScroll" mode="Horizontal" touch-scroll-type="Elastic" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="season-content__scroll">
-                <ui:Instance template="BattlePassSegmentButtonDocument" name="BattlePassSegmentButtonDocument" />
-                <ui:Instance template="BattlePassSegmentButtonDocument" name="BattlePassSegmentButtonDocument" />
-                <ui:Instance template="BattlePassSegmentButtonDocument" name="BattlePassSegmentButtonDocument" />
-                <ui:Instance template="BattlePassSegmentButtonDocument" name="BattlePassSegmentButtonDocument" />
-            </ui:ScrollView>
+            <ui:ScrollView focusable="true" name="RewardsScroll" mode="Horizontal" touch-scroll-type="Elastic" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="season-content__scroll" />
             <ui:VisualElement name="SeasonImage" class="season-content__season-image">
                 <ui:VisualElement name="Mask" class="season-image__mask">
                     <ui:VisualElement name="Image" class="season-image__image" />
@@ -49,6 +43,6 @@
             </ui:VisualElement>
         </ui:VisualElement>
         <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" name="Header" />
-        <ui:VisualElement name="reference" style="left: 0; position: absolute; background-image: url(&apos;project://database/Assets/Art/UI/References/Battle%20Pass.png?fileID=2800000&amp;guid=40ad9298235317e47978e24927712d61&amp;type=3#Battle Pass&apos;); top: 0; right: 0; bottom: 0; width: 100%; height: 100%; -unity-background-image-tint-color: rgba(255, 255, 255, 0);" />
+        <ui:VisualElement name="reference" picking-mode="Ignore" />
     </ui:VisualElement>
 </ui:UXML>

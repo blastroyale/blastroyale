@@ -153,7 +153,7 @@
     align-items: center;
     justify-content: space-between;
     padding-bottom: 30px;
-    padding-top: 182px;
+    padding-top: 143px;
 }
 
 .content-repairing__durability {
@@ -239,4 +239,52 @@
 
 .content-rusted__button--go-repair {
     right: 385px;
+}
+
+.requirements {
+    background-color: rgb(23, 20, 38);
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 70px;
+    padding-right: 70px;
+    margin-top: 40px;
+    margin-bottom: 142px;
+}
+
+.requirements__title {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -50px;
+    -unity-text-align: upper-center;
+    white-space: nowrap;
+}
+
+.requirements__icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BPP.png?fileID=21300000&guid=100d689cc6ffc41f297345bcfc22f54e&type=3#BPP');
+    width: 40px;
+    height: 40px;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.requirements__icon--cs {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/CS.png?fileID=21300000&guid=d74b22177c5ba4ac6b9293d6c147e46e&type=3#CS');
+}
+
+.requirements__icon--blst {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BLST.png?fileID=21300000&guid=b0ad58f6ca5c1472fa1fb6178491eb03&type=3#BLST');
+}
+
+.requirements__icon--coin {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/CoinIcon.png?fileID=21300000&guid=787f6e10544e24075863e3f881de6467&type=3#CoinIcon');
+}
+
+.requirements__amount {
 }

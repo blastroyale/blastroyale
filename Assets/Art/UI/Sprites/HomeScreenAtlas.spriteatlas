@@ -126,6 +126,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: cf7b87ab3ada8418985f6341d9929ea5, type: 3}
   - {fileID: 21300000, guid: fe2093cbd35914e9e9cd6c56ee79fca3, type: 3}
   - {fileID: 21300000, guid: 2545eacbca71a496a9d0bf7997e6bd4e, type: 3}
+  - {fileID: 21300000, guid: f97585fb383434d4caadb2d0eb3c1e97, type: 3}
   - {fileID: 21300000, guid: 8368e60ca24ab4818929e5d7b2dd77f2, type: 3}
   - {fileID: 21300000, guid: db6aed0c5abfe43cc8c60b70c979e786, type: 3}
   - {fileID: 21300000, guid: edeb643c81c524ca28070f239ae51a4e, type: 3}
@@ -155,6 +156,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 2944494fed89644cabdbd0b3da73c0e3, type: 3}
   - {fileID: 21300000, guid: 31d84b6fb540b4b2aa56c00750dfa110, type: 3}
   - {fileID: 21300000, guid: 872fe08ff0fbc4f64b229d591f48d144, type: 3}
+  - {fileID: 21300000, guid: 4e47c79fe11774312872c0e2cfc762ee, type: 3}
   - {fileID: 21300000, guid: cc4bebaf13b9943d1b1da524b151099d, type: 3}
   m_PackedSpriteNamesToIndex:
   - CoinIcon
@@ -245,6 +247,7 @@ SpriteAtlas:
   - EpicItemButton
   - PoolHeader
   - AmuletEmptySlotIcon
+  - LevelArrow
   - ButtonMain
   - CommonItemButton
   - IconCustomGame
@@ -274,6 +277,7 @@ SpriteAtlas:
   - BattlepassButton
   - HelmetEmptySlotIcon
   - Trophy
+  - UpgradeArrow
   - InfoButtonPressed
   m_RenderDataMap: {}
   m_Tag: HomeScreenAtlas

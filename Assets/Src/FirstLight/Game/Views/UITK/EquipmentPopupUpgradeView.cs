@@ -14,10 +14,15 @@ namespace FirstLight.Game.Views.UITK
 	/// </summary>
 	public class EquipmentPopupUpgradeView : IUIView
 	{
+		private const string UssRequirementsIconModifier = "requirements__icon--{0}";
+
 		private Label _currentLvl;
 		private Label _nextLvl;
 		private ListView _statsList;
 		private PriceButton _upgradeButton;
+		private VisualElement _requirements;
+		private Label _requirementsAmount;
+		private VisualElement _requirementsIcon;
 
 		private Action _confirmAction;
 
@@ -29,9 +34,12 @@ namespace FirstLight.Game.Views.UITK
 			_nextLvl = element.Q<Label>("LevelNext").Required();
 			_statsList = element.Q<ListView>("StatsList").Required();
 			_upgradeButton = element.Q<PriceButton>("UpgradeButton").Required();
+			_requirements = element.Q<VisualElement>("Requirements").Required();
+			_requirementsAmount = _requirements.Q<Label>("Amount").Required();
+			_requirementsIcon = _requirements.Q<VisualElement>("Icon").Required();
 
 			_statsList.DisableScrollbars();
-			
+
 			_upgradeButton.clicked += () => _confirmAction();
 		}
 
@@ -40,8 +48,14 @@ namespace FirstLight.Game.Views.UITK
 			_currentLvl.text = string.Format(ScriptLocalization.UITEquipment.popup_upgrade_lvl, info.Equipment.Level);
 			_nextLvl.text = string.Format(ScriptLocalization.UITEquipment.popup_upgrade_lvl, info.Equipment.Level + 1);
 
-			_upgradeButton.SetVisibility(!info.IsNft);
+			_upgradeButton.SetDisplay(!info.IsNft);
 			_upgradeButton.SetPrice(info.UpgradeCost, insufficient);
+
+			_requirements.SetDisplay(info.IsNft);
+			_requirementsAmount.text = info.UpgradeCost.Value.ToString();
+			_requirementsIcon.RemoveModifiers();
+			_requirementsIcon.AddToClassList(string.Format(UssRequirementsIconModifier,
+				info.UpgradeCost.Key.ToString().ToLowerInvariant()));
 
 			_confirmAction = confirmAction;
 

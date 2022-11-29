@@ -1,3 +1,7 @@
+#root {
+    align-items: center;
+}
+
 .next-button {
     position: absolute;
     right: 0;

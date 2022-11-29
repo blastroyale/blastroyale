@@ -70,7 +70,7 @@ namespace Quantum
 			ReplicationCounter = replicationCounter;
 			TotalRestoredDurability = totalRestoredDurability;
 
-			LastRepairTimestamp = lastRepairTimestamp == 0 ? DateTime.UtcNow.Ticks : lastRepairTimestamp;
+			LastRepairTimestamp = lastRepairTimestamp;
 		}
 
 		/// <summary>

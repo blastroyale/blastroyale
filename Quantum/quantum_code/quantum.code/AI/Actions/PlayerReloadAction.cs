@@ -15,6 +15,7 @@ namespace Quantum
 			//do the reload here
 			var slot = f.Unsafe.GetPointer<PlayerCharacter>(e)->WeaponSlot;
 			slot->MagazineShotCount = slot->MagazineSize;
+			f.Events.OnPlayerMagazineReloaded(f.Unsafe.GetPointer<PlayerCharacter>(e)->Player, e, slot->Weapon);
 		}
 	}
 }

@@ -28,7 +28,7 @@
 
 .screen-header__title {
     position: absolute;
-    left:100px;
+    left:350px;
     top:40px;
     font-size: 60px;
     -unity-font-definition: var(--font-italic);
@@ -44,7 +44,7 @@
 
 .screen-header__subtitle {
     position: absolute;
-    left:170px;
+    left:420px;
     top:95px;
     font-size: 38px;
     -unity-font-definition: var(--font-italic);
@@ -82,4 +82,12 @@
     height: 192px;
     margin-left: -487px;
     margin-right: -502px;
+}
+
+.screen-header--simple .screen-header__title{
+    left:100px;
+}
+
+.screen-header--simple .screen-header__subtitle{
+    left:170px;
 }

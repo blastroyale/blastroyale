@@ -73,7 +73,15 @@ namespace FirstLight.Game.UIElements
 		public void SetTitle(string title, string subtitle = "")
 		{
 			_title.text = title;
-			_subTitle.text = subtitle;
+			if (string.IsNullOrWhiteSpace(subtitle))
+			{
+				_subTitle.style.display = DisplayStyle.None;
+			}
+			else
+			{
+				_subTitle.style.display = DisplayStyle.Flex;
+				_subTitle.text = subtitle;
+			}
 		}
 
 		public new class UxmlFactory : UxmlFactory<ScreenHeaderElement, UxmlTraits>
@@ -102,7 +110,8 @@ namespace FirstLight.Game.UIElements
 				she.titleKey = _titleKeyAttribute.GetValueFromBag(bag, cc);
 				she.subtitleKey = _subTitleKeyAttribute.GetValueFromBag(bag, cc);
 
-				she.SetTitle(she.titleKey.LocalizeKey(), she.subtitleKey.LocalizeKey());
+				she.SetTitle(she.titleKey.LocalizeKey(), 
+					string.IsNullOrWhiteSpace(she.subtitleKey)?"":she.subtitleKey.LocalizeKey());
 			}
 		}
 	}

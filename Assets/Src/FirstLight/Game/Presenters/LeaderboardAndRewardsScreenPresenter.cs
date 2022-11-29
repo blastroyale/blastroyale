@@ -27,7 +27,8 @@ namespace FirstLight.Game.Presenters
 
 		private Button _nextButton;
 		private ScrollView _leaderboardScrollView;
-		private Label _playerName;
+		private VisualElement _playerName;
+		private Label _playerNameText;
 		
 		protected override void OnInitialized()
 		{
@@ -42,6 +43,8 @@ namespace FirstLight.Game.Presenters
 
 			SetupCamera();
 			UpdateCharacter();
+			UpdatePlayerName();
+			UpdateLeaderboard();
 		}
 
 		protected override void OnTransitionsReady()
@@ -56,23 +59,46 @@ namespace FirstLight.Game.Presenters
 			_nextButton = root.Q<Button>("NextButton").Required();
 			_nextButton.clicked += Data.ContinueClicked;
 			
-			_playerName = root.Q<Label>("PlayerName").Required();
-
-			UpdatePlayerName();
-			UpdateLeaderboard();
+			_playerName = root.Q<VisualElement>("PlayerName").Required();
+			_playerNameText = _playerName.Q<Label>("Text").Required();
 		}
 
 		private void UpdatePlayerName()
 		{
 			if (_matchServices.MatchEndDataService.LocalPlayer == PlayerRef.None)
 			{
-				_playerName.text = "";
+				_playerNameText.text = "";
 				return;
 			}
 			
+			// Cleanup in case the screen is re-used
+			_playerName.RemoveFromClassList("first");
+			_playerName.RemoveFromClassList("second");
+			_playerName.RemoveFromClassList("third");
+			
 			var playerData = _matchServices.MatchEndDataService.PlayerMatchData;
 			var localPlayerData = playerData[_matchServices.MatchEndDataService.LocalPlayer];
-			_playerName.text = localPlayerData.QuantumPlayerMatchData.PlayerRank+". "+ localPlayerData.QuantumPlayerMatchData.PlayerName;
+
+			_playerNameText.text = "";
+			
+			// If the player is in the top 3 we show a badge
+			if (localPlayerData.QuantumPlayerMatchData.PlayerRank <= 3)
+			{
+				var rankClass = localPlayerData.QuantumPlayerMatchData.PlayerRank switch
+				{
+					1 => "first",
+					2 => "second",
+					3 => "third",
+					_ => ""
+				};
+				_playerName.AddToClassList(rankClass);
+			}
+			else
+			{
+				_playerNameText.text = localPlayerData.QuantumPlayerMatchData.PlayerRank + ". ";
+			}
+
+			_playerNameText.text += localPlayerData.QuantumPlayerMatchData.PlayerName;
 		}
 
 		private void UpdateLeaderboard()

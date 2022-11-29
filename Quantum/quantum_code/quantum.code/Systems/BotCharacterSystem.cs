@@ -103,6 +103,7 @@ namespace Quantum.Systems
 			// otherwise we return speed to normal and let automatic navigation turn the bot
 			var target = filter.BotCharacter->Target;
 			var speed = f.Get<Stats>(filter.Entity).Values[(int) StatType.Speed].StatValue;
+			speed *= filter.BotCharacter->MovementSpeedMultiplier;
 			var weaponConfig = f.WeaponConfigs.GetConfig(filter.PlayerCharacter->CurrentWeapon.GameId);
 			
 			// We need to check also for AlivePlayerCharacter because with respawns we don't destroy Player Entities
@@ -144,7 +145,10 @@ namespace Quantum.Systems
 				if (filter.BotCharacter->Target != EntityRef.None)
 				{
 					// Bots have a ChanceToAbandonTarget to stop shooting/tracking the target to allow more room for players to escape
-					if (f.RNG->Next() < filter.BotCharacter->ChanceToAbandonTarget)
+					// Versus other bots this chance is 4 times lower
+					if (f.RNG->Next() < (f.Has<BotCharacter>(filter.BotCharacter->Target) ?
+											 filter.BotCharacter->ChanceToAbandonTarget * FP._0_25 :
+											 filter.BotCharacter->ChanceToAbandonTarget))
 					{
 						ClearTarget(f, ref filter);
 					}
@@ -296,6 +300,7 @@ namespace Quantum.Systems
 		private void ClearTarget(Frame f, ref BotCharacterFilter filter)
 		{
 			var speed = f.Get<Stats>(filter.Entity).Values[(int) StatType.Speed].StatValue;
+			speed *= filter.BotCharacter->MovementSpeedMultiplier;
 			
 			// If the bot was moving towards this enemy then we clear move target and force a bot to make a decision
 			if (filter.BotCharacter->MoveTarget == filter.BotCharacter->Target)
@@ -324,8 +329,10 @@ namespace Quantum.Systems
 			// We do line/shapecasts for enemies in sight
 			// If there is a target in Sight then store this Target into the blackboard variable
 			// We check enemies one by one until we find a valid enemy in sight
+			// Note: Bots against bots use the full weapon range
 			// TODO: Select not a random, but the closest possible enemy to shoot at
-			var weaponTargetRange = FPMath.Min(f.Get<Stats>(filter.Entity).GetStatData(StatType.AttackRange).StatValue, filter.BotCharacter->MaxAimingRange);
+			var weaponTargetRangeAgainstBots = f.Get<Stats>(filter.Entity).GetStatData(StatType.AttackRange).StatValue;
+			var weaponTargetRange = FPMath.Min(weaponTargetRangeAgainstBots, filter.BotCharacter->MaxAimingRange);
 			var botPosition = filter.Transform->Position;
 			var team = f.Get<Targetable>(filter.Entity).Team;
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(filter.Entity);
@@ -334,7 +341,9 @@ namespace Quantum.Systems
 
 			foreach (var targetCandidate in f.Unsafe.GetComponentBlockIterator<Targetable>())
 			{
-				if (TryToAimAtEnemy(f, ref filter, botPosition, team, weaponTargetRange, targetCandidate.Entity, out var targetHit))
+				if (TryToAimAtEnemy(f, ref filter, botPosition, team,
+									f.Has<BotCharacter>(targetCandidate.Entity) ? weaponTargetRangeAgainstBots : weaponTargetRange,
+									targetCandidate.Entity, out var targetHit))
 				{
 					target = targetHit;
 					break;
@@ -1001,7 +1010,8 @@ namespace Quantum.Systems
 					CurrentEvasionStepEndTime = FP._0,
 					StuckDetectionPosition = FPVector3.Zero,
 					LoadoutGearNumber = botConfig.LoadoutGearNumber,
-					MaxAimingRange = botConfig.MaxAimingRange
+					MaxAimingRange = botConfig.MaxAimingRange,
+					MovementSpeedMultiplier = botConfig.MovementSpeedMultiplier
 				};
 
 				

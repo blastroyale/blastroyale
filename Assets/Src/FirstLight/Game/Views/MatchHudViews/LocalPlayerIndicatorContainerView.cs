@@ -146,7 +146,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void OnUpdateAim(Frame f, Quantum.Input* input, PlayerCharacter* playerCharacter, CharacterController3D* kcc)
 		{
-			var isEmptied = playerCharacter->GetAmmoAmountFilled(f, _localPlayerEntity) == 0 && !playerCharacter->HasMeleeWeapon(f, _localPlayerEntity) ;
+			var isEmptied = playerCharacter->GetAmmoAmountFilled(f, _localPlayerEntity) == 0 && !playerCharacter->HasMeleeWeapon(f, _localPlayerEntity) && playerCharacter->WeaponSlot->MagazineShotCount == 0;
 			var transform = f.Unsafe.GetPointer<Transform3D>(_localPlayerEntity);
 			var aimDirection = QuantumHelpers.GetAimDirection(input->AimingDirection, transform->Rotation).Normalized.ToUnityVector2();
 

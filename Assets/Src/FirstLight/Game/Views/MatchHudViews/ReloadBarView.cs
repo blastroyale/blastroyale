@@ -41,6 +41,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			QuantumEvent.Subscribe<EventOnPlayerMagazineChanged>(this, HandleOnPlayerMagazineChanged);
 			QuantumEvent.Subscribe<EventOnPlayerWeaponChanged>(this, HandleOnPlayerWeaponChanged);
 			QuantumEvent.Subscribe<EventOnPlayerReloadStart>(this, HandleOnPlayerStartReload);
+			QuantumEvent.Subscribe<EventOnPlayerMagazineReloaded>(this, HandleOnPlayerFinishReload);
 		}
 
 		private void HandleOnPlayerWeaponChanged(EventOnPlayerWeaponChanged callback)
@@ -58,7 +59,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				StopCoroutine(_reloadAnim);
 			}
-			_reloadAnim = StartCoroutine(ReloadAnimation(f, player));
 		}
 
 		private void HandleOnPlayerMagazineChanged(EventOnPlayerMagazineChanged callback)
@@ -93,6 +93,23 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_reloadAnim = StartCoroutine(ReloadAnimation(f, player));
 		}
 
+		private void HandleOnPlayerFinishReload(EventOnPlayerMagazineReloaded callback)
+		{
+			var f = callback.Game.Frames.Verified;
+
+			if (callback.Entity != _entity || !f.TryGet<PlayerCharacter>(callback.Entity, out var player))
+			{
+				return;
+			}
+
+			if (_reloadAnim != null)
+			{
+				StopCoroutine(_reloadAnim);
+			}
+
+			SetSliderValue(player);
+		}
+
 		private void SetSliderValue(PlayerCharacter player)
 		{
 			var slot = player.WeaponSlots[player.CurrentWeaponSlot];
@@ -122,8 +139,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				yield return new WaitForEndOfFrame();
 				_reloadTimeSlider.value = (f.Time.AsFloat - startTime) / reloadTime;
 			}
-
-			SetSliderValue(player);
+			
 			_reloadTimeSlider.gameObject.SetActive(false);
 		}
 	}

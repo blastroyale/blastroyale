@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 46426dca11db4a77995a1d27526f2007, type: 3}
-  m_Name: StartShot_17
+  m_Name: StartShot_18
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|StartShot_17
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|StartShot_18
       Guid:
         Value: 225011707883827593
     Label: StartShot
@@ -55,7 +55,7 @@ MonoBehaviour:
       Id:
         Value: 1181736976140049685
     Level: 1
---- !u!114 &-9009769972115328236
+--- !u!114 &-8819354586268864535
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -64,20 +64,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 105e1525e37d4e04abf88be898c08906, type: 3}
-  m_Name: HFSMAndDecision_0
+  m_Script: {fileID: 11500000, guid: 99d0f28b5fb9c374f9d9d4b4edbc651c, type: 3}
+  m_Name: CheckFPDecision_11
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|HFSMAndDecision_0
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckFPDecision_11
       Guid:
-        Value: 1145427441453209526
+        Value: 2141574431147461954
     Label: 
-    Decisions:
-    - Id:
-        Value: 35841960151408618
-    - Id:
-        Value: 3322761479545927555
+    Source:
+      Source: 4
+      Key: 
+      DefaultValue:
+        RawValue: 0
+      FunctionRef:
+        Id:
+          Value: 802778647459596964
+    Comparison: 2
+    DesiredValue:
+      Source: 1
+      Key: 
+      DefaultValue:
+        RawValue: 0
+      FunctionRef:
+        Id:
+          Value: 0
 --- !u!114 &-8763160307306586467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88,11 +100,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a30d415434e7747569d4a04a631e6be4, type: 3}
-  m_Name: CheckBlackboardBool_17
+  m_Name: CheckBlackboardBool_13
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckBlackboardBool_17
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckBlackboardBool_13
       Guid:
         Value: 1074080942021792359
     Label: 
@@ -115,11 +127,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 105e1525e37d4e04abf88be898c08906, type: 3}
-  m_Name: HFSMAndDecision_16
+  m_Name: HFSMAndDecision_12
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|HFSMAndDecision_16
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|HFSMAndDecision_12
       Guid:
         Value: 1578669283807779297
     Label: 
@@ -128,53 +140,7 @@ MonoBehaviour:
         Value: 1074080942021792359
     - Id:
         Value: 1542539032981085844
---- !u!114 &-8271207643672649749
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 105e1525e37d4e04abf88be898c08906, type: 3}
-  m_Name: HFSMAndDecision_1
-  m_EditorClassIdentifier: 
-  Settings:
-    Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|HFSMAndDecision_1
-      Guid:
-        Value: 35841960151408618
-    Label: 
-    Decisions:
-    - Id:
-        Value: 3820528118536878184
-    - Id:
-        Value: 3932894365333874436
---- !u!114 &-7394876046456728781
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 105e1525e37d4e04abf88be898c08906, type: 3}
-  m_Name: HFSMAndDecision_15
-  m_EditorClassIdentifier: 
-  Settings:
-    Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|HFSMAndDecision_15
-      Guid:
-        Value: 1259707947922138915
-    Label: 
-    Decisions:
-    - Id:
-        Value: 1578669283807779297
-    - Id:
-        Value: 265972616361307086
---- !u!114 &-7231795813190334324
+--- !u!114 &-7509763433340000116
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -195,6 +161,51 @@ MonoBehaviour:
     Identifier:
       Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|GetAmmoCountFunction_10
       Guid:
+        Value: 998029827054295320
+--- !u!114 &-7283065648792568661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 105e1525e37d4e04abf88be898c08906, type: 3}
+  m_Name: HFSMAndDecision_9
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|HFSMAndDecision_9
+      Guid:
+        Value: 1950654918850669271
+    Label: 
+    Decisions:
+    - Id:
+        Value: 376634616520152049
+    - Id:
+        Value: 2141574431147461954
+--- !u!114 &-7231795813190334324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e0c3442e159b4140acbee0a11e43cfa, type: 3}
+  m_Name: GetAmmoCountFunction_9
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: 
+      Guid:
+        Value: 0
+  Settings_GetAmmoCountFunction:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|GetAmmoCountFunction_9
+      Guid:
         Value: 128173641673653426
 --- !u!114 &-7216598417630318472
 MonoBehaviour:
@@ -206,11 +217,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b1d4f73f6e74b9fbeaed5b8065b7852, type: 3}
-  m_Name: TimerDecision_28
+  m_Name: TimerDecision_22
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TimerDecision_28
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TimerDecision_22
       Guid:
         Value: 2706273345789373020
     Label: 
@@ -292,14 +303,47 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a4c941a2c54e49348e6cb518ce91702, type: 3}
-  m_Name: PlayerAmmoEmptyAction_12
+  m_Name: PlayerAmmoEmptyAction_14
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|PlayerAmmoEmptyAction_12
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|PlayerAmmoEmptyAction_14
       Guid:
         Value: 4262735365762548198
     Label: 
+--- !u!114 &-6269708624085984543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 998c63c46a0346141a4325b70a8285c7, type: 3}
+  m_Name: CheckIntDecision_10
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckIntDecision_10
+      Guid:
+        Value: 376634616520152049
+    Label: 
+    Source:
+      Source: 4
+      Key: 
+      DefaultValue: 0
+      FunctionRef:
+        Id:
+          Value: 1963650605532987192
+    Comparison: 3
+    DesiredValue:
+      Source: 1
+      Key: 
+      DefaultValue: 0
+      FunctionRef:
+        Id:
+          Value: 0
 --- !u!114 &-6161448897593357708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,11 +354,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b1d4f73f6e74b9fbeaed5b8065b7852, type: 3}
-  m_Name: TimerDecision_29
+  m_Name: TimerDecision_23
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TimerDecision_29
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TimerDecision_23
       Guid:
         Value: 3666565994759780499
     Label: 
@@ -336,11 +380,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b1d4f73f6e74b9fbeaed5b8065b7852, type: 3}
-  m_Name: TimerDecision_33
+  m_Name: TimerDecision_27
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TimerDecision_33
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TimerDecision_27
       Guid:
         Value: 1332320633570243524
     Label: 
@@ -400,11 +444,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 46426dca11db4a77995a1d27526f2007, type: 3}
-  m_Name: EndShot_18
+  m_Name: EndShot_15
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|EndShot_18
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|EndShot_15
       Guid:
         Value: 3196774031252337950
     Label: EndShot
@@ -440,7 +484,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a8d629162648148068c3e391894702c0, type: 3}
-  m_Name: FPVector3SumFunction_6
+  m_Name: FPVector3SumFunction_8
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
@@ -449,7 +493,7 @@ MonoBehaviour:
         Value: 0
   Settings_FPVector3SumFunction:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|FPVector3SumFunction_6
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|FPVector3SumFunction_8
       Guid:
         Value: 425486652379797895
     First:
@@ -478,6 +522,29 @@ MonoBehaviour:
       FunctionRef:
         Id:
           Value: 0
+--- !u!114 &-5653358079613869765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 105e1525e37d4e04abf88be898c08906, type: 3}
+  m_Name: HFSMAndDecision_1
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|HFSMAndDecision_1
+      Guid:
+        Value: 3573133695774715169
+    Label: 
+    Decisions:
+    - Id:
+        Value: 1406407688505665280
+    - Id:
+        Value: 4045888525572681771
 --- !u!114 &-5619210918129525804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -488,11 +555,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 99d0f28b5fb9c374f9d9d4b4edbc651c, type: 3}
-  m_Name: CheckFPDecision_41
+  m_Name: CheckFPDecision_34
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckFPDecision_41
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckFPDecision_34
       Guid:
         Value: 4093219791189788724
     Label: 
@@ -523,11 +590,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a04cb2618811449aaa683bd8ae9b05ae, type: 3}
-  m_Name: CheckBlackboardFP_22
+  m_Name: CheckBlackboardFP_16
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckBlackboardFP_22
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckBlackboardFP_16
       Guid:
         Value: 3149293306791047112
     Label: 
@@ -542,28 +609,6 @@ MonoBehaviour:
       FunctionRef:
         Id:
           Value: 0
---- !u!114 &-5202126839580238059
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4620362c728ed441bb7e2c5e6822d53, type: 3}
-  m_Name: GetMagShotCountFunction_5
-  m_EditorClassIdentifier: 
-  Settings:
-    Identifier:
-      Path: 
-      Guid:
-        Value: 0
-  Settings_GetMagShotCountFunction:
-    Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|GetMagShotCountFunction_5
-      Guid:
-        Value: 2527912341812422004
 --- !u!114 &-5064972104473269442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -574,11 +619,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc4b0c21cfc0247118f18a4979cedff9, type: 3}
-  m_Name: ShouldPerformSkydiveDecision_32
+  m_Name: ShouldPerformSkydiveDecision_26
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|ShouldPerformSkydiveDecision_32
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|ShouldPerformSkydiveDecision_26
       Guid:
         Value: 2772928941845369772
     Label: 
@@ -623,29 +668,6 @@ MonoBehaviour:
       Id:
         Value: 1181736976140049685
     Level: 1
---- !u!114 &-4712309042767645610
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 105e1525e37d4e04abf88be898c08906, type: 3}
-  m_Name: HFSMAndDecision_6
-  m_EditorClassIdentifier: 
-  Settings:
-    Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|HFSMAndDecision_6
-      Guid:
-        Value: 210591592596491293
-    Label: 
-    Decisions:
-    - Id:
-        Value: 1351244667786713195
-    - Id:
-        Value: 3250299450756494837
 --- !u!114 &-4449499294209207039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -656,16 +678,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c0404353524b4e54193e3056cec34c65, type: 3}
-  m_Name: SetBlackboardFP_19
+  m_Name: SetBlackboardFP_20
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|SetBlackboardFP_19
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|SetBlackboardFP_20
       Guid:
         Value: 2811249336333841595
     Label: 
     Key:
-      Key: AmmoFilled
+      Key: 
     Value:
       Source: 1
       Key: 
@@ -684,11 +706,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 48ca56fceb5754655912e884a99d0e5a, type: 3}
-  m_Name: PlayerChangeDefaultWeapon_14
+  m_Name: PlayerChangeDefaultWeapon_16
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|PlayerChangeDefaultWeapon_14
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|PlayerChangeDefaultWeapon_16
       Guid:
         Value: 3493007808328163991
     Label: 
@@ -702,11 +724,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c0404353524b4e54193e3056cec34c65, type: 3}
-  m_Name: SetBlackboardFP_15
+  m_Name: SetBlackboardFP_12
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|SetBlackboardFP_15
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|SetBlackboardFP_12
       Guid:
         Value: 355138405273918491
     Label: 
@@ -730,11 +752,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19b0c61812934085b7fe69413c34d5d7, type: 3}
-  m_Name: TrueDecision_45
+  m_Name: TrueDecision_38
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TrueDecision_45
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TrueDecision_38
       Guid:
         Value: 3853765006729685724
     Label: 
@@ -748,11 +770,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7b929892194224367b9d3ff64540a55a, type: 3}
-  m_Name: SetBlackboardBool_16
+  m_Name: SetBlackboardBool_13
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|SetBlackboardBool_16
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|SetBlackboardBool_13
       Guid:
         Value: 138976283071832149
     Label: 
@@ -775,11 +797,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b1d4f73f6e74b9fbeaed5b8065b7852, type: 3}
-  m_Name: TimerDecision_30
+  m_Name: TimerDecision_24
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TimerDecision_30
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TimerDecision_24
       Guid:
         Value: 1092072595331109876
     Label: 
@@ -839,38 +861,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d4d0879e65249009aef4c02b0d5e622, type: 3}
-  m_Name: HFSMNotDecision_31
+  m_Name: HFSMNotDecision_25
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|HFSMNotDecision_31
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|HFSMNotDecision_25
       Guid:
         Value: 4387084225825083206
     Label: 
     Decisions:
     - Id:
         Value: 2772928941845369772
---- !u!114 &-3559794739496796658
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d4d0879e65249009aef4c02b0d5e622, type: 3}
-  m_Name: HFSMNotDecision_19
-  m_EditorClassIdentifier: 
-  Settings:
-    Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|HFSMNotDecision_19
-      Guid:
-        Value: 265972616361307086
-    Label: 
-    Decisions:
-    - Id:
-        Value: 4590406595090370030
 --- !u!114 &-3545705777854151078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -881,11 +882,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7b929892194224367b9d3ff64540a55a, type: 3}
-  m_Name: SetBlackboardBool_23
+  m_Name: SetBlackboardBool_17
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|SetBlackboardBool_23
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|SetBlackboardBool_17
       Guid:
         Value: 92085662262361544
     Label: 
@@ -908,11 +909,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19b0c61812934085b7fe69413c34d5d7, type: 3}
-  m_Name: TrueDecision_43
+  m_Name: TrueDecision_36
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TrueDecision_43
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TrueDecision_36
       Guid:
         Value: 735283581775416184
     Label: 
@@ -964,11 +965,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5cda91e77a6ad412cb5a1ed03843ce47, type: 3}
-  m_Name: IsCharacterGroundedDecision_35
+  m_Name: IsCharacterGroundedDecision_28
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|IsCharacterGroundedDecision_35
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|IsCharacterGroundedDecision_28
       Guid:
         Value: 2042043813626114928
     Label: 
@@ -982,11 +983,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b1d4f73f6e74b9fbeaed5b8065b7852, type: 3}
-  m_Name: TimerDecision_44
+  m_Name: TimerDecision_37
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TimerDecision_44
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TimerDecision_37
       Guid:
         Value: 3462695220449961370
     Label: 
@@ -1008,11 +1009,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a04cb2618811449aaa683bd8ae9b05ae, type: 3}
-  m_Name: CheckBlackboardFP_24
+  m_Name: CheckBlackboardFP_18
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckBlackboardFP_24
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckBlackboardFP_18
       Guid:
         Value: 913260889474660215
     Label: 
@@ -1137,35 +1138,6 @@ MonoBehaviour:
       Id:
         Value: 4082208694593017240
     Level: 1
---- !u!114 &-2203928916939582567
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a04cb2618811449aaa683bd8ae9b05ae, type: 3}
-  m_Name: CheckBlackboardFP_7
-  m_EditorClassIdentifier: 
-  Settings:
-    Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckBlackboardFP_7
-      Guid:
-        Value: 1351244667786713195
-    Label: 
-    Key:
-      Key: AmmoFilled
-    Comparison: 3
-    DesiredValue:
-      Source: 1
-      Key: 
-      DefaultValue:
-        RawValue: 0
-      FunctionRef:
-        Id:
-          Value: 0
 --- !u!114 &-2142491338705488186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1215,11 +1187,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19b0c61812934085b7fe69413c34d5d7, type: 3}
-  m_Name: TrueDecision_36
+  m_Name: TrueDecision_29
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TrueDecision_36
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TrueDecision_29
       Guid:
         Value: 1708266808066318151
     Label: 
@@ -1233,11 +1205,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 46426dca11db4a77995a1d27526f2007, type: 3}
-  m_Name: RaisingTheGun_13
+  m_Name: RaisingTheGun_12
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|RaisingTheGun_13
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|RaisingTheGun_12
       Guid:
         Value: 3351125561912386273
     Label: RaisingTheGun
@@ -1309,66 +1281,6 @@ MonoBehaviour:
       Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CurrentFrameTimeFunction_13
       Guid:
         Value: 3739627205190102049
---- !u!114 &-1236556416611882507
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 998c63c46a0346141a4325b70a8285c7, type: 3}
-  m_Name: CheckIntDecision_14
-  m_EditorClassIdentifier: 
-  Settings:
-    Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckIntDecision_14
-      Guid:
-        Value: 262641851266274642
-    Label: 
-    Source:
-      Source: 4
-      Key: 
-      DefaultValue: 0
-      FunctionRef:
-        Id:
-          Value: 103773213396254911
-    Comparison: 3
-    DesiredValue:
-      Source: 1
-      Key: 
-      DefaultValue: 0
-      FunctionRef:
-        Id:
-          Value: 0
---- !u!114 &-1227040756907682256
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a30d415434e7747569d4a04a631e6be4, type: 3}
-  m_Name: CheckBlackboardBool_8
-  m_EditorClassIdentifier: 
-  Settings:
-    Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckBlackboardBool_8
-      Guid:
-        Value: 3250299450756494837
-    Label: 
-    Key:
-      Key: HasMeleeWeapon
-    DesiredValue:
-      Source: 1
-      Key: 
-      DefaultValue: 0
-      FunctionRef:
-        Id:
-          Value: 0
 --- !u!114 &-1104869252559750197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1379,11 +1291,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a30d415434e7747569d4a04a631e6be4, type: 3}
-  m_Name: CheckBlackboardBool_12
+  m_Name: CheckBlackboardBool_7
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckBlackboardBool_12
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckBlackboardBool_7
       Guid:
         Value: 2049629665663902866
     Label: 
@@ -1406,12 +1318,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 46426dca11db4a77995a1d27526f2007, type: 3}
-  m_Name: Attack Shape_7
+  m_Name: Attack Shape_9
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
       Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|Attack
-        Shape_7
+        Shape_9
       Guid:
         Value: 3344972179177812187
     Label: Attack Shape
@@ -1437,62 +1349,6 @@ MonoBehaviour:
       Id:
         Value: 1181736976140049685
     Level: 1
---- !u!114 &-806469351024775312
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 998c63c46a0346141a4325b70a8285c7, type: 3}
-  m_Name: CheckIntDecision_9
-  m_EditorClassIdentifier: 
-  Settings:
-    Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckIntDecision_9
-      Guid:
-        Value: 2559070464506498613
-    Label: 
-    Source:
-      Source: 4
-      Key: 
-      DefaultValue: 0
-      FunctionRef:
-        Id:
-          Value: 2527912341812422004
-    Comparison: 3
-    DesiredValue:
-      Source: 1
-      Key: 
-      DefaultValue: 0
-      FunctionRef:
-        Id:
-          Value: 0
---- !u!114 &-636461564799247903
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 105e1525e37d4e04abf88be898c08906, type: 3}
-  m_Name: HFSMAndDecision_5
-  m_EditorClassIdentifier: 
-  Settings:
-    Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|HFSMAndDecision_5
-      Guid:
-        Value: 3378904590350243328
-    Label: 
-    Decisions:
-    - Id:
-        Value: 210591592596491293
-    - Id:
-        Value: 2559070464506498613
 --- !u!114 &-616506604441139691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1551,49 +1407,6 @@ MonoBehaviour:
       Guid:
         Value: 772538730822870571
     Label: 
---- !u!114 &-172339286811673783
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46426dca11db4a77995a1d27526f2007, type: 3}
-  m_Name: No Ammo_20
-  m_EditorClassIdentifier: 
-  Settings:
-    Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|No
-        Ammo_20
-      Guid:
-        Value: 2355334850334224486
-    Label: No Ammo
-    OnUpdateLinks: []
-    OnEnterLinks:
-    - Id:
-        Value: 2484173861296569762
-    - Id:
-        Value: 2793138403379056272
-    OnExitLinks: []
-    Transitions:
-    - Id: 80db3127-3dd8-4e08-a814-f45e8cb4b341
-      EventKey: 0
-      DecisionLink:
-        Id:
-          Value: 4044055234363064021
-      StateLink:
-        Id:
-          Value: 0
-      TransitionSetLink:
-        Id:
-          Value: 4563095865730876031
-    ChildrenLinks: []
-    ParentLink:
-      Id:
-        Value: 1181736976140049685
-    Level: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1630,6 +1443,39 @@ MonoBehaviour:
     - OnStunCancelled
     - OnStunned
     - OnWeaponChanged
+--- !u!114 &51436730059079639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 998c63c46a0346141a4325b70a8285c7, type: 3}
+  m_Name: CheckIntDecision_3
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckIntDecision_3
+      Guid:
+        Value: 4045888525572681771
+    Label: 
+    Source:
+      Source: 4
+      Key: 
+      DefaultValue: 0
+      FunctionRef:
+        Id:
+          Value: 3796241441471870443
+    Comparison: 3
+    DesiredValue:
+      Source: 1
+      Key: 
+      DefaultValue: 0
+      FunctionRef:
+        Id:
+          Value: 0
 --- !u!114 &127985744729432711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1652,6 +1498,41 @@ MonoBehaviour:
       Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CurrentFrameTimeFunction_4
       Guid:
         Value: 1779133467843059503
+--- !u!114 &176475020501531446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99d0f28b5fb9c374f9d9d4b4edbc651c, type: 3}
+  m_Name: CheckFPDecision_2
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckFPDecision_2
+      Guid:
+        Value: 1406407688505665280
+    Label: 
+    Source:
+      Source: 4
+      Key: 
+      DefaultValue:
+        RawValue: 0
+      FunctionRef:
+        Id:
+          Value: 998029827054295320
+    Comparison: 3
+    DesiredValue:
+      Source: 1
+      Key: 
+      DefaultValue:
+        RawValue: 0
+      FunctionRef:
+        Id:
+          Value: 0
 --- !u!114 &351525348488594257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1662,11 +1543,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c0404353524b4e54193e3056cec34c65, type: 3}
-  m_Name: SetBlackboardFP_22
+  m_Name: SetBlackboardFP_23
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|SetBlackboardFP_22
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|SetBlackboardFP_23
       Guid:
         Value: 1176960968936862908
     Label: 
@@ -1680,7 +1561,7 @@ MonoBehaviour:
       FunctionRef:
         Id:
           Value: 1802445561166894999
---- !u!114 &504646673211711306
+--- !u!114 &380135535545140829
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1689,30 +1570,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 998c63c46a0346141a4325b70a8285c7, type: 3}
-  m_Name: CheckIntDecision_4
+  m_Script: {fileID: 11500000, guid: 105e1525e37d4e04abf88be898c08906, type: 3}
+  m_Name: HFSMAndDecision_0
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckIntDecision_4
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|HFSMAndDecision_0
       Guid:
-        Value: 3322761479545927555
+        Value: 533520219960846615
     Label: 
-    Source:
-      Source: 4
-      Key: 
-      DefaultValue: 0
-      FunctionRef:
-        Id:
-          Value: 3228024301096995091
-    Comparison: 3
-    DesiredValue:
-      Source: 1
-      Key: 
-      DefaultValue: 0
-      FunctionRef:
-        Id:
-          Value: 0
+    Decisions:
+    - Id:
+        Value: 3573133695774715169
+    - Id:
+        Value: 2555213641028281170
 --- !u!114 &601357809128519091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1762,11 +1633,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 46426dca11db4a77995a1d27526f2007, type: 3}
-  m_Name: Attacking_9
+  m_Name: Attacking_7
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|Attacking_9
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|Attacking_7
       Guid:
         Value: 1181736976140049685
     Label: Attacking
@@ -1780,7 +1651,7 @@ MonoBehaviour:
       EventKey: 0
       DecisionLink:
         Id:
-          Value: 1473941106552014716
+          Value: 965192924174409124
       StateLink:
         Id:
           Value: 344788493933926436
@@ -1817,15 +1688,13 @@ MonoBehaviour:
     - Id:
         Value: 3344972179177812187
     - Id:
-        Value: 1748583720847686
-    - Id:
         Value: 3585381782039348973
     - Id:
-        Value: 225011707883827593
+        Value: 1748583720847686
     - Id:
         Value: 3196774031252337950
     - Id:
-        Value: 2355334850334224486
+        Value: 225011707883827593
     ParentLink:
       Id:
         Value: 0
@@ -1840,11 +1709,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a04cb2618811449aaa683bd8ae9b05ae, type: 3}
-  m_Name: CheckBlackboardFP_18
+  m_Name: CheckBlackboardFP_14
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckBlackboardFP_18
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckBlackboardFP_14
       Guid:
         Value: 1542539032981085844
     Label: 
@@ -1859,33 +1728,6 @@ MonoBehaviour:
       FunctionRef:
         Id:
           Value: 1501081643659677846
---- !u!114 &1079932920735827730
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a30d415434e7747569d4a04a631e6be4, type: 3}
-  m_Name: CheckBlackboardBool_3
-  m_EditorClassIdentifier: 
-  Settings:
-    Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckBlackboardBool_3
-      Guid:
-        Value: 3932894365333874436
-    Label: 
-    Key:
-      Key: HasMeleeWeapon
-    DesiredValue:
-      Source: 1
-      Key: 
-      DefaultValue: 0
-      FunctionRef:
-        Id:
-          Value: 0
 --- !u!114 &1428524644163736734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1896,11 +1738,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b1d4f73f6e74b9fbeaed5b8065b7852, type: 3}
-  m_Name: TimerDecision_37
+  m_Name: TimerDecision_30
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TimerDecision_37
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TimerDecision_30
       Guid:
         Value: 4097228057481564961
     Label: 
@@ -1940,11 +1782,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 09ecbd063934b410b9f56602c6d0c24a, type: 3}
-  m_Name: PlayerPhysicsAction_17
+  m_Name: PlayerPhysicsAction_18
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|PlayerPhysicsAction_17
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|PlayerPhysicsAction_18
       Guid:
         Value: 3090339244532597528
     Label: 
@@ -1976,11 +1818,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 46426dca11db4a77995a1d27526f2007, type: 3}
-  m_Name: SkydivePLF_15
+  m_Name: SkydivePLF_16
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|SkydivePLF_15
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|SkydivePLF_16
       Guid:
         Value: 4259213499484636470
     Label: SkydivePLF
@@ -2040,11 +1882,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f8f2cfd5b45e0482198ea5983f7d5b22, type: 3}
-  m_Name: SkydivePLFAction_18
+  m_Name: SkydivePLFAction_19
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|SkydivePLFAction_18
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|SkydivePLFAction_19
       Guid:
         Value: 293828422263463376
     Label: 
@@ -2058,11 +1900,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0b0abec2163e54645b1b60e59e1dd9f1, type: 3}
-  m_Name: PlayerMoveAction_11
+  m_Name: PlayerMoveAction_9
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|PlayerMoveAction_11
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|PlayerMoveAction_9
       Guid:
         Value: 3041019782047951293
     Label: 
@@ -2169,11 +2011,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a30d415434e7747569d4a04a631e6be4, type: 3}
-  m_Name: CheckBlackboardBool_13
+  m_Name: CheckBlackboardBool_8
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckBlackboardBool_13
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckBlackboardBool_8
       Guid:
         Value: 2794687721108520062
     Label: 
@@ -2186,80 +2028,6 @@ MonoBehaviour:
       FunctionRef:
         Id:
           Value: 0
---- !u!114 &2695174417135646211
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4620362c728ed441bb7e2c5e6822d53, type: 3}
-  m_Name: GetMagShotCountFunction_9
-  m_EditorClassIdentifier: 
-  Settings:
-    Identifier:
-      Path: 
-      Guid:
-        Value: 0
-  Settings_GetMagShotCountFunction:
-    Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|GetMagShotCountFunction_9
-      Guid:
-        Value: 4513071933750061347
---- !u!114 &2903749594501779198
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a04cb2618811449aaa683bd8ae9b05ae, type: 3}
-  m_Name: CheckBlackboardFP_2
-  m_EditorClassIdentifier: 
-  Settings:
-    Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckBlackboardFP_2
-      Guid:
-        Value: 3820528118536878184
-    Label: 
-    Key:
-      Key: AmmoFilled
-    Comparison: 3
-    DesiredValue:
-      Source: 1
-      Key: 
-      DefaultValue:
-        RawValue: 0
-      FunctionRef:
-        Id:
-          Value: 0
---- !u!114 &3155027714196909590
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d49c8c21930144238ffb02b890cc3c73, type: 3}
-  m_Name: HFSMOrDecision_10
-  m_EditorClassIdentifier: 
-  Settings:
-    Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|HFSMOrDecision_10
-      Guid:
-        Value: 1473941106552014716
-    Label: 
-    Decisions:
-    - Id:
-        Value: 643489516016099705
-    - Id:
-        Value: 262641851266274642
 --- !u!114 &3196368514049668211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2339,11 +2107,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1be353ea767434786bad36632a818285, type: 3}
-  m_Name: PlayerRaycastAttackAction_9
+  m_Name: PlayerRaycastAttackAction_11
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|PlayerRaycastAttackAction_9
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|PlayerRaycastAttackAction_11
       Guid:
         Value: 2275598869678234754
     Label: 
@@ -2357,11 +2125,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7b929892194224367b9d3ff64540a55a, type: 3}
-  m_Name: SetBlackboardBool_21
+  m_Name: SetBlackboardBool_22
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|SetBlackboardBool_21
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|SetBlackboardBool_22
       Guid:
         Value: 3733189770857004800
     Label: 
@@ -2374,6 +2142,29 @@ MonoBehaviour:
       FunctionRef:
         Id:
           Value: 0
+--- !u!114 &3277252528833519443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d49c8c21930144238ffb02b890cc3c73, type: 3}
+  m_Name: HFSMOrDecision_5
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|HFSMOrDecision_5
+      Guid:
+        Value: 965192924174409124
+    Label: 
+    Decisions:
+    - Id:
+        Value: 643489516016099705
+    - Id:
+        Value: 1950654918850669271
 --- !u!114 &3325998249020320249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2400,6 +2191,55 @@ MonoBehaviour:
       FunctionRef:
         Id:
           Value: 0
+--- !u!114 &3416885223232847900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a30d415434e7747569d4a04a631e6be4, type: 3}
+  m_Name: CheckBlackboardBool_4
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckBlackboardBool_4
+      Guid:
+        Value: 2555213641028281170
+    Label: 
+    Key:
+      Key: HasMeleeWeapon
+    DesiredValue:
+      Source: 1
+      Key: 
+      DefaultValue: 0
+      FunctionRef:
+        Id:
+          Value: 0
+--- !u!114 &3566563077141630138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4620362c728ed441bb7e2c5e6822d53, type: 3}
+  m_Name: GetMagShotCountFunction_5
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: 
+      Guid:
+        Value: 0
+  Settings_GetMagShotCountFunction:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|GetMagShotCountFunction_5
+      Guid:
+        Value: 1963650605532987192
 --- !u!114 &3848782316438233956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2450,11 +2290,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 46426dca11db4a77995a1d27526f2007, type: 3}
-  m_Name: Death_16
+  m_Name: Death_17
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|Death_16
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|Death_17
       Guid:
         Value: 2132765868743718177
     Label: Death
@@ -2501,11 +2341,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 131abdd87113f41fb9e06d49236f5cf1, type: 3}
-  m_Name: RaycastHitDecision_27
+  m_Name: RaycastHitDecision_21
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|RaycastHitDecision_27
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|RaycastHitDecision_21
       Guid:
         Value: 3027999190455588070
     Label: 
@@ -2566,6 +2406,28 @@ MonoBehaviour:
       Guid:
         Value: 1215845431118046810
     Stat: 2
+--- !u!114 &4734555896163325443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e0c3442e159b4140acbee0a11e43cfa, type: 3}
+  m_Name: GetAmmoCountFunction_7
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: 
+      Guid:
+        Value: 0
+  Settings_GetAmmoCountFunction:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|GetAmmoCountFunction_7
+      Guid:
+        Value: 802778647459596964
 --- !u!114 &4905538457677342614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2636,11 +2498,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c0404353524b4e54193e3056cec34c65, type: 3}
-  m_Name: SetBlackboardFP_20
+  m_Name: SetBlackboardFP_21
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|SetBlackboardFP_20
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|SetBlackboardFP_21
       Guid:
         Value: 2189511988017617471
     Label: 
@@ -2654,39 +2516,6 @@ MonoBehaviour:
       FunctionRef:
         Id:
           Value: 0
---- !u!114 &5070362873876053809
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 998c63c46a0346141a4325b70a8285c7, type: 3}
-  m_Name: CheckIntDecision_20
-  m_EditorClassIdentifier: 
-  Settings:
-    Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckIntDecision_20
-      Guid:
-        Value: 4590406595090370030
-    Label: 
-    Source:
-      Source: 4
-      Key: 
-      DefaultValue: 0
-      FunctionRef:
-        Id:
-          Value: 4513071933750061347
-    Comparison: 3
-    DesiredValue:
-      Source: 1
-      Key: 
-      DefaultValue: 0
-      FunctionRef:
-        Id:
-          Value: 0
 --- !u!114 &5228353070078462320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2697,36 +2526,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc4b0c21cfc0247118f18a4979cedff9, type: 3}
-  m_Name: ShouldPerformSkydiveDecision_38
+  m_Name: ShouldPerformSkydiveDecision_31
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|ShouldPerformSkydiveDecision_38
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|ShouldPerformSkydiveDecision_31
       Guid:
         Value: 1466123722707053255
     Label: 
---- !u!114 &5347784339972993975
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4620362c728ed441bb7e2c5e6822d53, type: 3}
-  m_Name: GetMagShotCountFunction_7
-  m_EditorClassIdentifier: 
-  Settings:
-    Identifier:
-      Path: 
-      Guid:
-        Value: 0
-  Settings_GetMagShotCountFunction:
-    Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|GetMagShotCountFunction_7
-      Guid:
-        Value: 103773213396254911
 --- !u!114 &5874054856578918939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2764,11 +2571,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 105e1525e37d4e04abf88be898c08906, type: 3}
-  m_Name: HFSMAndDecision_11
+  m_Name: HFSMAndDecision_6
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|HFSMAndDecision_11
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|HFSMAndDecision_6
       Guid:
         Value: 643489516016099705
     Label: 
@@ -2787,11 +2594,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b85ea8d253654a36a126fccace10277c, type: 3}
-  m_Name: CheckBlackboardInt_40
+  m_Name: CheckBlackboardInt_33
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckBlackboardInt_40
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CheckBlackboardInt_33
       Guid:
         Value: 679108917589745186
     Label: 
@@ -2805,32 +2612,6 @@ MonoBehaviour:
       FunctionRef:
         Id:
           Value: 2838018030188143315
---- !u!114 &7082782462665626257
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b1d4f73f6e74b9fbeaed5b8065b7852, type: 3}
-  m_Name: TimerDecision_34
-  m_EditorClassIdentifier: 
-  Settings:
-    Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TimerDecision_34
-      Guid:
-        Value: 4044055234363064021
-    Label: 
-    TimeToTrueState:
-      Source: 3
-      Key: AttackCooldown
-      DefaultValue:
-        RawValue: 0
-      FunctionRef:
-        Id:
-          Value: 0
 --- !u!114 &7279111215933895814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2859,11 +2640,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 105e1525e37d4e04abf88be898c08906, type: 3}
-  m_Name: HFSMAndDecision_39
+  m_Name: HFSMAndDecision_32
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|HFSMAndDecision_39
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|HFSMAndDecision_32
       Guid:
         Value: 3420939274319096629
     Label: 
@@ -2882,11 +2663,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5405b537dfeb44188b6ddf2d688a19f3, type: 3}
-  m_Name: IsProjectileAttackDecision_25
+  m_Name: IsProjectileAttackDecision_19
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|IsProjectileAttackDecision_25
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|IsProjectileAttackDecision_19
       Guid:
         Value: 2035143925547148798
     Label: 
@@ -2900,11 +2681,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d4d0879e65249009aef4c02b0d5e622, type: 3}
-  m_Name: HFSMNotDecision_42
+  m_Name: HFSMNotDecision_35
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|HFSMNotDecision_42
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|HFSMNotDecision_35
       Guid:
         Value: 1454921894917327888
     Label: 
@@ -2941,7 +2722,7 @@ MonoBehaviour:
       EventKey: 0
       DecisionLink:
         Id:
-          Value: 1259707947922138915
+          Value: 1578669283807779297
       StateLink:
         Id:
           Value: 1181736976140049685
@@ -2981,7 +2762,7 @@ MonoBehaviour:
       Id:
         Value: 0
     Level: 0
---- !u!114 &7826898520419087581
+--- !u!114 &7784080043378955530
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2990,15 +2771,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4866680f9bf29453ea050c9c9cc31b53, type: 3}
-  m_Name: PlayerStopAttackAction_27
+  m_Script: {fileID: 11500000, guid: d4620362c728ed441bb7e2c5e6822d53, type: 3}
+  m_Name: GetMagShotCountFunction_6
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|PlayerStopAttackAction_27
+      Path: 
       Guid:
-        Value: 2793138403379056272
-    Label: 
+        Value: 0
+  Settings_GetMagShotCountFunction:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|GetMagShotCountFunction_6
+      Guid:
+        Value: 3796241441471870443
 --- !u!114 &7872650503533742249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3036,12 +2821,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 46426dca11db4a77995a1d27526f2007, type: 3}
-  m_Name: Change Weapon Default_12
+  m_Name: Change Weapon Default_13
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
       Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|Change
-        Weapon Default_12
+        Weapon Default_13
       Guid:
         Value: 1748583720847686
     Label: Change Weapon Default
@@ -3071,28 +2856,6 @@ MonoBehaviour:
       Id:
         Value: 1181736976140049685
     Level: 1
---- !u!114 &8013425249439847971
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4620362c728ed441bb7e2c5e6822d53, type: 3}
-  m_Name: GetMagShotCountFunction_8
-  m_EditorClassIdentifier: 
-  Settings:
-    Identifier:
-      Path: 
-      Guid:
-        Value: 0
-  Settings_GetMagShotCountFunction:
-    Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|GetMagShotCountFunction_8
-      Guid:
-        Value: 3228024301096995091
 --- !u!114 &8045233874147474783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3103,11 +2866,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 105e1525e37d4e04abf88be898c08906, type: 3}
-  m_Name: HFSMAndDecision_21
+  m_Name: HFSMAndDecision_15
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|HFSMAndDecision_21
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|HFSMAndDecision_15
       Guid:
         Value: 320243633532879776
     Label: 
@@ -3126,11 +2889,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5405b537dfeb44188b6ddf2d688a19f3, type: 3}
-  m_Name: IsProjectileAttackDecision_23
+  m_Name: IsProjectileAttackDecision_17
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|IsProjectileAttackDecision_23
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|IsProjectileAttackDecision_17
       Guid:
         Value: 2179011434726715909
     Label: 
@@ -3231,21 +2994,10 @@ MonoBehaviour:
       EventKey: 0
       DecisionLink:
         Id:
-          Value: 1145427441453209526
+          Value: 533520219960846615
       StateLink:
         Id:
           Value: 1748583720847686
-      TransitionSetLink:
-        Id:
-          Value: 0
-    - Id: 604ef07e-c6d6-409c-b154-cb2c0a7c1cc2
-      EventKey: 0
-      DecisionLink:
-        Id:
-          Value: 3378904590350243328
-      StateLink:
-        Id:
-          Value: 2355334850334224486
       TransitionSetLink:
         Id:
           Value: 0
@@ -3288,11 +3040,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b1d4f73f6e74b9fbeaed5b8065b7852, type: 3}
-  m_Name: TimerDecision_26
+  m_Name: TimerDecision_20
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TimerDecision_26
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|TimerDecision_20
       Guid:
         Value: 4048897233734562604
     Label: 
@@ -3314,31 +3066,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4866680f9bf29453ea050c9c9cc31b53, type: 3}
-  m_Name: PlayerStopAttackAction_13
+  m_Name: PlayerStopAttackAction_15
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|PlayerStopAttackAction_13
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|PlayerStopAttackAction_15
       Guid:
         Value: 4426657864278244390
-    Label: 
---- !u!114 &8974553063401603570
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a4c941a2c54e49348e6cb518ce91702, type: 3}
-  m_Name: PlayerAmmoEmptyAction_26
-  m_EditorClassIdentifier: 
-  Settings:
-    Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|PlayerAmmoEmptyAction_26
-      Guid:
-        Value: 2484173861296569762
     Label: 
 --- !u!114 &9149487016381121931
 MonoBehaviour:

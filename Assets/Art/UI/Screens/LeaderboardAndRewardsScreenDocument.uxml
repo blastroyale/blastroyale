@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/LeaderboardAndRewardsScreenStyle.uss?fileID=7433441132597879392&amp;guid=671410c7fc8b44ebebe2e36a0f17d624&amp;type=3#LeaderboardAndRewardsScreenStyle" />
-    <ui:VisualElement name="root" class="fill-parent" style="align-items: center; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/Screenshot%202022-11-28%20at%2015.18.18.png?fileID=2800000&amp;guid=52840525dd2654c569744be1d7fa2ecc&amp;type=3#Screenshot 2022-11-28 at 15.18.18&apos;); -unity-background-image-tint-color: rgba(255, 255, 255, 0);">
+    <ui:VisualElement name="root" class="fill-parent" style="align-items: center;">
         <ui:Button display-tooltip-when-elided="true" name="NextButton" class="next-button">
             <ui:Label text="NEXT →" display-tooltip-when-elided="true" name="Label" class="next-button__label" />
         </ui:Button>

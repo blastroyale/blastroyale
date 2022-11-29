@@ -219,7 +219,7 @@
 }
 
 .claim-button:active {
-    padding-top: 70px;
+    padding-top: 25px;
     background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/MainButtonPressed.png?fileID=21300000&guid=ba6fb635d5b0a5144bf13ab3038819ba&type=3#MainButtonPressed');
 }
 

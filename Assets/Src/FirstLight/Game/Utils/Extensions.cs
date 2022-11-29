@@ -648,5 +648,14 @@ namespace FirstLight.Game.Utils
 			// Enabling the class means that the element will become hidden
 			element.EnableInClassList(UIConstants.ELEMENT_HIDDEN, !active);
 		}
+		
+		/// <summary>
+		/// Sets ".element-invisible" class active/inactive, which sets the Visible property of a VE.
+		/// </summary>
+		public static void SetVisible(this VisualElement element, bool active)
+		{
+			// Enabling the class means that the element will become invisible
+			element.EnableInClassList(UIConstants.ELEMENT_INVISIBLE, !active);
+		}
 	}
 }

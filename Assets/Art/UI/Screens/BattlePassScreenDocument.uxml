@@ -22,19 +22,19 @@
             <ui:VisualElement name="Content" class="season-header__content">
                 <ui:VisualElement name="CurrentLevel" class="season-level">
                     <ui:Label text="LV" display-tooltip-when-elided="true" name="Label" class="season-level__label" />
-                    <ui:Label text="0" display-tooltip-when-elided="true" name="Value" class="season-level__label season-level__label--big" />
+                    <ui:Label display-tooltip-when-elided="true" name="CurrentLevelValue" text="0" class="season-level__label season-level__label--big" />
                 </ui:VisualElement>
                 <ui:VisualElement name="Spacer" class="width-spacer width-spacer--xl" />
                 <ui:VisualElement name="BppBar" class="bpp-bar">
-                    <ui:VisualElement name="Background" class="bpp-bar__background" />
-                    <ui:Label text="0 / 100" display-tooltip-when-elided="true" name="ProgressLabel" class="bpp-bar__label" />
-                    <ui:VisualElement name="Progress" class="bpp-bar__progress" />
+                    <ui:VisualElement name="BppBackground" class="bpp-bar__background" />
+                    <ui:Label text="0 / 100" display-tooltip-when-elided="true" name="BppProgressLabel" class="bpp-bar__label" />
+                    <ui:VisualElement name="BppProgress" class="bpp-bar__progress" />
                     <ui:VisualElement name="Icon" class="bpp-bar__icon" />
                 </ui:VisualElement>
                 <ui:VisualElement name="Spacer" class="width-spacer" />
                 <ui:VisualElement name="NextLevel" class="season-level">
                     <ui:Label text="LV" display-tooltip-when-elided="true" name="Label" class="season-level__label" />
-                    <ui:Label text="1" display-tooltip-when-elided="true" name="Value" class="season-level__label season-level__label--big" />
+                    <ui:Label text="1" display-tooltip-when-elided="true" name="NextLevelValue" class="season-level__label season-level__label--big" />
                 </ui:VisualElement>
                 <ui:VisualElement name="Spacer" class="width-spacer width-spacer--xxxl" />
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="CurrencyDisplayElement" />

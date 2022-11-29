@@ -7560,7 +7560,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - ModHeavyMachineGun
+      - HEAVY MG
       - 
       - 
       Flags: 000000
@@ -9558,6 +9558,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITShared/got_it
+      TermType: 0
+      Description: 
+      Languages:
+      - GOT IT
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITSettings/logout
       TermType: 0
       Description: 
@@ -10071,6 +10080,15 @@ MonoBehaviour:
       Description: 
       Languages:
       - SEASON {0}
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITBattlePass/random_equipment
+      TermType: 0
+      Description: 
+      Languages:
+      - RANDOM EQUIPMENT
       - 
       - 
       Flags: 000000
@@ -10634,6 +10652,35 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITEquipment/popup_items_rusted
+      TermType: 0
+      Description: 
+      Languages:
+      - YOUR ITEMS HAVE RUSTED
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/popup_go_repair
+      TermType: 0
+      Description: 
+      Languages:
+      - GO REPAIR
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/popup_items_unequipped
+      TermType: 0
+      Description: 
+      Languages:
+      - 'ITEMS WERE UNEQUIPPED
+
+        REPAIR ITEMS TO BE ABLE TO EQUIP THEM AGAIN'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITWinners/winners
       TermType: 0
       Description: 
@@ -10688,11 +10735,20 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITLeaderboards/placements
+    - Term: UITLeaderboards/standings
       TermType: 0
       Description: 
       Languages:
-      - PLACEMENTS
+      - STANDINGS
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITLeaderboards/battleroyale
+      TermType: 0
+      Description: 
+      Languages:
+      - BATTLE ROYALE
       - 
       - 
       Flags: 000000
@@ -10715,7 +10771,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1669655259864
+    Google_LastUpdatedVersion: 1669732262215
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

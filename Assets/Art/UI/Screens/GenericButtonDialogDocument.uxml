@@ -1,4 +1,4 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xmlns:flg="FirstLight.Game.UIElements" editor-extension-mode="False">
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Styles/GenericDialogStyle.uss?fileID=7433441132597879392&amp;guid=d1862850e9c3aaa4aa77ed63ff317bf3&amp;type=3#GenericDialogStyle" />
     <ui:VisualElement name="root" class="screen-root">
         <ui:Button name="BlockerButton" class="blocker" />
@@ -14,8 +14,9 @@
                     <ui:VisualElement name="Spacer" class="height-spacer height-spacer--m" />
                     <ui:VisualElement name="Controls" class="content__controls">
                         <ui:VisualElement class="button-flat-outline">
-                            <flg:LocalizedButton localization-key="UITShared/cancel" name="CancelButton" class="button-flat button-flat--cancel" />
+                            <FirstLight.Game.UIElements.LocalizedButton localization-key="UITShared/cancel" name="CancelButton" class="button-flat button-flat--cancel" />
                         </ui:VisualElement>
+                        <ui:VisualElement name="Spacer" class="width-spacer width-spacer--s" />
                         <ui:VisualElement class="button-flat-outline">
                             <ui:Button localization-key="confirm" name="ConfirmButton" text="CONFIRM" class="button-flat button-flat--secondary" />
                         </ui:VisualElement>

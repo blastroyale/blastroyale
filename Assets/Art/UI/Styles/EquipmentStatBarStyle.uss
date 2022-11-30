@@ -17,12 +17,29 @@
     bottom: 33px;
 }
 
-.equipment-stat__amount-label {
+.equipment-stat__amount-holder {
     margin-left: 34px;
     position: absolute;
     margin-top: -9px;
     right: 9px;
     bottom: 33px;
+    flex-direction: row;
+}
+
+.equipment-stat__amount-label {
+    margin-left: 34px;
+    margin-top: -9px;
+}
+
+.equipment-stat__amount-label--next {
+    color: rgb(88, 198, 22);
+}
+
+.equipment-stat__amount-arrow {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/UpgradeArrow.png?fileID=21300000&guid=4e47c79fe11774312872c0e2cfc762ee&type=3#UpgradeArrow');
+    width: 36px;
+    height: 26px;
+    margin-left: 35px;
 }
 
 .equipment-stat__bg {
@@ -53,6 +70,6 @@
     flex-grow: 1;
 }
 
-.equipment-stat__progress-slice--hidden {
-    visibility: hidden;
+.equipment-stat__progress-slice--green {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/DurabilityBarUpgrade.png?fileID=21300000&guid=a8b60a487e5824b17a059af336cba3ec&type=3#DurabilityBarUpgrade');
 }

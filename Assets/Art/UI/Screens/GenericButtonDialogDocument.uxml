@@ -13,8 +13,12 @@
                     <ui:Label name="Desc" focusable="false" text="DESC TEXT GOES HERE" class="font-italic font-style-popup content__desc" />
                     <ui:VisualElement name="Spacer" class="spacer spacer--medium" />
                     <ui:VisualElement name="Controls" class="content__controls">
-                        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITShared/cancel" name="CancelButton" class="font-italic button-flat-cancel" />
-                        <ui:Button localization-key="confirm" name="ConfirmButton" text="CONFIRM" class="font-italic button-flat-primary" />
+                        <ui:VisualElement class="button-flat-outline">
+                            <FirstLight.Game.UIElements.LocalizedButton localization-key="UITShared/cancel" name="CancelButton" class="button-flat button-flat--cancel" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="button-flat-outline">
+                            <ui:Button localization-key="confirm" name="ConfirmButton" text="CONFIRM" class="button-flat button-flat--secondary" />
+                        </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>

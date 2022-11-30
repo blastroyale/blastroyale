@@ -14,12 +14,7 @@ namespace FirstLight.Game.UIElements
 		/// This class is toggled on the root VisualElement when opening / closing screens.
 		/// </summary>
 		public const string CLASS_HIDDEN = "hidden";
-		
-		/// <summary>
-		/// This class is toggled on individual non-root elements to hide them
-		/// </summary>
-		public const string ELEMENT_HIDDEN = "element-hidden";
-		
+
 		/// <summary>
 		/// Adds the forward click SFX to the element (on pointer down).
 		/// </summary>

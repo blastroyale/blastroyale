@@ -17,7 +17,7 @@
                         <FirstLight.Game.UIElements.LocalizedButton localization-key="UITDisconnected/reconnect" name="ReconnectButton" class="font-italic button-flat-primary" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="Dim" class="element-hidden window__dim" />
+                <ui:VisualElement name="Dim" class="window__dim" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

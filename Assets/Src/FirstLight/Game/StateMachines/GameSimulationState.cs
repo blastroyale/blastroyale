@@ -434,13 +434,12 @@ namespace FirstLight.Game.StateMachines
 		private void ResultsScreen(IWaitActivity activity)
 		{
 			var cacheActivity = activity;
-			var data = new ResultsScreenPresenter.StateData
+			var data = new LeaderboardAndRewardsScreenPresenter.StateData
 			{
-				ContinueButtonClicked = () => cacheActivity.Complete(),
-				HomeButtonClicked = () => cacheActivity.Complete(),
+				ContinueClicked = () => cacheActivity.Complete()
 			};
 			
-			_uiService.OpenScreen<ResultsScreenPresenter, ResultsScreenPresenter.StateData>(data);
+			_uiService.OpenScreen<LeaderboardAndRewardsScreenPresenter, LeaderboardAndRewardsScreenPresenter.StateData>(data);
 		}
 
 		private void OpenRewardsScreen(IWaitActivity activity)

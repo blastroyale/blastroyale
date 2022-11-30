@@ -57,8 +57,8 @@
 
 .season-level__label {
     -unity-text-outline-width: 2px;
-    -unity-text-outline-color: rgb(22, 20, 38);
-    text-shadow: 3px 3px 0 rgb(22, 20, 38);
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
     -unity-font-style: bold;
     -unity-font-definition: var(--font-italic);
     font-size: 50px;
@@ -95,7 +95,7 @@
 .bpp-bar__progress {
     background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/BPPBar.png?fileID=21300000&guid=f63e212478a7f4fec8c790922a819e4c&type=3#BPPBar');
     position: absolute;
-    height: 100%;
+    height: 85%;
 }
 
 .bpp-bar__icon {
@@ -176,7 +176,7 @@
     flex-direction: row;
     left: 400px;
     flex-grow: 1;
-    right: 0;
+    right: 500px;
 }
 
 .season-info__season-end {
@@ -186,8 +186,8 @@
 
 .season-info__label {
     -unity-text-outline-width: 2px;
-    -unity-text-outline-color: rgb(22, 20, 38);
-    text-shadow: 3px 3px 0 rgb(22, 20, 38);
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
     -unity-font-style: bold;
     -unity-font-definition: var(--font-italic);
     font-size: 36px;
@@ -207,18 +207,20 @@
     -unity-font-style: bold;
     -unity-font-definition: var(--font-italic);
     font-size: 50px;
-    text-shadow: 3px 3px 0 rgb(156, 36, 12);
+    text-shadow: 3px 3px 0 rgb(90, 0, 0);
     color: rgb(255, 255, 255);
     width: 350px;
     height: 100px;
     -unity-text-outline-width: 2px;
-    -unity-text-outline-color: rgb(156, 36, 12);
+    -unity-text-outline-color: rgb(90, 0, 0);
     overflow: visible;
     -unity-text-align: middle-center;
     align-items: center;
     white-space: normal;
     margin-right: 50px;
     padding-bottom: 15px;
+    position: absolute;
+    bottom: 35px;
 }
 
 .claim-button:active {
@@ -229,4 +231,8 @@
 .bp-segment-filler {
     width: 475px;
     height: 100%;
+}
+
+.screen-header .screen-header__title {
+    padding-bottom: 55px;
 }

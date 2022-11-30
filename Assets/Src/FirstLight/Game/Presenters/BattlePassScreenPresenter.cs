@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DG.Tweening;
+using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -41,6 +42,7 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _root;
 		private VisualElement _bppProgressBackground;
 		private VisualElement _bppProgressFill;
+		private LocalizedButton _claimButton;
 		private Label _bppProgressLabel;
 		private Label _currentLevelLabel;
 		private Label _nextLevelLabel;
@@ -68,6 +70,7 @@ namespace FirstLight.Game.Presenters
 
 			_rewardsScroll = root.Q<ScrollView>("RewardsScroll").Required();
 			_screenHeader = root.Q<ScreenHeaderElement>("Header").Required();
+			_claimButton = root.Q<LocalizedButton>("ClaimButton").Required();
 			_currentLevelLabel = root.Q<Label>("CurrentLevelValue").Required();
 			_nextLevelLabel = root.Q<Label>("NextLevelValue").Required();
 			_bppProgressLabel = root.Q<Label>("BppProgressLabel").Required();
@@ -77,6 +80,7 @@ namespace FirstLight.Game.Presenters
 			_screenHeader.SetTitle(string.Format(ScriptLocalization.UITBattlePass.season_number, "1"));
 			_screenHeader.backClicked += Data.BackClicked;
 			_screenHeader.homeClicked += Data.BackClicked;
+			_claimButton.clicked += OnClaimClicked;
 
 			await Task.Yield();
 			
@@ -85,7 +89,15 @@ namespace FirstLight.Game.Presenters
 
 			_initialized = true;
 		}
-		
+
+		private void OnClaimClicked()
+		{
+			if (_dataProvider.BattlePassDataProvider.IsRedeemable())
+			{
+				_services.CommandService.ExecuteCommand(new RedeemBPPCommand());
+			}
+		}
+
 		private void OnBpPointsChanged(uint previous, uint next)
 		{
 			if (!_initialized) return;
@@ -113,6 +125,8 @@ namespace FirstLight.Game.Presenters
 			var predictedProgressPercent = (float) predictedProgress.Item2 / predictedMaxProgress;
 			_bppProgressFill.style.width = barMaxWidth * predictedProgressPercent;
 
+			_claimButton.SetDisplayActive(_dataProvider.BattlePassDataProvider.IsRedeemable());
+			
 			for (int i = 0; i < battlePassConfig.Levels.Count; ++i)
 			{
 				var data = new BattlePassSegmentData
@@ -128,8 +142,6 @@ namespace FirstLight.Game.Presenters
 				};
 
 				_segmentData.Add(data);
-
-				if (i > 2) break;
 			}
 		}
 

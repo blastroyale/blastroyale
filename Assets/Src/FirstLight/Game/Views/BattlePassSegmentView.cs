@@ -100,8 +100,8 @@ namespace FirstLight.Game.Views
 			_levelBg.EnableInClassList(UssLevelBgComplete, data.PredictedCurrentLevel >= data.SegmentLevelForRewards);
 			_claimStatusOutline.EnableInClassList(UssOutlineClaimed, isRewardClaimed);
 			_claimStatusCheckmark.SetDisplayActive(isRewardClaimed);
-			_readyToClaimOutline.SetDisplayActive(_data.PredictedCurrentLevel >= _data.SegmentLevelForRewards);
-			_readyToClaimShine.SetDisplayActive(_data.PredictedCurrentLevel >= _data.SegmentLevelForRewards);
+			_readyToClaimOutline.SetDisplayActive(!isRewardClaimed && _data.PredictedCurrentLevel >= _data.SegmentLevelForRewards);
+			_readyToClaimShine.SetDisplayActive(!isRewardClaimed && _data.PredictedCurrentLevel >= _data.SegmentLevelForRewards);
 			_claimBubble.SetDisplayActive(false);
 			_blocker.SetDisplayActive(true);
 			

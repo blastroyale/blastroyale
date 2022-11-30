@@ -64,13 +64,13 @@
     font-size: 50px;
     color: rgb(255, 255, 255);
     -unity-paragraph-spacing: -30px;
-    top: 5px;
+    bottom: -3px;
 }
 
 .season-level__label--big {
     font-size: 72px;
     margin-left: 4px;
-    top: 0;
+    bottom: 3px;
 }
 
 .bpp-bar {

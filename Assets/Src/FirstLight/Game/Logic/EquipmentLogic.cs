@@ -11,6 +11,7 @@ using FirstLight.Services;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
 using Quantum;
+using UnityEngine;
 
 namespace FirstLight.Game.Logic
 {
@@ -195,10 +196,13 @@ namespace FirstLight.Game.Logic
 
 			return new Pair<GameId, uint>(resourceType, (uint) Math.Round(cost));
 		}
-		
+
 		public EquipmentInfo GetInfo(UniqueId id)
 		{
 			var equipment = _inventory[id];
+			var nextEquipment = equipment;
+			nextEquipment.Level++;
+			
 			var isNft = _nftInventory.ContainsKey(id);
 			var durability =
 				equipment.GetCurrentDurability(isNft, GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>(),
@@ -214,7 +218,8 @@ namespace FirstLight.Game.Logic
 				CurrentDurability = durability,
 				IsNft = isNft,
 				IsEquipped = _loadout.TryGetValue(equipment.GameId.GetSlot(), out var equipId) && equipId == id,
-				Stats = equipment.GetStats(GameLogic.ConfigsProvider)
+				Stats = equipment.GetStats(GameLogic.ConfigsProvider),
+				NextLevelStats = nextEquipment.GetStats(GameLogic.ConfigsProvider)
 			};
 		}
 

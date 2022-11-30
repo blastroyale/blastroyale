@@ -170,15 +170,22 @@
 }
 
 .equipment-slot__badge--loaned {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/LabelLoaned.png?fileID=21300000&guid=3ee01365867634fe2846a8881e33a3ab&type=3#LabelLoaned');
+    background-image: none;
     -unity-text-align: middle-center;
     -unity-font-definition: var(--font-italic);
     font-size: 22px;
     color: rgb(255, 255, 255);
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-bottom: 0;
-    padding-top: 2px;
+    padding: 2px 15px 0;
+    background-color: rgba(216, 75, 121, 255);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-radius: 8px;
+    border-left-color: rgba(176, 60, 98, 255);
+    border-right-color: rgba(176, 60, 98, 255);
+    border-top-color: rgba(176, 60, 98, 255);
+    border-bottom-color: rgba(176, 60, 98, 255);
 }
 
 .equipment-slot__durability-icon {

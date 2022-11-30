@@ -65,18 +65,18 @@ namespace FirstLight.Game.Presenters
 			_titleLabel.text = title;
 			_descLabel.text = desc;
 			_closeCallback = closeCallback;
-			_cancelButton.SetDisplayActive(showCloseButton);
+			_cancelButton.SetDisplay(showCloseButton);
 			
 			if (button.IsEmpty)
 			{
-				_confirmButton.SetDisplayActive(false);
+				_confirmButton.SetDisplay(false);
 			}
 			else
 			{
 				_confirmCallback = button.ButtonOnClick;
 				_confirmButton.text = button.ButtonText;
 
-				_confirmButton.SetDisplayActive(true);
+				_confirmButton.SetDisplay(true);
 				_confirmButton.clicked += _confirmCallback;
 				_confirmButton.clicked += CloseRequested;
 			}

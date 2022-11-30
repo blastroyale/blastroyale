@@ -46,6 +46,7 @@ namespace FirstLight.Game.Infos
 		public bool IsEquipped;
 		public bool IsNft;
 		public Dictionary<EquipmentStatType, float> Stats;
+		public Dictionary<EquipmentStatType, float> NextLevelStats;
 
 		/// <summary>
 		/// Check if the item is broken or not

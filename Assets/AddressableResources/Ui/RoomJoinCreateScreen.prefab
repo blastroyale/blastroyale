@@ -3551,6 +3551,7 @@ MonoBehaviour:
   _mutatorsSelections:
   - {fileID: 2372640016700317087}
   - {fileID: 5465955735104162263}
+  _animationScrollingBackground: {fileID: 5056113329313347798}
 --- !u!114 &8847670435640540833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8493,16 +8494,24 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2482823480709534008, guid: 47834e62a2462406fb24478a1afc298a, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2482823480709534009, guid: 47834e62a2462406fb24478a1afc298a, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 1.7
       objectReference: {fileID: 0}
     - target: {fileID: 2482823480709534009, guid: 47834e62a2462406fb24478a1afc298a, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 1.7
       objectReference: {fileID: 0}
     - target: {fileID: 2482823480709534009, guid: 47834e62a2462406fb24478a1afc298a, type: 3}
       propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482823480709534010, guid: 47834e62a2462406fb24478a1afc298a, type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2482823481173173777, guid: 47834e62a2462406fb24478a1afc298a, type: 3}
@@ -8533,6 +8542,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2482823481383450944, guid: 47834e62a2462406fb24478a1afc298a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2482823481383450959, guid: 47834e62a2462406fb24478a1afc298a, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -8550,5 +8563,10 @@ PrefabInstance:
 --- !u!224 &2691725409626273542 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2482823480601963853, guid: 47834e62a2462406fb24478a1afc298a, type: 3}
+  m_PrefabInstance: {fileID: 517402902091651659}
+  m_PrefabAsset: {fileID: 0}
+--- !u!111 &5056113329313347798 stripped
+Animation:
+  m_CorrespondingSourceObject: {fileID: 4685084442756850333, guid: 47834e62a2462406fb24478a1afc298a, type: 3}
   m_PrefabInstance: {fileID: 517402902091651659}
   m_PrefabAsset: {fileID: 0}

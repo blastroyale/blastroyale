@@ -7,7 +7,6 @@ using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views;
 using FirstLight.UiService;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -29,6 +28,7 @@ namespace FirstLight.Game.Presenters
 		
 		[SerializeField] private VisualTreeAsset _buttonAsset;
 		[SerializeField] private VisualTreeAsset _comingSoonAsset;
+		
 		private Button _closeButton;
 		private ScrollView _buttonsSlider;
 		private ScreenHeaderElement _header;

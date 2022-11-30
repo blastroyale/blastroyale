@@ -6,12 +6,10 @@ using FirstLight.Game.Input;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using Photon.Deterministic;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Windows;
 
 namespace FirstLight.Game.MonoComponent.Match
 {
@@ -30,9 +28,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		private IGameServices _services;
 		private IMatchServices _matchServices;
 		private bool _spectating;
-		private Quantum.Input _input;
-		private GameObject _targetObj;
-		private Transform _playerObj;
+
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
@@ -52,32 +48,8 @@ namespace FirstLight.Game.MonoComponent.Match
 			QuantumEvent.Subscribe<EventOnPlayerSpawned>(this, OnPlayerSpawned);
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, OnPlayerAlive);
 			QuantumEvent.Subscribe<EventOnPlayerSkydiveLand>(this, OnPlayerSkydiveLand);
-			QuantumCallback.Subscribe<CallbackPollInput>(this, PollInput);
-
+			
 			gameObject.SetActive(false);
-
-			_targetObj = new GameObject();
-		}
-
-		private void Update()
-		{
-			var aimDir = _input.AimingDirection;
-			var currentPos = _matchServices.SpectateService.SpectatedPlayer.Value.Transform.position;
-			_targetObj.transform.position = currentPos;
-
-			if (_adventureCamera.isActiveAndEnabled && aimDir != FPVector2.Zero)
-			{
-				var pos = new Vector3(aimDir.X.AsFloat, 0 , aimDir.Y.AsFloat) * 4;
-				_adventureCamera.Follow = _targetObj.transform;
-
-				//_adventureCamera;
-			}
-		}
-
-		private unsafe void PollInput(CallbackPollInput callback)
-		{
-			var f = callback.Game.Frames.Verified;
-			_input = *f.GetPlayerInput(callback.Player);
 		}
 
 		private void OnDestroy()

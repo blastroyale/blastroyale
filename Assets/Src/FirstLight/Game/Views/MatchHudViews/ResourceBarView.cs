@@ -13,14 +13,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 	public class ResourceBarView : MonoBehaviour, IPoolEntityDespawn
 	{
 		[SerializeField, Required] private Slider _slider;
-		[SerializeField, Required] private GameObject _separatorRef;
 		[SerializeField, Required] private Animation _capacityUsedAnimation;
 		[SerializeField, Required] private Image _reloadBarImage;
 		[SerializeField] private Color _primaryReloadColor;
 		[SerializeField] private Color _secondaryReloadColor;
 
 		private EntityRef _entity;
-		private IObjectPool<GameObject> _separatorPool;
 		private GameId _currentWeapon;
 
 		/// <inheritdoc />

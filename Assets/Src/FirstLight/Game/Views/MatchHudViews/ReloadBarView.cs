@@ -15,12 +15,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 	public class ReloadBarView : MonoBehaviour, IPoolEntityDespawn
 	{
 		[SerializeField, Required] private Slider _slider;
-		[SerializeField, Required] private GameObject _separatorRef;
 		[SerializeField, Required] private Slider _reloadTimeSlider;
 
 		private Coroutine _reloadAnim;
 		private EntityRef _entity;
-		private IObjectPool<GameObject> _separatorPool;
 
 		/// <inheritdoc />
 		public void OnDespawn()

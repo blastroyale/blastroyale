@@ -158,7 +158,7 @@ namespace FirstLight.Game.Presenters
 			var nextLevel = Math.Clamp(_matchServices.MatchEndDataService.BPLevelBeforeChange + 1, 0, maxLevel) + 1;
 			var bppPoolInfo = _gameDataProvider.ResourceDataProvider.GetResourcePoolInfo(GameId.BPP);
 			_bppView.SetData(bppReward, (int)_matchServices.MatchEndDataService.BPPBeforeChange,
-				(int)_gameDataProvider.BattlePassDataProvider.GetRequiredPointsForLevel((int)nextLevel), (int)nextLevel,
+				(int)_gameDataProvider.BattlePassDataProvider.GetRequiredPointsForLevel((int)_matchServices.MatchEndDataService.BPLevelBeforeChange), (int)nextLevel,
 				(int)bppPoolInfo.CurrentAmount, (int)bppPoolInfo.PoolCapacity);
 		}
 

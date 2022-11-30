@@ -118,7 +118,7 @@ namespace FirstLight.Game.Presenters
 
 			var storeButton = root.Q<Button>("StoreButton");
 			storeButton.clicked += Data.OnStoreClicked;
-			storeButton.SetDisplayActive(FeatureFlags.STORE_ENABLED);
+			storeButton.SetDisplay(FeatureFlags.STORE_ENABLED);
 
 			var discordButton = root.Q<Button>("DiscordButton");
 			discordButton.clicked += Data.OnDiscordClicked;
@@ -129,7 +129,7 @@ namespace FirstLight.Game.Presenters
 		protected override void OnOpened()
 		{
 			base.OnOpened();
-			_equipmentNotification.SetDisplayActive(_dataProvider.UniqueIdDataProvider.NewIds.Count > 0);
+			_equipmentNotification.SetDisplay(_dataProvider.UniqueIdDataProvider.NewIds.Count > 0);
 		}
 
 		protected override void SubscribeToEvents()

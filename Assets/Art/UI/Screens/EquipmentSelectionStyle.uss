@@ -192,53 +192,11 @@
 }
 
 .details__buttons-holder {
-    height: 182px;
+    height: 200px;
     align-items: center;
-    justify-content: center;
-}
-
-.equipment-durability {
-    height: 120px;
-    color: rgb(248, 199, 46);
-    -unity-font-definition: var(--font-italic);
-    -unity-text-outline-width: 1px;
-    font-size: 32px;
-    -unity-text-outline-color: rgb(0, 0, 0);
-    text-shadow: 3px 3px 0 rgb(0, 0, 0);
-}
-
-.equipment-durability__progress {
-    flex-grow: 0.5;
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/DurabilityBar.png?fileID=21300000&guid=2d7f74c10ed3b4352a100dc9e2226f88&type=3#DurabilityBar');
-}
-
-.equipment-durability__progress-bg {
-    height: 18px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/DurabilityBarBg.png?fileID=21300000&guid=6154e24dd9964404b854e387ded58774&type=3#DurabilityBarBg');
-    padding-left: 2px;
-    padding-right: 2px;
-    padding-top: 2px;
-    padding-bottom: 2px;
+    justify-content: space-between;
     flex-direction: row;
-    position: absolute;
-    left: 28px;
-    top: 18px;
-    right: 0;
-}
-
-.equipment-durability__icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/DurabilityIcon.png?fileID=21300000&guid=c23c775b5c0864573b27d89f2a6a6a04&type=3#DurabilityIcon');
-    width: 40px;
-    height: 40px;
-    margin-left: 2px;
-    margin-top: 2px;
-    position: absolute;
-}
-
-.equipment-durability__progress-label {
-    -unity-text-align: upper-center;
-    margin-top: -9px;
-    margin-left: 11px;
+    flex-wrap: wrap;
 }
 
 .stats-list {
@@ -251,43 +209,6 @@
 
 .stats-list .unity-list-view__item:hover {
     background-color: rgba(0, 0, 0, 0);
-}
-
-.button-long {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMainYellow.png?fileID=21300000&guid=728932854c02c47ddb4057b68d3c91c7&type=3#ButtonMainYellow');
-    width: 307px;
-    height: 85px;
-    border-left-width: 0;
-    border-right-width: 0;
-    border-top-width: 0;
-    border-bottom-width: 0;
-    background-color: rgba(0, 0, 0, 0);
-    -unity-font-definition: var(--font-italic);
-    font-size: 42px;
-    color: rgb(255, 255, 255);
-    -unity-text-outline-width: 1px;
-    -unity-text-outline-color: rgb(157, 35, 11);
-    text-shadow: 3px 3px 0 rgb(157, 35, 10);
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0;
-    padding-bottom: 7px;
-    -unity-text-align: middle-center;
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-}
-
-.button-long:active {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMainYellowPressed.png?fileID=21300000&guid=c96062ca698c645258fbf9555f558741&type=3#ButtonMainYellowPressed');
-    padding-bottom: 0;
-}
-
-.test {
-    align-items: center;
-    flex-direction: row;
-    justify-content: space-between;
 }
 
 .stats-list-holder {

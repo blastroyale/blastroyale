@@ -1,13 +1,18 @@
 fileFormatVersion: 2
 guid: c0a5008228f05694a87022b70dea4049
 ModelImporter:
-  serializedVersion: 21202
+  serializedVersion: 21300
   internalIDToNameTable: []
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_ColorAtlas
+    second: {fileID: 2100000, guid: 2d3a3e8105531d74c827dee5b91bc02e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_ColorAtlas6
     second: {fileID: 2100000, guid: 2d3a3e8105531d74c827dee5b91bc02e, type: 2}
   materials:
     materialImportMode: 1
@@ -104,6 +109,7 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

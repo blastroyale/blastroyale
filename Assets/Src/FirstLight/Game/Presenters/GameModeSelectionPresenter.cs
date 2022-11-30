@@ -28,7 +28,7 @@ namespace FirstLight.Game.Presenters
 		
 		[SerializeField] private VisualTreeAsset _buttonAsset;
 		[SerializeField] private VisualTreeAsset _comingSoonAsset;
-
+		
 		private Button _closeButton;
 		private ScrollView _buttonsSlider;
 		private ScreenHeaderElement _header;
@@ -42,7 +42,7 @@ namespace FirstLight.Game.Presenters
 			_services.GameModeService.Slots.Observe(OnSlotUpdated);
 			_buttonViews = new List<GameModeSelectionButtonView>();
 		}
-
+		
 		protected override void QueryElements(VisualElement root)
 		{
 			_buttonsSlider = root.Q<ScrollView>("ButtonsSlider").Required();

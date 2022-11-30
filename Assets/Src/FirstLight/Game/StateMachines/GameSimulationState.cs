@@ -133,18 +133,8 @@ namespace FirstLight.Game.StateMachines
 
 			winners.WaitingFor(OpenWinnersScreen).Target(gameResults);
 			
-			gameResults.WaitingFor(ResultsScreen).Target(trophiesCheck);
+			gameResults.WaitingFor(LeaderboardAndRewardsScreen).Target(final);
 
-			trophiesCheck.Transition().Condition(HasTrophyChangeToDisplay).Target(trophiesGainLoss);
-			trophiesCheck.Transition().Target(rewardsCheck);
-
-			trophiesGainLoss.WaitingFor(OpenTrophiesScreen).Target(rewardsCheck);
-
-			rewardsCheck.Transition().Condition(HasRewardsToClaim).Target(gameRewards);
-			rewardsCheck.Transition().Target(final);
-
-			gameRewards.WaitingFor(OpenRewardsScreen).Target(final);
-			
 			final.OnEnter(UnloadMatchEnd);
 		}
 
@@ -240,16 +230,6 @@ namespace FirstLight.Game.StateMachines
 			return _services.NetworkService.QuantumClient.CurrentRoom.GetMatchType() == MatchType.Custom;
 		}
 
-		private bool HasRewardsToClaim()
-		{
-			return _gameDataProvider.RewardDataProvider.UnclaimedRewards.Count > 0;
-		}
-
-		private bool HasTrophyChangeToDisplay()
-		{
-			return _lastTrophyChange != 0;
-		}
-
 		private bool ShouldUseDeathmatchSM()
 		{
 			return _services.NetworkService.CurrentRoomGameModeConfig.Value.AudioStateMachine ==
@@ -320,21 +300,6 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(MatchQuitEvent);
 		}
 
-		private void GiveMatchRewards()
-		{
-			if (IsSpectator()) return;
-			
-			var game = QuantumRunner.Default.Game;
-			var f = game.Frames.Verified;
-			var command = new EndOfGameCalculationsCommand();
-			command.FromFrame(f, new QuantumValues()
-			{
-				ExecutingPlayer = game.GetLocalPlayers()[0],
-				MatchType = _services.NetworkService.QuantumClient.CurrentRoom.GetMatchType()
-			});
-			_services.CommandService.ExecuteCommand(command);
-		}
-
 		private void MatchEndAnalytics(bool playerQuit)
 		{
 			if (IsSpectator())
@@ -390,7 +355,6 @@ namespace FirstLight.Game.StateMachines
 
 		private void StopSimulation()
 		{
-			GiveMatchRewards();
 			_services.MessageBrokerService.Publish(new MatchSimulationEndedMessage());
 			QuantumRunner.ShutdownAll();
 		}
@@ -431,7 +395,7 @@ namespace FirstLight.Game.StateMachines
 			CloseSwipeTransition();
 		}
 
-		private void ResultsScreen(IWaitActivity activity)
+		private void LeaderboardAndRewardsScreen(IWaitActivity activity)
 		{
 			var cacheActivity = activity;
 			var data = new LeaderboardAndRewardsScreenPresenter.StateData
@@ -442,36 +406,6 @@ namespace FirstLight.Game.StateMachines
 			_uiService.OpenScreen<LeaderboardAndRewardsScreenPresenter, LeaderboardAndRewardsScreenPresenter.StateData>(data);
 		}
 
-		private void OpenRewardsScreen(IWaitActivity activity)
-		{
-			var cacheActivity = activity;
-			var data = new RewardsScreenPresenter.StateData {MainMenuClicked = ContinueClicked};
-
-			_uiService.OpenScreen<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(data);
-
-			void ContinueClicked()
-			{
-				cacheActivity.Complete();
-			}
-		}
-
-		private void OpenTrophiesScreen(IWaitActivity activity)
-		{
-			var cacheActivity = activity;
-			var data = new TrophiesScreenPresenter.StateData
-			{
-				ExitTrophyScreen = ContinueClicked,
-				LastTrophyChange = _lastTrophyChange,
-				TrophiesBeforeLastChange = _trophiesBeforeLastChange
-			};
-
-			_uiService.OpenScreen<TrophiesScreenPresenter, TrophiesScreenPresenter.StateData>(data);
-
-			void ContinueClicked()
-			{
-				cacheActivity.Complete();
-			}
-		}
 		private void UnloadMatchAssetConfigs()
 		{
 			var configProvider = _services.ConfigsProvider;

@@ -6912,7 +6912,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - NELLYBERT
+      - CROSSBOW
       - 
       - 
       Flags: 000000
@@ -6921,7 +6921,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - FOR-Q
+      - MINIGUN
       - 
       - 
       Flags: 000000
@@ -6930,7 +6930,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - B-BOMBUR
+      - RPG
       - 
       - 
       Flags: 000000
@@ -6939,7 +6939,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - MINE NOW
+      - ASSAULT RIFLE
       - 
       - 
       Flags: 000000
@@ -6948,7 +6948,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - SNM
+      - SMG
       - 
       - 
       Flags: 000000
@@ -6957,7 +6957,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - RUTTEGER
+      - SCATTERGUN
       - 
       - 
       Flags: 000000
@@ -6966,7 +6966,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - MOSQUWEETO
+      - HUNTING RIFLE
       - 
       - 
       Flags: 000000
@@ -7569,7 +7569,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - BRD-E
+      - GRENADE LAUNCHER
       - 
       - 
       Flags: 000000
@@ -7578,7 +7578,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 7AHM
+      - DAEDALUS
       - 
       - 
       Flags: 000000
@@ -7587,7 +7587,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - B-D13
+      - PISTOL
       - 
       - 
       Flags: 000000
@@ -7596,7 +7596,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - T-PU5H4
+      - CARBINE
       - 
       - 
       Flags: 000000
@@ -7605,7 +7605,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - L&L 94
+      - SHOTGUN
       - 
       - 
       Flags: 000000
@@ -7614,7 +7614,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 1N1-E5TA
+      - SNIPER
       - 
       - 
       Flags: 000000
@@ -7929,7 +7929,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - REXXX
+      - LASER BLASTER
       - 
       - 
       Flags: 000000
@@ -7938,7 +7938,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - SPECIAL BEAM
+      - PLASMA CANNON
       - 
       - 
       Flags: 000000
@@ -7947,7 +7947,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - DOOMBA
+      - ELECTRON THROWER
       - 
       - 
       Flags: 000000
@@ -7956,7 +7956,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - IRVIN
+      - NEEDLE GUN
       - 
       - 
       Flags: 000000
@@ -7965,7 +7965,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - PECKARD
+      - LASER PISTOL
       - 
       - 
       Flags: 000000
@@ -7974,7 +7974,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - EQUES-2
+      - LASER RIFLE
       - 
       - 
       Flags: 000000
@@ -7983,7 +7983,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - ROOK
+      - PULSE RIFLE
       - 
       - 
       Flags: 000000
@@ -10084,6 +10084,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITBattlePass/random_equipment
+      TermType: 0
+      Description: 
+      Languages:
+      - RANDOM EQUIPMENT
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITGameModeSelection/choose_a_mode
       TermType: 0
       Description: 
@@ -10744,6 +10753,42 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITRewards/craft_spice
+      TermType: 0
+      Description: 
+      Languages:
+      - CRAFT SPICE
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITRewards/trophies
+      TermType: 0
+      Description: 
+      Languages:
+      - TROPHIES
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITRewards/battlepass
+      TermType: 0
+      Description: 
+      Languages:
+      - BATTLE PASS
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITRewards/this_week
+      TermType: 0
+      Description: 
+      Languages:
+      - THIS WEEK
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -10762,7 +10807,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1669730225994
+    Google_LastUpdatedVersion: 1669765388789
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

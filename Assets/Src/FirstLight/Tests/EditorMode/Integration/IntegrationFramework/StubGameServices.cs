@@ -35,6 +35,7 @@ namespace FirstLight.Tests.EditorMode
 		public IGameModeService GameModeService { get; }
 		public IMatchmakingService MatchmakingService { get; }
 		public IIAPService IAPService { get; }
+		public IGameLogic GameLogic { get; }
 		public string QuitReason { get; set; }
 
 		public void QuitGame(string reason)
@@ -60,6 +61,7 @@ namespace FirstLight.Tests.EditorMode
 			AudioFxService = audioFxService;
 			PlayerInputService = playerInputService;
 			VfxService = vfxService;
+			GameLogic = gameLogic;
 
 			MatchmakingService = new MatchmakingService();
 			ThreadService = new ThreadService();

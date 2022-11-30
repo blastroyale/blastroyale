@@ -66,7 +66,7 @@ namespace FirstLight.Game.Presenters
 			_rustedContent = root.Q<VisualElement>("Rusted").Required().AttachView(this, out _rustedView);
 
 			root.Q<ImageButton>("CloseButton").clicked += Data.OnCloseClicked;
-			root.RegisterCallback<ClickEvent, StateData>((_, data) => data.OnCloseClicked(), Data);
+			root.Q<VisualElement>("Background").RegisterCallback<ClickEvent, StateData>((_, data) => data.OnCloseClicked(), Data);
 
 			root.SetupClicks(_services);
 		}

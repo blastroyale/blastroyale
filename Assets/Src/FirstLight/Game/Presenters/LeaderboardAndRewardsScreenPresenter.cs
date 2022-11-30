@@ -102,7 +102,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnNextButtonClicked()
 		{
-			if (_showingLeaderboards)
+			if (_showingLeaderboards && _gameDataProvider.RewardDataProvider.UnclaimedRewards.Count > 0)
 			{
 				ShowRewards();
 			}

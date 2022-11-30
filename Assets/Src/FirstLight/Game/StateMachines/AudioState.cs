@@ -519,8 +519,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayerStartReload(EventOnPlayerReloadStart callback)
 		{
-			if (_matchServices.SpectateService.SpectatedPlayer.Value.Entity != callback.Entity || 
-				!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
+			if (_matchServices.SpectateService.SpectatedPlayer.Value.Entity != callback.Entity) return;
 
 			var audioId = AudioId.None;
 			switch(callback.Weapon.Manufacturer)
@@ -545,8 +544,7 @@ namespace FirstLight.Game.StateMachines
 				nameof(EventOnPlayerWeaponChanged)
 			};
 
-			var position = entityView.transform.position;
-			var reloadSfx = _services.AudioFxService.PlayClip3D(audioId, position);
+			var reloadSfx = _services.AudioFxService.PlayClip2D(audioId);
 			_currentClips.Add(new LoopedAudioClip(reloadSfx, despawnEvents, callback.Entity));
 		}
 

@@ -217,7 +217,7 @@ namespace Quantum
 			targetSlot->MagazineSize = weaponConfig.MagazineSize;
 			WeaponSlots[slot].Weapon = weapon;
 
-			stats->GainAmmoPercent(f, e, initialAmmo - GetAmmoAmountFilled(f, e));
+			stats->GainAmmoPercent(f, e, FPMath.Max(0, initialAmmo - GetAmmoAmountFilled(f, e)));
 
 			f.Events.OnLocalPlayerWeaponAdded(Player, e, weapon, slot);
 			
@@ -287,7 +287,17 @@ namespace Quantum
 		public FP GetAmmoAmountFilled(Frame f, EntityRef e)
 		{
 			var stats = f.Get<Stats>(e);
-			return stats.CurrentAmmo / stats.GetStatData(StatType.AmmoCapacity).StatValue;
+			return f.Unsafe.GetPointer<Stats>(e)->CurrentAmmo / stats.GetStatData(StatType.AmmoCapacity).StatValue;
+		}
+
+		/// <summary>
+		/// Requests if entity <paramref name="e"/> has ammo left or not
+		/// </summary>
+		public bool IsAmmoEmpty(Frame f, EntityRef e, bool includeMag = true)
+		{
+			var withMag = GetAmmoAmountFilled(f, e) == 0 && !HasMeleeWeapon(f, e) && WeaponSlot->MagazineShotCount == 0;
+			var withoutMag = GetAmmoAmountFilled(f, e) == 0 && !HasMeleeWeapon(f, e);
+			return includeMag ? withMag : withoutMag;
 		}
 
 		/// <summary>

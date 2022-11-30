@@ -17,10 +17,10 @@ namespace Quantum
 			var slot = f.Unsafe.GetPointer<PlayerCharacter>(e)->WeaponSlot;
 			var stats = f.Unsafe.GetPointer<Stats>(e);
 			var diff = FPMath.Min(stats->CurrentAmmo, slot->MagazineSize - slot->MagazineShotCount).AsInt;
-			var ammoCost = (stats->GetStatData(StatType.AmmoCapacity).StatValue / f.WeaponConfigs.GetConfig(slot->Weapon.GameId).MaxAmmo.Get(f)).AsInt;
+			var ammoCost = (FP)f.GameConfig.PlayerDefaultAmmoCapacity.Get(f) / f.WeaponConfigs.GetConfig(slot->Weapon.GameId).MaxAmmo.Get(f);
 			if(diff > 0)
 			{
-				stats->ReduceAmmo(f, e, diff * ammoCost);
+				stats->ReduceAmmo(f, e, diff * ammoCost.AsInt);
 				slot->MagazineShotCount += diff;
 				f.Events.OnPlayerMagazineReloaded(f.Unsafe.GetPointer<PlayerCharacter>(e)->Player, e, slot->Weapon);
 			}

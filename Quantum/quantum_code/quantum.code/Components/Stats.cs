@@ -113,12 +113,21 @@ namespace Quantum
 		}
 
 		/// <summary>
+		/// adds an <paramref name="amount"/>  to your ammo pool
+		/// </summary>
+		internal void GainAmmoAmount(Frame f, EntityRef e, int amount)
+		{
+			var player = f.Unsafe.GetPointer<PlayerCharacter>(e);
+			SetCurrentAmmo(f, player, e, CurrentAmmo + amount);
+		}
+
+		/// <summary>
 		/// Adds ammo to your pool where <paramref name="amount"/> is a % of your total ammo
 		/// </summary>
-		internal void GainAmmoPercent(Frame f, EntityRef e,FP amount)
+		internal void GainAmmoPercent(Frame f, EntityRef e, FP amount)
 		{
 			var maxAmmo = GetStatData(StatType.AmmoCapacity).StatValue.AsInt;
-			var player = f.Get<PlayerCharacter>(e);
+			var player = f.Unsafe.GetPointer<PlayerCharacter>(e);
 			SetCurrentAmmo(f, player, e, CurrentAmmo + (amount * maxAmmo).AsInt);
 		}
 
@@ -133,24 +142,24 @@ namespace Quantum
 			// Do not do reduce for melee weapons or if your weapon does not consume ammo
 			if (!player->HasMeleeWeapon(f, e))
 			{
-				SetCurrentAmmo(f, *player, e, CurrentAmmo - amount);
+				SetCurrentAmmo(f, player, e, CurrentAmmo - amount);
 			}
 		}
 
 		/// <summary>
 		/// Set's the <paramref name="player"/>'s ammo count to <paramref name="value"/> clamped between 0 and MaxAmmo
 		/// </summary>
-		internal void SetCurrentAmmo(Frame f, PlayerCharacter player, EntityRef e, int value, bool ignoreClamp = false)
+		internal void SetCurrentAmmo(Frame f, PlayerCharacter* player, EntityRef e, int value)
 		{
 			var previousAmmo = CurrentAmmo;
 			var maxAmmo = GetStatData(StatType.AmmoCapacity).StatValue.AsInt;
-			var magSize = f.WeaponConfigs.GetConfig(player.CurrentWeapon.GameId).MagazineSize;
+			var magSize = player->WeaponSlot->MagazineSize;
 
-			CurrentAmmo = ignoreClamp ? value : FPMath.Clamp(value, 0, maxAmmo);
+			CurrentAmmo = FPMath.Clamp(value, 0, maxAmmo);
 
 			if (CurrentAmmo != previousAmmo)
 			{
-				f.Events.OnPlayerAmmoChanged(player.Player, e, CurrentAmmo, maxAmmo, magSize);
+				f.Events.OnPlayerAmmoChanged(player->Player, e, CurrentAmmo, maxAmmo, magSize);
 			}
 		}
 

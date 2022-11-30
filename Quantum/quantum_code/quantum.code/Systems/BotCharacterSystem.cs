@@ -1028,8 +1028,7 @@ namespace Quantum.Systems
 				f.Add(botEntity, botCharacter);
 
 				// Calculate bot trophies
-				var halfTrophiesStep = botsTrophiesStep / 2;
-				var trophies = (uint) ((botsDifficulty * botsTrophiesStep) + 1000 + f.RNG->Next(-halfTrophiesStep, halfTrophiesStep));
+				var trophies = (uint) ((botsDifficulty * botsTrophiesStep) + 1000 + f.RNG->Next(-50, 50));
 				
 				// TODO: Give bots random weapon based on median quality that players have
 				// TODO: Give bots random gear in their loadout initially based on median quality that players have

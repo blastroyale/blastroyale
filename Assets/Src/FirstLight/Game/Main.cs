@@ -15,6 +15,7 @@ using FirstLight.UiService;
 using PlayFab;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem.EnhancedTouch;
 
 namespace FirstLight.Game
 {
@@ -80,7 +81,10 @@ namespace FirstLight.Game
 			_notificationStateMachine.Run();
 			_gameStateMachine.Run();
 			TrySetLocalServer();
-
+			
+			TouchSimulation.Enable();
+			EnhancedTouchSupport.Enable();
+			
 			StartCoroutine(HeartbeatCoroutine());
 		}
 

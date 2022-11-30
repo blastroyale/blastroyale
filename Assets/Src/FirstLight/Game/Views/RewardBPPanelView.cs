@@ -36,7 +36,7 @@ namespace FirstLight.Game.Views
 		/// </summary>
 		public void SetData(int gained, int currentTotal, int maxPointsForLevel, int nextLevel, int currentPool, int maxPool)
 		{
-			_gained.text = "+" + gained;
+			_gained.text = (gained > 0 ?"+":"") + gained;
 			_nextLevel.text = nextLevel.ToString();
 			_total.text = (currentTotal+gained) + "/" + maxPointsForLevel;
 

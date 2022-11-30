@@ -41,6 +41,9 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _roomJoinCreateCloseClickedEvent = new StatechartEvent("Room Join Create Close Button Clicked Event");
 		private readonly IStatechartEvent _gameCompletedCheatEvent = new StatechartEvent("Game Completed Cheat Event");
 		
+		private readonly IStatechartEvent _brokenItemsCloseEvent = new StatechartEvent("Broken Items Close Event");
+		private readonly IStatechartEvent _brokenItemsRepairEvent = new StatechartEvent("Broken Items Repair Event");
+		
 		private readonly IGameUiService _uiService;
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _gameDataProvider;
@@ -123,7 +126,7 @@ namespace FirstLight.Game.StateMachines
 			var enterNameDialog = stateFactory.Nest("Enter Name Dialog");
 			var roomJoinCreateMenu = stateFactory.State("Room Join Create Menu");
 			var loadoutRestricted = stateFactory.Wait("Loadout Restriction Pop Up");
-			var brokenItems = stateFactory.Wait("Broken Items Pop Up");
+			var brokenItems = stateFactory.State("Broken Items Pop Up");
 			var defaultNameCheck = stateFactory.Choice("Default Player Name Check");
 			
 			initial.Transition().Target(screenCheck);
@@ -169,8 +172,11 @@ namespace FirstLight.Game.StateMachines
 			store.WaitingFor(OpenStore).Target(homeMenu);
 
 			enterNameDialog.Nest(_enterNameState.Setup).Target(homeMenu);
-			
-			brokenItems.WaitingFor(OpenBrokenItemsPopUp).Target(homeMenu);
+
+			brokenItems.OnEnter(OpenBrokenItemsPopUp);
+			brokenItems.Event(_brokenItemsCloseEvent).Target(homeMenu);
+			brokenItems.Event(_brokenItemsRepairEvent).Target(equipmentMenu);
+			brokenItems.OnExit(CloseBrokenItemsPopUp);
 			
 			loadoutRestricted.WaitingFor(OpenItemsAmountInvalidDialog).Target(homeMenu);
 
@@ -257,10 +263,11 @@ namespace FirstLight.Game.StateMachines
 			return _currentScreen == typeof(T);
 		}
 
-		private void OpenBrokenItemsPopUp(IWaitActivity activity)
+		private void OpenBrokenItemsPopUp()
 		{
 			var infos = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All);
 			var loadout = new Dictionary<GameIdGroup, UniqueId>();
+			var rusted = new Dictionary<GameIdGroup, UniqueId>();
 
 			foreach (var info in infos)
 			{
@@ -268,13 +275,30 @@ namespace FirstLight.Game.StateMachines
 				{
 					loadout.Add(info.Equipment.GameId.GetSlot(), info.Id);
 				}
+				else
+				{
+					rusted.Add(info.Equipment.GameId.GetSlot(), info.Id);
+				}
 			}
-			
-			_services.CommandService.ExecuteCommand(new UpdateLoadoutCommand {SlotsToUpdate = loadout});
-			
-			// TODO: Miha add here the correct pop up
 
-			activity.Complete();
+			if (rusted.Count == 0) return;
+
+			_services.CommandService.ExecuteCommand(new UpdateLoadoutCommand {SlotsToUpdate = loadout});
+
+			var data = new EquipmentPopupPresenter.StateData
+			{
+				OnCloseClicked = () => _statechartTrigger(_brokenItemsCloseEvent),
+				OnActionConfirmed = (_, _) => _statechartTrigger(_brokenItemsRepairEvent),
+				EquipmentIds = rusted.Values.Where(val => val.IsValid).ToArray(),
+				PopupMode = EquipmentPopupPresenter.Mode.Rusted
+			};
+
+			_uiService.OpenUi<EquipmentPopupPresenter, EquipmentPopupPresenter.StateData>(data);
+		}
+		
+		private void CloseBrokenItemsPopUp()
+		{
+			_uiService.CloseUi<EquipmentPopupPresenter>();
 		}
 
 		private void OpenItemsAmountInvalidDialog(IWaitActivity activity)

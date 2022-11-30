@@ -67,22 +67,22 @@ namespace FirstLight.Game.Presenters
 			// Disconnecting in main menu, players should only be able to reconnect
 			if (_services.NetworkService.LastDisconnectLocation is LastDisconnectionLocation.Menu or LastDisconnectionLocation.Matchmaking)
 			{
-				_menuButton.SetDisplayActive(false);
-				_reconnectButton.SetDisplayActive(true);
+				_menuButton.SetDisplay(false);
+				_reconnectButton.SetDisplay(true);
 			}
 			// Disconnecting during final preload means the game most likely started, player shouldn't be reconnecting and interfering
 			if (_services.NetworkService.LastDisconnectLocation == LastDisconnectionLocation.FinalPreload)
 			{
-				_menuButton.SetDisplayActive(true);
-				_reconnectButton.SetDisplayActive(false);
+				_menuButton.SetDisplay(true);
+				_reconnectButton.SetDisplay(false);
 			}
 			// If disconnected in simulation:
 			// Solo matches - you currently cannot reconnect as quantum simulation is not running
 			// Multiplayer matches - you must only reconnect
 			else if (_services.NetworkService.LastDisconnectLocation == LastDisconnectionLocation.Simulation)
 			{
-				_menuButton.SetDisplayActive(_services.NetworkService.LastMatchPlayers.Count <= 1);
-				_reconnectButton.SetDisplayActive(true);
+				_menuButton.SetDisplay(_services.NetworkService.LastMatchPlayers.Count <= 1);
+				_reconnectButton.SetDisplay(true);
 
 				if (_services.NetworkService.LastMatchPlayers.Count <= 1)
 				{
@@ -104,7 +104,7 @@ namespace FirstLight.Game.Presenters
 		/// </summary>
 		public void SetFrontDimBlockerActive(bool active)
 		{
-			_dimElement.EnableInClassList(UIConstants.ELEMENT_HIDDEN, !active);
+			_dimElement.SetDisplay(active);
 		}
 
 		private void OnLeaveClicked()

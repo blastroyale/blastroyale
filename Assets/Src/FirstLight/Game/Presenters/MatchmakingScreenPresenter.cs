@@ -139,12 +139,12 @@ namespace FirstLight.Game.Presenters
 			
 			if (selectedGrid.IsValidNamedArea)
 			{
-				_mapMarkerTitle.SetDisplayActive(true);
+				_mapMarkerTitle.SetDisplay(true);
 				_mapMarkerTitle.text = selectedGrid.AreaName.ToUpper();
 			}
 			else
 			{
-				_mapMarkerTitle.SetDisplayActive(false);
+				_mapMarkerTitle.SetDisplay(false);
 			}
 		}
 
@@ -179,15 +179,15 @@ namespace FirstLight.Game.Presenters
 			_modeDescTopLabel.text = modeDesc[0];
 			_modeDescBotLabel.text = modeDesc[1];
 			
-			_closeButton.SetDisplayActive(true);
+			_closeButton.SetDisplay(true);
 			
 			UpdatePlayerCount();
 
 			if (!gameModeConfig.SkydiveSpawn)
 			{
-				_dropzone.SetDisplayActive(false);
-				_mapMarker.SetDisplayActive(false);
-				_mapTitleBg.SetDisplayActive(false);
+				_dropzone.SetDisplay(false);
+				_mapMarker.SetDisplay(false);
+				_mapTitleBg.SetDisplay(false);
 				var sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(mapConfig.Map, false);
 				_mapImage.style.backgroundImage = new StyleBackground(sprite);
 				return;
@@ -240,7 +240,7 @@ namespace FirstLight.Game.Presenters
 				_services.CoroutineService.StopCoroutine(_matchmakingTimerCoroutine);
 			}
 			
-			_closeButton.SetDisplayActive(false);
+			_closeButton.SetDisplay(false);
 			_loadStatusLabel.text = ScriptLocalization.UITMatchmaking.loading_status_starting;
 			_dropSelectionAllowed = false;
 		}

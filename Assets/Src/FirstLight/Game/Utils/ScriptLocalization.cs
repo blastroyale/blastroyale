@@ -1091,6 +1091,7 @@ namespace I2.Loc
 			public static string bp_level 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/bp_level"); } }
 			public static string claim_all 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/claim_all"); } }
 			public static string play_games_info 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/play_games_info"); } }
+			public static string random_equipment 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/random_equipment"); } }
 			public static string season_ends_in 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/season_ends_in"); } }
 			public static string season_number 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/season_number"); } }
 			public static string season_time_left_big 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/season_time_left_big"); } }
@@ -2373,6 +2374,7 @@ namespace I2.Loc
 		    public const string bp_level = "UITBattlePass/bp_level";
 		    public const string claim_all = "UITBattlePass/claim_all";
 		    public const string play_games_info = "UITBattlePass/play_games_info";
+		    public const string random_equipment = "UITBattlePass/random_equipment";
 		    public const string season_ends_in = "UITBattlePass/season_ends_in";
 		    public const string season_number = "UITBattlePass/season_number";
 		    public const string season_time_left_big = "UITBattlePass/season_time_left_big";

@@ -175,21 +175,16 @@ namespace FirstLight.Game.UIElements
 		{
 			Assert.IsTrue(equipment.IsValid());
 
-			_loanedBadge.SetDisplayActive(loaned);
-			_nftBadge.SetDisplayActive(nft);
-			_equippedBadge.SetDisplayActive(equipped);
-			_notification.SetDisplayActive(notification);
-
-			if (id == UniqueId) return;
-
-			Equipment = equipment;
-			UniqueId = id;
+			_loanedBadge.SetDisplay(loaned);
+			_nftBadge.SetDisplay(nft);
+			_equippedBadge.SetDisplay(equipped);
+			_notification.SetDisplay(notification);
 
 			_rarity.RemoveModifiers();
 			_rarity.AddToClassList(UssRarityModifier +
 				equipment.Rarity.ToString().Replace("Plus", "").ToLowerInvariant());
 
-			_plusRarity.SetDisplayActive((int) equipment.Rarity % 2 == 1);
+			_plusRarity.SetDisplay((int) equipment.Rarity % 2 == 1);
 
 			_grade.text = equipment.Grade.ToString().Replace("Grade", "");
 
@@ -208,6 +203,11 @@ namespace FirstLight.Game.UIElements
 			_adjective.text = equipment.Adjective.ToString().ToUpperInvariant(); // TODO: Add localization
 			_adjective.text = string.Format(ADJECTIVE_LOC_KEY, equipment.Adjective.ToString().ToLowerInvariant())
 				.LocalizeKey();
+
+			Equipment = equipment;
+
+			if (id == UniqueId) return;
+			UniqueId = id;
 
 			LoadImage(loadEditorSprite);
 		}

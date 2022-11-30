@@ -169,7 +169,6 @@
 
 .season-info {
     align-items: center;
-    justify-content: space-between;
     height: 175px;
     position: absolute;
     bottom: 0;
@@ -177,6 +176,7 @@
     left: 400px;
     flex-grow: 1;
     right: 500px;
+    justify-content: flex-start;
 }
 
 .season-info__season-end {

@@ -124,9 +124,9 @@ namespace FirstLight.Game.Presenters
 		private void TryShowNextReward()
 		{
 			// Keep showing/dismissing the battle pass generic reward dialog recursively, until all have been shown
-			if (Data.UiService.HasUiPresenter<BattlepassRewardDialogPresenter>())
+			if (Data.UiService.HasUiPresenter<EquipmentRewardDialogPresenter>())
 			{
-				Data.UiService.CloseUi<BattlepassRewardDialogPresenter>();
+				Data.UiService.CloseUi<EquipmentRewardDialogPresenter>();
 			}
 
 			if (!_pendingRewards.TryDequeue(out var reward))
@@ -135,14 +135,13 @@ namespace FirstLight.Game.Presenters
 				return;
 			}
 
-			var data = new BattlepassRewardDialogPresenter.StateData()
+			var data = new EquipmentRewardDialogPresenter.StateData()
 			{
 				ConfirmClicked = TryShowNextReward,
-				Reward = reward
+				Equipment = reward
 			};
 
-			Data.UiService
-				.OpenUiAsync<BattlepassRewardDialogPresenter, BattlepassRewardDialogPresenter.StateData>(data);
+			Data.UiService.OpenUiAsync<EquipmentRewardDialogPresenter, EquipmentRewardDialogPresenter.StateData>(data);
 		}
 
 		private void SetupItem(string uiId, string storeId)

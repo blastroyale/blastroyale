@@ -1090,6 +1090,8 @@ namespace I2.Loc
 		{
 			public static string bp_level 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/bp_level"); } }
 			public static string claim_all 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/claim_all"); } }
+			public static string equipment_reward 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/equipment_reward"); } }
+			public static string equipment_reward_desc 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/equipment_reward_desc"); } }
 			public static string play_games_info 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/play_games_info"); } }
 			public static string random_equipment 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/random_equipment"); } }
 			public static string season_ends_in 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/season_ends_in"); } }
@@ -1229,6 +1231,14 @@ namespace I2.Loc
 			public static string mode_header_title 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/mode_header_title"); } }
 			public static string select_dropzone 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/select_dropzone"); } }
 			public static string wins_the_match 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/wins_the_match"); } }
+		}
+
+		public static class UITRewards
+		{
+			public static string battlepass 		{ get{ return LocalizationManager.GetTranslation ("UITRewards/battlepass"); } }
+			public static string craft_spice 		{ get{ return LocalizationManager.GetTranslation ("UITRewards/craft_spice"); } }
+			public static string this_week 		{ get{ return LocalizationManager.GetTranslation ("UITRewards/this_week"); } }
+			public static string trophies 		{ get{ return LocalizationManager.GetTranslation ("UITRewards/trophies"); } }
 		}
 
 		public static class UITSettings
@@ -2373,6 +2383,8 @@ namespace I2.Loc
 		{
 		    public const string bp_level = "UITBattlePass/bp_level";
 		    public const string claim_all = "UITBattlePass/claim_all";
+		    public const string equipment_reward = "UITBattlePass/equipment_reward";
+		    public const string equipment_reward_desc = "UITBattlePass/equipment_reward_desc";
 		    public const string play_games_info = "UITBattlePass/play_games_info";
 		    public const string random_equipment = "UITBattlePass/random_equipment";
 		    public const string season_ends_in = "UITBattlePass/season_ends_in";
@@ -2512,6 +2524,14 @@ namespace I2.Loc
 		    public const string mode_header_title = "UITMatchmaking/mode_header_title";
 		    public const string select_dropzone = "UITMatchmaking/select_dropzone";
 		    public const string wins_the_match = "UITMatchmaking/wins_the_match";
+		}
+
+		public static class UITRewards
+		{
+		    public const string battlepass = "UITRewards/battlepass";
+		    public const string craft_spice = "UITRewards/craft_spice";
+		    public const string this_week = "UITRewards/this_week";
+		    public const string trophies = "UITRewards/trophies";
 		}
 
 		public static class UITSettings

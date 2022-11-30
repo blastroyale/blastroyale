@@ -102,6 +102,11 @@
     left: 179px;
 }
 
+.content__background--bp-reward-popup {
+    left: 134px;
+    bottom: -106px;
+}
+
 .content__controls {
     flex-direction: row;
     flex-shrink: 1;

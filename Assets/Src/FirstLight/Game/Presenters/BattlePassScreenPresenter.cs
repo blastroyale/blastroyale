@@ -35,7 +35,7 @@ namespace FirstLight.Game.Presenters
 		private const float BpSegmentWidth = 475f;
 
 		[SerializeField] private VisualTreeAsset _battlePassSegmentAsset;
-		[SerializeField] private DG.Tweening.Ease _scrollEaseMode;
+		[SerializeField] private Ease _scrollEaseMode;
 		[SerializeField] private float _scrollToDuration;
 		
 		private ScrollView _rewardsScroll;
@@ -159,10 +159,10 @@ namespace FirstLight.Game.Presenters
 				_segmentViewsAndElements.Add(new KeyValuePair<BattlePassSegmentView, VisualElement>(view, segmentInstance));
 				_rewardsScroll.Add(segmentInstance);
 			}
-			
-			// TODO FIND WAY TO OVERLAY BP LEVEL ON TOP OF THE PROGRESS BARS OF NEARBY ITEMS
 
-			// Shuffle all the items to front so they 
+			// Shuffle all the items to front so they are arranged properly
+			// This is done as the elements overlay on top of each other, and they need to be flexed/arranged 
+			// in a specific way to keep correct render order
 			for (int i = _segmentViewsAndElements.Count-1; i >= 0; i--)
 			{
 				_segmentViewsAndElements[i].Value.BringToFront();

@@ -53,7 +53,6 @@ namespace FirstLight.Game.Presenters
 		private IGameDataProvider _dataProvider;
 		private List<BattlePassSegmentData> _segmentData;
 		private List<KeyValuePair<BattlePassSegmentView, VisualElement>> _segmentViewsAndElements;
-		private bool _initialized = false;
 
 		private Queue<KeyValuePair<UniqueId,Equipment>> _pendingRewards;
 
@@ -89,9 +88,15 @@ namespace FirstLight.Game.Presenters
 			await Task.Yield();
 			
 			InitScreen();
-			SpawnInitSegments();
-
-			_initialized = true; 
+			SpawnSegments();
+			
+			await Task.Yield();
+			
+			// Has to be done 1 frame after the segments are spawned, otherwise they don't init correctly
+			InitSegments();
+			
+			var predictedProgress = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
+			ScrollToBpLevel((int) predictedProgress.Item1,1f);
 		}
 
 		private void OnClaimClicked()
@@ -104,10 +109,8 @@ namespace FirstLight.Game.Presenters
 
 		private void OnBpPointsChanged(uint previous, uint next)
 		{
-			if (!_initialized) return;
-			
 			InitScreen();
-			UpdateSegments();
+			InitSegments();
 		}
 
 		private void InitScreen()
@@ -149,7 +152,7 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		private void SpawnInitSegments()
+		private void SpawnSegments()
 		{
 			// Add filler to start of BP so it looks nicer
 			SpawnScrollFiller();
@@ -158,7 +161,6 @@ namespace FirstLight.Game.Presenters
 			{
 				var segmentInstance = _battlePassSegmentAsset.Instantiate();
 				segmentInstance.AttachView(this, out BattlePassSegmentView view);
-				view.InitWithData(segment);
 				view.Clicked += OnSegmentRewardClicked;
 				_segmentViewsAndElements.Add(new KeyValuePair<BattlePassSegmentView, VisualElement>(view, segmentInstance));
 				_rewardsScroll.Add(segmentInstance);
@@ -176,7 +178,7 @@ namespace FirstLight.Game.Presenters
 			SpawnScrollFiller();
 		}
 
-		private void UpdateSegments()
+		private void InitSegments()
 		{
 			for (int i = 0; i < _segmentViewsAndElements.Count; i++)
 			{
@@ -184,12 +186,11 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		private void ScrollToBpLevel(int index)
+		private void ScrollToBpLevel(int index, float duration)
 		{
-			// TODO TEST IF CORRECT REWARD IS SCROLLED
-			var targetX = ((index + 1) * BpSegmentWidth) - (_rewardsScroll.contentRect.width / 2);
+			var targetX = ((index + 1) * BpSegmentWidth) - BpSegmentWidth;
 
-			DOVirtual.Float(0, 1f, _scrollToDuration, percent =>
+			DOVirtual.Float(0, 1f, duration, percent =>
 			{
 				var currentScroll = _rewardsScroll.scrollOffset;
 
@@ -211,6 +212,9 @@ namespace FirstLight.Game.Presenters
 		
 		private void OnBattlePassLevelUp(BattlePassLevelUpMessage message)
 		{
+			var predictedProgress = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
+			ScrollToBpLevel((int) predictedProgress.Item1, 0);
+			
 			_pendingRewards.Clear();
 			
 			foreach (var config in message.Rewards)

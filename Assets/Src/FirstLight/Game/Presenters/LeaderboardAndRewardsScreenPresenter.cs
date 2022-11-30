@@ -102,7 +102,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnNextButtonClicked()
 		{
-			if (_showingLeaderboards && _gameDataProvider.RewardDataProvider.UnclaimedRewards.Count > 0)
+			if (_showingLeaderboards)
 			{
 				ShowRewards();
 			}
@@ -115,7 +115,7 @@ namespace FirstLight.Game.Presenters
 		private void ShowLeaderboards()
 		{
 			_showingLeaderboards = true;
-			_nextButtonLabel.text = (_gameDataProvider.RewardDataProvider.UnclaimedRewards.Count > 0) ? "NEXT" : "EXIT";
+			_nextButtonLabel.text = "NEXT";
 			_leaderboardPanel.style.display = DisplayStyle.Flex;
 			_rewardsPanel.style.display = DisplayStyle.None;
 		}

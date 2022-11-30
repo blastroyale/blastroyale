@@ -216,6 +216,8 @@ namespace FirstLight.Game.Utils
 			public const float GAMEPLAY_POST_ATTACK_HIDE_DURATION = 2f;
 
 			public const string SHADER_MINIMAP_DRAW_PLAYERS = "MINIMAP_DRAW_PLAYERS";
+			
+			public const int REWARD_POPUP_CLOSE_MS = 300;
 		}
 
 		public static class Controls

@@ -55,7 +55,7 @@ namespace FirstLight.Game.Presenters
 		private List<KeyValuePair<BattlePassSegmentView, VisualElement>> _segmentViewsAndElements;
 		private bool _initialized = false;
 
-		private Queue<Equipment> _pendingRewards;
+		private Queue<KeyValuePair<UniqueId,Equipment>> _pendingRewards;
 
 		private void Awake()
 		{
@@ -64,7 +64,7 @@ namespace FirstLight.Game.Presenters
 			_segmentViewsAndElements = new List<KeyValuePair<BattlePassSegmentView, VisualElement>>();
 			_segmentData = new List<BattlePassSegmentData>();
 			_services.MessageBrokerService.Subscribe<BattlePassLevelUpMessage>(OnBattlePassLevelUp);
-			_pendingRewards = new Queue<Equipment>();
+			_pendingRewards = new Queue<KeyValuePair<UniqueId,Equipment>>();
 			_dataProvider.BattlePassDataProvider.CurrentPoints.Observe(OnBpPointsChanged);
 		}
 		
@@ -221,12 +221,14 @@ namespace FirstLight.Game.Presenters
 			TryShowNextReward();
 		}
 
-		private void TryShowNextReward()
+		private async void TryShowNextReward()
 		{
-			// Keep showing/dismissing the battle pass generic reward dialog recursively, until all have been shown
+			// Keep showing/dismissing reward dialogs recursively, until all have been shown
 			if (Data.UiService.HasUiPresenter<EquipmentRewardDialogPresenter>())
 			{
 				Data.UiService.CloseUi<EquipmentRewardDialogPresenter>();
+
+				await Task.Delay(GameConstants.Visuals.REWARD_POPUP_CLOSE_MS);
 			}
 
 			if (!_pendingRewards.TryDequeue(out var reward))
@@ -237,10 +239,12 @@ namespace FirstLight.Game.Presenters
 			var data = new EquipmentRewardDialogPresenter.StateData()
 			{
 				ConfirmClicked = TryShowNextReward,
-				Equipment = reward
+				Equipment = reward.Value,
+				EquipmentId = reward.Key
 			};
 
-			Data.UiService.OpenUiAsync<EquipmentRewardDialogPresenter, EquipmentRewardDialogPresenter.StateData>(data);
+			var popup = await Data.UiService.OpenUiAsync<EquipmentRewardDialogPresenter, EquipmentRewardDialogPresenter.StateData>(data);
+			popup.InitEquipment();
 		}
 	}
 }

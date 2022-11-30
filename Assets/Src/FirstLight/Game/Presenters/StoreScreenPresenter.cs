@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
@@ -41,7 +43,7 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _blocker;
 		private ScreenHeaderElement _header;
 
-		private readonly Queue<Equipment> _pendingRewards = new();
+		private readonly Queue<KeyValuePair<UniqueId,Equipment>> _pendingRewards = new();
 
 		private void Awake()
 		{
@@ -121,27 +123,30 @@ namespace FirstLight.Game.Presenters
 			Data.OnPurchaseItem(id);
 		}
 
-		private void TryShowNextReward()
+		private async void TryShowNextReward()
 		{
-			// Keep showing/dismissing the battle pass generic reward dialog recursively, until all have been shown
+			// Keep showing/dismissing reward dialogs recursively, until all have been shown
 			if (Data.UiService.HasUiPresenter<EquipmentRewardDialogPresenter>())
 			{
 				Data.UiService.CloseUi<EquipmentRewardDialogPresenter>();
+
+				await Task.Delay(GameConstants.Visuals.REWARD_POPUP_CLOSE_MS);
 			}
 
 			if (!_pendingRewards.TryDequeue(out var reward))
 			{
-				_blocker.style.display = DisplayStyle.None;
 				return;
 			}
 
 			var data = new EquipmentRewardDialogPresenter.StateData()
 			{
 				ConfirmClicked = TryShowNextReward,
-				Equipment = reward
+				Equipment = reward.Value,
+				EquipmentId = reward.Key
 			};
 
-			Data.UiService.OpenUiAsync<EquipmentRewardDialogPresenter, EquipmentRewardDialogPresenter.StateData>(data);
+			var popup = await Data.UiService.OpenUiAsync<EquipmentRewardDialogPresenter, EquipmentRewardDialogPresenter.StateData>(data);
+			popup.InitEquipment();
 		}
 
 		private void SetupItem(string uiId, string storeId)

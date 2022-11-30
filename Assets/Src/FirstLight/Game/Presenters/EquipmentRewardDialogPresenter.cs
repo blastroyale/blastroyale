@@ -16,6 +16,7 @@ namespace FirstLight.Game.Presenters
 		{
 			public Action ConfirmClicked;
 			public Equipment Equipment;
+			public UniqueId EquipmentId;
 		}
 		
 		private EquipmentCardElement _equipmentCard;
@@ -25,10 +26,16 @@ namespace FirstLight.Game.Presenters
 		{
 			_equipmentCard = root.Q<EquipmentCardElement>("EquipmentCard").Required();
 			_confirmButton = root.Q<Button>("ConfirmButton").Required();
-
-			_equipmentCard.SetEquipment(Data.Equipment, UniqueId.Invalid);
 			
 			_confirmButton.clicked += Data.ConfirmClicked;
+		}
+
+		/// <summary>
+		/// Initializes the equipment card on the popup
+		/// </summary>
+		public void InitEquipment()
+		{
+			_equipmentCard.SetEquipment(Data.Equipment, Data.EquipmentId);
 		}
 	}
 }

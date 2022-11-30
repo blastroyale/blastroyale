@@ -99,11 +99,11 @@ namespace FirstLight.Game.Views
 
 			_levelBg.EnableInClassList(UssLevelBgComplete, data.PredictedCurrentLevel >= data.SegmentLevelForRewards);
 			_claimStatusOutline.EnableInClassList(UssOutlineClaimed, isRewardClaimed);
-			_claimStatusCheckmark.SetDisplayActive(isRewardClaimed);
-			_readyToClaimOutline.SetDisplayActive(!isRewardClaimed && _data.PredictedCurrentLevel >= _data.SegmentLevelForRewards);
-			_readyToClaimShine.SetDisplayActive(!isRewardClaimed && _data.PredictedCurrentLevel >= _data.SegmentLevelForRewards);
-			_claimBubble.SetDisplayActive(false);
-			_blocker.SetDisplayActive(true);
+			_claimStatusCheckmark.SetDisplay(isRewardClaimed);
+			_readyToClaimOutline.SetDisplay(!isRewardClaimed && _data.PredictedCurrentLevel >= _data.SegmentLevelForRewards);
+			_readyToClaimShine.SetDisplay(!isRewardClaimed && _data.PredictedCurrentLevel >= _data.SegmentLevelForRewards);
+			_claimBubble.SetDisplay(false);
+			_blocker.SetDisplay(true);
 			
 			// TODO - Re-enable when we can claim individual BP rewards
 			//_blocker.SetDisplayActive(_data.PredictedCurrentLevel > _data.SegmentLevelForRewards);

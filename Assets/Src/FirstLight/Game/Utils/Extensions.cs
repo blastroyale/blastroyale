@@ -657,14 +657,5 @@ namespace FirstLight.Game.Utils
 		{
 			element.style.visibility = visible ? Visibility.Visible : Visibility.Hidden;
 		}
-		
-		/// <summary>
-		/// Sets ".element-invisible" class active/inactive, which sets the Visible property of a VE.
-		/// </summary>
-		public static void SetVisible(this VisualElement element, bool active)
-		{
-			// Enabling the class means that the element will become invisible
-			element.EnableInClassList(UIConstants.ELEMENT_INVISIBLE, !active);
-		}
 	}
 }

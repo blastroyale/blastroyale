@@ -125,7 +125,7 @@ namespace FirstLight.Game.Presenters
 			var predictedProgressPercent = (float) predictedProgress.Item2 / predictedMaxProgress;
 			_bppProgressFill.style.width = barMaxWidth * predictedProgressPercent;
 
-			_claimButton.SetDisplayActive(_dataProvider.BattlePassDataProvider.IsRedeemable());
+			_claimButton.SetDisplay(_dataProvider.BattlePassDataProvider.IsRedeemable());
 			
 			for (int i = 0; i < battlePassConfig.Levels.Count; ++i)
 			{

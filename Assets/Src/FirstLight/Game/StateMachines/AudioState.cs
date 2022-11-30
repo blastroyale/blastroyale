@@ -519,7 +519,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayerStartReload(EventOnPlayerReloadStart callback)
 		{
-			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
+			if (_matchServices.SpectateService.SpectatedPlayer.Value.Entity != callback.Entity || 
+				!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
 
 			var audioId = AudioId.None;
 			switch(callback.Weapon.Manufacturer)

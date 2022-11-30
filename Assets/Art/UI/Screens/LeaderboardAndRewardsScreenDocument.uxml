@@ -17,7 +17,7 @@
                 <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Deaths" localization-key="UITLeaderboards/deaths" class="header-label leaderboard-header__deaths" />
                 <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Trophies" localization-key="UITLeaderboards/trophies" class="header-label leaderboard-header__trophies" />
             </ui:VisualElement>
-            <ui:ScrollView name="LeaderboardScrollView" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" touch-scroll-type="Unrestricted" class="leaderboard-entries" />
+            <ui:ScrollView name="LeaderboardScrollView" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" touch-scroll-type="Elastic" class="leaderboard-entries" />
         </ui:VisualElement>
         <ui:VisualElement name="RewardsPanel">
             <ui:VisualElement name="CraftSpice" class="craft-spice">

@@ -307,7 +307,7 @@ namespace Quantum
 		{
 			var slot = WeaponSlot;
 			var stats = f.Unsafe.GetPointer<Stats>(e);
-			var ammoCost = (stats->GetStatData(StatType.AmmoCapacity).BaseValue / f.WeaponConfigs.GetConfig(CurrentWeapon.GameId).MaxAmmo.Get(f)).AsInt;
+			var ammoCost = f.WeaponConfigs.GetAmmoCost(f, slot->Weapon.GameId);
 
 			// reduce magazine count if your weapon uses a magazine
 			if (slot->MagazineShotCount > 0 && slot->MagazineSize > 0)

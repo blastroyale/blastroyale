@@ -29,6 +29,7 @@ namespace FirstLight.Game.Presenters
 		public struct StateData
 		{
 			public Action BackClicked;
+			public IGameUiService UiService;
 		}
 		
 		private const string UssBpSegmentFiller = "bp-segment-filler";
@@ -52,8 +53,9 @@ namespace FirstLight.Game.Presenters
 		private IGameDataProvider _dataProvider;
 		private List<BattlePassSegmentData> _segmentData;
 		private List<KeyValuePair<BattlePassSegmentView, VisualElement>> _segmentViewsAndElements;
-
 		private bool _initialized = false;
+
+		private Queue<Equipment> _pendingRewards;
 
 		private void Awake()
 		{
@@ -61,6 +63,8 @@ namespace FirstLight.Game.Presenters
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_segmentViewsAndElements = new List<KeyValuePair<BattlePassSegmentView, VisualElement>>();
 			_segmentData = new List<BattlePassSegmentData>();
+			_services.MessageBrokerService.Subscribe<BattlePassLevelUpMessage>(OnBattlePassLevelUp);
+			_pendingRewards = new Queue<Equipment>();
 			_dataProvider.BattlePassDataProvider.CurrentPoints.Observe(OnBpPointsChanged);
 		}
 		
@@ -87,7 +91,7 @@ namespace FirstLight.Game.Presenters
 			InitScreen();
 			SpawnInitSegments();
 
-			_initialized = true;
+			_initialized = true; 
 		}
 
 		private void OnClaimClicked()
@@ -203,6 +207,40 @@ namespace FirstLight.Game.Presenters
 
 		private void OnSegmentRewardClicked(BattlePassSegmentView view)
 		{
+		}
+		
+		private void OnBattlePassLevelUp(BattlePassLevelUpMessage message)
+		{
+			_pendingRewards.Clear();
+			
+			foreach (var config in message.Rewards)
+			{
+				_pendingRewards.Enqueue(config);
+			}
+
+			TryShowNextReward();
+		}
+
+		private void TryShowNextReward()
+		{
+			// Keep showing/dismissing the battle pass generic reward dialog recursively, until all have been shown
+			if (Data.UiService.HasUiPresenter<EquipmentRewardDialogPresenter>())
+			{
+				Data.UiService.CloseUi<EquipmentRewardDialogPresenter>();
+			}
+
+			if (!_pendingRewards.TryDequeue(out var reward))
+			{
+				return;
+			}
+
+			var data = new EquipmentRewardDialogPresenter.StateData()
+			{
+				ConfirmClicked = TryShowNextReward,
+				Equipment = reward
+			};
+
+			Data.UiService.OpenUiAsync<EquipmentRewardDialogPresenter, EquipmentRewardDialogPresenter.StateData>(data);
 		}
 	}
 }

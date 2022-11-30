@@ -3,9 +3,9 @@
     <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent screen-root">
         <ui:VisualElement name="SeasonContent" class="season-content">
             <ui:ScrollView focusable="true" name="RewardsScroll" mode="Horizontal" touch-scroll-type="Elastic" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="season-content__scroll anim-delay-0 anim-translate anim-translate--left-xxxl" />
-            <ui:VisualElement name="SeasonImage" class="season-content__season-image anim-delay-0 anim-translate anim-translate--right-xl">
+            <ui:VisualElement name="SeasonImage" class="season-image anim-delay-0 anim-translate anim-translate--right-xl">
                 <ui:VisualElement name="Mask" class="season-image__mask">
-                    <ui:VisualElement name="Image" class="season-image__image" />
+                    <ui:VisualElement name="Image" class="season-image__bp-image" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <FirstLight.Game.UIElements.LocalizedButton text="##" name="ClaimButton" localization-key="UITBattlePass/claim_all" class="claim-button anim-delay-0 anim-translate anim-translate--up-s" />

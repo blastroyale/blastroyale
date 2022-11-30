@@ -140,11 +140,11 @@
     flex-direction: row-reverse;
 }
 
-.season-content__season-image {
+.season-image {
     height: 100%;
+    width: 425px;
     overflow: visible;
     background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/SeasonImageMask.svg?fileID=7388822144124034973&guid=5ae5efccf21c11e469ef6c4f820ee2b8&type=3#SeasonImageMask');
-    width: 425px;
     -unity-background-image-tint-color: rgb(0, 0, 0);
     position: absolute;
     left: 0;
@@ -159,7 +159,7 @@
     left: -3px;
 }
 
-.season-image__image {
+.season-image__bp-image {
     background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/BattlePassSeason1Image.png?fileID=2800000&guid=842bcd9fd00c89e4092f70a552d59200&type=3#BattlePassSeason1Image');
     height: 100%;
     -unity-background-scale-mode: scale-and-crop;
@@ -234,5 +234,5 @@
 }
 
 .screen-header .screen-header__title {
-    padding-bottom: 55px;
+    bottom: 70px;
 }

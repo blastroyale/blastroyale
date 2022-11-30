@@ -212,7 +212,3 @@
 .reward-holder__rarity--legendary {
     background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/RandomEquipGlowLegendary.png?fileID=2800000&guid=dac37f21a15a6644f8c118c1a575a0cc&type=3#RandomEquipGlowLegendary');
 }
-
-.reward-holder__rarity--rainbow {
-    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/RandomEquipGlowRainbow.png?fileID=2800000&guid=ba026468af4bad847845da813eb40cc9&type=3#RandomEquipGlowRainbow');
-}

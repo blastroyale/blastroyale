@@ -226,3 +226,7 @@
     width: 475px;
     height: 100%;
 }
+
+.season-content__scroll .unity-scroll-view__content-container {
+    flex-direction: row-reverse;
+}

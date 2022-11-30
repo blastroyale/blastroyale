@@ -29,15 +29,16 @@ namespace FirstLight.Game.Presenters
 		{
 			public Action BackClicked;
 		}
-
-		private const string USS_SEGMENT_FILLER = "bp-segment-filler";
-		private const float BP_SEGMENT_WIDTH = 475f;
+		
+		private const string UssBpSegmentFiller = "bp-segment-filler";
+		private const float BpSegmentWidth = 475f;
 
 		[SerializeField] private VisualTreeAsset _battlePassSegmentAsset;
 		[SerializeField] private DG.Tweening.Ease _scrollEaseMode;
 		[SerializeField] private float _scrollToDuration;
 		
 		private ScrollView _rewardsScroll;
+		private VisualElement _root;
 		private VisualElement _bppProgressBackground;
 		private VisualElement _bppProgressFill;
 		private Label _bppProgressLabel;
@@ -134,8 +135,6 @@ namespace FirstLight.Game.Presenters
 
 		private void SpawnInitSegments()
 		{
-			var predictedProgress = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
-			
 			// Add filler to start of BP so it looks nicer
 			SpawnScrollFiller();
 			
@@ -147,7 +146,6 @@ namespace FirstLight.Game.Presenters
 				view.Clicked += OnSegmentRewardClicked;
 				_segmentViewsAndElements.Add(new KeyValuePair<BattlePassSegmentView, VisualElement>(view, segmentInstance));
 				_rewardsScroll.Add(segmentInstance);
-				
 			}
 			
 			// TODO FIND WAY TO OVERLAY BP LEVEL ON TOP OF THE PROGRESS BARS OF NEARBY ITEMS
@@ -155,13 +153,7 @@ namespace FirstLight.Game.Presenters
 			// Shuffle all the items to front so they 
 			for (int i = _segmentViewsAndElements.Count-1; i >= 0; i--)
 			{
-			//	_segmentViewsAndElements[i].Value.BringToFront();
-			}
-			
-			// Shuffle all the items to front so they 
-			for (int i = 0; i < _segmentViewsAndElements.Count; i++)
-			{
-				//_segmentViewsAndElements[i].Value.BringToFront();
+				_segmentViewsAndElements[i].Value.BringToFront();
 			}
 
 			// Add filler to end of BP so it looks nicer
@@ -179,7 +171,7 @@ namespace FirstLight.Game.Presenters
 		private void ScrollToBpLevel(int index)
 		{
 			// TODO TEST IF CORRECT REWARD IS SCROLLED
-			var targetX = ((index + 1) * BP_SEGMENT_WIDTH) - (_rewardsScroll.contentRect.width / 2);
+			var targetX = ((index + 1) * BpSegmentWidth) - (_rewardsScroll.contentRect.width / 2);
 
 			DOVirtual.Float(0, 1f, _scrollToDuration, percent =>
 			{
@@ -194,7 +186,7 @@ namespace FirstLight.Game.Presenters
 			var filler = new VisualElement {name = "background"};
 			_rewardsScroll.Add(filler);
 			filler.pickingMode = PickingMode.Ignore;
-			filler.AddToClassList(USS_SEGMENT_FILLER);
+			filler.AddToClassList(UssBpSegmentFiller);
 		}
 
 		private void OnSegmentRewardClicked(BattlePassSegmentView view)

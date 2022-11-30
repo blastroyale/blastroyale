@@ -62,9 +62,8 @@ namespace FirstLight.Game.Presenters
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			_segmentViewsAndElements = new List<KeyValuePair<BattlePassSegmentView, VisualElement>>();
 			_segmentData = new List<BattlePassSegmentData>();
-			_services.MessageBrokerService.Subscribe<BattlePassLevelUpMessage>(OnBattlePassLevelUp);
 			_pendingRewards = new Queue<KeyValuePair<UniqueId,Equipment>>();
-			_dataProvider.BattlePassDataProvider.CurrentPoints.Observe(OnBpPointsChanged);
+			
 		}
 		
 		protected override async void QueryElements(VisualElement root)
@@ -80,7 +79,6 @@ namespace FirstLight.Game.Presenters
 			_bppProgressBackground = root.Q("BppBackground").Required();
 			_bppProgressFill = root.Q("BppProgress").Required();
 			
-			_screenHeader.SetTitle(string.Format(ScriptLocalization.UITBattlePass.season_number, "1"));
 			_screenHeader.backClicked += Data.BackClicked;
 			_screenHeader.homeClicked += Data.BackClicked;
 			_claimButton.clicked += OnClaimClicked;
@@ -97,6 +95,22 @@ namespace FirstLight.Game.Presenters
 			
 			var predictedProgress = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
 			ScrollToBpLevel((int) predictedProgress.Item1,1f);
+		}
+
+		protected override void SubscribeToEvents()
+		{
+			base.SubscribeToEvents();
+			
+			_services.MessageBrokerService.Subscribe<BattlePassLevelUpMessage>(OnBattlePassLevelUp);
+			_dataProvider.BattlePassDataProvider.CurrentPoints.Observe(OnBpPointsChanged);
+		}
+		
+		protected override void UnsubscribeFromEvents()
+		{
+			base.UnsubscribeFromEvents();
+			
+			_services.MessageBrokerService.UnsubscribeAll(this);
+			_dataProvider.BattlePassDataProvider.CurrentPoints.StopObservingAll(this);
 		}
 
 		private void OnClaimClicked()
@@ -132,6 +146,7 @@ namespace FirstLight.Game.Presenters
 			var predictedProgressPercent = (float) predictedProgress.Item2 / predictedMaxProgress;
 			_bppProgressFill.style.width = barMaxWidth * predictedProgressPercent;
 
+			_screenHeader.SetTitle(string.Format(ScriptLocalization.UITBattlePass.season_number, "1"));
 			_claimButton.SetDisplay(_dataProvider.BattlePassDataProvider.IsRedeemable());
 			
 			for (int i = 0; i < battlePassConfig.Levels.Count; ++i)

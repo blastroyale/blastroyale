@@ -957,7 +957,8 @@ namespace Quantum.Systems
 			var deathMakers = GameIdGroup.DeathMarker.GetIds();
 			var botItems = GameIdGroup.BotItem.GetIds();
 			var skinOptions = GameIdGroup.PlayerSkin.GetIds().Where(item => botItems.Contains(item)).ToArray();
-			var botsDifficulty = (int)FPMath.Floor((baseTrophiesAmount - 1000) / FP._100);
+			var botsTrophiesStep = f.GameConfig.BotsDifficultyTrophiesStep;
+			var botsDifficulty = (int)FPMath.Floor((baseTrophiesAmount - 1000) / (FP)botsTrophiesStep);
 			botsDifficulty = FPMath.Clamp(botsDifficulty, 0, f.GameConfig.BotsMaxDifficulty);
 			var botConfigsList = GetBotConfigsList(f, botsDifficulty);
 
@@ -1027,7 +1028,8 @@ namespace Quantum.Systems
 				f.Add(botEntity, botCharacter);
 
 				// Calculate bot trophies
-				var trophies = (uint) ((botsDifficulty * 100) + 1000 + f.RNG->Next(-50, 50));
+				var halfTrophiesStep = botsTrophiesStep / 2;
+				var trophies = (uint) ((botsDifficulty * botsTrophiesStep) + 1000 + f.RNG->Next(-halfTrophiesStep, halfTrophiesStep));
 				
 				// TODO: Give bots random weapon based on median quality that players have
 				// TODO: Give bots random gear in their loadout initially based on median quality that players have

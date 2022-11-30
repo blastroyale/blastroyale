@@ -46,6 +46,7 @@ namespace Quantum
 		public int BotsMaxDifficulty;
 		public FP NftDurabilityDropDays;
 		public FP NonNftDurabilityDropDays;
+		public int BotsDifficultyTrophiesStep;
 	}
 
 	/// <summary>

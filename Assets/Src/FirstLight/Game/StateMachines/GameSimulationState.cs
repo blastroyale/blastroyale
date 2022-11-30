@@ -77,11 +77,7 @@ namespace FirstLight.Game.StateMachines
 			var transitionToGameEndUI = stateFactory.Wait("Transition to game End UI");
 			var winners = stateFactory.Wait("Winners Screen");
 			var gameResults = stateFactory.Wait("Game Results Screen");
-			var rewardsCheck = stateFactory.Choice("Rewards Choice");
-			var trophiesCheck = stateFactory.Choice("Trophies Choice");
 			var quitCheck = stateFactory.Choice("Quit Check");
-			var gameRewards = stateFactory.Wait("Game Rewards Screen");
-			var trophiesGainLoss = stateFactory.Wait("Trophies Gain Loss Screen");
 			var disconnectedPlayerCheck = stateFactory.Choice("Disconnected Player Check");
 			var disconnected = stateFactory.State("Disconnected");
 			var disconnectedCritical = stateFactory.State("Disconnected Critical");

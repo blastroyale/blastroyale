@@ -8,7 +8,7 @@ namespace Quantum.Systems
 	/// This system handles the behaviour when the game systems, the ending and is the final countdown to quit the screen
 	/// </summary>
 	public unsafe class GameSystem : SystemMainThread, ISignalOnComponentAdded<GameContainer>,
-	                                 ISignalGameEnded, ISignalPlayerDead, ISignalPlayerKilledPlayer, ISignalOnPlayerDataSet, ISignalAllPlayersJoined
+	                                 ISignalGameEnded, ISignalPlayerDead, ISignalPlayerKilledPlayer, ISignalOnPlayerDataSet
 	{
 
 		/// <summary>
@@ -25,8 +25,7 @@ namespace Quantum.Systems
 			
 			if (!container->IsGameStarted && f.Time > PLAYERS_JOIN_TIMEOUT)
 			{
-				f.Signals.AllPlayersJoined();
-				container->IsGameStarted = true;
+				AllPlayersJoined(f, container);
 			}
 		}
 
@@ -131,12 +130,9 @@ namespace Quantum.Systems
 		{
 			var container = f.Unsafe.GetPointerSingleton<GameContainer>();
 
-			if (container->IsGameStarted) return;
-			
-			if (HaveAllPlayersJoined(f))
+			if (!container->IsGameStarted && HaveAllPlayersJoined(f))
 			{
-				f.Signals.AllPlayersJoined();
-				container->IsGameStarted = true;
+				AllPlayersJoined(f, container);
 			}
 		}
 
@@ -160,9 +156,11 @@ namespace Quantum.Systems
 			return setupPlayers == expectedPlayers;
 		}
 
-		public void AllPlayersJoined(Frame f)
+		private void AllPlayersJoined(Frame f, GameContainer* container)
 		{
+			f.Signals.AllPlayersJoined();
 			f.Events.OnAllPlayersJoined();
+			container->IsGameStarted = true;
 		}
 	}
 }

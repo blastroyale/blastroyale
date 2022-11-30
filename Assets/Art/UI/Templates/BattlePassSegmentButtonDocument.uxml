@@ -2,10 +2,11 @@
     <Style src="project://database/Assets/Art/UI/Templates/BattlePassSegmentButtonStyle.uss?fileID=7433441132597879392&amp;guid=085e3e990597b6b47bd7e65b60a2c14a&amp;type=3#BattlePassSegmentButtonStyle" />
     <ui:VisualElement name="BattlePassSegment" class="segment">
         <ui:VisualElement name="Reward" class="reward">
-            <ui:VisualElement name="ReadyToClaim" picking-mode="Ignore" class="reward__ready-to-claim-outline" />
+            <FirstLight.Game.UIElements.SpinningElement name="ReadyToClaimShine" picking-mode="Ignore" rotationsPerSecond="0.05" class="reward__ready-to-claim-shine" />
+            <ui:VisualElement name="ReadyToClaimOutline" picking-mode="Ignore" class="reward__ready-to-claim-outline" />
             <FirstLight.Game.UIElements.ImageButton name="Button" class="reward__button" />
-            <ui:VisualElement name="Blocker" class="reward__blocker" />
             <ui:VisualElement name="Outline" picking-mode="Ignore" class="reward__button-outline" />
+            <ui:VisualElement name="Blocker" class="reward__blocker" style="display: none;" />
             <ui:VisualElement name="Checkmark" picking-mode="Ignore" class="reward__checkmark" />
             <FirstLight.Game.UIElements.AutoSizeLabel text="REWARD" display-tooltip-when-elided="true" name="Title" picking-mode="Ignore" class="reward__title" />
             <ui:VisualElement name="RewardHolder" picking-mode="Ignore" class="reward__reward-holder">

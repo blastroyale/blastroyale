@@ -1,7 +1,7 @@
 .currency-display {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/CurrencyBack.png?fileID=21300000&guid=5c34000b4db9d44d297310e0b968e481&type=3#CurrencyBack');
     width: 200px;
-    height: 55px;
+    height: 45px;
     flex-direction: row;
     align-items: center;
 }
@@ -26,6 +26,7 @@
 
 .currency-display__label {
     -unity-text-align: center;
+    height: 52px;
     font-size: 42px;
     margin-left: 30px;
     color: rgb(255, 255, 255);

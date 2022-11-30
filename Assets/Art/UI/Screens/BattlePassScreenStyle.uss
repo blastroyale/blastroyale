@@ -136,6 +136,10 @@
     right: 0;
 }
 
+.season-content__scroll .unity-scroll-view__content-container {
+    flex-direction: row-reverse;
+}
+
 .season-content__season-image {
     height: 100%;
     overflow: visible;
@@ -225,8 +229,4 @@
 .bp-segment-filler {
     width: 475px;
     height: 100%;
-}
-
-.season-content__scroll .unity-scroll-view__content-container {
-    flex-direction: row-reverse;
 }

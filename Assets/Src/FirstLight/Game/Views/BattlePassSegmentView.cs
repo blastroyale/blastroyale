@@ -37,6 +37,7 @@ namespace FirstLight.Game.Views
 		private VisualElement _claimBubble;
 		private VisualElement _rarityImage;
 		private VisualElement _claimStatusOutline;
+		private VisualElement _readyToClaimShine;
 		private VisualElement _readyToClaimOutline;
 		private VisualElement _progressBarFill;
 		private VisualElement _progressBackground;
@@ -56,7 +57,8 @@ namespace FirstLight.Game.Views
 			_progressBarFill = _root.Q("ProgressFill").Required();
 			_blocker = _root.Q("Blocker").Required();
 			_claimStatusOutline = _root.Q("Outline").Required();
-			_readyToClaimOutline = _root.Q("ReadyToClaim").Required();
+			_readyToClaimShine = _root.Q("ReadyToClaimShine").Required();
+			_readyToClaimOutline = _root.Q("ReadyToClaimOutline").Required();
 			_claimBubble = _root.Q("ClaimBubble").Required();
 			_claimStatusCheckmark = _root.Q("Checkmark").Required();
 			_levelBg = _root.Q("LevelBg").Required();
@@ -95,12 +97,17 @@ namespace FirstLight.Game.Views
 				_rarityImage.AddToClassList(rarityStyle);
 			}
 
-			_levelBg.EnableInClassList(UssLevelBgComplete, data.PredictedCurrentLevel >= data.SegmentLevel);
+			_levelBg.EnableInClassList(UssLevelBgComplete, data.PredictedCurrentLevel >= data.SegmentLevelForRewards);
 			_claimStatusOutline.EnableInClassList(UssOutlineClaimed, isRewardClaimed);
 			_claimStatusCheckmark.SetDisplayActive(isRewardClaimed);
 			_readyToClaimOutline.SetDisplayActive(_data.PredictedCurrentLevel >= _data.SegmentLevelForRewards);
-			_claimBubble.SetDisplayActive(!isRewardClaimed && _data.SegmentLevelForRewards == _data.PredictedCurrentLevel);
-			_blocker.SetDisplayActive(_data.PredictedCurrentLevel != _data.SegmentLevelForRewards);
+			_readyToClaimShine.SetDisplayActive(_data.PredictedCurrentLevel >= _data.SegmentLevelForRewards);
+			_claimBubble.SetDisplayActive(false);
+			_blocker.SetDisplayActive(true);
+			
+			// TODO - Re-enable when we can claim individual BP rewards
+			//_blocker.SetDisplayActive(_data.PredictedCurrentLevel > _data.SegmentLevelForRewards);
+			//_claimBubble.SetDisplayActive(!isRewardClaimed && _data.PredictedCurrentLevel >  _data.SegmentLevelForRewards);
 			
 			if (data.PredictedCurrentLevel > data.SegmentLevel)
 			{

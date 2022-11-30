@@ -98,10 +98,6 @@
     -unity-background-scale-mode: scale-to-fit;
 }
 
-.reward__button:active {
-    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/RewardButtonPressed.png?fileID=2800000&guid=1a7062387a0e94272bda86c013e125de&type=3#RewardButtonPressed');
-}
-
 .reward__blocker {
     width: 100%;
     height: 100%;
@@ -116,6 +112,14 @@
     background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/ClaimRewardOutline.png?fileID=2800000&guid=8bda900808592449aafbdc6498ba944a&type=3#ClaimRewardOutline');
     -unity-background-scale-mode: scale-to-fit;
     position: absolute;
+}
+
+.reward__ready-to-claim-shine {
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/ClaimRewardLightBehind.png?fileID=2800000&guid=55f09f008b0554c3f9908de8032f65f7&type=3#ClaimRewardLightBehind');
+    -unity-background-scale-mode: scale-to-fit;
+    position: absolute;
+    width: 1000px;
+    height: 1000px;
 }
 
 .reward__button-outline {

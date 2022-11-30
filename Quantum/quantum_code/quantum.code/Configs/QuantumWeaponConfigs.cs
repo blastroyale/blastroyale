@@ -68,14 +68,5 @@ namespace Quantum
 			}
 			return _dictionary[gameId];
 		}
-
-		/// <summary>
-		/// Returns the ammo cost per shot of a given weapon <paramref name="id"/>
-		/// </summary>
-		public int GetAmmoCost(Frame f, GameId id)
-		{
-			var config = GetConfig(id);
-			return ((FP)f.GameConfig.PlayerDefaultAmmoCapacity.Get(f) / config.MaxAmmo.Get(f)).AsInt;
-		}
 	}
 }

@@ -215,6 +215,7 @@ namespace Quantum
 			targetSlot->MagazineShotCount = weaponConfig.MagazineSize;
 			targetSlot->ReloadTime = weaponConfig.ReloadTime;
 			targetSlot->MagazineSize = weaponConfig.MagazineSize;
+			targetSlot->AmmoCostPerShot = ((FP)f.GameConfig.PlayerDefaultAmmoCapacity.Get(f) / weaponConfig.MaxAmmo.Get(f)).AsInt;
 			WeaponSlots[slot].Weapon = weapon;
 
 			stats->GainAmmoPercent(f, e, FPMath.Max(0, initialAmmo - GetAmmoAmountFilled(f, e)));
@@ -307,7 +308,7 @@ namespace Quantum
 		{
 			var slot = WeaponSlot;
 			var stats = f.Unsafe.GetPointer<Stats>(e);
-			var ammoCost = f.WeaponConfigs.GetAmmoCost(f, slot->Weapon.GameId);
+			var ammoCost = slot->AmmoCostPerShot;
 
 			// reduce magazine count if your weapon uses a magazine
 			if (slot->MagazineShotCount > 0 && slot->MagazineSize > 0)

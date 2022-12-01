@@ -2,6 +2,18 @@
     align-items: center;
 }
 
+.title {
+    transition-property: opacity, translate;
+    transition-duration: 0.3s, 0.3s;
+}
+
+.hidden .title {
+    opacity: 0;
+    transition-property: opacity, translate;
+    transition-duration: 0.3s, 0.3s;
+    translate: -200px 0;
+}
+
 .next-button {
     position: absolute;
     right: 0;
@@ -14,12 +26,17 @@
     margin-right: 0;
     margin-top: 0;
     margin-bottom: 0;
-    transition-property: opacity, scale;
-    transition-duration: 0.2s, 0.2s;
+    transition-property: opacity, translate;
+    transition-duration: 0.3s, 0.3s;
     border-left-width: 0;
     border-right-width: 0;
     border-top-width: 0;
     border-bottom-width: 0;
+}
+
+.hidden .next-button {
+    opacity: 0;
+    translate: 200px 0;
 }
 
 .next-button__label {
@@ -41,6 +58,12 @@
     bottom: 10%;
     flex-direction: row;
     align-items: center;
+    transition-property: opacity;
+    transition-duration: 0.3s;
+}
+
+.hidden .player-name {
+    opacity: 0;
 }
 
 .player-name__badge {
@@ -84,6 +107,13 @@
     display: none;
 }
 
+.hidden-right.leaderboard-panel {
+    translate: 500px 0;
+    opacity: 0;
+    transition-property: opacity, translate;
+    transition-duration: 0.3s, 0.3s;
+}
+
 .spectator .leaderboard-panel {
     position: absolute;
     right: auto;
@@ -106,6 +136,14 @@
     height: 70px;
     width: 900px;
     margin-right: 0;
+    transition-property: opacity;
+    opacity: 1;
+    transition-duration: 0.3s;
+    transition-delay: 0.4s;
+}
+
+.hidden .leaderboard-header {
+    opacity: 0;
 }
 
 .leaderboard-header .header-label {
@@ -147,6 +185,14 @@
     right: 0;
     position: absolute;
     height: 100%;
+    opacity: 1;
+    transition-property: opacity;
+    transition-duration: 0.3s;
+    transition-delay: 0.3s;
+}
+
+.rewards-panel--hidden-start {
+    opacity: 0;
 }
 
 .craft-spice {

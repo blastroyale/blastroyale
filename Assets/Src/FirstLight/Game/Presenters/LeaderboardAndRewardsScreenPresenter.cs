@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using FirstLight.Game.Logic;
 using FirstLight.Game.MonoComponent;
 using FirstLight.Game.Services;
@@ -117,15 +118,14 @@ namespace FirstLight.Game.Presenters
 			_showingLeaderboards = true;
 			_nextButtonLabel.text = "NEXT";
 			_leaderboardPanel.style.display = DisplayStyle.Flex;
-			_rewardsPanel.style.display = DisplayStyle.None;
 		}
 		
 		private void ShowRewards()
 		{
+			_leaderboardPanel.AddToClassList("hidden-right");
+			_rewardsPanel.RemoveFromClassList("rewards-panel--hidden-start");
 			_showingLeaderboards = false;
 			_nextButtonLabel.text = "EXIT";
-			_leaderboardPanel.style.display = DisplayStyle.None;
-			_rewardsPanel.style.display = DisplayStyle.Flex;
 		}
 
 		private void UpdateRewards()
@@ -256,6 +256,13 @@ namespace FirstLight.Game.Presenters
 				_matchServices.MatchEndDataService.PlayerMatchData[_matchServices.MatchEndDataService.LocalPlayer];
 			
 			await _character.UpdateSkin(playerData.QuantumPlayerMatchData.Data.PlayerSkin, playerData.Gear.ToList());
+			
+			var targetPosition = _character.transform.position;
+			var initialPosition = targetPosition;
+			initialPosition.x += 20f;
+			_character.transform.position = initialPosition;
+			
+			_character.transform.DOMove(targetPosition, 0.4f).SetEase(Ease.Linear);
 		}
 	}
 }

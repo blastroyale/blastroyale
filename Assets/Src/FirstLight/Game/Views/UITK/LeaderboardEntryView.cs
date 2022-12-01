@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using Quantum;
@@ -71,6 +72,13 @@ namespace FirstLight.Game.Views
 			_kills.text = data.Data.PlayersKilledCount.ToString();
 			_deaths.text = data.Data.DeathCount.ToString();
 			_trophies.text = data.Data.PlayerTrophies.ToString();
+
+			var delayTime = 0.3f + data.PlayerRank * 0.1f;
+
+			_leaderboardEntry.style.transitionDelay = new List<TimeValue>
+			{
+				delayTime, delayTime
+			};
 		}
 
 		public void SubscribeToEvents()

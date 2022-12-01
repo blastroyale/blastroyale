@@ -176,7 +176,7 @@ namespace FirstLight.Game.Services
 				ExecutingPlayer = executingPlayer,
 				MatchType = matchType,
 				DidPlayerQuit = false,
-				GamePlayerCount = QuantumPlayerMatchData.Select(d => !d.Data.IsBot).Count()
+				GamePlayerCount = QuantumPlayerMatchData.Select(d => !d.IsBot).Count()
 			};
 			Rewards = gameLogic.RewardLogic.GiveMatchRewards(rewardSource, out var trophyChange);
 			TrophiesChange = trophyChange;

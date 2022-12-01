@@ -71,8 +71,6 @@ namespace FirstLight.Game.Views
 			_kills.text = data.Data.PlayersKilledCount.ToString();
 			_deaths.text = data.Data.DeathCount.ToString();
 			_trophies.text = data.Data.PlayerTrophies.ToString();
-
-			_leaderboardEntry.style.marginRight = 50 + (data.PlayerRank - 1) * 10;
 		}
 
 		public void SubscribeToEvents()

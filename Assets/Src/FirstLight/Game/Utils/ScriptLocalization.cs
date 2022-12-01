@@ -1231,6 +1231,14 @@ namespace I2.Loc
 			public static string wins_the_match 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/wins_the_match"); } }
 		}
 
+		public static class UITRewards
+		{
+			public static string battlepass 		{ get{ return LocalizationManager.GetTranslation ("UITRewards/battlepass"); } }
+			public static string craft_spice 		{ get{ return LocalizationManager.GetTranslation ("UITRewards/craft_spice"); } }
+			public static string this_week 		{ get{ return LocalizationManager.GetTranslation ("UITRewards/this_week"); } }
+			public static string trophies 		{ get{ return LocalizationManager.GetTranslation ("UITRewards/trophies"); } }
+		}
+
 		public static class UITSettings
 		{
 			public static string account_deleted_desc 		{ get{ return LocalizationManager.GetTranslation ("UITSettings/account_deleted_desc"); } }
@@ -2512,6 +2520,14 @@ namespace I2.Loc
 		    public const string mode_header_title = "UITMatchmaking/mode_header_title";
 		    public const string select_dropzone = "UITMatchmaking/select_dropzone";
 		    public const string wins_the_match = "UITMatchmaking/wins_the_match";
+		}
+
+		public static class UITRewards
+		{
+		    public const string battlepass = "UITRewards/battlepass";
+		    public const string craft_spice = "UITRewards/craft_spice";
+		    public const string this_week = "UITRewards/this_week";
+		    public const string trophies = "UITRewards/trophies";
 		}
 
 		public static class UITSettings

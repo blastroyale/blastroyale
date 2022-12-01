@@ -1,0 +1,232 @@
+.segment {
+    width: 475px;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column-reverse;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 80px;
+    position: relative;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.progress-bar__background {
+    height: 35px;
+    width: 100%;
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/BattlePassProgressBarBack.png?fileID=21300000&guid=f9373e661daa449dd955560f25434839&type=3#BattlePassProgressBarBack');
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    flex-direction: row;
+    position: absolute;
+    align-items: center;
+}
+
+.progress-bar__progress {
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/BattlePassProgressBar.png?fileID=21300000&guid=b0d1b38a7908e49b0a5d5651fb141c6f&type=3#BattlePassProgressBar');
+    height: 26px;
+    flex-grow: 0.5;
+}
+
+.progress-bar__level {
+    width: 80px;
+    height: 80px;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: -50px;
+}
+
+.progress-bar__level-label {
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    -unity-font-style: bold;
+    -unity-font-definition: var(--font-italic);
+    font-size: 50px;
+    color: rgb(255, 255, 255);
+    -unity-paragraph-spacing: -30px;
+    width: 75%;
+    height: 100%;
+    -unity-text-align: middle-center;
+}
+
+.progress-bar__level-bg {
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/BPLevelCircle.png?fileID=2800000&guid=cb0eeaa443e8b406989f58c20f9ef269&type=3#BPLevelCircle');
+    position: absolute;
+    -unity-background-scale-mode: scale-to-fit;
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+}
+
+.progress-bar__level-bg--complete {
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/BPLevelCirclePassed.png?fileID=2800000&guid=bd9a5051dffb647c5adcdbb79b5a79ac&type=3#BPLevelCirclePassed');
+}
+
+.reward {
+    width: 356px;
+    height: 400px;
+    bottom: 30px;
+    justify-content: center;
+    align-items: center;
+    right: -260px;
+}
+
+.reward__title {
+    -unity-font-style: normal;
+    -unity-font-definition: var(--font-italic);
+    font-size: 50px;
+    color: rgb(255, 255, 255);
+    -unity-text-align: middle-center;
+    position: absolute;
+    top: 277px;
+    right: 58px;
+    width: 265px;
+    height: 65px;
+}
+
+.reward__button {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/RewardButton.png?fileID=2800000&guid=8b7ba78e2985a484eb604578991570fc&type=3#RewardButton');
+    -unity-background-scale-mode: scale-to-fit;
+    padding-left: 7px;
+    padding-right: 7px;
+    padding-top: 10px;
+    padding-bottom: 9px;
+}
+
+.reward__button:active {
+    position: absolute;
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/RewardButtonPressed.png?fileID=2800000&guid=1a7062387a0e94272bda86c013e125de&type=3#RewardButtonPressed');
+    -unity-background-scale-mode: scale-to-fit;
+    padding-top: 18px;
+    padding-left: 12px;
+    padding-right: 3px;
+    padding-bottom: 2px;
+}
+
+.reward__button-outline {
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/RewardButtonOutline.png?fileID=2800000&guid=57e23c21c38ad444b8edc6fd8e9eac32&type=3#RewardButtonOutline');
+    -unity-background-image-tint-color: rgb(73, 67, 104);
+    -unity-background-scale-mode: scale-to-fit;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    right: 4px;
+    bottom: 17px;
+}
+
+.reward__blocker {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.reward__ready-to-claim-outline {
+    left: -5px;
+    top: -5px;
+    right: -5px;
+    bottom: 15px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/ClaimRewardOutline.png?fileID=2800000&guid=8bda900808592449aafbdc6498ba944a&type=3#ClaimRewardOutline');
+    -unity-background-scale-mode: scale-to-fit;
+    position: absolute;
+}
+
+.reward__ready-to-claim-shine {
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/ClaimRewardLightBehind.png?fileID=2800000&guid=55f09f008b0554c3f9908de8032f65f7&type=3#ClaimRewardLightBehind');
+    -unity-background-scale-mode: scale-to-fit;
+    position: absolute;
+    width: 1000px;
+    height: 1000px;
+}
+
+.reward__button-outline--claimed {
+    -unity-background-image-tint-color: rgb(216, 75, 121);
+}
+
+.reward__checkmark {
+    width: 88px;
+    height: 72px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/Checkmark.png?fileID=2800000&guid=a64bd0466efcf4292bf7b786ba381b5e&type=3#Checkmark');
+    right: 0;
+    top: -20px;
+    position: absolute;
+}
+
+.reward__reward-holder {
+    align-items: center;
+    justify-content: center;
+    bottom: 242px;
+    position: absolute;
+}
+
+.reward-holder__image {
+    width: 200px;
+    height: 200px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/RandomEquipQuestionMark.png?fileID=2800000&guid=c591772ba9b2b2d468919ccdc75df7a5&type=3#RandomEquipQuestionMark');
+    -unity-background-scale-mode: scale-to-fit;
+    position: absolute;
+}
+
+.reward-holder__rarity {
+    width: 250px;
+    height: 250px;
+    -unity-background-scale-mode: scale-to-fit;
+    position: absolute;
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/RandomEquipGlowRainbow.png?fileID=2800000&guid=ba026468af4bad847845da813eb40cc9&type=3#RandomEquipGlowRainbow');
+}
+
+.claim-bubble {
+    -unity-background-scale-mode: scale-to-fit;
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/TapToClaim.png?fileID=2800000&guid=dd13a282a4ccd406f9e1fba93a72a527&type=3#TapToClaim');
+    width: 372px;
+    height: 132px;
+    position: absolute;
+    top: -90px;
+    left: 180px;
+    align-items: center;
+    justify-content: center;
+}
+
+.claim-bubble__label {
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(156, 36, 12);
+    text-shadow: 3px 3px 0 rgb(156, 36, 12);
+    -unity-font-definition: var(--font-italic);
+    font-size: 40px;
+    color: rgb(255, 255, 255);
+    right: 30px;
+    left: 30px;
+    position: absolute;
+    -unity-text-align: middle-center;
+    bottom: 72px;
+    -unity-font-style: bold;
+}
+
+.reward-holder__rarity--common {
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/RandomEquipGlowCommon.png?fileID=2800000&guid=a49be92fdecf54e4ebae741388eb08a5&type=3#RandomEquipGlowCommon');
+}
+
+.reward-holder__rarity--uncommon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/RandomEquipGlowUncommon.png?fileID=2800000&guid=c353a5b0b54fa1a428fbd490ac07c187&type=3#RandomEquipGlowUncommon');
+}
+
+.reward-holder__rarity--rare {
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/RandomEquipGlowRare.png?fileID=2800000&guid=2ffde50b427995c41993e8678806c97f&type=3#RandomEquipGlowRare');
+}
+
+.reward-holder__rarity--epic {
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/RandomEquipGlowEpic.png?fileID=2800000&guid=f3b79b519dcd8c64994e6b26993ee1b7&type=3#RandomEquipGlowEpic');
+}
+
+.reward-holder__rarity--legendary {
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/RandomEquipGlowLegendary.png?fileID=2800000&guid=dac37f21a15a6644f8c118c1a575a0cc&type=3#RandomEquipGlowLegendary');
+}

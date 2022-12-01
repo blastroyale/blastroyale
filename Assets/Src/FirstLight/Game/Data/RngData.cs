@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace FirstLight.Game.Data
 {
@@ -11,5 +12,17 @@ namespace FirstLight.Game.Data
 		public int Seed;
 		public int Count;
 		public int[] State;
+		
+		public override int GetHashCode()
+		{
+			int hash = 17;
+			hash = hash * 23 + Seed.GetHashCode();
+			hash = hash * 23 + Count.GetHashCode();
+			if (State.Length > 0)
+			{
+				hash = hash * 23 + State.Last().GetHashCode();
+			}
+			return hash;
+		}
 	}
 }

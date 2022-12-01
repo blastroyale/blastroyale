@@ -30,6 +30,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private readonly GameSimulationState _gameSimulationState;
 		private readonly IGameServices _services;
+		private readonly IGameDataProvider _dataProvider;
 		private readonly IGameBackendNetworkService _networkService;
 		private readonly IGameUiService _uiService;
 		private readonly IDataService _dataService;
@@ -43,6 +44,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_statechartTrigger = statechartTrigger;
 			_services = services;
+			_dataProvider = gameDataProvider;
 			_networkService = networkService;
 			_dataService = dataService;
 			_uiService = uiService;
@@ -251,7 +253,7 @@ namespace FirstLight.Game.StateMachines
 			var mutatorIds = _services.NetworkService.CurrentRoomMutatorIds;
 			var map = config.Map.ToString();
 			var entityService = new GameObject(nameof(EntityViewUpdaterService)).AddComponent<EntityViewUpdaterService>();
-			var matchServices = new MatchServices(entityService, _services, _dataService);
+			var matchServices = new MatchServices(entityService, _services, _dataProvider, _dataService);
 			
 			MainInstaller.Bind<IMatchServices>(matchServices);
 			

@@ -66,7 +66,6 @@
 }
 
 .header__holder {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/HeadlineCornerBack.png?fileID=21300000&guid=a00a82499a7b54937bb2cf2b23aeb238&type=3#HeadlineCornerBack');
     width: 95%;
     height: 92%;
     flex-direction: row;
@@ -160,8 +159,8 @@
 .load-status-holder__location-label {
     font-size: 58px;
     -unity-text-outline-width: 2px;
-    -unity-text-outline-color: rgb(91, 2, 19);
-    text-shadow: 3px 3px 0 rgb(108, 8, 40);
+    -unity-text-outline-color: rgb(65, 5, 25);
+    text-shadow: 3px 3px 0 rgb(65, 5, 25);
     color: rgb(214, 76, 123);
     -unity-font-style: bold;
     margin-top: -20px;
@@ -170,8 +169,8 @@
 .load-status-holder__player-label {
     font-size: 68px;
     -unity-text-outline-width: 2px;
-    -unity-text-outline-color: rgb(49, 46, 71);
-    text-shadow: 3px 3px 0 rgb(49, 46, 71);
+    -unity-text-outline-color: rgb(16, 10, 63);
+    text-shadow: 3px 3px 0 rgb(16, 10, 63);
 }
 
 .dropzone {
@@ -243,11 +242,11 @@
 .map__title {
     font-size: 70px;
     color: rgb(255, 255, 255);
-    -unity-text-outline-width: 2px;
+    -unity-text-outline-width: 3px;
     -unity-font-definition: var(--font-italic);
-    -unity-text-outline-color: rgb(107, 8, 41);
+    -unity-text-outline-color: rgb(65, 5, 25);
     rotate: -5deg;
-    text-shadow: 5px 5px 0 rgb(107, 8, 41);
+    text-shadow: 3px 3px 0 rgb(65, 5, 25);
     -unity-font-style: bold;
     display: flex;
 }

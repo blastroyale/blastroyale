@@ -19,7 +19,7 @@
                         <ui:VisualElement class="button-flat-outline">
                             <FirstLight.Game.UIElements.LocalizedButton localization-key="UITShared/cancel" name="CancelButton" class="sfx-click-forwards button-flat button-flat--cancel" />
                         </ui:VisualElement>
-                        <ui:VisualElement class="button-spacer" />
+                        <ui:VisualElement name="Spacer" class="width-spacer width-spacer--s" />
                         <ui:VisualElement class="button-flat-outline">
                             <ui:Button name="ConfirmButton" text="CONFIRM" class="sfx-click-forwards button-flat button-flat--secondary" />
                         </ui:VisualElement>

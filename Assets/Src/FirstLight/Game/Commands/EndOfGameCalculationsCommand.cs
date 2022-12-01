@@ -37,7 +37,7 @@ namespace FirstLight.Game.Commands
 				ExecutingPlayer = QuantumValues.ExecutingPlayer,
 				MatchType = matchType,
 				DidPlayerQuit = false,
-				GamePlayerCount = matchData.Select(d => !d.Data.IsBot).Count()
+				GamePlayerCount = matchData.Select(d => !d.IsBot).Count()
 			};
 			var rewards = ctx.Logic.RewardLogic().GiveMatchRewards(rewardSource, out var trophyChange);
 

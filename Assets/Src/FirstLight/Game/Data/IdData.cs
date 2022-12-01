@@ -13,5 +13,14 @@ namespace FirstLight.Game.Data
 	{
 		public UniqueId UniqueIdCounter;
 		public Dictionary<UniqueId, GameId> GameIds = new Dictionary<UniqueId, GameId>();
+
+		public override int GetHashCode()
+		{
+			int hash = 17;
+			hash = hash * 23 + UniqueIdCounter.GetHashCode();
+			foreach (var e in GameIds)
+				hash = hash * 23 + e.Key.GetHashCode() + e.Value.GetHashCode();
+			return hash;
+		}
 	}
 }

@@ -879,7 +879,9 @@ namespace Quantum.Systems
 			var iterator = f.Unsafe.GetComponentBlockIterator<EquipmentCollectable>();
 			var sqrDistance = FP.MaxValue;
 			var hasShrinkingCircle = f.TryGetSingleton<ShrinkingCircle>(out var circle);
-			var totalAmmo = filter.PlayerCharacter->GetAmmoAmount(f, filter.Entity, out var maxAmmo);
+			var stats = f.Unsafe.GetPointer<Stats>(filter.Entity);
+			var totalAmmo = stats->CurrentAmmo;
+			var maxAmmo = stats->GetStatData(StatType.AmmoCapacity).StatValue;
 			weaponPickupPosition = FPVector3.Zero;
 			weaponPickupEntity = EntityRef.None;
 

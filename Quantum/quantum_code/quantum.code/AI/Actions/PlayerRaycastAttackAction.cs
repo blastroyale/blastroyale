@@ -69,8 +69,8 @@ namespace Quantum
 				NumberOfShots = weaponConfig.NumberOfShots,
 				AccuracyModifier = shotAngle
 			};
-			
-			playerCharacter->ReduceAmmo(f, e, 1);
+
+			playerCharacter->ReduceMag(f, e); //consume a shot from your magazine
 			bb->Set(f, Constants.BurstShotCount, bb->GetFP(f, Constants.BurstShotCount) - 1);
 
 			f.Add(f.Create(), raycastShot);

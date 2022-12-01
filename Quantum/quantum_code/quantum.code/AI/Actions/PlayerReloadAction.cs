@@ -1,3 +1,4 @@
+using Photon.Deterministic;
 using System;
 
 namespace Quantum
@@ -14,8 +15,14 @@ namespace Quantum
 		{
 			//do the reload here
 			var slot = f.Unsafe.GetPointer<PlayerCharacter>(e)->WeaponSlot;
-			slot->MagazineShotCount = slot->MagazineSize;
-			f.Events.OnPlayerMagazineReloaded(f.Unsafe.GetPointer<PlayerCharacter>(e)->Player, e, slot->Weapon);
+			var stats = f.Unsafe.GetPointer<Stats>(e);
+			var diff = FPMath.Min(stats->CurrentAmmo, slot->MagazineSize - slot->MagazineShotCount).AsInt;
+			if(diff > 0)
+			{
+				stats->ReduceAmmo(f, e, diff * slot->AmmoCostPerShot);
+				slot->MagazineShotCount += diff;
+				f.Events.OnPlayerMagazineReloaded(f.Unsafe.GetPointer<PlayerCharacter>(e)->Player, e, slot->Weapon);
+			}
 		}
 	}
 }

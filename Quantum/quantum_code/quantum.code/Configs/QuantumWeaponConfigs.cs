@@ -66,8 +66,6 @@ namespace Quantum
 					_dictionary.Add(config.Id, config);
 				}
 			}
-			
-
 			return _dictionary[gameId];
 		}
 	}

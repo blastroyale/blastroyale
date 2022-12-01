@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using FirstLight.Game.Ids;
+using quantum.custom.plugin;
 
 namespace Quantum
 {
@@ -57,7 +58,11 @@ namespace Quantum
 		public override void OnJoin(IJoinGameCallInfo info)
 		{
 			base.OnJoin(info);
-			Log.Info($"Actor {info.Request.ActorNr} joined with userId {info.UserId}");
+			if(FlgConfig.DebugMode)
+			{
+				Log.Info($"Actor {info.Request.ActorNr} joined with userId {info.UserId}");
+			}
+			
 		}
 
 		/// <summary>
@@ -65,7 +70,10 @@ namespace Quantum
 		/// </summary>
 		public override void OnCreateGame(ICreateGameCallInfo info)
 		{
-			Log.Info($"Actor {info.Request.ActorNr} created & joined with userId {info.UserId}");
+			if (FlgConfig.DebugMode)
+			{
+				Log.Info($"Actor {info.Request.ActorNr} created & joined with userId {info.UserId}");
+			}
 			base.OnCreateGame(info);
 			if (!info.CreateOptions.TryGetValue("CustomProperties", out var propsObject))
 			{
@@ -79,7 +87,10 @@ namespace Quantum
 				return;
 			}
 			Enum.TryParse((string)customProperties["matchType"], out _matchType);
-			Log.Info($"Created {_matchType.ToString()} game");
+			if (FlgConfig.DebugMode)
+			{
+				Log.Info($"Created {_matchType.ToString()} game");
+			}
 		}
 
 		/// <summary>

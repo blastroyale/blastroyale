@@ -227,7 +227,10 @@ namespace Quantum
 		public string GetPlayFabId(int actorNr)
 		{
 			var playerRef = GetClientIndexByActorNumber(actorNr);
-			Log.Debug($"Actor {actorNr} Index {playerRef} searching for playerId");
+			if (FlgConfig.DebugMode)
+			{
+				Log.Debug($"Actor {actorNr} Index {playerRef} searching for playerId");
+			}
 			foreach (var playfabId in _receivedPlayers.Keys)
 			{
 				if (_receivedPlayers[playfabId].Index == playerRef)
@@ -250,7 +253,10 @@ namespace Quantum
 			_receivedPlayers[clientPlayer.PlayerId] = clientPlayerData;
 			_actorNrToIndex[client.ActorNr] = clientPlayerData.Index;
 			Playfab.GetProfileReadOnlyData(clientPlayer.PlayerId, OnUserDataResponse);
-			Log.Debug($"Received client data from player {clientPlayer.PlayerId} actor {client.ActorNr} index {clientPlayerData.Index}");
+			if (FlgConfig.DebugMode)
+			{
+				Log.Debug($"Received client data from player {clientPlayer.PlayerId} actor {client.ActorNr} index {clientPlayerData.Index}");
+			}
 			return false; // denies adding player data to the bitstream when client sends it
 		}
 
@@ -265,7 +271,10 @@ namespace Quantum
 				entry => entry.Key,
 				entry => entry.Value.Value);
 			var playerId = response.Request.UserState as string;
-			Log.Debug($"Validating loadout for player {playerId}");
+			if (FlgConfig.DebugMode)
+			{
+				Log.Debug($"Validating loadout for player {playerId}");
+			}
 			if (playerId == null || !_receivedPlayers.TryGetValue(playerId, out var setPlayerData))
 			{
 				Log.Error($"Could not find set player data request for player {playerId}");
@@ -291,7 +300,10 @@ namespace Quantum
 					return;
 				}
 			}
-			Log.Debug($"Player {playerId} has valid loadout");
+			if (FlgConfig.DebugMode)
+			{
+				Log.Debug($"Player {playerId} has valid loadout");
+			}
 			_validPlayers[GetClientActorNumberByIndex(setPlayerData.Index)] = setPlayerData;
 			SetDeterministicPlayerData(setPlayerData);
 		}
@@ -301,7 +313,10 @@ namespace Quantum
 		/// </summary>
 		public void Dispose()
 		{
-			Log.Debug("Destroying simulation");
+			if (FlgConfig.DebugMode)
+			{
+				Log.Debug("Destroying simulation");
+			}
 			gameSession?.Destroy();
 			_receivedPlayers.Clear();
 			_validPlayers.Clear();

@@ -87,7 +87,10 @@ namespace quantum.custom.plugin
 				Log.Error($"Invalid PlayFab response to url {response.Request.Url} status {response.Status} data {dataString} text {response.ResponseText}");
 			} else
 			{
-				Log.Debug($"Request from {userId} OK");
+				if (FlgConfig.DebugMode)
+				{
+					Log.Debug($"Request from {userId} OK");
+				}
 			}
 		}
 	}

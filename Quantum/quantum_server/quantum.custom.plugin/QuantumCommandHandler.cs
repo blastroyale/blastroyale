@@ -1,6 +1,7 @@
 using FirstLight.Game.Commands;
 using FirstLight.Server.SDK.Modules;
 using Photon.Deterministic;
+using quantum.custom.plugin;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -80,7 +81,10 @@ namespace Quantum
 			var json = Encoding.UTF8.GetString(commandData);
 			var command = ModelSerializer.Deserialize<QuantumCommandPayload>(json);
 			var type = _commandAssembly.GetType(command.CommandType);
-			_plugin.LogInfo($"Actor {actorNumber} sent command {type.Name}");
+			if (FlgConfig.DebugMode)
+			{
+				_plugin.LogInfo($"Actor {actorNumber} sent command {type.Name}");
+			}
 			_endGameCommands[actorNumber] = command;
 		}
 	}

@@ -83,16 +83,28 @@
 }
 
 .player-holder__arrow {
-    background-image: url('project://database/Assets/Art/UI/Sprites/SpectateScreen/ArrowLeft.png?fileID=21300000&guid=a7551c94421ad4efe9268cb3fd9001c5&type=3#ArrowLeft');
-    width: 54px;
-    -unity-background-scale-mode: scale-to-fit;
-    margin-left: 28px;
-    margin-right: 28px;
+    width: 110px;
+    align-items: center;
+    justify-content: center;
 }
 
 .player-holder__arrow--right {
-    background-image: url('project://database/Assets/Art/UI/Sprites/SpectateScreen/ArrowRight.png?fileID=21300000&guid=a24d57d2188b94152b8a1fdfb88d02db&type=3#ArrowRight');
     margin-right: 122px;
+}
+
+.player-holder__arrow-icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/SpectateScreen/ArrowLeft.png?fileID=21300000&guid=a7551c94421ad4efe9268cb3fd9001c5&type=3#ArrowLeft');
+    width: 54px;
+    -unity-background-scale-mode: scale-to-fit;
+    height: 54px;
+}
+
+.player-holder__arrow:active .player-holder__arrow-icon {
+    -unity-background-image-tint-color: rgb(175, 175, 175);
+}
+
+.player-holder__arrow--right .player-holder__arrow-icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/SpectateScreen/ArrowRight.png?fileID=21300000&guid=a24d57d2188b94152b8a1fdfb88d02db&type=3#ArrowRight');
 }
 
 .player-holder__player {

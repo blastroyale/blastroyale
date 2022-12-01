@@ -79,7 +79,7 @@
     width: 1270px;
     height: 900px;
     position: absolute;
-    right: 270px;
+    right: 10%;
     top: 65px;
     display: none;
 }

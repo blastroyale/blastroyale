@@ -143,7 +143,7 @@
     height: 50%;
     background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/Player.png?fileID=2800000&guid=9bf7b0db9f8824b4dbd1701c2e204610&type=3#Player');
     top: 30%;
-    left: 20%;
+    left: 12%;
     -unity-background-scale-mode: scale-to-fit;
 }
 
@@ -194,7 +194,7 @@
 }
 
 .dropzone__shadow {
-    background-color: rgba(16, 7, 51, 0.73);
+    background-color: rgba(16, 23, 63, 0.91);
     align-items: auto;
     flex-grow: 1;
     flex-basis: 10000px;
@@ -204,7 +204,7 @@
     align-items: center;
     justify-content: flex-end;
     flex-grow: 1;
-    flex-basis: 1000px;
+    flex-basis: 1250px;
 }
 
 .dropzone__plane {
@@ -220,14 +220,22 @@
     bottom: 100%;
 }
 
+.map-holder {
+    width: 40%;
+    height: 90%;
+    position: absolute;
+    right: 5%;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+}
+
 .map {
-    width: 35%;
+    width: 100%;
     height: 75%;
     background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/MapBack.png?fileID=21300000&guid=51f92536db4534a42a8f4395b5ff89ae&type=3#MapBack');
     align-items: center;
     justify-content: center;
-    right: 200px;
-    bottom: 35px;
     -unity-background-scale-mode: scale-to-fit;
 }
 
@@ -265,7 +273,7 @@
 }
 
 .map__title-bg {
-    width: 932px;
+    width: 115%;
     height: 275px;
     background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/SelectdropzoneBg.png?fileID=21300000&guid=9f183781b309b0a44bf9e678b77eb11a&type=3#SelectdropzoneBg');
     align-items: center;
@@ -273,6 +281,7 @@
     position: absolute;
     bottom: -150px;
     display: flex;
+    -unity-background-scale-mode: scale-to-fit;
 }
 
 .map-marker {

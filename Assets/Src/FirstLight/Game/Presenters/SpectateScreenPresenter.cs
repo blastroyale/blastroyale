@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Cinemachine;
 using FirstLight.FLogger;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Messages;
@@ -29,7 +30,7 @@ namespace FirstLight.Game.Presenters
 
 		private const string UssHideControls = "hide-controls";
 
-		[SerializeField] private FollowTransformView _cameraFollow;
+		[SerializeField] private CinemachineVirtualCamera _followCamera;
 
 		private IGameServices _services;
 		private IMatchServices _matchServices;
@@ -94,7 +95,10 @@ namespace FirstLight.Game.Presenters
 
 			var data = new QuantumPlayerMatchData(f, playersData[current.Player]);
 
-			_cameraFollow.SetTarget(current.Transform);
+			_followCamera.Follow = current.Transform;
+			_followCamera.LookAt = current.Transform;
+			_followCamera.SnapCamera();
+			
 			_playerName.text = data.GetPlayerName();
 			_playerMight.SetMight(GetSpectatedPlayerMight(f, current), false);
 			_defeatedYou.SetVisibility(current.Player == Data.Killer);

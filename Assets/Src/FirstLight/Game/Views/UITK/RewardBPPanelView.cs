@@ -25,8 +25,8 @@ namespace FirstLight.Game.Views
 			_gained = _root.Q<Label>("Gained").Required();
 			_nextLevel = _root.Q<Label>("Level").Required();
 			_total = _root.Q<Label>("Total").Required();
-			_previousPointsBar = _root.Q<VisualElement>("GreenBar");
-			_newPointsBar = _root.Q<VisualElement>("YellowBar");
+			_previousPointsBar = _root.Q<VisualElement>("GreenBar").Required();
+			_newPointsBar = _root.Q<VisualElement>("YellowBar").Required();
 			_gainedWeek = _root.Q<Label>("GainedWeek").Required();
 			_totalWeek = _root.Q<Label>("TotalWeek").Required();
 		}

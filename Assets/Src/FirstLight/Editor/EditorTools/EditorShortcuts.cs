@@ -124,7 +124,9 @@ namespace FirstLight.Editor.EditorTools
 
 			var rootPos = go.transform.position;
 
-			Undo.RegisterCompleteObjectUndo(go.GetComponentsInChildren<Collider>().Cast<UnityEngine.Object>().Append(go).ToArray(), "Merge Colliders");
+			Undo.RegisterCompleteObjectUndo(
+				go.GetComponentsInChildren<Collider>().Cast<UnityEngine.Object>().Append(go).ToArray(),
+				"Merge Colliders");
 
 			foreach (var bc in boxColliders)
 			{
@@ -136,7 +138,7 @@ namespace FirstLight.Editor.EditorTools
 				rootBc.size = bc.size;
 				rootBc.isTrigger = bc.isTrigger;
 
-				if (bc.GetComponents(typeof(Component)).Length == 2 && go.transform.childCount == 0)
+				if (bc.GetComponents(typeof(Component)).Length == 2 && bc.transform.childCount == 0)
 				{
 					Undo.DestroyObjectImmediate(bc.gameObject);
 				}
@@ -156,7 +158,7 @@ namespace FirstLight.Editor.EditorTools
 				rootSc.radius = sc.radius;
 				rootSc.isTrigger = sc.isTrigger;
 
-				if (sc.GetComponents(typeof(Component)).Length == 2 && go.transform.childCount == 0)
+				if (sc.GetComponents(typeof(Component)).Length == 2 && sc.transform.childCount == 0)
 				{
 					Undo.DestroyObjectImmediate(sc.gameObject);
 				}
@@ -178,7 +180,7 @@ namespace FirstLight.Editor.EditorTools
 				rootCc.direction = cc.direction;
 				rootCc.isTrigger = cc.isTrigger;
 
-				if (cc.GetComponents(typeof(Component)).Length == 2 && go.transform.childCount == 0)
+				if (cc.GetComponents(typeof(Component)).Length == 2 && cc.transform.childCount == 0)
 				{
 					Undo.DestroyObjectImmediate(cc.gameObject);
 				}
@@ -186,6 +188,76 @@ namespace FirstLight.Editor.EditorTools
 				{
 					Undo.DestroyObjectImmediate(cc);
 				}
+			}
+		}
+
+		[MenuItem("FLG/Art/Unmerge Colliders %#u")]
+		private static void UnmergeColliders()
+		{
+			var go = Selection.activeGameObject;
+			if (go == null)
+			{
+				Debug.LogError("Select a Game Object first!");
+				return;
+			}
+
+			var boxColliders = go.GetComponents<BoxCollider>();
+			var sphereColliders = go.GetComponents<SphereCollider>();
+			var capsuleColliders = go.GetComponents<CapsuleCollider>();
+
+			Undo.RegisterCompleteObjectUndo(go, "Unmerge Colliders");
+
+			for (var i = 0; i < boxColliders.Length; i++)
+			{
+				var bc = boxColliders[i];
+
+				var childGo = new GameObject($"BoxCollider{i}");
+				Undo.RegisterCreatedObjectUndo(childGo, "");
+
+				childGo.transform.SetParent(go.transform);
+				childGo.transform.localPosition = bc.center;
+
+				var boxCollider = Undo.AddComponent<BoxCollider>(childGo);
+				boxCollider.size = bc.size;
+				boxCollider.isTrigger = bc.isTrigger;
+
+				Undo.DestroyObjectImmediate(bc);
+			}
+
+			for (var i = 0; i < sphereColliders.Length; i++)
+			{
+				var sc = sphereColliders[i];
+
+				var childGo = new GameObject($"SphereCollider{i}");
+				Undo.RegisterCreatedObjectUndo(childGo, "");
+
+				childGo.transform.SetParent(go.transform);
+				childGo.transform.localPosition = sc.center;
+
+				var sphereCollider = Undo.AddComponent<SphereCollider>(childGo);
+				sphereCollider.radius = sc.radius;
+				sphereCollider.isTrigger = sc.isTrigger;
+
+				Undo.DestroyObjectImmediate(sc);
+			}
+
+			for (var i = 0; i < capsuleColliders.Length; i++)
+			{
+				var cc = capsuleColliders[i];
+
+				var childGo = new GameObject($"CapsuleCollider{i}");
+				Undo.RegisterCreatedObjectUndo(childGo, "");
+
+				childGo.transform.SetParent(go.transform);
+				childGo.transform.localPosition = cc.center;
+
+				var capsuleCollider = Undo.AddComponent<CapsuleCollider>(childGo);
+				capsuleCollider.radius = cc.radius;
+				capsuleCollider.direction = cc.direction;
+				capsuleCollider.height = cc.height;
+				capsuleCollider.isTrigger = cc.isTrigger;
+
+				Undo.DestroyObjectImmediate(cc);
 			}
 		}
 	}

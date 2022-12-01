@@ -21,8 +21,8 @@
     background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/MatchmakingBgClouds.png?fileID=2800000&guid=2d0080ea2e7385e498b5def29a77760e&type=3#MatchmakingBgClouds');
     -unity-background-scale-mode: scale-and-crop;
     width: 115%;
-    height: 860px;
-    bottom: -100px;
+    height: 75%;
+    bottom: -150px;
 }
 
 .safe-area {

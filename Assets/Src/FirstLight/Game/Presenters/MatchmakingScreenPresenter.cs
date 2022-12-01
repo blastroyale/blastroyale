@@ -110,28 +110,30 @@ namespace FirstLight.Game.Presenters
 		private void SelectMapPosition(Vector2 localPos, bool offsetCoors, bool checkClickWithinRadius)
 		{
 			if (!_dropSelectionAllowed || (checkClickWithinRadius && !IsWithinMapRadius(localPos))) return;
-			
+
 			var mapGridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
-			var mapDiameter = _mapImage.contentRect.width;
-			var mapRadius = mapDiameter / 2;
+			var mapWidth = _mapImage.contentRect.width;
+			var mapHeight = _mapImage.contentRect.height;
+			var mapWidthHalf = mapWidth / 2;
+			var mapHeightHalf = mapHeight / 2;
 
 			// Set map marker at click point
 			if (offsetCoors)
 			{
-				localPos = new Vector3(localPos.x - mapRadius, localPos.y - mapRadius, 0);
+				localPos = new Vector3(localPos.x - mapWidthHalf, localPos.y - mapHeightHalf, 0);
 			}
 			
 			_mapMarker.transform.position = localPos;
 
 			// Get normalized position for spawn positions in quantum, -0.5 to 0.5 range
-			var quantumSelectPos = new Vector2(localPos.x / mapDiameter, -localPos.y / mapDiameter);
+			var quantumSelectPos = new Vector2(localPos.x / mapWidth, -localPos.y / mapWidth);
 			_services.MatchmakingService.NormalizedMapSelectedPosition = quantumSelectPos;
 
 			// Get normalized position for the whole map, 0-1 range, used for grid configs
-			var mapNormX = Mathf.InverseLerp(-mapRadius, mapRadius,localPos.x);
-			var mapNormY = Mathf.InverseLerp(-mapRadius, mapRadius,localPos.y);
+			var mapNormX = Mathf.InverseLerp(-mapWidthHalf, mapWidthHalf,localPos.x);
+			var mapNormY = Mathf.InverseLerp(-mapHeightHalf, mapHeightHalf,localPos.y);
 			var mapSelectNorm = new Vector2(mapNormX, mapNormY);
-			
+
 			// Set map grid config related data
 			var gridX = Mathf.FloorToInt(mapGridConfigs.GetSize().x * mapSelectNorm.x);
 			var gridY = Mathf.FloorToInt(mapGridConfigs.GetSize().y * mapSelectNorm.y);
@@ -211,9 +213,10 @@ namespace FirstLight.Game.Presenters
 		{
 			// Init DZ position/rotation
 			var dropzonePosRot = CurrentRoom.GetDropzonePosRot();
-			var mapDiameter = _mapHolder.contentRect.width;
-			var posX = mapDiameter * dropzonePosRot.x;
-			var posY = mapDiameter * dropzonePosRot.y;
+			var mapWidth = _mapHolder.contentRect.width;
+			var mapHeight = _mapHolder.contentRect.height;
+			var posX = mapWidth * dropzonePosRot.x;
+			var posY = mapHeight * dropzonePosRot.y;
 
 			_dropzone.transform.position = new Vector3(posX, posY);
 			_dropzone.transform.rotation = Quaternion.Euler(0, 0, dropzonePosRot.z);

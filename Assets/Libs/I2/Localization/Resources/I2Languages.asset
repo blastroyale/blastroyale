@@ -8762,11 +8762,13 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 'This is the text that
+      - 'Gain Coins by scrapping equipment.
 
-        describes the COIN
 
-        currency.'
+        Use Coins for upgrading
+
+        and
+        repairing your equipment.'
       - 
       - 
       Flags: 000000
@@ -8775,11 +8777,8 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 'This is the text that
-
-        describes the BLST
-
-        currency.'
+      - "Blast Tokens will be a valuable\nrewards obtained in special ways\nin-game,
+        or purchased. \n\nUse Blast Tokens to purchase\nequipment on the marketplace."
       - 
       - 
       Flags: 000000
@@ -8788,11 +8787,20 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 'This is the text that
+      - 'Gain Craft Spice by placing higher
 
-        describes the CS
+        in Ranked Battle Royale matches
 
-        currency.'
+        using
+        NFTs.
+
+
+        Craft Spice is used on the Blast Hub
+
+        for upgrading,
+        repairing and
+
+        replicating equipment.'
       - 
       - 
       Flags: 000000
@@ -10914,7 +10922,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1669887524758
+    Google_LastUpdatedVersion: 1669891700745
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

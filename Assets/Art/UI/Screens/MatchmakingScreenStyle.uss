@@ -8,12 +8,21 @@
 }
 
 .background {
-    background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/MatchmakingBg.png?fileID=2800000&guid=b62bd3a008f181c41802bcf390918d3c&type=3#MatchmakingBg');
+    background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/MatchmakingBg.png?fileID=21300000&guid=3f530cc27360b304985813d124efd4a5&type=3#MatchmakingBg');
     width: 100%;
     height: 100%;
     -unity-background-scale-mode: scale-and-crop;
     align-items: auto;
     justify-content: space-between;
+}
+
+.clouds {
+    position: absolute;
+    background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/MatchmakingBgClouds.png?fileID=2800000&guid=2d0080ea2e7385e498b5def29a77760e&type=3#MatchmakingBgClouds');
+    -unity-background-scale-mode: scale-and-crop;
+    width: 115%;
+    height: 860px;
+    bottom: -100px;
 }
 
 .safe-area {
@@ -115,13 +124,13 @@
 
 .mode-desc__top {
     -unity-text-align: middle-left;
-    font-size: 30px;
+    font-size: 36px;
     -unity-font-definition: var(--font-italic);
 }
 
 .mode-desc__bot {
     -unity-text-align: middle-left;
-    font-size: 30px;
+    font-size: 36px;
     -unity-font-definition: var(--font-italic);
     left: -115px;
     top: 29px;
@@ -133,7 +142,7 @@
     width: 30%;
     height: 50%;
     background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/Player.png?fileID=2800000&guid=9bf7b0db9f8824b4dbd1701c2e204610&type=3#Player');
-    top: 25%;
+    top: 30%;
     left: 20%;
     -unity-background-scale-mode: scale-to-fit;
 }
@@ -185,7 +194,7 @@
 }
 
 .dropzone__shadow {
-    background-color: rgba(37, 26, 79, 0.6);
+    background-color: rgba(37, 26, 79, 0.73);
     align-items: auto;
     flex-grow: 1;
 }

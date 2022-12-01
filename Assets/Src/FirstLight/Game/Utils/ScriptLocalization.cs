@@ -1081,6 +1081,7 @@ namespace I2.Loc
 			public static string ToolTip_BLST 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_BLST"); } }
 			public static string ToolTip_CS 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_CS"); } }
 			public static string ToolTip_Casual 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_Casual"); } }
+			public static string ToolTip_Coins 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_Coins"); } }
 			public static string ToolTip_NftCooldown 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_NftCooldown"); } }
 			public static string ToolTip_Ranked 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_Ranked"); } }
 			public static string ToolTip_Trophies 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_Trophies"); } }
@@ -1265,13 +1266,25 @@ namespace I2.Loc
 			public static string deathmatch 		{ get{ return LocalizationManager.GetTranslation ("UITShared/deathmatch"); } }
 			public static string error 		{ get{ return LocalizationManager.GetTranslation ("UITShared/error"); } }
 			public static string got_it 		{ get{ return LocalizationManager.GetTranslation ("UITShared/got_it"); } }
+			public static string hide 		{ get{ return LocalizationManager.GetTranslation ("UITShared/hide"); } }
 			public static string info 		{ get{ return LocalizationManager.GetTranslation ("UITShared/info"); } }
 			public static string input 		{ get{ return LocalizationManager.GetTranslation ("UITShared/input"); } }
+			public static string leave 		{ get{ return LocalizationManager.GetTranslation ("UITShared/leave"); } }
 			public static string main_menu 		{ get{ return LocalizationManager.GetTranslation ("UITShared/main_menu"); } }
 			public static string ok 		{ get{ return LocalizationManager.GetTranslation ("UITShared/ok"); } }
 			public static string or 		{ get{ return LocalizationManager.GetTranslation ("UITShared/or"); } }
 			public static string ranked 		{ get{ return LocalizationManager.GetTranslation ("UITShared/ranked"); } }
+			public static string show 		{ get{ return LocalizationManager.GetTranslation ("UITShared/show"); } }
 			public static string waiting 		{ get{ return LocalizationManager.GetTranslation ("UITShared/waiting"); } }
+		}
+
+		public static class UITSpectate
+		{
+			public static string camera_1 		{ get{ return LocalizationManager.GetTranslation ("UITSpectate/camera_1"); } }
+			public static string camera_2 		{ get{ return LocalizationManager.GetTranslation ("UITSpectate/camera_2"); } }
+			public static string camera_3 		{ get{ return LocalizationManager.GetTranslation ("UITSpectate/camera_3"); } }
+			public static string defeated_you 		{ get{ return LocalizationManager.GetTranslation ("UITSpectate/defeated_you"); } }
+			public static string spectating 		{ get{ return LocalizationManager.GetTranslation ("UITSpectate/spectating"); } }
 		}
 
 		public static class UITStore
@@ -2374,6 +2387,7 @@ namespace I2.Loc
 		    public const string ToolTip_BLST = "Tooltips/ToolTip_BLST";
 		    public const string ToolTip_CS = "Tooltips/ToolTip_CS";
 		    public const string ToolTip_Casual = "Tooltips/ToolTip_Casual";
+		    public const string ToolTip_Coins = "Tooltips/ToolTip_Coins";
 		    public const string ToolTip_NftCooldown = "Tooltips/ToolTip_NftCooldown";
 		    public const string ToolTip_Ranked = "Tooltips/ToolTip_Ranked";
 		    public const string ToolTip_Trophies = "Tooltips/ToolTip_Trophies";
@@ -2558,13 +2572,25 @@ namespace I2.Loc
 		    public const string deathmatch = "UITShared/deathmatch";
 		    public const string error = "UITShared/error";
 		    public const string got_it = "UITShared/got_it";
+		    public const string hide = "UITShared/hide";
 		    public const string info = "UITShared/info";
 		    public const string input = "UITShared/input";
+		    public const string leave = "UITShared/leave";
 		    public const string main_menu = "UITShared/main_menu";
 		    public const string ok = "UITShared/ok";
 		    public const string or = "UITShared/or";
 		    public const string ranked = "UITShared/ranked";
+		    public const string show = "UITShared/show";
 		    public const string waiting = "UITShared/waiting";
+		}
+
+		public static class UITSpectate
+		{
+		    public const string camera_1 = "UITSpectate/camera_1";
+		    public const string camera_2 = "UITSpectate/camera_2";
+		    public const string camera_3 = "UITSpectate/camera_3";
+		    public const string defeated_you = "UITSpectate/defeated_you";
+		    public const string spectating = "UITSpectate/spectating";
 		}
 
 		public static class UITStore

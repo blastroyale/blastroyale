@@ -12,7 +12,7 @@
         <ui:VisualElement name="Reward" class="reward">
             <FirstLight.Game.UIElements.SpinningElement name="ReadyToClaimShine" picking-mode="Ignore" rotationsPerSecond="0.05" class="reward__ready-to-claim-shine" />
             <ui:VisualElement name="ReadyToClaimOutline" picking-mode="Ignore" class="reward__ready-to-claim-outline" />
-            <FirstLight.Game.UIElements.ImageButton name="Button" class="reward__button">
+            <FirstLight.Game.UIElements.ImageButton name="Button" class="sfx-click-forwards reward__button">
                 <ui:VisualElement name="Outline" picking-mode="Ignore" class="reward__button-outline" />
             </FirstLight.Game.UIElements.ImageButton>
             <ui:VisualElement name="Blocker" class="reward__blocker" />

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   Xml: "<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<Document>\r\n  <Id>98a9ccc5-49fd-4069-b090-c33275ae3ee5</Id>\r\n 
-    <Version>1</Version>\r\n  <Meta>false</Meta>\r\n  <Graph>98a9ccc5-49fd-4069-b090-c33275ae3ee5</Graph>\r\n 
+    <Version>1</Version>\r\n  <Meta>false</Meta>\r\n  <Graph>c4fbaf2e-f25a-4ca5-aad7-b72b603f9695</Graph>\r\n 
     <DebugKey>01a65bea-8c2c-4ab2-a741-1db2b2917fee</DebugKey>\r\n  <Flags>0</Flags>\r\n 
     <Parent>$statemachine</Parent>\r\n  <Error Count=\"0\" />\r\n  <Comments Count=\"0\"
     />\r\n  <StickyNotes Count=\"0\" />\r\n  <HiddenActionsDecisions Count=\"0\"
@@ -1472,7 +1472,7 @@ MonoBehaviour:
     <ChildrenStatesCount>0</ChildrenStatesCount>\r\n    </Node>\r\n    <Key>690ea479-6c1b-4780-8811-8b07b43309e7</Key>\r\n   
     <Node>\r\n      <Id>690ea479-6c1b-4780-8811-8b07b43309e7</Id>\r\n      <Name>Change
     Weapon Default</Name>\r\n      <Comment></Comment>\r\n      <Graph>768883d4-4da9-44aa-93b2-89f451d9cee8</Graph>\r\n     
-    <Parent>$state</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n      <Flags>65568</Flags>\r\n     
+    <Parent>$state</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n      <Flags>32</Flags>\r\n     
     <Position>496|-317||0</Position>\r\n      <StaticIn Count=\"1\">\r\n        <Slot>\r\n         
     <Id>$in</Id>\r\n          <Name>In</Name>\r\n          <Value />\r\n         
     <Type>$transition</Type>\r\n          <Mode>In</Mode>\r\n          <Flags>2</Flags>\r\n         
@@ -3324,11 +3324,11 @@ MonoBehaviour:
     quantum.code</Type>\r\n          <Mode>In</Mode>\r\n          <Flags>0</Flags>\r\n         
     <TypeMode>Value</TypeMode>\r\n        </Slot>\r\n        <Slot>\r\n         
     <Id>Comparison</Id>\r\n          <Name>Comparison</Name>\r\n          <Value
-    Type=\"Quantum.EValueComparison, quantum.code\">EqualTo</Value>\r\n         
+    Type=\"Quantum.EValueComparison, quantum.code\">LessThan</Value>\r\n         
     <Type>Quantum.EValueComparison, quantum.code</Type>\r\n          <Mode>In</Mode>\r\n         
     <Flags>0</Flags>\r\n          <TypeMode>Value</TypeMode>\r\n        </Slot>\r\n       
     <Slot>\r\n          <Id>DesiredValue</Id>\r\n          <Name>DesiredValue</Name>\r\n         
-    <Value Type=\"Quantum.AIParamInt, quantum.code\">0</Value>\r\n          <Type>Quantum.AIParamInt,
+    <Value Type=\"Quantum.AIParamInt, quantum.code\">1</Value>\r\n          <Type>Quantum.AIParamInt,
     quantum.code</Type>\r\n          <Mode>In</Mode>\r\n          <Flags>0</Flags>\r\n         
     <TypeMode>Value</TypeMode>\r\n        </Slot>\r\n        <Slot>\r\n         
     <Id>Label</Id>\r\n          <Name>Label</Name>\r\n          <Value />\r\n         
@@ -4508,7 +4508,7 @@ MonoBehaviour:
     <ZoomOffset>0|0||0</ZoomOffset>\r\n      <PanOffset>511|178||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>98a9ccc5-49fd-4069-b090-c33275ae3ee5</Key>\r\n    <GraphData>\r\n     
     <Id>98a9ccc5-49fd-4069-b090-c33275ae3ee5</Id>\r\n      <ZoomLevel>0.76</ZoomLevel>\r\n     
-    <ZoomOffset>-368|-223||0</ZoomOffset>\r\n      <PanOffset>951|41||0</PanOffset>\r\n   
+    <ZoomOffset>-368|-223||0</ZoomOffset>\r\n      <PanOffset>979|-111||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>a7080711-c7ca-4d2b-a803-b9d383bb736f</Key>\r\n    <GraphData>\r\n     
     <Id>a7080711-c7ca-4d2b-a803-b9d383bb736f</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
     <ZoomOffset>0|0||0</ZoomOffset>\r\n      <PanOffset>190|170||0</PanOffset>\r\n   
@@ -4534,8 +4534,8 @@ MonoBehaviour:
     <Id>bf407a3f-218a-4260-852d-f67b19af9caf</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
     <ZoomOffset>0|0||0</ZoomOffset>\r\n      <PanOffset>132|553||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>c4fbaf2e-f25a-4ca5-aad7-b72b603f9695</Key>\r\n    <GraphData>\r\n     
-    <Id>c4fbaf2e-f25a-4ca5-aad7-b72b603f9695</Id>\r\n      <ZoomLevel>0.82</ZoomLevel>\r\n     
-    <ZoomOffset>86|53||0</ZoomOffset>\r\n      <PanOffset>277|285||0</PanOffset>\r\n   
+    <Id>c4fbaf2e-f25a-4ca5-aad7-b72b603f9695</Id>\r\n      <ZoomLevel>0.76</ZoomLevel>\r\n     
+    <ZoomOffset>126|65||0</ZoomOffset>\r\n      <PanOffset>247|182||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>c80eb1a1-aff3-4905-b9ea-2e758fa26d17</Key>\r\n    <GraphData>\r\n     
     <Id>c80eb1a1-aff3-4905-b9ea-2e758fa26d17</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
     <ZoomOffset>0|0||0</ZoomOffset>\r\n      <PanOffset>-214|451||0</PanOffset>\r\n   
@@ -4577,5 +4577,5 @@ MonoBehaviour:
   DocumentId: 98a9ccc5-49fd-4069-b090-c33275ae3ee5
   DocumentNameOverride: 
   History: []
-  LastCompiledHistoryID: 34c35102-3ddf-40a6-b08c-a7ea45608f1d
+  LastCompiledHistoryID: 3e67aeb5-e840-4d3b-a4cf-a38af2b5e5a1
   IsOutdated: 0

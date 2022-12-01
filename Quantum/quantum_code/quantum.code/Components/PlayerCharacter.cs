@@ -287,8 +287,8 @@ namespace Quantum
 		/// </summary>
 		public FP GetAmmoAmountFilled(Frame f, EntityRef e)
 		{
-			var stats = f.Get<Stats>(e);
-			return f.Unsafe.GetPointer<Stats>(e)->CurrentAmmo / stats.GetStatData(StatType.AmmoCapacity).StatValue;
+			var stats = f.Unsafe.GetPointer<Stats>(e);
+			return stats->CurrentAmmo / stats->GetStatData(StatType.AmmoCapacity).StatValue;
 		}
 
 		/// <summary>
@@ -296,9 +296,9 @@ namespace Quantum
 		/// </summary>
 		public bool IsAmmoEmpty(Frame f, EntityRef e, bool includeMag = true)
 		{
-			var withMag = GetAmmoAmountFilled(f, e) == 0 && !HasMeleeWeapon(f, e) && WeaponSlot->MagazineShotCount == 0;
-			var withoutMag = GetAmmoAmountFilled(f, e) == 0 && !HasMeleeWeapon(f, e);
-			return includeMag ? withMag : withoutMag;
+			return f.Unsafe.GetPointer<Stats>(e)->CurrentAmmo == 0
+				   && !HasMeleeWeapon(f, e)
+				   && (!includeMag || WeaponSlot->MagazineShotCount == 0);
 		}
 
 		/// <summary>

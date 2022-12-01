@@ -42,6 +42,33 @@ namespace FirstLight.Game.Data
 			{ GameId.BLST, 0 },
 			{ GameId.COIN, 0 }
 		};
+
+		public override int GetHashCode()
+		{
+			int hash = 17;
+			hash = hash * 23 + Flags.GetHashCode();
+			hash = hash * 23 + Level.GetHashCode();
+			hash = hash * 23 + Xp.GetHashCode();
+			hash = hash * 23 + Trophies.GetHashCode();
+			hash = hash * 23 + BPLevel.GetHashCode();
+			hash = hash * 23 + BPPoints.GetHashCode();
+			hash = hash * 23 + PlayerSkinId.GetHashCode();
+			hash = hash * 23 + DeathMarker.GetHashCode();
+
+			foreach (var e in UncollectedRewards)
+				hash = hash * 23 + (int)e.RewardId + e.Value.GetHashCode();
+			
+			foreach (var e in Equipped)
+				hash = hash * 23 + (int)e.Key + e.Value.GetHashCode();
+
+			foreach (var e in ResourcePools)
+				hash = hash * 23 + (int)e.Key + e.Value.GetHashCode();
+			
+			foreach (var e in Currencies)
+				hash = hash * 23 + (int)e.Key + e.Value.GetHashCode();
+			
+			return hash;
+		}
 	}
 	
 }

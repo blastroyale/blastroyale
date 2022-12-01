@@ -35,7 +35,10 @@ namespace FirstLight.Game.Data.DataTypes
 		/// <inheritdoc />
 		public override int GetHashCode()
 		{
-			return Id.GetHashCode();
+			int hash = 17;
+			hash = hash * 23 + Id.GetHashCode();
+			hash = hash * 23 + CurrentResourceAmountInPool.GetHashCode();
+			return hash;
 		}
 	}
 }

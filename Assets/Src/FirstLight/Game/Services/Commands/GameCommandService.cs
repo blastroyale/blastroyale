@@ -10,6 +10,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Utils;
 using FirstLight.NativeUi;
+using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
@@ -156,6 +157,11 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc cref="CommandService{TGameLogic}.ExecuteCommand{TCommand}" />
 		public void ExecuteCommand<TCommand>(TCommand command) where TCommand : IGameCommand
 		{
+#if UNITY_EDITOR
+			// Ensure we go trough serialization & deserialization process Editor
+			var serializedCommand = ModelSerializer.Serialize(command).Value;
+			command = ModelSerializer.Deserialize<TCommand>(serializedCommand);
+#endif
 			try
 			{
 				switch (command.ExecutionMode())
@@ -208,13 +214,14 @@ namespace FirstLight.Game.Services
 		private void OnCommandException(string exceptionMsg)
 		{
 #if UNITY_EDITOR
+			FLog.Error(exceptionMsg);
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = "OK",
 				ButtonOnClick = () =>
 				{
 					_services.AnalyticsService.CrashLog(exceptionMsg);
-					_services.QuitGame("Server desynch");
+					_services.QuitGame(exceptionMsg);
 				}
 			};
 			_services.GenericDialogService.OpenButtonDialog("Server Error", exceptionMsg, false, confirmButton);
@@ -338,7 +345,37 @@ namespace FirstLight.Game.Services
 					return;
 				}
 			}
+
+			var desynchs = GetDesynchedDeltas(_dataService, logicResult.Result.Data);
+			if (desynchs.Count > 0)
+			{
+				OnCommandException($"Models desynched: {string.Join(',', desynchs)}");
+				// TODO: Do a json diff and show which data exactly is different
+			} 
 			OnServerExecutionFinished(current);
+		}
+		
+		/// <summary>
+		/// By a given server response, tries to identifies any delta missmatch to detect
+		/// data desynch betwen client & server
+		/// TODO: Move to server when IDataProvider moves to server
+		/// </summary>
+		public static List<Type> GetDesynchedDeltas(IDataProvider data, Dictionary<string, string> serverResponse)
+		{
+			var delta = ModelSerializer.DeserializeFromData<StateDelta>(serverResponse, true);
+			var invalid = new List<Type>();
+			if (!delta.ModifiedTypes.Any())
+				return invalid;
+
+			foreach (var modifiedType in delta.ModifiedTypes.Keys)
+			{
+				var model = data.GetData(modifiedType);
+				if (model.GetHashCode() != delta.ModifiedTypes[modifiedType])
+				{
+					invalid.Add(modifiedType);
+				}
+			}
+			return invalid;
 		}
 	}
 }

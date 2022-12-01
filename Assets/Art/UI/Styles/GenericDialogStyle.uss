@@ -102,6 +102,11 @@
     left: 179px;
 }
 
+.content__background--bp-reward-popup {
+    left: 134px;
+    bottom: -106px;
+}
+
 .content__controls {
     flex-direction: row;
     flex-shrink: 1;
@@ -119,23 +124,6 @@
     font-size: 30px;
     letter-spacing: 1px;
     color: rgb(90, 86, 125);
-}
-
-.spacer {
-    width: 100%;
-    height: 5px;
-}
-
-.spacer--small {
-    height: 10px;
-}
-
-.spacer--medium {
-    height: 20px;
-}
-
-.spacer--big {
-    height: 30px;
 }
 
 .input-field > .unity-text-field__input {

@@ -74,14 +74,14 @@
 
 .font-style-h2 {
     font-size: 38px;
-    text-shadow: 5px 5px 0 rgba(0, 0, 0, 0.53);
+    text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.53);
     color: rgb(255, 255, 255);
 }
 
 .font-style-h1 {
     font-size: 70px;
     -unity-font-style: bold;
-    text-shadow: 5px 5px 0 rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(0, 0, 0);
@@ -91,7 +91,7 @@
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMain.png?fileID=21300000&guid=8368e60ca24ab4818929e5d7b2dd77f2&type=3#ButtonMain');
     -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Condensed%20Ultra%20Italic.otf?fileID=12800000&guid=6ff2428eb8a974c2281717afe377e3c6&type=3#Stawix - Amsi Pro Condensed Ultra Italic');
     font-size: 38px;
-    text-shadow: 5px 5px 0 rgba(0, 0, 0, 0.53);
+    text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.53);
     color: rgb(255, 255, 255);
     width: 222px;
     height: 128px;
@@ -459,4 +459,62 @@
 
 .price-button__icon--coin {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/CoinIcon.png?fileID=21300000&guid=787f6e10544e24075863e3f881de6467&type=3#CoinIcon');
+}
+
+.height-spacer {
+    width: 100%;
+    height: 5px;
+}
+
+.height-spacer--s {
+    height: 10px;
+}
+
+.height-spacer--m {
+    height: 20px;
+}
+
+.height-spacer--l {
+    height: 30px;
+}
+
+.height-spacer--xl {
+    height: 50px;
+}
+
+.height-spacer--xxl {
+    height: 75px;
+}
+
+.height-spacer--xxxl {
+    height: 125px;
+}
+
+.width-spacer {
+    height: 100%;
+    width: 5px;
+}
+
+.width-spacer--s {
+    width: 10px;
+}
+
+.width-spacer--m {
+    width: 20px;
+}
+
+.width-spacer--l {
+    width: 30px;
+}
+
+.width-spacer--xl {
+    width: 50px;
+}
+
+.width-spacer--xxl {
+    width: 75px;
+}
+
+.width-spacer--xxxl {
+    width: 125px;
 }

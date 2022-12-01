@@ -159,7 +159,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 4e47c79fe11774312872c0e2cfc762ee, type: 3}
   - {fileID: 21300000, guid: cc4bebaf13b9943d1b1da524b151099d, type: 3}
   m_PackedSpriteNamesToIndex:
-  - CoinIcon
+  - Coin
   - CommonItemButtonPressed
   - AirstrikeAbilityIcon
   - ProfileHeadlineBack

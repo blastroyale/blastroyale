@@ -1503,8 +1503,8 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - "Blast Tokens are valuable rewards obtained in special ways in-game, or purchased.
-        \n\nUse Blast Tokens to purchase equipment on the marketplace."
+      - "Blast Tokens will be a valuable rewards obtained in special ways in-game,
+        or purchased. \n\nUse Blast Tokens to purchase equipment on the marketplace."
       - 
       - 
       Flags: 000000
@@ -1513,12 +1513,12 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 'Gain Craft Spice by placing higher in Battle Royale matches.
+      - 'Gain Craft Spice by placing higher in Ranked Battle Royale matches using
+        NFTs.
 
 
-        Craft
-        Spice is used on the marketplace for upgrading, repairing and replicating
-        equipment.'
+        Craft Spice is used on the Blast Hub for upgrading, repairing
+        and replicating equipment.'
       - 
       - 
       Flags: 000000
@@ -1559,8 +1559,25 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - "Trophies increase your Craft Spice pool. \n\nPlace higher in Battle Royale
-        matches to earn trophies."
+      - 'Trophies increase your Craft Spice pool and move you higher in the Global
+        Leadearboard.
+
+
+        Place higher in Ranked Battle Royale matches to earn
+        trophies.'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Tooltips/ToolTip_Coins
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Gain Coins by scrapping equipment.
+
+
+        Use Coins for upgrading and
+        repairing your equipment.'
       - 
       - 
       Flags: 000000
@@ -8745,11 +8762,13 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 'This is the text that
+      - 'Gain Coins by scrapping equipment.
 
-        describes the COIN
 
-        currency.'
+        Use Coins for upgrading
+
+        and
+        repairing your equipment.'
       - 
       - 
       Flags: 000000
@@ -8758,11 +8777,8 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 'This is the text that
-
-        describes the BLST
-
-        currency.'
+      - "Blast Tokens will be a valuable\nrewards obtained in special ways\nin-game,
+        or purchased. \n\nUse Blast Tokens to purchase\nequipment on the marketplace."
       - 
       - 
       Flags: 000000
@@ -8771,11 +8787,20 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 'This is the text that
+      - 'Gain Craft Spice by placing higher
 
-        describes the CS
+        in Ranked Battle Royale matches
 
-        currency.'
+        using
+        NFTs.
+
+
+        Craft Spice is used on the Blast Hub
+
+        for upgrading,
+        repairing and
+
+        replicating equipment.'
       - 
       - 
       Flags: 000000
@@ -9567,6 +9592,33 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITShared/show
+      TermType: 0
+      Description: 
+      Languages:
+      - SHOW
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITShared/hide
+      TermType: 0
+      Description: 
+      Languages:
+      - HIDE
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITShared/leave
+      TermType: 0
+      Description: 
+      Languages:
+      - LEAVE
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITSettings/logout
       TermType: 0
       Description: 
@@ -10061,7 +10113,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - CLAIM ALL
+      - CLAIM REWARDS
       - 
       - 
       Flags: 000000
@@ -10089,6 +10141,24 @@ MonoBehaviour:
       Description: 
       Languages:
       - RANDOM EQUIPMENT
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITBattlePass/equipment_reward
+      TermType: 0
+      Description: 
+      Languages:
+      - EQUIPMENT REWARD
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITBattlePass/equipment_reward_desc
+      TermType: 0
+      Description: 
+      Languages:
+      - YOU HAVE RECEIVED A NEW PIECE OF EQUIPMENT!
       - 
       - 
       Flags: 000000
@@ -10753,6 +10823,87 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITRewards/craft_spice
+      TermType: 0
+      Description: 
+      Languages:
+      - CRAFT SPICE
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITRewards/trophies
+      TermType: 0
+      Description: 
+      Languages:
+      - TROPHIES
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITRewards/battlepass
+      TermType: 0
+      Description: 
+      Languages:
+      - BATTLE PASS
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITRewards/this_week
+      TermType: 0
+      Description: 
+      Languages:
+      - THIS WEEK
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITSpectate/spectating
+      TermType: 0
+      Description: 
+      Languages:
+      - SPECTATING
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITSpectate/camera_1
+      TermType: 0
+      Description: 
+      Languages:
+      - CAMERA 1
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITSpectate/camera_2
+      TermType: 0
+      Description: 
+      Languages:
+      - CAMERA 2
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITSpectate/camera_3
+      TermType: 0
+      Description: 
+      Languages:
+      - CAMERA 3
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITSpectate/defeated_you
+      TermType: 0
+      Description: 
+      Languages:
+      - DEFEATED YOU
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -10771,7 +10922,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1669732264881
+    Google_LastUpdatedVersion: 1669891700745
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

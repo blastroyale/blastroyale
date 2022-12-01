@@ -5,7 +5,7 @@
     <Style src="project://database/Assets/Art/UI/Styles/EquipmentStatBarStyle.uss?fileID=7433441132597879392&amp;guid=3f98db78bba74198b5adda7525e11796&amp;type=3#EquipmentStatBarStyle" />
     <ui:VisualElement name="root" class="fill-parent">
         <ui:VisualElement name="Background" class="background fill-parent anim-delay-0 anim-fade" />
-        <FirstLight.Game.UIElements.SafeAreaElement class="fill-parent safe-area">
+        <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore" class="fill-parent safe-area">
             <ui:VisualElement picking-mode="Ignore" name="TopButtons" class="top-buttons">
                 <ui:VisualElement name="CurrencyGlow" class="currency-glow anim-delay-0 anim-fade" />
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="COINCurrency" currency="COIN" class="anim-delay-0 anim-translate anim-translate--down-s" />

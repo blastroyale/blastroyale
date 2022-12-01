@@ -93,7 +93,7 @@ namespace FirstLight.Game.Logic
 		/// </summary>
 		List<RewardData> ClaimUncollectedRewards();
 
-		List<Equipment> ClaimIAPRewards();
+		List<KeyValuePair<UniqueId,Equipment>> ClaimIAPRewards();
 
 		/// <summary>
 		/// Adds an IAP reward to the list of unclaimed rewards. This is used when doing an IAP, to
@@ -333,9 +333,9 @@ namespace FirstLight.Game.Logic
 			return rewards;
 		}
 
-		public List<Equipment> ClaimIAPRewards()
+		public List<KeyValuePair<UniqueId,Equipment>> ClaimIAPRewards()
 		{
-			var rewards = new List<Equipment>(1);
+			var rewards = new List<KeyValuePair<UniqueId,Equipment>>(1);
 
 			foreach (var reward in Data.UncollectedRewards)
 			{
@@ -380,14 +380,14 @@ namespace FirstLight.Game.Logic
 			return reward;
 		}
 
-		private Equipment ClaimEquipmentReward(GameId id)
+		private KeyValuePair<UniqueId,Equipment> ClaimEquipmentReward(GameId id)
 		{
 			var config = GameLogic.ConfigsProvider.GetConfigsList<EquipmentRewardConfig>()
 				.First(cfg => cfg.GameId == id);
 
 			var equipment = GameLogic.EquipmentLogic.GenerateEquipmentFromConfig(config);
-			GameLogic.EquipmentLogic.AddToInventory(equipment);
-			return equipment;
+			var uniqueId = GameLogic.EquipmentLogic.AddToInventory(equipment);
+			return new KeyValuePair<UniqueId, Equipment>(uniqueId, equipment);
 		}
 	}
 

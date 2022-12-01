@@ -33,7 +33,8 @@ namespace Backend.Game.Services
     		{
     			PlayFabId = playerId
     		};
-    		if(state.UpdatedTypes.Count > 0)
+			
+    		if(state.HasDelta())
     		{
     			request.Data = state.GetOnlyUpdatedState();
     		} else

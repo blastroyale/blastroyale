@@ -351,7 +351,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static string GetPlayerName(this QuantumPlayerMatchData data)
 		{
-			if (data.Data.IsBot)
+			if (data.IsBot)
 			{
 				return GetBotName(data.PlayerName);
 			}

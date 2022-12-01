@@ -131,7 +131,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 
 			// We cannot send this event for everyone every time so we only send if we are the killer or we were killed by a bot
 			if (!(playerKilledEvent.Game.PlayerIsLocal(playerKilledEvent.PlayerKiller) || 
-			    (killerData.Data.IsBot && playerKilledEvent.Game.PlayerIsLocal(playerKilledEvent.PlayerDead))))
+			    (killerData.IsBot && playerKilledEvent.Game.PlayerIsLocal(playerKilledEvent.PlayerDead))))
 			{
 				return;
 			}
@@ -145,9 +145,9 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"match_type", room.GetMatchType().ToString()},
 				{"game_mode", room.GetGameModeId()},
 				{"mutators", string.Join(",",room.GetMutatorIds())},
-				{"killed_name", (deadData.Data.IsBot?"Bot":"") + deadData.PlayerName},
-				{"killed_reason", playerKilledEvent.EntityDead == playerKilledEvent.EntityKiller? "suicide":(killerData.Data.IsBot?"bot":"player")},
-				{"killer_name", (killerData.Data.IsBot?"Bot":"") + killerData.PlayerName}
+				{"killed_name", (deadData.IsBot?"Bot":"") + deadData.PlayerName},
+				{"killed_reason", playerKilledEvent.EntityDead == playerKilledEvent.EntityKiller? "suicide":(killerData.IsBot?"bot":"player")},
+				{"killer_name", (killerData.IsBot?"Bot":"") + killerData.PlayerName}
 			};
 			
 			_analyticsService.LogEvent(AnalyticsEvents.MatchKillAction, data, false);

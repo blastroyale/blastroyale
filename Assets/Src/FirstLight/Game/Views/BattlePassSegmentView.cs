@@ -102,10 +102,8 @@ namespace FirstLight.Game.Views
 			_claimStatusCheckmark.SetDisplay(isRewardClaimed);
 			_readyToClaimOutline.SetDisplay(!isRewardClaimed && _data.PredictedCurrentLevel >= _data.SegmentLevelForRewards);
 			_readyToClaimShine.SetDisplay(!isRewardClaimed && _data.PredictedCurrentLevel >= _data.SegmentLevelForRewards);
-			_claimBubble.SetDisplay(false);
-			_blocker.SetDisplay(true);
 			
-			_blocker.SetDisplay(!isRewardClaimed && _data.PredictedCurrentLevel != _data.SegmentLevelForRewards);
+			_blocker.SetDisplay(isRewardClaimed || _data.PredictedCurrentLevel != _data.SegmentLevelForRewards);
 			_claimBubble.SetDisplay(!isRewardClaimed && _data.PredictedCurrentLevel == _data.SegmentLevelForRewards);
 			
 			if (data.PredictedCurrentLevel > data.SegmentLevel)

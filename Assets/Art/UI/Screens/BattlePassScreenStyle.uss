@@ -109,11 +109,11 @@
 
 .bpp-bar__label {
     -unity-text-outline-width: 2px;
-    -unity-text-outline-color: rgb(22, 20, 38);
-    text-shadow: 3px 3px 0 rgb(22, 20, 38);
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
     -unity-font-style: bold;
     -unity-font-definition: var(--font-italic);
-    font-size: 38px;
+    font-size: 36px;
     color: rgb(255, 255, 255);
     -unity-text-align: middle-center;
     width: 100%;

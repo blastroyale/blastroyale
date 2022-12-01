@@ -241,7 +241,7 @@ namespace FirstLight.Game.Presenters
 			_camera.gameObject.SetActive(true);
 
 			// A very magic number that makes the character look good enough in any aspect ratio
-			_camera.fieldOfView = 15f;
+			_camera.fieldOfView = Camera.HorizontalToVerticalFieldOfView(20f, _camera.aspect);
 		}
 		
 		private async void UpdateCharacter()

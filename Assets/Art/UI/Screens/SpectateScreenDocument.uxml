@@ -14,6 +14,10 @@
             </ui:VisualElement>
             <FirstLight.Game.UIElements.LocalizedButton localization-key="UITShared/leave" name="LeaveButton" class="button-next sfx-click-backwards anim-delay-0 anim-translate anim-translate--left-l" />
             <ui:VisualElement name="PlayerHolder" class="player-holder anim-delay-0 anim-translate anim-translate--right-xxl">
+                <ui:VisualElement name="Background" class="fill-parent player-holder__background">
+                    <ui:VisualElement class="player-holder__background-filler" />
+                    <ui:VisualElement class="player-holder__background-jagged" />
+                </ui:VisualElement>
                 <ui:VisualElement name="RTHolder" class="player-holder__rt-holder">
                     <ui:VisualElement name="PlayerRT" class="player-holder__player-rt" />
                 </ui:VisualElement>

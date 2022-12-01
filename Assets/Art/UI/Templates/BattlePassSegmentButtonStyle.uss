@@ -24,13 +24,13 @@
     padding-bottom: 2px;
     flex-direction: row;
     position: absolute;
+    align-items: center;
 }
 
 .progress-bar__progress {
     background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/BattlePassProgressBar.png?fileID=21300000&guid=b0d1b38a7908e49b0a5d5651fb141c6f&type=3#BattlePassProgressBar');
-    flex-grow: 1;
-    position: absolute;
     height: 26px;
+    flex-grow: 0.5;
 }
 
 .progress-bar__level {

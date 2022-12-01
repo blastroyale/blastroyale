@@ -90,12 +90,13 @@
     padding-bottom: 2px;
     flex-direction: row;
     position: absolute;
+    align-items: center;
 }
 
 .bpp-bar__progress {
     background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/BPPBar.png?fileID=21300000&guid=f63e212478a7f4fec8c790922a819e4c&type=3#BPPBar');
-    position: absolute;
     height: 85%;
+    flex-grow: 0.5;
 }
 
 .bpp-bar__icon {
@@ -206,7 +207,7 @@
     background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/MainButton.png?fileID=21300000&guid=1c5b1e0f6e789ec43a771b64556e3a8d&type=3#MainButton');
     -unity-font-style: bold;
     -unity-font-definition: var(--font-italic);
-    font-size: 50px;
+    font-size: 45px;
     text-shadow: 3px 3px 0 rgb(90, 0, 0);
     color: rgb(255, 255, 255);
     width: 350px;

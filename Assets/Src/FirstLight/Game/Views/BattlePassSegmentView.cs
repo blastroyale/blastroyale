@@ -105,7 +105,7 @@ namespace FirstLight.Game.Views
 			_claimBubble.SetDisplay(false);
 			_blocker.SetDisplay(true);
 			
-			_blocker.SetDisplay(_data.PredictedCurrentLevel != _data.SegmentLevelForRewards);
+			_blocker.SetDisplay(!isRewardClaimed && _data.PredictedCurrentLevel != _data.SegmentLevelForRewards);
 			_claimBubble.SetDisplay(!isRewardClaimed && _data.PredictedCurrentLevel == _data.SegmentLevelForRewards);
 			
 			if (data.PredictedCurrentLevel > data.SegmentLevel)
@@ -124,8 +124,7 @@ namespace FirstLight.Game.Views
 
 		private void SetProgressFill(float percent)
 		{
-			var barWidth = _progressBackground.contentRect.width;
-			_progressBarFill.style.width = barWidth * percent;
+			_progressBarFill.style.flexGrow = percent;
 		}
 
 		private string GetRarityStyle(GameId id)

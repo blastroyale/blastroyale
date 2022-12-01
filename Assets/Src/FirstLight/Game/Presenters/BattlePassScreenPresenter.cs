@@ -17,6 +17,7 @@ using I2.Loc;
 using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.UIElements.Experimental;
 
 namespace FirstLight.Game.Presenters
 {
@@ -36,8 +37,7 @@ namespace FirstLight.Game.Presenters
 		private const float BpSegmentWidth = 475f;
 
 		[SerializeField] private VisualTreeAsset _battlePassSegmentAsset;
-		[SerializeField] private Ease _scrollEaseMode;
-		[SerializeField] private float _scrollToDuration;
+		[SerializeField] private int _scrollToDurationMs = 1500;
 		
 		private ScrollView _rewardsScroll;
 		private VisualElement _root;
@@ -84,16 +84,12 @@ namespace FirstLight.Game.Presenters
 			_claimButton.clicked += OnClaimClicked;
 		}
 
-		protected override async void OnOpened()
+		protected override void OnOpened()
 		{
 			base.OnOpened();
 			
-			await Task.Yield();
-			
 			InitScreen();
 			SpawnSegments();
-			
-			await Task.Yield();
 			
 			// Has to be done 1 frame after the segments are spawned, otherwise they don't init correctly
 			InitSegments();
@@ -102,7 +98,7 @@ namespace FirstLight.Game.Presenters
 
 			if (predictedProgress.Item1 > 1)
 			{
-				ScrollToBpLevel((int) predictedProgress.Item1,1f);
+				ScrollToBpLevel((int) predictedProgress.Item1,_scrollToDurationMs);
 			}
 		}
 
@@ -156,9 +152,7 @@ namespace FirstLight.Game.Presenters
 			_currentLevelLabel.text = (predictedProgress.Item1 + 1).ToString();
 			_nextLevelLabel.text = (predictedProgress.Item1 + 2).ToString();
 			
-			var barMaxWidth = _bppProgressBackground.contentRect.width;
-			var predictedProgressPercent = (float) predictedProgress.Item2 / predictedMaxProgress;
-			_bppProgressFill.style.width = barMaxWidth * predictedProgressPercent;
+			_bppProgressFill.style.flexGrow = (float) predictedProgress.Item2 / predictedMaxProgress;
 
 			_screenHeader.SetTitle(string.Format(ScriptLocalization.UITBattlePass.season_number, "1"));
 			_claimButton.SetDisplay(_dataProvider.BattlePassDataProvider.IsRedeemable());
@@ -215,16 +209,16 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		private void ScrollToBpLevel(int index, float duration)
+		private void ScrollToBpLevel(int index, int durationMs)
 		{
 			var targetX = ((index + 1) * BpSegmentWidth) - BpSegmentWidth;
 
-			DOVirtual.Float(0, 1f, duration, percent =>
+			_rewardsScroll.experimental.animation.Start(0, 1f, durationMs, (element, percent) =>
 			{
-				var currentScroll = _rewardsScroll.scrollOffset;
-
-				_rewardsScroll.scrollOffset = new Vector2(targetX * percent, currentScroll.y);
-			}).SetEase(_scrollEaseMode);
+				var scrollView = (ScrollView) element;
+				var currentScroll = scrollView.scrollOffset;
+				scrollView.scrollOffset = new Vector2(targetX * percent, currentScroll.y);
+			}).Ease(Easing.OutCubic);
 		}
 
 		private void SpawnScrollFiller()

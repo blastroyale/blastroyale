@@ -2,8 +2,9 @@
     <Style src="project://database/Assets/Art/UI/Templates/BattlePassSegmentButtonStyle.uss?fileID=7433441132597879392&amp;guid=085e3e990597b6b47bd7e65b60a2c14a&amp;type=3#BattlePassSegmentButtonStyle" />
     <ui:VisualElement name="BattlePassSegment" class="segment">
         <ui:VisualElement name="ProgressBar" class="progress-bar">
-            <ui:VisualElement name="ProgressBackground" class="progress-bar__background" />
-            <ui:VisualElement name="ProgressFill" class="progress-bar__progress" />
+            <ui:VisualElement name="ProgressBackground" class="progress-bar__background">
+                <ui:VisualElement name="ProgressFill" class="progress-bar__progress" />
+            </ui:VisualElement>
             <ui:VisualElement name="Level" class="progress-bar__level">
                 <ui:VisualElement name="LevelBg" class="progress-bar__level-bg" />
                 <FirstLight.Game.UIElements.AutoSizeLabel text="10" display-tooltip-when-elided="true" name="LevelLabel" max-font-size="55" class="progress-bar__level-label" />

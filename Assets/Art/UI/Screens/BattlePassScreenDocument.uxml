@@ -26,8 +26,9 @@
                 </ui:VisualElement>
                 <ui:VisualElement name="Spacer" class="width-spacer width-spacer--xl" />
                 <ui:VisualElement name="BppBar" class="bpp-bar">
-                    <ui:VisualElement name="BppBackground" class="bpp-bar__background" />
-                    <ui:VisualElement name="BppProgress" class="bpp-bar__progress" />
+                    <ui:VisualElement name="BppBackground" class="bpp-bar__background">
+                        <ui:VisualElement name="BppProgress" class="bpp-bar__progress" />
+                    </ui:VisualElement>
                     <ui:Label text="0 / 100" display-tooltip-when-elided="true" name="BppProgressLabel" class="bpp-bar__label" />
                     <ui:VisualElement name="Icon" class="bpp-bar__icon" />
                 </ui:VisualElement>

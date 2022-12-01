@@ -197,14 +197,14 @@
     background-color: rgba(16, 23, 63, 0.91);
     align-items: auto;
     flex-grow: 1;
-    flex-basis: 10000px;
+    flex-basis: 20000px;
 }
 
 .dropzone__path {
     align-items: center;
     justify-content: flex-end;
     flex-grow: 1;
-    flex-basis: 1250px;
+    flex-basis: 2000px;
 }
 
 .dropzone__plane {

@@ -82,7 +82,12 @@ namespace FirstLight.Game.Presenters
 			_screenHeader.backClicked += Data.BackClicked;
 			_screenHeader.homeClicked += Data.BackClicked;
 			_claimButton.clicked += OnClaimClicked;
+		}
 
+		protected override async void OnOpened()
+		{
+			base.OnOpened();
+			
 			await Task.Yield();
 			
 			InitScreen();
@@ -94,7 +99,11 @@ namespace FirstLight.Game.Presenters
 			InitSegments();
 			
 			var predictedProgress = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
-			ScrollToBpLevel((int) predictedProgress.Item1,1f);
+
+			if (predictedProgress.Item1 > 1)
+			{
+				ScrollToBpLevel((int) predictedProgress.Item1,1f);
+			}
 		}
 
 		protected override void SubscribeToEvents()
@@ -111,6 +120,11 @@ namespace FirstLight.Game.Presenters
 			
 			_services.MessageBrokerService.UnsubscribeAll(this);
 			_dataProvider.BattlePassDataProvider.CurrentPoints.StopObservingAll(this);
+		}
+		
+		private void OnSegmentRewardClicked(BattlePassSegmentView view)
+		{
+			OnClaimClicked();
 		}
 
 		private void OnClaimClicked()
@@ -221,10 +235,6 @@ namespace FirstLight.Game.Presenters
 			filler.AddToClassList(UssBpSegmentFiller);
 		}
 
-		private void OnSegmentRewardClicked(BattlePassSegmentView view)
-		{
-		}
-		
 		private void OnBattlePassLevelUp(BattlePassLevelUpMessage message)
 		{
 			var predictedProgress = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();

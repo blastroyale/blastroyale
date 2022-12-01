@@ -105,9 +105,8 @@ namespace FirstLight.Game.Views
 			_claimBubble.SetDisplay(false);
 			_blocker.SetDisplay(true);
 			
-			// TODO - Re-enable when we can claim individual BP rewards
-			//_blocker.SetDisplayActive(_data.PredictedCurrentLevel > _data.SegmentLevelForRewards);
-			//_claimBubble.SetDisplayActive(!isRewardClaimed && _data.PredictedCurrentLevel >  _data.SegmentLevelForRewards);
+			_blocker.SetDisplay(_data.PredictedCurrentLevel != _data.SegmentLevelForRewards);
+			_claimBubble.SetDisplay(!isRewardClaimed && _data.PredictedCurrentLevel == _data.SegmentLevelForRewards);
 			
 			if (data.PredictedCurrentLevel > data.SegmentLevel)
 			{

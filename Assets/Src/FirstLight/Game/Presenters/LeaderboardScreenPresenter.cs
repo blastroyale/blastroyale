@@ -69,7 +69,9 @@ namespace FirstLight.Game.Presenters
 
 			_farRankLeaderboardRoot.SetActive(false);
 
-			var nextResetDate = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month + 1, 1);
+			
+			var nextResetDate = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, 1);
+			nextResetDate.AddMonths(1);
 			var timeDiff = nextResetDate - DateTime.UtcNow;
 
 			// TODO - ALL TEXT ON THIS PRESENTER NEEDS TO BE ADDED, HOOKED UP AND LOCALIZED. THIS IS PLACEHOLDER

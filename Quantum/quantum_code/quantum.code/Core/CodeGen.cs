@@ -2997,18 +2997,20 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct WeaponSlot {
-    public const Int32 SIZE = 256;
+    public const Int32 SIZE = 264;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(0)]
-    public Int32 MagazineShotCount;
+    public Int32 AmmoCostPerShot;
     [FieldOffset(4)]
-    public Int32 MagazineSize;
+    public Int32 MagazineShotCount;
     [FieldOffset(8)]
+    public Int32 MagazineSize;
+    [FieldOffset(16)]
     public FP ReloadTime;
-    [FieldOffset(96)]
+    [FieldOffset(104)]
     [FramePrinter.FixedArrayAttribute(typeof(Special), 2)]
     private fixed Byte _Specials_[160];
-    [FieldOffset(16)]
+    [FieldOffset(24)]
     public Equipment Weapon;
     public FixedArray<Special> Specials {
       get {
@@ -3018,6 +3020,7 @@ namespace Quantum {
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 359;
+        hash = hash * 31 + AmmoCostPerShot.GetHashCode();
         hash = hash * 31 + MagazineShotCount.GetHashCode();
         hash = hash * 31 + MagazineSize.GetHashCode();
         hash = hash * 31 + ReloadTime.GetHashCode();
@@ -3028,6 +3031,7 @@ namespace Quantum {
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (WeaponSlot*)ptr;
+        serializer.Stream.Serialize(&p->AmmoCostPerShot);
         serializer.Stream.Serialize(&p->MagazineShotCount);
         serializer.Stream.Serialize(&p->MagazineSize);
         FP.Serialize(&p->ReloadTime, serializer);
@@ -4202,7 +4206,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct PlayerCharacter : Quantum.IComponent {
-    public const Int32 SIZE = 1232;
+    public const Int32 SIZE = 1256;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(16)]
     public AssetRefAIBlackboard BlackboardRef;
@@ -4228,7 +4232,7 @@ namespace Quantum {
     [FieldOffset(464)]
     [HideInInspector()]
     [FramePrinter.FixedArrayAttribute(typeof(WeaponSlot), 3)]
-    private fixed Byte _WeaponSlots_[768];
+    private fixed Byte _WeaponSlots_[792];
     public FixedArray<Equipment> Gear {
       get {
         fixed (byte* p = _Gear_) { return new FixedArray<Equipment>(p, 80, 5); }
@@ -4236,7 +4240,7 @@ namespace Quantum {
     }
     public FixedArray<WeaponSlot> WeaponSlots {
       get {
-        fixed (byte* p = _WeaponSlots_) { return new FixedArray<WeaponSlot>(p, 256, 3); }
+        fixed (byte* p = _WeaponSlots_) { return new FixedArray<WeaponSlot>(p, 264, 3); }
       }
     }
     public override Int32 GetHashCode() {
@@ -4666,27 +4670,29 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Stats : Quantum.IComponent {
-    public const Int32 SIZE = 232;
+    public const Int32 SIZE = 240;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(0)]
-    public Int32 CurrentHealth;
+    public Int32 CurrentAmmo;
     [FieldOffset(4)]
-    public Int32 CurrentShield;
-    [FieldOffset(24)]
-    public FP CurrentStatusModifierDuration;
-    [FieldOffset(32)]
-    public FP CurrentStatusModifierEndTime;
-    [FieldOffset(20)]
-    public StatusModifierType CurrentStatusModifierType;
+    public Int32 CurrentHealth;
     [FieldOffset(8)]
-    public QBoolean IsImmune;
+    public Int32 CurrentShield;
+    [FieldOffset(32)]
+    public FP CurrentStatusModifierDuration;
+    [FieldOffset(40)]
+    public FP CurrentStatusModifierEndTime;
+    [FieldOffset(24)]
+    public StatusModifierType CurrentStatusModifierType;
     [FieldOffset(12)]
+    public QBoolean IsImmune;
+    [FieldOffset(16)]
     [FramePrinter.PtrQListAttribute(typeof(Modifier))]
     private Quantum.Ptr ModifiersPtr;
-    [FieldOffset(16)]
+    [FieldOffset(20)]
     [FramePrinter.PtrQListAttribute(typeof(EntityRef))]
     private Quantum.Ptr SpellEffectsPtr;
-    [FieldOffset(40)]
+    [FieldOffset(48)]
     [FramePrinter.FixedArrayAttribute(typeof(StatData), 8)]
     private fixed Byte _Values_[192];
     public QListPtr<Modifier> Modifiers {
@@ -4713,6 +4719,7 @@ namespace Quantum {
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 593;
+        hash = hash * 31 + CurrentAmmo.GetHashCode();
         hash = hash * 31 + CurrentHealth.GetHashCode();
         hash = hash * 31 + CurrentShield.GetHashCode();
         hash = hash * 31 + CurrentStatusModifierDuration.GetHashCode();
@@ -4735,6 +4742,7 @@ namespace Quantum {
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (Stats*)ptr;
+        serializer.Stream.Serialize(&p->CurrentAmmo);
         serializer.Stream.Serialize(&p->CurrentHealth);
         serializer.Stream.Serialize(&p->CurrentShield);
         QBoolean.Serialize(&p->IsImmune, serializer);
@@ -5625,15 +5633,13 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnPlayerAmmoChanged OnPlayerAmmoChanged(PlayerRef Player, EntityRef Entity, Int32 PreviousAmmo, Int32 CurrentAmmo, Int32 MaxAmmo, FP FilledAmmo, Int32 MagSize) {
+      public EventOnPlayerAmmoChanged OnPlayerAmmoChanged(PlayerRef Player, EntityRef Entity, Int32 CurrentAmmo, Int32 MaxAmmo, Int32 MagSize) {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnPlayerAmmoChanged>(EventOnPlayerAmmoChanged.ID);
         ev.Player = Player;
         ev.Entity = Entity;
-        ev.PreviousAmmo = PreviousAmmo;
         ev.CurrentAmmo = CurrentAmmo;
         ev.MaxAmmo = MaxAmmo;
-        ev.FilledAmmo = FilledAmmo;
         ev.MagSize = MagSize;
         _f.AddEvent(ev);
         return ev;
@@ -7521,10 +7527,8 @@ namespace Quantum {
     public new const Int32 ID = 53;
     public PlayerRef Player;
     public EntityRef Entity;
-    public Int32 PreviousAmmo;
     public Int32 CurrentAmmo;
     public Int32 MaxAmmo;
-    public FP FilledAmmo;
     public Int32 MagSize;
     protected EventOnPlayerAmmoChanged(Int32 id, EventFlags flags) : 
         base(id, flags) {
@@ -7545,10 +7549,8 @@ namespace Quantum {
         var hash = 313;
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + Entity.GetHashCode();
-        hash = hash * 31 + PreviousAmmo.GetHashCode();
         hash = hash * 31 + CurrentAmmo.GetHashCode();
         hash = hash * 31 + MaxAmmo.GetHashCode();
-        hash = hash * 31 + FilledAmmo.GetHashCode();
         hash = hash * 31 + MagSize.GetHashCode();
         return hash;
       }
@@ -10476,6 +10478,7 @@ namespace Quantum.Prototypes {
   public sealed unsafe partial class Stats_Prototype : ComponentPrototype<Stats> {
     public Int32 CurrentHealth;
     public Int32 CurrentShield;
+    public Int32 CurrentAmmo;
     public QBoolean IsImmune;
     [ArrayLengthAttribute(8)]
     public StatData_Prototype[] Values = new StatData_Prototype[8];
@@ -10493,6 +10496,7 @@ namespace Quantum.Prototypes {
       return f.Set(entity, component) == SetResult.ComponentAdded;
     }
     public void Materialize(Frame frame, ref Stats result, in PrototypeMaterializationContext context) {
+      result.CurrentAmmo = this.CurrentAmmo;
       result.CurrentHealth = this.CurrentHealth;
       result.CurrentShield = this.CurrentShield;
       result.CurrentStatusModifierDuration = this.CurrentStatusModifierDuration;
@@ -10636,8 +10640,10 @@ namespace Quantum.Prototypes {
     public Int32 MagazineShotCount;
     public Int32 MagazineSize;
     public FP ReloadTime;
+    public Int32 AmmoCostPerShot;
     partial void MaterializeUser(Frame frame, ref WeaponSlot result, in PrototypeMaterializationContext context);
     public void Materialize(Frame frame, ref WeaponSlot result, in PrototypeMaterializationContext context) {
+      result.AmmoCostPerShot = this.AmmoCostPerShot;
       result.MagazineShotCount = this.MagazineShotCount;
       result.MagazineSize = this.MagazineSize;
       result.ReloadTime = this.ReloadTime;

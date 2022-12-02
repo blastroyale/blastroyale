@@ -91,11 +91,12 @@ public class InMemoryTestSetup : ITestPlayerSetup
 	{
 		_services = services;
 	}
+	
 	public string GetTestPlayerId()
 	{
 		var id = Guid.NewGuid().ToString();
 		var initialState = _services.GetService<IPlayerSetupService>().GetInitialState(id);
-		initialState.UpdatedTypes.Clear();
+		initialState.GetDeltas().Clear();
 		_services.GetService<IServerStateService>().UpdatePlayerState(id, initialState).Wait();
 		return id;
 	}

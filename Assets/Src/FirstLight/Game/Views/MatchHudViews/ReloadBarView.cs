@@ -15,12 +15,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 	public class ReloadBarView : MonoBehaviour, IPoolEntityDespawn
 	{
 		[SerializeField, Required] private Slider _slider;
-		[SerializeField, Required] private GameObject _separatorRef;
 		[SerializeField, Required] private Slider _reloadTimeSlider;
 
 		private Coroutine _reloadAnim;
 		private EntityRef _entity;
-		private IObjectPool<GameObject> _separatorPool;
 
 		/// <inheritdoc />
 		public void OnDespawn()
@@ -36,11 +34,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 		public void SetupView(Frame f, PlayerCharacter player, EntityRef entity)
 		{
 			_entity = entity;
-			SetSliderValue(f, player);
+			SetSliderValue(player);
 			
-			QuantumEvent.Subscribe<EventOnPlayerAmmoChanged>(this, HandleOnPlayerAmmoChanged);
+			QuantumEvent.Subscribe<EventOnPlayerMagazineChanged>(this, HandleOnPlayerMagazineChanged);
 			QuantumEvent.Subscribe<EventOnPlayerWeaponChanged>(this, HandleOnPlayerWeaponChanged);
-			QuantumEvent.Subscribe<EventOnPlayerStopAttack>(this, HandleOnPlayerStopAttack);
+			QuantumEvent.Subscribe<EventOnPlayerReloadStart>(this, HandleOnPlayerStartReload);
+			QuantumEvent.Subscribe<EventOnPlayerMagazineReloaded>(this, HandleOnPlayerFinishReload);
 		}
 
 		private void HandleOnPlayerWeaponChanged(EventOnPlayerWeaponChanged callback)
@@ -52,16 +51,15 @@ namespace FirstLight.Game.Views.MatchHudViews
 				return;
 			}
 
-			SetSliderValue(f, player);
+			SetSliderValue(player);
 
 			if (_reloadAnim != null)
 			{
 				StopCoroutine(_reloadAnim);
 			}
-			_reloadAnim = StartCoroutine(ReloadAnimation(f, player));
 		}
 
-		private void HandleOnPlayerAmmoChanged(EventOnPlayerAmmoChanged callback)
+		private void HandleOnPlayerMagazineChanged(EventOnPlayerMagazineChanged callback)
 		{
 			var f = callback.Game.Frames.Verified;
 
@@ -75,13 +73,13 @@ namespace FirstLight.Game.Views.MatchHudViews
 				StopCoroutine(_reloadAnim);
 			}
 
-			SetSliderValue(f, player);
+			SetSliderValue(player);
 		}
 
-		private void HandleOnPlayerStopAttack(EventOnPlayerStopAttack callback)
+		private void HandleOnPlayerStartReload(EventOnPlayerReloadStart callback)
 		{
 			var f = callback.Game.Frames.Verified;
-			if (callback.PlayerEntity != _entity || !f.TryGet<PlayerCharacter>(callback.PlayerEntity, out var player))
+			if (callback.Entity != _entity || !f.TryGet<PlayerCharacter>(callback.Entity, out var player))
 			{
 				return;
 			}
@@ -93,7 +91,24 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_reloadAnim = StartCoroutine(ReloadAnimation(f, player));
 		}
 
-		private void SetSliderValue(Frame f, PlayerCharacter player)
+		private void HandleOnPlayerFinishReload(EventOnPlayerMagazineReloaded callback)
+		{
+			var f = callback.Game.Frames.Verified;
+
+			if (callback.Entity != _entity || !f.TryGet<PlayerCharacter>(callback.Entity, out var player))
+			{
+				return;
+			}
+
+			if (_reloadAnim != null)
+			{
+				StopCoroutine(_reloadAnim);
+			}
+
+			SetSliderValue(player);
+		}
+
+		private void SetSliderValue(PlayerCharacter player)
 		{
 			var slot = player.WeaponSlots[player.CurrentWeaponSlot];
 			_slider.value = (float)slot.MagazineShotCount / slot.MagazineSize;
@@ -122,8 +137,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				yield return new WaitForEndOfFrame();
 				_reloadTimeSlider.value = (f.Time.AsFloat - startTime) / reloadTime;
 			}
-
-			_slider.value = magSize;
+			
 			_reloadTimeSlider.gameObject.SetActive(false);
 		}
 	}

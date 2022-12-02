@@ -65,6 +65,7 @@ namespace Backend.Game.Services
 			var logicContainer = new LogicContainer().Build(logic);
 			var commandContext = new CommandExecutionContext(logicContainer, serviceContainer, dataProvider);
 			logic.Init();
+			dataProvider.ClearDeltas(); // initializing logic triggers deltas
 			cmd.Execute(commandContext);
 			var newState = dataProvider.GetUpdatedState();
 			return newState;

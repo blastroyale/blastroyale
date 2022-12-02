@@ -13,6 +13,7 @@ namespace FirstLight.Game.Configs
 	{
 		public List<AssetReferenceT<AudioClip>> AudioClips;
 		public bool Loop;
+		public bool RandomiseStartTime;
 		public float BaseVolume;
 		public float BasePitch;
 		public float VolumeRandDeviation;

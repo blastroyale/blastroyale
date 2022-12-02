@@ -1,4 +1,5 @@
 using FirstLight.Game.Ids;
+using FirstLight.Game.Infos;
 using FirstLight.SDK.Services;
 using Quantum;
 
@@ -31,5 +32,11 @@ namespace FirstLight.Game.Messages
 		public float Durability;
 		public float DurabilityFinal;
 		public Pair<GameId, uint> Price;
+	}
+
+	public struct EquipUnequipItemMessage : IMessage
+	{
+		public EquipmentInfo Info;
+		public bool IsEquip;
 	}
 }

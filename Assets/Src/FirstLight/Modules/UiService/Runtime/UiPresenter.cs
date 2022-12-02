@@ -162,6 +162,7 @@ namespace FirstLight.UiService
 	/// <summary>
 	/// This class is the UiToolkit implementation of UiCloseActivePresenterData
 	/// </summary>
+	[LoadSynchronously]
 	public abstract class UiToolkitPresenterData<T> : UiCloseActivePresenterData<T> where T : struct
 	{
 		[SerializeField, Required] private UIDocument _document;

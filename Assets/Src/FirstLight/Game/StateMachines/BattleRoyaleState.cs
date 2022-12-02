@@ -72,17 +72,16 @@ namespace FirstLight.Game.StateMachines
 			deadCheck.Transition().Condition(IsMatchEnding).Target(final);
 			deadCheck.Transition().Target(dead);
 
+			dead.OnEnter(MatchEndAnalytics);
 			dead.OnEnter(CloseMatchHud);
 			dead.OnEnter(OpenKillScreen);
 			dead.Event(_localPlayerExitEvent).Target(final);
 			dead.Event(_localPlayerSpectateEvent).Target(spectating);
 			dead.OnExit(CloseKillScreen);
-
-			//spectating.OnEnter(OpenMatchHud);
+			
 			spectating.OnEnter(OpenSpectateHud);
 			spectating.Event(_localPlayerExitEvent).Target(final);
 			spectating.OnExit(CloseSpectateHud);
-			//spectating.OnExit(CloseMatchHud);
 
 			final.OnEnter(CloseMatchHud);
 			final.OnEnter(UnsubscribeEvents);
@@ -97,6 +96,31 @@ namespace FirstLight.Game.StateMachines
 		private void UnsubscribeEvents()
 		{
 			QuantumEvent.UnsubscribeListener(this);
+		}
+		
+		private void MatchEndAnalytics()
+		{
+			if (IsSpectator())
+			{
+				return;
+			}
+
+			var game = QuantumRunner.Default.Game;
+			var f = game.Frames.Verified;
+			var gameContainer = f.GetSingleton<GameContainer>();
+			var matchData = gameContainer.GetPlayersMatchData(f, out _);
+			var localPlayerData = matchData[game.GetLocalPlayers()[0]];
+			var totalPlayers = 0;
+
+			for (var i = 0; i < matchData.Count; i++)
+			{
+				if (matchData[i].Data.IsValid && !f.Has<BotCharacter>(matchData[i].Data.Entity))
+				{
+					totalPlayers++;
+				}
+			}
+   
+			_services.AnalyticsService.MatchCalls.MatchEnd(totalPlayers, false, f.Time.AsFloat, localPlayerData);
 		}
 
 		private bool IsMatchEnding()

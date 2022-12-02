@@ -3551,7 +3551,6 @@ MonoBehaviour:
   _mutatorsSelections:
   - {fileID: 2372640016700317087}
   - {fileID: 5465955735104162263}
-  _animationScrollingBackground: {fileID: 5056113329313347798}
 --- !u!114 &8847670435640540833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8546,6 +8545,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2482823481383450958, guid: 47834e62a2462406fb24478a1afc298a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 74a80dda23f35e64bb7fb45e209baa76, type: 3}
+    - target: {fileID: 2482823481383450958, guid: 47834e62a2462406fb24478a1afc298a, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 4a10513fcddba524b903ad9fd648619e, type: 2}
     - target: {fileID: 2482823481383450959, guid: 47834e62a2462406fb24478a1afc298a, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -8563,10 +8570,5 @@ PrefabInstance:
 --- !u!224 &2691725409626273542 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2482823480601963853, guid: 47834e62a2462406fb24478a1afc298a, type: 3}
-  m_PrefabInstance: {fileID: 517402902091651659}
-  m_PrefabAsset: {fileID: 0}
---- !u!111 &5056113329313347798 stripped
-Animation:
-  m_CorrespondingSourceObject: {fileID: 4685084442756850333, guid: 47834e62a2462406fb24478a1afc298a, type: 3}
   m_PrefabInstance: {fileID: 517402902091651659}
   m_PrefabAsset: {fileID: 0}

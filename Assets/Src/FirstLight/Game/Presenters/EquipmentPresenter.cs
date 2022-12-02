@@ -7,7 +7,6 @@ using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
-using I2.Loc;
 using Quantum;
 using UnityEngine.UIElements;
 
@@ -28,7 +27,7 @@ namespace FirstLight.Game.Presenters
 
 		private List<EquipmentSlotElement> _categories;
 		private VisualElement _specialsHolder;
-		private Label _mightLabel;
+		private MightElement _might;
 
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
@@ -42,7 +41,7 @@ namespace FirstLight.Game.Presenters
 		protected override void QueryElements(VisualElement root)
 		{
 			_specialsHolder = root.Q("SpecialsHolder").Required();
-			_mightLabel = root.Q<Label>("MightLabel").Required();
+			_might = root.Q<MightElement>("Might").Required();
 			_categories = root.Query<EquipmentSlotElement>().Build().ToList();
 
 			foreach (var cat in _categories)
@@ -95,17 +94,16 @@ namespace FirstLight.Game.Presenters
 			{
 				var info = _gameDataProvider.EquipmentDataProvider.GetInfo(uniqueId);
 
-				var index = 0;
 				foreach (var (type, value) in info.Stats)
 				{
 					if (value > 0 && type is EquipmentStatType.SpecialId0 or EquipmentStatType.SpecialId1)
 					{
 						var specialId = (GameId) value;
 						var element = new SpecialDisplayElement(specialId);
-						element.clicked+= () => element.OpenTooltip(Root, specialId.GetTranslationDescription(), 20, 20);
-						
+						element.clicked += () =>
+							element.OpenTooltip(Root, specialId.GetTranslationDescription(), 20, 20);
+
 						_specialsHolder.Add(element);
-						index++;
 					}
 				}
 			}
@@ -116,7 +114,7 @@ namespace FirstLight.Game.Presenters
 			var loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All);
 			var might = loadout.GetTotalMight(_services.ConfigsProvider.GetConfigsDictionary<QuantumStatConfig>());
 
-			_mightLabel.text = string.Format(ScriptLocalization.UITEquipment.might, might.ToString("F0"));
+			_might.SetMight(might, false);
 		}
 	}
 }

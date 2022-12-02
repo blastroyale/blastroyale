@@ -2,39 +2,6 @@
     align-items: center;
 }
 
-.next-button {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    background-image: url('project://database/Assets/Art/UI/Sprites/MatchEnd/NextButton.png?fileID=21300000&guid=7b7f8b5eb966f4fb38b88e5573f3a921&type=3#NextButton');
-    width: 562px;
-    height: 194px;
-    background-color: rgba(255, 255, 255, 0);
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-    transition-property: opacity, scale;
-    transition-duration: 0.2s, 0.2s;
-    border-left-width: 0;
-    border-right-width: 0;
-    border-top-width: 0;
-    border-bottom-width: 0;
-}
-
-.next-button__label {
-    width: 260px;
-    top: 80px;
-    left: 250px;
-    text-shadow: 4px 4px 0 rgb(185, 65, 21);
-    -unity-text-outline-color: rgb(185, 65, 21);
-    font-size: 70px;
-    -unity-text-outline-width: 2px;
-    color: rgb(255, 255, 255);
-    -unity-font-definition: var(--font-italic);
-    -unity-font-style: bold;
-}
-
 .player-name {
     position: absolute;
     left: 13%;
@@ -81,6 +48,7 @@
     position: absolute;
     right: 270px;
     top: 65px;
+    display: none;
 }
 
 .spectator .leaderboard-panel {
@@ -139,4 +107,311 @@
 .leaderboard-header__trophies {
     right: 10px;
     -unity-text-align: upper-right;
+}
+
+.rewards-panel {
+    width: 50%;
+    right: 0;
+    position: absolute;
+    height: 100%;
+}
+
+.craft-spice {
+    top: 202px;
+    left: 238px;
+    width: 609px;
+    height: 117px;
+    position: absolute;
+    -unity-slice-left: 16;
+    -unity-slice-right: 16;
+    background-image: url('project://database/Assets/Art/UI/Sprites/RewardsScreen/RewardsBack.png?fileID=2800000&guid=01e27a0254d4c4324976497ffe21d60d&type=3#RewardsBack');
+    -unity-slice-top: 3;
+    -unity-slice-bottom: 3;
+}
+
+.craft-spice__logo-top {
+    width: 64px;
+    height: 64px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/CS.png?fileID=21300000&guid=d74b22177c5ba4ac6b9293d6c147e46e&type=3#CS');
+    position: absolute;
+    top: -37px;
+    left: 56px;
+}
+
+.craft-spice__title {
+    font-size: 40px;
+    -unity-font-definition: var(--font-italic);
+    -unity-font-style: bold;
+    text-shadow: 5px 5px 0 rgb(0, 0, 0);
+    color: rgb(248, 199, 46);
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    position: absolute;
+    left: 127px;
+    top: -20px;
+}
+
+.craft-spice__gained {
+    font-size: 50px;
+    -unity-font-definition: var(--font-italic);
+    -unity-font-style: normal;
+    color: rgb(254, 130, 71);
+    position: absolute;
+    left: 117px;
+    top: 24px;
+}
+
+.craft-spice__logo-total {
+    width: 55px;
+    height: 55px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/CS.png?fileID=21300000&guid=d74b22177c5ba4ac6b9293d6c147e46e&type=3#CS');
+    position: absolute;
+    top: 27px;
+    left: 375px;
+}
+
+.craft-spice__total {
+    font-size: 50px;
+    -unity-font-definition: var(--font-italic);
+    -unity-font-style: normal;
+    color: rgb(255, 255, 255);
+    position: absolute;
+    left: 435px;
+    top: 24px;
+}
+
+.trophies {
+    top: 412px;
+    left: 200px;
+    width: 609px;
+    height: 117px;
+    position: absolute;
+    -unity-slice-left: 16;
+    -unity-slice-right: 16;
+    background-image: url('project://database/Assets/Art/UI/Sprites/RewardsScreen/RewardsBack.png?fileID=2800000&guid=01e27a0254d4c4324976497ffe21d60d&type=3#RewardsBack');
+    -unity-slice-top: 3;
+    -unity-slice-bottom: 3;
+}
+
+.trophies__logo-top {
+    width: 64px;
+    height: 64px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/RewardsScreen/Trophies.png?fileID=21300000&guid=a8e999c620a274a5b80e141df88d3590&type=3#Trophies');
+    position: absolute;
+    top: -37px;
+    left: 56px;
+}
+
+.trophies__title {
+    font-size: 40px;
+    -unity-font-definition: var(--font-italic);
+    -unity-font-style: bold;
+    text-shadow: 5px 5px 0 rgb(0, 0, 0);
+    color: rgb(248, 199, 46);
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    position: absolute;
+    left: 127px;
+    top: -20px;
+}
+
+.trophies__gained {
+    font-size: 50px;
+    -unity-font-definition: var(--font-italic);
+    -unity-font-style: normal;
+    color: rgb(248, 199, 46);
+    position: absolute;
+    left: 117px;
+    top: 24px;
+}
+
+.trophies__logo-total {
+    width: 55px;
+    height: 55px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/RewardsScreen/Trophies.png?fileID=21300000&guid=a8e999c620a274a5b80e141df88d3590&type=3#Trophies');
+    position: absolute;
+    top: 27px;
+    left: 375px;
+}
+
+.trophies__total {
+    font-size: 50px;
+    -unity-font-definition: var(--font-italic);
+    -unity-font-style: normal;
+    color: rgb(255, 255, 255);
+    position: absolute;
+    left: 435px;
+    top: 24px;
+}
+
+.bpp {
+    top: 625px;
+    left: 160px;
+    width: 619px;
+    height: 162px;
+    position: absolute;
+    -unity-slice-left: 16;
+    -unity-slice-right: 16;
+    background-image: url('project://database/Assets/Art/UI/Sprites/RewardsScreen/BPBackwithStripe.png?fileID=2800000&guid=2c17914a41722485a8135fd9383c67bc&type=3#BPBackwithStripe');
+    -unity-slice-top: 3;
+    -unity-slice-bottom: 3;
+}
+
+.bpp__logo-top {
+    width: 64px;
+    height: 64px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BPP.png?fileID=21300000&guid=100d689cc6ffc41f297345bcfc22f54e&type=3#BPP');
+    position: absolute;
+    top: -33px;
+    left: 56px;
+}
+
+.bpp__title {
+    font-size: 40px;
+    -unity-font-definition: var(--font-italic);
+    -unity-font-style: bold;
+    text-shadow: 5px 5px 0 rgb(0, 0, 0);
+    color: rgb(248, 199, 46);
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    position: absolute;
+    left: 127px;
+    top: -20px;
+}
+
+.bpp__gained {
+    font-size: 50px;
+    -unity-font-definition: var(--font-italic);
+    -unity-font-style: normal;
+    color: rgb(94, 255, 211);
+    position: absolute;
+    left: 100px;
+    top: 30px;
+}
+
+.bpp__to-level {
+    font-size: 35px;
+    -unity-font-definition: var(--font-italic);
+    -unity-font-style: normal;
+    color: rgb(255, 255, 255);
+    position: absolute;
+    left: 435px;
+    top: 42px;
+}
+
+.bpp__level {
+    font-size: 50px;
+    -unity-font-definition: var(--font-italic);
+    -unity-font-style: normal;
+    color: rgb(255, 255, 255);
+    position: absolute;
+    left: 515px;
+    top: 30px;
+}
+
+.bpp__bar {
+    background-image: url('project://database/Assets/Art/UI/Sprites/RewardsScreen/BPPBarBack.png?fileID=21300000&guid=b2da5a7d1152e4296aded598c183bd95&type=3#BPPBarBack');
+    height: 48px;
+    position: absolute;
+    left: 80px;
+    right: 70px;
+    top: 95px;
+    -unity-slice-left: 14;
+    -unity-slice-right: 14;
+    padding-left: 1px;
+    padding-right: 1px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    flex-direction: row;
+}
+
+.bpp__bar__yellow-bar {
+    background-image: url('project://database/Assets/Art/UI/Sprites/RewardsScreen/BPPBarYellow.png?fileID=21300000&guid=063b38f07262840f8bc807b13c43d0cf&type=3#BPPBarYellow');
+    position: absolute;
+    -unity-slice-left: 14;
+    -unity-slice-right: 14;
+    margin-top: 1px;
+    height: 44px;
+    width: 70%;
+}
+
+.bpp__bar__green-bar {
+    background-image: url('project://database/Assets/Art/UI/Sprites/RewardsScreen/BPPBar.png?fileID=21300000&guid=11cd63fdc64284e74aab7e51f2131789&type=3#BPPBar');
+    position: absolute;
+    -unity-slice-left: 14;
+    -unity-slice-right: 14;
+    margin-top: 1px;
+    height: 44px;
+    width: 50%;
+}
+
+.bpp__bar__total {
+    font-size: 35px;
+    -unity-font-definition: var(--font-italic);
+    -unity-font-style: normal;
+    color: rgb(255, 255, 255);
+    position: absolute;
+    -unity-text-align: middle-center;
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 100%;
+}
+
+.bpp__week-info {
+    position: absolute;
+    flex-direction: row;
+    width: 100%;
+    bottom: -70px;
+    height: 70px;
+    align-items: center;
+    justify-content: center;
+}
+
+.bpp__week-info__logo {
+    width: 50px;
+    height: 50px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BPP.png?fileID=21300000&guid=100d689cc6ffc41f297345bcfc22f54e&type=3#BPP');
+}
+
+.bpp__week-info__gained-week {
+    font-size: 40px;
+    -unity-font-definition: var(--font-italic);
+    -unity-font-style: normal;
+    color: rgb(94, 255, 211);
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    margin-right: 0;
+}
+
+.bpp__week-info__total-week {
+    font-size: 40px;
+    -unity-font-definition: var(--font-italic);
+    -unity-font-style: normal;
+    color: rgb(255, 255, 255);
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.bpp__week-info__this-week {
+    font-size: 40px;
+    -unity-font-definition: var(--font-italic);
+    -unity-font-style: normal;
+    color: rgb(255, 255, 255);
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
 }

@@ -19,10 +19,6 @@ MonoBehaviour:
     Layer: -2
     UiType: FirstLight.Game.Presenters.BattleRoyaleDeadScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - AddressableAddress: Ui/BattlepassRewardDialog.prefab
-    Layer: 8
-    UiType: FirstLight.Game.Presenters.BattlepassRewardDialogPresenter, FirstLight.Game,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/BattlepassScreenPresenter.prefab
     Layer: 0
     UiType: FirstLight.Game.Presenters.BattlePassScreenPresenter, FirstLight.Game,
@@ -46,6 +42,10 @@ MonoBehaviour:
   - AddressableAddress: Ui/EquipmentPopupScreen.prefab
     Layer: 0
     UiType: FirstLight.Game.Presenters.EquipmentPopupPresenter, FirstLight.Game,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - AddressableAddress: Ui/EquipmentRewardDialog.prefab
+    Layer: 10
+    UiType: FirstLight.Game.Presenters.EquipmentRewardDialogPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/EquipmentScreen.prefab
     Layer: 0
@@ -151,10 +151,10 @@ MonoBehaviour:
     Layer: 0
     UiType: FirstLight.Game.Presenters.SettingsScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - AddressableAddress: Ui/SpectateHud.prefab
-    Layer: -2
-    UiType: FirstLight.Game.Presenters.SpectateHudPresenter, FirstLight.Game, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+  - AddressableAddress: Ui/SpectateScreen.prefab
+    Layer: 0
+    UiType: FirstLight.Game.Presenters.SpectateScreenPresenter, FirstLight.Game,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/StoreScreen.prefab
     Layer: 0
     UiType: FirstLight.Game.Presenters.StoreScreenPresenter, FirstLight.Game, Version=0.0.0.0,
@@ -192,6 +192,8 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.LoadingSpinnerScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    - FirstLight.Game.Presenters.EquipmentRewardDialogPresenter, FirstLight.Game,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - SetId: 1
     UiConfigsType:
     - FirstLight.Game.Presenters.MainMenuHudPresenter, FirstLight.Game, Version=0.0.0.0,
@@ -209,8 +211,6 @@ MonoBehaviour:
     - FirstLight.Game.Presenters.GameCompleteScreenPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.MatchControlsHudPresenter, FirstLight.Game, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    - FirstLight.Game.Presenters.SpectateHudPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.MatchWorldHudPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null

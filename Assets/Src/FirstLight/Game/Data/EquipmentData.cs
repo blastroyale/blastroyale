@@ -15,5 +15,20 @@ namespace FirstLight.Game.Data
 		public readonly Dictionary<UniqueId, Equipment> Inventory = new();
 		public readonly Dictionary<UniqueId, NftEquipmentData> NftInventory = new();
 		public ulong LastUpdateTimestamp;
+		
+		public override int GetHashCode()
+		{
+			int hash = 17;
+			hash = hash * 23 + LastUpdateTimestamp.GetHashCode();
+			foreach (var item in Inventory.Values)
+			{
+				hash = hash * 23 + item.GetHashCode();
+			}
+			foreach (var item in NftInventory.Values)
+			{
+				hash = hash * 23 + item.GetHashCode();
+			}
+			return hash;
+		}
 	}
 }

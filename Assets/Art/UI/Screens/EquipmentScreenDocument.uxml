@@ -5,10 +5,7 @@
     <ui:VisualElement name="root" picking-mode="Ignore" class="fill-parent">
         <FirstLight.Game.UIElements.ScreenHeaderElement title-key="UITEquipment/equipment" subtitle-key="UITEquipment/equipment" subtitle-back="true" name="Header" />
         <FirstLight.Game.UIElements.SafeAreaElement picking-mode="Ignore">
-            <ui:VisualElement name="Might" picking-mode="Ignore" class="might anim-delay-0 anim-fade">
-                <ui:Label text="MIGHT &lt;size=64px&gt;192&lt;/size&gt;" display-tooltip-when-elided="true" name="MightLabel" class="might__label" />
-                <ui:VisualElement name="Icon" class="might__icon" />
-            </ui:VisualElement>
+            <FirstLight.Game.UIElements.MightElement name="Might" class="anim-delay-0 anim-fade" />
             <ui:VisualElement name="CategoryHolder" class="category-holder">
                 <FirstLight.Game.UIElements.EquipmentSlotElement category="Weapon" name="WeaponCategory" class="anim-delay-4 anim-translate anim-translate--right-xxl" />
                 <FirstLight.Game.UIElements.EquipmentSlotElement category="Helmet" name="HelmetCategory" class="anim-delay-3 anim-translate anim-translate--right-xxl" />

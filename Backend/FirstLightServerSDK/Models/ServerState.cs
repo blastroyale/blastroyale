@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FirstLight.Server.SDK.Modules;
 
 namespace FirstLight.Server.SDK.Models
@@ -10,8 +11,8 @@ namespace FirstLight.Server.SDK.Models
 	/// </summary>
 	public class ServerState : Dictionary<string, string>
 	{
-		private HashSet<Type> _updatedTypes = new HashSet<Type>();
-
+		private StateDelta _delta = new StateDelta();
+	
 		public ServerState()
 		{
 		}
@@ -20,8 +21,10 @@ namespace FirstLight.Server.SDK.Models
 		{
 		}
 
-		public HashSet<Type> UpdatedTypes => _updatedTypes;
-
+		public bool HasDelta() => _delta.GetModifiedTypes().Count() > 0;
+		
+		public StateDelta GetDeltas() => _delta;
+		
 		public ulong GetVersion()
 		{
 			if (!TryGetValue("version", out var versionString))
@@ -46,11 +49,10 @@ namespace FirstLight.Server.SDK.Models
 			var serialized = ModelSerializer.Serialize(model);
 			var typeName = serialized.Key;
 			var data = serialized.Value;
-			if (!this.TryGetValue(typeName, out var oldData) || oldData != data)
+			if (!TryGetValue(typeName, out var oldData) || oldData != data)
 			{
-				_updatedTypes.Add(model.GetType());
+				_delta.TrackModification(model);
 			}
-
 			this[typeName] = data;
 		}
 
@@ -75,28 +77,27 @@ namespace FirstLight.Server.SDK.Models
 		}
 
 
+		/// <summary>
+		/// Obtains a server state that only contains keys that were updated after
+		/// the class instantiation. This is a way to optimize which keys are sent to external
+		/// providers (e.g Playfab)
+		/// </summary>
 		public ServerState GetOnlyUpdatedState()
 		{
-			if (_updatedTypes.Count == 0)
+			var updatedTypes = _delta.GetModifiedTypes();
+			if (updatedTypes.Count() == 0)
 			{
 				return this;
 			}
 			
 			var newStateToUpdate = new ServerState();
-			foreach (var updatedType in _updatedTypes)
+			foreach (var updatedType in updatedTypes)
 			{
-				if (this.TryGetValue(updatedType.FullName, out var oldData))
+				if (TryGetValue(updatedType.FullName, out var oldData))
 				{
-					if (oldData == null)
-					{
-						// log no exp to just track
-						Console.WriteLine($"[Call Gabriel] Updated data for model {updatedType.Name} is null");
-					}
-
 					newStateToUpdate[updatedType.FullName] = oldData;
 				}
 			}
-
 			return newStateToUpdate;
 		}
 	}

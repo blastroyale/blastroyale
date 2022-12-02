@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 using FirstLight.Game.Utils;
 using UnityEngine.UIElements;
 
@@ -22,7 +23,7 @@ namespace FirstLight.Game.UIElements
 		/// Triggered when the home button is clicked.
 		/// </summary>
 		public event Action homeClicked;
-		
+
 		/// <summary>
 		/// Triggered when the back button is clicked.
 		/// </summary>
@@ -53,13 +54,14 @@ namespace FirstLight.Game.UIElements
 
 			safeAreaContainer.Add(_title = new Label("TITLE") {name = "title"});
 			_title.AddToClassList(UssTitle);
-			
+
 			safeAreaContainer.Add(_subTitle = new Label("SUBTITLE") {name = "subtitle"});
 			_subTitle.AddToClassList(UssSubTitle);
 
-			var separator = new VisualElement();
-			separator.AddToClassList(UssSeparator);
-			safeAreaContainer.Add(separator);
+			var centerContent = new VisualElement {name = "separator"};
+			centerContent.pickingMode = PickingMode.Ignore;
+			centerContent.AddToClassList(UssSeparator);
+			safeAreaContainer.Add(centerContent);
 
 			safeAreaContainer.Add(_home = new ImageButton {name = "home"});
 			_home.AddToClassList(UssHome);
@@ -68,11 +70,19 @@ namespace FirstLight.Game.UIElements
 		}
 
 		/// <summary>
-		/// Sets the title of the header element (should be already localized).
+		/// Sets the title and optional subtitle of the header element (should be already localized).
 		/// </summary>
 		public void SetTitle(string title, string subtitle = "")
 		{
 			_title.text = title;
+			SetSubtitle(subtitle);
+		}
+
+		/// <summary>
+		/// Sets the subtitle of the header element (should be localized)
+		/// </summary>
+		public void SetSubtitle(string subtitle)
+		{
 			if (string.IsNullOrWhiteSpace(subtitle))
 			{
 				_subTitle.style.display = DisplayStyle.None;
@@ -95,7 +105,7 @@ namespace FirstLight.Game.UIElements
 				name = "title-key",
 				use = UxmlAttributeDescription.Use.Required
 			};
-			
+
 			private readonly UxmlStringAttributeDescription _subTitleKeyAttribute = new()
 			{
 				name = "subtitle-key",
@@ -110,8 +120,8 @@ namespace FirstLight.Game.UIElements
 				she.titleKey = _titleKeyAttribute.GetValueFromBag(bag, cc);
 				she.subtitleKey = _subTitleKeyAttribute.GetValueFromBag(bag, cc);
 
-				she.SetTitle(she.titleKey.LocalizeKey(), 
-					string.IsNullOrWhiteSpace(she.subtitleKey)?"":she.subtitleKey.LocalizeKey());
+				she.SetTitle(she.titleKey.LocalizeKey(),
+					string.IsNullOrWhiteSpace(she.subtitleKey) ? "" : she.subtitleKey.LocalizeKey());
 			}
 		}
 	}

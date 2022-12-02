@@ -118,8 +118,8 @@ namespace BlastRoyaleNFTPlugin
 			var nftData = equipmentData.NftInventory[equipmentUniqueId];
 			var equipment = equipmentData.Inventory[equipmentUniqueId];
 
-			equipment.Level = Convert.ToUInt32(nft.level);
 			equipment.LastRepairTimestamp = nft.lastRepairTime;
+			equipment.Level = Convert.ToUInt32(nft.level);
 
 			equipmentData.NftInventory[equipmentUniqueId] = nftData;
 			equipmentData.Inventory[equipmentUniqueId] = equipment;

@@ -393,11 +393,6 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(NetworkState.IapProcessFinishedEvent);
 		}
 
-		private void CloseBattlePassUI()
-		{
-			_uiService.CloseUi<BattlePassScreenPresenter>();
-		}
-		
 		private void OpenPlayerSkinScreenUI()
 		{
 			var data = new PlayerSkinScreenPresenter.StateData

@@ -82,6 +82,7 @@ namespace FirstLight.Game.Services
 			{
 				AudioClips = clipTasks.ConvertAll(task => task.Result),
 				Loop = clipConfig.Loop,
+				RandomStartTime = clipConfig.RandomiseStartTime,
 				MinVol = clipConfig.BaseVolume - clipConfig.VolumeRandDeviation,
 				MaxVol = clipConfig.BaseVolume + clipConfig.VolumeRandDeviation,
 				MinPitch = clipConfig.BasePitch - clipConfig.PitchRandDeviation,
@@ -207,7 +208,7 @@ namespace FirstLight.Game.Services
 				Volume = playbackData.PlaybackVolume,
 				Loop = playbackData.Loop,
 				Mute = GetMuteStatus(mixerGroupId),
-				StartTime = 0,
+				StartTime = playbackData.StartTime,
 				RolloffMode = AudioRolloffMode.Linear,
 				MinDistance = GameConstants.Audio.SFX_3D_MIN_DISTANCE,
 				MaxDistance = GameConstants.Audio.SFX_3D_MAX_DISTANCE,

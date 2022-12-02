@@ -42,10 +42,8 @@ namespace Backend.Game
 			{
 				if (NotSaved.Contains(model.GetType()))
 					continue;
-
 				newState.UpdateModel(model);
 			}
-
 			_modelsConsumed.Clear();
 			return newState;
 		}
@@ -86,6 +84,12 @@ namespace Backend.Game
 		public IEnumerable<Type> GetKeys()
 		{
 			return _state.Keys.Select(s => Assembly.GetExecutingAssembly().GetType(s))!;
+		}
+		
+		public void ClearDeltas()
+		{
+			_modelsConsumed.Clear();
+			_state.GetDeltas().Clear();
 		}
 	}
 }

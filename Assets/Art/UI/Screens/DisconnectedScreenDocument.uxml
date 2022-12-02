@@ -11,10 +11,11 @@
                 <ui:VisualElement name="Content" class="window__content">
                     <ui:VisualElement name="BackgroundPattern" class="content__background content__background--dc-popup" />
                     <FirstLight.Game.UIElements.LocalizedLabel name="GenericDesc" localization-key="UITDisconnected/disconnected" focusable="false" class="font-italic font-style-popup content__desc" />
-                    <ui:VisualElement name="Spacer" class="spacer spacer--medium" />
+                    <ui:VisualElement name="Spacer" class="height-spacer height-spacer--m" />
                     <ui:VisualElement name="Controls" class="content__controls">
-                        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITDisconnected/menu" name="MenuButton" class="font-italic button-flat-primary" />
-                        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITDisconnected/reconnect" name="ReconnectButton" class="font-italic button-flat-primary" />
+                        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITDisconnected/menu" name="MenuButton" class="button-flat button-flat--primary" />
+                        <ui:VisualElement name="Spacer" class="width-spacer width-spacer--s" />
+                        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITDisconnected/reconnect" name="ReconnectButton" class="button-flat button-flat--primary" />
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="Dim" class="window__dim" />

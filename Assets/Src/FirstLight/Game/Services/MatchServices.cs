@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.SDK.Services;
 using FirstLight.Services;
@@ -52,6 +53,8 @@ namespace FirstLight.Game.Services
 		private MatchEndDataService _matchEndDataService;
 		private readonly IMessageBrokerService _messageBrokerService;
 		private readonly List<IMatchService> _services = new();
+		private IGameServices _gameServices;
+		private IGameDataProvider _dataProvider;
 		
 		/// <inheritdoc />
 		public ISpectateService SpectateService { get; }
@@ -61,9 +64,11 @@ namespace FirstLight.Game.Services
 		public IFrameSnapshotService FrameSnapshotService { get; }
 		public IMatchEndDataService MatchEndDataService => _matchEndDataService;
 
-		public MatchServices(IEntityViewUpdaterService entityViewUpdaterService, IGameServices services, IDataService dataService)
+		public MatchServices(IEntityViewUpdaterService entityViewUpdaterService, IGameServices services, IGameDataProvider dataProvider, IDataService dataService)
 		{
 			_messageBrokerService = services.MessageBrokerService;
+			_gameServices = services;
+			_dataProvider = dataProvider;
 
 			EntityViewUpdaterService = entityViewUpdaterService;
 			SpectateService = Configure(new SpectateService(services, this));
@@ -95,7 +100,7 @@ namespace FirstLight.Game.Services
 
 		private void OnMatchEnd(MatchEndedMessage message)
 		{
-			_matchEndDataService = new MatchEndDataService(message.Game);
+			_matchEndDataService = new MatchEndDataService(message.Game, _gameServices, _dataProvider);
 			foreach (var service in _services)
 			{
 				service.OnMatchEnded();

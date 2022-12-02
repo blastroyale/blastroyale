@@ -77,10 +77,8 @@ synced event OnPlayerAmmoChanged
 {
 	player_ref Player;
 	entity_ref Entity;
-	Int32 PreviousAmmo;
 	Int32 CurrentAmmo;
 	Int32 MaxAmmo;
-	FP FilledAmmo;
 	Int32 MagSize;
 }
 

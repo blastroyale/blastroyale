@@ -1,0 +1,41 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Screens/SpectateScreenStyle.uss?fileID=7433441132597879392&amp;guid=56b29c1063eac47cc94924e9e46faf57&amp;type=3#SpectateScreenStyle" />
+    <ui:VisualElement name="root" class="fill-parent">
+        <FirstLight.Game.UIElements.SafeAreaElement class="fill-parent">
+            <ui:VisualElement name="CameraButtons" class="camera-button-holder">
+                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSpectate/camera_3" name="Camera3" class="button-long button-camera sfx-click-forwards anim-delay-3 anim-translate anim-translate--left-m" />
+                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSpectate/camera_2" name="Camera2" class="button-long button-camera sfx-click-forwards anim-delay-2 anim-translate anim-translate--left-m" />
+                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSpectate/camera_1" name="Camera1" class="button-long button-camera sfx-click-forwards anim-delay-1 anim-translate anim-translate--left-m" />
+            </ui:VisualElement>
+            <ui:VisualElement name="ShowHide" class="show-hide-toggle sfx-click-forwards anim-delay-0 anim-translate anim-translate--down-s">
+                <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITShared/hide" name="Hide" class="show-hide-toggle__label show-hide-toggle__label--hide" />
+                <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITShared/show" name="Show" class="show-hide-toggle__label show-hide-toggle__label--show" />
+                <ui:VisualElement name="Icon" class="show-hide-toggle__icon" />
+            </ui:VisualElement>
+            <FirstLight.Game.UIElements.LocalizedButton localization-key="UITShared/leave" name="LeaveButton" class="button-next sfx-click-backwards anim-delay-0 anim-translate anim-translate--left-l" />
+            <ui:VisualElement name="PlayerHolder" class="player-holder anim-delay-0 anim-translate anim-translate--right-xxl">
+                <ui:VisualElement name="Background" class="fill-parent player-holder__background">
+                    <ui:VisualElement class="player-holder__background-filler" />
+                    <ui:VisualElement class="player-holder__background-jagged" />
+                </ui:VisualElement>
+                <ui:VisualElement name="RTHolder" class="player-holder__rt-holder">
+                    <ui:VisualElement name="PlayerRT" class="player-holder__player-rt" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Switcher" class="player-holder__switcher">
+                    <FirstLight.Game.UIElements.ImageButton name="ArrowLeft" class="player-holder__arrow sfx-click-backwards">
+                        <ui:VisualElement name="Icon" class="player-holder__arrow-icon" />
+                    </FirstLight.Game.UIElements.ImageButton>
+                    <ui:VisualElement name="CurrentPlayer" class="player-holder__player">
+                        <FirstLight.Game.UIElements.MightElement name="PlayerMight" />
+                        <ui:Label text="FLG | PENUS" name="PlayerName" class="player-holder__player-name" />
+                        <FirstLight.Game.UIElements.LocalizedLabel name="DefeatedYou" localization-key="UITSpectate/defeated_you" class="player-holder__defeated-you" />
+                    </ui:VisualElement>
+                    <FirstLight.Game.UIElements.ImageButton name="ArrowRight" class="player-holder__arrow player-holder__arrow--right sfx-click-forwards">
+                        <ui:VisualElement name="Icon" class="player-holder__arrow-icon" />
+                    </FirstLight.Game.UIElements.ImageButton>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </FirstLight.Game.UIElements.SafeAreaElement>
+        <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITSpectate/spectating" picking-mode="Ignore" name="Header" class="screen-header--simple" />
+    </ui:VisualElement>
+</ui:UXML>

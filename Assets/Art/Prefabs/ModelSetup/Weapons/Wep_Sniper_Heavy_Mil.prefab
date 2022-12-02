@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7397038870758967643}
   - component: {fileID: 513153722911056820}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wep_Sniper_Heavy_Mil
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -190,6 +190,10 @@
     margin: 0;
 }
 
+.button-flat:active {
+    color: rgb(166, 166, 166);
+}
+
 .button-flat--primary {
     font-size: 47px;
     background-color: rgb(245, 203, 47);
@@ -199,6 +203,14 @@
     border-right-color: rgb(100, 19, 0);
     border-top-color: rgb(100, 19, 0);
     border-bottom-color: rgb(100, 19, 0);
+}
+
+.button-flat--primary:hover {
+    background-color: rgb(245, 203, 47);
+}
+
+.button-flat--primary:active {
+    background-color: rgb(171, 142, 33);
 }
 
 .button-flat--secondary {
@@ -211,6 +223,14 @@
     border-bottom-color: rgb(59, 29, 144);
 }
 
+.button-flat--secondary:hover {
+    background-color: rgb(158, 99, 241);
+}
+
+.button-flat--secondary:active {
+    background-color: rgb(76, 51, 152);
+}
+
 .button-flat--cancel {
     background-color: rgb(253, 97, 97);
     -unity-text-outline-color: rgb(145, 34, 14);
@@ -219,6 +239,14 @@
     border-right-color: rgb(145, 34, 14);
     border-top-color: rgb(145, 34, 14);
     border-bottom-color: rgb(145, 34, 14);
+}
+
+.button-flat--cancel:hover {
+    background-color: rgb(253, 97, 97);
+}
+
+.button-flat--cancel:active {
+    background-color: rgb(202, 79, 79);
 }
 
 .button-flat-outline {
@@ -232,74 +260,6 @@
     border-right-color: rgb(216, 214, 234);
     border-top-color: rgb(216, 214, 234);
     border-bottom-color: rgb(216, 214, 234);
-}
-
-.button-flat-cancel {
-    font-size: 42px;
-    background-color: rgb(253, 97, 97);
-    -unity-text-outline-color: rgb(145, 34, 14);
-    -unity-background-image-tint-color: rgb(158, 31, 42);
-    border-left-color: rgb(145, 34, 14);
-    border-right-color: rgb(145, 34, 14);
-    border-top-color: rgb(145, 34, 14);
-    border-bottom-color: rgb(145, 34, 14);
-}
-
-.button-flat-secondary > .inner-outline {
-    border-left-color: rgb(100, 19, 0);
-    border-right-color: rgb(100, 19, 0);
-    border-top-color: rgb(100, 19, 0);
-    border-bottom-color: rgb(100, 19, 0);
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-}
-
-.button-flat-secondary > .inner-outline {
-    border-left-color: rgb(59, 29, 144);
-    border-right-color: rgb(59, 29, 144);
-    border-top-color: rgb(59, 29, 144);
-    border-bottom-color: rgb(59, 29, 144);
-    border-radius: 10px;
-}
-
-.button-flat-cancel > .inner-outline {
-    border-left-color: rgb(100, 19, 0);
-    border-right-color: rgb(100, 19, 0);
-    border-top-color: rgb(100, 19, 0);
-    border-bottom-color: rgb(100, 19, 0);
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-}
-
-.button-flat-primary:hover {
-    background-color: rgb(245, 203, 47);
-}
-
-.button-flat-secondary:hover {
-    background-color: rgb(158, 99, 241);
-}
-
-.button-flat-primary:active {
-    background-color: rgb(171, 142, 33);
-    color: rgb(166, 166, 166);
-}
-
-.button-flat-secondary:active {
-    background-color: rgb(76, 51, 152);
-    color: rgb(166, 166, 166);
-}
-
-.button-flat-cancel:hover {
-    background-color: rgb(253, 97, 97);
-}
-
-.button-flat-cancel:active {
-    background-color: rgb(202, 79, 79);
-    color: rgb(166, 166, 166);
 }
 
 .button-close {
@@ -461,8 +421,53 @@
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/CoinIcon.png?fileID=21300000&guid=787f6e10544e24075863e3f881de6467&type=3#CoinIcon');
 }
 
+.button-next {
+    background-image: url('project://database/Assets/Art/UI/Sprites/MatchEnd/NextButton.png?fileID=21300000&guid=7b7f8b5eb966f4fb38b88e5573f3a921&type=3#NextButton');
+    width: 562px;
+    height: 194px;
+    background-color: rgba(255, 255, 255, 0);
+    margin: 0;
+    color: rgb(255, 255, 255);
+    -unity-font-definition: var(--font-italic);
+    text-shadow: 4px 4px 0 rgb(185, 65, 21);
+    -unity-text-outline-color: rgb(185, 65, 21);
+    font-size: 70px;
+    -unity-text-outline-width: 2px;
+    padding-bottom: 27px;
+    -unity-text-align: lower-right;
+    padding-right: 61px;
+    -unity-font-style: bold;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.button-next:active {
+    color: rgb(161, 161, 161);
+}
+
+.might-display {
+    flex-direction: row;
+}
+
+.might-display__label {
+    -unity-font-definition: var(--font-italic);
+    font-size: 54px;
+    color: rgb(248, 199, 46);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    -unity-text-align: lower-right;
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+}
+
+.might-display__icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/MightIcon.png?fileID=21300000&guid=abcf917df72d242a482c9f221840fbb2&type=3#MightIcon');
+    width: 70px;
+    height: 82px;
+}
+
 .height-spacer {
-    width: 100%;
+    width: 0;
     height: 5px;
 }
 
@@ -491,7 +496,7 @@
 }
 
 .width-spacer {
-    height: 100%;
+    height: 0;
     width: 5px;
 }
 

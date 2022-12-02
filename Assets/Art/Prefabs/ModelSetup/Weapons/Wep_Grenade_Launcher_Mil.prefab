@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6197007949931547116}
   - component: {fileID: 4064956074629288766}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wep_Grenade_Launcher_Mil
   m_TagString: Untagged
   m_Icon: {fileID: 0}

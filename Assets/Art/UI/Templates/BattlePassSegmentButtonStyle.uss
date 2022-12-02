@@ -144,8 +144,8 @@
     background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/ClaimRewardLightBehind.png?fileID=2800000&guid=55f09f008b0554c3f9908de8032f65f7&type=3#ClaimRewardLightBehind');
     -unity-background-scale-mode: scale-to-fit;
     position: absolute;
-    width: 1000px;
-    height: 1000px;
+    width: 950px;
+    height: 950px;
 }
 
 .reward__button-outline--claimed {

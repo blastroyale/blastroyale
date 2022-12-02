@@ -1489,7 +1489,7 @@ MonoBehaviour:
     <ChildrenStatesCount>0</ChildrenStatesCount>\r\n    </Node>\r\n    <Key>690ea479-6c1b-4780-8811-8b07b43309e7</Key>\r\n   
     <Node>\r\n      <Id>690ea479-6c1b-4780-8811-8b07b43309e7</Id>\r\n      <Name>Change
     Weapon Default</Name>\r\n      <Comment></Comment>\r\n      <Graph>768883d4-4da9-44aa-93b2-89f451d9cee8</Graph>\r\n     
-    <Parent>$state</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n      <Flags>65568</Flags>\r\n     
+    <Parent>$state</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n      <Flags>32</Flags>\r\n     
     <Position>496|-317||0</Position>\r\n      <StaticIn Count=\"1\">\r\n        <Slot>\r\n         
     <Id>$in</Id>\r\n          <Name>In</Name>\r\n          <Value />\r\n         
     <Type>$transition</Type>\r\n          <Mode>In</Mode>\r\n          <Flags>2</Flags>\r\n         
@@ -2360,7 +2360,7 @@ MonoBehaviour:
     <Id>9ec5f7b0-4815-4100-8b71-c0afff342554</Id>\r\n      <Name>BurstShotCount</Name>\r\n     
     <Comment></Comment>\r\n      <Graph>a8fa1ed4-f6c1-45d9-aa30-39c9ef9d6aa5</Graph>\r\n     
     <Parent>$blackboardRef</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n     
-    <Flags>0</Flags>\r\n      <Position>-451|-49||0</Position>\r\n      <StaticIn
+    <Flags>0</Flags>\r\n      <Position>-431|-49||0</Position>\r\n      <StaticIn
     Count=\"0\" />\r\n      <StaticOut Count=\"2\">\r\n        <Slot>\r\n         
     <Id>$keyOut</Id>\r\n          <Name>Key</Name>\r\n          <Value />\r\n         
     <Type>Quantum.AIBlackboardValueKey, quantum.code</Type>\r\n          <Mode>Out</Mode>\r\n         
@@ -2536,7 +2536,7 @@ MonoBehaviour:
     <Key>a9297d8b-4beb-4cf8-bc14-7edf96bd5b56</Key>\r\n    <Node>\r\n      <Id>a9297d8b-4beb-4cf8-bc14-7edf96bd5b56</Id>\r\n     
     <Name>Transition</Name>\r\n      <Comment></Comment>\r\n      <Graph>e295ad2b-c67a-4a7f-8219-d339f23670e9</Graph>\r\n     
     <Parent>$transition</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n      <Flags>129</Flags>\r\n     
-    <Position>-88|0||0</Position>\r\n      <StaticIn Count=\"3\">\r\n        <Slot>\r\n         
+    <Position>-56|0||0</Position>\r\n      <StaticIn Count=\"3\">\r\n        <Slot>\r\n         
     <Id>$eventIn</Id>\r\n          <Name>Events</Name>\r\n          <Value />\r\n         
     <Type>$event</Type>\r\n          <Mode>In</Mode>\r\n          <Flags>0</Flags>\r\n         
     <TypeMode>Value</TypeMode>\r\n        </Slot>\r\n        <Slot>\r\n         
@@ -2660,7 +2660,7 @@ MonoBehaviour:
     <Key>aea3c74a-d888-463f-b5f8-72af4fdf1b95</Key>\r\n    <Node>\r\n      <Id>aea3c74a-d888-463f-b5f8-72af4fdf1b95</Id>\r\n     
     <Name>Transition</Name>\r\n      <Comment></Comment>\r\n      <Graph>c85867c8-d730-4f9d-b9f4-6f7b63b4c133</Graph>\r\n     
     <Parent>$transition</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n      <Flags>129</Flags>\r\n     
-    <Position>172|0||0</Position>\r\n      <StaticIn Count=\"3\">\r\n        <Slot>\r\n         
+    <Position>280|0||0</Position>\r\n      <StaticIn Count=\"3\">\r\n        <Slot>\r\n         
     <Id>$eventIn</Id>\r\n          <Name>Events</Name>\r\n          <Value />\r\n         
     <Type>$event</Type>\r\n          <Mode>In</Mode>\r\n          <Flags>0</Flags>\r\n         
     <TypeMode>Value</TypeMode>\r\n        </Slot>\r\n        <Slot>\r\n         
@@ -3255,7 +3255,7 @@ MonoBehaviour:
     <Flags>2</Flags>\r\n          <TypeMode>Value</TypeMode>\r\n        </Slot>\r\n     
     </StaticOut>\r\n      <Groups Count=\"0\" />\r\n      <Data Count=\"8\">\r\n       
     <Data>\r\n          <Name>$default</Name>\r\n          <Value Type=\"Photon.Deterministic.FP,
-    PhotonDeterministic\">6553</Value>\r\n        </Data>\r\n        <Data>\r\n         
+    PhotonDeterministic\">9830</Value>\r\n        </Data>\r\n        <Data>\r\n         
     <Name></Name>\r\n          <Value />\r\n        </Data>\r\n        <Data>\r\n         
     <Name>$hasDefault</Name>\r\n          <Value />\r\n        </Data>\r\n       
     <Data>\r\n          <Name>True</Name>\r\n          <Value />\r\n        </Data>\r\n       
@@ -4493,7 +4493,7 @@ MonoBehaviour:
     <ZoomOffset>0|0||0</ZoomOffset>\r\n      <PanOffset>188|509||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>0c8091f8-128f-455c-9227-ed284d25ed2f</Key>\r\n    <GraphData>\r\n     
     <Id>0c8091f8-128f-455c-9227-ed284d25ed2f</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
-    <ZoomOffset>0|0||0</ZoomOffset>\r\n      <PanOffset>509|173||0</PanOffset>\r\n   
+    <ZoomOffset>0|0||0</ZoomOffset>\r\n      <PanOffset>615|196||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>0cf6c1ed-2408-4329-ae2a-0217261e9d80</Key>\r\n    <GraphData>\r\n     
     <Id>0cf6c1ed-2408-4329-ae2a-0217261e9d80</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
     <ZoomOffset>0|0||0</ZoomOffset>\r\n      <PanOffset>482|178||0</PanOffset>\r\n   
@@ -4510,8 +4510,8 @@ MonoBehaviour:
     <Id>1b7db808-44b5-4fa6-89b2-9d834710dea0</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
     <ZoomOffset>0|0||0</ZoomOffset>\r\n      <PanOffset>304|177||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>1be2771a-ed37-481c-ae86-99e013d33d6e</Key>\r\n    <GraphData>\r\n     
-    <Id>1be2771a-ed37-481c-ae86-99e013d33d6e</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
-    <ZoomOffset>-27|0||0</ZoomOffset>\r\n      <PanOffset>495|160||0</PanOffset>\r\n   
+    <Id>1be2771a-ed37-481c-ae86-99e013d33d6e</Id>\r\n      <ZoomLevel>0.88</ZoomLevel>\r\n     
+    <ZoomOffset>16|32||0</ZoomOffset>\r\n      <PanOffset>495|160||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>24e2e215-bf64-429f-8033-2d819dc2fc54</Key>\r\n    <GraphData>\r\n     
     <Id>24e2e215-bf64-429f-8033-2d819dc2fc54</Id>\r\n      <ZoomLevel>0.94</ZoomLevel>\r\n     
     <ZoomOffset>22|10||0</ZoomOffset>\r\n      <PanOffset>103|163||0</PanOffset>\r\n   
@@ -4555,8 +4555,8 @@ MonoBehaviour:
     <Id>750f1613-a139-4a5b-ba90-8381dc83c7ba</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
     <ZoomOffset>0|0||0</ZoomOffset>\r\n      <PanOffset>-78|504||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>768883d4-4da9-44aa-93b2-89f451d9cee8</Key>\r\n    <GraphData>\r\n     
-    <Id>768883d4-4da9-44aa-93b2-89f451d9cee8</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
-    <ZoomOffset>-750|-610||0</ZoomOffset>\r\n      <PanOffset>469|894||0</PanOffset>\r\n   
+    <Id>768883d4-4da9-44aa-93b2-89f451d9cee8</Id>\r\n      <ZoomLevel>0.94</ZoomLevel>\r\n     
+    <ZoomOffset>-702|-606||0</ZoomOffset>\r\n      <PanOffset>779|956||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>808550d3-3eb8-4b6f-ab7b-bf45f0a27587</Key>\r\n    <GraphData>\r\n     
     <Id>808550d3-3eb8-4b6f-ab7b-bf45f0a27587</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
     <ZoomOffset>7|-23||0</ZoomOffset>\r\n      <PanOffset>124|168||0</PanOffset>\r\n   
@@ -4570,8 +4570,8 @@ MonoBehaviour:
     <Id>88cfda32-e8f5-4539-8802-8cb1bccffd7c</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
     <ZoomOffset>0|0||0</ZoomOffset>\r\n      <PanOffset>511|178||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>98a9ccc5-49fd-4069-b090-c33275ae3ee5</Key>\r\n    <GraphData>\r\n     
-    <Id>98a9ccc5-49fd-4069-b090-c33275ae3ee5</Id>\r\n      <ZoomLevel>0.58</ZoomLevel>\r\n     
-    <ZoomOffset>-214|-134||0</ZoomOffset>\r\n      <PanOffset>621|-41||0</PanOffset>\r\n   
+    <Id>98a9ccc5-49fd-4069-b090-c33275ae3ee5</Id>\r\n      <ZoomLevel>0.64</ZoomLevel>\r\n     
+    <ZoomOffset>-289|-166||0</ZoomOffset>\r\n      <PanOffset>838|89||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>a7080711-c7ca-4d2b-a803-b9d383bb736f</Key>\r\n    <GraphData>\r\n     
     <Id>a7080711-c7ca-4d2b-a803-b9d383bb736f</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
     <ZoomOffset>0|0||0</ZoomOffset>\r\n      <PanOffset>190|170||0</PanOffset>\r\n   
@@ -4580,7 +4580,7 @@ MonoBehaviour:
     <ZoomOffset>22|21||0</ZoomOffset>\r\n      <PanOffset>120|557||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>a8fa1ed4-f6c1-45d9-aa30-39c9ef9d6aa5</Key>\r\n    <GraphData>\r\n     
     <Id>a8fa1ed4-f6c1-45d9-aa30-39c9ef9d6aa5</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
-    <ZoomOffset>0|0||0</ZoomOffset>\r\n      <PanOffset>490|183||0</PanOffset>\r\n   
+    <ZoomOffset>0|0||0</ZoomOffset>\r\n      <PanOffset>378|177||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>ab6a56be-8aed-4f2f-ac94-c35ca18376ce</Key>\r\n    <GraphData>\r\n     
     <Id>ab6a56be-8aed-4f2f-ac94-c35ca18376ce</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
     <ZoomOffset>-51|-19||0</ZoomOffset>\r\n      <PanOffset>487|205||0</PanOffset>\r\n   
@@ -4604,7 +4604,7 @@ MonoBehaviour:
     <ZoomOffset>0|0||0</ZoomOffset>\r\n      <PanOffset>-214|451||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>c85867c8-d730-4f9d-b9f4-6f7b63b4c133</Key>\r\n    <GraphData>\r\n     
     <Id>c85867c8-d730-4f9d-b9f4-6f7b63b4c133</Id>\r\n      <ZoomLevel>0.88</ZoomLevel>\r\n     
-    <ZoomOffset>46|30||0</ZoomOffset>\r\n      <PanOffset>244|178||0</PanOffset>\r\n   
+    <ZoomOffset>46|30||0</ZoomOffset>\r\n      <PanOffset>426|233||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>cfab6980-e60f-4081-9f1e-a14fe1a0b18e</Key>\r\n    <GraphData>\r\n     
     <Id>cfab6980-e60f-4081-9f1e-a14fe1a0b18e</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
     <ZoomOffset>0|0||0</ZoomOffset>\r\n      <PanOffset>-37|561||0</PanOffset>\r\n   

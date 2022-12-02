@@ -40,7 +40,6 @@ namespace FirstLight.Game.Presenters
 		private IGameDataProvider _gameDataProvider;
 
 		private Button _nextButton;
-		private Label _nextButtonLabel;
 		private VisualElement _leaderboardPanel;
 		private ScrollView _leaderboardScrollView;
 		private VisualElement _playerName;
@@ -85,8 +84,7 @@ namespace FirstLight.Game.Presenters
 		{
 			_nextButton = root.Q<Button>("NextButton").Required();
 			_nextButton.clicked += OnNextButtonClicked;
-			_nextButtonLabel = _nextButton.Q<Label>("Label");
-			
+
 			_leaderboardPanel = root.Q<VisualElement>("LeaderboardPanel").Required();
 			_leaderboardScrollView = root.Q<ScrollView>("LeaderboardScrollView").Required();
 
@@ -117,7 +115,7 @@ namespace FirstLight.Game.Presenters
 		private void ShowLeaderboards()
 		{
 			_showingLeaderboards = true;
-			_nextButtonLabel.text = "NEXT";
+			_nextButton.text = "NEXT →";
 			_leaderboardPanel.style.display = DisplayStyle.Flex;
 		}
 		
@@ -126,7 +124,7 @@ namespace FirstLight.Game.Presenters
 			_leaderboardPanel.AddToClassList("hidden-right");
 			_rewardsPanel.RemoveFromClassList("rewards-panel--hidden-start");
 			_showingLeaderboards = false;
-			_nextButtonLabel.text = "EXIT";
+			_nextButton.text = "EXIT";
 
 			AnimatePanels();
 		}

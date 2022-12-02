@@ -53,8 +53,6 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:Button display-tooltip-when-elided="true" name="NextButton" class="next-button">
-            <ui:Label text="NEXT →" display-tooltip-when-elided="true" name="Label" class="next-button__label" />
-        </ui:Button>
+        <ui:Button display-tooltip-when-elided="true" name="NextButton" text="NEXT →" class="button-next" />
     </ui:VisualElement>
 </ui:UXML>

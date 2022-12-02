@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using FirstLight.Game.Utils;
@@ -73,6 +74,10 @@ namespace FirstLight.Game.Views
 
 			var currentGained = 0;
 
+			_gainedLabel.text = "0";
+
+			var increaseNumber = _gained / 150;
+
 			foreach (var levelRewardInfo in _levelRewardsInfo)
 			{
 				var levelGained = levelRewardInfo.Start;
@@ -82,9 +87,12 @@ namespace FirstLight.Game.Views
 				
 				while (levelGained < levelRewardInfo.Start+levelRewardInfo.Total)
 				{
+					// TODO: Make this work based on the current framerate
 					await Task.Delay(20);
-					currentGained += 1;
-					levelGained += 1;
+					
+					var increase = Math.Min(levelGained + increaseNumber, levelRewardInfo.Start+levelRewardInfo.Total) - levelGained;
+					levelGained += increase;
+					currentGained += increase;
 
 					_gainedLabel.text = "+" + currentGained;
 					_nextLevelLabel.text = levelRewardInfo.NextLevel.ToString();

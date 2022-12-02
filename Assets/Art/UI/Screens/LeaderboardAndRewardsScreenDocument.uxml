@@ -16,7 +16,7 @@
             </ui:VisualElement>
             <ui:ScrollView name="LeaderboardScrollView" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" touch-scroll-type="Elastic" class="leaderboard-entries" />
         </ui:VisualElement>
-        <ui:VisualElement name="RewardsPanel" class="rewards-panel rewards-panel--hidden-start">
+        <ui:VisualElement name="RewardsPanel" class="rewards-panel">
             <ui:VisualElement name="CraftSpice" class="craft-spice">
                 <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Title" localization-key="UITRewards/craft_spice" class="craft-spice__title" />
                 <ui:VisualElement name="LogoTop" class="craft-spice__logo-top" />

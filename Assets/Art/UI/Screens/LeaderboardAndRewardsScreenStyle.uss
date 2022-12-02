@@ -186,13 +186,9 @@
     position: absolute;
     height: 100%;
     opacity: 1;
-    transition-property: opacity;
     transition-duration: 0.3s;
     transition-delay: 0.3s;
-}
-
-.rewards-panel--hidden-start {
-    opacity: 0;
+    transition-property: opacity;
 }
 
 .craft-spice {
@@ -206,6 +202,13 @@
     background-image: url('project://database/Assets/Art/UI/Sprites/RewardsScreen/RewardsBack.png?fileID=2800000&guid=01e27a0254d4c4324976497ffe21d60d&type=3#RewardsBack');
     -unity-slice-top: 3;
     -unity-slice-bottom: 3;
+    transition-property: opacity;
+    transition-duration: 0.3s;
+    opacity: 1;
+}
+
+.craft-spice.hidden-reward {
+    opacity: 0;
 }
 
 .craft-spice__logo-top {
@@ -270,6 +273,12 @@
     background-image: url('project://database/Assets/Art/UI/Sprites/RewardsScreen/RewardsBack.png?fileID=2800000&guid=01e27a0254d4c4324976497ffe21d60d&type=3#RewardsBack');
     -unity-slice-top: 3;
     -unity-slice-bottom: 3;
+    transition-property: opacity;
+    transition-duration: 0.3s;
+}
+
+.trophies.hidden-reward {
+    opacity: 0;
 }
 
 .trophies__logo-top {
@@ -334,6 +343,12 @@
     background-image: url('project://database/Assets/Art/UI/Sprites/RewardsScreen/BPBackwithStripe.png?fileID=2800000&guid=2c17914a41722485a8135fd9383c67bc&type=3#BPBackwithStripe');
     -unity-slice-top: 3;
     -unity-slice-bottom: 3;
+    transition-property: opacity;
+    transition-duration: 0.3s;
+}
+
+.bpp.hidden-reward {
+    opacity: 0;
 }
 
 .bpp__logo-top {

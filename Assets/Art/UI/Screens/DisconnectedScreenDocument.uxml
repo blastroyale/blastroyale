@@ -13,13 +13,9 @@
                     <FirstLight.Game.UIElements.LocalizedLabel name="GenericDesc" localization-key="UITDisconnected/disconnected" focusable="false" class="font-italic font-style-popup content__desc" />
                     <ui:VisualElement name="Spacer" class="height-spacer height-spacer--m" />
                     <ui:VisualElement name="Controls" class="content__controls">
-                        <ui:VisualElement class="button-flat-outline">
-                            <FirstLight.Game.UIElements.LocalizedButton localization-key="UITDisconnected/menu" name="MenuButton" class="font-italic button-flat button-flat--primary" />
-                        </ui:VisualElement>
+                        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITDisconnected/menu" name="MenuButton" class="button-flat button-flat--primary" />
                         <ui:VisualElement name="Spacer" class="width-spacer width-spacer--s" />
-                        <ui:VisualElement class="button-flat-outline">
-                            <FirstLight.Game.UIElements.LocalizedButton localization-key="UITDisconnected/reconnect" name="ReconnectButton" class="font-italic button-flat button-flat--primary" />
-                        </ui:VisualElement>
+                        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITDisconnected/reconnect" name="ReconnectButton" class="button-flat button-flat--primary" />
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="Dim" class="window__dim" />

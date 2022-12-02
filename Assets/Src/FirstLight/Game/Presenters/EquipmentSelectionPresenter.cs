@@ -6,15 +6,12 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using System.Linq;
 using System.Threading.Tasks;
-using DG.Tweening;
-using FirstLight.FLogger;
 using FirstLight.Game.Commands.OfflineCommands;
 using FirstLight.Game.Infos;
 using FirstLight.Game.UIElements;
 using FirstLight.UiService;
 using I2.Loc;
 using Quantum;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
@@ -52,7 +49,7 @@ namespace FirstLight.Game.Presenters
 
 		private ScreenHeaderElement _header;
 		private ListView _equipmentList;
-		private Label _mightLabel;
+		private MightElement _might;
 
 		private VisualElement _details;
 		private Label _missingEquipment;
@@ -79,9 +76,6 @@ namespace FirstLight.Game.Presenters
 		private Dictionary<UniqueId, int> _itemRowMap;
 		private List<KeyValuePair<EquipmentStatType, float>> _statItems;
 
-		private Tweener _mightTweener;
-		private float _currentMight;
-
 		private UniqueId _equippedItem;
 
 		private void Awake()
@@ -98,7 +92,7 @@ namespace FirstLight.Game.Presenters
 
 			_equipmentList = root.Q<ListView>("EquipmentList").Required();
 			_equipmentList.DisableScrollbars();
-			_mightLabel = root.Q<Label>("MightLabel").Required();
+			_might = root.Q<MightElement>("Might").Required();
 			_missingEquipment = root.Q<Label>("MissingEquipment").Required();
 			_missingEquipment.text = string.Format(NO_ITEMS_LOC_KEY, Data.EquipmentSlot.ToString().ToLowerInvariant())
 				.LocalizeKey();
@@ -342,22 +336,7 @@ namespace FirstLight.Game.Presenters
 			var loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All);
 			var might = loadout.GetTotalMight(_services.ConfigsProvider.GetConfigsDictionary<QuantumStatConfig>());
 
-			_mightTweener?.Kill();
-
-			if (animate)
-			{
-				_mightTweener = DOVirtual.Float(_currentMight, might, 0.3f,
-					val =>
-					{
-						_mightLabel.text = string.Format(ScriptLocalization.UITEquipment.might, val.ToString("F0"));
-					});
-			}
-			else
-			{
-				_mightLabel.text = string.Format(ScriptLocalization.UITEquipment.might, might.ToString("F0"));
-			}
-
-			_currentMight = might;
+			_might.SetMight(might, animate);
 		}
 
 		private VisualElement MakeEquipmentStatListItem()

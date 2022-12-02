@@ -60,9 +60,15 @@ namespace FirstLight.Game.Logic
 		Pair<GameId, uint> GetRepairCost(Equipment equipment, bool isNft);
 
 		/// <summary>
-		/// Requests the <see cref="EquipmentInfo"/> for the given <paramref name="id"/>
+		/// Requests the <see cref="EquipmentInfo"/> for the given <paramref name="id"/> of an
+		/// inventory item.
 		/// </summary>
 		EquipmentInfo GetInfo(UniqueId id);
+
+		/// <summary>
+		/// Requests the <see cref="EquipmentInfo"/> for the given <paramref name="equipment"/>
+		/// </summary>
+		EquipmentInfo GetInfo(Equipment equipment, bool isNft = false);
 
 		/// <summary>
 		/// Requests the <see cref="EquipmentInfo"/> for the given <paramref name="id"/>
@@ -199,25 +205,29 @@ namespace FirstLight.Game.Logic
 
 		public EquipmentInfo GetInfo(UniqueId id)
 		{
-			var equipment = _inventory[id];
+			var info = GetInfo(_inventory[id], _nftInventory.ContainsKey(id));
+			info.Id = id;
+			info.IsEquipped = _loadout.TryGetValue(info.Equipment.GameId.GetSlot(), out var equipId) && equipId == id;
+			return info;
+		}
+
+		public EquipmentInfo GetInfo(Equipment equipment, bool isNft)
+		{
 			var nextEquipment = equipment;
 			nextEquipment.Level++;
 			
-			var isNft = _nftInventory.ContainsKey(id);
 			var durability =
 				equipment.GetCurrentDurability(isNft, GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>(),
-				                               GameLogic.TimeService.DateTimeUtcNow.Ticks);
+					GameLogic.TimeService.DateTimeUtcNow.Ticks);
 			
 			return new EquipmentInfo
 			{
-				Id = id,
 				Equipment = equipment,
 				ScrappingValue = GetScrappingReward(equipment, isNft),
 				UpgradeCost = GetUpgradeCost(equipment, isNft),
 				RepairCost = GetRepairCost(equipment, isNft),
 				CurrentDurability = durability,
 				IsNft = isNft,
-				IsEquipped = _loadout.TryGetValue(equipment.GameId.GetSlot(), out var equipId) && equipId == id,
 				Stats = equipment.GetStats(GameLogic.ConfigsProvider),
 				NextLevelStats = nextEquipment.GetStats(GameLogic.ConfigsProvider)
 			};

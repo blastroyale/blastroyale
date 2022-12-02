@@ -74,9 +74,10 @@ namespace FirstLight.Game.StateMachines
 			
 			initial.Transition().Target(loading);
 			initial.OnExit(SubscribeEvents);
-
+			
 			loading.OnEnter(OpenMatchmakingScreen);
 			loading.WaitingFor(LoadMatchAssets).Target(roomCheck);
+			loading.OnExit(CloseTransitionSwipeUI);
 			
 			roomCheck.Transition().Condition(NetworkUtils.IsOfflineOrDisconnected).Target(unloading);
 			roomCheck.Transition().Condition(IsRoomClosed).Target(playerReadyCheck);
@@ -155,8 +156,16 @@ namespace FirstLight.Game.StateMachines
 		{
 			_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.Simulation;
 		}
+		
+		private void CloseTransitionSwipeUI()
+		{
+			if (_uiService.HasUiPresenter<SwipeScreenPresenter>())
+			{
+				_uiService.CloseUi<SwipeScreenPresenter>(true);
+			}
+		}
 
-		private void OpenMatchmakingScreen()
+		private async void OpenMatchmakingScreen()
 		{
 			if (_networkService.QuantumClient.CurrentRoom.IsMatchmakingRoom())
 			{
@@ -165,7 +174,7 @@ namespace FirstLight.Game.StateMachines
 					LeaveRoomClicked = () => _statechartTrigger(LeaveRoomClicked)
 				};
 				
-				_uiService.OpenScreen<MatchmakingScreenPresenter, MatchmakingScreenPresenter.StateData>(data);
+				await _uiService.OpenScreenAsync<MatchmakingScreenPresenter, MatchmakingScreenPresenter.StateData>(data);
 			}
 			else
 			{
@@ -175,11 +184,10 @@ namespace FirstLight.Game.StateMachines
 					
 				};
 				
-				_uiService.OpenScreen<CustomLobbyScreenPresenter, CustomLobbyScreenPresenter.StateData>(data);
+				await _uiService.OpenScreenAsync<CustomLobbyScreenPresenter, CustomLobbyScreenPresenter.StateData>(data);
 			}
 			
 			_services.AnalyticsService.MatchCalls.MatchInitiate();
-			
 		}
 
 		private void OpenDisconnectedScreen()

@@ -3,18 +3,15 @@
 trigger: none
 pr: none
 resources:
+  pipelines:
+  - pipeline: build
+    source: 'Game Logic Service CI'
+    trigger: true
   repositories:
   - repository: templates
     type: git
     ref: main
     name: Infrastructure/core-templates
-  pipelines:
-  - pipeline: build
-    source: 'Game Logic Service CI'
-    trigger:
-      branches:
-        include:
-        - 'master'
 
 variables:
 # Variable called 'image_manual_override' is defined for optional per-run manual override.

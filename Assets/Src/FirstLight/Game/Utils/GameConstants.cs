@@ -218,6 +218,7 @@ namespace FirstLight.Game.Utils
 			public const string SHADER_MINIMAP_DRAW_PLAYERS = "MINIMAP_DRAW_PLAYERS";
 			
 			public const int REWARD_POPUP_CLOSE_MS = 300;
+			public const int SCREEN_SWIPE_TRANSITION_MS = 1500;
 		}
 
 		public static class Controls

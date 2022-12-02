@@ -137,8 +137,9 @@ namespace FirstLight.Game.StateMachines
 		private async void UnloadSimulation(IWaitActivity activity)
 		{
 			await _uiService.OpenUiAsync<SwipeScreenPresenter>();
+			
 			// Delay to let the swipe animation finish its intro without being choppy
-			await Task.Delay(1500);
+			await Task.Delay(GameConstants.Visuals.SCREEN_SWIPE_TRANSITION_MS);
 			
 			StopSimulation();
 			UnsubscribeEvents();

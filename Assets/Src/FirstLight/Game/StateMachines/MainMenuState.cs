@@ -100,8 +100,7 @@ namespace FirstLight.Game.StateMachines
 			
 			disconnected.OnEnter(OpenDisconnectedScreen);
 			disconnected.Event(NetworkState.PhotonMasterConnectedEvent).Target(mainMenu);
-
-			mainMenuUnloading.OnEnter(OpenLoadingScreen);
+			
 			mainMenuUnloading.OnEnter(UnloadMainMenu);
 			mainMenuUnloading.Event(MainMenuUnloadedEvent).Target(final);
 
@@ -525,6 +524,11 @@ namespace FirstLight.Game.StateMachines
 		
 		private async void UnloadMainMenu()
 		{
+			await _uiService.OpenUiAsync<SwipeScreenPresenter>();
+			
+			// Delay to let the swipe animation finish its intro without being choppy
+			await Task.Delay(GameConstants.Visuals.SCREEN_SWIPE_TRANSITION_MS);
+			
 			var configProvider = _services.ConfigsProvider;
 
 			Camera.main.gameObject.SetActive(false);

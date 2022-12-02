@@ -69,3 +69,4 @@ MonoBehaviour:
   _document: {fileID: 6790020054484025175}
   _background: {fileID: 0}
   _millisecondsToClose: 500
+  _planeFlyDelay: 2

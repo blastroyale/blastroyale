@@ -1,10 +1,11 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xmlns:flg="FirstLight.Game.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/MatchmakingScreenStyle.uss?fileID=7433441132597879392&amp;guid=054969067d16dbd4b99f57bc2f230e20&amp;type=3#MatchmakingScreenStyle" />
     <ui:VisualElement name="root" picking-mode="Ignore" class="background fill-parent">
-        <flg:SafeAreaElement class="safe-area">
-            <ui:VisualElement name="PlayerImage" class="player-image" />
+        <FirstLight.Game.UIElements.AnimatedImageElement name="Clouds" sine-wave-pos-min-x="-65" sine-wave-pos-x-frequency="1" sine-wave-pos-y-frequency="-1" sine-wave-pos-min-y="-35" sine-wave-pos-max-x="65" sine-wave-pos-max-y="35" sine-wave-pos-x-offset="0" sine-wave-pos-y-offset="0.75" class="clouds" />
+        <FirstLight.Game.UIElements.SafeAreaElement class="safe-area">
+            <FirstLight.Game.UIElements.AnimatedImageElement name="PlayerImage" sine-wave-pos-max-y="25" sine-wave-pos-min-y="-25" sine-wave-pos-y-frequency="2" sine-wave-pos-x-frequency="2" sine-wave-pos-min-x="-25" sine-wave-pos-max-x="25" sine-wave-pos-x-offset="1" class="player-image" />
             <ui:VisualElement name="PlayerAmountHolder" class="load-status-holder">
-                <flg:SpinningElement name="LoadIcon" rotationsPerSecond="1" class="load-status-holder__loading-icon loading-spinner" />
+                <FirstLight.Game.UIElements.AnimatedImageElement name="LoadIcon" rotations-per-second="1" class="load-status-holder__loading-icon loading-spinner" />
                 <ui:VisualElement name="Labels" class="load-status-holder__labels">
                     <ui:Label name="LoadStatusLabel" text="5/30" class="font-italic font-style-h2 load-status-holder__player-label" />
                     <ui:Label name="LocationLabel" text="LOCATION" class="font-italic font-style-h2 load-status-holder__location-label" />
@@ -15,37 +16,39 @@
                 <ui:Label name="ModeDescTop" text="LAST PLAYER STANDING" class="mode-desc__top" />
                 <ui:Label name="ModeDescBot" text="WINS THE MATCH" class="mode-desc__bot" />
             </ui:VisualElement>
-            <flg:ImageButton name="CloseButton" class="button-close" />
-            <ui:VisualElement name="Map" class="map">
-                <ui:VisualElement name="Mask" class="map__mask">
-                    <ui:VisualElement name="MapImage" class="map__image" />
-                    <ui:VisualElement name="DropZone" picking-mode="Ignore" class="dropzone">
-                        <ui:VisualElement name="ShadowLeft" class="dropzone__shadow" />
-                        <ui:VisualElement name="Path" picking-mode="Ignore" class="dropzone__path">
-                            <ui:VisualElement name="Plane" class="dropzone__plane" />
+            <FirstLight.Game.UIElements.ImageButton name="CloseButton" class="button-close" />
+            <ui:VisualElement name="MapHolder" class="map-holder">
+                <ui:VisualElement name="Map" class="map">
+                    <ui:VisualElement name="Mask" class="map__mask">
+                        <ui:VisualElement name="MapImage" class="map__image" />
+                        <ui:VisualElement name="DropZone" picking-mode="Ignore" class="dropzone">
+                            <ui:VisualElement name="ShadowLeft" class="dropzone__shadow" />
+                            <ui:VisualElement name="Path" picking-mode="Ignore" class="dropzone__path">
+                                <ui:VisualElement name="Plane" picking-mode="Ignore" class="dropzone__plane" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="ShadowRight" class="dropzone__shadow" />
                         </ui:VisualElement>
-                        <ui:VisualElement name="ShadowRight" class="dropzone__shadow" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="MapMarker" picking-mode="Ignore" class="map-marker">
+                        <ui:Label name="MapMarkerTitle" text="PLACE NAME" picking-mode="Ignore" class="map-marker__title" />
+                        <ui:VisualElement name="MapMarkerIcon" picking-mode="Ignore" class="map-marker__icon" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="MapTitleBg" picking-mode="Ignore" class="map__title-bg">
+                        <FirstLight.Game.UIElements.LocalizedLabel text="DROPZONE/MAP NAME" name="Title" localization-key="UITMatchmaking/select_dropzone" class="map__title" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="MapMarker" picking-mode="Ignore" class="map-marker">
-                    <ui:Label name="MapMarkerTitle" text="PLACE NAME" picking-mode="Ignore" class="map-marker__title" />
-                    <ui:VisualElement name="MapMarkerIcon" picking-mode="Ignore" class="map-marker__icon" />
-                </ui:VisualElement>
-                <ui:VisualElement name="MapTitleBg" picking-mode="Ignore" class="map__title-bg">
-                    <flg:LocalizedLabel text="DROPZONE/MAP NAME" name="Title" localization-key="UITMatchmaking/select_dropzone" class="map__title" />
-                </ui:VisualElement>
             </ui:VisualElement>
-        </flg:SafeAreaElement>
+        </FirstLight.Game.UIElements.SafeAreaElement>
         <ui:VisualElement name="ModeHeader" class="header">
             <ui:VisualElement class="header__background" />
             <ui:VisualElement class="header__foreground" />
-            <flg:SafeAreaElement name="SafeAreaHolder" apply-right="false" apply-bottom="false" apply-top="false" class="header__holder">
+            <FirstLight.Game.UIElements.SafeAreaElement name="SafeAreaHolder" apply-right="false" apply-bottom="false" apply-top="false" class="header__holder">
                 <ui:VisualElement name="HeaderIcon">
                     <ui:VisualElement name="Shadow" class="header__icon-shadow" />
                     <ui:VisualElement name="Icon" class="header__icon" />
                 </ui:VisualElement>
                 <ui:Label name="HeaderTitle" text="BATTLE ROYALE&#10;CASUAL" class="header__title" />
-            </flg:SafeAreaElement>
+            </FirstLight.Game.UIElements.SafeAreaElement>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

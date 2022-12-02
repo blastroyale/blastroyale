@@ -1,15 +1,13 @@
 using System;
 using System.Collections.Generic;
 using Cinemachine;
-using FirstLight.FLogger;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
-using FirstLight.Game.Views;
 using FirstLight.UiService;
-using I2.Loc;
+using NSubstitute;
 using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -60,8 +58,8 @@ namespace FirstLight.Game.Presenters
 			root.Q<ImageButton>("ArrowLeft").clicked += OnPreviousPlayerClicked;
 			root.Q<ImageButton>("ArrowRight").clicked += OnNextPlayerClicked;
 
-			root.Q<VisualElement>("ShowHide")
-				.RegisterCallback<ClickEvent, VisualElement>((_, r) => r.ToggleInClassList(UssHideControls), root);
+			root.Q<VisualElement>("ShowHide").RegisterCallback<ClickEvent, VisualElement>((_, r) =>
+				r.ToggleInClassList(UssHideControls), root);
 
 			root.SetupClicks(_services);
 		}
@@ -69,14 +67,15 @@ namespace FirstLight.Game.Presenters
 		protected override void OnOpened()
 		{
 			base.OnOpened();
-			_header.SetSubtitle(_services.NetworkService.CurrentRoomGameModeConfig?.Id
-				.ToUpper()); // TODO: Use proper localization
+			// TODO: Use proper localization
+			_header.SetSubtitle(_services.NetworkService.CurrentRoomGameModeConfig?.Id.ToUpper());
 		}
 
 		protected override void SubscribeToEvents()
 		{
 			base.SubscribeToEvents();
 			_matchServices.SpectateService.SpectatedPlayer.InvokeObserve(OnSpectatedPlayerChanged);
+			QuantumEvent.Subscribe<EventOnPlayerEquipmentStatsChanged>(this, OnPlayerEquipmentStatsChanged);
 		}
 
 		protected override void UnsubscribeFromEvents()
@@ -85,29 +84,47 @@ namespace FirstLight.Game.Presenters
 			_matchServices.SpectateService.SpectatedPlayer.StopObservingAll(this);
 		}
 
+		private void OnPlayerEquipmentStatsChanged(EventOnPlayerEquipmentStatsChanged callback)
+		{
+			if (callback.Player != _matchServices.SpectateService.SpectatedPlayer.Value.Player) return;
+
+			var f = QuantumRunner.Default.Game.Frames.Verified;
+			if (f.TryGet<PlayerCharacter>(callback.Entity, out var playerCharacter))
+			{
+				UpdateCurrentMight(playerCharacter);
+			}
+		}
+
 		private void OnSpectatedPlayerChanged(SpectatedPlayer _, SpectatedPlayer current)
 		{
-			FLog.Info("PACO", $"Player switched: {current.Player}, e:{current.Entity}");
-
-			var game = QuantumRunner.Default.Game;
-			var f = game.Frames.Verified;
+			var f = QuantumRunner.Default.Game.Frames.Verified;
 			var playersData = f.GetSingleton<GameContainer>().PlayersData;
+
+			if (!f.TryGet<PlayerCharacter>(current.Entity, out var playerCharacter))
+			{
+				return;
+			}
 
 			var data = new QuantumPlayerMatchData(f, playersData[current.Player]);
 
 			_followCamera.Follow = current.Transform;
 			_followCamera.LookAt = current.Transform;
 			_followCamera.SnapCamera();
-			
+
 			_playerName.text = data.GetPlayerName();
-			_playerMight.SetMight(GetSpectatedPlayerMight(f, current), false);
 			_defeatedYou.SetVisibility(current.Player == Data.Killer);
+			UpdateCurrentMight(playerCharacter);
 		}
 
-		private float GetSpectatedPlayerMight(Frame f, SpectatedPlayer player)
+		private void UpdateCurrentMight(PlayerCharacter character)
 		{
-			var gear = f.Get<PlayerCharacter>(player.Entity).Gear;
-			var currentWeapon = f.Get<PlayerCharacter>(player.Entity).CurrentWeapon;
+			_playerMight.SetMight(GetSpectatedPlayerMight(character), false);
+		}
+
+		private float GetSpectatedPlayerMight(PlayerCharacter character)
+		{
+			var gear = character.Gear;
+			var currentWeapon = character.CurrentWeapon;
 
 			var currentEquipment = new List<Equipment>(6);
 			if (currentWeapon.IsValid())

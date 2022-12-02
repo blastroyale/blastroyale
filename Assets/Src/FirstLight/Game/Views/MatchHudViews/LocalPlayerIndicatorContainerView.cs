@@ -20,7 +20,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private EntityRef _localPlayerEntity;
 		private QuantumWeaponConfig _weaponConfig;
 		private IndicatorVfxId _shootIndicatorId;
-		private bool _isReloading;
 		private readonly IIndicator[] _indicators = new IIndicator[(int) IndicatorVfxId.TOTAL];
 		private readonly IIndicator[] _specialIndicators = new IIndicator[Constants.MAX_SPECIALS];
 		private IIndicator ShootIndicator => _indicators[(int)_shootIndicatorId];

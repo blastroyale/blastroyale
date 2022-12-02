@@ -117,7 +117,7 @@ namespace FirstLight.Game.UIElements
 		{
 			private readonly UxmlFloatAttributeDescription _rotationsPerSecondAttribute = new()
 			{
-				name = "rotationsPerSecond",
+				name = "rotations-per-second",
 				defaultValue = 0f,
 				restriction = new UxmlValueBounds()
 					{excludeMin = false, excludeMax = false},
@@ -126,7 +126,7 @@ namespace FirstLight.Game.UIElements
 
 			private readonly UxmlFloatAttributeDescription _randPosMinXAttribute = new()
 			{
-				name = "randPosMinX",
+				name = "rand-pos-min-x",
 				defaultValue = 0f,
 				restriction = new UxmlValueBounds()
 					{excludeMin = false, excludeMax = false},
@@ -135,7 +135,7 @@ namespace FirstLight.Game.UIElements
 
 			private readonly UxmlFloatAttributeDescription _randPosMinYAttribute = new()
 			{
-				name = "randPosMinY",
+				name = "rand-pos-min-x",
 				defaultValue = 0f,
 				restriction = new UxmlValueBounds()
 					{excludeMin = false, excludeMax = false},
@@ -144,7 +144,7 @@ namespace FirstLight.Game.UIElements
 
 			private readonly UxmlFloatAttributeDescription _randPosMaxXAttribute = new()
 			{
-				name = "randPosMaxX",
+				name = "rand-pos-max-x",
 				defaultValue = 0f,
 				restriction = new UxmlValueBounds()
 					{excludeMin = false, excludeMax = false},
@@ -153,7 +153,7 @@ namespace FirstLight.Game.UIElements
 
 			private readonly UxmlFloatAttributeDescription _randPosMaxYAttribute = new()
 			{
-				name = "randPosMaxY",
+				name = "rand-pos-max-y",
 				defaultValue = 0f,
 				restriction = new UxmlValueBounds()
 					{excludeMin = false, excludeMax = false},
@@ -162,7 +162,7 @@ namespace FirstLight.Game.UIElements
 
 			private readonly UxmlIntAttributeDescription _randPosDurationMsAttribute = new()
 			{
-				name = "randPosDurationMs",
+				name = "rand-pos-duration-ms",
 				defaultValue = 0,
 				restriction = new UxmlValueBounds()
 					{excludeMin = false, excludeMax = false},
@@ -171,7 +171,7 @@ namespace FirstLight.Game.UIElements
 
 			private readonly UxmlFloatAttributeDescription _randPosLerpFactorAttribute = new()
 			{
-				name = "randPosLerpFactor",
+				name = "rand-pos-lerp-factor",
 				defaultValue = 0,
 				restriction = new UxmlValueBounds()
 					{excludeMin = false, excludeMax = false},
@@ -180,7 +180,7 @@ namespace FirstLight.Game.UIElements
 
 			private readonly UxmlFloatAttributeDescription _sineWavePosMinXAttribute = new()
 			{
-				name = "sineWavePosMinX",
+				name = "sine-wave-pos-min-x",
 				defaultValue = 0f,
 				restriction = new UxmlValueBounds()
 					{excludeMin = false, excludeMax = false},
@@ -189,7 +189,7 @@ namespace FirstLight.Game.UIElements
 
 			private readonly UxmlFloatAttributeDescription _sineWavePosMinYAttribute = new()
 			{
-				name = "sineWavePosMinY",
+				name = "sine-wave-pos-min-y",
 				defaultValue = 0f,
 				restriction = new UxmlValueBounds()
 					{excludeMin = false, excludeMax = false},
@@ -198,7 +198,7 @@ namespace FirstLight.Game.UIElements
 
 			private readonly UxmlFloatAttributeDescription _sineWavePosMaxXAttribute = new()
 			{
-				name = "sineWavePosMaxX",
+				name = "sine-wave-pos-max-x",
 				defaultValue = 0f,
 				restriction = new UxmlValueBounds()
 					{excludeMin = false, excludeMax = false},
@@ -207,7 +207,7 @@ namespace FirstLight.Game.UIElements
 
 			private readonly UxmlFloatAttributeDescription _sineWavePosMaxYAttribute = new()
 			{
-				name = "sineWavePosMaxY",
+				name = "sine-wave-pos-max-y",
 				defaultValue = 0f,
 				restriction = new UxmlValueBounds()
 					{excludeMin = false, excludeMax = false},
@@ -216,7 +216,7 @@ namespace FirstLight.Game.UIElements
 
 			private readonly UxmlFloatAttributeDescription _sineWavePosXOffsetAttribute = new()
 			{
-				name = "sineWavePosXOffset",
+				name = "sine-wave-pos-x-offset",
 				defaultValue = 0f,
 				restriction = new UxmlValueBounds()
 					{excludeMin = false, excludeMax = false},
@@ -225,7 +225,7 @@ namespace FirstLight.Game.UIElements
 
 			private readonly UxmlFloatAttributeDescription _sineWavePosYOffsetAttribute = new()
 			{
-				name = "sineWavePosYOffset",
+				name = "sine-wave-pos-y-offset",
 				defaultValue = 0f,
 				restriction = new UxmlValueBounds()
 					{excludeMin = false, excludeMax = false},
@@ -234,7 +234,7 @@ namespace FirstLight.Game.UIElements
 
 			private readonly UxmlFloatAttributeDescription _sineWavePosXFrequencyAttribute = new()
 			{
-				name = "sineWavePosXFrequency",
+				name = "sine-wave-pos-x-frequency",
 				defaultValue = 0f,
 				restriction = new UxmlValueBounds()
 					{excludeMin = false, excludeMax = false},
@@ -243,7 +243,7 @@ namespace FirstLight.Game.UIElements
 
 			private readonly UxmlFloatAttributeDescription _sineWavePosYFrequencyAttribute = new()
 			{
-				name = "sineWavePosYFrequency",
+				name = "sine-wave-pos-y-frequency",
 				defaultValue = 0f,
 				restriction = new UxmlValueBounds()
 					{excludeMin = false, excludeMax = false},

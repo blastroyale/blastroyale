@@ -1578,6 +1578,10 @@ PrefabInstance:
       propertyPath: m_PresetInfoIsWorld
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2482823480709534008, guid: 47834e62a2462406fb24478a1afc298a, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2482823481383450958, guid: 47834e62a2462406fb24478a1afc298a, type: 3}
       propertyPath: m_Sprite
       value: 

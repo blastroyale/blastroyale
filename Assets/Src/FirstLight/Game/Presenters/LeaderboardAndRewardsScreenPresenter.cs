@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using DG.Tweening;
 using FirstLight.Game.Logic;
 using FirstLight.Game.MonoComponent;
 using FirstLight.Game.Services;
@@ -38,7 +40,6 @@ namespace FirstLight.Game.Presenters
 		private IGameDataProvider _gameDataProvider;
 
 		private Button _nextButton;
-		private Label _nextButtonLabel;
 		private VisualElement _leaderboardPanel;
 		private ScrollView _leaderboardScrollView;
 		private VisualElement _playerName;
@@ -83,8 +84,7 @@ namespace FirstLight.Game.Presenters
 		{
 			_nextButton = root.Q<Button>("NextButton").Required();
 			_nextButton.clicked += OnNextButtonClicked;
-			_nextButtonLabel = _nextButton.Q<Label>("Label");
-			
+
 			_leaderboardPanel = root.Q<VisualElement>("LeaderboardPanel").Required();
 			_leaderboardScrollView = root.Q<ScrollView>("LeaderboardScrollView").Required();
 
@@ -115,17 +115,26 @@ namespace FirstLight.Game.Presenters
 		private void ShowLeaderboards()
 		{
 			_showingLeaderboards = true;
-			_nextButtonLabel.text = "NEXT";
+			_nextButton.text = "NEXT →";
 			_leaderboardPanel.style.display = DisplayStyle.Flex;
-			_rewardsPanel.style.display = DisplayStyle.None;
 		}
 		
 		private void ShowRewards()
 		{
+			_leaderboardPanel.AddToClassList("hidden-right");
+			_rewardsPanel.RemoveFromClassList("rewards-panel--hidden-start");
 			_showingLeaderboards = false;
-			_nextButtonLabel.text = "EXIT";
-			_leaderboardPanel.style.display = DisplayStyle.None;
-			_rewardsPanel.style.display = DisplayStyle.Flex;
+			_nextButton.text = "EXIT";
+
+			AnimatePanels();
+		}
+
+		private async void AnimatePanels()
+		{
+			await Task.Delay(400);
+			await _craftSpiceView.Animate();
+			await _trophiesView.Animate();
+			await _bppView.Animate();
 		}
 
 		private void UpdateRewards()
@@ -154,12 +163,46 @@ namespace FirstLight.Game.Presenters
 			{
 				bppReward = rewards[GameId.BPP];
 			}
+			
 			var maxLevel = _gameDataProvider.BattlePassDataProvider.MaxLevel;
-			var nextLevel = Math.Clamp(_matchServices.MatchEndDataService.BPLevelBeforeChange + 1, 0, maxLevel) + 1;
 			var bppPoolInfo = _gameDataProvider.ResourceDataProvider.GetResourcePoolInfo(GameId.BPP);
-			_bppView.SetData(bppReward, (int)_matchServices.MatchEndDataService.BPPBeforeChange,
-				(int)_gameDataProvider.BattlePassDataProvider.GetRequiredPointsForLevel((int)_matchServices.MatchEndDataService.BPLevelBeforeChange), (int)nextLevel,
-				(int)bppPoolInfo.CurrentAmount, (int)bppPoolInfo.PoolCapacity);
+			var gainedLeft = bppReward;
+			var levelsInfo = new List<RewardBPPanelView.BPPLevelRewardInfo>();
+			var nextLevel = (int)Math.Clamp(_matchServices.MatchEndDataService.BPLevelBeforeChange+1, 0, maxLevel) + 1;
+			var currentLevel = nextLevel;
+
+			do
+			{
+				var levelRewardInfo = new RewardBPPanelView.BPPLevelRewardInfo();
+
+				// If it's the next level to the current one, we might have already some points in there
+				if (nextLevel == currentLevel)
+				{
+					levelRewardInfo.Start = (int) _matchServices.MatchEndDataService.BPPBeforeChange;
+				}
+
+				levelRewardInfo.MaxForLevel =
+					(int) _gameDataProvider.BattlePassDataProvider.GetRequiredPointsForLevel(currentLevel - 1);
+				levelRewardInfo.NextLevel = (int) currentLevel;
+
+				var amountToMax = levelRewardInfo.MaxForLevel - levelRewardInfo.Start;
+				if (amountToMax < gainedLeft)
+				{
+					levelRewardInfo.Total = amountToMax;
+					gainedLeft -= amountToMax;
+				}
+				else
+				{
+					levelRewardInfo.Total = gainedLeft;
+					gainedLeft = 0;
+				}
+
+				levelsInfo.Add(levelRewardInfo);
+
+				currentLevel++;
+			} while (gainedLeft > 0);
+
+			_bppView.SetData(bppReward, levelsInfo, (int)bppPoolInfo.CurrentAmount, (int)bppPoolInfo.PoolCapacity);
 		}
 
 		private void UpdatePlayerName()
@@ -239,7 +282,9 @@ namespace FirstLight.Game.Presenters
 		private void SetupCamera()
 		{
 			_camera.gameObject.SetActive(true);
-			_camera.fieldOfView = Camera.HorizontalToVerticalFieldOfView(19f, 2.17f);
+
+			// A very magic number that makes the character look good enough in any aspect ratio
+			_camera.fieldOfView = Camera.HorizontalToVerticalFieldOfView(20f, _camera.aspect);
 		}
 		
 		private async void UpdateCharacter()
@@ -254,6 +299,13 @@ namespace FirstLight.Game.Presenters
 				_matchServices.MatchEndDataService.PlayerMatchData[_matchServices.MatchEndDataService.LocalPlayer];
 			
 			await _character.UpdateSkin(playerData.QuantumPlayerMatchData.Data.PlayerSkin, playerData.Gear.ToList());
+			
+			var targetPosition = _character.transform.position;
+			var initialPosition = targetPosition;
+			initialPosition.x += 20f;
+			_character.transform.position = initialPosition;
+			
+			_character.transform.DOMove(targetPosition, 0.4f).SetEase(Ease.Linear);
 		}
 	}
 }

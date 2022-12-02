@@ -7,7 +7,6 @@ using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
-using NSubstitute;
 using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;

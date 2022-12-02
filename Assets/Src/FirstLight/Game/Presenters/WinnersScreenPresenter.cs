@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Cinemachine;
+using DG.Tweening;
 using FirstLight.Game.MonoComponent;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -47,6 +48,22 @@ namespace FirstLight.Game.Presenters
 
 			SetupCamera();
 			UpdateCharacters();
+		}
+		
+		protected override async Task OnClosed()
+		{
+			StartMovingCharacterOut(_character1.gameObject);
+			StartMovingCharacterOut(_character2.gameObject);
+			StartMovingCharacterOut(_character3.gameObject);
+
+			await base.OnClosed();
+		}
+
+		private void StartMovingCharacterOut(GameObject character)
+		{
+			var targetPosition = character.transform.position;
+			targetPosition.x -= 60f;
+			character.transform.DOMove(targetPosition, 0.5f).SetEase(Ease.Linear);
 		}
 
 		protected override void QueryElements(VisualElement root)

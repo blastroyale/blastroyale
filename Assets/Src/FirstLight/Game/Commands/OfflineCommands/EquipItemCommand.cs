@@ -19,11 +19,7 @@ namespace FirstLight.Game.Commands.OfflineCommands
 		/// <inheritdoc />
 		public void Execute(CommandExecutionContext ctx)
 		{
-			var info = ctx.Logic.EquipmentLogic().GetInfo(Item);
-
 			ctx.Logic.EquipmentLogic().Equip(Item);
-
-			ctx.Services.Get<IAnalyticsService>().EquipmentCalls.EquipItem(info);
 		}
 	}
 }

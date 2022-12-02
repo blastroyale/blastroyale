@@ -186,7 +186,6 @@ namespace FirstLight.Game.Logic
 		public static ServiceContainer Build(this ServiceContainer container, IGameServices services)
 		{
 			container.Add(services.MessageBrokerService);
-			container.Add(services.AnalyticsService);
 			return container;
 		}
 		

@@ -16,15 +16,10 @@ namespace FirstLight.Game.Commands.OfflineCommands
 
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.ClientOnly;
 
-
 		/// <inheritdoc />
 		public void Execute(CommandExecutionContext ctx)
 		{
-			var info = ctx.Logic.EquipmentLogic().GetInfo(Item);
-
 			ctx.Logic.EquipmentLogic().Unequip(Item);
-
-			ctx.Services.Get<IAnalyticsService>().EquipmentCalls.UnequipItem(info);
 		}
 	}
 }

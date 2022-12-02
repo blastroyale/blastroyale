@@ -9,10 +9,7 @@ using UnityEngine.UIElements;
 namespace FirstLight.Game.Presenters
 {
 	/// <summary>
-	/// The screen presenter is responsible for:
-	/// - Show the local player's state when he dies in the battle royale game
-	/// - Show the player's state that is currently spectating
-	/// - Leave the match
+	/// This screen is shown when a player is killed / the match ends.
 	/// </summary>
 	public class MatchEndScreenPresenter : UiToolkitPresenterData<MatchEndScreenPresenter.StateData>
 	{

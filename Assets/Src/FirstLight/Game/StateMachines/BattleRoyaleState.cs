@@ -127,7 +127,6 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)
 		{
-			FLog.Info("PACO", $"OnLocalPlayerDead: {callback.PlayerKiller}");
 			_killer = callback.PlayerKiller;
 
 			_statechartTrigger(_localPlayerDeadEvent);
@@ -155,9 +154,6 @@ namespace FirstLight.Game.StateMachines
 
 		private void OpenMatchEndScreen()
 		{
-			
-			FLog.Info("PACO", $"OpenMatchEndScreen: {_killer}");
-
 			var data = new MatchEndScreenPresenter.StateData
 			{
 				Killer = _killer,

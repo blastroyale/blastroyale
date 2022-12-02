@@ -31,7 +31,7 @@ namespace FirstLight.Tests.PlayTests
 		
 		public static IEnumerator WaitForGameCompleteScreen()
 		{
-			yield return TestTools.UntilObjectOfType<GameCompleteScreenPresenter>();
+			yield return TestTools.UntilObjectOfType<WinnerScreenPresenter>();
 		}
 		
 		public static IEnumerator WaitForBRDeadScreenScreen()
@@ -62,7 +62,7 @@ namespace FirstLight.Tests.PlayTests
 
 		public static void ClickGameCompleteContinue()
 		{
-			var gameCompleteScreen = Object.FindObjectOfType<GameCompleteScreenPresenter>();
+			var gameCompleteScreen = Object.FindObjectOfType<WinnerScreenPresenter>();
 			var completeButton = gameCompleteScreen.gameObject.GetComponentInChildren<Button>();
 			completeButton.onClick.Invoke();
 		}

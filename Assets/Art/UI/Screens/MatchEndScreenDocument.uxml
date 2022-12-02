@@ -11,7 +11,7 @@
             <ui:VisualElement name="Crown" class="you-win-title__crown" />
             <ui:VisualElement name="Text" class="you-win-title__text" />
         </ui:VisualElement>
-        <FirstLight.Game.UIElements.LocalizedButton text="##" localization-key="UITShared/next" name="NextButton" class="button-next" />
+        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITShared/next" name="NextButton" class="button-next anim-delay-0 anim-fade" />
         <ui:VisualElement name="MatchEndedTitle" class="match-ended-title" />
         <ui:VisualElement name="YouChoseDeathTitle" class="blasted-title blasted-title--suicide">
             <ui:VisualElement name="Bg" class="blasted-title__bg" />

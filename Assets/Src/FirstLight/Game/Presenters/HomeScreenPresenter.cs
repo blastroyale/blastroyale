@@ -105,7 +105,6 @@ namespace FirstLight.Game.Presenters
 			_playButton.clicked += OnPlayButtonClicked;
 
 			root.Q<CurrencyDisplayElement>("CSCurrency").SetAnimationOrigin(_playButton);
-			root.Q<CurrencyDisplayElement>("BLSTCurrency").SetAnimationOrigin(_playButton);
 			root.Q<CurrencyDisplayElement>("CoinCurrency").SetAnimationOrigin(_playButton);
 
 			root.Q<ImageButton>("GameModeButton").clicked += Data.OnGameModeClicked;

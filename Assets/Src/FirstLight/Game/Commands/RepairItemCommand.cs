@@ -1,5 +1,6 @@
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 
 namespace FirstLight.Game.Commands
@@ -10,7 +11,7 @@ namespace FirstLight.Game.Commands
 	public struct RepairItemCommand : IGameCommand
 	{
 		public UniqueId Item;
-		
+
 		public CommandAccessLevel AccessLevel() => CommandAccessLevel.Player;
 
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Server;
@@ -18,11 +19,22 @@ namespace FirstLight.Game.Commands
 		public void Execute(CommandExecutionContext ctx)
 		{
 			var logic = ctx.Logic.EquipmentLogic();
+			var info = logic.GetInfo(Item);
 			var item = logic.Inventory[Item];
 			var cost = logic.GetRepairCost(item, false);
-			
+
 			ctx.Logic.CurrencyLogic().DeductCurrency(cost.Key, cost.Value);
 			logic.Repair(Item);
+
+			ctx.Services.MessageBrokerService().Publish(new ItemRepairedMessage
+			{
+				Id = Item,
+				GameId = info.Equipment.GameId,
+				Name = info.Equipment.GameId.ToString(),
+				Durability = info.CurrentDurability,
+				DurabilityFinal = info.Equipment.MaxDurability,
+				Price = cost
+			});
 		}
 	}
 }

@@ -22,4 +22,14 @@ namespace FirstLight.Game.Messages
 		public uint Level;
 		public Pair<GameId, uint> Price;
 	}
+	
+	public struct ItemRepairedMessage : IMessage
+	{
+		public UniqueId Id;
+		public GameId GameId;
+		public string Name;
+		public float Durability;
+		public float DurabilityFinal;
+		public Pair<GameId, uint> Price;
+	}
 }

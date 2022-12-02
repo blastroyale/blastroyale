@@ -23,6 +23,22 @@ namespace Src.FirstLight.Server
 			evManager.RegisterListener<GameLogicMessageEvent<BattlePassLevelUpMessage>>(OnBattlePassRewards);
 			evManager.RegisterListener<GameLogicMessageEvent<ItemScrappedMessage>>(OnItemScrapped);
 			evManager.RegisterListener<GameLogicMessageEvent<ItemUpgradedMessage>>(OnItemUpgraded);
+			evManager.RegisterListener<GameLogicMessageEvent<ItemRepairedMessage>>(OnItemRepaired);
+		}
+
+		private void OnItemRepaired(GameLogicMessageEvent<ItemRepairedMessage> ev)
+		{
+			var data = new AnalyticsData
+			{
+				{"item_uid", ev.Message.Id},
+				{"item_id", ev.Message.GameId},
+				{"item_name", ev.Message.Name},
+				{"durability", ev.Message.Durability},
+				{"durability_final", ev.Message.DurabilityFinal},
+				{"coin_spending", ev.Message.Price.Value}
+			};
+
+			_ctx.Analytics!.EmitUserEvent(ev.UserId, "item_repair", data);
 		}
 
 		private void OnItemUpgraded(GameLogicMessageEvent<ItemUpgradedMessage> ev)
@@ -34,7 +50,7 @@ namespace Src.FirstLight.Server
 				{"item_name", ev.Message.Name},
 				{"durability", ev.Message.Durability},
 				{"level", ev.Message.Level},
-				{"coin_spending", ev.Message.Price.Value},
+				{"coin_spending", ev.Message.Price.Value}
 			};
 
 			_ctx.Analytics!.EmitUserEvent(ev.UserId, "item_upgrade", data);
@@ -48,7 +64,7 @@ namespace Src.FirstLight.Server
 				{"item_id", ev.Message.GameId},
 				{"item_name", ev.Message.Name},
 				{"durability", ev.Message.Durability},
-				{"coin_earning", ev.Message.Reward.Value},
+				{"coin_earning", ev.Message.Reward.Value}
 			};
 
 			_ctx.Analytics!.EmitUserEvent(ev.UserId, "item_scrap", data);

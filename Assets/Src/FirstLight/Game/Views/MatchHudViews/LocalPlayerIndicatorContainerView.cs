@@ -20,9 +20,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private EntityRef _localPlayerEntity;
 		private QuantumWeaponConfig _weaponConfig;
 		private IndicatorVfxId _shootIndicatorId;
+		private bool _isReloading;
 		private readonly IIndicator[] _indicators = new IIndicator[(int) IndicatorVfxId.TOTAL];
 		private readonly IIndicator[] _specialIndicators = new IIndicator[Constants.MAX_SPECIALS];
-
 		private IIndicator ShootIndicator => _indicators[(int)_shootIndicatorId];
 		
 		public LocalPlayerIndicatorContainerView(IGameServices services)
@@ -170,8 +170,14 @@ namespace FirstLight.Game.Views.MatchHudViews
 				size = _weaponConfig.SplashRadius.AsFloat * 2f;
 			}
 
+			var reloading = false;
+			if(playerCharacter->WeaponSlot->MagazineShotCount == 0)
+			{
+				reloading = true;
+			}
+
 			ShootIndicator.SetTransformState(aimDirection);
-			ShootIndicator.SetVisualState(input->IsShootButtonDown, isEmptied);
+			ShootIndicator.SetVisualState(input->IsShootButtonDown, isEmptied || reloading);
 			ShootIndicator.SetVisualProperties(size, 0, range);
 		}
 

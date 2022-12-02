@@ -67,14 +67,10 @@ namespace FirstLight.Game.Views
 		{
 			ShowPanel();
 
-			if (_gained == 0)
-			{
-				return;
-			}
-
 			var currentGained = 0;
 
 			_gainedLabel.text = "0";
+			
 
 			var increaseNumber = _gained / 150;
 
@@ -82,9 +78,13 @@ namespace FirstLight.Game.Views
 			{
 				var levelGained = levelRewardInfo.Start;
 
+				_nextLevelLabel.text = levelRewardInfo.NextLevel.ToString();
+				_totalLabel.text = levelGained + "/" + levelRewardInfo.MaxForLevel;
 				var nextPointsPercentage = (int)(100 * ((float) (levelRewardInfo.Start+levelRewardInfo.Total) / levelRewardInfo.MaxForLevel));
 				_newPointsBar.style.width = Length.Percent(nextPointsPercentage);
-				
+				var previousPointsPercentage = (int)(100 * ((float) levelGained / levelRewardInfo.MaxForLevel));
+				_previousPointsBar.style.width = Length.Percent(previousPointsPercentage);
+
 				while (levelGained < levelRewardInfo.Start+levelRewardInfo.Total)
 				{
 					// TODO: Make this work based on the current framerate
@@ -95,10 +95,9 @@ namespace FirstLight.Game.Views
 					currentGained += increase;
 
 					_gainedLabel.text = "+" + currentGained;
-					_nextLevelLabel.text = levelRewardInfo.NextLevel.ToString();
 					_totalLabel.text = levelGained + "/" + levelRewardInfo.MaxForLevel;
 
-					var previousPointsPercentage = (int)(100 * ((float) levelGained / levelRewardInfo.MaxForLevel));
+					previousPointsPercentage = (int)(100 * ((float) levelGained / levelRewardInfo.MaxForLevel));
 					_previousPointsBar.style.width = Length.Percent(previousPointsPercentage);
 				}
 			}

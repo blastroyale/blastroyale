@@ -8,7 +8,6 @@
                 </FirstLight.Game.UIElements.ImageButton>
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="CoinCurrency" currency="COIN" class="anim-delay-1 anim-translate anim-translate--down-s" />
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="CSCurrency" currency="CS" class="anim-delay-2 anim-translate anim-translate--down-s" />
-                <FirstLight.Game.UIElements.CurrencyDisplayElement name="BLSTCurrency" currency="BLST" class="anim-delay-3 anim-translate anim-translate--down-s" />
             </ui:VisualElement>
             <ui:VisualElement picking-mode="Ignore" name="RightButtons" class="main-buttons main-buttons--right">
                 <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/discord" name="DiscordButton" class="sfx-click-forwards button-with-icon button-with-icon--small button-with-icon--discord anim-delay-3 anim-translate anim-translate--left-l">

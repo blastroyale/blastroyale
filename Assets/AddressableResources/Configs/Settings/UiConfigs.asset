@@ -15,10 +15,6 @@ MonoBehaviour:
   _loadingSpinnerType: FirstLight.Game.Presenters.LoadingSpinnerScreenPresenter,
     FirstLight.Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   _configs:
-  - AddressableAddress: Ui/Battle Royale Dead Screen.prefab
-    Layer: -2
-    UiType: FirstLight.Game.Presenters.BattleRoyaleDeadScreenPresenter, FirstLight.Game,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/BattlepassScreenPresenter.prefab
     Layer: 0
     UiType: FirstLight.Game.Presenters.BattlePassScreenPresenter, FirstLight.Game,
@@ -54,10 +50,6 @@ MonoBehaviour:
   - AddressableAddress: Ui/EquipmentSelectionScreen.prefab
     Layer: 0
     UiType: FirstLight.Game.Presenters.EquipmentSelectionPresenter, FirstLight.Game,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - AddressableAddress: Ui/GameCompleteScreen.prefab
-    Layer: -2
-    UiType: FirstLight.Game.Presenters.GameCompleteScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/GameCountdownScreen.prefab
     Layer: -2
@@ -119,6 +111,10 @@ MonoBehaviour:
     Layer: -2
     UiType: FirstLight.Game.Presenters.MatchWorldHudPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  - AddressableAddress: Ui/MatchEndScreen.prefab
+    Layer: 0
+    UiType: FirstLight.Game.Presenters.MatchEndScreenPresenter, FirstLight.Game,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/MatchmakingScreen.prefab
     Layer: -1
     UiType: FirstLight.Game.Presenters.MatchmakingScreenPresenter, FirstLight.Game,
@@ -179,6 +175,10 @@ MonoBehaviour:
     Layer: 7
     UiType: FirstLight.Game.Presenters.UiVfxPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  - AddressableAddress: Ui/WinnerScreen.prefab
+    Layer: 0
+    UiType: FirstLight.Game.Presenters.WinnerScreenPresenter, FirstLight.Game, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/WinnersScreen.prefab
     Layer: 0
     UiType: FirstLight.Game.Presenters.WinnersScreenPresenter, FirstLight.Game, Version=0.0.0.0,
@@ -207,8 +207,6 @@ MonoBehaviour:
   - SetId: 2
     UiConfigsType:
     - FirstLight.Game.Presenters.MatchHudPresenter, FirstLight.Game, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    - FirstLight.Game.Presenters.GameCompleteScreenPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.MatchControlsHudPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null

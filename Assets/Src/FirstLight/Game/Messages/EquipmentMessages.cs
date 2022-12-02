@@ -33,10 +33,4 @@ namespace FirstLight.Game.Messages
 		public float DurabilityFinal;
 		public Pair<GameId, uint> Price;
 	}
-
-	public struct EquipUnequipItemMessage : IMessage
-	{
-		public EquipmentInfo Info;
-		public bool IsEquip;
-	}
 }

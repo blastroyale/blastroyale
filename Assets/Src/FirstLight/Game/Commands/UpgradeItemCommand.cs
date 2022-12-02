@@ -11,7 +11,7 @@ namespace FirstLight.Game.Commands
 	public struct UpgradeItemCommand : IGameCommand
 	{
 		public UniqueId Item;
-		
+
 		public CommandAccessLevel AccessLevel() => CommandAccessLevel.Player;
 
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Server;
@@ -22,10 +22,17 @@ namespace FirstLight.Game.Commands
 			var info = logic.GetInfo(Item);
 			var item = logic.Inventory[Item];
 			var cost = logic.GetUpgradeCost(item, false);
-			
+
 			ctx.Logic.CurrencyLogic().DeductCurrency(cost.Key, cost.Value);
+			ctx.Services.MessageBrokerService().Publish(new CurrencyChangedMessage
+			{
+				Id = cost.Key,
+				Change = -(int) cost.Value,
+				Category = "upgrade",
+				NewValue = ctx.Logic.CurrencyLogic().GetCurrencyAmount(cost.Key)
+			});
 			logic.Upgrade(Item);
-			
+
 			ctx.Services.MessageBrokerService().Publish(new ItemUpgradedMessage
 			{
 				Id = Item,

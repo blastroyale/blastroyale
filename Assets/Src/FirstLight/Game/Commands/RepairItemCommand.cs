@@ -24,6 +24,13 @@ namespace FirstLight.Game.Commands
 			var cost = logic.GetRepairCost(item, false);
 
 			ctx.Logic.CurrencyLogic().DeductCurrency(cost.Key, cost.Value);
+			ctx.Services.MessageBrokerService().Publish(new CurrencyChangedMessage
+			{
+				Id = cost.Key,
+				Change = -(int) cost.Value,
+				Category = "repair",
+				NewValue = ctx.Logic.CurrencyLogic().GetCurrencyAmount(cost.Key)
+			});
 			logic.Repair(Item);
 
 			ctx.Services.MessageBrokerService().Publish(new ItemRepairedMessage

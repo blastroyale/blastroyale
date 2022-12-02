@@ -22,6 +22,13 @@ namespace FirstLight.Game.Commands
 			var reward = ctx.Logic.EquipmentLogic().Scrap(Item);
 
 			ctx.Logic.CurrencyLogic().AddCurrency(reward.Key, reward.Value);
+			ctx.Services.MessageBrokerService().Publish(new CurrencyChangedMessage
+			{
+				Id = reward.Key,
+				Change = (int) reward.Value,
+				Category = "scrap",
+				NewValue = ctx.Logic.CurrencyLogic().GetCurrencyAmount(reward.Key)
+			});
 
 			ctx.Services.MessageBrokerService().Publish(new ItemScrappedMessage
 			{

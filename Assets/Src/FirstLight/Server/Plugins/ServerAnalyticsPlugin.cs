@@ -3,7 +3,6 @@ using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Models;
 using Newtonsoft.Json;
 
-
 namespace Src.FirstLight.Server
 {
 	/// <summary>
@@ -24,6 +23,22 @@ namespace Src.FirstLight.Server
 			evManager.RegisterListener<GameLogicMessageEvent<ItemScrappedMessage>>(OnItemScrapped);
 			evManager.RegisterListener<GameLogicMessageEvent<ItemUpgradedMessage>>(OnItemUpgraded);
 			evManager.RegisterListener<GameLogicMessageEvent<ItemRepairedMessage>>(OnItemRepaired);
+			evManager.RegisterListener<GameLogicMessageEvent<CurrencyChangedMessage>>(OnCurrencyChanged);
+		}
+
+		private void OnCurrencyChanged(GameLogicMessageEvent<CurrencyChangedMessage> ev)
+		{
+			var data = new AnalyticsData
+			{
+				{"amount", System.Math.Abs(ev.Message.Change)},
+				{"category", ev.Message.Category},
+				{"balance", ev.Message.NewValue}
+			};
+
+			// Event name is coin_earning, coin_spending, cs_earning etc...
+			var eventName = ev.Message.Id.ToString().ToLowerInvariant() + "_" +
+				(ev.Message.Change > 0 ? "earning" : "spending");
+			_ctx.Analytics!.EmitUserEvent(ev.UserId, eventName, data);
 		}
 
 		private void OnItemRepaired(GameLogicMessageEvent<ItemRepairedMessage> ev)

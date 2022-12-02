@@ -5,6 +5,9 @@ using Quantum;
 
 namespace FirstLight.Game.Services.AnalyticsHelpers
 {
+	/// <summary>
+	/// Analytics calls related to equipment handling.
+	/// </summary>
 	public class AnalyticsCallsEquipment : AnalyticsCalls
 	{
 		private readonly IConfigsProvider _configsProvider;
@@ -15,11 +18,17 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			_configsProvider = configsProvider;
 		}
 
+		/// <summary>
+		/// Send an analytics event for when an item is equipped from the Equipment screen.
+		/// </summary>
 		public void EquipItem(EquipmentInfo info)
 		{
 			_analyticsService.LogEvent(AnalyticsEvents.ItemEquipAction, GetEquipActionData(info, true));
 		}
 
+		/// <summary>
+		/// Send an analytics event for when an item is unequipped from the Equipment screen.
+		/// </summary>
 		public void UnequipItem(EquipmentInfo info)
 		{
 			_analyticsService.LogEvent(AnalyticsEvents.ItemEquipAction, GetEquipActionData(info, false));

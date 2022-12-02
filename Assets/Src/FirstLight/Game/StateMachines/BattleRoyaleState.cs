@@ -1,12 +1,11 @@
 using System;
-using FirstLight.Game.Logic;
+using FirstLight.FLogger;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using Quantum;
-using UnityEngine;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -17,8 +16,8 @@ namespace FirstLight.Game.StateMachines
 	{
 		private readonly IStatechartEvent _localPlayerDeadEvent = new StatechartEvent("Local Player Dead");
 		private readonly IStatechartEvent _localPlayerAliveEvent = new StatechartEvent("Local Player Alive");
-		private readonly IStatechartEvent _localPlayerSpectateEvent = new StatechartEvent("Local Player Spectate");
 		private readonly IStatechartEvent _localPlayerExitEvent = new StatechartEvent("Local Player Exit");
+		private readonly IStatechartEvent _localPlayerNextEvent = new StatechartEvent("Local Player Next");
 
 		private readonly IGameServices _services;
 		private readonly IGameUiService _uiService;
@@ -73,16 +72,11 @@ namespace FirstLight.Game.StateMachines
 			deadCheck.Transition().Target(dead);
 
 			dead.OnEnter(CloseMatchHud);
-			dead.OnEnter(OpenKillScreen);
-			dead.Event(_localPlayerExitEvent).Target(final);
-			dead.Event(_localPlayerSpectateEvent).Target(spectating);
-			dead.OnExit(CloseKillScreen);
+			dead.OnEnter(OpenMatchEndScreen);
+			dead.Event(_localPlayerNextEvent).Target(spectating);
 
-			//spectating.OnEnter(OpenMatchHud);
 			spectating.OnEnter(OpenSpectateHud);
 			spectating.Event(_localPlayerExitEvent).Target(final);
-			spectating.OnExit(CloseSpectateHud);
-			//spectating.OnExit(CloseMatchHud);
 
 			final.OnEnter(CloseMatchHud);
 			final.OnEnter(UnsubscribeEvents);
@@ -133,6 +127,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)
 		{
+			FLog.Info("PACO", $"OnLocalPlayerDead: {callback.PlayerKiller}");
 			_killer = callback.PlayerKiller;
 
 			_statechartTrigger(_localPlayerDeadEvent);
@@ -158,21 +153,18 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<MatchHudPresenter>();
 		}
 
-		private void OpenKillScreen()
+		private void OpenMatchEndScreen()
 		{
-			var data = new BattleRoyaleDeadScreenPresenter.StateData
+			
+			FLog.Info("PACO", $"OpenMatchEndScreen: {_killer}");
+
+			var data = new MatchEndScreenPresenter.StateData
 			{
 				Killer = _killer,
-				OnLeaveClicked = () => { _statechartTrigger(_localPlayerExitEvent); },
-				OnSpectateClicked = () => { _statechartTrigger(_localPlayerSpectateEvent); }
+				OnNextClicked = () => _statechartTrigger(_localPlayerNextEvent),
 			};
 
-			_uiService.OpenUiAsync<BattleRoyaleDeadScreenPresenter, BattleRoyaleDeadScreenPresenter.StateData>(data);
-		}
-
-		private void CloseKillScreen()
-		{
-			_uiService.CloseUi<BattleRoyaleDeadScreenPresenter>(true);
+			_uiService.OpenScreen<MatchEndScreenPresenter, MatchEndScreenPresenter.StateData>(data);
 		}
 
 		private void OpenSpectateHud()
@@ -186,11 +178,6 @@ namespace FirstLight.Game.StateMachines
 			_uiService.OpenScreen<SpectateScreenPresenter, SpectateScreenPresenter.StateData>(data);
 
 			_services.MessageBrokerService.Publish(new SpectateStartedMessage());
-		}
-
-		private void CloseSpectateHud()
-		{
-			_uiService.CloseUi<SpectateScreenPresenter>();
 		}
 	}
 }

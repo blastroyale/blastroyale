@@ -36,7 +36,7 @@ namespace FirstLight.Tests.PlayTests
 		
 		public static IEnumerator WaitForBRDeadScreenScreen()
 		{
-			yield return TestTools.UntilObjectOfType<BattleRoyaleDeadScreenPresenter>();
+			yield return TestTools.UntilObjectOfType<MatchEndScreenPresenter>();
 		}
 		
 		public static IEnumerator WaitForResultsScreen()

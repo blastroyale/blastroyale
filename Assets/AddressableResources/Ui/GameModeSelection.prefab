@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsGlobal: 1
-  priority: 10
+  priority: 100
   blendDistance: 0
   weight: 1
   sharedProfile: {fileID: 11400000, guid: fc6777a58ad9e45409e5147fb83009a8, type: 2}
@@ -326,6 +326,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 74a80dda23f35e64bb7fb45e209baa76, type: 3}
+    - target: {fileID: 2482823481383450958, guid: 47834e62a2462406fb24478a1afc298a, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 4a10513fcddba524b903ad9fd648619e, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47834e62a2462406fb24478a1afc298a, type: 3}
 --- !u!1 &4067513535748299492 stripped

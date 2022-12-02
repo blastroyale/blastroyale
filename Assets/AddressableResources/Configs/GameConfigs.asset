@@ -126,3 +126,4 @@ MonoBehaviour:
         RawValue: 458752
       NonNftDurabilityDropDays:
         RawValue: 458752
+      BotsDifficultyTrophiesStep: 150

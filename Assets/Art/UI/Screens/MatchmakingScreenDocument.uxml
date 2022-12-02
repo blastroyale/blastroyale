@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/MatchmakingScreenStyle.uss?fileID=7433441132597879392&amp;guid=054969067d16dbd4b99f57bc2f230e20&amp;type=3#MatchmakingScreenStyle" />
-    <ui:VisualElement name="root" picking-mode="Ignore" class="background fill-parent" style="align-items: center;">
-        <FirstLight.Game.UIElements.AnimatedImageElement name="Clouds" sineWavePosMinX="-50" sineWavePosXFrequency="1" sineWavePosYFrequency="1" sineWavePosMinY="-25" sineWavePosMaxX="50" sineWavePosMaxY="25" sineWavePosXOffset="-1" sineWavePosYOffset="1" class="clouds" />
+    <ui:VisualElement name="root" picking-mode="Ignore" class="background fill-parent">
+        <FirstLight.Game.UIElements.AnimatedImageElement name="Clouds" sineWavePosMinX="-65" sineWavePosXFrequency="1" sineWavePosYFrequency="-1" sineWavePosMinY="-35" sineWavePosMaxX="65" sineWavePosMaxY="35" sineWavePosXOffset="0" sineWavePosYOffset="0.75" class="clouds" />
         <FirstLight.Game.UIElements.SafeAreaElement class="safe-area">
             <FirstLight.Game.UIElements.AnimatedImageElement name="PlayerImage" randPosDuration="1" sineWavePosMaxY="25" sineWavePosMinY="-25" sineWavePosYFrequency="2" sineWavePosXFrequency="2" sineWavePosMinX="-25" sineWavePosMaxX="25" sineWavePosXOffset="1" class="player-image" />
             <ui:VisualElement name="PlayerAmountHolder" class="load-status-holder">
@@ -24,7 +24,7 @@
                         <ui:VisualElement name="DropZone" picking-mode="Ignore" class="dropzone">
                             <ui:VisualElement name="ShadowLeft" class="dropzone__shadow" />
                             <ui:VisualElement name="Path" picking-mode="Ignore" class="dropzone__path">
-                                <ui:VisualElement name="Plane" class="dropzone__plane" />
+                                <ui:VisualElement name="Plane" picking-mode="Ignore" class="dropzone__plane" />
                             </ui:VisualElement>
                             <ui:VisualElement name="ShadowRight" class="dropzone__shadow" />
                         </ui:VisualElement>

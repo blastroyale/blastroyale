@@ -32,44 +32,49 @@ namespace FirstLight.Game.UIElements
 		private float sineWavePosYOffset { get; set; }
 		private float sineWavePosXFrequency { get; set; }
 		private float sineWavePosYFrequency { get; set; }
-		
+
 		private ValueAnimation<float> _rotationTween;
 		private ValueAnimation<float> _randPosTween;
 		private ValueAnimation<float> _sinewavePosTween;
+
 		private void AnimateRotation()
 		{
 			if (_rotationTween != null && _rotationTween.isRunning)
 			{
+				_rotationTween.Stop();
 				_rotationTween.Recycle();
 			}
-			
-			_rotationTween = experimental.animation.Start(0f, 1f, (int)(1000 / rotationsPerSecond), (ve, percent) =>
-			{
-				ve.transform.rotation = Quaternion.Euler(0, 0, 360 * percent);
-			});
-			
+
+			_rotationTween = experimental.animation.Start(0f, 1f, (int) (1000 / rotationsPerSecond),
+														  (ve, percent) =>
+														  {
+															  ve.transform.rotation =
+																  Quaternion.Euler(0, 0, 360 * percent);
+														  });
+
 			_rotationTween.Ease(Easing.Linear);
 			_rotationTween.KeepAlive();
 			_rotationTween.OnCompleted(() => { _rotationTween.Start(); });
 		}
-		
+
 		private void AnimateRandomPosition()
 		{
 			if (_randPosTween != null && _randPosTween.isRunning)
 			{
+				_randPosTween.Stop();
 				_randPosTween.Recycle();
 			}
 
 			var randomPos = new Vector2(Random.Range(randPosMinX, randPosMaxX), Random.Range(randPosMinY, randPosMaxY));
-			
+
 			_randPosTween = experimental.animation.Start(0f, 1f, randPosDurationMs, (ve, percent) =>
 			{
 				Debug.LogError(percent);
-				var lerpNewX = Mathf.Lerp(ve.transform.position.x, randomPos.x, percent/randPosLerpFactor);
-				var lerpNewY = Mathf.Lerp(ve.transform.position.y, randomPos.y, percent/randPosLerpFactor);
+				var lerpNewX = Mathf.Lerp(ve.transform.position.x, randomPos.x, percent / randPosLerpFactor);
+				var lerpNewY = Mathf.Lerp(ve.transform.position.y, randomPos.y, percent / randPosLerpFactor);
 				ve.transform.position = new Vector3(lerpNewX, lerpNewY, 0);
 			});
-			
+
 			_randPosTween.Ease(Easing.Linear);
 			_randPosTween.KeepAlive();
 			_randPosTween.OnCompleted(() =>
@@ -78,157 +83,170 @@ namespace FirstLight.Game.UIElements
 				_randPosTween.Start();
 			});
 		}
-		
+
 		private void AnimateSineWavePosition()
 		{
 			if (_sinewavePosTween != null && _sinewavePosTween.isRunning)
 			{
+				_sinewavePosTween.Stop();
 				_sinewavePosTween.Recycle();
 			}
-			
+
 			_sinewavePosTween = experimental.animation.Start(0f, 1f, 9999999, (ve, percent) =>
 			{
-				var sinX = Mathf.Sin((Time.realtimeSinceStartup*sineWavePosXFrequency) + sineWavePosXOffset);
-				var sinY = Mathf.Sin((Time.realtimeSinceStartup*sineWavePosYFrequency) + sineWavePosYOffset);
-				var normX = (sinX - -1)/(1 - -1);
-				var normY = (sinY - -1)/(1 - -1);
+				var sinX = Mathf.Sin((Time.realtimeSinceStartup * sineWavePosXFrequency) + sineWavePosXOffset);
+				var sinY = Mathf.Sin((Time.realtimeSinceStartup * sineWavePosYFrequency) + sineWavePosYOffset);
+				var normX = (sinX - -1) / (1 - -1);
+				var normY = (sinY - -1) / (1 - -1);
 				var lerpNewX = Mathf.Lerp(sineWavePosMinX, sineWavePosMaxX, normX);
 				var lerpNewY = Mathf.Lerp(sineWavePosMinY, sineWavePosMaxY, normY);
-				
+
 				ve.transform.position = new Vector3(lerpNewX, lerpNewY, 0);
 			});
-			
+
 			_sinewavePosTween.Ease(Easing.Linear);
 			_sinewavePosTween.KeepAlive();
-			_sinewavePosTween.OnCompleted(() =>
-			{
-				_sinewavePosTween.Start();
-			});
+			_sinewavePosTween.OnCompleted(() => { _sinewavePosTween.Start(); });
 		}
-		
+
 		public new class UxmlFactory : UxmlFactory<AnimatedImageElement, UxmlTraits>
 		{
 		}
-		
+
 		public new class UxmlTraits : VisualElement.UxmlTraits
 		{
 			private readonly UxmlFloatAttributeDescription _rotationsPerSecondAttribute = new()
 			{
 				name = "rotationsPerSecond",
 				defaultValue = 0f,
-				restriction = new UxmlValueBounds() {excludeMin = false, excludeMax = false, min = "-999999", max = "999999"},
+				restriction = new UxmlValueBounds()
+					{excludeMin = false, excludeMax = false},
 				use = UxmlAttributeDescription.Use.Required
 			};
-			
+
 			private readonly UxmlFloatAttributeDescription _randPosMinXAttribute = new()
 			{
 				name = "randPosMinX",
 				defaultValue = 0f,
-				restriction = new UxmlValueBounds() {excludeMin = false, excludeMax = false, min = "-999999", max = "999999"},
+				restriction = new UxmlValueBounds()
+					{excludeMin = false, excludeMax = false},
 				use = UxmlAttributeDescription.Use.Required
 			};
-			
+
 			private readonly UxmlFloatAttributeDescription _randPosMinYAttribute = new()
 			{
 				name = "randPosMinY",
 				defaultValue = 0f,
-				restriction = new UxmlValueBounds() {excludeMin = false, excludeMax = false, min = "-999999", max = "999999"},
+				restriction = new UxmlValueBounds()
+					{excludeMin = false, excludeMax = false},
 				use = UxmlAttributeDescription.Use.Required
 			};
-			
+
 			private readonly UxmlFloatAttributeDescription _randPosMaxXAttribute = new()
 			{
 				name = "randPosMaxX",
 				defaultValue = 0f,
-				restriction = new UxmlValueBounds() {excludeMin = false, excludeMax = false, min = "-999999", max = "999999"},
+				restriction = new UxmlValueBounds()
+					{excludeMin = false, excludeMax = false},
 				use = UxmlAttributeDescription.Use.Required
 			};
-			
+
 			private readonly UxmlFloatAttributeDescription _randPosMaxYAttribute = new()
 			{
 				name = "randPosMaxY",
 				defaultValue = 0f,
-				restriction = new UxmlValueBounds() {excludeMin = false, excludeMax = false, min = "-999999", max = "999999"},
+				restriction = new UxmlValueBounds()
+					{excludeMin = false, excludeMax = false},
 				use = UxmlAttributeDescription.Use.Required
 			};
-			
+
 			private readonly UxmlIntAttributeDescription _randPosDurationMsAttribute = new()
 			{
 				name = "randPosDurationMs",
 				defaultValue = 0,
-				restriction = new UxmlValueBounds() {excludeMin = false, excludeMax = false, min = "-999999", max = "999999"},
+				restriction = new UxmlValueBounds()
+					{excludeMin = false, excludeMax = false},
 				use = UxmlAttributeDescription.Use.Required
 			};
-			
+
 			private readonly UxmlFloatAttributeDescription _randPosLerpFactorAttribute = new()
 			{
 				name = "randPosLerpFactor",
 				defaultValue = 0,
-				restriction = new UxmlValueBounds() {excludeMin = false, excludeMax = false, min = "-999999", max = "999999"},
+				restriction = new UxmlValueBounds()
+					{excludeMin = false, excludeMax = false},
 				use = UxmlAttributeDescription.Use.Required
 			};
-			
+
 			private readonly UxmlFloatAttributeDescription _sineWavePosMinXAttribute = new()
 			{
 				name = "sineWavePosMinX",
 				defaultValue = 0f,
-				restriction = new UxmlValueBounds() {excludeMin = false, excludeMax = false, min = "-999999", max = "999999"},
+				restriction = new UxmlValueBounds()
+					{excludeMin = false, excludeMax = false},
 				use = UxmlAttributeDescription.Use.Required
 			};
-			
+
 			private readonly UxmlFloatAttributeDescription _sineWavePosMinYAttribute = new()
 			{
 				name = "sineWavePosMinY",
 				defaultValue = 0f,
-				restriction = new UxmlValueBounds() {excludeMin = false, excludeMax = false, min = "-999999", max = "999999"},
+				restriction = new UxmlValueBounds()
+					{excludeMin = false, excludeMax = false},
 				use = UxmlAttributeDescription.Use.Required
 			};
-			
+
 			private readonly UxmlFloatAttributeDescription _sineWavePosMaxXAttribute = new()
 			{
 				name = "sineWavePosMaxX",
 				defaultValue = 0f,
-				restriction = new UxmlValueBounds() {excludeMin = false, excludeMax = false, min = "-999999", max = "999999"},
+				restriction = new UxmlValueBounds()
+					{excludeMin = false, excludeMax = false},
 				use = UxmlAttributeDescription.Use.Required
 			};
-			
+
 			private readonly UxmlFloatAttributeDescription _sineWavePosMaxYAttribute = new()
 			{
 				name = "sineWavePosMaxY",
 				defaultValue = 0f,
-				restriction = new UxmlValueBounds() {excludeMin = false, excludeMax = false, min = "-999999", max = "999999"},
+				restriction = new UxmlValueBounds()
+					{excludeMin = false, excludeMax = false},
 				use = UxmlAttributeDescription.Use.Required
 			};
-			
+
 			private readonly UxmlFloatAttributeDescription _sineWavePosXOffsetAttribute = new()
 			{
 				name = "sineWavePosXOffset",
 				defaultValue = 0f,
-				restriction = new UxmlValueBounds() {excludeMin = false, excludeMax = false, min = "-999999", max = "999999"},
+				restriction = new UxmlValueBounds()
+					{excludeMin = false, excludeMax = false},
 				use = UxmlAttributeDescription.Use.Required
 			};
-			
+
 			private readonly UxmlFloatAttributeDescription _sineWavePosYOffsetAttribute = new()
 			{
 				name = "sineWavePosYOffset",
 				defaultValue = 0f,
-				restriction = new UxmlValueBounds() {excludeMin = false, excludeMax = false, min = "-999999", max = "999999"},
+				restriction = new UxmlValueBounds()
+					{excludeMin = false, excludeMax = false},
 				use = UxmlAttributeDescription.Use.Required
 			};
-			
+
 			private readonly UxmlFloatAttributeDescription _sineWavePosXFrequencyAttribute = new()
 			{
 				name = "sineWavePosXFrequency",
 				defaultValue = 0f,
-				restriction = new UxmlValueBounds() {excludeMin = false, excludeMax = false, min = "-999999", max = "999999"},
+				restriction = new UxmlValueBounds()
+					{excludeMin = false, excludeMax = false},
 				use = UxmlAttributeDescription.Use.Required
 			};
-			
+
 			private readonly UxmlFloatAttributeDescription _sineWavePosYFrequencyAttribute = new()
 			{
 				name = "sineWavePosYFrequency",
 				defaultValue = 0f,
-				restriction = new UxmlValueBounds() {excludeMin = false, excludeMax = false, min = "-999999", max = "999999"},
+				restriction = new UxmlValueBounds()
+					{excludeMin = false, excludeMax = false},
 				use = UxmlAttributeDescription.Use.Required
 			};
 
@@ -252,7 +270,7 @@ namespace FirstLight.Game.UIElements
 				se.sineWavePosYOffset = _sineWavePosYOffsetAttribute.GetValueFromBag(bag, cc);
 				se.sineWavePosXFrequency = _sineWavePosXFrequencyAttribute.GetValueFromBag(bag, cc);
 				se.sineWavePosYFrequency = _sineWavePosYFrequencyAttribute.GetValueFromBag(bag, cc);
-				
+
 				if (se.rotationsPerSecond != 0)
 				{
 					se.AnimateRotation();
@@ -262,8 +280,9 @@ namespace FirstLight.Game.UIElements
 				{
 					se.AnimateRandomPosition();
 				}
-				
-				if (se.sineWavePosMinX != 0 || se.sineWavePosMinY != 0 || se.sineWavePosMaxX != 0 || se.sineWavePosMaxY != 0)
+
+				if (se.sineWavePosMinX != 0 || se.sineWavePosMinY != 0 || se.sineWavePosMaxX != 0 ||
+					se.sineWavePosMaxY != 0)
 				{
 					se.AnimateSineWavePosition();
 				}

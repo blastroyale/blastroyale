@@ -12,4 +12,14 @@ namespace FirstLight.Game.Messages
 		public float Durability;
 		public Pair<GameId, uint> Reward;
 	}
+	
+	public struct ItemUpgradedMessage : IMessage
+	{
+		public UniqueId Id;
+		public GameId GameId;
+		public string Name;
+		public float Durability;
+		public uint Level;
+		public Pair<GameId, uint> Price;
+	}
 }

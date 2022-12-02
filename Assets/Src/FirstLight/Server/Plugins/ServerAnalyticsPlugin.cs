@@ -22,6 +22,22 @@ namespace Src.FirstLight.Server
 			evManager.RegisterListener<GameLogicMessageEvent<GameCompletedRewardsMessage>>(OnGameCompleted);
 			evManager.RegisterListener<GameLogicMessageEvent<BattlePassLevelUpMessage>>(OnBattlePassRewards);
 			evManager.RegisterListener<GameLogicMessageEvent<ItemScrappedMessage>>(OnItemScrapped);
+			evManager.RegisterListener<GameLogicMessageEvent<ItemUpgradedMessage>>(OnItemUpgraded);
+		}
+
+		private void OnItemUpgraded(GameLogicMessageEvent<ItemUpgradedMessage> ev)
+		{
+			var data = new AnalyticsData
+			{
+				{"item_uid", ev.Message.Id},
+				{"item_id", ev.Message.GameId},
+				{"item_name", ev.Message.Name},
+				{"durability", ev.Message.Durability},
+				{"level", ev.Message.Level},
+				{"coin_spending", ev.Message.Price.Value},
+			};
+
+			_ctx.Analytics!.EmitUserEvent(ev.UserId, "item_upgrade", data);
 		}
 
 		private void OnItemScrapped(GameLogicMessageEvent<ItemScrappedMessage> ev)

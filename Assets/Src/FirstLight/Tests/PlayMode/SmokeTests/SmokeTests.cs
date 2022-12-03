@@ -44,7 +44,7 @@ namespace FirstLight.Tests.PlayTests
 			
 			yield return FLGTestTools.WaitForGameCompleteScreen();
 
-			var gameCompleteScreen = GameObject.FindObjectOfType<GameCompleteScreenPresenter>();
+			var gameCompleteScreen = GameObject.FindObjectOfType<WinnerScreenPresenter>();
 			yield return TestTools.UntilChildOfType<Button>(gameCompleteScreen.gameObject);
 
 			FLGTestTools.ClickGameCompleteContinue();

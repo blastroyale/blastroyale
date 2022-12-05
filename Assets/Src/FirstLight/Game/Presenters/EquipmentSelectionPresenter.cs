@@ -455,11 +455,13 @@ namespace FirstLight.Game.Presenters
 		private void EquipItem(UniqueId item)
 		{
 			_services.CommandService.ExecuteCommand(new EquipItemCommand {Item = item});
+			_services.AnalyticsService.EquipmentCalls.EquipItem(_gameDataProvider.EquipmentDataProvider.GetInfo(item));
 		}
 
 		private void UnequipItem(UniqueId item)
 		{
 			_services.CommandService.ExecuteCommand(new UnequipItemCommand {Item = item});
+			_services.AnalyticsService.EquipmentCalls.UnequipItem(_gameDataProvider.EquipmentDataProvider.GetInfo(item));
 		}
 
 		private class EquipmentListRow

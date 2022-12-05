@@ -36,6 +36,7 @@ namespace FirstLight.Game.Services
 		public static readonly string MatchChestItemDrop = "match_chest_item_drop";
 		public static readonly string Error = "error";
 		public static readonly string Purchase = "purchase";
+		public static readonly string ItemEquipAction = "item_equip_action";
 	}
 	
 	/// <summary>
@@ -53,6 +54,8 @@ namespace FirstLight.Game.Services
 		public AnalyticsCallsErrors ErrorsCalls { get; }
 		/// <inheritdoc cref="AnalyticsCallsUi"/>
 		public AnalyticsCallsUi UiCalls { get; }
+		/// <inheritdoc cref="AnalyticsCallsEquipment"/>
+		public AnalyticsCallsEquipment EquipmentCalls { get; }
 
 		/// <summary>
 		/// Logs an analytics event with the given <paramref name="eventName"/>.
@@ -79,6 +82,7 @@ namespace FirstLight.Game.Services
 		public AnalyticsEconomy EconomyCalls { get; }
 		public AnalyticsCallsErrors ErrorsCalls { get; }
 		public AnalyticsCallsUi UiCalls { get; }
+		public AnalyticsCallsEquipment EquipmentCalls { get; }
 
 		public AnalyticsService(IGameServices services,
 		                        IGameDataProvider gameDataProvider,
@@ -90,6 +94,7 @@ namespace FirstLight.Game.Services
 			EconomyCalls = new AnalyticsEconomy(this);
 			ErrorsCalls = new AnalyticsCallsErrors(this);
 			UiCalls = new AnalyticsCallsUi(this, uiService);
+			EquipmentCalls = new AnalyticsCallsEquipment(this, services.ConfigsProvider);
 		}
 
 		/// <inheritdoc />

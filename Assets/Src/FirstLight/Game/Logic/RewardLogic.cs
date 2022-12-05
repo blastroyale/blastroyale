@@ -93,6 +93,10 @@ namespace FirstLight.Game.Logic
 		/// </summary>
 		List<RewardData> ClaimUncollectedRewards();
 
+		/// <summary>
+		/// Claims all the unclaimed IAP rewards (that were purchased from the shop).
+		/// </summary>
+		/// <returns></returns>
 		List<KeyValuePair<UniqueId,Equipment>> ClaimIAPRewards();
 
 		/// <summary>

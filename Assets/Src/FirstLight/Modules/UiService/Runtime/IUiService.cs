@@ -12,7 +12,9 @@ namespace FirstLight.UiService
 	/// The Ui Service is organized by layers. The higher the layer the more close is to the camera viewport
 	/// </summary>
 	public interface IUiService
-	{
+	{ 
+		event Action<string> ScreenStartOpening;
+		
 		/// <summary>
 		/// Requests the total amount of layers available in the UI
 		/// </summary>

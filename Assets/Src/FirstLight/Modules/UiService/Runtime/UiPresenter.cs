@@ -17,7 +17,7 @@ namespace FirstLight.UiService
 	/// </summary>
 	public abstract class UiPresenter : MonoBehaviour
 	{
-		private IUiService _uiService;
+		protected IUiService _uiService;
 
 		/// <summary>
 		/// Requests the open status of the <see cref="UiPresenter"/>

@@ -6,6 +6,7 @@ using FirstLight.Game.Utils;
 using FirstLight.NotificationService;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
+using FirstLight.UiService;
 using UnityEngine;
 
 namespace FirstLight.Game.Services
@@ -142,10 +143,10 @@ namespace FirstLight.Game.Services
 		                    IGameLogic gameLogic,
 		                    IGenericDialogService genericDialogService,
 		                    IAssetResolverService assetResolverService,
-		                    IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService)
+		                    IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService, IUiService uiService)
 		{
 			NetworkService = networkService;
-			AnalyticsService = new AnalyticsService(this, gameLogic, dataService);
+			AnalyticsService = new AnalyticsService(this, gameLogic, dataService, uiService);
 			MessageBrokerService = messageBrokerService;
 			TimeService = timeService;
 			DataSaver = dataService;

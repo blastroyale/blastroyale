@@ -13,6 +13,8 @@ namespace FirstLight.UiService
 	/// <inheritdoc />
 	public class UiService : IUiServiceInit
 	{
+		public event Action<string> ScreenStartOpening;
+		
 		private readonly IUiAssetLoader _assetLoader;
 		private readonly IDictionary<Type, UiReference> _uiViews = new Dictionary<Type, UiReference>();
 		private readonly IDictionary<Type, UiConfig> _uiConfigs = new Dictionary<Type, UiConfig>();
@@ -581,6 +583,8 @@ namespace FirstLight.UiService
 		/// <inheritdoc />
 		public async Task<UiPresenter> OpenScreenAsync<T>() where T : UiPresenter
 		{
+			ScreenStartOpening?.Invoke(typeof(T).ToString());
+			
 			if (_lastScreen != null)
 			{
 				if (_lastScreen.GetType() == typeof(T)) return null;
@@ -603,6 +607,8 @@ namespace FirstLight.UiService
 		/// <inheritdoc />
 		public async Task<T> OpenScreenAsync<T, TData>(TData initialData) where T : UiPresenter, IUiPresenterData where TData : struct
 		{
+			ScreenStartOpening?.Invoke(typeof(T).ToString());
+			
 			if (_lastScreen != null)
 			{
 				if (_lastScreen.GetType() == typeof(T)) return null;

@@ -5,6 +5,7 @@ using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
@@ -105,7 +106,6 @@ namespace FirstLight.Game.Presenters
 			_playButton.clicked += OnPlayButtonClicked;
 
 			root.Q<CurrencyDisplayElement>("CSCurrency").SetAnimationOrigin(_playButton);
-			root.Q<CurrencyDisplayElement>("BLSTCurrency").SetAnimationOrigin(_playButton);
 			root.Q<CurrencyDisplayElement>("CoinCurrency").SetAnimationOrigin(_playButton);
 
 			root.Q<ImageButton>("GameModeButton").clicked += Data.OnGameModeClicked;
@@ -121,7 +121,11 @@ namespace FirstLight.Game.Presenters
 			storeButton.SetDisplay(FeatureFlags.STORE_ENABLED);
 
 			var discordButton = root.Q<Button>("DiscordButton");
-			discordButton.clicked += Data.OnDiscordClicked;
+			discordButton.clicked += () =>
+			{
+				_services.AnalyticsService.UiCalls.ButtonAction(UIAnalyticsButtonsNames.DiscordLink);
+				Data.OnDiscordClicked();
+			};
 
 			root.SetupClicks(_services);
 		}

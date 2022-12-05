@@ -3,15 +3,13 @@ WORKDIR /app
 
 ARG APP_PORT=3000
 EXPOSE 3000
-
 ENV ASPNETCORE_URLS=http://+:${APP_PORT}
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY . .
 COPY ["GameLogicService/GameLogicService.csproj", "GameLogicService/"]
 RUN dotnet restore "GameLogicService/GameLogicService.csproj"
-
+COPY . .
 WORKDIR "/src/GameLogicService"
 RUN dotnet build "GameLogicService.csproj" -c Release -o /app/build
 

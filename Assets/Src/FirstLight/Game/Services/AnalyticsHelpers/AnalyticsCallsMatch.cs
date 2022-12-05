@@ -162,8 +162,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			{
 				return;
 			}
-			
-			var room = _services.NetworkService.QuantumClient.CurrentRoom;
+
 			var deadData = playerKilledEvent.PlayersMatchData[playerKilledEvent.PlayerDead];
 
 			var data = new Dictionary<string, object>
@@ -190,12 +189,6 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				return;
 			}
 			
-			var room = _services.NetworkService.QuantumClient.CurrentRoom;
-			var frame = callback.Game.Frames.Verified;
-			var container = frame.GetSingleton<GameContainer>();
-			
-			var playerData = container.GetPlayersMatchData(frame, out var leader)[callback.Player];
-
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", _matchId},
@@ -204,7 +197,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"mutators", _mutators},
 				{"chest_type", _gameIdsLookup[callback.ChestType]},
 				{"chest_coordinates", callback.ChestPosition.ToString()},
-				{"player_name", playerData.PlayerName }
+				{"player_name", _gameData.AppDataProvider.DisplayNameTrimmed }
 			};
 			
 			_analyticsService.LogEvent(AnalyticsEvents.MatchChestOpenAction, data, false);
@@ -224,8 +217,6 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			{
 				return;
 			}
-			
-			var room = _services.NetworkService.QuantumClient.CurrentRoom;
 
 			var data = new Dictionary<string, object>
 			{
@@ -253,7 +244,6 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				return;
 			}
 			
-			var room = _services.NetworkService.QuantumClient.CurrentRoom;
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", _matchId},

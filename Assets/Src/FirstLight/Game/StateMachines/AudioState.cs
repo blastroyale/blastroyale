@@ -103,8 +103,8 @@ namespace FirstLight.Game.StateMachines
 			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
 			battleRoyale.Event(MatchState.MatchCompleteExitEvent).Target(postGameSpectatorCheck);
 			battleRoyale.Event(MatchState.MatchEndedEvent).Target(postGameSpectatorCheck);
-			battleRoyale.Event(MatchState.MatchQuitEvent).OnTransition(StopMusicInstant).Target(postGameSpectatorCheck);
-			battleRoyale.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
+			battleRoyale.Event(MatchState.MatchQuitEvent).OnTransition(StopAllAudio).Target(audioBase);
+			battleRoyale.Event(MatchState.MatchUnloadedEvent).OnTransition(StopAllAudio).Target(audioBase);
 			battleRoyale.OnExit(UnsubscribeMatchEvents);
 			battleRoyale.OnExit(() => SetSimulationRunning(false));
 			
@@ -112,8 +112,8 @@ namespace FirstLight.Game.StateMachines
 			deathmatch.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
 			deathmatch.Event(MatchState.MatchCompleteExitEvent).Target(postGameSpectatorCheck);
 			deathmatch.Event(MatchState.MatchEndedEvent).Target(postGameSpectatorCheck);
-			deathmatch.Event(MatchState.MatchQuitEvent).OnTransition(StopMusicInstant).Target(postGameSpectatorCheck);
-			deathmatch.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
+			deathmatch.Event(MatchState.MatchQuitEvent).OnTransition(StopAllAudio).Target(audioBase);
+			deathmatch.Event(MatchState.MatchUnloadedEvent).OnTransition(StopAllAudio).Target(audioBase);
 			deathmatch.OnExit(UnsubscribeMatchEvents);
 			deathmatch.OnExit(() => SetSimulationRunning(false));
 
@@ -269,6 +269,14 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
+		private void StopAllAudio()
+		{
+			_services.AudioFxService.StopAllSfx();
+			_services.AudioFxService.WipeSoundQueue();
+			_currentClips.Clear();
+			StopMusicInstant();
+		}
+		
 		private void StopAllSfx()
 		{
 			_services.AudioFxService.StopAllSfx();

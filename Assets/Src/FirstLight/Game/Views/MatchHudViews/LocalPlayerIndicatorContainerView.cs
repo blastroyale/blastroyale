@@ -146,6 +146,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void OnUpdateAim(Frame f, Quantum.Input* input, PlayerCharacter* playerCharacter, CharacterController3D* kcc)
 		{
 			var isEmptied = playerCharacter->IsAmmoEmpty(f, _localPlayerEntity);
+			var reloading = playerCharacter->WeaponSlot->MagazineShotCount == 0;
 			var transform = f.Unsafe.GetPointer<Transform3D>(_localPlayerEntity);
 			var aimDirection = QuantumHelpers.GetAimDirection(input->AimingDirection, transform->Rotation).Normalized.ToUnityVector2();
 
@@ -162,17 +163,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 			// We use a formula to calculate the scale of a shooting indicator
 			var size = Mathf.Max(0.5f, Mathf.Tan(angleInRad * 0.5f * Mathf.Deg2Rad) * range * 2f);
 
+
 			// For a melee weapon with a splash damage we use a separate calculation for an indicator
 			if (_weaponConfig.IsMeleeWeapon && _weaponConfig.SplashRadius > FP._0)
 			{
 				range += _weaponConfig.SplashRadius.AsFloat;
 				size = _weaponConfig.SplashRadius.AsFloat * 2f;
-			}
-
-			var reloading = false;
-			if(playerCharacter->WeaponSlot->MagazineShotCount == 0)
-			{
-				reloading = true;
 			}
 
 			ShootIndicator.SetTransformState(aimDirection);

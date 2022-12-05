@@ -241,6 +241,221 @@ MonoBehaviour:
       LookForTargetsToShootAtInterval:
         RawValue: 39322
       VisionRangeSqr:
+        RawValue: 21233664
+      LowArmourSensitivity:
+        RawValue: 5242880
+      LowHealthSensitivity:
+        RawValue: 5242880
+      LowAmmoSensitivity:
+        RawValue: 3276800
+      ChanceToSeekWeapons:
+        RawValue: 13107
+      ChanceToSeekEnemies:
+        RawValue: 4588
+      ChanceToSeekReplenishSpecials:
+        RawValue: 32768
+      ChanceToSeekRage:
+        RawValue: 0
+      ChanceToAbandonTarget:
+        RawValue: 52429
+      CloseFightIntolerance:
+        RawValue: 57672
+      WanderRadius:
+        RawValue: 393216
+      AccuracySpreadAngle: 55
+      ChanceToUseSpecial:
+        RawValue: 0
+      SpecialAimingDeviation:
+        RawValue: 294912
+      ShrinkingCircleRiskTolerance:
+        RawValue: 53477
+      ChanceToSeekChests:
+        RawValue: 0
+      LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 360448
+      MovementSpeedMultiplier:
+        RawValue: 65536
+    - BehaviourType: 2
+      GameMode: Deathmatch
+      Difficulty: 1
+      DecisionInterval:
+        RawValue: 65536
+      LookForTargetsToShootAtInterval:
+        RawValue: 26214
+      VisionRangeSqr:
+        RawValue: 21233664
+      LowArmourSensitivity:
+        RawValue: 655360
+      LowHealthSensitivity:
+        RawValue: 1310720
+      LowAmmoSensitivity:
+        RawValue: 3276800
+      ChanceToSeekWeapons:
+        RawValue: 22938
+      ChanceToSeekEnemies:
+        RawValue: 5898
+      ChanceToSeekReplenishSpecials:
+        RawValue: 22938
+      ChanceToSeekRage:
+        RawValue: 0
+      ChanceToAbandonTarget:
+        RawValue: 55706
+      CloseFightIntolerance:
+        RawValue: 39322
+      WanderRadius:
+        RawValue: 524288
+      AccuracySpreadAngle: 60
+      ChanceToUseSpecial:
+        RawValue: 0
+      SpecialAimingDeviation:
+        RawValue: 131072
+      ShrinkingCircleRiskTolerance:
+        RawValue: 35389
+      ChanceToSeekChests:
+        RawValue: 0
+      LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 360448
+      MovementSpeedMultiplier:
+        RawValue: 65536
+    - BehaviourType: 0
+      GameMode: Deathmatch
+      Difficulty: 1
+      DecisionInterval:
+        RawValue: 100925
+      LookForTargetsToShootAtInterval:
+        RawValue: 32768
+      VisionRangeSqr:
+        RawValue: 21233664
+      LowArmourSensitivity:
+        RawValue: 3276800
+      LowHealthSensitivity:
+        RawValue: 6553600
+      LowAmmoSensitivity:
+        RawValue: 6553600
+      ChanceToSeekWeapons:
+        RawValue: 6554
+      ChanceToSeekEnemies:
+        RawValue: 3932
+      ChanceToSeekReplenishSpecials:
+        RawValue: 65536
+      ChanceToSeekRage:
+        RawValue: 0
+      ChanceToAbandonTarget:
+        RawValue: 58982
+      CloseFightIntolerance:
+        RawValue: 31457
+      WanderRadius:
+        RawValue: 458752
+      AccuracySpreadAngle: 58
+      ChanceToUseSpecial:
+        RawValue: 0
+      SpecialAimingDeviation:
+        RawValue: 229376
+      ShrinkingCircleRiskTolerance:
+        RawValue: 51118
+      ChanceToSeekChests:
+        RawValue: 0
+      LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 360448
+      MovementSpeedMultiplier:
+        RawValue: 65536
+    - BehaviourType: 1
+      GameMode: Deathmatch
+      Difficulty: 1
+      DecisionInterval:
+        RawValue: 96338
+      LookForTargetsToShootAtInterval:
+        RawValue: 42598
+      VisionRangeSqr:
+        RawValue: 21233664
+      LowArmourSensitivity:
+        RawValue: 6553600
+      LowHealthSensitivity:
+        RawValue: 6553600
+      LowAmmoSensitivity:
+        RawValue: 4915200
+      ChanceToSeekWeapons:
+        RawValue: 32768
+      ChanceToSeekEnemies:
+        RawValue: 5243
+      ChanceToSeekReplenishSpecials:
+        RawValue: 13107
+      ChanceToSeekRage:
+        RawValue: 0
+      ChanceToAbandonTarget:
+        RawValue: 53740
+      CloseFightIntolerance:
+        RawValue: 47186
+      WanderRadius:
+        RawValue: 393216
+      AccuracySpreadAngle: 62
+      ChanceToUseSpecial:
+        RawValue: 0
+      SpecialAimingDeviation:
+        RawValue: 196608
+      ShrinkingCircleRiskTolerance:
+        RawValue: 58982
+      ChanceToSeekChests:
+        RawValue: 0
+      LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 360448
+      MovementSpeedMultiplier:
+        RawValue: 65536
+    - BehaviourType: 2
+      GameMode: Deathmatch
+      Difficulty: 1
+      DecisionInterval:
+        RawValue: 75366
+      LookForTargetsToShootAtInterval:
+        RawValue: 29491
+      VisionRangeSqr:
+        RawValue: 21233664
+      LowArmourSensitivity:
+        RawValue: 65536
+      LowHealthSensitivity:
+        RawValue: 0
+      LowAmmoSensitivity:
+        RawValue: 327680
+      ChanceToSeekWeapons:
+        RawValue: 42598
+      ChanceToSeekEnemies:
+        RawValue: 6554
+      ChanceToSeekReplenishSpecials:
+        RawValue: 6554
+      ChanceToSeekRage:
+        RawValue: 0
+      ChanceToAbandonTarget:
+        RawValue: 57016
+      CloseFightIntolerance:
+        RawValue: 28836
+      WanderRadius:
+        RawValue: 524288
+      AccuracySpreadAngle: 65
+      ChanceToUseSpecial:
+        RawValue: 0
+      SpecialAimingDeviation:
+        RawValue: 262144
+      ShrinkingCircleRiskTolerance:
+        RawValue: 39322
+      ChanceToSeekChests:
+        RawValue: 0
+      LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 360448
+      MovementSpeedMultiplier:
+        RawValue: 65536
+    - BehaviourType: 1
+      GameMode: Deathmatch
+      Difficulty: 2
+      DecisionInterval:
+        RawValue: 78643
+      LookForTargetsToShootAtInterval:
+        RawValue: 39322
+      VisionRangeSqr:
         RawValue: -65536
       LowArmourSensitivity:
         RawValue: 5242880
@@ -278,7 +493,7 @@ MonoBehaviour:
         RawValue: 65536
     - BehaviourType: 2
       GameMode: Deathmatch
-      Difficulty: 1
+      Difficulty: 2
       DecisionInterval:
         RawValue: 65536
       LookForTargetsToShootAtInterval:
@@ -321,7 +536,7 @@ MonoBehaviour:
         RawValue: 65536
     - BehaviourType: 0
       GameMode: Deathmatch
-      Difficulty: 1
+      Difficulty: 2
       DecisionInterval:
         RawValue: 100925
       LookForTargetsToShootAtInterval:
@@ -364,7 +579,7 @@ MonoBehaviour:
         RawValue: 65536
     - BehaviourType: 1
       GameMode: Deathmatch
-      Difficulty: 1
+      Difficulty: 2
       DecisionInterval:
         RawValue: 96338
       LookForTargetsToShootAtInterval:
@@ -407,7 +622,7 @@ MonoBehaviour:
         RawValue: 65536
     - BehaviourType: 2
       GameMode: Deathmatch
-      Difficulty: 1
+      Difficulty: 2
       DecisionInterval:
         RawValue: 75366
       LookForTargetsToShootAtInterval:
@@ -450,7 +665,222 @@ MonoBehaviour:
         RawValue: 65536
     - BehaviourType: 1
       GameMode: Deathmatch
-      Difficulty: 2
+      Difficulty: 3
+      DecisionInterval:
+        RawValue: 78643
+      LookForTargetsToShootAtInterval:
+        RawValue: 39322
+      VisionRangeSqr:
+        RawValue: -65536
+      LowArmourSensitivity:
+        RawValue: 5242880
+      LowHealthSensitivity:
+        RawValue: 5242880
+      LowAmmoSensitivity:
+        RawValue: 3276800
+      ChanceToSeekWeapons:
+        RawValue: 13107
+      ChanceToSeekEnemies:
+        RawValue: 6554
+      ChanceToSeekReplenishSpecials:
+        RawValue: 32768
+      ChanceToSeekRage:
+        RawValue: 32768
+      ChanceToAbandonTarget:
+        RawValue: 6554
+      CloseFightIntolerance:
+        RawValue: 57672
+      WanderRadius:
+        RawValue: 393216
+      AccuracySpreadAngle: 33
+      ChanceToUseSpecial:
+        RawValue: 3277
+      SpecialAimingDeviation:
+        RawValue: 294912
+      ShrinkingCircleRiskTolerance:
+        RawValue: 53477
+      ChanceToSeekChests:
+        RawValue: 0
+      LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 442368
+      MovementSpeedMultiplier:
+        RawValue: 65536
+    - BehaviourType: 2
+      GameMode: Deathmatch
+      Difficulty: 3
+      DecisionInterval:
+        RawValue: 65536
+      LookForTargetsToShootAtInterval:
+        RawValue: 26214
+      VisionRangeSqr:
+        RawValue: -65536
+      LowArmourSensitivity:
+        RawValue: 655360
+      LowHealthSensitivity:
+        RawValue: 1310720
+      LowAmmoSensitivity:
+        RawValue: 3276800
+      ChanceToSeekWeapons:
+        RawValue: 22938
+      ChanceToSeekEnemies:
+        RawValue: 49152
+      ChanceToSeekReplenishSpecials:
+        RawValue: 22938
+      ChanceToSeekRage:
+        RawValue: 65536
+      ChanceToAbandonTarget:
+        RawValue: 1311
+      CloseFightIntolerance:
+        RawValue: 39322
+      WanderRadius:
+        RawValue: 524288
+      AccuracySpreadAngle: 36
+      ChanceToUseSpecial:
+        RawValue: 16384
+      SpecialAimingDeviation:
+        RawValue: 131072
+      ShrinkingCircleRiskTolerance:
+        RawValue: 35389
+      ChanceToSeekChests:
+        RawValue: 0
+      LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 442368
+      MovementSpeedMultiplier:
+        RawValue: 65536
+    - BehaviourType: 0
+      GameMode: Deathmatch
+      Difficulty: 3
+      DecisionInterval:
+        RawValue: 100925
+      LookForTargetsToShootAtInterval:
+        RawValue: 32768
+      VisionRangeSqr:
+        RawValue: 37748736
+      LowArmourSensitivity:
+        RawValue: 3276800
+      LowHealthSensitivity:
+        RawValue: 6553600
+      LowAmmoSensitivity:
+        RawValue: 6553600
+      ChanceToSeekWeapons:
+        RawValue: 6554
+      ChanceToSeekEnemies:
+        RawValue: 13107
+      ChanceToSeekReplenishSpecials:
+        RawValue: 65536
+      ChanceToSeekRage:
+        RawValue: 32768
+      ChanceToAbandonTarget:
+        RawValue: 5898
+      CloseFightIntolerance:
+        RawValue: 31457
+      WanderRadius:
+        RawValue: 458752
+      AccuracySpreadAngle: 35
+      ChanceToUseSpecial:
+        RawValue: 22938
+      SpecialAimingDeviation:
+        RawValue: 229376
+      ShrinkingCircleRiskTolerance:
+        RawValue: 51118
+      ChanceToSeekChests:
+        RawValue: 0
+      LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 442368
+      MovementSpeedMultiplier:
+        RawValue: 65536
+    - BehaviourType: 1
+      GameMode: Deathmatch
+      Difficulty: 3
+      DecisionInterval:
+        RawValue: 96338
+      LookForTargetsToShootAtInterval:
+        RawValue: 42598
+      VisionRangeSqr:
+        RawValue: 23658496
+      LowArmourSensitivity:
+        RawValue: 6553600
+      LowHealthSensitivity:
+        RawValue: 6553600
+      LowAmmoSensitivity:
+        RawValue: 4915200
+      ChanceToSeekWeapons:
+        RawValue: 32768
+      ChanceToSeekEnemies:
+        RawValue: 6554
+      ChanceToSeekReplenishSpecials:
+        RawValue: 13107
+      ChanceToSeekRage:
+        RawValue: 6554
+      ChanceToAbandonTarget:
+        RawValue: 7864
+      CloseFightIntolerance:
+        RawValue: 47186
+      WanderRadius:
+        RawValue: 393216
+      AccuracySpreadAngle: 37
+      ChanceToUseSpecial:
+        RawValue: 13107
+      SpecialAimingDeviation:
+        RawValue: 196608
+      ShrinkingCircleRiskTolerance:
+        RawValue: 58982
+      ChanceToSeekChests:
+        RawValue: 0
+      LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 442368
+      MovementSpeedMultiplier:
+        RawValue: 65536
+    - BehaviourType: 2
+      GameMode: Deathmatch
+      Difficulty: 3
+      DecisionInterval:
+        RawValue: 75366
+      LookForTargetsToShootAtInterval:
+        RawValue: 29491
+      VisionRangeSqr:
+        RawValue: -65536
+      LowArmourSensitivity:
+        RawValue: 65536
+      LowHealthSensitivity:
+        RawValue: 0
+      LowAmmoSensitivity:
+        RawValue: 327680
+      ChanceToSeekWeapons:
+        RawValue: 42598
+      ChanceToSeekEnemies:
+        RawValue: 65536
+      ChanceToSeekReplenishSpecials:
+        RawValue: 6554
+      ChanceToSeekRage:
+        RawValue: 45875
+      ChanceToAbandonTarget:
+        RawValue: 655
+      CloseFightIntolerance:
+        RawValue: 28836
+      WanderRadius:
+        RawValue: 524288
+      AccuracySpreadAngle: 39
+      ChanceToUseSpecial:
+        RawValue: 32768
+      SpecialAimingDeviation:
+        RawValue: 262144
+      ShrinkingCircleRiskTolerance:
+        RawValue: 39322
+      ChanceToSeekChests:
+        RawValue: 0
+      LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 442368
+      MovementSpeedMultiplier:
+        RawValue: 65536
+    - BehaviourType: 1
+      GameMode: Deathmatch
+      Difficulty: 4
       DecisionInterval:
         RawValue: 78643
       LookForTargetsToShootAtInterval:
@@ -493,7 +923,7 @@ MonoBehaviour:
         RawValue: 65536
     - BehaviourType: 2
       GameMode: Deathmatch
-      Difficulty: 2
+      Difficulty: 4
       DecisionInterval:
         RawValue: 65536
       LookForTargetsToShootAtInterval:
@@ -536,7 +966,7 @@ MonoBehaviour:
         RawValue: 65536
     - BehaviourType: 0
       GameMode: Deathmatch
-      Difficulty: 2
+      Difficulty: 4
       DecisionInterval:
         RawValue: 100925
       LookForTargetsToShootAtInterval:
@@ -579,7 +1009,7 @@ MonoBehaviour:
         RawValue: 65536
     - BehaviourType: 1
       GameMode: Deathmatch
-      Difficulty: 2
+      Difficulty: 4
       DecisionInterval:
         RawValue: 96338
       LookForTargetsToShootAtInterval:
@@ -622,7 +1052,7 @@ MonoBehaviour:
         RawValue: 65536
     - BehaviourType: 2
       GameMode: Deathmatch
-      Difficulty: 2
+      Difficulty: 4
       DecisionInterval:
         RawValue: 75366
       LookForTargetsToShootAtInterval:
@@ -665,7 +1095,7 @@ MonoBehaviour:
         RawValue: 65536
     - BehaviourType: 1
       GameMode: Deathmatch
-      Difficulty: 3
+      Difficulty: 5
       DecisionInterval:
         RawValue: 78643
       LookForTargetsToShootAtInterval:
@@ -708,7 +1138,7 @@ MonoBehaviour:
         RawValue: 65536
     - BehaviourType: 2
       GameMode: Deathmatch
-      Difficulty: 3
+      Difficulty: 5
       DecisionInterval:
         RawValue: 65536
       LookForTargetsToShootAtInterval:
@@ -751,7 +1181,7 @@ MonoBehaviour:
         RawValue: 65536
     - BehaviourType: 0
       GameMode: Deathmatch
-      Difficulty: 3
+      Difficulty: 5
       DecisionInterval:
         RawValue: 100925
       LookForTargetsToShootAtInterval:
@@ -794,7 +1224,7 @@ MonoBehaviour:
         RawValue: 65536
     - BehaviourType: 1
       GameMode: Deathmatch
-      Difficulty: 3
+      Difficulty: 5
       DecisionInterval:
         RawValue: 96338
       LookForTargetsToShootAtInterval:
@@ -837,7 +1267,7 @@ MonoBehaviour:
         RawValue: 65536
     - BehaviourType: 2
       GameMode: Deathmatch
-      Difficulty: 3
+      Difficulty: 5
       DecisionInterval:
         RawValue: 75366
       LookForTargetsToShootAtInterval:
@@ -880,7 +1310,7 @@ MonoBehaviour:
         RawValue: 65536
     - BehaviourType: 1
       GameMode: Deathmatch
-      Difficulty: 4
+      Difficulty: 6
       DecisionInterval:
         RawValue: 78643
       LookForTargetsToShootAtInterval:
@@ -923,7 +1353,7 @@ MonoBehaviour:
         RawValue: 65536
     - BehaviourType: 2
       GameMode: Deathmatch
-      Difficulty: 4
+      Difficulty: 6
       DecisionInterval:
         RawValue: 65536
       LookForTargetsToShootAtInterval:
@@ -966,7 +1396,7 @@ MonoBehaviour:
         RawValue: 65536
     - BehaviourType: 0
       GameMode: Deathmatch
-      Difficulty: 4
+      Difficulty: 6
       DecisionInterval:
         RawValue: 100925
       LookForTargetsToShootAtInterval:
@@ -1009,7 +1439,7 @@ MonoBehaviour:
         RawValue: 65536
     - BehaviourType: 1
       GameMode: Deathmatch
-      Difficulty: 4
+      Difficulty: 6
       DecisionInterval:
         RawValue: 96338
       LookForTargetsToShootAtInterval:
@@ -1052,7 +1482,7 @@ MonoBehaviour:
         RawValue: 65536
     - BehaviourType: 2
       GameMode: Deathmatch
-      Difficulty: 4
+      Difficulty: 6
       DecisionInterval:
         RawValue: 75366
       LookForTargetsToShootAtInterval:
@@ -1095,7 +1525,7 @@ MonoBehaviour:
         RawValue: 65536
     - BehaviourType: 1
       GameMode: Deathmatch
-      Difficulty: 5
+      Difficulty: 7
       DecisionInterval:
         RawValue: 78643
       LookForTargetsToShootAtInterval:
@@ -1138,7 +1568,7 @@ MonoBehaviour:
         RawValue: 65536
     - BehaviourType: 2
       GameMode: Deathmatch
-      Difficulty: 5
+      Difficulty: 7
       DecisionInterval:
         RawValue: 65536
       LookForTargetsToShootAtInterval:
@@ -1181,7 +1611,7 @@ MonoBehaviour:
         RawValue: 65536
     - BehaviourType: 0
       GameMode: Deathmatch
-      Difficulty: 5
+      Difficulty: 7
       DecisionInterval:
         RawValue: 100925
       LookForTargetsToShootAtInterval:
@@ -1224,7 +1654,7 @@ MonoBehaviour:
         RawValue: 65536
     - BehaviourType: 1
       GameMode: Deathmatch
-      Difficulty: 5
+      Difficulty: 7
       DecisionInterval:
         RawValue: 96338
       LookForTargetsToShootAtInterval:
@@ -1267,7 +1697,7 @@ MonoBehaviour:
         RawValue: 65536
     - BehaviourType: 2
       GameMode: Deathmatch
-      Difficulty: 5
+      Difficulty: 7
       DecisionInterval:
         RawValue: 75366
       LookForTargetsToShootAtInterval:
@@ -1314,9 +1744,224 @@ MonoBehaviour:
       DecisionInterval:
         RawValue: 652739
       LookForTargetsToShootAtInterval:
-        RawValue: 78643
+        RawValue: 255590
       VisionRangeSqr:
         RawValue: 16777216
+      LowArmourSensitivity:
+        RawValue: 5242880
+      LowHealthSensitivity:
+        RawValue: 5898240
+      LowAmmoSensitivity:
+        RawValue: 5373952
+      ChanceToSeekWeapons:
+        RawValue: 45875
+      ChanceToSeekEnemies:
+        RawValue: 0
+      ChanceToSeekReplenishSpecials:
+        RawValue: 0
+      ChanceToSeekRage:
+        RawValue: 0
+      ChanceToAbandonTarget:
+        RawValue: 64225
+      CloseFightIntolerance:
+        RawValue: 58982
+      WanderRadius:
+        RawValue: 786432
+      AccuracySpreadAngle: 70
+      ChanceToUseSpecial:
+        RawValue: 0
+      SpecialAimingDeviation:
+        RawValue: 294912
+      ShrinkingCircleRiskTolerance:
+        RawValue: 52429
+      ChanceToSeekChests:
+        RawValue: 3277
+      LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 360448
+      MovementSpeedMultiplier:
+        RawValue: 45875
+    - BehaviourType: 0
+      GameMode: BattleRoyale
+      Difficulty: 0
+      DecisionInterval:
+        RawValue: 642253
+      LookForTargetsToShootAtInterval:
+        RawValue: 262144
+      VisionRangeSqr:
+        RawValue: 16777216
+      LowArmourSensitivity:
+        RawValue: 5570560
+      LowHealthSensitivity:
+        RawValue: 6029312
+      LowAmmoSensitivity:
+        RawValue: 5570560
+      ChanceToSeekWeapons:
+        RawValue: 45875
+      ChanceToSeekEnemies:
+        RawValue: 0
+      ChanceToSeekReplenishSpecials:
+        RawValue: 0
+      ChanceToSeekRage:
+        RawValue: 0
+      ChanceToAbandonTarget:
+        RawValue: 64881
+      CloseFightIntolerance:
+        RawValue: 55706
+      WanderRadius:
+        RawValue: 1048576
+      AccuracySpreadAngle: 68
+      ChanceToUseSpecial:
+        RawValue: 0
+      SpecialAimingDeviation:
+        RawValue: 131072
+      ShrinkingCircleRiskTolerance:
+        RawValue: 53740
+      ChanceToSeekChests:
+        RawValue: 3932
+      LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 360448
+      MovementSpeedMultiplier:
+        RawValue: 45875
+    - BehaviourType: 0
+      GameMode: BattleRoyale
+      Difficulty: 0
+      DecisionInterval:
+        RawValue: 670433
+      LookForTargetsToShootAtInterval:
+        RawValue: 268698
+      VisionRangeSqr:
+        RawValue: 16777216
+      LowArmourSensitivity:
+        RawValue: 5898240
+      LowHealthSensitivity:
+        RawValue: 6225920
+      LowAmmoSensitivity:
+        RawValue: 6553600
+      ChanceToSeekWeapons:
+        RawValue: 45875
+      ChanceToSeekEnemies:
+        RawValue: 0
+      ChanceToSeekReplenishSpecials:
+        RawValue: 0
+      ChanceToSeekRage:
+        RawValue: 0
+      ChanceToAbandonTarget:
+        RawValue: 63570
+      CloseFightIntolerance:
+        RawValue: 52429
+      WanderRadius:
+        RawValue: 917504
+      AccuracySpreadAngle: 75
+      ChanceToUseSpecial:
+        RawValue: 0
+      SpecialAimingDeviation:
+        RawValue: 229376
+      ShrinkingCircleRiskTolerance:
+        RawValue: 51118
+      ChanceToSeekChests:
+        RawValue: 2621
+      LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 360448
+      MovementSpeedMultiplier:
+        RawValue: 45875
+    - BehaviourType: 1
+      GameMode: BattleRoyale
+      Difficulty: 0
+      DecisionInterval:
+        RawValue: 666501
+      LookForTargetsToShootAtInterval:
+        RawValue: 252314
+      VisionRangeSqr:
+        RawValue: 16777216
+      LowArmourSensitivity:
+        RawValue: 5373952
+      LowHealthSensitivity:
+        RawValue: 6553600
+      LowAmmoSensitivity:
+        RawValue: 5505024
+      ChanceToSeekWeapons:
+        RawValue: 45875
+      ChanceToSeekEnemies:
+        RawValue: 0
+      ChanceToSeekReplenishSpecials:
+        RawValue: 0
+      ChanceToSeekRage:
+        RawValue: 0
+      ChanceToAbandonTarget:
+        RawValue: 64225
+      CloseFightIntolerance:
+        RawValue: 57016
+      WanderRadius:
+        RawValue: 851968
+      AccuracySpreadAngle: 72
+      ChanceToUseSpecial:
+        RawValue: 0
+      SpecialAimingDeviation:
+        RawValue: 196608
+      ShrinkingCircleRiskTolerance:
+        RawValue: 55050
+      ChanceToSeekChests:
+        RawValue: 3932
+      LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 360448
+      MovementSpeedMultiplier:
+        RawValue: 45875
+    - BehaviourType: 0
+      GameMode: BattleRoyale
+      Difficulty: 0
+      DecisionInterval:
+        RawValue: 649462
+      LookForTargetsToShootAtInterval:
+        RawValue: 265421
+      VisionRangeSqr:
+        RawValue: 16777216
+      LowArmourSensitivity:
+        RawValue: 5570560
+      LowHealthSensitivity:
+        RawValue: 6160384
+      LowAmmoSensitivity:
+        RawValue: 5636096
+      ChanceToSeekWeapons:
+        RawValue: 45875
+      ChanceToSeekEnemies:
+        RawValue: 0
+      ChanceToSeekReplenishSpecials:
+        RawValue: 0
+      ChanceToSeekRage:
+        RawValue: 0
+      ChanceToAbandonTarget:
+        RawValue: 64881
+      CloseFightIntolerance:
+        RawValue: 53740
+      WanderRadius:
+        RawValue: 983040
+      AccuracySpreadAngle: 74
+      ChanceToUseSpecial:
+        RawValue: 0
+      SpecialAimingDeviation:
+        RawValue: 262144
+      ShrinkingCircleRiskTolerance:
+        RawValue: 56361
+      ChanceToSeekChests:
+        RawValue: 3277
+      LoadoutGearNumber: 0
+      MaxAimingRange:
+        RawValue: 360448
+      MovementSpeedMultiplier:
+        RawValue: 45875
+    - BehaviourType: 1
+      GameMode: BattleRoyale
+      Difficulty: 1
+      DecisionInterval:
+        RawValue: 652739
+      LookForTargetsToShootAtInterval:
+        RawValue: 191693
+      VisionRangeSqr:
+        RawValue: 25165824
       LowArmourSensitivity:
         RawValue: 5242880
       LowHealthSensitivity:
@@ -1332,7 +1977,7 @@ MonoBehaviour:
       ChanceToSeekRage:
         RawValue: 0
       ChanceToAbandonTarget:
-        RawValue: 64225
+        RawValue: 54591
       CloseFightIntolerance:
         RawValue: 58982
       WanderRadius:
@@ -1343,23 +1988,23 @@ MonoBehaviour:
       SpecialAimingDeviation:
         RawValue: 294912
       ShrinkingCircleRiskTolerance:
-        RawValue: 26739
+        RawValue: 39322
       ChanceToSeekChests:
         RawValue: 9830
       LoadoutGearNumber: 0
       MaxAimingRange:
         RawValue: 360448
       MovementSpeedMultiplier:
-        RawValue: 45875
+        RawValue: 49152
     - BehaviourType: 0
       GameMode: BattleRoyale
-      Difficulty: 0
+      Difficulty: 1
       DecisionInterval:
         RawValue: 642253
       LookForTargetsToShootAtInterval:
-        RawValue: 39322
+        RawValue: 196608
       VisionRangeSqr:
-        RawValue: 16777216
+        RawValue: 25165824
       LowArmourSensitivity:
         RawValue: 5570560
       LowHealthSensitivity:
@@ -1375,7 +2020,7 @@ MonoBehaviour:
       ChanceToSeekRage:
         RawValue: 0
       ChanceToAbandonTarget:
-        RawValue: 64881
+        RawValue: 55149
       CloseFightIntolerance:
         RawValue: 55706
       WanderRadius:
@@ -1386,23 +2031,23 @@ MonoBehaviour:
       SpecialAimingDeviation:
         RawValue: 131072
       ShrinkingCircleRiskTolerance:
-        RawValue: 17695
+        RawValue: 40305
       ChanceToSeekChests:
         RawValue: 7864
       LoadoutGearNumber: 0
       MaxAimingRange:
         RawValue: 360448
       MovementSpeedMultiplier:
-        RawValue: 45875
+        RawValue: 49152
     - BehaviourType: 0
       GameMode: BattleRoyale
-      Difficulty: 0
+      Difficulty: 1
       DecisionInterval:
         RawValue: 670433
       LookForTargetsToShootAtInterval:
-        RawValue: 73728
+        RawValue: 201523
       VisionRangeSqr:
-        RawValue: 16777216
+        RawValue: 25165824
       LowArmourSensitivity:
         RawValue: 5898240
       LowHealthSensitivity:
@@ -1418,34 +2063,34 @@ MonoBehaviour:
       ChanceToSeekRage:
         RawValue: 0
       ChanceToAbandonTarget:
-        RawValue: 63570
+        RawValue: 54034
       CloseFightIntolerance:
         RawValue: 52429
       WanderRadius:
         RawValue: 917504
-      AccuracySpreadAngle: 65
+      AccuracySpreadAngle: 64
       ChanceToUseSpecial:
         RawValue: 0
       SpecialAimingDeviation:
         RawValue: 229376
       ShrinkingCircleRiskTolerance:
-        RawValue: 25559
+        RawValue: 38339
       ChanceToSeekChests:
         RawValue: 5898
       LoadoutGearNumber: 0
       MaxAimingRange:
         RawValue: 360448
       MovementSpeedMultiplier:
-        RawValue: 45875
+        RawValue: 49152
     - BehaviourType: 1
       GameMode: BattleRoyale
-      Difficulty: 0
+      Difficulty: 1
       DecisionInterval:
         RawValue: 666501
       LookForTargetsToShootAtInterval:
-        RawValue: 66847
+        RawValue: 189235
       VisionRangeSqr:
-        RawValue: 16777216
+        RawValue: 25165824
       LowArmourSensitivity:
         RawValue: 5373952
       LowHealthSensitivity:
@@ -1461,34 +2106,34 @@ MonoBehaviour:
       ChanceToSeekRage:
         RawValue: 0
       ChanceToAbandonTarget:
-        RawValue: 64225
+        RawValue: 54591
       CloseFightIntolerance:
         RawValue: 57016
       WanderRadius:
         RawValue: 851968
-      AccuracySpreadAngle: 62
+      AccuracySpreadAngle: 61
       ChanceToUseSpecial:
         RawValue: 0
       SpecialAimingDeviation:
         RawValue: 196608
       ShrinkingCircleRiskTolerance:
-        RawValue: 29491
+        RawValue: 41288
       ChanceToSeekChests:
         RawValue: 6554
       LoadoutGearNumber: 0
       MaxAimingRange:
         RawValue: 360448
       MovementSpeedMultiplier:
-        RawValue: 45875
+        RawValue: 49152
     - BehaviourType: 0
       GameMode: BattleRoyale
-      Difficulty: 0
+      Difficulty: 1
       DecisionInterval:
         RawValue: 649462
       LookForTargetsToShootAtInterval:
-        RawValue: 49152
+        RawValue: 199066
       VisionRangeSqr:
-        RawValue: 16777216
+        RawValue: 25165824
       LowArmourSensitivity:
         RawValue: 5570560
       LowHealthSensitivity:
@@ -1504,32 +2149,32 @@ MonoBehaviour:
       ChanceToSeekRage:
         RawValue: 0
       ChanceToAbandonTarget:
-        RawValue: 64881
+        RawValue: 55149
       CloseFightIntolerance:
         RawValue: 53740
       WanderRadius:
         RawValue: 983040
-      AccuracySpreadAngle: 64
+      AccuracySpreadAngle: 63
       ChanceToUseSpecial:
         RawValue: 0
       SpecialAimingDeviation:
         RawValue: 262144
       ShrinkingCircleRiskTolerance:
-        RawValue: 19661
+        RawValue: 42271
       ChanceToSeekChests:
         RawValue: 6554
       LoadoutGearNumber: 0
       MaxAimingRange:
         RawValue: 360448
       MovementSpeedMultiplier:
-        RawValue: 45875
+        RawValue: 49152
     - BehaviourType: 1
       GameMode: BattleRoyale
-      Difficulty: 1
+      Difficulty: 2
       DecisionInterval:
         RawValue: 652739
       LookForTargetsToShootAtInterval:
-        RawValue: 52429
+        RawValue: 127795
       VisionRangeSqr:
         RawValue: 40960000
       LowArmourSensitivity:
@@ -1552,7 +2197,7 @@ MonoBehaviour:
         RawValue: 57672
       WanderRadius:
         RawValue: 786432
-      AccuracySpreadAngle: 36
+      AccuracySpreadAngle: 42
       ChanceToUseSpecial:
         RawValue: 3277
       SpecialAimingDeviation:
@@ -1561,18 +2206,18 @@ MonoBehaviour:
         RawValue: 26739
       ChanceToSeekChests:
         RawValue: 22938
-      LoadoutGearNumber: 0
+      LoadoutGearNumber: 1
       MaxAimingRange:
         RawValue: 442368
       MovementSpeedMultiplier:
         RawValue: 52429
     - BehaviourType: 0
       GameMode: BattleRoyale
-      Difficulty: 1
+      Difficulty: 2
       DecisionInterval:
         RawValue: 642253
       LookForTargetsToShootAtInterval:
-        RawValue: 26214
+        RawValue: 131072
       VisionRangeSqr:
         RawValue: 40960000
       LowArmourSensitivity:
@@ -1595,7 +2240,7 @@ MonoBehaviour:
         RawValue: 39322
       WanderRadius:
         RawValue: 1048576
-      AccuracySpreadAngle: 35
+      AccuracySpreadAngle: 41
       ChanceToUseSpecial:
         RawValue: 16384
       SpecialAimingDeviation:
@@ -1604,18 +2249,18 @@ MonoBehaviour:
         RawValue: 17695
       ChanceToSeekChests:
         RawValue: 22938
-      LoadoutGearNumber: 0
+      LoadoutGearNumber: 1
       MaxAimingRange:
         RawValue: 442368
       MovementSpeedMultiplier:
         RawValue: 52429
     - BehaviourType: 0
       GameMode: BattleRoyale
-      Difficulty: 1
+      Difficulty: 2
       DecisionInterval:
         RawValue: 670433
       LookForTargetsToShootAtInterval:
-        RawValue: 49152
+        RawValue: 134349
       VisionRangeSqr:
         RawValue: 40960000
       LowArmourSensitivity:
@@ -1638,7 +2283,7 @@ MonoBehaviour:
         RawValue: 31457
       WanderRadius:
         RawValue: 917504
-      AccuracySpreadAngle: 39
+      AccuracySpreadAngle: 45
       ChanceToUseSpecial:
         RawValue: 22938
       SpecialAimingDeviation:
@@ -1647,18 +2292,18 @@ MonoBehaviour:
         RawValue: 25559
       ChanceToSeekChests:
         RawValue: 22938
-      LoadoutGearNumber: 0
+      LoadoutGearNumber: 1
       MaxAimingRange:
         RawValue: 442368
       MovementSpeedMultiplier:
         RawValue: 52429
     - BehaviourType: 1
       GameMode: BattleRoyale
-      Difficulty: 1
+      Difficulty: 2
       DecisionInterval:
         RawValue: 666501
       LookForTargetsToShootAtInterval:
-        RawValue: 44564
+        RawValue: 126157
       VisionRangeSqr:
         RawValue: 40960000
       LowArmourSensitivity:
@@ -1681,7 +2326,7 @@ MonoBehaviour:
         RawValue: 47186
       WanderRadius:
         RawValue: 851968
-      AccuracySpreadAngle: 37
+      AccuracySpreadAngle: 43
       ChanceToUseSpecial:
         RawValue: 13107
       SpecialAimingDeviation:
@@ -1690,18 +2335,18 @@ MonoBehaviour:
         RawValue: 29491
       ChanceToSeekChests:
         RawValue: 22938
-      LoadoutGearNumber: 0
+      LoadoutGearNumber: 1
       MaxAimingRange:
         RawValue: 442368
       MovementSpeedMultiplier:
         RawValue: 52429
     - BehaviourType: 2
       GameMode: BattleRoyale
-      Difficulty: 1
+      Difficulty: 2
       DecisionInterval:
         RawValue: 649462
       LookForTargetsToShootAtInterval:
-        RawValue: 32768
+        RawValue: 132710
       VisionRangeSqr:
         RawValue: 40960000
       LowArmourSensitivity:
@@ -1724,7 +2369,7 @@ MonoBehaviour:
         RawValue: 28836
       WanderRadius:
         RawValue: 983040
-      AccuracySpreadAngle: 38
+      AccuracySpreadAngle: 44
       ChanceToUseSpecial:
         RawValue: 32768
       SpecialAimingDeviation:
@@ -1733,18 +2378,18 @@ MonoBehaviour:
         RawValue: 19661
       ChanceToSeekChests:
         RawValue: 22938
-      LoadoutGearNumber: 0
+      LoadoutGearNumber: 1
       MaxAimingRange:
         RawValue: 442368
       MovementSpeedMultiplier:
         RawValue: 52429
     - BehaviourType: 1
       GameMode: BattleRoyale
-      Difficulty: 2
+      Difficulty: 3
       DecisionInterval:
         RawValue: 652739
       LookForTargetsToShootAtInterval:
-        RawValue: 52429
+        RawValue: 78643
       VisionRangeSqr:
         RawValue: 40960000
       LowArmourSensitivity:
@@ -1767,7 +2412,7 @@ MonoBehaviour:
         RawValue: 57672
       WanderRadius:
         RawValue: 786432
-      AccuracySpreadAngle: 22
+      AccuracySpreadAngle: 25
       ChanceToUseSpecial:
         RawValue: 3277
       SpecialAimingDeviation:
@@ -1776,18 +2421,18 @@ MonoBehaviour:
         RawValue: 26739
       ChanceToSeekChests:
         RawValue: 22938
-      LoadoutGearNumber: 1
+      LoadoutGearNumber: 2
       MaxAimingRange:
         RawValue: 524288
       MovementSpeedMultiplier:
         RawValue: 58982
     - BehaviourType: 0
       GameMode: BattleRoyale
-      Difficulty: 2
+      Difficulty: 3
       DecisionInterval:
         RawValue: 642253
       LookForTargetsToShootAtInterval:
-        RawValue: 26214
+        RawValue: 39322
       VisionRangeSqr:
         RawValue: 40960000
       LowArmourSensitivity:
@@ -1810,7 +2455,7 @@ MonoBehaviour:
         RawValue: 39322
       WanderRadius:
         RawValue: 1048576
-      AccuracySpreadAngle: 21
+      AccuracySpreadAngle: 25
       ChanceToUseSpecial:
         RawValue: 16384
       SpecialAimingDeviation:
@@ -1819,18 +2464,18 @@ MonoBehaviour:
         RawValue: 17695
       ChanceToSeekChests:
         RawValue: 22938
-      LoadoutGearNumber: 1
+      LoadoutGearNumber: 2
       MaxAimingRange:
         RawValue: 524288
       MovementSpeedMultiplier:
         RawValue: 58982
     - BehaviourType: 0
       GameMode: BattleRoyale
-      Difficulty: 2
+      Difficulty: 3
       DecisionInterval:
         RawValue: 670433
       LookForTargetsToShootAtInterval:
-        RawValue: 49152
+        RawValue: 73728
       VisionRangeSqr:
         RawValue: 40960000
       LowArmourSensitivity:
@@ -1853,7 +2498,7 @@ MonoBehaviour:
         RawValue: 31457
       WanderRadius:
         RawValue: 917504
-      AccuracySpreadAngle: 23
+      AccuracySpreadAngle: 27
       ChanceToUseSpecial:
         RawValue: 22938
       SpecialAimingDeviation:
@@ -1862,18 +2507,18 @@ MonoBehaviour:
         RawValue: 25559
       ChanceToSeekChests:
         RawValue: 22938
-      LoadoutGearNumber: 1
+      LoadoutGearNumber: 2
       MaxAimingRange:
         RawValue: 524288
       MovementSpeedMultiplier:
         RawValue: 58982
     - BehaviourType: 1
       GameMode: BattleRoyale
-      Difficulty: 2
+      Difficulty: 3
       DecisionInterval:
         RawValue: 666501
       LookForTargetsToShootAtInterval:
-        RawValue: 44564
+        RawValue: 66847
       VisionRangeSqr:
         RawValue: 40960000
       LowArmourSensitivity:
@@ -1896,7 +2541,7 @@ MonoBehaviour:
         RawValue: 47186
       WanderRadius:
         RawValue: 851968
-      AccuracySpreadAngle: 22
+      AccuracySpreadAngle: 26
       ChanceToUseSpecial:
         RawValue: 13107
       SpecialAimingDeviation:
@@ -1905,18 +2550,18 @@ MonoBehaviour:
         RawValue: 29491
       ChanceToSeekChests:
         RawValue: 22938
-      LoadoutGearNumber: 1
+      LoadoutGearNumber: 2
       MaxAimingRange:
         RawValue: 524288
       MovementSpeedMultiplier:
         RawValue: 58982
     - BehaviourType: 2
       GameMode: BattleRoyale
-      Difficulty: 2
+      Difficulty: 3
       DecisionInterval:
         RawValue: 649462
       LookForTargetsToShootAtInterval:
-        RawValue: 32768
+        RawValue: 49152
       VisionRangeSqr:
         RawValue: 40960000
       LowArmourSensitivity:
@@ -1939,7 +2584,7 @@ MonoBehaviour:
         RawValue: 28836
       WanderRadius:
         RawValue: 983040
-      AccuracySpreadAngle: 23
+      AccuracySpreadAngle: 26
       ChanceToUseSpecial:
         RawValue: 32768
       SpecialAimingDeviation:
@@ -1948,14 +2593,14 @@ MonoBehaviour:
         RawValue: 19661
       ChanceToSeekChests:
         RawValue: 22938
-      LoadoutGearNumber: 1
+      LoadoutGearNumber: 2
       MaxAimingRange:
         RawValue: 524288
       MovementSpeedMultiplier:
         RawValue: 58982
     - BehaviourType: 1
       GameMode: BattleRoyale
-      Difficulty: 3
+      Difficulty: 4
       DecisionInterval:
         RawValue: 652739
       LookForTargetsToShootAtInterval:
@@ -1982,7 +2627,7 @@ MonoBehaviour:
         RawValue: 57672
       WanderRadius:
         RawValue: 786432
-      AccuracySpreadAngle: 13
+      AccuracySpreadAngle: 15
       ChanceToUseSpecial:
         RawValue: 5243
       SpecialAimingDeviation:
@@ -1991,14 +2636,14 @@ MonoBehaviour:
         RawValue: 26739
       ChanceToSeekChests:
         RawValue: 26214
-      LoadoutGearNumber: 2
+      LoadoutGearNumber: 3
       MaxAimingRange:
         RawValue: 606208
       MovementSpeedMultiplier:
         RawValue: 65536
     - BehaviourType: 0
       GameMode: BattleRoyale
-      Difficulty: 3
+      Difficulty: 4
       DecisionInterval:
         RawValue: 642253
       LookForTargetsToShootAtInterval:
@@ -2025,7 +2670,7 @@ MonoBehaviour:
         RawValue: 39322
       WanderRadius:
         RawValue: 1048576
-      AccuracySpreadAngle: 13
+      AccuracySpreadAngle: 15
       ChanceToUseSpecial:
         RawValue: 26214
       SpecialAimingDeviation:
@@ -2034,14 +2679,14 @@ MonoBehaviour:
         RawValue: 17695
       ChanceToSeekChests:
         RawValue: 26214
-      LoadoutGearNumber: 2
+      LoadoutGearNumber: 3
       MaxAimingRange:
         RawValue: 606208
       MovementSpeedMultiplier:
         RawValue: 65536
     - BehaviourType: 0
       GameMode: BattleRoyale
-      Difficulty: 3
+      Difficulty: 4
       DecisionInterval:
         RawValue: 670433
       LookForTargetsToShootAtInterval:
@@ -2068,7 +2713,7 @@ MonoBehaviour:
         RawValue: 31457
       WanderRadius:
         RawValue: 917504
-      AccuracySpreadAngle: 14
+      AccuracySpreadAngle: 16
       ChanceToUseSpecial:
         RawValue: 36700
       SpecialAimingDeviation:
@@ -2077,14 +2722,14 @@ MonoBehaviour:
         RawValue: 25559
       ChanceToSeekChests:
         RawValue: 26214
-      LoadoutGearNumber: 2
+      LoadoutGearNumber: 3
       MaxAimingRange:
         RawValue: 606208
       MovementSpeedMultiplier:
         RawValue: 65536
     - BehaviourType: 1
       GameMode: BattleRoyale
-      Difficulty: 3
+      Difficulty: 4
       DecisionInterval:
         RawValue: 666501
       LookForTargetsToShootAtInterval:
@@ -2111,7 +2756,7 @@ MonoBehaviour:
         RawValue: 47186
       WanderRadius:
         RawValue: 851968
-      AccuracySpreadAngle: 13
+      AccuracySpreadAngle: 16
       ChanceToUseSpecial:
         RawValue: 20972
       SpecialAimingDeviation:
@@ -2120,14 +2765,14 @@ MonoBehaviour:
         RawValue: 29491
       ChanceToSeekChests:
         RawValue: 26214
-      LoadoutGearNumber: 2
+      LoadoutGearNumber: 3
       MaxAimingRange:
         RawValue: 606208
       MovementSpeedMultiplier:
         RawValue: 65536
     - BehaviourType: 2
       GameMode: BattleRoyale
-      Difficulty: 3
+      Difficulty: 4
       DecisionInterval:
         RawValue: 649462
       LookForTargetsToShootAtInterval:
@@ -2154,7 +2799,7 @@ MonoBehaviour:
         RawValue: 28836
       WanderRadius:
         RawValue: 983040
-      AccuracySpreadAngle: 14
+      AccuracySpreadAngle: 16
       ChanceToUseSpecial:
         RawValue: 52429
       SpecialAimingDeviation:
@@ -2163,14 +2808,14 @@ MonoBehaviour:
         RawValue: 19661
       ChanceToSeekChests:
         RawValue: 26214
-      LoadoutGearNumber: 2
+      LoadoutGearNumber: 3
       MaxAimingRange:
         RawValue: 606208
       MovementSpeedMultiplier:
         RawValue: 65536
     - BehaviourType: 1
       GameMode: BattleRoyale
-      Difficulty: 4
+      Difficulty: 5
       DecisionInterval:
         RawValue: 652739
       LookForTargetsToShootAtInterval:
@@ -2197,7 +2842,7 @@ MonoBehaviour:
         RawValue: 57672
       WanderRadius:
         RawValue: 786432
-      AccuracySpreadAngle: 8
+      AccuracySpreadAngle: 9
       ChanceToUseSpecial:
         RawValue: 8389
       SpecialAimingDeviation:
@@ -2213,7 +2858,7 @@ MonoBehaviour:
         RawValue: 65536
     - BehaviourType: 0
       GameMode: BattleRoyale
-      Difficulty: 4
+      Difficulty: 5
       DecisionInterval:
         RawValue: 642253
       LookForTargetsToShootAtInterval:
@@ -2240,7 +2885,7 @@ MonoBehaviour:
         RawValue: 39322
       WanderRadius:
         RawValue: 1048576
-      AccuracySpreadAngle: 8
+      AccuracySpreadAngle: 9
       ChanceToUseSpecial:
         RawValue: 41943
       SpecialAimingDeviation:
@@ -2256,7 +2901,7 @@ MonoBehaviour:
         RawValue: 65536
     - BehaviourType: 0
       GameMode: BattleRoyale
-      Difficulty: 4
+      Difficulty: 5
       DecisionInterval:
         RawValue: 670433
       LookForTargetsToShootAtInterval:
@@ -2283,7 +2928,7 @@ MonoBehaviour:
         RawValue: 31457
       WanderRadius:
         RawValue: 917504
-      AccuracySpreadAngle: 8
+      AccuracySpreadAngle: 10
       ChanceToUseSpecial:
         RawValue: 58720
       SpecialAimingDeviation:
@@ -2299,7 +2944,7 @@ MonoBehaviour:
         RawValue: 65536
     - BehaviourType: 1
       GameMode: BattleRoyale
-      Difficulty: 4
+      Difficulty: 5
       DecisionInterval:
         RawValue: 666501
       LookForTargetsToShootAtInterval:
@@ -2326,7 +2971,7 @@ MonoBehaviour:
         RawValue: 47186
       WanderRadius:
         RawValue: 851968
-      AccuracySpreadAngle: 8
+      AccuracySpreadAngle: 10
       ChanceToUseSpecial:
         RawValue: 33554
       SpecialAimingDeviation:
@@ -2342,7 +2987,7 @@ MonoBehaviour:
         RawValue: 65536
     - BehaviourType: 2
       GameMode: BattleRoyale
-      Difficulty: 4
+      Difficulty: 5
       DecisionInterval:
         RawValue: 649462
       LookForTargetsToShootAtInterval:
@@ -2369,7 +3014,7 @@ MonoBehaviour:
         RawValue: 28836
       WanderRadius:
         RawValue: 983040
-      AccuracySpreadAngle: 8
+      AccuracySpreadAngle: 10
       ChanceToUseSpecial:
         RawValue: 65536
       SpecialAimingDeviation:
@@ -2385,7 +3030,222 @@ MonoBehaviour:
         RawValue: 65536
     - BehaviourType: 1
       GameMode: BattleRoyale
-      Difficulty: 5
+      Difficulty: 6
+      DecisionInterval:
+        RawValue: 652739
+      LookForTargetsToShootAtInterval:
+        RawValue: 52429
+      VisionRangeSqr:
+        RawValue: 40960000
+      LowArmourSensitivity:
+        RawValue: 4587520
+      LowHealthSensitivity:
+        RawValue: 5898240
+      LowAmmoSensitivity:
+        RawValue: 3932160
+      ChanceToSeekWeapons:
+        RawValue: 65536
+      ChanceToSeekEnemies:
+        RawValue: 0
+      ChanceToSeekReplenishSpecials:
+        RawValue: 0
+      ChanceToSeekRage:
+        RawValue: 0
+      ChanceToAbandonTarget:
+        RawValue: 4994
+      CloseFightIntolerance:
+        RawValue: 57672
+      WanderRadius:
+        RawValue: 786432
+      AccuracySpreadAngle: 5
+      ChanceToUseSpecial:
+        RawValue: 13422
+      SpecialAimingDeviation:
+        RawValue: 63701
+      ShrinkingCircleRiskTolerance:
+        RawValue: 26739
+      ChanceToSeekChests:
+        RawValue: 29491
+      LoadoutGearNumber: 4
+      MaxAimingRange:
+        RawValue: 819200
+      MovementSpeedMultiplier:
+        RawValue: 68813
+    - BehaviourType: 0
+      GameMode: BattleRoyale
+      Difficulty: 6
+      DecisionInterval:
+        RawValue: 642253
+      LookForTargetsToShootAtInterval:
+        RawValue: 26214
+      VisionRangeSqr:
+        RawValue: 40960000
+      LowArmourSensitivity:
+        RawValue: 4259840
+      LowHealthSensitivity:
+        RawValue: 5570560
+      LowAmmoSensitivity:
+        RawValue: 3604480
+      ChanceToSeekWeapons:
+        RawValue: 65536
+      ChanceToSeekEnemies:
+        RawValue: 0
+      ChanceToSeekReplenishSpecials:
+        RawValue: 0
+      ChanceToSeekRage:
+        RawValue: 0
+      ChanceToAbandonTarget:
+        RawValue: 5045
+      CloseFightIntolerance:
+        RawValue: 39322
+      WanderRadius:
+        RawValue: 1048576
+      AccuracySpreadAngle: 5
+      ChanceToUseSpecial:
+        RawValue: 65536
+      SpecialAimingDeviation:
+        RawValue: 28312
+      ShrinkingCircleRiskTolerance:
+        RawValue: 17695
+      ChanceToSeekChests:
+        RawValue: 29491
+      LoadoutGearNumber: 4
+      MaxAimingRange:
+        RawValue: 819200
+      MovementSpeedMultiplier:
+        RawValue: 68813
+    - BehaviourType: 0
+      GameMode: BattleRoyale
+      Difficulty: 6
+      DecisionInterval:
+        RawValue: 670433
+      LookForTargetsToShootAtInterval:
+        RawValue: 49152
+      VisionRangeSqr:
+        RawValue: 40960000
+      LowArmourSensitivity:
+        RawValue: 3604480
+      LowHealthSensitivity:
+        RawValue: 6225920
+      LowAmmoSensitivity:
+        RawValue: 6553600
+      ChanceToSeekWeapons:
+        RawValue: 65536
+      ChanceToSeekEnemies:
+        RawValue: 0
+      ChanceToSeekReplenishSpecials:
+        RawValue: 0
+      ChanceToSeekRage:
+        RawValue: 0
+      ChanceToAbandonTarget:
+        RawValue: 4943
+      CloseFightIntolerance:
+        RawValue: 31457
+      WanderRadius:
+        RawValue: 917504
+      AccuracySpreadAngle: 6
+      ChanceToUseSpecial:
+        RawValue: 65536
+      SpecialAimingDeviation:
+        RawValue: 49545
+      ShrinkingCircleRiskTolerance:
+        RawValue: 25559
+      ChanceToSeekChests:
+        RawValue: 29491
+      LoadoutGearNumber: 4
+      MaxAimingRange:
+        RawValue: 819200
+      MovementSpeedMultiplier:
+        RawValue: 68813
+    - BehaviourType: 1
+      GameMode: BattleRoyale
+      Difficulty: 6
+      DecisionInterval:
+        RawValue: 666501
+      LookForTargetsToShootAtInterval:
+        RawValue: 44564
+      VisionRangeSqr:
+        RawValue: 40960000
+      LowArmourSensitivity:
+        RawValue: 3932160
+      LowHealthSensitivity:
+        RawValue: 6553600
+      LowAmmoSensitivity:
+        RawValue: 4915200
+      ChanceToSeekWeapons:
+        RawValue: 65536
+      ChanceToSeekEnemies:
+        RawValue: 0
+      ChanceToSeekReplenishSpecials:
+        RawValue: 0
+      ChanceToSeekRage:
+        RawValue: 0
+      ChanceToAbandonTarget:
+        RawValue: 4994
+      CloseFightIntolerance:
+        RawValue: 47186
+      WanderRadius:
+        RawValue: 851968
+      AccuracySpreadAngle: 6
+      ChanceToUseSpecial:
+        RawValue: 53687
+      SpecialAimingDeviation:
+        RawValue: 42467
+      ShrinkingCircleRiskTolerance:
+        RawValue: 29491
+      ChanceToSeekChests:
+        RawValue: 29491
+      LoadoutGearNumber: 4
+      MaxAimingRange:
+        RawValue: 819200
+      MovementSpeedMultiplier:
+        RawValue: 68813
+    - BehaviourType: 2
+      GameMode: BattleRoyale
+      Difficulty: 6
+      DecisionInterval:
+        RawValue: 649462
+      LookForTargetsToShootAtInterval:
+        RawValue: 32768
+      VisionRangeSqr:
+        RawValue: 40960000
+      LowArmourSensitivity:
+        RawValue: 2949120
+      LowHealthSensitivity:
+        RawValue: 4915200
+      LowAmmoSensitivity:
+        RawValue: 4259840
+      ChanceToSeekWeapons:
+        RawValue: 65536
+      ChanceToSeekEnemies:
+        RawValue: 6554
+      ChanceToSeekReplenishSpecials:
+        RawValue: 0
+      ChanceToSeekRage:
+        RawValue: 0
+      ChanceToAbandonTarget:
+        RawValue: 5045
+      CloseFightIntolerance:
+        RawValue: 28836
+      WanderRadius:
+        RawValue: 983040
+      AccuracySpreadAngle: 6
+      ChanceToUseSpecial:
+        RawValue: 65536
+      SpecialAimingDeviation:
+        RawValue: 56623
+      ShrinkingCircleRiskTolerance:
+        RawValue: 19661
+      ChanceToSeekChests:
+        RawValue: 29491
+      LoadoutGearNumber: 4
+      MaxAimingRange:
+        RawValue: 819200
+      MovementSpeedMultiplier:
+        RawValue: 68813
+    - BehaviourType: 1
+      GameMode: BattleRoyale
+      Difficulty: 7
       DecisionInterval:
         RawValue: 652739
       LookForTargetsToShootAtInterval:
@@ -2428,7 +3288,7 @@ MonoBehaviour:
         RawValue: 72090
     - BehaviourType: 0
       GameMode: BattleRoyale
-      Difficulty: 5
+      Difficulty: 7
       DecisionInterval:
         RawValue: 642253
       LookForTargetsToShootAtInterval:
@@ -2471,7 +3331,7 @@ MonoBehaviour:
         RawValue: 72090
     - BehaviourType: 0
       GameMode: BattleRoyale
-      Difficulty: 5
+      Difficulty: 7
       DecisionInterval:
         RawValue: 670433
       LookForTargetsToShootAtInterval:
@@ -2514,7 +3374,7 @@ MonoBehaviour:
         RawValue: 72090
     - BehaviourType: 1
       GameMode: BattleRoyale
-      Difficulty: 5
+      Difficulty: 7
       DecisionInterval:
         RawValue: 666501
       LookForTargetsToShootAtInterval:
@@ -2557,7 +3417,7 @@ MonoBehaviour:
         RawValue: 72090
     - BehaviourType: 2
       GameMode: BattleRoyale
-      Difficulty: 5
+      Difficulty: 7
       DecisionInterval:
         RawValue: 649462
       LookForTargetsToShootAtInterval:

@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Cinemachine;
-using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.AssetConfigs;
 using FirstLight.Game.Ids;
@@ -14,13 +12,10 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using I2.Loc;
-using Newtonsoft.Json;
 using Quantum;
 using Quantum.Commands;
-using Quantum.Task;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using PlayerMatchData = FirstLight.Game.Services.PlayerMatchData;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -122,7 +117,7 @@ namespace FirstLight.Game.StateMachines
 			quitCheck.Transition().Condition(IsSpectator).Target(final);
 			quitCheck.Transition().Target(gameEnded);
 			
-			gameEnded.OnEnter(OpenGameCompleteScreen);
+			gameEnded.OnEnter(OpenWinnerScreen);
 			gameEnded.Event(GameCompleteExitEvent).Target(transitionToGameEndUI);
 			
 			transitionToGameEndUI.WaitingFor(UnloadSimulation).Target(winners);
@@ -371,16 +366,14 @@ namespace FirstLight.Game.StateMachines
 			_uiService.OpenUi<MatchWorldHudPresenter>();
 		}
 
-		private void OpenGameCompleteScreen()
+		private void OpenWinnerScreen()
 		{
-			var data = new GameCompleteScreenPresenter.StateData {ContinueClicked = ContinueClicked};
-
-			_uiService.OpenScreen<GameCompleteScreenPresenter, GameCompleteScreenPresenter.StateData>(data);
-
-			void ContinueClicked()
+			var data = new WinnerScreenPresenter.StateData
 			{
-				_statechartTrigger(GameCompleteExitEvent);
-			}
+				ContinueClicked = () => _statechartTrigger(GameCompleteExitEvent)
+			};
+
+			_uiService.OpenScreen<WinnerScreenPresenter, WinnerScreenPresenter.StateData>(data);
 		}
 
 		private async void OpenWinnersScreen(IWaitActivity activity)

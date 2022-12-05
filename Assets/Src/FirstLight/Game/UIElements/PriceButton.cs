@@ -54,7 +54,6 @@ namespace FirstLight.Game.UIElements
 		/// </summary>
 		public void SetPrice(Pair<GameId, uint> price, bool insufficient = false)
 		{
-			FLog.Info("PACO", $"SetPrice: {price.Key.ToString()} - {price.Value} - {insufficient}");
 			_price.text = price.Value.ToString();
 			_price.RemoveModifiers();
 			if (insufficient)

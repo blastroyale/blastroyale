@@ -168,7 +168,7 @@ namespace FirstLight.Game.Presenters
 			var bppPoolInfo = _gameDataProvider.ResourceDataProvider.GetResourcePoolInfo(GameId.BPP);
 			var gainedLeft = bppReward;
 			var levelsInfo = new List<RewardBPPanelView.BPPLevelRewardInfo>();
-			var nextLevel = (int)Math.Clamp(_matchServices.MatchEndDataService.BPLevelBeforeChange+1, 0, maxLevel) + 1;
+			var nextLevel = (int)Math.Clamp(_matchServices.MatchEndDataService.BPLevelBeforeChange+1, 0, maxLevel);
 			var currentLevel = nextLevel;
 
 			do

@@ -6,6 +6,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using System.Linq;
 using System.Threading.Tasks;
+using FirstLight.Game.Commands;
 using FirstLight.Game.Commands.OfflineCommands;
 using FirstLight.Game.Infos;
 using FirstLight.Game.UIElements;
@@ -316,7 +317,10 @@ namespace FirstLight.Game.Presenters
 					info.Equipment.GameId, instantiate: false));
 
 			// Set item as viewed
-			_gameDataProvider.UniqueIdDataProvider.NewIds.Remove(SelectedItem);
+			if (_gameDataProvider.UniqueIdDataProvider.NewIds.Contains(SelectedItem))
+			{
+				_services.CommandService.ExecuteCommand(new MarkEquipmentSeenCommand {Id = SelectedItem});
+			}
 		}
 
 		private bool HasEnoughCurrency(Pair<GameId, uint> cost)

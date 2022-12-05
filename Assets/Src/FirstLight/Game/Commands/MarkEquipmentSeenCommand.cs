@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
@@ -9,16 +10,18 @@ namespace FirstLight.Game.Commands
 	/// </summary>
 	public class MarkEquipmentSeenCommand : IGameCommand
 	{
-		public UniqueId Id;
+		public List<UniqueId> Ids;
 
 		public CommandAccessLevel AccessLevel() => CommandAccessLevel.Player;
 
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.Server;
 
-
 		public void Execute(CommandExecutionContext ctx)
 		{
-			ctx.Logic.UniqueIdLogic().MarkIdSeen(Id);
+			foreach (var id in Ids)
+			{
+				ctx.Logic.UniqueIdLogic().MarkIdSeen(id);
+			}
 		}
 	}
 }

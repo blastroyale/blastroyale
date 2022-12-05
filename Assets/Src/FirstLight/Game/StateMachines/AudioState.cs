@@ -101,19 +101,19 @@ namespace FirstLight.Game.StateMachines
 			
 			battleRoyale.Nest(_audioBrState.Setup).Target(postGameSpectatorCheck);
 			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
-			battleRoyale.Event(GameSimulationState.GameCompleteExitEvent).Target(postGameSpectatorCheck);
-			battleRoyale.Event(GameSimulationState.MatchEndedEvent).Target(postGameSpectatorCheck);
-			battleRoyale.Event(GameSimulationState.MatchQuitEvent).OnTransition(StopMusicInstant).Target(postGameSpectatorCheck);
-			battleRoyale.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
+			battleRoyale.Event(MatchState.MatchCompleteExitEvent).Target(postGameSpectatorCheck);
+			battleRoyale.Event(MatchState.MatchEndedEvent).Target(postGameSpectatorCheck);
+			battleRoyale.Event(MatchState.MatchQuitEvent).OnTransition(StopAllAudio).Target(audioBase);
+			battleRoyale.Event(MatchState.MatchUnloadedEvent).OnTransition(StopAllAudio).Target(audioBase);
 			battleRoyale.OnExit(UnsubscribeMatchEvents);
 			battleRoyale.OnExit(() => SetSimulationRunning(false));
 			
 			deathmatch.Nest(_audioDmState.Setup).Target(postGameSpectatorCheck);
 			deathmatch.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
-			deathmatch.Event(GameSimulationState.GameCompleteExitEvent).Target(postGameSpectatorCheck);
-			deathmatch.Event(GameSimulationState.MatchEndedEvent).Target(postGameSpectatorCheck);
-			deathmatch.Event(GameSimulationState.MatchQuitEvent).OnTransition(StopMusicInstant).Target(postGameSpectatorCheck);
-			deathmatch.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
+			deathmatch.Event(MatchState.MatchCompleteExitEvent).Target(postGameSpectatorCheck);
+			deathmatch.Event(MatchState.MatchEndedEvent).Target(postGameSpectatorCheck);
+			deathmatch.Event(MatchState.MatchQuitEvent).OnTransition(StopAllAudio).Target(audioBase);
+			deathmatch.Event(MatchState.MatchUnloadedEvent).OnTransition(StopAllAudio).Target(audioBase);
 			deathmatch.OnExit(UnsubscribeMatchEvents);
 			deathmatch.OnExit(() => SetSimulationRunning(false));
 
@@ -124,7 +124,7 @@ namespace FirstLight.Game.StateMachines
 			postGame.OnEnter(StopMusicInstant);
 			postGame.OnEnter(PlayPostMatchMusic);
 			postGame.OnEnter(PlayPostMatchAnnouncer);
-			postGame.Event(MatchState.MatchUnloadedEvent).Target(audioBase);
+			postGame.Event(MatchState.MatchStateEndingEvent).Target(audioBase);
 			postGame.OnExit(StopMusicInstant);
 			postGame.OnExit(StopAllSfx);
 			
@@ -268,8 +268,15 @@ namespace FirstLight.Game.StateMachines
 				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_GameOver, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
 			}
 		}
-		
 
+		private void StopAllAudio()
+		{
+			_services.AudioFxService.StopAllSfx();
+			_services.AudioFxService.WipeSoundQueue();
+			_currentClips.Clear();
+			StopMusicInstant();
+		}
+		
 		private void StopAllSfx()
 		{
 			_services.AudioFxService.StopAllSfx();

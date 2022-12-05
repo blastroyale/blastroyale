@@ -42,6 +42,7 @@ MonoBehaviour:
           RawValue: -655360
         Z:
           RawValue: 0
+      SolverType: 1
       SolverIterations: 4
       PositionSolverIterations: 2
       UseJoints: 1
@@ -138,7 +139,7 @@ MonoBehaviour:
     AutoLoadSceneFromMap: 0
     DeltaTimeType: 0
     HeapPageShift: 15
-    HeapPageCount: 32
+    HeapPageCount: 64
     HeapExtraCount: 0
     ThreadCount: 2
     ChecksumSnapshotHistoryLengthSeconds:

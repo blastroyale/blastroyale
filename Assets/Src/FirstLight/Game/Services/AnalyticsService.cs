@@ -4,6 +4,7 @@ using Firebase.Analytics;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Services;
+using FirstLight.UiService;
 using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ClientModels;
@@ -24,6 +25,7 @@ namespace FirstLight.Game.Services
 		public static readonly string PlayerRegister = "player_register";
 		public static readonly string PlayerLogin = "player_login";
 		public static readonly string GameLoaded = "game_loaded";
+		public static readonly string ScreenView = "screen_view";
 		public static readonly string MatchInitiate = "match_initiate";
 		public static readonly string MatchStart = "match_start";
 		public static readonly string MatchEnd = "match_end";
@@ -72,9 +74,10 @@ namespace FirstLight.Game.Services
 
 		public AnalyticsService(IGameServices services,
 		                        IGameDataProvider gameDataProvider,
-		                        IDataProvider dataProvider)
+		                        IDataProvider dataProvider,
+								IUiService uiService)
 		{
-			SessionCalls = new AnalyticsCallsSession(this, services, dataProvider, gameDataProvider);
+			SessionCalls = new AnalyticsCallsSession(this, services, dataProvider, gameDataProvider, uiService);
 			MatchCalls = new AnalyticsCallsMatch(this, services, gameDataProvider);
 			EconomyCalls = new AnalyticsEconomy(this);
 			ErrorsCalls = new AnalyticsCallsErrors(this);

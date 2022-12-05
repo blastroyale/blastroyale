@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using FirstLight.FLogger;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic.RPC;
@@ -69,8 +68,6 @@ namespace FirstLight.Game.Logic
 			_ids = new ObservableDictionary<UniqueId, GameId>(Data.GameIds);
 			NewIds = new ObservableList<UniqueId>(DataProvider.GetData<AppData>().NewUniqueIds);
 			GameIdsTagged = new ObservableList<GameId>(DataProvider.GetData<AppData>().GameIdsTagged);
-
-			CleanNewIds();
 		}
 
 		/// <inheritdoc />
@@ -106,25 +103,6 @@ namespace FirstLight.Game.Logic
 			if (!_ids.Remove(id))
 			{
 				throw new LogicException($"The given {id} is not registered in the game logic to be removed");
-			}
-		}
-
-		private void CleanNewIds()
-		{
-			var corruptedIds = new List<UniqueId>();
-
-			foreach (var id in NewIds)
-			{
-				if (!GameLogic.EquipmentLogic.Inventory.ContainsKey(id))
-				{
-					corruptedIds.Add(id);
-				}
-			}
-			
-			foreach (var id in corruptedIds)
-			{
-				FLog.Warn($"Removing NewID not in inventory: {id}");
-				NewIds.Remove(id);
 			}
 		}
 	}

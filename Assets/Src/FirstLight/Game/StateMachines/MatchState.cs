@@ -110,7 +110,7 @@ namespace FirstLight.Game.StateMachines
 			gameSimulation.Event(MatchQuitEvent).OnTransition(() => HandleSimulationEnd(true)).Target(unloadToFinal);
 			gameSimulation.Event(NetworkState.PhotonCriticalDisconnectedEvent).OnTransition(OnDisconnectDuringSimulation).Target(disconnected);
 
-			gameEnded.OnEnter(OpenGameCompleteScreen);
+			gameEnded.OnEnter(OpenWinnerScreen);
 			gameEnded.Event(MatchCompleteExitEvent).Target(transitionToWinners);
 			
 			transitionToWinners.WaitingFor(UnloadMatchAndTransition).Target(winners);
@@ -145,16 +145,24 @@ namespace FirstLight.Game.StateMachines
 			return _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator();
 		}
 		
-		private void OpenGameCompleteScreen()
+		private void OpenWinnerScreen()
 		{
-			var data = new GameCompleteScreenPresenter.StateData {ContinueClicked = ContinueClicked};
-
-			_uiService.OpenScreenAsync<GameCompleteScreenPresenter, GameCompleteScreenPresenter.StateData>(data);
-
-			void ContinueClicked()
+			var data = new WinnerScreenPresenter.StateData
 			{
-				_statechartTrigger(MatchCompleteExitEvent);
-			}
+				ContinueClicked = () => _statechartTrigger(MatchCompleteExitEvent)
+			};
+
+			_uiService.OpenScreen<WinnerScreenPresenter, WinnerScreenPresenter.StateData>(data);
+		}
+		
+		private async void OpenWinnersScreen(IWaitActivity activity)
+		{
+			var cacheActivity = activity;
+			var data = new WinnersScreenPresenter.StateData {ContinueClicked = () => cacheActivity.Complete()};
+
+			await _uiService.OpenScreenAsync<WinnersScreenPresenter, WinnersScreenPresenter.StateData>(data);
+			
+			CloseSwipeTransition();
 		}
 		
 		private void OpenLeaderboardAndRewardsScreen(IWaitActivity activity)
@@ -166,16 +174,6 @@ namespace FirstLight.Game.StateMachines
 			};
 			
 			_uiService.OpenScreen<LeaderboardAndRewardsScreenPresenter, LeaderboardAndRewardsScreenPresenter.StateData>(data);
-		}
-
-		private async void OpenWinnersScreen(IWaitActivity activity)
-		{
-			var cacheActivity = activity;
-			var data = new WinnersScreenPresenter.StateData {ContinueClicked = () => cacheActivity.Complete()};
-
-			await _uiService.OpenScreenAsync<WinnersScreenPresenter, WinnersScreenPresenter.StateData>(data);
-			
-			CloseSwipeTransition();
 		}
 
 		private bool IsRoomClosed()

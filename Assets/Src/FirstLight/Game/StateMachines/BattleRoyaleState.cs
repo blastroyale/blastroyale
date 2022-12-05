@@ -76,7 +76,7 @@ namespace FirstLight.Game.StateMachines
 			dead.OnEnter(OpenMatchEndScreen);
 			dead.Event(_localPlayerNextEvent).Target(spectating);
 
-			spectating.OnEnter(OpenSpectateHud);
+			spectating.OnEnter(OpenSpectateScreen);
 			spectating.Event(_localPlayerExitEvent).Target(final);
 
 			final.OnEnter(CloseMatchHud);
@@ -189,7 +189,7 @@ namespace FirstLight.Game.StateMachines
 			_uiService.OpenScreen<MatchEndScreenPresenter, MatchEndScreenPresenter.StateData>(data);
 		}
 
-		private void OpenSpectateHud()
+		private void OpenSpectateScreen()
 		{
 			var data = new SpectateScreenPresenter.StateData
 			{

@@ -5,6 +5,7 @@ using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
@@ -121,7 +122,11 @@ namespace FirstLight.Game.Presenters
 			storeButton.SetDisplay(FeatureFlags.STORE_ENABLED);
 
 			var discordButton = root.Q<Button>("DiscordButton");
-			discordButton.clicked += Data.OnDiscordClicked;
+			discordButton.clicked += () =>
+			{
+				_services.AnalyticsService.UiCalls.ButtonAction(UIAnalyticsButtonsNames.DiscordLink);
+				Data.OnDiscordClicked();
+			};
 
 			root.SetupClicks(_services);
 		}

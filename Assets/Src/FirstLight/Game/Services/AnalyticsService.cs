@@ -26,6 +26,7 @@ namespace FirstLight.Game.Services
 		public static readonly string PlayerLogin = "player_login";
 		public static readonly string GameLoaded = "game_loaded";
 		public static readonly string ScreenView = "screen_view";
+		public static readonly string ButtonAction = "button_action";
 		public static readonly string MatchInitiate = "match_initiate";
 		public static readonly string MatchStart = "match_start";
 		public static readonly string MatchEnd = "match_end";
@@ -42,10 +43,16 @@ namespace FirstLight.Game.Services
 	/// </summary>
 	public interface IAnalyticsService
 	{
+		/// <inheritdoc cref="AnalyticsCallsSession"/>
 		public AnalyticsCallsSession SessionCalls { get; }
+		/// <inheritdoc cref="AnalyticsCallsMatch"/>
 		public AnalyticsCallsMatch MatchCalls { get; }
+		/// <inheritdoc cref="AnalyticsEconomy"/>
 		public AnalyticsEconomy EconomyCalls { get; }
+		/// <inheritdoc cref="AnalyticsCallsErrors"/>
 		public AnalyticsCallsErrors ErrorsCalls { get; }
+		/// <inheritdoc cref="AnalyticsCallsUi"/>
+		public AnalyticsCallsUi UiCalls { get; }
 
 		/// <summary>
 		/// Logs an analytics event with the given <paramref name="eventName"/>.
@@ -67,20 +74,22 @@ namespace FirstLight.Game.Services
 	/// <inheritdoc />
 	public class AnalyticsService : IAnalyticsService
 	{
-		public AnalyticsCallsSession SessionCalls { get; private set; }
-		public AnalyticsCallsMatch MatchCalls { get; private set; }
-		public AnalyticsEconomy EconomyCalls { get; private set; }
-		public AnalyticsCallsErrors ErrorsCalls { get; private set; }
+		public AnalyticsCallsSession SessionCalls { get; }
+		public AnalyticsCallsMatch MatchCalls { get; }
+		public AnalyticsEconomy EconomyCalls { get; }
+		public AnalyticsCallsErrors ErrorsCalls { get; }
+		public AnalyticsCallsUi UiCalls { get; }
 
 		public AnalyticsService(IGameServices services,
 		                        IGameDataProvider gameDataProvider,
 		                        IDataProvider dataProvider,
 								IUiService uiService)
 		{
-			SessionCalls = new AnalyticsCallsSession(this, services, dataProvider, gameDataProvider, uiService);
+			SessionCalls = new AnalyticsCallsSession(this, services, gameDataProvider);
 			MatchCalls = new AnalyticsCallsMatch(this, services, gameDataProvider);
 			EconomyCalls = new AnalyticsEconomy(this);
 			ErrorsCalls = new AnalyticsCallsErrors(this);
+			UiCalls = new AnalyticsCallsUi(this, uiService);
 		}
 
 		/// <inheritdoc />

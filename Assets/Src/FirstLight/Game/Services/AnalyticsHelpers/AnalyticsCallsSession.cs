@@ -18,11 +18,9 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 	/// </summary>
 	public class AnalyticsCallsSession : AnalyticsCalls
 	{
-		private IDataProvider _dataProvider;
 		private IGameServices _services;
 		private IGameDataProvider _gameData;
-		private IUiService _uiService;
-		
+
 		/// <summary>
 		/// Requests the information if the current device model playing the game is a tablet or 
 		/// </summary>
@@ -49,16 +47,10 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		}
 
 		public AnalyticsCallsSession(IAnalyticsService analyticsService, IGameServices services,
-		                             IDataProvider dataProvider,
-		                             IGameDataProvider gameDataProvider, 
-									 IUiService uiService) : base(analyticsService)
+									 IGameDataProvider gameDataProvider) : base(analyticsService)
 		{
 			_gameData = gameDataProvider;
-			_dataProvider = dataProvider;
 			_services = services;
-			_uiService = uiService;
-
-			_uiService.ScreenStartOpening += ScreenView;
 		}
 
 		/// <summary>
@@ -162,23 +154,6 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			_analyticsService.LogEvent(AnalyticsEvents.GameLoaded, data);
 		}
 
-		/// <summary>
-		/// Logs when the user opens a screen
-		/// </summary>
-		/// <param name="screenName">A name that identifies the screen we opened</param>
-		public void ScreenView(string screenName)
-		{
-			screenName = screenName.Replace("FirstLight.Game.Presenters.", "");
-			screenName = screenName.Replace("Presenter", "");
-
-			var data = new Dictionary<string, object>
-			{
-				{"screen-name", screenName},
-			};
-			
-			_analyticsService.LogEvent(AnalyticsEvents.ScreenView, data);
-		}
-		
 #if UNITY_ANDROID
 		private static string GetAndroidAdvertiserId()
 		{

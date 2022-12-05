@@ -48,7 +48,7 @@ MonoBehaviour:
       Value: 3
     InitialReplicationCounter: 0
     Tuning: 0
-    Level: 0
+    Level: 1
     Generation: 0
   - Id: 1
     GameId: 78
@@ -84,7 +84,7 @@ MonoBehaviour:
       Value: 3
     InitialReplicationCounter: 0
     Tuning: 0
-    Level: 0
+    Level: 1
     Generation: 0
   - Id: 2
     GameId: 15
@@ -133,7 +133,7 @@ MonoBehaviour:
       Value: 3
     InitialReplicationCounter: 0
     Tuning: 0
-    Level: 0
+    Level: 1
     Generation: 0
   - Id: 3
     GameId: 46
@@ -186,7 +186,7 @@ MonoBehaviour:
       Value: 3
     InitialReplicationCounter: 0
     Tuning: 0
-    Level: 0
+    Level: 1
     Generation: 0
   - Id: 4
     GameId: 47
@@ -241,7 +241,7 @@ MonoBehaviour:
       Value: 3
     InitialReplicationCounter: 0
     Tuning: 0
-    Level: 0
+    Level: 1
     Generation: 0
   - Id: 5
     GameId: 48
@@ -299,7 +299,7 @@ MonoBehaviour:
       Value: 3
     InitialReplicationCounter: 0
     Tuning: 0
-    Level: 0
+    Level: 1
     Generation: 0
   - Id: 6
     GameId: 59
@@ -355,5 +355,5 @@ MonoBehaviour:
       Value: 3
     InitialReplicationCounter: 0
     Tuning: 0
-    Level: 0
+    Level: 1
     Generation: 0

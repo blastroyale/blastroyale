@@ -13,12 +13,14 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 	/// </summary>
 	public class AnalyticsCallsMatch : AnalyticsCalls
 	{
-		private IGameServices _services;
-		private IGameDataProvider _gameData;
-		
 		public string PresentedMapPath { get; set; }
 		public Vector2IntSerializable DefaultDropPosition { get; set; }
 		public Vector2IntSerializable SelectedDropPosition { get; set; }
+		
+		private IGameServices _services;
+		private IGameDataProvider _gameData;
+
+		private int _playerNumAttacks;
 
 		public AnalyticsCallsMatch(IAnalyticsService analyticsService,
 		                           IGameServices services,
@@ -30,6 +32,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(MatchKillAction);
 			QuantumEvent.SubscribeManual<EventOnChestOpened>(this, MatchChestOpenAction);
 			QuantumEvent.SubscribeManual<EventOnCollectableCollected>(MatchPickupAction);
+			QuantumEvent.SubscribeManual<EventOnPlayerAttack>(TrackPlayerAttack);
 		}
 
 		/// <summary>
@@ -56,6 +59,8 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		/// </summary>
 		public void MatchStart()
 		{
+			_playerNumAttacks = 0;
+			
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
 			var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(room.GetMapId());
 			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(room.GetGameModeId().GetHashCode());
@@ -117,9 +122,12 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"end_state", playerQuit ? "quit" : "ended"},
 				{"match_time", matchTime},
 				{"player_rank", matchData.PlayerRank},
+				{"player_attacks", _playerNumAttacks}
 			};
 			
 			_analyticsService.LogEvent(AnalyticsEvents.MatchEnd, data);
+			
+			_playerNumAttacks = 0;
 		}
 
 		/// <summary>
@@ -239,6 +247,17 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			};
 			
 			_analyticsService.LogEvent(AnalyticsEvents.MatchPickupAction, data, false);
+		}
+
+
+		private void TrackPlayerAttack(EventOnPlayerAttack callback)
+		{
+			if (!callback.Game.PlayerIsLocal(callback.Player))
+			{
+				return;
+			}
+			
+			_playerNumAttacks++;
 		}
 	}
 }

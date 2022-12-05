@@ -62,7 +62,7 @@ namespace FirstLight.Game
 			var gameLogic = new GameLogic(messageBroker, timeService, dataService, configsProvider, audioFxService);
 			var gameServices = new GameServices(networkService, messageBroker, timeService, dataService,
 				configsProvider, gameLogic, genericDialogService,
-				assetResolver, vfxService, audioFxService);
+				assetResolver, vfxService, audioFxService, uiService);
 
 			MainInstaller.Bind<IGameDataProvider>(gameLogic);
 			MainInstaller.Bind<IGameServices>(gameServices);

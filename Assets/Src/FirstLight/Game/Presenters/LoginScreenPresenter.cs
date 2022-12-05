@@ -1,5 +1,6 @@
 using System;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using I2.Loc;
@@ -55,6 +56,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnLoginButtonClicked()
 		{
+			_services.AnalyticsService.UiCalls.ButtonAction(UIAnalyticsButtonsNames.Login);
 			Data.LoginClicked(_emailField.text.Trim(), _passwordField.text.Trim());
 		}
 
@@ -78,6 +80,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnPlayAsGuestButtonClicked()
 		{
+			_services.AnalyticsService.UiCalls.ButtonAction(UIAnalyticsButtonsNames.PlayAsGuest);
 			Data.PlayAsGuestClicked();
 		}
 	}

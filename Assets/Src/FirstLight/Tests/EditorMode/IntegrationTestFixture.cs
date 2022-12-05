@@ -70,7 +70,7 @@ namespace FirstLight.Tests.EditorMode
 			                          audioFxService);
 			TestServices = new StubGameServices(TestNetwork, messageBroker, TimeService, TestData,
 			                                    TestConfigs, TestLogic, TestData, genericDialogService,
-			                                    TestAssetResolver, TestVfx, audioFxService, playerInputService);
+			                                    TestAssetResolver, TestVfx, audioFxService, playerInputService, TestUI);
 			TestLogic.Init();
 
 			TestStates = new GameStateMachine(TestLogic, TestServices, TestUI, TestNetwork,

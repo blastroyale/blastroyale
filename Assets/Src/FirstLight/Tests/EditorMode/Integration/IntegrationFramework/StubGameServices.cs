@@ -5,6 +5,7 @@ using FirstLight.NotificationService;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
+using FirstLight.UiService;
 using NSubstitute;
 
 namespace FirstLight.Tests.EditorMode
@@ -48,10 +49,10 @@ namespace FirstLight.Tests.EditorMode
 		                        IGenericDialogService genericDialogService,
 		                        IAssetResolverService assetResolverService,
 		                        IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService,
-		                        IPlayerInputService playerInputService)
+		                        IPlayerInputService playerInputService, IUiService uiService)
 		{
 			NetworkService = networkService;
-			AnalyticsService = new AnalyticsService(this, gameLogic, dataProvider);
+			AnalyticsService = new AnalyticsService(this, gameLogic, dataProvider, uiService);
 			MessageBrokerService = messageBrokerService;
 			TimeService = timeService;
 			DataSaver = dataSaver;

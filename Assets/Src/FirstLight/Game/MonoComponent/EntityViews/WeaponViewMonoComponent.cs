@@ -11,7 +11,6 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	public class WeaponViewMonoComponent : EntityViewBase
 	{
 		[SerializeField, Required] private ParticleSystem _particleSystem;
-		private QuantumWeaponConfig _currentConfig;
 
 		protected override void OnAwake()
 		{
@@ -49,8 +48,10 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			_particleSystem.Stop();
 			_particleSystem.time = 0;
 			_particleSystem.Play();
+			var config = Services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int)callback.Weapon.GameId);
 
-			if (_currentConfig.IsProjectile)
+
+			if (config.IsProjectile)
 			{
 				return;
 			}
@@ -60,7 +61,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			var arc = 0;
 			var rotation = -(90f + callback.ShotDir.AsFloat);
 
-			if (_currentConfig.NumberOfShots > 1)
+			if (config.NumberOfShots > 1)
 			{
 				arc = (int)callback.AttackAngle;
 				rotation = -(90 - (shape.arc / 2));
@@ -69,7 +70,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			shape.arc = arc;
 			shape.arcMode = ParticleSystemShapeMultiModeValue.BurstSpread;
 			shape.rotation = new Vector3(90, rotation, 0);
-			main.startLifetime = callback.AttackRange.AsFloat / _currentConfig.AttackHitSpeed.AsFloat;
+			main.startLifetime = callback.AttackRange.AsFloat / config.AttackHitSpeed.AsFloat;
 
 		}
 
@@ -90,12 +91,12 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private void UpdateParticleSystem(GameId weaponId)
 		{
-			_currentConfig = Services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) weaponId);
+			var config = Services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) weaponId);
 			var main = _particleSystem.main;
 			var emission = _particleSystem.emission;
-			var speed = _currentConfig.AttackHitSpeed.AsFloat;
+			var speed = config.AttackHitSpeed.AsFloat;
 
-			if (speed < float.Epsilon || _currentConfig.IsProjectile)
+			if (speed < float.Epsilon || config.IsProjectile)
 			{
 				return;
 			}
@@ -106,17 +107,17 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 
 			// Particle System modules do not need to be reassigned back to the system; they are interfaces and not independent objects.
-			main.duration = 1 / _currentConfig.AttackCooldown.AsFloat; 
+			main.duration = config.AttackCooldown.AsFloat; 
 			main.startDelay = 0;
 			main.maxParticles = 50;
 			emission.rateOverTime = 0;
 			main.loop = false;
-			main.startSpeed = _currentConfig.NumberOfShots > 1 ? new ParticleSystem.MinMaxCurve(speed, speed * 1.2f) : speed;
+			main.startSpeed = config.NumberOfShots > 1 ? new ParticleSystem.MinMaxCurve(speed, speed * 1.2f) : speed;
 
 			emission.burstCount = 1;
 			var burst = emission.GetBurst(0);
-			burst.count = _currentConfig.NumberOfShots;
-			burst.repeatInterval = 1 / _currentConfig.AttackCooldown.AsFloat;
+			burst.count = config.NumberOfShots;
+			burst.repeatInterval = 1 / config.AttackCooldown.AsFloat;
 			emission.SetBurst(0, burst);
 		}
 

@@ -163,7 +163,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			// We use a formula to calculate the scale of a shooting indicator
 			var size = Mathf.Max(0.5f, Mathf.Tan(angleInRad * 0.5f * Mathf.Deg2Rad) * range * 2f);
 
-
 			// For a melee weapon with a splash damage we use a separate calculation for an indicator
 			if (_weaponConfig.IsMeleeWeapon && _weaponConfig.SplashRadius > FP._0)
 			{

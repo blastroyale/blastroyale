@@ -14,6 +14,7 @@ Shader "Custom/UI/Minimap"
 		_DangerRingColor ("Danger Ring Color", Color) = (1,1,1,1)
 		_OuterRingColor ("Outer Ring Color", Color) = (1,1,1,1)
 		_PlayersColor ("Players Color", Color) = (1,0,1,1)
+		_PlayersOutlineColor ("Players Outline Color", Color) = (1,0,1,1)
 
 		_PlayersSize("Players Size", Float) = 0.01
 		_SafeAreaSize ("Safe Area Size", Float) = 1
@@ -69,7 +70,7 @@ Shader "Custom/UI/Minimap"
 			#include "UnityCG.cginc"
 			#include "UIShaderShared.cginc"
 
-			#pragma shader_feature _ MINIMAP_DRAW_PLAYERS
+			#pragma multi_compile _ MINIMAP_DRAW_PLAYERS
 
 			struct appdata_t
 			{
@@ -113,10 +114,12 @@ Shader "Custom/UI/Minimap"
 			fixed4 _DangerRingColor;
 			fixed4 _OuterRingColor;
 			fixed4 _PlayersColor;
+			fixed4 _PlayersOutlineColor;
 
 			#ifdef MINIMAP_DRAW_PLAYERS
 			int _PlayersCount = 0;
 			float4 _Players[30];
+			float _PlayersOpacity;
 			#endif
 
 			v2f vert(appdata_t v)
@@ -175,8 +178,12 @@ Shader "Custom/UI/Minimap"
 				#ifdef MINIMAP_DRAW_PLAYERS
 				for (int i = 0; i < _PlayersCount; i++)
 				{
-					const float playerCircle = circle(stMod - _Players[i], _PlayersSize);
-					color = color * (1 - playerCircle) + playerCircle * _PlayersColor;
+                    const float2 playerPos = stMod - _Players[i];
+				    const float playerCircle = circle(playerPos, _PlayersSize) * _PlayersOpacity;
+				    const float playerCircleOuter = circle(playerPos, _PlayersSize * 1.15) * _PlayersOpacity;
+
+			        color = color * (1 - playerCircleOuter) + playerCircleOuter * _PlayersOutlineColor;
+			        color = color * (1 - playerCircle) + playerCircle * _PlayersColor; 
 				}
 				#endif
 

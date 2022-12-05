@@ -427,7 +427,7 @@ namespace Quantum.Systems
 			var special = playerCharacter->WeaponSlot->Specials[specialIndex];
 
 			if ((target != EntityRef.None || special.SpecialType == SpecialType.ShieldSelfStatus) &&
-			    special.TryActivate(f, entity, FPVector2.Zero, specialIndex))
+			    special.TryActivate(f, PlayerRef.None, entity, FPVector2.Zero, specialIndex))
 			{
 				playerCharacter->WeaponSlot->Specials[specialIndex] = special;
 				return true;

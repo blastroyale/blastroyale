@@ -175,6 +175,8 @@ namespace FirstLight.Game.Presenters
 			{
 				var levelRewardInfo = new RewardBPPanelView.BPPLevelRewardInfo();
 
+				levelRewardInfo.MaxLevel = (int)maxLevel;
+				
 				// If it's the next level to the current one, we might have already some points in there
 				if (nextLevel == currentLevel)
 				{

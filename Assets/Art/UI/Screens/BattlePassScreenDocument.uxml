@@ -33,7 +33,7 @@
                     <ui:VisualElement name="Icon" class="bpp-bar__icon" />
                 </ui:VisualElement>
                 <ui:VisualElement name="Spacer" class="width-spacer" />
-                <ui:VisualElement name="NextLevel" class="season-level">
+                <ui:VisualElement name="NextLevel" class="season-level" style="display: flex;">
                     <ui:Label text="LV" display-tooltip-when-elided="true" name="Label" class="season-level__label" />
                     <ui:Label text="1" display-tooltip-when-elided="true" name="NextLevelValue" class="season-level__label season-level__label--big" />
                 </ui:VisualElement>

@@ -1,11 +1,15 @@
 # Pipeline to release new containers on container apps
 
+trigger: none
 pr: none
 resources:
   pipelines:
   - pipeline: build
     source: 'Game Logic Service CI'
-    trigger: true
+    trigger:
+      branches:
+        include:
+        - 'develop'
   repositories:
   - repository: templates
     type: git

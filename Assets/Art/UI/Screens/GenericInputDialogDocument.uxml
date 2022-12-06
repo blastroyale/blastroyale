@@ -20,7 +20,7 @@
                         </ui:VisualElement>
                         <ui:VisualElement name="Spacer" class="width-spacer width-spacer--s" />
                         <ui:VisualElement class="button-flat-outline">
-                            <ui:Button name="ConfirmButton" text="CONFIRM" class="sfx-click-forwards button-flat button-flat--secondary" />
+                            <ui:Button name="ConfirmButton" text="CONFIRM" class="sfx-click-forwards button-flat button-flat--primary" />
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>

@@ -14,11 +14,11 @@
                     <ui:VisualElement name="Spacer" class="height-spacer height-spacer--m" />
                     <ui:VisualElement name="Controls" class="content__controls">
                         <ui:VisualElement class="button-flat-outline">
-                            <FirstLight.Game.UIElements.LocalizedButton localization-key="UITShared/cancel" name="CancelButton" class="button-flat button-flat--cancel" />
+                            <FirstLight.Game.UIElements.LocalizedButton localization-key="UITShared/cancel" name="CancelButton" class="button-flat button-flat--cancel sfx-click-forwards" />
                         </ui:VisualElement>
                         <ui:VisualElement name="Spacer" class="width-spacer width-spacer--s" />
                         <ui:VisualElement class="button-flat-outline">
-                            <ui:Button localization-key="confirm" name="ConfirmButton" text="CONFIRM" class="button-flat button-flat--secondary" />
+                            <ui:Button localization-key="confirm" name="ConfirmButton" text="CONFIRM" class="button-flat button-flat--primary sfx-click-forwards" />
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>

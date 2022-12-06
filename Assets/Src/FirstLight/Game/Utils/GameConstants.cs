@@ -221,6 +221,13 @@ namespace FirstLight.Game.Utils
 			public const int SCREEN_SWIPE_TRANSITION_MS = 1500;
 		}
 
+		public static class Camera
+		{
+			public const float DYNAMIC_CAMERA_PAN_TO_AIM_TIME = 0.5f;
+			public const float DYNAMIC_CAMERA_PAN_TO_CENTER_TIME = 0.2f;
+			public const float DYNAMIC_CAMERA_PAN_DISTANCE_DEFAULT = 2f;
+		}
+
 		public static class Controls
 		{
 			public const float DYNAMIC_JOYSTICK_THRESHOLD_MULT = 1f;

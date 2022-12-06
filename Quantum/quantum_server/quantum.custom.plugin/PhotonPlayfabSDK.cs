@@ -40,29 +40,25 @@ namespace quantum.custom.plugin
 		/// Requires a userId and a token to prove this was originated from an authenticated user.
 		/// The command will impersonate the given player.
 		/// </summary>
-		public void SendServerCommand(string userId, string token, IQuantumCommand command, bool async = true)
+		public void SendServerCommand(string userId, IQuantumCommand command, bool async = true)
 		{
 			Log.Info($"Sending command {command.GetType()} to {userId}");
 ;			var data = new Dictionary<string, string>();
 			data[CommandFields.Command] = ModelSerializer.Serialize(command).Value;
 			data["SecretKey"] = PlayFabSettings.staticSettings.DeveloperSecretKey;
-			var request = new ExecuteFunctionRequest()
+			var request = new ExecuteCloudScriptServerRequest()
 			{
 				FunctionName = "ExecuteCommand",
+				PlayFabId = userId,
 				FunctionParameter = new LogicRequest()
 				{
 					Command = command.GetType().FullName, 
 					Data = data
-				},
-				AuthenticationContext = new PlayFabAuthenticationContext()
-				{
-					PlayFabId = userId,
-					EntityToken = token,
 				}
 			};
-			HttpWrapper.Post(userId, "/CloudScript/ExecuteFunction", request, OnPlayfabCommand, new Dictionary<string, string>()
+			HttpWrapper.Post(userId, "/Server/ExecuteCloudScript", request, OnPlayfabCommand, new Dictionary<string, string>()
 			{
-				{ "X-EntityToken", token }
+				{ "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey }
 			}, async);
 		}
 

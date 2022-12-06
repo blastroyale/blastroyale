@@ -1,3 +1,4 @@
+
 namespace FirstLight.Game.Commands
 {
 	/// <summary>

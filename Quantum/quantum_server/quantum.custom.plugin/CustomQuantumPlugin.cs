@@ -25,6 +25,7 @@ namespace Quantum
 			Assert.Check(server is CustomQuantumServer);
 			CustomServer = (CustomQuantumServer)server;
 			_cmdHandler = new QuantumCommandHandler(this);
+			CustomServer.OnSimulationCommand = _cmdHandler.DispatchLogicCommandFromQuantumEvent;
 		}
 
 		/// <summary>

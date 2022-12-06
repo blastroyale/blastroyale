@@ -109,6 +109,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Sends the command to quantum. Quantum will enrich the command data from the simulation server-side.
 		/// All commands will be ran at the end of the match using the last frame.
+		/// TODO: Delete after testing
 		/// </summary>
 		private void ExecuteQuantumCommand<TCommand>(TCommand command) where TCommand : IGameCommand
 		{
@@ -160,7 +161,7 @@ namespace FirstLight.Game.Services
 					case CommandExecutionMode.Quantum:
 						if (FeatureFlags.QUANTUM_CUSTOM_SERVER)
 						{
-							ExecuteQuantumCommand(command);
+							ExecuteQuantumCommand(command); // TODO: Delete after testing
 						}
 						else
 						{

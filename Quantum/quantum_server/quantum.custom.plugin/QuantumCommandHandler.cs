@@ -32,12 +32,35 @@ namespace Quantum
 			}
 		}
 
+		public void DispatchLogicCommandFromQuantumEvent(EventFireQuantumServerCommand ev)
+		{
+			int index = ev.Player;
+			if(_plugin.CustomServer.GetPlayFabIdByIndex(ev.Player) == null)
+			{
+				return;
+			}
+
+			var actorId = _plugin.CustomServer.GetClientActorNumberByIndex(index);
+			if(FlgConfig.DebugMode)
+			{
+				Log.Debug($"Firing logic command for index {index} actor {actorId}");
+			}
+			if (ev.CommandType == QuantumServerCommand.EndOfGameRewards)
+			{
+				var payload = new QuantumCommandPayload()
+				{
+					CommandType = typeof(EndOfGameCalculationsCommand).FullName
+				};
+				DispatchCommand(actorId, payload, true);
+			}
+		}
+
 		/// <summary>
 		/// Reads the current frame data of the game simulation
 		/// Enriches the command with data from this server-side simulation
 		/// and dispatches the command to playfab
 		/// </summary>
-		public void DispatchCommand(int actorNumber, QuantumCommandPayload command)
+		public void DispatchCommand(int actorNumber, QuantumCommandPayload command, bool async = false)
 		{
 			if (_plugin.CustomServer.gameSession == null)
 			{
@@ -69,7 +92,7 @@ namespace Quantum
 				MatchType = _plugin.GetMatchType()
 			};
 			commandInstance.FromFrame(game.Frames.Verified, quantumValues);
-			_plugin.CustomServer.Playfab.SendServerCommand(playfabId, command.Token, commandInstance, false);
+			_plugin.CustomServer.Playfab.SendServerCommand(playfabId, commandInstance, async);
 		}
 
 		/// <summary>

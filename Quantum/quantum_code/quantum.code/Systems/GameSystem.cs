@@ -57,8 +57,16 @@ namespace Quantum.Systems
 			gameContainer->GameOverTime = f.Time;
 			gameContainer->IsGameOver = true;
 
+			foreach (var livingPlayer in f.GetComponentIterator<AlivePlayerCharacter>())
+			{
+				if (f.TryGet<PlayerCharacter>(livingPlayer.Entity, out var playerCharacter))
+				{
+					f.Events.FireQuantumServerCommand(playerCharacter.Player, QuantumServerCommand.EndOfGameRewards);
+				}
+			}
+			
 			f.Events.OnGameEnded();
-
+			
 			f.SystemDisable(typeof(AiPreUpdateSystem));
 			f.SystemDisable(typeof(AiSystem));
 			f.SystemDisable(typeof(Core.NavigationSystem));

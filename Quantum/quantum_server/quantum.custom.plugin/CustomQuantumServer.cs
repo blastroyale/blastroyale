@@ -23,7 +23,7 @@ namespace Quantum
 		private static ResourceManagerStaticPreloaded _resourceManager;
 		private static QuantumAssetSerializer _serializer = new QuantumAssetSerializer();
 		private static Object _initializationLock = new Object();
-
+		
 		private DeterministicSessionConfig _config;
 		private RuntimeConfig _runtimeConfig;
 		private readonly Dictionary<String, String> _photonConfig;
@@ -34,6 +34,7 @@ namespace Quantum
 		private InputProvider inputProvider;
 	
 		public readonly PhotonPlayfabSDK Playfab;
+		public Action<EventFireQuantumServerCommand> OnSimulationCommand;
 		
 		public CustomQuantumServer(Dictionary<String, String> photonConfig, IPluginHost host) {
 			_photonConfig = photonConfig;
@@ -65,9 +66,22 @@ namespace Quantum
 			StartServerSimulation();
 		}
 
+		/// <summary>
+		/// Called whenever the simulation fires a command that should be directed to the server
+		/// This would transform the event into a logic server command.
+		private void OnServerCommand(EventFireQuantumServerCommand ev)
+		{
+			if (FlgConfig.DebugMode)
+			{
+				Log.Info($"Received server command {ev.CommandType} from player {ev.Player}");
+			}
+			OnSimulationCommand?.Invoke(ev);
+		}
+
 		public void StartServerSimulation()
 		{
-			Log.Debug("Starting server simulation");
+			var events = new EventDispatcher();
+			events.Subscribe<EventFireQuantumServerCommand>(this, OnServerCommand);
 			var configsFile = new ReplayFile();
 			configsFile.DeterministicConfig = _config;
 			configsFile.RuntimeConfig = _runtimeConfig;
@@ -75,7 +89,8 @@ namespace Quantum
 			var startParams = new QuantumGame.StartParameters
 			{
 				AssetSerializer = _serializer,
-				ResourceManager = _resourceManager
+				ResourceManager = _resourceManager,
+				EventDispatcher = events
 			};
 			inputProvider = new InputProvider(_config);
 			var taskRunner = new InactiveTaskRunner();
@@ -232,6 +247,20 @@ namespace Quantum
 		{
 			base.OnDeterministicRuntimeConfig(client, configData);
 			_runtimeConfig = RuntimeConfig.FromByteArray(configData.Config);
+		}
+
+		public string GetPlayFabIdByIndex(int playerRef)
+		{
+			if (FlgConfig.DebugMode)
+			{
+				Log.Debug($"Actor Index {playerRef} searching for playerId");
+			}
+			foreach (var playfabId in _receivedPlayers.Keys)
+			{
+				if (_receivedPlayers[playfabId].Index == playerRef)
+					return playfabId;
+			}
+			return null;
 		}
 
 		public string GetPlayFabId(int actorNr)

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
@@ -14,7 +15,7 @@ using FirstLight.Statechart;
 using I2.Loc;
 using Quantum;
 using Quantum.Commands;
-using UnityEngine;
+
 
 namespace FirstLight.Game.StateMachines
 {
@@ -119,8 +120,7 @@ namespace FirstLight.Game.StateMachines
 			gameEnded.OnEnter(OpenGameCompleteScreen);
 			gameEnded.Event(GameCompleteExitEvent).Target(gameResults);
 			gameEnded.OnExit(CloseCompleteScreen);
-	
-			gameResults.OnEnter(GiveMatchRewards);
+			
 			gameResults.WaitingFor(ResultsScreen).Target(trophiesCheck);
 			gameResults.OnExit(CloseResultScreen);
 
@@ -184,9 +184,46 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<QuitGameClickedMessage>(OnQuitGameScreenClickedMessage);
 			_services.MessageBrokerService.Subscribe<GameCompletedRewardsMessage>(OnGameCompletedRewardsMessage);
 
+			QuantumEvent.SubscribeManual<EventFireQuantumServerCommand>(this, OnServerCommand);
 			QuantumEvent.SubscribeManual<EventOnGameEnded>(this, OnGameEnded);
 			QuantumCallback.SubscribeManual<CallbackGameStarted>(this, OnGameStart);
 			QuantumCallback.SubscribeManual<CallbackGameResynced>(this, OnGameResync);
+		}
+
+		/// <summary>
+		/// Whenever the simulation wants to fire logic commands.
+		/// This will also run on quantum server and will be sent to logic service from there.
+		/// </summary>
+		private void OnServerCommand(EventFireQuantumServerCommand ev)
+		{
+			if (!ev.Synced || !ev.IsVerifiedFrame())
+			{
+				FLog.Error($"Quantum Server Command {ev.CommandType} required to be synced & verified");
+				return;
+			}
+	
+			var game = QuantumRunner.Default.Game;
+			if (!game.PlayerIsLocal(ev.Player))
+			{
+				return;
+			}
+
+			FLog.Verbose("Quantum Logic Command: " + ev.CommandType.ToString());
+
+			IQuantumCommand command = null;
+			if (ev.CommandType == QuantumServerCommand.EndOfGameRewards)
+			{
+				command = new EndOfGameCalculationsCommand();
+			}
+			if(command == null) {
+				throw new Exception($"Uknown server command {ev.CommandType}");
+			}
+			command.FromFrame(game.Frames.Verified, new QuantumValues()
+			{
+				ExecutingPlayer = game.GetLocalPlayers()[0],
+				MatchType = _services.NetworkService.QuantumClient.CurrentRoom.GetMatchType()
+			});
+			_services.CommandService.ExecuteCommand(command as IGameCommand);
 		}
 
 		private void UnsubscribeEvents()
@@ -284,21 +321,6 @@ namespace FirstLight.Game.StateMachines
 			}
 			
 			_statechartTrigger(MatchQuitEvent);
-		}
-
-		private void GiveMatchRewards()
-		{
-			if (IsSpectator()) return;
-			
-			var game = QuantumRunner.Default.Game;
-			var f = game.Frames.Verified;
-			var command = new EndOfGameCalculationsCommand();
-			command.FromFrame(f, new QuantumValues()
-			{
-				ExecutingPlayer = game.GetLocalPlayers()[0],
-				MatchType = _services.NetworkService.QuantumClient.CurrentRoom.GetMatchType()
-			});
-			_services.CommandService.ExecuteCommand(command);
 		}
 
 		private void MatchEndAnalytics(bool playerQuit)

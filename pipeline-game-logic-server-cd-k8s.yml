@@ -6,7 +6,10 @@ resources:
   pipelines:
   - pipeline: build
     source: 'Game Logic Service CI'
-    trigger: true
+    trigger:
+      branches:
+        include:
+        - 'develop'
   repositories:
   - repository: templates
     type: git

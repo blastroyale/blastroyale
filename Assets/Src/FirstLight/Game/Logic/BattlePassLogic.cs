@@ -125,13 +125,13 @@ namespace FirstLight.Game.Logic
 
 		public uint GetRemainingPoints()
 		{
-			uint points = 0;	
-			for (uint i = MaxLevel - 1; i > _currentLevel.Value; i--)
+			var maxAvailablePoints = (uint)0;
+			for (int i = 0; i < MaxLevel; i++)
 			{
-				points += GetRequiredPointsForLevel((int)i);
+				maxAvailablePoints += GetRequiredPointsForLevel(i);
 			}
-
-			return points;
+			
+			return maxAvailablePoints - _currentPoints.Value;
 		}
 
 		public EquipmentRewardConfig GetRewardForLevel(uint level)

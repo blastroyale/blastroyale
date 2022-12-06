@@ -167,8 +167,10 @@ namespace FirstLight.Game.Services
 			
 			TrophiesBeforeChange = gameLogic.PlayerLogic.Trophies.Value;
 			CSBeforeChange = (uint)_dataProvider.CurrencyDataProvider.Currencies[GameId.CS];
-			BPPBeforeChange = _dataProvider.BattlePassDataProvider.CurrentPoints.Value;
-			BPLevelBeforeChange = _dataProvider.BattlePassDataProvider.CurrentLevel.Value;
+
+			var predictedProgress = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
+			BPPBeforeChange = predictedProgress.Item2;
+			BPLevelBeforeChange = predictedProgress.Item1;
 			
 			var rewardSource = new RewardSource()
 			{

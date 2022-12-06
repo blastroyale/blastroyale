@@ -234,7 +234,10 @@ namespace FirstLight.Game.Presenters
 					_equipmentList.ScrollToItem(0);
 
 					// Set the first item as viewed
-					_gameDataProvider.UniqueIdDataProvider.NewIds.Remove(SelectedItem);
+					if (_gameDataProvider.UniqueIdDataProvider.NewIds.Contains(SelectedItem))
+					{
+						_seenItems.Add(SelectedItem);
+					}
 				}
 			}
 

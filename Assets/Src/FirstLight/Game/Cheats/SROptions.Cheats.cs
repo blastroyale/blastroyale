@@ -455,18 +455,6 @@ public partial class SROptions
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
 
-	[Category("Equipment")]
-	public void SetAllEquipmentNew()
-	{
-		var gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-
-		gameDataProvider.UniqueIdDataProvider.NewIds.Clear();
-		foreach (var (id, _) in gameDataProvider.EquipmentDataProvider.Inventory)
-		{
-			gameDataProvider.UniqueIdDataProvider.NewIds.Add(id);
-		}
-	}
-
 	[Category("Marketing")]
 	public void ToggleControllerGameUI()
 	{

@@ -181,8 +181,7 @@ namespace FirstLight.Game.Presenters
 					levelRewardInfo.Start = (int) _matchServices.MatchEndDataService.BPPBeforeChange;
 				}
 
-				levelRewardInfo.MaxForLevel =
-					(int) _gameDataProvider.BattlePassDataProvider.GetRequiredPointsForLevel(currentLevel - 1);
+				levelRewardInfo.MaxForLevel = (int) _gameDataProvider.BattlePassDataProvider.GetRequiredPointsForLevel(currentLevel - 1);
 				levelRewardInfo.NextLevel = (int) currentLevel;
 
 				var amountToMax = levelRewardInfo.MaxForLevel - levelRewardInfo.Start;
@@ -200,7 +199,7 @@ namespace FirstLight.Game.Presenters
 				levelsInfo.Add(levelRewardInfo);
 
 				currentLevel++;
-			} while (gainedLeft > 0);
+			} while (gainedLeft > 0 && currentLevel < maxLevel);
 
 			_bppView.SetData(bppReward, levelsInfo, (int)bppPoolInfo.CurrentAmount, (int)bppPoolInfo.PoolCapacity);
 		}

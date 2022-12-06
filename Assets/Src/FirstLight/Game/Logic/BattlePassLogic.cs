@@ -111,6 +111,12 @@ namespace FirstLight.Game.Logic
 			{
 				points -= currentLevelPoints;
 				level++;
+
+				if (level >= MaxLevel)
+				{
+					break;
+				}
+				
 				currentLevelPoints = GetRequiredPointsForLevel((int)level);
 			}
 
@@ -167,7 +173,7 @@ namespace FirstLight.Game.Logic
 
 			var currentPointsPerLevel = GetRequiredPointsForLevel((int)_currentLevel.Value);
 
-			while (points >= currentPointsPerLevel)
+			while (points >= currentPointsPerLevel && level < MaxLevel)
 			{
 				points -= currentPointsPerLevel;
 				level++;
@@ -204,6 +210,12 @@ namespace FirstLight.Game.Logic
 		public uint GetRequiredPointsForLevel(int desiredLevel)
 		{
 			var config = GameLogic.ConfigsProvider.GetConfig<BattlePassConfig>();
+
+			if (desiredLevel >= MaxLevel)
+			{
+				return 0;
+			}
+			
 			var levelConfig = config.Levels[desiredLevel];
 
 			//if the points for next is 0, then use default value, otherwise use custom level value

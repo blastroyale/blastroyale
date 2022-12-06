@@ -22,7 +22,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private IndicatorVfxId _shootIndicatorId;
 		private readonly IIndicator[] _indicators = new IIndicator[(int) IndicatorVfxId.TOTAL];
 		private readonly IIndicator[] _specialIndicators = new IIndicator[Constants.MAX_SPECIALS];
-
 		private IIndicator ShootIndicator => _indicators[(int)_shootIndicatorId];
 		
 		public LocalPlayerIndicatorContainerView(IGameServices services)
@@ -147,6 +146,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void OnUpdateAim(Frame f, Quantum.Input* input, PlayerCharacter* playerCharacter, CharacterController3D* kcc)
 		{
 			var isEmptied = playerCharacter->IsAmmoEmpty(f, _localPlayerEntity);
+			var reloading = playerCharacter->WeaponSlot->MagazineShotCount == 0;
 			var transform = f.Unsafe.GetPointer<Transform3D>(_localPlayerEntity);
 			var aimDirection = QuantumHelpers.GetAimDirection(input->AimingDirection, transform->Rotation).Normalized.ToUnityVector2();
 
@@ -171,7 +171,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 
 			ShootIndicator.SetTransformState(aimDirection);
-			ShootIndicator.SetVisualState(input->IsShootButtonDown, isEmptied);
+			ShootIndicator.SetVisualState(input->IsShootButtonDown, isEmptied || reloading);
 			ShootIndicator.SetVisualProperties(size, 0, range);
 		}
 

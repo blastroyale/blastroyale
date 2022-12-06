@@ -24,21 +24,18 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			var f = game.Frames.Verified;
 			var playerCharacter = f.Get<PlayerCharacter>(EntityRef);
-			var stats = f.Get<Stats>(EntityRef);
 
-			UpdateParticleSystem(playerCharacter.CurrentWeapon.GameId, stats);
+			UpdateParticleSystem(playerCharacter.CurrentWeapon.GameId);
 		}
 
 		private void OnPlayerWeaponChanged(EventOnPlayerWeaponChanged callback)
-		{
-			var f = callback.Game.Frames.Verified;
-			
-			if (EntityRef != callback.Entity || !f.TryGet<Stats>(callback.Entity, out var stats))
+		{	
+			if (EntityRef != callback.Entity)
 			{
 				return;
 			}
 			
-			UpdateParticleSystem(callback.Weapon.GameId, stats);
+			UpdateParticleSystem(callback.Weapon.GameId);
 		}
 
 		private void OnEventOnPlayerAttack(EventOnPlayerAttack callback)
@@ -51,8 +48,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			_particleSystem.Stop();
 			_particleSystem.time = 0;
 			_particleSystem.Play();
-
 			var config = Services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int)callback.Weapon.GameId);
+
 
 			if (config.IsProjectile)
 			{
@@ -92,7 +89,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			_particleSystem.Stop();
 		}
 
-		private void UpdateParticleSystem(GameId weaponId, Stats stats)
+		private void UpdateParticleSystem(GameId weaponId)
 		{
 			var config = Services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int) weaponId);
 			var main = _particleSystem.main;

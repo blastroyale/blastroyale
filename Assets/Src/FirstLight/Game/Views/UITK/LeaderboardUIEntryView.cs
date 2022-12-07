@@ -61,10 +61,10 @@ namespace FirstLight.Game.Views
 				_rankNumber.text = $"{data.Position.ToString()}.";
 			}
 
-			if (isLocalPlayer)
-			{
-				_leaderboardUIEntry.AddToClassList(UssLeaderboardEntryLocal);
-			}
+			//if (isLocalPlayer)
+			//{
+			//	_leaderboardUIEntry.AddToClassList(UssLeaderboardEntryLocal);
+			//}
 
 			_playerName.text = data.DisplayName;
 

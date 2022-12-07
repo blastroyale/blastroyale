@@ -1,84 +1,12 @@
-#root {
-    align-items: center;
-}
-
-.home-button {
-    position: absolute;
-    right: 0;
-    top: 1;
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/HomeButton.png?fileID=21300000&guid=6dee9891204ef4f5b90a2210c56088a9&type=3#home');
-    width: 158px;
-    height: 126px;
-    background-color: rgba(255, 255, 255, 0);
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: 1;
-    margin-bottom: 1;
-    transition-property: opacity, scale;
-    transition-duration: 0.2s, 0.2s;
-    border-left-width: 0;
-    border-right-width: 0;
-    border-top-width: 0;
-    border-bottom-width: 0;
-}
-
-.back-button {
-    position: absolute;
-    left: 0;
-    top: 1;
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/BackButton.png?fileID=21300000&guid=4d2d0e6df2b0a4ab79ccd1ee4be1a98c&type=3#back');
-    width: 318px;
-    height: 142px;
-    background-color: rgba(255, 255, 255, 0);
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: 1;
-    margin-bottom: 1;
-    transition-property: opacity, scale;
-    transition-duration: 0.2s, 0.2s;
-    border-left-width: 0;
-    border-right-width: 0;
-    border-top-width: 0;
-    border-bottom-width: 0;
-}
-
-.player-name__text {
-    font-size: 60px;
-    -unity-font-definition: var(--font-italic);
-    -unity-font-style: bold;
-    text-shadow: 5px 5px 0 rgb(0, 0, 0);
-    color: rgb(255, 255, 255);
-    -unity-text-outline-width: 2px;
-    -unity-text-outline-color: rgb(0, 0, 0);
-}
-
-.player-name--first .player-name__badge {
-    background-image: url('project://database/Assets/Art/UI/Sprites/WinnersScreen/1stMedal.png?fileID=21300000&guid=8a5c4e50794e840a0b7073f5fc6cf1e6&type=3#1stMedal');
-    display: flex;
-}
-
-.player-name--second .player-name__badge {
-    background-image: url('project://database/Assets/Art/UI/Sprites/WinnersScreen/2ndMedal.png?fileID=21300000&guid=cce9e1a787e5a484996db5d377217342&type=3#2ndMedal');
-    display: flex;
-}
-
-.player-name--third .player-name__badge {
-    background-image: url('project://database/Assets/Art/UI/Sprites/WinnersScreen/3rdMedal.png?fileID=21300000&guid=e2a057641f1b142ca91082917b41cffe&type=3#3rdMedal');
-    display: flex;
-}
 
 .leaderboard-panel {
     width: 1270px;
-    height: 900px;
-    position: absolute;
-    top: 65px;
+    height: 850px;
+    position: relative;
+    top: 140px;
+    align-items: center;
 }
 
-.spectator .leaderboard-panel {
-    position: absolute;
-    right: auto;
-    left: auto;
-}
 
 .leaderboard-entries {
     position: absolute;
@@ -92,7 +20,7 @@
 .leaderboard-header {
     position: absolute;
     justify-content: center;
-    right: 50px;
+    right: 40px;
     height: 70px;
     width: 900px;
     margin-right: 0;

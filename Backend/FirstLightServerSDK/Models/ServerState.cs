@@ -67,7 +67,22 @@ namespace FirstLight.Server.SDK.Models
 					   : Activator.CreateInstance(type);
 		}
 
+		/// <summary>
+		/// Gets the server state in raw json string format
+		/// </summary>
+		public string GetRawJson<T>()
+		{
+			return this[typeof(T).FullName];
+		}
 
+		/// <summary>
+		/// Checks if there's specific model in server state
+		/// </summary>
+		public bool Has<T>()
+		{
+			return this.ContainsKey(typeof(T).FullName);
+		}
+		
 		/// <summary>
 		/// Generic wrapper of <see cref="DeserializeModel"/>
 		/// </summary>

@@ -178,8 +178,10 @@ namespace BlastRoyaleNFTPlugin
 
 			nftEquipment.InsertionTimestamp = DateTime.UtcNow.Ticks;
 
+			// TODO: This should use EquipmentLogic.AddEquipment
 			equipmentData.Inventory.Add(nextId, equipment);
 			equipmentData.NftInventory.Add(nextId, nftEquipment);
+			idData.NewIds.Add(nextId);
 			idData.GameIds.Add(nextId, equipment.GameId);
 
 			var analytics = equipment.ToAnalyticsData();
@@ -201,6 +203,7 @@ namespace BlastRoyaleNFTPlugin
 			nftEquipment.Inventory.Remove(uniqueId);
 			nftEquipment.NftInventory.Remove(uniqueId);
 			idData.GameIds.Remove(uniqueId);
+			idData.NewIds.Remove(uniqueId);
 			
 			var analytics = equipment.ToAnalyticsData();
 			analytics["token_id"] = nftData.TokenId;

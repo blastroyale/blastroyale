@@ -10,12 +10,12 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 	/// </summary>
 	public class AnalyticsCallsEquipment : AnalyticsCalls
 	{
-		private readonly IConfigsProvider _configsProvider;
+		private readonly IGameServices _services;
 
-		public AnalyticsCallsEquipment(IAnalyticsService analyticsService, IConfigsProvider configsProvider) :
+		public AnalyticsCallsEquipment(IAnalyticsService analyticsService, IGameServices services) :
 			base(analyticsService)
 		{
-			_configsProvider = configsProvider;
+			_services = services;
 		}
 
 		/// <summary>
@@ -50,7 +50,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"armour", info.Stats[EquipmentStatType.Armor]},
 				{"damage", info.Stats[EquipmentStatType.Power]},
 				{"durability", info.CurrentDurability},
-				{"power", new List<Equipment> {info.Equipment}.GetTotalMight(_configsProvider)}
+				{"power", new List<Equipment> {info.Equipment}.GetTotalMight(_services.ConfigsProvider)}
 			};
 		}
 	}

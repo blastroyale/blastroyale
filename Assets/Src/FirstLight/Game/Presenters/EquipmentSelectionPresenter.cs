@@ -6,6 +6,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using System.Linq;
 using System.Threading.Tasks;
+using FirstLight.Game.Commands;
 using FirstLight.Game.Commands.OfflineCommands;
 using FirstLight.Game.Infos;
 using FirstLight.Game.UIElements;
@@ -76,6 +77,8 @@ namespace FirstLight.Game.Presenters
 		private Dictionary<UniqueId, int> _itemRowMap;
 		private List<KeyValuePair<EquipmentStatType, float>> _statItems;
 
+		private List<UniqueId> _seenItems = new List<UniqueId>();
+
 		private UniqueId _equippedItem;
 
 		private void Awake()
@@ -145,6 +148,13 @@ namespace FirstLight.Game.Presenters
 		protected override Task OnClosed()
 		{
 			_gameDataProvider.EquipmentDataProvider.Loadout.StopObservingAll(this);
+
+			if (_seenItems.Count > 0)
+			{
+				_services.CommandService.ExecuteCommand(new MarkEquipmentSeenCommand {Ids = _seenItems});
+				_seenItems.Clear();
+			}
+			
 			return base.OnClosed();
 		}
 
@@ -224,7 +234,10 @@ namespace FirstLight.Game.Presenters
 					_equipmentList.ScrollToItem(0);
 
 					// Set the first item as viewed
-					_gameDataProvider.UniqueIdDataProvider.NewIds.Remove(SelectedItem);
+					if (_gameDataProvider.UniqueIdDataProvider.NewIds.Contains(SelectedItem))
+					{
+						_seenItems.Add(SelectedItem);
+					}
 				}
 			}
 
@@ -316,7 +329,10 @@ namespace FirstLight.Game.Presenters
 					info.Equipment.GameId, instantiate: false));
 
 			// Set item as viewed
-			_gameDataProvider.UniqueIdDataProvider.NewIds.Remove(SelectedItem);
+			if (!_seenItems.Contains(SelectedItem) && _gameDataProvider.UniqueIdDataProvider.NewIds.Contains(SelectedItem))
+			{
+				_seenItems.Add(SelectedItem);
+			}
 		}
 
 		private bool HasEnoughCurrency(Pair<GameId, uint> cost)
@@ -381,7 +397,7 @@ namespace FirstLight.Game.Presenters
 			card1.SetEquipment(row.Item1.Equipment, row.Item1.UniqueId, false,
 				_gameDataProvider.EquipmentDataProvider.NftInventory.ContainsKey(row.Item1.UniqueId),
 				row.Item1.UniqueId == _equippedItem,
-				_gameDataProvider.UniqueIdDataProvider.NewIds.Contains(row.Item1.UniqueId));
+				!IsItemSeen(row.Item1.UniqueId));
 
 			if (row.Item2 != null)
 			{
@@ -389,7 +405,7 @@ namespace FirstLight.Game.Presenters
 				card2.SetEquipment(row.Item2.Equipment, row.Item2.UniqueId, false,
 					_gameDataProvider.EquipmentDataProvider.NftInventory.ContainsKey(row.Item2.UniqueId),
 					row.Item2.UniqueId == _equippedItem,
-					_gameDataProvider.UniqueIdDataProvider.NewIds.Contains(row.Item2.UniqueId));
+					!IsItemSeen(row.Item2.UniqueId));
 			}
 			else
 			{
@@ -462,6 +478,11 @@ namespace FirstLight.Game.Presenters
 		{
 			_services.CommandService.ExecuteCommand(new UnequipItemCommand {Item = item});
 			_services.AnalyticsService.EquipmentCalls.UnequipItem(_gameDataProvider.EquipmentDataProvider.GetInfo(item));
+		}
+
+		private bool IsItemSeen(UniqueId item)
+		{
+			return _seenItems.Contains(item) || !_gameDataProvider.UniqueIdDataProvider.NewIds.Contains(item);
 		}
 
 		private class EquipmentListRow

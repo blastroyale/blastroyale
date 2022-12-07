@@ -128,13 +128,14 @@ namespace FirstLight.Game.Presenters
 			// Keep showing/dismissing reward dialogs recursively, until all have been shown
 			if (Data.UiService.HasUiPresenter<EquipmentRewardDialogPresenter>())
 			{
-				Data.UiService.CloseUi<EquipmentRewardDialogPresenter>();
+				await Data.UiService.CloseUi<EquipmentRewardDialogPresenter>();
 
 				await Task.Delay(GameConstants.Visuals.REWARD_POPUP_CLOSE_MS);
 			}
 
 			if (!_pendingRewards.TryDequeue(out var reward))
 			{
+				_blocker.style.display = DisplayStyle.None;
 				return;
 			}
 

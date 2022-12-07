@@ -20,7 +20,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		[SerializeField, Required] private CinemachineVirtualCamera _spawnCamera;
 		[SerializeField, Required] private CinemachineVirtualCamera _adventureCamera;
 		[SerializeField, Required] private CinemachineVirtualCamera _deathCamera;
-		//[SerializeField, Required] private CinemachineVirtualCamera _specialAimCamera;
+		[SerializeField, Required] private CinemachineVirtualCamera _specialAimCamera;
 		[SerializeField, Required] private GameObject _followObject;
 		[SerializeField] private CinemachineVirtualCamera[] _spectateCameras;
 
@@ -35,12 +35,12 @@ namespace FirstLight.Game.MonoComponent.Match
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 
 			var input = _services.PlayerInputService.Input.Gameplay;
-/*
+
 			input.SpecialButton0.started += SetActiveCamera;
 			input.SpecialButton0.canceled += SetActiveCamera;
 			input.SpecialButton1.started += SetActiveCamera;
 			input.SpecialButton1.canceled += SetActiveCamera;
-			input.CancelButton.canceled += SetActiveCamera;*/
+			input.CancelButton.canceled += SetActiveCamera;
 
 			_matchServices.SpectateService.SpectatedPlayer.InvokeObserve(OnSpectatedPlayerChanged);
 			_services.MessageBrokerService.Subscribe<SpectateSetCameraMessage>(OnSpectateSetCameraMessage);
@@ -84,7 +84,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		private void OnDestroy()
 		{
 			var input = _services?.PlayerInputService?.Input?.Gameplay;
-/*
+
 			if (input.HasValue)
 			{
 				input.Value.SpecialButton0.started -= SetActiveCamera;
@@ -92,7 +92,7 @@ namespace FirstLight.Game.MonoComponent.Match
 				input.Value.SpecialButton1.started -= SetActiveCamera;
 				input.Value.SpecialButton1.canceled -= SetActiveCamera;
 				input.Value.CancelButton.canceled -= SetActiveCamera;
-			}*/
+			}
 
 			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(OnSpectatedPlayerChanged);
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
@@ -113,10 +113,10 @@ namespace FirstLight.Game.MonoComponent.Match
 			_spectatedEntity = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
 		}
 
-/*		private void SetActiveCamera(InputAction.CallbackContext context)
+		private void SetActiveCamera(InputAction.CallbackContext context)
 		{
 			SetActiveCamera(context.canceled ? _adventureCamera : _specialAimCamera);
-		}*/
+		}
 
 		private void OnSpectateSetCameraMessage(SpectateSetCameraMessage obj)
 		{
@@ -189,10 +189,10 @@ namespace FirstLight.Game.MonoComponent.Match
 			_deathCamera.Follow = t;
 			_adventureCamera.LookAt = t;
 			_adventureCamera.Follow = _followObject.transform;
-/*			_specialAimCamera.LookAt = t;
-			_specialAimCamera.Follow = t;*/
+			_specialAimCamera.LookAt = t;
+			_specialAimCamera.Follow = t;
 
-			
+
 		}
 
 		private void SetAudioListenerTransform(Transform t)

@@ -20,7 +20,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		[SerializeField, Required] private CinemachineVirtualCamera _spawnCamera;
 		[SerializeField, Required] private CinemachineVirtualCamera _adventureCamera;
 		[SerializeField, Required] private CinemachineVirtualCamera _deathCamera;
-		[SerializeField, Required] private CinemachineVirtualCamera _specialAimCamera;
+		//[SerializeField, Required] private CinemachineVirtualCamera _specialAimCamera;
 		[SerializeField, Required] private GameObject _followObject;
 		[SerializeField] private CinemachineVirtualCamera[] _spectateCameras;
 
@@ -35,12 +35,12 @@ namespace FirstLight.Game.MonoComponent.Match
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 
 			var input = _services.PlayerInputService.Input.Gameplay;
-
+/*
 			input.SpecialButton0.started += SetActiveCamera;
 			input.SpecialButton0.canceled += SetActiveCamera;
 			input.SpecialButton1.started += SetActiveCamera;
 			input.SpecialButton1.canceled += SetActiveCamera;
-			input.CancelButton.canceled += SetActiveCamera;
+			input.CancelButton.canceled += SetActiveCamera;*/
 
 			_matchServices.SpectateService.SpectatedPlayer.InvokeObserve(OnSpectatedPlayerChanged);
 			_services.MessageBrokerService.Subscribe<SpectateSetCameraMessage>(OnSpectateSetCameraMessage);
@@ -68,20 +68,23 @@ namespace FirstLight.Game.MonoComponent.Match
 			var config = _services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int)player->CurrentWeapon.GameId);
 			var rangeModifer = QuantumHelpers.GetDynamicAimValue(f.Unsafe.GetPointer<CharacterController3D>(_spectatedEntity),
 				config.AttackRange, config.AttackRange + config.AttackRangeAimBonus).AsFloat / 10;
+			//rounds the range modifier to the nearst 0.5 to keep things as consistent as possible
 			var roundedValue = MathF.Round(rangeModifer * 2) / 2 * GameConstants.Camera.DYNAMIC_CAMERA_PAN_DISTANCE_DEFAULT;
 
-			var scalar = _adventureCamera.isActiveAndEnabled && inputDir != FPVector2.Zero ?
+			var scalar = inputDir != FPVector2.Zero ?
 				GameConstants.Camera.DYNAMIC_CAMERA_PAN_TO_AIM_TIME : GameConstants.Camera.DYNAMIC_CAMERA_PAN_TO_CENTER_TIME;
+			var dir = new Vector3(inputDir.X.AsFloat, 0, inputDir.Y.AsFloat);
+			dir = Vector3.Scale(dir, new Vector3(1, 0, dir.z < 0 ? GameConstants.Camera.DYNAMIC_CAMERA_PAN_NEGATIVE_Y_DIR_MULTIPLIER : 1)) * roundedValue;
 
-			var dir = new Vector3(inputDir.X.AsFloat, 0, inputDir.Y.AsFloat) * roundedValue;
 			var playerPos = _matchServices.SpectateService.SpectatedPlayer.Value.Transform.position;
+
 			_followObject.transform.position = Vector3.Lerp(_followObject.transform.position, playerPos + dir, Time.deltaTime / scalar);
 		}
 
 		private void OnDestroy()
 		{
 			var input = _services?.PlayerInputService?.Input?.Gameplay;
-
+/*
 			if (input.HasValue)
 			{
 				input.Value.SpecialButton0.started -= SetActiveCamera;
@@ -89,7 +92,7 @@ namespace FirstLight.Game.MonoComponent.Match
 				input.Value.SpecialButton1.started -= SetActiveCamera;
 				input.Value.SpecialButton1.canceled -= SetActiveCamera;
 				input.Value.CancelButton.canceled -= SetActiveCamera;
-			}
+			}*/
 
 			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(OnSpectatedPlayerChanged);
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
@@ -110,10 +113,10 @@ namespace FirstLight.Game.MonoComponent.Match
 			_spectatedEntity = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
 		}
 
-		private void SetActiveCamera(InputAction.CallbackContext context)
+/*		private void SetActiveCamera(InputAction.CallbackContext context)
 		{
 			SetActiveCamera(context.canceled ? _adventureCamera : _specialAimCamera);
-		}
+		}*/
 
 		private void OnSpectateSetCameraMessage(SpectateSetCameraMessage obj)
 		{
@@ -174,21 +177,22 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void SetTargetTransform(Transform t)
 		{
-			_spawnCamera.LookAt = t;
-			_spawnCamera.Follow = t;
-			_deathCamera.LookAt = t;
-			_deathCamera.Follow = t;
-			_adventureCamera.LookAt = t;
-			_adventureCamera.Follow = t;
-			_specialAimCamera.LookAt = t;
-			_specialAimCamera.Follow = t;
-
 			foreach (var cam in _spectateCameras)
 			{
 				cam.LookAt = t;
 				cam.Follow = t;
 			}
+
+			_spawnCamera.LookAt = t;
+			_spawnCamera.Follow = t;
+			_deathCamera.LookAt = t;
+			_deathCamera.Follow = t;
+			_adventureCamera.LookAt = t;
 			_adventureCamera.Follow = _followObject.transform;
+/*			_specialAimCamera.LookAt = t;
+			_specialAimCamera.Follow = t;*/
+
+			
 		}
 
 		private void SetAudioListenerTransform(Transform t)

@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using Photon.Deterministic;
 
 namespace Quantum
@@ -172,7 +171,6 @@ namespace Quantum
 				f.Events.OnPlayerKilledPlayer(Player, killerPlayer.Player);
 			}
 
-			
 			f.Events.OnPlayerDead(Player, e, attacker, f.Has<PlayerCharacter>(attacker));
 			f.Events.OnLocalPlayerDead(Player, killerPlayer.Player, attacker);
 			f.Signals.PlayerDead(Player, e);

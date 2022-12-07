@@ -61,7 +61,7 @@ public class GameServer
 			{
 				throw new LogicException($"Input dict requires field key for cmd: {CommandFields.Command}");
 			}
-			_log.LogDebug($"{playerId} running {cmdType}");
+			_log.LogInformation($"{playerId} running {cmdType}");
 			await _mutex.Lock(playerId);
 			var commandInstance = _cmdHandler.BuildCommandInstance(commandData, cmdType);
 			var currentPlayerState = await _state.GetPlayerState(playerId);

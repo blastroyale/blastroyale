@@ -1,6 +1,6 @@
+using Assets.Src.FirstLight.Game.Commands.QuantumLogicCommands;
 using FirstLight.Game.Commands;
 using FirstLight.Server.SDK.Modules;
-using Photon.Deterministic;
 using quantum.custom.plugin;
 using System;
 using System.Collections.Generic;
@@ -12,24 +12,13 @@ namespace Quantum
 	public class QuantumCommandHandler
 	{
 		private CustomQuantumPlugin _plugin;
-		private Dictionary<int, QuantumCommandPayload> _endGameCommands = new Dictionary<int, QuantumCommandPayload>();
+		private Dictionary<int, string> _tokens = new Dictionary<int, string>();
 		private Assembly _commandAssembly;
 
 		public QuantumCommandHandler(CustomQuantumPlugin plugin)
 		{
 			_plugin = plugin;
 			_commandAssembly = Assembly.GetAssembly(typeof(IGameCommand));
-		}
-
-		/// <summary>
-		/// Sends all commands that were received
-		/// </summary>
-		public void DispatchAllCommands()
-		{
-			foreach(var actorNr in _endGameCommands.Keys)
-			{
-				DispatchCommand(actorNr, _endGameCommands[actorNr]);
-			}
 		}
 
 		public void DispatchLogicCommandFromQuantumEvent(EventFireQuantumServerCommand ev)
@@ -45,13 +34,18 @@ namespace Quantum
 			{
 				Log.Debug($"Firing logic command for index {index} actor {actorId}");
 			}
-			if (ev.CommandType == QuantumServerCommand.EndOfGameRewards)
+			try
 			{
+				var logicCommand = QuantumLogicCommandFactory.BuildFromEvent(ev);
 				var payload = new QuantumCommandPayload()
 				{
-					CommandType = typeof(EndOfGameCalculationsCommand).FullName
+					CommandType = logicCommand.GetType().FullName
 				};
-				DispatchCommand(actorId, payload, true);
+				DispatchCommand(actorId, payload, ev.Game.Frames.Verified, true);
+			}
+			catch(Exception e)
+			{
+				Log.Exception(e);
 			}
 		}
 
@@ -60,11 +54,16 @@ namespace Quantum
 		/// Enriches the command with data from this server-side simulation
 		/// and dispatches the command to playfab
 		/// </summary>
-		public void DispatchCommand(int actorNumber, QuantumCommandPayload command, bool async = false)
+		public void DispatchCommand(int actorNumber, QuantumCommandPayload command, Frame frame, bool async = false)
 		{
 			if (_plugin.CustomServer.gameSession == null)
 			{
 				_plugin.LogError("Game did not ran, not sending commands");
+				return;
+			}
+			if(!_tokens.TryGetValue(actorNumber, out var token))
+			{
+				_plugin.LogError($"User {actorNumber} did not send his token");
 				return;
 			}
 			var playfabId = _plugin.CustomServer.GetPlayFabId(actorNumber);
@@ -91,24 +90,21 @@ namespace Quantum
 				ExecutingPlayer = _plugin.CustomServer.GetClientIndexByActorNumber(actorNumber),
 				MatchType = _plugin.GetMatchType()
 			};
-			commandInstance.FromFrame(game.Frames.Verified, quantumValues);
-			_plugin.CustomServer.Playfab.SendServerCommand(playfabId, commandInstance, async);
+			commandInstance.FromFrame(frame, quantumValues);
+			_plugin.CustomServer.Playfab.SendServerCommand(playfabId, token, commandInstance, async);
 		}
 
 		/// <summary>
 		/// Receives a command from Unity to be enriched server-side and ran
 		/// in our logic service in a full authoritative manner at the end of the game.
 		/// </summary>
-		public void ReceiveEndGameCommand(int actorNumber, byte[] commandData)
+		public void ReceiveToken(int actorNumber, string token)
 		{
-			var json = Encoding.UTF8.GetString(commandData);
-			var command = ModelSerializer.Deserialize<QuantumCommandPayload>(json);
-			var type = _commandAssembly.GetType(command.CommandType);
-			if (FlgConfig.DebugMode)
+			if(FlgConfig.DebugMode)
 			{
-				_plugin.LogInfo($"Actor {actorNumber} sent command {type.Name}");
+				Log.Debug($"Receive token for actor {actorNumber}");
 			}
-			_endGameCommands[actorNumber] = command;
+			_tokens[actorNumber] = token;
 		}
 	}
 }

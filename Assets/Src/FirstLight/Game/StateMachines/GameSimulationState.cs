@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using Assets.Src.FirstLight.Game.Commands.QuantumLogicCommands;
+using ExitGames.Client.Photon;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
@@ -13,6 +16,8 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using I2.Loc;
+using Photon.Realtime;
+using PlayFab;
 using Quantum;
 using Quantum.Commands;
 
@@ -196,28 +201,14 @@ namespace FirstLight.Game.StateMachines
 		/// </summary>
 		private void OnServerCommand(EventFireQuantumServerCommand ev)
 		{
-			if (!ev.Synced || !ev.IsVerifiedFrame())
-			{
-				FLog.Error($"Quantum Server Command {ev.CommandType} required to be synced & verified");
-				return;
-			}
-	
-			var game = QuantumRunner.Default.Game;
+			var game = ev.Game;
 			if (!game.PlayerIsLocal(ev.Player))
 			{
 				return;
 			}
 
-			FLog.Verbose("Quantum Logic Command: " + ev.CommandType.ToString());
-
-			IQuantumCommand command = null;
-			if (ev.CommandType == QuantumServerCommand.EndOfGameRewards)
-			{
-				command = new EndOfGameCalculationsCommand();
-			}
-			if(command == null) {
-				throw new Exception($"Uknown server command {ev.CommandType}");
-			}
+			FLog.Verbose("Quantum Logic Command Received: " + ev.CommandType.ToString());
+			var command = QuantumLogicCommandFactory.BuildFromEvent(ev);
 			command.FromFrame(game.Frames.Verified, new QuantumValues()
 			{
 				ExecutingPlayer = game.GetLocalPlayers()[0],
@@ -375,6 +366,7 @@ namespace FirstLight.Game.StateMachines
 			QuantumRunner.StartGame(_services.NetworkService.UserId, startParams);
 			_services.MessageBrokerService.Publish(new MatchSimulationStartedMessage());
 		}
+
 
 		private void StopSimulation()
 		{

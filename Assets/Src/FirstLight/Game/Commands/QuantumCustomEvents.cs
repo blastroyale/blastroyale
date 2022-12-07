@@ -7,7 +7,7 @@ namespace FirstLight.Game.Commands
 	/// </summary>
 	public enum QuantumCustomEvents
 	{
-		EndGameCommand = 1,
+		Token = 1,
 		KickPlayer = 2
 	}
 }

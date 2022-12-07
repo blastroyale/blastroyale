@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Commands;
@@ -134,6 +135,7 @@ namespace FirstLight.Game.StateMachines
 			defaultNameCheck.Transition().Condition(HasDefaultName).Target(enterNameDialog);
 			defaultNameCheck.Transition().Target(homeMenu);
 
+			homeMenu.OnEnter(VerifyRewardsCalculations);
 			homeMenu.OnEnter(OpenPlayMenuUI);
 			homeMenu.OnEnter(TryClaimUncollectedRewards);
 			homeMenu.Event(_playClickedEvent).Target(playClickedCheck);
@@ -179,7 +181,33 @@ namespace FirstLight.Game.StateMachines
 			roomJoinCreateMenu.Event(NetworkState.JoinRoomFailedEvent).Target(chooseGameMode);
 			roomJoinCreateMenu.Event(NetworkState.CreateRoomFailedEvent).Target(chooseGameMode);
 		}
-		
+
+		private void VerifyRewardsCalculations()
+		{
+			_services.PlayfabService.CheckIfRewardsMatch(calculationsAreDone =>
+			{
+				if (!calculationsAreDone)
+				{
+					_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITHomeScreen.waitforrewards_popup_title,
+						ScriptLocalization.UITHomeScreen.waitforrewards_popup_description, false, new GenericDialogButton());
+
+					_services.CoroutineService.StartCoroutine(VerifyRewardsCalculationsCoroutine());
+				}
+			});
+		}
+
+		private IEnumerator VerifyRewardsCalculationsCoroutine()
+		{
+			var wait = new WaitForSeconds(1);
+			var calculationsAreDone = false;
+			while (!calculationsAreDone)
+			{
+				_services.PlayfabService.CheckIfRewardsMatch(result => calculationsAreDone = result);
+				yield return wait;
+			}
+			_services.GenericDialogService.CloseDialog();
+		}
+
 		private bool HasDefaultName()
 		{
 			return _gameDataProvider.AppDataProvider.DisplayNameTrimmed == GameConstants.PlayerName.DEFAULT_PLAYER_NAME ||

@@ -22,14 +22,14 @@ namespace quantum.custom.plugin
 	{
 		private readonly IPluginHost _host;
 		public readonly PlayfabPhotonHttp HttpWrapper;
-	
+
 		public PhotonPlayfabSDK(Dictionary<string, string> photonConfig, IPluginHost host)
 		{
 			_host = host;
 			HttpWrapper = new PlayfabPhotonHttp(_host);
 			PlayFabSettings.staticSettings.TitleId = photonConfig["PlayfabTitle"];
 			PlayFabSettings.staticSettings.DeveloperSecretKey = photonConfig["PlayfabKey"];
-			if(photonConfig.TryGetValue("LocalLogicServer", out var localLogicServer) && localLogicServer=="true")
+			if (photonConfig.TryGetValue("LocalLogicServer", out var localLogicServer) && localLogicServer == "true")
 			{
 				HttpWrapper.ServerAddress = "http://localhost:7274";
 			}
@@ -40,27 +40,32 @@ namespace quantum.custom.plugin
 		/// Requires a userId and a token to prove this was originated from an authenticated user.
 		/// The command will impersonate the given player.
 		/// </summary>
-		public void SendServerCommand(string userId, IQuantumCommand command, bool async = true)
+		public void SendServerCommand(string userId, string token, IQuantumCommand command, bool async = true)
 		{
 			Log.Info($"Sending command {command.GetType()} to {userId}");
-;			var data = new Dictionary<string, string>();
+			var data = new Dictionary<string, string>();
 			data[CommandFields.Command] = ModelSerializer.Serialize(command).Value;
 			data["SecretKey"] = PlayFabSettings.staticSettings.DeveloperSecretKey;
-			var request = new ExecuteCloudScriptServerRequest()
+			var request = new ExecuteFunctionRequest()
 			{
 				FunctionName = "ExecuteCommand",
-				PlayFabId = userId,
 				FunctionParameter = new LogicRequest()
 				{
-					Command = command.GetType().FullName, 
+					Command = command.GetType().FullName,
 					Data = data
+				},
+				AuthenticationContext = new PlayFabAuthenticationContext()
+				{
+					PlayFabId = userId,
+					EntityToken = token,
 				}
 			};
-			HttpWrapper.Post(userId, "/Server/ExecuteCloudScript", request, OnPlayfabCommand, new Dictionary<string, string>()
+			HttpWrapper.Post(userId, "/CloudScript/ExecuteFunction", request, OnPlayfabCommand, new Dictionary<string, string>()
 			{
-				{ "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey }
+				{ "X-EntityToken", token }
 			}, async);
 		}
+
 
 		/// <summary>
 		/// Obtains a user readonly data.
@@ -74,14 +79,15 @@ namespace quantum.custom.plugin
 			};
 			HttpWrapper.Post(playerId, "/Server/GetUserReadOnlyData", request, callback);
 		}
-		
+
 		private void OnPlayfabCommand(IHttpResponse response, object userId)
 		{
-			if(response.HttpCode >= 400)
+			if (response.HttpCode >= 400)
 			{
 				var dataString = response.ResponseData?.Length > 0 ? Encoding.UTF8.GetString(response.ResponseData) : "";
 				Log.Error($"Invalid PlayFab response to url {response.Request.Url} status {response.Status} data {dataString} text {response.ResponseText}");
-			} else
+			}
+			else
 			{
 				if (FlgConfig.DebugMode)
 				{

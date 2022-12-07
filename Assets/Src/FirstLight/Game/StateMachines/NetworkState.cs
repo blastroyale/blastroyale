@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using ExitGames.Client.Photon;
 using FirstLight.FLogger;
@@ -20,6 +21,7 @@ using FirstLight.Statechart;
 using I2.Loc;
 using Photon.Deterministic;
 using Photon.Realtime;
+using PlayFab;
 using Quantum;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -190,6 +192,7 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeEvents()
 		{
 			_services.TickService.SubscribeOnUpdate(TickQuantumServer, GameConstants.Network.NETWORK_QUANTUM_TICK_SECONDS, true, true);
+			_services.MessageBrokerService.Subscribe<MatchSimulationStartedMessage>(OnSimulationStart);
 			_services.MessageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuit);
 			_services.MessageBrokerService.Subscribe<MatchSimulationStartedMessage>(OnMatchSimulationStartedMessage);
 			_services.MessageBrokerService.Subscribe<MatchSimulationEndedMessage>(OnMatchSimulationEndedMessage);
@@ -218,6 +221,25 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.TickService.SubscribeOnUpdate(TickReconnectAttempt, GameConstants.Network.NETWORK_ATTEMPT_RECONNECT_SECONDS);
 			_criticalDisconnectCoroutine = _services.CoroutineService.StartCoroutine(CriticalDisconnectCoroutine());
+		}
+
+		public void OnSimulationStart(MatchSimulationStartedMessage message)
+		{
+			if(FeatureFlags.QUANTUM_CUSTOM_SERVER)
+			{
+				SendPlayerToken(PlayFabSettings.staticPlayer.EntityToken);
+			}
+		}
+
+		/// <summary>
+		/// Sends user token to Quantum Server to prove the user is authenticated and able to send commands.
+		/// </summary> 
+		private void SendPlayerToken(string token)
+		{
+			var opt = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+			_networkService.QuantumClient.OpRaiseEvent(
+				(int)QuantumCustomEvents.Token, Encoding.UTF8.GetBytes(token), opt, SendOptions.SendReliable
+			);
 		}
 
 		private void UnsubscribeDisconnectEvents()

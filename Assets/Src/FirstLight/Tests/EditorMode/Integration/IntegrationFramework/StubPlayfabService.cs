@@ -68,6 +68,11 @@ namespace FirstLight.Tests.EditorMode
 		{
 			
 		}
+
+		public void CheckIfRewardsMatch(Action<bool> callback)
+		{
+	
+		}
 	}
 
 }

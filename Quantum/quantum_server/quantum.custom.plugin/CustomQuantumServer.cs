@@ -90,7 +90,7 @@ namespace Quantum
 			{
 				AssetSerializer = _serializer,
 				ResourceManager = _resourceManager,
-				EventDispatcher = events
+				EventDispatcher = events,
 			};
 			inputProvider = new InputProvider(_config);
 			var taskRunner = new InactiveTaskRunner();

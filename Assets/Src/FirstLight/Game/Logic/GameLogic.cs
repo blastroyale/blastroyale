@@ -208,6 +208,7 @@ namespace FirstLight.Game.Logic
 			container.Add(logic.PlayerLogic);
 			container.Add(logic.BattlePassLogic);
 			container.Add(logic.EquipmentLogic);
+			container.Add(logic.UniqueIdLogic);
 			return container;
 		}
 
@@ -217,6 +218,7 @@ namespace FirstLight.Game.Logic
 		public static IPlayerLogic PlayerLogic(this LogicContainer c) => c.Get<IPlayerLogic>();
 		public static IBattlePassLogic BattlePassLogic(this LogicContainer c) => c.Get<IBattlePassLogic>();
 		public static IEquipmentLogic EquipmentLogic(this LogicContainer c) => c.Get<IEquipmentLogic>();
+		public static IUniqueIdLogic UniqueIdLogic(this LogicContainer c) => c.Get<IUniqueIdLogic>();
 	}
 
 }

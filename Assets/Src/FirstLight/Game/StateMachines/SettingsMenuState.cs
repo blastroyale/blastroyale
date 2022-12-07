@@ -221,6 +221,7 @@ namespace FirstLight.Game.StateMachines
 			OpenFlgIdSuccessPopup();
 			
 			// Also update contact email after the Connect ID flow passes
+			// Doesn't matter if this fails - this request is also fired upon login if the contact email is not present
 			_services.PlayfabService.UpdateEmail(_appLogic.LastLoginEmail.Value);
 		}
 

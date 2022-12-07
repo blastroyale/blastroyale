@@ -166,7 +166,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Session, "Invalid Session Ticket:"+msg.Message );
 			
-			if (msg.ErrorCode == HttpStatusCode.Unauthorized)
+			if (msg.ErrorCode != HttpStatusCode.Unauthorized)
 			{
 				throw new PlayFabException(PlayFabExceptionCode.AuthContextRequired, msg.Message);
 			}

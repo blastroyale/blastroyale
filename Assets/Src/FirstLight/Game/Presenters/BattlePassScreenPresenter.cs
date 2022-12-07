@@ -162,8 +162,7 @@ namespace FirstLight.Game.Presenters
 			
 			if (predictedProgress.Item1 >= _dataProvider.BattlePassDataProvider.MaxLevel)
 			{
-				_currentLevelLabel.text = ScriptLocalization.UITBattlePass.max;
-				_bppProgressLabel.text = ScriptLocalization.UITBattlePass.max;
+				_currentLevelLabel.text = _bppProgressLabel.text = ScriptLocalization.UITBattlePass.max;
 			}
 
 			for (int i = 0; i < battlePassConfig.Levels.Count; ++i)

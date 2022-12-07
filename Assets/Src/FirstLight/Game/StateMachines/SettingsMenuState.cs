@@ -71,6 +71,7 @@ namespace FirstLight.Game.StateMachines
 			connectId.OnEnter(OpenConnectIdUI);
 			connectId.Event(_connectIdBackEvent).Target(settingsMenu);
 			connectId.OnExit(CloseConnectIdUI);
+			connectId.OnExit(UpdateAccountStatus);
 			
 			serverSelect.OnEnter(OpenServerSelectUI);
 			serverSelect.Event(NetworkState.PhotonMasterConnectedEvent).Target(settingsMenu);
@@ -80,6 +81,14 @@ namespace FirstLight.Game.StateMachines
 			logoutWait.Event(_logoutFailedEvent).Target(final);
 
 			final.OnEnter(UnsubscribeEvents);
+		}
+
+		private void UpdateAccountStatus()
+		{
+			if (_uiService.HasUiPresenter<SettingsScreenPresenter>())
+			{
+				_uiService.GetUi<SettingsScreenPresenter>().UpdateAccountStatus();
+			}
 		}
 
 		private void CloseSettingsScreen()

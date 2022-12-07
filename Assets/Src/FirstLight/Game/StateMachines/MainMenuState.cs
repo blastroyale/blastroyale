@@ -262,7 +262,7 @@ namespace FirstLight.Game.StateMachines
 			return _currentScreen == typeof(T);
 		}
 
-		private void OpenBrokenItemsPopUp()
+		private async void OpenBrokenItemsPopUp()
 		{
 			var infos = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All);
 			var loadout = new Dictionary<GameIdGroup, UniqueId>();
@@ -292,7 +292,7 @@ namespace FirstLight.Game.StateMachines
 				PopupMode = EquipmentPopupPresenter.Mode.Rusted
 			};
 
-			_uiService.OpenUi<EquipmentPopupPresenter, EquipmentPopupPresenter.StateData>(data);
+			await _uiService.OpenUiAsync<EquipmentPopupPresenter, EquipmentPopupPresenter.StateData>(data);
 		}
 		
 		private void CloseBrokenItemsPopUp()

@@ -125,13 +125,30 @@ namespace FirstLight.Game.Logic
 
 		public uint GetRemainingPoints()
 		{
+			var predictedProgress = GetPredictedLevelAndPoints();
 			var maxAvailablePoints = (uint)0;
+			var totalAccumulatedPoints = (uint)0;
+			
 			for (int i = 0; i < MaxLevel; i++)
 			{
 				maxAvailablePoints += GetRequiredPointsForLevel(i);
 			}
+
+			for (int i = 0; i <= (int)predictedProgress.Item1; i++)
+			{
+				var ptsPerLevel = GetRequiredPointsForLevel(i);
+				
+				if (i < predictedProgress.Item1)
+				{
+					totalAccumulatedPoints += ptsPerLevel;
+				}
+				else
+				{
+					totalAccumulatedPoints += predictedProgress.Item2;
+				}
+			}
 			
-			return maxAvailablePoints - _currentPoints.Value;
+			return maxAvailablePoints - totalAccumulatedPoints;
 		}
 
 		public EquipmentRewardConfig GetRewardForLevel(uint level)

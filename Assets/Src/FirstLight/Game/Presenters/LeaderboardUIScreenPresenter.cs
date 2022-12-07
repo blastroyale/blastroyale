@@ -125,7 +125,7 @@ namespace FirstLight.Game.Presenters
 
 			lowestTopRankedPosition = result.Leaderboard[result.Leaderboard.Count - 1].Position;
 
-			for (int i = 0; i < result.Leaderboard.Count; i++)
+			for (int i = 0; i < 10; i++)
 			{
 				var isLocalPlayer = result.Leaderboard[i].PlayFabId == PlayFabSettings.staticPlayer.PlayFabId;
 
@@ -155,8 +155,15 @@ namespace FirstLight.Game.Presenters
 		private void OnLeaderboardNeighborRanksReceived(GetLeaderboardAroundPlayerResult result)
 		{
 			
-		/*	var localPlayer = result.Leaderboard.First(x => x.PlayFabId == PlayFabSettings.staticPlayer.PlayFabId);
+			var localPlayer = result.Leaderboard.First(x => x.PlayFabId == PlayFabSettings.staticPlayer.PlayFabId);
 
+			var newEntry = _leaderboardEntryAsset.Instantiate();
+			newEntry.AttachView(this, out LeaderboardUIEntryView view);
+			view.SetData(localPlayer, true);
+			_leaderboardScrollView.Add(newEntry);
+
+			return;
+			/*
 			// If the rank above player joins with the top ranks leaderboard, we just append player to the normal leaderboard
 			if (Math.Abs(lowestTopRankedPosition - localPlayer.Position) == 1)
 			{
@@ -183,36 +190,12 @@ namespace FirstLight.Game.Presenters
 			SetupCamera();
 		}
 		
-
-		private void UpdateLeaderboard()
-		{
-			if (_matchServices.MatchEndDataService.LocalPlayer == PlayerRef.None)
-			{
-				Root.AddToClassList(UssSpectator);
-			}
-
-			var entries = _matchServices.MatchEndDataService.QuantumPlayerMatchData;
-
-			foreach (var entry in entries)
-			{
-				var newEntry = _leaderboardEntryAsset.Instantiate();
-				newEntry.AttachView(this, out LeaderboardEntryView view);
-				view.SetData(entry, _matchServices.MatchEndDataService.LocalPlayer == entry.Data.Player);
-				_leaderboardScrollView.Add(newEntry);
-			}
-		}
-
 		private void SetupCamera()
 		{
 			_camera.gameObject.SetActive(true);
 			_camera.fieldOfView = Camera.HorizontalToVerticalFieldOfView(19f, 2.17f);
 		}
 		
-		
-		private void OnBackClicked()
-		{
-			Data.OnBackClicked();
-		}
 	}
 	
 	/*

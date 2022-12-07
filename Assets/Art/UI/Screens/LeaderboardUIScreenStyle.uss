@@ -1,12 +1,9 @@
-
 .leaderboard-panel {
-    width: 1270px;
-    height: 850px;
-    position: relative;
-    top: 140px;
-    align-items: center;
+    width: 1050px;
+    height: 950px;
+    position: absolute;
+    top: 150px;
 }
-
 
 .leaderboard-entries {
     position: absolute;
@@ -45,17 +42,13 @@
     left: 140px;
 }
 
-.leaderboard-header__kills {
-    right: 330px;
-    -unity-text-align: upper-right;
-}
-
-.leaderboard-header__deaths {
-    right: 235px;
-    -unity-text-align: upper-right;
-}
 
 .leaderboard-header__trophies {
-    right: 10px;
+    right: 40px;
     -unity-text-align: upper-right;
+}
+
+#root {
+    position: absolute;
+    align-items: center;
 }

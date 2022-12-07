@@ -7,7 +7,7 @@
                 <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Player" localization-key="UITLeaderboards/player" class="header-label leaderboard-header__player" />
                 <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Trophies" localization-key="UITLeaderboards/trophies" class="header-label leaderboard-header__trophies" />
             </ui:VisualElement>
-            <ui:ScrollView name="LeaderboardScrollView" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" touch-scroll-type="Clamped" class="leaderboard-entries" />
+            <ui:ScrollView name="LeaderboardScrollView" touch-scroll-type="Clamped" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="leaderboard-entries" />
         </ui:VisualElement>
         <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITLeaderboards/global_leaderboard" name="Header" />
     </ui:VisualElement>

@@ -21,6 +21,8 @@ namespace FirstLight.Game.StateMachines
 	/// </summary>
 	public class AudioState
 	{
+		private const string SPECTATED_PLAYER_CHANGED_EVENT = "SpectatedPlayerChangedEvent";
+		
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _gameDataProvider;
 		private readonly AudioBattleRoyaleState _audioBrState;
@@ -141,6 +143,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void SubscribeMatchEvents()
 		{
+			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 			QuantumEvent.SubscribeManual<EventOnNewShrinkingCircle>(this, OnNewShrinkingCircle);
 			QuantumEvent.SubscribeManual<EventOnPlayerSkydiveDrop>(this, OnPlayerSkydiveDrop);
 			QuantumEvent.SubscribeManual<EventOnPlayerDamaged>(this, OnPlayerDamaged);
@@ -173,6 +176,12 @@ namespace FirstLight.Game.StateMachines
 		private void UnsubscribeMatchEvents()
 		{
 			QuantumEvent.UnsubscribeListener(this);
+			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(OnSpectatedPlayerChanged);
+		}
+		
+		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
+		{
+			CheckDespawnClips(SPECTATED_PLAYER_CHANGED_EVENT, previous.Entity);
 		}
 
 		private bool IsSpectator()
@@ -309,9 +318,9 @@ namespace FirstLight.Game.StateMachines
 		}
 
 		/// <summary>
-		/// Removes any currently playing looped clips on the target entity if the correct event is being called
+		/// Stops and despawns any currently playing looped clips for given entity, if matching despawn event is called
 		/// </summary>
-		private void CheckClips(string currentEvent, EntityRef entity)
+		private void CheckDespawnClips(string currentEvent, EntityRef entity)
 		{
 			for (var i = _currentClips.Count - 1; i > -1; i--)
 			{
@@ -355,7 +364,7 @@ namespace FirstLight.Game.StateMachines
 			if (_services.NetworkService.CurrentRoomGameModeConfig.Value.Lives is 0 or > 1)
 			{
 				_services.AudioFxService.PlayClip3D(AudioId.PlayerRespawnLightningBolt, entityView.transform.position);
-				CheckClips(nameof(EventOnPlayerAlive), callback.Entity);
+				CheckDespawnClips(nameof(EventOnPlayerAlive), callback.Entity);
 			}
 		}
 		
@@ -397,7 +406,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnLocalSkydiveEnd(EventOnLocalPlayerSkydiveLand callback)
 		{
-			CheckClips(nameof(EventOnLocalPlayerSkydiveLand), callback.Entity);
+			CheckDespawnClips(nameof(EventOnLocalPlayerSkydiveLand), callback.Entity);
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
 
 			_services.AudioFxService.PlayClip3D(AudioId.SkydiveEnd, entityView.transform.position);
@@ -405,7 +414,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnCollectionBlocked(EventOnCollectableBlocked callback)
 		{
-			CheckClips(nameof(EventOnCollectableBlocked), callback.CollectableEntity);
+			CheckDespawnClips(nameof(EventOnCollectableBlocked), callback.CollectableEntity);
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView)) return;
 
 			//TODO: replace this sfx with a proper sfx for your pickup being blocked
@@ -414,7 +423,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayerWeaponChanged(EventOnPlayerWeaponChanged callback)
 		{
-			CheckClips(nameof(EventOnPlayerWeaponChanged), callback.Entity);
+			CheckDespawnClips(nameof(EventOnPlayerWeaponChanged), callback.Entity);
 
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
 
@@ -427,7 +436,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnCollectionStopped(EventOnStoppedCollecting callback)
 		{
-			CheckClips(nameof(EventOnStoppedCollecting), callback.CollectableEntity);
+			CheckDespawnClips(nameof(EventOnStoppedCollecting), callback.CollectableEntity);
 		}
 
 		private void OnStartCollection(EventOnStartedCollecting callback)
@@ -447,7 +456,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnAirdropCollected(EventOnAirDropCollected callback)
 		{
-			CheckClips(nameof(EventOnAirDropCollected), callback.Entity);
+			CheckDespawnClips(nameof(EventOnAirDropCollected), callback.Entity);
 		}
 
 
@@ -547,8 +556,10 @@ namespace FirstLight.Game.StateMachines
 			var despawnEvents = new[] 
 			{ 
 				nameof(EventOnPlayerMagazineReloaded), 
-				nameof (EventOnPlayerAttack),
-				nameof(EventOnPlayerWeaponChanged)
+				nameof(EventOnPlayerAttack),
+				nameof(EventOnPlayerWeaponChanged),
+				nameof(EventOnPlayerDead),
+				SPECTATED_PLAYER_CHANGED_EVENT
 			};
 
 			var reloadSfx = _services.AudioFxService.PlayClip2D(audioId);
@@ -557,11 +568,13 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayerMagazineReloaded(EventOnPlayerMagazineReloaded callback)
 		{
-			CheckClips(nameof(EventOnPlayerMagazineReloaded), callback.Entity);
+			CheckDespawnClips(nameof(EventOnPlayerMagazineReloaded), callback.Entity);
 		}
 
 		private void OnPlayerDead(EventOnPlayerDead callback)
 		{
+			CheckDespawnClips(nameof(EventOnPlayerDead), callback.Entity);
+			
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
 
 			_services.AudioFxService.PlayClip3D(AudioId.PlayerDeath, entityView.transform.position);
@@ -693,7 +706,7 @@ namespace FirstLight.Game.StateMachines
 		private void OnEventHazardLand(EventOnHazardLand callback)
 		{
 			PlayExplosionSfx(callback.sourceId, callback.HitPosition.ToUnityVector3());
-			CheckClips(nameof(EventOnHazardLand), callback.AttackerEntity);
+			CheckDespawnClips(nameof(EventOnHazardLand), callback.AttackerEntity);
 		}
 
 		private void OnEventOnProjectileExplosion(EventOnProjectileExplosion callback)
@@ -790,7 +803,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnCollectableCollected(EventOnCollectableCollected callback)
 		{
-			CheckClips(nameof(EventOnCollectableCollected), callback.CollectableEntity);
+			CheckDespawnClips(nameof(EventOnCollectableCollected), callback.CollectableEntity);
 
 			var audio = AudioId.None;
 			var collectableId = callback.CollectableId;
@@ -838,7 +851,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayerAttack(EventOnPlayerAttack callback)
 		{
-			CheckClips(nameof(EventOnPlayerAttack), callback.PlayerEntity);
+			CheckDespawnClips(nameof(EventOnPlayerAttack), callback.PlayerEntity);
 
 			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.PlayerEntity, out var entityView)) return;
 			

@@ -219,6 +219,9 @@ namespace FirstLight.Game.StateMachines
 			SetConnectIdDim(false);
 			_statechartTrigger(_connectIdBackEvent);
 			OpenFlgIdSuccessPopup();
+			
+			// Also update contact email after the Connect ID flow passes
+			_services.PlayfabService.UpdateEmail(_appLogic.LastLoginEmail.Value);
 		}
 
 		private void OnUpdateNicknameError(PlayFabError error)

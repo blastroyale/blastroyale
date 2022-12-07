@@ -327,7 +327,6 @@ namespace FirstLight.Game.Services
 			void OnSuccess(AddUsernamePasswordResult result)
 			{
 				_dataProvider.AppDataProvider.LastLoginEmail.Value = email;
-				UpdateEmail(email);
 				successCallback?.Invoke(result);
 			}
 		}

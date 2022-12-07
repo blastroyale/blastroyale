@@ -94,7 +94,7 @@ namespace FirstLight.Game.Services
 			EconomyCalls = new AnalyticsEconomy(this);
 			ErrorsCalls = new AnalyticsCallsErrors(this);
 			UiCalls = new AnalyticsCallsUi(this, uiService);
-			EquipmentCalls = new AnalyticsCallsEquipment(this, services.ConfigsProvider);
+			EquipmentCalls = new AnalyticsCallsEquipment(this, services);
 		}
 
 		/// <inheritdoc />

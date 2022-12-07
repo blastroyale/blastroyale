@@ -22,8 +22,8 @@ namespace FirstLight.Game.Views.UITK
 		{
 			_scrollView = element.Q<ScrollView>("ScrollView").Required();
 
-			element.Q<LocalizedButton>("RepairButton").clicked += _goRepairAction;
-			element.Q<LocalizedButton>("BackButton").clicked += _closeAction;
+			element.Q<LocalizedButton>("RepairButton").clicked += () => _goRepairAction();
+			element.Q<LocalizedButton>("BackButton").clicked += () => _closeAction();
 		}
 
 		public void SetData(IEnumerable<EquipmentInfo> rustedEquipment, Action goRepairAction, Action closeAction)

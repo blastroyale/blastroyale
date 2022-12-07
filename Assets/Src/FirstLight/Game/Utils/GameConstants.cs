@@ -225,8 +225,8 @@ namespace FirstLight.Game.Utils
 		{
 			public const float DYNAMIC_CAMERA_PAN_TO_AIM_TIME = 0.5f;
 			public const float DYNAMIC_CAMERA_PAN_TO_CENTER_TIME = 0.2f;
-			public const float DYNAMIC_CAMERA_PAN_DISTANCE_DEFAULT = 2f;
-			public const float DYNAMIC_CAMERA_PAN_NEGATIVE_Y_DIR_MULTIPLIER = 1.33f;
+			public const float DYNAMIC_CAMERA_PAN_DISTANCE_DEFAULT = 1.75f;
+			public const float DYNAMIC_CAMERA_PAN_NEGATIVE_Y_DIR_MULTIPLIER = 1.25f;
 		}
 
 		public static class Controls

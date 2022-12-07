@@ -2,18 +2,18 @@
     align-items: center;
 }
 
-.next-button {
+.home-button {
     position: absolute;
     right: 0;
-    bottom: 0;
-    background-image: url('project://database/Assets/Art/UI/Sprites/MatchEnd/NextButton.png?fileID=21300000&guid=7b7f8b5eb966f4fb38b88e5573f3a921&type=3#NextButton');
-    width: 562px;
-    height: 194px;
+    top: 1;
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/HomeButton.png?fileID=21300000&guid=6dee9891204ef4f5b90a2210c56088a9&type=3#home');
+    width: 158px;
+    height: 126px;
     background-color: rgba(255, 255, 255, 0);
     margin-left: 0;
     margin-right: 0;
-    margin-top: 0;
-    margin-bottom: 0;
+    margin-top: 1;
+    margin-bottom: 1;
     transition-property: opacity, scale;
     transition-duration: 0.2s, 0.2s;
     border-left-width: 0;
@@ -22,32 +22,24 @@
     border-bottom-width: 0;
 }
 
-.next-button__label {
-    width: 260px;
-    top: 80px;
-    left: 250px;
-    text-shadow: 4px 4px 0 rgb(185, 65, 21);
-    -unity-text-outline-color: rgb(185, 65, 21);
-    font-size: 70px;
-    -unity-text-outline-width: 2px;
-    color: rgb(255, 255, 255);
-    -unity-font-definition: var(--font-italic);
-    -unity-font-style: bold;
-}
-
-.player-name {
+.back-button {
     position: absolute;
-    left: 13%;
-    bottom: 10%;
-    flex-direction: row;
-    align-items: center;
-}
-
-.player-name__badge {
-    display: none;
-    width: 70px;
-    height: 65px;
-    margin-right: 10px;
+    left: 0;
+    top: 1;
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/BackButton.png?fileID=21300000&guid=4d2d0e6df2b0a4ab79ccd1ee4be1a98c&type=3#back');
+    width: 318px;
+    height: 142px;
+    background-color: rgba(255, 255, 255, 0);
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 1;
+    margin-bottom: 1;
+    transition-property: opacity, scale;
+    transition-duration: 0.2s, 0.2s;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
 }
 
 .player-name__text {
@@ -79,7 +71,6 @@
     width: 1270px;
     height: 900px;
     position: absolute;
-    right: 270px;
     top: 65px;
 }
 
@@ -95,7 +86,7 @@
     right: 0;
     top: 70px;
     left: 0;
-    align-items: flex-end;
+    align-items: center;
 }
 
 .leaderboard-header {

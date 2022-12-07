@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using I2.Loc;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views
@@ -18,11 +19,13 @@ namespace FirstLight.Game.Views
 			public int MaxForLevel;
 			public int Start;
 			public int Total;
+			public int MaxLevel;
 		}
 		
 		private VisualElement _root;
 		private Label _gainedLabel;
 		private Label _nextLevelLabel;
+		private Label _toLevelLabel;
 		private Label _totalLabel;
 		private VisualElement _previousPointsBar;
 		private VisualElement _newPointsBar;
@@ -43,6 +46,7 @@ namespace FirstLight.Game.Views
 			_newPointsBar = _root.Q<VisualElement>("YellowBar").Required();
 			_gainedWeek = _root.Q<Label>("GainedWeek").Required();
 			_totalWeek = _root.Q<Label>("TotalWeek").Required();
+			_toLevelLabel = _root.Q<Label>("ToLevel").Required();
 			
 			HidePanel();
 		}
@@ -70,7 +74,6 @@ namespace FirstLight.Game.Views
 			var currentGained = 0;
 
 			_gainedLabel.text = "0";
-			
 
 			var increaseNumber = _gained / 150;
 
@@ -78,7 +81,7 @@ namespace FirstLight.Game.Views
 			{
 				var levelGained = levelRewardInfo.Start;
 
-				_nextLevelLabel.text = levelRewardInfo.NextLevel.ToString();
+				_nextLevelLabel.text = (levelRewardInfo.NextLevel+1).ToString();
 				_totalLabel.text = levelGained + "/" + levelRewardInfo.MaxForLevel;
 				var nextPointsPercentage = (int)(100 * ((float) (levelRewardInfo.Start+levelRewardInfo.Total) / levelRewardInfo.MaxForLevel));
 				_newPointsBar.style.width = Length.Percent(nextPointsPercentage);
@@ -99,6 +102,13 @@ namespace FirstLight.Game.Views
 
 					previousPointsPercentage = (int)(100 * ((float) levelGained / levelRewardInfo.MaxForLevel));
 					_previousPointsBar.style.width = Length.Percent(previousPointsPercentage);
+				}
+
+				if (levelRewardInfo.NextLevel >= levelRewardInfo.MaxLevel)
+				{
+					_nextLevelLabel.text = ScriptLocalization.UITBattlePass.max;
+					_totalLabel.text = ScriptLocalization.UITBattlePass.max;
+					_toLevelLabel.SetDisplay(false);
 				}
 			}
 		}

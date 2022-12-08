@@ -42,13 +42,36 @@
     left: 140px;
 }
 
-
 .leaderboard-header__trophies {
     right: 40px;
     -unity-text-align: upper-right;
+}
+
+.leaderboard_footer {
+    position: absolute;
+    height: 70px;
+    width: 600px;
+    flex-direction: column-reverse;
+    align-items: center;
+    bottom: 35px;
+}
+
+.leaderboard_footer_text{
+    -unity-font-definition: var(--font-italic);
+    font-size: 35px;
+    position: absolute;
+    -unity-font-style: normal;
+    -unity-text-align: middle-center;
+    color: rgb(233, 226, 225);
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
 }
 
 #root {
     position: absolute;
     align-items: center;
 }
+
+
+

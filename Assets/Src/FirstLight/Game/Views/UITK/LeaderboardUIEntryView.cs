@@ -17,9 +17,12 @@ namespace FirstLight.Game.Views
 		private const string UssLeaderboardEntrySecond = UssLeaderboardEntry+"--second";
 		private const string UssLeaderboardEntryThird = UssLeaderboardEntry+"--third";
 		private const string UssLeaderboardEntryLocal = UssLeaderboardEntry+"--local";
+		private const string PlayerHighlight = "leaderboard-entry__player-highlight";
+		private const string PlayerHighlightHidden = "leaderboard-entry__player-highlight-hidden";
 		
 		private VisualElement _root;
 		private VisualElement _leaderboardUIEntry;
+		private VisualElement _localPlayerHighlight;
 		private Label _rankNumber;
 		private Label _playerName;
 
@@ -30,6 +33,10 @@ namespace FirstLight.Game.Views
 			_root = element;
 			
 			_leaderboardUIEntry = _root.Q<VisualElement>("LeaderboardEntryParent").Required();
+			_localPlayerHighlight = _root.Q<VisualElement>("LocalPlayerHighlight").Required();
+
+			
+			
 			_rankNumber = _root.Q<Label>("RankNumber").Required();
 			_playerName = _root.Q<Label>("PlayerName").Required();
 			_trophies = _root.Q<Label>("TrophiesAmount").Required();
@@ -64,6 +71,8 @@ namespace FirstLight.Game.Views
 			if (isLocalPlayer)
 			{
 				_leaderboardUIEntry.AddToClassList(UssLeaderboardEntryLocal);
+				_localPlayerHighlight.RemoveFromClassList(PlayerHighlightHidden);
+				_localPlayerHighlight.AddToClassList(PlayerHighlight);
 			}
 
 			_playerName.text = data.DisplayName;

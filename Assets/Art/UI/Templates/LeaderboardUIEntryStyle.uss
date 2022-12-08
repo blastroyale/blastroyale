@@ -3,6 +3,7 @@
     height: 80px;
     align-items: flex-end;
     justify-content: center;
+    overflow: visible;
 }
 
 .leaderboard-entry {
@@ -110,34 +111,6 @@
     color: rgb(233, 226, 225);
 }
 
-.leaderboard-entry__kills {
-    -unity-font-definition: var(--font-italic);
-    font-size: 36px;
-    -unity-font-style: normal;
-    color: rgb(105, 98, 166);
-    right: 330px;
-    position: absolute;
-    -unity-text-align: upper-right;
-}
-
-.leaderboard-entry--local .leaderboard-entry__kills {
-    color: rgb(233, 226, 225);
-}
-
-.leaderboard-entry__deaths {
-    -unity-font-definition: var(--font-italic);
-    font-size: 36px;
-    -unity-font-style: normal;
-    color: rgb(105, 98, 166);
-    right: 250px;
-    position: absolute;
-    -unity-text-align: upper-right;
-}
-
-.leaderboard-entry--local .leaderboard-entry__deaths {
-    color: rgb(233, 226, 225);
-}
-
 .leaderboard-entry__trophies-bar {
     background-image: url('project://database/Assets/Art/UI/Sprites/Leaderboards/StatsBlackBack.png?fileID=21300000&guid=d49b2a8c0f8344da4a317261f81e6850&type=3#StatsBlackBack');
     top: 0;
@@ -166,4 +139,17 @@
     -unity-font-style: normal;
     color: rgb(233, 226, 225);
     position: relative;
+}
+
+.leaderboard-entry__player-highlight {
+    background-image: url('project://database/Assets/Art/UI/Sprites/Leaderboards/HighlightLeaderboard.png?fileID=2800000&guid=aa56add4a38ee4af49e3299c310b6ead&type=3#HighlightLeaderboard');
+    visibility: visible;
+    width: 1200;
+    height: 92;
+    position: absolute;
+    overflow: visible;
+}
+
+.leaderboard-entry__player-highlight-hidden {
+    visibility: visible;
 }

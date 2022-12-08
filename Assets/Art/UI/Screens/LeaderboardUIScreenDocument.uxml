@@ -10,5 +10,8 @@
             <ui:ScrollView name="LeaderboardScrollView" touch-scroll-type="Clamped" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="leaderboard-entries" />
         </ui:VisualElement>
         <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITLeaderboards/global_leaderboard" name="Header" />
+        <ui:VisualElement name="footer" class="leaderboard_footer">
+            <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITRewards/become_the_best" name="leaderboard_footer_text" class="leaderboard_footer_text" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

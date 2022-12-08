@@ -17,7 +17,7 @@
                 <FirstLight.Game.UIElements.LocalizedLabel text="##" name="GameplayInfo" localization-key="UITBattlePass/play_games_info" class="season-info__label" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="SeasonHeader" class="season-header anim-delay-0 anim-translate anim-translate--down-s">
+        <ui:VisualElement name="SeasonHeader" class="season-header anim-translate anim-translate--down-s anim-delay-4">
             <ui:VisualElement name="Background" class="season-header__background" />
             <ui:VisualElement name="Content" class="season-header__content">
                 <ui:VisualElement name="CurrentLevel" class="season-level">

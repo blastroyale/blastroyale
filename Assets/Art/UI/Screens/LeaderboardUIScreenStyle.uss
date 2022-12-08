@@ -1,5 +1,5 @@
 .leaderboard-panel {
-    width: 1050px;
+    width: 100%;
     height: 950px;
     position: absolute;
     top: 150px;
@@ -12,6 +12,7 @@
     top: 70px;
     left: 0;
     align-items: center;
+    padding-right: 0;
 }
 
 .leaderboard-header {
@@ -50,7 +51,7 @@
 .leaderboard_footer {
     position: absolute;
     height: 70px;
-    width: 600px;
+    width: 80%;
     flex-direction: column-reverse;
     align-items: center;
     bottom: 35px;
@@ -58,8 +59,10 @@
 
 .leaderboard_footer_text{
     -unity-font-definition: var(--font-italic);
-    font-size: 35px;
+    font-size: 30px;
+    width: 100%;
     position: absolute;
+    bottom: 30px;
     -unity-font-style: normal;
     -unity-text-align: middle-center;
     color: rgb(233, 226, 225);

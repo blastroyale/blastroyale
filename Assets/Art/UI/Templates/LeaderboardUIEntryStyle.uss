@@ -1,6 +1,7 @@
 .leaderboard-entry-positioner {
     width: 100%;
     height: 80px;
+    right: 350px;
     align-items: flex-end;
     justify-content: center;
     overflow: visible;
@@ -144,12 +145,10 @@
 .leaderboard-entry__player-highlight {
     background-image: url('project://database/Assets/Art/UI/Sprites/Leaderboards/HighlightLeaderboard.png?fileID=2800000&guid=aa56add4a38ee4af49e3299c310b6ead&type=3#HighlightLeaderboard');
     visibility: visible;
-    width: 1200;
+    width: 1100;
     height: 92;
     position: absolute;
     overflow: visible;
+    left: 730px;
 }
 
-.leaderboard-entry__player-highlight-hidden {
-    visibility: visible;
-}

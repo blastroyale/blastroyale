@@ -19,7 +19,7 @@ namespace FirstLight.Game.Views
 		private const string UssLeaderboardEntryLocal = UssLeaderboardEntry+"--local";
 		private const string PlayerHighlight = "leaderboard-entry__player-highlight";
 		private const string PlayerHighlightHidden = "leaderboard-entry__player-highlight-hidden";
-		
+		private const string FooterLocalizationKey = "UITLeaderboards/become_the_best";
 		private VisualElement _root;
 		private VisualElement _leaderboardUIEntry;
 		private VisualElement _localPlayerHighlight;
@@ -71,11 +71,14 @@ namespace FirstLight.Game.Views
 			if (isLocalPlayer)
 			{
 				_leaderboardUIEntry.AddToClassList(UssLeaderboardEntryLocal);
-				_localPlayerHighlight.RemoveFromClassList(PlayerHighlightHidden);
-				_localPlayerHighlight.AddToClassList(PlayerHighlight);
+			}
+			else
+			{
+				_localPlayerHighlight.SetVisibility(false);
+				_localPlayerHighlight.SetDisplay(false);
 			}
 
-			_playerName.text = data.DisplayName;
+			_playerName.text = data.DisplayName.Remove(data.DisplayName.Length-5);
 
 			_trophies.text = data.StatValue.ToString();
 			var delayTime = 0.3f + data.Position * 0.1f;

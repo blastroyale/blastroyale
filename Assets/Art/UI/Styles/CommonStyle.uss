@@ -11,8 +11,43 @@
     --font-light-italic: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Normal%20ExtraLight%20Italic.otf?fileID=12800000&guid=ecdd4df26ce474069865eb3673c40456&type=3#Stawix - Amsi Pro Normal ExtraLight Italic');
 }
 
-.element-hidden {
-    display: none;
+.unity-button {
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+}
+
+.unity-button:active {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.unity-button:hover {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+
+.unity-text-field {
+    align-items: stretch;
+    -unity-text-align: middle-left;
+    font-size: 35px;
+    width: 678px;
+    height: 71px;
+}
+
+.unity-text-field__label {
+    -unity-text-align: middle-right;
+    color: rgb(90, 86, 125);
+}
+
+.unity-text-field__input {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/InputFieldBackground.png?fileID=21300000&guid=6a9373e55276b4254b7304c8d38f2dc6&type=3#InputFieldBackground');
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    background-color: rgba(255, 255, 255, 0);
+    color: rgb(90, 86, 125);
+    -unity-text-align: middle-left;
+    padding-left: 26px;
 }
 
 .font-regular {
@@ -39,29 +74,24 @@
 
 .font-style-h2 {
     font-size: 38px;
-    text-shadow: 5px 5px 0 rgba(0, 0, 0, 0.53);
+    text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.53);
     color: rgb(255, 255, 255);
 }
 
 .font-style-h1 {
     font-size: 70px;
     -unity-font-style: bold;
-    text-shadow: 5px 5px 0 rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(0, 0, 0);
-}
-
-Button, LocalizedButton {
-    background-color: rgba(0, 0, 0, 0);
-    border-width: 0;
 }
 
 .button-with-icon {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMain.png?fileID=21300000&guid=8368e60ca24ab4818929e5d7b2dd77f2&type=3#ButtonMain');
     -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Condensed%20Ultra%20Italic.otf?fileID=12800000&guid=6ff2428eb8a974c2281717afe377e3c6&type=3#Stawix - Amsi Pro Condensed Ultra Italic');
     font-size: 38px;
-    text-shadow: 5px 5px 0 rgba(0, 0, 0, 0.53);
+    text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.53);
     color: rgb(255, 255, 255);
     width: 222px;
     height: 128px;
@@ -73,17 +103,39 @@ Button, LocalizedButton {
     align-items: center;
 }
 
+.button-with-icon:active {
+    padding-top: 70px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMainPressed.png?fileID=21300000&guid=5cb1a9853b14740c980813b57e5d03f3&type=3#ButtonMainPressed');
+}
+
 .button-with-icon--small {
     width: 182px;
     height: 100px;
     padding-top: 50px;
 }
 
-.button-with-icon--yellow
-{
+.button-with-icon--small:active {
+    padding-top: 60px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMainPressed.png?fileID=21300000&guid=5cb1a9853b14740c980813b57e5d03f3&type=3#ButtonMainPressed');
+}
+
+.button-with-icon--yellow {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMainYellow.png?fileID=21300000&guid=728932854c02c47ddb4057b68d3c91c7&type=3#ButtonMainYellow');
 }
 
+.button-with-icon--yellow:active {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMainYellowPressed.png?fileID=21300000&guid=c96062ca698c645258fbf9555f558741&type=3#ButtonMainYellowPressed');
+}
+
+.button-with-icon__notification {
+    position: absolute;
+    top: -17px;
+    right: -13px;
+}
+
+.button-with-icon:active .button-with-icon__notification {
+    top: -11px;
+}
 
 .button-with-icon__icon {
     width: auto;
@@ -96,21 +148,6 @@ Button, LocalizedButton {
     -unity-background-scale-mode: scale-to-fit;
 }
 
-.button-with-icon:active {
-    padding-top: 70px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMainPressed.png?fileID=21300000&guid=5cb1a9853b14740c980813b57e5d03f3&type=3#ButtonMainPressed');
-}
-
-.button-with-icon--small:active {
-    padding-top: 60px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMainPressed.png?fileID=21300000&guid=5cb1a9853b14740c980813b57e5d03f3&type=3#ButtonMainPressed');
-}
-
-.button-with-icon--yellow:active
-{
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMainYellowPressed.png?fileID=21300000&guid=c96062ca698c645258fbf9555f558741&type=3#ButtonMainYellowPressed');
-}
-
 .button-with-icon--small > .button-with-icon__icon {
     height: 80px;
 }
@@ -119,34 +156,9 @@ Button, LocalizedButton {
     top: -40%;
 }
 
-
-TextField, LocalizedTextField {
-    align-items: stretch;
-    -unity-text-align: middle-left;
-    font-size: 35px;
-    width: 678px;
-    height: 71px;
-}
-
-TextField > Label, LocalizedTextField > Label {
-    -unity-text-align: middle-right;
-    color: rgb(90, 86, 125);
-}
-
-TextField > #unity-text-input, LocalizedTextField > #unity-text-input {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/InputFieldBackground.png?fileID=21300000&guid=6a9373e55276b4254b7304c8d38f2dc6&type=3#InputFieldBackground');
-    border-left-width: 0;
-    border-right-width: 0;
-    border-top-width: 0;
-    border-bottom-width: 0;
-    background-color: rgba(255, 255, 255, 0);
-    color: rgb(90, 86, 125);
-    -unity-text-align: middle-left;
-    padding-left: 26px;
-}
-
-#Header {
-    background-color: rgb(128, 87, 227);
+.loading-spinner {
+    background-image: url('project://database/Assets/Art/Textures/Ui/Loading/LoadingSpinnerThick.png?fileID=2800000&guid=baccbbd5ac3184df18f5aabbc6649ef8&type=3#LoadingSpinnerThick');
+    -unity-background-scale-mode: scale-to-fit;
 }
 
 .dots-pattern {
@@ -159,9 +171,8 @@ TextField > #unity-text-input, LocalizedTextField > #unity-text-input {
     top: -100px;
 }
 
-.button-flat-primary, .button-flat-secondary, .button-flat-cancel {
-    padding-left: 40px;
-    padding-right: 40px;
+.button-flat {
+    font-size: 42px;
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 2px;
     border-radius: 10px;
@@ -170,15 +181,72 @@ TextField > #unity-text-input, LocalizedTextField > #unity-text-input {
     border-top-width: 1px;
     border-bottom-width: 1px;
     min-height: 70px;
-    -unity-font-definition: none;
+    -unity-font-definition: var(--font-italic);
     -unity-paragraph-spacing: -30px;
     -unity-font-style: bold;
-    -unity-font: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Condensed%20Ultra%20Italic.otf?fileID=12800000&guid=6ff2428eb8a974c2281717afe377e3c6&type=3#Stawix - Amsi Pro Condensed Ultra Italic');
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/GradientAndDots.png?fileID=21300000&guid=cf4abf5541a924d0da5e2d5681f54665&type=3#GradientAndDots');
     -unity-background-scale-mode: scale-and-crop;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding: 5px 40px;
     margin: 0;
+}
+
+.button-flat:active {
+    color: rgb(166, 166, 166);
+}
+
+.button-flat--primary {
+    font-size: 47px;
+    background-color: rgb(245, 203, 47);
+    -unity-text-outline-color: rgb(100, 19, 0);
+    -unity-background-image-tint-color: rgb(255, 116, 0);
+    border-left-color: rgb(100, 19, 0);
+    border-right-color: rgb(100, 19, 0);
+    border-top-color: rgb(100, 19, 0);
+    border-bottom-color: rgb(100, 19, 0);
+}
+
+.button-flat--primary:hover {
+    background-color: rgb(245, 203, 47);
+}
+
+.button-flat--primary:active {
+    background-color: rgb(171, 142, 33);
+}
+
+.button-flat--secondary {
+    background-color: rgb(158, 99, 241);
+    -unity-text-outline-color: rgb(59, 29, 144);
+    -unity-background-image-tint-color: rgb(59, 29, 144);
+    border-left-color: rgb(59, 29, 144);
+    border-right-color: rgb(59, 29, 144);
+    border-top-color: rgb(59, 29, 144);
+    border-bottom-color: rgb(59, 29, 144);
+}
+
+.button-flat--secondary:hover {
+    background-color: rgb(158, 99, 241);
+}
+
+.button-flat--secondary:active {
+    background-color: rgb(76, 51, 152);
+}
+
+.button-flat--cancel {
+    background-color: rgb(253, 97, 97);
+    -unity-text-outline-color: rgb(145, 34, 14);
+    -unity-background-image-tint-color: rgb(158, 31, 42);
+    border-left-color: rgb(145, 34, 14);
+    border-right-color: rgb(145, 34, 14);
+    border-top-color: rgb(145, 34, 14);
+    border-bottom-color: rgb(145, 34, 14);
+}
+
+.button-flat--cancel:hover {
+    background-color: rgb(253, 97, 97);
+}
+
+.button-flat--cancel:active {
+    background-color: rgb(202, 79, 79);
 }
 
 .button-flat-outline {
@@ -194,106 +262,264 @@ TextField > #unity-text-input, LocalizedTextField > #unity-text-input {
     border-bottom-color: rgb(216, 214, 234);
 }
 
-.button-flat-primary {
-    font-size: 47px;
-    background-color: rgb(245, 203, 47);
-    -unity-text-outline-color: rgb(100, 19, 0);
-    -unity-background-image-tint-color: rgb(255, 116, 0);
-    border-left-color: rgb(100, 19, 0);
-    border-right-color: rgb(100, 19, 0);
-    border-top-color: rgb(100, 19, 0);
-    border-bottom-color: rgb(100, 19, 0);
-}
-
-.button-flat-secondary {
-    font-size: 42px;
-    background-color: rgb(158, 99, 241);
-    -unity-text-outline-color: rgb(59, 29, 144);
-    -unity-background-image-tint-color: rgb(59, 29, 144);
-    border-left-color: rgb(59, 29, 144);
-    border-right-color: rgb(59, 29, 144);
-    border-top-color: rgb(59, 29, 144);
-    border-bottom-color: rgb(59, 29, 144);
-}
-
-.button-flat-cancel {
-    font-size: 42px;
-    background-color: rgb(253, 97, 97);
-    -unity-text-outline-color: rgb(145, 34, 14);
-    -unity-background-image-tint-color: rgb(158, 31, 42);
-    border-left-color: rgb(145, 34, 14);
-    border-right-color: rgb(145, 34, 14);
-    border-top-color: rgb(145, 34, 14);
-    border-bottom-color: rgb(145, 34, 14);
-}
-
-.button-flat-secondary > .inner-outline {
-    border-left-color: rgb(100, 19, 0);
-    border-right-color: rgb(100, 19, 0);
-    border-top-color: rgb(100, 19, 0);
-    border-bottom-color: rgb(100, 19, 0);
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-}
-
-.button-flat-secondary > .inner-outline {
-    border-left-color: rgb(59, 29, 144);
-    border-right-color: rgb(59, 29, 144);
-    border-top-color: rgb(59, 29, 144);
-    border-bottom-color: rgb(59, 29, 144);
-    border-radius: 10px;
-}
-
-.button-flat-cancel > .inner-outline {
-    border-left-color: rgb(100, 19, 0);
-    border-right-color: rgb(100, 19, 0);
-    border-top-color: rgb(100, 19, 0);
-    border-bottom-color: rgb(100, 19, 0);
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-}
-
-.button-flat-primary:hover {
-    background-color: rgb(245, 203, 47);
-}
-
-.button-flat-secondary:hover {
-    background-color: rgb(158, 99, 241);
-}
-
-.button-flat-primary:active {
-    background-color: rgb(171, 142, 33);
-    color: rgb(166, 166, 166);
-}
-
-.button-flat-secondary:active {
-    background-color: rgb(76, 51, 152);
-    color: rgb(166, 166, 166);
-}
-
-.button-flat-cancel:hover {
-    background-color: rgb(253, 97, 97);
-}
-
-.button-flat-cancel:active {
-    background-color: rgb(202, 79, 79);
-    color: rgb(166, 166, 166);
-}
-
 .button-close {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/CloseIcon.png?fileID=21300000&guid=ea92b2966dd434cc8bae1e7656cf39bf&type=3#CloseIcon');
-    height: 88px;
-    width: 112px;
+    height: 72px;
+    width: 92px;
     position: absolute;
-    top: 40px;
-    right: 40px;
+    top: 25px;
+    right: 45px;
     background-color: rgba(0, 0, 0, 0);
 }
 
-.button-close:active { 
+.button-close:active {
     -unity-background-image-tint-color: rgb(128, 128, 128);
+}
+
+.fill-parent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.notification-icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/NotificationIcon.png?fileID=21300000&guid=c80b34267e95148f09ef82211411a3ff&type=3#NotificationIcon');
+    width: 38px;
+    height: 38px;
+}
+
+.tooltip {
+    font-size: 32px;
+    -unity-font-definition: var(--font-italic);
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/TooltipwithTail.png?fileID=21300000&guid=7daa27819b9ff40648f92f624119dfc4&type=3#TooltipwithTail');
+    color: rgb(186, 161, 230);
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding-left: 20px;
+    padding-right: 31px;
+    padding-top: 26px;
+    padding-bottom: 14px;
+    opacity: 0;
+}
+
+.tooltip-holder {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+}
+
+.button-long {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/SecondaryButton.png?fileID=21300000&guid=59b9eee3525d947a3bfd185b778e4783&type=3#SecondaryButton');
+    width: 306px;
+    height: 88px;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    background-color: rgba(0, 0, 0, 0);
+    -unity-font-definition: var(--font-italic);
+    font-size: 42px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    padding: 0 0 7px;
+    -unity-text-align: middle-center;
+    margin: 0;
+    margin-bottom: 11px;
+    overflow: visible;
+    align-items: stretch;
+    justify-content: center;
+}
+
+.button-long:active {
+    padding-bottom: 0;
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/SecondaryButtonPressed.png?fileID=21300000&guid=433a70b320ed9443399653eebb4799d5&type=3#SecondaryButtonPressed');
+}
+
+.button-long:disabled, .button-long:disabled.button-long:active {
+    background-color: rgba(0, 0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    -unity-text-outline-color: rgb(0, 0, 0);
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/GreyButton.png?fileID=21300000&guid=b155921a84e5e41b192fe64b14618713&type=3#GreyButton');
+}
+
+.button-long--yellow {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/MainButton.png?fileID=21300000&guid=612390a1cd22a4403b85c7fb5cb7c4d1&type=3#MainButton');
+    -unity-text-outline-color: rgb(157, 35, 11);
+    text-shadow: 3px 3px 0 rgb(157, 35, 10);
+}
+
+.button-long--yellow:active {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMainYellowPressed.png?fileID=21300000&guid=c96062ca698c645258fbf9555f558741&type=3#ButtonMainYellowPressed');
+}
+
+.button-long--red {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/CancelButton.png?fileID=21300000&guid=ccdeaedddcd164707b37b8404a10b7c9&type=3#CancelButton');
+}
+
+.button-long--red:active {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/CancelButtonPressed.png?fileID=21300000&guid=1394041b722714dbc8bb4a592d103cf0&type=3#CancelButtonPressed');
+}
+
+.button-long--price {
+    padding-bottom: 16px;
+    -unity-text-align: lower-center;
+}
+
+.price-button {
+}
+
+.price-button:active .price-button__holder {
+    top: 3px;
+    bottom: 5px;
+}
+
+.price-button__holder {
+    position: absolute;
+    left: 0;
+    top: -2px;
+    right: 0;
+    bottom: 10px;
+}
+
+.price-button__price-holder {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.price-button__price {
+    flex-shrink: 1;
+}
+
+.price-button__price--insufficient {
+    color: rgb(233, 58, 58);
+}
+
+.price-button__icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BPP.png?fileID=21300000&guid=100d689cc6ffc41f297345bcfc22f54e&type=3#BPP');
+    width: 30px;
+    height: 30px;
+}
+
+.price-button__icon--cs {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/CS.png?fileID=21300000&guid=d74b22177c5ba4ac6b9293d6c147e46e&type=3#CS');
+}
+
+.price-button__icon--blst {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BLST.png?fileID=21300000&guid=b0ad58f6ca5c1472fa1fb6178491eb03&type=3#BLST');
+}
+
+.price-button__icon--coin {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/CoinIcon.png?fileID=21300000&guid=787f6e10544e24075863e3f881de6467&type=3#CoinIcon');
+}
+
+.button-next {
+    background-image: url('project://database/Assets/Art/UI/Sprites/MatchEnd/NextButton.png?fileID=21300000&guid=7b7f8b5eb966f4fb38b88e5573f3a921&type=3#NextButton');
+    width: 562px;
+    height: 194px;
+    background-color: rgba(255, 255, 255, 0);
+    margin: 0;
+    color: rgb(255, 255, 255);
+    -unity-font-definition: var(--font-italic);
+    text-shadow: 4px 4px 0 rgb(185, 65, 21);
+    -unity-text-outline-color: rgb(185, 65, 21);
+    font-size: 70px;
+    -unity-text-outline-width: 2px;
+    padding-bottom: 27px;
+    -unity-text-align: lower-right;
+    padding-right: 61px;
+    -unity-font-style: bold;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.button-next:active {
+    color: rgb(161, 161, 161);
+}
+
+.might-display {
+    flex-direction: row;
+}
+
+.might-display__label {
+    -unity-font-definition: var(--font-italic);
+    font-size: 54px;
+    color: rgb(248, 199, 46);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    -unity-text-align: lower-right;
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+}
+
+.might-display__icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/MightIcon.png?fileID=21300000&guid=abcf917df72d242a482c9f221840fbb2&type=3#MightIcon');
+    width: 70px;
+    height: 82px;
+}
+
+.height-spacer {
+    width: 0;
+    height: 5px;
+}
+
+.height-spacer--s {
+    height: 10px;
+}
+
+.height-spacer--m {
+    height: 20px;
+}
+
+.height-spacer--l {
+    height: 30px;
+}
+
+.height-spacer--xl {
+    height: 50px;
+}
+
+.height-spacer--xxl {
+    height: 75px;
+}
+
+.height-spacer--xxxl {
+    height: 125px;
+}
+
+.width-spacer {
+    height: 0;
+    width: 5px;
+}
+
+.width-spacer--s {
+    width: 10px;
+}
+
+.width-spacer--m {
+    width: 20px;
+}
+
+.width-spacer--l {
+    width: 30px;
+}
+
+.width-spacer--xl {
+    width: 50px;
+}
+
+.width-spacer--xxl {
+    width: 75px;
+}
+
+.width-spacer--xxxl {
+    width: 125px;
 }

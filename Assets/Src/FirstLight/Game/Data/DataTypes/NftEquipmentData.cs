@@ -1,4 +1,5 @@
 using System;
+using FirstLightServerSDK.Modules;
 
 namespace FirstLight.Game.Data.DataTypes
 {
@@ -7,7 +8,6 @@ namespace FirstLight.Game.Data.DataTypes
 	{
 		public string TokenId;
 		public long InsertionTimestamp;
-		public long LastRepairTimestamp;
 		public string ImageUrl;
 
 		/// <summary>
@@ -15,5 +15,14 @@ namespace FirstLight.Game.Data.DataTypes
 		/// Empty TokenId signature means an invalid NFT Data
 		/// </summary>
 		public bool IsValid => !string.IsNullOrWhiteSpace(TokenId);
+
+		public override int GetHashCode()
+		{
+			int hash = 17;
+			hash = hash * 23 + TokenId.GetHashCode();
+			hash = hash * 23 + InsertionTimestamp.GetHashCode();
+			hash = hash * 23 + ImageUrl.GetDeterministicHashCode();
+			return hash;
+		}
 	}
 }

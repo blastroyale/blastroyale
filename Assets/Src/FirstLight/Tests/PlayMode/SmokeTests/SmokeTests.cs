@@ -1,5 +1,9 @@
 using System.Collections;
+using System.Linq;
 using FirstLight.Game.Presenters;
+using FirstLight.Game.Views;
+using FirstLight.Game.Views.MainMenuViews;
+using FirstLight.UiService;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -39,8 +43,8 @@ namespace FirstLight.Tests.PlayTests
 			FLGTestTools.ClickDeadScreenLeave();
 			
 			yield return FLGTestTools.WaitForGameCompleteScreen();
-			// Wait for Game Complete Screen continue button to appear
-			var gameCompleteScreen = GameObject.FindObjectOfType<GameCompleteScreenPresenter>();
+
+			var gameCompleteScreen = GameObject.FindObjectOfType<WinnerScreenPresenter>();
 			yield return TestTools.UntilChildOfType<Button>(gameCompleteScreen.gameObject);
 
 			FLGTestTools.ClickGameCompleteContinue();
@@ -52,6 +56,15 @@ namespace FirstLight.Tests.PlayTests
 			yield return FLGTestTools.WaitForMainMenu();
 		}
 
-		
+		[UnityTest]
+		public IEnumerator CheckEquipment_NoErrors() 
+		{
+			yield return TestTools.LoadSceneAndWaitUntilDone("Boot");
+			yield return FLGTestTools.WaitForMainMenu();
+
+			TestTools.ClickUIToolKitButton(TestTools.GetUIDocument<HomeScreenPresenter>(),"EquipmentButton");
+			TestTools.ClickUIToolKitButton(TestTools.GetUIDocument<EquipmentPresenter>(),"WeaponCategory");
+			TestTools.ClickUIToolKitImageButton(TestTools.GetUIDocument<EquipmentSelectionPresenter>(),"back");
+		}
 	}
 }

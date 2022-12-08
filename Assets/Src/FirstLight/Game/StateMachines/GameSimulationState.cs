@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 using Assets.Src.FirstLight.Game.Commands.QuantumLogicCommands;
 using ExitGames.Client.Photon;
 using FirstLight.FLogger;
+using Cinemachine;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Configs.AssetConfigs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -18,9 +20,14 @@ using FirstLight.Statechart;
 using I2.Loc;
 using Photon.Realtime;
 using PlayFab;
+using Newtonsoft.Json;
 using Quantum;
 using Quantum.Commands;
 
+using Quantum.Task;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using PlayerMatchData = FirstLight.Game.Services.PlayerMatchData;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -30,15 +37,13 @@ namespace FirstLight.Game.StateMachines
 	public class GameSimulationState
 	{
 		public static readonly IStatechartEvent SimulationStartedEvent = new StatechartEvent("Simulation Ready Event");
-		public static readonly IStatechartEvent GameCompleteExitEvent = new StatechartEvent("Game Complete Exit Event");
-		public static readonly IStatechartEvent MatchEndedEvent = new StatechartEvent("Game Ended Event");
-		public static readonly IStatechartEvent MatchQuitEvent = new StatechartEvent("Game Quit Event");
 
 		private readonly DeathmatchState _deathmatchState;
 		private readonly BattleRoyaleState _battleRoyaleState;
 		private readonly IGameDataProvider _gameDataProvider;
 		private readonly IGameServices _services;
 		private readonly IGameUiService _uiService;
+		private readonly IAssetAdderService _assetAdderService;
 		private IMatchServices _matchServices;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private readonly IGameNetworkService _network;
@@ -48,7 +53,7 @@ namespace FirstLight.Game.StateMachines
 		private uint _trophiesBeforeLastChange = 0;
 
 		public GameSimulationState(IGameDataProvider gameDataProvider, IGameServices services, IGameBackendNetworkService networkService, 
-								   IGameUiService uiService, Action<IStatechartEvent> statechartTrigger)
+								   IGameUiService uiService, Action<IStatechartEvent> statechartTrigger, IAssetAdderService assetAdderService)
 		{
 			_gameDataProvider = gameDataProvider;
 			_services = services;
@@ -57,6 +62,7 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger = statechartTrigger;
 			_deathmatchState = new DeathmatchState(gameDataProvider, services, uiService, statechartTrigger);
 			_battleRoyaleState = new BattleRoyaleState(services, uiService, statechartTrigger);
+			_assetAdderService = assetAdderService;
 		}
 
 		/// <summary>
@@ -95,17 +101,13 @@ namespace FirstLight.Game.StateMachines
 			modeCheck.Transition().Condition(ShouldUseBattleRoyaleSM).Target(battleRoyale);
 			modeCheck.Transition().Target(battleRoyale);
 
-			deathmatch.Nest(_deathmatchState.Setup).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
+			deathmatch.Nest(_deathmatchState.Setup).Target(final);
 			deathmatch.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(OnDisconnectDuringSimulation).Target(disconnectedPlayerCheck);
-			deathmatch.Event(MatchEndedEvent).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
-			deathmatch.Event(MatchQuitEvent).OnTransition(() => MatchEndAnalytics(true)).Target(quitCheck);
 			deathmatch.OnExit(CleanUpMatch);
 			deathmatch.OnExit(PublishMatchEnded);
 
-			battleRoyale.Nest(_battleRoyaleState.Setup).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
+			battleRoyale.Nest(_battleRoyaleState.Setup).Target(final);
 			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(OnDisconnectDuringSimulation).Target(disconnectedPlayerCheck);
-			battleRoyale.Event(MatchEndedEvent).OnTransition(() => MatchEndAnalytics(false)).Target(gameEnded);
-			battleRoyale.Event(MatchQuitEvent).OnTransition(() => MatchEndAnalytics(true)).Target(quitCheck);
 			battleRoyale.OnExit(CleanUpMatch);
 			battleRoyale.OnExit(PublishMatchEnded);
 			
@@ -129,20 +131,6 @@ namespace FirstLight.Game.StateMachines
 			gameResults.WaitingFor(ResultsScreen).Target(trophiesCheck);
 			gameResults.OnExit(CloseResultScreen);
 
-			trophiesCheck.Transition().Condition(HasTrophyChangeToDisplay).Target(trophiesGainLoss);
-			trophiesCheck.Transition().Target(rewardsCheck);
-
-			trophiesGainLoss.WaitingFor(OpenTrophiesScreen).Target(rewardsCheck);
-			trophiesGainLoss.OnExit(CloseTrophiesScreen);
-
-			rewardsCheck.Transition().Condition(HasRewardsToClaim).Target(gameRewards);
-			rewardsCheck.Transition().Target(final);
-
-			gameRewards.WaitingFor(OpenRewardsScreen).Target(final);
-			gameRewards.OnExit(CloseRewardsScreen);
-
-			final.OnEnter(CloseLowConnectionScreen);
-			final.OnEnter(StopSimulation);
 			final.OnEnter(UnsubscribeEvents);
 		}
 
@@ -163,14 +151,9 @@ namespace FirstLight.Game.StateMachines
 
 		private void OpenLowConnectionScreen()
 		{
-			_uiService.OpenUiAsync<LowConnectionPresenter>();
+			_uiService.OpenScreen<LowConnectionPresenter>();
 		}
 
-		private void CloseLowConnectionScreen()
-		{
-			_uiService.CloseUi<LowConnectionPresenter>(true);
-		}
-		
 		private void OpenDisconnectedMatchEndDialog()
 		{
 			var confirmButton = new GenericDialogButton
@@ -234,16 +217,6 @@ namespace FirstLight.Game.StateMachines
 			return _services.NetworkService.QuantumClient.CurrentRoom.GetMatchType() == MatchType.Custom;
 		}
 
-		private bool HasRewardsToClaim()
-		{
-			return _gameDataProvider.RewardDataProvider.UnclaimedRewards.Count > 0;
-		}
-
-		private bool HasTrophyChangeToDisplay()
-		{
-			return _lastTrophyChange != 0;
-		}
-
 		private bool ShouldUseDeathmatchSM()
 		{
 			return _services.NetworkService.CurrentRoomGameModeConfig.Value.AudioStateMachine ==
@@ -282,7 +255,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnGameEnded(EventOnGameEnded callback)
 		{
-			_statechartTrigger(MatchEndedEvent);
+			_statechartTrigger(MatchState.MatchEndedEvent);
 		}
 
 		private void OnQuitGameScreenClickedMessage(QuitGameClickedMessage message)
@@ -311,34 +284,9 @@ namespace FirstLight.Game.StateMachines
 				QuantumRunner.Default.Game.SendCommand(new PlayerQuitCommand());
 			}
 			
-			_statechartTrigger(MatchQuitEvent);
+			_statechartTrigger(MatchState.MatchQuitEvent);
 		}
-
-		private void MatchEndAnalytics(bool playerQuit)
-		{
-			if (IsSpectator())
-			{
-				return;
-			}
-
-			var game = QuantumRunner.Default.Game;
-			var f = game.Frames.Verified;
-			var gameContainer = f.GetSingleton<GameContainer>();
-			var matchData = gameContainer.GetPlayersMatchData(f, out _);
-			var localPlayerData = matchData[game.GetLocalPlayers()[0]];
-			var totalPlayers = 0;
-
-			for (var i = 0; i < matchData.Count; i++)
-			{
-				if (matchData[i].Data.IsValid && !f.Has<BotCharacter>(matchData[i].Data.Entity))
-				{
-					totalPlayers++;
-				}
-			}
-   
-			_services.AnalyticsService.MatchCalls.MatchEnd(totalPlayers, playerQuit, f.Time.AsFloat, localPlayerData);
-		}
-
+		
 		private void StartSimulation()
 		{
 			var client = _services.NetworkService.QuantumClient;
@@ -381,87 +329,12 @@ namespace FirstLight.Game.StateMachines
 
 		private void PublishMatchEnded()
 		{
-			_services.MessageBrokerService.Publish(new MatchEndedMessage());
+			_services.MessageBrokerService.Publish(new MatchEndedMessage(){Game = QuantumRunner.Default.Game});
 		}
 
 		private void OpenAdventureWorldHud()
 		{
 			_uiService.OpenUi<MatchWorldHudPresenter>();
-		}
-
-		private void OpenGameCompleteScreen()
-		{
-			var data = new GameCompleteScreenPresenter.StateData {ContinueClicked = ContinueClicked};
-
-			_uiService.OpenUi<GameCompleteScreenPresenter, GameCompleteScreenPresenter.StateData>(data);
-
-			void ContinueClicked()
-			{
-				_statechartTrigger(GameCompleteExitEvent);
-			}
-		}
-
-		private void CloseCompleteScreen()
-		{
-			_uiService.CloseUi<GameCompleteScreenPresenter>();
-		}
-
-		private async void ResultsScreen(IWaitActivity activity)
-		{
-			var cacheActivity = activity;
-			var data = new ResultsScreenPresenter.StateData
-			{
-				ContinueButtonClicked = () => cacheActivity.Complete(),
-				HomeButtonClicked = () => cacheActivity.Complete(),
-			};
-			
-			await _uiService.OpenUiAsync<ResultsScreenPresenter, ResultsScreenPresenter.StateData>(data);
-		}
-
-		private void CloseResultScreen()
-		{
-			_uiService.CloseUi<ResultsScreenPresenter>(true);
-		}
-
-		private void OpenRewardsScreen(IWaitActivity activity)
-		{
-			var cacheActivity = activity;
-			var data = new RewardsScreenPresenter.StateData {MainMenuClicked = ContinueClicked};
-
-			_uiService.OpenUiAsync<RewardsScreenPresenter, RewardsScreenPresenter.StateData>(data);
-
-			void ContinueClicked()
-			{
-				cacheActivity.Complete();
-			}
-		}
-
-		private void CloseRewardsScreen()
-		{
-			_uiService.CloseUi<RewardsScreenPresenter>(true);
-		}
-
-		private void OpenTrophiesScreen(IWaitActivity activity)
-		{
-			var cacheActivity = activity;
-			var data = new TrophiesScreenPresenter.StateData
-			{
-				ExitTrophyScreen = ContinueClicked,
-				LastTrophyChange = _lastTrophyChange,
-				TrophiesBeforeLastChange = _trophiesBeforeLastChange
-			};
-
-			_uiService.OpenUiAsync<TrophiesScreenPresenter, TrophiesScreenPresenter.StateData>(data);
-
-			void ContinueClicked()
-			{
-				cacheActivity.Complete();
-			}
-		}
-
-		private void CloseTrophiesScreen()
-		{
-			_uiService.CloseUi<TrophiesScreenPresenter>(true);
 		}
 
 		private void PublishMatchStartedMessage(QuantumGame game, bool isResync)
@@ -481,8 +354,7 @@ namespace FirstLight.Game.StateMachines
 			var loadout = _gameDataProvider.EquipmentDataProvider.Loadout;
 			var inventory = _gameDataProvider.EquipmentDataProvider.Inventory;
 			var f = game.Frames.Verified;
-			var spawnPosition = _uiService.GetUi<MatchmakingLoadingScreenPresenter>().mapSelectionView
-			                              .NormalizedSelectionPoint;
+			var spawnPosition = _services.MatchmakingService.NormalizedMapSelectedPosition;
 
 			var spawnWithloadout = f.Context.GameModeConfig.SpawnWithGear || f.Context.GameModeConfig.SpawnWithWeapon;
 
@@ -494,7 +366,7 @@ namespace FirstLight.Game.StateMachines
 				{
 					continue;
 				}
-				else if (itemId.GameId.IsInGroup(GameIdGroup.Weapon) && 
+				if (itemId.GameId.IsInGroup(GameIdGroup.Weapon) && 
 					(!f.Context.GameModeConfig.SpawnWithWeapon || f.Context.TryGetMutatorByType(MutatorType.HammerTime, out _)))
 				{
 					continue;

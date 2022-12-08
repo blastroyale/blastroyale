@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
+using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.NativeUi;
 using FirstLight.UiService;
@@ -27,17 +30,20 @@ namespace FirstLight.Game.Presenters
 
 		public struct StateData
 		{
-			public Action BackClicked;
 			public Action IapProcessingFinished;
 			public Action<string> OnPurchaseItem;
 			public IGameUiService UiService;
+			
+			public Action OnHomeClicked;
+			public Action OnBackClicked;
 		}
 
 		private IGameServices _gameServices;
 
 		private VisualElement _blocker;
+		private ScreenHeaderElement _header;
 
-		private readonly Queue<Equipment> _pendingRewards = new();
+		private readonly Queue<KeyValuePair<UniqueId,Equipment>> _pendingRewards = new();
 
 		private void Awake()
 		{
@@ -48,7 +54,9 @@ namespace FirstLight.Game.Presenters
 		{
 			_blocker = root.Q("Blocker").Required();
 
-			root.Q<Button>("BackButton").clicked += Data.BackClicked;
+			_header = root.Q<ScreenHeaderElement>("Header").Required();
+			_header.backClicked += Data.OnBackClicked;
+			_header.homeClicked += Data.OnHomeClicked;
 
 			SetupItem("ItemRare", ITEM_RARE_ID);
 			SetupItem("ItemEpic", ITEM_EPIC_ID);
@@ -115,12 +123,14 @@ namespace FirstLight.Game.Presenters
 			Data.OnPurchaseItem(id);
 		}
 
-		private void TryShowNextReward()
+		private async void TryShowNextReward()
 		{
-			// Keep showing/dismissing the battle pass generic reward dialog recursively, until all have been shown
-			if (Data.UiService.HasUiPresenter<BattlepassRewardDialogPresenter>())
+			// Keep showing/dismissing reward dialogs recursively, until all have been shown
+			if (Data.UiService.HasUiPresenter<EquipmentRewardDialogPresenter>())
 			{
-				Data.UiService.CloseUi<BattlepassRewardDialogPresenter>();
+				await Data.UiService.CloseUi<EquipmentRewardDialogPresenter>();
+
+				await Task.Delay(GameConstants.Visuals.REWARD_POPUP_CLOSE_MS);
 			}
 
 			if (!_pendingRewards.TryDequeue(out var reward))
@@ -129,14 +139,15 @@ namespace FirstLight.Game.Presenters
 				return;
 			}
 
-			var data = new BattlepassRewardDialogPresenter.StateData()
+			var data = new EquipmentRewardDialogPresenter.StateData()
 			{
 				ConfirmClicked = TryShowNextReward,
-				Reward = reward
+				Equipment = reward.Value,
+				EquipmentId = reward.Key
 			};
 
-			Data.UiService
-				.OpenUiAsync<BattlepassRewardDialogPresenter, BattlepassRewardDialogPresenter.StateData>(data);
+			var popup = await Data.UiService.OpenUiAsync<EquipmentRewardDialogPresenter, EquipmentRewardDialogPresenter.StateData>(data);
+			popup.InitEquipment();
 		}
 
 		private void SetupItem(string uiId, string storeId)

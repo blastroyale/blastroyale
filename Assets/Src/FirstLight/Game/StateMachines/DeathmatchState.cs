@@ -57,8 +57,7 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(spectateCheck);
 			initial.OnExit(SubscribeEvents);
 			initial.OnExit(_killsDictionary.Clear);
-			initial.OnExit(CloseMatchmakingScreen);
-			
+
 			spectateCheck.Transition().Condition(IsSpectator).Target(spectating);
 			spectateCheck.Transition().Target(resyncCheck);
 			
@@ -174,16 +173,16 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 		
-		private async void OpenSpectateHud()
+		private void OpenSpectateHud()
 		{
-			await _uiService.OpenUiAsync<SpectateHudPresenter>();
-			
+			_uiService.OpenScreen<SpectateScreenPresenter, SpectateScreenPresenter.StateData>(new SpectateScreenPresenter.StateData());
+
 			_services.MessageBrokerService.Publish(new SpectateStartedMessage());
 		}
 
 		private void CloseSpectateHud()
 		{
-			_uiService.CloseUi<SpectateHudPresenter>();
+			_uiService.CloseUi<SpectateScreenPresenter>();
 		}
 
 		private void OpenControlsHud()
@@ -219,14 +218,6 @@ namespace FirstLight.Game.StateMachines
 		private void CloseKilledHud()
 		{
 			_uiService.CloseUi<DeathmatchDeadScreenPresenter>();
-		}
-		
-		private void CloseMatchmakingScreen()
-		{
-			if (_uiService.HasUiPresenter<MatchmakingLoadingScreenPresenter>())
-			{
-				_uiService.CloseUi<MatchmakingLoadingScreenPresenter>(true);
-			}
 		}
 
 		private async Task Countdown()

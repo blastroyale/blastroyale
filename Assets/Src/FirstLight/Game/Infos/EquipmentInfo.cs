@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
-using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Quantum;
 
 namespace FirstLight.Game.Infos
@@ -34,16 +34,26 @@ namespace FirstLight.Game.Infos
 		PickupSpeed,
 		ShieldCapacity,
 	}
-	
+
 	public struct EquipmentInfo
 	{
 		public UniqueId Id;
 		public Equipment Equipment;
+		public Pair<GameId, uint> ScrappingValue;
+		public Pair<GameId, uint> UpgradeCost;
+		public Pair<GameId, uint> RepairCost;
+		public uint CurrentDurability;
 		public bool IsEquipped;
 		public bool IsNft;
 		public Dictionary<EquipmentStatType, float> Stats;
+		public Dictionary<EquipmentStatType, float> NextLevelStats;
+
+		/// <summary>
+		/// Check if the item is broken or not
+		/// </summary>
+		public bool IsBroken => CurrentDurability == 0;
 	}
-	
+
 	public struct NftEquipmentInfo
 	{
 		public EquipmentInfo EquipmentInfo;
@@ -64,7 +74,7 @@ namespace FirstLight.Game.Infos
 		/// Requests if this equipment's NFT is on cooldown or not
 		/// </summary>
 		public bool IsOnCooldown => Cooldown.TotalSeconds > 0;
-		
+
 		/// <summary>
 		/// Because old jsons didn't had SSL, making it backwards compatible
 		/// we need SSL for iOS because 'random Apple rant'
@@ -82,56 +92,57 @@ namespace FirstLight.Game.Infos
 		/// <paramref name="modSumFunc"/> modifier
 		/// </summary>
 		public static double GetAugmentedModSum(this List<EquipmentInfo> items, QuantumGameConfig gameConfig,
-		                                        Func<EquipmentInfo, double> modSumFunc)
+												Func<EquipmentInfo, double> modSumFunc)
 		{
 			var modEquipmentList = new List<Tuple<double, Equipment>>();
 			var nftAssumed = gameConfig.NftAssumedOwned;
 			var earningsAugDropMod = (double) gameConfig.EarningsAugmentationStrengthDropMod;
 			var earningsAugSteepnessMod = (double) gameConfig.EarningsAugmentationStrengthSteepnessMod;
 			var augmentedModSum = 0d;
-			
+
 			foreach (var nft in items)
 			{
-				modEquipmentList.Add(new Tuple<double, Equipment>(modSumFunc(nft),nft.Equipment));
+				modEquipmentList.Add(new Tuple<double, Equipment>(modSumFunc(nft), nft.Equipment));
 			}
-			
+
 			modEquipmentList = modEquipmentList.OrderByDescending(x => x.Item1).ToList();
 
 			for (var i = 0; i < modEquipmentList.Count; i++)
 			{
-				var strength = Math.Pow(Math.Max(0, 1 - Math.Pow(i, earningsAugDropMod) / nftAssumed), earningsAugSteepnessMod);
-				
+				var strength = Math.Pow(Math.Max(0, 1 - Math.Pow(i, earningsAugDropMod) / nftAssumed),
+					earningsAugSteepnessMod);
+
 				augmentedModSum += modEquipmentList[i].Item1 * strength;
 			}
 
 			return augmentedModSum;
 		}
-		
+
 		/// <summary>
 		/// Requests the durability states for all the equipments in the given <paramref name="items"/>
 		/// </summary>
 		public static uint GetAvgDurability(this List<EquipmentInfo> items, out uint maxDurability)
 		{
 			var total = 0u;
-			
+
 			maxDurability = 0u;
-			
+
 			foreach (var nft in items)
 			{
-				total += nft.Equipment.Durability;
+				total += nft.CurrentDurability;
 				maxDurability += nft.Equipment.MaxDurability;
 			}
 
 			return total;
 		}
-		
+
 		/// <summary>
 		/// Requests a specified <paramref name="stat"/> for all the equipments in the given <paramref name="items"/>
 		/// </summary>
 		public static float GetTotalStat(this List<EquipmentInfo> items, EquipmentStatType stat)
 		{
 			var total = 0f;
-			
+
 			foreach (var nft in items)
 			{
 				total += nft.Stats[stat];
@@ -139,26 +150,54 @@ namespace FirstLight.Game.Infos
 
 			return total;
 		}
-		
+
 		/// <summary>
 		/// Requests "Might" for all the equipments in the given <paramref name="items"/>
 		/// </summary>
-		public static float GetTotalMight(this List<EquipmentInfo> items, IReadOnlyDictionary<int, QuantumStatConfig> configs)
+		public static float GetTotalMight(this List<EquipmentInfo> items,
+										  IReadOnlyDictionary<int, QuantumStatConfig> configs)
 		{
-			var statConfigs = configs.ToDictionary(f => (StatType)f.Key, f => f.Value);
+			var statConfigs = configs.ToDictionary(f => (StatType) f.Key, f => f.Value);
 			var total = 0f;
-			
+
 			foreach (var nft in items)
 			{
 				total += QuantumStatCalculator.GetTotalMight(statConfigs,
-				                                             nft.Stats[EquipmentStatType.Armor].ToFP(),
-				                                             nft.Stats[EquipmentStatType.Hp].ToFP(),
-				                                             nft.Stats[EquipmentStatType.Speed].ToFP(),
-				                                             nft.Stats[EquipmentStatType.Power].ToFP(),
-				                                             nft.Stats[EquipmentStatType.TargetRange].ToFP(),
-				                                             nft.Stats[EquipmentStatType.PickupSpeed].ToFP(),
-				                                             nft.Stats[EquipmentStatType.MaxCapacity].ToFP(),
-				                                             nft.Stats[EquipmentStatType.ShieldCapacity].ToFP());
+					nft.Stats[EquipmentStatType.Armor].ToFP(),
+					nft.Stats[EquipmentStatType.Hp].ToFP(),
+					nft.Stats[EquipmentStatType.Speed].ToFP(),
+					nft.Stats[EquipmentStatType.Power].ToFP(),
+					nft.Stats[EquipmentStatType.TargetRange].ToFP(),
+					nft.Stats[EquipmentStatType.PickupSpeed].ToFP(),
+					nft.Stats[EquipmentStatType.MaxCapacity].ToFP(),
+					nft.Stats[EquipmentStatType.ShieldCapacity].ToFP());
+			}
+
+			return total;
+		}
+
+		/// <summary>
+		/// Requests "Might" for all the equipments in the given <paramref name="items"/>
+		/// </summary>
+		public static float GetTotalMight(this IEnumerable<Equipment> items, IConfigsProvider configsProvider)
+		{
+			var statConfigs = configsProvider.GetConfigsDictionary<QuantumStatConfig>()
+				.ToDictionary(f => (StatType) f.Key, f => f.Value);
+			var total = 0f;
+
+			foreach (var item in items)
+			{
+				var stats = item.GetStats(configsProvider);
+
+				total += QuantumStatCalculator.GetTotalMight(statConfigs,
+					stats[EquipmentStatType.Armor].ToFP(),
+					stats[EquipmentStatType.Hp].ToFP(),
+					stats[EquipmentStatType.Speed].ToFP(),
+					stats[EquipmentStatType.Power].ToFP(),
+					stats[EquipmentStatType.TargetRange].ToFP(),
+					stats[EquipmentStatType.PickupSpeed].ToFP(),
+					stats[EquipmentStatType.MaxCapacity].ToFP(),
+					stats[EquipmentStatType.ShieldCapacity].ToFP());
 			}
 
 			return total;

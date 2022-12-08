@@ -104,6 +104,24 @@ namespace FirstLight.Tests.EditorMode.Logic
 			Assert.AreEqual(3, rewards.Count);
 			Assert.IsTrue(redeemed);
 		}
+		
+		[Test]
+		public void TestRedeem100BPP()
+		{
+			Assert.AreEqual(0, _battlePassLogic.CurrentPoints.Value);
+			Assert.AreEqual(0, _battlePassLogic.CurrentLevel.Value);
+
+			_battlePassLogic.AddBPP(100);
+			var redeemed = _battlePassLogic.RedeemBPP(out var rewards, out var newLevel);
+
+			Assert.AreEqual(_battlePassLogic.MaxLevel, newLevel);
+			Assert.AreEqual(4, _battlePassLogic.CurrentLevel.Value);
+			Assert.AreEqual(0, _battlePassLogic.CurrentPoints.Value);
+			Assert.AreEqual(4, rewards.Count);
+			Assert.AreEqual(_battlePassLogic.GetRemainingPoints(), 0);
+			
+			Assert.IsTrue(redeemed);
+		}
 
 		[Test]
 		public void TestMaxLevel()

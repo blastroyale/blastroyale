@@ -58,13 +58,14 @@ namespace Backend.Game.Services
 		public async Task<ServerState> ExecuteCommand(string userId, IGameCommand cmd, ServerState currentState)
 		{
 			var dataProvider = new ServerPlayerDataProvider(currentState);
+			dataProvider.ClearDeltas(); // initializing logic triggers deltas
 			var msgBroker = new GameServerLogicMessageBroker(userId, _eventManager, _log);
 			var logic = new GameServerLogic(await _cfg.GetGameConfigs(), dataProvider, msgBroker);
+			logic.Init();
 			var serviceContainer = new ServiceContainer();
 			serviceContainer.Add<IMessageBrokerService>(msgBroker);
 			var logicContainer = new LogicContainer().Build(logic);
 			var commandContext = new CommandExecutionContext(logicContainer, serviceContainer, dataProvider);
-			logic.Init();
 			cmd.Execute(commandContext);
 			var newState = dataProvider.GetUpdatedState();
 			return newState;

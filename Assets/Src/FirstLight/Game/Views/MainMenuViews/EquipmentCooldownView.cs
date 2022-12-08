@@ -58,10 +58,12 @@ namespace FirstLight.Game.Views.MainMenuViews
 		public void InitCooldown(UniqueId id)
 		{
 			_uniqueId = id;
-			
-			var cooldown = _gameDataProvider.EquipmentDataProvider.GetNftInfo(_uniqueId).Cooldown;
 
-			if (cooldown.TotalSeconds > 0)
+			_gameDataProvider.EquipmentDataProvider.TryGetNftInfo(_uniqueId, out var info);
+			
+			var cooldown = info.Cooldown;
+
+			if (info.Cooldown.TotalSeconds > 0)
 			{
 				SetVisualsActive(true);
 				_services.TickService.SubscribeOnUpdate(TickTimerView, TIMER_INTERVAL_SECONDS);

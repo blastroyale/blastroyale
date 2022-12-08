@@ -118,8 +118,8 @@ namespace BlastRoyaleNFTPlugin
 			var nftData = equipmentData.NftInventory[equipmentUniqueId];
 			var equipment = equipmentData.Inventory[equipmentUniqueId];
 
+			equipment.LastRepairTimestamp = nft.lastRepairTime;
 			equipment.Level = Convert.ToUInt32(nft.level);
-			nftData.LastRepairTimestamp = nft.lastRepairTime;
 
 			equipmentData.NftInventory[equipmentUniqueId] = nftData;
 			equipmentData.Inventory[equipmentUniqueId] = equipment;
@@ -178,8 +178,10 @@ namespace BlastRoyaleNFTPlugin
 
 			nftEquipment.InsertionTimestamp = DateTime.UtcNow.Ticks;
 
+			// TODO: This should use EquipmentLogic.AddEquipment
 			equipmentData.Inventory.Add(nextId, equipment);
 			equipmentData.NftInventory.Add(nextId, nftEquipment);
+			idData.NewIds.Add(nextId);
 			idData.GameIds.Add(nextId, equipment.GameId);
 
 			var analytics = equipment.ToAnalyticsData();
@@ -201,6 +203,7 @@ namespace BlastRoyaleNFTPlugin
 			nftEquipment.Inventory.Remove(uniqueId);
 			nftEquipment.NftInventory.Remove(uniqueId);
 			idData.GameIds.Remove(uniqueId);
+			idData.NewIds.Remove(uniqueId);
 			
 			var analytics = equipment.ToAnalyticsData();
 			analytics["token_id"] = nftData.TokenId;
@@ -252,7 +255,6 @@ namespace BlastRoyaleNFTPlugin
 			equip.Level = Convert.ToUInt32(nft.level);
 			equip.MaxLevel = Convert.ToUInt32(nft.maxLevel);
 			equip.ReplicationCounter = Convert.ToUInt32(nft.replicationCount);
-			equip.Durability = Convert.ToUInt32(nft.maxDurability);
 			return equip;
 		}
 
@@ -263,7 +265,7 @@ namespace BlastRoyaleNFTPlugin
 		{
 			return new NftEquipmentData
 			{
-				TokenId = nft.token_id, ImageUrl = nft.image, LastRepairTimestamp = nft.lastRepairTime
+				TokenId = nft.token_id, ImageUrl = nft.image
 			};
 		}
 	}

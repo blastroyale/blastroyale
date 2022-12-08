@@ -77,11 +77,32 @@ synced event OnPlayerAmmoChanged
 {
 	player_ref Player;
 	entity_ref Entity;
-	Int32 PreviousAmmo;
 	Int32 CurrentAmmo;
 	Int32 MaxAmmo;
-	FP FilledAmmo;
+	Int32 MagSize;
 }
+
+synced event OnPlayerMagazineChanged
+{
+	player_ref Player;
+	entity_ref Entity;
+	Int32 MagSize;
+}
+
+synced event OnPlayerReloadStart
+{
+	player_ref Player;
+	entity_ref Entity;
+	Equipment Weapon;
+}
+
+synced event OnPlayerMagazineReloaded
+{
+	player_ref Player;
+	entity_ref Entity;
+	Equipment Weapon;
+}
+
 
 synced event OnPlayerWeaponChanged
 {

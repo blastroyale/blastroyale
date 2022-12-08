@@ -4,11 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
-using System.Windows.Input;
-using Backend.Game.Services;
 using BlastRoyaleNFTPlugin;
 using FirstLight.Server.SDK;
-using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Src.FirstLight.Server;
@@ -83,7 +80,6 @@ namespace Backend.Plugins {
 		/// Client plugins might not have simple access to things like environemnt variables
 		/// Their intent is to add specific behaviour on server without requiring to modify server code.
 		/// </summary>
-		[CanBeNull]
 		private List<ServerPlugin> GetClientPlugins(IServiceCollection services)
 		{
 			if (_serverSetup == null)

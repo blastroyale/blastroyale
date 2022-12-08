@@ -14,8 +14,17 @@ namespace FirstLight.Game.UIElements
 		private bool applyLeft { get; set; }
 		private bool applyRight { get; set; }
 
-		public SafeAreaElement()
+		public SafeAreaElement(): this(true)
 		{
+		}
+
+		public SafeAreaElement(bool applyTop = true, bool applyBottom = true, bool applyLeft = true, bool applyRight = true)
+		{
+			this.applyTop = applyTop;
+			this.applyBottom = applyBottom;
+			this.applyLeft = applyLeft;
+			this.applyRight = applyRight;
+			
 			style.flexGrow = 1;
 			style.flexShrink = 1;
 

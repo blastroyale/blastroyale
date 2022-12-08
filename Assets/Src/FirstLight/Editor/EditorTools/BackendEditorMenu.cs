@@ -62,6 +62,8 @@ namespace FirstLight.Editor.EditorTools
 			CopyAssembly(_unityPath, "FirstLight.Game.dll");
 			CopyAssembly(_unityPath, "FirstLight.Services.dll");
 			CopyAssembly(_unityPath, "PhotonQuantum.dll");
+
+			CopyConfigs(); // also copy configs to ensure everything is updated
 		}
 
 		/// <summary>

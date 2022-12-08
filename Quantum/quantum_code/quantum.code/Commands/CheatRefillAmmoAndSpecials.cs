@@ -17,6 +17,7 @@ namespace Quantum.Commands
 		{
 			var characterEntity = f.GetSingleton<GameContainer>().PlayersData[playerRef].Entity;
 			var pc = f.Unsafe.GetPointer<PlayerCharacter>(characterEntity);
+			var stats = f.Unsafe.GetPointer<Stats>(characterEntity);
 
 			// Replenish Special's charges
 			for (var i = 0; i < pc->WeaponSlots.Length; i++)
@@ -27,7 +28,7 @@ namespace Quantum.Commands
 				pc->WeaponSlots[i].Specials[1].AvailableTime = f.Time;
 			}
 
-			pc->GainAmmo(f, characterEntity, FP._1);
+			stats->GainAmmoPercent(f, characterEntity, FP._1);
 			pc->EquipSlotWeapon(f, characterEntity, pc->CurrentWeaponSlot);
 		}
 	}

@@ -26,6 +26,7 @@ using Quantum;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
+using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -276,7 +277,7 @@ namespace FirstLight.Game.StateMachines
 			    _networkService.LastDisconnectLocation.Value == LastDisconnectionLocation.Matchmaking)
 			{
 				_requiresManualRoomReconnection = false;
-				JoinRoom(_networkService.LastConnectedRoomName.Value.StripRoomCommitLock(), false);
+				JoinRoom(_networkService.LastConnectedRoomName.Value.TrimRoomCommitLock(), false);
 			}
 		}
 
@@ -649,9 +650,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var matchType = _services.GameModeService.SelectedGameMode.Value.Entry.MatchType;
 			var gameHasBots = gameModeConfig.AllowBots;
-			var gridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
-			var createParams =
-				NetworkUtils.GetRoomCreateParams(gameModeConfig, mapConfig, gridConfigs, null, matchType, mutators, gameHasBots);
+			var createParams = NetworkUtils.GetRoomCreateParams(gameModeConfig, mapConfig, GetRandomDropzonePosRot(), null, matchType, mutators, gameHasBots);
 			var joinRandomParams = NetworkUtils.GetJoinRandomRoomParams(gameModeConfig, mapConfig, matchType, mutators);
 
 			QuantumRunnerConfigs.IsOfflineMode = NetworkUtils.GetMaxPlayers(gameModeConfig, mapConfig) == 1;
@@ -691,8 +690,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void CreateRoom(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, List<string> mutators, string roomName)
 		{
-			var gridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
-			var createParams = NetworkUtils.GetRoomCreateParams(gameModeConfig, mapConfig, gridConfigs, roomName, MatchType.Custom, mutators, false);
+			var createParams = NetworkUtils.GetRoomCreateParams(gameModeConfig, mapConfig, GetRandomDropzonePosRot(), roomName, MatchType.Custom, mutators, false);
 
 			QuantumRunnerConfigs.IsOfflineMode = false;
 
@@ -709,8 +707,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void JoinOrCreateRoom(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, List<string> mutators, string roomName)
 		{
-			var gridConfigs = _services.ConfigsProvider.GetConfig<MapGridConfigs>();
-			var createParams = NetworkUtils.GetRoomCreateParams(gameModeConfig, mapConfig, gridConfigs, roomName, MatchType.Custom, mutators, false);
+			var createParams = NetworkUtils.GetRoomCreateParams(gameModeConfig, mapConfig, GetRandomDropzonePosRot(), roomName, MatchType.Custom, mutators, false);
 
 			QuantumRunnerConfigs.IsOfflineMode = false;
 
@@ -905,6 +902,13 @@ namespace FirstLight.Game.StateMachines
 			};
 
 			_networkService.QuantumClient.LocalPlayer.SetCustomProperties(playerProps);
+		}
+
+		private Vector3 GetRandomDropzonePosRot()
+		{
+			var radiusPosPercent = GameConstants.Balance.MAP_DROPZONE_POS_RADIUS_PERCENT;
+			return new Vector3(Random.Range(-radiusPosPercent,radiusPosPercent), 
+							   Random.Range(-radiusPosPercent,radiusPosPercent), Random.Range(0,360));
 		}
 	}
 }

@@ -74,6 +74,15 @@ component BotCharacter
 	
 	// [0;1] where 0 is "never seek" and 1 is "always seek"
 	FP ChanceToSeekChests;
+	
+	// Defines how many categories of gear a bot will get from crates 
+	UInt32 LoadoutGearNumber;
+	
+	// This setting limits a distance from which bots will aim/shoot
+	FP MaxAimingRange;
+	
+	// This setting multiplies the base movement speed
+	FP MovementSpeedMultiplier;
 }
 
 synced event OnDummyCharacterKilled

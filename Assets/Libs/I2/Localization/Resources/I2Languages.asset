@@ -9954,24 +9954,6 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITHomeScreen/waitforrewards_popup_title
-      TermType: 0
-      Description: 
-      Languages:
-      - Please wait
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITHomeScreen/waitforrewards_popup_description
-      TermType: 0
-      Description: 
-      Languages:
-      - Syncing results with the server
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
     - Term: UITDisconnected/connection_lost
       TermType: 0
       Description: 
@@ -10958,7 +10940,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1670349893619
+    Google_LastUpdatedVersion: 1670343602816
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

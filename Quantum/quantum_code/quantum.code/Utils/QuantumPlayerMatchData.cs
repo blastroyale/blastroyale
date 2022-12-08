@@ -12,17 +12,21 @@ namespace Quantum
 		public int MapId;
 		public string GameModeId;
 		public PlayerMatchData Data;
+		public bool IsBot;
 
-		public QuantumPlayerMatchData(Frame f, PlayerRef player) : this(f, f.GetSingleton<GameContainer>().PlayersData[player])
+		public QuantumPlayerMatchData(Frame f, PlayerRef player) : this(f, f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData[player])
 		{
 		}
 
 		public QuantumPlayerMatchData(Frame f, PlayerMatchData data) : this()
 		{
+			var playerData = f.GetPlayerData(data.Player);
+
+			IsBot = playerData == null;
 			MapId = f.RuntimeConfig.MapId;
 			GameModeId = f.RuntimeConfig.GameModeId;
 			Data = data;
-			PlayerName = data.IsBot ? data.BotNameIndex.ToString() : f.GetPlayerData(data.Player).PlayerName;
+			PlayerName = playerData == null ? data.BotNameIndex.ToString() : playerData.PlayerName;
 		}
 
 		public override int GetHashCode()

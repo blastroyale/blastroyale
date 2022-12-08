@@ -19,7 +19,6 @@ namespace Quantum
 			public void OnAllPlayersJoined()
 			{
 				var container = _f.GetSingleton<GameContainer>();
-				var data = container.PlayersData;
 				var matchData = container.GetPlayersMatchData(_f, out var leader);
 				var ev = OnAllPlayersJoined((uint) matchData.Count);
 

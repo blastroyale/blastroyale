@@ -1,0 +1,240 @@
+:root {
+    --out-animation-duration: 0.3s;
+    --out-animation-easing: ease-in;
+    --in-animation-duration: 0.3s;
+    --in-animation-easing: ease-out;
+    --animation-total-duration: 0.7s;
+    --map-marker-easing: ease-in-out-elastic;
+}
+
+.screen-root {
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+}
+
+.safe-area {
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    align-items: flex-end;
+    justify-content: center;
+    position: absolute;
+}
+
+.season-header {
+    height: 116px;
+    -unity-background-image-tint-color: rgb(0, 0, 0);
+    position: relative;
+    width: 100%;
+    flex-shrink: 0;
+}
+
+.season-header__background {
+    position: absolute;
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/TopHeaderBack.png?fileID=2800000&guid=aaff47116a62f45e0a362688aa274e19&type=3#TopHeaderBack');
+    width: 100%;
+    height: 100%;
+}
+
+.season-header__content {
+    position: absolute;
+    -unity-background-scale-mode: scale-and-crop;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    bottom: 0;
+    left: 450px;
+    top: 0;
+    right: 175px;
+}
+
+.season-level {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.season-level__label {
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    -unity-font-style: bold;
+    -unity-font-definition: var(--font-italic);
+    font-size: 50px;
+    color: rgb(255, 255, 255);
+    -unity-paragraph-spacing: -30px;
+    bottom: -3px;
+}
+
+.season-level__label--big {
+    font-size: 72px;
+    margin-left: 4px;
+    bottom: 3px;
+}
+
+.bpp-bar {
+    width: 300px;
+    height: 45px;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.bpp-bar__background {
+    height: 100%;
+    width: 296px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/BPPBarBack.png?fileID=21300000&guid=ddf33ec916e6b4b54993768a10ca208d&type=3#BPPBarBack');
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    flex-direction: row;
+    position: absolute;
+    align-items: center;
+}
+
+.bpp-bar__progress {
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/BPPBar.png?fileID=21300000&guid=f63e212478a7f4fec8c790922a819e4c&type=3#BPPBar');
+    height: 85%;
+    flex-grow: 0.5;
+}
+
+.bpp-bar__icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/BPPicon.png?fileID=21300000&guid=a03eed5b5c5a74c3c85f91bba0a50b81&type=3#BPPicon');
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    left: -30px;
+}
+
+.bpp-bar__label {
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
+    -unity-font-style: bold;
+    -unity-font-definition: var(--font-italic);
+    font-size: 36px;
+    color: rgb(255, 255, 255);
+    -unity-text-align: middle-center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.season-content {
+    flex-direction: row-reverse;
+    flex-grow: 1;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.season-content__scroll {
+    background-color: rgba(255, 0, 0, 0);
+    position: absolute;
+    height: 800px;
+    left: 345px;
+    right: 0;
+}
+
+.season-content__scroll .unity-scroll-view__content-container {
+    flex-direction: row-reverse;
+}
+
+.season-image {
+    height: 100%;
+    width: 425px;
+    overflow: visible;
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/SeasonImageMask.svg?fileID=7388822144124034973&guid=5ae5efccf21c11e469ef6c4f820ee2b8&type=3#SeasonImageMask');
+    -unity-background-image-tint-color: rgb(0, 0, 0);
+    position: absolute;
+    left: 0;
+}
+
+.season-image__mask {
+    position: absolute;
+    height: 100%;
+    overflow: hidden;
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/SeasonImageMask.svg?fileID=7388822144124034973&guid=5ae5efccf21c11e469ef6c4f820ee2b8&type=3#SeasonImageMask');
+    width: 425px;
+    left: -3px;
+}
+
+.season-image__bp-image {
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/BattlePassSeason1Image.png?fileID=2800000&guid=842bcd9fd00c89e4092f70a552d59200&type=3#BattlePassSeason1Image');
+    height: 100%;
+    -unity-background-scale-mode: scale-and-crop;
+    width: 100%;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+}
+
+.season-info {
+    align-items: center;
+    height: 175px;
+    position: absolute;
+    bottom: 0;
+    flex-direction: row;
+    left: 400px;
+    flex-grow: 1;
+    right: 500px;
+    justify-content: flex-start;
+}
+
+.season-info__season-end {
+    flex-direction: row;
+    align-items: center;
+}
+
+.season-info__label {
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    -unity-font-style: bold;
+    -unity-font-definition: var(--font-italic);
+    font-size: 36px;
+    color: rgb(255, 255, 255);
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+.season-info__label--yellow {
+    color: rgb(252, 211, 49);
+}
+
+.claim-button {
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/MainButton.png?fileID=21300000&guid=1c5b1e0f6e789ec43a771b64556e3a8d&type=3#MainButton');
+    -unity-font-style: bold;
+    -unity-font-definition: var(--font-italic);
+    font-size: 45px;
+    text-shadow: 3px 3px 0 rgb(90, 0, 0);
+    color: rgb(255, 255, 255);
+    width: 350px;
+    height: 100px;
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(90, 0, 0);
+    overflow: visible;
+    -unity-text-align: middle-center;
+    align-items: center;
+    white-space: normal;
+    margin-right: 50px;
+    padding-bottom: 15px;
+    position: absolute;
+    bottom: 35px;
+}
+
+.claim-button:active {
+    padding-top: 25px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/BattlePass/MainButtonPressed.png?fileID=21300000&guid=ba6fb635d5b0a5144bf13ab3038819ba&type=3#MainButtonPressed');
+}
+
+.bp-segment-filler {
+    width: 475px;
+    height: 100%;
+}
+
+.screen-header .screen-header__title {
+    bottom: 70px;
+}

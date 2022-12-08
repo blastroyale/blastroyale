@@ -21,6 +21,7 @@ namespace Quantum
 		{
 			CurrentHealth = baseHealth.AsInt;
 			CurrentShield = 0;
+			CurrentAmmo = 0;
 			CurrentStatusModifierDuration = FP._0;
 			CurrentStatusModifierEndTime = FP._0;
 			CurrentStatusModifierType = StatusModifierType.None;
@@ -112,6 +113,57 @@ namespace Quantum
 		}
 
 		/// <summary>
+		/// adds an <paramref name="amount"/>  to your ammo pool
+		/// </summary>
+		internal void GainAmmoAmount(Frame f, EntityRef e, int amount)
+		{
+			var player = f.Unsafe.GetPointer<PlayerCharacter>(e);
+			SetCurrentAmmo(f, player, e, CurrentAmmo + amount);
+		}
+
+		/// <summary>
+		/// Adds ammo to your pool where <paramref name="amount"/> is a % of your total ammo
+		/// </summary>
+		internal void GainAmmoPercent(Frame f, EntityRef e, FP amount)
+		{
+			var maxAmmo = GetStatData(StatType.AmmoCapacity).StatValue.AsInt;
+			var player = f.Unsafe.GetPointer<PlayerCharacter>(e);
+			SetCurrentAmmo(f, player, e, CurrentAmmo + (amount * maxAmmo).AsInt);
+		}
+
+		/// <summary>
+		/// Reduces the given ammo count by <paramref name="amount"/> of this <paramref name="e"/> player's entity
+		/// </summary>
+		internal void ReduceAmmo(Frame f, EntityRef e, int amount)
+		{
+			var player = f.Unsafe.GetPointer<PlayerCharacter>(e);
+			var maxAmmo = GetStatData(StatType.AmmoCapacity).BaseValue.AsInt;
+
+			// Do not do reduce for melee weapons or if your weapon does not consume ammo
+			if (!player->HasMeleeWeapon(f, e))
+			{
+				SetCurrentAmmo(f, player, e, CurrentAmmo - amount);
+			}
+		}
+
+		/// <summary>
+		/// Set's the <paramref name="player"/>'s ammo count to <paramref name="value"/> clamped between 0 and MaxAmmo
+		/// </summary>
+		internal void SetCurrentAmmo(Frame f, PlayerCharacter* player, EntityRef e, int value)
+		{
+			var previousAmmo = CurrentAmmo;
+			var maxAmmo = GetStatData(StatType.AmmoCapacity).StatValue.AsInt;
+			var magSize = player->WeaponSlot->MagazineSize;
+
+			CurrentAmmo = FPMath.Clamp(value, 0, maxAmmo);
+
+			if (CurrentAmmo != previousAmmo)
+			{
+				f.Events.OnPlayerAmmoChanged(player->Player, e, CurrentAmmo, maxAmmo, magSize);
+			}
+		}
+
+		/// <summary>
 		/// Gives the given shields <paramref name="amount"/> to this <paramref name="entity"/> and notifies the change.
 		/// </summary>
 		internal void GainShield(Frame f, EntityRef entity, int amount)
@@ -132,6 +184,7 @@ namespace Quantum
 
 			if (previousShieldCapacity.AsInt == maxShieldCapacity.AsInt)
 			{
+				SetCurrentShield(f, entity, CurrentShield + amount, previousShieldCapacity.AsInt);
 				return;
 			}
 
@@ -274,7 +327,7 @@ namespace Quantum
 			//TODO: Move default (health, speed, shields) values into StatData configs
 			health += f.GameConfig.PlayerDefaultHealth.Get(f);
 			speed += f.GameConfig.PlayerDefaultSpeed.Get(f);
-			ammoCapacity += weaponConfig.MaxAmmo.Get(f);
+			ammoCapacity += f.GameConfig.PlayerDefaultAmmoCapacity.Get(f);
 			maxShields += shieldCapacity.AsInt;
 			startingShields += shieldCapacity.AsInt;
 			

@@ -397,6 +397,7 @@ namespace FirstLight.Services
 		public float Pitch;
 		public bool Mute;
 		public bool Loop;
+		public bool RandomStartTime;
 		public float PitchModPerLoop;
 
 		public AudioRolloffMode RolloffMode;
@@ -411,6 +412,7 @@ namespace FirstLight.Services
 	{
 		public List<AudioClip> AudioClips;
 		public bool Loop;
+		public bool RandomStartTime;
 		public float MinVol;
 		public float MaxVol;
 		public float MinPitch;
@@ -420,6 +422,7 @@ namespace FirstLight.Services
 		public float PlaybackVolume => UnityEngine.Random.Range(MinVol, MaxVol);
 		public float PlaybackPitch => UnityEngine.Random.Range(MinPitch, MaxPitch);
 		public AudioClip PlaybackClip => AudioClips[UnityEngine.Random.Range(0, AudioClips.Count)];
+		public float StartTime => RandomStartTime ? UnityEngine.Random.Range(0, PlaybackClip.length) : 0;
 	}
 
 	/// <inheritdoc />

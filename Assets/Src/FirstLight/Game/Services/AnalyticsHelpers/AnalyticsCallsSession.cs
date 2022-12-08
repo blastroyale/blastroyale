@@ -6,6 +6,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
+using FirstLight.UiService;
 using Quantum;
 using UnityEngine;
 using UnityEngine.Analytics;
@@ -17,10 +18,9 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 	/// </summary>
 	public class AnalyticsCallsSession : AnalyticsCalls
 	{
-		private IDataProvider _dataProvider;
 		private IGameServices _services;
 		private IGameDataProvider _gameData;
-		
+
 		/// <summary>
 		/// Requests the information if the current device model playing the game is a tablet or 
 		/// </summary>
@@ -47,11 +47,9 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		}
 
 		public AnalyticsCallsSession(IAnalyticsService analyticsService, IGameServices services,
-		                             IDataProvider dataProvider,
-		                             IGameDataProvider gameDataProvider) : base(analyticsService)
+									 IGameDataProvider gameDataProvider) : base(analyticsService)
 		{
 			_gameData = gameDataProvider;
-			_dataProvider = dataProvider;
 			_services = services;
 		}
 
@@ -78,7 +76,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		public void GameLoadStart()
 		{
 			// Async call for the AdvertisingId
-			var requestAdvertisingIdSuccess = !Application.RequestAdvertisingIdentifierAsync((id, enabled, msg) =>
+			var requestAdvertisingIdSuccess = Application.RequestAdvertisingIdentifierAsync((id, enabled, msg) =>
 			{
 				var dic = new Dictionary<string, object>
 				{
@@ -142,7 +140,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		/// </summary>
 		public void GameLoaded()
 		{
-			var loadout = _gameData.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.Both);
+			var loadout = _gameData.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All);
 			var inventory = _gameData.EquipmentDataProvider.GetInventoryEquipmentInfo(EquipmentFilter.NftOnly);
 
 			var data = new Dictionary<string, object>
@@ -155,7 +153,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			
 			_analyticsService.LogEvent(AnalyticsEvents.GameLoaded, data);
 		}
-		
+
 #if UNITY_ANDROID
 		private static string GetAndroidAdvertiserId()
 		{

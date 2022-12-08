@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using FirstLight.Game.Ids;
 using quantum.custom.plugin;
+using System.Text;
 
 namespace Quantum
 {
@@ -25,6 +26,7 @@ namespace Quantum
 			Assert.Check(server is CustomQuantumServer);
 			CustomServer = (CustomQuantumServer)server;
 			_cmdHandler = new QuantumCommandHandler(this);
+			CustomServer.OnSimulationCommand = _cmdHandler.DispatchLogicCommandFromQuantumEvent;
 		}
 
 		/// <summary>
@@ -32,21 +34,17 @@ namespace Quantum
 		/// </summary>
 		public override void OnRaiseEvent(IRaiseEventCallInfo info)
 		{
-			if (info.Request.EvCode == (int)QuantumCustomEvents.EndGameCommand)
+			if (info.Request.EvCode == (int)QuantumCustomEvents.Token)
 			{
 				info.Cancel();
-				var client = CustomServer.GetClientForActor(info.ActorNr);
-				if (client == null)
+				try
 				{
-					return;
-				}
-				if (info.Request.Data == null)
+					var token = Encoding.UTF8.GetString((byte[])info.Request.Data);
+					_cmdHandler.ReceiveToken(info.ActorNr, token);
+				} catch(Exception e)
 				{
-					CustomServer.DisconnectClient(client, "Invalid command data");
-					return;
+					Log.Error("Error reading user token "+e.Message);
 				}
-				var bytes = (byte[])info.Request.Data;
-				_cmdHandler.ReceiveEndGameCommand(info.ActorNr, bytes);
 				return;
 			}
 			base.OnRaiseEvent(info);
@@ -109,7 +107,6 @@ namespace Quantum
 		/// </summary>
 		public override void OnCloseGame(ICloseGameCallInfo info)
 		{
-			_cmdHandler.DispatchAllCommands();
 			CustomServer.Dispose();
 			base.OnCloseGame(info);
 		}

@@ -22,14 +22,14 @@ namespace quantum.custom.plugin
 	{
 		private readonly IPluginHost _host;
 		public readonly PlayfabPhotonHttp HttpWrapper;
-	
+
 		public PhotonPlayfabSDK(Dictionary<string, string> photonConfig, IPluginHost host)
 		{
 			_host = host;
 			HttpWrapper = new PlayfabPhotonHttp(_host);
 			PlayFabSettings.staticSettings.TitleId = photonConfig["PlayfabTitle"];
 			PlayFabSettings.staticSettings.DeveloperSecretKey = photonConfig["PlayfabKey"];
-			if(photonConfig.TryGetValue("LocalLogicServer", out var localLogicServer) && localLogicServer=="true")
+			if (photonConfig.TryGetValue("LocalLogicServer", out var localLogicServer) && localLogicServer == "true")
 			{
 				HttpWrapper.ServerAddress = "http://localhost:7274";
 			}
@@ -43,7 +43,7 @@ namespace quantum.custom.plugin
 		public void SendServerCommand(string userId, string token, IQuantumCommand command, bool async = true)
 		{
 			Log.Info($"Sending command {command.GetType()} to {userId}");
-;			var data = new Dictionary<string, string>();
+			var data = new Dictionary<string, string>();
 			data[CommandFields.Command] = ModelSerializer.Serialize(command).Value;
 			data["SecretKey"] = PlayFabSettings.staticSettings.DeveloperSecretKey;
 			var request = new ExecuteFunctionRequest()
@@ -51,7 +51,7 @@ namespace quantum.custom.plugin
 				FunctionName = "ExecuteCommand",
 				FunctionParameter = new LogicRequest()
 				{
-					Command = command.GetType().FullName, 
+					Command = command.GetType().FullName,
 					Data = data
 				},
 				AuthenticationContext = new PlayFabAuthenticationContext()
@@ -66,6 +66,7 @@ namespace quantum.custom.plugin
 			}, async);
 		}
 
+
 		/// <summary>
 		/// Obtains a user readonly data.
 		/// </summary>
@@ -78,14 +79,15 @@ namespace quantum.custom.plugin
 			};
 			HttpWrapper.Post(playerId, "/Server/GetUserReadOnlyData", request, callback);
 		}
-		
+
 		private void OnPlayfabCommand(IHttpResponse response, object userId)
 		{
-			if(response.HttpCode >= 400)
+			if (response.HttpCode >= 400)
 			{
 				var dataString = response.ResponseData?.Length > 0 ? Encoding.UTF8.GetString(response.ResponseData) : "";
 				Log.Error($"Invalid PlayFab response to url {response.Request.Url} status {response.Status} data {dataString} text {response.ResponseText}");
-			} else
+			}
+			else
 			{
 				if (FlgConfig.DebugMode)
 				{

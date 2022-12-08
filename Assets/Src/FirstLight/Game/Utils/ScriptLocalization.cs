@@ -415,6 +415,7 @@ namespace I2.Loc
 			public static string ApoShotgun 		{ get{ return LocalizationManager.GetTranslation ("GameIds/ApoShotgun"); } }
 			public static string ApoSniper 		{ get{ return LocalizationManager.GetTranslation ("GameIds/ApoSniper"); } }
 			public static string Armor 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Armor"); } }
+			public static string BLSTDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BLSTDescription"); } }
 			public static string BRGenesis 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BRGenesis"); } }
 			public static string BaseballArmor 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BaseballArmor"); } }
 			public static string BaseballHelmet 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BaseballHelmet"); } }
@@ -426,6 +427,8 @@ namespace I2.Loc
 			public static string BossRobopedeAi 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BossRobopedeAi"); } }
 			public static string BossSnakeAi 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BossSnakeAi"); } }
 			public static string BossSpiderAi 		{ get{ return LocalizationManager.GetTranslation ("GameIds/BossSpiderAi"); } }
+			public static string COINDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/COINDescription"); } }
+			public static string CSDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/CSDescription"); } }
 			public static string Casual 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Casual"); } }
 			public static string ChickenDinner 		{ get{ return LocalizationManager.GetTranslation ("GameIds/ChickenDinner"); } }
 			public static string CommonBox 		{ get{ return LocalizationManager.GetTranslation ("GameIds/CommonBox"); } }
@@ -1078,9 +1081,26 @@ namespace I2.Loc
 			public static string ToolTip_BLST 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_BLST"); } }
 			public static string ToolTip_CS 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_CS"); } }
 			public static string ToolTip_Casual 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_Casual"); } }
+			public static string ToolTip_Coins 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_Coins"); } }
 			public static string ToolTip_NftCooldown 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_NftCooldown"); } }
 			public static string ToolTip_Ranked 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_Ranked"); } }
 			public static string ToolTip_Trophies 		{ get{ return LocalizationManager.GetTranslation ("Tooltips/ToolTip_Trophies"); } }
+		}
+
+		public static class UITBattlePass
+		{
+			public static string bp_level 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/bp_level"); } }
+			public static string claim_all 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/claim_all"); } }
+			public static string equipment_reward 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/equipment_reward"); } }
+			public static string equipment_reward_desc 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/equipment_reward_desc"); } }
+			public static string max 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/max"); } }
+			public static string play_games_info 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/play_games_info"); } }
+			public static string random_equipment 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/random_equipment"); } }
+			public static string season_ends_in 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/season_ends_in"); } }
+			public static string season_number 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/season_number"); } }
+			public static string season_time_left_big 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/season_time_left_big"); } }
+			public static string season_time_left_small 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/season_time_left_small"); } }
+			public static string tap_to_claim 		{ get{ return LocalizationManager.GetTranslation ("UITBattlePass/tap_to_claim"); } }
 		}
 
 		public static class UITDisconnected
@@ -1093,8 +1113,26 @@ namespace I2.Loc
 
 		public static class UITEquipment
 		{
+			public static string adjective_cool 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/adjective_cool"); } }
+			public static string adjective_divine 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/adjective_divine"); } }
+			public static string adjective_exquisite 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/adjective_exquisite"); } }
+			public static string adjective_magnificent 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/adjective_magnificent"); } }
+			public static string adjective_majestic 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/adjective_majestic"); } }
+			public static string adjective_marvelous 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/adjective_marvelous"); } }
+			public static string adjective_ornate 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/adjective_ornate"); } }
+			public static string adjective_posh 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/adjective_posh"); } }
+			public static string adjective_regular 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/adjective_regular"); } }
+			public static string adjective_royal 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/adjective_royal"); } }
 			public static string card_lvl 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/card_lvl"); } }
+			public static string details_no_amulet 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/details_no_amulet"); } }
+			public static string details_no_armor 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/details_no_armor"); } }
+			public static string details_no_helmet 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/details_no_helmet"); } }
+			public static string details_no_shield 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/details_no_shield"); } }
+			public static string details_no_weapon 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/details_no_weapon"); } }
+			public static string equip 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/equip"); } }
 			public static string equipment 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/equipment"); } }
+			public static string equipment_details_title 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/equipment_details_title"); } }
+			public static string equipped 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/equipped"); } }
 			public static string item_name_lvl 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/item_name_lvl"); } }
 			public static string loaned 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/loaned"); } }
 			public static string lvl 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/lvl"); } }
@@ -1104,11 +1142,38 @@ namespace I2.Loc
 			public static string no_helmet 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/no_helmet"); } }
 			public static string no_shield 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/no_shield"); } }
 			public static string no_weapon 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/no_weapon"); } }
+			public static string popup_cannot_undo_action 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/popup_cannot_undo_action"); } }
+			public static string popup_go_repair 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/popup_go_repair"); } }
+			public static string popup_items_rusted 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/popup_items_rusted"); } }
+			public static string popup_items_unequipped 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/popup_items_unequipped"); } }
+			public static string popup_perform_action 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/popup_perform_action"); } }
+			public static string popup_repairing_item 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/popup_repairing_item"); } }
+			public static string popup_requirements 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/popup_requirements"); } }
+			public static string popup_restore_durability 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/popup_restore_durability"); } }
+			public static string popup_scrap_are_you_sure 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/popup_scrap_are_you_sure"); } }
+			public static string popup_scrapping_item 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/popup_scrapping_item"); } }
+			public static string popup_upgrade_lvl 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/popup_upgrade_lvl"); } }
+			public static string popup_upgrading_item 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/popup_upgrading_item"); } }
+			public static string popup_yes_scrap 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/popup_yes_scrap"); } }
+			public static string rarity_common 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/rarity_common"); } }
+			public static string rarity_commonplus 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/rarity_commonplus"); } }
+			public static string rarity_epic 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/rarity_epic"); } }
+			public static string rarity_epicplus 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/rarity_epicplus"); } }
+			public static string rarity_legendary 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/rarity_legendary"); } }
+			public static string rarity_legendaryplus 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/rarity_legendaryplus"); } }
+			public static string rarity_rare 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/rarity_rare"); } }
+			public static string rarity_rareplus 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/rarity_rareplus"); } }
+			public static string rarity_uncommon 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/rarity_uncommon"); } }
+			public static string rarity_uncommonplus 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/rarity_uncommonplus"); } }
+			public static string repair 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/repair"); } }
+			public static string scrap 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/scrap"); } }
 			public static string selection_amulet 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/selection_amulet"); } }
 			public static string selection_armor 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/selection_armor"); } }
 			public static string selection_helmet 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/selection_helmet"); } }
 			public static string selection_shield 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/selection_shield"); } }
 			public static string selection_weapon 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/selection_weapon"); } }
+			public static string unequip 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/unequip"); } }
+			public static string upgrade 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/upgrade"); } }
 		}
 
 		public static class UITGameModeSelection
@@ -1121,6 +1186,8 @@ namespace I2.Loc
 		public static class UITHomeScreen
 		{
 			public static string blast_pass 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/blast_pass"); } }
+			public static string discord 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/discord"); } }
+			public static string enter_your_name 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/enter_your_name"); } }
 			public static string equipment 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/equipment"); } }
 			public static string heroes 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/heroes"); } }
 			public static string leaderboards 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/leaderboards"); } }
@@ -1129,6 +1196,18 @@ namespace I2.Loc
 			public static string play 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/play"); } }
 			public static string resource_pool_restock 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/resource_pool_restock"); } }
 			public static string shop 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/shop"); } }
+			public static string waitforrewards_popup_description 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/waitforrewards_popup_description"); } }
+			public static string waitforrewards_popup_title 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/waitforrewards_popup_title"); } }
+		}
+
+		public static class UITLeaderboards
+		{
+			public static string battleroyale 		{ get{ return LocalizationManager.GetTranslation ("UITLeaderboards/battleroyale"); } }
+			public static string deaths 		{ get{ return LocalizationManager.GetTranslation ("UITLeaderboards/deaths"); } }
+			public static string kills 		{ get{ return LocalizationManager.GetTranslation ("UITLeaderboards/kills"); } }
+			public static string player 		{ get{ return LocalizationManager.GetTranslation ("UITLeaderboards/player"); } }
+			public static string standings 		{ get{ return LocalizationManager.GetTranslation ("UITLeaderboards/standings"); } }
+			public static string trophies 		{ get{ return LocalizationManager.GetTranslation ("UITLeaderboards/trophies"); } }
 		}
 
 		public static class UITLoginRegister
@@ -1148,16 +1227,23 @@ namespace I2.Loc
 
 		public static class UITMatchmaking
 		{
-			public static string br_mode_desc_bot 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/br_mode_desc_bot"); } }
-			public static string br_mode_desc_top 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/br_mode_desc_top"); } }
-			public static string button_leave 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/button_leave"); } }
+			public static string br_mode_desc 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/br_mode_desc"); } }
 			public static string current_player_amount 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/current_player_amount"); } }
-			public static string dm_mode_desc_bot 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/dm_mode_desc_bot"); } }
-			public static string dm_mode_desc_top 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/dm_mode_desc_top"); } }
-			public static string loading 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/loading"); } }
-			public static string matchmaking 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/matchmaking"); } }
+			public static string dm_mode_desc 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/dm_mode_desc"); } }
+			public static string loading_status_starting 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/loading_status_starting"); } }
+			public static string loading_status_timer 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/loading_status_timer"); } }
+			public static string loading_status_waiting 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/loading_status_waiting"); } }
+			public static string mode_header_title 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/mode_header_title"); } }
 			public static string select_dropzone 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/select_dropzone"); } }
-			public static string waiting 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/waiting"); } }
+			public static string wins_the_match 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/wins_the_match"); } }
+		}
+
+		public static class UITRewards
+		{
+			public static string battlepass 		{ get{ return LocalizationManager.GetTranslation ("UITRewards/battlepass"); } }
+			public static string craft_spice 		{ get{ return LocalizationManager.GetTranslation ("UITRewards/craft_spice"); } }
+			public static string this_week 		{ get{ return LocalizationManager.GetTranslation ("UITRewards/this_week"); } }
+			public static string trophies 		{ get{ return LocalizationManager.GetTranslation ("UITRewards/trophies"); } }
 		}
 
 		public static class UITSettings
@@ -1183,13 +1269,27 @@ namespace I2.Loc
 			public static string confirmation 		{ get{ return LocalizationManager.GetTranslation ("UITShared/confirmation"); } }
 			public static string deathmatch 		{ get{ return LocalizationManager.GetTranslation ("UITShared/deathmatch"); } }
 			public static string error 		{ get{ return LocalizationManager.GetTranslation ("UITShared/error"); } }
+			public static string got_it 		{ get{ return LocalizationManager.GetTranslation ("UITShared/got_it"); } }
+			public static string hide 		{ get{ return LocalizationManager.GetTranslation ("UITShared/hide"); } }
 			public static string info 		{ get{ return LocalizationManager.GetTranslation ("UITShared/info"); } }
 			public static string input 		{ get{ return LocalizationManager.GetTranslation ("UITShared/input"); } }
+			public static string leave 		{ get{ return LocalizationManager.GetTranslation ("UITShared/leave"); } }
 			public static string main_menu 		{ get{ return LocalizationManager.GetTranslation ("UITShared/main_menu"); } }
+			public static string next 		{ get{ return LocalizationManager.GetTranslation ("UITShared/next"); } }
 			public static string ok 		{ get{ return LocalizationManager.GetTranslation ("UITShared/ok"); } }
 			public static string or 		{ get{ return LocalizationManager.GetTranslation ("UITShared/or"); } }
 			public static string ranked 		{ get{ return LocalizationManager.GetTranslation ("UITShared/ranked"); } }
+			public static string show 		{ get{ return LocalizationManager.GetTranslation ("UITShared/show"); } }
 			public static string waiting 		{ get{ return LocalizationManager.GetTranslation ("UITShared/waiting"); } }
+		}
+
+		public static class UITSpectate
+		{
+			public static string camera_1 		{ get{ return LocalizationManager.GetTranslation ("UITSpectate/camera_1"); } }
+			public static string camera_2 		{ get{ return LocalizationManager.GetTranslation ("UITSpectate/camera_2"); } }
+			public static string camera_3 		{ get{ return LocalizationManager.GetTranslation ("UITSpectate/camera_3"); } }
+			public static string defeated_you 		{ get{ return LocalizationManager.GetTranslation ("UITSpectate/defeated_you"); } }
+			public static string spectating 		{ get{ return LocalizationManager.GetTranslation ("UITSpectate/spectating"); } }
 		}
 
 		public static class UITStore
@@ -1199,6 +1299,17 @@ namespace I2.Loc
 			public static string legendary_core 		{ get{ return LocalizationManager.GetTranslation ("UITStore/legendary_core"); } }
 			public static string price 		{ get{ return LocalizationManager.GetTranslation ("UITStore/price"); } }
 			public static string rare_core 		{ get{ return LocalizationManager.GetTranslation ("UITStore/rare_core"); } }
+			public static string shop 		{ get{ return LocalizationManager.GetTranslation ("UITStore/shop"); } }
+		}
+
+		public static class UITSwipeTransition
+		{
+			public static string lets_blast 		{ get{ return LocalizationManager.GetTranslation ("UITSwipeTransition/lets_blast"); } }
+		}
+
+		public static class UITWinners
+		{
+			public static string winners 		{ get{ return LocalizationManager.GetTranslation ("UITWinners/winners"); } }
 		}
 	}
 
@@ -1615,6 +1726,7 @@ namespace I2.Loc
 		    public const string ApoShotgun = "GameIds/ApoShotgun";
 		    public const string ApoSniper = "GameIds/ApoSniper";
 		    public const string Armor = "GameIds/Armor";
+		    public const string BLSTDescription = "GameIds/BLSTDescription";
 		    public const string BRGenesis = "GameIds/BRGenesis";
 		    public const string BaseballArmor = "GameIds/BaseballArmor";
 		    public const string BaseballHelmet = "GameIds/BaseballHelmet";
@@ -1626,6 +1738,8 @@ namespace I2.Loc
 		    public const string BossRobopedeAi = "GameIds/BossRobopedeAi";
 		    public const string BossSnakeAi = "GameIds/BossSnakeAi";
 		    public const string BossSpiderAi = "GameIds/BossSpiderAi";
+		    public const string COINDescription = "GameIds/COINDescription";
+		    public const string CSDescription = "GameIds/CSDescription";
 		    public const string Casual = "GameIds/Casual";
 		    public const string ChickenDinner = "GameIds/ChickenDinner";
 		    public const string CommonBox = "GameIds/CommonBox";
@@ -2278,9 +2392,26 @@ namespace I2.Loc
 		    public const string ToolTip_BLST = "Tooltips/ToolTip_BLST";
 		    public const string ToolTip_CS = "Tooltips/ToolTip_CS";
 		    public const string ToolTip_Casual = "Tooltips/ToolTip_Casual";
+		    public const string ToolTip_Coins = "Tooltips/ToolTip_Coins";
 		    public const string ToolTip_NftCooldown = "Tooltips/ToolTip_NftCooldown";
 		    public const string ToolTip_Ranked = "Tooltips/ToolTip_Ranked";
 		    public const string ToolTip_Trophies = "Tooltips/ToolTip_Trophies";
+		}
+
+		public static class UITBattlePass
+		{
+		    public const string bp_level = "UITBattlePass/bp_level";
+		    public const string claim_all = "UITBattlePass/claim_all";
+		    public const string equipment_reward = "UITBattlePass/equipment_reward";
+		    public const string equipment_reward_desc = "UITBattlePass/equipment_reward_desc";
+		    public const string max = "UITBattlePass/max";
+		    public const string play_games_info = "UITBattlePass/play_games_info";
+		    public const string random_equipment = "UITBattlePass/random_equipment";
+		    public const string season_ends_in = "UITBattlePass/season_ends_in";
+		    public const string season_number = "UITBattlePass/season_number";
+		    public const string season_time_left_big = "UITBattlePass/season_time_left_big";
+		    public const string season_time_left_small = "UITBattlePass/season_time_left_small";
+		    public const string tap_to_claim = "UITBattlePass/tap_to_claim";
 		}
 
 		public static class UITDisconnected
@@ -2293,8 +2424,26 @@ namespace I2.Loc
 
 		public static class UITEquipment
 		{
+		    public const string adjective_cool = "UITEquipment/adjective_cool";
+		    public const string adjective_divine = "UITEquipment/adjective_divine";
+		    public const string adjective_exquisite = "UITEquipment/adjective_exquisite";
+		    public const string adjective_magnificent = "UITEquipment/adjective_magnificent";
+		    public const string adjective_majestic = "UITEquipment/adjective_majestic";
+		    public const string adjective_marvelous = "UITEquipment/adjective_marvelous";
+		    public const string adjective_ornate = "UITEquipment/adjective_ornate";
+		    public const string adjective_posh = "UITEquipment/adjective_posh";
+		    public const string adjective_regular = "UITEquipment/adjective_regular";
+		    public const string adjective_royal = "UITEquipment/adjective_royal";
 		    public const string card_lvl = "UITEquipment/card_lvl";
+		    public const string details_no_amulet = "UITEquipment/details_no_amulet";
+		    public const string details_no_armor = "UITEquipment/details_no_armor";
+		    public const string details_no_helmet = "UITEquipment/details_no_helmet";
+		    public const string details_no_shield = "UITEquipment/details_no_shield";
+		    public const string details_no_weapon = "UITEquipment/details_no_weapon";
+		    public const string equip = "UITEquipment/equip";
 		    public const string equipment = "UITEquipment/equipment";
+		    public const string equipment_details_title = "UITEquipment/equipment_details_title";
+		    public const string equipped = "UITEquipment/equipped";
 		    public const string item_name_lvl = "UITEquipment/item_name_lvl";
 		    public const string loaned = "UITEquipment/loaned";
 		    public const string lvl = "UITEquipment/lvl";
@@ -2304,11 +2453,38 @@ namespace I2.Loc
 		    public const string no_helmet = "UITEquipment/no_helmet";
 		    public const string no_shield = "UITEquipment/no_shield";
 		    public const string no_weapon = "UITEquipment/no_weapon";
+		    public const string popup_cannot_undo_action = "UITEquipment/popup_cannot_undo_action";
+		    public const string popup_go_repair = "UITEquipment/popup_go_repair";
+		    public const string popup_items_rusted = "UITEquipment/popup_items_rusted";
+		    public const string popup_items_unequipped = "UITEquipment/popup_items_unequipped";
+		    public const string popup_perform_action = "UITEquipment/popup_perform_action";
+		    public const string popup_repairing_item = "UITEquipment/popup_repairing_item";
+		    public const string popup_requirements = "UITEquipment/popup_requirements";
+		    public const string popup_restore_durability = "UITEquipment/popup_restore_durability";
+		    public const string popup_scrap_are_you_sure = "UITEquipment/popup_scrap_are_you_sure";
+		    public const string popup_scrapping_item = "UITEquipment/popup_scrapping_item";
+		    public const string popup_upgrade_lvl = "UITEquipment/popup_upgrade_lvl";
+		    public const string popup_upgrading_item = "UITEquipment/popup_upgrading_item";
+		    public const string popup_yes_scrap = "UITEquipment/popup_yes_scrap";
+		    public const string rarity_common = "UITEquipment/rarity_common";
+		    public const string rarity_commonplus = "UITEquipment/rarity_commonplus";
+		    public const string rarity_epic = "UITEquipment/rarity_epic";
+		    public const string rarity_epicplus = "UITEquipment/rarity_epicplus";
+		    public const string rarity_legendary = "UITEquipment/rarity_legendary";
+		    public const string rarity_legendaryplus = "UITEquipment/rarity_legendaryplus";
+		    public const string rarity_rare = "UITEquipment/rarity_rare";
+		    public const string rarity_rareplus = "UITEquipment/rarity_rareplus";
+		    public const string rarity_uncommon = "UITEquipment/rarity_uncommon";
+		    public const string rarity_uncommonplus = "UITEquipment/rarity_uncommonplus";
+		    public const string repair = "UITEquipment/repair";
+		    public const string scrap = "UITEquipment/scrap";
 		    public const string selection_amulet = "UITEquipment/selection_amulet";
 		    public const string selection_armor = "UITEquipment/selection_armor";
 		    public const string selection_helmet = "UITEquipment/selection_helmet";
 		    public const string selection_shield = "UITEquipment/selection_shield";
 		    public const string selection_weapon = "UITEquipment/selection_weapon";
+		    public const string unequip = "UITEquipment/unequip";
+		    public const string upgrade = "UITEquipment/upgrade";
 		}
 
 		public static class UITGameModeSelection
@@ -2321,6 +2497,8 @@ namespace I2.Loc
 		public static class UITHomeScreen
 		{
 		    public const string blast_pass = "UITHomeScreen/blast_pass";
+		    public const string discord = "UITHomeScreen/discord";
+		    public const string enter_your_name = "UITHomeScreen/enter_your_name";
 		    public const string equipment = "UITHomeScreen/equipment";
 		    public const string heroes = "UITHomeScreen/heroes";
 		    public const string leaderboards = "UITHomeScreen/leaderboards";
@@ -2329,6 +2507,18 @@ namespace I2.Loc
 		    public const string play = "UITHomeScreen/play";
 		    public const string resource_pool_restock = "UITHomeScreen/resource_pool_restock";
 		    public const string shop = "UITHomeScreen/shop";
+		    public const string waitforrewards_popup_description = "UITHomeScreen/waitforrewards_popup_description";
+		    public const string waitforrewards_popup_title = "UITHomeScreen/waitforrewards_popup_title";
+		}
+
+		public static class UITLeaderboards
+		{
+		    public const string battleroyale = "UITLeaderboards/battleroyale";
+		    public const string deaths = "UITLeaderboards/deaths";
+		    public const string kills = "UITLeaderboards/kills";
+		    public const string player = "UITLeaderboards/player";
+		    public const string standings = "UITLeaderboards/standings";
+		    public const string trophies = "UITLeaderboards/trophies";
 		}
 
 		public static class UITLoginRegister
@@ -2348,16 +2538,23 @@ namespace I2.Loc
 
 		public static class UITMatchmaking
 		{
-		    public const string br_mode_desc_bot = "UITMatchmaking/br_mode_desc_bot";
-		    public const string br_mode_desc_top = "UITMatchmaking/br_mode_desc_top";
-		    public const string button_leave = "UITMatchmaking/button_leave";
+		    public const string br_mode_desc = "UITMatchmaking/br_mode_desc";
 		    public const string current_player_amount = "UITMatchmaking/current_player_amount";
-		    public const string dm_mode_desc_bot = "UITMatchmaking/dm_mode_desc_bot";
-		    public const string dm_mode_desc_top = "UITMatchmaking/dm_mode_desc_top";
-		    public const string loading = "UITMatchmaking/loading";
-		    public const string matchmaking = "UITMatchmaking/matchmaking";
+		    public const string dm_mode_desc = "UITMatchmaking/dm_mode_desc";
+		    public const string loading_status_starting = "UITMatchmaking/loading_status_starting";
+		    public const string loading_status_timer = "UITMatchmaking/loading_status_timer";
+		    public const string loading_status_waiting = "UITMatchmaking/loading_status_waiting";
+		    public const string mode_header_title = "UITMatchmaking/mode_header_title";
 		    public const string select_dropzone = "UITMatchmaking/select_dropzone";
-		    public const string waiting = "UITMatchmaking/waiting";
+		    public const string wins_the_match = "UITMatchmaking/wins_the_match";
+		}
+
+		public static class UITRewards
+		{
+		    public const string battlepass = "UITRewards/battlepass";
+		    public const string craft_spice = "UITRewards/craft_spice";
+		    public const string this_week = "UITRewards/this_week";
+		    public const string trophies = "UITRewards/trophies";
 		}
 
 		public static class UITSettings
@@ -2383,13 +2580,27 @@ namespace I2.Loc
 		    public const string confirmation = "UITShared/confirmation";
 		    public const string deathmatch = "UITShared/deathmatch";
 		    public const string error = "UITShared/error";
+		    public const string got_it = "UITShared/got_it";
+		    public const string hide = "UITShared/hide";
 		    public const string info = "UITShared/info";
 		    public const string input = "UITShared/input";
+		    public const string leave = "UITShared/leave";
 		    public const string main_menu = "UITShared/main_menu";
+		    public const string next = "UITShared/next";
 		    public const string ok = "UITShared/ok";
 		    public const string or = "UITShared/or";
 		    public const string ranked = "UITShared/ranked";
+		    public const string show = "UITShared/show";
 		    public const string waiting = "UITShared/waiting";
+		}
+
+		public static class UITSpectate
+		{
+		    public const string camera_1 = "UITSpectate/camera_1";
+		    public const string camera_2 = "UITSpectate/camera_2";
+		    public const string camera_3 = "UITSpectate/camera_3";
+		    public const string defeated_you = "UITSpectate/defeated_you";
+		    public const string spectating = "UITSpectate/spectating";
 		}
 
 		public static class UITStore
@@ -2399,6 +2610,17 @@ namespace I2.Loc
 		    public const string legendary_core = "UITStore/legendary_core";
 		    public const string price = "UITStore/price";
 		    public const string rare_core = "UITStore/rare_core";
+		    public const string shop = "UITStore/shop";
+		}
+
+		public static class UITSwipeTransition
+		{
+		    public const string lets_blast = "UITSwipeTransition/lets_blast";
+		}
+
+		public static class UITWinners
+		{
+		    public const string winners = "UITWinners/winners";
 		}
 	}
 }

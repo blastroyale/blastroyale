@@ -107,33 +107,6 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <summary>
-		/// Sends the command to quantum. Quantum will enrich the command data from the simulation server-side.
-		/// All commands will be ran at the end of the match using the last frame.
-		/// </summary>
-		private void ExecuteQuantumCommand<TCommand>(TCommand command) where TCommand : IGameCommand
-		{
-			var quantumCommand = command as IQuantumCommand;
-			if (quantumCommand == null)
-			{
-				throw new Exception($"Trying to send {command.GetType().Name} to quantum but that command is not IQuantumCommand");
-			}
-			FLog.Verbose($"Sending quantum command {command.GetType().Name}");
-			var payload = new QuantumCommandPayload()
-			{
-				CommandType = command.GetType().FullName,
-				Token = PlayFabSettings.staticPlayer.EntityToken
-			};
-			var bytes = Encoding.UTF8.GetBytes(ModelSerializer.Serialize(payload).Value);
-			var opt = new RaiseEventOptions
-			{
-				Receivers = ReceiverGroup.All
-			};
-			_network.QuantumClient.OpRaiseEvent(
-				(int)QuantumCustomEvents.EndGameCommand, bytes, opt, SendOptions.SendReliable
-			);
-		}
-
-		/// <summary>
 		/// Fetches current server state and override client's state.
 		/// Will not cause a UI refresh.
 		/// </summary>
@@ -158,11 +131,7 @@ namespace FirstLight.Game.Services
 				switch (command.ExecutionMode())
 				{
 					case CommandExecutionMode.Quantum:
-						if (FeatureFlags.QUANTUM_CUSTOM_SERVER)
-						{
-							ExecuteQuantumCommand(command);
-						}
-						else
+						if (!FeatureFlags.QUANTUM_CUSTOM_SERVER)
 						{
 							EnqueueCommandToServer(command);
 						}

@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using Photon.Deterministic;
 
 namespace Quantum
@@ -171,13 +170,15 @@ namespace Quantum
 				f.Signals.PlayerKilledPlayer(Player, e, killerPlayer.Player, attacker);
 				f.Events.OnPlayerKilledPlayer(Player, killerPlayer.Player);
 			}
-			
+
 			f.Events.OnPlayerDead(Player, e, attacker, f.Has<PlayerCharacter>(attacker));
 			f.Events.OnLocalPlayerDead(Player, killerPlayer.Player, attacker);
 			f.Signals.PlayerDead(Player, e);
 
 			var agent = f.Unsafe.GetPointer<HFSMAgent>(e);
 			HFSMManager.TriggerEvent(f, &agent->Data, e, Constants.DeadEvent);
+			
+			f.Events.FireQuantumServerCommand(Player, QuantumServerCommand.EndOfGameRewards);
 		}
 
 		/// <summary>

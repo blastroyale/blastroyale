@@ -1202,17 +1202,9 @@ namespace I2.Loc
 		public static class UITLeaderboards
 		{
 			public static string battleroyale 		{ get{ return LocalizationManager.GetTranslation ("UITLeaderboards/battleroyale"); } }
+			public static string become_the_best 		{ get{ return LocalizationManager.GetTranslation ("UITLeaderboards/become_the_best"); } }
 			public static string deaths 		{ get{ return LocalizationManager.GetTranslation ("UITLeaderboards/deaths"); } }
-			public static string kills 		{ get{ return LocalizationManager.GetTranslation ("UITLeaderboards/kills"); } }
-			public static string player 		{ get{ return LocalizationManager.GetTranslation ("UITLeaderboards/player"); } }
-			public static string standings 		{ get{ return LocalizationManager.GetTranslation ("UITLeaderboards/standings"); } }
-			public static string trophies 		{ get{ return LocalizationManager.GetTranslation ("UITLeaderboards/trophies"); } }
-		}
-
-		public static class UITLeaderboards
-		{
-			public static string battleroyale 		{ get{ return LocalizationManager.GetTranslation ("UITLeaderboards/battleroyale"); } }
-			public static string deaths 		{ get{ return LocalizationManager.GetTranslation ("UITLeaderboards/deaths"); } }
+			public static string global_leaderboard 		{ get{ return LocalizationManager.GetTranslation ("UITLeaderboards/global_leaderboard"); } }
 			public static string kills 		{ get{ return LocalizationManager.GetTranslation ("UITLeaderboards/kills"); } }
 			public static string player 		{ get{ return LocalizationManager.GetTranslation ("UITLeaderboards/player"); } }
 			public static string standings 		{ get{ return LocalizationManager.GetTranslation ("UITLeaderboards/standings"); } }
@@ -2522,17 +2514,9 @@ namespace I2.Loc
 		public static class UITLeaderboards
 		{
 		    public const string battleroyale = "UITLeaderboards/battleroyale";
+		    public const string become_the_best = "UITLeaderboards/become_the_best";
 		    public const string deaths = "UITLeaderboards/deaths";
-		    public const string kills = "UITLeaderboards/kills";
-		    public const string player = "UITLeaderboards/player";
-		    public const string standings = "UITLeaderboards/standings";
-		    public const string trophies = "UITLeaderboards/trophies";
-		}
-
-		public static class UITLeaderboards
-		{
-		    public const string battleroyale = "UITLeaderboards/battleroyale";
-		    public const string deaths = "UITLeaderboards/deaths";
+		    public const string global_leaderboard = "UITLeaderboards/global_leaderboard";
 		    public const string kills = "UITLeaderboards/kills";
 		    public const string player = "UITLeaderboards/player";
 		    public const string standings = "UITLeaderboards/standings";

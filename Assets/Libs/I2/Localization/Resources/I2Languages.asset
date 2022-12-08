@@ -9954,6 +9954,24 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITHomeScreen/waitforrewards_popup_title
+      TermType: 0
+      Description: 
+      Languages:
+      - Please wait
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/waitforrewards_popup_description
+      TermType: 0
+      Description: 
+      Languages:
+      - Syncing results with the server
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITDisconnected/connection_lost
       TermType: 0
       Description: 
@@ -10841,6 +10859,24 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITLeaderboards/global_leaderboard
+      TermType: 0
+      Description: 
+      Languages:
+      - GLOBAL LEADERBOARD
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITLeaderboards/become_the_best
+      TermType: 0
+      Description: 
+      Languages:
+      - PLAY RANKED GAMES, EARN TROPHIES, BECOME THE BEST PLAYER!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITRewards/craft_spice
       TermType: 0
       Description: 
@@ -10940,7 +10976,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1670343602816
+    Google_LastUpdatedVersion: 1670432528162
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

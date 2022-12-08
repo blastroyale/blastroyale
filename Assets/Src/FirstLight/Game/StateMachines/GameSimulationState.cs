@@ -77,13 +77,6 @@ namespace FirstLight.Game.StateMachines
 			var battleRoyale = stateFactory.Nest("Battle Royale Mode");
 			var modeCheck = stateFactory.Choice("Game Mode Check");
 			var startSimulation = stateFactory.State("Start Simulation");
-			var gameEnded = stateFactory.State("Game Ended Screen");
-			var gameResults = stateFactory.Wait("Game Results Screen");
-			var rewardsCheck = stateFactory.Choice("Rewards Choice");
-			var trophiesCheck = stateFactory.Choice("Trophies Choice");
-			var quitCheck = stateFactory.Choice("Quit Check");
-			var gameRewards = stateFactory.Wait("Game Rewards Screen");
-			var trophiesGainLoss = stateFactory.Wait("Trophies Gain Loss Screen");
 			var disconnectedPlayerCheck = stateFactory.Choice("Disconnected Player Check");
 			var disconnected = stateFactory.State("Disconnected");
 			var disconnectedCritical = stateFactory.State("Disconnected Critical");
@@ -119,17 +112,6 @@ namespace FirstLight.Game.StateMachines
 			disconnected.Event(NetworkState.JoinRoomFailedEvent).Target(disconnectedCritical);
 
 			disconnectedCritical.OnEnter(NotifyCriticalDisconnection);
-			
-			quitCheck.Transition().Condition(IsCustomMatch).Target(final);
-			quitCheck.Transition().Condition(IsSpectator).Target(final);
-			quitCheck.Transition().Target(gameEnded);
-			
-			gameEnded.OnEnter(OpenGameCompleteScreen);
-			gameEnded.Event(GameCompleteExitEvent).Target(gameResults);
-			gameEnded.OnExit(CloseCompleteScreen);
-			
-			gameResults.WaitingFor(ResultsScreen).Target(trophiesCheck);
-			gameResults.OnExit(CloseResultScreen);
 
 			final.OnEnter(UnsubscribeEvents);
 		}

@@ -343,7 +343,7 @@ namespace FirstLight.Game.StateMachines
 				confirmButton);
 		}
 		
-		private async void OpenGameModeSelectionUI()
+		private void OpenGameModeSelectionUI()
 		{
 			var data = new GameModeSelectionPresenter.StateData
 			{
@@ -357,7 +357,7 @@ namespace FirstLight.Game.StateMachines
 				OnHomeClicked = () => _statechartTrigger(_gameModeSelectedFinishedEvent)
 			};
 			
-			await _uiService.OpenScreen<GameModeSelectionPresenter, GameModeSelectionPresenter.StateData>(data);
+			_uiService.OpenScreen<GameModeSelectionPresenter, GameModeSelectionPresenter.StateData>(data);
 		}
 
 		private void CloseGameModeSelectionUI()
@@ -365,7 +365,7 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<GameModeSelectionPresenter>();
 		}
 		
-		private async void OpenLeaderboardUI(IWaitActivity activity)
+		private void OpenLeaderboardUI(IWaitActivity activity)
 		{
 			var cacheActivity = activity;
 
@@ -374,7 +374,7 @@ namespace FirstLight.Game.StateMachines
 				BackClicked = () => { cacheActivity.Complete(); }
 			};
 			
-			await _uiService.OpenScreen<LeaderboardScreenPresenter, LeaderboardScreenPresenter.StateData>(data);
+			_uiService.OpenScreen<LeaderboardScreenPresenter, LeaderboardScreenPresenter.StateData>(data);
 		}
 
 		private void CloseLeaderboardUI()
@@ -382,7 +382,7 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<LeaderboardScreenPresenter>();
 		}
 		
-		private async void OpenBattlePassUI(IWaitActivity activity)
+		private void OpenBattlePassUI(IWaitActivity activity)
 		{
 			var cacheActivity = activity;
 
@@ -392,10 +392,10 @@ namespace FirstLight.Game.StateMachines
 				UiService = _uiService
 			};
 			
-			await _uiService.OpenScreen<BattlePassScreenPresenter, BattlePassScreenPresenter.StateData>(data);
+			_uiService.OpenScreen<BattlePassScreenPresenter, BattlePassScreenPresenter.StateData>(data);
 		}
 
-		private async void OpenStore(IWaitActivity activity)
+		private void OpenStore(IWaitActivity activity)
 		{
 			var data = new StoreScreenPresenter.StateData
 			{
@@ -406,7 +406,7 @@ namespace FirstLight.Game.StateMachines
 				IapProcessingFinished = OnIapProcessingFinished
 			};
 
-			await _uiService.OpenScreen<StoreScreenPresenter, StoreScreenPresenter.StateData>(data);
+			_uiService.OpenScreen<StoreScreenPresenter, StoreScreenPresenter.StateData>(data);
 		}
 
 		private void PurchaseItem(string id)
@@ -425,17 +425,17 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<BattlePassScreenPresenter>();
 		}
 		
-		private async void OpenPlayerSkinScreenUI()
+		private void OpenPlayerSkinScreenUI()
 		{
 			var data = new PlayerSkinScreenPresenter.StateData
 			{
 				OnCloseClicked = OnTabClickedCallback<HomeScreenPresenter>,
 			};
 
-			await _uiService.OpenScreen<PlayerSkinScreenPresenter, PlayerSkinScreenPresenter.StateData>(data);
+			_uiService.OpenScreen<PlayerSkinScreenPresenter, PlayerSkinScreenPresenter.StateData>(data);
 		}
 
-		private async void OpenRoomJoinCreateMenuUI()
+		private void OpenRoomJoinCreateMenuUI()
 		{
 			var data = new RoomJoinCreateScreenPresenter.StateData
 			{
@@ -443,7 +443,7 @@ namespace FirstLight.Game.StateMachines
 				PlayClicked = PlayButtonClicked
 			};
 
-			await _uiService.OpenScreen<RoomJoinCreateScreenPresenter, RoomJoinCreateScreenPresenter.StateData>(data);
+			_uiService.OpenScreen<RoomJoinCreateScreenPresenter, RoomJoinCreateScreenPresenter.StateData>(data);
 		}
 		
 		private void CloseCurrentScreen()
@@ -451,7 +451,7 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseCurrentScreen();
 		}
 
-		private async void OpenPlayMenuUI()
+		private void OpenPlayMenuUI()
 		{
 			var data = new HomeScreenPresenter.StateData
 			{
@@ -467,7 +467,7 @@ namespace FirstLight.Game.StateMachines
 				OnDiscordClicked = DiscordButtonClicked
 			};
 
-			await _uiService.OpenScreen<HomeScreenPresenter, HomeScreenPresenter.StateData>(data);
+			_uiService.OpenScreen<HomeScreenPresenter, HomeScreenPresenter.StateData>(data);
 			_services.MessageBrokerService.Publish(new PlayScreenOpenedMessage());
 		}
 
@@ -478,7 +478,7 @@ namespace FirstLight.Game.StateMachines
 				ReconnectClicked = () => _services.MessageBrokerService.Publish(new AttemptManualReconnectionMessage())
 			};
 
-			await _uiService.OpenScreen<DisconnectedScreenPresenter, DisconnectedScreenPresenter.StateData>(data);
+			_uiService.OpenScreen<DisconnectedScreenPresenter, DisconnectedScreenPresenter.StateData>(data);
 		}
 
 		private void LoadingComplete()
@@ -489,7 +489,7 @@ namespace FirstLight.Game.StateMachines
 
 		private async void OpenLoadingScreen()
 		{
-			await _uiService.OpenScreen<LoadingScreenPresenter>();
+			_uiService.OpenScreen<LoadingScreenPresenter>();
 		}
 
 		private void InvalidScreen()

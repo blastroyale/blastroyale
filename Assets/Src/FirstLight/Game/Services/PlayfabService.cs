@@ -84,7 +84,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Updates user contact email address
 		/// </summary>
-		void UpdateEmail(string newEmail, Action<AddOrUpdateContactEmailResult> callback = null);
+		void UpdateContactEmail(string newEmail, Action<AddOrUpdateContactEmailResult> callback = null);
 	}
 
 	/// <inheritdoc cref="IPlayfabService" />
@@ -200,7 +200,7 @@ namespace FirstLight.Game.Services
 			});
 		}
 
-		public void UpdateEmail(string newEmail, Action<AddOrUpdateContactEmailResult> callback = null)
+		public void UpdateContactEmail(string newEmail, Action<AddOrUpdateContactEmailResult> callback = null)
 		{
 			FLog.Info("Updating user email to "+newEmail);
 			var emailUpdate = new AddOrUpdateContactEmailRequest()

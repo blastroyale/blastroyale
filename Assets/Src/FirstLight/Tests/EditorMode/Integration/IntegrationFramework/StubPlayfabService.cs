@@ -69,7 +69,7 @@ namespace FirstLight.Tests.EditorMode
 			
 		}
 
-		public void UpdateEmail(string newEmail, Action<AddOrUpdateContactEmailResult> callback = null)
+		public void UpdateContactEmail(string newEmail, Action<AddOrUpdateContactEmailResult> callback = null)
 		{
 		
 		}

@@ -16,6 +16,7 @@ using FirstLight.Server.SDK.Modules;
 using FirstLight.Services;
 using PlayFab;
 using Quantum;
+using SRDebugger.Internal;
 using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
@@ -503,8 +504,10 @@ public partial class SROptions
 	public void Add5000Coins()
 	{
 		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
+		var services = MainInstaller.Resolve<IGameServices>();
 
 		gameLogic.CurrencyLogic.AddCurrency(GameId.COIN, 5000);
+		((GameCommandService)services.CommandService).ForceServerDataUpdate();
 	}
 
 	[Category("Progression")]

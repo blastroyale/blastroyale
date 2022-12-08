@@ -355,8 +355,8 @@ namespace FirstLight.Game.Logic
 		{
 			if (!equipment.GameId.IsInGroup(GameIdGroup.Equipment))
 			{
-				throw new LogicException($"The given '{equipment.GameId}' id is not of '{GameIdGroup.Equipment}'" +
-				                         "game id group");
+				throw new LogicException($"The given '{equipment.GameId.ToString()}' id is not of " +
+				                         $"'{GameIdGroup.Equipment.ToString()}' game id group");
 			}
 			
 			var id = GameLogic.UniqueIdLogic.GenerateNewUniqueId(equipment.GameId);
@@ -395,19 +395,20 @@ namespace FirstLight.Game.Logic
 
 			if (!Inventory.TryGetValue(itemId, out var equipment))
 			{
-				throw new LogicException($"The player does not own item '{itemId}'");
+				throw new LogicException($"The player does not own item {itemId} - {equipment.GameId.ToString()}");
 			}
 			
 			if (equipment.GetCurrentDurability(NftInventory.ContainsKey(itemId), config, GameLogic.TimeService.DateTimeUtcNow.Ticks) == 0)
 			{
-				throw new LogicException($"Item '{itemId}' is broken");
+				throw new LogicException($"Item {itemId} - {equipment.GameId.ToString()} is broken");
 			}
 
 			if (_loadout.TryGetValue(slot, out var equippedId))
 			{
 				if (equippedId == itemId)
 				{
-					throw new LogicException($"The player already has the given item Id '{itemId}' equipped");
+					throw new LogicException($"The player already has the given item Id " +
+					                         $"{itemId} - {equipment.GameId.ToString()} equipped");
 				}
 
 				_loadout[slot] = itemId;
@@ -426,7 +427,7 @@ namespace FirstLight.Game.Logic
 			if (!_loadout.TryGetValue(slot, out var equippedId) || equippedId != itemId)
 			{
 				throw new
-					LogicException($"The player does not have the given '{gameId}' item equipped to be unequipped");
+					LogicException($"The player does not have the given '{gameId.ToString()}' item equipped to be unequipped");
 			}
 
 			_loadout.Remove(slot);
@@ -439,7 +440,8 @@ namespace FirstLight.Game.Logic
 
 			if (_nftInventory.ContainsKey(itemId))
 			{
-				throw new LogicException($"Not allowed to scrap NFT items on the client, only on the hub and {itemId} is a NFT");
+				throw new LogicException($"Not allowed to scrap NFT items on the client, only on the hub and " +
+				                         $"{itemId} - {equipment.GameId.ToString()} is a NFT");
 			}
 
 			RemoveFromInventory(itemId);
@@ -453,12 +455,14 @@ namespace FirstLight.Game.Logic
 
 			if (_nftInventory.ContainsKey(itemId))
 			{
-				throw new LogicException($"Not allowed to scrap NFT items on the client, only on the hub and {itemId} is a NFT");
+				throw new LogicException($"Not allowed to scrap NFT items on the client, only on the hub and " +
+				                         $"{itemId} - {equipment.GameId.ToString()} is a NFT");
 			}
 			
 			if (equipment.IsMaxLevel())
 			{
-				throw new LogicException($"Item {itemId} is already at max level {equipment.Level} and cannot be upgraded further");
+				throw new LogicException($"Item {itemId} - {equipment.GameId.ToString()} is already at max level " +
+				                         $"{equipment.Level} and cannot be upgraded further");
 			}
 
 			equipment.Level++;
@@ -474,12 +478,13 @@ namespace FirstLight.Game.Logic
 
 			if (_nftInventory.ContainsKey(itemId))
 			{
-				throw new LogicException($"Not allowed to scrap NFT items on the client, only on the hub and {itemId} is a NFT");
+				throw new LogicException($"Not allowed to scrap NFT items on the client, only on the hub and " +
+				                         $"{itemId} - {equipment.GameId.ToString()} is a NFT");
 			}
 			
 			if (durability == equipment.MaxDurability)
 			{
-				throw new LogicException($"Item {itemId} is already fully repaired");
+				throw new LogicException($"Item {itemId} - {equipment.GameId.ToString()} is already fully repaired");
 			}
 
 			equipment.TotalRestoredDurability += equipment.MaxDurability - durability;
@@ -516,13 +521,8 @@ namespace FirstLight.Game.Logic
 			throw new LogicException("Dictionary weighted random could not return a valid index.");
 		}
 
-		private bool RemoveFromInventory(UniqueId equipment)
+		private void RemoveFromInventory(UniqueId equipment)
 		{
-			if (!_inventory.ContainsKey(equipment))
-			{
-				throw new LogicException($"The given '{equipment}' id is not in the inventory");
-			}
-
 			var gameId = GameLogic.UniqueIdLogic.Ids[equipment];
 			var slot = gameId.GetSlot();
 
@@ -533,8 +533,6 @@ namespace FirstLight.Game.Logic
 
 			_inventory.Remove(equipment);
 			GameLogic.UniqueIdLogic.RemoveId(equipment);
-			
-			return true;
 		}
 	}
 }

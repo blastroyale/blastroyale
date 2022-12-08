@@ -378,7 +378,7 @@ namespace FirstLight.Game.Logic
 			else
 			{
 				throw
-					new LogicException($"The reward '{reward.RewardId}' is not from a group type that is rewardable.");
+					new LogicException($"The reward '{reward.RewardId.ToString()}' is not from a group type that is rewardable.");
 			}
 
 			return reward;

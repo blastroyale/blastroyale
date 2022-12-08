@@ -187,7 +187,7 @@ namespace FirstLight.Game.Logic
 		{
 			if (!skin.IsInGroup(GameIdGroup.PlayerSkin))
 			{
-				throw new LogicException($"Skin Id '{skin}' is not part of the Game Id Group PlayerSkin.");
+				throw new LogicException($"Skin Id '{skin.ToString()}' is not part of the Game Id Group PlayerSkin.");
 			}
 
 			Data.PlayerSkinId = skin;

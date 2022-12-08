@@ -48,8 +48,7 @@ namespace FirstLight.Editor.EditorTools
 			File.Copy(gameDllPath, destDll, true);
 		}
 
-		[MenuItem("FLG/Backend/Copy DLLs")]
-		private static void MoveBackendDlls()
+		private static void CopyAllAssemblies()
 		{
 			// Quantum Dependencies
 			CopyAssembly(_quantumLibPath, "quantum.code.dll");
@@ -62,8 +61,21 @@ namespace FirstLight.Editor.EditorTools
 			CopyAssembly(_unityPath, "FirstLight.Game.dll");
 			CopyAssembly(_unityPath, "FirstLight.Services.dll");
 			CopyAssembly(_unityPath, "PhotonQuantum.dll");
+			Debug.Log($"Copied assemblies to {_backendLibsPath}");
+		}
 
-			CopyConfigs(); // also copy configs to ensure everything is updated
+		[UnityEditor.Callbacks.DidReloadScripts(2000)]
+		private static void OnScriptsReloaded()
+		{
+			CopyAllAssemblies();
+			CopyConfigs();
+		}
+
+
+		[MenuItem("FLG/Backend/Copy DLLs")]
+		private static void MoveBackendDlls()
+		{
+			CopyAllAssemblies();
 		}
 
 		/// <summary>
@@ -79,9 +91,9 @@ namespace FirstLight.Editor.EditorTools
 			Debug.Log("Parsing Configs");
 			await Task.WhenAll(configsLoader.LoadConfigTasks(configs));
 			var serialiezd = serializer.Serialize(configs, "develop");
-
-			File.WriteAllText($"{_backendPath}/GameLogicService/gameConfig.json", serialiezd);
-			Debug.Log("Parsed and saved in backend folder");
+			var configPath = $"{_backendPath}/GameLogicService/gameConfig.json";
+			File.WriteAllText(configPath, serialiezd);
+			Debug.Log($"Parsed and saved config to backend folder {configPath}");
 		}
 
 #if ENABLE_PLAYFABADMIN_API
@@ -108,8 +120,9 @@ namespace FirstLight.Editor.EditorTools
 					EditorUtility.DisplayDialog("Enable Playfab Ext", "Please go to Windows -> Playfab and enable playfab EXT to use this", "Accept", "Forcefully Accept");
 					return;
 				}
-				if(!EditorUtility.DisplayDialog("Confirm Version Update",
-					@$"Update configs from version {currentVersion} to {nextVersion} on environment {title.Name.ToUpper()} {title.Id.ToUpper()}?", "Confirm", "Cancel"))
+
+				if (!EditorUtility.DisplayDialog("Confirm Version Update",
+												 @$"Update configs from version {currentVersion} to {nextVersion} on environment {title.Name.ToUpper()} {title.Id.ToUpper()}?", "Confirm", "Cancel"))
 				{
 					return;
 				}
@@ -127,7 +140,7 @@ namespace FirstLight.Editor.EditorTools
 		private static void ForceUpdate()
 		{
 			var services = MainInstaller.Resolve<IGameServices>();
-			((GameCommandService) services.CommandService).ForceServerDataUpdate();
+			((GameCommandService)services.CommandService).ForceServerDataUpdate();
 			Debug.Log("Force Update Sent to Server");
 		}
 
@@ -170,7 +183,7 @@ namespace FirstLight.Editor.EditorTools
 		private static void UpdateIAPCatalog()
 		{
 			Debug.Log("Requesting catalog items from PlayFab");
-			PlayFabAdminAPI.GetCatalogItems(new PlayFab.AdminModels.GetCatalogItemsRequest {CatalogVersion = "Store"}, result =>
+			PlayFabAdminAPI.GetCatalogItems(new PlayFab.AdminModels.GetCatalogItemsRequest { CatalogVersion = "Store" }, result =>
 			{
 				Debug.Log("Request completed successfully.");
 				var catalog = new ProductCatalog
@@ -188,12 +201,12 @@ namespace FirstLight.Editor.EditorTools
 
 					catItem.AddPayout();
 					catItem.Payouts[0].type = ProductCatalogPayout.ProductCatalogPayoutType.Item;
-					catItem.Payouts[0].quantity = (double) item.Consumable.UsageCount;
+					catItem.Payouts[0].quantity = (double)item.Consumable.UsageCount;
 					catItem.Payouts[0].data = item.CustomData;
 
 					var price = item.VirtualCurrencyPrices["RM"] / 100f;
 					catItem.applePriceTier = Mathf.RoundToInt(price);
-					catItem.googlePrice = new Price {value = (decimal) price};
+					catItem.googlePrice = new Price { value = (decimal)price };
 
 					catalog.Add(catItem);
 				}

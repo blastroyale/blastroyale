@@ -26,7 +26,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static uint GetCurrentDurability(this Equipment equipment, long timestamp)
 		{
-			return equipment.GetCurrentDurability(false, default, DateTime.UtcNow.Ticks);
+			return equipment.GetCurrentDurability(false, default, timestamp);
 		}
 		
 		
@@ -51,6 +51,11 @@ namespace FirstLight.Game.Utils
 			// TODO: Gabriel delete when we update the backend
 			var dropDays = FP._7;
 			var durabilityDropped = (uint) Math.Floor(rustTime.TotalDays / dropDays.AsDouble);
+
+			if (!FeatureFlags.ITEM_DURABILITY)
+			{
+				durabilityDropped = 0;
+			}
 
 			return equipment.MaxDurability - Math.Min(durabilityDropped, equipment.MaxDurability);
 		}

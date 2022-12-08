@@ -487,7 +487,7 @@ namespace FirstLight.Game.StateMachines
 			SetCurrentScreen<HomeScreenPresenter>();
 		}
 
-		private async void OpenLoadingScreen()
+		private void OpenLoadingScreen()
 		{
 			_uiService.OpenScreen<LoadingScreenPresenter>();
 		}

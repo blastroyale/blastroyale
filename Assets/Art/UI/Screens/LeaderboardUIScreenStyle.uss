@@ -1,8 +1,8 @@
 .leaderboard-panel {
-    width: 100%;
-    height: 950px;
+    width: 1050px;
     position: absolute;
     top: 150px;
+    bottom: 130px;
 }
 
 .leaderboard-entries {
@@ -57,7 +57,7 @@
     bottom: 35px;
 }
 
-.leaderboard_footer_text{
+.leaderboard_footer_text {
     -unity-font-definition: var(--font-italic);
     font-size: 30px;
     width: 100%;
@@ -75,6 +75,3 @@
     position: absolute;
     align-items: center;
 }
-
-
-

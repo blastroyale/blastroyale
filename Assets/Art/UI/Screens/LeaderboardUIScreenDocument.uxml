@@ -11,11 +11,7 @@
         </ui:VisualElement>
         <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITLeaderboards/global_leaderboard" name="Header" />
         <ui:VisualElement name="footer" class="leaderboard_footer">
-<<<<<<< HEAD
             <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITLeaderboards/become_the_best" class="leaderboard_footer_text leaderboard_footer_text_localization" />
-=======
-            <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITLeaderboards/become_the_best" name="leaderboard_footer_text" class="leaderboard_footer_text" />
->>>>>>> aae208d50 (Update localization key)
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

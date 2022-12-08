@@ -498,7 +498,17 @@ public partial class SROptions
 			Data = data
 		});
 	}
-	
+
+	[Category("Progression")]
+	public void Add5000Coins()
+	{
+		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
+		var services = MainInstaller.Resolve<IGameServices>();
+
+		gameLogic.CurrencyLogic.AddCurrency(GameId.COIN, 5000);
+		((GameCommandService)services.CommandService).ForceServerDataUpdate();
+	}
+
 	[Category("Progression")]
 	public void Add5CS()
 	{

@@ -1,8 +1,10 @@
 .leaderboard-panel {
-    width: 1050px;
+    width: 100%;
     position: absolute;
     top: 150px;
     bottom: 130px;
+    left: 0;
+    align-items: center;
 }
 
 .leaderboard-entries {
@@ -18,7 +20,6 @@
 .leaderboard-header {
     position: absolute;
     justify-content: center;
-    right: 40px;
     height: 70px;
     width: 900px;
     margin-right: 0;

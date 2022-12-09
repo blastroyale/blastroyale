@@ -1,8 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/LeaderboardUIScreenStyle.uss?fileID=7433441132597879392&amp;guid=f8f38780b5efced4896c0b026b1b30fb&amp;type=3#LeaderboardUIScreenStyle" />
     <ui:VisualElement name="root" class="fill-parent">
-        <ui:VisualElement name="LeaderboardPanel" class="leaderboard-panel">
-            <ui:VisualElement name="LeaderboardHeader" class="leaderboard-header" style="margin-right: 20%;">
+        <ui:VisualElement name="LeaderboardPanel" class="leaderboard-panel" style="left: 0;">
+            <ui:VisualElement name="LeaderboardHeader" class="leaderboard-header">
                 <ui:Label text="#" display-tooltip-when-elided="true" name="RankNumber" class="header-label leaderboard-header__rank-number" />
                 <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Player" localization-key="UITLeaderboards/player" class="header-label leaderboard-header__player" />
                 <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Trophies" localization-key="UITLeaderboards/trophies" class="header-label leaderboard-header__trophies" />

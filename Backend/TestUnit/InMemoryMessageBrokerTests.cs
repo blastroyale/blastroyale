@@ -33,39 +33,7 @@ namespace Tests
 			_messageType1 = new MessageType1();
 			_messageType2 = new MessageType2();
 		}
-
-		[Test]
-		public async Task Test()
-		{
-			PlayFabSettings.staticSettings.TitleId = "***REMOVED***"; // photonConfig["PlayfabTitle"];
-			PlayFabSettings.staticSettings.DeveloperSecretKey = "***REMOVED***"; /// photonConfig["PlayfabKey"];
-
-			var result3 = await PlayFabAdminAPI.GetUserAccountInfoAsync(new PlayFab.AdminModels.LookupUserAccountInfoRequest()
-			{
-				PlayFabId = "9CE4053DC5602829",
-				AuthenticationContext = null,
-				
-			});
-
-			var result2 = await PlayFabServerAPI.GetUserAccountInfoAsync(new PlayFab.ServerModels.GetUserAccountInfoRequest()
-			{
-				PlayFabId = "9CE4053DC5602829",
-				AuthenticationContext = null,
-				
-			});
-			var test = result2.Result.UserInfo.PrivateInfo;
-
-			var result = await PlayFabServerAPI.ExecuteCloudScriptAsync(new PlayFab.ServerModels.ExecuteCloudScriptServerRequest()
-			{
-				FunctionName = "GetPlayerData",
-				PlayFabId = "9CE4053DC5602829",
-				RevisionSelection = PlayFab.ServerModels.CloudScriptRevisionOption.Live,
-				SpecificRevision = 0
-
-			});
-			var asd = 123;
-		}
-
+		
 		[Test]
 		public void Subscribe_Publish_Successfully()
 		{

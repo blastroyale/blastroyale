@@ -53,6 +53,6 @@
             </ui:VisualElement>
             <ui:ScrollView name="LeaderboardScrollView" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" touch-scroll-type="Elastic" class="leaderboard-entries" />
         </ui:VisualElement>
-        <ui:Button display-tooltip-when-elided="true" name="NextButton" text="NEXT →" class="button-next" />
+        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITShared/next" name="NextButton" class="button-next anim-delay-0 anim-fade" />
     </ui:VisualElement>
 </ui:UXML>

@@ -1,21 +1,4 @@
-.centered-parent {
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    align-items: center;
-}
-
-.winner {
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-}
-
-.winner__title {
+.winner-banner {
     position: absolute;
     background-image: url('project://database/Assets/Art/UI/Sprites/MatchEnd/PlayerWonBadge.png?fileID=21300000&guid=5a038245d3ee241619c87feb2764ba89&type=3#PlayerWonBadge');
     width: 1001px;
@@ -24,12 +7,12 @@
     transition-duration: 0.2s, 0.2s;
 }
 
-.hidden .winner__title {
+.hidden .winner-banner {
     opacity: 0;
     scale: 1.3 1.3;
 }
 
-.winner__title__winner-label {
+.winner-banner__title {
     width: 260px;
     top: 160px;
     rotate: -10deg;
@@ -41,12 +24,12 @@
     transition-duration: 0.2s, 0.2s;
 }
 
-.hidden .winner__title__winner-label {
+.hidden .winner-banner__title {
     opacity: 0;
     scale: 1.3 1.3;
 }
 
-.winner__title__name-label {
+.winner-banner__player-name {
     width: 260px;
     top: 130px;
     rotate: -10deg;
@@ -61,40 +44,7 @@
     transition-duration: 0.2s, 0.2s;
 }
 
-.hidden .winner__title__name-label {
+.hidden .winner-banner__player-name {
     opacity: 0;
     scale: 1.3 1.3;
-}
-
-.winner__next-button {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    background-image: url('project://database/Assets/Art/UI/Sprites/MatchEnd/NextButton.png?fileID=21300000&guid=7b7f8b5eb966f4fb38b88e5573f3a921&type=3#NextButton');
-    width: 562px;
-    height: 194px;
-    background-color: rgba(255, 255, 255, 0);
-    margin: 0;
-    transition-property: opacity, scale;
-    transition-duration: 0.2s, 0.2s;
-    border-left-width: 0;
-    border-right-width: 0;
-    border-top-width: 0;
-    border-bottom-width: 0;
-}
-
-.hidden .winner__next-button {
-    opacity: 0;
-    scale: 1.3 1.3;
-}
-
-.winner__next-button__label {
-    width: 260px;
-    top: 80px;
-    left: 250px;
-    text-shadow: 4px 4px 0 rgb(185, 65, 21);
-    -unity-text-outline-color: rgb(185, 65, 21);
-    font-size: 70px;
-    -unity-text-outline-width: 2px;
-    color: rgb(255, 255, 255);
 }

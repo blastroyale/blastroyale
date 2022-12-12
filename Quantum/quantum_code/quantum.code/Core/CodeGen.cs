@@ -231,6 +231,7 @@ namespace Quantum {
     SpecialShieldedCharge = 119,
     SpecialAimingGrenade = 102,
     SpecialDefaultDash = 141,
+    SpecialRadar = 62,
     Barrel = 109,
     DummyCharacter = 6,
     WeaponPlatformSpawner = 138,

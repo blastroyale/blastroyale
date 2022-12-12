@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -105,34 +106,7 @@ namespace FirstLight.Game.Services
 			ModelSerializer.RegisterConverter(new QuantumVector2Converter());
 			ModelSerializer.RegisterConverter(new QuantumVector3Converter());
 			_commandContext = new CommandExecutionContext(
-				new LogicContainer().Build(gameLogic), new ServiceContainer().Build(services), dataService);
-		}
-
-		/// <summary>
-		/// Sends the command to quantum. Quantum will enrich the command data from the simulation server-side.
-		/// All commands will be ran at the end of the match using the last frame.
-		/// </summary>
-		private void ExecuteQuantumCommand<TCommand>(TCommand command) where TCommand : IGameCommand
-		{
-			var quantumCommand = command as IQuantumCommand;
-			if (quantumCommand == null)
-			{
-				throw new Exception($"Trying to send {command.GetType().Name} to quantum but that command is not IQuantumCommand");
-			}
-			FLog.Verbose($"Sending quantum command {command.GetType().Name}");
-			var payload = new QuantumCommandPayload()
-			{
-				CommandType = command.GetType().FullName,
-				Token = PlayFabSettings.staticPlayer.EntityToken
-			};
-			var bytes = Encoding.UTF8.GetBytes(ModelSerializer.Serialize(payload).Value);
-			var opt = new RaiseEventOptions
-			{
-				Receivers = ReceiverGroup.All
-			};
-			_network.QuantumClient.OpRaiseEvent(
-				(int)QuantumCustomEvents.EndGameCommand, bytes, opt, SendOptions.SendReliable
-			);
+														  new LogicContainer().Build(gameLogic), new ServiceContainer().Build(services), dataService);
 		}
 
 		/// <summary>
@@ -160,26 +134,24 @@ namespace FirstLight.Game.Services
 #if UNITY_EDITOR
 			// Ensure we go trough serialization & deserialization process Editor
 			var serializedCommand = ModelSerializer.Serialize(command).Value;
-			command = ModelSerializer.Deserialize<TCommand>(serializedCommand);
+			command = (TCommand)ModelSerializer.Deserialize(command.GetType(), serializedCommand);
 #endif
 			try
 			{
 				switch (command.ExecutionMode())
 				{
 					case CommandExecutionMode.Quantum:
-						if (FeatureFlags.QUANTUM_CUSTOM_SERVER)
-						{
-							ExecuteQuantumCommand(command);
-						}
-						else
+						if (!FeatureFlags.QUANTUM_CUSTOM_SERVER)
 						{
 							EnqueueCommandToServer(command);
 						}
+
 						break;
 					case CommandExecutionMode.Server:
 						EnqueueCommandToServer(command);
 						break;
 				}
+
 				command.Execute(_commandContext);
 			}
 			catch (Exception e)
@@ -187,10 +159,7 @@ namespace FirstLight.Game.Services
 				var title = "Game Exception";
 				var button = new AlertButton
 				{
-					Callback = () =>
-					{
-						_services.QuitGame("Closing game exception popup");
-					},
+					Callback = () => { _services.QuitGame("Closing game exception popup"); },
 					Style = AlertButtonStyle.Negative,
 					Text = "Quit Game"
 				};
@@ -203,9 +172,42 @@ namespace FirstLight.Game.Services
 				{
 					title = "PlayFab Exception";
 				}
+
 				NativeUiService.ShowAlertPopUp(false, title, e.Message, button);
 				throw;
 			}
+		}
+
+		private void SaveState(Action action)
+		{
+			#if DEVELOPMENT_BUILD || UNITY_EDITOR
+			var date = DateTime.Now.ToString("dd-MM-yyyy-HH-mm-ss");
+			var states = $"{Application.persistentDataPath}/crash-logs/{date}/states";
+
+			Directory.CreateDirectory(states);
+
+			_services.PlayfabService.FetchServerState(state =>
+			{
+				foreach (var type in _commandContext.Data.GetKeys())
+				{
+					string client = Path.Combine(states, $"{type.Name}_client.json");
+					string server = Path.Combine(states, $"{type.Name}_server.json");
+					string serverValue = string.Empty;
+					if (type.FullName != null) state.TryGetValue(type.FullName, out serverValue);
+
+					string clientValue = ModelSerializer.Serialize(_commandContext.Data.GetData((type))).Value;
+
+					File.AppendAllText(server, serverValue + Environment.NewLine);
+
+					File.AppendAllText(client, clientValue + Environment.NewLine);
+				}
+
+				FLog.Info($"Writing states to {states}");
+				action();
+			});
+			#else
+			action();
+			#endif
 		}
 
 		/// <summary>
@@ -213,6 +215,8 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		private void OnCommandException(string exceptionMsg)
 		{
+			SaveState(() =>
+			{
 #if UNITY_EDITOR
 			FLog.Error(exceptionMsg);
 			var confirmButton = new GenericDialogButton
@@ -237,6 +241,7 @@ namespace FirstLight.Game.Services
 				Text = "Quit Game"
 			});
 #endif
+			});
 		}
 
 		/// <summary>
@@ -286,10 +291,10 @@ namespace FirstLight.Game.Services
 				Platform = Application.platform.ToString(),
 				Data = new Dictionary<string, string>
 				{
-					{CommandFields.Command, ModelSerializer.Serialize(command).Value},
-					{CommandFields.Timestamp, DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString()},
-					{CommandFields.ClientVersion, VersionUtils.VersionExternal},
-					{CommandFields.ConfigurationVersion, _gameLogic.ConfigsProvider.Version.ToString()}
+					{ CommandFields.Command, ModelSerializer.Serialize(command).Value },
+					{ CommandFields.Timestamp, DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString() },
+					{ CommandFields.ClientVersion, VersionUtils.VersionExternal },
+					{ CommandFields.ConfigurationVersion, _gameLogic.ConfigsProvider.Version.ToString() }
 				}
 			};
 			_playfab.CallFunction("ExecuteCommand", OnCommandSuccess, OnCommandError, request);
@@ -301,7 +306,7 @@ namespace FirstLight.Game.Services
 		private void OnCommandError(PlayFabError error)
 		{
 #if UNITY_EDITOR
-			_commandQueue.Clear();  // clear to make easier for testing
+			_commandQueue.Clear(); // clear to make easier for testing
 #endif
 			_playfab.HandleError(error);
 		}
@@ -329,11 +334,13 @@ namespace FirstLight.Game.Services
 			{
 				throw new LogicException($"Queue waiting for {current.GetType().FullName} command but {logicResult.Result.Command} was received");
 			}
+
 			// Command returned 200 but a expected logic exception happened due
 			if (logicResult.Result.Data.TryGetValue("LogicException", out var logicException))
 			{
 				OnCommandException(logicException);
 			}
+
 			if (FeatureFlags.REMOTE_CONFIGURATION &&
 				logicResult.Result.Data.TryGetValue(CommandFields.ConfigurationVersion, out var serverConfigVersion))
 			{
@@ -351,10 +358,11 @@ namespace FirstLight.Game.Services
 			{
 				OnCommandException($"Models desynched: {string.Join(',', desynchs)}");
 				// TODO: Do a json diff and show which data exactly is different
-			} 
+			}
+
 			OnServerExecutionFinished(current);
 		}
-		
+
 		/// <summary>
 		/// By a given server response, tries to identifies any delta missmatch to detect
 		/// data desynch betwen client & server
@@ -375,6 +383,7 @@ namespace FirstLight.Game.Services
 					invalid.Add(modifiedType);
 				}
 			}
+
 			return invalid;
 		}
 	}

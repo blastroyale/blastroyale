@@ -157,7 +157,6 @@ namespace FirstLight.Game.Services
 			var matchType = _services.NetworkService.QuantumClient.CurrentRoom.GetMatchType();
 
 			var gameContainer = frame.GetSingleton<GameContainer>();
-			var gameLogic = _services.GameLogic;
 
 			if (!frame.Context.GameModeConfig.AllowEarlyRewards && !gameContainer.IsGameCompleted &&
 				!gameContainer.IsGameOver)
@@ -165,7 +164,7 @@ namespace FirstLight.Game.Services
 				return;
 			}
 			
-			TrophiesBeforeChange = gameLogic.PlayerLogic.Trophies.Value;
+			TrophiesBeforeChange = _dataProvider.PlayerDataProvider.Trophies.Value;
 			CSBeforeChange = (uint)_dataProvider.CurrencyDataProvider.Currencies[GameId.CS];
 
 			var predictedProgress = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
@@ -178,9 +177,9 @@ namespace FirstLight.Game.Services
 				ExecutingPlayer = executingPlayer,
 				MatchType = matchType,
 				DidPlayerQuit = false,
-				GamePlayerCount = QuantumPlayerMatchData.Select(d => !d.IsBot).Count()
+				GamePlayerCount = QuantumPlayerMatchData.Count()
 			};
-			Rewards = gameLogic.RewardLogic.GiveMatchRewards(rewardSource, out var trophyChange);
+			Rewards = _dataProvider.RewardDataProvider.CalculateMatchRewards(rewardSource, out var trophyChange);
 			TrophiesChange = trophyChange;
 		}
 	}

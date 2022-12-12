@@ -59,6 +59,11 @@ namespace FirstLight.Game.Utils
 		public static bool REMOTE_CONFIGURATION = false;
 
 		/// <summary>
+		/// Enables / disables item durability checks
+		/// </summary>
+		public static bool ITEM_DURABILITY = false;
+
+		/// <summary>
 		/// If true all matches will be handled as ranked matches
 		/// </summary>
 		public static bool FORCE_RANKED = false;
@@ -93,6 +98,11 @@ namespace FirstLight.Game.Utils
 			if (TrySetFlag("FORCE_RANKED", titleData, out var forceRanked))
 			{
 				FORCE_RANKED = forceRanked;
+			}
+			
+			if (TrySetFlag("ITEM_DURABILITY", titleData, out var itemDurability))
+			{
+				ITEM_DURABILITY = itemDurability;
 			}
 			
 			if (TrySetFlag("STORE_ENABLED", titleData, out var storeEnabled))

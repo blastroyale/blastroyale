@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -140,6 +141,7 @@ namespace FirstLight.Game.StateMachines
 			defaultNameCheck.Transition().Condition(HasDefaultName).Target(enterNameDialog);
 			defaultNameCheck.Transition().Target(homeMenu);
 
+			homeMenu.OnEnter(VerifyRewardsCalculations);
 			homeMenu.OnEnter(OpenPlayMenuUI);
 			homeMenu.OnEnter(TryClaimUncollectedRewards);
 			homeMenu.Event(_playClickedEvent).Target(playClickedCheck);
@@ -190,6 +192,32 @@ namespace FirstLight.Game.StateMachines
 			roomJoinCreateMenu.Event(_roomJoinCreateCloseClickedEvent).Target(chooseGameMode);
 			roomJoinCreateMenu.Event(NetworkState.JoinRoomFailedEvent).Target(chooseGameMode);
 			roomJoinCreateMenu.Event(NetworkState.CreateRoomFailedEvent).Target(chooseGameMode);
+		}
+
+		private void VerifyRewardsCalculations()
+		{
+			_services.PlayfabService.CheckIfRewardsMatch(calculationsAreDone =>
+			{
+				if (!calculationsAreDone)
+				{
+					_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITHomeScreen.waitforrewards_popup_title,
+						ScriptLocalization.UITHomeScreen.waitforrewards_popup_description, false, new GenericDialogButton());
+
+					_services.CoroutineService.StartCoroutine(VerifyRewardsCalculationsCoroutine());
+				}
+			});
+		}
+
+		private IEnumerator VerifyRewardsCalculationsCoroutine()
+		{
+			var wait = new WaitForSeconds(1);
+			var calculationsAreDone = false;
+			while (!calculationsAreDone)
+			{
+				_services.PlayfabService.CheckIfRewardsMatch(result => calculationsAreDone = result);
+				yield return wait;
+			}
+			_services.GenericDialogService.CloseDialog();
 		}
 
 		private bool HasDefaultName()
@@ -392,6 +420,11 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(NetworkState.IapProcessFinishedEvent);
 		}
 
+		private void CloseBattlePassUI()
+		{
+			_uiService.CloseUi<BattlePassScreenPresenter>();
+		}
+		
 		private void OpenPlayerSkinScreenUI()
 		{
 			var data = new PlayerSkinScreenPresenter.StateData
@@ -438,7 +471,7 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Publish(new PlayScreenOpenedMessage());
 		}
 
-		private void OpenDisconnectedScreen()
+		private async void OpenDisconnectedScreen()
 		{
 			var data = new DisconnectedScreenPresenter.StateData
 			{

@@ -23,7 +23,7 @@ namespace Quantum
 		private static ResourceManagerStaticPreloaded _resourceManager;
 		private static QuantumAssetSerializer _serializer = new QuantumAssetSerializer();
 		private static Object _initializationLock = new Object();
-
+		
 		private DeterministicSessionConfig _config;
 		private RuntimeConfig _runtimeConfig;
 		private readonly Dictionary<String, String> _photonConfig;
@@ -34,6 +34,7 @@ namespace Quantum
 		private InputProvider inputProvider;
 	
 		public readonly PhotonPlayfabSDK Playfab;
+		public Action<EventFireQuantumServerCommand> OnSimulationCommand;
 		
 		public CustomQuantumServer(Dictionary<String, String> photonConfig, IPluginHost host) {
 			_photonConfig = photonConfig;
@@ -65,9 +66,22 @@ namespace Quantum
 			StartServerSimulation();
 		}
 
+		/// <summary>
+		/// Called whenever the simulation fires a command that should be directed to the server
+		/// This would transform the event into a logic server command.
+		private void OnServerCommand(EventFireQuantumServerCommand ev)
+		{
+			if (FlgConfig.DebugMode)
+			{
+				Log.Info($"Received server command {ev.CommandType} from player {ev.Player}");
+			}
+			OnSimulationCommand?.Invoke(ev);
+		}
+
 		public void StartServerSimulation()
 		{
-			Log.Debug("Starting server simulation");
+			var events = new EventDispatcher();
+			events.Subscribe<EventFireQuantumServerCommand>(this, OnServerCommand);
 			var configsFile = new ReplayFile();
 			configsFile.DeterministicConfig = _config;
 			configsFile.RuntimeConfig = _runtimeConfig;
@@ -75,7 +89,8 @@ namespace Quantum
 			var startParams = new QuantumGame.StartParameters
 			{
 				AssetSerializer = _serializer,
-				ResourceManager = _resourceManager
+				ResourceManager = _resourceManager,
+				EventDispatcher = events,
 			};
 			inputProvider = new InputProvider(_config);
 			var taskRunner = new InactiveTaskRunner();
@@ -164,16 +179,26 @@ namespace Quantum
 				return;
 			}
 
-			if (gameSession.Session.FrameVerified != null)
+			try
 			{
-				// Interpolate time to make sure server catchup if it ticked too slow for some reason
-				double gameTime = Session.Input.GameTime;
-				var sessionTime = gameSession.Session.AccumulatedTime + gameSession.Session.FrameVerified.Number * gameSession.Session.DeltaTimeDouble;
-				gameSession.Service(gameTime - sessionTime);
-			}
-			else
+				if (gameSession.Session.FrameVerified != null)
+				{
+					// Interpolate time to make sure server catchup if it ticked too slow for some reason
+					double gameTime = Session.Input.GameTime;
+					var sessionTime = gameSession.Session.AccumulatedTime + gameSession.Session.FrameVerified.Number * gameSession.Session.DeltaTimeDouble;
+					gameSession.Service(gameTime - sessionTime);
+				}
+				else
+				{
+					gameSession.Service();
+				}
+			} catch(Exception e)
 			{
-				gameSession.Service();
+				PluginHost.LogError($"An exception was thrown while servicing the GameSession.");
+				PluginHost.LogException(e);
+
+				gameSession?.Destroy();
+				gameSession = null;
 			}
 		}
 
@@ -224,10 +249,27 @@ namespace Quantum
 			_runtimeConfig = RuntimeConfig.FromByteArray(configData.Config);
 		}
 
+		public string GetPlayFabIdByIndex(int playerRef)
+		{
+			if (FlgConfig.DebugMode)
+			{
+				Log.Debug($"Actor Index {playerRef} searching for playerId");
+			}
+			foreach (var playfabId in _receivedPlayers.Keys)
+			{
+				if (_receivedPlayers[playfabId].Index == playerRef)
+					return playfabId;
+			}
+			return null;
+		}
+
 		public string GetPlayFabId(int actorNr)
 		{
 			var playerRef = GetClientIndexByActorNumber(actorNr);
-			Log.Debug($"Actor {actorNr} Index {playerRef} searching for playerId");
+			if (FlgConfig.DebugMode)
+			{
+				Log.Debug($"Actor {actorNr} Index {playerRef} searching for playerId");
+			}
 			foreach (var playfabId in _receivedPlayers.Keys)
 			{
 				if (_receivedPlayers[playfabId].Index == playerRef)
@@ -250,7 +292,10 @@ namespace Quantum
 			_receivedPlayers[clientPlayer.PlayerId] = clientPlayerData;
 			_actorNrToIndex[client.ActorNr] = clientPlayerData.Index;
 			Playfab.GetProfileReadOnlyData(clientPlayer.PlayerId, OnUserDataResponse);
-			Log.Debug($"Received client data from player {clientPlayer.PlayerId} actor {client.ActorNr} index {clientPlayerData.Index}");
+			if (FlgConfig.DebugMode)
+			{
+				Log.Debug($"Received client data from player {clientPlayer.PlayerId} actor {client.ActorNr} index {clientPlayerData.Index}");
+			}
 			return false; // denies adding player data to the bitstream when client sends it
 		}
 
@@ -265,7 +310,10 @@ namespace Quantum
 				entry => entry.Key,
 				entry => entry.Value.Value);
 			var playerId = response.Request.UserState as string;
-			Log.Debug($"Validating loadout for player {playerId}");
+			if (FlgConfig.DebugMode)
+			{
+				Log.Debug($"Validating loadout for player {playerId}");
+			}
 			if (playerId == null || !_receivedPlayers.TryGetValue(playerId, out var setPlayerData))
 			{
 				Log.Error($"Could not find set player data request for player {playerId}");
@@ -291,7 +339,10 @@ namespace Quantum
 					return;
 				}
 			}
-			Log.Debug($"Player {playerId} has valid loadout");
+			if (FlgConfig.DebugMode)
+			{
+				Log.Debug($"Player {playerId} has valid loadout");
+			}
 			_validPlayers[GetClientActorNumberByIndex(setPlayerData.Index)] = setPlayerData;
 			SetDeterministicPlayerData(setPlayerData);
 		}
@@ -301,7 +352,10 @@ namespace Quantum
 		/// </summary>
 		public void Dispose()
 		{
-			Log.Debug("Destroying simulation");
+			if (FlgConfig.DebugMode)
+			{
+				Log.Debug("Destroying simulation");
+			}
 			gameSession?.Destroy();
 			_receivedPlayers.Clear();
 			_validPlayers.Clear();

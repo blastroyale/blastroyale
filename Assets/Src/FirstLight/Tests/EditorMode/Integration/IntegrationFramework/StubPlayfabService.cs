@@ -71,6 +71,11 @@ namespace FirstLight.Tests.EditorMode
 
 		public void UpdateContactEmail(string newEmail, Action<AddOrUpdateContactEmailResult> callback = null)
 		{
+	
+		}
+
+		public void CheckIfRewardsMatch(Action<bool> callback)
+		{
 		
 		}
 	}

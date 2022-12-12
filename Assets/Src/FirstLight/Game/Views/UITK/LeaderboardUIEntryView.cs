@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using PlayFab.ClientModels;
-using Quantum;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views
@@ -12,14 +11,14 @@ namespace FirstLight.Game.Views
 	/// </summary>
 	public class LeaderboardUIEntryView : IUIView
 	{
-		private const string UssLeaderboardEntry = "leaderboard-entry";
-		private const string UssLeaderboardEntryFirst = UssLeaderboardEntry+"--first";
-		private const string UssLeaderboardEntrySecond = UssLeaderboardEntry+"--second";
-		private const string UssLeaderboardEntryThird = UssLeaderboardEntry+"--third";
-		private const string UssLeaderboardEntryLocal = UssLeaderboardEntry+"--local";
-		private const string PlayerHighlight = "leaderboard-entry__player-highlight";
-		private const string PlayerHighlightHidden = "leaderboard-entry__player-highlight-hidden";
-		private const string FooterLocalizationKey = "UITLeaderboards/become_the_best";
+		private const string USS_LEADERBOARD_ENTRY_FIRST = "leaderboard-entry--first";
+		private const string USS_LEADERBOARD_ENTRY_SECOND = "leaderboard-entry--second";
+		private const string USS_LEADERBOARD_ENTRY_THIRD = "leaderboard-entry--third";
+		private const string USS_LEADERBOARD_ENTRY_LOCAL = "leaderboard-entry--local";
+
+		public float AnimStartDelayTime = 0.3f;
+		public float AnimItemOffsetTime = 0.1f;
+
 		private VisualElement _root;
 		private VisualElement _leaderboardUIEntry;
 		private VisualElement _localPlayerHighlight;
@@ -31,12 +30,8 @@ namespace FirstLight.Game.Views
 		public void Attached(VisualElement element)
 		{
 			_root = element;
-			
 			_leaderboardUIEntry = _root.Q<VisualElement>("LeaderboardEntryParent").Required();
 			_localPlayerHighlight = _root.Q<VisualElement>("LocalPlayerHighlight").Required();
-
-			
-			
 			_rankNumber = _root.Q<Label>("RankNumber").Required();
 			_playerName = _root.Q<Label>("PlayerName").Required();
 			_trophies = _root.Q<Label>("TrophiesAmount").Required();
@@ -55,9 +50,9 @@ namespace FirstLight.Game.Views
 			{
 				var rankClass = data.Position switch
 				{
-					0 => UssLeaderboardEntryFirst,
-					1 => UssLeaderboardEntrySecond,
-					2 => UssLeaderboardEntryThird,
+					0 => USS_LEADERBOARD_ENTRY_FIRST,
+					1 => USS_LEADERBOARD_ENTRY_SECOND,
+					2 => USS_LEADERBOARD_ENTRY_THIRD,
 					_ => ""
 				};
 				
@@ -70,7 +65,7 @@ namespace FirstLight.Game.Views
 
 			if (isLocalPlayer)
 			{
-				_leaderboardUIEntry.AddToClassList(UssLeaderboardEntryLocal);
+				_leaderboardUIEntry.AddToClassList(USS_LEADERBOARD_ENTRY_LOCAL);
 			}
 			else
 			{
@@ -81,7 +76,7 @@ namespace FirstLight.Game.Views
 			_playerName.text = data.DisplayName.Remove(data.DisplayName.Length-5);
 
 			_trophies.text = data.StatValue.ToString();
-			var delayTime = 0.3f + data.Position * 0.1f;
+			var delayTime = AnimStartDelayTime + data.Position * AnimItemOffsetTime;
 
 			_leaderboardUIEntry.style.transitionDelay = new List<TimeValue>
 			{

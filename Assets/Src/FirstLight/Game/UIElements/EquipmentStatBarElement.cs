@@ -47,6 +47,7 @@ namespace FirstLight.Game.UIElements
 			{EquipmentStatType.NumberOfShots, 10},
 			{EquipmentStatType.PickupSpeed, 0.25f},
 			{EquipmentStatType.ShieldCapacity, 800},
+			{EquipmentStatType.MagazineSize, 30},
 		};
 
 		private static readonly HashSet<EquipmentStatType> INVERT_VALUES = new()

@@ -33,6 +33,7 @@ namespace FirstLight.Game.Infos
 		SpecialId1,
 		PickupSpeed,
 		ShieldCapacity,
+		MagazineSize,
 	}
 
 	public struct EquipmentInfo

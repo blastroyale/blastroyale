@@ -64,7 +64,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Updates anonymous account with provided registration data
 		/// </summary>
-		void AttachLoginDataToAccount(string email, string password, string displayName,
+		void AttachLoginDataToAccount(string email, string username, string password,
 		                              Action<AddUsernamePasswordResult> successCallback = null,
 		                              Action<PlayFabError> errorCallback = null);
 
@@ -335,7 +335,7 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public void AttachLoginDataToAccount(string email, string password, string username,
+		public void AttachLoginDataToAccount(string email, string username, string password,
 		                                     Action<AddUsernamePasswordResult> successCallback = null,
 		                                     Action<PlayFabError> errorCallback = null)
 		{

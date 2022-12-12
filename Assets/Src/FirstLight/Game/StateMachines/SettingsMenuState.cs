@@ -183,10 +183,10 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		private void TryConnectId(string email, string password, string username)
+		private void TryConnectId(string email, string username, string password)
 		{
 			SetConnectIdDim(true);
-			_services.PlayfabService.AttachLoginDataToAccount(email, password, username, OnConnectIdComplete, OnConnectIdError);
+			_services.PlayfabService.AttachLoginDataToAccount(email, username, password, OnConnectIdComplete, OnConnectIdError);
 		}
 
 		private void TryLogOut()

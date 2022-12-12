@@ -117,7 +117,7 @@ MonoBehaviour:
   _background: {fileID: 9166001533437720228}
   _millisecondsToClose: 0
   _camera: {fileID: 5075984243769002363}
-  _leaderboardEntryAsset: {fileID: 9197481963319205126, guid: 1d1fa3bf426846548a23e3e2d0025219, type: 3}
+  _leaderboardUIEntryAsset: {fileID: 9197481963319205126, guid: 1d1fa3bf426846548a23e3e2d0025219, type: 3}
 --- !u!1 &5727831155706368498
 GameObject:
   m_ObjectHideFlags: 0

@@ -117,11 +117,11 @@ namespace FirstLight.Game.UIElements
 			for (int i = 0; i < SLICES; i++)
 			{
 				var slice = _progressSlices[i];
-				var sliceShown = percentage >= (float) (i + 1) / SLICES;
+				var sliceShown = i == 0 || percentage >= (float) (i + 1) / SLICES;
 				var sliceNextShown = percentageNext >= (float) (i + 1) / SLICES;
 				
 				slice.RemoveModifiers();
-				slice.SetVisibility(sliceShown || sliceNextShown);
+				slice.SetVisibility(sliceShown || (showUpgrade && sliceNextShown));
 
 				if (showUpgrade && !sliceShown && sliceNextShown)
 				{
@@ -134,12 +134,7 @@ namespace FirstLight.Game.UIElements
 		{
 			if (!MAX_VALUES.TryGetValue(type, out var maxValue)) return false;
 
-			if (INVERT_VALUES.Contains(type))
-			{
-				return Mathf.Approximately(value, maxValue);
-			}
-
-			return value != 0f;
+			return INVERT_VALUES.Contains(type) || value != 0f;
 		}
 
 		private static string GetValueFormat(EquipmentStatType type)

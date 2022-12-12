@@ -53,8 +53,6 @@ namespace FirstLight.Game.Presenters
 			_header = root.Q<ScreenHeaderElement>("Header").Required();
 			_header.backClicked += Data.OnBackClicked;
 			_header.homeClicked += Data.OnBackClicked;
-			
-			_leaderboardPanel = root.Q<VisualElement>("LeaderboardPanel").Required();
 			_leaderboardScrollView = root.Q<ScrollView>("LeaderboardScrollView").Required();
 		}
 		
@@ -102,8 +100,6 @@ namespace FirstLight.Game.Presenters
 					localPlayerInTopRanks = true;
 				}
 			}
-			
-			_leaderboardPanel.style.display = DisplayStyle.Flex;
 
 			if (localPlayerInTopRanks) return;
 

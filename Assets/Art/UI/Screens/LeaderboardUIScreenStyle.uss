@@ -1,10 +1,15 @@
+.container {
+    position: absolute;
+    align-items: center;
+}
+
 .leaderboard-panel {
     width: 100%;
     position: absolute;
     top: 150px;
     bottom: 130px;
-    left: 0;
     align-items: center;
+    display: flex;
 }
 
 .leaderboard-entries {
@@ -17,40 +22,37 @@
     padding-right: 0;
 }
 
-.leaderboard-header {
+.header-label {
     position: absolute;
     justify-content: center;
     height: 70px;
     width: 900px;
     margin-right: 0;
-}
-
-.leaderboard-header .header-label {
     -unity-font-definition: var(--font-italic);
     font-size: 35px;
     -unity-font-style: normal;
     color: rgb(233, 226, 225);
-    position: absolute;
     text-shadow: 2px 2px 0 rgb(0, 0, 0);
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(0, 0, 0);
 }
 
-.leaderboard-header__rank-number {
+.header-label--rank-number {
     left: 60px;
 }
 
-.leaderboard-header__player {
+.header-label--player {
     left: 140px;
 }
 
-.leaderboard-header__trophies {
+.header-label--trophies {
     right: 40px;
     -unity-text-align: upper-right;
 }
 
-.leaderboard_footer {
+.leaderboard-footer {
     position: absolute;
+    justify-content: center;
     height: 70px;
     width: 80%;
     flex-direction: column-reverse;
@@ -58,7 +60,7 @@
     bottom: 35px;
 }
 
-.leaderboard_footer_text {
+.leaderboard-footer--text {
     -unity-font-definition: var(--font-italic);
     font-size: 30px;
     width: 100%;
@@ -72,7 +74,4 @@
     -unity-text-outline-color: rgb(0, 0, 0);
 }
 
-#root {
-    position: absolute;
-    align-items: center;
-}
+

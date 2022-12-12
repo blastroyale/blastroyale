@@ -1,10 +1,10 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" FLG="FirstLight.Game.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Templates/LeaderboardUIEntryStyle.uss?fileID=7433441132597879392&amp;guid=4e20fb377543f44478d58daec190b4d5&amp;type=3#LeaderboardUIEntryStyle" />
     <ui:VisualElement name="Container" class="leaderboard-entries-container">
-        <ui:VisualElement name="LeaderboardEntryPositioner" class="leaderboard-entry-positioner" style="left: auto;">
+        <ui:VisualElement name="LeaderboardEntryPositioner" class="leaderboard-entry-positioner">
             <ui:VisualElement name="LocalPlayerHighlight" class="leaderboard-entry__player-highlight" />
             <ui:VisualElement name="LeaderboardEntryParent" class="leaderboard-entry">
-                <ui:Label text="4." display-tooltip-when-elided="true" name="RankNumber" class="leaderboard-entry__rank-number" style="left: 60px;" />
+                <ui:Label text="4." display-tooltip-when-elided="true" name="RankNumber" class="leaderboard-entry__rank-number" />
                 <ui:VisualElement name="RankBadge" class="leaderboard-entry__rank-badge" />
                 <ui:Label text="PLAYER NAME" display-tooltip-when-elided="true" name="PlayerName" class="leaderboard-entry--player-name leaderboard-entry__player-name" />
                 <ui:VisualElement name="TrophiesBar" class="leaderboard-entry__trophies-bar">

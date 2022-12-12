@@ -5,6 +5,7 @@
     justify-content: center;
     overflow: visible;
     align-items: center;
+    left: auto;
 }
 
 .leaderboard-entry {
@@ -56,6 +57,7 @@
 
 .leaderboard-entry--local .leaderboard-entry__rank-number {
     color: rgb(233, 226, 225);
+    left: 60px;
 }
 
 .leaderboard-entry__rank-badge {
@@ -92,6 +94,8 @@
     color: rgb(105, 98, 166);
     left: 130px;
     position: absolute;
+    text:"PLAYER NAME";
+    display-tooltip-when-elided:"true";
 }
 
 .leaderboard-entry--first .leaderboard-entry__player-name {
@@ -148,8 +152,8 @@
     position: absolute;
     overflow: visible;
 }
+
 .leaderboard-entries-container {
     width: 100%;
     align-items: center;
  }
-

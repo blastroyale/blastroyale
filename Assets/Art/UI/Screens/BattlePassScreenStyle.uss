@@ -28,6 +28,26 @@
     position: relative;
     width: 100%;
     flex-shrink: 0;
+    justify-content: center;
+}
+
+.season-header-safe-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    align-items: center;
+    justify-content: center;
+    bottom: 0;
+}
+
+.season-header__currencies {
+    width: 514px;
+    position: absolute;
+    right: 152px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .season-header__background {
@@ -37,16 +57,16 @@
     height: 100%;
 }
 
-.season-header__content {
+.season-header__bpp-bar-layout {
     position: absolute;
     -unity-background-scale-mode: scale-and-crop;
     align-items: center;
     justify-content: center;
     flex-direction: row;
     bottom: 0;
-    left: 450px;
+    left: 600px;
     top: 0;
-    right: 175px;
+    right: 750px;
 }
 
 .season-level {
@@ -54,6 +74,15 @@
     align-items: center;
     justify-content: center;
     display: flex;
+    position: absolute;
+}
+
+.season-level--current {
+    left: -175px;
+}
+
+.season-level--next {
+    right: -115px;
 }
 
 .season-level__label {
@@ -79,6 +108,7 @@
     height: 45px;
     align-items: flex-start;
     justify-content: center;
+    position: absolute;
 }
 
 .bpp-bar__background {

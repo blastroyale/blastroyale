@@ -69,12 +69,12 @@ namespace FirstLight.Tests.EditorMode
 			
 		}
 
-		public void CheckIfRewardsMatch(Action<bool> callback)
+		public void UpdateContactEmail(string newEmail, Action<AddOrUpdateContactEmailResult> callback = null)
 		{
 	
 		}
 
-		public void UpdateEmail(string newEmail, Action<AddOrUpdateContactEmailResult> callback = null)
+		public void CheckIfRewardsMatch(Action<bool> callback)
 		{
 		
 		}

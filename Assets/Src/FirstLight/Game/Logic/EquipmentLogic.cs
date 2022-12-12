@@ -528,7 +528,7 @@ namespace FirstLight.Game.Logic
 			var gameId = GameLogic.UniqueIdLogic.Ids[equipment];
 			var slot = gameId.GetSlot();
 
-			if (_loadout.TryGetValue(slot, out var equippedId))
+			if (_loadout.TryGetValue(slot, out var equippedId) && equippedId == equipment)
 			{
 				Unequip(equippedId);
 			}

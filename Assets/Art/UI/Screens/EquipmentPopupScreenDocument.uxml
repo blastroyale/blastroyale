@@ -24,7 +24,7 @@
                     <ui:VisualElement class="equipment-popup__bh-logo" />
                 </ui:VisualElement>
                 <ui:VisualElement name="Content" class="equipment-popup__content">
-                    <ui:VisualElement name="Rusted" class="fill-parent content-rusted" style="display: none;">
+                    <ui:VisualElement name="Rusted" class="fill-parent content-rusted">
                         <ui:ScrollView horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" mode="Horizontal" name="ScrollView" class="content-rusted__scrollview" />
                         <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITEquipment/popup_items_unequipped" />
                         <ui:VisualElement name="BottomHolder" class="content-rusted__bottom-holder">
@@ -33,9 +33,9 @@
                             <FirstLight.Game.UIElements.LocalizedButton localization-key="UITEquipment/popup_go_repair" name="RepairButton" class="button-long button-long--yellow content-rusted__button content-rusted__button--go-repair" />
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement name="Scrapping" class="fill-parent content-scrapping" style="display: none;">
+                    <ui:VisualElement name="Scrapping" class="fill-parent content-scrapping">
                         <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITEquipment/popup_scrap_are_you_sure" />
-                        <ui:VisualElement class="content-scrapping__amount-holder">
+                        <ui:VisualElement name="Requirements" class="content-scrapping__amount-holder">
                             <ui:VisualElement name="Icon" class="content-scrapping__amount-icon" />
                             <ui:Label text="325" name="Amount" />
                         </ui:VisualElement>
@@ -45,7 +45,7 @@
                             <FirstLight.Game.UIElements.LocalizedButton localization-key="UITShared/cancel" display-tooltip-when-elided="true" name="CancelButton" class="button-long" />
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement name="Repairing" class="fill-parent content-repairing" style="display: flex;">
+                    <ui:VisualElement name="Repairing" class="fill-parent content-repairing">
                         <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITEquipment/popup_restore_durability" />
                         <ui:Instance template="EquipmentDurability" name="EquipmentDurability" class="equipment-durability--repairing content-repairing__durability" />
                         <ui:VisualElement name="Requirements" class="requirements" style="display: none;">
@@ -53,7 +53,8 @@
                             <ui:VisualElement name="Icon" class="requirements__icon" />
                             <ui:Label text="1234" name="Amount" class="requirements__amount" />
                         </ui:VisualElement>
-                        <FirstLight.Game.UIElements.PriceButton localization-key="UITEquipment/repair" name="RepairButton" class="button-long--yellow content-scrapping__button" />
+                        <FirstLight.Game.UIElements.PriceButton localization-key="UITEquipment/repair" name="RepairButton" class="button-long--yellow content-scrapping__button" style="display: none;" />
+                        <ui:VisualElement name="BottomFiller" class="content-scrapping_filler" />
                     </ui:VisualElement>
                     <ui:VisualElement name="Upgrading" class="fill-parent content-upgrading" style="display: none;">
                         <ui:VisualElement name="LevelHolder" class="content-upgrading__level-holder">

@@ -24,7 +24,8 @@ namespace FirstLight.Game.Views.UITK
 		private VisualElement _requirements;
 		private Label _requirementsAmount;
 		private VisualElement _requirementsIcon;
-
+		private VisualElement _bottomFiller;
+		
 		private Action _confirmAction;
 
 		public void Attached(VisualElement element)
@@ -36,6 +37,7 @@ namespace FirstLight.Game.Views.UITK
 			_requirements = element.Q<VisualElement>("Requirements").Required();
 			_requirementsAmount = _requirements.Q<Label>("Amount").Required();
 			_requirementsIcon = _requirements.Q<VisualElement>("Icon").Required();
+			_bottomFiller = element.Q<VisualElement>("BottomFiller").Required();
 
 			_repairButton.clicked += () => _confirmAction();
 		}
@@ -49,10 +51,15 @@ namespace FirstLight.Game.Views.UITK
 			_durabilityPlusAmount.text = string.Format(DURABILITY_PLUS_AMOUNT,
 				info.Equipment.MaxDurability - info.CurrentDurability);
 
+			_bottomFiller.SetDisplay(info.IsNft);
+			
 			_repairButton.SetDisplay(!info.IsNft);
 			_repairButton.SetPrice(info.RepairCost, insufficient);
 
-			_requirements.SetDisplay(info.IsNft);
+			// TODO - Adjust desired behavior when calculations are correct client side and can be displayed
+			//_requirements.SetDisplay(info.IsNft);
+			_requirements.SetDisplay(false);
+			
 			_requirementsAmount.text = info.RepairCost.Value.ToString();
 			_requirementsIcon.RemoveModifiers();
 			_requirementsIcon.AddToClassList(string.Format(UssRequirementsIconModifier,

@@ -38,7 +38,7 @@ namespace FirstLight.Game.UIElements
 			{EquipmentStatType.Armor, 0.10f},
 			{EquipmentStatType.ProjectileSpeed, 20},
 			{EquipmentStatType.TargetRange, 15f},
-			{EquipmentStatType.MaxCapacity, 200},
+			{EquipmentStatType.MaxCapacity, 120},
 			{EquipmentStatType.ReloadTime, 4f},
 			{EquipmentStatType.MinAttackAngle, 60},
 			{EquipmentStatType.MaxAttackAngle, 60},

@@ -162,7 +162,7 @@ namespace FirstLight.Game.Logic
 		public bool IsRedeemable(int pointOverride = -1)
 		{
 			int points = pointOverride >= 0 ? pointOverride : (int) _currentPoints.Value;
-			return points >= GetRequiredPointsForLevel((int)_currentLevel.Value);
+			return _currentLevel.Value < MaxLevel && points >= GetRequiredPointsForLevel((int)_currentLevel.Value);
 		}
 
 		public void AddBPP(uint amount)

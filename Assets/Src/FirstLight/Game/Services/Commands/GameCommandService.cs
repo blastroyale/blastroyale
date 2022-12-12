@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -177,11 +178,45 @@ namespace FirstLight.Game.Services
 			}
 		}
 
+		private void SaveState(Action action)
+		{
+			#if DEVELOPMENT_BUILD || UNITY_EDITOR
+			var date = DateTime.Now.ToString("dd-MM-yyyy-HH-mm-ss");
+			var states = $"{Application.persistentDataPath}/crash-logs/{date}/states";
+
+			Directory.CreateDirectory(states);
+
+			_services.PlayfabService.FetchServerState(state =>
+			{
+				foreach (var type in _commandContext.Data.GetKeys())
+				{
+					string client = Path.Combine(states, $"{type.Name}_client.json");
+					string server = Path.Combine(states, $"{type.Name}_server.json");
+					string serverValue = string.Empty;
+					if (type.FullName != null) state.TryGetValue(type.FullName, out serverValue);
+
+					string clientValue = ModelSerializer.Serialize(_commandContext.Data.GetData((type))).Value;
+
+					File.AppendAllText(server, serverValue + Environment.NewLine);
+
+					File.AppendAllText(client, clientValue + Environment.NewLine);
+				}
+
+				FLog.Info($"Writing states to {states}");
+				action();
+			});
+			#else
+			action();
+			#endif
+		}
+
 		/// <summary>
 		/// When server returns an exception after a command was executed
 		/// </summary>
 		private void OnCommandException(string exceptionMsg)
 		{
+			SaveState(() =>
+			{
 #if UNITY_EDITOR
 			FLog.Error(exceptionMsg);
 			var confirmButton = new GenericDialogButton
@@ -206,6 +241,7 @@ namespace FirstLight.Game.Services
 				Text = "Quit Game"
 			});
 #endif
+			});
 		}
 
 		/// <summary>

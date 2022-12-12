@@ -812,11 +812,11 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: General/ReloadSpeed
+    - Term: General/ReloadTime
       TermType: 0
       Description: 
       Languages:
-      - Reload Speed
+      - Reload Time
       - 
       - 
       Flags: 000000
@@ -1070,6 +1070,24 @@ MonoBehaviour:
       Description: 
       Languages:
       - character
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: General/LeaderboardOpenError
+      TermType: 0
+      Description: 
+      Languages:
+      - Error opening leaderboard
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: General/LeaderboardOpenErrorDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - There was an error while getting leaderboard data.
       - 
       - 
       Flags: 000000
@@ -10796,6 +10814,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITWinners/winner
+      TermType: 0
+      Description: 
+      Languages:
+      - WINNER
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITSwipeTransition/lets_blast
       TermType: 0
       Description: 
@@ -10976,7 +11003,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1670432528162
+    Google_LastUpdatedVersion: 1670864667733
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

@@ -24,7 +24,7 @@ namespace FirstLight.Game.Infos
 		TargetRange,
 		ProjectileSpeed,
 		MaxCapacity,
-		ReloadSpeed,
+		ReloadTime,
 		MinAttackAngle,
 		MaxAttackAngle,
 		SplashDamageRadius,

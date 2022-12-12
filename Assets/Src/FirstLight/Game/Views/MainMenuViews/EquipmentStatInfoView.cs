@@ -37,7 +37,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			{ EquipmentStatType.ProjectileSpeed, 20 },
 			{ EquipmentStatType.TargetRange, 15f },
 			{ EquipmentStatType.MaxCapacity, 200 },
-			{ EquipmentStatType.ReloadSpeed, 4f },
+			{ EquipmentStatType.ReloadTime, 4f },
 			{ EquipmentStatType.MinAttackAngle, 60 },
 			{ EquipmentStatType.MaxAttackAngle, 60 },
 			{ EquipmentStatType.SplashDamageRadius, 4f },

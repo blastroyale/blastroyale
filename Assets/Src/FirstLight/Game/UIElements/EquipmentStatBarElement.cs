@@ -39,7 +39,7 @@ namespace FirstLight.Game.UIElements
 			{EquipmentStatType.ProjectileSpeed, 20},
 			{EquipmentStatType.TargetRange, 15f},
 			{EquipmentStatType.MaxCapacity, 200},
-			{EquipmentStatType.ReloadSpeed, 4f},
+			{EquipmentStatType.ReloadTime, 4f},
 			{EquipmentStatType.MinAttackAngle, 60},
 			{EquipmentStatType.MaxAttackAngle, 60},
 			{EquipmentStatType.SplashDamageRadius, 4f},
@@ -53,7 +53,8 @@ namespace FirstLight.Game.UIElements
 		{
 			EquipmentStatType.AttackCooldown,
 			EquipmentStatType.MaxAttackAngle,
-			EquipmentStatType.MinAttackAngle
+			EquipmentStatType.MinAttackAngle,
+			EquipmentStatType.ReloadTime
 		};
 
 		public EquipmentStatBarElement()
@@ -141,7 +142,7 @@ namespace FirstLight.Game.UIElements
 		{
 			return type switch
 			{
-				EquipmentStatType.ReloadSpeed        => "N2",
+				EquipmentStatType.ReloadTime        => "N2",
 				EquipmentStatType.PowerToDamageRatio => "P2",
 				EquipmentStatType.Armor              => "P2",
 				EquipmentStatType.AttackCooldown     => "N2",

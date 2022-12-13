@@ -27,8 +27,6 @@ variables:
 - group: Non-secrets
 - name: serviceConnection
   value: AzureRM
-- name: repository
-  value: 'gamelogic'
 - name: dockerfile
   value: GameLogicService/Dockerfile
 - name: vmImageName

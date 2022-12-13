@@ -14,7 +14,8 @@ namespace FirstLight.Game.Views.UITK
 	{
 		private Label _amount;
 		private VisualElement _buttonsContainer;
-
+		private VisualElement _requirements;
+		
 		private LocalizedButton _scrapButton;
 		private LocalizedButton _cancelButton;
 
@@ -25,7 +26,8 @@ namespace FirstLight.Game.Views.UITK
 		{
 			_amount = element.Q<Label>("Amount").Required();
 			_buttonsContainer = element.Q<VisualElement>("ButtonContainer").Required();
-
+			_requirements = element.Q<VisualElement>("Requirements").Required();
+			
 			element.Q<LocalizedButton>("ScrapButton").clicked += () => _confirmAction();
 			element.Q<LocalizedButton>("CancelButton").clicked += () => _cancelAction();
 		}
@@ -35,6 +37,10 @@ namespace FirstLight.Game.Views.UITK
 			_amount.text = info.ScrappingValue.Value.ToString();
 			_buttonsContainer.SetVisibility(!info.IsNft);
 
+			// TODO - Adjust desired behavior when calculations are correct client side and can be displayed
+			//_requirements.SetDisplay(true);
+			_requirements.SetDisplay(!info.IsNft);
+			
 			_confirmAction = confirmAction;
 			_cancelAction = cancelAction;
 		}

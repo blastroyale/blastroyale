@@ -76,12 +76,6 @@
     display: flex;
 }
 
-.season-level--current {
-}
-
-.season-level--next {
-}
-
 .season-level__label {
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(0, 0, 0);

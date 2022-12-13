@@ -16,6 +16,7 @@ namespace Quantum.Commands
 		/// <inheritdoc />
 		internal override void Execute(Frame f, PlayerRef playerRef)
 		{
+#if DEBUG
 			var entity = f.GetSingleton<GameContainer>().PlayersData[playerRef].Entity;
 			var stats = f.Unsafe.GetPointer<Stats>(entity);
 			var healthModifier = new Modifier
@@ -31,6 +32,9 @@ namespace Quantum.Commands
 			stats->AddModifier(f, entity, healthModifier);
 			stats->GainShield(f, entity, int.MaxValue);
 			stats->GainHealth(f, entity, new Spell {PowerAmount = uint.MaxValue});
+#else
+		Log.Error($"Trying to use Cheat command {this.GetType().Name} in Release build of Quantum Code");
+#endif
 		}
 	}
 }

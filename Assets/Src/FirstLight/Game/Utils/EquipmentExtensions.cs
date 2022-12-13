@@ -96,8 +96,9 @@ namespace FirstLight.Game.Utils
 				          QuantumStatCalculator.CalculateWeaponStat(weaponConfig, statConfigs[(int)StatType.PickupSpeed],
 				                                                    baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
 				stats.Add(EquipmentStatType.MaxCapacity, 
-				          QuantumStatCalculator.CalculateWeaponStat(weaponConfig, statConfigs[(int)StatType.AmmoCapacity],
-				                                                    baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
+				          (QuantumStatCalculator.CalculateWeaponStat(weaponConfig, statConfigs[(int)StatType.AmmoCapacity],
+				                                                    baseStatsConfig, statsConfig, statsMaterialConfig, equipment)
+						   + weaponConfig.MaxAmmo.GetDefault()).AsFloat);
 				stats.Add(EquipmentStatType.ShieldCapacity,
 						  QuantumStatCalculator.CalculateWeaponStat(weaponConfig, statConfigs[(int)StatType.Shield],
 						                                            baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
@@ -108,6 +109,8 @@ namespace FirstLight.Game.Utils
 				stats.Add(EquipmentStatType.SplashDamageRadius, weaponConfig.SplashRadius.AsFloat);
 				stats.Add(EquipmentStatType.PowerToDamageRatio, weaponConfig.PowerToDamageRatio.AsFloat);
 				stats.Add(EquipmentStatType.NumberOfShots, weaponConfig.NumberOfShots);
+				stats.Add(EquipmentStatType.ReloadTime, weaponConfig.ReloadTime.AsFloat);
+				stats.Add(EquipmentStatType.MagazineSize, Math.Max(0, weaponConfig.MagazineSize));
 				stats.Add(EquipmentStatType.SpecialId0, (float) weaponConfig.Specials[0]);
 				stats.Add(EquipmentStatType.SpecialId1, (float) weaponConfig.Specials[1]);
 			}

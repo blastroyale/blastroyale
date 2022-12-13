@@ -9655,6 +9655,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITShared/claim
+      TermType: 0
+      Description: 
+      Languages:
+      - CLAIM
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITSettings/logout
       TermType: 0
       Description: 
@@ -11012,7 +11021,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1670869254166
+    Google_LastUpdatedVersion: 1670931617056
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

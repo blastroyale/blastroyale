@@ -337,10 +337,9 @@ namespace FirstLight.Game.StateMachines
 			var inventory = _gameDataProvider.EquipmentDataProvider.Inventory;
 			var f = game.Frames.Verified;
 			var spawnPosition = _services.MatchmakingService.NormalizedMapSelectedPosition;
-
 			var spawnWithloadout = f.Context.GameModeConfig.SpawnWithGear || f.Context.GameModeConfig.SpawnWithWeapon;
-
 			var finalLoadOut = new List<Equipment>();
+			
 			foreach(var item in loadout.ReadOnlyDictionary.Values.ToList())
 			{
 				var itemId = inventory[item.Id];

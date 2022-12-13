@@ -22,7 +22,7 @@ namespace FirstLight.Game.MonoComponent.Ftue
 
 		private void Start()
 		{
-			QuantumRunner.Default.Game.SendCommand(new WeaponSpawnCommand
+			QuantumRunner.Default.Game.SendCommand(new CheatWeaponSpawnCommand
 			{
 				Position = transform.position.ToFPVector3(), 
 				Weapon = _weapon

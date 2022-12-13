@@ -7,7 +7,7 @@ namespace Quantum.Commands
 	/// <summary>
 	/// This command creates a dummy bot character in the game
 	/// </summary>
-	public unsafe class DummySpawnCommand : CommandBase
+	public unsafe class CheatDummySpawnCommand : CommandBase
 	{
 		public FPVector3 Position;
 		public FPQuaternion Rotation;
@@ -24,6 +24,7 @@ namespace Quantum.Commands
 		/// <inheritdoc />
 		internal override void Execute(Frame f, PlayerRef playerRef)
 		{
+#if DEBUG			
 			var e = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.DummyCharacterPrototype.Id));
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 
@@ -31,6 +32,9 @@ namespace Quantum.Commands
 			transform->Rotation = Rotation;
 
 			f.Add(e, new DummyCharacter());
+#else
+		Log.Error($"Trying to use Cheat command {this.GetType().Name} in Release build of Quantum Code");
+#endif
 		}
 	}
 }

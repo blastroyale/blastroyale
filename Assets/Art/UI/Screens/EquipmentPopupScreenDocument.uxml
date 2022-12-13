@@ -34,7 +34,7 @@
                         </ui:VisualElement>
                     </ui:VisualElement>
                     <ui:VisualElement name="Scrapping" class="fill-parent content-scrapping">
-                        <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITEquipment/popup_scrap_are_you_sure" />
+                        <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITEquipment/popup_scrap_are_you_sure" name="AreYouSureLabel" />
                         <ui:VisualElement name="Requirements" class="content-scrapping__amount-holder">
                             <ui:VisualElement name="Icon" class="content-scrapping__amount-icon" />
                             <ui:Label text="325" name="Amount" />

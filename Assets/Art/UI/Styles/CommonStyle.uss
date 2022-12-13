@@ -399,6 +399,10 @@
     flex-shrink: 1;
 }
 
+.price-button__offset-title {
+    padding-top: 12px;
+}
+
 .price-button__price--insufficient {
     color: rgb(233, 58, 58);
 }

@@ -53,7 +53,7 @@ namespace FirstLight.Game.Views.UITK
 
 			// TODO - Adjust desired behavior when calculations are correct client side and can be displayed
 			//_requirements.SetDisplay(info.IsNft);
-			_requirements.SetDisplay(false);
+			_requirements.SetDisplay(!info.IsNft);
 			
 			_requirementsAmount.text = info.UpgradeCost.Value.ToString();
 			_requirementsIcon.RemoveModifiers();

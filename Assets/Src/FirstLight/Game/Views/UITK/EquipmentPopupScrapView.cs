@@ -39,7 +39,7 @@ namespace FirstLight.Game.Views.UITK
 
 			// TODO - Adjust desired behavior when calculations are correct client side and can be displayed
 			//_requirements.SetDisplay(true);
-			_requirements.SetDisplay(false);
+			_requirements.SetDisplay(!info.IsNft);
 			
 			_confirmAction = confirmAction;
 			_cancelAction = cancelAction;

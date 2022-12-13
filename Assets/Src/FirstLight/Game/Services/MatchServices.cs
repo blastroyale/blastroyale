@@ -100,7 +100,7 @@ namespace FirstLight.Game.Services
 
 		private void OnMatchEnd(MatchEndedMessage message)
 		{
-			_matchEndDataService = new MatchEndDataService(message.Game, _gameServices, _dataProvider);
+			_matchEndDataService = new MatchEndDataService(message.Game, _gameServices, _dataProvider, message.LeftMatchBeforeFinished);
 			foreach (var service in _services)
 			{
 				service.OnMatchEnded();

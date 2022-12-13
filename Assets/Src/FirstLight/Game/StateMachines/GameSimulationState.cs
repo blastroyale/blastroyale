@@ -43,26 +43,22 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameDataProvider _gameDataProvider;
 		private readonly IGameServices _services;
 		private readonly IGameUiService _uiService;
-		private readonly IAssetAdderService _assetAdderService;
-		private IMatchServices _matchServices;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private readonly IGameNetworkService _network;
 		private readonly IGameBackendNetworkService _networkService;
 
-		private int _lastTrophyChange = 0;
-		private uint _trophiesBeforeLastChange = 0;
+		private bool _leftMatchBeforeFinish;
 
 		public GameSimulationState(IGameDataProvider gameDataProvider, IGameServices services, IGameBackendNetworkService networkService, 
-								   IGameUiService uiService, Action<IStatechartEvent> statechartTrigger, IAssetAdderService assetAdderService)
+								   IGameUiService uiService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_gameDataProvider = gameDataProvider;
 			_services = services;
 			_networkService = networkService;
 			_uiService = uiService;
 			_statechartTrigger = statechartTrigger;
-			_deathmatchState = new DeathmatchState(gameDataProvider, services, uiService, statechartTrigger);
-			_battleRoyaleState = new BattleRoyaleState(services, uiService, statechartTrigger);
-			_assetAdderService = assetAdderService;
+			_deathmatchState = new DeathmatchState(gameDataProvider, services, uiService, statechartTrigger, OnLeftBeforeMatchFinish);
+			_battleRoyaleState = new BattleRoyaleState(services, uiService, statechartTrigger, OnLeftBeforeMatchFinish);
 		}
 
 		/// <summary>
@@ -149,15 +145,18 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeEvents()
 		{
-			_matchServices = MainInstaller.Resolve<IMatchServices>();
+			_leftMatchBeforeFinish = false;
 			
 			_services.MessageBrokerService.Subscribe<QuitGameClickedMessage>(OnQuitGameScreenClickedMessage);
-			_services.MessageBrokerService.Subscribe<GameCompletedRewardsMessage>(OnGameCompletedRewardsMessage);
-
+			
 			QuantumEvent.SubscribeManual<EventFireQuantumServerCommand>(this, OnServerCommand);
-			QuantumEvent.SubscribeManual<EventOnGameEnded>(this, OnGameEnded);
 			QuantumCallback.SubscribeManual<CallbackGameStarted>(this, OnGameStart);
 			QuantumCallback.SubscribeManual<CallbackGameResynced>(this, OnGameResync);
+		}
+
+		private void OnLeftBeforeMatchFinish()
+		{
+			_leftMatchBeforeFinish = true;
 		}
 
 		/// <summary>
@@ -235,11 +234,6 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(SimulationStartedEvent);
 		}
 
-		private void OnGameEnded(EventOnGameEnded callback)
-		{
-			_statechartTrigger(MatchState.MatchEndedEvent);
-		}
-
 		private void OnQuitGameScreenClickedMessage(QuitGameClickedMessage message)
 		{
 			var confirmButton = new GenericDialogButton
@@ -251,12 +245,6 @@ namespace FirstLight.Game.StateMachines
 			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.confirmation,
 				ScriptLocalization.AdventureMenu.AreYouSureQuit,
 				true, confirmButton);
-		}
-
-		private void OnGameCompletedRewardsMessage(GameCompletedRewardsMessage message)
-		{
-			_lastTrophyChange = message.TrophiesChange;
-			_trophiesBeforeLastChange = message.TrophiesBeforeChange;
 		}
 
 		private void QuitGameConfirmedClicked()
@@ -288,7 +276,8 @@ namespace FirstLight.Game.StateMachines
 			// Unused for now, once local snapshot issues are ironed out, resyncing solo games can be readded
 			if (!_services.NetworkService.IsJoiningNewMatch && _services.NetworkService.LastMatchPlayers.Count == 1)
 			{
-				startParams = configs.GetDefaultStartParameters(_services.NetworkService.LastMatchPlayers.Count, IsSpectator(), _matchServices.FrameSnapshotService.GetLastStoredMatchSnapshot());
+				startParams = configs.GetDefaultStartParameters(_services.NetworkService.LastMatchPlayers.Count, IsSpectator(), 
+					MainInstaller.Resolve<IMatchServices>().FrameSnapshotService.GetLastStoredMatchSnapshot());
 			}
 
 			startParams.NetworkClient = client;
@@ -311,7 +300,11 @@ namespace FirstLight.Game.StateMachines
 
 		private void PublishMatchEnded()
 		{
-			_services.MessageBrokerService.Publish(new MatchEndedMessage(){Game = QuantumRunner.Default.Game});
+			_services.MessageBrokerService.Publish(new MatchEndedMessage()
+			{
+				Game = QuantumRunner.Default.Game,
+				LeftMatchBeforeFinished = _leftMatchBeforeFinish
+			});
 		}
 
 		private void OpenAdventureWorldHud()

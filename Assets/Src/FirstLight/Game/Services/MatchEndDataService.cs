@@ -62,10 +62,17 @@ namespace FirstLight.Game.Services
 		/// How much BPP the player had before the change
 		/// </summary>
 		public uint BPPBeforeChange { get; }
+		
 		/// <summary>
 		/// What level was the player in BP before the change
 		/// </summary>
 		public uint BPLevelBeforeChange { get; }
+
+		/// <summary>
+		/// Has local player left the match before it ended (either through menu UI, or during spectate)
+		/// This data point is available before the match ends
+		/// </summary>
+		public bool LeftBeforeMatchFinished { get; set; }
 	}
 
 	public struct PlayerMatchData
@@ -108,14 +115,17 @@ namespace FirstLight.Game.Services
 		public uint BPPBeforeChange { get; set; }
 		/// <inheritdoc />
 		public uint BPLevelBeforeChange { get; set; }
+		/// <inheritdoc />
+		public bool LeftBeforeMatchFinished { get; set; }
 
 		private IGameServices _services;
 		private IGameDataProvider _dataProvider;
 
-		public MatchEndDataService(QuantumGame game, IGameServices services, IGameDataProvider dataProvider)
+		public MatchEndDataService(QuantumGame game, IGameServices services, IGameDataProvider dataProvider, bool leftMatchBeforeFinished)
 		{
 			_services = services;
 			_dataProvider = dataProvider;
+			LeftBeforeMatchFinished = leftMatchBeforeFinished;
 			FetchEndOfMatchData(game);
 		}
 

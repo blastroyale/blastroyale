@@ -26,15 +26,17 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameServices _services;
 		private readonly IGameUiService _uiService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
+		private readonly Action _leftMatchBeforeFinishCallback;
 		private readonly Dictionary<PlayerRef, Pair<int, int>> _killsDictionary = new();
 
-		public DeathmatchState(IGameDataProvider gameDataProvider, IGameServices services, IGameUiService uiService,
-		                       Action<IStatechartEvent> statechartTrigger)
+		public DeathmatchState(IGameDataProvider gameDataProvider, IGameServices services, 
+							   IGameUiService uiService, Action<IStatechartEvent> statechartTrigger, Action leftMatchBeforeFinishCallback)
 		{
 			_gameDataProvider = gameDataProvider;
 			_services = services;
 			_uiService = uiService;
 			_statechartTrigger = statechartTrigger;
+			_leftMatchBeforeFinishCallback = leftMatchBeforeFinishCallback;
 		}
 
 		/// <summary>
@@ -88,7 +90,7 @@ namespace FirstLight.Game.StateMachines
 			
 			spectating.OnEnter(OpenMatchHud);
 			spectating.OnEnter(OpenSpectateHud);
-			spectating.Event(_localPlayerExitEvent).Target(final);
+			spectating.Event(_localPlayerExitEvent).OnTransition(SetQuitDuringSpectate).Target(final);
 			spectating.OnExit(CloseSpectateHud);
 			spectating.OnExit(CloseMatchHud);
 
@@ -171,6 +173,11 @@ namespace FirstLight.Game.StateMachines
 
 				_killsDictionary[recordName] = recordPair;
 			}
+		}
+		
+		private void SetQuitDuringSpectate()
+		{
+			_leftMatchBeforeFinishCallback();
 		}
 		
 		private void OpenSpectateHud()

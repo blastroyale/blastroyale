@@ -21,26 +21,27 @@
             <ui:VisualElement name="Background" class="season-header__background" />
             <FirstLight.Game.UIElements.SafeAreaElement apply-bottom="false" class="season-header-safe-area">
                 <ui:VisualElement name="BppBarLayout" class="season-header__bpp-bar-layout">
+                    <ui:VisualElement name="CurrentLevel" class="season-level season-level--current">
+                        <ui:Label text="LV" display-tooltip-when-elided="true" name="Label" class="season-level__label" />
+                        <ui:Label display-tooltip-when-elided="true" name="CurrentLevelValue" text="0" class="season-level__label season-level__label--big" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="Spacer" class="width-spacer width-spacer--xl" />
                     <ui:VisualElement name="BppBar" class="bpp-bar">
                         <ui:VisualElement name="BppBackground" class="bpp-bar__background">
                             <ui:VisualElement name="BppProgress" class="bpp-bar__progress" />
                             <ui:Label text="0 / 100" display-tooltip-when-elided="true" name="BppProgressLabel" class="bpp-bar__label" />
                         </ui:VisualElement>
                         <ui:VisualElement name="Icon" class="bpp-bar__icon" />
-                        <ui:VisualElement name="NextLevel" class="season-level season-level--next">
-                            <ui:Label text="LV" display-tooltip-when-elided="true" name="Label" class="season-level__label" />
-                            <ui:Label text="0" display-tooltip-when-elided="true" name="NextLevelValue" class="season-level__label season-level__label--big" />
-                        </ui:VisualElement>
-                        <ui:VisualElement name="CurrentLevel" class="season-level season-level--current">
-                            <ui:Label text="LV" display-tooltip-when-elided="true" name="Label" class="season-level__label" />
-                            <ui:Label display-tooltip-when-elided="true" name="CurrentLevelValue" text="1" class="season-level__label season-level__label--big" />
-                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="NextLevel" class="season-level season-level--next">
+                        <ui:Label text="LV" display-tooltip-when-elided="true" name="Label" class="season-level__label" />
+                        <ui:Label text="1" display-tooltip-when-elided="true" name="NextLevelValue" class="season-level__label season-level__label--big" />
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="Currencies" class="season-header__currencies">
-                    <FirstLight.Game.UIElements.CurrencyDisplayElement name="CurrencyDisplayElement" currency="COIN" />
-                    <ui:VisualElement class="width-spacer width-spacer--xl" />
                     <FirstLight.Game.UIElements.CurrencyDisplayElement name="CurrencyDisplayElement" />
+                    <ui:VisualElement class="width-spacer width-spacer--xl" />
+                    <FirstLight.Game.UIElements.CurrencyDisplayElement name="CurrencyDisplayElement" currency="COIN" />
                 </ui:VisualElement>
             </FirstLight.Game.UIElements.SafeAreaElement>
         </ui:VisualElement>

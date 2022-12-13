@@ -59,7 +59,7 @@ namespace FirstLight.Game.UIElements
 		/// <summary>
 		/// Sets the price amount and icon.
 		/// </summary>
-		public void SetPrice(Pair<GameId, uint> price, bool isNft, bool insufficient = false)
+		public void SetPrice(Pair<GameId, uint> price, bool isNft, bool insufficient = false, bool overrideDisablePrice = false)
 		{
 			_price.text = price.Value.ToString();
 			_price.RemoveModifiers();
@@ -73,6 +73,12 @@ namespace FirstLight.Game.UIElements
 			
 			_priceHolder.SetDisplay(!isNft);
 			_title.EnableInClassList(UssOffsetTitle, isNft);
+
+			if (overrideDisablePrice)
+			{
+				_priceHolder.SetDisplay(false);
+				_title.EnableInClassList(UssOffsetTitle, true);
+			}
 		}
 
 		public new class UxmlFactory : UxmlFactory<PriceButton, UxmlTraits>

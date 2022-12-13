@@ -1,4 +1,5 @@
 using FirstLight.FLogger;
+using FirstLight.Game.Infos;
 using FirstLight.Game.Utils;
 using Quantum;
 using UnityEngine.UIElements;
@@ -13,6 +14,7 @@ namespace FirstLight.Game.UIElements
 		private const string UssButtonStyle = "button-long";
 		private const string UssBlock = "price-button";
 		private const string UssHolder = UssBlock + "__holder";
+		private const string UssOffsetTitle = UssBlock + "__offset-title";
 		private const string UssPriceHolder = UssBlock + "__price-holder";
 		private const string UssPrice = UssBlock + "__price";
 		private const string UssPriceInsufficient = UssPrice + "--insufficient";
@@ -21,6 +23,8 @@ namespace FirstLight.Game.UIElements
 
 		private Label _price;
 		private VisualElement _icon;
+		private VisualElement _priceHolder;
+		private VisualElement _holder;
 		private Label _title;
 
 		private string localizationKey { get; set; }
@@ -45,6 +49,9 @@ namespace FirstLight.Game.UIElements
 					_icon.AddToClassList(UssIcon);
 				}
 
+				_holder = holder;
+				_priceHolder = priceHolder;
+				
 				holder.Add(_title = new Label("REPAIR") {name = "title"});
 			}
 		}
@@ -52,7 +59,7 @@ namespace FirstLight.Game.UIElements
 		/// <summary>
 		/// Sets the price amount and icon.
 		/// </summary>
-		public void SetPrice(Pair<GameId, uint> price, bool insufficient = false)
+		public void SetPrice(Pair<GameId, uint> price, bool isNft, bool insufficient = false, bool overrideDisablePrice = false)
 		{
 			_price.text = price.Value.ToString();
 			_price.RemoveModifiers();
@@ -63,6 +70,15 @@ namespace FirstLight.Game.UIElements
 
 			_icon.RemoveModifiers();
 			_icon.AddToClassList(UssIconModifier + price.Key.ToString().ToLowerInvariant());
+			
+			_priceHolder.SetDisplay(!isNft);
+			_title.EnableInClassList(UssOffsetTitle, isNft);
+
+			if (overrideDisablePrice)
+			{
+				_priceHolder.SetDisplay(false);
+				_title.EnableInClassList(UssOffsetTitle, true);
+			}
 		}
 
 		public new class UxmlFactory : UxmlFactory<PriceButton, UxmlTraits>

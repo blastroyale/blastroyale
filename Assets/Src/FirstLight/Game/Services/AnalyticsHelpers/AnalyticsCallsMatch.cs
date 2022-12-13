@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
 using Newtonsoft.Json;
@@ -67,7 +68,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"match_type", _matchType},
 				{"game_mode", _gameModeId},
 				{"mutators", _mutators},
-				{"PlayerId", PlayFabSettings.staticPlayer.PlayFabId}
+				{"PlayFabPlayerId", _gameData.AppDataProvider.PlayerId } // must be named PlayFabPlayerId or will create error
 			};
 			
 			_analyticsService.LogEvent(AnalyticsEvents.MatchInitiate, data);
@@ -85,6 +86,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(room.GetGameModeId().GetHashCode());
 			var totalPlayers = room.PlayerCount;
 			var loadout = _gameData.EquipmentDataProvider.Loadout;
+			var ids = _gameData.UniqueIdDataProvider.Ids;
 
 			loadout.TryGetValue(GameIdGroup.Weapon, out var weaponId);
 			loadout.TryGetValue(GameIdGroup.Helmet, out var helmetId);
@@ -98,16 +100,16 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"match_type", _matchType},
 				{"game_mode", _gameModeId},
 				{"mutators", _mutators},
-				{"player_level", _gameData.PlayerDataProvider.PlayerInfo.Level},
-				{"total_players", totalPlayers},
-				{"total_bots", NetworkUtils.GetMaxPlayers(gameModeConfig, config) - totalPlayers},
-				{"map_id", (int) config.Map},
-				{"trophies_start", _gameData.PlayerDataProvider.Trophies.Value},
-				{"item_weapon", weaponId},
-				{"item_helmet", helmetId},
-				{"item_shield", shieldId},
-				{"item_armour", armorId},
-				{"item_amulet", amuletId},
+				{"player_level", _gameData.PlayerDataProvider.PlayerInfo.Level.ToString()},
+				{"total_players", totalPlayers.ToString()},
+				{"total_bots", (NetworkUtils.GetMaxPlayers(gameModeConfig, config) - totalPlayers).ToString()},
+				{"map_id", _gameIdsLookup[config.Map]},
+				{"trophies_start", _gameData.PlayerDataProvider.Trophies.Value.ToString()},
+				{"item_weapon", weaponId == UniqueId.Invalid ? "" : _gameIdsLookup[ids[weaponId]]},
+				{"item_helmet", helmetId == UniqueId.Invalid ? "" : _gameIdsLookup[ids[helmetId]]},
+				{"item_shield", shieldId == UniqueId.Invalid ? "" : _gameIdsLookup[ids[shieldId]]},
+				{"item_armour", armorId == UniqueId.Invalid ? "" : _gameIdsLookup[ids[armorId]]},
+				{"item_amulet", amuletId == UniqueId.Invalid ? "" : _gameIdsLookup[ids[amuletId]]},
 				{"drop_location_default", JsonConvert.SerializeObject(DefaultDropPosition)},
 				{"drop_location_final", JsonConvert.SerializeObject(SelectedDropPosition)}
 			};

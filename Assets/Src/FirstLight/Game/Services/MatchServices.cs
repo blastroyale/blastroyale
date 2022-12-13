@@ -91,7 +91,7 @@ namespace FirstLight.Game.Services
 
 		private void OnMatchStart(MatchStartedMessage message)
 		{
-			_matchEndDataService = null;
+			_matchEndDataService = new MatchEndDataService(message.Game, _gameServices, _dataProvider);;
 			foreach (var service in _services)
 			{
 				service.OnMatchStarted(message.Game, message.IsResync);
@@ -100,7 +100,7 @@ namespace FirstLight.Game.Services
 
 		private void OnMatchEnd(MatchEndedMessage message)
 		{
-			_matchEndDataService = new MatchEndDataService(message.Game, _gameServices, _dataProvider, message.LeftMatchBeforeFinished);
+			_matchEndDataService.FetchEndOfMatchData(message.Game);
 			foreach (var service in _services)
 			{
 				service.OnMatchEnded();

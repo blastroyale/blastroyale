@@ -121,15 +121,16 @@ namespace FirstLight.Game.Services
 		private IGameServices _services;
 		private IGameDataProvider _dataProvider;
 
-		public MatchEndDataService(QuantumGame game, IGameServices services, IGameDataProvider dataProvider, bool leftMatchBeforeFinished)
+		public MatchEndDataService(QuantumGame game, IGameServices services, IGameDataProvider dataProvider)
 		{
 			_services = services;
 			_dataProvider = dataProvider;
-			LeftBeforeMatchFinished = leftMatchBeforeFinished;
-			FetchEndOfMatchData(game);
 		}
 
-		private void FetchEndOfMatchData(QuantumGame  game)
+		/// <summary>
+		/// Populates this service with relevant values compiled from <paramref name="game"/>
+		/// </summary>
+		public void FetchEndOfMatchData(QuantumGame  game)
 		{
 			var frame = game.Frames.Verified;
 			var quantumPlayerMatchData = frame.GetSingleton<GameContainer>().GetPlayersMatchData(frame, out _);

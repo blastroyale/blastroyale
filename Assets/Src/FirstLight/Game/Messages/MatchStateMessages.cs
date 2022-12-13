@@ -10,11 +10,7 @@ namespace FirstLight.Game.Messages
 		public QuantumGame Game;
 		public bool IsResync;
 	}
-	public struct MatchEndedMessage : IMessage
-	{
-		public QuantumGame Game;
-		public bool LeftMatchBeforeFinished;
-	}
+	public struct MatchEndedMessage : IMessage { public QuantumGame Game; }
 	public struct CoreMatchAssetsLoadedMessage : IMessage { }
 	public struct AllMatchAssetsLoadedMessage : IMessage { }
 	public struct StartedFinalPreloadMessage : IMessage { }

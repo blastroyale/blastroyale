@@ -47,8 +47,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameNetworkService _network;
 		private readonly IGameBackendNetworkService _networkService;
 
-		private bool _leftMatchBeforeFinish;
-
 		public GameSimulationState(IGameDataProvider gameDataProvider, IGameServices services, IGameBackendNetworkService networkService, 
 								   IGameUiService uiService, Action<IStatechartEvent> statechartTrigger)
 		{
@@ -57,8 +55,8 @@ namespace FirstLight.Game.StateMachines
 			_networkService = networkService;
 			_uiService = uiService;
 			_statechartTrigger = statechartTrigger;
-			_deathmatchState = new DeathmatchState(gameDataProvider, services, uiService, statechartTrigger, OnLeftBeforeMatchFinish);
-			_battleRoyaleState = new BattleRoyaleState(services, uiService, statechartTrigger, OnLeftBeforeMatchFinish);
+			_deathmatchState = new DeathmatchState(gameDataProvider, services, uiService, statechartTrigger);
+			_battleRoyaleState = new BattleRoyaleState(services, uiService, statechartTrigger);
 		}
 
 		/// <summary>
@@ -145,18 +143,11 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeEvents()
 		{
-			_leftMatchBeforeFinish = false;
-			
 			_services.MessageBrokerService.Subscribe<QuitGameClickedMessage>(OnQuitGameScreenClickedMessage);
 			
 			QuantumEvent.SubscribeManual<EventFireQuantumServerCommand>(this, OnServerCommand);
 			QuantumCallback.SubscribeManual<CallbackGameStarted>(this, OnGameStart);
 			QuantumCallback.SubscribeManual<CallbackGameResynced>(this, OnGameResync);
-		}
-
-		private void OnLeftBeforeMatchFinish()
-		{
-			_leftMatchBeforeFinish = true;
 		}
 
 		/// <summary>
@@ -302,8 +293,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.MessageBrokerService.Publish(new MatchEndedMessage()
 			{
-				Game = QuantumRunner.Default.Game,
-				LeftMatchBeforeFinished = _leftMatchBeforeFinish
+				Game = QuantumRunner.Default.Game
 			});
 		}
 

@@ -22,17 +22,15 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameServices _services;
 		private readonly IGameUiService _uiService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
-		private readonly Action _leftMatchBeforeFinishCallback;
 
 		private PlayerRef _killer;
 
 		public BattleRoyaleState(IGameServices services, IGameUiService uiService,
-								 Action<IStatechartEvent> statechartTrigger, Action leftMatchBeforeFinishCallback)
+								 Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
 			_uiService = uiService;
 			_statechartTrigger = statechartTrigger;
-			_leftMatchBeforeFinishCallback = leftMatchBeforeFinishCallback;
 		}
 
 		/// <summary>
@@ -79,7 +77,7 @@ namespace FirstLight.Game.StateMachines
 			dead.Event(_localPlayerNextEvent).Target(spectating);
 
 			spectating.OnEnter(OpenSpectateScreen);
-			spectating.Event(_localPlayerExitEvent).OnTransition(SetQuitDuringSpectate).Target(final);
+			spectating.Event(_localPlayerExitEvent).OnTransition(SetLeftBeforeMatchFinished).Target(final);
 
 			final.OnEnter(CloseMatchHud);
 			final.OnEnter(UnsubscribeEvents);
@@ -121,9 +119,9 @@ namespace FirstLight.Game.StateMachines
 			_services.AnalyticsService.MatchCalls.MatchEnd(totalPlayers, false, f.Time.AsFloat, localPlayerData);
 		}
 		
-		private void SetQuitDuringSpectate()
+		private void SetLeftBeforeMatchFinished()
 		{
-			_leftMatchBeforeFinishCallback();
+			MainInstaller.Resolve<IMatchServices>().MatchEndDataService.LeftBeforeMatchFinished = true;
 		}
 
 		private bool IsMatchEnding()

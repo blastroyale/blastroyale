@@ -123,8 +123,7 @@ namespace FirstLight.Game.StateMachines
 			transitionToGameResults.WaitingFor(UnloadMatchAndTransition).Target(gameResults);
 			
 			winners.WaitingFor(OpenWinnersScreen).Target(gameResults);
-			winners.OnExit(CloseSwipeTransition);
-			
+
 			gameResults.OnEnter(CloseSwipeTransition);
 			gameResults.WaitingFor(OpenLeaderboardAndRewardsScreen).Target(matchStateEnding);
 			gameResults.OnExit(UnloadMainMenuAssetConfigs);
@@ -175,6 +174,8 @@ namespace FirstLight.Game.StateMachines
 			var data = new WinnersScreenPresenter.StateData {ContinueClicked = () => cacheActivity.Complete()};
 
 			await _uiService.OpenScreenAsync<WinnersScreenPresenter, WinnersScreenPresenter.StateData>(data);
+
+			CloseSwipeTransition();
 		}
 		
 		private void OpenLeaderboardAndRewardsScreen(IWaitActivity activity)
@@ -233,12 +234,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.Simulation;
 		}
-		
-		private void SetMatchLeftBeforeEnd()
-		{
-			_matchServices.MatchEndDataService.LeftBeforeMatchFinished = true;
-		}
-		
+
 		private void CloseSwipeTransition()
 		{
 			if (_uiService.HasUiPresenter<SwipeScreenPresenter>())
@@ -419,7 +415,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			if (playerQuit)
 			{
-				SetMatchLeftBeforeEnd();
+				_matchServices.MatchEndDataService.LeftBeforeMatchFinished = true;
 				StopSimulation();
 			}
 			

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.AssetConfigs;
@@ -366,7 +367,10 @@ namespace FirstLight.Game.StateMachines
 			
 			_uiService.UnloadUiSet((int) UiSetId.MatchUi);
 			_services.AudioFxService.DetachAudioListener();
-
+			
+			var mainOverlayCamera = GameObject.FindWithTag("MainOverlayCamera").transform.GetChild(0);
+			mainOverlayCamera.gameObject.SetActive(true);
+			
 			await _services.AssetResolverService.UnloadSceneAsync(scene);
 
 			_services.VfxService.DespawnAll();

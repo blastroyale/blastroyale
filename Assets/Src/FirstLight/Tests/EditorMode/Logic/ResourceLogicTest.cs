@@ -155,7 +155,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			EquipmentLogic.GetLoadoutEquipmentInfo(EquipmentFilter.All).Returns(bothList);
 
 			InitConfigData(_poolConfig);
-			InitConfigData(new QuantumGameConfig { NftAssumedOwned = 40, MinNftForEarnings = 3, EarningsAugmentationStrengthSteepnessMod = FP.FromString("3"), EarningsAugmentationStrengthDropMod = FP.FromString("0.08")});
+			InitConfigData(new QuantumGameConfig { NftAssumedOwned = 40, MinNftForPoolSizeBonus = 3, EarningsAugmentationStrengthSteepnessMod = FP.FromString("3"), EarningsAugmentationStrengthDropMod = FP.FromString("0.08")});
 			InitConfigData(config => (int) config.Grade, new GradeDataConfig { Grade = EquipmentGrade.GradeI, PoolIncreaseModifier = FP.FromString("0.135")});
 			InitConfigData(config => (int) config.Grade, new GradeDataConfig { Grade = EquipmentGrade.GradeII, PoolIncreaseModifier = FP.FromString("0.085")});
 			InitConfigData(config => (int) config.Grade, new GradeDataConfig { Grade = EquipmentGrade.GradeIII, PoolIncreaseModifier = FP.FromString("0.05")});

@@ -271,8 +271,8 @@
 
 .requirements__icon {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BPP.png?fileID=21300000&guid=100d689cc6ffc41f297345bcfc22f54e&type=3#BPP');
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     -unity-background-scale-mode: scale-to-fit;
 }
 

@@ -127,13 +127,15 @@ namespace FirstLight.Game.Services
 				}
 			}
 
-			var desynchs = GetDesynchedDeltas(current.ClientDelta, logicResult.Result.Data);
-			if (desynchs.Count > 0)
+			if (FeatureFlags.DESYNC_DETECTION)
 			{
-				OnCommandException($"Models desynched: {string.Join(',', desynchs)}");
-				// TODO: Do a json diff and show which data exactly is different
+				var desynchs = GetDesynchedDeltas(current.ClientDelta, logicResult.Result.Data);
+				if (desynchs.Count > 0)
+				{
+					OnCommandException($"Models desynched: {string.Join(',', desynchs)}");
+					// TODO: Do a json diff and show which data exactly is different
+				}
 			}
-
 			OnServerExecutionFinished();
 		}
 

@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using FirstLight.FLogger;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
@@ -8,6 +9,7 @@ using FirstLight.Game.Views;
 using FirstLight.NativeUi;
 using FirstLight.UiService;
 using I2.Loc;
+using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ClientModels;
 using UnityEngine;
@@ -58,20 +60,31 @@ namespace FirstLight.Game.Presenters
 		
 		private void OnLeaderboardRequestError(PlayFabError error)
 		{
+#if UNITY_EDITOR
+			OpenLeaderboardRequestErrorGenericDialog(error);
+#else
+			OpenOnLeaderboardRequestErrorPopup()
+#endif
+			Data.OnBackClicked();
+		}
+
+		private void OpenLeaderboardRequestErrorGenericDialog(PlayFabError error)
+		{
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.OK,
 				ButtonOnClick = _services.GenericDialogService.CloseDialog
 			};
+			if (error.ErrorDetails != null)
+			{
+				FLog.Error(JsonConvert.SerializeObject(error.ErrorDetails));
+			}
 			
-#if UNITY_EDITOR
-			OpenOnLeaderboardRequestErrorPopup();
-#endif
-			
-			Data.OnBackClicked();
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, error.ErrorMessage, false,
+				confirmButton);
 		}
 
-		private void OpenOnLeaderboardRequestErrorPopup()
+		private void OpenOnLeaderboardRequestErrorPopup(PlayFabError error)
 		{
 			var button = new AlertButton
 			{
@@ -80,8 +93,9 @@ namespace FirstLight.Game.Presenters
 			};
 			
 			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.LeaderboardOpenError,
-				ScriptLocalization.General.LeaderboardOpenErrorDescription, button);
+				error.ErrorMessage, button);
 		}
+		
 		private void OnLeaderboardTopRanksReceived(GetLeaderboardResult result)
 		{
 			bool localPlayerInTopRanks = false;

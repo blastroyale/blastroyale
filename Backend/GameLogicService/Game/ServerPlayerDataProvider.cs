@@ -7,6 +7,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Services;
 using FirstLight.Server.SDK.Models;
+using PlayFab;
 
 
 namespace Backend.Game
@@ -56,6 +57,13 @@ namespace Backend.Game
 		}
 
 		/// <inheritdoc />
+		public bool TryGetData(Type type, out object dat)
+		{
+			dat = GetData(type);
+			return dat != null;
+		}
+
+		/// <inheritdoc />
 		public T GetData<T>() where T : class
 		{
 			return (T)GetData(typeof(T));
@@ -83,7 +91,7 @@ namespace Backend.Game
 		/// <inheritdoc/>
 		public IEnumerable<Type> GetKeys()
 		{
-			return _state.Keys.Select(s => Assembly.GetExecutingAssembly().GetType(s))!;
+			return _state.Keys.Select(s => typeof(PlayerData).GetAssembly().GetType(s))!;
 		}
 		
 		public void ClearDeltas()

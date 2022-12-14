@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/SpectateScreenStyle.uss?fileID=7433441132597879392&amp;guid=56b29c1063eac47cc94924e9e46faf57&amp;type=3#SpectateScreenStyle" />
     <ui:VisualElement name="root" class="fill-parent">
-        <FirstLight.Game.UIElements.SafeAreaElement class="fill-parent">
+        <FirstLight.Game.UIElements.SafeAreaElement apply-right="false" apply-bottom="false" class="fill-parent">
             <ui:VisualElement name="CameraButtons" class="camera-button-holder">
                 <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSpectate/camera_3" name="Camera3" class="button-long button-camera sfx-click-forwards anim-delay-3 anim-translate anim-translate--left-m" />
                 <FirstLight.Game.UIElements.LocalizedButton localization-key="UITSpectate/camera_2" name="Camera2" class="button-long button-camera sfx-click-forwards anim-delay-2 anim-translate anim-translate--left-m" />
@@ -12,7 +12,6 @@
                 <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITShared/show" name="Show" class="show-hide-toggle__label show-hide-toggle__label--show" />
                 <ui:VisualElement name="Icon" class="show-hide-toggle__icon" />
             </ui:VisualElement>
-            <FirstLight.Game.UIElements.LocalizedButton localization-key="UITShared/leave" name="LeaveButton" class="button-next sfx-click-backwards anim-delay-0 anim-translate anim-translate--left-l" />
             <ui:VisualElement name="PlayerHolder" class="player-holder anim-delay-0 anim-translate anim-translate--right-xxl">
                 <ui:VisualElement name="Background" class="fill-parent player-holder__background">
                     <ui:VisualElement class="player-holder__background-filler" />
@@ -35,6 +34,7 @@
                     </FirstLight.Game.UIElements.ImageButton>
                 </ui:VisualElement>
             </ui:VisualElement>
+            <FirstLight.Game.UIElements.LocalizedButton localization-key="UITShared/leave" name="LeaveButton" class="button-next sfx-click-backwards anim-delay-0 anim-translate anim-translate--left-l" />
         </FirstLight.Game.UIElements.SafeAreaElement>
         <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITSpectate/spectating" picking-mode="Ignore" name="Header" class="screen-header--simple" />
     </ui:VisualElement>

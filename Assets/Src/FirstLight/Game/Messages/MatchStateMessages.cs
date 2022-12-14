@@ -17,5 +17,6 @@ namespace FirstLight.Game.Messages
 	public struct AssetReloadRequiredMessage : IMessage { }
 	public struct SpectateStartedMessage : IMessage { }
 	public struct SpectateSetCameraMessage : IMessage { public int CameraId; }
+	public struct LeftMatchFromSpectateMessage : IMessage { }
 	public struct MatchCountdownStartedMessage : IMessage { }
 }

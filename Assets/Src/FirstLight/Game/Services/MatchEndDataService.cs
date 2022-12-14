@@ -93,7 +93,7 @@ namespace FirstLight.Game.Services
 	}
 	
 	/// <inheritdoc />
-	public class MatchEndDataService : IMatchEndDataService
+	public class MatchEndDataService : IMatchEndDataService, MatchServices.IMatchService
 	{
 		/// <inheritdoc />
 		public List<QuantumPlayerMatchData> QuantumPlayerMatchData { get; set; }
@@ -125,6 +125,25 @@ namespace FirstLight.Game.Services
 		{
 			_services = services;
 			_dataProvider = dataProvider;
+			_services.MessageBrokerService.Subscribe<LeftMatchFromSpectateMessage>(OnLeftBeforeMatchFinished);
+		}
+		
+		/// <inheritdoc />
+		public void OnMatchStarted(QuantumGame game, bool isReconnect)
+		{
+		}
+
+		/// <inheritdoc />
+		public void OnMatchEnded()
+		{
+		}
+
+		/// <summary>
+		/// Sets LeftBeforeMatchFinished to true, following an early quit from the match
+		/// </summary>
+		public void OnLeftBeforeMatchFinished(LeftMatchFromSpectateMessage msg)
+		{
+			LeftBeforeMatchFinished = true;
 		}
 
 		/// <summary>
@@ -192,6 +211,12 @@ namespace FirstLight.Game.Services
 			};
 			Rewards = _dataProvider.RewardDataProvider.CalculateMatchRewards(rewardSource, out var trophyChange);
 			TrophiesChange = trophyChange;
+		}
+
+		/// <inheritdoc />
+		public void Dispose()
+		{
+			_services.MessageBrokerService?.UnsubscribeAll(this);
 		}
 	}
 }

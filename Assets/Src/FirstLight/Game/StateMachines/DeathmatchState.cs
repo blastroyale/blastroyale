@@ -88,7 +88,7 @@ namespace FirstLight.Game.StateMachines
 			
 			spectating.OnEnter(OpenMatchHud);
 			spectating.OnEnter(OpenSpectateHud);
-			spectating.Event(_localPlayerExitEvent).OnTransition(SetLeftBeforeMatchFinished).Target(final);
+			spectating.Event(_localPlayerExitEvent).Target(final);
 			spectating.OnExit(CloseSpectateHud);
 			spectating.OnExit(CloseMatchHud);
 
@@ -172,12 +172,7 @@ namespace FirstLight.Game.StateMachines
 				_killsDictionary[recordName] = recordPair;
 			}
 		}
-		
-		private void SetLeftBeforeMatchFinished()
-		{
-			MainInstaller.Resolve<IMatchServices>().MatchEndDataService.LeftBeforeMatchFinished = true;
-		}
-		
+
 		private void OpenSpectateHud()
 		{
 			_uiService.OpenScreen<SpectateScreenPresenter, SpectateScreenPresenter.StateData>(new SpectateScreenPresenter.StateData());

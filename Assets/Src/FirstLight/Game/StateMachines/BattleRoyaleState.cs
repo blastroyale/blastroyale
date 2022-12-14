@@ -77,7 +77,7 @@ namespace FirstLight.Game.StateMachines
 			dead.Event(_localPlayerNextEvent).Target(spectating);
 
 			spectating.OnEnter(OpenSpectateScreen);
-			spectating.Event(_localPlayerExitEvent).OnTransition(SetLeftBeforeMatchFinished).Target(final);
+			spectating.Event(_localPlayerExitEvent).Target(final);
 
 			final.OnEnter(CloseMatchHud);
 			final.OnEnter(UnsubscribeEvents);
@@ -117,11 +117,6 @@ namespace FirstLight.Game.StateMachines
 			}
    
 			_services.AnalyticsService.MatchCalls.MatchEnd(totalPlayers, false, f.Time.AsFloat, localPlayerData);
-		}
-		
-		private void SetLeftBeforeMatchFinished()
-		{
-			MainInstaller.Resolve<IMatchServices>().MatchEndDataService.LeftBeforeMatchFinished = true;
 		}
 
 		private bool IsMatchEnding()
@@ -199,7 +194,11 @@ namespace FirstLight.Game.StateMachines
 			var data = new SpectateScreenPresenter.StateData
 			{
 				Killer = _killer,
-				OnLeaveClicked = () => _statechartTrigger(_localPlayerExitEvent)
+				OnLeaveClicked = () =>
+				{
+					_services.MessageBrokerService.Publish(new LeftMatchFromSpectateMessage());
+					_statechartTrigger(_localPlayerExitEvent);
+				}
 			};
 
 			_uiService.OpenScreen<SpectateScreenPresenter, SpectateScreenPresenter.StateData>(data);

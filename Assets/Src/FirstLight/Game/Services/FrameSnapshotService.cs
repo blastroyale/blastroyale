@@ -76,7 +76,7 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public void OnMatchEnded()
+		public void OnMatchEnded(QuantumGame game)
 		{
 		}
 	}

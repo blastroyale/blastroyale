@@ -115,7 +115,7 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-		public void OnMatchEnded()
+		public void OnMatchEnded(QuantumGame game)
 		{
 		}
 

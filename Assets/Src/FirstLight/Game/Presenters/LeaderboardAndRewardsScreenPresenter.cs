@@ -251,6 +251,8 @@ namespace FirstLight.Game.Presenters
 
 			var entries = _matchServices.MatchEndDataService.QuantumPlayerMatchData;
 
+			entries.SortByPlayerRank(false);
+			
 			foreach (var entry in entries)
 			{
 				var newEntry = _leaderboardEntryAsset.Instantiate();

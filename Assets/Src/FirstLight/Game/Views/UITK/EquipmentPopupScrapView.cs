@@ -16,6 +16,7 @@ namespace FirstLight.Game.Views.UITK
 		private VisualElement _buttonsContainer;
 		private VisualElement _requirements;
 		private VisualElement _areYouSureLabel;
+		private VisualElement _bottomFiller;
 		
 		private LocalizedButton _scrapButton;
 		private LocalizedButton _cancelButton;
@@ -29,6 +30,7 @@ namespace FirstLight.Game.Views.UITK
 			_buttonsContainer = element.Q<VisualElement>("ButtonContainer").Required();
 			_requirements = element.Q<VisualElement>("Requirements").Required();
 			_areYouSureLabel = element.Q<VisualElement>("AreYouSureLabel").Required();
+			_bottomFiller = element.Q<VisualElement>("BottomFiller").Required();
 			
 			element.Q<LocalizedButton>("ScrapButton").clicked += () => _confirmAction();
 			element.Q<LocalizedButton>("CancelButton").clicked += () => _cancelAction();
@@ -43,6 +45,7 @@ namespace FirstLight.Game.Views.UITK
 			//_requirements.SetDisplay(true);
 			_requirements.SetDisplay(!info.IsNft);
 			_areYouSureLabel.SetVisibility(!info.IsNft);
+			_bottomFiller.SetDisplay(info.IsNft);
 			
 			_confirmAction = confirmAction;
 			_cancelAction = cancelAction;

@@ -149,9 +149,8 @@
     margin-top: 85px;
 }
 
-.content-scrapping_filler {
-    margin-top: 85px;
-    height: 88px;
+.content-bottom-filler {
+    height: 120px;
 }
 
 .content-repairing {
@@ -179,7 +178,7 @@
     font-size: 36px;
     align-items: center;
     color: rgb(244, 200, 42);
-    margin-bottom: 73px;
+    margin-bottom: 20px;
 }
 
 .content-upgrading__arrow-icon {
@@ -259,8 +258,6 @@
     padding-bottom: 20px;
     padding-left: 70px;
     padding-right: 70px;
-    margin-top: 40px;
-    margin-bottom: 142px;
 }
 
 .requirements__title {
@@ -274,8 +271,8 @@
 
 .requirements__icon {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BPP.png?fileID=21300000&guid=100d689cc6ffc41f297345bcfc22f54e&type=3#BPP');
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     -unity-background-scale-mode: scale-to-fit;
 }
 

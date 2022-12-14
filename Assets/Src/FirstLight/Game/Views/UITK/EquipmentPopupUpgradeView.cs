@@ -23,7 +23,8 @@ namespace FirstLight.Game.Views.UITK
 		private VisualElement _requirements;
 		private Label _requirementsAmount;
 		private VisualElement _requirementsIcon;
-
+		private VisualElement _bottomFiller;
+		
 		private Action _confirmAction;
 
 		private readonly List<Tuple<EquipmentStatType, float, float>> _statItems = new();
@@ -37,7 +38,8 @@ namespace FirstLight.Game.Views.UITK
 			_requirements = element.Q<VisualElement>("Requirements").Required();
 			_requirementsAmount = _requirements.Q<Label>("Amount").Required();
 			_requirementsIcon = _requirements.Q<VisualElement>("Icon").Required();
-
+			_bottomFiller = element.Q<VisualElement>("BottomFiller").Required();
+			
 			_statsList.DisableScrollbars();
 
 			_upgradeButton.clicked += () => _confirmAction();
@@ -60,6 +62,8 @@ namespace FirstLight.Game.Views.UITK
 			_requirementsIcon.AddToClassList(string.Format(UssRequirementsIconModifier,
 				info.UpgradeCost.Key.ToString().ToLowerInvariant()));
 
+			_bottomFiller.SetDisplay(info.IsNft);
+			
 			_confirmAction = confirmAction;
 
 			_statsList.makeItem = () => new EquipmentStatBarElement();

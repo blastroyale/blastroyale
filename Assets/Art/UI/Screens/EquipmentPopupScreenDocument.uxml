@@ -24,7 +24,7 @@
                     <ui:VisualElement class="equipment-popup__bh-logo" />
                 </ui:VisualElement>
                 <ui:VisualElement name="Content" class="equipment-popup__content">
-                    <ui:VisualElement name="Rusted" class="fill-parent content-rusted">
+                    <ui:VisualElement name="Rusted" class="fill-parent content-rusted" style="display: none;">
                         <ui:ScrollView horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" mode="Horizontal" name="ScrollView" class="content-rusted__scrollview" />
                         <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITEquipment/popup_items_unequipped" />
                         <ui:VisualElement name="BottomHolder" class="content-rusted__bottom-holder">
@@ -33,7 +33,7 @@
                             <FirstLight.Game.UIElements.LocalizedButton localization-key="UITEquipment/popup_go_repair" name="RepairButton" class="button-long button-long--yellow content-rusted__button content-rusted__button--go-repair" />
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement name="Scrapping" class="fill-parent content-scrapping">
+                    <ui:VisualElement name="Scrapping" class="fill-parent content-scrapping" style="display: none;">
                         <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITEquipment/popup_scrap_are_you_sure" name="AreYouSureLabel" />
                         <ui:VisualElement name="Requirements" class="content-scrapping__amount-holder">
                             <ui:VisualElement name="Icon" class="content-scrapping__amount-icon" />
@@ -44,8 +44,9 @@
                             <FirstLight.Game.UIElements.LocalizedButton localization-key="UITEquipment/popup_yes_scrap" display-tooltip-when-elided="true" name="ScrapButton" class="button-long button-long--red" />
                             <FirstLight.Game.UIElements.LocalizedButton localization-key="UITShared/cancel" display-tooltip-when-elided="true" name="CancelButton" class="button-long" />
                         </ui:VisualElement>
+                        <ui:VisualElement name="BottomFiller" class="content-bottom-filler" />
                     </ui:VisualElement>
-                    <ui:VisualElement name="Repairing" class="fill-parent content-repairing">
+                    <ui:VisualElement name="Repairing" class="fill-parent content-repairing" style="display: none;">
                         <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITEquipment/popup_restore_durability" />
                         <ui:Instance template="EquipmentDurability" name="EquipmentDurability" class="equipment-durability--repairing content-repairing__durability" />
                         <ui:VisualElement name="Requirements" class="requirements" style="display: none;">
@@ -54,21 +55,23 @@
                             <ui:Label text="1234" name="Amount" class="requirements__amount" />
                         </ui:VisualElement>
                         <FirstLight.Game.UIElements.PriceButton localization-key="UITEquipment/repair" name="RepairButton" class="button-long--yellow content-scrapping__button" style="display: none;" />
-                        <ui:VisualElement name="BottomFiller" class="content-scrapping_filler" />
+                        <ui:VisualElement name="BottomFiller" class="content-bottom-filler" />
                     </ui:VisualElement>
-                    <ui:VisualElement name="Upgrading" class="fill-parent content-upgrading" style="display: none;">
+                    <ui:VisualElement name="Upgrading" class="fill-parent content-upgrading" style="display: flex;">
                         <ui:VisualElement name="LevelHolder" class="content-upgrading__level-holder">
                             <ui:Label text="LV&lt;size=52px&gt;14" name="LevelCurrent" />
                             <ui:VisualElement name="RightArrow" class="content-upgrading__arrow-icon" />
                             <ui:Label text="LV&lt;size=52px&gt;15" name="LevelNext" />
                         </ui:VisualElement>
                         <ui:ListView name="StatsList" fixed-item-height="80" selection-type="None" show-bound-collection-size="false" class="content-upgrading__stats-list" />
-                        <ui:VisualElement name="Requirements" class="requirements" style="display: none;">
+                        <ui:VisualElement name="Spacer" class="height-spacer height-spacer--xxl" />
+                        <ui:VisualElement name="Requirements" class="requirements" style="display: flex;">
                             <FirstLight.Game.UIElements.LocalizedLabel name="Title" localization-key="UITEquipment/popup_requirements" class="requirements__title" />
                             <ui:VisualElement name="Icon" class="requirements__icon" />
                             <ui:Label text="1234" name="Amount" class="requirements__amount" />
                         </ui:VisualElement>
                         <FirstLight.Game.UIElements.PriceButton localization-key="UITEquipment/upgrade" name="UpgradeButton" class="content-scrapping__button button-long--yellow" />
+                        <ui:VisualElement name="BottomFiller" class="content-bottom-filler" />
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>

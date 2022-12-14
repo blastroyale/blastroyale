@@ -72,7 +72,7 @@ namespace FirstLight.Game.Services
 		/// Has local player left the match before it ended (either through menu UI, or during spectate)
 		/// This data point is available before the match ends
 		/// </summary>
-		public bool LeftBeforeMatchFinished { get; set; }
+		public bool LeftBeforeMatchFinished { get; }
 	}
 
 	public struct PlayerMatchData
@@ -96,36 +96,36 @@ namespace FirstLight.Game.Services
 	public class MatchEndDataService : IMatchEndDataService, MatchServices.IMatchService
 	{
 		/// <inheritdoc />
-		public List<QuantumPlayerMatchData> QuantumPlayerMatchData { get; set; }
+		public List<QuantumPlayerMatchData> QuantumPlayerMatchData { get; private set; }
 		/// <inheritdoc />
-		public bool ShowUIStandingsExtraInfo { get; set; }
+		public bool ShowUIStandingsExtraInfo { get; private set; }
 		/// <inheritdoc />
-		public PlayerRef LocalPlayer { get; set; }
+		public PlayerRef LocalPlayer { get; private set; }
 		/// <inheritdoc />
-		public Dictionary<PlayerRef, PlayerMatchData> PlayerMatchData { get; set; }
+		public Dictionary<PlayerRef, PlayerMatchData> PlayerMatchData { get; private set; }
 		/// <inheritdoc />
-		public List<RewardData> Rewards { get; set; }
+		public List<RewardData> Rewards { get; private set; }
 		/// <inheritdoc />
-		public int TrophiesChange { get; set; }
+		public int TrophiesChange { get; private set; }
 		/// <inheritdoc />
-		public uint TrophiesBeforeChange { get; set; }
+		public uint TrophiesBeforeChange { get; private set; }
 		/// <inheritdoc />
-		public uint CSBeforeChange { get; set; }
+		public uint CSBeforeChange { get; private set; }
 		/// <inheritdoc />
-		public uint BPPBeforeChange { get; set; }
+		public uint BPPBeforeChange { get; private set; }
 		/// <inheritdoc />
-		public uint BPLevelBeforeChange { get; set; }
+		public uint BPLevelBeforeChange { get; private set; }
 		/// <inheritdoc />
-		public bool LeftBeforeMatchFinished { get; set; }
+		public bool LeftBeforeMatchFinished { get; private set; }
 
 		private IGameServices _services;
 		private IGameDataProvider _dataProvider;
 
-		public MatchEndDataService(QuantumGame game, IGameServices services, IGameDataProvider dataProvider)
+		public MatchEndDataService(IGameServices services, IGameDataProvider dataProvider)
 		{
 			_services = services;
 			_dataProvider = dataProvider;
-			_services.MessageBrokerService.Subscribe<LeftMatchFromSpectateMessage>(OnLeftBeforeMatchFinished);
+			_services.MessageBrokerService.Subscribe<LeftBeforeMatchFinishedMessage>(OnLeftBeforeMatchFinishedMessage);
 		}
 		
 		/// <inheritdoc />
@@ -134,22 +134,7 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public void OnMatchEnded()
-		{
-		}
-
-		/// <summary>
-		/// Sets LeftBeforeMatchFinished to true, following an early quit from the match
-		/// </summary>
-		public void OnLeftBeforeMatchFinished(LeftMatchFromSpectateMessage msg)
-		{
-			LeftBeforeMatchFinished = true;
-		}
-
-		/// <summary>
-		/// Populates this service with relevant values compiled from <paramref name="game"/>
-		/// </summary>
-		public void FetchEndOfMatchData(QuantumGame  game)
+		public void OnMatchEnded(QuantumGame game)
 		{
 			var frame = game.Frames.Verified;
 			var quantumPlayerMatchData = frame.GetSingleton<GameContainer>().GetPlayersMatchData(frame, out _);
@@ -179,6 +164,11 @@ namespace FirstLight.Game.Services
 			LocalPlayer = game.GetLocalPlayerRef();
 
 			GetRewards(game, frame);
+		}
+		
+		private void OnLeftBeforeMatchFinishedMessage(LeftBeforeMatchFinishedMessage msg)
+		{
+			LeftBeforeMatchFinished = true;
 		}
 
 		private void GetRewards(QuantumGame  game, Frame frame)

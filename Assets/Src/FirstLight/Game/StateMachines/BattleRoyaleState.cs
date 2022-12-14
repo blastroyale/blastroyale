@@ -196,7 +196,7 @@ namespace FirstLight.Game.StateMachines
 				Killer = _killer,
 				OnLeaveClicked = () =>
 				{
-					_services.MessageBrokerService.Publish(new LeftMatchFromSpectateMessage());
+					_services.MessageBrokerService.Publish(new LeftBeforeMatchFinishedMessage());
 					_statechartTrigger(_localPlayerExitEvent);
 				}
 			};

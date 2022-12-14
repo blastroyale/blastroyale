@@ -415,7 +415,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			if (playerQuit)
 			{
-				_matchServices.MatchEndDataService.LeftBeforeMatchFinished = true;
+				_services.MessageBrokerService.Publish(new LeftBeforeMatchFinishedMessage());
 				StopSimulation();
 			}
 			

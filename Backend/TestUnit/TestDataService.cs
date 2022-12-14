@@ -101,7 +101,7 @@ public class TestDataService
 		var resultDelta = ModelSerializer.DeserializeFromData<StateDelta>(result);
 
 		var dataProvider = new ServerPlayerDataProvider(finalState);
-		var invalidModels = GameCommandService.GetDesynchedDeltas(dataProvider, result);
+		var invalidModels = ServerCommandQueue.GetDesynchedDeltas(ServerCommandQueue.GetClientDelta(dataProvider), result);
 
 		Assert.AreEqual(0, invalidModels.Count);
 		Assert.True(resultDelta.ModifiedTypes.ContainsKey(typeof(PlayerData)));
@@ -121,7 +121,8 @@ public class TestDataService
 		var result = _server.SendTestCommand(cmd).Data;
 		var resultDelta = ModelSerializer.DeserializeFromData<StateDelta>(result);
 		var dataProvider = new ServerPlayerDataProvider(initialState);
-		var invalidModels = GameCommandService.GetDesynchedDeltas(dataProvider, result);
+		
+		var invalidModels = ServerCommandQueue.GetDesynchedDeltas(ServerCommandQueue.GetClientDelta(dataProvider), result);
 
 		Assert.AreEqual(1, invalidModels.Count);
 		Assert.True(resultDelta.ModifiedTypes.ContainsKey(typeof(PlayerData)));

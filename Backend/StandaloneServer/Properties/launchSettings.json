@@ -11,7 +11,7 @@
     "StandaloneServer": {
       "commandName": "Project",
       "dotnetRunMessages": true,
-      "launchBrowser": true,
+      "launchBrowser": false,
       "useSSL": false,
       "applicationUrl": "http://localhost:7274;",
       "environmentVariables": {

@@ -324,8 +324,7 @@ namespace Quantum
 			var validItemHashes = new HashSet<int>();
 			foreach (var itemTuple in equipmentData.Inventory)
 			{
-				if (!equipmentData.NftInventory.TryGetValue(itemTuple.Key, out var nftData) ||
-				    !itemTuple.Value.IsBroken(nftData))
+				if (!itemTuple.Value.IsBroken())
 				{
 					validItemHashes.Add(itemTuple.Value.GetHashCode());
 				}

@@ -18,7 +18,7 @@ namespace Backend.Game.Services
 		public bool NftSync => FromEnv("NFT_SYNC", "true")?.ToLower() != "false";
 		public string DbConnectionString => FromEnv("CONNECTION_STRING", FromEnv("SqlConnectionString", ""));
 		public string? TelemetryConnectionString => FromEnv("APPLICATIONINSIGHTS_CONNECTION_STRING", "");
-		public Version MinClientVersion => new Version("0.4.0");
+		public Version MinClientVersion => new Version(FromEnv("MIN_CLIENT_VERSION", "0.10.0"));
 		public bool DevelopmentMode => FromEnv("DEV_MODE", "false")?.ToLower() == "true";
 		public bool RemoteGameConfiguration => FromEnv("REMOTE_CONFIGURATION", "false")?.ToLower() == "true";
 		private static string FromEnv(string name, string? defaultValue = null)

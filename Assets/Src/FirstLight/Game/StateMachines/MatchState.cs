@@ -245,6 +245,8 @@ namespace FirstLight.Game.StateMachines
 
 		private async void OpenMatchmakingScreen()
 		{
+			_services.AnalyticsService.MatchCalls.MatchInitiate();
+			
 			if (_networkService.QuantumClient.CurrentRoom.IsMatchmakingRoom())
 			{
 				var data = new MatchmakingScreenPresenter.StateData
@@ -264,8 +266,6 @@ namespace FirstLight.Game.StateMachines
 				
 				await _uiService.OpenScreenAsync<CustomLobbyScreenPresenter, CustomLobbyScreenPresenter.StateData>(data);
 			}
-			
-			_services.AnalyticsService.MatchCalls.MatchInitiate();
 		}
 
 		private void OpenDisconnectedScreen()

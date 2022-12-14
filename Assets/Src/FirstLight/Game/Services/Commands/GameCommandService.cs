@@ -234,7 +234,7 @@ namespace FirstLight.Game.Services
 					_services.QuitGame("Server desynch");
 				},
 				Style = AlertButtonStyle.Negative,
-				Text = "Quit Game"
+				Text = "Quit Game"	
 			});
 #endif
 		}

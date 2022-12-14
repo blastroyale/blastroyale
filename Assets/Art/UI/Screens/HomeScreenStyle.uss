@@ -33,9 +33,9 @@
     position: absolute;
     top: 0;
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/PlayerProfileBack.png?fileID=21300000&guid=6492ef21818934d678d3bb23d9a22645&type=3#PlayerProfileBack');
-    width: 1240px;
-    height: 248px;
-    margin-left: -444px;
+    width: 620px;
+    height: 208px;
+    margin-left: 20px;
     left: 0;
 }
 
@@ -45,20 +45,19 @@
 
 .player-header__name {
     position: absolute;
-    bottom: 74px;
-    left: 0;
+    left: -454px;
+    top: 105px;
     -unity-font-definition: var(--font-italic);
     color: rgb(255, 255, 255);
     font-size: 38px;
     -unity-text-align: lower-center;
     width: 310px;
-    rotate: -15deg;
+    rotate: -17deg;
     white-space: normal;
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
 }
 
 .player-header__profile-holder {
-    position: absolute;
     left: 444px;
     top: 0;
     right: 0;
@@ -75,8 +74,7 @@
     position: absolute;
     width: 340px;
     height: 72px;
-    rotate: -13deg;
-    left: 788px;
+    left: 244px;
     top: -14px;
     flex-direction: row;
     align-items: center;
@@ -84,19 +82,22 @@
 
 .player-header__trophy-icon {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/Trophy.png?fileID=21300000&guid=872fe08ff0fbc4f64b229d591f48d144&type=3#Trophy');
-    width: 32px;
-    height: 32px;
-    margin-left: 16px;
+    width: 48px;
+    height: 48px;
+    margin-left: 23px;
+    margin-top: 40px;
 }
 
 .player-header__trophies_label {
-    margin-left: 6px;
+    margin-left: -4px;
+    margin-top: 22px;
     -unity-font-definition: var(--font-italic);
     color: rgb(255, 255, 255);
-    font-size: 38px;
+    font-size: 34px;
     -unity-text-align: middle-left;
     white-space: normal;
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    rotate: -15deg;
 }
 
 .battle-pass-button {
@@ -134,7 +135,7 @@
 }
 
 .battle-pass-button__title {
-    text-shadow: -5px 5px 0 rgb(139, 26, 3);
+    text-shadow: -5px 5px 0 rgb(142, 23, 0);
     font-size: 55px;
     -unity-font-style: bold;
     -unity-text-outline-width: 2px;
@@ -150,15 +151,36 @@
     position: absolute;
 }
 
+.battle-pass-level-holder {
+    left: 376px;
+    top: -47px;
+    width: 68px;
+    height: 55px;
+    align-items: flex-end;
+    flex-shrink: 1;
+    flex-grow: 1;
+    flex-direction: row-reverse;
+}
+
 .battle-pass-button__level {
     -unity-text-align: middle-right;
-    font-size: 42px;
+    font-size: 46px;
     -unity-font-definition: var(--font-bold);
     color: rgb(138, 22, 0);
     -unity-font-style: bold;
-    position: absolute;
-    bottom: 55px;
-    right: 40px;
+    position: relative;
+    flex-grow: 1;
+}
+
+.battle-pass-button__leveltext {
+    font-size: 36px;
+    color: rgb(138, 22, 0);
+    margin: 18px 4px 4px 2px;
+    padding: 1px 2px 4px 4px;
+    position: relative;
+    left: 2px;
+    top: -1px;
+    -unity-font-definition: var(--font-italic);
 }
 
 .battle-pass-button__progress-bg {
@@ -191,7 +213,7 @@
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(141, 27, 0);
     padding-left: 38px;
-    text-shadow: 5px 5px 0 rgb(139, 26, 3);
+    text-shadow: 5px 5px 0 rgb(142, 23, 0);
     -unity-text-align: middle-center;
     padding-bottom: 19px;
     background-color: rgba(0, 0, 0, 0);
@@ -212,9 +234,10 @@
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ChangemodeButton.png?fileID=2800000&guid=c9a202b2307fb49549d013e0c91bcb44&type=3#ChangemodeButton');
     width: 414px;
     height: 168px;
-    margin-bottom: 7px;
+    margin-bottom: -33px;
     padding-left: 59px;
-    padding-bottom: 4px;
+    padding-bottom: -33px;
+    bottom: -90px;
 }
 
 .game-mode-button:active {
@@ -294,6 +317,9 @@
 }
 
 .resource-pool__separator {
+    flex-grow: 0.1;
+}
+.resource-pool__separator--2 {
     flex-grow: 1;
 }
 
@@ -332,7 +358,17 @@
     height: 66px;
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/SettingsIcon.png?fileID=2800000&guid=04713a4471ac6493ba0a2533be572841&type=3#SettingsIcon');
     margin: 20px;
-}
+}   
+
+.discord-button__icon {
+    width: 66px;
+    height: 66px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/DiscordIcon.png?fileID=2800000&guid=b67fedbb7c0d341c4b54768891f247ed&type=3#DiscordIcon');
+    top: 100px;
+    margin-right: 20px;
+    margin-top: 0px;
+    position: absolute;
+}   
 
 .button-with-icon--store > .button-with-icon__icon {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/IconEquipment.png?fileID=21300000&guid=f074c3dd0ff0849fe90a973fd6fbd458&type=3#IconEquipment');
@@ -352,12 +388,10 @@
 
 .button-with-icon--shop > .button-with-icon__icon {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/IconShop.png?fileID=21300000&guid=2ea4ca43a1f724d659125eeae517ed2a&type=3#IconShop');
+    bottom: -200px;
 }
 
-.button-with-icon--discord > .button-with-icon__icon {
-    height: 70px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/DiscordIcon.png?fileID=2800000&guid=b67fedbb7c0d341c4b54768891f247ed&type=3#DiscordIcon');
-}
+
 
 .button-with-icon--custom-game > .button-with-icon__icon {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/IconCustomGame.png?fileID=21300000&guid=edeb643c81c524ca28070f239ae51a4e&type=3#IconCustomGame');
@@ -365,4 +399,7 @@
 
 #LeaderboardsButton {
     letter-spacing: -4px;
+}
+
+.battle-pass-button__level__text {
 }

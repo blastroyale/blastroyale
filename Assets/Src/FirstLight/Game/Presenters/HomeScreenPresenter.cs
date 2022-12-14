@@ -66,7 +66,8 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _battlePassCrownIcon;
 
 		private VisualElement _bppPoolContainer;
-		private Label _bppPoolTimeLabel;
+		private Label _bppPoolTimeLabelTime;
+		private Label _bppPoolTimeLabelAmount;
 		private Label _bppPoolAmountLabel;
 		private VisualElement _csPoolContainer;
 		private Label _csPoolTimeLabel;
@@ -93,7 +94,8 @@ namespace FirstLight.Game.Presenters
 
 			_bppPoolContainer = root.Q<VisualElement>("BPPPoolContainer").Required();
 			_bppPoolAmountLabel = _bppPoolContainer.Q<Label>("AmountLabel").Required();
-			_bppPoolTimeLabel = _bppPoolContainer.Q<Label>("RestockLabel").Required();
+			_bppPoolTimeLabelTime = _bppPoolContainer.Q<Label>("RestockLabelTime").Required();
+			_bppPoolTimeLabelAmount = _bppPoolContainer.Q<Label>("RestockLabelAmount").Required();
 			_csPoolContainer = root.Q<VisualElement>("CSPoolContainer").Required();
 			_csPoolAmountLabel = _csPoolContainer.Q<Label>("AmountLabel").Required();
 			_csPoolTimeLabel = _csPoolContainer.Q<Label>("RestockLabel").Required();
@@ -225,11 +227,11 @@ namespace FirstLight.Game.Presenters
 
 		private void UpdatePoolLabels(float _ = 0)
 		{
-			UpdatePool(GameId.BPP, BPP_POOL_AMOUNT_FORMAT, _bppPoolTimeLabel, _bppPoolAmountLabel);
-			UpdatePool(GameId.CS, CS_POOL_AMOUNT_FORMAT, _csPoolTimeLabel, _csPoolAmountLabel);
+			UpdatePoolBPP(GameId.BPP, BPP_POOL_AMOUNT_FORMAT, _bppPoolTimeLabelTime, _bppPoolAmountLabel, _bppPoolTimeLabelAmount);
+			UpdatePoolCS(GameId.CS, CS_POOL_AMOUNT_FORMAT, _csPoolTimeLabel, _csPoolAmountLabel);
 		}
 
-		private void UpdatePool(GameId id, string amountStringFormat, Label timeLabel, Label amountLabel)
+		private void UpdatePoolCS(GameId id, string amountStringFormat, Label timeLabel, Label amountLabel)
 		{
 			var poolInfo = _dataProvider.ResourceDataProvider.GetResourcePoolInfo(id);
 			var timeLeft = poolInfo.NextRestockTime - DateTime.UtcNow;
@@ -242,10 +244,75 @@ namespace FirstLight.Game.Presenters
 			}
 			else
 			{
+				
 				timeLabel.text = string.Format(ScriptLocalization.UITHomeScreen.resource_pool_restock,
 					poolInfo.RestockPerInterval,
 					id.ToString(),
-					timeLeft.ToHoursMinutesSeconds());
+					timeLeft.ToHoursMinutesSeconds()).ToUpper();
+	
+				timeLabel.text = string.Format(ScriptLocalization.UITHomeScreen.resource_pool_restock,
+					poolInfo.RestockPerInterval,
+					id.ToString(),
+					timeLeft.ToHoursMinutesSeconds()).ToUpper();
+			}
+		}
+
+		private void UpdatePoolBPP(GameId id, string amountStringFormat, Label timeLabel, Label amountLabel,
+			Label timeAmountLabel)
+		{
+			var poolInfo = _dataProvider.ResourceDataProvider.GetResourcePoolInfo(id);
+			var timeLeft = poolInfo.NextRestockTime - DateTime.UtcNow;
+			
+			if (poolInfo.IsFull)
+			{
+				timeLabel.text = string.Empty;
+				timeAmountLabel.text = string.Empty;
+				return;
+			}
+			if (id == GameId.BPP)
+			{
+				timeAmountLabel.text = string.Format(ScriptLocalization.UITHomeScreen.resource_pool_restock,
+					poolInfo.RestockPerInterval,
+					id.ToString());
+
+				timeLabel.text = string.Format(
+					timeLeft.ToHoursMinutesSeconds()).ToUpper();
+			}
+		}
+		private void UpdatePoolCS(GameId id, string amountStringFormat, Label timeLabel, Label amountLabel, Label bppTimeAmountLabel = null)
+		{
+			var poolInfo = _dataProvider.ResourceDataProvider.GetResourcePoolInfo(id);
+			var timeLeft = poolInfo.NextRestockTime - DateTime.UtcNow;
+
+			amountLabel.text = string.Format(amountStringFormat, poolInfo.CurrentAmount, poolInfo.PoolCapacity);
+
+			if (poolInfo.IsFull)
+			{
+				timeLabel.text = string.Empty;
+			}
+			else
+			{
+				if (id == GameId.BPP)
+				{
+					bppTimeAmountLabel.text =  string.Format(ScriptLocalization.UITHomeScreen.resource_pool_restock,
+						poolInfo.RestockPerInterval,
+						id.ToString());
+					
+					timeLabel.text = string.Format(
+						timeLeft.ToHoursMinutesSeconds()).ToUpper();
+				}
+				else
+				{
+					timeLabel.text = string.Format(ScriptLocalization.UITHomeScreen.resource_pool_restock,
+						poolInfo.RestockPerInterval,
+						id.ToString(),
+						timeLeft.ToHoursMinutesSeconds()).ToUpper();
+				}
+
+				timeLabel.text = string.Format(ScriptLocalization.UITHomeScreen.resource_pool_restock,
+					poolInfo.RestockPerInterval,
+					id.ToString(),
+					timeLeft.ToHoursMinutesSeconds()).ToUpper();
 			}
 		}
 

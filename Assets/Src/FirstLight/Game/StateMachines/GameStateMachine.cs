@@ -162,9 +162,7 @@ namespace FirstLight.Game.StateMachines
 			var asset = await _services.AssetResolverService.LoadAssetAsync<UiConfigs>(uiAddress);
 			var quantumAsset =
 				await _services.AssetResolverService.LoadAssetAsync<QuantumRunnerConfigs>(quantumAddress);
-
-			var camera = Camera.allCameras.First(c => c.gameObject.CompareTag("MainOverlayCamera"));
-
+			
 			_uiService.Init(asset);
 			_configsAdder.AddSingletonConfig(quantumAsset);
 			_services.AssetResolverService.UnloadAsset(asset);
@@ -172,7 +170,6 @@ namespace FirstLight.Game.StateMachines
 			await _uiService.LoadUiAsync<LoadingScreenPresenter>(true);
 			await Task.Delay(1000); // Delays 1 sec to play the loading screen animation
 			await Task.WhenAll(_uiService.LoadUiSetAsync((int) UiSetId.InitialLoadUi));
-			GameObject.Destroy(camera.gameObject);
 		}
 	}
 }

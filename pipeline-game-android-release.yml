@@ -34,7 +34,7 @@ jobs:
           {
             New-Item -ItemType Directory -Path $path
           }
-        Invoke-Webrequest https://flgbuildstorage.blob.core.windows.net/public/services-config.json -outfile C:\programdata\Unity\config\services-config.json
+        Invoke-Webrequest https://prodflgbuildstorage.blob.core.windows.net/public/services-config.json -outfile C:\programdata\Unity\config\services-config.json
     displayName: 'Configure License Server Connection'
 
   - task: PowerShell@2
@@ -146,7 +146,7 @@ jobs:
       SourcePath: '$(FL_INTERNAL_VERSION_FILENAME).apk'
       azureSubscription: 'flg-devops(ebde7ff2-8e46-4172-91cf-e4d8bce70c3f)'
       Destination: 'AzureBlob'
-      storage: 'flgbuildstorage'
+      storage: 'prodflgbuildstorage'
       ContainerName: 'android'
       BlobPrefix: $(Build.DefinitionName)/$(Build.BuildNumber)/$(FL_INTERNAL_VERSION_FILENAME).apk
       AdditionalArgumentsForBlobCopy: --content-type=application/vnd.android.package-archive
@@ -157,7 +157,7 @@ jobs:
       SourcePath: '*.obb'
       azureSubscription: 'flg-devops(ebde7ff2-8e46-4172-91cf-e4d8bce70c3f)'
       Destination: 'AzureBlob'
-      storage: 'flgbuildstorage'
+      storage: 'prodflgbuildstorage'
       ContainerName: 'android'
       BlobPrefix: $(Build.DefinitionName)/$(Build.BuildNumber)/
     displayName: 'Upload OBB files'
@@ -167,8 +167,8 @@ jobs:
       targetType: 'inline'
       script: |
         pip install amzqr
-        Invoke-Webrequest https://flgbuildstorage.blob.core.windows.net/public/br_small_c.jpg -outfile br_small_c.jpg
-        amzqr "https://flgbuildstorage.blob.core.windows.net/android/$(Build.DefinitionName)/$(Build.BuildNumber)/$(FL_INTERNAL_VERSION_FILENAME).apk" -c -v 10 -p .\br_small_c.jpg
+        Invoke-Webrequest https://prodflgbuildstorage.blob.core.windows.net/public/br_small_c.jpg -outfile br_small_c.jpg
+        amzqr "https://prodflgbuildstorage.blob.core.windows.net/android/$(Build.DefinitionName)/$(Build.BuildNumber)/$(FL_INTERNAL_VERSION_FILENAME).apk" -c -v 10 -p .\br_small_c.jpg
     displayName: 'Generate QR code'
 
   - script: |
@@ -180,7 +180,7 @@ jobs:
       SourcePath: 'BlastRoyale_QR_Android.png'
       azureSubscription: 'flg-devops(ebde7ff2-8e46-4172-91cf-e4d8bce70c3f)'
       Destination: 'AzureBlob'
-      storage: 'flgbuildstorage'
+      storage: 'prodflgbuildstorage'
       ContainerName: 'android'
       BlobPrefix: $(Build.DefinitionName)/$(Build.BuildNumber)/BlastRoyale_QR_Android.png
     displayName: 'Upload QR code'

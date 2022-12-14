@@ -530,8 +530,7 @@ namespace FirstLight.Game.StateMachines
 			await Task.Delay(GameConstants.Visuals.SCREEN_SWIPE_TRANSITION_MS);
 			
 			var configProvider = _services.ConfigsProvider;
-
-			Camera.main.gameObject.SetActive(false);
+			
 			_uiService.UnloadUiSet((int) UiSetId.MainMenuUi);
 			_services.AudioFxService.DetachAudioListener();
 

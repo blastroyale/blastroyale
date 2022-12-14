@@ -416,6 +416,9 @@ namespace FirstLight.Game.StateMachines
 			
 			_uiService.UnloadUiSet((int) UiSetId.MatchUi);
 			_services.AudioFxService.DetachAudioListener();
+			var mainOverlayCamera = Camera.allCameras.First(c => c.gameObject.CompareTag("MainOverlayCamera"));
+			mainOverlayCamera.gameObject.SetActive(true);
+			
 			await _services.AssetResolverService.UnloadSceneAsync(scene);
 			
 			_services.VfxService.DespawnAll();

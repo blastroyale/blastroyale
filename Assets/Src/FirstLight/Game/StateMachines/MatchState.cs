@@ -43,6 +43,7 @@ namespace FirstLight.Game.StateMachines
 		private IMatchServices _matchServices;
 		private bool _arePlayerAssetsLoaded = false;
 		private Action<IStatechartEvent> _statechartTrigger;
+		private Camera _mainOverlayCamera;
 		
 		public MatchState(IGameServices services, IDataService dataService, IGameBackendNetworkService networkService, IGameUiService uiService, IGameDataProvider gameDataProvider, 
 		                  IAssetAdderService assetAdderService, Action<IStatechartEvent> statechartTrigger)
@@ -57,6 +58,8 @@ namespace FirstLight.Game.StateMachines
 			_gameSimulationState = new GameSimulationState(gameDataProvider, services, networkService, uiService, statechartTrigger, _assetAdderService);
 
 			_services.NetworkService.QuantumClient.AddCallbackTarget(this);
+			
+			_mainOverlayCamera = Camera.allCameras.First(go => go.CompareTag("MainOverlayCamera"));
 		}
 
 		/// <summary>
@@ -368,8 +371,7 @@ namespace FirstLight.Game.StateMachines
 			_uiService.UnloadUiSet((int) UiSetId.MatchUi);
 			_services.AudioFxService.DetachAudioListener();
 			
-			var mainOverlayCamera = GameObject.FindWithTag("MainOverlayCamera").transform.GetChild(0);
-			mainOverlayCamera.gameObject.SetActive(true);
+			_mainOverlayCamera.gameObject.SetActive(true);
 			
 			await _services.AssetResolverService.UnloadSceneAsync(scene);
 

@@ -23,6 +23,7 @@ namespace Quantum.Commands
 
 		internal override void Execute(Frame f, PlayerRef playerRef)
 		{
+#if DEBUG
 			var position = FPVector3.Zero;
 
 			if (OnPlayerPosition)
@@ -37,6 +38,9 @@ namespace Quantum.Commands
 				AirdropDropDuration = FP._10,
 				AirdropChest = Chest
 			}, position);
+#else
+		Log.Error($"Trying to use Cheat command {this.GetType().Name} in Release build of Quantum Code");
+#endif
 		}
 	}
 }

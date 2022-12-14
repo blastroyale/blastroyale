@@ -6,10 +6,19 @@
     align-items: center;
 }
 
-.currency-display__icon {
-    width: 60px;
-    height: 60px;
+.currency-display__icon-outline {
+    width: 75px;
+    height: 75px;
     margin-left: -25px;
+    align-items: center;
+    justify-content: center;
+    -unity-background-image-tint-color: black;
+}
+
+.currency-display__icon {
+    width: 95%;
+    height: 95%;
+    position: absolute;
 }
 
 .currency-display__icon--cs {

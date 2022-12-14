@@ -55,7 +55,6 @@ namespace FirstLight.Game.Utils
 			public const string QUANTUM_ID = "81262db7-24a2-4685-b386-65427c73ce9d";
 #elif STAGE_SERVER
 			public const ServerEnvironments SERVER_ENVIRONMENT = ServerEnvironments.Stage;
-			public const string SERVER_ENVIRONMENT = nameof(ServerEnvironments.Stage);
 			public const string PLAYFAB_TITLE_ID = "***REMOVED***";
 			public const string PASSWORD_RECOVER_EMAIL = "***REMOVED***";
 			public const string QUANTUM_ID = "***REMOVED***";

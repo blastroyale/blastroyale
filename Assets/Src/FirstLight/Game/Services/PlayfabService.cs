@@ -4,10 +4,13 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using FirstLight.FLogger;
+using FirstLight.Game.Data;
+using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Models;
+using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using Newtonsoft.Json;
@@ -61,7 +64,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Updates anonymous account with provided registration data
 		/// </summary>
-		void AttachLoginDataToAccount(string email, string password, string displayName,
+		void AttachLoginDataToAccount(string email, string username, string password,
 		                              Action<AddUsernamePasswordResult> successCallback = null,
 		                              Action<PlayFabError> errorCallback = null);
 
@@ -82,9 +85,16 @@ namespace FirstLight.Game.Services
 		void HandleError(PlayFabError error);
 
 		/// <summary>
+		/// Compare server with client rewards to check if they match.
+		/// Introduced as a workaround due to requiring two synchronous commands
+		/// from two different services (Logic Service & Quantum Server)
+		/// </summary>
+		void CheckIfRewardsMatch(Action<bool> callback);
+
+		/// <summary>
 		/// Updates user contact email address
 		/// </summary>
-		void UpdateEmail(string newEmail, Action<AddOrUpdateContactEmailResult> callback = null);
+		void UpdateContactEmail(string newEmail, Action<AddOrUpdateContactEmailResult> callback = null);
 	}
 
 	/// <inheritdoc cref="IPlayfabService" />
@@ -113,6 +123,21 @@ namespace FirstLight.Game.Services
 				_dataProvider.AppDataProvider.DisplayName.Value = result.DisplayName;
 				onSuccess?.Invoke(result);
 			}
+		}
+
+		public void CheckIfRewardsMatch(Action<bool> callback) 
+		{
+			PlayFabClientAPI.GetUserReadOnlyData(new GetUserDataRequest()
+			{
+				Keys = new List<string>() { typeof(PlayerData).FullName }
+			}, result =>
+			{
+				var modelJson = result.Data[typeof(PlayerData).FullName].Value;
+				var model = ModelSerializer.Deserialize<PlayerData>(modelJson);
+				var serverState = model.UncollectedRewards;
+				var clientState = _dataProvider.RewardDataProvider.UnclaimedRewards;
+				callback(serverState.SequenceEqual(clientState));
+			}, HandleError);
 		}
 
 		/// <inheritdoc />
@@ -200,7 +225,7 @@ namespace FirstLight.Game.Services
 			});
 		}
 
-		public void UpdateEmail(string newEmail, Action<AddOrUpdateContactEmailResult> callback = null)
+		public void UpdateContactEmail(string newEmail, Action<AddOrUpdateContactEmailResult> callback = null)
 		{
 			FLog.Info("Updating user email to "+newEmail);
 			var emailUpdate = new AddOrUpdateContactEmailRequest()
@@ -310,7 +335,7 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public void AttachLoginDataToAccount(string email, string password, string username,
+		public void AttachLoginDataToAccount(string email, string username, string password,
 		                                     Action<AddUsernamePasswordResult> successCallback = null,
 		                                     Action<PlayFabError> errorCallback = null)
 		{
@@ -327,7 +352,6 @@ namespace FirstLight.Game.Services
 			void OnSuccess(AddUsernamePasswordResult result)
 			{
 				_dataProvider.AppDataProvider.LastLoginEmail.Value = email;
-				UpdateEmail(email);
 				successCallback?.Invoke(result);
 			}
 		}

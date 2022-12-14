@@ -455,18 +455,6 @@ public partial class SROptions
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}
 
-	[Category("Equipment")]
-	public void SetAllEquipmentNew()
-	{
-		var gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-
-		gameDataProvider.UniqueIdDataProvider.NewIds.Clear();
-		foreach (var (id, _) in gameDataProvider.EquipmentDataProvider.Inventory)
-		{
-			gameDataProvider.UniqueIdDataProvider.NewIds.Add(id);
-		}
-	}
-
 	[Category("Marketing")]
 	public void ToggleControllerGameUI()
 	{
@@ -510,7 +498,17 @@ public partial class SROptions
 			Data = data
 		});
 	}
-	
+
+	[Category("Progression")]
+	public void Add5000Coins()
+	{
+		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
+		var services = MainInstaller.Resolve<IGameServices>();
+
+		gameLogic.CurrencyLogic.AddCurrency(GameId.COIN, 5000);
+		((GameCommandService)services.CommandService).ForceServerDataUpdate();
+	}
+
 	[Category("Progression")]
 	public void Add5CS()
 	{
@@ -562,6 +560,17 @@ public partial class SROptions
 		var services = MainInstaller.Resolve<IGameServices>();
 		
 		gameLogic.BattlePassLogic.AddBPP(250);
+
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
+	}
+	
+	[Category("Progression")]
+	public void Add100000BPP()
+	{
+		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
+		var services = MainInstaller.Resolve<IGameServices>();
+		
+		gameLogic.BattlePassLogic.AddBPP(100000);
 
 		((GameCommandService) services.CommandService).ForceServerDataUpdate();
 	}

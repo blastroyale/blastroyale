@@ -76,7 +76,7 @@ namespace quantum.custom.plugin
 				},
 				Headers = new Dictionary<HttpRequestHeader, string>()
 				{
-					{ HttpRequestHeader.KeepAlive, "true" }, // TODO: Verify with sniffer
+					{ HttpRequestHeader.KeepAlive, "true" },
 					{ HttpRequestHeader.ContentType, "application/json" },
 				},
 				UserState = playerId

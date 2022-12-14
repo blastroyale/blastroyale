@@ -22,7 +22,8 @@ namespace FirstLight.Game.Commands
 		Server,
 		
 		/// <summary>
-		/// Runs the command in quantum using a majority vote consensus algorithm.
+		/// Runs the command from a given frame, in client & server. Commands are not transported via network
+		/// on those cases and are completely fired from server simulation by a given frame.
 		/// </summary>
 		Quantum
 	}

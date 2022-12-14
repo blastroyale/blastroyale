@@ -17,31 +17,33 @@
                 <FirstLight.Game.UIElements.LocalizedLabel text="##" name="GameplayInfo" localization-key="UITBattlePass/play_games_info" class="season-info__label" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="SeasonHeader" class="season-header anim-delay-0 anim-translate anim-translate--down-s">
+        <ui:VisualElement name="SeasonHeader" class="season-header anim-translate anim-translate--down-s anim-delay-4">
             <ui:VisualElement name="Background" class="season-header__background" />
-            <ui:VisualElement name="Content" class="season-header__content">
-                <ui:VisualElement name="CurrentLevel" class="season-level">
-                    <ui:Label text="LV" display-tooltip-when-elided="true" name="Label" class="season-level__label" />
-                    <ui:Label display-tooltip-when-elided="true" name="CurrentLevelValue" text="0" class="season-level__label season-level__label--big" />
-                </ui:VisualElement>
-                <ui:VisualElement name="Spacer" class="width-spacer width-spacer--xl" />
-                <ui:VisualElement name="BppBar" class="bpp-bar">
-                    <ui:VisualElement name="BppBackground" class="bpp-bar__background">
-                        <ui:VisualElement name="BppProgress" class="bpp-bar__progress" />
+            <FirstLight.Game.UIElements.SafeAreaElement apply-bottom="false" class="season-header-safe-area">
+                <ui:VisualElement name="BppBarLayout" class="season-header__bpp-bar-layout">
+                    <ui:VisualElement name="CurrentLevel" class="season-level">
+                        <ui:Label text="LV" display-tooltip-when-elided="true" name="Label" class="season-level__label" />
+                        <ui:Label display-tooltip-when-elided="true" name="CurrentLevelValue" text="0" class="season-level__label season-level__label--big" />
                     </ui:VisualElement>
-                    <ui:Label text="0 / 100" display-tooltip-when-elided="true" name="BppProgressLabel" class="bpp-bar__label" />
-                    <ui:VisualElement name="Icon" class="bpp-bar__icon" />
+                    <ui:VisualElement name="Spacer" class="width-spacer width-spacer--xl" />
+                    <ui:VisualElement name="BppBar" class="bpp-bar">
+                        <ui:VisualElement name="BppBackground" class="bpp-bar__background">
+                            <ui:VisualElement name="BppProgress" class="bpp-bar__progress" />
+                            <ui:Label text="0 / 100" display-tooltip-when-elided="true" name="BppProgressLabel" class="bpp-bar__label" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="Icon" class="bpp-bar__icon" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="NextLevel" class="season-level">
+                        <ui:Label text="LV" display-tooltip-when-elided="true" name="Label" class="season-level__label" />
+                        <ui:Label text="1" display-tooltip-when-elided="true" name="NextLevelValue" class="season-level__label season-level__label--big" />
+                    </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="Spacer" class="width-spacer" />
-                <ui:VisualElement name="NextLevel" class="season-level">
-                    <ui:Label text="LV" display-tooltip-when-elided="true" name="Label" class="season-level__label" />
-                    <ui:Label text="1" display-tooltip-when-elided="true" name="NextLevelValue" class="season-level__label season-level__label--big" />
+                <ui:VisualElement name="Currencies" class="season-header__currencies">
+                    <FirstLight.Game.UIElements.CurrencyDisplayElement name="CurrencyDisplayElement" />
+                    <ui:VisualElement class="width-spacer width-spacer--xl" />
+                    <FirstLight.Game.UIElements.CurrencyDisplayElement name="CurrencyDisplayElement" currency="COIN" />
                 </ui:VisualElement>
-                <ui:VisualElement name="Spacer" class="width-spacer width-spacer--xxxl" />
-                <FirstLight.Game.UIElements.CurrencyDisplayElement name="CurrencyDisplayElement" />
-                <ui:VisualElement name="Spacer" class="width-spacer width-spacer--xl" />
-                <FirstLight.Game.UIElements.CurrencyDisplayElement name="CurrencyDisplayElement" currency="COIN" />
-            </ui:VisualElement>
+            </FirstLight.Game.UIElements.SafeAreaElement>
         </ui:VisualElement>
         <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" name="Header" />
     </ui:VisualElement>

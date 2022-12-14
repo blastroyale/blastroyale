@@ -94,14 +94,12 @@ namespace FirstLight.Game.Services
 			EconomyCalls = new AnalyticsEconomy(this);
 			ErrorsCalls = new AnalyticsCallsErrors(this);
 			UiCalls = new AnalyticsCallsUi(this, uiService);
-			EquipmentCalls = new AnalyticsCallsEquipment(this, services.ConfigsProvider);
+			EquipmentCalls = new AnalyticsCallsEquipment(this, services);
 		}
 
 		/// <inheritdoc />
 		public void LogEvent(string eventName, Dictionary<string, object> parameters = null, bool isCriticalEvent = true)
 		{
-			Debug.Log("Analytics event "+eventName+": "+JsonConvert.SerializeObject(parameters));
-   
 			//PlayFab Analytics
 			if (PlayFabSettings.staticPlayer.IsClientLoggedIn())
 			{
@@ -138,7 +136,7 @@ namespace FirstLight.Game.Services
 				// Unity (max 10 params)
 				if (count++ < 10)
 				{
-					unityParams[parameter.Key] = parameter.Value;
+					unityParams.Add(parameter.Key, parameter.Value);
 				}
 
 				switch (parameter.Value)

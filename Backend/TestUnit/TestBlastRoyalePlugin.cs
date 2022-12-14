@@ -43,6 +43,8 @@ public class TestNftSyncPlugin
 			subCategory = (int) GameId.ModPistol,
 			faction = (long) EquipmentFaction.Chaos
 		});
+		var state = _app.Services.GetService<IPlayerSetupService>().GetInitialState("yolo");
+		_app.ServerState.UpdatePlayerState("yolo", state).GetAwaiter().GetResult();
 	}
 
 	[Test]

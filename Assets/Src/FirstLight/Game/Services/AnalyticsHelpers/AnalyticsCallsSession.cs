@@ -76,7 +76,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		public void GameLoadStart()
 		{
 			// Async call for the AdvertisingId
-			var requestAdvertisingIdSuccess = !Application.RequestAdvertisingIdentifierAsync((id, enabled, msg) =>
+			var requestAdvertisingIdSuccess = Application.RequestAdvertisingIdentifierAsync((id, enabled, msg) =>
 			{
 				var dic = new Dictionary<string, object>
 				{

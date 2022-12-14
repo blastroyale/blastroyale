@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
 using FirstLight.Game.Utils;
@@ -17,6 +18,12 @@ namespace BlastRoyaleNFTPlugin
 	public class TrophyLadderPlugin : ServerPlugin
 	{
 		private PluginContext _ctx;
+
+		private static HashSet<Type> _commandTypesToUpdateLeaderboard = new HashSet<Type>()
+		{
+			typeof(EndOfGameCalculationsCommand),
+			typeof(CollectUnclaimedRewardsCommand)
+		};
 		
 		public override void OnEnable(PluginContext context)
 		{
@@ -36,7 +43,7 @@ namespace BlastRoyaleNFTPlugin
 
 		private void OnCommandFinished(CommandFinishedEvent ev)
 		{
-			if(!(ev.Command is EndOfGameCalculationsCommand))
+			if (!_commandTypesToUpdateLeaderboard.Contains(ev.Command.GetType()))
 			{
 				return;
 			}

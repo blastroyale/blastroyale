@@ -149,6 +149,11 @@
     margin-top: 85px;
 }
 
+.content-scrapping_filler {
+    margin-top: 85px;
+    height: 88px;
+}
+
 .content-repairing {
     align-items: center;
     justify-content: space-between;

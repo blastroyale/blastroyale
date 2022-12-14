@@ -93,6 +93,10 @@ namespace FirstLight.Game.Logic
 		/// </summary>
 		List<RewardData> ClaimUncollectedRewards();
 
+		/// <summary>
+		/// Claims all the unclaimed IAP rewards (that were purchased from the shop).
+		/// </summary>
+		/// <returns></returns>
 		List<KeyValuePair<UniqueId,Equipment>> ClaimIAPRewards();
 
 		/// <summary>
@@ -138,7 +142,7 @@ namespace FirstLight.Game.Logic
 			{
 				if (source.MatchType == MatchType.Ranked && source.DidPlayerQuit)
 				{
-					GiveTrophiesReward(rewards, source.MatchData, localMatchData, out trophyChange);
+					CalculateTrophiesReward(rewards, source.MatchData, localMatchData, out trophyChange);
 				}
 
 				return rewards;
@@ -171,13 +175,13 @@ namespace FirstLight.Game.Logic
 
 			if (source.MatchType == MatchType.Ranked)
 			{
-				GiveCSReward(rewards, rewardConfig);
-				GiveTrophiesReward(rewards, source.MatchData, localMatchData, out trophyChange);
+				CalculateCSReward(rewards, rewardConfig);
+				CalculateTrophiesReward(rewards, source.MatchData, localMatchData, out trophyChange);
 			}
 
 			if (source.MatchType is MatchType.Ranked or MatchType.Casual)
 			{
-				GiveBPPReward(rewards, rewardConfig);
+				CalculateBPPReward(rewards, rewardConfig);
 			}
 
 			return rewards;
@@ -187,9 +191,9 @@ namespace FirstLight.Game.Logic
 		{
 			var productReward = JsonConvert.DeserializeObject<RewardData>(product.definition.payout.data);
 
-			foreach (var reward in _unclaimedRewards)
+			for (var i = 0; i < _unclaimedRewards.Count; i++)
 			{
-				if (reward.RewardId == productReward.RewardId)
+				if ( _unclaimedRewards[i].RewardId == productReward.RewardId)
 				{
 					return true;
 				}
@@ -200,96 +204,15 @@ namespace FirstLight.Game.Logic
 
 		public bool HasUnclaimedPurchases()
 		{
-			foreach (var reward in _unclaimedRewards)
+			for (var i = 0; i < _unclaimedRewards.Count; i++)
 			{
-				if (reward.RewardId.IsInGroup(GameIdGroup.IAP))
+				if (_unclaimedRewards[i].RewardId.IsInGroup(GameIdGroup.IAP))
 				{
 					return true;
 				}
 			}
 
 			return false;
-		}
-
-		private void GiveCSReward(ICollection<RewardData> rewards, MatchRewardConfig rewardConfig)
-		{
-			var rewardPair = rewardConfig.Rewards.FirstOrDefault(x => x.Key == GameId.CS);
-			var percent = rewardPair.Value / 100d;
-			// rewardPair.Value is the absolute percent of the max take that people will be awarded
-
-			var info = GameLogic.ResourceLogic.GetResourcePoolInfo(GameId.CS);
-			var take = (uint) Math.Ceiling(info.WinnerRewardAmount * percent);
-			var withdrawn = (int) Math.Min(info.CurrentAmount, take);
-
-			if (withdrawn > 0)
-			{
-				rewards.Add(new RewardData(GameId.CS, withdrawn));
-			}
-		}
-
-		private void GiveBPPReward(ICollection<RewardData> rewards, MatchRewardConfig rewardConfig)
-		{
-			if (rewardConfig.Rewards.TryGetValue(GameId.BPP, out var amount))
-			{
-				var info = GameLogic.ResourceLogic.GetResourcePoolInfo(GameId.BPP);
-				var withdrawn = (int) Math.Min(info.CurrentAmount, amount);
-				var remainingPoints = GameLogic.BattlePassLogic.GetRemainingPoints();
-
-				withdrawn = (int) Math.Min(withdrawn, remainingPoints);
-
-				if (withdrawn > 0)
-				{
-					rewards.Add(new RewardData(GameId.BPP, withdrawn));
-				}
-			}
-		}
-
-		private void GiveTrophiesReward(ICollection<RewardData> rewards,
-										IReadOnlyCollection<QuantumPlayerMatchData> players,
-										QuantumPlayerMatchData localPlayerData,
-										out int trophyChangeOut)
-		{
-			var gameConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
-
-			var tempPlayers = new List<QuantumPlayerMatchData>(players);
-			tempPlayers.SortByPlayerRank(false);
-
-			var trophyChange = 0d;
-
-			// Losses; Note: PlayerRank starts from 1, not from 0
-			for (var i = 0; i < localPlayerData.PlayerRank - 1; i++)
-			{
-				trophyChange += CalculateEloChange(0d, tempPlayers[i].Data.PlayerTrophies,
-					localPlayerData.Data.PlayerTrophies, gameConfig.TrophyEloRange,
-					gameConfig.TrophyEloK.AsDouble, gameConfig.TrophyMinChange.AsDouble);
-			}
-
-			// Wins; Note: PlayerRank starts from 1, not from 0
-			for (var i = (int) localPlayerData.PlayerRank; i < players.Count; i++)
-			{
-				trophyChange += CalculateEloChange(1d, tempPlayers[i].Data.PlayerTrophies,
-					localPlayerData.Data.PlayerTrophies, gameConfig.TrophyEloRange,
-					gameConfig.TrophyEloK.AsDouble, gameConfig.TrophyMinChange.AsDouble);
-			}
-
-			var finalTrophyChange = (int) Math.Round(trophyChange);
-
-			if (finalTrophyChange < 0 && Math.Abs(finalTrophyChange) > Data.Trophies)
-			{
-				finalTrophyChange = (int) -Data.Trophies;
-			}
-
-			trophyChangeOut = finalTrophyChange;
-			rewards.Add(new RewardData(GameId.Trophies, finalTrophyChange));
-		}
-
-		private double CalculateEloChange(double score, uint trophiesOpponent, uint trophiesPlayer, int eloRange,
-										  double eloK, double minTrophyChange)
-		{
-			var eloBracket = Math.Pow(10, ((int) trophiesOpponent - (int) trophiesPlayer) / (float) eloRange);
-			var trophyChange = eloK * (score - 1 / (1 + eloBracket));
-
-			return trophyChange < 0 ? Math.Min(trophyChange, -minTrophyChange) : Math.Max(trophyChange, minTrophyChange);
 		}
 
 		/// <inheritdoc />
@@ -374,7 +297,7 @@ namespace FirstLight.Game.Logic
 			else
 			{
 				throw
-					new LogicException($"The reward '{reward.RewardId}' is not from a group type that is rewardable.");
+					new LogicException($"The reward '{reward.RewardId.ToString()}' is not from a group type that is rewardable.");
 			}
 
 			return reward;
@@ -388,6 +311,87 @@ namespace FirstLight.Game.Logic
 			var equipment = GameLogic.EquipmentLogic.GenerateEquipmentFromConfig(config);
 			var uniqueId = GameLogic.EquipmentLogic.AddToInventory(equipment);
 			return new KeyValuePair<UniqueId, Equipment>(uniqueId, equipment);
+		}
+
+		private void CalculateCSReward(ICollection<RewardData> rewards, MatchRewardConfig rewardConfig)
+		{
+			var rewardPair = rewardConfig.Rewards.FirstOrDefault(x => x.Key == GameId.CS);
+			var percent = rewardPair.Value / 100d;
+			// rewardPair.Value is the absolute percent of the max take that people will be awarded
+
+			var info = GameLogic.ResourceLogic.GetResourcePoolInfo(GameId.CS);
+			var take = (uint) Math.Ceiling(info.WinnerRewardAmount * percent);
+			var withdrawn = (int) Math.Min(info.CurrentAmount, take);
+
+			if (withdrawn > 0)
+			{
+				rewards.Add(new RewardData(GameId.CS, withdrawn));
+			}
+		}
+
+		private void CalculateBPPReward(ICollection<RewardData> rewards, MatchRewardConfig rewardConfig)
+		{
+			if (rewardConfig.Rewards.TryGetValue(GameId.BPP, out var amount))
+			{
+				var info = GameLogic.ResourceLogic.GetResourcePoolInfo(GameId.BPP);
+				var withdrawn = (int) Math.Min(info.CurrentAmount, amount);
+				var remainingPoints = GameLogic.BattlePassLogic.GetRemainingPoints();
+
+				withdrawn = (int) Math.Min(withdrawn, remainingPoints);
+
+				if (withdrawn > 0)
+				{
+					rewards.Add(new RewardData(GameId.BPP, withdrawn));
+				}
+			}
+		}
+
+		private void CalculateTrophiesReward(ICollection<RewardData> rewards,
+										IReadOnlyCollection<QuantumPlayerMatchData> players,
+										QuantumPlayerMatchData localPlayerData,
+										out int trophyChangeOut)
+		{
+			var gameConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
+
+			var tempPlayers = new List<QuantumPlayerMatchData>(players);
+			tempPlayers.SortByPlayerRank(false);
+
+			var trophyChange = 0d;
+
+			// Losses; Note: PlayerRank starts from 1, not from 0
+			for (var i = 0; i < localPlayerData.PlayerRank - 1; i++)
+			{
+				trophyChange += CalculateEloChange(0d, tempPlayers[i].Data.PlayerTrophies,
+					localPlayerData.Data.PlayerTrophies, gameConfig.TrophyEloRange,
+					gameConfig.TrophyEloK.AsDouble, gameConfig.TrophyMinChange.AsDouble);
+			}
+
+			// Wins; Note: PlayerRank starts from 1, not from 0
+			for (var i = (int) localPlayerData.PlayerRank; i < players.Count; i++)
+			{
+				trophyChange += CalculateEloChange(1d, tempPlayers[i].Data.PlayerTrophies,
+					localPlayerData.Data.PlayerTrophies, gameConfig.TrophyEloRange,
+					gameConfig.TrophyEloK.AsDouble, gameConfig.TrophyMinChange.AsDouble);
+			}
+
+			var finalTrophyChange = (int) Math.Round(trophyChange);
+
+			if (finalTrophyChange < 0 && Math.Abs(finalTrophyChange) > Data.Trophies)
+			{
+				finalTrophyChange = (int) -Data.Trophies;
+			}
+
+			trophyChangeOut = finalTrophyChange;
+			rewards.Add(new RewardData(GameId.Trophies, finalTrophyChange));
+		}
+
+		private double CalculateEloChange(double score, uint trophiesOpponent, uint trophiesPlayer, int eloRange,
+										  double eloK, double minTrophyChange)
+		{
+			var eloBracket = Math.Pow(10, ((int) trophiesOpponent - (int) trophiesPlayer) / (float) eloRange);
+			var trophyChange = eloK * (score - 1 / (1 + eloBracket));
+
+			return trophyChange < 0 ? Math.Min(trophyChange, -minTrophyChange) : Math.Max(trophyChange, minTrophyChange);
 		}
 	}
 

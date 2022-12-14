@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
 using Newtonsoft.Json;
@@ -20,6 +22,13 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		private IGameServices _services;
 		private IGameDataProvider _gameData;
 
+		private string _matchId;
+		private string _mutators;
+		private string _matchType;
+		private string _gameModeId;
+
+		private Dictionary<GameId, string> _gameIdsLookup = new();
+
 		private int _playerNumAttacks;
 
 		public AnalyticsCallsMatch(IAnalyticsService analyticsService,
@@ -33,6 +42,11 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			QuantumEvent.SubscribeManual<EventOnChestOpened>(this, MatchChestOpenAction);
 			QuantumEvent.SubscribeManual<EventOnCollectableCollected>(MatchPickupAction);
 			QuantumEvent.SubscribeManual<EventOnPlayerAttack>(TrackPlayerAttack);
+			
+			foreach (var gameId in (GameId[]) Enum.GetValues(typeof(GameId)))
+			{
+				_gameIdsLookup.Add(gameId, gameId.ToString());
+			}
 		}
 
 		/// <summary>
@@ -42,13 +56,19 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		{
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
 			
+			// We create lookups so we don't have boxing situations happening during the gameplay
+			_matchId = _services.NetworkService.QuantumClient.CurrentRoom.Name;
+			_mutators = string.Join(",", room.GetMutatorIds());
+			_matchType = room.GetMatchType().ToString();
+			_gameModeId = room.GetGameModeId();
+			
 			var data = new Dictionary<string, object>
 			{
-				{"match_id", _services.NetworkService.QuantumClient.CurrentRoom.Name},
-				{"match_type", room.GetMatchType().ToString()},
-				{"game_mode", room.GetGameModeId()},
-				{"mutators", string.Join(",",room.GetMutatorIds())},
-				{"PlayerId", PlayFabSettings.staticPlayer.PlayFabId}
+				{"match_id", _matchId},
+				{"match_type", _matchType},
+				{"game_mode", _gameModeId},
+				{"mutators", _mutators},
+				{"PlayFabPlayerId", _gameData.AppDataProvider.PlayerId } // must be named PlayFabPlayerId or will create error
 			};
 			
 			_analyticsService.LogEvent(AnalyticsEvents.MatchInitiate, data);
@@ -66,6 +86,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(room.GetGameModeId().GetHashCode());
 			var totalPlayers = room.PlayerCount;
 			var loadout = _gameData.EquipmentDataProvider.Loadout;
+			var ids = _gameData.UniqueIdDataProvider.Ids;
 
 			loadout.TryGetValue(GameIdGroup.Weapon, out var weaponId);
 			loadout.TryGetValue(GameIdGroup.Helmet, out var helmetId);
@@ -75,20 +96,20 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			
 			var data = new Dictionary<string, object>
 			{
-				{"match_id", room.Name},
-				{"match_type", room.GetMatchType().ToString()},
-				{"game_mode", room.GetGameModeId()},
-				{"mutators", string.Join(",",room.GetMutatorIds())},
-				{"player_level", _gameData.PlayerDataProvider.PlayerInfo.Level},
-				{"total_players", totalPlayers},
-				{"total_bots", NetworkUtils.GetMaxPlayers(gameModeConfig, config) - totalPlayers},
-				{"map_id", (int) config.Map},
-				{"trophies_start", _gameData.PlayerDataProvider.Trophies.Value},
-				{"item_weapon", weaponId},
-				{"item_helmet", helmetId},
-				{"item_shield", shieldId},
-				{"item_armour", armorId},
-				{"item_amulet", amuletId},
+				{"match_id", _matchId},
+				{"match_type", _matchType},
+				{"game_mode", _gameModeId},
+				{"mutators", _mutators},
+				{"player_level", _gameData.PlayerDataProvider.PlayerInfo.Level.ToString()},
+				{"total_players", totalPlayers.ToString()},
+				{"total_bots", (NetworkUtils.GetMaxPlayers(gameModeConfig, config) - totalPlayers).ToString()},
+				{"map_id", _gameIdsLookup[config.Map]},
+				{"trophies_start", _gameData.PlayerDataProvider.Trophies.Value.ToString()},
+				{"item_weapon", weaponId == UniqueId.Invalid ? "" : _gameIdsLookup[ids[weaponId]]},
+				{"item_helmet", helmetId == UniqueId.Invalid ? "" : _gameIdsLookup[ids[helmetId]]},
+				{"item_shield", shieldId == UniqueId.Invalid ? "" : _gameIdsLookup[ids[shieldId]]},
+				{"item_armour", armorId == UniqueId.Invalid ? "" : _gameIdsLookup[ids[armorId]]},
+				{"item_amulet", amuletId == UniqueId.Invalid ? "" : _gameIdsLookup[ids[amuletId]]},
 				{"drop_location_default", JsonConvert.SerializeObject(DefaultDropPosition)},
 				{"drop_location_final", JsonConvert.SerializeObject(SelectedDropPosition)}
 			};
@@ -111,18 +132,18 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			
 			var data = new Dictionary<string, object>
 			{
-				{"match_id", room.Name},
-				{"match_type", room.GetMatchType().ToString()},
-				{"game_mode", room.GetGameModeId()},
-				{"mutators", string.Join(",",room.GetMutatorIds())},
-				{"map_id", (int) config.Map},
-				{"players_left", totalPlayers},
-				{"suicide",matchData.Data.SuicideCount},
-				{"kills", matchData.Data.PlayersKilledCount},
+				{"match_id", _matchId},
+				{"match_type", _matchType},
+				{"game_mode", _gameModeId},
+				{"mutators", _mutators},
+				{"map_id", ((int)config.Map).ToString()},
+				{"players_left", totalPlayers.ToString()},
+				{"suicide",matchData.Data.SuicideCount.ToString()},
+				{"kills", matchData.Data.PlayersKilledCount.ToString()},
 				{"end_state", playerQuit ? "quit" : "ended"},
-				{"match_time", matchTime},
-				{"player_rank", matchData.PlayerRank},
-				{"player_attacks", _playerNumAttacks}
+				{"match_time", matchTime.ToString()},
+				{"player_rank", matchData.PlayerRank.ToString()},
+				{"player_attacks", _playerNumAttacks.ToString()}
 			};
 			
 			_analyticsService.LogEvent(AnalyticsEvents.MatchEnd, data);
@@ -143,19 +164,18 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			{
 				return;
 			}
-			
-			var room = _services.NetworkService.QuantumClient.CurrentRoom;
+
 			var deadData = playerKilledEvent.PlayersMatchData[playerKilledEvent.PlayerDead];
 
 			var data = new Dictionary<string, object>
 			{
-				{"match_id", room.Name},
-				{"match_type", room.GetMatchType().ToString()},
-				{"game_mode", room.GetGameModeId()},
-				{"mutators", string.Join(",",room.GetMutatorIds())},
-				{"killed_name", (deadData.IsBot?"Bot":"") + deadData.PlayerName},
+				{"match_id", _matchId},
+				{"match_type", _matchType},
+				{"game_mode", _gameModeId},
+				{"mutators", _mutators},
+				{"killed_name", deadData.GetPlayerName()},
 				{"killed_reason", playerKilledEvent.EntityDead == playerKilledEvent.EntityKiller? "suicide":(killerData.IsBot?"bot":"player")},
-				{"killer_name", (killerData.IsBot?"Bot":"") + killerData.PlayerName}
+				{"killer_name", killerData.GetPlayerName()}
 			};
 			
 			_analyticsService.LogEvent(AnalyticsEvents.MatchKillAction, data, false);
@@ -171,21 +191,15 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				return;
 			}
 			
-			var room = _services.NetworkService.QuantumClient.CurrentRoom;
-			var frame = callback.Game.Frames.Verified;
-			var container = frame.GetSingleton<GameContainer>();
-			
-			var playerData = container.GetPlayersMatchData(frame, out var leader)[callback.Player];
-
 			var data = new Dictionary<string, object>
 			{
-				{"match_id", room.Name},
-				{"match_type", room.GetMatchType().ToString()},
-				{"game_mode", room.GetGameModeId()},
-				{"mutators", string.Join(",",room.GetMutatorIds())},
-				{"chest_type", callback.ChestType.ToString()},
+				{"match_id", _matchId},
+				{"match_type", _matchType},
+				{"game_mode", _gameModeId},
+				{"mutators", _mutators},
+				{"chest_type", _gameIdsLookup[callback.ChestType]},
 				{"chest_coordinates", callback.ChestPosition.ToString()},
-				{"player_name", playerData.PlayerName }
+				{"player_name", _gameData.AppDataProvider.DisplayNameTrimmed }
 			};
 			
 			_analyticsService.LogEvent(AnalyticsEvents.MatchChestOpenAction, data, false);
@@ -205,20 +219,18 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			{
 				return;
 			}
-			
-			var room = _services.NetworkService.QuantumClient.CurrentRoom;
 
 			var data = new Dictionary<string, object>
 			{
-				{"match_id", room.Name},
-				{"match_type", room.GetMatchType().ToString()},
-				{"game_mode", room.GetGameModeId()},
-				{"mutators", string.Join(",",room.GetMutatorIds())},
-				{"chest_type", chestItemDropped.ChestType.ToString()},
+				{"match_id", _matchId},
+				{"match_type", _matchType},
+				{"game_mode", _gameModeId},
+				{"mutators", _mutators},
+				{"chest_type", _gameIdsLookup[chestItemDropped.ChestType]},
 				{"chest_coordinates", chestItemDropped.ChestPosition.ToString()},
-				{"item_type", chestItemDropped.ItemType.ToString()},
-				{"amount", chestItemDropped.Amount},
-				{"angle_step_around_chest", chestItemDropped.AngleStepAroundChest}
+				{"item_type", _gameIdsLookup[chestItemDropped.ItemType]},
+				{"amount", chestItemDropped.Amount.ToString()},
+				{"angle_step_around_chest", chestItemDropped.AngleStepAroundChest.ToString()}
 			};
 			
 			_analyticsService.LogEvent(AnalyticsEvents.MatchChestItemDrop, data, false);
@@ -234,15 +246,14 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				return;
 			}
 			
-			var room = _services.NetworkService.QuantumClient.CurrentRoom;
 			var data = new Dictionary<string, object>
 			{
-				{"match_id", room.Name},
-				{"match_type", room.GetMatchType().ToString()},
-				{"game_mode", room.GetGameModeId()},
-				{"mutators", string.Join(",",room.GetMutatorIds())},
-				{"item_type", callback.CollectableId.ToString()},
-				{"amount", 1},
+				{"match_id", _matchId},
+				{"match_type", _matchType},
+				{"game_mode", _gameModeId},
+				{"mutators", _mutators},
+				{"item_type", _gameIdsLookup[callback.CollectableId]},
+				{"amount", "1"},
 				{"player_name", _gameData.AppDataProvider.DisplayNameTrimmed }
 			};
 			

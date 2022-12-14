@@ -13,15 +13,14 @@
                     <ui:VisualElement name="BackgroundPattern" class="content__background content__background-input-popup" />
                     <ui:VisualElement name="Spacer" class="spacer content-spacer--small" />
                     <FirstLight.Game.UIElements.ContentTypeTextField name="InputTextField" text="INPUT GOES HERE" value="..." max-length="34" class="font-italic input-field input-field__generic" />
-                    <ui:VisualElement name="Spacer" class="spacer spacer--medium" />
-                    <ui:VisualElement name="Spacer" class="spacer spacer--medium" />
+                    <ui:VisualElement name="Spacer" class="height-spacer height-spacer--l" />
                     <ui:VisualElement name="Controls" class="content__controls">
                         <ui:VisualElement class="button-flat-outline">
                             <FirstLight.Game.UIElements.LocalizedButton localization-key="UITShared/cancel" name="CancelButton" class="sfx-click-forwards button-flat button-flat--cancel" />
                         </ui:VisualElement>
                         <ui:VisualElement name="Spacer" class="width-spacer width-spacer--s" />
                         <ui:VisualElement class="button-flat-outline">
-                            <ui:Button name="ConfirmButton" text="CONFIRM" class="sfx-click-forwards button-flat button-flat--secondary" />
+                            <ui:Button name="ConfirmButton" text="CONFIRM" class="sfx-click-forwards button-flat button-flat--primary" />
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>

@@ -1,7 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/LeaderboardUIScreenStyle.uss?fileID=7433441132597879392&amp;guid=f8f38780b5efced4896c0b026b1b30fb&amp;type=3#LeaderboardUIScreenStyle" />
     <ui:VisualElement name="root" class="fill-parent">
-        <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITLeaderboards/global_leaderboard" name="Header" />
         <FirstLight.Game.UIElements.SafeAreaElement>
             <ui:VisualElement name="Container" class="container fill-parent">
                 <ui:VisualElement name="LeaderboardPanel" class="leaderboard-panel">
@@ -10,12 +9,13 @@
                         <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Trophies" localization-key="UITLeaderboards/trophies" class="header-label header-label--trophies" />
                         <ui:Label text="#" display-tooltip-when-elided="true" name="RankNumber" class="header-label header-label--rank-number" />
                     </ui:VisualElement>
-                    <ui:ScrollView name="LeaderboardScrollView" touch-scroll-type="Clamped" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="leaderboard-entries" />
+                    <ui:ScrollView name="LeaderboardScrollView" touch-scroll-type="Clamped" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="leaderboard-entries" />                
                 </ui:VisualElement>
                 <ui:VisualElement name="Footer" class="leaderboard-footer">
                     <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITLeaderboards/become_the_best" name="leaderboard_footer_text" class="leaderboard-footer--text" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
+        <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITLeaderboards/global_leaderboard" name="Header" />
     </ui:VisualElement>
 </ui:UXML>

@@ -443,17 +443,18 @@
     margin: 0;
     color: rgb(255, 255, 255);
     -unity-font-definition: var(--font-italic);
-    text-shadow: 4px 4px 0 rgb(156, 36, 12);
+    text-shadow: 3px 3px 0 rgb(156, 36, 12);
     -unity-text-outline-color: rgb(185, 65, 21);
     font-size: 52px;
     -unity-text-outline-width: 2px;
     padding-bottom: 20px;
-    -unity-text-align: middle-right;
-    padding-right: 100px;
+    -unity-text-align: middle-center;
+    padding-right: 41px;
     -unity-font-style: bold;
     position: absolute;
     right: 10px;
     bottom: 10px;
+    padding-left: 190px;
 }
 
 .button-next:active {

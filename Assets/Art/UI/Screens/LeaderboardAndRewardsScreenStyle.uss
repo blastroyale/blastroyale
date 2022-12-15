@@ -467,7 +467,7 @@
     padding-left: 0;
 }
 
-.bpp__week-info__this-week {
+.bpp__week-info__next {
     font-size: 40px;
     -unity-font-definition: var(--font-italic);
     -unity-font-style: normal;

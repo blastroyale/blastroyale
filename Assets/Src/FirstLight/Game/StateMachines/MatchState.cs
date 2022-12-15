@@ -133,10 +133,10 @@ namespace FirstLight.Game.StateMachines
 
 			unloadToFinal.OnEnter(OpenLoadingScreen);
 			unloadToFinal.WaitingFor(UnloadAllMatchAssets).Target(matchStateEnding);
-			unloadToFinal.OnExit(DisposeMatchServices);
 			
 			matchStateEnding.WaitingFor(PublishMatchStateEnding).Target(final);
 			
+			final.OnEnter(DisposeMatchServices);
 			final.OnEnter(UnsubscribeEvents);
 		}
 

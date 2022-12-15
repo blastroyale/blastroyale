@@ -143,7 +143,7 @@ jobs:
   - task: AzureFileCopy@4
     inputs:
       SourcePath: '$(FL_INTERNAL_VERSION_FILENAME).apk'
-      azureSubscription: 'flg-devops(ebde7ff2-8e46-4172-91cf-e4d8bce70c3f)'
+      azureSubscription: 'azure-sponsorship'
       Destination: 'AzureBlob'
       storage: 'prodflgbuildstorage'
       ContainerName: 'android'
@@ -154,7 +154,7 @@ jobs:
   - task: AzureFileCopy@4
     inputs:
       SourcePath: '*.obb'
-      azureSubscription: 'flg-devops(ebde7ff2-8e46-4172-91cf-e4d8bce70c3f)'
+      azureSubscription: 'azure-sponsorship'
       Destination: 'AzureBlob'
       storage: 'prodflgbuildstorage'
       ContainerName: 'android'
@@ -177,7 +177,7 @@ jobs:
   - task: AzureFileCopy@4
     inputs:
       SourcePath: 'BlastRoyale_QR_Android.png'
-      azureSubscription: 'flg-devops(ebde7ff2-8e46-4172-91cf-e4d8bce70c3f)'
+      azureSubscription: 'azure-sponsorship'
       Destination: 'AzureBlob'
       storage: 'prodflgbuildstorage'
       ContainerName: 'android'

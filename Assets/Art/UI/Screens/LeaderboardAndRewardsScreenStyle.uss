@@ -67,11 +67,11 @@
 
 .leaderboard-panel {
     width: 1270px;
-    height: 900px;
     position: absolute;
     right: 10%;
     top: 65px;
     display: none;
+    bottom: 153px;
 }
 
 .hidden-right.leaderboard-panel {

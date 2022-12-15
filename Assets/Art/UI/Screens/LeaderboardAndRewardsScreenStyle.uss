@@ -133,11 +133,6 @@
 }
 
 .leaderboard-header__kills {
-    right: 330px;
-    -unity-text-align: upper-right;
-}
-
-.leaderboard-header__deaths {
     right: 235px;
     -unity-text-align: upper-right;
 }

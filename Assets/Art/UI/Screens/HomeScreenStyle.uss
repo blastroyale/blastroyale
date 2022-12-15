@@ -237,7 +237,8 @@
     margin-bottom: -33px;
     padding-left: 59px;
     padding-bottom: -33px;
-    bottom: -90px;
+    position: absolute;
+    bottom: 270px;
 }
 
 .game-mode-button:active {

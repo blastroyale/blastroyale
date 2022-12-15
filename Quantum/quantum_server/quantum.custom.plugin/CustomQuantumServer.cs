@@ -326,12 +326,12 @@ namespace Quantum
 			{
 				if (!itemTuple.Value.IsBroken())
 				{
-					validItemHashes.Add(itemTuple.Value.GetHashCode());
+					validItemHashes.Add(itemTuple.Value.GetServerHashCode());
 				}
 			}
 			foreach (var clientEquip in clientPlayer.Loadout)
 			{
-				var clientEquiphash = clientEquip.GetHashCode();
+				var clientEquiphash = clientEquip.GetServerHashCode();
 				if (!validItemHashes.Contains(clientEquiphash))
 				{
 					Log.Error($"Player {clientPlayer.PlayerId} tried to send equipment {clientEquip.GameId} hash {clientEquiphash} which he does not own or cant be used atm");

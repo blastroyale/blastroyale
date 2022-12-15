@@ -436,8 +436,8 @@
     margin: 0;
     color: rgb(255, 255, 255);
     -unity-font-definition: var(--font-italic);
-    text-shadow: 3px 3px 0 rgb(156, 36, 12);
-    -unity-text-outline-color: rgb(185, 65, 21);
+    text-shadow: 3px 3px 0 rgb(107, 4, 2);
+    -unity-text-outline-color: rgb(107, 4, 2);
     font-size: 52px;
     -unity-text-outline-width: 2px;
     padding-bottom: 20px;

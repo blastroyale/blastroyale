@@ -145,10 +145,10 @@ namespace FirstLight.Game.StateMachines
 
 			unloadToFinal.OnEnter(OpenLoadingScreen);
 			unloadToFinal.WaitingFor(UnloadAllMatchAssets).Target(matchStateEnding);
-			unloadToFinal.OnExit(DisposeMatchServices);
 			
 			matchStateEnding.WaitingFor(PublishMatchStateEnding).Target(final);
 			
+			final.OnEnter(DisposeMatchServices);
 			final.OnEnter(UnsubscribeEvents);
 		}
 
@@ -489,7 +489,12 @@ namespace FirstLight.Game.StateMachines
 		
 		private void DisposeMatchServices()
 		{
-			MainInstaller.CleanDispose<IMatchServices>();
+			if (MainInstaller.TryResolve<IMatchServices>(out var services))
+			{
+				services.Dispose();
+				
+				MainInstaller.Clean<IMatchServices>();
+			}
 		}
 
 		private void PublishCoreAssetsLoadedMessage()

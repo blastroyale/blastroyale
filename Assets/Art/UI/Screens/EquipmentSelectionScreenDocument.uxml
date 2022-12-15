@@ -14,12 +14,12 @@
                     <ui:Label name="EquipmentName" text="REGULAR ROCKET LAUNCHER LV15" class="details__name" />
                 </ui:VisualElement>
                 <ui:VisualElement name="TagHolder" class="tag-holder anim-delay-3 anim-translate anim-translate--left-xxl">
+                    <ui:VisualElement name="RarityTag" class="equipment-tag equipment-tag--rarity">
+                        <FirstLight.Game.UIElements.AutoSizeLabel text="RARE" name="Title" min-font-size="30" max-font-size="30" class="equipment-tag__label" />
+                    </ui:VisualElement>
                     <ui:VisualElement name="CooldownTag" class="equipment-tag equipment-tag--cooldown">
                         <ui:VisualElement class="equipment-tag__icon" />
                         <FirstLight.Game.UIElements.AutoSizeLabel text="ITEM ON COOLDOWN&#10;23H 14M" name="Title" min-font-size="22" max-font-size="22" class="equipment-tag__label" />
-                    </ui:VisualElement>
-                    <ui:VisualElement name="RarityTag" class="equipment-tag equipment-tag--rarity">
-                        <FirstLight.Game.UIElements.AutoSizeLabel text="RARE" name="Title" min-font-size="30" max-font-size="30" class="equipment-tag__label" />
                     </ui:VisualElement>
                     <ui:VisualElement name="Special0Tag" class="equipment-tag equipment-tag--special">
                         <ui:VisualElement class="equipment-tag__icon" />

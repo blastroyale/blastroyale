@@ -92,6 +92,13 @@
     -unity-background-image-tint-color: black;
 }
 
+.equipment-slot__equipment-image--empty {
+    left: 5px;
+    top: 10px;
+    bottom: 5px;
+    scale: 1.35 1.35;
+}
+
 .equipment-slot__equipment-image--category-weapon {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/WeaponEmptySlotIcon.png?fileID=21300000&guid=2242dcbd235394ffaa30eb599d68b376&type=3#WeaponEmptySlotIcon');
 }
@@ -176,16 +183,16 @@
     font-size: 22px;
     color: rgb(255, 255, 255);
     padding: 2px 15px 0;
-    background-color: rgba(216, 75, 121, 255);
+    background-color: rgb(216, 75, 121);
     border-left-width: 1px;
     border-right-width: 1px;
     border-top-width: 1px;
     border-bottom-width: 1px;
     border-radius: 8px;
-    border-left-color: rgba(176, 60, 98, 255);
-    border-right-color: rgba(176, 60, 98, 255);
-    border-top-color: rgba(176, 60, 98, 255);
-    border-bottom-color: rgba(176, 60, 98, 255);
+    border-left-color: rgb(176, 60, 98);
+    border-right-color: rgb(176, 60, 98);
+    border-top-color: rgb(176, 60, 98);
+    border-bottom-color: rgb(176, 60, 98);
 }
 
 .equipment-slot__durability-icon {

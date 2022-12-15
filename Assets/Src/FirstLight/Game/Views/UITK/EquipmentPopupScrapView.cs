@@ -22,7 +22,6 @@ namespace FirstLight.Game.Views.UITK
 		private LocalizedButton _cancelButton;
 
 		private Action _confirmAction;
-		private Action _cancelAction;
 
 		public void Attached(VisualElement element)
 		{
@@ -33,10 +32,9 @@ namespace FirstLight.Game.Views.UITK
 			_bottomFiller = element.Q<VisualElement>("BottomFiller").Required();
 			
 			element.Q<LocalizedButton>("ScrapButton").clicked += () => _confirmAction();
-			element.Q<LocalizedButton>("CancelButton").clicked += () => _cancelAction();
 		}
 
-		public void SetData(EquipmentInfo info, Action confirmAction, Action cancelAction)
+		public void SetData(EquipmentInfo info, Action confirmAction)
 		{
 			_amount.text = info.ScrappingValue.Value.ToString();
 			_buttonsContainer.SetVisibility(!info.IsNft);
@@ -48,7 +46,6 @@ namespace FirstLight.Game.Views.UITK
 			_bottomFiller.SetDisplay(info.IsNft);
 			
 			_confirmAction = confirmAction;
-			_cancelAction = cancelAction;
 		}
 
 		public void SubscribeToEvents()

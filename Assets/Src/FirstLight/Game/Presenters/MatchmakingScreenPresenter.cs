@@ -150,7 +150,7 @@ namespace FirstLight.Game.Presenters
 			if (selectedGrid.IsValidNamedArea)
 			{
 				_mapMarkerTitle.SetDisplay(true);
-				_mapMarkerTitle.text = selectedGrid.AreaName.ToUpper();
+				_mapMarkerTitle.text = selectedGrid.AreaName.GetMapDropPointTranslation().ToUpper();
 			}
 			else
 			{

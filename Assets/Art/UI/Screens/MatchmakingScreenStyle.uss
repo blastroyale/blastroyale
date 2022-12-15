@@ -208,7 +208,7 @@
 }
 
 .dropzone__plane {
-    background-image: url('project://database/Assets/Art/Textures/Ui/AdventureWorldHud/Minimap/AirplaneIcon.png?fileID=2800000&guid=526a739286f93464497b3041da810a0f&type=3#AirplaneIcon');
+    background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/PlaneIcon.png?fileID=2800000&guid=8219bbf6a701be940a74d022fcbdfb90&type=3#PlaneIcon');
     width: 75px;
     height: 75px;
     bottom: 0;

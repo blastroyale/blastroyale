@@ -104,12 +104,16 @@ namespace FirstLight.Game.Presenters
 				characters[i].gameObject.SetActive(false);
 				playerNames[i].visible = false;
 			}
+
+			var tasks = new Task[playerDataCount];
 			
 			for (var i = 0; i < playerDataCount; i++)
 			{
-				await characters[i].UpdateSkin(playerData[i].Data.PlayerSkin,
+				tasks[i] = characters[i].UpdateSkin(playerData[i].Data.PlayerSkin,
 					_matchServices.MatchEndDataService.PlayerMatchData[playerData[i].Data.Player].Gear.ToList());
 			}
+
+			await Task.WhenAll(tasks);
 			
 			_character1.AnimateVictory();
 		}

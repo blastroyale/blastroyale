@@ -739,12 +739,13 @@ namespace FirstLight.Game.StateMachines
 		private void StartMatchmakingLockRoomTimer()
 		{
 			if (!_networkService.QuantumClient.LocalPlayer.IsMasterClient ||
-			    !_networkService.QuantumClient.CurrentRoom.IsMatchmakingRoom()) 
+			    !_networkService.QuantumClient.CurrentRoom.IsMatchmakingRoom() ||
+			    !_networkService.CurrentRoomMatchType.HasValue) 
 			{
 				return;
 			}
 
-			if (_networkService.QuantumClient.CurrentRoom.GetMatchType() == MatchType.Ranked)
+			if (_networkService.CurrentRoomMatchType.Value == MatchType.Ranked)
 			{
 				_matchmakingCoroutine = _services.CoroutineService.StartCoroutine(RankedMatchmakingCoroutine());
 			}

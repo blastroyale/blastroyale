@@ -25,7 +25,8 @@
         "MoreMountains.NiceVibrations.Haptics",
         "FirstLight.FLogger",
         "PlayFabEditorExtensions",
-        "UnityEngine.Purchasing.Stores"
+        "UnityEngine.Purchasing.Stores",
+        "PhotonQuantumEditor"
     ],
     "includePlatforms": [
         "Editor"

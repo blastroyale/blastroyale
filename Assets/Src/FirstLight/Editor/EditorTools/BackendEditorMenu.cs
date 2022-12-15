@@ -8,6 +8,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Newtonsoft.Json;
 using PlayFab;
+using Quantum.Editor;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Purchasing;
@@ -25,6 +26,7 @@ namespace FirstLight.Editor.EditorTools
 			$"{Application.dataPath}/../Assets/Libs/Photon/Quantum/Assemblies/";
 
 		private static string _backendPath => $"{Application.dataPath}/../Backend";
+		private static string _quantumServerPath => $"{Application.dataPath}/../Quantum/quantum_server/Photon-Server/deploy/Plugins/DeterministicPlugin/bin/";
 		private static string _backendLibsPath => $"{_backendPath}/Lib";
 
 		static BackendMenu()
@@ -49,7 +51,7 @@ namespace FirstLight.Editor.EditorTools
 		}
 
 		[MenuItem("FLG/Backend/Copy DLLs")]
-		private static void MoveBackendDlls()
+		public static void MoveBackendDlls()
 		{
 			// Quantum Dependencies
 			CopyAssembly(_quantumLibPath, "quantum.code.dll");
@@ -62,6 +64,13 @@ namespace FirstLight.Editor.EditorTools
 			CopyAssembly(_unityPath, "FirstLight.Game.dll");
 			CopyAssembly(_unityPath, "FirstLight.Services.dll");
 			CopyAssembly(_unityPath, "PhotonQuantum.dll");
+		}
+		
+		[MenuItem("FLG/Backend/Generate Quantum Assets")]
+		public static void ExportQuantumAssets()
+		{
+			AssetDBGeneration.Export(_quantumServerPath + "assetDatabase.json");
+			Debug.Log("Exported Quantum asset database");
 		}
 
 		/// <summary>

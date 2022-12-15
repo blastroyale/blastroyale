@@ -74,8 +74,8 @@
     position: absolute;
     width: 340px;
     height: 72px;
-    left: 244px;
-    top: -14px;
+    left: 249px;
+    top: -6px;
     flex-direction: row;
     align-items: center;
 }
@@ -98,6 +98,7 @@
     white-space: normal;
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
     rotate: -15deg;
+    left: 5px;
 }
 
 .battle-pass-button {
@@ -234,11 +235,10 @@
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ChangemodeButton.png?fileID=2800000&guid=c9a202b2307fb49549d013e0c91bcb44&type=3#ChangemodeButton');
     width: 414px;
     height: 168px;
-    margin-bottom: -33px;
     padding-left: 59px;
     padding-bottom: -33px;
     position: absolute;
-    bottom: 270px;
+    bottom: 230px;
 }
 
 .game-mode-button:active {

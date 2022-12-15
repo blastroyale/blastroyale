@@ -6,41 +6,16 @@
             <ui:Label text="9. PLAYERNAME" display-tooltip-when-elided="true" name="Text" class="player-name__text" />
         </ui:VisualElement>
         <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITLeaderboards/standings" subtitle-key="UITLeaderboards/battleroyale" name="Title" class="screen-header--simple title" />
-        <ui:VisualElement name="RewardsPanel" class="rewards-panel">
-            <ui:VisualElement name="CraftSpice" class="craft-spice">
-                <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Title" localization-key="UITRewards/craft_spice" class="craft-spice__title" />
-                <ui:VisualElement name="LogoTop" class="craft-spice__logo-top" />
-                <ui:VisualElement name="PinkBand" />
-                <ui:Label text="+20" display-tooltip-when-elided="true" name="Gained" class="craft-spice__gained" />
-                <ui:VisualElement name="LogoTotal" class="craft-spice__logo-total" />
-                <ui:Label text="1023" display-tooltip-when-elided="true" name="Total" class="craft-spice__total" />
-            </ui:VisualElement>
-            <ui:VisualElement name="Trophies" class="trophies">
-                <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Title" localization-key="UITRewards/trophies" class="trophies__title" />
-                <ui:VisualElement name="LogoTop" class="trophies__logo-top" />
-                <ui:VisualElement name="PinkBand" />
-                <ui:Label text="+20" display-tooltip-when-elided="true" name="Gained" class="trophies__gained" />
-                <ui:VisualElement name="LogoTotal" class="trophies__logo-total" />
-                <ui:Label text="10235" display-tooltip-when-elided="true" name="Total" class="trophies__total" />
-            </ui:VisualElement>
-            <ui:VisualElement name="BPP" class="bpp" style="-unity-background-image-tint-color: rgb(255, 255, 255);">
-                <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Title" localization-key="UITRewards/battlepass" class="bpp__title" />
-                <ui:VisualElement name="LogoTop" class="bpp__logo-top" />
-                <ui:VisualElement name="PinkBand" />
-                <ui:Label text="+20" display-tooltip-when-elided="true" name="Gained" class="bpp__gained" />
-                <ui:Label text="TO LV" display-tooltip-when-elided="true" name="ToLevel" class="bpp__to-level" />
-                <ui:Label text="8" display-tooltip-when-elided="true" name="Level" class="bpp__level" />
-                <ui:VisualElement name="Bar" class="bpp__bar">
-                    <ui:VisualElement name="YellowBar" class="bpp__bar__yellow-bar" />
-                    <ui:VisualElement name="GreenBar" class="bpp__bar__green-bar" />
-                    <ui:Label text="60/100" display-tooltip-when-elided="true" name="Total" class="bpp__bar__total" />
+        <FirstLight.Game.UIElements.SafeAreaElement class="fill-parent">
+            <ui:VisualElement name="LeaderboardPanel" picking-mode="Ignore" class="leaderboard-panel">
+                <ui:VisualElement name="LeaderboardHeader" class="leaderboard-header">
+                    <ui:Label text="#" display-tooltip-when-elided="true" name="RankNumber" class="header-label leaderboard-header__rank-number" />
+                    <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Player" localization-key="UITLeaderboards/player" class="header-label leaderboard-header__player" />
+                    <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Kills" localization-key="UITLeaderboards/kills" class="header-label leaderboard-header__kills" />
+                    <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Deaths" localization-key="UITLeaderboards/deaths" class="header-label leaderboard-header__deaths" />
+                    <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Trophies" localization-key="UITLeaderboards/trophies" class="header-label leaderboard-header__trophies" />
                 </ui:VisualElement>
-                <ui:VisualElement name="WeekInfo" class="bpp__week-info">
-                    <ui:Label text="/ 100" display-tooltip-when-elided="true" name="Next" class="bpp__week-info__next" />
-                    <ui:VisualElement name="Logo" class="bpp__week-info__logo" />
-                    <ui:Label text="50" display-tooltip-when-elided="true" name="GainedWeek" class="bpp__week-info__gained-week" />
-                    <ui:Label text="/ 100" display-tooltip-when-elided="true" name="TotalWeek" class="bpp__week-info__total-week" />
-                </ui:VisualElement>
+                <ui:ScrollView name="LeaderboardScrollView" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" touch-scroll-type="Elastic" class="leaderboard-entries" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="LeaderboardPanel" class="leaderboard-panel">
@@ -50,9 +25,44 @@
                 <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Kills" localization-key="UITLeaderboards/kills" class="header-label leaderboard-header__kills" />
                 <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Deaths" localization-key="UITLeaderboards/deaths" class="header-label leaderboard-header__deaths" />
                 <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Trophies" localization-key="UITLeaderboards/trophies" class="header-label leaderboard-header__trophies" />
+            <FirstLight.Game.UIElements.LocalizedButton localization-key="UITShared/next" name="NextButton" class="button-next anim-delay-0 anim-fade" />
+            <ui:VisualElement name="RewardsPanel" picking-mode="Ignore" class="rewards-panel">
+                <ui:VisualElement name="CraftSpice" class="craft-spice">
+                    <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Title" localization-key="UITRewards/craft_spice" class="craft-spice__title" />
+                    <ui:VisualElement name="LogoTop" class="craft-spice__logo-top" />
+                    <ui:VisualElement name="PinkBand" />
+                    <ui:Label text="+20" display-tooltip-when-elided="true" name="Gained" class="craft-spice__gained" />
+                    <ui:VisualElement name="LogoTotal" class="craft-spice__logo-total" />
+                    <ui:Label text="1023" display-tooltip-when-elided="true" name="Total" class="craft-spice__total" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Trophies" class="trophies">
+                    <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Title" localization-key="UITRewards/trophies" class="trophies__title" />
+                    <ui:VisualElement name="LogoTop" class="trophies__logo-top" />
+                    <ui:VisualElement name="PinkBand" />
+                    <ui:Label text="+20" display-tooltip-when-elided="true" name="Gained" class="trophies__gained" />
+                    <ui:VisualElement name="LogoTotal" class="trophies__logo-total" />
+                    <ui:Label text="10235" display-tooltip-when-elided="true" name="Total" class="trophies__total" />
+                </ui:VisualElement>
+                <ui:VisualElement name="BPP" class="bpp">
+                    <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Title" localization-key="UITRewards/battlepass" class="bpp__title" />
+                    <ui:VisualElement name="LogoTop" class="bpp__logo-top" />
+                    <ui:VisualElement name="PinkBand" />
+                    <ui:Label text="+20" display-tooltip-when-elided="true" name="Gained" class="bpp__gained" />
+                    <ui:Label text="TO LV" display-tooltip-when-elided="true" name="ToLevel" class="bpp__to-level" />
+                    <ui:Label text="8" display-tooltip-when-elided="true" name="Level" class="bpp__level" />
+                    <ui:VisualElement name="Bar" class="bpp__bar">
+                        <ui:VisualElement name="YellowBar" class="bpp__bar__yellow-bar" />
+                        <ui:VisualElement name="GreenBar" class="bpp__bar__green-bar" />
+                        <ui:Label text="60/100" display-tooltip-when-elided="true" name="Total" class="bpp__bar__total" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="WeekInfo" class="bpp__week-info">
+                        <ui:VisualElement name="Logo" class="bpp__week-info__logo" />
+                        <ui:Label text="50" display-tooltip-when-elided="true" name="GainedWeek" class="bpp__week-info__gained-week" />
+                        <ui:Label text="/ 100" display-tooltip-when-elided="true" name="TotalWeek" class="bpp__week-info__total-week" />
+                        <FirstLight.Game.UIElements.LocalizedLabel text="##" name="ThisWeek" localization-key="UITRewards/this_week" class="bpp__week-info__this-week" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
             </ui:VisualElement>
-            <ui:ScrollView name="LeaderboardScrollView" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" touch-scroll-type="Elastic" class="leaderboard-entries" />
-        </ui:VisualElement>
-        <ui:Button display-tooltip-when-elided="true" name="NextButton" text="NEXT →" class="button-next" />
+        </FirstLight.Game.UIElements.SafeAreaElement>
     </ui:VisualElement>
 </ui:UXML>

@@ -85,6 +85,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeEvents()
 		{
+			_killer = new PlayerRef();
+			
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
 		}
@@ -182,6 +184,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new MatchEndScreenPresenter.StateData
 			{
+				PlayerDead = !IsLocalPlayerAlive(),
 				Killer = _killer,
 				OnNextClicked = () => _statechartTrigger(_localPlayerNextEvent),
 			};

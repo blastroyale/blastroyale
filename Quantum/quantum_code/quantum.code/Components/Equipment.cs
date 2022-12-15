@@ -145,5 +145,35 @@ namespace Quantum
 			       MaxDurability == other.MaxDurability && MaxLevel == other.MaxLevel &&
 			       ReplicationCounter == other.ReplicationCounter && Tuning == other.Tuning;
 		}
+
+		/// <summary>
+		/// We need a server hash code to ignore dates until server and client is clock synced
+		/// 
+		/// </summary>
+		public Int32 GetServerHashCode()
+		{
+			unchecked
+			{
+				var hash = 281;
+				hash = hash * 31 + (Int32)Adjective;
+				hash = hash * 31 + (Int32)Edition;
+				hash = hash * 31 + (Int32)Faction;
+				hash = hash * 31 + (Int32)GameId;
+				hash = hash * 31 + Generation.GetHashCode();
+				hash = hash * 31 + (Int32)Grade;
+				hash = hash * 31 + InitialReplicationCounter.GetHashCode();
+				// hash = hash * 31 + LastRepairTimestamp.GetHashCode(); ; // ignored on server
+				hash = hash * 31 + Level.GetHashCode();
+				hash = hash * 31 + (Int32)Manufacturer;
+				hash = hash * 31 + (Int32)Material;
+				hash = hash * 31 + MaxDurability.GetHashCode();
+				hash = hash * 31 + MaxLevel.GetHashCode();
+				hash = hash * 31 + (Int32)Rarity;
+				hash = hash * 31 + ReplicationCounter.GetHashCode();
+				hash = hash * 31 + TotalRestoredDurability.GetHashCode();
+				hash = hash * 31 + Tuning.GetHashCode();
+				return hash;
+			}
+		}
 	}
 }

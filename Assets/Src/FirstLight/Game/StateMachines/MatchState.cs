@@ -463,7 +463,12 @@ namespace FirstLight.Game.StateMachines
 		
 		private void DisposeMatchServices()
 		{
-			MainInstaller.CleanDispose<IMatchServices>();
+			if (MainInstaller.TryResolve<IMatchServices>(out var services))
+			{
+				services.Dispose();
+				
+				MainInstaller.Clean<IMatchServices>();
+			}
 		}
 
 		private void PublishCoreAssetsLoadedMessage()

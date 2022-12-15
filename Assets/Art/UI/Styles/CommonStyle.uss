@@ -529,3 +529,8 @@
 .width-spacer--xxxl {
     width: 125px;
 }
+
+.unity-scroll-view .unity-list-view__empty-label
+{
+    visibility: hidden;
+}

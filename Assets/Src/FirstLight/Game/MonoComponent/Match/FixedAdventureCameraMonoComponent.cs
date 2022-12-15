@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Cinemachine;
 using FirstLight.FLogger;
@@ -96,6 +97,9 @@ namespace FirstLight.Game.MonoComponent.Match
 		private void OnMatchStarted(MatchStartedMessage obj)
 		{
 			gameObject.SetActive(true);
+			
+			var mainOverlayCamera = Camera.allCameras.First(go => go.CompareTag("MainOverlayCamera"));
+			mainOverlayCamera.gameObject.SetActive(false);
 			
 			if (obj.IsResync)
 			{

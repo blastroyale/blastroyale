@@ -86,15 +86,36 @@ namespace FirstLight.Game.Presenters
 			var playerData = _matchServices.MatchEndDataService.QuantumPlayerMatchData;
 			playerData.SortByPlayerRank(false);
 
-			await Task.WhenAll(_character1.UpdateSkin(playerData[0].Data.PlayerSkin, _matchServices.MatchEndDataService.PlayerMatchData[playerData[0].Data.Player].Gear.ToList()),
-								_character2.UpdateSkin(playerData[1].Data.PlayerSkin, _matchServices.MatchEndDataService.PlayerMatchData[playerData[1].Data.Player].Gear.ToList()),
-								_character3.UpdateSkin(playerData[3].Data.PlayerSkin, _matchServices.MatchEndDataService.PlayerMatchData[playerData[2].Data.Player].Gear.ToList()));
+			var playerDataCount = Math.Min(playerData.Count, 3);
+			var playerNames = new [] { _playerName1, _playerName2, _playerName3 };
+			var characters = new [] { _character1, _character2, _character3 };
+			
+			for (var i = 0; i < characters.Length; i++)
+			{
+				if (i < playerDataCount)
+				{
+					characters[i].gameObject.SetActive(true);
+					playerNames[i].visible = true;
+					playerNames[i].text = playerData[i].GetPlayerName();
+					
+					continue;
+				}
+
+				characters[i].gameObject.SetActive(false);
+				playerNames[i].visible = false;
+			}
+
+			var tasks = new Task[playerDataCount];
+			
+			for (var i = 0; i < playerDataCount; i++)
+			{
+				tasks[i] = characters[i].UpdateSkin(playerData[i].Data.PlayerSkin,
+					_matchServices.MatchEndDataService.PlayerMatchData[playerData[i].Data.Player].Gear.ToList());
+			}
+
+			await Task.WhenAll(tasks);
 			
 			_character1.AnimateVictory();
-
-			_playerName1.text = playerData[0].GetPlayerName();
-			_playerName2.text = playerData[1].GetPlayerName();
-			_playerName3.text = playerData[2].GetPlayerName();
 		}
 	}
 }

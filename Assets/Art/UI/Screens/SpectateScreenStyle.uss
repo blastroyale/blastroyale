@@ -127,7 +127,7 @@
 .player-holder__defeated-you {
     color: rgb(231, 58, 58);
     font-size: 36px;
-    text-shadow: 1px 2340px 1080px rgb(0, 0, 0);
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
     -unity-text-outline-width: 0;
     -unity-text-outline-color: rgb(0, 0, 0);
     -unity-font-definition: var(--font-italic);

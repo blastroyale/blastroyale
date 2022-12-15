@@ -85,6 +85,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeEvents()
 		{
+			_killer = new PlayerRef();
+			
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
 		}
@@ -182,6 +184,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new MatchEndScreenPresenter.StateData
 			{
+				PlayerDead = !IsLocalPlayerAlive(),
 				Killer = _killer,
 				OnNextClicked = () => _statechartTrigger(_localPlayerNextEvent),
 			};
@@ -194,7 +197,11 @@ namespace FirstLight.Game.StateMachines
 			var data = new SpectateScreenPresenter.StateData
 			{
 				Killer = _killer,
-				OnLeaveClicked = () => _statechartTrigger(_localPlayerExitEvent)
+				OnLeaveClicked = () =>
+				{
+					_services.MessageBrokerService.Publish(new LeftBeforeMatchFinishedMessage());
+					_statechartTrigger(_localPlayerExitEvent);
+				}
 			};
 
 			_uiService.OpenScreen<SpectateScreenPresenter, SpectateScreenPresenter.StateData>(data);

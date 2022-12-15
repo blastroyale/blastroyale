@@ -72,6 +72,11 @@ namespace FirstLight.Game.Utils
 		/// Enables / disables the store button in the home screen
 		/// </summary>
 		public static bool STORE_ENABLED = false;
+		
+		/// <summary>
+		/// Will try to detect and raise any desyncs server/client finds.
+		/// </summary>
+		public static bool DESYNC_DETECTION = true;
 
 		/// <summary>
 		/// Parses the feature flags from a given input dictionary.
@@ -108,6 +113,11 @@ namespace FirstLight.Game.Utils
 			if (TrySetFlag("STORE_ENABLED", titleData, out var storeEnabled))
 			{
 				STORE_ENABLED = storeEnabled;
+			}
+			
+			if (TrySetFlag("DESYNC_DETECTION", titleData, out var desyncDetection))
+			{
+				DESYNC_DETECTION = desyncDetection;
 			}
 			
 			ParseLocalFeatureFlags();

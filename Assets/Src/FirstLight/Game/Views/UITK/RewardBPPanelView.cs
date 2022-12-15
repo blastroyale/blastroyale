@@ -75,7 +75,7 @@ namespace FirstLight.Game.Views
 
 			_gainedLabel.text = "0";
 
-			var increaseNumber = _gained / 150;
+			var increaseNumber = 1;
 
 			foreach (var levelRewardInfo in _levelRewardsInfo)
 			{

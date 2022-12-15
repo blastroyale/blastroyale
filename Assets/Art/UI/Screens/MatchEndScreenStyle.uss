@@ -1,7 +1,3 @@
-#root {
-    align-items: center;
-}
-
 .match-ended-title {
     background-image: url('project://database/Assets/Art/UI/Sprites/MatchEnd/text/Matchendedyexy.png?fileID=2800000&guid=0e02f7304c1874fe5a3c9c63d66693a5&type=3#Matchendedyexy');
     width: 471px;
@@ -139,4 +135,8 @@
 .hidden .you-win-title__text {
     opacity: 0;
     scale: 1.3 1.3;
+}
+
+.banner-holder {
+    align-items: center;
 }

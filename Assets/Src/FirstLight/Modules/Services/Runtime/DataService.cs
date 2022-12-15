@@ -13,10 +13,15 @@ namespace FirstLight.Services
 	public interface IDataProvider
 	{
 		/// <summary>
-		/// Requests the player's data of <typeparamref name="T"/> type
+		/// Generic wrapper of <see cref="TryGetData"/>
 		/// </summary>
 		bool TryGetData<T>(out T dat) where T : class;
-		
+
+		/// <summary>
+		/// Requests the player's data of <paramref name="type"/> type
+		/// </summary>
+		bool TryGetData(Type type, out object dat);
+
 		/// <summary>
 		/// Generic wrapper of <see cref="GetData"/>
 		/// </summary>
@@ -43,7 +48,7 @@ namespace FirstLight.Services
 		/// Saves the game's given <typeparamref name="T"/> data to disk
 		/// </summary>
 		void SaveData<T>() where T : class;
-		
+
 		/// <summary>
 		/// Saves all game's data to disk
 		/// </summary>
@@ -93,6 +98,16 @@ namespace FirstLight.Services
 
 			return ret;
 		}
+		
+		/// <inheritdoc />
+		public bool TryGetData(Type type, out object dat)
+		{
+			var ret = _data.TryGetValue(type, out var dataInfo);
+
+			dat = dataInfo.Data;
+
+			return ret;
+		}
 
 		/// <inheritdoc />
 		public object GetData(Type type)
@@ -136,10 +151,10 @@ namespace FirstLight.Services
 				{
 					continue;
 				}
-				
+
 				PlayerPrefs.SetString(data.Key.Name, JsonConvert.SerializeObject(data.Value.Data));
 			}
-			
+
 			PlayerPrefs.Save();
 		}
 
@@ -148,7 +163,7 @@ namespace FirstLight.Services
 		{
 			var json = PlayerPrefs.GetString(typeof(T).Name, "");
 			var instance = string.IsNullOrEmpty(json) ? Activator.CreateInstance<T>() : JsonConvert.DeserializeObject<T>(json);
-			
+
 			AddData(instance, true);
 
 			return instance;

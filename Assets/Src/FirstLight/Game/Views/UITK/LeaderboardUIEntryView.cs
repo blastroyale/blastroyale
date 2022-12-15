@@ -42,7 +42,7 @@ namespace FirstLight.Game.Views
 		/// </summary>
 		/// <param name="data">All the match data from the player we're showing</param>
 		/// <param name="isLocalPlayer">If this is the local player</param>
-		public void SetData(PlayerLeaderboardEntry data, bool isLocalPlayer)
+		public void SetData(PlayerLeaderboardEntry data, bool isLocalPlayer, int posInLeaderboardContainer)
 		{
 			_leaderboardUIEntry.RemoveModifiers();
 			
@@ -76,7 +76,8 @@ namespace FirstLight.Game.Views
 			_playerName.text = data.DisplayName.Remove(data.DisplayName.Length-5);
 
 			_trophies.text = data.StatValue.ToString();
-			var delayTime = AnimStartDelayTime + data.Position * AnimItemOffsetTime;
+			
+			var delayTime = AnimStartDelayTime + posInLeaderboardContainer * AnimItemOffsetTime;
 
 			_leaderboardUIEntry.style.transitionDelay = new List<TimeValue>
 			{
@@ -84,6 +85,7 @@ namespace FirstLight.Game.Views
 			};
 		}
 
+		private void SetAnimDelay(){}
 		public void SubscribeToEvents()
 		{
 			

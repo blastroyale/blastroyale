@@ -26,7 +26,8 @@ namespace FirstLight.Game.Presenters
 		{
 			public Action OnBackClicked;
 		}
-		
+
+		private const int MAX_POS_TOP_LEADERBOARD = 10;
 		[SerializeField] private VisualTreeAsset _leaderboardUIEntryAsset;
 		private LeaderboardUIEntryView _playerRankEntryRef;
 		private VisualElement _leaderboardPanel;
@@ -56,6 +57,7 @@ namespace FirstLight.Game.Presenters
 			_header.backClicked += Data.OnBackClicked;
 			_header.homeClicked += Data.OnBackClicked;
 			_leaderboardScrollView = root.Q<ScrollView>("LeaderboardScrollView").Required();
+			root.SetupClicks(_services);
 		}
 		
 		private void OnLeaderboardRequestError(PlayFabError error)
@@ -100,13 +102,13 @@ namespace FirstLight.Game.Presenters
 		{
 			bool localPlayerInTopRanks = false;
 			
-			for (int i = 0; i < 11; i++)
+			for (int i = 0; i < MAX_POS_TOP_LEADERBOARD+1; i++)
 			{
 				var isLocalPlayer = result.Leaderboard[i].PlayFabId ==  _dataProvider.AppDataProvider.PlayerId;
 
 				var newEntry = _leaderboardUIEntryAsset.Instantiate();
 				newEntry.AttachView(this, out LeaderboardUIEntryView view);
-				view.SetData(result.Leaderboard[i], isLocalPlayer);
+				view.SetData(result.Leaderboard[i], isLocalPlayer,i+1);
 				_leaderboardScrollView.Add(newEntry);
 
 				if (isLocalPlayer)
@@ -127,7 +129,7 @@ namespace FirstLight.Game.Presenters
 
 			var newEntry = _leaderboardUIEntryAsset.Instantiate();
 				newEntry.AttachView(this, out LeaderboardUIEntryView view);
-			view.SetData(localPlayer, true);
+			view.SetData(localPlayer, true, MAX_POS_TOP_LEADERBOARD+1);
 			_leaderboardScrollView.Add(newEntry);
 		}
 	}

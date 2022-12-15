@@ -35,7 +35,7 @@
                     <ui:VisualElement name="LogoTotal" class="trophies__logo-total" />
                     <ui:Label text="10235" display-tooltip-when-elided="true" name="Total" class="trophies__total" />
                 </ui:VisualElement>
-                <ui:VisualElement name="BPP" class="bpp" style="-unity-background-image-tint-color: rgb(255, 255, 255);">
+                <ui:VisualElement name="BPP" class="bpp">
                     <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Title" localization-key="UITRewards/battlepass" class="bpp__title" />
                     <ui:VisualElement name="LogoTop" class="bpp__logo-top" />
                     <ui:VisualElement name="PinkBand" />

@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/Art/UI/Screens/WinnerScreenStyle.uss?fileID=7433441132597879392&amp;guid=f5539ff175bea410cbef64a7bcb9aba8&amp;type=3#WinnerScreenStyle" />
     <ui:VisualElement name="root" class="fill-parent">
         <FirstLight.Game.UIElements.SafeAreaElement apply-left="false" apply-top="false">
-            <ui:VisualElement name="WinnerBanner" class="winner-banner" style="top: 0; left: 0;">
+            <ui:VisualElement name="WinnerBanner" class="winner-banner">
                 <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITWinners/winner" name="WinnerLabel" class="font-italic font-style-normal winner-banner__title" />
                 <ui:Label text="PLAYER NAME" name="NameLabel" class="font-italic font-style-normal winner-banner__player-name" />
             </ui:VisualElement>

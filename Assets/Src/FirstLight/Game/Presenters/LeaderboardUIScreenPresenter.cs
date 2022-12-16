@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Linq;
 using FirstLight.FLogger;
 using FirstLight.Game.Logic;
@@ -27,11 +28,11 @@ namespace FirstLight.Game.Presenters
             public Action OnBackClicked;
         }
 
-        private const int MAX_POS_TOP_LEADERBOARD = 100;
         [SerializeField] private VisualTreeAsset _leaderboardUIEntryAsset;
         
         private LeaderboardUIEntryView _playerRankEntryRef;
         private VisualElement _leaderboardPanel;
+        private VisualElement _fixedLocalPlayerHolder;
         private ScreenHeaderElement _header;
 
         private IGameServices _services;
@@ -59,6 +60,8 @@ namespace FirstLight.Game.Presenters
             _header.backClicked += Data.OnBackClicked;
             _header.homeClicked += Data.OnBackClicked;
             _leaderboardScrollView = root.Q<ScrollView>("LeaderboardScrollView").Required();
+            _fixedLocalPlayerHolder = root.Q<VisualElement>("FixedLocalPlayerHolder").Required();
+            
             root.SetupClicks(_services);
         }
 
@@ -100,30 +103,56 @@ namespace FirstLight.Game.Presenters
             NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.LeaderboardOpenError,
                 error.ErrorMessage, button);
         }
-
+        private TemplateContainer AddEntry(PlayerLeaderboardEntry playerLeaderboardEntry, bool isLocalPlayer, int pos)
+        {
+            var newEntry = _leaderboardUIEntryAsset.Instantiate();
+            newEntry.AttachView(this, out LeaderboardUIEntryView view);
+            view.SetData(playerLeaderboardEntry, isLocalPlayer, pos);
+            _leaderboardScrollView.Add(newEntry);
+            return newEntry;
+        }
+        
         private void OnLeaderboardTopRanksReceived(GetLeaderboardResult result)
         {
-            bool localPlayerInTopRanks = false;
+            var localPlayerPos = -1;
+            var isLocalPlayer = false;
+            var resultPos = result.Leaderboard.Count < GameConstants.Network.LEADERBOARD_TOP_RANK_AMOUNT ? result.Leaderboard.Count : GameConstants.Network.LEADERBOARD_TOP_RANK_AMOUNT;
 
-            for (int i = 0; i < MAX_POS_TOP_LEADERBOARD + 1; i++)
+            for (int i = 0; i < resultPos; i++)
             {
-                var isLocalPlayer = result.Leaderboard[i].PlayFabId == _dataProvider.AppDataProvider.PlayerId;
-
-                var newEntry = _leaderboardUIEntryAsset.Instantiate();
-                newEntry.AttachView(this, out LeaderboardUIEntryView view);
-                view.SetData(result.Leaderboard[i], isLocalPlayer, i + 1);
-                _leaderboardScrollView.Add(newEntry);
-
-                if (isLocalPlayer)
+                if (result.Leaderboard[i].PlayFabId == _dataProvider.AppDataProvider.PlayerId)
                 {
-                    localPlayerInTopRanks = true;
+                    isLocalPlayer = true;
+                    localPlayerPos = i;
                 }
+                else
+                    isLocalPlayer = false;
+
+                AddEntry(result.Leaderboard[i], isLocalPlayer, i);
             }
 
-            if (localPlayerInTopRanks) return;
+            if (localPlayerPos != -1)
+            {
+                StartCoroutine(Temp(localPlayerPos));
+            }
+            
 
             _services.PlayfabService.GetNeighborRankLeaderboard(GameConstants.Network.LEADERBOARD_NEIGHBOR_RANK_AMOUNT,
                 OnLeaderboardNeighborRanksReceived, OnLeaderboardRequestError);
+        }
+
+        IEnumerator Temp(int localPlayerPos)
+        {
+            yield return new WaitForEndOfFrame();
+            RepositionScrollToLocalPlayer(localPlayerPos);
+
+        }
+        
+        private void RepositionScrollToLocalPlayer(int localPlayerPos)
+        {
+            _leaderboardScrollView.ScrollTo(_leaderboardScrollView.contentContainer.hierarchy.ElementAt(localPlayerPos));
+            _leaderboardScrollView.scrollOffset = new Vector2(_leaderboardScrollView.scrollOffset.x,
+                _leaderboardScrollView.scrollOffset.y + _leaderboardScrollView.contentViewport.layout.height / 2);
         }
 
         private void OnLeaderboardNeighborRanksReceived(GetLeaderboardAroundPlayerResult result)
@@ -132,8 +161,9 @@ namespace FirstLight.Game.Presenters
 
             var newEntry = _leaderboardUIEntryAsset.Instantiate();
             newEntry.AttachView(this, out LeaderboardUIEntryView view);
-            view.SetData(localPlayer, true, MAX_POS_TOP_LEADERBOARD + 1);
-            _leaderboardScrollView.Add(newEntry);
+            view.SetData(localPlayer, true,  localPlayer.Position);
+            _fixedLocalPlayerHolder.Add(newEntry);
         }
+
     }
 }

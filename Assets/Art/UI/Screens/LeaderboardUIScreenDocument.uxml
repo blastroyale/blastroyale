@@ -9,8 +9,9 @@
                         <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Trophies" localization-key="UITLeaderboards/trophies" class="header-label header-label--trophies" />
                         <ui:Label text="#" display-tooltip-when-elided="true" name="RankNumber" class="header-label header-label--rank-number" />
                     </ui:VisualElement>
-                    <ui:ScrollView name="LeaderboardScrollView" touch-scroll-type="Clamped" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="leaderboard-entries" />                
+                    <ui:ScrollView name="LeaderboardScrollView" touch-scroll-type="Clamped" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="leaderboard-entries" />
                 </ui:VisualElement>
+                <ui:VisualElement name="FixedLocalPlayerHolder" class="localplayerFixedPosHolder" />
                 <ui:VisualElement name="Footer" class="leaderboard-footer">
                     <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITLeaderboards/become_the_best" name="leaderboard_footer_text" class="leaderboard-footer--text" />
                 </ui:VisualElement>

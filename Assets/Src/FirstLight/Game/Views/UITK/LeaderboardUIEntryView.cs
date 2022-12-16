@@ -60,7 +60,7 @@ namespace FirstLight.Game.Views
 			}
 			else
 			{
-				_rankNumber.text = $"{data.Position.ToString()}.";
+				_rankNumber.text = $"{(data.Position+1).ToString()}.";
 			}
 
 			if (isLocalPlayer)

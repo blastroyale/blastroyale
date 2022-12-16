@@ -33,7 +33,7 @@
     position: absolute;
     top: 0;
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/PlayerProfileBack.png?fileID=21300000&guid=6492ef21818934d678d3bb23d9a22645&type=3#PlayerProfileBack');
-    width: 620px;
+    width: 772px;
     height: 208px;
     margin-left: 20px;
     left: 0;
@@ -45,14 +45,14 @@
 
 .player-header__name {
     position: absolute;
-    left: -454px;
+    left: -420px;
     top: 105px;
     -unity-font-definition: var(--font-italic);
     color: rgb(255, 255, 255);
     font-size: 38px;
     -unity-text-align: lower-center;
     width: 310px;
-    rotate: -17deg;
+    rotate: -14.2deg;
     white-space: normal;
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
 }
@@ -74,7 +74,7 @@
     position: absolute;
     width: 340px;
     height: 72px;
-    left: 249px;
+    left: 321px;
     top: -6px;
     flex-direction: row;
     align-items: center;

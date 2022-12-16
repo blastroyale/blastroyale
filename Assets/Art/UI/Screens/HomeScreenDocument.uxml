@@ -71,16 +71,15 @@
                     </FirstLight.Game.UIElements.ImageButton>
                 </ui:VisualElement>
             </ui:VisualElement>
-            <FirstLight.Game.UIElements.ImageButton name="Header" class="player-header sfx-click-forwards">
-                <ui:VisualElement name="ProfileHolder" class="player-header__profile-holder">
-                    <ui:Label text="PLAYER NAME" name="Name" class="player-header__name" />
-                </ui:VisualElement>
-                <ui:VisualElement name="TrophiesHolder" class="player-header__trophies-holder">
-                    <ui:VisualElement name="TrophyIcon" class="player-header__trophy-icon" />
-                    <ui:Label text="69420" name="TrophiesAmount" class="player-header__trophies_label" />
-                </ui:VisualElement>
-            </FirstLight.Game.UIElements.ImageButton>
         </FirstLight.Game.UIElements.SafeAreaElement>
+        <FirstLight.Game.UIElements.ImageButton name="Header" class="player-header sfx-click-forwards">
+            <ui:VisualElement name="ProfileHolder" class="player-header__profile-holder">
+                <ui:Label text="PLAYER NAME" name="Name" class="player-header__name" />
+            </ui:VisualElement>
+            <ui:VisualElement name="TrophiesHolder" class="player-header__trophies-holder">
+                <ui:VisualElement name="TrophyIcon" class="player-header__trophy-icon" />
+                <ui:Label text="69420" name="TrophiesAmount" class="player-header__trophies_label" />
+            </ui:VisualElement>
+        </FirstLight.Game.UIElements.ImageButton>
     </ui:VisualElement>
-    <ui:VisualElement focusable="false" class="fill-parent" style="background-image: url(&apos;project://database/Assets/Art/UI/References/MainMenu2.png?fileID=2800000&amp;guid=2ae37bb42a723564d84c7103aa976971&amp;type=3#MainMenu2&apos;); background-color: rgba(255, 255, 255, 0.32); position: absolute; display: none; visibility: hidden; overflow: hidden; opacity: 0;" />
 </ui:UXML>

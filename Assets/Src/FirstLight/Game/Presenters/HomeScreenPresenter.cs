@@ -132,8 +132,6 @@ namespace FirstLight.Game.Presenters
                 Data.OnDiscordClicked();
             };
 
-            AddTooltips();
-
             root.SetupClicks(_services);
         }
 
@@ -170,16 +168,6 @@ namespace FirstLight.Game.Presenters
             _dataProvider.BattlePassDataProvider.CurrentPoints.StopObserving(OnBattlePassCurrentPointsChanged);
             _services.MessageBrokerService.UnsubscribeAll(this);
             _services.TickService.UnsubscribeAll(this);
-        }
-
-        private void AddTooltips()
-        {
-            _trophiesHolder.AddManipulator(new Clickable(evt =>
-                _trophiesHolder.OpenTooltip(Root,UIUtils.LocalizeKey(ScriptTerms.Tooltips.ToolTip_Trophies),400)));
-            _bppPoolContainer.AddManipulator(new Clickable(evt =>
-                _bppPoolContainer.OpenTooltip(Root,UIUtils.LocalizeKey(ScriptTerms.Tooltips.ToolTip_BPP_pool),400,100)));
-            _csPoolContainer.AddManipulator(new Clickable(evt =>
-                _csPoolContainer.OpenTooltip(Root,UIUtils.LocalizeKey(ScriptTerms.Tooltips.ToolTip_CS_pool))));
         }
 
         private void OnPlayButtonClicked()

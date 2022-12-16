@@ -117,10 +117,12 @@ namespace FirstLight.Game.Presenters
 			_showingLeaderboards = true;
 			_nextButton.text = "NEXT →";
 			_leaderboardPanel.style.display = DisplayStyle.Flex;
+			_rewardsPanel.style.display = DisplayStyle.None;
 		}
 		
 		private void ShowRewards()
 		{
+			_rewardsPanel.style.display = DisplayStyle.Flex;
 			_leaderboardPanel.AddToClassList("hidden-right");
 			_rewardsPanel.RemoveFromClassList("rewards-panel--hidden-start");
 			_showingLeaderboards = false;

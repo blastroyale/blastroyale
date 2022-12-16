@@ -10,14 +10,19 @@ using Assert = UnityEngine.Assertions.Assert;
 
 namespace FirstLight.Game.UIElements
 {
+	/// <summary>
+	/// Displays an equipment card with badges / highlights / selection.
+	/// </summary>
 	public class EquipmentCardElement : ImageButton
 	{
 		private const string ADJECTIVE_LOC_KEY = "UITEquipment/adjective_{0}";
 
 		private const string UssBlock = "equipment-card";
 		private const string UssBlockSelected = UssBlock + "--selected";
+		private const string UssBlockHighlighted = UssBlock + "--highlighted";
 
 		private const string UssSelected = UssBlock + "__selected-bg";
+		private const string UssHighlight = UssBlock + "__highlight";
 		private const string UssBackground = UssBlock + "__background";
 		private const string UssRarity = UssBlock + "__rarity";
 		private const string UssRarityModifier = UssRarity + "--";
@@ -47,23 +52,23 @@ namespace FirstLight.Game.UIElements
 		public Equipment Equipment { get; private set; }
 		public UniqueId UniqueId { get; private set; }
 
-		private VisualElement _nftBadge;
-		private VisualElement _loanedBadge;
-		private VisualElement _equippedBadge;
+		private readonly VisualElement _nftBadge;
+		private readonly VisualElement _loanedBadge;
+		private readonly VisualElement _equippedBadge;
 
-		private VisualElement _image;
-		private VisualElement _imageShadow;
-		private VisualElement _plusRarity;
-		private VisualElement _rarity;
-		private VisualElement _faction;
-		private VisualElement _material;
-		private VisualElement _category;
-		private VisualElement _notification;
+		private readonly VisualElement _image;
+		private readonly VisualElement _imageShadow;
+		private readonly VisualElement _plusRarity;
+		private readonly VisualElement _rarity;
+		private readonly VisualElement _faction;
+		private readonly VisualElement _material;
+		private readonly VisualElement _category;
+		private readonly VisualElement _notification;
 
-		private Label _grade;
-		private Label _level;
-		private Label _name;
-		private Label _adjective;
+		private readonly Label _grade;
+		private readonly Label _level;
+		private readonly Label _name;
+		private readonly Label _adjective;
 
 		/// <summary>
 		/// Triggered when the card is clicked
@@ -74,13 +79,17 @@ namespace FirstLight.Game.UIElements
 		{
 		}
 
-		public EquipmentCardElement(Equipment equipment)
+		public EquipmentCardElement(Equipment equipment, bool highlighted = false)
 		{
 			AddToClassList(UssBlock);
 
-			var selectedbg = new VisualElement {name = "selected-bg"};
-			Add(selectedbg);
-			selectedbg.AddToClassList(UssSelected);
+			var selectedBg = new VisualElement {name = "selected-bg"};
+			Add(selectedBg);
+			selectedBg.AddToClassList(UssSelected);
+
+			var highlight = new VisualElement {name = "highlight"};
+			Add(highlight);
+			highlight.AddToClassList(UssHighlight);
 
 			var background = new VisualElement {name = "background"};
 			Add(background);
@@ -151,6 +160,11 @@ namespace FirstLight.Game.UIElements
 			_notification.AddToClassList(UssNotificationIcon);
 
 			base.clicked += () => clicked?.Invoke(Equipment, UniqueId);
+
+			if (highlighted)
+			{
+				AddToClassList(UssBlockHighlighted);
+			}
 
 			if (equipment.IsValid())
 			{

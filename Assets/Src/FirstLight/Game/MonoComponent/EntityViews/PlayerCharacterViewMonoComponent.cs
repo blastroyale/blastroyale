@@ -28,7 +28,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private Coroutine _attackHideRendererCoroutine;
 		
-		public List<VisibilityVolumeMonoComponent> CollidingVisibilityVolumes { get; private set; }
+		public HashSet<VisibilityVolumeMonoComponent> CollidingVisibilityVolumes { get; private set; }
 
 		/// <summary>
 		/// Indicates if this is the local player
@@ -58,7 +58,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			base.OnAwake();
 
-			CollidingVisibilityVolumes = new List<VisibilityVolumeMonoComponent>();
+			CollidingVisibilityVolumes = new HashSet<VisibilityVolumeMonoComponent>();
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, HandleOnPlayerAlive);
 			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, HandleOnPlayerAttack);
 			QuantumEvent.Subscribe<EventOnPlayerSpecialUsed>(this, HandleOnPlayerSpecialUsed);

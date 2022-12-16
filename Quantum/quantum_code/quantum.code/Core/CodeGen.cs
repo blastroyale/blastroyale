@@ -5383,12 +5383,13 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnRadarUsed OnRadarUsed(PlayerRef Player, FP Duration) {
+      public EventOnRadarUsed OnRadarUsed(PlayerRef Player, FP Duration, FP Range) {
         if (_f.Context.IsLocalPlayer(Player) == false) return null;
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnRadarUsed>(EventOnRadarUsed.ID);
         ev.Player = Player;
         ev.Duration = Duration;
+        ev.Range = Range;
         _f.AddEvent(ev);
         return ev;
       }
@@ -6720,6 +6721,7 @@ namespace Quantum {
     public new const Int32 ID = 24;
     public PlayerRef Player;
     public FP Duration;
+    public FP Range;
     protected EventOnRadarUsed(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -6739,6 +6741,7 @@ namespace Quantum {
         var hash = 151;
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + Duration.GetHashCode();
+        hash = hash * 31 + Range.GetHashCode();
         return hash;
       }
     }

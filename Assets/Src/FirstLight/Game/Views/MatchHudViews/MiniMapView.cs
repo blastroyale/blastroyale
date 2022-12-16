@@ -31,7 +31,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private static readonly int _playersOpacityPID = Shader.PropertyToID("_PlayersOpacity");
 		
 		private readonly TimeSpan RADAR_UPDATE_FREQ = TimeSpan.FromSeconds(2);
-		private const float RADAR_RANGE = 40;
 
 		[SerializeField, Required, Title("Minimap")]
 		[ValidateInput("@!_minimapCamera.gameObject.activeSelf", "Camera should be disabled!")]
@@ -77,6 +76,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private bool _radarActive;
 		private DateTime _radarEndTime;
+		private float _radarRange;
 		private DateTime _radarStartTime;
 		private DateTime _radarLastUpdate;
 		private LocalKeyword _radarShaderEnable;
@@ -270,7 +270,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				{
 					var pos = f.Get<Transform3D>(entity).Position.ToUnityVector3();
 
-					if (Vector3.Distance(playerPosition, pos) > RADAR_RANGE)
+					if (Vector3.Distance(playerPosition, pos) > _radarRange)
 					{
 						continue;
 					}
@@ -414,6 +414,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_radarActive = true;
 			_radarStartTime = DateTime.Now;
 			_radarEndTime = _radarStartTime + RADAR_UPDATE_FREQ * callback.Duration.AsFloat;
+			_radarRange = callback.Range.AsFloat;
 			_minimapImage.materialForRendering.SetKeyword(_radarShaderEnable, true);
 		}
 

@@ -13,7 +13,8 @@ namespace Quantum
 			}
 
 			var duration = special.SpecialPower;
-			f.Events.OnRadarUsed(player, duration);
+			var range = special.SpecialPower;
+			f.Events.OnRadarUsed(player, duration, range);
 
 			return true;
 		}

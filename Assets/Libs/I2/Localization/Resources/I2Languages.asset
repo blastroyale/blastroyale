@@ -8569,6 +8569,26 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: GameIds/SpecialRadar
+      TermType: 0
+      Description: 
+      Languages:
+      - RADAR
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: GameIds/SpecialRadarDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Shows nearby players
+
+        on the minimap.'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: GameIds/SpeedPill
       TermType: 0
       Description: 

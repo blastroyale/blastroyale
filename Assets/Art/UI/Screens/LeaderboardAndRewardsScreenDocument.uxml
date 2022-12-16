@@ -7,18 +7,17 @@
         </ui:VisualElement>
         <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITLeaderboards/standings" subtitle-key="UITLeaderboards/battleroyale" name="Title" class="screen-header--simple title" />
         <FirstLight.Game.UIElements.SafeAreaElement class="fill-parent">
-            <ui:VisualElement name="LeaderboardPanel" picking-mode="Ignore" class="leaderboard-panel">
+            <ui:VisualElement name="LeaderboardPanel" picking-mode="Ignore" class="leaderboard-panel" style="display: none;">
                 <ui:VisualElement name="LeaderboardHeader" class="leaderboard-header">
                     <ui:Label text="#" display-tooltip-when-elided="true" name="RankNumber" class="header-label leaderboard-header__rank-number" />
                     <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Player" localization-key="UITLeaderboards/player" class="header-label leaderboard-header__player" />
                     <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Kills" localization-key="UITLeaderboards/kills" class="header-label leaderboard-header__kills" />
-                    <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Deaths" localization-key="UITLeaderboards/deaths" class="header-label leaderboard-header__deaths" />
                     <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Trophies" localization-key="UITLeaderboards/trophies" class="header-label leaderboard-header__trophies" />
                 </ui:VisualElement>
                 <ui:ScrollView name="LeaderboardScrollView" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" touch-scroll-type="Elastic" class="leaderboard-entries" />
             </ui:VisualElement>
             <FirstLight.Game.UIElements.LocalizedButton localization-key="UITShared/next" name="NextButton" class="button-next anim-delay-0 anim-fade" />
-            <ui:VisualElement name="RewardsPanel" picking-mode="Ignore" class="rewards-panel">
+            <ui:VisualElement name="RewardsPanel" picking-mode="Ignore" class="rewards-panel" style="display: flex;">
                 <ui:VisualElement name="CraftSpice" class="craft-spice">
                     <FirstLight.Game.UIElements.LocalizedLabel text="##" name="Title" localization-key="UITRewards/craft_spice" class="craft-spice__title" />
                     <ui:VisualElement name="LogoTop" class="craft-spice__logo-top" />
@@ -48,10 +47,10 @@
                         <ui:Label text="60/100" display-tooltip-when-elided="true" name="Total" class="bpp__bar__total" />
                     </ui:VisualElement>
                     <ui:VisualElement name="WeekInfo" class="bpp__week-info">
+                        <ui:Label text="+110 BPP IN 2H 23m" display-tooltip-when-elided="true" name="Next" class="bpp__week-info__next" />
                         <ui:VisualElement name="Logo" class="bpp__week-info__logo" />
                         <ui:Label text="50" display-tooltip-when-elided="true" name="GainedWeek" class="bpp__week-info__gained-week" />
                         <ui:Label text="/ 100" display-tooltip-when-elided="true" name="TotalWeek" class="bpp__week-info__total-week" />
-                        <FirstLight.Game.UIElements.LocalizedLabel text="##" name="ThisWeek" localization-key="UITRewards/this_week" class="bpp__week-info__this-week" />
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>

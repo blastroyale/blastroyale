@@ -22,7 +22,6 @@ namespace FirstLight.Game.Views
 		private Label _rankNumber;
 		private Label _playerName;
 		private Label _kills;
-		private Label _deaths;
 		private Label _trophies;
 		
 		public void Attached(VisualElement element)
@@ -33,7 +32,6 @@ namespace FirstLight.Game.Views
 			_rankNumber = _root.Q<Label>("RankNumber").Required();
 			_playerName = _root.Q<Label>("PlayerName").Required();
 			_kills = _root.Q<Label>("Kills").Required();
-			_deaths = _root.Q<Label>("Deaths").Required();
 			_trophies = _root.Q<Label>("TrophiesAmount").Required();
 		}
 		
@@ -70,7 +68,6 @@ namespace FirstLight.Game.Views
 
 			_playerName.text = data.GetPlayerName();
 			_kills.text = data.Data.PlayersKilledCount.ToString();
-			_deaths.text = data.Data.DeathCount.ToString();
 			_trophies.text = data.Data.PlayerTrophies.ToString();
 
 			var delayTime = 0.3f + data.PlayerRank * 0.1f;

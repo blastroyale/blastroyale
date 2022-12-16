@@ -36,9 +36,9 @@
     top: 130px;
     rotate: -10deg;
     left: 290px;
-    text-shadow: 4px 4px 0 rgb(185, 65, 21);
-    -unity-text-outline-color: rgb(185, 65, 21);
-    font-size: 58px;
+    text-shadow: 4px 4px 0 rgb(107, 4, 2);
+    -unity-text-outline-color: rgb(107, 4, 2);
+    font-size: 70px;
     -unity-text-outline-width: 2px;
     color: rgb(255, 255, 255);
     transition-property: opacity, scale;

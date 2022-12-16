@@ -133,11 +133,6 @@
 }
 
 .leaderboard-header__kills {
-    right: 330px;
-    -unity-text-align: upper-right;
-}
-
-.leaderboard-header__deaths {
     right: 235px;
     -unity-text-align: upper-right;
 }
@@ -467,7 +462,7 @@
     padding-left: 0;
 }
 
-.bpp__week-info__this-week {
+.bpp__week-info__next {
     font-size: 40px;
     -unity-font-definition: var(--font-italic);
     -unity-font-style: normal;
@@ -475,4 +470,5 @@
     text-shadow: 2px 2px 0 rgb(0, 0, 0);
     -unity-text-outline-width: 1px;
     -unity-text-outline-color: rgb(0, 0, 0);
+    padding-right: 20px;
 }

@@ -203,7 +203,7 @@ namespace FirstLight.Game.Presenters
 				currentLevel++;
 			} while (gainedLeft > 0 && currentLevel < maxLevel);
 
-			_bppView.SetData(bppReward, levelsInfo, (int)bppPoolInfo.CurrentAmount, (int)bppPoolInfo.PoolCapacity);
+			_bppView.SetData(levelsInfo, (int)bppPoolInfo.CurrentAmount, (int)bppPoolInfo.PoolCapacity, bppPoolInfo);
 		}
 
 		private void UpdatePlayerName()

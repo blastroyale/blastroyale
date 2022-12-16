@@ -16,7 +16,7 @@
                 <ui:Label name="Title" text="SCRAPPING ITEM" class="equipment-popup__title" />
                 <FirstLight.Game.UIElements.ImageButton name="CloseButton" class="equipment-popup__close" />
                 <ui:VisualElement name="CardHolder" class="equipment-popup__card-holder">
-                    <FirstLight.Game.UIElements.EquipmentCardElement name="Card" />
+                    <FirstLight.Game.UIElements.EquipmentCardElement name="Card" class="equipment-card--highlighted" />
                     <ui:VisualElement name="Blocker" class="fill-parent" />
                 </ui:VisualElement>
                 <ui:VisualElement name="BHContainer" class="equipment-popup__bh-holder">

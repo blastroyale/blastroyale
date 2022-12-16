@@ -1,5 +1,4 @@
 .container {
-    position: absolute;
     align-items: center;
 }
 
@@ -58,14 +57,8 @@
     flex-direction: column-reverse;
     align-items: center;
     bottom: 35px;
-}
-
-.leaderboard-footer--text {
     -unity-font-definition: var(--font-italic);
-    font-size: 30px;
-    width: 100%;
-    position: absolute;
-    bottom: 30px;
+    font-size: 35px;
     -unity-font-style: normal;
     -unity-text-align: middle-center;
     color: rgb(233, 226, 225);

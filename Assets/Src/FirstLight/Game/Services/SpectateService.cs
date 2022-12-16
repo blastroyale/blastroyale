@@ -96,6 +96,20 @@ namespace FirstLight.Game.Services
 			}
 		}
 
+		public void OnMatchEnded(QuantumGame game, bool isDisconnected)
+		{
+		}
+
+		public void SwipeLeft()
+		{
+			SwipeLeft(QuantumRunner.Default.Game);
+		}
+
+		public void SwipeRight()
+		{
+			SwipeRight(QuantumRunner.Default.Game);
+		}
+
 		private void OnQuantumUpdateView(CallbackUpdateView callback)
 		{
 			// This stupidity along with all the TryGetNextPlayer nonsense is needed because apparently Quantum lags
@@ -113,20 +127,6 @@ namespace FirstLight.Game.Services
 				callback.Game.SetPredictionArea(_spectatedPlayer.Value.Transform.position.ToFPVector3(),
 				                                _playerVisionRange);
 			}
-		}
-
-		public void OnMatchEnded(QuantumGame game)
-		{
-		}
-
-		public void SwipeLeft()
-		{
-			SwipeLeft(QuantumRunner.Default.Game);
-		}
-
-		public void SwipeRight()
-		{
-			SwipeRight(QuantumRunner.Default.Game);
 		}
 
 		private void SwipeLeft(QuantumGame game)

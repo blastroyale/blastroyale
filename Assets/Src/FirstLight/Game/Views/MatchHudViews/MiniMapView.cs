@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using DG.Tweening;
 using FirstLight.FLogger;
 using FirstLight.Game.Messages;
@@ -30,6 +29,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private static readonly int _playersPID = Shader.PropertyToID("_Players");
 		private static readonly int _playersCountPID = Shader.PropertyToID("_PlayersCount");
 		private static readonly int _playersOpacityPID = Shader.PropertyToID("_PlayersOpacity");
+		
+		private readonly TimeSpan RADAR_UPDATE_FREQ = TimeSpan.FromSeconds(2);
+		private const float RADAR_RANGE = 40;
 
 		[SerializeField, Required, Title("Minimap")]
 		[ValidateInput("@!_minimapCamera.gameObject.activeSelf", "Camera should be disabled!")]
@@ -77,7 +79,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private DateTime _radarEndTime;
 		private DateTime _radarStartTime;
 		private DateTime _radarLastUpdate;
-		private readonly TimeSpan _radarUpdateFrequency = TimeSpan.FromSeconds(2);
 		private LocalKeyword _radarShaderEnable;
 
 		private void OnValidate()
@@ -232,10 +233,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			UpdateSafeAreaArrow(playerTransform3D, circle.TargetCircleCenter.ToUnityVector3(),
 				circle.TargetRadius.AsFloat);
-			UpdateRadar(f);
+			UpdateRadar(f, playerTransform3D.Position.ToUnityVector3());
 		}
 
-		private void UpdateRadar(Frame f)
+		private void UpdateRadar(Frame f, Vector3 playerPosition)
 		{
 			if (!_radarActive) return;
 
@@ -251,10 +252,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 				return;
 			}
 
-			var nextPing = _radarLastUpdate + _radarUpdateFrequency;
+			var nextPing = _radarLastUpdate + RADAR_UPDATE_FREQ;
 
 			var elapsedPingDuration = (now - _radarLastUpdate).TotalSeconds;
-			var elapsedPing = (float) elapsedPingDuration / _radarUpdateFrequency.TotalSeconds;
+			var elapsedPing = (float) elapsedPingDuration / RADAR_UPDATE_FREQ.TotalSeconds;
 			var pingOpacity = _playersFade.Evaluate((float) elapsedPing);
 
 			_minimapImage.materialForRendering.SetFloat(_playersOpacityPID, pingOpacity);
@@ -268,6 +269,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 				foreach (var (entity, _) in f.GetComponentIterator<AlivePlayerCharacter>())
 				{
 					var pos = f.Get<Transform3D>(entity).Position.ToUnityVector3();
+
+					if (Vector3.Distance(playerPosition, pos) > RADAR_RANGE)
+					{
+						continue;
+					}
+					
 					var viewportPos = _minimapCamera.WorldToViewportPoint(pos) - Vector3.one / 2f;
 
 					_playerPositions.Add(new Vector4(viewportPos.x, viewportPos.y, 0, 0));
@@ -406,7 +413,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			FLog.Info($"Turning on radar, pings: {callback.Duration.AsInt}!");
 			_radarActive = true;
 			_radarStartTime = DateTime.Now;
-			_radarEndTime = _radarStartTime + _radarUpdateFrequency * callback.Duration.AsFloat;
+			_radarEndTime = _radarStartTime + RADAR_UPDATE_FREQ * callback.Duration.AsFloat;
 			_minimapImage.materialForRendering.SetKeyword(_radarShaderEnable, true);
 		}
 

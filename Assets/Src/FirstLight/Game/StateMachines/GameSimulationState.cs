@@ -77,7 +77,7 @@ namespace FirstLight.Game.StateMachines
 			
 			initial.Transition().Target(startSimulation);
 			initial.OnExit(SubscribeEvents);
-			initial.OnExit(OpenLowConnectionScreen);
+			//initial.OnExit(OpenLowConnectionScreen);
 
 			startSimulation.OnEnter(StartSimulation);
 			startSimulation.Event(SimulationStartedEvent).Target(modeCheck);
@@ -148,6 +148,15 @@ namespace FirstLight.Game.StateMachines
 			QuantumEvent.SubscribeManual<EventFireQuantumServerCommand>(this, OnServerCommand);
 			QuantumCallback.SubscribeManual<CallbackGameStarted>(this, OnGameStart);
 			QuantumCallback.SubscribeManual<CallbackGameResynced>(this, OnGameResync);
+			QuantumEvent.SubscribeManual<EventOnPlayerSpawned>(this, OnPlayerSpawned);
+		}
+
+		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
+		{
+			if (callback.Game.PlayerIsLocal(callback.Player))
+			{
+				_uiService.CloseUi<MatchmakingScreenPresenter>();
+			}
 		}
 
 		/// <summary>

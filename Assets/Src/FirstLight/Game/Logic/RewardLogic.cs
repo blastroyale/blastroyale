@@ -388,7 +388,7 @@ namespace FirstLight.Game.Logic
 		private double CalculateEloChange(double score, uint trophiesOpponent, uint trophiesPlayer, int eloRange,
 										  double eloK, double minTrophyChange)
 		{
-			var eloBracket = Math.Pow(10, ((int) trophiesOpponent - (int) trophiesPlayer) / (float) eloRange);
+			var eloBracket = Math.Pow(10, ((int) trophiesOpponent - (int) trophiesPlayer) / (double) eloRange);
 			var trophyChange = eloK * (score - 1 / (1 + eloBracket));
 
 			return trophyChange < 0 ? Math.Min(trophyChange, -minTrophyChange) : Math.Max(trophyChange, minTrophyChange);

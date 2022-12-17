@@ -226,28 +226,28 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(_gameCompletedCheatEvent);
 		}
 
+		private void OnCheckIfServerRewardsMatch(bool serverRewardsMatch)
+		{
+			if (!serverRewardsMatch)
+			{
+				_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITHomeScreen.waitforrewards_popup_title,
+					ScriptLocalization.UITHomeScreen.waitforrewards_popup_description, false, new GenericDialogButton());
+
+				_services.CoroutineService.StartCoroutine(VerifyRewardsCalculationsCoroutine());
+			}
+			else
+			{
+				_services.GenericDialogService.CloseDialog();
+				if (_gameDataProvider.RewardDataProvider.UnclaimedRewards.Count > 0)
+				{
+					_services.CommandService.ExecuteCommand(new CollectUnclaimedRewardsCommand());
+				}
+			}
+		}
+
 		private void TryClaimUncollectedRewards()
 		{
-			_services.PlayfabService.CheckIfRewardsMatch(calculationsAreDone =>
-			{
-				if (!calculationsAreDone)
-				{
-					_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITHomeScreen.waitforrewards_popup_title,
-						ScriptLocalization.UITHomeScreen.waitforrewards_popup_description, false, new GenericDialogButton());
-
-					_services.CoroutineService.StartCoroutine(VerifyRewardsCalculationsCoroutine());
-				}
-				else
-				{
-					_services.GenericDialogService.CloseDialog();
-					if (_gameDataProvider.RewardDataProvider.UnclaimedRewards.Count > 0)
-					{
-						_services.CommandService.ExecuteCommand(new CollectUnclaimedRewardsCommand());
-					}
-				}
-			});
-			
-			
+			_services.PlayfabService.CheckIfRewardsMatch(OnCheckIfServerRewardsMatch);
 		}
 		
 		private void ValidateCurrentGameMode()

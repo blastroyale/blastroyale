@@ -47,6 +47,8 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameNetworkService _network;
 		private readonly IGameBackendNetworkService _networkService;
 
+		private IMatchServices _matchServices; 
+
 		public GameSimulationState(IGameDataProvider gameDataProvider, IGameServices services, IGameBackendNetworkService networkService, 
 								   IGameUiService uiService, Action<IStatechartEvent> statechartTrigger)
 		{
@@ -77,7 +79,7 @@ namespace FirstLight.Game.StateMachines
 			
 			initial.Transition().Target(startSimulation);
 			initial.OnExit(SubscribeEvents);
-			//initial.OnExit(OpenLowConnectionScreen);
+			initial.OnExit(OpenLowConnectionScreen);
 
 			startSimulation.OnEnter(StartSimulation);
 			startSimulation.Event(SimulationStartedEvent).Target(modeCheck);
@@ -87,6 +89,7 @@ namespace FirstLight.Game.StateMachines
 			modeCheck.Transition().Condition(ShouldUseDeathmatchSM).Target(deathmatch);
 			modeCheck.Transition().Condition(ShouldUseBattleRoyaleSM).Target(battleRoyale);
 			modeCheck.Transition().Target(battleRoyale);
+			//modeCheck.OnExit(CloseMatchmakingScreen); uncomment with new start sequence
 
 			deathmatch.Nest(_deathmatchState.Setup).Target(final);
 			deathmatch.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(OnDisconnectDuringSimulation).Target(disconnectedPlayerCheck);
@@ -107,7 +110,35 @@ namespace FirstLight.Game.StateMachines
 
 			disconnectedCritical.OnEnter(NotifyCriticalDisconnection);
 
+			final.OnEnter(UnloadSimulationUi);
 			final.OnEnter(UnsubscribeEvents);
+		}
+
+		private void SubscribeEvents()
+		{
+			_matchServices = MainInstaller.Resolve<IMatchServices>();
+			
+			_services.MessageBrokerService.Subscribe<QuitGameClickedMessage>(OnQuitGameScreenClickedMessage);
+			_matchServices.SpectateService.SpectatedPlayer.InvokeObserve(TO_DELETE_WITH_NEW_START_SEQUENCE);
+			
+			QuantumEvent.SubscribeManual<EventFireQuantumServerCommand>(this, OnServerCommand);
+			QuantumCallback.SubscribeManual<CallbackGameStarted>(this, OnGameStart);
+			QuantumCallback.SubscribeManual<CallbackGameResynced>(this, OnGameResync);
+		}
+
+		private void UnsubscribeEvents()
+		{
+			_services?.MessageBrokerService.UnsubscribeAll(this);
+			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(TO_DELETE_WITH_NEW_START_SEQUENCE);
+			QuantumEvent.UnsubscribeListener(this);
+			QuantumCallback.UnsubscribeListener(this);
+			
+			_matchServices = null;
+		}
+
+		private void UnloadSimulationUi()
+		{
+			_uiService.UnloadUi<LowConnectionPresenter>();
 		}
 
 		private bool IsSoloGame()
@@ -127,7 +158,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OpenLowConnectionScreen()
 		{
-			_uiService.OpenScreen<LowConnectionPresenter>();
+			_uiService.OpenUiAsync<LowConnectionPresenter>();
 		}
 
 		private void OpenDisconnectedMatchEndDialog()
@@ -141,22 +172,19 @@ namespace FirstLight.Game.StateMachines
 			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.info, ScriptLocalization.MainMenu.DisconnectedMatchEndInfo.ToUpper(), false, confirmButton);
 		}
 
-		private void SubscribeEvents()
+		// TODO: Delete with new start sequence visual cinematic
+		private void TO_DELETE_WITH_NEW_START_SEQUENCE(SpectatedPlayer spectatedPlayer, SpectatedPlayer player)
 		{
-			_services.MessageBrokerService.Subscribe<QuitGameClickedMessage>(OnQuitGameScreenClickedMessage);
-			
-			QuantumEvent.SubscribeManual<EventFireQuantumServerCommand>(this, OnServerCommand);
-			QuantumCallback.SubscribeManual<CallbackGameStarted>(this, OnGameStart);
-			QuantumCallback.SubscribeManual<CallbackGameResynced>(this, OnGameResync);
-			QuantumEvent.SubscribeManual<EventOnPlayerSpawned>(this, OnPlayerSpawned);
+			if (player.Player.IsValid)
+			{
+				CloseMatchmakingScreen();
+				_matchServices.SpectateService.SpectatedPlayer.StopObserving(TO_DELETE_WITH_NEW_START_SEQUENCE);
+			}
 		}
 
-		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
+		private void CloseMatchmakingScreen()
 		{
-			if (callback.Game.PlayerIsLocal(callback.Player))
-			{
-				_uiService.CloseUi<MatchmakingScreenPresenter>();
-			}
+			_uiService.CloseUi<MatchmakingScreenPresenter>();
 		}
 
 		/// <summary>
@@ -179,13 +207,6 @@ namespace FirstLight.Game.StateMachines
 				MatchType = _services.NetworkService.QuantumClient.CurrentRoom.GetMatchType()
 			});
 			_services.CommandService.ExecuteCommand(command as IGameCommand);
-		}
-
-		private void UnsubscribeEvents()
-		{
-			_services?.MessageBrokerService.UnsubscribeAll(this);
-			QuantumEvent.UnsubscribeListener(this);
-			QuantumCallback.UnsubscribeListener(this);
 		}
 
 		private bool IsSpectator()

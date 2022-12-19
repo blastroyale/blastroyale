@@ -146,6 +146,7 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<QuitGameClickedMessage>(OnQuitGameScreenClickedMessage);
 			
 			QuantumEvent.SubscribeManual<EventFireQuantumServerCommand>(this, OnServerCommand);
+			QuantumEvent.SubscribeManual<EventOnAllPlayersJoined>(this, OnAllPlayersJoined);
 			QuantumCallback.SubscribeManual<CallbackGameStarted>(this, OnGameStart);
 			QuantumCallback.SubscribeManual<CallbackGameResynced>(this, OnGameResync);
 		}
@@ -200,7 +201,7 @@ namespace FirstLight.Game.StateMachines
 			return _services.NetworkService.CurrentRoomGameModeConfig.Value.AudioStateMachine ==
 			       AudioStateMachine.BattleRoyale;
 		}
-
+		
 		private async void OnGameStart(CallbackGameStarted callback)
 		{
 			// paused on Start means waiting for Snapshot
@@ -213,6 +214,16 @@ namespace FirstLight.Game.StateMachines
 			await Task.Yield();
 
 			PublishMatchStartedMessage(callback.Game, false);
+		}
+
+		private void OnAllPlayersJoined(EventOnAllPlayersJoined callback)
+		{
+			// paused on Start means waiting for Snapshot
+			if (callback.Game.Session.IsPaused)
+			{
+				return;
+			}
+			
 			_statechartTrigger(SimulationStartedEvent);
 		}
 

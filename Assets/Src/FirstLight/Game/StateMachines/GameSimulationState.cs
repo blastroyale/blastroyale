@@ -119,7 +119,6 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<QuitGameClickedMessage>(OnQuitGameScreenClickedMessage);
 			_matchServices.SpectateService.SpectatedPlayer.InvokeObserve(TO_DELETE_WITH_NEW_START_SEQUENCE);
 			
-			QuantumEvent.SubscribeManual<EventFireQuantumServerCommand>(this, OnServerCommand);
 			QuantumEvent.SubscribeManual<EventOnAllPlayersJoined>(this, OnAllPlayersJoined);
 			QuantumCallback.SubscribeManual<CallbackGameStarted>(this, OnGameStart);
 			QuantumCallback.SubscribeManual<CallbackGameResynced>(this, OnGameResync);
@@ -181,28 +180,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			_uiService.CloseUi<CustomLobbyScreenPresenter>();
 			_uiService.CloseUi<MatchmakingScreenPresenter>();
-		}
-
-		/// <summary>
-		/// Whenever the simulation wants to fire logic commands.
-		/// This will also run on quantum server and will be sent to logic service from there.
-		/// </summary>
-		private void OnServerCommand(EventFireQuantumServerCommand ev)
-		{
-			var game = ev.Game;
-			if (!game.PlayerIsLocal(ev.Player))
-			{
-				return;
-			}
-
-			FLog.Verbose("Quantum Logic Command Received: " + ev.CommandType.ToString());
-			var command = QuantumLogicCommandFactory.BuildFromEvent(ev);
-			command.FromFrame(game.Frames.Verified, new QuantumValues()
-			{
-				ExecutingPlayer = game.GetLocalPlayers()[0],
-				MatchType = _services.NetworkService.QuantumClient.CurrentRoom.GetMatchType()
-			});
-			_services.CommandService.ExecuteCommand(command as IGameCommand);
 		}
 
 		private bool IsSpectator()

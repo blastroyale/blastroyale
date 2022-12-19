@@ -32,6 +32,11 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			tasks.Add(TryShowEquipment(collectable.Item.GameId));
 			tasks.Add(TryShowRarityEffect(collectable.Item.Rarity));
 
+			/*
+			 * Attention:
+			 * The loading frame might be called when the simulation is closing and the assets unloaded,
+			 * creating a CPU race condition between the loading thread and the unloading thread.
+			 */
 			await Task.WhenAll(tasks);
 
 			foreach (var task in tasks)

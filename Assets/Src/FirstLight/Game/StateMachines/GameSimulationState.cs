@@ -141,6 +141,7 @@ namespace FirstLight.Game.StateMachines
 				ButtonOnClick = _services.GenericDialogService.CloseDialog
 			};
 			
+			StopSimulation();
 			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.info, ScriptLocalization.MainMenu.DisconnectedMatchEndInfo.ToUpper(), false, confirmButton);
 		}
 

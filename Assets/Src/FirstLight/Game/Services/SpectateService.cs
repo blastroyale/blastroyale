@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using FirstLight.FLogger;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
 using Quantum;
@@ -98,6 +96,7 @@ namespace FirstLight.Game.Services
 
 		public void OnMatchEnded(QuantumGame game, bool isDisconnected)
 		{
+			SetSpectatedEntity(EntityRef.None, PlayerRef.None, true);
 		}
 
 		public void SwipeLeft()

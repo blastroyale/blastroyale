@@ -23,6 +23,7 @@
     right: 36px;
     align-items: flex-end;
     justify-content: space-between;
+    top: 40%;
 }
 
 .currency-display {
@@ -389,7 +390,6 @@
 
 .button-with-icon--shop > .button-with-icon__icon {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/IconShop.png?fileID=21300000&guid=2ea4ca43a1f724d659125eeae517ed2a&type=3#IconShop');
-    bottom: -200px;
 }
 
 

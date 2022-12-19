@@ -254,7 +254,6 @@ namespace FirstLight.Game.Presenters
             }
         }
 
-
         private void OnBattlePassCurrentLevelChanged(uint _, uint current)
         {
             if (!_dataProvider.RewardDataProvider.IsCollecting)

@@ -152,7 +152,6 @@ namespace FirstLight.Game.Presenters
             yield return new WaitForEndOfFrame();
             _leaderboardScrollView.ScrollTo(
                 _leaderboardScrollView.contentContainer.hierarchy.ElementAt(_localPlayerPos));
-            yield return new WaitForEndOfFrame();
             _leaderboardScrollView.scrollOffset = new Vector2(_leaderboardScrollView.scrollOffset.x,
                 _leaderboardScrollView.scrollOffset.y + _leaderboardScrollView.contentViewport.layout.height / 2);
         }

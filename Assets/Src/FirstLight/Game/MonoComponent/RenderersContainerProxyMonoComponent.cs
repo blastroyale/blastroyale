@@ -53,6 +53,14 @@ namespace FirstLight.Game.MonoComponent
 			}
 		}
 
+		public void SetRenderersLayer(int layer)
+		{
+			foreach (var renderersContainer in _renderersContainers)
+			{
+				renderersContainer.SetRenderersLayer(layer);
+			}
+		}
+
 		/// <inheritdoc />
 		public void SetMaterialPropertyValue(int propertyId, float value)
 		{

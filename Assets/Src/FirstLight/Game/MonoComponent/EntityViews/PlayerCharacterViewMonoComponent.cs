@@ -9,7 +9,7 @@ using FirstLight.Game.Utils;
 using Photon.Deterministic;
 using Quantum;
 using UnityEngine;
-using UnityEngine.Serialization;
+using LayerMask = UnityEngine.LayerMask;
 
 namespace FirstLight.Game.MonoComponent.EntityViews
 {
@@ -19,6 +19,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	/// </remarks>
 	public class PlayerCharacterViewMonoComponent : AvatarViewBase
 	{
+
 		[SerializeField] private MatchCharacterViewMonoComponent _characterView;
 		[SerializeField] private AdventureVfxSpawnerMonoComponent[] _footstepVfxSpawners;
 		
@@ -97,6 +98,16 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				_footstepVfxSpawners[i].CanSpawnVfx = active;
 			}
 		}
+
+		public void SetPlayerSilhouetteVisible(bool visible)
+		{
+			RenderersContainerProxy.SetRenderersLayer(LayerMask.NameToLayer(visible ? "Default Silhouette" : "Default"));
+
+			for (int i = 0; i < _footstepVfxSpawners.Length; i++)
+			{
+				_footstepVfxSpawners[i].CanSpawnVfx = visible;
+			}
+		}
 		
 		/// <summary>
 		/// Set's the player animation moving state based on the given <paramref name="isAiming"/> state
@@ -159,14 +170,14 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private IEnumerator AttackWithinVisVolumeCoroutine()
 		{
-			SetRenderContainerVisible(true);
+			SetPlayerSilhouetteVisible(true);
 
 			yield return new WaitForSeconds(GameConstants.Visuals.GAMEPLAY_POST_ATTACK_HIDE_DURATION);
 			
 			if (CollidingVisibilityVolumes.Count > 0)
 			{
 				var visVolumeHasSpectatedPlayer = CollidingVisibilityVolumes.Any(visVolume => visVolume.VolumeHasSpectatedPlayer());
-				SetRenderContainerVisible(visVolumeHasSpectatedPlayer);
+				SetPlayerSilhouetteVisible(visVolumeHasSpectatedPlayer);
 			}
 		}
 

@@ -88,12 +88,12 @@ namespace FirstLight.Game.StateMachines
 			modeCheck.Transition().Condition(ShouldUseBattleRoyaleSM).Target(battleRoyale);
 			modeCheck.Transition().Target(battleRoyale);
 
-			deathmatch.Nest(_deathmatchState.Setup).OnTransition(() => PublishMatchEnded(false)).Target(final);
-			deathmatch.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(OnDisconnectDuringSimulation).Target(disconnectedPlayerCheck);
+			deathmatch.Nest(_deathmatchState.Setup).Target(final);
+			deathmatch.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnectedPlayerCheck);
 			deathmatch.OnExit(CleanUpMatch);
 
-			battleRoyale.Nest(_battleRoyaleState.Setup).OnTransition(() => PublishMatchEnded(false)).Target(final);
-			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(OnDisconnectDuringSimulation).Target(disconnectedPlayerCheck);
+			battleRoyale.Nest(_battleRoyaleState.Setup).Target(final);
+			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnectedPlayerCheck);
 			battleRoyale.OnExit(CleanUpMatch);
 			
 			disconnectedPlayerCheck.Transition().Condition(IsSoloGame).OnTransition(OpenDisconnectedMatchEndDialog).Target(final);
@@ -108,16 +108,19 @@ namespace FirstLight.Game.StateMachines
 			final.OnEnter(UnsubscribeEvents);
 		}
 
+		private void SubscribeEvents()
+		{
+			_services.MessageBrokerService.Subscribe<QuitGameClickedMessage>(OnQuitGameScreenClickedMessage);
+			
+			QuantumEvent.SubscribeManual<EventFireQuantumServerCommand>(this, OnServerCommand);
+			QuantumEvent.SubscribeManual<EventOnAllPlayersJoined>(this, OnAllPlayersJoined);
+			QuantumCallback.SubscribeManual<CallbackGameStarted>(this, OnGameStart);
+			QuantumCallback.SubscribeManual<CallbackGameResynced>(this, OnGameResync);
+		}
+
 		private bool IsSoloGame()
 		{
 			return _services.NetworkService.LastMatchPlayers.Count == 1;
-		}
-		
-		private void OnDisconnectDuringSimulation()
-		{
-			_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.Simulation;
-
-			PublishMatchEnded(true);
 		}
 		
 		private void NotifyCriticalDisconnection()
@@ -139,16 +142,6 @@ namespace FirstLight.Game.StateMachines
 			};
 			
 			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.info, ScriptLocalization.MainMenu.DisconnectedMatchEndInfo.ToUpper(), false, confirmButton);
-		}
-
-		private void SubscribeEvents()
-		{
-			_services.MessageBrokerService.Subscribe<QuitGameClickedMessage>(OnQuitGameScreenClickedMessage);
-			
-			QuantumEvent.SubscribeManual<EventFireQuantumServerCommand>(this, OnServerCommand);
-			QuantumEvent.SubscribeManual<EventOnAllPlayersJoined>(this, OnAllPlayersJoined);
-			QuantumCallback.SubscribeManual<CallbackGameStarted>(this, OnGameStart);
-			QuantumCallback.SubscribeManual<CallbackGameResynced>(this, OnGameResync);
 		}
 
 		/// <summary>
@@ -300,15 +293,6 @@ namespace FirstLight.Game.StateMachines
 			_services.VfxService.DespawnAll();
 		}
 
-		private void PublishMatchEnded(bool isDisconnected)
-		{
-			_services.MessageBrokerService.Publish(new MatchEndedMessage()
-			{
-				Game = QuantumRunner.Default.Game,
-				IsDisconnected = isDisconnected
-			});
-		}
-
 		private void OpenAdventureWorldHud()
 		{
 			_uiService.OpenUi<MatchWorldHudPresenter>();
@@ -318,7 +302,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			if (_services.NetworkService.IsJoiningNewMatch)
 			{
-				MatchStartAnalytics();
+				_services.AnalyticsService.MatchCalls.MatchStart();
 				SetPlayerMatchData(game);
 			}
 
@@ -327,6 +311,11 @@ namespace FirstLight.Game.StateMachines
 
 		private void SetPlayerMatchData(QuantumGame game)
 		{
+			if (IsSpectator())
+			{
+				return;
+			}
+			
 			var info = _gameDataProvider.PlayerDataProvider.PlayerInfo;
 			var loadout = _gameDataProvider.EquipmentDataProvider.Loadout;
 			var inventory = _gameDataProvider.EquipmentDataProvider.Inventory;
@@ -350,26 +339,18 @@ namespace FirstLight.Game.StateMachines
 				finalLoadOut.Add(inventory[item.Id]);
 			}
 
-			if (!IsSpectator())
+			game.SendPlayerData(game.GetLocalPlayerRef(), new RuntimePlayer
 			{
-				game.SendPlayerData(game.GetLocalPlayers()[0], new RuntimePlayer
-				{
-					PlayerId = _gameDataProvider.AppDataProvider.PlayerId,
-					PlayerName = _gameDataProvider.AppDataProvider.DisplayNameTrimmed,
-					Skin = info.Skin,
-					DeathMarker = info.DeathMarker,
-					PlayerLevel = info.Level,
-					PlayerTrophies = info.TotalTrophies,
-					NormalizedSpawnPosition = spawnPosition.ToFPVector2(),
-					Loadout = spawnWithloadout ? 
-						finalLoadOut.ToArray() : loadout.ReadOnlyDictionary.Values.Select(id => inventory[id]).ToArray()
-				});
-			}
-		}
-
-		private void MatchStartAnalytics()
-		{
-			_services.AnalyticsService.MatchCalls.MatchStart();
+				PlayerId = _gameDataProvider.AppDataProvider.PlayerId,
+				PlayerName = _gameDataProvider.AppDataProvider.DisplayNameTrimmed,
+				Skin = info.Skin,
+				DeathMarker = info.DeathMarker,
+				PlayerLevel = info.Level,
+				PlayerTrophies = info.TotalTrophies,
+				NormalizedSpawnPosition = spawnPosition.ToFPVector2(),
+				Loadout = spawnWithloadout ? 
+					          finalLoadOut.ToArray() : loadout.ReadOnlyDictionary.Values.Select(id => inventory[id]).ToArray()
+			});
 		}
 	}
 }

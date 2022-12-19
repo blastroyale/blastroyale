@@ -68,7 +68,8 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"match_type", _matchType},
 				{"game_mode", _gameModeId},
 				{"mutators", _mutators},
-				{"PlayFabPlayerId", _gameData.AppDataProvider.PlayerId } // must be named PlayFabPlayerId or will create error
+				{"is_spectator", IsSpectator().ToString()},
+				{"playfab_player_id", _gameData.AppDataProvider.PlayerId } // must be named PlayFabPlayerId or will create error
 			};
 			
 			_analyticsService.LogEvent(AnalyticsEvents.MatchInitiate, data);
@@ -79,6 +80,11 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		/// </summary>
 		public void MatchStart()
 		{
+			if (IsSpectator())
+			{
+				return;
+			}
+			
 			_playerNumAttacks = 0;
 			
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
@@ -125,10 +131,26 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		/// <summary>
 		/// Logs when finish the match
 		/// </summary>
-		public void MatchEnd(int totalPlayers, bool playerQuit, float matchTime, QuantumPlayerMatchData matchData)
+		public void MatchEndBRPlayerDead(QuantumGame game)
 		{
+			if (IsSpectator())
+			{
+				return;
+			}
+			
+			var f = game.Frames.Verified;
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
 			var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(room.GetMapId());
+			var localPlayerData = new QuantumPlayerMatchData(f, game.GetLocalPlayerRef());
+			var totalPlayers = 0;
+
+			for (var i = 0; i < f.PlayerCount; i++)
+			{
+				if (f.GetPlayerData(i) != null)
+				{
+					totalPlayers++;
+				}
+			}
 			
 			var data = new Dictionary<string, object>
 			{
@@ -138,11 +160,55 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"mutators", _mutators},
 				{"map_id", ((int)config.Map).ToString()},
 				{"players_left", totalPlayers.ToString()},
-				{"suicide",matchData.Data.SuicideCount.ToString()},
-				{"kills", matchData.Data.PlayersKilledCount.ToString()},
+				{"suicide",localPlayerData.Data.SuicideCount.ToString()},
+				{"kills", localPlayerData.Data.PlayersKilledCount.ToString()},
+				{"match_time", f.Time.ToString()},
+				{"player_rank", localPlayerData.PlayerRank.ToString()},
+				{"player_attacks", _playerNumAttacks.ToString()}
+			};
+			
+			_analyticsService.LogEvent(AnalyticsEvents.MatchEndBattleRoyalePlayerDead, data);
+			
+			_playerNumAttacks = 0;
+		}
+
+		/// <summary>
+		/// Logs when finish the match
+		/// </summary>
+		public void MatchEnd(QuantumGame game, bool playerQuit)
+		{
+			if (IsSpectator())
+			{
+				return;
+			}
+			
+			var f = game.Frames.Verified;
+			var room = _services.NetworkService.QuantumClient.CurrentRoom;
+			var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(room.GetMapId());
+			var localPlayerData = new QuantumPlayerMatchData(f, game.GetLocalPlayerRef());
+			var totalPlayers = 0;
+
+			for (var i = 0; i < f.PlayerCount; i++)
+			{
+				if (f.GetPlayerData(i) != null)
+				{
+					totalPlayers++;
+				}
+			}
+			
+			var data = new Dictionary<string, object>
+			{
+				{"match_id", _matchId},
+				{"match_type", _matchType},
+				{"game_mode", _gameModeId},
+				{"mutators", _mutators},
+				{"map_id", ((int)config.Map).ToString()},
+				{"players_left", totalPlayers.ToString()},
+				{"suicide",localPlayerData.Data.SuicideCount.ToString()},
+				{"kills", localPlayerData.Data.PlayersKilledCount.ToString()},
 				{"end_state", playerQuit ? "quit" : "ended"},
-				{"match_time", matchTime.ToString()},
-				{"player_rank", matchData.PlayerRank.ToString()},
+				{"match_time", f.Time.ToString()},
+				{"player_rank", localPlayerData.PlayerRank.ToString()},
 				{"player_attacks", _playerNumAttacks.ToString()}
 			};
 			
@@ -259,7 +325,11 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			
 			_analyticsService.LogEvent(AnalyticsEvents.MatchPickupAction, data, false);
 		}
-
+		
+		private bool IsSpectator()
+		{
+			return _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator();
+		}
 
 		private void TrackPlayerAttack(EventOnPlayerAttack callback)
 		{

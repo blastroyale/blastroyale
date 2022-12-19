@@ -146,7 +146,7 @@ namespace FirstLight.Game.StateMachines
 			unloadToFinal.OnEnter(OpenLoadingScreen);
 			unloadToFinal.WaitingFor(UnloadAllMatchAssets).Target(matchStateEnding);
 			
-			matchStateEnding.WaitingFor(PublishMatchStateEnding).Target(final);
+			matchStateEnding.WaitingFor(MatchStateEndTrigger).Target(final);
 			
 			final.OnEnter(DisposeMatchServices);
 			final.OnEnter(UnsubscribeEvents);
@@ -237,6 +237,8 @@ namespace FirstLight.Game.StateMachines
 		private void OnDisconnectDuringSimulation()
 		{
 			_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.Simulation;
+			
+			PublishMatchEnded(true, false);
 		}
 
 		private void CloseSwipeTransition()
@@ -407,7 +409,7 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(MatchUnloadedEvent);
 		}
 		
-		private async Task PublishMatchStateEnding()
+		private async Task MatchStateEndTrigger()
 		{
 			// Workaround to triggering statechart events on enter/exit
 			// Necessary for audio to play at correct time, but this can't be called OnEnter or OnExit, or the 
@@ -416,36 +418,28 @@ namespace FirstLight.Game.StateMachines
 			
 			await Task.Yield();
 		}
+
+		private void PublishMatchEnded(bool isDisconnected, bool isPlayerQuit)
+		{
+			_services.MessageBrokerService.Publish(new MatchEndedMessage()
+			{
+				Game = QuantumRunner.Default.Game,
+				IsDisconnected = isDisconnected,
+				IsPlayerQuit = isPlayerQuit
+			});
+		}
 		
 		private void HandleSimulationEnd(bool playerQuit)
 		{
+			PublishMatchEnded(false, playerQuit);
+			
+			_services.AnalyticsService.MatchCalls.MatchEnd(QuantumRunner.Default.Game, playerQuit);
+			
 			if (playerQuit)
 			{
 				_services.MessageBrokerService.Publish(new LeftBeforeMatchFinishedMessage());
 				StopSimulation();
 			}
-			
-			if (IsSpectator())
-			{
-				return;
-			}
-
-			var game = QuantumRunner.Default.Game;
-			var f = game.Frames.Verified;
-			var gameContainer = f.GetSingleton<GameContainer>();
-			var matchData = gameContainer.GetPlayersMatchData(f, out _);
-			var localPlayerData = matchData[game.GetLocalPlayers()[0]];
-			var totalPlayers = 0;
-
-			for (var i = 0; i < matchData.Count; i++)
-			{
-				if (matchData[i].Data.IsValid && !f.Has<BotCharacter>(matchData[i].Data.Entity))
-				{
-					totalPlayers++;
-				}
-			}
-   
-			_services.AnalyticsService.MatchCalls.MatchEnd(totalPlayers, playerQuit, f.Time.AsFloat, localPlayerData);
 		}
 		
 		private async void UnloadMatchAndTransition(IWaitActivity activity)

@@ -15,6 +15,7 @@ namespace FirstLight.Game.Messages
 	{
 		public QuantumGame Game;
 		public bool IsDisconnected;
+		public bool IsPlayerQuit;
 	}
 	public struct CoreMatchAssetsLoadedMessage : IMessage { }
 	public struct AllMatchAssetsLoadedMessage : IMessage { }

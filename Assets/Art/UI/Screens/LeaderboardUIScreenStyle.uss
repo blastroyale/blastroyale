@@ -11,6 +11,11 @@
     display: flex;
 }
 
+.leaderboard-panel--localPlayerFixed
+{
+    bottom: 205px;
+}
+
 .leaderboard-entries {
     position: absolute;
     bottom: 0;

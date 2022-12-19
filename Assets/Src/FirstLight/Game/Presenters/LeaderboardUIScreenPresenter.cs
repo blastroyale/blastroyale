@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Linq;
+using System.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
@@ -29,7 +30,7 @@ namespace FirstLight.Game.Presenters
         }
 
         [SerializeField] private VisualTreeAsset _leaderboardUIEntryAsset;
-        
+
         private LeaderboardUIEntryView _playerRankEntryRef;
         private VisualElement _leaderboardPanel;
         private VisualElement _fixedLocalPlayerHolder;
@@ -39,6 +40,7 @@ namespace FirstLight.Game.Presenters
         private IGameDataProvider _dataProvider;
 
         private ScrollView _leaderboardScrollView;
+        private int _localPlayerPos = -1;
 
         private void Awake()
         {
@@ -61,7 +63,8 @@ namespace FirstLight.Game.Presenters
             _header.homeClicked += Data.OnBackClicked;
             _leaderboardScrollView = root.Q<ScrollView>("LeaderboardScrollView").Required();
             _fixedLocalPlayerHolder = root.Q<VisualElement>("FixedLocalPlayerHolder").Required();
-            
+            _leaderboardPanel = root.Q<VisualElement>("LeaderboardPanel").Required();
+
             root.SetupClicks(_services);
         }
 
@@ -84,7 +87,8 @@ namespace FirstLight.Game.Presenters
             };
             if (error.ErrorDetails != null)
             {
-                FLog.Error(JsonConvert.SerializeObject($"Error Message: {error.ErrorMessage}; Error Details: {error.ErrorDetails}"));
+                FLog.Error(JsonConvert.SerializeObject(
+                    $"Error Message: {error.ErrorMessage}; Error Details: {error.ErrorDetails}"));
             }
 
             _services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, error.ErrorMessage,
@@ -103,6 +107,7 @@ namespace FirstLight.Game.Presenters
             NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.LeaderboardOpenError,
                 error.ErrorMessage, button);
         }
+
         private TemplateContainer AddEntry(PlayerLeaderboardEntry playerLeaderboardEntry, bool isLocalPlayer, int pos)
         {
             var newEntry = _leaderboardUIEntryAsset.Instantiate();
@@ -111,19 +116,20 @@ namespace FirstLight.Game.Presenters
             _leaderboardScrollView.Add(newEntry);
             return newEntry;
         }
-        
+
         private void OnLeaderboardTopRanksReceived(GetLeaderboardResult result)
         {
-            var localPlayerPos = -1;
             var isLocalPlayer = false;
-            var resultPos = result.Leaderboard.Count < GameConstants.Network.LEADERBOARD_TOP_RANK_AMOUNT ? result.Leaderboard.Count : GameConstants.Network.LEADERBOARD_TOP_RANK_AMOUNT;
+            var resultPos = result.Leaderboard.Count < GameConstants.Network.LEADERBOARD_TOP_RANK_AMOUNT
+                ? result.Leaderboard.Count
+                : GameConstants.Network.LEADERBOARD_TOP_RANK_AMOUNT;
 
             for (int i = 0; i < resultPos; i++)
             {
                 if (result.Leaderboard[i].PlayFabId == _dataProvider.AppDataProvider.PlayerId)
                 {
                     isLocalPlayer = true;
-                    localPlayerPos = i;
+                    _localPlayerPos = i;
                 }
                 else
                     isLocalPlayer = false;
@@ -131,39 +137,33 @@ namespace FirstLight.Game.Presenters
                 AddEntry(result.Leaderboard[i], isLocalPlayer, i);
             }
 
-            if (localPlayerPos != -1)
+            if (_localPlayerPos != -1)
             {
-                StartCoroutine(Temp(localPlayerPos));
+                StartCoroutine(RepositionScrollToLocalPlayer());
+                return;
             }
-            
 
             _services.PlayfabService.GetNeighborRankLeaderboard(GameConstants.Network.LEADERBOARD_NEIGHBOR_RANK_AMOUNT,
                 OnLeaderboardNeighborRanksReceived, OnLeaderboardRequestError);
         }
 
-        IEnumerator Temp(int localPlayerPos)
+        IEnumerator RepositionScrollToLocalPlayer()
         {
             yield return new WaitForEndOfFrame();
-            RepositionScrollToLocalPlayer(localPlayerPos);
-
-        }
-        
-        private void RepositionScrollToLocalPlayer(int localPlayerPos)
-        {
-            _leaderboardScrollView.ScrollTo(_leaderboardScrollView.contentContainer.hierarchy.ElementAt(localPlayerPos));
+            _leaderboardScrollView.ScrollTo(
+                _leaderboardScrollView.contentContainer.hierarchy.ElementAt(_localPlayerPos));
+            yield return new WaitForEndOfFrame();
             _leaderboardScrollView.scrollOffset = new Vector2(_leaderboardScrollView.scrollOffset.x,
                 _leaderboardScrollView.scrollOffset.y + _leaderboardScrollView.contentViewport.layout.height / 2);
         }
 
         private void OnLeaderboardNeighborRanksReceived(GetLeaderboardAroundPlayerResult result)
         {
-            var localPlayer = result.Leaderboard.First(x => x.PlayFabId == PlayFabSettings.staticPlayer.PlayFabId);
-
             var newEntry = _leaderboardUIEntryAsset.Instantiate();
             newEntry.AttachView(this, out LeaderboardUIEntryView view);
-            view.SetData(localPlayer, true,  localPlayer.Position);
+            view.SetData(result.Leaderboard[0], true);
+            _leaderboardPanel.AddToClassList("leaderboard-panel--localPlayerFixed");
             _fixedLocalPlayerHolder.Add(newEntry);
         }
-
     }
 }

@@ -36,13 +36,14 @@ namespace FirstLight.Game.Views
 			_playerName = _root.Q<Label>("PlayerName").Required();
 			_trophies = _root.Q<Label>("TrophiesAmount").Required();
 		}
-		
+
 		/// <summary>
 		/// Sets the data needed to fill leaderboard entry's data
 		/// </summary>
 		/// <param name="data">All the match data from the player we're showing</param>
 		/// <param name="isLocalPlayer">If this is the local player</param>
-		public void SetData(PlayerLeaderboardEntry data, bool isLocalPlayer, int posInLeaderboardContainer)
+		/// <param name="posInLeaderboardContainer">Position on leaderboard to animate the entry. 10 is the expected position of fixed player if not on top leaderboard</param>
+		public void SetData(PlayerLeaderboardEntry data, bool isLocalPlayer, int posInLeaderboardContainer = 9)
 		{
 			_leaderboardUIEntry.RemoveModifiers();
 			

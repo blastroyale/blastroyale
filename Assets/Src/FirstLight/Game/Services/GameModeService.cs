@@ -1,16 +1,39 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
-using FirstLight.Game.Logic;
-using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 
 namespace FirstLight.Game.Services
 {
+
+	public struct GameModeInfo
+	{
+		public GameModeRotationConfig.GameModeEntry Entry;
+		public DateTime EndTime;
+
+		public bool IsFixed => EndTime == default || EndTime.Ticks == 0;
+
+		public GameModeInfo(GameModeRotationConfig.GameModeEntry entry, DateTime endTime = default)
+		{
+			Entry = entry;
+			EndTime = endTime;
+		}
+
+		public GameModeInfo(string gameModeId, MatchType matchType, List<string> mutators, DateTime endTime = default)
+		{
+			Entry = new GameModeRotationConfig.GameModeEntry(gameModeId, matchType, mutators);
+			EndTime = endTime;
+		}
+
+		public override string ToString()
+		{
+			return $"Entry({Entry}), EndTime({EndTime}), IsFixed({IsFixed})";
+		}
+	}
+	
 	/// <summary>
 	/// Stores and provides the currently selected GameMode / MapID to play and provides
 	/// rotational (time limited) game modes.
@@ -41,31 +64,6 @@ namespace FirstLight.Game.Services
 		bool IsRotationGameModeValid(GameModeRotationConfig.GameModeEntry gameMode);
 	}
 
-	public struct GameModeInfo
-	{
-		public GameModeRotationConfig.GameModeEntry Entry;
-		public DateTime EndTime;
-
-		public bool IsFixed => EndTime == default || EndTime.Ticks == 0;
-
-		public GameModeInfo(GameModeRotationConfig.GameModeEntry entry, DateTime endTime = default)
-		{
-			Entry = entry;
-			EndTime = endTime;
-		}
-
-		public GameModeInfo(string gameModeId, MatchType matchType, List<string> mutators, DateTime endTime = default)
-		{
-			Entry = new GameModeRotationConfig.GameModeEntry(gameModeId, matchType, mutators);
-			EndTime = endTime;
-		}
-
-		public override string ToString()
-		{
-			return $"Entry({Entry}), EndTime({EndTime}), IsFixed({IsFixed})";
-		}
-	}
-
 	/// <inheritdoc cref="IGameModeService"/>
 	public class GameModeService : IGameModeService
 	{
@@ -77,21 +75,6 @@ namespace FirstLight.Game.Services
 		public IObservableField<GameModeInfo> SelectedGameMode { get; }
 
 		public IObservableListReader<GameModeInfo> Slots => _slots;
-		public bool IsRotationGameModeValid(GameModeRotationConfig.GameModeEntry gameMode)
-		{
-			var config = _configsProvider.GetConfig<GameModeRotationConfig>();
-			foreach (var slot in config.Slots)
-			{
-				foreach (var entry in slot.Entries)
-				{
-					if (gameMode == entry)
-					{
-						return true;
-					}
-				}
-			}
-			return false;
-		}
 
 		public GameModeService(IConfigsProvider configsProvider, IThreadService threadService)
 		{
@@ -117,6 +100,22 @@ namespace FirstLight.Game.Services
 			}
 
 			RefreshGameModes(true);
+		}
+		
+		public bool IsRotationGameModeValid(GameModeRotationConfig.GameModeEntry gameMode)
+		{
+			var config = _configsProvider.GetConfig<GameModeRotationConfig>();
+			foreach (var slot in config.Slots)
+			{
+				foreach (var entry in slot.Entries)
+				{
+					if (gameMode == entry)
+					{
+						return true;
+					}
+				}
+			}
+			return false;
 		}
 
 		private void RefreshGameModes(bool forceAll)

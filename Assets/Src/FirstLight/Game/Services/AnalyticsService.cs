@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using Firebase.Analytics;
+using FirstLight.FLogger;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Services;
+using FirstLight.UiService;
 using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ClientModels;
@@ -24,15 +26,19 @@ namespace FirstLight.Game.Services
 		public static readonly string PlayerRegister = "player_register";
 		public static readonly string PlayerLogin = "player_login";
 		public static readonly string GameLoaded = "game_loaded";
+		public static readonly string ScreenView = "screen_view";
+		public static readonly string ButtonAction = "button_action";
 		public static readonly string MatchInitiate = "match_initiate";
 		public static readonly string MatchStart = "match_start";
 		public static readonly string MatchEnd = "match_end";
+		public static readonly string MatchEndBattleRoyalePlayerDead = "match_end_br_player_dead";
 		public static readonly string MatchKillAction = "match_kill_action";
 		public static readonly string MatchPickupAction = "match_pickup_action";
 		public static readonly string MatchChestOpenAction = "match_chest_open_action";
 		public static readonly string MatchChestItemDrop = "match_chest_item_drop";
 		public static readonly string Error = "error";
 		public static readonly string Purchase = "purchase";
+		public static readonly string ItemEquipAction = "item_equip_action";
 	}
 	
 	/// <summary>
@@ -40,10 +46,18 @@ namespace FirstLight.Game.Services
 	/// </summary>
 	public interface IAnalyticsService
 	{
+		/// <inheritdoc cref="AnalyticsCallsSession"/>
 		public AnalyticsCallsSession SessionCalls { get; }
+		/// <inheritdoc cref="AnalyticsCallsMatch"/>
 		public AnalyticsCallsMatch MatchCalls { get; }
+		/// <inheritdoc cref="AnalyticsEconomy"/>
 		public AnalyticsEconomy EconomyCalls { get; }
+		/// <inheritdoc cref="AnalyticsCallsErrors"/>
 		public AnalyticsCallsErrors ErrorsCalls { get; }
+		/// <inheritdoc cref="AnalyticsCallsUi"/>
+		public AnalyticsCallsUi UiCalls { get; }
+		/// <inheritdoc cref="AnalyticsCallsEquipment"/>
+		public AnalyticsCallsEquipment EquipmentCalls { get; }
 
 		/// <summary>
 		/// Logs an analytics event with the given <paramref name="eventName"/>.
@@ -65,83 +79,96 @@ namespace FirstLight.Game.Services
 	/// <inheritdoc />
 	public class AnalyticsService : IAnalyticsService
 	{
-		public AnalyticsCallsSession SessionCalls { get; private set; }
-		public AnalyticsCallsMatch MatchCalls { get; private set; }
-		public AnalyticsEconomy EconomyCalls { get; private set; }
-		public AnalyticsCallsErrors ErrorsCalls { get; private set; }
+		public AnalyticsCallsSession SessionCalls { get; }
+		public AnalyticsCallsMatch MatchCalls { get; }
+		public AnalyticsEconomy EconomyCalls { get; }
+		public AnalyticsCallsErrors ErrorsCalls { get; }
+		public AnalyticsCallsUi UiCalls { get; }
+		public AnalyticsCallsEquipment EquipmentCalls { get; }
 
 		public AnalyticsService(IGameServices services,
 		                        IGameDataProvider gameDataProvider,
-		                        IDataProvider dataProvider)
+		                        IDataProvider dataProvider,
+								IUiService uiService)
 		{
-			SessionCalls = new AnalyticsCallsSession(this, services, dataProvider, gameDataProvider);
+			SessionCalls = new AnalyticsCallsSession(this, services, gameDataProvider);
 			MatchCalls = new AnalyticsCallsMatch(this, services, gameDataProvider);
 			EconomyCalls = new AnalyticsEconomy(this);
 			ErrorsCalls = new AnalyticsCallsErrors(this);
+			UiCalls = new AnalyticsCallsUi(this, uiService);
+			EquipmentCalls = new AnalyticsCallsEquipment(this, services);
 		}
 
 		/// <inheritdoc />
 		public void LogEvent(string eventName, Dictionary<string, object> parameters = null, bool isCriticalEvent = true)
 		{
-			//Debug.Log("Analytics event "+eventName+": "+JsonConvert.SerializeObject(parameters));
-   
-			//PlayFab Analytics
-			if (PlayFabSettings.staticPlayer.IsClientLoggedIn())
+			try
 			{
-				var request = new WriteClientPlayerEventRequest { EventName = eventName, Body = parameters };
-				PlayFabClientAPI.WritePlayerEvent(request, null, null);
-			}
-   
-			if (parameters == null)
-			{
-				// Firebase
-				FirebaseAnalytics.LogEvent(eventName);
-				// Unity
-				Analytics.CustomEvent(eventName);
-				return;
-			}
-
-			if (isCriticalEvent)
-			{
-				SingularSDK.Event(parameters, eventName);
-			}
-   
-			// Prepare parameters for Unity and Firebase
-			var unityParams = new Dictionary<string, object>();
-			var firebaseParams = new List<Parameter>(parameters.Count);
-			int count = 0;
-			foreach(var parameter in parameters)
-			{
-				if (parameter.Value == null)
+				//PlayFab Analytics
+				if (PlayFabSettings.staticPlayer.IsClientLoggedIn())
 				{
-					Debug.LogWarning("Analytics null parameter '"+parameter.Key+"' in event '"+eventName+"'");
-					continue;
-				}
-				
-				// Unity (max 10 params)
-				if (count++ < 10)
-				{
-					unityParams[parameter.Key] = parameter.Value;
+					var request = new WriteClientPlayerEventRequest {EventName = eventName, Body = parameters};
+					PlayFabClientAPI.WritePlayerEvent(request, null, null);
 				}
 
-				switch (parameter.Value)
+				if (parameters == null)
 				{
 					// Firebase
-					case long or uint or int or byte:
-						firebaseParams.Add(new Parameter(parameter.Key, Convert.ToInt64(parameter.Value)));
-						break;
-					case double or float:
-						firebaseParams.Add(new Parameter(parameter.Key, Convert.ToDouble(parameter.Value)));
-						break;
-					default:
-						firebaseParams.Add(new Parameter(parameter.Key, parameter.Value.ToString()));
-						break;
+					FirebaseAnalytics.LogEvent(eventName);
+					// Unity
+					Analytics.CustomEvent(eventName);
+					return;
 				}
+
+				if (isCriticalEvent)
+				{
+					SingularSDK.Event(parameters, eventName);
+				}
+
+				// Prepare parameters for Unity and Firebase
+				var unityParams = new Dictionary<string, object>();
+				var firebaseParams = new List<Parameter>(parameters.Count);
+				int count = 0;
+				foreach (var parameter in parameters)
+				{
+					if (parameter.Value == null)
+					{
+						Debug.LogWarning(
+							"Analytics null parameter '" + parameter.Key + "' in event '" + eventName + "'");
+						continue;
+					}
+
+					// Unity (max 10 params)
+					if (count++ < 10)
+					{
+						unityParams.Add(parameter.Key, parameter.Value);
+					}
+
+					switch (parameter.Value)
+					{
+						// Firebase
+						case long or uint or int or byte:
+							firebaseParams.Add(new Parameter(parameter.Key, Convert.ToInt64(parameter.Value)));
+							break;
+						case double or float:
+							firebaseParams.Add(new Parameter(parameter.Key, Convert.ToDouble(parameter.Value)));
+							break;
+						default:
+							firebaseParams.Add(new Parameter(parameter.Key, parameter.Value.ToString()));
+							break;
+					}
+				}
+
+				// Unity
+				Analytics.CustomEvent(eventName, unityParams);
+				// Firebase
+				FirebaseAnalytics.LogEvent(eventName, firebaseParams.ToArray());
 			}
-			// Unity
-			Analytics.CustomEvent(eventName, unityParams);
-			// Firebase
-			FirebaseAnalytics.LogEvent(eventName, firebaseParams.ToArray());
+			catch (Exception e)
+			{
+				FLog.Error("Error while sending analytics: "+e.Message);
+				Debug.LogException(e);
+			}
 		}
 
 		/// <inheritdoc />

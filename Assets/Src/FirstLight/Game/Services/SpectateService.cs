@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using FirstLight.FLogger;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
 using Quantum;
@@ -61,6 +60,8 @@ namespace FirstLight.Game.Services
 			_gameServices = gameServices;
 			_matchServices = matchServices;
 			_playerVisionRange = gameServices.ConfigsProvider.GetConfig<QuantumGameConfig>().PlayerVisionRange;
+			
+			_gameServices.MessageBrokerService.Subscribe<MatchSimulationEndedMessage>(OnMatchSimulationEnded);
 
 			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnQuantumUpdateView);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
@@ -70,6 +71,7 @@ namespace FirstLight.Game.Services
 
 		public void Dispose()
 		{
+			_gameServices?.MessageBrokerService?.UnsubscribeAll(this);
 			_spectatedPlayer.StopObservingAll();
 			QuantumCallback.UnsubscribeListener(this);
 			QuantumEvent.UnsubscribeListener(this);
@@ -96,27 +98,14 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-		private void OnQuantumUpdateView(CallbackUpdateView callback)
+		public void OnMatchEnded(QuantumGame game, bool isDisconnected)
 		{
-			// This stupidity along with all the TryGetNextPlayer nonsense is needed because apparently Quantum lags
-			// behind when we're in Spectate mode, meaning that we aren't able to fetch the initial spectated player
-			// on the first frame the same way we can in normal mode. SMH.
-			if (!_spectatedPlayer.Value.Entity.IsValid && 
-			    _gameServices.NetworkService.QuantumClient.LocalPlayer.IsSpectator() && 
-			    TryGetNextPlayer(callback.Game, out var player))
-			{
-				SetSpectatedEntity(player.Key, player.Value, true);
-			}
-
-			if (callback.Game.Frames.Predicted.Exists(_spectatedPlayer.Value.Entity))
-			{
-				callback.Game.SetPredictionArea(_spectatedPlayer.Value.Transform.position.ToFPVector3(),
-				                                _playerVisionRange);
-			}
+			SetSpectatedEntity(EntityRef.None, PlayerRef.None, true);
 		}
 
-		public void OnMatchEnded()
+		public void OnMatchSimulationEnded(MatchSimulationEndedMessage message)
 		{
+			SetSpectatedEntity(EntityRef.None, PlayerRef.None, true);
 		}
 
 		public void SwipeLeft()
@@ -127,6 +116,26 @@ namespace FirstLight.Game.Services
 		public void SwipeRight()
 		{
 			SwipeRight(QuantumRunner.Default.Game);
+		}
+
+		private unsafe void OnQuantumUpdateView(CallbackUpdateView callback)
+		{
+			var game = callback.Game;
+			
+			// This stupidity along with all the TryGetNextPlayer nonsense is needed because apparently Quantum lags
+			// behind when we're in Spectate mode, meaning that we aren't able to fetch the initial spectated player
+			// on the first frame the same way we can in normal mode. SMH.
+			if (!_spectatedPlayer.Value.Entity.IsValid && 
+			    _gameServices.NetworkService.QuantumClient.LocalPlayer.IsSpectator() && 
+			    TryGetNextPlayer(game, out var player))
+			{
+				SetSpectatedEntity(player.Key, player.Value, true);
+			}
+
+			if (game.Frames.Predicted.Unsafe.TryGetPointer<Transform3D>(_spectatedPlayer.Value.Entity, out var transform3D))
+			{
+				game.SetPredictionArea(transform3D->Position, _playerVisionRange);
+			}
 		}
 
 		private void SwipeLeft(QuantumGame game)

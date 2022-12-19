@@ -16,31 +16,31 @@ MonoBehaviour:
   - Placement: 1
     Rewards:
       _keyData: 0c0000001a000000
-      _valueData: 6400000096000000
+      _valueData: 6400000078000000
   - Placement: 2
     Rewards:
       _keyData: 0c0000001a000000
-      _valueData: 550000008c000000
+      _valueData: 5500000073000000
   - Placement: 3
     Rewards:
       _keyData: 0c0000001a000000
-      _valueData: 4600000078000000
+      _valueData: 460000006e000000
   - Placement: 4
     Rewards:
       _keyData: 0c0000001a000000
-      _valueData: 3c00000073000000
+      _valueData: 3c00000069000000
   - Placement: 5
     Rewards:
       _keyData: 0c0000001a000000
-      _valueData: 340000006e000000
+      _valueData: 3400000069000000
   - Placement: 6
     Rewards:
       _keyData: 0c0000001a000000
-      _valueData: 3000000069000000
+      _valueData: 3000000064000000
   - Placement: 7
     Rewards:
       _keyData: 0c0000001a000000
-      _valueData: 2c00000069000000
+      _valueData: 2c00000064000000
   - Placement: 8
     Rewards:
       _keyData: 0c0000001a000000

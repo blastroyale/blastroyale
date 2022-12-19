@@ -614,8 +614,6 @@ public class SingularSDK : MonoBehaviour {
 	  string, int, long, float, double, null, ArrayList, Dictionary<String,object>
 	*/
     public static void Event(Dictionary<string, object> args, string name) {
-        Debug.Log(string.Format("SingularSDK Event: args JSON={0}", JsonConvert.SerializeObject(args, Formatting.None)));
-
         if (!Initialized)
             return;
 

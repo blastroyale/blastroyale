@@ -19,7 +19,9 @@ struct Equipment
 	UInt32 Level;
 	UInt32 Generation;
 	UInt32 ReplicationCounter;
-	UInt32 Durability;
+	UInt64 TotalRestoredDurability;
+	
+	Int64 LastRepairTimestamp;
 }
 
 enum EquipmentEdition

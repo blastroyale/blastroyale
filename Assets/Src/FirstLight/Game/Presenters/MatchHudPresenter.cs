@@ -128,7 +128,7 @@ namespace FirstLight.Game.Presenters
 			var container = frame.GetSingleton<GameContainer>();
 			var playerData = container.GetPlayersMatchData(frame, out _);
 			
-			_standings.UpdateStandings(playerData);
+			_standings.UpdateStandings(playerData, QuantumRunner.Default.Game.GetLocalPlayers()[0]);
 			_standings.gameObject.SetActive(true);
 		}
 	}

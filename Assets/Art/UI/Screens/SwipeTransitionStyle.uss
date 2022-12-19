@@ -1,0 +1,95 @@
+.hidden {
+    display: flex;
+    opacity: 1;
+}
+
+.swipe-parent {
+    height: 100%;
+    align-items: center;
+    transition-property: translate;
+    transition-duration: 1s;
+    translate: 0 0;
+    transition-timing-function: ease-out;
+    justify-content: center;
+    transition-delay: 0s;
+}
+
+.red-element {
+    width: 200%;
+    height: 100%;
+    background-image: url('project://database/Assets/Art/UI/Sprites/SwipeTransition/SwipeAnimation.svg?fileID=7388822144124034973&guid=21fbdc33fbe8b47fe8bc0991228a76e2&type=3#SwipeAnimation');
+    position: absolute;
+    -unity-background-image-tint-color: rgb(216, 75, 121);
+}
+
+.yellow-element {
+    width: 300%;
+    height: 150%;
+    background-image: url('project://database/Assets/Art/UI/Sprites/SwipeTransition/SwipeAnimation.svg?fileID=7388822144124034973&guid=21fbdc33fbe8b47fe8bc0991228a76e2&type=3#SwipeAnimation');
+    position: absolute;
+    -unity-background-image-tint-color: rgb(248, 199, 46);
+}
+
+.blue-element {
+    width: 600%;
+    height: 300%;
+    background-image: url('project://database/Assets/Art/UI/Sprites/SwipeTransition/SwipeAnimation.svg?fileID=7388822144124034973&guid=21fbdc33fbe8b47fe8bc0991228a76e2&type=3#SwipeAnimation');
+    position: absolute;
+    -unity-background-image-tint-color: rgb(75, 216, 214);
+    opacity: 1;
+}
+
+.message {
+    position: absolute;
+    -unity-font-definition: var(--font-italic);
+    font-size: 45px;
+    -unity-font-style: bold;
+    color: rgb(31, 41, 117);
+    translate: 0 75px;
+    transition-property: translate, opacity;
+    transition-duration: 0.3s, 0.3s;
+    transition-delay: 1s, 1s;
+}
+
+.badge {
+    translate: 0 -50px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/SwipeTransition/Badge.png?fileID=21300000&guid=afe2f5ca9ef9649788021c933faddf0c&type=3#Badge');
+    width: 105px;
+    height: 90px;
+    scale: 1 1;
+    transition-property: scale, opacity;
+    transition-duration: 0.3s, 0.3s;
+    transition-delay: 1s, 1s;
+    opacity: 1;
+}
+
+.hidden-start.swipe-parent {
+    translate: 6500px 0;
+    transition-property: translate;
+    transition-duration: 1s;
+    transition-timing-function: ease-out;
+    transition-delay: 0s;
+}
+
+.hidden-start .message {
+    translate: -150px 75px;
+    transition-property: translate, opacity;
+    transition-duration: 0.3s, 0.3s;
+    transition-delay: 1s, 1s;
+    opacity: 0;
+}
+
+.hidden-start .badge {
+    scale: 0.1 0.5;
+    transition-property: scale, opacity;
+    transition-duration: 0.67s, 0.67s;
+    transition-delay: 1s, 1s;
+    opacity: 0;
+}
+
+.hidden-end.swipe-parent {
+    translate: -8500px 0;
+    transition-property: translate;
+    transition-duration: 1s;
+    transition-timing-function: ease-out;
+}

@@ -106,7 +106,6 @@ namespace FirstLight.Game.StateMachines
 			var frame = game.Frames.Verified;
 			var container = frame.GetSingleton<GameContainer>();
 			var killsLeftForLeader = container.TargetProgress - container.CurrentProgress;
-			var matchData = container.GetPlayersMatchData(frame, out var leader);
 			
 			// Kills left announcer
 			if (!_killsLeftSfxPlayed3 && killsLeftForLeader == 3)
@@ -122,7 +121,7 @@ namespace FirstLight.Game.StateMachines
 
 			if (!IsSpectator())
 			{
-				var localPlayerData = matchData[game.GetLocalPlayers()[0]];
+				var localPlayerData = callback.PlayersMatchData[game.GetLocalPlayerRef()];
 				
 				// Leaderboard announcer
 				if (_localPlayerLastRank != 1 && localPlayerData.PlayerRank == 1

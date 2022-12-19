@@ -20,7 +20,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ContainerApp\ContainerApp.csproj" />
       <ProjectReference Include="..\TestUnit\TestUnit.csproj" />
     </ItemGroup>
 

@@ -4,6 +4,7 @@ using PlayFab.SharedModels;
 using System;
 using System.Collections;
 using System.IO;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -223,6 +224,7 @@ namespace PlayFab.Internal
             }
             catch (Exception e)
             {
+                Debug.LogError("Error when doing request "+reqContainer.FullUrl);
                 Debug.LogException(e);
             }
         }

@@ -6,6 +6,7 @@ using FirstLight.Game.Utils;
 using FirstLight.NotificationService;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
+using FirstLight.UiService;
 using UnityEngine;
 
 namespace FirstLight.Game.Services
@@ -86,6 +87,9 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc cref="IGameModeService"/>
 		public IGameModeService GameModeService { get; }
 		
+		/// <inheritdoc cref="IMatchmakingService"/>
+		public IMatchmakingService MatchmakingService { get; }
+		
 		/// <inheritdoc cref="IIAPService"/>
 		public IIAPService IAPService { get; }
 		
@@ -125,6 +129,8 @@ namespace FirstLight.Game.Services
 		public IThreadService ThreadService { get; }
 		public IHelpdeskService HelpdeskService { get; }
 		public IGameModeService GameModeService { get; }
+		
+		public IMatchmakingService MatchmakingService { get; }
 		public IIAPService IAPService { get; }
 		public string QuitReason { get; set; }
 
@@ -133,10 +139,10 @@ namespace FirstLight.Game.Services
 		                    IGameLogic gameLogic,
 		                    IGenericDialogService genericDialogService,
 		                    IAssetResolverService assetResolverService,
-		                    IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService)
+		                    IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService, IUiService uiService)
 		{
 			NetworkService = networkService;
-			AnalyticsService = new AnalyticsService(this, gameLogic, dataService);
+			AnalyticsService = new AnalyticsService(this, gameLogic, dataService, uiService);
 			MessageBrokerService = messageBrokerService;
 			TimeService = timeService;
 			DataSaver = dataService;
@@ -146,12 +152,13 @@ namespace FirstLight.Game.Services
 			AudioFxService = audioFxService;
 			VfxService = vfxService;
 
+			MatchmakingService = new MatchmakingService();
 			ThreadService = new ThreadService();
 			HelpdeskService = new HelpdeskService();
 			GameModeService = new GameModeService(ConfigsProvider, ThreadService);
 			GuidService = new GuidService();
 			PlayfabService = new PlayfabService(gameLogic, messageBrokerService, GameConstants.Network.LEADERBOARD_LADDER_NAME);
-			CommandService = new GameCommandService(PlayfabService, gameLogic, dataService, this, networkService);
+			CommandService = new GameCommandService(PlayfabService, gameLogic, dataService, this);
 			PoolService = new PoolService();
 			TickService = new TickService();
 			CoroutineService = new CoroutineService();

@@ -129,6 +129,14 @@ namespace FirstLight.Game.Services
 			base.DestroyEntityView(game, view);
 		}
 
+		protected override void DisableMapEntityInstance(EntityView instance)
+		{
+			if (!instance.IsDestroyed())
+			{
+				base.DisableMapEntityInstance(instance);
+			}
+		}
+
 		private async void SpawnDeathMarker(GameId marker, Vector3 position)
 		{
 			var obj = await _gameServices.AssetResolverService.RequestAsset<GameId, GameObject>(marker);

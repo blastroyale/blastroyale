@@ -28,8 +28,8 @@ namespace FirstLight.Game.StateMachines
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private readonly Dictionary<PlayerRef, Pair<int, int>> _killsDictionary = new();
 
-		public DeathmatchState(IGameDataProvider gameDataProvider, IGameServices services, IGameUiService uiService,
-		                       Action<IStatechartEvent> statechartTrigger)
+		public DeathmatchState(IGameDataProvider gameDataProvider, IGameServices services, 
+							   IGameUiService uiService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_gameDataProvider = gameDataProvider;
 			_services = services;
@@ -57,8 +57,7 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(spectateCheck);
 			initial.OnExit(SubscribeEvents);
 			initial.OnExit(_killsDictionary.Clear);
-			initial.OnExit(CloseMatchmakingScreen);
-			
+
 			spectateCheck.Transition().Condition(IsSpectator).Target(spectating);
 			spectateCheck.Transition().Target(resyncCheck);
 			
@@ -148,8 +147,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
-			var killerData = callback.PlayersMatchData.Find(data => data.Data.Player.Equals(callback.PlayerKiller));
-			var deadData = callback.PlayersMatchData.Find(data => data.Data.Player.Equals(callback.PlayerDead));
+			var killerData = callback.PlayersMatchData[callback.PlayerKiller];
+			var deadData = callback.PlayersMatchData[callback.PlayerDead];
 
 			var frameContext = callback.Game.Frames.Verified.Context;
 			var deadLocalPlayer = frameContext.IsLocalPlayer(deadData.Data.Player);
@@ -173,17 +172,17 @@ namespace FirstLight.Game.StateMachines
 				_killsDictionary[recordName] = recordPair;
 			}
 		}
-		
-		private async void OpenSpectateHud()
+
+		private void OpenSpectateHud()
 		{
-			await _uiService.OpenUiAsync<SpectateHudPresenter>();
-			
+			_uiService.OpenScreen<SpectateScreenPresenter, SpectateScreenPresenter.StateData>(new SpectateScreenPresenter.StateData());
+
 			_services.MessageBrokerService.Publish(new SpectateStartedMessage());
 		}
 
 		private void CloseSpectateHud()
 		{
-			_uiService.CloseUi<SpectateHudPresenter>();
+			_uiService.CloseUi<SpectateScreenPresenter>();
 		}
 
 		private void OpenControlsHud()
@@ -219,14 +218,6 @@ namespace FirstLight.Game.StateMachines
 		private void CloseKilledHud()
 		{
 			_uiService.CloseUi<DeathmatchDeadScreenPresenter>();
-		}
-		
-		private void CloseMatchmakingScreen()
-		{
-			if (_uiService.HasUiPresenter<MatchmakingLoadingScreenPresenter>())
-			{
-				_uiService.CloseUi<MatchmakingLoadingScreenPresenter>(true);
-			}
 		}
 
 		private async Task Countdown()

@@ -52,3 +52,7 @@ LocalizedButton {
     display: none;
     transition-duration: 0.3s;
 }
+
+#Header {
+    background-color: rgb(128, 87, 227);
+}

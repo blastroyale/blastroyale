@@ -47,15 +47,6 @@ namespace FirstLight.Game.Services
 			QuantumCallback.SubscribeManual<CallbackGameDestroyed>(this, OnQuantumGameDestroyed);
 		}
 
-		private void OnQuantumGameDestroyed(CallbackGameDestroyed callback)
-		{
-			_lastCapturedSnapshot = new FrameSnapshot()
-			{
-				SnapshotBytes = callback.Game.Frames.Verified.Serialize(DeterministicFrameSerializeMode.Blit),
-				SnapshotNumber = callback.Game.Frames.Verified.Number
-			};
-		}
-
 		/// <inheritdoc />
 		public FrameSnapshot GetLastStoredMatchSnapshot()
 		{
@@ -73,11 +64,22 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc />
 		public void OnMatchStarted(QuantumGame game, bool isReconnect)
 		{
+			// Do Nothing
 		}
 
 		/// <inheritdoc />
-		public void OnMatchEnded()
+		public void OnMatchEnded(QuantumGame game, bool isDisconnected)
 		{
+			// Do Nothing
+		}
+
+		private void OnQuantumGameDestroyed(CallbackGameDestroyed callback)
+		{
+			_lastCapturedSnapshot = new FrameSnapshot()
+			{
+				SnapshotBytes = callback.Game.Frames.Verified.Serialize(DeterministicFrameSerializeMode.Blit),
+				SnapshotNumber = callback.Game.Frames.Verified.Number
+			};
 		}
 	}
 }

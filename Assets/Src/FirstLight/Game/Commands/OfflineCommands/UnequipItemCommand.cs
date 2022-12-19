@@ -16,7 +16,6 @@ namespace FirstLight.Game.Commands.OfflineCommands
 
 		public CommandExecutionMode ExecutionMode() => CommandExecutionMode.ClientOnly;
 
-
 		/// <inheritdoc />
 		public void Execute(CommandExecutionContext ctx)
 		{

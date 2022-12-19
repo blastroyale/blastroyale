@@ -5,22 +5,20 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using FirstLight.Game.Configs;
-using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Input;
 using FirstLight.Game.UIElements;
-using FirstLight.Services;
 using I2.Loc;
+using Photon.Deterministic;
 using Photon.Realtime;
+using PlayFab.MultiplayerModels;
 using Quantum;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Playables;
 using UnityEngine.UIElements;
 using EventBase = Quantum.EventBase;
-using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Utils
 {
@@ -52,6 +50,35 @@ namespace FirstLight.Game.Utils
 			int appendedNumberAmount = GameConstants.Data.PLAYER_NAME_APPENDED_NUMBERS;
 			return playerName.Remove(playerName.Length - appendedNumberAmount, appendedNumberAmount);
 		}
+		
+		/// <summary>
+		/// Gets the translation for the given<paramref name="strategy"/>
+		/// </summary>
+		public static string GetTranslation(this GameCompletionStrategy strategy)
+		{
+			switch (strategy)
+			{
+				case GameCompletionStrategy.Never:
+					return "";
+				
+				case GameCompletionStrategy.EveryoneDead:
+					return ScriptLocalization.UITMatchmaking.br_mode_desc;
+				
+				case GameCompletionStrategy.KillCount:
+					return ScriptLocalization.UITMatchmaking.dm_mode_desc;
+				
+				default:
+					return "";
+			}
+		}
+		
+		/// <summary>
+		/// Requests the localized text representing the given <paramref name="gameId"/> as a string
+		/// </summary>
+		public static string GetTranslationGameIdString(this string gameId)
+		{
+			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.GameIds)}/{gameId}");
+		}
 
 		/// <summary>
 		/// Requests the localized text representing the given <paramref name="stat"/>
@@ -68,6 +95,14 @@ namespace FirstLight.Game.Utils
 		{
 			return LocalizationManager.GetTranslation(id.GetTranslationTerm());
 		}
+		
+		/// <summary>
+		/// Get's the translation string of the given <paramref name="id"/> + Description;
+		/// </summary>
+		public static string GetTranslationDescription(this GameId id)
+		{
+			return LocalizationManager.GetTranslation(id.GetTranslationTerm() + "Description");
+		}
 
 		/// <summary>
 		/// Get's the translation string of the given <paramref name="id"/>
@@ -82,7 +117,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static string GetTranslation(this EquipmentStatType stat)
 		{
-			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.General)}/{stat.ToString()}");
+			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.General)}/{stat.ToString()}").ToUpperInvariant();
 		}
 
 		/// <summary>
@@ -100,13 +135,21 @@ namespace FirstLight.Game.Utils
 		{
 			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.GameIds)}/{id.ToString()}");
 		}
-
+		
 		/// <summary>
 		/// Gets the translation string of the given <paramref name="group"/>
 		/// </summary>
 		public static string GetTranslation(this GameIdGroup group)
 		{
 			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.GameIds)}/{group.ToString()}");
+		}
+		
+		/// <summary>
+		/// Gets the translation for  of the given <paramref name="group"/>
+		/// </summary>
+		public static string GetMapDropPointTranslation(this string dropPointName)
+		{
+			return LocalizationManager.GetTranslation($"MapDropPoints/{dropPointName}");
 		}
 		
 		/// <summary>
@@ -314,7 +357,7 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static string GetPlayerName(this QuantumPlayerMatchData data)
 		{
-			if (data.Data.IsBot)
+			if (data.IsBot)
 			{
 				return GetBotName(data.PlayerName);
 			}
@@ -400,9 +443,17 @@ namespace FirstLight.Game.Utils
 		}
 		
 		/// <summary>
+		/// Obtains the current dropzone pos+rot vector3 for the given <paramref name="room"/>
+		/// </summary>
+		public static Vector3 GetDropzonePosRot(this Room room)
+		{
+			return (Vector3) room.CustomProperties[GameConstants.Network.DROP_ZONE_POS_ROT];
+		}
+		
+		/// <summary>
 		/// Obtains the current room creation time (created with UTC.Now)
 		/// </summary>
-		public static string StripRoomCommitLock(this string roomName)
+		public static string TrimRoomCommitLock(this string roomName)
 		{
 			return roomName.Replace(NetworkUtils.RoomCommitLockData, "");
 		}
@@ -571,6 +622,17 @@ namespace FirstLight.Game.Utils
 			
 			return localPlayers.Length == 0 ? new PlayerMatchData() : f.GetSingleton<GameContainer>().PlayersData[game.GetLocalPlayers()[0]];
 		}
+		
+		/// <summary>
+		/// Requests the <see cref="PlayerRef"/> of the current local player playing the game.
+		/// If there is no local player in the match (ex: spectator in the match), returns <see cref="PlayerRef.None"/>
+		/// </summary>
+		public static PlayerRef GetLocalPlayerRef(this QuantumGame game)
+		{
+			var localPlayers = game.GetLocalPlayers();
+   
+			return localPlayers.Length == 0 ? PlayerRef.None : localPlayers[0];
+		}
 
 		/// <summary>
 		/// Requests the <see cref="InputAction"/> that controls the input for the special in the given <paramref name="index"/>
@@ -586,12 +648,20 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
-		/// Sets ".element-hidden" class active/inactive, which sets the Display property of a VE.
+		/// Sets the Display style property of an element.
 		/// </summary>
-		public static void SetDisplayActive(this VisualElement element, bool active)
+		public static void SetDisplay(this VisualElement element, bool active)
 		{
 			// Enabling the class means that the element will become hidden
-			element.EnableInClassList(UIConstants.ELEMENT_HIDDEN, !active);
+			element.style.display = active ? DisplayStyle.Flex : DisplayStyle.None;
+		}
+
+		/// <summary>
+		/// Sets the Visibility style property of an element.
+		/// </summary>
+		public static void SetVisibility(this VisualElement element, bool visible)
+		{
+			element.style.visibility = visible ? Visibility.Visible : Visibility.Hidden;
 		}
 	}
 }

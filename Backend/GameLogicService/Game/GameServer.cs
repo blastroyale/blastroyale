@@ -17,6 +17,7 @@ using FirstLight.Server.SDK.Services;
 using IGameCommand = FirstLight.Game.Commands.IGameCommand;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
+using FirstLight.Server.SDK.Modules;
 using Newtonsoft.Json;
 
 namespace Backend.Game
@@ -81,6 +82,7 @@ public class GameServer
 				}
 			}
 			
+			ModelSerializer.SerializeToData(response, newState.GetDeltas());
 			return new BackendLogicResult()
 			{
 				Command = cmdType,

@@ -19,6 +19,7 @@ namespace FirstLight.Game.UIElements
 		/* Class names are at the top in const fields */
 		private const string UssClassName = "currency-display";
 		private const string IconUssClassName = "currency-display__icon";
+		private const string IconOutlineUssClassName = "currency-display__icon-outline";
 		private const string IconCsUssClassName = "currency-display__icon--cs";
 		private const string IconBlstUssClassName = "currency-display__icon--blst";
 		private const string IconCoinUssClassName = "currency-display__icon--coin";
@@ -29,6 +30,7 @@ namespace FirstLight.Game.UIElements
 
 		/* VisualElements created within this element */
 		private readonly VisualElement _icon;
+		private readonly VisualElement _iconOutline;
 		private readonly Label _label;
 
 		/* Services, providers etc... */
@@ -45,15 +47,27 @@ namespace FirstLight.Game.UIElements
 		{
 			AddToClassList(UssClassName);
 
+			// Icon outline
+			_iconOutline = new VisualElement();
+			_iconOutline.AddToClassList(IconOutlineUssClassName);
+			Add(_iconOutline);
+			
 			// Currency icon
 			_icon = new VisualElement();
 			_icon.AddToClassList(IconUssClassName);
-			Add(_icon);
+			_iconOutline.Add(_icon);
 
 			// Currency label
 			_label = new Label("1234");
 			_label.AddToClassList(LabelUssClassName);
 			Add(_label);
+			
+			RegisterCallback<ClickEvent>(OnClicked);
+		}
+
+		private void OnClicked(ClickEvent evt)
+		{
+			this.OpenTooltip(panel.visualTree, currency.GetTranslationDescription());
 		}
 
 		/* IUIView: Called the first time this element is initialized (on first Open) */
@@ -172,6 +186,13 @@ namespace FirstLight.Game.UIElements
 					GameId.BLST => IconBlstUssClassName,
 					GameId.CS   => IconCsUssClassName,
 					GameId.COIN   => IconCoinUssClassName,
+					_           => ""
+				});
+				cde._iconOutline.AddToClassList(cde.currency switch
+				{
+					GameId.BLST => IconBlstUssClassName,
+					GameId.CS   => IconCsUssClassName,
+					GameId.COIN => IconCoinUssClassName,
 					_           => ""
 				});
 			}

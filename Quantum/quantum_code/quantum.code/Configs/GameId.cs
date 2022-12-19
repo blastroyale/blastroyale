@@ -672,6 +672,12 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.SpecialRadar, new List<GameIdGroup>
+					{
+						GameIdGroup.Special
+					}.AsReadOnly()
+				},
+				{
 					GameId.Barrel, new List<GameIdGroup>
 					{
 						GameIdGroup.Destructible
@@ -1030,7 +1036,8 @@ namespace Quantum
 						GameId.SpecialSkyLaserBeam,
 						GameId.SpecialShieldedCharge,
 						GameId.SpecialAimingGrenade,
-						GameId.SpecialDefaultDash
+						GameId.SpecialDefaultDash,
+						GameId.SpecialRadar
 					}.AsReadOnly()
 				},
 				{

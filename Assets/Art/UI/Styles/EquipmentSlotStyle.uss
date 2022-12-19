@@ -65,18 +65,6 @@
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/NoItemButtonPressed.png?fileID=21300000&guid=7f4a1623a0e7a4ad89f807ed8323a21d&type=3#NoItemButtonPressed');
 }
 
-.equipment-slot__level {
-    -unity-font-definition: var(--font-italic);
-    position: absolute;
-    right: 10px;
-    top: -22px;
-    font-size: 33px;
-    color: rgb(255, 255, 255);
-    text-shadow: 3px 3px 0 rgb(0, 0, 0);
-    -unity-text-outline-width: 1px;
-    -unity-text-outline-color: rgb(0, 0, 0);
-}
-
 .equipment-slot__plus-rarity {
     position: absolute;
     left: 0;
@@ -91,30 +79,120 @@
 .equipment-slot__equipment-image {
     position: absolute;
     left: 0;
-    top: 5px;
-    bottom: 10px;
+    top: -10px;
+    bottom: -5px;
     width: 200px;
     -unity-background-scale-mode: scale-to-fit;
+}
+
+.equipment-slot__equipment-image--shadow {
+    left: 5px;
+    top: 10px;
+    bottom: 5px;
+    -unity-background-image-tint-color: black;
+}
+
+.equipment-slot__equipment-image--empty {
+    left: 5px;
+    top: 10px;
+    bottom: 5px;
+    scale: 1.35 1.35;
+}
+
+.equipment-slot__equipment-image--category-weapon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/WeaponEmptySlotIcon.png?fileID=21300000&guid=2242dcbd235394ffaa30eb599d68b376&type=3#WeaponEmptySlotIcon');
+}
+
+.equipment-slot__equipment-image--category-armor {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/ArmourEmptySlotIcon.png?fileID=21300000&guid=61511c97b754449238274a3cd95feb49&type=3#ArmourEmptySlotIcon');
+}
+
+.equipment-slot__equipment-image--category-amulet {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/AmuletEmptySlotIcon.png?fileID=21300000&guid=2545eacbca71a496a9d0bf7997e6bd4e&type=3#AmuletEmptySlotIcon');
+}
+
+.equipment-slot__equipment-image--category-shield {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/ShieldEmptySlotIcon.png?fileID=21300000&guid=0cbf9fde965644520b0b915ee8ada48e&type=3#ShieldEmptySlotIcon');
+}
+
+.equipment-slot__equipment-image--category-helmet {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/HelmetEmptySlotIcon.png?fileID=21300000&guid=31d84b6fb540b4b2aa56c00750dfa110&type=3#HelmetEmptySlotIcon');
 }
 
 .equipment-slot__title {
     -unity-font-definition: var(--font-italic);
     color: rgb(255, 255, 255);
     font-size: 45px;
-    height: 54px;
     -unity-text-align: middle-left;
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
     padding: 0;
     margin: 0 0 0 6px;
     -unity-text-outline-width: 1px;
     -unity-text-outline-color: rgb(0, 0, 0);
+    white-space: normal;
+    margin-left: 10px;
+    height: 70px;
 }
 
 .equipment-slot__title--name {
     position: absolute;
     left: 288px;
-    top: 23px;
-    max-width: 300px;
+    top: 13px;
+    width: 290px;
+}
+
+.equipment-slot__level {
+    -unity-font-definition: var(--font-italic);
+    color: rgb(255, 255, 255);
+    font-size: 45px;
+    -unity-text-align: middle-center;
+    text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    padding: 0;
+    margin: 0;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    white-space: normal;
+    margin-left: 10px;
+    height: 70px;
+    position: absolute;
+    left: 175px;
+    top: -33px;
+}
+
+.equipment-slot__badge-holder {
+    flex-direction: row;
+    position: absolute;
+    left: -32px;
+    top: -17px;
+}
+
+.equipment-slot__badge {
+}
+
+.equipment-slot__badge--nft {
+    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/NFTbadge.png?fileID=21300000&guid=98913c2e22bec40af85e06978ea6cc76&type=3#NFTbadge');
+    width: 74px;
+    height: 32px;
+    margin-right: 10px;
+}
+
+.equipment-slot__badge--loaned {
+    background-image: none;
+    -unity-text-align: middle-center;
+    -unity-font-definition: var(--font-italic);
+    font-size: 22px;
+    color: rgb(255, 255, 255);
+    padding: 2px 15px 0;
+    background-color: rgb(216, 75, 121);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-radius: 8px;
+    border-left-color: rgb(176, 60, 98);
+    border-right-color: rgb(176, 60, 98);
+    border-top-color: rgb(176, 60, 98);
+    border-bottom-color: rgb(176, 60, 98);
 }
 
 .equipment-slot__durability-icon {
@@ -167,7 +245,6 @@
     align-items: center;
     justify-content: center;
     flex-direction: row;
-    padding-bottom: 9px;
 }
 
 .equipment-slot--filled .equipment-slot__holder--empty {
@@ -218,35 +295,41 @@
     position: absolute;
     left: -28px;
     bottom: -12px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/Faction/faction_celestial.png?fileID=21300000&guid=b7f13aa24fe57459d95a83343cfe730f&type=3#faction_celestial');
+    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/Factions_Celestial.png?fileID=21300000&guid=662b52885d7a942288765c746039cddf&type=3#Factions_Celestial');
     width: 70px;
     height: 70px;
 }
 
 .equipment-slot__faction-icon--celestial {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/Faction/faction_celestial.png?fileID=21300000&guid=b7f13aa24fe57459d95a83343cfe730f&type=3#faction_celestial');
+    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/Factions_Chaos.png?fileID=21300000&guid=d4025c572aa98442bb0948e233ee49f4&type=3#Factions_Chaos');
 }
 
 .equipment-slot__faction-icon--chaos {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/Faction/faction_chaos.png?fileID=21300000&guid=8feceb367caac4c2bb7291a4d997829b&type=3#faction_chaos');
+    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/Factions_Chaos.png?fileID=21300000&guid=d4025c572aa98442bb0948e233ee49f4&type=3#Factions_Chaos');
 }
 
 .equipment-slot__faction-icon--dark {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/Faction/faction_dark.png?fileID=21300000&guid=af545dcf4ff2a4ca1af47e8e33e8fec6&type=3#faction_dark');
+    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/Factions_Dark.png?fileID=21300000&guid=f93e634b026144242b41b271f943a0ad&type=3#Factions_Dark');
 }
 
 .equipment-slot__faction-icon--dimensional {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/Faction/faction_dimensional.png?fileID=21300000&guid=1c48b5ef6dd844a1bb14e550e022ee30&type=3#faction_dimensional');
+    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/Factions_Dimensional.png?fileID=21300000&guid=f97f5ac30a381422ea96469c0f5088b3&type=3#Factions_Dimensional');
 }
 
 .equipment-slot__faction-icon--order {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/Faction/faction_order.png?fileID=21300000&guid=989ad99ec5ae0451496926e58b89a365&type=3#faction_order');
+    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/Factions_Order.png?fileID=21300000&guid=1587622df1ef04e148062fec0724ade1&type=3#Factions_Order');
 }
 
 .equipment-slot__faction-icon--organic {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/Faction/faction_organic.png?fileID=21300000&guid=aa7d7f9a6da0b49b1a68a50a68977bdf&type=3#faction_organic');
+    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/Factions_Organic.png?fileID=21300000&guid=16854c121d2cb4018a1735b72548b4c1&type=3#Factions_Organic');
 }
 
 .equipment-slot__faction-icon--shadow {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/Faction/faction_shadow.png?fileID=21300000&guid=08d0d668f37cf40dbbc235cd0e5f2cb9&type=3#faction_shadow');
+    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/Factions_Shadow.png?fileID=21300000&guid=f84a265cda3db4a378eeff90c26294b0&type=3#Factions_Shadow');
+}
+
+.equipment-slot__notification {
+    position: absolute;
+    top: -17px;
+    right: -13px;
 }

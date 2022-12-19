@@ -37,8 +37,11 @@ namespace Quantum
 			{
 				WeaponSlots[Constants.WEAPON_INDEX_DEFAULT].Weapon.Faction = loadoutWeapon.Faction;
 			}
-			
-			if(f.Context.GameModeConfig.SpawnWithGear || f.Context.GameModeConfig.SpawnWithWeapon)
+
+			var config = f.WeaponConfigs.GetConfig(CurrentWeapon.GameId);
+			WeaponSlots.GetPointer(Constants.WEAPON_INDEX_DEFAULT)->MagazineShotCount = config.MagazineSize;
+
+			if (f.Context.GameModeConfig.SpawnWithGear || f.Context.GameModeConfig.SpawnWithWeapon)
 			{
 				foreach (var item in startingEquipment)
 				{
@@ -74,7 +77,7 @@ namespace Quantum
 			{
 				WeaponSlots[i] = default;
 			}
-
+			
 			var isRespawning = f.GetSingleton<GameContainer>().PlayersData[Player].DeathCount > 0;
 			if (isRespawning)
 			{
@@ -192,6 +195,8 @@ namespace Quantum
 			var initialAmmo = weaponConfig.InitialAmmoFilled.Get(f);
 			var slot = GetWeaponEquipSlot(f, weapon, primary);
 			var primaryWeapon = WeaponSlots[Constants.WEAPON_INDEX_PRIMARY].Weapon;
+			var stats = f.Unsafe.GetPointer<Stats>(e);
+
 			if (primaryWeapon.IsValid() && weapon.GameId == primaryWeapon.GameId &&
 			    weapon.Rarity > primaryWeapon.Rarity)
 			{
@@ -207,9 +212,14 @@ namespace Quantum
 				Collectable.DropEquipment(f, WeaponSlots[slot].Weapon, dropPosition, 0);
 			}
 
+			var targetSlot = WeaponSlots.GetPointer(slot);
+			targetSlot->MagazineShotCount = weaponConfig.MagazineSize;
+			targetSlot->ReloadTime = weaponConfig.ReloadTime;
+			targetSlot->MagazineSize = weaponConfig.MagazineSize;
+			targetSlot->AmmoCostPerShot = FPMath.Max(1, ((FP)f.GameConfig.PlayerDefaultAmmoCapacity.Get(f) / weaponConfig.MaxAmmo.Get(f))).AsInt;
 			WeaponSlots[slot].Weapon = weapon;
 
-			GainAmmo(f, e, initialAmmo - GetAmmoAmountFilled(f, e));
+			stats->GainAmmoPercent(f, e, FPMath.Max(0, initialAmmo - GetAmmoAmountFilled(f, e)));
 
 			f.Events.OnLocalPlayerWeaponAdded(Player, e, weapon, slot);
 			
@@ -226,7 +236,7 @@ namespace Quantum
 
 				WeaponSlots.GetPointer(slot)->Specials[i] = special;
 			}
-			
+
 			EquipSlotWeapon(f, e, slot);
 		}
 
@@ -236,8 +246,8 @@ namespace Quantum
 		internal void EquipSlotWeapon(Frame f, EntityRef e, int slot)
 		{
 			SetSlotWeapon(f, e, slot);
-			
 			f.Events.OnPlayerWeaponChanged(Player, e, slot);
+			HFSMManager.TriggerEvent(f, e, Constants.ChangeWeaponEvent);
 		}
 
 		/// <summary>
@@ -276,29 +286,41 @@ namespace Quantum
 		/// <summary>
 		/// Requests the total amount of ammo the <paramref name="e"/> player has
 		/// </summary>
-		public int GetAmmoAmount(Frame f, EntityRef e, out int maxAmmo)
-		{
-			maxAmmo = f.Get<Stats>(e).GetStatData(StatType.AmmoCapacity).StatValue.AsInt;
-			return FPMath.FloorToInt(GetAmmoAmountFilled(f, e) * maxAmmo);
-		}
-
-		/// <summary>
-		/// Requests the total amount of ammo the <paramref name="e"/> player has
-		/// </summary>
 		public FP GetAmmoAmountFilled(Frame f, EntityRef e)
 		{
-			return f.Unsafe.GetPointer<AIBlackboardComponent>(e)->GetFP(f, Constants.AmmoFilledKey);
+			var stats = f.Unsafe.GetPointer<Stats>(e);
+			return stats->CurrentAmmo / stats->GetStatData(StatType.AmmoCapacity).StatValue;
 		}
 
 		/// <summary>
-		/// Requests if the current weapon equipped by the player is empty of ammo or not.
+		/// Requests if entity <paramref name="e"/> has ammo left or not
 		/// </summary>
-		/// <remarks>
-		/// It will be always false for melee weapons. Use <see cref="HasMeleeWeapon"/> to double check the state.
-		/// </remarks>
-		public bool IsAmmoEmpty(Frame f, EntityRef e)
+		public bool IsAmmoEmpty(Frame f, EntityRef e, bool includeMag = true)
 		{
-			return !HasMeleeWeapon(f, e) && GetAmmoAmountFilled(f, e) < FP.SmallestNonZero;
+			return f.Unsafe.GetPointer<Stats>(e)->CurrentAmmo == 0
+				   && !HasMeleeWeapon(f, e)
+				   && (!includeMag || WeaponSlot->MagazineShotCount == 0);
+		}
+
+		/// <summary>
+		/// Subtracts one shot from the magazine of the weapon that entity <paramref name="e"/> player currently has equipped
+		/// </summary>
+		public void ReduceMag(Frame f, EntityRef e)
+		{
+			var slot = WeaponSlot;
+			var stats = f.Unsafe.GetPointer<Stats>(e);
+			var ammoCost = slot->AmmoCostPerShot;
+
+			// reduce magazine count if your weapon uses a magazine
+			if (slot->MagazineShotCount > 0 && slot->MagazineSize > 0)
+			{
+				slot->MagazineShotCount -= 1;
+				f.Events.OnPlayerMagazineChanged(Player, e, slot->MagazineSize);
+			}
+			else // reduce ammo directly if your weapon does not use an ammo count
+			{
+				stats->ReduceAmmo(f, e, ammoCost);
+			}
 		}
 
 		/// <summary>
@@ -398,50 +420,6 @@ namespace Quantum
 			DroppedLoadoutFlags |= 1 << shift;
 		}
 
-		/// <summary>
-		/// Adds the given ammo <paramref name="amount"/> of this <paramref name="e"/> player's entity
-		/// </summary>
-		internal void GainAmmo(Frame f, EntityRef e, FP amount)
-		{
-			if (amount <= FP._0)
-			{
-				return;
-			}
-			
-			var prevAmmoFilled = GetAmmoAmountFilled(f, e);
-			var ammo = GetAmmoAmount(f, e, out var maxAmmo);
-			var newAmmoFilled = FPMath.Min(GetAmmoAmountFilled(f, e) + amount, FP._1);
-			var newAmmo = FPMath.FloorToInt(newAmmoFilled * maxAmmo);
-
-			f.Unsafe.GetPointer<AIBlackboardComponent>(e)->Set(f, Constants.AmmoFilledKey, newAmmoFilled);
-
-			if (prevAmmoFilled == newAmmoFilled)
-			{
-				return;
-			}
-
-			f.Events.OnPlayerAmmoChanged(Player, e, ammo, newAmmo, maxAmmo, newAmmoFilled);
-		}
-
-		/// <summary>
-		/// Reduces the given ammo <paramref name="amount"/> of this <paramref name="e"/> player's entity
-		/// </summary>
-		internal void ReduceAmmo(Frame f, EntityRef e, uint amount)
-		{
-			// Do not do reduce for melee weapons or if your weapon is empty
-			if (HasMeleeWeapon(f, e) || IsAmmoEmpty(f, e))
-			{
-				return;
-			}
-
-			var ammo = GetAmmoAmount(f, e, out var maxAmmo); // Gives back Int floored down (filledFP * maxAmmo)
-			var newAmmo = Math.Max(ammo - (int) amount, 0);
-			var currentAmmo = Math.Min(newAmmo, maxAmmo);
-			var finalAmmoFilled = FPMath.Max(GetAmmoAmountFilled(f, e) - ((FP._1 / maxAmmo) * amount), FP._0);
-
-			f.Unsafe.GetPointer<AIBlackboardComponent>(e)->Set(f, Constants.AmmoFilledKey, finalAmmoFilled);
-			f.Events.OnPlayerAmmoChanged(Player, e, ammo, currentAmmo, maxAmmo, finalAmmoFilled); 
-		}
 
 		/// <summary>
 		/// Checks if the player has this <paramref name="equipment"/> item equipped, based on it's
@@ -492,10 +470,12 @@ namespace Quantum
 			//if we are only firing one shot, burst interval is 0
 			var burstCooldown = weaponConfig.NumberOfBursts == 1 ? 0 : burstCount;
 
-			blackboard->Set(f, nameof(QuantumWeaponConfig.AimTime), weaponConfig.AimTime);
+			blackboard->Set(f, nameof(QuantumWeaponConfig.TapCooldown), weaponConfig.TapCooldown);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AttackCooldown), weaponConfig.AttackCooldown);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AimingMovementSpeed), weaponConfig.AimingMovementSpeed);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.NumberOfBursts), weaponConfig.NumberOfBursts);
+			blackboard->Set(f, nameof(QuantumWeaponConfig.ReloadTime), weaponConfig.ReloadTime);
+			blackboard->Set(f, nameof(QuantumWeaponConfig.MagazineSize), weaponConfig.MagazineSize);
 			blackboard->Set(f, Constants.HasMeleeWeaponKey, weaponConfig.IsMeleeWeapon);
 			blackboard->Set(f, Constants.BurstTimeDelay, burstCooldown);
 			

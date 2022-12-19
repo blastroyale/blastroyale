@@ -1,30 +1,3 @@
-.dark-overlay {
-    -unity-background-image-tint-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.62);
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    position: absolute;
-    transition-duration: 0.3s;
-    transition-property: opacity;
-}
-
-.dark-overlay.hidden {
-    opacity: 0;
-    transition-property: opacity;
-    transition-duration: 0.2s;
-}
-
-.centered-parent {
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    align-items: center;
-}
-
 .match-ended-title {
     background-image: url('project://database/Assets/Art/UI/Sprites/MatchEnd/text/Matchendedyexy.png?fileID=2800000&guid=0e02f7304c1874fe5a3c9c63d66693a5&type=3#Matchendedyexy');
     width: 471px;
@@ -38,15 +11,9 @@
     transition-delay: 0s, 0s;
 }
 
-.match-ended-title.hidden-start {
+.hidden .match-ended-title {
     opacity: 0;
     scale: 1.4 1.4;
-}
-
-.match-ended-title.hidden-end {
-    transition-property: opacity;
-    opacity: 0;
-    transition-duration: 0.2s;
 }
 
 .blasted-title {
@@ -55,10 +22,7 @@
     top: 15%;
 }
 
-.blasted-title.hidden-end {
-    transition-property: opacity;
-    opacity: 0;
-    transition-duration: 0.2s;
+.blasted-title--suicide {
 }
 
 .blasted-title__bg {
@@ -71,7 +35,7 @@
     transition-duration: 0.3s, 0.3s;
 }
 
-.hidden-start .blasted-title__bg {
+.hidden .blasted-title__bg {
     scale: 1.3 1.3;
     opacity: 0;
 }
@@ -87,7 +51,12 @@
     transition-duration: 0.1s, 0.1s;
 }
 
-.hidden-start .blasted-title__stain {
+.blasted-title--suicide .blasted-title__stain {
+    right: 129px;
+    top: -12px;
+}
+
+.hidden .blasted-title__stain {
     scale: 1.3 1.3;
     opacity: 0;
 }
@@ -104,7 +73,14 @@
     transition-timing-function: ease-in, ease-in-out-elastic;
 }
 
-.hidden-start .blasted-title__text {
+.blasted-title--suicide .blasted-title__text {
+    background-image: url('project://database/Assets/Art/UI/Sprites/MatchEnd/text/TextYouChoseDeath.png?fileID=2800000&guid=4baa816aa03ba4631af459a3fcea3e19&type=3#TextYouChoseDeath');
+    width: 519px;
+    height: 113px;
+    top: 42px;
+}
+
+.hidden .blasted-title__text {
     scale: 1.3 1.3;
     opacity: 0;
 }
@@ -113,12 +89,6 @@
     position: absolute;
     top: 15%;
     align-items: center;
-}
-
-.you-win-title.hidden-end {
-    opacity: 0;
-    transition-property: opacity;
-    transition-duration: 0.2s;
 }
 
 .you-win-title__bg {
@@ -130,7 +100,7 @@
     transition-duration: 0.2s, 0.2s;
 }
 
-.hidden-start .you-win-title__bg {
+.hidden .you-win-title__bg {
     opacity: 0;
     scale: 1.3 1.3;
 }
@@ -146,7 +116,7 @@
     transition-delay: 0.3s, 0s;
 }
 
-.hidden-start .you-win-title__crown {
+.hidden .you-win-title__crown {
     opacity: 0;
     scale: 1.3 1.3;
 }
@@ -162,108 +132,11 @@
     transition-delay: 0.2s, 0.2s;
 }
 
-.hidden-start .you-win-title__text {
+.hidden .you-win-title__text {
     opacity: 0;
     scale: 1.3 1.3;
 }
 
-.winner {
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-}
-
-.winner.hidden-end {
-    transition-property: opacity;
-    opacity: 0;
-    transition-duration: 0.2s;
-}
-
-.winner__title {
-    position: absolute;
-    background-image: url('project://database/Assets/Art/UI/Sprites/MatchEnd/PlayerWonBadge.png?fileID=21300000&guid=5a038245d3ee241619c87feb2764ba89&type=3#PlayerWonBadge');
-    width: 1001px;
-    height: 434px;
-    transition-property: opacity, scale;
-    transition-duration: 0.2s, 0.2s;
-}
-
-.hidden-start .winner__title {
-    opacity: 0;
-    scale: 1.3 1.3;
-}
-
-.winner__title__winner-label {
-    width: 260px;
-    top: 160px;
-    rotate: -10deg;
-    left: 230px;
-    font-size: 58px;
-    color: rgb(185, 65, 21);
-    transition-property: opacity, scale;
-    transition-delay: 0.2s, 0.2s;
-    transition-duration: 0.2s, 0.2s;
-}
-
-.hidden-start .winner__title__winner-label {
-    opacity: 0;
-    scale: 1.3 1.3;
-}
-
-.winner__title__name-label {
-    width: 260px;
-    top: 130px;
-    rotate: -10deg;
-    left: 290px;
-    text-shadow: 4px 4px 0 rgb(185, 65, 21);
-    -unity-text-outline-color: rgb(185, 65, 21);
-    font-size: 58px;
-    -unity-text-outline-width: 2px;
-    color: rgb(255, 255, 255);
-    transition-property: opacity, scale;
-    transition-delay: 0.3s, 0.3s;
-    transition-duration: 0.2s, 0.2s;
-}
-
-.hidden-start .winner__title__name-label {
-    opacity: 0;
-    scale: 1.3 1.3;
-}
-
-.winner__next-button {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    background-image: url('project://database/Assets/Art/UI/Sprites/MatchEnd/NextButton.png?fileID=21300000&guid=7b7f8b5eb966f4fb38b88e5573f3a921&type=3#NextButton');
-    width: 562px;
-    height: 194px;
-    background-color: rgba(255, 255, 255, 0);
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-    transition-property: opacity, scale;
-    transition-duration: 0.2s, 0.2s;
-    border-left-width: 0;
-    border-right-width: 0;
-    border-top-width: 0;
-    border-bottom-width: 0;
-}
-
-.hidden-start .winner__next-button {
-    opacity: 0;
-    scale: 1.3 1.3;
-}
-
-.winner__next-button__label {
-    width: 260px;
-    top: 80px;
-    left: 250px;
-    text-shadow: 4px 4px 0 rgb(185, 65, 21);
-    -unity-text-outline-color: rgb(185, 65, 21);
-    font-size: 70px;
-    -unity-text-outline-width: 2px;
-    color: rgb(255, 255, 255);
+.banner-holder {
+    align-items: center;
 }

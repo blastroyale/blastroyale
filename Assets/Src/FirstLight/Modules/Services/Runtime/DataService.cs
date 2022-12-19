@@ -13,16 +13,32 @@ namespace FirstLight.Services
 	public interface IDataProvider
 	{
 		/// <summary>
-		/// Requests the player's data of <typeparamref name="T"/> type
+		/// Generic wrapper of <see cref="TryGetData"/>
 		/// </summary>
 		bool TryGetData<T>(out T dat) where T : class;
-		
+
 		/// <summary>
-		/// Requests the player's data of <typeparamref name="T"/> type
+		/// Requests the player's data of <paramref name="type"/> type
+		/// </summary>
+		bool TryGetData(Type type, out object dat);
+
+		/// <summary>
+		/// Generic wrapper of <see cref="GetData"/>
 		/// </summary>
 		T GetData<T>() where T : class;
+
+		/// <summary>
+		/// Requests the player's data of <paramref name="type"/>
+		/// </summary>
+		object GetData(Type type);
+
+
+		/// <summary>
+		///  Return all the keys of the present data
+		/// </summary>
+		IEnumerable<Type> GetKeys();
 	}
-	
+
 	/// <summary>
 	/// This interface provides the possibility to the current memory data to disk
 	/// </summary>
@@ -32,7 +48,7 @@ namespace FirstLight.Services
 		/// Saves the game's given <typeparamref name="T"/> data to disk
 		/// </summary>
 		void SaveData<T>() where T : class;
-		
+
 		/// <summary>
 		/// Saves all game's data to disk
 		/// </summary>
@@ -57,10 +73,15 @@ namespace FirstLight.Services
 	public interface IDataService : IDataProvider, IDataSaver, IDataLoader
 	{
 		/// <summary>
+		/// Generic wrapper of <see cref="AddData"/>
+		/// </summary>
+		void AddData<T>(T data, bool isLocal = false) where T : class;
+
+		/// <summary>
 		/// Adds the given <paramref name="data"/> to this logic state to be maintained in memory.
 		/// If <paramref name="isLocal"/> then the given <paramref name="data"/> will be saved on the device HD.
 		/// </summary>
-		void AddData<T>(T data, bool isLocal = false) where T : class;
+		void AddData(Type type, object data, bool isLocal = false);
 	}
 
 	/// <inheritdoc />
@@ -76,6 +97,28 @@ namespace FirstLight.Services
 			data = dataInfo.Data as T;
 
 			return ret;
+		}
+		
+		/// <inheritdoc />
+		public bool TryGetData(Type type, out object dat)
+		{
+			var ret = _data.TryGetValue(type, out var dataInfo);
+
+			dat = dataInfo.Data;
+
+			return ret;
+		}
+
+		/// <inheritdoc />
+		public object GetData(Type type)
+		{
+			return _data[type].Data;
+		}
+
+		/// <inheritdoc />
+		public IEnumerable<Type> GetKeys()
+		{
+			return _data.Keys;
 		}
 
 		/// <inheritdoc />
@@ -108,10 +151,10 @@ namespace FirstLight.Services
 				{
 					continue;
 				}
-				
+
 				PlayerPrefs.SetString(data.Key.Name, JsonConvert.SerializeObject(data.Value.Data));
 			}
-			
+
 			PlayerPrefs.Save();
 		}
 
@@ -120,7 +163,7 @@ namespace FirstLight.Services
 		{
 			var json = PlayerPrefs.GetString(typeof(T).Name, "");
 			var instance = string.IsNullOrEmpty(json) ? Activator.CreateInstance<T>() : JsonConvert.DeserializeObject<T>(json);
-			
+
 			AddData(instance, true);
 
 			return instance;
@@ -130,6 +173,12 @@ namespace FirstLight.Services
 		public void AddData<T>(T data, bool isLocal = false) where T : class
 		{
 			_data[typeof(T)] = new DataInfo { Data = data, IsLocal = isLocal };
+		}
+
+		/// <inheritdoc />
+		public void AddData(Type type, object data, bool isLocal = false)
+		{
+			_data[type] = new DataInfo { Data = data, IsLocal = isLocal };
 		}
 
 		private struct DataInfo

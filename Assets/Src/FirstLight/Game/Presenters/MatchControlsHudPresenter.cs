@@ -26,6 +26,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private SpecialButtonView[] _specialButtons;
 		[SerializeField, Required] private GameObject[] _disableWhileParachuting;
 		[SerializeField, Required] private GameObject _weaponSlotsHolder;
+		[SerializeField, Required] private GameObject _gunSwitchButton;
 		
 		private IGameServices _services;
 		private IMatchServices _matchServices;
@@ -202,6 +203,7 @@ namespace FirstLight.Game.Presenters
 			_indicatorContainerView.SetupWeaponInfo(f, playerCharacter.CurrentWeapon.GameId);
 			
 			SetupSpecialsInput(f.Time, *playerCharacter.WeaponSlot, playerView);
+			SetupGunSwitchButton(playerCharacter.WeaponSlots);
 			InitSlotsView(playerCharacter);
 		}
 
@@ -355,6 +357,10 @@ namespace FirstLight.Game.Presenters
 		private void OnLocalPlayerWeaponAdded(EventOnLocalPlayerWeaponAdded callback)
 		{
 			_slots[callback.WeaponSlotNumber].SetEquipment(callback.Weapon);
+			
+			var frame = callback.Game.Frames.Verified;
+			var playerCharacter = frame.Get<PlayerCharacter>(callback.Entity);
+			SetupGunSwitchButton(playerCharacter.WeaponSlots);
 		}
 
 		private void InitSlotsView(PlayerCharacter playerCharacter)
@@ -385,6 +391,11 @@ namespace FirstLight.Game.Presenters
 			MMVibrationManager.ContinuousHaptic(intensity, sharpness, GameConstants.Haptics.DAMAGE_DURATION);
 		}
 
+		private void SetupGunSwitchButton(FixedArray<WeaponSlot> weaponSlots)
+		{
+			_gunSwitchButton.SetActive(weaponSlots[1].Weapon.IsValid() && weaponSlots[2].Weapon.IsValid());
+		}
+		
 		private void SetupSpecialsInput(FP currentTime, WeaponSlot weaponSlot, EntityView playerView)
 		{
 			for (var i = 0; i < weaponSlot.Specials.Length; i++)

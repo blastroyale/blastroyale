@@ -25,10 +25,9 @@ namespace FirstLight.Game.Views.MainMenuViews
 		/// </summary>
 		public void SetInfo(UniqueId uniqueId)
 		{
-			if (_gameDataProvider.EquipmentDataProvider.NftInventory.ContainsKey(uniqueId))
+			if (_gameDataProvider.EquipmentDataProvider.TryGetNftInfo(uniqueId, out var nftData))
 			{
-				var url = _gameDataProvider.EquipmentDataProvider.GetNftInfo(uniqueId).SafeImageUrl;
-				_remoteTextureView.LoadImage(url);
+				_remoteTextureView.LoadImage(nftData.SafeImageUrl);
 			}
 			else
 			{

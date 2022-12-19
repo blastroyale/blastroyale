@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using FirstLight.Game.Data;
-using FirstLight.Game.Data.DataTypes;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
+using Photon.Deterministic;
 using Quantum;
 
 namespace FirstLight.Game.Utils
@@ -15,19 +13,51 @@ namespace FirstLight.Game.Utils
 	public static class EquipmentExtensions
 	{
 		/// <summary>
-		/// Shared encapsulated code to detect if a given item is broken.
+		/// TODO: Gabriel delete when we update the backend
+		/// </summary>
+		public static bool IsBroken(this Equipment equipment)
+		{
+			return equipment.GetCurrentDurability(DateTime.UtcNow.Ticks) == 0;
+		}
+		
+		
+		/// <summary>
+		/// TODO: Gabriel delete when we update the backend
+		/// </summary>
+		public static uint GetCurrentDurability(this Equipment equipment, long timestamp)
+		{
+			return equipment.GetCurrentDurability(false, default, timestamp);
+		}
+		
+		
+		/// <summary>
+		/// Shared encapsulated code to detect if a given given <paramref name="equipment"/> is broken.
 		/// This code is to be used in Hub & Game Servers to validate given equipments are valid.
 		/// </summary>
-		public static bool IsBroken(this Equipment equip, NftEquipmentData nftData)
+		public static bool IsBroken(this Equipment equipment, bool isNft, QuantumGameConfig config)
 		{
+			return equipment.GetCurrentDurability(isNft, config, DateTime.UtcNow.Ticks) == 0;
+		}
+		
+		/// <summary>
+		/// Shared encapsulated code to request the current's <paramref name="equipment"/> durability on the
+		/// given <paramref name="timestamp"/>.
+		/// This code is to be used in Hub & Game Servers to validate given equipments are valid.
+		/// </summary>
+		public static uint GetCurrentDurability(this Equipment equipment, bool isNft, QuantumGameConfig config, long timestamp)
+		{
+			var rustTime = new TimeSpan(timestamp - equipment.LastRepairTimestamp);
+			//var dropDays = isNft ? config.NftDurabilityDropDays : config.NonNftDurabilityDropDays;
+			// TODO: Gabriel delete when we update the backend
+			var dropDays = FP._7;
+			var durabilityDropped = (uint) Math.Floor(rustTime.TotalDays / dropDays.AsDouble);
+
 			if (!FeatureFlags.ITEM_DURABILITY)
 			{
-				return false;
+				durabilityDropped = 0;
 			}
-			var lastRepairDate = DateTimeOffset.FromUnixTimeSeconds(nftData.LastRepairTimestamp).Date;
-			var durabilityTime = TimeSpan.FromTicks(TimeSpan.FromDays(7).Ticks * equip.MaxDurability);
-			var shouldBreakAt = lastRepairDate + durabilityTime;
-			return DateTime.UtcNow > shouldBreakAt;
+
+			return equipment.MaxDurability - Math.Min(durabilityDropped, equipment.MaxDurability);
 		}
 		
 		/// <summary>
@@ -66,8 +96,9 @@ namespace FirstLight.Game.Utils
 				          QuantumStatCalculator.CalculateWeaponStat(weaponConfig, statConfigs[(int)StatType.PickupSpeed],
 				                                                    baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
 				stats.Add(EquipmentStatType.MaxCapacity, 
-				          QuantumStatCalculator.CalculateWeaponStat(weaponConfig, statConfigs[(int)StatType.AmmoCapacity],
-				                                                    baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
+				          (QuantumStatCalculator.CalculateWeaponStat(weaponConfig, statConfigs[(int)StatType.AmmoCapacity],
+				                                                    baseStatsConfig, statsConfig, statsMaterialConfig, equipment)
+						   + weaponConfig.MaxAmmo.GetDefault()).AsFloat);
 				stats.Add(EquipmentStatType.ShieldCapacity,
 						  QuantumStatCalculator.CalculateWeaponStat(weaponConfig, statConfigs[(int)StatType.Shield],
 						                                            baseStatsConfig, statsConfig, statsMaterialConfig, equipment).AsFloat);
@@ -78,6 +109,8 @@ namespace FirstLight.Game.Utils
 				stats.Add(EquipmentStatType.SplashDamageRadius, weaponConfig.SplashRadius.AsFloat);
 				stats.Add(EquipmentStatType.PowerToDamageRatio, weaponConfig.PowerToDamageRatio.AsFloat);
 				stats.Add(EquipmentStatType.NumberOfShots, weaponConfig.NumberOfShots);
+				stats.Add(EquipmentStatType.ReloadTime, weaponConfig.ReloadTime.AsFloat);
+				stats.Add(EquipmentStatType.MagazineSize, Math.Max(0, weaponConfig.MagazineSize));
 				stats.Add(EquipmentStatType.SpecialId0, (float) weaponConfig.Specials[0]);
 				stats.Add(EquipmentStatType.SpecialId1, (float) weaponConfig.Specials[1]);
 			}

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Cinemachine;
 using FirstLight.FLogger;
@@ -80,7 +81,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			}
 			
 			RefreshSpectator(next.Transform);
-			SnapCamera();
+			_cinemachineBrain.ActiveVirtualCamera?.SnapCamera();
 		}
 
 		private void SetActiveCamera(InputAction.CallbackContext context)
@@ -97,10 +98,16 @@ namespace FirstLight.Game.MonoComponent.Match
 		{
 			gameObject.SetActive(true);
 			
+			var mainOverlayCamera = Camera.allCameras.FirstOrDefault(go => go.CompareTag("MainOverlayCamera"));
+			if (mainOverlayCamera != null)
+			{
+				mainOverlayCamera.gameObject.SetActive(false);
+			}
+			
 			if (obj.IsResync)
 			{
 				SetActiveCamera(_adventureCamera);
-				SnapCamera();
+				_adventureCamera.SnapCamera();
 			}
 		}
 		
@@ -170,12 +177,6 @@ namespace FirstLight.Game.MonoComponent.Match
 
 			var audioListener = _services.AudioFxService.AudioListener;
 			audioListener.SetFollowTarget(t, Vector3.up, flatRotation);
-		}
-
-		private void SnapCamera()
-		{
-			// Hacky way to force the camera to evaluate the blend to the next follow target (so we snap to it)
-			_cinemachineBrain.ActiveVirtualCamera?.UpdateCameraState(Vector3.up, 10f);
 		}
 	}
 }

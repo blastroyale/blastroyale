@@ -1,30 +1,18 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
         <Nullable>enable</Nullable>
-        <LangVersion>preview</LangVersion>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="DistributedLock" Version="2.3.0" />
-        <PackageReference Include="DistributedLock.Postgres" Version="1.0.2" />
-        <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
-        <PackageReference Include="Microsoft.ApplicationInsights.TraceListener" Version="2.21.0" />
-        <PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="1.1.0" />
-        <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="4.1.0" />
-        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.4" />
-        <PackageReference Include="PlayFabCloudScriptPlugin" Version="1.53.190627-alpha" />
-        <PackageReference Include="YamlDotNet" Version="11.2.1" />
-    </ItemGroup>
-    
-    <ItemGroup>
-      <EmbeddedResource Include="gameConfig.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </EmbeddedResource>
-    </ItemGroup>
-
-    <ItemGroup>
+      <PackageReference Include="DistributedLock" Version="2.3.0" />
+      <PackageReference Include="DistributedLock.Postgres" Version="1.0.2" />
+      <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
+      <PackageReference Include="Microsoft.ApplicationInsights.TraceListener" Version="2.21.0" />
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.4" />
+      
       <ProjectReference Include="..\BlastRoyaleCorePlugin\BlastRoyaleCorePlugin.csproj" />
       <ProjectReference Include="..\BlastRoyaleTrophyLadderPlugin\BlastRoyaleTrophyLadderPlugin.csproj" />
       <ProjectReference Include="..\FirstLightServerSDK\FirstLightServerSDK.csproj" />

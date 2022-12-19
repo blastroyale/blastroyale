@@ -5,6 +5,7 @@ using FirstLight.NotificationService;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
+using FirstLight.UiService;
 using NSubstitute;
 
 namespace FirstLight.Tests.EditorMode
@@ -33,7 +34,9 @@ namespace FirstLight.Tests.EditorMode
 		public virtual IThreadService ThreadService { get; }
 		public virtual IHelpdeskService HelpdeskService { get; }
 		public IGameModeService GameModeService { get; }
+		public IMatchmakingService MatchmakingService { get; }
 		public IIAPService IAPService { get; }
+		public IGameLogic GameLogic { get; }
 		public string QuitReason { get; set; }
 
 		public void QuitGame(string reason)
@@ -46,10 +49,10 @@ namespace FirstLight.Tests.EditorMode
 		                        IGenericDialogService genericDialogService,
 		                        IAssetResolverService assetResolverService,
 		                        IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService,
-		                        IPlayerInputService playerInputService)
+		                        IPlayerInputService playerInputService, IUiService uiService)
 		{
 			NetworkService = networkService;
-			AnalyticsService = new AnalyticsService(this, gameLogic, dataProvider);
+			AnalyticsService = new AnalyticsService(this, gameLogic, dataProvider, uiService);
 			MessageBrokerService = messageBrokerService;
 			TimeService = timeService;
 			DataSaver = dataSaver;
@@ -59,7 +62,9 @@ namespace FirstLight.Tests.EditorMode
 			AudioFxService = audioFxService;
 			PlayerInputService = playerInputService;
 			VfxService = vfxService;
+			GameLogic = gameLogic;
 
+			MatchmakingService = new MatchmakingService();
 			ThreadService = new ThreadService();
 			HelpdeskService = new HelpdeskService();
 			GameModeService = new GameModeService(ConfigsProvider, ThreadService);

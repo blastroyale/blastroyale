@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
+using System.Reflection;
 using ExitGames.Client.Photon;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
@@ -244,6 +247,7 @@ namespace FirstLight.Game.StateMachines
 			var deviceId = _dataService.GetData<AppData>().DeviceId;
 			var infoParams = new GetPlayerCombinedInfoRequestParams
 			{
+				GetPlayerProfile = true,
 				GetUserAccountInfo = true,
 				GetTitleData = true
 			};
@@ -432,30 +436,38 @@ namespace FirstLight.Game.StateMachines
 			}
 			return false;
 		}
+		/// <summary>
+		/// Add all of the data in <paramref name="state"/> to the data service 
+		/// </summary>
+		private void AddDataToService(IWaitActivity activity, Dictionary<string, string> state)
+		{
+			foreach (var typeFullName in state.Keys)
+			{
+				var type = Assembly.GetExecutingAssembly().GetType(typeFullName);
+				_dataService.AddData(type, ModelSerializer.DeserializeFromData(type, state));
+			}
+
+			activity?.Complete();
+		}
+
 
 		private void OnPlayerDataObtained(ExecuteFunctionResult res, IWaitActivity activity)
 		{
 			var serverResult = ModelSerializer.Deserialize<PlayFabResult<LogicResult>>(res.FunctionResult.ToString());
 			var data = serverResult.Result.Data;
+			
 			if (data == null || !data.ContainsKey(typeof(PlayerData).FullName)) // response too large, fetch directly
 			{
 				_services.PlayfabService.FetchServerState(state =>
 				{
-					_dataService.AddData(ModelSerializer.DeserializeFromData<RngData>(state));
-					_dataService.AddData(ModelSerializer.DeserializeFromData<IdData>(state));
-					_dataService.AddData(ModelSerializer.DeserializeFromData<PlayerData>(state));
-					_dataService.AddData(ModelSerializer.DeserializeFromData<EquipmentData>(state));
+					AddDataToService(activity, state);
 					FLog.Verbose("Downloaded state from playfab");
-					activity?.Complete();
 				});
 				return;
 			}
-			_dataService.AddData(ModelSerializer.DeserializeFromData<RngData>(data));
-			_dataService.AddData(ModelSerializer.DeserializeFromData<IdData>(data));
-			_dataService.AddData(ModelSerializer.DeserializeFromData<PlayerData>(data));
-			_dataService.AddData(ModelSerializer.DeserializeFromData<EquipmentData>(data));
+
+			AddDataToService(activity, data);
 			FLog.Verbose("Downloaded state from server");
-			activity?.Complete();
 		}
 
 		private void OpenGameUpdateDialog(string version)
@@ -506,6 +518,7 @@ namespace FirstLight.Game.StateMachines
 			
 			var infoParams = new GetPlayerCombinedInfoRequestParams
 			{
+				GetPlayerProfile = true,
 				GetUserAccountInfo = true,
 				GetTitleData = true
 			};
@@ -526,6 +539,12 @@ namespace FirstLight.Game.StateMachines
 			var userId = result.PlayFabId;
 			var email = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
 			var userName = result.InfoResultPayload.AccountInfo.Username;
+			var emails = result.InfoResultPayload?.PlayerProfile?.ContactEmailAddresses;
+			var isMissingContactEmail = emails == null || !emails.Any(e => e != null && e.EmailAddress.Contains("@"));
+			if (email != null && email.Contains("@") && isMissingContactEmail)
+			{
+				_services.PlayfabService.UpdateContactEmail(email);
+			}
 
 			_services.HelpdeskService.Login(userId, email, userName);
 
@@ -553,7 +572,7 @@ namespace FirstLight.Game.StateMachines
 
 			PlayFabClientAPI.RegisterPlayFabUser(register, _ => LoginClicked(email, password), OnAuthenticationRegisterFail);
 		}
-		
+
 		private void OpenLoadingScreen()
 		{
 			_uiService.OpenUi<LoadingScreenPresenter>();

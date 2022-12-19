@@ -1,12 +1,11 @@
 using System;
-using FirstLight.Game.Logic;
+using FirstLight.FLogger;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Statechart;
 using Quantum;
-using UnityEngine;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -17,9 +16,9 @@ namespace FirstLight.Game.StateMachines
 	{
 		private readonly IStatechartEvent _localPlayerDeadEvent = new StatechartEvent("Local Player Dead");
 		private readonly IStatechartEvent _localPlayerAliveEvent = new StatechartEvent("Local Player Alive");
-		private readonly IStatechartEvent _localPlayerSpectateEvent = new StatechartEvent("Local Player Spectate");
 		private readonly IStatechartEvent _localPlayerExitEvent = new StatechartEvent("Local Player Exit");
-		
+		private readonly IStatechartEvent _localPlayerNextEvent = new StatechartEvent("Local Player Next");
+
 		private readonly IGameServices _services;
 		private readonly IGameUiService _uiService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
@@ -27,7 +26,7 @@ namespace FirstLight.Game.StateMachines
 		private PlayerRef _killer;
 
 		public BattleRoyaleState(IGameServices services, IGameUiService uiService,
-		                         Action<IStatechartEvent> statechartTrigger)
+								 Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
 			_uiService = uiService;
@@ -49,50 +48,45 @@ namespace FirstLight.Game.StateMachines
 			var resyncCheck = stateFactory.Choice("Resync Check");
 			var spectateCheck = stateFactory.Choice("Spectate Check");
 			var resyncAliveCheck = stateFactory.Choice("Resync Alive Check");
-			
+
 			initial.Transition().Target(spectateCheck);
 			initial.OnExit(SubscribeEvents);
-			
+
 			spectateCheck.Transition().Condition(IsSpectator).Target(spectating);
 			spectateCheck.Transition().Target(resyncCheck);
-			
+
 			resyncCheck.OnEnter(OpenMatchHud);
 			resyncCheck.Transition().Condition(IsRejoining).Target(resyncAliveCheck);
 			resyncCheck.Transition().Target(spawning);
-			
-			resyncAliveCheck.OnEnter(CloseMatchmakingScreen);
+
 			resyncAliveCheck.Transition().Condition(IsLocalPlayerAlive).Target(alive);
 			resyncAliveCheck.Transition().Target(deadCheck);
 
 			spawning.Event(_localPlayerAliveEvent).Target(alive);
-			
-			alive.OnEnter(CloseMatchmakingScreen);
+
 			alive.OnEnter(OpenControlsHud);
 			alive.Event(_localPlayerDeadEvent).Target(deadCheck);
 			alive.OnExit(CloseControlsHud);
-			
+
 			deadCheck.Transition().Condition(IsMatchEnding).Target(final);
 			deadCheck.Transition().Target(dead);
 
+			dead.OnEnter(MatchEndAnalytics);
 			dead.OnEnter(CloseMatchHud);
-			dead.OnEnter(OpenKillScreen);
-			dead.Event(_localPlayerExitEvent).Target(final);
-			dead.Event(_localPlayerSpectateEvent).Target(spectating);
-			dead.OnExit(CloseKillScreen);
-			
-			spectating.OnEnter(CloseMatchmakingScreen);
-			spectating.OnEnter(OpenMatchHud);
-			spectating.OnEnter(OpenSpectateHud);
+			dead.OnEnter(OpenMatchEndScreen);
+			dead.Event(_localPlayerNextEvent).Target(spectating);
+
+			spectating.OnEnter(OpenSpectateScreen);
 			spectating.Event(_localPlayerExitEvent).Target(final);
-			spectating.OnExit(CloseSpectateHud);
-			spectating.OnExit(CloseMatchHud);
-			
+
 			final.OnEnter(CloseMatchHud);
 			final.OnEnter(UnsubscribeEvents);
 		}
 
 		private void SubscribeEvents()
 		{
+			_killer = new PlayerRef();
+			
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
 		}
@@ -101,29 +95,34 @@ namespace FirstLight.Game.StateMachines
 		{
 			QuantumEvent.UnsubscribeListener(this);
 		}
+		
+		private void MatchEndAnalytics()
+		{
+			_services.AnalyticsService.MatchCalls.MatchEndBRPlayerDead(QuantumRunner.Default.Game);
+		}
 
 		private bool IsMatchEnding()
 		{
 			var f = QuantumRunner.Default.Game.Frames.Verified;
 			return f.GetSingleton<GameContainer>().IsGameOver;
 		}
-		
+
 		private bool IsLocalPlayerAlive()
 		{
 			var game = QuantumRunner.Default.Game;
 			var f = game.Frames.Verified;
 			var gameContainer = f.GetSingleton<GameContainer>();
 			var playersData = gameContainer.PlayersData;
-			var localPlayer = playersData[game.GetLocalPlayers()[0]];
+			var localPlayer = playersData[game.GetLocalPlayerRef()];
 
 			return localPlayer.Entity.IsAlive(f);
 		}
-		
+
 		private bool IsSpectator()
 		{
 			return _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator();
 		}
-		
+
 		private bool IsRejoining()
 		{
 			return !_services.NetworkService.IsJoiningNewMatch;
@@ -161,41 +160,33 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<MatchHudPresenter>();
 		}
 
-		private void OpenKillScreen()
+		private void OpenMatchEndScreen()
 		{
-			var data = new BattleRoyaleDeadScreenPresenter.StateData
+			var data = new MatchEndScreenPresenter.StateData
 			{
+				PlayerDead = !IsLocalPlayerAlive(),
 				Killer = _killer,
-				OnLeaveClicked = () => { _statechartTrigger(_localPlayerExitEvent); },
-				OnSpectateClicked = () => { _statechartTrigger(_localPlayerSpectateEvent); }
+				OnNextClicked = () => _statechartTrigger(_localPlayerNextEvent),
 			};
 
-			_uiService.OpenUiAsync<BattleRoyaleDeadScreenPresenter, BattleRoyaleDeadScreenPresenter.StateData>(data);
+			_uiService.OpenScreen<MatchEndScreenPresenter, MatchEndScreenPresenter.StateData>(data);
 		}
 
-		private void CloseKillScreen()
-		{ 
-			_uiService.CloseUi<BattleRoyaleDeadScreenPresenter>(true);
-		}
-
-		private async void OpenSpectateHud()
+		private void OpenSpectateScreen()
 		{
-			await _uiService.OpenUiAsync<SpectateHudPresenter>();
-			
-			_services.MessageBrokerService.Publish(new SpectateStartedMessage());
-		}
-
-		private void CloseSpectateHud()
-		{
-			_uiService.CloseUi<SpectateHudPresenter>();
-		}
-		
-		private void CloseMatchmakingScreen()
-		{
-			if (_uiService.HasUiPresenter<MatchmakingLoadingScreenPresenter>())
+			var data = new SpectateScreenPresenter.StateData
 			{
-				_uiService.CloseUi<MatchmakingLoadingScreenPresenter>(true);
-			}
+				Killer = _killer,
+				OnLeaveClicked = () =>
+				{
+					_services.MessageBrokerService.Publish(new LeftBeforeMatchFinishedMessage());
+					_statechartTrigger(_localPlayerExitEvent);
+				}
+			};
+
+			_uiService.OpenScreen<SpectateScreenPresenter, SpectateScreenPresenter.StateData>(data);
+
+			_services.MessageBrokerService.Publish(new SpectateStartedMessage());
 		}
 	}
 }

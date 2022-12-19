@@ -31,7 +31,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		/// </summary>
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
-			var leaderData = callback.PlayersMatchData.Find(data => data.Data.Player.Equals(callback.PlayerLeader));
+			var leaderData = callback.PlayersMatchData[callback.PlayerLeader];
 
 			if (!_currentLeader.HasValue || _currentLeader.Value != callback.PlayerLeader)
 			{

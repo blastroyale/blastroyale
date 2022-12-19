@@ -43,6 +43,8 @@ public class TestNftSyncPlugin
 			subCategory = (int) GameId.ModPistol,
 			faction = (long) EquipmentFaction.Chaos
 		});
+		var state = _app.Services.GetService<IPlayerSetupService>().GetInitialState("yolo");
+		_app.ServerState.UpdatePlayerState("yolo", state).GetAwaiter().GetResult();
 	}
 
 	[Test]
@@ -168,8 +170,8 @@ public class TestNftSyncPlugin
 		await _nftSync.SyncAllNfts("yolo");
 		var secondState = _app.ServerState.GetPlayerState("yolo").Result.DeserializeModel<EquipmentData>();
 
-		var nftDataBefore = firstState.NftInventory.Values.First();
-		var nftDataAfter = secondState.NftInventory.Values.First();
+		var nftDataBefore = firstState.Inventory.Values.First();
+		var nftDataAfter = secondState.Inventory.Values.First();
 
 		Assert.AreNotEqual(newRepairTime, nftDataBefore.LastRepairTimestamp);
 		Assert.AreEqual(newRepairTime, nftDataAfter.LastRepairTimestamp);

@@ -22,7 +22,7 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Returns a room parameters used for creation of custom and matchmaking rooms
 		/// </summary>
-		public static EnterRoomParams GetRoomCreateParams(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, MapGridConfigs gridConfigs,
+		public static EnterRoomParams GetRoomCreateParams(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, Vector3 dropzonePosRot,
 		                                                  string roomName, MatchType matchType, List<string> mutators, bool gameHasBots)
 		{
 			if (FeatureFlags.FORCE_RANKED)
@@ -61,7 +61,7 @@ namespace FirstLight.Game.Utils
 				{
 					BroadcastPropsChangeToAll = true,
 					CleanupCacheOnLeave = true,
-					CustomRoomProperties = GetCreateRoomProperties(gameModeConfig, mapConfig, gridConfigs, matchType, mutators, gameHasBots),
+					CustomRoomProperties = GetCreateRoomProperties(gameModeConfig, mapConfig, dropzonePosRot, matchType, mutators, gameHasBots),
 					CustomRoomPropertiesForLobby = GetCreateRoomPropertiesForLobby(),
 					Plugins = null,
 					SuppressRoomEvents = false,
@@ -163,7 +163,7 @@ namespace FirstLight.Game.Utils
 			};
 		}
 		
-		private static Hashtable GetCreateRoomProperties(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, MapGridConfigs gridConfigs, MatchType matchType, List<string> mutators, bool gameHasBots)
+		private static Hashtable GetCreateRoomProperties(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, Vector3 dropzonePosRot, MatchType matchType, List<string> mutators, bool gameHasBots)
 		{
 			var properties = GetJoinRoomProperties(gameModeConfig, mapConfig, matchType, mutators);
 
@@ -171,9 +171,10 @@ namespace FirstLight.Game.Utils
 			
 			properties.Add(GameConstants.Network.ROOM_PROPS_BOTS, gameHasBots);
 
+			// TODO - RENAME "SpawnPattern"
 			if (gameModeConfig.SpawnPattern)
 			{
-				properties.Add(GameConstants.Network.ROOM_PROPS_DROP_PATTERN, CalculateDropPattern(gridConfigs));
+				properties.Add(GameConstants.Network.DROP_ZONE_POS_ROT, dropzonePosRot);
 			}
 
 			return properties;
@@ -198,102 +199,6 @@ namespace FirstLight.Game.Utils
 				// A list of mutators used in this room
 				{GameConstants.Network.ROOM_PROPS_MUTATORS, string.Join(",", mutators)}
 			};
-		}
-
-		private static bool[][] CalculateDropPattern(MapGridConfigs gridConfigs)
-		{
-			var size = gridConfigs.GetSize();
-			var dropPattern = new bool[size.x][];
-
-			for (int i = 0; i < size.y; i++)
-			{
-				dropPattern[i] = new bool[size.y];
-			}
-
-			int x = size.x - 1;
-			int y = size.y - 1;
-
-			// Starting square
-			dropPattern[x][y] = true;
-			dropPattern[x - 1][y] = true;
-			dropPattern[x][y - 1] = true;
-
-			// Path
-			while (x > 0 || y > 0)
-			{
-				if (x == 0)
-				{
-					y--;
-				}
-				else if (y == 0)
-				{
-					x--;
-				}
-				else
-				{
-					if (Random.Range(0, 2) == 0)
-					{
-						y--;
-					}
-					else
-					{
-						x--;
-					}
-				}
-
-				dropPattern[x][y] = true;
-
-				// Expand path in N, W, and NW directions
-				if (y > 0)
-				{
-					dropPattern[x][y - 1] = true;
-				}
-
-				if (x > 0)
-				{
-					dropPattern[x - 1][y] = true;
-				}
-
-				if (x > 0 && y > 0)
-				{
-					dropPattern[x - 1][y - 1] = true;
-				}
-
-				// Expand path if we're at an edge
-				if (x == 0)
-				{
-					dropPattern[x + 1][y] = true;
-				}
-
-				if (x == size.x - 1)
-				{
-					dropPattern[x - 1][y] = true;
-				}
-
-				if (y == 0)
-				{
-					dropPattern[x][y + 1] = true;
-				}
-
-				if (y == size.y - 1)
-				{
-					dropPattern[x][y - 1] = true;
-				}
-			}
-
-			// Flip vertically
-			if (Random.Range(0, 2) == 0)
-			{
-				for (int ix = 0; ix < dropPattern.Length; ix++)
-				{
-					for (int iy = 0; iy < dropPattern[ix].Length / 2; iy++)
-					{
-						(dropPattern[ix][iy], dropPattern[ix][dropPattern[ix].Length - iy - 1]) =
-							(dropPattern[ix][dropPattern[ix].Length - iy - 1], dropPattern[ix][iy]);
-					}
-				}
-			}
-			return dropPattern;
 		}
 
 		/// <summary>

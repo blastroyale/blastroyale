@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace FirstLight.UiService
 	/// </summary>
 	public abstract class UiPresenter : MonoBehaviour
 	{
-		private IUiService _uiService;
+		protected IUiService _uiService;
 
 		/// <summary>
 		/// Requests the open status of the <see cref="UiPresenter"/>
@@ -61,6 +62,7 @@ namespace FirstLight.UiService
 		internal void InternalOpen()
 		{
 			gameObject.SetActive(true);
+
 			OnOpened();
 		}
 
@@ -160,6 +162,7 @@ namespace FirstLight.UiService
 	/// <summary>
 	/// This class is the UiToolkit implementation of UiCloseActivePresenterData
 	/// </summary>
+	[LoadSynchronously]
 	public abstract class UiToolkitPresenterData<T> : UiCloseActivePresenterData<T> where T : struct
 	{
 		[SerializeField, Required] private UIDocument _document;
@@ -207,6 +210,11 @@ namespace FirstLight.UiService
 			view.Attached(element);
 		}
 
+		protected virtual void OnTransitionsReady()
+		{
+			
+		}
+
 		protected override void OnOpened()
 		{
 			if (_background != null)
@@ -228,7 +236,7 @@ namespace FirstLight.UiService
 			
 			Root.EnableInClassList(UIConstants.CLASS_HIDDEN, true);
 			StartCoroutine(MakeVisible());
-			
+
 			SubscribeToEvents();
 		}
 
@@ -251,6 +259,8 @@ namespace FirstLight.UiService
 			yield return new WaitForEndOfFrame();
 			
 			Root.EnableInClassList(UIConstants.CLASS_HIDDEN, false);
+			
+			OnTransitionsReady();
 		}
 	}
 

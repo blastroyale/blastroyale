@@ -18,6 +18,11 @@ namespace Quantum
 		/// An invalid piece of equipment
 		/// </summary>
 		public static Equipment None => new Equipment();
+		
+		/// <summary>
+		/// The default equipment weapon <see cref="GameId"/>
+		/// </summary>
+		public static GameId DefaultWeapon => GameId.Hammer;
 
 		/// <summary>
 		/// Requests the list of <see cref="GameIdGroup"/> slots ready to be equipped
@@ -35,14 +40,15 @@ namespace Quantum
 		                 EquipmentAdjective adjective = EquipmentAdjective.Regular,
 		                 EquipmentMaterial material = EquipmentMaterial.Plastic,
 		                 EquipmentManufacturer manufacturer = EquipmentManufacturer.Military,
-		                 uint maxDurability = 100,
+		                 uint maxDurability = 4,
 		                 uint maxLevel = 10,
 		                 uint initialReplicationCounter = 0,
 		                 uint tuning = 0,
 		                 uint level = 0,
 		                 uint generation = 0,
 		                 uint replicationCounter = 0,
-		                 uint durability = 100)
+						 uint totalRestoredDurability = 0,
+						 long lastRepairTimestamp = 0)
 		{
 			GameId = gameId;
 
@@ -62,7 +68,9 @@ namespace Quantum
 			Level = level;
 			Generation = generation;
 			ReplicationCounter = replicationCounter;
-			Durability = durability;
+			TotalRestoredDurability = totalRestoredDurability;
+
+			LastRepairTimestamp = lastRepairTimestamp;
 		}
 
 		/// <summary>
@@ -130,12 +138,42 @@ namespace Quantum
 		public bool Equals(Equipment other, bool ignoreRarity)
 		{
 			return (ignoreRarity || Rarity == other.Rarity) && Adjective == other.Adjective &&
-			       Durability == other.Durability && Edition == other.Edition &&
+			       LastRepairTimestamp == other.LastRepairTimestamp && Edition == other.Edition &&
 			       Faction == other.Faction && GameId == other.GameId && Generation == other.Generation &&
 			       Grade == other.Grade && InitialReplicationCounter == other.InitialReplicationCounter &&
 			       Level == other.Level && Manufacturer == other.Manufacturer && Material == other.Material &&
 			       MaxDurability == other.MaxDurability && MaxLevel == other.MaxLevel &&
 			       ReplicationCounter == other.ReplicationCounter && Tuning == other.Tuning;
+		}
+
+		/// <summary>
+		/// We need a server hash code to ignore dates until server and client is clock synced
+		/// 
+		/// </summary>
+		public Int32 GetServerHashCode()
+		{
+			unchecked
+			{
+				var hash = 281;
+				hash = hash * 31 + (Int32)Adjective;
+				hash = hash * 31 + (Int32)Edition;
+				hash = hash * 31 + (Int32)Faction;
+				hash = hash * 31 + (Int32)GameId;
+				hash = hash * 31 + Generation.GetHashCode();
+				hash = hash * 31 + (Int32)Grade;
+				hash = hash * 31 + InitialReplicationCounter.GetHashCode();
+				// hash = hash * 31 + LastRepairTimestamp.GetHashCode(); ; // ignored on server
+				hash = hash * 31 + Level.GetHashCode();
+				hash = hash * 31 + (Int32)Manufacturer;
+				hash = hash * 31 + (Int32)Material;
+				hash = hash * 31 + MaxDurability.GetHashCode();
+				hash = hash * 31 + MaxLevel.GetHashCode();
+				hash = hash * 31 + (Int32)Rarity;
+				hash = hash * 31 + ReplicationCounter.GetHashCode();
+				hash = hash * 31 + TotalRestoredDurability.GetHashCode();
+				hash = hash * 31 + Tuning.GetHashCode();
+				return hash;
+			}
 		}
 	}
 }

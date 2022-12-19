@@ -64,7 +64,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Updates anonymous account with provided registration data
 		/// </summary>
-		void AttachLoginDataToAccount(string email, string password, string displayName,
+		void AttachLoginDataToAccount(string email, string username, string password,
 		                              Action<AddUsernamePasswordResult> successCallback = null,
 		                              Action<PlayFabError> errorCallback = null);
 
@@ -90,6 +90,11 @@ namespace FirstLight.Game.Services
 		/// from two different services (Logic Service & Quantum Server)
 		/// </summary>
 		void CheckIfRewardsMatch(Action<bool> callback);
+
+		/// <summary>
+		/// Updates user contact email address
+		/// </summary>
+		void UpdateContactEmail(string newEmail, Action<AddOrUpdateContactEmailResult> callback = null);
 	}
 
 	/// <inheritdoc cref="IPlayfabService" />
@@ -131,7 +136,15 @@ namespace FirstLight.Game.Services
 				var model = ModelSerializer.Deserialize<PlayerData>(modelJson);
 				var serverState = model.UncollectedRewards;
 				var clientState = _dataProvider.RewardDataProvider.UnclaimedRewards;
-				callback(serverState.SequenceEqual(clientState));
+				var inSync = serverState.SequenceEqual(clientState);
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+				if (!inSync)
+				{
+					FLog.Error("Client Rewards: "+ModelSerializer.Serialize(clientState));
+					FLog.Error("Server Rewards: "+ModelSerializer.Serialize(serverState));
+				}
+#endif
+				callback(inSync);
 			}, HandleError);
 		}
 
@@ -218,6 +231,16 @@ namespace FirstLight.Game.Services
 				ErrorCode = (HttpStatusCode) error.HttpCode,
 				Message = descriptiveError
 			});
+		}
+
+		public void UpdateContactEmail(string newEmail, Action<AddOrUpdateContactEmailResult> callback = null)
+		{
+			FLog.Info("Updating user email to "+newEmail);
+			var emailUpdate = new AddOrUpdateContactEmailRequest()
+			{
+				EmailAddress = newEmail
+			};
+			PlayFabClientAPI.AddOrUpdateContactEmail(emailUpdate, callback, HandleError);
 		}
 
 		public void FetchServerState(Action<ServerState> callback)
@@ -320,7 +343,7 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public void AttachLoginDataToAccount(string email, string password, string username,
+		public void AttachLoginDataToAccount(string email, string username, string password,
 		                                     Action<AddUsernamePasswordResult> successCallback = null,
 		                                     Action<PlayFabError> errorCallback = null)
 		{
@@ -330,6 +353,7 @@ namespace FirstLight.Game.Services
 				Username = username,
 				Password = password
 			};
+		
 
 			PlayFabClientAPI.AddUsernamePassword(addUsernamePasswordRequest, OnSuccess, errorCallback);
 

@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Assets.Src.FirstLight.Game.Commands.QuantumLogicCommands;
+using FirstLight.FLogger;
+using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.AssetConfigs;
 using FirstLight.Game.Ids;
@@ -155,16 +158,41 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeEvents()
 		{
 			QuantumEvent.SubscribeManual<EventOnGameEnded>(this, OnGameEnded);
+			QuantumEvent.SubscribeManual<EventFireQuantumServerCommand>(this, OnServerCommand);
 		}
 
 		private void UnsubscribeEvents()
 		{
 			_services?.MessageBrokerService.UnsubscribeAll(this);
+			QuantumEvent.UnsubscribeListener(this);
 		}
 
 		private bool HasLeftBeforeMatchEnded()
 		{
 			return _matchServices.MatchEndDataService.LeftBeforeMatchFinished;
+		}
+		
+		
+		/// <summary>
+		/// Whenever the simulation wants to fire logic commands.
+		/// This will also run on quantum server and will be sent to logic service from there.
+		/// </summary>
+		private void OnServerCommand(EventFireQuantumServerCommand ev)
+		{
+			var game = ev.Game;
+			if (!game.PlayerIsLocal(ev.Player))
+			{
+				return;
+			}
+
+			FLog.Verbose("Quantum Logic Command Received: " + ev.CommandType.ToString());
+			var command = QuantumLogicCommandFactory.BuildFromEvent(ev);
+			command.FromFrame(game.Frames.Verified, new QuantumValues()
+			{
+				ExecutingPlayer = game.GetLocalPlayers()[0],
+				MatchType = _services.NetworkService.QuantumClient.CurrentRoom.GetMatchType()
+			});
+			_services.CommandService.ExecuteCommand(command as IGameCommand);
 		}
 		
 		private void OpenWinnerScreen()

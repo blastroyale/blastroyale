@@ -11,6 +11,7 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.NativeUi;
 using FirstLight.Statechart;
 using FirstLight.UiService;
 using I2.Loc;
@@ -230,7 +231,7 @@ namespace FirstLight.Game.StateMachines
 			_services.PlayfabService.CheckIfRewardsMatch(OnCheckIfServerRewardsMatch);
 		}
 
-		private void OnCheckIfServerRewardsMatch(bool serverRewardsMatch)
+		private async void OnCheckIfServerRewardsMatch(bool serverRewardsMatch)
 		{
 			if (serverRewardsMatch)
 			{
@@ -247,7 +248,21 @@ namespace FirstLight.Game.StateMachines
 			// We try 10 times to check reward claiming to timeout and show error pop up
 			if (_unclaimedCountCheck == 10)
 			{
-				// @GABRIEL: popup Native & OpenButtonDialog
+#if UNITY_EDITOR
+				var confirmButton = new GenericDialogButton
+				{
+					ButtonText = "OK",
+					ButtonOnClick = () => _services.QuitGame("Desync")
+				};
+				_services.GenericDialogService.OpenButtonDialog("Server Error", "Desync", false, confirmButton);
+#else
+			NativeUiService.ShowAlertPopUp(false, "Error", "Desync", new AlertButton
+			{
+				Callback = () => _services.QuitGame("Server desynch")
+				Style = AlertButtonStyle.Negative,
+				Text = "Quit Game"
+			});
+#endif
 				return;
 			}
 
@@ -257,9 +272,8 @@ namespace FirstLight.Game.StateMachines
 				                                                ScriptLocalization.UITHomeScreen.waitforrewards_popup_description, 
 				                                                false, new GenericDialogButton());
 			}
-			
 			_unclaimedCountCheck++;
-			
+			await Task.Delay(TimeSpan.FromMilliseconds(500)); // space check calls a bit
 			_services.PlayfabService.CheckIfRewardsMatch(OnCheckIfServerRewardsMatch);
 		}
 		

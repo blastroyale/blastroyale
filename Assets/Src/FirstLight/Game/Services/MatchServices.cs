@@ -47,7 +47,7 @@ namespace FirstLight.Game.Services
 			/// <summary>
 			/// Triggered when <see cref="MatchEndedMessage"/> has been published.
 			/// </summary>
-			void OnMatchEnded(QuantumGame game);
+			void OnMatchEnded(QuantumGame game, bool isDisconnected);
 		}
 
 		private MatchEndDataService _matchEndDataService;
@@ -103,7 +103,7 @@ namespace FirstLight.Game.Services
 		{
 			foreach (var service in _services)
 			{
-				service.OnMatchEnded(message.Game);
+				service.OnMatchEnded(message.Game, message.IsDisconnected);
 			}
 		}
 

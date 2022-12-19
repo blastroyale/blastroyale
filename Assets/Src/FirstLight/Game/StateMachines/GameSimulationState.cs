@@ -99,14 +99,17 @@ namespace FirstLight.Game.StateMachines
 			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnectedPlayerCheck);
 			battleRoyale.OnExit(CleanUpMatch);
 			
-			disconnectedPlayerCheck.Transition().Condition(IsSoloGame).OnTransition(OpenDisconnectedMatchEndDialog).Target(final);
-			disconnectedPlayerCheck.Transition().Target(disconnected);
+			// TODO: @ROB move this block out of the game simulation. This belongs to the MatchState. We are duplicating flow and code. It's not needed to be here
+			{
+				disconnectedPlayerCheck.Transition().Condition(IsSoloGame).OnTransition(OpenDisconnectedMatchEndDialog).Target(final);
+				disconnectedPlayerCheck.Transition().Target(disconnected);
 			
-			disconnected.OnEnter(StopSimulation);
-			disconnected.Event(NetworkState.JoinedRoomEvent).Target(startSimulation);
-			disconnected.Event(NetworkState.JoinRoomFailedEvent).Target(disconnectedCritical);
+				disconnected.OnEnter(StopSimulation);
+				disconnected.Event(NetworkState.JoinedRoomEvent).Target(startSimulation);
+				disconnected.Event(NetworkState.JoinRoomFailedEvent).Target(disconnectedCritical);
 
-			disconnectedCritical.OnEnter(NotifyCriticalDisconnection);
+				disconnectedCritical.OnEnter(NotifyCriticalDisconnection);
+			}
 
 			final.OnEnter(UnloadSimulationUi);
 			final.OnEnter(UnsubscribeEvents);
@@ -310,13 +313,14 @@ namespace FirstLight.Game.StateMachines
 			startParams.NetworkClient = client;
 			
 			QuantumRunner.StartGame(_services.NetworkService.UserId, startParams);
+			
 			_services.MessageBrokerService.Publish(new MatchSimulationStartedMessage());
 		}
 
 
 		private void StopSimulation()
 		{
-			_services.MessageBrokerService.Publish(new MatchSimulationEndedMessage());
+			_services.MessageBrokerService.Publish(new MatchSimulationEndedMessage { Game = QuantumRunner.Default.Game });
 			QuantumRunner.ShutdownAll();
 		}
 		

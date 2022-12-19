@@ -170,6 +170,16 @@ namespace FirstLight.Game.Services
 
 			GetRewards(frame, gameContainer);
 		}
+
+		public void OnMatchSimulationStarted()
+		{
+			// Do Nothing
+		}
+
+		public void OnMatchSimulationEnded(QuantumGame game)
+		{
+			// Do Nothing
+		}
 		
 		private void OnLeftBeforeMatchFinishedMessage(LeftBeforeMatchFinishedMessage msg)
 		{

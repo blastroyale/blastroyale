@@ -4,7 +4,11 @@ using FirstLight.SDK.Services;
 namespace FirstLight.Game.Messages
 {
 	public struct MatchSimulationStartedMessage : IMessage { }
-	public struct MatchSimulationEndedMessage : IMessage { }
+
+	public struct MatchSimulationEndedMessage : IMessage
+	{
+		public QuantumGame Game;
+	}
 	public struct MatchStartedMessage : IMessage
 	{
 		public QuantumGame Game;

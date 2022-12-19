@@ -274,7 +274,7 @@ namespace FirstLight.Game.StateMachines
 			}
 			_unclaimedCountCheck++;
 			await Task.Delay(TimeSpan.FromMilliseconds(500)); // space check calls a bit
-			_services.PlayfabService.CheckIfRewardsMatch(OnCheckIfServerRewardsMatch);
+			_services?.PlayfabService?.CheckIfRewardsMatch(OnCheckIfServerRewardsMatch);
 		}
 		
 		private void ValidateCurrentGameMode()

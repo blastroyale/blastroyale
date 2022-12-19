@@ -12,6 +12,9 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
 {
+	/// <summary>
+	/// This presenter is responsible to select the game mode to start the match
+	/// </summary>
 	[LoadSynchronously]
 	public class GameModeSelectionPresenter : UiToolkitPresenterData<GameModeSelectionPresenter.StateData>
 	{
@@ -19,7 +22,7 @@ namespace FirstLight.Game.Presenters
 		
 		public struct StateData
 		{
-			public Action GameModeChosen;
+			public Action<GameModeInfo> GameModeChosen;
 			public Action CustomGameChosen;
 			
 			public Action OnHomeClicked;
@@ -113,7 +116,7 @@ namespace FirstLight.Game.Presenters
 		{
 			yield return new WaitForSeconds(0.3f);
 			_services.GameModeService.SelectedGameMode.Value = info.GameModeInfo;
-			Data.GameModeChosen();
+			Data.GameModeChosen(info.GameModeInfo);
 		}
 
 		private void SelectButton(GameModeSelectionButtonView info)

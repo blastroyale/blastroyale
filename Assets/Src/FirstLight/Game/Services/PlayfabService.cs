@@ -136,7 +136,15 @@ namespace FirstLight.Game.Services
 				var model = ModelSerializer.Deserialize<PlayerData>(modelJson);
 				var serverState = model.UncollectedRewards;
 				var clientState = _dataProvider.RewardDataProvider.UnclaimedRewards;
-				callback(serverState.SequenceEqual(clientState));
+				var inSync = serverState.SequenceEqual(clientState);
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+				if (!inSync)
+				{
+					FLog.Error("Client Rewards: "+ModelSerializer.Serialize(clientState));
+					FLog.Error("Server Rewards: "+ModelSerializer.Serialize(serverState));
+				}
+#endif
+				callback(inSync);
 			}, HandleError);
 		}
 

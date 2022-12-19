@@ -256,12 +256,12 @@ namespace FirstLight.Game.StateMachines
 				};
 				_services.GenericDialogService.OpenButtonDialog("Server Error", "Desync", false, confirmButton);
 #else
-			NativeUiService.ShowAlertPopUp(false, "Error", "Desync", new AlertButton
-			{
-				Callback = () => _services.QuitGame("Server desynch")
-				Style = AlertButtonStyle.Negative,
-				Text = "Quit Game"
-			});
+				NativeUiService.ShowAlertPopUp(false, "Error", "Desync", new AlertButton
+				{
+					Callback = () => _services.QuitGame("Server desynch"),
+					Style = AlertButtonStyle.Negative,
+					Text = "Quit Game"
+				});
 #endif
 				return;
 			}

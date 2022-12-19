@@ -98,27 +98,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void MatchEndAnalytics()
 		{
-			if (IsSpectator())
-			{
-				return;
-			}
-
-			var game = QuantumRunner.Default.Game;
-			var f = game.Frames.Verified;
-			var gameContainer = f.GetSingleton<GameContainer>();
-			var matchData = gameContainer.GetPlayersMatchData(f, out _);
-			var localPlayerData = matchData[game.GetLocalPlayers()[0]];
-			var totalPlayers = 0;
-
-			for (var i = 0; i < matchData.Count; i++)
-			{
-				if (matchData[i].Data.IsValid && !f.Has<BotCharacter>(matchData[i].Data.Entity))
-				{
-					totalPlayers++;
-				}
-			}
-   
-			_services.AnalyticsService.MatchCalls.MatchEnd(totalPlayers, false, f.Time.AsFloat, localPlayerData);
+			_services.AnalyticsService.MatchCalls.MatchEndBRPlayerDead(QuantumRunner.Default.Game);
 		}
 
 		private bool IsMatchEnding()
@@ -133,7 +113,7 @@ namespace FirstLight.Game.StateMachines
 			var f = game.Frames.Verified;
 			var gameContainer = f.GetSingleton<GameContainer>();
 			var playersData = gameContainer.PlayersData;
-			var localPlayer = playersData[game.GetLocalPlayers()[0]];
+			var localPlayer = playersData[game.GetLocalPlayerRef()];
 
 			return localPlayer.Entity.IsAlive(f);
 		}

@@ -139,15 +139,27 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public void OnMatchEnded(QuantumGame game)
+		public void OnMatchEnded(QuantumGame game, bool isDisconnected)
 		{
-			var frame = game.Frames.Verified;
+			if (isDisconnected)
+			{
+				return;
+			}
 			
-			QuantumPlayerMatchData = frame.GetSingleton<GameContainer>().GetPlayersMatchData(frame, out _);
+			var frame = game.Frames.Verified;
+			var gameContainer = frame.GetSingleton<GameContainer>();
+			
+			QuantumPlayerMatchData = gameContainer.GetPlayersMatchData(frame, out _);
 
 			PlayerMatchData.Clear();
 			foreach (var quantumPlayerData in QuantumPlayerMatchData)
 			{
+				// This means that the match disconnected before the 
+				if (quantumPlayerData.Data.Player == PlayerRef.None)
+				{
+					return;
+				}
+				
 				var playerRuntimeData = frame.GetPlayerData(quantumPlayerData.Data.Player);
 				var weapon = playerRuntimeData?.Weapon ?? default;
 				var loadout = playerRuntimeData?.Loadout.ToList() ?? new List<Equipment>();
@@ -156,7 +168,7 @@ namespace FirstLight.Game.Services
 				PlayerMatchData.Add(playerData.PlayerRef, playerData);
 			}
 
-			GetRewards(frame);
+			GetRewards(frame, gameContainer);
 		}
 		
 		private void OnLeftBeforeMatchFinishedMessage(LeftBeforeMatchFinishedMessage msg)
@@ -164,11 +176,10 @@ namespace FirstLight.Game.Services
 			LeftBeforeMatchFinished = true;
 		}
 
-		private void GetRewards(Frame frame)
+		private void GetRewards(Frame frame, GameContainer gameContainer)
 		{
 			var room = _services.NetworkService.QuantumClient.CurrentRoom;
 			var matchType = room?.GetMatchType() ?? _services.GameModeService.SelectedGameMode.Value.Entry.MatchType;
-			var gameContainer = frame.GetSingleton<GameContainer>();
 
 			if (!frame.Context.GameModeConfig.AllowEarlyRewards && !gameContainer.IsGameCompleted &&
 				!gameContainer.IsGameOver)

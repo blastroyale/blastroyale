@@ -88,15 +88,13 @@ namespace FirstLight.Game.StateMachines
 			modeCheck.Transition().Condition(ShouldUseBattleRoyaleSM).Target(battleRoyale);
 			modeCheck.Transition().Target(battleRoyale);
 
-			deathmatch.Nest(_deathmatchState.Setup).Target(final);
+			deathmatch.Nest(_deathmatchState.Setup).OnTransition(() => PublishMatchEnded(false)).Target(final);
 			deathmatch.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(OnDisconnectDuringSimulation).Target(disconnectedPlayerCheck);
 			deathmatch.OnExit(CleanUpMatch);
-			deathmatch.OnExit(PublishMatchEnded);
 
-			battleRoyale.Nest(_battleRoyaleState.Setup).Target(final);
+			battleRoyale.Nest(_battleRoyaleState.Setup).OnTransition(() => PublishMatchEnded(false)).Target(final);
 			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).OnTransition(OnDisconnectDuringSimulation).Target(disconnectedPlayerCheck);
 			battleRoyale.OnExit(CleanUpMatch);
-			battleRoyale.OnExit(PublishMatchEnded);
 			
 			disconnectedPlayerCheck.Transition().Condition(IsSoloGame).OnTransition(OpenDisconnectedMatchEndDialog).Target(final);
 			disconnectedPlayerCheck.Transition().Target(disconnected);
@@ -118,6 +116,8 @@ namespace FirstLight.Game.StateMachines
 		private void OnDisconnectDuringSimulation()
 		{
 			_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.Simulation;
+
+			PublishMatchEnded(true);
 		}
 		
 		private void NotifyCriticalDisconnection()
@@ -300,11 +300,12 @@ namespace FirstLight.Game.StateMachines
 			_services.VfxService.DespawnAll();
 		}
 
-		private void PublishMatchEnded()
+		private void PublishMatchEnded(bool isDisconnected)
 		{
 			_services.MessageBrokerService.Publish(new MatchEndedMessage()
 			{
-				Game = QuantumRunner.Default.Game
+				Game = QuantumRunner.Default.Game,
+				IsDisconnected = isDisconnected
 			});
 		}
 

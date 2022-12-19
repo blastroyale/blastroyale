@@ -26,6 +26,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		private string _mutators;
 		private string _matchType;
 		private string _gameModeId;
+		private string _mapId;
 
 		private Dictionary<GameId, string> _gameIdsLookup = new();
 
@@ -61,6 +62,8 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			_mutators = string.Join(",", room.GetMutatorIds());
 			_matchType = room.GetMatchType().ToString();
 			_gameModeId = room.GetGameModeId();
+			var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(room.GetMapId());
+			_mapId = ((int) config.Map).ToString();
 			
 			var data = new Dictionary<string, object>
 			{
@@ -127,16 +130,13 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		/// </summary>
 		public void MatchEnd(int totalPlayers, bool playerQuit, float matchTime, QuantumPlayerMatchData matchData)
 		{
-			var room = _services.NetworkService.QuantumClient.CurrentRoom;
-			var config = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(room.GetMapId());
-			
 			var data = new Dictionary<string, object>
 			{
 				{"match_id", _matchId},
 				{"match_type", _matchType},
 				{"game_mode", _gameModeId},
 				{"mutators", _mutators},
-				{"map_id", ((int)config.Map).ToString()},
+				{"map_id", _mapId},
 				{"players_left", totalPlayers.ToString()},
 				{"suicide",matchData.Data.SuicideCount.ToString()},
 				{"kills", matchData.Data.PlayersKilledCount.ToString()},

@@ -55,7 +55,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void OnDestroy()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
-
+			
 			if (_timerCoroutine != null)
 			{
 				_services?.CoroutineService?.StopCoroutine(_timerCoroutine);
@@ -69,7 +69,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				return;
 			}
 
-			var frame = QuantumRunner.Default.Game.Frames.Verified;
+			var frame = callback.Game.Frames.Predicted;
 
 			if (frame.TryGetSingleton<ShrinkingCircle>(out _))
 			{
@@ -110,6 +110,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				yield return null;
 			}
+
+			if (QuantumRunner.Default?.Game?.Frames?.Predicted == null)
+			{
+				yield break;
+			}
 			
 			var config = _services.ConfigsProvider.GetConfig<QuantumShrinkingCircleConfig>(circle.Step);
 			var time = (circle.ShrinkingStartTime - f.Time - config.WarningTime).AsFloat;
@@ -121,6 +126,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_mapStatusTextAnimation.Play();
 
 			yield return new WaitForSeconds(time);
+			
+			if (QuantumRunner.Default?.Game?.Frames?.Predicted == null)
+			{
+				yield break;
+			}
 			
 			time = Time.time + (circle.ShrinkingStartTime - QuantumRunner.Default.Game.Frames.Predicted.Time).AsFloat;
 			_mapStatusText.text = ScriptLocalization.AdventureMenu.GoToArea;
@@ -135,11 +145,16 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 				yield return null;
 			}
+			
+			if (QuantumRunner.Default?.Game?.Frames?.Predicted == null)
+			{
+				yield break;
+			}
 
 			_mapStatusText.text = ScriptLocalization.AdventureMenu.AreaShrinking;
 			_mapStatusText.color = _areaShrinkingStatusColor;
 			time = Time.time + (circle.ShrinkingStartTime + circle.ShrinkingDurationTime -
-			                    QuantumRunner.Default.Game.Frames.Predicted.Time).AsFloat;
+				QuantumRunner.Default.Game.Frames.Predicted.Time).AsFloat;
 
 			_timerOutline.SetActive(true);
 			_mapStatusTextAnimation.Rewind();

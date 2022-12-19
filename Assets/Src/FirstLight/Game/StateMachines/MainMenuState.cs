@@ -53,7 +53,9 @@ namespace FirstLight.Game.StateMachines
 		private readonly EquipmentMenuState _equipmentMenuState;
 		private readonly SettingsMenuState _settingsMenuState;
 		private readonly EnterNameState _enterNameState;
+		
 		private Type _currentScreen;
+		private int _unclaimedCountCheck;
 
 		public MainMenuState(IGameServices services, IGameUiService uiService, IGameLogic gameLogic,
 		                     IAssetAdderService assetAdderService, Action<IStatechartEvent> statechartTrigger)
@@ -192,11 +194,17 @@ namespace FirstLight.Game.StateMachines
 			roomJoinCreateMenu.Event(NetworkState.JoinRoomFailedEvent).Target(chooseGameMode);
 			roomJoinCreateMenu.Event(NetworkState.CreateRoomFailedEvent).Target(chooseGameMode);
 		}
-		
-		private IEnumerator VerifyRewardsCalculationsCoroutine()
+
+		private void SubscribeEvents()
 		{
-			yield return new WaitForSeconds(1);
-			TryClaimUncollectedRewards();
+			_services.MessageBrokerService.Subscribe<GameCompletedRewardsMessage>(OnGameCompletedRewardsMessage);
+			_services.GameModeService.SelectedGameMode.Observe(OnGameModeChanged);
+		}
+
+		private void UnsubscribeEvents()
+		{
+			_services?.MessageBrokerService?.UnsubscribeAll(this);
+			_services?.GameModeService?.SelectedGameMode?.StopObserving(OnGameModeChanged);
 		}
 
 		private bool HasDefaultName()
@@ -205,20 +213,9 @@ namespace FirstLight.Game.StateMachines
 			       string.IsNullOrEmpty(_gameDataProvider.AppDataProvider.DisplayNameTrimmed);
 		}
 
-		private void SubscribeEvents()
-		{
-			_services.MessageBrokerService.Subscribe<GameCompletedRewardsMessage>(OnGameCompletedRewardsMessage);
-			_services.GameModeService.SelectedGameMode.Observe(OnGameModeChanged);
-		}
-
 		private void OnGameModeChanged(GameModeInfo previous, GameModeInfo next)
 		{
 			_gameDataProvider.AppDataProvider.LastGameMode = next.Entry;
-		}
-
-		private void UnsubscribeEvents()
-		{
-			_services?.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
 		private void OnGameCompletedRewardsMessage(GameCompletedRewardsMessage message)
@@ -226,27 +223,43 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(_gameCompletedCheatEvent);
 		}
 
+		private void TryClaimUncollectedRewards()
+		{
+			_unclaimedCountCheck = 0;
+			
+			_services.PlayfabService.CheckIfRewardsMatch(OnCheckIfServerRewardsMatch);
+		}
+
 		private void OnCheckIfServerRewardsMatch(bool serverRewardsMatch)
 		{
-			if (!serverRewardsMatch)
-			{
-				_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITHomeScreen.waitforrewards_popup_title,
-					ScriptLocalization.UITHomeScreen.waitforrewards_popup_description, false, new GenericDialogButton());
-
-				_services.CoroutineService.StartCoroutine(VerifyRewardsCalculationsCoroutine());
-			}
-			else
+			if (serverRewardsMatch)
 			{
 				_services.GenericDialogService.CloseDialog();
+				
 				if (_gameDataProvider.RewardDataProvider.UnclaimedRewards.Count > 0)
 				{
 					_services.CommandService.ExecuteCommand(new CollectUnclaimedRewardsCommand());
 				}
-			}
-		}
 
-		private void TryClaimUncollectedRewards()
-		{
+				return;
+			}
+
+			// We try 10 times to check reward claiming to timeout and show error pop up
+			if (_unclaimedCountCheck == 10)
+			{
+				// @GABRIEL: popup Native & OpenButtonDialog
+				return;
+			}
+
+			if (_unclaimedCountCheck == 0)
+			{
+				_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITHomeScreen.waitforrewards_popup_title,
+				                                                ScriptLocalization.UITHomeScreen.waitforrewards_popup_description, 
+				                                                false, new GenericDialogButton());
+			}
+			
+			_unclaimedCountCheck++;
+			
 			_services.PlayfabService.CheckIfRewardsMatch(OnCheckIfServerRewardsMatch);
 		}
 		
@@ -342,7 +355,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new GameModeSelectionPresenter.StateData
 			{
-				GameModeChosen = () =>
+				GameModeChosen = _ =>
 				{
 					_services.MessageBrokerService.Publish(new SelectedGameModeMessage());
 					_statechartTrigger(_gameModeSelectedFinishedEvent);

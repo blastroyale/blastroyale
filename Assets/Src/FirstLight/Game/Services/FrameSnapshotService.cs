@@ -73,18 +73,6 @@ namespace FirstLight.Game.Services
 			// Do Nothing
 		}
 
-		/// <inheritdoc />
-		public void OnMatchSimulationStarted()
-		{
-			// Do Nothing
-		}
-
-		/// <inheritdoc />
-		public void OnMatchSimulationEnded(QuantumGame game)
-		{
-			// Do Nothing
-		}
-
 		private void OnQuantumGameDestroyed(CallbackGameDestroyed callback)
 		{
 			_lastCapturedSnapshot = new FrameSnapshot()

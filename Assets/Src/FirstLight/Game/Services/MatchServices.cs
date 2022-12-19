@@ -48,16 +48,6 @@ namespace FirstLight.Game.Services
 			/// Triggered when <see cref="MatchEndedMessage"/> has been published.
 			/// </summary>
 			void OnMatchEnded(QuantumGame game, bool isDisconnected);
-			
-			/// <summary>
-			/// Triggered when <see cref="MatchSimulationStartedMessage"/> has been published.
-			/// </summary>
-			void OnMatchSimulationStarted();
-			
-			/// <summary>
-			/// Triggered when <see cref="MatchSimulationEndedMessage"/> has been published.
-			/// </summary>
-			void OnMatchSimulationEnded(QuantumGame game);
 		}
 
 		private MatchEndDataService _matchEndDataService;
@@ -88,8 +78,6 @@ namespace FirstLight.Game.Services
 
 			_messageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStart);
 			_messageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEnd);
-			_messageBrokerService.Subscribe<MatchSimulationStartedMessage>(OnMatchSimulationStarted);
-			_messageBrokerService.Subscribe<MatchSimulationEndedMessage>(OnMatchSimulationEnded);
 		}
 
 		public void Dispose()
@@ -116,22 +104,6 @@ namespace FirstLight.Game.Services
 			foreach (var service in _services)
 			{
 				service.OnMatchEnded(message.Game, message.IsDisconnected);
-			}
-		}
-
-		private void OnMatchSimulationStarted(MatchSimulationStartedMessage message)
-		{
-			foreach (var service in _services)
-			{
-				service.OnMatchSimulationStarted();
-			}
-		}
-
-		private void OnMatchSimulationEnded(MatchSimulationEndedMessage message)
-		{
-			foreach (var service in _services)
-			{
-				service.OnMatchSimulationEnded(message.Game);
 			}
 		}
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
 using Quantum;
@@ -59,6 +60,8 @@ namespace FirstLight.Game.Services
 			_gameServices = gameServices;
 			_matchServices = matchServices;
 			_playerVisionRange = gameServices.ConfigsProvider.GetConfig<QuantumGameConfig>().PlayerVisionRange;
+			
+			_gameServices.MessageBrokerService.Subscribe<MatchSimulationEndedMessage>(OnMatchSimulationEnded);
 
 			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnQuantumUpdateView);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
@@ -68,6 +71,7 @@ namespace FirstLight.Game.Services
 
 		public void Dispose()
 		{
+			_gameServices?.MessageBrokerService?.UnsubscribeAll(this);
 			_spectatedPlayer.StopObservingAll();
 			QuantumCallback.UnsubscribeListener(this);
 			QuantumEvent.UnsubscribeListener(this);
@@ -99,12 +103,7 @@ namespace FirstLight.Game.Services
 			SetSpectatedEntity(EntityRef.None, PlayerRef.None, true);
 		}
 
-		public void OnMatchSimulationStarted()
-		{
-			// Do Nothing
-		}
-
-		public void OnMatchSimulationEnded(QuantumGame game)
+		public void OnMatchSimulationEnded(MatchSimulationEndedMessage message)
 		{
 			SetSpectatedEntity(EntityRef.None, PlayerRef.None, true);
 		}

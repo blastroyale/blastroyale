@@ -179,6 +179,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void CloseMatchmakingScreen()
 		{
+			_uiService.CloseUi<CustomLobbyScreenPresenter>();
 			_uiService.CloseUi<MatchmakingScreenPresenter>();
 		}
 

@@ -152,14 +152,19 @@ namespace FirstLight.Game.StateMachines
 			final.OnEnter(UnsubscribeEvents);
 		}
 
+		private void SubscribeEvents()
+		{
+			QuantumEvent.SubscribeManual<EventOnGameEnded>(this, OnGameEnded);
+		}
+
+		private void UnsubscribeEvents()
+		{
+			_services?.MessageBrokerService.UnsubscribeAll(this);
+		}
+
 		private bool HasLeftBeforeMatchEnded()
 		{
 			return _matchServices.MatchEndDataService.LeftBeforeMatchFinished;
-		}
-
-		private bool IsSpectator()
-		{
-			return _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator();
 		}
 		
 		private void OpenWinnerScreen()
@@ -203,16 +208,6 @@ namespace FirstLight.Game.StateMachines
 			PublishCoreAssetsLoadedMessage();
 			OpenMatchmakingScreen();
 		}
-
-		private void SubscribeEvents()
-		{
-			QuantumEvent.SubscribeManual<EventOnGameEnded>(this, OnGameEnded);
-		}
-
-		private void UnsubscribeEvents()
-		{
-			_services?.MessageBrokerService.UnsubscribeAll(this);
-		}
 		
 		private void OnGameEnded(EventOnGameEnded callback)
 		{
@@ -228,10 +223,8 @@ namespace FirstLight.Game.StateMachines
 		{
 			_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.FinalPreload;
 
-			if (_uiService.HasUiPresenter <CustomLobbyScreenPresenter>())
-			{
-				_uiService.CloseUi<CustomLobbyScreenPresenter>();
-			}
+			_uiService.CloseUi<CustomLobbyScreenPresenter>();
+			_uiService.CloseUi<MatchmakingScreenPresenter>();
 		}
 
 		private void OnDisconnectDuringSimulation()

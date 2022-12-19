@@ -64,11 +64,13 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc />
 		public void OnMatchStarted(QuantumGame game, bool isReconnect)
 		{
+			// Do Nothing
 		}
 
 		/// <inheritdoc />
 		public void OnMatchEnded(QuantumGame game, bool isDisconnected)
 		{
+			// Do Nothing
 		}
 
 		private void OnQuantumGameDestroyed(CallbackGameDestroyed callback)

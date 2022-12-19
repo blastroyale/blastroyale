@@ -596,7 +596,6 @@ namespace FirstLight.Game.StateMachines
 
 			var game = callback.Game;
 			var frame = game.Frames.Verified;
-			var container = frame.GetSingleton<GameContainer>();
 			var killAudio = AudioId.None;
 			var voMultiKillAudio = AudioId.None;
 			var voKillstreakAudio = AudioId.None;

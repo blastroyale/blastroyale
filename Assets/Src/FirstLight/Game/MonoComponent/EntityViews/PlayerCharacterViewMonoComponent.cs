@@ -128,8 +128,16 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			
 			if (Services.NetworkService.IsJoiningNewMatch)
 			{
-				AnimatorWrapper.SetBool(Bools.Flying, frame.Context.GameModeConfig.SkydiveSpawn);
-				//AnimatorWrapper.SetTrigger(EntityView.EntityRef.IsAlive(frame) ? Triggers.Spawn : Triggers.Die);
+				var isSkydiving = frame.Get<AIBlackboardComponent>(EntityView.EntityRef).GetBoolean(frame, Constants.IsSkydiving);
+
+				if (isSkydiving)
+				{
+					AnimatorWrapper.SetBool(Bools.Flying, frame.Context.GameModeConfig.SkydiveSpawn);
+				}
+				else
+				{
+					AnimatorWrapper.SetTrigger(EntityView.EntityRef.IsAlive(frame) ? Triggers.Spawn : Triggers.Die);	
+				}
 			}
 			else
 			{

@@ -955,7 +955,8 @@ namespace Quantum.Systems
 		private void AddBots(Frame f, List<PlayerRef> botIds, uint baseTrophiesAmount)
 		{
 			var playerSpawners = GetFreeSpawnPoints(f);
-			var botNamesIndices = new List<int>();
+			var botsNameCount = f.GameConfig.BotsNameCount;
+			var botNamesIndices = new List<int>(botsNameCount);
 			var deathMakers = GameIdGroup.DeathMarker.GetIds();
 			var botItems = GameIdGroup.BotItem.GetIds();
 			var skinOptions = GameIdGroup.PlayerSkin.GetIds().Where(item => botItems.Contains(item)).ToArray();
@@ -964,21 +965,22 @@ namespace Quantum.Systems
 			botsDifficulty = FPMath.Clamp(botsDifficulty, 0, f.GameConfig.BotsMaxDifficulty);
 			var botConfigsList = GetBotConfigsList(f, botsDifficulty);
 
-			for (var i = 0; i < f.GameConfig.BotsNameCount; i++)
+			for (var i = 0; i < botsNameCount; i++)
 			{
 				botNamesIndices.Add(i + 1);
 			}
 
+			var playerCharacterPrototypeAsset = f.FindAsset<EntityPrototype>(f.AssetConfigs.PlayerCharacterPrototype.Id);
+			var navMeshAgentConfig = f.FindAsset<NavMeshAgentConfig>(f.AssetConfigs.BotNavMeshConfig.Id);
+			
 			foreach (var id in botIds)
 			{
 				var rngSpawnIndex = f.RNG->Next(0, playerSpawners.Count);
 				var spawnerTransform = f.Get<Transform3D>(playerSpawners[rngSpawnIndex].Entity);
-				var botEntity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.PlayerCharacterPrototype.Id));
+				var botEntity = f.Create(playerCharacterPrototypeAsset);
 				var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(botEntity);
 				var navMeshAgent = new NavMeshSteeringAgent();
-				var pathfinder = NavMeshPathfinder.Create(f, botEntity,
-				                                          f.FindAsset<NavMeshAgentConfig>(f.AssetConfigs
-					                                          .BotNavMeshConfig.Id));
+				var pathfinder = NavMeshPathfinder.Create(f, botEntity, navMeshAgentConfig);
 				var rngBotConfigIndex = f.RNG->Next(0, botConfigsList.Count);
 				var botConfig = botConfigsList[rngBotConfigIndex];
 				var listNamesIndex = f.RNG->Next(0, botNamesIndices.Count);

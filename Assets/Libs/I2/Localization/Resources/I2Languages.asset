@@ -10054,6 +10054,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITHomeScreen/resource_pool_restock_bpp_time
+      TermType: 0
+      Description: 
+      Languages:
+      - ' IN {2}'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITDisconnected/connection_lost
       TermType: 0
       Description: 
@@ -11067,7 +11076,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1671200003586
+    Google_LastUpdatedVersion: 1671459834785
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

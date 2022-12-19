@@ -1201,6 +1201,7 @@ namespace I2.Loc
 			public static string new_name_desc 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/new_name_desc"); } }
 			public static string play 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/play"); } }
 			public static string resource_pool_restock 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/resource_pool_restock"); } }
+			public static string resource_pool_restock_bpp_time 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/resource_pool_restock_bpp_time"); } }
 			public static string shop 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/shop"); } }
 			public static string waitforrewards_popup_description 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/waitforrewards_popup_description"); } }
 			public static string waitforrewards_popup_title 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/waitforrewards_popup_title"); } }
@@ -2522,6 +2523,7 @@ namespace I2.Loc
 		    public const string new_name_desc = "UITHomeScreen/new_name_desc";
 		    public const string play = "UITHomeScreen/play";
 		    public const string resource_pool_restock = "UITHomeScreen/resource_pool_restock";
+		    public const string resource_pool_restock_bpp_time = "UITHomeScreen/resource_pool_restock_bpp_time";
 		    public const string shop = "UITHomeScreen/shop";
 		    public const string waitforrewards_popup_description = "UITHomeScreen/waitforrewards_popup_description";
 		    public const string waitforrewards_popup_title = "UITHomeScreen/waitforrewards_popup_title";

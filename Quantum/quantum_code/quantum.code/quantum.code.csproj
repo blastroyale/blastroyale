@@ -217,6 +217,7 @@
     <Compile Include="Components\Projectile.cs" />
     <Compile Include="Components\SpecialGrenade.cs" />
     <Compile Include="Components\SpecialHazardAimSpawn.cs" />
+    <Compile Include="Components\SpecialRadar.cs" />
     <Compile Include="Components\SpecialSelfStatusModifier.cs" />
     <Compile Include="Components\Specials.cs" />
     <Compile Include="Components\SpecialShieldedCharge.cs" />

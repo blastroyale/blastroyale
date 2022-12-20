@@ -38,7 +38,7 @@ namespace Quantum.Commands
 				aimInputProcessed = (transform.Rotation * FPVector3.Forward).XZ.Normalized * Constants.TAP_TO_USE_SPECIAL_AIMING_OFFSET;
 			}
 			
-			if (special.TryActivate(f, characterEntity, aimInputProcessed, SpecialIndex))
+			if (special.TryActivate(f, playerRef, characterEntity, aimInputProcessed, SpecialIndex))
 			{
 				playerCharacter->WeaponSlot->Specials[SpecialIndex] = special;
 			}

@@ -196,7 +196,7 @@ namespace FirstLight.Game.Views
 			while (true)
 			{
 				var timeLeft = GameModeInfo.EndTime - DateTime.UtcNow;
-				_gameModeTimerLabel.text = "LIMITED " + timeLeft.ToString(@"hh\:mm\:ss");
+				_gameModeTimerLabel.text = timeLeft.ToString(@"hh\:mm\:ss");
 				yield return wait;
 			}
 		}

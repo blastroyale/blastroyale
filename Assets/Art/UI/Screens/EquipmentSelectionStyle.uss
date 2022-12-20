@@ -39,7 +39,6 @@
 }
 
 .details__name {
-    -unity-font-definition: var(--font-italic);
     color: rgb(255, 255, 255);
     text-shadow: 4px 4px 0 rgb(0, 0, 0);
     font-size: 38px;
@@ -81,7 +80,6 @@
     border-top-width: 2px;
     border-bottom-width: 2px;
     color: rgb(104, 97, 166);
-    -unity-font-definition: var(--font-italic);
     font-size: 30px;
     align-items: stretch;
     flex-direction: row;
@@ -241,7 +239,6 @@
     top: 252px;
     font-size: 54px;
     -unity-text-align: middle-center;
-    -unity-font-definition: var(--font-italic);
     color: rgb(255, 255, 255);
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
 }

@@ -120,7 +120,6 @@
 }
 
 .equipment-slot__title {
-    -unity-font-definition: var(--font-italic);
     color: rgb(255, 255, 255);
     font-size: 45px;
     -unity-text-align: middle-left;
@@ -142,7 +141,6 @@
 }
 
 .equipment-slot__level {
-    -unity-font-definition: var(--font-italic);
     color: rgb(255, 255, 255);
     font-size: 45px;
     -unity-text-align: middle-center;
@@ -179,7 +177,6 @@
 .equipment-slot__badge--loaned {
     background-image: none;
     -unity-text-align: middle-center;
-    -unity-font-definition: var(--font-italic);
     font-size: 22px;
     color: rgb(255, 255, 255);
     padding: 2px 15px 0;

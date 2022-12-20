@@ -41,7 +41,6 @@
 
 .message {
     position: absolute;
-    -unity-font-definition: var(--font-italic);
     font-size: 45px;
     -unity-font-style: bold;
     color: rgb(31, 41, 117);

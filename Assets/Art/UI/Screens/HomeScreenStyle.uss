@@ -370,7 +370,7 @@
 }   
 
 .button-with-icon--store > .button-with-icon__icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/IconEquipment.png?fileID=21300000&guid=f074c3dd0ff0849fe90a973fd6fbd458&type=3#IconEquipment');
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMain.png?fileID=21300000&guid=8368e60ca24ab4818929e5d7b2dd77f2&type=3#ButtonMain');
 }
 
 .button-with-icon--equipment > .button-with-icon__icon {

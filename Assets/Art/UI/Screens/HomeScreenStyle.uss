@@ -308,6 +308,11 @@
     align-items: center;
 }
 
+resource-pool__holder__cs
+{
+    flex-direction: row;
+}
+
 .resource-pool--bpp .resource-pool__holder {
     flex-direction: row;
     rotate: 3deg;

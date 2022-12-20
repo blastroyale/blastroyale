@@ -73,6 +73,7 @@ namespace FirstLight.Game.Presenters
         private Label _bppPoolAmountLabel;
         private VisualElement _csPoolContainer;
         private Label _csPoolRestockTimeLabel;
+        private Label _csPoolRestockAmountLabel;
         private Label _csPoolAmountLabel;
 
         private void Awake()
@@ -104,7 +105,8 @@ namespace FirstLight.Game.Presenters
 
             _csPoolContainer = root.Q<VisualElement>("CSPoolContainer").Required();
             _csPoolAmountLabel = _csPoolContainer.Q<Label>("AmountLabel").Required();
-            _csPoolRestockTimeLabel = _csPoolContainer.Q<Label>("RestockLabel").Required();
+            _csPoolRestockTimeLabel = _csPoolContainer.Q<Label>("RestockLabelTime").Required();
+            _csPoolRestockAmountLabel = _csPoolContainer.Q<Label>("RestockLabelAmount").Required();
 
             _battlePassLevelLabel = root.Q<Label>("BattlePassLevelLabel").Required();
             _battlePassProgressElement = root.Q<VisualElement>("BattlePassProgressElement").Required();
@@ -233,40 +235,31 @@ namespace FirstLight.Game.Presenters
 
         private void UpdatePoolLabels(float _ = 0)
         {
-            UpdatePool(GameId.BPP, BPP_POOL_AMOUNT_FORMAT, _bppPoolRestockTimeLabel, _bppPoolAmountLabel);
-            UpdatePool(GameId.CS, CS_POOL_AMOUNT_FORMAT, _csPoolRestockTimeLabel, _csPoolAmountLabel);
+            UpdatePool(GameId.BPP, BPP_POOL_AMOUNT_FORMAT, _bppPoolRestockTimeLabel, _bppPoolRestockAmountLabel,
+                _bppPoolRestockAmountLabel);
+            UpdatePool(GameId.CS, CS_POOL_AMOUNT_FORMAT, _csPoolRestockTimeLabel, _csPoolRestockAmountLabel,
+                _csPoolAmountLabel);
         }
 
-        private void UpdatePool(GameId id, string amountStringFormat, Label timeLabel, Label amountLabel)
+        private void UpdatePool(GameId id, string amountStringFormat, Label timeLabel, Label restockAmountLabel,
+            Label poolAmountLabel)
         {
             var poolInfo = _dataProvider.ResourceDataProvider.GetResourcePoolInfo(id);
             var timeLeft = poolInfo.NextRestockTime - DateTime.UtcNow;
 
-            amountLabel.text = string.Format(amountStringFormat, poolInfo.CurrentAmount, poolInfo.PoolCapacity);
+            poolAmountLabel.text = string.Format(amountStringFormat, poolInfo.CurrentAmount, poolInfo.PoolCapacity);
 
             if (poolInfo.IsFull)
             {
                 timeLabel.text = string.Empty;
-
-                if (id == GameId.BPP)
-                    _bppPoolRestockAmountLabel.text = string.Empty;
+                restockAmountLabel.text = string.Empty;
             }
             else
             {
-                if (id == GameId.BPP)
-                {
-                    _bppPoolRestockAmountLabel.text = poolInfo.RestockPerInterval.ToString();
-                    _bppPoolRestockTimeLabel.text = string.Format(
-                        ScriptLocalization.UITHomeScreen.resource_pool_restock_bpp_time,
-                        timeLeft.ToHoursMinutesSeconds());
-                }
-                else if (id == GameId.CS)
-                {
-                    timeLabel.text = string.Format(ScriptLocalization.UITHomeScreen.resource_pool_restock,
-                        poolInfo.RestockPerInterval,
-                        id.ToString(),
-                        timeLeft.ToHoursMinutesSeconds());
-                }
+                restockAmountLabel.text = $"+ {poolInfo.RestockPerInterval}";
+                timeLabel.text = string.Format(
+                    ScriptLocalization.UITHomeScreen.resource_pool_restock_time,
+                    timeLeft.ToHoursMinutesSeconds());
             }
         }
 

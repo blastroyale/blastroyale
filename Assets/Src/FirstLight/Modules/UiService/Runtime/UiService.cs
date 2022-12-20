@@ -140,9 +140,9 @@ namespace FirstLight.UiService
 		}
 
 		/// <inheritdoc />
-		public void RemoveUi(Type type)
+		public async void RemoveUi(Type type)
 		{
-			CloseUi(type);
+			await CloseUi(type);
 			
 			_uiViews.Remove(type);
 			_visibleUiList.Remove(type);
@@ -184,6 +184,7 @@ namespace FirstLight.UiService
 			GameObject gameObject;
 			if (Attribute.IsDefined(type, typeof(LoadSynchronouslyAttribute)))
 			{
+				// ReSharper disable once MethodHasAsyncOverload
 				gameObject = _assetLoader.InstantiatePrefab(config.AddressableAddress, layer.transform, false);
 			}
 			else
@@ -380,6 +381,8 @@ namespace FirstLight.UiService
 			}
 
 			_visibleUiList.Remove(type);
+
+			// ReSharper disable once MethodHasAsyncOverload
 			var ui = GetUi(type); 
 
 			await ui.InternalClose(destroy);
@@ -396,7 +399,9 @@ namespace FirstLight.UiService
 		{
 			for (int i = 0; i < _visibleUiList.Count; i++)
 			{
+				// ReSharper disable once MethodHasAsyncOverload
 				await GetUi(_visibleUiList[i]).InternalClose(false);
+
 				_visibleUiList.Remove(_visibleUiList[i]);
 			}
 			
@@ -408,6 +413,7 @@ namespace FirstLight.UiService
 		{
 			var layers = new List<int>(excludeLayers);
 			
+			// ReSharper disable once MethodHasAsyncOverload
 			for (int i = GetReference(typeof(T)).Layer; i <= _layers.Count; i++)
 			{
 				if (layers.Contains(i))
@@ -424,6 +430,7 @@ namespace FirstLight.UiService
 		{
 			for (int i = 0; i < _visibleUiList.Count; i++)
 			{
+				// ReSharper disable once MethodHasAsyncOverload
 				var reference = GetReference(_visibleUiList[i]);
 				if (reference.Layer == layer)
 				{
@@ -450,18 +457,16 @@ namespace FirstLight.UiService
 			var set = GetUiSet(setId);
 			var list = new List<UiPresenter>();
 
-			for (int i = 0; i < set.UiConfigsType.Count; i++)
+			foreach (var t in set.UiConfigsType)
 			{
-				Type uiType = set.UiConfigsType[i];
-				
-				if (!HasUiPresenter(uiType))
+				if (!HasUiPresenter(t))
 				{
 					continue;
 				}
 
-				RemoveUi(uiType);
+				RemoveUi(t);
 
-				list.Add(GetUi(uiType));
+				list.Add(GetUi(t));
 			}
 
 			return list;
@@ -473,14 +478,14 @@ namespace FirstLight.UiService
 			var set = GetUiSet(setId);
 			var uiTasks = new List<Task<UiPresenter>>();
 
-			for (int i = 0; i < set.UiConfigsType.Count; i++)
+			foreach (var t in set.UiConfigsType)
 			{
-				if (HasUiPresenter(set.UiConfigsType[i]))
+				if (HasUiPresenter(t))
 				{
 					continue;
 				}
 				
-				uiTasks.Add(LoadUiAsync(set.UiConfigsType[i]));
+				uiTasks.Add(LoadUiAsync(t));
 			}
 
 			return Interleaved(uiTasks);
@@ -491,11 +496,11 @@ namespace FirstLight.UiService
 		{
 			var set = GetUiSet(setId);
 
-			for (var i = 0; i < set.UiConfigsType.Count; i++)
+			foreach (var t in set.UiConfigsType)
 			{
-				if (HasUiPresenter(set.UiConfigsType[i]))
+				if (HasUiPresenter(t))
 				{
-					UnloadUi(set.UiConfigsType[i]);
+					UnloadUi(t);
 				}
 			}
 		}
@@ -511,15 +516,7 @@ namespace FirstLight.UiService
 		{
 			var set = GetUiSet(setId);
 
-			for (var i = 0; i < set.UiConfigsType.Count; i++)
-			{
-				if (!HasUiPresenter(set.UiConfigsType[i]))
-				{
-					return false;
-				}
-			}
-
-			return true;
+			return set.UiConfigsType.All(HasUiPresenter);
 		}
 
 		/// <inheritdoc />
@@ -534,43 +531,44 @@ namespace FirstLight.UiService
 		}
 
 		/// <inheritdoc />
-		public void OpenUiSet(int setId, bool closeVisibleUi)
+		public async void OpenUiSet(int setId, bool closeVisibleUi)
 		{
 			var set = GetUiSet(setId);
 
 			if (closeVisibleUi)
 			{
 				var list = new List<Type>(set.UiConfigsType);
-				for (var i = 0; i < _visibleUiList.Count; i++)
+				foreach (var t in _visibleUiList)
 				{
-					if (list.Contains(_visibleUiList[i]))
+					if (list.Contains(t))
 					{
 						continue;
 					}
 
-					CloseUi(_visibleUiList[i]);
+					await CloseUi(t);
 				}
 			}
 
-			for (var i = 0; i < set.UiConfigsType.Count; i++)
+			foreach (var t in set.UiConfigsType)
 			{
-				if (_visibleUiList.Contains(set.UiConfigsType[i]))
+				if (_visibleUiList.Contains(t))
 				{
 					continue;
 				}
 				
-				OpenUi(set.UiConfigsType[i]);
+				// ReSharper disable once MethodHasAsyncOverload
+				OpenUi(t);
 			}
 		}
 
 		/// <inheritdoc />
-		public void CloseUiSet(int setId)
+		public async void CloseUiSet(int setId)
 		{
 			var set = GetUiSet(setId);
-			
-			for (var i = 0; i < set.UiConfigsType.Count; i++)
+
+			foreach (var t in set.UiConfigsType)
 			{
-				CloseUi(set.UiConfigsType[i]);
+				await CloseUi(t);
 			}
 		}
 
@@ -632,9 +630,7 @@ namespace FirstLight.UiService
 
 		private UiReference GetReference(Type type)
 		{
-			UiReference uiReference;
-
-			if (!_uiViews.TryGetValue(type, out uiReference))
+			if (!_uiViews.TryGetValue(type, out var uiReference))
 			{
 				throw new
 					KeyNotFoundException($"The Ui {type} was not added to the service. Call {nameof(AddUi)} or {nameof(LoadUiAsync)} first");
@@ -701,14 +697,14 @@ namespace FirstLight.UiService
 			}
 		}
 
-		private void CloseLoadingSpinner()
+		private async void CloseLoadingSpinner()
 		{
 			if (_loadingSpinnerType == null)
 			{
 				return;
 			}
 
-			CloseUi(_loadingSpinnerType);
+			await CloseUi(_loadingSpinnerType);
 		}
 		
 		private struct UiReference

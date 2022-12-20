@@ -493,7 +493,7 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Publish(new PlayScreenOpenedMessage());
 		}
 
-		private async void OpenDisconnectedScreen()
+		private void OpenDisconnectedScreen()
 		{
 			var data = new DisconnectedScreenPresenter.StateData
 			{

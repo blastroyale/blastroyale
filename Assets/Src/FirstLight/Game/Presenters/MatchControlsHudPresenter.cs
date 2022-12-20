@@ -76,9 +76,10 @@ namespace FirstLight.Game.Presenters
 			_services.PlayerInputService.EnableInput();
 		}
 
-		protected override async Task OnClosed()
+		protected override Task OnClosed()
 		{
 			_services.PlayerInputService.DisableInput();
+			return Task.CompletedTask;
 		}
 
 		/// <inheritdoc />

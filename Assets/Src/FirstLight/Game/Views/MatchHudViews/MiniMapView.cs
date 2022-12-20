@@ -29,7 +29,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private static readonly int _playersPID = Shader.PropertyToID("_Players");
 		private static readonly int _playersCountPID = Shader.PropertyToID("_PlayersCount");
 		private static readonly int _playersOpacityPID = Shader.PropertyToID("_PlayersOpacity");
-		
+
 		private readonly TimeSpan RADAR_UPDATE_FREQ = TimeSpan.FromSeconds(2);
 
 		[SerializeField, Required, Title("Minimap")]
@@ -65,14 +65,14 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private Transform _cameraTransform;
 		private bool _safeAreaSet;
 		private bool _opened;
-		private float _animationModifier = 0f;
+		private float _animationModifier;
 		private float _fullScreenMapSize;
 		private float _smallMapSize;
 		private Vector2 _smallMapPosition;
 		private Tweener _tweenerSize;
 		private Material _minimapMat;
 		private IObjectPool<MinimapAirdropView> _airdropPool;
-		private readonly List<Vector4> _playerPositions = new(30);
+		private readonly Vector4[] _playerPositions = new Vector4[30];
 
 		private bool _radarActive;
 		private DateTime _radarEndTime;
@@ -218,17 +218,17 @@ namespace FirstLight.Game.Views.MatchHudViews
 			// Players
 			if (Shader.IsKeywordEnabled(GameConstants.Visuals.SHADER_MINIMAP_DRAW_PLAYERS))
 			{
-				_playerPositions.Clear();
+				int index = 0;
 				foreach (var (entity, _) in f.GetComponentIterator<AlivePlayerCharacter>())
 				{
 					var pos = f.Get<Transform3D>(entity).Position.ToUnityVector3();
 					var viewportPos = _minimapCamera.WorldToViewportPoint(pos) - Vector3.one / 2f;
 
-					_playerPositions.Add(new Vector4(viewportPos.x, viewportPos.y, 0, 0));
+					_playerPositions[index++] = new Vector4(viewportPos.x, viewportPos.y, 0, 0);
 				}
 
 				_minimapImage.materialForRendering.SetVectorArray(_playersPID, _playerPositions);
-				_minimapImage.materialForRendering.SetInteger(_playersCountPID, _playerPositions.Count);
+				_minimapImage.materialForRendering.SetInteger(_playersCountPID, index);
 			}
 
 			UpdateSafeAreaArrow(playerTransform3D, circle.TargetCircleCenter.ToUnityVector3(),
@@ -265,24 +265,31 @@ namespace FirstLight.Game.Views.MatchHudViews
 				// Update positions
 				_radarLastUpdate = now;
 
-				_playerPositions.Clear();
-				foreach (var (entity, _) in f.GetComponentIterator<AlivePlayerCharacter>())
+				int index = 0;
+				foreach (var (entity, apc) in f.GetComponentIterator<AlivePlayerCharacter>())
 				{
 					var pos = f.Get<Transform3D>(entity).Position.ToUnityVector3();
 
+					// Check range
 					if (Vector3.Distance(playerPosition, pos) > _radarRange)
 					{
 						continue;
 					}
-					
+
+					// Don't show the local player
+					if (f.Context.IsLocalPlayer(f.Get<PlayerCharacter>(entity).Player))
+					{
+						continue;
+					}
+
 					var viewportPos = _minimapCamera.WorldToViewportPoint(pos) - Vector3.one / 2f;
 
-					_playerPositions.Add(new Vector4(viewportPos.x, viewportPos.y, 0, 0));
+					_playerPositions[index++] = new Vector4(viewportPos.x, viewportPos.y, 0, 0);
 				}
-			}
 
-			_minimapImage.materialForRendering.SetVectorArray(_playersPID, _playerPositions);
-			_minimapImage.materialForRendering.SetInteger(_playersCountPID, _playerPositions.Count);
+				_minimapImage.materialForRendering.SetVectorArray(_playersPID, _playerPositions);
+				_minimapImage.materialForRendering.SetInteger(_playersCountPID, index);
+			}
 		}
 
 		private void UpdateSafeAreaArrow(Transform3D playerTransform3D, Vector3 circleCenter, float circleRadius)
@@ -384,13 +391,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			var poolSpawnedReadOnly = _airdropPool.SpawnedReadOnly;
 
-			for (var i = 0; i < poolSpawnedReadOnly.Count; i++)
+			foreach (var airdropView in poolSpawnedReadOnly)
 			{
-				if (poolSpawnedReadOnly[i].Entity == callback.Entity)
-				{
-					poolSpawnedReadOnly[i].OnLanded();
-					break;
-				}
+				if (airdropView.Entity != callback.Entity) continue;
+
+				airdropView.OnLanded();
+				break;
 			}
 		}
 
@@ -398,13 +404,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			var poolSpawnedReadOnly = _airdropPool.SpawnedReadOnly;
 
-			for (var i = 0; i < poolSpawnedReadOnly.Count; i++)
+			foreach (var airdropView in poolSpawnedReadOnly)
 			{
-				if (poolSpawnedReadOnly[i].Entity == callback.Entity)
-				{
-					_airdropPool.Despawn(poolSpawnedReadOnly[i]);
-					break;
-				}
+				if (airdropView.Entity != callback.Entity) continue;
+
+				_airdropPool.Despawn(airdropView);
+				break;
 			}
 		}
 

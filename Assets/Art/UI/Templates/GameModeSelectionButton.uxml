@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/Art/UI/Templates/GameModeSelectionButtonStyle.uss?fileID=7433441132597879392&amp;guid=1a806c33bc7a34069a8b184b546c14e0&amp;type=3#GameModeSelectionButtonStyle" />
     <ui:Button display-tooltip-when-elided="true" name="GameModeButton" class="hidden-gamemodebutton battleroyale ranked">
         <ui:VisualElement name="Scalable">
-            <ui:VisualElement name="Glow" style="width: 700px; left: -100px;" />
+            <ui:VisualElement name="Glow" />
             <ui:VisualElement name="GameModeOutline">
                 <ui:VisualElement name="Frame">
                     <ui:VisualElement name="TopMask" style="width: 502px; height: 731px; margin-left: 2px; overflow: hidden; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/GameModeSelection/ModeButton.svg?fileID=7388822144124034973&amp;guid=396868652aab04b298372850f07f4a48&amp;type=3#ModeButton&apos;); margin-top: 2px; -unity-background-image-tint-color: rgba(255, 255, 255, 0);">

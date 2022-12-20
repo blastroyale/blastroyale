@@ -293,12 +293,12 @@
 
 #GameModeButton.selected #Glow {
     position: absolute;
-    background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/LightDefault.png?fileID=21300000&guid=8c715bd3c007f4488a36cac20e539774&type=3#LightDefault');
+    background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/BehindChosenModeLight.png?fileID=21300000&guid=52f7975f7a5a24e04ab18c4ea9cb930d&type=3#BehindChosenModeLight');
     -unity-background-image-tint-color: rgb(249, 140, 47);
-    width: 800px;
-    height: 1000px;
-    left: -130px;
-    top: -100px;
+    width: 750px;
+    height: 1200px;
+    left: -100px;
+    top: -200px;
     rotate: 5deg;
 }
 

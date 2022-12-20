@@ -109,20 +109,19 @@ MonoBehaviour:
       _valueData:
       - RawValue: 6553600
     Faction:
-      _keyData: 00000000010000000200000003000000
+      _keyData: 00000000010000000200000003000000040000000500000006000000
       _valueData:
       - RawValue: 1310720
       - RawValue: 1310720
       - RawValue: 1310720
       - RawValue: 1310720
+      - RawValue: 589824
+      - RawValue: 589824
+      - RawValue: 131072
     Adjective:
-      _keyData: 0000000001000000020000000300000004000000
+      _keyData: 00000000
       _valueData:
-      - RawValue: 2621440
-      - RawValue: 1966080
-      - RawValue: 983040
-      - RawValue: 360448
-      - RawValue: 360448
+      - RawValue: 6553600
     Material:
       _keyData: 0000000001000000
       _valueData:
@@ -140,11 +139,11 @@ MonoBehaviour:
     EquipmentCategory:
       _keyData: 0d0000000f00000011000000100000000b000000
       _valueData:
+      - RawValue: 1769472
+      - RawValue: 1769472
       - RawValue: 1441792
       - RawValue: 1769472
       - RawValue: 917504
-      - RawValue: 1769472
-      - RawValue: 655360
     Edition:
       _keyData: 00000000
       _valueData:
@@ -152,29 +151,27 @@ MonoBehaviour:
     Rarity:
       _keyData: 000000000100000002000000
       _valueData:
-      - RawValue: 2293760
+      - RawValue: 1638400
       - RawValue: 1638400
       - RawValue: 1179648
     Grade:
-      _keyData: 0400000003000000
+      _keyData: 04000000
       _valueData:
-      - RawValue: 5570560
-      - RawValue: 983040
+      - RawValue: 6553600
     Faction:
-      _keyData: 00000000010000000200000003000000
+      _keyData: 00000000010000000200000003000000040000000500000006000000
       _valueData:
       - RawValue: 1310720
       - RawValue: 1310720
       - RawValue: 1310720
       - RawValue: 1310720
+      - RawValue: 589824
+      - RawValue: 589824
+      - RawValue: 131072
     Adjective:
-      _keyData: 0100000002000000030000000400000005000000
+      _keyData: 00000000
       _valueData:
-      - RawValue: 1966080
-      - RawValue: 983040
-      - RawValue: 360448
-      - RawValue: 360448
-      - RawValue: 124518
+      - RawValue: 6553600
     Material:
       _keyData: 000000000100000002000000
       _valueData:
@@ -193,11 +190,11 @@ MonoBehaviour:
     EquipmentCategory:
       _keyData: 0d0000000f00000011000000100000000b000000
       _valueData:
+      - RawValue: 1769472
+      - RawValue: 1769472
       - RawValue: 1441792
       - RawValue: 1769472
       - RawValue: 917504
-      - RawValue: 1769472
-      - RawValue: 655360
     Edition:
       _keyData: 00000000
       _valueData:
@@ -206,36 +203,32 @@ MonoBehaviour:
       _keyData: 010000000200000003000000
       _valueData:
       - RawValue: 1638400
-      - RawValue: 1179648
+      - RawValue: 1638400
       - RawValue: 786432
     Grade:
-      _keyData: 0400000003000000
+      _keyData: 04000000
+      _valueData:
+      - RawValue: 6553600
+    Faction:
+      _keyData: 00000000010000000200000003000000040000000500000006000000
+      _valueData:
+      - RawValue: 1310720
+      - RawValue: 1310720
+      - RawValue: 1310720
+      - RawValue: 1310720
+      - RawValue: 589824
+      - RawValue: 589824
+      - RawValue: 131072
+    Adjective:
+      _keyData: 00000000
+      _valueData:
+      - RawValue: 6553600
+    Material:
+      _keyData: 000000000100000002000000
       _valueData:
       - RawValue: 3708027
-      - RawValue: 2293760
-    Faction:
-      _keyData: 000000000100000002000000030000000400000005000000
-      _valueData:
-      - RawValue: 1310720
-      - RawValue: 1310720
-      - RawValue: 1310720
-      - RawValue: 1310720
-      - RawValue: 589824
-      - RawValue: 589824
-    Adjective:
-      _keyData: 010000000200000003000000040000000500000006000000
-      _valueData:
-      - RawValue: 1966080
-      - RawValue: 983040
-      - RawValue: 360448
-      - RawValue: 360448
-      - RawValue: 124518
-      - RawValue: 124518
-    Material:
-      _keyData: 0100000002000000
-      _valueData:
-      - RawValue: 2293760
-      - RawValue: 524288
+      - RawValue: 2621440
+      - RawValue: 851968
     MaxDurability:
       Key: 2
       Value: 2
@@ -248,30 +241,27 @@ MonoBehaviour:
     EquipmentCategory:
       _keyData: 0d0000000f00000011000000100000000b000000
       _valueData:
+      - RawValue: 1769472
+      - RawValue: 1769472
+      - RawValue: 1769472
+      - RawValue: 1769472
       - RawValue: 1441792
-      - RawValue: 1769472
-      - RawValue: 917504
-      - RawValue: 1769472
-      - RawValue: 655360
     Edition:
       _keyData: 00000000
       _valueData:
       - RawValue: 6553600
     Rarity:
-      _keyData: 02000000030000000400000005000000
+      _keyData: 030000000400000005000000
       _valueData:
-      - RawValue: 1179648
       - RawValue: 786432
-      - RawValue: 425984
+      - RawValue: 786432
       - RawValue: 182845
     Grade:
-      _keyData: 040000000300000002000000
+      _keyData: 04000000
       _valueData:
-      - RawValue: 3708027
-      - RawValue: 2293760
-      - RawValue: 524288
+      - RawValue: 6553600
     Faction:
-      _keyData: 000000000100000002000000030000000400000005000000
+      _keyData: 00000000010000000200000003000000040000000500000006000000
       _valueData:
       - RawValue: 1310720
       - RawValue: 1310720
@@ -279,21 +269,18 @@ MonoBehaviour:
       - RawValue: 1310720
       - RawValue: 589824
       - RawValue: 589824
+      - RawValue: 131072
     Adjective:
-      _keyData: 020000000300000004000000050000000600000007000000
+      _keyData: 00000000
       _valueData:
-      - RawValue: 983040
-      - RawValue: 360448
-      - RawValue: 360448
-      - RawValue: 124518
-      - RawValue: 124518
-      - RawValue: 10486
+      - RawValue: 6553600
     Material:
-      _keyData: 010000000200000003000000
+      _keyData: 00000000010000000200000003000000
       _valueData:
-      - RawValue: 2293760
-      - RawValue: 524288
-      - RawValue: 26214
+      - RawValue: 1966080
+      - RawValue: 2949120
+      - RawValue: 1179648
+      - RawValue: 65536
     MaxDurability:
       Key: 2
       Value: 2
@@ -306,50 +293,44 @@ MonoBehaviour:
     EquipmentCategory:
       _keyData: 0d0000000f00000011000000100000000b000000
       _valueData:
-      - RawValue: 1441792
       - RawValue: 1769472
-      - RawValue: 917504
       - RawValue: 1769472
-      - RawValue: 655360
+      - RawValue: 1769472
+      - RawValue: 1769472
+      - RawValue: 1769472
     Edition:
       _keyData: 00000000
       _valueData:
       - RawValue: 6553600
     Rarity:
-      _keyData: 03000000040000000500000006000000
+      _keyData: 0500000006000000
       _valueData:
-      - RawValue: 786432
-      - RawValue: 425984
-      - RawValue: 182845
-      - RawValue: 32768
+      - RawValue: 3276800
+      - RawValue: 3276800
     Grade:
-      _keyData: 030000000200000001000000
+      _keyData: 04000000
       _valueData:
-      - RawValue: 2293760
-      - RawValue: 524288
-      - RawValue: 26214
+      - RawValue: 6553600
     Faction:
-      _keyData: 040000000500000006000000
+      _keyData: 00000000010000000200000003000000040000000500000006000000
       _valueData:
+      - RawValue: 1310720
+      - RawValue: 1310720
+      - RawValue: 1310720
+      - RawValue: 1310720
       - RawValue: 589824
       - RawValue: 589824
       - RawValue: 131072
     Adjective:
-      _keyData: 03000000040000000500000006000000070000000800000009000000
+      _keyData: 00000000
       _valueData:
-      - RawValue: 360448
-      - RawValue: 360448
-      - RawValue: 124518
-      - RawValue: 124518
-      - RawValue: 10486
-      - RawValue: 1311
-      - RawValue: 1311
+      - RawValue: 6553600
     Material:
-      _keyData: 020000000300000004000000
+      _keyData: 010000000200000003000000
       _valueData:
-      - RawValue: 524288
-      - RawValue: 26214
-      - RawValue: 1311
+      - RawValue: 1638400
+      - RawValue: 1638400
+      - RawValue: 655360
     MaxDurability:
       Key: 2
       Value: 2
@@ -369,34 +350,26 @@ MonoBehaviour:
       _valueData:
       - RawValue: 6553600
     Rarity:
-      _keyData: 0000000001000000
+      _keyData: 00000000
       _valueData:
       - RawValue: 2293760
-      - RawValue: 1638400
     Grade:
       _keyData: 04000000
       _valueData:
       - RawValue: 6553600
     Faction:
-      _keyData: 00000000010000000200000003000000
+      _keyData: 0000000001000000
       _valueData:
-      - RawValue: 1310720
-      - RawValue: 1310720
       - RawValue: 1310720
       - RawValue: 1310720
     Adjective:
-      _keyData: 0000000001000000020000000300000004000000
+      _keyData: 00000000
       _valueData:
       - RawValue: 2621440
-      - RawValue: 1966080
-      - RawValue: 983040
-      - RawValue: 360448
-      - RawValue: 360448
     Material:
-      _keyData: 0000000001000000
+      _keyData: 00000000
       _valueData:
-      - RawValue: 3708027
-      - RawValue: 2293760
+      - RawValue: 6553600
     MaxDurability:
       Key: 2
       Value: 2
@@ -416,37 +389,26 @@ MonoBehaviour:
       _valueData:
       - RawValue: 6553600
     Rarity:
-      _keyData: 000000000100000002000000
+      _keyData: 01000000
       _valueData:
-      - RawValue: 2293760
       - RawValue: 1638400
-      - RawValue: 1179648
     Grade:
-      _keyData: 0400000003000000
+      _keyData: 04000000
       _valueData:
-      - RawValue: 5570560
-      - RawValue: 983040
+      - RawValue: 6553600
     Faction:
-      _keyData: 00000000010000000200000003000000
+      _keyData: 0200000003000000
       _valueData:
-      - RawValue: 1310720
-      - RawValue: 1310720
       - RawValue: 1310720
       - RawValue: 1310720
     Adjective:
-      _keyData: 0100000002000000030000000400000005000000
+      _keyData: 01000000
       _valueData:
       - RawValue: 1966080
-      - RawValue: 983040
-      - RawValue: 360448
-      - RawValue: 360448
-      - RawValue: 124518
     Material:
-      _keyData: 000000000100000002000000
+      _keyData: 00000000
       _valueData:
-      - RawValue: 3708027
-      - RawValue: 2293760
-      - RawValue: 524288
+      - RawValue: 6553600
     MaxDurability:
       Key: 2
       Value: 2
@@ -465,39 +427,26 @@ MonoBehaviour:
       _valueData:
       - RawValue: 6553600
     Rarity:
-      _keyData: 010000000200000003000000
+      _keyData: 02000000
       _valueData:
-      - RawValue: 1638400
       - RawValue: 1179648
-      - RawValue: 786432
     Grade:
-      _keyData: 0400000003000000
+      _keyData: 04000000
       _valueData:
-      - RawValue: 3708027
-      - RawValue: 2293760
+      - RawValue: 6553600
     Faction:
-      _keyData: 000000000100000002000000030000000400000005000000
+      _keyData: 0400000005000000
       _valueData:
-      - RawValue: 1310720
-      - RawValue: 1310720
-      - RawValue: 1310720
-      - RawValue: 1310720
       - RawValue: 589824
       - RawValue: 589824
     Adjective:
-      _keyData: 010000000200000003000000040000000500000006000000
+      _keyData: 02000000
       _valueData:
-      - RawValue: 1966080
       - RawValue: 983040
-      - RawValue: 360448
-      - RawValue: 360448
-      - RawValue: 124518
-      - RawValue: 124518
     Material:
-      _keyData: 0100000002000000
+      _keyData: 02000000
       _valueData:
-      - RawValue: 2293760
-      - RawValue: 524288
+      - RawValue: 6553600
     MaxDurability:
       Key: 2
       Value: 2

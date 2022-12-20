@@ -16,7 +16,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Requests the state of the button, if it has listeners or not for it
 		/// </summary>
-		public bool IsEmpty => ButtonOnClick.GetInvocationList().Length == 0;
+		public bool IsEmpty => ButtonOnClick == null || ButtonOnClick.GetInvocationList().Length == 0;
 	}
 
 	public struct GenericDialogButton<T>

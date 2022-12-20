@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using Quantum;
@@ -58,7 +59,7 @@ namespace FirstLight.Game.Data
 			foreach (var e in UncollectedRewards)
 				hash = hash * 23 + (int)e.RewardId + e.Value.GetHashCode();
 			
-			foreach (var e in Equipped)
+			foreach (var e in Equipped.OrderBy(entry => (int)entry.Key))
 				hash = hash * 23 + (int)e.Key + e.Value.GetHashCode();
 
 			foreach (var e in ResourcePools)

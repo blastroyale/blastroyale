@@ -44,6 +44,7 @@ namespace FirstLight.Game.UIElements
 		private const string UssPlusRarity = UssBlock + "__plus-rarity";
 
 		private const string UssEquipmentImage = UssBlock + "__equipment-image";
+		private const string UssEquipmentImageEmpty = UssEquipmentImage + "--empty";
 		private const string UssEquipmentImageShadow = UssEquipmentImage + "--shadow";
 		private const string UssEquipmentImageCategoryModifier = UssEquipmentImage + "--category-";
 
@@ -139,10 +140,6 @@ namespace FirstLight.Game.UIElements
 				var durabilityIcon = new VisualElement {name = "durability-icon"};
 				filledElement.Add(durabilityIcon);
 				durabilityIcon.AddToClassList(UssDurabilityIcon);
-
-				filledElement.Add(_notificationIcon = new VisualElement {name = "notification"});
-				_notificationIcon.AddToClassList(UssNotification);
-				_notificationIcon.AddToClassList(UssNotificationIcon);
 			}
 
 			var emptyElement = new VisualElement {name = "empty"};
@@ -160,10 +157,13 @@ namespace FirstLight.Game.UIElements
 
 				emptyElement.Add(_emptyEquipmentImage = new VisualElement {name = "equipment-image"});
 				_emptyEquipmentImage.AddToClassList(UssEquipmentImage);
-				_emptyEquipmentImage.AddToClassList(UssEquipmentImageShadow);
+				_emptyEquipmentImage.AddToClassList(UssEquipmentImageEmpty);
 			}
-		}
 
+			Add(_notificationIcon = new VisualElement {name = "notification"});
+			_notificationIcon.AddToClassList(UssNotification);
+			_notificationIcon.AddToClassList(UssNotificationIcon);
+		}
 
 		/// <summary>
 		/// Sets the equipment item that should be displayed on this element. Use default for empty.
@@ -173,20 +173,19 @@ namespace FirstLight.Game.UIElements
 			var equipment = info.Equipment;
 			this.RemoveModifiers();
 
+			_notificationIcon.SetDisplay(notification);
+
 			if (!equipment.IsValid() && !equipment.IsDefaultItem())
 			{
 				AddToClassList(UssBlockEmpty);
-				_emptyEquipmentImage.RemoveModifiers();
-				_emptyEquipmentImage.AddToClassList(UssEquipmentImageShadow);
-
 				return;
 			}
-			
+
 			AddToClassList(UssBlockFilled);
 			AddToClassList(UssBlockModifier + equipment.Rarity.ToString().ToLowerInvariant().Replace("plus", ""));
 
 			_equipmentName.text = string.Format(ScriptLocalization.UITEquipment.item_name_lvl,
-			                                    equipment.GameId.GetTranslation());
+				equipment.GameId.GetTranslation());
 			_equipmentLevel.text = string.Format(ScriptLocalization.UITEquipment.card_lvl, equipment.Level);
 
 			_factionIcon.RemoveModifiers();
@@ -194,16 +193,15 @@ namespace FirstLight.Game.UIElements
 
 			_durabilityProgress.style.flexGrow = (float) info.CurrentDurability / equipment.MaxDurability;
 
-				_plusRarity.SetDisplay((int) equipment.Rarity % 2 == 1);
+			_plusRarity.SetDisplay((int) equipment.Rarity % 2 == 1);
 
-				_badgeNft.SetDisplay(info.IsNft);
-				_badgeLoaned.SetDisplay(loaned);
-				_notificationIcon.SetDisplay(notification);
+			_badgeNft.SetDisplay(info.IsNft);
+			_badgeLoaned.SetDisplay(loaned);
 
 			// TODO: This should be handled better.
 			var services = MainInstaller.Resolve<IGameServices>();
 			var sprite = await services.AssetResolverService.RequestAsset<GameId, Sprite>(
-			              equipment.GameId, instantiate: false);
+				equipment.GameId, instantiate: false);
 			_equipmentImage.style.backgroundImage =
 				_equipmentImageShadow.style.backgroundImage = new StyleBackground(sprite);
 		}

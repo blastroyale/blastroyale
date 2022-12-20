@@ -13,30 +13,37 @@ namespace FirstLight.Game.Views.UITK
 	public class EquipmentPopupScrapView : IUIView
 	{
 		private Label _amount;
-		private VisualElement _buttonsContainer;
-
+		private VisualElement _requirements;
+		private VisualElement _areYouSureLabel;
+		private VisualElement _bottomFiller;
+		
 		private LocalizedButton _scrapButton;
-		private LocalizedButton _cancelButton;
 
 		private Action _confirmAction;
-		private Action _cancelAction;
 
 		public void Attached(VisualElement element)
 		{
 			_amount = element.Q<Label>("Amount").Required();
-			_buttonsContainer = element.Q<VisualElement>("ButtonContainer").Required();
-
-			element.Q<LocalizedButton>("ScrapButton").clicked += () => _confirmAction();
-			element.Q<LocalizedButton>("CancelButton").clicked += () => _cancelAction();
+			_requirements = element.Q<VisualElement>("Requirements").Required();
+			_areYouSureLabel = element.Q<VisualElement>("AreYouSureLabel").Required();
+			_bottomFiller = element.Q<VisualElement>("BottomFiller").Required();
+			
+			_scrapButton = element.Q<LocalizedButton>("ScrapButton").Required();
+			_scrapButton.clicked += () => _confirmAction();
 		}
 
-		public void SetData(EquipmentInfo info, Action confirmAction, Action cancelAction)
+		public void SetData(EquipmentInfo info, Action confirmAction)
 		{
 			_amount.text = info.ScrappingValue.Value.ToString();
-			_buttonsContainer.SetVisibility(!info.IsNft);
+			_scrapButton.SetVisibility(!info.IsNft);
 
+			// TODO - Adjust desired behavior when calculations are correct client side and can be displayed
+			//_requirements.SetDisplay(true);
+			_requirements.SetDisplay(!info.IsNft);
+			_areYouSureLabel.SetVisibility(!info.IsNft);
+			_bottomFiller.SetDisplay(info.IsNft);
+			
 			_confirmAction = confirmAction;
-			_cancelAction = cancelAction;
 		}
 
 		public void SubscribeToEvents()

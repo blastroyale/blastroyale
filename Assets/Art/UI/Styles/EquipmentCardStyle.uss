@@ -34,6 +34,9 @@
     scale: 1.1 1.1;
 }
 
+.equipment-card--highlighted {
+}
+
 .equipment-card__selected-bg {
     position: absolute;
     top: -35px;
@@ -43,6 +46,15 @@
     opacity: 0;
     transition-property: opacity;
     transition-duration: 0.2s;
+}
+
+.equipment-card--highlighted  .equipment-card__highlight {
+    position: absolute;
+    top: 0;
+    left: -7px;
+    right: -6px;
+    bottom: -10px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/CardShadowPink.png?fileID=21300000&guid=d2d09fde6cdd4485d9f5615972ea0422&type=3#CardShadowPink');
 }
 
 .equipment-card--selected .equipment-card__selected-bg {
@@ -300,16 +312,16 @@
     font-size: 22px;
     color: rgb(255, 255, 255);
     padding: 2px 15px 0;
-    background-color: rgba(216, 75, 121, 255);
+    background-color: rgb(216, 75, 121);
     border-left-width: 1px;
     border-right-width: 1px;
     border-top-width: 1px;
     border-bottom-width: 1px;
     border-radius: 8px;
-    border-left-color: rgba(176, 60, 98, 255);
-    border-right-color: rgba(176, 60, 98, 255);
-    border-top-color: rgba(176, 60, 98, 255);
-    border-bottom-color: rgba(176, 60, 98, 255);
+    border-left-color: rgb(176, 60, 98);
+    border-right-color: rgb(176, 60, 98);
+    border-top-color: rgb(176, 60, 98);
+    border-bottom-color: rgb(176, 60, 98);
 }
 
 .equipment-card__badge-equipped {
@@ -321,15 +333,15 @@
     padding-right: 15px;
     padding-bottom: 0;
     padding-top: 2px;
-    background-color: rgba(248, 199, 46, 255);
+    background-color: rgb(248, 199, 46);
     border-left-width: 1px;
     border-right-width: 1px;
     border-top-width: 1px;
     border-bottom-width: 1px;
-    border-left-color: rgba(0, 0, 0, 255);
-    border-right-color: rgba(0, 0, 0, 255);
-    border-top-color: rgba(0, 0, 0, 255);
-    border-bottom-color: rgba(0, 0, 0, 255);
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
     border-top-right-radius: 8px;

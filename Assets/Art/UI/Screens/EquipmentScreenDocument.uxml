@@ -17,6 +17,6 @@
                 <FirstLight.Game.UIElements.SpecialDisplayElement />
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
-        <FirstLight.Game.UIElements.ScreenHeaderElement title-key="UITEquipment/equipment" subtitle-key="UITEquipment/equipment" subtitle-back="true" name="Header" />
+        <FirstLight.Game.UIElements.ScreenHeaderElement title-key="UITEquipment/equipment" subtitle-back="true" name="Header" />
     </ui:VisualElement>
 </ui:UXML>

@@ -5,7 +5,7 @@ namespace Quantum.Commands
 	/// <summary>
 	/// This command creates a <see cref="Collectable"/> pickup in in the given position
 	/// </summary>
-	public unsafe class CollectablePlatformSpawnCommand : CommandBase
+	public unsafe class CheatCollectablePlatformSpawnCommand : CommandBase
 	{
 		public FPVector3 Position;
 		public GameId Collectable;
@@ -28,6 +28,7 @@ namespace Quantum.Commands
 		/// <inheritdoc />
 		internal override void Execute(Frame f, PlayerRef playerRef)
 		{
+#if DEBUG
 			var configs = f.AssetConfigs;
 			var asset = Collectable.IsInGroup(GameIdGroup.Weapon) ? configs.WeaponPlatformPrototype : configs.ConsumablePlatformPrototype;
 			var entity = f.Create(f.FindAsset<EntityPrototype>(asset.Id));
@@ -36,8 +37,10 @@ namespace Quantum.Commands
 			spawner->GameId = Collectable;
 			spawner->RespawnTimeInSec = RespawnTimeInSec;
 			spawner->InitialSpawnDelayInSec = InitialSpawnDelayInSec;
-			
 			f.Unsafe.GetPointer<Transform3D>(entity)->Position = Position;
+#else
+			Log.Error($"Trying to use Cheat command {this.GetType().Name} in Release build of Quantum Code");
+#endif
 		}
 	}
 }

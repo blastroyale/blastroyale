@@ -2,6 +2,7 @@
     <Style src="project://database/Assets/Art/UI/Screens/MatchmakingScreenStyle.uss?fileID=7433441132597879392&amp;guid=054969067d16dbd4b99f57bc2f230e20&amp;type=3#MatchmakingScreenStyle" />
     <ui:VisualElement name="root" picking-mode="Ignore" class="background fill-parent">
         <FirstLight.Game.UIElements.AnimatedImageElement name="Clouds" sine-wave-pos-min-x="-65" sine-wave-pos-x-frequency="1" sine-wave-pos-y-frequency="-1" sine-wave-pos-min-y="-35" sine-wave-pos-max-x="65" sine-wave-pos-max-y="35" sine-wave-pos-x-offset="0" sine-wave-pos-y-offset="0.75" class="clouds" />
+        <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITLeaderboards/standings" subtitle-key="UITLeaderboards/battleroyale" name="Header" class="screen-header--simple title" />
         <FirstLight.Game.UIElements.SafeAreaElement class="safe-area">
             <FirstLight.Game.UIElements.AnimatedImageElement name="PlayerImage" sine-wave-pos-max-y="25" sine-wave-pos-min-y="-25" sine-wave-pos-y-frequency="2" sine-wave-pos-x-frequency="2" sine-wave-pos-min-x="-25" sine-wave-pos-max-x="25" sine-wave-pos-x-offset="1" class="player-image" />
             <ui:VisualElement name="PlayerAmountHolder" class="load-status-holder">
@@ -39,16 +40,5 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
-        <ui:VisualElement name="ModeHeader" class="header">
-            <ui:VisualElement class="header__background" />
-            <ui:VisualElement class="header__foreground" />
-            <FirstLight.Game.UIElements.SafeAreaElement name="SafeAreaHolder" apply-right="false" apply-bottom="false" apply-top="false" class="header__holder">
-                <ui:VisualElement name="HeaderIcon">
-                    <ui:VisualElement name="Shadow" class="header__icon-shadow" />
-                    <ui:VisualElement name="Icon" class="header__icon" />
-                </ui:VisualElement>
-                <ui:Label name="HeaderTitle" text="BATTLE ROYALE&#10;CASUAL" class="header__title" />
-            </FirstLight.Game.UIElements.SafeAreaElement>
-        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

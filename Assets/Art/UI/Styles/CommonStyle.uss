@@ -24,7 +24,6 @@
     background-color: rgba(0, 0, 0, 0);
 }
 
-
 .unity-text-field {
     align-items: stretch;
     -unity-text-align: middle-left;
@@ -348,6 +347,8 @@
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
     -unity-text-outline-color: rgb(0, 0, 0);
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/GreyButton.png?fileID=21300000&guid=b155921a84e5e41b192fe64b14618713&type=3#GreyButton');
+    -unity-text-align: middle-center;
+    padding-bottom: 0px;
 }
 
 .button-long--yellow {
@@ -399,14 +400,18 @@
     flex-shrink: 1;
 }
 
+.price-button__offset-title {
+    padding-top: 12px;
+}
+
 .price-button__price--insufficient {
     color: rgb(233, 58, 58);
 }
 
 .price-button__icon {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BPP.png?fileID=21300000&guid=100d689cc6ffc41f297345bcfc22f54e&type=3#BPP');
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
 }
 
 .price-button__icon--cs {
@@ -419,31 +424,35 @@
 
 .price-button__icon--coin {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/CoinIcon.png?fileID=21300000&guid=787f6e10544e24075863e3f881de6467&type=3#CoinIcon');
+    width: 55px;
+    height: 55px;
 }
 
 .button-next {
     background-image: url('project://database/Assets/Art/UI/Sprites/MatchEnd/NextButton.png?fileID=21300000&guid=7b7f8b5eb966f4fb38b88e5573f3a921&type=3#NextButton');
-    width: 562px;
-    height: 194px;
+    width: 526px;
+    height: 127px;
     background-color: rgba(255, 255, 255, 0);
     margin: 0;
     color: rgb(255, 255, 255);
     -unity-font-definition: var(--font-italic);
-    text-shadow: 4px 4px 0 rgb(185, 65, 21);
-    -unity-text-outline-color: rgb(185, 65, 21);
-    font-size: 70px;
+    text-shadow: 3px 3px 0 #6B0402;
+    -unity-text-outline-color: #6B0402;
+    font-size: 52px;
     -unity-text-outline-width: 2px;
-    padding-bottom: 27px;
-    -unity-text-align: lower-right;
-    padding-right: 61px;
+    padding-bottom: 20px;
+    -unity-text-align: middle-center;
+    padding-right: 41px;
     -unity-font-style: bold;
     position: absolute;
-    right: 0;
-    bottom: 0;
+    right: 10px;
+    bottom: 10px;
+    padding-left: 190px;
 }
 
 .button-next:active {
-    color: rgb(161, 161, 161);
+    background-image: url('project://database/Assets/Art/UI/Sprites/MatchEnd/NextButtonPressed.png?fileID=21300000&guid=91eab3d77f5b44ee1a5ba527659fd88b&type=3#NextButtonPressed');
+    padding-bottom: 10px;
 }
 
 .might-display {
@@ -522,4 +531,9 @@
 
 .width-spacer--xxxl {
     width: 125px;
+}
+
+.unity-scroll-view .unity-list-view__empty-label
+{
+    visibility: hidden;
 }

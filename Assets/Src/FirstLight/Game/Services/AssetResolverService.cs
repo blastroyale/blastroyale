@@ -249,6 +249,7 @@ namespace FirstLight.Game.Services
 			where TAsset : Object
 		{
 			var dictionary = GetDictionary<TId, TAsset>();
+			TAsset asset;
 
 			if (dictionary == null || !dictionary.TryGetValue(id, out var assetReference))
 			{
@@ -273,7 +274,16 @@ namespace FirstLight.Game.Services
 				await assetReference.OperationHandle.Task;
 			}
 
-			var asset = Convert<TAsset>(assetReference, instantiate);
+			if (assetReference.Asset == null)
+			{
+				asset = null;
+				
+				Debug.LogWarning($"Loading the asset for the given id '{id.ToString()}' is loading an empty asset reference");
+			}
+			else
+			{
+				asset = Convert<TAsset>(assetReference, instantiate);
+			}
 
 			onLoadCallback?.Invoke(id, asset, data, instantiate);
 

@@ -812,11 +812,11 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: General/ReloadSpeed
+    - Term: General/ReloadTime
       TermType: 0
       Description: 
       Languages:
-      - Reload Speed
+      - Reload Time
       - 
       - 
       Flags: 000000
@@ -1070,6 +1070,33 @@ MonoBehaviour:
       Description: 
       Languages:
       - character
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: General/LeaderboardOpenError
+      TermType: 0
+      Description: 
+      Languages:
+      - Error opening leaderboard
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: General/LeaderboardOpenErrorDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - There was an error while getting leaderboard data.
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: General/MagazineSize
+      TermType: 0
+      Description: 
+      Languages:
+      - Magazine Capacity
       - 
       - 
       Flags: 000000
@@ -7001,7 +7028,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - BLAST ISLAND
+      - THE WASTELANDS
       - 
       - 
       Flags: 000000
@@ -9628,6 +9655,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITShared/claim
+      TermType: 0
+      Description: 
+      Languages:
+      - CLAIM
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITSettings/logout
       TermType: 0
       Description: 
@@ -9954,6 +9990,24 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITHomeScreen/waitforrewards_popup_title
+      TermType: 0
+      Description: 
+      Languages:
+      - Please wait
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/waitforrewards_popup_description
+      TermType: 0
+      Description: 
+      Languages:
+      - Syncing results with the server
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITDisconnected/connection_lost
       TermType: 0
       Description: 
@@ -10168,6 +10222,15 @@ MonoBehaviour:
       Description: 
       Languages:
       - YOU HAVE RECEIVED A NEW PIECE OF EQUIPMENT!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITBattlePass/max
+      TermType: 0
+      Description: 
+      Languages:
+      - MAX
       - 
       - 
       Flags: 000000
@@ -10769,6 +10832,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITWinners/winner
+      TermType: 0
+      Description: 
+      Languages:
+      - WINNER
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITSwipeTransition/lets_blast
       TermType: 0
       Description: 
@@ -10828,6 +10900,24 @@ MonoBehaviour:
       Description: 
       Languages:
       - BATTLE ROYALE
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITLeaderboards/global_leaderboard
+      TermType: 0
+      Description: 
+      Languages:
+      - GLOBAL LEADERBOARD
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITLeaderboards/become_the_best
+      TermType: 0
+      Description: 
+      Languages:
+      - PLAY RANKED GAMES, EARN TROPHIES, BECOME THE BEST PLAYER!
       - 
       - 
       Flags: 000000
@@ -10931,7 +11021,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1669997034682
+    Google_LastUpdatedVersion: 1670931617056
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

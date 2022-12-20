@@ -122,7 +122,7 @@ namespace FirstLight.Game.StateMachines
 				_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_Alive2, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
 			}
 			
-			if (playersLeft <= GameConstants.Audio.BR_HIGH_PHASE_PLAYERS_LEFT_THRESHOLD && !_isHighIntensityPhase)
+			if (playersLeft == GameConstants.Audio.BR_HIGH_PHASE_PLAYERS_LEFT_THRESHOLD && !_isHighIntensityPhase)
 			{
 				_statechartTrigger(MaxIntensityEvent);
 			}

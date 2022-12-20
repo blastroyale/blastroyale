@@ -13,7 +13,7 @@ namespace FirstLight.Game.MonoComponent.Ftue
 		
 		private void Start()
 		{
-			QuantumRunner.Default.Game.SendCommand(new DummySpawnCommand
+			QuantumRunner.Default.Game.SendCommand(new CheatDummySpawnCommand
 			{
 				Position = transform.position.ToFPVector3(),
 				Rotation = transform.rotation.ToFPQuaternion(),

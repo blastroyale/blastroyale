@@ -18,12 +18,16 @@ namespace Quantum.Commands
 		/// <inheritdoc />
 		internal override void Execute(Frame f, PlayerRef playerRef)
 		{
+#if DEBUG
 			var container = f.Unsafe.GetPointerSingleton<GameContainer>();
 			var playerInt = (int) playerRef;
 			var player = playerInt == 0 ? 1 : playerInt;
 
 			container->PlayersData.GetPointer(IsLocalWinner ? playerInt : player)->PlayersKilledCount = container->TargetProgress;
 			container->UpdateGameProgress(f, container->TargetProgress);
+#else
+			Log.Error($"Trying to use Cheat command {this.GetType().Name} in Release build of Quantum Code");
+#endif
 		}
 	}
 }

@@ -38,7 +38,7 @@ namespace FirstLight.Game.Presenters
 
 		private IMatchServices _matchServices;
 		private IGameDataProvider _gameDataProvider;
-
+		
 		private Button _nextButton;
 		private VisualElement _leaderboardPanel;
 		private ScrollView _leaderboardScrollView;
@@ -117,10 +117,12 @@ namespace FirstLight.Game.Presenters
 			_showingLeaderboards = true;
 			_nextButton.text = "NEXT →";
 			_leaderboardPanel.style.display = DisplayStyle.Flex;
+			_rewardsPanel.style.display = DisplayStyle.None;
 		}
 		
 		private void ShowRewards()
 		{
+			_rewardsPanel.style.display = DisplayStyle.Flex;
 			_leaderboardPanel.AddToClassList("hidden-right");
 			_rewardsPanel.RemoveFromClassList("rewards-panel--hidden-start");
 			_showingLeaderboards = false;
@@ -168,21 +170,22 @@ namespace FirstLight.Game.Presenters
 			var bppPoolInfo = _gameDataProvider.ResourceDataProvider.GetResourcePoolInfo(GameId.BPP);
 			var gainedLeft = bppReward;
 			var levelsInfo = new List<RewardBPPanelView.BPPLevelRewardInfo>();
-			var nextLevel = (int)Math.Clamp(_matchServices.MatchEndDataService.BPLevelBeforeChange+1, 0, maxLevel) + 1;
+			var nextLevel = (int)Math.Clamp(_matchServices.MatchEndDataService.BPLevelBeforeChange+1, 0, maxLevel);
 			var currentLevel = nextLevel;
-
+			
 			do
 			{
 				var levelRewardInfo = new RewardBPPanelView.BPPLevelRewardInfo();
 
+				levelRewardInfo.MaxLevel = (int)maxLevel;
+				
 				// If it's the next level to the current one, we might have already some points in there
 				if (nextLevel == currentLevel)
 				{
 					levelRewardInfo.Start = (int) _matchServices.MatchEndDataService.BPPBeforeChange;
 				}
 
-				levelRewardInfo.MaxForLevel =
-					(int) _gameDataProvider.BattlePassDataProvider.GetRequiredPointsForLevel(currentLevel - 1);
+				levelRewardInfo.MaxForLevel = (int) _gameDataProvider.BattlePassDataProvider.GetRequiredPointsForLevel(currentLevel - 1);
 				levelRewardInfo.NextLevel = (int) currentLevel;
 
 				var amountToMax = levelRewardInfo.MaxForLevel - levelRewardInfo.Start;
@@ -200,9 +203,9 @@ namespace FirstLight.Game.Presenters
 				levelsInfo.Add(levelRewardInfo);
 
 				currentLevel++;
-			} while (gainedLeft > 0);
+			} while (gainedLeft > 0 && currentLevel < maxLevel);
 
-			_bppView.SetData(bppReward, levelsInfo, (int)bppPoolInfo.CurrentAmount, (int)bppPoolInfo.PoolCapacity);
+			_bppView.SetData(levelsInfo, (int)bppPoolInfo.CurrentAmount, (int)bppPoolInfo.PoolCapacity, bppPoolInfo);
 		}
 
 		private void UpdatePlayerName()
@@ -250,6 +253,8 @@ namespace FirstLight.Game.Presenters
 
 			var entries = _matchServices.MatchEndDataService.QuantumPlayerMatchData;
 
+			entries.SortByPlayerRank(false);
+			
 			foreach (var entry in entries)
 			{
 				var newEntry = _leaderboardEntryAsset.Instantiate();

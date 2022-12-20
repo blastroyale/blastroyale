@@ -139,3 +139,7 @@
 .player--third .player__badge {
     background-image: url('project://database/Assets/Art/UI/Sprites/WinnersScreen/3rdMedal.png?fileID=2800000&guid=e2a057641f1b142ca91082917b41cffe&type=3#3rdMedal');
 }
+
+.safe-area {
+    align-items: center;
+}

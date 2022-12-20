@@ -308,25 +308,17 @@
     align-items: center;
 }
 
-resource-pool__holder__cs
-{
-    flex-direction: row;
-}
-
 .resource-pool--bpp .resource-pool__holder {
     flex-direction: row;
     rotate: 3deg;
 }
 
 .resource-pool--cs .resource-pool__holder {
-    flex-direction: row-reverse;
+    flex-direction: row;
     rotate: -3deg;
 }
 
 .resource-pool__separator {
-    flex-grow: 0.1;
-}
-.resource-pool__separator--2 {
     flex-grow: 1;
 }
 

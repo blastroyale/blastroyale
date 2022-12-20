@@ -27,9 +27,8 @@
                             <ui:Label text="+20" name="RestockLabelAmount" />
                             <ui:VisualElement name="cscon" class="resource-pool__icon" />
                             <ui:Label text="IN 2H 45M" name="RestockLabelTime" />
-                            <ui:VisualElement name="Separator1" class="resource-pool__separator" />
                             <ui:Label text="&lt;color=#49D4D4&gt;20&lt;/color&gt; / 100&#10;" name="AmountLabel" />
-                            <ui:VisualElement name="Separator2" class="resource-pool__separator--2" />
+                            <ui:VisualElement name="Separator" class="resource-pool__separator--2" />
                         </ui:VisualElement>
                     </ui:VisualElement>
                     <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/play" name="PlayButton" class="play-button sfx-click-forwards font-italic font-style-h1" />
@@ -53,9 +52,8 @@
                             <ui:Label text="+20" name="RestockLabelAmount" />
                             <ui:VisualElement name="BppIcon" class="resource-pool__icon" />
                             <ui:Label text="IN 2H 45M" name="RestockLabelTime" />
-                            <ui:VisualElement name="Separator1" class="resource-pool__separator" />
                             <ui:Label text="&lt;color=#49D4D4&gt;20&lt;/color&gt; / 100&#10;" name="AmountLabel" />
-                            <ui:VisualElement name="Separator2" class="resource-pool__separator--2" />
+                            <ui:VisualElement name="Separator" class="resource-pool__separator--2" />
                         </ui:VisualElement>
                     </ui:VisualElement>
                     <FirstLight.Game.UIElements.ImageButton name="BattlePassButton" class="battle-pass-button sfx-click-forwards">

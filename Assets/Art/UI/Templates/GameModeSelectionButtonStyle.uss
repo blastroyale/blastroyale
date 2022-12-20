@@ -263,8 +263,8 @@
 }
 
 #GameModeButton #ModeTag {
-    width: 130px;
-    height: 40px;
+    width: 150px;
+    height: 46px;
     right: -5px;
     top: -12px;
 }
@@ -279,7 +279,7 @@
 
 #GameModeButton #ModeTagTitle {
     color: rgb(255, 255, 255);
-    font-size: 30px;
+    font-size: 35px;
     -unity-text-outline-width: 2px;
 }
 

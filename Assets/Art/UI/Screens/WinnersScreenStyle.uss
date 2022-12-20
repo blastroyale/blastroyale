@@ -24,7 +24,6 @@
     position: absolute;
     top: 62px;
     left: 103px;
-    -unity-font-definition: var(--font-italic);
     font-size: 90px;
     -unity-font-style: bold;
     text-shadow: 5px 5px 0 rgb(0, 0, 0);
@@ -70,7 +69,6 @@
     font-size: 70px;
     -unity-text-outline-width: 2px;
     color: rgb(255, 255, 255);
-    -unity-font-definition: var(--font-italic);
     -unity-font-style: bold;
 }
 
@@ -104,7 +102,6 @@
     position: absolute;
     left: -120px;
     font-size: 60px;
-    -unity-font-definition: var(--font-italic);
     -unity-font-style: bold;
     text-shadow: 5px 5px 0 rgb(0, 0, 0);
     color: rgb(255, 255, 255);

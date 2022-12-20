@@ -31,7 +31,6 @@
     left:350px;
     top:40px;
     font-size: 60px;
-    -unity-font-definition: var(--font-italic);
     color: rgb(255, 255, 255);
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
     margin: 0;
@@ -47,7 +46,6 @@
     left:420px;
     top:95px;
     font-size: 38px;
-    -unity-font-definition: var(--font-italic);
     color: rgb(106, 129, 189);
     text-shadow: 5px 5px 0 rgb(0, 0, 0);
     margin: 0;

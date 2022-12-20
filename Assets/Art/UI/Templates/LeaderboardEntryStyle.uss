@@ -34,7 +34,6 @@
 }
 
 .leaderboard-entry__rank-number {
-    -unity-font-definition: var(--font-italic);
     font-size: 36px;
     -unity-font-style: normal;
     color: rgb(105, 98, 166);
@@ -86,7 +85,6 @@
 }
 
 .leaderboard-entry__player-name {
-    -unity-font-definition: var(--font-italic);
     font-size: 36px;
     -unity-font-style: normal;
     color: rgb(105, 98, 166);
@@ -111,7 +109,6 @@
 }
 
 .leaderboard-entry__kills {
-    -unity-font-definition: var(--font-italic);
     font-size: 36px;
     -unity-font-style: normal;
     color: rgb(105, 98, 166);
@@ -151,7 +148,6 @@
 }
 
 .leaderboard-entry__trophies-amount {
-    -unity-font-definition: var(--font-italic);
     font-size: 36px;
     -unity-font-style: normal;
     color: rgb(233, 226, 225);

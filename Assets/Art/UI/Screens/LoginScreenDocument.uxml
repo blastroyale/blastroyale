@@ -5,15 +5,15 @@
             <ui:VisualElement class="popup-radius" style="position: absolute; left: -10px; top: -10px; right: 10px; bottom: 10px; background-color: rgb(255, 255, 255); overflow: hidden; border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0);">
                 <ui:VisualElement name="Header" class="background-purple" style="overflow: hidden;">
                     <ui:VisualElement class="dots-pattern" style="top: -138px; left: -28px;" />
-                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITLoginRegister/login_with_fl_id" name="Title" class="font-italic" style="height: 90px; -unity-text-align: middle-center; font-size: 36px; color: rgb(255, 255, 255); overflow: hidden;" />
+                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITLoginRegister/login_with_fl_id" name="Title" style="height: 90px; -unity-text-align: middle-center; font-size: 36px; color: rgb(255, 255, 255); overflow: hidden;" />
                 </ui:VisualElement>
                 <ui:VisualElement name="Container" style="flex-grow: 1; align-items: center; justify-content: space-between; padding-top: 48px; padding-bottom: 40px;">
-                    <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITLoginRegister/email" name="EmailTextField" class="font-italic input-field" />
-                    <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITLoginRegister/password" name="PasswordTextField" password="true" class="font-italic input-field" style="margin-top: 28px; margin-bottom: 44px;" />
+                    <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITLoginRegister/email" name="EmailTextField" class="input-field" />
+                    <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITLoginRegister/password" name="PasswordTextField" password="true" class="input-field" style="margin-top: 28px; margin-bottom: 44px;" />
                     <ui:VisualElement class="button-flat-outline">
                         <FirstLight.Game.UIElements.LocalizedButton localization-key="UITLoginRegister/login" name="LoginButton" class="button-flat button-flat--primary" />
                     </ui:VisualElement>
-                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITShared/or" class="font-italic" style="color: rgb(122, 118, 167); font-size: 30px; margin-bottom: 8px;" />
+                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITShared/or" style="color: rgb(122, 118, 167); font-size: 30px; margin-bottom: 8px;" />
                     <ui:VisualElement class="button-flat-outline">
                         <FirstLight.Game.UIElements.LocalizedButton localization-key="UITLoginRegister/register_fl_id" name="RegisterButton" class="button-flat button-flat--secondary" style="-unity-text-outline-color: rgb(59, 29, 144); -unity-background-image-tint-color: rgb(59, 29, 144);" />
                     </ui:VisualElement>

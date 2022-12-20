@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/LoginScreenStyle.uss?fileID=7433441132597879392&amp;guid=62c1d9d88fd9646f987a3c9d8d48a713&amp;type=3#LoginScreenStyle" />
+    <Style src="project://database/Assets/Art/UI/Screens/RegisterScreenStyle.uss?fileID=7433441132597879392&amp;guid=be419192f633aed4bad72dfdfa844291&amp;type=3#RegisterScreenStyle" />
     <ui:VisualElement name="root" class="background">
         <ui:VisualElement name="PopupBackground" class="popup-radius anim-delay-0 anim-translate anim-translate--down-xxxl">
             <ui:VisualElement class="popup-radius" style="position: absolute; left: -10px; top: -10px; right: 10px; bottom: 10px; background-color: rgb(255, 255, 255); overflow: hidden; border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0);">
@@ -18,6 +19,7 @@
                     <ui:VisualElement class="button-flat-outline">
                         <FirstLight.Game.UIElements.LocalizedButton localization-key="UITLoginRegister/login_with_fl_id" name="LoginButton" class="button-flat button-flat--secondary" style="width: 323px; white-space: normal; padding-left: 20px; padding-right: 20px;" />
                     </ui:VisualElement>
+                    <ui:Button name="ViewHideButton" class="viewHideButton" />
                 </ui:VisualElement>
                 <ui:VisualElement name="Blocker" class="blocker-hidden" style="background-color: rgba(0, 0, 0, 0.36); position: absolute; left: 0; top: 0; right: 0; bottom: 0; transition-duration: 0.3s;" />
             </ui:VisualElement>

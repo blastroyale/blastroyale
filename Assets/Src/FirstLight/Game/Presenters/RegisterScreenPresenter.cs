@@ -1,5 +1,4 @@
 using System;
-using FirstLight.FLogger;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using UnityEngine.UIElements;
@@ -21,19 +20,24 @@ namespace FirstLight.Game.Presenters
 		private TextField _emailField;
 		private TextField _usernameField;
 		private TextField _passwordField;
+		private Button _viewHideButton;
 
 		private VisualElement _blockerElement;
+
+		private bool isPasswordHidden = true;
 
 		protected override void QueryElements(VisualElement root)
 		{
 			_emailField = root.Q<TextField>("EmailTextField").Required();
 			_usernameField = root.Q<TextField>("UsernameTextField").Required();
 			_passwordField = root.Q<TextField>("PasswordTextField").Required();
-
+			_viewHideButton = root.Q<Button>("ViewHideButton").Required();
+			
 			_blockerElement = root.Q("Blocker").Required();
 
 			root.Q<Button>("LoginButton").clicked += OnLoginClicked;
 			root.Q<Button>("RegisterButton").clicked += OnRegisterClicked;
+			_viewHideButton.clicked += OnViewHideClicked;
 		}
 
 		/// <summary>
@@ -52,6 +56,24 @@ namespace FirstLight.Game.Presenters
 		private void OnRegisterClicked()
 		{
 			Data.RegisterClicked(_emailField.text.Trim(), _usernameField.text.Trim(), _passwordField.text.Trim());
+		}
+		
+		private void OnViewHideClicked()
+		{			
+			isPasswordHidden = !isPasswordHidden;
+
+			if (isPasswordHidden)
+			{				
+				//_viewHideButton.AddToClassList("viewHideButton--hide");
+				_viewHideButton.RemoveFromClassList("viewHideButton--show");
+			}
+			else
+			{
+				_viewHideButton.AddToClassList("viewHideButton--show");
+				//_viewHideButton.RemoveFromClassList("viewHideButton--hide");
+			}
+
+			_passwordField.isPasswordField = isPasswordHidden;
 		}
 	}
 }

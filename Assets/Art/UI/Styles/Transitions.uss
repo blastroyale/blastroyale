@@ -31,6 +31,10 @@
     transition-delay: 0.25s;
 }
 
+.anim-delay-1_5s {
+    transition-delay: 1.5s;
+}
+
 .anim-delay-2s {
     transition-delay: 2s;
 }

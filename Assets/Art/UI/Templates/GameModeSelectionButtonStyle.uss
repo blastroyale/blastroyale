@@ -77,14 +77,76 @@
     background-image: none;
 }
 
+.game-mode-button__top {
+    width: 512px;
+    height: 512px;
+    display: flex;
+    -unity-background-scale-mode: scale-and-crop;
+    overflow: hidden;
+    visibility: visible;
+}
+
+.game-mode-button--battleroyale .game-mode-button__top {
+    background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/BattleroyaleBackArt.png?fileID=2800000&guid=550c896610e0c478ea587216b78ee7f3&type=3#BattleroyaleBackArt');
+}
+
+.game-mode-button--deathmatch .game-mode-button__top {
+    background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/DeathmatchBackArt.png?fileID=2800000&guid=f622cd3d0b6fb4e3183f866053e0307b&type=3#DeathmatchBackArt');
+}
+
+.game-mode-button--custom .game-mode-button__top {
+    background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/CustomGameArt.png?fileID=2800000&guid=5db528171ce7e43ceaaad19d38e24b92&type=3#CustomGameArt');
+}
+
+.game-mode-button__top-mask {
+    width: 502px;
+    height: 731px;
+    margin-left: 2px;
+    overflow: hidden;
+    background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/ModeButton.svg?fileID=7388822144124034973&guid=396868652aab04b298372850f07f4a48&type=3#ModeButton');
+    margin-top: 2px;
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0);
+}
+
+.game-mode-button__top-image {
+    position: absolute;
+}
+
+.game-mode-button--battleroyale .game-mode-button__top-image {
+    background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/BattleroyaleTopArt.png?fileID=21300000&guid=6339c6b0a31c24805b10881f10e793c3&type=3#BattleroyaleTopArt');
+    width: 491px;
+    height: 466px;
+    top: 51px;
+    left: -5px;
+}
+
+.game-mode-button--deathmatch .game-mode-button__top-image {
+    background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/DeathmatchTopArt.png?fileID=2800000&guid=7ffb27509a1d146a8957bdb2a5922475&type=3#DeathmatchTopArt');
+    width: 491px;
+    height: 466px;
+    top: 48px;
+    left: -5px;
+}
+
 .game-mode-button--custom .game-mode-button__icon {
     background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/CustomgameModeIcon.png?fileID=2800000&guid=4dcea76e0c52e43d6b931b8c957efe36&type=3#CustomgameModeIcon');
+}
+
+.game-mode-button_bottom-mask {
+    margin-left: 2px;
+    margin-top: 3px;
+    position: absolute;
+    width: 502px;
+    height: 731px;
+    overflow: hidden;
+    background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/ModeButton.svg?fileID=7388822144124034973&guid=396868652aab04b298372850f07f4a48&type=3#ModeButton');
+    -unity-background-image-tint-color: rgba(1, 0, 0, 0);
 }
 
 .game-mode-button__data-panel {
     bottom: 0;
     position: absolute;
-    width: 460px;
+    width: 462px;
     height: 220px;
     left: -1px;
     background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/CustomBack.png?fileID=2800000&guid=8754b59a5a0a1406187cce4bb13888d2&type=3#CustomBack');
@@ -129,47 +191,6 @@
 
 .game-mode-button--casual .game-mode-button__label {
     color: rgb(8, 20, 58);
-}
-
-.game-mode-button__top {
-    width: 512px;
-    height: 512px;
-    display: flex;
-    -unity-background-scale-mode: scale-and-crop;
-    overflow: hidden;
-    visibility: visible;
-}
-
-.game-mode-button--battleroyale .game-mode-button__top {
-    background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/BattleroyaleBackArt.png?fileID=2800000&guid=550c896610e0c478ea587216b78ee7f3&type=3#BattleroyaleBackArt');
-}
-
-.game-mode-button--deathmatch .game-mode-button__top {
-    background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/DeathmatchBackArt.png?fileID=2800000&guid=f622cd3d0b6fb4e3183f866053e0307b&type=3#DeathmatchBackArt');
-}
-
-.game-mode-button--custom .game-mode-button__top {
-    background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/CustomGameArt.png?fileID=2800000&guid=5db528171ce7e43ceaaad19d38e24b92&type=3#CustomGameArt');
-}
-
-.game-mode-button__top-image {
-    position: absolute;
-}
-
-.game-mode-button--battleroyale .game-mode-button__top-image {
-    background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/BattleroyaleTopArt.png?fileID=21300000&guid=6339c6b0a31c24805b10881f10e793c3&type=3#BattleroyaleTopArt');
-    width: 491px;
-    height: 466px;
-    top: 51px;
-    left: -5px;
-}
-
-.game-mode-button--deathmatch .game-mode-button__top-image {
-    background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/DeathmatchTopArt.png?fileID=2800000&guid=7ffb27509a1d146a8957bdb2a5922475&type=3#DeathmatchTopArt');
-    width: 491px;
-    height: 466px;
-    top: 48px;
-    left: -5px;
 }
 
 .game-mode-button__description {
@@ -225,11 +246,17 @@
     padding-top: 4px;
     padding-bottom: 4px;
     -unity-background-scale-mode: scale-and-crop;
+    flex-direction: column-reverse;
+}
+
+.game-mode-button__mutators__mutatorline {
+    flex-direction: row;
 }
 
 .game-mode-button__mutators__icon {
-    width: 30px;
-    height: 30px;
+    -unity-background-image-tint-color: rgb(0, 0, 0);
+    width: 46px;
+    height: 46px;
 }
 
 .speedup-mutator .game-mode-button__mutators__icon {
@@ -257,13 +284,18 @@
     padding-bottom: 0;
 }
 
-.game-mode-button--ranked .game-mode-button__crown {
+.game-mode-button__crown {
+    width: 517px;
+    height: 240px;
+    left: 10%;
+    right: 0;
+    top: -170px;
+    align-items: center;
+    justify-content: center;
     position: absolute;
-    left: 50%;
-    right: 50%;
-    width: 86px;
-    height: 58px;
-    top: -70px;
+}
+
+.game-mode-button--ranked .game-mode-button__crown {
     background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/CrownLight.png?fileID=21300000&guid=26da5d710c4234b85a48ff859b0ae828&type=3#CrownLight');
 }
 
@@ -271,19 +303,6 @@
     background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/RankedCrown.png?fileID=21300000&guid=a3323e773a3d94bfda84717a55d45241&type=3#RankedCrown');
     width: 86px;
     height: 58px;
-}
-
-.visible-crown {
-    opacity: 1;
-    transition-duration: 0.5s, 0.5s;
-    transition-property: opacity, translate;
-    transition-delay: 1.5s, 1.5s;
-    transition-timing-function: ease, ease-out-back;
-}
-
-.hidden .hidden-crown {
-    opacity: 0;
-    translate: 0 -100px;
 }
 
 .game-mode-button__mode-tag {
@@ -347,4 +366,9 @@
 
 .visible-gamemodebutton4 {
     transition-delay: 1s, 1s;
+}
+
+.game-mode-button__title {
+    flex-direction: row;
+    margin-top: 30px;
 }

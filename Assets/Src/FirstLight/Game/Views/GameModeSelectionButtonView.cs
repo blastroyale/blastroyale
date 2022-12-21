@@ -70,7 +70,7 @@ namespace FirstLight.Game.Views
 			_button = _root.Q<Button>().Required();
 			
 			var dataPanel = _root.Q<VisualElement>("DataPanel");
-			_gameModeLabel = dataPanel.Q<VisualElement>("GameMode").Q<Label>("Label").Required();
+			_gameModeLabel = dataPanel.Q<VisualElement>("Title").Q<Label>("Label").Required();
 			_gameModeDescriptionLabel = dataPanel.Q<Label>("Description");
 			_gameModeTimerLabel = dataPanel.Q<Label>("Timer");
 			

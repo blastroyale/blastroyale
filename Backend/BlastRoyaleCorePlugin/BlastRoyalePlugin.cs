@@ -25,8 +25,6 @@ namespace BlastRoyaleNFTPlugin
 			{
 				context.PluginEventManager.RegisterListener<PlayerDataLoadEvent>(OnGetPlayerData);
 			}
-			context.RegisterCustomConverter(this, new QuantumVector2Converter());
-			context.RegisterCustomConverter(this, new QuantumVector3Converter());
 		}
 
 		/// <summary>

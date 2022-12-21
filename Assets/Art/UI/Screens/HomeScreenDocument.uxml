@@ -32,7 +32,7 @@
                             <ui:VisualElement class="resource-pool__icon" />
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/play" name="PlayButton" class="play-button sfx-click-forwards font-italic font-style-h1" />
+                    <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/play" name="PlayButton" class="play-button sfx-click-forwards" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement picking-mode="Ignore" name="LeftButtons" class="main-buttons main-buttons--left">
@@ -46,7 +46,7 @@
                 <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/leaderboards" name="LeaderboardsButton" class="sfx-click-forwards button-with-icon button-with-icon--leaderboards anim-delay-1 anim-translate anim-translate--right-xl">
                     <ui:VisualElement class="button-with-icon__icon" />
                 </FirstLight.Game.UIElements.LocalizedButton>
-                <ui:VisualElement name="BattlePassButtonHolder" class = "anim-delay-0 anim-translate anim-translate--right-xl">
+                <ui:VisualElement name="BattlePassButtonHolder" class="anim-delay-0 anim-translate anim-translate--right-xl">
                     <ui:VisualElement name="BPPPoolContainer" class="resource-pool resource-pool--bpp">
                         <ui:VisualElement name="Background" class="resource-pool__background" />
                         <ui:VisualElement name="Holder" class="resource-pool__holder">

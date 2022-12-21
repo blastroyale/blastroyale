@@ -4,11 +4,12 @@
     --color-highlight: rgb(196, 84, 122);
     --color-default: rgb(144, 98, 227);
     --color-body: rgb(148, 45, 68);
+    
+    --font-bold: url('/Assets/Art/UI/Fonts/Stawix-Bold-Static.asset');
+    --font-italic: url('/Assets/Art/UI/Fonts/Stawix-Italic-Static.asset');
+
     transition-duration: 0.5s;
-    --font-regular: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Normal%20Regular.otf?fileID=12800000&guid=fc8266ceb95e44d6d812af34322286b7&type=3#Stawix - Amsi Pro Normal Regular');
-    --font-bold: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Condensed%20Bold.otf?fileID=12800000&guid=a3548c302ed824acb9afda8587ded4e7&type=3#Stawix - Amsi Pro Condensed Bold');
-    --font-italic: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Condensed%20Ultra%20Italic.otf?fileID=12800000&guid=6ff2428eb8a974c2281717afe377e3c6&type=3#Stawix - Amsi Pro Condensed Ultra Italic');
-    --font-light-italic: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Normal%20ExtraLight%20Italic.otf?fileID=12800000&guid=ecdd4df26ce474069865eb3673c40456&type=3#Stawix - Amsi Pro Normal ExtraLight Italic');
+    -unity-font-definition: var(--font-italic);
 }
 
 .unity-button {
@@ -49,20 +50,8 @@
     padding-left: 26px;
 }
 
-.font-regular {
-    -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Normal%20Regular.otf?fileID=12800000&guid=fc8266ceb95e44d6d812af34322286b7&type=3#Stawix - Amsi Pro Normal Regular');
-}
-
 .font-bold {
-    -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Condensed%20Bold.otf?fileID=12800000&guid=a3548c302ed824acb9afda8587ded4e7&type=3#Stawix - Amsi Pro Condensed Bold');
-}
-
-.font-italic {
-    -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Condensed%20Ultra%20Italic.otf?fileID=12800000&guid=6ff2428eb8a974c2281717afe377e3c6&type=3#Stawix - Amsi Pro Condensed Ultra Italic');
-}
-
-.font-light-italic {
-    -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Normal%20ExtraLight%20Italic.otf?fileID=12800000&guid=ecdd4df26ce474069865eb3673c40456&type=3#Stawix - Amsi Pro Normal ExtraLight Italic');
+    -unity-font-definition: var(--font-bold);
 }
 
 .font-style-normal {
@@ -88,7 +77,6 @@
 
 .button-with-icon {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMain.png?fileID=21300000&guid=8368e60ca24ab4818929e5d7b2dd77f2&type=3#ButtonMain');
-    -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Condensed%20Ultra%20Italic.otf?fileID=12800000&guid=6ff2428eb8a974c2281717afe377e3c6&type=3#Stawix - Amsi Pro Condensed Ultra Italic');
     font-size: 38px;
     text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.53);
     color: rgb(255, 255, 255);
@@ -180,7 +168,6 @@
     border-top-width: 1px;
     border-bottom-width: 1px;
     min-height: 70px;
-    -unity-font-definition: var(--font-italic);
     -unity-paragraph-spacing: -30px;
     -unity-font-style: bold;
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/GradientAndDots.png?fileID=21300000&guid=cf4abf5541a924d0da5e2d5681f54665&type=3#GradientAndDots');
@@ -291,7 +278,6 @@
 
 .tooltip {
     font-size: 32px;
-    -unity-font-definition: var(--font-italic);
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/TooltipwithTail.png?fileID=21300000&guid=7daa27819b9ff40648f92f624119dfc4&type=3#TooltipwithTail');
     color: rgb(186, 161, 230);
     position: absolute;
@@ -322,7 +308,6 @@
     border-top-width: 0;
     border-bottom-width: 0;
     background-color: rgba(0, 0, 0, 0);
-    -unity-font-definition: var(--font-italic);
     font-size: 42px;
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 1px;
@@ -435,7 +420,6 @@
     background-color: rgba(255, 255, 255, 0);
     margin: 0;
     color: rgb(255, 255, 255);
-    -unity-font-definition: var(--font-italic);
     text-shadow: 3px 3px 0 #6B0402;
     -unity-text-outline-color: #6B0402;
     font-size: 52px;
@@ -460,7 +444,6 @@
 }
 
 .might-display__label {
-    -unity-font-definition: var(--font-italic);
     font-size: 54px;
     color: rgb(248, 199, 46);
     -unity-text-outline-width: 1px;

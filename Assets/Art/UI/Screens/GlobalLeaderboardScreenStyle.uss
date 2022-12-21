@@ -11,19 +11,8 @@
     display: flex;
 }
 
-.leaderboard-panel--localPlayerFixed
-{
+.leaderboard-panel--local-player-fixed {
     bottom: 205px;
-}
-
-.leaderboard-entries {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    top: 70px;
-    left: 0;
-    align-items: center;
-    padding-right: 0;
 }
 
 .header-label {
@@ -72,10 +61,23 @@
     -unity-text-outline-color: rgb(0, 0, 0);
 }
 
-.localplayerFixedPosHolder {
+.localplayer-fixed-pos-holder {
     position: absolute;
     bottom: 125px;
     align-items: center;
     width: 100%;
 }
 
+.leaderboard-entries {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    top: 70px;
+    left: 0;
+    align-items: center;
+    padding-right: 0;
+}
+
+.leaderboard-entries .unity-list-view__item:hover {
+    background-color: rgba(0, 0, 0, 0);
+}

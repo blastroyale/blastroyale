@@ -23,13 +23,17 @@
     transition-delay: 0.4s, 0.4s;
 }
 
+.leaderboard-entry--global {
+    opacity: 1;
+}
+
 .hidden .leaderboard-entry {
     opacity: 0;
     translate: -100px 0;
 }
 
 .leaderboard-entry--local {
-    background-image: url('project://database/Assets/Art/UI/Sprites/Leaderboards/CurrentPlayerBack.png?fileID=2800000&guid=afa908952e5254323b1e9bffac5a1b74&type=3#CurrentPlayerBack');
+    background-image: url('project://database/Assets/Art/UI/Sprites/Leaderboards/CurrentPlayerBack.png?fileID=2800000&guid=b027f6dfacaa501c394b061de9a2bfa0&type=3#CurrentPlayerBack');
     scale: 1.05 1.05;
 }
 
@@ -117,12 +121,21 @@
     -unity-text-align: upper-right;
 }
 
+.leaderboard-entry--global .leaderboard-entry__kills {
+    display: none; 
+}
+
 .leaderboard-entry--local .leaderboard-entry__kills {
     color: rgb(233, 226, 225);
 }
 
 .leaderboard-entry--local .leaderboard-entry__deaths {
     color: rgb(233, 226, 225);
+}
+
+.leaderboard-entry--local .leaderboard-entry__rank-number {
+    color: rgb(233, 226, 225);
+    left: 60px;
 }
 
 .leaderboard-entry__trophies-bar {
@@ -153,3 +166,19 @@
     color: rgb(233, 226, 225);
     position: relative;
 }
+
+.leaderboard-entry-positioner__highlight {
+    background-image: url('project://database/Assets/Art/UI/Sprites/Leaderboards/HighlightLeaderboard.png?fileID=2800000&guid=aa56add4a38ee4af49e3299c310b6ead&type=3#HighlightLeaderboard');
+    width: 1100;
+    height: 92;
+    right: -40px;
+    position: absolute;
+    overflow: visible;
+    display: none;
+}
+
+.leaderboard-entry-positioner--highlight .leaderboard-entry-positioner__highlight
+{   
+    display: flex;
+}
+

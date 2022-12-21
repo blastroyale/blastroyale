@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 using FirstLight.FLogger;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
@@ -22,16 +21,20 @@ namespace FirstLight.Game.Presenters
     /// <summary>
     /// Presenter for the Leaderboards and Rewards Screen
     /// </summary>
-    public class LeaderboardUIScreenPresenter : UiToolkitPresenterData<LeaderboardUIScreenPresenter.StateData>
+    public class GlobalLeaderboardScreenPresenter : UiToolkitPresenterData<GlobalLeaderboardScreenPresenter.StateData>
     {
         public struct StateData
         {
             public Action OnBackClicked;
         }
+    
+        private const string UssLeaderboardEntryGlobal = "leaderboard-entry--global";
+        private const string UssLeaderboardEntryLocal = "leaderboard-entry--local";
+        private const string UssLeaderboardEntryPositionerHighlight = "leaderboard-entry-positioner--highlight";
+        private const string UssLeaderboardPanelLocalPlayerFixed = "leaderboard-panel--local-player-fixed";
+        
+        [SerializeField] private VisualTreeAsset _leaderboardEntryAsset;
 
-        [SerializeField] private VisualTreeAsset _leaderboardUIEntryAsset;
-
-        private LeaderboardUIEntryView _playerRankEntryRef;
         private VisualElement _leaderboardPanel;
         private VisualElement _fixedLocalPlayerHolder;
         private ScreenHeaderElement _header;
@@ -39,9 +42,12 @@ namespace FirstLight.Game.Presenters
         private IGameServices _services;
         private IGameDataProvider _dataProvider;
 
-        private ScrollView _leaderboardScrollView;
+        private ListView _leaderboardListView;
+        private VisualElement _localPlayerVisualElement;
         private int _localPlayerPos = -1;
 
+        private readonly Dictionary<VisualElement, LeaderboardEntryView> _leaderboardEntryMap = new();
+        private readonly List<PlayerLeaderboardEntry> _playfabLeaderboardEntries = new();
         private void Awake()
         {
             _services = MainInstaller.Resolve<IGameServices>();
@@ -61,11 +67,45 @@ namespace FirstLight.Game.Presenters
             _header = root.Q<ScreenHeaderElement>("Header").Required();
             _header.backClicked += Data.OnBackClicked;
             _header.homeClicked += Data.OnBackClicked;
-            _leaderboardScrollView = root.Q<ScrollView>("LeaderboardScrollView").Required();
             _fixedLocalPlayerHolder = root.Q<VisualElement>("FixedLocalPlayerHolder").Required();
             _leaderboardPanel = root.Q<VisualElement>("LeaderboardPanel").Required();
+            _leaderboardListView = root.Q<ListView>("LeaderboardList").Required();
 
+            _leaderboardListView.DisableScrollbars();
+            
+            _leaderboardListView.makeItem = CreateLeaderboardEntry;
+            _leaderboardListView.bindItem = BindLeaderboardEntry;
             root.SetupClicks(_services);
+        }
+        
+        private VisualElement CreateLeaderboardEntry()
+        {
+            var newEntry = _leaderboardEntryAsset.Instantiate();
+            newEntry.AttachView(this, out LeaderboardEntryView view);
+             newEntry.AddToClassList(UssLeaderboardEntryGlobal);
+
+            _leaderboardEntryMap[newEntry] = view;
+
+            return newEntry;
+        }
+        
+        private void BindLeaderboardEntry(VisualElement element, int index)
+        {
+            var leaderboardEntryView = _leaderboardEntryMap[element];
+            var leaderboardEntry = _playfabLeaderboardEntries[index];
+            var isLocalPlayer = leaderboardEntry.PlayFabId == _dataProvider.AppDataProvider.PlayerId;
+            if (isLocalPlayer)
+            {
+                _localPlayerVisualElement = element;
+                
+                element.AddToClassList(UssLeaderboardEntryLocal);
+            }
+            else
+            {
+                element.RemoveFromClassList(UssLeaderboardEntryLocal);
+            }
+            
+            leaderboardEntryView.SetData(leaderboardEntry.Position+1,leaderboardEntry.DisplayName,-1,leaderboardEntry.StatValue, isLocalPlayer);
         }
 
         private void OnLeaderboardRequestError(PlayFabError error)
@@ -107,36 +147,27 @@ namespace FirstLight.Game.Presenters
             NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.LeaderboardOpenError,
                 error.ErrorMessage, button);
         }
-
-        private TemplateContainer AddEntry(PlayerLeaderboardEntry playerLeaderboardEntry, bool isLocalPlayer, int pos)
-        {
-            var newEntry = _leaderboardUIEntryAsset.Instantiate();
-            newEntry.AttachView(this, out LeaderboardUIEntryView view);
-            view.SetData(playerLeaderboardEntry, isLocalPlayer, pos);
-            _leaderboardScrollView.Add(newEntry);
-            return newEntry;
-        }
-
+        
         private void OnLeaderboardTopRanksReceived(GetLeaderboardResult result)
         {
-            var isLocalPlayer = false;
             var resultPos = result.Leaderboard.Count < GameConstants.Network.LEADERBOARD_TOP_RANK_AMOUNT
                 ? result.Leaderboard.Count
                 : GameConstants.Network.LEADERBOARD_TOP_RANK_AMOUNT;
 
+            _playfabLeaderboardEntries.Clear();
+            
             for (int i = 0; i < resultPos; i++)
             {
                 if (result.Leaderboard[i].PlayFabId == _dataProvider.AppDataProvider.PlayerId)
                 {
-                    isLocalPlayer = true;
                     _localPlayerPos = i;
                 }
-                else
-                    isLocalPlayer = false;
-
-                AddEntry(result.Leaderboard[i], isLocalPlayer, i);
+                
+                _playfabLeaderboardEntries.Add(result.Leaderboard[i]);
             }
 
+            _leaderboardListView.itemsSource = _playfabLeaderboardEntries;
+            
             if (_localPlayerPos != -1)
             {
                 StartCoroutine(RepositionScrollToLocalPlayer());
@@ -149,19 +180,27 @@ namespace FirstLight.Game.Presenters
 
         IEnumerator RepositionScrollToLocalPlayer()
         {
+            if (_localPlayerVisualElement == null) yield break;
+                
             yield return new WaitForEndOfFrame();
-            _leaderboardScrollView.ScrollTo(
-                _leaderboardScrollView.contentContainer.hierarchy.ElementAt(_localPlayerPos));
-            _leaderboardScrollView.scrollOffset = new Vector2(_leaderboardScrollView.scrollOffset.x,
-                _leaderboardScrollView.scrollOffset.y + _leaderboardScrollView.contentViewport.layout.height / 2);
+            _leaderboardListView.ScrollTo(_localPlayerVisualElement);
+            //_leaderboardListView.ScrollTo(
+            //    _leaderboardListView.contentContainer.hierarchy.ElementAt(_localPlayerPos));
+           // _leaderboardListView. = new Vector2(_leaderboardListView.scrollOffset.x,
+           //     _leaderboardListView.scrollOffset.y + _leaderboardListView.contentViewport.layout.height / 2);
         }
 
         private void OnLeaderboardNeighborRanksReceived(GetLeaderboardAroundPlayerResult result)
         {
-            var newEntry = _leaderboardUIEntryAsset.Instantiate();
-            newEntry.AttachView(this, out LeaderboardUIEntryView view);
-            view.SetData(result.Leaderboard[0], true);
-            _leaderboardPanel.AddToClassList("leaderboard-panel--localPlayerFixed");
+            var newEntry = _leaderboardEntryAsset.Instantiate();
+            newEntry.AttachView(this, out LeaderboardEntryView view);
+            var leaderboardEntry = result.Leaderboard[0];
+            view.SetData(leaderboardEntry.Position+1, leaderboardEntry.DisplayName,-1,leaderboardEntry.StatValue, true);
+            
+            newEntry.AddToClassList(UssLeaderboardEntryGlobal);
+            newEntry.AddToClassList(UssLeaderboardEntryPositionerHighlight);
+            
+            _leaderboardPanel.AddToClassList(UssLeaderboardPanelLocalPlayerFixed);
             _fixedLocalPlayerHolder.Add(newEntry);
         }
     }

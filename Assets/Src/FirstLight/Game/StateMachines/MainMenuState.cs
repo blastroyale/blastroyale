@@ -389,7 +389,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OpenLeaderboardUI(IWaitActivity activity)
 		{
-			var data = new LeaderboardUIScreenPresenter.StateData
+			var data = new GlobalLeaderboardScreenPresenter.StateData
 			{
 				OnBackClicked = () =>
 				{
@@ -397,7 +397,7 @@ namespace FirstLight.Game.StateMachines
 				}
 			};
 
-			_uiService.OpenScreen<LeaderboardUIScreenPresenter, LeaderboardUIScreenPresenter.StateData>(data);
+			_uiService.OpenScreen<GlobalLeaderboardScreenPresenter, GlobalLeaderboardScreenPresenter.StateData>(data);
 		}
 
 		private void OpenBattlePassUI(IWaitActivity activity)

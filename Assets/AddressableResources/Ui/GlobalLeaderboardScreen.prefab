@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 3274073835039566590}
   - component: {fileID: 6237275399507994827}
   m_Layer: 0
-  m_Name: LeaderboardScreenUI
+  m_Name: GlobalLeaderboardScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -116,8 +116,7 @@ MonoBehaviour:
   _document: {fileID: 3274073835039566590}
   _background: {fileID: 9166001533437720228}
   _millisecondsToClose: 0
-  _camera: {fileID: 5075984243769002363}
-  _leaderboardUIEntryAsset: {fileID: 9197481963319205126, guid: 1d1fa3bf426846548a23e3e2d0025219, type: 3}
+  _leaderboardEntryAsset: {fileID: 9197481963319205126, guid: 6fb24398d54ea4f059d3e6f638340f5d, type: 3}
 --- !u!1 &5727831155706368498
 GameObject:
   m_ObjectHideFlags: 0

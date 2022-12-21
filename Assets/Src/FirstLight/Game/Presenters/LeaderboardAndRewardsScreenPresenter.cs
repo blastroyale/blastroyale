@@ -259,7 +259,7 @@ namespace FirstLight.Game.Presenters
 			{
 				var newEntry = _leaderboardEntryAsset.Instantiate();
 				newEntry.AttachView(this, out LeaderboardEntryView view);
-				view.SetData(entry, _matchServices.MatchEndDataService.LocalPlayer == entry.Data.Player);
+				view.SetData((int)entry.PlayerRank, entry.PlayerName, (int)entry.Data.PlayersKilledCount, (int)entry.Data.PlayerTrophies, _matchServices.MatchEndDataService.LocalPlayer == entry.Data.Player);
 				_leaderboardScrollView.Add(newEntry);
 			}
 		}

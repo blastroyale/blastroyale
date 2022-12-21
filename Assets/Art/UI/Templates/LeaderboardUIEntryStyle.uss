@@ -29,10 +29,7 @@
     translate: -100px 0;
 }
 
-.leaderboard-entry--local {
-    background-image: url('project://database/Assets/Art/UI/Sprites/Leaderboards/CurrentPlayerBack.png?fileID=2800000&guid=afa908952e5254323b1e9bffac5a1b74&type=3#CurrentPlayerBack');
-    scale: 1.05 1.05;
-}
+
 
 .leaderboard-entry__rank-number {
     -unity-font-definition: var(--font-italic);
@@ -55,10 +52,7 @@
     display: none;
 }
 
-.leaderboard-entry--local .leaderboard-entry__rank-number {
-    color: rgb(233, 226, 225);
-    left: 60px;
-}
+
 
 .leaderboard-entry__rank-badge {
     position: absolute;
@@ -144,14 +138,7 @@
     position: relative;
 }
 
-.leaderboard-entry__player-highlight {
-    background-image: url('project://database/Assets/Art/UI/Sprites/Leaderboards/HighlightLeaderboard.png?fileID=2800000&guid=aa56add4a38ee4af49e3299c310b6ead&type=3#HighlightLeaderboard');
-    visibility: visible;
-    width: 1100;
-    height: 92;
-    position: absolute;
-    overflow: visible;
-}
+
 
 .leaderboard-entries-container {
     width: 100%;

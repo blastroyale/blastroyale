@@ -1,41 +1,41 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" FLG="FirstLight.Game.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Templates/GameModeSelectionButtonStyle.uss?fileID=7433441132597879392&amp;guid=1a806c33bc7a34069a8b184b546c14e0&amp;type=3#GameModeSelectionButtonStyle" />
-    <ui:Button display-tooltip-when-elided="true" name="GameModeButton" class="hidden-gamemodebutton battleroyale ranked">
-        <ui:VisualElement name="Scalable">
-            <ui:VisualElement name="Glow" />
-            <ui:VisualElement name="GameModeOutline">
-                <ui:VisualElement name="Frame">
+    <ui:Button display-tooltip-when-elided="true" name="GameModeButton" class="game-mode-button anim-translate--up-m anim-fade-and-translate ranked custom">
+        <ui:VisualElement name="Scalable" class="game-mode-button__scalable">
+            <ui:VisualElement name="Glow" class="game-mode-button__glow" />
+            <ui:VisualElement name="Outline" class="game-mode-button__outline">
+                <ui:VisualElement name="Frame" class="game-mode-button__frame">
                     <ui:VisualElement name="TopMask" style="width: 502px; height: 731px; margin-left: 2px; overflow: hidden; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/GameModeSelection/ModeButton.svg?fileID=7388822144124034973&amp;guid=396868652aab04b298372850f07f4a48&amp;type=3#ModeButton&apos;); margin-top: 2px; -unity-background-image-tint-color: rgba(255, 255, 255, 0);">
-                        <ui:VisualElement name="Top" style="width: 512px; height: 512px; display: flex; -unity-background-scale-mode: scale-and-crop; overflow: hidden; visibility: visible;" />
+                        <ui:VisualElement name="Top" class="game-mode-button__top" />
                     </ui:VisualElement>
-                    <ui:VisualElement name="TopImage" />
+                    <ui:VisualElement name="TopImage" class="game-mode-button__top-image" />
                     <ui:VisualElement name="BottomMask" style="margin-left: 2px; margin-top: 3px; position: absolute; width: 502px; height: 731px; overflow: hidden; background-image: url(&apos;project://database/Assets/Art/UI/Sprites/GameModeSelection/ModeButton.svg?fileID=7388822144124034973&amp;guid=396868652aab04b298372850f07f4a48&amp;type=3#ModeButton&apos;); -unity-background-image-tint-color: rgba(1, 0, 0, 0);">
-                        <ui:VisualElement name="DataPanel" style="position: absolute; width: 462px;">
+                        <ui:VisualElement name="DataPanel" class="game-mode-button__data-panel" style="position: absolute; width: 462px;">
                             <ui:VisualElement name="GameMode" style="flex-direction: row; margin-top: 30px;">
-                                <ui:VisualElement name="GameModeIcon" style="-unity-background-image-tint-color: rgb(0, 0, 0); width: 46px; height: 46px;" />
-                                <ui:Label text="BATTLE ROYALE" display-tooltip-when-elided="true" name="GameModeLabel" class="font-italic" />
+                                <ui:VisualElement name="Icon" class="game-mode-button__icon" style="-unity-background-image-tint-color: rgb(0, 0, 0); width: 46px; height: 46px;" />
+                                <ui:Label text="BATTLE ROYALE" display-tooltip-when-elided="true" name="Label" class="font-italic game-mode-button__label" />
                             </ui:VisualElement>
-                            <ui:Label text="Infinite respawns, time-limited Whoever get most kills wins" name="GameModeDescription" class="font-bold" />
-                            <ui:Label text="29D 30H" name="GameModeTimer" class="font-italic" />
+                            <ui:Label text="Infinite respawns, time-limited Whoever get most kills wins" name="Description" class="font-bold game-mode-button__description" />
+                            <ui:Label text="29D 30H" name="Timer" class="font-italic game-mode-button__timer" />
                         </ui:VisualElement>
-                        <ui:VisualElement name="MutatorsPanel" style="flex-direction: column-reverse; flex-grow: 0;">
+                        <ui:VisualElement name="Mutators" class="game-mode-button__mutators" style="flex-direction: column-reverse; flex-grow: 0;">
                             <ui:VisualElement name="MutatorLine" class="speedup-mutator" style="flex-direction: row;">
-                                <ui:VisualElement name="MutatorIcon" class="mutator-icon" />
-                                <ui:Label text="MUTATOR 2" display-tooltip-when-elided="true" name="MutatorTitle" class="mutator-title font-italic" />
+                                <ui:VisualElement name="Icon" class="game-mode-button__mutators__icon" />
+                                <ui:Label text="MUTATOR 2" display-tooltip-when-elided="true" name="Title" class="font-italic game-mode-button__mutators__title" />
                             </ui:VisualElement>
                             <ui:VisualElement name="MutatorLine" class="speedup-mutator" style="flex-direction: row;">
-                                <ui:VisualElement name="MutatorIcon" class="mutator-icon" />
-                                <ui:Label text="MUTATOR 1" display-tooltip-when-elided="true" name="MutatorTitle" class="mutator-title font-italic" />
+                                <ui:VisualElement name="Icon" class="game-mode-button__mutators__icon" />
+                                <ui:Label text="MUTATOR 1" display-tooltip-when-elided="true" name="Title" class="font-italic game-mode-button__mutators__title" />
                             </ui:VisualElement>
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="ModeTag" style="position: absolute;">
-                    <ui:Label text="RANKED" name="ModeTagTitle" class="font-italic" />
+                <ui:VisualElement name="ModeTag" class="game-mode-button__mode-tag">
+                    <ui:Label text="RANKED" name="Title" class="font-italic game-mode-button__mode-tag__title" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="Crown" class="hidden-crown visible-crown" style="width: 517px; height: 240px; left: 10%; right: 0; top: -170px; align-items: center; justify-content: center;">
-                <ui:VisualElement name="CrownImage" style="width: 86px; height: 58px;" />
+            <ui:VisualElement name="Crown" class="hidden-crown visible-crown game-mode-button__crown" style="width: 517px; height: 240px; left: 10%; right: 0; top: -170px; align-items: center; justify-content: center;">
+                <ui:VisualElement name="CrownImage" class="game-mode-button__crown__image" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:Button>

@@ -18,7 +18,8 @@ namespace FirstLight.Game.Views
 	/// </summary>
 	public class GameModeSelectionButtonView : IUIView
 	{
-		private const string SELECTED_CLASS = "selected";
+		private const string GameModeButtonBase = "game-mode-button";
+		private const string GameModeButtonSelectedModifier = GameModeButtonBase + "--selected";
 
 		public GameModeInfo GameModeInfo { get; private set; }
 		public event Action<GameModeSelectionButtonView> Clicked;
@@ -32,11 +33,11 @@ namespace FirstLight.Game.Views
 
 				if (_selected)
 				{
-					_button.AddToClassList(SELECTED_CLASS);
+					_button.AddToClassList(GameModeButtonSelectedModifier);
 				}
 				else
 				{
-					_button.RemoveFromClassList(SELECTED_CLASS);
+					_button.RemoveFromClassList(GameModeButtonSelectedModifier);
 				}
 			}
 		}
@@ -68,13 +69,16 @@ namespace FirstLight.Game.Views
 			
 			_button = _root.Q<Button>().Required();
 			
-			_gameModeLabel = _root.Q<Label>("GameModeLabel").Required();
-			_gameModeDescriptionLabel = _root.Q<Label>("GameModeDescription");
-			_gameModeTimerLabel = _root.Q<Label>("GameModeTimer");
-			_modeTagTitleLabel = _root.Q<Label>("ModeTagTitle");
+			var dataPanel = _root.Q<VisualElement>("DataPanel");
+			_gameModeLabel = dataPanel.Q<VisualElement>("GameMode").Q<Label>("Label").Required();
+			_gameModeDescriptionLabel = dataPanel.Q<Label>("Description");
+			_gameModeTimerLabel = dataPanel.Q<Label>("Timer");
+			
+			
+			_modeTagTitleLabel = _root.Q<VisualElement>("ModeTag").Q<Label>("Title");
 
-			_mutatorsPanel = _root.Q<VisualElement>("MutatorsPanel");
-			_mutatorLines = _root.Query<VisualElement>("MutatorLine").ToList();
+			_mutatorsPanel = _root.Q<VisualElement>("Mutators");
+			_mutatorLines = _mutatorsPanel.Query<VisualElement>("MutatorLine").ToList();
 			
 			_button.clicked += () => Clicked?.Invoke(this);
 		}
@@ -116,8 +120,8 @@ namespace FirstLight.Game.Views
 			
 			RemoveClasses();
 			
-			_button.AddToClassList(GameModeInfo.Entry.MatchType.ToString().ToLower());
-			_button.AddToClassList(GameModeInfo.Entry.GameModeId.ToLower());
+			_button.AddToClassList($"{GameModeButtonBase}--{GameModeInfo.Entry.MatchType.ToString().ToLower()}");
+			_button.AddToClassList($"{GameModeButtonBase}--{GameModeInfo.Entry.GameModeId.ToLower()}");
 			_gameModeLabel.text = GameModeInfo.Entry.GameModeId.ToUpper();
 			_modeTagTitleLabel.text = GameModeInfo.Entry.MatchType == MatchType.Custom?"":GameModeInfo.Entry.MatchType.ToString().ToUpper();
 
@@ -127,8 +131,8 @@ namespace FirstLight.Game.Views
 
 		private void RemoveClasses()
 		{
-			_gameModes.ForEach(mode => _button.RemoveFromClassList(mode));
-			_matchTypes.ForEach(type => _button.RemoveFromClassList(type));
+			_gameModes.ForEach(mode => _button.RemoveFromClassList($"{GameModeButtonBase}--{mode}"));
+			_matchTypes.ForEach(type => _button.RemoveFromClassList($"{GameModeButtonBase}--{type}"));
 		}
 
 		private void UpdateDescription()
@@ -172,7 +176,7 @@ namespace FirstLight.Game.Views
 		{
 			mutatorLine.ClearClassList();
 			mutatorLine.AddToClassList(mutator.ToLower() + "-mutator");
-			var mutatorTitle = mutatorLine.Q<Label>("MutatorTitle").Required();
+			var mutatorTitle = mutatorLine.Q<Label>("Title").Required();
 			mutatorTitle.text = mutator.ToUpper();
 		}
 

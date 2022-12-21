@@ -2,8 +2,8 @@
     <Style src="project://database/Assets/Art/UI/Screens/GameModeSelectionScreenStyle.uss?fileID=7433441132597879392&amp;guid=65b63b653515f438aa2452fed30ceae6&amp;type=3#GameModeSelectionScreenStyle" />
     <ui:VisualElement name="root" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0;">
         <ui:VisualElement name="backgroundPattern" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0;">
-            <ui:ScrollView name="ButtonsSlider" mode="Horizontal" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" vertical-page-size="-1" class="ButtonSlider" style="justify-content: space-between;" />
-            <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITGameModeSelection/tap_to_choose" name="Instructions" class="font-style-normal hidden-opacity visible-opacity-instructions font-bold" />
+            <ui:ScrollView name="ButtonsSlider" mode="Horizontal" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" vertical-page-size="-1" class="buttons-slider" style="justify-content: space-between;" />
+            <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITGameModeSelection/tap_to_choose" name="Instructions" class="font-style-normal font-bold instructions anim-fade anim-delay-2s" />
             <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITGameModeSelection/choose_a_mode" name="Header" />
         </ui:VisualElement>
     </ui:VisualElement>

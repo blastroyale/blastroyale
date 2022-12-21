@@ -31,6 +31,10 @@
     transition-delay: 0.25s;
 }
 
+.anim-delay-2s {
+    transition-delay: 2s;
+}
+
 .anim-translate {
     transition-property: translate;
     transition-duration: var(--base-duration);
@@ -140,6 +144,16 @@
 }
 
 .hidden .anim-fade {
+    opacity: 0;
+}
+
+.anim-fade-and-translate {
+    transition-property: opacity, translate;
+    transition-duration: var(--base-duration), var(--base-duration);
+    transition-timing-function: var(--base-easing), var(--base-easing);
+}
+
+.hidden .anim-fade-and-translate {
     opacity: 0;
 }
 

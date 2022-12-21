@@ -26,9 +26,10 @@ namespace FirstLight.Tests.PlayTests
 
 			yield return FLGTestTools.WaitForMainMenu();
 
-			FLGTestTools.ClickCustomGameButton();
+			yield return new WaitForSeconds(1);
+			FLGTestTools.ClickGameModeSelectionButton();
 			
-			yield return FLGTestTools.WaitForCustomGameMenu();
+			yield return FLGTestTools.WaitForGameModeSelectionScreen();
 
 			FLGTestTools.ClickCreateRoom();
 

@@ -32,8 +32,10 @@ namespace FirstLight.Tests.PlayTests
 		public static IEnumerator Until(Func<bool> condition, float timeout = 30f)
 		{
 			float timePassed = 0f;
-			while (!condition() && timePassed < timeout) {
-				yield return new WaitForSeconds(1);
+			var wait = new WaitForSeconds(1);
+			while (!condition() && timePassed < timeout)
+			{
+				yield return wait;
 				timePassed += Time.deltaTime;
 			}
 			if (timePassed >= timeout) {
@@ -61,9 +63,7 @@ namespace FirstLight.Tests.PlayTests
 		{
 			if(parent == null) { throw new NullReferenceException($"UI Document for {name} not found"); }
 			var button = parent.rootVisualElement.Q<ImageButton>(name);
-			var navigationSubmitEvent = NavigationSubmitEvent.GetPooled();
-			navigationSubmitEvent.target = button;
-			button.SendEvent(navigationSubmitEvent);
+			button.ClickTest();
 		}
 	}
 }

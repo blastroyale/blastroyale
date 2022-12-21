@@ -18,6 +18,11 @@ namespace FirstLight.Tests.PlayTests
 		{
 			yield return TestTools.UntilObjectOfType<HomeScreenPresenter>();
 		}
+
+		public static IEnumerator WaitForGameModeSelectionScreen()
+		{
+			yield return TestTools.UntilObjectOfType<GameModeSelectionPresenter>();
+		}
 		
 		public static IEnumerator WaitForCustomGameMenu()
 		{
@@ -71,6 +76,11 @@ namespace FirstLight.Tests.PlayTests
 		{
 			var map = Object.FindObjectOfType<MapSelectionView>();
 			map.SelectWaterPosition();
+		}
+
+		public static void ClickGameModeSelectionButton()
+		{
+			TestTools.ClickUIToolKitImageButton(Object.FindObjectOfType<HomeScreenPresenter>().GetComponent<UIDocument>(), "GameModeButton");
 		}
 
 		public static void ClickCustomGameButton()

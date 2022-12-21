@@ -31,7 +31,7 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="ModeTag" class="game-mode-button__mode-tag">
-                    <ui:Label text="RANKED" name="Title" class="game-mode-button__mode-tag__title" />
+                    <ui:Label text="RANKED" name="Title" class="game-mode-button__mode-tag-title" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="Crown" class="anim-fade-and-translate game-mode-button__crown anim-translate--up-s anim-delay-3">

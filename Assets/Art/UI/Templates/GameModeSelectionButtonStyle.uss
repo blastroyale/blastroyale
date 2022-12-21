@@ -321,17 +321,17 @@
     background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/CasualTag.png?fileID=21300000&guid=278346cf582f948558a2b38a14e56b24&type=3#CasualTag');
 }
 
-.game-mode-button__mode-tag__title {
+.game-mode-button__mode-tag-title {
     color: rgb(255, 255, 255);
     font-size: 35px;
     -unity-text-outline-width: 2px;
 }
 
-.game-mode-button--ranked .game-mode-button__mode-tag__title {
+.game-mode-button--ranked .game-mode-button__mode-tag-title {
     -unity-text-outline-color: rgb(177, 46, 0);
 }
 
-.game-mode-button--casual .game-mode-button__mode-tag__title {
+.game-mode-button--casual .game-mode-button__mode-tag-title {
     -unity-text-outline-color: rgb(0, 74, 158);
 }
 

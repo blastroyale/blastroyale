@@ -41,8 +41,9 @@ namespace FirstLight.UiService
 		/// <summary>
 		/// Allows the ui presenter implementation to have extra behaviour when it is closed
 		/// </summary>
-		protected virtual async Task OnClosed()
+		protected virtual Task OnClosed()
 		{
+			return Task.CompletedTask;
 		}
 
 		/// <summary>
@@ -97,7 +98,7 @@ namespace FirstLight.UiService
 		{
 			if (destroy)
 			{
-				base.InternalClose(true);
+				await base.InternalClose(true);
 			}
 			else
 			{

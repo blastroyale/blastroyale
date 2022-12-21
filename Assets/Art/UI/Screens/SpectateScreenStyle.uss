@@ -3,7 +3,6 @@
 
 .show-hide-toggle {
     position: absolute;
-    -unity-font-definition: var(--font-italic);
     font-size: 38px;
     color: rgb(255, 255, 255);
     align-items: center;
@@ -118,7 +117,6 @@
     -unity-text-outline-width: 1px;
     -unity-text-outline-color: rgb(0, 0, 0);
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
-    -unity-font-definition: var(--font-italic);
     color: rgb(255, 255, 255);
     margin-top: 9px;
     margin-bottom: 17px;
@@ -130,7 +128,6 @@
     text-shadow: 2px 2px 0 rgb(0, 0, 0);
     -unity-text-outline-width: 0;
     -unity-text-outline-color: rgb(0, 0, 0);
-    -unity-font-definition: var(--font-italic);
 }
 
 .player-holder__rt-holder {

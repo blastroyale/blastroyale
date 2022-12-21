@@ -129,7 +129,7 @@ namespace FirstLight.Game.Logic
 			var shapeMod = (double) poolConfig.ShapeModifier;
 			var scaleMult = (double) poolConfig.ScaleMultiplier;
 			var nftAssumed = GameConfig.NftAssumedOwned;
-			var minNftOwned = GameConfig.MinNftForEarnings;
+			var minNftOwned = GameConfig.MinNftForPoolSizeBonus;
 			var nftsm = nftAssumed * shapeMod;
 			var poolDecreaseExp = (double) poolConfig.PoolCapacityDecreaseExponent;
 			var maxPoolDecreaseMod = (double) poolConfig.MaxPoolCapacityDecreaseModifier;

@@ -726,6 +726,48 @@ MonoBehaviour:
   _duration: 0.1
   _minimapImage: {fileID: 8415855882996343762}
   _playerIndicator: {fileID: 5279995862025689972}
+  _playersFade:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 20
+      outSlope: 20
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.05
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.133672
+    - serializedVersion: 3
+      time: 0.4
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -0.01646451
+      outSlope: -1.6666666
+      tangentMode: 1
+      weightedMode: 0
+      inWeight: 0.2387449
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   _airdropIndicatorRef: {fileID: 2579124126100097745}
   _safeAreaArrow: {fileID: 3946227000982972255}
 --- !u!114 &3164477673313007931

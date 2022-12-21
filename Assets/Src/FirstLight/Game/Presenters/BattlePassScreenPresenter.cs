@@ -67,7 +67,7 @@ namespace FirstLight.Game.Presenters
 			
 		}
 		
-		protected override async void QueryElements(VisualElement root)
+		protected override void QueryElements(VisualElement root)
 		{
 			base.QueryElements(root);
 
@@ -257,7 +257,7 @@ namespace FirstLight.Game.Presenters
 			// Keep showing/dismissing reward dialogs recursively, until all have been shown
 			if (Data.UiService.HasUiPresenter<EquipmentRewardDialogPresenter>())
 			{
-				Data.UiService.CloseUi<EquipmentRewardDialogPresenter>();
+				await Data.UiService.CloseUi<EquipmentRewardDialogPresenter>();
 
 				await Task.Delay(GameConstants.Visuals.REWARD_POPUP_CLOSE_MS);
 			}

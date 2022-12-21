@@ -5,7 +5,6 @@
     flex-direction: row;
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
     color: rgb(248, 199, 46);
-    -unity-font-definition: var(--font-italic);
     -unity-text-outline-width: 1px;
     font-size: 32px;
     -unity-text-outline-color: rgb(0, 0, 0);

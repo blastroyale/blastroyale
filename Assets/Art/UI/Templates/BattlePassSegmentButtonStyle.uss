@@ -47,7 +47,6 @@
     -unity-text-outline-color: rgb(0, 0, 0);
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
     -unity-font-style: bold;
-    -unity-font-definition: var(--font-italic);
     font-size: 50px;
     color: rgb(255, 255, 255);
     -unity-paragraph-spacing: -30px;
@@ -80,7 +79,6 @@
 
 .reward__title {
     -unity-font-style: normal;
-    -unity-font-definition: var(--font-italic);
     font-size: 50px;
     color: rgb(255, 255, 255);
     -unity-text-align: middle-center;
@@ -200,7 +198,6 @@
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(156, 36, 12);
     text-shadow: 3px 3px 0 rgb(156, 36, 12);
-    -unity-font-definition: var(--font-italic);
     font-size: 40px;
     color: rgb(255, 255, 255);
     right: 30px;

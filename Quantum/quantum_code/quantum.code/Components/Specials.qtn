@@ -24,6 +24,7 @@ enum SpecialType
 	HazardAimSpawn,
 	ShieldedCharge,
 	Grenade,
+	Radar,
 }
 
 synced event OnAirstrikeUsed
@@ -58,6 +59,13 @@ synced event OnSkyBeamUsed
 	entity_ref Hazard;
 	FPVector3 TargetPosition;
 	Hazard HazardData;
+}
+
+synced event OnRadarUsed
+{
+	local player_ref Player;
+	FP Duration;
+	FP Range;
 }
 
 signal SpecialUsed(entity_ref entity, Special special, Int32 specialIndex);

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using DG.Tweening;
 using FirstLight.FLogger;
 using FirstLight.Game.Messages;
@@ -11,6 +10,7 @@ using Photon.Deterministic;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
 
@@ -28,6 +28,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private static readonly int _uvRectPID = Shader.PropertyToID("_UvRect");
 		private static readonly int _playersPID = Shader.PropertyToID("_Players");
 		private static readonly int _playersCountPID = Shader.PropertyToID("_PlayersCount");
+		private static readonly int _playersOpacityPID = Shader.PropertyToID("_PlayersOpacity");
+
+		private readonly TimeSpan RADAR_UPDATE_FREQ = TimeSpan.FromSeconds(2);
 
 		[SerializeField, Required, Title("Minimap")]
 		[ValidateInput("@!_minimapCamera.gameObject.activeSelf", "Camera should be disabled!")]
@@ -51,6 +54,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 		[SerializeField, Required, Title("Indicators")]
 		private RectTransform _playerIndicator;
 
+		[SerializeField, Required] private AnimationCurve _playersFade;
+
 		[SerializeField, Required] private MinimapAirdropView _airdropIndicatorRef;
 		[SerializeField, Required] private RectTransform _safeAreaArrow;
 
@@ -60,14 +65,21 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private Transform _cameraTransform;
 		private bool _safeAreaSet;
 		private bool _opened;
-		private float _animationModifier = 0f;
+		private float _animationModifier;
 		private float _fullScreenMapSize;
 		private float _smallMapSize;
 		private Vector2 _smallMapPosition;
 		private Tweener _tweenerSize;
 		private Material _minimapMat;
 		private IObjectPool<MinimapAirdropView> _airdropPool;
-		private readonly List<Vector4> _playerPositions = new(30);
+		private readonly Vector4[] _playerPositions = new Vector4[30];
+
+		private bool _radarActive;
+		private DateTime _radarEndTime;
+		private float _radarRange;
+		private DateTime _radarStartTime;
+		private DateTime _radarLastUpdate;
+		private LocalKeyword _radarShaderEnable;
 
 		private void OnValidate()
 		{
@@ -86,11 +98,15 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			_services = MainInstaller.Resolve<IGameServices>();
 			_airdropPool = new ObjectRefPool<MinimapAirdropView>(1, _airdropIndicatorRef,
-			                                                     GameObjectPool<MinimapAirdropView>.Instantiator);
+				GameObjectPool<MinimapAirdropView>.Instantiator);
+
+			// Cache the radar keyword
+			_radarShaderEnable = new LocalKeyword(_minimapImage.materialForRendering.shader, "MINIMAP_DRAW_PLAYERS");
 
 			QuantumEvent.Subscribe<EventOnAirDropDropped>(this, OnAirDropDropped);
 			QuantumEvent.Subscribe<EventOnAirDropLanded>(this, OnAirDropLanded);
 			QuantumEvent.Subscribe<EventOnAirDropCollected>(this, OnAirDropCollected);
+			QuantumEvent.Subscribe<EventOnRadarUsed>(this, OnRadarUsed);
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
 
 			_button.onClick.AddListener(OnClick);
@@ -109,10 +125,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				_cameraTransform = Camera.main.transform;
 			}
-			
+
 			_opened = false;
 			_backgroundImage.raycastTarget = false;
-			
+
 			_tweenerSize?.Kill();
 			UpdateMinimapSize(0);
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, UpdateView);
@@ -132,7 +148,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				return;
 			}
-			
+
 			var playerViewportPoint = _minimapCamera.WorldToViewportPoint(transform3D.Position.ToUnityVector3());
 
 			UpdatePlayerIndicator(playerViewportPoint, transform3D);
@@ -147,8 +163,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_rectTransform.anchorMax = Vector2.Lerp(Vector2.one, Vector2.one / 2f, f);
 			_rectTransform.anchoredPosition = Vector2.Lerp(_smallMapPosition, Vector2.zero, f);
 			_rectTransform.sizeDelta = Vector2.Lerp(Vector2.one * _smallMapSize,
-			                                        Vector2.one * _fullScreenMapSize - Vector2.one * _fullScreenPadding,
-			                                        f);
+				Vector2.one * _fullScreenMapSize - Vector2.one * _fullScreenPadding, f);
 			_rectTransform.pivot = Vector2.Lerp(Vector2.one, Vector2.one / 2f, f);
 			_backgroundImage.color = Color.Lerp(Color.clear, new Color(0f, 0f, 0f, 0.78f), f);
 			_viewportSize = Mathf.Lerp(0.3f, 1f, f);
@@ -176,13 +191,13 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var dangerCenter = _minimapCamera.WorldToViewportPoint(centerFp.XOY.ToUnityVector3()) - Vector3.one / 2f;
 			var safeRadius = circle.TargetRadius.AsFloat / _minimapCamera.orthographicSize;
 			var safeCenter = _minimapCamera.WorldToViewportPoint(circle.TargetCircleCenter.XOY.ToUnityVector3()) -
-			                 Vector3.one / 2f;
+				Vector3.one / 2f;
 
 			if (_config.Step != circle.Step)
 			{
 				_config = _services.ConfigsProvider.GetConfig<QuantumShrinkingCircleConfig>(circle.Step);
 			}
-			
+
 			// Check to only draw safe area after the warning / announcement
 			_safeAreaSet = f.Time > circle.ShrinkingStartTime - _config.WarningTime;
 
@@ -196,33 +211,91 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			// UV Rect
 			var uvRect = new Vector4((playerViewportPoint.x - _viewportSize / 2f) * (1f - _animationModifier),
-			                         (playerViewportPoint.y - _viewportSize / 2f) * (1f - _animationModifier),
-			                         _viewportSize, _viewportSize);
+				(playerViewportPoint.y - _viewportSize / 2f) * (1f - _animationModifier),
+				_viewportSize, _viewportSize);
 			_minimapImage.materialForRendering.SetVector(_uvRectPID, uvRect);
 
 			// Players
 			if (Shader.IsKeywordEnabled(GameConstants.Visuals.SHADER_MINIMAP_DRAW_PLAYERS))
 			{
-				_playerPositions.Clear();
+				int index = 0;
 				foreach (var (entity, _) in f.GetComponentIterator<AlivePlayerCharacter>())
 				{
 					var pos = f.Get<Transform3D>(entity).Position.ToUnityVector3();
 					var viewportPos = _minimapCamera.WorldToViewportPoint(pos) - Vector3.one / 2f;
 
-					_playerPositions.Add(new Vector4(viewportPos.x, viewportPos.y, 0, 0));
+					_playerPositions[index++] = new Vector4(viewportPos.x, viewportPos.y, 0, 0);
 				}
 
 				_minimapImage.materialForRendering.SetVectorArray(_playersPID, _playerPositions);
-				_minimapImage.materialForRendering.SetInteger(_playersCountPID, _playerPositions.Count);
+				_minimapImage.materialForRendering.SetInteger(_playersCountPID, index);
 			}
 
-			UpdateSafeAreaArrow(playerTransform3D, circle.TargetCircleCenter.ToUnityVector3(), circle.TargetRadius.AsFloat);
+			UpdateSafeAreaArrow(playerTransform3D, circle.TargetCircleCenter.ToUnityVector3(),
+				circle.TargetRadius.AsFloat);
+			UpdateRadar(f, playerTransform3D.Position.ToUnityVector3());
+		}
+
+		private void UpdateRadar(Frame f, Vector3 playerPosition)
+		{
+			if (!_radarActive) return;
+
+			var now = DateTime.Now;
+
+			if (now > _radarEndTime)
+			{
+				FLog.Info("Turning off radar!");
+
+				// Radar ran out
+				_radarActive = false;
+				_minimapImage.materialForRendering.SetKeyword(_radarShaderEnable, false);
+				return;
+			}
+
+			var nextPing = _radarLastUpdate + RADAR_UPDATE_FREQ;
+
+			var elapsedPingDuration = (now - _radarLastUpdate).TotalSeconds;
+			var elapsedPing = (float) elapsedPingDuration / RADAR_UPDATE_FREQ.TotalSeconds;
+			var pingOpacity = _playersFade.Evaluate((float) elapsedPing);
+
+			_minimapImage.materialForRendering.SetFloat(_playersOpacityPID, pingOpacity);
+
+			if (now > nextPing)
+			{
+				// Update positions
+				_radarLastUpdate = now;
+
+				int index = 0;
+				foreach (var (entity, apc) in f.GetComponentIterator<AlivePlayerCharacter>())
+				{
+					var pos = f.Get<Transform3D>(entity).Position.ToUnityVector3();
+
+					// Check range
+					if (Vector3.Distance(playerPosition, pos) > _radarRange)
+					{
+						continue;
+					}
+
+					// Don't show the local player
+					if (f.Context.IsLocalPlayer(f.Get<PlayerCharacter>(entity).Player))
+					{
+						continue;
+					}
+
+					var viewportPos = _minimapCamera.WorldToViewportPoint(pos) - Vector3.one / 2f;
+
+					_playerPositions[index++] = new Vector4(viewportPos.x, viewportPos.y, 0, 0);
+				}
+
+				_minimapImage.materialForRendering.SetVectorArray(_playersPID, _playerPositions);
+				_minimapImage.materialForRendering.SetInteger(_playersCountPID, index);
+			}
 		}
 
 		private void UpdateSafeAreaArrow(Transform3D playerTransform3D, Vector3 circleCenter, float circleRadius)
 		{
 			if (!_safeAreaSet) return;
-			
+
 			// Calculate and Apply rotation
 			var targetPosLocal = _cameraTransform.InverseTransformPoint(circleCenter);
 			var targetAngle = -Mathf.Atan2(targetPosLocal.x, targetPosLocal.y) * Mathf.Rad2Deg;
@@ -268,18 +341,20 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private void OpenMinimap()
 		{
 			_tweenerSize?.Kill();
-			
+
 			_opened = true;
-			_tweenerSize = DOVirtual.Float(_animationModifier, 1f, _duration, UpdateMinimapSize).SetEase(_openCloseEase);
+			_tweenerSize = DOVirtual.Float(_animationModifier, 1f, _duration, UpdateMinimapSize)
+				.SetEase(_openCloseEase);
 			_backgroundImage.raycastTarget = true;
 		}
 
 		private void CloseMinimap()
 		{
 			_tweenerSize?.Kill();
-			
+
 			_opened = false;
-			_tweenerSize = DOVirtual.Float(_animationModifier, 0f, _duration, UpdateMinimapSize).SetEase(_openCloseEase);
+			_tweenerSize = DOVirtual.Float(_animationModifier, 0f, _duration, UpdateMinimapSize)
+				.SetEase(_openCloseEase);
 			_backgroundImage.raycastTarget = false;
 		}
 
@@ -291,15 +366,15 @@ namespace FirstLight.Game.Views.MatchHudViews
 			ct.position = new Vector3(0, _cameraHeight, 0);
 			_minimapCamera.Render();
 		}
-		
+
 		private void OnMatchStartedMessage(MatchStartedMessage msg)
 		{
 			RenderMinimap();
-			
+
 			if (msg.IsResync)
 			{
 				_airdropPool.DespawnAll();
-				
+
 				foreach (var (entity, airDrop) in msg.Game.Frames.Predicted.GetComponentIterator<AirDrop>())
 				{
 					SpawnAirdrop(entity, airDrop);
@@ -316,13 +391,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			var poolSpawnedReadOnly = _airdropPool.SpawnedReadOnly;
 
-			for (var i = 0; i < poolSpawnedReadOnly.Count; i++)
+			foreach (var airdropView in poolSpawnedReadOnly)
 			{
-				if (poolSpawnedReadOnly[i].Entity == callback.Entity)
-				{
-					poolSpawnedReadOnly[i].OnLanded();
-					break;
-				}
+				if (airdropView.Entity != callback.Entity) continue;
+
+				airdropView.OnLanded();
+				break;
 			}
 		}
 
@@ -330,21 +404,31 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			var poolSpawnedReadOnly = _airdropPool.SpawnedReadOnly;
 
-			for (var i = 0; i < poolSpawnedReadOnly.Count; i++)
+			foreach (var airdropView in poolSpawnedReadOnly)
 			{
-				if (poolSpawnedReadOnly[i].Entity == callback.Entity)
-				{
-					_airdropPool.Despawn(poolSpawnedReadOnly[i]);
-					break;
-				}
+				if (airdropView.Entity != callback.Entity) continue;
+
+				_airdropPool.Despawn(airdropView);
+				break;
 			}
+		}
+
+		private void OnRadarUsed(EventOnRadarUsed callback)
+		{
+			FLog.Info($"Turning on radar, pings: {callback.Duration.AsInt}!");
+			_radarActive = true;
+			_radarStartTime = DateTime.Now;
+			_radarEndTime = _radarStartTime + RADAR_UPDATE_FREQ * callback.Duration.AsFloat;
+			_radarRange = callback.Range.AsFloat;
+			_minimapImage.materialForRendering.SetKeyword(_radarShaderEnable, true);
 		}
 
 		private void SpawnAirdrop(EntityRef entity, AirDrop airDrop)
 		{
 			var airdropView = _airdropPool.Spawn();
-			
-			airdropView.SetAirdrop(airDrop, entity, _minimapCamera.WorldToViewportPoint(airDrop.Position.ToUnityVector3()));
+
+			airdropView.SetAirdrop(airDrop, entity,
+				_minimapCamera.WorldToViewportPoint(airDrop.Position.ToUnityVector3()));
 		}
 
 		private Vector2 ViewportToMinimapPosition(Vector3 viewportPosition, Vector3 playerViewportPosition)
@@ -353,7 +437,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var minimapFullSize = new Vector2(rect.width / _viewportSize, rect.height / _viewportSize);
 
 			return (viewportPosition - playerViewportPosition * (1f - _animationModifier)) * minimapFullSize -
-			       minimapFullSize / 2f * _animationModifier;
+				minimapFullSize / 2f * _animationModifier;
 		}
 	}
 }

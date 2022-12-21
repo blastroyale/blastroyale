@@ -134,7 +134,6 @@
 
 .equipment-card__grade {
     position: absolute;
-    -unity-font-definition: var(--font-italic);
     color: rgb(255, 255, 255);
     font-size: 36px;
     left: 34px;
@@ -214,7 +213,6 @@
 
 .equipment-card__level {
     font-size: 32px;
-    -unity-font-definition: var(--font-italic);
     color: rgb(248, 202, 44);
     padding: 3px 10px 0 18px;
     margin: 0;
@@ -227,7 +225,6 @@
 .equipment-card__name {
     position: absolute;
     bottom: 10px;
-    -unity-font-definition: var(--font-italic);
     left: 10px;
     right: 34px;
     color: rgb(255, 255, 255);
@@ -283,7 +280,6 @@
 
 .equipment-card__adjective {
     color: rgb(148, 140, 198);
-    -unity-font-definition: var(--font-italic);
     font-size: 24px;
     -unity-text-align: middle-left;
 }
@@ -308,7 +304,6 @@
 .equipment-card__badge-loaned {
     background-image: none;
     -unity-text-align: middle-center;
-    -unity-font-definition: var(--font-italic);
     font-size: 22px;
     color: rgb(255, 255, 255);
     padding: 2px 15px 0;
@@ -326,7 +321,6 @@
 
 .equipment-card__badge-equipped {
     -unity-text-align: middle-center;
-    -unity-font-definition: var(--font-italic);
     font-size: 22px;
     color: rgb(45, 41, 80);
     padding-left: 15px;

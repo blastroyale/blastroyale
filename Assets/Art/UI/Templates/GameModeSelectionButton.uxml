@@ -13,28 +13,28 @@
                         <ui:VisualElement name="DataPanel" class="game-mode-button__data-panel">
                             <ui:VisualElement name="Title" class="game-mode-button__title">
                                 <ui:VisualElement name="Icon" class="game-mode-button__icon" />
-                                <ui:Label text="BATTLE ROYALE" display-tooltip-when-elided="true" name="Label" class="font-italic game-mode-button__label" />
+                                <ui:Label text="BATTLE ROYALE" display-tooltip-when-elided="true" name="Label" class="game-mode-button__label" />
                             </ui:VisualElement>
-                            <ui:Label text="Infinite respawns, time-limited Whoever get most kills wins" name="Description" class="font-bold game-mode-button__description" />
-                            <ui:Label text="29D 30H" name="Timer" class="font-italic game-mode-button__timer" />
+                            <ui:Label text="Infinite respawns, time-limited Whoever get most kills wins" name="Description" class="game-mode-button__description" />
+                            <ui:Label text="29D 30H" name="Timer" class="game-mode-button__timer" />
                         </ui:VisualElement>
                         <ui:VisualElement name="Mutators" class="game-mode-button__mutators">
-                            <ui:VisualElement name="MutatorLine" class="speedup-mutator game-mode-button__mutators__mutatorline">
+                            <ui:VisualElement name="MutatorLine" class="speedup-mutator game-mode-button__mutator-line">
                                 <ui:VisualElement name="Icon" class="game-mode-button__mutators__icon" />
-                                <ui:Label text="MUTATOR 2" display-tooltip-when-elided="true" name="Title" class="font-italic game-mode-button__mutators__title" />
+                                <ui:Label text="MUTATOR 2" display-tooltip-when-elided="true" name="Title" class="game-mode-button__mutators__title" />
                             </ui:VisualElement>
-                            <ui:VisualElement name="MutatorLine" class="speedup-mutator game-mode-button__mutators__mutatorline">
+                            <ui:VisualElement name="MutatorLine" class="speedup-mutator game-mode-button__mutator-line">
                                 <ui:VisualElement name="Icon" class="game-mode-button__mutators__icon" />
-                                <ui:Label text="MUTATOR 1" display-tooltip-when-elided="true" name="Title" class="font-italic game-mode-button__mutators__title" />
+                                <ui:Label text="MUTATOR 1" display-tooltip-when-elided="true" name="Title" class="game-mode-button__mutators__title" />
                             </ui:VisualElement>
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="ModeTag" class="game-mode-button__mode-tag">
-                    <ui:Label text="RANKED" name="Title" class="font-italic game-mode-button__mode-tag__title" />
+                    <ui:Label text="RANKED" name="Title" class="game-mode-button__mode-tag__title" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="Crown" class="anim-fade-and-translate game-mode-button__crown anim-translate--up-s anim-delay-1_5s">
+            <ui:VisualElement name="Crown" class="anim-fade-and-translate game-mode-button__crown anim-translate--up-s anim-delay-3">
                 <ui:VisualElement name="CrownImage" class="game-mode-button__crown__image" />
             </ui:VisualElement>
         </ui:VisualElement>

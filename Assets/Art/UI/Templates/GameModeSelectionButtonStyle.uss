@@ -249,7 +249,7 @@
     flex-direction: column-reverse;
 }
 
-.game-mode-button__mutators__mutatorline {
+.game-mode-button__mutator-line {
     flex-direction: row;
 }
 
@@ -352,6 +352,15 @@
     background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/Comingsoon%20mode.png?fileID=21300000&guid=ca852558102bb4ca6a3e2308c16e9189&type=3#Comingsoon mode');
 }
 
+.coming-soon-button {
+    height: 763px;
+    width: 529px;
+    margin-left: 30px;
+    margin-top: 120px;
+    margin-bottom: 100px;
+    justify-content: center;
+}
+
 .visible-gamemodebutton1 {
     transition-delay: 0.7s, 0.7s;
 }
@@ -371,4 +380,17 @@
 .game-mode-button__title {
     flex-direction: row;
     margin-top: 30px;
+}
+
+.coming-soon-button__title {
+    color: rgb(150, 118, 234);
+    position: absolute;
+    bottom: 100px;
+    font-size: 40px;
+    -unity-text-align: upper-center;
+    left: 90px;
+}
+
+.anim-delay-3 {
+    transition-delay: 1.5s;
 }

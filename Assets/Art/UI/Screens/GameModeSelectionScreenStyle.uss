@@ -23,3 +23,7 @@
 #unity-content-viewport {
     overflow: visible;
 }
+
+.anim-delay-1 {
+    transition-delay: 2s;
+}

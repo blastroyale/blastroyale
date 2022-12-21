@@ -13,34 +13,98 @@ MonoBehaviour:
   m_Name: BattlePassConfigs
   m_EditorClassIdentifier: 
   _config:
-    CurrentSeason: 2
-    DefaultPointsPerLevel: 400
+    CurrentSeason: 3
+    DefaultPointsPerLevel: 200
     Levels:
     - RewardId: 7
       PointsForNextLevel: 25
     - RewardId: 8
-      PointsForNextLevel: 45
+      PointsForNextLevel: 35
     - RewardId: 9
-      PointsForNextLevel: 65
+      PointsForNextLevel: 55
     - RewardId: 2
-      PointsForNextLevel: 100
+      PointsForNextLevel: 80
     - RewardId: 3
-      PointsForNextLevel: 140
-    - RewardId: 6
-      PointsForNextLevel: 200
+      PointsForNextLevel: 95
     - RewardId: 2
-      PointsForNextLevel: 235
+      PointsForNextLevel: 105
+    - RewardId: 3
+      PointsForNextLevel: 110
+    - RewardId: 4
+      PointsForNextLevel: 125
     - RewardId: 2
-      PointsForNextLevel: 365
+      PointsForNextLevel: 145
+    - RewardId: 2
+      PointsForNextLevel: 165
+    - RewardId: 3
+      PointsForNextLevel: 190
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 3
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 3
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 4
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 3
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 3
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 3
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 3
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 3
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 4
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 3
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 4
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 3
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 3
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
     - RewardId: 4
       PointsForNextLevel: 0
     - RewardId: 2
       PointsForNextLevel: 0
     - RewardId: 2
       PointsForNextLevel: 0
-    - RewardId: 3
-      PointsForNextLevel: 0
     - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 3
       PointsForNextLevel: 0
     - RewardId: 2
       PointsForNextLevel: 0
@@ -50,23 +114,71 @@ MonoBehaviour:
       PointsForNextLevel: 0
     - RewardId: 3
       PointsForNextLevel: 0
-    - RewardId: 4
-      PointsForNextLevel: 0
-    - RewardId: 3
-      PointsForNextLevel: 0
-    - RewardId: 4
-      PointsForNextLevel: 0
-    - RewardId: 6
-      PointsForNextLevel: 0
     - RewardId: 2
-      PointsForNextLevel: 0
-    - RewardId: 3
       PointsForNextLevel: 0
     - RewardId: 3
       PointsForNextLevel: 0
     - RewardId: 2
       PointsForNextLevel: 0
+    - RewardId: 4
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
     - RewardId: 3
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 3
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 3
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 3
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 4
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 3
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 3
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 3
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 3
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 3
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 4
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 3
+      PointsForNextLevel: 0
+    - RewardId: 2
       PointsForNextLevel: 0
     - RewardId: 5
       PointsForNextLevel: 0
@@ -74,7 +186,51 @@ MonoBehaviour:
       PointsForNextLevel: 0
     - RewardId: 2
       PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 3
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
     - RewardId: 4
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 3
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 3
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 3
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 3
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 3
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 4
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 3
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 3
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 3
+      PointsForNextLevel: 0
+    - RewardId: 2
       PointsForNextLevel: 0
     - RewardId: 2
       PointsForNextLevel: 0
@@ -83,6 +239,16 @@ MonoBehaviour:
     - RewardId: 3
       PointsForNextLevel: 0
     - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 4
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 3
       PointsForNextLevel: 0
     - RewardId: 2
       PointsForNextLevel: 0
@@ -92,27 +258,9 @@ MonoBehaviour:
       PointsForNextLevel: 0
     - RewardId: 3
       PointsForNextLevel: 0
-    - RewardId: 4
-      PointsForNextLevel: 0
-    - RewardId: 3
-      PointsForNextLevel: 0
-    - RewardId: 4
-      PointsForNextLevel: 0
-    - RewardId: 6
-      PointsForNextLevel: 0
     - RewardId: 2
       PointsForNextLevel: 0
     - RewardId: 3
-      PointsForNextLevel: 0
-    - RewardId: 3
-      PointsForNextLevel: 0
-    - RewardId: 2
-      PointsForNextLevel: 0
-    - RewardId: 3
-      PointsForNextLevel: 0
-    - RewardId: 5
-      PointsForNextLevel: 0
-    - RewardId: 2
       PointsForNextLevel: 0
     - RewardId: 2
       PointsForNextLevel: 0
@@ -120,35 +268,25 @@ MonoBehaviour:
       PointsForNextLevel: 0
     - RewardId: 2
       PointsForNextLevel: 0
-    - RewardId: 2
-      PointsForNextLevel: 0
     - RewardId: 3
       PointsForNextLevel: 0
     - RewardId: 2
-      PointsForNextLevel: 0
-    - RewardId: 2
-      PointsForNextLevel: 0
-    - RewardId: 5
-      PointsForNextLevel: 0
-    - RewardId: 2
-      PointsForNextLevel: 0
-    - RewardId: 3
       PointsForNextLevel: 0
     - RewardId: 4
       PointsForNextLevel: 0
-    - RewardId: 3
-      PointsForNextLevel: 0
-    - RewardId: 4
-      PointsForNextLevel: 0
-    - RewardId: 6
+    - RewardId: 2
       PointsForNextLevel: 0
     - RewardId: 3
       PointsForNextLevel: 0
-    - RewardId: 4
+    - RewardId: 2
       PointsForNextLevel: 0
     - RewardId: 3
       PointsForNextLevel: 0
-    - RewardId: 5
+    - RewardId: 2
+      PointsForNextLevel: 0
+    - RewardId: 3
+      PointsForNextLevel: 0
+    - RewardId: 2
       PointsForNextLevel: 0
     - RewardId: 6
       PointsForNextLevel: 0

@@ -84,8 +84,6 @@ namespace FirstLight.Game.Services
 			_dataService = dataService;
 			_services = services;
 			_serverCommandQueue = new ServerCommandQueue(dataService, gameLogic, playfabService, services);
-			ModelSerializer.RegisterConverter(new QuantumVector2Converter());
-			ModelSerializer.RegisterConverter(new QuantumVector3Converter());
 			_commandContext = new CommandExecutionContext(
 														  new LogicContainer().Build(gameLogic), new ServiceContainer().Build(services), dataService);
 		}

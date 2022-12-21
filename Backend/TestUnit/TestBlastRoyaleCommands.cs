@@ -9,6 +9,7 @@ using FirstLight.Game.Commands;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using PlayFab;
 using Photon.Deterministic;
@@ -114,5 +115,21 @@ public class TestBlastRoyaleCommands
 		Assert.IsFalse(result?.Data.ContainsKey("LogicException"));
 	}
 
+	[Test]
+	public void TestFPSerializer()
+	{
+		var model = new QuantumPlayerMatchData()
+		{
+			Data = new()
+			{
+				LastDeathPosition = new FPVector3(1, 2, 3)
+			}
+		};
 
+		var json = ModelSerializer.Serialize(model).Value;
+		var model2 = ModelSerializer.Deserialize<QuantumPlayerMatchData>(json);
+		
+		Assert.IsFalse(json.Contains("AsInt"));
+		Assert.AreEqual(model2.Data.LastDeathPosition, model.Data.LastDeathPosition);
+	}
 }

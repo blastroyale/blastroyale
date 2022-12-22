@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
-using UnityEngine.UIElements;
-using Object = System.Object;
 
 namespace FirstLight.Editor.EditorTools
 {
@@ -259,6 +259,86 @@ namespace FirstLight.Editor.EditorTools
 
 				Undo.DestroyObjectImmediate(cc);
 			}
+		}
+
+		[MenuItem("FLG/Generate Sprite USS")]
+		private static void GenerateSpriteUss()
+		{
+			const string SPRITES_FOLDER = "Assets/Art/UI/Sprites2/";
+			const string STYLES_FOLDER = "Assets/Art/UI/Styles/";
+
+			foreach (var grouping in AssetDatabase.GetAllAssetPaths()
+						 .OrderBy(s => s)
+						 .Where(path =>
+							 path.StartsWith(SPRITES_FOLDER) && !Directory.Exists(path) &&
+							 AssetDatabase.GetMainAssetTypeAtPath(path) == typeof(Texture2D) &&
+							 !path.Contains("SpritesOld"))
+						 .Select(s =>
+						 {
+							 Debug.Log(
+								 $"Path: {s} type: {AssetDatabase.GetMainAssetTypeAtPath(s) == typeof(Texture2D)}");
+							 return s;
+						 })
+						 .GroupBy(str => str.Split(Path.DirectorySeparatorChar)[4]))
+			{
+				Debug.Log($"Generating USS: {grouping.Key}");
+				var uss = GenerateSpriteUss(grouping);
+				Debug.Log(uss);
+
+				var stylePathRelative = STYLES_FOLDER + $"Sprites-{grouping.Key}.uss";
+				var stylePathAbsolute = Application.dataPath.Replace("Assets", "") + stylePathRelative;
+
+				Debug.Log($"Writing USS: {grouping.Key} to file '{stylePathRelative}'");
+
+				File.WriteAllText(stylePathAbsolute, uss);
+				AssetDatabase.ImportAsset(stylePathRelative);
+				Debug.Log($"USS processed: {grouping.Key}");
+			}
+
+			Debug.Log($"Sprite USS generation finished.");
+		}
+
+		private static string GenerateSpriteUss(IGrouping<string, string> arg)
+		{
+			var sb = new StringBuilder();
+
+			var names = new HashSet<string>();
+
+			// Generate variables
+			sb.AppendLine(":root {");
+			foreach (var path in arg)
+			{
+				var name = GenerateSpriteVar(arg.Key, path, true);
+
+				if (names.Contains(name))
+				{
+					throw new NotSupportedException($"Found duplicate sprite name in {arg.Key}: {name}");
+				}
+
+				names.Add(name);
+
+				sb.AppendLine("    " + GenerateSpriteVar(arg.Key, path, true));
+			}
+
+			sb.AppendLine("}");
+			sb.AppendLine();
+
+			// Generate classes
+			foreach (var path in arg)
+			{
+				sb.AppendLine($".sprite-{arg.Key.ToLowerInvariant()}__{Path.GetFileNameWithoutExtension(path)} {{");
+				sb.AppendLine($"    background-image: var({GenerateSpriteVar(arg.Key, path, false)})");
+				sb.AppendLine("}");
+				sb.AppendLine();
+			}
+
+			return sb.ToString();
+		}
+
+		private static string GenerateSpriteVar(string atlas, string path, bool full)
+		{
+			return $"--sprite-{atlas.ToLowerInvariant()}__{Path.GetFileNameWithoutExtension(path)}" +
+				(full ? $": url('/{path}');" : "");
 		}
 	}
 }

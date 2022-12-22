@@ -1,0 +1,148 @@
+:root {
+    --sprite-home__card-background: url('/Assets/Art/UI/Sprites2/Home/EquipmentCard/card-background.png');
+    --sprite-home__card-background-pressed: url('/Assets/Art/UI/Sprites2/Home/EquipmentCard/card-background-pressed.png');
+    --sprite-home__card-badge-nft: url('/Assets/Art/UI/Sprites2/Home/EquipmentCard/card-badge-nft.png');
+    --sprite-home__card-category-amulet: url('/Assets/Art/UI/Sprites2/Home/EquipmentCard/card-category-amulet.png');
+    --sprite-home__card-category-armor: url('/Assets/Art/UI/Sprites2/Home/EquipmentCard/card-category-armor.png');
+    --sprite-home__card-category-helmet: url('/Assets/Art/UI/Sprites2/Home/EquipmentCard/card-category-helmet.png');
+    --sprite-home__card-category-shield: url('/Assets/Art/UI/Sprites2/Home/EquipmentCard/card-category-shield.png');
+    --sprite-home__card-category-weapon: url('/Assets/Art/UI/Sprites2/Home/EquipmentCard/card-category-weapon.png');
+    --sprite-home__card-faction-celestial: url('/Assets/Art/UI/Sprites2/Home/EquipmentCard/card-faction-celestial.png');
+    --sprite-home__card-faction-chaos: url('/Assets/Art/UI/Sprites2/Home/EquipmentCard/card-faction-chaos.png');
+    --sprite-home__card-faction-dark: url('/Assets/Art/UI/Sprites2/Home/EquipmentCard/card-faction-dark.png');
+    --sprite-home__card-faction-dimensional: url('/Assets/Art/UI/Sprites2/Home/EquipmentCard/card-faction-dimensional.png');
+    --sprite-home__card-faction-order: url('/Assets/Art/UI/Sprites2/Home/EquipmentCard/card-faction-order.png');
+    --sprite-home__card-faction-organic: url('/Assets/Art/UI/Sprites2/Home/EquipmentCard/card-faction-organic.png');
+    --sprite-home__card-faction-shadow: url('/Assets/Art/UI/Sprites2/Home/EquipmentCard/card-faction-shadow.png');
+    --sprite-home__card-levelbg: url('/Assets/Art/UI/Sprites2/Home/EquipmentCard/card-levelbg.png');
+    --sprite-home__card-material-bronze: url('/Assets/Art/UI/Sprites2/Home/EquipmentCard/card-material-bronze.png');
+    --sprite-home__card-material-carbon: url('/Assets/Art/UI/Sprites2/Home/EquipmentCard/card-material-carbon.png');
+    --sprite-home__card-material-gold: url('/Assets/Art/UI/Sprites2/Home/EquipmentCard/card-material-gold.png');
+    --sprite-home__card-material-plastic: url('/Assets/Art/UI/Sprites2/Home/EquipmentCard/card-material-plastic.png');
+    --sprite-home__card-material-steel: url('/Assets/Art/UI/Sprites2/Home/EquipmentCard/card-material-steel.png');
+    --sprite-home__card-plusrarity: url('/Assets/Art/UI/Sprites2/Home/EquipmentCard/card-plusrarity.png');
+    --sprite-home__card-rarity-common: url('/Assets/Art/UI/Sprites2/Home/EquipmentCard/card-rarity-common.png');
+    --sprite-home__card-rarity-epic: url('/Assets/Art/UI/Sprites2/Home/EquipmentCard/card-rarity-epic.png');
+    --sprite-home__card-rarity-legendary: url('/Assets/Art/UI/Sprites2/Home/EquipmentCard/card-rarity-legendary.png');
+    --sprite-home__card-rarity-rare: url('/Assets/Art/UI/Sprites2/Home/EquipmentCard/card-rarity-rare.png');
+    --sprite-home__card-rarity-uncommon: url('/Assets/Art/UI/Sprites2/Home/EquipmentCard/card-rarity-uncommon.png');
+    --sprite-home__card-selected: url('/Assets/Art/UI/Sprites2/Home/EquipmentCard/card-selected.png');
+    --sprite-home__card-shadow-pink: url('/Assets/Art/UI/Sprites2/Home/EquipmentCard/card-shadow-pink.png');
+}
+
+.sprite-home__card-background {
+    background-image: var(--sprite-home__card-background)
+}
+
+.sprite-home__card-background-pressed {
+    background-image: var(--sprite-home__card-background-pressed)
+}
+
+.sprite-home__card-badge-nft {
+    background-image: var(--sprite-home__card-badge-nft)
+}
+
+.sprite-home__card-category-amulet {
+    background-image: var(--sprite-home__card-category-amulet)
+}
+
+.sprite-home__card-category-armor {
+    background-image: var(--sprite-home__card-category-armor)
+}
+
+.sprite-home__card-category-helmet {
+    background-image: var(--sprite-home__card-category-helmet)
+}
+
+.sprite-home__card-category-shield {
+    background-image: var(--sprite-home__card-category-shield)
+}
+
+.sprite-home__card-category-weapon {
+    background-image: var(--sprite-home__card-category-weapon)
+}
+
+.sprite-home__card-faction-celestial {
+    background-image: var(--sprite-home__card-faction-celestial)
+}
+
+.sprite-home__card-faction-chaos {
+    background-image: var(--sprite-home__card-faction-chaos)
+}
+
+.sprite-home__card-faction-dark {
+    background-image: var(--sprite-home__card-faction-dark)
+}
+
+.sprite-home__card-faction-dimensional {
+    background-image: var(--sprite-home__card-faction-dimensional)
+}
+
+.sprite-home__card-faction-order {
+    background-image: var(--sprite-home__card-faction-order)
+}
+
+.sprite-home__card-faction-organic {
+    background-image: var(--sprite-home__card-faction-organic)
+}
+
+.sprite-home__card-faction-shadow {
+    background-image: var(--sprite-home__card-faction-shadow)
+}
+
+.sprite-home__card-levelbg {
+    background-image: var(--sprite-home__card-levelbg)
+}
+
+.sprite-home__card-material-bronze {
+    background-image: var(--sprite-home__card-material-bronze)
+}
+
+.sprite-home__card-material-carbon {
+    background-image: var(--sprite-home__card-material-carbon)
+}
+
+.sprite-home__card-material-gold {
+    background-image: var(--sprite-home__card-material-gold)
+}
+
+.sprite-home__card-material-plastic {
+    background-image: var(--sprite-home__card-material-plastic)
+}
+
+.sprite-home__card-material-steel {
+    background-image: var(--sprite-home__card-material-steel)
+}
+
+.sprite-home__card-plusrarity {
+    background-image: var(--sprite-home__card-plusrarity)
+}
+
+.sprite-home__card-rarity-common {
+    background-image: var(--sprite-home__card-rarity-common)
+}
+
+.sprite-home__card-rarity-epic {
+    background-image: var(--sprite-home__card-rarity-epic)
+}
+
+.sprite-home__card-rarity-legendary {
+    background-image: var(--sprite-home__card-rarity-legendary)
+}
+
+.sprite-home__card-rarity-rare {
+    background-image: var(--sprite-home__card-rarity-rare)
+}
+
+.sprite-home__card-rarity-uncommon {
+    background-image: var(--sprite-home__card-rarity-uncommon)
+}
+
+.sprite-home__card-selected {
+    background-image: var(--sprite-home__card-selected)
+}
+
+.sprite-home__card-shadow-pink {
+    background-image: var(--sprite-home__card-shadow-pink)
+}
+

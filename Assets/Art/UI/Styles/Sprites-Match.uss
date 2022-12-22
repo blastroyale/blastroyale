@@ -1,0 +1,8 @@
+:root {
+    --sprite-match__remove-me: url('/Assets/Art/UI/Sprites2/Match/remove-me.png');
+}
+
+.sprite-match__remove-me {
+    background-image: var(--sprite-match__remove-me)
+}
+

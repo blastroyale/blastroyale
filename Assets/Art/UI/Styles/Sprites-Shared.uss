@@ -1,0 +1,8 @@
+:root {
+    --sprite-shared__remove-me: url('/Assets/Art/UI/Sprites2/Shared/remove-me.png');
+}
+
+.sprite-shared__remove-me {
+    background-image: var(--sprite-shared__remove-me)
+}
+

@@ -34,14 +34,14 @@
 }
 
 .show-hide-toggle__icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/SpectateScreen/HideIcon.png?fileID=21300000&guid=93ce1bc30d7ba4054ac9b5b27d8e4335&type=3#HideIcon');
+    background-image: var(--sprite-match__icon-hide);
     width: 42px;
     height: 42px;
     margin-left: 10px;
 }
 
 .hide-controls .show-hide-toggle__icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/SpectateScreen/ShowIcon.png?fileID=21300000&guid=891467cbf306a4ce1984909e64db7147&type=3#ShowIcon');
+    background-image: var(--sprite-match__icon-show);
 }
 
 .camera-button-holder {
@@ -91,7 +91,7 @@
 }
 
 .player-holder__arrow-icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/SpectateScreen/ArrowLeft.png?fileID=21300000&guid=a7551c94421ad4efe9268cb3fd9001c5&type=3#ArrowLeft');
+    background-image: var(--sprite-match__icon-arrow-yellow-left);
     width: 54px;
     -unity-background-scale-mode: scale-to-fit;
     height: 54px;
@@ -102,7 +102,7 @@
 }
 
 .player-holder__arrow--right .player-holder__arrow-icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/SpectateScreen/ArrowRight.png?fileID=21300000&guid=a24d57d2188b94152b8a1fdfb88d02db&type=3#ArrowRight');
+    background-image: var(--sprite-match__icon-arrow-yellow-right);
 }
 
 .player-holder__player {
@@ -138,7 +138,7 @@
 }
 
 .player-holder__player-rt {
-    background-image: url('project://database/Assets/Art/RenderTexture/SpectatePlayerRT.renderTexture?fileID=8400000&guid=e747c79543c0f40b5a6c5680db4c6407&type=2#SpectatePlayerRT');
+    background-image: url('/Assets/Art/UI/RenderTextures/rt-spectate-player.renderTexture');
     width: 400px;
     height: 600px;
     right: 55px;
@@ -155,7 +155,7 @@
 .player-holder__background-jagged {
     width: 388px;
     height: 100%;
-    background-image: url('project://database/Assets/Art/UI/Sprites/SpectateScreen/SpectateCharacterBack.png?fileID=21300000&guid=3fe66f6686fc14347af4b406d886e804&type=3#SpectateCharacterBack');
+    background-image: var(--sprite-match__pattern-jagged-vertical);
 }
 
 .player-holder__background-filler {

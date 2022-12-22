@@ -1,12 +1,13 @@
 @import url("unity-theme://default");
 
+@import url("/Assets/Art/UI/Styles/Sprites-Home.uss");
+@import url("/Assets/Art/UI/Styles/Sprites-Match.uss");
+@import url("/Assets/Art/UI/Styles/Sprites-Shared.uss");
 @import url("/Assets/Art/UI/Styles/CommonStyle.uss");
 @import url("/Assets/Art/UI/Styles/Transitions.uss");
 @import url("/Assets/Art/UI/Styles/CurrencyDisplayStyle.uss");
 @import url("/Assets/Art/UI/Styles/ScreenHeaderStyle.uss");
-@import url("/Assets/Art/UI/Styles/Sprites-Home.uss");
-@import url("/Assets/Art/UI/Styles/Sprites-Match.uss");
-@import url("/Assets/Art/UI/Styles/Sprites-Shared.uss");
+
 
 
 

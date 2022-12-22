@@ -28,8 +28,8 @@
 
 .screen-header__title {
     position: absolute;
-    left:350px;
-    top:40px;
+    left: 350px;
+    top: 40px;
     font-size: 60px;
     color: rgb(255, 255, 255);
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
@@ -43,8 +43,8 @@
 
 .screen-header__subtitle {
     position: absolute;
-    left:420px;
-    top:95px;
+    left: 420px;
+    top: 95px;
     font-size: 38px;
     color: rgb(106, 129, 189);
     text-shadow: 5px 5px 0 rgb(0, 0, 0);
@@ -82,10 +82,10 @@
     margin-right: -502px;
 }
 
-.screen-header--simple .screen-header__title{
-    left:100px;
+.screen-header--simple .screen-header__title {
+    left: 100px;
 }
 
-.screen-header--simple .screen-header__subtitle{
-    left:170px;
+.screen-header--simple .screen-header__subtitle {
+    left: 170px;
 }

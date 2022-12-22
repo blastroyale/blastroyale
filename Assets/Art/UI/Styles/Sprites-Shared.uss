@@ -1,12 +1,8 @@
 /* AUTO GENERATED */
 :root {
-    --sprite-shared__background-lowconnection: url('/Assets/Art/UI/Sprites2/Shared/background-lowconnection.png');
     --sprite-shared__icon-lowconnection: url('/Assets/Art/UI/Sprites2/Shared/icon-lowconnection.png');
     --sprite-shared__icon-might: url('/Assets/Art/UI/Sprites2/Shared/icon-might.png');
-}
-
-.sprite-shared__background-lowconnection {
-    background-image: var(--sprite-shared__background-lowconnection)
+    --sprite-shared__logo-br: url('/Assets/Art/UI/Sprites2/Shared/logo-br.png');
 }
 
 .sprite-shared__icon-lowconnection {
@@ -15,5 +11,9 @@
 
 .sprite-shared__icon-might {
     background-image: var(--sprite-shared__icon-might)
+}
+
+.sprite-shared__logo-br {
+    background-image: var(--sprite-shared__logo-br)
 }
 

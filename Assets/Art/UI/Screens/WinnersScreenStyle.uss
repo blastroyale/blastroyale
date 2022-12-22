@@ -11,29 +11,8 @@
     transition-delay: 0.5s, 0.5s;
 }
 
-.title-holder {
-    position: absolute;
-    left: 0;
-    top: 0;
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/HeadlineCornerBack.png?fileID=21300000&guid=a00a82499a7b54937bb2cf2b23aeb238&type=3#HeadlineCornerBack');
-    width: 790px;
-    height: 220px;
-}
-
-.title-holder__title {
-    position: absolute;
-    top: 62px;
-    left: 103px;
-    font-size: 90px;
-    -unity-font-style: bold;
-    text-shadow: 5px 5px 0 rgb(0, 0, 0);
-    color: rgb(255, 255, 255);
-    -unity-text-outline-width: 2px;
-    -unity-text-outline-color: rgb(0, 0, 0);
-}
-
 .name-shadow {
-    background-image: url('project://database/Assets/Art/UI/Sprites/WinnersScreen/NameBackPlacements.png?fileID=2800000&guid=01c8d564f11f34c4d896e9873871b0d9&type=3#NameBackPlacements');
+    background-image: var(--sprite-match__background-gradient-blue);
     width: 466px;
     height: 92px;
     position: absolute;
@@ -76,7 +55,7 @@
 }
 
 .player--first .player__badge {
-    background-image: url('project://database/Assets/Art/UI/Sprites/WinnersScreen/1stMedal.png?fileID=2800000&guid=8a5c4e50794e840a0b7073f5fc6cf1e6&type=3#1stMedal');
+    background-image: var(--sprite-match__icon-medal-1st);
 }
 
 .player--second {
@@ -85,7 +64,7 @@
 }
 
 .player--second .player__badge {
-    background-image: url('project://database/Assets/Art/UI/Sprites/WinnersScreen/2ndMedal.png?fileID=2800000&guid=cce9e1a787e5a484996db5d377217342&type=3#2ndMedal');
+    background-image: var(--sprite-match__icon-medal-2nd);
 }
 
 .player--third {
@@ -94,7 +73,7 @@
 }
 
 .player--third .player__badge {
-    background-image: url('project://database/Assets/Art/UI/Sprites/WinnersScreen/3rdMedal.png?fileID=2800000&guid=e2a057641f1b142ca91082917b41cffe&type=3#3rdMedal');
+    background-image: var(--sprite-match__icon-medal-3rd);
 }
 
 .safe-area {

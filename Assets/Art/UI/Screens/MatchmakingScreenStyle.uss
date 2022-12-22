@@ -14,6 +14,7 @@
     -unity-background-scale-mode: scale-and-crop;
     align-items: center;
     justify-content: space-between;
+    overflow: hidden;
 }
 
 .clouds {
@@ -33,75 +34,6 @@
     align-items: flex-end;
     justify-content: center;
     position: absolute;
-}
-
-.header {
-    background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/HeadlineHighlight.png?fileID=21300000&guid=97008515db6874b47820ca1592ee79d5&type=3#HeadlineHighlight');
-    width: 646px;
-    height: 184px;
-    position: absolute;
-    left: 0;
-    top: 0;
-}
-
-.header__title {
-    -unity-text-outline-width: 2px;
-    -unity-text-outline-color: rgb(22, 20, 38);
-    text-shadow: 3px 3px 0 rgb(22, 20, 38);
-    -unity-font-style: bold;
-    font-size: 55px;
-    color: rgb(255, 255, 255);
-    margin-left: 30px;
-    -unity-paragraph-spacing: -30px;
-}
-
-.header__icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/ParachuteTiltedIcon.png?fileID=2800000&guid=697fd322f71214d6b833edbacad512c7&type=3#ParachuteTiltedIcon');
-    width: 75px;
-    -unity-background-scale-mode: scale-to-fit;
-    height: 75px;
-}
-
-.header__icon-shadow {
-    position: absolute;
-    left: 3px;
-    top: 3px;
-    background-color: rgba(0, 0, 0, 0);
-    width: 75px;
-    height: 75px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/ParachuteTiltedIcon.png?fileID=2800000&guid=697fd322f71214d6b833edbacad512c7&type=3#ParachuteTiltedIcon');
-    -unity-background-image-tint-color: rgb(24, 17, 34);
-}
-
-.header__holder {
-    width: 95%;
-    height: 92%;
-    flex-direction: row;
-    padding-left: 40px;
-    align-items: center;
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-}
-
-.header__background {
-    background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/HeadlineHighlight.png?fileID=21300000&guid=97008515db6874b47820ca1592ee79d5&type=3#HeadlineHighlight');
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-}
-
-.header__foreground {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/HeadlineCornerBack.png?fileID=21300000&guid=a00a82499a7b54937bb2cf2b23aeb238&type=3#HeadlineCornerBack');
-    position: absolute;
-    left: 0;
-    top: -10px;
-    right: 0;
-    bottom: 10px;
 }
 
 .debug-player-count {
@@ -232,7 +164,7 @@
 
 .map__mask {
     overflow: hidden;
-    background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/CircleMask.svg?fileID=7388822144124034973&guid=2faf20de6b535b54f93e074b0daa472e&type=3#CircleMask');
+    background-image: url('project://database/Assets/Art/UI/Vectors/CircleMask.svg?fileID=7388822144124034973&guid=2faf20de6b535b54f93e074b0daa472e&type=3#CircleMask');
     height: 98%;
     width: 98%;
     -unity-background-scale-mode: scale-to-fit;
@@ -281,11 +213,6 @@
 }
 
 .map-marker__title {
-    background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/PlaceNameBg.png?fileID=2800000&guid=2ffb416fc541b194bb7ff89f55b748eb&type=3#PlaceNameBg');
-    -unity-slice-left: 10;
-    -unity-slice-top: 10;
-    -unity-slice-right: 10;
-    -unity-slice-bottom: 10;
     font-size: 25px;
     justify-content: center;
     align-items: center;
@@ -296,6 +223,11 @@
     margin-bottom: 15px;
     position: absolute;
     bottom: 125px;
+    background-color: rgba(248, 208, 48, 255);
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
 }
 
 .map-marker__icon {

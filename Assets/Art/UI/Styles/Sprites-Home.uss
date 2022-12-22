@@ -21,6 +21,8 @@
     --sprite-home__button-gamemode: url('/Assets/Art/UI/Sprites2/Home/button-gamemode.png');
     --sprite-home__button-gamemode-pressed: url('/Assets/Art/UI/Sprites2/Home/button-gamemode-pressed.png');
     --sprite-home__button-grey: url('/Assets/Art/UI/Sprites2/Home/button-grey.png');
+    --sprite-home__button-info: url('/Assets/Art/UI/Sprites2/Home/button-info.png');
+    --sprite-home__button-info-pressed: url('/Assets/Art/UI/Sprites2/Home/button-info-pressed.png');
     --sprite-home__button-long-purple: url('/Assets/Art/UI/Sprites2/Home/button-long-purple.png');
     --sprite-home__button-long-purple-pressed: url('/Assets/Art/UI/Sprites2/Home/button-long-purple-pressed.png');
     --sprite-home__button-long-red: url('/Assets/Art/UI/Sprites2/Home/button-long-red.png');
@@ -204,6 +206,14 @@
 
 .sprite-home__button-grey {
     background-image: var(--sprite-home__button-grey)
+}
+
+.sprite-home__button-info {
+    background-image: var(--sprite-home__button-info)
+}
+
+.sprite-home__button-info:active {
+    background-image: var(--sprite-home__button-info-pressed)
 }
 
 .sprite-home__button-long-purple {

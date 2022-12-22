@@ -18,190 +18,193 @@ using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
 {
-    /// <summary>
-    /// Presenter for the Leaderboards and Rewards Screen
-    /// </summary>
-    public class GlobalLeaderboardScreenPresenter : UiToolkitPresenterData<GlobalLeaderboardScreenPresenter.StateData>
-    {
-        public struct StateData
-        {
-            public Action OnBackClicked;
-        }
-    
-        private const string UssLeaderboardEntryGlobal = "leaderboard-entry--global";
-        private const string UssLeaderboardEntryLocal = "leaderboard-entry--local";
-        private const string UssLeaderboardEntryPositionerHighlight = "leaderboard-entry-positioner--highlight";
-        private const string UssLeaderboardPanelLocalPlayerFixed = "leaderboard-panel--local-player-fixed";
-        
-        [SerializeField] private VisualTreeAsset _leaderboardEntryAsset;
+	/// <summary>
+	/// Presenter for the Leaderboards and Rewards Screen
+	/// </summary>
+	public class GlobalLeaderboardScreenPresenter : UiToolkitPresenterData<GlobalLeaderboardScreenPresenter.StateData>
+	{
+		public struct StateData
+		{
+			public Action OnBackClicked;
+		}
 
-        private VisualElement _leaderboardPanel;
-        private VisualElement _fixedLocalPlayerHolder;
-        private ScreenHeaderElement _header;
+		private const string UssLeaderboardEntryGlobal = "leaderboard-entry--global";
+		private const string UssLeaderboardEntryLocal = "leaderboard-entry--local";
+		private const string UssLeaderboardEntryPositionerHighlight = "leaderboard-entry-positioner--highlight";
+		private const string UssLeaderboardPanelLocalPlayerFixed = "leaderboard-panel--local-player-fixed";
 
-        private IGameServices _services;
-        private IGameDataProvider _dataProvider;
+		[SerializeField] private VisualTreeAsset _leaderboardEntryAsset;
 
-        private ListView _leaderboardListView;
-        private VisualElement _localPlayerVisualElement;
-        private int _localPlayerPos = -1;
+		private VisualElement _leaderboardPanel;
+		private VisualElement _fixedLocalPlayerHolder;
+		private ScreenHeaderElement _header;
 
-        private readonly Dictionary<VisualElement, LeaderboardEntryView> _leaderboardEntryMap = new();
-        private readonly List<PlayerLeaderboardEntry> _playfabLeaderboardEntries = new();
-        private void Awake()
-        {
-            _services = MainInstaller.Resolve<IGameServices>();
-            _dataProvider = MainInstaller.Resolve<IGameDataProvider>();
-        }
+		private IGameServices _services;
+		private IGameDataProvider _dataProvider;
 
-        protected override void OnOpened()
-        {
-            base.OnOpened();
+		private ListView _leaderboardListView;
+		private VisualElement _localPlayerVisualElement;
+		private int _localPlayerPos = -1;
 
-            _services.PlayfabService.GetTopRankLeaderboard(GameConstants.Network.LEADERBOARD_TOP_RANK_AMOUNT,
-                OnLeaderboardTopRanksReceived, OnLeaderboardRequestError);
-        }
+		private readonly Dictionary<VisualElement, LeaderboardEntryView> _leaderboardEntryMap = new();
+		private readonly List<PlayerLeaderboardEntry> _playfabLeaderboardEntries = new();
 
-        protected override void QueryElements(VisualElement root)
-        {
-            _header = root.Q<ScreenHeaderElement>("Header").Required();
-            _header.backClicked += Data.OnBackClicked;
-            _header.homeClicked += Data.OnBackClicked;
-            _fixedLocalPlayerHolder = root.Q<VisualElement>("FixedLocalPlayerHolder").Required();
-            _leaderboardPanel = root.Q<VisualElement>("LeaderboardPanel").Required();
-            _leaderboardListView = root.Q<ListView>("LeaderboardList").Required();
+		private void Awake()
+		{
+			_services = MainInstaller.Resolve<IGameServices>();
+			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
+		}
 
-            _leaderboardListView.DisableScrollbars();
-            
-            _leaderboardListView.makeItem = CreateLeaderboardEntry;
-            _leaderboardListView.bindItem = BindLeaderboardEntry;
-            root.SetupClicks(_services);
-        }
-        
-        private VisualElement CreateLeaderboardEntry()
-        {
-            var newEntry = _leaderboardEntryAsset.Instantiate();
-            newEntry.AttachView(this, out LeaderboardEntryView view);
-             newEntry.AddToClassList(UssLeaderboardEntryGlobal);
+		protected override void OnOpened()
+		{
+			base.OnOpened();
 
-            _leaderboardEntryMap[newEntry] = view;
+			_services.PlayfabService.GetTopRankLeaderboard(GameConstants.Network.LEADERBOARD_TOP_RANK_AMOUNT,
+				OnLeaderboardTopRanksReceived, OnLeaderboardRequestError);
+		}
 
-            return newEntry;
-        }
-        
-        private void BindLeaderboardEntry(VisualElement element, int index)
-        {
-            var leaderboardEntryView = _leaderboardEntryMap[element];
-            var leaderboardEntry = _playfabLeaderboardEntries[index];
-            var isLocalPlayer = leaderboardEntry.PlayFabId == _dataProvider.AppDataProvider.PlayerId;
-            if (isLocalPlayer)
-            {
-                _localPlayerVisualElement = element;
-                
-                element.AddToClassList(UssLeaderboardEntryLocal);
-            }
-            else
-            {
-                element.RemoveFromClassList(UssLeaderboardEntryLocal);
-            }
-            
-            leaderboardEntryView.SetData(leaderboardEntry.Position+1,leaderboardEntry.DisplayName,-1,leaderboardEntry.StatValue, isLocalPlayer);
-        }
+		protected override void QueryElements(VisualElement root)
+		{
+			_header = root.Q<ScreenHeaderElement>("Header").Required();
+			_header.backClicked += Data.OnBackClicked;
+			_header.homeClicked += Data.OnBackClicked;
+			_fixedLocalPlayerHolder = root.Q<VisualElement>("FixedLocalPlayerHolder").Required();
+			_leaderboardPanel = root.Q<VisualElement>("LeaderboardPanel").Required();
+			_leaderboardListView = root.Q<ListView>("LeaderboardList").Required();
 
-        private void OnLeaderboardRequestError(PlayFabError error)
-        {
+			_leaderboardListView.DisableScrollbars();
+
+			_leaderboardListView.makeItem = CreateLeaderboardEntry;
+			_leaderboardListView.bindItem = BindLeaderboardEntry;
+			root.SetupClicks(_services);
+		}
+
+		private VisualElement CreateLeaderboardEntry()
+		{
+			var newEntry = _leaderboardEntryAsset.Instantiate();
+			newEntry.AttachView(this, out LeaderboardEntryView view);
+			newEntry.AddToClassList(UssLeaderboardEntryGlobal);
+
+			_leaderboardEntryMap[newEntry] = view;
+
+			return newEntry;
+		}
+
+		private void BindLeaderboardEntry(VisualElement element, int index)
+		{
+			var leaderboardEntryView = _leaderboardEntryMap[element];
+			var leaderboardEntry = _playfabLeaderboardEntries[index];
+			//var isLocalPlayer = leaderboardEntry.PlayFabId == _dataProvider.AppDataProvider.PlayerId || (leaderboardEntry.PlayFabId =="753E6A96C377FBC1");
+
+			var isLocalPlayer = leaderboardEntry.PlayFabId == _dataProvider.AppDataProvider.PlayerId;
+			if (isLocalPlayer)
+			{
+				_localPlayerVisualElement = element;
+
+				element.AddToClassList(UssLeaderboardEntryLocal);
+			}
+			else
+			{
+				element.RemoveFromClassList(UssLeaderboardEntryLocal);
+			}
+
+			leaderboardEntryView.SetData(leaderboardEntry.Position + 1,
+				leaderboardEntry.DisplayName.Substring(0, leaderboardEntry.DisplayName.Length - 4), -1,
+				leaderboardEntry.StatValue, isLocalPlayer);
+		}
+
+		private void OnLeaderboardRequestError(PlayFabError error)
+		{
 #if UNITY_EDITOR
-            OpenLeaderboardRequestErrorGenericDialog(error);
+			OpenLeaderboardRequestErrorGenericDialog(error);
 #else
 			OpenOnLeaderboardRequestErrorPopup()
 #endif
-            Data.OnBackClicked();
-        }
+			Data.OnBackClicked();
+		}
 
-        private void OpenLeaderboardRequestErrorGenericDialog(PlayFabError error)
-        {
-            var confirmButton = new GenericDialogButton
-            {
-                ButtonText = ScriptLocalization.General.OK,
-                ButtonOnClick = _services.GenericDialogService.CloseDialog
-            };
-            if (error.ErrorDetails != null)
-            {
-                FLog.Error(JsonConvert.SerializeObject(
-                    $"Error Message: {error.ErrorMessage}; Error Details: {error.ErrorDetails}"));
-            }
+		private void OpenLeaderboardRequestErrorGenericDialog(PlayFabError error)
+		{
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.General.OK,
+				ButtonOnClick = _services.GenericDialogService.CloseDialog
+			};
+			if (error.ErrorDetails != null)
+			{
+				FLog.Error(JsonConvert.SerializeObject(
+					$"Error Message: {error.ErrorMessage}; Error Details: {error.ErrorDetails}"));
+			}
 
-            _services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, error.ErrorMessage,
-                false,
-                confirmButton);
-        }
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, error.ErrorMessage,
+				false,
+				confirmButton);
+		}
 
-        private void OpenOnLeaderboardRequestErrorPopup(PlayFabError error)
-        {
-            var button = new AlertButton
-            {
-                Style = AlertButtonStyle.Positive,
-                Text = ScriptLocalization.General.Confirm
-            };
+		private void OpenOnLeaderboardRequestErrorPopup(PlayFabError error)
+		{
+			var button = new AlertButton
+			{
+				Style = AlertButtonStyle.Positive,
+				Text = ScriptLocalization.General.Confirm
+			};
 
-            NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.LeaderboardOpenError,
-                error.ErrorMessage, button);
-        }
-        
-        private void OnLeaderboardTopRanksReceived(GetLeaderboardResult result)
-        {
-            var resultPos = result.Leaderboard.Count < GameConstants.Network.LEADERBOARD_TOP_RANK_AMOUNT
-                ? result.Leaderboard.Count
-                : GameConstants.Network.LEADERBOARD_TOP_RANK_AMOUNT;
+			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.LeaderboardOpenError,
+				error.ErrorMessage, button);
+		}
 
-            _playfabLeaderboardEntries.Clear();
-            
-            for (int i = 0; i < resultPos; i++)
-            {
-                if (result.Leaderboard[i].PlayFabId == _dataProvider.AppDataProvider.PlayerId)
-                {
-                    _localPlayerPos = i;
-                }
-                
-                _playfabLeaderboardEntries.Add(result.Leaderboard[i]);
-            }
+		private void OnLeaderboardTopRanksReceived(GetLeaderboardResult result)
+		{
+			var resultPos = result.Leaderboard.Count < GameConstants.Network.LEADERBOARD_TOP_RANK_AMOUNT
+				? result.Leaderboard.Count
+				: GameConstants.Network.LEADERBOARD_TOP_RANK_AMOUNT;
 
-            _leaderboardListView.itemsSource = _playfabLeaderboardEntries;
-            
-            if (_localPlayerPos != -1)
-            {
-                StartCoroutine(RepositionScrollToLocalPlayer());
-                return;
-            }
+			_playfabLeaderboardEntries.Clear();
 
-            _services.PlayfabService.GetNeighborRankLeaderboard(GameConstants.Network.LEADERBOARD_NEIGHBOR_RANK_AMOUNT,
-                OnLeaderboardNeighborRanksReceived, OnLeaderboardRequestError);
-        }
+			for (int i = 0; i < resultPos; i++)
+			{
+				if (result.Leaderboard[i].PlayFabId == _dataProvider.AppDataProvider.PlayerId)
+				{
+					_localPlayerPos = i;
+				}
 
-        IEnumerator RepositionScrollToLocalPlayer()
-        {
-            if (_localPlayerVisualElement == null) yield break;
-                
-            yield return new WaitForEndOfFrame();
-            _leaderboardListView.ScrollTo(_localPlayerVisualElement);
-            //_leaderboardListView.ScrollTo(
-            //    _leaderboardListView.contentContainer.hierarchy.ElementAt(_localPlayerPos));
-           // _leaderboardListView. = new Vector2(_leaderboardListView.scrollOffset.x,
-           //     _leaderboardListView.scrollOffset.y + _leaderboardListView.contentViewport.layout.height / 2);
-        }
+				_playfabLeaderboardEntries.Add(result.Leaderboard[i]);
+			}
 
-        private void OnLeaderboardNeighborRanksReceived(GetLeaderboardAroundPlayerResult result)
-        {
-            var newEntry = _leaderboardEntryAsset.Instantiate();
-            newEntry.AttachView(this, out LeaderboardEntryView view);
-            var leaderboardEntry = result.Leaderboard[0];
-            view.SetData(leaderboardEntry.Position+1, leaderboardEntry.DisplayName,-1,leaderboardEntry.StatValue, true);
-            
-            newEntry.AddToClassList(UssLeaderboardEntryGlobal);
-            newEntry.AddToClassList(UssLeaderboardEntryPositionerHighlight);
-            
-            _leaderboardPanel.AddToClassList(UssLeaderboardPanelLocalPlayerFixed);
-            _fixedLocalPlayerHolder.Add(newEntry);
-        }
-    }
+			_leaderboardListView.itemsSource = _playfabLeaderboardEntries;
+			if (_localPlayerPos != -1)
+			{
+				StartCoroutine(RepositionScrollToLocalPlayer());
+				return;
+			}
+
+			_services.PlayfabService.GetNeighborRankLeaderboard(GameConstants.Network.LEADERBOARD_NEIGHBOR_RANK_AMOUNT,
+				OnLeaderboardNeighborRanksReceived, OnLeaderboardRequestError);
+		}
+
+		IEnumerator RepositionScrollToLocalPlayer()
+		{
+			if (_localPlayerVisualElement == null) yield break;
+
+			yield return new WaitForEndOfFrame();
+			_leaderboardListView.ScrollTo(_localPlayerVisualElement);
+		}
+
+		private void OnLeaderboardNeighborRanksReceived(GetLeaderboardAroundPlayerResult result)
+		{
+			var newEntry = _leaderboardEntryAsset.Instantiate();
+			newEntry.AttachView(this, out LeaderboardEntryView view);
+			var leaderboardEntry = result.Leaderboard[0];
+			view.SetData(leaderboardEntry.Position + 1,
+				leaderboardEntry.DisplayName.Substring(0, leaderboardEntry.DisplayName.Length - 4), -1,
+				leaderboardEntry.StatValue,
+				true);
+
+			newEntry.AddToClassList(UssLeaderboardEntryGlobal);
+			newEntry.AddToClassList(UssLeaderboardEntryPositionerHighlight);
+
+			_leaderboardPanel.AddToClassList(UssLeaderboardPanelLocalPlayerFixed);
+			_fixedLocalPlayerHolder.Add(newEntry);
+		}
+	}
 }

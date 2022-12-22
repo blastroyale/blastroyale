@@ -6,25 +6,25 @@
         <ui:VisualElement name="PopupBackground" class="popup-background popup-radius anim-delay-0 anim-translate anim-translate--down-xxxl">
             <ui:VisualElement class="popup-radius popup-radius--register">
                 <ui:VisualElement name="Header" class="background-purple header">
-                    <ui:VisualElement class="dots-pattern"/>
+                    <ui:VisualElement class="dots-pattern" />
                     <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITLoginRegister/register_new_fl_id" name="Title" class="font-italic title" />
                 </ui:VisualElement>
                 <ui:VisualElement name="Container" class="container">
                     <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITLoginRegister/email" name="EmailTextField" class="font-italic input-field" />
                     <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITLoginRegister/username" name="UsernameTextField" class="font-italic input-field input-field-register" />
                     <ui:VisualElement name="PasswordFieldContainer" class="passwordContainer passwordContainer--register">
-                        <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITLoginRegister/password" name="PasswordTextField" password="true" class="font-italic input-field input-field-password"/>
+                        <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITLoginRegister/password" name="PasswordTextField" password="true" class="font-italic input-field input-field-password" />
                         <ui:Button name="ViewHideButton" class="viewHideButton viewHideButton--register" />
                     </ui:VisualElement>
                     <ui:VisualElement class="button-flat-outline">
-                        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITLoginRegister/register" name="RegisterButton" class="button-flat button-flat--primary register_button"/>
+                        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITLoginRegister/register" name="RegisterButton" class="button-flat button-flat--primary register_button" />
                     </ui:VisualElement>
-                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITShared/or" class="font-italic or_text"/>
+                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITShared/or" class="font-italic or_text" />
                     <ui:VisualElement class="button-flat-outline">
-                            <FirstLight.Game.UIElements.LocalizedButton localization-key="UITLoginRegister/login_with_fl_id"  class="button-flat button-flat--secondary button_flat--login_button" />
+                        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITLoginRegister/login_with_fl_id" name="LoginButton" class="button-flat button-flat--secondary button_flat--login_button" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="Blocker" class="blocker-hidden"/>
+                <ui:VisualElement name="Blocker" class="blocker-hidden" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

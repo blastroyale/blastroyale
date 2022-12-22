@@ -15,7 +15,7 @@
                         <ui:Button display-tooltip-when-elided="true" name="ViewHideButton" class="viewHideButton viewHideButton--login" />
                     </ui:VisualElement>
                     <ui:VisualElement class="button-flat-outline">
-                        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITLoginRegister/login" name="LoginButton" class="button-flat button-flat--primary" />
+                        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITLoginRegister/login" name="LoginButton" class="button-flat button-flat--primary button-flat--primary--login" />
                     </ui:VisualElement>
                     <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITShared/or" class="font-italic or_button"/>
                     <ui:VisualElement class="button-flat-outline">

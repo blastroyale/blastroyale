@@ -106,8 +106,7 @@ LocalizedButton {
     -unity-background-image-tint-color: rgb(59, 29, 144);
 }
 
-
-#LoginButton {
+.button-flat--primary--login {
     padding-left: 100px;
     padding-right: 100px;
 }

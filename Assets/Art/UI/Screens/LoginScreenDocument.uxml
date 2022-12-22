@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/LoginScreenStyle.uss?fileID=7433441132597879392&amp;guid=62c1d9d88fd9646f987a3c9d8d48a713&amp;type=3#LoginScreenStyle" />
+    <Style src="project://database/Assets/Art/UI/Screens/PasswordFieldStyle.uss?fileID=7433441132597879392&amp;guid=be419192f633aed4bad72dfdfa844291&amp;type=3#PasswordFieldStyle" />
     <ui:VisualElement name="root" class="background" style="top: 0; right: 0; left: 0; bottom: 0;">
         <ui:VisualElement name="PopupBackground" class="popup-radius anim-delay-0 anim-translate anim-translate--down-xxxl">
             <ui:VisualElement class="popup-radius" style="position: absolute; left: -10px; top: -10px; right: 10px; bottom: 10px; background-color: rgb(255, 255, 255); overflow: hidden; border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0);">
@@ -8,8 +9,11 @@
                     <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITLoginRegister/login_with_fl_id" name="Title" style="height: 90px; -unity-text-align: middle-center; font-size: 36px; color: rgb(255, 255, 255); overflow: hidden;" />
                 </ui:VisualElement>
                 <ui:VisualElement name="Container" style="flex-grow: 1; align-items: center; justify-content: space-between; padding-top: 48px; padding-bottom: 40px;">
-                    <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITLoginRegister/email" name="EmailTextField" class="input-field" />
-                    <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITLoginRegister/password" name="PasswordTextField" password="true" class="input-field" style="margin-top: 28px; margin-bottom: 44px;" />
+                    <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITLoginRegister/email" name="EmailTextField" class="font-italic input-field" />
+                    <ui:VisualElement>
+                        <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITLoginRegister/password" name="PasswordTextField" password="true" class="font-italic input-field" style="margin-top: 28px; margin-bottom: 44px;" />
+                        <ui:Button display-tooltip-when-elided="true" name="ViewHideButton" class="viewHideButton viewHideButton--login" />
+                    </ui:VisualElement>
                     <ui:VisualElement class="button-flat-outline">
                         <FirstLight.Game.UIElements.LocalizedButton localization-key="UITLoginRegister/login" name="LoginButton" class="button-flat button-flat--primary" />
                     </ui:VisualElement>

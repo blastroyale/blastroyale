@@ -1,19 +1,58 @@
-.viewHideButton
-{
-    background-image: url('project://database/Assets/Art/Textures/Ui/RegistrationLogin/HideIcon.png?fileID=2800000&guid=ea544e271efb05989ea71ed79647b554&type=3#HideIcon');
+:root {
     position: absolute;
-    top: 281px;
-    left: 778px;
-    width: 38px;
-    height: 38px;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
 }
 
-.viewHideButton--show
-{
-    background-image: url('project://database/Assets/Art/Textures/Ui/RegistrationLogin/ShowIcon.png?fileID=2800000&guid=070c3abb18dfd07d2165cc6179854968&type=3#ShowIcon');
+.popup-radius {
+    border-radius: 20px;
 }
 
-.viewHideButton--hide
-{
-    background-image: url('project://database/Assets/Art/Textures/Ui/RegistrationLogin/HideIcon.png?fileID=2800000&guid=ea544e271efb05989ea71ed79647b554&type=3#HideIcon');
-}   
+#unity-text-input {
+    flex-grow: 1;
+}
+
+LocalizedTextField > Label {
+    margin-right: 15px;
+    width: 150px;
+    font-size: 33px;
+}
+
+LocalizedButton {
+    -unity-text-align: middle-center;
+}
+
+#PopupBackground {
+    width: 1000px;
+    height: 780px;
+    background-color: rgb(0, 0, 0);
+}
+
+.background {
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    background-image: url('project://database/Assets/Art/Textures/Ui/Splashscreens%20&%20Logos/LoadingBkNoLogo.png?fileID=2800000&guid=20756f8f6e6857841a5b8bd4d761942a&type=3#LoadingBkNoLogo');
+    -unity-background-scale-mode: scale-and-crop;
+}
+
+#LoginButton {
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+.blocker-hidden {
+    background-color: rgba(0, 0, 0, 0.45);
+    display: none;
+    transition-duration: 0.3s;
+}
+
+#Header {
+    background-color: rgb(128, 87, 227);
+}

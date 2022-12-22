@@ -24,7 +24,7 @@ namespace FirstLight.Game.Presenters
 
 		private VisualElement _blockerElement;
 
-		private bool isPasswordHidden = true;
+		private bool _isPasswordHidden = true;
 
 		protected override void QueryElements(VisualElement root)
 		{
@@ -60,20 +60,18 @@ namespace FirstLight.Game.Presenters
 		
 		private void OnViewHideClicked()
 		{			
-			isPasswordHidden = !isPasswordHidden;
+			_isPasswordHidden = !_isPasswordHidden;
 
-			if (isPasswordHidden)
+			if (_isPasswordHidden)
 			{				
-				//_viewHideButton.AddToClassList("viewHideButton--hide");
 				_viewHideButton.RemoveFromClassList("viewHideButton--show");
 			}
 			else
 			{
 				_viewHideButton.AddToClassList("viewHideButton--show");
-				//_viewHideButton.RemoveFromClassList("viewHideButton--hide");
 			}
 
-			_passwordField.isPasswordField = isPasswordHidden;
+			_passwordField.isPasswordField = _isPasswordHidden;
 		}
 	}
 }

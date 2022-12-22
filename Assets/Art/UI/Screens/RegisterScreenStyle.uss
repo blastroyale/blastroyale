@@ -1,5 +1,21 @@
-.popup-radius--register {
-    position: absolute;
+.background {
+    justify-content: center;
+    align-items: center;
+    background-image: url('project://database/Assets/Art/Textures/Ui/Splashscreens%20&%20Logos/LoadingBkNoLogo.png?fileID=2800000&guid=20756f8f6e6857841a5b8bd4d761942a&type=3#LoadingBkNoLogo');
+    -unity-background-scale-mode: scale-and-crop;
+}
+
+.popup-background {
+    width: 1000px;
+    height: 780px;
+    background-color: rgb(0, 0, 0);
+    border-radius: 20px;
+}
+
+.register-popup{
+    width: 1000px;
+    height: 780px;
+    border-radius: 20px;
     left: -10px;
     top: -10px;
     right: 10px;
@@ -16,6 +32,10 @@
     border-bottom-color: rgb(0, 0, 0);
 }
 
+.background__popup-radius--register {
+  
+}
+
 #unity-text-input {
     flex-grow: 1;
 }
@@ -24,14 +44,6 @@ LocalizedTextField > Label {
     margin-right: 15px;
     width: 150px;
     font-size: 33px;
-}
-
-.title {
-    height: 90px;
-    -unity-text-align: middle-center;
-    font-size: 36px;
-    color: rgb(255, 255, 255);
-    overflow: hidden;
 }
 
 .container {
@@ -46,30 +58,12 @@ LocalizedButton {
     -unity-text-align: middle-center;
 }
 
-.popup-background {
-    width: 1000px;
-    height: 780px;
-    background-color: rgb(0, 0, 0);
-}
-
-.background {
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    position: absolute;
-    justify-content: center;
-    align-items: center;
-    background-image: url('project://database/Assets/Art/Textures/Ui/Splashscreens%20&%20Logos/LoadingBkNoLogo.png?fileID=2800000&guid=20756f8f6e6857841a5b8bd4d761942a&type=3#LoadingBkNoLogo');
-    -unity-background-scale-mode: scale-and-crop;
-}
-
-.input-field-register {
+.container__input-field-register {
     margin-top: 22px;
     margin-bottom: 22px;
 }
 
-.input-field-password {
+.container__input-field-password {
     margin-bottom: 50px;
 }
 
@@ -81,11 +75,11 @@ LocalizedButton {
 }
 
 
-.register_button {
+.container_register_button {
     width: 300px;
 }
 
-.or_text {
+.container__or_text {
     color: rgb(122, 118, 167);
     font-size: 30px;
     margin-bottom: 8px;
@@ -104,6 +98,14 @@ LocalizedButton {
 
 .header {
     background-color: rgb(128, 87, 227);
+    overflow: hidden;
+}
+
+.header__title {
+    height: 90px;
+    -unity-text-align: middle-center;
+    font-size: 36px;
+    color: rgb(255, 255, 255);
     overflow: hidden;
 }
 

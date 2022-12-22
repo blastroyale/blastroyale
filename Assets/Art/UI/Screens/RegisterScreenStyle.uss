@@ -104,4 +104,9 @@ LocalizedButton {
 
 .header {
     background-color: rgb(128, 87, 227);
+    overflow: hidden;
+}
+
+.dots-pattern {
+    top: -138px; left: -28px
 }

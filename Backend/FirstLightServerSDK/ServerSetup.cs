@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace FirstLight.Server.SDK
 {
@@ -10,6 +11,15 @@ namespace FirstLight.Server.SDK
 	/// </summary>
 	public interface IServerSetup
 	{
+
+		/// <summary>
+		/// Shall return the assembly that contains all commands classes (that inherits IGameCommand)
+		/// </summary>
+		public Assembly GetCommandsAssembly();
+		
+		/// <summary>
+		/// Gets all game plugins that shall extend the functionality of the server.
+		/// </summary>
 		ServerPlugin [] GetPlugins();
 
 		/// <summary>

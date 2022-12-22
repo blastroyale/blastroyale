@@ -9,6 +9,7 @@ using FirstLight.Game.Infos;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Server.SDK.Models;
 using Photon.Deterministic;
 using Quantum;
 using UnityEngine;

@@ -13,6 +13,7 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Server.SDK.Modules.Commands;
 using FirstLight.Services;
 using FirstLight.Statechart;
 using Photon.Deterministic;

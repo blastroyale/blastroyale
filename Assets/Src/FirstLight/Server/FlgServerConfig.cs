@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
+using FirstLight.Game.Commands;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Modules;
@@ -20,7 +22,12 @@ namespace Src.FirstLight.Server
             ModelSerializer.RegisterConverter(new QuantumVector3Converter());
             ModelSerializer.RegisterConverter(new FPConverter());
         }
-        
+
+        public Assembly GetCommandsAssembly()
+        {
+            return typeof(UpdatePlayerSkinCommand).Assembly;
+        }
+
         /// <summary>
         /// Here we define plugins that are client-specific with specific logic.
         /// Plugins run on server can listen to server events and react/modify them.

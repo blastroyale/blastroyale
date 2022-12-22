@@ -1,9 +1,6 @@
-using FirstLight.Game.Logic;
-using FirstLight.Game.Services;
-using FirstLight.Services;
-
-namespace FirstLight.Game.Commands
+namespace FirstLight.Server.SDK.Modules.Commands
 {
+	
 	public enum CommandExecutionMode
 	{
 		/// <summary>
@@ -26,26 +23,5 @@ namespace FirstLight.Game.Commands
 		/// on those cases and are completely fired from server simulation by a given frame.
 		/// </summary>
 		Quantum
-	}
-	
-	
-	/// <inheritdoc cref="IGameCommand{T}"/>
-	public interface IGameCommand
-	{
-		/// <summary>
-		/// Define necessary permissions to run a given command on server.
-		/// On development servers, everyone is admin.
-		/// </summary>
-		CommandAccessLevel AccessLevel();
-
-		/// <summary>
-		/// Defines the execution mode of the given command.
-		/// </summary>
-		CommandExecutionMode ExecutionMode();
-		
-		/// <summary>
-		/// Executes the command logic
-		/// </summary>
-		void Execute(CommandExecutionContext ctx);
 	}
 }

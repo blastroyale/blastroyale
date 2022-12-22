@@ -18,6 +18,7 @@ using FirstLight.Server.SDK.Services;
 using GameLogicService.Services;
 using ServerCommon;
 using ServerCommon.CommonServices;
+using PluginManager = Backend.Plugins.PluginManager;
 
 namespace Backend
 {
@@ -33,7 +34,7 @@ namespace Backend
 			var envConfig = new EnvironmentVariablesConfigurationService(appPath);
 			var services = builder.Services;
 			DbSetup.Setup(services, envConfig);
-			var pluginLoader = new PluginLoader();
+			var pluginManager = new PluginManager();
 
 			var insightsConnection = envConfig.TelemetryConnectionString;
 			if (insightsConnection != null)
@@ -45,6 +46,7 @@ namespace Backend
 			{
 				services.AddSingleton<IMetricsService, NoMetrics>();
 			}
+			services.AddSingleton<IPluginManager>(f => pluginManager);
 			services.AddSingleton<ShopService>();
 			services.AddSingleton<IServerAnalytics, PlaystreamAnalyticsService>();
 			services.AddSingleton<IPlayerSetupService, DefaultPlayerSetupService>();
@@ -66,12 +68,12 @@ namespace Backend
 				var pluginLogger = p.GetService<IPluginLogger>();
 				var eventManager = new PluginEventManager(pluginLogger);
 				var pluginSetup = new PluginContext(eventManager, p);
-				pluginLoader.LoadPlugins(pluginSetup, appPath, services);
+				pluginManager.LoadPlugins(pluginSetup, appPath, services);
 				return eventManager;
 			});
 			services.AddSingleton<IConfigsProvider>(SetupConfigsProvider);
 			builder.SetupSharedServices(appPath);
-			pluginLoader.LoadServerSetup(services);
+			pluginManager.LoadServerSetup(services);
 		}
 
 		private static IConfigsProvider SetupConfigsProvider(IServiceProvider services)

@@ -14,10 +14,10 @@ using FirstLight.Server.SDK.Events;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Server.SDK.Services;
-using IGameCommand = FirstLight.Game.Commands.IGameCommand;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
 using FirstLight.Server.SDK.Modules;
+using FirstLight.Server.SDK.Modules.Commands;
 using Newtonsoft.Json;
 
 namespace Backend.Game

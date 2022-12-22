@@ -17,6 +17,7 @@ using NUnit.Framework;
 using Quantum;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules;
+using FirstLight.Server.SDK.Modules.Commands;
 using Assert = NUnit.Framework.Assert;
 
 public class TestCommandValidation

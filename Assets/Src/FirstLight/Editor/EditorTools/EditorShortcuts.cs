@@ -264,7 +264,7 @@ namespace FirstLight.Editor.EditorTools
 		[MenuItem("FLG/Generate Sprite USS")]
 		private static void GenerateSpriteUss()
 		{
-			const string SPRITES_FOLDER = "Assets/Art/UI/Sprites2/";
+			const string SPRITES_FOLDER = "Assets/Art/UI/Sprites/";
 			const string STYLES_FOLDER = "Assets/Art/UI/Styles/";
 
 			foreach (var grouping in AssetDatabase.GetAllAssetPaths()

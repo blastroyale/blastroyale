@@ -164,7 +164,7 @@
 
 .map__mask {
     overflow: hidden;
-    background-image: url('project://database/Assets/Art/UI/Vectors/CircleMask.svg?fileID=7388822144124034973&guid=2faf20de6b535b54f93e074b0daa472e&type=3#CircleMask');
+    background-image: url('/Assets/Art/UI/Vectors/CircleMask.svg');
     height: 98%;
     width: 98%;
     -unity-background-scale-mode: scale-to-fit;

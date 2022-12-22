@@ -1,25 +1,25 @@
 /* AUTO GENERATED */
 :root {
-    --sprite-match__background-gradient-blue: url('/Assets/Art/UI/Sprites2/Match/background-gradient-blue.png');
-    --sprite-match__banner-rainbow: url('/Assets/Art/UI/Sprites2/Match/banner-rainbow.png');
-    --sprite-match__banner-red: url('/Assets/Art/UI/Sprites2/Match/banner-red.png');
-    --sprite-match__banner-winner: url('/Assets/Art/UI/Sprites2/Match/banner-winner.png');
-    --sprite-match__button-next: url('/Assets/Art/UI/Sprites2/Match/button-next.png');
-    --sprite-match__button-next-pressed: url('/Assets/Art/UI/Sprites2/Match/button-next-pressed.png');
-    --sprite-match__icon-arrow-yellow-left: url('/Assets/Art/UI/Sprites2/Match/icon-arrow-yellow-left.png');
-    --sprite-match__icon-arrow-yellow-right: url('/Assets/Art/UI/Sprites2/Match/icon-arrow-yellow-right.png');
-    --sprite-match__icon-crown-winner: url('/Assets/Art/UI/Sprites2/Match/icon-crown-winner.png');
-    --sprite-match__icon-hide: url('/Assets/Art/UI/Sprites2/Match/icon-hide.png');
-    --sprite-match__icon-medal-1st: url('/Assets/Art/UI/Sprites2/Match/icon-medal-1st.png');
-    --sprite-match__icon-medal-2nd: url('/Assets/Art/UI/Sprites2/Match/icon-medal-2nd.png');
-    --sprite-match__icon-medal-3rd: url('/Assets/Art/UI/Sprites2/Match/icon-medal-3rd.png');
-    --sprite-match__icon-show: url('/Assets/Art/UI/Sprites2/Match/icon-show.png');
-    --sprite-match__pattern-jagged-vertical: url('/Assets/Art/UI/Sprites2/Match/pattern-jagged-vertical.png');
-    --sprite-match__text-blasted: url('/Assets/Art/UI/Sprites2/Match/text-blasted.png');
-    --sprite-match__text-matchended: url('/Assets/Art/UI/Sprites2/Match/text-matchended.png');
-    --sprite-match__text-youchosedeath: url('/Assets/Art/UI/Sprites2/Match/text-youchosedeath.png');
-    --sprite-match__text-youwon: url('/Assets/Art/UI/Sprites2/Match/text-youwon.png');
-    --sprite-match__vfx-crack-red: url('/Assets/Art/UI/Sprites2/Match/vfx-crack-red.png');
+    --sprite-match__background-gradient-blue: url('/Assets/Art/UI/Sprites/Match/background-gradient-blue.png');
+    --sprite-match__banner-rainbow: url('/Assets/Art/UI/Sprites/Match/banner-rainbow.png');
+    --sprite-match__banner-red: url('/Assets/Art/UI/Sprites/Match/banner-red.png');
+    --sprite-match__banner-winner: url('/Assets/Art/UI/Sprites/Match/banner-winner.png');
+    --sprite-match__button-next: url('/Assets/Art/UI/Sprites/Match/button-next.png');
+    --sprite-match__button-next-pressed: url('/Assets/Art/UI/Sprites/Match/button-next-pressed.png');
+    --sprite-match__icon-arrow-yellow-left: url('/Assets/Art/UI/Sprites/Match/icon-arrow-yellow-left.png');
+    --sprite-match__icon-arrow-yellow-right: url('/Assets/Art/UI/Sprites/Match/icon-arrow-yellow-right.png');
+    --sprite-match__icon-crown-winner: url('/Assets/Art/UI/Sprites/Match/icon-crown-winner.png');
+    --sprite-match__icon-hide: url('/Assets/Art/UI/Sprites/Match/icon-hide.png');
+    --sprite-match__icon-medal-1st: url('/Assets/Art/UI/Sprites/Match/icon-medal-1st.png');
+    --sprite-match__icon-medal-2nd: url('/Assets/Art/UI/Sprites/Match/icon-medal-2nd.png');
+    --sprite-match__icon-medal-3rd: url('/Assets/Art/UI/Sprites/Match/icon-medal-3rd.png');
+    --sprite-match__icon-show: url('/Assets/Art/UI/Sprites/Match/icon-show.png');
+    --sprite-match__pattern-jagged-vertical: url('/Assets/Art/UI/Sprites/Match/pattern-jagged-vertical.png');
+    --sprite-match__text-blasted: url('/Assets/Art/UI/Sprites/Match/text-blasted.png');
+    --sprite-match__text-matchended: url('/Assets/Art/UI/Sprites/Match/text-matchended.png');
+    --sprite-match__text-youchosedeath: url('/Assets/Art/UI/Sprites/Match/text-youchosedeath.png');
+    --sprite-match__text-youwon: url('/Assets/Art/UI/Sprites/Match/text-youwon.png');
+    --sprite-match__vfx-crack-red: url('/Assets/Art/UI/Sprites/Match/vfx-crack-red.png');
 }
 
 .sprite-match__background-gradient-blue {

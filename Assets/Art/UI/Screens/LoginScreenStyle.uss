@@ -1,19 +1,72 @@
-:root {
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-}
-
 .popup-radius {
     border-radius: 20px;
+}
+
+.popup-radius--login {
+    position: absolute;
+    left: -10px;
+    top: -10px;
+    right: 10px;
+    bottom: 10px;
+    background-color: rgb(255, 255, 255);
+    overflow: hidden;
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+}
+
+.container {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 48px;
+    padding-bottom: 40px;
+}
+
+.title {
+    height: 90px;
+    -unity-text-align: middle-center;
+    font-size: 36px;
+    color: rgb(255, 255, 255);
+    overflow: hidden;
+}
+
+.dots-pattern {
+    top: -138px;
+    left: -28px
+}
+
+.or_button {
+    color: rgb(122, 118, 167);
+    font-size: 30px;
+    margin-bottom: 8px;
 }
 
 #unity-text-input {
     flex-grow: 1;
 }
 
+.input-field--register 
+{
+}
+
+.input-field--password
+{
+    margin-top: 28px; margin-bottom: 44px;
+}
+
+.reset_guest_container{
+    flex-direction: row; justify-content: space-between;
+}
+.separator
+{
+    height: 0; width: 51px
+}
 LocalizedTextField > Label {
     margin-right: 15px;
     width: 150px;
@@ -48,11 +101,24 @@ LocalizedButton {
 }
 
 .blocker-hidden {
-    background-color: rgba(0, 0, 0, 0.45);
+
     display: none;
+    transition-duration: 0.3s;
+    background-color: rgba(0, 0, 0, 0.36);
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
     transition-duration: 0.3s;
 }
 
-#Header {
+.button-flat--secondary--register {
+    -unity-text-outline-color: rgb(59, 29, 144);
+    -unity-background-image-tint-color: rgb(59, 29, 144);
+}
+
+.header {
     background-color: rgb(128, 87, 227);
+    overflow: hidden
 }

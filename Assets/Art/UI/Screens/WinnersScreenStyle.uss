@@ -32,46 +32,6 @@
     -unity-text-outline-color: rgb(0, 0, 0);
 }
 
-.hidden .next-button {
-    opacity: 0;
-    transition-property: opacity, translate;
-    transition-duration: 0.5s, 0.5s;
-    transition-delay: 0.5s, 0.5s;
-    translate: 200px 0;
-}
-
-.next-button {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    background-image: url('project://database/Assets/Art/UI/Sprites/MatchEnd/NextButton.png?fileID=21300000&guid=7b7f8b5eb966f4fb38b88e5573f3a921&type=3#NextButton');
-    width: 562px;
-    height: 194px;
-    background-color: rgba(255, 255, 255, 0);
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-    transition-property: opacity, scale;
-    transition-duration: 0.2s, 0.2s;
-    border-left-width: 0;
-    border-right-width: 0;
-    border-top-width: 0;
-    border-bottom-width: 0;
-}
-
-.next-button__label {
-    width: 260px;
-    top: 80px;
-    left: 250px;
-    text-shadow: 4px 4px 0 rgb(185, 65, 21);
-    -unity-text-outline-color: rgb(185, 65, 21);
-    font-size: 70px;
-    -unity-text-outline-width: 2px;
-    color: rgb(255, 255, 255);
-    -unity-font-style: bold;
-}
-
 .name-shadow {
     background-image: url('project://database/Assets/Art/UI/Sprites/WinnersScreen/NameBackPlacements.png?fileID=2800000&guid=01c8d564f11f34c4d896e9873871b0d9&type=3#NameBackPlacements');
     width: 466px;

@@ -305,6 +305,7 @@ namespace FirstLight.Editor.EditorTools
 			var names = new HashSet<string>();
 
 			// Generate variables
+			sb.AppendLine("/* AUTO GENERATED */");
 			sb.AppendLine(":root {");
 			foreach (var path in arg)
 			{
@@ -326,9 +327,23 @@ namespace FirstLight.Editor.EditorTools
 			// Generate classes
 			foreach (var path in arg)
 			{
-				sb.AppendLine($".sprite-{arg.Key.ToLowerInvariant()}__{Path.GetFileNameWithoutExtension(path)} {{");
-				sb.AppendLine($"    background-image: var({GenerateSpriteVar(arg.Key, path, false)})");
-				sb.AppendLine("}");
+				var filename = Path.GetFileNameWithoutExtension(path);
+
+				// Pressed versions get the :active pseudo class
+				if (filename.EndsWith("-pressed"))
+				{
+					sb.AppendLine(
+						$".sprite-{arg.Key.ToLowerInvariant()}__{filename.Replace("-pressed", "")}:active {{");
+					sb.AppendLine($"    background-image: var({GenerateSpriteVar(arg.Key, path, false)})");
+					sb.AppendLine("}");
+				}
+				else
+				{
+					sb.AppendLine($".sprite-{arg.Key.ToLowerInvariant()}__{Path.GetFileNameWithoutExtension(path)} {{");
+					sb.AppendLine($"    background-image: var({GenerateSpriteVar(arg.Key, path, false)})");
+					sb.AppendLine("}");
+				}
+
 				sb.AppendLine();
 			}
 

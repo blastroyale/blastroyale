@@ -15,7 +15,7 @@ namespace FirstLight.Game.Views.UITK
 		private const string DURABILITY_AMOUNT = "{0}/{1}";
 		private const string DURABILITY_PLUS_AMOUNT = "+{0}";
 
-		private const string UssRequirementsIconModifier = "requirements__icon--{0}";
+		private const string UssIconCurrency = "sprite-home__icon-currency-{0}";
 
 		private VisualElement _durabilityBar;
 		private Label _durabilityAmount;
@@ -62,8 +62,7 @@ namespace FirstLight.Game.Views.UITK
 			
 			_requirementsAmount.text = info.RepairCost.Value.ToString();
 			_requirementsIcon.RemoveModifiers();
-			_requirementsIcon.AddToClassList(string.Format(UssRequirementsIconModifier,
-				info.RepairCost.Key.ToString().ToLowerInvariant()));
+			_requirementsIcon.AddToClassList(string.Format(UssIconCurrency, info.RepairCost.Key.ToString().ToLowerInvariant()));
 
 			_confirmAction = confirmAction;
 		}

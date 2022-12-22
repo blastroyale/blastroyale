@@ -1,8 +1,14 @@
+/* AUTO GENERATED */
 :root {
-    --sprite-match__remove-me: url('/Assets/Art/UI/Sprites2/Match/remove-me.png');
+    --sprite-match__button-next: url('/Assets/Art/UI/Sprites2/Match/button-next.png');
+    --sprite-match__button-next-pressed: url('/Assets/Art/UI/Sprites2/Match/button-next-pressed.png');
 }
 
-.sprite-match__remove-me {
-    background-image: var(--sprite-match__remove-me)
+.sprite-match__button-next {
+    background-image: var(--sprite-match__button-next)
+}
+
+.sprite-match__button-next:active {
+    background-image: var(--sprite-match__button-next-pressed)
 }
 

@@ -35,7 +35,7 @@
 }
 
 .equipment-stat__amount-arrow {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/UpgradeArrow.png?fileID=21300000&guid=4e47c79fe11774312872c0e2cfc762ee&type=3#UpgradeArrow');
+    background-image: var(--sprite-home__icon-arrow-upgrade);
     width: 36px;
     height: 26px;
     margin-left: 35px;

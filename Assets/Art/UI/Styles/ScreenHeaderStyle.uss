@@ -16,14 +16,14 @@
 }
 
 .screen-header__home {
-    background-image: url('project://database/Assets/Art/UI/Sprites/Header/HomebuttonBack.png?fileID=21300000&guid=f23748b7de1224ba39c941f04a7aaa96&type=3#HomebuttonBack');
+    background-image: var(--sprite-home__header-home);
     width: 550px;
     height: 166px;
     margin-right: -392px;
 }
 
 .screen-header__home:active {
-    background-image: url('project://database/Assets/Art/UI/Sprites/Header/HomebuttonBackPressed.png?fileID=21300000&guid=4389613eb61db486b8ddb825da78487a&type=3#HomebuttonBackPressed');
+    background-image: var(--sprite-home__header-home-pressed);
 }
 
 .screen-header__title {
@@ -57,14 +57,14 @@
 }
 
 .screen-header__back {
-    background-image: url('project://database/Assets/Art/UI/Sprites/Header/HeadlineBack.png?fileID=21300000&guid=8c5fc907c7ac74e9ea1bbd30c58be442&type=3#HeadlineBack');
+    background-image: var(--sprite-home__header-back);
     width: 742px;
     height: 178px;
     margin-left: -424px;
 }
 
 .screen-header__back:active {
-    background-image: url('project://database/Assets/Art/UI/Sprites/Header/HeadlineBackPressed.png?fileID=21300000&guid=7485a1a423f1e430892305217ee57018&type=3#HeadlineBackPressed');
+    background-image: var(--sprite-home__header-back-pressed);
 }
 
 .screen-header--simple {
@@ -75,7 +75,7 @@
 }
 
 .screen-header--simple .screen-header__back {
-    background-image: url('project://database/Assets/Art/UI/Sprites/Header/Headline.png?fileID=21300000&guid=c5ec35c903c644752a1e9aa07e09fa77&type=3#Headline');
+    background-image: var(--sprite-home__header-background);
     width: 1110px;
     height: 192px;
     margin-left: -487px;

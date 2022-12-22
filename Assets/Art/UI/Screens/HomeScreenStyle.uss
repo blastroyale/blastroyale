@@ -32,7 +32,7 @@
 .player-header {
     position: absolute;
     top: 0;
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/PlayerProfileBack.png?fileID=21300000&guid=6492ef21818934d678d3bb23d9a22645&type=3#PlayerProfileBack');
+    background-image: var(--sprite-home__header-profile);
     width: 1240px;
     height: 248px;
     margin-left: -444px;
@@ -40,7 +40,7 @@
 }
 
 .player-header:active {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/PlayerProfileBackPressed.png?fileID=21300000&guid=1596519a5d00c4b3c87f4014fe12dbab&type=3#PlayerProfileBackPressed');
+    background-image: var(--sprite-home__header-profile-pressed);
 }
 
 .player-header__name {
@@ -82,7 +82,7 @@
 }
 
 .player-header__trophy-icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/Trophy.png?fileID=21300000&guid=872fe08ff0fbc4f64b229d591f48d144&type=3#Trophy');
+    background-image: var(--sprite-home__icon-trophy);
     width: 32px;
     height: 32px;
     margin-left: 16px;
@@ -98,13 +98,13 @@
 }
 
 .battle-pass-button {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BattlepassButton.png?fileID=21300000&guid=2944494fed89644cabdbd0b3da73c0e3&type=3#BattlepassButton');
+    background-image: var(--sprite-home__button-battlepass);
     width: 479px;
     height: 179px;
 }
 
 .battle-pass-button:active {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BattlepassButtonPressed.png?fileID=21300000&guid=3954eea7714304c3aacf010642a02d78&type=3#BattlepassButtonPressed');
+    background-image: var(--sprite-home__button-battlepass-pressed);
 }
 
 .battle-pass-button__holder {
@@ -123,7 +123,7 @@
 }
 
 .battle-pass-button__crown {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BattlepassCrown.png?fileID=21300000&guid=0009bb56e12594dd9a62134a948a4f74&type=3#BattlepassCrown');
+    background-image: var(--sprite-home__icon-battlepass-crown);
     width: 104px;
     height: 88px;
     position: absolute;
@@ -179,7 +179,7 @@
 }
 
 .play-button {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/PlayButton.png?fileID=21300000&guid=7b2a8cf62857f439d94b28d33014167f&type=3#PlayButton');
+    background-image: var(--sprite-home__button-play);
     width: 535px;
     height: 193px;
     font-size: 70px;
@@ -199,14 +199,14 @@
 }
 
 .play-button:active {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/PlayButtonPressed.png?fileID=21300000&guid=4755d43108e94404e975817fcc3c9d0b&type=3#PlayButtonPressed');
+    background-image: var(--sprite-home__button-play-pressed);
     padding-left: 50px;
     padding-top: 27px;
 }
 
 .game-mode-button {
     flex-direction: column-reverse;
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ChangemodeButton.png?fileID=2800000&guid=c9a202b2307fb49549d013e0c91bcb44&type=3#ChangemodeButton');
+    background-image: var(--sprite-home__button-gamemode);
     width: 414px;
     height: 168px;
     margin-bottom: 7px;
@@ -215,7 +215,7 @@
 }
 
 .game-mode-button:active {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ChangemodeButtonPressed.png?fileID=21300000&guid=71761bd5e01a740118d4f5b0de3cb413&type=3#ChangemodeButtonPressed');
+    background-image: var(--sprite-home__button-gamemode-pressed);
     padding-left: 68px;
     padding-top: 45px;
 }
@@ -297,15 +297,15 @@
 }
 
 .resource-pool--bpp .resource-pool__icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BPP.png?fileID=21300000&guid=100d689cc6ffc41f297345bcfc22f54e&type=3#BPP');
+    background-image: var(--sprite-home__icon-currency-bpp);
 }
 
 .resource-pool--cs .resource-pool__icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/CS.png?fileID=21300000&guid=d74b22177c5ba4ac6b9293d6c147e46e&type=3#CS');
+    background-image: var(--sprite-home__icon-currency-cs);
 }
 
 .resource-pool__background {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/PoolHeader.png?fileID=21300000&guid=fe2093cbd35914e9e9cd6c56ee79fca3&type=3#PoolHeader');
+    background-image: var(--sprite-home__background-resourcepool);
     width: 428px;
     height: 102px;
 }
@@ -324,37 +324,29 @@
 .settings-button__icon {
     width: 66px;
     height: 66px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/SettingsIcon.png?fileID=2800000&guid=04713a4471ac6493ba0a2533be572841&type=3#SettingsIcon');
+    background-image: var(--sprite-home__icon-settings);
     margin: 20px;
 }
 
-.button-with-icon--store > .button-with-icon__icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/IconEquipment.png?fileID=21300000&guid=f074c3dd0ff0849fe90a973fd6fbd458&type=3#IconEquipment');
-}
-
 .button-with-icon--equipment > .button-with-icon__icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/IconEquipment.png?fileID=21300000&guid=f074c3dd0ff0849fe90a973fd6fbd458&type=3#IconEquipment');
+    background-image: var(--sprite-home__icon-equipment);
 }
 
 .button-with-icon--heroes > .button-with-icon__icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/IconHeroes.png?fileID=21300000&guid=51ac3af9acd824af591121ab7510c3df&type=3#IconHeroes');
+    background-image: var(--sprite-home__icon-heroes);
 }
 
 .button-with-icon--leaderboards > .button-with-icon__icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/IconLeaderboards.png?fileID=21300000&guid=3a7d899cc87a648b6ab9f1f3cf7035f2&type=3#IconLeaderboards');
+    background-image: var(--sprite-home__icon-leaderboards);
 }
 
 .button-with-icon--shop > .button-with-icon__icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/IconShop.png?fileID=21300000&guid=2ea4ca43a1f724d659125eeae517ed2a&type=3#IconShop');
+    background-image: var(--sprite-home__icon-shop);
 }
 
 .button-with-icon--discord > .button-with-icon__icon {
     height: 70px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/DiscordIcon.png?fileID=2800000&guid=b67fedbb7c0d341c4b54768891f247ed&type=3#DiscordIcon');
-}
-
-.button-with-icon--custom-game > .button-with-icon__icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/IconCustomGame.png?fileID=21300000&guid=edeb643c81c524ca28070f239ae51a4e&type=3#IconCustomGame');
+    background-image: var(--sprite-home__icon-discord);
 }
 
 #LeaderboardsButton {

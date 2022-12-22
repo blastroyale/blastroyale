@@ -31,13 +31,16 @@ SpriteAtlas:
       enableAlphaDilation: 0
     secondaryTextureSettings: {}
     variantMultiplier: 1
-    packables: []
+    packables:
+    - {fileID: 102900000, guid: d0d4381c5e3db480fa66cc6c3c131982, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
-  m_PackedSprites: []
-  m_PackedSpriteNamesToIndex: []
+  m_PackedSprites:
+  - {fileID: 21300000, guid: ebabc096766194b9c88df0400095be5b, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - icon-might
   m_RenderDataMap: {}
-  m_Tag: Home Atlas
+  m_Tag: Shared Atlas
   m_IsVariant: 0

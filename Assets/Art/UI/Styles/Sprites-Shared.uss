@@ -1,8 +1,19 @@
+/* AUTO GENERATED */
 :root {
-    --sprite-shared__remove-me: url('/Assets/Art/UI/Sprites2/Shared/remove-me.png');
+    --sprite-shared__background-lowconnection: url('/Assets/Art/UI/Sprites2/Shared/background-lowconnection.png');
+    --sprite-shared__icon-lowconnection: url('/Assets/Art/UI/Sprites2/Shared/icon-lowconnection.png');
+    --sprite-shared__icon-might: url('/Assets/Art/UI/Sprites2/Shared/icon-might.png');
 }
 
-.sprite-shared__remove-me {
-    background-image: var(--sprite-shared__remove-me)
+.sprite-shared__background-lowconnection {
+    background-image: var(--sprite-shared__background-lowconnection)
+}
+
+.sprite-shared__icon-lowconnection {
+    background-image: var(--sprite-shared__icon-lowconnection)
+}
+
+.sprite-shared__icon-might {
+    background-image: var(--sprite-shared__icon-might)
 }
 

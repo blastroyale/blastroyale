@@ -154,34 +154,6 @@
     height: 72px;
 }
 
-.equipment-tag--special-aimingairstrike .equipment-tag__icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/AirstrikeAbilityIcon.png?fileID=21300000&guid=92aa9ee015ead471c8db4d1ef1537183&type=3#AirstrikeAbilityIcon');
-}
-
-.equipment-tag--special-aimingstungrenade .equipment-tag__icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/StungrenadeAbilityIcon.png?fileID=21300000&guid=92c19ed84f46647beb03749afc2579e6&type=3#StungrenadeAbilityIcon');
-}
-
-.equipment-tag--special-shieldself .equipment-tag__icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/ShieldSelfAbilityIcon.png?fileID=21300000&guid=9ce32da6b5d8649268577d10b5917e09&type=3#ShieldSelfAbilityIcon');
-}
-
-.equipment-tag--special-shieldedcharge .equipment-tag__icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/ShieldedchargeAbilityIcon.png?fileID=21300000&guid=18681f2bfea5b4e8488dee8622c91fee&type=3#ShieldedchargeAbilityIcon');
-}
-
-.equipment-tag--special-aiminggrenade .equipment-tag__icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/GrenadeAbilityIcon.png?fileID=21300000&guid=7e685384ba859494b9ae07c5aa187a57&type=3#GrenadeAbilityIcon');
-}
-
-.equipment-tag--special-defaultdash .equipment-tag__icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/HazardAbilityIcon.png?fileID=21300000&guid=c534c12f0a9d0453a9c207ee445a826d&type=3#HazardAbilityIcon');
-}
-
-.equipment-tag--special-skylaserbeam .equipment-tag__icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/HazardAbilityIcon.png?fileID=21300000&guid=c534c12f0a9d0453a9c207ee445a826d&type=3#HazardAbilityIcon');
-}
-
 .tag-holder {
     flex-direction: row;
     flex-wrap: wrap;

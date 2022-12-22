@@ -19,7 +19,7 @@ namespace FirstLight.Game.UIElements
 		private const string UssPrice = UssBlock + "__price";
 		private const string UssPriceInsufficient = UssPrice + "--insufficient";
 		private const string UssIcon = UssBlock + "__icon";
-		private const string UssIconModifier = UssIcon + "--";
+		private const string UssSpriteIcon = "sprite-home__icon-currency-{0}";
 
 		private Label _price;
 		private VisualElement _icon;
@@ -68,8 +68,8 @@ namespace FirstLight.Game.UIElements
 				_price.AddToClassList(UssPriceInsufficient);
 			}
 
-			_icon.RemoveModifiers();
-			_icon.AddToClassList(UssIconModifier + price.Key.ToString().ToLowerInvariant());
+			_icon.RemoveSpriteClasses();
+			_icon.AddToClassList(string.Format(UssSpriteIcon, price.Key.ToString().ToLowerInvariant()));
 			
 			_priceHolder.SetDisplay(!isNft);
 			_title.EnableInClassList(UssOffsetTitle, isNft);

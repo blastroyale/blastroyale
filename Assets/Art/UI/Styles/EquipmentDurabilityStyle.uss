@@ -28,7 +28,7 @@
 }
 
 .equipment-durability__icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/DurabilityIcon.png?fileID=21300000&guid=c23c775b5c0864573b27d89f2a6a6a04&type=3#DurabilityIcon');
+    background-image: var(--sprite-home__icon-durability);
     width: 40px;
     height: 40px;
     margin-left: 2px;

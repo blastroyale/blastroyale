@@ -28,12 +28,18 @@
     padding-bottom: 40px;
 }
 
+.container__or_button {
+    color: rgb(122, 118, 167);
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
 .header {
     background-color: rgb(128, 87, 227);
     overflow: hidden
 }
 
-.title {
+.header__title {
     height: 90px;
     -unity-text-align: middle-center;
     font-size: 36px;
@@ -41,15 +47,24 @@
     overflow: hidden;
 }
 
-.dots-pattern {
+.header__dots-pattern {
     top: -138px;
-    left: -28px
+    left: -28px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/DotsRotated.png?fileID=21300000&guid=123b7673eb1d048a486154a4e65c630b&type=3#DotsRotated');
+    -unity-background-image-tint-color: rgba(58, 58, 58, 0.35);
+    width: 602px;
+    height: 604px;
+    position: absolute;
 }
 
-.or_button {
-    color: rgb(122, 118, 167);
-    font-size: 30px;
-    margin-bottom: 8px;
+.button-flat--secondary--register {
+    -unity-text-outline-color: rgb(59, 29, 144);
+    -unity-background-image-tint-color: rgb(59, 29, 144);
+}
+
+.button-flat--primary--login {
+    padding-left: 100px;
+    padding-right: 100px;
 }
 
 
@@ -61,7 +76,7 @@
     flex-direction: row; justify-content: space-between;
 }
 
-.separator {
+.reset_guest_container__separator {
     height: 0; width: 51px
 }
 
@@ -74,7 +89,6 @@ LocalizedTextField > Label {
 LocalizedButton {
     -unity-text-align: middle-center;
 }
-
 
 .background {
     left: 0;
@@ -99,16 +113,6 @@ LocalizedButton {
     right: 0;
     bottom: 0;
     transition-duration: 0.3s;
-}
-
-.button-flat--secondary--register {
-    -unity-text-outline-color: rgb(59, 29, 144);
-    -unity-background-image-tint-color: rgb(59, 29, 144);
-}
-
-.button-flat--primary--login {
-    padding-left: 100px;
-    padding-right: 100px;
 }
 
 #PopupBackground {

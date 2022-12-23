@@ -78,15 +78,12 @@
     --sprite-home__icon-arrow-level: url('/Assets/Art/UI/Sprites/Home/icon-arrow-level.png');
     --sprite-home__icon-arrow-upgrade: url('/Assets/Art/UI/Sprites/Home/icon-arrow-upgrade.png');
     --sprite-home__icon-battlepass-crown: url('/Assets/Art/UI/Sprites/Home/icon-battlepass-crown.png');
+    --sprite-home__icon-checkmark: url('/Assets/Art/UI/Sprites/Home/icon-checkmark.png');
     --sprite-home__icon-close: url('/Assets/Art/UI/Sprites/Home/icon-close.png');
     --sprite-home__icon-cooldown-cs: url('/Assets/Art/UI/Sprites/Home/icon-cooldown-cs.png');
     --sprite-home__icon-core-epic: url('/Assets/Art/UI/Sprites/Home/icon-core-epic.png');
     --sprite-home__icon-core-legendary: url('/Assets/Art/UI/Sprites/Home/icon-core-legendary.png');
     --sprite-home__icon-core-rare: url('/Assets/Art/UI/Sprites/Home/icon-core-rare.png');
-    --sprite-home__icon-currency-blst: url('/Assets/Art/UI/Sprites/Home/icon-currency-blst.png');
-    --sprite-home__icon-currency-bpp: url('/Assets/Art/UI/Sprites/Home/icon-currency-bpp.png');
-    --sprite-home__icon-currency-coin: url('/Assets/Art/UI/Sprites/Home/icon-currency-coin.png');
-    --sprite-home__icon-currency-cs: url('/Assets/Art/UI/Sprites/Home/icon-currency-cs.png');
     --sprite-home__icon-customgame: url('/Assets/Art/UI/Sprites/Home/icon-customgame.png');
     --sprite-home__icon-discord: url('/Assets/Art/UI/Sprites/Home/icon-discord.png');
     --sprite-home__icon-durability: url('/Assets/Art/UI/Sprites/Home/icon-durability.png');
@@ -116,509 +113,537 @@
     --sprite-home__icon-special-shieldself: url('/Assets/Art/UI/Sprites/Home/icon-special-shieldself.png');
     --sprite-home__icon-special-skylaserbeam: url('/Assets/Art/UI/Sprites/Home/icon-special-skylaserbeam.png');
     --sprite-home__icon-spinner-thick: url('/Assets/Art/UI/Sprites/Home/icon-spinner-thick.png');
-    --sprite-home__icon-trophy: url('/Assets/Art/UI/Sprites/Home/icon-trophy.png');
     --sprite-home__logo-blasthub: url('/Assets/Art/UI/Sprites/Home/logo-blasthub.png');
     --sprite-home__pattern-circle-gradient: url('/Assets/Art/UI/Sprites/Home/pattern-circle-gradient.png');
     --sprite-home__pattern-dots-gradient: url('/Assets/Art/UI/Sprites/Home/pattern-dots-gradient.png');
     --sprite-home__pattern-dots-rotated: url('/Assets/Art/UI/Sprites/Home/pattern-dots-rotated.png');
     --sprite-home__pattern-jagged-horizontal: url('/Assets/Art/UI/Sprites/Home/pattern-jagged-horizontal.png');
+    --sprite-home__progress-battlepass: url('/Assets/Art/UI/Sprites/Home/progress-battlepass.png');
+    --sprite-home__progress-battlepass-bg: url('/Assets/Art/UI/Sprites/Home/progress-battlepass-bg.png');
+    --sprite-home__progress-battlepassbtn: url('/Assets/Art/UI/Sprites/Home/progress-battlepassbtn.png');
+    --sprite-home__progress-battlepassbtn-bg: url('/Assets/Art/UI/Sprites/Home/progress-battlepassbtn-bg.png');
+    --sprite-home__progress-durability: url('/Assets/Art/UI/Sprites/Home/progress-durability.png');
+    --sprite-home__progress-durability-bg: url('/Assets/Art/UI/Sprites/Home/progress-durability-bg.png');
+    --sprite-home__progress-durabilityupgrade: url('/Assets/Art/UI/Sprites/Home/progress-durabilityupgrade.png');
+    --sprite-home__progress-stat-bg: url('/Assets/Art/UI/Sprites/Home/progress-stat-bg.png');
+    --sprite-home__progress-stats: url('/Assets/Art/UI/Sprites/Home/progress-stats.png');
     --sprite-home__vfx-glitch-triangle1: url('/Assets/Art/UI/Sprites/Home/vfx-glitch-triangle1.png');
     --sprite-home__vfx-glitch-triangle2: url('/Assets/Art/UI/Sprites/Home/vfx-glitch-triangle2.png');
 }
 
 .sprite-home__background-inputfield {
-    background-image: var(--sprite-home__background-inputfield)
+    background-image: var(--sprite-home__background-inputfield);
 }
 
 .sprite-home__background-popup-equipment {
-    background-image: var(--sprite-home__background-popup-equipment)
+    background-image: var(--sprite-home__background-popup-equipment);
 }
 
 .sprite-home__background-resourcepool {
-    background-image: var(--sprite-home__background-resourcepool)
+    background-image: var(--sprite-home__background-resourcepool);
 }
 
 .sprite-home__background-tooltip {
-    background-image: var(--sprite-home__background-tooltip)
+    background-image: var(--sprite-home__background-tooltip);
 }
 
 .sprite-home__button-battlepass {
-    background-image: var(--sprite-home__button-battlepass)
+    background-image: var(--sprite-home__button-battlepass);
 }
 
 .sprite-home__button-battlepass:active {
-    background-image: var(--sprite-home__button-battlepass-pressed)
+    background-image: var(--sprite-home__button-battlepass-pressed);
 }
 
 .sprite-home__button-equipmentslot-common {
-    background-image: var(--sprite-home__button-equipmentslot-common)
+    background-image: var(--sprite-home__button-equipmentslot-common);
 }
 
 .sprite-home__button-equipmentslot-common:active {
-    background-image: var(--sprite-home__button-equipmentslot-common-pressed)
+    background-image: var(--sprite-home__button-equipmentslot-common-pressed);
 }
 
 .sprite-home__button-equipmentslot-empty {
-    background-image: var(--sprite-home__button-equipmentslot-empty)
+    background-image: var(--sprite-home__button-equipmentslot-empty);
 }
 
 .sprite-home__button-equipmentslot-empty:active {
-    background-image: var(--sprite-home__button-equipmentslot-empty-pressed)
+    background-image: var(--sprite-home__button-equipmentslot-empty-pressed);
 }
 
 .sprite-home__button-equipmentslot-epic {
-    background-image: var(--sprite-home__button-equipmentslot-epic)
+    background-image: var(--sprite-home__button-equipmentslot-epic);
 }
 
 .sprite-home__button-equipmentslot-epic:active {
-    background-image: var(--sprite-home__button-equipmentslot-epic-pressed)
+    background-image: var(--sprite-home__button-equipmentslot-epic-pressed);
 }
 
 .sprite-home__button-equipmentslot-legendary {
-    background-image: var(--sprite-home__button-equipmentslot-legendary)
+    background-image: var(--sprite-home__button-equipmentslot-legendary);
 }
 
 .sprite-home__button-equipmentslot-legendary:active {
-    background-image: var(--sprite-home__button-equipmentslot-legendary-pressed)
+    background-image: var(--sprite-home__button-equipmentslot-legendary-pressed);
 }
 
 .sprite-home__button-equipmentslot-rare {
-    background-image: var(--sprite-home__button-equipmentslot-rare)
+    background-image: var(--sprite-home__button-equipmentslot-rare);
 }
 
 .sprite-home__button-equipmentslot-rare:active {
-    background-image: var(--sprite-home__button-equipmentslot-rare-pressed)
+    background-image: var(--sprite-home__button-equipmentslot-rare-pressed);
 }
 
 .sprite-home__button-equipmentslot-uncommon {
-    background-image: var(--sprite-home__button-equipmentslot-uncommon)
+    background-image: var(--sprite-home__button-equipmentslot-uncommon);
 }
 
 .sprite-home__button-equipmentslot-uncommon:active {
-    background-image: var(--sprite-home__button-equipmentslot-uncommon-pressed)
+    background-image: var(--sprite-home__button-equipmentslot-uncommon-pressed);
 }
 
 .sprite-home__button-gamemode {
-    background-image: var(--sprite-home__button-gamemode)
+    background-image: var(--sprite-home__button-gamemode);
 }
 
 .sprite-home__button-gamemode:active {
-    background-image: var(--sprite-home__button-gamemode-pressed)
+    background-image: var(--sprite-home__button-gamemode-pressed);
 }
 
 .sprite-home__button-grey {
-    background-image: var(--sprite-home__button-grey)
+    background-image: var(--sprite-home__button-grey);
 }
 
 .sprite-home__button-info {
-    background-image: var(--sprite-home__button-info)
+    background-image: var(--sprite-home__button-info);
 }
 
 .sprite-home__button-info:active {
-    background-image: var(--sprite-home__button-info-pressed)
+    background-image: var(--sprite-home__button-info-pressed);
 }
 
 .sprite-home__button-long-purple {
-    background-image: var(--sprite-home__button-long-purple)
+    background-image: var(--sprite-home__button-long-purple);
 }
 
 .sprite-home__button-long-purple:active {
-    background-image: var(--sprite-home__button-long-purple-pressed)
+    background-image: var(--sprite-home__button-long-purple-pressed);
 }
 
 .sprite-home__button-long-red {
-    background-image: var(--sprite-home__button-long-red)
+    background-image: var(--sprite-home__button-long-red);
 }
 
 .sprite-home__button-long-red:active {
-    background-image: var(--sprite-home__button-long-red-pressed)
+    background-image: var(--sprite-home__button-long-red-pressed);
 }
 
 .sprite-home__button-long-yellow {
-    background-image: var(--sprite-home__button-long-yellow)
+    background-image: var(--sprite-home__button-long-yellow);
 }
 
 .sprite-home__button-long-yellow:active {
-    background-image: var(--sprite-home__button-long-yellow-pressed)
+    background-image: var(--sprite-home__button-long-yellow-pressed);
 }
 
 .sprite-home__button-main-purple {
-    background-image: var(--sprite-home__button-main-purple)
+    background-image: var(--sprite-home__button-main-purple);
 }
 
 .sprite-home__button-main-purple:active {
-    background-image: var(--sprite-home__button-main-purple-pressed)
+    background-image: var(--sprite-home__button-main-purple-pressed);
 }
 
 .sprite-home__button-main-yellow {
-    background-image: var(--sprite-home__button-main-yellow)
+    background-image: var(--sprite-home__button-main-yellow);
 }
 
 .sprite-home__button-main-yellow:active {
-    background-image: var(--sprite-home__button-main-yellow-pressed)
+    background-image: var(--sprite-home__button-main-yellow-pressed);
 }
 
 .sprite-home__button-play {
-    background-image: var(--sprite-home__button-play)
+    background-image: var(--sprite-home__button-play);
 }
 
 .sprite-home__button-play:active {
-    background-image: var(--sprite-home__button-play-pressed)
+    background-image: var(--sprite-home__button-play-pressed);
 }
 
 .sprite-home__button-popup-equipment-close {
-    background-image: var(--sprite-home__button-popup-equipment-close)
+    background-image: var(--sprite-home__button-popup-equipment-close);
 }
 
 .sprite-home__button-popup-equipment-close:active {
-    background-image: var(--sprite-home__button-popup-equipment-close-pressed)
+    background-image: var(--sprite-home__button-popup-equipment-close-pressed);
 }
 
 .sprite-home__button-special {
-    background-image: var(--sprite-home__button-special)
+    background-image: var(--sprite-home__button-special);
 }
 
 .sprite-home__card-background {
-    background-image: var(--sprite-home__card-background)
+    background-image: var(--sprite-home__card-background);
 }
 
 .sprite-home__card-background:active {
-    background-image: var(--sprite-home__card-background-pressed)
+    background-image: var(--sprite-home__card-background-pressed);
 }
 
 .sprite-home__card-badge-nft {
-    background-image: var(--sprite-home__card-badge-nft)
+    background-image: var(--sprite-home__card-badge-nft);
 }
 
 .sprite-home__card-category-amulet {
-    background-image: var(--sprite-home__card-category-amulet)
+    background-image: var(--sprite-home__card-category-amulet);
 }
 
 .sprite-home__card-category-armor {
-    background-image: var(--sprite-home__card-category-armor)
+    background-image: var(--sprite-home__card-category-armor);
 }
 
 .sprite-home__card-category-helmet {
-    background-image: var(--sprite-home__card-category-helmet)
+    background-image: var(--sprite-home__card-category-helmet);
 }
 
 .sprite-home__card-category-shield {
-    background-image: var(--sprite-home__card-category-shield)
+    background-image: var(--sprite-home__card-category-shield);
 }
 
 .sprite-home__card-category-weapon {
-    background-image: var(--sprite-home__card-category-weapon)
+    background-image: var(--sprite-home__card-category-weapon);
 }
 
 .sprite-home__card-faction-celestial {
-    background-image: var(--sprite-home__card-faction-celestial)
+    background-image: var(--sprite-home__card-faction-celestial);
 }
 
 .sprite-home__card-faction-chaos {
-    background-image: var(--sprite-home__card-faction-chaos)
+    background-image: var(--sprite-home__card-faction-chaos);
 }
 
 .sprite-home__card-faction-dark {
-    background-image: var(--sprite-home__card-faction-dark)
+    background-image: var(--sprite-home__card-faction-dark);
 }
 
 .sprite-home__card-faction-dimensional {
-    background-image: var(--sprite-home__card-faction-dimensional)
+    background-image: var(--sprite-home__card-faction-dimensional);
 }
 
 .sprite-home__card-faction-order {
-    background-image: var(--sprite-home__card-faction-order)
+    background-image: var(--sprite-home__card-faction-order);
 }
 
 .sprite-home__card-faction-organic {
-    background-image: var(--sprite-home__card-faction-organic)
+    background-image: var(--sprite-home__card-faction-organic);
 }
 
 .sprite-home__card-faction-shadow {
-    background-image: var(--sprite-home__card-faction-shadow)
+    background-image: var(--sprite-home__card-faction-shadow);
 }
 
 .sprite-home__card-levelbg {
-    background-image: var(--sprite-home__card-levelbg)
+    background-image: var(--sprite-home__card-levelbg);
 }
 
 .sprite-home__card-material-bronze {
-    background-image: var(--sprite-home__card-material-bronze)
+    background-image: var(--sprite-home__card-material-bronze);
 }
 
 .sprite-home__card-material-carbon {
-    background-image: var(--sprite-home__card-material-carbon)
+    background-image: var(--sprite-home__card-material-carbon);
 }
 
 .sprite-home__card-material-gold {
-    background-image: var(--sprite-home__card-material-gold)
+    background-image: var(--sprite-home__card-material-gold);
 }
 
 .sprite-home__card-material-plastic {
-    background-image: var(--sprite-home__card-material-plastic)
+    background-image: var(--sprite-home__card-material-plastic);
 }
 
 .sprite-home__card-material-steel {
-    background-image: var(--sprite-home__card-material-steel)
+    background-image: var(--sprite-home__card-material-steel);
 }
 
 .sprite-home__card-plusrarity {
-    background-image: var(--sprite-home__card-plusrarity)
+    background-image: var(--sprite-home__card-plusrarity);
 }
 
 .sprite-home__card-rarity-common {
-    background-image: var(--sprite-home__card-rarity-common)
+    background-image: var(--sprite-home__card-rarity-common);
 }
 
 .sprite-home__card-rarity-epic {
-    background-image: var(--sprite-home__card-rarity-epic)
+    background-image: var(--sprite-home__card-rarity-epic);
 }
 
 .sprite-home__card-rarity-legendary {
-    background-image: var(--sprite-home__card-rarity-legendary)
+    background-image: var(--sprite-home__card-rarity-legendary);
 }
 
 .sprite-home__card-rarity-rare {
-    background-image: var(--sprite-home__card-rarity-rare)
+    background-image: var(--sprite-home__card-rarity-rare);
 }
 
 .sprite-home__card-rarity-uncommon {
-    background-image: var(--sprite-home__card-rarity-uncommon)
+    background-image: var(--sprite-home__card-rarity-uncommon);
 }
 
 .sprite-home__card-selected {
-    background-image: var(--sprite-home__card-selected)
+    background-image: var(--sprite-home__card-selected);
 }
 
 .sprite-home__card-shadow-pink {
-    background-image: var(--sprite-home__card-shadow-pink)
+    background-image: var(--sprite-home__card-shadow-pink);
 }
 
 .sprite-home__header-back {
-    background-image: var(--sprite-home__header-back)
+    background-image: var(--sprite-home__header-back);
 }
 
 .sprite-home__header-background {
-    background-image: var(--sprite-home__header-background)
+    background-image: var(--sprite-home__header-background);
 }
 
 .sprite-home__header-back:active {
-    background-image: var(--sprite-home__header-back-pressed)
+    background-image: var(--sprite-home__header-back-pressed);
 }
 
 .sprite-home__header-home {
-    background-image: var(--sprite-home__header-home)
+    background-image: var(--sprite-home__header-home);
 }
 
 .sprite-home__header-home:active {
-    background-image: var(--sprite-home__header-home-pressed)
+    background-image: var(--sprite-home__header-home-pressed);
 }
 
 .sprite-home__header-popup-equipment {
-    background-image: var(--sprite-home__header-popup-equipment)
+    background-image: var(--sprite-home__header-popup-equipment);
 }
 
 .sprite-home__header-profile {
-    background-image: var(--sprite-home__header-profile)
+    background-image: var(--sprite-home__header-profile);
 }
 
 .sprite-home__header-profile:active {
-    background-image: var(--sprite-home__header-profile-pressed)
+    background-image: var(--sprite-home__header-profile-pressed);
 }
 
 .sprite-home__icon-arrow-level {
-    background-image: var(--sprite-home__icon-arrow-level)
+    background-image: var(--sprite-home__icon-arrow-level);
 }
 
 .sprite-home__icon-arrow-upgrade {
-    background-image: var(--sprite-home__icon-arrow-upgrade)
+    background-image: var(--sprite-home__icon-arrow-upgrade);
 }
 
 .sprite-home__icon-battlepass-crown {
-    background-image: var(--sprite-home__icon-battlepass-crown)
+    background-image: var(--sprite-home__icon-battlepass-crown);
+}
+
+.sprite-home__icon-checkmark {
+    background-image: var(--sprite-home__icon-checkmark);
 }
 
 .sprite-home__icon-close {
-    background-image: var(--sprite-home__icon-close)
+    background-image: var(--sprite-home__icon-close);
 }
 
 .sprite-home__icon-cooldown-cs {
-    background-image: var(--sprite-home__icon-cooldown-cs)
+    background-image: var(--sprite-home__icon-cooldown-cs);
 }
 
 .sprite-home__icon-core-epic {
-    background-image: var(--sprite-home__icon-core-epic)
+    background-image: var(--sprite-home__icon-core-epic);
 }
 
 .sprite-home__icon-core-legendary {
-    background-image: var(--sprite-home__icon-core-legendary)
+    background-image: var(--sprite-home__icon-core-legendary);
 }
 
 .sprite-home__icon-core-rare {
-    background-image: var(--sprite-home__icon-core-rare)
-}
-
-.sprite-home__icon-currency-blst {
-    background-image: var(--sprite-home__icon-currency-blst)
-}
-
-.sprite-home__icon-currency-bpp {
-    background-image: var(--sprite-home__icon-currency-bpp)
-}
-
-.sprite-home__icon-currency-coin {
-    background-image: var(--sprite-home__icon-currency-coin)
-}
-
-.sprite-home__icon-currency-cs {
-    background-image: var(--sprite-home__icon-currency-cs)
+    background-image: var(--sprite-home__icon-core-rare);
 }
 
 .sprite-home__icon-customgame {
-    background-image: var(--sprite-home__icon-customgame)
+    background-image: var(--sprite-home__icon-customgame);
 }
 
 .sprite-home__icon-discord {
-    background-image: var(--sprite-home__icon-discord)
+    background-image: var(--sprite-home__icon-discord);
 }
 
 .sprite-home__icon-durability {
-    background-image: var(--sprite-home__icon-durability)
+    background-image: var(--sprite-home__icon-durability);
 }
 
 .sprite-home__icon-emptyslot-amulet {
-    background-image: var(--sprite-home__icon-emptyslot-amulet)
+    background-image: var(--sprite-home__icon-emptyslot-amulet);
 }
 
 .sprite-home__icon-emptyslot-armor {
-    background-image: var(--sprite-home__icon-emptyslot-armor)
+    background-image: var(--sprite-home__icon-emptyslot-armor);
 }
 
 .sprite-home__icon-emptyslot-helmet {
-    background-image: var(--sprite-home__icon-emptyslot-helmet)
+    background-image: var(--sprite-home__icon-emptyslot-helmet);
 }
 
 .sprite-home__icon-emptyslot-shield {
-    background-image: var(--sprite-home__icon-emptyslot-shield)
+    background-image: var(--sprite-home__icon-emptyslot-shield);
 }
 
 .sprite-home__icon-emptyslot-weapon {
-    background-image: var(--sprite-home__icon-emptyslot-weapon)
+    background-image: var(--sprite-home__icon-emptyslot-weapon);
 }
 
 .sprite-home__icon-equipment {
-    background-image: var(--sprite-home__icon-equipment)
+    background-image: var(--sprite-home__icon-equipment);
 }
 
 .sprite-home__icon-equipmentcategory-amulet {
-    background-image: var(--sprite-home__icon-equipmentcategory-amulet)
+    background-image: var(--sprite-home__icon-equipmentcategory-amulet);
 }
 
 .sprite-home__icon-equipmentcategory-armor {
-    background-image: var(--sprite-home__icon-equipmentcategory-armor)
+    background-image: var(--sprite-home__icon-equipmentcategory-armor);
 }
 
 .sprite-home__icon-equipmentcategory-helmet {
-    background-image: var(--sprite-home__icon-equipmentcategory-helmet)
+    background-image: var(--sprite-home__icon-equipmentcategory-helmet);
 }
 
 .sprite-home__icon-equipmentcategory-shield {
-    background-image: var(--sprite-home__icon-equipmentcategory-shield)
+    background-image: var(--sprite-home__icon-equipmentcategory-shield);
 }
 
 .sprite-home__icon-equipmentcategory-weapon {
-    background-image: var(--sprite-home__icon-equipmentcategory-weapon)
+    background-image: var(--sprite-home__icon-equipmentcategory-weapon);
 }
 
 .sprite-home__icon-heroes {
-    background-image: var(--sprite-home__icon-heroes)
+    background-image: var(--sprite-home__icon-heroes);
 }
 
 .sprite-home__icon-leaderboards {
-    background-image: var(--sprite-home__icon-leaderboards)
+    background-image: var(--sprite-home__icon-leaderboards);
 }
 
 .sprite-home__icon-marketplace {
-    background-image: var(--sprite-home__icon-marketplace)
+    background-image: var(--sprite-home__icon-marketplace);
 }
 
 .sprite-home__icon-notification {
-    background-image: var(--sprite-home__icon-notification)
+    background-image: var(--sprite-home__icon-notification);
 }
 
 .sprite-home__icon-settings {
-    background-image: var(--sprite-home__icon-settings)
+    background-image: var(--sprite-home__icon-settings);
 }
 
 .sprite-home__icon-shop {
-    background-image: var(--sprite-home__icon-shop)
+    background-image: var(--sprite-home__icon-shop);
 }
 
 .sprite-home__icon-special-aimingairstrike {
-    background-image: var(--sprite-home__icon-special-aimingairstrike)
+    background-image: var(--sprite-home__icon-special-aimingairstrike);
 }
 
 .sprite-home__icon-special-aiminggrenade {
-    background-image: var(--sprite-home__icon-special-aiminggrenade)
+    background-image: var(--sprite-home__icon-special-aiminggrenade);
 }
 
 .sprite-home__icon-special-aimingstungrenade {
-    background-image: var(--sprite-home__icon-special-aimingstungrenade)
+    background-image: var(--sprite-home__icon-special-aimingstungrenade);
 }
 
 .sprite-home__icon-special-defaultdash {
-    background-image: var(--sprite-home__icon-special-defaultdash)
+    background-image: var(--sprite-home__icon-special-defaultdash);
 }
 
 .sprite-home__icon-special-radar {
-    background-image: var(--sprite-home__icon-special-radar)
+    background-image: var(--sprite-home__icon-special-radar);
 }
 
 .sprite-home__icon-special-shieldedcharge {
-    background-image: var(--sprite-home__icon-special-shieldedcharge)
+    background-image: var(--sprite-home__icon-special-shieldedcharge);
 }
 
 .sprite-home__icon-special-shieldself {
-    background-image: var(--sprite-home__icon-special-shieldself)
+    background-image: var(--sprite-home__icon-special-shieldself);
 }
 
 .sprite-home__icon-special-skylaserbeam {
-    background-image: var(--sprite-home__icon-special-skylaserbeam)
+    background-image: var(--sprite-home__icon-special-skylaserbeam);
 }
 
 .sprite-home__icon-spinner-thick {
-    background-image: var(--sprite-home__icon-spinner-thick)
-}
-
-.sprite-home__icon-trophy {
-    background-image: var(--sprite-home__icon-trophy)
+    background-image: var(--sprite-home__icon-spinner-thick);
 }
 
 .sprite-home__logo-blasthub {
-    background-image: var(--sprite-home__logo-blasthub)
+    background-image: var(--sprite-home__logo-blasthub);
 }
 
 .sprite-home__pattern-circle-gradient {
-    background-image: var(--sprite-home__pattern-circle-gradient)
+    background-image: var(--sprite-home__pattern-circle-gradient);
 }
 
 .sprite-home__pattern-dots-gradient {
-    background-image: var(--sprite-home__pattern-dots-gradient)
+    background-image: var(--sprite-home__pattern-dots-gradient);
 }
 
 .sprite-home__pattern-dots-rotated {
-    background-image: var(--sprite-home__pattern-dots-rotated)
+    background-image: var(--sprite-home__pattern-dots-rotated);
 }
 
 .sprite-home__pattern-jagged-horizontal {
-    background-image: var(--sprite-home__pattern-jagged-horizontal)
+    background-image: var(--sprite-home__pattern-jagged-horizontal);
+}
+
+.sprite-home__progress-battlepass {
+    background-image: var(--sprite-home__progress-battlepass);
+}
+
+.sprite-home__progress-battlepass-bg {
+    background-image: var(--sprite-home__progress-battlepass-bg);
+}
+
+.sprite-home__progress-battlepassbtn {
+    background-image: var(--sprite-home__progress-battlepassbtn);
+}
+
+.sprite-home__progress-battlepassbtn-bg {
+    background-image: var(--sprite-home__progress-battlepassbtn-bg);
+}
+
+.sprite-home__progress-durability {
+    background-image: var(--sprite-home__progress-durability);
+}
+
+.sprite-home__progress-durability-bg {
+    background-image: var(--sprite-home__progress-durability-bg);
+}
+
+.sprite-home__progress-durabilityupgrade {
+    background-image: var(--sprite-home__progress-durabilityupgrade);
+}
+
+.sprite-home__progress-stat-bg {
+    background-image: var(--sprite-home__progress-stat-bg);
+}
+
+.sprite-home__progress-stats {
+    background-image: var(--sprite-home__progress-stats);
 }
 
 .sprite-home__vfx-glitch-triangle1 {
-    background-image: var(--sprite-home__vfx-glitch-triangle1)
+    background-image: var(--sprite-home__vfx-glitch-triangle1);
 }
 
 .sprite-home__vfx-glitch-triangle2 {
-    background-image: var(--sprite-home__vfx-glitch-triangle2)
+    background-image: var(--sprite-home__vfx-glitch-triangle2);
 }
 

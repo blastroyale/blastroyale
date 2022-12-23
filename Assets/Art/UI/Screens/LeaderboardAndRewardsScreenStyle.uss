@@ -50,17 +50,17 @@
 }
 
 .player-name--first .player-name__badge {
-    background-image: url('project://database/Assets/Art/UI/Sprites/WinnersScreen/1stMedal.png?fileID=21300000&guid=8a5c4e50794e840a0b7073f5fc6cf1e6&type=3#1stMedal');
+    background-image: var(--sprite-match__icon-medal-1st);
     display: flex;
 }
 
 .player-name--second .player-name__badge {
-    background-image: url('project://database/Assets/Art/UI/Sprites/WinnersScreen/2ndMedal.png?fileID=21300000&guid=cce9e1a787e5a484996db5d377217342&type=3#2ndMedal');
+    background-image: var(--sprite-match__icon-medal-2nd);
     display: flex;
 }
 
 .player-name--third .player-name__badge {
-    background-image: url('project://database/Assets/Art/UI/Sprites/WinnersScreen/3rdMedal.png?fileID=21300000&guid=e2a057641f1b142ca91082917b41cffe&type=3#3rdMedal');
+    background-image: var(--sprite-match__icon-medal-3rd);
     display: flex;
 }
 
@@ -159,7 +159,7 @@
     position: absolute;
     -unity-slice-left: 16;
     -unity-slice-right: 16;
-    background-image: url('project://database/Assets/Art/UI/Sprites/RewardsScreen/RewardsBack.png?fileID=2800000&guid=01e27a0254d4c4324976497ffe21d60d&type=3#RewardsBack');
+    background-image: var(--sprite-match__background-reward-normal);
     -unity-slice-top: 3;
     -unity-slice-bottom: 3;
     transition-property: opacity;
@@ -174,7 +174,7 @@
 .craft-spice__logo-top {
     width: 64px;
     height: 64px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/CS.png?fileID=21300000&guid=d74b22177c5ba4ac6b9293d6c147e46e&type=3#CS');
+    background-image: var(--sprite-shared__icon-currency-cs);
     position: absolute;
     top: -37px;
     left: 56px;
@@ -204,7 +204,7 @@
 .craft-spice__logo-total {
     width: 55px;
     height: 55px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/CS.png?fileID=21300000&guid=d74b22177c5ba4ac6b9293d6c147e46e&type=3#CS');
+    background-image: var(--sprite-shared__icon-currency-cs);
     position: absolute;
     top: 27px;
     left: 375px;
@@ -227,7 +227,7 @@
     position: absolute;
     -unity-slice-left: 16;
     -unity-slice-right: 16;
-    background-image: url('project://database/Assets/Art/UI/Sprites/RewardsScreen/RewardsBack.png?fileID=2800000&guid=01e27a0254d4c4324976497ffe21d60d&type=3#RewardsBack');
+    background-image: var(--sprite-match__background-reward-normal);
     -unity-slice-top: 3;
     -unity-slice-bottom: 3;
     transition-property: opacity;
@@ -241,7 +241,7 @@
 .trophies__logo-top {
     width: 64px;
     height: 64px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/RewardsScreen/Trophies.png?fileID=21300000&guid=a8e999c620a274a5b80e141df88d3590&type=3#Trophies');
+    background-image: var(--sprite-shared__icon-trophy);
     position: absolute;
     top: -37px;
     left: 56px;
@@ -271,7 +271,7 @@
 .trophies__logo-total {
     width: 55px;
     height: 55px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/RewardsScreen/Trophies.png?fileID=21300000&guid=a8e999c620a274a5b80e141df88d3590&type=3#Trophies');
+    background-image: var(--sprite-shared__icon-trophy);
     position: absolute;
     top: 27px;
     left: 375px;
@@ -294,7 +294,7 @@
     position: absolute;
     -unity-slice-left: 16;
     -unity-slice-right: 16;
-    background-image: url('project://database/Assets/Art/UI/Sprites/RewardsScreen/BPBackwithStripe.png?fileID=2800000&guid=2c17914a41722485a8135fd9383c67bc&type=3#BPBackwithStripe');
+    background-image: var(--sprite-match__background-reward-bpp);
     -unity-slice-top: 3;
     -unity-slice-bottom: 3;
     transition-property: opacity;
@@ -308,7 +308,7 @@
 .bpp__logo-top {
     width: 64px;
     height: 64px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BPP.png?fileID=21300000&guid=100d689cc6ffc41f297345bcfc22f54e&type=3#BPP');
+    background-image: var(--sprite-shared__icon-currency-bpp);
     position: absolute;
     top: -33px;
     left: 56px;
@@ -354,14 +354,12 @@
 }
 
 .bpp__bar {
-    background-image: url('project://database/Assets/Art/UI/Sprites/RewardsScreen/BPPBarBack.png?fileID=21300000&guid=b2da5a7d1152e4296aded598c183bd95&type=3#BPPBarBack');
+    background-image: var(--sprite-shared__progress-battlepass-bpp-bg);
     height: 48px;
     position: absolute;
     left: 80px;
     right: 70px;
     top: 95px;
-    -unity-slice-left: 14;
-    -unity-slice-right: 14;
     padding-left: 1px;
     padding-right: 1px;
     padding-top: 1px;
@@ -370,20 +368,16 @@
 }
 
 .bpp__bar__yellow-bar {
-    background-image: url('project://database/Assets/Art/UI/Sprites/RewardsScreen/BPPBarYellow.png?fileID=21300000&guid=063b38f07262840f8bc807b13c43d0cf&type=3#BPPBarYellow');
+    background-image: var(--sprite-shared__progress-battlepass-bpp-yellow);
     position: absolute;
-    -unity-slice-left: 14;
-    -unity-slice-right: 14;
     margin-top: 1px;
     height: 44px;
     width: 70%;
 }
 
 .bpp__bar__green-bar {
-    background-image: url('project://database/Assets/Art/UI/Sprites/RewardsScreen/BPPBar.png?fileID=21300000&guid=11cd63fdc64284e74aab7e51f2131789&type=3#BPPBar');
+    background-image: var(--sprite-shared__progress-battlepass-bpp);
     position: absolute;
-    -unity-slice-left: 14;
-    -unity-slice-right: 14;
     margin-top: 1px;
     height: 44px;
     width: 50%;
@@ -423,7 +417,7 @@
 .bpp__week-info__logo {
     width: 50px;
     height: 50px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BPP.png?fileID=21300000&guid=100d689cc6ffc41f297345bcfc22f54e&type=3#BPP');
+    background-image: var(--sprite-shared__icon-currency-bpp);
 }
 
 .bpp__week-info__gained-week {

@@ -19,7 +19,7 @@ namespace FirstLight.Game.UIElements
 		private const string UssPrice = UssBlock + "__price";
 		private const string UssPriceInsufficient = UssPrice + "--insufficient";
 		private const string UssIcon = UssBlock + "__icon";
-		private const string UssSpriteIcon = "sprite-home__icon-currency-{0}";
+		private const string UssSpriteIcon = "sprite-shared__icon-currency-{0}";
 
 		private Label _price;
 		private VisualElement _icon;

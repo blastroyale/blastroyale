@@ -15,7 +15,7 @@ namespace FirstLight.Game.Views.UITK
 		private const string DURABILITY_AMOUNT = "{0}/{1}";
 		private const string DURABILITY_PLUS_AMOUNT = "+{0}";
 
-		private const string UssIconCurrency = "sprite-home__icon-currency-{0}";
+		private const string UssIconCurrency = "sprite-shared__icon-currency-{0}";
 
 		private VisualElement _durabilityBar;
 		private Label _durabilityAmount;

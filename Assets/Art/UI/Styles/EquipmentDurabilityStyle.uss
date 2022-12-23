@@ -13,12 +13,12 @@
 
 .equipment-durability__progress {
     flex-grow: 0.5;
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/DurabilityBar.png?fileID=21300000&guid=2d7f74c10ed3b4352a100dc9e2226f88&type=3#DurabilityBar');
+    background-image: var(--sprite-home__progress-durability);
 }
 
 .equipment-durability__progress-bg {
     height: 18px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/DurabilityBarBg.png?fileID=21300000&guid=6154e24dd9964404b854e387ded58774&type=3#DurabilityBarBg');
+    background-image: var(--sprite-home__progress-durability-bg);
     padding: 2px;
     flex-direction: row;
     position: absolute;
@@ -57,7 +57,7 @@
     top: 2px;
     right: 2px;
     bottom: 2px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/DurabilityBarUpgrade.png?fileID=21300000&guid=a8b60a487e5824b17a059af336cba3ec&type=3#DurabilityBarUpgrade');
+    background-image: var(--sprite-home__progress-durabilityupgrade);
 }
 
 .equipment-durability--repairing .equipment-durability__progress-green {

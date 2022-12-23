@@ -22,7 +22,7 @@ namespace FirstLight.Game.UIElements
 		private const string UssIconOutline = UssBlock + "__icon-outline";
 		private const string LabelUssClassName = UssBlock + "__label";
 
-		private const string UssSpriteCurrency = "sprite-home__icon-currency-{0}";
+		private const string UssSpriteCurrency = "sprite-shared__icon-currency-{0}";
 
 		/* UXML attributes */
 		private GameId currency { get; set; }

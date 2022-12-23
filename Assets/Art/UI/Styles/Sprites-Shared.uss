@@ -1,19 +1,74 @@
 /* AUTO GENERATED */
 :root {
+    --sprite-shared__background-currentplayer: url('/Assets/Art/UI/Sprites/Shared/background-currentplayer.png');
+    --sprite-shared__background-stat: url('/Assets/Art/UI/Sprites/Shared/background-stat.png');
+    --sprite-shared__background-stat-dark: url('/Assets/Art/UI/Sprites/Shared/background-stat-dark.png');
+    --sprite-shared__icon-currency-blst: url('/Assets/Art/UI/Sprites/Shared/icon-currency-blst.png');
+    --sprite-shared__icon-currency-bpp: url('/Assets/Art/UI/Sprites/Shared/icon-currency-bpp.png');
+    --sprite-shared__icon-currency-coin: url('/Assets/Art/UI/Sprites/Shared/icon-currency-coin.png');
+    --sprite-shared__icon-currency-cs: url('/Assets/Art/UI/Sprites/Shared/icon-currency-cs.png');
     --sprite-shared__icon-lowconnection: url('/Assets/Art/UI/Sprites/Shared/icon-lowconnection.png');
     --sprite-shared__icon-might: url('/Assets/Art/UI/Sprites/Shared/icon-might.png');
+    --sprite-shared__icon-trophy: url('/Assets/Art/UI/Sprites/Shared/icon-trophy.png');
     --sprite-shared__logo-br: url('/Assets/Art/UI/Sprites/Shared/logo-br.png');
+    --sprite-shared__progress-battlepass-bpp: url('/Assets/Art/UI/Sprites/Shared/progress-battlepass-bpp.png');
+    --sprite-shared__progress-battlepass-bpp-bg: url('/Assets/Art/UI/Sprites/Shared/progress-battlepass-bpp-bg.png');
+    --sprite-shared__progress-battlepass-bpp-yellow: url('/Assets/Art/UI/Sprites/Shared/progress-battlepass-bpp-yellow.png');
+}
+
+.sprite-shared__background-currentplayer {
+    background-image: var(--sprite-shared__background-currentplayer);
+}
+
+.sprite-shared__background-stat {
+    background-image: var(--sprite-shared__background-stat);
+}
+
+.sprite-shared__background-stat-dark {
+    background-image: var(--sprite-shared__background-stat-dark);
+}
+
+.sprite-shared__icon-currency-blst {
+    background-image: var(--sprite-shared__icon-currency-blst);
+}
+
+.sprite-shared__icon-currency-bpp {
+    background-image: var(--sprite-shared__icon-currency-bpp);
+}
+
+.sprite-shared__icon-currency-coin {
+    background-image: var(--sprite-shared__icon-currency-coin);
+}
+
+.sprite-shared__icon-currency-cs {
+    background-image: var(--sprite-shared__icon-currency-cs);
 }
 
 .sprite-shared__icon-lowconnection {
-    background-image: var(--sprite-shared__icon-lowconnection)
+    background-image: var(--sprite-shared__icon-lowconnection);
 }
 
 .sprite-shared__icon-might {
-    background-image: var(--sprite-shared__icon-might)
+    background-image: var(--sprite-shared__icon-might);
+}
+
+.sprite-shared__icon-trophy {
+    background-image: var(--sprite-shared__icon-trophy);
 }
 
 .sprite-shared__logo-br {
-    background-image: var(--sprite-shared__logo-br)
+    background-image: var(--sprite-shared__logo-br);
+}
+
+.sprite-shared__progress-battlepass-bpp {
+    background-image: var(--sprite-shared__progress-battlepass-bpp);
+}
+
+.sprite-shared__progress-battlepass-bpp-bg {
+    background-image: var(--sprite-shared__progress-battlepass-bpp-bg);
+}
+
+.sprite-shared__progress-battlepass-bpp-yellow {
+    background-image: var(--sprite-shared__progress-battlepass-bpp-yellow);
 }
 

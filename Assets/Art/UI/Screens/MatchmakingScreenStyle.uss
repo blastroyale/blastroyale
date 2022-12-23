@@ -177,7 +177,7 @@
     top: 0;
     right: 0;
     bottom: 0;
-    background-image: url('project://database/Assets/Art/UI/Sprites/MatchmakingScreen/BRGenesis.png?fileID=2800000&guid=d54eb0711a6ab8e45a698fa12ebb578b&type=3#BRGenesis');
+    background-image: url('/Assets/Art/UI/Textures/map-brgenesis.png');
     -unity-background-scale-mode: scale-to-fit;
     width: 100%;
     height: 100%;

@@ -334,13 +334,13 @@ namespace FirstLight.Editor.EditorTools
 				{
 					sb.AppendLine(
 						$".sprite-{arg.Key.ToLowerInvariant()}__{filename.Replace("-pressed", "")}:active {{");
-					sb.AppendLine($"    background-image: var({GenerateSpriteVar(arg.Key, path, false)})");
+					sb.AppendLine($"    background-image: var({GenerateSpriteVar(arg.Key, path, false)});");
 					sb.AppendLine("}");
 				}
 				else
 				{
 					sb.AppendLine($".sprite-{arg.Key.ToLowerInvariant()}__{Path.GetFileNameWithoutExtension(path)} {{");
-					sb.AppendLine($"    background-image: var({GenerateSpriteVar(arg.Key, path, false)})");
+					sb.AppendLine($"    background-image: var({GenerateSpriteVar(arg.Key, path, false)});");
 					sb.AppendLine("}");
 				}
 

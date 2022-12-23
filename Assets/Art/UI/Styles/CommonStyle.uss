@@ -393,7 +393,7 @@
 }
 
 .price-button__icon {
-    background-image: var(--sprite-home__icon-currency-bpp);
+    background-image: var(--sprite-shared__icon-currency-bpp);
     width: 40px;
     height: 40px;
 }

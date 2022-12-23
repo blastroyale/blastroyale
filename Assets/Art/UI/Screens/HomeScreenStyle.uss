@@ -82,7 +82,7 @@
 }
 
 .player-header__trophy-icon {
-    background-image: var(--sprite-home__icon-trophy);
+    background-image: var(--sprite-shared__icon-trophy);
     width: 32px;
     height: 32px;
     margin-left: 16px;
@@ -162,7 +162,7 @@
     height: 20px;
     padding: 2px;
     flex-direction: row;
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BattlePassProgressBack.png?fileID=21300000&guid=32610552af28844669cdba62234811ad&type=3#BattlePassProgressBack');
+    background-image: var(--sprite-home__progress-battlepassbtn-bg);
     -unity-background-scale-mode: stretch-to-fill;
     position: absolute;
     bottom: 40px;
@@ -173,7 +173,7 @@
 .battle-pass-button__progress {
     padding: 2px;
     flex-direction: row;
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BattlePassProgress.png?fileID=21300000&guid=805b077c9a6dc4cc8acf308e183b7a0b&type=3#BattlePassProgress');
+    background-image: var(--sprite-home__progress-battlepassbtn);
     -unity-background-scale-mode: stretch-to-fill;
     flex-grow: 0.5;
 }
@@ -297,11 +297,11 @@
 }
 
 .resource-pool--bpp .resource-pool__icon {
-    background-image: var(--sprite-home__icon-currency-bpp);
+    background-image: var(--sprite-shared__icon-currency-bpp);
 }
 
 .resource-pool--cs .resource-pool__icon {
-    background-image: var(--sprite-home__icon-currency-cs);
+    background-image: var(--sprite-shared__icon-currency-cs);
 }
 
 .resource-pool__background {

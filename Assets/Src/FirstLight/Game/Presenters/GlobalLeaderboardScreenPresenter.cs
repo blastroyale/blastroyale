@@ -109,7 +109,7 @@ namespace FirstLight.Game.Presenters
 			}
 
 			leaderboardEntryView.SetData(leaderboardEntry.Position + 1,
-				leaderboardEntry.DisplayName.Substring(0, leaderboardEntry.DisplayName.Length - 4), -1,
+				leaderboardEntry.DisplayName.Substring(0, leaderboardEntry.DisplayName.Length - 5), -1,
 				leaderboardEntry.StatValue, isLocalPlayer);
 		}
 
@@ -196,7 +196,7 @@ namespace FirstLight.Game.Presenters
 			newEntry.AttachView(this, out LeaderboardEntryView view);
 			var leaderboardEntry = result.Leaderboard[0];
 			view.SetData(leaderboardEntry.Position + 1,
-				leaderboardEntry.DisplayName.Substring(0, leaderboardEntry.DisplayName.Length - 4), -1,
+				leaderboardEntry.DisplayName.Substring(0, leaderboardEntry.DisplayName.Length - 5), -1,
 				leaderboardEntry.StatValue,
 				true);
 

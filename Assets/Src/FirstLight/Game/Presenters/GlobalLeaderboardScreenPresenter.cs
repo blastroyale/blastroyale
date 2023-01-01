@@ -27,7 +27,7 @@ namespace FirstLight.Game.Presenters
 		{
 			public Action OnBackClicked;
 		}
-
+		private const int DefaultTrophies = 1000;
 		private const string UssLeaderboardEntryGlobal = "leaderboard-entry--global";
 		private const string UssLeaderboardEntryLocal = "leaderboard-entry--local";
 		private const string UssLeaderboardEntryPositionerHighlight = "leaderboard-entry-positioner--highlight";
@@ -195,9 +195,12 @@ namespace FirstLight.Game.Presenters
 			var newEntry = _leaderboardEntryAsset.Instantiate();
 			newEntry.AttachView(this, out LeaderboardEntryView view);
 			var leaderboardEntry = result.Leaderboard[0];
+			
+			int trophies = leaderboardEntry.StatValue == 0 ? DefaultTrophies : leaderboardEntry.StatValue;
+			
 			view.SetData(leaderboardEntry.Position + 1,
 				leaderboardEntry.DisplayName.Substring(0, leaderboardEntry.DisplayName.Length - 5), -1,
-				leaderboardEntry.StatValue,
+				trophies,
 				true);
 
 			newEntry.AddToClassList(UssLeaderboardEntryGlobal);

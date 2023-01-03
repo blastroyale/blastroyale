@@ -1,5 +1,5 @@
 .equipment-slot {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/CommonItemButton.png?fileID=21300000&guid=db6aed0c5abfe43cc8c60b70c979e786&type=3#CommonItemButton');
+    background-image: var(--sprite-home__button-equipmentslot-common);
     width: 608px;
     height: 140px;
     border-left-width: 0;
@@ -14,55 +14,15 @@
 }
 
 .equipment-slot:active {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/CommonItemButtonPressed.png?fileID=21300000&guid=2caf71907fd3e4fcba0a2d7647e48f43&type=3#CommonItemButtonPressed');
-}
-
-.equipment-slot--common {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/CommonItemButton.png?fileID=21300000&guid=db6aed0c5abfe43cc8c60b70c979e786&type=3#CommonItemButton');
-}
-
-.equipment-slot--common:active {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/CommonItemButtonPressed.png?fileID=21300000&guid=2caf71907fd3e4fcba0a2d7647e48f43&type=3#CommonItemButtonPressed');
-}
-
-.equipment-slot--uncommon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/UncommonItemButton.png?fileID=21300000&guid=b7cd89b76a1db44ad866b85c1d61c758&type=3#UncommonItemButton');
-}
-
-.equipment-slot--uncommon:active {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/UncommonItemButtonPressed.png?fileID=21300000&guid=30292db7ed06e40ae91381ca33584ea6&type=3#UncommonItemButtonPressed');
-}
-
-.equipment-slot--rare {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/RareItemButton.png?fileID=21300000&guid=6e52b2b6379eb4804b20488f1bbb797b&type=3#RareItemButton');
-}
-
-.equipment-slot--rare:active {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/RareItemButtonPressed.png?fileID=21300000&guid=1ae4b523bf2014a5195275870be2db40&type=3#RareItemButtonPressed');
-}
-
-.equipment-slot--epic {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/EpicItemButton.png?fileID=21300000&guid=cf7b87ab3ada8418985f6341d9929ea5&type=3#EpicItemButton');
-}
-
-.equipment-slot--epic:active {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/EpicItemButtonPressed.png?fileID=21300000&guid=3fc0af66ac5644eb9a6015a64ea7d285&type=3#EpicItemButtonPressed');
-}
-
-.equipment-slot--legendary {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/LegendaryItemButton.png?fileID=21300000&guid=a41b7ad1342264cde80e52208dd22e10&type=3#LegendaryItemButton');
-}
-
-.equipment-slot--legendary:active {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/LegendaryItemButtonPressed.png?fileID=21300000&guid=a128a1c2f19734f3093e01eca21e66f9&type=3#LegendaryItemButtonPressed');
+    background-image: var(--sprite-home__button-equipmentslot-common-pressed);
 }
 
 .equipment-slot--empty {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/NoItemButton.png?fileID=21300000&guid=c49ac5caad3204b44b684f7822d4f353&type=3#NoItemButton');
+    background-image: var(--sprite-home__button-equipmentslot-empty);
 }
 
 .equipment-slot--empty:active {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/NoItemButtonPressed.png?fileID=21300000&guid=7f4a1623a0e7a4ad89f807ed8323a21d&type=3#NoItemButtonPressed');
+    background-image: var(--sprite-home__button-equipmentslot-empty-pressed);
 }
 
 .equipment-slot__plus-rarity {
@@ -72,7 +32,7 @@
     right: 0;
     bottom: 5px;
     width: 202px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/PlusRarity.png?fileID=21300000&guid=b065780dc4a794729900bc9b9db132fa&type=3#PlusRarity');
+    background-image: var(--sprite-home__card-plusrarity);
     -unity-background-scale-mode: scale-to-fit;
 }
 
@@ -97,26 +57,6 @@
     top: 10px;
     bottom: 5px;
     scale: 1.35 1.35;
-}
-
-.equipment-slot__equipment-image--category-weapon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/WeaponEmptySlotIcon.png?fileID=21300000&guid=2242dcbd235394ffaa30eb599d68b376&type=3#WeaponEmptySlotIcon');
-}
-
-.equipment-slot__equipment-image--category-armor {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/ArmourEmptySlotIcon.png?fileID=21300000&guid=61511c97b754449238274a3cd95feb49&type=3#ArmourEmptySlotIcon');
-}
-
-.equipment-slot__equipment-image--category-amulet {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/AmuletEmptySlotIcon.png?fileID=21300000&guid=2545eacbca71a496a9d0bf7997e6bd4e&type=3#AmuletEmptySlotIcon');
-}
-
-.equipment-slot__equipment-image--category-shield {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/ShieldEmptySlotIcon.png?fileID=21300000&guid=0cbf9fde965644520b0b915ee8ada48e&type=3#ShieldEmptySlotIcon');
-}
-
-.equipment-slot__equipment-image--category-helmet {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/HelmetEmptySlotIcon.png?fileID=21300000&guid=31d84b6fb540b4b2aa56c00750dfa110&type=3#HelmetEmptySlotIcon');
 }
 
 .equipment-slot__title {
@@ -168,7 +108,7 @@
 }
 
 .equipment-slot__badge--nft {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/NFTbadge.png?fileID=21300000&guid=98913c2e22bec40af85e06978ea6cc76&type=3#NFTbadge');
+    background-image: var(--sprite-home__card-badge-nft);
     width: 74px;
     height: 32px;
     margin-right: 10px;
@@ -193,7 +133,7 @@
 }
 
 .equipment-slot__durability-icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/DurabilityIcon.png?fileID=21300000&guid=c23c775b5c0864573b27d89f2a6a6a04&type=3#DurabilityIcon');
+    background-image: var(--sprite-home__icon-durability);
     width: 40px;
     height: 40px;
     position: absolute;
@@ -207,7 +147,7 @@
     width: 296px;
     top: 88px;
     left: 275px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/DurabilityBarBg.png?fileID=21300000&guid=6154e24dd9964404b854e387ded58774&type=3#DurabilityBarBg');
+    background-image: var(--sprite-home__progress-durability-bg);
     padding-left: 2px;
     padding-right: 2px;
     padding-top: 2px;
@@ -216,7 +156,7 @@
 }
 
 .equipment-slot__durability-progress {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/DurabilityBar.png?fileID=21300000&guid=2d7f74c10ed3b4352a100dc9e2226f88&type=3#DurabilityBar');
+    background-image: var(--sprite-home__progress-durability);
     flex-grow: 1;
 }
 
@@ -253,7 +193,7 @@
 }
 
 .equipment-slot__category-icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/WeaponIcon.png?fileID=21300000&guid=7a4e7b5b5c7a24e8d825caff768a93f0&type=3#WeaponIcon');
+    background-image: var(--sprite-home__icon-equipmentcategory-weapon);
     width: 54px;
     height: 54px;
     position: absolute;
@@ -268,61 +208,13 @@
     margin-left: 128px;
 }
 
-.equipment-slot__category-icon--weapon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/WeaponIcon.png?fileID=21300000&guid=7a4e7b5b5c7a24e8d825caff768a93f0&type=3#WeaponIcon');
-}
-
-.equipment-slot__category-icon--armor {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/ArmourIcon.png?fileID=21300000&guid=88529a998aeeb470b882949759eef90b&type=3#ArmourIcon');
-}
-
-.equipment-slot__category-icon--amulet {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/AmuletIcon.png?fileID=21300000&guid=e44bf92f93e8d476f8c0e0011c7202b9&type=3#AmuletIcon');
-}
-
-.equipment-slot__category-icon--shield {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/ShieldIcon.png?fileID=21300000&guid=ea157e2f10b98433ca3ca20cff4b7438&type=3#ShieldIcon');
-}
-
-.equipment-slot__category-icon--helmet {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/HelmetIcon.png?fileID=21300000&guid=0c95fb2e870394ce49dfe1855ec97738&type=3#HelmetIcon');
-}
-
 .equipment-slot__faction-icon {
     position: absolute;
     left: -28px;
     bottom: -12px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/Factions_Celestial.png?fileID=21300000&guid=662b52885d7a942288765c746039cddf&type=3#Factions_Celestial');
+    background-image: var(--sprite-home__card-faction-celestial);
     width: 70px;
     height: 70px;
-}
-
-.equipment-slot__faction-icon--celestial {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/Factions_Chaos.png?fileID=21300000&guid=d4025c572aa98442bb0948e233ee49f4&type=3#Factions_Chaos');
-}
-
-.equipment-slot__faction-icon--chaos {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/Factions_Chaos.png?fileID=21300000&guid=d4025c572aa98442bb0948e233ee49f4&type=3#Factions_Chaos');
-}
-
-.equipment-slot__faction-icon--dark {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/Factions_Dark.png?fileID=21300000&guid=f93e634b026144242b41b271f943a0ad&type=3#Factions_Dark');
-}
-
-.equipment-slot__faction-icon--dimensional {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/Factions_Dimensional.png?fileID=21300000&guid=f97f5ac30a381422ea96469c0f5088b3&type=3#Factions_Dimensional');
-}
-
-.equipment-slot__faction-icon--order {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/Factions_Order.png?fileID=21300000&guid=1587622df1ef04e148062fec0724ade1&type=3#Factions_Order');
-}
-
-.equipment-slot__faction-icon--organic {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/Factions_Organic.png?fileID=21300000&guid=16854c121d2cb4018a1735b72548b4c1&type=3#Factions_Organic');
-}
-
-.equipment-slot__faction-icon--shadow {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/Factions_Shadow.png?fileID=21300000&guid=f84a265cda3db4a378eeff90c26294b0&type=3#Factions_Shadow');
 }
 
 .equipment-slot__notification {

@@ -17,7 +17,6 @@ namespace FirstLight.Game.UIElements
 		private const string EMPTY_LOC_KEY = "UITEquipment/no_{0}";
 
 		private const string UssBlock = "equipment-slot";
-		private const string UssBlockModifier = UssBlock + "--";
 		private const string UssBlockFilled = UssBlock + "--filled";
 		private const string UssBlockEmpty = UssBlock + "--empty";
 
@@ -27,10 +26,8 @@ namespace FirstLight.Game.UIElements
 
 		private const string UssCategoryIcon = UssBlock + "__category-icon";
 		private const string UssCategoryIconEmpty = UssCategoryIcon + "--empty";
-		private const string UssCategoryIconModifier = UssCategoryIcon + "--";
 
 		private const string UssFactionIcon = UssBlock + "__faction-icon";
-		private const string UssFactionIconModifier = UssFactionIcon + "--";
 
 		private const string UssBadgeHolder = UssBlock + "__badge-holder";
 		private const string UssBadge = UssBlock + "__badge";
@@ -46,7 +43,6 @@ namespace FirstLight.Game.UIElements
 		private const string UssEquipmentImage = UssBlock + "__equipment-image";
 		private const string UssEquipmentImageEmpty = UssEquipmentImage + "--empty";
 		private const string UssEquipmentImageShadow = UssEquipmentImage + "--shadow";
-		private const string UssEquipmentImageCategoryModifier = UssEquipmentImage + "--category-";
 
 		private const string UssDurabilityIcon = UssBlock + "__durability-icon";
 		private const string UssDurabilityProgressBg = UssBlock + "__durability-progress-bg";
@@ -54,6 +50,11 @@ namespace FirstLight.Game.UIElements
 
 		private const string UssNotification = UssBlock + "__notification";
 		private const string UssNotificationIcon = "notification-icon";
+
+		private const string UssSpriteSlotRarity = "sprite-home__button-equipmentslot-{0}";
+		private const string UssSpriteEmptySlot = "sprite-home__icon-emptyslot-{0}";
+		private const string UssSpriteEquipmentCategory = "sprite-home__icon-equipmentcategory-{0}";
+		private const string UssSpriteFaction = "sprite-home__card-faction-{0}";
 
 		public GameIdGroup Category { get; set; }
 
@@ -172,6 +173,7 @@ namespace FirstLight.Game.UIElements
 		{
 			var equipment = info.Equipment;
 			this.RemoveModifiers();
+			this.RemoveSpriteClasses();
 
 			_notificationIcon.SetDisplay(notification);
 
@@ -182,14 +184,16 @@ namespace FirstLight.Game.UIElements
 			}
 
 			AddToClassList(UssBlockFilled);
-			AddToClassList(UssBlockModifier + equipment.Rarity.ToString().ToLowerInvariant().Replace("plus", ""));
+			AddToClassList(string.Format(UssSpriteSlotRarity,
+				equipment.Rarity.ToString().ToLowerInvariant().Replace("plus", "")));
 
 			_equipmentName.text = string.Format(ScriptLocalization.UITEquipment.item_name_lvl,
 				equipment.GameId.GetTranslation());
 			_equipmentLevel.text = string.Format(ScriptLocalization.UITEquipment.card_lvl, equipment.Level);
 
-			_factionIcon.RemoveModifiers();
-			_factionIcon.AddToClassList(UssFactionIconModifier + equipment.Faction.ToString().ToLowerInvariant());
+			_factionIcon.RemoveSpriteClasses();
+			_factionIcon.AddToClassList(
+				string.Format(UssSpriteFaction, equipment.Faction.ToString().ToLowerInvariant()));
 
 			_durabilityProgress.style.flexGrow = (float) info.CurrentDurability / equipment.MaxDurability;
 
@@ -229,11 +233,10 @@ namespace FirstLight.Game.UIElements
 
 				ece.Category = cat;
 
-				var categoryClass = UssCategoryIconModifier + catStr;
-				ece._categoryIcon.AddToClassList(categoryClass);
-				ece._emptyCategoryIcon.AddToClassList(categoryClass);
-
-				ece._emptyEquipmentImage.AddToClassList(UssEquipmentImageCategoryModifier + catStr);
+				var emptyCategoryClass = string.Format(UssSpriteEmptySlot, catStr);
+				ece._emptyCategoryIcon.AddToClassList(emptyCategoryClass);
+				ece._emptyEquipmentImage.AddToClassList(emptyCategoryClass);
+				ece._categoryIcon.AddToClassList(string.Format(UssSpriteEquipmentCategory, catStr));
 
 				ece._emptyTitle.Localize(
 					string.Format(EMPTY_LOC_KEY, cat.ToString().ToLowerInvariant())

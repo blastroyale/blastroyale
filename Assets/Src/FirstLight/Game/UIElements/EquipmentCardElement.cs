@@ -25,21 +25,21 @@ namespace FirstLight.Game.UIElements
 		private const string UssHighlight = UssBlock + "__highlight";
 		private const string UssBackground = UssBlock + "__background";
 		private const string UssRarity = UssBlock + "__rarity";
-		private const string UssRarityModifier = UssRarity + "--";
+		private const string UssSpriteRarity = "sprite-home__card-rarity-{0}";
 		private const string UssCardHolder = UssBlock + "__card-holder";
 		private const string UssPlusRarity = UssBlock + "__plus-rarity";
 		private const string UssImage = UssBlock + "__image";
 		private const string UssImageShadow = UssImage + "--shadow";
 		private const string UssGrade = UssBlock + "__grade";
 		private const string UssFaction = UssBlock + "__faction";
-		private const string UssFactionModifier = UssFaction + "--";
+		private const string UssSpriteFaction = "sprite-home__card-faction-{0}";
 		private const string UssMaterial = UssBlock + "__material";
-		private const string UssMaterialModifier = UssMaterial + "--";
+		private const string UssSpriteMaterial = "sprite-home__card-material-{0}";
 		private const string UssLevel = UssBlock + "__level";
 		private const string UssName = UssBlock + "__name";
 		private const string UssAdjCatHolder = UssBlock + "__adj-cat-holder";
 		private const string UssCategory = UssBlock + "__category";
-		private const string UssCategoryModifier = UssCategory + "--";
+		private const string UssSpriteCategory = "sprite-home__card-category-{0}";
 		private const string UssAdjective = UssBlock + "__adjective";
 		private const string UssBadgeHolder = UssBlock + "__badge-holder";
 		private const string UssBadgeNft = UssBlock + "__badge-nft";
@@ -47,6 +47,7 @@ namespace FirstLight.Game.UIElements
 		private const string UssBadgeEquipped = UssBlock + "__badge-equipped";
 
 		private const string UssNotification = UssBlock + "__notification";
+
 		private const string UssNotificationIcon = "notification-icon";
 
 		public Equipment Equipment { get; private set; }
@@ -194,25 +195,27 @@ namespace FirstLight.Game.UIElements
 			_equippedBadge.SetDisplay(equipped);
 			_notification.SetDisplay(notification);
 
-			_rarity.RemoveModifiers();
-			_rarity.AddToClassList(UssRarityModifier +
-				equipment.Rarity.ToString().Replace("Plus", "").ToLowerInvariant());
+			_rarity.RemoveSpriteClasses();
+			_rarity.AddToClassList(string.Format(UssSpriteRarity,
+				equipment.Rarity.ToString().Replace("Plus", "").ToLowerInvariant()));
 
 			_plusRarity.SetDisplay((int) equipment.Rarity % 2 == 1);
 
 			_grade.text = equipment.Grade.ToString().Replace("Grade", "");
 
-			_material.RemoveModifiers();
-			_material.AddToClassList(UssMaterialModifier + equipment.Material.ToString().ToLowerInvariant());
+			_material.RemoveSpriteClasses();
+			_material.AddToClassList(string.Format(UssSpriteMaterial,
+				equipment.Material.ToString().ToLowerInvariant()));
 
-			_faction.RemoveModifiers();
-			_faction.AddToClassList(UssFactionModifier + equipment.Faction.ToString().ToLowerInvariant());
+			_faction.RemoveSpriteClasses();
+			_faction.AddToClassList(string.Format(UssSpriteFaction, equipment.Faction.ToString().ToLowerInvariant()));
 
 			_level.text = string.Format(ScriptLocalization.UITEquipment.card_lvl, equipment.Level);
 			_name.text = equipment.GameId.GetTranslation();
 
-			_category.RemoveModifiers();
-			_category.AddToClassList(UssCategoryModifier + equipment.GetEquipmentGroup().ToString().ToLowerInvariant());
+			_category.RemoveSpriteClasses();
+			_category.AddToClassList(string.Format(UssSpriteCategory,
+				equipment.GetEquipmentGroup().ToString().ToLowerInvariant()));
 
 			_adjective.text = equipment.Adjective.ToString().ToUpperInvariant(); // TODO: Add localization
 			_adjective.text = string.Format(ADJECTIVE_LOC_KEY, equipment.Adjective.ToString().ToLowerInvariant())

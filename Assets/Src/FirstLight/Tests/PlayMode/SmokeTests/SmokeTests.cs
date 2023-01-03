@@ -31,6 +31,10 @@ namespace FirstLight.Tests.PlayTests
 			
 			yield return FLGTestTools.WaitForGameModeSelectionScreen();
 
+			FLGTestTools.ClickCustomGameButton();
+
+			yield return FLGTestTools.WaitForCustomGameMenu();
+			
 			FLGTestTools.ClickCreateRoom();
 
 			yield return FLGTestTools.WaitForMatchMakingScreen();
@@ -39,21 +43,10 @@ namespace FirstLight.Tests.PlayTests
 
 			FLGTestTools.SelectWaterPosition();
 
-			yield return FLGTestTools.WaitForBRDeadScreenScreen();
+			yield return FLGTestTools.WaitForMatchEndScreen();
 
-			FLGTestTools.ClickDeadScreenLeave();
-			
-			yield return FLGTestTools.WaitForGameCompleteScreen();
+			FLGTestTools.ClickNextButton<MatchEndScreenPresenter>();
 
-			var gameCompleteScreen = GameObject.FindObjectOfType<WinnerScreenPresenter>();
-			yield return TestTools.UntilChildOfType<Button>(gameCompleteScreen.gameObject);
-
-			FLGTestTools.ClickGameCompleteContinue();
-
-			yield return FLGTestTools.WaitForResultsScreen();
-
-			FLGTestTools.ClickResultsHome();
-			
 			yield return FLGTestTools.WaitForMainMenu();
 		}
 

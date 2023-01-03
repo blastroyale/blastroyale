@@ -52,6 +52,8 @@ namespace FirstLight.Tests.PlayTests
 
 		public static void ClickUIToolKitButton(UIDocument parent, string name)
 		{
+			// TODO: Make this work with the event UnityEngine.UIElements.ClickEvent so its a more realistic event
+			
 			if(parent == null) { throw new NullReferenceException($"UI Document for {name} not found"); }
 			var button = parent.rootVisualElement.Q<Button>(name);
 			var navigationSubmitEvent = NavigationSubmitEvent.GetPooled();
@@ -61,6 +63,8 @@ namespace FirstLight.Tests.PlayTests
 
 		public static void ClickUIToolKitImageButton(UIDocument parent, string name)
 		{
+			// TODO: Make this work with the event UnityEngine.UIElements.ClickEvent so its a more realistic event
+
 			if(parent == null) { throw new NullReferenceException($"UI Document for {name} not found"); }
 			var button = parent.rootVisualElement.Q<ImageButton>(name);
 			button.ClickTest();

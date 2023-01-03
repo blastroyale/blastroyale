@@ -61,7 +61,7 @@ namespace FirstLight.Game.Presenters
 				var button = _buttonAsset.Instantiate();
 				button.userData = slot;
 				button.AttachView(this, out GameModeSelectionButtonView view);
-				view.SetData(GetVisibleClass(orderNumber++), slot);
+				view.SetData("GameModeButton"+orderNumber, GetVisibleClass(orderNumber++), slot);
 				view.Clicked += OnModeButtonClicked;
 				_buttonViews.Add(view);
 
@@ -77,7 +77,7 @@ namespace FirstLight.Game.Presenters
 			gameModeInfo.Entry.Mutators = new List<string>();
 			var createGameButton = _buttonAsset.Instantiate();
 			createGameButton.AttachView(this, out GameModeSelectionButtonView customGameView);
-			customGameView.SetData(GetVisibleClass(orderNumber++), gameModeInfo);
+			customGameView.SetData("CustomGameButton", GetVisibleClass(orderNumber++), gameModeInfo);
 			customGameView.Clicked += OnCustomGameClicked;
 			_buttonViews.Add(customGameView);
 			_buttonsSlider.Add(createGameButton);

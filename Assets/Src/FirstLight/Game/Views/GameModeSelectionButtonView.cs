@@ -103,8 +103,9 @@ namespace FirstLight.Game.Views
 		/// </summary>
 		/// <param name="orderNumber">Order of the button on the list</param>
 		/// <param name="gameModeInfo">Game mode data to fill the button's visuals</param>
-		public void SetData(string visibleClass, GameModeInfo gameModeInfo)
+		public void SetData(string buttonName, string visibleClass, GameModeInfo gameModeInfo)
 		{
+			_button.name = buttonName;
 			_button.AddToClassList(visibleClass);
 
 			SetData(gameModeInfo);
@@ -152,22 +153,22 @@ namespace FirstLight.Game.Views
 		{
 			if (GameModeInfo.Entry.Mutators.Count == 0)
 			{
-				_mutatorsPanel.AddToClassList("hidden");
+				_mutatorsPanel.SetDisplay(false);
 				return;
 			}
 			
-			_mutatorsPanel.RemoveFromClassList("hidden");
+			_mutatorsPanel.SetDisplay(true);
 
 			for (var mutatorIndex = 0; mutatorIndex < _mutatorLines.Count; mutatorIndex++)
 			{
 				if (mutatorIndex <= GameModeInfo.Entry.Mutators.Count - 1)
 				{
-					_mutatorLines[mutatorIndex].RemoveFromClassList("hidden");
+					_mutatorLines[mutatorIndex].SetDisplay(true);
 					SetMutatorLine(_mutatorLines[mutatorIndex], GameModeInfo.Entry.Mutators[mutatorIndex]);
 				}
 				else
 				{
-					_mutatorLines[mutatorIndex].AddToClassList("hidden");
+					_mutatorLines[mutatorIndex].SetDisplay(false);
 				}
 			}
 		}

@@ -39,7 +39,7 @@ namespace FirstLight.Tests.PlayTests
 			yield return TestTools.UntilObjectOfType<WinnerScreenPresenter>();
 		}
 		
-		public static IEnumerator WaitForBRDeadScreenScreen()
+		public static IEnumerator WaitForMatchEndScreen()
 		{
 			yield return TestTools.UntilObjectOfType<MatchEndScreenPresenter>();
 		}
@@ -49,7 +49,12 @@ namespace FirstLight.Tests.PlayTests
 			yield return TestTools.UntilObjectOfType<ResultsScreenPresenter>();
 		}
 #endregion
-		
+
+		public static void ClickNextButton<T>() where T : UiPresenter
+		{
+			TestTools.ClickUIToolKitButton(Object.FindObjectOfType<T>().GetComponent<UIDocument>(), "PlayButton");
+		}
+
 		public static void ClickPlayButton()
 		{
 			TestTools.ClickUIToolKitButton(Object.FindObjectOfType<HomeScreenPresenter>().GetComponent<UIDocument>(), "PlayButton");
@@ -85,7 +90,7 @@ namespace FirstLight.Tests.PlayTests
 
 		public static void ClickCustomGameButton()
 		{
-			TestTools.ClickUIToolKitButton(Object.FindObjectOfType<HomeScreenPresenter>().GetComponent<UIDocument>(), "CustomGameButton");
+			TestTools.ClickUIToolKitButton(Object.FindObjectOfType<GameModeSelectionPresenter>().GetComponent<UIDocument>(), "CustomGameButton");
 		}
 
 		public static void ClickCreateRoom()

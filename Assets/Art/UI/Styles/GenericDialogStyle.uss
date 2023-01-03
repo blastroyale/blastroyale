@@ -125,6 +125,7 @@
 
 .input-field > .unity-text-field__input {
     -unity-text-align: middle-center;
+    -unity-font-definition: var(--font-italic-dynamic);
 }
 
 .blocker {

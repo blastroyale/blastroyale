@@ -6,8 +6,8 @@
     --color-body: rgb(148, 45, 68);
     
     --font-bold: url('/Assets/Art/UI/Fonts/Stawix-Bold-Static.asset');
-    --font-italic: url('/Assets/Art/UI/Fonts/Stawix-Italic-Static.asset');
-
+    --font-italic: url('/Assets/Art/UI/Fonts/Stawix-Italic-Dynamic.asset');
+    
     transition-duration: 0.5s;
     -unity-font-definition: var(--font-italic);
 }

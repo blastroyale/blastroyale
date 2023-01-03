@@ -43,7 +43,6 @@
     padding: 20px;
     -unity-text-align: middle-center;
     font-size: 50px;
-    -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Condensed%20Ultra%20Italic.otf?fileID=12800000&guid=6ff2428eb8a974c2281717afe377e3c6&type=3#Stawix - Amsi Pro Condensed Ultra Italic');
     color: rgb(255, 255, 255);
     width: 100%;
     -unity-text-outline-width: 1px;
@@ -86,7 +85,6 @@
     padding: 20px;
     -unity-text-align: middle-center;
     font-size: 50px;
-    -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Condensed%20Ultra%20Italic.otf?fileID=12800000&guid=6ff2428eb8a974c2281717afe377e3c6&type=3#Stawix - Amsi Pro Condensed Ultra Italic');
     color: rgb(255, 255, 255);
     background-color: rgb(156, 98, 240);
     -unity-text-outline-width: 1px;
@@ -106,7 +104,6 @@
 
 .blocker__title {
     font-size: 100px;
-    -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Condensed%20Ultra%20Italic.otf?fileID=12800000&guid=6ff2428eb8a974c2281717afe377e3c6&type=3#Stawix - Amsi Pro Condensed Ultra Italic');
     color: rgb(255, 255, 255);
 }
 

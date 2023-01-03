@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using FirstLight.Services;
+using FirstLight.Server.SDK.Models;
 
-namespace FirstLight.Game.Services
+namespace FirstLight.Server.SDK.Modules.Commands
 {
 	/// <summary>
 	/// Rudimentary and minimal object container
@@ -16,7 +16,7 @@ namespace FirstLight.Game.Services
 			_objects[typeof(T)] = o;
 		}
 		
-		public T Get<T>() where T : class
+		public T? Get<T>() where T : class
 		{
 			return _objects[typeof(T)] as T;
 		}
@@ -24,19 +24,16 @@ namespace FirstLight.Game.Services
 
 	/// <summary>
 	/// Type holder to reference all game logic objects
-	/// TODO: Move to server SDK
 	/// </summary>
 	public class LogicContainer : ObjectContainer {}
 
 	/// <summary>
 	/// Type holder to reference all game service objects
-	/// TODO: Move to server SDK
 	/// </summary>
 	public class ServiceContainer : ObjectContainer {}
 
 	/// <summary>
 	/// Represents the context of a command execution on a given time
-	/// TODO: Move to server SDK
 	/// </summary>
 	public class CommandExecutionContext
 	{

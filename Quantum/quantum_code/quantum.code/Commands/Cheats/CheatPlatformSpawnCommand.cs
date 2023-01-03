@@ -5,7 +5,7 @@ namespace Quantum.Commands
 	/// <summary>
 	/// This command creates a weapon pickup in in the given position
 	/// </summary>
-	public unsafe class WeaponSpawnCommand : CommandBase
+	public unsafe class CheatWeaponSpawnCommand : CommandBase
 	{
 		public FPVector3 Position;
 		public GameId Weapon;

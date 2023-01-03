@@ -9,6 +9,7 @@ using FirstLight.Game.Infos;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Server.SDK.Models;
 using Photon.Deterministic;
 using Quantum;
 using UnityEngine;
@@ -323,7 +324,9 @@ namespace FirstLight.Game.Logic
 			{
 				var equipmentConfigs = GameLogic.ConfigsProvider.GetConfigsList<QuantumBaseEquipmentStatConfig>();
 				var equipmentCategory = config.EquipmentCategory.Keys.ElementAt(GetWeightedRandomDictionaryIndex(config.EquipmentCategory));
-				var matchingEquipment =  equipmentConfigs.Where(x =>x.Id.IsInGroup(equipmentCategory)).ToList();
+				var matchingEquipment = equipmentConfigs
+					.Where(x => x.Id.IsInGroup(equipmentCategory) && x.Id != GameId.Hammer).ToList();
+
 				gameId = matchingEquipment[GameLogic.RngLogic.Range(0, matchingEquipment.Count)].Id;
 			}
 			
@@ -526,7 +529,7 @@ namespace FirstLight.Game.Logic
 			var gameId = GameLogic.UniqueIdLogic.Ids[equipment];
 			var slot = gameId.GetSlot();
 
-			if (_loadout.TryGetValue(slot, out var equippedId))
+			if (_loadout.TryGetValue(slot, out var equippedId) && equippedId == equipment)
 			{
 				Unequip(equippedId);
 			}

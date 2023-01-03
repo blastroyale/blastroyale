@@ -48,9 +48,10 @@ namespace FirstLight.Game.Presenters
 		}
 		
 		/// <inheritdoc />
-		protected override async Task OnClosed()
+		protected override Task OnClosed()
 		{
 			SetLoadingPercentage(1f);
+			return Task.CompletedTask;
 		}
 	}
 }

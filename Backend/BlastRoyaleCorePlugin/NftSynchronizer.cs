@@ -45,6 +45,10 @@ namespace BlastRoyaleNFTPlugin
 			{
 				await _ctx.PlayerMutex.Lock(playfabId);
 				var serverState = await _ctx.ServerState.GetPlayerState(playfabId);
+				if (!serverState.Has<PlayerData>())
+				{
+					return false;
+				}
 				var equipmentData = serverState.DeserializeModel<EquipmentData>();
 				var lastBlockchainUpdate = await RequestBlockchainLastUpdate(playfabId);
 				if (equipmentData.LastUpdateTimestamp >= lastBlockchainUpdate)

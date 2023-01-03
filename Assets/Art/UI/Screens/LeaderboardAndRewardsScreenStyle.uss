@@ -42,7 +42,6 @@
 
 .player-name__text {
     font-size: 60px;
-    -unity-font-definition: var(--font-italic);
     -unity-font-style: bold;
     text-shadow: 5px 5px 0 rgb(0, 0, 0);
     color: rgb(255, 255, 255);
@@ -67,11 +66,11 @@
 
 .leaderboard-panel {
     width: 1270px;
-    height: 900px;
     position: absolute;
     right: 10%;
     top: 65px;
     display: none;
+    bottom: 153px;
 }
 
 .hidden-right.leaderboard-panel {
@@ -114,7 +113,6 @@
 }
 
 .leaderboard-header .header-label {
-    -unity-font-definition: var(--font-italic);
     font-size: 35px;
     -unity-font-style: normal;
     color: rgb(233, 226, 225);
@@ -133,11 +131,6 @@
 }
 
 .leaderboard-header__kills {
-    right: 330px;
-    -unity-text-align: upper-right;
-}
-
-.leaderboard-header__deaths {
     right: 235px;
     -unity-text-align: upper-right;
 }
@@ -189,7 +182,6 @@
 
 .craft-spice__title {
     font-size: 40px;
-    -unity-font-definition: var(--font-italic);
     -unity-font-style: bold;
     text-shadow: 5px 5px 0 rgb(0, 0, 0);
     color: rgb(248, 199, 46);
@@ -202,7 +194,6 @@
 
 .craft-spice__gained {
     font-size: 50px;
-    -unity-font-definition: var(--font-italic);
     -unity-font-style: normal;
     color: rgb(254, 130, 71);
     position: absolute;
@@ -221,7 +212,6 @@
 
 .craft-spice__total {
     font-size: 50px;
-    -unity-font-definition: var(--font-italic);
     -unity-font-style: normal;
     color: rgb(255, 255, 255);
     position: absolute;
@@ -259,7 +249,6 @@
 
 .trophies__title {
     font-size: 40px;
-    -unity-font-definition: var(--font-italic);
     -unity-font-style: bold;
     text-shadow: 5px 5px 0 rgb(0, 0, 0);
     color: rgb(248, 199, 46);
@@ -272,7 +261,6 @@
 
 .trophies__gained {
     font-size: 50px;
-    -unity-font-definition: var(--font-italic);
     -unity-font-style: normal;
     color: rgb(248, 199, 46);
     position: absolute;
@@ -291,7 +279,6 @@
 
 .trophies__total {
     font-size: 50px;
-    -unity-font-definition: var(--font-italic);
     -unity-font-style: normal;
     color: rgb(255, 255, 255);
     position: absolute;
@@ -329,7 +316,6 @@
 
 .bpp__title {
     font-size: 40px;
-    -unity-font-definition: var(--font-italic);
     -unity-font-style: bold;
     text-shadow: 5px 5px 0 rgb(0, 0, 0);
     color: rgb(248, 199, 46);
@@ -342,7 +328,6 @@
 
 .bpp__gained {
     font-size: 50px;
-    -unity-font-definition: var(--font-italic);
     -unity-font-style: normal;
     color: rgb(94, 255, 211);
     position: absolute;
@@ -352,7 +337,6 @@
 
 .bpp__to-level {
     font-size: 35px;
-    -unity-font-definition: var(--font-italic);
     -unity-font-style: normal;
     color: rgb(255, 255, 255);
     position: absolute;
@@ -362,7 +346,6 @@
 
 .bpp__level {
     font-size: 50px;
-    -unity-font-definition: var(--font-italic);
     -unity-font-style: normal;
     color: rgb(255, 255, 255);
     position: absolute;
@@ -408,7 +391,6 @@
 
 .bpp__bar__total {
     font-size: 35px;
-    -unity-font-definition: var(--font-italic);
     -unity-font-style: normal;
     color: rgb(255, 255, 255);
     position: absolute;
@@ -446,7 +428,6 @@
 
 .bpp__week-info__gained-week {
     font-size: 40px;
-    -unity-font-definition: var(--font-italic);
     -unity-font-style: normal;
     color: rgb(94, 255, 211);
     text-shadow: 2px 2px 0 rgb(0, 0, 0);
@@ -457,7 +438,6 @@
 
 .bpp__week-info__total-week {
     font-size: 40px;
-    -unity-font-definition: var(--font-italic);
     -unity-font-style: normal;
     color: rgb(255, 255, 255);
     text-shadow: 2px 2px 0 rgb(0, 0, 0);
@@ -467,12 +447,12 @@
     padding-left: 0;
 }
 
-.bpp__week-info__this-week {
+.bpp__week-info__next {
     font-size: 40px;
-    -unity-font-definition: var(--font-italic);
     -unity-font-style: normal;
     color: rgb(255, 255, 255);
     text-shadow: 2px 2px 0 rgb(0, 0, 0);
     -unity-text-outline-width: 1px;
     -unity-text-outline-color: rgb(0, 0, 0);
+    padding-right: 20px;
 }

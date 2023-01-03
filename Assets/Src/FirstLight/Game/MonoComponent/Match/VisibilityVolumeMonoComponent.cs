@@ -29,7 +29,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 			QuantumEvent.Subscribe<EventOnPlayerDead>(this, OnPlayerDead);
 		}
-		
+
 		private void OnDestroy()
 		{
 			_matchServices?.SpectateService?.SpectatedPlayer?.StopObserving(OnSpectatedPlayerChanged);
@@ -61,7 +61,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		private void OnTriggerEnter(Collider other)
 		{
 			if (!other.TryGetComponent<PlayerCharacterViewMonoComponent>(out var player)) return;
-			
+
 			_currentlyCollidingPlayers.TryAdd(player.EntityRef, player);
 
 			player.CollidingVisibilityVolumes.Add(this);
@@ -79,7 +79,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		private void OnTriggerExit(Collider other)
 		{
 			if (!other.TryGetComponent<PlayerCharacterViewMonoComponent>(out var player)) return;
-			
+
 			player.CollidingVisibilityVolumes.Remove(this);
 
 			// If ALL instances of this GO vis volume have been removed from player, only then the player is considered
@@ -103,7 +103,7 @@ namespace FirstLight.Game.MonoComponent.Match
 		{
 			CheckUpdateAllVisiblePlayers();
 		}
-		
+
 		private void OnMatchStartedMessage(MatchStartedMessage msg)
 		{
 			if (!msg.IsResync) return;
@@ -116,9 +116,23 @@ namespace FirstLight.Game.MonoComponent.Match
 			var spectatedPlayerWithinVolume =
 				_currentlyCollidingPlayers.ContainsKey(_matchServices.SpectateService.SpectatedPlayer.Value.Entity);
 
+			// Needed because players can get killed while being disconnected
+			var destroyedPlayers = new List<EntityRef>();
+
 			foreach (var player in _currentlyCollidingPlayers)
 			{
-				player.Value.SetRenderContainerVisible(spectatedPlayerWithinVolume);
+				if (player.Value == null)
+				{
+					destroyedPlayers.Add(player.Key);
+					continue;
+				}
+
+				player.Value.SetPlayerSilhouetteVisible(spectatedPlayerWithinVolume);
+			}
+
+			foreach (var entity in destroyedPlayers)
+			{
+				_currentlyCollidingPlayers.Remove(entity);
 			}
 		}
 
@@ -133,8 +147,8 @@ namespace FirstLight.Game.MonoComponent.Match
 				_currentlyCollidingPlayers.ContainsKey(_matchServices.SpectateService.SpectatedPlayer.Value.Entity);
 			var otherPlayerWithinVolume = _currentlyCollidingPlayers.ContainsKey(player.EntityRef);
 
-			player.SetRenderContainerVisible((spectatedPlayerWithinVolume == otherPlayerWithinVolume) ||
-			                                 (spectatedPlayerWithinVolume));
+			player.SetPlayerSilhouetteVisible((spectatedPlayerWithinVolume == otherPlayerWithinVolume) ||
+				(spectatedPlayerWithinVolume));
 		}
 	}
 }

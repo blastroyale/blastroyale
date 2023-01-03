@@ -15,6 +15,7 @@ namespace Quantum.Commands
 		/// <inheritdoc />
 		internal override void Execute(Frame f, PlayerRef playerRef)
 		{
+#if DEBUG
 			var characterEntity = f.GetSingleton<GameContainer>().PlayersData[playerRef].Entity;
 			var pc = f.Unsafe.GetPointer<PlayerCharacter>(characterEntity);
 			var stats = f.Unsafe.GetPointer<Stats>(characterEntity);
@@ -30,6 +31,9 @@ namespace Quantum.Commands
 
 			stats->GainAmmoPercent(f, characterEntity, FP._1);
 			pc->EquipSlotWeapon(f, characterEntity, pc->CurrentWeaponSlot);
+#else
+			Log.Error($"Trying to use Cheat command {this.GetType().Name} in Release build of Quantum Code");
+#endif
 		}
 	}
 }

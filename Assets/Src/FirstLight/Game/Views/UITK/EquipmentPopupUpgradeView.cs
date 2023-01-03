@@ -15,15 +15,17 @@ namespace FirstLight.Game.Views.UITK
 	public class EquipmentPopupUpgradeView : IUIView
 	{
 		private const string UssRequirementsIconModifier = "requirements__icon--{0}";
+		private const string UssPriceInsufficient = "requirements--insufficient";
 
 		private Label _currentLvl;
 		private Label _nextLvl;
 		private ListView _statsList;
-		private PriceButton _upgradeButton;
+		private LocalizedButton _upgradeButton;
 		private VisualElement _requirements;
 		private Label _requirementsAmount;
 		private VisualElement _requirementsIcon;
-
+		private VisualElement _bottomFiller;
+		
 		private Action _confirmAction;
 
 		private readonly List<Tuple<EquipmentStatType, float, float>> _statItems = new();
@@ -33,11 +35,12 @@ namespace FirstLight.Game.Views.UITK
 			_currentLvl = element.Q<Label>("LevelCurrent").Required();
 			_nextLvl = element.Q<Label>("LevelNext").Required();
 			_statsList = element.Q<ListView>("StatsList").Required();
-			_upgradeButton = element.Q<PriceButton>("UpgradeButton").Required();
+			_upgradeButton = element.Q<LocalizedButton>("UpgradePopupButton").Required();
 			_requirements = element.Q<VisualElement>("Requirements").Required();
 			_requirementsAmount = _requirements.Q<Label>("Amount").Required();
 			_requirementsIcon = _requirements.Q<VisualElement>("Icon").Required();
-
+			_bottomFiller = element.Q<VisualElement>("BottomFiller").Required();
+			
 			_statsList.DisableScrollbars();
 
 			_upgradeButton.clicked += () => _confirmAction();
@@ -49,14 +52,24 @@ namespace FirstLight.Game.Views.UITK
 			_nextLvl.text = string.Format(ScriptLocalization.UITEquipment.popup_upgrade_lvl, info.Equipment.Level + 1);
 
 			_upgradeButton.SetDisplay(!info.IsNft);
-			_upgradeButton.SetPrice(info.UpgradeCost, insufficient);
+			_upgradeButton.SetEnabled(!insufficient);
 
-			_requirements.SetDisplay(info.IsNft);
+			// TODO - Adjust desired behavior when calculations are correct client side and can be displayed
+			//_requirements.SetDisplay(info.IsNft);
+			_requirements.SetDisplay(!info.IsNft);
+			
 			_requirementsAmount.text = info.UpgradeCost.Value.ToString();
 			_requirementsIcon.RemoveModifiers();
 			_requirementsIcon.AddToClassList(string.Format(UssRequirementsIconModifier,
 				info.UpgradeCost.Key.ToString().ToLowerInvariant()));
 
+			if (insufficient)
+			{
+				_requirements.AddToClassList(UssPriceInsufficient);
+			}
+
+			_bottomFiller.SetDisplay(info.IsNft);
+			
 			_confirmAction = confirmAction;
 
 			_statsList.makeItem = () => new EquipmentStatBarElement();

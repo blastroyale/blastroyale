@@ -1,3 +1,4 @@
+using FirstLight.Server.SDK.Models;
 using FirstLight.Services;
 
 namespace FirstLight.Game.Logic

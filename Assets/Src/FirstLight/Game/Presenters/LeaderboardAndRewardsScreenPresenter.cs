@@ -117,10 +117,12 @@ namespace FirstLight.Game.Presenters
 			_showingLeaderboards = true;
 			_nextButton.text = "NEXT →";
 			_leaderboardPanel.style.display = DisplayStyle.Flex;
+			_rewardsPanel.style.display = DisplayStyle.None;
 		}
 		
 		private void ShowRewards()
 		{
+			_rewardsPanel.style.display = DisplayStyle.Flex;
 			_leaderboardPanel.AddToClassList("hidden-right");
 			_rewardsPanel.RemoveFromClassList("rewards-panel--hidden-start");
 			_showingLeaderboards = false;
@@ -203,7 +205,7 @@ namespace FirstLight.Game.Presenters
 				currentLevel++;
 			} while (gainedLeft > 0 && currentLevel < maxLevel);
 
-			_bppView.SetData(bppReward, levelsInfo, (int)bppPoolInfo.CurrentAmount, (int)bppPoolInfo.PoolCapacity);
+			_bppView.SetData(levelsInfo, (int)bppPoolInfo.CurrentAmount, (int)bppPoolInfo.PoolCapacity, bppPoolInfo);
 		}
 
 		private void UpdatePlayerName()
@@ -251,6 +253,8 @@ namespace FirstLight.Game.Presenters
 
 			var entries = _matchServices.MatchEndDataService.QuantumPlayerMatchData;
 
+			entries.SortByPlayerRank(false);
+			
 			foreach (var entry in entries)
 			{
 				var newEntry = _leaderboardEntryAsset.Instantiate();

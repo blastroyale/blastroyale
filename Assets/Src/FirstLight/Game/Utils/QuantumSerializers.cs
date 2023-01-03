@@ -1,11 +1,12 @@
 using System;
+using FirstLight.Server.SDK.Modules;
 using Newtonsoft.Json;
 using Photon.Deterministic;
 
 namespace FirstLight.Game.Utils
 {
 	[Serializable]
-	internal class SerializableVector
+	internal struct SerializableVector
 	{
 		public FP X;
 		public FP Y;
@@ -50,7 +51,7 @@ namespace FirstLight.Game.Utils
 		public override FPVector3 ReadJson(JsonReader reader, Type objectType, FPVector3 existingValue, bool hasExistingValue, JsonSerializer serializer)
 		{
 			var values = serializer.Deserialize<SerializableVector>(reader);
-			if (values == null || values.IsZero())
+			if (values.IsZero())
 				return FPVector3.Zero;
 			return new FPVector3(values.X, values.Y, values.Z);
 		}
@@ -69,9 +70,50 @@ namespace FirstLight.Game.Utils
 		public override FPVector2 ReadJson(JsonReader reader, Type objectType, FPVector2 existingValue, bool hasExistingValue, JsonSerializer serializer)
 		{
 			var values = serializer.Deserialize<SerializableVector>(reader);
-			if (values == null || values.IsZero())
+			if (values.IsZero())
 				return FPVector2.Zero;
 			return new FPVector2(values.X, values.Y);
+		}
+	}
+	
+	[Serializable]
+	internal struct SerializableFP
+	{
+		public long RawValue;
+
+		public static SerializableFP From(FP fp)
+		{
+			return new SerializableFP()
+			{
+				RawValue = fp.RawValue
+			};
+		}
+
+		public FP ToFP()
+		{
+			return FP.FromRaw(RawValue);
+		}
+	}
+
+	/// <summary>
+	/// JSON serializer for FP's
+	/// </summary>
+	public class FPConverter : JsonConverter<FP>
+	{
+		public override void WriteJson(JsonWriter writer, FP v, JsonSerializer serializer)
+		{
+			serializer.Serialize(writer, (object) SerializableFP.From(v));
+		}
+
+		public override FP ReadJson(
+			JsonReader reader,
+			Type objectType,
+			FP existingValue,
+			bool hasExistingValue,
+			JsonSerializer serializer)
+		{
+			SerializableFP serializableVector = serializer.Deserialize<SerializableFP>(reader);
+			return serializableVector.ToFP();
 		}
 	}
 }

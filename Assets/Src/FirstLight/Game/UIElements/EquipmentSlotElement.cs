@@ -44,6 +44,7 @@ namespace FirstLight.Game.UIElements
 		private const string UssPlusRarity = UssBlock + "__plus-rarity";
 
 		private const string UssEquipmentImage = UssBlock + "__equipment-image";
+		private const string UssEquipmentImageEmpty = UssEquipmentImage + "--empty";
 		private const string UssEquipmentImageShadow = UssEquipmentImage + "--shadow";
 		private const string UssEquipmentImageCategoryModifier = UssEquipmentImage + "--category-";
 
@@ -156,7 +157,7 @@ namespace FirstLight.Game.UIElements
 
 				emptyElement.Add(_emptyEquipmentImage = new VisualElement {name = "equipment-image"});
 				_emptyEquipmentImage.AddToClassList(UssEquipmentImage);
-				_emptyEquipmentImage.AddToClassList(UssEquipmentImageShadow);
+				_emptyEquipmentImage.AddToClassList(UssEquipmentImageEmpty);
 			}
 
 			Add(_notificationIcon = new VisualElement {name = "notification"});

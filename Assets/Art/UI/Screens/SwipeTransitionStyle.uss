@@ -41,7 +41,6 @@
 
 .message {
     position: absolute;
-    -unity-font-definition: var(--font-italic);
     font-size: 45px;
     -unity-font-style: bold;
     color: rgb(31, 41, 117);
@@ -88,7 +87,7 @@
 }
 
 .hidden-end.swipe-parent {
-    translate: -6500px 0;
+    translate: -8500px 0;
     transition-property: translate;
     transition-duration: 1s;
     transition-timing-function: ease-out;

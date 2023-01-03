@@ -1,4 +1,4 @@
-#GameModeButton {
+.game-mode-button {
     width: 529px;
     height: 763px;
     margin-left: 30px;
@@ -25,7 +25,7 @@
     overflow: visible;
 }
 
-#GameModeButton #Scalable {
+.game-mode-button__scalable {
     transition-duration: 0.15s;
     transition-property: scale;
     transition-timing-function: ease;
@@ -35,7 +35,7 @@
     height: 763px;
 }
 
-#GameModeButton.selected #Scalable {
+.game-mode-button--selected .game-mode-button__scalable {
     scale: 1 1;
     transition-property: scale;
     transition-duration: 0.15s;
@@ -43,53 +43,138 @@
     transition-delay: 0s;
 }
 
-#GameModeButton #GameModeOutline {
+.game-mode-button__outline {
     -unity-background-image-tint-color: rgba(1, 0, 0, 0);
     width: 529px;
     height: 763px;
     position: absolute;
 }
 
-#GameModeButton.selected #GameModeOutline {
+.game-mode-button--selected .game-mode-button__outline {
     -unity-background-image-tint-color: rgb(255, 255, 255);
 }
 
-#GameModeButton #GameModeIcon {
-    width: 50px;
-    height: 50px;
-    margin-left: 40px;
+.game-mode-button__frame {
+    width: 520px;
+    height: 750px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/ButtonBack.png?fileID=2800000&guid=e8f9490de6f124c18836af353c4e927e&type=3#ButtonBack');
+    margin-left: 6px;
+    margin-right: 6px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    display: flex;
 }
 
-#GameModeButton.battleroyale #GameModeIcon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/BattleRoyaleModeIcon.png?fileID=2800000&guid=c8082fa22a90a4b92b5cd7966cf32cc6&type=3#BattleRoyaleModeIcon');
+.game-mode-button:active .game-mode-button__frame {
+    width: 520px;
+    height: 750px;
+    margin-left: 16px;
+    margin-right: 6px;
+    margin-top: 16px;
+    margin-bottom: 6px;
+    display: flex;
+    background-image: none;
 }
 
-#GameModeButton.deathmatch #GameModeIcon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/DeathmatchModeIcon.png?fileID=2800000&guid=b1b4a0f0d286243dca54199c42a09b34&type=3#DeathmatchModeIcon');
+.game-mode-button__top {
+    width: 512px;
+    height: 512px;
+    display: flex;
+    -unity-background-scale-mode: scale-and-crop;
+    overflow: hidden;
+    visibility: visible;
 }
 
-#GameModeButton.custom #GameModeIcon {
+.game-mode-button--battleroyale .game-mode-button__top {
+    background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/BattleroyaleBackArt.png?fileID=2800000&guid=550c896610e0c478ea587216b78ee7f3&type=3#BattleroyaleBackArt');
+}
+
+.game-mode-button--deathmatch .game-mode-button__top {
+    background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/DeathmatchBackArt.png?fileID=2800000&guid=f622cd3d0b6fb4e3183f866053e0307b&type=3#DeathmatchBackArt');
+}
+
+.game-mode-button--custom .game-mode-button__top {
+    background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/CustomGameArt.png?fileID=2800000&guid=5db528171ce7e43ceaaad19d38e24b92&type=3#CustomGameArt');
+}
+
+.game-mode-button__top-mask {
+    width: 502px;
+    height: 731px;
+    margin-left: 2px;
+    overflow: hidden;
+    background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/ModeButton.svg?fileID=7388822144124034973&guid=396868652aab04b298372850f07f4a48&type=3#ModeButton');
+    margin-top: 2px;
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0);
+}
+
+.game-mode-button__top-image {
+    position: absolute;
+}
+
+.game-mode-button--battleroyale .game-mode-button__top-image {
+    background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/BattleroyaleTopArt.png?fileID=21300000&guid=6339c6b0a31c24805b10881f10e793c3&type=3#BattleroyaleTopArt');
+    width: 491px;
+    height: 466px;
+    top: 51px;
+    left: -5px;
+}
+
+.game-mode-button--deathmatch .game-mode-button__top-image {
+    background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/DeathmatchTopArt.png?fileID=2800000&guid=7ffb27509a1d146a8957bdb2a5922475&type=3#DeathmatchTopArt');
+    width: 491px;
+    height: 466px;
+    top: 48px;
+    left: -5px;
+}
+
+.game-mode-button--custom .game-mode-button__icon {
     background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/CustomgameModeIcon.png?fileID=2800000&guid=4dcea76e0c52e43d6b931b8c957efe36&type=3#CustomgameModeIcon');
 }
 
-#GameModeButton #DataPanel {
+.game-mode-button_bottom-mask {
+    margin-left: 2px;
+    margin-top: 3px;
+    position: absolute;
+    width: 502px;
+    height: 731px;
+    overflow: hidden;
+    background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/ModeButton.svg?fileID=7388822144124034973&guid=396868652aab04b298372850f07f4a48&type=3#ModeButton');
+    -unity-background-image-tint-color: rgba(1, 0, 0, 0);
+}
+
+.game-mode-button__data-panel {
     bottom: 0;
     position: absolute;
-    width: 460px;
+    width: 462px;
     height: 220px;
     left: -1px;
     background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/CustomBack.png?fileID=2800000&guid=8754b59a5a0a1406187cce4bb13888d2&type=3#CustomBack');
 }
 
-#GameModeButton.ranked #DataPanel {
+.game-mode-button--ranked .game-mode-button__data-panel {
     background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/RankedBack.png?fileID=21300000&guid=81218c1d1077f457695f794e0baee0ce&type=3#RankedBack');
 }
 
-#GameModeButton.casual #DataPanel {
+.game-mode-button--casual .game-mode-button__data-panel {
     background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/CasualBack.png?fileID=21300000&guid=632d33d0731fc4f2b8fc83cc741aaa9e&type=3#CasualBack');
 }
 
-#GameModeButton #GameModeLabel {
+.game-mode-button__icon {
+    width: 50px;
+    height: 50px;
+    margin-left: 40px;
+}
+
+.game-mode-button--battleroyale .game-mode-button__icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/BattleRoyaleModeIcon.png?fileID=2800000&guid=c8082fa22a90a4b92b5cd7966cf32cc6&type=3#BattleRoyaleModeIcon');
+}
+
+.game-mode-button--deathmatch .game-mode-button__icon {
+    background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/DeathmatchModeIcon.png?fileID=2800000&guid=b1b4a0f0d286243dca54199c42a09b34&type=3#DeathmatchModeIcon');
+}
+
+.game-mode-button__label {
     font-size: 50px;
     margin-left: 5px;
     -unity-text-align: middle-left;
@@ -100,63 +185,36 @@
     color: rgb(0, 0, 0);
 }
 
-#GameModeButton.ranked #GameModeLabel {
+.game-mode-button--ranked .game-mode-button__label {
     color: rgb(71, 18, 2);
 }
 
-#GameModeButton.casual #GameModeLabel {
+.game-mode-button--casual .game-mode-button__label {
     color: rgb(8, 20, 58);
 }
 
-#GameModeButton.battleroyale #Top {
-    background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/BattleroyaleBackArt.png?fileID=2800000&guid=550c896610e0c478ea587216b78ee7f3&type=3#BattleroyaleBackArt');
-}
-
-#GameModeButton.deathmatch #Top {
-    background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/DeathmatchBackArt.png?fileID=2800000&guid=f622cd3d0b6fb4e3183f866053e0307b&type=3#DeathmatchBackArt');
-}
-
-#GameModeButton.custom #Top {
-    background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/CustomGameArt.png?fileID=2800000&guid=5db528171ce7e43ceaaad19d38e24b92&type=3#CustomGameArt');
-}
-
-#GameModeButton.battleroyale #TopImage {
-    background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/BattleroyaleTopArt.png?fileID=21300000&guid=6339c6b0a31c24805b10881f10e793c3&type=3#BattleroyaleTopArt');
-    width: 491px;
-    height: 466px;
-    top: 51px;
-    left: -5px;
-}
-
-#GameModeButton.deathmatch #TopImage {
-    background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/DeathmatchTopArt.png?fileID=2800000&guid=7ffb27509a1d146a8957bdb2a5922475&type=3#DeathmatchTopArt');
-    width: 491px;
-    height: 466px;
-    top: 48px;
-    left: -5px;
-}
-
-#GameModeButton #GameModeDescription {
+.game-mode-button__description {
     color: rgb(0, 0, 0);
     font-size: 30px;
     -unity-text-align: upper-left;
     padding-left: 40px;
     white-space: normal;
+    padding-right: 4px;
 }
 
-#GameModeButton.ranked #GameModeDescription {
+.game-mode-button--ranked .game-mode-button__description {
     color: rgb(120, 3, 23);
 }
 
-#GameModeButton.casual #GameModeDescription {
+.game-mode-button--casual .game-mode-button__description {
     color: rgb(16, 59, 137);
 }
 
-#GameModeButton.custom #GameModeDescription {
+.game-mode-button--custom .game-mode-button__description {
     color: rgb(104, 100, 138);
 }
 
-#GameModeButton #GameModeTimer {
+.game-mode-button__timer {
     color: rgb(0, 0, 0);
     font-size: 30px;
     -unity-text-align: upper-right;
@@ -169,15 +227,15 @@
     right: 30px;
 }
 
-#GameModeButton.ranked #GameModeTimer {
+.game-mode-button--ranked .game-mode-button__timer {
     color: rgb(155, 47, 38);
 }
 
-#GameModeButton.casual #GameModeTimer {
+.game-mode-button--casual .game-mode-button__timer {
     color: rgb(16, 59, 137);
 }
 
-#GameModeButton #MutatorsPanel {
+.game-mode-button__mutators {
     width: 270px;
     height: auto;
     background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/MutatorsBack.svg?fileID=7388822144124034973&guid=0e58669687c4b4ff387d2604ced0f2ff&type=3#MutatorsBack');
@@ -188,26 +246,32 @@
     padding-top: 4px;
     padding-bottom: 4px;
     -unity-background-scale-mode: scale-and-crop;
+    flex-direction: column-reverse;
 }
 
-#GameModeButton .mutator-icon {
-    width: 30px;
-    height: 30px;
+.game-mode-button__mutator-line {
+    flex-direction: row;
 }
 
-#GameModeButton .speedup-mutator .mutator-icon {
+.game-mode-button__mutators__icon {
+    -unity-background-image-tint-color: rgb(0, 0, 0);
+    width: 46px;
+    height: 46px;
+}
+
+.speedup-mutator .game-mode-button__mutators__icon {
     background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/SpeedUpMutatorIcon.png?fileID=21300000&guid=eab910956b2584d8aa5adae86fc70675&type=3#SpeedUpMutatorIcon');
 }
 
-#GameModeButton .quickspecials-mutator .mutator-icon {
+.quickspecials-mutator .game-mode-button__mutators__icon {
     background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/QuickSpecialsMutatorIcon.png?fileID=21300000&guid=1b7e8fb2c20bc42098c49527ddc17ff1&type=3#QuickSpecialsMutatorIcon');
 }
 
-#GameModeButton .healthyair-mutator .mutator-icon {
+.healthyair-mutator .game-mode-button__mutators__icon {
     background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/HealthyAirMutatorIcon.png?fileID=21300000&guid=40a49e478e2a64d8ba5857e4e7116e77&type=3#HealthyAirMutatorIcon');
 }
 
-#GameModeButton .mutator-title {
+.game-mode-button__mutators__title {
     color: rgb(255, 255, 255);
     font-size: 27px;
     margin-left: 10px;
@@ -220,124 +284,113 @@
     padding-bottom: 0;
 }
 
-#GameModeButton #TopImage {
+.game-mode-button__crown {
+    width: 517px;
+    height: 240px;
+    left: 10%;
+    right: 0;
+    top: -170px;
+    align-items: center;
+    justify-content: center;
     position: absolute;
 }
 
-#GameModeButton.ranked #Crown {
-    position: absolute;
-    left: 50%;
-    right: 50%;
-    width: 86px;
-    height: 58px;
-    top: -70px;
+.game-mode-button--ranked .game-mode-button__crown {
     background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/CrownLight.png?fileID=21300000&guid=26da5d710c4234b85a48ff859b0ae828&type=3#CrownLight');
 }
 
-#GameModeButton.ranked #CrownImage {
-    background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/RankedCrown.png?fileID=2800000&guid=a3323e773a3d94bfda84717a55d45241&type=3#RankedCrown');
+.game-mode-button--ranked .game-mode-button__crown__image {
+    background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/RankedCrown.png?fileID=21300000&guid=a3323e773a3d94bfda84717a55d45241&type=3#RankedCrown');
+    width: 86px;
+    height: 58px;
 }
 
-#GameModeButton #ModeTag {
-    width: 130px;
-    height: 40px;
+.game-mode-button__mode-tag {
+    width: 150px;
+    height: 46px;
     right: -5px;
     top: -12px;
+    position: absolute;
 }
 
-#GameModeButton.ranked #ModeTag {
+.game-mode-button--ranked .game-mode-button__mode-tag {
     background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/RankedTag.png?fileID=21300000&guid=1fe1380aae6a2415ebb8ad3774901c63&type=3#RankedTag');
 }
 
-#GameModeButton.casual #ModeTag {
+.game-mode-button--casual .game-mode-button__mode-tag {
     background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/CasualTag.png?fileID=21300000&guid=278346cf582f948558a2b38a14e56b24&type=3#CasualTag');
 }
 
-#GameModeButton #ModeTagTitle {
+.game-mode-button__mode-tag-title {
     color: rgb(255, 255, 255);
-    font-size: 30px;
+    font-size: 35px;
     -unity-text-outline-width: 2px;
 }
 
-#GameModeButton.ranked #ModeTagTitle {
+.game-mode-button--ranked .game-mode-button__mode-tag-title {
     -unity-text-outline-color: rgb(177, 46, 0);
 }
 
-#GameModeButton.casual #ModeTagTitle {
+.game-mode-button--casual .game-mode-button__mode-tag-title {
     -unity-text-outline-color: rgb(0, 74, 158);
 }
 
-#GameModeButton.selected #Glow {
+.game-mode-button--selected .game-mode-button__glow {
     position: absolute;
-    background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/LightDefault.png?fileID=21300000&guid=8c715bd3c007f4488a36cac20e539774&type=3#LightDefault');
+    background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/BehindChosenModeLight.png?fileID=21300000&guid=52f7975f7a5a24e04ab18c4ea9cb930d&type=3#BehindChosenModeLight');
     -unity-background-image-tint-color: rgb(249, 140, 47);
-    width: 800px;
-    height: 1000px;
-    left: -130px;
-    top: -100px;
+    width: 750px;
+    height: 1200px;
+    left: -100px;
+    top: -200px;
     rotate: 5deg;
 }
 
-#ComingSoonGameModeImage {
+.comming-soon-image {
     width: 448px;
     height: 650px;
     background-image: url('project://database/Assets/Art/UI/Sprites/GameModeSelection/Comingsoon%20mode.png?fileID=21300000&guid=ca852558102bb4ca6a3e2308c16e9189&type=3#Comingsoon mode');
 }
 
-.hidden .hidden-gamemodebutton {
-    opacity: 0;
-    translate: 0 400px;
-    transition-duration: 0.4s, 0.4s;
-    transition-timing-function: ease-out, ease;
-    transition-property: opacity, translate;
-    transition-delay: 0s, 0s;
+.coming-soon-button {
+    height: 763px;
+    width: 529px;
+    margin-left: 30px;
+    margin-top: 120px;
+    margin-bottom: 100px;
+    justify-content: center;
 }
 
 .visible-gamemodebutton1 {
-    opacity: 1;
-    transition-duration: 0.25s, 0.25s;
-    transition-property: opacity, translate;
     transition-delay: 0.7s, 0.7s;
-    transition-timing-function: ease, ease-out-back;
 }
 
 .visible-gamemodebutton2 {
-    opacity: 1;
-    transition-duration: 0.25s, 0.25s;
-    transition-property: opacity, translate;
     transition-delay: 0.8s, 0.8s;
-    transition-timing-function: ease, ease-out-back;
 }
 
 .visible-gamemodebutton3 {
-    opacity: 1;
-    transition-duration: 0.25s, 0.25s;
-    transition-property: opacity, translate;
     transition-delay: 0.9s, 0.9s;
-    transition-timing-function: ease, ease-out-back;
 }
 
 .visible-gamemodebutton4 {
-    opacity: 1;
-    transition-duration: 0.25s, 0.25s;
-    transition-property: opacity, translate;
     transition-delay: 1s, 1s;
-    transition-timing-function: ease, ease-out-back;
 }
 
-.visible-gamemodebutton {
-    opacity: 1;
+.game-mode-button__title {
+    flex-direction: row;
+    margin-top: 30px;
 }
 
-.hidden .hidden-crown {
-    opacity: 0;
-    translate: 0 -100px;
+.coming-soon-button__title {
+    color: rgb(150, 118, 234);
+    position: absolute;
+    bottom: 100px;
+    font-size: 40px;
+    -unity-text-align: upper-center;
+    left: 90px;
 }
 
-.visible-crown {
-    opacity: 1;
-    transition-duration: 0.5s, 0.5s;
-    transition-property: opacity, translate;
-    transition-delay: 1.5s, 1.5s;
-    transition-timing-function: ease, ease-out-back;
+.anim-delay-3 {
+    transition-delay: 1.5s;
 }

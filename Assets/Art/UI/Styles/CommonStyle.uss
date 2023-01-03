@@ -4,11 +4,12 @@
     --color-highlight: rgb(196, 84, 122);
     --color-default: rgb(144, 98, 227);
     --color-body: rgb(148, 45, 68);
+    
+    --font-bold: url('/Assets/Art/UI/Fonts/Stawix-Bold-Static.asset');
+    --font-italic: url('/Assets/Art/UI/Fonts/Stawix-Italic-Static.asset');
+
     transition-duration: 0.5s;
-    --font-regular: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Normal%20Regular.otf?fileID=12800000&guid=fc8266ceb95e44d6d812af34322286b7&type=3#Stawix - Amsi Pro Normal Regular');
-    --font-bold: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Condensed%20Bold.otf?fileID=12800000&guid=a3548c302ed824acb9afda8587ded4e7&type=3#Stawix - Amsi Pro Condensed Bold');
-    --font-italic: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Condensed%20Ultra%20Italic.otf?fileID=12800000&guid=6ff2428eb8a974c2281717afe377e3c6&type=3#Stawix - Amsi Pro Condensed Ultra Italic');
-    --font-light-italic: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Normal%20ExtraLight%20Italic.otf?fileID=12800000&guid=ecdd4df26ce474069865eb3673c40456&type=3#Stawix - Amsi Pro Normal ExtraLight Italic');
+    -unity-font-definition: var(--font-italic);
 }
 
 .unity-button {
@@ -23,7 +24,6 @@
 .unity-button:hover {
     background-color: rgba(0, 0, 0, 0);
 }
-
 
 .unity-text-field {
     align-items: stretch;
@@ -50,20 +50,8 @@
     padding-left: 26px;
 }
 
-.font-regular {
-    -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Normal%20Regular.otf?fileID=12800000&guid=fc8266ceb95e44d6d812af34322286b7&type=3#Stawix - Amsi Pro Normal Regular');
-}
-
 .font-bold {
-    -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Condensed%20Bold.otf?fileID=12800000&guid=a3548c302ed824acb9afda8587ded4e7&type=3#Stawix - Amsi Pro Condensed Bold');
-}
-
-.font-italic {
-    -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Condensed%20Ultra%20Italic.otf?fileID=12800000&guid=6ff2428eb8a974c2281717afe377e3c6&type=3#Stawix - Amsi Pro Condensed Ultra Italic');
-}
-
-.font-light-italic {
-    -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Normal%20ExtraLight%20Italic.otf?fileID=12800000&guid=ecdd4df26ce474069865eb3673c40456&type=3#Stawix - Amsi Pro Normal ExtraLight Italic');
+    -unity-font-definition: var(--font-bold);
 }
 
 .font-style-normal {
@@ -89,7 +77,6 @@
 
 .button-with-icon {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMain.png?fileID=21300000&guid=8368e60ca24ab4818929e5d7b2dd77f2&type=3#ButtonMain');
-    -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Condensed%20Ultra%20Italic.otf?fileID=12800000&guid=6ff2428eb8a974c2281717afe377e3c6&type=3#Stawix - Amsi Pro Condensed Ultra Italic');
     font-size: 38px;
     text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.53);
     color: rgb(255, 255, 255);
@@ -181,7 +168,6 @@
     border-top-width: 1px;
     border-bottom-width: 1px;
     min-height: 70px;
-    -unity-font-definition: var(--font-italic);
     -unity-paragraph-spacing: -30px;
     -unity-font-style: bold;
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/GradientAndDots.png?fileID=21300000&guid=cf4abf5541a924d0da5e2d5681f54665&type=3#GradientAndDots');
@@ -292,7 +278,6 @@
 
 .tooltip {
     font-size: 32px;
-    -unity-font-definition: var(--font-italic);
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/TooltipwithTail.png?fileID=21300000&guid=7daa27819b9ff40648f92f624119dfc4&type=3#TooltipwithTail');
     color: rgb(186, 161, 230);
     position: absolute;
@@ -323,7 +308,6 @@
     border-top-width: 0;
     border-bottom-width: 0;
     background-color: rgba(0, 0, 0, 0);
-    -unity-font-definition: var(--font-italic);
     font-size: 42px;
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 1px;
@@ -348,6 +332,8 @@
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
     -unity-text-outline-color: rgb(0, 0, 0);
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/GreyButton.png?fileID=21300000&guid=b155921a84e5e41b192fe64b14618713&type=3#GreyButton');
+    -unity-text-align: middle-center;
+    padding-bottom: 0px;
 }
 
 .button-long--yellow {
@@ -399,14 +385,18 @@
     flex-shrink: 1;
 }
 
+.price-button__offset-title {
+    padding-top: 12px;
+}
+
 .price-button__price--insufficient {
     color: rgb(233, 58, 58);
 }
 
 .price-button__icon {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BPP.png?fileID=21300000&guid=100d689cc6ffc41f297345bcfc22f54e&type=3#BPP');
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
 }
 
 .price-button__icon--cs {
@@ -419,31 +409,34 @@
 
 .price-button__icon--coin {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/CoinIcon.png?fileID=21300000&guid=787f6e10544e24075863e3f881de6467&type=3#CoinIcon');
+    width: 55px;
+    height: 55px;
 }
 
 .button-next {
     background-image: url('project://database/Assets/Art/UI/Sprites/MatchEnd/NextButton.png?fileID=21300000&guid=7b7f8b5eb966f4fb38b88e5573f3a921&type=3#NextButton');
-    width: 562px;
-    height: 194px;
+    width: 526px;
+    height: 127px;
     background-color: rgba(255, 255, 255, 0);
     margin: 0;
     color: rgb(255, 255, 255);
-    -unity-font-definition: var(--font-italic);
-    text-shadow: 4px 4px 0 rgb(185, 65, 21);
-    -unity-text-outline-color: rgb(185, 65, 21);
-    font-size: 70px;
+    text-shadow: 3px 3px 0 #6B0402;
+    -unity-text-outline-color: #6B0402;
+    font-size: 52px;
     -unity-text-outline-width: 2px;
-    padding-bottom: 27px;
-    -unity-text-align: lower-right;
-    padding-right: 61px;
+    padding-bottom: 20px;
+    -unity-text-align: middle-center;
+    padding-right: 41px;
     -unity-font-style: bold;
     position: absolute;
-    right: 0;
-    bottom: 0;
+    right: 10px;
+    bottom: 10px;
+    padding-left: 190px;
 }
 
 .button-next:active {
-    color: rgb(161, 161, 161);
+    background-image: url('project://database/Assets/Art/UI/Sprites/MatchEnd/NextButtonPressed.png?fileID=21300000&guid=91eab3d77f5b44ee1a5ba527659fd88b&type=3#NextButtonPressed');
+    padding-bottom: 10px;
 }
 
 .might-display {
@@ -451,7 +444,6 @@
 }
 
 .might-display__label {
-    -unity-font-definition: var(--font-italic);
     font-size: 54px;
     color: rgb(248, 199, 46);
     -unity-text-outline-width: 1px;
@@ -522,4 +514,9 @@
 
 .width-spacer--xxxl {
     width: 125px;
+}
+
+.unity-scroll-view .unity-list-view__empty-label
+{
+    visibility: hidden;
 }

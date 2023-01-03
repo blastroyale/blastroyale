@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using System.Threading.Tasks;
 using Cinemachine;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
@@ -126,7 +128,13 @@ namespace FirstLight.Game.MonoComponent.Match
 		private void OnMatchStarted(MatchStartedMessage obj)
 		{
 			gameObject.SetActive(true);
-
+			
+			var mainOverlayCamera = Camera.allCameras.FirstOrDefault(go => go.CompareTag("MainOverlayCamera"));
+			if (mainOverlayCamera != null)
+			{
+				mainOverlayCamera.gameObject.SetActive(false);
+			}
+			
 			if (obj.IsResync)
 			{
 				SetActiveCamera(_adventureCamera);

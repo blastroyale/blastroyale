@@ -7,7 +7,6 @@
     width: 1350px;
     height: 820px;
     top: 30px;
-    -unity-font-definition: var(--font-italic);
     color: rgb(255, 255, 255);
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
     font-size: 38px;
@@ -88,6 +87,8 @@
     width: 500px;
     align-items: center;
     justify-content: center;
+    padding-left: 74px;
+    padding-bottom: 45px;
 }
 
 .content-scrapping {
@@ -117,7 +118,7 @@
 }
 
 .content-scrapping__amount-icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/CoinIcon.png?fileID=21300000&guid=787f6e10544e24075863e3f881de6467&type=3#CoinIcon');
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/Coin.png?fileID=21300000&guid=787f6e10544e24075863e3f881de6467&type=3#Coin');
     width: 60px;
     height: 60px;
     margin-right: 30px;
@@ -146,7 +147,11 @@
 }
 
 .content-scrapping__button {
-    margin-top: 85px;
+    margin-top: 35px;
+}
+
+.content-bottom-filler {
+    height: 120px;
 }
 
 .content-repairing {
@@ -174,7 +179,7 @@
     font-size: 36px;
     align-items: center;
     color: rgb(244, 200, 42);
-    margin-bottom: 73px;
+    margin-bottom: 20px;
 }
 
 .content-upgrading__arrow-icon {
@@ -254,8 +259,6 @@
     padding-bottom: 20px;
     padding-left: 70px;
     padding-right: 70px;
-    margin-top: 40px;
-    margin-bottom: 142px;
 }
 
 .requirements__title {
@@ -269,8 +272,8 @@
 
 .requirements__icon {
     background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BPP.png?fileID=21300000&guid=100d689cc6ffc41f297345bcfc22f54e&type=3#BPP');
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     -unity-background-scale-mode: scale-to-fit;
 }
 
@@ -283,7 +286,11 @@
 }
 
 .requirements__icon--coin {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/CoinIcon.png?fileID=21300000&guid=787f6e10544e24075863e3f881de6467&type=3#CoinIcon');
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/Coin.png?fileID=21300000&guid=787f6e10544e24075863e3f881de6467&type=3#Coin');
+}
+
+.requirements--insufficient {
+    color: rgb(233, 58, 58);
 }
 
 .requirements__amount {

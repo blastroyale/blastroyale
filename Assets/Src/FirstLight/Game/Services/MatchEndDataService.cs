@@ -62,10 +62,17 @@ namespace FirstLight.Game.Services
 		/// How much BPP the player had before the change
 		/// </summary>
 		public uint BPPBeforeChange { get; }
+		
 		/// <summary>
 		/// What level was the player in BP before the change
 		/// </summary>
 		public uint BPLevelBeforeChange { get; }
+
+		/// <summary>
+		/// Has local player left the match before it ended (either through menu UI, or during spectate)
+		/// This data point is available before the match ends
+		/// </summary>
+		public bool LeftBeforeMatchFinished { get; }
 	}
 
 	public struct PlayerMatchData
@@ -86,87 +93,99 @@ namespace FirstLight.Game.Services
 	}
 	
 	/// <inheritdoc />
-	public class MatchEndDataService : IMatchEndDataService
+	public class MatchEndDataService : IMatchEndDataService, MatchServices.IMatchService
 	{
 		/// <inheritdoc />
-		public List<QuantumPlayerMatchData> QuantumPlayerMatchData { get; set; }
+		public List<QuantumPlayerMatchData> QuantumPlayerMatchData { get; private set; }
 		/// <inheritdoc />
-		public bool ShowUIStandingsExtraInfo { get; set; }
+		public bool ShowUIStandingsExtraInfo { get; private set; }
 		/// <inheritdoc />
-		public PlayerRef LocalPlayer { get; set; }
+		public PlayerRef LocalPlayer { get; private set; }
 		/// <inheritdoc />
-		public Dictionary<PlayerRef, PlayerMatchData> PlayerMatchData { get; set; }
+		public Dictionary<PlayerRef, PlayerMatchData> PlayerMatchData { get; private set; } = new Dictionary<PlayerRef, PlayerMatchData>();
 		/// <inheritdoc />
-		public List<RewardData> Rewards { get; set; }
+		public List<RewardData> Rewards { get; private set; }
 		/// <inheritdoc />
-		public int TrophiesChange { get; set; }
+		public int TrophiesChange { get; private set; }
 		/// <inheritdoc />
-		public uint TrophiesBeforeChange { get; set; }
+		public uint TrophiesBeforeChange { get; private set; }
 		/// <inheritdoc />
-		public uint CSBeforeChange { get; set; }
+		public uint CSBeforeChange { get; private set; }
 		/// <inheritdoc />
-		public uint BPPBeforeChange { get; set; }
+		public uint BPPBeforeChange { get; private set; }
 		/// <inheritdoc />
-		public uint BPLevelBeforeChange { get; set; }
+		public uint BPLevelBeforeChange { get; private set; }
+		/// <inheritdoc />
+		public bool LeftBeforeMatchFinished { get; private set; }
 
 		private IGameServices _services;
 		private IGameDataProvider _dataProvider;
 
-		public MatchEndDataService(QuantumGame game, IGameServices services, IGameDataProvider dataProvider)
+		public MatchEndDataService(IGameServices services, IGameDataProvider dataProvider)
 		{
 			_services = services;
 			_dataProvider = dataProvider;
-			FetchEndOfMatchData(game);
+			_services.MessageBrokerService.Subscribe<LeftBeforeMatchFinishedMessage>(OnLeftBeforeMatchFinishedMessage);
+		}
+		
+		/// <inheritdoc />
+		public void OnMatchStarted(QuantumGame game, bool isReconnect)
+		{
+			TrophiesBeforeChange = _dataProvider.PlayerDataProvider.Trophies.Value;
+			CSBeforeChange = (uint)_dataProvider.CurrencyDataProvider.Currencies[GameId.CS];
+			ShowUIStandingsExtraInfo = game.Frames.Verified.Context.GameModeConfig.ShowUIStandingsExtraInfo;
+			LocalPlayer = game.GetLocalPlayerRef();
+			PlayerMatchData = new Dictionary<PlayerRef, PlayerMatchData>();
 		}
 
-		private void FetchEndOfMatchData(QuantumGame  game)
+		/// <inheritdoc />
+		public void OnMatchEnded(QuantumGame game, bool isDisconnected)
 		{
-			var frame = game.Frames.Verified;
-			var quantumPlayerMatchData = frame.GetSingleton<GameContainer>().GetPlayersMatchData(frame, out _);
-
-			QuantumPlayerMatchData = quantumPlayerMatchData;
-
-			PlayerMatchData = new Dictionary<PlayerRef, PlayerMatchData>();
-			
-			foreach (var quantumPlayerData in quantumPlayerMatchData)
+			if (isDisconnected)
 			{
-				Equipment weapon = default;
-				List<Equipment> loadout = null;
+				return;
+			}
+			
+			var frame = game.Frames.Verified;
+			var gameContainer = frame.GetSingleton<GameContainer>();
+			
+			QuantumPlayerMatchData = gameContainer.GetPlayersMatchData(frame, out _);
 
-				var playerRuntimeData = frame.GetPlayerData(quantumPlayerData.Data.Player);
-				if (playerRuntimeData != null)
+			PlayerMatchData.Clear();
+			foreach (var quantumPlayerData in QuantumPlayerMatchData)
+			{
+				// This means that the match disconnected before the 
+				if (quantumPlayerData.Data.Player == PlayerRef.None)
 				{
-					weapon = playerRuntimeData.Weapon;
-					loadout = playerRuntimeData.Loadout.ToList();
+					return;
 				}
-
-				var playerData = new PlayerMatchData(quantumPlayerData.Data.Player, quantumPlayerData, weapon, loadout??new List<Equipment>());
+				
+				var playerRuntimeData = frame.GetPlayerData(quantumPlayerData.Data.Player);
+				var weapon = playerRuntimeData?.Weapon ?? default;
+				var loadout = playerRuntimeData?.Loadout.ToList() ?? new List<Equipment>();
+				var playerData = new PlayerMatchData(quantumPlayerData.Data.Player, quantumPlayerData, weapon, loadout);
+				
 				PlayerMatchData.Add(playerData.PlayerRef, playerData);
 			}
 
-			ShowUIStandingsExtraInfo =
-				frame.Context.GameModeConfig.ShowUIStandingsExtraInfo;
-			LocalPlayer = game.GetLocalPlayerRef();
-
-			GetRewards(game, frame);
+			GetRewards(frame, gameContainer);
+		}
+		
+		private void OnLeftBeforeMatchFinishedMessage(LeftBeforeMatchFinishedMessage msg)
+		{
+			LeftBeforeMatchFinished = true;
 		}
 
-		private void GetRewards(QuantumGame  game, Frame frame)
+		private void GetRewards(Frame frame, GameContainer gameContainer)
 		{
-			var executingPlayer = game.GetLocalPlayers()[0];
-			var matchType = _services.NetworkService.QuantumClient.CurrentRoom.GetMatchType();
-
-			var gameContainer = frame.GetSingleton<GameContainer>();
-			var gameLogic = _services.GameLogic;
+			var room = _services.NetworkService.QuantumClient.CurrentRoom;
+			var matchType = room?.GetMatchType() ?? _services.GameModeService.SelectedGameMode.Value.Entry.MatchType;
 
 			if (!frame.Context.GameModeConfig.AllowEarlyRewards && !gameContainer.IsGameCompleted &&
 				!gameContainer.IsGameOver)
 			{
 				return;
 			}
-			
-			TrophiesBeforeChange = gameLogic.PlayerLogic.Trophies.Value;
-			CSBeforeChange = (uint)_dataProvider.CurrencyDataProvider.Currencies[GameId.CS];
 
 			var predictedProgress = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
 			BPPBeforeChange = predictedProgress.Item2;
@@ -175,13 +194,19 @@ namespace FirstLight.Game.Services
 			var rewardSource = new RewardSource()
 			{
 				MatchData = QuantumPlayerMatchData,
-				ExecutingPlayer = executingPlayer,
+				ExecutingPlayer = LocalPlayer,
 				MatchType = matchType,
 				DidPlayerQuit = false,
-				GamePlayerCount = QuantumPlayerMatchData.Select(d => !d.IsBot).Count()
+				GamePlayerCount = QuantumPlayerMatchData.Count()
 			};
-			Rewards = gameLogic.RewardLogic.GiveMatchRewards(rewardSource, out var trophyChange);
+			Rewards = _dataProvider.RewardDataProvider.CalculateMatchRewards(rewardSource, out var trophyChange);
 			TrophiesChange = trophyChange;
+		}
+
+		/// <inheritdoc />
+		public void Dispose()
+		{
+			_services.MessageBrokerService?.UnsubscribeAll(this);
 		}
 	}
 }

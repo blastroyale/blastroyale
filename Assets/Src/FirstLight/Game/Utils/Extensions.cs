@@ -136,14 +136,20 @@ namespace FirstLight.Game.Utils
 			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.GameIds)}/{id.ToString()}");
 		}
 		
-		
-
 		/// <summary>
 		/// Gets the translation string of the given <paramref name="group"/>
 		/// </summary>
 		public static string GetTranslation(this GameIdGroup group)
 		{
 			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.GameIds)}/{group.ToString()}");
+		}
+		
+		/// <summary>
+		/// Gets the translation for  of the given <paramref name="group"/>
+		/// </summary>
+		public static string GetMapDropPointTranslation(this string dropPointName)
+		{
+			return LocalizationManager.GetTranslation($"MapDropPoints/{dropPointName}");
 		}
 		
 		/// <summary>

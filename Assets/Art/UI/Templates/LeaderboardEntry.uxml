@@ -6,7 +6,6 @@
             <ui:VisualElement name="RankBadge" class="leaderboard-entry__rank-badge" />
             <ui:Label text="PLAYER NAME" display-tooltip-when-elided="true" name="PlayerName" class="leaderboard-entry--player-name leaderboard-entry__player-name" />
             <ui:Label text="12" display-tooltip-when-elided="true" name="Kills" class="leaderboard-entry__kills" />
-            <ui:Label text="5" display-tooltip-when-elided="true" name="Deaths" class="leaderboard-entry__deaths" style="left: 200px;" />
             <ui:VisualElement name="TrophiesBar" class="leaderboard-entry__trophies-bar">
                 <ui:VisualElement name="TrophiesIcon" class="leaderboard-entry__trophies-icon" />
                 <ui:Label text="1400" display-tooltip-when-elided="true" name="TrophiesAmount" class="leaderboard-entry__trophies-amount" />

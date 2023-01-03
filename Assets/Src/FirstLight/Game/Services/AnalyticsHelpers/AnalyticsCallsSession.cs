@@ -113,6 +113,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			Analytics.SetUserId(id);
 			FirebaseAnalytics.SetUserId(id);
 			SingularSDK.SetCustomUserId(id);
+			UnityEngine.CrashReportHandler.CrashReportHandler.SetUserMetadata("playfab_id", id);
 
 			var loginData = new Dictionary<string, object> 		{
 				{"client_version", VersionUtils.VersionInternal },

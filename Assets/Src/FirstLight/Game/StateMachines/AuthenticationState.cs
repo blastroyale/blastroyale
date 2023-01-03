@@ -92,7 +92,7 @@ namespace FirstLight.Game.StateMachines
 			
 			guestOrRegisteredSelection.OnEnter(OpenGuestOrRegisteredSelectionScreen);
 			guestOrRegisteredSelection.Event(_loginAsGuestEvent).OnTransition(CloseGuestOrRegisteredSelectionScreen).Target(guestLogin);
-			guestOrRegisteredSelection.Event(_goToLoginClickedEvent).OnTransition(CloseGuestOrRegisteredSelectionScreen).Target(guestLogin);
+			guestOrRegisteredSelection.Event(_goToLoginClickedEvent).OnTransition(CloseGuestOrRegisteredSelectionScreen).Target(login);
 
 			login.OnEnter(OpenLoginScreen);
 			login.Event(_goToRegisterClickedEvent).OnTransition(CloseLoginScreen).Target(register);

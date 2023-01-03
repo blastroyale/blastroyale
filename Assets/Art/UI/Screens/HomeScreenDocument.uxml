@@ -10,7 +10,7 @@
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="CSCurrency" currency="CS" class="anim-delay-2 anim-translate anim-translate--down-s" />
             </ui:VisualElement>
             <ui:VisualElement picking-mode="Ignore" name="RightButtons" class="main-buttons main-buttons--right">
-                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/discord" name="DiscordButton" class="sfx-click-forwards button-with-icon button-with-icon--small button-with-icon--discord anim-delay-3 anim-translate anim-translate--left-l">
+                    <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/discord" name="DiscordButton" class="sfx-click-forwards button-with-icon button-with-icon--small button-with-icon--discord anim-delay-3 anim-translate anim-translate--left-l">
                     <ui:VisualElement class="button-with-icon__icon" />
                 </FirstLight.Game.UIElements.LocalizedButton>
                 <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/shop" name="StoreButton" class="sfx-click-forwards button-with-icon button-with-icon--yellow button-with-icon--shop anim-delay-2 anim-translate anim-translate--left-l">

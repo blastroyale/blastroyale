@@ -10,19 +10,19 @@
                 <ui:VisualElement name="Container" style="flex-grow: 1; align-items: center; justify-content: space-between; padding-top: 48px; padding-bottom: 40px;">
                     <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITLoginRegister/email" name="EmailTextField" class="input-field" />
                     <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITLoginRegister/password" name="PasswordTextField" password="true" class="input-field" style="margin-top: 28px; margin-bottom: 44px;" />
-                    <ui:VisualElement class="button-flat-outline">
+                    <ui:VisualElement class="button-flat-outline sfx-click-forwards">
                         <FirstLight.Game.UIElements.LocalizedButton localization-key="UITLoginRegister/login" name="LoginButton" class="button-flat button-flat--primary" />
                     </ui:VisualElement>
                     <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITShared/or" style="color: rgb(122, 118, 167); font-size: 30px; margin-bottom: 8px;" />
-                    <ui:VisualElement class="button-flat-outline">
+                    <ui:VisualElement class="button-flat-outline sfx-click-forwards">
                         <FirstLight.Game.UIElements.LocalizedButton localization-key="UITLoginRegister/register_fl_id" name="RegisterButton" class="button-flat button-flat--secondary" style="-unity-text-outline-color: rgb(59, 29, 144); -unity-background-image-tint-color: rgb(59, 29, 144);" />
                     </ui:VisualElement>
                     <ui:VisualElement style="flex-direction: row; justify-content: space-between;">
-                        <ui:VisualElement class="button-flat-outline">
+                        <ui:VisualElement class="button-flat-outline sfx-click-forwards">
                             <FirstLight.Game.UIElements.LocalizedButton localization-key="UITLoginRegister/reset_password" name="ResetPasswordButton" class="button-flat button-flat--secondary" />
                         </ui:VisualElement>
                         <ui:VisualElement style="height: 0; width: 51px;" />
-                        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITLoginRegister/play_as_guest" name="PlayAsGuestButton" class="button-flat button-flat--secondary" />
+                        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITLoginRegister/play_as_guest" name="PlayAsGuestButton" class="button-flat button-flat--secondary sfx-click-forwards" />
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="Blocker" class="blocker-hidden" style="background-color: rgba(0, 0, 0, 0.36); position: absolute; left: 0; top: 0; right: 0; bottom: 0; transition-duration: 0.3s;" />

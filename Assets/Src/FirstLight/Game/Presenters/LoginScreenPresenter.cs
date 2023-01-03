@@ -44,6 +44,8 @@ namespace FirstLight.Game.Presenters
 			root.Q<Button>("RegisterButton").clicked += OnRegisterButtonClicked;
 			root.Q<Button>("ResetPasswordButton").clicked += OnResetPasswordButtonClicked;
 			root.Q<Button>("PlayAsGuestButton").clicked += OnPlayAsGuestButtonClicked;
+
+			root.SetupClicks(_services);
 		}
 
 		/// <summary>

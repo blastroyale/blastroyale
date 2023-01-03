@@ -1,5 +1,6 @@
 using System;
 using FirstLight.FLogger;
+using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using UnityEngine.UIElements;
@@ -24,6 +25,13 @@ namespace FirstLight.Game.Presenters
 
 		private VisualElement _blockerElement;
 
+		private IGameServices _services;
+
+		private void Awake()
+		{
+			_services = MainInstaller.Resolve<IGameServices>();
+		}
+
 		protected override void QueryElements(VisualElement root)
 		{
 			_emailField = root.Q<TextField>("EmailTextField").Required();
@@ -34,6 +42,8 @@ namespace FirstLight.Game.Presenters
 
 			root.Q<Button>("LoginButton").clicked += OnLoginClicked;
 			root.Q<Button>("RegisterButton").clicked += OnRegisterClicked;
+
+			root.SetupClicks(_services);
 		}
 
 		/// <summary>

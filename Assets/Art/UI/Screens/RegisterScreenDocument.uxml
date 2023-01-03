@@ -11,11 +11,11 @@
                     <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITLoginRegister/email" name="EmailTextField" class="input-field" />
                     <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITLoginRegister/username" name="UsernameTextField" class="input-field" style="margin-top: 22px; margin-bottom: 22px;" />
                     <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITLoginRegister/password" name="PasswordTextField" password="true" class="input-field" style="margin-bottom: 50px;" />
-                    <ui:VisualElement class="button-flat-outline">
+                    <ui:VisualElement class="button-flat-outline sfx-click-forwards">
                         <FirstLight.Game.UIElements.LocalizedButton localization-key="UITLoginRegister/register" name="RegisterButton" class="button-flat button-flat--primary" style="width: 300px;" />
                     </ui:VisualElement>
                     <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITShared/or" style="color: rgb(122, 118, 167); font-size: 30px; margin-bottom: 8px;" />
-                    <ui:VisualElement class="button-flat-outline">
+                    <ui:VisualElement class="button-flat-outline sfx-click-forwards">
                         <FirstLight.Game.UIElements.LocalizedButton localization-key="UITLoginRegister/login_with_fl_id" name="LoginButton" class="button-flat button-flat--secondary" style="width: 323px; white-space: normal; padding-left: 20px; padding-right: 20px;" />
                     </ui:VisualElement>
                 </ui:VisualElement>

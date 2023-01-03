@@ -46,13 +46,13 @@ namespace FirstLight.Game.Presenters
 		{
 			_blockerElement.EnableInClassList("blocker-hidden", !active);
 		}
-		
+
 
 		private void OnLoginRegisterClicked()
 		{
 			Data.GoToLoginClicked();
 		}
-		
+
 		private void OnPlayAsGuestButtonClicked()
 		{
 			_services.AnalyticsService.UiCalls.ButtonAction(UIAnalyticsButtonsNames.PlayAsGuest);

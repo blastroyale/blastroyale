@@ -50,17 +50,17 @@
 }
 
 .player-name--first .player-name__badge {
-    background-image: var(--sprite-match__icon-medal-1st);
+    background-image: var(--sprite-shared__icon-medal-1st);
     display: flex;
 }
 
 .player-name--second .player-name__badge {
-    background-image: var(--sprite-match__icon-medal-2nd);
+    background-image: var(--sprite-shared__icon-medal-2nd);
     display: flex;
 }
 
 .player-name--third .player-name__badge {
-    background-image: var(--sprite-match__icon-medal-3rd);
+    background-image: var(--sprite-shared__icon-medal-3rd);
     display: flex;
 }
 

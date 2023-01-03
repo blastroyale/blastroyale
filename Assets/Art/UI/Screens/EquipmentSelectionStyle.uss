@@ -114,7 +114,7 @@
 }
 
 .equipment-tag--cooldown .equipment-tag__icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/CSCooldownIcon.png?fileID=21300000&guid=8605e2ad805d4449cb6ea728529f837b&type=3#CSCooldownIcon');
+    background-image: var(--sprite-home__icon-cooldown-cs);
     width: 30px;
 }
 

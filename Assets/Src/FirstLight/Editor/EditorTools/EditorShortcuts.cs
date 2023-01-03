@@ -271,8 +271,7 @@ namespace FirstLight.Editor.EditorTools
 						 .OrderBy(s => s)
 						 .Where(path =>
 							 path.StartsWith(SPRITES_FOLDER) && !Directory.Exists(path) &&
-							 AssetDatabase.GetMainAssetTypeAtPath(path) == typeof(Texture2D) &&
-							 !path.Contains("SpritesOld"))
+							 AssetDatabase.GetMainAssetTypeAtPath(path) == typeof(Texture2D))
 						 .Select(s =>
 						 {
 							 Debug.Log(

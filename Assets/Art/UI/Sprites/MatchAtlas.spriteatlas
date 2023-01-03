@@ -39,10 +39,44 @@ SpriteAtlas:
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 40ab0820dd8ac4243b5f16dd35ef8c88, type: 3}
+  - {fileID: 21300000, guid: 6f5a4ee05498c40c6923e88c70187edb, type: 3}
+  - {fileID: 21300000, guid: 01e27a0254d4c4324976497ffe21d60d, type: 3}
+  - {fileID: 21300000, guid: 5d481686bba814837a46397288517385, type: 3}
+  - {fileID: 21300000, guid: 6c934a861c6894e5aa47fb1431470371, type: 3}
+  - {fileID: 21300000, guid: fbc205c6b803547f7b8a1aa5310736c6, type: 3}
+  - {fileID: 21300000, guid: 681a7b0998cf042d0b839deac580b8be, type: 3}
+  - {fileID: 21300000, guid: 2c17914a41722485a8135fd9383c67bc, type: 3}
+  - {fileID: 21300000, guid: 74dfe6aae9fd442df834365aa5c5b47e, type: 3}
+  - {fileID: 21300000, guid: 2cbe4eda34a9a4fe7b266d669ad03edb, type: 3}
+  - {fileID: 21300000, guid: 2ef9293be92774201807bed809ed8d39, type: 3}
+  - {fileID: 21300000, guid: ef9fbedbd6a4244d3ad1b56498e4c5b0, type: 3}
+  - {fileID: 21300000, guid: 2684c9fbaa731447abdb4883664c1f73, type: 3}
   - {fileID: 21300000, guid: 155324dc350544260944ab3e70528f9b, type: 3}
+  - {fileID: 21300000, guid: f997290d68ec7446089da88e9946d6ca, type: 3}
+  - {fileID: 21300000, guid: 66f6df5d5bf1844458404ed7145ffefc, type: 3}
+  - {fileID: 21300000, guid: ec86f78e373954a9382ab2e97adeff45, type: 3}
+  - {fileID: 21300000, guid: f289839ede58e49de8f0eed122b9ebf7, type: 3}
+  - {fileID: 21300000, guid: 7da8f4ef18a9a4678ab8e5fc7dcca87c, type: 3}
   m_PackedSpriteNamesToIndex:
   - button-next
+  - background-gradient-blue
+  - background-reward-normal
+  - text-youwon
+  - banner-winner
+  - banner-rainbow
+  - pattern-jagged-vertical
+  - background-reward-bpp
+  - text-matchended
+  - icon-hide
+  - icon-arrow-yellow-right
+  - icon-crown-winner
+  - icon-show
   - button-next-pressed
+  - vfx-crack-red
+  - text-youchosedeath
+  - text-blasted
+  - banner-red
+  - icon-arrow-yellow-left
   m_RenderDataMap: {}
   m_Tag: MatchAtlas
   m_IsVariant: 0

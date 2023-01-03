@@ -166,7 +166,7 @@
     height: 100%;
     width: 425px;
     overflow: visible;
-    background-image: url('project://database/Assets/Art/UI/Vectors/SeasonImageMask.svg?fileID=7388822144124034973&guid=5ae5efccf21c11e469ef6c4f820ee2b8&type=3#SeasonImageMask');
+    background-image: url('/Assets/Art/UI/Vectors/SeasonImageMask.svg');
     -unity-background-image-tint-color: rgb(0, 0, 0);
     position: absolute;
     left: 0;
@@ -176,7 +176,7 @@
     position: absolute;
     height: 100%;
     overflow: hidden;
-    background-image: url('project://database/Assets/Art/UI/Vectors/SeasonImageMask.svg?fileID=7388822144124034973&guid=5ae5efccf21c11e469ef6c4f820ee2b8&type=3#SeasonImageMask');
+    background-image: url('/Assets/Art/UI/Vectors/SeasonImageMask.svg');
     width: 425px;
     left: -3px;
     align-items: center;

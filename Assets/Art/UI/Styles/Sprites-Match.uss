@@ -12,9 +12,6 @@
     --sprite-match__icon-arrow-yellow-right: url('/Assets/Art/UI/Sprites/Match/icon-arrow-yellow-right.png');
     --sprite-match__icon-crown-winner: url('/Assets/Art/UI/Sprites/Match/icon-crown-winner.png');
     --sprite-match__icon-hide: url('/Assets/Art/UI/Sprites/Match/icon-hide.png');
-    --sprite-match__icon-medal-1st: url('/Assets/Art/UI/Sprites/Match/icon-medal-1st.png');
-    --sprite-match__icon-medal-2nd: url('/Assets/Art/UI/Sprites/Match/icon-medal-2nd.png');
-    --sprite-match__icon-medal-3rd: url('/Assets/Art/UI/Sprites/Match/icon-medal-3rd.png');
     --sprite-match__icon-show: url('/Assets/Art/UI/Sprites/Match/icon-show.png');
     --sprite-match__pattern-jagged-vertical: url('/Assets/Art/UI/Sprites/Match/pattern-jagged-vertical.png');
     --sprite-match__text-blasted: url('/Assets/Art/UI/Sprites/Match/text-blasted.png');
@@ -70,18 +67,6 @@
 
 .sprite-match__icon-hide {
     background-image: var(--sprite-match__icon-hide);
-}
-
-.sprite-match__icon-medal-1st {
-    background-image: var(--sprite-match__icon-medal-1st);
-}
-
-.sprite-match__icon-medal-2nd {
-    background-image: var(--sprite-match__icon-medal-2nd);
-}
-
-.sprite-match__icon-medal-3rd {
-    background-image: var(--sprite-match__icon-medal-3rd);
 }
 
 .sprite-match__icon-show {

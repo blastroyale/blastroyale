@@ -64,21 +64,21 @@
 }
 
 .leaderboard-entry--first .leaderboard-entry__rank-badge {
-    background-image: url('project://database/Assets/Art/UI/Sprites/WinnersScreen/1stMedal.png?fileID=2800000&guid=8a5c4e50794e840a0b7073f5fc6cf1e6&type=3#1stMedal');
+    background-image: var(--sprite-shared__icon-medal-1st);
     width: 70px;
     height: 70px;
     display: flex;
 }
 
 .leaderboard-entry--second .leaderboard-entry__rank-badge {
-    background-image: url('project://database/Assets/Art/UI/Sprites/WinnersScreen/2ndMedal.png?fileID=2800000&guid=cce9e1a787e5a484996db5d377217342&type=3#2ndMedal');
+    background-image: var(--sprite-shared__icon-medal-2nd);
     width: 70px;
     height: 70px;
     display: flex;
 }
 
 .leaderboard-entry--third .leaderboard-entry__rank-badge {
-    background-image: url('project://database/Assets/Art/UI/Sprites/WinnersScreen/3rdMedal.png?fileID=2800000&guid=e2a057641f1b142ca91082917b41cffe&type=3#3rdMedal');
+    background-image: var(--sprite-shared__icon-medal-3rd);
     width: 70px;
     height: 70px;
     display: flex;
@@ -141,7 +141,7 @@
 }
 
 .leaderboard-entry__trophies-icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/Trophy.png?fileID=2800000&guid=872fe08ff0fbc4f64b229d591f48d144&type=3#Trophy');
+    background-image: var(--sprite-shared__icon-trophy);
     width: 44px;
     height: 44px;
     margin-right: 10px;

@@ -55,7 +55,7 @@
 }
 
 .player--first .player__badge {
-    background-image: var(--sprite-match__icon-medal-1st);
+    background-image: var(--sprite-shared__icon-medal-1st);
 }
 
 .player--second {
@@ -64,7 +64,7 @@
 }
 
 .player--second .player__badge {
-    background-image: var(--sprite-match__icon-medal-2nd);
+    background-image: var(--sprite-shared__icon-medal-2nd);
 }
 
 .player--third {
@@ -73,7 +73,7 @@
 }
 
 .player--third .player__badge {
-    background-image: var(--sprite-match__icon-medal-3rd);
+    background-image: var(--sprite-shared__icon-medal-3rd);
 }
 
 .safe-area {

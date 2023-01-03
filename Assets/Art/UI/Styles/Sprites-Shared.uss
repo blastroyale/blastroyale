@@ -8,6 +8,9 @@
     --sprite-shared__icon-currency-coin: url('/Assets/Art/UI/Sprites/Shared/icon-currency-coin.png');
     --sprite-shared__icon-currency-cs: url('/Assets/Art/UI/Sprites/Shared/icon-currency-cs.png');
     --sprite-shared__icon-lowconnection: url('/Assets/Art/UI/Sprites/Shared/icon-lowconnection.png');
+    --sprite-shared__icon-medal-1st: url('/Assets/Art/UI/Sprites/Shared/icon-medal-1st.png');
+    --sprite-shared__icon-medal-2nd: url('/Assets/Art/UI/Sprites/Shared/icon-medal-2nd.png');
+    --sprite-shared__icon-medal-3rd: url('/Assets/Art/UI/Sprites/Shared/icon-medal-3rd.png');
     --sprite-shared__icon-might: url('/Assets/Art/UI/Sprites/Shared/icon-might.png');
     --sprite-shared__icon-trophy: url('/Assets/Art/UI/Sprites/Shared/icon-trophy.png');
     --sprite-shared__logo-br: url('/Assets/Art/UI/Sprites/Shared/logo-br.png');
@@ -46,6 +49,18 @@
 
 .sprite-shared__icon-lowconnection {
     background-image: var(--sprite-shared__icon-lowconnection);
+}
+
+.sprite-shared__icon-medal-1st {
+    background-image: var(--sprite-shared__icon-medal-1st);
+}
+
+.sprite-shared__icon-medal-2nd {
+    background-image: var(--sprite-shared__icon-medal-2nd);
+}
+
+.sprite-shared__icon-medal-3rd {
+    background-image: var(--sprite-shared__icon-medal-3rd);
 }
 
 .sprite-shared__icon-might {

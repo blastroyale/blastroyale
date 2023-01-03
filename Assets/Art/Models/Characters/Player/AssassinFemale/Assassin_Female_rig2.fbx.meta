@@ -1,9 +1,19 @@
 fileFormatVersion: 2
-guid: 68d5ff67cc8ca9c449a7ca31abec3357
+guid: 92ecfb2ecb60ad4449b4c1916b818707
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FemaleAssasingBody_Material
+    second: {fileID: 2100000, guid: e45cfdc0028be3f4f873811f59fc4c6f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FemaleAssasingHead_Material
+    second: {fileID: 2100000, guid: 87fd4f3d6d954e04981bb7a5c25ede5f, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

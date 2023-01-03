@@ -1,9 +1,19 @@
 fileFormatVersion: 2
-guid: 68d5ff67cc8ca9c449a7ca31abec3357
+guid: ab7fe09aa9b23a14e922ebbb2e1d13e2
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Assassin_male_body
+    second: {fileID: 2100000, guid: af21ce4293ad60c44b99d4022b70645c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Assassin_male_head
+    second: {fileID: 2100000, guid: d3b30701ffa5ac043b45827529d29b95, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

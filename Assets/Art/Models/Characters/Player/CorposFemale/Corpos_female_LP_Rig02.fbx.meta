@@ -1,9 +1,19 @@
 fileFormatVersion: 2
-guid: 68d5ff67cc8ca9c449a7ca31abec3357
+guid: e44f04adc2d323e41add49146817521a
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FemaleCorposBody
+    second: {fileID: 2100000, guid: 57664add6917f1c46a3c66397dce64c6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FemaleCorposHead
+    second: {fileID: 2100000, guid: 1c909b1f614fc094f89a22301e32ce5b, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

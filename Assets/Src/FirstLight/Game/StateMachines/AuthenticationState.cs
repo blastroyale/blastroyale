@@ -71,6 +71,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
+			var guestOrRegisteredSelection = stateFactory.State("LoginRegisterSelection");
 			var login = stateFactory.State("Login");
 			var accountDeleted = stateFactory.State("Account Deleted");
 			var guestLogin = stateFactory.State("Guest Login");
@@ -87,7 +88,11 @@ namespace FirstLight.Game.StateMachines
 			
 			autoAuthCheck.Transition().Condition(HasLinkedDevice).Target(authLoginDevice);
 			autoAuthCheck.Transition().Condition(() => !FeatureFlags.EMAIL_AUTH).OnTransition(()=> { SetLinkedDevice(true); }).Target(authLoginDevice);
-			autoAuthCheck.Transition().OnTransition(CloseLoadingScreen).Target(login);
+			autoAuthCheck.Transition().OnTransition(CloseLoadingScreen).Target(guestOrRegisteredSelection);
+			
+			guestOrRegisteredSelection.OnEnter(OpenGuestOrRegisteredSelectionScreen);
+			guestOrRegisteredSelection.Event(_loginAsGuestEvent).OnTransition(CloseGuestOrRegisteredSelectionScreen).Target(guestLogin);
+			guestOrRegisteredSelection.Event(_goToLoginClickedEvent).OnTransition(CloseGuestOrRegisteredSelectionScreen).Target(guestLogin);
 
 			login.OnEnter(OpenLoginScreen);
 			login.Event(_goToRegisterClickedEvent).OnTransition(CloseLoginScreen).Target(register);
@@ -588,11 +593,16 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<LoadingScreenPresenter>();
 		}
 
+		private void CloseGuestOrRegisteredSelectionScreen()
+		{
+			_uiService.CloseUi<GuestOrRegisteredPresenter>();
+		}
+		
 		private void CloseRegisterScreen()
 		{
 			_uiService.CloseUi<RegisterScreenPresenter>();
 		}
-		
+
 		private void CloseLoginRegisterScreens()
 		{
 			_uiService.CloseUi<LoginScreenPresenter>();
@@ -612,6 +622,20 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
+		private void OpenGuestOrRegisteredSelectionScreen()
+		{
+			var data = new GuestOrRegisteredPresenter.StateData
+			{
+				GoToLoginClicked = () => _statechartTrigger(_goToLoginClickedEvent),
+				PlayAsGuestClicked = () =>
+				{
+					DimLoginRegisterScreens(true);
+					_statechartTrigger(_loginAsGuestEvent);
+				},
+			};
+			
+			_uiService.OpenUiAsync<GuestOrRegisteredPresenter, GuestOrRegisteredPresenter.StateData>(data);
+		}
 		private void OpenLoginScreen()
 		{
 			var data = new LoginScreenPresenter.StateData

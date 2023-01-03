@@ -1,0 +1,18 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Screens/GuestOrRegisterScreenStyle.uss?fileID=7433441132597879392&amp;guid=6b47cfd25f02bab4bb4dcd8405e28b75&amp;type=3#GuestOrRegisterScreenStyle" />
+    <ui:VisualElement name="root" class="background fill-parent" style="top: 0; right: 0; left: 0; bottom: 0;">
+        <FirstLight.Game.UIElements.SafeAreaElement class="fill-parent">
+            <ui:VisualElement name="ElementsContainer" class="elements-container fill-parent">
+                <ui:VisualElement name="ButtonsContainer" class="buttons-container">
+                    <ui:Button text="REGISTER/LOGIN" display-tooltip-when-elided="true" name="RegisterLoginButton" class="sfx-click-forwards button-long--yellow button-long buttons-container-login-register-button" />
+                    <ui:Button text="GUEST" display-tooltip-when-elided="true" name="GuestButton" class="sfx-click-forwards button-long buttons-container-guest-button" />
+                </ui:VisualElement>
+                <ui:VisualElement name="LogoContainer" class="logo-container">
+                    <ui:VisualElement name="BlastImage" class="logo-container-blast-image" />
+                    <ui:VisualElement name="RoyaleImage" class="logo-container-royale-image" />
+                    <ui:VisualElement name="LogoImage" class="logo-container-logo-image" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </FirstLight.Game.UIElements.SafeAreaElement>
+    </ui:VisualElement>
+</ui:UXML>

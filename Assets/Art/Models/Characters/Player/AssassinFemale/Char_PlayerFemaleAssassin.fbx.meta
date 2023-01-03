@@ -8,12 +8,12 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: FemaleAssasingBody_Material
-    second: {fileID: 2100000, guid: e45cfdc0028be3f4f873811f59fc4c6f, type: 2}
+    second: {fileID: 2100000, guid: 79b66f050c6de8d42a186b617bf02d10, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: FemaleAssasingHead_Material
-    second: {fileID: 2100000, guid: 87fd4f3d6d954e04981bb7a5c25ede5f, type: 2}
+    second: {fileID: 2100000, guid: 9bbfed150146cbb45b797596fe4c35b9, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

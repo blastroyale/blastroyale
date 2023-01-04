@@ -91,18 +91,8 @@ namespace FirstLight.Game.Presenters
 
 		private void OnViewHideClicked()
 		{
-			_isPasswordHidden = !_isPasswordHidden;
-
-			if (_isPasswordHidden)
-			{
-				_viewHideButton.RemoveFromClassList("viewHideButton--show");
-			}
-			else
-			{
-				_viewHideButton.AddToClassList("viewHideButton--show");
-			}
-
-			_passwordField.isPasswordField = _isPasswordHidden;
+			_viewHideButton.ToggleInClassList("view-hide-button--show");
+			_passwordField.isPasswordField = !_viewHideButton.ClassListContains("view-hide-button--show");
 		}
 	}
 }

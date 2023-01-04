@@ -67,17 +67,19 @@
     padding-right: 100px;
 }
 
-
 .input-field--password {
-    margin-top: 28px; margin-bottom: 44px;
+    margin-top: 28px;
+    margin-bottom: 44px;
 }
 
-.reset_guest_container{
-    flex-direction: row; justify-content: space-between;
+.reset_guest_container {
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .reset_guest_container__separator {
-    height: 0; width: 51px
+    height: 0;
+    width: 51px
 }
 
 LocalizedTextField > Label {

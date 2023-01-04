@@ -32,7 +32,7 @@ namespace FirstLight.Game.Presenters
 			_usernameField = root.Q<TextField>("UsernameTextField").Required();
 			_passwordField = root.Q<TextField>("PasswordTextField").Required();
 			_viewHideButton = root.Q<Button>("ViewHideButton").Required();
-			
+
 			_blockerElement = root.Q("Blocker").Required();
 
 			root.Q<Button>("LoginButton").clicked += OnLoginClicked;
@@ -57,13 +57,13 @@ namespace FirstLight.Game.Presenters
 		{
 			Data.RegisterClicked(_emailField.text.Trim(), _usernameField.text.Trim(), _passwordField.text.Trim());
 		}
-		
+
 		private void OnViewHideClicked()
-		{			
+		{
 			_isPasswordHidden = !_isPasswordHidden;
 
 			if (_isPasswordHidden)
-			{				
+			{
 				_viewHideButton.RemoveFromClassList("viewHideButton--show");
 			}
 			else

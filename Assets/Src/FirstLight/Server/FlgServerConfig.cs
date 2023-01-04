@@ -38,7 +38,8 @@ namespace Src.FirstLight.Server
             return new ServerPlugin[]
             {
                 new ServerAnalyticsPlugin(),
-                new SeasonResetPlugin()
+                new SeasonResetPlugin(),
+                new ServerStatisticsPlugin()
             };
         }
 

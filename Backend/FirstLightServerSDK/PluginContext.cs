@@ -35,7 +35,7 @@ namespace FirstLight.Server.SDK
 			Analytics = services.GetService(typeof(IServerAnalytics)) as IServerAnalytics;
 			ServerConfig = services.GetService(typeof(IBaseServiceConfiguration)) as IBaseServiceConfiguration;
 			GameConfig = services.GetService(typeof(IConfigsProvider)) as IConfigsProvider;
-			Statistics = services.GetService(typeof(IConfigsProvider)) as IStatisticsService;
+			Statistics = services.GetService(typeof(IStatisticsService)) as IStatisticsService;
 		}
 	}
 }

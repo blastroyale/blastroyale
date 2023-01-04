@@ -31,15 +31,15 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 			
 			int slotIndexToSwitch;
-			if(pc.CurrentWeaponSlot != 1 && pc.WeaponSlots[1].Weapon.IsValid())
+			if (pc.CurrentWeaponSlot != 1 && pc.WeaponSlots[1].Weapon.IsValid())
 			{
 				slotIndexToSwitch = 1;
 			}
-			else if(pc.CurrentWeaponSlot != 2 && pc.WeaponSlots[2].Weapon.IsValid())
+			else if (pc.CurrentWeaponSlot != 2 && pc.WeaponSlots[2].Weapon.IsValid())
 			{
 				slotIndexToSwitch = 2;
 			}
-			else if(pc.CurrentWeaponSlot != 0)
+			else if (pc.CurrentWeaponSlot != 0)
 			{
 				slotIndexToSwitch = 0;
 			}

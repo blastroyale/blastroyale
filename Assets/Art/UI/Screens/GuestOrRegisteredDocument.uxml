@@ -3,7 +3,7 @@
     <ui:VisualElement name="root" class="background fill-parent" style="top: 0; right: 0; left: 0; bottom: 0;">
         <FirstLight.Game.UIElements.SafeAreaElement class="fill-parent">
             <ui:VisualElement name="ElementsContainer" class="elements-container fill-parent">
-                <ui:VisualElement name="ButtonsContainer" class="buttons-container">
+                <ui:VisualElement name="ButtonsContainer" class="buttons-container anim-delay-1 anim-translate anim-translate--up-s">
                     <FirstLight.Game.UIElements.LocalizedButton localization-key="UITLoginRegister/register_login" display-tooltip-when-elided="true" name="RegisterLoginButton" class="sfx-click-forwards button-long--yellow button-long buttons-container-login-register-button" />
                     <FirstLight.Game.UIElements.LocalizedButton localization-key="UITLoginRegister/guest" display-tooltip-when-elided="true" name="GuestButton" class="sfx-click-forwards button-long buttons-container-guest-button" />
                 </ui:VisualElement>

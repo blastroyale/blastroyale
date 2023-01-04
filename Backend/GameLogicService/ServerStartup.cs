@@ -15,6 +15,7 @@ using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Server.SDK.Services;
+using FirstLightServerSDK.Services;
 using GameLogicService.Services;
 using ServerCommon;
 using ServerCommon.CommonServices;
@@ -53,6 +54,7 @@ namespace Backend
 			services.AddSingleton<IPluginLogger, ServerPluginLogger>();
 			services.AddSingleton<IErrorService<PlayFabError>, PlayfabErrorService>();
 
+			services.AddSingleton<IStatisticsService, PlayfabStatisticsService>();
 			services.AddSingleton<IServerStateService, PlayfabGameStateService>();
 			services.AddSingleton<IGameConfigurationService, GameConfigurationService>();
 			services.AddSingleton<IConfigBackendService, PlayfabConfigurationBackendService>();

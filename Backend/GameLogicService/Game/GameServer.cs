@@ -71,8 +71,10 @@ namespace Backend.Game
 
 				var newState = await _cmdHandler.ExecuteCommand(playerId, commandInstance, currentPlayerState);
 				_eventManager.CallEvent(new CommandFinishedEvent(playerId, commandInstance, newState, currentPlayerState, commandData));
-				await _state.UpdatePlayerState(playerId, newState.HasDelta() ? newState.GetOnlyUpdatedState() : newState);
-
+				if (newState.HasDelta())
+				{
+					await _state.UpdatePlayerState(playerId, newState.GetOnlyUpdatedState());
+				}
 				var response = new Dictionary<string, string>();
 				if (requestData.TryGetValue(CommandFields.ConfigurationVersion, out var clientConfigVersion))
 				{

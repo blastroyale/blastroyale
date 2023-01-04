@@ -8,7 +8,6 @@ namespace FirstLight.Game.UIElements
 	/// </summary>
 	public class ImageButton : VisualElement
 	{
-		public event Action clickedTest;
 		private Clickable _clickable;
 
 		/// <summary>
@@ -39,21 +38,13 @@ namespace FirstLight.Game.UIElements
 					clickable = new Clickable(value);
 				else
 					_clickable.clicked += value;
-
-				clickedTest += value;
 			}
 			remove
 			{
 				if (_clickable == null)
 					return;
 				_clickable.clicked -= value;
-				clickedTest -= value;
 			}
-		}
-
-		public void ClickTest()
-		{
-			clickedTest?.Invoke();
 		}
 
 		/// <summary>

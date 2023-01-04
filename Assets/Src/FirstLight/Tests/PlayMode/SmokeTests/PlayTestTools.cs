@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using FirstLight.Game.UIElements;
+using FirstLight.Game.Utils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -50,7 +51,7 @@ namespace FirstLight.Tests.PlayTests
 			return null;
 		}
 
-		public static void ClickUIToolKitButton(UIDocument parent, string name)
+		public static void ClickUIToolKitButton2(UIDocument parent, string name)
 		{
 			// TODO: Make this work with the event UnityEngine.UIElements.ClickEvent so its a more realistic event
 			
@@ -60,14 +61,48 @@ namespace FirstLight.Tests.PlayTests
 			navigationSubmitEvent.target = button;
 			button.SendEvent(navigationSubmitEvent);
 		}
-
-		public static void ClickUIToolKitImageButton(UIDocument parent, string name)
+		
+		public static void ClickUIToolKitButton(UIDocument parent, string name)
+		{
+			if(parent == null) { throw new NullReferenceException($"UI Document for {name} not found"); }
+			var button = parent.rootVisualElement.Q<Button>(name);
+			var buttonPosition = RuntimePanelUtils.ScreenToPanel(parent.rootVisualElement.panel,button.GetPositionOnScreen(parent.rootVisualElement, false));
+			using (EventBase mouseDownEvent = MakeMouseEvent(EventType.MouseDown, buttonPosition))
+				button.SendEvent(mouseDownEvent);
+			using (EventBase mouseUpEvent = MakeMouseEvent(EventType.MouseUp, buttonPosition))
+				button.SendEvent(mouseUpEvent);
+		}
+		
+		public static void ClickUIToolKitImageButton2(UIDocument parent, string name)
 		{
 			// TODO: Make this work with the event UnityEngine.UIElements.ClickEvent so its a more realistic event
 
 			if(parent == null) { throw new NullReferenceException($"UI Document for {name} not found"); }
 			var button = parent.rootVisualElement.Q<ImageButton>(name);
 			button.ClickTest();
+		}
+		
+		public static void ClickUIToolKitImageButton(UIDocument parent, string name)
+		{
+			if(parent == null) { throw new NullReferenceException($"UI Document for {name} not found"); }
+			var button = parent.rootVisualElement.Q<ImageButton>(name);
+			var buttonPosition = RuntimePanelUtils.ScreenToPanel(parent.rootVisualElement.panel,button.GetPositionOnScreen(parent.rootVisualElement, false));
+			using (EventBase mouseDownEvent = MakeMouseEvent(EventType.MouseDown, buttonPosition))
+				button.SendEvent(mouseDownEvent);
+			using (EventBase mouseUpEvent = MakeMouseEvent(EventType.MouseUp, buttonPosition))
+				button.SendEvent(mouseUpEvent);
+		}
+		
+		public static EventBase MakeMouseEvent(EventType type, Vector2 position, MouseButton button = MouseButton.LeftMouse, EventModifiers modifiers = EventModifiers.None, int clickCount = 1)
+		{
+			var evt = new Event() { type = type, mousePosition = position, button = (int)button, modifiers = modifiers, clickCount = clickCount};
+			if (type ==
+				EventType.MouseUp)
+				return PointerUpEvent.GetPooled(evt);
+			else if (type ==
+					 EventType.MouseDown)
+				return PointerDownEvent.GetPooled(evt);
+			return null;
 		}
 	}
 }

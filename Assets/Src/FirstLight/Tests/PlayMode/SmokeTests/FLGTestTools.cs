@@ -1,58 +1,29 @@
 using System.Collections;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.UIElements;
-using FirstLight.Game.Views;
 using FirstLight.Game.Views.MainMenuViews;
 using FirstLight.UiService;
 using UnityEngine;
 using UnityEngine.UIElements;
-using Object = UnityEngine.Object;
 using Toggle = UnityEngine.UI.Toggle;
 
 namespace FirstLight.Tests.PlayTests
 {
-#region WAIT_FOR_MENU
 	public class FLGTestTools
 	{
-		public static IEnumerator WaitForMainMenu()
+		public static IEnumerator WaitForPresenter<T>() where T : UiPresenter
 		{
-			yield return TestTools.UntilObjectOfType<HomeScreenPresenter>();
+			yield return TestTools.UntilObjectOfType<T>();
 		}
-
-		public static IEnumerator WaitForGameModeSelectionScreen()
-		{
-			yield return TestTools.UntilObjectOfType<GameModeSelectionPresenter>();
-		}
-		
-		public static IEnumerator WaitForCustomGameMenu()
-		{
-			yield return TestTools.UntilObjectOfType<RoomJoinCreateScreenPresenter>();
-		}
-		
-		public static IEnumerator WaitForMatchMakingScreen()
-		{
-			yield return TestTools.UntilObjectOfType<CustomLobbyScreenPresenter>();
-		}
-		
-		public static IEnumerator WaitForGameCompleteScreen()
-		{
-			yield return TestTools.UntilObjectOfType<WinnerScreenPresenter>();
-		}
-		
-		public static IEnumerator WaitForMatchEndScreen()
-		{
-			yield return TestTools.UntilObjectOfType<MatchEndScreenPresenter>();
-		}
-		
-		public static IEnumerator WaitForResultsScreen()
-		{
-			yield return TestTools.UntilObjectOfType<ResultsScreenPresenter>();
-		}
-#endregion
 
 		public static void ClickNextButton<T>() where T : UiPresenter
 		{
-			TestTools.ClickUIToolKitButton<Button>(Object.FindObjectOfType<T>().GetComponent<UIDocument>(), "PlayButton");
+			TestTools.ClickUIToolKitButton<Button>(Object.FindObjectOfType<T>().GetComponent<UIDocument>(), "NextButton");
+		}
+		
+		public static void ClickLeaveButton<T>() where T : UiPresenter
+		{
+			TestTools.ClickUIToolKitButton<Button>(Object.FindObjectOfType<T>().GetComponent<UIDocument>(), "LeaveButton");
 		}
 
 		public static void ClickPlayButton()

@@ -118,7 +118,7 @@ namespace FirstLight.Game.Presenters
 #if UNITY_EDITOR
 			OpenLeaderboardRequestErrorGenericDialog(error);
 #else
-			OpenOnLeaderboardRequestErrorPopup()
+			OpenOnLeaderboardRequestErrorPopup();
 #endif
 			Data.OnBackClicked();
 		}

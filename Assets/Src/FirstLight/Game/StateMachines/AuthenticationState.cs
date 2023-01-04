@@ -99,27 +99,27 @@ namespace FirstLight.Game.StateMachines
 			login.Event(_loginAsGuestEvent).Target(guestLogin);
 			login.Event(_loginRegisterTransitionEvent).Target(authLogin);
 
-			guestLogin.OnEnter(() => { DimLoginRegisterScreens(true); SetupGuestAccount(); });
+			guestLogin.OnEnter(() => {  CloseLoginRegisterScreens(); OpenLoadingScreen();; SetupGuestAccount(); });
 			guestLogin.Event(_loginCompletedEvent).Target(authLoginDevice);
 			guestLogin.Event(_authenticationFailEvent).OnTransition(() => {DimLoginRegisterScreens(false);}).Target(login);
 			
 			register.OnEnter(OpenRegisterScreen);
 			register.Event(_goToLoginClickedEvent).OnTransition(CloseRegisterScreen).Target(login);
+			//register.Event(_goToLoginClickedEvent).OnTransition(() => { CloseLoginScreen(); OpenLoadingScreen(); }).Target(login);
 			register.Event(_loginRegisterTransitionEvent).Target(authLogin);
 
 			authLoginDevice.OnEnter(() => DimLoginRegisterScreens(true));
 			authLoginDevice.OnEnter(LoginWithDevice);
 			authLoginDevice.Event(_loginCompletedEvent).Target(getServerState);
-			authLoginDevice.Event(_authenticationFailEvent).OnTransition(()=>{SetLinkedDevice(false); CloseLoadingScreen();}).Target(login);
+			authLoginDevice.Event(_authenticationFailEvent).OnTransition(()=>{SetLinkedDevice(false);}).Target(login);
 			authLoginDevice.OnEnter(() => DimLoginRegisterScreens(false));
 			
-			authLogin.OnEnter(() => DimLoginRegisterScreens(true));
+			authLogin.OnEnter(() => { CloseLoginRegisterScreens(); OpenLoadingScreen(); });
 			authLogin.Event(_loginCompletedEvent).OnTransition(CloseLoginRegisterScreens).Target(getServerState);
 			authLogin.Event(_authenticationFailEvent).Target(login);
 			authLogin.Event(_authenticationRegisterFailEvent).Target(register);
 			authLogin.OnExit(() => DimLoginRegisterScreens(false));
 			
-			getServerState.OnEnter(OpenLoadingScreen);
 			getServerState.WaitingFor(FinalStepsAuthentication).Target(accountStateCheck);
 
 			accountDeleted.OnEnter(ShowAccountDeletedPopup);

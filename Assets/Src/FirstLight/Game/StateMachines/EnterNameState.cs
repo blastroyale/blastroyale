@@ -88,7 +88,7 @@ namespace FirstLight.Game.StateMachines
 			};
 			
 			_services.GenericDialogService.OpenInputDialog(ScriptLocalization.UITHomeScreen.enter_your_name, ScriptLocalization.UITHomeScreen.new_name_desc, 
-			                                                    _dataProvider.AppDataProvider.DisplayNameTrimmed, 
+			                                                    _dataProvider.AppDataProvider.GetDisplayName(true, false), 
 			                                                    confirmButton, false);
 		}
 		

@@ -4,6 +4,7 @@ using System.Linq;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules;
+using FirstLight.Server.SDK.Modules.Commands;
 
 namespace FirstLight.Game.Commands
 {

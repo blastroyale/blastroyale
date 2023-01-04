@@ -13,7 +13,8 @@ namespace FirstLight.Game.Data
 		None = 0,
 		QA = 1 << 1,
 		Admin = 1 << 2,
-		Deleted = 1 << 3
+		Deleted = 1 << 3,
+		FLGOfficial = 1 << 4
 	}
 	
 	/// <summary>

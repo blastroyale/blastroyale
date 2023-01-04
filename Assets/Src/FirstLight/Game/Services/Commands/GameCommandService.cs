@@ -6,35 +6,13 @@ using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Utils;
 using FirstLight.NativeUi;
 using FirstLight.Server.SDK.Modules;
+using FirstLight.Server.SDK.Modules.Commands;
 using FirstLight.Services;
 using PlayFab;
 
 namespace FirstLight.Game.Services
 {
-	/// <summary>
-	/// Defines the required user permission level to access a given command.
-	/// TODO: Move to server SDK
-	/// </summary>
-	public enum CommandAccessLevel
-	{
-		/// <summary>
-		/// Standard permission, allows command to be ran only for the given authenticated player.
-		/// </summary>
-		Player,
 
-		/// <summary>
-		/// Only allows the command to be ran for the given authenticated player but Admin commands might
-		/// perform operations normal players can't like cheats.
-		/// </summary>
-		Admin,
-
-		/// <summary>
-		/// Service commands might be used for any given player without requiring player authentication.
-		/// It will impersonate a player to run the command from a third party service.
-		/// Will require a secret key to run the command.
-		/// </summary>
-		Service
-	}
 
 	/// <inheritdoc cref="ICommandService{TGameLogic}"/>
 	public interface IGameCommandService
@@ -42,34 +20,7 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc cref="ICommandService{TGameLogic}.ExecuteCommand{TCommand}"/>
 		void ExecuteCommand<TCommand>(TCommand command) where TCommand : IGameCommand;
 	}
-
-	/// <summary>
-	/// Refers to dictionary keys used in the data sent to server.
-	/// TODO: Move to server SDK
-	/// </summary>
-	public static class CommandFields
-	{
-		/// <summary>
-		/// Key where the command data is serialized.
-		/// </summary>
-		public static readonly string Command = nameof(IGameCommand);
-
-		/// <summary>
-		/// Field containing the client timestamp for when the command was issued.
-		/// </summary>
-		public static readonly string Timestamp = nameof(Timestamp);
-
-		/// <summary>
-		/// Field about the version the game client is currently running
-		/// </summary>
-		public static readonly string ClientVersion = nameof(ClientVersion);
-
-		/// <summary>
-		/// Field that represents the client configuration version
-		/// </summary>
-		public static readonly string ConfigurationVersion = nameof(ConfigurationVersion);
-	}
-
+	
 	/// <inheritdoc />
 	public class GameCommandService : IGameCommandService
 	{

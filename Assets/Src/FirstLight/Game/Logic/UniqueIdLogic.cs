@@ -1,6 +1,7 @@
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic.RPC;
+using FirstLight.Server.SDK.Models;
 using FirstLight.Services;
 using Quantum;
 

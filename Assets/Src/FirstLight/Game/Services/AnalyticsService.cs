@@ -4,6 +4,7 @@ using Firebase.Analytics;
 using FirstLight.FLogger;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services.AnalyticsHelpers;
+using FirstLight.Server.SDK.Models;
 using FirstLight.Services;
 using FirstLight.UiService;
 using Newtonsoft.Json;

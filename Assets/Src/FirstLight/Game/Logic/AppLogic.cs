@@ -5,6 +5,7 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Server.SDK.Models;
 using FirstLight.Services;
 using MoreMountains.NiceVibrations;
 using PlayFab;
@@ -58,12 +59,12 @@ namespace FirstLight.Game.Logic
 		/// Requests the enable property for dynamic movement joystick
 		/// </summary>
 		bool UseDynamicJoystick { get; set; }
-		
+
 		/// <summary>
 		/// Requests the current detail level of the game
 		/// </summary>
 		GraphicsConfig.DetailLevel CurrentDetailLevel { get; set; }
-		
+
 		/// <summary>
 		/// Requests the current FPS target
 		/// </summary>
@@ -78,12 +79,12 @@ namespace FirstLight.Game.Logic
 		/// Obtains the player unique id
 		/// </summary>
 		string PlayerId { get; }
-		
+
 		/// <summary>
 		/// Returns the last gamemode user has chosen
 		/// </summary>
 		GameModeRotationConfig.GameModeEntry LastGameMode { get; set; }
-		
+
 		/// <summary>
 		/// Gets last current custom game options used
 		/// </summary>
@@ -98,22 +99,30 @@ namespace FirstLight.Game.Logic
 		/// Requests current device Id
 		/// </summary>
 		IObservableField<string> DeviceID { get; }
-		
+
 		/// <summary>
 		/// Requests current device Id
 		/// </summary>
 		IObservableField<string> LastLoginEmail { get; }
-		
+
 		/// <summary>
 		/// Requests the player's title display name (including appended numbers)
 		/// </summary>
 		IObservableField<string> DisplayName { get; }
-		
+
+		/// <summary>
+		/// Requests the player's title display name.
+		/// </summary>
+		/// <param name="trimmed">Shows or hides the appended numbers.</param>
+		/// <param name="tagged">Appends tags to the name (sprite sheet references).</param>
+		/// <returns></returns>
+		string GetDisplayName(bool trimmed = true, bool tagged = true);
+
 		/// <summary>
 		/// Sets the resolution mode for the 3D rendering of the app
 		/// </summary>
 		void SetDetailLevel();
-		
+
 		/// <summary>
 		/// Sets the app's FPS target
 		/// </summary>
@@ -142,7 +151,7 @@ namespace FirstLight.Game.Logic
 		private readonly DateTime _defaultZeroTime = new(2020, 1, 1);
 		private readonly IAudioFxService<AudioId> _audioFxService;
 
-		
+
 		/// <inheritdoc />
 		public bool IsFirstSession => Data.IsFirstSession;
 
@@ -151,7 +160,7 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc />
 		public CustomGameOptions LastCustomGameOptions => Data.LastCustomGameOptions;
-		
+
 		/// <inheritdoc />
 		public bool IsDeviceLinked => string.IsNullOrWhiteSpace(DeviceID.Value);
 
@@ -160,7 +169,7 @@ namespace FirstLight.Game.Logic
 			get => Data.LastGameMode;
 			set => Data.LastGameMode = value;
 		}
-		
+
 		/// <inheritdoc />
 		public bool IsSfxEnabled
 		{
@@ -204,7 +213,7 @@ namespace FirstLight.Game.Logic
 				MMVibrationManager.SetHapticsActive(value);
 			}
 		}
-		
+
 		/// <inheritdoc />
 		public bool UseDynamicJoystick
 		{
@@ -222,7 +231,7 @@ namespace FirstLight.Game.Logic
 				SetDetailLevel();
 			}
 		}
-		
+
 		/// <inheritdoc />
 		public int FpsTarget
 		{
@@ -239,7 +248,7 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc />
 		public IObservableField<string> DeviceID { get; private set; }
-		
+
 		/// <inheritdoc />
 		public IObservableField<string> LastLoginEmail { get; private set; }
 
@@ -247,9 +256,7 @@ namespace FirstLight.Game.Logic
 		public IObservableField<string> DisplayName { get; private set; }
 
 		/// <inheritdoc />
-		public string DisplayNameTrimmed =>
-			DisplayName == null || string.IsNullOrWhiteSpace(DisplayName.Value) || DisplayName.Value.Length < 5
-				? "" : DisplayName.Value.Substring(0, DisplayName.Value.Length - 5);
+		public string DisplayNameTrimmed => GetDisplayName();
 
 		/// <inheritdoc />
 		public string PlayerId => Data.PlayerId;
@@ -270,9 +277,11 @@ namespace FirstLight.Game.Logic
 			//FpsTarget = Data.FpsTarget;
 			//IsHapticOn = Data.HapticEnabled;
 			DisplayName = new ObservableResolverField<string>(() => Data.DisplayName, name => Data.DisplayName = name);
-			ConnectionRegion = new ObservableResolverField<string>(() => Data.ConnectionRegion, region => Data.ConnectionRegion = region);
+			ConnectionRegion = new ObservableResolverField<string>(() => Data.ConnectionRegion,
+				region => Data.ConnectionRegion = region);
 			DeviceID = new ObservableResolverField<string>(() => Data.DeviceId, linked => Data.DeviceId = linked);
-			LastLoginEmail = new ObservableResolverField<string>(() => Data.LastLoginEmail, email => Data.LastLoginEmail = email);
+			LastLoginEmail =
+				new ObservableResolverField<string>(() => Data.LastLoginEmail, email => Data.LastLoginEmail = email);
 		}
 
 		public void SetLastCustomGameOptions(CustomGameOptions options)
@@ -291,15 +300,31 @@ namespace FirstLight.Game.Logic
 			Data.GameReviewDate = GameLogic.TimeService.DateTimeUtcNow;
 		}
 
+		public string GetDisplayName(bool trimmed = true, bool tagged = true)
+		{
+			var name = DisplayName == null || string.IsNullOrWhiteSpace(DisplayName.Value) ||
+				DisplayName.Value.Length < 5
+					? ""
+					: trimmed ? DisplayName.Value.Substring(0, DisplayName.Value.Length - 5) : DisplayName.Value;
+
+			if (tagged)
+			{
+				var playerData = DataProvider.GetData<PlayerData>();
+				return playerData.Flags.HasFlag(PlayerFlags.FLGOfficial) ? $"<sprite name=\"FLGBadge\"> {name}" : name;
+			}
+
+			return name;
+		}
+
 		/// <inheritdoc />
 		public void SetDetailLevel()
 		{
 			var detailLevelConf = GameLogic.ConfigsProvider.GetConfig<GraphicsConfig>().DetailLevels
-			                               .Find(detailLevelConf => detailLevelConf.Name == CurrentDetailLevel);
+				.Find(detailLevelConf => detailLevelConf.Name == CurrentDetailLevel);
 
 			QualitySettings.SetQualityLevel(detailLevelConf.DetailLevelIndex);
 		}
-		
+
 		/// <inheritdoc />
 		public void SetFpsTarget()
 		{

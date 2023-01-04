@@ -224,6 +224,7 @@ namespace FirstLight.Game.Utils
 		{
 			public const float DYNAMIC_JOYSTICK_THRESHOLD_MULT = 1f;
 			public const float MOVEMENT_JOYSTICK_RADIUS_MULT = 1f;
+			public const float JOYSTICK_MOVEMENT_MAX_RADIUS_MULTIPLIER = 8f;
 			
 			public const float SPECIAL_BUTTON_MAX_RADIUS_MULT = 1.75f;
 			public const float SPECIAL_BUTTON_FIRST_CANCEL_RADIUS_MULT = 1.15f;

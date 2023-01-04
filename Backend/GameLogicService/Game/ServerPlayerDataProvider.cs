@@ -27,6 +27,11 @@ namespace Backend.Game
 		// Same as above, shall be removed as a depdendency soon.
 		private static readonly HashSet<Type> NotSaved = new(new[] { typeof(AppData) });
 
+		/// <summary>
+		/// Returns the list of types that were consumed
+		/// </summary>
+		public List<Type> ModelsConsumed => _modelsConsumed.Keys.ToList();
+
 		public ServerPlayerDataProvider(ServerState state)
 		{
 			_state = state;
@@ -87,7 +92,7 @@ namespace Backend.Game
 			_modelsConsumed[type] = data;
 			return data;
 		}
-
+		
 		/// <inheritdoc/>
 		public IEnumerable<Type> GetKeys()
 		{

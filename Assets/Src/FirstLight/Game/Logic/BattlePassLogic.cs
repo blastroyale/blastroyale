@@ -4,6 +4,7 @@ using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
+using FirstLight.Server.SDK.Models;
 using FirstLight.Services;
 using Quantum;
 using UnityEngine;

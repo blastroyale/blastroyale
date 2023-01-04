@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
+using Backend.Plugins;
 using FirstLight;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Logic;
@@ -13,6 +14,7 @@ using FirstLight.Server.SDK;
 using Microsoft.Extensions.Logging;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules;
+using FirstLight.Server.SDK.Modules.Commands;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using GameLogicService.Game;
 
@@ -44,14 +46,16 @@ namespace Backend.Game.Services
 		private readonly ILogger _log;
 		private readonly IEventManager _eventManager;
 		private readonly IMetricsService _metrics;
+		private readonly IPluginManager _plugins;
 
-		public ServerCommandHandler(IGameConfigurationService cfg, ILogger log, IEventManager eventManager,
+		public ServerCommandHandler(IPluginManager plugins, IGameConfigurationService cfg, ILogger log, IEventManager eventManager,
 									IMetricsService metrics)
 		{
 			_cfg = cfg;
 			_log = log;
 			_eventManager = eventManager;
 			_metrics = metrics;
+			_plugins = plugins;
 		}
 
 		/// <inheritdoc/>
@@ -88,9 +92,7 @@ namespace Backend.Game.Services
 		/// </summary>
 		public Type GetCommandType(string typeName)
 		{
-			var gameAssembly = Assembly.GetAssembly(typeof(IGameCommand));
-			var types = gameAssembly?.GetType(typeName);
-			return types;
+			return _plugins.GetRegisteredCommand(typeName);
 		}
 	}
 }

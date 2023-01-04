@@ -82,6 +82,7 @@ namespace FirstLight.Game
 			_gameStateMachine.Run();
 			TrySetLocalServer();
 			
+			FlgCustomSerializers.RegisterSerializers();
 			TouchSimulation.Enable();
 			EnhancedTouchSupport.Enable();
 			

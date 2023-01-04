@@ -88,7 +88,7 @@ namespace IntegrationTests
 			data.UpdateModel(playerData);
 			ModelSerializer.SerializeToData(data, equipData); // bypassing update serializing directly
 
-			_stateService.UpdatePlayerState(playerId, data).Wait();
+			_stateService.UpdatePlayerState(playerId, data.GetOnlyUpdatedState()).Wait();
 
 			var secondReadData = _stateService.GetPlayerState(playerId).Result;
 			var secondPlayer = secondReadData.DeserializeModel<PlayerData>();

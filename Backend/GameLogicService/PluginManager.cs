@@ -13,28 +13,41 @@ using Src.FirstLight.Server;
 namespace Backend.Plugins {
 
 	/// <summary>
+	/// Plugin manager interface to handle registered commands and registered plugins on server.
+	/// </summary>
+	public interface IPluginManager
+	{
+		/// <summary>
+		/// Gets all registered plugins
+		/// </summary>
+		public List<ServerPlugin> GetPlugins();
+		/// <summary>
+		/// 
+		/// </summary>
+		public Type GetRegisteredCommand(string typeFullName);
+	}
+	
+	/// <summary>
 	/// Responsible for loading and initializing plugins.
 	/// </summary>
-	public class PluginLoader
+	public class PluginManager : IPluginManager
 	{
 		private IServerSetup _serverSetup;
 		
 		private List<ServerPlugin> _loadedPlugins = new();
 		private List<Assembly> _loadedLibraries = new();
+		
+		private Assembly _commandAssembly;
+		
+		public Type? GetRegisteredCommand(string fullName) => _commandAssembly.GetType(fullName);
+		
+		public List<ServerPlugin> GetPlugins() => _loadedPlugins;
 
 		/// <summary>
 		/// Loads the server setup configuration given by the client, if provided in assembly.
 		/// </summary>
 		public void LoadServerSetup(IServiceCollection services)
 		{
-			/*
-			TODO: Fix for azure functions
-			Type serverSetup = AppDomain.CurrentDomain
-			                            .GetAssemblies()
-			                            .Where(a => a.GetName().Name.Contains("FirstLight.Game.Server"))
-			                            .SelectMany(x => x.GetTypes())
-			                            .FirstOrDefault(t => t.GetInterfaces().Contains(typeof(IServerSetup)));
-			*/
 			Type serverSetup = typeof(FlgServerConfig);
 			if (serverSetup == null)
 			{
@@ -48,6 +61,7 @@ namespace Backend.Plugins {
 				services.AddSingleton(kp.Key, kp.Value);
 			}
 			_serverSetup = setup;
+			_commandAssembly = setup.GetCommandsAssembly();
 		}
 		
 		/// <summary>

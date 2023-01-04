@@ -5,6 +5,7 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Logic.RPC;
+using FirstLight.Server.SDK.Models;
 using Quantum;
 
 namespace FirstLight.Game.Logic

@@ -5,6 +5,7 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Server.SDK.Models;
 using FirstLight.Services;
 using MoreMountains.NiceVibrations;
 using PlayFab;

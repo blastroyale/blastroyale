@@ -9,6 +9,7 @@ using FirstLight.Game.Commands;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Server.SDK.Modules.Commands;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using PlayFab;

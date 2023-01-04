@@ -15,6 +15,7 @@ using Microsoft.Extensions.Logging;
 using PlayFab;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules;
+using FirstLight.Server.SDK.Modules.Commands;
 using FirstLight.Server.SDK.Services;
 
 /// <summary>

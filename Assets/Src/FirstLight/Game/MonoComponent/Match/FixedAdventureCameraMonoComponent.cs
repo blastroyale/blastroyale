@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using System.Threading.Tasks;
 using Cinemachine;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
@@ -29,7 +28,6 @@ namespace FirstLight.Game.MonoComponent.Match
 		private IGameServices _services;
 		private IMatchServices _matchServices;
 		private bool _spectating;
-		private EntityRef _spectatedEntity;
 
 		private void Awake()
 		{
@@ -60,15 +58,16 @@ namespace FirstLight.Game.MonoComponent.Match
 		/// </summary>
 		private unsafe void OnUpdateView(CallbackUpdateView callback)
 		{
-			var f = callback.Game.Frames.Verified;
+			var spectatedEntity = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
+			var f = callback.Game.Frames.Predicted;
 
-			if (!f.Unsafe.TryGetPointer<PlayerCharacter>(_spectatedEntity, out var player))
+			if (!f.Unsafe.TryGetPointer<PlayerCharacter>(spectatedEntity, out var player))
 				return;
 			var playerInput = f.GetPlayerInput(player->Player);
 			var inputDir = playerInput->AimingDirection;
 
 			var config = _services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int)player->CurrentWeapon.GameId);
-			var rangeModifer = QuantumHelpers.GetDynamicAimValue(f.Unsafe.GetPointer<CharacterController3D>(_spectatedEntity),
+			var rangeModifer = QuantumHelpers.GetDynamicAimValue(f.Unsafe.GetPointer<CharacterController3D>(spectatedEntity),
 				config.AttackRange, config.AttackRange + config.AttackRangeAimBonus).AsFloat / 10;
 			//rounds the range modifier to the nearst 0.5 to keep things as consistent as possible
 			var roundedValue = MathF.Round(rangeModifer * 2) / 2 * GameConstants.Camera.DYNAMIC_CAMERA_PAN_DISTANCE_DEFAULT;
@@ -78,9 +77,11 @@ namespace FirstLight.Game.MonoComponent.Match
 			var dir = new Vector3(inputDir.X.AsFloat, 0, inputDir.Y.AsFloat);
 			dir = Vector3.Scale(dir, new Vector3(1, 0, dir.z < 0 ? GameConstants.Camera.DYNAMIC_CAMERA_PAN_NEGATIVE_Y_DIR_MULTIPLIER : 1)) * roundedValue;
 
-			var playerPos = _matchServices.SpectateService.SpectatedPlayer.Value.Transform.position;
-
-			_followObject.transform.position = Vector3.Lerp(_followObject.transform.position, playerPos + dir, Time.deltaTime / scalar);
+			if(_matchServices.EntityViewUpdaterService.TryGetView(spectatedEntity, out var view))
+			{
+				var playerPos = view.gameObject.transform.position;
+				_followObject.transform.position = Vector3.Lerp(_followObject.transform.position, playerPos + dir, Time.deltaTime / scalar);
+			}
 		}
 
 		private void OnDestroy()
@@ -112,7 +113,6 @@ namespace FirstLight.Game.MonoComponent.Match
 
 			RefreshSpectator(next.Transform);
 			_cinemachineBrain.ActiveVirtualCamera?.SnapCamera();
-			_spectatedEntity = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
 		}
 
 		private void SetActiveCamera(InputAction.CallbackContext context)
@@ -199,8 +199,6 @@ namespace FirstLight.Game.MonoComponent.Match
 			_adventureCamera.Follow = _followObject.transform;
 			_specialAimCamera.LookAt = t;
 			_specialAimCamera.Follow = t;
-
-
 		}
 
 		private void SetAudioListenerTransform(Transform t)

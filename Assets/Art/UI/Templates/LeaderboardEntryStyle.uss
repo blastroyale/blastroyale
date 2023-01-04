@@ -166,8 +166,8 @@
     position: relative;
 }
 
-.leaderboard-entry-positioner__highlight {
-    background-image: var(--sprite-shared__highlight-learboard-entry-player-local);
+.leaderboard-entry-positioner__highlight {  
+    background-image: var(--sprite-shared__highlight-learboard-entry-player-fixed);
     width: 1100;
     height: 92;
     right: -40px;
@@ -177,7 +177,6 @@
 }
 
 .leaderboard-entry-positioner--highlight .leaderboard-entry-positioner__highlight
-{   
+{
     display: flex;
 }
-

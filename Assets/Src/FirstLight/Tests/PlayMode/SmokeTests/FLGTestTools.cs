@@ -1,11 +1,11 @@
 using System.Collections;
 using FirstLight.Game.Presenters;
+using FirstLight.Game.UIElements;
 using FirstLight.Game.Views;
 using FirstLight.Game.Views.MainMenuViews;
 using FirstLight.UiService;
 using UnityEngine;
 using UnityEngine.UIElements;
-using Button = UnityEngine.UI.Button;
 using Object = UnityEngine.Object;
 using Toggle = UnityEngine.UI.Toggle;
 
@@ -52,28 +52,28 @@ namespace FirstLight.Tests.PlayTests
 
 		public static void ClickNextButton<T>() where T : UiPresenter
 		{
-			TestTools.ClickUIToolKitButton(Object.FindObjectOfType<T>().GetComponent<UIDocument>(), "PlayButton");
+			TestTools.ClickUIToolKitButton<Button>(Object.FindObjectOfType<T>().GetComponent<UIDocument>(), "PlayButton");
 		}
 
 		public static void ClickPlayButton()
 		{
-			TestTools.ClickUIToolKitButton(Object.FindObjectOfType<HomeScreenPresenter>().GetComponent<UIDocument>(), "PlayButton");
+			TestTools.ClickUIToolKitButton<Button>(Object.FindObjectOfType<HomeScreenPresenter>().GetComponent<UIDocument>(), "PlayButton");
 		}
 	
 		public static void ClickResultsHome()
 		{
-			GameObject.Find("UiButtonSlim_Blue_Home").GetComponent<Button>().onClick.Invoke();
+			GameObject.Find("UiButtonSlim_Blue_Home").GetComponent<UnityEngine.UI.Button>().onClick.Invoke();
 		}
 		
 		public static void ClickDeadScreenLeave()
 		{
-			GameObject.Find("Leave Button").GetComponent<Button>().onClick.Invoke();
+			GameObject.Find("Leave Button").GetComponent<UnityEngine.UI.Button>().onClick.Invoke();
 		}
 
 		public static void ClickGameCompleteContinue()
 		{
 			var gameCompleteScreen = Object.FindObjectOfType<WinnerScreenPresenter>();
-			var completeButton = gameCompleteScreen.gameObject.GetComponentInChildren<Button>();
+			var completeButton = gameCompleteScreen.gameObject.GetComponentInChildren<UnityEngine.UI.Button>();
 			completeButton.onClick.Invoke();
 		}
 
@@ -85,17 +85,17 @@ namespace FirstLight.Tests.PlayTests
 
 		public static void ClickGameModeSelectionButton()
 		{
-			TestTools.ClickUIToolKitImageButton(Object.FindObjectOfType<HomeScreenPresenter>().GetComponent<UIDocument>(), "GameModeButton");
+			TestTools.ClickUIToolKitButton<ImageButton>(Object.FindObjectOfType<HomeScreenPresenter>().GetComponent<UIDocument>(), "GameModeButton");
 		}
 
 		public static void ClickCustomGameButton()
 		{
-			TestTools.ClickUIToolKitButton(Object.FindObjectOfType<GameModeSelectionPresenter>().GetComponent<UIDocument>(), "CustomGameButton");
+			TestTools.ClickUIToolKitButton<Button>(Object.FindObjectOfType<GameModeSelectionPresenter>().GetComponent<UIDocument>(), "CustomGameButton");
 		}
 
 		public static void ClickCreateRoom()
 		{
-			GameObject.Find("Create Room").GetComponent<Button>().onClick.Invoke();
+			GameObject.Find("Create Room").GetComponent<UnityEngine.UI.Button>().onClick.Invoke();
 		}
 		
 		public static void ToggleBots(bool botsOn)
@@ -106,7 +106,7 @@ namespace FirstLight.Tests.PlayTests
 		
 		public static void ClickLockRoomAndPlay()
 		{
-			GameObject.Find("LockRoomButton").GetComponent<Button>().onClick.Invoke();
+			GameObject.Find("LockRoomButton").GetComponent<UnityEngine.UI.Button>().onClick.Invoke();
 		}
 	}
 }

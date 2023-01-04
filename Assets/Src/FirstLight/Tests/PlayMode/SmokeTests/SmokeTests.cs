@@ -1,13 +1,10 @@
 using System.Collections;
-using System.Linq;
 using FirstLight.Game.Presenters;
-using FirstLight.Game.Views;
-using FirstLight.Game.Views.MainMenuViews;
-using FirstLight.UiService;
+using FirstLight.Game.UIElements;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 namespace FirstLight.Tests.PlayTests
 {
@@ -56,9 +53,9 @@ namespace FirstLight.Tests.PlayTests
 			yield return TestTools.LoadSceneAndWaitUntilDone("Boot");
 			yield return FLGTestTools.WaitForMainMenu();
 
-			TestTools.ClickUIToolKitButton(TestTools.GetUIDocument<HomeScreenPresenter>(),"EquipmentButton");
-			TestTools.ClickUIToolKitButton(TestTools.GetUIDocument<EquipmentPresenter>(),"WeaponCategory");
-			TestTools.ClickUIToolKitImageButton(TestTools.GetUIDocument<EquipmentSelectionPresenter>(),"back");
+			TestTools.ClickUIToolKitButton<Button>(TestTools.GetUIDocument<HomeScreenPresenter>(),"EquipmentButton");
+			TestTools.ClickUIToolKitButton<Button>(TestTools.GetUIDocument<EquipmentPresenter>(),"WeaponCategory");
+			TestTools.ClickUIToolKitButton<ImageButton>(TestTools.GetUIDocument<EquipmentSelectionPresenter>(),"back");
 		}
 	}
 }

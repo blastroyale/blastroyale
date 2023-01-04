@@ -81,6 +81,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 8ac06743a9b1749789b17ac022ed3303, type: 3}
   - {fileID: 21300000, guid: 0206fd639b1694c59aad8a146e66d218, type: 3}
   - {fileID: 21300000, guid: b1b49693efdaa4ca8a9c94366bfb82e3, type: 3}
+  - {fileID: 21300000, guid: 3c1b59a3a7b7df141a97b28813afe172, type: 3}
   - {fileID: 21300000, guid: 9c277ab36769148f38d0502cf27b312a, type: 3}
   - {fileID: 21300000, guid: d42083c30826e43a8922feca6ee9a9c1, type: 3}
   - {fileID: 21300000, guid: c6686ad31d4424de88c8a4e4fdf47a01, type: 3}
@@ -107,6 +108,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: f9373e661daa449dd955560f25434839, type: 3}
   - {fileID: 21300000, guid: 0bbd4c8617c9249f8a31df09af94b048, type: 3}
   - {fileID: 21300000, guid: 1bfe2996723514bcb89e983a1b36a46b, type: 3}
+  - {fileID: 21300000, guid: d997eba68d4da40e1a5fdcffeb459eec, type: 3}
   - {fileID: 21300000, guid: 8c5a5ad6065e14cefb836982ea81f19e, type: 3}
   - {fileID: 21300000, guid: 4dafe0e6098294091bfef6e9752602b9, type: 3}
   - {fileID: 21300000, guid: 8219bbf6a701be940a74d022fcbdfb90, type: 3}
@@ -180,6 +182,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 697b107d934da4f26acc987beb719208, type: 3}
   - {fileID: 21300000, guid: f8f36b8ddbc99493d8cef7036713fba5, type: 3}
   - {fileID: 21300000, guid: d83ad79d4420c4cbe995e6f9a75f74e5, type: 3}
+  - {fileID: 21300000, guid: 11f52dad3a6ee374d8df2426f8d31025, type: 3}
   - {fileID: 21300000, guid: 270a8fbd99be94e3f866a62bc26685fb, type: 3}
   - {fileID: 21300000, guid: 70fc61edad39d4a41bbe7c904ef7f3cd, type: 3}
   - {fileID: 21300000, guid: 4afb37ed31ada492ab4e030ee777d642, type: 3}
@@ -248,6 +251,7 @@ SpriteAtlas:
   - card-rarity-epic
   - icon-durability
   - button-battlepass
+  - text-royale
   - button-main-purple-pressed
   - pattern-circle-gradient
   - icon-special-aimingstungrenade
@@ -274,6 +278,7 @@ SpriteAtlas:
   - progress-battlepass-bg
   - card-faction-celestial
   - icon-emptyslot-amulet
+  - logo-br
   - icon-marketplace
   - background-inputfield
   - icon-airplane
@@ -347,6 +352,7 @@ SpriteAtlas:
   - button-equipmentslot-common-pressed
   - progress-stat-bg
   - icon-emptyslot-armor
+  - text-blast
   - icon-heroes
   - header-home
   - vfx-glitch-triangle2

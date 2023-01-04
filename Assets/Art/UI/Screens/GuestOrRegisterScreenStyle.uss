@@ -9,14 +9,12 @@
     background-image: url('project://database/Assets/Art/Textures/Ui/Splashscreens%20&%20Logos/LoadingBkNoLogo.png?fileID=2800000&guid=20756f8f6e6857841a5b8bd4d761942a&type=3#LoadingBkNoLogo');
     -unity-background-scale-mode: scale-and-crop;
 }
-.elements-container
-{
+.elements-container {
     align-items: center;
     justify-content: center; 
 }
 
-.buttons-container
-{
+.buttons-container {
     position: absolute;
     bottom: 55px;
     flex-direction: row;
@@ -40,8 +38,7 @@
     transition-duration: 0.3s;
 }
 
-.logo-container
-{
+.logo-container {
     position: absolute;
     top: 323px;
     width: 2600px;
@@ -52,27 +49,23 @@
     scale: 0.32 0.38;
 }
 
-.logo-container-blast-image
-{
-    background-image: url('project://database/Assets/Art/Textures/Ui/Splashscreens%20&%20Logos/Blast.png?fileID=2800000&guid=41efaaa5ae045be23d896f2bab88662d&type=3#Blast');
+.logo-container-blast-image {
+    background-image: url('project://database/Assets/Art/Ui/Sprites/Home/text-blast.png?fileID=2800000&guid=41efaaa5ae045be23d896f2bab88662d&type=3#text-blast');
     width: 1000px;
     height: 372px;
     position: relative;
     left: 56px;
 }
 
-.logo-container-royale-image
-{
-    background-image: url('project://database/Assets/Art/Textures/Ui/Splashscreens%20&%20Logos/Royale.png?fileID=2800000&guid=9ee232848719908584b2bba8f4aa12a0&type=3#Royale');
+.logo-container-royale-image {
+    background-image: url('project://database/Assets/Art/Ui/Sprites/Home/text-royale.png?fileID=2800000&guid=9ee232848719908584b2bba8f4aa12a0&type=3#text-royale');
     width: 873px;
     height: 372px;
     position: relative;
     top: -95px;
 }
-
-.logo-container-logo-image
-{
-    background-image: url('project://database/Assets/Art/Textures/Ui/Splashscreens%20&%20Logos/Blastbadge.png?fileID=2800000&guid=3bda3e54a99a21206599e10a5f8a2d00&type=3#Blastbadge');
+.logo-container-logo-image {
+        background-image: url('project://database/Assets/Art/Ui/Sprites/Shared/logo-br.png?fileID=2800000&guid=0db82afc23c2abf169e124b84dbe28a0&type=3#logo-br');
     width: 512px;
     height: 437px;
     position: relative;

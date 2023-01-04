@@ -48,7 +48,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 9cc813e59c2d54af3a5fc19cd513e270, type: 3}
   - {fileID: 21300000, guid: cd135f76c082145f3ab31e1576f4add6, type: 3}
   - {fileID: 21300000, guid: ebabc096766194b9c88df0400095be5b, type: 3}
-  - {fileID: 21300000, guid: d997eba68d4da40e1a5fdcffeb459eec, type: 3}
   - {fileID: 21300000, guid: 70e84108e2f264b23a8126b7c33d0f51, type: 3}
   - {fileID: 21300000, guid: d71b86c8e6b984468838bed01f0196d7, type: 3}
   - {fileID: 21300000, guid: ddf33ec916e6b4b54993768a10ca208d, type: 3}
@@ -66,7 +65,6 @@ SpriteAtlas:
   - icon-currency-coin
   - icon-currency-bpp
   - icon-might
-  - logo-br
   - icon-medal-2nd
   - icon-currency-blst
   - progress-battlepass-bpp-bg

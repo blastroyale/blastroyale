@@ -73,7 +73,7 @@ SpriteAtlas:
   - progress-battlepass-bpp-bg
   - icon-currency-cs
   - background-stat-dark
-  - highlight-learboard-entry-player-fixed
+  - highlight-leaderboard-localplayer
   - icon-lowconnection
   m_RenderDataMap: {}
   m_Tag: Shared Atlas

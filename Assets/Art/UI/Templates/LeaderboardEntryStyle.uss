@@ -167,7 +167,7 @@
 }
 
 .leaderboard-entry-positioner__highlight {  
-    background-image: var(--sprite-shared__highlight-learboard-entry-player-fixed);
+    background-image: var(--sprite-shared__highlight-leaderboard-localplayer);
     width: 1100;
     height: 92;
     right: -40px;

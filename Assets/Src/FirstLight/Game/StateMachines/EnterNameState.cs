@@ -105,7 +105,9 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnNameSet(string newName)
 		{
-			if (newName.Length < GameConstants.PlayerName.PLAYER_NAME_MIN_LENGTH)
+			var newNameTrimmed = newName.Trim();
+			
+			if (newNameTrimmed.Length < GameConstants.PlayerName.PLAYER_NAME_MIN_LENGTH)
 			{
 				_nameInvalidStatus = string.Format(ScriptLocalization.MainMenu.NameTooShort, 
 					GameConstants.PlayerName.PLAYER_NAME_MIN_LENGTH);
@@ -113,7 +115,8 @@ namespace FirstLight.Game.StateMachines
 				_statechartTrigger(_nameSetInvalidEvent);
 				return;
 			}
-			if (newName.Length > GameConstants.PlayerName.PLAYER_NAME_MAX_LENGTH)
+			
+			if (newNameTrimmed.Length > GameConstants.PlayerName.PLAYER_NAME_MAX_LENGTH)
 			{
 				_nameInvalidStatus = string.Format(ScriptLocalization.MainMenu.NameTooLong, 
 					GameConstants.PlayerName.PLAYER_NAME_MAX_LENGTH);
@@ -122,9 +125,9 @@ namespace FirstLight.Game.StateMachines
 				return;
 			}
 
-			if (newName != _dataProvider.AppDataProvider.DisplayNameTrimmed)
+			if (newNameTrimmed != _dataProvider.AppDataProvider.DisplayNameTrimmed)
 			{
-				_services.PlayfabService.UpdateDisplayName(newName);
+				_services.PlayfabService.UpdateDisplayName(newNameTrimmed);
 			}
 			
 			_statechartTrigger(_nameSetEvent);

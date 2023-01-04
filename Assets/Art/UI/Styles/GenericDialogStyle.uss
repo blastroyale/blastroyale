@@ -74,7 +74,7 @@
 }
 
 .content__background {
-    background-image: url('project://database/Assets/Art/UI/Sprites/GenericDialogs/PopupBackPattern.png?fileID=21300000&guid=ebf2caa297ec7a341a919dc9bc2f9ca1&type=3#PopupBackPattern');
+    background-image: var(--sprite-home__pattern-jagged-horizontal);
     width: 650px;
     height: 336px;
     position: absolute;
@@ -121,6 +121,7 @@
 
 .input-field > .unity-text-field__input {
     -unity-text-align: middle-center;
+    -unity-font-definition: var(--font-italic-dynamic);
 }
 
 .blocker {

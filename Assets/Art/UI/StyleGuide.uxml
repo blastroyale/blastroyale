@@ -1,4 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xmlns:FLG="FirstLight.Game.UIElements"
-         editor-extension-mode="False" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <FLG:CurrencyDisplayElement currency="CS"/>
-</ui:UXML>

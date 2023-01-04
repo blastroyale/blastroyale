@@ -1,6 +1,6 @@
 .winner-banner {
     position: absolute;
-    background-image: url('project://database/Assets/Art/UI/Sprites/MatchEnd/PlayerWonBadge.png?fileID=21300000&guid=5a038245d3ee241619c87feb2764ba89&type=3#PlayerWonBadge');
+    background-image: var(--sprite-match__banner-winner);
     width: 1001px;
     height: 434px;
     transition-property: opacity, scale;

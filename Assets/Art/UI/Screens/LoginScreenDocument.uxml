@@ -12,7 +12,7 @@
                     <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITLoginRegister/email" name="EmailTextField" class="input-field" />
                     <ui:VisualElement>
                         <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITLoginRegister/password" name="PasswordTextField" password="true" class="input-field input-field--password" />
-                        <ui:Button display-tooltip-when-elided="true" name="ViewHideButton" class="viewHideButton viewHideButton--login" />
+                        <ui:Button name="ViewHideButton" class="view-hide-button view-hide-button--login" />
                     </ui:VisualElement>
                     <ui:VisualElement class="button-flat-outline">
                         <FirstLight.Game.UIElements.LocalizedButton localization-key="UITLoginRegister/login" name="LoginButton" class="button-flat button-flat--primary button-flat--primary--login" />

@@ -16,11 +16,12 @@ namespace Src.FirstLight.Server
     /// </summary>
     public class FlgServerConfig : IServerSetup
     {
+        /// <summary>
+        /// Will be called on server when instantiating the plugin
+        /// </summary>
         public FlgServerConfig()
         {
-            ModelSerializer.RegisterConverter(new QuantumVector2Converter());
-            ModelSerializer.RegisterConverter(new QuantumVector3Converter());
-            ModelSerializer.RegisterConverter(new FPConverter());
+            FlgCustomSerializers.RegisterSerializers();
         }
 
         public Assembly GetCommandsAssembly()

@@ -116,4 +116,20 @@ namespace FirstLight.Game.Utils
 			return serializableVector.ToFP();
 		}
 	}
+
+	/// <summary>
+	/// Manipulates the custom serializers implemented
+	/// </summary>
+	public static class FlgCustomSerializers
+	{
+		/// <summary>
+		/// Registers specific type serializers that are shared between the client and server.
+		/// </summary>
+		public static void RegisterSerializers()
+		{
+			ModelSerializer.RegisterConverter(new QuantumVector2Converter());
+			ModelSerializer.RegisterConverter(new QuantumVector3Converter());
+			ModelSerializer.RegisterConverter(new FPConverter());
+		}
+	}
 }

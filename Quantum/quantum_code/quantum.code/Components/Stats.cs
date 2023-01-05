@@ -359,10 +359,15 @@ namespace Quantum
 
 			for (var i = 0; i < gear.Length; i++)
 			{
+				if (!gear[i].IsValid())
+				{
+					continue;
+				}
+				
 				QuantumStatCalculator.CalculateGearStats(f, gear[i], out var armour2, out var health2, out var speed2, 
 				                                         out var power2, out var attackRange2, out var pickupSpeed2,
 				                                         out var ammoCapacity2, out var shieldCapacity2);
-
+				
 				health += health2;
 				speed += speed2;
 				armour += armour2;

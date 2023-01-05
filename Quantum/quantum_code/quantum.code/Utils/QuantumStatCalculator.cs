@@ -91,6 +91,11 @@ namespace Quantum
 			
 			for (var i = 0; i < gear.Length; i++)
 			{
+				if (!gear[i].IsValid())
+				{
+					continue;
+				}
+				
 				might += FPMath.CeilToInt(baseValue * QuantumHelpers.PowFp(rarityM, (uint) gear[i].Rarity)
 										  + (baseValue * levelM * gear[i].Level));
 			}

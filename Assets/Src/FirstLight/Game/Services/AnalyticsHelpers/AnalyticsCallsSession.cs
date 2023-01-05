@@ -76,7 +76,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		public void GameLoadStart()
 		{
 			// Async call for the AdvertisingId
-			var requestAdvertisingIdSuccess = !Application.RequestAdvertisingIdentifierAsync((id, enabled, msg) =>
+			var requestAdvertisingIdSuccess = Application.RequestAdvertisingIdentifierAsync((id, enabled, msg) =>
 			{
 				var dic = new Dictionary<string, object>
 				{
@@ -113,6 +113,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			Analytics.SetUserId(id);
 			FirebaseAnalytics.SetUserId(id);
 			SingularSDK.SetCustomUserId(id);
+			UnityEngine.CrashReportHandler.CrashReportHandler.SetUserMetadata("playfab_id", id);
 
 			var loginData = new Dictionary<string, object> 		{
 				{"client_version", VersionUtils.VersionInternal },

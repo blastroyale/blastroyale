@@ -96,7 +96,7 @@ namespace Backend
 					}
 				}
 
-				_eventManager.CallEvent(new PlayerDataLoadEvent(playerId));
+				_eventManager.CallEvent(new PlayerDataLoadEvent(playerId, state));
 				return new PlayFabResult<BackendLogicResult>
 				{
 					Result = new BackendLogicResult()

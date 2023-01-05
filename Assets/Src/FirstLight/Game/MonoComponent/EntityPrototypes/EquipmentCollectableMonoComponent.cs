@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using FirstLight.Game.MonoComponent.EntityViews;
 using FirstLight.Game.Services;
@@ -23,12 +24,29 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		protected override async void OnEntityInstantiated(QuantumGame game)
 		{
 			var collectable = GetComponentData<EquipmentCollectable>(game);
+			var tasks = new List<Task<bool>>();
 			
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
-			
 			_collectableView.SetEntityView(game, EntityView);
+			
+			tasks.Add(TryShowEquipment(collectable.Item.GameId));
+			tasks.Add(TryShowRarityEffect(collectable.Item.Rarity));
 
-			if (!await TryShowEquipment(collectable.Item.GameId) || !await TryShowRarityEffect(collectable.Item.Rarity)) return;
+			/*
+			 * Attention:
+			 * The loading frame might be called when the simulation is closing and the assets unloaded,
+			 * creating a CPU race condition between the loading thread and the unloading thread.
+			 */
+			await Task.WhenAll(tasks);
+
+			foreach (var task in tasks)
+			{
+				if (!task.Result)
+				{
+					return;
+				}
+			}
+			
 
 			_matchServices.SpectateService.SpectatedPlayer.InvokeObserve(OnSpectatedPlayerChanged);
 			QuantumEvent.Subscribe<EventOnPlayerWeaponChanged>(this, HandleOnPlayerWeaponChanged);

@@ -16,22 +16,21 @@
 }
 
 .screen-header__home {
-    background-image: url('project://database/Assets/Art/UI/Sprites/Header/HomebuttonBack.png?fileID=21300000&guid=f23748b7de1224ba39c941f04a7aaa96&type=3#HomebuttonBack');
+    background-image: var(--sprite-home__header-home);
     width: 550px;
     height: 166px;
     margin-right: -392px;
 }
 
 .screen-header__home:active {
-    background-image: url('project://database/Assets/Art/UI/Sprites/Header/HomebuttonBackPressed.png?fileID=21300000&guid=4389613eb61db486b8ddb825da78487a&type=3#HomebuttonBackPressed');
+    background-image: var(--sprite-home__header-home-pressed);
 }
 
 .screen-header__title {
     position: absolute;
-    left:350px;
-    top:40px;
+    left: 350px;
+    top: 40px;
     font-size: 60px;
-    -unity-font-definition: var(--font-italic);
     color: rgb(255, 255, 255);
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
     margin: 0;
@@ -44,10 +43,9 @@
 
 .screen-header__subtitle {
     position: absolute;
-    left:420px;
-    top:95px;
+    left: 420px;
+    top: 95px;
     font-size: 38px;
-    -unity-font-definition: var(--font-italic);
     color: rgb(106, 129, 189);
     text-shadow: 5px 5px 0 rgb(0, 0, 0);
     margin: 0;
@@ -59,14 +57,14 @@
 }
 
 .screen-header__back {
-    background-image: url('project://database/Assets/Art/UI/Sprites/Header/HeadlineBack.png?fileID=21300000&guid=8c5fc907c7ac74e9ea1bbd30c58be442&type=3#HeadlineBack');
+    background-image: var(--sprite-home__header-back);
     width: 742px;
     height: 178px;
     margin-left: -424px;
 }
 
 .screen-header__back:active {
-    background-image: url('project://database/Assets/Art/UI/Sprites/Header/HeadlineBackPressed.png?fileID=21300000&guid=7485a1a423f1e430892305217ee57018&type=3#HeadlineBackPressed');
+    background-image: var(--sprite-home__header-back-pressed);
 }
 
 .screen-header--simple {
@@ -77,17 +75,17 @@
 }
 
 .screen-header--simple .screen-header__back {
-    background-image: url('project://database/Assets/Art/UI/Sprites/Header/Headline.png?fileID=21300000&guid=c5ec35c903c644752a1e9aa07e09fa77&type=3#Headline');
+    background-image: var(--sprite-home__header-background);
     width: 1110px;
     height: 192px;
     margin-left: -487px;
     margin-right: -502px;
 }
 
-.screen-header--simple .screen-header__title{
-    left:100px;
+.screen-header--simple .screen-header__title {
+    left: 100px;
 }
 
-.screen-header--simple .screen-header__subtitle{
-    left:170px;
+.screen-header--simple .screen-header__subtitle {
+    left: 170px;
 }

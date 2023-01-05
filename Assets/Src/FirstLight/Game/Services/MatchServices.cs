@@ -20,7 +20,7 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc cref="IEntityViewUpdaterService"/>
 		public IEntityViewUpdaterService EntityViewUpdaterService { get; }
 		
-		/// <inheritdoc cref="IMatchFrameSnapshotService"/>
+		/// <inheritdoc cref="IFrameSnapshotService"/>
 		public IFrameSnapshotService FrameSnapshotService { get; }
 		
 		/// <inheritdoc cref="IMatchEndDataService"/>
@@ -47,7 +47,7 @@ namespace FirstLight.Game.Services
 			/// <summary>
 			/// Triggered when <see cref="MatchEndedMessage"/> has been published.
 			/// </summary>
-			void OnMatchEnded();
+			void OnMatchEnded(QuantumGame game, bool isDisconnected);
 		}
 
 		private MatchEndDataService _matchEndDataService;
@@ -60,9 +60,10 @@ namespace FirstLight.Game.Services
 		public ISpectateService SpectateService { get; }
 		/// <inheritdoc />
 		public IEntityViewUpdaterService EntityViewUpdaterService { get; }
-
+		/// <inheritdoc />
 		public IFrameSnapshotService FrameSnapshotService { get; }
-		public IMatchEndDataService MatchEndDataService => _matchEndDataService;
+		/// <inheritdoc />
+		public IMatchEndDataService MatchEndDataService { get; }
 
 		public MatchServices(IEntityViewUpdaterService entityViewUpdaterService, IGameServices services, IGameDataProvider dataProvider, IDataService dataService)
 		{
@@ -73,6 +74,7 @@ namespace FirstLight.Game.Services
 			EntityViewUpdaterService = entityViewUpdaterService;
 			SpectateService = Configure(new SpectateService(services, this));
 			FrameSnapshotService = Configure(new FrameSnapshotService(dataService));
+			MatchEndDataService = Configure(new MatchEndDataService(_gameServices, _dataProvider));
 
 			_messageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStart);
 			_messageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEnd);
@@ -91,7 +93,6 @@ namespace FirstLight.Game.Services
 
 		private void OnMatchStart(MatchStartedMessage message)
 		{
-			_matchEndDataService = null;
 			foreach (var service in _services)
 			{
 				service.OnMatchStarted(message.Game, message.IsResync);
@@ -100,10 +101,9 @@ namespace FirstLight.Game.Services
 
 		private void OnMatchEnd(MatchEndedMessage message)
 		{
-			_matchEndDataService = new MatchEndDataService(message.Game, _gameServices, _dataProvider);
 			foreach (var service in _services)
 			{
-				service.OnMatchEnded();
+				service.OnMatchEnded(message.Game, message.IsDisconnected);
 			}
 		}
 

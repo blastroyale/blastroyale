@@ -107,8 +107,7 @@ namespace FirstLight.Game.Presenters
 			{
 				case Mode.Scrap:
 					_title.text = ScriptLocalization.UITEquipment.popup_scrapping_item;
-					_scrapView.SetData(info, () => Data.OnActionConfirmed(Mode.Scrap, info.Id),
-						Data.OnCloseClicked);
+					_scrapView.SetData(info, () => Data.OnActionConfirmed(Mode.Scrap, info.Id));
 					break;
 				case Mode.Upgrade:
 					_title.text = ScriptLocalization.UITEquipment.popup_upgrading_item;

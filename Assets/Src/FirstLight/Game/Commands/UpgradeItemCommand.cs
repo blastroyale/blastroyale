@@ -2,6 +2,7 @@
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
+using FirstLight.Server.SDK.Modules.Commands;
 
 namespace FirstLight.Game.Commands
 {

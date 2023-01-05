@@ -4,6 +4,7 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Logic.RPC;
+using FirstLight.Server.SDK.Models;
 using FirstLight.Services;
 using Quantum;
 
@@ -187,7 +188,7 @@ namespace FirstLight.Game.Logic
 		{
 			if (!skin.IsInGroup(GameIdGroup.PlayerSkin))
 			{
-				throw new LogicException($"Skin Id '{skin}' is not part of the Game Id Group PlayerSkin.");
+				throw new LogicException($"Skin Id '{skin.ToString()}' is not part of the Game Id Group PlayerSkin.");
 			}
 
 			Data.PlayerSkinId = skin;

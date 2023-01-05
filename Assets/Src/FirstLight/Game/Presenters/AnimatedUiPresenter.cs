@@ -36,7 +36,7 @@ namespace FirstLight.Game.Presenters
 			Services = MainInstaller.Resolve<IGameServices>();
 		}
 
-		protected override async Task OnClosed()
+		protected override Task OnClosed()
 		{
 			if (_coroutine != null)
 			{
@@ -57,6 +57,8 @@ namespace FirstLight.Game.Presenters
 				gameObject.SetActive(false);
 				OnClosedCompleted();
 			}
+
+			return Task.CompletedTask;
 		}
 
 		protected override void OnOpened()
@@ -139,7 +141,7 @@ namespace FirstLight.Game.Presenters
 			Services = MainInstaller.Resolve<IGameServices>();
 		}
 
-		protected override async Task OnClosed()
+		protected override Task OnClosed()
 		{
 			if (_coroutine != null)
 			{
@@ -160,6 +162,8 @@ namespace FirstLight.Game.Presenters
 				gameObject.SetActive(false);
 				OnClosedCompleted();
 			}
+
+			return Task.CompletedTask;
 		}
 
 		protected override void OnOpened()

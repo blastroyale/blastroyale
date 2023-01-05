@@ -1,5 +1,6 @@
 using FirstLight.Game.Data;
 using FirstLight.Game.Utils;
+using FirstLight.Server.SDK.Models;
 using FirstLight.Services;
 using Photon.Deterministic;
 

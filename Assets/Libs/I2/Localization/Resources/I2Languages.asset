@@ -2679,7 +2679,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - The name must be at least {0} characters long.
+      - The name must contain at least {0} valid characters.
       - 
       - 
       Flags: 000000
@@ -9892,6 +9892,24 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITLoginRegister/register_login
+      TermType: 0
+      Description: 
+      Languages:
+      - REGISTER/LOGIN
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/guest
+      TermType: 0
+      Description: 
+      Languages:
+      - GUEST
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITStore/epic_core
       TermType: 0
       Description: 
@@ -11076,7 +11094,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1671527912272
+    Google_LastUpdatedVersion: 1672850009972
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

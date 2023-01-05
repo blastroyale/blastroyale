@@ -79,21 +79,8 @@ namespace FirstLight.Game.Presenters
 		protected override void OnOpened()
 		{
 			base.OnOpened();
-			
-			if (string.IsNullOrEmpty(_gameDataProvider.AppDataProvider.LastLoginEmail.Value))
-			{
-				_connectIdButton.gameObject.SetActive(true);
-				_idConnectionNameText.gameObject.SetActive(false);
-				_idConnectionStatusText.text = ScriptLocalization.MainMenu.FirstLightIdNeedConnection;
-			}
-			else
-			{
-				_connectIdButton.gameObject.SetActive(false);
-				_idConnectionNameText.gameObject.SetActive(true);
-				_idConnectionStatusText.text = ScriptLocalization.MainMenu.FirstLightIdConnected;
-				_idConnectionNameText.text = string.Format(ScriptLocalization.General.UserId,
-														   _gameDataProvider.AppDataProvider.DisplayName.Value);
-			}
+
+			UpdateAccountStatus();
 			
 			_versionText.text = VersionUtils.VersionInternal;
 			
@@ -112,6 +99,27 @@ namespace FirstLight.Game.Presenters
 #if UNITY_IOS
 			_faq.gameObject.SetActive(false);
 #endif
+		}
+
+		/// <summary>
+		/// Updates the FLG ID account status
+		/// </summary>
+		public void UpdateAccountStatus()
+		{
+			if (string.IsNullOrEmpty(_gameDataProvider.AppDataProvider.LastLoginEmail.Value))
+			{
+				_connectIdButton.gameObject.SetActive(true);
+				_idConnectionNameText.gameObject.SetActive(false);
+				_idConnectionStatusText.text = ScriptLocalization.MainMenu.FirstLightIdNeedConnection;
+			}
+			else
+			{
+				_connectIdButton.gameObject.SetActive(false);
+				_idConnectionNameText.gameObject.SetActive(true);
+				_idConnectionStatusText.text = ScriptLocalization.MainMenu.FirstLightIdConnected;
+				_idConnectionNameText.text = string.Format(ScriptLocalization.General.UserId,
+					_gameDataProvider.AppDataProvider.DisplayName.Value);
+			}
 		}
 
 		private void OnConnectionRegionChange(string previousValue, string newValue)

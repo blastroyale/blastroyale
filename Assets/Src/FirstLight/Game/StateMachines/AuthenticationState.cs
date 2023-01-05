@@ -539,11 +539,11 @@ namespace FirstLight.Game.StateMachines
 			var userId = result.PlayFabId;
 			var email = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
 			var userName = result.InfoResultPayload.AccountInfo.Username;
-			var emails = result.InfoResultPayload.PlayerProfile.ContactEmailAddresses;
+			var emails = result.InfoResultPayload?.PlayerProfile?.ContactEmailAddresses;
 			var isMissingContactEmail = emails == null || !emails.Any(e => e != null && e.EmailAddress.Contains("@"));
 			if (email != null && email.Contains("@") && isMissingContactEmail)
 			{
-				_services.PlayfabService.UpdateEmail(email);
+				_services.PlayfabService.UpdateContactEmail(email);
 			}
 
 			_services.HelpdeskService.Login(userId, email, userName);

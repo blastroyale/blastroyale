@@ -92,9 +92,6 @@ namespace FirstLight.Game.Services
 		
 		/// <inheritdoc cref="IIAPService"/>
 		public IIAPService IAPService { get; }
-
-		/// <inheritdoc cref="IIAPService"/>
-		public IGameLogic GameLogic { get; }
 		
 		/// <summary>
 		/// Reason why the player quit the app
@@ -135,7 +132,6 @@ namespace FirstLight.Game.Services
 		
 		public IMatchmakingService MatchmakingService { get; }
 		public IIAPService IAPService { get; }
-		public IGameLogic GameLogic { get; }
 		public string QuitReason { get; set; }
 
 		public GameServices(IGameNetworkService networkService, IMessageBrokerService messageBrokerService,
@@ -155,15 +151,14 @@ namespace FirstLight.Game.Services
 			GenericDialogService = genericDialogService;
 			AudioFxService = audioFxService;
 			VfxService = vfxService;
-			GameLogic = gameLogic;
 
 			MatchmakingService = new MatchmakingService();
 			ThreadService = new ThreadService();
 			HelpdeskService = new HelpdeskService();
 			GameModeService = new GameModeService(ConfigsProvider, ThreadService);
 			GuidService = new GuidService();
-			PlayfabService = new PlayfabService(gameLogic, messageBrokerService, GameConstants.Network.LEADERBOARD_LADDER_NAME);
-			CommandService = new GameCommandService(PlayfabService, gameLogic, dataService, this, networkService);
+			PlayfabService = new PlayfabService(gameLogic, messageBrokerService, GameConstants.Stats.LEADERBOARD_LADDER_NAME);
+			CommandService = new GameCommandService(PlayfabService, gameLogic, dataService, this);
 			PoolService = new PoolService();
 			TickService = new TickService();
 			CoroutineService = new CoroutineService();

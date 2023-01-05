@@ -28,11 +28,16 @@ namespace Src.FirstLight.Server
 
 		private async Task CheckForSeasonUpdate(string playfabId)
 		{
+			
 			try
 			{
 				await _ctx.PlayerMutex.Lock(playfabId);
 
 				var state = await _ctx.ServerState.GetPlayerState(playfabId);
+				if (!state.Has<PlayerData>())
+				{
+					return;
+				}
 				var currentSeason = _ctx.GameConfig.GetConfig<BattlePassConfig>().CurrentSeason;
 				var seasonData = state.DeserializeModel<SeasonData>();
 				var playerSeason = seasonData.CurrentSeason;

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.NativeUi;
 using FirstLight.Statechart;
 using FirstLight.UiService;
 using I2.Loc;
@@ -52,7 +54,9 @@ namespace FirstLight.Game.StateMachines
 		private readonly EquipmentMenuState _equipmentMenuState;
 		private readonly SettingsMenuState _settingsMenuState;
 		private readonly EnterNameState _enterNameState;
+		
 		private Type _currentScreen;
+		private int _unclaimedCountCheck;
 
 		public MainMenuState(IGameServices services, IGameUiService uiService, IGameLogic gameLogic,
 		                     IAssetAdderService assetAdderService, Action<IStatechartEvent> statechartTrigger)
@@ -139,7 +143,7 @@ namespace FirstLight.Game.StateMachines
 			
 			defaultNameCheck.Transition().Condition(HasDefaultName).Target(enterNameDialog);
 			defaultNameCheck.Transition().Target(homeMenu);
-
+			
 			homeMenu.OnEnter(OpenPlayMenuUI);
 			homeMenu.OnEnter(TryClaimUncollectedRewards);
 			homeMenu.Event(_playClickedEvent).Target(playClickedCheck);
@@ -192,26 +196,27 @@ namespace FirstLight.Game.StateMachines
 			roomJoinCreateMenu.Event(NetworkState.CreateRoomFailedEvent).Target(chooseGameMode);
 		}
 
-		private bool HasDefaultName()
-		{
-			return _gameDataProvider.AppDataProvider.DisplayNameTrimmed == GameConstants.PlayerName.DEFAULT_PLAYER_NAME ||
-			       string.IsNullOrEmpty(_gameDataProvider.AppDataProvider.DisplayNameTrimmed);
-		}
-
 		private void SubscribeEvents()
 		{
 			_services.MessageBrokerService.Subscribe<GameCompletedRewardsMessage>(OnGameCompletedRewardsMessage);
 			_services.GameModeService.SelectedGameMode.Observe(OnGameModeChanged);
 		}
 
-		private void OnGameModeChanged(GameModeInfo previous, GameModeInfo next)
-		{
-			_gameDataProvider.AppDataProvider.LastGameMode = next.Entry;
-		}
-
 		private void UnsubscribeEvents()
 		{
 			_services?.MessageBrokerService?.UnsubscribeAll(this);
+			_services?.GameModeService?.SelectedGameMode?.StopObserving(OnGameModeChanged);
+		}
+
+		private bool HasDefaultName()
+		{
+			return _gameDataProvider.AppDataProvider.DisplayNameTrimmed == GameConstants.PlayerName.DEFAULT_PLAYER_NAME ||
+			       string.IsNullOrEmpty(_gameDataProvider.AppDataProvider.DisplayNameTrimmed);
+		}
+
+		private void OnGameModeChanged(GameModeInfo previous, GameModeInfo next)
+		{
+			_gameDataProvider.AppDataProvider.LastGameMode = next.Entry;
 		}
 
 		private void OnGameCompletedRewardsMessage(GameCompletedRewardsMessage message)
@@ -221,10 +226,55 @@ namespace FirstLight.Game.StateMachines
 
 		private void TryClaimUncollectedRewards()
 		{
-			if (_gameDataProvider.RewardDataProvider.UnclaimedRewards.Count > 0)
+			_unclaimedCountCheck = 0;
+			
+			_services.PlayfabService.CheckIfRewardsMatch(OnCheckIfServerRewardsMatch);
+		}
+
+		private async void OnCheckIfServerRewardsMatch(bool serverRewardsMatch)
+		{
+			if (serverRewardsMatch)
 			{
-				_services.CommandService.ExecuteCommand(new CollectUnclaimedRewardsCommand());
+				_services.GenericDialogService.CloseDialog();
+				
+				if (_gameDataProvider.RewardDataProvider.UnclaimedRewards.Count > 0)
+				{
+					_services.CommandService.ExecuteCommand(new CollectUnclaimedRewardsCommand());
+				}
+
+				return;
 			}
+
+			// We try 10 times to check reward claiming to timeout and show error pop up
+			if (_unclaimedCountCheck == 10)
+			{
+#if UNITY_EDITOR
+				var confirmButton = new GenericDialogButton
+				{
+					ButtonText = "OK",
+					ButtonOnClick = () => _services.QuitGame("Desync")
+				};
+				_services.GenericDialogService.OpenButtonDialog("Server Error", "Desync", false, confirmButton);
+#else
+				NativeUiService.ShowAlertPopUp(false, "Error", "Desync", new AlertButton
+				{
+					Callback = () => _services.QuitGame("Server desynch"),
+					Style = AlertButtonStyle.Negative,
+					Text = "Quit Game"
+				});
+#endif
+				return;
+			}
+
+			if (_unclaimedCountCheck == 0)
+			{
+				_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITHomeScreen.waitforrewards_popup_title,
+				                                                ScriptLocalization.UITHomeScreen.waitforrewards_popup_description, 
+				                                                false, new GenericDialogButton());
+			}
+			_unclaimedCountCheck++;
+			await Task.Delay(TimeSpan.FromMilliseconds(500)); // space check calls a bit
+			_services?.PlayfabService?.CheckIfRewardsMatch(OnCheckIfServerRewardsMatch);
 		}
 		
 		private void ValidateCurrentGameMode()
@@ -262,7 +312,7 @@ namespace FirstLight.Game.StateMachines
 			return _currentScreen == typeof(T);
 		}
 
-		private void OpenBrokenItemsPopUp()
+		private async void OpenBrokenItemsPopUp()
 		{
 			var infos = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All);
 			var loadout = new Dictionary<GameIdGroup, UniqueId>();
@@ -292,7 +342,7 @@ namespace FirstLight.Game.StateMachines
 				PopupMode = EquipmentPopupPresenter.Mode.Rusted
 			};
 
-			_uiService.OpenUi<EquipmentPopupPresenter, EquipmentPopupPresenter.StateData>(data);
+			await _uiService.OpenUiAsync<EquipmentPopupPresenter, EquipmentPopupPresenter.StateData>(data);
 		}
 		
 		private void CloseBrokenItemsPopUp()
@@ -319,7 +369,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new GameModeSelectionPresenter.StateData
 			{
-				GameModeChosen = () =>
+				GameModeChosen = _ =>
 				{
 					_services.MessageBrokerService.Publish(new SelectedGameModeMessage());
 					_statechartTrigger(_gameModeSelectedFinishedEvent);
@@ -392,6 +442,11 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(NetworkState.IapProcessFinishedEvent);
 		}
 
+		private void CloseBattlePassUI()
+		{
+			_uiService.CloseUi<BattlePassScreenPresenter>();
+		}
+		
 		private void OpenPlayerSkinScreenUI()
 		{
 			var data = new PlayerSkinScreenPresenter.StateData
@@ -530,8 +585,7 @@ namespace FirstLight.Game.StateMachines
 			await Task.Delay(GameConstants.Visuals.SCREEN_SWIPE_TRANSITION_MS);
 			
 			var configProvider = _services.ConfigsProvider;
-
-			Camera.main.gameObject.SetActive(false);
+			
 			_uiService.UnloadUiSet((int) UiSetId.MainMenuUi);
 			_services.AudioFxService.DetachAudioListener();
 

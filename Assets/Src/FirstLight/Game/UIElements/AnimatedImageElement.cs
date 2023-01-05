@@ -1,11 +1,3 @@
-using System.Collections.Generic;
-using DG.Tweening;
-using FirstLight.Game.Ids;
-using FirstLight.Game.Logic;
-using FirstLight.Game.Services;
-using FirstLight.Game.Utils;
-using FirstLight.UiService;
-using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.UIElements.Experimental;
@@ -69,7 +61,6 @@ namespace FirstLight.Game.UIElements
 
 			_randPosTween = experimental.animation.Start(0f, 1f, randPosDurationMs, (ve, percent) =>
 			{
-				Debug.LogError(percent);
 				var lerpNewX = Mathf.Lerp(ve.transform.position.x, randomPos.x, percent / randPosLerpFactor);
 				var lerpNewY = Mathf.Lerp(ve.transform.position.y, randomPos.y, percent / randPosLerpFactor);
 				ve.transform.position = new Vector3(lerpNewX, lerpNewY, 0);

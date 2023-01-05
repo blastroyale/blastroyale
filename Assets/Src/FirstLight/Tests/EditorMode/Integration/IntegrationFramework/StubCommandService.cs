@@ -3,7 +3,9 @@ using System.Security.Cryptography;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
+using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules;
+using FirstLight.Server.SDK.Modules.Commands;
 using FirstLight.Services;
 
 namespace FirstLight.Tests.EditorMode

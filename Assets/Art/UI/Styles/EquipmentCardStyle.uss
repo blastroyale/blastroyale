@@ -23,15 +23,18 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/CardBack.png?fileID=21300000&guid=5448ae2e7ab334979af93558d7b53390&type=3#CardBack');
+    background-image: var(--sprite-home__card-background);
 }
 
 .equipment-card:active .equipment-card__background {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/CardBackPressed.png?fileID=21300000&guid=1abd80e5f399a418ba841283e2f88f3f&type=3#CardBackPressed');
+    background-image: var(--sprite-home__card-background-pressed);
 }
 
 .equipment-card--selected {
     scale: 1.1 1.1;
+}
+
+.equipment-card--highlighted {
 }
 
 .equipment-card__selected-bg {
@@ -45,9 +48,18 @@
     transition-duration: 0.2s;
 }
 
+.equipment-card--highlighted  .equipment-card__highlight {
+    position: absolute;
+    top: 0;
+    left: -7px;
+    right: -6px;
+    bottom: -10px;
+    background-image: var(--sprite-home__card-shadow-pink);
+}
+
 .equipment-card--selected .equipment-card__selected-bg {
     opacity: 1;
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/ChosenBgGradient.png?fileID=21300000&guid=ee4e6b68e6f2642e2bb41626e7d79b7c&type=3#ChosenBgGradient');
+    background-image: var(--sprite-home__card-selected);
 }
 
 .equipment-card__card-holder {
@@ -67,32 +79,12 @@
 }
 
 .equipment-card__rarity {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/CommonRarityCard.png?fileID=21300000&guid=ee66e31dc19fb449bbfbbb5d1951dd44&type=3#CommonRarityCard');
+    background-image: var(--sprite-home__card-rarity-common);
     width: 291px;
     height: 237px;
     position: absolute;
     left: 9px;
     top: 2px;
-}
-
-.equipment-card__rarity--common {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/CommonRarityCard.png?fileID=21300000&guid=ee66e31dc19fb449bbfbbb5d1951dd44&type=3#CommonRarityCard');
-}
-
-.equipment-card__rarity--uncommon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/UncommonRarityCard.png?fileID=21300000&guid=ebbd74f2edd9042ada9e3bbbe7664e2d&type=3#UncommonRarityCard');
-}
-
-.equipment-card__rarity--rare {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/RareRarityCard.png?fileID=21300000&guid=2e6e53bbf7dc549daa698cfd919f57fe&type=3#RareRarityCard');
-}
-
-.equipment-card__rarity--epic {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/EpicRarityCard.png?fileID=21300000&guid=95b0687f272e142db9a57780bdb1d8a5&type=3#EpicRarityCard');
-}
-
-.equipment-card__rarity--legendary {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/LegendaryRarityCard.png?fileID=21300000&guid=1b876e4b9227342feab7a4635cf53443&type=3#LegendaryRarityCard');
 }
 
 .equipment-card__plus-rarity {
@@ -102,7 +94,7 @@
     left: 30px;
     top: 19px;
     -unity-background-scale-mode: scale-to-fit;
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/PlusRarity.png?fileID=21300000&guid=b065780dc4a794729900bc9b9db132fa&type=3#PlusRarity');
+    background-image: var(--sprite-home__card-plusrarity);
 }
 
 .equipment-card__image {
@@ -122,7 +114,6 @@
 
 .equipment-card__grade {
     position: absolute;
-    -unity-font-definition: var(--font-italic);
     color: rgb(255, 255, 255);
     font-size: 36px;
     left: 34px;
@@ -136,77 +127,28 @@
 
 .equipment-card__faction {
     position: absolute;
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/Factions_Dimensional.png?fileID=21300000&guid=f97f5ac30a381422ea96469c0f5088b3&type=3#Factions_Dimensional');
+    background-image: var(--sprite-home__card-faction-dimensional);
     width: 56px;
     height: 56px;
     top: 180px;
     left: 15px;
 }
 
-.equipment-card__faction--celestial {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/Factions_Celestial.png?fileID=21300000&guid=662b52885d7a942288765c746039cddf&type=3#Factions_Celestial');
-}
-
-.equipment-card__faction--chaos {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/Factions_Chaos.png?fileID=21300000&guid=d4025c572aa98442bb0948e233ee49f4&type=3#Factions_Chaos');
-}
-
-.equipment-card__faction--dark {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/Factions_Dark.png?fileID=21300000&guid=f93e634b026144242b41b271f943a0ad&type=3#Factions_Dark');
-}
-
-.equipment-card__faction--dimensional {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/Factions_Dimensional.png?fileID=21300000&guid=f97f5ac30a381422ea96469c0f5088b3&type=3#Factions_Dimensional');
-}
-
-.equipment-card__faction--order {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/Factions_Order.png?fileID=21300000&guid=1587622df1ef04e148062fec0724ade1&type=3#Factions_Order');
-}
-
-.equipment-card__faction--organic {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/Factions_Organic.png?fileID=21300000&guid=16854c121d2cb4018a1735b72548b4c1&type=3#Factions_Organic');
-}
-
-.equipment-card__faction--shadow {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/Factions_Shadow.png?fileID=21300000&guid=f84a265cda3db4a378eeff90c26294b0&type=3#Factions_Shadow');
-}
-
 .equipment-card__material {
     position: absolute;
     left: -10px;
     bottom: -3px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/BronzeMaterial.png?fileID=21300000&guid=cf0a61e3e86474550bc1f273fa5868d7&type=3#BronzeMaterial');
+    background-image: var(--sprite-home__card-material-bronze);
     width: 48px;
     height: 48px;
 }
 
-.equipment-card__material--plastic {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/PlasticMaterial.png?fileID=21300000&guid=f30087211e218443fa60e20456439102&type=3#PlasticMaterial');
-}
-
-.equipment-card__material--bronze {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/BronzeMaterial.png?fileID=21300000&guid=cf0a61e3e86474550bc1f273fa5868d7&type=3#BronzeMaterial');
-}
-
-.equipment-card__material--carbon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/CarbonMaterial.png?fileID=21300000&guid=75e8f1993859a4da7a5b06d15a5427d2&type=3#CarbonMaterial');
-}
-
-.equipment-card__material--golden {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/GoldMaterial.png?fileID=21300000&guid=401625d932e0f4edabaa54909a9fefe9&type=3#GoldMaterial');
-}
-
-.equipment-card__material--steel {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/SteelMaterial.png?fileID=21300000&guid=507669fa57c8048eead3ab9306b21015&type=3#SteelMaterial');
-}
-
 .equipment-card__level {
     font-size: 32px;
-    -unity-font-definition: var(--font-italic);
     color: rgb(248, 202, 44);
     padding: 3px 10px 0 18px;
     margin: 0;
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/LevelBack.png?fileID=21300000&guid=7f8fe52ce7e1343b8b7c83bcce5d9c36&type=3#LevelBack');
+    background-image: var(--sprite-home__card-levelbg);
     position: absolute;
     right: 25px;
     bottom: 87px;
@@ -215,21 +157,14 @@
 .equipment-card__name {
     position: absolute;
     bottom: 10px;
-    -unity-font-definition: var(--font-italic);
     left: 10px;
     right: 34px;
     color: rgb(255, 255, 255);
     height: 45px;
     -unity-text-align: middle-center;
     font-size: 32px;
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0;
-    padding-bottom: 0;
+    margin: 0;
+    padding: 0;
 }
 
 .equipment-card__adj-cat-holder {
@@ -244,34 +179,13 @@
 }
 
 .equipment-card__category {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/WeaponCard.png?fileID=21300000&guid=f2e6bc35a7f3e49a4b44472722af07db&type=3#WeaponCard');
+    background-image: var(--sprite-home__card-category-weapon);
     width: 34px;
     height: 34px;
 }
 
-.equipment-card__category--weapon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/WeaponCard.png?fileID=21300000&guid=f2e6bc35a7f3e49a4b44472722af07db&type=3#WeaponCard');
-}
-
-.equipment-card__category--armor {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/ArmourCard.png?fileID=21300000&guid=9b919bd778a0d4685825e688a612fc8a&type=3#ArmourCard');
-}
-
-.equipment-card__category--amulet {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/AmuletCard.png?fileID=21300000&guid=815ed0856f17c4544b3b7e83c109ed48&type=3#AmuletCard');
-}
-
-.equipment-card__category--shield {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/ShieldCard.png?fileID=21300000&guid=76b25407de0f24019a109b9f1abda2b3&type=3#ShieldCard');
-}
-
-.equipment-card__category--helmet {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/HeadgearCard.png?fileID=21300000&guid=f0668b911d0fb4eb49cc2c6910085463&type=3#HeadgearCard');
-}
-
 .equipment-card__adjective {
     color: rgb(148, 140, 198);
-    -unity-font-definition: var(--font-italic);
     font-size: 24px;
     -unity-text-align: middle-left;
 }
@@ -287,7 +201,7 @@
 }
 
 .equipment-card__badge-nft {
-    background-image: url('project://database/Assets/Art/UI/Sprites/EquipmentCard/NFTbadge.png?fileID=21300000&guid=98913c2e22bec40af85e06978ea6cc76&type=3#NFTbadge');
+    background-image: var(--sprite-home__card-badge-nft);
     width: 74px;
     height: 32px;
     position: relative;
@@ -296,44 +210,36 @@
 .equipment-card__badge-loaned {
     background-image: none;
     -unity-text-align: middle-center;
-    -unity-font-definition: var(--font-italic);
     font-size: 22px;
     color: rgb(255, 255, 255);
     padding: 2px 15px 0;
-    background-color: rgba(216, 75, 121, 255);
+    background-color: rgb(216, 75, 121);
     border-left-width: 1px;
     border-right-width: 1px;
     border-top-width: 1px;
     border-bottom-width: 1px;
     border-radius: 8px;
-    border-left-color: rgba(176, 60, 98, 255);
-    border-right-color: rgba(176, 60, 98, 255);
-    border-top-color: rgba(176, 60, 98, 255);
-    border-bottom-color: rgba(176, 60, 98, 255);
+    border-left-color: rgb(176, 60, 98);
+    border-right-color: rgb(176, 60, 98);
+    border-top-color: rgb(176, 60, 98);
+    border-bottom-color: rgb(176, 60, 98);
 }
 
 .equipment-card__badge-equipped {
     -unity-text-align: middle-center;
-    -unity-font-definition: var(--font-italic);
     font-size: 22px;
     color: rgb(45, 41, 80);
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-bottom: 0;
-    padding-top: 2px;
-    background-color: rgba(248, 199, 46, 255);
+    padding: 2px 15px 0;
+    background-color: rgb(248, 199, 46);
     border-left-width: 1px;
     border-right-width: 1px;
     border-top-width: 1px;
     border-bottom-width: 1px;
-    border-left-color: rgba(0, 0, 0, 255);
-    border-right-color: rgba(0, 0, 0, 255);
-    border-top-color: rgba(0, 0, 0, 255);
-    border-bottom-color: rgba(0, 0, 0, 255);
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-radius: 8px;
 }
 
 .equipment-card__notification {

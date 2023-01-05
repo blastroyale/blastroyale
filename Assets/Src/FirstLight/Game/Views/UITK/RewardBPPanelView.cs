@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using FirstLight.Game.Infos;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using I2.Loc;
+using Quantum;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Views
@@ -18,20 +21,22 @@ namespace FirstLight.Game.Views
 			public int MaxForLevel;
 			public int Start;
 			public int Total;
+			public int MaxLevel;
 		}
 		
 		private VisualElement _root;
 		private Label _gainedLabel;
 		private Label _nextLevelLabel;
+		private Label _toLevelLabel;
 		private Label _totalLabel;
 		private VisualElement _previousPointsBar;
 		private VisualElement _newPointsBar;
+		private Label _next;
 		private Label _gainedWeek;
 		private Label _totalWeek;
-
-		private int _gained;
-		private List<BPPLevelRewardInfo> _levelRewardsInfo;
 		
+		private List<BPPLevelRewardInfo> _levelRewardsInfo;
+
 		public void Attached(VisualElement element)
 		{
 			_root = element;
@@ -42,7 +47,9 @@ namespace FirstLight.Game.Views
 			_previousPointsBar = _root.Q<VisualElement>("GreenBar").Required();
 			_newPointsBar = _root.Q<VisualElement>("YellowBar").Required();
 			_gainedWeek = _root.Q<Label>("GainedWeek").Required();
+			_next = _root.Q<Label>("Next").Required();
 			_totalWeek = _root.Q<Label>("TotalWeek").Required();
+			_toLevelLabel = _root.Q<Label>("ToLevel").Required();
 			
 			HidePanel();
 		}
@@ -50,14 +57,14 @@ namespace FirstLight.Game.Views
 		/// <summary>
 		/// Set the reward data
 		/// </summary>
-		public void SetData(int gained, List<BPPLevelRewardInfo> levelRewardsInfo, int currentPool, int maxPool)
+		public void SetData(List<BPPLevelRewardInfo> levelRewardsInfo, int currentPool, int maxPool, ResourcePoolInfo poolInfo)
 		{
-			_gained = gained;
-
 			_levelRewardsInfo = levelRewardsInfo;
 
 			_gainedWeek.text = currentPool.ToString();
 			_totalWeek.text = "/" + maxPool;
+
+			UpdatePool(poolInfo);
 		}
 		
 		/// <summary>
@@ -70,15 +77,14 @@ namespace FirstLight.Game.Views
 			var currentGained = 0;
 
 			_gainedLabel.text = "0";
-			
 
-			var increaseNumber = _gained / 150;
+			var increaseNumber = 1;
 
 			foreach (var levelRewardInfo in _levelRewardsInfo)
 			{
 				var levelGained = levelRewardInfo.Start;
 
-				_nextLevelLabel.text = levelRewardInfo.NextLevel.ToString();
+				_nextLevelLabel.text = (levelRewardInfo.NextLevel+1).ToString();
 				_totalLabel.text = levelGained + "/" + levelRewardInfo.MaxForLevel;
 				var nextPointsPercentage = (int)(100 * ((float) (levelRewardInfo.Start+levelRewardInfo.Total) / levelRewardInfo.MaxForLevel));
 				_newPointsBar.style.width = Length.Percent(nextPointsPercentage);
@@ -100,6 +106,30 @@ namespace FirstLight.Game.Views
 					previousPointsPercentage = (int)(100 * ((float) levelGained / levelRewardInfo.MaxForLevel));
 					_previousPointsBar.style.width = Length.Percent(previousPointsPercentage);
 				}
+
+				if (levelRewardInfo.NextLevel >= levelRewardInfo.MaxLevel)
+				{
+					_nextLevelLabel.text = ScriptLocalization.UITBattlePass.max;
+					_totalLabel.text = ScriptLocalization.UITBattlePass.max;
+					_toLevelLabel.SetDisplay(false);
+				}
+			}
+		}
+		
+		private void UpdatePool(ResourcePoolInfo poolInfo)
+		{
+			var timeLeft = poolInfo.NextRestockTime - DateTime.UtcNow;
+
+			if (poolInfo.IsFull)
+			{
+				_next.text = string.Empty;
+			}
+			else
+			{
+				_next.text = string.Format(ScriptLocalization.UITHomeScreen.resource_pool_restock,
+					poolInfo.RestockPerInterval,
+					GameId.BPP.ToString(),
+					timeLeft.ToHoursMinutesSeconds());
 			}
 		}
 

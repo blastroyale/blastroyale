@@ -43,6 +43,8 @@ public class TestNftSyncPlugin
 			subCategory = (int) GameId.ModPistol,
 			faction = (long) EquipmentFaction.Chaos
 		});
+		var state = _app.Services.GetService<IPlayerSetupService>().GetInitialState("yolo");
+		_app.ServerState.UpdatePlayerState("yolo", state).GetAwaiter().GetResult();
 	}
 
 	[Test]
@@ -63,7 +65,7 @@ public class TestNftSyncPlugin
 	{
 		var nftDataBefore = _app.ServerState.GetPlayerState("yolo").Result.DeserializeModel<EquipmentData>();
 
-		_events.CallEvent(new PlayerDataLoadEvent("yolo"));
+		_events.CallEvent(new PlayerDataLoadEvent("yolo", null));
 
 		var nftDataAfter = _app.ServerState.GetPlayerState("yolo").Result.DeserializeModel<EquipmentData>();
 		Assert.AreEqual(0, nftDataBefore.Inventory.Keys.Count);
@@ -198,7 +200,7 @@ public class TestNftSyncPlugin
 	{
 		_app.ServerState.GetPlayerState("yolo").Result.DeserializeModel<EquipmentData>();
 
-		_events.CallEvent(new PlayerDataLoadEvent("yolo"));
+		_events.CallEvent(new PlayerDataLoadEvent("yolo", null));
 
 		var nftDataAfter = _app.ServerState.GetPlayerState("yolo").Result.DeserializeModel<EquipmentData>();
 		var nftAddedEvents = _analytics.FiredEvents.Where(e => e.Name == "nft_add").ToList();

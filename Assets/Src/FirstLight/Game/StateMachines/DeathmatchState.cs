@@ -28,8 +28,8 @@ namespace FirstLight.Game.StateMachines
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private readonly Dictionary<PlayerRef, Pair<int, int>> _killsDictionary = new();
 
-		public DeathmatchState(IGameDataProvider gameDataProvider, IGameServices services, IGameUiService uiService,
-		                       Action<IStatechartEvent> statechartTrigger)
+		public DeathmatchState(IGameDataProvider gameDataProvider, IGameServices services, 
+							   IGameUiService uiService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_gameDataProvider = gameDataProvider;
 			_services = services;
@@ -147,8 +147,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
-			var killerData = callback.PlayersMatchData.Find(data => data.Data.Player.Equals(callback.PlayerKiller));
-			var deadData = callback.PlayersMatchData.Find(data => data.Data.Player.Equals(callback.PlayerDead));
+			var killerData = callback.PlayersMatchData[callback.PlayerKiller];
+			var deadData = callback.PlayersMatchData[callback.PlayerDead];
 
 			var frameContext = callback.Game.Frames.Verified.Context;
 			var deadLocalPlayer = frameContext.IsLocalPlayer(deadData.Data.Player);
@@ -172,7 +172,7 @@ namespace FirstLight.Game.StateMachines
 				_killsDictionary[recordName] = recordPair;
 			}
 		}
-		
+
 		private void OpenSpectateHud()
 		{
 			_uiService.OpenScreen<SpectateScreenPresenter, SpectateScreenPresenter.StateData>(new SpectateScreenPresenter.StateData());

@@ -15,6 +15,7 @@ namespace FirstLight.Game.Presenters
 	{
 		public struct StateData
 		{
+			public bool PlayerDead;
 			public PlayerRef Killer;
 			public Action OnNextClicked;
 		}
@@ -46,33 +47,26 @@ namespace FirstLight.Game.Presenters
 			container.GetPlayersMatchData(f, out var leader);
 			var localWinner = game.PlayerIsLocal(leader);
 
+			_matchEndTitle.SetDisplay(false);
+			_blastedTitle.SetDisplay(false);
+			_youWinTitle.SetDisplay(false);
+			_youChoseDeathTitle.SetDisplay(false);
+			
 			if (localWinner)
 			{
-				_matchEndTitle.SetDisplay(false);
-				_blastedTitle.SetDisplay(false);
 				_youWinTitle.SetDisplay(true);
-				_youChoseDeathTitle.SetDisplay(false);
-			}
-			else if (Data.Killer == PlayerRef.None)
-			{
-				_matchEndTitle.SetDisplay(true);
-				_blastedTitle.SetDisplay(false);
-				_youWinTitle.SetDisplay(false);
-				_youChoseDeathTitle.SetDisplay(false);
 			}
 			else if (Data.Killer == localPlayer)
 			{
-				_matchEndTitle.SetDisplay(false);
-				_blastedTitle.SetDisplay(false);
-				_youWinTitle.SetDisplay(false);
 				_youChoseDeathTitle.SetDisplay(true);
+			}
+			else if (Data.Killer != PlayerRef.None || Data.PlayerDead)
+			{
+				_blastedTitle.SetDisplay(true);
 			}
 			else
 			{
-				_matchEndTitle.SetDisplay(false);
-				_blastedTitle.SetDisplay(true);
-				_youWinTitle.SetDisplay(false);
-				_youChoseDeathTitle.SetDisplay(false);
+				_matchEndTitle.SetDisplay(true);
 			}
 		}
 	}

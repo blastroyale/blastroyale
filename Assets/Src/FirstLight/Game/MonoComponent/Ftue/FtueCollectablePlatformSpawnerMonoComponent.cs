@@ -15,7 +15,7 @@ namespace FirstLight.Game.MonoComponent.Ftue
 		
 		private void Start()
 		{
-			QuantumRunner.Default.Game.SendCommand(new CollectablePlatformSpawnCommand
+			QuantumRunner.Default.Game.SendCommand(new CheatCollectablePlatformSpawnCommand
 			{
 				Position = transform.position.ToFPVector3(), 
 				Collectable = _collectable.GameId,

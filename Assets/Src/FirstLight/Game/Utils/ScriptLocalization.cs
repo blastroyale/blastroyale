@@ -1222,12 +1222,14 @@ namespace I2.Loc
 		public static class UITLoginRegister
 		{
 			public static string email 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/email"); } }
+			public static string guest 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/guest"); } }
 			public static string login 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/login"); } }
 			public static string login_with_fl_id 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/login_with_fl_id"); } }
 			public static string password 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/password"); } }
 			public static string play_as_guest 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/play_as_guest"); } }
 			public static string register 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/register"); } }
 			public static string register_fl_id 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/register_fl_id"); } }
+			public static string register_login 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/register_login"); } }
 			public static string register_new_fl_id 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/register_new_fl_id"); } }
 			public static string reset_password 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/reset_password"); } }
 			public static string send_password_recovery 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/send_password_recovery"); } }
@@ -2544,12 +2546,14 @@ namespace I2.Loc
 		public static class UITLoginRegister
 		{
 		    public const string email = "UITLoginRegister/email";
+		    public const string guest = "UITLoginRegister/guest";
 		    public const string login = "UITLoginRegister/login";
 		    public const string login_with_fl_id = "UITLoginRegister/login_with_fl_id";
 		    public const string password = "UITLoginRegister/password";
 		    public const string play_as_guest = "UITLoginRegister/play_as_guest";
 		    public const string register = "UITLoginRegister/register";
 		    public const string register_fl_id = "UITLoginRegister/register_fl_id";
+		    public const string register_login = "UITLoginRegister/register_login";
 		    public const string register_new_fl_id = "UITLoginRegister/register_new_fl_id";
 		    public const string reset_password = "UITLoginRegister/reset_password";
 		    public const string send_password_recovery = "UITLoginRegister/send_password_recovery";

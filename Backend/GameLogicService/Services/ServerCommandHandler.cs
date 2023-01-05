@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
+using Backend.Plugins;
 using FirstLight;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Logic;
@@ -13,6 +14,7 @@ using FirstLight.Server.SDK;
 using Microsoft.Extensions.Logging;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules;
+using FirstLight.Server.SDK.Modules.Commands;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using GameLogicService.Game;
 
@@ -44,28 +46,30 @@ namespace Backend.Game.Services
 		private readonly ILogger _log;
 		private readonly IEventManager _eventManager;
 		private readonly IMetricsService _metrics;
+		private readonly IPluginManager _plugins;
 
-		public ServerCommandHandler(IGameConfigurationService cfg, ILogger log, IEventManager eventManager,
+		public ServerCommandHandler(IPluginManager plugins, IGameConfigurationService cfg, ILogger log, IEventManager eventManager,
 									IMetricsService metrics)
 		{
 			_cfg = cfg;
 			_log = log;
 			_eventManager = eventManager;
 			_metrics = metrics;
+			_plugins = plugins;
 		}
 
 		/// <inheritdoc/>
 		public async Task<ServerState> ExecuteCommand(string userId, IGameCommand cmd, ServerState currentState)
 		{
 			var dataProvider = new ServerPlayerDataProvider(currentState);
+			dataProvider.ClearDeltas(); // initializing logic triggers deltas
 			var msgBroker = new GameServerLogicMessageBroker(userId, _eventManager, _log);
 			var logic = new GameServerLogic(await _cfg.GetGameConfigs(), dataProvider, msgBroker);
+			logic.Init();
 			var serviceContainer = new ServiceContainer();
 			serviceContainer.Add<IMessageBrokerService>(msgBroker);
 			var logicContainer = new LogicContainer().Build(logic);
 			var commandContext = new CommandExecutionContext(logicContainer, serviceContainer, dataProvider);
-			logic.Init();
-			dataProvider.ClearDeltas(); // initializing logic triggers deltas
 			cmd.Execute(commandContext);
 			var newState = dataProvider.GetUpdatedState();
 			return newState;
@@ -88,9 +92,7 @@ namespace Backend.Game.Services
 		/// </summary>
 		public Type GetCommandType(string typeName)
 		{
-			var gameAssembly = Assembly.GetAssembly(typeof(IGameCommand));
-			var types = gameAssembly?.GetType(typeName);
-			return types;
+			return _plugins.GetRegisteredCommand(typeName);
 		}
 	}
 }

@@ -3,6 +3,17 @@ synced event OnAllPlayersJoined
     UInt32 NumberOfPlayers;
 }
 
+synced event FireQuantumServerCommand 
+{
+    player_ref Player;
+    QuantumServerCommand CommandType;
+}
+
+enum QuantumServerCommand
+{
+	EndOfGameRewards
+}
+
 synced event OnGameEnded
 {
 	player_ref PlayerLeader;

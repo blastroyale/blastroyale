@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FirstLight.Server.SDK.Models;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -7,33 +8,6 @@ using UnityEngine;
 
 namespace FirstLight.Services
 {
-	/// <summary>
-	/// This interface provides the access to the player's save persistent data 
-	/// </summary>
-	public interface IDataProvider
-	{
-		/// <summary>
-		/// Requests the player's data of <typeparamref name="T"/> type
-		/// </summary>
-		bool TryGetData<T>(out T dat) where T : class;
-		
-		/// <summary>
-		/// Generic wrapper of <see cref="GetData"/>
-		/// </summary>
-		T GetData<T>() where T : class;
-
-		/// <summary>
-		/// Requests the player's data of <paramref name="type"/>
-		/// </summary>
-		object GetData(Type type);
-
-
-		/// <summary>
-		///  Return all the keys of the present data
-		/// </summary>
-		IEnumerable<Type> GetKeys();
-	}
-
 	/// <summary>
 	/// This interface provides the possibility to the current memory data to disk
 	/// </summary>
@@ -43,7 +17,7 @@ namespace FirstLight.Services
 		/// Saves the game's given <typeparamref name="T"/> data to disk
 		/// </summary>
 		void SaveData<T>() where T : class;
-		
+
 		/// <summary>
 		/// Saves all game's data to disk
 		/// </summary>
@@ -63,7 +37,7 @@ namespace FirstLight.Services
 
 	/// <summary>
 	/// This service allows to manage all the persistent data in the game.
-	/// Data are strictly reference types to guarantee that there is no boxing/unboxing and lost of referencing when changing it's data. 
+	/// Data are strictly reference types to guarantee that there is no boxing/unboxing and lost of referencing when changing it's data.
 	/// </summary>
 	public interface IDataService : IDataProvider, IDataSaver, IDataLoader
 	{
@@ -90,6 +64,16 @@ namespace FirstLight.Services
 			var ret = _data.TryGetValue(typeof(T), out var dataInfo);
 
 			data = dataInfo.Data as T;
+
+			return ret;
+		}
+		
+		/// <inheritdoc />
+		public bool TryGetData(Type type, out object dat)
+		{
+			var ret = _data.TryGetValue(type, out var dataInfo);
+
+			dat = dataInfo.Data;
 
 			return ret;
 		}
@@ -136,10 +120,10 @@ namespace FirstLight.Services
 				{
 					continue;
 				}
-				
+
 				PlayerPrefs.SetString(data.Key.Name, JsonConvert.SerializeObject(data.Value.Data));
 			}
-			
+
 			PlayerPrefs.Save();
 		}
 
@@ -148,7 +132,7 @@ namespace FirstLight.Services
 		{
 			var json = PlayerPrefs.GetString(typeof(T).Name, "");
 			var instance = string.IsNullOrEmpty(json) ? Activator.CreateInstance<T>() : JsonConvert.DeserializeObject<T>(json);
-			
+
 			AddData(instance, true);
 
 			return instance;

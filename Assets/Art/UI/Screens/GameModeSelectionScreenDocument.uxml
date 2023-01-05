@@ -1,9 +1,9 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/GameModeSelectionScreenStyle.uss?fileID=7433441132597879392&amp;guid=65b63b653515f438aa2452fed30ceae6&amp;type=3#GameModeSelectionScreenStyle" />
-    <ui:VisualElement name="root" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0;">
-        <ui:VisualElement name="backgroundPattern" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0;">
-            <ui:ScrollView name="ButtonsSlider" mode="Horizontal" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" vertical-page-size="-1" class="ButtonSlider" style="justify-content: space-between;" />
-            <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITGameModeSelection/tap_to_choose" name="Instructions" class="font-style-normal hidden-opacity visible-opacity-instructions font-bold" />
+    <ui:VisualElement name="root" class="fill-parent">
+        <ui:VisualElement name="backgroundPattern" class="fill-parent">
+            <ui:ScrollView name="ButtonsSlider" mode="Horizontal" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" vertical-page-size="-1" class="buttons-slider" />
+            <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITGameModeSelection/tap_to_choose" name="Instructions" class="font-style-normal instructions anim-fade anim-delay-1" />
             <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITGameModeSelection/choose_a_mode" name="Header" />
         </ui:VisualElement>
     </ui:VisualElement>

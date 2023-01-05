@@ -3,6 +3,7 @@ using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Server.SDK.Services;
+using FirstLightServerSDK.Services;
 using Newtonsoft.Json;
 
 
@@ -22,6 +23,7 @@ namespace FirstLight.Server.SDK
 		public readonly IServerAnalytics? Analytics;
 		public readonly IBaseServiceConfiguration? ServerConfig;
 		public readonly IConfigsProvider? GameConfig;
+		public readonly IStatisticsService? Statistics;
 
 		public PluginContext(IEventManager evManager, IServiceProvider services)
 		{
@@ -33,15 +35,7 @@ namespace FirstLight.Server.SDK
 			Analytics = services.GetService(typeof(IServerAnalytics)) as IServerAnalytics;
 			ServerConfig = services.GetService(typeof(IBaseServiceConfiguration)) as IBaseServiceConfiguration;
 			GameConfig = services.GetService(typeof(IConfigsProvider)) as IConfigsProvider;
-		}
-
-		/// <summary>
-		/// Registers custom data converters for specific game objects.
-		/// </summary>
-		public void RegisterCustomConverter(ServerPlugin plugin, JsonConverter converter)
-		{
-			ModelSerializer.RegisterConverter(converter);
-			Log.LogInformation($"Plugin {plugin.GetType()} registered converter {converter.GetType()}");
+			Statistics = services.GetService(typeof(IStatisticsService)) as IStatisticsService;
 		}
 	}
 }

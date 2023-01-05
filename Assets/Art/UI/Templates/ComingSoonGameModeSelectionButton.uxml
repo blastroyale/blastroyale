@@ -1,8 +1,8 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xmlns:flg="FirstLight.Game.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Templates/GameModeSelectionButtonStyle.uss?fileID=7433441132597879392&amp;guid=1a806c33bc7a34069a8b184b546c14e0&amp;type=3#GameModeSelectionButtonStyle" />
-    <ui:VisualElement name="ComingSoonGameModeButton" class="hidden-gamemodebutton" style="height: 763px; width: 529px; margin-left: 30px; margin-top: 120px; margin-bottom: 100px; justify-content: center;">
-        <ui:VisualElement name="ComingSoonGameModeImage">
-            <flg:LocalizedLabel localization-key="UITShared/coming_soon" name="Title" class="font-italic" style="color: rgb(150, 118, 234); position: absolute; bottom: 100px; font-size: 40px; -unity-text-align: upper-center; left: 90px;" />
+    <ui:VisualElement name="ComingSoonGameModeButton" class="anim-fade-and-translate anim-translate--up-m coming-soon-button">
+        <ui:VisualElement name="ComingSoonGameModeImage" class="comming-soon-image">
+            <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITShared/coming_soon" name="Title" class="coming-soon-button__title" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

@@ -31,28 +31,13 @@ namespace FirstLight.Game.Utils
 		/// </summary>
 		public static int Range(int min, int max, int[] rndState, bool maxInclusive)
 		{
-			if (min > max || maxInclusive && min == max)
-			{
-				throw new IndexOutOfRangeException("The min range value must be less the max range value");
-			}
-
-			if (min == max)
-			{
-				return min;
-			}
-			
-			var range = (long) max - min;
-			var value = RngUtils.Next(rndState);
-
-			value = maxInclusive && value == int.MaxValue ? value - 1 : value;
-			
-			return maxInclusive
-				       ? (int) Math.Round(range * (float) value / int.MaxValue + min)
-				       : (int) Math.Floor(range * (float) value / int.MaxValue + min);
+			FP fpMin = min;
+			FP fpMax = max;
+			return Range(fpMin, fpMax, rndState, maxInclusive).AsInt;
 		}
 		
 		/// <summary>
-		/// Requests a random generated <see cref="float"/> value between the given <paramref name="min"/> and <paramref name="max"/>,
+		/// Requests a random generated <see cref="int"/> value between the given <paramref name="min"/> and <paramref name="max"/>,
 		/// without changing the state with  the max value inclusive depending on the given <paramref name="maxInclusive"/>
 		/// </summary>
 		public static FP Range(FP min, FP max, int[] rndState, bool maxInclusive)

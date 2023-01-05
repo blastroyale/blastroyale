@@ -236,7 +236,7 @@ namespace FirstLight.Game.Presenters
 		private void UpdatePoolLabels(float _ = 0)
 		{
 			UpdatePool(GameId.BPP, BPP_POOL_AMOUNT_FORMAT, _bppPoolRestockTimeLabel, _bppPoolRestockAmountLabel,
-				_bppPoolRestockAmountLabel);
+				_bppPoolAmountLabel);
 			UpdatePool(GameId.CS, CS_POOL_AMOUNT_FORMAT, _csPoolRestockTimeLabel, _csPoolRestockAmountLabel,
 				_csPoolAmountLabel);
 		}

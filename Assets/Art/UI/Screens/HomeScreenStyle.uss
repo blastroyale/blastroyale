@@ -31,13 +31,10 @@
 }
 
 .player-header {
-    position: absolute;
-    top: 0;
-    background-image: var(--sprite-home__header-profile);
-    width: 1240px;
-    height: 248px;
-    margin-left: -444px;
-    left: 0;
+    background-image: var(--sprite-home__header-profile-pressed);
+    width: 772px;
+    height: 208px;
+    margin-left: 20px;
 }
 
 .player-header:active {
@@ -356,7 +353,7 @@
 .discord-button__icon {
     width: 66px;
     height: 66px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/DiscordIcon.png?fileID=2800000&guid=b67fedbb7c0d341c4b54768891f247ed&type=3#DiscordIcon');
+    background-image: var(--sprite-home__icon-discord);
     top: 100px;
     margin-right: 20px;
     margin-top: 0px;

@@ -16,7 +16,7 @@ namespace FirstLight.Server.SDK.Events
 		private string _commandData;
 	
 		public string PlayerId => _playerId;
-		public object Command => _command;
+		public IGameCommand Command => _command;
 		public ServerState PlayerState => _userState;
 		public ServerState PlayerStateBeforeCommand => _userStateBeforeCommand;
 		public string CommandData => _commandData;

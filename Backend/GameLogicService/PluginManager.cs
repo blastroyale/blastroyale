@@ -104,19 +104,14 @@ namespace Backend.Plugins {
 		}
 		
 		/// <summary>
-		/// Gets available plugins.
-		/// Currently hacked to hard-code
+		/// Gets available plugins that are declared only on server.
+		/// Plugins declared on server as opposed to client are the ones that have specific
+		/// networking requirements, therefore maintained primarily by server engineers.
 		/// </summary>
 		private List<ServerPlugin> LoadServerPlugins()
 		{
-			// TODO: Make it work for Azure Functions
-			//var loadedPlugins = LoadPlugins(Path.Combine(appPath, "Plugins"));
 			var loadedPlugins = new List<ServerPlugin>();
 			loadedPlugins.Add(new BlastRoyalePlugin());
-			loadedPlugins.Add(new TrophyLadderPlugin());
-			
-			// TODO: https://firstlightgames.atlassian.net/browse/BRG-886
-			//loadedPlugins.Add(new AnalyticsPlugin()); 
 			return loadedPlugins;
 		}
 		

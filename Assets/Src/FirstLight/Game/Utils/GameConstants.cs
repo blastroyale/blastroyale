@@ -139,6 +139,18 @@ namespace FirstLight.Game.Utils
 			public const string MAINTENANCE_KEY = "version block";
 		}
 
+		public static class Stats
+		{
+			public const string GAMES_PLAYED = "Games Played";
+			public const string GAMES_WON = "Games Won";
+			public const string KILLS = "Kills";
+			public const string DEATHS = "Deaths";
+			public const string NFT_ITEMS = "Nft Items";
+			public const string NON_NFTS = "Non Nft Items";
+			public const string BROKEN_ITEMS = "Broken Items";
+			public const string LEADERBOARD_LADDER_NAME = "Trophies Ladder";
+		}
+		
 		public static class Network
 		{
 			// Network state time settings
@@ -177,8 +189,7 @@ namespace FirstLight.Game.Utils
 			public const string DEFAULT_REGION = "eu";
 			
 			public const char ROOM_META_SEPARATOR = '#';
-			
-			public const string LEADERBOARD_LADDER_NAME = "Trophies Ladder";
+
 			public const int LEADERBOARD_TOP_RANK_AMOUNT = 20;
 			public const int LEADERBOARD_NEIGHBOR_RANK_AMOUNT = 3;
 		}
@@ -224,6 +235,7 @@ namespace FirstLight.Game.Utils
 		{
 			public const float DYNAMIC_JOYSTICK_THRESHOLD_MULT = 1f;
 			public const float MOVEMENT_JOYSTICK_RADIUS_MULT = 1f;
+			public const float JOYSTICK_MOVEMENT_MAX_RADIUS_MULTIPLIER = 8f;
 			
 			public const float SPECIAL_BUTTON_MAX_RADIUS_MULT = 1.75f;
 			public const float SPECIAL_BUTTON_FIRST_CANCEL_RADIUS_MULT = 1.15f;

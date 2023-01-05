@@ -174,6 +174,18 @@
     background-image: var(--sprite-home__icon-gamemode-deathmatch);
 }
 
+.game-mode-button--ranked .game-mode-button__icon {
+    -unity-background-image-tint-color: rgb(71, 18, 2);
+}
+
+.game-mode-button--casual .game-mode-button__icon {
+    -unity-background-image-tint-color: rgb(8, 20, 58);
+}
+
+.game-mode-button--custom .game-mode-button__icon {
+    -unity-background-image-tint-color: rgba(0, 0, 0, 255);
+}
+
 .game-mode-button__label {
     font-size: 50px;
     margin-left: 5px;

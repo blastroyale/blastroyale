@@ -359,7 +359,7 @@ namespace FirstLight.Game.Presenters
 		private void UpdateMight(bool animate = true)
 		{
 			var loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All);
-			var might = loadout.GetTotalMight(_services.ConfigsProvider.GetConfigsDictionary<QuantumStatConfig>());
+			var might = loadout.GetTotalMight(_services.ConfigsProvider);
 
 			_might.SetMight(might, animate);
 		}

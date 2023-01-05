@@ -50,7 +50,7 @@
 }
 
 .logo-container-blast-image {
-    background-image: url('project://database/Assets/Art/Ui/Sprites/Home/text-blast.png?fileID=2800000&guid=41efaaa5ae045be23d896f2bab88662d&type=3#text-blast');
+    background-image: var(--sprite-home__text-blast);
     width: 1000px;
     height: 372px;
     position: relative;
@@ -58,14 +58,14 @@
 }
 
 .logo-container-royale-image {
-    background-image: url('project://database/Assets/Art/Ui/Sprites/Home/text-royale.png?fileID=2800000&guid=9ee232848719908584b2bba8f4aa12a0&type=3#text-royale');
+    background-image: var(--sprite-home__text-royale);
     width: 1000px;
     height: 372px;
     position: relative;
     top: -95px;
 }
 .logo-container-logo-image {
-    background-image: url('project://database/Assets/Art/Ui/Sprites/Shared/logo-br.png?fileID=2800000&guid=0db82afc23c2abf169e124b84dbe28a0&type=3#logo-br');
+    background-image: var(--sprite-shared__logo-br);
     width: 512px;
     height: 437px;
     position: relative;

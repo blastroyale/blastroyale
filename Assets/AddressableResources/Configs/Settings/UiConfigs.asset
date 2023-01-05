@@ -224,3 +224,11 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   - SetId: 4
     UiConfigsType: []
+  - SetId: 5
+    UiConfigsType:
+    - FirstLight.Game.Presenters.GuestOrRegisteredPresenter, FirstLight.Game, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    - FirstLight.Game.Presenters.LoginScreenPresenter, FirstLight.Game, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    - FirstLight.Game.Presenters.RegisterScreenPresenter, FirstLight.Game, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null

@@ -164,6 +164,8 @@
     --sprite-home__progress-durabilityupgrade: url('/Assets/Art/UI/Sprites/Home/progress-durabilityupgrade.png');
     --sprite-home__progress-stat-bg: url('/Assets/Art/UI/Sprites/Home/progress-stat-bg.png');
     --sprite-home__progress-stats: url('/Assets/Art/UI/Sprites/Home/progress-stats.png');
+    --sprite-home__text-blast: url('/Assets/Art/UI/Sprites/Home/text-blast.png');
+    --sprite-home__text-royale: url('/Assets/Art/UI/Sprites/Home/text-royale.png');
     --sprite-home__vfx-glitch-triangle1: url('/Assets/Art/UI/Sprites/Home/vfx-glitch-triangle1.png');
     --sprite-home__vfx-glitch-triangle2: url('/Assets/Art/UI/Sprites/Home/vfx-glitch-triangle2.png');
 }
@@ -822,6 +824,14 @@
 
 .sprite-home__progress-stats {
     background-image: var(--sprite-home__progress-stats);
+}
+
+.sprite-home__text-blast {
+    background-image: var(--sprite-home__text-blast);
+}
+
+.sprite-home__text-royale {
+    background-image: var(--sprite-home__text-royale);
 }
 
 .sprite-home__vfx-glitch-triangle1 {

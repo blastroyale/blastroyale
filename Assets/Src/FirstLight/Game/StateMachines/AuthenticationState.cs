@@ -47,8 +47,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _loginCompletedEvent = new StatechartEvent("Login Completed Event");
 		private readonly IStatechartEvent _authenticationFailEvent = new StatechartEvent("Authentication Fail Event");
 
-		private readonly IStatechartEvent _authenticationRegisterFailEvent =
-			new StatechartEvent("Authentication Register Fail Event");
+		private readonly IStatechartEvent _authenticationRegisterFailEvent = new StatechartEvent("Authentication Register Fail Event");
 
 		private readonly IGameDataProvider _dataProvider;
 		private readonly IGameServices _services;
@@ -99,9 +98,10 @@ namespace FirstLight.Game.StateMachines
 			autoAuthCheck.Transition().OnTransition(CloseLoadingScreen).Target(guestOrRegisteredSelection);
 
 			guestOrRegisteredSelection.OnEnter(OpenGuestOrRegisteredSelectionScreen);
-			guestOrRegisteredSelection.Event(_loginAsGuestEvent).OnTransition(CloseGuestOrRegisteredSelectionScreen).Target(guestLogin);
-			guestOrRegisteredSelection.Event(_goToLoginClickedEvent).OnTransition(CloseGuestOrRegisteredSelectionScreen).Target(login);
-
+			guestOrRegisteredSelection.Event(_loginAsGuestEvent).Target(guestLogin);
+			guestOrRegisteredSelection.Event(_goToLoginClickedEvent).Target(login);
+			guestOrRegisteredSelection.OnExit(CloseGuestOrRegisteredSelectionScreen);
+			
 			login.OnEnter(OnEnterLogin);
 			login.Event(_goToRegisterClickedEvent).Target(register);
 			login.Event(_loginAsGuestEvent).Target(guestLogin);
@@ -117,16 +117,18 @@ namespace FirstLight.Game.StateMachines
 
 			authLoginDevice.OnEnter(() => DimLoginRegisterScreens(true));
 			authLoginDevice.OnEnter(LoginWithDevice);
+			authLoginDevice.OnEnter(UnloadLoginRegisterScreens);
 			authLoginDevice.Event(_loginCompletedEvent).Target(getServerState);
 			authLoginDevice.Event(_authenticationFailEvent).OnTransition(() => { SetLinkedDevice(false); }).Target(login);
 			authLoginDevice.OnEnter(() => DimLoginRegisterScreens(false));
-
-			authLogin.OnEnter(() => { OnEnterAuthLogin(); });
+			
+			authLogin.OnEnter(OnEnterAuthLogin);
+			authLogin.OnEnter(UnloadLoginRegisterScreens);
 			authLogin.Event(_loginCompletedEvent).OnTransition(CloseLoginRegisterScreens).Target(getServerState);
 			authLogin.Event(_authenticationFailEvent).Target(login);
 			authLogin.Event(_authenticationRegisterFailEvent).Target(register);
 			authLogin.OnExit(() => DimLoginRegisterScreens(false));
-
+			
 			getServerState.WaitingFor(FinalStepsAuthentication).Target(accountStateCheck);
 
 			accountDeleted.OnEnter(ShowAccountDeletedPopup);
@@ -136,7 +138,7 @@ namespace FirstLight.Game.StateMachines
 
 			final.OnEnter(UnsubscribeEvents);
 		}
-
+		
 		private void SubscribeEvents()
 		{
 			_services.MessageBrokerService.Subscribe<ServerHttpErrorMessage>(OnConnectionError);
@@ -149,6 +151,11 @@ namespace FirstLight.Game.StateMachines
 			//_services.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
+		private void UnloadLoginRegisterScreens()
+		{
+			_uiService.UnloadUiSet((int)UiSetId.AuthenticationUi);
+		}
+		
 		/// <summary>
 		/// Create a new account by a random customID
 		/// And links the current device to that account
@@ -549,7 +556,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void LoginClicked(string email, string password)
 		{
-			if (IsEmailFieldValid(email) && IsPasswordFieldValid(password))
+			if (AuthenticationUtils.IsEmailFieldValid(email) && AuthenticationUtils.IsPasswordFieldValid(password))
 			{
 				_statechartTrigger(_loginRegisterTransitionEvent);
 
@@ -613,7 +620,9 @@ namespace FirstLight.Game.StateMachines
 
 		private void RegisterClicked(string email, string username, string password)
 		{
-			if (IsUsernameFieldValid(username) && IsEmailFieldValid(email) && IsPasswordFieldValid(password))
+			if (AuthenticationUtils.IsUsernameFieldValid(username) 
+			    && AuthenticationUtils.IsEmailFieldValid(email) 
+			    && AuthenticationUtils.IsPasswordFieldValid(password))
 			{
 				_statechartTrigger(_loginRegisterTransitionEvent);
 
@@ -700,7 +709,9 @@ namespace FirstLight.Game.StateMachines
 				},
 			};
 
-			_uiService.OpenUi<GuestOrRegisteredPresenter, GuestOrRegisteredPresenter.StateData>(data);
+			_uiService.OpenUiAsync<GuestOrRegisteredPresenter, GuestOrRegisteredPresenter.StateData>(data);
+			_uiService.LoadUiAsync<LoginScreenPresenter>();
+			_uiService.LoadUiAsync<RegisterScreenPresenter>();
 		}
 
 		private void OpenLoginScreen()
@@ -717,7 +728,7 @@ namespace FirstLight.Game.StateMachines
 				ForgotPasswordClicked = SendRecoveryEmail
 			};
 
-			_uiService.OpenUi<LoginScreenPresenter, LoginScreenPresenter.StateData>(data);
+			_uiService.OpenUiAsync<LoginScreenPresenter, LoginScreenPresenter.StateData>(data);
 		}
 
 		private void OpenRegisterScreen()
@@ -816,36 +827,6 @@ namespace FirstLight.Game.StateMachines
 		private void OnApplicationQuit(ApplicationQuitMessage msg)
 		{
 			OpenLoadingScreen();
-		}
-
-		private bool IsUsernameFieldValid(string username)
-		{
-			return String.Compare(username, string.Empty, StringComparison.Ordinal) != 0;
-		}
-
-		private bool IsPasswordFieldValid(string password)
-		{
-			return String.Compare(password, string.Empty, StringComparison.Ordinal) != 0;
-		}
-
-		private bool IsEmailFieldValid(string email)
-		{
-			var trimmedEmail = email.Trim();
-
-			if (trimmedEmail.EndsWith("."))
-			{
-				return false;
-			}
-
-			try
-			{
-				var addr = new System.Net.Mail.MailAddress(email);
-				return addr.Address == trimmedEmail;
-			}
-			catch
-			{
-				return false;
-			}
 		}
 	}
 }

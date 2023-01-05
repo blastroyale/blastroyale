@@ -21,10 +21,6 @@ namespace FirstLight.Game.Presenters
 			public Action PlayAsGuestClicked;
 		}
 
-		private TextField _emailField;
-		private TextField _passwordField;
-		private VisualElement _blockerElement;
-
 		private IGameServices _services;
 
 		private void Awake()
@@ -38,16 +34,7 @@ namespace FirstLight.Game.Presenters
 			root.Q<Button>("GuestButton").clicked += OnPlayAsGuestButtonClicked;
 			root.SetupClicks(_services);
 		}
-
-		/// <summary>
-		/// Sets the activity of the dimmed blocker image that covers the presenter
-		/// </summary>
-		public void SetFrontDimBlockerActive(bool active)
-		{
-			_blockerElement.EnableInClassList("blocker-hidden", !active);
-		}
-
-
+		
 		private void OnLoginRegisterClicked()
 		{
 			Data.GoToLoginClicked();

@@ -278,7 +278,7 @@ namespace FirstLight.Editor.EditorTools
 								 $"Path: {s} type: {AssetDatabase.GetMainAssetTypeAtPath(s) == typeof(Texture2D)}");
 							 return s;
 						 })
-						 .GroupBy(str => str.Split(Path.DirectorySeparatorChar)[4]))
+						 .GroupBy(str => str.Split('/')[4]))
 			{
 				Debug.Log($"Generating USS: {grouping.Key}");
 				var uss = GenerateSpriteUss(grouping);

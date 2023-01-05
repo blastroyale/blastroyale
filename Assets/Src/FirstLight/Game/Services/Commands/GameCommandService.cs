@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
@@ -12,15 +13,13 @@ using PlayFab;
 
 namespace FirstLight.Game.Services
 {
-
-
 	/// <inheritdoc cref="ICommandService{TGameLogic}"/>
 	public interface IGameCommandService
 	{
 		/// <inheritdoc cref="ICommandService{TGameLogic}.ExecuteCommand{TCommand}"/>
 		void ExecuteCommand<TCommand>(TCommand command) where TCommand : IGameCommand;
 	}
-	
+
 	/// <inheritdoc />
 	public class GameCommandService : IGameCommandService
 	{
@@ -30,13 +29,13 @@ namespace FirstLight.Game.Services
 		private readonly CommandExecutionContext _commandContext;
 
 		public GameCommandService(IPlayfabService playfabService, IGameLogic gameLogic, IDataService dataService,
-								  IGameServices services)
+			IGameServices services)
 		{
 			_dataService = dataService;
 			_services = services;
 			_serverCommandQueue = new ServerCommandQueue(dataService, gameLogic, playfabService, services);
 			_commandContext = new CommandExecutionContext(
-														  new LogicContainer().Build(gameLogic), new ServiceContainer().Build(services), dataService);
+				new LogicContainer().Build(gameLogic), new ServiceContainer().Build(services), dataService);
 		}
 
 
@@ -51,7 +50,7 @@ namespace FirstLight.Game.Services
 			try
 			{
 				command.Execute(_commandContext);
-				
+
 				switch (command.ExecutionMode())
 				{
 					case CommandExecutionMode.Quantum:
@@ -65,7 +64,7 @@ namespace FirstLight.Game.Services
 						_serverCommandQueue.EnqueueCommand(command);
 						break;
 				}
-				
+
 			}
 			catch (Exception e)
 			{
@@ -91,6 +90,36 @@ namespace FirstLight.Game.Services
 			}
 		}
 
+		/// <summary>
+		/// When server returns an exception after a command was executed
+		/// </summary>
+		private void OnCommandException(string exceptionMsg)
+		{
+#if UNITY_EDITOR
+			FLog.Error(exceptionMsg);
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = "OK",
+				ButtonOnClick = () =>
+				{
+					_services.AnalyticsService.CrashLog(exceptionMsg);
+					_services.QuitGame(exceptionMsg);
+				}
+			};
+			_services.GenericDialogService.OpenButtonDialog("Server Error", exceptionMsg, false, confirmButton);
+#else
+			NativeUiService.ShowAlertPopUp(false, "Error", "Desynch", new AlertButton
+			{
+				Callback = () =>
+				{
+					_services.AnalyticsService.CrashLog(exceptionMsg);
+					_services.QuitGame("Server desynch");
+				},
+				Style = AlertButtonStyle.Negative,
+				Text = "Quit Game"	
+			});
+#endif
+		}
 
 		/// <summary>
 		/// Sends a command to override playfab data with what the client is sending.

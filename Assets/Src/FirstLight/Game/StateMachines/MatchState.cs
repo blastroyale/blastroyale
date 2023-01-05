@@ -361,6 +361,8 @@ namespace FirstLight.Game.StateMachines
 
 		private async Task LoadMatchAssets()
 		{
+			var time = Time.realtimeSinceStartup;
+			
 			var tasks = new List<Task>();
 			var config = _services.NetworkService.CurrentRoomMapConfig.Value;
 			var gameModeConfig = _services.NetworkService.CurrentRoomGameModeConfig.Value;
@@ -404,6 +406,11 @@ namespace FirstLight.Game.StateMachines
 #if UNITY_EDITOR
 			SetQuantumMultiClient(runnerConfigs, entityService);
 #endif
+			var dic = new Dictionary<string, object>
+			{
+				{"total_time", Time.realtimeSinceStartup - time},
+			};
+			_services.AnalyticsService.LogEvent(AnalyticsEvents.LoadMatchAssetsComplete, dic);
 		}
 
 		private async Task UnloadAllMatchAssets()

@@ -82,6 +82,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{
 					{"client_version", VersionUtils.VersionInternal},
 					{"advertising_id", id},
+					{"boot_time", Time.realtimeSinceStartup},
 					{"advertising_tracking_enabled", enabled},
 					{"vendor_id", SystemInfo.deviceUniqueIdentifier},
 				};
@@ -143,7 +144,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		{
 			var loadout = _gameData.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All);
 			var inventory = _gameData.EquipmentDataProvider.GetInventoryEquipmentInfo(EquipmentFilter.NftOnly);
-
+			
 			var data = new Dictionary<string, object>
 			{
 				{"nfts_owned", inventory.Count},

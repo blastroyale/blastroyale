@@ -58,6 +58,7 @@ namespace FirstLight.Game.StateMachines
 			assetLoading.WaitingFor(LoadInitialAssets).Target(final);
 			
 			final.OnEnter(UnsubscribeEvents);
+			final.OnEnter(InitialLoadingCompleteAnalyticsEvent);
 		}
 
 		private void SubscribeEvents()
@@ -68,6 +69,15 @@ namespace FirstLight.Game.StateMachines
 		private void GameLoadStartAnalyticsEvent()
 		{
 			_services?.AnalyticsService.SessionCalls.GameLoadStart();
+		}
+		
+		private void InitialLoadingCompleteAnalyticsEvent()
+		{
+			var dic = new Dictionary<string, object>
+			{
+				{"boot_time", Time.realtimeSinceStartup},
+			};
+			_services.AnalyticsService.LogEvent(AnalyticsEvents.InitialLoadingComplete, dic);
 		}
 
 		private void UnsubscribeEvents()

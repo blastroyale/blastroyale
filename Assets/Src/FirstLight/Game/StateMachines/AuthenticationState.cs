@@ -105,7 +105,6 @@ namespace FirstLight.Game.StateMachines
 			
 			register.OnEnter(OpenRegisterScreen);
 			register.Event(_goToLoginClickedEvent).OnTransition(CloseRegisterScreen).Target(login);
-			//register.Event(_goToLoginClickedEvent).OnTransition(() => { CloseLoginScreen(); OpenLoadingScreen(); }).Target(login);
 			register.Event(_loginRegisterTransitionEvent).Target(authLogin);
 
 			authLoginDevice.OnEnter(() => DimLoginRegisterScreens(true));
@@ -192,7 +191,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				Callback = () =>
 				{
-					_services.QuitGame("Closing playfab critical error alert");
+						_services.QuitGame("Closing playfab critical error alert");
 				},
 				Style = AlertButtonStyle.Negative,
 				Text = ScriptLocalization.MainMenu.QuitGameButton
@@ -519,23 +518,41 @@ namespace FirstLight.Game.StateMachines
 		
 		private void LoginClicked(string email, string password)
 		{
-			_statechartTrigger(_loginRegisterTransitionEvent);
-			
-			var infoParams = new GetPlayerCombinedInfoRequestParams
+			if (IsEmailFieldValid(email) && IsPasswordFieldValid(password))
 			{
-				GetPlayerProfile = true,
-				GetUserAccountInfo = true,
-				GetTitleData = true
-			};
-			
-			var login = new LoginWithEmailAddressRequest
-			{
-				Email = email,
-				Password = password,
-				InfoRequestParameters = infoParams
-			};
+				_statechartTrigger(_loginRegisterTransitionEvent);
 
-			PlayFabClientAPI.LoginWithEmailAddress(login, OnLoginSuccess, OnAuthenticationFail);
+				var infoParams = new GetPlayerCombinedInfoRequestParams
+				{
+					GetPlayerProfile = true,
+					GetUserAccountInfo = true,
+					GetTitleData = true
+				};
+
+				var login = new LoginWithEmailAddressRequest
+				{
+					Email = email,
+					Password = password,
+					InfoRequestParameters = infoParams
+				};
+
+				PlayFabClientAPI.LoginWithEmailAddress(login, OnLoginSuccess, OnAuthenticationFail);
+			}
+			else
+			{
+				var confirmButton = new GenericDialogButton
+				{
+					ButtonText = ScriptLocalization.General.OK,
+					ButtonOnClick = _services.GenericDialogService.CloseDialog
+				};
+
+				string errorMessage =
+					LocalizationManager.TryGetTranslation("UITLoginRegister/invalid_input", out var translation)
+						? translation
+						: $"#{"UITLoginRegister/invalid_input"}#";
+				_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, errorMessage, false,
+					confirmButton);
+			}
 		}
 
 		private void OnLoginSuccess(LoginResult result)
@@ -565,17 +582,35 @@ namespace FirstLight.Game.StateMachines
 
 		private void RegisterClicked(string email, string username, string password)
 		{
-			_statechartTrigger(_loginRegisterTransitionEvent);
-			
-			var register = new RegisterPlayFabUserRequest
+			if (IsUsernameFieldValid(username) && IsEmailFieldValid(email) && IsPasswordFieldValid(password))
 			{
-				Email = email,
-				DisplayName = username,
-				Username = username.Replace(" ", ""),
-				Password = password
-			};
+				_statechartTrigger(_loginRegisterTransitionEvent);
 
-			PlayFabClientAPI.RegisterPlayFabUser(register, _ => LoginClicked(email, password), OnAuthenticationRegisterFail);
+				var register = new RegisterPlayFabUserRequest
+				{
+					Email = email,
+					DisplayName = username,
+					Username = username.Replace(" ", ""),
+					Password = password
+				};
+				PlayFabClientAPI.RegisterPlayFabUser(register, _ => LoginClicked(email, password),
+					OnAuthenticationRegisterFail);
+			}
+			else
+			{
+				var confirmButton = new GenericDialogButton
+				{
+					ButtonText = ScriptLocalization.General.OK,
+					ButtonOnClick = _services.GenericDialogService.CloseDialog
+				};
+
+				string errorMessage =
+					LocalizationManager.TryGetTranslation("UITLoginRegister/invalid_input", out var translation)
+						? translation
+						: $"#{"UITLoginRegister/invalid_input"}#";
+				_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, errorMessage, false,
+					confirmButton);
+			}
 		}
 
 		private void OpenLoadingScreen()
@@ -748,6 +783,36 @@ namespace FirstLight.Game.StateMachines
 		private void OnApplicationQuit(ApplicationQuitMessage msg)
 		{
 			OpenLoadingScreen();
+		}
+
+		private bool IsUsernameFieldValid(string username)
+		{
+			return String.Compare(username, string.Empty, StringComparison.Ordinal) != 0;
+		}
+
+		private bool IsPasswordFieldValid(string password)
+		{
+			return String.Compare(password, string.Empty, StringComparison.Ordinal) != 0;
+		}
+		
+		private bool IsEmailFieldValid(string email)
+		{
+			var trimmedEmail = email.Trim();
+
+			if (trimmedEmail.EndsWith("."))
+			{
+				return false;
+			}
+
+			try
+			{
+				var addr = new System.Net.Mail.MailAddress(email);
+				return addr.Address == trimmedEmail;
+			}
+			catch
+			{
+				return false;
+			}
 		}
 	}
 }

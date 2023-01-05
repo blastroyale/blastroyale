@@ -40,7 +40,7 @@ namespace FirstLight.Game.Presenters
 
 			_blockerElement = root.Q("Blocker").Required();
 
-			root.Q<Button>("LoginButton").clicked += OnLoginClicked;
+			root.Q<Button>("LoginFlgButton").clicked += OnLoginClicked;
 			root.Q<Button>("RegisterButton").clicked += OnRegisterClicked;
 
 			root.SetupClicks(_services);

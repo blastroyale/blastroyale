@@ -176,7 +176,6 @@
     position: relative;
     left: 2px;
     top: -1px;
-    -unity-font-definition: var(--font-italic);
 }
 
 .battle-pass-button__progress-bg {
@@ -383,7 +382,4 @@
 
 #LeaderboardsButton {
     letter-spacing: -4px;
-}
-
-.battle-pass-button__level__text {
 }

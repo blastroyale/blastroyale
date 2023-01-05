@@ -71,14 +71,81 @@ namespace FirstLight.Tests.PlayTests
 		}
 
 		[UnityTest]
-		public IEnumerator CheckEquipment_NoErrors() 
+		public IEnumerator CheckEquipment_NoErrors()
 		{
+			var wait1Sec = new WaitForSeconds(1);
+			
 			yield return TestTools.LoadSceneAndWaitUntilDone("Boot");
+			
 			yield return FLGTestTools.WaitForPresenter<HomeScreenPresenter>();
+			
+			yield return wait1Sec;
+			
+			FLGTestTools.ClickEquipmentButton();
+			
+			yield return FLGTestTools.WaitForPresenter<EquipmentPresenter>();
+			
+			yield return wait1Sec;
+			
+			FLGTestTools.ClickWeaponCategory();
+			
+			yield return FLGTestTools.WaitForPresenter<EquipmentSelectionPresenter>();
+			
+			yield return wait1Sec;
 
-			TestTools.ClickUIToolKitButton<Button>(TestTools.GetUIDocument<HomeScreenPresenter>(),"EquipmentButton");
-			TestTools.ClickUIToolKitButton<Button>(TestTools.GetUIDocument<EquipmentPresenter>(),"WeaponCategory");
-			TestTools.ClickUIToolKitButton<ImageButton>(TestTools.GetUIDocument<EquipmentSelectionPresenter>(),"back");
+			FLGTestTools.CLickBackButton();
+
+			yield return FLGTestTools.WaitForPresenter<EquipmentPresenter>();
+				
+			yield return wait1Sec;
+			
+			FLGTestTools.ClickHelmetCategory();
+			
+			yield return FLGTestTools.WaitForPresenter<EquipmentSelectionPresenter>();
+			
+			yield return wait1Sec;
+			
+			FLGTestTools.CLickBackButton();
+			
+			yield return FLGTestTools.WaitForPresenter<EquipmentPresenter>();
+			
+			yield return wait1Sec;
+			
+			FLGTestTools.ClickShieldCategory();
+			
+			yield return FLGTestTools.WaitForPresenter<EquipmentSelectionPresenter>();
+			
+			yield return wait1Sec;
+			
+			FLGTestTools.CLickBackButton();
+			
+			yield return FLGTestTools.WaitForPresenter<EquipmentPresenter>();
+			
+			yield return wait1Sec;
+			
+			FLGTestTools.ClickAmuletCategory();
+			
+			yield return FLGTestTools.WaitForPresenter<EquipmentSelectionPresenter>();
+			
+			yield return wait1Sec;
+			
+			FLGTestTools.CLickBackButton();
+			
+			yield return FLGTestTools.WaitForPresenter<EquipmentPresenter>();
+			
+			yield return wait1Sec;
+
+			FLGTestTools.ClickArmorCategory();
+			
+			yield return FLGTestTools.WaitForPresenter<EquipmentSelectionPresenter>();
+			
+			yield return wait1Sec;
+			
+			FLGTestTools.ClickHomeButton();
+
+			yield return FLGTestTools.WaitForPresenter<HomeScreenPresenter>();
+			
+			yield return wait1Sec;
 		}
 	}
 }

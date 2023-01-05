@@ -59,7 +59,7 @@
 
 .logo-container-royale-image {
     background-image: url('project://database/Assets/Art/Ui/Sprites/Home/text-royale.png?fileID=2800000&guid=9ee232848719908584b2bba8f4aa12a0&type=3#text-royale');
-    width: 873px;
+    width: 1000px;
     height: 372px;
     position: relative;
     top: -95px;

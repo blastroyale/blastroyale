@@ -137,6 +137,7 @@ LocalizedButton {
     width: 1000px;
     height: 780px;
     background-color: rgb(0, 0, 0);
+    border-radius: 20px;
 }
 
 #LoginButton {

@@ -14,8 +14,8 @@ namespace FirstLight.Game.Views.UITK
 	/// </summary>
 	public class EquipmentPopupUpgradeView : IUIView
 	{
-		private const string UssRequirementsIconModifier = "requirements__icon--{0}";
 		private const string UssPriceInsufficient = "requirements--insufficient";
+		private const string UssSpriteCurrency = "sprite-shared__icon-currency-{0}";
 
 		private Label _currentLvl;
 		private Label _nextLvl;
@@ -25,7 +25,7 @@ namespace FirstLight.Game.Views.UITK
 		private Label _requirementsAmount;
 		private VisualElement _requirementsIcon;
 		private VisualElement _bottomFiller;
-		
+
 		private Action _confirmAction;
 
 		private readonly List<Tuple<EquipmentStatType, float, float>> _statItems = new();
@@ -40,7 +40,7 @@ namespace FirstLight.Game.Views.UITK
 			_requirementsAmount = _requirements.Q<Label>("Amount").Required();
 			_requirementsIcon = _requirements.Q<VisualElement>("Icon").Required();
 			_bottomFiller = element.Q<VisualElement>("BottomFiller").Required();
-			
+
 			_statsList.DisableScrollbars();
 
 			_upgradeButton.clicked += () => _confirmAction();
@@ -57,10 +57,10 @@ namespace FirstLight.Game.Views.UITK
 			// TODO - Adjust desired behavior when calculations are correct client side and can be displayed
 			//_requirements.SetDisplay(info.IsNft);
 			_requirements.SetDisplay(!info.IsNft);
-			
+
 			_requirementsAmount.text = info.UpgradeCost.Value.ToString();
-			_requirementsIcon.RemoveModifiers();
-			_requirementsIcon.AddToClassList(string.Format(UssRequirementsIconModifier,
+			_requirementsIcon.RemoveSpriteClasses();
+			_requirementsIcon.AddToClassList(string.Format(UssSpriteCurrency,
 				info.UpgradeCost.Key.ToString().ToLowerInvariant()));
 
 			if (insufficient)
@@ -69,7 +69,7 @@ namespace FirstLight.Game.Views.UITK
 			}
 
 			_bottomFiller.SetDisplay(info.IsNft);
-			
+
 			_confirmAction = confirmAction;
 
 			_statsList.makeItem = () => new EquipmentStatBarElement();

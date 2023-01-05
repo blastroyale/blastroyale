@@ -350,7 +350,7 @@
     margin: 20px;
 }   
 
-.discord-button__icon {
+.discord-button {
     width: 66px;
     height: 66px;
     background-image: var(--sprite-home__icon-discord);

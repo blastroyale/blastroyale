@@ -99,7 +99,7 @@ namespace FirstLight.Game.StateMachines
 			login.Event(_loginAsGuestEvent).Target(guestLogin);
 			login.Event(_loginRegisterTransitionEvent).Target(authLogin);
 
-			guestLogin.OnEnter(() => {  CloseLoginRegisterScreens(); OpenLoadingScreen();; SetupGuestAccount(); });
+			guestLogin.OnEnter(() => {  OnEnterGuestLogin() });
 			guestLogin.Event(_loginCompletedEvent).Target(authLoginDevice);
 			guestLogin.Event(_authenticationFailEvent).OnTransition(() => {DimLoginRegisterScreens(false);}).Target(login);
 			
@@ -113,7 +113,7 @@ namespace FirstLight.Game.StateMachines
 			authLoginDevice.Event(_authenticationFailEvent).OnTransition(()=>{SetLinkedDevice(false);}).Target(login);
 			authLoginDevice.OnEnter(() => DimLoginRegisterScreens(false));
 			
-			authLogin.OnEnter(() => { CloseLoginRegisterScreens(); OpenLoadingScreen(); });
+			authLogin.OnEnter(() => { OnEnterAuthLogin()});
 			authLogin.Event(_loginCompletedEvent).OnTransition(CloseLoginRegisterScreens).Target(getServerState);
 			authLogin.Event(_authenticationFailEvent).Target(login);
 			authLogin.Event(_authenticationRegisterFailEvent).Target(register);
@@ -454,7 +454,18 @@ namespace FirstLight.Game.StateMachines
 			activity?.Complete();
 		}
 
+		private void OnEnterGuestLogin()
+		{
+			CloseLoginRegisterScreens();
+			OpenLoadingScreen();
+			SetupGuestAccount();
+		}
 
+		private void OnEnterAuthLogin()
+		{
+			CloseLoginRegisterScreens();
+			OpenLoadingScreen();
+		}
 		private void OnPlayerDataObtained(ExecuteFunctionResult res, IWaitActivity activity)
 		{
 			var serverResult = ModelSerializer.Deserialize<PlayFabResult<LogicResult>>(res.FunctionResult.ToString());

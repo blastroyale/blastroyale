@@ -91,11 +91,6 @@ namespace FirstLight.Tests.PlayTests
 			TestTools.ClickUIToolKitButton<Button>(Object.FindObjectOfType<EquipmentPresenter>().GetComponent<UIDocument>(), "WeaponCategory");
 		}
 
-		public static void CLickBackButton() 
-		{
-			TestTools.ClickUIToolKitButton<ImageButton>(Object.FindObjectOfType<EquipmentSelectionPresenter>().GetComponent<UIDocument>(), "back");
-		}
-		
 		public static void ClickHelmetCategory()
 		{
 			TestTools.ClickUIToolKitButton<Button>(Object.FindObjectOfType<EquipmentPresenter>().GetComponent<UIDocument>(), "HelmetCategory");
@@ -115,10 +110,15 @@ namespace FirstLight.Tests.PlayTests
 		{
 			TestTools.ClickUIToolKitButton<Button>(Object.FindObjectOfType<EquipmentPresenter>().GetComponent<UIDocument>(), "ArmorCategory");
 		}
+		
+		public static void CLickBackButton() 
+		{
+			TestTools.ClickUIToolKitButton<ImageButton>(Object.FindObjectOfType<EquipmentSelectionPresenter>().GetComponent<UIDocument>(), "back");
+		}
 
 		public static void ClickHomeButton()
 		{
-			TestTools.ClickUIToolKitButton<ImageButton>(Object.FindObjectOfType<EquipmentSelectionPresenter>().GetComponent<UIDocument>(), "home");
+			TestTools.ClickUIToolKitButton<ImageButton>(Object.FindObjectOfType<EquipmentPresenter>().GetComponent<UIDocument>(), "home");
 		}
 	}
 }

@@ -141,6 +141,12 @@ namespace FirstLight.Tests.PlayTests
 			
 			yield return wait1Sec;
 			
+			FLGTestTools.CLickBackButton();
+
+			yield return FLGTestTools.WaitForPresenter<EquipmentPresenter>();
+			
+			yield return wait1Sec;
+			
 			FLGTestTools.ClickHomeButton();
 
 			yield return FLGTestTools.WaitForPresenter<HomeScreenPresenter>();

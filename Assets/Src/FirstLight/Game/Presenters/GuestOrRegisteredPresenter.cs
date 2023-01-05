@@ -10,7 +10,7 @@ using UnityEngine.UIElements;
 namespace FirstLight.Game.Presenters
 {
 	/// <summary>
-	/// This presenter handles showing the login screen
+	/// This presenter handles showing the GuestOrRegistered screen
 	/// </summary>
 	[LoadSynchronously]
 	public class GuestOrRegisteredPresenter : UiToolkitPresenterData<GuestOrRegisteredPresenter.StateData>

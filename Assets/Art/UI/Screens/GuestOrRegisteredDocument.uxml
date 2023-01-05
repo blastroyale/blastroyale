@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/GuestOrRegisterScreenStyle.uss?fileID=7433441132597879392&amp;guid=6b47cfd25f02bab4bb4dcd8405e28b75&amp;type=3#GuestOrRegisterScreenStyle" />
-    <ui:VisualElement name="root" class="background fill-parent" style="top: 0; right: 0; left: 0; bottom: 0;">
+    <ui:VisualElement name="root" class="background fill-parent">
         <FirstLight.Game.UIElements.SafeAreaElement class="fill-parent">
             <ui:VisualElement name="ElementsContainer" class="elements-container fill-parent">
                 <ui:VisualElement name="ButtonsContainer" class="buttons-container anim-delay-1 anim-translate anim-translate--up-s">

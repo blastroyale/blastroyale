@@ -108,7 +108,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: f9373e661daa449dd955560f25434839, type: 3}
   - {fileID: 21300000, guid: 0bbd4c8617c9249f8a31df09af94b048, type: 3}
   - {fileID: 21300000, guid: 1bfe2996723514bcb89e983a1b36a46b, type: 3}
-  - {fileID: 21300000, guid: d997eba68d4da40e1a5fdcffeb459eec, type: 3}
   - {fileID: 21300000, guid: 8c5a5ad6065e14cefb836982ea81f19e, type: 3}
   - {fileID: 21300000, guid: 4dafe0e6098294091bfef6e9752602b9, type: 3}
   - {fileID: 21300000, guid: 8219bbf6a701be940a74d022fcbdfb90, type: 3}
@@ -278,7 +277,6 @@ SpriteAtlas:
   - progress-battlepass-bg
   - card-faction-celestial
   - icon-emptyslot-amulet
-  - logo-br
   - icon-marketplace
   - background-inputfield
   - icon-airplane

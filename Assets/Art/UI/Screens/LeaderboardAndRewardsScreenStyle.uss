@@ -376,7 +376,7 @@
 }
 
 .bpp__bar__green-bar {
-    background-image: var(--sprite-shared__progress-battlepass-bpp);
+    background-image: var(--sprite-shared__progress-battlepass-bpp-rewards);
     position: absolute;
     margin-top: 1px;
     height: 44px;

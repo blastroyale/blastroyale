@@ -4,7 +4,6 @@ using Cinemachine;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
-using NSubstitute;
 using Photon.Deterministic;
 using Quantum;
 using Sirenix.OdinInspector;
@@ -59,10 +58,12 @@ namespace FirstLight.Game.MonoComponent.Match
 		/// </summary>
 		private unsafe void OnUpdateView(CallbackUpdateView callback)
 		{
-			var spectatedEntity = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
+			var spectatedEntity = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;				
 			var f = callback.Game.Frames.Predicted;
 
-			if (!f.Unsafe.TryGetPointer<PlayerCharacter>(spectatedEntity, out var player)) return;
+			//return if the player is not the local player
+			if (!f.Unsafe.TryGetPointer<PlayerCharacter>(spectatedEntity, out var player) ||
+				!callback.Game.PlayerIsLocal(_matchServices.SpectateService.SpectatedPlayer.Value.Player)) return;
 
 			var playerInput = f.GetPlayerInput(player->Player);
 			var inputDir = playerInput->AimingDirection;
@@ -201,7 +202,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			_deathCamera.LookAt = t;
 			_deathCamera.Follow = t;
 			_adventureCamera.LookAt = t;
-			_adventureCamera.Follow = _services.NetworkService.IsSpectorPlayer ? t : _followObject.transform;
+			_adventureCamera.Follow = _followObject.transform;
 			_specialAimCamera.LookAt = t;
 			_specialAimCamera.Follow = t;
 		}

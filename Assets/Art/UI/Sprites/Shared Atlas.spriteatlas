@@ -27,7 +27,7 @@ SpriteAtlas:
       blockOffset: 1
       allowAlphaSplitting: 0
       enableRotation: 1
-      enableTightPacking: 1
+      enableTightPacking: 0
       enableAlphaDilation: 0
     secondaryTextureSettings: {}
     variantMultiplier: 1
@@ -51,6 +51,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 70e84108e2f264b23a8126b7c33d0f51, type: 3}
   - {fileID: 21300000, guid: d71b86c8e6b984468838bed01f0196d7, type: 3}
   - {fileID: 21300000, guid: ddf33ec916e6b4b54993768a10ca208d, type: 3}
+  - {fileID: 21300000, guid: cc30324b9951b419db0ce1e9b0d8b0fd, type: 3}
   - {fileID: 21300000, guid: 96dd4fbbd265e45f5bfdd253a03cb76c, type: 3}
   - {fileID: 21300000, guid: d49b2a8c0f8344da4a317261f81e6850, type: 3}
   - {fileID: 21300000, guid: c91f1aee7012e4686ae8c14fc85514a6, type: 3}
@@ -68,6 +69,7 @@ SpriteAtlas:
   - icon-medal-2nd
   - icon-currency-blst
   - progress-battlepass-bpp-bg
+  - progress-battlepass-bpp-rewards
   - icon-currency-cs
   - background-stat-dark
   - icon-lowconnection

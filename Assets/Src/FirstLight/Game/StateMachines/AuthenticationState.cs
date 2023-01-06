@@ -403,7 +403,6 @@ namespace FirstLight.Game.StateMachines
 				});
 				_configsAdder.UpdateTo(remoteConfig.Version, remoteConfig.GetAllConfigs());
 			}
-
 			_dataService.SaveData<AppData>();
 			FLog.Verbose("Saved AppData");
 		}

@@ -305,8 +305,8 @@ namespace FirstLight.Game.Services
 #endif
 			void OnSuccess()
 			{
-				successCallback?.Invoke();
 				_dataProvider.AppDataProvider.DeviceID.Value = PlayFabSettings.DeviceUniqueIdentifier;
+				successCallback?.Invoke();
 			}
 		}
 

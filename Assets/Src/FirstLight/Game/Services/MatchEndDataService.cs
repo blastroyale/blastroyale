@@ -32,6 +32,11 @@ namespace FirstLight.Game.Services
 		/// LocalPlayer at the end of the game. Will be PlayerRef.None if we're spectators
 		/// </summary>
 		PlayerRef LocalPlayer { get; }
+		
+		/// <summary>
+		/// Player that killed the local player. Will have a value if the player was killed.
+		/// </summary>
+		PlayerRef LocalPlayerKiller { get; }
 
 		/// <summary>
 		/// Information about all the players that played in the match that ended.
@@ -102,7 +107,10 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc />
 		public PlayerRef LocalPlayer { get; private set; }
 		/// <inheritdoc />
-		public Dictionary<PlayerRef, PlayerMatchData> PlayerMatchData { get; private set; } = new Dictionary<PlayerRef, PlayerMatchData>();
+		public PlayerRef LocalPlayerKiller { get; private set; }
+
+		/// <inheritdoc />
+		public Dictionary<PlayerRef, PlayerMatchData> PlayerMatchData { get; private set; } = new ();
 		/// <inheritdoc />
 		public List<RewardData> Rewards { get; private set; }
 		/// <inheritdoc />
@@ -136,6 +144,14 @@ namespace FirstLight.Game.Services
 			ShowUIStandingsExtraInfo = game.Frames.Verified.Context.GameModeConfig.ShowUIStandingsExtraInfo;
 			LocalPlayer = game.GetLocalPlayerRef();
 			PlayerMatchData = new Dictionary<PlayerRef, PlayerMatchData>();
+			LocalPlayerKiller = PlayerRef.None;
+
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
+		}
+
+		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)
+		{
+			LocalPlayerKiller = callback.PlayerKiller;
 		}
 
 		/// <inheritdoc />

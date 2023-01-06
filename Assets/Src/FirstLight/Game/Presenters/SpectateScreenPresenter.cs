@@ -21,7 +21,6 @@ namespace FirstLight.Game.Presenters
 	{
 		public struct StateData
 		{
-			public PlayerRef Killer;
 			public Action OnLeaveClicked;
 		}
 
@@ -111,7 +110,7 @@ namespace FirstLight.Game.Presenters
 			_followCamera.SnapCamera();
 
 			_playerName.text = data.GetPlayerName();
-			_defeatedYou.SetVisibility(current.Player == Data.Killer);
+			_defeatedYou.SetVisibility(current.Player == _matchServices.MatchEndDataService.LocalPlayerKiller);
 			UpdateCurrentMight(playerCharacter);
 		}
 

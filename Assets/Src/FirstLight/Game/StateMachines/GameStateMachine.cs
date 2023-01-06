@@ -176,7 +176,9 @@ namespace FirstLight.Game.StateMachines
 			
 			var dic = new Dictionary<string, object>
 			{
+				{"client_version", VersionUtils.VersionInternal},
 				{"total_time", Time.realtimeSinceStartup - time},
+				{"vendor_id", SystemInfo.deviceUniqueIdentifier}
 			};
 			_services.AnalyticsService.LogEvent(AnalyticsEvents.LoadCoreAssetsComplete, dic);
 		}

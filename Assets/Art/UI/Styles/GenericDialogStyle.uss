@@ -113,7 +113,7 @@
 }
 
 .hidden {
-    transition-delay: 1s;
+    transition-delay: 0.25s;
     display: none;
 }
 

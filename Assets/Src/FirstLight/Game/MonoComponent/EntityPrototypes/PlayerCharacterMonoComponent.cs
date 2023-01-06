@@ -50,19 +50,20 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 
 		protected override void OnEntityDestroyed(QuantumGame game)
 		{
-			if(game == null) return;
+			var f = game?.Frames?.Verified;
 			
-			var f = game.Frames.Verified;
+			if(f == null) return;
+			
 			var marker = f.GetSingleton<GameContainer>().PlayersData[_playerView.PlayerRef].PlayerDeathMarker;
 			
-			SpawnDeathMarker(marker, transform.position);
+			SpawnDeathMarker(marker);
 		}
 
-		private async void SpawnDeathMarker(GameId marker, Vector3 position)
+		private async void SpawnDeathMarker(GameId marker)
 		{
-			if (!Services.NetworkService.CurrentRoomGameModeConfig.Value.DeathMarker) return;
-			
+			var position = transform.position;
 			var obj = await Services.AssetResolverService.RequestAsset<GameId, GameObject>(marker);
+			
 			obj.transform.position = position;
 		}
 

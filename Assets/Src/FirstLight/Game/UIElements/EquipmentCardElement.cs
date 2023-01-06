@@ -102,6 +102,7 @@ namespace FirstLight.Game.UIElements
 
 			cardHolder.Add(_rarity = new VisualElement {name = "rarity"});
 			_rarity.AddToClassList(UssRarity);
+			_rarity.AddToClassList(string.Format(UssSpriteRarity, "common"));
 
 			cardHolder.Add(_plusRarity = new VisualElement {name = "plus-rarity"});
 			_plusRarity.AddToClassList(UssPlusRarity);

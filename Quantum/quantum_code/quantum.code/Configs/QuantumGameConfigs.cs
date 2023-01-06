@@ -48,6 +48,9 @@ namespace Quantum
 		public FP NftDurabilityDropDays;
 		public FP NonNftDurabilityDropDays;
 		public int BotsDifficultyTrophiesStep;
+		public FP MightBaseValue;
+		public FP MightRarityMultiplier;
+		public FP MightLevelMultiplier;
 	}
 
 	/// <summary>

@@ -23,6 +23,7 @@
     right: 36px;
     align-items: flex-end;
     justify-content: space-between;
+    top: 40%;
 }
 
 .currency-display {
@@ -30,13 +31,10 @@
 }
 
 .player-header {
-    position: absolute;
-    top: 0;
-    background-image: var(--sprite-home__header-profile);
-    width: 1240px;
-    height: 248px;
-    margin-left: -444px;
-    left: 0;
+    background-image: var(--sprite-home__header-profile-pressed);
+    width: 772px;
+    height: 208px;
+    margin-left: 20px;
 }
 
 .player-header:active {
@@ -45,19 +43,18 @@
 
 .player-header__name {
     position: absolute;
-    bottom: 74px;
-    left: 0;
+    left: -420px;
+    top: 105px;
     color: rgb(255, 255, 255);
     font-size: 38px;
     -unity-text-align: lower-center;
     width: 310px;
-    rotate: -15deg;
+    rotate: -14.2deg;
     white-space: normal;
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
 }
 
 .player-header__profile-holder {
-    position: absolute;
     left: 444px;
     top: 0;
     right: 0;
@@ -74,27 +71,30 @@
     position: absolute;
     width: 340px;
     height: 72px;
-    rotate: -13deg;
-    left: 788px;
-    top: -14px;
+    left: 321px;
+    top: -6px;
     flex-direction: row;
     align-items: center;
 }
 
 .player-header__trophy-icon {
     background-image: var(--sprite-shared__icon-trophy);
-    width: 32px;
-    height: 32px;
-    margin-left: 16px;
+    width: 48px;
+    height: 48px;
+    margin-left: 23px;
+    margin-top: 40px;
 }
 
 .player-header__trophies_label {
-    margin-left: 6px;
+    margin-left: -4px;
+    margin-top: 22px;
     color: rgb(255, 255, 255);
-    font-size: 38px;
+    font-size: 34px;
     -unity-text-align: middle-left;
     white-space: normal;
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
+    rotate: -15deg;
+    left: 5px;
 }
 
 .battle-pass-button {
@@ -132,7 +132,7 @@
 }
 
 .battle-pass-button__title {
-    text-shadow: -5px 5px 0 rgb(139, 26, 3);
+    text-shadow: -5px 5px 0 rgb(107, 4, 2);
     font-size: 55px;
     -unity-font-style: bold;
     -unity-text-outline-width: 2px;
@@ -147,15 +147,35 @@
     position: absolute;
 }
 
+.battle-pass-level-holder {
+    left: 376px;
+    top: -47px;
+    width: 68px;
+    height: 55px;
+    align-items: flex-end;
+    flex-shrink: 1;
+    flex-grow: 1;
+    flex-direction: row-reverse;
+}
+
 .battle-pass-button__level {
     -unity-text-align: middle-right;
-    font-size: 42px;
+    font-size: 46px;
     -unity-font-definition: var(--font-bold);
     color: rgb(138, 22, 0);
     -unity-font-style: bold;
-    position: absolute;
-    bottom: 55px;
-    right: 40px;
+    position: relative;
+    flex-grow: 1;
+}
+
+.battle-pass-button__leveltext {
+    font-size: 36px;
+    color: rgb(138, 22, 0);
+    margin: 18px 4px 4px 2px;
+    padding: 1px 2px 4px 4px;
+    position: relative;
+    left: 2px;
+    top: -1px;
 }
 
 .battle-pass-button__progress-bg {
@@ -188,7 +208,7 @@
     -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(141, 27, 0);
     padding-left: 38px;
-    text-shadow: 5px 5px 0 rgb(139, 26, 3);
+    text-shadow: 5px 5px 0 rgb(107, 4, 2);
     -unity-text-align: middle-center;
     padding-bottom: 19px;
     background-color: rgba(0, 0, 0, 0);
@@ -209,9 +229,10 @@
     background-image: var(--sprite-home__button-gamemode);
     width: 414px;
     height: 168px;
-    margin-bottom: 7px;
     padding-left: 59px;
-    padding-bottom: 4px;
+    padding-bottom: -33px;
+    position: absolute;
+    bottom: 230px;
 }
 
 .game-mode-button:active {
@@ -283,7 +304,7 @@
 }
 
 .resource-pool--cs .resource-pool__holder {
-    flex-direction: row-reverse;
+    flex-direction: row;
     rotate: -3deg;
 }
 
@@ -326,7 +347,17 @@
     height: 66px;
     background-image: var(--sprite-home__icon-settings);
     margin: 20px;
-}
+}   
+
+.discord-button {
+    width: 66px;
+    height: 66px;
+    background-image: var(--sprite-home__icon-discord);
+    top: 100px;
+    margin-right: 20px;
+    margin-top: 0px;
+    position: absolute;
+}   
 
 .button-with-icon--equipment > .button-with-icon__icon {
     background-image: var(--sprite-home__icon-equipment);

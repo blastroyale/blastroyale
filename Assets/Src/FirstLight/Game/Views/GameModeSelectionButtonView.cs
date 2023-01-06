@@ -104,8 +104,9 @@ namespace FirstLight.Game.Views
 		/// </summary>
 		/// <param name="orderNumber">Order of the button on the list</param>
 		/// <param name="gameModeInfo">Game mode data to fill the button's visuals</param>
-		public void SetData(string visibleClass, GameModeInfo gameModeInfo)
+		public void SetData(string buttonName, string visibleClass, GameModeInfo gameModeInfo)
 		{
+			_button.name = buttonName;
 			_button.AddToClassList(visibleClass);
 
 			SetData(gameModeInfo);

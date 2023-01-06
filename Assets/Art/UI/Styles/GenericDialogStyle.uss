@@ -11,10 +11,6 @@
     -unity-text-align: middle-center;
 }
 
-.popup-radius {
-    border-radius: 20px;
-}
-
 .popup {
     width: 725px;
     background-color: rgb(0, 0, 0);

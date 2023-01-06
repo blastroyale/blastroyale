@@ -1,13 +1,8 @@
-:root {
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
+.popup-radius {
+    border-radius: 20px;
 }
 
-.popup {
-    border-radius: 20px;
+.popup-radius--login {
     position: absolute;
     left: -10px;
     top: -10px;
@@ -25,24 +20,7 @@
     border-bottom-color: rgb(0, 0, 0);
 }
 
-.dots-pattern--register
-{
-    top: -138px; left: -28px;
-}
-
-.popup-header {
-    overflow: hidden;
-}
-
-.popup-header__title {
-    height: 90px;
-    -unity-text-align: middle-center;
-    font-size: 36px;
-    color: rgb(255, 255, 255);
-    overflow: hidden;
-}
-
-.popup-container{
+.container {
     flex-grow: 1;
     align-items: center;
     justify-content: space-between;
@@ -50,52 +28,59 @@
     padding-bottom: 40px;
 }
 
-.popup-container__password-field--login {
-    margin-top: 28px;
-    margin-bottom: 44px;
-}
-
-.popup-container__password-field--register {
-    margin-bottom: 50px; 
-}
-
-.popup-container__username-field--register {
-    margin-top: 22px;
-    margin-bottom: 22px;
-}
-
-.popup-container__or {
+.container__or_button {
     color: rgb(122, 118, 167);
     font-size: 30px;
     margin-bottom: 8px;
 }
 
-.popup-container__register-lfg-button {
+.header {
+    background-color: rgb(128, 87, 227);
+    overflow: hidden
+}
+
+.header__title {
+    height: 90px;
+    -unity-text-align: middle-center;
+    font-size: 36px;
+    color: rgb(255, 255, 255);
+    overflow: hidden;
+}
+
+.header__dots-pattern {
+    top: -138px;
+    left: -28px;
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/DotsRotated.png?fileID=21300000&guid=123b7673eb1d048a486154a4e65c630b&type=3#DotsRotated');
+    -unity-background-image-tint-color: rgba(58, 58, 58, 0.35);
+    width: 602px;
+    height: 604px;
+    position: absolute;
+}
+
+.button-flat--secondary--register {
     -unity-text-outline-color: rgb(59, 29, 144);
     -unity-background-image-tint-color: rgb(59, 29, 144);
 }
 
-.popup-container__login-flg-text {
-    width: 323px;
-    white-space: normal;
-    padding-left: 20px;
-    padding-right: 20px;
+.button-flat--primary--login {
+    padding-left: 100px;
+    padding-right: 100px;
 }
 
-.popup-container__register-button {
-    width: 300px;
+.input-field--password {
+    margin-top: 28px;
+    margin-bottom: 44px;
 }
 
-.popup-container-bottom-holder {
+.reset_guest_container {
     flex-direction: row;
     justify-content: space-between;
 }
 
-.popup-container-bottom-holder__separator {
+.reset_guest_container__separator {
     height: 0;
-    width: 51px;
+    width: 51px
 }
-
 
 LocalizedTextField > Label {
     margin-right: 15px;
@@ -106,8 +91,6 @@ LocalizedTextField > Label {
 LocalizedButton {
     -unity-text-align: middle-center;
 }
-
-
 
 .background {
     left: 0;
@@ -122,6 +105,7 @@ LocalizedButton {
 }
 
 .blocker-hidden {
+
     display: none;
     transition-duration: 0.3s;
     background-color: rgba(0, 0, 0, 0.36);
@@ -130,25 +114,18 @@ LocalizedButton {
     top: 0;
     right: 0;
     bottom: 0;
+    transition-duration: 0.3s;
 }
 
-#PopupBackground {
+.popup {
     width: 1000px;
     height: 780px;
     background-color: rgb(0, 0, 0);
     border-radius: 20px;
 }
 
-#LoginButton {
-    padding-left: 100px;
-    padding-right: 100px;
-}
-
-#Header {
-    background-color: rgb(128, 87, 227);
-}
-
 #unity-text-input {
     flex-grow: 1;
     -unity-font-definition: var(--font-italic-dynamic);
 }
+

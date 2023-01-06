@@ -30,8 +30,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				return;
 			}
 			
-			var slotIndexToSwitch = -1;
-			
+			int slotIndexToSwitch;
 			if (pc.CurrentWeaponSlot != 1 && pc.WeaponSlots[1].Weapon.IsValid())
 			{
 				slotIndexToSwitch = 1;
@@ -40,8 +39,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				slotIndexToSwitch = 2;
 			}
-			
-			if (slotIndexToSwitch == -1)
+			else if (pc.CurrentWeaponSlot != 0)
+			{
+				slotIndexToSwitch = 0;
+			}
+			else
 			{
 				return;
 			}

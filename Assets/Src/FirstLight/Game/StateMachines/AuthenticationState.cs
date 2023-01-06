@@ -78,7 +78,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
-			var guestOrRegisteredSelection = stateFactory.State("Guest Or Registered Selection");
+			var guestOrRegisteredSelection = stateFactory.State("LoginRegisterSelection");
 			var login = stateFactory.State("Login");
 			var accountDeleted = stateFactory.State("Account Deleted");
 			var guestLogin = stateFactory.State("Guest Login");
@@ -97,13 +97,12 @@ namespace FirstLight.Game.StateMachines
 			autoAuthCheck.Transition().Condition(() => !FeatureFlags.EMAIL_AUTH).OnTransition(() => { SetLinkedDevice(true); }).Target(authLoginDevice);
 			autoAuthCheck.Transition().Target(guestOrRegisteredSelection);
 
-			guestOrRegisteredSelection.OnEnter(OnEnterGuestOrRegisteredSelection);
+			guestOrRegisteredSelection.OnEnter(OpenGuestOrRegisteredSelectionScreen);
 			guestOrRegisteredSelection.Event(_loginAsGuestEvent).Target(guestLogin);
-			guestOrRegisteredSelection.Event(_goToLoginClickedEvent).OnTransition(OnSelectionToLogin).Target(login);
-			guestOrRegisteredSelection.OnExit(CloseLoadingScreen);
-
+			guestOrRegisteredSelection.Event(_goToLoginClickedEvent).OnTransition(OnGuestOrRegisteredToLogin).OnTransition(CloseLoadingScreen).Target(login);
+			
 			login.OnEnter(OnEnterLogin);
-			login.Event(_goToRegisterClickedEvent).OnTransition(OnLoginToRegister).Target(register);
+			login.Event(_goToRegisterClickedEvent).Target(register);
 			login.Event(_loginAsGuestEvent).Target(guestLogin);
 			login.Event(_loginRegisterTransitionEvent).Target(authLogin);
 
@@ -111,7 +110,8 @@ namespace FirstLight.Game.StateMachines
 			guestLogin.Event(_loginCompletedEvent).Target(authLoginDevice);
 			guestLogin.Event(_authenticationFailEvent).OnTransition(() => { DimLoginRegisterScreens(false); }).Target(login);
 
-			register.Event(_goToLoginClickedEvent).OnTransition(OnRegisterToLogin).Target(login);
+			register.OnEnter(OnEnterRegister);
+			register.Event(_goToLoginClickedEvent).Target(login);
 			register.Event(_loginRegisterTransitionEvent).Target(authLogin);
 
 			authLoginDevice.OnEnter(() => DimLoginRegisterScreens(true));
@@ -137,7 +137,7 @@ namespace FirstLight.Game.StateMachines
 
 			final.OnEnter(UnsubscribeEvents);
 		}
-
+		
 		private void SubscribeEvents()
 		{
 			_services.MessageBrokerService.Subscribe<ServerHttpErrorMessage>(OnConnectionError);
@@ -464,35 +464,41 @@ namespace FirstLight.Game.StateMachines
 			foreach (var typeFullName in state.Keys)
 			{
 				var type = Assembly.GetExecutingAssembly().GetType(typeFullName);
-				_dataService.AddData(type, ModelSerializer.DeserializeFromData(type, state));
+					_dataService.AddData(type, ModelSerializer.DeserializeFromData(type, state));
 			}
 
 			activity?.Complete();
 		}
 
-		private void OnEnterGuestOrRegisteredSelection() 
+		private void OnGuestOrRegisteredToLogin()
 		{
-			OpenGuestOrRegisteredSelectionScreen();
-			OpenRegisterScreen();
-			OpenLoginScreen(); 
+			_uiService.OpenUi<LoginScreenBackgroundPresenter>();
 		}
-		
+
 		private void OnEnterLogin()
 		{
+			OpenLoginScreen();
+			CloseRegisterScreen();
 			CloseGuestOrRegisteredSelectionScreen();
 		}
-		
-		private void OnEnterGuestLogin()
+
+		private void OnEnterRegister()
 		{
-			CloseLoginRegisterScreens();
+			OpenRegisterScreen();
+			CloseLoginScreen();
+		}
+
+		private void OnEnterGuestLogin()
+		{			
 			OpenLoadingScreen();
+			CloseLoginRegisterScreens();
 			SetupGuestAccount();
 		}
 
 		private void OnEnterAuthLogin()
-		{
-			CloseLoginRegisterScreens();
+		{			
 			OpenLoadingScreen();
+			CloseLoginRegisterScreens();
 		}
 
 		private void OnPlayerDataObtained(ExecuteFunctionResult res, IWaitActivity activity)
@@ -657,23 +663,29 @@ namespace FirstLight.Game.StateMachines
 			_uiService.OpenUi<LoadingScreenPresenter>();
 		}
 
-		private void CloseLoadingScreen()
-		{
-			_uiService.CloseUi<LoadingScreenPresenter>();
-		}
-		
-		private void CloseGuestOrRegisteredSelectionScreen()
-		{
-			_uiService.CloseUi<GuestOrRegisteredPresenter>();
-		}
-		
 		private void CloseLoginScreen()
 		{
 			_uiService.CloseUi<LoginScreenPresenter>();
 		}
-		
-		private void CloseLoginRegisterScreens()
+
+		private void CloseLoadingScreen()
 		{
+			_uiService.CloseUi<LoadingScreenPresenter>();
+		}
+
+		private void CloseGuestOrRegisteredSelectionScreen()
+		{
+			_uiService.CloseUi<GuestOrRegisteredPresenter>();
+		}
+
+		private void CloseRegisterScreen()
+		{
+			_uiService.CloseUi<RegisterScreenPresenter>();
+		}
+
+		private void CloseLoginRegisterScreens()
+		{			
+			_uiService.CloseUi<LoginScreenBackgroundPresenter>();
 			_uiService.CloseUi<LoginScreenPresenter>();
 			_uiService.CloseUi<RegisterScreenPresenter>();
 		}
@@ -702,9 +714,7 @@ namespace FirstLight.Game.StateMachines
 					_statechartTrigger(_loginAsGuestEvent);
 				},
 			};
-
-			_uiService.LoadUiAsync<LoginScreenPresenter>();
-			_uiService.LoadUiAsync<RegisterScreenPresenter>();
+			_uiService.OpenUiAsync<LoginScreenBackgroundPresenter>();
 			_uiService.OpenUiAsync<GuestOrRegisteredPresenter, GuestOrRegisteredPresenter.StateData>(data);
 		}
 
@@ -720,69 +730,23 @@ namespace FirstLight.Game.StateMachines
 					_statechartTrigger(_loginAsGuestEvent);
 				},
 				ForgotPasswordClicked = SendRecoveryEmail
-			};					
-			_uiService.OpenUi<LoginScreenPresenter, LoginScreenPresenter.StateData>(data);
-		}
+			};
 
-		private void ShowLoginScreen()
-		{
-			if (_uiService.GetAllVisibleUi().Contains(typeof(RegisterScreenPresenter)))
-			{
-				_uiService.GetUi<LoginScreenPresenter>().Show();
-			}
-		}
-		
-		private void HideLoginScreen()
-		{
-			if (_uiService.GetAllVisibleUi().Contains(typeof(RegisterScreenPresenter)))
-			{
-				_uiService.GetUi<LoginScreenPresenter>().Hide();
-			}
+			_uiService.OpenUiAsync<LoginScreenPresenter, LoginScreenPresenter.StateData>(data);
 		}
 
 		private void OpenRegisterScreen()
 		{
+			CloseLoginScreen();
 			var data = new RegisterScreenPresenter.StateData
 			{
 				RegisterClicked = RegisterClicked,
 				GoToLoginClicked = () => _statechartTrigger(_goToLoginClickedEvent)
 			};
 
-			_uiService.OpenUi<RegisterScreenPresenter, RegisterScreenPresenter.StateData>(data);
+			_uiService.OpenUiAsync<RegisterScreenPresenter, RegisterScreenPresenter.StateData>(data);
 		}
 
-		private void ShowRegisterScreen()
-		{
-			_uiService.GetUi<RegisterScreenPresenter>().Show();
-
-		}
-		private void HideRegisterScreen()
-		{
-			if (_uiService.GetAllVisibleUi().Contains(typeof(RegisterScreenPresenter)))
-			{
-				_uiService.GetUi<RegisterScreenPresenter>().Hide();
-			}
-		}
-		
-		private void OnSelectionToLogin()
-		{
-			HideLoginScreen();
-			HideRegisterScreen();
-			ShowLoginScreen();
-		}
-
-		private void OnRegisterToLogin()
-		{
-			ShowLoginScreen();
-			HideRegisterScreen();
-		}
-
-		private void OnLoginToRegister()
-		{
-			ShowRegisterScreen();
-			HideLoginScreen();
-		}
-		
 		private void SendRecoveryEmail(string email)
 		{
 			SendAccountRecoveryEmailRequest request = new SendAccountRecoveryEmailRequest()

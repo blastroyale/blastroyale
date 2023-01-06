@@ -24,14 +24,11 @@ namespace FirstLight.Game.Presenters
 			public UnityAction<string> ForgotPasswordClicked;
 		}
 
-		private VisualElement _root;
 		private TextField _emailField;
 		private TextField _passwordField;
 		private VisualElement _blockerElement;
 		private Button _viewHideButton;
-
-		private bool _isPasswordHidden = true;
-
+		
 		private IGameServices _services;
 
 		private void Awake()
@@ -41,7 +38,6 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements(VisualElement root)
 		{
-			_root = root;
 			_emailField = root.Q<TextField>("EmailTextField");
 			_passwordField = root.Q<TextField>("PasswordTextField");
 			_blockerElement = root.Q("Blocker");
@@ -54,34 +50,6 @@ namespace FirstLight.Game.Presenters
 			_viewHideButton.clicked += OnViewHideClicked;
 
 			root.SetupClicks(_services);
-		}
-
-		/// <summary>
-		/// Hides the screen without closing it by setting hidden class on root
-		/// </summary>
-		public void Hide()
-		{
-			if (_root == null)
-			{
-				Debug.LogWarning("_root null");
-				return;
-			}
-
-			_root.AddToClassList("hidden");
-		}
-
-		/// <summary>
-		/// Removes hidden class on root
-		/// </summary>
-		public void Show()
-		{
-			if (_root == null)
-			{
-				Debug.LogWarning("_root null");
-				return;
-			}
-
-			_root.RemoveFromClassList("hidden");
 		}
 
 		/// <summary>

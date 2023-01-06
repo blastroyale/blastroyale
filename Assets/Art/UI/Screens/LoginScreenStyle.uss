@@ -100,8 +100,7 @@ LocalizedButton {
     position: absolute;
     justify-content: center;
     align-items: center;
-    background-image: url('project://database/Assets/Art/Textures/Ui/Splashscreens%20&%20Logos/LoadingBkNoLogo.png?fileID=2800000&guid=20756f8f6e6857841a5b8bd4d761942a&type=3#LoadingBkNoLogo');
-    -unity-background-scale-mode: scale-and-crop;
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .blocker-hidden {

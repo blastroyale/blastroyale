@@ -23,13 +23,10 @@ namespace FirstLight.Game.Presenters
 		private TextField _usernameField;
 		private TextField _passwordField;
 		private Button _viewHideButton;
-
-		private VisualElement _root;
 		private VisualElement _blockerElement;
+		
 		private IGameServices _services;
-
-		private bool _isPasswordHidden = true;
-
+		
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
@@ -37,7 +34,6 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements(VisualElement root)
 		{
-			_root = root;
 			_emailField = root.Q<TextField>("EmailTextField").Required();
 			_usernameField = root.Q<TextField>("UsernameTextField").Required();
 			_passwordField = root.Q<TextField>("PasswordTextField").Required();
@@ -50,34 +46,6 @@ namespace FirstLight.Game.Presenters
 			_viewHideButton.clicked += OnViewHideClicked;
 
 			root.SetupClicks(_services);
-		}
-
-		/// <summary>
-		/// Hides the screen without closing it by setting hidden class on root
-		/// </summary>
-		public void Hide()
-		{
-			if (_root == null)
-			{
-				Debug.LogWarning("_root null");
-				return;
-			}
-
-			_root?.AddToClassList("hidden");
-		}
-
-		/// <summary>
-		/// Removes hidden class on root
-		/// </summary>
-		public void Show()
-		{
-			if (_root == null)
-			{
-				Debug.LogWarning("_root null");
-				return;
-			}
-
-			_root?.RemoveFromClassList("hidden");
 		}
 
 		/// <summary>

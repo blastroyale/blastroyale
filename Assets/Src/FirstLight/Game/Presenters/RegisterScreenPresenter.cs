@@ -3,6 +3,8 @@ using FirstLight.FLogger;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using Sirenix.OdinInspector.Editor.Licensing;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
@@ -23,6 +25,7 @@ namespace FirstLight.Game.Presenters
 		private TextField _usernameField;
 		private TextField _passwordField;
 
+		private VisualElement _root;
 		private VisualElement _blockerElement;
 
 		private IGameServices _services;
@@ -34,6 +37,7 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements(VisualElement root)
 		{
+			_root = root;
 			_emailField = root.Q<TextField>("EmailTextField").Required();
 			_usernameField = root.Q<TextField>("UsernameTextField").Required();
 			_passwordField = root.Q<TextField>("PasswordTextField").Required();
@@ -46,6 +50,34 @@ namespace FirstLight.Game.Presenters
 			root.SetupClicks(_services);
 		}
 
+		/// <summary>
+		/// Hides the screen without closing it by setting hidden class on root
+		/// </summary>
+		public void Hide()
+		{
+			if (_root == null)
+			{
+				Debug.LogWarning("_root null");
+				return;
+			}
+
+			_root?.AddToClassList("hidden");
+		}
+
+		/// <summary>
+		/// Removes hidden class on root
+		/// </summary>
+		public void Show()
+		{	
+			if (_root == null)
+			{
+				Debug.LogWarning("_root null");
+				return;
+			}
+
+			_root?.RemoveFromClassList("hidden");
+		}
+		
 		/// <summary>
 		/// Sets the activity of the dimmed blocker image that covers the presenter
 		/// </summary>

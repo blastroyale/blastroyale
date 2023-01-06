@@ -4,6 +4,7 @@ using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using I2.Loc;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UIElements;
 
@@ -22,7 +23,7 @@ namespace FirstLight.Game.Presenters
 			public Action PlayAsGuestClicked;
 			public UnityAction<string> ForgotPasswordClicked;
 		}
-
+		private VisualElement _root;
 		private TextField _emailField;
 		private TextField _passwordField;
 		private VisualElement _blockerElement;
@@ -36,6 +37,7 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements(VisualElement root)
 		{
+			_root = root;
 			_emailField = root.Q<TextField>("EmailTextField");
 			_passwordField = root.Q<TextField>("PasswordTextField");
 			_blockerElement = root.Q("Blocker");
@@ -46,6 +48,34 @@ namespace FirstLight.Game.Presenters
 			root.Q<Button>("PlayAsGuestButton").clicked += OnPlayAsGuestButtonClicked;
 
 			root.SetupClicks(_services);
+		}
+
+		/// <summary>
+		/// Hides the screen without closing it by setting hidden class on root
+		/// </summary>
+		public void Hide()
+		{	
+			if (_root == null)
+			{
+				Debug.LogWarning("_root null");
+				return;
+			}
+
+			_root.AddToClassList("hidden");
+		}
+		
+		/// <summary>
+		/// Removes hidden class on root
+		/// </summary>
+		public void Show()
+		{	
+			if (_root == null)
+			{
+				Debug.LogWarning("_root null");
+				return;
+			}
+
+			_root.RemoveFromClassList("hidden");
 		}
 
 		/// <summary>
@@ -85,5 +115,7 @@ namespace FirstLight.Game.Presenters
 			_services.AnalyticsService.UiCalls.ButtonAction(UIAnalyticsButtonsNames.PlayAsGuest);
 			Data.PlayAsGuestClicked();
 		}
+		
+		
 	}
 }

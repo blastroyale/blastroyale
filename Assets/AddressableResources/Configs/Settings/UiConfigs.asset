@@ -68,7 +68,7 @@ MonoBehaviour:
     UiType: FirstLight.Game.Presenters.GenericInputDialogPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/GuestOrRegisteredScreen.prefab
-    Layer: 0
+    Layer: 10
     UiType: FirstLight.Game.Presenters.GuestOrRegisteredPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/Home Screen.prefab

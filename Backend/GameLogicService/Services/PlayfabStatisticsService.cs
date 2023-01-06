@@ -31,20 +31,22 @@ namespace GameLogicService.Services
 				StatisticName = name
 			});
 		}
-
-		public void SetStatistics(string user, string name, int amount)
+		
+		public void UpdateStatistics(string user, params ValueTuple<string, int> [] stats)
 		{
+			var toUpdate = new List<StatisticUpdate>();
+			foreach(var stat in stats)
+			{
+				toUpdate.Add(new StatisticUpdate()
+				{
+					Value = stat.Item2,
+					StatisticName = stat.Item1
+				});
+			}
 			PlayFabServerAPI.UpdatePlayerStatisticsAsync(new UpdatePlayerStatisticsRequest()
 			{
 				PlayFabId = user,
-				Statistics = new List<StatisticUpdate>()
-				{
-					new StatisticUpdate()
-					{
-						Value = amount,
-						StatisticName = name
-					}
-				},
+				Statistics = toUpdate,
 			}).ContinueWith(response =>
 			{
 				if (response.Result.Error != null)

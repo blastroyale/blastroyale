@@ -65,11 +65,15 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _battlePassProgressElement;
 		private VisualElement _battlePassCrownIcon;
 
+		private VisualElement _trophiesHolder;
+
 		private VisualElement _bppPoolContainer;
-		private Label _bppPoolTimeLabel;
+		private Label _bppPoolRestockTimeLabel;
+		private Label _bppPoolRestockAmountLabel;
 		private Label _bppPoolAmountLabel;
 		private VisualElement _csPoolContainer;
-		private Label _csPoolTimeLabel;
+		private Label _csPoolRestockTimeLabel;
+		private Label _csPoolRestockAmountLabel;
 		private Label _csPoolAmountLabel;
 
 		private void Awake()
@@ -91,12 +95,18 @@ namespace FirstLight.Game.Presenters
 
 			_equipmentNotification = root.Q<VisualElement>("EquipmentNotification").Required();
 
+			_trophiesHolder = root.Q<VisualElement>("TrophiesHolder").Required();
+
+
 			_bppPoolContainer = root.Q<VisualElement>("BPPPoolContainer").Required();
 			_bppPoolAmountLabel = _bppPoolContainer.Q<Label>("AmountLabel").Required();
-			_bppPoolTimeLabel = _bppPoolContainer.Q<Label>("RestockLabel").Required();
+			_bppPoolRestockTimeLabel = _bppPoolContainer.Q<Label>("RestockLabelTime").Required();
+			_bppPoolRestockAmountLabel = _bppPoolContainer.Q<Label>("RestockLabelAmount").Required();
+
 			_csPoolContainer = root.Q<VisualElement>("CSPoolContainer").Required();
 			_csPoolAmountLabel = _csPoolContainer.Q<Label>("AmountLabel").Required();
-			_csPoolTimeLabel = _csPoolContainer.Q<Label>("RestockLabel").Required();
+			_csPoolRestockTimeLabel = _csPoolContainer.Q<Label>("RestockLabelTime").Required();
+			_csPoolRestockAmountLabel = _csPoolContainer.Q<Label>("RestockLabelAmount").Required();
 
 			_battlePassLevelLabel = root.Q<Label>("BattlePassLevelLabel").Required();
 			_battlePassProgressElement = root.Q<VisualElement>("BattlePassProgressElement").Required();
@@ -218,33 +228,37 @@ namespace FirstLight.Game.Presenters
 		}
 
 		private void OnPoolChanged(GameId id, ResourcePoolData previous, ResourcePoolData current,
-								   ObservableUpdateType updateType)
+			ObservableUpdateType updateType)
 		{
 			UpdatePoolLabels();
 		}
 
 		private void UpdatePoolLabels(float _ = 0)
 		{
-			UpdatePool(GameId.BPP, BPP_POOL_AMOUNT_FORMAT, _bppPoolTimeLabel, _bppPoolAmountLabel);
-			UpdatePool(GameId.CS, CS_POOL_AMOUNT_FORMAT, _csPoolTimeLabel, _csPoolAmountLabel);
+			UpdatePool(GameId.BPP, BPP_POOL_AMOUNT_FORMAT, _bppPoolRestockTimeLabel, _bppPoolRestockAmountLabel,
+				_bppPoolAmountLabel);
+			UpdatePool(GameId.CS, CS_POOL_AMOUNT_FORMAT, _csPoolRestockTimeLabel, _csPoolRestockAmountLabel,
+				_csPoolAmountLabel);
 		}
 
-		private void UpdatePool(GameId id, string amountStringFormat, Label timeLabel, Label amountLabel)
+		private void UpdatePool(GameId id, string amountStringFormat, Label timeLabel, Label restockAmountLabel,
+			Label poolAmountLabel)
 		{
 			var poolInfo = _dataProvider.ResourceDataProvider.GetResourcePoolInfo(id);
 			var timeLeft = poolInfo.NextRestockTime - DateTime.UtcNow;
 
-			amountLabel.text = string.Format(amountStringFormat, poolInfo.CurrentAmount, poolInfo.PoolCapacity);
+			poolAmountLabel.text = string.Format(amountStringFormat, poolInfo.CurrentAmount, poolInfo.PoolCapacity);
 
 			if (poolInfo.IsFull)
 			{
 				timeLabel.text = string.Empty;
+				restockAmountLabel.text = string.Empty;
 			}
 			else
 			{
-				timeLabel.text = string.Format(ScriptLocalization.UITHomeScreen.resource_pool_restock,
-					poolInfo.RestockPerInterval,
-					id.ToString(),
+				restockAmountLabel.text = $"+ {poolInfo.RestockPerInterval}";
+				timeLabel.text = string.Format(
+					ScriptLocalization.UITHomeScreen.resource_pool_restock_time,
 					timeLeft.ToHoursMinutesSeconds());
 			}
 		}
@@ -260,7 +274,7 @@ namespace FirstLight.Game.Presenters
 		private void OnBattlePassCurrentPointsChanged(uint previous, uint current)
 		{
 			if (_dataProvider.RewardDataProvider.IsCollecting ||
-				DebugUtils.DebugFlags.OverrideCurrencyChangedIsCollecting)
+			    DebugUtils.DebugFlags.OverrideCurrencyChangedIsCollecting)
 			{
 				StartCoroutine(AnimateBPP(GameId.BPP, previous, current));
 			}
@@ -281,7 +295,7 @@ namespace FirstLight.Game.Presenters
 			var pointsModifier = pointsDiff / pointsToAnimate;
 			for (int i = 0; i < pointsToAnimate; i++)
 			{
-				int points = (int) previous + Mathf.RoundToInt(i * pointsModifier) + 1;
+				int points = (int)previous + Mathf.RoundToInt(i * pointsModifier) + 1;
 				var predictedLevelAndPoints = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints(points);
 
 				_mainMenuServices.UiVfxService.PlayVfx(id,
@@ -307,10 +321,10 @@ namespace FirstLight.Game.Presenters
 		{
 			var hasRewards = _dataProvider.BattlePassDataProvider.IsRedeemable(pointsOverride);
 			var currentPointsPerLevel =
-				_dataProvider.BattlePassDataProvider.GetRequiredPointsForLevel((int) predictedLevel);
+				_dataProvider.BattlePassDataProvider.GetRequiredPointsForLevel((int)predictedLevel);
 
 			_battlePassProgressElement.style.flexGrow =
-				Mathf.Clamp01((float) predictedPoints / currentPointsPerLevel);
+				Mathf.Clamp01((float)predictedPoints / currentPointsPerLevel);
 			_battlePassCrownIcon.style.display = hasRewards ? DisplayStyle.Flex : DisplayStyle.None;
 
 			if (predictedLevel == _dataProvider.BattlePassDataProvider.MaxLevel)

@@ -48,7 +48,7 @@
                         <ui:Instance template="EquipmentDurability" name="EquipmentDurability" class="equipment-durability--repairing content-repairing__durability" />
                         <ui:VisualElement name="Requirements" class="requirements" style="display: none;">
                             <FirstLight.Game.UIElements.LocalizedLabel name="Title" localization-key="UITEquipment/popup_requirements" class="requirements__title" />
-                            <ui:VisualElement name="Icon" class="requirements__icon" />
+                            <ui:VisualElement name="Icon" class="requirements__icon sprite-shared__icon-currency-bpp" />
                             <ui:Label text="1234" name="Amount" class="requirements__amount" />
                         </ui:VisualElement>
                         <FirstLight.Game.UIElements.PriceButton localization-key="UITEquipment/repair" name="RepairButton" class="button-long--yellow content-scrapping__button" style="display: none;" />
@@ -64,7 +64,7 @@
                         <ui:VisualElement name="Spacer" class="height-spacer height-spacer--xxl" />
                         <ui:VisualElement name="Requirements" class="requirements" style="display: flex;">
                             <FirstLight.Game.UIElements.LocalizedLabel name="Title" localization-key="UITEquipment/popup_requirements" class="requirements__title" />
-                            <ui:VisualElement name="Icon" class="requirements__icon" />
+                            <ui:VisualElement name="Icon" class="requirements__icon sprite-shared__icon-currency-bpp" />
                             <ui:Label text="1234" name="Amount" class="requirements__amount" />
                         </ui:VisualElement>
                         <FirstLight.Game.UIElements.LocalizedButton localization-key="UITEquipment/upgrade" name="UpgradePopupButton" class="button-long button-long--yellow content-scrapping__button" />

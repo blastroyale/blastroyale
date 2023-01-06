@@ -90,10 +90,11 @@ namespace FirstLight.Services
 			return _data.Keys;
 		}
 
-		/// <inheritdoc />
+		/// Obtains the client data stored in memory.
+		/// Always created the data if its not present using the default constructor.
 		public T GetData<T>() where T : class
 		{
-			return _data[typeof(T)].Data as T;
+			return GetDataOrCreateIfNeeded<T>();
 		}
 
 		/// <inheritdoc />
@@ -148,6 +149,16 @@ namespace FirstLight.Services
 		public void AddData(Type type, object data, bool isLocal = false)
 		{
 			_data[type] = new DataInfo { Data = data, IsLocal = isLocal };
+		}
+
+		private T GetDataOrCreateIfNeeded<T>() where T : class
+		{
+			if (!TryGetData<T>(out var data))
+			{
+				data = Activator.CreateInstance<T>();
+				_data[typeof(T)] = new DataInfo { Data = data, IsLocal = false };;
+			}
+			return data;
 		}
 
 		private struct DataInfo

@@ -99,7 +99,8 @@ namespace FirstLight.Game.StateMachines
 
 			guestOrRegisteredSelection.OnEnter(OpenGuestOrRegisteredSelectionScreen);
 			guestOrRegisteredSelection.Event(_loginAsGuestEvent).Target(guestLogin);
-			guestOrRegisteredSelection.Event(_goToLoginClickedEvent).OnTransition(OnGuestOrRegisteredToLogin).OnTransition(CloseLoadingScreen).Target(login);
+			guestOrRegisteredSelection.Event(_goToLoginClickedEvent).OnTransition(OnGuestOrRegisteredToLogin).Target(login);
+			guestOrRegisteredSelection.OnExit(CloseLoadingScreen);
 			
 			login.OnEnter(OnEnterLogin);
 			login.Event(_goToRegisterClickedEvent).Target(register);
@@ -122,8 +123,7 @@ namespace FirstLight.Game.StateMachines
 			authLoginDevice.OnEnter(() => DimLoginRegisterScreens(false));
 			
 			authLogin.OnEnter(OnEnterAuthLogin);
-			authLogin.OnEnter(UnloadLoginRegisterScreens);
-			authLogin.Event(_loginCompletedEvent).OnTransition(CloseLoginRegisterScreens).Target(getServerState);
+			authLogin.Event(_loginCompletedEvent).OnTransition(CloseLoginRegisterScreens).OnTransition(UnloadLoginRegisterScreens).Target(getServerState);
 			authLogin.Event(_authenticationFailEvent).Target(login);
 			authLogin.Event(_authenticationRegisterFailEvent).Target(register);
 			authLogin.OnExit(() => DimLoginRegisterScreens(false));

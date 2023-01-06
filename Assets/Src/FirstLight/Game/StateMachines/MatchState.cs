@@ -410,7 +410,8 @@ namespace FirstLight.Game.StateMachines
 			{
 				{"client_version", VersionUtils.VersionInternal},
 				{"total_time", Time.realtimeSinceStartup - time},
-				{"vendor_id", SystemInfo.deviceUniqueIdentifier}
+				{"vendor_id", SystemInfo.deviceUniqueIdentifier},
+				{"playfab_player_id", _dataProvider.AppDataProvider.PlayerId}
 			};
 			_services.AnalyticsService.LogEvent(AnalyticsEvents.LoadMatchAssetsComplete, dic);
 		}

@@ -61,9 +61,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			var spectatedEntity = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;				
 			var f = callback.Game.Frames.Predicted;
 
-			//return if the player is not the local player
-			if (!f.Unsafe.TryGetPointer<PlayerCharacter>(spectatedEntity, out var player) ||
-				!callback.Game.PlayerIsLocal(_matchServices.SpectateService.SpectatedPlayer.Value.Player)) return;
+			if (!f.Unsafe.TryGetPointer<PlayerCharacter>(spectatedEntity, out var player)) return;
 
 			var playerInput = f.GetPlayerInput(player->Player);
 			var inputDir = playerInput->AimingDirection;
@@ -106,7 +104,7 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
-			if (!next.Entity.IsValid) return;	
+			if (!next.Entity.IsValid) return;
 
 			// If local player died and camera is in spawn mode, reset back to adventure (death upon landing fix)
 			if (!_services.NetworkService.IsSpectorPlayer && ReferenceEquals(_cinemachineBrain.ActiveVirtualCamera, _spawnCamera))
@@ -114,11 +112,15 @@ namespace FirstLight.Game.MonoComponent.Match
 				SetActiveCamera(_adventureCamera);
 			}
 
+			//when becoming a spectator, disable camera panning and set the follow target to the spectated player's transform
+			if (_services.NetworkService.IsSpectorPlayer)
+			{
+				QuantumCallback.UnsubscribeListener(this);
+				_followObject = next.Transform.gameObject;
+			}
+
 			RefreshSpectator(next.Transform);
 			_cinemachineBrain.ActiveVirtualCamera?.SnapCamera();
-
-			if(_services.NetworkService.IsSpectorPlayer)
-				QuantumCallback.UnsubscribeListener(this);
 		}
 
 		private void SetActiveCamera(InputAction.CallbackContext context)

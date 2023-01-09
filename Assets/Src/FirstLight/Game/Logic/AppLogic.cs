@@ -79,6 +79,11 @@ namespace FirstLight.Game.Logic
 		/// Obtains the player unique id
 		/// </summary>
 		string PlayerId { get; }
+		
+		/// <summary>
+		/// Determines if the player is a guest
+		/// </summary>
+		bool IsGuest { get; }
 
 		/// <summary>
 		/// Returns the last gamemode user has chosen
@@ -163,6 +168,8 @@ namespace FirstLight.Game.Logic
 
 		/// <inheritdoc />
 		public bool IsDeviceLinked => string.IsNullOrWhiteSpace(DeviceID.Value);
+
+		public bool IsGuest => string.IsNullOrEmpty(LastLoginEmail.Value);
 
 		public GameModeRotationConfig.GameModeEntry LastGameMode
 		{

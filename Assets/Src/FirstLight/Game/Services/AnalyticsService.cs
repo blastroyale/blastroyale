@@ -103,6 +103,8 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc />
 		public void LogEvent(string eventName, Dictionary<string, object> parameters = null, bool isCriticalEvent = true)
 		{
+			//Debug.Log("Analytics event "+eventName+": "+JsonConvert.SerializeObject(parameters));
+			
 			try
 			{
 				//PlayFab Analytics

@@ -56,6 +56,9 @@
     flex-direction: column-reverse;
     align-items: center;
     bottom: 35px;
+}
+
+.leaderboard__footer-text {
     font-size: 35px;
     -unity-font-style: normal;
     -unity-text-align: middle-center;

@@ -30,7 +30,6 @@ namespace FirstLight.Game.Presenters
 
 		private const int DefaultTrophies = 1000;
 		private const string UssLeaderboardEntryGlobal = "leaderboard-entry--global";
-		private const string UssLeaderboardEntryLocal = "leaderboard-entry--local";
 		private const string UssLeaderboardEntryPositionerHighlight = "leaderboard-entry-positioner--highlight";
 		private const string UssLeaderboardPanelLocalPlayerFixed = "leaderboard-panel__local-player-fixed";
 
@@ -45,7 +44,6 @@ namespace FirstLight.Game.Presenters
 
 		private ListView _leaderboardListView;
 		private VisualElement _localPlayerVisualElement;
-		private VisualElement _scrollView;
 
 		private int _localPlayerPos = -1;
 

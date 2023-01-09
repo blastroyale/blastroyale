@@ -14,16 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _configs:
   - ResourceType: 61
-    BaseValue: 48
+    BaseValue: 110
     GrowthMultiplier:
-      RawValue: 78643
+      RawValue: 80282
     AdjectiveCostK:
       RawValue: 0
     AdjectiveCostScale: 0
     GradeMultiplier:
       RawValue: 65536
     LevelMultiplier:
-      RawValue: 3277
+      RawValue: 2490
     DurabilityDivider: 20
   - ResourceType: 3
     BaseValue: 180

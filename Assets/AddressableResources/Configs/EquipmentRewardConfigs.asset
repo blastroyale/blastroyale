@@ -151,7 +151,7 @@ MonoBehaviour:
     Rarity:
       _keyData: 000000000100000002000000
       _valueData:
-      - RawValue: 1638400
+      - RawValue: 1310720
       - RawValue: 1638400
       - RawValue: 1179648
     Grade:
@@ -200,11 +200,11 @@ MonoBehaviour:
       _valueData:
       - RawValue: 6553600
     Rarity:
-      _keyData: 010000000200000003000000
+      _keyData: 020000000300000004000000
       _valueData:
-      - RawValue: 1638400
-      - RawValue: 1638400
-      - RawValue: 786432
+      - RawValue: 1441792
+      - RawValue: 2752512
+      - RawValue: 524288
     Grade:
       _keyData: 04000000
       _valueData:
@@ -251,11 +251,11 @@ MonoBehaviour:
       _valueData:
       - RawValue: 6553600
     Rarity:
-      _keyData: 030000000400000005000000
+      _keyData: 040000000500000006000000
       _valueData:
-      - RawValue: 786432
-      - RawValue: 786432
-      - RawValue: 182845
+      - RawValue: 3276800
+      - RawValue: 1179648
+      - RawValue: 262144
     Grade:
       _keyData: 04000000
       _valueData:
@@ -303,10 +303,10 @@ MonoBehaviour:
       _valueData:
       - RawValue: 6553600
     Rarity:
-      _keyData: 0500000006000000
+      _keyData: 0600000007000000
       _valueData:
-      - RawValue: 3276800
-      - RawValue: 3276800
+      - RawValue: 5898240
+      - RawValue: 655360
     Grade:
       _keyData: 04000000
       _valueData:

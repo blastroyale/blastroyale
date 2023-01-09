@@ -80,19 +80,7 @@ namespace Quantum.Systems
 					}
 				}
 
-				if (itemCount >= 2 && itemCount <= 3)
-				{
-					dropBox = GameId.ChestUncommon;
-				}
-				if (itemCount >= 3 && itemCount <= 4)
-				{
-					dropBox = GameId.ChestRare;
-				}
-				if (itemCount >= 5)
-				{
-					dropBox = GameId.ChestEpic;
-				}
-
+				dropBox = f.ChestConfigs.CheckItemRange(itemCount);
 				CollectablePlatformSpawner.SpawnChest(f, dropBox, f.Get<Transform3D>(entity));
 			}
 		}

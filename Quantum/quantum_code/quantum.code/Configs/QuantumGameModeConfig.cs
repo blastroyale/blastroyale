@@ -91,9 +91,6 @@ namespace Quantum
 		[BoxGroup("Player/H1/Death drops"), PropertyTooltip(DESC_DEATH_DROP_STRATEGY)]
 		public DeathDropsStrategy DeathDropStrategy;
 
-		[BoxGroup("Player/H1/Death drops"), PropertyTooltip(DESC_DEATH_DROP_GAMEID_LIST)]
-		public List<GameId> DeathDropSetItems;
-
 		[BoxGroup("Player/H1/Death drops"), PropertyTooltip(DESC_DEATH_MARKER)]
 		public bool DeathMarker;
 
@@ -182,7 +179,6 @@ namespace Quantum
 		private const string DESC_SPAWN_SELECTION = "Enables the player to select a spawn position on the map.";
 		private const string DESC_SPAWN_PATTERN = "Limits spawn selection to a path on the map.";
 		private const string DESC_DEATH_DROP_STRATEGY = "Which strategy of drop we use when the player dies.";
-		private const string DESC_DEATH_DROP_GAMEID_LIST = "A list of specific Gameid's to drop when the player dies.";
 		private const string DESC_DEATH_MARKER = "If we should spawn a death marker on the position where a player died.";
 		private const string DESC_BOT_SEARCH_FOR_CRATES = "Should the bots search / look for crates.";
 		private const string DESC_ALLOW_BOTS = "If bots can be enabled for this game mode.";

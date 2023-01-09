@@ -95,15 +95,6 @@ namespace Quantum.Systems
 
 				CollectablePlatformSpawner.SpawnChest(f, dropBox, f.Get<Transform3D>(entity));
 			}
-
-			if(gameModeConfig.DeathDropSetItems.Count > 0)
-			{
-				foreach (GameId id in gameModeConfig.DeathDropSetItems)
-				{
-					Collectable.DropConsumable(f, id, deathPosition, step, id.IsInGroup(GameIdGroup.Weapon));
-					step++;
-				}
-			}
 		}
 
 		private void InstantiatePlayer(Frame f, PlayerRef playerRef, RuntimePlayer playerData)

@@ -40,8 +40,7 @@ MonoBehaviour:
       SkydiveSpawn: 1
       SpawnSelection: 1
       SpawnPattern: 1
-      DeathDropStrategy: 2
-      DeathDropSetItems: 
+      DeathDropStrategy: 3
       DeathMarker: 1
       AllowBots: 1
       BotSearchForCrates: 1
@@ -79,7 +78,6 @@ MonoBehaviour:
       SpawnSelection: 0
       SpawnPattern: 0
       DeathDropStrategy: 0
-      DeathDropSetItems: 
       DeathMarker: 0
       AllowBots: 1
       BotSearchForCrates: 0
@@ -115,7 +113,6 @@ MonoBehaviour:
       SpawnSelection: 1
       SpawnPattern: 0
       DeathDropStrategy: 0
-      DeathDropSetItems: 
       DeathMarker: 0
       AllowBots: 0
       BotSearchForCrates: 0

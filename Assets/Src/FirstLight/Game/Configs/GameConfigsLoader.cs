@@ -69,6 +69,7 @@ namespace FirstLight.Game.Configs
 				LoadConfig<ScrapConfigs>(AddressableId.Configs_ScrapConfigs, asset => configsAdder.AddConfigs(data => (int) data.ResourceType, asset.Configs)),
 				LoadConfig<UpgradeDataConfigs>(AddressableId.Configs_UpgradeDataConfigs, asset => configsAdder.AddConfigs(data => (int) data.ResourceType, asset.Configs)),
 				LoadConfig<RepairDataConfigs>(AddressableId.Configs_RepairDataConfigs, asset => configsAdder.AddConfigs(data => (int) data.ResourceType, asset.Configs)),
+				LoadConfig<LiveopsSegmentActionConfigs>(AddressableId.Configs_LiveopsSegmentActionConfigs, asset => configsAdder.AddConfigs(data => data.ActionIdentifier, asset.Configs)),
 			};
 		}
 	

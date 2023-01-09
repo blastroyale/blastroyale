@@ -1609,6 +1609,32 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: Tooltips/ToolTip_BPP_pool
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Earn Blast Pass points in matches to claim rewards.
+
+
+        The pool of
+        points refreshes over time.'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Tooltips/ToolTip_CS_pool
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Gain Craft Spice in Ranked matches using NFTs.
+
+
+        Craft Spice pool
+        refreshes over time.'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: MainMenu/Abilties
       TermType: 0
       Description: 
@@ -2653,7 +2679,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - The name must be at least {0} characters long.
+      - The name must contain at least {0} valid characters.
       - 
       - 
       Flags: 000000
@@ -2909,7 +2935,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Quit Game
+      - QUIT GAME
       - 
       - 
       Flags: 000000
@@ -9866,6 +9892,33 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITLoginRegister/register_login
+      TermType: 0
+      Description: 
+      Languages:
+      - REGISTER/LOGIN
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/guest
+      TermType: 0
+      Description: 
+      Languages:
+      - GUEST
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/invalid_input
+      TermType: 0
+      Description: 
+      Languages:
+      - Invalid Input Parameters
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITStore/epic_core
       TermType: 0
       Description: 
@@ -10024,6 +10077,15 @@ MonoBehaviour:
       Description: 
       Languages:
       - Syncing results with the server
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/resource_pool_restock_time
+      TermType: 0
+      Description: 
+      Languages:
+      - ' IN {0}'
       - 
       - 
       Flags: 000000
@@ -10659,7 +10721,7 @@ MonoBehaviour:
       Languages:
       - 'YOU HAVE NO
 
-        ARMORS'
+        ARMOR'
       - 
       - 
       Flags: 000000
@@ -11041,7 +11103,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1670931617056
+    Google_LastUpdatedVersion: 1673002319051
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

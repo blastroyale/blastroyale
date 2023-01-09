@@ -20,6 +20,7 @@ namespace FirstLight.Game.Views
 	{
 		private const string GameModeButtonBase = "game-mode-button";
 		private const string GameModeButtonSelectedModifier = GameModeButtonBase + "--selected";
+		private const string GameModeButtonMutatorLine = GameModeButtonBase + "__mutator-line";
 
 		public GameModeInfo GameModeInfo { get; private set; }
 		public event Action<GameModeSelectionButtonView> Clicked;
@@ -103,8 +104,9 @@ namespace FirstLight.Game.Views
 		/// </summary>
 		/// <param name="orderNumber">Order of the button on the list</param>
 		/// <param name="gameModeInfo">Game mode data to fill the button's visuals</param>
-		public void SetData(string visibleClass, GameModeInfo gameModeInfo)
+		public void SetData(string buttonName, string visibleClass, GameModeInfo gameModeInfo)
 		{
+			_button.name = buttonName;
 			_button.AddToClassList(visibleClass);
 
 			SetData(gameModeInfo);
@@ -152,22 +154,22 @@ namespace FirstLight.Game.Views
 		{
 			if (GameModeInfo.Entry.Mutators.Count == 0)
 			{
-				_mutatorsPanel.AddToClassList("hidden");
+				_mutatorsPanel.SetDisplay(false);
 				return;
 			}
 			
-			_mutatorsPanel.RemoveFromClassList("hidden");
+			_mutatorsPanel.SetDisplay(true);
 
 			for (var mutatorIndex = 0; mutatorIndex < _mutatorLines.Count; mutatorIndex++)
 			{
 				if (mutatorIndex <= GameModeInfo.Entry.Mutators.Count - 1)
 				{
-					_mutatorLines[mutatorIndex].RemoveFromClassList("hidden");
+					_mutatorLines[mutatorIndex].SetDisplay(true);
 					SetMutatorLine(_mutatorLines[mutatorIndex], GameModeInfo.Entry.Mutators[mutatorIndex]);
 				}
 				else
 				{
-					_mutatorLines[mutatorIndex].AddToClassList("hidden");
+					_mutatorLines[mutatorIndex].SetDisplay(false);
 				}
 			}
 		}
@@ -175,6 +177,7 @@ namespace FirstLight.Game.Views
 		private void SetMutatorLine(VisualElement mutatorLine, string mutator)
 		{
 			mutatorLine.ClearClassList();
+			mutatorLine.AddToClassList(GameModeButtonMutatorLine);
 			mutatorLine.AddToClassList(mutator.ToLower() + "-mutator");
 			var mutatorTitle = mutatorLine.Q<Label>("Title").Required();
 			mutatorTitle.text = mutator.ToUpper();

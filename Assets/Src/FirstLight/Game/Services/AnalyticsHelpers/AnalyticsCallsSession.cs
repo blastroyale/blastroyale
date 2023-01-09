@@ -82,8 +82,9 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{
 					{"client_version", VersionUtils.VersionInternal},
 					{"advertising_id", id},
-					{"advertising_tracking_enabled", enabled},
+					{"advertising_tracking_enabled", enabled },
 					{"vendor_id", SystemInfo.deviceUniqueIdentifier},
+					{"session_id", AnalyticsSessionInfo.sessionId }
 				};
 				_analyticsService.LogEvent(AnalyticsEvents.GameLoadStart, dic);
 			});
@@ -98,6 +99,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 					{"advertising_id", GetAndroidAdvertiserId()},
 #endif
 					{"vendor_id", SystemInfo.deviceUniqueIdentifier},
+					{"session_id", AnalyticsSessionInfo.sessionId }
 				};
 				_analyticsService.LogEvent(AnalyticsEvents.GameLoadStart, dic);
 			}
@@ -115,14 +117,16 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			SingularSDK.SetCustomUserId(id);
 			UnityEngine.CrashReportHandler.CrashReportHandler.SetUserMetadata("playfab_id", id);
 
-			var loginData = new Dictionary<string, object> 		{
+			var loginData = new Dictionary<string, object> 		
+			{
 				{"client_version", VersionUtils.VersionInternal },
 				{"platform", Application.platform.ToString()},
 				{"device", SystemInfo.deviceModel},
 				{"tablet", IsTablet},
+				{"session_id", AnalyticsSessionInfo.sessionId },
 #if UNITY_IOS
-			{"ios_generation", UnityEngine.iOS.Device.generation.ToString()},
-			{"ios_att_enabled", UnityEngine.iOS.Device.advertisingTrackingEnabled},
+				{"ios_generation", UnityEngine.iOS.Device.generation.ToString()},
+				{"ios_att_enabled", UnityEngine.iOS.Device.advertisingTrackingEnabled},
 #else
 				{"cpu", SystemInfo.processorType},
 				{"gpu_api", SystemInfo.graphicsDeviceType.ToString()},
@@ -149,7 +153,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"nfts_owned", inventory.Count},
 				{"blst_token_balance", (int) _gameData.CurrencyDataProvider.GetCurrencyAmount(GameId.BLST)},
 				{"cs_token_balance", (int) _gameData.CurrencyDataProvider.GetCurrencyAmount(GameId.CS)},
-				{"total_power", loadout.GetTotalMight(_services.ConfigsProvider.GetConfigsDictionary<QuantumStatConfig>())}
+				{"total_power", loadout.GetTotalMight(_services.ConfigsProvider)}
 			};
 			
 			_analyticsService.LogEvent(AnalyticsEvents.GameLoaded, data);

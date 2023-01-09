@@ -27,7 +27,7 @@ SpriteAtlas:
       blockOffset: 1
       allowAlphaSplitting: 0
       enableRotation: 1
-      enableTightPacking: 1
+      enableTightPacking: 0
       enableAlphaDilation: 0
     secondaryTextureSettings: {}
     variantMultiplier: 1
@@ -76,6 +76,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 03804bb26ea9c4a4789421024ba6d119, type: 3}
   - {fileID: 21300000, guid: 1b7e8fb2c20bc42098c49527ddc17ff1, type: 3}
   - {fileID: 21300000, guid: 92ce71c2087a34ff889354b16aaaaf7a, type: 3}
+  - {fileID: 21300000, guid: bb7ff0d2582e27c4c9005eaebfdca402, type: 3}
   - {fileID: 21300000, guid: 545aed239f2df4d86abcfc25d2ff775e, type: 3}
   - {fileID: 21300000, guid: 2d6c823359e264eac88204c4e1664c4c, type: 3}
   - {fileID: 21300000, guid: 8ac06743a9b1749789b17ac022ed3303, type: 3}
@@ -128,6 +129,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: b47f2fa85d3ed476ea1317298483993d, type: 3}
   - {fileID: 21300000, guid: 33af11d8941e246a299225ab7cdd517d, type: 3}
   - {fileID: 21300000, guid: aa1149e873cd64bbf8bc7f9c3a7329ad, type: 3}
+  - {fileID: 21300000, guid: 4df85ce872a81074581fef9150897ae5, type: 3}
   - {fileID: 21300000, guid: 1cd9b2099911c4e8b9c3b0e0e50280bb, type: 3}
   - {fileID: 21300000, guid: bc7bab094144e42b590f013a59db1d14, type: 3}
   - {fileID: 21300000, guid: 56019a59477ec484284c350734c07050, type: 3}
@@ -151,6 +153,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 98216e0be11c4411088e64a312607f18, type: 3}
   - {fileID: 21300000, guid: ad86be0b426df4f8cb2f59d7a3c1ff8a, type: 3}
   - {fileID: 21300000, guid: c591772ba9b2b2d468919ccdc75df7a5, type: 3}
+  - {fileID: 21300000, guid: 2206ee2ba2c39a24f845558284e4eb2b, type: 3}
   - {fileID: 21300000, guid: c22a553b62989408b9d98c56b4ea4f6a, type: 3}
   - {fileID: 21300000, guid: e318734b31d2e4a8da8595920a488e8a, type: 3}
   - {fileID: 21300000, guid: 53c2217b3aa7543e7bb305d2bf11dc78, type: 3}
@@ -243,6 +246,7 @@ SpriteAtlas:
   - header-home-pressed
   - icon-mutator-quickspecials
   - icon-customgame
+  - icon-hide-purple
   - button-long-purple-pressed
   - header-popup-equipment
   - card-rarity-epic
@@ -295,6 +299,7 @@ SpriteAtlas:
   - icon-core-legendary
   - button-info
   - icon-equipmentcategory-weapon
+  - icon-close-white
   - background-tooltip
   - button-special
   - header-profile
@@ -318,6 +323,7 @@ SpriteAtlas:
   - button-info-pressed
   - card-category-armor
   - icon-questionmark
+  - icon-show-purple
   - icon-special-shieldself
   - icon-spinner-thick
   - icon-core-rare

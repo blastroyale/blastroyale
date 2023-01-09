@@ -19,7 +19,7 @@ MonoBehaviour:
   m_MatchMaterialPreset: 0
   m_MissingCharacterUnicode: 0
   m_ClearDynamicDataOnBuild: 1
-  m_DefaultSpriteAsset: {fileID: 0}
+  m_DefaultSpriteAsset: {fileID: 11400000, guid: 73106e3174e264021bd5a7e995852cfe, type: 2}
   m_DefaultSpriteAssetPath: Sprite Assets/
   m_FallbackSpriteAssets: []
   m_MissingSpriteCharacterUnicode: 0

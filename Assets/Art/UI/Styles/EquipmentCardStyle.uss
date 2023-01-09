@@ -79,7 +79,6 @@
 }
 
 .equipment-card__rarity {
-    background-image: var(--sprite-home__card-rarity-common);
     width: 291px;
     height: 237px;
     position: absolute;

@@ -31,6 +31,8 @@ namespace FirstLight.Tests.EditorMode
 		public virtual IAudioFxService<AudioId> AudioFxService { get; }
 		public virtual INotificationService NotificationService { get; }
 		public virtual IPlayfabService PlayfabService { get; }
+		
+		public virtual ILiveopsService LiveopsService { get; set; }
 		public virtual IRemoteTextureService RemoteTextureService { get; }
 		public virtual IThreadService ThreadService { get; }
 		public virtual IHelpdeskService HelpdeskService { get; }

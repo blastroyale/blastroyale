@@ -47,6 +47,7 @@ namespace FirstLight.Game.UIElements
 
 					priceHolder.Add(_icon = new VisualElement {name = "icon"});
 					_icon.AddToClassList(UssIcon);
+					_icon.AddToClassList(string.Format(UssSpriteIcon, "bpp"));
 				}
 
 				_holder = holder;

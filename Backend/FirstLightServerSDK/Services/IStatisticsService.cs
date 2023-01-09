@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace FirstLightServerSDK.Services
 {
 	/// <summary>
@@ -16,6 +19,6 @@ namespace FirstLightServerSDK.Services
 		/// Atempts to send user metrics to a given statistic. This is a non-blocking
 		/// fire and forget operation.
 		/// </summary>
-		void SetStatistics(string user, string name, int amount);
+		void UpdateStatistics(string user, params ValueTuple<string, int> [] statistics);
 	}
 }

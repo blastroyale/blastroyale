@@ -526,10 +526,6 @@ namespace FirstLight.Game.StateMachines
 			var position = entityView.transform.position;
 			_services.AudioFxService.PlayClip3D(AudioId.AirdropLanded, position);
 
-			var flareSfx = _services.AudioFxService.PlayClip3D(AudioId.AirdropFlare, position);
-			var despawnEvents = new[] {nameof(EventOnAirDropCollected)};
-			_currentClips.Add(new LoopedAudioClip(flareSfx, despawnEvents, callback.Entity));
-
 			_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_AirdropLanded, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
 		}
 

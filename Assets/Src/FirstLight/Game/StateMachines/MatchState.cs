@@ -81,6 +81,7 @@ namespace FirstLight.Game.StateMachines
 			var playerReadyWait = stateFactory.State("Player Ready Wait");
 			var gameSimulation = stateFactory.Nest("Game Simulation");
 			var unloadToFinal = stateFactory.TaskWait("Unload Match Assets");
+			var disconnectedGameSoloCheck = stateFactory.Choice("MATCH - Disconnected Solo Check");
 			var disconnected = stateFactory.State("Disconnected");
 			var postDisconnectCheck = stateFactory.Choice("Post Reload Check");
 			var gameEndedChoice = stateFactory.Choice("Game Ended Check");
@@ -120,7 +121,7 @@ namespace FirstLight.Game.StateMachines
 			gameSimulation.Nest(_gameSimulationState.Setup).OnTransition(() => HandleSimulationEnd(false)).Target(gameEndedChoice);
 			gameSimulation.Event(MatchEndedEvent).OnTransition(() => HandleSimulationEnd(false)).Target(gameEndedChoice);
 			gameSimulation.Event(MatchQuitEvent).OnTransition(() => HandleSimulationEnd(true)).Target(unloadToFinal);
-			gameSimulation.Event(NetworkState.PhotonCriticalDisconnectedEvent).OnTransition(OnDisconnectDuringSimulation).Target(disconnected);
+			gameSimulation.Event(NetworkState.PhotonCriticalDisconnectedEvent).OnTransition(OnDisconnectDuringSimulation).Target(disconnectedGameSoloCheck);
 
 			gameEndedChoice.Transition().Condition(HasLeftBeforeMatchEnded).Target(transitionToGameResults);
 			gameEndedChoice.Transition().Target(gameEnded);
@@ -143,6 +144,9 @@ namespace FirstLight.Game.StateMachines
 			gameResults.OnExit(DisposeMatchServices);
 			gameResults.OnExit(OpenLoadingScreen);
 
+			disconnectedGameSoloCheck.Transition().Condition(IsSoloGame).Target(unloadToFinal);
+			disconnectedGameSoloCheck.Transition().Target(disconnected);
+			
 			disconnected.OnEnter(OpenDisconnectedScreen);
 			disconnected.Event(NetworkState.JoinedRoomEvent).Target(postDisconnectCheck);
 			disconnected.Event(NetworkState.JoinRoomFailedEvent).Target(unloadToFinal);
@@ -178,7 +182,11 @@ namespace FirstLight.Game.StateMachines
 			return _matchServices.MatchEndDataService.LeftBeforeMatchFinished;
 		}
 		
-		
+		private bool IsSoloGame()
+		{
+			return _services.NetworkService.LastMatchPlayers.Count == 1;
+		}
+
 		/// <summary>
 		/// Whenever the simulation wants to fire logic commands.
 		/// This will also run on quantum server and will be sent to logic service from there.
@@ -444,6 +452,8 @@ namespace FirstLight.Game.StateMachines
 			_arePlayerAssetsLoaded = false;
 			
 			_statechartTrigger(MatchUnloadedEvent);
+			
+			Debug.LogError("UNLOADED MATCH ASSETS");
 		}
 		
 		private async Task MatchStateEndTrigger()

@@ -330,7 +330,7 @@ namespace FirstLight.Game.StateMachines
 			var appData = _dataService.GetData<AppData>();
 
 			PlayFabSettings.staticPlayer.CopyFrom(result.AuthenticationContext);
-			_services.AnalyticsService.SessionCalls.PlayerLogin(result.PlayFabId, string.IsNullOrEmpty(result.InfoResultPayload.AccountInfo.PrivateInfo.Email));
+			
 			FLog.Verbose($"Logged in. PlayfabId={result.PlayFabId}");
 			//AppleApprovalHack(result);
 			
@@ -368,7 +368,7 @@ namespace FirstLight.Game.StateMachines
 			appData.IsFirstSession = result.NewlyCreated;
 			appData.PlayerId = result.PlayFabId;
 			appData.LastLoginEmail = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
-				
+			
 			if (FeatureFlags.REMOTE_CONFIGURATION)
 			{
 				FLog.Verbose("Parsing Remote Configurations");
@@ -385,6 +385,8 @@ namespace FirstLight.Game.StateMachines
 			}
 			_dataService.SaveData<AppData>();
 			FLog.Verbose("Saved AppData");
+			
+			_services.AnalyticsService.SessionCalls.PlayerLogin(result.PlayFabId, _dataProvider.AppDataProvider.IsGuest);
 		}
 
 		private void FinalStepsAuthentication(IWaitActivity activity)

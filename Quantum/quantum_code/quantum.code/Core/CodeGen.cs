@@ -2501,7 +2501,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Equipment {
-    public const Int32 SIZE = 80;
+    public const Int32 SIZE = 72;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(0)]
     public EquipmentAdjective Adjective;
@@ -2517,7 +2517,7 @@ namespace Quantum {
     public EquipmentGrade Grade;
     [FieldOffset(36)]
     public UInt32 InitialReplicationCounter;
-    [FieldOffset(64)]
+    [FieldOffset(56)]
     public Int64 LastRepairTimestamp;
     [FieldOffset(40)]
     public UInt32 Level;
@@ -2527,15 +2527,13 @@ namespace Quantum {
     public EquipmentMaterial Material;
     [FieldOffset(44)]
     public UInt32 MaxDurability;
-    [FieldOffset(48)]
-    public UInt32 MaxLevel;
     [FieldOffset(24)]
     public EquipmentRarity Rarity;
-    [FieldOffset(52)]
+    [FieldOffset(48)]
     public UInt32 ReplicationCounter;
-    [FieldOffset(72)]
+    [FieldOffset(64)]
     public UInt64 TotalRestoredDurability;
-    [FieldOffset(56)]
+    [FieldOffset(52)]
     public UInt32 Tuning;
     public override Int32 GetHashCode() {
       unchecked { 
@@ -2552,7 +2550,6 @@ namespace Quantum {
         hash = hash * 31 + (Int32)Manufacturer;
         hash = hash * 31 + (Int32)Material;
         hash = hash * 31 + MaxDurability.GetHashCode();
-        hash = hash * 31 + MaxLevel.GetHashCode();
         hash = hash * 31 + (Int32)Rarity;
         hash = hash * 31 + ReplicationCounter.GetHashCode();
         hash = hash * 31 + TotalRestoredDurability.GetHashCode();
@@ -2574,7 +2571,6 @@ namespace Quantum {
         serializer.Stream.Serialize(&p->InitialReplicationCounter);
         serializer.Stream.Serialize(&p->Level);
         serializer.Stream.Serialize(&p->MaxDurability);
-        serializer.Stream.Serialize(&p->MaxLevel);
         serializer.Stream.Serialize(&p->ReplicationCounter);
         serializer.Stream.Serialize(&p->Tuning);
         serializer.Stream.Serialize(&p->LastRepairTimestamp);
@@ -2970,7 +2966,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct WeaponDropPool {
-    public const Int32 SIZE = 2568;
+    public const Int32 SIZE = 2312;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(0)]
     public EquipmentRarity AverageRarity;
@@ -2978,10 +2974,10 @@ namespace Quantum {
     public EquipmentRarity MedianRarity;
     [FieldOffset(8)]
     [FramePrinter.FixedArrayAttribute(typeof(Equipment), 32)]
-    private fixed Byte _WeaponPool_[2560];
+    private fixed Byte _WeaponPool_[2304];
     public FixedArray<Equipment> WeaponPool {
       get {
-        fixed (byte* p = _WeaponPool_) { return new FixedArray<Equipment>(p, 80, 32); }
+        fixed (byte* p = _WeaponPool_) { return new FixedArray<Equipment>(p, 72, 32); }
       }
     }
     public override Int32 GetHashCode() {
@@ -3002,7 +2998,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct WeaponSlot {
-    public const Int32 SIZE = 264;
+    public const Int32 SIZE = 256;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(0)]
     public Int32 AmmoCostPerShot;
@@ -3012,7 +3008,7 @@ namespace Quantum {
     public Int32 MagazineSize;
     [FieldOffset(16)]
     public FP ReloadTime;
-    [FieldOffset(104)]
+    [FieldOffset(96)]
     [FramePrinter.FixedArrayAttribute(typeof(Special), 2)]
     private fixed Byte _Specials_[160];
     [FieldOffset(24)]
@@ -4007,7 +4003,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct EquipmentCollectable : Quantum.IComponent {
-    public const Int32 SIZE = 88;
+    public const Int32 SIZE = 80;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(8)]
     [HideInInspector()]
@@ -4047,7 +4043,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct GameContainer : Quantum.IComponentSingleton {
-    public const Int32 SIZE = 6184;
+    public const Int32 SIZE = 5928;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(8)]
     public UInt32 CurrentProgress;
@@ -4211,7 +4207,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct PlayerCharacter : Quantum.IComponent {
-    public const Int32 SIZE = 1256;
+    public const Int32 SIZE = 1192;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(16)]
     public AssetRefAIBlackboard BlackboardRef;
@@ -4224,7 +4220,7 @@ namespace Quantum {
     [FieldOffset(64)]
     [HideInInspector()]
     [FramePrinter.FixedArrayAttribute(typeof(Equipment), 5)]
-    private fixed Byte _Gear_[400];
+    private fixed Byte _Gear_[360];
     [FieldOffset(32)]
     public AssetRefHFSMRoot HfsmRootRef;
     [FieldOffset(24)]
@@ -4234,18 +4230,18 @@ namespace Quantum {
     public PlayerRef Player;
     [FieldOffset(40)]
     public FPVector3 ProjectileSpawnOffset;
-    [FieldOffset(464)]
+    [FieldOffset(424)]
     [HideInInspector()]
     [FramePrinter.FixedArrayAttribute(typeof(WeaponSlot), 3)]
-    private fixed Byte _WeaponSlots_[792];
+    private fixed Byte _WeaponSlots_[768];
     public FixedArray<Equipment> Gear {
       get {
-        fixed (byte* p = _Gear_) { return new FixedArray<Equipment>(p, 80, 5); }
+        fixed (byte* p = _Gear_) { return new FixedArray<Equipment>(p, 72, 5); }
       }
     }
     public FixedArray<WeaponSlot> WeaponSlots {
       get {
-        fixed (byte* p = _WeaponSlots_) { return new FixedArray<WeaponSlot>(p, 264, 3); }
+        fixed (byte* p = _WeaponSlots_) { return new FixedArray<WeaponSlot>(p, 256, 3); }
       }
     }
     public override Int32 GetHashCode() {
@@ -9870,7 +9866,6 @@ namespace Quantum.Prototypes {
     public EquipmentMaterial_Prototype Material;
     public EquipmentManufacturer_Prototype Manufacturer;
     public UInt32 MaxDurability;
-    public UInt32 MaxLevel;
     public UInt32 InitialReplicationCounter;
     public UInt32 Tuning;
     public UInt32 Level;
@@ -9892,7 +9887,6 @@ namespace Quantum.Prototypes {
       result.Manufacturer = this.Manufacturer;
       result.Material = this.Material;
       result.MaxDurability = this.MaxDurability;
-      result.MaxLevel = this.MaxLevel;
       result.Rarity = this.Rarity;
       result.ReplicationCounter = this.ReplicationCounter;
       result.TotalRestoredDurability = this.TotalRestoredDurability;

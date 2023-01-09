@@ -324,7 +324,7 @@ namespace FirstLight.Game.Presenters
 			// Prices
 			_scrapButton.SetPrice(info.ScrappingValue, info.IsNft, false, true);
 			_upgradeButton.SetPrice(info.UpgradeCost, info.IsNft, !HasEnoughCurrency(info.UpgradeCost));
-			_upgradeButton.SetEnabled(!info.Equipment.IsMaxLevel());
+			_upgradeButton.SetEnabled(info.Equipment.Level < info.MaxLevel);
 			_repairButton.SetPrice(info.RepairCost, info.IsNft, !HasEnoughCurrency(info.RepairCost));
 			_repairButton.SetEnabled(info.CurrentDurability < info.Equipment.MaxDurability);
 

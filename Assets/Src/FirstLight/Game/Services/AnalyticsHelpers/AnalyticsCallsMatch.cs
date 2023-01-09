@@ -362,7 +362,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 
 		private void QueueEvent(string eventName, Dictionary<string, object> parameters = null)
 		{
-			parameters?.Add("custom_event_timestamp", DateTime.Now);
+			parameters?.Add("custom_event_timestamp", DateTime.UtcNow);
 			
 			_queue.Add(new AnalyticsMatchQueuedEvent(eventName, parameters));
 		}

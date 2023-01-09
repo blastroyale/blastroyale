@@ -17,13 +17,13 @@ namespace Src.FirstLight.Server
 		{
 			_ctx = context;
 			var evManager = _ctx.PluginEventManager!;
-			evManager.RegisterListener<GameLogicMessageEvent<PlayerSkinUpdatedMessage>>(OnSkinUpdate);
-			evManager.RegisterListener<GameLogicMessageEvent<GameCompletedRewardsMessage>>(OnGameCompleted);
-			evManager.RegisterListener<GameLogicMessageEvent<BattlePassLevelUpMessage>>(OnBattlePassRewards);
-			evManager.RegisterListener<GameLogicMessageEvent<ItemScrappedMessage>>(OnItemScrapped);
-			evManager.RegisterListener<GameLogicMessageEvent<ItemUpgradedMessage>>(OnItemUpgraded);
-			evManager.RegisterListener<GameLogicMessageEvent<ItemRepairedMessage>>(OnItemRepaired);
-			evManager.RegisterListener<GameLogicMessageEvent<CurrencyChangedMessage>>(OnCurrencyChanged);
+			evManager.RegisterEventListener<GameLogicMessageEvent<PlayerSkinUpdatedMessage>>(OnSkinUpdate);
+			evManager.RegisterEventListener<GameLogicMessageEvent<GameCompletedRewardsMessage>>(OnGameCompleted);
+			evManager.RegisterEventListener<GameLogicMessageEvent<BattlePassLevelUpMessage>>(OnBattlePassRewards);
+			evManager.RegisterEventListener<GameLogicMessageEvent<ItemScrappedMessage>>(OnItemScrapped);
+			evManager.RegisterEventListener<GameLogicMessageEvent<ItemUpgradedMessage>>(OnItemUpgraded);
+			evManager.RegisterEventListener<GameLogicMessageEvent<ItemRepairedMessage>>(OnItemRepaired);
+			evManager.RegisterEventListener<GameLogicMessageEvent<CurrencyChangedMessage>>(OnCurrencyChanged);
 		}
 
 		private void OnCurrencyChanged(GameLogicMessageEvent<CurrencyChangedMessage> ev)

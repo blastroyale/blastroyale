@@ -17,7 +17,7 @@ namespace Src.FirstLight.Server
 		public override void OnEnable(PluginContext context)
 		{
 			_ctx = context;
-			_ctx.PluginEventManager.RegisterListener<PlayerDataLoadEvent>(OnPlayerLoad);
+			_ctx.PluginEventManager.RegisterEventListener<PlayerDataLoadEvent>(OnPlayerLoad);
 		}
 
 

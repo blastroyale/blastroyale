@@ -34,33 +34,30 @@ namespace Src.FirstLight.Server
 			_ctx.Statistics.SetupStatistic(GameConstants.Stats.BROKEN_ITEMS, false);
 			
 			var evManager = _ctx.PluginEventManager!;
-			evManager.RegisterListener<PlayerDataLoadEvent>(OnPlayerLoaded);
-			evManager.RegisterListener<CommandFinishedEvent>(OnCommandFinished);
+			evManager.RegisterEventListener<PlayerDataLoadEvent>(OnPlayerLoaded);
+			evManager.RegisterCommandListener<EndOfGameCalculationsCommand>(OnEndGameCalculations);
+			evManager.RegisterCommandListener<CollectUnclaimedRewardsCommand>(OnClaimRewardsCommand);
 		}
 
-		private void OnCommandFinished(CommandFinishedEvent ev)
+		private void OnClaimRewardsCommand(string userId, CollectUnclaimedRewardsCommand claimCommand,
+										   ServerState state)
+		{
+			var trophies = (int)state.DeserializeModel<PlayerData>().Trophies;
+			_ctx.Statistics.UpdateStatistics(userId, (GameConstants.Stats.LEADERBOARD_LADDER_NAME, trophies));
+		}
+
+		private void OnEndGameCalculations(string userId, EndOfGameCalculationsCommand endGameCmd, ServerState state)
 		{
 			var toSend = new List<ValueTuple<string, int>>();
-			if (ev.Command is EndOfGameCalculationsCommand endGameCmd)
+			var thisPlayerData = endGameCmd.PlayersMatchData[endGameCmd.QuantumValues.ExecutingPlayer];
+			if (thisPlayerData.PlayerRank == 1)
 			{
-				var thisPlayerData = endGameCmd.PlayersMatchData[endGameCmd.QuantumValues.ExecutingPlayer];
-				if (thisPlayerData.PlayerRank == 1)
-				{
-					toSend.Add((GameConstants.Stats.GAMES_WON, 1));
-				}
-				toSend.Add((GameConstants.Stats.GAMES_PLAYED, 1));
-				toSend.Add((GameConstants.Stats.KILLS,  (int)thisPlayerData.Data.PlayersKilledCount));
-				toSend.Add((GameConstants.Stats.DEATHS, (int)thisPlayerData.Data.DeathCount));
-			} else if (ev.Command is CollectUnclaimedRewardsCommand claimCommand)
-			{
-				var trophies = (int)ev.PlayerState.DeserializeModel<PlayerData>().Trophies;
-				toSend.Add((GameConstants.Stats.LEADERBOARD_LADDER_NAME, trophies));
+				toSend.Add((GameConstants.Stats.GAMES_WON, 1));
 			}
-
-			if (toSend.Count > 0)
-			{
-				_ctx.Statistics.UpdateStatistics(ev.PlayerId, toSend.ToArray());
-			}
+			toSend.Add((GameConstants.Stats.GAMES_PLAYED, 1));
+			toSend.Add((GameConstants.Stats.KILLS,  (int)thisPlayerData.Data.PlayersKilledCount));
+			toSend.Add((GameConstants.Stats.DEATHS, (int)thisPlayerData.Data.DeathCount));
+			_ctx.Statistics.UpdateStatistics(userId, toSend.ToArray());
 		}
 
 		public void OnPlayerLoaded(PlayerDataLoadEvent playerLoadEvent)

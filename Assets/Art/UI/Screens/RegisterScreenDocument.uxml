@@ -21,7 +21,7 @@
                     </ui:VisualElement>
                     <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITShared/or" class="container__or_text" />
                     <ui:VisualElement class="button-flat-outline">
-                        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITLoginRegister/login_with_fl_id" name="LoginButton" class="button-flat button-flat--secondary button_flat--login_button" />
+                        <FirstLight.Game.UIElements.LocalizedButton localization-key="UITLoginRegister/login_with_fl_id" name="LoginFlgButton" class="button-flat button-flat--secondary button_flat--login_button" />
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="Blocker" class="blocker-hidden" />

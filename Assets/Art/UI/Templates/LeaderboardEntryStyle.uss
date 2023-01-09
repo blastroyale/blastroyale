@@ -24,6 +24,7 @@
 }
 
 .leaderboard-entry--global {
+    overflow: visible;
 }
 
 .hidden .leaderboard-entry {

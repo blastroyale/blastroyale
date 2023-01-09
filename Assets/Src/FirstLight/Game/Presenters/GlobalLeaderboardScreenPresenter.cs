@@ -19,7 +19,7 @@ using UnityEngine.UIElements;
 namespace FirstLight.Game.Presenters
 {
 	/// <summary>
-	/// Presenter for the Leaderboards and Rewards Screen
+	/// Presenter for the Global Leaderboards Screen
 	/// </summary>
 	public class GlobalLeaderboardScreenPresenter : UiToolkitPresenterData<GlobalLeaderboardScreenPresenter.StateData>
 	{
@@ -27,6 +27,7 @@ namespace FirstLight.Game.Presenters
 		{
 			public Action OnBackClicked;
 		}
+
 		private const int DefaultTrophies = 1000;
 		private const string UssLeaderboardEntryGlobal = "leaderboard-entry--global";
 		private const string UssLeaderboardEntryLocal = "leaderboard-entry--local";
@@ -44,6 +45,8 @@ namespace FirstLight.Game.Presenters
 
 		private ListView _leaderboardListView;
 		private VisualElement _localPlayerVisualElement;
+		private VisualElement _scrollView;
+
 		private int _localPlayerPos = -1;
 
 		private readonly Dictionary<VisualElement, LeaderboardEntryView> _leaderboardEntryMap = new();
@@ -94,19 +97,8 @@ namespace FirstLight.Game.Presenters
 		{
 			var leaderboardEntryView = _leaderboardEntryMap[element];
 			var leaderboardEntry = _playfabLeaderboardEntries[index];
-			//var isLocalPlayer = leaderboardEntry.PlayFabId == _dataProvider.AppDataProvider.PlayerId || (leaderboardEntry.PlayFabId =="753E6A96C377FBC1");
 
 			var isLocalPlayer = leaderboardEntry.PlayFabId == _dataProvider.AppDataProvider.PlayerId;
-			if (isLocalPlayer)
-			{
-				_localPlayerVisualElement = element;
-
-				element.AddToClassList(UssLeaderboardEntryLocal);
-			}
-			else
-			{
-				element.RemoveFromClassList(UssLeaderboardEntryLocal);
-			}
 
 			leaderboardEntryView.SetData(leaderboardEntry.Position + 1,
 				leaderboardEntry.DisplayName.Substring(0, leaderboardEntry.DisplayName.Length - 5), -1,
@@ -172,8 +164,12 @@ namespace FirstLight.Game.Presenters
 			}
 
 			_leaderboardListView.itemsSource = _playfabLeaderboardEntries;
+
+			_leaderboardListView.bindItem = BindLeaderboardEntry;
+
 			if (_localPlayerPos != -1)
 			{
+				_leaderboardListView.SetVisibility(false);
 				StartCoroutine(RepositionScrollToLocalPlayer());
 				return;
 			}
@@ -182,22 +178,14 @@ namespace FirstLight.Game.Presenters
 				OnLeaderboardNeighborRanksReceived, OnLeaderboardRequestError);
 		}
 
-		IEnumerator RepositionScrollToLocalPlayer()
-		{
-			if (_localPlayerVisualElement == null) yield break;
-
-			yield return new WaitForEndOfFrame();
-			_leaderboardListView.ScrollTo(_localPlayerVisualElement);
-		}
-
 		private void OnLeaderboardNeighborRanksReceived(GetLeaderboardAroundPlayerResult result)
 		{
 			var newEntry = _leaderboardEntryAsset.Instantiate();
 			newEntry.AttachView(this, out LeaderboardEntryView view);
 			var leaderboardEntry = result.Leaderboard[0];
-			
+
 			int trophies = leaderboardEntry.StatValue == 0 ? DefaultTrophies : leaderboardEntry.StatValue;
-			
+
 			view.SetData(leaderboardEntry.Position + 1,
 				leaderboardEntry.DisplayName.Substring(0, leaderboardEntry.DisplayName.Length - 5), -1,
 				trophies,
@@ -207,7 +195,30 @@ namespace FirstLight.Game.Presenters
 			newEntry.AddToClassList(UssLeaderboardEntryPositionerHighlight);
 
 			_leaderboardPanel.AddToClassList(UssLeaderboardPanelLocalPlayerFixed);
+
 			_fixedLocalPlayerHolder.Add(newEntry);
+		}
+
+		IEnumerator RepositionScrollToLocalPlayer()
+		{
+			yield return new WaitForSeconds(1);
+
+			float height = _leaderboardListView.layout.height;
+			float elemHeight = _leaderboardListView.fixedItemHeight;
+			int elementsOnScreen = (int)(height / elemHeight);
+
+			int indexToScrollTo = (_localPlayerPos + elementsOnScreen / 2) - 1;
+
+			if (indexToScrollTo > _playfabLeaderboardEntries.Count)
+			{
+				_leaderboardListView.ScrollToItem(_playfabLeaderboardEntries.Count - 1);
+			}
+			else
+			{
+				_leaderboardListView.ScrollToItem(indexToScrollTo);
+			}
+
+			_leaderboardListView.SetVisibility(true);
 		}
 	}
 }

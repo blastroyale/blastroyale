@@ -15,6 +15,11 @@
     bottom: 205px;
 }
 
+.leaderboard-panel__scroll-view {
+    overflow: visible;
+    width: 1100px;
+}
+
 .header-label {
     position: absolute;
     justify-content: center;

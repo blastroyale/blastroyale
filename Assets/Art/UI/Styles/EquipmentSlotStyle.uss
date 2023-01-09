@@ -1,5 +1,4 @@
 .equipment-slot {
-    background-image: var(--sprite-home__button-equipmentslot-common);
     width: 608px;
     height: 140px;
     border-left-width: 0;
@@ -212,7 +211,6 @@
     position: absolute;
     left: -28px;
     bottom: -12px;
-    background-image: var(--sprite-home__card-faction-celestial);
     width: 70px;
     height: 70px;
 }

@@ -253,7 +253,6 @@ namespace FirstLight.Game.Presenters
 
 		public void OnPlayerLeftRoom(Player otherPlayer)
 		{
-			Debug.LogError("PLAYER LEFT ROOM");
 			UpdatePlayerCount();
 		}
 

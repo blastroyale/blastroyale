@@ -1,0 +1,75 @@
+.background {
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    background-image: url('project://database/Assets/Art/Textures/Ui/Splashscreens%20&%20Logos/LoadingBkNoLogo.png?fileID=2800000&guid=20756f8f6e6857841a5b8bd4d761942a&type=3#LoadingBkNoLogo');
+    -unity-background-scale-mode: scale-and-crop;
+}
+.elements-container {
+    align-items: center;
+    justify-content: center; 
+}
+
+.buttons-container {
+    position: absolute;
+    bottom: 55px;
+    flex-direction: row;
+}
+
+.buttons-container-guest-button {
+    margin-left: 25px;
+    width: 340px;
+    height: 120;
+}
+
+.buttons-container-login-register-button {
+    margin-right: 35px;
+    width: 340px;
+    height: 120;
+}
+
+.blocker-hidden {
+    background-color: rgba(0, 0, 0, 0.45);
+    display: none;
+    transition-duration: 0.3s;
+}
+
+.logo-container {
+    position: absolute;
+    top: 323px;
+    width: 2600px;
+    height: 306px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    scale: 0.32 0.38;
+}
+
+.logo-container-blast-image {
+    background-image: var(--sprite-home__text-blast);
+    width: 1000px;
+    height: 372px;
+    position: relative;
+    left: 56px;
+}
+
+.logo-container-royale-image {
+    background-image: var(--sprite-home__text-royale);
+    width: 1000px;
+    height: 372px;
+    position: relative;
+    top: -95px;
+}
+.logo-container-logo-image {
+    background-image: var(--sprite-shared__logo-br);
+    width: 512px;
+    height: 437px;
+    position: relative;
+    left: -138px;
+    top: -252px;
+}
+

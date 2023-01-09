@@ -4,6 +4,7 @@ using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using I2.Loc;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UIElements;
 
@@ -27,9 +28,7 @@ namespace FirstLight.Game.Presenters
 		private TextField _passwordField;
 		private VisualElement _blockerElement;
 		private Button _viewHideButton;
-
-		private bool _isPasswordHidden = true;
-
+		
 		private IGameServices _services;
 
 		private void Awake()
@@ -49,6 +48,8 @@ namespace FirstLight.Game.Presenters
 			root.Q<Button>("PlayAsGuestButton").clicked += OnPlayAsGuestButtonClicked;
 			_viewHideButton = root.Q<Button>("ViewHideButton").Required();
 			_viewHideButton.clicked += OnViewHideClicked;
+
+			root.SetupClicks(_services);
 		}
 
 		/// <summary>

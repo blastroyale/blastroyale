@@ -110,7 +110,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		/// <summary>
 		/// Logs the first login Event with the given user <paramref name="id"/>
 		/// </summary>
-		public void PlayerLogin(string id)
+		public void PlayerLogin(string id, bool isGuest)
 		{
 			Analytics.SetUserId(id);
 			FirebaseAnalytics.SetUserId(id);
@@ -119,6 +119,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 
 			var loginData = new Dictionary<string, object> 		
 			{
+				{"is_guest", isGuest},
 				{"client_version", VersionUtils.VersionInternal },
 				{"platform", Application.platform.ToString()},
 				{"device", SystemInfo.deviceModel},

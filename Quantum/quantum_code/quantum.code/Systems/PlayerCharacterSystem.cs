@@ -51,41 +51,61 @@ namespace Quantum.Systems
 			playerDead->Dead(f, entity, attacker);
 
 			// Try to drop player weapon
-			if (gameModeConfig.WeaponDeathDropStrategy >= DeathDropsStrategy.Normal && 
+			if ((gameModeConfig.DeathDropStrategy == DeathDropsStrategy.WeaponOnly || gameModeConfig.DeathDropStrategy == DeathDropsStrategy.BoxAndWeapon) && 
 			    !playerDead->HasMeleeWeapon(f, entity))
 			{
 				Collectable.DropEquipment(f, playerDead->CurrentWeapon, deathPosition, step);
 				step++;
 			}
 
-			// Try to drop Health pack
-			if (gameModeConfig.HealthDeathDropStrategy >= DeathDropsStrategy.Normal &&
-			    f.RNG->Next() <= f.GameConfig.DeathDropHealthChance)
+			//drop a chest based on how many items the player has collected
+			if (gameModeConfig.DeathDropStrategy == DeathDropsStrategy.Box || 
+				gameModeConfig.DeathDropStrategy == DeathDropsStrategy.BoxAndWeapon)
 			{
-				Collectable.DropConsumable(f, GameId.Health, deathPosition, step, false);
-				step++;
-			}
-			else if (gameModeConfig.HealthDeathDropStrategy == DeathDropsStrategy.NormalWithFallback)
-			{
-				Collectable.DropConsumable(f, GameId.AmmoSmall, deathPosition, step, false);
-				step++;
+				//drop a box based on the number of items the player has collected
+				var itemCount = 0;
+				var dropBox = GameId.ChestCommon;
+				for(int i = 0; i < playerDead->Gear.Length; i++) //loadout items found
+				{
+					if (playerDead->Gear[i].GameId != GameId.Random)
+					{
+						itemCount++;
+					}
+				}
+				for(int i = 0; i < playerDead->WeaponSlots.Length; i++) //item slots filled
+				{
+					if (playerDead->WeaponSlots[i].Weapon.GameId != GameId.Random)
+					{
+						itemCount++;
+					}
+				}
+
+				if (itemCount >= 2 && itemCount <= 3)
+				{
+					dropBox = GameId.ChestUncommon;
+				}
+				if (itemCount >= 3 && itemCount <= 4)
+				{
+					dropBox = GameId.ChestRare;
+				}
+				if (itemCount >= 5)
+				{
+					dropBox = GameId.ChestEpic;
+				}
+
+				CollectablePlatformSpawner.SpawnChest(f, dropBox, f.Get<Transform3D>(entity));
 			}
 
-			var armourDropChance = f.RNG->Next();
-
-			// Try to drop ShieldLarge
-			if (gameModeConfig.ShieldDeathDropStrategy >= DeathDropsStrategy.Normal &&
-			    armourDropChance <= f.GameConfig.DeathDropLargeShieldChance)
+			if(gameModeConfig.DeathDropSetItems.Count > 0)
 			{
-				Collectable.DropConsumable(f, GameId.ShieldLarge, deathPosition, step, false);
-			}
-			else if (gameModeConfig.ShieldDeathDropStrategy == DeathDropsStrategy.NormalWithFallback &&
-			         armourDropChance <= f.GameConfig.DeathDropSmallShieldChance)
-			{
-				Collectable.DropConsumable(f, GameId.ShieldSmall, deathPosition, step, false);
+				foreach (GameId id in gameModeConfig.DeathDropSetItems)
+				{
+					Collectable.DropConsumable(f, id, deathPosition, step, id.IsInGroup(GameIdGroup.Weapon));
+					step++;
+				}
 			}
 		}
-		
+
 		private void InstantiatePlayer(Frame f, PlayerRef playerRef, RuntimePlayer playerData)
 		{
 			var playerEntity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.PlayerCharacterPrototype.Id));

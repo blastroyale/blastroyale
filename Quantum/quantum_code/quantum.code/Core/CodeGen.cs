@@ -61,8 +61,9 @@ namespace Quantum {
   }
   public enum DeathDropsStrategy : int {
     None = 0,
-    Normal = 1,
-    NormalWithFallback = 2,
+    WeaponOnly = 1,
+    Box = 2,
+    BoxAndWeapon = 3,
   }
   [Flags()]
   public enum EWorldState : uint {

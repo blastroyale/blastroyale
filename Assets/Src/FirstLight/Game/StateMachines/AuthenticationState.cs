@@ -330,7 +330,7 @@ namespace FirstLight.Game.StateMachines
 			var appData = _dataService.GetData<AppData>();
 
 			PlayFabSettings.staticPlayer.CopyFrom(result.AuthenticationContext);
-			_services.AnalyticsService.SessionCalls.PlayerLogin(result.PlayFabId);
+			_services.AnalyticsService.SessionCalls.PlayerLogin(result.PlayFabId, string.IsNullOrEmpty(result.InfoResultPayload.AccountInfo.PrivateInfo.Email));
 			FLog.Verbose($"Logged in. PlayfabId={result.PlayFabId}");
 			//AppleApprovalHack(result);
 			

@@ -23,7 +23,7 @@ namespace BlastRoyaleNFTPlugin
 			NftSync = new NftSynchronizer(fullUrl, apiSecret, context);
 			if (context.ServerConfig.NftSync)
 			{
-				context.PluginEventManager.RegisterListener<PlayerDataLoadEvent>(OnGetPlayerData);
+				context.PluginEventManager.RegisterEventListener<PlayerDataLoadEvent>(OnGetPlayerData);
 			}
 		}
 

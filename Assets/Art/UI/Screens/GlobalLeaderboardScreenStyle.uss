@@ -11,7 +11,7 @@
     display: flex;
 }
 
-.leaderboard-panel--local-player-fixed {
+.leaderboard-panel__local-player-fixed {
     bottom: 205px;
 }
 
@@ -20,7 +20,7 @@
     width: 1100px;
 }
 
-.header-label {
+.header__label {
     position: absolute;
     justify-content: center;
     height: 70px;
@@ -35,20 +35,20 @@
     -unity-text-outline-color: rgb(0, 0, 0);
 }
 
-.header-label--rank-number {
+.header__label--rank-number {
     left: 60px;
 }
 
-.header-label--player {
+.header__label--player {
     left: 140px;
 }
 
-.header-label--trophies {
+.header__label--trophies {
     right: 40px;
     -unity-text-align: upper-right;
 }
 
-.leaderboard-footer {
+.leaderboard__footer {
     position: absolute;
     justify-content: center;
     height: 70px;
@@ -56,7 +56,6 @@
     flex-direction: column-reverse;
     align-items: center;
     bottom: 35px;
-    -unity-font-definition: var(--font-italic);
     font-size: 35px;
     -unity-font-style: normal;
     -unity-text-align: middle-center;

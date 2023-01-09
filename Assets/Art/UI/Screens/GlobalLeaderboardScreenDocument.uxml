@@ -4,16 +4,16 @@
         <FirstLight.Game.UIElements.SafeAreaElement>
             <ui:VisualElement name="Container" class="container fill-parent">
                 <ui:VisualElement name="LeaderboardPanel" class="leaderboard-panel">
-                    <ui:VisualElement name="LeaderboardHeader" class="header-label">
-                        <FirstLight.Game.UIElements.LocalizedLabel name="Player" localization-key="UITLeaderboards/player" class="header-label header-label--player" />
-                        <FirstLight.Game.UIElements.LocalizedLabel name="Trophies" localization-key="UITLeaderboards/trophies" class="header-label header-label--trophies" />
-                        <ui:Label text="#" display-tooltip-when-elided="true" name="RankNumber" class="header-label header-label--rank-number" />
+                    <ui:VisualElement name="LeaderboardHeader" class="header__label">
+                        <FirstLight.Game.UIElements.LocalizedLabel name="Player" localization-key="UITLeaderboards/player" class="header-label header__label--player" />
+                        <FirstLight.Game.UIElements.LocalizedLabel name="Trophies" localization-key="UITLeaderboards/trophies" class="header-label header__label--trophies" />
+                        <ui:Label text="#" display-tooltip-when-elided="true" name="RankNumber" class="header-label header__label--rank-number" />
                     </ui:VisualElement>
                     <ui:ListView focusable="true" name="LeaderboardList" fixed-item-height="80" selection-type="None" show-bound-collection-size="false" class="leaderboard-entries" />
                 </ui:VisualElement>
                 <ui:VisualElement name="FixedLocalPlayerHolder" class="localplayer-fixed-pos-holder" />
-                <ui:VisualElement name="Footer" class="leaderboard-footer">
-                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITLeaderboards/become_the_best" name="leaderboard_footer_text" class="leaderboard-footer--text" />
+                <ui:VisualElement name="Footer" class="leaderboard__footer">
+                    <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITLeaderboards/become_the_best" class="leaderboard__footer-text"/>
                 </ui:VisualElement>
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>

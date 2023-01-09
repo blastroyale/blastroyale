@@ -32,7 +32,7 @@ namespace FirstLight.Game.Presenters
 		private const string UssLeaderboardEntryGlobal = "leaderboard-entry--global";
 		private const string UssLeaderboardEntryLocal = "leaderboard-entry--local";
 		private const string UssLeaderboardEntryPositionerHighlight = "leaderboard-entry-positioner--highlight";
-		private const string UssLeaderboardPanelLocalPlayerFixed = "leaderboard-panel--local-player-fixed";
+		private const string UssLeaderboardPanelLocalPlayerFixed = "leaderboard-panel__local-player-fixed";
 
 		[SerializeField] private VisualTreeAsset _leaderboardEntryAsset;
 

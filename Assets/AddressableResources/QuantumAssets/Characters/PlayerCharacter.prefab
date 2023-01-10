@@ -391,7 +391,7 @@ MonoBehaviour:
   Prototype:
     HfsmRootRef:
       Id:
-        Value: 2103296580214036360
+        Value: 1135129281261946644
     BlackboardRef:
       Id:
         Value: 648001274895591165
@@ -427,13 +427,13 @@ MonoBehaviour:
         Manufacturer:
           Value: 0
         MaxDurability: 0
-        MaxLevel: 0
         InitialReplicationCounter: 0
         Tuning: 0
         Level: 0
         Generation: 0
         ReplicationCounter: 0
-        Durability: 0
+        TotalRestoredDurability: 0
+        LastRepairTimestamp: 0
       Specials:
       - SpecialId:
           Value: 0
@@ -479,6 +479,11 @@ MonoBehaviour:
           RawValue: 0
         Charges: 0
         Knockback: 0
+      MagazineShotCount: 0
+      MagazineSize: 0
+      ReloadTime:
+        RawValue: 0
+      AmmoCostPerShot: 0
     - Weapon:
         GameId:
           Value: 0
@@ -497,13 +502,13 @@ MonoBehaviour:
         Manufacturer:
           Value: 0
         MaxDurability: 0
-        MaxLevel: 0
         InitialReplicationCounter: 0
         Tuning: 0
         Level: 0
         Generation: 0
         ReplicationCounter: 0
-        Durability: 0
+        TotalRestoredDurability: 0
+        LastRepairTimestamp: 0
       Specials:
       - SpecialId:
           Value: 0
@@ -549,6 +554,11 @@ MonoBehaviour:
           RawValue: 0
         Charges: 0
         Knockback: 0
+      MagazineShotCount: 0
+      MagazineSize: 0
+      ReloadTime:
+        RawValue: 0
+      AmmoCostPerShot: 0
     - Weapon:
         GameId:
           Value: 0
@@ -567,13 +577,13 @@ MonoBehaviour:
         Manufacturer:
           Value: 0
         MaxDurability: 0
-        MaxLevel: 0
         InitialReplicationCounter: 0
         Tuning: 0
         Level: 0
         Generation: 0
         ReplicationCounter: 0
-        Durability: 0
+        TotalRestoredDurability: 0
+        LastRepairTimestamp: 0
       Specials:
       - SpecialId:
           Value: 0
@@ -619,6 +629,11 @@ MonoBehaviour:
           RawValue: 0
         Charges: 0
         Knockback: 0
+      MagazineShotCount: 0
+      MagazineSize: 0
+      ReloadTime:
+        RawValue: 0
+      AmmoCostPerShot: 0
     Gear:
     - GameId:
         Value: 0
@@ -637,13 +652,13 @@ MonoBehaviour:
       Manufacturer:
         Value: 0
       MaxDurability: 0
-      MaxLevel: 0
       InitialReplicationCounter: 0
       Tuning: 0
       Level: 0
       Generation: 0
       ReplicationCounter: 0
-      Durability: 0
+      TotalRestoredDurability: 0
+      LastRepairTimestamp: 0
     - GameId:
         Value: 0
       Edition:
@@ -661,13 +676,13 @@ MonoBehaviour:
       Manufacturer:
         Value: 0
       MaxDurability: 0
-      MaxLevel: 0
       InitialReplicationCounter: 0
       Tuning: 0
       Level: 0
       Generation: 0
       ReplicationCounter: 0
-      Durability: 0
+      TotalRestoredDurability: 0
+      LastRepairTimestamp: 0
     - GameId:
         Value: 0
       Edition:
@@ -685,13 +700,13 @@ MonoBehaviour:
       Manufacturer:
         Value: 0
       MaxDurability: 0
-      MaxLevel: 0
       InitialReplicationCounter: 0
       Tuning: 0
       Level: 0
       Generation: 0
       ReplicationCounter: 0
-      Durability: 0
+      TotalRestoredDurability: 0
+      LastRepairTimestamp: 0
     - GameId:
         Value: 0
       Edition:
@@ -709,13 +724,13 @@ MonoBehaviour:
       Manufacturer:
         Value: 0
       MaxDurability: 0
-      MaxLevel: 0
       InitialReplicationCounter: 0
       Tuning: 0
       Level: 0
       Generation: 0
       ReplicationCounter: 0
-      Durability: 0
+      TotalRestoredDurability: 0
+      LastRepairTimestamp: 0
     - GameId:
         Value: 0
       Edition:
@@ -733,13 +748,13 @@ MonoBehaviour:
       Manufacturer:
         Value: 0
       MaxDurability: 0
-      MaxLevel: 0
       InitialReplicationCounter: 0
       Tuning: 0
       Level: 0
       Generation: 0
       ReplicationCounter: 0
-      Durability: 0
+      TotalRestoredDurability: 0
+      LastRepairTimestamp: 0
     DroppedLoadoutFlags: 0
 --- !u!114 &8755646374635016916
 MonoBehaviour:

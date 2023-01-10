@@ -304,6 +304,11 @@ MonoBehaviour:
         Id:
           Value: 1093005050644660195
       Address: QuantumAssets/Physics Config Assets/Bot NavMeshAgentConfig.asset
+    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player
+      AssetRef:
+        Id:
+          Value: 1135129281261946644
+      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|Attacking_8
       AssetRef:
         Id:
@@ -504,11 +509,6 @@ MonoBehaviour:
         Id:
           Value: 2063248758344102719
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[PlayerRaycastAttackAction_17]
-    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player
-      AssetRef:
-        Id:
-          Value: 2103296580214036360
-      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset
     - Path: AddressableResources/Maps/FtueDeck
       AssetRef:
         Id:

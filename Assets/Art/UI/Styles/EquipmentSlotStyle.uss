@@ -1,5 +1,4 @@
 .equipment-slot {
-    background-image: var(--sprite-home__button-equipmentslot-common);
     width: 608px;
     height: 140px;
     border-left-width: 0;
@@ -11,10 +10,6 @@
     flex-direction: row;
     margin: 0;
     padding: 0;
-}
-
-.equipment-slot:active {
-    background-image: var(--sprite-home__button-equipmentslot-common-pressed);
 }
 
 .equipment-slot--empty {
@@ -212,7 +207,6 @@
     position: absolute;
     left: -28px;
     bottom: -12px;
-    background-image: var(--sprite-home__card-faction-celestial);
     width: 70px;
     height: 70px;
 }

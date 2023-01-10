@@ -79,9 +79,15 @@ namespace Quantum.Systems
 						itemCount++;
 					}
 				}
-
+				
+				// Calculate offset position to drop a box so it tries not to cover the death marker
+				var dropOffset = FPVector2.Rotate(FPVector2.Left * Constants.DROP_OFFSET_RADIUS, f.RNG->Next(0, FP.Rad_180 * 2)).XOY;
+				var dropPosition = deathPosition + dropOffset;
+				
+				QuantumHelpers.TryFindPosOnNavMesh(f, dropPosition, Constants.DROP_OFFSET_RADIUS * FP._0_50, out dropPosition);
+				
 				dropBox = f.ChestConfigs.CheckItemRange(itemCount);
-				CollectablePlatformSpawner.SpawnChest(f, dropBox, f.Get<Transform3D>(entity));
+				CollectablePlatformSpawner.SpawnChest(f, dropBox, dropPosition);
 			}
 		}
 

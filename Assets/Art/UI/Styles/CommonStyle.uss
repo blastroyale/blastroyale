@@ -278,16 +278,48 @@
 
 .tooltip {
     font-size: 32px;
-    background-image: var(--sprite-home__background-tooltip);
+    background-image: var(--sprite-home__background-tooltip-topright);
     color: rgb(186, 161, 230);
     position: absolute;
     top: 0;
     right: 0;
     padding-left: 20px;
-    padding-right: 31px;
-    padding-top: 26px;
-    padding-bottom: 14px;
+    padding-right: 33px;
+    padding-top: 33px;
+    padding-bottom: 20px;
     opacity: 0;
+}
+
+.tooltip--topleft {
+    background-image: var(--sprite-home__background-tooltip-topleft);
+    padding-left: 33px;
+    padding-right: 20px;
+    padding-top: 33px;
+    padding-bottom: 20px;
+}
+
+.tooltip--topright {
+    background-image: var(--sprite-home__background-tooltip-topright);
+    padding-left: 20px;
+    padding-right: 33px;
+    padding-top: 33px;
+    padding-bottom: 20px;
+}
+
+.tooltip--bottomleft {
+    background-image: var(--sprite-home__background-tooltip-bottomleft);
+    padding-left: 33px;
+    padding-right: 20px;
+    padding-top: 20px;
+    padding-bottom: 33px;
+}
+
+.tooltip--bottomright {
+    background-image: var(--sprite-home__background-tooltip-bottomright);
+    padding-left: 20px;
+    padding-right: 33px;
+    padding-top: 30px;
+    padding-bottom: 33px;
 }
 
 .tooltip-holder {

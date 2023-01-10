@@ -77,14 +77,11 @@ namespace FirstLight.Game.Utils
 				viewportPoint.y = 1f - viewportPoint.y;
 			}
 
-			viewportPoint.x = Mathf.Max(viewportPoint.x, 0);
-			viewportPoint.y = Mathf.Max(viewportPoint.y, 0);
-			viewportPoint.x = Mathf.Min(viewportPoint.x, 1);
-			viewportPoint.y = Mathf.Min(viewportPoint.y, 1);
-
 			var screenPoint = Camera.main.ViewportToScreenPoint(viewportPoint);
 
 			// if viewportPoint.x = 1f ViewportToScreenPoint will return width as x, which should be width-1
+			screenPoint.x = Math.Max(screenPoint.x, 0);
+			screenPoint.y = Math.Max(screenPoint.y, 0);
 			screenPoint.x = Math.Min(screenPoint.x, Screen.width - 1);
 			screenPoint.y = Math.Min(screenPoint.y, Screen.height - 1);
 

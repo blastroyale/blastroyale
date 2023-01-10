@@ -73,7 +73,6 @@ namespace FirstLight.Game.StateMachines
 			var battleRoyale = stateFactory.Nest("Battle Royale Mode");
 			var modeCheck = stateFactory.Choice("Game Mode Check");
 			var startSimulation = stateFactory.State("Start Simulation");
-			var disconnectedSoloCheck = stateFactory.Choice("SIMULATION - Disconnected Solo Check");
 			var disconnected = stateFactory.State("Disconnected");
 			var disconnectedCritical = stateFactory.State("Disconnected Critical");
 			
@@ -91,21 +90,16 @@ namespace FirstLight.Game.StateMachines
 			modeCheck.Transition().Target(battleRoyale);
 
 			deathmatch.Nest(_deathmatchState.Setup).Target(final);
-			deathmatch.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnectedSoloCheck);
+			deathmatch.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
 			deathmatch.OnExit(CleanUpMatch);
 
 			battleRoyale.Nest(_battleRoyaleState.Setup).Target(final);
-			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnectedSoloCheck);
+			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
 			battleRoyale.OnExit(CleanUpMatch);
-			
-			disconnectedSoloCheck.Transition().Condition(IsSoloGame).OnTransition(OpenDisconnectedMatchEndDialog).Target(disconnectedCritical);
-			disconnectedSoloCheck.Transition().Target(disconnected);
-			
+
 			disconnected.OnEnter(StopSimulation);
 			disconnected.Event(NetworkState.JoinedRoomEvent).Target(startSimulation);
 			disconnected.Event(NetworkState.JoinRoomFailedEvent).Target(disconnectedCritical);
-
-			disconnectedCritical.OnEnter(NotifyCriticalDisconnection);
 
 			final.OnEnter(UnloadSimulationUi);
 			final.OnEnter(UnsubscribeEvents);
@@ -279,8 +273,8 @@ namespace FirstLight.Game.StateMachines
 			// Unused for now, once local snapshot issues are ironed out, resyncing solo games can be readded
 			if (!_services.NetworkService.IsJoiningNewMatch && _services.NetworkService.LastMatchPlayers.Count == 1)
 			{
-				startParams = configs.GetDefaultStartParameters(_services.NetworkService.LastMatchPlayers.Count, IsSpectator(), 
-					MainInstaller.Resolve<IMatchServices>().FrameSnapshotService.GetLastStoredMatchSnapshot());
+			//	startParams = configs.GetDefaultStartParameters(_services.NetworkService.LastMatchPlayers.Count, IsSpectator(), 
+				//	MainInstaller.Resolve<IMatchServices>().FrameSnapshotService.GetLastStoredMatchSnapshot());
 			}
 
 			startParams.NetworkClient = client;
@@ -324,7 +318,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				return;
 			}
-			
+			Debug.LogError("setting and bettin!");
 			var info = _gameDataProvider.PlayerDataProvider.PlayerInfo;
 			var loadout = _gameDataProvider.EquipmentDataProvider.Loadout;
 			var inventory = _gameDataProvider.EquipmentDataProvider.Inventory;

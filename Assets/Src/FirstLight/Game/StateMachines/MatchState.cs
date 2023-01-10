@@ -81,7 +81,6 @@ namespace FirstLight.Game.StateMachines
 			var playerReadyWait = stateFactory.State("Player Ready Wait");
 			var gameSimulation = stateFactory.Nest("Game Simulation");
 			var unloadToFinal = stateFactory.TaskWait("Unload Match Assets");
-			var disconnectedGameSoloCheck = stateFactory.Choice("MATCH - Disconnected Solo Check");
 			var disconnected = stateFactory.State("Disconnected");
 			var postDisconnectCheck = stateFactory.Choice("Post Reload Check");
 			var gameEndedChoice = stateFactory.Choice("Game Ended Check");
@@ -121,7 +120,7 @@ namespace FirstLight.Game.StateMachines
 			gameSimulation.Nest(_gameSimulationState.Setup).OnTransition(() => HandleSimulationEnd(false)).Target(gameEndedChoice);
 			gameSimulation.Event(MatchEndedEvent).OnTransition(() => HandleSimulationEnd(false)).Target(gameEndedChoice);
 			gameSimulation.Event(MatchQuitEvent).OnTransition(() => HandleSimulationEnd(true)).Target(unloadToFinal);
-			gameSimulation.Event(NetworkState.PhotonCriticalDisconnectedEvent).OnTransition(OnDisconnectDuringSimulation).Target(disconnectedGameSoloCheck);
+			gameSimulation.Event(NetworkState.PhotonCriticalDisconnectedEvent).OnTransition(OnDisconnectDuringSimulation).Target(disconnected);
 
 			gameEndedChoice.Transition().Condition(HasLeftBeforeMatchEnded).Target(transitionToGameResults);
 			gameEndedChoice.Transition().Target(gameEnded);
@@ -143,9 +142,6 @@ namespace FirstLight.Game.StateMachines
 			gameResults.OnExit(UnloadMainMenuAssetConfigs);
 			gameResults.OnExit(DisposeMatchServices);
 			gameResults.OnExit(OpenLoadingScreen);
-
-			disconnectedGameSoloCheck.Transition().Condition(IsSoloGame).Target(unloadToFinal);
-			disconnectedGameSoloCheck.Transition().Target(disconnected);
 			
 			disconnected.OnEnter(OpenDisconnectedScreen);
 			disconnected.Event(NetworkState.JoinedRoomEvent).Target(postDisconnectCheck);
@@ -283,7 +279,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.Simulation;
 			
-			PublishMatchEnded(true, false);
+			PublishMatchEnded(true, false, null);
 		}
 
 		private void CloseSwipeTransition()
@@ -466,11 +462,11 @@ namespace FirstLight.Game.StateMachines
 			await Task.Yield();
 		}
 
-		private void PublishMatchEnded(bool isDisconnected, bool isPlayerQuit)
+		private void PublishMatchEnded(bool isDisconnected, bool isPlayerQuit, QuantumGame game)
 		{
 			_services.MessageBrokerService.Publish(new MatchEndedMessage()
 			{
-				Game = QuantumRunner.Default.Game,
+				Game = game,
 				IsDisconnected = isDisconnected,
 				IsPlayerQuit = isPlayerQuit
 			});
@@ -478,7 +474,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void HandleSimulationEnd(bool playerQuit)
 		{
-			PublishMatchEnded(false, playerQuit);
+			PublishMatchEnded(false, playerQuit, QuantumRunner.Default.Game);
 			
 			_services.AnalyticsService.MatchCalls.MatchEnd(QuantumRunner.Default.Game, playerQuit);
 			

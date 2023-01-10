@@ -6,6 +6,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using System.Linq;
 using System.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Commands.OfflineCommands;
 using FirstLight.Game.Infos;
@@ -65,6 +66,7 @@ namespace FirstLight.Game.Presenters
 		private PriceButton _scrapButton;
 		private PriceButton _upgradeButton;
 		private PriceButton _repairButton;
+		private ImageButton _infoButton;
 
 		private VisualElement _cooldownTag;
 		private VisualElement _rarityTag;
@@ -124,11 +126,13 @@ namespace FirstLight.Game.Presenters
 			_scrapButton = root.Q<PriceButton>("ScrapButton").Required();
 			_upgradeButton = root.Q<PriceButton>("UpgradeButton").Required();
 			_repairButton = root.Q<PriceButton>("RepairButton").Required();
+			_infoButton = root.Q<ImageButton>("InfoButton").Required();
 
 			_equipButton.clicked += OnEquipClicked;
 			_scrapButton.clicked += Data.OnScrapClicked;
 			_upgradeButton.clicked += Data.OnUpgradeClicked;
 			_repairButton.clicked += Data.OnRepairClicked;
+			_infoButton.clicked += OnInfoClicked;
 
 			_equipmentList.makeItem = MakeEquipmentListItem;
 			_equipmentList.bindItem = BindEquipmentListItem;
@@ -475,6 +479,12 @@ namespace FirstLight.Game.Presenters
 				_services.AudioFxService.PlayClip2D(AudioId.EquipEquipment);
 				EquipItem(SelectedItem);
 			}
+		}
+
+		private void OnInfoClicked()
+		{
+			// TODO mihak: Implement properly
+			_infoButton.OpenTooltip(Root, "TEST", TooltipDirection.BottomRight, TooltipPosition.TopLeft);
 		}
 
 		private void EquipItem(UniqueId item)

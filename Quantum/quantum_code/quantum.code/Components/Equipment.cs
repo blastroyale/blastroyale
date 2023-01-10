@@ -43,7 +43,7 @@ namespace Quantum
 		                 uint maxDurability = 4,
 						 uint initialReplicationCounter = 0,
 		                 uint tuning = 0,
-		                 uint level = 0,
+		                 uint level = 1,
 		                 uint generation = 0,
 		                 uint replicationCounter = 0,
 						 uint totalRestoredDurability = 0,

@@ -4639,8 +4639,8 @@ MonoBehaviour:
     <Id>750f1613-a139-4a5b-ba90-8381dc83c7ba</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
     <ZoomOffset>0|0||0</ZoomOffset>\r\n      <PanOffset>-78|504||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>768883d4-4da9-44aa-93b2-89f451d9cee8</Key>\r\n    <GraphData>\r\n     
-    <Id>768883d4-4da9-44aa-93b2-89f451d9cee8</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
-    <ZoomOffset>-759|-756||0</ZoomOffset>\r\n      <PanOffset>1129|1255||0</PanOffset>\r\n   
+    <Id>768883d4-4da9-44aa-93b2-89f451d9cee8</Id>\r\n      <ZoomLevel>0.7</ZoomLevel>\r\n     
+    <ZoomOffset>-625|-652||0</ZoomOffset>\r\n      <PanOffset>906|1279||0</PanOffset>\r\n   
     </GraphData>\r\n    <Key>835b410a-332f-4c21-87b0-6bb8800f5e97</Key>\r\n    <GraphData>\r\n     
     <Id>835b410a-332f-4c21-87b0-6bb8800f5e97</Id>\r\n      <ZoomLevel>1</ZoomLevel>\r\n     
     <ZoomOffset>0|0||0</ZoomOffset>\r\n      <PanOffset>44|230||0</PanOffset>\r\n   

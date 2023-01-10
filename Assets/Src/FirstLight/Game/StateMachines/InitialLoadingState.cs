@@ -5,6 +5,7 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Configs.AssetConfigs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
+using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using FirstLight.Statechart;
@@ -58,6 +59,7 @@ namespace FirstLight.Game.StateMachines
 			assetLoading.WaitingFor(LoadInitialAssets).Target(final);
 			
 			final.OnEnter(UnsubscribeEvents);
+			final.OnEnter(InitialLoadingCompleteAnalyticsEvent);
 		}
 
 		private void SubscribeEvents()
@@ -68,6 +70,17 @@ namespace FirstLight.Game.StateMachines
 		private void GameLoadStartAnalyticsEvent()
 		{
 			_services?.AnalyticsService.SessionCalls.GameLoadStart();
+		}
+		
+		private void InitialLoadingCompleteAnalyticsEvent()
+		{
+			var dic = new Dictionary<string, object>
+			{
+				{"client_version", VersionUtils.VersionInternal},
+				{"boot_time", Time.realtimeSinceStartup},
+				{"vendor_id", SystemInfo.deviceUniqueIdentifier}
+			};
+			_services.AnalyticsService.LogEvent(AnalyticsEvents.InitialLoadingComplete, dic);
 		}
 
 		private void UnsubscribeEvents()

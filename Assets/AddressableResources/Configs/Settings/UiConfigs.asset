@@ -67,6 +67,10 @@ MonoBehaviour:
     Layer: 8
     UiType: FirstLight.Game.Presenters.GenericInputDialogPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - AddressableAddress: Ui/GlobalLeaderboardScreen.prefab
+    Layer: 0
+    UiType: FirstLight.Game.Presenters.GlobalLeaderboardScreenPresenter, FirstLight.Game,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/GuestOrRegisteredScreen.prefab
     Layer: 10
     UiType: FirstLight.Game.Presenters.GuestOrRegisteredPresenter, FirstLight.Game,
@@ -78,10 +82,6 @@ MonoBehaviour:
   - AddressableAddress: Ui/LeaderboardAndRewardsScreen.prefab
     Layer: 0
     UiType: FirstLight.Game.Presenters.LeaderboardAndRewardsScreenPresenter, FirstLight.Game,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - AddressableAddress: Ui/LeaderboardScreen.prefab
-    Layer: 0
-    UiType: FirstLight.Game.Presenters.LeaderboardScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/Loading Screen.prefab
     Layer: 9

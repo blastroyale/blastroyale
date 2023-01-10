@@ -14,13 +14,17 @@
     width: 900px;
     height: 64px;
     justify-content: center;
-    right: 0;
+    right: 0;   
     margin-bottom: 0;
     margin-right: 50px;
     opacity: 1;
     transition-property: opacity, translate;
     transition-duration: 0.2s, 0.2s;
     transition-delay: 0.4s, 0.4s;
+}
+
+.leaderboard-entry--global {
+    overflow: visible;
 }
 
 .hidden .leaderboard-entry {
@@ -117,12 +121,21 @@
     -unity-text-align: upper-right;
 }
 
+.leaderboard-entry--global .leaderboard-entry__kills {
+    display: none; 
+}
+
 .leaderboard-entry--local .leaderboard-entry__kills {
     color: rgb(233, 226, 225);
 }
 
 .leaderboard-entry--local .leaderboard-entry__deaths {
     color: rgb(233, 226, 225);
+}
+
+.leaderboard-entry--local .leaderboard-entry__rank-number {
+    color: rgb(233, 226, 225);
+    left: 60px;
 }
 
 .leaderboard-entry__trophies-bar {
@@ -152,4 +165,19 @@
     -unity-font-style: normal;
     color: rgb(233, 226, 225);
     position: relative;
+}
+
+.leaderboard-entry-positioner__highlight {  
+    background-image: var(--sprite-shared__highlight-leaderboard-localplayer);
+    width: 1100;
+    height: 92;
+    right: -40px;
+    position: absolute;
+    overflow: visible;
+    display: none;
+}
+
+.leaderboard-entry-positioner--highlight .leaderboard-entry-positioner__highlight
+{
+    display: flex;
 }

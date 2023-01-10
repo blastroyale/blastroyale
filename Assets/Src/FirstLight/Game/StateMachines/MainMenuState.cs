@@ -395,24 +395,20 @@ namespace FirstLight.Game.StateMachines
 		{
 			_uiService.CloseUi<GameModeSelectionPresenter>();
 		}
-		
+
 		private void OpenLeaderboardUI(IWaitActivity activity)
 		{
-			var cacheActivity = activity;
-
-			var data = new LeaderboardScreenPresenter.StateData
+			var data = new GlobalLeaderboardScreenPresenter.StateData
 			{
-				BackClicked = () => { cacheActivity.Complete(); }
+				OnBackClicked = () =>
+				{
+					activity.Complete();
+				}
 			};
-			
-			_uiService.OpenScreen<LeaderboardScreenPresenter, LeaderboardScreenPresenter.StateData>(data);
+
+			_uiService.OpenScreen<GlobalLeaderboardScreenPresenter, GlobalLeaderboardScreenPresenter.StateData>(data);
 		}
 
-		private void CloseLeaderboardUI()
-		{
-			_uiService.CloseUi<LeaderboardScreenPresenter>();
-		}
-		
 		private void OpenBattlePassUI(IWaitActivity activity)
 		{
 			var cacheActivity = activity;

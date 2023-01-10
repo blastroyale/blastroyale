@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FirstLight.FLogger;
@@ -155,6 +156,8 @@ namespace FirstLight.Game.StateMachines
 
 		private async Task LoadCoreAssets()
 		{
+			var time = Time.realtimeSinceStartup;
+			
 			await VersionUtils.LoadVersionDataAsync();
 
 			var uiAddress = AddressableId.Configs_Settings_UiConfigs.GetConfig().Address;
@@ -170,6 +173,14 @@ namespace FirstLight.Game.StateMachines
 			await _uiService.LoadUiAsync<LoadingScreenPresenter>(true);
 			await Task.Delay(1000); // Delays 1 sec to play the loading screen animation
 			await Task.WhenAll(_uiService.LoadUiSetAsync((int) UiSetId.InitialLoadUi));
+			
+			var dic = new Dictionary<string, object>
+			{
+				{"client_version", VersionUtils.VersionInternal},
+				{"total_time", Time.realtimeSinceStartup - time},
+				{"vendor_id", SystemInfo.deviceUniqueIdentifier}
+			};
+			_services.AnalyticsService.LogEvent(AnalyticsEvents.LoadCoreAssetsComplete, dic);
 		}
 	}
 }

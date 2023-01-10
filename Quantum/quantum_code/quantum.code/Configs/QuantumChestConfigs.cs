@@ -14,6 +14,8 @@ namespace Quantum
 		public List<QuantumPair<FP, uint>> RandomEquipment;
 		public List<QuantumPair<FP, uint>> SmallConsumable;
 		public List<QuantumPair<FP, uint>> LargeConsumable;
+
+		public QuantumPair<int, int> DropFromPlayerBasedOnItemsRange;
 	}
 
 	/// <summary>
@@ -58,6 +60,22 @@ namespace Quantum
 				ChestType.Legendary => GetConfig(GameId.ChestLegendary),
 				_ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
 			};
+		}
+
+		public GameId CheckItemRange(int itemCount)
+		{
+			
+			for(var i = 0; i < QuantumConfigs.Count; i++)
+			{
+				var config = GetConfig(QuantumConfigs[i].Id);
+
+				if (itemCount >= config.DropFromPlayerBasedOnItemsRange.Value1 &&
+					itemCount <= config.DropFromPlayerBasedOnItemsRange.Value2)
+				{
+					return config.Id;
+				}
+			}
+			throw new ArgumentOutOfRangeException(nameof(ChestType), itemCount, null);
 		}
 	}
 }

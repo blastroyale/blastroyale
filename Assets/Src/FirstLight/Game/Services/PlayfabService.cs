@@ -95,6 +95,12 @@ namespace FirstLight.Game.Services
 		/// Updates user contact email address
 		/// </summary>
 		void UpdateContactEmail(string newEmail, Action<AddOrUpdateContactEmailResult> callback = null);
+
+		/// <summary>
+		/// Obtains all segments the player is in.
+		/// Segments are group of players based on metrics which can be used for various things.
+		/// </summary>
+		public void GetPlayerSegments(Action<List<GetSegmentResult>> callback);
 	}
 
 	/// <inheritdoc cref="IPlayfabService" />
@@ -110,6 +116,14 @@ namespace FirstLight.Game.Services
 			_dataProvider = dataProvider;
 			_msgBroker = msgBroker;
 			_leaderboardLadderName = leaderboardLadderName;
+		}
+
+		public void GetPlayerSegments(Action<List<GetSegmentResult>> callback)
+		{
+			PlayFabClientAPI.GetPlayerSegments(new GetPlayerSegmentsRequest(), r =>
+			{
+				callback(r.Segments);
+			}, HandleError);
 		}
 
 		/// <inheritdoc />
@@ -305,8 +319,8 @@ namespace FirstLight.Game.Services
 #endif
 			void OnSuccess()
 			{
-				successCallback?.Invoke();
 				_dataProvider.AppDataProvider.DeviceID.Value = PlayFabSettings.DeviceUniqueIdentifier;
+				successCallback?.Invoke();
 			}
 		}
 

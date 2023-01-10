@@ -189,9 +189,10 @@ namespace FirstLight.Game.Utils
 			public const string DEFAULT_REGION = "eu";
 			
 			public const char ROOM_META_SEPARATOR = '#';
-
-			public const int LEADERBOARD_TOP_RANK_AMOUNT = 20;
-			public const int LEADERBOARD_NEIGHBOR_RANK_AMOUNT = 3;
+			
+			public const string LEADERBOARD_LADDER_NAME = "Trophies Ladder";
+			public const int LEADERBOARD_TOP_RANK_AMOUNT = 100;
+			public const int LEADERBOARD_NEIGHBOR_RANK_AMOUNT = 1;
 		}
 
 		public static class Visuals
@@ -229,6 +230,14 @@ namespace FirstLight.Game.Utils
 			
 			public const int REWARD_POPUP_CLOSE_MS = 300;
 			public const int SCREEN_SWIPE_TRANSITION_MS = 1500;
+		}
+
+		public static class Camera
+		{
+			public const float DYNAMIC_CAMERA_PAN_TO_AIM_TIME = 0.5f;
+			public const float DYNAMIC_CAMERA_PAN_TO_CENTER_TIME = 0.25f;
+			public const float DYNAMIC_CAMERA_PAN_DISTANCE_DEFAULT = 1.75f;
+			public const float DYNAMIC_CAMERA_PAN_NEGATIVE_Y_DIR_MULTIPLIER = 1.3f;
 		}
 
 		public static class Controls

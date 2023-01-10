@@ -4,6 +4,7 @@ using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using I2.Loc;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UIElements;
 
@@ -26,7 +27,8 @@ namespace FirstLight.Game.Presenters
 		private TextField _emailField;
 		private TextField _passwordField;
 		private VisualElement _blockerElement;
-
+		private Button _viewHideButton;
+		
 		private IGameServices _services;
 
 		private void Awake()
@@ -44,6 +46,10 @@ namespace FirstLight.Game.Presenters
 			root.Q<Button>("RegisterButton").clicked += OnRegisterButtonClicked;
 			root.Q<Button>("ResetPasswordButton").clicked += OnResetPasswordButtonClicked;
 			root.Q<Button>("PlayAsGuestButton").clicked += OnPlayAsGuestButtonClicked;
+			_viewHideButton = root.Q<Button>("ViewHideButton").Required();
+			_viewHideButton.clicked += OnViewHideClicked;
+
+			root.SetupClicks(_services);
 		}
 
 		/// <summary>
@@ -82,6 +88,12 @@ namespace FirstLight.Game.Presenters
 		{
 			_services.AnalyticsService.UiCalls.ButtonAction(UIAnalyticsButtonsNames.PlayAsGuest);
 			Data.PlayAsGuestClicked();
+		}
+
+		private void OnViewHideClicked()
+		{
+			_viewHideButton.ToggleInClassList("view-hide-button--show");
+			_passwordField.isPasswordField = !_viewHideButton.ClassListContains("view-hide-button--show");
 		}
 	}
 }

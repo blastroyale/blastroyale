@@ -324,7 +324,7 @@ namespace FirstLight.Game.Presenters
 			// Prices
 			_scrapButton.SetPrice(info.ScrappingValue, info.IsNft, false, true);
 			_upgradeButton.SetPrice(info.UpgradeCost, info.IsNft, !HasEnoughCurrency(info.UpgradeCost));
-			_upgradeButton.SetEnabled(!info.Equipment.IsMaxLevel());
+			_upgradeButton.SetEnabled(info.Equipment.Level < info.MaxLevel);
 			_repairButton.SetPrice(info.RepairCost, info.IsNft, !HasEnoughCurrency(info.RepairCost));
 			_repairButton.SetEnabled(info.CurrentDurability < info.Equipment.MaxDurability);
 
@@ -359,7 +359,7 @@ namespace FirstLight.Game.Presenters
 		private void UpdateMight(bool animate = true)
 		{
 			var loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All);
-			var might = loadout.GetTotalMight(_services.ConfigsProvider.GetConfigsDictionary<QuantumStatConfig>());
+			var might = loadout.GetTotalMight(_services.ConfigsProvider);
 
 			_might.SetMight(might, animate);
 		}

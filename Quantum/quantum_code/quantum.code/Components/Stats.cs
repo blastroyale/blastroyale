@@ -321,8 +321,7 @@ namespace Quantum
 			GetLoadoutStats(f, weapon, gear, out var armour, out var health, out var speed, out var power, 
 			                out var attackRange, out var pickupSpeed, out var ammoCapacity, out var shieldCapacity);
 			
-			var might = QuantumStatCalculator.GetTotalMight(f.StatConfigs.Dictionary, armour, health,speed, 
-			                                                power, attackRange, pickupSpeed, ammoCapacity, shieldCapacity);
+			var might = QuantumStatCalculator.GetTotalMight(f.GameConfig, weapon, gear);
 			
 			//TODO: Move default (health, speed, shields) values into StatData configs
 			health += f.GameConfig.PlayerDefaultHealth.Get(f);
@@ -360,10 +359,15 @@ namespace Quantum
 
 			for (var i = 0; i < gear.Length; i++)
 			{
+				if (!gear[i].IsValid())
+				{
+					continue;
+				}
+				
 				QuantumStatCalculator.CalculateGearStats(f, gear[i], out var armour2, out var health2, out var speed2, 
 				                                         out var power2, out var attackRange2, out var pickupSpeed2,
 				                                         out var ammoCapacity2, out var shieldCapacity2);
-
+				
 				health += health2;
 				speed += speed2;
 				armour += armour2;

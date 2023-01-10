@@ -226,7 +226,8 @@ namespace FirstLight.Tests.EditorMode.Logic
 		public void UpgradeItem_MaxLevel_ThrowsException()
 		{
 			var item = SetupItem(2, GameId.MausHelmet, 1);
-			
+
+			item.Value.Level = (uint)_equipmentLogic.GetMaxLevel(item.Value);
 			TestData.Inventory.Add(item.Key, item.Value);
 			
 			Assert.Throws<LogicException>(() => _equipmentLogic.Upgrade(item.Key));
@@ -235,7 +236,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 		[Test]
 		public void RepairItemCheck()
 		{
-			var item = SetupItem(2, GameId.MausHelmet, 1, 0);
+			var item = SetupItem(2, GameId.MausHelmet,  0);
 			
 			TestData.Inventory.Add(item.Key, item.Value);
 			
@@ -266,12 +267,11 @@ namespace FirstLight.Tests.EditorMode.Logic
 			Assert.Throws<LogicException>(() => _equipmentLogic.Repair(_item.Key));
 		}
 
-		private Pair<UniqueId, Equipment> SetupItem(UniqueId id, GameId gameId, uint maxLevel = 2, long durabilityTimeStamp = -1)
+		private Pair<UniqueId, Equipment> SetupItem(UniqueId id, GameId gameId, long durabilityTimeStamp = -1)
 		{
 			var item = new Equipment(gameId)
 			{
 				Level = 1,
-				MaxLevel = maxLevel,
 				LastRepairTimestamp = durabilityTimeStamp < 0 ? TimeService.DateTimeUtcNow.Ticks : durabilityTimeStamp
 			};
 			UniqueIdLogic.Ids[id].Returns(gameId);

@@ -23,8 +23,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameUiService _uiService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
-		private PlayerRef _killer;
-
 		public BattleRoyaleState(IGameServices services, IGameUiService uiService,
 								 Action<IStatechartEvent> statechartTrigger)
 		{
@@ -85,8 +83,6 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeEvents()
 		{
-			_killer = new PlayerRef();
-			
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
 		}
@@ -135,8 +131,6 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)
 		{
-			_killer = callback.PlayerKiller;
-
 			_statechartTrigger(_localPlayerDeadEvent);
 		}
 
@@ -164,8 +158,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new MatchEndScreenPresenter.StateData
 			{
-				PlayerDead = !IsLocalPlayerAlive(),
-				Killer = _killer,
 				OnNextClicked = () => _statechartTrigger(_localPlayerNextEvent),
 			};
 
@@ -176,7 +168,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new SpectateScreenPresenter.StateData
 			{
-				Killer = _killer,
 				OnLeaveClicked = () =>
 				{
 					_services.MessageBrokerService.Publish(new LeftBeforeMatchFinishedMessage());

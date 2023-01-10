@@ -2935,7 +2935,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Quit Game
+      - QUIT GAME
       - 
       - 
       Flags: 000000
@@ -9910,6 +9910,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITLoginRegister/invalid_input
+      TermType: 0
+      Description: 
+      Languages:
+      - Invalid Input Parameters
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITStore/epic_core
       TermType: 0
       Description: 
@@ -11094,7 +11103,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1672850009972
+    Google_LastUpdatedVersion: 1673002319051
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

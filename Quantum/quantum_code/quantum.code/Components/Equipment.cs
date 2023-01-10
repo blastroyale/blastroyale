@@ -41,8 +41,7 @@ namespace Quantum
 		                 EquipmentMaterial material = EquipmentMaterial.Plastic,
 		                 EquipmentManufacturer manufacturer = EquipmentManufacturer.Military,
 		                 uint maxDurability = 4,
-		                 uint maxLevel = 10,
-		                 uint initialReplicationCounter = 0,
+						 uint initialReplicationCounter = 0,
 		                 uint tuning = 0,
 		                 uint level = 0,
 		                 uint generation = 0,
@@ -61,7 +60,6 @@ namespace Quantum
 			Manufacturer = manufacturer;
 
 			MaxDurability = maxDurability;
-			MaxLevel = maxLevel;
 			InitialReplicationCounter = initialReplicationCounter;
 			Tuning = tuning;
 
@@ -79,11 +77,6 @@ namespace Quantum
 		public bool IsValid() => GameId != GameId.Random;
 
 		/// <summary>
-		/// Checks if this item is at <see cref="MaxLevel"/>.
-		/// </summary>
-		public bool IsMaxLevel() => Level >= MaxLevel;
-
-		/// <summary>
 		/// Checks if the <see cref="GameId"/> belongs to the <see cref="GameIdGroup.Weapon"/> group.
 		/// </summary>
 		public bool IsWeapon() => GetEquipmentGroup() == GameIdGroup.Weapon;
@@ -98,22 +91,7 @@ namespace Quantum
 		/// </summary>
 		public int GetTotalMight(Frame f)
 		{
-			if (IsWeapon())
-			{
-				QuantumStatCalculator.CalculateWeaponStats(f, this, out var armour, out var health, out var speed, 
-				                                           out var power, out var attackRange, out var pickupSpeed,
-				                                           out var ammoCapacity, out var shieldsCapacity);
-				return QuantumStatCalculator.GetTotalMight(f.StatConfigs.Dictionary, armour,health,speed, power, 
-				                                           attackRange, pickupSpeed, ammoCapacity, shieldsCapacity);
-			}
-			else
-			{
-				QuantumStatCalculator.CalculateGearStats(f, this, out var armour, out var health, out var speed, 
-				                                         out var power, out var attackRange, out var pickupSpeed,
-				                                         out var ammoCapacity, out var shieldsCapacity);
-				return QuantumStatCalculator.GetTotalMight(f.StatConfigs.Dictionary,armour,health,speed, power, 
-				                                           attackRange, pickupSpeed, ammoCapacity, shieldsCapacity);
-			}
+			return QuantumStatCalculator.GetMightOfItem(f.GameConfig, this);
 		}
 
 		/// <summary>
@@ -142,7 +120,7 @@ namespace Quantum
 			       Faction == other.Faction && GameId == other.GameId && Generation == other.Generation &&
 			       Grade == other.Grade && InitialReplicationCounter == other.InitialReplicationCounter &&
 			       Level == other.Level && Manufacturer == other.Manufacturer && Material == other.Material &&
-			       MaxDurability == other.MaxDurability && MaxLevel == other.MaxLevel &&
+			       MaxDurability == other.MaxDurability &&
 			       ReplicationCounter == other.ReplicationCounter && Tuning == other.Tuning;
 		}
 
@@ -167,7 +145,6 @@ namespace Quantum
 				hash = hash * 31 + (Int32)Manufacturer;
 				hash = hash * 31 + (Int32)Material;
 				hash = hash * 31 + MaxDurability.GetHashCode();
-				hash = hash * 31 + MaxLevel.GetHashCode();
 				hash = hash * 31 + (Int32)Rarity;
 				hash = hash * 31 + ReplicationCounter.GetHashCode();
 				hash = hash * 31 + TotalRestoredDurability.GetHashCode();

@@ -5,6 +5,7 @@ using FirstLight.SDK.Services;
 
 namespace FirstLight.Game.Messages
 {
+	public struct MainMenuOpenedMessage : IMessage { }
 	public struct PlayScreenOpenedMessage : IMessage { }
 	public struct RoomLeaveClickedMessage : IMessage { }
 	public struct RoomLockClickedMessage : IMessage

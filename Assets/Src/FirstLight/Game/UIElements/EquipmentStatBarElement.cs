@@ -149,8 +149,9 @@ namespace FirstLight.Game.UIElements
 				EquipmentStatType.AttackCooldown     => "N2",
 				EquipmentStatType.TargetRange        => "N3",
 				EquipmentStatType.PickupSpeed        => "P2",
-				EquipmentStatType.Speed              => "N2",
+				EquipmentStatType.Speed              => "N3",
 				EquipmentStatType.SplashDamageRadius => "N2",
+				EquipmentStatType.MaxCapacity        => "P2",
 				_                                    => "N0"
 			};
 		}

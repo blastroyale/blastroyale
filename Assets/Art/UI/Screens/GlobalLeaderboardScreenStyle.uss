@@ -1,0 +1,90 @@
+.container {
+    align-items: center;
+}
+
+.leaderboard-panel {
+    width: 100%;
+    position: absolute;
+    top: 150px;
+    bottom: 130px;
+    align-items: center;
+    display: flex;
+}
+
+.leaderboard-panel__local-player-fixed {
+    bottom: 205px;
+}
+
+.leaderboard-panel__scroll-view {
+    overflow: visible;
+    width: 1100px;
+}
+
+.header__label {
+    position: absolute;
+    justify-content: center;
+    height: 70px;
+    width: 900px;
+    margin-right: 0;
+    -unity-font-definition: var(--font-italic);
+    font-size: 35px;
+    -unity-font-style: normal;
+    color: rgb(233, 226, 225);
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+}
+
+.header__label--rank-number {
+    left: 60px;
+}
+
+.header__label--player {
+    left: 140px;
+}
+
+.header__label--trophies {
+    right: 40px;
+    -unity-text-align: upper-right;
+}
+
+.leaderboard__footer {
+    position: absolute;
+    justify-content: center;
+    height: 70px;
+    width: 80%;
+    flex-direction: column-reverse;
+    align-items: center;
+    bottom: 35px;
+}
+
+.leaderboard__footer-text {
+    font-size: 35px;
+    -unity-font-style: normal;
+    -unity-text-align: middle-center;
+    color: rgb(233, 226, 225);
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+}
+
+.localplayer-fixed-pos-holder {
+    position: absolute;
+    bottom: 125px;
+    align-items: center;
+    width: 100%;
+}
+
+.leaderboard-entries {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    top: 70px;
+    left: 0;
+    align-items: center;
+    padding-right: 0;
+}
+
+.leaderboard-entries .unity-list-view__item:hover {
+    background-color: rgba(0, 0, 0, 0);
+}

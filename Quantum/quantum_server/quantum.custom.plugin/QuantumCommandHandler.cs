@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
+using FirstLight.Server.SDK.Modules.Commands;
 
 namespace Quantum
 { 

@@ -156,7 +156,7 @@ namespace FirstLight.Game.Presenters
 			
 			_bppProgressFill.style.flexGrow = (float) predictedProgress.Item2 / predictedMaxProgress;
 
-			_screenHeader.SetTitle(string.Format(ScriptLocalization.UITBattlePass.season_number, "1"));
+			_screenHeader.SetTitle(string.Format(ScriptLocalization.UITBattlePass.season_number, battlePassConfig.CurrentSeason));
 			_claimButton.SetDisplay(_dataProvider.BattlePassDataProvider.IsRedeemable());
 			_nextLevelRoot.SetDisplay(predictedProgress.Item1 < _dataProvider.BattlePassDataProvider.MaxLevel);
 			

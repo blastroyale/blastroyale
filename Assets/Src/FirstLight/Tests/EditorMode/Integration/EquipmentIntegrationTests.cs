@@ -79,7 +79,7 @@ namespace FirstLight.Tests.EditorMode.Integration
 		[Test]
 		public void UpgradeItemCommand()
 		{
-			var equip = new Equipment() {GameId = GameId.HockeyHelmet, MaxLevel = 1};
+			var equip = new Equipment() { GameId = GameId.HockeyHelmet };
 			var itemUniqueId = TestLogic.EquipmentLogic.AddToInventory(equip);
 			var cost = TestLogic.EquipmentLogic.GetUpgradeCost(equip, false);
 			var data = TestData.GetData<PlayerData>();

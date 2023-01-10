@@ -24,7 +24,7 @@ namespace FirstLight.Game.Infos
 		TargetRange,
 		ProjectileSpeed,
 		MaxCapacity,
-		ReloadSpeed,
+		ReloadTime,
 		MinAttackAngle,
 		MaxAttackAngle,
 		SplashDamageRadius,
@@ -33,6 +33,7 @@ namespace FirstLight.Game.Infos
 		SpecialId1,
 		PickupSpeed,
 		ShieldCapacity,
+		MagazineSize,
 	}
 
 	public struct EquipmentInfo
@@ -45,6 +46,7 @@ namespace FirstLight.Game.Infos
 		public uint CurrentDurability;
 		public bool IsEquipped;
 		public bool IsNft;
+		public int MaxLevel;
 		public Dictionary<EquipmentStatType, float> Stats;
 		public Dictionary<EquipmentStatType, float> NextLevelStats;
 
@@ -154,23 +156,14 @@ namespace FirstLight.Game.Infos
 		/// <summary>
 		/// Requests "Might" for all the equipments in the given <paramref name="items"/>
 		/// </summary>
-		public static float GetTotalMight(this List<EquipmentInfo> items,
-										  IReadOnlyDictionary<int, QuantumStatConfig> configs)
+		public static float GetTotalMight(this List<EquipmentInfo> items, IConfigsProvider configsProvider)
 		{
-			var statConfigs = configs.ToDictionary(f => (StatType) f.Key, f => f.Value);
 			var total = 0f;
+			var gameConfig = configsProvider.GetConfig<QuantumGameConfig>();
 
 			foreach (var nft in items)
 			{
-				total += QuantumStatCalculator.GetTotalMight(statConfigs,
-					nft.Stats[EquipmentStatType.Armor].ToFP(),
-					nft.Stats[EquipmentStatType.Hp].ToFP(),
-					nft.Stats[EquipmentStatType.Speed].ToFP(),
-					nft.Stats[EquipmentStatType.Power].ToFP(),
-					nft.Stats[EquipmentStatType.TargetRange].ToFP(),
-					nft.Stats[EquipmentStatType.PickupSpeed].ToFP(),
-					nft.Stats[EquipmentStatType.MaxCapacity].ToFP(),
-					nft.Stats[EquipmentStatType.ShieldCapacity].ToFP());
+				total += QuantumStatCalculator.GetMightOfItem(gameConfig, nft.Equipment);
 			}
 
 			return total;
@@ -181,23 +174,14 @@ namespace FirstLight.Game.Infos
 		/// </summary>
 		public static float GetTotalMight(this IEnumerable<Equipment> items, IConfigsProvider configsProvider)
 		{
-			var statConfigs = configsProvider.GetConfigsDictionary<QuantumStatConfig>()
-				.ToDictionary(f => (StatType) f.Key, f => f.Value);
 			var total = 0f;
+			var gameConfig = configsProvider.GetConfig<QuantumGameConfig>();
 
 			foreach (var item in items)
 			{
 				var stats = item.GetStats(configsProvider);
 
-				total += QuantumStatCalculator.GetTotalMight(statConfigs,
-					stats[EquipmentStatType.Armor].ToFP(),
-					stats[EquipmentStatType.Hp].ToFP(),
-					stats[EquipmentStatType.Speed].ToFP(),
-					stats[EquipmentStatType.Power].ToFP(),
-					stats[EquipmentStatType.TargetRange].ToFP(),
-					stats[EquipmentStatType.PickupSpeed].ToFP(),
-					stats[EquipmentStatType.MaxCapacity].ToFP(),
-					stats[EquipmentStatType.ShieldCapacity].ToFP());
+				total += QuantumStatCalculator.GetMightOfItem(gameConfig, item);
 			}
 
 			return total;

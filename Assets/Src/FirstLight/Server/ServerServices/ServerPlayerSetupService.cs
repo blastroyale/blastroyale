@@ -34,6 +34,7 @@ namespace Src.FirstLight.Server.ServerServices
 			var playerData = SetupInitialPlayerData(idData, rngData);
 			var equipmentData = new EquipmentData();
 			var serverState = new ServerState();
+			serverState.UpdateModel(new LiveopsData());
 			serverState.UpdateModel(idData);
 			serverState.UpdateModel(rngData);
 			serverState.UpdateModel(playerData);
@@ -48,8 +49,8 @@ namespace Src.FirstLight.Server.ServerServices
 			{
 				return false;
 			}
-			var playerData = state.DeserializeModel<PlayerData>();
-			if (playerData == null || playerData.Level == 0)
+
+			if (!state.Has<PlayerData>())
 			{
 				return false;
 			}

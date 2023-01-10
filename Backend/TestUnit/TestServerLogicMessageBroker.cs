@@ -30,7 +30,7 @@ namespace Tests
 		{
 			GameLogicMessageEvent<PlayerSkinUpdatedMessage> receivedMessage = null;
 			
-			_pluginEvents.RegisterListener<GameLogicMessageEvent<PlayerSkinUpdatedMessage>>(msg =>
+			_pluginEvents.RegisterEventListener<GameLogicMessageEvent<PlayerSkinUpdatedMessage>>(msg =>
 			{
 				receivedMessage = msg;
 			});

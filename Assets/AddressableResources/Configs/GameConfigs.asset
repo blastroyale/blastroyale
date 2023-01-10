@@ -104,7 +104,7 @@ MonoBehaviour:
       TrophyMinChange:
         RawValue: 3277
       NftAssumedOwned: 40
-      MinNftForEarnings: 3
+      MinNftForPoolSizeBonus: 3
       EarningsAugmentationStrengthDropMod:
         RawValue: 52429
       EarningsAugmentationStrengthSteepnessMod:
@@ -127,3 +127,9 @@ MonoBehaviour:
       NonNftDurabilityDropDays:
         RawValue: 458752
       BotsDifficultyTrophiesStep: 150
+      MightBaseValue:
+        RawValue: 6553600
+      MightRarityMultiplier:
+        RawValue: 78512
+      MightLevelMultiplier:
+        RawValue: 1933

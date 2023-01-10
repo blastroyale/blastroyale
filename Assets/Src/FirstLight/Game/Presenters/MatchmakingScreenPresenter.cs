@@ -46,7 +46,8 @@ namespace FirstLight.Game.Presenters
 		private Label _mapMarkerTitle;
 		private Label _loadStatusLabel;
 		private Label _locationLabel;
-		private Label _modeTitleLabel;
+		private Label _headerTitleLabel;
+		private Label _headerSubtitleLabel;
 		private Label _modeDescTopLabel;
 		private Label _modeDescBotLabel;
 		private Label _debugPlayerCountLabel;
@@ -62,6 +63,13 @@ namespace FirstLight.Game.Presenters
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
+			_services.NetworkService.QuantumClient.AddCallbackTarget(this);
+		}
+		
+		
+		private void OnDestroy()
+		{
+			_services?.NetworkService?.QuantumClient?.RemoveCallbackTarget(this);
 		}
 
 		protected override void QueryElements(VisualElement root)
@@ -79,7 +87,8 @@ namespace FirstLight.Game.Presenters
 			_mapTitleBg = root.Q("MapTitleBg").Required();
 			_loadStatusLabel = root.Q<Label>("LoadStatusLabel").Required();
 			_locationLabel = root.Q<Label>("LocationLabel").Required();
-			_modeTitleLabel = root.Q<Label>("HeaderTitle").Required();
+			_headerTitleLabel = root.Q<Label>("title").Required();
+			_headerSubtitleLabel = root.Q<Label>("subtitle").Required();
 			_modeDescTopLabel = root.Q<Label>("ModeDescTop").Required();
 			_modeDescBotLabel = root.Q<Label>("ModeDescBot").Required();
 			_debugPlayerCountLabel = root.Q<Label>("DebugPlayerCount").Required();
@@ -148,7 +157,7 @@ namespace FirstLight.Game.Presenters
 			if (selectedGrid.IsValidNamedArea)
 			{
 				_mapMarkerTitle.SetDisplay(true);
-				_mapMarkerTitle.text = selectedGrid.AreaName.ToUpper();
+				_mapMarkerTitle.text = selectedGrid.AreaName.GetMapDropPointTranslation().ToUpper();
 			}
 			else
 			{
@@ -185,9 +194,9 @@ namespace FirstLight.Game.Presenters
 									  : quantumGameConfig.CasualMatchmakingTime.AsFloat;
 
 			_locationLabel.text = mapConfig.Map.GetTranslation();
-			_modeTitleLabel.text = string.Format(ScriptLocalization.UITMatchmaking.mode_header_title,
-												 gameMode.GetTranslationGameIdString().ToUpper(),
-												 matchType.GetTranslation().ToUpper());
+			_headerTitleLabel.text = gameMode.GetTranslationGameIdString().ToUpper();
+			_headerSubtitleLabel.text = matchType.GetTranslation().ToUpper();
+
 			_modeDescTopLabel.text = modeDesc[0];
 			_modeDescBotLabel.text = modeDesc[1];
 			
@@ -246,7 +255,7 @@ namespace FirstLight.Game.Presenters
 		{
 			UpdatePlayerCount();
 		}
-		
+
 		private void OnStartedFinalPreloadMessage(StartedFinalPreloadMessage obj)
 		{
 			if (_matchmakingTimerCoroutine != null)

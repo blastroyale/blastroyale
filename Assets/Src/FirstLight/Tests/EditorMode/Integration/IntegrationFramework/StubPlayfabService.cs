@@ -48,7 +48,7 @@ namespace FirstLight.Tests.EditorMode
 
 		}
 
-		public void AttachLoginDataToAccount(string email, string password, string displayName, Action<AddUsernamePasswordResult> successCallback = null,
+		public void AttachLoginDataToAccount(string email, string username, string password, Action<AddUsernamePasswordResult> successCallback = null,
 		                                     Action<PlayFabError> errorCallback = null)
 		{
 
@@ -69,7 +69,17 @@ namespace FirstLight.Tests.EditorMode
 			
 		}
 
-		public void UpdateEmail(string newEmail, Action<AddOrUpdateContactEmailResult> callback = null)
+		public void UpdateContactEmail(string newEmail, Action<AddOrUpdateContactEmailResult> callback = null)
+		{
+	
+		}
+
+		public void GetPlayerSegments(Action<List<GetSegmentResult>> callback)
+		{
+			
+		}
+
+		public void CheckIfRewardsMatch(Action<bool> callback)
 		{
 		
 		}

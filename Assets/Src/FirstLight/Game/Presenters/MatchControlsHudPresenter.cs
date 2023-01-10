@@ -27,12 +27,12 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private GameObject[] _disableWhileParachuting;
 		[SerializeField, Required] private GameObject _weaponSlotsHolder;
 		[SerializeField, Required] private GameObject _gunSwitchButton;
-		
+
 		private IGameServices _services;
 		private IMatchServices _matchServices;
 		private Quantum.Input _quantumInput;
 		private LocalPlayerIndicatorContainerView _indicatorContainerView;
-		
+
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
@@ -49,7 +49,7 @@ namespace FirstLight.Game.Presenters
 			_specialButtons[0].OnCancelExit.AddListener(() => _indicatorContainerView.GetIndicator(0)?.SetVisualState(true));
 			_specialButtons[1].OnCancelEnter.AddListener(() => _indicatorContainerView.GetIndicator(1)?.SetVisualState(false));
 			_specialButtons[1].OnCancelExit.AddListener(() => _indicatorContainerView.GetIndicator(1)?.SetVisualState(true));
-			
+
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
 			_services.MessageBrokerService.Subscribe<MatchSimulationStartedMessage>(OnMatchSimulationStartedMessage);
 			QuantumEvent.Subscribe<EventOnPlayerAttackHit>(this, OnPlayerAttackHit);
@@ -76,9 +76,10 @@ namespace FirstLight.Game.Presenters
 			_services.PlayerInputService.EnableInput();
 		}
 
-		protected override async Task OnClosed()
+		protected override Task OnClosed()
 		{
 			_services.PlayerInputService.DisableInput();
+			return Task.CompletedTask;
 		}
 
 		/// <inheritdoc />
@@ -101,7 +102,7 @@ namespace FirstLight.Game.Presenters
 		public void OnSpecialAim(InputAction.CallbackContext context)
 		{
 			var input = _services.PlayerInputService.Input.Gameplay;
-			
+
 			if (input.SpecialButton0.IsPressed())
 			{
 				_indicatorContainerView.GetIndicator(0).SetTransformState(input.SpecialAim.ReadValue<Vector2>());
@@ -136,46 +137,46 @@ namespace FirstLight.Game.Presenters
 			// TODO: When we decide to officially support gamepads, add dedicated Cancel functionality button.
 			// TODO: At this point, input should be conditional, and this code should not run for touch input.
 		}
-		
+
 		private void OnSpecialButtonUsed(InputAction.CallbackContext context, int specialIndex)
 		{
 			if (_specialButtons[specialIndex].SpecialId == GameId.Random || context.performed)
 			{
 				return;
 			}
-			
+
 			var indicator = _indicatorContainerView.GetIndicator(specialIndex);
-			
+
 			if (context.started)
 			{
 				indicator.SetVisualState(true);
 				indicator.SetTransformState(Vector2.zero);
 				return;
 			}
-			
+
 			indicator.SetVisualState(false);
 
 			if (!_specialButtons[specialIndex].DraggingValidPosition())
 			{
 				return;
 			}
-			
+
 			var aim = _services.PlayerInputService.Input.Gameplay.SpecialAim.ReadValue<Vector2>();
-			
+
 			SendSpecialUsedCommand(specialIndex, aim);
 		}
-		
+
 		private unsafe void SendSpecialUsedCommand(int specialIndex, Vector2 aimDirection)
 		{
 			var data = QuantumRunner.Default.Game.GetLocalPlayerData(false, out var f);
-			
+
 			// Check if there is a weapon equipped in the slot. Avoid extra commands to save network message traffic $$$
-			if (!f.TryGet<PlayerCharacter>(data.Entity, out var playerCharacter) || 
-			    !playerCharacter.WeaponSlot->Specials[specialIndex].IsUsable(f))
+			if (!f.TryGet<PlayerCharacter>(data.Entity, out var playerCharacter) ||
+				!playerCharacter.WeaponSlot->Specials[specialIndex].IsUsable(f))
 			{
 				return;
 			}
-			
+
 			var command = new SpecialUsedCommand
 			{
 				SpecialIndex = specialIndex,
@@ -196,12 +197,12 @@ namespace FirstLight.Game.Presenters
 				var showSlot = isHammerTime ? i == Constants.WEAPON_INDEX_DEFAULT : (!isSingleMode || i != Constants.WEAPON_INDEX_SECONDARY);
 				_slots[i].gameObject.SetActive(showSlot);
 			}
-			
+
 			_weaponSlotsHolder.SetActive(f.Context.GameModeConfig.ShowWeaponSlots);
 			_services.PlayerInputService.Input.Gameplay.SetCallbacks(this);
 			_indicatorContainerView.Init(playerView);
 			_indicatorContainerView.SetupWeaponInfo(f, playerCharacter.CurrentWeapon.GameId);
-			
+
 			SetupSpecialsInput(f.Time, *playerCharacter.WeaponSlot, playerView);
 			SetupGunSwitchButton(playerCharacter.WeaponSlots);
 			InitSlotsView(playerCharacter);
@@ -211,7 +212,7 @@ namespace FirstLight.Game.Presenters
 		{
 			_indicatorContainerView.OnUpdate(callback.Game.Frames.Predicted);
 		}
-		
+
 		private void OnMatchSimulationStartedMessage(MatchSimulationStartedMessage msg)
 		{
 			_indicatorContainerView.InstantiateAllIndicators();
@@ -221,8 +222,8 @@ namespace FirstLight.Game.Presenters
 		{
 			if (!msg.IsResync)
 			{
-				MMVibrationManager.ContinuousHaptic(GameConstants.Haptics.GAME_START_INTENSITY, 
-													GameConstants.Haptics.GAME_START_SHARPNESS, 
+				MMVibrationManager.ContinuousHaptic(GameConstants.Haptics.GAME_START_INTENSITY,
+													GameConstants.Haptics.GAME_START_SHARPNESS,
 													GameConstants.Haptics.GAME_START_DURATION);
 			}
 
@@ -232,12 +233,12 @@ namespace FirstLight.Game.Presenters
 			}
 
 			var localPlayer = msg.Game.GetLocalPlayerData(false, out var f);
-			
+
 			if (!localPlayer.Entity.IsAlive(f))
 			{
 				return;
 			}
-			
+
 			Init(f, localPlayer.Entity);
 
 			if (f.Get<AIBlackboardComponent>(localPlayer.Entity).GetBoolean(f, Constants.IsSkydiving))
@@ -258,7 +259,7 @@ namespace FirstLight.Game.Presenters
 		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
 		{
 			var f = callback.Game.Frames.Predicted;
-			
+
 			if (callback.HasRespawned)
 			{
 				_weaponSlotsHolder.SetActive(f.Context.GameModeConfig.ShowWeaponSlots);
@@ -272,10 +273,10 @@ namespace FirstLight.Game.Presenters
 		private void OnWeaponChanged(EventOnLocalPlayerWeaponChanged callback)
 		{
 			var playerView = _matchServices.EntityViewUpdaterService.GetManualView(callback.Entity);
-			
+
 			_indicatorContainerView.SetupWeaponInfo(callback.Game.Frames.Verified, callback.WeaponSlot.Weapon.GameId);
 			SetupSpecialsInput(callback.Game.Frames.Verified.Time, callback.WeaponSlot, playerView);
-			
+
 			for (var i = 0; i < _slots.Length; i++)
 			{
 				_slots[i].SetSelected(i == callback.Slot);
@@ -285,7 +286,7 @@ namespace FirstLight.Game.Presenters
 		private void OnLocalPlayerSkydiveDrop(EventOnLocalPlayerSkydiveDrop callback)
 		{
 			var input = _services.PlayerInputService.Input.Gameplay;
-			
+
 			input.SpecialButton0.Disable();
 			input.SpecialButton1.Disable();
 			input.Aim.Disable();
@@ -303,9 +304,9 @@ namespace FirstLight.Game.Presenters
 			{
 				go.SetActive(true);
 			}
-			
+
 			var input = _services.PlayerInputService.Input.Gameplay;
-			
+
 			for (var i = 0; i < _specialButtons.Length; i++)
 			{
 				if (_specialButtons[i].SpecialId != GameId.Random)
@@ -313,7 +314,7 @@ namespace FirstLight.Game.Presenters
 					input.GetSpecialButton(i).Enable();
 				}
 			}
-			
+
 			input.Aim.Enable();
 			input.AimButton.Enable();
 		}
@@ -344,12 +345,12 @@ namespace FirstLight.Game.Presenters
 			var frame = callback.Game.Frames.Predicted;
 
 			// Disables the input until the cooldown is off
-			if (frame.TryGet<PlayerCharacter>(callback.Entity, out var playerCharacter) && 
-			    playerCharacter.WeaponSlot->Specials[callback.SpecialIndex].Charges == 1)
+			if (frame.TryGet<PlayerCharacter>(callback.Entity, out var playerCharacter) &&
+				playerCharacter.WeaponSlot->Specials[callback.SpecialIndex].Charges == 1)
 			{
 				inputButton.Disable();
 			}
-			
+
 			button.SpecialUpdate(frame.Time, callback.Special)?.OnComplete(inputButton.Enable);
 			button.SpecialUpdate(frame.Time, callback.Special)?.OnComplete(inputButton.Enable);
 		}
@@ -357,7 +358,7 @@ namespace FirstLight.Game.Presenters
 		private void OnLocalPlayerWeaponAdded(EventOnLocalPlayerWeaponAdded callback)
 		{
 			_slots[callback.WeaponSlotNumber].SetEquipment(callback.Weapon);
-			
+
 			var frame = callback.Game.Frames.Verified;
 			var playerCharacter = frame.Get<PlayerCharacter>(callback.Entity);
 			SetupGunSwitchButton(playerCharacter.WeaponSlots);
@@ -382,18 +383,18 @@ namespace FirstLight.Game.Presenters
 			var damagePercentOfStat = damage / maximumOfRelevantStat;
 
 			var intensity = Mathf.Lerp(GameConstants.Haptics.DAMAGE_INTENSITY_MIN,
-			                           GameConstants.Haptics.DAMAGE_INTENSITY_MAX, damagePercentOfStat);
+									   GameConstants.Haptics.DAMAGE_INTENSITY_MAX, damagePercentOfStat);
 
 			// Sharpness is only used in iOS vibrations
 			var sharpness = Mathf.Lerp(GameConstants.Haptics.IOS_DAMAGE_SHARPNESS_MIN,
-			                           GameConstants.Haptics.IOS_DAMAGE_SHARPNESS_MAX, damagePercentOfStat);
+									   GameConstants.Haptics.IOS_DAMAGE_SHARPNESS_MAX, damagePercentOfStat);
 
 			MMVibrationManager.ContinuousHaptic(intensity, sharpness, GameConstants.Haptics.DAMAGE_DURATION);
 		}
 
 		private void SetupGunSwitchButton(FixedArray<WeaponSlot> weaponSlots)
 		{
-			_gunSwitchButton.SetActive(weaponSlots[1].Weapon.IsValid() && weaponSlots[2].Weapon.IsValid());
+			_gunSwitchButton.SetActive(weaponSlots[1].Weapon.IsValid() || weaponSlots[2].Weapon.IsValid());
 		}
 		
 		private void SetupSpecialsInput(FP currentTime, WeaponSlot weaponSlot, EntityView playerView)

@@ -22,7 +22,6 @@ namespace FirstLight.Game.Views
 		private Label _rankNumber;
 		private Label _playerName;
 		private Label _kills;
-		private Label _deaths;
 		private Label _trophies;
 		
 		public void Attached(VisualElement element)
@@ -33,7 +32,6 @@ namespace FirstLight.Game.Views
 			_rankNumber = _root.Q<Label>("RankNumber").Required();
 			_playerName = _root.Q<Label>("PlayerName").Required();
 			_kills = _root.Q<Label>("Kills").Required();
-			_deaths = _root.Q<Label>("Deaths").Required();
 			_trophies = _root.Q<Label>("TrophiesAmount").Required();
 		}
 		
@@ -42,13 +40,13 @@ namespace FirstLight.Game.Views
 		/// </summary>
 		/// <param name="data">All the match data from the player we're showing</param>
 		/// <param name="isLocalPlayer">If this is the local player</param>
-		public void SetData(QuantumPlayerMatchData data, bool isLocalPlayer)
+		public void SetData(int rank, string playerName, int playerKilledCount, int playerTrophies, bool isLocalPlayer)
 		{
 			_leaderboardEntry.RemoveModifiers();
 			
-			if (data.PlayerRank <= 3)
+			if (rank <= 3)
 			{
-				var rankClass = data.PlayerRank switch
+				var rankClass = rank switch
 				{
 					1 => UssLeaderboardEntryFirst,
 					2 => UssLeaderboardEntrySecond,
@@ -60,7 +58,7 @@ namespace FirstLight.Game.Views
 			}
 			else
 			{
-				_rankNumber.text = $"{data.PlayerRank.ToString()}.";
+				_rankNumber.text = $"{rank.ToString()}.";
 			}
 
 			if (isLocalPlayer)
@@ -68,12 +66,11 @@ namespace FirstLight.Game.Views
 				_leaderboardEntry.AddToClassList(UssLeaderboardEntryLocal);
 			}
 
-			_playerName.text = data.GetPlayerName();
-			_kills.text = data.Data.PlayersKilledCount.ToString();
-			_deaths.text = data.Data.DeathCount.ToString();
-			_trophies.text = data.Data.PlayerTrophies.ToString();
+			_playerName.text = playerName;
+			_kills.text = playerKilledCount.ToString();
+			_trophies.text = playerTrophies.ToString();
 
-			var delayTime = 0.3f + data.PlayerRank * 0.1f;
+			var delayTime = 0.3f + rank * 0.1f;
 
 			_leaderboardEntry.style.transitionDelay = new List<TimeValue>
 			{

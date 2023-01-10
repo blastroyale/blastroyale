@@ -12307,11 +12307,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 537133
+          RawValue: 597688
         Y:
           RawValue: 0
         Z:
-          RawValue: -1775370
+          RawValue: -1688207
       Rotation:
         X:
           RawValue: 0
@@ -12657,11 +12657,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -1136132
+          RawValue: -1237319
         Y:
           RawValue: 0
         Z:
-          RawValue: 4289724
+          RawValue: 4199547
       Rotation:
         X:
           RawValue: 0
@@ -13007,11 +13007,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 4452253
+          RawValue: 3463970
         Y:
           RawValue: 0
         Z:
-          RawValue: -375390
+          RawValue: -396361
       Rotation:
         X:
           RawValue: 0
@@ -13217,11 +13217,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 1851654
+          RawValue: 1474822
         Y:
           RawValue: 0
         Z:
-          RawValue: -6089212
+          RawValue: -6155665
       Rotation:
         X:
           RawValue: 0
@@ -13357,11 +13357,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -2697986
+          RawValue: -2490368
         Y:
           RawValue: 0
         Z:
-          RawValue: -4154982
+          RawValue: -3791126
       Rotation:
         X:
           RawValue: 0
@@ -13427,11 +13427,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -3265265
+          RawValue: -2233466
         Y:
           RawValue: 0
         Z:
-          RawValue: 2337800
+          RawValue: 2458910
       Rotation:
         X:
           RawValue: 0
@@ -13497,11 +13497,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -3718250
+          RawValue: -3864002
         Y:
           RawValue: 0
         Z:
-          RawValue: -1115160
+          RawValue: -1342177
       Rotation:
         X:
           RawValue: 0
@@ -13567,11 +13567,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -5653397
+          RawValue: -5359796
         Y:
           RawValue: 0
         Z:
-          RawValue: 3505389
+          RawValue: 3392667
       Rotation:
         X:
           RawValue: 0
@@ -13707,11 +13707,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 2569011
+          RawValue: 3013083
         Y:
           RawValue: 0
         Z:
-          RawValue: -907018
+          RawValue: -975700
       Rotation:
         X:
           RawValue: 0
@@ -13777,11 +13777,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 807403
+          RawValue: 912261
         Y:
           RawValue: 0
         Z:
-          RawValue: 2726297
+          RawValue: 2422210
       Rotation:
         X:
           RawValue: 0
@@ -13847,11 +13847,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 419430
+          RawValue: 272629
         Y:
           RawValue: 0
         Z:
-          RawValue: 6684672
+          RawValue: 6118441
       Rotation:
         X:
           RawValue: 0
@@ -13987,11 +13987,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 1883766
+          RawValue: 1651507
         Y:
           RawValue: 0
         Z:
-          RawValue: 6139937
+          RawValue: 6092226
       Rotation:
         X:
           RawValue: 0
@@ -14267,11 +14267,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -4168089
+          RawValue: -3989831
         Y:
           RawValue: 0
         Z:
-          RawValue: 4860149
+          RawValue: 4823449
       Rotation:
         X:
           RawValue: 0
@@ -14547,11 +14547,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -6841958
+          RawValue: -6902251
         Y:
           RawValue: 0
         Z:
-          RawValue: 3198156
+          RawValue: 2880438
       Rotation:
         X:
           RawValue: 0
@@ -15037,11 +15037,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -5782897
+          RawValue: -5792858
         Y:
           RawValue: 0
         Z:
-          RawValue: -2243952
+          RawValue: -2239234
       Rotation:
         X:
           RawValue: 0
@@ -15107,11 +15107,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -4131389
+          RawValue: -4262461
         Y:
           RawValue: 0
         Z:
-          RawValue: -1829765
+          RawValue: -2060451
       Rotation:
         X:
           RawValue: 0
@@ -15177,11 +15177,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -3334471
+          RawValue: -3166699
         Y:
           RawValue: 0
         Z:
-          RawValue: -2175795
+          RawValue: -1976565
       Rotation:
         X:
           RawValue: 0
@@ -15317,11 +15317,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -4755292
+          RawValue: -4807721
         Y:
           RawValue: 0
         Z:
-          RawValue: -3659530
+          RawValue: -3318743
       Rotation:
         X:
           RawValue: 0
@@ -15387,11 +15387,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -3481272
+          RawValue: -3029860
         Y:
           RawValue: 0
         Z:
-          RawValue: -3538944
+          RawValue: -3400007
       Rotation:
         X:
           RawValue: 0
@@ -15597,11 +15597,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -1153433
+          RawValue: -1389363
         Y:
           RawValue: 0
         Z:
-          RawValue: -5342495
+          RawValue: -5557453
       Rotation:
         X:
           RawValue: 0
@@ -15947,11 +15947,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -2264924
+          RawValue: -2144338
         Y:
           RawValue: 0
         Z:
-          RawValue: -1462763
+          RawValue: -2238709
       Rotation:
         X:
           RawValue: 0
@@ -16017,11 +16017,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -781189
+          RawValue: -665845
         Y:
           RawValue: 0
         Z:
-          RawValue: -230686
+          RawValue: -20971
       Rotation:
         X:
           RawValue: 0
@@ -16787,11 +16787,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 3226992
+          RawValue: 3365928
         Y:
           RawValue: 0
         Z:
-          RawValue: 3706192
+          RawValue: 3512729
       Rotation:
         X:
           RawValue: 0
@@ -16857,11 +16857,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 4299161
+          RawValue: 4508877
         Y:
           RawValue: 0
         Z:
-          RawValue: 2831155
+          RawValue: 3004170
       Rotation:
         X:
           RawValue: 0
@@ -17067,11 +17067,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 256901
+          RawValue: 262144
         Y:
           RawValue: 0
         Z:
-          RawValue: 4854907
+          RawValue: 5148508
       Rotation:
         X:
           RawValue: 0
@@ -17137,11 +17137,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 5242
+          RawValue: 152043
         Y:
           RawValue: 0
         Z:
-          RawValue: 3732930
+          RawValue: 3890216
       Rotation:
         X:
           RawValue: 0
@@ -18117,11 +18117,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 4616356
+          RawValue: 4314366
         Y:
           RawValue: 0
         Z:
-          RawValue: 1977220
+          RawValue: 2239758
       Rotation:
         X:
           RawValue: 0
@@ -20584,8 +20584,7 @@ MonoBehaviour:
     PhysicsJoints3D: []
   - AIBlackboardComponent: []
     AirDrop: []
-    AirDropSpawner:
-    - _empty_prototype_dummy_field_: 0
+    AirDropSpawner: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
@@ -20607,7 +20606,9 @@ MonoBehaviour:
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
-    PlayerSpawner: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -20636,11 +20637,1831 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 1147142
+          RawValue: -377487
         Y:
           RawValue: 0
         Z:
-          RawValue: -2830631
+          RawValue: -665845
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -1420820
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -901775
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -786432
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -1546649
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 550502
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -372244
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 1494220
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 424673
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 927989
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 1426063
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -3077570
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 2369781
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -2773483
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 6102712
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -4320133
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 5305794
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -5902958
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 3935830
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -6266814
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 3363307
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -7269777
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 2052063
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -6274154
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 368574
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -2443182
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -1609564
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -4902093
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -1751122
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -5258609
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -2915041
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -3140485
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -5132779
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -4325376
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -5573181
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 1452277
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -5316280
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 6123684
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -1620049
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 5090836
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -2595225
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 4833935
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -3491758
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 3759144
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -3822059
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 2254438
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -1352663
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 4702863
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 293601
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 4115660
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -1452277
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 193986
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 6773801
       Rotation:
         X:
           RawValue: 0
@@ -20705,11 +22526,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 504365
+          RawValue: 1142423
         Y:
           RawValue: 0
         Z:
-          RawValue: -1758986
+          RawValue: -2887254
       Rotation:
         X:
           RawValue: 0
@@ -20774,11 +22595,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -5470945
+          RawValue: 603455
         Y:
           RawValue: 0
         Z:
-          RawValue: -1033895
+          RawValue: -1807745
       Rotation:
         X:
           RawValue: 0
@@ -20843,11 +22664,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -5009047
+          RawValue: -5379195
         Y:
           RawValue: 0
         Z:
-          RawValue: -4433903
+          RawValue: -1588592
       Rotation:
         X:
           RawValue: 0
@@ -20912,11 +22733,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -2025062
+          RawValue: -4451205
         Y:
           RawValue: 0
         Z:
-          RawValue: -5770445
+          RawValue: -4650434
       Rotation:
         X:
           RawValue: 0
@@ -20981,11 +22802,80 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -6440878
+          RawValue: -2168455
         Y:
           RawValue: 0
         Z:
-          RawValue: 1955594
+          RawValue: -5920784
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner:
+    - _empty_prototype_dummy_field_: 0
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -6696731
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 1946157
       Rotation:
         X:
           RawValue: 0
@@ -21054,7 +22944,7 @@ MonoBehaviour:
         Y:
           RawValue: 0
         Z:
-          RawValue: 4289724
+          RawValue: 4334813
       Rotation:
         X:
           RawValue: 0
@@ -21119,11 +23009,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 1767374
+          RawValue: 1730150
         Y:
           RawValue: 0
         Z:
-          RawValue: 5429526
+          RawValue: 5227151
       Rotation:
         X:
           RawValue: 0
@@ -21188,11 +23078,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 1505230
+          RawValue: 1399324
         Y:
           RawValue: 0
         Z:
-          RawValue: 4079484
+          RawValue: 3770155
       Rotation:
         X:
           RawValue: 0
@@ -21257,11 +23147,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -76021
+          RawValue: -128974
         Y:
           RawValue: 0
         Z:
-          RawValue: 2164785
+          RawValue: 1783627
       Rotation:
         X:
           RawValue: 0
@@ -21326,11 +23216,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 6149898
+          RawValue: 6035079
         Y:
           RawValue: 0
         Z:
-          RawValue: 2558525
+          RawValue: 2317877
       Rotation:
         X:
           RawValue: 0
@@ -21395,80 +23285,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 4452253
+          RawValue: 4633657
         Y:
           RawValue: 0
         Z:
-          RawValue: -375390
-      Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 2621439
-        Z:
-          RawValue: 0
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
-  - AIBlackboardComponent: []
-    AirDrop: []
-    AirDropSpawner:
-    - _empty_prototype_dummy_field_: 0
-    AlivePlayerCharacter: []
-    BTAgent: []
-    BotCharacter: []
-    Chest: []
-    Collectable: []
-    CollectablePlatformSpawner: []
-    CompoundBTAgent: []
-    Consumable: []
-    DeadPlayerCharacter: []
-    Destructible: []
-    DummyCharacter: []
-    EntityDestroyer: []
-    EquipmentCollectable: []
-    GOAPAgent: []
-    GameContainer: []
-    HFSMAgent: []
-    Hazard: []
-    Immunity: []
-    Invisibility: []
-    PlayerCharacter: []
-    PlayerCharging: []
-    PlayerSpawner: []
-    Projectile: []
-    Rage: []
-    RaycastShots: []
-    Regeneration: []
-    ShrinkingCircle: []
-    Spell: []
-    Star: []
-    Stats: []
-    Stun: []
-    Targetable: []
-    UTAgent: []
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D: []
-    PhysicsBody3D: []
-    PhysicsCollider2D: []
-    PhysicsCollider3D: []
-    PhysicsCallbacks2D: []
-    PhysicsCallbacks3D: []
-    Transform2D: []
-    Transform2DVertical: []
-    Transform3D:
-    - Position:
-        X:
-          RawValue: 4350542
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: -4598530
+          RawValue: -222822
       Rotation:
         X:
           RawValue: 0
@@ -21533,11 +23354,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 5754585
+          RawValue: 4776263
         Y:
           RawValue: 0
         Z:
-          RawValue: -3254255
+          RawValue: -4367319
       Rotation:
         X:
           RawValue: 0
@@ -21602,11 +23423,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 1851654
+          RawValue: 5777653
         Y:
           RawValue: 0
         Z:
-          RawValue: -6089212
+          RawValue: -2993684
       Rotation:
         X:
           RawValue: 0
@@ -21671,11 +23492,80 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 4822401
+          RawValue: 1873805
         Y:
           RawValue: 0
         Z:
-          RawValue: 3813146
+          RawValue: -6074925
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner:
+    - _empty_prototype_dummy_field_: 0
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 4970250
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 3640656
       Rotation:
         X:
           RawValue: 0
@@ -21744,7 +23634,7 @@ MonoBehaviour:
         Y:
           RawValue: 0
         Z:
-          RawValue: -4154982
+          RawValue: -3934257
       Rotation:
         X:
           RawValue: 0
@@ -21809,11 +23699,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -3265265
+          RawValue: -3331326
         Y:
           RawValue: 0
         Z:
-          RawValue: 2337800
+          RawValue: 2256011
       Rotation:
         X:
           RawValue: 0
@@ -22085,11 +23975,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 2569011
+          RawValue: 2662858
         Y:
           RawValue: 0
         Z:
-          RawValue: -907018
+          RawValue: -882376
       Rotation:
         X:
           RawValue: 0
@@ -22292,11 +24182,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 1195376
+          RawValue: 1174405
         Y:
           RawValue: 0
         Z:
-          RawValue: 7077888
+          RawValue: 7146045
       Rotation:
         X:
           RawValue: 0
@@ -22430,11 +24320,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -398458
+          RawValue: -268435
         Y:
           RawValue: 0
         Z:
-          RawValue: 5725225
+          RawValue: 5798101
       Rotation:
         X:
           RawValue: 0
@@ -22499,11 +24389,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -1949827
+          RawValue: -2055733
         Y:
           RawValue: 0
         Z:
-          RawValue: 6189744
+          RawValue: 6324486
       Rotation:
         X:
           RawValue: 0
@@ -22568,11 +24458,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -3502244
+          RawValue: -3672113
         Y:
           RawValue: 0
         Z:
-          RawValue: 5740953
+          RawValue: 5820645
       Rotation:
         X:
           RawValue: 0
@@ -22706,11 +24596,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -3166699
+          RawValue: -3257401
         Y:
           RawValue: 0
         Z:
-          RawValue: 3507486
+          RawValue: 3304587
       Rotation:
         X:
           RawValue: 0
@@ -22775,11 +24665,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -4702863
+          RawValue: -4692377
         Y:
           RawValue: 0
         Z:
-          RawValue: 3675258
+          RawValue: 3989307
       Rotation:
         X:
           RawValue: 0
@@ -22913,7 +24803,7 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -6841958
+          RawValue: -6858211
         Y:
           RawValue: 0
         Z:
@@ -22982,11 +24872,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -6218055
+          RawValue: -6326059
         Y:
           RawValue: 0
         Z:
-          RawValue: 1011875
+          RawValue: 1155530
       Rotation:
         X:
           RawValue: 0
@@ -23051,11 +24941,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -4854907
+          RawValue: -4693950
         Y:
           RawValue: 0
         Z:
-          RawValue: 1279262
+          RawValue: 1129316
       Rotation:
         X:
           RawValue: 0
@@ -23120,11 +25010,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -3717202
+          RawValue: -3935830
         Y:
           RawValue: 0
         Z:
-          RawValue: 1242562
+          RawValue: 1224736
       Rotation:
         X:
           RawValue: 0
@@ -23189,11 +25079,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -3124756
+          RawValue: -3192389
         Y:
           RawValue: 0
         Z:
-          RawValue: 650117
+          RawValue: 499646
       Rotation:
         X:
           RawValue: 0
@@ -23258,7 +25148,7 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -4812964
+          RawValue: -4585947
         Y:
           RawValue: 0
         Z:
@@ -23327,11 +25217,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -5883167
+          RawValue: -6017777
         Y:
           RawValue: 0
         Z:
-          RawValue: -101580
+          RawValue: -110624
       Rotation:
         X:
           RawValue: 0
@@ -23396,11 +25286,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -5782897
+          RawValue: -5657592
         Y:
           RawValue: 0
         Z:
-          RawValue: -2243952
+          RawValue: -2434793
       Rotation:
         X:
           RawValue: 0
@@ -23603,11 +25493,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -4177920
+          RawValue: -4630511
         Y:
           RawValue: 0
         Z:
-          RawValue: -2833121
+          RawValue: -2844262
       Rotation:
         X:
           RawValue: 0
@@ -23672,11 +25562,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -4755292
+          RawValue: -4708106
         Y:
           RawValue: 0
         Z:
-          RawValue: -3659530
+          RawValue: -3654287
       Rotation:
         X:
           RawValue: 0
@@ -23741,11 +25631,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -3481272
+          RawValue: -3662151
         Y:
           RawValue: 0
         Z:
-          RawValue: -3538944
+          RawValue: -3479175
       Rotation:
         X:
           RawValue: 0
@@ -23810,11 +25700,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -3664773
+          RawValue: -3046113
         Y:
           RawValue: 0
         Z:
-          RawValue: -4645191
+          RawValue: -4634706
       Rotation:
         X:
           RawValue: 0
@@ -24017,7 +25907,7 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 713031
+          RawValue: 398458
         Y:
           RawValue: 0
         Z:
@@ -24090,7 +25980,7 @@ MonoBehaviour:
         Y:
           RawValue: 0
         Z:
-          RawValue: -4624220
+          RawValue: -4807721
       Rotation:
         X:
           RawValue: 0
@@ -24155,11 +26045,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 146800
+          RawValue: 1346371
         Y:
           RawValue: 0
         Z:
-          RawValue: -3397386
+          RawValue: -3609722
       Rotation:
         X:
           RawValue: 0
@@ -24224,11 +26114,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -1326448
+          RawValue: -1377304
         Y:
           RawValue: 0
         Z:
-          RawValue: -2799698
+          RawValue: -2890399
       Rotation:
         X:
           RawValue: 0
@@ -24293,11 +26183,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -2264924
+          RawValue: -2285895
         Y:
           RawValue: 0
         Z:
-          RawValue: -1462763
+          RawValue: -1426063
       Rotation:
         X:
           RawValue: 0
@@ -24431,11 +26321,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 2364538
+          RawValue: 2324693
         Y:
           RawValue: 0
         Z:
-          RawValue: -2532311
+          RawValue: -2479358
       Rotation:
         X:
           RawValue: 0
@@ -24500,11 +26390,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 2778726
+          RawValue: 2745696
         Y:
           RawValue: 0
         Z:
-          RawValue: -3764388
+          RawValue: -3872391
       Rotation:
         X:
           RawValue: 0
@@ -24569,11 +26459,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 6191841
+          RawValue: 6218055
         Y:
           RawValue: 0
         Z:
-          RawValue: -2039480
+          RawValue: -2312110
       Rotation:
         X:
           RawValue: 0
@@ -24638,11 +26528,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 5300551
+          RawValue: 5326766
         Y:
           RawValue: 0
         Z:
-          RawValue: -1069547
+          RawValue: -1237319
       Rotation:
         X:
           RawValue: 0
@@ -24707,11 +26597,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 3238133
+          RawValue: 3488088
         Y:
           RawValue: 0
         Z:
-          RawValue: 346685
+          RawValue: 637534
       Rotation:
         X:
           RawValue: 0
@@ -24845,11 +26735,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 7130317
+          RawValue: 6937379
         Y:
           RawValue: 0
         Z:
-          RawValue: 2458910
+          RawValue: 2498756
       Rotation:
         X:
           RawValue: 0
@@ -24914,11 +26804,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 6836715
+          RawValue: 6451364
         Y:
           RawValue: 0
         Z:
-          RawValue: 1641021
+          RawValue: 1345323
       Rotation:
         X:
           RawValue: 0
@@ -24983,11 +26873,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 3801088
+          RawValue: 4041736
         Y:
           RawValue: 0
         Z:
-          RawValue: 2217738
+          RawValue: 2011168
       Rotation:
         X:
           RawValue: 0
@@ -25052,11 +26942,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 2915041
+          RawValue: 3257925
         Y:
           RawValue: 0
         Z:
-          RawValue: 1546649
+          RawValue: 1607991
       Rotation:
         X:
           RawValue: 0
@@ -25121,11 +27011,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 3226992
+          RawValue: 3187671
         Y:
           RawValue: 0
         Z:
-          RawValue: 3706192
+          RawValue: 3690987
       Rotation:
         X:
           RawValue: 0
@@ -25190,11 +27080,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 4299161
+          RawValue: 4330619
         Y:
           RawValue: 0
         Z:
-          RawValue: 2831155
+          RawValue: 2815426
       Rotation:
         X:
           RawValue: 0
@@ -25263,7 +27153,7 @@ MonoBehaviour:
         Y:
           RawValue: 0
         Z:
-          RawValue: 3753902
+          RawValue: 4094689
       Rotation:
         X:
           RawValue: 0
@@ -25332,7 +27222,7 @@ MonoBehaviour:
         Y:
           RawValue: 0
         Z:
-          RawValue: 4991221
+          RawValue: 5127537
       Rotation:
         X:
           RawValue: 0
@@ -25397,11 +27287,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 256901
+          RawValue: 251658
         Y:
           RawValue: 0
         Z:
-          RawValue: 4854907
+          RawValue: 4865393
       Rotation:
         X:
           RawValue: 0
@@ -25673,11 +27563,1529 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -3051356
+          RawValue: -3321888
         Y:
           RawValue: 0
         Z:
-          RawValue: -529530
+          RawValue: -494403
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner:
+    - _empty_prototype_dummy_field_: 0
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 4455399
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -2130706
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner:
+    - _empty_prototype_dummy_field_: 0
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 2967470
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -1887436
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner:
+    - _empty_prototype_dummy_field_: 0
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -508559
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -3171942
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner:
+    - _empty_prototype_dummy_field_: 0
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -1121976
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -6574571
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner:
+    - _empty_prototype_dummy_field_: 0
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -2448425
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -2920284
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner:
+    - _empty_prototype_dummy_field_: 0
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -5913969
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -3072327
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner:
+    - _empty_prototype_dummy_field_: 0
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -5332009
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -3659530
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner:
+    - _empty_prototype_dummy_field_: 0
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -4692902
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -1095237
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner:
+    - _empty_prototype_dummy_field_: 0
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 429916
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -665845
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner:
+    - _empty_prototype_dummy_field_: 0
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 660602
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 1436549
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner:
+    - _empty_prototype_dummy_field_: 0
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 2516582
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 2605711
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner:
+    - _empty_prototype_dummy_field_: 0
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -1808793
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 5499781
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner:
+    - _empty_prototype_dummy_field_: 0
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -1992294
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 4718592
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner:
+    - _empty_prototype_dummy_field_: 0
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -2191523
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 3643801
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner:
+    - _empty_prototype_dummy_field_: 0
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -2752512
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 5982126
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner:
+    - _empty_prototype_dummy_field_: 0
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -5971640
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 450887
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner:
+    - _empty_prototype_dummy_field_: 0
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -260046
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 787480
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner:
+    - _empty_prototype_dummy_field_: 0
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 2926575
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 5242
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner:
+    - _empty_prototype_dummy_field_: 0
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -90701
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -4076339
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner:
+    - _empty_prototype_dummy_field_: 0
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -969932
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -4293919
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner:
+    - _empty_prototype_dummy_field_: 0
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -4225761
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 5674369
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner:
+    - _empty_prototype_dummy_field_: 0
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner: []
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -5306319
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 4724359
       Rotation:
         X:
           RawValue: 0
@@ -25829,11 +29237,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 270008
+          RawValue: 227541
         Y:
           RawValue: 0
         Z:
-          RawValue: 2624061
+          RawValue: 2715811
       Rotation:
         X:
           RawValue: 0
@@ -25907,11 +29315,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 1921515
+          RawValue: 1938817
         Y:
           RawValue: 0
         Z:
-          RawValue: 2987786
+          RawValue: 3021996
       Rotation:
         X:
           RawValue: 0
@@ -26141,11 +29549,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -3291873
+          RawValue: -3323986
         Y:
           RawValue: 0
         Z:
-          RawValue: 5157028
+          RawValue: 5148508
       Rotation:
         X:
           RawValue: 0
@@ -26375,11 +29783,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -7191265
+          RawValue: -7151288
         Y:
           RawValue: 0
         Z:
-          RawValue: 2083389
+          RawValue: 2175795
       Rotation:
         X:
           RawValue: 0
@@ -26453,11 +29861,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -5982126
+          RawValue: -6005195
         Y:
           RawValue: 0
         Z:
-          RawValue: 828375
+          RawValue: 772276
       Rotation:
         X:
           RawValue: 0
@@ -26535,7 +29943,7 @@ MonoBehaviour:
         Y:
           RawValue: 0
         Z:
-          RawValue: 2555248
+          RawValue: 2518679
       Rotation:
         X:
           RawValue: 0
@@ -26609,11 +30017,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -2131886
+          RawValue: -2202009
         Y:
           RawValue: 0
         Z:
-          RawValue: 1310064
+          RawValue: 1324875
       Rotation:
         X:
           RawValue: 0
@@ -26921,7 +30329,7 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -2187591
+          RawValue: -2149580
         Y:
           RawValue: 0
         Z:
@@ -27857,11 +31265,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -1774714
+          RawValue: -1840250
         Y:
           RawValue: 0
         Z:
-          RawValue: 3502244
+          RawValue: 3444572
       Rotation:
         X:
           RawValue: 0
@@ -28013,11 +31421,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -3128033
+          RawValue: -3174563
         Y:
           RawValue: 0
         Z:
-          RawValue: 389284
+          RawValue: 358088
       Rotation:
         X:
           RawValue: 0
@@ -32381,11 +35789,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -2600468
+          RawValue: -2677538
         Y:
           RawValue: 0
         Z:
-          RawValue: -4231004
+          RawValue: -4115660
       Rotation:
         X:
           RawValue: 0
@@ -32459,11 +35867,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -3491758
+          RawValue: -3448242
         Y:
           RawValue: 0
         Z:
-          RawValue: -3392143
+          RawValue: -3460300
       Rotation:
         X:
           RawValue: 0
@@ -32537,11 +35945,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -5549588
+          RawValue: -5564268
         Y:
           RawValue: 0
         Z:
-          RawValue: -2304245
+          RawValue: -2069889
       Rotation:
         X:
           RawValue: 0
@@ -32615,11 +36023,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -5746196
+          RawValue: -5755109
         Y:
           RawValue: 0
         Z:
-          RawValue: -1203240
+          RawValue: -1248329
       Rotation:
         X:
           RawValue: 0
@@ -32693,11 +36101,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -6086983
+          RawValue: -6082265
         Y:
           RawValue: 0
         Z:
-          RawValue: -2382888
+          RawValue: -2328887
       Rotation:
         X:
           RawValue: 0
@@ -32849,11 +36257,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -1060372
+          RawValue: -976224
         Y:
           RawValue: 0
         Z:
-          RawValue: -2474639
+          RawValue: -2531262
       Rotation:
         X:
           RawValue: 0
@@ -32927,11 +36335,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -5117051
+          RawValue: -5080351
         Y:
           RawValue: 0
         Z:
-          RawValue: -4807721
+          RawValue: -4723835
       Rotation:
         X:
           RawValue: 0
@@ -33005,11 +36413,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -896532
+          RawValue: -714604
         Y:
           RawValue: 0
         Z:
-          RawValue: -2540175
+          RawValue: -2724724
       Rotation:
         X:
           RawValue: 0
@@ -33161,11 +36569,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -3806330
+          RawValue: -3673686
         Y:
           RawValue: 0
         Z:
-          RawValue: -4198236
+          RawValue: -4281336
       Rotation:
         X:
           RawValue: 0
@@ -33239,11 +36647,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -6008340
+          RawValue: -5961154
         Y:
           RawValue: 0
         Z:
-          RawValue: -1793064
+          RawValue: -1866465
       Rotation:
         X:
           RawValue: 0
@@ -33395,11 +36803,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -44564
+          RawValue: -83886
         Y:
           RawValue: 0
         Z:
-          RawValue: -6698434
+          RawValue: -6679429
       Rotation:
         X:
           RawValue: 0
@@ -33551,11 +36959,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -5444731
+          RawValue: -5441061
         Y:
           RawValue: 0
         Z:
-          RawValue: -1150812
+          RawValue: -1256194
       Rotation:
         X:
           RawValue: 0
@@ -33629,11 +37037,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 199753
+          RawValue: 290455
         Y:
           RawValue: 0
         Z:
-          RawValue: -2991587
+          RawValue: -2949644
       Rotation:
         X:
           RawValue: 0
@@ -33785,11 +37193,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 1803550
+          RawValue: 1796210
         Y:
           RawValue: 0
         Z:
-          RawValue: -6246236
+          RawValue: -6301417
       Rotation:
         X:
           RawValue: 0
@@ -33863,11 +37271,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -978452
+          RawValue: -1064304
         Y:
           RawValue: 0
         Z:
-          RawValue: -5954601
+          RawValue: -6045041
       Rotation:
         X:
           RawValue: 0
@@ -36827,11 +40235,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 4608491
+          RawValue: 4446486
         Y:
           RawValue: 0
         Z:
-          RawValue: -508559
+          RawValue: -457703
       Rotation:
         X:
           RawValue: 0
@@ -36983,11 +40391,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 5307891
+          RawValue: 5332009
         Y:
           RawValue: 0
         Z:
-          RawValue: -4364697
+          RawValue: -4241490
       Rotation:
         X:
           RawValue: 0
@@ -37139,7 +40547,7 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 3677880
+          RawValue: 3696230
         Y:
           RawValue: 0
         Z:
@@ -37217,11 +40625,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 4752671
+          RawValue: 4626317
         Y:
           RawValue: 0
         Z:
-          RawValue: 2021130
+          RawValue: 2091909
       Rotation:
         X:
           RawValue: 0
@@ -37295,11 +40703,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 3808952
+          RawValue: 3659530
         Y:
           RawValue: 0
         Z:
-          RawValue: 3734896
+          RawValue: 3312451
       Rotation:
         X:
           RawValue: 0
@@ -37377,7 +40785,7 @@ MonoBehaviour:
         Y:
           RawValue: 0
         Z:
-          RawValue: 2130182
+          RawValue: 2086666
       Rotation:
         X:
           RawValue: 0
@@ -37451,11 +40859,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 5786042
+          RawValue: 5798625
         Y:
           RawValue: 0
         Z:
-          RawValue: 2818048
+          RawValue: 2797600
       Rotation:
         X:
           RawValue: 0
@@ -37529,11 +40937,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 3228958
+          RawValue: 3250585
         Y:
           RawValue: 0
         Z:
-          RawValue: 3102474
+          RawValue: 3082813
       Rotation:
         X:
           RawValue: 0
@@ -37607,11 +41015,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 4097310
+          RawValue: 4115660
         Y:
           RawValue: 0
         Z:
-          RawValue: 3135242
+          RawValue: 3030384
       Rotation:
         X:
           RawValue: 0
@@ -37685,11 +41093,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 6666321
+          RawValue: 6674186
         Y:
           RawValue: 0
         Z:
-          RawValue: 3043492
+          RawValue: 2983198
       Rotation:
         X:
           RawValue: 0
@@ -37919,11 +41327,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 2327838
+          RawValue: 2375024
         Y:
           RawValue: 0
         Z:
-          RawValue: -927989
+          RawValue: -859832
       Rotation:
         X:
           RawValue: 0
@@ -37997,11 +41405,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 4647813
+          RawValue: 4430233
         Y:
           RawValue: 0
         Z:
-          RawValue: 3843031
+          RawValue: 3822059
       Rotation:
         X:
           RawValue: 0
@@ -38075,11 +41483,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 5734138
+          RawValue: 5759303
         Y:
           RawValue: 0
         Z:
-          RawValue: -774897
+          RawValue: -1177550
       Rotation:
         X:
           RawValue: 0
@@ -38231,11 +41639,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 3088056
+          RawValue: 3171942
         Y:
           RawValue: 0
         Z:
-          RawValue: 933232
+          RawValue: 969932
       Rotation:
         X:
           RawValue: 0
@@ -38309,11 +41717,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 2852126
+          RawValue: 2904555
         Y:
           RawValue: 0
         Z:
-          RawValue: -3139829
+          RawValue: -3124756
       Rotation:
         X:
           RawValue: 0
@@ -38465,11 +41873,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 3294494
+          RawValue: 3287285
         Y:
           RawValue: 0
         Z:
-          RawValue: -2055208
+          RawValue: -2102394
       Rotation:
         X:
           RawValue: 0
@@ -38543,11 +41951,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 7069499
+          RawValue: 7046430
         Y:
           RawValue: 0
         Z:
-          RawValue: 1902641
+          RawValue: 1924137
       Rotation:
         X:
           RawValue: 0
@@ -40493,7 +43901,7 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 925368
+          RawValue: 836239
         Y:
           RawValue: 0
         Z:
@@ -40653,7 +44061,7 @@ MonoBehaviour:
         Y:
           RawValue: 0
         Z:
-          RawValue: -882639
+          RawValue: -813170
       Rotation:
         X:
           RawValue: 0
@@ -40731,7 +44139,7 @@ MonoBehaviour:
         Y:
           RawValue: 19084
         Z:
-          RawValue: -370672
+          RawValue: -346030
       Rotation:
         X:
           RawValue: 0
@@ -40805,11 +44213,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: 1526202
+          RawValue: 1471676
         Y:
           RawValue: 17825
         Z:
-          RawValue: -236453
+          RawValue: -256376
       Rotation:
         X:
           RawValue: 0
@@ -40883,11 +44291,11 @@ MonoBehaviour:
     Transform3D:
     - Position:
         X:
-          RawValue: -480378
+          RawValue: -465567
         Y:
           RawValue: 0
         Z:
-          RawValue: 592445
+          RawValue: 567803
       Rotation:
         X:
           RawValue: 0

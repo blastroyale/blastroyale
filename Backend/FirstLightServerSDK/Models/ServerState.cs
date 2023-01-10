@@ -67,7 +67,22 @@ namespace FirstLight.Server.SDK.Models
 					   : Activator.CreateInstance(type);
 		}
 
+		/// <summary>
+		/// Gets the server state in raw json string format
+		/// </summary>
+		public string GetRawJson<T>()
+		{
+			return this[typeof(T).FullName];
+		}
 
+		/// <summary>
+		/// Checks if there's specific model in server state
+		/// </summary>
+		public bool Has<T>()
+		{
+			return this.ContainsKey(typeof(T).FullName);
+		}
+		
 		/// <summary>
 		/// Generic wrapper of <see cref="DeserializeModel"/>
 		/// </summary>
@@ -84,13 +99,13 @@ namespace FirstLight.Server.SDK.Models
 		/// </summary>
 		public ServerState GetOnlyUpdatedState()
 		{
+			var newStateToUpdate = new ServerState();
 			var updatedTypes = _delta.GetModifiedTypes();
-			if (updatedTypes.Count() == 0)
+			if (!updatedTypes.Any())
 			{
-				return this;
+				return newStateToUpdate;
 			}
 			
-			var newStateToUpdate = new ServerState();
 			foreach (var updatedType in updatedTypes)
 			{
 				if (TryGetValue(updatedType.FullName, out var oldData))

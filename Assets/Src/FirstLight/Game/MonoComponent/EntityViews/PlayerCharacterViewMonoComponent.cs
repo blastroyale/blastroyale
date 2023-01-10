@@ -9,7 +9,7 @@ using FirstLight.Game.Utils;
 using Photon.Deterministic;
 using Quantum;
 using UnityEngine;
-using UnityEngine.Serialization;
+using LayerMask = UnityEngine.LayerMask;
 
 namespace FirstLight.Game.MonoComponent.EntityViews
 {
@@ -19,6 +19,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 	/// </remarks>
 	public class PlayerCharacterViewMonoComponent : AvatarViewBase
 	{
+
 		[SerializeField] private MatchCharacterViewMonoComponent _characterView;
 		[SerializeField] private AdventureVfxSpawnerMonoComponent[] _footstepVfxSpawners;
 		
@@ -28,7 +29,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private Coroutine _attackHideRendererCoroutine;
 		
-		public List<VisibilityVolumeMonoComponent> CollidingVisibilityVolumes { get; private set; }
+		public HashSet<VisibilityVolumeMonoComponent> CollidingVisibilityVolumes { get; private set; }
 
 		/// <summary>
 		/// Indicates if this is the local player
@@ -58,7 +59,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		{
 			base.OnAwake();
 
-			CollidingVisibilityVolumes = new List<VisibilityVolumeMonoComponent>();
+			CollidingVisibilityVolumes = new HashSet<VisibilityVolumeMonoComponent>();
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, HandleOnPlayerAlive);
 			QuantumEvent.Subscribe<EventOnPlayerAttack>(this, HandleOnPlayerAttack);
 			QuantumEvent.Subscribe<EventOnPlayerSpecialUsed>(this, HandleOnPlayerSpecialUsed);
@@ -97,6 +98,16 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 				_footstepVfxSpawners[i].CanSpawnVfx = active;
 			}
 		}
+
+		public void SetPlayerSilhouetteVisible(bool visible)
+		{
+			RenderersContainerProxy.SetRenderersLayer(LayerMask.NameToLayer(visible ? "Default Silhouette" : "Default"));
+
+			for (int i = 0; i < _footstepVfxSpawners.Length; i++)
+			{
+				_footstepVfxSpawners[i].CanSpawnVfx = visible;
+			}
+		}
 		
 		/// <summary>
 		/// Set's the player animation moving state based on the given <paramref name="isAiming"/> state
@@ -117,8 +128,16 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			
 			if (Services.NetworkService.IsJoiningNewMatch)
 			{
-				AnimatorWrapper.SetBool(Bools.Flying, frame.Context.GameModeConfig.SkydiveSpawn);
-				AnimatorWrapper.SetTrigger(EntityView.EntityRef.IsAlive(frame) ? Triggers.Spawn : Triggers.Die);
+				var isSkydiving = frame.Get<AIBlackboardComponent>(EntityView.EntityRef).GetBoolean(frame, Constants.IsSkydiving);
+
+				if (isSkydiving)
+				{
+					AnimatorWrapper.SetBool(Bools.Flying, frame.Context.GameModeConfig.SkydiveSpawn);
+				}
+				else
+				{
+					AnimatorWrapper.SetTrigger(EntityView.EntityRef.IsAlive(frame) ? Triggers.Spawn : Triggers.Die);	
+				}
 			}
 			else
 			{
@@ -159,14 +178,14 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 
 		private IEnumerator AttackWithinVisVolumeCoroutine()
 		{
-			SetRenderContainerVisible(true);
+			SetPlayerSilhouetteVisible(true);
 
 			yield return new WaitForSeconds(GameConstants.Visuals.GAMEPLAY_POST_ATTACK_HIDE_DURATION);
 			
 			if (CollidingVisibilityVolumes.Count > 0)
 			{
 				var visVolumeHasSpectatedPlayer = CollidingVisibilityVolumes.Any(visVolume => visVolume.VolumeHasSpectatedPlayer());
-				SetRenderContainerVisible(visVolumeHasSpectatedPlayer);
+				SetPlayerSilhouetteVisible(visVolumeHasSpectatedPlayer);
 			}
 		}
 

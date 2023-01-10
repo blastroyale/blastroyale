@@ -4,6 +4,8 @@ using FirstLight.Game.Commands;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.SDK.Services;
+using FirstLight.Server.SDK.Models;
+using FirstLight.Server.SDK.Modules.Commands;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using Photon.Deterministic.Protocol;
@@ -79,6 +81,8 @@ namespace FirstLight.Game.Logic
 		IRewardLogic RewardLogic { get; }
 		/// <inheritdoc cref="IBattlePassLogic"/>
 		IBattlePassLogic BattlePassLogic { get; }
+		/// <inheritdoc cref="ILiveopsLogic"/>
+		ILiveopsLogic LiveopsLogic { get; }
 	}
 
 	/// <inheritdoc cref="IGameLogic"/>
@@ -111,6 +115,8 @@ namespace FirstLight.Game.Logic
 		public IRewardDataProvider RewardDataProvider => RewardLogic;
 		/// <inheritdoc />
 		public IBattlePassDataProvider BattlePassDataProvider => BattlePassLogic;
+		/// <inheritdoc />
+		public ILiveopsDataProvider LiveopsDataProvider => LiveopsLogic;
 
 		/// <inheritdoc />
 		public IAppLogic AppLogic { get; }
@@ -132,7 +138,8 @@ namespace FirstLight.Game.Logic
 		public IRewardLogic RewardLogic { get; }
 		/// <inheritdoc />
 		public IBattlePassLogic BattlePassLogic { get; }
-
+		/// <inheritdoc />
+		public ILiveopsLogic LiveopsLogic { get; }
 		public GameLogic(IMessageBrokerService messageBroker, ITimeService timeService, IDataProvider dataProvider, 
 		                 IConfigsProvider configsProvider, IAudioFxService<AudioId> audioFxService)
 		{
@@ -149,6 +156,7 @@ namespace FirstLight.Game.Logic
 			EquipmentLogic = new EquipmentLogic(this, dataProvider);
 			RewardLogic = new RewardLogic(this, dataProvider);
 			BattlePassLogic = new BattlePassLogic(this, dataProvider);
+			LiveopsLogic = new LiveopsLogic(this, dataProvider);
 		}
 		
 		/// <summary>
@@ -174,6 +182,7 @@ namespace FirstLight.Game.Logic
 			(EquipmentLogic as IGameLogicInitializer).Init();
 			(RewardLogic as IGameLogicInitializer).Init();
 			(BattlePassLogic as IGameLogicInitializer).Init();
+			(LiveopsLogic as IGameLogicInitializer).Init();
 		}
 	}
 	
@@ -208,6 +217,8 @@ namespace FirstLight.Game.Logic
 			container.Add(logic.PlayerLogic);
 			container.Add(logic.BattlePassLogic);
 			container.Add(logic.EquipmentLogic);
+			container.Add(logic.UniqueIdLogic);
+			container.Add(logic.LiveopsLogic);
 			return container;
 		}
 
@@ -217,6 +228,8 @@ namespace FirstLight.Game.Logic
 		public static IPlayerLogic PlayerLogic(this LogicContainer c) => c.Get<IPlayerLogic>();
 		public static IBattlePassLogic BattlePassLogic(this LogicContainer c) => c.Get<IBattlePassLogic>();
 		public static IEquipmentLogic EquipmentLogic(this LogicContainer c) => c.Get<IEquipmentLogic>();
+		public static IUniqueIdLogic UniqueIdLogic(this LogicContainer c) => c.Get<IUniqueIdLogic>();
+		public static ILiveopsLogic LiveopsLogic(this LogicContainer c) => c.Get<ILiveopsLogic>();
 	}
 
 }

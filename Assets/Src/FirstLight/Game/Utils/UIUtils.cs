@@ -94,6 +94,23 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
+		/// Removes all sprite classes (the auto generated ones) from the element.
+		/// </summary>
+		/// <param name="element"></param>
+		public static void RemoveSpriteClasses(this VisualElement element)
+		{
+			var classes = element.GetClasses().ToList();
+
+			foreach (var clazz in classes)
+			{
+				if (clazz.StartsWith("sprite-"))
+				{
+					element.RemoveFromClassList(clazz);
+				}
+			}
+		}
+
+		/// <summary>
 		/// Localizes a string, assuming it's a key, and displays the key if localization isn't found.
 		/// </summary>
 		public static string LocalizeKey(this string key)

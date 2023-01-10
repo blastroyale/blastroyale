@@ -2,6 +2,8 @@ using FirstLight.SDK.Modules;
 using FirstLight.SDK.Services;
 using NSubstitute;
 using NUnit.Framework;
+using PlayFab;
+using System.Threading.Tasks;
 
 namespace Tests
 {
@@ -31,7 +33,7 @@ namespace Tests
 			_messageType1 = new MessageType1();
 			_messageType2 = new MessageType2();
 		}
-
+		
 		[Test]
 		public void Subscribe_Publish_Successfully()
 		{

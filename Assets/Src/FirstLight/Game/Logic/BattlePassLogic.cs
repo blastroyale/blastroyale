@@ -4,6 +4,7 @@ using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
+using FirstLight.Server.SDK.Models;
 using FirstLight.Services;
 using Quantum;
 using UnityEngine;
@@ -111,6 +112,12 @@ namespace FirstLight.Game.Logic
 			{
 				points -= currentLevelPoints;
 				level++;
+
+				if (level >= MaxLevel)
+				{
+					break;
+				}
+				
 				currentLevelPoints = GetRequiredPointsForLevel((int)level);
 			}
 
@@ -119,13 +126,30 @@ namespace FirstLight.Game.Logic
 
 		public uint GetRemainingPoints()
 		{
-			uint points = 0;	
-			for (uint i = MaxLevel - 1; i > _currentLevel.Value; i--)
+			var predictedProgress = GetPredictedLevelAndPoints();
+			var maxAvailablePoints = (uint)0;
+			var totalAccumulatedPoints = (uint)0;
+			
+			for (int i = 0; i < MaxLevel; i++)
 			{
-				points += GetRequiredPointsForLevel((int)i);
+				maxAvailablePoints += GetRequiredPointsForLevel(i);
 			}
 
-			return points;
+			for (int i = 0; i <= (int)predictedProgress.Item1; i++)
+			{
+				var ptsPerLevel = GetRequiredPointsForLevel(i);
+				
+				if (i < predictedProgress.Item1)
+				{
+					totalAccumulatedPoints += ptsPerLevel;
+				}
+				else
+				{
+					totalAccumulatedPoints += predictedProgress.Item2;
+				}
+			}
+			
+			return maxAvailablePoints - totalAccumulatedPoints;
 		}
 
 		public EquipmentRewardConfig GetRewardForLevel(uint level)
@@ -139,7 +163,7 @@ namespace FirstLight.Game.Logic
 		public bool IsRedeemable(int pointOverride = -1)
 		{
 			int points = pointOverride >= 0 ? pointOverride : (int) _currentPoints.Value;
-			return points >= GetRequiredPointsForLevel((int)_currentLevel.Value);
+			return _currentLevel.Value < MaxLevel && points >= GetRequiredPointsForLevel((int)_currentLevel.Value);
 		}
 
 		public void AddBPP(uint amount)
@@ -167,7 +191,7 @@ namespace FirstLight.Game.Logic
 
 			var currentPointsPerLevel = GetRequiredPointsForLevel((int)_currentLevel.Value);
 
-			while (points >= currentPointsPerLevel)
+			while (points >= currentPointsPerLevel && level < MaxLevel)
 			{
 				points -= currentPointsPerLevel;
 				level++;
@@ -204,6 +228,12 @@ namespace FirstLight.Game.Logic
 		public uint GetRequiredPointsForLevel(int desiredLevel)
 		{
 			var config = GameLogic.ConfigsProvider.GetConfig<BattlePassConfig>();
+
+			if (desiredLevel >= MaxLevel)
+			{
+				return 0;
+			}
+			
 			var levelConfig = config.Levels[desiredLevel];
 
 			//if the points for next is 0, then use default value, otherwise use custom level value

@@ -45,6 +45,10 @@ namespace BlastRoyaleNFTPlugin
 			{
 				await _ctx.PlayerMutex.Lock(playfabId);
 				var serverState = await _ctx.ServerState.GetPlayerState(playfabId);
+				if (!serverState.Has<PlayerData>())
+				{
+					return false;
+				}
 				var equipmentData = serverState.DeserializeModel<EquipmentData>();
 				var lastBlockchainUpdate = await RequestBlockchainLastUpdate(playfabId);
 				if (equipmentData.LastUpdateTimestamp >= lastBlockchainUpdate)
@@ -178,8 +182,10 @@ namespace BlastRoyaleNFTPlugin
 
 			nftEquipment.InsertionTimestamp = DateTime.UtcNow.Ticks;
 
+			// TODO: This should use EquipmentLogic.AddEquipment
 			equipmentData.Inventory.Add(nextId, equipment);
 			equipmentData.NftInventory.Add(nextId, nftEquipment);
+			idData.NewIds.Add(nextId);
 			idData.GameIds.Add(nextId, equipment.GameId);
 
 			var analytics = equipment.ToAnalyticsData();
@@ -201,6 +207,7 @@ namespace BlastRoyaleNFTPlugin
 			nftEquipment.Inventory.Remove(uniqueId);
 			nftEquipment.NftInventory.Remove(uniqueId);
 			idData.GameIds.Remove(uniqueId);
+			idData.NewIds.Remove(uniqueId);
 			
 			var analytics = equipment.ToAnalyticsData();
 			analytics["token_id"] = nftData.TokenId;
@@ -250,7 +257,6 @@ namespace BlastRoyaleNFTPlugin
 			equip.Tuning = Convert.ToUInt32(nft.tuning);
 			equip.InitialReplicationCounter = Convert.ToUInt32(nft.initialReplicationCounter);
 			equip.Level = Convert.ToUInt32(nft.level);
-			equip.MaxLevel = Convert.ToUInt32(nft.maxLevel);
 			equip.ReplicationCounter = Convert.ToUInt32(nft.replicationCount);
 			return equip;
 		}

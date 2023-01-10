@@ -43,10 +43,11 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _root;
 		private VisualElement _bppProgressBackground;
 		private VisualElement _bppProgressFill;
+		private VisualElement _nextLevelRoot;
 		private LocalizedButton _claimButton;
 		private Label _bppProgressLabel;
 		private Label _currentLevelLabel;
-		private Label _nextLevelLabel;
+		private Label _nextLevelValueLabel;
 		private ScreenHeaderElement _screenHeader;
 		
 		private IGameServices _services;
@@ -66,7 +67,7 @@ namespace FirstLight.Game.Presenters
 			
 		}
 		
-		protected override async void QueryElements(VisualElement root)
+		protected override void QueryElements(VisualElement root)
 		{
 			base.QueryElements(root);
 
@@ -74,10 +75,11 @@ namespace FirstLight.Game.Presenters
 			_screenHeader = root.Q<ScreenHeaderElement>("Header").Required();
 			_claimButton = root.Q<LocalizedButton>("ClaimButton").Required();
 			_currentLevelLabel = root.Q<Label>("CurrentLevelValue").Required();
-			_nextLevelLabel = root.Q<Label>("NextLevelValue").Required();
+			_nextLevelValueLabel = root.Q<Label>("NextLevelValue").Required();
 			_bppProgressLabel = root.Q<Label>("BppProgressLabel").Required();
 			_bppProgressBackground = root.Q("BppBackground").Required();
 			_bppProgressFill = root.Q("BppProgress").Required();
+			_nextLevelRoot = root.Q("NextLevel").Required();
 			
 			_screenHeader.backClicked += Data.BackClicked;
 			_screenHeader.homeClicked += Data.BackClicked;
@@ -150,13 +152,19 @@ namespace FirstLight.Game.Presenters
 			var predictedMaxProgress = _dataProvider.BattlePassDataProvider.GetRequiredPointsForLevel((int)predictedProgress.Item1);
 			_bppProgressLabel.text = predictedProgress.Item2 + "/" + predictedMaxProgress;
 			_currentLevelLabel.text = (predictedProgress.Item1 + 1).ToString();
-			_nextLevelLabel.text = (predictedProgress.Item1 + 2).ToString();
+			_nextLevelValueLabel.text = (predictedProgress.Item1 + 2).ToString();
 			
 			_bppProgressFill.style.flexGrow = (float) predictedProgress.Item2 / predictedMaxProgress;
 
-			_screenHeader.SetTitle(string.Format(ScriptLocalization.UITBattlePass.season_number, "1"));
+			_screenHeader.SetTitle(string.Format(ScriptLocalization.UITBattlePass.season_number, battlePassConfig.CurrentSeason));
 			_claimButton.SetDisplay(_dataProvider.BattlePassDataProvider.IsRedeemable());
+			_nextLevelRoot.SetDisplay(predictedProgress.Item1 < _dataProvider.BattlePassDataProvider.MaxLevel);
 			
+			if (predictedProgress.Item1 >= _dataProvider.BattlePassDataProvider.MaxLevel)
+			{
+				_currentLevelLabel.text = _bppProgressLabel.text = ScriptLocalization.UITBattlePass.max;
+			}
+
 			for (int i = 0; i < battlePassConfig.Levels.Count; ++i)
 			{
 				var data = new BattlePassSegmentData
@@ -249,7 +257,7 @@ namespace FirstLight.Game.Presenters
 			// Keep showing/dismissing reward dialogs recursively, until all have been shown
 			if (Data.UiService.HasUiPresenter<EquipmentRewardDialogPresenter>())
 			{
-				Data.UiService.CloseUi<EquipmentRewardDialogPresenter>();
+				await Data.UiService.CloseUi<EquipmentRewardDialogPresenter>();
 
 				await Task.Delay(GameConstants.Visuals.REWARD_POPUP_CLOSE_MS);
 			}

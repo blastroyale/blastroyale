@@ -17,7 +17,7 @@ namespace Src.FirstLight.Server
 		public override void OnEnable(PluginContext context)
 		{
 			_ctx = context;
-			_ctx.PluginEventManager.RegisterListener<PlayerDataLoadEvent>(OnPlayerLoad);
+			_ctx.PluginEventManager.RegisterEventListener<PlayerDataLoadEvent>(OnPlayerLoad);
 		}
 
 
@@ -28,11 +28,16 @@ namespace Src.FirstLight.Server
 
 		private async Task CheckForSeasonUpdate(string playfabId)
 		{
+			
 			try
 			{
 				await _ctx.PlayerMutex.Lock(playfabId);
 
 				var state = await _ctx.ServerState.GetPlayerState(playfabId);
+				if (!state.Has<PlayerData>())
+				{
+					return;
+				}
 				var currentSeason = _ctx.GameConfig.GetConfig<BattlePassConfig>().CurrentSeason;
 				var seasonData = state.DeserializeModel<SeasonData>();
 				var playerSeason = seasonData.CurrentSeason;

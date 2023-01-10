@@ -6,6 +6,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using FirstLight.Game.Ids;
+using quantum.custom.plugin;
+using System.Text;
 
 namespace Quantum
 {
@@ -24,6 +26,7 @@ namespace Quantum
 			Assert.Check(server is CustomQuantumServer);
 			CustomServer = (CustomQuantumServer)server;
 			_cmdHandler = new QuantumCommandHandler(this);
+			CustomServer.OnSimulationCommand = _cmdHandler.DispatchLogicCommandFromQuantumEvent;
 		}
 
 		/// <summary>
@@ -31,21 +34,17 @@ namespace Quantum
 		/// </summary>
 		public override void OnRaiseEvent(IRaiseEventCallInfo info)
 		{
-			if (info.Request.EvCode == (int)QuantumCustomEvents.EndGameCommand)
+			if (info.Request.EvCode == (int)QuantumCustomEvents.Token)
 			{
 				info.Cancel();
-				var client = CustomServer.GetClientForActor(info.ActorNr);
-				if (client == null)
+				try
 				{
-					return;
-				}
-				if (info.Request.Data == null)
+					var token = Encoding.UTF8.GetString((byte[])info.Request.Data);
+					_cmdHandler.ReceiveToken(info.ActorNr, token);
+				} catch(Exception e)
 				{
-					CustomServer.DisconnectClient(client, "Invalid command data");
-					return;
+					Log.Error("Error reading user token "+e.Message);
 				}
-				var bytes = (byte[])info.Request.Data;
-				_cmdHandler.ReceiveEndGameCommand(info.ActorNr, bytes);
 				return;
 			}
 			base.OnRaiseEvent(info);
@@ -57,7 +56,11 @@ namespace Quantum
 		public override void OnJoin(IJoinGameCallInfo info)
 		{
 			base.OnJoin(info);
-			Log.Info($"Actor {info.Request.ActorNr} joined with userId {info.UserId}");
+			if(FlgConfig.DebugMode)
+			{
+				Log.Info($"Actor {info.Request.ActorNr} joined with userId {info.UserId}");
+			}
+			
 		}
 
 		/// <summary>
@@ -65,7 +68,10 @@ namespace Quantum
 		/// </summary>
 		public override void OnCreateGame(ICreateGameCallInfo info)
 		{
-			Log.Info($"Actor {info.Request.ActorNr} created & joined with userId {info.UserId}");
+			if (FlgConfig.DebugMode)
+			{
+				Log.Info($"Actor {info.Request.ActorNr} created & joined with userId {info.UserId}");
+			}
 			base.OnCreateGame(info);
 			if (!info.CreateOptions.TryGetValue("CustomProperties", out var propsObject))
 			{
@@ -79,7 +85,10 @@ namespace Quantum
 				return;
 			}
 			Enum.TryParse((string)customProperties["matchType"], out _matchType);
-			Log.Info($"Created {_matchType.ToString()} game");
+			if (FlgConfig.DebugMode)
+			{
+				Log.Info($"Created {_matchType.ToString()} game");
+			}
 		}
 
 		/// <summary>
@@ -98,7 +107,6 @@ namespace Quantum
 		/// </summary>
 		public override void OnCloseGame(ICloseGameCallInfo info)
 		{
-			_cmdHandler.DispatchAllCommands();
 			CustomServer.Dispose();
 			base.OnCloseGame(info);
 		}

@@ -845,6 +845,8 @@ MonoBehaviour:
   _onscreenJoystickDirectionAdapter: {fileID: 1587165873812747888}
   _onscreenJoystickPointerDownAdapter: {fileID: 6161270051547520423}
   _dynamicJoystickCompatible: 0
+  _leftSideJoystick: 0
+  _raycaster: {fileID: 8320761002307978617}
 --- !u!1 &4543775689126659115
 GameObject:
   m_ObjectHideFlags: 0
@@ -954,6 +956,8 @@ MonoBehaviour:
   _onscreenJoystickDirectionAdapter: {fileID: 323115840485055281}
   _onscreenJoystickPointerDownAdapter: {fileID: 8467213377424103225}
   _dynamicJoystickCompatible: 1
+  _leftSideJoystick: 1
+  _raycaster: {fileID: 8320761002307978617}
 --- !u!1 &5489627057178941867
 GameObject:
   m_ObjectHideFlags: 0

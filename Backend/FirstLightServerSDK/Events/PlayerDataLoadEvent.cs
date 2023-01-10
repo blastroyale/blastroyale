@@ -1,3 +1,6 @@
+using System;
+using FirstLight.Server.SDK.Models;
+
 namespace FirstLight.Server.SDK.Events
 {
 	/// <summary>
@@ -5,14 +8,15 @@ namespace FirstLight.Server.SDK.Events
 	/// </summary>
 	public class PlayerDataLoadEvent : GameServerEvent
 	{
-		private readonly string _playerId;
+		public readonly string PlayerId;
+		public readonly ServerState PlayerState;
 
-		public PlayerDataLoadEvent(string playerId)
+		public PlayerDataLoadEvent(string playerId, ServerState currentState)
 		{
-			_playerId = playerId;
+			PlayerId = playerId;
+			PlayerState = currentState;
 		}
-	
-		public string PlayerId => _playerId;
+		
 	}
 }
 

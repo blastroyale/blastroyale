@@ -143,3 +143,13 @@
     opacity: 0;
 }
 
+.anim-fade-and-translate {
+    transition-property: opacity, translate;
+    transition-duration: var(--base-duration), var(--base-duration);
+    transition-timing-function: var(--base-easing), var(--base-easing);
+}
+
+.hidden .anim-fade-and-translate {
+    opacity: 0;
+}
+

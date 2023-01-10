@@ -10,7 +10,7 @@ trigger:
     - develop
   paths:
     include:
-    - Backend
+    - Backend/MatchmakingService
     - pipeline-matchmaking-server-ci.yml
 pr: none
 
@@ -18,19 +18,16 @@ resources:
   repositories:
   - repository: self
   - repository: templates
-    type: bitbucket
-    endpoint: bitbucket
-    ref: master
-    name: first-light/infrastructure
+    type: git
+    ref: main
+    name: Infrastructure/core-templates
     
 variables:
 - group: Non-secrets
 - name: serviceConnection
   value: AzureRM
-- name: repository
-  value: 'gamelogic'
 - name: dockerfile
-  value: MatchMakingService/Dockerfile
+  value: MatchmakingService/Dockerfile
 - name: vmImageName
   value: 'ubuntu-latest'
 
@@ -47,11 +44,11 @@ stages:
       - checkout: self
         lfs: true
         submodules: true
-      - template: pipelines/templates/docker-build-push.yml@templates
+      - template: pipelines/docker-build-push.yml@templates
         parameters:
           serviceConnection: $(serviceConnection)
-          containerRegistry: $(REGISTRY_NAME)
-          repository: $(repository)
+          containerRegistry: firstlight
+          repository: matchmaking-service
           workingDirectory: Backend
           buildArgs: |
             -f $(dockerfile) . --no-cache

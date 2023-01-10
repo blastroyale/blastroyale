@@ -44,9 +44,10 @@ namespace Quantum
 		/// <summary>
 		/// Tries to activate this special and returns true if was successfully activated, returns false otherwise
 		/// </summary>
-		public bool TryActivate(Frame f, EntityRef playerEntity, FPVector2 aimInput, int specialIndex)
+		public bool TryActivate(Frame f, PlayerRef playerRef, EntityRef playerEntity, FPVector2 aimInput,
+								int specialIndex)
 		{
-			if (!IsUsable(f) || !TryUse(f, playerEntity, aimInput))
+			if (!IsUsable(f) || !TryUse(f, playerEntity, playerRef, aimInput))
 			{
 				return false;
 			}
@@ -59,7 +60,7 @@ namespace Quantum
 			return true;
 		}
 		
-		private bool TryUse(Frame f, EntityRef entity, FPVector2 aimInput)
+		private bool TryUse(Frame f, EntityRef entity, PlayerRef playerRef, FPVector2 aimInput)
 		{
 			switch (SpecialType)
 			{
@@ -75,6 +76,8 @@ namespace Quantum
 					return SpecialShieldedCharge.Use(f, entity, this, aimInput, MaxRange);
 				case SpecialType.Grenade:
 					return SpecialGrenade.Use(f, entity, this, aimInput, MaxRange);
+				case SpecialType.Radar:
+					return SpecialRadar.Use(f, entity, playerRef, this);
 				default:
 					return false;
 			}

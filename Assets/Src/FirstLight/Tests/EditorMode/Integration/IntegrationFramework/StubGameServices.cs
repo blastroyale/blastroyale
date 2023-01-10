@@ -3,6 +3,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.NotificationService;
 using FirstLight.SDK.Services;
+using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using FirstLight.UiService;
@@ -30,6 +31,8 @@ namespace FirstLight.Tests.EditorMode
 		public virtual IAudioFxService<AudioId> AudioFxService { get; }
 		public virtual INotificationService NotificationService { get; }
 		public virtual IPlayfabService PlayfabService { get; }
+		
+		public virtual ILiveopsService LiveopsService { get; set; }
 		public virtual IRemoteTextureService RemoteTextureService { get; }
 		public virtual IThreadService ThreadService { get; }
 		public virtual IHelpdeskService HelpdeskService { get; }

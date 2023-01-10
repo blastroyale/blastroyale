@@ -53,7 +53,7 @@ MonoBehaviour:
         RawValue: 0
       MaxRange:
         RawValue: 589824
-      Knockback: 10
+      Knockback: 0
     - Id: 89
       SpecialType: 2
       Indicator: 0

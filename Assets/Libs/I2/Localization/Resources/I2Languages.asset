@@ -812,11 +812,11 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: General/ReloadSpeed
+    - Term: General/ReloadTime
       TermType: 0
       Description: 
       Languages:
-      - Reload Speed
+      - Reload Time
       - 
       - 
       Flags: 000000
@@ -1070,6 +1070,33 @@ MonoBehaviour:
       Description: 
       Languages:
       - character
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: General/LeaderboardOpenError
+      TermType: 0
+      Description: 
+      Languages:
+      - Error opening leaderboard
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: General/LeaderboardOpenErrorDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - There was an error while getting leaderboard data.
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: General/MagazineSize
+      TermType: 0
+      Description: 
+      Languages:
+      - Magazine Capacity
       - 
       - 
       Flags: 000000
@@ -1578,6 +1605,32 @@ MonoBehaviour:
 
         Use Coins for upgrading and
         repairing your equipment.'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Tooltips/ToolTip_BPP_pool
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Earn Blast Pass points in matches to claim rewards.
+
+
+        The pool of
+        points refreshes over time.'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Tooltips/ToolTip_CS_pool
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Gain Craft Spice in Ranked matches using NFTs.
+
+
+        Craft Spice pool
+        refreshes over time.'
       - 
       - 
       Flags: 000000
@@ -2626,7 +2679,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - The name must be at least {0} characters long.
+      - The name must contain at least {0} valid characters.
       - 
       - 
       Flags: 000000
@@ -2882,7 +2935,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Quit Game
+      - QUIT GAME
       - 
       - 
       Flags: 000000
@@ -7001,7 +7054,7 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - BLAST ISLAND
+      - THE WASTELANDS
       - 
       - 
       Flags: 000000
@@ -8542,6 +8595,26 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: GameIds/SpecialRadar
+      TermType: 0
+      Description: 
+      Languages:
+      - RADAR
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: GameIds/SpecialRadarDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Shows nearby players
+
+        on the minimap.'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: GameIds/SpeedPill
       TermType: 0
       Description: 
@@ -9628,6 +9701,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITShared/claim
+      TermType: 0
+      Description: 
+      Languages:
+      - CLAIM
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITSettings/logout
       TermType: 0
       Description: 
@@ -9810,6 +9892,33 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITLoginRegister/register_login
+      TermType: 0
+      Description: 
+      Languages:
+      - REGISTER/LOGIN
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/guest
+      TermType: 0
+      Description: 
+      Languages:
+      - GUEST
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/invalid_input
+      TermType: 0
+      Description: 
+      Languages:
+      - Invalid Input Parameters
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITStore/epic_core
       TermType: 0
       Description: 
@@ -9950,6 +10059,33 @@ MonoBehaviour:
       Description: 
       Languages:
       - DISCORD
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/waitforrewards_popup_title
+      TermType: 0
+      Description: 
+      Languages:
+      - Please wait
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/waitforrewards_popup_description
+      TermType: 0
+      Description: 
+      Languages:
+      - Syncing results with the server
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/resource_pool_restock_time
+      TermType: 0
+      Description: 
+      Languages:
+      - ' IN {0}'
       - 
       - 
       Flags: 000000
@@ -10168,6 +10304,15 @@ MonoBehaviour:
       Description: 
       Languages:
       - YOU HAVE RECEIVED A NEW PIECE OF EQUIPMENT!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITBattlePass/max
+      TermType: 0
+      Description: 
+      Languages:
+      - MAX
       - 
       - 
       Flags: 000000
@@ -10576,7 +10721,7 @@ MonoBehaviour:
       Languages:
       - 'YOU HAVE NO
 
-        ARMORS'
+        ARMOR'
       - 
       - 
       Flags: 000000
@@ -10769,6 +10914,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITWinners/winner
+      TermType: 0
+      Description: 
+      Languages:
+      - WINNER
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITSwipeTransition/lets_blast
       TermType: 0
       Description: 
@@ -10828,6 +10982,24 @@ MonoBehaviour:
       Description: 
       Languages:
       - BATTLE ROYALE
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITLeaderboards/global_leaderboard
+      TermType: 0
+      Description: 
+      Languages:
+      - GLOBAL LEADERBOARD
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITLeaderboards/become_the_best
+      TermType: 0
+      Description: 
+      Languages:
+      - PLAY RANKED GAMES, EARN TROPHIES, BECOME THE BEST PLAYER!
       - 
       - 
       Flags: 000000
@@ -10931,7 +11103,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1669997034682
+    Google_LastUpdatedVersion: 1673002319051
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

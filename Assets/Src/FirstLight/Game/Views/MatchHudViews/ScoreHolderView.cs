@@ -23,7 +23,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private IGameServices _services;
 		private IMatchServices _matchServices;
 		private int _fragTarget;
-		private PlayerRef _currentlyFollowing;
 
 		private void Awake()
 		{
@@ -63,32 +62,30 @@ namespace FirstLight.Game.Views.MatchHudViews
 		
 		private void OnPlayerAlive(EventOnPlayerAlive callback)
 		{
-			if (callback.Player != _currentlyFollowing) return;
+			if (callback.Player != _matchServices.SpectateService.SpectatedPlayer.Value.Player) return;
 			
 			var frame = callback.Game.Frames.Verified;
 			var gameContainer = frame.GetSingleton<GameContainer>();
 			var data = gameContainer.GetPlayersMatchData(frame, out _);
 			
-			UpdateValues(data[_currentlyFollowing]);
+			UpdateValues(data[_matchServices.SpectateService.SpectatedPlayer.Value.Player]);
 		}
 		
 		private void OnEventOnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
 			var data = callback.PlayersMatchData;
 			
-			UpdateValues(data[_currentlyFollowing]);
+			UpdateValues(data[_matchServices.SpectateService.SpectatedPlayer.Value.Player]);
 		}
 
 		private void UpdateFollowedPlayer(PlayerRef playerRef, Frame f)
 		{
-			_currentlyFollowing = playerRef;
-
-			if (_currentlyFollowing == PlayerRef.None) return;
+			if (playerRef == PlayerRef.None) return;
 			
 			var gameContainer = f.GetSingleton<GameContainer>();
 			var data = gameContainer.GetPlayersMatchData(f, out _);
 
-			UpdateValues(data[_currentlyFollowing]);
+			UpdateValues(data[playerRef]);
 		}
 
 		private void UpdateValues(QuantumPlayerMatchData playerMatchData)

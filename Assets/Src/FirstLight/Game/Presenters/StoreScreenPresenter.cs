@@ -24,6 +24,7 @@ namespace FirstLight.Game.Presenters
 	[LoadSynchronously]
 	public class StoreScreenPresenter : UiToolkitPresenterData<StoreScreenPresenter.StateData>
 	{
+		// TODO: Read from playfab
 		private const string ITEM_RARE_ID = "com.firstlight.blastroyale.core.rare";
 		private const string ITEM_EPIC_ID = "com.firstlight.blastroyale.core.epic";
 		private const string ITEM_LEGENDARY_ID = "com.firstlight.blastroyale.core.legendary";
@@ -101,7 +102,9 @@ namespace FirstLight.Game.Presenters
 		private void OnPurchaseCompleted(IAPPurchaseCompletedMessage msg)
 		{
 			Data.IapProcessingFinished();
-
+			
+			_blocker.style.display = DisplayStyle.None;
+			
 			_pendingRewards.Clear();
 
 			foreach (var equipment in msg.Rewards)
@@ -128,13 +131,14 @@ namespace FirstLight.Game.Presenters
 			// Keep showing/dismissing reward dialogs recursively, until all have been shown
 			if (Data.UiService.HasUiPresenter<EquipmentRewardDialogPresenter>())
 			{
-				Data.UiService.CloseUi<EquipmentRewardDialogPresenter>();
+				await Data.UiService.CloseUi<EquipmentRewardDialogPresenter>();
 
 				await Task.Delay(GameConstants.Visuals.REWARD_POPUP_CLOSE_MS);
 			}
 
 			if (!_pendingRewards.TryDequeue(out var reward))
 			{
+				_blocker.style.display = DisplayStyle.None;
 				return;
 			}
 

@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using FirstLight.Game.Utils;
 using Photon.Deterministic;
 using Photon.Hive.Plugin;
+using quantum.custom.plugin;
 
 namespace Quantum
 {
@@ -20,6 +22,10 @@ namespace Quantum
 		{
 			var server = new CustomQuantumServer(config, gameHost);
 			var plugin = new CustomQuantumPlugin(config, server);
+			if(config.TryGetValue("DebugMode", out var debugMode) && debugMode == "true")
+			{
+				FlgConfig.DebugMode = true;
+			}
 			InitLog(plugin);
 			if (plugin.SetupInstance(gameHost, config, out errorMsg))
 			{

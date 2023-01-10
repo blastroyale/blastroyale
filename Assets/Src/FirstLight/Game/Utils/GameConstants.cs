@@ -55,7 +55,6 @@ namespace FirstLight.Game.Utils
 			public const string QUANTUM_ID = "81262db7-24a2-4685-b386-65427c73ce9d";
 #elif STAGE_SERVER
 			public const ServerEnvironments SERVER_ENVIRONMENT = ServerEnvironments.Stage;
-			public const string SERVER_ENVIRONMENT = nameof(ServerEnvironments.Stage);
 			public const string PLAYFAB_TITLE_ID = "***REMOVED***";
 			public const string PASSWORD_RECOVER_EMAIL = "***REMOVED***";
 			public const string QUANTUM_ID = "***REMOVED***";
@@ -140,6 +139,18 @@ namespace FirstLight.Game.Utils
 			public const string MAINTENANCE_KEY = "version block";
 		}
 
+		public static class Stats
+		{
+			public const string GAMES_PLAYED = "Games Played";
+			public const string GAMES_WON = "Games Won";
+			public const string KILLS = "Kills";
+			public const string DEATHS = "Deaths";
+			public const string NFT_ITEMS = "Nft Items";
+			public const string NON_NFTS = "Non Nft Items";
+			public const string BROKEN_ITEMS = "Broken Items";
+			public const string LEADERBOARD_LADDER_NAME = "Trophies Ladder";
+		}
+		
 		public static class Network
 		{
 			// Network state time settings
@@ -180,8 +191,8 @@ namespace FirstLight.Game.Utils
 			public const char ROOM_META_SEPARATOR = '#';
 			
 			public const string LEADERBOARD_LADDER_NAME = "Trophies Ladder";
-			public const int LEADERBOARD_TOP_RANK_AMOUNT = 20;
-			public const int LEADERBOARD_NEIGHBOR_RANK_AMOUNT = 3;
+			public const int LEADERBOARD_TOP_RANK_AMOUNT = 100;
+			public const int LEADERBOARD_NEIGHBOR_RANK_AMOUNT = 1;
 		}
 
 		public static class Visuals
@@ -221,10 +232,19 @@ namespace FirstLight.Game.Utils
 			public const int SCREEN_SWIPE_TRANSITION_MS = 1500;
 		}
 
+		public static class Camera
+		{
+			public const float DYNAMIC_CAMERA_PAN_TO_AIM_TIME = 0.5f;
+			public const float DYNAMIC_CAMERA_PAN_TO_CENTER_TIME = 0.25f;
+			public const float DYNAMIC_CAMERA_PAN_DISTANCE_DEFAULT = 1.75f;
+			public const float DYNAMIC_CAMERA_PAN_NEGATIVE_Y_DIR_MULTIPLIER = 1.3f;
+		}
+
 		public static class Controls
 		{
 			public const float DYNAMIC_JOYSTICK_THRESHOLD_MULT = 1f;
 			public const float MOVEMENT_JOYSTICK_RADIUS_MULT = 1f;
+			public const float JOYSTICK_MOVEMENT_MAX_RADIUS_MULTIPLIER = 8f;
 			
 			public const float SPECIAL_BUTTON_MAX_RADIUS_MULT = 1.75f;
 			public const float SPECIAL_BUTTON_FIRST_CANCEL_RADIUS_MULT = 1.15f;

@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using Firebase.Analytics;
+using FirstLight.FLogger;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services.AnalyticsHelpers;
+using FirstLight.Server.SDK.Models;
 using FirstLight.Services;
 using FirstLight.UiService;
 using Newtonsoft.Json;
@@ -30,6 +32,7 @@ namespace FirstLight.Game.Services
 		public static readonly string MatchInitiate = "match_initiate";
 		public static readonly string MatchStart = "match_start";
 		public static readonly string MatchEnd = "match_end";
+		public static readonly string MatchEndBattleRoyalePlayerDead = "match_end_br_player_dead";
 		public static readonly string MatchKillAction = "match_kill_action";
 		public static readonly string MatchPickupAction = "match_pickup_action";
 		public static readonly string MatchChestOpenAction = "match_chest_open_action";
@@ -94,71 +97,81 @@ namespace FirstLight.Game.Services
 			EconomyCalls = new AnalyticsEconomy(this);
 			ErrorsCalls = new AnalyticsCallsErrors(this);
 			UiCalls = new AnalyticsCallsUi(this, uiService);
-			EquipmentCalls = new AnalyticsCallsEquipment(this, services.ConfigsProvider);
+			EquipmentCalls = new AnalyticsCallsEquipment(this, services);
 		}
 
 		/// <inheritdoc />
 		public void LogEvent(string eventName, Dictionary<string, object> parameters = null, bool isCriticalEvent = true)
 		{
-			Debug.Log("Analytics event "+eventName+": "+JsonConvert.SerializeObject(parameters));
-   
-			//PlayFab Analytics
-			if (PlayFabSettings.staticPlayer.IsClientLoggedIn())
+			//Debug.Log("Analytics event "+eventName+": "+JsonConvert.SerializeObject(parameters));
+			
+			try
 			{
-				var request = new WriteClientPlayerEventRequest { EventName = eventName, Body = parameters };
-				PlayFabClientAPI.WritePlayerEvent(request, null, null);
-			}
-   
-			if (parameters == null)
-			{
-				// Firebase
-				FirebaseAnalytics.LogEvent(eventName);
-				// Unity
-				Analytics.CustomEvent(eventName);
-				return;
-			}
-
-			if (isCriticalEvent)
-			{
-				SingularSDK.Event(parameters, eventName);
-			}
-   
-			// Prepare parameters for Unity and Firebase
-			var unityParams = new Dictionary<string, object>();
-			var firebaseParams = new List<Parameter>(parameters.Count);
-			int count = 0;
-			foreach(var parameter in parameters)
-			{
-				if (parameter.Value == null)
+				//PlayFab Analytics
+				if (PlayFabSettings.staticPlayer.IsClientLoggedIn())
 				{
-					Debug.LogWarning("Analytics null parameter '"+parameter.Key+"' in event '"+eventName+"'");
-					continue;
-				}
-				
-				// Unity (max 10 params)
-				if (count++ < 10)
-				{
-					unityParams[parameter.Key] = parameter.Value;
+					var request = new WriteClientPlayerEventRequest {EventName = eventName, Body = parameters};
+					PlayFabClientAPI.WritePlayerEvent(request, null, null);
 				}
 
-				switch (parameter.Value)
+				if (parameters == null)
 				{
 					// Firebase
-					case long or uint or int or byte:
-						firebaseParams.Add(new Parameter(parameter.Key, Convert.ToInt64(parameter.Value)));
-						break;
-					case double or float:
-						firebaseParams.Add(new Parameter(parameter.Key, Convert.ToDouble(parameter.Value)));
-						break;
-					default:
-						firebaseParams.Add(new Parameter(parameter.Key, parameter.Value.ToString()));
-						break;
+					FirebaseAnalytics.LogEvent(eventName);
+					// Unity
+					Analytics.CustomEvent(eventName);
+					return;
 				}
+
+				if (isCriticalEvent)
+				{
+					SingularSDK.Event(parameters, eventName);
+				}
+
+				// Prepare parameters for Unity and Firebase
+				var unityParams = new Dictionary<string, object>();
+				var firebaseParams = new List<Parameter>(parameters.Count);
+				int count = 0;
+				foreach (var parameter in parameters)
+				{
+					if (parameter.Value == null)
+					{
+						Debug.LogWarning(
+							"Analytics null parameter '" + parameter.Key + "' in event '" + eventName + "'");
+						continue;
+					}
+
+					// Unity (max 10 params)
+					if (count++ < 10)
+					{
+						unityParams.Add(parameter.Key, parameter.Value);
+					}
+
+					switch (parameter.Value)
+					{
+						// Firebase
+						case long or uint or int or byte:
+							firebaseParams.Add(new Parameter(parameter.Key, Convert.ToInt64(parameter.Value)));
+							break;
+						case double or float:
+							firebaseParams.Add(new Parameter(parameter.Key, Convert.ToDouble(parameter.Value)));
+							break;
+						default:
+							firebaseParams.Add(new Parameter(parameter.Key, parameter.Value.ToString()));
+							break;
+					}
+				}
+
+				// Unity
+				Analytics.CustomEvent(eventName, unityParams);
+				// Firebase
+				FirebaseAnalytics.LogEvent(eventName, firebaseParams.ToArray());
 			}
-			// Unity
-			Analytics.CustomEvent(eventName, unityParams);
-			// Firebase
-			FirebaseAnalytics.LogEvent(eventName, firebaseParams.ToArray());
+			catch (Exception e)
+			{
+				FLog.Error("Error while sending analytics: "+e.Message);
+				Debug.LogException(e);
+			}
 		}
 
 		/// <inheritdoc />

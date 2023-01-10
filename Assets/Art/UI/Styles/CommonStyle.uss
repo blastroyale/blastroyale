@@ -4,11 +4,13 @@
     --color-highlight: rgb(196, 84, 122);
     --color-default: rgb(144, 98, 227);
     --color-body: rgb(148, 45, 68);
+    
+    --font-bold: url('/Assets/Art/UI/Fonts/Stawix-Bold-Static.asset');
+    --font-italic: url('/Assets/Art/UI/Fonts/Stawix-Italic-Static.asset');
+    --font-italic-dynamic: url('/Assets/Art/UI/Fonts/Stawix-Italic-Dynamic.asset');
+    
     transition-duration: 0.5s;
-    --font-regular: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Normal%20Regular.otf?fileID=12800000&guid=fc8266ceb95e44d6d812af34322286b7&type=3#Stawix - Amsi Pro Normal Regular');
-    --font-bold: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Condensed%20Bold.otf?fileID=12800000&guid=a3548c302ed824acb9afda8587ded4e7&type=3#Stawix - Amsi Pro Condensed Bold');
-    --font-italic: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Condensed%20Ultra%20Italic.otf?fileID=12800000&guid=6ff2428eb8a974c2281717afe377e3c6&type=3#Stawix - Amsi Pro Condensed Ultra Italic');
-    --font-light-italic: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Normal%20ExtraLight%20Italic.otf?fileID=12800000&guid=ecdd4df26ce474069865eb3673c40456&type=3#Stawix - Amsi Pro Normal ExtraLight Italic');
+    -unity-font-definition: var(--font-italic);
 }
 
 .unity-button {
@@ -24,7 +26,6 @@
     background-color: rgba(0, 0, 0, 0);
 }
 
-
 .unity-text-field {
     align-items: stretch;
     -unity-text-align: middle-left;
@@ -39,7 +40,7 @@
 }
 
 .unity-text-field__input {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/InputFieldBackground.png?fileID=21300000&guid=6a9373e55276b4254b7304c8d38f2dc6&type=3#InputFieldBackground');
+    background-image: var(--sprite-home__background-inputfield);
     border-left-width: 0;
     border-right-width: 0;
     border-top-width: 0;
@@ -50,20 +51,8 @@
     padding-left: 26px;
 }
 
-.font-regular {
-    -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Normal%20Regular.otf?fileID=12800000&guid=fc8266ceb95e44d6d812af34322286b7&type=3#Stawix - Amsi Pro Normal Regular');
-}
-
 .font-bold {
-    -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Condensed%20Bold.otf?fileID=12800000&guid=a3548c302ed824acb9afda8587ded4e7&type=3#Stawix - Amsi Pro Condensed Bold');
-}
-
-.font-italic {
-    -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Condensed%20Ultra%20Italic.otf?fileID=12800000&guid=6ff2428eb8a974c2281717afe377e3c6&type=3#Stawix - Amsi Pro Condensed Ultra Italic');
-}
-
-.font-light-italic {
-    -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Normal%20ExtraLight%20Italic.otf?fileID=12800000&guid=ecdd4df26ce474069865eb3673c40456&type=3#Stawix - Amsi Pro Normal ExtraLight Italic');
+    -unity-font-definition: var(--font-bold);
 }
 
 .font-style-normal {
@@ -88,8 +77,7 @@
 }
 
 .button-with-icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMain.png?fileID=21300000&guid=8368e60ca24ab4818929e5d7b2dd77f2&type=3#ButtonMain');
-    -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Condensed%20Ultra%20Italic.otf?fileID=12800000&guid=6ff2428eb8a974c2281717afe377e3c6&type=3#Stawix - Amsi Pro Condensed Ultra Italic');
+    background-image: var(--sprite-home__button-main-purple);
     font-size: 38px;
     text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.53);
     color: rgb(255, 255, 255);
@@ -105,7 +93,7 @@
 
 .button-with-icon:active {
     padding-top: 70px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMainPressed.png?fileID=21300000&guid=5cb1a9853b14740c980813b57e5d03f3&type=3#ButtonMainPressed');
+    background-image: var(--sprite-home__button-main-purple-pressed);
 }
 
 .button-with-icon--small {
@@ -116,15 +104,14 @@
 
 .button-with-icon--small:active {
     padding-top: 60px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMainPressed.png?fileID=21300000&guid=5cb1a9853b14740c980813b57e5d03f3&type=3#ButtonMainPressed');
 }
 
 .button-with-icon--yellow {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMainYellow.png?fileID=21300000&guid=728932854c02c47ddb4057b68d3c91c7&type=3#ButtonMainYellow');
+    background-image: var(--sprite-home__button-main-yellow);
 }
 
 .button-with-icon--yellow:active {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMainYellowPressed.png?fileID=21300000&guid=c96062ca698c645258fbf9555f558741&type=3#ButtonMainYellowPressed');
+    background-image: var(--sprite-home__button-main-yellow-pressed);
 }
 
 .button-with-icon__notification {
@@ -157,12 +144,12 @@
 }
 
 .loading-spinner {
-    background-image: url('project://database/Assets/Art/Textures/Ui/Loading/LoadingSpinnerThick.png?fileID=2800000&guid=baccbbd5ac3184df18f5aabbc6649ef8&type=3#LoadingSpinnerThick');
+    background-image: var(--sprite-home__icon-spinner-thick);
     -unity-background-scale-mode: scale-to-fit;
 }
 
 .dots-pattern {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/DotsRotated.png?fileID=21300000&guid=123b7673eb1d048a486154a4e65c630b&type=3#DotsRotated');
+    background-image: var(--sprite-home__pattern-dots-rotated);
     -unity-background-image-tint-color: rgba(58, 58, 58, 0.35);
     width: 602px;
     height: 604px;
@@ -181,10 +168,9 @@
     border-top-width: 1px;
     border-bottom-width: 1px;
     min-height: 70px;
-    -unity-font-definition: var(--font-italic);
     -unity-paragraph-spacing: -30px;
     -unity-font-style: bold;
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/GradientAndDots.png?fileID=21300000&guid=cf4abf5541a924d0da5e2d5681f54665&type=3#GradientAndDots');
+    background-image: var(--sprite-home__pattern-dots-gradient);
     -unity-background-scale-mode: scale-and-crop;
     padding: 5px 40px;
     margin: 0;
@@ -263,7 +249,7 @@
 }
 
 .button-close {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/CloseIcon.png?fileID=21300000&guid=ea92b2966dd434cc8bae1e7656cf39bf&type=3#CloseIcon');
+    background-image: var(--sprite-home__icon-close);
     height: 72px;
     width: 92px;
     position: absolute;
@@ -285,15 +271,14 @@
 }
 
 .notification-icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/NotificationIcon.png?fileID=21300000&guid=c80b34267e95148f09ef82211411a3ff&type=3#NotificationIcon');
+    background-image: var(--sprite-home__icon-notification);
     width: 38px;
     height: 38px;
 }
 
 .tooltip {
     font-size: 32px;
-    -unity-font-definition: var(--font-italic);
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/TooltipwithTail.png?fileID=21300000&guid=7daa27819b9ff40648f92f624119dfc4&type=3#TooltipwithTail');
+    background-image: var(--sprite-home__background-tooltip);
     color: rgb(186, 161, 230);
     position: absolute;
     top: 0;
@@ -315,7 +300,7 @@
 }
 
 .button-long {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/SecondaryButton.png?fileID=21300000&guid=59b9eee3525d947a3bfd185b778e4783&type=3#SecondaryButton');
+    background-image: var(--sprite-home__button-long-purple);
     width: 306px;
     height: 88px;
     border-left-width: 0;
@@ -323,7 +308,6 @@
     border-top-width: 0;
     border-bottom-width: 0;
     background-color: rgba(0, 0, 0, 0);
-    -unity-font-definition: var(--font-italic);
     font-size: 42px;
     color: rgb(255, 255, 255);
     -unity-text-outline-width: 1px;
@@ -340,32 +324,34 @@
 
 .button-long:active {
     padding-bottom: 0;
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/SecondaryButtonPressed.png?fileID=21300000&guid=433a70b320ed9443399653eebb4799d5&type=3#SecondaryButtonPressed');
+    background-image: var(--sprite-home__button-long-purple-pressed);
 }
 
 .button-long:disabled, .button-long:disabled.button-long:active {
     background-color: rgba(0, 0, 0, 0);
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
     -unity-text-outline-color: rgb(0, 0, 0);
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/GreyButton.png?fileID=21300000&guid=b155921a84e5e41b192fe64b14618713&type=3#GreyButton');
+    background-image: var(--sprite-home__button-long-grey);
+    -unity-text-align: middle-center;
+    padding-bottom: 0;
 }
 
 .button-long--yellow {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/MainButton.png?fileID=21300000&guid=612390a1cd22a4403b85c7fb5cb7c4d1&type=3#MainButton');
+    background-image: var(--sprite-home__button-long-yellow);
     -unity-text-outline-color: rgb(157, 35, 11);
     text-shadow: 3px 3px 0 rgb(157, 35, 10);
 }
 
 .button-long--yellow:active {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/ButtonMainYellowPressed.png?fileID=21300000&guid=c96062ca698c645258fbf9555f558741&type=3#ButtonMainYellowPressed');
+    background-image: var(--sprite-home__button-long-yellow-pressed);
 }
 
 .button-long--red {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/CancelButton.png?fileID=21300000&guid=ccdeaedddcd164707b37b8404a10b7c9&type=3#CancelButton');
+    background-image: var(--sprite-home__button-long-red);
 }
 
 .button-long--red:active {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/Popups/CancelButtonPressed.png?fileID=21300000&guid=1394041b722714dbc8bb4a592d103cf0&type=3#CancelButtonPressed');
+    background-image: var(--sprite-home__button-long-red-pressed);
 }
 
 .button-long--price {
@@ -399,51 +385,43 @@
     flex-shrink: 1;
 }
 
+.price-button__offset-title {
+    padding-top: 12px;
+}
+
 .price-button__price--insufficient {
     color: rgb(233, 58, 58);
 }
 
 .price-button__icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BPP.png?fileID=21300000&guid=100d689cc6ffc41f297345bcfc22f54e&type=3#BPP');
-    width: 30px;
-    height: 30px;
-}
-
-.price-button__icon--cs {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/CS.png?fileID=21300000&guid=d74b22177c5ba4ac6b9293d6c147e46e&type=3#CS');
-}
-
-.price-button__icon--blst {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/BLST.png?fileID=21300000&guid=b0ad58f6ca5c1472fa1fb6178491eb03&type=3#BLST');
-}
-
-.price-button__icon--coin {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/CoinIcon.png?fileID=21300000&guid=787f6e10544e24075863e3f881de6467&type=3#CoinIcon');
+    width: 40px;
+    height: 40px;
 }
 
 .button-next {
-    background-image: url('project://database/Assets/Art/UI/Sprites/MatchEnd/NextButton.png?fileID=21300000&guid=7b7f8b5eb966f4fb38b88e5573f3a921&type=3#NextButton');
-    width: 562px;
-    height: 194px;
+    background-image: var(--sprite-match__button-next);
+    width: 526px;
+    height: 127px;
     background-color: rgba(255, 255, 255, 0);
     margin: 0;
     color: rgb(255, 255, 255);
-    -unity-font-definition: var(--font-italic);
-    text-shadow: 4px 4px 0 rgb(185, 65, 21);
-    -unity-text-outline-color: rgb(185, 65, 21);
-    font-size: 70px;
+    text-shadow: 3px 3px 0 #6B0402;
+    -unity-text-outline-color: #6B0402;
+    font-size: 52px;
     -unity-text-outline-width: 2px;
-    padding-bottom: 27px;
-    -unity-text-align: lower-right;
-    padding-right: 61px;
+    padding-bottom: 20px;
+    -unity-text-align: middle-center;
+    padding-right: 41px;
     -unity-font-style: bold;
     position: absolute;
-    right: 0;
-    bottom: 0;
+    right: 10px;
+    bottom: 10px;
+    padding-left: 190px;
 }
 
 .button-next:active {
-    color: rgb(161, 161, 161);
+    background-image: var(--sprite-match__button-next-pressed);
+    padding-bottom: 10px;
 }
 
 .might-display {
@@ -451,7 +429,6 @@
 }
 
 .might-display__label {
-    -unity-font-definition: var(--font-italic);
     font-size: 54px;
     color: rgb(248, 199, 46);
     -unity-text-outline-width: 1px;
@@ -461,7 +438,7 @@
 }
 
 .might-display__icon {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/EquipmentScreen/MightIcon.png?fileID=21300000&guid=abcf917df72d242a482c9f221840fbb2&type=3#MightIcon');
+    background-image: var(--sprite-shared__icon-might);
     width: 70px;
     height: 82px;
 }
@@ -522,4 +499,9 @@
 
 .width-spacer--xxxl {
     width: 125px;
+}
+
+.unity-scroll-view .unity-list-view__empty-label
+{
+    visibility: hidden;
 }

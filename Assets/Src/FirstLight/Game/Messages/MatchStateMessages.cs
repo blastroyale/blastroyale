@@ -4,7 +4,11 @@ using FirstLight.SDK.Services;
 namespace FirstLight.Game.Messages
 {
 	public struct MatchSimulationStartedMessage : IMessage { }
-	public struct MatchSimulationEndedMessage : IMessage { }
+
+	public struct MatchSimulationEndedMessage : IMessage
+	{
+		public QuantumGame Game;
+	}
 	public struct MatchStartedMessage : IMessage
 	{
 		public QuantumGame Game;
@@ -14,6 +18,8 @@ namespace FirstLight.Game.Messages
 	public struct MatchEndedMessage : IMessage
 	{
 		public QuantumGame Game;
+		public bool IsDisconnected;
+		public bool IsPlayerQuit;
 	}
 	public struct CoreMatchAssetsLoadedMessage : IMessage { }
 	public struct AllMatchAssetsLoadedMessage : IMessage { }
@@ -21,5 +27,6 @@ namespace FirstLight.Game.Messages
 	public struct AssetReloadRequiredMessage : IMessage { }
 	public struct SpectateStartedMessage : IMessage { }
 	public struct SpectateSetCameraMessage : IMessage { public int CameraId; }
+	public struct LeftBeforeMatchFinishedMessage : IMessage { }
 	public struct MatchCountdownStartedMessage : IMessage { }
 }

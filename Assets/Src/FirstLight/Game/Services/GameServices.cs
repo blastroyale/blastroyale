@@ -1,3 +1,4 @@
+using FirstLight.Game.Configs;
 using FirstLight.Game.Logic;
 using FirstLight.Services;
 using FirstLight.Game.Ids;
@@ -74,6 +75,8 @@ namespace FirstLight.Game.Services
 
 		/// <inheritdoc cref="IPlayfabService"/>
 		IPlayfabService PlayfabService { get; }
+		/// <inheritdoc cref="IPlayfabService"/>
+		ILiveopsService LiveopsService { get; }
 
 		/// <inheritdoc cref="IRemoteTextureService"/>
 		public IRemoteTextureService RemoteTextureService { get; }
@@ -92,9 +95,6 @@ namespace FirstLight.Game.Services
 		
 		/// <inheritdoc cref="IIAPService"/>
 		public IIAPService IAPService { get; }
-
-		/// <inheritdoc cref="IIAPService"/>
-		public IGameLogic GameLogic { get; }
 		
 		/// <summary>
 		/// Reason why the player quit the app
@@ -128,6 +128,8 @@ namespace FirstLight.Game.Services
 		public IAudioFxService<AudioId> AudioFxService { get; }
 		public INotificationService NotificationService { get; }
 		public IPlayfabService PlayfabService { get; }
+		
+		public ILiveopsService LiveopsService { get; }
 		public IRemoteTextureService RemoteTextureService { get; }
 		public IThreadService ThreadService { get; }
 		public IHelpdeskService HelpdeskService { get; }
@@ -135,7 +137,6 @@ namespace FirstLight.Game.Services
 		
 		public IMatchmakingService MatchmakingService { get; }
 		public IIAPService IAPService { get; }
-		public IGameLogic GameLogic { get; }
 		public string QuitReason { get; set; }
 
 		public GameServices(IGameNetworkService networkService, IMessageBrokerService messageBrokerService,
@@ -155,15 +156,15 @@ namespace FirstLight.Game.Services
 			GenericDialogService = genericDialogService;
 			AudioFxService = audioFxService;
 			VfxService = vfxService;
-			GameLogic = gameLogic;
 
 			MatchmakingService = new MatchmakingService();
 			ThreadService = new ThreadService();
 			HelpdeskService = new HelpdeskService();
 			GameModeService = new GameModeService(ConfigsProvider, ThreadService);
 			GuidService = new GuidService();
-			PlayfabService = new PlayfabService(gameLogic, messageBrokerService, GameConstants.Network.LEADERBOARD_LADDER_NAME);
-			CommandService = new GameCommandService(PlayfabService, gameLogic, dataService, this, networkService);
+			PlayfabService = new PlayfabService(gameLogic, messageBrokerService, GameConstants.Stats.LEADERBOARD_LADDER_NAME);
+			LiveopsService = new LiveopsService(PlayfabService, ConfigsProvider, this, gameLogic.LiveopsLogic);
+			CommandService = new GameCommandService(PlayfabService, gameLogic, dataService, this);
 			PoolService = new PoolService();
 			TickService = new TickService();
 			CoroutineService = new CoroutineService();

@@ -15,7 +15,7 @@ namespace FirstLight.Game.Views.UITK
 		private const string DURABILITY_AMOUNT = "{0}/{1}";
 		private const string DURABILITY_PLUS_AMOUNT = "+{0}";
 
-		private const string UssRequirementsIconModifier = "requirements__icon--{0}";
+		private const string UssIconCurrency = "sprite-shared__icon-currency-{0}";
 
 		private VisualElement _durabilityBar;
 		private Label _durabilityAmount;
@@ -24,7 +24,8 @@ namespace FirstLight.Game.Views.UITK
 		private VisualElement _requirements;
 		private Label _requirementsAmount;
 		private VisualElement _requirementsIcon;
-
+		private VisualElement _bottomFiller;
+		
 		private Action _confirmAction;
 
 		public void Attached(VisualElement element)
@@ -36,6 +37,7 @@ namespace FirstLight.Game.Views.UITK
 			_requirements = element.Q<VisualElement>("Requirements").Required();
 			_requirementsAmount = _requirements.Q<Label>("Amount").Required();
 			_requirementsIcon = _requirements.Q<VisualElement>("Icon").Required();
+			_bottomFiller = element.Q<VisualElement>("BottomFiller").Required();
 
 			_repairButton.clicked += () => _confirmAction();
 		}
@@ -49,14 +51,18 @@ namespace FirstLight.Game.Views.UITK
 			_durabilityPlusAmount.text = string.Format(DURABILITY_PLUS_AMOUNT,
 				info.Equipment.MaxDurability - info.CurrentDurability);
 
+			_bottomFiller.SetDisplay(info.IsNft);
+			
 			_repairButton.SetDisplay(!info.IsNft);
 			_repairButton.SetPrice(info.RepairCost, insufficient);
 
-			_requirements.SetDisplay(info.IsNft);
+			// TODO - Adjust desired behavior when calculations are correct client side and can be displayed
+			//_requirements.SetDisplay(info.IsNft);
+			_requirements.SetDisplay(!info.IsNft);
+			
 			_requirementsAmount.text = info.RepairCost.Value.ToString();
-			_requirementsIcon.RemoveModifiers();
-			_requirementsIcon.AddToClassList(string.Format(UssRequirementsIconModifier,
-				info.RepairCost.Key.ToString().ToLowerInvariant()));
+			_requirementsIcon.RemoveSpriteClasses();
+			_requirementsIcon.AddToClassList(string.Format(UssIconCurrency, info.RepairCost.Key.ToString().ToLowerInvariant()));
 
 			_confirmAction = confirmAction;
 		}

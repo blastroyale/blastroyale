@@ -23,8 +23,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameUiService _uiService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
-		private PlayerRef _killer;
-
 		public BattleRoyaleState(IGameServices services, IGameUiService uiService,
 								 Action<IStatechartEvent> statechartTrigger)
 		{
@@ -76,7 +74,7 @@ namespace FirstLight.Game.StateMachines
 			dead.OnEnter(OpenMatchEndScreen);
 			dead.Event(_localPlayerNextEvent).Target(spectating);
 
-			spectating.OnEnter(OpenSpectateHud);
+			spectating.OnEnter(OpenSpectateScreen);
 			spectating.Event(_localPlayerExitEvent).Target(final);
 
 			final.OnEnter(CloseMatchHud);
@@ -96,27 +94,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void MatchEndAnalytics()
 		{
-			if (IsSpectator())
-			{
-				return;
-			}
-
-			var game = QuantumRunner.Default.Game;
-			var f = game.Frames.Verified;
-			var gameContainer = f.GetSingleton<GameContainer>();
-			var matchData = gameContainer.GetPlayersMatchData(f, out _);
-			var localPlayerData = matchData[game.GetLocalPlayers()[0]];
-			var totalPlayers = 0;
-
-			for (var i = 0; i < matchData.Count; i++)
-			{
-				if (matchData[i].Data.IsValid && !f.Has<BotCharacter>(matchData[i].Data.Entity))
-				{
-					totalPlayers++;
-				}
-			}
-   
-			_services.AnalyticsService.MatchCalls.MatchEnd(totalPlayers, false, f.Time.AsFloat, localPlayerData);
+			_services.AnalyticsService.MatchCalls.MatchEndBRPlayerDead(QuantumRunner.Default.Game);
 		}
 
 		private bool IsMatchEnding()
@@ -131,7 +109,7 @@ namespace FirstLight.Game.StateMachines
 			var f = game.Frames.Verified;
 			var gameContainer = f.GetSingleton<GameContainer>();
 			var playersData = gameContainer.PlayersData;
-			var localPlayer = playersData[game.GetLocalPlayers()[0]];
+			var localPlayer = playersData[game.GetLocalPlayerRef()];
 
 			return localPlayer.Entity.IsAlive(f);
 		}
@@ -153,8 +131,6 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)
 		{
-			_killer = callback.PlayerKiller;
-
 			_statechartTrigger(_localPlayerDeadEvent);
 		}
 
@@ -182,19 +158,21 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new MatchEndScreenPresenter.StateData
 			{
-				Killer = _killer,
 				OnNextClicked = () => _statechartTrigger(_localPlayerNextEvent),
 			};
 
 			_uiService.OpenScreen<MatchEndScreenPresenter, MatchEndScreenPresenter.StateData>(data);
 		}
 
-		private void OpenSpectateHud()
+		private void OpenSpectateScreen()
 		{
 			var data = new SpectateScreenPresenter.StateData
 			{
-				Killer = _killer,
-				OnLeaveClicked = () => _statechartTrigger(_localPlayerExitEvent)
+				OnLeaveClicked = () =>
+				{
+					_services.MessageBrokerService.Publish(new LeftBeforeMatchFinishedMessage());
+					_statechartTrigger(_localPlayerExitEvent);
+				}
 			};
 
 			_uiService.OpenScreen<SpectateScreenPresenter, SpectateScreenPresenter.StateData>(data);

@@ -5,6 +5,7 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Infos;
 using FirstLight.Game.Logic.RPC;
+using FirstLight.Server.SDK.Models;
 using Quantum;
 
 namespace FirstLight.Game.Logic
@@ -80,7 +81,7 @@ namespace FirstLight.Game.Logic
 		{
 			if (!currency.IsInGroup(GameIdGroup.Currency))
 			{
-				throw new LogicException($"The given game Id {currency} is not of {GameIdGroup.Currency} type");
+				throw new LogicException($"The given game Id {currency.ToString()} is not of {GameIdGroup.Currency} type");
 			}
 
 			if (!_currencies.TryGetValue(currency, out var amount))
@@ -110,7 +111,7 @@ namespace FirstLight.Game.Logic
 			if (amount > oldAmount)
 			{
 				throw new
-					LogicException($"The player needs more {amount.ToString()} of {currency} for the transaction " +
+					LogicException($"The player needs more {amount.ToString()} of {currency.ToString()} for the transaction " +
 					               $"and only has {oldAmount.ToString()}");
 			}
 

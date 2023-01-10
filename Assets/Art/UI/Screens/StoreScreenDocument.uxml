@@ -6,7 +6,7 @@
                 <ui:VisualElement name="_shadow" class="store-item__shadow" />
                 <ui:VisualElement name="_body" class="store-item__body">
                     <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITStore/rare_core" class="store-item__body__title store-item__body__title--rare" />
-                    <ui:VisualElement class="store-item__body__icon store-item__body__icon--rare" />
+                    <ui:VisualElement class="store-item__body__icon sprite-home__icon-core-rare" />
                     <ui:Label name="Price" text="0.99€" class="store-item__body__price" />
                 </ui:VisualElement>
             </ui:Button>
@@ -14,7 +14,7 @@
                 <ui:VisualElement name="_shadow" class="store-item__shadow" />
                 <ui:VisualElement name="_body" class="store-item__body">
                     <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITStore/epic_core" class="store-item__body__title store-item__body__title--epic" />
-                    <ui:VisualElement class="store-item__body__icon store-item__body__icon--epic" />
+                    <ui:VisualElement class="store-item__body__icon sprite-home__icon-core-epic" />
                     <ui:Label name="Price" text="1.99€" class="store-item__body__price" />
                 </ui:VisualElement>
             </ui:Button>
@@ -22,7 +22,7 @@
                 <ui:VisualElement name="_shadow" class="store-item__shadow" />
                 <ui:VisualElement name="_body" class="store-item__body">
                     <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITStore/legendary_core" class="store-item__body__title store-item__body__title--legendary" />
-                    <ui:VisualElement class="store-item__body__icon store-item__body__icon--legendary" />
+                    <ui:VisualElement class="store-item__body__icon sprite-home__icon-core-legendary" />
                     <ui:Label name="Price" text="2.99€" class="store-item__body__price" />
                 </ui:VisualElement>
             </ui:Button>

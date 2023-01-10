@@ -21,31 +21,31 @@ MonoBehaviour:
     - Id: 28
       Manufacturer: 5
       HpRatioToBase:
-        RawValue: 0
+        RawValue: 38044
       ArmorRatioToBase:
         RawValue: 0
       SpeedRatioToBase:
-        RawValue: 8192
-      PowerRatioToBase:
         RawValue: 0
+      PowerRatioToBase:
+        RawValue: 16056
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:
-        RawValue: 19020
-      AmmoCapacityRatioToBase:
-        RawValue: 2007
-      ShieldCapacityRatioToBase:
         RawValue: 0
+      AmmoCapacityRatioToBase:
+        RawValue: 0
+      ShieldCapacityRatioToBase:
+        RawValue: 49435
     - Id: 38
       Manufacturer: 4
       HpRatioToBase:
-        RawValue: 11059
+        RawValue: 43352
       ArmorRatioToBase:
         RawValue: 0
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 0
+        RawValue: 16056
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:
@@ -53,17 +53,17 @@ MonoBehaviour:
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 0
+        RawValue: 42373
     - Id: 39
       Manufacturer: 3
       HpRatioToBase:
-        RawValue: 0
+        RawValue: 30966
       ArmorRatioToBase:
         RawValue: 0
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 13763
+        RawValue: 21561
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:
@@ -71,17 +71,17 @@ MonoBehaviour:
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 0
+        RawValue: 44727
     - Id: 40
       Manufacturer: 0
       HpRatioToBase:
-        RawValue: 0
+        RawValue: 30966
       ArmorRatioToBase:
-        RawValue: 11674
+        RawValue: 0
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 0
+        RawValue: 16286
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:
@@ -89,89 +89,89 @@ MonoBehaviour:
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 0
+        RawValue: 58263
     - Id: 41
       Manufacturer: 6
       HpRatioToBase:
-        RawValue: 0
+        RawValue: 34505
       ArmorRatioToBase:
         RawValue: 0
       SpeedRatioToBase:
-        RawValue: 6144
+        RawValue: 0
       PowerRatioToBase:
-        RawValue: 3441
+        RawValue: 18809
       AttackRangeRatioToBase:
-        RawValue: 4669
+        RawValue: 0
       PickupSpeedRatioToBase:
         RawValue: 0
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 2458
+        RawValue: 47081
     - Id: 42
       Manufacturer: 4
       HpRatioToBase:
-        RawValue: 2765
+        RawValue: 40698
       ArmorRatioToBase:
         RawValue: 0
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 0
+        RawValue: 16515
       AttackRangeRatioToBase:
-        RawValue: 4669
+        RawValue: 0
       PickupSpeedRatioToBase:
-        RawValue: 14265
+        RawValue: 0
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 2458
+        RawValue: 44727
     - Id: 29
       Manufacturer: 5
       HpRatioToBase:
-        RawValue: 0
+        RawValue: 38486
       ArmorRatioToBase:
-        RawValue: 2918
-      SpeedRatioToBase:
-        RawValue: 6144
-      PowerRatioToBase:
         RawValue: 0
+      SpeedRatioToBase:
+        RawValue: 0
+      PowerRatioToBase:
+        RawValue: 16056
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:
-        RawValue: 14265
-      AmmoCapacityRatioToBase:
-        RawValue: 1505
-      ShieldCapacityRatioToBase:
         RawValue: 0
+      AmmoCapacityRatioToBase:
+        RawValue: 0
+      ShieldCapacityRatioToBase:
+        RawValue: 48847
     - Id: 43
       Manufacturer: 3
       HpRatioToBase:
-        RawValue: 0
+        RawValue: 30966
       ArmorRatioToBase:
         RawValue: 0
       SpeedRatioToBase:
-        RawValue: 6144
+        RawValue: 0
       PowerRatioToBase:
-        RawValue: 3441
+        RawValue: 21103
       AttackRangeRatioToBase:
-        RawValue: 4669
+        RawValue: 0
       PickupSpeedRatioToBase:
-        RawValue: 14265
+        RawValue: 0
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 0
+        RawValue: 45904
     - Id: 44
       Manufacturer: 0
       HpRatioToBase:
-        RawValue: 3686
+        RawValue: 33178
       ArmorRatioToBase:
-        RawValue: 3891
+        RawValue: 0
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 0
+        RawValue: 17662
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:
@@ -179,53 +179,53 @@ MonoBehaviour:
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 3277
+        RawValue: 51789
     - Id: 45
       Manufacturer: 6
       HpRatioToBase:
-        RawValue: 2765
+        RawValue: 35832
       ArmorRatioToBase:
-        RawValue: 2918
+        RawValue: 0
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 0
+        RawValue: 17891
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:
-        RawValue: 14265
-      AmmoCapacityRatioToBase:
-        RawValue: 1505
-      ShieldCapacityRatioToBase:
         RawValue: 0
+      AmmoCapacityRatioToBase:
+        RawValue: 0
+      ShieldCapacityRatioToBase:
+        RawValue: 47670
     - Id: 34
       Manufacturer: 7
       HpRatioToBase:
-        RawValue: 0
+        RawValue: 39813
       ArmorRatioToBase:
         RawValue: 0
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 4588
+        RawValue: 18350
       AttackRangeRatioToBase:
-        RawValue: 6226
+        RawValue: 0
       PickupSpeedRatioToBase:
         RawValue: 0
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 3277
+        RawValue: 41196
     - Id: 35
       Manufacturer: 7
       HpRatioToBase:
-        RawValue: 0
+        RawValue: 35832
       ArmorRatioToBase:
         RawValue: 0
       SpeedRatioToBase:
-        RawValue: 8192
+        RawValue: 0
       PowerRatioToBase:
-        RawValue: 4588
+        RawValue: 17891
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:
@@ -233,53 +233,53 @@ MonoBehaviour:
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 3277
+        RawValue: 47670
     - Id: 27
       Manufacturer: 3
       HpRatioToBase:
-        RawValue: 0
+        RawValue: 30966
       ArmorRatioToBase:
         RawValue: 0
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 6881
+        RawValue: 20873
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:
         RawValue: 0
       AmmoCapacityRatioToBase:
-        RawValue: 3011
-      ShieldCapacityRatioToBase:
         RawValue: 0
+      ShieldCapacityRatioToBase:
+        RawValue: 46493
     - Id: 52
       Manufacturer: 4
       HpRatioToBase:
-        RawValue: 5530
+        RawValue: 42025
       ArmorRatioToBase:
         RawValue: 0
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 0
+        RawValue: 16056
       AttackRangeRatioToBase:
-        RawValue: 9339
+        RawValue: 0
       PickupSpeedRatioToBase:
         RawValue: 0
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 0
+        RawValue: 44138
     - Id: 53
       Manufacturer: 0
       HpRatioToBase:
-        RawValue: 5530
+        RawValue: 31408
       ArmorRatioToBase:
-        RawValue: 5837
+        RawValue: 0
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 0
+        RawValue: 16744
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:
@@ -287,107 +287,107 @@ MonoBehaviour:
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 0
+        RawValue: 56497
     - Id: 54
       Manufacturer: 6
       HpRatioToBase:
-        RawValue: 2765
+        RawValue: 34947
       ArmorRatioToBase:
-        RawValue: 2918
+        RawValue: 0
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 0
+        RawValue: 18121
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:
-        RawValue: 14265
-      AmmoCapacityRatioToBase:
-        RawValue: 1505
-      ShieldCapacityRatioToBase:
         RawValue: 0
+      AmmoCapacityRatioToBase:
+        RawValue: 0
+      ShieldCapacityRatioToBase:
+        RawValue: 48258
     - Id: 36
       Manufacturer: 5
       HpRatioToBase:
-        RawValue: 0
+        RawValue: 37159
       ArmorRatioToBase:
         RawValue: 0
       SpeedRatioToBase:
-        RawValue: 8192
-      PowerRatioToBase:
         RawValue: 0
+      PowerRatioToBase:
+        RawValue: 16056
       AttackRangeRatioToBase:
-        RawValue: 6226
+        RawValue: 0
       PickupSpeedRatioToBase:
-        RawValue: 19020
+        RawValue: 0
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 0
+        RawValue: 50612
     - Id: 50
       Manufacturer: 3
       HpRatioToBase:
-        RawValue: 0
+        RawValue: 30966
       ArmorRatioToBase:
         RawValue: 0
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 4588
+        RawValue: 22249
       AttackRangeRatioToBase:
-        RawValue: 6226
+        RawValue: 0
       PickupSpeedRatioToBase:
         RawValue: 0
       AmmoCapacityRatioToBase:
-        RawValue: 2007
-      ShieldCapacityRatioToBase:
         RawValue: 0
+      ShieldCapacityRatioToBase:
+        RawValue: 42961
     - Id: 23
       Manufacturer: 5
       HpRatioToBase:
-        RawValue: 0
+        RawValue: 38486
       ArmorRatioToBase:
         RawValue: 0
       SpeedRatioToBase:
-        RawValue: 8192
-      PowerRatioToBase:
         RawValue: 0
+      PowerRatioToBase:
+        RawValue: 16056
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:
-        RawValue: 19020
-      AmmoCapacityRatioToBase:
-        RawValue: 2007
-      ShieldCapacityRatioToBase:
         RawValue: 0
+      AmmoCapacityRatioToBase:
+        RawValue: 0
+      ShieldCapacityRatioToBase:
+        RawValue: 48847
     - Id: 32
       Manufacturer: 7
       HpRatioToBase:
-        RawValue: 0
+        RawValue: 37601
       ArmorRatioToBase:
-        RawValue: 5837
+        RawValue: 0
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 0
+        RawValue: 19038
       AttackRangeRatioToBase:
-        RawValue: 9339
+        RawValue: 0
       PickupSpeedRatioToBase:
         RawValue: 0
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 0
+        RawValue: 42373
     - Id: 33
       Manufacturer: 7
       HpRatioToBase:
-        RawValue: 0
+        RawValue: 30966
       ArmorRatioToBase:
-        RawValue: 5837
+        RawValue: 0
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 6881
+        RawValue: 17662
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:
@@ -395,17 +395,17 @@ MonoBehaviour:
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 0
+        RawValue: 54732
     - Id: 24
       Manufacturer: 4
       HpRatioToBase:
-        RawValue: 5530
+        RawValue: 42910
       ArmorRatioToBase:
         RawValue: 0
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 0
+        RawValue: 16056
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:
@@ -413,53 +413,53 @@ MonoBehaviour:
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 4915
+        RawValue: 42961
     - Id: 49
       Manufacturer: 0
       HpRatioToBase:
-        RawValue: 0
+        RawValue: 30966
       ArmorRatioToBase:
-        RawValue: 3891
+        RawValue: 0
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 0
+        RawValue: 16974
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:
         RawValue: 0
       AmmoCapacityRatioToBase:
-        RawValue: 2007
+        RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 3277
+        RawValue: 56497
     - Id: 51
       Manufacturer: 6
       HpRatioToBase:
-        RawValue: 2765
+        RawValue: 36274
       ArmorRatioToBase:
         RawValue: 0
       SpeedRatioToBase:
-        RawValue: 6144
+        RawValue: 0
       PowerRatioToBase:
-        RawValue: 3441
+        RawValue: 18579
       AttackRangeRatioToBase:
-        RawValue: 4669
+        RawValue: 0
       PickupSpeedRatioToBase:
         RawValue: 0
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 0
+        RawValue: 45316
     - Id: 30
       Manufacturer: 7
       HpRatioToBase:
-        RawValue: 0
+        RawValue: 34947
       ArmorRatioToBase:
         RawValue: 0
       SpeedRatioToBase:
-        RawValue: 12288
-      PowerRatioToBase:
         RawValue: 0
+      PowerRatioToBase:
+        RawValue: 18121
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:
@@ -467,7 +467,7 @@ MonoBehaviour:
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 4915
+        RawValue: 48258
     - Id: 31
       Manufacturer: 0
       HpRatioToBase:
@@ -513,7 +513,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 29491
+        RawValue: 16384
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:
@@ -639,7 +639,7 @@ MonoBehaviour:
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
-        RawValue: 40141
+        RawValue: 45875
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:

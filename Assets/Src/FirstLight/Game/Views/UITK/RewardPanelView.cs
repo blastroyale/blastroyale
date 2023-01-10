@@ -62,7 +62,7 @@ namespace FirstLight.Game.Views
 				currentGained += increment;
 				currentTotal += increment;
 
-				_gainedLabel.text = (currentGained < 0 ? "-" : "+") + currentGained;
+				_gainedLabel.text = (currentGained > 0 ? "+" : "") + currentGained;
 				_totalLabel.text = Math.Max(0, currentTotal).ToString();
 			}
 		}

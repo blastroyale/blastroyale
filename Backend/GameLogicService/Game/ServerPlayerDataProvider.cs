@@ -7,6 +7,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Services;
 using FirstLight.Server.SDK.Models;
+using PlayFab;
 
 
 namespace Backend.Game
@@ -25,6 +26,11 @@ namespace Backend.Game
 		// Types that are stored in the data provider but does not need to be updated server-side.
 		// Same as above, shall be removed as a depdendency soon.
 		private static readonly HashSet<Type> NotSaved = new(new[] { typeof(AppData) });
+
+		/// <summary>
+		/// Returns the list of types that were consumed
+		/// </summary>
+		public List<Type> ModelsConsumed => _modelsConsumed.Keys.ToList();
 
 		public ServerPlayerDataProvider(ServerState state)
 		{
@@ -56,6 +62,13 @@ namespace Backend.Game
 		}
 
 		/// <inheritdoc />
+		public bool TryGetData(Type type, out object dat)
+		{
+			dat = GetData(type);
+			return dat != null;
+		}
+
+		/// <inheritdoc />
 		public T GetData<T>() where T : class
 		{
 			return (T)GetData(typeof(T));
@@ -79,11 +92,11 @@ namespace Backend.Game
 			_modelsConsumed[type] = data;
 			return data;
 		}
-
+		
 		/// <inheritdoc/>
 		public IEnumerable<Type> GetKeys()
 		{
-			return _state.Keys.Select(s => Assembly.GetExecutingAssembly().GetType(s))!;
+			return _state.Keys.Select(s => typeof(PlayerData).GetAssembly().GetType(s))!;
 		}
 		
 		public void ClearDeltas()

@@ -18,36 +18,39 @@ MonoBehaviour:
       Guid:
         Value: 648001274895591165
     Entries:
-    - Type: 3
+    - Type: 4
       Key:
-        Key: BurstShotCount
-    - Type: 3
-      Key:
-        Key: TapCooldown
-    - Type: 3
-      Key:
-        Key: RampUpTimeStart
-    - Type: 0
-      Key:
-        Key: IsShooting
+        Key: AimDirection
     - Type: 3
       Key:
         Key: AimingMovementSpeed
     - Type: 3
       Key:
-        Key: StunDuration
+        Key: TapCooldown
+    - Type: 3
+      Key:
+        Key: BurstShotCount
     - Type: 0
       Key:
         Key: IsSkydiving
     - Type: 3
       Key:
+        Key: StunDuration
+    - Type: 0
+      Key:
+        Key: IsShooting
+    - Type: 3
+      Key:
+        Key: RampUpTimeStart
+    - Type: 3
+      Key:
         Key: ReloadTime
+    - Type: 3
+      Key:
+        Key: NextShotTime
     - Type: 2
       Key:
         Key: MagazineSize
-    - Type: 4
-      Key:
-        Key: AimDirection
     - Type: 3
       Key:
         Key: BurstTimeDelay

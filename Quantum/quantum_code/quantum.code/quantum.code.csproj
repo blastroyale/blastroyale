@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AI\Actions\PlayerActivateAction.cs" />
+    <Compile Include="AI\Actions\PlayerOnBurstCompleteAction.cs" />
     <Compile Include="AI\Actions\PlayerReloadAction.cs" />
     <Compile Include="AI\Actions\PlayerPhysicsAction.cs" />
     <Compile Include="AI\Actions\PlayerStartReloadAction.cs" />

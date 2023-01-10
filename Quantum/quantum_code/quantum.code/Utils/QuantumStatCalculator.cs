@@ -150,9 +150,9 @@ namespace Quantum
 
 			// Apply rarity multiplier
 			modifiedValue += value * QuantumHelpers.PowFp(statConfig.RarityMultiplier, (uint) equipment.Rarity);
-
-			// Apply level step (equipment.level starts at 0 so we don't need to do -1 like we do in design data)
-			modifiedValue += value * statConfig.LevelStepMultiplier * equipment.Level;
+			
+			// Should always be 0 when initial level (1) by design
+			modifiedValue += value * statConfig.LevelStepMultiplier * (equipment.Level - 1);
 
 			return modifiedValue;
 		}

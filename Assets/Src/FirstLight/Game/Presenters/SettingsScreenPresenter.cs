@@ -106,7 +106,7 @@ namespace FirstLight.Game.Presenters
 		/// </summary>
 		public void UpdateAccountStatus()
 		{
-			if (string.IsNullOrEmpty(_gameDataProvider.AppDataProvider.LastLoginEmail.Value))
+			if (_gameDataProvider.AppDataProvider.IsGuest)
 			{
 				_connectIdButton.gameObject.SetActive(true);
 				_idConnectionNameText.gameObject.SetActive(false);

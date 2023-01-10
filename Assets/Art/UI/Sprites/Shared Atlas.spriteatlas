@@ -54,6 +54,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: cc30324b9951b419db0ce1e9b0d8b0fd, type: 3}
   - {fileID: 21300000, guid: 96dd4fbbd265e45f5bfdd253a03cb76c, type: 3}
   - {fileID: 21300000, guid: d49b2a8c0f8344da4a317261f81e6850, type: 3}
+  - {fileID: 21300000, guid: 234622ad06622bb46ab4b6618b7a2a6a, type: 3}
   - {fileID: 21300000, guid: c91f1aee7012e4686ae8c14fc85514a6, type: 3}
   m_PackedSpriteNamesToIndex:
   - icon-medal-3rd
@@ -72,6 +73,7 @@ SpriteAtlas:
   - progress-battlepass-bpp-rewards
   - icon-currency-cs
   - background-stat-dark
+  - highlight-leaderboard-localplayer
   - icon-lowconnection
   m_RenderDataMap: {}
   m_Tag: Shared Atlas

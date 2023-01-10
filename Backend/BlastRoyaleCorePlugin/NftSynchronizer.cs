@@ -257,7 +257,6 @@ namespace BlastRoyaleNFTPlugin
 			equip.Tuning = Convert.ToUInt32(nft.tuning);
 			equip.InitialReplicationCounter = Convert.ToUInt32(nft.initialReplicationCounter);
 			equip.Level = Convert.ToUInt32(nft.level);
-			equip.MaxLevel = Convert.ToUInt32(nft.maxLevel);
 			equip.ReplicationCounter = Convert.ToUInt32(nft.replicationCount);
 			return equip;
 		}

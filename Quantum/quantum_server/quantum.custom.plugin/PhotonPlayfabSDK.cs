@@ -6,6 +6,7 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Services;
 using FirstLight.Server.SDK.Modules;
+using FirstLight.Server.SDK.Modules.Commands;
 using Photon.Hive.Plugin;
 using PlayFab;
 using PlayFab.CloudScriptModels;

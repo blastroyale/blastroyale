@@ -46,6 +46,7 @@ namespace FirstLight.Game.Infos
 		public uint CurrentDurability;
 		public bool IsEquipped;
 		public bool IsNft;
+		public int MaxLevel;
 		public Dictionary<EquipmentStatType, float> Stats;
 		public Dictionary<EquipmentStatType, float> NextLevelStats;
 

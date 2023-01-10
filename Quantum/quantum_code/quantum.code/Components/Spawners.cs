@@ -125,7 +125,7 @@ namespace Quantum
 			var config = f.ChestConfigs.GetConfig(id);
 			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.ChestPrototype.Id));
 
-			f.Unsafe.GetPointer<Chest>(entity)->Init(f, entity, transform.Position, transform.Rotation, config);
+			f.Unsafe.GetPointer<Chest>(entity)->Init(f, entity, transform.Position, FPQuaternion.Identity, config);
 
 			return entity;
 		}

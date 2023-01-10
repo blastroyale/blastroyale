@@ -63,6 +63,13 @@ namespace FirstLight.Game.Presenters
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
+			_services.NetworkService.QuantumClient.AddCallbackTarget(this);
+		}
+		
+		
+		private void OnDestroy()
+		{
+			_services?.NetworkService?.QuantumClient?.RemoveCallbackTarget(this);
 		}
 
 		protected override void QueryElements(VisualElement root)
@@ -248,7 +255,7 @@ namespace FirstLight.Game.Presenters
 		{
 			UpdatePlayerCount();
 		}
-		
+
 		private void OnStartedFinalPreloadMessage(StartedFinalPreloadMessage obj)
 		{
 			if (_matchmakingTimerCoroutine != null)

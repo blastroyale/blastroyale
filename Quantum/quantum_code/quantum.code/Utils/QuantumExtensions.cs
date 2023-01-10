@@ -38,19 +38,5 @@ namespace Quantum
 				return isReverse ? rank * -1 : rank;
 			});
 		}
-		
-		/// <summary>
-		/// Returns a mutated <see cref="Equipment"/> at the given <paramref name="level"/>.
-		/// If the given <paramref name="level"/> is higher then the equipment <seealso cref="Equipment.MaxLevel"/>, it
-		/// will return back the equipment <seealso cref="Equipment.MaxLevel"/>
-		/// </summary>
-		public static Equipment AtLevel(this Equipment equipment, uint level)
-		{
-			var ret = equipment;
-
-			ret.Level = level >= ret.MaxLevel ? ret.MaxLevel : level;
-
-			return ret;
-		}
 	}
 }

@@ -869,21 +869,22 @@ MonoBehaviour:
     mscorlib\">134085775617983364</Value>\r\n        </Data>\r\n      </Data>\r\n     
     <ChildrenStatesCount>0</ChildrenStatesCount>\r\n    </Node>\r\n    <Key>2a7c6134-9f9c-490b-a0a7-b5aec89953f5</Key>\r\n   
     <Node>\r\n      <Id>2a7c6134-9f9c-490b-a0a7-b5aec89953f5</Id>\r\n      <Name>PlayerOnBurstCompleteAction</Name>\r\n     
-    <Comment />\r\n      <Graph>f6ff67a8-3608-47d9-a0d0-a25d2998f15b</Graph>\r\n     
-    <Parent>PlayerOnBurstCompleteAction</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n     
-    <Flags>0</Flags>\r\n      <Position>466|94||0</Position>\r\n      <StaticIn Count=\"2\">\r\n       
-    <Slot>\r\n          <Id>$exec</Id>\r\n          <Name></Name>\r\n          <Value
-    />\r\n          <Type>$exec</Type>\r\n          <Mode>In</Mode>\r\n         
-    <Flags>2</Flags>\r\n          <TypeMode>Value</TypeMode>\r\n        </Slot>\r\n       
-    <Slot>\r\n          <Id>Label</Id>\r\n          <Name>Label</Name>\r\n         
-    <Value />\r\n          <Type>@string</Type>\r\n          <Mode>In</Mode>\r\n         
-    <Flags>512</Flags>\r\n          <TypeMode>Value</TypeMode>\r\n        </Slot>\r\n     
-    </StaticIn>\r\n      <StaticOut Count=\"1\">\r\n        <Slot>\r\n          <Id>$exec</Id>\r\n         
-    <Name></Name>\r\n          <Value />\r\n          <Type>$exec</Type>\r\n         
-    <Mode>Out</Mode>\r\n          <Flags>0</Flags>\r\n          <TypeMode>Value</TypeMode>\r\n       
-    </Slot>\r\n      </StaticOut>\r\n      <Groups Count=\"0\" />\r\n      <Data
-    Count=\"1\">\r\n        <Data>\r\n          <Name>$guid</Name>\r\n          <Value
-    Type=\"@string\">00000000-0000-0000-0000-000000000000</Value>\r\n        </Data>\r\n     
+    <Comment></Comment>\r\n      <Graph>f6ff67a8-3608-47d9-a0d0-a25d2998f15b</Graph>\r\n     
+    <Parent></Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n      <Flags>0</Flags>\r\n     
+    <Position>466|94||0</Position>\r\n      <StaticIn Count=\"2\">\r\n        <Slot>\r\n         
+    <Id>$exec</Id>\r\n          <Name></Name>\r\n          <Value />\r\n         
+    <Type>$exec</Type>\r\n          <Mode>In</Mode>\r\n          <Flags>2</Flags>\r\n         
+    <TypeMode>Value</TypeMode>\r\n        </Slot>\r\n        <Slot>\r\n         
+    <Id>Label</Id>\r\n          <Name>Label</Name>\r\n          <Value />\r\n         
+    <Type>@string</Type>\r\n          <Mode>In</Mode>\r\n          <Flags>512</Flags>\r\n         
+    <TypeMode>Value</TypeMode>\r\n        </Slot>\r\n      </StaticIn>\r\n      <StaticOut
+    Count=\"1\">\r\n        <Slot>\r\n          <Id>$exec</Id>\r\n          <Name></Name>\r\n         
+    <Value />\r\n          <Type>$exec</Type>\r\n          <Mode>Out</Mode>\r\n         
+    <Flags>0</Flags>\r\n          <TypeMode>Value</TypeMode>\r\n        </Slot>\r\n     
+    </StaticOut>\r\n      <Groups Count=\"0\" />\r\n      <Data Count=\"2\">\r\n       
+    <Data>\r\n          <Name>$guid</Name>\r\n          <Value Type=\"@string\">00000000-0000-0000-0000-000000000000</Value>\r\n       
+    </Data>\r\n        <Data>\r\n          <Name>Guid</Name>\r\n          <Value
+    Type=\"System.Int64, mscorlib\">1813435176672350993</Value>\r\n        </Data>\r\n     
     </Data>\r\n      <ChildrenStatesCount>0</ChildrenStatesCount>\r\n    </Node>\r\n   
     <Key>2a851dc5-9c40-44e8-92a1-166f47c651f9</Key>\r\n    <Node>\r\n      <Id>2a851dc5-9c40-44e8-92a1-166f47c651f9</Id>\r\n     
     <Name>GetMagShotCountFunction</Name>\r\n      <Comment></Comment>\r\n      <Graph>0ec370a0-5245-4147-a1be-17ff849f1353</Graph>\r\n     
@@ -1559,21 +1560,22 @@ MonoBehaviour:
     </StaticOut>\r\n      <Groups Count=\"0\" />\r\n      <Data Count=\"0\" />\r\n     
     <ChildrenStatesCount>0</ChildrenStatesCount>\r\n    </Node>\r\n    <Key>5fbf1e47-61ba-4837-a012-dea107eed6d1</Key>\r\n   
     <Node>\r\n      <Id>5fbf1e47-61ba-4837-a012-dea107eed6d1</Id>\r\n      <Name>PlayerOnBurstCompleteAction</Name>\r\n     
-    <Comment />\r\n      <Graph>523327fd-d002-49f6-b0cb-b5c855de2430</Graph>\r\n     
-    <Parent>PlayerOnBurstCompleteAction</Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n     
-    <Flags>0</Flags>\r\n      <Position>398|-10||0</Position>\r\n      <StaticIn
-    Count=\"2\">\r\n        <Slot>\r\n          <Id>$exec</Id>\r\n          <Name></Name>\r\n         
-    <Value />\r\n          <Type>$exec</Type>\r\n          <Mode>In</Mode>\r\n         
-    <Flags>2</Flags>\r\n          <TypeMode>Value</TypeMode>\r\n        </Slot>\r\n       
-    <Slot>\r\n          <Id>Label</Id>\r\n          <Name>Label</Name>\r\n         
-    <Value />\r\n          <Type>@string</Type>\r\n          <Mode>In</Mode>\r\n         
-    <Flags>512</Flags>\r\n          <TypeMode>Value</TypeMode>\r\n        </Slot>\r\n     
-    </StaticIn>\r\n      <StaticOut Count=\"1\">\r\n        <Slot>\r\n          <Id>$exec</Id>\r\n         
-    <Name></Name>\r\n          <Value />\r\n          <Type>$exec</Type>\r\n         
-    <Mode>Out</Mode>\r\n          <Flags>0</Flags>\r\n          <TypeMode>Value</TypeMode>\r\n       
-    </Slot>\r\n      </StaticOut>\r\n      <Groups Count=\"0\" />\r\n      <Data
-    Count=\"1\">\r\n        <Data>\r\n          <Name>$guid</Name>\r\n          <Value
-    Type=\"@string\">00000000-0000-0000-0000-000000000000</Value>\r\n        </Data>\r\n     
+    <Comment></Comment>\r\n      <Graph>523327fd-d002-49f6-b0cb-b5c855de2430</Graph>\r\n     
+    <Parent></Parent>\r\n      <DebugIndex>-1</DebugIndex>\r\n      <Flags>0</Flags>\r\n     
+    <Position>398|-10||0</Position>\r\n      <StaticIn Count=\"2\">\r\n        <Slot>\r\n         
+    <Id>$exec</Id>\r\n          <Name></Name>\r\n          <Value />\r\n         
+    <Type>$exec</Type>\r\n          <Mode>In</Mode>\r\n          <Flags>2</Flags>\r\n         
+    <TypeMode>Value</TypeMode>\r\n        </Slot>\r\n        <Slot>\r\n         
+    <Id>Label</Id>\r\n          <Name>Label</Name>\r\n          <Value />\r\n         
+    <Type>@string</Type>\r\n          <Mode>In</Mode>\r\n          <Flags>512</Flags>\r\n         
+    <TypeMode>Value</TypeMode>\r\n        </Slot>\r\n      </StaticIn>\r\n      <StaticOut
+    Count=\"1\">\r\n        <Slot>\r\n          <Id>$exec</Id>\r\n          <Name></Name>\r\n         
+    <Value />\r\n          <Type>$exec</Type>\r\n          <Mode>Out</Mode>\r\n         
+    <Flags>0</Flags>\r\n          <TypeMode>Value</TypeMode>\r\n        </Slot>\r\n     
+    </StaticOut>\r\n      <Groups Count=\"0\" />\r\n      <Data Count=\"2\">\r\n       
+    <Data>\r\n          <Name>$guid</Name>\r\n          <Value Type=\"@string\">00000000-0000-0000-0000-000000000000</Value>\r\n       
+    </Data>\r\n        <Data>\r\n          <Name>Guid</Name>\r\n          <Value
+    Type=\"System.Int64, mscorlib\">2500373832750477531</Value>\r\n        </Data>\r\n     
     </Data>\r\n      <ChildrenStatesCount>0</ChildrenStatesCount>\r\n    </Node>\r\n   
     <Key>667f6ef5-ff68-4e64-9b34-5388655bf293</Key>\r\n    <Node>\r\n      <Id>667f6ef5-ff68-4e64-9b34-5388655bf293</Id>\r\n     
     <Name>BlackboardVar</Name>\r\n      <Comment></Comment>\r\n      <Graph>98a9ccc5-49fd-4069-b090-c33275ae3ee5</Graph>\r\n     

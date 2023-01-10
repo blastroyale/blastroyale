@@ -16,7 +16,7 @@ namespace Quantum
 			var bb = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
 			var value = bb->GetFP(f, Constants.BurstShotCount);
 
-			bb->Set(f, Constants.IsShootingKey, value != 0);
+			bb->Set(f, Constants.IsShootingKey, value > 0);
 		}
 	}
 }

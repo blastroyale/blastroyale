@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <authors>$authors$</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <dependencies>
+      <group targetFramework=".NETFramework4.8">
+        <dependency id="NuGet.Build.Tasks.Pack" version="5.2.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Core" targetFramework=".NETFramework4.8" />
+      <frameworkAssembly assemblyName="System" targetFramework=".NETFramework4.8" />
+    </frameworkAssemblies>
+  </metadata>
+  <files>
+    <file src="..\..\assemblies\$config$\*.dll" target="lib\net48\" />
+    <file src="obj\$config$\quantum.code.dll" target="lib\net48\" />
+  </files>
+</package>

@@ -12,10 +12,6 @@
     padding: 0;
 }
 
-.equipment-slot:active {
-    background-image: var(--sprite-home__button-equipmentslot-common-pressed);
-}
-
 .equipment-slot--empty {
     background-image: var(--sprite-home__button-equipmentslot-empty);
 }

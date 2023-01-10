@@ -89,6 +89,7 @@ namespace FirstLight.Game.UIElements
 
 				filledElement.Add(_categoryIcon = new VisualElement {name = "category"});
 				_categoryIcon.AddToClassList(UssCategoryIcon);
+				_categoryIcon.AddToClassList(string.Format(UssSpriteEquipmentCategory, "weapon"));
 
 				filledElement.Add(_equipmentName = new AutoSizeLabel(
 					string.Format(ScriptLocalization.UITEquipment.item_name_lvl, "SOOPERDOOPER LOOTERSHOOTER"),

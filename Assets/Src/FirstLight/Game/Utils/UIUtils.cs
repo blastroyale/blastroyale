@@ -60,6 +60,11 @@ namespace FirstLight.Game.Utils
 		public static Vector2 GetPositionOnScreen(this VisualElement element, VisualElement root, bool invertY = true,
 												  bool invertX = false)
 		{
+			if (!element.worldBound.Overlaps(root.worldBound))
+			{
+				throw new Exception("Element out of bounds");
+			}
+
 			var viewportPoint = element.worldBound.center / root.worldBound.size;
 
 			if (invertX)
@@ -72,7 +77,18 @@ namespace FirstLight.Game.Utils
 				viewportPoint.y = 1f - viewportPoint.y;
 			}
 
-			return Camera.main.ViewportToScreenPoint(viewportPoint);
+			viewportPoint.x = Mathf.Max(viewportPoint.x, 0);
+			viewportPoint.y = Mathf.Max(viewportPoint.y, 0);
+			viewportPoint.x = Mathf.Min(viewportPoint.x, 1);
+			viewportPoint.y = Mathf.Min(viewportPoint.y, 1);
+
+			var screenPoint = Camera.main.ViewportToScreenPoint(viewportPoint);
+
+			// if viewportPoint.x = 1f ViewportToScreenPoint will return width as x, which should be width-1
+			screenPoint.x = Math.Min(screenPoint.x, Screen.width - 1);
+			screenPoint.y = Math.Min(screenPoint.y, Screen.height - 1);
+
+			return screenPoint;
 		}
 
 		/// <summary>

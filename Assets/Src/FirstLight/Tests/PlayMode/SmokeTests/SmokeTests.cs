@@ -94,50 +94,14 @@ namespace FirstLight.Tests.PlayTests
 			yield return wait1Sec;
 
 			FLGTestTools.ClickEquipmentSlot();
-
-			yield return FLGTestTools.WaitForPresenter<EquipmentSelectionPresenter>();
-
+			
 			yield return wait1Sec;
 			
 			FLGTestTools.ClickEquipmentSlot2();
-
-			yield return FLGTestTools.WaitForPresenter<EquipmentSelectionPresenter>();
-
+			
 			yield return wait1Sec;
-
+			
 			FLGTestTools.ClickEquipButton();
-			
-			yield return FLGTestTools.WaitForPresenter<EquipmentSelectionPresenter>();
-			
-			yield return wait1Sec;
-			
-			FLGTestTools.CLickBackButton();
-
-			yield return FLGTestTools.WaitForPresenter<EquipmentSelectionPresenter>();
-
-			yield return wait1Sec;
-
-			FLGTestTools.ClickHelmetCategory();
-			
-			yield return FLGTestTools.WaitForPresenter<EquipmentSelectionPresenter>();
-			
-			yield return wait1Sec;
-			
-			FLGTestTools.ClickEquipmentSlot();
-
-			yield return FLGTestTools.WaitForPresenter<EquipmentSelectionPresenter>();
-
-			yield return wait1Sec;
-			
-			FLGTestTools.ClickEquipmentSlot2();
-
-			yield return FLGTestTools.WaitForPresenter<EquipmentSelectionPresenter>();
-
-			yield return wait1Sec;
-
-			FLGTestTools.ClickEquipButton();
-			
-			yield return FLGTestTools.WaitForPresenter<EquipmentSelectionPresenter>();
 			
 			yield return wait1Sec;
 			
@@ -146,7 +110,31 @@ namespace FirstLight.Tests.PlayTests
 			yield return FLGTestTools.WaitForPresenter<EquipmentPresenter>();
 			
 			yield return wait1Sec;
-
+			
+			FLGTestTools.ClickHelmetCategory();
+			
+			yield return FLGTestTools.WaitForPresenter<EquipmentSelectionPresenter>();
+			
+			yield return wait1Sec;
+			
+			FLGTestTools.ClickEquipmentSlot();
+			
+			yield return wait1Sec;
+			
+			FLGTestTools.ClickEquipmentSlot2();
+			
+			yield return wait1Sec;
+			
+			FLGTestTools.ClickEquipButton();
+			
+			yield return wait1Sec;
+			
+			FLGTestTools.CLickBackButton();
+			
+			yield return FLGTestTools.WaitForPresenter<EquipmentPresenter>();
+			
+			yield return wait1Sec;
+			
 			FLGTestTools.ClickShieldCategory();
 			
 			yield return FLGTestTools.WaitForPresenter<EquipmentSelectionPresenter>();
@@ -154,20 +142,14 @@ namespace FirstLight.Tests.PlayTests
 			yield return wait1Sec;
 			
 			FLGTestTools.ClickEquipmentSlot();
-
-			yield return FLGTestTools.WaitForPresenter<EquipmentSelectionPresenter>();
-
+			
 			yield return wait1Sec;
 			
 			FLGTestTools.ClickEquipmentSlot2();
-
-			yield return FLGTestTools.WaitForPresenter<EquipmentSelectionPresenter>();
-
-			yield return wait1Sec;
-
-			FLGTestTools.ClickEquipButton();
 			
-			yield return FLGTestTools.WaitForPresenter<EquipmentSelectionPresenter>();
+			yield return wait1Sec;
+			
+			FLGTestTools.ClickEquipButton();
 			
 			yield return wait1Sec;
 			
@@ -184,20 +166,14 @@ namespace FirstLight.Tests.PlayTests
 			yield return wait1Sec;
 			
 			FLGTestTools.ClickEquipmentSlot();
-
-			yield return FLGTestTools.WaitForPresenter<EquipmentSelectionPresenter>();
-
+			
 			yield return wait1Sec;
 			
 			FLGTestTools.ClickEquipmentSlot2();
-
-			yield return FLGTestTools.WaitForPresenter<EquipmentSelectionPresenter>();
-
-			yield return wait1Sec;
-
-			FLGTestTools.ClickEquipButton();
 			
-			yield return FLGTestTools.WaitForPresenter<EquipmentSelectionPresenter>();
+			yield return wait1Sec;
+			
+			FLGTestTools.ClickEquipButton();
 			
 			yield return wait1Sec;
 			
@@ -206,7 +182,7 @@ namespace FirstLight.Tests.PlayTests
 			yield return FLGTestTools.WaitForPresenter<EquipmentPresenter>();
 			
 			yield return wait1Sec;
-
+			
 			FLGTestTools.ClickArmorCategory();
 			
 			yield return FLGTestTools.WaitForPresenter<EquipmentSelectionPresenter>();
@@ -214,20 +190,14 @@ namespace FirstLight.Tests.PlayTests
 			yield return wait1Sec;
 			
 			FLGTestTools.ClickEquipmentSlot();
-
-			yield return FLGTestTools.WaitForPresenter<EquipmentSelectionPresenter>();
-
+			
 			yield return wait1Sec;
 			
 			FLGTestTools.ClickEquipmentSlot2();
-
-			yield return FLGTestTools.WaitForPresenter<EquipmentSelectionPresenter>();
-
-			yield return wait1Sec;
-
-			FLGTestTools.ClickEquipButton();
 			
-			yield return FLGTestTools.WaitForPresenter<EquipmentSelectionPresenter>();
+			yield return wait1Sec;
+			
+			FLGTestTools.ClickEquipButton();
 			
 			yield return wait1Sec;
 

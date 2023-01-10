@@ -10,6 +10,7 @@ using FirstLight.Game.Logic.RPC;
 using FirstLight.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Models;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Photon.Deterministic;
 using Quantum;
 using UnityEngine;
@@ -95,6 +96,11 @@ namespace FirstLight.Game.Logic
 		/// Generates a new unique non-NFT piece of equipment from battle pass reward configs
 		/// </summary>
 		Equipment GenerateEquipmentFromConfig(EquipmentRewardConfig config);
+
+		/// <summary>
+		/// Returns the desired max level of a given equipment
+		/// </summary>
+		int GetMaxLevel(Equipment equipment);
 	}
 
 	/// <inheritdoc />
@@ -229,6 +235,7 @@ namespace FirstLight.Game.Logic
 				RepairCost = GetRepairCost(equipment, isNft),
 				CurrentDurability = durability,
 				IsNft = isNft,
+				MaxLevel = GetMaxLevel(equipment),
 				Stats = equipment.GetStats(GameLogic.ConfigsProvider),
 				NextLevelStats = nextEquipment.GetStats(GameLogic.ConfigsProvider)
 			};
@@ -318,6 +325,10 @@ namespace FirstLight.Game.Logic
 
 		public Equipment GenerateEquipmentFromConfig(EquipmentRewardConfig config)
 		{
+			if (config.Level < 1)
+			{
+				throw new LogicException("Invalid equipment reward configuration: level 0 for id "+config.Id+" - "+config.GameId.ToString());
+			}
 			var gameId = config.GameId;
 
 			if (gameId.IsInGroup(GameIdGroup.Core))
@@ -436,6 +447,12 @@ namespace FirstLight.Game.Logic
 			_loadout.Remove(slot);
 		}
 
+		public int GetMaxLevel(Equipment equip)
+		{
+			var rarityConfig = GameLogic.ConfigsProvider.GetConfig<RarityDataConfig>((int) equip.Rarity);
+			return rarityConfig.MaxLevel;
+		}
+
 		public Pair<GameId, uint> Scrap(UniqueId itemId)
 		{
 			var equipment = _inventory[itemId];
@@ -462,7 +479,7 @@ namespace FirstLight.Game.Logic
 				                         $"{itemId} - {equipment.GameId.ToString()} is a NFT");
 			}
 			
-			if (equipment.IsMaxLevel())
+			if (GetMaxLevel(equipment) == equipment.Level)
 			{
 				throw new LogicException($"Item {itemId} - {equipment.GameId.ToString()} is already at max level " +
 				                         $"{equipment.Level} and cannot be upgraded further");

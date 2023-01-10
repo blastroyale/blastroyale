@@ -74,6 +74,11 @@ namespace FirstLight.Tests.EditorMode
 	
 		}
 
+		public void GetPlayerSegments(Action<List<GetSegmentResult>> callback)
+		{
+			
+		}
+
 		public void CheckIfRewardsMatch(Action<bool> callback)
 		{
 		

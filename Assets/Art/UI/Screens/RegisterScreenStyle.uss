@@ -1,0 +1,118 @@
+.background {
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-background {
+    width: 1000px;
+    height: 780px;
+    background-color: rgb(0, 0, 0);
+    border-radius: 20px;
+}
+
+.register-popup{
+    width: 1000px;
+    height: 780px;
+    border-radius: 20px;
+    left: -10px;
+    top: -10px;
+    right: 10px;
+    bottom: 10px;
+    background-color: rgb(255, 255, 255);
+    overflow: hidden;
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+}
+
+.background__popup-radius--register {
+  
+}
+
+#unity-text-input {
+    flex-grow: 1;
+}
+
+LocalizedTextField > Label {
+    margin-right: 15px;
+    width: 150px;
+    font-size: 33px;
+}
+
+.container {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 48px;
+    padding-bottom: 40px;
+}
+
+LocalizedButton {
+    -unity-text-align: middle-center;
+}
+
+.container__input-field-register {
+    margin-top: 22px;
+    margin-bottom: 22px;
+}
+
+.container__input-field-password {
+    margin-bottom: 50px;
+}
+
+.button_flat--login_button {
+    width: 323px;
+    white-space: normal;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+
+.container_register_button {
+    width: 300px;
+}
+
+.container__or_text {
+    color: rgb(122, 118, 167);
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.blocker-hidden {
+    display: none;
+    transition-duration: 0.3s;
+    background-color: rgba(0, 0, 0, 0.36);
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.header {
+    background-color: rgb(128, 87, 227);
+    overflow: hidden;
+}
+
+.header__title {
+    height: 90px;
+    -unity-text-align: middle-center;
+    font-size: 36px;
+    color: rgb(255, 255, 255);
+    overflow: hidden;
+}
+
+.header__dots-pattern {
+    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/DotsRotated.png?fileID=21300000&guid=123b7673eb1d048a486154a4e65c630b&type=3#DotsRotated');
+    -unity-background-image-tint-color: rgba(58, 58, 58, 0.35);
+    width: 602px;
+    height: 604px;
+    position: absolute;
+    top: -138px; 
+    left: -28px
+}

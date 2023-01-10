@@ -1,4 +1,5 @@
 using System;
+using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
@@ -14,8 +15,6 @@ namespace FirstLight.Game.Presenters
 	{
 		public struct StateData
 		{
-			public bool PlayerDead;
-			public PlayerRef Killer;
 			public Action OnNextClicked;
 		}
 
@@ -23,7 +22,14 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _blastedTitle;
 		private VisualElement _youWinTitle;
 		private VisualElement _youChoseDeathTitle;
+		
+		private IMatchServices _matchServices;
 
+		private void Awake()
+		{
+			_matchServices = MainInstaller.Resolve<IMatchServices>();
+		}
+		
 		protected override void QueryElements(VisualElement root)
 		{
 			base.QueryElements(root);
@@ -42,9 +48,10 @@ namespace FirstLight.Game.Presenters
 			var game = QuantumRunner.Default.Game;
 			var f = game.Frames.Verified;
 			var container = f.GetSingleton<GameContainer>();
-			var localPlayer = (PlayerRef) game.GetLocalPlayers()[0];
-			container.GetPlayersMatchData(f, out var leader);
+			var playersData = container.GetPlayersMatchData(f, out var leader);
 			var localWinner = game.PlayerIsLocal(leader);
+			var localPlayer = playersData[game.GetLocalPlayerRef()];
+			var playerDead = localPlayer.Data.Entity.IsAlive(f);
 
 			_matchEndTitle.SetDisplay(false);
 			_blastedTitle.SetDisplay(false);
@@ -55,11 +62,11 @@ namespace FirstLight.Game.Presenters
 			{
 				_youWinTitle.SetDisplay(true);
 			}
-			else if (Data.Killer == localPlayer)
+			else if (_matchServices.MatchEndDataService.LocalPlayerKiller == localPlayer.Data.Player)
 			{
 				_youChoseDeathTitle.SetDisplay(true);
 			}
-			else if (Data.Killer != PlayerRef.None || Data.PlayerDead)
+			else if (_matchServices.MatchEndDataService.LocalPlayerKiller != PlayerRef.None || playerDead)
 			{
 				_blastedTitle.SetDisplay(true);
 			}

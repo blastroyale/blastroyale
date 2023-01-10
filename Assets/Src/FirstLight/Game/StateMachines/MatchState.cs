@@ -33,6 +33,7 @@ namespace FirstLight.Game.StateMachines
 		public static readonly IStatechartEvent MatchUnloadedEvent = new StatechartEvent("Match Unloaded Ready");
 		public static readonly IStatechartEvent MatchEndedEvent = new StatechartEvent("Game Ended Event");
 		public static readonly IStatechartEvent MatchQuitEvent = new StatechartEvent("Game Quit Event");
+		public static readonly IStatechartEvent MatchEndedExitEvent = new StatechartEvent("Match Ended Exit Event");
 		public static readonly IStatechartEvent MatchCompleteExitEvent = new StatechartEvent("Game Complete Exit Event");
 		public static readonly IStatechartEvent LeaveRoomClicked = new StatechartEvent("Leave Room Requested");
 		public static readonly IStatechartEvent MatchStateEndingEvent = new StatechartEvent("Match Flow Leaving Event");
@@ -84,6 +85,7 @@ namespace FirstLight.Game.StateMachines
 			var postDisconnectCheck = stateFactory.Choice("Post Reload Check");
 			var gameEndedChoice = stateFactory.Choice("Game Ended Check");
 			var gameEnded = stateFactory.State("Game Ended Screen");
+			var showWinner = stateFactory.State("Show Winner Screen");
 			var transitionToWinners = stateFactory.Wait("Unload to Game End UI");
 			var transitionToGameResults = stateFactory.Wait("Unload to Game Results UI");
 			var winners = stateFactory.Wait("Winners Screen");
@@ -123,8 +125,11 @@ namespace FirstLight.Game.StateMachines
 			gameEndedChoice.Transition().Condition(HasLeftBeforeMatchEnded).Target(transitionToGameResults);
 			gameEndedChoice.Transition().Target(gameEnded);
 			
-			gameEnded.OnEnter(OpenWinnerScreen);
-			gameEnded.Event(MatchCompleteExitEvent).Target(transitionToWinners);
+			gameEnded.OnEnter(OpenMatchEndScreen);
+			gameEnded.Event(MatchEndedExitEvent).Target(showWinner);
+			
+			showWinner.OnEnter(OpenWinnerScreen);
+			showWinner.Event(MatchCompleteExitEvent).Target(transitionToWinners);
 			
 			transitionToWinners.WaitingFor(UnloadMatchAndTransition).Target(winners);
 			
@@ -194,6 +199,16 @@ namespace FirstLight.Game.StateMachines
 				MatchType = _services.NetworkService.QuantumClient.CurrentRoom.GetMatchType()
 			});
 			_services.CommandService.ExecuteCommand(command as IGameCommand);
+		}
+		
+		private void OpenMatchEndScreen()
+		{
+			var data = new MatchEndScreenPresenter.StateData
+			{
+				OnNextClicked = () => _statechartTrigger(MatchEndedExitEvent),
+			};
+
+			_uiService.OpenScreen<MatchEndScreenPresenter, MatchEndScreenPresenter.StateData>(data);
 		}
 		
 		private void OpenWinnerScreen()
@@ -361,6 +376,8 @@ namespace FirstLight.Game.StateMachines
 
 		private async Task LoadMatchAssets()
 		{
+			var time = Time.realtimeSinceStartup;
+			
 			var tasks = new List<Task>();
 			var config = _services.NetworkService.CurrentRoomMapConfig.Value;
 			var gameModeConfig = _services.NetworkService.CurrentRoomGameModeConfig.Value;
@@ -404,6 +421,14 @@ namespace FirstLight.Game.StateMachines
 #if UNITY_EDITOR
 			SetQuantumMultiClient(runnerConfigs, entityService);
 #endif
+			var dic = new Dictionary<string, object>
+			{
+				{"client_version", VersionUtils.VersionInternal},
+				{"total_time", Time.realtimeSinceStartup - time},
+				{"vendor_id", SystemInfo.deviceUniqueIdentifier},
+				{"playfab_player_id", _dataProvider.AppDataProvider.PlayerId}
+			};
+			_services.AnalyticsService.LogEvent(AnalyticsEvents.LoadMatchAssetsComplete, dic);
 		}
 
 		private async Task UnloadAllMatchAssets()

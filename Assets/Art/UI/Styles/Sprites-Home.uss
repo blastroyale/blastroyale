@@ -99,6 +99,7 @@
     --sprite-home__icon-battlepass-crown: url('/Assets/Art/UI/Sprites/Home/icon-battlepass-crown.png');
     --sprite-home__icon-checkmark: url('/Assets/Art/UI/Sprites/Home/icon-checkmark.png');
     --sprite-home__icon-close: url('/Assets/Art/UI/Sprites/Home/icon-close.png');
+    --sprite-home__icon-close-white: url('/Assets/Art/UI/Sprites/Home/icon-close-white.png');
     --sprite-home__icon-cooldown-cs: url('/Assets/Art/UI/Sprites/Home/icon-cooldown-cs.png');
     --sprite-home__icon-core-epic: url('/Assets/Art/UI/Sprites/Home/icon-core-epic.png');
     --sprite-home__icon-core-legendary: url('/Assets/Art/UI/Sprites/Home/icon-core-legendary.png');
@@ -122,6 +123,7 @@
     --sprite-home__icon-gamemode-custom: url('/Assets/Art/UI/Sprites/Home/icon-gamemode-custom.png');
     --sprite-home__icon-gamemode-deathmatch: url('/Assets/Art/UI/Sprites/Home/icon-gamemode-deathmatch.png');
     --sprite-home__icon-heroes: url('/Assets/Art/UI/Sprites/Home/icon-heroes.png');
+    --sprite-home__icon-hide-purple: url('/Assets/Art/UI/Sprites/Home/icon-hide-purple.png');
     --sprite-home__icon-leaderboards: url('/Assets/Art/UI/Sprites/Home/icon-leaderboards.png');
     --sprite-home__icon-mapmarker: url('/Assets/Art/UI/Sprites/Home/icon-mapmarker.png');
     --sprite-home__icon-marketplace: url('/Assets/Art/UI/Sprites/Home/icon-marketplace.png');
@@ -133,6 +135,7 @@
     --sprite-home__icon-questionmark: url('/Assets/Art/UI/Sprites/Home/icon-questionmark.png');
     --sprite-home__icon-settings: url('/Assets/Art/UI/Sprites/Home/icon-settings.png');
     --sprite-home__icon-shop: url('/Assets/Art/UI/Sprites/Home/icon-shop.png');
+    --sprite-home__icon-show-purple: url('/Assets/Art/UI/Sprites/Home/icon-show-purple.png');
     --sprite-home__icon-special-aimingairstrike: url('/Assets/Art/UI/Sprites/Home/icon-special-aimingairstrike.png');
     --sprite-home__icon-special-aiminggrenade: url('/Assets/Art/UI/Sprites/Home/icon-special-aiminggrenade.png');
     --sprite-home__icon-special-aimingstungrenade: url('/Assets/Art/UI/Sprites/Home/icon-special-aimingstungrenade.png');
@@ -164,6 +167,8 @@
     --sprite-home__progress-durabilityupgrade: url('/Assets/Art/UI/Sprites/Home/progress-durabilityupgrade.png');
     --sprite-home__progress-stat-bg: url('/Assets/Art/UI/Sprites/Home/progress-stat-bg.png');
     --sprite-home__progress-stats: url('/Assets/Art/UI/Sprites/Home/progress-stats.png');
+    --sprite-home__text-blast: url('/Assets/Art/UI/Sprites/Home/text-blast.png');
+    --sprite-home__text-royale: url('/Assets/Art/UI/Sprites/Home/text-royale.png');
     --sprite-home__vfx-glitch-triangle1: url('/Assets/Art/UI/Sprites/Home/vfx-glitch-triangle1.png');
     --sprite-home__vfx-glitch-triangle2: url('/Assets/Art/UI/Sprites/Home/vfx-glitch-triangle2.png');
 }
@@ -564,6 +569,10 @@
     background-image: var(--sprite-home__icon-close);
 }
 
+.sprite-home__icon-close-white {
+    background-image: var(--sprite-home__icon-close-white);
+}
+
 .sprite-home__icon-cooldown-cs {
     background-image: var(--sprite-home__icon-cooldown-cs);
 }
@@ -656,6 +665,10 @@
     background-image: var(--sprite-home__icon-heroes);
 }
 
+.sprite-home__icon-hide-purple {
+    background-image: var(--sprite-home__icon-hide-purple);
+}
+
 .sprite-home__icon-leaderboards {
     background-image: var(--sprite-home__icon-leaderboards);
 }
@@ -698,6 +711,10 @@
 
 .sprite-home__icon-shop {
     background-image: var(--sprite-home__icon-shop);
+}
+
+.sprite-home__icon-show-purple {
+    background-image: var(--sprite-home__icon-show-purple);
 }
 
 .sprite-home__icon-special-aimingairstrike {
@@ -822,6 +839,14 @@
 
 .sprite-home__progress-stats {
     background-image: var(--sprite-home__progress-stats);
+}
+
+.sprite-home__text-blast {
+    background-image: var(--sprite-home__text-blast);
+}
+
+.sprite-home__text-royale {
+    background-image: var(--sprite-home__text-royale);
 }
 
 .sprite-home__vfx-glitch-triangle1 {

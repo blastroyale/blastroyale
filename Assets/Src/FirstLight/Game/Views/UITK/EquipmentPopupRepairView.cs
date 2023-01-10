@@ -61,7 +61,7 @@ namespace FirstLight.Game.Views.UITK
 			_requirements.SetDisplay(!info.IsNft);
 			
 			_requirementsAmount.text = info.RepairCost.Value.ToString();
-			_requirementsIcon.RemoveModifiers();
+			_requirementsIcon.RemoveSpriteClasses();
 			_requirementsIcon.AddToClassList(string.Format(UssIconCurrency, info.RepairCost.Key.ToString().ToLowerInvariant()));
 
 			_confirmAction = confirmAction;

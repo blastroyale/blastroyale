@@ -127,3 +127,9 @@ MonoBehaviour:
       NonNftDurabilityDropDays:
         RawValue: 458752
       BotsDifficultyTrophiesStep: 150
+      MightBaseValue:
+        RawValue: 6553600
+      MightRarityMultiplier:
+        RawValue: 78512
+      MightLevelMultiplier:
+        RawValue: 1933

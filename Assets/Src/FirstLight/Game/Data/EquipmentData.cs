@@ -35,7 +35,7 @@ namespace FirstLight.Game.Data
 
 		public int GetItemHash(Equipment e)
 		{
-			return (((int)((((int)((int)((((int)(((int)((int)((int)((int)(281 * 31 + e.Adjective) * 31 + e.Edition) * 31 + e.Faction) * 31 + e.GameId) * 31 + e.Generation.GetHashCode()) * 31 + e.Grade) * 31 + e.InitialReplicationCounter.GetHashCode()) * 31 + e.Level.GetHashCode()) * 31 + e.Manufacturer) * 31 + e.Material) * 31 + e.MaxDurability.GetHashCode()) * 31 + e.MaxLevel.GetHashCode()) * 31 + e.Rarity) * 31 + e.ReplicationCounter.GetHashCode()) * 31 + e.TotalRestoredDurability.GetHashCode()) * 31 + e.Tuning.GetHashCode();
+			return e.GetServerHashCode();
 		}
 	}
 }

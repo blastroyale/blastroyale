@@ -434,6 +434,11 @@ MonoBehaviour:
         Id:
           Value: 1782342916809032400
       Address: Configs/CustomAssetConfigs.asset
+    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|PlayerOnBurstCompleteAction_1
+      AssetRef:
+        Id:
+          Value: 1813435176672350993
+      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[PlayerOnBurstCompleteAction_1]
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|GetMagShotCountFunction_14
       AssetRef:
         Id:
@@ -569,6 +574,11 @@ MonoBehaviour:
         Id:
           Value: 2481301340742268525
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[CheckBlackboardFP_19]
+    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|PlayerOnBurstCompleteAction_18
+      AssetRef:
+        Id:
+          Value: 2500373832750477531
+      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[PlayerOnBurstCompleteAction_18]
     - Path: AddressableResources/QuantumAssets/Collectables/AirDrop|EntityView
       AssetRef:
         Id:
@@ -619,11 +629,6 @@ MonoBehaviour:
         Id:
           Value: 2846328212508811048
       Address: Maps/FloodCitySimple_NavMesh.asset
-    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|PlayerCheckBurstAction_18
-      AssetRef:
-        Id:
-          Value: 2882728019980915954
-      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[PlayerCheckBurstAction_18]
     - Path: AddressableResources/Configs/EquipmentMaterialStatConfigs
       AssetRef:
         Id:
@@ -651,11 +656,6 @@ MonoBehaviour:
         Id:
           Value: 3027999190455588070
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[RaycastHitDecision_28]
-    - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|PlayerCheckBurstAction_1
-      AssetRef:
-        Id:
-          Value: 3030964556368182205
-      Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[PlayerCheckBurstAction_1]
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|PlayerMoveAction_13
       AssetRef:
         Id:

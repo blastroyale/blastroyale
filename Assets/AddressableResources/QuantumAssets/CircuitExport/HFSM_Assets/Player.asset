@@ -711,6 +711,24 @@ MonoBehaviour:
       Guid:
         Value: 2772928941845369772
     Label: 
+--- !u!114 &-4788055508068564420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5f839a0ec4a2ef40a20c5cdd0af761d, type: 3}
+  m_Name: PlayerOnBurstCompleteAction_18
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|PlayerOnBurstCompleteAction_18
+      Guid:
+        Value: 2500373832750477531
+    Label: 
 --- !u!114 &-4537741117448964116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1007,7 +1025,7 @@ MonoBehaviour:
     - Id:
         Value: 2063248758344102719
     - Id:
-        Value: 2882728019980915954
+        Value: 2500373832750477531
     OnExitLinks: []
     Transitions:
     - Id: 46c93ff5-8964-4ce2-9f5c-1c34c4159b54
@@ -2023,7 +2041,7 @@ MonoBehaviour:
     - Id:
         Value: 855484753883037958
     - Id:
-        Value: 3030964556368182205
+        Value: 1813435176672350993
     OnExitLinks: []
     Transitions:
     - Id: e20124e1-e79f-4035-b4a1-1ed7b59a0d8c
@@ -2344,6 +2362,24 @@ MonoBehaviour:
       Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|GetAmmoCountFunction_11
       Guid:
         Value: 4207929906429185876
+--- !u!114 &4272295077918562758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5f839a0ec4a2ef40a20c5cdd0af761d, type: 3}
+  m_Name: PlayerOnBurstCompleteAction_1
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|PlayerOnBurstCompleteAction_1
+      Guid:
+        Value: 1813435176672350993
+    Label: 
 --- !u!114 &4324696889648947483
 MonoBehaviour:
   m_ObjectHideFlags: 0

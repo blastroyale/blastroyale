@@ -8,7 +8,7 @@ namespace Quantum
 	/// </summary>
 	[Serializable]
 	[AssetObjectConfig(GenerateLinkingScripts = true, GenerateAssetCreateMenu = false, GenerateAssetResetMethod = false)]
-	public class PlayerCheckBurstAction : AIAction
+	public class PlayerOnBurstCompleteAction : AIAction
 	{
 		/// <inheritdoc />
 		public unsafe override void Update(Frame f, EntityRef e, ref AIContext aiContext)

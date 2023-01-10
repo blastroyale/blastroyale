@@ -135,9 +135,11 @@ namespace FirstLight.Game.UIElements
 
 			cardHolder.Add(_faction = new VisualElement {name = "faction"});
 			_faction.AddToClassList(UssFaction);
+			_faction.AddToClassList(string.Format(UssSpriteFaction, "dimensional"));
 
 			cardHolder.Add(_material = new VisualElement {name = "material"});
 			_material.AddToClassList(UssMaterial);
+			_material.AddToClassList(string.Format(UssSpriteMaterial, "bronze"));
 
 			cardHolder.Add(_level = new Label(string.Format(ScriptLocalization.UITEquipment.card_lvl, "15"))
 				{name = "level"});
@@ -152,6 +154,7 @@ namespace FirstLight.Game.UIElements
 			{
 				adjCatHolder.Add(_category = new VisualElement {name = "category"});
 				_category.AddToClassList(UssCategory);
+				_category.AddToClassList(string.Format(UssSpriteCategory, "weapon"));
 
 				adjCatHolder.Add(_adjective = new Label("MAGNIFICENT") {name = "adjective"});
 				_adjective.AddToClassList(UssAdjective);

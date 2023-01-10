@@ -79,6 +79,7 @@ namespace FirstLight.Game.UIElements
 			AddToClassList(UssBlock);
 			AddToClassList(UssBlockFilled);
 			AddToClassList(UIConstants.SFX_CLICK_FORWARDS);
+			AddToClassList(string.Format(UssSpriteSlotRarity, "common"));
 
 			var filledElement = new VisualElement {name = "filled"};
 			{
@@ -88,6 +89,7 @@ namespace FirstLight.Game.UIElements
 
 				filledElement.Add(_categoryIcon = new VisualElement {name = "category"});
 				_categoryIcon.AddToClassList(UssCategoryIcon);
+				_categoryIcon.AddToClassList(string.Format(UssSpriteEquipmentCategory, "weapon"));
 
 				filledElement.Add(_equipmentName = new AutoSizeLabel(
 					string.Format(ScriptLocalization.UITEquipment.item_name_lvl, "SOOPERDOOPER LOOTERSHOOTER"),
@@ -127,7 +129,9 @@ namespace FirstLight.Game.UIElements
 				}
 
 				filledElement.Add(_factionIcon = new VisualElement {name = "faction-icon"});
+				_factionIcon.RemoveSpriteClasses();
 				_factionIcon.AddToClassList(UssFactionIcon);
+				_factionIcon.AddToClassList(string.Format(UssSpriteFaction, "celestial"));
 
 				var durabilityProgressBg = new VisualElement {name = "durability-progress-bg"};
 				{

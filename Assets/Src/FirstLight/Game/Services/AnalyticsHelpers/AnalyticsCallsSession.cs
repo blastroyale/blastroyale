@@ -82,6 +82,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{
 					{"client_version", VersionUtils.VersionInternal},
 					{"advertising_id", id},
+					{"boot_time", Time.realtimeSinceStartup},
 					{"advertising_tracking_enabled", enabled },
 					{"vendor_id", SystemInfo.deviceUniqueIdentifier},
 					{"session_id", AnalyticsSessionInfo.sessionId }

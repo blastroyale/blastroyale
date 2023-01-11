@@ -10,6 +10,14 @@ trigger:
     - develop
 pr: none
 
+resources:
+  repositories:
+  - repository: self
+  - repository: templates
+    type: git
+    ref: main
+    name: Infrastructure/core-templates
+    
 pool: vmss
 
 jobs:
@@ -19,6 +27,7 @@ jobs:
   steps:
   - checkout: self
     lfs: true
+  - checkout: templates
 
   - script: |
       yes | "C:\Progra~1\Unity\Hub\Editor\2021.3.7f1\Editor\Data\PlaybackEngines\AndroidPlayer\SDK\tools\bin\sdkmanager.bat" --licenses
@@ -70,6 +79,7 @@ jobs:
       -p:Configuration=Release ^
       -p:RestorePackagesConfig=true
     displayName: 'Quantum Build'
+    workingDirectory: blast-royale
 
   - script: |
       "C:\Program Files\Unity\Hub\Editor\2021.3.7f1\Editor\unity.exe" -flBuildSymbol DEVELOPMENT_BUILD -quit -batchmode -buildTarget Android -nographics ^
@@ -78,18 +88,19 @@ jobs:
       -logFile "unity3d_editor.log"
     continueOnError: true
     displayName: 'Unity Build'
+    workingDirectory: blast-royale
 
   - task: PowerShell@2
     inputs:
       targetType: 'inline'
       script: |
-        Get-Content -Path .\unity3d_editor.log
+        Get-Content -Path blast-royale\unity3d_editor.log
     condition: always()
     displayName: 'Build Log'
 
   - task: PublishPipelineArtifact@1
     inputs:
-      targetPath: 'unity3d_editor.log'
+      targetPath: 'blast-royale/unity3d_editor.log'
       artifact: 'unity3d_editor.log'
       publishLocation: 'pipeline'
     condition: always()
@@ -103,18 +114,19 @@ jobs:
       -flBuildNumber 1 ^
       -logFile "unity3d_editor_build.log"
     displayName: 'Unity App Build'
+    workingDirectory: blast-royale
 
   - task: PowerShell@2
     inputs:
       targetType: 'inline'
       script: |
-        Get-Content -Path .\unity3d_editor_build.log
+        Get-Content -Path blast-royale\unity3d_editor_build.log
     condition: always()
     displayName: 'App Build Log'
 
   - task: PublishPipelineArtifact@1
     inputs:
-      targetPath: 'unity3d_editor_build.log'
+      targetPath: 'blast-royale/unity3d_editor_build.log'
       artifact: 'unity3d_editor_build.log'
       publishLocation: 'pipeline'
     condition: always()
@@ -125,7 +137,7 @@ jobs:
     inputs:
       targetType: 'inline'
       script: |
-        switch -File build-output.properties {
+        switch -File blast-royale/build-output.properties {
           default {
             $name, $value = $_.Trim() -split '=', 2
             if ($name -and $name[0] -ne '#') { # ignore blank and comment lines.
@@ -139,10 +151,11 @@ jobs:
   - script: |
       cp -v app.apk $(FL_INTERNAL_VERSION_FILENAME).apk
     displayName: 'Rename APK'
+    workingDirectory: blast-royale
 
   - task: AzureFileCopy@4
     inputs:
-      SourcePath: '$(FL_INTERNAL_VERSION_FILENAME).apk'
+      SourcePath: 'blast-royale/$(FL_INTERNAL_VERSION_FILENAME).apk'
       azureSubscription: 'azure-sponsorship'
       Destination: 'AzureBlob'
       storage: 'prodflgbuildstorage'
@@ -153,7 +166,7 @@ jobs:
 
   - task: AzureFileCopy@4
     inputs:
-      SourcePath: '*.obb'
+      SourcePath: 'blast-royale/*.obb'
       azureSubscription: 'azure-sponsorship'
       Destination: 'AzureBlob'
       storage: 'prodflgbuildstorage'
@@ -173,13 +186,26 @@ jobs:
   - script: |
       cp -v br_small_c_qrcode.png BlastRoyale_QR_Android.png
     displayName: 'Rename QR Code'
+    workingDirectory: blast-royale
 
   - task: AzureFileCopy@4
     inputs:
-      SourcePath: 'BlastRoyale_QR_Android.png'
+      SourcePath: 'blast-royale/BlastRoyale_QR_Android.png'
       azureSubscription: 'azure-sponsorship'
       Destination: 'AzureBlob'
       storage: 'prodflgbuildstorage'
       ContainerName: 'android'
       BlobPrefix: $(Build.DefinitionName)/$(Build.BuildNumber)/BlastRoyale_QR_Android.png
     displayName: 'Upload QR code'
+
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: '$(Agent.TempDirectory)'
+      Contents: '**'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/AgentTempDirectory/'
+    displayName: 'Copy Agent.TempDirectory to drop'
+    condition: eq(variables['system.debug'], 'true')
+
+  - publish: $(Build.ArtifactStagingDirectory)/AgentTempDirectory/
+    artifact: AgentTempDirectory
+    condition: eq(variables['system.debug'], 'true')

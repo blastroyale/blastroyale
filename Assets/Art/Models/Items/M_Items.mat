@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Items
-  m_Shader: {fileID: -6465566751694194690, guid: cb4255f5cf8bf3946bfc667ecda36de4, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: d9dfbf9d63b50c84fa42b9f84d42d33e, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 2
@@ -78,7 +78,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - BrightenMainTexture: 1.5
+    - BrightenMainTexture: 1.2
     - Vector1_12FD5A15: 30
     - Vector1_13791F7D: 0.025
     - Vector1_A3CA1DE4: 0.4

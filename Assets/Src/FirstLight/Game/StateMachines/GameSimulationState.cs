@@ -318,7 +318,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				return;
 			}
-			Debug.LogError("setting and bettin!");
+			
 			var info = _gameDataProvider.PlayerDataProvider.PlayerInfo;
 			var loadout = _gameDataProvider.EquipmentDataProvider.Loadout;
 			var inventory = _gameDataProvider.EquipmentDataProvider.Inventory;

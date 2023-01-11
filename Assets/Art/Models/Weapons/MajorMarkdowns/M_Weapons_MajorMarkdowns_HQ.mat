@@ -131,7 +131,7 @@ Material:
     - _GlossyReflections: 0
     - _Hit: 0
     - _Metallic: 0
-    - _Normal_Strength: 0
+    - _Normal_Strength: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0
@@ -155,4 +155,5 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 135.58704, g: 135.58704, b: 135.58704, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _TintColor: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []

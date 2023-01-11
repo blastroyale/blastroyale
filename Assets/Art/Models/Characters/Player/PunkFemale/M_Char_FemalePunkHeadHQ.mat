@@ -66,7 +66,7 @@ Material:
     - Vector1_12FD5A15: 30
     - Vector1_13791F7D: 0.025
     - Vector1_54501CA6: 0.1
-    - Vector1_A3CA1DE4: 0.7
+    - Vector1_A3CA1DE4: 1
     - Vector1_FA9A29A7: 1
     - _Death: 0
     - _EmissTexAmount: 0
@@ -84,6 +84,7 @@ Material:
     - Vector2_BE86BA33: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 0, g: 0.5287747, b: 1, a: 1}
     - _HitColor: {r: 0.4392157, g: 8, b: 0.7215686, a: 0}
+    - _TintColor: {r: 2, g: 2, b: 2, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &5338150153496553913
 MonoBehaviour:

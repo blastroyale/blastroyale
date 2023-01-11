@@ -84,6 +84,7 @@ Material:
     - Vector2_BE86BA33: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 0.06065633, b: 0, a: 1}
     - _HitColor: {r: 0.4392157, g: 8, b: 0.7215686, a: 0}
+    - _TintColor: {r: 1.4142135, g: 1.2763499, b: 1.2763499, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &8667864475774319594
 MonoBehaviour:

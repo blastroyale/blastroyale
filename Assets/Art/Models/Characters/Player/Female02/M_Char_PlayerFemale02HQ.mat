@@ -97,4 +97,5 @@ Material:
     - Vector2_BE86BA33: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 0.525897, b: 0, a: 1}
     - _HitColor: {r: 0.4392157, g: 8, b: 0.7215686, a: 0}
+    - _TintColor: {r: 2, g: 2, b: 2, a: 0}
   m_BuildTextureStacks: []

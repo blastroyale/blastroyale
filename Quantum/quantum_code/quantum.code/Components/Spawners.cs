@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Photon.Deterministic;
 
 namespace Quantum
@@ -95,7 +96,7 @@ namespace Quantum
 			                                            (int) EquipmentRarity.TOTAL - 1);
 			var equipment = id == GameId.Random
 				                ? gameContainer.GenerateNextWeapon(f)
-				                : new Equipment(configs.GetConfig(id).Id, rarity: rarity);
+								: Equipment.Create(configs.GetConfig(id).Id, rarity, 1, f);
 
 			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, transform.Position, FPQuaternion.Identity,
 			                                                        equipment);
@@ -109,7 +110,7 @@ namespace Quantum
 		private EntityRef SpawnGear(Frame f, GameId id, int rarityModifier, Transform3D transform)
 		{
 			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.EquipmentPickUpPrototype.Id));
-			var equipment = new Equipment(id);
+			var equipment = Equipment.Create(id, EquipmentRarity.Common, 1, f);
 
 			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, transform.Position, FPQuaternion.Identity,
 			                                                        equipment);

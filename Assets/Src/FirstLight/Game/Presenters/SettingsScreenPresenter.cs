@@ -7,11 +7,9 @@ using TMPro;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Messages;
 using FirstLight.Game.Views.MainMenuViews;
 using I2.Loc;
 using Sirenix.OdinInspector;
-using UnityEngine.Events;
 
 namespace FirstLight.Game.Presenters
 {

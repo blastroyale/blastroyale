@@ -534,7 +534,8 @@ namespace FirstLight.Game.StateMachines
 			if (_matchServices.SpectateService.SpectatedPlayer.Value.Entity != callback.Entity) return;
 
 			var audioId = AudioId.None;
-			switch(callback.Weapon.Manufacturer)
+			
+			switch(_gameDataProvider.EquipmentDataProvider.GetManufacturer(callback.Weapon))
 			{
 				case EquipmentManufacturer.Military:
 					audioId = AudioId.ReloadMmsLoop;

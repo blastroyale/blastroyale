@@ -23,11 +23,11 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: var(--sprite-home__card-background);
+    background-image: var(--sprite-equipmentcard__card-background);
 }
 
 .equipment-card:active .equipment-card__background {
-    background-image: var(--sprite-home__card-background-pressed);
+    background-image: var(--sprite-equipmentcard__card-background-pressed);
 }
 
 .equipment-card--selected {
@@ -93,7 +93,7 @@
     left: 30px;
     top: 19px;
     -unity-background-scale-mode: scale-to-fit;
-    background-image: var(--sprite-home__card-plusrarity);
+    background-image: var(--sprite-equipmentcard__card-plusrarity);
 }
 
 .equipment-card__image {
@@ -145,7 +145,7 @@
     color: rgb(248, 202, 44);
     padding: 3px 10px 0 18px;
     margin: 0;
-    background-image: var(--sprite-home__card-levelbg);
+    background-image: var(--sprite-equipmentcard__card-levelbg);
     position: absolute;
     right: 25px;
     bottom: 87px;
@@ -197,7 +197,7 @@
 }
 
 .equipment-card__badge-nft {
-    background-image: var(--sprite-home__card-badge-nft);
+    background-image: var(--sprite-equipmentcard__card-badge-nft);
     width: 74px;
     height: 32px;
     position: relative;

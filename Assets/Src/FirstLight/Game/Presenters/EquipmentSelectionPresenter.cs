@@ -484,7 +484,7 @@ namespace FirstLight.Game.Presenters
 		private void OnInfoClicked()
 		{
 			// TODO mihak: Implement properly
-			_infoButton.OpenTooltip(Root, "TEST", TooltipDirection.BottomRight, TooltipPosition.TopLeft);
+			_infoButton.OpenTooltip(Root, new[]{"GENESIS", "PLASTIC", "CHAOS", "GRADE VI", "REPLICATED 0/7", "RESTORED 0", "MILITARY"}, TooltipDirection.BottomRight, TooltipPosition.TopLeft);
 		}
 
 		private void EquipItem(UniqueId item)

@@ -11,12 +11,50 @@ namespace FirstLight.Game.Utils
 	public static class TooltipUtils
 	{
 		/// <summary>
-		/// Opens a tooltip for <paramref name="element"/> (bottom left).
+		/// Opens a tooltip with a string content.
 		/// </summary>
 		public static void OpenTooltip(this VisualElement element, VisualElement root, string content,
 									   TooltipDirection direction = TooltipDirection.TopRight,
 									   TooltipPosition position = TooltipPosition.BottomLeft,
 									   int offsetX = 0, int offsetY = 0)
+
+		{
+			var tooltip = OpenTooltip(element, root, direction, position, offsetX, offsetY);
+
+			var label = new Label(content);
+			label.AddToClassList("tooltip__label");
+
+			tooltip.Add(label);
+		}
+
+		/// <summary>
+		/// Opens a tooltip with a string content.
+		/// </summary>
+		public static void OpenTooltip(this VisualElement element, VisualElement root, string[] tags,
+									   TooltipDirection direction = TooltipDirection.TopRight,
+									   TooltipPosition position = TooltipPosition.BottomLeft,
+									   int offsetX = 0, int offsetY = 0)
+
+		{
+			var tooltip = OpenTooltip(element, root, direction, position, offsetX, offsetY);
+			tooltip.AddToClassList("tooltip--tags");
+
+			foreach (var tag in tags)
+			{
+				var label = new Label(tag);
+				label.AddToClassList("tooltip__tag");
+
+				tooltip.Add(label);
+			}
+		}
+
+		/// <summary>
+		/// Opens a tooltip with any custom VisualElement content.
+		/// </summary>
+		private static VisualElement OpenTooltip(this VisualElement element, VisualElement root,
+												 TooltipDirection direction = TooltipDirection.TopRight,
+												 TooltipPosition position = TooltipPosition.BottomLeft,
+												 int offsetX = 0, int offsetY = 0)
 
 		{
 			var blocker = new VisualElement();
@@ -25,7 +63,7 @@ namespace FirstLight.Game.Utils
 			blocker.RegisterCallback<ClickEvent, VisualElement>((_, ve) => { ve.RemoveFromHierarchy(); }, blocker,
 				TrickleDown.TrickleDown);
 
-			var tooltip = new Label(content);
+			var tooltip = new VisualElement();
 
 			tooltip.AddToClassList("tooltip");
 			tooltip.AddToClassList($"tooltip--{direction.ToString().ToLowerInvariant()}");
@@ -75,6 +113,8 @@ namespace FirstLight.Game.Utils
 				.Ease(Easing.Linear);
 
 			blocker.Add(tooltip);
+
+			return tooltip;
 		}
 	}
 

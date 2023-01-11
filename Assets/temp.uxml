@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Styles/CommonStyle.uss?fileID=7433441132597879392&amp;guid=724da097496fa4dabbe27f211fbcd3bf&amp;type=3#CommonStyle" />
+    <ui:VisualElement class="fill-parent">
+        <ui:VisualElement name="tooltip" class="tooltip tooltip--tags">
+            <ui:Label text="GENESIS" display-tooltip-when-elided="true" class="tooltip__tag" />
+            <ui:Label text="PLASTIC" display-tooltip-when-elided="true" class="tooltip__tag" />
+            <ui:Label text="CHAOS" display-tooltip-when-elided="true" class="tooltip__tag" />
+            <ui:Label text="GRADE VI" display-tooltip-when-elided="true" class="tooltip__tag" />
+            <ui:Label text="REPLICATED 0/7" display-tooltip-when-elided="true" class="tooltip__tag" />
+            <ui:Label text="RESTORED 0" display-tooltip-when-elided="true" class="tooltip__tag" />
+            <ui:Label text="MILITARY" display-tooltip-when-elided="true" class="tooltip__tag" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

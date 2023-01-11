@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/PasswordFieldStyle.uss?fileID=7433441132597879392&amp;guid=be419192f633aed4bad72dfdfa844291&amp;type=3#PasswordFieldStyle" />
     <Style src="project://database/Assets/Art/UI/Screens/ConnectIdScreenStyle.uss?fileID=7433441132597879392&amp;guid=9881779f9d7113a49bd937f20d95644e&amp;type=3#ConnectIdScreenStyle" />
-    <ui:VisualElement name="root" class="background fill-parent">
+    <ui:VisualElement name="root" class="background">
         <ui:VisualElement name="PopupBackground" class="popup-background anim-delay-0 anim-translate anim-translate--down-xxxl">
             <ui:VisualElement class="connect-popup ">
                 <ui:VisualElement name="Header" class="header">

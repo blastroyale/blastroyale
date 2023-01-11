@@ -458,8 +458,6 @@ namespace FirstLight.Game.StateMachines
 			_arePlayerAssetsLoaded = false;
 			
 			_statechartTrigger(MatchUnloadedEvent);
-			
-			Debug.LogError("UNLOADED MATCH ASSETS");
 		}
 		
 		private async Task MatchStateEndTrigger()

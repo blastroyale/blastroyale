@@ -220,7 +220,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeDisconnectEvents()
 		{
-			//_services.TickService.SubscribeOnUpdate(TickReconnectAttempt, GameConstants.Network.NETWORK_ATTEMPT_RECONNECT_SECONDS);
+			_services.TickService.SubscribeOnUpdate(TickReconnectAttempt, GameConstants.Network.NETWORK_ATTEMPT_RECONNECT_SECONDS);
 			_criticalDisconnectCoroutine = _services.CoroutineService.StartCoroutine(CriticalDisconnectCoroutine());
 		}
 
@@ -245,7 +245,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void UnsubscribeDisconnectEvents()
 		{
-			//_services.TickService.Unsubscribe(TickReconnectAttempt);
+			_services.TickService.Unsubscribe(TickReconnectAttempt);
 
 			if (_criticalDisconnectCoroutine != null)
 			{

@@ -113,7 +113,6 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		/// </summary>
 		public void PlayerLogin(string id, bool isGuest)
 		{
-			Analytics.SetUserId(id);
 			FirebaseAnalytics.SetUserId(id);
 			SingularSDK.SetCustomUserId(id);
 			UnityEngine.CrashReportHandler.CrashReportHandler.SetUserMetadata("playfab_id", id);

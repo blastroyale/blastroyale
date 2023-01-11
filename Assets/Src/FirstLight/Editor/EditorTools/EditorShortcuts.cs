@@ -284,7 +284,7 @@ namespace FirstLight.Editor.EditorTools
 				var uss = GenerateSpriteUss(grouping);
 				Debug.Log(uss);
 
-				var stylePathRelative = STYLES_FOLDER + $"Sprites-{grouping.Key}.uss";
+				var stylePathRelative = STYLES_FOLDER + $"Sprites-{GetCleanAtlasName(grouping.Key, false)}.uss";
 				var stylePathAbsolute = Application.dataPath.Replace("Assets", "") + stylePathRelative;
 
 				Debug.Log($"Writing USS: {grouping.Key} to file '{stylePathRelative}'");
@@ -332,13 +332,13 @@ namespace FirstLight.Editor.EditorTools
 				if (filename.EndsWith("-pressed"))
 				{
 					sb.AppendLine(
-						$".sprite-{arg.Key.ToLowerInvariant()}__{filename.Replace("-pressed", "")}:active {{");
+						$".sprite-{GetCleanAtlasName(arg.Key)}__{filename.Replace("-pressed", "")}:active {{");
 					sb.AppendLine($"    background-image: var({GenerateSpriteVar(arg.Key, path, false)});");
 					sb.AppendLine("}");
 				}
 				else
 				{
-					sb.AppendLine($".sprite-{arg.Key.ToLowerInvariant()}__{Path.GetFileNameWithoutExtension(path)} {{");
+					sb.AppendLine($".sprite-{GetCleanAtlasName(arg.Key)}__{Path.GetFileNameWithoutExtension(path)} {{");
 					sb.AppendLine($"    background-image: var({GenerateSpriteVar(arg.Key, path, false)});");
 					sb.AppendLine("}");
 				}
@@ -351,8 +351,23 @@ namespace FirstLight.Editor.EditorTools
 
 		private static string GenerateSpriteVar(string atlas, string path, bool full)
 		{
-			return $"--sprite-{atlas.ToLowerInvariant()}__{Path.GetFileNameWithoutExtension(path)}" +
+			return $"--sprite-{GetCleanAtlasName(atlas)}__{Path.GetFileNameWithoutExtension(path)}" +
 				(full ? $": url('/{path}');" : "");
+		}
+
+		private static string GetCleanAtlasName(string atlas, bool lowercase = true)
+		{
+			if (lowercase)
+			{
+				atlas = atlas.ToLowerInvariant();
+			}
+
+			while (atlas.Contains(" "))
+			{
+				atlas = atlas.Replace(" ", string.Empty);
+			}
+
+			return atlas;
 		}
 	}
 }

@@ -27,7 +27,7 @@
     right: 0;
     bottom: 5px;
     width: 202px;
-    background-image: var(--sprite-home__card-plusrarity);
+    background-image: var(--sprite-equipmentcard__card-plusrarity);
     -unity-background-scale-mode: scale-to-fit;
 }
 
@@ -103,7 +103,7 @@
 }
 
 .equipment-slot__badge--nft {
-    background-image: var(--sprite-home__card-badge-nft);
+    background-image: var(--sprite-equipmentcard__card-badge-nft);
     width: 74px;
     height: 32px;
     margin-right: 10px;

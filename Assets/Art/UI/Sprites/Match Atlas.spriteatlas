@@ -6,7 +6,7 @@ SpriteAtlas:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MatchAtlas
+  m_Name: Match Atlas
   m_EditorData:
     serializedVersion: 2
     textureSettings:
@@ -78,5 +78,5 @@ SpriteAtlas:
   - banner-red
   - icon-arrow-yellow-left
   m_RenderDataMap: {}
-  m_Tag: MatchAtlas
+  m_Tag: Match Atlas
   m_IsVariant: 0

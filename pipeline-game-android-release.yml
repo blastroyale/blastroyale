@@ -184,3 +184,15 @@ jobs:
       ContainerName: 'android'
       BlobPrefix: $(Build.DefinitionName)/$(Build.BuildNumber)/BlastRoyale_QR_Android.png
     displayName: 'Upload QR code'
+
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: '$(Agent.TempDirectory)'
+      Contents: '**'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/AgentTempDirectory/'
+    displayName: 'Copy Agent.TempDirectory to drop'
+    condition: eq(variables['system.debug'], 'true')
+
+  - publish: $(Build.ArtifactStagingDirectory)/AgentTempDirectory/
+    artifact: AgentTempDirectory
+    condition: eq(variables['system.debug'], 'true')

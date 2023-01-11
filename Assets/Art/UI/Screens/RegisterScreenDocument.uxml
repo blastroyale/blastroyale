@@ -6,7 +6,7 @@
         <ui:VisualElement name="PopupBackground" class="popup-background anim-delay-0 anim-translate anim-translate--down-xxxl">
             <ui:VisualElement class="register-popup">
                 <ui:VisualElement name="Header" class="header">
-                    <ui:VisualElement class="header__dots-pattern" />
+                    <ui:VisualElement class="dots-pattern" />
                     <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITLoginRegister/register_new_fl_id" name="Title" class="header__title" />
                 </ui:VisualElement>
                 <ui:VisualElement name="Container" class="container">

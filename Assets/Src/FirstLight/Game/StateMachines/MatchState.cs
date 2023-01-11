@@ -177,11 +177,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			return _matchServices.MatchEndDataService.LeftBeforeMatchFinished;
 		}
-		
-		private bool IsSoloGame()
-		{
-			return _services.NetworkService.LastMatchPlayers.Count == 1;
-		}
 
 		/// <summary>
 		/// Whenever the simulation wants to fire logic commands.

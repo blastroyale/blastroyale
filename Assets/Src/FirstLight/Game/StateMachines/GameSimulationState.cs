@@ -132,16 +132,6 @@ namespace FirstLight.Game.StateMachines
 			_uiService.UnloadUi<LowConnectionPresenter>();
 		}
 
-		private bool IsSoloGame()
-		{
-			return _services.NetworkService.LastMatchPlayers.Count == 1;
-		}
-		
-		private void NotifyCriticalDisconnection()
-		{
-			_statechartTrigger(NetworkState.PhotonCriticalDisconnectedEvent);
-		}
-
 		private void OpenLowConnectionScreen()
 		{
 			_uiService.OpenUiAsync<LowConnectionPresenter>();

@@ -259,14 +259,6 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			var startParams = configs.GetDefaultStartParameters(startPlayersCount, IsSpectator(), new FrameSnapshot());
-			
-			// Unused for now, once local snapshot issues are ironed out, resyncing solo games can be readded
-			if (!_services.NetworkService.IsJoiningNewMatch && _services.NetworkService.LastMatchPlayers.Count == 1)
-			{
-			//	startParams = configs.GetDefaultStartParameters(_services.NetworkService.LastMatchPlayers.Count, IsSpectator(), 
-				//	MainInstaller.Resolve<IMatchServices>().FrameSnapshotService.GetLastStoredMatchSnapshot());
-			}
-
 			startParams.NetworkClient = client;
 			
 			QuantumRunner.StartGame(_services.NetworkService.UserId, startParams);

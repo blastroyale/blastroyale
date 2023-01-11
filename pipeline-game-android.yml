@@ -186,11 +186,10 @@ jobs:
   - script: |
       cp -v br_small_c_qrcode.png BlastRoyale_QR_Android.png
     displayName: 'Rename QR Code'
-    workingDirectory: blast-royale
 
   - task: AzureFileCopy@4
     inputs:
-      SourcePath: 'blast-royale/BlastRoyale_QR_Android.png'
+      SourcePath: 'BlastRoyale_QR_Android.png'
       azureSubscription: 'azure-sponsorship'
       Destination: 'AzureBlob'
       storage: 'prodflgbuildstorage'

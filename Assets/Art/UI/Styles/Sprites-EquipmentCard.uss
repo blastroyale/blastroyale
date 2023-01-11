@@ -18,7 +18,7 @@
     --sprite-equipmentcard__card-levelbg: url('/Assets/Art/UI/Sprites/Equipment Card/card-levelbg.png');
     --sprite-equipmentcard__card-material-bronze: url('/Assets/Art/UI/Sprites/Equipment Card/card-material-bronze.png');
     --sprite-equipmentcard__card-material-carbon: url('/Assets/Art/UI/Sprites/Equipment Card/card-material-carbon.png');
-    --sprite-equipmentcard__card-material-gold: url('/Assets/Art/UI/Sprites/Equipment Card/card-material-gold.png');
+    --sprite-equipmentcard__card-material-golden: url('/Assets/Art/UI/Sprites/Equipment Card/card-material-golden.png');
     --sprite-equipmentcard__card-material-plastic: url('/Assets/Art/UI/Sprites/Equipment Card/card-material-plastic.png');
     --sprite-equipmentcard__card-material-steel: url('/Assets/Art/UI/Sprites/Equipment Card/card-material-steel.png');
     --sprite-equipmentcard__card-plusrarity: url('/Assets/Art/UI/Sprites/Equipment Card/card-plusrarity.png');
@@ -101,8 +101,8 @@
     background-image: var(--sprite-equipmentcard__card-material-carbon);
 }
 
-.sprite-equipmentcard__card-material-gold {
-    background-image: var(--sprite-equipmentcard__card-material-gold);
+.sprite-equipmentcard__card-material-golden {
+    background-image: var(--sprite-equipmentcard__card-material-golden);
 }
 
 .sprite-equipmentcard__card-material-plastic {

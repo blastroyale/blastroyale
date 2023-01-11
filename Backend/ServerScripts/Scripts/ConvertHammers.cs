@@ -71,7 +71,6 @@ namespace Scripts.Scripts
 					var copy = value;
 					var newEquipment = GenerateNewEquipment();
 					copy.GameId = newEquipment;
-					copy.Manufacturer = EquipmentManufacturer.Military;
 					equipmentData.Inventory[key] = copy;
 					idData.GameIds[key] = newEquipment;
 					idData.NewIds.Add(key);

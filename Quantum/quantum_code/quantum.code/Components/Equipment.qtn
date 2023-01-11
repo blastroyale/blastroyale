@@ -9,7 +9,6 @@ struct Equipment
 	EquipmentFaction Faction;
 	EquipmentAdjective Adjective;
 	EquipmentMaterial Material;
-	EquipmentManufacturer Manufacturer;
 	
 	UInt32 MaxDurability;
 	UInt32 InitialReplicationCounter;

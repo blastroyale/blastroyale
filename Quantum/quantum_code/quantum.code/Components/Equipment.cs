@@ -39,8 +39,7 @@ namespace Quantum
 		                 EquipmentFaction faction = EquipmentFaction.Order,
 		                 EquipmentAdjective adjective = EquipmentAdjective.Regular,
 		                 EquipmentMaterial material = EquipmentMaterial.Plastic,
-		                 EquipmentManufacturer manufacturer = EquipmentManufacturer.Military,
-		                 uint maxDurability = 4,
+						 uint maxDurability = 4,
 						 uint initialReplicationCounter = 0,
 		                 uint tuning = 0,
 		                 uint level = 1,
@@ -57,7 +56,6 @@ namespace Quantum
 			Faction = faction;
 			Adjective = adjective;
 			Material = material;
-			Manufacturer = manufacturer;
 
 			MaxDurability = maxDurability;
 			InitialReplicationCounter = initialReplicationCounter;
@@ -119,9 +117,25 @@ namespace Quantum
 			       LastRepairTimestamp == other.LastRepairTimestamp && Edition == other.Edition &&
 			       Faction == other.Faction && GameId == other.GameId && Generation == other.Generation &&
 			       Grade == other.Grade && InitialReplicationCounter == other.InitialReplicationCounter &&
-			       Level == other.Level && Manufacturer == other.Manufacturer && Material == other.Material &&
+			       Level == other.Level && Material == other.Material &&
 			       MaxDurability == other.MaxDurability &&
 			       ReplicationCounter == other.ReplicationCounter && Tuning == other.Tuning;
+		}
+
+		/// <summary>
+		/// Creates equipment on the given frame.
+		/// Should be the source of truth for creating equipment inside the simulation.
+		/// Player's loadout are defined outside in the game client and are passed down to the simulation.
+		/// This loadout can be used for some items in the simulation such as box drops.
+		/// </summary>
+		public static Equipment Create(GameId id, EquipmentRarity rarity, uint level, Frame f)
+		{
+			return new Equipment()
+			{
+				GameId = id,
+				Rarity = rarity,
+				Level = level
+			};
 		}
 
 		/// <summary>
@@ -142,7 +156,6 @@ namespace Quantum
 				hash = hash * 31 + InitialReplicationCounter.GetHashCode();
 				// hash = hash * 31 + LastRepairTimestamp.GetHashCode(); ; // ignored on server
 				hash = hash * 31 + Level.GetHashCode();
-				hash = hash * 31 + (Int32)Manufacturer;
 				hash = hash * 31 + (Int32)Material;
 				hash = hash * 31 + MaxDurability.GetHashCode();
 				hash = hash * 31 + (Int32)Rarity;

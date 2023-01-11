@@ -80,7 +80,7 @@ namespace FirstLight.Server.SDK.Models
 		/// </summary>
 		public bool Has<T>()
 		{
-			return this.ContainsKey(typeof(T).FullName);
+			return ContainsKey(typeof(T).FullName);
 		}
 		
 		/// <summary>

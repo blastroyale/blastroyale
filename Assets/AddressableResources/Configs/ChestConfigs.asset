@@ -38,6 +38,9 @@ MonoBehaviour:
       - Value1:
           RawValue: 0
         Value2: 0
+      DropFromPlayerBasedOnItemsRange:
+        Value1: 0
+        Value2: 3
     - Id: 1
       ChestType: 1
       RarityModifierRange:
@@ -58,6 +61,9 @@ MonoBehaviour:
       - Value1:
           RawValue: 6554
         Value2: 1
+      DropFromPlayerBasedOnItemsRange:
+        Value1: 4
+        Value2: 5
     - Id: 16
       ChestType: 2
       RarityModifierRange:
@@ -81,6 +87,9 @@ MonoBehaviour:
       - Value1:
           RawValue: 6554
         Value2: 1
+      DropFromPlayerBasedOnItemsRange:
+        Value1: 6
+        Value2: 7
     - Id: 2
       ChestType: 3
       RarityModifierRange:
@@ -107,6 +116,9 @@ MonoBehaviour:
       - Value1:
           RawValue: 32768
         Value2: 1
+      DropFromPlayerBasedOnItemsRange:
+        Value1: 8
+        Value2: 10
     - Id: 19
       ChestType: 4
       RarityModifierRange:
@@ -124,3 +136,6 @@ MonoBehaviour:
       - Value1:
           RawValue: 65536
         Value2: 4
+      DropFromPlayerBasedOnItemsRange:
+        Value1: 11
+        Value2: 11

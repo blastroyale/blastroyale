@@ -126,7 +126,6 @@
 
 .equipment-card__faction {
     position: absolute;
-    background-image: var(--sprite-home__card-faction-dimensional);
     width: 56px;
     height: 56px;
     top: 180px;
@@ -137,7 +136,6 @@
     position: absolute;
     left: -10px;
     bottom: -3px;
-    background-image: var(--sprite-home__card-material-bronze);
     width: 48px;
     height: 48px;
 }
@@ -178,7 +176,6 @@
 }
 
 .equipment-card__category {
-    background-image: var(--sprite-home__card-category-weapon);
     width: 34px;
     height: 34px;
 }

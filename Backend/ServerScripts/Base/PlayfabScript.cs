@@ -52,9 +52,9 @@ public abstract class PlayfabScript : IScript
 		
 		{ PlayfabEnvironment.PROD, new PlayfabConfiguration()
 		{
-			TitleId = "302CF",
+			TitleId = "***REMOVED***",
 			SecretKey = Environment.GetEnvironmentVariable("PLAYFAB_PROD_SECRET_KEY"),
-			AllPlayersSegmentId = "4C470D5AF0430D65"
+			AllPlayersSegmentId = "98523D5E0EF3941"
 		}},
 	};
 	

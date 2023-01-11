@@ -11,6 +11,7 @@
     <AssemblyName>quantum.code</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <NuspecFile>quantum.code.nuspec</NuspecFile>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -41,6 +42,7 @@
     <AllowedReferenceRelatedFileExtensions>.pdb</AllowedReferenceRelatedFileExtensions>
   </PropertyGroup>
   <ItemGroup>
+	  <PackageReference Include="NuGet.Build.Tasks.Pack" Version="5.2.0"/>
     <Reference Include="Sirenix.OdinInspector.Attributes">
       <HintPath>..\..\..\Assets\Libs\Odin\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Attributes.dll</HintPath>
     </Reference>
@@ -59,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AI\Actions\PlayerActivateAction.cs" />
+    <Compile Include="AI\Actions\PlayerOnBurstCompleteAction.cs" />
     <Compile Include="AI\Actions\PlayerReloadAction.cs" />
     <Compile Include="AI\Actions\PlayerPhysicsAction.cs" />
     <Compile Include="AI\Actions\PlayerStartReloadAction.cs" />
@@ -297,7 +300,6 @@
     <Compile Include="Utils\QuantumStatCalculator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BotSDK\AI\.DS_Store" />
     <Content Include="BotSDK\AI\BT\bt.qtn" />
     <Content Include="BotSDK\AI\Common\AIAction.qtn" />
     <Content Include="BotSDK\AI\Common\AIFunction\AIFunction.qtn" />
@@ -308,7 +310,6 @@
     <Content Include="BotSDK\AI\UT\UT.qtn" />
     <Content Include="BotSDK\Blackboard\Blackboard.qtn" />
     <Content Include="BotSDK\Core\BotSDK.qtn" />
-    <Content Include="BotSDK\Samples\.DS_Store" />
     <Content Include="Components\AirDrop.qtn" />
     <Content Include="Components\Chest.qtn" />
     <Content Include="Components\DummyCharacter.qtn" />
@@ -343,11 +344,29 @@
     <Content Include="Events\PlayerEvents.qtn" />
     <EmbeddedResource Include="db.json" />
   </ItemGroup>
+  <Target Name="SetNuspecProperties" BeforeTargets="GenerateNuspec">
+    <PropertyGroup>
+      <NuspecProperties>$(NuspecProperties);id=$(AssemblyName)</NuspecProperties>
+      <NuspecProperties>$(NuspecProperties);config=$(Configuration)</NuspecProperties>
+      <NuspecProperties>$(NuspecProperties);version=$(PackageVersion)</NuspecProperties>
+      <NuspecProperties>$(NuspecProperties);description=$(Description)</NuspecProperties>
+      <NuspecProperties>$(NuspecProperties);authors=$(Authors)</NuspecProperties>
+    </PropertyGroup>
+  </Target>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent Condition="'$(OS)' == 'Windows_NT'">"$(ProjectDir)..\..\tools\codegen_unity\quantum.codegen.unity.host.exe" "$(TargetDir)quantum.code.dll" "$(ProjectDir)../../../Assets/Libs"</PostBuildEvent>
     <PreBuildEvent Condition="'$(OS)' == 'Windows_NT'">"$(ProjectDir)..\..\tools\codegen\quantum.codegen.host.exe" "$(ProjectPath)"</PreBuildEvent>
     <PostBuildEvent Condition="'$(OS)' != 'Windows_NT'">mono "$(ProjectDir)..\..\tools\codegen_unity\quantum.codegen.unity.host.exe" "$(TargetDir)quantum.code.dll" "$(ProjectDir)../../../Assets/Libs"</PostBuildEvent>
     <PreBuildEvent Condition="'$(OS)' != 'Windows_NT'">mono "$(ProjectDir)..\..\tools\codegen\quantum.codegen.host.exe" "$(ProjectPath)"</PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Title>quantum_code</Title>
+    <Description>Quantum Code</Description>
+    <Authors>First Light</Authors>
+    <Owners>First Light</Owners>
+    <Copyright>First Light</Copyright>
+    <PackageOutputPath>bin\Package</PackageOutputPath>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 </Project>

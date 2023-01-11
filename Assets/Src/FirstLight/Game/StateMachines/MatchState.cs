@@ -480,7 +480,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			PublishMatchEnded(false, playerQuit);
 			
-			_services.AnalyticsService.MatchCalls.MatchEnd(QuantumRunner.Default.Game, playerQuit);
+			_services.AnalyticsService.MatchCalls.MatchEnd(QuantumRunner.Default.Game, playerQuit, _matchServices.MatchEndDataService.LocalPlayerMatchData.PlayerRank);
 			
 			if (playerQuit)
 			{

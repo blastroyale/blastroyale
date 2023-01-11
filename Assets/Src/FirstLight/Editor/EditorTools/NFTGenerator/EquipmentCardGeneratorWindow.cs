@@ -41,6 +41,7 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 
 		private IEnumerator<Equipment> _equipmentList;
 		private int _processedImages;
+		[UsedImplicitly] private bool _processing;
 
 		[MenuItem("FLG/Equipment Card Generator")]
 		private static void OpenWindow()
@@ -75,6 +76,7 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 			_rt = _document.panelSettings.targetTexture;
 			_equipmentList = AllEquipment();
 			_processedImages = 0;
+			_processing = true;
 
 			EditorApplication.update += ProcessItems;
 		}
@@ -87,6 +89,7 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 			EditorApplication.isPlaying = false;
 
 			_processedImages = 0;
+			_processing = false;
 		}
 
 		private void Generate(Equipment e)

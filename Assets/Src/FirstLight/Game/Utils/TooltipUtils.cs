@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.UIElements.Experimental;
@@ -30,7 +31,7 @@ namespace FirstLight.Game.Utils
 		/// <summary>
 		/// Opens a tooltip with a string content.
 		/// </summary>
-		public static void OpenTooltip(this VisualElement element, VisualElement root, string[] tags,
+		public static void OpenTooltip(this VisualElement element, VisualElement root, IEnumerable<string> tags,
 									   TooltipDirection direction = TooltipDirection.TopRight,
 									   TooltipPosition position = TooltipPosition.BottomLeft,
 									   int offsetX = 0, int offsetY = 0)

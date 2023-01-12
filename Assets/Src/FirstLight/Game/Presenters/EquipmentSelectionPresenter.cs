@@ -483,8 +483,8 @@ namespace FirstLight.Game.Presenters
 
 		private void OnInfoClicked()
 		{
-			// TODO mihak: Implement properly
-			_infoButton.OpenTooltip(Root, new[]{"GENESIS", "PLASTIC", "CHAOS", "GRADE VI", "REPLICATED 0/7", "RESTORED 0", "MILITARY"}, TooltipDirection.BottomRight, TooltipPosition.TopLeft);
+			var info = _gameDataProvider.EquipmentDataProvider.GetInfo(SelectedItem);
+			_infoButton.OpenTooltip(Root, info.GetTags(), TooltipDirection.BottomRight, TooltipPosition.TopLeft);
 		}
 
 		private void EquipItem(UniqueId item)

@@ -133,3 +133,5 @@ MonoBehaviour:
         RawValue: 78512
       MightLevelMultiplier:
         RawValue: 1933
+      TrophiesPerKill:
+        RawValue: 98304

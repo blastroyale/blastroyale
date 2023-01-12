@@ -350,6 +350,24 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: General/LeaderboardOpenError
+      TermType: 0
+      Description: 
+      Languages:
+      - Error opening leaderboard
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: General/LeaderboardOpenErrorDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - There was an error while getting leaderboard data.
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: General/Leave
       TermType: 0
       Description: 
@@ -382,6 +400,15 @@ MonoBehaviour:
       Description: 
       Languages:
       - Invalid username, password, email or user already exists
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: General/MagazineSize
+      TermType: 0
+      Description: 
+      Languages:
+      - Magazine Capacity
       - 
       - 
       Flags: 000000
@@ -1074,29 +1101,11 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: General/LeaderboardOpenError
+    - Term: General/AmmoCapacityBonus
       TermType: 0
       Description: 
       Languages:
-      - Error opening leaderboard
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: General/LeaderboardOpenErrorDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - There was an error while getting leaderboard data.
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: General/MagazineSize
-      TermType: 0
-      Description: 
-      Languages:
-      - Magazine Capacity
+      - Ammo Capacity Bonus
       - 
       - 
       Flags: 000000
@@ -1536,6 +1545,19 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: Tooltips/ToolTip_BPP_pool
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Earn Blast Pass points in matches to claim rewards.
+
+
+        The pool of
+        points refreshes over time.'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: Tooltips/ToolTip_CS
       TermType: 0
       Description: 
@@ -1550,11 +1572,37 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: Tooltips/ToolTip_CS_pool
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Gain Craft Spice in Ranked matches using NFTs.
+
+
+        Craft Spice pool
+        refreshes over time.'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: Tooltips/ToolTip_Casual
       TermType: 0
       Description: 
       Languages:
       - You cannot earn rewards, or gain trophies in casual matches. Play for fun!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: Tooltips/ToolTip_Coins
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Gain Coins by scrapping equipment.
+
+
+        Use Coins for upgrading and
+        repairing your equipment.'
       - 
       - 
       Flags: 000000
@@ -1592,45 +1640,6 @@ MonoBehaviour:
 
         Place higher in Ranked Battle Royale matches to earn
         trophies.'
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: Tooltips/ToolTip_Coins
-      TermType: 0
-      Description: 
-      Languages:
-      - 'Gain Coins by scrapping equipment.
-
-
-        Use Coins for upgrading and
-        repairing your equipment.'
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: Tooltips/ToolTip_BPP_pool
-      TermType: 0
-      Description: 
-      Languages:
-      - 'Earn Blast Pass points in matches to claim rewards.
-
-
-        The pool of
-        points refreshes over time.'
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: Tooltips/ToolTip_CS_pool
-      TermType: 0
-      Description: 
-      Languages:
-      - 'Gain Craft Spice in Ranked matches using NFTs.
-
-
-        Craft Spice pool
-        refreshes over time.'
       - 
       - 
       Flags: 000000
@@ -4053,6 +4062,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: AdventureMenu/SpectatedKilled
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} KILLED'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: AdventureMenu/Spree
       TermType: 0
       Description: 
@@ -4130,15 +4148,6 @@ MonoBehaviour:
       Description: 
       Languages:
       - YOUR LOOT
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: AdventureMenu/SpectatedKilled
-      TermType: 0
-      Description: 
-      Languages:
-      - '{0} KILLED'
       - 
       - 
       Flags: 000000
@@ -7050,6 +7059,16 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: GameIds/BLSTDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - "Blast Tokens will be a valuable\nrewards obtained in special ways\nin-game,
+        or purchased. \n\nUse Blast Tokens to purchase\nequipment on the marketplace."
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: GameIds/BRGenesis
       TermType: 0
       Description: 
@@ -7145,6 +7164,43 @@ MonoBehaviour:
       Description: 
       Languages:
       - General Panic
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: GameIds/COINDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Gain Coins by scrapping equipment.
+
+
+        Use Coins for upgrading
+
+        and
+        repairing your equipment.'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: GameIds/CSDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Gain Craft Spice by placing higher
+
+        in Ranked Battle Royale matches
+
+        using
+        NFTs.
+
+
+        Craft Spice is used on the Blast Hub
+
+        for upgrading,
+        repairing and
+
+        replicating equipment.'
       - 
       - 
       Flags: 000000
@@ -8490,6 +8546,26 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: GameIds/SpecialRadar
+      TermType: 0
+      Description: 
+      Languages:
+      - RADAR
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: GameIds/SpecialRadarDescription
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Shows nearby players
+
+        on the minimap.'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: GameIds/SpecialRageSelf
       TermType: 0
       Description: 
@@ -8591,26 +8667,6 @@ MonoBehaviour:
       - 'Stuns all enemies
 
         with a large area.'
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: GameIds/SpecialRadar
-      TermType: 0
-      Description: 
-      Languages:
-      - RADAR
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: GameIds/SpecialRadarDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - 'Shows nearby players
-
-        on the minimap.'
       - 
       - 
       Flags: 000000
@@ -8827,53 +8883,6 @@ MonoBehaviour:
       Description: 
       Languages:
       - WEAPON
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: GameIds/COINDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - 'Gain Coins by scrapping equipment.
-
-
-        Use Coins for upgrading
-
-        and
-        repairing your equipment.'
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: GameIds/BLSTDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - "Blast Tokens will be a valuable\nrewards obtained in special ways\nin-game,
-        or purchased. \n\nUse Blast Tokens to purchase\nequipment on the marketplace."
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: GameIds/CSDescription
-      TermType: 0
-      Description: 
-      Languages:
-      - 'Gain Craft Spice by placing higher
-
-        in Ranked Battle Royale matches
-
-        using
-        NFTs.
-
-
-        Craft Spice is used on the Blast Hub
-
-        for upgrading,
-        repairing and
-
-        replicating equipment.'
       - 
       - 
       Flags: 000000
@@ -9548,6 +9557,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITShared/claim
+      TermType: 0
+      Description: 
+      Languages:
+      - CLAIM
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITShared/close
       TermType: 0
       Description: 
@@ -9593,6 +9611,24 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITShared/got_it
+      TermType: 0
+      Description: 
+      Languages:
+      - GOT IT
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITShared/hide
+      TermType: 0
+      Description: 
+      Languages:
+      - HIDE
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITShared/info
       TermType: 0
       Description: 
@@ -9611,11 +9647,29 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITShared/leave
+      TermType: 0
+      Description: 
+      Languages:
+      - LEAVE
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITShared/main_menu
       TermType: 0
       Description: 
       Languages:
       - MAIN MENU
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITShared/next
+      TermType: 0
+      Description: 
+      Languages:
+      - NEXT
       - 
       - 
       Flags: 000000
@@ -9647,24 +9701,6 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITShared/waiting
-      TermType: 0
-      Description: 
-      Languages:
-      - Waiting...
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITShared/got_it
-      TermType: 0
-      Description: 
-      Languages:
-      - GOT IT
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
     - Term: UITShared/show
       TermType: 0
       Description: 
@@ -9674,83 +9710,22 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITShared/hide
+    - Term: UITShared/waiting
       TermType: 0
       Description: 
       Languages:
-      - HIDE
+      - Waiting...
       - 
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITShared/leave
+    - Term: UITSettings/account_deleted_desc
       TermType: 0
       Description: 
       Languages:
-      - LEAVE
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITShared/next
-      TermType: 0
-      Description: 
-      Languages:
-      - NEXT
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITShared/claim
-      TermType: 0
-      Description: 
-      Languages:
-      - CLAIM
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITSettings/logout
-      TermType: 0
-      Description: 
-      Languages:
-      - LOGOUT
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITSettings/delete_account
-      TermType: 0
-      Description: 
-      Languages:
-      - DELETE ACCOUNT
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITSettings/logout_confirm_desc
-      TermType: 0
-      Description: 
-      Languages:
-      - ARE YOU SURE YOU WANT TO LOG OUT?
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITSettings/logout_success_title
-      TermType: 0
-      Description: 
-      Languages:
-      - LOGGED OUT SUCCESSFULLY
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITSettings/logout_success_desc
-      TermType: 0
-      Description: 
-      Languages:
-      - RESTART THE GAME TO LOGIN TO A NEW ACCOUNT
+      - 'YOUR ACCOUNT WILL BE DELETED SOON.
+
+        THE GAME WILL CLOSE NOW.'
       - 
       - 
       Flags: 000000
@@ -9764,13 +9739,11 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITSettings/account_deleted_desc
+    - Term: UITSettings/delete_account
       TermType: 0
       Description: 
       Languages:
-      - 'YOUR ACCOUNT WILL BE DELETED SOON.
-
-        THE GAME WILL CLOSE NOW.'
+      - DELETE ACCOUNT
       - 
       - 
       Flags: 000000
@@ -9787,11 +9760,65 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITSettings/logout
+      TermType: 0
+      Description: 
+      Languages:
+      - LOGOUT
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITSettings/logout_confirm_desc
+      TermType: 0
+      Description: 
+      Languages:
+      - ARE YOU SURE YOU WANT TO LOG OUT?
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITSettings/logout_success_desc
+      TermType: 0
+      Description: 
+      Languages:
+      - RESTART THE GAME TO LOGIN TO A NEW ACCOUNT
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITSettings/logout_success_title
+      TermType: 0
+      Description: 
+      Languages:
+      - LOGGED OUT SUCCESSFULLY
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITLoginRegister/email
       TermType: 0
       Description: 
       Languages:
       - EMAIL
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/guest
+      TermType: 0
+      Description: 
+      Languages:
+      - GUEST
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITLoginRegister/invalid_input
+      TermType: 0
+      Description: 
+      Languages:
+      - Invalid Input Parameters
       - 
       - 
       Flags: 000000
@@ -9854,6 +9881,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITLoginRegister/register_login
+      TermType: 0
+      Description: 
+      Languages:
+      - REGISTER/LOGIN
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITLoginRegister/register_new_fl_id
       TermType: 0
       Description: 
@@ -9874,6 +9910,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITLoginRegister/secure_progress
+      TermType: 0
+      Description: 
+      Languages:
+      - to secure your progress and unlock more features!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITLoginRegister/send_password_recovery
       TermType: 0
       Description: 
@@ -9888,42 +9933,6 @@ MonoBehaviour:
       Description: 
       Languages:
       - USERNAME
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITLoginRegister/register_login
-      TermType: 0
-      Description: 
-      Languages:
-      - REGISTER/LOGIN
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITLoginRegister/guest
-      TermType: 0
-      Description: 
-      Languages:
-      - GUEST
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITLoginRegister/invalid_input
-      TermType: 0
-      Description: 
-      Languages:
-      - Invalid Input Parameters
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITLoginRegister/secure_progress
-      TermType: 0
-      Description: 
-      Languages:
-      - to secure your progress and unlock more features!
       - 
       - 
       Flags: 000000
@@ -9991,6 +10000,24 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITHomeScreen/discord
+      TermType: 0
+      Description: 
+      Languages:
+      - DISCORD
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/enter_your_name
+      TermType: 0
+      Description: 
+      Languages:
+      - ENTER YOUR NAME
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITHomeScreen/equipment
       TermType: 0
       Description: 
@@ -10018,6 +10045,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITHomeScreen/new_name_desc
+      TermType: 0
+      Description: 
+      Languages:
+      - What's your name Blaster?
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITHomeScreen/play
       TermType: 0
       Description: 
@@ -10036,47 +10072,20 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITHomeScreen/resource_pool_restock_time
+      TermType: 0
+      Description: 
+      Languages:
+      - ' IN {0}'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITHomeScreen/shop
       TermType: 0
       Description: 
       Languages:
       - SHOP
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITHomeScreen/enter_your_name
-      TermType: 0
-      Description: 
-      Languages:
-      - ENTER YOUR NAME
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITHomeScreen/new_name_desc
-      TermType: 0
-      Description: 
-      Languages:
-      - What's your name Blaster?
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITHomeScreen/discord
-      TermType: 0
-      Description: 
-      Languages:
-      - DISCORD
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITHomeScreen/waitforrewards_popup_title
-      TermType: 0
-      Description: 
-      Languages:
-      - Please wait
       - 
       - 
       Flags: 000000
@@ -10090,11 +10099,11 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITHomeScreen/resource_pool_restock_time
+    - Term: UITHomeScreen/waitforrewards_popup_title
       TermType: 0
       Description: 
       Languages:
-      - ' IN {0}'
+      - Please wait
       - 
       - 
       Flags: 000000
@@ -10135,20 +10144,20 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITMatchmaking/select_dropzone
-      TermType: 0
-      Description: 
-      Languages:
-      - SELECT DROP ZONE
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
     - Term: UITMatchmaking/br_mode_desc
       TermType: 0
       Description: 
       Languages:
       - LAST PLAYER STANDING
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITMatchmaking/current_player_amount
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0}/{1}'
       - 
       - 
       Flags: 000000
@@ -10162,20 +10171,11 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITMatchmaking/wins_the_match
+    - Term: UITMatchmaking/loading_status_starting
       TermType: 0
       Description: 
       Languages:
-      - WINS THE MATCH
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITMatchmaking/current_player_amount
-      TermType: 0
-      Description: 
-      Languages:
-      - '{0}/{1}'
+      - PREPARE FOR BLAST OFF!
       - 
       - 
       Flags: 000000
@@ -10198,15 +10198,6 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITMatchmaking/loading_status_starting
-      TermType: 0
-      Description: 
-      Languages:
-      - PREPARE FOR BLAST OFF!
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
     - Term: UITMatchmaking/mode_header_title
       TermType: 0
       Description: 
@@ -10218,29 +10209,20 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITBattlePass/season_ends_in
+    - Term: UITMatchmaking/select_dropzone
       TermType: 0
       Description: 
       Languages:
-      - 'SEASON ENDS IN '
+      - SELECT DROP ZONE
       - 
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITBattlePass/season_time_left_big
+    - Term: UITMatchmaking/wins_the_match
       TermType: 0
       Description: 
       Languages:
-      - ' {0}d {1}h'
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITBattlePass/season_time_left_small
-      TermType: 0
-      Description: 
-      Languages:
-      - ' {0}h {1}m'
+      - WINS THE MATCH
       - 
       - 
       Flags: 000000
@@ -10254,47 +10236,11 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITBattlePass/play_games_info
-      TermType: 0
-      Description: 
-      Languages:
-      - PLAY GAMES AND UNLOCK REWARDS!
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
     - Term: UITBattlePass/claim_all
       TermType: 0
       Description: 
       Languages:
       - CLAIM REWARDS
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITBattlePass/tap_to_claim
-      TermType: 0
-      Description: 
-      Languages:
-      - TAP TO CLAIM
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITBattlePass/season_number
-      TermType: 0
-      Description: 
-      Languages:
-      - SEASON {0}
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITBattlePass/random_equipment
-      TermType: 0
-      Description: 
-      Languages:
-      - RANDOM EQUIPMENT
       - 
       - 
       Flags: 000000
@@ -10326,6 +10272,69 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITBattlePass/play_games_info
+      TermType: 0
+      Description: 
+      Languages:
+      - PLAY GAMES AND UNLOCK REWARDS!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITBattlePass/random_equipment
+      TermType: 0
+      Description: 
+      Languages:
+      - RANDOM EQUIPMENT
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITBattlePass/season_ends_in
+      TermType: 0
+      Description: 
+      Languages:
+      - 'SEASON ENDS IN '
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITBattlePass/season_number
+      TermType: 0
+      Description: 
+      Languages:
+      - SEASON {0}
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITBattlePass/season_time_left_big
+      TermType: 0
+      Description: 
+      Languages:
+      - ' {0}d {1}h'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITBattlePass/season_time_left_small
+      TermType: 0
+      Description: 
+      Languages:
+      - ' {0}h {1}m'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITBattlePass/tap_to_claim
+      TermType: 0
+      Description: 
+      Languages:
+      - TAP TO CLAIM
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITGameModeSelection/choose_a_mode
       TermType: 0
       Description: 
@@ -10353,168 +10362,6 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITEquipment/card_lvl
-      TermType: 0
-      Description: 
-      Languages:
-      - <size=65%>LV</size>{0}
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/equipment
-      TermType: 0
-      Description: 
-      Languages:
-      - EQUIPMENT
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/item_name_lvl
-      TermType: 0
-      Description: 
-      Languages:
-      - <line-height=70%>{0}
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/loaned
-      TermType: 0
-      Description: 
-      Languages:
-      - LOANED
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/might
-      TermType: 0
-      Description: 
-      Languages:
-      - MIGHT <size=60px>{0}</size>
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/no_amulet
-      TermType: 0
-      Description: 
-      Languages:
-      - NO AMULET
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/no_armor
-      TermType: 0
-      Description: 
-      Languages:
-      - NO ARMOR
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/no_helmet
-      TermType: 0
-      Description: 
-      Languages:
-      - NO HELMET
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/no_shield
-      TermType: 0
-      Description: 
-      Languages:
-      - NO SHIELD
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/no_weapon
-      TermType: 0
-      Description: 
-      Languages:
-      - NO WEAPON
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/selection_amulet
-      TermType: 0
-      Description: 
-      Languages:
-      - AMULET SELECTION
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/selection_armor
-      TermType: 0
-      Description: 
-      Languages:
-      - ARMOR SELECTION
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/selection_helmet
-      TermType: 0
-      Description: 
-      Languages:
-      - HELMET SELECTION
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/selection_shield
-      TermType: 0
-      Description: 
-      Languages:
-      - SHIELD SELECTION
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/selection_weapon
-      TermType: 0
-      Description: 
-      Languages:
-      - WEAPON SELECTION
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/lvl
-      TermType: 0
-      Description: 
-      Languages:
-      - <size=65%>LV</size>{0}
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/equipment_details_title
-      TermType: 0
-      Description: 
-      Languages:
-      - '{0} {1} LV<size=120%>{2}</size>'
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/adjective_regular
-      TermType: 0
-      Description: 
-      Languages:
-      - REGULAR
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
     - Term: UITEquipment/adjective_cool
       TermType: 0
       Description: 
@@ -10524,20 +10371,11 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITEquipment/adjective_ornate
+    - Term: UITEquipment/adjective_divine
       TermType: 0
       Description: 
       Languages:
-      - ORNATE
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/adjective_posh
-      TermType: 0
-      Description: 
-      Languages:
-      - POSH
+      - DIVINE
       - 
       - 
       Flags: 000000
@@ -10547,6 +10385,15 @@ MonoBehaviour:
       Description: 
       Languages:
       - EXQUISITE
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/adjective_magnificent
+      TermType: 0
+      Description: 
+      Languages:
+      - MAGNIFICENT
       - 
       - 
       Flags: 000000
@@ -10569,11 +10416,29 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITEquipment/adjective_magnificent
+    - Term: UITEquipment/adjective_ornate
       TermType: 0
       Description: 
       Languages:
-      - MAGNIFICENT
+      - ORNATE
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/adjective_posh
+      TermType: 0
+      Description: 
+      Languages:
+      - POSH
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/adjective_regular
+      TermType: 0
+      Description: 
+      Languages:
+      - REGULAR
       - 
       - 
       Flags: 000000
@@ -10587,128 +10452,11 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITEquipment/adjective_divine
+    - Term: UITEquipment/card_lvl
       TermType: 0
       Description: 
       Languages:
-      - DIVINE
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/equipped
-      TermType: 0
-      Description: 
-      Languages:
-      - EQUIPPED
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/equip
-      TermType: 0
-      Description: 
-      Languages:
-      - EQUIP
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/unequip
-      TermType: 0
-      Description: 
-      Languages:
-      - UNEQUIP
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/rarity_common
-      TermType: 0
-      Description: 
-      Languages:
-      - COMMON
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/rarity_commonplus
-      TermType: 0
-      Description: 
-      Languages:
-      - COMMON PLUS
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/rarity_uncommon
-      TermType: 0
-      Description: 
-      Languages:
-      - UNCOMMON
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/rarity_uncommonplus
-      TermType: 0
-      Description: 
-      Languages:
-      - UNCOMMON PLUS
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/rarity_rare
-      TermType: 0
-      Description: 
-      Languages:
-      - RARE
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/rarity_rareplus
-      TermType: 0
-      Description: 
-      Languages:
-      - RARE PLUS
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/rarity_epic
-      TermType: 0
-      Description: 
-      Languages:
-      - EPIC
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/rarity_epicplus
-      TermType: 0
-      Description: 
-      Languages:
-      - EPIC PLUS
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/rarity_legendary
-      TermType: 0
-      Description: 
-      Languages:
-      - LEGENDARY
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/rarity_legendaryplus
-      TermType: 0
-      Description: 
-      Languages:
-      - LEGENDARY PLUS
+      - <size=65%>LV</size>{0}
       - 
       - 
       Flags: 000000
@@ -10768,11 +10516,119 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITEquipment/popup_scrap_are_you_sure
+    - Term: UITEquipment/equip
       TermType: 0
       Description: 
       Languages:
-      - ARE YOU SURE YOU WANT TO SCRAP THIS ITEM FOR
+      - EQUIP
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/equipment
+      TermType: 0
+      Description: 
+      Languages:
+      - EQUIPMENT
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/equipment_details_title
+      TermType: 0
+      Description: 
+      Languages:
+      - '{0} {1} LV<size=120%>{2}</size>'
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/equipped
+      TermType: 0
+      Description: 
+      Languages:
+      - EQUIPPED
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/item_name_lvl
+      TermType: 0
+      Description: 
+      Languages:
+      - <line-height=70%>{0}
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/loaned
+      TermType: 0
+      Description: 
+      Languages:
+      - LOANED
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/lvl
+      TermType: 0
+      Description: 
+      Languages:
+      - <size=65%>LV</size>{0}
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/might
+      TermType: 0
+      Description: 
+      Languages:
+      - MIGHT <size=60px>{0}</size>
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/no_amulet
+      TermType: 0
+      Description: 
+      Languages:
+      - NO AMULET
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/no_armor
+      TermType: 0
+      Description: 
+      Languages:
+      - NO ARMOR
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/no_helmet
+      TermType: 0
+      Description: 
+      Languages:
+      - NO HELMET
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/no_shield
+      TermType: 0
+      Description: 
+      Languages:
+      - NO SHIELD
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/no_weapon
+      TermType: 0
+      Description: 
+      Languages:
+      - NO WEAPON
       - 
       - 
       Flags: 000000
@@ -10786,101 +10642,11 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITEquipment/popup_yes_scrap
+    - Term: UITEquipment/popup_go_repair
       TermType: 0
       Description: 
       Languages:
-      - YES, SCRAP
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/popup_perform_action
-      TermType: 0
-      Description: 
-      Languages:
-      - You can perform this action on
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/popup_restore_durability
-      TermType: 0
-      Description: 
-      Languages:
-      - RESTORE DURABILITY TO MAX
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/popup_scrapping_item
-      TermType: 0
-      Description: 
-      Languages:
-      - SCRAPPING ITEM
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/popup_requirements
-      TermType: 0
-      Description: 
-      Languages:
-      - REQUIREMENTS
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/popup_upgrading_item
-      TermType: 0
-      Description: 
-      Languages:
-      - UPGRADING ITEM
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/popup_upgrade_lvl
-      TermType: 0
-      Description: 
-      Languages:
-      - LV<size=52px>{0}
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/scrap
-      TermType: 0
-      Description: 
-      Languages:
-      - SCRAP
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/upgrade
-      TermType: 0
-      Description: 
-      Languages:
-      - UPGRADE
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/repair
-      TermType: 0
-      Description: 
-      Languages:
-      - REPAIR
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/popup_repairing_item
-      TermType: 0
-      Description: 
-      Languages:
-      - REPAIRING ITEM
+      - GO REPAIR
       - 
       - 
       Flags: 000000
@@ -10890,15 +10656,6 @@ MonoBehaviour:
       Description: 
       Languages:
       - YOUR ITEMS HAVE RUSTED
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/popup_go_repair
-      TermType: 0
-      Description: 
-      Languages:
-      - GO REPAIR
       - 
       - 
       Flags: 000000
@@ -10914,11 +10671,263 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITWinners/winners
+    - Term: UITEquipment/popup_perform_action
       TermType: 0
       Description: 
       Languages:
-      - WINNERS
+      - You can perform this action on
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/popup_repairing_item
+      TermType: 0
+      Description: 
+      Languages:
+      - REPAIRING ITEM
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/popup_requirements
+      TermType: 0
+      Description: 
+      Languages:
+      - REQUIREMENTS
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/popup_restore_durability
+      TermType: 0
+      Description: 
+      Languages:
+      - RESTORE DURABILITY TO MAX
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/popup_scrap_are_you_sure
+      TermType: 0
+      Description: 
+      Languages:
+      - ARE YOU SURE YOU WANT TO SCRAP THIS ITEM FOR
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/popup_scrapping_item
+      TermType: 0
+      Description: 
+      Languages:
+      - SCRAPPING ITEM
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/popup_upgrade_lvl
+      TermType: 0
+      Description: 
+      Languages:
+      - LV<size=52px>{0}
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/popup_upgrading_item
+      TermType: 0
+      Description: 
+      Languages:
+      - UPGRADING ITEM
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/popup_yes_scrap
+      TermType: 0
+      Description: 
+      Languages:
+      - YES, SCRAP
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/rarity_common
+      TermType: 0
+      Description: 
+      Languages:
+      - COMMON
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/rarity_commonplus
+      TermType: 0
+      Description: 
+      Languages:
+      - COMMON PLUS
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/rarity_epic
+      TermType: 0
+      Description: 
+      Languages:
+      - EPIC
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/rarity_epicplus
+      TermType: 0
+      Description: 
+      Languages:
+      - EPIC PLUS
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/rarity_legendary
+      TermType: 0
+      Description: 
+      Languages:
+      - LEGENDARY
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/rarity_legendaryplus
+      TermType: 0
+      Description: 
+      Languages:
+      - LEGENDARY PLUS
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/rarity_rare
+      TermType: 0
+      Description: 
+      Languages:
+      - RARE
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/rarity_rareplus
+      TermType: 0
+      Description: 
+      Languages:
+      - RARE PLUS
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/rarity_uncommon
+      TermType: 0
+      Description: 
+      Languages:
+      - UNCOMMON
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/rarity_uncommonplus
+      TermType: 0
+      Description: 
+      Languages:
+      - UNCOMMON PLUS
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/repair
+      TermType: 0
+      Description: 
+      Languages:
+      - REPAIR
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/replicated_count
+      TermType: 0
+      Description: 
+      Languages:
+      - REPLICATED {0}/{1}
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/scrap
+      TermType: 0
+      Description: 
+      Languages:
+      - SCRAP
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/selection_amulet
+      TermType: 0
+      Description: 
+      Languages:
+      - AMULET SELECTION
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/selection_armor
+      TermType: 0
+      Description: 
+      Languages:
+      - ARMOR SELECTION
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/selection_helmet
+      TermType: 0
+      Description: 
+      Languages:
+      - HELMET SELECTION
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/selection_shield
+      TermType: 0
+      Description: 
+      Languages:
+      - SHIELD SELECTION
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/selection_weapon
+      TermType: 0
+      Description: 
+      Languages:
+      - WEAPON SELECTION
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/unequip
+      TermType: 0
+      Description: 
+      Languages:
+      - UNEQUIP
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/upgrade
+      TermType: 0
+      Description: 
+      Languages:
+      - UPGRADE
       - 
       - 
       Flags: 000000
@@ -10932,56 +10941,20 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITWinners/winners
+      TermType: 0
+      Description: 
+      Languages:
+      - WINNERS
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITSwipeTransition/lets_blast
       TermType: 0
       Description: 
       Languages:
       - LET'S BLAST
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITLeaderboards/player
-      TermType: 0
-      Description: 
-      Languages:
-      - PLAYER
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITLeaderboards/kills
-      TermType: 0
-      Description: 
-      Languages:
-      - K
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITLeaderboards/deaths
-      TermType: 0
-      Description: 
-      Languages:
-      - D
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITLeaderboards/trophies
-      TermType: 0
-      Description: 
-      Languages:
-      - TROPHIES
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITLeaderboards/standings
-      TermType: 0
-      Description: 
-      Languages:
-      - STANDINGS
       - 
       - 
       Flags: 000000
@@ -10995,15 +10968,6 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITLeaderboards/global_leaderboard
-      TermType: 0
-      Description: 
-      Languages:
-      - GLOBAL LEADERBOARD
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
     - Term: UITLeaderboards/become_the_best
       TermType: 0
       Description: 
@@ -11013,16 +10977,52 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITRewards/craft_spice
+    - Term: UITLeaderboards/deaths
       TermType: 0
       Description: 
       Languages:
-      - CRAFT SPICE
+      - D
       - 
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITRewards/trophies
+    - Term: UITLeaderboards/global_leaderboard
+      TermType: 0
+      Description: 
+      Languages:
+      - GLOBAL LEADERBOARD
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITLeaderboards/kills
+      TermType: 0
+      Description: 
+      Languages:
+      - K
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITLeaderboards/player
+      TermType: 0
+      Description: 
+      Languages:
+      - PLAYER
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITLeaderboards/standings
+      TermType: 0
+      Description: 
+      Languages:
+      - STANDINGS
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITLeaderboards/trophies
       TermType: 0
       Description: 
       Languages:
@@ -11040,6 +11040,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITRewards/craft_spice
+      TermType: 0
+      Description: 
+      Languages:
+      - CRAFT SPICE
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITRewards/this_week
       TermType: 0
       Description: 
@@ -11049,11 +11058,11 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITSpectate/spectating
+    - Term: UITRewards/trophies
       TermType: 0
       Description: 
       Languages:
-      - SPECTATING
+      - TROPHIES
       - 
       - 
       Flags: 000000
@@ -11094,6 +11103,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITSpectate/spectating
+      TermType: 0
+      Description: 
+      Languages:
+      - SPECTATING
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -11112,7 +11130,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1673436202758
+    Google_LastUpdatedVersion: 1673536556521
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

@@ -3,14 +3,13 @@ using System.Linq;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
-using FirstLight.Game.Presenters;
 using FirstLight.Game.Utils;
 using Quantum;
 
 namespace FirstLight.Game.Services
 {
 	/// <summary>
-	/// Service that holds all the data from the match to be used once the simulation is over. It's only updated when the game is over.
+	/// Service that holds all the data from the match to be used once the simulation is over.
 	/// </summary>
 	public interface IMatchEndDataService
 	{

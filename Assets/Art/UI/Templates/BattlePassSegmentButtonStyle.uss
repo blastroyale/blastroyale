@@ -17,7 +17,7 @@
 .progress-bar__background {
     height: 35px;
     width: 100%;
-    background-image: var(--sprite-shared__progress-battlepass-bg);
+    background-image: var(--sprite-home__progress-battlepass-bg);
     padding-left: 2px;
     padding-right: 2px;
     padding-top: 2px;
@@ -28,7 +28,7 @@
 }
 
 .progress-bar__progress {
-    background-image: var(--sprite-shared__progress-battlepass);
+    background-image: var(--sprite-home__progress-battlepass);
     height: 26px;
     flex-grow: 0.5;
 }

@@ -834,11 +834,6 @@ namespace FirstLight.Game.StateMachines
 					_requiresManualRoomReconnection = true;
 					_networkService.QuantumClient.ReconnectToMaster();
 				}
-				else if(_services.NetworkService.LastMatchPlayers.Count == 1)
-				{
-					// We don't want to reconnect back to solo rooms - they don't work currently for resyncs
-					_networkService.QuantumClient.ReconnectToMaster();
-				}
 				else
 				{
 					_networkService.QuantumClient.ReconnectAndRejoin();

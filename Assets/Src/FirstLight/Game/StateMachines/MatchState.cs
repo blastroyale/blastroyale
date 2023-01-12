@@ -142,7 +142,7 @@ namespace FirstLight.Game.StateMachines
 			gameResults.OnExit(UnloadMainMenuAssetConfigs);
 			gameResults.OnExit(DisposeMatchServices);
 			gameResults.OnExit(OpenLoadingScreen);
-
+			
 			disconnected.OnEnter(OpenDisconnectedScreen);
 			disconnected.Event(NetworkState.JoinedRoomEvent).Target(postDisconnectCheck);
 			disconnected.Event(NetworkState.JoinRoomFailedEvent).Target(unloadToFinal);
@@ -177,8 +177,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			return _matchServices.MatchEndDataService.LeftBeforeMatchFinished;
 		}
-		
-		
+
 		/// <summary>
 		/// Whenever the simulation wants to fire logic commands.
 		/// This will also run on quantum server and will be sent to logic service from there.
@@ -275,7 +274,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.Simulation;
 			
-			PublishMatchEnded(true, false);
+			PublishMatchEnded(true, false, null);
 		}
 
 		private void CloseSwipeTransition()
@@ -466,11 +465,11 @@ namespace FirstLight.Game.StateMachines
 			await Task.Yield();
 		}
 
-		private void PublishMatchEnded(bool isDisconnected, bool isPlayerQuit)
+		private void PublishMatchEnded(bool isDisconnected, bool isPlayerQuit, QuantumGame game)
 		{
 			_services.MessageBrokerService.Publish(new MatchEndedMessage()
 			{
-				Game = QuantumRunner.Default.Game,
+				Game = game,
 				IsDisconnected = isDisconnected,
 				IsPlayerQuit = isPlayerQuit
 			});
@@ -478,7 +477,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void HandleSimulationEnd(bool playerQuit)
 		{
-			PublishMatchEnded(false, playerQuit);
+			PublishMatchEnded(false, playerQuit, QuantumRunner.Default.Game);
 			
 			_services.AnalyticsService.MatchCalls.MatchEnd(QuantumRunner.Default.Game, playerQuit);
 			

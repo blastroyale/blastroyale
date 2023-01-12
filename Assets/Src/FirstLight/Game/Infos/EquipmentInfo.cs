@@ -34,6 +34,7 @@ namespace FirstLight.Game.Infos
 		PickupSpeed,
 		ShieldCapacity,
 		MagazineSize,
+		AmmoCapacityBonus,
 	}
 
 	public struct EquipmentInfo

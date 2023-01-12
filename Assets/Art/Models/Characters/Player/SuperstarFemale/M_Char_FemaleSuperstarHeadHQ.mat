@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Char_PlayerFemale01HQ
+  m_Name: M_Char_FemaleSuperstarHeadHQ
   m_Shader: {fileID: -6465566751694194690, guid: 54226dad6a35e0b4990fe57845222f7a, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -29,7 +29,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_D73132B5:
-        m_Texture: {fileID: 2800000, guid: c6e668e2d72371b43a919aefe23eab9f, type: 3}
+        m_Texture: {fileID: 2800000, guid: 224ca1994e5ecb243920a28a5a7be772, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissTex:
@@ -41,11 +41,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: bf5bd6da21e385849ba37a93b6d7b744, type: 3}
+        m_Texture: {fileID: 2800000, guid: 862fb37693d16a647b266407c272bd80, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal_Map:
-        m_Texture: {fileID: 2800000, guid: c1c1a4085dcb12947936e5841919fcd2, type: 3}
+        m_Texture: {fileID: 2800000, guid: 4f94b6bb9aebd92479dc28b67935ee1e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -66,13 +66,13 @@ Material:
     - Vector1_12FD5A15: 30
     - Vector1_13791F7D: 0.025
     - Vector1_54501CA6: 0.1
-    - Vector1_A3CA1DE4: 0.8
+    - Vector1_A3CA1DE4: 1
     - Vector1_FA9A29A7: 1
     - _Death: 0
     - _EmissTexAmount: 0
     - _Fresnel_Power: 4
     - _Hit: 0.4
-    - _Normal_Strength: 0.5
+    - _Normal_Strength: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Rage: 0
@@ -84,7 +84,7 @@ Material:
     - Vector2_BE86BA33: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 0, g: 0.5287747, b: 1, a: 1}
     - _HitColor: {r: 0.4392157, g: 8, b: 0.7215686, a: 0}
-    - _TintColor: {r: 1, g: 1, b: 1, a: 0}
+    - _TintColor: {r: 2, g: 2, b: 2, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &5338150153496553913
 MonoBehaviour:

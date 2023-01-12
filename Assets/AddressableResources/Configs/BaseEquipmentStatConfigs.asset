@@ -475,7 +475,7 @@ MonoBehaviour:
       ArmorRatioToBase:
         RawValue: 0
       SpeedRatioToBase:
-        RawValue: 0
+        RawValue: 13107
       PowerRatioToBase:
         RawValue: 98304
       AttackRangeRatioToBase:
@@ -499,7 +499,7 @@ MonoBehaviour:
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:
-        RawValue: 0
+        RawValue: 13107
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
@@ -529,7 +529,7 @@ MonoBehaviour:
       ArmorRatioToBase:
         RawValue: 0
       SpeedRatioToBase:
-        RawValue: 0
+        RawValue: 13107
       PowerRatioToBase:
         RawValue: 11469
       AttackRangeRatioToBase:
@@ -555,7 +555,7 @@ MonoBehaviour:
       PickupSpeedRatioToBase:
         RawValue: 0
       AmmoCapacityRatioToBase:
-        RawValue: 0
+        RawValue: 19661
       ShieldCapacityRatioToBase:
         RawValue: 0
     - Id: 84
@@ -569,7 +569,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 65536
       AttackRangeRatioToBase:
-        RawValue: 0
+        RawValue: 22938
       PickupSpeedRatioToBase:
         RawValue: 0
       AmmoCapacityRatioToBase:
@@ -599,7 +599,7 @@ MonoBehaviour:
       HpRatioToBase:
         RawValue: 0
       ArmorRatioToBase:
-        RawValue: 0
+        RawValue: 5898
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
@@ -625,7 +625,7 @@ MonoBehaviour:
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:
-        RawValue: 0
+        RawValue: 13107
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
@@ -655,7 +655,7 @@ MonoBehaviour:
       ArmorRatioToBase:
         RawValue: 0
       SpeedRatioToBase:
-        RawValue: 0
+        RawValue: 13107
       PowerRatioToBase:
         RawValue: 32768
       AttackRangeRatioToBase:
@@ -681,7 +681,7 @@ MonoBehaviour:
       PickupSpeedRatioToBase:
         RawValue: 0
       AmmoCapacityRatioToBase:
-        RawValue: 0
+        RawValue: 19661
       ShieldCapacityRatioToBase:
         RawValue: 0
     - Id: 93
@@ -695,7 +695,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 49152
       AttackRangeRatioToBase:
-        RawValue: 0
+        RawValue: 22938
       PickupSpeedRatioToBase:
         RawValue: 0
       AmmoCapacityRatioToBase:
@@ -725,7 +725,7 @@ MonoBehaviour:
       HpRatioToBase:
         RawValue: 0
       ArmorRatioToBase:
-        RawValue: 0
+        RawValue: 5898
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:
@@ -751,7 +751,7 @@ MonoBehaviour:
       AttackRangeRatioToBase:
         RawValue: 0
       PickupSpeedRatioToBase:
-        RawValue: 0
+        RawValue: 13107
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
@@ -781,7 +781,7 @@ MonoBehaviour:
       ArmorRatioToBase:
         RawValue: 0
       SpeedRatioToBase:
-        RawValue: 0
+        RawValue: 13107
       PowerRatioToBase:
         RawValue: 8192
       AttackRangeRatioToBase:
@@ -807,7 +807,7 @@ MonoBehaviour:
       PickupSpeedRatioToBase:
         RawValue: 0
       AmmoCapacityRatioToBase:
-        RawValue: 0
+        RawValue: 19661
       ShieldCapacityRatioToBase:
         RawValue: 0
     - Id: 100
@@ -821,7 +821,7 @@ MonoBehaviour:
       PowerRatioToBase:
         RawValue: 24576
       AttackRangeRatioToBase:
-        RawValue: 0
+        RawValue: 22938
       PickupSpeedRatioToBase:
         RawValue: 0
       AmmoCapacityRatioToBase:
@@ -851,7 +851,7 @@ MonoBehaviour:
       HpRatioToBase:
         RawValue: 0
       ArmorRatioToBase:
-        RawValue: 0
+        RawValue: 5898
       SpeedRatioToBase:
         RawValue: 0
       PowerRatioToBase:

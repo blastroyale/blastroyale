@@ -8895,7 +8895,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.97402024, b: 0.89411765, a: 1}
-  m_Intensity: 1
+  m_Intensity: 1.5
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -9623,7 +9623,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6503728166105186051, guid: aabbd62e78bff4da49630d96829f0c6b, type: 3}
       propertyPath: _rigidbodies.Array.size
-      value: 242
+      value: 253
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aabbd62e78bff4da49630d96829f0c6b, type: 3}

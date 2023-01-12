@@ -2510,31 +2510,29 @@ namespace Quantum {
     public EquipmentEdition Edition;
     [FieldOffset(8)]
     public EquipmentFaction Faction;
-    [FieldOffset(28)]
+    [FieldOffset(24)]
     public GameId GameId;
-    [FieldOffset(32)]
+    [FieldOffset(28)]
     public UInt32 Generation;
     [FieldOffset(12)]
     public EquipmentGrade Grade;
-    [FieldOffset(36)]
+    [FieldOffset(32)]
     public UInt32 InitialReplicationCounter;
     [FieldOffset(56)]
     public Int64 LastRepairTimestamp;
-    [FieldOffset(40)]
+    [FieldOffset(36)]
     public UInt32 Level;
     [FieldOffset(16)]
-    public EquipmentManufacturer Manufacturer;
-    [FieldOffset(20)]
     public EquipmentMaterial Material;
-    [FieldOffset(44)]
+    [FieldOffset(40)]
     public UInt32 MaxDurability;
-    [FieldOffset(24)]
+    [FieldOffset(20)]
     public EquipmentRarity Rarity;
-    [FieldOffset(48)]
+    [FieldOffset(44)]
     public UInt32 ReplicationCounter;
     [FieldOffset(64)]
     public UInt64 TotalRestoredDurability;
-    [FieldOffset(52)]
+    [FieldOffset(48)]
     public UInt32 Tuning;
     public override Int32 GetHashCode() {
       unchecked { 
@@ -2548,7 +2546,6 @@ namespace Quantum {
         hash = hash * 31 + InitialReplicationCounter.GetHashCode();
         hash = hash * 31 + LastRepairTimestamp.GetHashCode();
         hash = hash * 31 + Level.GetHashCode();
-        hash = hash * 31 + (Int32)Manufacturer;
         hash = hash * 31 + (Int32)Material;
         hash = hash * 31 + MaxDurability.GetHashCode();
         hash = hash * 31 + (Int32)Rarity;
@@ -2564,7 +2561,6 @@ namespace Quantum {
         serializer.Stream.Serialize((Int32*)&p->Edition);
         serializer.Stream.Serialize((Int32*)&p->Faction);
         serializer.Stream.Serialize((Int32*)&p->Grade);
-        serializer.Stream.Serialize((Int32*)&p->Manufacturer);
         serializer.Stream.Serialize((Int32*)&p->Material);
         serializer.Stream.Serialize((Int32*)&p->Rarity);
         serializer.Stream.Serialize((Int32*)&p->GameId);
@@ -9865,7 +9861,6 @@ namespace Quantum.Prototypes {
     public EquipmentFaction_Prototype Faction;
     public EquipmentAdjective_Prototype Adjective;
     public EquipmentMaterial_Prototype Material;
-    public EquipmentManufacturer_Prototype Manufacturer;
     public UInt32 MaxDurability;
     public UInt32 InitialReplicationCounter;
     public UInt32 Tuning;
@@ -9885,7 +9880,6 @@ namespace Quantum.Prototypes {
       result.InitialReplicationCounter = this.InitialReplicationCounter;
       result.LastRepairTimestamp = this.LastRepairTimestamp;
       result.Level = this.Level;
-      result.Manufacturer = this.Manufacturer;
       result.Material = this.Material;
       result.MaxDurability = this.MaxDurability;
       result.Rarity = this.Rarity;

@@ -22,7 +22,7 @@ MonoBehaviour:
       Id:
         Value: 648001274895591165
     InitialValues:
-    - Key: IsShooting
+    - Key: IsSkydiving
       Value:
         AsBoolean: 0
         AsByte: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
         AsAssetRef:
           Id:
             Value: 0
-    - Key: IsSkydiving
+    - Key: IsShooting
       Value:
         AsBoolean: 0
         AsByte: 0

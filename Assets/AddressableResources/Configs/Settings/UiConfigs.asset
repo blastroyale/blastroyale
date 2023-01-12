@@ -20,7 +20,7 @@ MonoBehaviour:
     UiType: FirstLight.Game.Presenters.BattlePassScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/ConnectIdScreen.prefab
-    Layer: 8
+    Layer: 0
     UiType: FirstLight.Game.Presenters.ConnectIdScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/CustomLobbyScreen.prefab

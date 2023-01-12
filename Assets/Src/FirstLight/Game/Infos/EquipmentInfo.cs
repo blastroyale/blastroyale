@@ -40,6 +40,7 @@ namespace FirstLight.Game.Infos
 	{
 		public UniqueId Id;
 		public Equipment Equipment;
+		public EquipmentManufacturer Manufacturer;
 		public Pair<GameId, uint> ScrappingValue;
 		public Pair<GameId, uint> UpgradeCost;
 		public Pair<GameId, uint> RepairCost;

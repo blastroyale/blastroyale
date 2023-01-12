@@ -669,8 +669,7 @@ namespace FirstLight.Game.StateMachines
 						              rarity: EquipmentRarity.Common,
 						              adjective: EquipmentAdjective.Cool,
 						              material: EquipmentMaterial.Carbon,
-						              manufacturer: EquipmentManufacturer.Military,
-						              faction: EquipmentFaction.Chaos)
+									  faction: EquipmentFaction.Chaos)
 					}
 				};
 			}

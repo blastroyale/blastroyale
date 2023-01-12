@@ -32,7 +32,7 @@ namespace Quantum
 			transform->Rotation = spawnPosition.Rotation;
 
 			// The hammer should inherit ONLY the faction from your loadout weapon
-			WeaponSlots[Constants.WEAPON_INDEX_DEFAULT].Weapon = new Equipment(GameId.Hammer);
+			WeaponSlots[Constants.WEAPON_INDEX_DEFAULT].Weapon = Equipment.Create(GameId.Hammer, EquipmentRarity.Common, 1, f);
 			if (loadoutWeapon.IsValid())
 			{
 				WeaponSlots[Constants.WEAPON_INDEX_DEFAULT].Weapon.Faction = loadoutWeapon.Faction;
@@ -463,12 +463,10 @@ namespace Quantum
 			CurrentWeaponSlot = slot;
 
 			var blackboard = f.Unsafe.GetPointer<AIBlackboardComponent>(e);
-			var weapon = CurrentWeapon;
-			var weaponConfig = f.WeaponConfigs.GetConfig(weapon.GameId);
-			var burstCount = weaponConfig.AttackCooldown / Constants.BURST_INTERVAL_DIVIDER /weaponConfig.NumberOfBursts;
-			//the total time it takes for a burst to complete should be half of the weapon's cooldown
+			var weaponConfig = f.WeaponConfigs.GetConfig(CurrentWeapon.GameId);
+			//the total time it takes for a burst to complete should be divded by the burst_interval_divider
 			//if we are only firing one shot, burst interval is 0
-			var burstCooldown = weaponConfig.NumberOfBursts == 1 ? 0 : burstCount;
+			var burstCooldown = weaponConfig.NumberOfBursts > 1 ? weaponConfig.AttackCooldown / Constants.BURST_INTERVAL_DIVIDER / (weaponConfig.NumberOfBursts - 1) : 0;
 
 			blackboard->Set(f, nameof(QuantumWeaponConfig.TapCooldown), weaponConfig.TapCooldown);
 			blackboard->Set(f, nameof(QuantumWeaponConfig.AttackCooldown), weaponConfig.AttackCooldown);

@@ -1,58 +1,74 @@
 using System;
+using FirstLight.Game.Services;
+using FirstLight.Game.Utils;
+using FirstLight.UiService;
 using UnityEngine;
-using TMPro;
-using Button = UnityEngine.UI.Button;
-
+using UnityEngine.UIElements;
 namespace FirstLight.Game.Presenters
 {
 	/// <summary>
 	/// This presenter handles showing the register screen
-	/// </summary>
-	public class ConnectIdScreenPresenter : AnimatedUiPresenterData<ConnectIdScreenPresenter.StateData>
+	/// </summary>	
+	[LoadSynchronously]
+	public class ConnectIdScreenPresenter : UiToolkitPresenterData<ConnectIdScreenPresenter.StateData>
 	{
 		public struct StateData
 		{
-			public Action<string,string,string> ConnectClicked;
+			public Action<string, string, string> ConnectClicked;
 			public Action BackClicked;
 		}
 
-		[SerializeField] private TMP_InputField _emailInputField;
-		[SerializeField] private TMP_InputField _nameInputField;
-		[SerializeField] private TMP_InputField _passwordInputField;
-
-		[SerializeField] private Button _connectButton;
-		[SerializeField] private Button _backButton;
-		[SerializeField] private Button _backgroundBlockerButton;
-		[SerializeField] private GameObject _frontDimBlocker;
+		private TextField _emailField;
+		private TextField _usernameField;
+		private TextField _passwordField;
+		private Button _viewHideButton;
+		private VisualElement _blockerElement;
+		
+		private IGameServices _services;
 		
 		private void Awake()
 		{
-			_connectButton.onClick.AddListener(ConnectClicked);
-			_backButton.onClick.AddListener(BackClicked);
-			_backgroundBlockerButton.onClick.AddListener(BackClicked);
+			_services = MainInstaller.Resolve<IGameServices>();
 		}
 
-		private void OnEnable()
+		protected override void QueryElements(VisualElement root)
 		{
-			SetFrontDimBlockerActive(false);
+			_emailField = root.Q<TextField>("EmailTextField").Required();
+			_usernameField = root.Q<TextField>("UsernameTextField").Required();
+			_passwordField = root.Q<TextField>("PasswordTextField").Required();
+			_viewHideButton = root.Q<Button>("ViewHideButton").Required();
+
+			_blockerElement = root.Q("Blocker").Required();
+
+			root.Q<Button>("RegisterButton").clicked += OnRegisterClicked;
+			root.Q<Button>("BackButton").clicked += OnBackButtonClicked;
+			_viewHideButton.clicked += OnViewHideClicked;
+
+			root.SetupClicks(_services);
 		}
-		
+
 		/// <summary>
 		/// Sets the activity of the dimmed blocker image that covers the presenter
 		/// </summary>
 		public void SetFrontDimBlockerActive(bool active)
 		{
-			_frontDimBlocker.SetActive(active);
+			_blockerElement.EnableInClassList("blocker-hidden", !active);
 		}
 
-		private void ConnectClicked()
+		private void OnRegisterClicked()
 		{
-			Data.ConnectClicked(_emailInputField.text, _nameInputField.text, _passwordInputField.text);
+			Data.ConnectClicked(_emailField.text.Trim(), _usernameField.text.Trim(), _passwordField.text.Trim());
 		}
 
-		private void BackClicked()
+		private void OnBackButtonClicked()
 		{
 			Data.BackClicked();
+		}
+
+		private void OnViewHideClicked()
+		{
+			_viewHideButton.ToggleInClassList("view-hide-button--show");
+			_passwordField.isPasswordField = !_viewHideButton.ClassListContains("view-hide-button--show");
 		}
 	}
 }

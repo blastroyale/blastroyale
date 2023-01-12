@@ -47,16 +47,6 @@
     overflow: hidden;
 }
 
-.header__dots-pattern {
-    top: -138px;
-    left: -28px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/DotsRotated.png?fileID=21300000&guid=123b7673eb1d048a486154a4e65c630b&type=3#DotsRotated');
-    -unity-background-image-tint-color: rgba(58, 58, 58, 0.35);
-    width: 602px;
-    height: 604px;
-    position: absolute;
-}
-
 .button-flat--secondary--register {
     -unity-text-outline-color: rgb(59, 29, 144);
     -unity-background-image-tint-color: rgb(59, 29, 144);

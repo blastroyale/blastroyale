@@ -25,21 +25,17 @@ namespace FirstLight.Game.UIElements
 		private const string UssHighlight = UssBlock + "__highlight";
 		private const string UssBackground = UssBlock + "__background";
 		private const string UssRarity = UssBlock + "__rarity";
-		private const string UssSpriteRarity = "sprite-home__card-rarity-{0}";
 		private const string UssCardHolder = UssBlock + "__card-holder";
 		private const string UssPlusRarity = UssBlock + "__plus-rarity";
 		private const string UssImage = UssBlock + "__image";
 		private const string UssImageShadow = UssImage + "--shadow";
 		private const string UssGrade = UssBlock + "__grade";
 		private const string UssFaction = UssBlock + "__faction";
-		private const string UssSpriteFaction = "sprite-home__card-faction-{0}";
 		private const string UssMaterial = UssBlock + "__material";
-		private const string UssSpriteMaterial = "sprite-home__card-material-{0}";
 		private const string UssLevel = UssBlock + "__level";
 		private const string UssName = UssBlock + "__name";
 		private const string UssAdjCatHolder = UssBlock + "__adj-cat-holder";
 		private const string UssCategory = UssBlock + "__category";
-		private const string UssSpriteCategory = "sprite-home__card-category-{0}";
 		private const string UssAdjective = UssBlock + "__adjective";
 		private const string UssBadgeHolder = UssBlock + "__badge-holder";
 		private const string UssBadgeNft = UssBlock + "__badge-nft";
@@ -47,8 +43,12 @@ namespace FirstLight.Game.UIElements
 		private const string UssBadgeEquipped = UssBlock + "__badge-equipped";
 
 		private const string UssNotification = UssBlock + "__notification";
-
 		private const string UssNotificationIcon = "notification-icon";
+		
+		private const string UssSpriteRarity = "sprite-equipmentcard__card-rarity-{0}";
+		private const string UssSpriteFaction = "sprite-equipmentcard__card-faction-{0}";
+		private const string UssSpriteMaterial = "sprite-equipmentcard__card-material-{0}";
+		private const string UssSpriteCategory = "sprite-equipmentcard__card-category-{0}";
 
 		public Equipment Equipment { get; private set; }
 		public UniqueId UniqueId { get; private set; }
@@ -135,9 +135,11 @@ namespace FirstLight.Game.UIElements
 
 			cardHolder.Add(_faction = new VisualElement {name = "faction"});
 			_faction.AddToClassList(UssFaction);
+			_faction.AddToClassList(string.Format(UssSpriteFaction, "dimensional"));
 
 			cardHolder.Add(_material = new VisualElement {name = "material"});
 			_material.AddToClassList(UssMaterial);
+			_material.AddToClassList(string.Format(UssSpriteMaterial, "bronze"));
 
 			cardHolder.Add(_level = new Label(string.Format(ScriptLocalization.UITEquipment.card_lvl, "15"))
 				{name = "level"});
@@ -152,6 +154,7 @@ namespace FirstLight.Game.UIElements
 			{
 				adjCatHolder.Add(_category = new VisualElement {name = "category"});
 				_category.AddToClassList(UssCategory);
+				_category.AddToClassList(string.Format(UssSpriteCategory, "weapon"));
 
 				adjCatHolder.Add(_adjective = new Label("MAGNIFICENT") {name = "adjective"});
 				_adjective.AddToClassList(UssAdjective);

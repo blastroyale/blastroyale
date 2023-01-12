@@ -101,6 +101,11 @@ namespace FirstLight.Game.Logic
 		/// Returns the desired max level of a given equipment
 		/// </summary>
 		int GetMaxLevel(Equipment equipment);
+
+		/// <summary>
+		/// Obtains the correct manufacturer for the given equipment.
+		/// </summary>
+		EquipmentManufacturer GetManufacturer(Equipment equipment);
 	}
 
 	/// <inheritdoc />
@@ -236,6 +241,7 @@ namespace FirstLight.Game.Logic
 				CurrentDurability = durability,
 				IsNft = isNft,
 				MaxLevel = GetMaxLevel(equipment),
+				Manufacturer = GetManufacturer(equipment),
 				Stats = equipment.GetStats(GameLogic.ConfigsProvider),
 				NextLevelStats = nextEquipment.GetStats(GameLogic.ConfigsProvider)
 			};
@@ -451,6 +457,13 @@ namespace FirstLight.Game.Logic
 		{
 			var rarityConfig = GameLogic.ConfigsProvider.GetConfig<RarityDataConfig>((int) equip.Rarity);
 			return rarityConfig.MaxLevel;
+		}
+
+		public EquipmentManufacturer GetManufacturer(Equipment equipment)
+		{
+			var equipmentDataConfig =
+				GameLogic.ConfigsProvider.GetConfig<QuantumBaseEquipmentStatConfig>((int) equipment.GameId);
+			return equipmentDataConfig.Manufacturer;
 		}
 
 		public Pair<GameId, uint> Scrap(UniqueId itemId)

@@ -150,7 +150,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		/// <summary>
 		/// Logs when finish the match
 		/// </summary>
-		public void MatchEndBRPlayerDead(QuantumGame game)
+		public void MatchEndBRPlayerDead(QuantumGame game, uint playerRank)
 		{
 			if (IsSpectator())
 			{
@@ -182,7 +182,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"suicide",localPlayerData.Data.SuicideCount.ToString()},
 				{"kills", localPlayerData.Data.PlayersKilledCount.ToString()},
 				{"match_time", f.Time.ToString()},
-				{"player_rank", localPlayerData.PlayerRank.ToString()},
+				{"player_rank", playerRank.ToString()},
 				{"player_attacks", _playerNumAttacks.ToString()}
 			};
 			
@@ -194,7 +194,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		/// <summary>
 		/// Logs when finish the match
 		/// </summary>
-		public void MatchEnd(QuantumGame game, bool playerQuit)
+		public void MatchEnd(QuantumGame game, bool playerQuit, uint playerRank)
 		{
 			if (IsSpectator())
 			{
@@ -227,7 +227,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"kills", localPlayerData.Data.PlayersKilledCount.ToString()},
 				{"end_state", playerQuit ? "quit" : "ended"},
 				{"match_time", f.Time.ToString()},
-				{"player_rank", localPlayerData.PlayerRank.ToString()},
+				{"player_rank", playerRank.ToString()},
 				{"player_attacks", _playerNumAttacks.ToString()}
 			};
 			

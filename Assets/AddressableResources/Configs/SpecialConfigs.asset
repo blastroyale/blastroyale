@@ -34,7 +34,7 @@ MonoBehaviour:
       MinRange:
         RawValue: 0
       MaxRange:
-        RawValue: 524288
+        RawValue: 589824
       Knockback: 50
     - Id: 85
       SpecialType: 1
@@ -52,7 +52,7 @@ MonoBehaviour:
       MinRange:
         RawValue: 0
       MaxRange:
-        RawValue: 458752
+        RawValue: 524288
       Knockback: 0
     - Id: 89
       SpecialType: 2
@@ -106,7 +106,7 @@ MonoBehaviour:
       MinRange:
         RawValue: 131072
       MaxRange:
-        RawValue: 327680
+        RawValue: 393216
       Knockback: 10
     - Id: 102
       SpecialType: 5
@@ -124,7 +124,7 @@ MonoBehaviour:
       MinRange:
         RawValue: 0
       MaxRange:
-        RawValue: 393216
+        RawValue: 458752
       Knockback: 30
     - Id: 141
       SpecialType: 4
@@ -142,5 +142,5 @@ MonoBehaviour:
       MinRange:
         RawValue: 131072
       MaxRange:
-        RawValue: 327680
+        RawValue: 393216
       Knockback: 10

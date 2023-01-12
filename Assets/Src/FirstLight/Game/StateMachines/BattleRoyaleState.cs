@@ -160,7 +160,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new MatchEndScreenPresenter.StateData
 			{
-				OnNextClicked = () => _statechartTrigger(_localPlayerNextEvent),
+				OnTimeToLeave = () => _statechartTrigger(_localPlayerNextEvent),
 			};
 
 			_uiService.OpenScreen<MatchEndScreenPresenter, MatchEndScreenPresenter.StateData>(data);

@@ -21,6 +21,7 @@ namespace FirstLight.Game.StateMachines
 
 		private readonly IGameServices _services;
 		private readonly IGameUiService _uiService;
+		private IMatchServices _matchServices;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
 		public BattleRoyaleState(IGameServices services, IGameUiService uiService,
@@ -83,6 +84,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeEvents()
 		{
+			_matchServices = MainInstaller.Resolve<IMatchServices>();;
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
 		}
@@ -94,7 +96,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void MatchEndAnalytics()
 		{
-			_services.AnalyticsService.MatchCalls.MatchEndBRPlayerDead(QuantumRunner.Default.Game);
+			_services.AnalyticsService.MatchCalls.MatchEndBRPlayerDead(QuantumRunner.Default.Game, _matchServices.MatchEndDataService.LocalPlayerMatchData.PlayerRank);
 		}
 
 		private bool IsMatchEnding()
@@ -158,7 +160,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new MatchEndScreenPresenter.StateData
 			{
-				OnNextClicked = () => _statechartTrigger(_localPlayerNextEvent),
+				OnTimeToLeave = () => _statechartTrigger(_localPlayerNextEvent),
 			};
 
 			_uiService.OpenScreen<MatchEndScreenPresenter, MatchEndScreenPresenter.StateData>(data);

@@ -127,6 +127,7 @@ namespace FirstLight.Game.StateMachines
 			
 			gameEnded.OnEnter(OpenMatchEndScreen);
 			gameEnded.Event(MatchEndedExitEvent).Target(showWinner);
+			gameEnded.Event(MatchCompleteExitEvent).Target(transitionToWinners);
 			
 			showWinner.OnEnter(OpenWinnerScreen);
 			showWinner.Event(MatchCompleteExitEvent).Target(transitionToWinners);
@@ -204,7 +205,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new MatchEndScreenPresenter.StateData
 			{
-				OnNextClicked = () => _statechartTrigger(MatchEndedExitEvent),
+				OnTimeToLeave = () => _statechartTrigger(MatchEndedExitEvent),
 			};
 
 			_uiService.OpenScreen<MatchEndScreenPresenter, MatchEndScreenPresenter.StateData>(data);
@@ -479,7 +480,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			PublishMatchEnded(false, playerQuit, QuantumRunner.Default.Game);
 			
-			_services.AnalyticsService.MatchCalls.MatchEnd(QuantumRunner.Default.Game, playerQuit);
+			_services.AnalyticsService.MatchCalls.MatchEnd(QuantumRunner.Default.Game, playerQuit, _matchServices.MatchEndDataService.LocalPlayerMatchData.PlayerRank);
 			
 			if (playerQuit)
 			{

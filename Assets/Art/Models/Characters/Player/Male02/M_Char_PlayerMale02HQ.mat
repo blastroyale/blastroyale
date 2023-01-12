@@ -41,7 +41,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 756b36377b2b5b54ea58f3a835df1a52, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5a85bd3124d18ea49968a562d1f34b9b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal_Map:
@@ -84,7 +84,7 @@ Material:
     - Vector2_BE86BA33: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 0.26203978, g: 1, b: 0, a: 1}
     - _HitColor: {r: 0.4392157, g: 8, b: 0.7215686, a: 0}
-    - _TintColor: {r: 2.4622889, g: 2.201576, b: 2.201576, a: 0}
+    - _TintColor: {r: 1.5137255, g: 1.3333334, b: 1.2784314, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &477933489877110639
 MonoBehaviour:

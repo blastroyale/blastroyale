@@ -46,7 +46,7 @@ component PlayerCharacter
 	[HideInInspector] array<WeaponSlot>[MAX_WEAPONS] WeaponSlots;
 	[HideInInspector] array<Equipment>[MAX_GEAR] Gear;
 	[HideInInspector] Int32 DroppedLoadoutFlags;
-
+	[HideInInspector] hash_set<EntityRef> Collecting;
 }
 
 component PlayerCharging

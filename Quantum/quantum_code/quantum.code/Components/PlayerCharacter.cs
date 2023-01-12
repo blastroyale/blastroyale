@@ -30,6 +30,7 @@ namespace Quantum
 			DroppedLoadoutFlags = 0;
 			transform->Position = spawnPosition.Position;
 			transform->Rotation = spawnPosition.Rotation;
+			Collecting = f.AllocateHashSet<EntityRef>();
 
 			// The hammer should inherit ONLY the faction from your loadout weapon
 			WeaponSlots[Constants.WEAPON_INDEX_DEFAULT].Weapon = Equipment.Create(GameId.Hammer, EquipmentRarity.Common, 1, f);
@@ -145,6 +146,7 @@ namespace Quantum
 			f.TryGet<PlayerCharacter>(attacker, out var killerPlayer);
 			
 			f.Unsafe.GetPointer<PhysicsCollider3D>(e)->Enabled = false;
+			f.FreeHashSet(Collecting);
 
 			var deadPlayer = new DeadPlayerCharacter
 			{

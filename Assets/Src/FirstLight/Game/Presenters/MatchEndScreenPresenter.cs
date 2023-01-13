@@ -1,9 +1,11 @@
 using System;
+using System.Collections;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using Quantum;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
@@ -15,7 +17,7 @@ namespace FirstLight.Game.Presenters
 	{
 		public struct StateData
 		{
-			public Action OnNextClicked;
+			public Action OnTimeToLeave;
 		}
 
 		private VisualElement _matchEndTitle;
@@ -37,8 +39,6 @@ namespace FirstLight.Game.Presenters
 			_blastedTitle = root.Q<VisualElement>("BlastedTitle").Required();
 			_youWinTitle = root.Q<VisualElement>("YouWinTitle").Required();
 			_youChoseDeathTitle = root.Q<VisualElement>("YouChoseDeathTitle").Required();
-
-			root.Q<LocalizedButton>("NextButton").clicked += Data.OnNextClicked;
 		}
 
 		protected override void OnOpened()
@@ -74,6 +74,14 @@ namespace FirstLight.Game.Presenters
 			{
 				_matchEndTitle.SetDisplay(true);
 			}
+
+			StartCoroutine(WaitToLeave());
+		}
+
+		private IEnumerator WaitToLeave()
+		{
+			yield return new WaitForSeconds(2);
+			Data.OnTimeToLeave?.Invoke();
 		}
 	}
 }

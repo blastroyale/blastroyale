@@ -171,11 +171,17 @@ namespace FirstLight.Game.Logic
 			var maxTake = poolConfig.BaseMaxTake;
 			var takeDecreaseMod = (double) poolConfig.MaxTakeDecreaseModifier;
 			var takeDecreaseExp = (double) poolConfig.TakeDecreaseExponent;
+			var takeTrophiesMod = (double) poolConfig.TakeTrophiesModifier;
 
 			// ----- Increase CS max take per grade of equipped NFTs
 			var augmentedModSum = loadoutItems.GetAugmentedModSum(GameConfig, RewardModSumCalculation);
 			
 			maxTake += (uint) Math.Round(maxTake * augmentedModSum);
+			
+			// ----- Increase CS max take based on current player Trophies
+			var trophiesIncrease = maxTake * (GameLogic.PlayerLogic.Trophies.Value  / takeTrophiesMod);
+			
+			maxTake += (uint) Math.Round(trophiesIncrease);
 			
 			// ----- Decrease CS max take based on equipped NFT durability
 			var totalDurability = loadoutItems.GetAvgDurability(out var maxDurability);

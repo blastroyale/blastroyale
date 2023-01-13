@@ -1,7 +1,7 @@
 using System;
 using System.Net.Http;
 using System.Text;
-using GameLogicApp.Cloudscript;
+using ServerCommon.Cloudscript;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;

@@ -138,23 +138,11 @@ namespace FirstLight.Game.Logic
 				throw new MatchDataEmptyLogicException();
 			}
 
-			// We don't reward quitters and we don't reward players for Custom games or games played alone (if we ever allow it)
-			if (source.MatchType == MatchType.Custom || source.DidPlayerQuit || source.GamePlayerCount == 1)
-			{
-				if (source.MatchType == MatchType.Ranked && source.DidPlayerQuit)
-				{
-					CalculateTrophiesReward(rewards, source.MatchData, localMatchData, out trophyChange);
-				}
-
-				return rewards;
-			}
-
 			// Always perform ordering operation on the configs.
 			// If config data placement order changed in google sheet, it could silently screw up this algorithm.
 			var gameModeRewardConfigs = GameLogic.ConfigsProvider
-				.GetConfigsList<MatchRewardConfig>()
-				.OrderByDescending(x => x.Placement).ToList();
-
+			                                     .GetConfigsList<MatchRewardConfig>()
+			                                     .OrderByDescending(x => x.Placement).ToList();
 			var rewardConfig = gameModeRewardConfigs[0];
 			
 			// We calculate rank value for rewards based on the number of players in a match versus maximum of 30
@@ -173,11 +161,22 @@ namespace FirstLight.Game.Logic
 					break;
 				}
 			}
+			
+			// We don't reward quitters and we don't reward players for Custom games or games played alone (if we ever allow it)
+			if (source.MatchType == MatchType.Custom || source.DidPlayerQuit || source.GamePlayerCount == 1)
+			{
+				if (source.MatchType == MatchType.Ranked && source.DidPlayerQuit)
+				{
+					CalculateTrophiesReward(rewards, source.MatchData, localMatchData, rewardConfig, out trophyChange);
+				}
+
+				return rewards;
+			}
 
 			if (source.MatchType == MatchType.Ranked)
 			{
 				CalculateCSReward(rewards, rewardConfig);
-				CalculateTrophiesReward(rewards, source.MatchData, localMatchData, out trophyChange);
+				CalculateTrophiesReward(rewards, source.MatchData, localMatchData, rewardConfig, out trophyChange);
 			}
 
 			if (source.MatchType is MatchType.Ranked or MatchType.Casual)
@@ -350,40 +349,50 @@ namespace FirstLight.Game.Logic
 		private void CalculateTrophiesReward(ICollection<RewardData> rewards,
 										IReadOnlyCollection<QuantumPlayerMatchData> players,
 										QuantumPlayerMatchData localPlayerData,
+										MatchRewardConfig rewardConfig,
 										out int trophyChangeOut)
 		{
-			var gameConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
-
-			var tempPlayers = new List<QuantumPlayerMatchData>(players);
-			tempPlayers.SortByPlayerRank(false);
-
-			var trophyChange = 0d;
-
-			// Losses; Note: PlayerRank starts from 1, not from 0
-			for (var i = 0; i < localPlayerData.PlayerRank - 1; i++)
+			trophyChangeOut = 0;
+			
+			if (rewardConfig.Rewards.TryGetValue(GameId.Trophies, out var amount))
 			{
-				trophyChange += CalculateEloChange(0d, tempPlayers[i].Data.PlayerTrophies,
-					localPlayerData.Data.PlayerTrophies, gameConfig.TrophyEloRange,
-					gameConfig.TrophyEloK.AsDouble, gameConfig.TrophyMinChange.AsDouble);
+				var gameConfig = GameLogic.ConfigsProvider.GetConfig<QuantumGameConfig>();
+				
+				var killsMade = (int)localPlayerData.Data.PlayersKilledCount;
+				var finalTrophyChange = amount + (int)Math.Floor(gameConfig.TrophiesPerKill.AsDouble * killsMade);
+				
+				if (finalTrophyChange < 0 && Math.Abs(finalTrophyChange) > Data.Trophies)
+				{
+					finalTrophyChange = (int) -Data.Trophies;
+				}
+				
+				trophyChangeOut = finalTrophyChange;
+				rewards.Add(new RewardData(GameId.Trophies, finalTrophyChange));
 			}
+			
+			// The logic below is left here DELIBERATELY
+			// We will reuse it a bit later to calculate MMR which we will potentially keep hidden
 
-			// Wins; Note: PlayerRank starts from 1, not from 0
-			for (var i = (int) localPlayerData.PlayerRank; i < players.Count; i++)
-			{
-				trophyChange += CalculateEloChange(1d, tempPlayers[i].Data.PlayerTrophies,
-					localPlayerData.Data.PlayerTrophies, gameConfig.TrophyEloRange,
-					gameConfig.TrophyEloK.AsDouble, gameConfig.TrophyMinChange.AsDouble);
-			}
-
-			var finalTrophyChange = (int) Math.Round(trophyChange);
-
-			if (finalTrophyChange < 0 && Math.Abs(finalTrophyChange) > Data.Trophies)
-			{
-				finalTrophyChange = (int) -Data.Trophies;
-			}
-
-			trophyChangeOut = finalTrophyChange;
-			rewards.Add(new RewardData(GameId.Trophies, finalTrophyChange));
+			// var tempPlayers = new List<QuantumPlayerMatchData>(players);
+			// tempPlayers.SortByPlayerRank(false);
+			//
+			// var trophyChange = 0d;
+			//
+			// // Losses; Note: PlayerRank starts from 1, not from 0
+			// for (var i = 0; i < localPlayerData.PlayerRank - 1; i++)
+			// {
+			// 	trophyChange += CalculateEloChange(0d, tempPlayers[i].Data.PlayerTrophies,
+			// 		localPlayerData.Data.PlayerTrophies, gameConfig.TrophyEloRange,
+			// 		gameConfig.TrophyEloK.AsDouble, gameConfig.TrophyMinChange.AsDouble);
+			// }
+			//
+			// // Wins; Note: PlayerRank starts from 1, not from 0
+			// for (var i = (int) localPlayerData.PlayerRank; i < players.Count; i++)
+			// {
+			// 	trophyChange += CalculateEloChange(1d, tempPlayers[i].Data.PlayerTrophies,
+			// 		localPlayerData.Data.PlayerTrophies, gameConfig.TrophyEloRange,
+			// 		gameConfig.TrophyEloK.AsDouble, gameConfig.TrophyMinChange.AsDouble);
+			// }
 		}
 
 		private double CalculateEloChange(double score, uint trophiesOpponent, uint trophiesPlayer, int eloRange,

@@ -5,6 +5,7 @@ using Photon.Hive.Plugin;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using FirstLight.Game.Ids;
 using quantum.custom.plugin;
 using System.Text;
@@ -20,6 +21,7 @@ namespace Quantum
 		public readonly CustomQuantumServer CustomServer;
 		private MatchType _matchType = MatchType.Custom;
 		private QuantumCommandHandler _cmdHandler;
+		private string _roomName;
 
 		public CustomQuantumPlugin(Dictionary<String, String> config, IServer server) : base(server)
 		{
@@ -78,6 +80,7 @@ namespace Quantum
 				Log.Debug("No Custom Properties");
 				return;
 			}
+			_roomName = info.CreateOptions["Name"] as String;
 			var customProperties = propsObject as Hashtable;
 			if (customProperties == null)
 			{
@@ -92,15 +95,6 @@ namespace Quantum
 		}
 
 		/// <summary>
-		/// Called whenever a player leaves the room. 
-		/// Will be called for every player before EndGame is called.
-		/// </summary>
-		public override void OnLeave(ILeaveGameCallInfo info)
-		{
-			base.OnLeave(info);
-		}
-
-		/// <summary>
 		/// Handler for after a game is closed.
 		/// All players likely will already have left the room when the game is closed.
 		/// This is the last step before the plugin is disposed.
@@ -110,6 +104,8 @@ namespace Quantum
 			CustomServer.Dispose();
 			base.OnCloseGame(info);
 		}
+
+		public string RoomName => _roomName;
 
 		public MatchType GetMatchType() => _matchType;
 	}

@@ -51,6 +51,7 @@ namespace Quantum
 		public FP MightBaseValue;
 		public FP MightRarityMultiplier;
 		public FP MightLevelMultiplier;
+		public FP TrophiesPerKill;
 	}
 
 	/// <summary>

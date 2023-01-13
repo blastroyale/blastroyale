@@ -13,6 +13,7 @@ namespace FirstLight.Game.Commands
 	/// </summary>
 	public class EndOfGameCalculationsCommand : IQuantumCommand, IGameCommand
 	{
+		
 		public List<QuantumPlayerMatchData> PlayersMatchData;
 		public QuantumValues QuantumValues;
 		public bool ValidRewardsFromFrame = true;

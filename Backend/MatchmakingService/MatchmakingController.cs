@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using GameLogicApp.Cloudscript;
+using ServerCommon.Cloudscript;
 using Microsoft.AspNetCore.Mvc;
-using ServerShared.Authentication.ApiKey;
+using ServerCommon.Authentication.ApiKey;
 
 namespace Firstlight.Matchmaking
 {

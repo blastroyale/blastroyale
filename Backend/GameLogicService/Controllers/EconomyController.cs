@@ -9,16 +9,16 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Services;
-using GameLogicApp.Cloudscript.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using PlayFab;
 using Quantum;
-using ServerShared.Authentication.ApiKey;
+using ServerCommon.Authentication.ApiKey;
+using ServerCommon.Cloudscript.Models;
 
-namespace GameLogicApp.Cloudscript
+namespace ServerCommon.Cloudscript
 {
 	[ApiController]
 	[Route("currency")]

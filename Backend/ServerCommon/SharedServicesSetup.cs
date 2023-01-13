@@ -1,6 +1,7 @@
 using Backend.Game.Services;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Services;
+using FirstLightServerSDK.Modules;
 using Microsoft.Azure.WebJobs.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;

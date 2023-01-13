@@ -86,10 +86,12 @@ namespace Quantum
 				_plugin.LogError($"Actor {actorNumber} sent command {commandType.Name} which is not a quantum command");
 				return;
 			}
+			
 			var quantumValues = new QuantumValues()
 			{
 				ExecutingPlayer = _plugin.CustomServer.GetClientIndexByActorNumber(actorNumber),
-				MatchType = _plugin.GetMatchType()
+				MatchType = _plugin.GetMatchType(),
+				MatchId = _plugin.RoomName
 			};
 			commandInstance.FromFrame(frame, quantumValues);
 			_plugin.CustomServer.Playfab.SendServerCommand(playfabId, token, commandInstance, async);

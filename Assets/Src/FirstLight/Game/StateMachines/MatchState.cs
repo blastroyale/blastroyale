@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -193,8 +194,10 @@ namespace FirstLight.Game.StateMachines
 
 			FLog.Verbose("Quantum Logic Command Received: " + ev.CommandType.ToString());
 			var command = QuantumLogicCommandFactory.BuildFromEvent(ev);
+			var room = _services.NetworkService.QuantumClient.CurrentRoom;
 			command.FromFrame(game.Frames.Verified, new QuantumValues()
 			{
+				MatchId = room.Name,
 				ExecutingPlayer = game.GetLocalPlayers()[0],
 				MatchType = _services.NetworkService.QuantumClient.CurrentRoom.GetMatchType()
 			});

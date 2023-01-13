@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using FirstLight.Game.Ids;
 using Quantum;
 
@@ -13,6 +14,7 @@ namespace FirstLight.Game.Commands
 	[Serializable]
 	public struct QuantumValues
 	{
+		public string MatchId;
 		public PlayerRef ExecutingPlayer;
 		public MatchType MatchType;
 	}

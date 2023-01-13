@@ -92,7 +92,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _Hit: 0
+    - _Hit: 0.1
     - _Metallic: 0.4
     - _Normal_Strength: 1
     - _OcclusionStrength: 1

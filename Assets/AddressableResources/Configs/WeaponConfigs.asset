@@ -230,13 +230,13 @@ MonoBehaviour:
         Values: c800000032000000
       MagazineSize: 21
       ReloadTime:
-        RawValue: 150733
+        RawValue: 114688
       AimingMovementSpeed:
         RawValue: 52429
       TapCooldown:
         RawValue: 21627
       AttackCooldown:
-        RawValue: 21627
+        RawValue: 32768
       PowerToDamageRatio:
         RawValue: 58982
       AttackHitSpeed:
@@ -246,7 +246,7 @@ MonoBehaviour:
       NumberOfShots: 1
       NumberOfBursts: 3
       AttackRange:
-        RawValue: 458752
+        RawValue: 491520
       AttackRangeAimBonus:
         RawValue: 0
       CanHitSameTarget: 1

@@ -97,7 +97,7 @@ namespace Quantum
 			return true;
 		}
 
-		private static void DeactivateCollections(Frame f, EntityRef e)
+		private static unsafe void DeactivateCollections(Frame f, EntityRef e)
 		{
 
 			if (!f.TryGet<PlayerCharacter>(e, out var playerCharacter)) return;
@@ -106,16 +106,13 @@ namespace Quantum
 
 			foreach (var collectableEntity in list)
 			{
-				unsafe
-				{
-					f.Unsafe.TryGetPointer<Collectable>(collectableEntity, out var collectable);
+				f.Unsafe.TryGetPointer<Collectable>(collectableEntity, out var collectable);
 					
-					if (!collectable->IsCollecting(playerCharacter.Player)) return;
+				if (!collectable->IsCollecting(playerCharacter.Player)) return;
 
-					collectable->CollectorsEndTime[playerCharacter.Player] = FP._0;
-					
-					f.Events.OnStoppedCollecting(collectableEntity, playerCharacter.Player, e);
-				}
+				collectable->CollectorsEndTime[playerCharacter.Player] = FP._0;
+				
+				f.Events.OnStoppedCollecting(collectableEntity, playerCharacter.Player, e);
 			}
 			
 			list.Clear();

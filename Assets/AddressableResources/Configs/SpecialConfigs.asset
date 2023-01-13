@@ -144,3 +144,21 @@ MonoBehaviour:
       MaxRange:
         RawValue: 393216
       Knockback: 10
+    - Id: 62
+      SpecialType: 6
+      Indicator: 0
+      Cooldown:
+        RawValue: 1966080
+      InitialCooldown:
+        RawValue: 98304
+      Radius:
+        RawValue: 655360
+      SpecialPower:
+        RawValue: 983040
+      Speed:
+        RawValue: 0
+      MinRange:
+        RawValue: 0
+      MaxRange:
+        RawValue: 0
+      Knockback: 0

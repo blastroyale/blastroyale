@@ -7,7 +7,7 @@ namespace FirstLight.Game.UIElements
 	/// <summary>
 	/// A button that has it's text set from a I2 Localization key.
 	/// </summary>
-	public sealed class LocalizedTextField : TextField
+	public class LocalizedTextField : TextField
 	{
 		private string labelLocalizationKey { get; set; }
 

@@ -140,7 +140,6 @@ namespace FirstLight.Game.Services
 		public QuantumLoadBalancingClient QuantumClient { get; }
 		public bool IsSpectorPlayer => QuantumClient.LocalPlayer.IsSpectator();
 		private IObservableField<bool> HasLag { get; }
-		
 		string IGameNetworkService.UserId => UserId.Value;
 		bool IGameNetworkService.IsJoiningNewMatch => IsJoiningNewMatch.Value;
 		IObservableListReader<Player> IGameNetworkService.LastMatchPlayers => LastMatchPlayers;

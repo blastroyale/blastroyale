@@ -62,14 +62,16 @@ namespace FirstLight.Game.StateMachines
 
 			match.Nest(_matchState.Setup).Target(mainMenu);
 			
-			joinTutorialRoom.WaitingFor(JoinTutorialRoom).Target(match);
+			joinTutorialRoom.WaitingFor(AttemptJoinTutorialRoom).Target(match);
 
 			final.OnEnter(UnsubscribeEvents);
 		}
 
-		private void JoinTutorialRoom(IWaitActivity activity)
+		private async void AttemptJoinTutorialRoom(IWaitActivity activity)
 		{
 			// TODO: NETWORK - JOIN ROOM, RESOLVE ACTIVITY ON COMPLETE
+			await Task.Yield();
+			activity.Complete();
 		}
 
 		private void SubscribeEvents()

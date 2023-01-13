@@ -1,50 +1,18 @@
-.popup-radius {
-    border-radius: 20px;
-}
-
-.popup-radius--login {
+.background {
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
     position: absolute;
-    left: -10px;
-    top: -10px;
-    right: 10px;
-    bottom: 10px;
-    background-color: rgb(255, 255, 255);
-    overflow: hidden;
-    border-left-width: 2px;
-    border-right-width: 2px;
-    border-top-width: 2px;
-    border-bottom-width: 2px;
-    border-left-color: rgb(0, 0, 0);
-    border-right-color: rgb(0, 0, 0);
-    border-top-color: rgb(0, 0, 0);
-    border-bottom-color: rgb(0, 0, 0);
-}
-
-.container {
-    flex-grow: 1;
+    justify-content: center;
     align-items: center;
-    justify-content: space-between;
-    padding-top: 48px;
-    padding-bottom: 40px;
+    background-color: rgba(0, 0, 0, 0);
 }
 
-.container__or_button {
+.container__or_text {
     color: rgb(122, 118, 167);
     font-size: 30px;
     margin-bottom: 8px;
-}
-
-.header {
-    background-color: rgb(128, 87, 227);
-    overflow: hidden
-}
-
-.header__title {
-    height: 90px;
-    -unity-text-align: middle-center;
-    font-size: 36px;
-    color: rgb(255, 255, 255);
-    overflow: hidden;
 }
 
 .button-flat--secondary--register {
@@ -80,41 +48,5 @@ LocalizedTextField > Label {
 
 LocalizedButton {
     -unity-text-align: middle-center;
-}
-
-.background {
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    position: absolute;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0);
-}
-
-.blocker-hidden {
-
-    display: none;
-    transition-duration: 0.3s;
-    background-color: rgba(0, 0, 0, 0.36);
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    transition-duration: 0.3s;
-}
-
-.popup {
-    width: 1000px;
-    height: 780px;
-    background-color: rgb(0, 0, 0);
-    border-radius: 20px;
-}
-
-#unity-text-input {
-    flex-grow: 1;
-    -unity-font-definition: var(--font-italic-dynamic);
 }
 

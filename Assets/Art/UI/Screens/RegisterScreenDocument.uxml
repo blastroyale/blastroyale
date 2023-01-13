@@ -1,5 +1,4 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/Art/UI/Screens/LoginScreenStyle.uss?fileID=7433441132597879392&amp;guid=62c1d9d88fd9646f987a3c9d8d48a713&amp;type=3#LoginScreenStyle" />
     <Style src="project://database/Assets/Art/UI/Screens/PasswordFieldStyle.uss?fileID=7433441132597879392&amp;guid=be419192f633aed4bad72dfdfa844291&amp;type=3#PasswordFieldStyle" />
     <Style src="project://database/Assets/Art/UI/Screens/RegisterScreenStyle.uss?fileID=7433441132597879392&amp;guid=e7a83ab69dcbba946ac3bc8ba7663044&amp;type=3#RegisterScreenStyle" />
     <ui:VisualElement name="root" class="background">

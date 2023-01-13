@@ -8,8 +8,9 @@ namespace Quantum.Systems
 	/// <summary>
 	/// This system handles all the behaviour for the <see cref="PlayerCharacter"/> and it's dependent component states
 	/// </summary>
-	public unsafe class PlayerCharacterSystem : SystemMainThreadFilter<PlayerCharacterSystem.PlayerCharacterFilter>,
-											ISignalHealthIsZeroFromAttacker, ISignalAllPlayersJoined, ISignalOnTriggerEnter3D, ISignalOnTriggerExit3D
+	public unsafe class PlayerCharacterSystem : SystemMainThreadFilter<PlayerCharacterSystem.PlayerCharacterFilter>, ISignalOnComponentAdded<PlayerCharacter>,
+												ISignalOnComponentRemoved<PlayerCharacter>, ISignalHealthIsZeroFromAttacker, ISignalAllPlayersJoined,
+												ISignalOnTriggerEnter3D, ISignalOnTriggerExit3D
 	{
 		public struct PlayerCharacterFilter
 		{
@@ -197,6 +198,16 @@ namespace Quantum.Systems
 			var list = f.ResolveHashSet(playerCharacter.Collecting);
 
 			list.Remove(info.Entity);
+		}
+
+		public void OnAdded(Frame f, EntityRef entity, PlayerCharacter* component)
+		{
+			component->OnAdded(f);
+		}
+
+		public void OnRemoved(Frame f, EntityRef entity, PlayerCharacter* component)
+		{
+			component->OnRemoved(f);
 		}
 	}
 }

@@ -10,6 +10,7 @@ using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using NUnit.Framework;
+using ServerCommon.CommonServices;
 
 public class TestConfigsProvider
 {
@@ -31,11 +32,8 @@ public class TestConfigsProvider
 	[Test]
 	public void TestCurrentDevData()
 	{
-		var testAppPath = Path.GetDirectoryName(typeof(GameLogicWebWebService).Assembly.Location);
-		var cfgSerializer = new ConfigsSerializer();
-		var bakedConfigs = File.ReadAllText(Path.Combine(testAppPath, "gameConfig.json"));
-		var cfg = cfgSerializer.Deserialize<ServerConfigsProvider>(bakedConfigs);
 
+		var cfg = new EmbeddedConfigProvider();
 		foreach (var cfgType in cfg.GetAllConfigs().Keys)
 		{
 			Assert.NotNull(cfg.GetConfigByType(cfgType));

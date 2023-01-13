@@ -4,7 +4,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Server.SDK.Modules;
 using PlayFab;
 
-namespace GameLogicApp.Cloudscript
+namespace ServerCommon.Cloudscript
 {
 	/// <summary>
 	/// Object that represents Cloudscript response formats.

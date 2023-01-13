@@ -139,6 +139,7 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeMessages()
 		{
 			_services.MessageBrokerService.Subscribe<MatchCountdownStartedMessage>(OnMatchCountdownStarted);
+			_services.MessageBrokerService.Subscribe<ApplicationPausedMessage>(OnApplicationPausedMessage);
 		}
 		
 		private void SubscribeMatchEvents()
@@ -341,6 +342,14 @@ namespace FirstLight.Game.StateMachines
 		private void OnMatchCountdownStarted(MatchCountdownStartedMessage msg)
 		{
 			_services.CoroutineService.StartCoroutine(MatchCountdownCoroutine());
+		}
+		
+		private void OnApplicationPausedMessage(ApplicationPausedMessage message)
+		{
+			if (message.IsPaused)
+			{
+				StopAllSfx();
+			}
 		}
 
 		private IEnumerator MatchCountdownCoroutine()

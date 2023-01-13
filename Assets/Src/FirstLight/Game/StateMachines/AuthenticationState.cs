@@ -78,7 +78,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
-			var guestOrRegisteredSelection = stateFactory.State("LoginRegisterSelection");
 			var login = stateFactory.State("Login");
 			var accountDeleted = stateFactory.State("Account Deleted");
 			var guestLogin = stateFactory.State("Guest Login");
@@ -95,13 +94,8 @@ namespace FirstLight.Game.StateMachines
 
 			autoAuthCheck.Transition().Condition(HasLinkedDevice).Target(authLoginDevice);
 			autoAuthCheck.Transition().Condition(() => !FeatureFlags.EMAIL_AUTH).OnTransition(() => { SetLinkedDevice(true); }).Target(authLoginDevice);
-			autoAuthCheck.Transition().Target(guestOrRegisteredSelection);
+			autoAuthCheck.Transition().Target(guestLogin);
 
-			guestOrRegisteredSelection.OnEnter(OpenGuestOrRegisteredSelectionScreen);
-			guestOrRegisteredSelection.Event(_loginAsGuestEvent).Target(guestLogin);
-			guestOrRegisteredSelection.Event(_goToLoginClickedEvent).OnTransition(OnGuestOrRegisteredToLogin).Target(login);
-			guestOrRegisteredSelection.OnExit(CloseLoadingScreen);
-			
 			login.OnEnter(OnEnterLogin);
 			login.Event(_goToRegisterClickedEvent).Target(register);
 			login.Event(_loginAsGuestEvent).Target(guestLogin);
@@ -471,16 +465,10 @@ namespace FirstLight.Game.StateMachines
 			activity?.Complete();
 		}
 
-		private void OnGuestOrRegisteredToLogin()
-		{
-			_uiService.OpenUi<LoginScreenBackgroundPresenter>();
-		}
-
 		private void OnEnterLogin()
 		{
 			OpenLoginScreen();
 			CloseRegisterScreen();
-			CloseGuestOrRegisteredSelectionScreen();
 		}
 
 		private void OnEnterRegister()
@@ -674,11 +662,6 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<LoadingScreenPresenter>();
 		}
 
-		private void CloseGuestOrRegisteredSelectionScreen()
-		{
-			_uiService.CloseUi<GuestOrRegisteredPresenter>();
-		}
-
 		private void CloseRegisterScreen()
 		{
 			_uiService.CloseUi<RegisterScreenPresenter>();
@@ -702,21 +685,6 @@ namespace FirstLight.Game.StateMachines
 			{
 				_uiService.GetUi<RegisterScreenPresenter>().SetFrontDimBlockerActive(dimmed);
 			}
-		}
-
-		private void OpenGuestOrRegisteredSelectionScreen()
-		{
-			var data = new GuestOrRegisteredPresenter.StateData
-			{
-				GoToLoginClicked = () => _statechartTrigger(_goToLoginClickedEvent),
-				PlayAsGuestClicked = () =>
-				{
-					DimLoginRegisterScreens(true);
-					_statechartTrigger(_loginAsGuestEvent);
-				},
-			};
-			_uiService.OpenUiAsync<LoginScreenBackgroundPresenter>();
-			_uiService.OpenUiAsync<GuestOrRegisteredPresenter, GuestOrRegisteredPresenter.StateData>(data);
 		}
 
 		private void OpenLoginScreen()

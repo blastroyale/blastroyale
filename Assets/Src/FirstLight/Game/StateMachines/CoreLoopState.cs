@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
@@ -46,17 +47,29 @@ namespace FirstLight.Game.StateMachines
 		{
 			var initial = stateFactory.Initial("Initial");
 			var final = stateFactory.Final("Final");
+			var firstMatchCheck = stateFactory.Choice("First Match Check");
 			var match = stateFactory.Nest("Match");
 			var mainMenu = stateFactory.Nest("Main Menu");
-
-			initial.Transition().Target(mainMenu);
+			var joinTutorialRoom = stateFactory.Wait("Room Join Wait");
+			
+			initial.Transition().Target(firstMatchCheck);
 			initial.OnExit(SubscribeEvents);
+			
+			firstMatchCheck.Transition().Condition(IsFirstTimeGuest).Target(joinTutorialRoom);
+			firstMatchCheck.Transition().Target(mainMenu);
 			
 			mainMenu.Nest(_mainMenuState.Setup).Target(match);
 
 			match.Nest(_matchState.Setup).Target(mainMenu);
+			
+			joinTutorialRoom.WaitingFor(JoinTutorialRoom).Target(match);
 
 			final.OnEnter(UnsubscribeEvents);
+		}
+
+		private void JoinTutorialRoom(IWaitActivity activity)
+		{
+			// TODO: NETWORK - JOIN ROOM, RESOLVE ACTIVITY ON COMPLETE
 		}
 
 		private void SubscribeEvents()
@@ -66,6 +79,11 @@ namespace FirstLight.Game.StateMachines
 		private void UnsubscribeEvents()
 		{
 			_services?.MessageBrokerService.UnsubscribeAll(this);
+		}
+		
+		private bool IsFirstTimeGuest()
+		{
+			throw new NotImplementedException();
 		}
 
 		private bool IsConnectedAndReady()

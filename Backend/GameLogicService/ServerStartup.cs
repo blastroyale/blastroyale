@@ -80,17 +80,15 @@ namespace Backend
 
 		private static IConfigsProvider SetupConfigsProvider(IServiceProvider services)
 		{
-			var log = services.GetService<ILogger>();
-			services.GetService<IPlayfabServer>();
-			var cfgSerializer = new ConfigsSerializer();
 			var env = services.GetService<IBaseServiceConfiguration>();
+			services.GetService<IPlayfabServer>();
+			
 			if (!env.RemoteGameConfiguration)
 			{
-				log.Log(LogLevel.Information, "Starting server with baked configs");
-				var bakedConfigs = File.ReadAllText(Path.Combine(env.AppPath, "gameConfig.json"));
-				return cfgSerializer.Deserialize<ConfigsProvider>(bakedConfigs);
+				return new EmbeddedConfigProvider();
 			}
 
+			var log = services.GetService<ILogger>();
 			log.Log(LogLevel.Information, "Downloading remote configurations");
 			var cfgBackend = services.GetService<IConfigBackendService>();
 			var task = cfgBackend.GetRemoteVersion();

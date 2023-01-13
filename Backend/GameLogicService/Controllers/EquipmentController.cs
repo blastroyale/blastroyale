@@ -3,10 +3,10 @@ using Backend.Game.Services;
 using FirstLight.Game.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Quantum;
-using ServerShared.Authentication.ApiKey;
+using ServerCommon.Authentication.ApiKey;
 
 
-namespace GameLogicApp.Cloudscript
+namespace ServerCommon.Cloudscript
 {
 	[ApiController]
 	[Route("equipment")]

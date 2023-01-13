@@ -18,7 +18,6 @@
                 <ui:VisualElement name="Crown" class="you-win-title__crown" />
                 <ui:VisualElement name="Text" class="you-win-title__text" />
             </ui:VisualElement>
-            <FirstLight.Game.UIElements.LocalizedButton localization-key="UITShared/next" name="NextButton" class="button-next anim-delay-0 anim-fade" />
         </FirstLight.Game.UIElements.SafeAreaElement>
     </FirstLight.Game.UIElements.SafeAreaElement>
 </ui:UXML>

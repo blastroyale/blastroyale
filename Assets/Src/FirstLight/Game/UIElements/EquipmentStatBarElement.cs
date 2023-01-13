@@ -48,6 +48,7 @@ namespace FirstLight.Game.UIElements
 			{EquipmentStatType.PickupSpeed, 0.25f},
 			{EquipmentStatType.ShieldCapacity, 800},
 			{EquipmentStatType.MagazineSize, 30},
+			{EquipmentStatType.AmmoCapacityBonus, 0.25f},
 		};
 
 		private static readonly HashSet<EquipmentStatType> INVERT_VALUES = new()
@@ -151,7 +152,7 @@ namespace FirstLight.Game.UIElements
 				EquipmentStatType.PickupSpeed        => "P2",
 				EquipmentStatType.Speed              => "N3",
 				EquipmentStatType.SplashDamageRadius => "N2",
-				EquipmentStatType.MaxCapacity        => "P2",
+				EquipmentStatType.AmmoCapacityBonus  => "P2",
 				_                                    => "N0"
 			};
 		}

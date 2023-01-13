@@ -113,11 +113,19 @@ namespace FirstLight.Game.Utils
 		}
 
 		/// <summary>
+		/// Gets the translation term of the given <paramref name="stat"/>
+		/// </summary>
+		public static string GetTranslationTerm(this EquipmentStatType stat)
+		{
+			return $"{nameof(ScriptTerms.General)}/{stat.ToString()}";
+		}
+		
+		/// <summary>
 		/// Requests the localized text representing the given <paramref name="stat"/>
 		/// </summary>
 		public static string GetTranslation(this EquipmentStatType stat)
 		{
-			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.General)}/{stat.ToString()}").ToUpperInvariant();
+			return LocalizationManager.GetTranslation(stat.GetTranslationTerm()).ToUpperInvariant();
 		}
 
 		/// <summary>

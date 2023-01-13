@@ -4,7 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Backend;
 using Backend.Game;
-using GameLogicApp.Cloudscript;
+using ServerCommon.Cloudscript;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using Microsoft.Extensions.DependencyInjection;

@@ -1,6 +1,6 @@
 using System;
 
-namespace GameLogicApp.Cloudscript.Models
+namespace ServerCommon.Cloudscript.Models
 {
 	[Serializable]
 	public class CurrencyUpdateRequest

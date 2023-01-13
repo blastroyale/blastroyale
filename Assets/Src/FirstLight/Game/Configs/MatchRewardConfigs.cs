@@ -10,7 +10,7 @@ namespace FirstLight.Game.Configs
 	public struct MatchRewardConfig
 	{
 		public short Placement;
-		public SerializedDictionary<GameId,uint> Rewards;
+		public SerializedDictionary<GameId,int> Rewards;
 	}
 
 	/// <summary>

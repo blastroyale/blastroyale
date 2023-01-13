@@ -132,17 +132,18 @@ namespace FirstLight.Tests.EditorMode.Logic
 			_poolConfig = new ResourcePoolConfig
 			{
 				Id = GameId.CS,
-				PoolCapacity = 300,
+				PoolCapacity = 200,
 				RestockIntervalMinutes = 180,
 				TotalRestockIntervalMinutes = 720,
 				BaseMaxTake = 16,
-				ScaleMultiplier = 15,
+				ScaleMultiplier = 10,
 				ShapeModifier = FP._1_50,
 				MaxPoolCapacityDecreaseModifier = FP.FromString("0.9"),
 				PoolCapacityDecreaseExponent = FP.FromString("0.3"),
 				MaxTakeDecreaseModifier = FP.FromString("0.11"),
 				TakeDecreaseExponent = FP.FromString("1.8"),
-				PoolCapacityTrophiesModifier = 10000
+				PoolCapacityTrophiesModifier = 150000,
+				TakeTrophiesModifier = 10000
 			};
 
 			GameLogic.PlayerLogic.Trophies.Returns(new ObservableField<uint>(1000));

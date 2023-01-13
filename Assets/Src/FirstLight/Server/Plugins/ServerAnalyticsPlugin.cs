@@ -1,4 +1,10 @@
+using System;
+using System.Linq;
+using FirstLight.Game.Commands;
+using FirstLight.Game.Data;
 using FirstLight.Game.Messages;
+using FirstLight.Game.Services;
+using FirstLight.Game.Utils;
 using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Models;
 using Newtonsoft.Json;
@@ -24,6 +30,34 @@ namespace Src.FirstLight.Server
 			evManager.RegisterEventListener<GameLogicMessageEvent<ItemUpgradedMessage>>(OnItemUpgraded);
 			evManager.RegisterEventListener<GameLogicMessageEvent<ItemRepairedMessage>>(OnItemRepaired);
 			evManager.RegisterEventListener<GameLogicMessageEvent<CurrencyChangedMessage>>(OnCurrencyChanged);
+			evManager.RegisterCommandListener<EndOfGameCalculationsCommand>(OnGameEndCommand);
+		}
+
+		private void OnGameEndCommand(string userId, EndOfGameCalculationsCommand cmd, ServerState state)
+		{
+			var player = cmd.PlayersMatchData[cmd.QuantumValues.ExecutingPlayer];
+			var data = new AnalyticsData()
+			{
+				{"match_id", cmd.QuantumValues.MatchId},
+				{"match_type", cmd.QuantumValues.MatchType.ToString()},
+				{"game_mode", player.GameModeId},
+				{"map_id", player.MapId},
+				{"players_left", cmd.PlayersMatchData.Count(d => !d.IsBot)},
+				{"suicide", player.Data.SuicideCount.ToString()},
+				{"kills", player.Data.PlayersKilledCount.ToString()},
+				{"player_rank", player.PlayerRank.ToString()},
+				{"damage_done", player.Data.DamageDone.ToString() },
+				{"damage_received", player.Data.DamageReceived.ToString() },
+				{"death_count", player.Data.DeathCount.ToString() },
+				{"healing_done", player.Data.HealingDone.ToString() },
+				{"healing_received", player.Data.HealingReceived.ToString() },
+				{"initial_trophies", player.Data.PlayerTrophies.ToString() },
+				{"final_trophies",  state.DeserializeModel<PlayerData>().Trophies },
+				{"first_death_time", player.Data.FirstDeathTime.AsLong.ToString() },
+				{"last_death_position", player.Data.LastDeathPosition.ToString() },
+				{"specials_used", player.Data.SpecialsUsedCount.ToString() },
+			};
+			_ctx.Analytics!.EmitUserEvent(userId, $"server_match_end_summary", data);
 		}
 
 		private void OnCurrencyChanged(GameLogicMessageEvent<CurrencyChangedMessage> ev)

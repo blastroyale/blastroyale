@@ -8,8 +8,7 @@
     bottom: 0;
 }
 
-.subtitle-container
-{
+.subtitle-container {
     position: absolute;
     padding-top: 10px;
     align-items: center;

@@ -15,19 +15,14 @@
     margin-bottom: 8px;
 }
 
-.button-flat--secondary--register {
+.register-button {
     -unity-text-outline-color: rgb(59, 29, 144);
     -unity-background-image-tint-color: rgb(59, 29, 144);
 }
 
-.button-flat--primary--login {
+.login-button {
     padding-left: 100px;
     padding-right: 100px;
-}
-
-.input-field--password {
-    margin-top: 28px;
-    margin-bottom: 44px;
 }
 
 .reset_guest_container {

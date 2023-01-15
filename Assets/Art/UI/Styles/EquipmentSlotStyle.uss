@@ -78,13 +78,13 @@
 .equipment-slot__level {
     color: rgb(255, 255, 255);
     font-size: 45px;
-    -unity-text-align: middle-center;
+    -unity-text-align: middle-left;
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
     padding: 0;
     margin: 0;
     -unity-text-outline-width: 1px;
     -unity-text-outline-color: rgb(0, 0, 0);
-    white-space: normal;
+    white-space: nowrap;
     margin-left: 10px;
     height: 70px;
     position: absolute;

@@ -99,7 +99,7 @@ namespace FirstLight.Game.UIElements
 				_equipmentName.AddToClassList(UssEquipmentTitleName);
 
 				filledElement.Add(_equipmentLevel =
-					new Label(string.Format(ScriptLocalization.UITEquipment.card_lvl, 5))
+					new Label(string.Format(ScriptLocalization.UITEquipment.card_lvl, 17))
 						{name = "level"});
 				_equipmentLevel.AddToClassList(UssEquipmentLevel);
 

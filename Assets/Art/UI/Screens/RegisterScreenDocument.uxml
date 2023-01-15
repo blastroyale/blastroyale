@@ -1,4 +1,4 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" editor-extension-mode="False">
+<ui:UXML xmlns:ui="UnityEngine.UIElements" flg="FirstLight.Game.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/RegisterScreenStyle.uss?fileID=7433441132597879392&amp;guid=e7a83ab69dcbba946ac3bc8ba7663044&amp;type=3#RegisterScreenStyle" />
     <ui:VisualElement name="root" class="background">
         <FirstLight.Game.UIElements.PopupElement title-localization-key="UITLoginRegister/register">

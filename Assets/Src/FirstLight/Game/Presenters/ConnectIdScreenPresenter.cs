@@ -2,8 +2,8 @@ using System;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
-using UnityEngine;
 using UnityEngine.UIElements;
+
 namespace FirstLight.Game.Presenters
 {
 	/// <summary>
@@ -23,9 +23,9 @@ namespace FirstLight.Game.Presenters
 		private TextField _passwordField;
 		private Button _viewHideButton;
 		private VisualElement _blockerElement;
-		
+
 		private IGameServices _services;
-		
+
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();

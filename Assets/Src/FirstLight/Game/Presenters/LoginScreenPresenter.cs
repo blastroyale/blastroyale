@@ -4,7 +4,6 @@ using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using I2.Loc;
-using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UIElements;
 

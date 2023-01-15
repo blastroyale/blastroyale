@@ -64,7 +64,7 @@
 
 
 .equipment-stat__progress-slice {
-    background-image: var(--sprite-home__progress-stat);
+    background-image: var(--sprite-home__progress-stats);
     height: 14px;
     margin-right: 3px;
     flex-grow: 1;

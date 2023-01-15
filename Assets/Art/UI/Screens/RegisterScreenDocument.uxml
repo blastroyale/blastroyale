@@ -1,14 +1,10 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" flg="FirstLight.Game.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/Art/UI/Screens/PasswordFieldStyle.uss?fileID=7433441132597879392&amp;guid=be419192f633aed4bad72dfdfa844291&amp;type=3#PasswordFieldStyle" />
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/Screens/RegisterScreenStyle.uss?fileID=7433441132597879392&amp;guid=e7a83ab69dcbba946ac3bc8ba7663044&amp;type=3#RegisterScreenStyle" />
     <ui:VisualElement name="root" class="background">
         <FirstLight.Game.UIElements.PopupElement title-localization-key="UITLoginRegister/register">
             <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITLoginRegister/email" name="EmailTextField" class="input-field" />
             <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITLoginRegister/username" name="UsernameTextField" class="container__input-field-register input-field " />
-            <ui:VisualElement name="PasswordFieldContainer" class="passwordContainer password-container--register">
-                <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITLoginRegister/password" name="PasswordTextField" password="true" class="container__input-field-password input-field" />
-                <ui:Button name="ViewHideButton" class="view-hide-button view-hide-button--register" />
-            </ui:VisualElement>
+            <FirstLight.Game.UIElements.PasswordFieldElement label="##" label-localization-key="UITLoginRegister/password" />
             <ui:VisualElement class="button-flat-outline">
                 <FirstLight.Game.UIElements.LocalizedButton localization-key="UITLoginRegister/register" name="RegisterButton" class="button-flat button-flat--primary container__register_button" />
             </ui:VisualElement>

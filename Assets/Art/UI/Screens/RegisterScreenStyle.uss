@@ -45,14 +45,14 @@ LocalizedButton {
     margin-bottom: 8px;
 }
 
-
-#unity-text-input {
-    flex-grow: 1;
-}
-
 LocalizedTextField > Label {
     margin-right: 15px;
     width: 150px;
     font-size: 33px;
+}
+
+#unity-text-input {
+    flex-grow: 1;
+    -unity-font-definition: var(--font-italic-dynamic);
 }
 

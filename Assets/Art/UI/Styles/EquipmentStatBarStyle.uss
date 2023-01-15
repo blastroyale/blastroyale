@@ -62,7 +62,6 @@
     padding-left: 3px;
 }
 
-
 .equipment-stat__progress-slice {
     background-image: var(--sprite-home__progress-stats);
     height: 14px;

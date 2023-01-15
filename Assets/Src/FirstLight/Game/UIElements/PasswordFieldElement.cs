@@ -8,20 +8,26 @@ namespace FirstLight.Game.UIElements
 	public class PasswordFieldElement : LocalizedTextField
 	{
 		private const string UssViewHideButton = "view-hide-button";
+		private const string UssViewHideButtonShow = UssViewHideButton + "--show";
 
 		private readonly ImageButton _viewHideButton;
 
 		public PasswordFieldElement()
 		{
-			Add(_viewHideButton = new ImageButton(OnViewHideClicked) {name = "view-hide-button"});
+			RegisterCallback(new EventCallback<AttachToPanelEvent>(OnAttachToPanel));
+			Add(_viewHideButton = new ImageButton(OnViewHideClicked) { name = "view-hide-button" });
 			_viewHideButton.AddToClassList(UssViewHideButton);
-			_viewHideButton.clicked += OnViewHideClicked;
 		}
-		
+
+		private void OnAttachToPanel(AttachToPanelEvent evt)
+		{
+			isPasswordField = true;
+		}
+
 		private void OnViewHideClicked()
 		{
-			_viewHideButton.ToggleInClassList("view-hide-button--show");
-			isPasswordField = !_viewHideButton.ClassListContains("view-hide-button--show");
+			_viewHideButton.ToggleInClassList(UssViewHideButtonShow);
+			isPasswordField = !_viewHideButton.ClassListContains(UssViewHideButtonShow);
 		}
 
 		public new class UxmlFactory : UxmlFactory<PasswordFieldElement, UxmlTraits>

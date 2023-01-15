@@ -27,7 +27,6 @@ namespace FirstLight.Game.Presenters
 		private TextField _emailField;
 		private TextField _passwordField;
 		private VisualElement _blockerElement;
-		private Button _viewHideButton;
 		
 		private IGameServices _services;
 
@@ -46,9 +45,7 @@ namespace FirstLight.Game.Presenters
 			root.Q<Button>("RegisterButton").clicked += OnRegisterButtonClicked;
 			root.Q<Button>("ResetPasswordButton").clicked += OnResetPasswordButtonClicked;
 			root.Q<Button>("PlayAsGuestButton").clicked += OnPlayAsGuestButtonClicked;
-			_viewHideButton = root.Q<Button>("ViewHideButton").Required();
-			_viewHideButton.clicked += OnViewHideClicked;
-
+			
 			root.SetupClicks(_services);
 		}
 
@@ -88,12 +85,6 @@ namespace FirstLight.Game.Presenters
 		{
 			_services.AnalyticsService.UiCalls.ButtonAction(UIAnalyticsButtonsNames.PlayAsGuest);
 			Data.PlayAsGuestClicked();
-		}
-
-		private void OnViewHideClicked()
-		{
-			_viewHideButton.ToggleInClassList("view-hide-button--show");
-			_passwordField.isPasswordField = !_viewHideButton.ClassListContains("view-hide-button--show");
 		}
 	}
 }

@@ -4,7 +4,7 @@
         <FirstLight.Game.UIElements.PopupElement title-localization-key="UITLoginRegister/register">
             <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITLoginRegister/email" name="EmailTextField" class="input-field" />
             <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITLoginRegister/username" name="UsernameTextField" class="container__input-field-register input-field " />
-            <FirstLight.Game.UIElements.PasswordFieldElement label="##" label-localization-key="UITLoginRegister/password" />
+            <FirstLight.Game.UIElements.PasswordFieldElement label="##" label-localization-key="UITLoginRegister/password" name="PasswordTextField" />
             <ui:VisualElement class="button-flat-outline">
                 <FirstLight.Game.UIElements.LocalizedButton localization-key="UITLoginRegister/register" name="RegisterButton" class="button-flat button-flat--primary container__register_button" />
             </ui:VisualElement>

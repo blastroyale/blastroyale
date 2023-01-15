@@ -45,3 +45,7 @@ LocalizedButton {
     -unity-text-align: middle-center;
 }
 
+#unity-text-input {
+    flex-grow: 1;
+    -unity-font-definition: var(--font-italic-dynamic);
+}

@@ -36,13 +36,10 @@ namespace FirstLight.Game.Presenters
 			_emailField = root.Q<TextField>("EmailTextField").Required();
 			_usernameField = root.Q<TextField>("UsernameTextField").Required();
 			_passwordField = root.Q<TextField>("PasswordTextField").Required();
-			_viewHideButton = root.Q<Button>("ViewHideButton").Required();
-
 			_blockerElement = root.Q("Blocker").Required();
 
 			root.Q<Button>("RegisterButton").clicked += OnRegisterClicked;
 			root.Q<Button>("BackButton").clicked += OnBackButtonClicked;
-			_viewHideButton.clicked += OnViewHideClicked;
 
 			root.SetupClicks(_services);
 		}
@@ -63,12 +60,6 @@ namespace FirstLight.Game.Presenters
 		private void OnBackButtonClicked()
 		{
 			Data.BackClicked();
-		}
-
-		private void OnViewHideClicked()
-		{
-			_viewHideButton.ToggleInClassList("view-hide-button--show");
-			_passwordField.isPasswordField = !_viewHideButton.ClassListContains("view-hide-button--show");
 		}
 	}
 }

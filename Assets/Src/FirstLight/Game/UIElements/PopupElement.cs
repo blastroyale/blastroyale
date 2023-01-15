@@ -26,7 +26,10 @@ namespace FirstLight.Game.UIElements
 		public PopupElement()
 		{
 			AddToClassList(UssPopup);
-			
+			AddToClassList("anim-delay-0");
+			AddToClassList("anim-translate");
+			AddToClassList("anim-translate--down-xxxl");
+
 			VisualElement frontPopup = new VisualElement();
 			frontPopup.AddToClassList(UssPopupFront);
 			hierarchy.Add(frontPopup);
@@ -48,6 +51,7 @@ namespace FirstLight.Game.UIElements
 			frontPopup.Add(_container);
 			
 			VisualElement blocker = new VisualElement();
+			blocker.name = "Blocker";
 			blocker.AddToClassList(UssPopupBlocker);
 			frontPopup.Add(blocker);
 		}

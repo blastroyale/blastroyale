@@ -1,15 +1,11 @@
 using System;
 using System.Linq;
-using System.Security.Cryptography;
-using FirstLight.FLogger;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Services;
 using FirstLight.Game.UIElements;
 using I2.Loc;
-using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEngine.UIElements.Experimental;
 
 namespace FirstLight.Game.Utils
 {
@@ -150,40 +146,6 @@ namespace FirstLight.Game.Utils
 		public static bool IsAttached(this VisualElement element)
 		{
 			return element.panel != null;
-		}
-
-		/// <summary>
-		/// Opens a tooltip for <paramref name="element"/> (bottom left).
-		/// </summary>
-		public static void OpenTooltip(this VisualElement element, VisualElement root, string content, int offsetX = 0,
-									   int offsetY = 0)
-
-		{
-			var blocker = new VisualElement();
-			root.Add(blocker);
-			blocker.AddToClassList("tooltip-holder");
-			blocker.RegisterCallback<ClickEvent, VisualElement>((_, ve) => { ve.RemoveFromHierarchy(); }, blocker,
-				TrickleDown.TrickleDown);
-
-			var tooltip = new Label(content);
-
-			tooltip.AddToClassList("tooltip");
-			tooltip.RegisterCallback<AttachToPanelEvent>(ev =>
-			{
-				var pos = element.worldBound.position;
-				var rootBound = root.worldBound;
-
-				pos.x -= rootBound.width - offsetX;
-				pos.y += element.worldBound.height - offsetY;
-
-				tooltip.transform.position = pos;
-			});
-
-			tooltip.experimental.animation
-				.Start(0f, 1f, 200, (ve, val) => ve.style.opacity = val)
-				.Ease(Easing.Linear);
-
-			blocker.Add(tooltip);
 		}
 	}
 }

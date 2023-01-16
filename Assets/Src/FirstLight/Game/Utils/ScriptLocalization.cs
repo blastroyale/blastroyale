@@ -1173,6 +1173,7 @@ namespace I2.Loc
 			public static string rarity_uncommon 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/rarity_uncommon"); } }
 			public static string rarity_uncommonplus 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/rarity_uncommonplus"); } }
 			public static string repair 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/repair"); } }
+			public static string replicated_count 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/replicated_count"); } }
 			public static string scrap 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/scrap"); } }
 			public static string selection_amulet 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/selection_amulet"); } }
 			public static string selection_armor 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/selection_armor"); } }
@@ -1233,6 +1234,7 @@ namespace I2.Loc
 			public static string register_login 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/register_login"); } }
 			public static string register_new_fl_id 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/register_new_fl_id"); } }
 			public static string reset_password 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/reset_password"); } }
+			public static string secure_progress 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/secure_progress"); } }
 			public static string send_password_recovery 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/send_password_recovery"); } }
 			public static string username 		{ get{ return LocalizationManager.GetTranslation ("UITLoginRegister/username"); } }
 		}
@@ -2498,6 +2500,7 @@ namespace I2.Loc
 		    public const string rarity_uncommon = "UITEquipment/rarity_uncommon";
 		    public const string rarity_uncommonplus = "UITEquipment/rarity_uncommonplus";
 		    public const string repair = "UITEquipment/repair";
+		    public const string replicated_count = "UITEquipment/replicated_count";
 		    public const string scrap = "UITEquipment/scrap";
 		    public const string selection_amulet = "UITEquipment/selection_amulet";
 		    public const string selection_armor = "UITEquipment/selection_armor";
@@ -2558,6 +2561,7 @@ namespace I2.Loc
 		    public const string register_login = "UITLoginRegister/register_login";
 		    public const string register_new_fl_id = "UITLoginRegister/register_new_fl_id";
 		    public const string reset_password = "UITLoginRegister/reset_password";
+		    public const string secure_progress = "UITLoginRegister/secure_progress";
 		    public const string send_password_recovery = "UITLoginRegister/send_password_recovery";
 		    public const string username = "UITLoginRegister/username";
 		}

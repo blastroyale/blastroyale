@@ -33,7 +33,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		{
 			_services ??= MainInstaller.Resolve<IGameServices>();
 
-			ItemText.text = equipment.GameId.GetTranslation();
+			ItemText.text = equipment.GameId.GetLocalization();
 			LevelText.text = $"LV {equipment.Level.ToString()}";
 			QuantityText.enabled = false;
 			IconImage.enabled = false;

@@ -153,7 +153,7 @@ namespace FirstLight.Game.Views
 					return ScriptLocalization.UITBattlePass.random_equipment;
 
 				default:
-					return id.GetTranslation();
+					return id.GetLocalization();
 			}
 		}
 	}

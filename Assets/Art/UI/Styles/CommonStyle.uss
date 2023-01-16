@@ -276,29 +276,6 @@
     height: 38px;
 }
 
-.tooltip {
-    font-size: 32px;
-    background-image: var(--sprite-home__background-tooltip);
-    color: rgb(186, 161, 230);
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding-left: 20px;
-    padding-right: 31px;
-    padding-top: 26px;
-    padding-bottom: 14px;
-    opacity: 0;
-}
-
-.tooltip-holder {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    flex-direction: column;
-}
-
 .button-long {
     background-image: var(--sprite-home__button-long-purple);
     width: 306px;
@@ -405,8 +382,8 @@
     background-color: rgba(255, 255, 255, 0);
     margin: 0;
     color: rgb(255, 255, 255);
-    text-shadow: 3px 3px 0 #6B0402;
-    -unity-text-outline-color: #6B0402;
+    text-shadow: 3px 3px 0 rgb(107, 4, 2);
+    -unity-text-outline-color: rgb(107, 4, 2);
     font-size: 52px;
     -unity-text-outline-width: 2px;
     padding-bottom: 20px;
@@ -501,7 +478,6 @@
     width: 125px;
 }
 
-.unity-scroll-view .unity-list-view__empty-label
-{
+.unity-scroll-view .unity-list-view__empty-label {
     visibility: hidden;
 }

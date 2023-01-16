@@ -2,6 +2,7 @@ using System.Collections;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Views.MainMenuViews;
+using FirstLight.Game.Views.MatchHudViews;
 using FirstLight.UiService;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -78,6 +79,61 @@ namespace FirstLight.Tests.PlayTests
 		public static void ClickLockRoomAndPlay()
 		{
 			GameObject.Find("LockRoomButton").GetComponent<UnityEngine.UI.Button>().onClick.Invoke();
+		}
+		
+		public static void ClickEquipmentButton()
+		{
+			TestTools.ClickUIToolKitButton<Button>(Object.FindObjectOfType<HomeScreenPresenter>().GetComponent<UIDocument>(), "EquipmentButton" );
+		}
+		
+		public static void ClickWeaponCategory()
+		{
+			TestTools.ClickUIToolKitButton<Button>(Object.FindObjectOfType<EquipmentPresenter>().GetComponent<UIDocument>(), "WeaponCategory");
+		}
+
+		public static void ClickHelmetCategory()
+		{
+			TestTools.ClickUIToolKitButton<Button>(Object.FindObjectOfType<EquipmentPresenter>().GetComponent<UIDocument>(), "HelmetCategory");
+		}
+		
+		public static void ClickShieldCategory()
+		{
+			TestTools.ClickUIToolKitButton<Button>(Object.FindObjectOfType<EquipmentPresenter>().GetComponent<UIDocument>(), "ShieldCategory");
+		}
+		
+		public static void ClickAmuletCategory()
+		{
+			TestTools.ClickUIToolKitButton<Button>(Object.FindObjectOfType<EquipmentPresenter>().GetComponent<UIDocument>(), "AmuletCategory");
+		}
+
+		public static void ClickArmorCategory()
+		{
+			TestTools.ClickUIToolKitButton<Button>(Object.FindObjectOfType<EquipmentPresenter>().GetComponent<UIDocument>(), "ArmorCategory");
+		}
+
+		public static void ClickEquipmentSlot()
+		{
+			TestTools.ClickUIToolKitButton<ImageButton>(Object.FindObjectOfType<EquipmentSelectionPresenter>().GetComponent<UIDocument>(), "item-1");
+		}
+		
+		public static void ClickEquipmentSlot2()
+		{
+			TestTools.ClickUIToolKitButton<ImageButton>(Object.FindObjectOfType<EquipmentSelectionPresenter>().GetComponent<UIDocument>(), "item-2");
+		}
+
+		public static void ClickEquipButton()
+		{
+			TestTools.ClickUIToolKitButton<Button>(Object.FindObjectOfType<EquipmentSelectionPresenter>().GetComponent<UIDocument>(), "EquipButton");
+		}
+		
+		public static void CLickBackButton() 
+		{
+			TestTools.ClickUIToolKitButton<ImageButton>(Object.FindObjectOfType<EquipmentSelectionPresenter>().GetComponent<UIDocument>(), "back");
+		}
+
+		public static void ClickHomeButton()
+		{
+			TestTools.ClickUIToolKitButton<ImageButton>(Object.FindObjectOfType<EquipmentSelectionPresenter>().GetComponent<UIDocument>(), "home");
 		}
 	}
 }

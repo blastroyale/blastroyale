@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Photon.Deterministic;
 
 namespace Quantum.Systems
@@ -125,6 +126,19 @@ namespace Quantum.Systems
 			if (f.Unsafe.TryGetPointer<EquipmentCollectable>(entity, out var equipment))
 			{
 				var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
+
+				if (!f.Has<BotCharacter>(playerEntity))
+				{
+					var loadoutMetadata = playerCharacter->GetLoadoutMetadata(f, equipment->Item);
+					if (loadoutMetadata != null && loadoutMetadata.Value.IsNft)
+					{
+						var playerData = f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData;
+						var matchData = playerData[player];
+						matchData.CollectedOwnedNfts++;
+						Log.Warn("DEBUG REMOVE ME COLLECTED NFT EEEEEEEK REEEEEE");
+					}
+				}
+			
 				if (playerCharacter->HasBetterWeaponEquipped(equipment->Item))
 				{
 					gameId = GameId.AmmoSmall;

@@ -324,6 +324,15 @@ namespace FirstLight.Game.StateMachines
 				finalLoadOut.Add(inventory[item.Id]);
 			}
 
+			var loadoutArray = spawnWithloadout
+				? finalLoadOut.ToArray()
+				: loadout.ReadOnlyDictionary.Values.Select(id => inventory[id]).ToArray();
+			
+			var nftLoadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.NftOnly);
+			var loadoutMetadata = loadoutArray.Select(e => new EquipmentSimulationMetadata()
+			{
+				IsNft = nftLoadout.Any(nft => nft.Equipment.Equals(e))
+			}).ToArray();
 			game.SendPlayerData(game.GetLocalPlayerRef(), new RuntimePlayer
 			{
 				PlayerId = _gameDataProvider.AppDataProvider.PlayerId,
@@ -333,8 +342,8 @@ namespace FirstLight.Game.StateMachines
 				PlayerLevel = info.Level,
 				PlayerTrophies = info.TotalTrophies,
 				NormalizedSpawnPosition = spawnPosition.ToFPVector2(),
-				Loadout = spawnWithloadout ? 
-					          finalLoadOut.ToArray() : loadout.ReadOnlyDictionary.Values.Select(id => inventory[id]).ToArray()
+				Loadout = loadoutArray,
+				LoadoutMetadata = loadoutMetadata
 			});
 		}
 	}

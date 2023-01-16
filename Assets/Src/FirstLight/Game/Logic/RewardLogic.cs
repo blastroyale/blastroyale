@@ -65,7 +65,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Generate a list of rewards based on the players <paramref name="matchData"/> performance from a game completed
 		/// </summary>
-		List<RewardData> CalculateMatchRewards(RewardSource source, uint collectedNFTsCount, out int trophyChange);
+		List<RewardData> CalculateMatchRewards(RewardSource source, out int trophyChange);
 
 		/// <summary>
 		/// Check if the <see cref="UnclaimedRewards"/> list contains a reward that could
@@ -86,7 +86,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Generate a list of rewards based on the players <paramref name="RewardSource"/> performance from a game completed
 		/// </summary>
-		List<RewardData> GiveMatchRewards(RewardSource source, uint collectedNFTsCount, out int trophyChange);
+		List<RewardData> GiveMatchRewards(RewardSource source, out int trophyChange);
 
 		/// <summary>
 		/// Collects all the unclaimed rewards in the player's inventory
@@ -125,7 +125,7 @@ namespace FirstLight.Game.Logic
 			_unclaimedRewards = new ObservableList<RewardData>(Data.UncollectedRewards);
 		}
 
-		public List<RewardData> CalculateMatchRewards(RewardSource source, uint collectedNFTsCount, out int trophyChange)
+		public List<RewardData> CalculateMatchRewards(RewardSource source, out int trophyChange)
 		{
 			var rewards = new List<RewardData>();
 			var localMatchData = source.MatchData[source.ExecutingPlayer];
@@ -173,7 +173,7 @@ namespace FirstLight.Game.Logic
 
 			if (source.MatchType == MatchType.Ranked)
 			{
-				CalculateCSReward(rewards, rewardConfig, collectedNFTsCount);
+				CalculateCSReward(rewards, rewardConfig, localMatchData.Data.CollectedOwnedNfts);
 				CalculateTrophiesReward(rewards, source.MatchData, localMatchData, rewardConfig, out trophyChange);
 			}
 
@@ -214,9 +214,9 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public List<RewardData> GiveMatchRewards(RewardSource source, uint collectedNFTsCount, out int trophyChange)
+		public List<RewardData> GiveMatchRewards(RewardSource source, out int trophyChange)
 		{
-			var rewards = CalculateMatchRewards(source, collectedNFTsCount, out trophyChange);
+			var rewards = CalculateMatchRewards(source, out trophyChange);
 
 			foreach (var reward in rewards)
 			{

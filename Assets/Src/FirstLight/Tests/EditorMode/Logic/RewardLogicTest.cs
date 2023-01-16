@@ -59,7 +59,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 				ExecutingPlayer = _executingPlayer,
 				DidPlayerQuit = false,
 				GamePlayerCount = _matchData.Count
-			}, 5, out _);
+			}, out _);
 
 			Assert.AreEqual(3, rewards.Count);
 			Assert.AreEqual(RESOURCEINFO_CSS_WINAMOUNT * PLACEMENT1_CS_PERCENTAGE / 100,
@@ -79,7 +79,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 				ExecutingPlayer = _executingPlayer,
 				DidPlayerQuit = false,
 				GamePlayerCount = _matchData.Count
-			}, 5, out _);
+			}, out _);
 
 			Assert.AreEqual(3, rewards.Count);
 			Assert.AreEqual(RESOURCEINFO_CSS_WINAMOUNT * PLACEMENT3_CS_PERCENTAGE / 100,
@@ -99,7 +99,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 				ExecutingPlayer = _executingPlayer,
 				DidPlayerQuit = false,
 				GamePlayerCount = _matchData.Count
-			}, 5, out _);
+			}, out _);
 
 			Assert.AreEqual(3, rewards.Count);
 			Assert.AreEqual(RESOURCEINFO_CSS_WINAMOUNT * PLACEMENT1_CS_PERCENTAGE / 100,
@@ -119,7 +119,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 				ExecutingPlayer = _executingPlayer,
 				DidPlayerQuit = false,
 				GamePlayerCount = _matchData.Count
-			}, 5, out _);
+			}, out _);
 
 			Assert.AreEqual(3, rewards.Count);
 			Assert.AreEqual(RESOURCEINFO_CSS_WINAMOUNT * PLACEMENT3_CS_PERCENTAGE / 100,
@@ -140,7 +140,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 				ExecutingPlayer = _executingPlayer,
 				DidPlayerQuit = false,
 				GamePlayerCount = _matchData.Count
-			}, 5, out _);
+			}, out _);
 
 			Assert.AreEqual(1, rewards.Count);
 		}
@@ -155,7 +155,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 				ExecutingPlayer = _executingPlayer,
 				DidPlayerQuit = true,
 				GamePlayerCount = _matchData.Count
-			}, 5, out _);
+			}, out _);
 
 			Assert.AreEqual(1, rewards.Count);
 		}
@@ -171,7 +171,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 				ExecutingPlayer = _executingPlayer,
 				DidPlayerQuit = false,
 				GamePlayerCount = _matchData.Count
-			}, 5, out _);
+			}, out _);
 
 			Assert.AreEqual(0, rewards.Count);
 		}
@@ -187,7 +187,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 				ExecutingPlayer = _executingPlayer,
 				DidPlayerQuit = false,
 				GamePlayerCount = _matchData.Count
-			}, 5, out _);
+			}, out _);
 
 			Assert.AreEqual(1, rewards.Count);
 			Assert.AreEqual(PLACEMENT1_BPP, rewards.Find(data => data.RewardId == GameId.BPP).Value);
@@ -205,7 +205,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 					ExecutingPlayer = 0,
 					DidPlayerQuit = false,
 					GamePlayerCount = 0
-				}, 5, out _);
+				}, out _);
 			});
 		}
 
@@ -289,7 +289,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			ResourceLogic.GetResourcePoolInfo(GameId.BPP).Returns(resourceInfoBPP);
 		}
 
-		private void SetPlayerRank(int rank, int totalPlayers)
+		private void SetPlayerRank(int rank, int totalPlayers, byte collectedNfts = 5)
 		{
 			Debug.Assert(totalPlayers >= rank);
 			Debug.Assert(rank >= 1);
@@ -300,7 +300,11 @@ namespace FirstLight.Tests.EditorMode.Logic
 			{
 				_matchData.Add(new QuantumPlayerMatchData
 				{
-					PlayerRank = (uint) i
+					PlayerRank = (uint) i,
+					Data = new PlayerMatchData()
+					{
+						CollectedOwnedNfts = collectedNfts
+					}
 				});
 
 				_executingPlayer = rank - 1;

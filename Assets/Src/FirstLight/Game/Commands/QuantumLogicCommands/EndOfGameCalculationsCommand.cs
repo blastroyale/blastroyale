@@ -18,7 +18,6 @@ namespace FirstLight.Game.Commands
 		public List<QuantumPlayerMatchData> PlayersMatchData;
 		public QuantumValues QuantumValues;
 		public bool ValidRewardsFromFrame = true;
-		public uint CollectedNFTsCount = 0;
 
 		public CommandAccessLevel AccessLevel() => CommandAccessLevel.Service;
 
@@ -43,7 +42,8 @@ namespace FirstLight.Game.Commands
 				DidPlayerQuit = false,
 				GamePlayerCount = matchData.Count
 			};
-			var rewards = ctx.Logic.RewardLogic().GiveMatchRewards(rewardSource, CollectedNFTsCount, out var trophyChange);
+			var playerMatchData = matchData[QuantumValues.ExecutingPlayer];
+			var rewards = ctx.Logic.RewardLogic().GiveMatchRewards(rewardSource, out var trophyChange);
 
 			ctx.Services.MessageBrokerService().Publish(new GameCompletedRewardsMessage
 			{
@@ -56,28 +56,8 @@ namespace FirstLight.Game.Commands
 		public void FromFrame(Frame frame, QuantumValues quantumValues)
 		{
 			var gameContainer = frame.GetSingleton<GameContainer>();
-			var playerEntity = gameContainer.PlayersData[quantumValues.ExecutingPlayer].Entity;
-			var collectedEquipment = frame.Get<PlayerCharacter>(playerEntity).Gear;
-			var gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
-			var nftLoadout = gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.NftOnly);
-			var collectedNftsCount = 0u;
-			
-			// We count how many NFTs from their loadout a player has collected in a match
-			for (var i = 0; i < collectedEquipment.Length; i++)
-			{
-				for (var j = 0; i < nftLoadout.Count; j++)
-				{
-					if (collectedEquipment[i].GameId == nftLoadout[j].Equipment.GameId)
-					{
-						collectedNftsCount++;
-						break;
-					}
-				}
-			}
-			
 			PlayersMatchData = gameContainer.GetPlayersMatchData(frame, out _);
 			QuantumValues = quantumValues;
-			CollectedNFTsCount = collectedNftsCount;
 
 			if (!frame.Context.GameModeConfig.AllowEarlyRewards && !gameContainer.IsGameCompleted &&
 				!gameContainer.IsGameOver)

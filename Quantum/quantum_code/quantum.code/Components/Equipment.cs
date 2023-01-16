@@ -13,12 +13,12 @@ namespace Quantum
 		{
 			GameIdGroup.Amulet, GameIdGroup.Armor, GameIdGroup.Shield, GameIdGroup.Helmet, GameIdGroup.Weapon
 		};
-		
+
 		/// <summary>
 		/// An invalid piece of equipment
 		/// </summary>
 		public static Equipment None => new Equipment();
-		
+
 		/// <summary>
 		/// The default equipment weapon <see cref="GameId"/>
 		/// </summary>
@@ -33,18 +33,18 @@ namespace Quantum
 		/// Creates a new Equipment item with default (lowest) values, unless otherwise defined.
 		/// </summary>
 		public Equipment(GameId gameId,
-		                 EquipmentEdition edition = EquipmentEdition.Genesis,
-		                 EquipmentRarity rarity = EquipmentRarity.Common,
-		                 EquipmentGrade grade = EquipmentGrade.GradeV,
-		                 EquipmentFaction faction = EquipmentFaction.Order,
-		                 EquipmentAdjective adjective = EquipmentAdjective.Regular,
-		                 EquipmentMaterial material = EquipmentMaterial.Plastic,
+						 EquipmentEdition edition = EquipmentEdition.Genesis,
+						 EquipmentRarity rarity = EquipmentRarity.Common,
+						 EquipmentGrade grade = EquipmentGrade.GradeV,
+						 EquipmentFaction faction = EquipmentFaction.Order,
+						 EquipmentAdjective adjective = EquipmentAdjective.Regular,
+						 EquipmentMaterial material = EquipmentMaterial.Plastic,
 						 uint maxDurability = 4,
 						 uint initialReplicationCounter = 0,
-		                 uint tuning = 0,
-		                 uint level = 1,
-		                 uint generation = 0,
-		                 uint replicationCounter = 0,
+						 uint tuning = 0,
+						 uint level = 1,
+						 uint generation = 0,
+						 uint replicationCounter = 0,
 						 uint totalRestoredDurability = 0,
 						 long lastRepairTimestamp = 0)
 		{

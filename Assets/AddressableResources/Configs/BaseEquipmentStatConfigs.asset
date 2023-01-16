@@ -35,7 +35,7 @@ MonoBehaviour:
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 49435
+        RawValue: 44040
     - Id: 38
       Manufacturer: 4
       HpRatioToBase:
@@ -53,7 +53,7 @@ MonoBehaviour:
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 42373
+        RawValue: 37749
     - Id: 39
       Manufacturer: 3
       HpRatioToBase:
@@ -71,7 +71,7 @@ MonoBehaviour:
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 44727
+        RawValue: 39846
     - Id: 40
       Manufacturer: 0
       HpRatioToBase:
@@ -89,7 +89,7 @@ MonoBehaviour:
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 58263
+        RawValue: 51905
     - Id: 41
       Manufacturer: 6
       HpRatioToBase:
@@ -107,7 +107,7 @@ MonoBehaviour:
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 47081
+        RawValue: 41943
     - Id: 42
       Manufacturer: 4
       HpRatioToBase:
@@ -125,7 +125,7 @@ MonoBehaviour:
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 44727
+        RawValue: 39846
     - Id: 29
       Manufacturer: 5
       HpRatioToBase:
@@ -143,7 +143,7 @@ MonoBehaviour:
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 48847
+        RawValue: 43516
     - Id: 43
       Manufacturer: 3
       HpRatioToBase:
@@ -161,7 +161,7 @@ MonoBehaviour:
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 45904
+        RawValue: 40894
     - Id: 44
       Manufacturer: 0
       HpRatioToBase:
@@ -179,7 +179,7 @@ MonoBehaviour:
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 51789
+        RawValue: 46137
     - Id: 45
       Manufacturer: 6
       HpRatioToBase:
@@ -197,7 +197,7 @@ MonoBehaviour:
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 47670
+        RawValue: 42467
     - Id: 34
       Manufacturer: 7
       HpRatioToBase:
@@ -215,7 +215,7 @@ MonoBehaviour:
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 41196
+        RawValue: 36700
     - Id: 35
       Manufacturer: 7
       HpRatioToBase:
@@ -233,7 +233,7 @@ MonoBehaviour:
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 47670
+        RawValue: 42467
     - Id: 27
       Manufacturer: 3
       HpRatioToBase:
@@ -251,7 +251,7 @@ MonoBehaviour:
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 46493
+        RawValue: 41419
     - Id: 52
       Manufacturer: 4
       HpRatioToBase:
@@ -269,7 +269,7 @@ MonoBehaviour:
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 44138
+        RawValue: 39322
     - Id: 53
       Manufacturer: 0
       HpRatioToBase:
@@ -287,7 +287,7 @@ MonoBehaviour:
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 56497
+        RawValue: 50332
     - Id: 54
       Manufacturer: 6
       HpRatioToBase:
@@ -305,7 +305,7 @@ MonoBehaviour:
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 48258
+        RawValue: 42992
     - Id: 36
       Manufacturer: 5
       HpRatioToBase:
@@ -323,7 +323,7 @@ MonoBehaviour:
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 50612
+        RawValue: 45089
     - Id: 50
       Manufacturer: 3
       HpRatioToBase:
@@ -341,7 +341,7 @@ MonoBehaviour:
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 42961
+        RawValue: 38273
     - Id: 23
       Manufacturer: 5
       HpRatioToBase:
@@ -359,7 +359,7 @@ MonoBehaviour:
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 48847
+        RawValue: 43516
     - Id: 32
       Manufacturer: 7
       HpRatioToBase:
@@ -377,7 +377,7 @@ MonoBehaviour:
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 42373
+        RawValue: 37749
     - Id: 33
       Manufacturer: 7
       HpRatioToBase:
@@ -395,7 +395,7 @@ MonoBehaviour:
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 54732
+        RawValue: 48759
     - Id: 24
       Manufacturer: 4
       HpRatioToBase:
@@ -413,7 +413,7 @@ MonoBehaviour:
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 42961
+        RawValue: 38273
     - Id: 49
       Manufacturer: 0
       HpRatioToBase:
@@ -431,7 +431,7 @@ MonoBehaviour:
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 56497
+        RawValue: 50332
     - Id: 51
       Manufacturer: 6
       HpRatioToBase:
@@ -449,7 +449,7 @@ MonoBehaviour:
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 45316
+        RawValue: 40370
     - Id: 30
       Manufacturer: 7
       HpRatioToBase:
@@ -467,7 +467,7 @@ MonoBehaviour:
       AmmoCapacityRatioToBase:
         RawValue: 0
       ShieldCapacityRatioToBase:
-        RawValue: 48258
+        RawValue: 42992
     - Id: 31
       Manufacturer: 0
       HpRatioToBase:

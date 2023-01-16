@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using FirstLight.FLogger;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
@@ -15,6 +16,7 @@ using PlayFab;
 using PlayFab.ClientModels;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.UIElements.Experimental;
 
 namespace FirstLight.Game.Presenters
 {
@@ -38,6 +40,7 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _leaderboardPanel;
 		private VisualElement _fixedLocalPlayerHolder;
 		private ScreenHeaderElement _header;
+		private VisualElement _loadingSpinner;
 
 		private IGameServices _services;
 		private IGameDataProvider _dataProvider;
@@ -47,6 +50,7 @@ namespace FirstLight.Game.Presenters
 
 		private int _localPlayerPos = -1;
 
+		private Tween spinnerTween;
 		private readonly Dictionary<VisualElement, LeaderboardEntryView> _leaderboardEntryMap = new();
 		private readonly List<PlayerLeaderboardEntry> _playfabLeaderboardEntries = new();
 
@@ -72,9 +76,13 @@ namespace FirstLight.Game.Presenters
 			_fixedLocalPlayerHolder = root.Q<VisualElement>("FixedLocalPlayerHolder").Required();
 			_leaderboardPanel = root.Q<VisualElement>("LeaderboardPanel").Required();
 			_leaderboardListView = root.Q<ListView>("LeaderboardList").Required();
+			_loadingSpinner = root.Q<VisualElement>("LoadingSpinner").Required();
 
+			
 			_leaderboardListView.DisableScrollbars();
 
+			SetupSpinner();
+			
 			_leaderboardListView.makeItem = CreateLeaderboardEntry;
 			_leaderboardListView.bindItem = BindLeaderboardEntry;
 			root.SetupClicks(_services);
@@ -110,6 +118,8 @@ namespace FirstLight.Game.Presenters
 #else
 			OpenOnLeaderboardRequestErrorPopup(error);
 #endif
+			HideSpinner();
+			
 			Data.OnBackClicked();
 		}
 
@@ -145,6 +155,8 @@ namespace FirstLight.Game.Presenters
 
 		private void OnLeaderboardTopRanksReceived(GetLeaderboardResult result)
 		{
+			HideSpinner();
+			
 			var resultPos = result.Leaderboard.Count < GameConstants.Network.LEADERBOARD_TOP_RANK_AMOUNT
 				? result.Leaderboard.Count
 				: GameConstants.Network.LEADERBOARD_TOP_RANK_AMOUNT;
@@ -217,6 +229,23 @@ namespace FirstLight.Game.Presenters
 			}
 
 			_leaderboardListView.SetVisibility(true);
+		}
+
+		void SetupSpinner()
+		{
+			_loadingSpinner.AddToClassList("spinner--rotating");
+			spinnerTween = DOTween.To(() 
+						=> _loadingSpinner.worldTransform.rotation.eulerAngles, 
+					x => _loadingSpinner.transform.rotation = Quaternion.Euler(x), 
+					new Vector3(0, 0, 360), 1f)
+				.SetEase(Ease.Linear).SetLoops(-1);
+		}
+
+		void HideSpinner()
+		{
+			_loadingSpinner.RemoveFromClassList("spinner--rotating");
+
+			spinnerTween.Kill();
 		}
 	}
 }

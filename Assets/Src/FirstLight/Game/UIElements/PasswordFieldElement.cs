@@ -26,8 +26,7 @@ namespace FirstLight.Game.UIElements
 		public new class UxmlFactory : UxmlFactory<PasswordFieldElement, UxmlTraits>
 		{
 		}
-
-
+		
 		public new class UxmlTraits : LocalizedTextField.UxmlTraits
 		{
 			public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)

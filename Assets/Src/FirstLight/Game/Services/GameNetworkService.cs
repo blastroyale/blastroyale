@@ -63,10 +63,31 @@ namespace FirstLight.Game.Services
 		void DisconnectPhoton();
 
 		/// <summary>
+		/// Updates the spectator status in custom player properties
+		/// </summary>
+		/// <param name="isSpectator">Is player the spectator</param>
+		void SetSpectatePlayerProperty(bool isSpectator);
+
+		/// <summary>
+		/// Sets the current room <see cref="Room.IsOpen"/> property, which sets whether it can be joined or not
+		/// </summary>
+		void SetCurrentRoomOpen(bool isOpen);
+		
+		/// <summary>
+		/// Requests the current room that the local player is in
+		/// </summary>
+		Room CurrentRoom { get; }
+		
+		/// <summary>
+		/// Requests the local player in <see cref="QuantumClient"/>
+		/// </summary>
+		Player LocalPlayer { get; }
+
+		/// <summary>
 		/// Updates/Adds Photon LocalPlayer custom properties
 		/// </summary>
 		/// <param name="propertiesToUpdate">Hashtable of properties to add/update for the player</param>
-		void UpdatePlayerCustomProperties(Hashtable propertiesToUpdate);
+		void SetPlayerCustomProperties(Hashtable propertiesToUpdate);
 		
 		/// <summary>
 		/// Requests the user unique ID for this device
@@ -105,12 +126,11 @@ namespace FirstLight.Game.Services
 		QuantumRunnerConfigs QuantumRunnerConfigs { get; }
 		
 		/// <inheritdoc cref="QuantumLoadBalancingClient" />
+		/// <remarks>Please do not call functions directly from this.
+		/// <para>If needs be, implement them inside the service and call those.</para>
+		/// <para>This can't be made private because it's used to add callback targets,
+		/// has a lot of utils and useful code. Just don't abuse it.</para></remarks>
 		QuantumLoadBalancingClient QuantumClient { get; }
-		
-		/// <summary>
-		/// Requests the information if the current client is a spectator player just watching the match
-		/// </summary>
-		bool IsSpectorPlayer { get; }
 
 		/// <summary>
 		/// Requests the current <see cref="QuantumMapConfig"/> for the map set on the current connected room.
@@ -186,7 +206,6 @@ namespace FirstLight.Game.Services
 		public IObservableField<LastDisconnectionLocation> LastDisconnectLocation { get; }
 		public IObservableField<string> LastConnectedRoomName { get; }
 		public QuantumLoadBalancingClient QuantumClient { get; }
-		public bool IsSpectorPlayer => QuantumClient.LocalPlayer.IsSpectator();
 		private IObservableField<bool> HasLag { get; }
 		
 		string IGameNetworkService.UserId => UserId.Value;
@@ -327,8 +346,17 @@ namespace FirstLight.Game.Services
 				QuantumClient.ReconnectToMaster();
 			}
 		}
-		
-		public void UpdatePlayerCustomProperties(Hashtable propertiesToUpdate)
+
+		public void SetCurrentRoomOpen(bool isOpen)
+		{
+			CurrentRoom.IsOpen = isOpen;
+		}
+
+		public Room CurrentRoom => QuantumClient.CurrentRoom;
+
+		public Player LocalPlayer => QuantumClient.LocalPlayer;
+
+		public void SetPlayerCustomProperties(Hashtable propertiesToUpdate)
 		{
 			QuantumClient.LocalPlayer.SetCustomProperties(propertiesToUpdate);
 		}
@@ -337,12 +365,14 @@ namespace FirstLight.Game.Services
 		{
 			var playerPropsUpdate = new Hashtable
 			{
-				{GameConstants.Network.PLAYER_PROPS_SPECTATOR, isSpectator}
+				{
+					GameConstants.Network.PLAYER_PROPS_SPECTATOR, isSpectator
+				}
 			};
 
-			_services.NetworkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
+			SetPlayerCustomProperties(playerPropsUpdate);
 		}
-		
+
 		public void CheckLag()
 		{
 			var newRtt = QuantumClient.LoadBalancingPeer.LastRoundTripTime;

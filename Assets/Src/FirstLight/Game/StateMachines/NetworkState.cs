@@ -285,7 +285,7 @@ namespace FirstLight.Game.StateMachines
 			FLog.Info("OnDisconnected " + cause);
 
 			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Disconnection,
-			                                                   _services.NetworkService.QuantumClient.DisconnectedCause
+			                                                   _networkService.QuantumClient.DisconnectedCause
 			                                                            .ToString());
 
 			_statechartTrigger(PhotonDisconnectedEvent);
@@ -520,12 +520,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void SetSpectatePlayerProperty(bool isSpectator)
 		{
-			var playerPropsUpdate = new Hashtable
-			{
-				{GameConstants.Network.PLAYER_PROPS_SPECTATOR, isSpectator}
-			};
-
-			_services.NetworkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
+			_networkService.SetSpectatePlayerProperty(isSpectator);
 		}
 		
 		private void OnRequestKickPlayerMessage(RequestKickPlayerMessage msg)
@@ -637,7 +632,7 @@ namespace FirstLight.Game.StateMachines
 				}
 			};
 
-			_services.NetworkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
+			_networkService.SetPlayerCustomProperties(playerPropsUpdate);
 		}
 
 		private void OnAllMatchAssetsLoaded(AllMatchAssetsLoadedMessage msg)
@@ -647,7 +642,7 @@ namespace FirstLight.Game.StateMachines
 				{GameConstants.Network.PLAYER_PROPS_ALL_LOADED, true}
 			};
 
-			_services.NetworkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
+			_networkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
 		}
 
 		private void OnAssetReloadRequiredMessage(AssetReloadRequiredMessage msg)
@@ -658,7 +653,7 @@ namespace FirstLight.Game.StateMachines
 				{GameConstants.Network.PLAYER_PROPS_ALL_LOADED, false}
 			};
 
-			_services.NetworkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
+			_networkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
 		}
 		
 		private void OnApplicationQuit(ApplicationQuitMessage data)
@@ -777,11 +772,9 @@ namespace FirstLight.Game.StateMachines
 
 		private void LockRoom()
 		{
-			var room = _networkService?.QuantumClient?.CurrentRoom;
-
-			if (room != null && room.IsOpen)
+			if (_networkService.CurrentRoom != null && _networkService.CurrentRoom.IsOpen)
 			{
-				room.IsOpen = false;
+				_networkService.SetCurrentRoomOpen(false);
 			}
 		}
 
@@ -860,6 +853,7 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
+		// TODO - MOVE TO QUANTUM GAME CONFIGS
 		private Vector3 GetRandomDropzonePosRot()
 		{
 			var radiusPosPercent = GameConstants.Balance.MAP_DROPZONE_POS_RADIUS_PERCENT;

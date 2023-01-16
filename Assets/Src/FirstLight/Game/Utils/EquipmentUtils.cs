@@ -17,11 +17,11 @@ namespace FirstLight.Game.Utils
 		{
 			var tags = new List<string>
 			{
-				info.Equipment.Edition.ToString().ToUpperInvariant(),
-				info.Equipment.Material.ToString().ToUpperInvariant(),
-				info.Equipment.Faction.ToString().ToUpperInvariant(),
-				info.Equipment.Grade.ToString().ToUpperInvariant(),
-				info.Manufacturer.ToString().ToUpperInvariant(),
+				info.Equipment.Edition.GetLocalization(),
+				info.Equipment.Material.GetLocalization(),
+				info.Equipment.Faction.GetLocalization(),
+				info.Equipment.Grade.GetLocalization(),
+				info.Manufacturer.GetLocalization(),
 				string.Format(ScriptLocalization.UITEquipment.replicated_count, info.Equipment.ReplicationCounter,
 					info.Equipment.InitialReplicationCounter)
 			};

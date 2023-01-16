@@ -225,7 +225,7 @@ namespace FirstLight.Game.Presenters
 				var mapConfig = _services.ConfigsProvider.GetConfig<QuantumMapConfig>((int) mapId);
 				if (!mapConfig.IsTestMap || Debug.isDebugBuild)
 				{
-					_mapSelection.options.Add(new MapDropdownMenuOption(mapId.GetTranslation(), mapConfig));
+					_mapSelection.options.Add(new MapDropdownMenuOption(mapId.GetLocalization(), mapConfig));
 				}
 			}
 

@@ -118,7 +118,6 @@ namespace FirstLight.Game.Presenters
 			_special1Tag = root.Q("Special1Tag").Required();
 			_special1Icon = _special1Tag.Q<VisualElement>("Icon").Required();
 
-
 			_durabilityBar = root.Q("DurabilityProgress").Required();
 			_durabilityAmount = root.Q<Label>("DurabilityAmount").Required();
 
@@ -266,7 +265,7 @@ namespace FirstLight.Game.Presenters
 			// Title
 			_equipmentName.text = string.Format(ScriptLocalization.UITEquipment.equipment_details_title,
 				string.Format(ADJECTIVE_LOC_KEY, info.Equipment.Adjective.ToString().ToLowerInvariant()).LocalizeKey(),
-				info.Equipment.GameId.GetTranslation(),
+				info.Equipment.GameId.GetLocalization(),
 				info.Equipment.Level);
 
 			// Durability
@@ -305,11 +304,11 @@ namespace FirstLight.Game.Presenters
 			{
 				var special0ID = (GameId) special0;
 				_special0Tag.style.display = DisplayStyle.Flex;
-				
+
 				_special0Icon.RemoveSpriteClasses();
 				_special0Icon.AddToClassList(string.Format(UssSpriteSpecial,
 					special0ID.ToString().Replace("Special", "").ToLowerInvariant()));
-				_special0Tag.Q<Label>("Title").text = special0ID.GetTranslation();
+				_special0Tag.Q<Label>("Title").text = special0ID.GetLocalization();
 			}
 
 			_special1Tag.style.display = DisplayStyle.None;
@@ -318,11 +317,11 @@ namespace FirstLight.Game.Presenters
 			{
 				var special1ID = (GameId) special1;
 				_special1Tag.style.display = DisplayStyle.Flex;
-				
+
 				_special1Icon.RemoveSpriteClasses();
 				_special1Icon.AddToClassList(string.Format(UssSpriteSpecial,
 					special1ID.ToString().Replace("Special", "").ToLowerInvariant()));
-				_special1Tag.Q<Label>("Title").text = special1ID.GetTranslation();
+				_special1Tag.Q<Label>("Title").text = special1ID.GetLocalization();
 			}
 
 			// Prices

@@ -18,6 +18,6 @@
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
         <FirstLight.Game.UIElements.ScreenHeaderElement focusable="false" title-key="UITLeaderboards/global_leaderboard" name="Header" />
-        <ui:IMGUIContainer name="LoadingSpinner" class="spinner" />
+        <FirstLight.Game.UIElements.AnimatedImageElement name="LoadingSpinner" rotations-per-second="1" class="load-status-holder__loading-icon loading-spinner spinner" />
     </ui:VisualElement>
 </ui:UXML>

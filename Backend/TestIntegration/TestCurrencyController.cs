@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using GameLogicApp.Cloudscript.Models;
+using ServerCommon.Cloudscript.Models;
 using FirstLight.Game.Data;
 using NUnit.Framework;
 using FirstLight.Game.Infos;

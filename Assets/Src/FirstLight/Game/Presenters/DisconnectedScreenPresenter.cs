@@ -76,26 +76,11 @@ namespace FirstLight.Game.Presenters
 				_menuButton.SetDisplay(true);
 				_reconnectButton.SetDisplay(false);
 			}
-			// If disconnected in simulation:
-			// Solo matches - you currently cannot reconnect as quantum simulation is not running
-			// Multiplayer matches - you must only reconnect
+			// Disconnected in simulation - you can only reconnect
 			else if (_services.NetworkService.LastDisconnectLocation == LastDisconnectionLocation.Simulation)
 			{
 				_menuButton.SetDisplay(_services.NetworkService.LastMatchPlayers.Count <= 1);
 				_reconnectButton.SetDisplay(true);
-
-				if (_services.NetworkService.LastMatchPlayers.Count <= 1)
-				{
-					var confirmButton = new GenericDialogButton
-					{
-						ButtonText = ScriptLocalization.General.OK,
-						ButtonOnClick = () => _services.GenericDialogService.CloseDialog()
-					};
-
-					_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.info,
-						ScriptLocalization.MainMenu.DisconnectedMatchEndInfo,
-						false, confirmButton);
-				}
 			}
 		}
 

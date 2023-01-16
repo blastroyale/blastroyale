@@ -23,6 +23,7 @@ namespace FirstLight.Game.Configs
 		public FP MaxTakeDecreaseModifier;
 		public FP TakeDecreaseExponent;
 		public FP PoolCapacityTrophiesModifier;
+		public FP TakeTrophiesModifier;
 	}
 
 	/// <summary>

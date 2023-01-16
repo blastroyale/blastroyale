@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using FirstLight.FLogger;
 using FirstLight.Game.Data;
 using FirstLight.Game.Services;
 using FirstLight.Services;
@@ -80,6 +81,8 @@ namespace FirstLight.Game.Services
 				SnapshotBytes = callback.Game.Frames.Verified.Serialize(DeterministicFrameSerializeMode.Blit),
 				SnapshotNumber = callback.Game.Frames.Verified.Number
 			};
+			
+			FLog.Info("$Frame snapshot captured - callback.Game.Frames.Verified.Number");
 		}
 	}
 }

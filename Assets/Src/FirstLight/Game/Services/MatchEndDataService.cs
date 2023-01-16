@@ -1,19 +1,15 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using FirstLight.Game.Commands;
 using FirstLight.Game.Data.DataTypes;
-using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
 using Quantum;
-using UnityEngine;
 
 namespace FirstLight.Game.Services
 {
 	/// <summary>
-	/// Service that holds all the data from the match to be used once the simulation is over. It's only updated when the game is over.
+	/// Service that holds all the data from the match to be used once the simulation is over.
 	/// </summary>
 	public interface IMatchEndDataService
 	{
@@ -32,6 +28,11 @@ namespace FirstLight.Game.Services
 		/// LocalPlayer at the end of the game. Will be PlayerRef.None if we're spectators
 		/// </summary>
 		PlayerRef LocalPlayer { get; }
+		
+		/// <summary>
+		/// LocalPlayer at the end of the game. Will be PlayerRef.None if we're spectators
+		/// </summary>
+		QuantumPlayerMatchData LocalPlayerMatchData { get; }
 		
 		/// <summary>
 		/// Player that killed the local player. Will have a value if the player was killed.
@@ -106,6 +107,9 @@ namespace FirstLight.Game.Services
 		public bool ShowUIStandingsExtraInfo { get; private set; }
 		/// <inheritdoc />
 		public PlayerRef LocalPlayer { get; private set; }
+
+		public QuantumPlayerMatchData LocalPlayerMatchData { get; private set; }
+
 		/// <inheritdoc />
 		public PlayerRef LocalPlayerKiller { get; private set; }
 
@@ -147,6 +151,13 @@ namespace FirstLight.Game.Services
 			LocalPlayerKiller = PlayerRef.None;
 
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
+			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
+		}
+
+		private void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
+		{
+			LocalPlayerMatchData =
+				callback.PlayersMatchData.Find(data => callback.Game.PlayerIsLocal(data.Data.Player));
 		}
 
 		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)
@@ -161,6 +172,9 @@ namespace FirstLight.Game.Services
 			{
 				return;
 			}
+			
+			QuantumEvent.UnsubscribeListener<EventOnLocalPlayerDead>(this);
+			QuantumEvent.UnsubscribeListener<EventOnPlayerKilledPlayer>(this);
 			
 			var frame = game.Frames.Verified;
 			var gameContainer = frame.GetSingleton<GameContainer>();
@@ -180,6 +194,11 @@ namespace FirstLight.Game.Services
 				var weapon = playerRuntimeData?.Weapon ?? default;
 				var loadout = playerRuntimeData?.Loadout.ToList() ?? new List<Equipment>();
 				var playerData = new PlayerMatchData(quantumPlayerData.Data.Player, quantumPlayerData, weapon, loadout);
+
+				if (game.PlayerIsLocal(playerData.PlayerRef))
+				{
+					LocalPlayerMatchData = quantumPlayerData;
+				}
 				
 				PlayerMatchData.Add(playerData.PlayerRef, playerData);
 			}

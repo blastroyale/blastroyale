@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace ServerShared.Authentication.ApiKey
+namespace ServerCommon.Authentication.ApiKey
 {
 	/// <summary>
 	/// Controller decorator to determine that all services of the given controller requires the PlayFab secret

@@ -33,7 +33,7 @@ namespace FirstLight.Game.StateMachines
 	/// <summary>
 	/// This object contains the behaviour logic for the Network State and communication with Quantum servers in the <seealso cref="GameStateMachine"/>
 	/// </summary>
-	public class NetworkState : IConnectionCallbacks, IMatchmakingCallbacks, IInRoomCallbacks, IOnEventCallback
+	public class NetworkState : IConnectionCallbacks, IMatchmakingCallbacks, IInRoomCallbacks, ILobbyCallbacks, IOnEventCallback
 	{
 		public static readonly IStatechartEvent PhotonMasterConnectedEvent = new StatechartEvent("NETWORK - Photon Master Connected Event");
 		public static readonly IStatechartEvent PhotonDisconnectedEvent = new StatechartEvent("NETWORK - Photon Disconnected Event");
@@ -484,6 +484,26 @@ namespace FirstLight.Game.StateMachines
 		{
 			FLog.Info("OnFriendListUpdate " + friendList.Count);
 		}
+		
+		public void OnJoinedLobby()
+		{
+			FLog.Info("OnJoinedLobby");
+		}
+
+		public void OnLeftLobby()
+		{
+			FLog.Info("OnLeftLobby");
+		}
+
+		public void OnRoomListUpdate(List<RoomInfo> roomList)
+		{
+			FLog.Info("OnRoomListUpdate");
+		}
+
+		public void OnLobbyStatisticsUpdate(List<TypedLobbyInfo> lobbyStatistics)
+		{
+			FLog.Info("OnLobbyStatisticsUpdate");
+		}
 
 		private void OnRoomLockClicked(RoomLockClickedMessage message)
 		{
@@ -614,7 +634,9 @@ namespace FirstLight.Game.StateMachines
 		{
 			var playerPropsUpdate = new Hashtable
 			{
-				{GameConstants.Network.PLAYER_PROPS_CORE_LOADED, true}
+				{
+					GameConstants.Network.PLAYER_PROPS_CORE_LOADED, true
+				}
 			};
 
 			_services.NetworkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
@@ -832,11 +854,6 @@ namespace FirstLight.Game.StateMachines
 					// TTL during matchmaking is 0 - we must connect to room manually again by name
 					// Rejoining room is handled OnMasterConnected
 					_requiresManualRoomReconnection = true;
-					_networkService.QuantumClient.ReconnectToMaster();
-				}
-				else if(_services.NetworkService.LastMatchPlayers.Count == 1)
-				{
-					// We don't want to reconnect back to solo rooms - they don't work currently for resyncs
 					_networkService.QuantumClient.ReconnectToMaster();
 				}
 				else

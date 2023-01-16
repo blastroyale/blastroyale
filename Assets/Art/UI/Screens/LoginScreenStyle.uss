@@ -9,7 +9,7 @@
     background-color: rgba(0, 0, 0, 0);
 }
 
-.container__or_text {
+.container__or-text {
     color: rgb(122, 118, 167);
     font-size: 30px;
     margin-bottom: 8px;

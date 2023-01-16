@@ -1,5 +1,4 @@
 using UnityEngine.UIElements;
-
 namespace FirstLight.Game.UIElements
 {
 	/// <summary>
@@ -14,16 +13,10 @@ namespace FirstLight.Game.UIElements
 
 		public PasswordFieldElement()
 		{
-			RegisterCallback(new EventCallback<AttachToPanelEvent>(OnAttachToPanel));
 			Add(_viewHideButton = new ImageButton(OnViewHideClicked) { name = "view-hide-button" });
 			_viewHideButton.AddToClassList(UssViewHideButton);
 		}
-
-		private void OnAttachToPanel(AttachToPanelEvent evt)
-		{
-			isPasswordField = true;
-		}
-
+		
 		private void OnViewHideClicked()
 		{
 			_viewHideButton.ToggleInClassList(UssViewHideButtonShow);
@@ -32,6 +25,16 @@ namespace FirstLight.Game.UIElements
 
 		public new class UxmlFactory : UxmlFactory<PasswordFieldElement, UxmlTraits>
 		{
+		}
+
+
+		public new class UxmlTraits : LocalizedTextField.UxmlTraits
+		{
+			public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
+			{
+				base.Init(ve, bag, cc);
+				((PasswordFieldElement) ve).isPasswordField = true;
+			}
 		}
 	}
 }

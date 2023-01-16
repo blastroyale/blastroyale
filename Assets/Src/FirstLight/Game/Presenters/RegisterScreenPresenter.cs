@@ -55,7 +55,6 @@ namespace FirstLight.Game.Presenters
 
 		private void OnLoginClicked()
 		{
-			Debug.LogWarning("LoginFlgButton clicked");
 			Data.GoToLoginClicked();
 		}
 

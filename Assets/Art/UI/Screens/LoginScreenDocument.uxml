@@ -7,7 +7,7 @@
             <ui:VisualElement class="button-flat-outline">
                 <FirstLight.Game.UIElements.LocalizedButton localization-key="UITLoginRegister/login" name="LoginButton" class="button-flat button-flat--primary login-button" />
             </ui:VisualElement>
-            <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITShared/or" class="container__or_text" />
+            <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITShared/or" class="container__or-text" />
             <ui:VisualElement class="button-flat-outline">
                 <FirstLight.Game.UIElements.LocalizedButton localization-key="UITLoginRegister/register_fl_id" name="RegisterButton" class="button-flat button-flat--secondary register-button" />
             </ui:VisualElement>

@@ -234,18 +234,12 @@ namespace FirstLight.Game.Presenters
 		void SetupSpinner()
 		{
 			_loadingSpinner.AddToClassList("spinner--rotating");
-			spinnerTween = DOTween.To(() 
-						=> _loadingSpinner.worldTransform.rotation.eulerAngles, 
-					x => _loadingSpinner.transform.rotation = Quaternion.Euler(x), 
-					new Vector3(0, 0, 360), 1f)
-				.SetEase(Ease.Linear).SetLoops(-1);
 		}
 
 		void HideSpinner()
 		{
 			_loadingSpinner.RemoveFromClassList("spinner--rotating");
 
-			spinnerTween.Kill();
 		}
 	}
 }

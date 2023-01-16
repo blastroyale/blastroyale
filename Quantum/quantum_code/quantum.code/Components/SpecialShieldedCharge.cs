@@ -106,9 +106,18 @@ namespace Quantum
 
 			foreach (var collectableEntity in list)
 			{
-				f.Unsafe.TryGetPointer<Collectable>(collectableEntity, out var collectable);
-					
-				if (!collectable->IsCollecting(playerCharacter.Player)) return;
+				if (!f.Unsafe.TryGetPointer<Collectable>(collectableEntity, out var collectable))
+				{
+					// TODO: Send a warning here. Shouldn't happen. If happens, then we added collectable somewhere to a list and didn't remove it
+					continue;
+				}
+
+				if (!collectable->IsCollecting(playerCharacter.Player))
+				{
+					// This is an ok situation as we can stand in the collectable but don't collect it
+					// if we have max value of whatever this collectable gives to us
+					continue;
+				}
 
 				collectable->CollectorsEndTime[playerCharacter.Player] = FP._0;
 				

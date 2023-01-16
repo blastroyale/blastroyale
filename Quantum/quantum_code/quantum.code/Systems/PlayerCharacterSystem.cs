@@ -174,30 +174,30 @@ namespace Quantum.Systems
 
 		public void OnTriggerEnter3D(Frame f, TriggerInfo3D info)
 		{
-			if (!f.Has<Collectable>(info.Entity) ||
-				!f.Has<AlivePlayerCharacter>(info.Other) || !f.TryGet<PlayerCharacter>(info.Other, out var playerCharacter) ||
-				f.Has<EntityDestroyer>(info.Entity))
+			if (!f.Has<Collectable>(info.Other) ||
+				!f.Has<AlivePlayerCharacter>(info.Entity) || !f.TryGet<PlayerCharacter>(info.Entity, out var playerCharacter) ||
+				f.Has<EntityDestroyer>(info.Other))
 			{
 				return;
 			}
 
 			var list = f.ResolveHashSet(playerCharacter.Collecting);
 
-			list.Add(info.Entity);
+			list.Add(info.Other);
 		}
 
 		public void OnTriggerExit3D(Frame f, ExitInfo3D info)
 		{
-			if (!f.Has<Collectable>(info.Entity) ||
-				!f.Has<AlivePlayerCharacter>(info.Other) || f.TryGet<PlayerCharacter>(info.Other, out var playerCharacter) ||
-				f.Has<EntityDestroyer>(info.Entity))
+			if (!f.Has<Collectable>(info.Other) ||
+				!f.Has<AlivePlayerCharacter>(info.Entity) || !f.TryGet<PlayerCharacter>(info.Entity, out var playerCharacter) ||
+				f.Has<EntityDestroyer>(info.Other))
 			{
 				return;
 			}
 			
 			var list = f.ResolveHashSet(playerCharacter.Collecting);
 
-			list.Remove(info.Entity);
+			list.Remove(info.Other);
 		}
 
 		public void OnAdded(Frame f, EntityRef entity, PlayerCharacter* component)

@@ -90,7 +90,6 @@
 }
 
 .spinner {
-    display: none;
     background-image: var(--sprite-home__icon-spinner-thick);
     width: 68px;
     height: 68px;
@@ -99,6 +98,3 @@
     left: 50%;
 }
 
-.spinner--rotating {
-    display: flex;
-}

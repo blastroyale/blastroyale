@@ -50,7 +50,6 @@ namespace FirstLight.Game.Presenters
 
 		private int _localPlayerPos = -1;
 
-		private Tween spinnerTween;
 		private readonly Dictionary<VisualElement, LeaderboardEntryView> _leaderboardEntryMap = new();
 		private readonly List<PlayerLeaderboardEntry> _playfabLeaderboardEntries = new();
 
@@ -76,12 +75,12 @@ namespace FirstLight.Game.Presenters
 			_fixedLocalPlayerHolder = root.Q<VisualElement>("FixedLocalPlayerHolder").Required();
 			_leaderboardPanel = root.Q<VisualElement>("LeaderboardPanel").Required();
 			_leaderboardListView = root.Q<ListView>("LeaderboardList").Required();
-			_loadingSpinner = root.Q<VisualElement>("LoadingSpinner").Required();
+			_loadingSpinner = root.Q<AnimatedImageElement>("LoadingSpinner").Required();
 
 			
 			_leaderboardListView.DisableScrollbars();
 
-			SetupSpinner();
+			_loadingSpinner.SetDisplay(true);	
 			
 			_leaderboardListView.makeItem = CreateLeaderboardEntry;
 			_leaderboardListView.bindItem = BindLeaderboardEntry;
@@ -118,7 +117,7 @@ namespace FirstLight.Game.Presenters
 #else
 			OpenOnLeaderboardRequestErrorPopup(error);
 #endif
-			HideSpinner();
+			_loadingSpinner.SetDisplay(false);
 			
 			Data.OnBackClicked();
 		}
@@ -155,7 +154,7 @@ namespace FirstLight.Game.Presenters
 
 		private void OnLeaderboardTopRanksReceived(GetLeaderboardResult result)
 		{
-			HideSpinner();
+			_loadingSpinner.SetDisplay(false);
 			
 			var resultPos = result.Leaderboard.Count < GameConstants.Network.LEADERBOARD_TOP_RANK_AMOUNT
 				? result.Leaderboard.Count
@@ -238,6 +237,7 @@ namespace FirstLight.Game.Presenters
 
 		void HideSpinner()
 		{
+			_loadingSpinner.SetDisplay(false);
 			_loadingSpinner.RemoveFromClassList("spinner--rotating");
 
 		}

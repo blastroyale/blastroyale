@@ -65,8 +65,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Generate a list of rewards based on the players <paramref name="matchData"/> performance from a game completed
 		/// </summary>
-		List<RewardData> CalculateMatchRewards(RewardSource source,
-											   out int trophyChange);
+		List<RewardData> CalculateMatchRewards(RewardSource source, uint collectedNFTsCount, out int trophyChange);
 
 		/// <summary>
 		/// Check if the <see cref="UnclaimedRewards"/> list contains a reward that could
@@ -87,7 +86,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Generate a list of rewards based on the players <paramref name="RewardSource"/> performance from a game completed
 		/// </summary>
-		List<RewardData> GiveMatchRewards(RewardSource source, out int trophyChange);
+		List<RewardData> GiveMatchRewards(RewardSource source, uint collectedNFTsCount, out int trophyChange);
 
 		/// <summary>
 		/// Collects all the unclaimed rewards in the player's inventory
@@ -126,8 +125,7 @@ namespace FirstLight.Game.Logic
 			_unclaimedRewards = new ObservableList<RewardData>(Data.UncollectedRewards);
 		}
 
-		public List<RewardData> CalculateMatchRewards(RewardSource source,
-													  out int trophyChange)
+		public List<RewardData> CalculateMatchRewards(RewardSource source, uint collectedNFTsCount, out int trophyChange)
 		{
 			var rewards = new List<RewardData>();
 			var localMatchData = source.MatchData[source.ExecutingPlayer];
@@ -175,7 +173,7 @@ namespace FirstLight.Game.Logic
 
 			if (source.MatchType == MatchType.Ranked)
 			{
-				CalculateCSReward(rewards, rewardConfig);
+				CalculateCSReward(rewards, rewardConfig, collectedNFTsCount);
 				CalculateTrophiesReward(rewards, source.MatchData, localMatchData, rewardConfig, out trophyChange);
 			}
 
@@ -216,9 +214,9 @@ namespace FirstLight.Game.Logic
 		}
 
 		/// <inheritdoc />
-		public List<RewardData> GiveMatchRewards(RewardSource source, out int trophyChange)
+		public List<RewardData> GiveMatchRewards(RewardSource source, uint collectedNFTsCount, out int trophyChange)
 		{
-			var rewards = CalculateMatchRewards(source, out trophyChange);
+			var rewards = CalculateMatchRewards(source, collectedNFTsCount, out trophyChange);
 
 			foreach (var reward in rewards)
 			{
@@ -313,14 +311,16 @@ namespace FirstLight.Game.Logic
 			return new KeyValuePair<UniqueId, Equipment>(uniqueId, equipment);
 		}
 
-		private void CalculateCSReward(ICollection<RewardData> rewards, MatchRewardConfig rewardConfig)
+		private void CalculateCSReward(ICollection<RewardData> rewards, MatchRewardConfig rewardConfig, uint collectedNFTsCount)
 		{
 			var rewardPair = rewardConfig.Rewards.FirstOrDefault(x => x.Key == GameId.CS);
 			var percent = rewardPair.Value / 100d;
 			// rewardPair.Value is the absolute percent of the max take that people will be awarded
 
 			var info = GameLogic.ResourceLogic.GetResourcePoolInfo(GameId.CS);
-			var take = (uint) Math.Ceiling(info.WinnerRewardAmount * percent);
+			
+			var takeForCollectedItems = info.WinnerRewardAmount * collectedNFTsCount;
+			var take = (uint) Math.Ceiling(takeForCollectedItems * percent);
 			var withdrawn = (int) Math.Min(info.CurrentAmount, take);
 
 			if (withdrawn > 0)

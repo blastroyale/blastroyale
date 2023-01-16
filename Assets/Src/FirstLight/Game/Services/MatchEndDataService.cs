@@ -222,6 +222,25 @@ namespace FirstLight.Game.Services
 				return;
 			}
 
+			var playerEntity = gameContainer.PlayersData[LocalPlayer].Entity;
+			var collectedEquipment = frame.Get<PlayerCharacter>(playerEntity).Gear;
+			var gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
+			var nftLoadout = gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.NftOnly);
+			var collectedNftsCount = 0u;
+			
+			// We count how many NFTs from their loadout a player has collected in a match
+			for (var i = 0; i < collectedEquipment.Length; i++)
+			{
+				for (var j = 0; i < nftLoadout.Count; j++)
+				{
+					if (collectedEquipment[i].GameId == nftLoadout[j].Equipment.GameId)
+					{
+						collectedNftsCount++;
+						break;
+					}
+				}
+			}
+			
 			var predictedProgress = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints();
 			BPPBeforeChange = predictedProgress.Item2;
 			BPLevelBeforeChange = predictedProgress.Item1;
@@ -234,7 +253,7 @@ namespace FirstLight.Game.Services
 				DidPlayerQuit = false,
 				GamePlayerCount = QuantumPlayerMatchData.Count()
 			};
-			Rewards = _dataProvider.RewardDataProvider.CalculateMatchRewards(rewardSource, out var trophyChange);
+			Rewards = _dataProvider.RewardDataProvider.CalculateMatchRewards(rewardSource, collectedNftsCount, out var trophyChange);
 			TrophiesChange = trophyChange;
 		}
 

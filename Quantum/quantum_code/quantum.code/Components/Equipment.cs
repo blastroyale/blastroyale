@@ -33,12 +33,12 @@ namespace Quantum
 		/// Creates a new Equipment item with default (lowest) values, unless otherwise defined.
 		/// </summary>
 		public Equipment(GameId gameId,
-		                 EquipmentEdition edition = EquipmentEdition.Genesis,
-		                 EquipmentRarity rarity = EquipmentRarity.Common,
-		                 EquipmentGrade grade = EquipmentGrade.GradeV,
-		                 EquipmentFaction faction = EquipmentFaction.Order,
-		                 EquipmentAdjective adjective = EquipmentAdjective.Regular,
-		                 EquipmentMaterial material = EquipmentMaterial.Plastic,
+						 EquipmentEdition edition = EquipmentEdition.Genesis,
+						 EquipmentRarity rarity = EquipmentRarity.Common,
+						 EquipmentGrade grade = EquipmentGrade.GradeV,
+						 EquipmentFaction faction = EquipmentFaction.Order,
+						 EquipmentAdjective adjective = EquipmentAdjective.Regular,
+						 EquipmentMaterial material = EquipmentMaterial.Plastic,
 						 uint maxDurability = 4,
 						 uint initialReplicationCounter = 0,
 						 uint tuning = 0,

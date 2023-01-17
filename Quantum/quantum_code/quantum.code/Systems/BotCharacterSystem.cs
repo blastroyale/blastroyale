@@ -1035,9 +1035,20 @@ namespace Quantum.Systems
 				// TODO: Uncomment the old way of calculating trophies when we make Visual Trophies and Hidden Trophies
 				// var trophies = (uint) ((botsDifficulty * botsTrophiesStep) + 1000 + f.RNG->Next(-50, 50));
 				var trophies = (uint) (baseTrophiesAmount + f.RNG->Next(-50, 50));
-				
+
 				// TODO: Give bots random weapon based on median quality that players have
 				// TODO: Give bots random gear in their loadout initially based on median quality that players have
+
+				// array of test equipment for testing purposes
+/*				var equipmentRarity = EquipmentRarity.Rare;
+				var loadout = new Equipment[]
+				{
+					new Equipment(GameId.RiotHelmet, EquipmentEdition.Genesis, equipmentRarity),
+					new Equipment(GameId.RiotAmulet, EquipmentEdition.Genesis, equipmentRarity),
+					new Equipment(GameId.RiotArmor, EquipmentEdition.Genesis, equipmentRarity),
+					new Equipment(GameId.RiotShield, EquipmentEdition.Genesis, equipmentRarity),
+				};*/
+
 				playerCharacter->Init(f, botEntity, id, spawnerTransform, 1, trophies, botCharacter.Skin, 
 				                      botCharacter.DeathMarker, Array.Empty<Equipment>(), Equipment.None);
 			}

@@ -15,6 +15,16 @@ namespace Quantum
 		/// </summary>
 		public WeaponSlot* WeaponSlot => WeaponSlots.GetPointer(CurrentWeaponSlot);
 
+		public void OnAdded(Frame f)
+		{
+			Collecting = f.AllocateHashSet<EntityRef>();
+		}
+
+		public void OnRemoved(Frame f)
+		{
+			f.FreeHashSet(Collecting);
+		}
+
 		/// <summary>
 		/// Spawns this <see cref="PlayerCharacter"/> with all the necessary data.
 		/// </summary>
@@ -391,6 +401,23 @@ namespace Quantum
 				Constants.GEAR_INDEX_SHIELD => GameIdGroup.Shield,
 				_ => throw new NotSupportedException($"Could not find GameIdGroup for slot({slot})")
 			};
+		}
+
+		/// <summary>
+		/// Gets specific metadata around a specific loadout item.
+		/// Can return null if the equipment is not part of the loadout.
+		/// </summary>
+		public EquipmentSimulationMetadata? GetLoadoutMetadata(Frame f, Equipment e)
+		{
+			var loadout = GetLoadout(f);
+			for (var i = 0; i < loadout.Length; i++)
+			{
+				if (loadout[i].GameId == e.GameId) // only compare game id for speed
+				{
+					return f.GetPlayerData(Player)?.LoadoutMetadata[i];
+				}
+			}
+			return null;
 		}
 
 		/// <summary>

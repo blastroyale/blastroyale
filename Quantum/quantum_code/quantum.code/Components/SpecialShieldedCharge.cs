@@ -1,5 +1,3 @@
-using System;
-using System.Runtime.CompilerServices;
 using Photon.Deterministic;
 
 namespace Quantum
@@ -87,6 +85,9 @@ namespace Quantum
 			
 			QuantumHelpers.LookAt2d(f, e, targetPosition);
 			StatusModifiers.AddStatusModifierToEntity(f, e, StatusModifierType.Immunity, chargeDuration, true);
+
+			DeactivateCollections(f, e);
+			
 			f.Unsafe.GetPointer<PhysicsCollider3D>(e)->IsTrigger = true;
 			
 			f.Add(e, chargeComponent);
@@ -94,6 +95,36 @@ namespace Quantum
 			f.Events.OnShieldedChargeUsed(e, chargeDuration);
 			
 			return true;
+		}
+
+		private static unsafe void DeactivateCollections(Frame f, EntityRef e)
+		{
+
+			if (!f.TryGet<PlayerCharacter>(e, out var playerCharacter)) return;
+
+			var list = f.ResolveHashSet(playerCharacter.Collecting);
+
+			foreach (var collectableEntity in list)
+			{
+				if (!f.Unsafe.TryGetPointer<Collectable>(collectableEntity, out var collectable))
+				{
+					Log.Warn("Collectable with GameId:"+collectable->GameId+" in the list of collecting for player "+playerCharacter.Player+" but has no Collectable component");
+					continue;
+				}
+
+				if (!collectable->IsCollecting(playerCharacter.Player))
+				{
+					// This is an ok situation as we can stand in the collectable but don't collect it
+					// if we have max value of whatever this collectable gives to us
+					continue;
+				}
+
+				collectable->CollectorsEndTime[playerCharacter.Player] = FP._0;
+				
+				f.Events.OnStoppedCollecting(collectableEntity, playerCharacter.Player, e);
+			}
+			
+			list.Clear();
 		}
 	}
 }

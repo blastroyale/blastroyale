@@ -50,7 +50,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_frameImage.color = data.IsSelected ? _selectedColor : _regularColor;
 
 			_data = data;
-			Text.text = data.Skin.GetTranslation();
+			Text.text = data.Skin.GetLocalization();
 
 			SelectedImage.enabled = _gameDataProvider.PlayerDataProvider.PlayerInfo.Skin == _data.Skin;
 			_selectedFrameImage.SetActive(data.IsSelected);

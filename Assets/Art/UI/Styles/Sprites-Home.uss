@@ -16,7 +16,10 @@
     --sprite-home__background-popup-equipment: url('/Assets/Art/UI/Sprites/Home/background-popup-equipment.png');
     --sprite-home__background-resourcepool: url('/Assets/Art/UI/Sprites/Home/background-resourcepool.png');
     --sprite-home__background-textbubble-yellow: url('/Assets/Art/UI/Sprites/Home/background-textbubble-yellow.png');
-    --sprite-home__background-tooltip: url('/Assets/Art/UI/Sprites/Home/background-tooltip.png');
+    --sprite-home__background-tooltip-bottomleft: url('/Assets/Art/UI/Sprites/Home/background-tooltip-bottomleft.png');
+    --sprite-home__background-tooltip-bottomright: url('/Assets/Art/UI/Sprites/Home/background-tooltip-bottomright.png');
+    --sprite-home__background-tooltip-topleft: url('/Assets/Art/UI/Sprites/Home/background-tooltip-topleft.png');
+    --sprite-home__background-tooltip-topright: url('/Assets/Art/UI/Sprites/Home/background-tooltip-topright.png');
     --sprite-home__banner-mapselection: url('/Assets/Art/UI/Sprites/Home/banner-mapselection.png');
     --sprite-home__button-battlepass: url('/Assets/Art/UI/Sprites/Home/button-battlepass.png');
     --sprite-home__button-battlepass-pressed: url('/Assets/Art/UI/Sprites/Home/button-battlepass-pressed.png');
@@ -210,8 +213,20 @@
     background-image: var(--sprite-home__background-textbubble-yellow);
 }
 
-.sprite-home__background-tooltip {
-    background-image: var(--sprite-home__background-tooltip);
+.sprite-home__background-tooltip-bottomleft {
+    background-image: var(--sprite-home__background-tooltip-bottomleft);
+}
+
+.sprite-home__background-tooltip-bottomright {
+    background-image: var(--sprite-home__background-tooltip-bottomright);
+}
+
+.sprite-home__background-tooltip-topleft {
+    background-image: var(--sprite-home__background-tooltip-topleft);
+}
+
+.sprite-home__background-tooltip-topright {
+    background-image: var(--sprite-home__background-tooltip-topright);
 }
 
 .sprite-home__banner-mapselection {

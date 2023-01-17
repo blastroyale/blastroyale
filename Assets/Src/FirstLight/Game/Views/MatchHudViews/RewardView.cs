@@ -48,7 +48,7 @@ namespace FirstLight.Game.Views.AdventureHudViews
 			_image.enabled = true;
 
 			_playUnpackAnim = playUnpackAnim;
-			_itemNameText.SetText(gameId.GetTranslation());
+			_itemNameText.SetText(gameId.GetLocalization());
 			_quantityText.SetText($"x{quantity.ToString()}");
 			gameObject.SetActive(true);
 		}

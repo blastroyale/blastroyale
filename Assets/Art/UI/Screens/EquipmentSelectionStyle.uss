@@ -214,3 +214,11 @@
     color: rgb(255, 255, 255);
     text-shadow: 3px 3px 0 rgb(0, 0, 0);
 }
+
+.details__info-button {
+    position: absolute;
+    top: 13px;
+    right: 0;
+    width: 48px;
+    height: 54px;
+}

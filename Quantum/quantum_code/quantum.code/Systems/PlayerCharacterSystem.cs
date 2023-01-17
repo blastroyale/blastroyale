@@ -1,14 +1,16 @@
 using System;
 using System.Linq;
 using Photon.Deterministic;
+using Quantum.Collections;
 
 namespace Quantum.Systems
 {
 	/// <summary>
 	/// This system handles all the behaviour for the <see cref="PlayerCharacter"/> and it's dependent component states
 	/// </summary>
-	public unsafe class PlayerCharacterSystem : SystemMainThreadFilter<PlayerCharacterSystem.PlayerCharacterFilter>,
-											ISignalHealthIsZeroFromAttacker, ISignalAllPlayersJoined
+	public unsafe class PlayerCharacterSystem : SystemMainThreadFilter<PlayerCharacterSystem.PlayerCharacterFilter>, ISignalOnComponentAdded<PlayerCharacter>,
+												ISignalOnComponentRemoved<PlayerCharacter>, ISignalHealthIsZeroFromAttacker, ISignalAllPlayersJoined,
+												ISignalOnTriggerEnter3D, ISignalOnTriggerExit3D
 	{
 		public struct PlayerCharacterFilter
 		{
@@ -39,7 +41,7 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void HealthIsZeroFromAttacker(Frame f, EntityRef entity, EntityRef attacker)
 		{
-			if (!f.Unsafe.TryGetPointer<PlayerCharacter>(entity, out var playerDead))
+			if (!f.Unsafe.TryGetPointer<PlayerCharacter>(entity, out var playerDead) )
 			{
 				return;
 			}
@@ -58,28 +60,29 @@ namespace Quantum.Systems
 				step++;
 			}
 
+			var itemCount = 0;
+			for (int i = 0; i < playerDead->Gear.Length; i++) //loadout items found
+			{
+				if (playerDead->Gear[i].GameId != GameId.Random)
+				{
+					itemCount++;
+				}
+			}
+			for (int i = 0; i < playerDead->WeaponSlots.Length; i++) //item slots filled
+			{
+				if (playerDead->WeaponSlots[i].Weapon.GameId != GameId.Random)
+				{
+					itemCount++;
+				}
+			}
+
 			//drop a chest based on how many items the player has collected
 			if (gameModeConfig.DeathDropStrategy == DeathDropsStrategy.Box || 
 				gameModeConfig.DeathDropStrategy == DeathDropsStrategy.BoxAndWeapon)
 			{
 				//drop a box based on the number of items the player has collected
-				var itemCount = 0;
 				var dropBox = GameId.ChestCommon;
-				for(int i = 0; i < playerDead->Gear.Length; i++) //loadout items found
-				{
-					if (playerDead->Gear[i].GameId != GameId.Random)
-					{
-						itemCount++;
-					}
-				}
-				for(int i = 0; i < playerDead->WeaponSlots.Length; i++) //item slots filled
-				{
-					if (playerDead->WeaponSlots[i].Weapon.GameId != GameId.Random)
-					{
-						itemCount++;
-					}
-				}
-				
+
 				// Calculate offset position to drop a box so it tries not to cover the death marker
 				var dropOffset = FPVector2.Rotate(FPVector2.Left * Constants.DROP_OFFSET_RADIUS, f.RNG->Next(0, FP.Rad_180 * 2)).XOY;
 				var dropPosition = deathPosition + dropOffset;
@@ -88,6 +91,47 @@ namespace Quantum.Systems
 				
 				dropBox = f.ChestConfigs.CheckItemRange(itemCount);
 				CollectablePlatformSpawner.SpawnChest(f, dropBox, dropPosition);
+			}
+
+			if(gameModeConfig.DeathDropStrategy == DeathDropsStrategy.Consumables)
+			{
+				if(!f.Unsafe.TryGetPointer<Stats>(attacker, out var stats) ||
+					!f.Unsafe.TryGetPointer<PlayerCharacter>(attacker, out var attackingPlayer))
+				{
+					return;
+				}
+
+				var ammoFilled = attackingPlayer->GetAmmoAmountFilled(f, attacker);
+				var healthFilled = stats->CurrentHealth / stats->GetStatData(StatType.Health).StatValue;
+				var shieldFilled = stats->CurrentShield / stats->GetStatData(StatType.Shield).StatValue;
+
+				//drop consumables based on the number of items you have collected and the kind of consumables the player needs
+				for (int i = 0; i < FPMath.RoundToInt(itemCount / 2); i++)
+				{
+					var consumable = GameId.Health;
+					if(ammoFilled < healthFilled && ammoFilled < shieldFilled) //ammo
+					{
+						consumable = GameId.AmmoSmall;
+						ammoFilled += f.ConsumableConfigs.GetConfig(consumable).Amount.Get(f);
+					}
+					if (healthFilled < ammoFilled && healthFilled < shieldFilled) //health
+					{
+						consumable = GameId.Health;
+						healthFilled += f.ConsumableConfigs.GetConfig(consumable).Amount.Get(f) / stats->GetStatData(StatType.Health).StatValue;
+					}
+					if (shieldFilled < healthFilled && shieldFilled < ammoFilled) //shield
+					{
+						consumable = GameId.ShieldSmall;
+						shieldFilled += f.ConsumableConfigs.GetConfig(consumable).Amount.Get(f) / stats->GetStatData(StatType.Shield).StatValue;
+					}
+					Collectable.DropConsumable(f, consumable, deathPosition, step, false);
+					step++;
+				}
+				if(!playerDead->HasMeleeWeapon(f, entity)) //also drop the target player's weapon
+				{
+					Collectable.DropEquipment(f, playerDead->CurrentWeapon, deathPosition, step);
+					step++;
+				}
 			}
 		}
 
@@ -168,6 +212,44 @@ namespace Quantum.Systems
 					stats->ReduceHealth(f, filter.Entity, new Spell(){ PowerAmount = (uint)health });
 				}
 			}
+		}
+
+		public void OnTriggerEnter3D(Frame f, TriggerInfo3D info)
+		{
+			if (!f.Has<Collectable>(info.Other) ||
+				!f.Has<AlivePlayerCharacter>(info.Entity) || !f.TryGet<PlayerCharacter>(info.Entity, out var playerCharacter) ||
+				f.Has<EntityDestroyer>(info.Other))
+			{
+				return;
+			}
+
+			var list = f.ResolveHashSet(playerCharacter.Collecting);
+
+			list.Add(info.Other);
+		}
+
+		public void OnTriggerExit3D(Frame f, ExitInfo3D info)
+		{
+			if (!f.Has<Collectable>(info.Other) ||
+				!f.Has<AlivePlayerCharacter>(info.Entity) || !f.TryGet<PlayerCharacter>(info.Entity, out var playerCharacter) ||
+				f.Has<EntityDestroyer>(info.Other))
+			{
+				return;
+			}
+			
+			var list = f.ResolveHashSet(playerCharacter.Collecting);
+
+			list.Remove(info.Other);
+		}
+
+		public void OnAdded(Frame f, EntityRef entity, PlayerCharacter* component)
+		{
+			component->OnAdded(f);
+		}
+
+		public void OnRemoved(Frame f, EntityRef entity, PlayerCharacter* component)
+		{
+			component->OnRemoved(f);
 		}
 	}
 }

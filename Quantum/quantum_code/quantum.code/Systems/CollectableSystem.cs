@@ -135,7 +135,6 @@ namespace Quantum.Systems
 						var playerData = f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData;
 						var matchData = playerData[player];
 						matchData.CollectedOwnedNfts++;
-						Log.Warn("DEBUG REMOVE ME COLLECTED NFT EEEEEEEK REEEEEE");
 					}
 				}
 			

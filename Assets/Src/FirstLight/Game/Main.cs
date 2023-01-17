@@ -53,7 +53,7 @@ namespace FirstLight.Game
 			var dataService = new DataService();
 			var configsProvider = new ConfigsProvider();
 			var uiService = new GameUiService(new UiAssetLoader());
-			var networkService = new GameNetworkService(configsProvider, _gameLogic, _services);
+			var networkService = new GameNetworkService(configsProvider);
 			var assetResolver = new AssetResolverService();
 			var genericDialogService = new GenericDialogService(uiService);
 			var audioFxService = new GameAudioFxService(assetResolver);
@@ -63,7 +63,9 @@ namespace FirstLight.Game
 			var gameServices = new GameServices(networkService, messageBroker, timeService, dataService,
 				configsProvider, gameLogic, genericDialogService,
 				assetResolver, vfxService, audioFxService, uiService);
-
+			
+			networkService.BindServicesAndData(gameLogic, gameServices);
+			
 			MainInstaller.Bind<IGameDataProvider>(gameLogic);
 			MainInstaller.Bind<IGameServices>(gameServices);
 
@@ -72,8 +74,7 @@ namespace FirstLight.Game
 			_services = gameServices;
 			_notificationStateMachine = new NotificationStateMachine(gameLogic, gameServices);
 			_gameStateMachine = new GameStateMachine(gameLogic, gameServices, uiService, networkService,
-				configsProvider,
-				assetResolver, dataService, vfxService);
+				configsProvider, assetResolver, dataService, vfxService);
 
 			FLog.Verbose($"Initialized client version {VersionUtils.VersionExternal}");
 

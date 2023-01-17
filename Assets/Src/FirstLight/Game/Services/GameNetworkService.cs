@@ -242,9 +242,9 @@ namespace FirstLight.Game.Services
 		private const int STORE_RTT_AMOUNT = 10;
 		private const float QUANTUM_TICK_SECONDS = 0.1f;
 
-		private readonly IConfigsProvider _configsProvider;
-		private readonly IGameDataProvider _dataProvider;
-		private readonly IGameServices _services;
+		private IConfigsProvider _configsProvider;
+		private IGameDataProvider _dataProvider;
+		private IGameServices _services;
 
 		private bool _isJoiningNewRoom;
 		private Queue<int> LastRttQueue;
@@ -327,13 +327,10 @@ namespace FirstLight.Game.Services
 
 		private int RttAverage => CurrentRttTotal / LastRttQueue.Count;
 
-		public GameNetworkService(IConfigsProvider configsProvider, IGameDataProvider gameDataProvider,
-								  IGameServices gameServices)
+		public GameNetworkService(IConfigsProvider configsProvider)
 		{
 			_configsProvider = configsProvider;
-			_dataProvider = gameDataProvider;
-			_services = gameServices;
-			
+
 			QuantumClient = new QuantumLoadBalancingClient();
 			IsJoiningNewMatch = new ObservableField<bool>(false);
 			LastMatchPlayers = new ObservableList<Player>(new List<Player>());
@@ -342,11 +339,19 @@ namespace FirstLight.Game.Services
 			HasLag = new ObservableField<bool>(false);
 			UserId = new ObservableResolverField<string>(() => QuantumClient.UserId, SetUserId);
 			LastRttQueue = new Queue<int>();
-			
-			_services.TickService.SubscribeOnUpdate(TickQuantumClient, QUANTUM_TICK_SECONDS, true, true);
-			QuantumClient.AddCallbackTarget(this);
 		}
 		
+		/// <summary>
+		/// Binds services and data to the object, and starts starts ticking quantum client.
+		/// Done here, instead of constructor because things are initialized in a particular order in Main.cs
+		/// </summary>
+		public void BindServicesAndData(IGameDataProvider dataProvider, IGameServices services)
+		{
+			_services = services;
+			_dataProvider = dataProvider;
+			_services.TickService.SubscribeOnUpdate(TickQuantumClient, QUANTUM_TICK_SECONDS, true, true);
+		}
+
 		private void TickQuantumClient(float deltaTime)
 		{
 			QuantumClient.Service();

@@ -404,6 +404,23 @@ namespace Quantum
 		}
 
 		/// <summary>
+		/// Gets specific metadata around a specific loadout item.
+		/// Can return null if the equipment is not part of the loadout.
+		/// </summary>
+		public EquipmentSimulationMetadata? GetLoadoutMetadata(Frame f, Equipment e)
+		{
+			var loadout = GetLoadout(f);
+			for (var i = 0; i < loadout.Length; i++)
+			{
+				if (loadout[i].GameId == e.GameId) // only compare game id for speed
+				{
+					return f.GetPlayerData(Player)?.LoadoutMetadata[i];
+				}
+			}
+			return null;
+		}
+
+		/// <summary>
 		/// Requests the player's initial setup loadout
 		/// </summary>
 		public Equipment[] GetLoadout(Frame f)

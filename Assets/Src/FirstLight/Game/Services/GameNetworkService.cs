@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using ExitGames.Client.Photon;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
@@ -101,6 +102,12 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		/// <returns>True if the operation was sent successfully</returns>
 		bool LeaveRoom(bool becomeInactive, bool sendAuthCookie);
+
+		/// <summary>
+		/// Sends user token to Quantum Server to prove the user is authenticated and able to send commands.
+		/// </summary>
+		/// <returns>True if the operation was sent successfully</returns>
+		bool SendPlayerToken(string token);
 
 		/// <summary>
 		/// Raises event to kick specified player from the room. Only works in rooms, as master client.
@@ -472,6 +479,12 @@ namespace FirstLight.Game.Services
 			if (!InRoom) return false;
 			
 			return QuantumClient.OpLeaveRoom(false, true);
+		}
+
+		public bool SendPlayerToken(string token)
+		{
+			var opt = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+			return QuantumClient.OpRaiseEvent((int)QuantumCustomEvents.Token, Encoding.UTF8.GetBytes(token), opt, SendOptions.SendReliable);
 		}
 
 		public bool KickPlayer(Player playerToKick)

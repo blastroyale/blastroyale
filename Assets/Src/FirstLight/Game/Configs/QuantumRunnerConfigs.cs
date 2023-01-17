@@ -72,7 +72,6 @@ namespace FirstLight.Game.Configs
 				InitialFrame = frameSnapshot.SnapshotNumber,
 				FrameData = frameSnapshot.SnapshotBytes,
 				RunnerId = "DEFAULT",
-				// TODO TEST - DISCONNECT BEHAVIOR ONLY (IN GAME, ALSO UPDATE STATE MACHINE)
 				QuitBehaviour = QuantumNetworkCommunicator.QuitBehaviour.LeaveRoom,
 				LocalPlayerCount = 1,
 				RecordingFlags = RecordingFlags.All,

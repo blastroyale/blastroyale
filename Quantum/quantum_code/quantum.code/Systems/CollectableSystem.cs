@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Photon.Deterministic;
 
 namespace Quantum.Systems
@@ -125,6 +126,31 @@ namespace Quantum.Systems
 			if (f.Unsafe.TryGetPointer<EquipmentCollectable>(entity, out var equipment))
 			{
 				var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
+
+				if (!f.Has<BotCharacter>(playerEntity))
+				{
+					var loadoutMetadata = playerCharacter->GetLoadoutMetadata(f, equipment->Item);
+					
+					// We count how many NFTs from their loadout a player has collected to use later for CS earnings
+					if (loadoutMetadata != null && loadoutMetadata.Value.IsNft)
+					{
+						// TODO: Handle a situation when a player somehow collects not his Helmet first but then collects
+						// his NFT Helmet instead. Current logic will NOT do increment in this edge case
+						var slotIsEmpty = playerCharacter->Gear[PlayerCharacter.GetGearSlot(equipment->Item)].GameId == GameId.Random;
+						if (slotIsEmpty)
+						{
+							var playerData = f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData;
+							var matchData = playerData[player];
+							
+							// TODO: This code duplicates the struct every time we use it. Needs refactoring
+							matchData.CollectedOwnedNfts++;
+							
+							// We have to do reassign to store the updated value
+							playerData[player] = matchData;
+						}
+					}
+				}
+			
 				if (playerCharacter->HasBetterWeaponEquipped(equipment->Item))
 				{
 					gameId = GameId.AmmoSmall;
@@ -165,6 +191,12 @@ namespace Quantum.Systems
 				throw new NotSupportedException($"Trying to collect an unsupported / missing collectable on {entity}.");
 			}
 
+			if (f.Unsafe.TryGetPointer<PlayerCharacter>(playerEntity, out var playerChar))
+			{
+				var list = f.ResolveHashSet(playerChar->Collecting);
+				list.Remove(entity);
+			}
+			
 			f.Events.OnCollectableCollected(gameId, entity, player, playerEntity);
 		}
 

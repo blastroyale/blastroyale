@@ -1,14 +1,16 @@
 using System;
 using System.Linq;
 using Photon.Deterministic;
+using Quantum.Collections;
 
 namespace Quantum.Systems
 {
 	/// <summary>
 	/// This system handles all the behaviour for the <see cref="PlayerCharacter"/> and it's dependent component states
 	/// </summary>
-	public unsafe class PlayerCharacterSystem : SystemMainThreadFilter<PlayerCharacterSystem.PlayerCharacterFilter>,
-											ISignalHealthIsZeroFromAttacker, ISignalAllPlayersJoined
+	public unsafe class PlayerCharacterSystem : SystemMainThreadFilter<PlayerCharacterSystem.PlayerCharacterFilter>, ISignalOnComponentAdded<PlayerCharacter>,
+												ISignalOnComponentRemoved<PlayerCharacter>, ISignalHealthIsZeroFromAttacker, ISignalAllPlayersJoined,
+												ISignalOnTriggerEnter3D, ISignalOnTriggerExit3D
 	{
 		public struct PlayerCharacterFilter
 		{
@@ -210,6 +212,44 @@ namespace Quantum.Systems
 					stats->ReduceHealth(f, filter.Entity, new Spell(){ PowerAmount = (uint)health });
 				}
 			}
+		}
+
+		public void OnTriggerEnter3D(Frame f, TriggerInfo3D info)
+		{
+			if (!f.Has<Collectable>(info.Other) ||
+				!f.Has<AlivePlayerCharacter>(info.Entity) || !f.TryGet<PlayerCharacter>(info.Entity, out var playerCharacter) ||
+				f.Has<EntityDestroyer>(info.Other))
+			{
+				return;
+			}
+
+			var list = f.ResolveHashSet(playerCharacter.Collecting);
+
+			list.Add(info.Other);
+		}
+
+		public void OnTriggerExit3D(Frame f, ExitInfo3D info)
+		{
+			if (!f.Has<Collectable>(info.Other) ||
+				!f.Has<AlivePlayerCharacter>(info.Entity) || !f.TryGet<PlayerCharacter>(info.Entity, out var playerCharacter) ||
+				f.Has<EntityDestroyer>(info.Other))
+			{
+				return;
+			}
+			
+			var list = f.ResolveHashSet(playerCharacter.Collecting);
+
+			list.Remove(info.Other);
+		}
+
+		public void OnAdded(Frame f, EntityRef entity, PlayerCharacter* component)
+		{
+			component->OnAdded(f);
+		}
+
+		public void OnRemoved(Frame f, EntityRef entity, PlayerCharacter* component)
+		{
+			component->OnRemoved(f);
 		}
 	}
 }

@@ -130,11 +130,24 @@ namespace Quantum.Systems
 				if (!f.Has<BotCharacter>(playerEntity))
 				{
 					var loadoutMetadata = playerCharacter->GetLoadoutMetadata(f, equipment->Item);
+					
+					// We count how many NFTs from their loadout a player has collected to use later for CS earnings
 					if (loadoutMetadata != null && loadoutMetadata.Value.IsNft)
 					{
-						var playerData = f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData;
-						var matchData = playerData[player];
-						matchData.CollectedOwnedNfts++;
+						// TODO: Handle a situation when a player somehow collects not his Helmet first but then collects
+						// his NFT Helmet instead. Current logic will NOT do increment in this edge case
+						var slotIsEmpty = playerCharacter->Gear[PlayerCharacter.GetGearSlot(equipment->Item)].GameId == GameId.Random;
+						if (slotIsEmpty)
+						{
+							var playerData = f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData;
+							var matchData = playerData[player];
+							
+							// TODO: This code duplicates the struct every time we use it. Needs refactoring
+							matchData.CollectedOwnedNfts++;
+							
+							// We have to do reassign to store the updated value
+							playerData[player] = matchData;
+						}
 					}
 				}
 			

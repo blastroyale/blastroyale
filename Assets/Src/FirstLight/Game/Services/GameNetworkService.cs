@@ -175,12 +175,14 @@ namespace FirstLight.Game.Services
 		/// Requests the current quantum runner configs, from <see cref="IConfigsProvider"/>
 		/// </summary>
 		QuantumRunnerConfigs QuantumRunnerConfigs { get; }
-
-		/// <inheritdoc cref="QuantumLoadBalancingClient" />
+		
+		/// <summary>
+		/// Load balancing client used to send/receive network ops, and get network callbacks.
+		/// </summary>
 		/// <remarks>Please do not call functions directly from this.
 		/// <para>If needs be, implement them inside the service and call those.</para>
 		/// <para>This can't be made private because it's used to add callback targets,
-		/// has a lot of utils and useful code. Just don't abuse it.</para></remarks>
+		/// has a lot of utils and useful code. Just don't abuse it, or you will regret it.</para></remarks>
 		QuantumLoadBalancingClient QuantumClient { get; }
 
 		/// <summary>
@@ -330,6 +332,7 @@ namespace FirstLight.Game.Services
 			_configsProvider = configsProvider;
 			_dataProvider = gameDataProvider;
 			_services = gameServices;
+			
 			QuantumClient = new QuantumLoadBalancingClient();
 			IsJoiningNewMatch = new ObservableField<bool>(false);
 			LastMatchPlayers = new ObservableList<Player>(new List<Player>());
@@ -540,7 +543,6 @@ namespace FirstLight.Game.Services
 		{
 			QuantumClient.UserId = id;
 			QuantumClient.AuthValues.AuthGetParameters = "";
-
 			QuantumClient.AuthValues.AddAuthParameter("username", id);
 		}
 

@@ -255,13 +255,11 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(PhotonCriticalDisconnectedEvent);
 		}
 
-		/// <inheritdoc />
 		public void OnConnected()
 		{
 			FLog.Info("OnConnected");
 		}
 
-		/// <inheritdoc />
 		public void OnConnectedToMaster()
 		{
 			FLog.Info("OnConnectedToMaster");
@@ -277,7 +275,6 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		/// <inheritdoc />
 		public void OnDisconnected(DisconnectCause cause)
 		{
 			FLog.Info("OnDisconnected " + cause);
@@ -289,13 +286,11 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(PhotonDisconnectedEvent);
 		}
 
-		/// <inheritdoc />
 		public void OnCreatedRoom()
 		{
 			FLog.Info("OnCreatedRoom");
 		}
 
-		/// <inheritdoc />
 		public void OnCreateRoomFailed(short returnCode, string message)
 		{
 			FLog.Info($"OnCreateRoomFailed: {returnCode.ToString()} - {message}");
@@ -311,7 +306,6 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(CreateRoomFailedEvent);
 		}
 
-		/// <inheritdoc />
 		public void OnJoinedRoom()
 		{
 			FLog.Info("OnJoinedRoom");
@@ -347,8 +341,7 @@ namespace FirstLight.Game.StateMachines
 				StartMatchmakingLockRoomTimer();
 			}
 		}
-
-		/// <inheritdoc />
+		
 		public void OnJoinRoomFailed(short returnCode, string message)
 		{
 			FLog.Info($"OnJoinRoomFailed: {returnCode.ToString()} - {message}");
@@ -363,14 +356,12 @@ namespace FirstLight.Game.StateMachines
 
 			_statechartTrigger(JoinRoomFailedEvent);
 		}
-
-		/// <inheritdoc />
+		
 		public void OnJoinRandomFailed(short returnCode, string message)
 		{
 			OnJoinRoomFailed(returnCode, message);
 		}
-
-		/// <inheritdoc />
+		
 		public void OnLeftRoom()
 		{
 			FLog.Info("OnLeftRoom");
@@ -382,14 +373,12 @@ namespace FirstLight.Game.StateMachines
 
 			_statechartTrigger(LeftRoomEvent);
 		}
-
-		/// <inheritdoc />
+		
 		public void OnPlayerEnteredRoom(Player player)
 		{
 			FLog.Info($"OnPlayerEnteredRoom {player.NickName}");
 		}
-
-		/// <inheritdoc />
+		
 		public void OnPlayerLeftRoom(Player player)
 		{
 			FLog.Info($"OnPlayerLeftRoom {player.NickName}");
@@ -406,7 +395,6 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		/// <inheritdoc />
 		public void OnRoomPropertiesUpdate(Hashtable changedProps)
 		{
 			FLog.Info("OnRoomPropertiesUpdate");
@@ -417,7 +405,6 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		/// <inheritdoc />
 		public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
 		{
 			FLog.Info("OnPlayerPropertiesUpdate " + targetPlayer.NickName);
@@ -434,13 +421,11 @@ namespace FirstLight.Game.StateMachines
 			}
 		}
 
-		/// <inheritdoc />
 		public void OnMasterClientSwitched(Player newMasterClient)
 		{
 			FLog.Info("OnMasterClientSwitched " + newMasterClient.NickName);
 		}
 
-		/// <inheritdoc />
 		public void OnRegionListReceived(RegionHandler regionHandler)
 		{
 			FLog.Info("OnRegionListReceived " + regionHandler.GetResults());
@@ -463,19 +448,16 @@ namespace FirstLight.Game.StateMachines
 			});
 		}
 
-		/// <inheritdoc />
 		public void OnCustomAuthenticationResponse(Dictionary<string, object> data)
 		{
 			FLog.Info("OnCustomAuthenticationResponse " + data.Count);
 		}
 
-		/// <inheritdoc />
 		public void OnCustomAuthenticationFailed(string debugMessage)
 		{
 			FLog.Info("OnCustomAuthenticationResponse " + debugMessage);
 		}
 
-		/// <inheritdoc />
 		public void OnFriendListUpdate(List<FriendInfo> friendList)
 		{
 			FLog.Info("OnFriendListUpdate " + friendList.Count);

@@ -1,32 +1,24 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ExitGames.Client.Photon;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
-using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
-using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Utils;
-using FirstLight.NativeUi;
 using FirstLight.Statechart;
 using I2.Loc;
-using Photon.Deterministic;
 using Photon.Realtime;
 using PlayFab;
 using Quantum;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
-using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -75,7 +67,7 @@ namespace FirstLight.Game.StateMachines
 		}
 
 		/// <summary>
-		/// Setups the Adventure gameplay state
+		/// Setups the network state
 		/// </summary>
 		public void Setup(IStateFactory stateFactory)
 		{

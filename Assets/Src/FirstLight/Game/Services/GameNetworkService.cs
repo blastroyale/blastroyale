@@ -1,7 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Text;
 using ExitGames.Client.Photon;
 using FirstLight.Game.Commands;
@@ -12,9 +9,6 @@ using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Photon.Realtime;
 using Quantum;
-using UnityEngine;
-using Debug = UnityEngine.Debug;
-using Random = System.Random;
 
 namespace FirstLight.Game.Services
 {
@@ -126,6 +120,11 @@ namespace FirstLight.Game.Services
 		/// Sets the current room <see cref="Room.IsOpen"/> property, which sets whether it can be joined or not
 		/// </summary>
 		void SetCurrentRoomOpen(bool isOpen);
+		
+		/// <summary>
+		/// Updates/Adds Photon LocalPlayer custom properties
+		/// </summary>
+		void SetPlayerCustomProperties(Hashtable propertiesToUpdate);
 
 		/// <summary>
 		/// Requests the current room that the local player is in
@@ -141,11 +140,6 @@ namespace FirstLight.Game.Services
 		/// Returns whether the local player is in a room or not
 		/// </summary>
 		bool InRoom { get; }
-
-		/// <summary>
-		/// Updates/Adds Photon LocalPlayer custom properties
-		/// </summary>
-		void SetPlayerCustomProperties(Hashtable propertiesToUpdate);
 
 		/// <summary>
 		/// Requests the user unique ID for this device
@@ -514,7 +508,7 @@ namespace FirstLight.Game.Services
 					IsJoiningNewMatch.Value = true;
 					SetSpectatePlayerProperty(false);
 
-					// TTL during matchmaking is 0 - we must connect to room manually again by name
+					// TTL during matchmaking is 0 - we must connect to room manually again by name afterwards
 					// Rejoining room is handled OnMasterConnected
 					requiresManualReconnection = true;
 					QuantumClient.ReconnectToMaster();
@@ -583,7 +577,7 @@ namespace FirstLight.Game.Services
 				{GameConstants.Network.PLAYER_PROPS_SPECTATOR, false}
 			};
 
-			QuantumClient.LocalPlayer.SetCustomProperties(playerProps);
+			SetPlayerCustomProperties(playerProps);
 		}
 	}
 }

@@ -229,17 +229,5 @@ namespace FirstLight.Game.Presenters
 
 			_leaderboardListView.SetVisibility(true);
 		}
-
-		void SetupSpinner()
-		{
-			_loadingSpinner.AddToClassList("spinner--rotating");
-		}
-
-		void HideSpinner()
-		{
-			_loadingSpinner.SetDisplay(false);
-			_loadingSpinner.RemoveFromClassList("spinner--rotating");
-
-		}
 	}
 }

@@ -237,12 +237,14 @@ namespace FirstLight.Game.StateMachines
 		private void OnAuthenticationFail(PlayFabError error)
 		{
 			OnPlayFabError(error);
+			_uiService.OpenUiAsync<LoginScreenBackgroundPresenter>();
 			_statechartTrigger(_authenticationFailEvent);
 		}
 
 		private void OnAuthenticationRegisterFail(PlayFabError error)
 		{
 			OnPlayFabError(error);
+			_uiService.OpenUiAsync<LoginScreenBackgroundPresenter>();
 			_statechartTrigger(_authenticationRegisterFailEvent);
 		}
 
@@ -250,6 +252,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_dataService.GetData<AppData>().DeviceId = null;
 			_dataService.SaveData<AppData>();
+			_uiService.OpenUiAsync<LoginScreenBackgroundPresenter>();
 			_statechartTrigger(_authenticationFailEvent);
 			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Login,
 				"AutomaticLogin:" + error.ErrorMessage);

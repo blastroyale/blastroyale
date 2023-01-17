@@ -141,9 +141,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnKickPlayerEventReceived(int userIdToLeave, int senderIndex)
 		{
-			if (_networkService.QuantumClient.LocalPlayer.ActorNumber != userIdToLeave ||
-				!_networkService.QuantumClient.InRoom ||
-				_networkService.QuantumClient.CurrentRoom.MasterClientId != senderIndex)
+			if (_networkService.LocalPlayer.ActorNumber != userIdToLeave ||
+				!_networkService.InRoom || _networkService.CurrentRoom.MasterClientId != senderIndex)
 			{
 				return;
 			}
@@ -190,7 +189,6 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeEvents()
 		{
-			_services.TickService.SubscribeOnUpdate(TickQuantumServer, GameConstants.Network.NETWORK_QUANTUM_TICK_SECONDS, true, true);
 			_services.MessageBrokerService.Subscribe<MatchSimulationStartedMessage>(OnSimulationStart);
 			_services.MessageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuit);
 			_services.MessageBrokerService.Subscribe<MatchSimulationStartedMessage>(OnMatchSimulationStartedMessage);
@@ -325,7 +323,7 @@ namespace FirstLight.Game.StateMachines
 			if (_networkService.IsJoiningNewMatch.Value)
 			{
 				// Switch players from player to spectator, and vice versa, if the relevant room capacity is full
-				var isSpectator = (bool) _networkService.QuantumClient.LocalPlayer.CustomProperties
+				var isSpectator = (bool) _networkService.LocalPlayer.CustomProperties
 					[GameConstants.Network.PLAYER_PROPS_SPECTATOR];
 
 				if (!isSpectator && _networkService.QuantumClient.CurrentRoom.GetRealPlayerAmount() >
@@ -525,15 +523,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void OnRequestKickPlayerMessage(RequestKickPlayerMessage msg)
 		{
-			if (_networkService.QuantumClient.CurrentRoom == null ||
-			    !_networkService.QuantumClient.LocalPlayer.IsMasterClient)
-			{
-				return;
-			}
-
-			var eventOptions = new RaiseEventOptions() { Receivers = ReceiverGroup.All };
-			_networkService.QuantumClient.OpRaiseEvent((byte) QuantumCustomEvents.KickPlayer, msg.Player.ActorNumber, eventOptions,
-			                                           SendOptions.SendReliable);
+			_networkService.KickPlayer(msg.Player);
 		}
 		
 		private void OnAttemptManualReconnectionMessage(AttemptManualReconnectionMessage obj)
@@ -569,7 +559,7 @@ namespace FirstLight.Game.StateMachines
 			}
 			
 			// Once match starts, TTL needs to be set to max so player can DC+RC easily
-			if(_networkService.QuantumClient.LocalPlayer.IsMasterClient) 
+			if(_networkService.LocalPlayer.IsMasterClient) 
 			{
 				_networkService.QuantumClient.CurrentRoom.PlayerTtl = GameConstants.Network.PLAYER_GAME_TTL_MS;
 				
@@ -608,13 +598,14 @@ namespace FirstLight.Game.StateMachines
 			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
 			_gameDataProvider.AppDataProvider.SetLastCustomGameOptions(msg.CustomGameOptions);
 			_services.DataSaver.SaveData<AppData>();
+			
 			if (msg.JoinIfExists)
 			{
 				JoinOrCreateRoom(gameModeConfig, msg.MapConfig, msg.CustomGameOptions.Mutators, msg.RoomName);
 			}
 			else
 			{
-				CreateRoom(gameModeConfig, msg.MapConfig, msg.CustomGameOptions.Mutators, msg.RoomName);
+				CreateRoom(gameModeConfig, msg.MapConfig, msg.CustomGameOptions.Mutators, msg.RoomName, msg.OfflineMode);
 			}
 		}
 
@@ -642,7 +633,7 @@ namespace FirstLight.Game.StateMachines
 				{GameConstants.Network.PLAYER_PROPS_ALL_LOADED, true}
 			};
 
-			_networkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
+			_networkService.LocalPlayer.SetCustomProperties(playerPropsUpdate);
 		}
 
 		private void OnAssetReloadRequiredMessage(AssetReloadRequiredMessage msg)
@@ -653,7 +644,7 @@ namespace FirstLight.Game.StateMachines
 				{GameConstants.Network.PLAYER_PROPS_ALL_LOADED, false}
 			};
 
-			_networkService.QuantumClient.LocalPlayer.SetCustomProperties(playerPropsUpdate);
+			_networkService.LocalPlayer.SetCustomProperties(playerPropsUpdate);
 		}
 		
 		private void OnApplicationQuit(ApplicationQuitMessage data)
@@ -676,20 +667,14 @@ namespace FirstLight.Game.StateMachines
 			_networkService.JoinRoom(roomName);
 		}
 
-		private void CreateRoom(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, List<string> mutators, string roomName)
+		private void CreateRoom(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, List<string> mutators, string roomName, bool offlineMode)
 		{
-			_networkService.CreateRoom(gameModeConfig, mapConfig, mutators, roomName);
+			_networkService.CreateRoom(gameModeConfig, mapConfig, mutators, roomName, offlineMode);
 		}
 		
 		private void JoinOrCreateRoom(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, List<string> mutators, string roomName)
 		{
 			_networkService.JoinOrCreateRoom(gameModeConfig, mapConfig, mutators, roomName);
-		}
-
-		private void TickQuantumServer(float deltaTime)
-		{
-			_networkService.QuantumClient.Service();
-			_networkService.CheckLag();
 		}
 
 		private void TickReconnectAttempt(float deltaTime)
@@ -702,8 +687,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void StartMatchmakingLockRoomTimer()
 		{
-			if (!_networkService.QuantumClient.LocalPlayer.IsMasterClient ||
-			    !_networkService.QuantumClient.CurrentRoom.IsMatchmakingRoom() ||
+			if (!_networkService.LocalPlayer.IsMasterClient ||
+			    !_networkService.CurrentRoom.IsMatchmakingRoom() ||
 			    !_networkService.CurrentRoomMatchType.HasValue) 
 			{
 				return;

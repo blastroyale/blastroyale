@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using ExitGames.Client.Photon;
+using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
@@ -78,7 +79,7 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		/// <param name="roomName">Name that the created room will have</param>
 		/// <returns>True if the operation was sent successfully</returns>
-		bool CreateRoom(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, List<string> mutators, string roomName);
+		bool CreateRoom(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, List<string> mutators, string roomName, bool offlineMode);
 
 		/// <summary>
 		/// Joins a specific room with matching params if it exists, or creates a new one if it doesn't
@@ -96,11 +97,17 @@ namespace FirstLight.Game.Services
 		bool JoinOrCreateRandomRoom(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, List<string> mutators);
 
 		/// <summary>
-		/// 
+		/// Leaves the current room that local player is in
 		/// </summary>
-		/// <param name="becomeInactive"></param>
-		/// <param name="sendAuthCookie"></param>
+		/// <returns>True if the operation was sent successfully</returns>
 		bool LeaveRoom(bool becomeInactive, bool sendAuthCookie);
+
+		/// <summary>
+		/// Raises event to kick specified player from the room. Only works in rooms, as master client.
+		/// </summary>
+		/// <param name="playerToKick"></param>
+		/// <returns>True if the operation was sent successfully</returns>
+		bool KickPlayer(Player playerToKick);
 
 		/// <summary>
 		/// Updates the spectator status in custom player properties
@@ -223,11 +230,6 @@ namespace FirstLight.Game.Services
 
 		/// <inheritdoc cref="IGameNetworkService.LastConnectedRoomName" />
 		new IObservableField<string> LastConnectedRoomName { get; }
-
-		/// <summary>
-		/// Checks if the current frame is having connections issues and if it is lagging
-		/// </summary>
-		void CheckLag();
 	}
 
 	/// <inheritdoc cref="IGameNetworkService"/>
@@ -235,6 +237,7 @@ namespace FirstLight.Game.Services
 	{
 		private const int LAG_RTT_THRESHOLD_MS = 280;
 		private const int STORE_RTT_AMOUNT = 10;
+		private const float QUANTUM_TICK_SECONDS = 0.1f;
 
 		private readonly IConfigsProvider _configsProvider;
 		private readonly IGameDataProvider _dataProvider;
@@ -325,6 +328,8 @@ namespace FirstLight.Game.Services
 								  IGameServices gameServices)
 		{
 			_configsProvider = configsProvider;
+			_dataProvider = gameDataProvider;
+			_services = gameServices;
 			QuantumClient = new QuantumLoadBalancingClient();
 			IsJoiningNewMatch = new ObservableField<bool>(false);
 			LastMatchPlayers = new ObservableList<Player>(new List<Player>());
@@ -333,6 +338,32 @@ namespace FirstLight.Game.Services
 			HasLag = new ObservableField<bool>(false);
 			UserId = new ObservableResolverField<string>(() => QuantumClient.UserId, SetUserId);
 			LastRttQueue = new Queue<int>();
+			
+			_services.TickService.SubscribeOnUpdate(TickQuantumClient, QUANTUM_TICK_SECONDS, true, true);
+			QuantumClient.AddCallbackTarget(this);
+		}
+		
+		private void TickQuantumClient(float deltaTime)
+		{
+			QuantumClient.Service();
+			CalculateUpdateLag();
+		}
+		
+		private void CalculateUpdateLag()
+		{
+			var newRtt = QuantumClient.LoadBalancingPeer.LastRoundTripTime;
+			LastRttQueue.Enqueue(newRtt);
+			CurrentRttTotal += newRtt;
+
+			if (LastRttQueue.Count > STORE_RTT_AMOUNT)
+			{
+				CurrentRttTotal -= LastRttQueue.Dequeue();
+			}
+
+			var roundTripCheck = RttAverage > LAG_RTT_THRESHOLD_MS;
+			var dcCheck = NetworkUtils.IsOfflineOrDisconnected();
+
+			HasLag.Value = roundTripCheck || dcCheck;
 		}
 
 		public bool ConnectPhotonToMaster()
@@ -379,15 +410,14 @@ namespace FirstLight.Game.Services
 
 			return QuantumClient.OpJoinRoom(enterParams);
 		}
-
-		// TODO - Offline mode param
-		public bool CreateRoom(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, List<string> mutators, string roomName)
+		
+		public bool CreateRoom(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, List<string> mutators, string roomName, bool offlineMode)
 		{
 			if (InRoom) return false;
 			
 			var createParams = NetworkUtils.GetRoomCreateParams(gameModeConfig, mapConfig, NetworkUtils.GetRandomDropzonePosRot(), roomName, MatchType.Custom, mutators, false);
 
-			QuantumRunnerConfigs.IsOfflineMode = false;
+			QuantumRunnerConfigs.IsOfflineMode = offlineMode;
 			
 			ResetQuantumProperties();
 			SetSpectatePlayerProperty(false);
@@ -423,7 +453,7 @@ namespace FirstLight.Game.Services
 			var createParams = NetworkUtils.GetRoomCreateParams(gameModeConfig, mapConfig, NetworkUtils.GetRandomDropzonePosRot(), null, matchType, mutators, gameHasBots);
 			var joinRandomParams = NetworkUtils.GetJoinRandomRoomParams(gameModeConfig, mapConfig, matchType, mutators);
 
-			QuantumRunnerConfigs.IsOfflineMode = NetworkUtils.GetMaxPlayers(gameModeConfig, mapConfig) == 1;
+			QuantumRunnerConfigs.IsOfflineMode = false;
 
 			ResetQuantumProperties();
 			
@@ -439,6 +469,18 @@ namespace FirstLight.Game.Services
 			if (!InRoom) return false;
 			
 			return QuantumClient.OpLeaveRoom(false, true);
+		}
+
+		public bool KickPlayer(Player playerToKick)
+		{
+			if (CurrentRoom == null || !LocalPlayer.IsMasterClient)
+			{
+				return false;
+			}
+			
+			var eventOptions = new RaiseEventOptions() { Receivers = ReceiverGroup.All };
+			return QuantumClient.OpRaiseEvent((byte) QuantumCustomEvents.KickPlayer, playerToKick.ActorNumber, eventOptions,
+													   SendOptions.SendReliable);
 		}
 
 		public void ReconnectPhoton(bool inMatchScene, out bool requiresManualReconnection)
@@ -492,23 +534,6 @@ namespace FirstLight.Game.Services
 			};
 
 			SetPlayerCustomProperties(playerPropsUpdate);
-		}
-
-		public void CheckLag()
-		{
-			var newRtt = QuantumClient.LoadBalancingPeer.LastRoundTripTime;
-			LastRttQueue.Enqueue(newRtt);
-			CurrentRttTotal += newRtt;
-
-			if (LastRttQueue.Count > STORE_RTT_AMOUNT)
-			{
-				CurrentRttTotal -= LastRttQueue.Dequeue();
-			}
-
-			var roundTripCheck = RttAverage > LAG_RTT_THRESHOLD_MS;
-			var dcCheck = NetworkUtils.IsOfflineOrDisconnected();
-
-			HasLag.Value = roundTripCheck || dcCheck;
 		}
 
 		private void SetUserId(string id)

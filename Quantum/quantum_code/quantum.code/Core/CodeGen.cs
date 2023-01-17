@@ -64,6 +64,7 @@ namespace Quantum {
     WeaponOnly = 1,
     Box = 2,
     BoxAndWeapon = 3,
+    Consumables = 4,
   }
   [Flags()]
   public enum EWorldState : uint {

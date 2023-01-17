@@ -107,9 +107,9 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			}
 
 			// Particle System modules do not need to be reassigned back to the system; they are interfaces and not independent objects.
-			main.duration = config.AttackCooldown.AsFloat; 
+			main.duration = config.AttackCooldown.AsFloat;
 			main.startDelay = 0;
-			main.maxParticles = 50;
+			main.maxParticles = 100;
 			emission.rateOverTime = 0;
 			main.loop = false;
 			main.startSpeed = config.NumberOfShots > 1 ? new ParticleSystem.MinMaxCurve(speed, speed * 1.2f) : speed;

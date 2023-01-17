@@ -21,7 +21,7 @@
 }
 
 .header__label {
-    top: 30px;
+    top: 15px;
     position: absolute;
     height: 35px;
     width: 900px;
@@ -34,13 +34,13 @@
 }
 
 .header__label--rank-number {
-    left: 60px;
+    left: 40px;
     margin-top: 0px;
     padding-top: 0px;
 }
 
 .header__label--player {
-    left: 140px;
+    left: 110px;
 }
 
 .header__label--trophies {

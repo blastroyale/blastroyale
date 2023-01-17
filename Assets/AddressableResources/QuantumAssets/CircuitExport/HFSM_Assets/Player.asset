@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f2463dfe08cf5d4fa3322344a5ef716, type: 3}
-  m_Name: CurrentFrameTimeFunction_19
+  m_Name: CurrentFrameTimeFunction_20
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
@@ -140,7 +140,7 @@ MonoBehaviour:
         Value: 0
   Settings_CurrentFrameTimeFunction:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CurrentFrameTimeFunction_19
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CurrentFrameTimeFunction_20
       Guid:
         Value: 1501081643659677846
 --- !u!114 &-8681511764037612743
@@ -243,7 +243,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d4620362c728ed441bb7e2c5e6822d53, type: 3}
-  m_Name: GetMagShotCountFunction_18
+  m_Name: GetMagShotCountFunction_19
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
@@ -252,7 +252,7 @@ MonoBehaviour:
         Value: 0
   Settings_GetMagShotCountFunction:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|GetMagShotCountFunction_18
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|GetMagShotCountFunction_19
       Guid:
         Value: 2838018030188143315
 --- !u!114 &-7864034517842638593
@@ -667,7 +667,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d4620362c728ed441bb7e2c5e6822d53, type: 3}
-  m_Name: GetMagShotCountFunction_10
+  m_Name: GetMagShotCountFunction_11
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
@@ -676,7 +676,7 @@ MonoBehaviour:
         Value: 0
   Settings_GetMagShotCountFunction:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|GetMagShotCountFunction_10
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|GetMagShotCountFunction_11
       Guid:
         Value: 508845791030205329
 --- !u!114 &-5047798084334464240
@@ -840,7 +840,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f2463dfe08cf5d4fa3322344a5ef716, type: 3}
-  m_Name: CurrentFrameTimeFunction_13
+  m_Name: CurrentFrameTimeFunction_14
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
@@ -849,7 +849,7 @@ MonoBehaviour:
         Value: 0
   Settings_CurrentFrameTimeFunction:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CurrentFrameTimeFunction_13
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CurrentFrameTimeFunction_14
       Guid:
         Value: 3077347310472761641
 --- !u!114 &-3929022462127686273
@@ -1154,7 +1154,7 @@ MonoBehaviour:
         RawValue: 0
       FunctionRef:
         Id:
-          Value: 4559404907382965178
+          Value: 2617054147692457495
 --- !u!114 &-2173564860070750364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1585,6 +1585,44 @@ MonoBehaviour:
     - OnStunCancelled
     - OnStunned
     - OnWeaponChanged
+--- !u!114 &116492605663329794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e766eaa966e928b4382ff49639c7c35d, type: 3}
+  m_Name: FPSumFunction_10
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: 
+      Guid:
+        Value: 0
+  Settings_FPSumFunction:
+    Identifier:
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|FPSumFunction_10
+      Guid:
+        Value: 2617054147692457495
+    First:
+      Source: 1
+      Key: 
+      DefaultValue:
+        RawValue: 9830
+      FunctionRef:
+        Id:
+          Value: 0
+    Second:
+      Source: 4
+      Key: 
+      DefaultValue:
+        RawValue: 0
+      FunctionRef:
+        Id:
+          Value: 4559404907382965178
 --- !u!114 &162003870409899478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1595,7 +1633,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1e0c3442e159b4140acbee0a11e43cfa, type: 3}
-  m_Name: GetAmmoCountFunction_15
+  m_Name: GetAmmoCountFunction_16
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
@@ -1604,7 +1642,7 @@ MonoBehaviour:
         Value: 0
   Settings_GetAmmoCountFunction:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|GetAmmoCountFunction_15
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|GetAmmoCountFunction_16
       Guid:
         Value: 128173641673653426
 --- !u!114 &185343002393812674
@@ -1859,7 +1897,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f2463dfe08cf5d4fa3322344a5ef716, type: 3}
-  m_Name: CurrentFrameTimeFunction_12
+  m_Name: CurrentFrameTimeFunction_13
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
@@ -1868,7 +1906,7 @@ MonoBehaviour:
         Value: 0
   Settings_CurrentFrameTimeFunction:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CurrentFrameTimeFunction_12
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|CurrentFrameTimeFunction_13
       Guid:
         Value: 4559404907382965178
 --- !u!114 &1805247882131919748
@@ -1921,7 +1959,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 52bfe97ccb2f62a458d59f8b881d1eab, type: 3}
-  m_Name: StatFunction_17
+  m_Name: StatFunction_18
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
@@ -1930,7 +1968,7 @@ MonoBehaviour:
         Value: 0
   Settings_StatFunction:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|StatFunction_17
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|StatFunction_18
       Guid:
         Value: 1215845431118046810
     Stat: 2
@@ -2272,7 +2310,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d4620362c728ed441bb7e2c5e6822d53, type: 3}
-  m_Name: GetMagShotCountFunction_14
+  m_Name: GetMagShotCountFunction_15
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
@@ -2281,7 +2319,7 @@ MonoBehaviour:
         Value: 0
   Settings_GetMagShotCountFunction:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|GetMagShotCountFunction_14
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|GetMagShotCountFunction_15
       Guid:
         Value: 1833622622204030874
 --- !u!114 &3354554186054350611
@@ -2803,7 +2841,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e766eaa966e928b4382ff49639c7c35d, type: 3}
-  m_Name: FPSumFunction_16
+  m_Name: FPSumFunction_17
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
@@ -2812,7 +2850,7 @@ MonoBehaviour:
         Value: 0
   Settings_FPSumFunction:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|FPSumFunction_16
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|FPSumFunction_17
       Guid:
         Value: 2476499677884316498
     First:
@@ -3266,7 +3304,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1e0c3442e159b4140acbee0a11e43cfa, type: 3}
-  m_Name: GetAmmoCountFunction_11
+  m_Name: GetAmmoCountFunction_12
   m_EditorClassIdentifier: 
   Settings:
     Identifier:
@@ -3275,6 +3313,6 @@ MonoBehaviour:
         Value: 0
   Settings_GetAmmoCountFunction:
     Identifier:
-      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|GetAmmoCountFunction_11
+      Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|GetAmmoCountFunction_12
       Guid:
         Value: 4207929906429185876

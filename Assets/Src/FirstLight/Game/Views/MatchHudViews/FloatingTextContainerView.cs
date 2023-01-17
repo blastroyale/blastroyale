@@ -105,7 +105,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			if (callback.PlayerEntity != _matchServices.SpectateService.SpectatedPlayer.Value.Entity ||
 			    callback.CollectableId != GameId.Rage) return;
 
-			EnqueueText(callback.PlayerEntity, callback.CollectableId.GetTranslation(), _neutralTextColor, MessageType.StatChange);
+			EnqueueText(callback.PlayerEntity, callback.CollectableId.GetLocalization(), _neutralTextColor, MessageType.StatChange);
 		}
 
 		private void OnShieldChanged(EventOnShieldChanged callback)

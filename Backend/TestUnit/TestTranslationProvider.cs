@@ -20,7 +20,7 @@ namespace Tests
 		[Test]
 		public void GameIdTranslationShouldNotBeEqualsEnum()
 		{
-			Assert.AreNotEqual(GameId.ApoRifle.ToString(), _provider.GetTranslation(GameId.ApoRifle.GetTranslationTerm()));
+			Assert.AreNotEqual(GameId.ApoRifle.ToString(), _provider.GetTranslation(GameId.ApoRifle.GetLocalization()));
 		}
 
 		[Test]

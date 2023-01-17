@@ -1,5 +1,3 @@
-using System;
-using System.Runtime.CompilerServices;
 using Photon.Deterministic;
 
 namespace Quantum
@@ -87,7 +85,9 @@ namespace Quantum
 			
 			QuantumHelpers.LookAt2d(f, e, targetPosition);
 			StatusModifiers.AddStatusModifierToEntity(f, e, StatusModifierType.Immunity, chargeDuration, true);
+
 			f.Unsafe.GetPointer<PhysicsCollider3D>(e)->IsTrigger = true;
+			f.Signals.PlayerColliderDisabled(e);
 			
 			f.Add(e, chargeComponent);
 			

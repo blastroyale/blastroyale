@@ -6,6 +6,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using System.Linq;
 using System.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Commands.OfflineCommands;
 using FirstLight.Game.Infos;
@@ -65,6 +66,7 @@ namespace FirstLight.Game.Presenters
 		private PriceButton _scrapButton;
 		private PriceButton _upgradeButton;
 		private PriceButton _repairButton;
+		private ImageButton _infoButton;
 
 		private VisualElement _cooldownTag;
 		private VisualElement _rarityTag;
@@ -116,7 +118,6 @@ namespace FirstLight.Game.Presenters
 			_special1Tag = root.Q("Special1Tag").Required();
 			_special1Icon = _special1Tag.Q<VisualElement>("Icon").Required();
 
-
 			_durabilityBar = root.Q("DurabilityProgress").Required();
 			_durabilityAmount = root.Q<Label>("DurabilityAmount").Required();
 
@@ -124,11 +125,13 @@ namespace FirstLight.Game.Presenters
 			_scrapButton = root.Q<PriceButton>("ScrapButton").Required();
 			_upgradeButton = root.Q<PriceButton>("UpgradeButton").Required();
 			_repairButton = root.Q<PriceButton>("RepairButton").Required();
+			_infoButton = root.Q<ImageButton>("InfoButton").Required();
 
 			_equipButton.clicked += OnEquipClicked;
 			_scrapButton.clicked += Data.OnScrapClicked;
 			_upgradeButton.clicked += Data.OnUpgradeClicked;
 			_repairButton.clicked += Data.OnRepairClicked;
+			_infoButton.clicked += OnInfoClicked;
 
 			_equipmentList.makeItem = MakeEquipmentListItem;
 			_equipmentList.bindItem = BindEquipmentListItem;
@@ -262,7 +265,7 @@ namespace FirstLight.Game.Presenters
 			// Title
 			_equipmentName.text = string.Format(ScriptLocalization.UITEquipment.equipment_details_title,
 				string.Format(ADJECTIVE_LOC_KEY, info.Equipment.Adjective.ToString().ToLowerInvariant()).LocalizeKey(),
-				info.Equipment.GameId.GetTranslation(),
+				info.Equipment.GameId.GetLocalization(),
 				info.Equipment.Level);
 
 			// Durability
@@ -301,11 +304,11 @@ namespace FirstLight.Game.Presenters
 			{
 				var special0ID = (GameId) special0;
 				_special0Tag.style.display = DisplayStyle.Flex;
-				
+
 				_special0Icon.RemoveSpriteClasses();
 				_special0Icon.AddToClassList(string.Format(UssSpriteSpecial,
 					special0ID.ToString().Replace("Special", "").ToLowerInvariant()));
-				_special0Tag.Q<Label>("Title").text = special0ID.GetTranslation();
+				_special0Tag.Q<Label>("Title").text = special0ID.GetLocalization();
 			}
 
 			_special1Tag.style.display = DisplayStyle.None;
@@ -314,11 +317,11 @@ namespace FirstLight.Game.Presenters
 			{
 				var special1ID = (GameId) special1;
 				_special1Tag.style.display = DisplayStyle.Flex;
-				
+
 				_special1Icon.RemoveSpriteClasses();
 				_special1Icon.AddToClassList(string.Format(UssSpriteSpecial,
 					special1ID.ToString().Replace("Special", "").ToLowerInvariant()));
-				_special1Tag.Q<Label>("Title").text = special1ID.GetTranslation();
+				_special1Tag.Q<Label>("Title").text = special1ID.GetLocalization();
 			}
 
 			// Prices
@@ -475,6 +478,12 @@ namespace FirstLight.Game.Presenters
 				_services.AudioFxService.PlayClip2D(AudioId.EquipEquipment);
 				EquipItem(SelectedItem);
 			}
+		}
+
+		private void OnInfoClicked()
+		{
+			var info = _gameDataProvider.EquipmentDataProvider.GetInfo(SelectedItem);
+			_infoButton.OpenTooltip(Root, info.GetTags(), TooltipDirection.BottomRight, TooltipPosition.TopLeft);
 		}
 
 		private void EquipItem(UniqueId item)

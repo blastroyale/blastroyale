@@ -22,13 +22,13 @@ MonoBehaviour:
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 6226
+        RawValue: 4109
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
       AttackRangeRatioToBaseK:
-        RawValue: 22708
+        RawValue: 22938
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -41,7 +41,7 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 16384
+        RawValue: 19661
       PowerRatioToBaseK:
         RawValue: 0
       AttackRangeRatioToBaseK:
@@ -58,11 +58,11 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 9011
+        RawValue: 10813
       PowerRatioToBaseK:
         RawValue: 0
       AttackRangeRatioToBaseK:
-        RawValue: 32440
+        RawValue: 32768
       PickupSpeedRatioToBaseK:
         RawValue: 12927
       AmmoCapacityRatioToBaseK:
@@ -73,13 +73,13 @@ MonoBehaviour:
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 4981
+        RawValue: 3287
       SpeedRatioToBaseK:
         RawValue: 0
       PowerRatioToBaseK:
         RawValue: 0
       AttackRangeRatioToBaseK:
-        RawValue: 17518
+        RawValue: 17695
       PickupSpeedRatioToBaseK:
         RawValue: 0
       AmmoCapacityRatioToBaseK:
@@ -92,11 +92,11 @@ MonoBehaviour:
       ArmorRatioToBaseK:
         RawValue: 0
       SpeedRatioToBaseK:
-        RawValue: 10486
+        RawValue: 12583
       PowerRatioToBaseK:
         RawValue: 0
       AttackRangeRatioToBaseK:
-        RawValue: 21411
+        RawValue: 21627
       PickupSpeedRatioToBaseK:
         RawValue: 17236
       AmmoCapacityRatioToBaseK:
@@ -107,9 +107,9 @@ MonoBehaviour:
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 6554
+        RawValue: 4325
       SpeedRatioToBaseK:
-        RawValue: 10158
+        RawValue: 12190
       PowerRatioToBaseK:
         RawValue: 0
       AttackRangeRatioToBaseK:
@@ -124,9 +124,9 @@ MonoBehaviour:
       HpRatioToBaseK:
         RawValue: 0
       ArmorRatioToBaseK:
-        RawValue: 4850
+        RawValue: 3201
       SpeedRatioToBaseK:
-        RawValue: 13107
+        RawValue: 15729
       PowerRatioToBaseK:
         RawValue: 0
       AttackRangeRatioToBaseK:

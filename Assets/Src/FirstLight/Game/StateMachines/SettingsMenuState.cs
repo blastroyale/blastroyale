@@ -206,7 +206,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.PlayfabService.UpdateDisplayName(result.Username, OnUpdateNicknameComplete,
 				OnUpdateNicknameError);
-			_statechartTrigger(_connectIdBackEvent);
+			_statechartTrigger(_connectIdSuccessEvent);
 		}
 
 		private void OnConnectIdError(PlayFabError error)

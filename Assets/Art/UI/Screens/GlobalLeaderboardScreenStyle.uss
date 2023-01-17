@@ -88,3 +88,13 @@
 .leaderboard-entries .unity-list-view__item:hover {
     background-color: rgba(0, 0, 0, 0);
 }
+
+.spinner {
+    background-image: var(--sprite-home__icon-spinner-thick);
+    width: 68px;
+    height: 68px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+

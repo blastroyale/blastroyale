@@ -8,7 +8,8 @@ namespace Quantum.Systems
 	/// This system handles all the <see cref="Collectable"/> component collection interactions using triggers 
 	/// </summary>
 	public unsafe class CollectableSystem : SystemSignalsOnly, ISignalPlayerDead,
-	                                        ISignalOnTriggerEnter3D, ISignalOnTrigger3D, ISignalOnTriggerExit3D
+	                                        ISignalOnTriggerEnter3D, ISignalOnTrigger3D, ISignalOnTriggerExit3D,
+											ISignalPlayerColliderDisabled
 	{
 		public void OnTriggerEnter3D(Frame f, TriggerInfo3D info)
 		{
@@ -191,12 +192,6 @@ namespace Quantum.Systems
 				throw new NotSupportedException($"Trying to collect an unsupported / missing collectable on {entity}.");
 			}
 
-			if (f.Unsafe.TryGetPointer<PlayerCharacter>(playerEntity, out var playerChar))
-			{
-				var list = f.ResolveHashSet(playerChar->Collecting);
-				list.Remove(entity);
-			}
-			
 			f.Events.OnCollectableCollected(gameId, entity, player, playerEntity);
 		}
 
@@ -216,6 +211,19 @@ namespace Quantum.Systems
 			endTime = FPMath.Max(Constants.PICKUP_SPEED_MINIMUM, (FP._1 - (timeMod / FP._100)) * endTime);
 
 			return f.Time + endTime;
+		}
+
+		public void PlayerColliderDisabled(Frame f, EntityRef playerEntity)
+		{
+			if (!f.TryGet<PlayerCharacter>(playerEntity, out var player))
+			{
+				return;
+			}
+			
+			foreach (var collectable in f.Unsafe.GetComponentBlockIterator<Collectable>())
+			{
+				StopCollecting(f, collectable.Entity, playerEntity, player.Player, collectable.Component);
+			}
 		}
 	}
 }

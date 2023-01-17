@@ -108,7 +108,7 @@ namespace Quantum
 			{
 				if (!f.Unsafe.TryGetPointer<Collectable>(collectableEntity, out var collectable))
 				{
-					Log.Warn("Collectable with GameId:"+collectable->GameId+" in the list of collecting for player "+playerCharacter.Player+" but has no Collectable component");
+					Log.Warn("Collectable Entity ("+collectableEntity.Index+") in the list of collecting for player "+playerCharacter.Player+" but has no Collectable component");
 					continue;
 				}
 

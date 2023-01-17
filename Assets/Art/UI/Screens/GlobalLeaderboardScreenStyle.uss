@@ -21,14 +21,12 @@
 }
 
 .header__label {
+    top: 30px;
     position: absolute;
-    justify-content: center;
-    height: 70px;
+    height: 35px;
     width: 900px;
     margin-right: 0;
-    -unity-font-definition: var(--font-italic);
     font-size: 35px;
-    -unity-font-style: normal;
     color: rgb(233, 226, 225);
     text-shadow: 2px 2px 0 rgb(0, 0, 0);
     -unity-text-outline-width: 2px;
@@ -37,6 +35,8 @@
 
 .header__label--rank-number {
     left: 60px;
+    margin-top: 0px;
+    padding-top: 0px;
 }
 
 .header__label--player {

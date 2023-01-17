@@ -215,7 +215,7 @@ namespace FirstLight.Game.UIElements
 			_faction.AddToClassList(string.Format(UssSpriteFaction, equipment.Faction.ToString().ToLowerInvariant()));
 
 			_level.text = string.Format(ScriptLocalization.UITEquipment.card_lvl, equipment.Level);
-			_name.text = equipment.GameId.GetTranslation();
+			_name.text = equipment.GameId.GetLocalization();
 
 			_category.RemoveSpriteClasses();
 			_category.AddToClassList(string.Format(UssSpriteCategory,

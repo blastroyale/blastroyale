@@ -101,7 +101,8 @@ namespace FirstLight.Game.Presenters
 						var specialId = (GameId) value;
 						var element = new SpecialDisplayElement(specialId);
 						element.clicked += () =>
-							element.OpenTooltip(Root, specialId.GetTranslationDescription(), 20, 20);
+							element.OpenTooltip(Root, specialId.GetDescriptionLocalization(), TooltipDirection.TopRight,
+								TooltipPosition.BottomLeft, 20, 20);
 
 						_specialsHolder.Add(element);
 					}

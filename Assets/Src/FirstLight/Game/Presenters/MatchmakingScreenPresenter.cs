@@ -157,7 +157,7 @@ namespace FirstLight.Game.Presenters
 			if (selectedGrid.IsValidNamedArea)
 			{
 				_mapMarkerTitle.SetDisplay(true);
-				_mapMarkerTitle.text = selectedGrid.AreaName.GetMapDropPointTranslation().ToUpper();
+				_mapMarkerTitle.text = selectedGrid.AreaName.GetMapDropPointLocalization().ToUpper();
 			}
 			else
 			{
@@ -193,9 +193,9 @@ namespace FirstLight.Game.Presenters
 									  ? quantumGameConfig.RankedMatchmakingTime.AsFloat
 									  : quantumGameConfig.CasualMatchmakingTime.AsFloat;
 
-			_locationLabel.text = mapConfig.Map.GetTranslation();
+			_locationLabel.text = mapConfig.Map.GetLocalization();
 			_headerTitleLabel.text = gameMode.GetTranslationGameIdString().ToUpper();
-			_headerSubtitleLabel.text = matchType.GetTranslation().ToUpper();
+			_headerSubtitleLabel.text = matchType.GetLocalization().ToUpper();
 
 			_modeDescTopLabel.text = modeDesc[0];
 			_modeDescBotLabel.text = modeDesc[1];
@@ -317,7 +317,7 @@ namespace FirstLight.Game.Presenters
 		private string[] GetGameModeDescriptions(GameCompletionStrategy strategy)
 		{
 			var descriptions = new string[2];
-			descriptions[0] = strategy.GetTranslation();
+			descriptions[0] = strategy.GetLocalization();
 			descriptions[1] = ScriptLocalization.UITMatchmaking.wins_the_match;
 
 			return descriptions;

@@ -54,7 +54,7 @@ namespace FirstLight.Game.UIElements
 		private const string UssSpriteSlotRarity = "sprite-home__button-equipmentslot-{0}";
 		private const string UssSpriteEmptySlot = "sprite-home__icon-emptyslot-{0}";
 		private const string UssSpriteEquipmentCategory = "sprite-home__icon-equipmentcategory-{0}";
-		private const string UssSpriteFaction = "sprite-home__card-faction-{0}";
+		private const string UssSpriteFaction = "sprite-equipmentcard__card-faction-{0}";
 
 		public GameIdGroup Category { get; set; }
 
@@ -99,7 +99,7 @@ namespace FirstLight.Game.UIElements
 				_equipmentName.AddToClassList(UssEquipmentTitleName);
 
 				filledElement.Add(_equipmentLevel =
-					new Label(string.Format(ScriptLocalization.UITEquipment.card_lvl, 5))
+					new Label(string.Format(ScriptLocalization.UITEquipment.card_lvl, 17))
 						{name = "level"});
 				_equipmentLevel.AddToClassList(UssEquipmentLevel);
 
@@ -192,7 +192,7 @@ namespace FirstLight.Game.UIElements
 				equipment.Rarity.ToString().ToLowerInvariant().Replace("plus", "")));
 
 			_equipmentName.text = string.Format(ScriptLocalization.UITEquipment.item_name_lvl,
-				equipment.GameId.GetTranslation());
+				equipment.GameId.GetLocalization());
 			_equipmentLevel.text = string.Format(ScriptLocalization.UITEquipment.card_lvl, equipment.Level);
 
 			_factionIcon.RemoveSpriteClasses();

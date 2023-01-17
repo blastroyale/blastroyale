@@ -39,7 +39,7 @@ namespace FirstLight.Editor.EditorTools
 			var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
 			foreach (var (id, e) in gameLogic.EquipmentLogic.Inventory)
 			{
-				tree.Add($"{e.GetEquipmentGroup().ToString()}/{e.GameId.GetTranslation()} [{id}]",
+				tree.Add($"{e.GetEquipmentGroup().ToString()}/{e.GameId.GetLocalization()} [{id}]",
 				         new EquipmentWrapper(id, e));
 			}
 

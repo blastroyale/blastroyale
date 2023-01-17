@@ -102,7 +102,7 @@ namespace FirstLight.Game.Presenters
 			}
 			
 			_gridView.UpdateData(list);
-			_itemTitleText.text = _selectedId.GetTranslation();
+			_itemTitleText.text = _selectedId.GetLocalization();
 			_avatarImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(_selectedId);
 		}
 

@@ -663,78 +663,27 @@ namespace FirstLight.Game.StateMachines
 
 		private void StartRandomMatchmaking(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, List<string> mutators)
 		{
-			var matchType = _services.GameModeService.SelectedGameMode.Value.Entry.MatchType;
-			var gameHasBots = gameModeConfig.AllowBots;
-			var createParams = NetworkUtils.GetRoomCreateParams(gameModeConfig, mapConfig, GetRandomDropzonePosRot(), null, matchType, mutators, gameHasBots);
-			var joinRandomParams = NetworkUtils.GetJoinRandomRoomParams(gameModeConfig, mapConfig, matchType, mutators);
-
-			_networkService.QuantumRunnerConfigs.IsOfflineMode = NetworkUtils.GetMaxPlayers(gameModeConfig, mapConfig) == 1;
-
-			ResetQuantumProperties();
-
-			if (!_networkService.QuantumClient.InRoom)
-			{
-				SetSpectatePlayerProperty(false);
-				_networkService.IsJoiningNewMatch.Value = true;
-				_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.None;
-				_networkService.QuantumClient.OpJoinRandomOrCreateRoom(joinRandomParams, createParams);
-			}
+			_networkService.JoinOrCreateRandomRoom(gameModeConfig, mapConfig, mutators);
 		}
 
 		private void JoinRoom(string roomName, bool resetLastDcLocation = true)
 		{
-			var enterParams = NetworkUtils.GetRoomEnterParams(roomName);
-
-			_networkService.QuantumRunnerConfigs.IsOfflineMode = false;
-
-			ResetQuantumProperties();
-
-			if (!_networkService.QuantumClient.InRoom)
+			if (!_networkService.QuantumClient.InRoom && resetLastDcLocation)
 			{
-				SetSpectatePlayerProperty(false);
-				_networkService.IsJoiningNewMatch.Value = true;
-
-				if (resetLastDcLocation)
-				{
-					_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.None;
-				}
-				
-				_networkService.QuantumClient.OpJoinRoom(enterParams);
+				_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.None;
 			}
+			
+			_networkService.JoinRoom(roomName);
 		}
 
 		private void CreateRoom(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, List<string> mutators, string roomName)
 		{
-			var createParams = NetworkUtils.GetRoomCreateParams(gameModeConfig, mapConfig, GetRandomDropzonePosRot(), roomName, MatchType.Custom, mutators, false);
-
-			_networkService.QuantumRunnerConfigs.IsOfflineMode = false;
-
-			ResetQuantumProperties();
-
-			if (!_networkService.QuantumClient.InRoom)
-			{
-				SetSpectatePlayerProperty(false);
-				_networkService.IsJoiningNewMatch.Value = true;
-				_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.None;
-				_networkService.QuantumClient.OpCreateRoom(createParams);
-			}
+			_networkService.CreateRoom(gameModeConfig, mapConfig, mutators, roomName);
 		}
 		
 		private void JoinOrCreateRoom(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, List<string> mutators, string roomName)
 		{
-			var createParams = NetworkUtils.GetRoomCreateParams(gameModeConfig, mapConfig, GetRandomDropzonePosRot(), roomName, MatchType.Custom, mutators, false);
-
-			_networkService.QuantumRunnerConfigs.IsOfflineMode = false;
-
-			ResetQuantumProperties();
-
-			if (!_networkService.QuantumClient.InRoom)
-			{
-				SetSpectatePlayerProperty(false);
-				_networkService.IsJoiningNewMatch.Value = true;
-				_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.None;
-				_networkService.QuantumClient.OpJoinOrCreateRoom(createParams);
-			}
+			_networkService.JoinOrCreateRoom(gameModeConfig, mapConfig, mutators, roomName);
 		}
 
 		private void TickQuantumServer(float deltaTime)
@@ -847,18 +796,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void LeaveRoom()
 		{
-			if (_networkService.QuantumClient.InRoom)
-			{
-				_networkService.QuantumClient.OpLeaveRoom(false, true);
-			}
-		}
-
-		// TODO - MOVE TO QUANTUM GAME CONFIGS
-		private Vector3 GetRandomDropzonePosRot()
-		{
-			var radiusPosPercent = GameConstants.Balance.MAP_DROPZONE_POS_RADIUS_PERCENT;
-			return new Vector3(Random.Range(-radiusPosPercent,radiusPosPercent), 
-							   Random.Range(-radiusPosPercent,radiusPosPercent), Random.Range(0,360));
+			_networkService.LeaveRoom(false, true);
 		}
 	}
 }

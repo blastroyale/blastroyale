@@ -15,6 +15,16 @@ namespace Quantum
 		/// </summary>
 		public WeaponSlot* WeaponSlot => WeaponSlots.GetPointer(CurrentWeaponSlot);
 
+		public void OnAdded(Frame f)
+		{
+			Collecting = f.AllocateHashSet<EntityRef>();
+		}
+
+		public void OnRemoved(Frame f)
+		{
+			f.FreeHashSet(Collecting);
+		}
+
 		/// <summary>
 		/// Spawns this <see cref="PlayerCharacter"/> with all the necessary data.
 		/// </summary>

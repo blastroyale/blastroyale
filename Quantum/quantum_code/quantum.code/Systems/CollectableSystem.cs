@@ -191,6 +191,12 @@ namespace Quantum.Systems
 				throw new NotSupportedException($"Trying to collect an unsupported / missing collectable on {entity}.");
 			}
 
+			if (f.Unsafe.TryGetPointer<PlayerCharacter>(playerEntity, out var playerChar))
+			{
+				var list = f.ResolveHashSet(playerChar->Collecting);
+				list.Remove(entity);
+			}
+			
 			f.Events.OnCollectableCollected(gameId, entity, player, playerEntity);
 		}
 

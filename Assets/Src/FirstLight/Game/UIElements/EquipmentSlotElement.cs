@@ -192,7 +192,7 @@ namespace FirstLight.Game.UIElements
 				equipment.Rarity.ToString().ToLowerInvariant().Replace("plus", "")));
 
 			_equipmentName.text = string.Format(ScriptLocalization.UITEquipment.item_name_lvl,
-				equipment.GameId.GetTranslation());
+				equipment.GameId.GetLocalization());
 			_equipmentLevel.text = string.Format(ScriptLocalization.UITEquipment.card_lvl, equipment.Level);
 
 			_factionIcon.RemoveSpriteClasses();

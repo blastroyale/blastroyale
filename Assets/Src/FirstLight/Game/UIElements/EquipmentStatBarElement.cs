@@ -103,7 +103,7 @@ namespace FirstLight.Game.UIElements
 
 		public void SetValue(EquipmentStatType type, float currentValue, bool showUpgrade = false, float nextValue = 0f)
 		{
-			_title.text = type.GetTranslation();
+			_title.text = type.GetLocalization();
 			_amount.text = currentValue.ToString(GetValueFormat(type));
 			_amountNext.text = nextValue.ToString(GetValueFormat(type));
 			_amountNext.SetDisplay(showUpgrade);

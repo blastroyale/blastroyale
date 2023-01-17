@@ -60,11 +60,11 @@ MonoBehaviour:
         - RawValue: 163840
         - RawValue: 245760
       PlayerMaxShieldCapacity:
-        Default: 1000
+        Default: 600
         Keys:
         - BattleRoyale
         - Deathmatch
-        Values: e803000090010000
+        Values: 5802000090010000
       PlayerStartingShieldCapacity:
         Default: 200
         Keys:

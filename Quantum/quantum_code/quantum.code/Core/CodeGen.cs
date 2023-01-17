@@ -4209,6 +4209,10 @@ namespace Quantum {
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(16)]
     public AssetRefAIBlackboard BlackboardRef;
+    [FieldOffset(12)]
+    [HideInInspector()]
+    [FramePrinter.PtrQHashSetAttribute(typeof(EntityRef))]
+    private Quantum.Ptr CollectingPtr;
     [FieldOffset(0)]
     [HideInInspector()]
     public Int32 CurrentWeaponSlot;
@@ -4232,6 +4236,14 @@ namespace Quantum {
     [HideInInspector()]
     [FramePrinter.FixedArrayAttribute(typeof(WeaponSlot), 3)]
     private fixed Byte _WeaponSlots_[768];
+    public QHashSetPtr<EntityRef> Collecting {
+      get {
+        return new QHashSetPtr<EntityRef>(CollectingPtr);
+      }
+      set {
+        CollectingPtr = value.Ptr;
+      }
+    }
     public FixedArray<Equipment> Gear {
       get {
         fixed (byte* p = _Gear_) { return new FixedArray<Equipment>(p, 72, 5); }
@@ -4246,6 +4258,7 @@ namespace Quantum {
       unchecked { 
         var hash = 521;
         hash = hash * 31 + BlackboardRef.GetHashCode();
+        hash = hash * 31 + CollectingPtr.GetHashCode();
         hash = hash * 31 + CurrentWeaponSlot.GetHashCode();
         hash = hash * 31 + DroppedLoadoutFlags.GetHashCode();
         hash = hash * 31 + HashCodeUtils.GetArrayHashCode(Gear);
@@ -4257,11 +4270,19 @@ namespace Quantum {
         return hash;
       }
     }
+    public void ClearPointers(Frame f, EntityRef entity) {
+      CollectingPtr = default;
+    }
+    public static void OnRemoved(FrameBase frame, EntityRef entity, void* ptr) {
+      var p = (PlayerCharacter*)ptr;
+      p->ClearPointers((Frame)frame, entity);
+    }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (PlayerCharacter*)ptr;
         serializer.Stream.Serialize(&p->CurrentWeaponSlot);
         serializer.Stream.Serialize(&p->DroppedLoadoutFlags);
         PlayerRef.Serialize(&p->Player, serializer);
+        QHashSet.Serialize(p->Collecting, &p->CollectingPtr, serializer, StaticDelegates.SerializeEntityRef);
         Quantum.AssetRefAIBlackboard.Serialize(&p->BlackboardRef, serializer);
         AssetRefCharacterController3DConfig.Serialize(&p->KccConfigRef, serializer);
         Quantum.AssetRefHFSMRoot.Serialize(&p->HfsmRootRef, serializer);
@@ -4852,7 +4873,7 @@ namespace Quantum {
         ComponentTypeId.Add<Quantum.Hazard>(Quantum.Hazard.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.Immunity>(Quantum.Immunity.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.Invisibility>(Quantum.Invisibility.Serialize, null, null, ComponentFlags.None);
-        ComponentTypeId.Add<Quantum.PlayerCharacter>(Quantum.PlayerCharacter.Serialize, null, null, ComponentFlags.None);
+        ComponentTypeId.Add<Quantum.PlayerCharacter>(Quantum.PlayerCharacter.Serialize, null, Quantum.PlayerCharacter.OnRemoved, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.PlayerCharging>(Quantum.PlayerCharging.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.PlayerSpawner>(Quantum.PlayerSpawner.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.Projectile>(Quantum.Projectile.Serialize, null, null, ComponentFlags.None);
@@ -8629,11 +8650,11 @@ namespace Quantum {
     public static FrameSerializer.Delegate SerializeAssetRefBTDecorator;
     public static FrameSerializer.Delegate SerializeBTAgent;
     public static FrameSerializer.Delegate SerializePlayerMatchData;
+    public static FrameSerializer.Delegate SerializeEntityRef;
     public static FrameSerializer.Delegate SerializeEquipment;
     public static FrameSerializer.Delegate SerializeWeaponSlot;
     public static FrameSerializer.Delegate SerializeInt32;
     public static FrameSerializer.Delegate SerializeModifier;
-    public static FrameSerializer.Delegate SerializeEntityRef;
     public static FrameSerializer.Delegate SerializeStatData;
     public static FrameSerializer.Delegate SerializeSpecial;
     public static FrameSerializer.Delegate SerializeEntityPair;
@@ -8648,11 +8669,11 @@ namespace Quantum {
       SerializeAssetRefBTDecorator = Quantum.AssetRefBTDecorator.Serialize;
       SerializeBTAgent = Quantum.BTAgent.Serialize;
       SerializePlayerMatchData = Quantum.PlayerMatchData.Serialize;
+      SerializeEntityRef = EntityRef.Serialize;
       SerializeEquipment = Quantum.Equipment.Serialize;
       SerializeWeaponSlot = Quantum.WeaponSlot.Serialize;
       SerializeInt32 = (v, s) => {{ s.Stream.Serialize((Int32*)v); }};
       SerializeModifier = Quantum.Modifier.Serialize;
-      SerializeEntityRef = EntityRef.Serialize;
       SerializeStatData = Quantum.StatData.Serialize;
       SerializeSpecial = Quantum.Special.Serialize;
       SerializeEntityPair = Quantum.EntityPair.Serialize;
@@ -10153,6 +10174,9 @@ namespace Quantum.Prototypes {
     public Equipment_Prototype[] Gear = new Equipment_Prototype[5];
     [HideInInspector()]
     public Int32 DroppedLoadoutFlags;
+    [HideInInspector()]
+    [DynamicCollectionAttribute()]
+    public MapEntityId[] Collecting = {};
     partial void MaterializeUser(Frame frame, ref PlayerCharacter result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       PlayerCharacter component = default;
@@ -10161,6 +10185,17 @@ namespace Quantum.Prototypes {
     }
     public void Materialize(Frame frame, ref PlayerCharacter result, in PrototypeMaterializationContext context) {
       result.BlackboardRef = this.BlackboardRef;
+      if (this.Collecting.Length == 0) {
+        result.Collecting = default;
+      } else {
+        var hashSet = frame.AllocateHashSet(result.Collecting, this.Collecting.Length);
+        for (int i = 0; i < this.Collecting.Length; ++i) {
+          EntityRef tmp = default;
+          PrototypeValidator.FindMapEntity(this.Collecting[i], in context, out tmp);
+          hashSet.Add(tmp);
+        }
+        result.Collecting = hashSet;
+      }
       result.CurrentWeaponSlot = this.CurrentWeaponSlot;
       result.DroppedLoadoutFlags = this.DroppedLoadoutFlags;
       for (int i = 0, count = PrototypeValidator.CheckLength(Gear, 5, in context); i < count; ++i) {

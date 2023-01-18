@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Configs;
+using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
@@ -29,13 +30,17 @@ namespace FirstLight.Game.StateMachines
 		private readonly MatchState _matchState;
 		private readonly MainMenuState _mainMenuState;
 		private readonly IGameServices _services;
-
+		private readonly IGameDataProvider _dataProvider;
+		private readonly IGameBackendNetworkService _networkService;
+		
 		private Coroutine _csPoolTimerCoroutine;
 
-		public CoreLoopState(IGameServices services, IDataService dataService, IGameBackendNetworkService networkService, IGameUiService uiService, IGameLogic gameLogic, 
+		public CoreLoopState(IGameServices services, IGameDataProvider dataProvider, IDataService dataService, IGameBackendNetworkService networkService, IGameUiService uiService, IGameLogic gameLogic, 
 		                     IAssetAdderService assetAdderService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
+			_dataProvider = dataProvider;
+			_networkService = networkService;
 			_matchState = new MatchState(services, dataService, networkService, uiService, gameLogic, assetAdderService, statechartTrigger);
 			_mainMenuState = new MainMenuState(services, uiService, gameLogic, assetAdderService, statechartTrigger);
 		}
@@ -70,12 +75,19 @@ namespace FirstLight.Game.StateMachines
 		private async void AttemptJoinTutorialRoom(IWaitActivity activity)
 		{
 			// TODO: NETWORK - JOIN ROOM, RESOLVE ACTIVITY ON COMPLETE
+			var gameModeId = msg.GameModeConfig.Id;
+			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
+			_dataProvider.AppDataProvider.SetLastCustomGameOptions(msg.CustomGameOptions);
+			_services.DataSaver.SaveData<AppData>();
+			
+			_networkService.CreateRoom();
 			await Task.Yield();
 			activity.Complete();
 		}
 
 		private void SubscribeEvents()
 		{
+			
 		}
 
 		private void UnsubscribeEvents()
@@ -85,7 +97,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private bool IsFirstTimeGuest()
 		{
-			throw new NotImplementedException();
+			return string.IsNullOrEmpty(_dataProvider.AppDataProvider.LastLoginEmail.Value);
 		}
 
 		private bool IsConnectedAndReady()

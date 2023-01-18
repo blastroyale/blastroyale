@@ -21,6 +21,8 @@ MonoBehaviour:
       Id:
         Value: 2106855069082239478
     Scene: FtueDeck
+    ScenePath: Assets/AddressableResources/Scenes/FtueDeck.unity
+    SceneGuid: 716196f43d523334481ac4ba581947b7
     WorldSize: 128
     BucketsCount: 8
     BucketsSubdivisions: 2
@@ -30,6 +32,8 @@ MonoBehaviour:
     StaticColliders3DTrianglesData:
       Id:
         Value: 642761047244750205
+    OptionalTriangleMetadataSerializationEnabled: 1
+    SerializeTrianglesMetadata: 0
     StaticColliders3DTrianglesBinaryFile: 
     GridSizeX: 8
     GridSizeY: 8
@@ -40,6 +44,129 @@ MonoBehaviour:
     Regions: []
     StaticColliders2D: []
     StaticColliders3D:
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 17093
+        Z:
+          RawValue: 0
+        W:
+          RawValue: -63267
+      Position:
+        X:
+          RawValue: 2410318
+        Y:
+          RawValue: 89128
+        Z:
+          RawValue: -2950
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 27344
+        Y:
+          RawValue: 131072
+        Z:
+          RawValue: 473255
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: Wall (1)
+        Tag: Untagged
+        Layer: 0
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 0
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 56804
+        Z:
+          RawValue: 0
+        W:
+          RawValue: -32682
+      Position:
+        X:
+          RawValue: 2228761
+        Y:
+          RawValue: 89128
+        Z:
+          RawValue: -622665
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 27344
+        Y:
+          RawValue: 131072
+        Z:
+          RawValue: 439745
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: Wall (2)
+        Tag: Untagged
+        Layer: 0
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 1
+        MutableMode: 0
+      MutableMode: 0
+    - Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 17093
+        Z:
+          RawValue: 0
+        W:
+          RawValue: -63267
+      Position:
+        X:
+          RawValue: 1601293
+        Y:
+          RawValue: 89128
+        Z:
+          RawValue: -470041
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      ShapeType: 2
+      SphereRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 27344
+        Y:
+          RawValue: 131072
+        Z:
+          RawValue: 473255
+      SmoothSphereMeshCollisions: 0
+      StaticData:
+        Name: Wall (3)
+        Tag: Untagged
+        Layer: 0
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 0
+        ColliderIndex: 2
+        MutableMode: 0
+      MutableMode: 0
     - Rotation:
         X:
           RawValue: 0
@@ -78,7 +205,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 0
+        ColliderIndex: 3
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -119,7 +246,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 1
+        ColliderIndex: 4
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -160,28 +287,32 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 2
+        ColliderIndex: 5
         MutableMode: 0
       MutableMode: 0
     MapEntities: []
   Prototypes:
   - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
     AlivePlayerCharacter: []
     BTAgent: []
     BotCharacter: []
+    Chest: []
     Collectable: []
     CollectablePlatformSpawner: []
+    CompoundBTAgent: []
     Consumable: []
-    ConsumablePlatformSpawner: []
     DeadPlayerCharacter: []
     Destructible: []
     DummyCharacter: []
     EntityDestroyer: []
+    EquipmentCollectable: []
     GOAPAgent: []
-    GOAPData: []
     GameContainer: []
     HFSMAgent: []
     Hazard: []
+    Immunity: []
     Invisibility: []
     PlayerCharacter: []
     PlayerCharging: []
@@ -192,7 +323,6 @@ MonoBehaviour:
     Rage: []
     RaycastShots: []
     Regeneration: []
-    Shield: []
     ShrinkingCircle: []
     Spell: []
     Star: []
@@ -200,8 +330,6 @@ MonoBehaviour:
     Stun: []
     Targetable: []
     UTAgent: []
-    WeaponCollectable: []
-    WeaponPlatformSpawner: []
     CharacterController2D: []
     CharacterController3D: []
     NavMeshAvoidanceAgent: []

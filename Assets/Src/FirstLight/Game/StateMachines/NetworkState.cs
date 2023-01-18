@@ -628,6 +628,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayCreateRoomClickedMessage(PlayCreateRoomClickedMessage msg)
 		{
+			// TODO - REMOVE THE GETTING OF CONFIG - DOES IT JUST WORK?
 			var gameModeId = msg.GameModeConfig.Id;
 			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
 			_gameDataProvider.AppDataProvider.SetLastCustomGameOptions(msg.CustomGameOptions);

@@ -661,11 +661,6 @@ namespace FirstLight.Game.StateMachines
 			_uiService.CloseUi<LoginScreenPresenter>();
 		}
 
-		private void CloseLoadingScreen()
-		{
-			_uiService.CloseUi<LoadingScreenPresenter>();
-		}
-
 		private void CloseRegisterScreen()
 		{
 			_uiService.CloseUi<RegisterScreenPresenter>();

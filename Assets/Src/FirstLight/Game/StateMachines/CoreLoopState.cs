@@ -10,7 +10,9 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
+using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
+using FirstLight.Game.Utils;
 using FirstLight.Services;
 using FirstLight.Statechart;
 using I2.Loc;
@@ -32,6 +34,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _dataProvider;
 		private readonly IGameBackendNetworkService _networkService;
+		private readonly IGameUiService _uiService;
 		
 		private Coroutine _csPoolTimerCoroutine;
 
@@ -41,6 +44,7 @@ namespace FirstLight.Game.StateMachines
 			_services = services;
 			_dataProvider = dataProvider;
 			_networkService = networkService;
+			_uiService = uiService;
 			_matchState = new MatchState(services, dataService, networkService, uiService, gameLogic, assetAdderService, statechartTrigger);
 			_mainMenuState = new MainMenuState(services, uiService, gameLogic, assetAdderService, statechartTrigger);
 		}
@@ -55,10 +59,13 @@ namespace FirstLight.Game.StateMachines
 			var firstMatchCheck = stateFactory.Choice("First Match Check");
 			var match = stateFactory.Nest("Match");
 			var mainMenu = stateFactory.Nest("Main Menu");
-			var joinTutorialRoom = stateFactory.Wait("Room Join Wait");
+			var joinTutorialRoom = stateFactory.State("Room Join Wait");
+			var connectionWait = stateFactory.Wait("Connection Wait");
 			
-			initial.Transition().Target(firstMatchCheck);
+			initial.Transition().Target(connectionWait);
 			initial.OnExit(SubscribeEvents);
+			
+			connectionWait.WaitingFor(WaitForPhotonConnection).Target(firstMatchCheck);
 			
 			firstMatchCheck.Transition().Condition(IsFirstTimeGuest).Target(joinTutorialRoom);
 			firstMatchCheck.Transition().Target(mainMenu);
@@ -66,23 +73,37 @@ namespace FirstLight.Game.StateMachines
 			mainMenu.Nest(_mainMenuState.Setup).Target(match);
 
 			match.Nest(_matchState.Setup).Target(mainMenu);
-			
-			joinTutorialRoom.WaitingFor(AttemptJoinTutorialRoom).Target(match);
 
+			// TODO - Decide what to do if join room fails
+			joinTutorialRoom.OnEnter(AttemptJoinTutorialRoom);
+			joinTutorialRoom.Event(NetworkState.JoinedRoomEvent).Target(match);
+			joinTutorialRoom.Event(NetworkState.JoinRoomFailedEvent).Target(mainMenu);
+			
 			final.OnEnter(UnsubscribeEvents);
 		}
 
-		private async void AttemptJoinTutorialRoom(IWaitActivity activity)
+		private async void WaitForPhotonConnection(IWaitActivity activity)
 		{
-			// TODO: NETWORK - JOIN ROOM, RESOLVE ACTIVITY ON COMPLETE
-			var gameModeId = msg.GameModeConfig.Id;
-			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
-			_dataProvider.AppDataProvider.SetLastCustomGameOptions(msg.CustomGameOptions);
-			_services.DataSaver.SaveData<AppData>();
+			while (!_services.NetworkService.QuantumClient.IsConnectedAndReady)
+			{
+				await Task.Yield();
+			}
 			
-			_networkService.CreateRoom();
-			await Task.Yield();
 			activity.Complete();
+		}
+
+		private async void AttemptJoinTutorialRoom()
+		{
+			await _uiService.OpenUiAsync<SwipeScreenPresenter>();
+			await _uiService.CloseUi<LoadingScreenPresenter>();
+			await Task.Delay(1000);
+			
+			// TODO: Hook up proper tutorial values
+			var gameModeId = "BattleRoyale";
+			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
+			var mapConfig = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(GameId.BRGenesis.GetHashCode());
+
+			_networkService.CreateRoom(gameModeConfig, mapConfig, new List<string>(), GameConstants.Tutorial.TUTORIAL_ROOM_NAME, false);
 		}
 
 		private void SubscribeEvents()
@@ -98,11 +119,6 @@ namespace FirstLight.Game.StateMachines
 		private bool IsFirstTimeGuest()
 		{
 			return string.IsNullOrEmpty(_dataProvider.AppDataProvider.LastLoginEmail.Value);
-		}
-
-		private bool IsConnectedAndReady()
-		{
-			return _services.NetworkService.QuantumClient.IsConnectedAndReady;
 		}
 
 		private void CallLeaveRoom()

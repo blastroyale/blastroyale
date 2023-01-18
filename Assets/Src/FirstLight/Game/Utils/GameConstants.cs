@@ -280,6 +280,11 @@ namespace FirstLight.Game.Utils
 
 		}
 
+		public static class Tutorial
+		{
+			public const string TUTORIAL_ROOM_NAME = "FirstGameTutorial";
+		}
+
 		public static class GameModeId
 		{
 			public static string FAKEGAMEMODE_CUSTOMGAME = "Custom Game";

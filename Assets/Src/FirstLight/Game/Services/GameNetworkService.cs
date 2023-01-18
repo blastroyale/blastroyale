@@ -127,6 +127,11 @@ namespace FirstLight.Game.Services
 		void SetPlayerCustomProperties(Hashtable propertiesToUpdate);
 
 		/// <summary>
+		/// Enables or disables quantum ticking update and lag detection
+		/// </summary>
+		void EnableQuantumUpdate(bool enabled);
+
+		/// <summary>
 		/// Requests the current room that the local player is in
 		/// </summary>
 		Room CurrentRoom { get; }
@@ -264,6 +269,7 @@ namespace FirstLight.Game.Services
 		LastDisconnectionLocation IGameNetworkService.LastDisconnectLocation => LastDisconnectLocation.Value;
 		string IGameNetworkService.LastConnectedRoomName => LastConnectedRoomName.Value;
 		IObservableFieldReader<bool> IGameNetworkService.HasLag => HasLag;
+
 		public Room CurrentRoom => QuantumClient.CurrentRoom;
 		public Player LocalPlayer => QuantumClient.LocalPlayer;
 		public bool InRoom => QuantumClient.InRoom;
@@ -349,7 +355,20 @@ namespace FirstLight.Game.Services
 		{
 			_services = services;
 			_dataProvider = dataProvider;
-			_services.TickService.SubscribeOnUpdate(TickQuantumClient, QUANTUM_TICK_SECONDS, true, true);
+		}
+		
+		public void EnableQuantumUpdate(bool enabled)
+		{
+			if (_services == null) return;
+
+			if (enabled)
+			{
+				_services.TickService.SubscribeOnUpdate(TickQuantumClient, QUANTUM_TICK_SECONDS, true, true);
+			}
+			else
+			{
+				_services.TickService.UnsubscribeAll(this);
+			}
 		}
 
 		private void TickQuantumClient(float deltaTime)

@@ -65,6 +65,7 @@ namespace FirstLight.Game
 				assetResolver, vfxService, audioFxService, uiService);
 			
 			networkService.BindServicesAndData(gameLogic, gameServices);
+			networkService.EnableQuantumUpdate(true);
 			
 			MainInstaller.Bind<IGameDataProvider>(gameLogic);
 			MainInstaller.Bind<IGameServices>(gameServices);

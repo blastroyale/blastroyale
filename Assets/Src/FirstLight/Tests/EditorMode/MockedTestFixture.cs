@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
@@ -28,6 +29,7 @@ namespace FirstLight.Tests.EditorMode
 		{
 			TestData = Activator.CreateInstance<T>();
 			DataService.GetData<T>().Returns(x => TestData);
+			DataService.GetData<AppData>().Returns(x => new AppData());
 		}
 	}
 

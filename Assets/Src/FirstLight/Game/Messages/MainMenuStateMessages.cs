@@ -34,6 +34,5 @@ namespace FirstLight.Game.Messages
 		public QuantumMapConfig MapConfig;
 		public CustomGameOptions CustomGameOptions;
 		public bool JoinIfExists;
-		public bool OfflineMode;
 	}
 }

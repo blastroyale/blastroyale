@@ -630,16 +630,17 @@ namespace FirstLight.Game.StateMachines
 		{
 			var gameModeId = msg.GameModeConfig.Id;
 			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
+			var offlineMode = gameModeConfig.IsDebugOnly;
 			_gameDataProvider.AppDataProvider.SetLastCustomGameOptions(msg.CustomGameOptions);
 			_services.DataSaver.SaveData<AppData>();
-			
+
 			if (msg.JoinIfExists)
 			{
 				JoinOrCreateRoom(gameModeConfig, msg.MapConfig, msg.CustomGameOptions.Mutators, msg.RoomName);
 			}
 			else
 			{
-				CreateRoom(gameModeConfig, msg.MapConfig, msg.CustomGameOptions.Mutators, msg.RoomName, msg.OfflineMode);
+				CreateRoom(gameModeConfig, msg.MapConfig, msg.CustomGameOptions.Mutators, msg.RoomName, offlineMode);
 			}
 		}
 

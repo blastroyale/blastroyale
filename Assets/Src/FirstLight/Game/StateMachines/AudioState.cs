@@ -187,7 +187,7 @@ namespace FirstLight.Game.StateMachines
 
 		private bool IsSpectator()
 		{
-			return _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator();
+			return _services.NetworkService.LocalPlayer.IsSpectator();
 		}
 
 		private bool ShouldUseDeathmatchSM()
@@ -236,7 +236,7 @@ namespace FirstLight.Game.StateMachines
 
 			var victoryStatusAudio = AudioId.MusicDefeatJingle;
 
-			if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator() &&
+			if (_services.NetworkService.LocalPlayer.IsSpectator() &&
 			    _matchServices.SpectateService.SpectatedPlayer.Value.Player == leader)
 			{
 				victoryStatusAudio = AudioId.MusicVictoryJingle;

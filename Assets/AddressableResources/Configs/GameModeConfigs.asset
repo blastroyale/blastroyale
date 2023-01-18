@@ -40,7 +40,7 @@ MonoBehaviour:
       SkydiveSpawn: 1
       SpawnSelection: 1
       SpawnPattern: 1
-      DeathDropStrategy: 3
+      DeathDropStrategy: 4
       DeathMarker: 1
       AllowBots: 1
       BotSearchForCrates: 1

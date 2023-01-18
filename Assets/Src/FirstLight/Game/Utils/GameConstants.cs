@@ -154,7 +154,6 @@ namespace FirstLight.Game.Utils
 		public static class Network
 		{
 			// Network state time settings
-			public const float NETWORK_QUANTUM_TICK_SECONDS = 0.1f;
 			public const float NETWORK_ATTEMPT_RECONNECT_SECONDS = 0.25f;
 			
 			public const float CRITICAL_DISCONNECT_THRESHOLD_SECONDS = 10f;

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System;
 using Photon.Deterministic;
 
 namespace Quantum
@@ -145,6 +145,11 @@ namespace Quantum
 
 		private static FP CalculateAttributeStatValue(QuantumStatConfig statConfig, FP ratioToBase, FP statRatio, Equipment equipment)
 		{
+			if (equipment.Level <= 0)
+			{
+				throw new ArgumentOutOfRangeException(nameof(equipment.Level), equipment.Level, "Equipment level cannot be <= 0");
+			}
+			
 			var modifiedValue = FP._0;
 			var value = (ratioToBase + statRatio) * statConfig.BaseValue;
 

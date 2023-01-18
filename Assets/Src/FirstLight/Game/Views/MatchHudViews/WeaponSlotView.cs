@@ -150,7 +150,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				return;
 			}
 			
-			_name.text = _equipment.GameId.GetTranslation();
+			_name.text = _equipment.GameId.GetLocalization();
 			_weapon.enabled = true;
 			_smearPattern.enabled = true;
 

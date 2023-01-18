@@ -1,7 +1,9 @@
+using System;
 using Photon.Deterministic;
 
 namespace Quantum 
 {
+
 	unsafe partial class RuntimePlayer
 	{
 		public string PlayerId;
@@ -13,6 +15,7 @@ namespace Quantum
 		public FPVector2 NormalizedSpawnPosition;
 		public Equipment Weapon;
 		public Equipment[] Loadout;
+		public EquipmentSimulationMetadata[] LoadoutMetadata;
 
 		partial void SerializeUserData(BitStream stream)
 		{
@@ -41,6 +44,14 @@ namespace Quantum
 				}
 
 				Loadout[i] = localGear;
+			}
+			
+			stream.SerializeArrayLength(ref LoadoutMetadata);
+			for (var i = 0; i < LoadoutMetadata.Length; i++)
+			{
+				var metadata = LoadoutMetadata[i];
+				Equipment.Serialize(&metadata, serializer);
+				LoadoutMetadata[i] = metadata;
 			}
 
 			Skin = (GameId) skin;

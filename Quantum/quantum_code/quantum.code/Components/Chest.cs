@@ -209,19 +209,20 @@ namespace Quantum
 				var shieldsList = new List<GameId>(GameIdGroup.Shield.GetIds());
 				var armorsList = new List<GameId>(GameIdGroup.Armor.GetIds());
 				var amuletsList = new List<GameId>(GameIdGroup.Amulet.GetIds());
+
 				
-				botLoadout.Add(new Equipment{GameId = helmetsList[f.RNG->Next(0, helmetsList.Count)], Rarity = medianRarity });
+				botLoadout.Add(Equipment.Create(helmetsList[f.RNG->Next(0, helmetsList.Count)], medianRarity, 1, f));
 				if (botCharacter->LoadoutGearNumber > 1)
 				{
-					botLoadout.Add(new Equipment{GameId = shieldsList[f.RNG->Next(0, shieldsList.Count)], Rarity = medianRarity});
+					botLoadout.Add(Equipment.Create(shieldsList[f.RNG->Next(0, shieldsList.Count)], medianRarity, 1, f));
 				}
 				if (botCharacter->LoadoutGearNumber > 2)
 				{
-					botLoadout.Add(new Equipment{GameId = armorsList[f.RNG->Next(0, armorsList.Count)], Rarity = medianRarity});
+					botLoadout.Add(Equipment.Create(armorsList[f.RNG->Next(0, armorsList.Count)], medianRarity, 1, f));
 				}
 				if (botCharacter->LoadoutGearNumber > 3)
 				{
-					botLoadout.Add(new Equipment{GameId = amuletsList[f.RNG->Next(0, amuletsList.Count)], Rarity = medianRarity});
+					botLoadout.Add(Equipment.Create(amuletsList[f.RNG->Next(0, amuletsList.Count)], medianRarity, 1, f));
 				}
 			}
 			

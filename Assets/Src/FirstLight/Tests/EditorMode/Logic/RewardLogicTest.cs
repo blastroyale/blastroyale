@@ -289,7 +289,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			ResourceLogic.GetResourcePoolInfo(GameId.BPP).Returns(resourceInfoBPP);
 		}
 
-		private void SetPlayerRank(int rank, int totalPlayers)
+		private void SetPlayerRank(int rank, int totalPlayers, byte collectedNfts = 5)
 		{
 			Debug.Assert(totalPlayers >= rank);
 			Debug.Assert(rank >= 1);
@@ -300,7 +300,11 @@ namespace FirstLight.Tests.EditorMode.Logic
 			{
 				_matchData.Add(new QuantumPlayerMatchData
 				{
-					PlayerRank = (uint) i
+					PlayerRank = (uint) i,
+					Data = new PlayerMatchData()
+					{
+						CollectedOwnedNfts = collectedNfts
+					}
 				});
 
 				_executingPlayer = rank - 1;

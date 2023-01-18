@@ -95,7 +95,7 @@ SpriteAtlas:
   - card-faction-organic
   - card-rarity-epic
   - card-background-pressed
-  - card-material-gold
+  - card-material-golden
   - card-faction-celestial
   - card-material-bronze
   - card-category-shield

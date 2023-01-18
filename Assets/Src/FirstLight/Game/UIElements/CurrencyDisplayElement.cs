@@ -66,7 +66,7 @@ namespace FirstLight.Game.UIElements
 
 		private void OnClicked(ClickEvent evt)
 		{
-			this.OpenTooltip(panel.visualTree, currency.GetTranslationDescription());
+			this.OpenTooltip(panel.visualTree, currency.GetDescriptionLocalization());
 		}
 
 		/* IUIView: Called the first time this element is initialized (on first Open) */

@@ -13,12 +13,12 @@ namespace Quantum
 		{
 			GameIdGroup.Amulet, GameIdGroup.Armor, GameIdGroup.Shield, GameIdGroup.Helmet, GameIdGroup.Weapon
 		};
-		
+
 		/// <summary>
 		/// An invalid piece of equipment
 		/// </summary>
 		public static Equipment None => new Equipment();
-		
+
 		/// <summary>
 		/// The default equipment weapon <see cref="GameId"/>
 		/// </summary>
@@ -33,18 +33,18 @@ namespace Quantum
 		/// Creates a new Equipment item with default (lowest) values, unless otherwise defined.
 		/// </summary>
 		public Equipment(GameId gameId,
-		                 EquipmentEdition edition = EquipmentEdition.Genesis,
-		                 EquipmentRarity rarity = EquipmentRarity.Common,
-		                 EquipmentGrade grade = EquipmentGrade.GradeV,
-		                 EquipmentFaction faction = EquipmentFaction.Order,
-		                 EquipmentAdjective adjective = EquipmentAdjective.Regular,
-		                 EquipmentMaterial material = EquipmentMaterial.Plastic,
+						 EquipmentEdition edition = EquipmentEdition.Genesis,
+						 EquipmentRarity rarity = EquipmentRarity.Common,
+						 EquipmentGrade grade = EquipmentGrade.GradeV,
+						 EquipmentFaction faction = EquipmentFaction.Order,
+						 EquipmentAdjective adjective = EquipmentAdjective.Regular,
+						 EquipmentMaterial material = EquipmentMaterial.Plastic,
 						 uint maxDurability = 4,
 						 uint initialReplicationCounter = 0,
-		                 uint tuning = 0,
-		                 uint level = 1,
-		                 uint generation = 0,
-		                 uint replicationCounter = 0,
+						 uint tuning = 0,
+						 uint level = 1,
+						 uint generation = 0,
+						 uint replicationCounter = 0,
 						 uint totalRestoredDurability = 0,
 						 long lastRepairTimestamp = 0)
 		{
@@ -83,7 +83,7 @@ namespace Quantum
 		/// Checks if this item is the Hammer.
 		/// </summary>
 		public bool IsDefaultItem() => GameId == GameId.Hammer;
-		
+
 		/// <summary>
 		/// Requests the equipment's current might
 		/// </summary>
@@ -147,23 +147,43 @@ namespace Quantum
 			unchecked
 			{
 				var hash = 281;
-				hash = hash * 31 + (Int32)Adjective;
-				hash = hash * 31 + (Int32)Edition;
-				hash = hash * 31 + (Int32)Faction;
-				hash = hash * 31 + (Int32)GameId;
+				hash = hash * 31 + (Int32) Adjective;
+				hash = hash * 31 + (Int32) Edition;
+				hash = hash * 31 + (Int32) Faction;
+				hash = hash * 31 + (Int32) GameId;
 				hash = hash * 31 + Generation.GetHashCode();
-				hash = hash * 31 + (Int32)Grade;
+				hash = hash * 31 + (Int32) Grade;
 				hash = hash * 31 + InitialReplicationCounter.GetHashCode();
 				// hash = hash * 31 + LastRepairTimestamp.GetHashCode(); ; // ignored on server
 				hash = hash * 31 + Level.GetHashCode();
-				hash = hash * 31 + (Int32)Material;
+				hash = hash * 31 + (Int32) Material;
 				hash = hash * 31 + MaxDurability.GetHashCode();
-				hash = hash * 31 + (Int32)Rarity;
+				hash = hash * 31 + (Int32) Rarity;
 				hash = hash * 31 + ReplicationCounter.GetHashCode();
 				hash = hash * 31 + TotalRestoredDurability.GetHashCode();
 				hash = hash * 31 + Tuning.GetHashCode();
 				return hash;
 			}
+		}
+
+		public override string ToString()
+		{
+			return
+				$"Equipment({GameId}){{\n" +
+				$"{nameof(Adjective)}: {Adjective},\n" +
+				$"{nameof(Edition)}: {Edition},\n" +
+				$"{nameof(Faction)}: {Faction}\n" +
+				$"{nameof(Generation)}: {Generation}\n" +
+				$"{nameof(Grade)}: {Grade}\n" +
+				$"{nameof(InitialReplicationCounter)}: {InitialReplicationCounter}\n" +
+				$"{nameof(LastRepairTimestamp)}: {LastRepairTimestamp}\n" +
+				$"{nameof(Level)}: {Level}\n" +
+				$"{nameof(Material)}: {Material}\n" +
+				$"{nameof(MaxDurability)}: {MaxDurability}\n" +
+				$"{nameof(Rarity)}: {Rarity}\n" +
+				$"{nameof(ReplicationCounter)}: {ReplicationCounter}\n" +
+				$"{nameof(TotalRestoredDurability)}: {TotalRestoredDurability}\n" +
+				$"{nameof(Tuning)}: {Tuning}\n}}";
 		}
 	}
 }

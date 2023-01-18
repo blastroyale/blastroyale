@@ -7,6 +7,7 @@ using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Server.SDK.Models;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using Newtonsoft.Json;
 using Quantum;
@@ -78,6 +79,11 @@ namespace FirstLight.Game.Logic
 		/// <see cref="UnclaimedRewards"/> list.
 		/// </summary>
 		bool HasUnclaimedPurchases();
+		
+		/// <summary>
+		/// Obtains the rewards for a given tutorial step
+		/// </summary>
+		List<ItemData> GetRewardsFromTutorial(TutorialStep step);
 	}
 
 	/// <inheritdoc />
@@ -105,6 +111,12 @@ namespace FirstLight.Game.Logic
 		/// adds it on it's end).
 		/// </summary>
 		void AddIAPReward(RewardData reward);
+
+		/// <summary>
+		/// Generic item handler to give items to player as rewards
+		/// </summary>
+		/// <param name="items"></param>
+		void GiveItems(List<ItemData> items);
 	}
 
 	/// <inheritdoc cref="IRewardLogic"/>
@@ -272,6 +284,56 @@ namespace FirstLight.Game.Logic
 		public void AddIAPReward(RewardData reward)
 		{
 			Data.UncollectedRewards.Add(reward);
+		}
+
+		public void GiveItems(List<ItemData> items)
+		{
+			foreach (var item in items)
+			{
+				if (item.ItemObject is Equipment eq)
+				{
+					GameLogic.EquipmentLogic.AddToInventory(eq);
+				}
+				else
+				{
+					_unclaimedRewards.Add(new RewardData()
+					{
+						Value = item.Amount,
+						RewardId = item.Id
+					});
+				}
+			}
+		}
+
+		public List<ItemData> GetRewardsFromTutorial(TutorialStep step)
+		{
+			var rewards = new List<ItemData>();
+			var tutorialRewardsCfg = GameLogic.ConfigsProvider.GetConfigsList<TutorialRewardConfig>();
+			var rewardsCfg = GameLogic.ConfigsProvider.GetConfigsList<EquipmentRewardConfig>();
+			var rewardsConfigs = rewardsCfg
+				.Where(c => tutorialRewardsCfg.First(c => c.Step == step).RewardIds.Contains((uint)c.Id));
+			foreach (var rewardConfig in rewardsConfigs)
+			{
+				if (rewardConfig.IsEquipment())
+				{
+					var equipment = GameLogic.EquipmentLogic.GenerateEquipmentFromConfig(rewardConfig);
+					rewards.Add(new ItemData()
+					{
+						Amount = rewardConfig.Amount,
+						Id = equipment.GameId,
+						ItemObject = equipment
+					});
+				}
+				else
+				{
+					rewards.Add(new ItemData()
+					{
+						Amount = rewardConfig.Amount,
+						Id = rewardConfig.GameId,
+					});
+				}
+			}
+			return rewards;
 		}
 
 		private RewardData ClaimReward(RewardData reward)

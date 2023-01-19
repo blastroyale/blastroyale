@@ -10136,9 +10136,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 'Splash Damage across
+      - 'Deals splash damage
 
-        a targeted area'
+        in a big area'
       - 
       - 
       Flags: 000000
@@ -10161,7 +10161,7 @@ MonoBehaviour:
         within the blast radius
 
         of a thrown
-        grenade.'
+        grenade'
       - 
       - 
       Flags: 000000
@@ -10264,7 +10264,7 @@ MonoBehaviour:
         the blast radius of a
 
         thrown
-        grenade.'
+        grenade'
       - 
       - 
       Flags: 000000
@@ -10282,9 +10282,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 'Splash Damage over
+      - 'Deals splash damage
 
-        a large area.'
+        in a big area'
       - 
       - 
       Flags: 000000
@@ -10386,7 +10386,7 @@ MonoBehaviour:
       Languages:
       - 'Shows nearby players
 
-        on the minimap.'
+        on the minimap'
       - 
       - 
       Flags: 000000
@@ -10424,9 +10424,9 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 'Activates a shield
+      - 'Makes you invincible
 
-        around your character.'
+        and immune for some time'
       - 
       - 
       Flags: 000000
@@ -10444,12 +10444,12 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 'Dash that stuns enemies
+      - 'Dash that damages enemies
 
-        on the way and greatly
+        on the way and grants shield
 
-        increases
-        aggro.'
+        for
+        the duration of the dash'
       - 
       - 
       Flags: 000000
@@ -10467,11 +10467,11 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - 'Instant high power
+      - 'Almost instant high
 
-        damage in a small
+        power damage in a
 
-        but focussed area.'
+        small area'
       - 
       - 
       Flags: 000000
@@ -10708,6 +10708,15 @@ MonoBehaviour:
       Description: 
       Languages:
       - WEAPON
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: GameIds/FtueDeck
+      TermType: 0
+      Description: 
+      Languages:
+      - Gameplay Tutorial
       - 
       - 
       Flags: 000000
@@ -11364,7 +11373,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1673880381066
+    Google_LastUpdatedVersion: 1674139974019
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

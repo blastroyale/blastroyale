@@ -28,7 +28,7 @@ namespace FirstLight.Tests.EditorMode
 	/// </summary>
 	public abstract class IntegrationTestFixture
 	{
-		private static string _backendPath => $"{Application.dataPath}/../Backend";
+		private static string _serverResourcesPath => $"{Application.dataPath}/../Backend/ServerCommon/Resources";
 
 		protected string TestPlayerId;
 		protected IGameServices TestServices;
@@ -45,7 +45,7 @@ namespace FirstLight.Tests.EditorMode
 		[OneTimeSetUp]
 		public void SetupOnce()
 		{
-			var serializedConfig = File.ReadAllText($"{_backendPath}/GameLogicService/gameConfig.json");
+			var serializedConfig = File.ReadAllText($"{_serverResourcesPath}/gameConfig.json");
 			TestConfigs = new ConfigsSerializer().Deserialize<ConfigsProvider>(serializedConfig);
 
 			// TODO: Fix async issue with asset resolver on NUnit

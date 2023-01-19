@@ -28,6 +28,9 @@ namespace FirstLight.Game.Configs
 		public uint Tuning;
 		public uint Level;
 		public uint Generation;
+		public int Amount;
+
+		public bool IsEquipment() => Level > 0;
 
 	}
 	/// <summary>

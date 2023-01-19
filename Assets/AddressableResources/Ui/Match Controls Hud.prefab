@@ -384,8 +384,8 @@ GameObject:
   - component: {fileID: 3686155808274499916}
   - component: {fileID: 5200359982251053315}
   - component: {fileID: 1859228155061856599}
-  - component: {fileID: 7212539146971853193}
   - component: {fileID: 2313519438936792204}
+  - component: {fileID: 1656341962279759688}
   m_Layer: 5
   m_Name: GunSwitchButton
   m_TagString: Untagged
@@ -510,19 +510,6 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &7212539146971853193
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 512187332771914931}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38730afb4d01446faeb818c507804c7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _button: {fileID: 5200359982251053315}
 --- !u!114 &2313519438936792204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -543,6 +530,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &1656341962279759688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 512187332771914931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d54531977ecb194c95e2d3aa7a5d72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ControlPath: <OnScreenControlsDevice>/SwitchWeaponButton
 --- !u!1 &2120427830526508390
 GameObject:
   m_ObjectHideFlags: 0
@@ -846,7 +846,6 @@ MonoBehaviour:
   _onscreenJoystickPointerDownAdapter: {fileID: 6161270051547520423}
   _dynamicJoystickCompatible: 0
   _leftSideJoystick: 0
-  _raycaster: {fileID: 8320761002307978617}
 --- !u!1 &4543775689126659115
 GameObject:
   m_ObjectHideFlags: 0
@@ -957,7 +956,6 @@ MonoBehaviour:
   _onscreenJoystickPointerDownAdapter: {fileID: 8467213377424103225}
   _dynamicJoystickCompatible: 1
   _leftSideJoystick: 1
-  _raycaster: {fileID: 8320761002307978617}
 --- !u!1 &5489627057178941867
 GameObject:
   m_ObjectHideFlags: 0

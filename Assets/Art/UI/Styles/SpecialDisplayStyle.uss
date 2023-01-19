@@ -7,7 +7,6 @@
 }
 
 .special-display__icon {
-    background-image: var(--sprite-home__icon-special-aimingairstrike);
     width: 84px;
     height: 84px;
 }

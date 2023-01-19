@@ -16,7 +16,20 @@ namespace FirstLight.Game.Services
 	/// </summary>
 	public interface ILiveopsService
 	{
-		IReadOnlyList<string> UserSegments { get; }
+		/// <summary>
+		/// Obtains a list of feature flag overrides based on the user segments
+		/// </summary>
+		Dictionary<string, string> GetUserSegmentedFeatureFlags();
+
+		/// <summary>
+		///  Fetch the user segments from third party providers
+		/// </summary>
+		void FetchSegments(Action<List<string>> segments=null);
+
+		/// <summary>
+		/// Checks if a given user is in a given segment
+		/// </summary>
+		bool IsInSegment(string segmentName);
 	}
 	
 	public class LiveopsService : ILiveopsService
@@ -37,18 +50,38 @@ namespace FirstLight.Game.Services
 			_configs = configs;
 			_services.MessageBrokerService.Subscribe<MainMenuOpenedMessage>(OnMainMenuOpened);
 		}
-		
-		public IReadOnlyList<string> UserSegments => _segments;
-		
-		private void OnMainMenuOpened(MainMenuOpenedMessage msg)
+
+		public Dictionary<string, string> GetUserSegmentedFeatureFlags()
 		{
-			_playfab.GetPlayerSegments(OnGetPlayerSegments);
+			var result = new Dictionary<string, string>();
+			var featureFlags = _configs.GetConfigsList<LiveopsFeatureFlagConfig>();
+			foreach (var featureFlag in featureFlags)
+			{
+				if (IsInSegment(featureFlag.PlayerSegment))
+				{
+					result[featureFlag.FeatureFlag] = featureFlag.Enabled.ToString();
+				}
+			}
+			return result;
 		}
 
-		private void OnGetPlayerSegments(List<GetSegmentResult> segments)
+		public void FetchSegments(Action<List<string>> onFetched=null)
 		{
-			_segments = segments.Select(s => s.Name).ToList();
-			TriggerSegmentEvents(typeof(MainMenuOpenedMessage));
+			_playfab.GetPlayerSegments(r =>
+			{
+				_segments = r.Select(s => s.Name.ToLower()).ToList();
+				onFetched?.Invoke(_segments);
+			});
+		}
+
+		public bool IsInSegment(string segmentName)
+		{
+			return _segments.Contains(segmentName.ToLower());
+		}
+
+		private void OnMainMenuOpened(MainMenuOpenedMessage msg)
+		{
+			TriggerSegmentEvents(msg.GetType());
 		}
 
 		private void TriggerSegmentEvents(Type triggerEventType)
@@ -56,7 +89,7 @@ namespace FirstLight.Game.Services
 			var actions = _configs.GetConfigsList<LiveopsSegmentActionConfig>();
 			foreach (var action in actions)
 			{
-				if (_liveopsData.HasTriggeredSegmentationAction(action.ActionIdentifier) || !_segments.Contains(action.PlayerSegment))
+				if (_liveopsData.HasTriggeredSegmentationAction(action.ActionIdentifier) || !IsInSegment(action.PlayerSegment))
 				{
 					continue;
 				}

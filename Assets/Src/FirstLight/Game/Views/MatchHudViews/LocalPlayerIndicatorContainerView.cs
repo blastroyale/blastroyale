@@ -83,8 +83,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 		/// </summary>
 		public void OnMoveUpdate(Vector2 direction, bool isPressed)
 		{
-			_indicators[(int) IndicatorVfxId.Movement].SetTransformState(direction);
-			_indicators[(int) IndicatorVfxId.Movement].SetVisualState(isPressed);
+			_indicators[(int) IndicatorVfxId.Movement]?.SetTransformState(direction);
+			_indicators[(int) IndicatorVfxId.Movement]?.SetVisualState(isPressed);
 		}
 		
 		/// <summary>
@@ -171,7 +171,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 
 			ShootIndicator.SetTransformState(aimDirection);
-			ShootIndicator.SetVisualState(input->IsShootButtonDown, isEmptied || reloading);
+			ShootIndicator.SetVisualState(input->IsShootButtonDown || input->AimingDirection != FPVector2.Zero, isEmptied || reloading);
 			ShootIndicator.SetVisualProperties(size, 0, range);
 		}
 

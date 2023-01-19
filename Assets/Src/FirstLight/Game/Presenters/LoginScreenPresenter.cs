@@ -28,6 +28,22 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _blockerElement;
 		
 		private IGameServices _services;
+		
+		private string _lastUsedRecoveryEmail;
+		
+		public void OpenPasswordRecoveryPopup(string initialInputText)
+		{
+			_lastUsedRecoveryEmail = initialInputText;
+			var confirmButton = new GenericDialogButton<string>
+			{
+				ButtonText = ScriptLocalization.UITShared.ok,
+				ButtonOnClick = Data.ForgotPasswordClicked
+			};
+
+			_services.GenericDialogService.OpenInputDialog(ScriptLocalization.UITShared.info,
+				ScriptLocalization.UITLoginRegister.send_password_recovery,
+				initialInputText, confirmButton, true);
+		}
 
 		private void Awake()
 		{
@@ -69,17 +85,9 @@ namespace FirstLight.Game.Presenters
 
 		private void OnResetPasswordButtonClicked()
 		{
-			var confirmButton = new GenericDialogButton<string>
-			{
-				ButtonText = ScriptLocalization.UITShared.ok,
-				ButtonOnClick = Data.ForgotPasswordClicked
-			};
-
-			_services.GenericDialogService.OpenInputDialog(ScriptLocalization.UITShared.info,
-				ScriptLocalization.UITLoginRegister.send_password_recovery,
-				"", confirmButton, true);
+			OpenPasswordRecoveryPopup(_lastUsedRecoveryEmail);
 		}
-
+		
 		private void OnPlayAsGuestButtonClicked()
 		{
 			_services.AnalyticsService.UiCalls.ButtonAction(UIAnalyticsButtonsNames.PlayAsGuest);

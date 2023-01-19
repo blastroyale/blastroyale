@@ -262,7 +262,7 @@ namespace FirstLight.Game.Presenters
 													GameConstants.Haptics.GAME_START_DURATION);
 			}
 
-			if (!msg.IsResync || _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
+			if (!msg.IsResync || _services.NetworkService.LocalPlayer.IsSpectator())
 			{
 				return;
 			}

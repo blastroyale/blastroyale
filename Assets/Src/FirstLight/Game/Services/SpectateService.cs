@@ -79,7 +79,7 @@ namespace FirstLight.Game.Services
 
 		public void OnMatchStarted(QuantumGame game, bool isReconnect)
 		{
-			if (_gameServices.NetworkService.IsSpectorPlayer)
+			if (_gameServices.NetworkService.LocalPlayer.IsSpectator())
 			{
 				SwipeRight(game);
 
@@ -126,7 +126,7 @@ namespace FirstLight.Game.Services
 			// behind when we're in Spectate mode, meaning that we aren't able to fetch the initial spectated player
 			// on the first frame the same way we can in normal mode. SMH.
 			if (!_spectatedPlayer.Value.Entity.IsValid && 
-			    _gameServices.NetworkService.QuantumClient.LocalPlayer.IsSpectator() && 
+			    _gameServices.NetworkService.LocalPlayer.IsSpectator() && 
 			    TryGetNextPlayer(game, out var player))
 			{
 				SetSpectatedEntity(player.Key, player.Value, true);

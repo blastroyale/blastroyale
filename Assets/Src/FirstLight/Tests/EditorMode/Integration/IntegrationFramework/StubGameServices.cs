@@ -67,13 +67,14 @@ namespace FirstLight.Tests.EditorMode
 			VfxService = vfxService;
 			GameLogic = gameLogic;
 
-			MatchmakingService = new MatchmakingService();
+			
 			ThreadService = new ThreadService();
 			HelpdeskService = new HelpdeskService();
 			GameModeService = new GameModeService(ConfigsProvider, ThreadService);
 			IAPService = null;
 			GuidService = new GuidService();
 			PlayfabService = new StubPlayfabService();
+			MatchmakingService = new PlayfabMatchmakingService(PlayfabService);
 			CommandService = new StubCommandService(gameLogic, dataProvider, this);
 			PoolService = new PoolService();
 			TickService = new StubTickService();

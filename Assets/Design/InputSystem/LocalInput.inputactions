@@ -67,6 +67,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Switch Weapon Button",
+                    "type": "Button",
+                    "id": "c166894f-137f-4392-bf20-736ffba4167b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -430,6 +439,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Cancel Button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9308ede6-6c33-4c0c-b0cf-a863cd428f34",
+                    "path": "<OnScreenControlsDevice>/SwitchWeaponButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch Weapon Button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4dd83ab4-0b27-40cf-bde6-1bad07bb371b",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch Weapon Button",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -1,12 +1,11 @@
-using Photon.Deterministic;
-
 namespace Quantum.Systems
 {
 	/// <summary>
 	/// This system handles all the behaviour for the changes in a <see cref="Destructible"/> entity
 	/// </summary>
-	public unsafe class DestructibleSystem : SystemMainThreadFilter<DestructibleSystem.DestructibleFilter>,
-	                                         ISignalHealthIsZeroFromAttacker
+	public unsafe class DestructibleSystem : SystemMainThreadFilter<DestructibleSystem.DestructibleFilter>, 
+	                                         ISignalHealthIsZeroFromAttacker,
+											 ISignalOnComponentAdded<Destructible>, ISignalOnComponentRemoved<Destructible>
 	{
 		public struct DestructibleFilter
 		{
@@ -46,6 +45,16 @@ namespace Quantum.Systems
 			destructible->IsDestructing = true;
 			
 			f.Events.OnDestructibleScheduled(entity, *destructible);
+		}
+
+		public void OnAdded(Frame f, EntityRef entity, Destructible* component)
+		{
+			component->Init(f, entity);
+		}
+
+		public void OnRemoved(Frame f, EntityRef entity, Destructible* component)
+		{
+
 		}
 	}
 }

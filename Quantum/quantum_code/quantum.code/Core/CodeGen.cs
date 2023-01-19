@@ -3921,33 +3921,32 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Destructible : Quantum.IComponent {
-    public const Int32 SIZE = 40;
+    public const Int32 SIZE = 48;
     public const Int32 ALIGNMENT = 8;
+    [FieldOffset(8)]
+    public FP DamagePower;
     [FieldOffset(16)]
-    [HideInInspector()]
     public FP DestructionLengthTime;
     [FieldOffset(0)]
-    [HideInInspector()]
     public GameId GameId;
+    [FieldOffset(24)]
+    public FP Health;
     [FieldOffset(4)]
     [HideInInspector()]
     public QBoolean IsDestructing;
-    [FieldOffset(8)]
-    [HideInInspector()]
-    public AssetRefEntityPrototype ProjectileAssetRef;
-    [FieldOffset(24)]
-    [HideInInspector()]
-    public FP SplashRadius;
     [FieldOffset(32)]
+    public FP SplashRadius;
+    [FieldOffset(40)]
     [HideInInspector()]
     public FP TimeToDestroy;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 457;
+        hash = hash * 31 + DamagePower.GetHashCode();
         hash = hash * 31 + DestructionLengthTime.GetHashCode();
         hash = hash * 31 + (Int32)GameId;
+        hash = hash * 31 + Health.GetHashCode();
         hash = hash * 31 + IsDestructing.GetHashCode();
-        hash = hash * 31 + ProjectileAssetRef.GetHashCode();
         hash = hash * 31 + SplashRadius.GetHashCode();
         hash = hash * 31 + TimeToDestroy.GetHashCode();
         return hash;
@@ -3957,8 +3956,9 @@ namespace Quantum {
         var p = (Destructible*)ptr;
         serializer.Stream.Serialize((Int32*)&p->GameId);
         QBoolean.Serialize(&p->IsDestructing, serializer);
-        AssetRefEntityPrototype.Serialize(&p->ProjectileAssetRef, serializer);
+        FP.Serialize(&p->DamagePower, serializer);
         FP.Serialize(&p->DestructionLengthTime, serializer);
+        FP.Serialize(&p->Health, serializer);
         FP.Serialize(&p->SplashRadius, serializer);
         FP.Serialize(&p->TimeToDestroy, serializer);
     }
@@ -5149,7 +5149,7 @@ namespace Quantum {
           case EventOnPlayerWeaponChanged.ID: return typeof(EventOnPlayerWeaponChanged);
           case EventOnPlayerGearChanged.ID: return typeof(EventOnPlayerGearChanged);
           case EventOnPlayerAttack.ID: return typeof(EventOnPlayerAttack);
-          case EventOnPlayerDamaged.ID: return typeof(EventOnPlayerDamaged);
+          case EventOnEntityDamaged.ID: return typeof(EventOnEntityDamaged);
           case EventOnPlayerAttackHit.ID: return typeof(EventOnPlayerAttackHit);
           case EventOnPlayerStopAttack.ID: return typeof(EventOnPlayerStopAttack);
           case EventOnPlayerEquipmentStatsChanged.ID: return typeof(EventOnPlayerEquipmentStatsChanged);
@@ -5723,9 +5723,9 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnPlayerDamaged OnPlayerDamaged(PlayerRef Player, Spell Spell, UInt32 TotalDamage, UInt32 ShieldDamage, Int32 PreviousShield, Int32 MaxShield, UInt32 HealthDamage, Int32 PreviousHealth, Int32 MaxHealth) {
+      public EventOnEntityDamaged OnEntityDamaged(PlayerRef Player, Spell Spell, UInt32 TotalDamage, UInt32 ShieldDamage, Int32 PreviousShield, Int32 MaxShield, UInt32 HealthDamage, Int32 PreviousHealth, Int32 MaxHealth) {
         if (_f.IsPredicted) return null;
-        var ev = _f.Context.AcquireEvent<EventOnPlayerDamaged>(EventOnPlayerDamaged.ID);
+        var ev = _f.Context.AcquireEvent<EventOnEntityDamaged>(EventOnEntityDamaged.ID);
         ev.Player = Player;
         ev.Spell = Spell;
         ev.TotalDamage = TotalDamage;
@@ -7817,7 +7817,7 @@ namespace Quantum {
       }
     }
   }
-  public unsafe partial class EventOnPlayerDamaged : EventBase {
+  public unsafe partial class EventOnEntityDamaged : EventBase {
     public new const Int32 ID = 62;
     public PlayerRef Player;
     public Spell Spell;
@@ -7828,10 +7828,10 @@ namespace Quantum {
     public UInt32 HealthDamage;
     public Int32 PreviousHealth;
     public Int32 MaxHealth;
-    protected EventOnPlayerDamaged(Int32 id, EventFlags flags) : 
+    protected EventOnEntityDamaged(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnPlayerDamaged() : 
+    public EventOnEntityDamaged() : 
         base(62, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -9774,16 +9774,13 @@ namespace Quantum.Prototypes {
   [Prototype(typeof(Destructible))]
   public sealed unsafe partial class Destructible_Prototype : ComponentPrototype<Destructible> {
     [HideInInspector()]
-    public FP SplashRadius;
-    [HideInInspector()]
-    public AssetRefEntityPrototype ProjectileAssetRef;
-    [HideInInspector()]
     public QBoolean IsDestructing;
     [HideInInspector()]
-    public FP DestructionLengthTime;
-    [HideInInspector()]
     public FP TimeToDestroy;
-    [HideInInspector()]
+    public FP Health;
+    public FP DamagePower;
+    public FP SplashRadius;
+    public FP DestructionLengthTime;
     public GameId_Prototype GameId;
     partial void MaterializeUser(Frame frame, ref Destructible result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
@@ -9792,10 +9789,11 @@ namespace Quantum.Prototypes {
       return f.Set(entity, component) == SetResult.ComponentAdded;
     }
     public void Materialize(Frame frame, ref Destructible result, in PrototypeMaterializationContext context) {
+      result.DamagePower = this.DamagePower;
       result.DestructionLengthTime = this.DestructionLengthTime;
       result.GameId = this.GameId;
+      result.Health = this.Health;
       result.IsDestructing = this.IsDestructing;
-      result.ProjectileAssetRef = this.ProjectileAssetRef;
       result.SplashRadius = this.SplashRadius;
       result.TimeToDestroy = this.TimeToDestroy;
       MaterializeUser(frame, ref result, in context);

@@ -1,4 +1,6 @@
+using FirstLight.Game.MonoComponent.EntityViews;
 using Quantum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace FirstLight.Game.MonoComponent.EntityPrototypes
@@ -8,13 +10,11 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 	/// </summary>
 	public class DestructibleMonoComponent : HealthEntityBase
 	{
+		[SerializeField, Required] private DestructibleViewMonoComponent _destructibleView;
+		
 		protected override void OnEntityInstantiated(QuantumGame game)
 		{
-			var destructible = GetComponentData<Destructible>(game);
-			
-			Services.AssetResolverService.RequestAsset<GameId, GameObject>(destructible.GameId, true, true, OnLoaded);
-			
-			base.OnEntityInstantiated(game);
+			_destructibleView.SetEntityView(game, EntityView);
 		}
 	}
 }

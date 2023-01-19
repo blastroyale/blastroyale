@@ -17,7 +17,7 @@ namespace Quantum.Systems
 			f.Context.GameModeConfig = f.GameModeConfigs.GetConfig(f.RuntimeConfig.GameModeId);
 			f.Context.MutatorConfigs = f.RuntimeConfig.Mutators
 			                            .Select(mutatorId => f.MutatorConfigs.GetConfig(mutatorId)).ToList();
-			f.Context.TargetAllLayerMask = f.Layers.GetLayerMask("Default", "Playable Target", "Non Playable Target",
+			f.Context.TargetAllLayerMask = f.Layers.GetLayerMask("Default", "Playable Target", "Non Playable Target", "Non Playable Static Target",
 			                                                     "Prop", "World", "Environment No Silhouette");
 
 			foreach (var systemName in f.Context.GameModeConfig.Systems)

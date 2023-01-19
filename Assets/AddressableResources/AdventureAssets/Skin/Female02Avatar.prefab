@@ -451,7 +451,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &6469672351747221080
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -460,7 +460,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 846cc1bc111da1d4aad875224d1ffbd2, type: 3}
   m_Controller: {fileID: 9100000, guid: 2255c91a668d043eaadc81b6a1449962, type: 2}
-  m_CullingMode: 1
+  m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -468,7 +468,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!114 &-8710783128296579999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -630,6 +630,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbodies:
+  - {fileID: 1666512310}
+  - {fileID: 162605357}
+  - {fileID: 216847342}
+  - {fileID: 807157171}
+  - {fileID: 1690359389}
+  - {fileID: 1164035769}
+  - {fileID: 202884124}
+  - {fileID: 1415475431}
+  - {fileID: 170135888}
+  - {fileID: 1818380528}
+  - {fileID: 251034389}
+  - {fileID: 1666512310}
+  - {fileID: 162605357}
+  - {fileID: 216847342}
+  - {fileID: 807157171}
+  - {fileID: 1690359389}
+  - {fileID: 1164035769}
+  - {fileID: 202884124}
+  - {fileID: 1415475431}
+  - {fileID: 170135888}
+  - {fileID: 1818380528}
+  - {fileID: 251034389}
+  - {fileID: 1666512310}
+  - {fileID: 162605357}
+  - {fileID: 216847342}
+  - {fileID: 807157171}
+  - {fileID: 1690359389}
+  - {fileID: 1164035769}
+  - {fileID: 202884124}
+  - {fileID: 1415475431}
+  - {fileID: 170135888}
+  - {fileID: 1818380528}
+  - {fileID: 251034389}
   - {fileID: 1666512310}
   - {fileID: 162605357}
   - {fileID: 216847342}

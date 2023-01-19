@@ -92,7 +92,7 @@ namespace FirstLight.Game.Services
 		
 		/// <inheritdoc cref="IMatchmakingService"/>
 		public IMatchmakingService MatchmakingService { get; }
-		
+
 		/// <inheritdoc cref="IIAPService"/>
 		public IIAPService IAPService { get; }
 		
@@ -156,13 +156,13 @@ namespace FirstLight.Game.Services
 			GenericDialogService = genericDialogService;
 			AudioFxService = audioFxService;
 			VfxService = vfxService;
-
-			MatchmakingService = new MatchmakingService();
+			
 			ThreadService = new ThreadService();
 			HelpdeskService = new HelpdeskService();
 			GameModeService = new GameModeService(ConfigsProvider, ThreadService);
 			GuidService = new GuidService();
 			PlayfabService = new PlayfabService(gameLogic, messageBrokerService, GameConstants.Stats.LEADERBOARD_LADDER_NAME);
+			MatchmakingService = new PlayfabMatchmakingService(PlayfabService);
 			LiveopsService = new LiveopsService(PlayfabService, ConfigsProvider, this, gameLogic.LiveopsLogic);
 			CommandService = new GameCommandService(PlayfabService, gameLogic, dataService, this);
 			PoolService = new PoolService();

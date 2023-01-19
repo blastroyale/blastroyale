@@ -369,7 +369,13 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			FeatureFlags.ParseFlags(titleData);
-
+			FeatureFlags.ParseLocalFeatureFlags();
+			_services.LiveopsService.FetchSegments(_ =>
+			{
+				var liveopsFeatureFlags = _services.LiveopsService.GetUserSegmentedFeatureFlags();
+				FeatureFlags.ParseFlags(liveopsFeatureFlags);
+			});
+			
 			if (titleData.TryGetValue("PHOTON_APP", out var photonAppId))
 			{
 				var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;

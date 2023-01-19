@@ -55,7 +55,7 @@ namespace FirstLight.Game.Services
 		private readonly List<IMatchService> _services = new();
 		private IGameServices _gameServices;
 		private IGameDataProvider _dataProvider;
-		
+
 		/// <inheritdoc />
 		public ISpectateService SpectateService { get; }
 		/// <inheritdoc />

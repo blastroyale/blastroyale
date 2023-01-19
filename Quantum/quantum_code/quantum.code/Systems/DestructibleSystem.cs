@@ -5,7 +5,7 @@ namespace Quantum.Systems
 	/// </summary>
 	public unsafe class DestructibleSystem : SystemMainThreadFilter<DestructibleSystem.DestructibleFilter>, 
 	                                         ISignalHealthIsZeroFromAttacker,
-											 ISignalOnComponentAdded<Destructible>, ISignalOnComponentRemoved<Destructible>
+											 ISignalOnComponentAdded<Destructible>
 	{
 		public struct DestructibleFilter
 		{
@@ -50,11 +50,6 @@ namespace Quantum.Systems
 		public void OnAdded(Frame f, EntityRef entity, Destructible* component)
 		{
 			component->Init(f, entity);
-		}
-
-		public void OnRemoved(Frame f, EntityRef entity, Destructible* component)
-		{
-
 		}
 	}
 }

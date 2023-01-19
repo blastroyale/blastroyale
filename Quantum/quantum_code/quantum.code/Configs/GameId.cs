@@ -154,11 +154,18 @@ namespace Quantum
 					}.AsReadOnly()
 				},
 				{
+					GameId.GameplayTutorial, new List<GameIdGroup>
+					{
+						GameIdGroup.Map
+					}.AsReadOnly()
+				},
+				{
 					GameId.MausHelmet, new List<GameIdGroup>
 					{
 						GameIdGroup.Helmet,
 						GameIdGroup.Equipment,
-						GameIdGroup.Gear
+						GameIdGroup.Gear,
+						GameIdGroup.Simple
 					}.AsReadOnly()
 				},
 				{
@@ -190,7 +197,8 @@ namespace Quantum
 					{
 						GameIdGroup.Helmet,
 						GameIdGroup.Equipment,
-						GameIdGroup.Gear
+						GameIdGroup.Gear,
+						GameIdGroup.Simple
 					}.AsReadOnly()
 				},
 				{
@@ -243,7 +251,8 @@ namespace Quantum
 					GameId.ApoSMG, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Simple
 					}.AsReadOnly()
 				},
 				{
@@ -264,7 +273,8 @@ namespace Quantum
 					GameId.ApoRPG, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Simple
 					}.AsReadOnly()
 				},
 				{
@@ -285,7 +295,8 @@ namespace Quantum
 					GameId.ModShotgun, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Simple
 					}.AsReadOnly()
 				},
 				{
@@ -306,7 +317,8 @@ namespace Quantum
 					GameId.ModSniper, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Simple
 					}.AsReadOnly()
 				},
 				{
@@ -320,14 +332,16 @@ namespace Quantum
 					GameId.ModHeavyMachineGun, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Simple
 					}.AsReadOnly()
 				},
 				{
 					GameId.SciPistol, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Simple
 					}.AsReadOnly()
 				},
 				{
@@ -348,7 +362,8 @@ namespace Quantum
 					GameId.SciRifle, new List<GameIdGroup>
 					{
 						GameIdGroup.Weapon,
-						GameIdGroup.Equipment
+						GameIdGroup.Equipment,
+						GameIdGroup.Simple
 					}.AsReadOnly()
 				},
 				{
@@ -377,7 +392,8 @@ namespace Quantum
 					{
 						GameIdGroup.Amulet,
 						GameIdGroup.Equipment,
-						GameIdGroup.Gear
+						GameIdGroup.Gear,
+						GameIdGroup.Simple
 					}.AsReadOnly()
 				},
 				{
@@ -409,7 +425,8 @@ namespace Quantum
 					{
 						GameIdGroup.Amulet,
 						GameIdGroup.Equipment,
-						GameIdGroup.Gear
+						GameIdGroup.Gear,
+						GameIdGroup.Simple
 					}.AsReadOnly()
 				},
 				{
@@ -417,7 +434,8 @@ namespace Quantum
 					{
 						GameIdGroup.Armor,
 						GameIdGroup.Equipment,
-						GameIdGroup.Gear
+						GameIdGroup.Gear,
+						GameIdGroup.Simple
 					}.AsReadOnly()
 				},
 				{
@@ -449,7 +467,8 @@ namespace Quantum
 					{
 						GameIdGroup.Armor,
 						GameIdGroup.Equipment,
-						GameIdGroup.Gear
+						GameIdGroup.Gear,
+						GameIdGroup.Simple
 					}.AsReadOnly()
 				},
 				{
@@ -473,7 +492,8 @@ namespace Quantum
 					{
 						GameIdGroup.Shield,
 						GameIdGroup.Equipment,
-						GameIdGroup.Gear
+						GameIdGroup.Gear,
+						GameIdGroup.Simple
 					}.AsReadOnly()
 				},
 				{
@@ -505,7 +525,8 @@ namespace Quantum
 					{
 						GameIdGroup.Shield,
 						GameIdGroup.Equipment,
-						GameIdGroup.Gear
+						GameIdGroup.Gear,
+						GameIdGroup.Simple
 					}.AsReadOnly()
 				},
 				{
@@ -793,7 +814,8 @@ namespace Quantum
 						GameId.FloodCitySimple,
 						GameId.BlimpDeck,
 						GameId.BRGenesis,
-						GameId.TestScene
+						GameId.TestScene,
+						GameId.GameplayTutorial
 					}.AsReadOnly()
 				},
 				{
@@ -888,6 +910,26 @@ namespace Quantum
 						GameId.SoldierShield,
 						GameId.WarriorShield,
 						GameId.RiotShield,
+						GameId.RoadShield
+					}.AsReadOnly()
+				},
+				{
+					GameIdGroup.Simple, new List<GameId>
+					{
+						GameId.MausHelmet,
+						GameId.RoadHelmet,
+						GameId.ApoSMG,
+						GameId.ApoRPG,
+						GameId.ModShotgun,
+						GameId.ModSniper,
+						GameId.ModHeavyMachineGun,
+						GameId.SciPistol,
+						GameId.SciRifle,
+						GameId.MouseAmulet,
+						GameId.TikTokAmulet,
+						GameId.MouseArmor,
+						GameId.RoadSignArmour,
+						GameId.MouseShield,
 						GameId.RoadShield
 					}.AsReadOnly()
 				},

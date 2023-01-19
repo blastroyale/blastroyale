@@ -69,7 +69,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			
 			playerData.SortByPlayerRank(false);
 			
-			if (!_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
+			if (!_services.NetworkService.LocalPlayer.IsSpectator())
 			{
 				for (var i = 0; i < playerData.Count; i++)
 				{

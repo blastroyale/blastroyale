@@ -65,7 +65,7 @@ namespace FirstLight.Game.StateMachines
 
 			_services.NetworkService.QuantumClient.AddCallbackTarget(this);
 			
-			_mainOverlayCamera = Camera.allCameras.First(go => go.CompareTag("MainOverlayCamera"));
+			_mainOverlayCamera = Camera.allCameras.FirstOrDefault(go => go.CompareTag("MainOverlayCamera"));
 		}
 
 		/// <summary>

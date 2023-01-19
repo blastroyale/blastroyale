@@ -41,7 +41,9 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 
 		private IEnumerator<Equipment> _equipmentList;
 		private int _processedImages;
+#pragma warning disable CS0414
 		[UsedImplicitly] private bool _processing;
+#pragma warning restore CS0414
 
 		[MenuItem("FLG/Equipment Card Generator")]
 		private static void OpenWindow()

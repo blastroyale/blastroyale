@@ -7,6 +7,7 @@ using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Server.SDK.Models;
+using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using Newtonsoft.Json;
 using Quantum;
@@ -65,8 +66,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Generate a list of rewards based on the players <paramref name="matchData"/> performance from a game completed
 		/// </summary>
-		List<RewardData> CalculateMatchRewards(RewardSource source,
-											   out int trophyChange);
+		List<RewardData> CalculateMatchRewards(RewardSource source, out int trophyChange);
 
 		/// <summary>
 		/// Check if the <see cref="UnclaimedRewards"/> list contains a reward that could
@@ -79,6 +79,11 @@ namespace FirstLight.Game.Logic
 		/// <see cref="UnclaimedRewards"/> list.
 		/// </summary>
 		bool HasUnclaimedPurchases();
+		
+		/// <summary>
+		/// Obtains the rewards for a given tutorial step
+		/// </summary>
+		List<ItemData> GetRewardsFromTutorial(TutorialStep step);
 	}
 
 	/// <inheritdoc />
@@ -106,6 +111,12 @@ namespace FirstLight.Game.Logic
 		/// adds it on it's end).
 		/// </summary>
 		void AddIAPReward(RewardData reward);
+
+		/// <summary>
+		/// Generic item handler to give items to player as rewards
+		/// </summary>
+		/// <param name="items"></param>
+		void GiveItems(List<ItemData> items);
 	}
 
 	/// <inheritdoc cref="IRewardLogic"/>
@@ -126,8 +137,7 @@ namespace FirstLight.Game.Logic
 			_unclaimedRewards = new ObservableList<RewardData>(Data.UncollectedRewards);
 		}
 
-		public List<RewardData> CalculateMatchRewards(RewardSource source,
-													  out int trophyChange)
+		public List<RewardData> CalculateMatchRewards(RewardSource source, out int trophyChange)
 		{
 			var rewards = new List<RewardData>();
 			var localMatchData = source.MatchData[source.ExecutingPlayer];
@@ -175,7 +185,7 @@ namespace FirstLight.Game.Logic
 
 			if (source.MatchType == MatchType.Ranked)
 			{
-				CalculateCSReward(rewards, rewardConfig);
+				CalculateCSReward(rewards, rewardConfig, localMatchData.Data.CollectedOwnedNfts);
 				CalculateTrophiesReward(rewards, source.MatchData, localMatchData, rewardConfig, out trophyChange);
 			}
 
@@ -276,6 +286,56 @@ namespace FirstLight.Game.Logic
 			Data.UncollectedRewards.Add(reward);
 		}
 
+		public void GiveItems(List<ItemData> items)
+		{
+			foreach (var item in items)
+			{
+				if (item.ItemObject is Equipment eq)
+				{
+					GameLogic.EquipmentLogic.AddToInventory(eq);
+				}
+				else
+				{
+					_unclaimedRewards.Add(new RewardData()
+					{
+						Value = item.Amount,
+						RewardId = item.Id
+					});
+				}
+			}
+		}
+
+		public List<ItemData> GetRewardsFromTutorial(TutorialStep step)
+		{
+			var rewards = new List<ItemData>();
+			var tutorialRewardsCfg = GameLogic.ConfigsProvider.GetConfigsList<TutorialRewardConfig>();
+			var rewardsCfg = GameLogic.ConfigsProvider.GetConfigsList<EquipmentRewardConfig>();
+			var rewardsConfigs = rewardsCfg
+				.Where(c => tutorialRewardsCfg.First(c => c.Step == step).RewardIds.Contains((uint)c.Id));
+			foreach (var rewardConfig in rewardsConfigs)
+			{
+				if (rewardConfig.IsEquipment())
+				{
+					var equipment = GameLogic.EquipmentLogic.GenerateEquipmentFromConfig(rewardConfig);
+					rewards.Add(new ItemData()
+					{
+						Amount = rewardConfig.Amount,
+						Id = equipment.GameId,
+						ItemObject = equipment
+					});
+				}
+				else
+				{
+					rewards.Add(new ItemData()
+					{
+						Amount = rewardConfig.Amount,
+						Id = rewardConfig.GameId,
+					});
+				}
+			}
+			return rewards;
+		}
+
 		private RewardData ClaimReward(RewardData reward)
 		{
 			if (reward.RewardId == GameId.XP)
@@ -313,14 +373,16 @@ namespace FirstLight.Game.Logic
 			return new KeyValuePair<UniqueId, Equipment>(uniqueId, equipment);
 		}
 
-		private void CalculateCSReward(ICollection<RewardData> rewards, MatchRewardConfig rewardConfig)
+		private void CalculateCSReward(ICollection<RewardData> rewards, MatchRewardConfig rewardConfig, uint collectedNFTsCount)
 		{
 			var rewardPair = rewardConfig.Rewards.FirstOrDefault(x => x.Key == GameId.CS);
 			var percent = rewardPair.Value / 100d;
 			// rewardPair.Value is the absolute percent of the max take that people will be awarded
 
 			var info = GameLogic.ResourceLogic.GetResourcePoolInfo(GameId.CS);
-			var take = (uint) Math.Ceiling(info.WinnerRewardAmount * percent);
+			
+			var takeForCollectedItems = info.WinnerRewardAmount * collectedNFTsCount;
+			var take = (uint) Math.Ceiling(takeForCollectedItems * percent);
 			var withdrawn = (int) Math.Min(info.CurrentAmount, take);
 
 			if (withdrawn > 0)

@@ -42,7 +42,7 @@ namespace FirstLight.Game.Logic
 		IObservableDictionaryReader<UniqueId, Equipment> Inventory { get; }
 
 		/// <summary>
-		/// Requests the player's non NFT inventory.
+		/// Requests the player's NFT inventory.
 		/// </summary>
 		IObservableDictionaryReader<UniqueId, NftEquipmentData> NftInventory { get; }
 

@@ -138,9 +138,44 @@ namespace FirstLight.Game.Presenters
 			// TODO: At this point, input should be conditional, and this code should not run for touch input.
 		}
 
+		public void OnSwitchWeaponButton(InputAction.CallbackContext context)
+		{
+			if (!context.ReadValueAsButton()) return;
+			
+			var data = QuantumRunner.Default.Game.GetLocalPlayerData(false, out var f);
+
+			// Check if there is a point in switching or not. Avoid extra commands to save network message traffic $$$
+			if (!f.TryGet<PlayerCharacter>(data.Entity, out var pc))
+			{
+				return;
+			}
+			
+			int slotIndexToSwitch;
+			if (pc.CurrentWeaponSlot != 1 && pc.WeaponSlots[1].Weapon.IsValid())
+			{
+				slotIndexToSwitch = 1;
+			}
+			else if (pc.CurrentWeaponSlot != 2 && pc.WeaponSlots[2].Weapon.IsValid())
+			{
+				slotIndexToSwitch = 2;
+			}
+			else if (pc.CurrentWeaponSlot != 0)
+			{
+				slotIndexToSwitch = 0;
+			}
+			else
+			{
+				return;
+			}
+
+			QuantumRunner.Default.Game.SendCommand(new WeaponSlotSwitchCommand { WeaponSlotIndex = slotIndexToSwitch });
+		}
+
 		private void OnSpecialButtonUsed(InputAction.CallbackContext context, int specialIndex)
 		{
-			if (_specialButtons[specialIndex].SpecialId == GameId.Random || context.performed)
+			var specialButton = _specialButtons[specialIndex];
+			
+			if (specialButton.SpecialId == GameId.Random || context.performed)
 			{
 				return;
 			}
@@ -156,7 +191,7 @@ namespace FirstLight.Game.Presenters
 
 			indicator.SetVisualState(false);
 
-			if (!_specialButtons[specialIndex].DraggingValidPosition())
+			if (context.control.device is OnScreenControlsDevice && !specialButton.DraggingValidPosition())
 			{
 				return;
 			}
@@ -227,7 +262,7 @@ namespace FirstLight.Game.Presenters
 													GameConstants.Haptics.GAME_START_DURATION);
 			}
 
-			if (!msg.IsResync || _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
+			if (!msg.IsResync || _services.NetworkService.LocalPlayer.IsSpectator())
 			{
 				return;
 			}

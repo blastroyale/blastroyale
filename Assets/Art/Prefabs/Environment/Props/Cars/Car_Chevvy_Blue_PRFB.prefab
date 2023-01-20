@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2988574314175986554}
   - component: {fileID: 6709355584076995578}
   - component: {fileID: 2086120707117591989}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Car_Chevvy_Blue_PRFB
   m_TagString: Untagged
   m_Icon: {fileID: 0}

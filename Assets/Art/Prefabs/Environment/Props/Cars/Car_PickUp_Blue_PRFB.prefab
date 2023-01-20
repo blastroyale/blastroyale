@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1082287060286421995}
   - component: {fileID: 6601565248173098725}
   - component: {fileID: 3420498759913574568}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Car_PickUp_Blue_PRFB
   m_TagString: Untagged
   m_Icon: {fileID: 0}

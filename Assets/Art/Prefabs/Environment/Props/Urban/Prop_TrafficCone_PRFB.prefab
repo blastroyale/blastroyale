@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4291674346949961355}
   - component: {fileID: 873923185548257582}
   - component: {fileID: 3153711369807994340}
-  - component: {fileID: 4638757662652760254}
+  - component: {fileID: 6077238435467928000}
   m_Layer: 7
   m_Name: Prop_TrafficCone_PRFB
   m_TagString: Untagged
@@ -84,7 +84,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4638757662652760254
+--- !u!65 &6077238435467928000
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,5 +95,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.48960572, y: 0.5540094, z: 0.48960155}
-  m_Center: {x: -0.0000007227063, y: 0.2770047, z: -0.00000020861626}
+  m_Size: {x: 0.5899496, y: 0.66755265, z: 0.5899446}
+  m_Center: {x: -0.0000008791685, y: 0.33377632, z: -0.00000025331974}

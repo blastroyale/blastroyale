@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4878843292533625252}
   - component: {fileID: 8366273814925712897}
   - component: {fileID: 6052291427853691595}
-  - component: {fileID: 3340849469820531690}
+  - component: {fileID: 9209683904054020396}
   m_Layer: 7
   m_Name: Prop_Box_2_PRFB
   m_TagString: Untagged
@@ -84,7 +84,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3340849469820531690
+--- !u!65 &9209683904054020396
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,5 +95,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.5005442, y: 0.4568128, z: 0.3454236}
-  m_Center: {x: -0.000000014901161, y: 0.2284064, z: 0.000000014901161}
+  m_Size: {x: 0.70076185, y: 0.8131492, z: 0.48359305}
+  m_Center: {x: 0, y: 0.4065746, z: 0.000000014901161}

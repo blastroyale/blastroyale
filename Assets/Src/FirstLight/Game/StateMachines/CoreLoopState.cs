@@ -35,6 +35,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameDataProvider _dataProvider;
 		private readonly IGameBackendNetworkService _networkService;
 		private readonly IGameUiService _uiService;
+		private readonly Action<IStatechartEvent> _statechartTrigger;
 		
 		private Coroutine _csPoolTimerCoroutine;
 
@@ -45,6 +46,7 @@ namespace FirstLight.Game.StateMachines
 			_dataProvider = dataProvider;
 			_networkService = networkService;
 			_uiService = uiService;
+			_statechartTrigger = statechartTrigger;
 			_matchState = new MatchState(services, dataService, networkService, uiService, gameLogic, assetAdderService, statechartTrigger);
 			_mainMenuState = new MainMenuState(services, uiService, gameLogic, assetAdderService, statechartTrigger);
 		}
@@ -97,13 +99,8 @@ namespace FirstLight.Game.StateMachines
 			await _uiService.OpenUiAsync<SwipeScreenPresenter>();
 			await _uiService.CloseUi<LoadingScreenPresenter>();
 			await Task.Delay(1000);
-			
-			// TODO: Hook up proper tutorial values
-			var gameModeId = "BattleRoyale";
-			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
-			var mapConfig = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(GameId.BRGenesis.GetHashCode());
 
-			_networkService.CreateRoom(gameModeConfig, mapConfig, new List<string>(), GameConstants.Tutorial.TUTORIAL_ROOM_NAME, false);
+			_statechartTrigger(TutorialState.StartFirstGameTutorialEvent);
 		}
 
 		private void SubscribeEvents()

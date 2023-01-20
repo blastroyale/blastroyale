@@ -23,7 +23,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2651802977412885594}
-  m_LocalRotation: {x: 0.19474334, y: -0.84224653, z: -0.032769423, w: -0.5016192}
+  m_LocalRotation: {x: 0.19474252, y: -0.8422457, z: -0.03276475, w: -0.50162137}
   m_LocalPosition: {x: -0.06328523, y: -0.019386042, z: 0.12217116}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -204,6 +204,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: e26d252c9c23de24f8b24421c55d4e94, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ef574b538d34bfa409728cd6f737162e, type: 2}
     - target: {fileID: 919132149155446097, guid: e26d252c9c23de24f8b24421c55d4e94, type: 3}
       propertyPath: m_Name
       value: SorenSol_SG

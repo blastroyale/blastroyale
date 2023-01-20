@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
-using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK;
 using FirstLight.Server.SDK.Events;
 using FirstLight.Server.SDK.Models;
-using Newtonsoft.Json;
+
 
 namespace Src.FirstLight.Server
 {
@@ -49,6 +48,7 @@ namespace Src.FirstLight.Server
 		private void OnEndGameCalculations(string userId, EndOfGameCalculationsCommand endGameCmd, ServerState state)
 		{
 			var toSend = new List<ValueTuple<string, int>>();
+			var trophies = (int)state.DeserializeModel<PlayerData>().Trophies;
 			var thisPlayerData = endGameCmd.PlayersMatchData[endGameCmd.QuantumValues.ExecutingPlayer];
 			if (thisPlayerData.PlayerRank == 1)
 			{
@@ -57,6 +57,7 @@ namespace Src.FirstLight.Server
 			toSend.Add((GameConstants.Stats.GAMES_PLAYED, 1));
 			toSend.Add((GameConstants.Stats.KILLS,  (int)thisPlayerData.Data.PlayersKilledCount));
 			toSend.Add((GameConstants.Stats.DEATHS, (int)thisPlayerData.Data.DeathCount));
+			toSend.Add((GameConstants.Stats.LEADERBOARD_LADDER_NAME, trophies));
 			_ctx.Statistics.UpdateStatistics(userId, toSend.ToArray());
 		}
 

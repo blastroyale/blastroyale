@@ -309,14 +309,14 @@ namespace Quantum
 
 					// If we dropped all equipment from loadout, and capacity left to drop, chose randomly between either
 					// a capacity upgrade or an equipment upgrade
-					// chances are: 50% equipment, 25% big shields capacity, 25% small shields capacity
+					// chances are: 25% equipment, 25% big shields capacity, 50% small shields capacity
 					var furtherDrop = GameId.Random;
 					if (statsShields.StatValue < statsShields.BaseValue)
 					{
-						furtherDrop = QuantumHelpers.GetRandomItem(f, GameId.Random, GameId.Random, GameId.ShieldCapacityLarge, GameId.ShieldCapacitySmall);
+						furtherDrop = QuantumHelpers.GetRandomItem(f, GameId.Random, GameId.ShieldCapacityLarge, GameId.ShieldCapacitySmall, GameId.ShieldCapacitySmall);
 					}
 
-					// Drop equipment upgrades if you rolled it or had full shields capacity
+					// Drop equipment upgrades if you rolled it
 					if (furtherDrop == GameId.Random)
 					{
 						// In the edge case when we dropped all possible equipment

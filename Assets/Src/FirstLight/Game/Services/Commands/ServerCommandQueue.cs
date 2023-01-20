@@ -74,7 +74,7 @@ namespace FirstLight.Game.Services
 
 			foreach (var modifiedType in delta.ModifiedTypes.Keys)
 			{
-				if (clientDelta.ModifiedTypes[modifiedType] != delta.ModifiedTypes[modifiedType])
+				if (clientDelta.ModifiedTypes.TryGetValue(modifiedType, out var modified) && modified != delta.ModifiedTypes[modifiedType])
 				{
 					invalid.Add(modifiedType);
 				}

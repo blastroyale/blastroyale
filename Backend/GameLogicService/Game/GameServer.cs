@@ -71,6 +71,7 @@ namespace Backend.Game
 
 				var newState = await _cmdHandler.ExecuteCommand(playerId, commandInstance, currentPlayerState);
 				_eventManager.CallEvent(new CommandFinishedEvent(playerId, commandInstance, newState, currentPlayerState, commandData));
+				_eventManager.CallCommandEvent(playerId, commandInstance, newState);
 				if (newState.HasDelta())
 				{
 					await _state.UpdatePlayerState(playerId, newState.GetOnlyUpdatedState());

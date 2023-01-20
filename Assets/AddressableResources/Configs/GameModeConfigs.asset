@@ -99,7 +99,7 @@ MonoBehaviour:
       AllowedMaps: 0b00000005000000
       RankSorter: 0
       RankProcessor: 0
-      ShowUIMinimap: 1
+      ShowUIMinimap: 0
       ShowUITimer: 1
       ShowUIStandingsExtraInfo: 1
       ShowWeaponSlots: 1

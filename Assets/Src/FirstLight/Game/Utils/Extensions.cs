@@ -465,6 +465,19 @@ namespace FirstLight.Game.Utils
 		}
 		
 		/// <summary>
+		/// TODO
+		/// </summary>
+		public static int GetTeamId(this Player player)
+		{
+			if (player.CustomProperties.TryGetValue(GameConstants.Network.PLAYER_PROPS_TEAM_ID, out var teamId))
+			{
+				return (int) teamId;
+			}
+
+			return -1;
+		}
+		
+		/// <summary>
 		/// Requests to check if player has loaded core match assets
 		/// </summary>
 		public static bool LoadedCoreMatchAssets(this Player player)

@@ -1050,7 +1050,7 @@ namespace Quantum.Systems
 				};*/
 
 				playerCharacter->Init(f, botEntity, id, spawnerTransform, 1, trophies, botCharacter.Skin, 
-				                      botCharacter.DeathMarker, Array.Empty<Equipment>(), Equipment.None);
+				                      botCharacter.DeathMarker, -1, Array.Empty<Equipment>(), Equipment.None);
 			}
 		}
 

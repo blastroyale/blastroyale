@@ -4247,11 +4247,14 @@ namespace Quantum {
     public AssetRefHFSMRoot HfsmRootRef;
     [FieldOffset(24)]
     public AssetRefCharacterController3DConfig KccConfigRef;
-    [FieldOffset(8)]
+    [FieldOffset(12)]
     [HideInInspector()]
     public PlayerRef Player;
     [FieldOffset(40)]
     public FPVector3 ProjectileSpawnOffset;
+    [FieldOffset(8)]
+    [HideInInspector()]
+    public Int32 TeamId;
     [FieldOffset(424)]
     [HideInInspector()]
     [FramePrinter.FixedArrayAttribute(typeof(WeaponSlot), 3)]
@@ -4277,6 +4280,7 @@ namespace Quantum {
         hash = hash * 31 + KccConfigRef.GetHashCode();
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + ProjectileSpawnOffset.GetHashCode();
+        hash = hash * 31 + TeamId.GetHashCode();
         hash = hash * 31 + HashCodeUtils.GetArrayHashCode(WeaponSlots);
         return hash;
       }
@@ -4285,6 +4289,7 @@ namespace Quantum {
         var p = (PlayerCharacter*)ptr;
         serializer.Stream.Serialize(&p->CurrentWeaponSlot);
         serializer.Stream.Serialize(&p->DroppedLoadoutFlags);
+        serializer.Stream.Serialize(&p->TeamId);
         PlayerRef.Serialize(&p->Player, serializer);
         Quantum.AssetRefAIBlackboard.Serialize(&p->BlackboardRef, serializer);
         AssetRefCharacterController3DConfig.Serialize(&p->KccConfigRef, serializer);
@@ -10191,6 +10196,8 @@ namespace Quantum.Prototypes {
     [HideInInspector()]
     public PlayerRef Player;
     [HideInInspector()]
+    public Int32 TeamId;
+    [HideInInspector()]
     public Int32 CurrentWeaponSlot;
     [HideInInspector()]
     [ArrayLengthAttribute(3)]
@@ -10217,6 +10224,7 @@ namespace Quantum.Prototypes {
       result.KccConfigRef = this.KccConfigRef;
       result.Player = this.Player;
       result.ProjectileSpawnOffset = this.ProjectileSpawnOffset;
+      result.TeamId = this.TeamId;
       for (int i = 0, count = PrototypeValidator.CheckLength(WeaponSlots, 3, in context); i < count; ++i) {
         this.WeaponSlots[i].Materialize(frame, ref *result.WeaponSlots.GetPointer(i), in context);
       }

@@ -26,7 +26,7 @@ namespace Quantum
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 
 			Player = playerRef;
-			TeamId = teamId < 0 ? Player + (int) TeamType.TOTAL : 1000 + TeamId;
+			TeamId = teamId < 0 ? Player + (int) TeamType.TOTAL : 1000 + teamId;
 			CurrentWeaponSlot = 0;
 			DroppedLoadoutFlags = 0;
 			transform->Position = spawnPosition.Position;

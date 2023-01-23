@@ -73,6 +73,12 @@ namespace Quantum
 		[FoldoutGroup("Player"), PropertyTooltip(DESC_DROP_WEAPON_ON_PICKUP)]
 		public bool DropWeaponOnPickup;
 
+		[FoldoutGroup("Player"), PropertyTooltip(DESC_AIRDROP_NEAR_PLAYER)]
+		public bool AirdropNearPlayer;
+		
+		[FoldoutGroup("Player"), PropertyTooltip(DESC_SHRINKING_CIRCLE_CENTERED_ON_PLAYER)]
+		public bool ShrinkingCircleCenteredOnPlayer;
+		
 		[HorizontalGroup("Player/H1"), BoxGroup("Player/H1/Spawning"), PropertyTooltip(DESC_SPAWN_WITH_GEAR)]
 		public bool SpawnWithGear;
 
@@ -101,6 +107,9 @@ namespace Quantum
 		[FoldoutGroup("Bots"), PropertyTooltip(DESC_ALLOW_BOTS)]
 		public bool AllowBots;
 
+		[FoldoutGroup("Bots"), PropertyTooltip(DESC_BOT_DIFFICULTY)]
+		public uint BotDifficulty;
+		
 		[FoldoutGroup("Bots"), ShowIf("AllowBots"), PropertyTooltip(DESC_BOT_SEARCH_FOR_CRATES)]
 		public bool BotSearchForCrates;
 
@@ -173,6 +182,8 @@ namespace Quantum
 		private const string DESC_DESCRIPTION_LOCALISATION_KEY = "Localisation key for the description of this game mode";
 		private const string DESC_LIVES = "How many lives does the player have. Use 0 for infinite lives";
 		private const string DESC_DROP_WEAPON_ON_PICKUP = "Drops the player's equipped weapon if they pick up a better one.";
+		private const string DESC_AIRDROP_NEAR_PLAYER = "Airdrop will spawn near player.";
+		private const string DESC_SHRINKING_CIRCLE_CENTERED_ON_PLAYER = "Shrinking circle center is set on player.";
 		private const string DESC_SPAWN_WITH_GEAR = "Spawns the player with their loadout gear equipped.";
 		private const string DESC_SPAWN_WITH_WEAPON = "Spawns the player with their loadout weapon equipped.";
 		private const string DESC_SKYDIVE_SPAWN = "Drops the player from a height when spawning.";
@@ -182,6 +193,7 @@ namespace Quantum
 		private const string DESC_DEATH_MARKER = "If we should spawn a death marker on the position where a player died.";
 		private const string DESC_BOT_SEARCH_FOR_CRATES = "Should the bots search / look for crates.";
 		private const string DESC_ALLOW_BOTS = "If bots can be enabled for this game mode.";
+		private const string DESC_BOT_DIFFICULTY = "Sets the bot difficulty.";
 		private const string DESC_BOT_RESPAWN = "Allows bots to respawn when they get killed.";
 		private const string DESC_BOT_WEAPON_SEARCH_STRATEGY = "How should bots search for weapons on the map.";
 		private const string DESC_RANK_SORTER = "How should we sort the players on the leaderboards.";

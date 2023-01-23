@@ -19,7 +19,7 @@ namespace Quantum
 		public QuantumCommandHandler(CustomQuantumPlugin plugin)
 		{
 			_plugin = plugin;
-			_commandAssembly = Assembly.GetAssembly(typeof(IGameCommand));
+			_commandAssembly = Assembly.GetAssembly(typeof(EndOfGameCalculationsCommand));
 		}
 
 		public void DispatchLogicCommandFromQuantumEvent(EventFireQuantumServerCommand ev)
@@ -27,13 +27,14 @@ namespace Quantum
 			int index = ev.Player;
 			if(_plugin.CustomServer.GetPlayFabIdByIndex(ev.Player) == null)
 			{
+				Log.Error("Could not ind playfab id for player " + ev.Player);
 				return;
 			}
 
 			var actorId = _plugin.CustomServer.GetClientActorNumberByIndex(index);
 			if(FlgConfig.DebugMode)
 			{
-				Log.Debug($"Firing logic command for index {index} actor {actorId}");
+				Log.Info($"Firing logic command for index {index} actor {actorId}");
 			}
 			try
 			{
@@ -108,7 +109,7 @@ namespace Quantum
 		{
 			if(FlgConfig.DebugMode)
 			{
-				Log.Debug($"Receive token for actor {actorNumber}");
+				Log.Info($"Receive token for actor {actorNumber}");
 			}
 			_tokens[actorNumber] = token;
 		}

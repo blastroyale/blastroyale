@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules;
@@ -328,7 +329,7 @@ namespace Quantum
 			Playfab.GetProfileReadOnlyData(clientPlayer.PlayerId, OnUserDataResponse);
 			if (FlgConfig.DebugMode)
 			{
-				Log.Debug($"Received client data from player {clientPlayer.PlayerId} actor {client.ActorNr} index {clientPlayerData.Index}");
+				Log.Info($"Received client data from player {clientPlayer.PlayerId} actor {client.ActorNr} index {clientPlayerData.Index}");
 			}
 			return false; // denies adding player data to the bitstream when client sends it
 		}

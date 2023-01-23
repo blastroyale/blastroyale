@@ -39,6 +39,7 @@ namespace FirstLight.Tests.EditorMode
 		protected GameStateMachine TestStates;
 		protected IGameUiServiceInit TestUI;
 		protected GameNetworkService TestNetwork;
+		protected TutorialService TestTutorial;
 		protected AssetResolverService TestAssetResolver = new ();
 		protected VfxService<VfxId> TestVfx;
 
@@ -60,24 +61,25 @@ namespace FirstLight.Tests.EditorMode
 			TimeService = new TimeService();
 			TestUI = new GameUiService(new UiAssetLoader());
 			TestNetwork = new GameNetworkService(TestConfigs);
+			TestTutorial = new TutorialService();
 			TestNetwork.BindServicesAndData(TestLogic, TestServices);
 			TestNetwork.EnableQuantumUpdate(true);
 			var genericDialogService = new GenericDialogService(TestUI);
 			var audioFxService = new GameAudioFxService(TestAssetResolver);
-			TestVfx = new VfxService<VfxId>();
 			var playerInputService = new PlayerInputService();
+			
+			TestVfx = new VfxService<VfxId>();
 
 			TestData = SetupPlayer(TestConfigs);
 			TestLogic = new GameLogic(messageBroker, TimeService, TestData, TestConfigs,
 			                          audioFxService);
 			TestServices = new StubGameServices(TestNetwork, messageBroker, TimeService, TestData,
 			                                    TestConfigs, TestLogic, TestData, genericDialogService,
-			                                    TestAssetResolver, TestVfx, audioFxService, playerInputService, TestUI);
+			                                    TestAssetResolver, TestTutorial, TestVfx, audioFxService, playerInputService, TestUI);
 			TestLogic.Init();
 
-			TestStates = new GameStateMachine(TestLogic, TestServices, TestUI, TestNetwork,
-			                                  TestConfigs,
-			                                  TestAssetResolver, TestData, TestVfx);
+			TestStates = new GameStateMachine(TestLogic, TestServices, TestUI, TestNetwork, TestTutorial,
+			                                  TestConfigs, TestAssetResolver, TestData, TestVfx);
 
 			FLog.Init();
 

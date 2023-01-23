@@ -32,6 +32,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly AuthenticationState _authenticationState;
 		private readonly AudioState _audioState;
 		private readonly NetworkState _networkState;
+		private readonly TutorialState _tutorialState;
 		private readonly GameLogic _gameLogic;
 		private readonly CoreLoopState _coreLoopState;
 		private readonly IGameServices _services;
@@ -40,7 +41,8 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameUiServiceInit _uiService;
 
 		public GameStateMachine(GameLogic gameLogic, IGameServices services, IGameUiServiceInit uiService,
-								IGameBackendNetworkService networkService, IConfigsAdder configsAdder,
+								IGameBackendNetworkService networkService, IInternalTutorialService tutorialService,
+								IConfigsAdder configsAdder,
 								IAssetAdderService assetAdderService, IDataService dataService,
 								IVfxInternalService<VfxId> vfxService)
 		{
@@ -53,6 +55,7 @@ namespace FirstLight.Game.StateMachines
 			_authenticationState = new AuthenticationState(gameLogic, services, uiService, dataService, networkService, Trigger, _configsAdder);
 			_audioState = new AudioState(gameLogic, services, Trigger);
 			_networkState = new NetworkState(gameLogic, services, networkService, Trigger);
+			_tutorialState = new TutorialState(gameLogic, services, tutorialService, Trigger);
 			_coreLoopState = new CoreLoopState(services, gameLogic, dataService, networkService, uiService, gameLogic, assetAdderService, Trigger);
 			_statechart = new Statechart.Statechart(Setup);
 		}

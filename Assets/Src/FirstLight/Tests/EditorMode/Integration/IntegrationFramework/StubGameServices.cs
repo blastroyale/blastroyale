@@ -31,7 +31,7 @@ namespace FirstLight.Tests.EditorMode
 		public virtual IAudioFxService<AudioId> AudioFxService { get; }
 		public virtual INotificationService NotificationService { get; }
 		public virtual IPlayfabService PlayfabService { get; }
-		
+		public virtual ITutorialService TutorialService { get; }
 		public virtual ILiveopsService LiveopsService { get; set; }
 		public virtual IRemoteTextureService RemoteTextureService { get; }
 		public virtual IThreadService ThreadService { get; }
@@ -51,6 +51,7 @@ namespace FirstLight.Tests.EditorMode
 		                        IGameLogic gameLogic, IDataProvider dataProvider,
 		                        IGenericDialogService genericDialogService,
 		                        IAssetResolverService assetResolverService,
+								ITutorialService tutorialService,
 		                        IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService,
 		                        IPlayerInputService playerInputService, IUiService uiService)
 		{
@@ -66,7 +67,7 @@ namespace FirstLight.Tests.EditorMode
 			PlayerInputService = playerInputService;
 			VfxService = vfxService;
 			GameLogic = gameLogic;
-
+			TutorialService = tutorialService;
 			
 			ThreadService = new ThreadService();
 			HelpdeskService = new HelpdeskService();

@@ -14,14 +14,16 @@ namespace FirstLight.Game.StateMachines
 
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _dataProvider;
+		private readonly IInternalTutorialService _tutorialService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private readonly FirstGameTutorialState _firstGameTutorialState;
 
-		public TutorialState(IGameDataProvider logic, IGameServices services,
+		public TutorialState(IGameDataProvider logic, IGameServices services, IInternalTutorialService tutorialService,
 							 Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
 			_dataProvider = logic;
+			_tutorialService = tutorialService;
 			_statechartTrigger = statechartTrigger;
 			_firstGameTutorialState = new FirstGameTutorialState(logic, services, statechartTrigger);
 		}
@@ -38,14 +40,25 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(idle);
 			initial.OnExit(SubscribeMessages);
 
+			idle.OnEnter(SetTutorialNotRunning);
 			idle.Event(StartFirstGameTutorialEvent).Target(firstGameTutorial);
-
+			idle.OnExit(SetTutorialRunning);
+			
 			firstGameTutorial.Nest(_firstGameTutorialState.Setup).Target(idle);
 		}
-
+		
 		private void SubscribeMessages()
 		{
-			throw new System.NotImplementedException();
+		}
+
+		private void SetTutorialRunning()
+		{
+			_tutorialService.IsTutorialRunning.Value = true;
+		}
+
+		private void SetTutorialNotRunning()
+		{
+			_tutorialService.IsTutorialRunning.Value = false;
 		}
 	}
 }

@@ -128,8 +128,8 @@ namespace FirstLight.Game.Services
 		public IAudioFxService<AudioId> AudioFxService { get; }
 		public INotificationService NotificationService { get; }
 		public IPlayfabService PlayfabService { get; }
-		
 		public ILiveopsService LiveopsService { get; }
+		public ITutorialService TutorialService { get; }
 		public IRemoteTextureService RemoteTextureService { get; }
 		public IThreadService ThreadService { get; }
 		public IHelpdeskService HelpdeskService { get; }
@@ -143,7 +143,7 @@ namespace FirstLight.Game.Services
 		                    ITimeService timeService, IDataService dataService, IConfigsProvider configsProvider,
 		                    IGameLogic gameLogic,
 		                    IGenericDialogService genericDialogService,
-		                    IAssetResolverService assetResolverService,
+		                    IAssetResolverService assetResolverService, ITutorialService tutorialService,
 		                    IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService, IUiService uiService)
 		{
 			NetworkService = networkService;
@@ -156,6 +156,7 @@ namespace FirstLight.Game.Services
 			GenericDialogService = genericDialogService;
 			AudioFxService = audioFxService;
 			VfxService = vfxService;
+			TutorialService = tutorialService;
 			
 			ThreadService = new ThreadService();
 			HelpdeskService = new HelpdeskService();

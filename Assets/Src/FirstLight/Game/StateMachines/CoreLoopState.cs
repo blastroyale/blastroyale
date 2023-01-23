@@ -69,8 +69,8 @@ namespace FirstLight.Game.StateMachines
 			
 			connectionWait.WaitingFor(WaitForPhotonConnection).Target(firstMatchCheck);
 			
-			firstMatchCheck.Transition().Condition(IsFirstTimeGuest).Target(joinTutorialRoom);
-			firstMatchCheck.Transition().Target(mainMenu);
+			firstMatchCheck.Transition().Condition(HasCompletedFirstGameTutorial).Target(mainMenu);
+			firstMatchCheck.Transition().Target(joinTutorialRoom);
 			
 			mainMenu.Nest(_mainMenuState.Setup).Target(match);
 
@@ -113,9 +113,9 @@ namespace FirstLight.Game.StateMachines
 			_services?.MessageBrokerService.UnsubscribeAll(this);
 		}
 		
-		private bool IsFirstTimeGuest()
+		private bool HasCompletedFirstGameTutorial()
 		{
-			return string.IsNullOrEmpty(_dataProvider.AppDataProvider.LastLoginEmail.Value);
+			return _services.TutorialService.HasCompletedTutorialStep(TutorialStep.PLAYED_MATCH);
 		}
 
 		private void CallLeaveRoom()

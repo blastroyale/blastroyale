@@ -23,6 +23,11 @@ namespace FirstLight.Game.Services
 		/// Requests check if a tutorial is currently in progress
 		/// </summary>
 		bool IsTutorialRunning { get; }
+
+		/// <summary>
+		/// Requests to check if a tutorial step has been completed
+		/// </summary>
+		bool HasCompletedTutorialStep(TutorialStep step);
 	}
 
 	/// <inheritdoc cref="ITutorialService"/>
@@ -50,7 +55,7 @@ namespace FirstLight.Game.Services
 		private IGameDataProvider _dataProvider;
 		
 		bool ITutorialService.IsTutorialRunning => CurrentRunningTutorial.Value != TutorialStep.NONE;
-		
+
 		public IObservableField<TutorialStep> CurrentRunningTutorial { get; }
 
 		IObservableFieldReader<TutorialStep> ITutorialService.CurrentRunningTutorial => CurrentRunningTutorial;
@@ -87,6 +92,11 @@ namespace FirstLight.Game.Services
 			var mapConfig = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(GameId.BRGenesis.GetHashCode());
 
 			_services.NetworkService.CreateRoom(gameModeConfig, mapConfig, new List<string>(), GameConstants.Tutorial.TUTORIAL_ROOM_NAME, false);
+		}
+		
+		public bool HasCompletedTutorialStep(TutorialStep step)
+		{
+			return _dataProvider.PlayerDataProvider.HasTutorialStep(step);
 		}
 	}
 }

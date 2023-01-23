@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DG.Tweening;
+using FirstLight.FLogger;
 using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.EntityPrototypes;
 using FirstLight.Game.Services;
@@ -10,6 +11,7 @@ using FirstLight.Game.Utils;
 using FirstLight.Game.Views.AdventureHudViews;
 using FirstLight.Services;
 using Quantum;
+using Quantum.Core;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,21 +29,21 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private IGameServices _services;
 		private IMatchServices _matchServices;
 		private IObjectPool<PlayerHealthBarPoolObject> _healthBarPlayerPool;
-		private SpectatePlayerHealthBarObject _healthBarSpectatePlayer;
-		
+		private Dictionary<EntityRef, SpectatePlayerHealthBarObject> _friendlyHealthBars;
+
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			_healthBarPlayerPool = new ObjectPool<PlayerHealthBarPoolObject>(4, PlayerHealthBarInstantiator);
-			_healthBarSpectatePlayer = SpectatePlayerHealthBarInstantiator();
-				
+			_friendlyHealthBars = new Dictionary<EntityRef, SpectatePlayerHealthBarObject>();
+
 			_matchServices.SpectateService.SpectatedPlayer.InvokeObserve(OnPlayerSpectateUpdate);
 			_services.MessageBrokerService.Subscribe<MatchEndedMessage>(OnMatchEnded);
 			QuantumEvent.Subscribe<EventOnPlayerAttackHit>(this, OnPlayerAttackHit);
 			QuantumEvent.Subscribe<EventOnPlayerSkydiveLand>(this, OnPlayerSkydiveLand);
 			QuantumEvent.Subscribe<EventOnPlayerAlive>(this, OnPlayerAlive);
-			
+
 			_healthBarSpectateRef.gameObject.SetActive(false);
 			_healthBarRef.gameObject.SetActive(false);
 		}
@@ -54,22 +56,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void OnPlayerSkydiveLand(EventOnPlayerSkydiveLand callback)
 		{
-			var spectateEntity = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
-			var f = callback.Game.Frames.Verified;
-			
-			if (spectateEntity != callback.Entity || !f.TryGet<PlayerCharacter>(callback.Entity, out var playerCharacter))
-			{
-				return;
-			}
-			
-			_healthBarSpectatePlayer.ResourceBarView.SetupView(f, playerCharacter, callback.Entity);
-			_healthBarSpectatePlayer.ReloadBarView.SetupView(f, playerCharacter, callback.Entity);
-			SetupHealthBar(f, callback.Entity, _healthBarSpectatePlayer);
+			TryShowHealthBar(callback.Game.Frames.Verified, callback.Entity);
 		}
 
-		private void OnPlayerAttackHit(EventOnPlayerAttackHit obj)
+		private void OnPlayerAttackHit(EventOnPlayerAttackHit e)
 		{
-			if (!_healthBarSpectatePlayer.Entity.IsValid || obj.PlayerEntity != _healthBarSpectatePlayer.Entity)
+			if (!_friendlyHealthBars.ContainsKey(e.PlayerEntity))
 			{
 				return;
 			}
@@ -78,49 +70,75 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			for (var i = 0; i < spawned.Count; i++)
 			{
-				if (spawned[i].Entity == obj.HitEntity)
+				if (spawned[i].Entity == e.HitEntity)
 				{
 					spawned[i].Despawn();
 					return;
 				}
 			}
-				
+
 			var healthBar = _healthBarPlayerPool.Spawn();
-			
-			SetupHealthBar(obj.Game.Frames.Verified, obj.HitEntity, healthBar);
+
+			SetupHealthBar(e.Game.Frames.Verified, e.HitEntity, healthBar);
 			healthBar.Despawn();
 		}
 
 		private void OnPlayerAlive(EventOnPlayerAlive callback)
 		{
-			var spectateEntity = _matchServices.SpectateService.SpectatedPlayer.Value.Entity;
-
-			if (spectateEntity != callback.Entity)
+			if (!callback.Game.Frames.Verified.Context.GameModeConfig.SkydiveSpawn)
 			{
-				return;
+				TryShowHealthBar(callback.Game.Frames.Verified, callback.Entity);
 			}
-			
-			SetupInitialHealthBar(callback.Game.Frames.Verified, callback.Entity);
+		}
+
+		private void TryShowHealthBar(Frame f, EntityRef entity)
+		{
+			if (ShouldShowHealthbar(f, entity) && !_friendlyHealthBars.ContainsKey(entity))
+			{
+				FLog.Info("PACO", "ShowingHealthbar!!!!");
+
+				var healthBar = FriendlyPlayerHealthBarInstantiator();
+				_friendlyHealthBars.Add(entity, healthBar);
+				SetupFriendlyHealthBar(f, entity, healthBar);
+			}
+		}
+
+		private bool ShouldShowHealthbar(Frame f, EntityRef entity)
+		{
+			var spectatePlayer = _matchServices.SpectateService.SpectatedPlayer.Value;
+			return
+				f.Has<AlivePlayerCharacter>(entity) &&
+				f.TryGet<PlayerCharacter>(entity, out var pc) && !pc.IsSkydiving(f, entity) &&
+				f.TryGet<Targetable>(entity, out var t) && t.Team == spectatePlayer.Team;
 		}
 
 		private void OnPlayerSpectateUpdate(SpectatedPlayer previousPlayer, SpectatedPlayer newPlayer)
 		{
-			if (!newPlayer.Entity.IsValid) return;
-			
-			var f = QuantumRunner.Default.Game.Frames.Predicted;
-			var player = newPlayer.Entity.IsValid ? newPlayer : previousPlayer;
+			foreach (var (_, hb) in _friendlyHealthBars)
+			{
+				hb.OnDespawn();
+			}
 
-			SetupInitialHealthBar(f, player.Entity);
+			_friendlyHealthBars.Clear();
+
+			if (newPlayer.Entity.IsValid)
+			{
+				var f = QuantumRunner.Default.Game.Frames.Verified;
+
+				foreach (var (entity, t) in f.GetComponentIterator<Targetable>())
+				{
+					TryShowHealthBar(f, entity);
+				}
+			}
 		}
 
-		private async void SetupInitialHealthBar(Frame f, EntityRef playerEntity)
+		private async void SetupFriendlyHealthBar(Frame f, EntityRef playerEntity,
+												  SpectatePlayerHealthBarObject healthBar)
 		{
-			if (f == null || !f.Context.GameModeConfig.SkydiveSpawn ||
-			    !f.Has<AlivePlayerCharacter>(playerEntity) || 
-			    !f.TryGet<PlayerCharacter>(playerEntity, out var playerCharacter) || 
-			    playerCharacter.IsSkydiving(f, playerEntity))
+			FLog.Info("PACO", "SettingUpFriendlyHealthbar 1");
+			if (!f.TryGet<PlayerCharacter>(playerEntity, out var playerCharacter))
 			{
-				_healthBarSpectatePlayer.OnDespawn();
+				healthBar.OnDespawn();
 				return;
 			}
 
@@ -128,15 +146,16 @@ namespace FirstLight.Game.Views.MatchHudViews
 			// gets positioned incorrectly. There is most likely a better solution, but time is money, and I'm poor.
 			await Task.Yield();
 
-			_healthBarSpectatePlayer.ResourceBarView.SetupView(f, playerCharacter, playerEntity);
-			_healthBarSpectatePlayer.ReloadBarView.SetupView(f, playerCharacter, playerEntity);
-			SetupHealthBar(f, playerEntity, _healthBarSpectatePlayer);
+			FLog.Info("PACO", "SettingUpFriendlyHealthbar 2");
+			healthBar.ResourceBarView.SetupView(f, playerCharacter, playerEntity);
+			healthBar.ReloadBarView.SetupView(f, playerCharacter, playerEntity);
+			SetupHealthBar(f, playerEntity, healthBar);
 		}
-		
+
 		private void SetupHealthBar(Frame f, EntityRef entity, PlayerHealthBarPoolObject healthBar)
 		{
-			if (!_matchServices.EntityViewUpdaterService.TryGetView(entity, out var entityView) || 
-			    !f.TryGet<Stats>(entity, out var stats))
+			if (!_matchServices.EntityViewUpdaterService.TryGetView(entity, out var entityView) ||
+				!f.TryGet<Stats>(entity, out var stats))
 			{
 				healthBar.OnDespawn();
 				return;
@@ -157,9 +176,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 			else if (f.TryGet<PlayerCharacter>(entity, out var playerCharacter))
 			{
 				var playerName = f.TryGet<BotCharacter>(entity, out var botCharacter)
-					                 ? Extensions.GetBotName(botCharacter.BotNameIndex.ToString())
-					                 : f.GetPlayerData(playerCharacter.Player).PlayerName;
-				
+					? Extensions.GetBotName(botCharacter.BotNameIndex.ToString())
+					: f.GetPlayerData(playerCharacter.Player).PlayerName;
+
 				healthBar.HealthBarNameView.NameText.text = playerName;
 			}
 
@@ -171,14 +190,19 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void OnMatchEnded(MatchEndedMessage msg)
 		{
-			_healthBarSpectatePlayer.OnDespawn();
+			foreach (var (_, hb) in _friendlyHealthBars)
+			{
+				hb.OnDespawn();
+			}
+
 			_healthBarPlayerPool.DespawnAll();
 		}
-		
-		private SpectatePlayerHealthBarObject SpectatePlayerHealthBarInstantiator()
+
+		private SpectatePlayerHealthBarObject FriendlyPlayerHealthBarInstantiator()
 		{
-			var instance = _healthBarSpectateRef;
-		
+			var instance = Instantiate(_healthBarSpectateRef, transform, true);
+			;
+
 			return new SpectatePlayerHealthBarObject
 			{
 				OverlayView = instance,
@@ -189,17 +213,17 @@ namespace FirstLight.Game.Views.MatchHudViews
 				HealthBarShieldView = instance.GetComponent<HealthBarShieldView>()
 			};
 		}
-		
+
 		private PlayerHealthBarPoolObject PlayerHealthBarInstantiator()
 		{
 			var instance = Instantiate(_healthBarRef, transform, true);
 			var instanceTransform = instance.transform;
-		
+
 			instance.gameObject.SetActive(false);
 
 			instanceTransform.localPosition = Vector3.zero;
 			instanceTransform.localScale = Vector3.one;
-		
+
 			return new PlayerHealthBarPoolObject
 			{
 				OverlayView = instance,
@@ -208,7 +232,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 				HealthBarShieldView = instance.GetComponent<HealthBarShieldView>()
 			};
 		}
-		
+
 		private class SpectatePlayerHealthBarObject : PlayerHealthBarPoolObject
 		{
 			public ResourceBarView ResourceBarView;
@@ -223,7 +247,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 		}
 
-		private class PlayerHealthBarPoolObject : IPoolEntitySpawn, IPoolEntityDespawn, IPoolEntityObject<PlayerHealthBarPoolObject>
+		private class PlayerHealthBarPoolObject : IPoolEntitySpawn, IPoolEntityDespawn,
+												  IPoolEntityObject<PlayerHealthBarPoolObject>
 		{
 			public HealthBarNameView HealthBarNameView;
 			public HealthBarShieldView HealthBarShieldView;
@@ -231,7 +256,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			public OverlayWorldView OverlayView;
 
 			private IObjectPool<PlayerHealthBarPoolObject> _pool;
-			private List<Pair<Graphic, Color>> _originalGraphics = new ();
+			private List<Pair<Graphic, Color>> _originalGraphics = new();
 
 			/// <summary>
 			/// The current reference entity
@@ -244,10 +269,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 				{
 					pair.Key.color = pair.Value;
 				}
-				
+
 				_originalGraphics.Clear();
 			}
-		
+
 			/// <inheritdoc />
 			public virtual void OnDespawn()
 			{
@@ -268,12 +293,12 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				var graphics = OverlayView.Graphics;
 				var isEmpty = _originalGraphics.Count == 0;
-				
+
 				foreach (var pair in _originalGraphics)
 				{
 					pair.Key.color = pair.Value;
 				}
-				
+
 				for (var i = 0; i < graphics.Count; i++)
 				{
 					if (isEmpty)
@@ -283,7 +308,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 					graphics[i].DOKill();
 					var tween = graphics[i].DOFade(0, GameConstants.Visuals.GAMEPLAY_POST_ATTACK_HIDE_DURATION)
-					                       .SetEase(Ease.InCubic);
+						.SetEase(Ease.InCubic);
 
 					if (i == 0)
 					{

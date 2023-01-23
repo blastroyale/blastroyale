@@ -106,9 +106,6 @@ namespace Quantum
 
 		[FoldoutGroup("Bots"), PropertyTooltip(DESC_ALLOW_BOTS)]
 		public bool AllowBots;
-
-		[FoldoutGroup("Bots"), PropertyTooltip(DESC_BOT_DIFFICULTY)]
-		public uint BotDifficulty;
 		
 		[FoldoutGroup("Bots"), ShowIf("AllowBots"), PropertyTooltip(DESC_BOT_SEARCH_FOR_CRATES)]
 		public bool BotSearchForCrates;
@@ -193,7 +190,6 @@ namespace Quantum
 		private const string DESC_DEATH_MARKER = "If we should spawn a death marker on the position where a player died.";
 		private const string DESC_BOT_SEARCH_FOR_CRATES = "Should the bots search / look for crates.";
 		private const string DESC_ALLOW_BOTS = "If bots can be enabled for this game mode.";
-		private const string DESC_BOT_DIFFICULTY = "Sets the bot difficulty.";
 		private const string DESC_BOT_RESPAWN = "Allows bots to respawn when they get killed.";
 		private const string DESC_BOT_WEAPON_SEARCH_STRATEGY = "How should bots search for weapons on the map.";
 		private const string DESC_RANK_SORTER = "How should we sort the players on the leaderboards.";

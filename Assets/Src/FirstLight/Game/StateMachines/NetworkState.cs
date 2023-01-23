@@ -386,7 +386,7 @@ namespace FirstLight.Game.StateMachines
 				}
 			}
 
-			if (_networkService.QuantumRunnerConfigs.IsOfflineMode)
+			if (_networkService.QuantumRunnerConfigs.IsOfflineMode || _services.TutorialService.IsTutorialRunning)
 			{
 				LockRoom();
 			}

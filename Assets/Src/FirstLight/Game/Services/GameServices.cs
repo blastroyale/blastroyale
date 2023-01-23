@@ -75,8 +75,12 @@ namespace FirstLight.Game.Services
 
 		/// <inheritdoc cref="IPlayfabService"/>
 		IPlayfabService PlayfabService { get; }
+		
 		/// <inheritdoc cref="IPlayfabService"/>
 		ILiveopsService LiveopsService { get; }
+		
+		/// <inheritdoc cref="ITutorialService"/>
+		public ITutorialService TutorialService { get; }
 
 		/// <inheritdoc cref="IRemoteTextureService"/>
 		public IRemoteTextureService RemoteTextureService { get; }
@@ -134,7 +138,6 @@ namespace FirstLight.Game.Services
 		public IThreadService ThreadService { get; }
 		public IHelpdeskService HelpdeskService { get; }
 		public IGameModeService GameModeService { get; }
-		
 		public IMatchmakingService MatchmakingService { get; }
 		public IIAPService IAPService { get; }
 		public string QuitReason { get; set; }

@@ -283,7 +283,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void CloseSwipeTransition()
 		{
-			if (_uiService.HasUiPresenter<SwipeScreenPresenter>())
+			// If a tutorial is running (first match tutorial) - the transition will be closed later, in game simulation state
+			if (_uiService.HasUiPresenter<SwipeScreenPresenter>() && !_services.TutorialService.IsTutorialRunning)
 			{
 				_uiService.CloseUi<SwipeScreenPresenter>(true);
 			}

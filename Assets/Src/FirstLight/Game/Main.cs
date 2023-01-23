@@ -58,7 +58,7 @@ namespace FirstLight.Game
 			var genericDialogService = new GenericDialogService(uiService);
 			var audioFxService = new GameAudioFxService(assetResolver);
 			var vfxService = new VfxService<VfxId>();
-			var tutorialService = new TutorialService();
+			var tutorialService = new TutorialService(uiService);
 
 			var gameLogic = new GameLogic(messageBroker, timeService, dataService, configsProvider, audioFxService);
 			var gameServices = new GameServices(networkService, messageBroker, timeService, dataService,
@@ -66,6 +66,7 @@ namespace FirstLight.Game
 			
 			networkService.BindServicesAndData(gameLogic, gameServices);
 			networkService.EnableQuantumUpdate(true);
+			tutorialService.BindServicesAndData(gameLogic, gameServices);
 			
 			MainInstaller.Bind<IGameDataProvider>(gameLogic);
 			MainInstaller.Bind<IGameServices>(gameServices);

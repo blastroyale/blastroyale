@@ -96,7 +96,7 @@ namespace FirstLight.Game.StateMachines
 			authentication.Nest(_authenticationState.Setup).Target(core);
 			authentication.OnExit(InitializeRemainingLogic);
 
-			core.Split(_audioState.Setup, _networkState.Setup, _coreLoopState.Setup).Target(final);
+			core.Split(_audioState.Setup, _networkState.Setup, _tutorialState.Setup, _coreLoopState.Setup).Target(final);
 
 			final.OnEnter(UnsubscribeEvents);
 		}

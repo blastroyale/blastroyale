@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Statechart;
@@ -40,25 +41,25 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(idle);
 			initial.OnExit(SubscribeMessages);
 
-			idle.OnEnter(SetTutorialNotRunning);
-			idle.Event(StartFirstGameTutorialEvent).Target(firstGameTutorial);
-			idle.OnExit(SetTutorialRunning);
-			
+			idle.OnEnter(() => SetCurrentTutorialStep(TutorialStep.NONE));
+			idle.Event(StartFirstGameTutorialEvent).OnTransition(() => SetCurrentTutorialStep(TutorialStep.PLAYED_MATCH)).Target(firstGameTutorial);
+
 			firstGameTutorial.Nest(_firstGameTutorialState.Setup).Target(idle);
+			firstGameTutorial.OnExit(() => SendTutorialCompleted(TutorialStep.PLAYED_MATCH));
+		}
+
+		private void SetCurrentTutorialStep(TutorialStep step)
+		{
+			_tutorialService.CurrentRunningTutorial.Value = step;
 		}
 		
+		private void SendTutorialCompleted(TutorialStep step)
+		{
+			_tutorialService.CompleteTutorialStep(step);
+		}
+
 		private void SubscribeMessages()
 		{
-		}
-
-		private void SetTutorialRunning()
-		{
-			_tutorialService.IsTutorialRunning.Value = true;
-		}
-
-		private void SetTutorialNotRunning()
-		{
-			_tutorialService.IsTutorialRunning.Value = false;
 		}
 	}
 }

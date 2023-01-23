@@ -82,8 +82,8 @@
       <HintPath>..\packages\PlayFabAllSDK.1.108.220118\lib\net45\PlayFabAllSDK.dll</HintPath>
     </Reference>
     <Reference Include="quantum.code, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\quantum.code.0.0.14\lib\net48\quantum.code.dll</HintPath>
-      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Assets\Libs\Photon\Quantum\Assemblies\quantum.code.dll</HintPath>
     </Reference>
     <Reference Include="quantum.core, Version=2.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\quantum.code.0.0.14\lib\net48\quantum.core.dll</HintPath>

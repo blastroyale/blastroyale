@@ -57,11 +57,13 @@ namespace Quantum
 		/// </summary>
 		public void DispatchCommand(int actorNumber, QuantumCommandPayload command, Frame frame, bool async = false)
 		{
+
 			if (_plugin.CustomServer.gameSession == null)
 			{
 				_plugin.LogError("Game did not ran, not sending commands");
 				return;
 			}
+
 			if(!_tokens.TryGetValue(actorNumber, out var token))
 			{
 				_plugin.LogError($"User {actorNumber} did not send his token");
@@ -73,6 +75,7 @@ namespace Quantum
 				_plugin.LogError("Command without player id received");
 				return;
 			}
+
 			var game = _plugin.CustomServer.gameSession.Session.Game as QuantumGame;
 			var commandType = _commandAssembly.GetType(command.CommandType);
 			if(commandType == null)

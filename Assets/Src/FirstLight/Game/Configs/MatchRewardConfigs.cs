@@ -9,7 +9,9 @@ namespace FirstLight.Game.Configs
 	[Serializable]
 	public struct MatchRewardConfig
 	{
+		public int MatchRewardId;
 		public short Placement;
+		public short TeamSize;
 		public SerializedDictionary<GameId,int> Rewards;
 	}
 

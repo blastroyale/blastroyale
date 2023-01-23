@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using DG.Tweening;
 using FirstLight.FLogger;
 using FirstLight.Game.Messages;
@@ -10,7 +9,6 @@ using Photon.Deterministic;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
 
@@ -287,8 +285,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 				_friendlyPositions[index++] = new Vector4(viewportPos.x, viewportPos.y, 0, 0);
 			}
-			
-			FLog.Info("PACO", $"Showing friendlies: {index}");
 
 			_minimapImage.materialForRendering.SetVectorArray(_friendliesPID, _friendlyPositions);
 			_minimapImage.materialForRendering.SetInteger(_friendliesCountPID, index);

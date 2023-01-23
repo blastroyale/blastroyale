@@ -1,9 +1,6 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using DG.Tweening;
-using FirstLight.FLogger;
 using FirstLight.Game.Messages;
 using FirstLight.Game.MonoComponent.EntityPrototypes;
 using FirstLight.Game.Services;
@@ -11,7 +8,6 @@ using FirstLight.Game.Utils;
 using FirstLight.Game.Views.AdventureHudViews;
 using FirstLight.Services;
 using Quantum;
-using Quantum.Core;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
@@ -95,8 +91,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		{
 			if (ShouldShowHealthbar(f, entity) && !_friendlyHealthBars.ContainsKey(entity))
 			{
-				FLog.Info("PACO", "ShowingHealthbar!!!!");
-
 				var healthBar = FriendlyPlayerHealthBarInstantiator();
 				_friendlyHealthBars.Add(entity, healthBar);
 				SetupFriendlyHealthBar(f, entity, healthBar);
@@ -135,7 +129,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private async void SetupFriendlyHealthBar(Frame f, EntityRef playerEntity,
 												  SpectatePlayerHealthBarObject healthBar)
 		{
-			FLog.Info("PACO", "SettingUpFriendlyHealthbar 1");
 			if (!f.TryGet<PlayerCharacter>(playerEntity, out var playerCharacter))
 			{
 				healthBar.OnDespawn();
@@ -146,7 +139,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			// gets positioned incorrectly. There is most likely a better solution, but time is money, and I'm poor.
 			await Task.Yield();
 
-			FLog.Info("PACO", "SettingUpFriendlyHealthbar 2");
 			healthBar.ResourceBarView.SetupView(f, playerCharacter, playerEntity);
 			healthBar.ReloadBarView.SetupView(f, playerCharacter, playerEntity);
 			SetupHealthBar(f, playerEntity, healthBar);

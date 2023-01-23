@@ -465,7 +465,7 @@ namespace FirstLight.Game.Utils
 		}
 		
 		/// <summary>
-		/// TODO
+		/// Requests the team id of the player (-1 for no team).
 		/// </summary>
 		public static int GetTeamId(this Player player)
 		{

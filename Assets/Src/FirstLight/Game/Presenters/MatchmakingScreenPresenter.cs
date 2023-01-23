@@ -72,7 +72,6 @@ namespace FirstLight.Game.Presenters
 			_services.NetworkService.QuantumClient.AddCallbackTarget(this);
 		}
 
-
 		private void OnDestroy()
 		{
 			_services?.NetworkService?.QuantumClient?.RemoveCallbackTarget(this);
@@ -137,7 +136,9 @@ namespace FirstLight.Game.Presenters
 				_squadMembersList.itemsSource = _squadMembers;
 				_squadMembersList.RefreshItems();
 
-				_squadLabel.text = $"SQUAD [{squadId}]";
+				_squadLabel.text = Debug.isDebugBuild
+					? $"{ScriptLocalization.UITMatchmaking.squad} [{squadId}]"
+					: ScriptLocalization.UITMatchmaking.squad;
 			}
 			else
 			{

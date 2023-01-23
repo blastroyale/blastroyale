@@ -57,7 +57,7 @@ namespace FirstLight.Game.Presenters
 		private bool _dropSelectionAllowed;
 		private bool _matchStarting;
 		
-		private Room CurrentRoom => _services.NetworkService.QuantumClient.CurrentRoom;
+		private Room CurrentRoom => _services.NetworkService.CurrentRoom;
 		private bool RejoiningRoom => !_services.NetworkService.IsJoiningNewMatch;
 
 		private void Awake()

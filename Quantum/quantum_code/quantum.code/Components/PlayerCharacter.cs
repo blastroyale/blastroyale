@@ -26,7 +26,7 @@ namespace Quantum
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 
 			Player = playerRef;
-			TeamId = teamId;
+			TeamId = teamId < 0 ? Player + (int) TeamType.TOTAL : 1000 + TeamId;
 			CurrentWeaponSlot = 0;
 			DroppedLoadoutFlags = 0;
 			transform->Position = spawnPosition.Position;
@@ -118,7 +118,7 @@ namespace Quantum
 		/// </summary>
 		internal void Activate(Frame f, EntityRef e)
 		{
-			var targetable = new Targetable {Team = TeamId < 0 ? Player + (int) TeamType.TOTAL : 1000 + TeamId};
+			var targetable = new Targetable {Team = TeamId};
 			var stats = f.Unsafe.GetPointer<Stats>(e);
 
 			stats->ResetStats(f, CurrentWeapon, Gear);

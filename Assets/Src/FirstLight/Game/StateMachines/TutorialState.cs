@@ -26,7 +26,7 @@ namespace FirstLight.Game.StateMachines
 			_dataProvider = logic;
 			_tutorialService = tutorialService;
 			_statechartTrigger = statechartTrigger;
-			_firstGameTutorialState = new FirstGameTutorialState(logic, services, statechartTrigger);
+			_firstGameTutorialState = new FirstGameTutorialState(logic, services, tutorialService, statechartTrigger);
 		}
 
 		/// <summary>
@@ -42,10 +42,11 @@ namespace FirstLight.Game.StateMachines
 			initial.OnExit(SubscribeMessages);
 
 			idle.OnEnter(() => SetCurrentTutorialStep(TutorialStep.NONE));
-			idle.Event(StartFirstGameTutorialEvent).OnTransition(() => SetCurrentTutorialStep(TutorialStep.PLAYED_MATCH)).Target(firstGameTutorial);
+			idle.Event(StartFirstGameTutorialEvent).Target(firstGameTutorial);
 
+			firstGameTutorial.OnEnter(() => SetCurrentTutorialStep(TutorialStep.PLAYED_MATCH));
 			firstGameTutorial.Nest(_firstGameTutorialState.Setup).Target(idle);
-			firstGameTutorial.OnExit(() => SendTutorialCompleted(TutorialStep.PLAYED_MATCH));
+			firstGameTutorial.OnExit(() => SendTutorialStepCompleted(TutorialStep.PLAYED_MATCH));
 		}
 
 		private void SetCurrentTutorialStep(TutorialStep step)
@@ -53,7 +54,7 @@ namespace FirstLight.Game.StateMachines
 			_tutorialService.CurrentRunningTutorial.Value = step;
 		}
 		
-		private void SendTutorialCompleted(TutorialStep step)
+		private void SendTutorialStepCompleted(TutorialStep step)
 		{
 			_tutorialService.CompleteTutorialStep(step);
 		}

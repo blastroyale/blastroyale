@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Utils;
+using Quantum;
 using UnityEngine;
 
 namespace FirstLight.Game.Services
@@ -33,6 +35,11 @@ namespace FirstLight.Game.Services
 		/// Marks tutorial step completed, to be used at the end of a tutorial sequence
 		/// </summary>
 		void CompleteTutorialStep(TutorialStep step);
+
+		/// <summary>
+		/// Creates first match tutorial room and joins it
+		/// </summary>
+		void CreateJoinFirstTutorialRoom();
 	}
 
 	/// <inheritdoc cref="ITutorialService"/>
@@ -71,6 +78,15 @@ namespace FirstLight.Game.Services
 			{
 				Step = step
 			});
+		}
+
+		public void CreateJoinFirstTutorialRoom()
+		{
+			var gameModeId = "BattleRoyale";
+			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
+			var mapConfig = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(GameId.BRGenesis.GetHashCode());
+
+			_services.NetworkService.CreateRoom(gameModeConfig, mapConfig, new List<string>(), GameConstants.Tutorial.TUTORIAL_ROOM_NAME, false);
 		}
 	}
 }

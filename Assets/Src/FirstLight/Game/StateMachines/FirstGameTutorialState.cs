@@ -15,12 +15,14 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _dataProvider;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
+		private readonly IInternalTutorialService _tutorialService;
 		
-		public FirstGameTutorialState(IGameDataProvider logic, IGameServices services,
+		public FirstGameTutorialState(IGameDataProvider logic, IGameServices services, IInternalTutorialService tutorialService,
 							 Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
 			_dataProvider = logic;
+			_tutorialService = tutorialService;
 			_statechartTrigger = statechartTrigger;
 		}
 		
@@ -38,7 +40,7 @@ namespace FirstLight.Game.StateMachines
 			initial.Transition().Target(createTutorialRoom);
 			initial.OnExit(SubscribeMessages);
 			
-			createTutorialRoom.OnEnter(CreateTutorialRoom);
+			createTutorialRoom.OnEnter(StartFirstTutorialMatch);
 			createTutorialRoom.Event(NetworkState.JoinedRoomEvent).Target(waitingForStart);
 			
 			waitingForStart.Event(GameSimulationState.SimulationStartedEvent).Target(playingMatch);
@@ -48,14 +50,9 @@ namespace FirstLight.Game.StateMachines
 			playingMatch.Event(MatchState.MatchQuitEvent).Target(final);
 		}
 
-		private void CreateTutorialRoom()
+		private void StartFirstTutorialMatch()
 		{
-			// TODO: Hook up proper tutorial values
-			var gameModeId = "BattleRoyale";
-			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
-			var mapConfig = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(GameId.BRGenesis.GetHashCode());
-
-			_services.NetworkService.CreateRoom(gameModeConfig, mapConfig, new List<string>(), GameConstants.Tutorial.TUTORIAL_ROOM_NAME, false);
+			_tutorialService.CreateJoinFirstTutorialRoom();
 		}
 
 		private void SubscribeMessages()

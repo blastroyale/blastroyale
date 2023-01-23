@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using FirstLight.FLogger;
+using FirstLight.Game.Data;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
@@ -131,7 +133,7 @@ namespace FirstLight.Game.Services
 				_gameServices.NetworkService.LocalPlayer.IsSpectator() &&
 				TryGetNextPlayer(game, out var player))
 			{
-				SetSpectatedEntity(callback.Game.Frames.Verified, player.Key, player.Value, true);
+				SetSpectatedEntity(callback.Game.Frames.Verified, player.Entity, player.Player, true);
 			}
 
 			if (game.Frames.Predicted.Unsafe.TryGetPointer<Transform3D>(_spectatedPlayer.Value.Entity,
@@ -144,19 +146,18 @@ namespace FirstLight.Game.Services
 		private void SwipeLeft(QuantumGame game)
 		{
 			TryGetPreviousPlayer(game, out var player);
-			SetSpectatedEntity(game.Frames.Verified, player.Key, player.Value);
+			SetSpectatedEntity(game.Frames.Verified, player.Entity, player.Player);
 		}
 
 		private void SwipeRight(QuantumGame game)
 		{
 			TryGetNextPlayer(game, out var player);
-			SetSpectatedEntity(game.Frames.Verified, player.Key, player.Value);
+			SetSpectatedEntity(game.Frames.Verified, player.Entity, player.Player);
 		}
 
-		private bool TryGetNextPlayer(QuantumGame game, out Pair<EntityRef, PlayerRef> player)
+		private bool TryGetNextPlayer(QuantumGame game, out Quantum.PlayerMatchData player)
 		{
-			var frame = game.Frames.Verified;
-			var players = GetPlayerList(frame, out var currentIndex);
+			var players = GetPlayerList(game, out var currentIndex);
 
 			if (players.Count > 0)
 			{
@@ -168,10 +169,9 @@ namespace FirstLight.Game.Services
 			return false;
 		}
 
-		private bool TryGetPreviousPlayer(QuantumGame game, out Pair<EntityRef, PlayerRef> player)
+		private bool TryGetPreviousPlayer(QuantumGame game, out Quantum.PlayerMatchData player)
 		{
-			var frame = game.Frames.Verified;
-			var players = GetPlayerList(frame, out var currentIndex);
+			var players = GetPlayerList(game, out var currentIndex);
 
 			if (players.Count > 0)
 			{
@@ -227,28 +227,60 @@ namespace FirstLight.Game.Services
 			return false;
 		}
 
-		private List<Pair<EntityRef, PlayerRef>> GetPlayerList(Frame f, out int currentIndex)
+		private List<Quantum.PlayerMatchData> GetLivingTeamMembers(QuantumGame game)
 		{
-			var players = new List<Pair<EntityRef, PlayerRef>>();
+			var localPlayer = game.GetLocalPlayerData(true, out var f);
+			var localTeamId = localPlayer.TeamId;
+
 			var container = f.GetSingleton<GameContainer>();
 			var playersData = container.PlayersData;
-			currentIndex = -1;
 
+			var teamMembers = new List<Quantum.PlayerMatchData>();
 			for (int i = 0; i < playersData.Length; i++)
 			{
 				var data = playersData[i];
-				if (data.IsValid && data.Entity.IsAlive(f))
-				{
-					players.Add(new Pair<EntityRef, PlayerRef>(data.Entity, data.Player));
 
-					if (_spectatedPlayer.Value.Entity == data.Entity)
+				if (data.IsValid && data.Entity.IsAlive(f) && data.TeamId == localTeamId)
+				{
+					teamMembers.Add(data);
+				}
+			}
+
+			return teamMembers;
+		}
+
+		private List<Quantum.PlayerMatchData> GetPlayerList(QuantumGame game, out int currentIndex)
+		{
+			var f = game.Frames.Verified;
+			var players = new List<Pair<EntityRef, PlayerRef>>();
+			var container = f.GetSingleton<GameContainer>();
+
+			var validPlayers = GetLivingTeamMembers(game);
+			FLog.Info("PACO", $"Living team members: {validPlayers.Count}");
+			if (validPlayers.Count == 0)
+			{
+				for (int i = 0; i < container.PlayersData.Length; i++)
+				{
+					var data = container.PlayersData[i];
+					if (data.IsValid && data.Entity.IsAlive(f))
 					{
-						currentIndex = players.Count - 1;
+						validPlayers.Add(data);
 					}
 				}
 			}
 
-			return players;
+			currentIndex = -1;
+			foreach (var data in validPlayers)
+			{
+				players.Add(new Pair<EntityRef, PlayerRef>(data.Entity, data.Player));
+
+				if (_spectatedPlayer.Value.Entity == data.Entity)
+				{
+					currentIndex = players.Count - 1;
+				}
+			}
+
+			return validPlayers;
 		}
 	}
 }

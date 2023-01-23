@@ -55,7 +55,7 @@ namespace Quantum
 			//BotSDKDebuggerSystem.AddToDebugger(e);
 
 			blackboard.InitializeBlackboardComponent(f, f.FindAsset<AIBlackboard>(BlackboardRef.Id));
-			f.Unsafe.GetPointerSingleton<GameContainer>()->AddPlayer(f, playerRef, e, playerLevel, skin, deathMarker, trophies);
+			f.Unsafe.GetPointerSingleton<GameContainer>()->AddPlayer(f, playerRef, e, playerLevel, skin, deathMarker, trophies, TeamId);
 			kcc.Init(f, f.FindAsset<CharacterController3DConfig>(KccConfigRef.Id));
 
 			f.Add(e, blackboard);

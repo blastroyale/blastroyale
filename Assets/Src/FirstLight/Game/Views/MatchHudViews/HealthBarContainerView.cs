@@ -89,15 +89,23 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void TryShowHealthBar(Frame f, EntityRef entity)
 		{
-			if (ShouldShowHealthbar(f, entity) && !_friendlyHealthBars.ContainsKey(entity))
+			if (ShouldShowHealthBar(f, entity) && !_friendlyHealthBars.ContainsKey(entity))
 			{
 				var healthBar = FriendlyPlayerHealthBarInstantiator();
 				_friendlyHealthBars.Add(entity, healthBar);
 				SetupFriendlyHealthBar(f, entity, healthBar);
+
+				if (_friendlyHealthBars.Count > 1)
+				{
+					foreach (var hbo in _friendlyHealthBars.Values)
+					{
+						hbo.HealthBarNameView.EnableSquadMode();
+					}
+				}
 			}
 		}
 
-		private bool ShouldShowHealthbar(Frame f, EntityRef entity)
+		private bool ShouldShowHealthBar(Frame f, EntityRef entity)
 		{
 			var spectatePlayer = _matchServices.SpectateService.SpectatedPlayer.Value;
 			return

@@ -107,17 +107,17 @@ namespace Quantum.Systems
 				for (int i = 0; i < FPMath.RoundToInt(itemCount / 2); i++)
 				{
 					var consumable = GameId.Health;
-					if(ammoFilled < healthFilled && ammoFilled < shieldFilled) //ammo
-					{
-						consumable = GameId.AmmoSmall;
-						ammoFilled += f.ConsumableConfigs.GetConfig(consumable).Amount.Get(f);
-					}
 					if (healthFilled < ammoFilled && healthFilled < shieldFilled) //health
 					{
 						consumable = GameId.Health;
 						healthFilled += f.ConsumableConfigs.GetConfig(consumable).Amount.Get(f) / stats->GetStatData(StatType.Health).StatValue;
 					}
-					if (shieldFilled < healthFilled && shieldFilled < ammoFilled) //shield
+					else if (ammoFilled < healthFilled && ammoFilled < shieldFilled) //ammo
+					{
+						consumable = GameId.AmmoSmall;
+						ammoFilled += f.ConsumableConfigs.GetConfig(consumable).Amount.Get(f);
+					}
+					else if (shieldFilled < healthFilled && shieldFilled < ammoFilled) //shield
 					{
 						consumable = GameId.ShieldSmall;
 						shieldFilled += f.ConsumableConfigs.GetConfig(consumable).Amount.Get(f) / stats->GetStatData(StatType.Shield).StatValue;

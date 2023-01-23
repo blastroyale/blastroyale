@@ -204,6 +204,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5037671624141540517, guid: 274a2af799d4e5d4a8fb854aeb6f79ab, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: faf1122e1e7d8b044b862c6ba3cde612, type: 2}
     - target: {fileID: 919132149155446097, guid: 274a2af799d4e5d4a8fb854aeb6f79ab, type: 3}
       propertyPath: m_Name
       value: MajorMarkdowns_SNP

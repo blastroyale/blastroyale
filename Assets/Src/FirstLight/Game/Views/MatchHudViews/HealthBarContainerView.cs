@@ -145,9 +145,14 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var anchor = entityView.GetComponent<HealthEntityBase>().HealthBarAnchor;
 			var maxHealth = stats.Values[(int) StatType.Health].StatValue.AsInt;
 
-			if (f.TryGet<DummyCharacter>(entity, out var dummyCharacter))
+			if (f.Has<Destructible>(entity))
+			{
+				healthBar.HealthBarNameView.NameText.text = "";
+			}
+			if (f.Has<DummyCharacter>(entity))
 			{
 				healthBar.HealthBarNameView.NameText.text = "Dummy " + entity.Index;
+
 			}
 			else if (f.TryGet<PlayerCharacter>(entity, out var playerCharacter))
 			{

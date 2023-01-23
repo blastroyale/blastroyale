@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _configs:
   - PlayerSegment: PlayedOneGame
-    FeatureFlag: SHOP_ENABLED
+    FeatureFlag: STORE_ENABLED
     Enabled: 1

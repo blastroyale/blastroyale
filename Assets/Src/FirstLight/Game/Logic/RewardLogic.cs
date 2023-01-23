@@ -141,6 +141,8 @@ namespace FirstLight.Game.Logic
 		{
 			var rewards = new List<RewardData>();
 			var localMatchData = source.MatchData[source.ExecutingPlayer];
+			var teamSize = 1; // TODO: Read teamSize from a proper source
+			var maxTeamsInMatch = 30 / teamSize;
 			trophyChange = 0;
 
 			if (localMatchData.PlayerRank == 0)
@@ -155,17 +157,19 @@ namespace FirstLight.Game.Logic
 			                                     .OrderByDescending(x => x.Placement).ToList();
 			var rewardConfig = gameModeRewardConfigs[0];
 			
-			// We calculate rank value for rewards based on the number of players in a match versus maximum of 30
-			var rankValue = Math.Min(1 + Math.Floor(30 / (double)(source.GamePlayerCount - 1) * (localMatchData.PlayerRank - 1)), 30);
+			// We calculate rank value for rewards based on the actual number of players/teams in a match (including bots)
+			// versus the maximum number of players/teams that are supposed to be in a match. This interpolation is needed
+			// in case we allow rewarded matches with lower number of players, for instance in case we ever do "no bots ranked"
+			var rankValue = Math.Min(1 + Math.Floor(maxTeamsInMatch / (double)((source.GamePlayerCount / teamSize) - 1) * (localMatchData.PlayerRank - 1)), maxTeamsInMatch);
 			
 			foreach (var config in gameModeRewardConfigs)
 			{
-				if (rankValue > config.Placement)
+				if (teamSize == config.TeamSize && rankValue > config.Placement)
 				{
 					break;
 				}
 
-				if (config.Placement == rankValue)
+				if (config.Placement == rankValue && config.TeamSize == teamSize)
 				{
 					rewardConfig = config;
 					break;

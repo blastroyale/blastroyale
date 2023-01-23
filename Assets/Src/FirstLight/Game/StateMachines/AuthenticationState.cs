@@ -468,10 +468,16 @@ namespace FirstLight.Game.StateMachines
 		{
 			foreach (var typeFullName in state.Keys)
 			{
-				var type = Assembly.GetExecutingAssembly().GetType(typeFullName);
+				try
+				{
+					var type = Assembly.GetExecutingAssembly().GetType(typeFullName);
 					_dataService.AddData(type, ModelSerializer.DeserializeFromData(type, state));
+				}
+				catch (Exception e)
+				{
+					FLog.Error("Error reading data type "+typeFullName);
+				}
 			}
-
 			activity?.Complete();
 		}
 

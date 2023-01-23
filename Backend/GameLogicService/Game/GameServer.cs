@@ -71,10 +71,12 @@ namespace Backend.Game
 
 				var newState = await _cmdHandler.ExecuteCommand(playerId, commandInstance, currentPlayerState);
 				_eventManager.CallEvent(new CommandFinishedEvent(playerId, commandInstance, newState, currentPlayerState, commandData));
+				_eventManager.CallCommandEvent(playerId, commandInstance, newState);
 				if (newState.HasDelta())
 				{
 					await _state.UpdatePlayerState(playerId, newState.GetOnlyUpdatedState());
 				}
+
 				var response = new Dictionary<string, string>();
 				if (requestData.TryGetValue(CommandFields.ConfigurationVersion, out var clientConfigVersion))
 				{
@@ -173,7 +175,16 @@ namespace Backend.Game
 				return true;
 			}
 
-			// TODO: Validate player access level in player state for admin commands (GMs)
+
+			if (cmd.AccessLevel() == CommandAccessLevel.Admin)
+			{
+				var data = playerState.DeserializeModel<PlayerData>();
+				if (data.Flags.HasFlag(PlayerFlags.Admin))
+				{
+					return true;
+				}
+			}
+
 			if (cmd.AccessLevel() == CommandAccessLevel.Service)
 			{
 				if (!FeatureFlags.QUANTUM_CUSTOM_SERVER)

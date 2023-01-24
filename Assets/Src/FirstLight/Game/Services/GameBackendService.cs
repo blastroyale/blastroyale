@@ -66,7 +66,7 @@ namespace FirstLight.Game.Services
 		                  Action<PlayFabError> onError = null, object parameter = null);
 
 		/// <summary>
-		/// Unlinks this device current account
+		/// Links this device current account
 		/// </summary>
 		void LinkDeviceID(Action successCallback = null, Action<PlayFabError> errorCallback = null);
 

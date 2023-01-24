@@ -130,7 +130,7 @@ namespace FirstLight.Game.StateMachines
 		/// </summary>
 		private void SetupLoginGuest()
 		{
-			_services.AuthenticationService.SetupLoginGuestAccount(OnAuthSuccess, OnAuthFail);
+			_services.AuthenticationService.LoginSetupGuest(OnAuthSuccess, OnAuthFail);
 		}
 
 		private void OnAuthSuccess(LoginData data)
@@ -199,7 +199,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			OnPlayFabError(error);
 			_uiService.OpenUiAsync<LoginScreenBackgroundPresenter>();
-			_statechartTrigger(_authFailAccountDeletedEvent);
+			_statechartTrigger(_authFailEvent);
 		}
 
 		private void OnAutomaticAuthenticationFail(PlayFabError error)
@@ -219,49 +219,7 @@ namespace FirstLight.Game.StateMachines
 
 		public void LoginWithDevice()
 		{
-			FLog.Verbose("Logging in with device ID");
-			
-			var deviceId = _dataService.GetData<AppData>().DeviceId;
-			var infoParams = new GetPlayerCombinedInfoRequestParams
-			{
-				GetPlayerProfile = true,
-				GetUserAccountInfo = true,
-				GetTitleData = true
-			};
-
-#if UNITY_EDITOR
-			var login = new LoginWithCustomIDRequest
-			{
-				CreateAccount = false,
-				CustomId = deviceId,
-				InfoRequestParameters = infoParams
-			};
-
-			PlayFabClientAPI.LoginWithCustomID(login, OnLoginSuccess, OnAutomaticAuthenticationFail);
-
-#elif UNITY_ANDROID
-			var login = new LoginWithAndroidDeviceIDRequest()
-			{
-				CreateAccount = false,
-				AndroidDevice = SystemInfo.deviceModel,
-				OS = SystemInfo.operatingSystem,
-				AndroidDeviceId = deviceId,
-				InfoRequestParameters = infoParams
-			};
-			
-			PlayFabClientAPI.LoginWithAndroidDeviceID(login, OnLoginSuccess, OnAutomaticAuthenticationFail);
-#elif UNITY_IOS
-			var login = new LoginWithIOSDeviceIDRequest()
-			{
-				CreateAccount = false,
-				DeviceModel = SystemInfo.deviceModel,
-				OS = SystemInfo.operatingSystem,
-				DeviceId = deviceId,
-				InfoRequestParameters = infoParams
-			};
-			
-			PlayFabClientAPI.LoginWithIOSDeviceID(login, OnLoginSuccess, OnAutomaticAuthenticationFail);
-#endif
+			_services.AuthenticationService.LoginWithDevice(null, null);
 		}
 
 		private void SetupBackendEnvironmentData()
@@ -379,12 +337,7 @@ namespace FirstLight.Game.StateMachines
 			_services.GenericDialogService.OpenButtonDialog(title, desc, false, confirmButton);
 		}
 
-		private bool IsAccountDeleted()
-		{
-			var playerData = _dataService.GetData<PlayerData>();
-			
-			return playerData.Flags.HasFlag(PlayerFlags.Deleted);
-		}
+		
 
 		/// <summary>
 		/// Add all of the data in <paramref name="state"/> to the data service 
@@ -403,6 +356,7 @@ namespace FirstLight.Game.StateMachines
 					FLog.Error("Error reading data type "+typeFullName);
 				}
 			}
+			
 			activity?.Complete();
 		}
 
@@ -469,22 +423,8 @@ namespace FirstLight.Game.StateMachines
 			if (AuthenticationUtils.IsEmailFieldValid(email) && AuthenticationUtils.IsPasswordFieldValid(password))
 			{
 				_statechartTrigger(_loginRegisterTransitionEvent);
-
-				var infoParams = new GetPlayerCombinedInfoRequestParams
-				{
-					GetPlayerProfile = true,
-					GetUserAccountInfo = true,
-					GetTitleData = true
-				};
-
-				var login = new LoginWithEmailAddressRequest
-				{
-					Email = email,
-					Password = password,
-					InfoRequestParameters = infoParams
-				};
-
-				PlayFabClientAPI.LoginWithEmailAddress(login, OnLoginSuccess, OnAuthenticationFail);
+				
+				_services.AuthenticationService.LoginWithEmail(email, password, OnLoginSuccess, OnAuthenticationFail);
 			}
 			else
 			{
@@ -501,31 +441,6 @@ namespace FirstLight.Game.StateMachines
 				_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, errorMessage, false,
 					confirmButton);
 			}
-		}
-
-		private void OnLoginSuccess(LoginResult result)
-		{
-			var appData = _dataService.GetData<AppData>();
-			var userId = result.PlayFabId;
-			var email = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
-			var userName = result.InfoResultPayload.AccountInfo.Username;
-			var emails = result.InfoResultPayload?.PlayerProfile?.ContactEmailAddresses;
-			var isMissingContactEmail = emails == null || !emails.Any(e => e != null && e.EmailAddress.Contains("@"));
-			if (email != null && email.Contains("@") && isMissingContactEmail)
-			{
-				_services.GameBackendService.UpdateContactEmail(email);
-			}
-
-			_services.HelpdeskService.Login(userId, email, userName);
-
-			if (string.IsNullOrWhiteSpace(appData.DeviceId))
-			{
-				_services.GameBackendService.LinkDeviceID(null, null);
-			}
-
-			ProcessAuthentication(result);
-
-			_statechartTrigger(_authSuccessEvent);
 		}
 
 		// TODO - DEPRECATED, MOVE IT AWAY FROM HERE!!!

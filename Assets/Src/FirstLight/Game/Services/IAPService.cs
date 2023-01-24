@@ -219,7 +219,7 @@ namespace FirstLight.Game.Services
 			};
 
 			PlayFabClientAPI.ValidateIOSReceipt(request, _ => PurchaseValidated(cacheProduct),
-				_playfabService.HandleError);
+				_gameBackendService.HandleError);
 #else
 			var data = JsonConvert.DeserializeObject<Dictionary<string, object>>(payload);
 			var request = new ValidateGooglePlayPurchaseRequest

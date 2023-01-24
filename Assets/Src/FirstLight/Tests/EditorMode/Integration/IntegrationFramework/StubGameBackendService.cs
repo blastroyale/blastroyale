@@ -16,6 +16,12 @@ namespace FirstLight.Tests.EditorMode
 	public class StubGameBackendService : IGameBackendService
 	{
 		public List<string> FunctionsCalled = new();
+		public BackendEnvironmentData CurrentEnvironmentData { get; }
+		
+		public void SetupBackendEnvironment()
+		{
+			
+		}
 
 		public void UpdateDisplayName(string newNickname, Action<UpdateUserTitleDisplayNameResult> onSuccess = null, Action<PlayFabError> onError = null)
 		{

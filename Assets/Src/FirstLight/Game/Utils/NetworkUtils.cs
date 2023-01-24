@@ -255,5 +255,15 @@ namespace FirstLight.Game.Utils
 
 			return true;
 		}
+		
+		/// <summary>
+		/// Returns a random dropzone vector to be added to room creation params
+		/// </summary>
+		public static Vector3 GetRandomDropzonePosRot()
+		{
+			var radiusPosPercent = GameConstants.Balance.MAP_DROPZONE_POS_RADIUS_PERCENT;
+			return new Vector3(Random.Range(-radiusPosPercent,radiusPosPercent), 
+							   Random.Range(-radiusPosPercent,radiusPosPercent), Random.Range(0,360));
+		}
 	}
 }

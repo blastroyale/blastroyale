@@ -167,12 +167,12 @@ namespace FirstLight.Game.StateMachines
 
 		private bool IsSpectator()
 		{
-			return _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator();
+			return _services.NetworkService.LocalPlayer.IsSpectator();
 		}
 		
 		private bool IsCustomMatch()
 		{
-			return _services.NetworkService.QuantumClient.CurrentRoom.GetMatchType() == MatchType.Custom;
+			return _services.NetworkService.CurrentRoom.GetMatchType() == MatchType.Custom;
 		}
 
 		private bool ShouldUseDeathmatchSM()
@@ -236,7 +236,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void QuitGameConfirmedClicked()
 		{
-			if (!_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
+			if (!_services.NetworkService.LocalPlayer.IsSpectator())
 			{
 				QuantumRunner.Default.Game.SendCommand(new PlayerQuitCommand());
 			}

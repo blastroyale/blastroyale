@@ -255,7 +255,7 @@ namespace Quantum
 				SetCurrentShield(f, entity, previousShield - shieldDamageAmount, GetStatData(StatType.Shield).StatValue.AsInt);
 			}
 
-			f.Events.OnPlayerDamaged(spell, totalDamage, shieldDamageAmount, Math.Min(previousHealth, damageAmount), 
+			f.Events.OnEntityDamaged(spell, totalDamage, shieldDamageAmount, Math.Min(previousHealth, damageAmount), 
 			                         previousHealth, maxHealth, previousShield, maxShield);
 
 			if (damageAmount <= 0)

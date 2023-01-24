@@ -53,14 +53,14 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private bool _canTriggerCancelEnter;
 		private bool _canTriggerCancelExit;
 		private bool _firstCancelExit;
-		
+
 		/// <summary>
 		/// Request's the special <see cref="GameId"/> assigned to this special view button
 		/// </summary>
 		public GameId SpecialId { get; private set; }
 
 		private int? CurrentPointerId => _pointerDownData?.pointerId;
-		
+
 		private void OnDestroy()
 		{
 			if (_cooldownCoroutine?.Coroutine != null)
@@ -82,7 +82,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_canTriggerCancelEnter = false;
 			_canTriggerCancelExit = false;
 			_firstCancelExit = true;
-			
+
 			_specialAimDirectionAdapter.SendValueToControl(Vector2.zero);
 			_specialPointerDownAdapter.SendValueToControl(1f);
 		}
@@ -96,9 +96,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 
 			RectTransformUtility.ScreenPointToLocalPointInRectangle(_rootAnchor, _targetingCenterAnchor.position,
-			                                                        eventData.pressEventCamera, out var buttonPosition);
+				eventData.pressEventCamera, out var buttonPosition);
 			RectTransformUtility.ScreenPointToLocalPointInRectangle(_rootAnchor, eventData.position,
-			                                                        eventData.pressEventCamera, out var position);
+				eventData.pressEventCamera, out var position);
 
 			var delta = position - buttonPosition;
 			var deltaMag = delta.magnitude;
@@ -134,7 +134,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			{
 				_specialAimDirectionAdapter.SendValueToControl(deltaMagNorm);
 			}
-			
+
 			_lastDragDeltaMagSqr = deltaMag;
 		}
 
@@ -154,7 +154,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_cancelPointerDownAdapter.SendValueToControl(0f);
 			_specialPointerDownAdapter.SendValueToControl(0f);
 		}
-		
+
 		/// <summary>
 		/// Requests status on whether currently player is dragging over cancel button, or out of it
 		/// </summary>
@@ -180,16 +180,21 @@ namespace FirstLight.Game.Views.MatchHudViews
 			}
 
 			_cooldownEnd = DateTime.Now;
-			_specialIconImage.sprite = await _services.AssetResolverService.RequestAsset<SpecialType, Sprite>(specialConfig.SpecialType);
-			_specialIconBackgroundImage.sprite = specialConfig.IsAimable ? _aimableBackgroundSprite : _nonAimableBackgroundSprite;
+			_specialIconImage.sprite =
+				await _services.AssetResolverService.RequestAsset<SpecialType, Sprite>(specialConfig.SpecialType);
+			_specialIconBackgroundImage.sprite =
+				specialConfig.IsAimable ? _aimableBackgroundSprite : _nonAimableBackgroundSprite;
 			_outerRingImage.enabled = specialConfig.IsAimable;
-			
+
 			var specialRect = _specialAnchor.GetComponent<RectTransform>();
 			var cancelRect = _cancelAnchor.GetComponent<RectTransform>();
-			
-			_firstCancelRadius = ((specialRect.rect.size.x / 2f) * specialRect.localScale.x) * GameConstants.Controls.SPECIAL_BUTTON_FIRST_CANCEL_RADIUS_MULT;
-			_specialRadius = ((specialRect.rect.size.x / 2f) * specialRect.localScale.x) * GameConstants.Controls.SPECIAL_BUTTON_MAX_RADIUS_MULT;
-			_cancelRadius = ((cancelRect.rect.size.x / 2f) * cancelRect.localScale.x) * GameConstants.Controls.SPECIAL_BUTTON_CANCEL_RADIUS_MULT;
+
+			_firstCancelRadius = ((specialRect.rect.size.x / 2f) * specialRect.localScale.x) *
+				GameConstants.Controls.SPECIAL_BUTTON_FIRST_CANCEL_RADIUS_MULT;
+			_specialRadius = ((specialRect.rect.size.x / 2f) * specialRect.localScale.x) *
+				GameConstants.Controls.SPECIAL_BUTTON_MAX_RADIUS_MULT;
+			_cancelRadius = ((cancelRect.rect.size.x / 2f) * cancelRect.localScale.x) *
+				GameConstants.Controls.SPECIAL_BUTTON_CANCEL_RADIUS_MULT;
 			_specialAnchor.SetActive(true);
 			_cancelAnchor.SetActive(false);
 		}
@@ -226,7 +231,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_buttonView.interactable = false;
 
 			_cooldownEnd = DateTime.Now.AddSeconds((special.AvailableTime - currentTime).AsFloat);
-			
+
 			while (Time.time < end)
 			{
 				var fill = Mathf.InverseLerp(start, end, Time.time);

@@ -201,7 +201,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private SpectatePlayerHealthBarObject FriendlyPlayerHealthBarInstantiator()
 		{
 			var instance = Instantiate(_healthBarSpectateRef, transform, true);
-			;
 
 			return new SpectatePlayerHealthBarObject
 			{

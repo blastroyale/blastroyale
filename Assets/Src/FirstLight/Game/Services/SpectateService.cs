@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using FirstLight.FLogger;
-using FirstLight.Game.Data;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
 using Photon.Deterministic;
@@ -256,7 +254,6 @@ namespace FirstLight.Game.Services
 			var container = f.GetSingleton<GameContainer>();
 
 			var validPlayers = GetLivingTeamMembers(game);
-			FLog.Info("PACO", $"Living team members: {validPlayers.Count}");
 			if (validPlayers.Count == 0)
 			{
 				for (int i = 0; i < container.PlayersData.Length; i++)

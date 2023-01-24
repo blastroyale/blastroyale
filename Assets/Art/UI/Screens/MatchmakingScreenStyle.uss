@@ -263,11 +263,6 @@
     top: 0;
     right: 0;
     -unity-text-align: middle-center;
-    border-bottom-width: 3px;
-    border-left-color: rgb(255, 255, 255);
-    border-right-color: rgb(255, 255, 255);
-    border-top-color: rgb(255, 255, 255);
-    border-bottom-color: rgb(255, 255, 255);
     background-color: rgba(0, 0, 0, 0.25);
     margin-left: 0;
     margin-right: 0;

@@ -26,6 +26,11 @@ namespace Quantum.Systems
 		{
 			var circle = f.Unsafe.GetPointerSingleton<ShrinkingCircle>();
 
+			if (f.Context.GameModeConfig.ShrinkingCircleCenteredOnPlayer)
+			{
+				SetShrinkingCircleCenteredOnLocalPlayer(circle, f);
+			}
+			
 			if (circle->Step < 0)
 			{
 				SetShrinkingCircleData(f, circle, f.ShrinkingCircleConfigs.QuantumConfigs[0]);
@@ -79,33 +84,6 @@ namespace Quantum.Systems
 
 		private void SetShrinkingCircleData(Frame f, ShrinkingCircle* circle, QuantumShrinkingCircleConfig config)
 		{
-			
-			//THIS THROWS  InvalidOperationException but "works"
-
-			if (f.Context.GameModeConfig.ShrinkingCircleCenteredOnPlayer)
-			{
-				var characterEntity = f.GetSingleton<GameContainer>().PlayersData[0].Entity;
-				var pos = f.Get<Transform3D>(characterEntity).Position;
-				circle->TargetCircleCenter = new FPVector2(pos.X, pos.Z);
-			}
-			
-			/*
-			 THIS PREVENTS THE InvalidOperationException but somehow makes it stop working...
-			 
-			 
-			 if (f.Context.GameModeConfig.ShrinkingCircleCenteredOnPlayer)
-			{
-				var characterEntity = f.GetSingleton<GameContainer>().PlayersData[0].Entity;
-				if(f.TryGet<Transform3D>(characterEntity, out var transform))
-				{
-					var pos = new FPVector2(transform.Position.X, transform.Position.Z);
-					circle->TargetCircleCenter = pos;
-					Log.Warn("playerpos " + pos);
-				}
-
-			}
-			*/
-			
 			circle->Step = config.Step;
 			circle->ShrinkingStartTime += config.DelayTime + config.WarningTime;
 			circle->ShrinkingDurationTime = config.ShrinkingTime;
@@ -208,5 +186,17 @@ namespace Quantum.Systems
 
 			return false;
 		}
+		private void SetShrinkingCircleCenteredOnLocalPlayer(ShrinkingCircle* circle, Frame f)
+		{
+			var characterEntity = f.GetSingleton<GameContainer>().PlayersData[0].Entity;
+			if (characterEntity == EntityRef.None)
+				return;
+			if(f.TryGet<Transform3D>(characterEntity, out var trans))
+			{
+				circle->TargetCircleCenter = new FPVector2(trans.Position.X, trans.Position.Z);
+			}
+		}
 	}
+	
+
 }

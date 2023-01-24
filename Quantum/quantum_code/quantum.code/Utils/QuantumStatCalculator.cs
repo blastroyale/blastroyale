@@ -82,12 +82,7 @@ namespace Quantum
 		/// </summary>
 		public static int GetTotalMight(QuantumGameConfig gameConfig, Equipment weapon, FixedArray<Equipment> gear)
 		{
-			var baseValue = gameConfig.MightBaseValue;
-			var rarityM = gameConfig.MightRarityMultiplier;
-			var levelM = gameConfig.MightLevelMultiplier;
-			
-			var might = FPMath.CeilToInt(baseValue * QuantumHelpers.PowFp(rarityM, (uint) weapon.Rarity)
-										 + (baseValue * levelM * (weapon.Level - 1)));
+			var might = GetMightOfItem(gameConfig, weapon);
 			
 			for (var i = 0; i < gear.Length; i++)
 			{
@@ -96,8 +91,7 @@ namespace Quantum
 					continue;
 				}
 				
-				might += FPMath.CeilToInt(baseValue * QuantumHelpers.PowFp(rarityM, (uint) gear[i].Rarity)
-										  + (baseValue * levelM * (gear[i].Level - 1)));
+				might += GetMightOfItem(gameConfig, gear[i]);
 			}
 			
 			return might;

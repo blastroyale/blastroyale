@@ -86,7 +86,7 @@ namespace Quantum.Systems
 						       stats.GetStatData(StatType.Shield).StatValue &&
 						       stats.CurrentShield == stats.GetStatData(StatType.Shield).StatValue;
 					case ConsumableType.Ammo:
-						return playerCharacter.GetAmmoAmountFilled(f, player) == 1;
+						return FPMath.CeilToInt(playerCharacter.GetAmmoAmountFilled(f, player) * 100) == 100;
 				}
 			}
 

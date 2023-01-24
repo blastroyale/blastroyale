@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using FirstLight.Game.Commands;
 using FirstLight.Game.Data;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules;
@@ -32,6 +33,7 @@ namespace Quantum
 		private readonly Dictionary<int, int> _actorNrToIndex;
 		public SessionContainer gameSession;
 		private InputProvider inputProvider;
+		private bool _serverSimulation = true;
 	
 		public readonly PhotonPlayfabSDK Playfab;
 		public Action<EventFireQuantumServerCommand> OnSimulationCommand;
@@ -44,11 +46,20 @@ namespace Quantum
 			_actorNrToIndex = new Dictionary<int, int>();
 			ModelSerializer.RegisterConverter(new QuantumVector2Converter());
 			ModelSerializer.RegisterConverter(new QuantumVector3Converter());
+			if(photonConfig.TryGetValue("simulation", out var runSim) && runSim == "false")
+			{
+				_serverSimulation = false;
+			}
 		}
 
 		#region Server Simulation
 		public override void OnDeterministicStartSession()
 		{
+			if(!_serverSimulation)
+			{
+				return;
+			}
+
 			lock (_initializationLock) 
 			{
 				if (!FPLut.IsLoaded)
@@ -71,6 +82,11 @@ namespace Quantum
 		/// This would transform the event into a logic server command.
 		private void OnServerCommand(EventFireQuantumServerCommand ev)
 		{
+			if(!_serverSimulation)
+			{
+				return;
+			}
+
 			if (FlgConfig.DebugMode)
 			{
 				Log.Info($"Received server command {ev.CommandType} from player {ev.Player}");
@@ -80,6 +96,11 @@ namespace Quantum
 
 		public void StartServerSimulation()
 		{
+			if (!_serverSimulation)
+			{
+				return;
+			}
+
 			var events = new EventDispatcher();
 			events.Subscribe<EventFireQuantumServerCommand>(this, OnServerCommand);
 			var configsFile = new ReplayFile();
@@ -165,6 +186,10 @@ namespace Quantum
 		/// </summary>
 		public override void OnDeterministicInputConfirmed(DeterministicPluginClient client, int tick, int playerIndex, DeterministicTickInput input)
 		{
+			if (!_serverSimulation)
+			{
+				return;
+			}
 			inputProvider.InjectInput(input, true);
 		}
 
@@ -174,6 +199,11 @@ namespace Quantum
 		/// </summary>
 		public override void OnDeterministicUpdate()
 		{
+			if (!_serverSimulation)
+			{
+				return;
+			}
+
 			if (gameSession == null)
 			{
 				return;
@@ -208,6 +238,11 @@ namespace Quantum
 		/// </summary>
 		public override Boolean OnDeterministicSnapshotRequested(ref Int32 tick, ref byte[] data)
 		{
+			if (!_serverSimulation)
+			{
+				return false;
+			}
+
 			if (gameSession.Session.FrameVerified == null)
 			{
 				return false;
@@ -294,7 +329,7 @@ namespace Quantum
 			Playfab.GetProfileReadOnlyData(clientPlayer.PlayerId, OnUserDataResponse);
 			if (FlgConfig.DebugMode)
 			{
-				Log.Debug($"Received client data from player {clientPlayer.PlayerId} actor {client.ActorNr} index {clientPlayerData.Index}");
+				Log.Info($"Received client data from player {clientPlayer.PlayerId} actor {client.ActorNr} index {clientPlayerData.Index}");
 			}
 			return false; // denies adding player data to the bitstream when client sends it
 		}
@@ -322,6 +357,7 @@ namespace Quantum
 			var clientPlayer = RuntimePlayer.FromByteArray(setPlayerData.Data);
 			var equipmentData = ModelSerializer.DeserializeFromData<EquipmentData>(playfabData);
 			var validItemHashes = new HashSet<int>();
+
 			foreach (var itemTuple in equipmentData.Inventory)
 			{
 				if (!itemTuple.Value.IsBroken())
@@ -329,6 +365,7 @@ namespace Quantum
 					validItemHashes.Add(itemTuple.Value.GetServerHashCode());
 				}
 			}
+
 			foreach (var clientEquip in clientPlayer.Loadout)
 			{
 				var clientEquiphash = clientEquip.GetServerHashCode();

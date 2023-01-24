@@ -58,7 +58,7 @@ namespace Quantum.Systems
 
 			foreach (var livingPlayer in f.GetComponentIterator<AlivePlayerCharacter>())
 			{
-				if (f.TryGet<PlayerCharacter>(livingPlayer.Entity, out var playerCharacter))
+				if (f.TryGet<PlayerCharacter>(livingPlayer.Entity, out var playerCharacter) && !f.Has<BotCharacter>(livingPlayer.Entity))
 				{
 					f.Events.FireQuantumServerCommand(playerCharacter.Player, QuantumServerCommand.EndOfGameRewards);
 				}

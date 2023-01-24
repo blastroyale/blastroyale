@@ -180,8 +180,11 @@ namespace Quantum
 
 			var agent = f.Unsafe.GetPointer<HFSMAgent>(e);
 			HFSMManager.TriggerEvent(f, &agent->Data, e, Constants.DeadEvent);
-			
-			f.Events.FireQuantumServerCommand(Player, QuantumServerCommand.EndOfGameRewards);
+
+			if (!f.Has<BotCharacter>(e))
+			{
+				f.Events.FireQuantumServerCommand(Player, QuantumServerCommand.EndOfGameRewards);
+			}
 		}
 
 		/// <summary>

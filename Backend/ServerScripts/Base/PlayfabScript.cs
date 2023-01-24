@@ -88,6 +88,18 @@ public abstract class PlayfabScript : IScript
 	
 	public abstract void Execute(ScriptParameters args);
 
+	public async Task<List<PlayerLeaderboardEntry>> GetLeaderboard(int offset, int count, string name)
+	{
+		var result = await PlayFabServerAPI.GetLeaderboardAsync(new GetLeaderboardRequest()
+		{
+			StatisticName = name,
+			MaxResultsCount = count,
+			StartPosition = offset
+		});
+		HandleError(result.Error);
+		return result.Result.Leaderboard;
+	}
+	
 	public void HandleError(PlayFabError? error)
 	{
 		if (error == null)

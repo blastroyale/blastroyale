@@ -87,7 +87,7 @@ namespace Quantum
 			var levelM = gameConfig.MightLevelMultiplier;
 			
 			var might = FPMath.CeilToInt(baseValue * QuantumHelpers.PowFp(rarityM, (uint) weapon.Rarity)
-										 + (baseValue * levelM * weapon.Level));
+										 + (baseValue * levelM * (weapon.Level - 1)));
 			
 			for (var i = 0; i < gear.Length; i++)
 			{
@@ -97,7 +97,7 @@ namespace Quantum
 				}
 				
 				might += FPMath.CeilToInt(baseValue * QuantumHelpers.PowFp(rarityM, (uint) gear[i].Rarity)
-										  + (baseValue * levelM * gear[i].Level));
+										  + (baseValue * levelM * (gear[i].Level - 1)));
 			}
 			
 			return might;
@@ -113,7 +113,7 @@ namespace Quantum
 			var levelM = gameConfig.MightLevelMultiplier;
 			
 			return FPMath.CeilToInt(baseValue * QuantumHelpers.PowFp(rarityM, (uint) item.Rarity)
-									+ (baseValue * levelM * item.Level));
+									+ (baseValue * levelM * (item.Level - 1)));
 		}
 		
 		/// <summary>

@@ -80,7 +80,11 @@ namespace Quantum
 				Log.Debug("No Custom Properties");
 				return;
 			}
-			_roomName = info.CreateOptions["Name"] as String;
+			var opts = info.CreateOptions;
+			if (opts.TryGetValue("Name", out var commit))
+			{
+				_roomName = info.CreateOptions["Name"] as String;
+			}
 			var customProperties = propsObject as Hashtable;
 			if (customProperties == null)
 			{

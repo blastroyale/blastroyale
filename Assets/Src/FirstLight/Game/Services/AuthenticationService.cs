@@ -176,6 +176,8 @@ namespace FirstLight.Game.Services
 
 		public void ProcessAuthentication(LoginResult result, Action<LoginData> onSuccess, Action<PlayFabError> onError)
 		{
+			// OLD ON LOGIN SUCCESS CODE
+			
 			var appData = _dataService.GetData<AppData>();
 			var userId = result.PlayFabId;
 			var email = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
@@ -194,10 +196,10 @@ namespace FirstLight.Game.Services
 				_services.GameBackendService.LinkDeviceID(null, null);
 			}
 
-			ProcessAuthentication(result);
-			
 			//// -----
 			
+			// OLD PROCESS AUTHENTICATION CODE
+
 			var titleData = result.InfoResultPayload.TitleData;
 			var appData = _dataService.GetData<AppData>();
 

@@ -34,17 +34,17 @@ namespace FirstLight.Game.Services
 	
 	public class LiveopsService : ILiveopsService
 	{
-		private IPlayfabService _playfab;
+		private IGameBackendService _gameBackend;
 		private IGameServices _services;
 		private List<string> _segments;
 		private SegmentActionHandler _actionHandler;
 		private ILiveopsDataProvider _liveopsData;
 		private IConfigsProvider _configs;
 
-		public LiveopsService(IPlayfabService playfabService, IConfigsProvider configs, IGameServices services, ILiveopsDataProvider liveopsData)
+		public LiveopsService(IGameBackendService gameBackendService, IConfigsProvider configs, IGameServices services, ILiveopsDataProvider liveopsData)
 		{
 			_actionHandler = new SegmentActionHandler(services);
-			_playfab = playfabService;
+			_gameBackend = gameBackendService;
 			_liveopsData = liveopsData;
 			_services = services;
 			_configs = configs;
@@ -67,7 +67,7 @@ namespace FirstLight.Game.Services
 
 		public void FetchSegments(Action<List<string>> onFetched=null)
 		{
-			_playfab.GetPlayerSegments(r =>
+			_gameBackend.GetPlayerSegments(r =>
 			{
 				_segments = r.Select(s => s.Name.ToLower()).ToList();
 				onFetched?.Invoke(_segments);

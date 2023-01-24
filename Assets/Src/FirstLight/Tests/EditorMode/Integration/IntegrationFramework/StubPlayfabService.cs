@@ -13,7 +13,7 @@ namespace FirstLight.Tests.EditorMode
 	/// <summary>
 	/// If copied to server tests can be re-implement to run commands on server as well and compare final data results
 	/// </summary>
-	public class StubPlayfabService : IPlayfabService
+	public class StubGameBackendService : IGameBackendService
 	{
 		public List<string> FunctionsCalled = new();
 

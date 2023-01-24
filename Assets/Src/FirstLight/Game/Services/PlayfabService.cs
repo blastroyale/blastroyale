@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using FirstLight.FLogger;
+using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
@@ -22,11 +23,24 @@ using UnityEngine;
 
 namespace FirstLight.Game.Services
 {
+	public struct BackendEnvironmentData
+	{
+		public string EnvironmentID;
+		public string TitleID;
+		public string AppIDRealtime;
+		public string RecoveryEmailTemplateID;
+	}
+	
 	/// <summary>
 	/// This service handles general interaction with playfab that are not needed by the server
 	/// </summary>
-	public interface IPlayfabService
+	public interface IGameBackendService
 	{
+		/// <summary>
+		/// Sets up the backend with the correct cloud environment, per platform
+		/// </summary>
+		void SetupBackendEnvironment();
+		
 		/// <summary>
 		/// Updates the user nickname in playfab.
 		/// </summary>
@@ -100,21 +114,36 @@ namespace FirstLight.Game.Services
 		/// Obtains all segments the player is in.
 		/// Segments are group of players based on metrics which can be used for various things.
 		/// </summary>
-		public void GetPlayerSegments(Action<List<GetSegmentResult>> callback);
+		void GetPlayerSegments(Action<List<GetSegmentResult>> callback);
+		
+		/// <summary>
+		/// Requests a data object with compiled info about the current backend environment
+		/// </summary>
+		BackendEnvironmentData CurrentEnvironmentData { get; }
 	}
 
-	/// <inheritdoc cref="IPlayfabService" />
-	public class PlayfabService : IPlayfabService
+	/// <inheritdoc cref="IGameBackendService" />
+	public interface IInternalGameBackendService : IGameBackendService
+	{
+		new BackendEnvironmentData CurrentEnvironmentData { get; set; }
+	}
+
+	/// <inheritdoc cref="IGameBackendService" />
+	public class GameBackendService : IInternalGameBackendService
 	{
 		private readonly IGameDataProvider _dataProvider;
-		private readonly IMessageBrokerService _msgBroker;
+		private readonly IDataService _dataService;
+		private readonly IGameServices _services;
 
 		private readonly string _leaderboardLadderName;
+		
+		public BackendEnvironmentData CurrentEnvironmentData { get; set; }
 
-		public PlayfabService(IGameDataProvider dataProvider, IMessageBrokerService msgBroker, string leaderboardLadderName)
+		public GameBackendService(IGameDataProvider dataProvider, IGameServices services, IDataService dataService, string leaderboardLadderName)
 		{
 			_dataProvider = dataProvider;
-			_msgBroker = msgBroker;
+			_dataService = dataService;
+			_services = services;
 			_leaderboardLadderName = leaderboardLadderName;
 		}
 
@@ -124,6 +153,50 @@ namespace FirstLight.Game.Services
 			{
 				callback(r.Segments);
 			}, HandleError);
+		}
+
+		public void SetupBackendEnvironment()
+		{
+			var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
+			var appData = _dataService.GetData<AppData>();
+			var envData = new BackendEnvironmentData();
+		
+#if LIVE_SERVER
+			envData.EnvironmentID = "live";
+			envData.TitleID = "***REMOVED***";
+			envData.AppIDRealtime = "***REMOVED***";
+			envData.RecoveryEmailTemplateID = "***REMOVED***";
+#elif LIVE_TESTNET_SERVER
+			envData.EnvironmentID = "live testnet";
+			envData.TitleID = "***REMOVED***";
+			envData.AppIDRealtime = "81262db7-24a2-4685-b386-65427c73ce9d";
+			envData.RecoveryEmailTemplateID = "***REMOVED***";
+#elif STAGE_SERVER
+			envData.EnvironmentID = "stage";
+			envData.TitleID = "***REMOVED***";
+			envData.AppIDRealtime = "***REMOVED***";
+			envData.RecoveryEmailTemplateID = "***REMOVED***";
+#else
+			envData.EnvironmentID = "dev";
+			envData.TitleID = "***REMOVED***";
+			envData.RecoveryEmailTemplateID = "***REMOVED***";
+			envData.AppIDRealtime = "***REMOVED***";
+#endif
+
+			CurrentEnvironmentData = envData;
+			
+			PlayFabSettings.TitleId = CurrentEnvironmentData.TitleID;
+			quantumSettings.AppSettings.AppIdRealtime = CurrentEnvironmentData.AppIDRealtime;
+
+			if (CurrentEnvironmentData.EnvironmentID != appData.Environment)
+			{
+				var newData = appData.CopyForNewEnvironment();
+
+				newData.Environment = CurrentEnvironmentData.EnvironmentID;
+
+				_dataService.AddData(newData, true);
+				_dataService.SaveData<AppData>();
+			}
 		}
 
 		/// <inheritdoc />
@@ -240,7 +313,7 @@ namespace FirstLight.Game.Services
 			var descriptiveError = $"{error.HttpCode} - {error.ErrorMessage} - {JsonConvert.SerializeObject(error.ErrorDetails)}";
 			FLog.Error(descriptiveError);
 
-			_msgBroker?.Publish(new ServerHttpErrorMessage()
+			_services.MessageBrokerService?.Publish(new ServerHttpErrorMessage()
 			{
 				ErrorCode = (HttpStatusCode) error.HttpCode,
 				Message = descriptiveError

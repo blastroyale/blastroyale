@@ -122,7 +122,7 @@ namespace FirstLight.Game.StateMachines
 				OnServerSelectClicked = () => _statechartTrigger(NetworkState.OpenServerSelectScreenEvent),
 				OnConnectIdClicked = () => _statechartTrigger(_connectIdClickedEvent),
 				OnDeleteAccountClicked = () =>
-					_services.PlayfabService.CallFunction("RemovePlayerData", OnAccountDeleted)
+					_services.GameBackendService.CallFunction("RemovePlayerData", OnAccountDeleted)
 			};
 
 			_uiService.OpenScreen<SettingsScreenPresenter, SettingsScreenPresenter.StateData>(data);
@@ -193,18 +193,18 @@ namespace FirstLight.Game.StateMachines
 		private void TryConnectId(string email, string username, string password)
 		{
 			SetConnectIdDim(true);
-			_services.PlayfabService.AttachLoginDataToAccount(email, username, password, OnConnectIdComplete,
+			_services.GameBackendService.AttachLoginDataToAccount(email, username, password, OnConnectIdComplete,
 				OnConnectIdError);
 		}
 
 		private void TryLogOut()
 		{
-			_services.PlayfabService.UnlinkDeviceID(OnUnlinkComplete);
+			_services.GameBackendService.UnlinkDeviceID(OnUnlinkComplete);
 		}
 
 		private void OnConnectIdComplete(AddUsernamePasswordResult result)
 		{
-			_services.PlayfabService.UpdateDisplayName(result.Username, OnUpdateNicknameComplete,
+			_services.GameBackendService.UpdateDisplayName(result.Username, OnUpdateNicknameComplete,
 				OnUpdateNicknameError);
 			_statechartTrigger(_connectIdSuccessEvent);
 		}
@@ -235,7 +235,7 @@ namespace FirstLight.Game.StateMachines
 
 			// Also update contact email after the Connect ID flow passes
 			// Doesn't matter if this fails - this request is also fired upon login if the contact email is not present
-			_services.PlayfabService.UpdateContactEmail(_appLogic.LastLoginEmail.Value);
+			_services.GameBackendService.UpdateContactEmail(_appLogic.LastLoginEmail.Value);
 		}
 
 		private void OnUpdateNicknameError(PlayFabError error)

@@ -30,16 +30,17 @@ namespace FirstLight.Tests.EditorMode
 		public virtual IVfxService<VfxId> VfxService { get; }
 		public virtual IAudioFxService<AudioId> AudioFxService { get; }
 		public virtual INotificationService NotificationService { get; }
-		public virtual IPlayfabService PlayfabService { get; }
+		public virtual IGameBackendService GameBackendService { get; }
+		public virtual IAuthenticationService AuthenticationService { get; set; }
 		public virtual ITutorialService TutorialService { get; }
 		public virtual ILiveopsService LiveopsService { get; set; }
 		public virtual IRemoteTextureService RemoteTextureService { get; }
 		public virtual IThreadService ThreadService { get; }
 		public virtual IHelpdeskService HelpdeskService { get; }
-		public IGameModeService GameModeService { get; }
-		public IMatchmakingService MatchmakingService { get; }
-		public IIAPService IAPService { get; }
-		public IGameLogic GameLogic { get; }
+		public virtual IGameModeService GameModeService { get; }
+		public virtual IMatchmakingService MatchmakingService { get; }
+		public virtual IIAPService IAPService { get; }
+		public virtual IGameLogic GameLogic { get; }
 		public string QuitReason { get; set; }
 
 		public void QuitGame(string reason)
@@ -74,8 +75,9 @@ namespace FirstLight.Tests.EditorMode
 			GameModeService = new GameModeService(ConfigsProvider, ThreadService);
 			IAPService = null;
 			GuidService = new GuidService();
-			PlayfabService = new StubPlayfabService();
-			MatchmakingService = new PlayfabMatchmakingService(PlayfabService);
+			GameBackendService = new StubGameBackendService();
+			// TODO - ADD STUBS - AUTHENTICATION SERVICE, TUTORIAL SERVICE
+			MatchmakingService = new PlayfabMatchmakingService(GameBackendService);
 			CommandService = new StubCommandService(gameLogic, dataProvider, this);
 			PoolService = new PoolService();
 			TickService = new StubTickService();

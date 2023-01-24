@@ -234,7 +234,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_unclaimedCountCheck = 0;
 			
-			_services.PlayfabService.CheckIfRewardsMatch(OnCheckIfServerRewardsMatch);
+			_services.GameBackendService.CheckIfRewardsMatch(OnCheckIfServerRewardsMatch);
 		}
 
 		private async void OnCheckIfServerRewardsMatch(bool serverRewardsMatch)
@@ -283,7 +283,7 @@ namespace FirstLight.Game.StateMachines
 			}
 			_unclaimedCountCheck++;
 			await Task.Delay(TimeSpan.FromMilliseconds(500)); // space check calls a bit
-			_services?.PlayfabService?.CheckIfRewardsMatch(OnCheckIfServerRewardsMatch);
+			_services?.GameBackendService?.CheckIfRewardsMatch(OnCheckIfServerRewardsMatch);
 		}
 		
 		private void ValidateCurrentGameMode()

@@ -73,43 +73,46 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc cref="INotificationService"/>
 		INotificationService NotificationService { get; }
 
-		/// <inheritdoc cref="IPlayfabService"/>
-		IPlayfabService PlayfabService { get; }
+		/// <inheritdoc cref="IGameBackendService"/>
+		IGameBackendService GameBackendService { get; }
 		
-		/// <inheritdoc cref="IPlayfabService"/>
+		/// <inheritdoc cref="IAuthenticationService"/>
+		IAuthenticationService AuthenticationService { get; }
+		
+		/// <inheritdoc cref="IGameBackendService"/>
 		ILiveopsService LiveopsService { get; }
 		
 		/// <inheritdoc cref="ITutorialService"/>
-		public ITutorialService TutorialService { get; }
+		ITutorialService TutorialService { get; }
 
 		/// <inheritdoc cref="IRemoteTextureService"/>
-		public IRemoteTextureService RemoteTextureService { get; }
+		IRemoteTextureService RemoteTextureService { get; }
 
 		/// <inheritdoc cref="IThreadService"/>
-		public IThreadService ThreadService { get; }
+		IThreadService ThreadService { get; }
 		
 		/// <inheritdoc cref="IHelpdeskService"/>
-		public IHelpdeskService HelpdeskService { get; }
+		IHelpdeskService HelpdeskService { get; }
 		
 		/// <inheritdoc cref="IGameModeService"/>
-		public IGameModeService GameModeService { get; }
+		IGameModeService GameModeService { get; }
 		
 		/// <inheritdoc cref="IMatchmakingService"/>
-		public IMatchmakingService MatchmakingService { get; }
+		IMatchmakingService MatchmakingService { get; }
 
 		/// <inheritdoc cref="IIAPService"/>
-		public IIAPService IAPService { get; }
+		IIAPService IAPService { get; }
 		
 		/// <summary>
 		/// Reason why the player quit the app
 		/// </summary>
-		public string QuitReason { get; }
+		string QuitReason { get; }
 		
 		/// <summary>
 		/// Method used when we want to leave the app, so we can record the reason
 		/// </summary>
 		/// <param name="reason">Reason why we quit the app</param>
-		public void QuitGame(string reason);
+		void QuitGame(string reason);
 	}
 
 	public class GameServices : IGameServices
@@ -131,7 +134,8 @@ namespace FirstLight.Game.Services
 		public IVfxService<VfxId> VfxService { get; }
 		public IAudioFxService<AudioId> AudioFxService { get; }
 		public INotificationService NotificationService { get; }
-		public IPlayfabService PlayfabService { get; }
+		public IGameBackendService GameBackendService { get; }
+		public IAuthenticationService AuthenticationService { get; }
 		public ILiveopsService LiveopsService { get; }
 		public ITutorialService TutorialService { get; }
 		public IRemoteTextureService RemoteTextureService { get; }
@@ -165,16 +169,17 @@ namespace FirstLight.Game.Services
 			HelpdeskService = new HelpdeskService();
 			GameModeService = new GameModeService(ConfigsProvider, ThreadService);
 			GuidService = new GuidService();
-			PlayfabService = new PlayfabService(gameLogic, messageBrokerService, GameConstants.Stats.LEADERBOARD_LADDER_NAME);
-			MatchmakingService = new PlayfabMatchmakingService(PlayfabService);
-			LiveopsService = new LiveopsService(PlayfabService, ConfigsProvider, this, gameLogic.LiveopsLogic);
-			CommandService = new GameCommandService(PlayfabService, gameLogic, dataService, this);
+			GameBackendService = new GameBackendService(gameLogic, messageBrokerService, GameConstants.Stats.LEADERBOARD_LADDER_NAME);
+			AuthenticationService = new PlayfabAuthenticationService(GameBackendService, dataService, gameLogic);
+			MatchmakingService = new PlayfabMatchmakingService(GameBackendService);
+			LiveopsService = new LiveopsService(GameBackendService, ConfigsProvider, this, gameLogic.LiveopsLogic);
+			CommandService = new GameCommandService(GameBackendService, gameLogic, dataService, this);
 			PoolService = new PoolService();
 			TickService = new TickService();
 			CoroutineService = new CoroutineService();
 			PlayerInputService = new PlayerInputService();
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
-			IAPService = new IAPService(CommandService, MessageBrokerService, PlayfabService, AnalyticsService, gameLogic);
+			IAPService = new IAPService(CommandService, MessageBrokerService, GameBackendService, AnalyticsService, gameLogic);
 			NotificationService = new MobileNotificationService(
 			                                                    new
 				                                                    GameNotificationChannel(GameConstants.Notifications.NOTIFICATION_BOXES_CHANNEL,

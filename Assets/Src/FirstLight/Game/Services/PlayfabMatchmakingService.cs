@@ -43,11 +43,11 @@ namespace FirstLight.Game.Services
 	public class PlayfabMatchmakingService : IMatchmakingService
 	{
 		private static string QUEUE_NAME = "Matchmaking_Queue"; // TODO: Drive from outside for multiple q 
-		private IPlayfabService _playfab;
+		private IGameBackendService _gameBackend;
 		
-		public PlayfabMatchmakingService(IPlayfabService playfab)
+		public PlayfabMatchmakingService(IGameBackendService gameBackend)
 		{
-			_playfab = playfab;
+			_gameBackend = gameBackend;
 		}
 		
 		/// <summary>
@@ -57,7 +57,7 @@ namespace FirstLight.Game.Services
 
 		public void LeaveMatchmaking()
 		{
-			PlayFabMultiplayerAPI.CancelAllMatchmakingTicketsForPlayer(new CancelAllMatchmakingTicketsForPlayerRequest(),null, _playfab.HandleError);
+			PlayFabMultiplayerAPI.CancelAllMatchmakingTicketsForPlayer(new CancelAllMatchmakingTicketsForPlayerRequest(),null, _gameBackend.HandleError);
 		}
 
 		public void GetTicket(string ticket, Action<GetMatchmakingTicketResult> callback)
@@ -66,19 +66,19 @@ namespace FirstLight.Game.Services
 			{
 				QueueName = QUEUE_NAME,
 				TicketId = ticket
-			}, callback, _playfab.HandleError);
+			}, callback, _gameBackend.HandleError);
 		}
 
 		public void GetMyTickets(Action<ListMatchmakingTicketsForPlayerResult> callback)
 		{
 			PlayFabMultiplayerAPI.ListMatchmakingTicketsForPlayer(new ListMatchmakingTicketsForPlayerRequest(), callback, 
-				_playfab.HandleError);
+				_gameBackend.HandleError);
 		}
 
 		public void JoinMatchmaking(Action<CreateMatchmakingTicketResult> callback)
 		{
 			PlayFabMultiplayerAPI.CreateMatchmakingTicket(new CreateMatchmakingTicketRequest(), callback,
-				_playfab.HandleError);
+				_gameBackend.HandleError);
 		}
 	}
 }

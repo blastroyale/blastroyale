@@ -57,7 +57,7 @@ namespace FirstLight.Game.Services
 
 		private readonly IGameCommandService _commandService;
 		private readonly IMessageBrokerService _messageBroker;
-		private readonly IPlayfabService _playfabService;
+		private readonly IGameBackendService _gameBackendService;
 		private readonly IAnalyticsService _analyticsService;
 		private readonly IGameDataProvider _gameDataProvider;
 
@@ -65,12 +65,12 @@ namespace FirstLight.Game.Services
 		private ProductCatalog _defaultCatalog;
 
 		public IAPService(IGameCommandService commandService, IMessageBrokerService messageBroker,
-						  IPlayfabService playfabService, IAnalyticsService analyticsService,
+						  IGameBackendService gameBackendService, IAnalyticsService analyticsService,
 						  IGameDataProvider gameDataProvider)
 		{
 			_commandService = commandService;
 			_messageBroker = messageBroker;
-			_playfabService = playfabService;
+			_gameBackendService = gameBackendService;
 			_analyticsService = analyticsService;
 			_gameDataProvider = gameDataProvider;
 
@@ -181,7 +181,7 @@ namespace FirstLight.Game.Services
 				}
 			};
 
-			_playfabService.CallFunction(request.Command, result =>
+			_gameBackendService.CallFunction(request.Command, result =>
 			{
 				FLog.Info($"Purchase handled by the server: {product.definition.id}, {result.FunctionName}");
 
@@ -199,7 +199,7 @@ namespace FirstLight.Game.Services
 				_store.ConfirmPendingPurchase(product);
 
 				SendAnalyticsEvent(product, reward);
-			}, _playfabService.HandleError, request);
+			}, _gameBackendService.HandleError, request);
 		}
 
 		private void ValidateReceipt(Product product)
@@ -230,7 +230,7 @@ namespace FirstLight.Game.Services
 				Signature = (string) data["signature"]
 			};
 			
-			PlayFabClientAPI.ValidateGooglePlayPurchase(request, _ => PurchaseValidated(cacheProduct), _playfabService.HandleError);
+			PlayFabClientAPI.ValidateGooglePlayPurchase(request, _ => PurchaseValidated(cacheProduct), _gameBackendService.HandleError);
 #endif
 		}
 

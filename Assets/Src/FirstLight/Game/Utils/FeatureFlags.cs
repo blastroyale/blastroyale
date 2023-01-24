@@ -34,12 +34,6 @@ namespace FirstLight.Game.Utils
 	public static class FeatureFlags
 	{
 		private static LocalFeatureFlagConfig _localConfig = null;
-		
-		/// <summary>
-		/// If true will use email/pass authentication.
-		/// If false will only use device id authentication.
-		/// </summary>
-		public static bool EMAIL_AUTH = true;
 
 		/// <summary>
 		/// If true, rooms created/joined will be locked by commit

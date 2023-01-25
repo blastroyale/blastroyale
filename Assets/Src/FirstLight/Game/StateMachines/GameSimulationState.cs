@@ -45,11 +45,11 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameUiService _uiService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private readonly IGameNetworkService _network;
-		private readonly IGameBackendNetworkService _networkService;
+		private readonly IInternalGameNetworkService _networkService;
 
 		private IMatchServices _matchServices; 
 
-		public GameSimulationState(IGameDataProvider gameDataProvider, IGameServices services, IGameBackendNetworkService networkService, 
+		public GameSimulationState(IGameDataProvider gameDataProvider, IGameServices services, IInternalGameNetworkService networkService, 
 								   IGameUiService uiService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_gameDataProvider = gameDataProvider;

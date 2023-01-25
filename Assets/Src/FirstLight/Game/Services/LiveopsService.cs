@@ -24,7 +24,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		///  Fetch the user segments from third party providers
 		/// </summary>
-		void FetchSegments(Action<List<string>> segments=null);
+		void FetchSegments(Action<List<string>> onFetched = null);
 
 		/// <summary>
 		/// Checks if a given user is in a given segment

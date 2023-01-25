@@ -9,6 +9,7 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
+using FirstLight.Game.Utils;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules;
@@ -393,6 +394,7 @@ namespace FirstLight.Game.Services
 			void OnSuccess()
 			{
 				_dataProvider.AppDataProvider.DeviceID.Value = PlayFabSettings.DeviceUniqueIdentifier;
+				_dataService.SaveData<AppData>();
 				successCallback?.Invoke();
 			}
 		}

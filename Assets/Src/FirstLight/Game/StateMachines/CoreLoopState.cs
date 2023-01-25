@@ -33,13 +33,13 @@ namespace FirstLight.Game.StateMachines
 		private readonly MainMenuState _mainMenuState;
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _dataProvider;
-		private readonly IGameBackendNetworkService _networkService;
+		private readonly IInternalGameNetworkService _networkService;
 		private readonly IGameUiService _uiService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		
 		private Coroutine _csPoolTimerCoroutine;
 
-		public CoreLoopState(IGameServices services, IGameDataProvider dataProvider, IDataService dataService, IGameBackendNetworkService networkService, IGameUiService uiService, IGameLogic gameLogic, 
+		public CoreLoopState(IGameServices services, IGameDataProvider dataProvider, IDataService dataService, IInternalGameNetworkService networkService, IGameUiService uiService, IGameLogic gameLogic, 
 		                     IAssetAdderService assetAdderService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;

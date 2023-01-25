@@ -41,7 +41,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameUiServiceInit _uiService;
 
 		public GameStateMachine(GameLogic gameLogic, IGameServices services, IGameUiServiceInit uiService,
-								IGameBackendNetworkService networkService, IInternalTutorialService tutorialService,
+								IInternalGameNetworkService networkService, IInternalTutorialService tutorialService,
 								IConfigsAdder configsAdder,
 								IAssetAdderService assetAdderService, IDataService dataService,
 								IVfxInternalService<VfxId> vfxService)

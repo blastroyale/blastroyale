@@ -40,14 +40,16 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _goToLoginClickedEvent = new StatechartEvent("Go To Login Clicked Event");
 		private readonly IStatechartEvent _loginRegisterTransitionEvent = new StatechartEvent("Login Register Transition Clicked Event");
 		private readonly IStatechartEvent _authSuccessEvent = new StatechartEvent("Authentication Success Event");
-		private readonly IStatechartEvent _authFailEvent = new StatechartEvent("Authentication Fail Event");
+		private readonly IStatechartEvent _authFailEvent = new StatechartEvent("Authentication Fail Generic Event");
+		private readonly IStatechartEvent _authFailMaintenanceEvent = new StatechartEvent("Authentication Fail Account Deleted Event");
+		private readonly IStatechartEvent _authFailOutdatedVersionEvent = new StatechartEvent("Authentication Fail Account Deleted Event");
 		private readonly IStatechartEvent _authFailAccountDeletedEvent = new StatechartEvent("Authentication Fail Account Deleted Event");
 
 		private readonly IGameDataProvider _dataProvider;
 		private readonly IGameServices _services;
 		private readonly IGameUiServiceInit _uiService;
 		private readonly IDataService _dataService;
-		private readonly IGameBackendNetworkService _networkService;
+		private readonly IInternalGameNetworkService _networkService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private IConfigsAdder _configsAdder;
 		private string _passwordRecoveryEmailTemplateId = "";
@@ -55,7 +57,7 @@ namespace FirstLight.Game.StateMachines
 
 		public AuthenticationState(IGameDataProvider dataProvider, IGameServices services, IGameUiServiceInit uiService,
 			IDataService dataService,
-			IGameBackendNetworkService networkService, Action<IStatechartEvent> statechartTrigger, IConfigsAdder cfgs)
+			IInternalGameNetworkService networkService, Action<IStatechartEvent> statechartTrigger, IConfigsAdder cfgs)
 		{
 			_dataProvider = dataProvider;
 			_services = services;
@@ -77,7 +79,10 @@ namespace FirstLight.Game.StateMachines
 			var autoAuthCheck = stateFactory.Choice("Auto Auth Check");
 			var authLoginDevice = stateFactory.State("Login Device Authentication");
 			var authFail = stateFactory.Wait("Authentication Fail Dialog");
-
+			var postAuthCheck = stateFactory.Choice("Post Authentication Checks");
+			var accountDeleted = stateFactory.Wait("Account Deleted Dialog");
+			var gameBlocked = stateFactory.State("Game Blocked Dialog");
+			
 			initial.Transition().Target(autoAuthCheck);
 			initial.OnExit(SubscribeEvents);
 			initial.OnExit(SetupBackendEnvironmentData);
@@ -96,8 +101,14 @@ namespace FirstLight.Game.StateMachines
 			authLoginDevice.Event(_authFailEvent).Target(authFail); // TODO - UNLINK DEVICE, SHOW LOGIN SCREEN?
 			authLoginDevice.Event(_authFailAccountDeletedEvent).Target(authFail);
 			
-			//getServerState.WaitingFor(FinalStepsAuthentication).Target(accountStateCheck);
+			postAuthCheck.Transition().Condition(IsAccountDeleted).Target(accountDeleted);
+			postAuthCheck.Transition().Condition(IsGameBlocked).Target(gameBlocked);
+			postAuthCheck.Transition().Target(final);
+			
+			accountDeleted.WaitingFor(ShowAccountDeletedDialog).Target(authLoginGuest);
 
+			gameBlocked.OnEnter(ShowGameBlockedDialog);
+			
 			final.OnEnter(UnsubscribeEvents);
 		}
 
@@ -140,7 +151,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnAuthFail(PlayFabError error)
 		{
-			_statechartTrigger(_authFailAccountDeletedEvent);
+			_statechartTrigger(_authFailEvent);
 		}
 
 		private void OnConnectionError(ServerHttpErrorMessage msg)
@@ -207,7 +218,7 @@ namespace FirstLight.Game.StateMachines
 			_dataService.GetData<AppData>().DeviceId = null;
 			_dataService.SaveData<AppData>();
 			_uiService.OpenUiAsync<LoginScreenBackgroundPresenter>();
-			_statechartTrigger(_authFailAccountDeletedEvent);
+			_statechartTrigger(_authFailEvent);
 			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Login,
 				"AutomaticLogin:" + error.ErrorMessage);
 		}
@@ -563,53 +574,6 @@ namespace FirstLight.Game.StateMachines
 
 			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, error.ErrorMessage,
 				false, confirmButton);
-		}
-		
-		private bool IsOutdated(string version)
-		{
-			var appVersion = VersionUtils.VersionExternal.Split('.');
-			var serverVersion = version.Split('.');
-			var majorApp = int.Parse(appVersion[0]);
-			var majorServer = int.Parse(serverVersion[0]);
-			var minorApp = int.Parse(appVersion[1]);
-			var minorServer = int.Parse(serverVersion[1]);
-			var patchApp = int.Parse(appVersion[2]);
-			var patchServer = int.Parse(serverVersion[2]);
-
-			if (majorApp != majorServer)
-			{
-				return majorServer > majorApp;
-			}
-
-			if (minorApp != minorServer)
-			{
-				return minorServer > minorApp;
-			}
-
-			return patchServer > patchApp;
-		}
-
-		/// <summary>
-		/// To help pass apple approval submission tests hack.
-		/// This forces all communication with quantum to be TCP and not UDP with a flag from the backend, but just
-		/// to be turned on during submission because sometimes Apple testers have their home network setup wrong.
-		/// </summary>
-		private async void AppleApprovalHack(LoginResult result)
-		{
-			var titleData = result.InfoResultPayload.TitleData;
-			var address = AddressableId.Configs_Settings_QuantumRunnerConfigs.GetConfig().Address;
-			var config = await _services.AssetResolverService.LoadAssetAsync<QuantumRunnerConfigs>(address);
-			var connection = ConnectionProtocol.Udp;
-
-			if (!titleData.TryGetValue($"{nameof(Application.version)} apple", out var version) ||
-			    version != Application.version)
-			{
-				connection = ConnectionProtocol.Tcp;
-			}
-
-			config.PhotonServerSettings.AppSettings.Protocol = connection;
-
-			_services.AssetResolverService.UnloadAsset(config);
 		}
 
 		private void OnApplicationQuit(ApplicationQuitMessage msg)

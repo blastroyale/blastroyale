@@ -14,8 +14,8 @@ namespace Quantum
 		{
 			var player = f.Unsafe.GetPointer<PlayerCharacter>(e);
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
-			var spawnPoint = QuantumHelpers.GetPlayerSpawnTransform(f);
-			
+			var spawnPoint = QuantumHelpers.GetPlayerSpawnTransform(f, e);
+
 			transform->Position = spawnPoint.Component.Position;
 
 			player->Spawn(f, e);

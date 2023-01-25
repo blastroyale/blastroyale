@@ -271,6 +271,22 @@ namespace Quantum
 				
 				spawners.Add(pair);
 			}
+			
+			// Try to find spawners that are specific for players
+			var specificSpawnPoints = new List<EntityComponentPointerPair<PlayerSpawner>>();
+			for (int i = 0 ; i < spawners.Count ; i++)
+			{
+				var playerSpawner = spawners[i].Component;
+				if (playerSpawner->SpawnerType == SpawnerType.Player)
+				{
+					specificSpawnPoints.Add(spawners[i]);
+				}
+			}
+			
+			if (specificSpawnPoints.Count > 0)
+			{
+				spawners = specificSpawnPoints;
+			}
 
 			if (spawners.Count == 0)
 			{

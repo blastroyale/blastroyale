@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO.MemoryMappedFiles;
 using System.Linq;
 using Photon.Deterministic;
@@ -49,7 +50,7 @@ namespace Quantum.Systems
 					botIds.Add(i);
 				}
 			}
-
+			Log.Error("Preparing bots: playerlimit:"+playerLimit+", bots:"+botIds.Count+", config:"+f.Context.GameModeConfig.MaxPlayers);
 			if (botIds.Count != playerLimit)
 			{
 				AddBots(f, botIds, baseTrophiesAmount);
@@ -241,6 +242,20 @@ namespace Quantum.Systems
 
 			switch (filter.BotCharacter->BehaviourType)
 			{
+				case BotBehaviourType.Static:
+					break;
+				case BotBehaviourType.Dumb:
+					var dumb = TryAvoidShrinkingCircle(f, ref filter)
+						|| TryGoForGear(f, ref filter)
+						|| TryGoForHealth(f, ref filter)
+						|| TryGoForShield(f, ref filter)
+						|| TryGoForAmmo(f, ref filter)
+						|| TryGoForWeapons(f, ref filter)
+						|| TryGoForCrates(f, ref filter)
+						|| TryGoForRage(f, ref filter)
+						|| TryGoForEnemies(f, ref filter, weaponConfig)
+						|| Wander(f, ref filter);
+					break;
 				case BotBehaviourType.Cautious:
 					var cautious = TryAvoidShrinkingCircle(f, ref filter)
 					               || TryGoForGear(f, ref filter)
@@ -282,6 +297,7 @@ namespace Quantum.Systems
 
 		private List<QuantumBotConfig> GetBotConfigsList(Frame f, int botsDifficulty)
 		{
+			Log.Error("Bot difficulty:"+botsDifficulty);
 			var list = new List<QuantumBotConfig>();
 			var configs = f.BotConfigs.QuantumConfigs;
 			var difficultyLevel = botsDifficulty;
@@ -954,6 +970,7 @@ namespace Quantum.Systems
 		
 		private void AddBots(Frame f, List<PlayerRef> botIds, uint baseTrophiesAmount)
 		{
+			Log.Error("Adding bots!");
 			var playerSpawners = GetFreeSpawnPoints(f);
 			var botsNameCount = f.GameConfig.BotsNameCount;
 			var botNamesIndices = new List<int>(botsNameCount);
@@ -975,8 +992,7 @@ namespace Quantum.Systems
 			
 			foreach (var id in botIds)
 			{
-				var rngSpawnIndex = f.RNG->Next(0, playerSpawners.Count);
-				var spawnerTransform = f.Get<Transform3D>(playerSpawners[rngSpawnIndex].Entity);
+				Log.Error("Adding bot: "+id);
 				var botEntity = f.Create(playerCharacterPrototypeAsset);
 				var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(botEntity);
 				var navMeshAgent = new NavMeshSteeringAgent();
@@ -984,13 +1000,18 @@ namespace Quantum.Systems
 				var rngBotConfigIndex = f.RNG->Next(0, botConfigsList.Count);
 				var botConfig = botConfigsList[rngBotConfigIndex];
 				var listNamesIndex = f.RNG->Next(0, botNamesIndices.Count);
+				var rngSpawnIndex = GetSpawnPointIndexByTypeOfBot(f, playerSpawners, botConfig.BehaviourType);
+				var spawner = playerSpawners[rngSpawnIndex];
+				var spawnerTransform = f.Get<Transform3D>(spawner.Entity);
+				
+				Log.Error("Bot force to static: "+spawner.Component->ForceStatic+", "+spawner.Entity+", "+rngSpawnIndex);
 
 				var botCharacter = new BotCharacter
 				{
 					Skin = skinOptions[f.RNG->Next(0, skinOptions.Length)],
 					DeathMarker = deathMakers[f.RNG->Next(0, deathMakers.Count)],
 					BotNameIndex = botNamesIndices[listNamesIndex],
-					BehaviourType = botConfig.BehaviourType,
+					BehaviourType = spawner.Component->ForceStatic?BotBehaviourType.Static:botConfig.BehaviourType,
 					// We modify intervals to make them more unique to avoid performance spikes
 					DecisionInterval = botConfig.DecisionInterval + botNamesIndices[listNamesIndex] * FP._0_01 * FP._0_10,
 					LookForTargetsToShootAtInterval = botConfig.LookForTargetsToShootAtInterval + botNamesIndices[listNamesIndex] * FP._0_01 * FP._0_01,
@@ -1024,6 +1045,7 @@ namespace Quantum.Systems
 
 				if (playerSpawners.Count > 1)
 				{
+					Log.Error("Removing spawner:"+rngSpawnIndex);
 					playerSpawners.RemoveAt(rngSpawnIndex);
 				}
 
@@ -1054,7 +1076,7 @@ namespace Quantum.Systems
 			}
 		}
 
-		public List<EntityComponentPointerPair<PlayerSpawner>> GetFreeSpawnPoints(Frame f)
+		private List<EntityComponentPointerPair<PlayerSpawner>> GetFreeSpawnPoints(Frame f)
 		{
 			var list = new List<EntityComponentPointerPair<PlayerSpawner>>();
 			var entity = EntityRef.None;
@@ -1083,6 +1105,27 @@ namespace Quantum.Systems
 			}
 
 			return list;
+		}
+
+		private int GetSpawnPointIndexByTypeOfBot(Frame f, List<EntityComponentPointerPair<PlayerSpawner>> spawnPoints, BotBehaviourType botType)
+		{
+			// Try to find spawners that are specific to the type of bot
+			var specificSpawnPoints = new List<int>();
+			for (int i = 0 ; i < spawnPoints.Count ; i++)
+			{
+				var playerSpawner = spawnPoints[i].Component;
+				if (playerSpawner->SpawnerType == SpawnerType.BotOfType && playerSpawner->BehaviourType == botType)
+				{
+					specificSpawnPoints.Add(i);
+				}
+			}
+
+			if (specificSpawnPoints.Count > 0)
+			{
+				return specificSpawnPoints[f.RNG->Next(0, specificSpawnPoints.Count)];
+			}
+			
+			return f.RNG->Next(0, spawnPoints.Count);
 		}
 	}
 }

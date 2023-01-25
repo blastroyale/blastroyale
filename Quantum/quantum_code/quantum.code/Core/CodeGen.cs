@@ -36,6 +36,8 @@ namespace Quantum {
     BattleRoyale,
   }
   public enum BotBehaviourType : int {
+    Static,
+    Dumb,
     Balanced,
     Cautious,
     Aggressive,
@@ -292,6 +294,12 @@ namespace Quantum {
   public enum RankSorter : int {
     BattleRoyale,
     Deathmatch,
+  }
+  public enum SpawnerType : int {
+    Any,
+    Player,
+    AnyBot,
+    BotOfType,
   }
   public enum SpecialType : int {
     Airstrike,
@@ -4330,20 +4338,32 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct PlayerSpawner : Quantum.IComponent {
-    public const Int32 SIZE = 8;
+    public const Int32 SIZE = 24;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(0)]
+    [FieldOffset(16)]
     [HideInInspector()]
     public FP ActivationTime;
+    [FieldOffset(0)]
+    public BotBehaviourType BehaviourType;
+    [FieldOffset(4)]
+    public QBoolean ForceStatic;
+    [FieldOffset(8)]
+    public SpawnerType SpawnerType;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 547;
         hash = hash * 31 + ActivationTime.GetHashCode();
+        hash = hash * 31 + (Int32)BehaviourType;
+        hash = hash * 31 + ForceStatic.GetHashCode();
+        hash = hash * 31 + (Int32)SpawnerType;
         return hash;
       }
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (PlayerSpawner*)ptr;
+        serializer.Stream.Serialize((Int32*)&p->BehaviourType);
+        QBoolean.Serialize(&p->ForceStatic, serializer);
+        serializer.Stream.Serialize((Int32*)&p->SpawnerType);
         FP.Serialize(&p->ActivationTime, serializer);
     }
   }
@@ -8871,6 +8891,7 @@ namespace Quantum {
       Register(typeof(Shape2D), Shape2D.SIZE);
       Register(typeof(Shape3D), Shape3D.SIZE);
       Register(typeof(Quantum.ShrinkingCircle), Quantum.ShrinkingCircle.SIZE);
+      Register(typeof(Quantum.SpawnerType), 4);
       Register(typeof(Quantum.Special), Quantum.Special.SIZE);
       Register(typeof(Quantum.SpecialType), 4);
       Register(typeof(Quantum.Spell), Quantum.Spell.SIZE);
@@ -8959,6 +8980,7 @@ namespace Quantum {
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.QuantumServerCommand>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.RankProcessor>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.RankSorter>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.SpawnerType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.SpecialType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.StatType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.StatusModifierType>();
@@ -9221,6 +9243,17 @@ namespace Quantum.Prototypes {
     }
     public static implicit operator RankSorter_Prototype(RankSorter value) {
         return new RankSorter_Prototype() { Value = (Int32)value };
+    }
+  }
+  [System.SerializableAttribute()]
+  [Prototype(typeof(SpawnerType))]
+  public unsafe partial struct SpawnerType_Prototype {
+    public Int32 Value;
+    public static implicit operator SpawnerType(SpawnerType_Prototype value) {
+        return (SpawnerType)value.Value;
+    }
+    public static implicit operator SpawnerType_Prototype(SpawnerType value) {
+        return new SpawnerType_Prototype() { Value = (Int32)value };
     }
   }
   [System.SerializableAttribute()]
@@ -10307,6 +10340,9 @@ namespace Quantum.Prototypes {
   public sealed unsafe partial class PlayerSpawner_Prototype : ComponentPrototype<PlayerSpawner> {
     [HideInInspector()]
     public FP ActivationTime;
+    public SpawnerType_Prototype SpawnerType;
+    public BotBehaviourType_Prototype BehaviourType;
+    public QBoolean ForceStatic;
     partial void MaterializeUser(Frame frame, ref PlayerSpawner result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       PlayerSpawner component = default;
@@ -10315,6 +10351,9 @@ namespace Quantum.Prototypes {
     }
     public void Materialize(Frame frame, ref PlayerSpawner result, in PrototypeMaterializationContext context) {
       result.ActivationTime = this.ActivationTime;
+      result.BehaviourType = this.BehaviourType;
+      result.ForceStatic = this.ForceStatic;
+      result.SpawnerType = this.SpawnerType;
       MaterializeUser(frame, ref result, in context);
     }
     public override void Dispatch(ComponentPrototypeVisitorBase visitor) {

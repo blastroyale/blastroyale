@@ -223,7 +223,7 @@
     margin-bottom: 15px;
     position: absolute;
     bottom: 125px;
-    background-color: rgba(248, 208, 48, 255);
+    background-color: rgb(248, 208, 48);
     border-top-left-radius: 7px;
     border-bottom-left-radius: 7px;
     border-top-right-radius: 7px;
@@ -234,4 +234,46 @@
     background-image: var(--sprite-home__icon-mapmarker);
     width: 90px;
     height: 132px;
+}
+
+.squad-member {
+    font-size: 40px;
+}
+
+.squad-container {
+    position: absolute;
+    left: 81px;
+    top: 391px;
+    bottom: 230px;
+    width: 333px;
+    background-color: rgba(71, 128, 166, 0.65);
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    color: rgb(255, 255, 255);
+    overflow: hidden;
+}
+
+.squad-container__label {
+    font-size: 48px;
+    height: 75px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    -unity-text-align: middle-center;
+    background-color: rgba(0, 0, 0, 0.25);
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.squad-container__list {
+    position: absolute;
+    left: 25px;
+    top: 85px;
+    bottom: 0;
+    right: 25px;
 }

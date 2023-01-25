@@ -173,6 +173,7 @@ namespace FirstLight.Game.Utils
 			public const string PLAYER_PROPS_ALL_LOADED = "propsAllLoaded";
 			public const string PLAYER_PROPS_PRELOAD_IDS = "preloadIds";
 			public const string PLAYER_PROPS_SPECTATOR = "isSpectator";
+			public const string PLAYER_PROPS_TEAM_ID = "teamId";
 
 			// Room properties
 			public const string ROOM_NAME_PLAYTEST = "PLAYTEST";

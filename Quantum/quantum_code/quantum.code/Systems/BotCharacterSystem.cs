@@ -50,7 +50,7 @@ namespace Quantum.Systems
 					botIds.Add(i);
 				}
 			}
-			Log.Error("Preparing bots: playerlimit:"+playerLimit+", bots:"+botIds.Count+", config:"+f.Context.GameModeConfig.MaxPlayers);
+
 			if (botIds.Count != playerLimit)
 			{
 				AddBots(f, botIds, baseTrophiesAmount);
@@ -297,7 +297,6 @@ namespace Quantum.Systems
 
 		private List<QuantumBotConfig> GetBotConfigsList(Frame f, int botsDifficulty)
 		{
-			Log.Error("Bot difficulty:"+botsDifficulty);
 			var list = new List<QuantumBotConfig>();
 			var configs = f.BotConfigs.QuantumConfigs;
 			var difficultyLevel = botsDifficulty;
@@ -970,7 +969,6 @@ namespace Quantum.Systems
 		
 		private void AddBots(Frame f, List<PlayerRef> botIds, uint baseTrophiesAmount)
 		{
-			Log.Error("Adding bots!");
 			var playerSpawners = GetFreeSpawnPoints(f);
 			var botsNameCount = f.GameConfig.BotsNameCount;
 			var botNamesIndices = new List<int>(botsNameCount);
@@ -992,7 +990,6 @@ namespace Quantum.Systems
 			
 			foreach (var id in botIds)
 			{
-				Log.Error("Adding bot: "+id);
 				var botEntity = f.Create(playerCharacterPrototypeAsset);
 				var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(botEntity);
 				var navMeshAgent = new NavMeshSteeringAgent();
@@ -1004,14 +1001,12 @@ namespace Quantum.Systems
 				var spawner = playerSpawners[rngSpawnIndex];
 				var spawnerTransform = f.Get<Transform3D>(spawner.Entity);
 				
-				Log.Error("Bot force to static: "+spawner.Component->ForceStatic+", "+spawner.Entity+", "+rngSpawnIndex);
-
 				var botCharacter = new BotCharacter
 				{
 					Skin = skinOptions[f.RNG->Next(0, skinOptions.Length)],
 					DeathMarker = deathMakers[f.RNG->Next(0, deathMakers.Count)],
 					BotNameIndex = botNamesIndices[listNamesIndex],
-					BehaviourType = spawner.Component->ForceStatic?BotBehaviourType.Static:botConfig.BehaviourType,
+					BehaviourType = botConfig.BehaviourType,
 					// We modify intervals to make them more unique to avoid performance spikes
 					DecisionInterval = botConfig.DecisionInterval + botNamesIndices[listNamesIndex] * FP._0_01 * FP._0_10,
 					LookForTargetsToShootAtInterval = botConfig.LookForTargetsToShootAtInterval + botNamesIndices[listNamesIndex] * FP._0_01 * FP._0_01,
@@ -1045,7 +1040,6 @@ namespace Quantum.Systems
 
 				if (playerSpawners.Count > 1)
 				{
-					Log.Error("Removing spawner:"+rngSpawnIndex);
 					playerSpawners.RemoveAt(rngSpawnIndex);
 				}
 

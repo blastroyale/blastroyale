@@ -100,6 +100,15 @@ namespace FirstLight.Game.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SquadPositionPing"",
+                    ""type"": ""Button"",
+                    ""id"": ""c8594f4b-d139-4c04-938e-5205610d1afb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -487,6 +496,28 @@ namespace FirstLight.Game.Input
                     ""action"": ""Switch Weapon Button"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f01bab48-e245-4e4e-9f2b-4c0b41bde323"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SquadPositionPing"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""102bc41b-5ec8-446a-b3c6-ea43b0f00e51"",
+                    ""path"": ""<OnScreenControlsDevice>/SquadPositionPing"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SquadPositionPing"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -503,6 +534,7 @@ namespace FirstLight.Game.Input
             m_Gameplay_SpecialButton1 = m_Gameplay.FindAction("Special Button1", throwIfNotFound: true);
             m_Gameplay_CancelButton = m_Gameplay.FindAction("Cancel Button", throwIfNotFound: true);
             m_Gameplay_SwitchWeaponButton = m_Gameplay.FindAction("Switch Weapon Button", throwIfNotFound: true);
+            m_Gameplay_SquadPositionPing = m_Gameplay.FindAction("SquadPositionPing", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -570,6 +602,7 @@ namespace FirstLight.Game.Input
         private readonly InputAction m_Gameplay_SpecialButton1;
         private readonly InputAction m_Gameplay_CancelButton;
         private readonly InputAction m_Gameplay_SwitchWeaponButton;
+        private readonly InputAction m_Gameplay_SquadPositionPing;
         public struct GameplayActions
         {
             private @LocalInput m_Wrapper;
@@ -582,6 +615,7 @@ namespace FirstLight.Game.Input
             public InputAction @SpecialButton1 => m_Wrapper.m_Gameplay_SpecialButton1;
             public InputAction @CancelButton => m_Wrapper.m_Gameplay_CancelButton;
             public InputAction @SwitchWeaponButton => m_Wrapper.m_Gameplay_SwitchWeaponButton;
+            public InputAction @SquadPositionPing => m_Wrapper.m_Gameplay_SquadPositionPing;
             public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -615,6 +649,9 @@ namespace FirstLight.Game.Input
                     @SwitchWeaponButton.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSwitchWeaponButton;
                     @SwitchWeaponButton.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSwitchWeaponButton;
                     @SwitchWeaponButton.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSwitchWeaponButton;
+                    @SquadPositionPing.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSquadPositionPing;
+                    @SquadPositionPing.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSquadPositionPing;
+                    @SquadPositionPing.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSquadPositionPing;
                 }
                 m_Wrapper.m_GameplayActionsCallbackInterface = instance;
                 if (instance != null)
@@ -643,6 +680,9 @@ namespace FirstLight.Game.Input
                     @SwitchWeaponButton.started += instance.OnSwitchWeaponButton;
                     @SwitchWeaponButton.performed += instance.OnSwitchWeaponButton;
                     @SwitchWeaponButton.canceled += instance.OnSwitchWeaponButton;
+                    @SquadPositionPing.started += instance.OnSquadPositionPing;
+                    @SquadPositionPing.performed += instance.OnSquadPositionPing;
+                    @SquadPositionPing.canceled += instance.OnSquadPositionPing;
                 }
             }
         }
@@ -657,6 +697,7 @@ namespace FirstLight.Game.Input
             void OnSpecialButton1(InputAction.CallbackContext context);
             void OnCancelButton(InputAction.CallbackContext context);
             void OnSwitchWeaponButton(InputAction.CallbackContext context);
+            void OnSquadPositionPing(InputAction.CallbackContext context);
         }
     }
 }

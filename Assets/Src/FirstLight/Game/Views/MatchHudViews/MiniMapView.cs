@@ -1,6 +1,7 @@
 using System;
 using DG.Tweening;
 using FirstLight.FLogger;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -30,6 +31,9 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private static readonly int _friendliesCountPID = Shader.PropertyToID("_FriendliesCount");
 		private static readonly int _EnemiesOpacityPID = Shader.PropertyToID("_EnemiesOpacity");
 
+		private static readonly int _pingPositionPID = Shader.PropertyToID("_PingPosition");
+		private static readonly int _pingProgressPID = Shader.PropertyToID("_PingProgress");
+
 		private readonly TimeSpan RADAR_UPDATE_FREQ = TimeSpan.FromSeconds(2);
 
 		[SerializeField, Required, Title("Minimap")]
@@ -47,6 +51,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		[SerializeField, Title("Animation")] private Ease _openCloseEase = Ease.OutSine;
 		[SerializeField, Required] private float _duration = 0.2f;
+		[SerializeField, Required] private float _pingDuration = 1f;
 
 		[SerializeField, Required, Title("Shrinking Circle")]
 		private RawImage _minimapImage;
@@ -58,6 +63,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		[SerializeField, Required] private MinimapAirdropView _airdropIndicatorRef;
 		[SerializeField, Required] private RectTransform _safeAreaArrow;
+		[SerializeField, Required] private MinimapPingView _pingIndicatorRef;
 
 		private IGameServices _services;
 		private IMatchServices _matchServices;
@@ -72,8 +78,11 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private Tweener _tweenerSize;
 		private Material _minimapMat;
 		private IObjectPool<MinimapAirdropView> _airdropPool;
+		private IObjectPool<MinimapPingView> _pingPool;
 		private readonly Vector4[] _enemyPositions = new Vector4[30];
 		private readonly Vector4[] _friendlyPositions = new Vector4[30];
+
+		private Tweener _pingTweener;
 
 		private bool _radarActive;
 		private DateTime _radarEndTime;
@@ -99,15 +108,41 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_services = MainInstaller.Resolve<IGameServices>();
 			_airdropPool = new ObjectRefPool<MinimapAirdropView>(1, _airdropIndicatorRef,
 				GameObjectPool<MinimapAirdropView>.Instantiator);
+			_pingPool = new ObjectRefPool<MinimapPingView>(1, _pingIndicatorRef,
+				GameObjectPool<MinimapPingView>.Instantiator);
 
 			QuantumEvent.Subscribe<EventOnAirDropDropped>(this, OnAirDropDropped);
 			QuantumEvent.Subscribe<EventOnAirDropLanded>(this, OnAirDropLanded);
 			QuantumEvent.Subscribe<EventOnAirDropCollected>(this, OnAirDropCollected);
 			QuantumEvent.Subscribe<EventOnRadarUsed>(this, OnRadarUsed);
+			QuantumEvent.Subscribe<EventOnRadarUsed>(this, OnRadarUsed);
+			QuantumEvent.Subscribe<EventOnSquadPositionPing>(this, OnSquadPositionPing);
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
 
 			_button.onClick.AddListener(OnClick);
 			_fullScreenButton.onClick.AddListener(OnClick);
+		}
+
+		private void OnSquadPositionPing(EventOnSquadPositionPing e)
+		{
+			if (e.TeamId < 0 || _matchServices.SpectateService.SpectatedPlayer.Value.Team == e.TeamId)
+			{
+				var pingPosition = _minimapCamera.WorldToViewportPoint(e.Position.ToUnityVector3());
+
+				var ping = _pingPool.Spawn();
+				ping.ViewportPosition = pingPosition;
+				ping.LateCall(_pingDuration, () => _pingPool.Despawn(ping));
+
+				_minimapImage.materialForRendering.SetVector(_pingPositionPID, pingPosition - Vector3.one / 2f);
+
+				_pingTweener?.Kill();
+				_pingTweener = DOVirtual.Float(0f, 1f, 1f,
+					val => _minimapImage.materialForRendering.SetFloat(_pingProgressPID, val));
+				
+				// Maybe not the cleanest, that the Minimap spawns the VFX.
+				var pingVfx = _services.VfxService.Spawn(VfxId.Ping);
+				pingVfx.transform.position = e.Position.ToUnityVector3();
+			}
 		}
 
 		private void OnDestroy()
@@ -150,6 +185,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			UpdatePlayerIndicator(playerViewportPoint, transform3D);
 			UpdateAirdropIndicators(playerViewportPoint, f.Time);
+			UpdatePingIndicators(playerViewportPoint);
 			UpdateMap(f, playerViewportPoint, transform3D);
 		}
 
@@ -328,6 +364,15 @@ namespace FirstLight.Game.Views.MatchHudViews
 				var indicator = _airdropPool.SpawnedReadOnly[i];
 				indicator.SetPosition(ViewportToMinimapPosition(indicator.ViewportPosition, playerViewportPoint));
 				indicator.UpdateTime(time);
+			}
+		}
+		
+		private void UpdatePingIndicators(Vector3 playerViewportPoint)
+		{
+			for (var i = 0; i < _pingPool.SpawnedReadOnly.Count; i++)
+			{
+				var indicator = _pingPool.SpawnedReadOnly[i];
+				indicator.SetPosition(ViewportToMinimapPosition(indicator.ViewportPosition, playerViewportPoint));
 			}
 		}
 

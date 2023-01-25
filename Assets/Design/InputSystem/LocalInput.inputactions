@@ -76,6 +76,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "SquadPositionPing",
+                    "type": "Button",
+                    "id": "c8594f4b-d139-4c04-938e-5205610d1afb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -461,6 +470,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Switch Weapon Button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f01bab48-e245-4e4e-9f2b-4c0b41bde323",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SquadPositionPing",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "102bc41b-5ec8-446a-b3c6-ea43b0f00e51",
+                    "path": "<OnScreenControlsDevice>/SquadPositionPing",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SquadPositionPing",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

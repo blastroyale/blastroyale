@@ -1,0 +1,6 @@
+synced event OnSquadPositionPing
+{
+    entity_ref Entity;
+    Int32 TeamId;
+    FPVector3 Position;
+}

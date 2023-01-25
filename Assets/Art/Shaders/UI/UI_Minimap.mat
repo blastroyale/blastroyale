@@ -33,6 +33,9 @@ Material:
     - _ColorMask: 15
     - _DangerAreaSize: 1
     - _OuterRindWidth: 0.01
+    - _PingProgress: 1
+    - _PingSize: 0.25
+    - _PingWidth: 0.015
     - _PlayersSize: 0.02
     - _RingWidth: 0.01
     - _SafeAreaSize: 1
@@ -50,6 +53,7 @@ Material:
     - _EnemiesColor: {r: 1, g: 0.23137255, b: 0, a: 1}
     - _FriendliesColor: {r: 0, g: 0.69860935, b: 1, a: 1}
     - _OuterRingColor: {r: 1, g: 1, b: 1, a: 0.29803923}
+    - _PingColor: {r: 0.3537736, g: 0.8048652, b: 1, a: 1}
     - _PlayersColor: {r: 1, g: 0.23014379, b: 0, a: 1}
     - _PlayersOutlineColor: {r: 0.2264151, g: 0.05238625, b: 0, a: 1}
     - _SafeAreaColor: {r: 1, g: 1, b: 1, a: 1}

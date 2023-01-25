@@ -24,35 +24,39 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public override void Update(Frame f)
 		{
-			var circle = f.Unsafe.GetPointerSingleton<ShrinkingCircle>();
-
-			if (f.Context.GameModeConfig.ShrinkingCircleCenteredOnPlayer)
+			if (!f.Context.GameModeConfig.ShrinkingCircleCenteredOnPlayer ||
+				f.GetSingleton<GameContainer>().PlayersData[0].Entity != EntityRef.None)
 			{
-				SetShrinkingCircleCenteredOnLocalPlayer(circle, f);
-			}
-			
-			if (circle->Step < 0)
-			{
-				SetShrinkingCircleData(f, circle, f.ShrinkingCircleConfigs.QuantumConfigs[0]);
-			}
+				var circle = f.Unsafe.GetPointerSingleton<ShrinkingCircle>();
 
-			ProcessShrinkingCircle(f, circle);
 
-			circle->GetMovingCircle(f, out var center, out var radius);
-
-			foreach (var pair in f.Unsafe.GetComponentBlockIterator<AlivePlayerCharacter>())
-			{
-				var transform = f.Get<Transform3D>(pair.Entity);
-				var position = transform.Position;
-				var isInside = (position.XZ - center).SqrMagnitude < radius * radius;
-
-				if (pair.Component->InCircle && isInside)
+				if (circle->Step < 0)
 				{
-					RemoveShrinkingDamage(f, pair.Entity);
+					SetShrinkingCircleData(f, circle, f.ShrinkingCircleConfigs.QuantumConfigs[0]);
 				}
-				else if(!pair.Component->InCircle && !isInside)
+
+				if (!f.Context.GameModeConfig.ShrinkingCircleCenteredOnPlayer ||
+					f.GetSingleton<GameContainer>().PlayersData[0].Entity != EntityRef.None)
 				{
-					AddShrinkingDamage(f, pair.Entity, position);
+					ProcessShrinkingCircle(f, circle);
+				}
+
+				circle->GetMovingCircle(f, out var center, out var radius);
+
+				foreach (var pair in f.Unsafe.GetComponentBlockIterator<AlivePlayerCharacter>())
+				{
+					var transform = f.Get<Transform3D>(pair.Entity);
+					var position = transform.Position;
+					var isInside = (position.XZ - center).SqrMagnitude < radius * radius;
+
+					if (pair.Component->InCircle && isInside)
+					{
+						RemoveShrinkingDamage(f, pair.Entity);
+					}
+					else if (!pair.Component->InCircle && !isInside)
+					{
+						AddShrinkingDamage(f, pair.Entity, position);
+					}
 				}
 			}
 		}
@@ -84,6 +88,11 @@ namespace Quantum.Systems
 
 		private void SetShrinkingCircleData(Frame f, ShrinkingCircle* circle, QuantumShrinkingCircleConfig config)
 		{
+			if (f.Context.GameModeConfig.ShrinkingCircleCenteredOnPlayer)
+			{
+				SetShrinkingCircleCenteredOnLocalPlayer(circle, f);
+			}
+			
 			circle->Step = config.Step;
 			circle->ShrinkingStartTime += config.DelayTime + config.WarningTime;
 			circle->ShrinkingDurationTime = config.ShrinkingTime;

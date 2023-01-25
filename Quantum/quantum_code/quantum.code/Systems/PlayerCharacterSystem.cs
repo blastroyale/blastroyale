@@ -131,6 +131,11 @@ namespace Quantum.Systems
 					step++;
 				}
 			}
+
+			if (gameModeConfig.DeathDropStrategy == DeathDropsStrategy.Tutorial)
+			{
+				Collectable.DropConsumable(f, GameId.Health, deathPosition, step, false);
+			}
 		}
 
 		private void InstantiatePlayer(Frame f, PlayerRef playerRef, RuntimePlayer playerData)
@@ -144,7 +149,7 @@ namespace Quantum.Systems
 			var spawnTransform = new Transform3D {Position = FPVector3.Zero, Rotation = FPQuaternion.Identity};
 
 			spawnTransform.Position = spawnPosition.XOY;
-
+				
 			playerCharacter->Init(f, playerEntity, playerRef, spawnTransform, playerData.PlayerLevel,
 								  playerData.PlayerTrophies, playerData.Skin, playerData.DeathMarker, playerData.Loadout,
 								  playerData.Loadout.FirstOrDefault(e => e.IsWeapon()));

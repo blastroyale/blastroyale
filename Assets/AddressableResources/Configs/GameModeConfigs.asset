@@ -155,7 +155,7 @@ MonoBehaviour:
       SkydiveSpawn: 0
       SpawnSelection: 0
       SpawnPattern: 0
-      DeathDropStrategy: 0
+      DeathDropStrategy: 5
       DeathMarker: 0
       AllowBots: 1
       BotSearchForCrates: 0

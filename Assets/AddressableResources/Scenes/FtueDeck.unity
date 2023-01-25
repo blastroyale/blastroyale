@@ -5701,8 +5701,6 @@ MonoBehaviour:
   - {fileID: 1338082376}
   - {fileID: 20735826}
   - {fileID: 585374753}
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 1208886885}
   - {fileID: 2022309049}
   - {fileID: 2139861514}
@@ -6883,7 +6881,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 20.75
+      value: 22.91
       objectReference: {fileID: 0}
     - target: {fileID: 1384128413185055080, guid: cc57b1527e755ed4dadb1db569e4f507, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6968,7 +6966,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 173992203549782001, guid: 6233bdbfadd874a59a642e8f839182c4, type: 3}
       propertyPath: Prototype.BehaviourType.Value
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2180985777303813592, guid: 6233bdbfadd874a59a642e8f839182c4, type: 3}
       propertyPath: m_Name
@@ -10041,6 +10039,10 @@ PrefabInstance:
       propertyPath: Prototype.SpawnerType.Value
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 173992203549782001, guid: 6233bdbfadd874a59a642e8f839182c4, type: 3}
+      propertyPath: Prototype.BehaviourType.Value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2180985777303813592, guid: 6233bdbfadd874a59a642e8f839182c4, type: 3}
       propertyPath: m_Name
       value: PlayerSpawner (5)
@@ -11526,6 +11528,10 @@ PrefabInstance:
     - target: {fileID: 173992203549782001, guid: 6233bdbfadd874a59a642e8f839182c4, type: 3}
       propertyPath: Prototype.SpawnerType.Value
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 173992203549782001, guid: 6233bdbfadd874a59a642e8f839182c4, type: 3}
+      propertyPath: Prototype.BehaviourType.Value
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2180985777303813592, guid: 6233bdbfadd874a59a642e8f839182c4, type: 3}
       propertyPath: m_Name
@@ -13697,6 +13703,10 @@ PrefabInstance:
     - target: {fileID: 173992203549782001, guid: 6233bdbfadd874a59a642e8f839182c4, type: 3}
       propertyPath: Prototype.SpawnerType.Value
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 173992203549782001, guid: 6233bdbfadd874a59a642e8f839182c4, type: 3}
+      propertyPath: Prototype.BehaviourType.Value
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2180985777303813592, guid: 6233bdbfadd874a59a642e8f839182c4, type: 3}
       propertyPath: m_Name

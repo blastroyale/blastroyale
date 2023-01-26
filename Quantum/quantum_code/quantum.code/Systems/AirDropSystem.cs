@@ -23,6 +23,10 @@ namespace Quantum.Systems
 				case AirDropStage.Waiting:
 					if (f.Time >= drop->StartTime + drop->Delay)
 					{
+						if (f.Context.GameModeConfig.AirdropNearPlayer)
+						{
+							CenterAirdropOnLocalPlayer(f, ref filter);
+						}
 						drop->Stage = AirDropStage.Announcing;
 						f.Events.OnAirDropDropped(filter.Entity, f.Get<AirDrop>(filter.Entity));
 
@@ -54,6 +58,18 @@ namespace Quantum.Systems
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
+			}
+		}
+
+		private void CenterAirdropOnLocalPlayer(Frame f, ref AirDropFilter filter)
+		{
+			var characterEntity = f.GetSingleton<GameContainer>().PlayersData[0].Entity;
+			if (characterEntity != EntityRef.None)
+			{
+				if (f.TryGet<Transform3D>(characterEntity, out var trans))
+				{
+					filter.AirDrop->Position = trans.Position;
+				}
 			}
 		}
 	}

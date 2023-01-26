@@ -153,9 +153,7 @@ namespace FirstLight.Game.Presenters
 		}
 
 		private void OnLeaderboardTopRanksReceived(GetLeaderboardResult result)
-		{
-			_loadingSpinner.SetDisplay(false);
-			
+		{			
 			var resultPos = result.Leaderboard.Count < GameConstants.Network.LEADERBOARD_TOP_RANK_AMOUNT
 				? result.Leaderboard.Count
 				: GameConstants.Network.LEADERBOARD_TOP_RANK_AMOUNT;
@@ -189,6 +187,8 @@ namespace FirstLight.Game.Presenters
 
 		private void OnLeaderboardNeighborRanksReceived(GetLeaderboardAroundPlayerResult result)
 		{
+			_loadingSpinner.SetDisplay(false);
+			
 			var newEntry = _leaderboardEntryAsset.Instantiate();
 			newEntry.AttachView(this, out LeaderboardEntryView view);
 			var leaderboardEntry = result.Leaderboard[0];
@@ -226,7 +226,7 @@ namespace FirstLight.Game.Presenters
 			{
 				_leaderboardListView.ScrollToItem(indexToScrollTo);
 			}
-
+			_loadingSpinner.SetDisplay(false);
 			_leaderboardListView.SetVisibility(true);
 		}
 	}

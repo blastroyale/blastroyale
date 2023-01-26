@@ -26,7 +26,7 @@ namespace FirstLight.Game.Presenters
 		private TextField _emailField;
 		private TextField _passwordField;
 		private VisualElement _blockerElement;
-
+		
 		private IGameServices _services;
 
 		private void Awake()
@@ -44,6 +44,8 @@ namespace FirstLight.Game.Presenters
 			root.Q<Button>("RegisterButton").clicked += OnRegisterButtonClicked;
 			root.Q<Button>("ResetPasswordButton").clicked += OnResetPasswordButtonClicked;
 			root.Q<Button>("PlayAsGuestButton").clicked += OnPlayAsGuestButtonClicked;
+			
+			root.SetupClicks(_services);
 		}
 
 		/// <summary>

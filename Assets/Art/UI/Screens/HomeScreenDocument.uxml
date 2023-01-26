@@ -8,12 +8,10 @@
                 </FirstLight.Game.UIElements.ImageButton>
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="CoinCurrency" currency="COIN" class="anim-delay-1 anim-translate anim-translate--down-s" />
                 <FirstLight.Game.UIElements.CurrencyDisplayElement name="CSCurrency" currency="CS" class="anim-delay-2 anim-translate anim-translate--down-s" />
+                <ui:Button display-tooltip-when-elided="true" name="DiscordButton" class="discord-button sfx-click-forwards anim-delay-0 anim-translate anim-translate--left-s" />
             </ui:VisualElement>
             <ui:VisualElement picking-mode="Ignore" name="RightButtons" class="main-buttons main-buttons--right">
-                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/discord" name="DiscordButton" class="sfx-click-forwards button-with-icon button-with-icon--small button-with-icon--discord anim-delay-3 anim-translate anim-translate--left-l">
-                    <ui:VisualElement class="button-with-icon__icon" />
-                </FirstLight.Game.UIElements.LocalizedButton>
-                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/shop" name="StoreButton" class="sfx-click-forwards button-with-icon button-with-icon--yellow button-with-icon--shop anim-delay-2 anim-translate anim-translate--left-l">
+                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/shop" name="StoreButton" class="sfx-click-forwards button-with-icon button-with-icon--shop anim-delay-2 anim-translate anim-translate--left-l">
                     <ui:VisualElement class="button-with-icon__icon" />
                 </FirstLight.Game.UIElements.LocalizedButton>
                 <FirstLight.Game.UIElements.ImageButton name="GameModeButton" class="sfx-click-forwards anim-delay-1 anim-translate anim-translate--left-l game-mode-button">
@@ -26,13 +24,14 @@
                     <ui:VisualElement name="CSPoolContainer" class="resource-pool resource-pool--cs">
                         <ui:VisualElement name="Background" class="resource-pool__background" />
                         <ui:VisualElement name="Holder" class="resource-pool__holder">
-                            <ui:Label text="+20 in 2h5m" name="RestockLabel" />
-                            <ui:VisualElement class="resource-pool__separator" />
-                            <ui:Label text="&lt;color=#FE6C07&gt;20&lt;/color&gt; / 100&#10;" name="AmountLabel" />
-                            <ui:VisualElement class="resource-pool__icon" />
+                            <ui:VisualElement name="Separator" class="resource-pool__separator" />
+                            <ui:Label text="+20" name="RestockLabelAmount" />
+                            <ui:VisualElement name="cscon" class="resource-pool__icon" />
+                            <ui:Label text="IN 2H 45M" name="RestockLabelTime" />
+                            <ui:Label text="&lt;color=#49D4D4&gt;20&lt;/color&gt; / 100&#10;" name="AmountLabel" />
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/play" name="PlayButton" class="play-button sfx-click-forwards font-italic font-style-h1" />
+                    <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/play" name="PlayButton" class="play-button sfx-click-forwards" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement picking-mode="Ignore" name="LeftButtons" class="main-buttons main-buttons--left">
@@ -46,20 +45,24 @@
                 <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/leaderboards" name="LeaderboardsButton" class="sfx-click-forwards button-with-icon button-with-icon--leaderboards anim-delay-1 anim-translate anim-translate--right-xl">
                     <ui:VisualElement class="button-with-icon__icon" />
                 </FirstLight.Game.UIElements.LocalizedButton>
-                <ui:VisualElement name="BattlePassButtonHolder" class = "anim-delay-0 anim-translate anim-translate--right-xl">
+                <ui:VisualElement name="BattlePassButtonHolder" class="anim-delay-0 anim-translate anim-translate--right-xl">
                     <ui:VisualElement name="BPPPoolContainer" class="resource-pool resource-pool--bpp">
                         <ui:VisualElement name="Background" class="resource-pool__background" />
                         <ui:VisualElement name="Holder" class="resource-pool__holder">
-                            <ui:Label text="+20 in 2h5m" name="RestockLabel" />
-                            <ui:VisualElement class="resource-pool__separator" />
+                            <ui:Label text="+20" name="RestockLabelAmount" />
+                            <ui:VisualElement name="BppIcon" class="resource-pool__icon" />
+                            <ui:Label text="IN 2H 45M" name="RestockLabelTime" />
                             <ui:Label text="&lt;color=#49D4D4&gt;20&lt;/color&gt; / 100&#10;" name="AmountLabel" />
-                            <ui:VisualElement class="resource-pool__icon" />
+                            <ui:VisualElement name="Separator" class="resource-pool__separator" />
                         </ui:VisualElement>
                     </ui:VisualElement>
                     <FirstLight.Game.UIElements.ImageButton name="BattlePassButton" class="battle-pass-button sfx-click-forwards">
                         <ui:VisualElement name="Holder" class="battle-pass-button__holder">
                             <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITHomeScreen/blast_pass" name="Title" picking-mode="Ignore" class="battle-pass-button__title" />
-                            <ui:Label text="5" name="BattlePassLevelLabel" picking-mode="Ignore" class="battle-pass-button__level" />
+                            <ui:VisualElement name="LevelHolder" class="battle-pass-level-holder">
+                                <ui:Label text="5" display-tooltip-when-elided="true" name="BattlePassLevelLabel" class="battle-pass-button__level" />
+                                <ui:Label text="LV" name="BattlePassLevelTextLabel" picking-mode="Ignore" class="battle-pass-button__level__text battle-pass-button__leveltext" />
+                            </ui:VisualElement>
                             <ui:VisualElement name="ProgressBg" class="battle-pass-button__progress-bg">
                                 <ui:VisualElement name="BattlePassProgressElement" class="battle-pass-button__progress" />
                             </ui:VisualElement>
@@ -68,15 +71,15 @@
                     </FirstLight.Game.UIElements.ImageButton>
                 </ui:VisualElement>
             </ui:VisualElement>
-            <FirstLight.Game.UIElements.ImageButton name="Header" class="player-header sfx-click-forwards">
-                <ui:VisualElement name="ProfileHolder" class="player-header__profile-holder">
-                    <ui:Label text="PLAYER NAME" name="Name" class="player-header__name" />
-                </ui:VisualElement>
-                <ui:VisualElement name="TrophiesHolder" class="player-header__trophies-holder">
-                    <ui:VisualElement name="TrophyIcon" class="player-header__trophy-icon" />
-                    <ui:Label text="69420" name="TrophiesAmount" class="player-header__trophies_label" />
-                </ui:VisualElement>
-            </FirstLight.Game.UIElements.ImageButton>
         </FirstLight.Game.UIElements.SafeAreaElement>
+        <FirstLight.Game.UIElements.ImageButton name="Header" class="player-header sfx-click-forwards">
+            <ui:VisualElement name="ProfileHolder" class="player-header__profile-holder">
+                <ui:Label text="PLAYER NAME" name="Name" class="player-header__name" />
+            </ui:VisualElement>
+            <ui:VisualElement name="TrophiesHolder" class="player-header__trophies-holder">
+                <ui:VisualElement name="TrophyIcon" class="player-header__trophy-icon" />
+                <ui:Label text="69420" name="TrophiesAmount" class="player-header__trophies_label" />
+            </ui:VisualElement>
+        </FirstLight.Game.UIElements.ImageButton>
     </ui:VisualElement>
 </ui:UXML>

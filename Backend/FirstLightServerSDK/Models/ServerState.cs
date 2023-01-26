@@ -80,7 +80,7 @@ namespace FirstLight.Server.SDK.Models
 		/// </summary>
 		public bool Has<T>()
 		{
-			return this.ContainsKey(typeof(T).FullName);
+			return ContainsKey(typeof(T).FullName);
 		}
 		
 		/// <summary>
@@ -99,13 +99,13 @@ namespace FirstLight.Server.SDK.Models
 		/// </summary>
 		public ServerState GetOnlyUpdatedState()
 		{
+			var newStateToUpdate = new ServerState();
 			var updatedTypes = _delta.GetModifiedTypes();
-			if (updatedTypes.Count() == 0)
+			if (!updatedTypes.Any())
 			{
-				return this;
+				return newStateToUpdate;
 			}
 			
-			var newStateToUpdate = new ServerState();
 			foreach (var updatedType in updatedTypes)
 			{
 				if (TryGetValue(updatedType.FullName, out var oldData))

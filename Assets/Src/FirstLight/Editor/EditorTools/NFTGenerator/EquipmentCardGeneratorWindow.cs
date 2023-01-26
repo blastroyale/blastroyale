@@ -40,8 +40,8 @@ namespace FirstLight.Editor.EditorTools.NFTGenerator
 		private BaseEquipmentStatConfigs _statConfigs;
 
 		private IEnumerator<Equipment> _equipmentList;
-		private int _processedImages = 0;
-		private bool _processing = false;
+		private int _processedImages;
+		[UsedImplicitly] private bool _processing;
 
 		[MenuItem("FLG/Equipment Card Generator")]
 		private static void OpenWindow()

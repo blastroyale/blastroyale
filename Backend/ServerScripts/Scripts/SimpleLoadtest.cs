@@ -17,6 +17,7 @@ using PlayFab.CloudScriptModels;
 using PlayFab.ServerModels;
 using Quantum;
 using FirstLight.Server.SDK.Modules;
+using FirstLight.Server.SDK.Modules.Commands;
 using EntityKey = PlayFab.AuthenticationModels.EntityKey;
 using EntityTokenResponse = PlayFab.ClientModels.EntityTokenResponse;
 using GetPlayerCombinedInfoRequestParams = PlayFab.ClientModels.GetPlayerCombinedInfoRequestParams;

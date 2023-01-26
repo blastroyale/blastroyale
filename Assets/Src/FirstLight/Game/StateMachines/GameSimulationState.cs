@@ -73,7 +73,6 @@ namespace FirstLight.Game.StateMachines
 			var battleRoyale = stateFactory.Nest("Battle Royale Mode");
 			var modeCheck = stateFactory.Choice("Game Mode Check");
 			var startSimulation = stateFactory.State("Start Simulation");
-			var disconnectedPlayerCheck = stateFactory.Choice("Disconnected Player Check");
 			var disconnected = stateFactory.State("Disconnected");
 			var disconnectedCritical = stateFactory.State("Disconnected Critical");
 			
@@ -89,27 +88,18 @@ namespace FirstLight.Game.StateMachines
 			modeCheck.Transition().Condition(ShouldUseDeathmatchSM).Target(deathmatch);
 			modeCheck.Transition().Condition(ShouldUseBattleRoyaleSM).Target(battleRoyale);
 			modeCheck.Transition().Target(battleRoyale);
-			//modeCheck.OnExit(CloseMatchmakingScreen); uncomment with new start sequence
 
 			deathmatch.Nest(_deathmatchState.Setup).Target(final);
-			deathmatch.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnectedPlayerCheck);
+			deathmatch.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
 			deathmatch.OnExit(CleanUpMatch);
 
 			battleRoyale.Nest(_battleRoyaleState.Setup).Target(final);
-			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnectedPlayerCheck);
+			battleRoyale.Event(NetworkState.PhotonDisconnectedEvent).Target(disconnected);
 			battleRoyale.OnExit(CleanUpMatch);
-			
-			// TODO: @ROB move this block out of the game simulation. This belongs to the MatchState. We are duplicating flow and code. It's not needed to be here
-			{
-				disconnectedPlayerCheck.Transition().Condition(IsSoloGame).OnTransition(OpenDisconnectedMatchEndDialog).Target(final);
-				disconnectedPlayerCheck.Transition().Target(disconnected);
-			
-				disconnected.OnEnter(StopSimulation);
-				disconnected.Event(NetworkState.JoinedRoomEvent).Target(startSimulation);
-				disconnected.Event(NetworkState.JoinRoomFailedEvent).Target(disconnectedCritical);
 
-				disconnectedCritical.OnEnter(NotifyCriticalDisconnection);
-			}
+			disconnected.OnEnter(StopSimulation);
+			disconnected.Event(NetworkState.JoinedRoomEvent).Target(startSimulation);
+			disconnected.Event(NetworkState.JoinRoomFailedEvent).Target(disconnectedCritical);
 
 			final.OnEnter(UnloadSimulationUi);
 			final.OnEnter(UnsubscribeEvents);
@@ -140,16 +130,6 @@ namespace FirstLight.Game.StateMachines
 		private void UnloadSimulationUi()
 		{
 			_uiService.UnloadUi<LowConnectionPresenter>();
-		}
-
-		private bool IsSoloGame()
-		{
-			return _services.NetworkService.LastMatchPlayers.Count == 1;
-		}
-		
-		private void NotifyCriticalDisconnection()
-		{
-			_statechartTrigger(NetworkState.PhotonCriticalDisconnectedEvent);
 		}
 
 		private void OpenLowConnectionScreen()
@@ -279,14 +259,6 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			var startParams = configs.GetDefaultStartParameters(startPlayersCount, IsSpectator(), new FrameSnapshot());
-			
-			// Unused for now, once local snapshot issues are ironed out, resyncing solo games can be readded
-			if (!_services.NetworkService.IsJoiningNewMatch && _services.NetworkService.LastMatchPlayers.Count == 1)
-			{
-				startParams = configs.GetDefaultStartParameters(_services.NetworkService.LastMatchPlayers.Count, IsSpectator(), 
-					MainInstaller.Resolve<IMatchServices>().FrameSnapshotService.GetLastStoredMatchSnapshot());
-			}
-
 			startParams.NetworkClient = client;
 			
 			QuantumRunner.StartGame(_services.NetworkService.UserId, startParams);
@@ -352,6 +324,15 @@ namespace FirstLight.Game.StateMachines
 				finalLoadOut.Add(inventory[item.Id]);
 			}
 
+			var loadoutArray = spawnWithloadout
+				? finalLoadOut.ToArray()
+				: loadout.ReadOnlyDictionary.Values.Select(id => inventory[id]).ToArray();
+			
+			var nftLoadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.NftOnly);
+			var loadoutMetadata = loadoutArray.Select(e => new EquipmentSimulationMetadata()
+			{
+				IsNft = nftLoadout.Any(nft => nft.Equipment.Equals(e))
+			}).ToArray();
 			game.SendPlayerData(game.GetLocalPlayerRef(), new RuntimePlayer
 			{
 				PlayerId = _gameDataProvider.AppDataProvider.PlayerId,
@@ -361,8 +342,8 @@ namespace FirstLight.Game.StateMachines
 				PlayerLevel = info.Level,
 				PlayerTrophies = info.TotalTrophies,
 				NormalizedSpawnPosition = spawnPosition.ToFPVector2(),
-				Loadout = spawnWithloadout ? 
-					          finalLoadOut.ToArray() : loadout.ReadOnlyDictionary.Values.Select(id => inventory[id]).ToArray()
+				Loadout = loadoutArray,
+				LoadoutMetadata = loadoutMetadata
 			});
 		}
 	}

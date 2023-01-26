@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FirstLight.Server.SDK.Models;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -7,38 +8,6 @@ using UnityEngine;
 
 namespace FirstLight.Services
 {
-	/// <summary>
-	/// This interface provides the access to the player's save persistent data 
-	/// </summary>
-	public interface IDataProvider
-	{
-		/// <summary>
-		/// Generic wrapper of <see cref="TryGetData"/>
-		/// </summary>
-		bool TryGetData<T>(out T dat) where T : class;
-
-		/// <summary>
-		/// Requests the player's data of <paramref name="type"/> type
-		/// </summary>
-		bool TryGetData(Type type, out object dat);
-
-		/// <summary>
-		/// Generic wrapper of <see cref="GetData"/>
-		/// </summary>
-		T GetData<T>() where T : class;
-
-		/// <summary>
-		/// Requests the player's data of <paramref name="type"/>
-		/// </summary>
-		object GetData(Type type);
-
-
-		/// <summary>
-		///  Return all the keys of the present data
-		/// </summary>
-		IEnumerable<Type> GetKeys();
-	}
-
 	/// <summary>
 	/// This interface provides the possibility to the current memory data to disk
 	/// </summary>
@@ -68,7 +37,7 @@ namespace FirstLight.Services
 
 	/// <summary>
 	/// This service allows to manage all the persistent data in the game.
-	/// Data are strictly reference types to guarantee that there is no boxing/unboxing and lost of referencing when changing it's data. 
+	/// Data are strictly reference types to guarantee that there is no boxing/unboxing and lost of referencing when changing it's data.
 	/// </summary>
 	public interface IDataService : IDataProvider, IDataSaver, IDataLoader
 	{
@@ -121,10 +90,11 @@ namespace FirstLight.Services
 			return _data.Keys;
 		}
 
-		/// <inheritdoc />
+		/// Obtains the client data stored in memory.
+		/// Always created the data if its not present using the default constructor.
 		public T GetData<T>() where T : class
 		{
-			return _data[typeof(T)].Data as T;
+			return GetDataOrCreateIfNeeded<T>();
 		}
 
 		/// <inheritdoc />
@@ -179,6 +149,16 @@ namespace FirstLight.Services
 		public void AddData(Type type, object data, bool isLocal = false)
 		{
 			_data[type] = new DataInfo { Data = data, IsLocal = isLocal };
+		}
+
+		private T GetDataOrCreateIfNeeded<T>() where T : class
+		{
+			if (!TryGetData<T>(out var data))
+			{
+				data = Activator.CreateInstance<T>();
+				_data[typeof(T)] = new DataInfo { Data = data, IsLocal = false };;
+			}
+			return data;
 		}
 
 		private struct DataInfo

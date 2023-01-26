@@ -7,11 +7,9 @@ using TMPro;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using FirstLight.Game.Logic;
-using FirstLight.Game.Messages;
 using FirstLight.Game.Views.MainMenuViews;
 using I2.Loc;
 using Sirenix.OdinInspector;
-using UnityEngine.Events;
 
 namespace FirstLight.Game.Presenters
 {
@@ -106,7 +104,7 @@ namespace FirstLight.Game.Presenters
 		/// </summary>
 		public void UpdateAccountStatus()
 		{
-			if (string.IsNullOrEmpty(_gameDataProvider.AppDataProvider.LastLoginEmail.Value))
+			if (_gameDataProvider.AppDataProvider.IsGuest)
 			{
 				_connectIdButton.gameObject.SetActive(true);
 				_idConnectionNameText.gameObject.SetActive(false);

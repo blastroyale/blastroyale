@@ -54,6 +54,8 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
+			if (next.Player == PlayerRef.None) return;
+			
 			var frame = QuantumRunner.Default.Game.Frames.Predicted;
 			
 			// In case where we change to a player that just died

@@ -40,9 +40,7 @@ MonoBehaviour:
       SkydiveSpawn: 1
       SpawnSelection: 1
       SpawnPattern: 1
-      WeaponDeathDropStrategy: 1
-      HealthDeathDropStrategy: 2
-      ShieldDeathDropStrategy: 2
+      DeathDropStrategy: 4
       DeathMarker: 1
       AllowBots: 1
       BotSearchForCrates: 1
@@ -79,9 +77,7 @@ MonoBehaviour:
       SkydiveSpawn: 0
       SpawnSelection: 0
       SpawnPattern: 0
-      WeaponDeathDropStrategy: 0
-      HealthDeathDropStrategy: 0
-      ShieldDeathDropStrategy: 0
+      DeathDropStrategy: 0
       DeathMarker: 0
       AllowBots: 1
       BotSearchForCrates: 0
@@ -116,9 +112,7 @@ MonoBehaviour:
       SkydiveSpawn: 1
       SpawnSelection: 1
       SpawnPattern: 0
-      WeaponDeathDropStrategy: 1
-      HealthDeathDropStrategy: 2
-      ShieldDeathDropStrategy: 2
+      DeathDropStrategy: 0
       DeathMarker: 0
       AllowBots: 0
       BotSearchForCrates: 0

@@ -195,9 +195,10 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
-		protected override async Task OnClosed()
+		protected override Task OnClosed()
 		{
 			_rootObject.SetActive(true);
+			return Task.CompletedTask;
 		}
 
 		private void OnCoreMatchAssetsLoaded(CoreMatchAssetsLoadedMessage msg)

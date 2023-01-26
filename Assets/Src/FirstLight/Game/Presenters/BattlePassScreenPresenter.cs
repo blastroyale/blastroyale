@@ -67,7 +67,7 @@ namespace FirstLight.Game.Presenters
 			
 		}
 		
-		protected override async void QueryElements(VisualElement root)
+		protected override void QueryElements(VisualElement root)
 		{
 			base.QueryElements(root);
 
@@ -156,7 +156,7 @@ namespace FirstLight.Game.Presenters
 			
 			_bppProgressFill.style.flexGrow = (float) predictedProgress.Item2 / predictedMaxProgress;
 
-			_screenHeader.SetTitle(string.Format(ScriptLocalization.UITBattlePass.season_number, "1"));
+			_screenHeader.SetTitle(string.Format(ScriptLocalization.UITBattlePass.season_number, battlePassConfig.CurrentSeason));
 			_claimButton.SetDisplay(_dataProvider.BattlePassDataProvider.IsRedeemable());
 			_nextLevelRoot.SetDisplay(predictedProgress.Item1 < _dataProvider.BattlePassDataProvider.MaxLevel);
 			
@@ -257,7 +257,7 @@ namespace FirstLight.Game.Presenters
 			// Keep showing/dismissing reward dialogs recursively, until all have been shown
 			if (Data.UiService.HasUiPresenter<EquipmentRewardDialogPresenter>())
 			{
-				Data.UiService.CloseUi<EquipmentRewardDialogPresenter>();
+				await Data.UiService.CloseUi<EquipmentRewardDialogPresenter>();
 
 				await Task.Delay(GameConstants.Visuals.REWARD_POPUP_CLOSE_MS);
 			}

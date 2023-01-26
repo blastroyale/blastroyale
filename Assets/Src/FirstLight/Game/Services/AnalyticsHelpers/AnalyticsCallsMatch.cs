@@ -15,6 +15,18 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 	/// </summary>
 	public class AnalyticsCallsMatch : AnalyticsCalls
 	{
+		private struct AnalyticsMatchQueuedEvent
+		{
+			public string EventName { get; }
+			public Dictionary<string, object> Parameters { get; }
+
+			public AnalyticsMatchQueuedEvent(string eventName, Dictionary<string, object> parameters)
+			{
+				EventName = eventName;
+				Parameters = parameters;
+			}
+		}
+		
 		public string PresentedMapPath { get; set; }
 		public Vector2IntSerializable DefaultDropPosition { get; set; }
 		public Vector2IntSerializable SelectedDropPosition { get; set; }
@@ -29,6 +41,8 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		private string _mapId;
 
 		private Dictionary<GameId, string> _gameIdsLookup = new();
+
+		private List<AnalyticsMatchQueuedEvent> _queue = new ();
 
 		private int _playerNumAttacks;
 
@@ -76,6 +90,8 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			};
 			
 			_analyticsService.LogEvent(AnalyticsEvents.MatchInitiate, data);
+			
+			_queue.Clear();
 		}
 		
 		/// <summary>
@@ -134,12 +150,14 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		/// <summary>
 		/// Logs when finish the match
 		/// </summary>
-		public void MatchEndBRPlayerDead(QuantumGame game)
+		public void MatchEndBRPlayerDead(QuantumGame game, uint playerRank)
 		{
 			if (IsSpectator())
 			{
 				return;
 			}
+
+			SendQueue();
 			
 			var f = game.Frames.Verified;
 			var localPlayerData = new QuantumPlayerMatchData(f, game.GetLocalPlayerRef());
@@ -164,7 +182,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"suicide",localPlayerData.Data.SuicideCount.ToString()},
 				{"kills", localPlayerData.Data.PlayersKilledCount.ToString()},
 				{"match_time", f.Time.ToString()},
-				{"player_rank", localPlayerData.PlayerRank.ToString()},
+				{"player_rank", playerRank.ToString()},
 				{"player_attacks", _playerNumAttacks.ToString()}
 			};
 			
@@ -176,12 +194,14 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		/// <summary>
 		/// Logs when finish the match
 		/// </summary>
-		public void MatchEnd(QuantumGame game, bool playerQuit)
+		public void MatchEnd(QuantumGame game, bool playerQuit, uint playerRank)
 		{
 			if (IsSpectator())
 			{
 				return;
 			}
+
+			SendQueue();
 			
 			var f = game.Frames.Verified;
 			var localPlayerData = new QuantumPlayerMatchData(f, game.GetLocalPlayerRef());
@@ -207,7 +227,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"kills", localPlayerData.Data.PlayersKilledCount.ToString()},
 				{"end_state", playerQuit ? "quit" : "ended"},
 				{"match_time", f.Time.ToString()},
-				{"player_rank", localPlayerData.PlayerRank.ToString()},
+				{"player_rank", playerRank.ToString()},
 				{"player_attacks", _playerNumAttacks.ToString()}
 			};
 			
@@ -243,7 +263,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"killer_name", killerData.GetPlayerName()}
 			};
 			
-			_analyticsService.LogEvent(AnalyticsEvents.MatchKillAction, data, false);
+			QueueEvent(AnalyticsEvents.MatchKillAction, data);
 		}
 
 		/// <summary>
@@ -267,7 +287,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"player_name", _gameData.AppDataProvider.DisplayNameTrimmed }
 			};
 			
-			_analyticsService.LogEvent(AnalyticsEvents.MatchChestOpenAction, data, false);
+			QueueEvent(AnalyticsEvents.MatchChestOpenAction, data);
 
 			foreach (var item in callback.Items)
 			{
@@ -298,7 +318,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"angle_step_around_chest", chestItemDropped.AngleStepAroundChest.ToString()}
 			};
 			
-			_analyticsService.LogEvent(AnalyticsEvents.MatchChestItemDrop, data, false);
+			QueueEvent(AnalyticsEvents.MatchChestItemDrop, data);
 		}
 		
 		/// <summary>
@@ -322,7 +342,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"player_name", _gameData.AppDataProvider.DisplayNameTrimmed }
 			};
 			
-			_analyticsService.LogEvent(AnalyticsEvents.MatchPickupAction, data, false);
+			QueueEvent(AnalyticsEvents.MatchPickupAction, data);
 		}
 		
 		private bool IsSpectator()
@@ -338,6 +358,23 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			}
 			
 			_playerNumAttacks++;
+		}
+
+		private void QueueEvent(string eventName, Dictionary<string, object> parameters = null)
+		{
+			parameters?.Add("custom_event_timestamp", DateTime.UtcNow);
+			
+			_queue.Add(new AnalyticsMatchQueuedEvent(eventName, parameters));
+		}
+
+		private void SendQueue()
+		{
+			foreach (var matchEvent in _queue)
+			{
+				_analyticsService.LogEvent(matchEvent.EventName, matchEvent.Parameters);
+			}
+			
+			_queue.Clear();
 		}
 	}
 }

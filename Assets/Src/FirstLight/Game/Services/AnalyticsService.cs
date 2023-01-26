@@ -4,6 +4,7 @@ using Firebase.Analytics;
 using FirstLight.FLogger;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services.AnalyticsHelpers;
+using FirstLight.Server.SDK.Models;
 using FirstLight.Services;
 using FirstLight.UiService;
 using Newtonsoft.Json;
@@ -39,6 +40,9 @@ namespace FirstLight.Game.Services
 		public static readonly string Error = "error";
 		public static readonly string Purchase = "purchase";
 		public static readonly string ItemEquipAction = "item_equip_action";
+		public static readonly string InitialLoadingComplete = "initial_loading_complete";
+		public static readonly string LoadCoreAssetsComplete = "load_core_assets_complete";
+		public static readonly string LoadMatchAssetsComplete = "load_match_assets_complete";
 	}
 	
 	/// <summary>
@@ -102,6 +106,8 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc />
 		public void LogEvent(string eventName, Dictionary<string, object> parameters = null, bool isCriticalEvent = true)
 		{
+			//Debug.Log("Analytics event "+eventName+": "+JsonConvert.SerializeObject(parameters));
+			
 			try
 			{
 				//PlayFab Analytics

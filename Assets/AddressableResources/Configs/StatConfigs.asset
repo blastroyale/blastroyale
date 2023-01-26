@@ -20,97 +20,65 @@ MonoBehaviour:
     QuantumConfigs:
     - StatType: 0
       BaseValue:
-        RawValue: 29491200
+        RawValue: 9830400
       RarityMultiplier:
-        RawValue: 68583
+        RawValue: 78512
       LevelStepMultiplier:
-        RawValue: 3277
-      GradeStepMultiplier:
-        RawValue: 2785
+        RawValue: 1933
       CeilToInt: 1
-      ConversionToMightRate:
-        RawValue: 5898
     - StatType: 1
       BaseValue:
-        RawValue: 11796480
+        RawValue: 9830400
       RarityMultiplier:
-        RawValue: 68583
+        RawValue: 72090
       LevelStepMultiplier:
-        RawValue: 3277
-      GradeStepMultiplier:
-        RawValue: 2785
+        RawValue: 655
       CeilToInt: 1
-      ConversionToMightRate:
-        RawValue: 8192
     - StatType: 2
       BaseValue:
         RawValue: 13107
       RarityMultiplier:
-        RawValue: 68813
+        RawValue: 78512
       LevelStepMultiplier:
-        RawValue: 393
-      GradeStepMultiplier:
-        RawValue: 2720
+        RawValue: 1933
       CeilToInt: 0
-      ConversionToMightRate:
-        RawValue: 6291456
     - StatType: 3
       BaseValue:
         RawValue: 655360
       RarityMultiplier:
-        RawValue: 67502
+        RawValue: 78512
       LevelStepMultiplier:
-        RawValue: 223
-      GradeStepMultiplier:
-        RawValue: 1901
+        RawValue: 1933
       CeilToInt: 0
-      ConversionToMightRate:
-        RawValue: 272630
     - StatType: 5
       BaseValue:
         RawValue: 13107
       RarityMultiplier:
-        RawValue: 68583
+        RawValue: 78512
       LevelStepMultiplier:
-        RawValue: 10813
-      GradeStepMultiplier:
-        RawValue: 2785
+        RawValue: 1933
       CeilToInt: 0
-      ConversionToMightRate:
-        RawValue: 2162688
     - StatType: 6
       BaseValue:
         RawValue: 655360
       RarityMultiplier:
-        RawValue: 68813
+        RawValue: 78512
       LevelStepMultiplier:
-        RawValue: 321
-      GradeStepMultiplier:
-        RawValue: 2720
+        RawValue: 1933
       CeilToInt: 0
-      ConversionToMightRate:
-        RawValue: 102400
     - StatType: 7
       BaseValue:
         RawValue: 655360
       RarityMultiplier:
-        RawValue: 68583
+        RawValue: 78512
       LevelStepMultiplier:
-        RawValue: 328
-      GradeStepMultiplier:
-        RawValue: 2785
-      CeilToInt: 1
-      ConversionToMightRate:
-        RawValue: 327680
+        RawValue: 1933
+      CeilToInt: 0
     - StatType: 4
       BaseValue:
-        RawValue: 29491200
+        RawValue: 6553600
       RarityMultiplier:
-        RawValue: 68583
+        RawValue: 78512
       LevelStepMultiplier:
-        RawValue: 3277
-      GradeStepMultiplier:
-        RawValue: 2785
+        RawValue: 1933
       CeilToInt: 1
-      ConversionToMightRate:
-        RawValue: 5898

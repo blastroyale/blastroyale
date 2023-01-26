@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _configs:
   - Id: 12
-    PoolCapacity: 300
+    PoolCapacity: 200
     RestockIntervalMinutes: 180
     TotalRestockIntervalMinutes: 720
     UseNftData: 1
     BaseMaxTake: 16
     ScaleMultiplier:
-      RawValue: 983040
+      RawValue: 655360
     ShapeModifier:
       RawValue: 98304
     MaxPoolCapacityDecreaseModifier:
@@ -32,6 +32,8 @@ MonoBehaviour:
     TakeDecreaseExponent:
       RawValue: 117965
     PoolCapacityTrophiesModifier:
+      RawValue: 9830400000
+    TakeTrophiesModifier:
       RawValue: 655360000
   - Id: 26
     PoolCapacity: 600
@@ -52,4 +54,6 @@ MonoBehaviour:
     TakeDecreaseExponent:
       RawValue: 0
     PoolCapacityTrophiesModifier:
-      RawValue: 65536000000
+      RawValue: 327680000000
+    TakeTrophiesModifier:
+      RawValue: 327680000000

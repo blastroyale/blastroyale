@@ -34,7 +34,7 @@ namespace Quantum
 		public FP TrophyEloK;
 		public FP TrophyMinChange;
 		public uint NftAssumedOwned;
-		public uint MinNftForEarnings;
+		public uint MinNftForPoolSizeBonus;
 		public FP EarningsAugmentationStrengthDropMod ;
 		public FP EarningsAugmentationStrengthSteepnessMod;
 		public uint NftUsageCooldownMinutes;
@@ -48,6 +48,10 @@ namespace Quantum
 		public FP NftDurabilityDropDays;
 		public FP NonNftDurabilityDropDays;
 		public int BotsDifficultyTrophiesStep;
+		public FP MightBaseValue;
+		public FP MightRarityMultiplier;
+		public FP MightLevelMultiplier;
+		public FP TrophiesPerKill;
 	}
 
 	/// <summary>

@@ -3,31 +3,49 @@
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
         <Nullable>enable</Nullable>
+        <LangVersion>preview</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
-      <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.1.1" />
-      <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.1.0" />
-      <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.1.0" />
-      <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.10" />
-      <PackageReference Include="Microsoft.Azure.WebJobs" Version="3.0.23" />
-      <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
-      <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-      <PackageReference Include="PlayFabAllSDK" Version="1.127.220718" />
-      <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
-      <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.4.0" />
-      <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.4.0" />
+        <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.1.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.1.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.1.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.10" />
+        <PackageReference Include="Microsoft.Azure.WebJobs" Version="3.0.23" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+        <PackageReference Include="PlayFabAllSDK" Version="1.127.220718" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.4.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.4.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\FirstLightServerSDK\FirstLightServerSDK.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Include="Resources\gameTranslations.json">
+            <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        </EmbeddedResource>
+        <EmbeddedResource Include="Resources\gameConfig.json">
+            <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
       <Reference Include="FirstLight.Game">
         <HintPath>..\Lib\FirstLight.Game.dll</HintPath>
       </Reference>
+      <Reference Include="quantum.code">
+        <HintPath>..\Lib\quantum.code.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\FirstLightServerSDK\FirstLightServerSDK.csproj" />
-    </ItemGroup>
 
 </Project>

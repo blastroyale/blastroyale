@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using FirstLight.Editor.EditorTools;
 using UnityEditor;
 using UnityEditor.AddressableAssets.Settings;
 using UnityEditor.Build.Reporting;
@@ -12,6 +13,17 @@ namespace FirstLight.Editor.Build
 	/// </summary>
 	public static class Builder
 	{
+
+		/// <summary>
+		/// Exports the necessary backend dlls & configurations to the correct folders
+		/// for building & running our logic service & quantum server
+		/// </summary>
+		public static void ConfigureServer()
+		{
+			BackendMenu.MoveBackendDlls();
+			BackendMenu.ExportQuantumAssets();
+		}
+		
 		/// <summary>
 		/// Sets the symbols for the Unity build
 		/// </summary>

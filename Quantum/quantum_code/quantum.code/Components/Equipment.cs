@@ -13,12 +13,12 @@ namespace Quantum
 		{
 			GameIdGroup.Amulet, GameIdGroup.Armor, GameIdGroup.Shield, GameIdGroup.Helmet, GameIdGroup.Weapon
 		};
-		
+
 		/// <summary>
 		/// An invalid piece of equipment
 		/// </summary>
 		public static Equipment None => new Equipment();
-		
+
 		/// <summary>
 		/// The default equipment weapon <see cref="GameId"/>
 		/// </summary>
@@ -33,20 +33,18 @@ namespace Quantum
 		/// Creates a new Equipment item with default (lowest) values, unless otherwise defined.
 		/// </summary>
 		public Equipment(GameId gameId,
-		                 EquipmentEdition edition = EquipmentEdition.Genesis,
-		                 EquipmentRarity rarity = EquipmentRarity.Common,
-		                 EquipmentGrade grade = EquipmentGrade.GradeV,
-		                 EquipmentFaction faction = EquipmentFaction.Order,
-		                 EquipmentAdjective adjective = EquipmentAdjective.Regular,
-		                 EquipmentMaterial material = EquipmentMaterial.Plastic,
-		                 EquipmentManufacturer manufacturer = EquipmentManufacturer.Military,
-		                 uint maxDurability = 4,
-		                 uint maxLevel = 10,
-		                 uint initialReplicationCounter = 0,
-		                 uint tuning = 0,
-		                 uint level = 0,
-		                 uint generation = 0,
-		                 uint replicationCounter = 0,
+						 EquipmentEdition edition = EquipmentEdition.Genesis,
+						 EquipmentRarity rarity = EquipmentRarity.Common,
+						 EquipmentGrade grade = EquipmentGrade.GradeV,
+						 EquipmentFaction faction = EquipmentFaction.Order,
+						 EquipmentAdjective adjective = EquipmentAdjective.Regular,
+						 EquipmentMaterial material = EquipmentMaterial.Plastic,
+						 uint maxDurability = 4,
+						 uint initialReplicationCounter = 0,
+						 uint tuning = 0,
+						 uint level = 1,
+						 uint generation = 0,
+						 uint replicationCounter = 0,
 						 uint totalRestoredDurability = 0,
 						 long lastRepairTimestamp = 0)
 		{
@@ -58,10 +56,8 @@ namespace Quantum
 			Faction = faction;
 			Adjective = adjective;
 			Material = material;
-			Manufacturer = manufacturer;
 
 			MaxDurability = maxDurability;
-			MaxLevel = maxLevel;
 			InitialReplicationCounter = initialReplicationCounter;
 			Tuning = tuning;
 
@@ -79,11 +75,6 @@ namespace Quantum
 		public bool IsValid() => GameId != GameId.Random;
 
 		/// <summary>
-		/// Checks if this item is at <see cref="MaxLevel"/>.
-		/// </summary>
-		public bool IsMaxLevel() => Level >= MaxLevel;
-
-		/// <summary>
 		/// Checks if the <see cref="GameId"/> belongs to the <see cref="GameIdGroup.Weapon"/> group.
 		/// </summary>
 		public bool IsWeapon() => GetEquipmentGroup() == GameIdGroup.Weapon;
@@ -92,28 +83,13 @@ namespace Quantum
 		/// Checks if this item is the Hammer.
 		/// </summary>
 		public bool IsDefaultItem() => GameId == GameId.Hammer;
-		
+
 		/// <summary>
 		/// Requests the equipment's current might
 		/// </summary>
 		public int GetTotalMight(Frame f)
 		{
-			if (IsWeapon())
-			{
-				QuantumStatCalculator.CalculateWeaponStats(f, this, out var armour, out var health, out var speed, 
-				                                           out var power, out var attackRange, out var pickupSpeed,
-				                                           out var ammoCapacity, out var shieldsCapacity);
-				return QuantumStatCalculator.GetTotalMight(f.StatConfigs.Dictionary, armour,health,speed, power, 
-				                                           attackRange, pickupSpeed, ammoCapacity, shieldsCapacity);
-			}
-			else
-			{
-				QuantumStatCalculator.CalculateGearStats(f, this, out var armour, out var health, out var speed, 
-				                                         out var power, out var attackRange, out var pickupSpeed,
-				                                         out var ammoCapacity, out var shieldsCapacity);
-				return QuantumStatCalculator.GetTotalMight(f.StatConfigs.Dictionary,armour,health,speed, power, 
-				                                           attackRange, pickupSpeed, ammoCapacity, shieldsCapacity);
-			}
+			return QuantumStatCalculator.GetMightOfItem(f.GameConfig, this);
 		}
 
 		/// <summary>
@@ -141,9 +117,25 @@ namespace Quantum
 			       LastRepairTimestamp == other.LastRepairTimestamp && Edition == other.Edition &&
 			       Faction == other.Faction && GameId == other.GameId && Generation == other.Generation &&
 			       Grade == other.Grade && InitialReplicationCounter == other.InitialReplicationCounter &&
-			       Level == other.Level && Manufacturer == other.Manufacturer && Material == other.Material &&
-			       MaxDurability == other.MaxDurability && MaxLevel == other.MaxLevel &&
+			       Level == other.Level && Material == other.Material &&
+			       MaxDurability == other.MaxDurability &&
 			       ReplicationCounter == other.ReplicationCounter && Tuning == other.Tuning;
+		}
+
+		/// <summary>
+		/// Creates equipment on the given frame.
+		/// Should be the source of truth for creating equipment inside the simulation.
+		/// Player's loadout are defined outside in the game client and are passed down to the simulation.
+		/// This loadout can be used for some items in the simulation such as box drops.
+		/// </summary>
+		public static Equipment Create(GameId id, EquipmentRarity rarity, uint level, Frame f)
+		{
+			return new Equipment()
+			{
+				GameId = id,
+				Rarity = rarity,
+				Level = level
+			};
 		}
 
 		/// <summary>
@@ -155,25 +147,43 @@ namespace Quantum
 			unchecked
 			{
 				var hash = 281;
-				hash = hash * 31 + (Int32)Adjective;
-				hash = hash * 31 + (Int32)Edition;
-				hash = hash * 31 + (Int32)Faction;
-				hash = hash * 31 + (Int32)GameId;
+				hash = hash * 31 + (Int32) Adjective;
+				hash = hash * 31 + (Int32) Edition;
+				hash = hash * 31 + (Int32) Faction;
+				hash = hash * 31 + (Int32) GameId;
 				hash = hash * 31 + Generation.GetHashCode();
-				hash = hash * 31 + (Int32)Grade;
+				hash = hash * 31 + (Int32) Grade;
 				hash = hash * 31 + InitialReplicationCounter.GetHashCode();
 				// hash = hash * 31 + LastRepairTimestamp.GetHashCode(); ; // ignored on server
 				hash = hash * 31 + Level.GetHashCode();
-				hash = hash * 31 + (Int32)Manufacturer;
-				hash = hash * 31 + (Int32)Material;
+				hash = hash * 31 + (Int32) Material;
 				hash = hash * 31 + MaxDurability.GetHashCode();
-				hash = hash * 31 + MaxLevel.GetHashCode();
-				hash = hash * 31 + (Int32)Rarity;
+				hash = hash * 31 + (Int32) Rarity;
 				hash = hash * 31 + ReplicationCounter.GetHashCode();
 				hash = hash * 31 + TotalRestoredDurability.GetHashCode();
 				hash = hash * 31 + Tuning.GetHashCode();
 				return hash;
 			}
+		}
+
+		public override string ToString()
+		{
+			return
+				$"Equipment({GameId}){{\n" +
+				$"{nameof(Adjective)}: {Adjective},\n" +
+				$"{nameof(Edition)}: {Edition},\n" +
+				$"{nameof(Faction)}: {Faction}\n" +
+				$"{nameof(Generation)}: {Generation}\n" +
+				$"{nameof(Grade)}: {Grade}\n" +
+				$"{nameof(InitialReplicationCounter)}: {InitialReplicationCounter}\n" +
+				$"{nameof(LastRepairTimestamp)}: {LastRepairTimestamp}\n" +
+				$"{nameof(Level)}: {Level}\n" +
+				$"{nameof(Material)}: {Material}\n" +
+				$"{nameof(MaxDurability)}: {MaxDurability}\n" +
+				$"{nameof(Rarity)}: {Rarity}\n" +
+				$"{nameof(ReplicationCounter)}: {ReplicationCounter}\n" +
+				$"{nameof(TotalRestoredDurability)}: {TotalRestoredDurability}\n" +
+				$"{nameof(Tuning)}: {Tuning}\n}}";
 		}
 	}
 }

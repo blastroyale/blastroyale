@@ -209,19 +209,20 @@ namespace Quantum
 				var shieldsList = new List<GameId>(GameIdGroup.Shield.GetIds());
 				var armorsList = new List<GameId>(GameIdGroup.Armor.GetIds());
 				var amuletsList = new List<GameId>(GameIdGroup.Amulet.GetIds());
+
 				
-				botLoadout.Add(new Equipment{GameId = helmetsList[f.RNG->Next(0, helmetsList.Count)], Rarity = medianRarity });
+				botLoadout.Add(Equipment.Create(helmetsList[f.RNG->Next(0, helmetsList.Count)], medianRarity, 1, f));
 				if (botCharacter->LoadoutGearNumber > 1)
 				{
-					botLoadout.Add(new Equipment{GameId = shieldsList[f.RNG->Next(0, shieldsList.Count)], Rarity = medianRarity});
+					botLoadout.Add(Equipment.Create(shieldsList[f.RNG->Next(0, shieldsList.Count)], medianRarity, 1, f));
 				}
 				if (botCharacter->LoadoutGearNumber > 2)
 				{
-					botLoadout.Add(new Equipment{GameId = armorsList[f.RNG->Next(0, armorsList.Count)], Rarity = medianRarity});
+					botLoadout.Add(Equipment.Create(armorsList[f.RNG->Next(0, armorsList.Count)], medianRarity, 1, f));
 				}
 				if (botCharacter->LoadoutGearNumber > 3)
 				{
-					botLoadout.Add(new Equipment{GameId = amuletsList[f.RNG->Next(0, amuletsList.Count)], Rarity = medianRarity});
+					botLoadout.Add(Equipment.Create(amuletsList[f.RNG->Next(0, amuletsList.Count)], medianRarity, 1, f));
 				}
 			}
 			
@@ -308,14 +309,14 @@ namespace Quantum
 
 					// If we dropped all equipment from loadout, and capacity left to drop, chose randomly between either
 					// a capacity upgrade or an equipment upgrade
-					// chances are: 50% equipment, 25% big shields capacity, 25% small shields capacity
+					// chances are: 25% equipment, 25% big shields capacity, 50% small shields capacity
 					var furtherDrop = GameId.Random;
 					if (statsShields.StatValue < statsShields.BaseValue)
 					{
-						furtherDrop = QuantumHelpers.GetRandomItem(f, GameId.Random, GameId.Random, GameId.ShieldCapacityLarge, GameId.ShieldCapacitySmall);
+						furtherDrop = QuantumHelpers.GetRandomItem(f, GameId.Random, GameId.ShieldCapacityLarge, GameId.ShieldCapacitySmall, GameId.ShieldCapacitySmall);
 					}
 
-					// Drop equipment upgrades if you rolled it or had full shields capacity
+					// Drop equipment upgrades if you rolled it
 					if (furtherDrop == GameId.Random)
 					{
 						// In the edge case when we dropped all possible equipment

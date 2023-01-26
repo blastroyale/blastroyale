@@ -2,14 +2,15 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: UI_Minimap
   m_Shader: {fileID: 4800000, guid: 54df1fdcce8e40639be43b4768a30db1, type: 3}
-  m_ShaderKeywords: 
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -32,7 +33,7 @@ Material:
     - _ColorMask: 15
     - _DangerAreaSize: 1
     - _OuterRindWidth: 0.01
-    - _PlayersSize: 0.01
+    - _PlayersSize: 0.02
     - _RingWidth: 0.01
     - _SafeAreaSize: 1
     - _Stencil: 0
@@ -47,7 +48,8 @@ Material:
     - _DangerAreaOffset: {r: 0, g: 0, b: 0, a: 0}
     - _DangerRingColor: {r: 1, g: 0, b: 0, a: 1}
     - _OuterRingColor: {r: 1, g: 1, b: 1, a: 0.29803923}
-    - _PlayersColor: {r: 1, g: 0.30254513, b: 0, a: 1}
+    - _PlayersColor: {r: 1, g: 0.23014379, b: 0, a: 1}
+    - _PlayersOutlineColor: {r: 0.2264151, g: 0.05238625, b: 0, a: 1}
     - _SafeAreaColor: {r: 1, g: 1, b: 1, a: 1}
     - _SafeAreaOffset: {r: 0, g: 0, b: 0, a: 0}
     - _UvRect: {r: 0, g: 0, b: 1, a: 1}

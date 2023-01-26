@@ -48,6 +48,7 @@ namespace FirstLight.Game.UIElements
 			{EquipmentStatType.PickupSpeed, 0.25f},
 			{EquipmentStatType.ShieldCapacity, 800},
 			{EquipmentStatType.MagazineSize, 30},
+			{EquipmentStatType.AmmoCapacityBonus, 0.25f},
 		};
 
 		private static readonly HashSet<EquipmentStatType> INVERT_VALUES = new()
@@ -102,7 +103,7 @@ namespace FirstLight.Game.UIElements
 
 		public void SetValue(EquipmentStatType type, float currentValue, bool showUpgrade = false, float nextValue = 0f)
 		{
-			_title.text = type.GetTranslation();
+			_title.text = type.GetLocalization();
 			_amount.text = currentValue.ToString(GetValueFormat(type));
 			_amountNext.text = nextValue.ToString(GetValueFormat(type));
 			_amountNext.SetDisplay(showUpgrade);
@@ -149,8 +150,9 @@ namespace FirstLight.Game.UIElements
 				EquipmentStatType.AttackCooldown     => "N2",
 				EquipmentStatType.TargetRange        => "N3",
 				EquipmentStatType.PickupSpeed        => "P2",
-				EquipmentStatType.Speed              => "N2",
+				EquipmentStatType.Speed              => "N3",
 				EquipmentStatType.SplashDamageRadius => "N2",
+				EquipmentStatType.AmmoCapacityBonus  => "P2",
 				_                                    => "N0"
 			};
 		}

@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
-using UnityEngine.UIElements;
-using Object = System.Object;
 
 namespace FirstLight.Editor.EditorTools
 {
@@ -259,6 +259,115 @@ namespace FirstLight.Editor.EditorTools
 
 				Undo.DestroyObjectImmediate(cc);
 			}
+		}
+
+		[MenuItem("FLG/Generate Sprite USS")]
+		private static void GenerateSpriteUss()
+		{
+			const string SPRITES_FOLDER = "Assets/Art/UI/Sprites/";
+			const string STYLES_FOLDER = "Assets/Art/UI/Styles/";
+
+			foreach (var grouping in AssetDatabase.GetAllAssetPaths()
+						 .OrderBy(s => s)
+						 .Where(path =>
+							 path.StartsWith(SPRITES_FOLDER) && !Directory.Exists(path) &&
+							 AssetDatabase.GetMainAssetTypeAtPath(path) == typeof(Texture2D))
+						 .Select(s =>
+						 {
+							 Debug.Log(
+								 $"Path: {s} type: {AssetDatabase.GetMainAssetTypeAtPath(s) == typeof(Texture2D)}");
+							 return s;
+						 })
+						 .GroupBy(str => str.Split('/')[4]))
+			{
+				Debug.Log($"Generating USS: {grouping.Key}");
+				var uss = GenerateSpriteUss(grouping);
+				Debug.Log(uss);
+
+				var stylePathRelative = STYLES_FOLDER + $"Sprites-{GetCleanAtlasName(grouping.Key, false)}.uss";
+				var stylePathAbsolute = Application.dataPath.Replace("Assets", "") + stylePathRelative;
+
+				Debug.Log($"Writing USS: {grouping.Key} to file '{stylePathRelative}'");
+
+				File.WriteAllText(stylePathAbsolute, uss);
+				AssetDatabase.ImportAsset(stylePathRelative);
+				Debug.Log($"USS processed: {grouping.Key}");
+			}
+
+			Debug.Log($"Sprite USS generation finished.");
+		}
+
+		private static string GenerateSpriteUss(IGrouping<string, string> arg)
+		{
+			var sb = new StringBuilder();
+
+			var names = new HashSet<string>();
+
+			// Generate variables
+			sb.AppendLine("/* AUTO GENERATED */");
+			sb.AppendLine(":root {");
+			foreach (var path in arg)
+			{
+				var name = GenerateSpriteVar(arg.Key, path, true);
+
+				if (names.Contains(name))
+				{
+					throw new NotSupportedException($"Found duplicate sprite name in {arg.Key}: {name}");
+				}
+
+				names.Add(name);
+
+				sb.AppendLine("    " + GenerateSpriteVar(arg.Key, path, true));
+			}
+
+			sb.AppendLine("}");
+			sb.AppendLine();
+
+			// Generate classes
+			foreach (var path in arg)
+			{
+				var filename = Path.GetFileNameWithoutExtension(path);
+
+				// Pressed versions get the :active pseudo class
+				if (filename.EndsWith("-pressed"))
+				{
+					sb.AppendLine(
+						$".sprite-{GetCleanAtlasName(arg.Key)}__{filename.Replace("-pressed", "")}:active {{");
+					sb.AppendLine($"    background-image: var({GenerateSpriteVar(arg.Key, path, false)});");
+					sb.AppendLine("}");
+				}
+				else
+				{
+					sb.AppendLine($".sprite-{GetCleanAtlasName(arg.Key)}__{Path.GetFileNameWithoutExtension(path)} {{");
+					sb.AppendLine($"    background-image: var({GenerateSpriteVar(arg.Key, path, false)});");
+					sb.AppendLine("}");
+				}
+
+				sb.AppendLine();
+			}
+
+			return sb.ToString();
+		}
+
+		private static string GenerateSpriteVar(string atlas, string path, bool full)
+		{
+			return $"--sprite-{GetCleanAtlasName(atlas)}__{Path.GetFileNameWithoutExtension(path)}" +
+				(full ? $": url('/{path}');" : "");
+		}
+
+		private static string GetCleanAtlasName(string atlas, bool lowercase = true)
+		{
+			if (lowercase)
+			{
+				atlas = atlas.ToLowerInvariant();
+			}
+
+			while (atlas.Contains(" "))
+			{
+				atlas = atlas.Replace(" ", string.Empty);
+			}
+
+			return atlas;
 		}
 	}
 }

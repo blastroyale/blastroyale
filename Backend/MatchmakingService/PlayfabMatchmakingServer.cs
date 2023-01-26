@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using GameLogicApp.Cloudscript;
+using ServerCommon.Cloudscript;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using PlayFab;

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System;
 using Photon.Deterministic;
 
 namespace Quantum
@@ -32,17 +32,17 @@ namespace Quantum
 			var wc = f.WeaponConfigs.GetConfig(item.GameId);
 			var besc = f.BaseEquipmentStatConfigs.GetConfig(item.GameId);
 			var esc = f.EquipmentStatConfigs.GetConfig(item);
-			var emsc = f.EquipmentMaterialStatConfigs.GetConfig(item);
 			
-			health = CalculateWeaponStat(wc, statConfigs[StatType.Health], besc, esc, emsc, item).AsInt;
-			speed = CalculateWeaponStat(wc, statConfigs[StatType.Speed], besc, esc, emsc, item);
-			armour = CalculateWeaponStat(wc, statConfigs[StatType.Armour], besc, esc, emsc, item).AsInt;
-			power = CalculateWeaponStat(wc, statConfigs[StatType.Power], besc, esc, emsc, item);
-			attackRange = CalculateWeaponStat(wc, statConfigs[StatType.AttackRange], besc, esc, emsc, item);
-			pickupSpeed = CalculateWeaponStat(wc, statConfigs[StatType.PickupSpeed], besc, esc, emsc, item);
-			ammoCapacity = CalculateWeaponStat(wc, statConfigs[StatType.AmmoCapacity], besc, esc, emsc, item);
-			shieldCapacity = CalculateWeaponStat(wc, statConfigs[StatType.Shield], besc, esc, emsc, item);
+			health = CalculateWeaponStat(wc, statConfigs[StatType.Health], besc, esc, item).AsInt;
+			speed = CalculateWeaponStat(wc, statConfigs[StatType.Speed], besc, esc, item);
+			armour = CalculateWeaponStat(wc, statConfigs[StatType.Armour], besc, esc, item).AsInt;
+			power = CalculateWeaponStat(wc, statConfigs[StatType.Power], besc, esc, item);
+			attackRange = CalculateWeaponStat(wc, statConfigs[StatType.AttackRange], besc, esc, item);
+			pickupSpeed = CalculateWeaponStat(wc, statConfigs[StatType.PickupSpeed], besc, esc, item);
+			ammoCapacity = CalculateWeaponStat(wc, statConfigs[StatType.AmmoCapacity], besc, esc, item);
+			shieldCapacity = CalculateWeaponStat(wc, statConfigs[StatType.Shield], besc, esc, item);
 		}
+		
 		/// <summary>
 		/// Requests the <see cref="Equipment"/> stats based on the given <paramref name="item"/>
 		/// </summary>
@@ -66,45 +66,66 @@ namespace Quantum
 			var statConfigs = f.StatConfigs.Dictionary;
 			var besc = f.BaseEquipmentStatConfigs.GetConfig(item.GameId);
 			var esc = f.EquipmentStatConfigs.GetConfig(item);
-			var emsc = f.EquipmentMaterialStatConfigs.GetConfig(item);
 			
-			health = CalculateGearStat(statConfigs[StatType.Health], besc, esc, emsc, item).AsInt;
-			speed = CalculateGearStat(statConfigs[StatType.Speed], besc, esc, emsc, item);
-			armour = CalculateGearStat(statConfigs[StatType.Armour], besc, esc, emsc, item).AsInt;
-			power = CalculateGearStat(statConfigs[StatType.Power], besc, esc, emsc, item);
-			attackRange = CalculateGearStat(statConfigs[StatType.AttackRange], besc, esc, emsc, item);
-			pickupSpeed = CalculateGearStat(statConfigs[StatType.PickupSpeed], besc, esc, emsc, item);
-			ammoCapacity = CalculateGearStat(statConfigs[StatType.AmmoCapacity], besc, esc, emsc, item);
-			shieldCapacity = CalculateGearStat(statConfigs[StatType.Shield], besc, esc, emsc, item);
+			health = CalculateGearStat(statConfigs[StatType.Health], besc, esc, item).AsInt;
+			speed = CalculateGearStat(statConfigs[StatType.Speed], besc, esc, item);
+			armour = CalculateGearStat(statConfigs[StatType.Armour], besc, esc, item).AsInt;
+			power = CalculateGearStat(statConfigs[StatType.Power], besc, esc, item);
+			attackRange = CalculateGearStat(statConfigs[StatType.AttackRange], besc, esc, item);
+			pickupSpeed = CalculateGearStat(statConfigs[StatType.PickupSpeed], besc, esc, item);
+			ammoCapacity = CalculateGearStat(statConfigs[StatType.AmmoCapacity], besc, esc, item);
+			shieldCapacity = CalculateGearStat(statConfigs[StatType.Shield], besc, esc, item);
 		}
 
 		/// <summary>
-		/// Requests the total might for the give stats
+		/// Requests the total might for the full equipment set
 		/// </summary>
-		public static int GetTotalMight(IReadOnlyDictionary<StatType, QuantumStatConfig> statConfigs, FP armour, FP health, 
-		                                FP speed, FP power, FP attackRange, FP pickupSpeed, FP ammoCapacity, FP shieldCapacity)
+		public static int GetTotalMight(QuantumGameConfig gameConfig, Equipment weapon, FixedArray<Equipment> gear)
 		{
-			return FPMath.RoundToInt(armour * statConfigs[StatType.Armour].ConversionToMightRate
-			                         + health * statConfigs[StatType.Health].ConversionToMightRate
-			                         + speed * statConfigs[StatType.Speed].ConversionToMightRate
-			                         + power * statConfigs[StatType.Power].ConversionToMightRate
-			                         + attackRange * statConfigs[StatType.AttackRange].ConversionToMightRate
-			                         + pickupSpeed * statConfigs[StatType.PickupSpeed].ConversionToMightRate
-			                         + ammoCapacity * statConfigs[StatType.AmmoCapacity].ConversionToMightRate
-			                         + shieldCapacity * statConfigs[StatType.Shield].ConversionToMightRate);
+			var baseValue = gameConfig.MightBaseValue;
+			var rarityM = gameConfig.MightRarityMultiplier;
+			var levelM = gameConfig.MightLevelMultiplier;
+			
+			var might = FPMath.CeilToInt(baseValue * QuantumHelpers.PowFp(rarityM, (uint) weapon.Rarity)
+										 + (baseValue * levelM * weapon.Level));
+			
+			for (var i = 0; i < gear.Length; i++)
+			{
+				if (!gear[i].IsValid())
+				{
+					continue;
+				}
+				
+				might += FPMath.CeilToInt(baseValue * QuantumHelpers.PowFp(rarityM, (uint) gear[i].Rarity)
+										  + (baseValue * levelM * gear[i].Level));
+			}
+			
+			return might;
 		}
 
+		/// <summary>
+		/// Requests the might for a single item
+		/// </summary>
+		public static int GetMightOfItem(QuantumGameConfig gameConfig, Equipment item)
+		{
+			var baseValue = gameConfig.MightBaseValue;
+			var rarityM = gameConfig.MightRarityMultiplier;
+			var levelM = gameConfig.MightLevelMultiplier;
+			
+			return FPMath.CeilToInt(baseValue * QuantumHelpers.PowFp(rarityM, (uint) item.Rarity)
+									+ (baseValue * levelM * item.Level));
+		}
+		
 		/// <summary>
 		/// Calculates the <paramref name="equipment"/> stats based on all Weapon <see cref="Equipment"/> stat configs.
 		/// </summary>
 		public static FP CalculateWeaponStat(QuantumWeaponConfig weaponConfig, QuantumStatConfig statConfig, 
 		                                     QuantumBaseEquipmentStatConfig baseStatConfig,
-		                                     QuantumEquipmentStatConfig equipmentStatConfig, 
-		                                     QuantumEquipmentMaterialStatConfig materialStatConfig, Equipment equipment)
+		                                     QuantumEquipmentStatConfig equipmentStatConfig, Equipment equipment)
 		{
 			//TODO: make a second method that calls the frame in order to get game modde dependant stats
 			
-			var attributeValue = CalculateGearStat(statConfig, baseStatConfig, equipmentStatConfig, materialStatConfig, equipment);
+			var attributeValue = CalculateGearStat(statConfig, baseStatConfig, equipmentStatConfig, equipment);
 			
 			return statConfig.CeilToInt ? FPMath.CeilToInt(attributeValue) : attributeValue;
 		}
@@ -113,10 +134,9 @@ namespace Quantum
 		/// Calculates the <paramref name="equipment"/> stats based on all <see cref="Equipment"/> stat configs.
 		/// </summary>
 		public static FP CalculateGearStat(QuantumStatConfig statConfig, QuantumBaseEquipmentStatConfig baseStatConfig,
-		                               QuantumEquipmentStatConfig equipmentStatConfig, 
-		                               QuantumEquipmentMaterialStatConfig materialStatConfig, Equipment equipment)
+		                               QuantumEquipmentStatConfig equipmentStatConfig, Equipment equipment)
 		{
-			var statRatio = equipmentStatConfig.GetValue(statConfig.StatType) + materialStatConfig.GetValue(statConfig.StatType);
+			var statRatio = equipmentStatConfig.GetValue(statConfig.StatType);
 			var attributeValue = CalculateAttributeStatValue(statConfig, baseStatConfig.GetValue(statConfig.StatType), 
 			                                                 statRatio, equipment);
 
@@ -125,19 +145,19 @@ namespace Quantum
 
 		private static FP CalculateAttributeStatValue(QuantumStatConfig statConfig, FP ratioToBase, FP statRatio, Equipment equipment)
 		{
+			if (equipment.Level <= 0)
+			{
+				throw new ArgumentOutOfRangeException(nameof(equipment.Level), equipment.Level, "Equipment level cannot be <= 0");
+			}
+			
 			var modifiedValue = FP._0;
-			var baseValue = statConfig.BaseValue * (ratioToBase + statRatio);
-			var baseValueForRarity = baseValue * QuantumHelpers.PowFp(statConfig.RarityMultiplier, (uint) equipment.Rarity);
+			var value = (ratioToBase + statRatio) * statConfig.BaseValue;
 
-			// Apply rarity
-			modifiedValue += baseValueForRarity;
-
-			// Apply grade (keep in mind that the first in order, GradeI, is the most powerful one, so it's reversed to levels and rarities)
-			modifiedValue += baseValueForRarity * statConfig.GradeStepMultiplier *
-			                 ((uint) EquipmentGrade.TOTAL - (uint) equipment.Grade - 1);
-
-			// Apply level step (equipment.level starts at 0 so we don't need to do -1 like we do in design data)
-			modifiedValue += baseValueForRarity * statConfig.LevelStepMultiplier * equipment.Level;
+			// Apply rarity multiplier
+			modifiedValue += value * QuantumHelpers.PowFp(statConfig.RarityMultiplier, (uint) equipment.Rarity);
+			
+			// Should always be 0 when initial level (1) by design
+			modifiedValue += value * statConfig.LevelStepMultiplier * (equipment.Level - 1);
 
 			return modifiedValue;
 		}

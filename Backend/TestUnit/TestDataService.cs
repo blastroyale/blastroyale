@@ -1,4 +1,5 @@
 
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Backend.Game;
@@ -82,6 +83,19 @@ public class TestDataService
 		Assert.AreNotEqual(modelAfter.GetHashCode(), modelBefore.GetHashCode());
 		Assert.True(resultDelta.ModifiedTypes.ContainsKey(typeof(PlayerData)));
 		Assert.AreEqual(modelAfter.GetHashCode(), resultDelta.ModifiedTypes.Values.First());
+	}
+
+	[Test]
+	public async Task TestOnlyTriggerDeltaIfModified()
+	{
+		var initialState = await _server.ServerState.GetPlayerState(_server.GetTestPlayerID());
+		var dataProvider = new ServerPlayerDataProvider(initialState);
+		var playerData = dataProvider.GetData<PlayerData>();
+
+		Assert.IsTrue(dataProvider.ModelsConsumed.Contains(playerData.GetType()));
+		var newState = dataProvider.GetUpdatedState();
+		Assert.IsFalse(newState.HasDelta());
+		Assert.AreEqual(0, newState.GetOnlyUpdatedState().Keys.Count);
 	}
 	
 	[Test]

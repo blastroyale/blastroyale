@@ -1,6 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
+using FirstLight.Game.Commands;
+using FirstLight.Game.Utils;
 using FirstLight.Server.SDK;
+using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Services;
 using Src.FirstLight.Server.ServerServices;
 
@@ -13,6 +17,19 @@ namespace Src.FirstLight.Server
     public class FlgServerConfig : IServerSetup
     {
         /// <summary>
+        /// Will be called on server when instantiating the plugin
+        /// </summary>
+        public FlgServerConfig()
+        {
+            FlgCustomSerializers.RegisterSerializers();
+        }
+
+        public Assembly GetCommandsAssembly()
+        {
+            return typeof(UpdatePlayerSkinCommand).Assembly;
+        }
+
+        /// <summary>
         /// Here we define plugins that are client-specific with specific logic.
         /// Plugins run on server can listen to server events and react/modify them.
         /// </summary>
@@ -21,7 +38,8 @@ namespace Src.FirstLight.Server
             return new ServerPlugin[]
             {
                 new ServerAnalyticsPlugin(),
-                new SeasonResetPlugin()
+                new SeasonResetPlugin(),
+                new ServerStatisticsPlugin()
             };
         }
 

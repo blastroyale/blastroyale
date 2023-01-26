@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Photon.Deterministic;
 
 namespace Quantum
@@ -45,7 +46,7 @@ namespace Quantum
 			}
 			else if (GameId.IsInGroup(GameIdGroup.Chest))
 			{
-				Collectable = SpawnChest(f, GameId, transform);
+				Collectable = SpawnChest(f, GameId, transform.Position);
 			}
 			else if (GameId == GameId.Random || GameId.IsInGroup(GameIdGroup.Weapon))
 			{
@@ -95,7 +96,7 @@ namespace Quantum
 			                                            (int) EquipmentRarity.TOTAL - 1);
 			var equipment = id == GameId.Random
 				                ? gameContainer.GenerateNextWeapon(f)
-				                : new Equipment(configs.GetConfig(id).Id, rarity: rarity);
+								: Equipment.Create(configs.GetConfig(id).Id, rarity, 1, f);
 
 			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, transform.Position, FPQuaternion.Identity,
 			                                                        equipment);
@@ -109,7 +110,7 @@ namespace Quantum
 		private EntityRef SpawnGear(Frame f, GameId id, int rarityModifier, Transform3D transform)
 		{
 			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.EquipmentPickUpPrototype.Id));
-			var equipment = new Equipment(id);
+			var equipment = Equipment.Create(id, EquipmentRarity.Common, 1, f);
 
 			f.Unsafe.GetPointer<EquipmentCollectable>(entity)->Init(f, entity, transform.Position, FPQuaternion.Identity,
 			                                                        equipment);
@@ -118,14 +119,14 @@ namespace Quantum
 		}
 
 		/// <summary>
-		/// Spawns a <see cref="Chest"/> of the given <paramref name="id"/> in the given <paramref name="transform"/>
+		/// Spawns a <see cref="Chest"/> of the given <paramref name="id"/> in the given <paramref name="position"/>
 		/// </summary>
-		public static EntityRef SpawnChest(Frame f, GameId id, Transform3D transform)
+		public static EntityRef SpawnChest(Frame f, GameId id, FPVector3 position)
 		{
 			var config = f.ChestConfigs.GetConfig(id);
 			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.ChestPrototype.Id));
 
-			f.Unsafe.GetPointer<Chest>(entity)->Init(f, entity, transform.Position, transform.Rotation, config);
+			f.Unsafe.GetPointer<Chest>(entity)->Init(f, entity, position, FPQuaternion.Identity, config);
 
 			return entity;
 		}

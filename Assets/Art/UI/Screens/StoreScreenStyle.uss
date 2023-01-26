@@ -43,7 +43,6 @@
     padding: 20px;
     -unity-text-align: middle-center;
     font-size: 50px;
-    -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Condensed%20Ultra%20Italic.otf?fileID=12800000&guid=6ff2428eb8a974c2281717afe377e3c6&type=3#Stawix - Amsi Pro Condensed Ultra Italic');
     color: rgb(255, 255, 255);
     width: 100%;
     -unity-text-outline-width: 1px;
@@ -67,18 +66,6 @@
     height: 280px;
 }
 
-.store-item__body__icon--rare {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/CoreRare.png?fileID=21300000&guid=fde86d66aa4be49f6a78f43643b25628&type=3#CoreRare');
-}
-
-.store-item__body__icon--epic {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/CoreEpic.png?fileID=21300000&guid=d55583bc74b8640228c63e20879b101c&type=3#CoreEpic');
-}
-
-.store-item__body__icon--legendary {
-    background-image: url('project://database/Assets/Art/UI/Sprites/HomeScreen/CoreLegendary.png?fileID=21300000&guid=436115e2e483240878a7960da24ecf96&type=3#CoreLegendary');
-}
-
 .store-item__body__price {
     border-radius: 0;
     width: 100%;
@@ -86,7 +73,6 @@
     padding: 20px;
     -unity-text-align: middle-center;
     font-size: 50px;
-    -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Condensed%20Ultra%20Italic.otf?fileID=12800000&guid=6ff2428eb8a974c2281717afe377e3c6&type=3#Stawix - Amsi Pro Condensed Ultra Italic');
     color: rgb(255, 255, 255);
     background-color: rgb(156, 98, 240);
     -unity-text-outline-width: 1px;
@@ -106,7 +92,6 @@
 
 .blocker__title {
     font-size: 100px;
-    -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/Stawix%20-%20Amsi%20Pro%20Condensed%20Ultra%20Italic.otf?fileID=12800000&guid=6ff2428eb8a974c2281717afe377e3c6&type=3#Stawix - Amsi Pro Condensed Ultra Italic');
     color: rgb(255, 255, 255);
 }
 

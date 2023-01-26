@@ -20,8 +20,10 @@ enum RankProcessor
 enum DeathDropsStrategy
 {
 	None = 0,
-	Normal = 1,
-	NormalWithFallback = 2
+	WeaponOnly = 1,
+	Box = 2,
+	BoxAndWeapon = 3,
+	Consumables = 4
 }
 
 enum GameCompletionStrategy

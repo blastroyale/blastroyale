@@ -84,7 +84,7 @@ namespace FirstLight.Game.StateMachines
 			var mainMenuTransition = stateFactory.Transition("Main Transition");
 			var disconnected = stateFactory.State("Disconnected");
 			var disconnectedCheck = stateFactory.Choice("Disconnected Final Choice");
-			
+
 			initial.Transition().Target(mainMenuLoading);
 			initial.OnExit(SubscribeEvents);
 
@@ -93,22 +93,28 @@ namespace FirstLight.Game.StateMachines
 			mainMenuLoading.Event(MainMenuLoadedEvent).Target(mainMenu);
 			mainMenuLoading.OnExit(LoadingComplete);
 
+			mainMenu.OnEnter(OnMainMenuLoaded);
 			mainMenu.Nest(TabsMenuSetup).Target(disconnectedCheck);
 			mainMenu.Event(NetworkState.PhotonCriticalDisconnectedEvent).Target(disconnected);
 			mainMenu.Event(_tabButtonClickedEvent).Target(mainMenuTransition);
 
 			mainMenuTransition.Transition().Target(mainMenu);
-			
+
 			disconnectedCheck.Transition().Condition(NetworkUtils.IsOfflineOrDisconnected).Target(disconnected);
 			disconnectedCheck.Transition().Target(mainMenuUnloading);
-			
+
 			disconnected.OnEnter(OpenDisconnectedScreen);
 			disconnected.Event(NetworkState.PhotonMasterConnectedEvent).Target(mainMenu);
-			
+
 			mainMenuUnloading.OnEnter(UnloadMainMenu);
 			mainMenuUnloading.Event(MainMenuUnloadedEvent).Target(final);
 
 			final.OnEnter(UnsubscribeEvents);
+		}
+
+		private void OnMainMenuLoaded()
+		{
+			_services.MessageBrokerService.Publish(new MainMenuOpenedMessage());
 		}
 
 		private void TabsMenuSetup(IStateFactory stateFactory)
@@ -131,7 +137,7 @@ namespace FirstLight.Game.StateMachines
 			var loadoutRestricted = stateFactory.Wait("Loadout Restriction Pop Up");
 			var brokenItems = stateFactory.State("Broken Items Pop Up");
 			var defaultNameCheck = stateFactory.Choice("Default Player Name Check");
-			
+
 			initial.Transition().Target(screenCheck);
 			initial.OnExit(OpenUiVfxPresenter);
 			
@@ -235,7 +241,10 @@ namespace FirstLight.Game.StateMachines
 		{
 			if (serverRewardsMatch)
 			{
-				_services.GenericDialogService.CloseDialog();
+				if (_unclaimedCountCheck > 0)
+				{
+					_services.GenericDialogService.CloseDialog();
+				}
 				
 				if (_gameDataProvider.RewardDataProvider.UnclaimedRewards.Count > 0)
 				{
@@ -386,24 +395,20 @@ namespace FirstLight.Game.StateMachines
 		{
 			_uiService.CloseUi<GameModeSelectionPresenter>();
 		}
-		
+
 		private void OpenLeaderboardUI(IWaitActivity activity)
 		{
-			var cacheActivity = activity;
-
-			var data = new LeaderboardScreenPresenter.StateData
+			var data = new GlobalLeaderboardScreenPresenter.StateData
 			{
-				BackClicked = () => { cacheActivity.Complete(); }
+				OnBackClicked = () =>
+				{
+					activity.Complete();
+				}
 			};
-			
-			_uiService.OpenScreen<LeaderboardScreenPresenter, LeaderboardScreenPresenter.StateData>(data);
+
+			_uiService.OpenScreen<GlobalLeaderboardScreenPresenter, GlobalLeaderboardScreenPresenter.StateData>(data);
 		}
 
-		private void CloseLeaderboardUI()
-		{
-			_uiService.CloseUi<LeaderboardScreenPresenter>();
-		}
-		
 		private void OpenBattlePassUI(IWaitActivity activity)
 		{
 			var cacheActivity = activity;
@@ -493,7 +498,7 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Publish(new PlayScreenOpenedMessage());
 		}
 
-		private async void OpenDisconnectedScreen()
+		private void OpenDisconnectedScreen()
 		{
 			var data = new DisconnectedScreenPresenter.StateData
 			{

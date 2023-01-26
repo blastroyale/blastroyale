@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
+using FirstLight.Server.SDK.Modules.Commands;
 using FirstLight.Services;
 using FirstLight.Statechart;
 using Photon.Deterministic;
@@ -32,6 +34,7 @@ namespace FirstLight.Game.StateMachines
 		public static readonly IStatechartEvent MatchUnloadedEvent = new StatechartEvent("Match Unloaded Ready");
 		public static readonly IStatechartEvent MatchEndedEvent = new StatechartEvent("Game Ended Event");
 		public static readonly IStatechartEvent MatchQuitEvent = new StatechartEvent("Game Quit Event");
+		public static readonly IStatechartEvent MatchEndedExitEvent = new StatechartEvent("Match Ended Exit Event");
 		public static readonly IStatechartEvent MatchCompleteExitEvent = new StatechartEvent("Game Complete Exit Event");
 		public static readonly IStatechartEvent LeaveRoomClicked = new StatechartEvent("Leave Room Requested");
 		public static readonly IStatechartEvent MatchStateEndingEvent = new StatechartEvent("Match Flow Leaving Event");
@@ -83,6 +86,7 @@ namespace FirstLight.Game.StateMachines
 			var postDisconnectCheck = stateFactory.Choice("Post Reload Check");
 			var gameEndedChoice = stateFactory.Choice("Game Ended Check");
 			var gameEnded = stateFactory.State("Game Ended Screen");
+			var showWinner = stateFactory.State("Show Winner Screen");
 			var transitionToWinners = stateFactory.Wait("Unload to Game End UI");
 			var transitionToGameResults = stateFactory.Wait("Unload to Game Results UI");
 			var winners = stateFactory.Wait("Winners Screen");
@@ -122,8 +126,12 @@ namespace FirstLight.Game.StateMachines
 			gameEndedChoice.Transition().Condition(HasLeftBeforeMatchEnded).Target(transitionToGameResults);
 			gameEndedChoice.Transition().Target(gameEnded);
 			
-			gameEnded.OnEnter(OpenWinnerScreen);
+			gameEnded.OnEnter(OpenMatchEndScreen);
+			gameEnded.Event(MatchEndedExitEvent).Target(showWinner);
 			gameEnded.Event(MatchCompleteExitEvent).Target(transitionToWinners);
+			
+			showWinner.OnEnter(OpenWinnerScreen);
+			showWinner.Event(MatchCompleteExitEvent).Target(transitionToWinners);
 			
 			transitionToWinners.WaitingFor(UnloadMatchAndTransition).Target(winners);
 			
@@ -136,7 +144,7 @@ namespace FirstLight.Game.StateMachines
 			gameResults.OnExit(UnloadMainMenuAssetConfigs);
 			gameResults.OnExit(DisposeMatchServices);
 			gameResults.OnExit(OpenLoadingScreen);
-
+			
 			disconnected.OnEnter(OpenDisconnectedScreen);
 			disconnected.Event(NetworkState.JoinedRoomEvent).Target(postDisconnectCheck);
 			disconnected.Event(NetworkState.JoinRoomFailedEvent).Target(unloadToFinal);
@@ -171,8 +179,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			return _matchServices.MatchEndDataService.LeftBeforeMatchFinished;
 		}
-		
-		
+
 		/// <summary>
 		/// Whenever the simulation wants to fire logic commands.
 		/// This will also run on quantum server and will be sent to logic service from there.
@@ -187,12 +194,24 @@ namespace FirstLight.Game.StateMachines
 
 			FLog.Verbose("Quantum Logic Command Received: " + ev.CommandType.ToString());
 			var command = QuantumLogicCommandFactory.BuildFromEvent(ev);
+			var room = _services.NetworkService.QuantumClient.CurrentRoom;
 			command.FromFrame(game.Frames.Verified, new QuantumValues()
 			{
+				MatchId = room.Name,
 				ExecutingPlayer = game.GetLocalPlayers()[0],
 				MatchType = _services.NetworkService.QuantumClient.CurrentRoom.GetMatchType()
 			});
 			_services.CommandService.ExecuteCommand(command as IGameCommand);
+		}
+		
+		private void OpenMatchEndScreen()
+		{
+			var data = new MatchEndScreenPresenter.StateData
+			{
+				OnTimeToLeave = () => _statechartTrigger(MatchEndedExitEvent),
+			};
+
+			_uiService.OpenScreen<MatchEndScreenPresenter, MatchEndScreenPresenter.StateData>(data);
 		}
 		
 		private void OpenWinnerScreen()
@@ -259,7 +278,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_networkService.LastDisconnectLocation.Value = LastDisconnectionLocation.Simulation;
 			
-			PublishMatchEnded(true, false);
+			PublishMatchEnded(true, false, null);
 		}
 
 		private void CloseSwipeTransition()
@@ -360,6 +379,8 @@ namespace FirstLight.Game.StateMachines
 
 		private async Task LoadMatchAssets()
 		{
+			var time = Time.realtimeSinceStartup;
+			
 			var tasks = new List<Task>();
 			var config = _services.NetworkService.CurrentRoomMapConfig.Value;
 			var gameModeConfig = _services.NetworkService.CurrentRoomGameModeConfig.Value;
@@ -403,6 +424,14 @@ namespace FirstLight.Game.StateMachines
 #if UNITY_EDITOR
 			SetQuantumMultiClient(runnerConfigs, entityService);
 #endif
+			var dic = new Dictionary<string, object>
+			{
+				{"client_version", VersionUtils.VersionInternal},
+				{"total_time", Time.realtimeSinceStartup - time},
+				{"vendor_id", SystemInfo.deviceUniqueIdentifier},
+				{"playfab_player_id", _dataProvider.AppDataProvider.PlayerId}
+			};
+			_services.AnalyticsService.LogEvent(AnalyticsEvents.LoadMatchAssetsComplete, dic);
 		}
 
 		private async Task UnloadAllMatchAssets()
@@ -440,11 +469,11 @@ namespace FirstLight.Game.StateMachines
 			await Task.Yield();
 		}
 
-		private void PublishMatchEnded(bool isDisconnected, bool isPlayerQuit)
+		private void PublishMatchEnded(bool isDisconnected, bool isPlayerQuit, QuantumGame game)
 		{
 			_services.MessageBrokerService.Publish(new MatchEndedMessage()
 			{
-				Game = QuantumRunner.Default.Game,
+				Game = game,
 				IsDisconnected = isDisconnected,
 				IsPlayerQuit = isPlayerQuit
 			});
@@ -452,9 +481,9 @@ namespace FirstLight.Game.StateMachines
 		
 		private void HandleSimulationEnd(bool playerQuit)
 		{
-			PublishMatchEnded(false, playerQuit);
+			PublishMatchEnded(false, playerQuit, QuantumRunner.Default.Game);
 			
-			_services.AnalyticsService.MatchCalls.MatchEnd(QuantumRunner.Default.Game, playerQuit);
+			_services.AnalyticsService.MatchCalls.MatchEnd(QuantumRunner.Default.Game, playerQuit, _matchServices.MatchEndDataService.LocalPlayerMatchData.PlayerRank);
 			
 			if (playerQuit)
 			{
@@ -644,8 +673,7 @@ namespace FirstLight.Game.StateMachines
 						              rarity: EquipmentRarity.Common,
 						              adjective: EquipmentAdjective.Cool,
 						              material: EquipmentMaterial.Carbon,
-						              manufacturer: EquipmentManufacturer.Military,
-						              faction: EquipmentFaction.Chaos)
+									  faction: EquipmentFaction.Chaos)
 					}
 				};
 			}

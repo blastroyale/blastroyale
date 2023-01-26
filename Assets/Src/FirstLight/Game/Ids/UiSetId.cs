@@ -6,6 +6,7 @@ namespace FirstLight.Game.Ids
 		MainMenuUi,
 		MatchUi,
 		DeathMatchMatchUi,
-		BattleRoyaleMatchUi
+		BattleRoyaleMatchUi,
+		AuthenticationUi
 	}
 }

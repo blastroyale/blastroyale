@@ -6,6 +6,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using System.Linq;
 using System.Threading.Tasks;
+using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Commands.OfflineCommands;
 using FirstLight.Game.Infos;
@@ -34,7 +35,8 @@ namespace FirstLight.Game.Presenters
 		private const string UssEquipmentTagRarity = "equipment-tag--rarity";
 		private const string UssEquipmentTagRarityModifier = UssEquipmentTagRarity + "-{0}";
 		private const string UssEquipmentTagSpecial = "equipment-tag--special";
-		private const string UssEquipmentTagSpecialModifier = UssEquipmentTagSpecial + "-{0}";
+
+		private const string UssSpriteSpecial = "sprite-home__icon-special-{0}";
 
 		public struct StateData
 		{
@@ -64,11 +66,14 @@ namespace FirstLight.Game.Presenters
 		private PriceButton _scrapButton;
 		private PriceButton _upgradeButton;
 		private PriceButton _repairButton;
+		private ImageButton _infoButton;
 
 		private VisualElement _cooldownTag;
 		private VisualElement _rarityTag;
 		private VisualElement _special0Tag;
+		private VisualElement _special0Icon;
 		private VisualElement _special1Tag;
+		private VisualElement _special1Icon;
 
 		private IGameServices _services;
 		private IGameDataProvider _gameDataProvider;
@@ -77,7 +82,7 @@ namespace FirstLight.Game.Presenters
 		private Dictionary<UniqueId, int> _itemRowMap;
 		private List<KeyValuePair<EquipmentStatType, float>> _statItems;
 
-		private List<UniqueId> _seenItems = new List<UniqueId>();
+		private readonly List<UniqueId> _seenItems = new();
 
 		private UniqueId _equippedItem;
 
@@ -109,7 +114,9 @@ namespace FirstLight.Game.Presenters
 			_cooldownTag = root.Q("CooldownTag").Required();
 			_rarityTag = root.Q("RarityTag").Required();
 			_special0Tag = root.Q("Special0Tag").Required();
+			_special0Icon = _special0Tag.Q<VisualElement>("Icon").Required();
 			_special1Tag = root.Q("Special1Tag").Required();
+			_special1Icon = _special1Tag.Q<VisualElement>("Icon").Required();
 
 			_durabilityBar = root.Q("DurabilityProgress").Required();
 			_durabilityAmount = root.Q<Label>("DurabilityAmount").Required();
@@ -118,11 +125,13 @@ namespace FirstLight.Game.Presenters
 			_scrapButton = root.Q<PriceButton>("ScrapButton").Required();
 			_upgradeButton = root.Q<PriceButton>("UpgradeButton").Required();
 			_repairButton = root.Q<PriceButton>("RepairButton").Required();
+			_infoButton = root.Q<ImageButton>("InfoButton").Required();
 
 			_equipButton.clicked += OnEquipClicked;
 			_scrapButton.clicked += Data.OnScrapClicked;
 			_upgradeButton.clicked += Data.OnUpgradeClicked;
 			_repairButton.clicked += Data.OnRepairClicked;
+			_infoButton.clicked += OnInfoClicked;
 
 			_equipmentList.makeItem = MakeEquipmentListItem;
 			_equipmentList.bindItem = BindEquipmentListItem;
@@ -154,7 +163,7 @@ namespace FirstLight.Game.Presenters
 				_services.CommandService.ExecuteCommand(new MarkEquipmentSeenCommand {Ids = _seenItems});
 				_seenItems.Clear();
 			}
-			
+
 			return base.OnClosed();
 		}
 
@@ -256,12 +265,13 @@ namespace FirstLight.Game.Presenters
 			// Title
 			_equipmentName.text = string.Format(ScriptLocalization.UITEquipment.equipment_details_title,
 				string.Format(ADJECTIVE_LOC_KEY, info.Equipment.Adjective.ToString().ToLowerInvariant()).LocalizeKey(),
-				info.Equipment.GameId.GetTranslation(),
+				info.Equipment.GameId.GetLocalization(),
 				info.Equipment.Level);
 
 			// Durability
 			_durabilityAmount.text =
-				string.Format(DURABILITY_AMOUNT, info.CurrentDurability.ToString(), info.Equipment.MaxDurability.ToString());
+				string.Format(DURABILITY_AMOUNT, info.CurrentDurability.ToString(),
+					info.Equipment.MaxDurability.ToString());
 			_durabilityBar.style.flexGrow = info.CurrentDurability / info.Equipment.MaxDurability;
 
 			// Stats
@@ -290,15 +300,15 @@ namespace FirstLight.Game.Presenters
 
 			// Specials tags
 			_special0Tag.style.display = DisplayStyle.None;
-			_special0Tag.RemoveModifiers();
 			if (info.Stats.TryGetValue(EquipmentStatType.SpecialId0, out var special0))
 			{
 				var special0ID = (GameId) special0;
 				_special0Tag.style.display = DisplayStyle.Flex;
-				_special0Tag.AddToClassList(UssEquipmentTagSpecial);
-				_special0Tag.AddToClassList(string.Format(UssEquipmentTagSpecialModifier,
+
+				_special0Icon.RemoveSpriteClasses();
+				_special0Icon.AddToClassList(string.Format(UssSpriteSpecial,
 					special0ID.ToString().Replace("Special", "").ToLowerInvariant()));
-				_special0Tag.Q<Label>("Title").text = special0ID.GetTranslation();
+				_special0Tag.Q<Label>("Title").text = special0ID.GetLocalization();
 			}
 
 			_special1Tag.style.display = DisplayStyle.None;
@@ -307,19 +317,20 @@ namespace FirstLight.Game.Presenters
 			{
 				var special1ID = (GameId) special1;
 				_special1Tag.style.display = DisplayStyle.Flex;
-				_special1Tag.AddToClassList(UssEquipmentTagSpecial);
-				_special1Tag.AddToClassList(string.Format(UssEquipmentTagSpecialModifier,
+
+				_special1Icon.RemoveSpriteClasses();
+				_special1Icon.AddToClassList(string.Format(UssSpriteSpecial,
 					special1ID.ToString().Replace("Special", "").ToLowerInvariant()));
-				_special1Tag.Q<Label>("Title").text = special1ID.GetTranslation();
+				_special1Tag.Q<Label>("Title").text = special1ID.GetLocalization();
 			}
 
 			// Prices
 			_scrapButton.SetPrice(info.ScrappingValue, info.IsNft, false, true);
 			_upgradeButton.SetPrice(info.UpgradeCost, info.IsNft, !HasEnoughCurrency(info.UpgradeCost));
-			_upgradeButton.SetEnabled(!info.Equipment.IsMaxLevel());
+			_upgradeButton.SetEnabled(info.Equipment.Level < info.MaxLevel);
 			_repairButton.SetPrice(info.RepairCost, info.IsNft, !HasEnoughCurrency(info.RepairCost));
 			_repairButton.SetEnabled(info.CurrentDurability < info.Equipment.MaxDurability);
-			
+
 			// Equip Button
 			_equipButton.SetEnabled(!info.IsBroken);
 
@@ -329,7 +340,8 @@ namespace FirstLight.Game.Presenters
 					info.Equipment.GameId, instantiate: false));
 
 			// Set item as viewed
-			if (!_seenItems.Contains(SelectedItem) && _gameDataProvider.UniqueIdDataProvider.NewIds.Contains(SelectedItem))
+			if (!_seenItems.Contains(SelectedItem) &&
+				_gameDataProvider.UniqueIdDataProvider.NewIds.Contains(SelectedItem))
 			{
 				_seenItems.Add(SelectedItem);
 			}
@@ -350,7 +362,7 @@ namespace FirstLight.Game.Presenters
 		private void UpdateMight(bool animate = true)
 		{
 			var loadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.All);
-			var might = loadout.GetTotalMight(_services.ConfigsProvider.GetConfigsDictionary<QuantumStatConfig>());
+			var might = loadout.GetTotalMight(_services.ConfigsProvider);
 
 			_might.SetMight(might, animate);
 		}
@@ -468,6 +480,12 @@ namespace FirstLight.Game.Presenters
 			}
 		}
 
+		private void OnInfoClicked()
+		{
+			var info = _gameDataProvider.EquipmentDataProvider.GetInfo(SelectedItem);
+			_infoButton.OpenTooltip(Root, info.GetTags(), TooltipDirection.BottomRight, TooltipPosition.TopLeft);
+		}
+
 		private void EquipItem(UniqueId item)
 		{
 			_services.CommandService.ExecuteCommand(new EquipItemCommand {Item = item});
@@ -477,7 +495,8 @@ namespace FirstLight.Game.Presenters
 		private void UnequipItem(UniqueId item)
 		{
 			_services.CommandService.ExecuteCommand(new UnequipItemCommand {Item = item});
-			_services.AnalyticsService.EquipmentCalls.UnequipItem(_gameDataProvider.EquipmentDataProvider.GetInfo(item));
+			_services.AnalyticsService.EquipmentCalls.UnequipItem(_gameDataProvider.EquipmentDataProvider
+				.GetInfo(item));
 		}
 
 		private bool IsItemSeen(UniqueId item)

@@ -21,9 +21,8 @@ namespace FirstLight.Game.StateMachines
 
 		private readonly IGameServices _services;
 		private readonly IGameUiService _uiService;
+		private IMatchServices _matchServices;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
-
-		private PlayerRef _killer;
 
 		public BattleRoyaleState(IGameServices services, IGameUiService uiService,
 								 Action<IStatechartEvent> statechartTrigger)
@@ -85,8 +84,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void SubscribeEvents()
 		{
-			_killer = new PlayerRef();
-			
+			_matchServices = MainInstaller.Resolve<IMatchServices>();;
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerAlive>(this, OnLocalPlayerAlive);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
 		}
@@ -98,7 +96,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void MatchEndAnalytics()
 		{
-			_services.AnalyticsService.MatchCalls.MatchEndBRPlayerDead(QuantumRunner.Default.Game);
+			_services.AnalyticsService.MatchCalls.MatchEndBRPlayerDead(QuantumRunner.Default.Game, _matchServices.MatchEndDataService.LocalPlayerMatchData.PlayerRank);
 		}
 
 		private bool IsMatchEnding()
@@ -135,8 +133,6 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnLocalPlayerDead(EventOnLocalPlayerDead callback)
 		{
-			_killer = callback.PlayerKiller;
-
 			_statechartTrigger(_localPlayerDeadEvent);
 		}
 
@@ -164,9 +160,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new MatchEndScreenPresenter.StateData
 			{
-				PlayerDead = !IsLocalPlayerAlive(),
-				Killer = _killer,
-				OnNextClicked = () => _statechartTrigger(_localPlayerNextEvent),
+				OnTimeToLeave = () => _statechartTrigger(_localPlayerNextEvent),
 			};
 
 			_uiService.OpenScreen<MatchEndScreenPresenter, MatchEndScreenPresenter.StateData>(data);
@@ -176,7 +170,6 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new SpectateScreenPresenter.StateData
 			{
-				Killer = _killer,
 				OnLeaveClicked = () =>
 				{
 					_services.MessageBrokerService.Publish(new LeftBeforeMatchFinishedMessage());

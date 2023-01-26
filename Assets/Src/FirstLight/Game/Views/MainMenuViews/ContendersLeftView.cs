@@ -57,6 +57,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 		private void OnSpectatedPlayerChanged(SpectatedPlayer previous, SpectatedPlayer next)
 		{
+			if (next.Player == PlayerRef.None) return;
+			
 			// This is here because when joining as a spectator, OnMatchStarted is called
 			// sooner than we have all the necessary data to set up the first player count.
 			UpdatePlayersAlive(QuantumRunner.Default.Game.Frames.Verified);

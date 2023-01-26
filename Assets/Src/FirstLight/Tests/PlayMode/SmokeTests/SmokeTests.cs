@@ -1,13 +1,10 @@
 using System.Collections;
-using System.Linq;
 using FirstLight.Game.Presenters;
-using FirstLight.Game.Views;
-using FirstLight.Game.Views.MainMenuViews;
-using FirstLight.UiService;
+using FirstLight.Game.UIElements;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 namespace FirstLight.Tests.PlayTests
 {
@@ -22,49 +19,193 @@ namespace FirstLight.Tests.PlayTests
 		[UnityTest]
 		public IEnumerator WhenEnterGameDieReturnToMainMenu_NoErrors()
 		{
+			var wait1Sec = new WaitForSeconds(1);
+
 			yield return TestTools.LoadSceneAndWaitUntilDone("Boot");
 
-			yield return FLGTestTools.WaitForMainMenu();
+			yield return FLGTestTools.WaitForPresenter<HomeScreenPresenter>();
+
+			yield return wait1Sec;
+
+			FLGTestTools.ClickGameModeSelectionButton();
+
+			yield return FLGTestTools.WaitForPresenter<GameModeSelectionPresenter>();
+
+			yield return wait1Sec;
 
 			FLGTestTools.ClickCustomGameButton();
-			
-			yield return FLGTestTools.WaitForCustomGameMenu();
+
+			yield return FLGTestTools.WaitForPresenter<RoomJoinCreateScreenPresenter>();
 
 			FLGTestTools.ClickCreateRoom();
 
-			yield return FLGTestTools.WaitForMatchMakingScreen();
+			yield return FLGTestTools.WaitForPresenter<CustomLobbyScreenPresenter>();
 
 			FLGTestTools.ClickLockRoomAndPlay();
 
 			FLGTestTools.SelectWaterPosition();
 
-			yield return FLGTestTools.WaitForBRDeadScreenScreen();
+			yield return FLGTestTools.WaitForPresenter<MatchEndScreenPresenter>();
 
-			FLGTestTools.ClickDeadScreenLeave();
-			
-			yield return FLGTestTools.WaitForGameCompleteScreen();
+			yield return wait1Sec;
 
-			var gameCompleteScreen = GameObject.FindObjectOfType<WinnerScreenPresenter>();
-			yield return TestTools.UntilChildOfType<Button>(gameCompleteScreen.gameObject);
+			FLGTestTools.ClickNextButton<MatchEndScreenPresenter>();
 
-			FLGTestTools.ClickGameCompleteContinue();
+			yield return FLGTestTools.WaitForPresenter<SpectateScreenPresenter>();
 
-			yield return FLGTestTools.WaitForResultsScreen();
+			yield return wait1Sec;
 
-			FLGTestTools.ClickResultsHome();
-			
-			yield return FLGTestTools.WaitForMainMenu();
+			FLGTestTools.ClickLeaveButton<SpectateScreenPresenter>();
+
+			yield return FLGTestTools.WaitForPresenter<LeaderboardAndRewardsScreenPresenter>();
+
+			yield return new WaitForSeconds(2);
+
+			FLGTestTools.ClickNextButton<LeaderboardAndRewardsScreenPresenter>();
+
+			yield return wait1Sec;
+
+			FLGTestTools.ClickNextButton<LeaderboardAndRewardsScreenPresenter>();
+
+			yield return FLGTestTools.WaitForPresenter<HomeScreenPresenter>();
 		}
 
 		[UnityTest]
-		public IEnumerator CheckEquipment_NoErrors() 
+		public IEnumerator CheckEquipment_NoErrors()
 		{
-			yield return TestTools.LoadSceneAndWaitUntilDone("Boot");
-			yield return FLGTestTools.WaitForMainMenu();
+			var wait1Sec = new WaitForSeconds(1);
 
-			TestTools.ClickUIToolKitButton(TestTools.GetUIDocument<HomeScreenPresenter>(),"EquipmentButton");
-			TestTools.ClickUIToolKitButton(TestTools.GetUIDocument<EquipmentPresenter>(),"WeaponCategory");
-			TestTools.ClickUIToolKitImageButton(TestTools.GetUIDocument<EquipmentSelectionPresenter>(),"back");
+			yield return TestTools.LoadSceneAndWaitUntilDone("Boot");
+
+			yield return FLGTestTools.WaitForPresenter<HomeScreenPresenter>();
+
+			yield return wait1Sec;
+
+			FLGTestTools.ClickEquipmentButton();
+
+			yield return FLGTestTools.WaitForPresenter<EquipmentPresenter>();
+
+			yield return wait1Sec;
+
+			FLGTestTools.ClickWeaponCategory();
+
+			yield return FLGTestTools.WaitForPresenter<EquipmentSelectionPresenter>();
+
+			yield return wait1Sec;
+
+			FLGTestTools.ClickEquipmentSlot();
+			
+			yield return wait1Sec;
+			
+			FLGTestTools.ClickEquipmentSlot2();
+			
+			yield return wait1Sec;
+			
+			FLGTestTools.ClickEquipButton();
+			
+			yield return wait1Sec;
+			
+			FLGTestTools.CLickBackButton();
+			
+			yield return FLGTestTools.WaitForPresenter<EquipmentPresenter>();
+			
+			yield return wait1Sec;
+			
+			FLGTestTools.ClickHelmetCategory();
+			
+			yield return FLGTestTools.WaitForPresenter<EquipmentSelectionPresenter>();
+			
+			yield return wait1Sec;
+			
+			FLGTestTools.ClickEquipmentSlot();
+			
+			yield return wait1Sec;
+			
+			FLGTestTools.ClickEquipmentSlot2();
+			
+			yield return wait1Sec;
+			
+			FLGTestTools.ClickEquipButton();
+			
+			yield return wait1Sec;
+			
+			FLGTestTools.CLickBackButton();
+			
+			yield return FLGTestTools.WaitForPresenter<EquipmentPresenter>();
+			
+			yield return wait1Sec;
+			
+			FLGTestTools.ClickShieldCategory();
+			
+			yield return FLGTestTools.WaitForPresenter<EquipmentSelectionPresenter>();
+			
+			yield return wait1Sec;
+			
+			FLGTestTools.ClickEquipmentSlot();
+			
+			yield return wait1Sec;
+			
+			FLGTestTools.ClickEquipmentSlot2();
+			
+			yield return wait1Sec;
+			
+			FLGTestTools.ClickEquipButton();
+			
+			yield return wait1Sec;
+			
+			FLGTestTools.CLickBackButton();
+			
+			yield return FLGTestTools.WaitForPresenter<EquipmentPresenter>();
+			
+			yield return wait1Sec;
+			
+			FLGTestTools.ClickAmuletCategory();
+			
+			yield return FLGTestTools.WaitForPresenter<EquipmentSelectionPresenter>();
+			
+			yield return wait1Sec;
+			
+			FLGTestTools.ClickEquipmentSlot();
+			
+			yield return wait1Sec;
+			
+			FLGTestTools.ClickEquipmentSlot2();
+			
+			yield return wait1Sec;
+			
+			FLGTestTools.ClickEquipButton();
+			
+			yield return wait1Sec;
+			
+			FLGTestTools.CLickBackButton();
+			
+			yield return FLGTestTools.WaitForPresenter<EquipmentPresenter>();
+			
+			yield return wait1Sec;
+			
+			FLGTestTools.ClickArmorCategory();
+			
+			yield return FLGTestTools.WaitForPresenter<EquipmentSelectionPresenter>();
+			
+			yield return wait1Sec;
+			
+			FLGTestTools.ClickEquipmentSlot();
+			
+			yield return wait1Sec;
+			
+			FLGTestTools.ClickEquipmentSlot2();
+			
+			yield return wait1Sec;
+			
+			FLGTestTools.ClickEquipButton();
+			
+			yield return wait1Sec;
+
+			FLGTestTools.ClickHomeButton();
+
+			yield return FLGTestTools.WaitForPresenter<HomeScreenPresenter>();
+			
+			yield return wait1Sec;
 		}
 	}
 }

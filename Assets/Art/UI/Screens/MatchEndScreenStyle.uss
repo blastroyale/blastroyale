@@ -1,5 +1,5 @@
 .match-ended-title {
-    background-image: url('project://database/Assets/Art/UI/Sprites/MatchEnd/text/Matchendedyexy.png?fileID=2800000&guid=0e02f7304c1874fe5a3c9c63d66693a5&type=3#Matchendedyexy');
+    background-image: var(--sprite-match__text-matchended);
     width: 471px;
     height: 124px;
     position: absolute;
@@ -26,7 +26,7 @@
 }
 
 .blasted-title__bg {
-    background-image: url('project://database/Assets/Art/UI/Sprites/MatchEnd/BlastedBg.png?fileID=21300000&guid=4f3f55fbb0dca45dbb5a71ffa2e9315e&type=3#BlastedBg');
+    background-image: var(--sprite-match__banner-red);
     width: 824px;
     height: 198px;
     position: absolute;
@@ -42,7 +42,7 @@
 
 .blasted-title__stain {
     position: absolute;
-    background-image: url('project://database/Assets/Art/UI/Sprites/MatchEnd/BlastedCrack.png?fileID=21300000&guid=b3c297c0b27974b1d9efed58d0427d15&type=3#BlastedCrack');
+    background-image: var(--sprite-match__vfx-crack-red);
     width: 274px;
     height: 260px;
     right: 10px;
@@ -63,7 +63,7 @@
 
 .blasted-title__text {
     position: absolute;
-    background-image: url('project://database/Assets/Art/UI/Sprites/MatchEnd/text/BlastedText.png?fileID=2800000&guid=e073664396a60485daf2fbf791e5b8cc&type=3#BlastedText');
+    background-image: var(--sprite-match__text-blasted);
     width: 302px;
     height: 101px;
     top: 50px;
@@ -74,7 +74,7 @@
 }
 
 .blasted-title--suicide .blasted-title__text {
-    background-image: url('project://database/Assets/Art/UI/Sprites/MatchEnd/text/TextYouChoseDeath.png?fileID=2800000&guid=4baa816aa03ba4631af459a3fcea3e19&type=3#TextYouChoseDeath');
+    background-image: var(--sprite-match__text-youchosedeath);
     width: 519px;
     height: 113px;
     top: 42px;
@@ -93,7 +93,7 @@
 
 .you-win-title__bg {
     position: absolute;
-    background-image: url('project://database/Assets/Art/UI/Sprites/MatchEnd/WonBg.png?fileID=21300000&guid=c7bc94cbb06d04787a1b9cffee81db70&type=3#WonBg');
+    background-image: var(--sprite-match__banner-rainbow);
     width: 1027px;
     height: 255px;
     transition-property: opacity, scale;
@@ -107,7 +107,7 @@
 
 .you-win-title__crown {
     position: absolute;
-    background-image: url('project://database/Assets/Art/UI/Sprites/MatchEnd/CrownWon.png?fileID=21300000&guid=76f600c1078744fa7bf15187e6ea0b69&type=3#CrownWon');
+    background-image: var(--sprite-match__icon-crown-winner);
     width: 90px;
     height: 64px;
     top: -20px;
@@ -123,7 +123,7 @@
 
 .you-win-title__text {
     position: absolute;
-    background-image: url('project://database/Assets/Art/UI/Sprites/MatchEnd/text/YouWonText.png?fileID=21300000&guid=4fbf56492d9c54597a87c0386904bb0e&type=3#YouWonText');
+    background-image: var(--sprite-match__text-youwon);
     width: 345px;
     height: 107px;
     top: 70px;

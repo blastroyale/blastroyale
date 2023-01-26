@@ -139,6 +139,7 @@ namespace FirstLight.Game.StateMachines
 		private void SubscribeMessages()
 		{
 			_services.MessageBrokerService.Subscribe<MatchCountdownStartedMessage>(OnMatchCountdownStarted);
+			_services.MessageBrokerService.Subscribe<ApplicationPausedMessage>(OnApplicationPausedMessage);
 		}
 		
 		private void SubscribeMatchEvents()
@@ -342,6 +343,14 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.CoroutineService.StartCoroutine(MatchCountdownCoroutine());
 		}
+		
+		private void OnApplicationPausedMessage(ApplicationPausedMessage message)
+		{
+			if (message.IsPaused)
+			{
+				StopAllSfx();
+			}
+		}
 
 		private IEnumerator MatchCountdownCoroutine()
 		{
@@ -526,10 +535,6 @@ namespace FirstLight.Game.StateMachines
 			var position = entityView.transform.position;
 			_services.AudioFxService.PlayClip3D(AudioId.AirdropLanded, position);
 
-			var flareSfx = _services.AudioFxService.PlayClip3D(AudioId.AirdropFlare, position);
-			var despawnEvents = new[] {nameof(EventOnAirDropCollected)};
-			_currentClips.Add(new LoopedAudioClip(flareSfx, despawnEvents, callback.Entity));
-
 			_services.AudioFxService.PlayClipQueued2D(AudioId.Vo_AirdropLanded, GameConstants.Audio.MIXER_GROUP_DIALOGUE_ID);
 		}
 
@@ -538,7 +543,8 @@ namespace FirstLight.Game.StateMachines
 			if (_matchServices.SpectateService.SpectatedPlayer.Value.Entity != callback.Entity) return;
 
 			var audioId = AudioId.None;
-			switch(callback.Weapon.Manufacturer)
+			
+			switch(_gameDataProvider.EquipmentDataProvider.GetManufacturer(callback.Weapon))
 			{
 				case EquipmentManufacturer.Military:
 					audioId = AudioId.ReloadMmsLoop;

@@ -15,6 +15,7 @@ using Microsoft.Extensions.Logging;
 using PlayFab;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules;
+using FirstLight.Server.SDK.Modules.Commands;
 using FirstLight.Server.SDK.Services;
 
 /// <summary>
@@ -43,6 +44,7 @@ public class TestServer
 		_services = SetupServices().BuildServiceProvider();
 		ModelSerializer.RegisterConverter(new QuantumVector2Converter());
 		ModelSerializer.RegisterConverter(new QuantumVector3Converter());
+		ModelSerializer.RegisterConverter(new FPConverter());
 	}
 
 	public IServerStateService ServerState => GetService<IServerStateService>()!;

@@ -1,73 +1,23 @@
 using System;
 using System.Linq;
+using FirstLight.FLogger;
 using FirstLight.Game.Commands;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Utils;
 using FirstLight.NativeUi;
 using FirstLight.Server.SDK.Modules;
+using FirstLight.Server.SDK.Modules.Commands;
 using FirstLight.Services;
 using PlayFab;
 
 namespace FirstLight.Game.Services
 {
-	/// <summary>
-	/// Defines the required user permission level to access a given command.
-	/// TODO: Move to server SDK
-	/// </summary>
-	public enum CommandAccessLevel
-	{
-		/// <summary>
-		/// Standard permission, allows command to be ran only for the given authenticated player.
-		/// </summary>
-		Player,
-
-		/// <summary>
-		/// Only allows the command to be ran for the given authenticated player but Admin commands might
-		/// perform operations normal players can't like cheats.
-		/// </summary>
-		Admin,
-
-		/// <summary>
-		/// Service commands might be used for any given player without requiring player authentication.
-		/// It will impersonate a player to run the command from a third party service.
-		/// Will require a secret key to run the command.
-		/// </summary>
-		Service
-	}
-
 	/// <inheritdoc cref="ICommandService{TGameLogic}"/>
 	public interface IGameCommandService
 	{
 		/// <inheritdoc cref="ICommandService{TGameLogic}.ExecuteCommand{TCommand}"/>
 		void ExecuteCommand<TCommand>(TCommand command) where TCommand : IGameCommand;
-	}
-
-	/// <summary>
-	/// Refers to dictionary keys used in the data sent to server.
-	/// TODO: Move to server SDK
-	/// </summary>
-	public static class CommandFields
-	{
-		/// <summary>
-		/// Key where the command data is serialized.
-		/// </summary>
-		public static readonly string Command = nameof(IGameCommand);
-
-		/// <summary>
-		/// Field containing the client timestamp for when the command was issued.
-		/// </summary>
-		public static readonly string Timestamp = nameof(Timestamp);
-
-		/// <summary>
-		/// Field about the version the game client is currently running
-		/// </summary>
-		public static readonly string ClientVersion = nameof(ClientVersion);
-
-		/// <summary>
-		/// Field that represents the client configuration version
-		/// </summary>
-		public static readonly string ConfigurationVersion = nameof(ConfigurationVersion);
 	}
 
 	/// <inheritdoc />
@@ -79,15 +29,13 @@ namespace FirstLight.Game.Services
 		private readonly CommandExecutionContext _commandContext;
 
 		public GameCommandService(IPlayfabService playfabService, IGameLogic gameLogic, IDataService dataService,
-								  IGameServices services)
+			IGameServices services)
 		{
 			_dataService = dataService;
 			_services = services;
 			_serverCommandQueue = new ServerCommandQueue(dataService, gameLogic, playfabService, services);
-			ModelSerializer.RegisterConverter(new QuantumVector2Converter());
-			ModelSerializer.RegisterConverter(new QuantumVector3Converter());
 			_commandContext = new CommandExecutionContext(
-														  new LogicContainer().Build(gameLogic), new ServiceContainer().Build(services), dataService);
+				new LogicContainer().Build(gameLogic), new ServiceContainer().Build(services), dataService);
 		}
 
 
@@ -102,7 +50,7 @@ namespace FirstLight.Game.Services
 			try
 			{
 				command.Execute(_commandContext);
-				
+
 				switch (command.ExecutionMode())
 				{
 					case CommandExecutionMode.Quantum:
@@ -116,7 +64,7 @@ namespace FirstLight.Game.Services
 						_serverCommandQueue.EnqueueCommand(command);
 						break;
 				}
-				
+
 			}
 			catch (Exception e)
 			{
@@ -142,6 +90,36 @@ namespace FirstLight.Game.Services
 			}
 		}
 
+		/// <summary>
+		/// When server returns an exception after a command was executed
+		/// </summary>
+		private void OnCommandException(string exceptionMsg)
+		{
+#if UNITY_EDITOR
+			FLog.Error(exceptionMsg);
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = "OK",
+				ButtonOnClick = () =>
+				{
+					_services.AnalyticsService.CrashLog(exceptionMsg);
+					_services.QuitGame(exceptionMsg);
+				}
+			};
+			_services.GenericDialogService.OpenButtonDialog("Server Error", exceptionMsg, false, confirmButton);
+#else
+			NativeUiService.ShowAlertPopUp(false, "Error", "Desynch", new AlertButton
+			{
+				Callback = () =>
+				{
+					_services.AnalyticsService.CrashLog(exceptionMsg);
+					_services.QuitGame("Server desynch");
+				},
+				Style = AlertButtonStyle.Negative,
+				Text = "Quit Game"	
+			});
+#endif
+		}
 
 		/// <summary>
 		/// Sends a command to override playfab data with what the client is sending.

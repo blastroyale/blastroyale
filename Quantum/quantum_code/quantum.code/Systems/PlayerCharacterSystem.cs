@@ -1,14 +1,14 @@
 using System;
 using System.Linq;
 using Photon.Deterministic;
+using Quantum.Collections;
 
 namespace Quantum.Systems
 {
 	/// <summary>
 	/// This system handles all the behaviour for the <see cref="PlayerCharacter"/> and it's dependent component states
 	/// </summary>
-	public unsafe class PlayerCharacterSystem : SystemMainThreadFilter<PlayerCharacterSystem.PlayerCharacterFilter>,
-											ISignalHealthIsZeroFromAttacker, ISignalAllPlayersJoined
+	public unsafe class PlayerCharacterSystem : SystemMainThreadFilter<PlayerCharacterSystem.PlayerCharacterFilter>,ISignalHealthIsZeroFromAttacker, ISignalAllPlayersJoined
 	{
 		public struct PlayerCharacterFilter
 		{
@@ -39,7 +39,7 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public void HealthIsZeroFromAttacker(Frame f, EntityRef entity, EntityRef attacker)
 		{
-			if (!f.Unsafe.TryGetPointer<PlayerCharacter>(entity, out var playerDead))
+			if (!f.Unsafe.TryGetPointer<PlayerCharacter>(entity, out var playerDead) )
 			{
 				return;
 			}
@@ -51,41 +51,88 @@ namespace Quantum.Systems
 			playerDead->Dead(f, entity, attacker);
 
 			// Try to drop player weapon
-			if (gameModeConfig.WeaponDeathDropStrategy >= DeathDropsStrategy.Normal && 
+			if ((gameModeConfig.DeathDropStrategy == DeathDropsStrategy.WeaponOnly || gameModeConfig.DeathDropStrategy == DeathDropsStrategy.BoxAndWeapon) && 
 			    !playerDead->HasMeleeWeapon(f, entity))
 			{
 				Collectable.DropEquipment(f, playerDead->CurrentWeapon, deathPosition, step);
 				step++;
 			}
 
-			// Try to drop Health pack
-			if (gameModeConfig.HealthDeathDropStrategy >= DeathDropsStrategy.Normal &&
-			    f.RNG->Next() <= f.GameConfig.DeathDropHealthChance)
+			var itemCount = 0;
+			for (int i = 0; i < playerDead->Gear.Length; i++) //loadout items found
 			{
-				Collectable.DropConsumable(f, GameId.Health, deathPosition, step, false);
-				step++;
+				if (playerDead->Gear[i].GameId != GameId.Random)
+				{
+					itemCount++;
+				}
 			}
-			else if (gameModeConfig.HealthDeathDropStrategy == DeathDropsStrategy.NormalWithFallback)
+			for (int i = 0; i < playerDead->WeaponSlots.Length; i++) //item slots filled
 			{
-				Collectable.DropConsumable(f, GameId.AmmoSmall, deathPosition, step, false);
-				step++;
+				if (playerDead->WeaponSlots[i].Weapon.GameId != GameId.Random)
+				{
+					itemCount++;
+				}
 			}
 
-			var armourDropChance = f.RNG->Next();
+			//drop a chest based on how many items the player has collected
+			if (gameModeConfig.DeathDropStrategy == DeathDropsStrategy.Box || 
+				gameModeConfig.DeathDropStrategy == DeathDropsStrategy.BoxAndWeapon)
+			{
+				//drop a box based on the number of items the player has collected
+				var dropBox = GameId.ChestCommon;
 
-			// Try to drop ShieldLarge
-			if (gameModeConfig.ShieldDeathDropStrategy >= DeathDropsStrategy.Normal &&
-			    armourDropChance <= f.GameConfig.DeathDropLargeShieldChance)
-			{
-				Collectable.DropConsumable(f, GameId.ShieldLarge, deathPosition, step, false);
+				// Calculate offset position to drop a box so it tries not to cover the death marker
+				var dropOffset = FPVector2.Rotate(FPVector2.Left * Constants.DROP_OFFSET_RADIUS, f.RNG->Next(0, FP.Rad_180 * 2)).XOY;
+				var dropPosition = deathPosition + dropOffset;
+				
+				QuantumHelpers.TryFindPosOnNavMesh(f, dropPosition, Constants.DROP_OFFSET_RADIUS * FP._0_50, out dropPosition);
+				
+				dropBox = f.ChestConfigs.CheckItemRange(itemCount);
+				CollectablePlatformSpawner.SpawnChest(f, dropBox, dropPosition);
 			}
-			else if (gameModeConfig.ShieldDeathDropStrategy == DeathDropsStrategy.NormalWithFallback &&
-			         armourDropChance <= f.GameConfig.DeathDropSmallShieldChance)
+
+			if(gameModeConfig.DeathDropStrategy == DeathDropsStrategy.Consumables)
 			{
-				Collectable.DropConsumable(f, GameId.ShieldSmall, deathPosition, step, false);
+				if(!f.Unsafe.TryGetPointer<Stats>(attacker, out var stats) ||
+					!f.Unsafe.TryGetPointer<PlayerCharacter>(attacker, out var attackingPlayer))
+				{
+					return;
+				}
+
+				var ammoFilled = attackingPlayer->GetAmmoAmountFilled(f, attacker);
+				var healthFilled = stats->CurrentHealth / stats->GetStatData(StatType.Health).StatValue;
+				var shieldFilled = stats->CurrentShield / stats->GetStatData(StatType.Shield).StatValue;
+
+				//drop consumables based on the number of items you have collected and the kind of consumables the player needs
+				for (int i = 0; i < FPMath.RoundToInt(itemCount / 2); i++)
+				{
+					var consumable = GameId.Health;
+					if (healthFilled < ammoFilled && healthFilled < shieldFilled) //health
+					{
+						consumable = GameId.Health;
+						healthFilled += f.ConsumableConfigs.GetConfig(consumable).Amount.Get(f) / stats->GetStatData(StatType.Health).StatValue;
+					}
+					else if (ammoFilled < healthFilled && ammoFilled < shieldFilled) //ammo
+					{
+						consumable = GameId.AmmoSmall;
+						ammoFilled += f.ConsumableConfigs.GetConfig(consumable).Amount.Get(f);
+					}
+					else if (shieldFilled < healthFilled && shieldFilled < ammoFilled) //shield
+					{
+						consumable = GameId.ShieldSmall;
+						shieldFilled += f.ConsumableConfigs.GetConfig(consumable).Amount.Get(f) / stats->GetStatData(StatType.Shield).StatValue;
+					}
+					Collectable.DropConsumable(f, consumable, deathPosition, step, false);
+					step++;
+				}
+				if(!playerDead->HasMeleeWeapon(f, entity)) //also drop the target player's weapon
+				{
+					Collectable.DropEquipment(f, playerDead->CurrentWeapon, deathPosition, step);
+					step++;
+				}
 			}
 		}
-		
+
 		private void InstantiatePlayer(Frame f, PlayerRef playerRef, RuntimePlayer playerData)
 		{
 			var playerEntity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.PlayerCharacterPrototype.Id));

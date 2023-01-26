@@ -50,107 +50,8 @@ namespace FirstLight.Game.Utils
 			int appendedNumberAmount = GameConstants.Data.PLAYER_NAME_APPENDED_NUMBERS;
 			return playerName.Remove(playerName.Length - appendedNumberAmount, appendedNumberAmount);
 		}
-		
-		/// <summary>
-		/// Gets the translation for the given<paramref name="strategy"/>
-		/// </summary>
-		public static string GetTranslation(this GameCompletionStrategy strategy)
-		{
-			switch (strategy)
-			{
-				case GameCompletionStrategy.Never:
-					return "";
-				
-				case GameCompletionStrategy.EveryoneDead:
-					return ScriptLocalization.UITMatchmaking.br_mode_desc;
-				
-				case GameCompletionStrategy.KillCount:
-					return ScriptLocalization.UITMatchmaking.dm_mode_desc;
-				
-				default:
-					return "";
-			}
-		}
-		
-		/// <summary>
-		/// Requests the localized text representing the given <paramref name="gameId"/> as a string
-		/// </summary>
-		public static string GetTranslationGameIdString(this string gameId)
-		{
-			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.GameIds)}/{gameId}");
-		}
 
-		/// <summary>
-		/// Requests the localized text representing the given <paramref name="stat"/>
-		/// </summary>
-		public static string GetTranslation(this StatType stat)
-		{
-			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.General)}/{stat.ToString()}");
-		}
 
-		/// <summary>
-		/// Get's the translation string of the given <paramref name="id"/>
-		/// </summary>
-		public static string GetTranslation(this GameId id)
-		{
-			return LocalizationManager.GetTranslation(id.GetTranslationTerm());
-		}
-		
-		/// <summary>
-		/// Get's the translation string of the given <paramref name="id"/> + Description;
-		/// </summary>
-		public static string GetTranslationDescription(this GameId id)
-		{
-			return LocalizationManager.GetTranslation(id.GetTranslationTerm() + "Description");
-		}
-
-		/// <summary>
-		/// Get's the translation string of the given <paramref name="id"/>
-		/// </summary>
-		public static string GetTranslation(this ConsumableType id)
-		{
-			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.GameIds)}/{id.ToString()}");
-		}
-
-		/// <summary>
-		/// Requests the localized text representing the given <paramref name="stat"/>
-		/// </summary>
-		public static string GetTranslation(this EquipmentStatType stat)
-		{
-			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.General)}/{stat.ToString()}").ToUpperInvariant();
-		}
-
-		/// <summary>
-		/// Gets the translation term of the given <paramref name="id"/>
-		/// </summary>
-		public static string GetTranslationTerm(this GameId id)
-		{
-			return $"{nameof(ScriptTerms.GameIds)}/{id.ToString()}";
-		}
-
-		/// <summary>
-		/// Gets the translation term of the given <paramref name="id"/> for a match type
-		/// </summary>
-		public static string GetTranslation(this MatchType id)
-		{
-			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.GameIds)}/{id.ToString()}");
-		}
-		
-		/// <summary>
-		/// Gets the translation string of the given <paramref name="group"/>
-		/// </summary>
-		public static string GetTranslation(this GameIdGroup group)
-		{
-			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.GameIds)}/{group.ToString()}");
-		}
-		
-		/// <summary>
-		/// Gets the translation for  of the given <paramref name="group"/>
-		/// </summary>
-		public static string GetMapDropPointTranslation(this string dropPointName)
-		{
-			return LocalizationManager.GetTranslation($"MapDropPoints/{dropPointName}");
-		}
 		
 		/// <summary>
 		/// Get Photon region translation for the given <paramref name="regionKey"/> 
@@ -171,15 +72,6 @@ namespace FirstLight.Game.Utils
 				default:
 					return "";
 			}
-		}
-
-		/// <summary>
-		/// Requests the localized text representing the ordinal of the given <paramref name="number"/>
-		/// </summary>
-		public static string GetOrdinalTranslation(this int number)
-		{
-			number = number > 19 ? number % 10 : number;
-			return LocalizationManager.GetTranslation($"{nameof(ScriptTerms.General)}/Ordinal{number.ToString()}");
 		}
 
 		/// <summary>

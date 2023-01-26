@@ -9,6 +9,7 @@ using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views;
 using FirstLight.UiService;
+using I2.Loc;
 using Quantum;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -115,7 +116,7 @@ namespace FirstLight.Game.Presenters
 		private void ShowLeaderboards()
 		{
 			_showingLeaderboards = true;
-			_nextButton.text = "NEXT →";
+			_nextButton.text = ScriptLocalization.UITShared.next;
 			_leaderboardPanel.style.display = DisplayStyle.Flex;
 			_rewardsPanel.style.display = DisplayStyle.None;
 		}
@@ -126,7 +127,7 @@ namespace FirstLight.Game.Presenters
 			_leaderboardPanel.AddToClassList("hidden-right");
 			_rewardsPanel.RemoveFromClassList("rewards-panel--hidden-start");
 			_showingLeaderboards = false;
-			_nextButton.text = "EXIT";
+			_nextButton.text = ScriptLocalization.UITShared.leave;
 
 			AnimatePanels();
 		}
@@ -259,7 +260,7 @@ namespace FirstLight.Game.Presenters
 			{
 				var newEntry = _leaderboardEntryAsset.Instantiate();
 				newEntry.AttachView(this, out LeaderboardEntryView view);
-				view.SetData(entry, _matchServices.MatchEndDataService.LocalPlayer == entry.Data.Player);
+				view.SetData((int)entry.PlayerRank, entry.GetPlayerName(), (int)entry.Data.PlayersKilledCount, (int)entry.Data.PlayerTrophies, _matchServices.MatchEndDataService.LocalPlayer == entry.Data.Player);
 				_leaderboardScrollView.Add(newEntry);
 			}
 		}

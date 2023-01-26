@@ -7,8 +7,6 @@ namespace Quantum
 	[Serializable]
 	public struct QuantumEquipmentStatConfig
 	{
-		public GameIdGroup Category;
-		public EquipmentAdjective Adjective;
 		public EquipmentFaction Faction;
 		public FP HpRatioToBaseK;
 		public FP ArmorRatioToBaseK;
@@ -72,7 +70,7 @@ namespace Quantum
 				foreach (var statsConfig in QuantumConfigs)
 				{
 					_dictionary
-						.Add(new EquipmentStatsKey(statsConfig.Category, statsConfig.Adjective, statsConfig.Faction),
+						.Add(new EquipmentStatsKey(statsConfig.Faction),
 						     statsConfig);
 				}
 			}
@@ -87,22 +85,18 @@ namespace Quantum
 	/// </summary>
 	public readonly struct EquipmentStatsKey : IEquatable<EquipmentStatsKey>
 	{
-		public readonly GameIdGroup Category;
-		public readonly EquipmentAdjective Adjective;
 		public readonly EquipmentFaction Faction;
 
-		public EquipmentStatsKey(GameIdGroup category, EquipmentAdjective adjective, EquipmentFaction faction)
+		public EquipmentStatsKey(EquipmentFaction faction)
 		{
 			Faction = faction;
-			Category = category;
-			Adjective = adjective;
 		}
 
 		public static implicit operator int(EquipmentStatsKey key) => key.GetHashCode();
 
 		public bool Equals(EquipmentStatsKey other)
 		{
-			return Category == other.Category && Adjective == other.Adjective && Faction == other.Faction;
+			return Faction == other.Faction;
 		}
 
 		public override bool Equals(object obj)
@@ -114,9 +108,7 @@ namespace Quantum
 		{
 			unchecked
 			{
-				var hashCode = (int) Category;
-				hashCode = (hashCode * 397) ^ (int) Adjective;
-				hashCode = (hashCode * 397) ^ (int) Faction;
+				var hashCode = (int) Faction;
 				return hashCode;
 			}
 		}
@@ -141,7 +133,7 @@ namespace Quantum
 		/// </summary>
 		public static EquipmentStatsKey GetKey(this QuantumEquipmentStatConfig config)
 		{
-			return new EquipmentStatsKey(config.Category, config.Adjective, config.Faction);
+			return new EquipmentStatsKey(config.Faction);
 		}
 
 		/// <summary>
@@ -149,7 +141,7 @@ namespace Quantum
 		/// </summary>
 		public static EquipmentStatsKey GetStatsKey(this Equipment equipment)
 		{
-			return new EquipmentStatsKey(GetEquipmentGroup(equipment), equipment.Adjective, equipment.Faction);
+			return new EquipmentStatsKey(equipment.Faction);
 		}
 
 		private static GameIdGroup GetEquipmentGroup(Equipment equipment)

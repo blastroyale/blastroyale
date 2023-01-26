@@ -117,8 +117,8 @@ namespace Quantum.Systems
 				if (!equipment.HasValue || !equipment.Value.IsValid() || equipment.Value.IsDefaultItem())
 				{
 					var index = f.RNG->Next(0, offPool.Count);
-					
-					equipment = new Equipment(offPool[index]);
+
+					equipment = Equipment.Create(offPool[index], EquipmentRarity.Common, 1, f);
 					
 					if (offPool.Count > 1)
 					{

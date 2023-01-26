@@ -17,7 +17,7 @@
 .red-element {
     width: 200%;
     height: 100%;
-    background-image: url('project://database/Assets/Art/UI/Sprites/SwipeTransition/SwipeAnimation.svg?fileID=7388822144124034973&guid=21fbdc33fbe8b47fe8bc0991228a76e2&type=3#SwipeAnimation');
+    background-image: url('/Assets/Art/UI/Vectors/SwipeAnimation.svg');
     position: absolute;
     -unity-background-image-tint-color: rgb(216, 75, 121);
 }
@@ -25,7 +25,7 @@
 .yellow-element {
     width: 300%;
     height: 150%;
-    background-image: url('project://database/Assets/Art/UI/Sprites/SwipeTransition/SwipeAnimation.svg?fileID=7388822144124034973&guid=21fbdc33fbe8b47fe8bc0991228a76e2&type=3#SwipeAnimation');
+    background-image: url('/Assets/Art/UI/Vectors/SwipeAnimation.svg');
     position: absolute;
     -unity-background-image-tint-color: rgb(248, 199, 46);
 }
@@ -33,7 +33,7 @@
 .blue-element {
     width: 600%;
     height: 300%;
-    background-image: url('project://database/Assets/Art/UI/Sprites/SwipeTransition/SwipeAnimation.svg?fileID=7388822144124034973&guid=21fbdc33fbe8b47fe8bc0991228a76e2&type=3#SwipeAnimation');
+    background-image: url('/Assets/Art/UI/Vectors/SwipeAnimation.svg');
     position: absolute;
     -unity-background-image-tint-color: rgb(75, 216, 214);
     opacity: 1;
@@ -41,7 +41,6 @@
 
 .message {
     position: absolute;
-    -unity-font-definition: var(--font-italic);
     font-size: 45px;
     -unity-font-style: bold;
     color: rgb(31, 41, 117);
@@ -53,7 +52,7 @@
 
 .badge {
     translate: 0 -50px;
-    background-image: url('project://database/Assets/Art/UI/Sprites/SwipeTransition/Badge.png?fileID=21300000&guid=afe2f5ca9ef9649788021c933faddf0c&type=3#Badge');
+    background-image: var(--sprite-shared__logo-br);
     width: 105px;
     height: 90px;
     scale: 1 1;

@@ -19,14 +19,14 @@ namespace FirstLight.Game.Views
 	/// </summary>
 	public class BattlePassSegmentView : IUIView
 	{
-		private const string UssRewardHolderRarity = "reward-holder__rarity";
-		private const string UssRarityCommon = UssRewardHolderRarity + "--common";
-		private const string UssRarityUncommon = UssRewardHolderRarity + "--uncommon";
-		private const string UssRarityRare = UssRewardHolderRarity + "--rare";
-		private const string UssRarityEpic = UssRewardHolderRarity + "--epic";
-		private const string UssRarityLegendary = UssRewardHolderRarity + "--legendary";
-		private const string UssRarityRainbow = UssRewardHolderRarity + "--rainbow";
-		
+		private const string UssSpriteRarityModifier = "--sprite-home__pattern-rewardglow-";
+		private const string UssSpriteRarityCommon = UssSpriteRarityModifier + "common";
+		private const string UssSpriteRarityUncommon = UssSpriteRarityModifier + "uncommon";
+		private const string UssSpriteRarityRare = UssSpriteRarityModifier + "rare";
+		private const string UssSpriteRarityEpic = UssSpriteRarityModifier + "epic";
+		private const string UssSpriteRarityLegendary = UssSpriteRarityModifier + "legendary";
+		private const string UssSpriteRarityRainbow = UssSpriteRarityModifier + "rainbow";
+
 		private const string UssOutlineClaimed = "reward__button-outline--claimed";
 		private const string UssLevelBgComplete = "progress-bar__level-bg--complete";
 		public event Action<BattlePassSegmentView> Clicked;
@@ -84,15 +84,16 @@ namespace FirstLight.Game.Views
 		public void InitWithData(BattlePassSegmentData data)
 		{
 			_data = data;
-			
+
 			var levelForUi = _data.SegmentLevelForRewards + 1;
 			var isRewardClaimed = _data.CurrentLevel >= data.SegmentLevelForRewards;
 
 			_title.text = GetRewardName(_data.RewardConfig.GameId);
 			_levelNumber.text = levelForUi.ToString();
 
+			_rarityImage.RemoveSpriteClasses();
 			var rarityStyle = GetRarityStyle(_data.RewardConfig.GameId);
-			if(!_rarityImage.ClassListContains(rarityStyle))
+			if (!_rarityImage.ClassListContains(rarityStyle))
 			{
 				_rarityImage.AddToClassList(rarityStyle);
 			}
@@ -100,12 +101,14 @@ namespace FirstLight.Game.Views
 			_levelBg.EnableInClassList(UssLevelBgComplete, data.PredictedCurrentLevel >= data.SegmentLevelForRewards);
 			_claimStatusOutline.EnableInClassList(UssOutlineClaimed, isRewardClaimed);
 			_claimStatusCheckmark.SetDisplay(isRewardClaimed);
-			_readyToClaimOutline.SetDisplay(!isRewardClaimed && _data.PredictedCurrentLevel >= _data.SegmentLevelForRewards);
-			_readyToClaimShine.SetDisplay(!isRewardClaimed && _data.PredictedCurrentLevel >= _data.SegmentLevelForRewards);
-			
+			_readyToClaimOutline.SetDisplay(!isRewardClaimed &&
+				_data.PredictedCurrentLevel >= _data.SegmentLevelForRewards);
+			_readyToClaimShine.SetDisplay(!isRewardClaimed &&
+				_data.PredictedCurrentLevel >= _data.SegmentLevelForRewards);
+
 			_blocker.SetDisplay(isRewardClaimed || _data.PredictedCurrentLevel != _data.SegmentLevelForRewards);
 			_claimBubble.SetDisplay(!isRewardClaimed && _data.PredictedCurrentLevel == _data.SegmentLevelForRewards);
-			
+
 			if (data.PredictedCurrentLevel > data.SegmentLevel)
 			{
 				SetProgressFill(1f);
@@ -127,26 +130,15 @@ namespace FirstLight.Game.Views
 
 		private string GetRarityStyle(GameId id)
 		{
-			switch (id)
+			return id switch
 			{
-				case GameId.CoreCommon:
-					return UssRarityCommon;
-
-				case GameId.CoreUncommon:
-					return UssRarityUncommon;
-
-				case GameId.CoreRare:
-					return UssRarityRare;
-
-				case GameId.CoreEpic:
-					return UssRarityEpic;
-
-				case GameId.CoreLegendary:
-					return UssRarityLegendary;
-
-				default:
-					return UssRarityRainbow;
-			}
+				GameId.CoreCommon    => UssSpriteRarityCommon,
+				GameId.CoreUncommon  => UssSpriteRarityUncommon,
+				GameId.CoreRare      => UssSpriteRarityRare,
+				GameId.CoreEpic      => UssSpriteRarityEpic,
+				GameId.CoreLegendary => UssSpriteRarityLegendary,
+				_                    => UssSpriteRarityRainbow
+			};
 		}
 
 		private string GetRewardName(GameId id)
@@ -161,7 +153,7 @@ namespace FirstLight.Game.Views
 					return ScriptLocalization.UITBattlePass.random_equipment;
 
 				default:
-					return id.GetTranslation();
+					return id.GetLocalization();
 			}
 		}
 	}

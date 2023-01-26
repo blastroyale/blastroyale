@@ -113,7 +113,7 @@ namespace FirstLight.Game.Services
 		protected override void DestroyEntityView(QuantumGame game, EntityView view)
 		{
 			// Checks if the simulation is running
-			if (game.Frames.Predicted == null)
+			if (game?.Frames?.Predicted == null)
 			{
 				return;
 			}

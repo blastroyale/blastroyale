@@ -47,7 +47,7 @@ namespace FirstLight.Game.Presenters
 			_services = MainInstaller.Resolve<IGameServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 			
-			_closeButton.onClick.AddListener(()=>OnClosed());
+			_closeButton.onClick.AddListener(() => Data.OnCloseClicked());
 			_selectButton.onClick.AddListener(OnSelectedPressed);
 			
 			_services.MessageBrokerService.Subscribe<PlayerSkinUpdatedMessage>(OnUpdatePlayerSkinMessage);
@@ -89,12 +89,12 @@ namespace FirstLight.Game.Presenters
 			var data = GameIdGroup.PlayerSkin.GetIds();
 			var list = new List<PlayerSkinGridItemView.PlayerSkinGridItemData>(data.Count);
 			
-			for (var i = 0; i < data.Count; i++)
+			foreach (var id in data)
 			{
 				var viewData = new PlayerSkinGridItemView.PlayerSkinGridItemData
 				{
-					Skin = data[i],
-					IsSelected = data[i] == _selectedId,
+					Skin = id,
+					IsSelected = id == _selectedId,
 					OnAvatarClicked = OnAvatarClicked
 				};
 				
@@ -102,7 +102,7 @@ namespace FirstLight.Game.Presenters
 			}
 			
 			_gridView.UpdateData(list);
-			_itemTitleText.text = _selectedId.GetTranslation();
+			_itemTitleText.text = _selectedId.GetLocalization();
 			_avatarImage.sprite = await _services.AssetResolverService.RequestAsset<GameId, Sprite>(_selectedId);
 		}
 

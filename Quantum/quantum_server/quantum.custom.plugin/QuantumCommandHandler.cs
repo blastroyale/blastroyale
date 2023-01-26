@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
+using FirstLight.Server.SDK.Modules.Commands;
 
 namespace Quantum
 { 
@@ -18,7 +19,7 @@ namespace Quantum
 		public QuantumCommandHandler(CustomQuantumPlugin plugin)
 		{
 			_plugin = plugin;
-			_commandAssembly = Assembly.GetAssembly(typeof(IGameCommand));
+			_commandAssembly = Assembly.GetAssembly(typeof(EndOfGameCalculationsCommand));
 		}
 
 		public void DispatchLogicCommandFromQuantumEvent(EventFireQuantumServerCommand ev)
@@ -26,13 +27,14 @@ namespace Quantum
 			int index = ev.Player;
 			if(_plugin.CustomServer.GetPlayFabIdByIndex(ev.Player) == null)
 			{
+				Log.Error("Could not ind playfab id for player " + ev.Player);
 				return;
 			}
 
 			var actorId = _plugin.CustomServer.GetClientActorNumberByIndex(index);
 			if(FlgConfig.DebugMode)
 			{
-				Log.Debug($"Firing logic command for index {index} actor {actorId}");
+				Log.Info($"Firing logic command for index {index} actor {actorId}");
 			}
 			try
 			{
@@ -56,11 +58,13 @@ namespace Quantum
 		/// </summary>
 		public void DispatchCommand(int actorNumber, QuantumCommandPayload command, Frame frame, bool async = false)
 		{
+
 			if (_plugin.CustomServer.gameSession == null)
 			{
 				_plugin.LogError("Game did not ran, not sending commands");
 				return;
 			}
+
 			if(!_tokens.TryGetValue(actorNumber, out var token))
 			{
 				_plugin.LogError($"User {actorNumber} did not send his token");
@@ -72,6 +76,7 @@ namespace Quantum
 				_plugin.LogError("Command without player id received");
 				return;
 			}
+
 			var game = _plugin.CustomServer.gameSession.Session.Game as QuantumGame;
 			var commandType = _commandAssembly.GetType(command.CommandType);
 			if(commandType == null)
@@ -85,10 +90,12 @@ namespace Quantum
 				_plugin.LogError($"Actor {actorNumber} sent command {commandType.Name} which is not a quantum command");
 				return;
 			}
+			
 			var quantumValues = new QuantumValues()
 			{
 				ExecutingPlayer = _plugin.CustomServer.GetClientIndexByActorNumber(actorNumber),
-				MatchType = _plugin.GetMatchType()
+				MatchType = _plugin.GetMatchType(),
+				MatchId = _plugin.MatchID
 			};
 			commandInstance.FromFrame(frame, quantumValues);
 			_plugin.CustomServer.Playfab.SendServerCommand(playfabId, token, commandInstance, async);
@@ -102,7 +109,7 @@ namespace Quantum
 		{
 			if(FlgConfig.DebugMode)
 			{
-				Log.Debug($"Receive token for actor {actorNumber}");
+				Log.Info($"Receive token for actor {actorNumber}");
 			}
 			_tokens[actorNumber] = token;
 		}

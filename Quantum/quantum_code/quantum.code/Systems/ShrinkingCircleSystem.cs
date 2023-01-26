@@ -198,8 +198,11 @@ namespace Quantum.Systems
 		private void SetShrinkingCircleCenteredOnLocalPlayer(ShrinkingCircle* circle, Frame f)
 		{
 			var characterEntity = f.GetSingleton<GameContainer>().PlayersData[0].Entity;
-			if (characterEntity == EntityRef.None)
+			if (QuantumHelpers.IsDestroyed(f, characterEntity))
+			{
 				return;
+			}
+
 			if(f.TryGet<Transform3D>(characterEntity, out var trans))
 			{
 				circle->TargetCircleCenter = new FPVector2(trans.Position.X, trans.Position.Z);

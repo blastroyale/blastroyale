@@ -2764,44 +2764,46 @@ namespace Quantum {
     public Int32 BotNameIndex;
     [FieldOffset(0)]
     public Byte CollectedOwnedNfts;
-    [FieldOffset(20)]
-    public UInt32 CurrentKillStreak;
     [FieldOffset(24)]
-    public UInt32 CurrentMultiKill;
+    public UInt32 CurrentKillStreak;
     [FieldOffset(28)]
-    public UInt32 DamageDone;
+    public UInt32 CurrentMultiKill;
     [FieldOffset(32)]
-    public UInt32 DamageReceived;
+    public UInt32 DamageDone;
     [FieldOffset(36)]
+    public UInt32 DamageReceived;
+    [FieldOffset(40)]
     public UInt32 DeathCount;
     [FieldOffset(72)]
     public EntityRef Entity;
     [FieldOffset(80)]
     public FP FirstDeathTime;
-    [FieldOffset(40)]
-    public UInt32 HealingDone;
     [FieldOffset(44)]
+    public UInt32 HealingDone;
+    [FieldOffset(48)]
     public UInt32 HealingReceived;
     [FieldOffset(96)]
     public FPVector3 LastDeathPosition;
     [FieldOffset(88)]
     public FP MultiKillResetTime;
-    [FieldOffset(16)]
+    [FieldOffset(20)]
     public PlayerRef Player;
     [FieldOffset(4)]
     public GameId PlayerDeathMarker;
-    [FieldOffset(48)]
+    [FieldOffset(52)]
     public UInt32 PlayerLevel;
     [FieldOffset(8)]
     public GameId PlayerSkin;
-    [FieldOffset(52)]
-    public UInt32 PlayerTrophies;
     [FieldOffset(56)]
-    public UInt32 PlayersKilledCount;
+    public UInt32 PlayerTrophies;
     [FieldOffset(60)]
-    public UInt32 SpecialsUsedCount;
+    public UInt32 PlayersKilledCount;
     [FieldOffset(64)]
+    public UInt32 SpecialsUsedCount;
+    [FieldOffset(68)]
     public UInt32 SuicideCount;
+    [FieldOffset(16)]
+    public Int32 TeamId;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 331;
@@ -2826,6 +2828,7 @@ namespace Quantum {
         hash = hash * 31 + PlayersKilledCount.GetHashCode();
         hash = hash * 31 + SpecialsUsedCount.GetHashCode();
         hash = hash * 31 + SuicideCount.GetHashCode();
+        hash = hash * 31 + TeamId.GetHashCode();
         return hash;
       }
     }
@@ -2835,6 +2838,7 @@ namespace Quantum {
         serializer.Stream.Serialize((Int32*)&p->PlayerDeathMarker);
         serializer.Stream.Serialize((Int32*)&p->PlayerSkin);
         serializer.Stream.Serialize(&p->BotNameIndex);
+        serializer.Stream.Serialize(&p->TeamId);
         PlayerRef.Serialize(&p->Player, serializer);
         serializer.Stream.Serialize(&p->CurrentKillStreak);
         serializer.Stream.Serialize(&p->CurrentMultiKill);
@@ -4247,11 +4251,14 @@ namespace Quantum {
     public AssetRefHFSMRoot HfsmRootRef;
     [FieldOffset(24)]
     public AssetRefCharacterController3DConfig KccConfigRef;
-    [FieldOffset(8)]
+    [FieldOffset(12)]
     [HideInInspector()]
     public PlayerRef Player;
     [FieldOffset(40)]
     public FPVector3 ProjectileSpawnOffset;
+    [FieldOffset(8)]
+    [HideInInspector()]
+    public Int32 TeamId;
     [FieldOffset(424)]
     [HideInInspector()]
     [FramePrinter.FixedArrayAttribute(typeof(WeaponSlot), 3)]
@@ -4277,6 +4284,7 @@ namespace Quantum {
         hash = hash * 31 + KccConfigRef.GetHashCode();
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + ProjectileSpawnOffset.GetHashCode();
+        hash = hash * 31 + TeamId.GetHashCode();
         hash = hash * 31 + HashCodeUtils.GetArrayHashCode(WeaponSlots);
         return hash;
       }
@@ -4285,6 +4293,7 @@ namespace Quantum {
         var p = (PlayerCharacter*)ptr;
         serializer.Stream.Serialize(&p->CurrentWeaponSlot);
         serializer.Stream.Serialize(&p->DroppedLoadoutFlags);
+        serializer.Stream.Serialize(&p->TeamId);
         PlayerRef.Serialize(&p->Player, serializer);
         Quantum.AssetRefAIBlackboard.Serialize(&p->BlackboardRef, serializer);
         AssetRefCharacterController3DConfig.Serialize(&p->KccConfigRef, serializer);
@@ -10191,6 +10200,8 @@ namespace Quantum.Prototypes {
     [HideInInspector()]
     public PlayerRef Player;
     [HideInInspector()]
+    public Int32 TeamId;
+    [HideInInspector()]
     public Int32 CurrentWeaponSlot;
     [HideInInspector()]
     [ArrayLengthAttribute(3)]
@@ -10217,6 +10228,7 @@ namespace Quantum.Prototypes {
       result.KccConfigRef = this.KccConfigRef;
       result.Player = this.Player;
       result.ProjectileSpawnOffset = this.ProjectileSpawnOffset;
+      result.TeamId = this.TeamId;
       for (int i = 0, count = PrototypeValidator.CheckLength(WeaponSlots, 3, in context); i < count; ++i) {
         this.WeaponSlots[i].Materialize(frame, ref *result.WeaponSlots.GetPointer(i), in context);
       }
@@ -10259,6 +10271,7 @@ namespace Quantum.Prototypes {
     public MapEntityId Entity;
     public UInt32 PlayerLevel;
     public UInt32 PlayerTrophies;
+    public Int32 TeamId;
     public GameId_Prototype PlayerSkin;
     public GameId_Prototype PlayerDeathMarker;
     public Int32 BotNameIndex;
@@ -10299,6 +10312,7 @@ namespace Quantum.Prototypes {
       result.PlayersKilledCount = this.PlayersKilledCount;
       result.SpecialsUsedCount = this.SpecialsUsedCount;
       result.SuicideCount = this.SuicideCount;
+      result.TeamId = this.TeamId;
       MaterializeUser(frame, ref result, in context);
     }
   }

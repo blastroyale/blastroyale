@@ -173,6 +173,7 @@ namespace FirstLight.Game.Utils
 			public const string PLAYER_PROPS_ALL_LOADED = "propsAllLoaded";
 			public const string PLAYER_PROPS_PRELOAD_IDS = "preloadIds";
 			public const string PLAYER_PROPS_SPECTATOR = "isSpectator";
+			public const string PLAYER_PROPS_TEAM_ID = "teamId";
 
 			// Room properties
 			public const string ROOM_NAME_PLAYTEST = "PLAYTEST";
@@ -222,7 +223,11 @@ namespace FirstLight.Game.Utils
 			// The name of the parameter in the animator that decides the time of stun outro animation
 			public const string STUN_OUTRO_TIME_ANIMATOR_PARAM = "stun_outro_time_sec";
 
+			// This conversion is the "true" one, works for plain circles with no decor, like weapon aiming range circle
 			public const float RADIUS_TO_SCALE_CONVERSION_VALUE = 2f;
+			// This conversion is manually chosen based on the visual of special/danger indicators that have decorative elements
+			public const float RADIUS_TO_SCALE_CONVERSION_VALUE_NON_PLAIN_INDICATORS = 2.2f;
+			
 			public const float GAMEPLAY_POST_ATTACK_HIDE_DURATION = 2f;
 
 			public const string SHADER_MINIMAP_DRAW_PLAYERS = "MINIMAP_DRAW_PLAYERS";
@@ -247,7 +252,7 @@ namespace FirstLight.Game.Utils
 			
 			public const float SPECIAL_BUTTON_MAX_RADIUS_MULT = 1.75f;
 			public const float SPECIAL_BUTTON_FIRST_CANCEL_RADIUS_MULT = 1.15f;
-			public const float SPECIAL_BUTTON_CANCEL_RADIUS_MULT = 0.55f;
+			public const float SPECIAL_BUTTON_CANCEL_RADIUS_MULT = 0.75f;
 		}
 		
 		public static class Haptics

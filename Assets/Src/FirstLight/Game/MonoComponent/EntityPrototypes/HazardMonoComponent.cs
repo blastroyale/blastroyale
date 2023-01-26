@@ -13,7 +13,7 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		protected override async void OnEntityInstantiated(QuantumGame game)
 		{
 			var hazard = GetComponentData<Hazard>(game);
-			var radius =  hazard.Radius.AsFloat * GameConstants.Visuals.RADIUS_TO_SCALE_CONVERSION_VALUE;
+			var radius =  hazard.Radius.AsFloat * GameConstants.Visuals.RADIUS_TO_SCALE_CONVERSION_VALUE_NON_PLAIN_INDICATORS;
 			var view = await Services.AssetResolverService.RequestAsset<GameId, GameObject>(hazard.GameId, 
 				           true, true, OnLoaded);
 

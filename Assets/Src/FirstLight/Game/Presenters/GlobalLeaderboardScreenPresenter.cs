@@ -34,6 +34,7 @@ namespace FirstLight.Game.Presenters
 		private const string UssLeaderboardEntryGlobal = "leaderboard-entry--global";
 		private const string UssLeaderboardEntryPositionerHighlight = "leaderboard-entry-positioner--highlight";
 		private const string UssLeaderboardPanelLocalPlayerFixed = "leaderboard-panel__local-player-fixed";
+		private const string NoDisplayNameReplacement = "Unamed00000";
 
 		[SerializeField] private VisualTreeAsset _leaderboardEntryAsset;
 
@@ -105,6 +106,8 @@ namespace FirstLight.Game.Presenters
 			var leaderboardEntry = _playfabLeaderboardEntries[index];
 
 			var isLocalPlayer = leaderboardEntry.PlayFabId == _dataProvider.AppDataProvider.PlayerId;
+			
+			leaderboardEntry.DisplayName ??= NoDisplayNameReplacement;
 
 			leaderboardEntryView.SetData(leaderboardEntry.Position + 1,
 				leaderboardEntry.DisplayName.Substring(0, leaderboardEntry.DisplayName.Length - 5), -1,

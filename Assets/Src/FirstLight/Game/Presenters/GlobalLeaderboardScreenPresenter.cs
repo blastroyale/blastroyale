@@ -79,6 +79,7 @@ namespace FirstLight.Game.Presenters
 
 			
 			_leaderboardListView.DisableScrollbars();
+			_leaderboardListView.SetVisibility(false);
 
 			_loadingSpinner.SetDisplay(true);	
 			
@@ -176,7 +177,6 @@ namespace FirstLight.Game.Presenters
 
 			if (_localPlayerPos != -1)
 			{
-				_leaderboardListView.SetVisibility(false);
 				StartCoroutine(RepositionScrollToLocalPlayer());
 				return;
 			}
@@ -187,8 +187,6 @@ namespace FirstLight.Game.Presenters
 
 		private void OnLeaderboardNeighborRanksReceived(GetLeaderboardAroundPlayerResult result)
 		{
-			_loadingSpinner.SetDisplay(false);
-			
 			var newEntry = _leaderboardEntryAsset.Instantiate();
 			newEntry.AttachView(this, out LeaderboardEntryView view);
 			var leaderboardEntry = result.Leaderboard[0];
@@ -206,6 +204,8 @@ namespace FirstLight.Game.Presenters
 			_leaderboardPanel.AddToClassList(UssLeaderboardPanelLocalPlayerFixed);
 
 			_fixedLocalPlayerHolder.Add(newEntry);
+			_leaderboardListView.SetVisibility(true);
+			_loadingSpinner.SetDisplay(false);
 		}
 
 		IEnumerator RepositionScrollToLocalPlayer()

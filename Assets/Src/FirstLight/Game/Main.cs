@@ -91,6 +91,14 @@ namespace FirstLight.Game
 			StartCoroutine(HeartbeatCoroutine());
 		}
 
+		private void OnApplicationFocus(bool hasFocus)
+		{
+			if (!hasFocus)
+			{
+				_services?.DataSaver?.SaveAllData();
+			}
+		}
+
 		private void OnApplicationPause(bool isPaused)
 		{
 			if (isPaused)

@@ -1483,334 +1483,6 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 65535
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 73
-      Position:
-        X:
-          RawValue: -223063
-        Y:
-          RawValue: -8323
-        Z:
-          RawValue: -297968
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 6551
-        Y:
-          RawValue: 19359
-        Z:
-          RawValue: 37836
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: Wall (20)
-        Tag: Untagged
-        Layer: 0
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 35
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 65535
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 73
-      Position:
-        X:
-          RawValue: -124759
-        Y:
-          RawValue: -8323
-        Z:
-          RawValue: -297968
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 6551
-        Y:
-          RawValue: 19359
-        Z:
-          RawValue: 37836
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: Wall (21)
-        Tag: Untagged
-        Layer: 0
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 36
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 46314
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 46367
-      Position:
-        X:
-          RawValue: -173906
-        Y:
-          RawValue: -8323
-        Z:
-          RawValue: -330736
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 6551
-        Y:
-          RawValue: 19359
-        Z:
-          RawValue: 37836
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: Wall (22)
-        Tag: Untagged
-        Layer: 0
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 37
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 46314
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 46367
-      Position:
-        X:
-          RawValue: -173911
-        Y:
-          RawValue: -8323
-        Z:
-          RawValue: -245801
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 6551
-        Y:
-          RawValue: 19359
-        Z:
-          RawValue: 37836
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: Wall (23)
-        Tag: Untagged
-        Layer: 0
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 38
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 46314
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 46367
-      Position:
-        X:
-          RawValue: -173911
-        Y:
-          RawValue: -8323
-        Z:
-          RawValue: -499491
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 6551
-        Y:
-          RawValue: 19359
-        Z:
-          RawValue: 37836
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: Wall (24)
-        Tag: Untagged
-        Layer: 0
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 39
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 46314
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 46367
-      Position:
-        X:
-          RawValue: -173911
-        Y:
-          RawValue: -8323
-        Z:
-          RawValue: -597991
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 6551
-        Y:
-          RawValue: 19359
-        Z:
-          RawValue: 37836
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: Wall (25)
-        Tag: Untagged
-        Layer: 0
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 40
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 65536
-      Position:
-        X:
-          RawValue: -223059
-        Y:
-          RawValue: -8323
-        Z:
-          RawValue: -548840
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 6551
-        Y:
-          RawValue: 19359
-        Z:
-          RawValue: 37836
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: Wall (26)
-        Tag: Untagged
-        Layer: 0
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 41
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 65536
-      Position:
-        X:
-          RawValue: -124755
-        Y:
-          RawValue: -8323
-        Z:
-          RawValue: -548840
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 6551
-        Y:
-          RawValue: 19359
-        Z:
-          RawValue: 37836
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: Wall (27)
-        Tag: Untagged
-        Layer: 0
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 42
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
           RawValue: -1
         Z:
           RawValue: 0
@@ -1845,7 +1517,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 43
+        ColliderIndex: 35
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1886,7 +1558,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 44
+        ColliderIndex: 36
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1927,7 +1599,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 45
+        ColliderIndex: 37
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1968,7 +1640,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 46
+        ColliderIndex: 38
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -2009,7 +1681,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 47
+        ColliderIndex: 39
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -2050,7 +1722,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 48
+        ColliderIndex: 40
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -2091,7 +1763,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 49
+        ColliderIndex: 41
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -2132,7 +1804,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 50
+        ColliderIndex: 42
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -2173,7 +1845,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 51
+        ColliderIndex: 43
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -2214,7 +1886,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 52
+        ColliderIndex: 44
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -2255,7 +1927,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 53
+        ColliderIndex: 45
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -2296,7 +1968,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 54
+        ColliderIndex: 46
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -2337,7 +2009,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 55
+        ColliderIndex: 47
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -2378,7 +2050,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 56
+        ColliderIndex: 48
         MutableMode: 0
       MutableMode: 0
     MapEntities: []
@@ -2565,7 +2237,7 @@ MonoBehaviour:
       SpawnerType:
         Value: 3
       BehaviourType:
-        Value: 1
+        Value: 0
       ForceStatic:
         Value: 1
     Projectile: []
@@ -2641,7 +2313,7 @@ MonoBehaviour:
       SpawnerType:
         Value: 3
       BehaviourType:
-        Value: 1
+        Value: 0
       ForceStatic:
         Value: 1
     Projectile: []
@@ -2717,7 +2389,7 @@ MonoBehaviour:
       SpawnerType:
         Value: 3
       BehaviourType:
-        Value: 1
+        Value: 0
       ForceStatic:
         Value: 1
     Projectile: []
@@ -3338,7 +3010,7 @@ MonoBehaviour:
         Y:
           RawValue: -8682
         Z:
-          RawValue: -508610
+          RawValue: -524994
       Rotation:
         X:
           RawValue: 0
@@ -3456,7 +3128,7 @@ MonoBehaviour:
         Y:
           RawValue: -8682
         Z:
-          RawValue: -328386
+          RawValue: -312002
       Rotation:
         X:
           RawValue: 0
@@ -3487,9 +3159,9 @@ MonoBehaviour:
       Health:
         RawValue: 6553600
       DamagePower:
-        RawValue: 6553600
+        RawValue: 3276800
       SplashRadius:
-        RawValue: 524288
+        RawValue: 327680
       DestructionLengthTime:
         RawValue: 65536
       GameId:
@@ -3605,9 +3277,9 @@ MonoBehaviour:
       Health:
         RawValue: 6553600
       DamagePower:
-        RawValue: 6553600
+        RawValue: 3276800
       SplashRadius:
-        RawValue: 524288
+        RawValue: 327680
       DestructionLengthTime:
         RawValue: 65536
       GameId:
@@ -3723,9 +3395,9 @@ MonoBehaviour:
       Health:
         RawValue: 6553600
       DamagePower:
-        RawValue: 6553600
+        RawValue: 3276800
       SplashRadius:
-        RawValue: 524288
+        RawValue: 327680
       DestructionLengthTime:
         RawValue: 65536
       GameId:
@@ -3841,9 +3513,9 @@ MonoBehaviour:
       Health:
         RawValue: 6553600
       DamagePower:
-        RawValue: 6553600
+        RawValue: 3276800
       SplashRadius:
-        RawValue: 524288
+        RawValue: 327680
       DestructionLengthTime:
         RawValue: 65536
       GameId:
@@ -3959,9 +3631,9 @@ MonoBehaviour:
       Health:
         RawValue: 6553600
       DamagePower:
-        RawValue: 6553600
+        RawValue: 3276800
       SplashRadius:
-        RawValue: 524288
+        RawValue: 327680
       DestructionLengthTime:
         RawValue: 65536
       GameId:

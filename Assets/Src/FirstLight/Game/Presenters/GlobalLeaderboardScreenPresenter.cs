@@ -195,6 +195,8 @@ namespace FirstLight.Game.Presenters
 			var leaderboardEntry = result.Leaderboard[0];
 
 			int trophies = leaderboardEntry.StatValue == 0 ? DefaultTrophies : leaderboardEntry.StatValue;
+			
+			leaderboardEntry.DisplayName ??= NoDisplayNameReplacement;
 
 			view.SetData(leaderboardEntry.Position + 1,
 				leaderboardEntry.DisplayName.Substring(0, leaderboardEntry.DisplayName.Length - 5), -1,

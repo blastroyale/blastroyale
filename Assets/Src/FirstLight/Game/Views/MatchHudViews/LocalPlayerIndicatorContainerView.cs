@@ -139,7 +139,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			                                  .GetComponent<IIndicator>();
 					
 			_specialIndicators[index].Init(playerView);
-			_specialIndicators[index].SetVisualProperties(config.Radius.AsFloat * GameConstants.Visuals.RADIUS_TO_SCALE_CONVERSION_VALUE,
+			_specialIndicators[index].SetVisualProperties(config.Radius.AsFloat * GameConstants.Visuals.RADIUS_TO_SCALE_CONVERSION_VALUE_NON_PLAIN_INDICATORS,
 			                                              config.MinRange.AsFloat, config.MaxRange.AsFloat);
 		}
 

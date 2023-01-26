@@ -26,26 +26,8 @@ namespace FirstLight.Game.Views.MainMenuViews
 		[SerializeField] private Color _neutralColor;
 
 		private IGameServices _services;
-		
-		private readonly Dictionary<EquipmentStatType, float> _maxValuesDictionary = new Dictionary<EquipmentStatType, float>
-		{
-			{ EquipmentStatType.Power, 1400 },
-			{ EquipmentStatType.Hp, 1000 },
-			{ EquipmentStatType.Speed, 45f },
-			{ EquipmentStatType.AttackCooldown, 2f },
-			{ EquipmentStatType.Armor, 0.10f },
-			{ EquipmentStatType.ProjectileSpeed, 20 },
-			{ EquipmentStatType.TargetRange, 15f },
-			{ EquipmentStatType.MaxCapacity, 200 },
-			{ EquipmentStatType.ReloadTime, 4f },
-			{ EquipmentStatType.MinAttackAngle, 60 },
-			{ EquipmentStatType.MaxAttackAngle, 60 },
-			{ EquipmentStatType.SplashDamageRadius, 4f },
-			{ EquipmentStatType.PowerToDamageRatio, 2f },
-			{ EquipmentStatType.NumberOfShots, 10 },
-			{ EquipmentStatType.PickupSpeed, 0.25f },
-			{ EquipmentStatType.ShieldCapacity, 800 },
-		};
+
+		private readonly Dictionary<EquipmentStatType, float> _maxValuesDictionary = EquipmentExtensions.MAX_VALUES;
 
 		/// <summary>
 		/// Set the information of this specific item.
@@ -55,12 +37,12 @@ namespace FirstLight.Game.Views.MainMenuViews
 			_statText.text = statText;
 			_valueText.text = value.ToString(format);
 			_valueTextComparison.text = "";
-			
+
 			if (value > 0 && maxValue > 0)
 			{
 				_slider.value = value / _maxValuesDictionary[statType];
 			}
-			
+
 			_comparisonSlider.gameObject.SetActive(false);
 		}
 
@@ -71,7 +53,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 		{
 			_statText.text = statText;
 			_valueText.text = valueText;
-			
+
 			if (value > 0)
 			{
 				_slider.value = value / _maxValuesDictionary[statType];
@@ -80,7 +62,6 @@ namespace FirstLight.Game.Views.MainMenuViews
 			{
 				_slider.value = 0;
 			}
-			
 			_valueTextComparison.gameObject.SetActive(false);
 		}
 

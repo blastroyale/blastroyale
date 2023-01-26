@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Infos;
+using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using Photon.Deterministic;
 using Quantum;
@@ -12,6 +14,17 @@ namespace FirstLight.Game.Utils
 	/// </summary>
 	public static class EquipmentExtensions
 	{
+		public static AnalyticsData GetAnalyticsData(this Equipment equipment, UniqueId id)
+		{
+			return new AnalyticsData()
+			{
+				{ "gameid", equipment.GameId },
+				{ "level", equipment.Level },
+				{ "rarity", equipment.Rarity },
+				{ "uniqueid", id.ToString() },
+			};
+		}
+		
 		/// <summary>
 		/// TODO: Gabriel delete when we update the backend
 		/// </summary>

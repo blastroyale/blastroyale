@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Photon.Deterministic;
 
@@ -46,7 +47,13 @@ namespace Quantum
 			}
 			else if (GameId.IsInGroup(GameIdGroup.Chest))
 			{
-				Collectable = SpawnChest(f, GameId, transform.Position);
+				var equipmentList = new List<Equipment>();
+				foreach(var item in f.ResolveList(ContentsOverride))
+				{
+					equipmentList.Add(item);
+				}
+
+				Collectable = SpawnChest(f, GameId, transform.Position, equipmentList);
 			}
 			else if (GameId == GameId.Random || GameId.IsInGroup(GameIdGroup.Weapon))
 			{
@@ -121,7 +128,7 @@ namespace Quantum
 		/// <summary>
 		/// Spawns a <see cref="Chest"/> of the given <paramref name="id"/> in the given <paramref name="position"/>
 		/// </summary>
-		public static EntityRef SpawnChest(Frame f, GameId id, FPVector3 position)
+		public static EntityRef SpawnChest(Frame f, GameId id, FPVector3 position, List<Equipment> contentsOverride)
 		{
 			var config = f.ChestConfigs.GetConfig(id);
 			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.ChestPrototype.Id));

@@ -5,13 +5,16 @@ using Photon.Deterministic;
 
 namespace Quantum
 {
+
 	public unsafe partial struct Chest
 	{
+
+
 		/// <summary>
 		/// Initializes this Chest with all the necessary data
 		/// </summary>
 		internal void Init(Frame f, EntityRef e, FPVector3 position, FPQuaternion rotation,
-		                   QuantumChestConfig config, bool makeCollectable = true)
+		                   QuantumChestConfig config, List<Equipment> ContentsOverride, bool makeCollectable = true)
 		{
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 

@@ -280,44 +280,7 @@ namespace Quantum
 				botCharacter = f.Unsafe.GetPointer<BotCharacter>(playerEntity);
 			}
 
-
-			spawners.Sort((pair, pointerPair) =>
-			{
-				// If its the same spawner type, BotOfType still needs to also compare the Behaviour Type
-				if (pair.Component->SpawnerType == pointerPair.Component->SpawnerType && 
-					(pair.Component->SpawnerType!= SpawnerType.BotOfType || pair.Component->BehaviourType == pointerPair.Component->BehaviourType))
-				{
-					// Making it random for the similar ones, will make it so they are randomly sorted between them, making the next one random
-					return f.RNG->Next(-1, 2);
-				}
-				
-				if (!isBot)
-				{
-					if (pair.Component->SpawnerType == SpawnerType.Player)
-					{
-						return -1;
-					}
-				}
-				else
-				{
-					if (pointerPair.Component->SpawnerType == SpawnerType.Player)
-						return -1;
-					if (pair.Component->SpawnerType == SpawnerType.BotOfType)
-					{
-						return pair.Component->BehaviourType == botCharacter->BehaviourType ? -1 : 1;
-					}
-					if (pointerPair.Component->SpawnerType == SpawnerType.BotOfType)
-					{
-						return pointerPair.Component->BehaviourType == botCharacter->BehaviourType ? 1 : -1;
-					}
-					if (pair.Component->SpawnerType == SpawnerType.AnyBot)
-					{
-						return -1;
-					}
-				}
-
-				return 1;
-			});
+			spawners.Sort(PlayerSpawnerPlayerTypeComparison(f, isBot, botCharacter));
 
 			if (spawners.Count == 0)
 			{
@@ -432,6 +395,50 @@ namespace Quantum
 		{
 			var lookDirection = (rotation * FPVector3.Forward).XZ;
 			return attackDirection == FPVector2.Zero ? lookDirection : attackDirection;
+		}
+		
+		/// <summary>
+		/// Used to sort spawners based on relevancy to the type of player that is spawning. If it's a bot, it will first provide spawners specifically for bots, and so on.
+		/// </summary>
+		private static Comparison<EntityComponentPointerPair<PlayerSpawner>> PlayerSpawnerPlayerTypeComparison(Frame f, bool isBot, BotCharacter* botCharacter)
+		{
+			return (pair, pointerPair) =>
+			{
+				// If its the same spawner type, BotOfType still needs to also compare the Behaviour Type
+				if (pair.Component->SpawnerType == pointerPair.Component->SpawnerType && 
+					(pair.Component->SpawnerType!= SpawnerType.BotOfType || pair.Component->BehaviourType == pointerPair.Component->BehaviourType))
+				{
+					// Making it random for the similar ones, will make it so they are randomly sorted between them, making the next one random
+					return f.RNG->Next(-1, 2);
+				}
+				
+				if (!isBot)
+				{
+					if (pair.Component->SpawnerType == SpawnerType.Player)
+					{
+						return -1;
+					}
+				}
+				else
+				{
+					if (pointerPair.Component->SpawnerType == SpawnerType.Player)
+						return -1;
+					if (pair.Component->SpawnerType == SpawnerType.BotOfType)
+					{
+						return pair.Component->BehaviourType == botCharacter->BehaviourType ? -1 : 1;
+					}
+					if (pointerPair.Component->SpawnerType == SpawnerType.BotOfType)
+					{
+						return pointerPair.Component->BehaviourType == botCharacter->BehaviourType ? 1 : -1;
+					}
+					if (pair.Component->SpawnerType == SpawnerType.AnyBot)
+					{
+						return -1;
+					}
+				}
+
+				return 1;
+			};
 		}
 	}
 }

@@ -125,8 +125,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void UnsubscribeEvents()
 		{
-			// TODO: Re-add the unsubscription when we can have global state for the authentication or just the re-login on the connection loss
-			//_services.MessageBrokerService?.UnsubscribeAll(this);
+			_services.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
 		// TODO - REMOVE AUTHENTICATION UI SET FROM GAME COMPLETELY

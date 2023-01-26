@@ -12,16 +12,18 @@ namespace FirstLight.Game.Services
 	{
 		public EntityRef Entity;
 		public PlayerRef Player;
+		public int Team;
 		public Transform Transform;
 
-		public SpectatedPlayer(EntityRef entity, PlayerRef player, Transform transform)
+		public SpectatedPlayer(EntityRef entity, PlayerRef player, int team, Transform transform)
 		{
 			Entity = entity;
 			Player = player;
+			Team = team;
 			Transform = transform;
 		}
 	}
-	
+
 	/// <summary>
 	/// Tracks the currently spectated player / entity, and allows operations on it.
 	///
@@ -52,7 +54,7 @@ namespace FirstLight.Game.Services
 		private readonly IMatchServices _matchServices;
 		private readonly FP _playerVisionRange;
 		private readonly IObservableField<SpectatedPlayer> _spectatedPlayer = new ObservableField<SpectatedPlayer>();
-		
+
 		public IObservableFieldReader<SpectatedPlayer> SpectatedPlayer => _spectatedPlayer;
 
 		public SpectateService(IGameServices gameServices, IMatchServices matchServices)
@@ -60,7 +62,7 @@ namespace FirstLight.Game.Services
 			_gameServices = gameServices;
 			_matchServices = matchServices;
 			_playerVisionRange = gameServices.ConfigsProvider.GetConfig<QuantumGameConfig>().PlayerVisionRange;
-			
+
 			_gameServices.MessageBrokerService.Subscribe<MatchSimulationEndedMessage>(OnMatchSimulationEnded);
 
 			QuantumCallback.SubscribeManual<CallbackUpdateView>(this, OnQuantumUpdateView);
@@ -85,7 +87,7 @@ namespace FirstLight.Game.Services
 
 				return;
 			}
-			
+
 			var localPlayer = game.GetLocalPlayerData(false, out var f);
 
 			if (isReconnect && !localPlayer.Entity.IsAlive(f))
@@ -94,18 +96,18 @@ namespace FirstLight.Game.Services
 			}
 			else
 			{
-				SetSpectatedEntity(localPlayer.Entity, localPlayer.Player);
+				SetSpectatedEntity(game.Frames.Verified, localPlayer.Entity, localPlayer.Player);
 			}
 		}
 
 		public void OnMatchEnded(QuantumGame game, bool isDisconnected)
 		{
-			SetSpectatedEntity(EntityRef.None, PlayerRef.None, true);
+			SetSpectatedEntity(null, EntityRef.None, PlayerRef.None, true);
 		}
 
 		public void OnMatchSimulationEnded(MatchSimulationEndedMessage message)
 		{
-			SetSpectatedEntity(EntityRef.None, PlayerRef.None, true);
+			SetSpectatedEntity(null, EntityRef.None, PlayerRef.None, true);
 		}
 
 		public void SwipeLeft()
@@ -121,18 +123,19 @@ namespace FirstLight.Game.Services
 		private unsafe void OnQuantumUpdateView(CallbackUpdateView callback)
 		{
 			var game = callback.Game;
-			
+
 			// This stupidity along with all the TryGetNextPlayer nonsense is needed because apparently Quantum lags
 			// behind when we're in Spectate mode, meaning that we aren't able to fetch the initial spectated player
 			// on the first frame the same way we can in normal mode. SMH.
-			if (!_spectatedPlayer.Value.Entity.IsValid && 
-			    _gameServices.NetworkService.LocalPlayer.IsSpectator() && 
-			    TryGetNextPlayer(game, out var player))
+			if (!_spectatedPlayer.Value.Entity.IsValid &&
+				_gameServices.NetworkService.LocalPlayer.IsSpectator() &&
+				TryGetNextPlayer(game, out var player))
 			{
-				SetSpectatedEntity(player.Key, player.Value, true);
+				SetSpectatedEntity(callback.Game.Frames.Verified, player.Entity, player.Player, true);
 			}
 
-			if (game.Frames.Predicted.Unsafe.TryGetPointer<Transform3D>(_spectatedPlayer.Value.Entity, out var transform3D))
+			if (game.Frames.Predicted.Unsafe.TryGetPointer<Transform3D>(_spectatedPlayer.Value.Entity,
+					out var transform3D))
 			{
 				game.SetPredictionArea(transform3D->Position, _playerVisionRange);
 			}
@@ -141,19 +144,18 @@ namespace FirstLight.Game.Services
 		private void SwipeLeft(QuantumGame game)
 		{
 			TryGetPreviousPlayer(game, out var player);
-			SetSpectatedEntity(player.Key, player.Value);
+			SetSpectatedEntity(game.Frames.Verified, player.Entity, player.Player);
 		}
 
 		private void SwipeRight(QuantumGame game)
 		{
 			TryGetNextPlayer(game, out var player);
-			SetSpectatedEntity(player.Key, player.Value);
+			SetSpectatedEntity(game.Frames.Verified, player.Entity, player.Player);
 		}
 
-		private bool TryGetNextPlayer(QuantumGame game, out Pair<EntityRef, PlayerRef> player)
+		private bool TryGetNextPlayer(QuantumGame game, out Quantum.PlayerMatchData player)
 		{
-			var frame = game.Frames.Verified;
-			var players = GetPlayerList(frame, out var currentIndex);
+			var players = GetPlayerList(game, out var currentIndex);
 
 			if (players.Count > 0)
 			{
@@ -165,10 +167,9 @@ namespace FirstLight.Game.Services
 			return false;
 		}
 
-		private bool TryGetPreviousPlayer(QuantumGame game, out Pair<EntityRef, PlayerRef> player)
+		private bool TryGetPreviousPlayer(QuantumGame game, out Quantum.PlayerMatchData player)
 		{
-			var frame = game.Frames.Verified;
-			var players = GetPlayerList(frame, out var currentIndex);
+			var players = GetPlayerList(game, out var currentIndex);
 
 			if (players.Count > 0)
 			{
@@ -187,8 +188,8 @@ namespace FirstLight.Game.Services
 				return;
 			}
 
-			if(!callback.Game.Frames.Verified.TryGet<PlayerCharacter>(callback.EntityKiller, out var killerPlayer) || 
-			        !SetSpectatedEntity(callback.EntityKiller, killerPlayer.Player))
+			if (!callback.Game.Frames.Verified.TryGet<PlayerCharacter>(callback.EntityKiller, out var killerPlayer) ||
+				!SetSpectatedEntity(callback.Game.Frames.Verified, callback.EntityKiller, killerPlayer.Player))
 			{
 				SwipeRight(callback.Game);
 			}
@@ -196,25 +197,26 @@ namespace FirstLight.Game.Services
 
 		private void OnLocalPlayerAlive(EventOnLocalPlayerAlive callback)
 		{
-			SetSpectatedEntity(callback.Entity, callback.Player);
+			SetSpectatedEntity(callback.Game.Frames.Verified, callback.Entity, callback.Player);
 		}
 
 		private void OnLocalPlayerSpawned(EventOnLocalPlayerSpawned callback)
 		{
-			SetSpectatedEntity(callback.Entity, callback.Player);
+			SetSpectatedEntity(callback.Game.Frames.Verified, callback.Entity, callback.Player);
 		}
 
-		private bool SetSpectatedEntity(EntityRef entity, PlayerRef player, bool safe = false)
+		private bool SetSpectatedEntity(Frame f, EntityRef entity, PlayerRef player, bool safe = false)
 		{
-			if (_matchServices.EntityViewUpdaterService.TryGetView(entity, out var view))
+			if (f != null && _matchServices.EntityViewUpdaterService.TryGetView(entity, out var view))
 			{
-				_spectatedPlayer.Value = new SpectatedPlayer(entity, player, view.transform);
-				
+				var team = f.TryGet<Targetable>(entity, out var t) ? t.Team : -1;
+				_spectatedPlayer.Value = new SpectatedPlayer(entity, player, team, view.transform);
+
 				return true;
 			}
-			
+
 			_spectatedPlayer.Value = new SpectatedPlayer();
-			
+
 			if (entity.IsValid && !safe)
 			{
 				throw new Exception($"Could not fetch EntityView for {entity}");
@@ -223,28 +225,59 @@ namespace FirstLight.Game.Services
 			return false;
 		}
 
-		private List<Pair<EntityRef, PlayerRef>> GetPlayerList(Frame f, out int currentIndex)
+		private List<Quantum.PlayerMatchData> GetLivingTeamMembers(QuantumGame game)
 		{
-			var players = new List<Pair<EntityRef, PlayerRef>>();
+			var localPlayer = game.GetLocalPlayerData(true, out var f);
+			var localTeamId = localPlayer.TeamId;
+
 			var container = f.GetSingleton<GameContainer>();
 			var playersData = container.PlayersData;
-			currentIndex = -1;
 
+			var teamMembers = new List<Quantum.PlayerMatchData>();
 			for (int i = 0; i < playersData.Length; i++)
 			{
 				var data = playersData[i];
-				if (data.IsValid && data.Entity.IsAlive(f))
-				{
-					players.Add(new Pair<EntityRef, PlayerRef>(data.Entity, data.Player));
 
-					if (_spectatedPlayer.Value.Entity == data.Entity)
+				if (data.IsValid && data.Entity.IsAlive(f) && data.TeamId == localTeamId)
+				{
+					teamMembers.Add(data);
+				}
+			}
+
+			return teamMembers;
+		}
+
+		private List<Quantum.PlayerMatchData> GetPlayerList(QuantumGame game, out int currentIndex)
+		{
+			var f = game.Frames.Verified;
+			var players = new List<Pair<EntityRef, PlayerRef>>();
+			var container = f.GetSingleton<GameContainer>();
+
+			var validPlayers = GetLivingTeamMembers(game);
+			if (validPlayers.Count == 0)
+			{
+				for (int i = 0; i < container.PlayersData.Length; i++)
+				{
+					var data = container.PlayersData[i];
+					if (data.IsValid && data.Entity.IsAlive(f))
 					{
-						currentIndex = players.Count - 1;
+						validPlayers.Add(data);
 					}
 				}
 			}
 
-			return players;
+			currentIndex = -1;
+			foreach (var data in validPlayers)
+			{
+				players.Add(new Pair<EntityRef, PlayerRef>(data.Entity, data.Player));
+
+				if (_spectatedPlayer.Value.Entity == data.Entity)
+				{
+					currentIndex = players.Count - 1;
+				}
+			}
+
+			return validPlayers;
 		}
 	}
 }

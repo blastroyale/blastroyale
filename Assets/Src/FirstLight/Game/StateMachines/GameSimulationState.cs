@@ -28,6 +28,7 @@ using Quantum.Task;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using PlayerMatchData = FirstLight.Game.Services.PlayerMatchData;
+using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -168,6 +169,11 @@ namespace FirstLight.Game.StateMachines
 		private bool IsSpectator()
 		{
 			return _services.NetworkService.LocalPlayer.IsSpectator();
+		}
+
+		private int GetTeamId()
+		{
+			return _services.NetworkService.LocalPlayer.GetTeamId();
 		}
 		
 		private bool IsCustomMatch()
@@ -343,7 +349,8 @@ namespace FirstLight.Game.StateMachines
 				PlayerTrophies = info.TotalTrophies,
 				NormalizedSpawnPosition = spawnPosition.ToFPVector2(),
 				Loadout = loadoutArray,
-				LoadoutMetadata = loadoutMetadata
+				LoadoutMetadata = loadoutMetadata,
+				TeamId = GetTeamId()
 			});
 		}
 	}

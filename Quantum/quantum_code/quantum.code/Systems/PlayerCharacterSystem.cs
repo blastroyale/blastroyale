@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Photon.Deterministic;
 using Quantum.Collections;
+using Quantum.Inspector;
 
 namespace Quantum.Systems
 {
@@ -151,8 +153,8 @@ namespace Quantum.Systems
 			spawnTransform.Position = spawnPosition.XOY;
 				
 			playerCharacter->Init(f, playerEntity, playerRef, spawnTransform, playerData.PlayerLevel,
-								  playerData.PlayerTrophies, playerData.Skin, playerData.DeathMarker, playerData.Loadout,
-								  playerData.Loadout.FirstOrDefault(e => e.IsWeapon()));
+								  playerData.PlayerTrophies, playerData.Skin, playerData.DeathMarker, playerData.TeamId,
+								  playerData.Loadout, playerData.Loadout.FirstOrDefault(e => e.IsWeapon()));
 		}
 
 		private void ProcessPlayerInput(Frame f, ref PlayerCharacterFilter filter)

@@ -4,6 +4,7 @@ struct PlayerMatchData
 	entity_ref Entity;
 	UInt32 PlayerLevel;
 	UInt32 PlayerTrophies;
+	Int32 TeamId;
 	GameId PlayerSkin;
 	GameId PlayerDeathMarker;
 	Int32 BotNameIndex;

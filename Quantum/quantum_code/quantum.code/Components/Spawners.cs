@@ -46,7 +46,7 @@ namespace Quantum
 			}
 			else if (GameId.IsInGroup(GameIdGroup.Chest))
 			{
-				Collectable = SpawnChest(f, GameId, transform.Position, f.ResolveList(ContentsOverride));
+				Collectable = SpawnChest(f, GameId, transform.Position, ContentsOverride);
 			}
 			else if (GameId == GameId.Random || GameId.IsInGroup(GameIdGroup.Weapon))
 			{
@@ -121,7 +121,7 @@ namespace Quantum
 		/// <summary>
 		/// Spawns a <see cref="Chest"/> of the given <paramref name="id"/> in the given <paramref name="position"/>
 		/// </summary>
-		public static EntityRef SpawnChest(Frame f, GameId id, FPVector3 position, QList<GameId> contentsOverride)
+		public static EntityRef SpawnChest(Frame f, GameId id, FPVector3 position, QListPtr<GameId> contentsOverride)
 		{
 			var config = f.ChestConfigs.GetConfig(id);
 			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.ChestPrototype.Id));

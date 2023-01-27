@@ -5785,6 +5785,10 @@ MonoBehaviour:
       GameId:
         Value: 13
       RarityModifier: -2
+      ContentsOverride:
+      - Value: 27
+      - Value: 43
+      - Value: 50
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -5863,6 +5867,7 @@ MonoBehaviour:
       GameId:
         Value: 1
       RarityModifier: -1
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -5941,6 +5946,7 @@ MonoBehaviour:
       GameId:
         Value: 16
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -6019,6 +6025,7 @@ MonoBehaviour:
       GameId:
         Value: 2
       RarityModifier: 1
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -6097,6 +6104,10 @@ MonoBehaviour:
       GameId:
         Value: 19
       RarityModifier: 2
+      ContentsOverride:
+      - Value: 27
+      - Value: 43
+      - Value: 50
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -6175,6 +6186,7 @@ MonoBehaviour:
       GameId:
         Value: 128
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -6253,6 +6265,7 @@ MonoBehaviour:
       GameId:
         Value: 128
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -6331,6 +6344,7 @@ MonoBehaviour:
       GameId:
         Value: 128
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -6409,6 +6423,7 @@ MonoBehaviour:
       GameId:
         Value: 128
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -6487,6 +6502,7 @@ MonoBehaviour:
       GameId:
         Value: 127
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -6565,6 +6581,7 @@ MonoBehaviour:
       GameId:
         Value: 127
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -6643,6 +6660,7 @@ MonoBehaviour:
       GameId:
         Value: 127
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -6721,6 +6739,7 @@ MonoBehaviour:
       GameId:
         Value: 128
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -6799,6 +6818,7 @@ MonoBehaviour:
       GameId:
         Value: 128
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -6877,6 +6897,7 @@ MonoBehaviour:
       GameId:
         Value: 128
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -6955,6 +6976,7 @@ MonoBehaviour:
       GameId:
         Value: 128
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -7033,6 +7055,7 @@ MonoBehaviour:
       GameId:
         Value: 4
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -7111,6 +7134,7 @@ MonoBehaviour:
       GameId:
         Value: 4
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -7189,6 +7213,7 @@ MonoBehaviour:
       GameId:
         Value: 4
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -7267,6 +7292,7 @@ MonoBehaviour:
       GameId:
         Value: 4
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -7345,6 +7371,7 @@ MonoBehaviour:
       GameId:
         Value: 60
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -7423,6 +7450,7 @@ MonoBehaviour:
       GameId:
         Value: 71
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -7501,6 +7529,7 @@ MonoBehaviour:
       GameId:
         Value: 78
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -7579,6 +7608,7 @@ MonoBehaviour:
       GameId:
         Value: 79
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -7657,6 +7687,7 @@ MonoBehaviour:
       GameId:
         Value: 84
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -7735,6 +7766,7 @@ MonoBehaviour:
       GameId:
         Value: 86
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -7813,6 +7845,7 @@ MonoBehaviour:
       GameId:
         Value: 87
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -7891,6 +7924,7 @@ MonoBehaviour:
       GameId:
         Value: 88
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -7969,6 +8003,7 @@ MonoBehaviour:
       GameId:
         Value: 90
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -8047,6 +8082,7 @@ MonoBehaviour:
       GameId:
         Value: 91
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -8125,6 +8161,7 @@ MonoBehaviour:
       GameId:
         Value: 92
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -8203,6 +8240,7 @@ MonoBehaviour:
       GameId:
         Value: 93
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -8281,6 +8319,7 @@ MonoBehaviour:
       GameId:
         Value: 94
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -8359,6 +8398,7 @@ MonoBehaviour:
       GameId:
         Value: 95
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -8437,6 +8477,7 @@ MonoBehaviour:
       GameId:
         Value: 96
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -8515,6 +8556,7 @@ MonoBehaviour:
       GameId:
         Value: 97
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -8593,6 +8635,7 @@ MonoBehaviour:
       GameId:
         Value: 98
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -8671,6 +8714,7 @@ MonoBehaviour:
       GameId:
         Value: 99
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -8749,6 +8793,7 @@ MonoBehaviour:
       GameId:
         Value: 100
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -8827,6 +8872,7 @@ MonoBehaviour:
       GameId:
         Value: 101
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -8905,6 +8951,7 @@ MonoBehaviour:
       GameId:
         Value: 103
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -8983,6 +9030,7 @@ MonoBehaviour:
       GameId:
         Value: 21
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -9061,6 +9109,7 @@ MonoBehaviour:
       GameId:
         Value: 21
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -9139,6 +9188,7 @@ MonoBehaviour:
       GameId:
         Value: 21
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -9217,6 +9267,7 @@ MonoBehaviour:
       GameId:
         Value: 21
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -9295,6 +9346,7 @@ MonoBehaviour:
       GameId:
         Value: 20
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -9373,6 +9425,7 @@ MonoBehaviour:
       GameId:
         Value: 20
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -9451,6 +9504,7 @@ MonoBehaviour:
       GameId:
         Value: 20
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -9529,6 +9583,7 @@ MonoBehaviour:
       GameId:
         Value: 17
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -9607,6 +9662,7 @@ MonoBehaviour:
       GameId:
         Value: 18
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -9685,6 +9741,7 @@ MonoBehaviour:
       GameId:
         Value: 52
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -9763,6 +9820,7 @@ MonoBehaviour:
       GameId:
         Value: 27
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -9841,6 +9899,7 @@ MonoBehaviour:
       GameId:
         Value: 53
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -9919,6 +9978,7 @@ MonoBehaviour:
       GameId:
         Value: 54
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -9997,6 +10057,7 @@ MonoBehaviour:
       GameId:
         Value: 36
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -10075,6 +10136,7 @@ MonoBehaviour:
       GameId:
         Value: 24
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -10153,6 +10215,7 @@ MonoBehaviour:
       GameId:
         Value: 50
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -10231,6 +10294,7 @@ MonoBehaviour:
       GameId:
         Value: 49
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -10309,6 +10373,7 @@ MonoBehaviour:
       GameId:
         Value: 51
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -10387,6 +10452,7 @@ MonoBehaviour:
       GameId:
         Value: 23
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -10465,6 +10531,7 @@ MonoBehaviour:
       GameId:
         Value: 30
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -10543,6 +10610,7 @@ MonoBehaviour:
       GameId:
         Value: 32
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -10621,6 +10689,7 @@ MonoBehaviour:
       GameId:
         Value: 33
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -10699,6 +10768,7 @@ MonoBehaviour:
       GameId:
         Value: 28
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -10777,6 +10847,7 @@ MonoBehaviour:
       GameId:
         Value: 38
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -10855,6 +10926,7 @@ MonoBehaviour:
       GameId:
         Value: 39
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -10933,6 +11005,7 @@ MonoBehaviour:
       GameId:
         Value: 40
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -11011,6 +11084,7 @@ MonoBehaviour:
       GameId:
         Value: 41
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -11089,6 +11163,7 @@ MonoBehaviour:
       GameId:
         Value: 29
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -11167,6 +11242,7 @@ MonoBehaviour:
       GameId:
         Value: 42
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -11245,6 +11321,7 @@ MonoBehaviour:
       GameId:
         Value: 43
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -11323,6 +11400,7 @@ MonoBehaviour:
       GameId:
         Value: 44
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -11401,6 +11479,7 @@ MonoBehaviour:
       GameId:
         Value: 45
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -11479,6 +11558,7 @@ MonoBehaviour:
       GameId:
         Value: 34
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -11557,6 +11637,7 @@ MonoBehaviour:
       GameId:
         Value: 35
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -11635,6 +11716,7 @@ MonoBehaviour:
       GameId:
         Value: 86
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -11713,6 +11795,7 @@ MonoBehaviour:
       GameId:
         Value: 86
       RarityModifier: 1
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -11791,6 +11874,7 @@ MonoBehaviour:
       GameId:
         Value: 86
       RarityModifier: 2
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -11869,6 +11953,7 @@ MonoBehaviour:
       GameId:
         Value: 86
       RarityModifier: 3
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -11947,6 +12032,7 @@ MonoBehaviour:
       GameId:
         Value: 86
       RarityModifier: 4
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -12025,6 +12111,7 @@ MonoBehaviour:
       GameId:
         Value: 86
       RarityModifier: 5
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -12103,6 +12190,7 @@ MonoBehaviour:
       GameId:
         Value: 86
       RarityModifier: 6
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -12181,6 +12269,7 @@ MonoBehaviour:
       GameId:
         Value: 86
       RarityModifier: 7
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -12259,6 +12348,7 @@ MonoBehaviour:
       GameId:
         Value: 86
       RarityModifier: 8
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -12337,6 +12427,7 @@ MonoBehaviour:
       GameId:
         Value: 86
       RarityModifier: 9
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -12415,6 +12506,7 @@ MonoBehaviour:
       GameId:
         Value: 86
       RarityModifier: 10
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -12493,6 +12585,7 @@ MonoBehaviour:
       GameId:
         Value: 95
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -12571,6 +12664,7 @@ MonoBehaviour:
       GameId:
         Value: 95
       RarityModifier: 4
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -12649,6 +12743,7 @@ MonoBehaviour:
       GameId:
         Value: 95
       RarityModifier: 7
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -12727,6 +12822,7 @@ MonoBehaviour:
       GameId:
         Value: 95
       RarityModifier: 10
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -12805,6 +12901,7 @@ MonoBehaviour:
       GameId:
         Value: 29
       RarityModifier: 0
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -12883,6 +12980,7 @@ MonoBehaviour:
       GameId:
         Value: 34
       RarityModifier: 1
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -12961,6 +13059,7 @@ MonoBehaviour:
       GameId:
         Value: 35
       RarityModifier: 2
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -13039,6 +13138,7 @@ MonoBehaviour:
       GameId:
         Value: 42
       RarityModifier: 3
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -13117,6 +13217,7 @@ MonoBehaviour:
       GameId:
         Value: 44
       RarityModifier: 4
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -13195,6 +13296,7 @@ MonoBehaviour:
       GameId:
         Value: 43
       RarityModifier: 6
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -13273,6 +13375,7 @@ MonoBehaviour:
       GameId:
         Value: 29
       RarityModifier: 8
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
@@ -13351,6 +13454,7 @@ MonoBehaviour:
       GameId:
         Value: 35
       RarityModifier: 10
+      ContentsOverride: []
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []

@@ -12,7 +12,7 @@ namespace Quantum
 		/// Initializes this Chest with all the necessary data
 		/// </summary>
 		internal void Init(Frame f, EntityRef e, FPVector3 position, FPQuaternion rotation,
-		                   QuantumChestConfig config, QList<GameId> contentsOverride, bool makeCollectable = true)
+		                   QuantumChestConfig config, QListPtr<GameId> contentsOverride, bool makeCollectable = true)
 		{
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 
@@ -54,7 +54,7 @@ namespace Quantum
 			var chestItems = new List<ChestItemDropped>();
 			var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
 
-			if(f.ResolveList(ContentsOverride).Count > 0)
+			if(ContentsOverride != new QListPtr<GameId>())
 			{
 				foreach (var item in f.ResolveList(ContentsOverride))
 				{
@@ -116,7 +116,6 @@ namespace Quantum
 									chestPosition, ref angleStep, chestItems);
 				DropLargeConsumable(f, playerEntity, playerRef, config, ammoCheck, shieldCheck,
 									chestPosition, ref angleStep, chestItems);
-
 			}
 
 			f.Events.OnChestOpened(config.Id, chestPosition, playerRef, playerEntity, chestItems);

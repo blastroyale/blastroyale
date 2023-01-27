@@ -31,7 +31,7 @@ namespace FirstLight.Game.Services
 		public string AppIDRealtime;
 		public string RecoveryEmailTemplateID;
 	}
-	
+
 	/// <summary>
 	/// This service handles general interaction with playfab that are not needed by the server
 	/// </summary>
@@ -121,6 +121,16 @@ namespace FirstLight.Game.Services
 		/// Requests a data object with compiled info about the current backend environment
 		/// </summary>
 		BackendEnvironmentData CurrentEnvironmentData { get; }
+		
+		/// <summary>
+		/// Requests to check if the game is currently in maintenance
+		/// </summary>
+		bool IsGameInMaintenance();
+
+		/// <summary>
+		/// Requests to check if the current game version is outdated
+		/// </summary>
+		bool IsGameOutdated();
 	}
 
 	/// <inheritdoc cref="IGameBackendService" />
@@ -430,8 +440,7 @@ namespace FirstLight.Game.Services
 				successCallback?.Invoke();
 			}
 		}
-
-		/// <inheritdoc />
+		
 		public void AttachLoginDataToAccount(string email, string username, string password,
 		                                     Action<AddUsernamePasswordResult> successCallback = null,
 		                                     Action<PlayFabError> errorCallback = null)
@@ -451,6 +460,26 @@ namespace FirstLight.Game.Services
 				_dataProvider.AppDataProvider.LastLoginEmail.Value = email;
 				successCallback?.Invoke(result);
 			}
+		}
+		
+		public bool IsGameInMaintenance()
+		{
+			var titleData = _dataService.GetData<AppData>().TitleData;
+			
+			return titleData.TryGetValue(GameConstants.PlayFab.MAINTENANCE_KEY, out var version) && 
+				   VersionUtils.IsOutdatedVersion(version);
+		}
+
+		public bool IsGameOutdated()
+		{
+			var titleData = _dataService.GetData<AppData>().TitleData;
+			
+			if (!titleData.TryGetValue(GameConstants.PlayFab.VERSION_KEY, out var titleVersion))
+			{
+				throw new Exception($"{GameConstants.PlayFab.VERSION_KEY} not set in title data");
+			}
+			
+			return VersionUtils.IsOutdatedVersion(titleVersion);
 		}
 	}
 }

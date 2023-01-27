@@ -115,6 +115,7 @@ namespace FirstLight.Game.Logic
 			}
 		}
 
+		// TODO - Remove appdata/any local data call from game logic so it doesn't have to be copied onto backend code
 		private AppData AppData => DataProvider.GetData<AppData>();
 
 		public PlayerLogic(IGameLogic gameLogic, IDataProvider dataProvider) : base(gameLogic, dataProvider)

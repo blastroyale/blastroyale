@@ -110,7 +110,7 @@ namespace FirstLight.Game.StateMachines
 			authLoginDevice.Event(_authFailAccountDeletedEvent).Target(authFail);
 
 			postAuthCheck.Transition().Condition(IsAccountDeleted).Target(accountDeleted);
-			postAuthCheck.Transition().Condition(IsGameBlocked).Target(gameBlocked);
+			postAuthCheck.Transition().Condition(IsGameInMaintenance).Target(gameBlocked);
 			postAuthCheck.Transition().Condition(IsGameOutdated).Target(gameUpdate);
 			postAuthCheck.Transition().Target(final);
 
@@ -125,18 +125,17 @@ namespace FirstLight.Game.StateMachines
 
 		private bool IsAccountDeleted()
 		{
-			return playerData.Flags.HasFlag(PlayerFlags.Deleted);
+			return _services.AuthenticationService.IsAccountDeleted();
 		}
 		
-		private bool IsGameBlocked()
+		private bool IsGameInMaintenance()
 		{
-			return titleData.TryGetValue(GameConstants.PlayFab.MAINTENANCE_KEY, out var version) &&
-				   VersionUtils.IsOutdatedVersion(version);
+			return _services.GameBackendService.IsGameInMaintenance();
 		}
 
 		private bool IsGameOutdated()
 		{
-			return VersionUtils.IsOutdatedVersion(titleVersion);
+			return _services.GameBackendService.IsGameOutdated();
 		}
 
 		private void ShowAuthFailDialog(IWaitActivity activity)

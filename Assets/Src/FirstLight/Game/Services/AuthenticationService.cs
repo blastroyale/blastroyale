@@ -59,6 +59,12 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		void RegisterWithEmail(string email, string username, string displayName, string password,
 							   Action<LoginData> onSuccess, Action<PlayFabError> onError);
+
+		/// <summary>
+		/// Requests to check if the current authenticated account is flagged for deletion
+		/// </summary>
+		/// <returns></returns>
+		bool IsAccountDeleted();
 	}
 
 	public interface IInternalAuthenticationService : IAuthenticationService
@@ -81,9 +87,9 @@ namespace FirstLight.Game.Services
 		void AddDataToService(Dictionary<string, string> data);
 
 		/// <summary>
-		/// Authenticates photon with the processed authentication data
+		/// Authenticates the game network with the processed authentication data
 		/// </summary>
-		void AuthenticatePhoton();
+		void AuthenticateGameNetwork(Action<LoginData> onSuccess, Action<PlayFabError> onError);
 
 		/// <summary>
 		/// Requests to check if a given account is due for deletion
@@ -278,6 +284,7 @@ namespace FirstLight.Game.Services
 			appData.IsFirstSession = result.NewlyCreated;
 			appData.PlayerId = result.PlayFabId;
 			appData.LastLoginEmail = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
+			appData.TitleData = titleData;
 
 			if (FeatureFlags.REMOTE_CONFIGURATION)
 			{
@@ -298,8 +305,7 @@ namespace FirstLight.Game.Services
 			_dataService.SaveData<AppData>();
 			FLog.Verbose("Saved AppData");
 
-			_services.AnalyticsService.SessionCalls.PlayerLogin(result.PlayFabId,
-				_dataProvider.AppDataProvider.IsGuest);
+			_services.AnalyticsService.SessionCalls.PlayerLogin(result.PlayFabId, _dataProvider.AppDataProvider.IsGuest);
 		}
 
 		public void GetPlayerData()
@@ -343,7 +349,7 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-		public void AuthenticatePhoton()
+		public void AuthenticateGameNetwork(Action<LoginData> onSuccess, Action<PlayFabError> onError)
 		{
 			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
 			var appId = config.PhotonServerSettings.AppSettings.AppIdRealtime;
@@ -387,6 +393,11 @@ namespace FirstLight.Game.Services
 		private void OnPlayFabError(PlayFabError error)
 		{
 		
+		}
+		
+		public bool IsAccountDeleted()
+		{
+			return _dataService.GetData<PlayerData>().Flags.HasFlag(PlayerFlags.Deleted);
 		}
 	}
 }

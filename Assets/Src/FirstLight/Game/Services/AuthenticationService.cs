@@ -65,6 +65,11 @@ namespace FirstLight.Game.Services
 		void GetPlayerData();
 
 		/// <summary>
+		/// Deserializes and adds the obtained player state data into data service
+		/// </summary>
+		void AddDataToService(Dictionary<string, string> data);
+
+		/// <summary>
 		/// Authenticates photon with the processed authentication data
 		/// </summary>
 		void AuthenticatePhoton();
@@ -80,16 +85,18 @@ namespace FirstLight.Game.Services
 	{
 		private IGameServices _services;
 		private IDataService _dataService;
-		private IInternalGameNetworkService _networkService;
+		private IGameNetworkService _networkService;
 		private IGameDataProvider _dataProvider;
-
-		public PlayfabAuthenticationService(IGameServices services, IDataService dataService, IInternalGameNetworkService networkService,
-											IGameDataProvider dataProvider)
+		private IConfigsAdder _configsAdder;
+		
+		public PlayfabAuthenticationService(IGameServices services, IDataService dataService, IGameNetworkService networkService,
+											IGameDataProvider dataProvider, IConfigsAdder configsAdder)
 		{
 			_services = services;
 			_dataService = dataService;
 			_networkService = networkService;
 			_dataProvider = dataProvider;
+			_configsAdder = configsAdder;
 		}
 
 		public void LoginSetupGuest(Action<LoginData> onSuccess, Action<PlayFabError> onError)
@@ -280,7 +287,7 @@ namespace FirstLight.Game.Services
 			_services.GameBackendService.CallFunction("GetPlayerData", OnPlayerDataObtained, OnPlayFabError);
 		}
 
-		void OnPlayerDataObtained(ExecuteFunctionResult res)
+		private void OnPlayerDataObtained(ExecuteFunctionResult res)
 		{
 			var serverResult = ModelSerializer.Deserialize<PlayFabResult<LogicResult>>(res.FunctionResult.ToString());
 			var data = serverResult.Result.Data;
@@ -300,7 +307,7 @@ namespace FirstLight.Game.Services
 			FLog.Verbose("Downloaded state from server");
 		}
 		
-		private void AddDataToService(Dictionary<string, string> state)
+		public void AddDataToService(Dictionary<string, string> state)
 		{
 			foreach (var typeFullName in state.Keys)
 			{
@@ -325,8 +332,7 @@ namespace FirstLight.Game.Services
 
 			void OnAuthenticationSuccess(GetPhotonAuthenticationTokenResult result)
 			{
-				_networkService.QuantumClient.AuthValues.AddAuthParameter("token",
-																		  result.PhotonCustomAuthenticationToken);
+				_networkService.QuantumClient.AuthValues.AddAuthParameter("token", result.PhotonCustomAuthenticationToken);
 				activity.Complete();
 			}
 		}

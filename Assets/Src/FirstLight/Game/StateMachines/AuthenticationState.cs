@@ -49,15 +49,13 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameServices _services;
 		private readonly IGameUiServiceInit _uiService;
 		private readonly IDataService _dataService;
-		private readonly IInternalGameNetworkService _networkService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private IConfigsAdder _configsAdder;
 		private string _passwordRecoveryEmailTemplateId = "";
 		private string _lastUsedRecoveryEmail = "";
 
 		public AuthenticationState(IGameDataProvider dataProvider, IGameServices services, IGameUiServiceInit uiService,
-			IDataService dataService,
-			IInternalGameNetworkService networkService, Action<IStatechartEvent> statechartTrigger, IConfigsAdder cfgs)
+			IDataService dataService, IInternalGameNetworkService networkService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_dataProvider = dataProvider;
 			_services = services;
@@ -65,7 +63,6 @@ namespace FirstLight.Game.StateMachines
 			_dataService = dataService;
 			_networkService = networkService;
 			_statechartTrigger = statechartTrigger;
-			_configsAdder = cfgs;
 		}
 
 		/// <summary>
@@ -249,9 +246,6 @@ namespace FirstLight.Game.StateMachines
 
 			_services.GenericDialogService.OpenButtonDialog(title, desc, false, confirmButton);
 		}
-
-		
-
 		
 
 		private void OpenGameUpdateDialog(string version)

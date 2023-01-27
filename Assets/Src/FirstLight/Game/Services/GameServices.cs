@@ -148,9 +148,8 @@ namespace FirstLight.Game.Services
 
 		public GameServices(IGameNetworkService networkService, IMessageBrokerService messageBrokerService,
 		                    ITimeService timeService, IDataService dataService, IConfigsProvider configsProvider,
-		                    IGameLogic gameLogic,
-		                    IGenericDialogService genericDialogService,
-		                    IAssetResolverService assetResolverService, ITutorialService tutorialService,
+		                    IGameLogic gameLogic, IGenericDialogService genericDialogService, 
+							IAssetResolverService assetResolverService, ITutorialService tutorialService,
 		                    IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService, IUiService uiService)
 		{
 			NetworkService = networkService;
@@ -169,8 +168,8 @@ namespace FirstLight.Game.Services
 			HelpdeskService = new HelpdeskService();
 			GameModeService = new GameModeService(ConfigsProvider, ThreadService);
 			GuidService = new GuidService();
-			GameBackendService = new GameBackendService(gameLogic, messageBrokerService, GameConstants.Stats.LEADERBOARD_LADDER_NAME);
-			AuthenticationService = new PlayfabAuthenticationService(GameBackendService, dataService, gameLogic);
+			GameBackendService = new GameBackendService(gameLogic, this, dataService, GameConstants.Stats.LEADERBOARD_LADDER_NAME);
+			AuthenticationService = new PlayfabAuthenticationService(this, dataService, networkService, gameLogic, (IConfigsAdder) configsProvider);
 			MatchmakingService = new PlayfabMatchmakingService(GameBackendService);
 			LiveopsService = new LiveopsService(GameBackendService, ConfigsProvider, this, gameLogic.LiveopsLogic);
 			CommandService = new GameCommandService(GameBackendService, gameLogic, dataService, this);

@@ -27,6 +27,10 @@ namespace FirstLight.Game.Services
 	public class LoginData
 	{
 		public bool IsGuest;
+		public string Email;
+		public string Username;
+		public string DisplayName;
+		public string Password;
 	}
 
 	/// <summary>
@@ -48,6 +52,13 @@ namespace FirstLight.Game.Services
 		/// Authenticates the backend with an email address and password
 		/// </summary>
 		void LoginWithEmail(string email, string password, Action<LoginData> onSuccess, Action<PlayFabError> onError);
+
+		/// <summary>
+		/// Registers the user on the backend with the provided credentials.
+		/// Validation of credentials should be done at UI level so user is less likely to encounter errors
+		/// </summary>
+		void RegisterWithEmail(string email, string username, string displayName, string password,
+							   Action<LoginData> onSuccess, Action<PlayFabError> onError);
 	}
 
 	public interface IInternalAuthenticationService : IAuthenticationService
@@ -85,11 +96,11 @@ namespace FirstLight.Game.Services
 	{
 		private IGameServices _services;
 		private IDataService _dataService;
-		private IGameNetworkService _networkService;
+		private IInternalGameNetworkService _networkService;
 		private IGameDataProvider _dataProvider;
 		private IConfigsAdder _configsAdder;
 		
-		public PlayfabAuthenticationService(IGameServices services, IDataService dataService, IGameNetworkService networkService,
+		public PlayfabAuthenticationService(IGameServices services, IDataService dataService, IInternalGameNetworkService networkService,
 											IGameDataProvider dataProvider, IConfigsAdder configsAdder)
 		{
 			_services = services;
@@ -188,6 +199,28 @@ namespace FirstLight.Game.Services
 				onError);
 		}
 
+		public void RegisterWithEmail(string email, string username, string displayName, string password, Action<LoginData> onSuccess,
+									  Action<PlayFabError> onError)
+		{
+			var register = new RegisterPlayFabUserRequest
+			{
+				Email = email,
+				DisplayName = username,
+				Username = username,
+				Password = password
+			};
+
+			var loginData = new LoginData()
+			{
+				Email = email,
+				Username = username,
+				DisplayName = displayName,
+				Password = password
+			};
+			
+			PlayFabClientAPI.RegisterPlayFabUser(register, _ => onSuccess(loginData), onError);
+		}
+
 		public void ProcessAuthentication(LoginResult result, LoginData loginData, Action<LoginData> onSuccess,
 										  Action<PlayFabError> onError)
 		{
@@ -219,19 +252,6 @@ namespace FirstLight.Game.Services
 			if (!titleData.TryGetValue(GameConstants.PlayFab.VERSION_KEY, out var titleVersion))
 			{
 				throw new Exception($"{GameConstants.PlayFab.VERSION_KEY} not set in title data");
-			}
-
-			if (VersionUtils.IsOutdatedVersion(titleVersion))
-			{
-				OpenGameUpdateDialog(titleVersion);
-				return;
-			}
-
-			if (titleData.TryGetValue(GameConstants.PlayFab.MAINTENANCE_KEY, out var version) &&
-			    VersionUtils.IsOutdatedVersion(version))
-			{
-				OpenGameBlockedDialog();
-				return;
 			}
 
 			FeatureFlags.ParseFlags(titleData);
@@ -333,7 +353,6 @@ namespace FirstLight.Game.Services
 			void OnAuthenticationSuccess(GetPhotonAuthenticationTokenResult result)
 			{
 				_networkService.QuantumClient.AuthValues.AddAuthParameter("token", result.PhotonCustomAuthenticationToken);
-				activity.Complete();
 			}
 		}
 

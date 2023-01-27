@@ -146,11 +146,11 @@ namespace FirstLight.Game.Services
 		public IIAPService IAPService { get; }
 		public string QuitReason { get; set; }
 
-		public GameServices(IGameNetworkService networkService, IMessageBrokerService messageBrokerService,
-		                    ITimeService timeService, IDataService dataService, IConfigsProvider configsProvider,
-		                    IGameLogic gameLogic, IGenericDialogService genericDialogService, 
+		public GameServices(IInternalGameNetworkService networkService, IMessageBrokerService messageBrokerService,
+							ITimeService timeService, IDataService dataService, IConfigsAdder configsProvider,
+							IGameLogic gameLogic, IGenericDialogService genericDialogService, 
 							IAssetResolverService assetResolverService, ITutorialService tutorialService,
-		                    IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService, IUiService uiService)
+							IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService, IUiService uiService)
 		{
 			NetworkService = networkService;
 			AnalyticsService = new AnalyticsService(this, gameLogic, dataService, uiService);
@@ -169,7 +169,7 @@ namespace FirstLight.Game.Services
 			GameModeService = new GameModeService(ConfigsProvider, ThreadService);
 			GuidService = new GuidService();
 			GameBackendService = new GameBackendService(gameLogic, this, dataService, GameConstants.Stats.LEADERBOARD_LADDER_NAME);
-			AuthenticationService = new PlayfabAuthenticationService(this, dataService, networkService, gameLogic, (IConfigsAdder) configsProvider);
+			AuthenticationService = new PlayfabAuthenticationService(this, dataService,networkService, gameLogic, configsProvider);
 			MatchmakingService = new PlayfabMatchmakingService(GameBackendService);
 			LiveopsService = new LiveopsService(GameBackendService, ConfigsProvider, this, gameLogic.LiveopsLogic);
 			CommandService = new GameCommandService(GameBackendService, gameLogic, dataService, this);

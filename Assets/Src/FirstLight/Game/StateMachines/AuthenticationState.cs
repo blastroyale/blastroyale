@@ -35,15 +35,26 @@ namespace FirstLight.Game.StateMachines
 	/// </summary>
 	public class AuthenticationState
 	{
-		private readonly IStatechartEvent _goToRegisterClickedEvent = new StatechartEvent("Go To Register Clicked Event");
+		private readonly IStatechartEvent _goToRegisterClickedEvent =
+			new StatechartEvent("Go To Register Clicked Event");
+
 		private readonly IStatechartEvent _loginAsGuestEvent = new StatechartEvent("Login as Guest Event");
 		private readonly IStatechartEvent _goToLoginClickedEvent = new StatechartEvent("Go To Login Clicked Event");
-		private readonly IStatechartEvent _loginRegisterTransitionEvent = new StatechartEvent("Login Register Transition Clicked Event");
+
+		private readonly IStatechartEvent _loginRegisterTransitionEvent =
+			new StatechartEvent("Login Register Transition Clicked Event");
+
 		private readonly IStatechartEvent _authSuccessEvent = new StatechartEvent("Authentication Success Event");
 		private readonly IStatechartEvent _authFailEvent = new StatechartEvent("Authentication Fail Generic Event");
-		private readonly IStatechartEvent _authFailMaintenanceEvent = new StatechartEvent("Authentication Fail Account Deleted Event");
-		private readonly IStatechartEvent _authFailOutdatedVersionEvent = new StatechartEvent("Authentication Fail Account Deleted Event");
-		private readonly IStatechartEvent _authFailAccountDeletedEvent = new StatechartEvent("Authentication Fail Account Deleted Event");
+
+		private readonly IStatechartEvent _authFailMaintenanceEvent =
+			new StatechartEvent("Authentication Fail Account Deleted Event");
+
+		private readonly IStatechartEvent _authFailOutdatedVersionEvent =
+			new StatechartEvent("Authentication Fail Account Deleted Event");
+
+		private readonly IStatechartEvent _authFailAccountDeletedEvent =
+			new StatechartEvent("Authentication Fail Account Deleted Event");
 
 		private readonly IGameDataProvider _dataProvider;
 		private readonly IGameServices _services;
@@ -55,13 +66,12 @@ namespace FirstLight.Game.StateMachines
 		private string _lastUsedRecoveryEmail = "";
 
 		public AuthenticationState(IGameDataProvider dataProvider, IGameServices services, IGameUiServiceInit uiService,
-			IDataService dataService, IInternalGameNetworkService networkService, Action<IStatechartEvent> statechartTrigger)
+								   IDataService dataService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_dataProvider = dataProvider;
 			_services = services;
 			_uiService = uiService;
 			_dataService = dataService;
-			_networkService = networkService;
 			_statechartTrigger = statechartTrigger;
 		}
 
@@ -79,7 +89,8 @@ namespace FirstLight.Game.StateMachines
 			var postAuthCheck = stateFactory.Choice("Post Authentication Checks");
 			var accountDeleted = stateFactory.Wait("Account Deleted Dialog");
 			var gameBlocked = stateFactory.State("Game Blocked Dialog");
-			
+			var gameUpdate = stateFactory.State("Game Update Dialog");
+
 			initial.Transition().Target(autoAuthCheck);
 			initial.OnExit(SubscribeEvents);
 			initial.OnExit(SetupBackendEnvironmentData);
@@ -88,30 +99,48 @@ namespace FirstLight.Game.StateMachines
 			autoAuthCheck.Transition().Target(authLoginGuest);
 
 			authFail.WaitingFor(ShowAuthFailDialog).Target(autoAuthCheck);
-			
+
 			authLoginGuest.OnEnter(SetupLoginGuest);
 			authLoginGuest.Event(_authSuccessEvent).Target(final);
 			authLoginGuest.Event(_authFailEvent).Target(authFail); // TODO - UNLINK DEVICE, SHOW LOGIN SCREEN?
-			
+
 			authLoginDevice.OnEnter(LoginWithDevice);
 			authLoginDevice.Event(_authSuccessEvent).Target(final);
 			authLoginDevice.Event(_authFailEvent).Target(authFail); // TODO - UNLINK DEVICE, SHOW LOGIN SCREEN?
 			authLoginDevice.Event(_authFailAccountDeletedEvent).Target(authFail);
-			
+
 			postAuthCheck.Transition().Condition(IsAccountDeleted).Target(accountDeleted);
 			postAuthCheck.Transition().Condition(IsGameBlocked).Target(gameBlocked);
+			postAuthCheck.Transition().Condition(IsGameOutdated).Target(gameUpdate);
 			postAuthCheck.Transition().Target(final);
-			
-			accountDeleted.WaitingFor(ShowAccountDeletedDialog).Target(authLoginGuest);
 
-			gameBlocked.OnEnter(ShowGameBlockedDialog);
-			
+			accountDeleted.WaitingFor(OpenAccountDeletedDialog).Target(authLoginGuest);
+
+			gameBlocked.OnEnter(OpenGameBlockedDialog);
+
+			gameUpdate.OnEnter(OpenGameUpdateDialog);
+
 			final.OnEnter(UnsubscribeEvents);
+		}
+
+		private bool IsAccountDeleted()
+		{
+			return playerData.Flags.HasFlag(PlayerFlags.Deleted);
+		}
+		
+		private bool IsGameBlocked()
+		{
+			return titleData.TryGetValue(GameConstants.PlayFab.MAINTENANCE_KEY, out var version) &&
+				   VersionUtils.IsOutdatedVersion(version);
+		}
+
+		private bool IsGameOutdated()
+		{
+			return VersionUtils.IsOutdatedVersion(titleVersion);
 		}
 
 		private void ShowAuthFailDialog(IWaitActivity activity)
 		{
-			
 		}
 
 		private void SubscribeEvents()
@@ -125,12 +154,6 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService?.UnsubscribeAll(this);
 		}
 
-		// TODO - REMOVE AUTHENTICATION UI SET FROM GAME COMPLETELY
-		private void UnloadLoginRegisterScreens()
-		{
-			_uiService.UnloadUiSet((int)UiSetId.AuthenticationUi);
-		}
-		
 		/// <summary>
 		/// Create a new account by a random customID
 		/// And links the current device to that account
@@ -153,7 +176,7 @@ namespace FirstLight.Game.StateMachines
 		private void OnConnectionError(ServerHttpErrorMessage msg)
 		{
 			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Session,
-				"Invalid Session Ticket:" + msg.Message);
+															   "Invalid Session Ticket:" + msg.Message);
 
 			if (msg.ErrorCode != HttpStatusCode.Unauthorized)
 			{
@@ -163,7 +186,7 @@ namespace FirstLight.Game.StateMachines
 			LoginWithDevice();
 
 			_services.GameBackendService.CallFunction("GetPlayerData", res =>
-				OnPlayerDataObtained(res, null), OnPlayFabError);
+														  OnPlayerDataObtained(res, null), OnPlayFabError);
 		}
 
 		/// <summary>
@@ -185,7 +208,7 @@ namespace FirstLight.Game.StateMachines
 		private void OnPlayFabError(PlayFabError error)
 		{
 			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Login,
-				error.ErrorMessage);
+															   error.ErrorMessage);
 
 			var confirmButton = new GenericDialogButton
 			{
@@ -199,7 +222,7 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, error.ErrorMessage,
-				false, confirmButton);
+															false, confirmButton);
 		}
 
 		private void OnAuthenticationFail(PlayFabError error)
@@ -216,7 +239,7 @@ namespace FirstLight.Game.StateMachines
 			_uiService.OpenUiAsync<LoginScreenBackgroundPresenter>();
 			_statechartTrigger(_authFailEvent);
 			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Login,
-				"AutomaticLogin:" + error.ErrorMessage);
+															   "AutomaticLogin:" + error.ErrorMessage);
 		}
 
 		private bool HasLinkedDevice()
@@ -233,22 +256,25 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.GameBackendService.SetupBackendEnvironment();
 		}
-		
-		private void ShowAccountDeletedPopup()
+
+		private void OpenAccountDeletedDialog(IWaitActivity activity)
 		{
 			var title = ScriptLocalization.UITSettings.account_deleted_title;
 			var desc = ScriptLocalization.UITSettings.account_deleted_desc;
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.UITShared.ok,
-				ButtonOnClick = () => { _services.QuitGame("Deleted User"); }
+				ButtonOnClick = () =>
+				{
+					activity.Complete();
+					_services.QuitGame("Deleted User");
+				}
 			};
 
 			_services.GenericDialogService.OpenButtonDialog(title, desc, false, confirmButton);
 		}
 		
-
-		private void OpenGameUpdateDialog(string version)
+		private void OpenGameUpdateDialog()
 		{
 			var confirmButton = new AlertButton
 			{
@@ -258,7 +284,7 @@ namespace FirstLight.Game.StateMachines
 			};
 
 			var message = string.Format(ScriptLocalization.General.UpdateGame,
-				VersionUtils.VersionExternal, version);
+										VersionUtils.VersionExternal, );
 
 			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.NewGameUpdate, message, confirmButton);
 
@@ -282,7 +308,7 @@ namespace FirstLight.Game.StateMachines
 			};
 
 			var message = string.Format(ScriptLocalization.General.MaintenanceDescription,
-				VersionUtils.VersionExternal);
+										VersionUtils.VersionExternal);
 
 			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.Maintenance, message, confirmButton);
 		}
@@ -292,7 +318,7 @@ namespace FirstLight.Game.StateMachines
 			if (AuthenticationUtils.IsEmailFieldValid(email) && AuthenticationUtils.IsPasswordFieldValid(password))
 			{
 				_statechartTrigger(_loginRegisterTransitionEvent);
-				
+
 				_services.AuthenticationService.LoginWithEmail(email, password, OnLoginSuccess, OnAuthenticationFail);
 			}
 			else
@@ -308,28 +334,19 @@ namespace FirstLight.Game.StateMachines
 						? translation
 						: $"#{"UITLoginRegister/invalid_input"}#";
 				_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, errorMessage, false,
-					confirmButton);
+																confirmButton);
 			}
 		}
-
-		// TODO - DEPRECATED, MOVE IT AWAY FROM HERE!!!
+		
 		private void RegisterClicked(string email, string username, string password)
 		{
-			if (AuthenticationUtils.IsUsernameFieldValid(username) 
-			    && AuthenticationUtils.IsEmailFieldValid(email) 
-			    && AuthenticationUtils.IsPasswordFieldValid(password))
+			if (AuthenticationUtils.IsUsernameFieldValid(username)
+				&& AuthenticationUtils.IsEmailFieldValid(email)
+				&& AuthenticationUtils.IsPasswordFieldValid(password))
 			{
 				_statechartTrigger(_loginRegisterTransitionEvent);
-
-				var register = new RegisterPlayFabUserRequest
-				{
-					Email = email,
-					DisplayName = username,
-					Username = username.Replace(" ", ""),
-					Password = password
-				};
-				PlayFabClientAPI.RegisterPlayFabUser(register, _ => LoginClicked(email, password),
-					OnAuthenticationRegisterFail);
+				_services.AuthenticationService.RegisterWithEmail(email, username.Replace(" ", ""), username, password,
+																  null, null);
 			}
 			else
 			{
@@ -344,7 +361,7 @@ namespace FirstLight.Game.StateMachines
 						? translation
 						: $"#{"UITLoginRegister/invalid_input"}#";
 				_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, errorMessage, false,
-					confirmButton);
+																confirmButton);
 			}
 		}
 
@@ -359,10 +376,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				LoginClicked = LoginClicked,
 				GoToRegisterClicked = () => _statechartTrigger(_goToRegisterClickedEvent),
-				PlayAsGuestClicked = () =>
-				{
-					_statechartTrigger(_loginAsGuestEvent);
-				},
+				PlayAsGuestClicked = () => { _statechartTrigger(_loginAsGuestEvent); },
 				ForgotPasswordClicked = SendRecoveryEmail
 			};
 
@@ -383,7 +397,7 @@ namespace FirstLight.Game.StateMachines
 		private void SendRecoveryEmail(string email)
 		{
 			_lastUsedRecoveryEmail = email;
-			
+
 			SendAccountRecoveryEmailRequest request = new SendAccountRecoveryEmailRequest()
 			{
 				TitleId = PlayFabSettings.TitleId,
@@ -392,7 +406,8 @@ namespace FirstLight.Game.StateMachines
 				AuthenticationContext = PlayFabSettings.staticPlayer
 			};
 
-			PlayFabClientAPI.SendAccountRecoveryEmail(request, OnAccountRecoveryResult, OnPlayFabErrorSendRecoveryEmail);
+			PlayFabClientAPI.SendAccountRecoveryEmail(request, OnAccountRecoveryResult,
+													  OnPlayFabErrorSendRecoveryEmail);
 		}
 
 		private void OnAccountRecoveryResult(SendAccountRecoveryEmailResult result)
@@ -406,14 +421,14 @@ namespace FirstLight.Game.StateMachines
 			};
 
 			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.info,
-				ScriptLocalization.MainMenu.SendPasswordEmailConfirm, false,
-				confirmButton);
+															ScriptLocalization.MainMenu.SendPasswordEmailConfirm, false,
+															confirmButton);
 		}
-		
+
 		private void OnPlayFabErrorSendRecoveryEmail(PlayFabError error)
 		{
 			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Login,
-					error.ErrorMessage);
+															   error.ErrorMessage);
 
 			var confirmButton = new GenericDialogButton
 			{
@@ -431,7 +446,7 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, error.ErrorMessage,
-				false, confirmButton);
+															false, confirmButton);
 		}
 
 		private void OnApplicationQuit(ApplicationQuitMessage msg)

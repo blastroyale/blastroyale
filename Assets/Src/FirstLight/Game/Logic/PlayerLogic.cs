@@ -39,6 +39,11 @@ namespace FirstLight.Game.Logic
 		/// Requests the list of unlocked systems until the given <paramref name="level"/> from the given <paramref name="startLevel"/>
 		/// </summary>
 		List<UnlockSystem> GetUnlockSystems(uint level, uint startLevel = 1);
+		
+		/// <summary>
+		/// Checks if a given player has completed a given tutorial step
+		/// </summary>
+		bool HasTutorialStep(TutorialStep step);
 	}
 
 	/// <inheritdoc />
@@ -59,6 +64,11 @@ namespace FirstLight.Game.Logic
 		/// Changes the player skin to <paramref name="skin"/>
 		/// </summary>
 		void ChangePlayerSkin(GameId skin);
+		
+		/// <summary>
+		/// Flags that the given tutorial step is completed
+		/// </summary>
+		void MarkTutorialStepCompleted(TutorialStep step);
 	}
 	
 	/// <inheritdoc cref="IPlayerLogic"/>
@@ -66,6 +76,9 @@ namespace FirstLight.Game.Logic
 	{
 		private IObservableField<uint> _trophies;
 
+		private IObservableField<TutorialStep> _tutorialSteps;
+		
+		public IObservableFieldReader<TutorialStep> TutorialSteps => _tutorialSteps;
 		/// <inheritdoc />
 		public IObservableFieldReader<uint> Trophies => _trophies;
 		
@@ -113,6 +126,7 @@ namespace FirstLight.Game.Logic
 		{
 			_trophies = new ObservableResolverField<uint>(() => Data.Trophies, val => Data.Trophies = val);
 			SystemsTagged = new ObservableList<UnlockSystem>(AppData.SystemsTagged);
+			_tutorialSteps = new ObservableField<TutorialStep>(DataProvider.GetData<TutorialData>().TutorialSteps);
 		}
 
 		/// <inheritdoc />
@@ -192,6 +206,19 @@ namespace FirstLight.Game.Logic
 			}
 
 			Data.PlayerSkinId = skin;
+		}
+		
+		
+		public bool HasTutorialStep(TutorialStep step)
+		{
+			return DataProvider.GetData<TutorialData>().TutorialSteps.HasFlag(step);
+		}
+		
+		public void MarkTutorialStepCompleted(TutorialStep step)
+		{
+			var data = DataProvider.GetData<TutorialData>();
+			data.TutorialSteps |= step;
+			_tutorialSteps.Value = data.TutorialSteps; // trigger observables after bitshift
 		}
 	}
 }

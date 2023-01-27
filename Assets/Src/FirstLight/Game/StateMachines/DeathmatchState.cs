@@ -127,7 +127,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private bool IsSpectator()
 		{
-			return _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator();
+			return _services.NetworkService.LocalPlayer.IsSpectator();
 		}
 		
 		private bool IsRejoining()

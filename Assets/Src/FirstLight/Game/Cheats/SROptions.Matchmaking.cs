@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using FirstLight.Game.Ids;
+using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 
@@ -22,5 +23,13 @@ public partial class SROptions
 				string.IsNullOrEmpty(Mutators)
 					? new List<string>()
 					: Mutators.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList());
+	}
+
+	[Category("Squads")] public int TeamId { get; set; }
+
+	[Category("Squads")]
+	public void SetTeamId()
+	{
+		MainInstaller.Resolve<IGameServices>().MessageBrokerService.Publish(new SetTeamIdMessage(){TeamId = TeamId});
 	}
 }

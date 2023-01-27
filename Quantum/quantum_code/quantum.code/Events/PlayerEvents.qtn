@@ -131,7 +131,7 @@ synced event OnPlayerAttack
 	FP AttackRange;
 }
 
-synced event OnPlayerDamaged
+synced event OnEntityDamaged
 {
 	player_ref Player;
 	Spell Spell;

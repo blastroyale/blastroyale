@@ -23,7 +23,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 		protected override void OnAwake()
 		{
 			QuantumEvent.Subscribe<EventOnDestructibleScheduled>(this, HandleDestructionScheduled);
-			QuantumEvent.Subscribe<EventOnProjectileTargetableHit>(this, HandleProjectileHit);
+			QuantumEvent.Subscribe<EventOnPlayerAttackHit>(this, HandleProjectileHit);
 		}
 		
 		protected override void OnInit(QuantumGame game)
@@ -45,7 +45,7 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			transform.parent = null;
 		}
 
-		private void HandleProjectileHit(EventOnProjectileTargetableHit callback)
+		private void HandleProjectileHit(EventOnPlayerAttackHit callback)
 		{
 			if (callback.HitEntity != EntityRef)
 			{

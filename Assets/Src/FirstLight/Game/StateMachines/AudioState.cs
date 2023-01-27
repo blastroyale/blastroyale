@@ -147,7 +147,7 @@ namespace FirstLight.Game.StateMachines
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 			QuantumEvent.SubscribeManual<EventOnNewShrinkingCircle>(this, OnNewShrinkingCircle);
 			QuantumEvent.SubscribeManual<EventOnPlayerSkydiveDrop>(this, OnPlayerSkydiveDrop);
-			QuantumEvent.SubscribeManual<EventOnPlayerDamaged>(this, OnPlayerDamaged);
+			QuantumEvent.SubscribeManual<EventOnEntityDamaged>(this, OnEntityDamaged);
 			QuantumEvent.SubscribeManual<EventOnPlayerAttack>(this, OnPlayerAttack);
 			QuantumEvent.SubscribeManual<EventOnCollectableCollected>(this, OnCollectableCollected);
 			QuantumEvent.SubscribeManual<EventOnDamageBlocked>(this, OnDamageBlocked);
@@ -187,7 +187,7 @@ namespace FirstLight.Game.StateMachines
 
 		private bool IsSpectator()
 		{
-			return _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator();
+			return _services.NetworkService.LocalPlayer.IsSpectator();
 		}
 
 		private bool ShouldUseDeathmatchSM()
@@ -236,7 +236,7 @@ namespace FirstLight.Game.StateMachines
 
 			var victoryStatusAudio = AudioId.MusicDefeatJingle;
 
-			if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator() &&
+			if (_services.NetworkService.LocalPlayer.IsSpectator() &&
 			    _matchServices.SpectateService.SpectatedPlayer.Value.Player == leader)
 			{
 				victoryStatusAudio = AudioId.MusicVictoryJingle;
@@ -874,9 +874,13 @@ namespace FirstLight.Game.StateMachines
 			_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
 		}
 
-		private void OnPlayerDamaged(EventOnPlayerDamaged callback)
+		private void OnEntityDamaged(EventOnEntityDamaged callback)
 		{
-			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
+			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView) || 
+				callback.Player == PlayerRef.None) // TODO: a sound for things that are not players.
+			{
+				return;
+			}
 
 			var audio = AudioId.None;
 			var damagedPlayerIsLocal = _matchServices.SpectateService.SpectatedPlayer.Value.Player == callback.Player;

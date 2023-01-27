@@ -457,6 +457,7 @@ namespace I2.Loc
 			public static string Freeway 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Freeway"); } }
 			public static string FreewayDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FreewayDescription"); } }
 			public static string Frontshot 		{ get{ return LocalizationManager.GetTranslation ("GameIds/Frontshot"); } }
+			public static string FtueDeck 		{ get{ return LocalizationManager.GetTranslation ("GameIds/FtueDeck"); } }
 			public static string GoldenBoots 		{ get{ return LocalizationManager.GetTranslation ("GameIds/GoldenBoots"); } }
 			public static string GoldenBootsDescription 		{ get{ return LocalizationManager.GetTranslation ("GameIds/GoldenBootsDescription"); } }
 			public static string HC 		{ get{ return LocalizationManager.GetTranslation ("GameIds/HC"); } }
@@ -618,6 +619,7 @@ namespace I2.Loc
 			public static string AWESOME 		{ get{ return LocalizationManager.GetTranslation ("General/AWESOME"); } }
 			public static string Ammo 		{ get{ return LocalizationManager.GetTranslation ("General/Ammo"); } }
 			public static string AmmoCapacity 		{ get{ return LocalizationManager.GetTranslation ("General/AmmoCapacity"); } }
+			public static string AmmoCapacityBonus 		{ get{ return LocalizationManager.GetTranslation ("General/AmmoCapacityBonus"); } }
 			public static string Appearance 		{ get{ return LocalizationManager.GetTranslation ("General/Appearance"); } }
 			public static string AreYouSure 		{ get{ return LocalizationManager.GetTranslation ("General/AreYouSure"); } }
 			public static string Armor 		{ get{ return LocalizationManager.GetTranslation ("General/Armor"); } }
@@ -1136,13 +1138,39 @@ namespace I2.Loc
 			public static string details_no_helmet 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/details_no_helmet"); } }
 			public static string details_no_shield 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/details_no_shield"); } }
 			public static string details_no_weapon 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/details_no_weapon"); } }
+			public static string edition_genesis 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/edition_genesis"); } }
 			public static string equip 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/equip"); } }
 			public static string equipment 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/equipment"); } }
 			public static string equipment_details_title 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/equipment_details_title"); } }
 			public static string equipped 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/equipped"); } }
+			public static string faction_celestial 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/faction_celestial"); } }
+			public static string faction_chaos 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/faction_chaos"); } }
+			public static string faction_dark 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/faction_dark"); } }
+			public static string faction_dimensional 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/faction_dimensional"); } }
+			public static string faction_order 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/faction_order"); } }
+			public static string faction_organic 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/faction_organic"); } }
+			public static string faction_shadow 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/faction_shadow"); } }
+			public static string grade_1 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/grade_1"); } }
+			public static string grade_2 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/grade_2"); } }
+			public static string grade_3 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/grade_3"); } }
+			public static string grade_4 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/grade_4"); } }
+			public static string grade_5 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/grade_5"); } }
 			public static string item_name_lvl 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/item_name_lvl"); } }
 			public static string loaned 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/loaned"); } }
 			public static string lvl 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/lvl"); } }
+			public static string manufacturer_animaltactics 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/manufacturer_animaltactics"); } }
+			public static string manufacturer_apocalyptic 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/manufacturer_apocalyptic"); } }
+			public static string manufacturer_bruteforce 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/manufacturer_bruteforce"); } }
+			public static string manufacturer_futuristic 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/manufacturer_futuristic"); } }
+			public static string manufacturer_lostandfound 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/manufacturer_lostandfound"); } }
+			public static string manufacturer_military 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/manufacturer_military"); } }
+			public static string manufacturer_runandriot 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/manufacturer_runandriot"); } }
+			public static string manufacturer_sportingchance 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/manufacturer_sportingchance"); } }
+			public static string material_bronze 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/material_bronze"); } }
+			public static string material_carbon 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/material_carbon"); } }
+			public static string material_golden 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/material_golden"); } }
+			public static string material_plastic 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/material_plastic"); } }
+			public static string material_steel 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/material_steel"); } }
 			public static string might 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/might"); } }
 			public static string no_amulet 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/no_amulet"); } }
 			public static string no_armor 		{ get{ return LocalizationManager.GetTranslation ("UITEquipment/no_armor"); } }
@@ -1249,6 +1277,7 @@ namespace I2.Loc
 			public static string loading_status_waiting 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/loading_status_waiting"); } }
 			public static string mode_header_title 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/mode_header_title"); } }
 			public static string select_dropzone 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/select_dropzone"); } }
+			public static string squad 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/squad"); } }
 			public static string wins_the_match 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/wins_the_match"); } }
 		}
 
@@ -1784,6 +1813,7 @@ namespace I2.Loc
 		    public const string Freeway = "GameIds/Freeway";
 		    public const string FreewayDescription = "GameIds/FreewayDescription";
 		    public const string Frontshot = "GameIds/Frontshot";
+		    public const string FtueDeck = "GameIds/FtueDeck";
 		    public const string GoldenBoots = "GameIds/GoldenBoots";
 		    public const string GoldenBootsDescription = "GameIds/GoldenBootsDescription";
 		    public const string HC = "GameIds/HC";
@@ -1945,6 +1975,7 @@ namespace I2.Loc
 		    public const string AWESOME = "General/AWESOME";
 		    public const string Ammo = "General/Ammo";
 		    public const string AmmoCapacity = "General/AmmoCapacity";
+		    public const string AmmoCapacityBonus = "General/AmmoCapacityBonus";
 		    public const string Appearance = "General/Appearance";
 		    public const string AreYouSure = "General/AreYouSure";
 		    public const string Armor = "General/Armor";
@@ -2463,13 +2494,39 @@ namespace I2.Loc
 		    public const string details_no_helmet = "UITEquipment/details_no_helmet";
 		    public const string details_no_shield = "UITEquipment/details_no_shield";
 		    public const string details_no_weapon = "UITEquipment/details_no_weapon";
+		    public const string edition_genesis = "UITEquipment/edition_genesis";
 		    public const string equip = "UITEquipment/equip";
 		    public const string equipment = "UITEquipment/equipment";
 		    public const string equipment_details_title = "UITEquipment/equipment_details_title";
 		    public const string equipped = "UITEquipment/equipped";
+		    public const string faction_celestial = "UITEquipment/faction_celestial";
+		    public const string faction_chaos = "UITEquipment/faction_chaos";
+		    public const string faction_dark = "UITEquipment/faction_dark";
+		    public const string faction_dimensional = "UITEquipment/faction_dimensional";
+		    public const string faction_order = "UITEquipment/faction_order";
+		    public const string faction_organic = "UITEquipment/faction_organic";
+		    public const string faction_shadow = "UITEquipment/faction_shadow";
+		    public const string grade_1 = "UITEquipment/grade_1";
+		    public const string grade_2 = "UITEquipment/grade_2";
+		    public const string grade_3 = "UITEquipment/grade_3";
+		    public const string grade_4 = "UITEquipment/grade_4";
+		    public const string grade_5 = "UITEquipment/grade_5";
 		    public const string item_name_lvl = "UITEquipment/item_name_lvl";
 		    public const string loaned = "UITEquipment/loaned";
 		    public const string lvl = "UITEquipment/lvl";
+		    public const string manufacturer_animaltactics = "UITEquipment/manufacturer_animaltactics";
+		    public const string manufacturer_apocalyptic = "UITEquipment/manufacturer_apocalyptic";
+		    public const string manufacturer_bruteforce = "UITEquipment/manufacturer_bruteforce";
+		    public const string manufacturer_futuristic = "UITEquipment/manufacturer_futuristic";
+		    public const string manufacturer_lostandfound = "UITEquipment/manufacturer_lostandfound";
+		    public const string manufacturer_military = "UITEquipment/manufacturer_military";
+		    public const string manufacturer_runandriot = "UITEquipment/manufacturer_runandriot";
+		    public const string manufacturer_sportingchance = "UITEquipment/manufacturer_sportingchance";
+		    public const string material_bronze = "UITEquipment/material_bronze";
+		    public const string material_carbon = "UITEquipment/material_carbon";
+		    public const string material_golden = "UITEquipment/material_golden";
+		    public const string material_plastic = "UITEquipment/material_plastic";
+		    public const string material_steel = "UITEquipment/material_steel";
 		    public const string might = "UITEquipment/might";
 		    public const string no_amulet = "UITEquipment/no_amulet";
 		    public const string no_armor = "UITEquipment/no_armor";
@@ -2576,6 +2633,7 @@ namespace I2.Loc
 		    public const string loading_status_waiting = "UITMatchmaking/loading_status_waiting";
 		    public const string mode_header_title = "UITMatchmaking/mode_header_title";
 		    public const string select_dropzone = "UITMatchmaking/select_dropzone";
+		    public const string squad = "UITMatchmaking/squad";
 		    public const string wins_the_match = "UITMatchmaking/wins_the_match";
 		}
 

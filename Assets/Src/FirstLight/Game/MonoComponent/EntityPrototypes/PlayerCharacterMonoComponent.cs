@@ -52,9 +52,10 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 		{
 			var f = game?.Frames?.Verified;
 			
-			if(f == null) return;
+			if(f == null || _playerView == null) return;
 			
-			var marker = f.GetSingleton<GameContainer>().PlayersData[_playerView.PlayerRef].PlayerDeathMarker;
+			var playerData = f.GetSingleton<GameContainer>().PlayersData[_playerView.PlayerRef];
+			var marker = playerData.PlayerDeathMarker;
 			
 			SpawnDeathMarker(marker);
 		}
@@ -94,11 +95,16 @@ namespace FirstLight.Game.MonoComponent.EntityPrototypes
 			{
 				return;
 			}
+			
+			_playerView = instance.GetComponent<PlayerCharacterViewMonoComponent>();
 
 			var matchCharacterViewMonoComponent = instance.GetComponent<MatchCharacterViewMonoComponent>();
 			await matchCharacterViewMonoComponent.Init(EntityView, weapon, gear);
 
-			_playerView = instance.GetComponent<PlayerCharacterViewMonoComponent>();
+			if (this.IsDestroyed())
+			{
+				return;
+			}
 
 			var isSkydiving = frame.Get<AIBlackboardComponent>(EntityView.EntityRef).GetBoolean(frame, Constants.IsSkydiving);
 			if (isSkydiving)

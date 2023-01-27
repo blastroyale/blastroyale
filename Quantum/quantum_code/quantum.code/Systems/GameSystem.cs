@@ -8,28 +8,27 @@ namespace Quantum.Systems
 	/// This system handles the behaviour when the game systems, the ending and is the final countdown to quit the screen
 	/// </summary>
 	public unsafe class GameSystem : SystemMainThread, ISignalOnComponentAdded<GameContainer>,
-	                                 ISignalGameEnded, ISignalPlayerDead, ISignalPlayerKilledPlayer, ISignalOnPlayerDataSet
+									 ISignalGameEnded, ISignalPlayerDead, ISignalPlayerKilledPlayer,
+									 ISignalOnPlayerDataSet
 	{
-
 		/// <summary>
 		/// Time while the simulation will wait for players to connect to start the game.
 		/// This has to take in account server web requests to validate user data
 		/// </summary>
 		private static FP PLAYERS_JOIN_TIMEOUT = 60;
-		
+
 		/// <inheritdoc />
 		public override void Update(Frame f)
 		{
 			f.ResolveList(f.Global->Queries).Clear();
 			var container = f.Unsafe.GetPointerSingleton<GameContainer>();
-			
+
 			if (!container->IsGameStarted && f.Time > PLAYERS_JOIN_TIMEOUT)
 			{
 				AllPlayersJoined(f, container);
 			}
 		}
 
-		/// <inheritdoc />
 		public void OnAdded(Frame f, EntityRef entity, GameContainer* component)
 		{
 			switch (f.Context.GameModeConfig.CompletionStrategy)
@@ -37,7 +36,7 @@ namespace Quantum.Systems
 				case GameCompletionStrategy.Never:
 					break;
 				case GameCompletionStrategy.EveryoneDead:
-					component->TargetProgress = (uint) f.PlayerCount - 1;
+					// Set after AllPlayersJoined
 					break;
 				case GameCompletionStrategy.KillCount:
 					component->TargetProgress = f.Context.GameModeConfig.CompletionKillCount;
@@ -45,6 +44,7 @@ namespace Quantum.Systems
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
+
 			SetupWeaponPool(f, component);
 		}
 
@@ -58,14 +58,14 @@ namespace Quantum.Systems
 
 			foreach (var livingPlayer in f.GetComponentIterator<AlivePlayerCharacter>())
 			{
-				if (f.TryGet<PlayerCharacter>(livingPlayer.Entity, out var playerCharacter))
+				if (f.TryGet<PlayerCharacter>(livingPlayer.Entity, out var playerCharacter) && !f.Has<BotCharacter>(livingPlayer.Entity))
 				{
 					f.Events.FireQuantumServerCommand(playerCharacter.Player, QuantumServerCommand.EndOfGameRewards);
 				}
 			}
-			
+
 			f.Events.OnGameEnded();
-			
+
 			f.SystemDisable(typeof(AiPreUpdateSystem));
 			f.SystemDisable(typeof(AiSystem));
 			f.SystemDisable(typeof(Core.NavigationSystem));
@@ -89,11 +89,12 @@ namespace Quantum.Systems
 
 		/// <inheritdoc />
 		public void PlayerKilledPlayer(Frame f, PlayerRef playerDead, EntityRef entityDead, PlayerRef playerKiller,
-		                               EntityRef entityKiller)
+									   EntityRef entityKiller)
 		{
 			if (f.Context.GameModeConfig.CompletionStrategy == GameCompletionStrategy.KillCount)
 			{
 				var container = f.Unsafe.GetPointerSingleton<GameContainer>();
+				// TODO mihak: Make squads work with KillCount mode.
 				var inc = container->PlayersData[playerKiller].PlayersKilledCount - container->CurrentProgress;
 
 				container->UpdateGameProgress(f, inc);
@@ -119,7 +120,7 @@ namespace Quantum.Systems
 					var index = f.RNG->Next(0, offPool.Count);
 
 					equipment = Equipment.Create(offPool[index], EquipmentRarity.Common, 1, f);
-					
+
 					if (offPool.Count > 1)
 					{
 						offPool.RemoveAt(index);
@@ -133,7 +134,7 @@ namespace Quantum.Systems
 			component->DropPool.AverageRarity = (EquipmentRarity) FPMath.FloorToInt((FP) rarity / (count + 1));
 			component->DropPool.MedianRarity = component->DropPool.WeaponPool[count / 2].Rarity;
 		}
-		
+
 		public void OnPlayerDataSet(Frame f, PlayerRef player)
 		{
 			var container = f.Unsafe.GetPointerSingleton<GameContainer>();
@@ -148,7 +149,7 @@ namespace Quantum.Systems
 		{
 			var setupPlayers = 0;
 			var expectedPlayers = 0;
-			
+
 			for (var x = 0; x < f.PlayerCount; x++)
 			{
 				if ((f.GetPlayerInputFlags(x) & DeterministicInputFlags.PlayerNotPresent) == 0)
@@ -161,14 +162,30 @@ namespace Quantum.Systems
 					setupPlayers++;
 				}
 			}
+
 			return setupPlayers == expectedPlayers;
 		}
 
 		private void AllPlayersJoined(Frame f, GameContainer* container)
 		{
 			f.Signals.AllPlayersJoined();
+			RefreshTotalTeamCount(f);
+
 			f.Events.OnAllPlayersJoined();
 			container->IsGameStarted = true;
+		}
+
+		private void RefreshTotalTeamCount(Frame f)
+		{
+			var teams = new HashSet<int>();
+
+			foreach (var (_, pc) in f.Unsafe.GetComponentBlockIterator<PlayerCharacter>())
+			{
+				teams.Add(pc->TeamId);
+			}
+
+			var container = f.Unsafe.GetPointerSingleton<GameContainer>();
+			container->TargetProgress = (uint) teams.Count;
 		}
 	}
 }

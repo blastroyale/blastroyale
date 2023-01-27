@@ -64,7 +64,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		private void OnPlayerSpawned(EventOnPlayerSpawned callback)
 		{
-			if (!_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator() || _timerCoroutine != null)
+			if (!_services.NetworkService.LocalPlayer.IsSpectator() || _timerCoroutine != null)
 			{
 				return;
 			}

@@ -107,13 +107,13 @@ namespace FirstLight.Game.MonoComponent.Match
 			if (!next.Entity.IsValid) return;
 
 			// If local player died and camera is in spawn mode, reset back to adventure (death upon landing fix)
-			if (!_services.NetworkService.IsSpectorPlayer && ReferenceEquals(_cinemachineBrain.ActiveVirtualCamera, _spawnCamera))
+			if (!_services.NetworkService.LocalPlayer.IsSpectator() && ReferenceEquals(_cinemachineBrain.ActiveVirtualCamera, _spawnCamera))
 			{
 				SetActiveCamera(_adventureCamera);
 			}
 
 			//when becoming a spectator, disable camera panning and set the follow target to the spectated player's transform
-			if (_services.NetworkService.IsSpectorPlayer)
+			if (_services.NetworkService.LocalPlayer.IsSpectator())
 			{
 				QuantumCallback.UnsubscribeListener(this);
 				_followObject = next.Transform.gameObject;

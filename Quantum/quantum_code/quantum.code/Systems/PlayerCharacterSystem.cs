@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Photon.Deterministic;
 using Quantum.Collections;
+using Quantum.Inspector;
 
 namespace Quantum.Systems
 {
@@ -107,17 +109,17 @@ namespace Quantum.Systems
 				for (int i = 0; i < FPMath.RoundToInt(itemCount / 2); i++)
 				{
 					var consumable = GameId.Health;
-					if(ammoFilled < healthFilled && ammoFilled < shieldFilled) //ammo
-					{
-						consumable = GameId.AmmoSmall;
-						ammoFilled += f.ConsumableConfigs.GetConfig(consumable).Amount.Get(f);
-					}
 					if (healthFilled < ammoFilled && healthFilled < shieldFilled) //health
 					{
 						consumable = GameId.Health;
 						healthFilled += f.ConsumableConfigs.GetConfig(consumable).Amount.Get(f) / stats->GetStatData(StatType.Health).StatValue;
 					}
-					if (shieldFilled < healthFilled && shieldFilled < ammoFilled) //shield
+					else if (ammoFilled < healthFilled && ammoFilled < shieldFilled) //ammo
+					{
+						consumable = GameId.AmmoSmall;
+						ammoFilled += f.ConsumableConfigs.GetConfig(consumable).Amount.Get(f);
+					}
+					else if (shieldFilled < healthFilled && shieldFilled < ammoFilled) //shield
 					{
 						consumable = GameId.ShieldSmall;
 						shieldFilled += f.ConsumableConfigs.GetConfig(consumable).Amount.Get(f) / stats->GetStatData(StatType.Shield).StatValue;
@@ -146,8 +148,8 @@ namespace Quantum.Systems
 			spawnTransform.Position = spawnPosition.XOY;
 
 			playerCharacter->Init(f, playerEntity, playerRef, spawnTransform, playerData.PlayerLevel,
-								  playerData.PlayerTrophies, playerData.Skin, playerData.DeathMarker, playerData.Loadout,
-								  playerData.Loadout.FirstOrDefault(e => e.IsWeapon()));
+								  playerData.PlayerTrophies, playerData.Skin, playerData.DeathMarker, playerData.TeamId,
+								  playerData.Loadout, playerData.Loadout.FirstOrDefault(e => e.IsWeapon()));
 		}
 
 		private void ProcessPlayerInput(Frame f, ref PlayerCharacterFilter filter)

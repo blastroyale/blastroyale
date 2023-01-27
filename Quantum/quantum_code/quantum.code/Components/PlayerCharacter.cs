@@ -19,13 +19,14 @@ namespace Quantum
 		/// Spawns this <see cref="PlayerCharacter"/> with all the necessary data.
 		/// </summary>
 		internal void Init(Frame f, EntityRef e, PlayerRef playerRef, Transform3D spawnPosition, uint playerLevel,
-		                   uint trophies, GameId skin, GameId deathMarker, Equipment[] startingEquipment, Equipment loadoutWeapon)
+		                   uint trophies, GameId skin, GameId deathMarker, int teamId, Equipment[] startingEquipment, Equipment loadoutWeapon)
 		{
 			var blackboard = new AIBlackboardComponent();
 			var kcc = new CharacterController3D();
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 
 			Player = playerRef;
+			TeamId = teamId < 0 ? Player + (int) TeamType.TOTAL : 1000 + teamId;
 			CurrentWeaponSlot = 0;
 			DroppedLoadoutFlags = 0;
 			transform->Position = spawnPosition.Position;
@@ -54,7 +55,7 @@ namespace Quantum
 			//BotSDKDebuggerSystem.AddToDebugger(e);
 
 			blackboard.InitializeBlackboardComponent(f, f.FindAsset<AIBlackboard>(BlackboardRef.Id));
-			f.Unsafe.GetPointerSingleton<GameContainer>()->AddPlayer(f, playerRef, e, playerLevel, skin, deathMarker, trophies);
+			f.Unsafe.GetPointerSingleton<GameContainer>()->AddPlayer(f, playerRef, e, playerLevel, skin, deathMarker, trophies, TeamId);
 			kcc.Init(f, f.FindAsset<CharacterController3DConfig>(KccConfigRef.Id));
 
 			f.Add(e, blackboard);
@@ -117,7 +118,7 @@ namespace Quantum
 		/// </summary>
 		internal void Activate(Frame f, EntityRef e)
 		{
-			var targetable = new Targetable {Team = Player + (int) TeamType.TOTAL};
+			var targetable = new Targetable {Team = TeamId};
 			var stats = f.Unsafe.GetPointer<Stats>(e);
 
 			stats->ResetStats(f, CurrentWeapon, Gear);
@@ -180,8 +181,11 @@ namespace Quantum
 
 			var agent = f.Unsafe.GetPointer<HFSMAgent>(e);
 			HFSMManager.TriggerEvent(f, &agent->Data, e, Constants.DeadEvent);
-			
-			f.Events.FireQuantumServerCommand(Player, QuantumServerCommand.EndOfGameRewards);
+
+			if (!f.Has<BotCharacter>(e))
+			{
+				f.Events.FireQuantumServerCommand(Player, QuantumServerCommand.EndOfGameRewards);
+			}
 		}
 
 		/// <summary>

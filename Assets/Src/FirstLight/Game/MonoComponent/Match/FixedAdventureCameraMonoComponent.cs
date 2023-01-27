@@ -67,7 +67,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			if (!f.Unsafe.TryGetPointer<PlayerCharacter>(spectatedEntity, out var player)) return;
 
 			var playerInput = f.GetPlayerInput(player->Player);
-			var inputDir = _gameDataProvider.AppDataProvider.UseDynamicJoystick ? playerInput->AimingDirection : FPVector2.Zero;
+			var inputDir = _gameDataProvider.AppDataProvider.UseDynamicCamera ? playerInput->AimingDirection : FPVector2.Zero;
 
 			var config = _services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int)player->CurrentWeapon.GameId);
 			var rangeModifer = QuantumHelpers.GetDynamicAimValue(f.Unsafe.GetPointer<CharacterController3D>(spectatedEntity),

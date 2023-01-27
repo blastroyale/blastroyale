@@ -1,5 +1,7 @@
 enum BotBehaviourType
 {
+    Static,
+    Dumb,
 	Balanced,
 	Cautious,
 	Aggressive,

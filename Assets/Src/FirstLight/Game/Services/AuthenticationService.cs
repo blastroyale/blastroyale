@@ -3,18 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using ExitGames.Client.Photon;
 using FirstLight.FLogger;
 using FirstLight.Game.Configs;
 using FirstLight.Game.Data;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
+using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Utils;
+using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using PlayFab;
 using PlayFab.ClientModels;
+using PlayFab.CloudScriptModels;
+using PlayFab.SharedModels;
 using UnityEngine;
 
 namespace FirstLight.Game.Services
@@ -272,10 +277,58 @@ namespace FirstLight.Game.Services
 
 		public void GetPlayerData()
 		{
+			_services.GameBackendService.CallFunction("GetPlayerData", OnPlayerDataObtained, OnPlayFabError);
+		}
+
+		void OnPlayerDataObtained(ExecuteFunctionResult res)
+		{
+			var serverResult = ModelSerializer.Deserialize<PlayFabResult<LogicResult>>(res.FunctionResult.ToString());
+			var data = serverResult.Result.Data;
+
+			if (data == null || !data.ContainsKey(typeof(PlayerData).FullName)) // response too large, fetch directly
+			{
+				_services.GameBackendService.FetchServerState(state =>
+				{
+					AddDataToService(state);
+					FLog.Verbose("Downloaded state from playfab");
+				});
+				
+				return;
+			}
+
+			AddDataToService(data);
+			FLog.Verbose("Downloaded state from server");
+		}
+		
+		private void AddDataToService(Dictionary<string, string> state)
+		{
+			foreach (var typeFullName in state.Keys)
+			{
+				try
+				{
+					var type = Assembly.GetExecutingAssembly().GetType(typeFullName);
+					_dataService.AddData(type, ModelSerializer.DeserializeFromData(type, state));
+				}
+				catch (Exception e)
+				{
+					FLog.Error("Error reading data type "+typeFullName);
+				}
+			}
 		}
 
 		public void AuthenticatePhoton()
 		{
+			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
+			var appId = config.PhotonServerSettings.AppSettings.AppIdRealtime;
+			var request = new GetPhotonAuthenticationTokenRequest { PhotonApplicationId = appId };
+			PlayFabClientAPI.GetPhotonAuthenticationToken(request, OnAuthenticationSuccess, OnCriticalPlayFabError);
+
+			void OnAuthenticationSuccess(GetPhotonAuthenticationTokenResult result)
+			{
+				_networkService.QuantumClient.AuthValues.AddAuthParameter("token",
+																		  result.PhotonCustomAuthenticationToken);
+				activity.Complete();
+			}
 		}
 
 		public bool IsAccountDeleted(PlayerData playerData)
@@ -304,6 +357,11 @@ namespace FirstLight.Game.Services
 			config.PhotonServerSettings.AppSettings.Protocol = connection;
 
 			_services.AssetResolverService.UnloadAsset(config);
+		}
+		
+		private void OnPlayFabError(PlayFabError error)
+		{
+		
 		}
 	}
 }

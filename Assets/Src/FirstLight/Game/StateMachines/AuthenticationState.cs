@@ -236,104 +236,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.GameBackendService.SetupBackendEnvironment();
 		}
-
-		private void ProcessAuthentication(LoginResult result)
-		{
-			var titleData = result.InfoResultPayload.TitleData;
-			var appData = _dataService.GetData<AppData>();
-
-			PlayFabSettings.staticPlayer.CopyFrom(result.AuthenticationContext);
-			
-			FLog.Verbose($"Logged in. PlayfabId={result.PlayFabId}");
-			//AppleApprovalHack(result);
-
-			if (!titleData.TryGetValue(GameConstants.PlayFab.VERSION_KEY, out var titleVersion))
-			{
-				throw new Exception($"{GameConstants.PlayFab.VERSION_KEY} not set in title data");
-			}
-
-			if (IsOutdated(titleVersion))
-			{
-				OpenGameUpdateDialog(titleVersion);
-				return;
-			}
-
-			if (titleData.TryGetValue(GameConstants.PlayFab.MAINTENANCE_KEY, out var version) && IsOutdated(version))
-			{
-				OpenGameBlockedDialog();
-				return;
-			}
-
-			FeatureFlags.ParseFlags(titleData);
-			FeatureFlags.ParseLocalFeatureFlags();
-			_services.LiveopsService.FetchSegments(_ =>
-			{
-				var liveopsFeatureFlags = _services.LiveopsService.GetUserSegmentedFeatureFlags();
-				FeatureFlags.ParseFlags(liveopsFeatureFlags);
-			});
-			
-			if (titleData.TryGetValue("PHOTON_APP", out var photonAppId))
-			{
-				var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
-				quantumSettings.AppSettings.AppIdRealtime = photonAppId;
-				FLog.Verbose("Setting up photon app id by playfab title data");
-			}
-
-			_networkService.UserId.Value = result.PlayFabId;
-			appData.DisplayName = result.InfoResultPayload.AccountInfo.TitleInfo.DisplayName;
-			appData.FirstLoginTime = result.InfoResultPayload.AccountInfo.Created;
-			appData.LoginTime = _services.TimeService.DateTimeUtcNow;
-			appData.LastLoginTime = result.LastLoginTime ?? result.InfoResultPayload.AccountInfo.Created;
-			appData.IsFirstSession = result.NewlyCreated;
-			appData.PlayerId = result.PlayFabId;
-			appData.LastLoginEmail = result.InfoResultPayload.AccountInfo.PrivateInfo.Email;
-
-			if (FeatureFlags.REMOTE_CONFIGURATION)
-			{
-				FLog.Verbose("Parsing Remote Configurations");
-				var remoteStringConfig = titleData[PlayfabConfigurationProvider.ConfigName];
-				var serializer = new ConfigsSerializer();
-				var remoteConfig = serializer.Deserialize<PlayfabConfigurationProvider>(remoteStringConfig);
-				FLog.Verbose(
-					$"Updating config from version {_configsAdder.Version.ToString()} to {remoteConfig.Version.ToString()}");
-				_services.MessageBrokerService.Publish(new ConfigurationUpdate()
-				{
-					NewConfig = remoteConfig,
-					OldConfig = _configsAdder
-				});
-				_configsAdder.UpdateTo(remoteConfig.Version, remoteConfig.GetAllConfigs());
-			}
-			_dataService.SaveData<AppData>();
-			FLog.Verbose("Saved AppData");
-			
-			_services.AnalyticsService.SessionCalls.PlayerLogin(result.PlayFabId, _dataProvider.AppDataProvider.IsGuest);
-		}
-
-		private void FinalStepsAuthentication(IWaitActivity activity)
-		{
-			FLog.Verbose("Obtaining player data");
-			
-			_services.GameBackendService.CallFunction("GetPlayerData", res => OnPlayerDataObtained(res, activity),
-				OnPlayFabError);
-
-			PhotonAuthentication(activity.Split());
-		}
-
-		private void PhotonAuthentication(IWaitActivity activity)
-		{
-			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
-			var appId = config.PhotonServerSettings.AppSettings.AppIdRealtime;
-			var request = new GetPhotonAuthenticationTokenRequest { PhotonApplicationId = appId };
-			PlayFabClientAPI.GetPhotonAuthenticationToken(request, OnAuthenticationSuccess, OnCriticalPlayFabError);
-
-			void OnAuthenticationSuccess(GetPhotonAuthenticationTokenResult result)
-			{
-				_networkService.QuantumClient.AuthValues.AddAuthParameter("token",
-					result.PhotonCustomAuthenticationToken);
-				activity.Complete();
-			}
-		}
-
+		
 		private void ShowAccountDeletedPopup()
 		{
 			var title = ScriptLocalization.UITSettings.account_deleted_title;
@@ -349,45 +252,7 @@ namespace FirstLight.Game.StateMachines
 
 		
 
-		/// <summary>
-		/// Add all of the data in <paramref name="state"/> to the data service 
-		/// </summary>
-		private void AddDataToService(IWaitActivity activity, Dictionary<string, string> state)
-		{
-			foreach (var typeFullName in state.Keys)
-			{
-				try
-				{
-					var type = Assembly.GetExecutingAssembly().GetType(typeFullName);
-					_dataService.AddData(type, ModelSerializer.DeserializeFromData(type, state));
-				}
-				catch (Exception e)
-				{
-					FLog.Error("Error reading data type "+typeFullName);
-				}
-			}
-			
-			activity?.Complete();
-		}
-
-		private void OnPlayerDataObtained(ExecuteFunctionResult res, IWaitActivity activity)
-		{
-			var serverResult = ModelSerializer.Deserialize<PlayFabResult<LogicResult>>(res.FunctionResult.ToString());
-			var data = serverResult.Result.Data;
-
-			if (data == null || !data.ContainsKey(typeof(PlayerData).FullName)) // response too large, fetch directly
-			{
-				_services.GameBackendService.FetchServerState(state =>
-				{
-					AddDataToService(activity, state);
-					FLog.Verbose("Downloaded state from playfab");
-				});
-				return;
-			}
-
-			AddDataToService(activity, data);
-			FLog.Verbose("Downloaded state from server");
-		}
+		
 
 		private void OpenGameUpdateDialog(string version)
 		{

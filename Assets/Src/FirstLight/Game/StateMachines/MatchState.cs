@@ -379,6 +379,7 @@ namespace FirstLight.Game.StateMachines
 
 		private async Task LoadMatchAssets()
 		{
+			// TODO - Remove this temporary try catch when cause and fix for issue BRG-1822 is found
 			try
 			{
 				var time = Time.realtimeSinceStartup;

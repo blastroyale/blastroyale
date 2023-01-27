@@ -142,7 +142,8 @@ namespace Src.FirstLight.Server
 			};
 			if (ev.Message.Rewards != null)
 			{
-				data["rewards"] = JsonConvert.SerializeObject(ev.Message.Rewards);
+				data["rewards"] = JsonConvert.SerializeObject(
+					ev.Message.Rewards.Select(e => e.Value.GetAnalyticsData(e.Key)));
 			}
 
 			_ctx.Analytics!.EmitUserEvent(ev.UserId, "battle_pass_rewards", data);

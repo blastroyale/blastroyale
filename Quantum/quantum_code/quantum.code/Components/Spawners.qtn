@@ -10,9 +10,20 @@ component CollectablePlatformSpawner
 	list<GameId> ContentsOverride;
 }
 
+enum SpawnerType
+{
+    Any,
+    Player,
+    AnyBot,
+    BotOfType
+}
+
 component PlayerSpawner
 {
 	[HideInInspector] FP ActivationTime;
+	SpawnerType SpawnerType;
+	BotBehaviourType BehaviourType;
+	bool ForceStatic;
 }
 
 component AirDropSpawner

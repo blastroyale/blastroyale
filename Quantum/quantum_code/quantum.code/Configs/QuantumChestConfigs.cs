@@ -77,5 +77,23 @@ namespace Quantum
 			}
 			throw new ArgumentOutOfRangeException(nameof(ChestType), itemCount, null);
 		}
+
+		public EquipmentRarity GetChestRarity(ChestType type)
+		{
+			switch(type)
+			{
+				case ChestType.Common:
+					return EquipmentRarity.Common;
+				case ChestType.Uncommon:
+					return EquipmentRarity.Uncommon;
+				case ChestType.Rare:
+					return EquipmentRarity.Rare;
+				case ChestType.Epic:
+					return EquipmentRarity.Epic;
+				case ChestType.Legendary:
+					return EquipmentRarity.Legendary;
+			}
+			return EquipmentRarity.Common;
+		}
 	}
 }

@@ -3761,26 +3761,47 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Chest : Quantum.IComponent {
-    public const Int32 SIZE = 8;
+    public const Int32 SIZE = 12;
     public const Int32 ALIGNMENT = 4;
     [FieldOffset(0)]
     [HideInInspector()]
     public ChestType ChestType;
+    [FieldOffset(8)]
+    [HideInInspector()]
+    [FramePrinter.PtrQListAttribute(typeof(GameId))]
+    private Quantum.Ptr ContentsOverridePtr;
     [FieldOffset(4)]
     [HideInInspector()]
     public GameId Id;
+    public QListPtr<GameId> ContentsOverride {
+      get {
+        return new QListPtr<GameId>(ContentsOverridePtr);
+      }
+      set {
+        ContentsOverridePtr = value.Ptr;
+      }
+    }
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 431;
         hash = hash * 31 + (Int32)ChestType;
+        hash = hash * 31 + ContentsOverridePtr.GetHashCode();
         hash = hash * 31 + (Int32)Id;
         return hash;
       }
+    }
+    public void ClearPointers(Frame f, EntityRef entity) {
+      ContentsOverridePtr = default;
+    }
+    public static void OnRemoved(FrameBase frame, EntityRef entity, void* ptr) {
+      var p = (Chest*)ptr;
+      p->ClearPointers((Frame)frame, entity);
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (Chest*)ptr;
         serializer.Stream.Serialize((Int32*)&p->ChestType);
         serializer.Stream.Serialize((Int32*)&p->Id);
+        QList.Serialize(p->ContentsOverride, &p->ContentsOverridePtr, serializer, StaticDelegates.SerializeGameId);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -3821,7 +3842,7 @@ namespace Quantum {
     [HideInInspector()]
     public EntityRef Collectable;
     [FieldOffset(8)]
-    [FramePrinter.PtrQListAttribute(typeof(Equipment))]
+    [FramePrinter.PtrQListAttribute(typeof(GameId))]
     private Quantum.Ptr ContentsOverridePtr;
     [FieldOffset(0)]
     public GameId GameId;
@@ -3837,9 +3858,9 @@ namespace Quantum {
     [FieldOffset(20)]
     [HideInInspector()]
     public UInt32 SpawnCount;
-    public QListPtr<Equipment> ContentsOverride {
+    public QListPtr<GameId> ContentsOverride {
       get {
-        return new QListPtr<Equipment>(ContentsOverridePtr);
+        return new QListPtr<GameId>(ContentsOverridePtr);
       }
       set {
         ContentsOverridePtr = value.Ptr;
@@ -3870,7 +3891,7 @@ namespace Quantum {
         var p = (CollectablePlatformSpawner*)ptr;
         serializer.Stream.Serialize((Int32*)&p->GameId);
         serializer.Stream.Serialize(&p->RarityModifier);
-        QList.Serialize(p->ContentsOverride, &p->ContentsOverridePtr, serializer, StaticDelegates.SerializeEquipment);
+        QList.Serialize(p->ContentsOverride, &p->ContentsOverridePtr, serializer, StaticDelegates.SerializeGameId);
         serializer.Stream.Serialize(&p->InitialSpawnDelayInSec);
         serializer.Stream.Serialize(&p->RespawnTimeInSec);
         serializer.Stream.Serialize(&p->SpawnCount);
@@ -4890,7 +4911,7 @@ namespace Quantum {
         ComponentTypeId.Add<Quantum.AlivePlayerCharacter>(Quantum.AlivePlayerCharacter.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.BTAgent>(Quantum.BTAgent.Serialize, null, Quantum.BTAgent.OnRemoved, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.BotCharacter>(Quantum.BotCharacter.Serialize, null, null, ComponentFlags.None);
-        ComponentTypeId.Add<Quantum.Chest>(Quantum.Chest.Serialize, null, null, ComponentFlags.None);
+        ComponentTypeId.Add<Quantum.Chest>(Quantum.Chest.Serialize, null, Quantum.Chest.OnRemoved, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.Collectable>(Quantum.Collectable.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.CollectablePlatformSpawner>(Quantum.CollectablePlatformSpawner.Serialize, null, Quantum.CollectablePlatformSpawner.OnRemoved, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.CompoundBTAgent>(Quantum.CompoundBTAgent.Serialize, null, Quantum.CompoundBTAgent.OnRemoved, ComponentFlags.None);
@@ -8694,9 +8715,10 @@ namespace Quantum {
     public static FrameSerializer.Delegate SerializeByte;
     public static FrameSerializer.Delegate SerializeFP;
     public static FrameSerializer.Delegate SerializeAssetRefBTDecorator;
-    public static FrameSerializer.Delegate SerializeEquipment;
+    public static FrameSerializer.Delegate SerializeGameId;
     public static FrameSerializer.Delegate SerializeBTAgent;
     public static FrameSerializer.Delegate SerializePlayerMatchData;
+    public static FrameSerializer.Delegate SerializeEquipment;
     public static FrameSerializer.Delegate SerializeWeaponSlot;
     public static FrameSerializer.Delegate SerializeInt32;
     public static FrameSerializer.Delegate SerializeModifier;
@@ -8713,9 +8735,10 @@ namespace Quantum {
       SerializeByte = (v, s) => {{ s.Stream.Serialize((Byte*)v); }};
       SerializeFP = FP.Serialize;
       SerializeAssetRefBTDecorator = Quantum.AssetRefBTDecorator.Serialize;
-      SerializeEquipment = Quantum.Equipment.Serialize;
+      SerializeGameId = (v, s) => {{ s.Stream.Serialize((Int32*)v); }};
       SerializeBTAgent = Quantum.BTAgent.Serialize;
       SerializePlayerMatchData = Quantum.PlayerMatchData.Serialize;
+      SerializeEquipment = Quantum.Equipment.Serialize;
       SerializeWeaponSlot = Quantum.WeaponSlot.Serialize;
       SerializeInt32 = (v, s) => {{ s.Stream.Serialize((Int32*)v); }};
       SerializeModifier = Quantum.Modifier.Serialize;
@@ -9689,6 +9712,9 @@ namespace Quantum.Prototypes {
     public GameId_Prototype Id;
     [HideInInspector()]
     public ChestType_Prototype ChestType;
+    [HideInInspector()]
+    [DynamicCollectionAttribute()]
+    public GameId_Prototype[] ContentsOverride = {};
     partial void MaterializeUser(Frame frame, ref Chest result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       Chest component = default;
@@ -9697,6 +9723,17 @@ namespace Quantum.Prototypes {
     }
     public void Materialize(Frame frame, ref Chest result, in PrototypeMaterializationContext context) {
       result.ChestType = this.ChestType;
+      if (this.ContentsOverride.Length == 0) {
+        result.ContentsOverride = default;
+      } else {
+        var list = frame.AllocateList(result.ContentsOverride, this.ContentsOverride.Length);
+        for (int i = 0; i < this.ContentsOverride.Length; ++i) {
+          Quantum.GameId tmp = default;
+          tmp = this.ContentsOverride[i];
+          list.Add(tmp);
+        }
+        result.ContentsOverride = list;
+      }
       result.Id = this.Id;
       MaterializeUser(frame, ref result, in context);
     }
@@ -9743,7 +9780,7 @@ namespace Quantum.Prototypes {
     public GameId_Prototype GameId;
     public Int32 RarityModifier;
     [DynamicCollectionAttribute()]
-    public Equipment_Prototype[] ContentsOverride = {};
+    public GameId_Prototype[] ContentsOverride = {};
     partial void MaterializeUser(Frame frame, ref CollectablePlatformSpawner result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       CollectablePlatformSpawner component = default;
@@ -9757,8 +9794,8 @@ namespace Quantum.Prototypes {
       } else {
         var list = frame.AllocateList(result.ContentsOverride, this.ContentsOverride.Length);
         for (int i = 0; i < this.ContentsOverride.Length; ++i) {
-          Quantum.Equipment tmp = default;
-          this.ContentsOverride[i].Materialize(frame, ref tmp, in context);
+          Quantum.GameId tmp = default;
+          tmp = this.ContentsOverride[i];
           list.Add(tmp);
         }
         result.ContentsOverride = list;

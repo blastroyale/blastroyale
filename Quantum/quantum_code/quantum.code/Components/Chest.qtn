@@ -2,6 +2,7 @@ component Chest
 {
 	[HideInInspector] GameId Id;
 	[HideInInspector] ChestType ChestType;
+	[HideInInspector] list<GameId> ContentsOverride;
 }
 
 enum ChestType

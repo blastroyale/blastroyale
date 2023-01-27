@@ -131,6 +131,11 @@ namespace FirstLight.Game.Services
 		/// Requests to check if the current game version is outdated
 		/// </summary>
 		bool IsGameOutdated();
+
+		/// <summary>
+		/// Requests the title version downloaded at authentication time
+		/// </summary>
+		string GetTitleVersion();
 	}
 
 	/// <inheritdoc cref="IGameBackendService" />
@@ -472,14 +477,21 @@ namespace FirstLight.Game.Services
 
 		public bool IsGameOutdated()
 		{
+			var titleVersion = GetTitleVersion();
+			
+			return VersionUtils.IsOutdatedVersion(titleVersion);
+		}
+
+		public string GetTitleVersion()
+		{
 			var titleData = _dataService.GetData<AppData>().TitleData;
 			
 			if (!titleData.TryGetValue(GameConstants.PlayFab.VERSION_KEY, out var titleVersion))
 			{
 				throw new Exception($"{GameConstants.PlayFab.VERSION_KEY} not set in title data");
 			}
-			
-			return VersionUtils.IsOutdatedVersion(titleVersion);
+
+			return titleVersion;
 		}
 	}
 }

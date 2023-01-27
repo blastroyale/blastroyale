@@ -90,11 +90,6 @@ namespace FirstLight.Game.Services
 		/// Authenticates the game network with the processed authentication data
 		/// </summary>
 		void AuthenticateGameNetwork(Action<LoginData> onSuccess, Action<PlayFabError> onError);
-
-		/// <summary>
-		/// Requests to check if a given account is due for deletion
-		/// </summary>
-		bool IsAccountDeleted(PlayerData playerData);
 	}
 
 	/// <inheritdoc cref="IAuthenticationService" />
@@ -306,11 +301,15 @@ namespace FirstLight.Game.Services
 			FLog.Verbose("Saved AppData");
 
 			_services.AnalyticsService.SessionCalls.PlayerLogin(result.PlayFabId, _dataProvider.AppDataProvider.IsGuest);
+			
+			// TODO CHAIN TO GET PLAYER DATA
 		}
 
 		public void GetPlayerData()
 		{
 			_services.GameBackendService.CallFunction("GetPlayerData", OnPlayerDataObtained, OnPlayFabError);
+			
+			// TODO CHAIN TO PLAYER DATA OBTAINED
 		}
 
 		private void OnPlayerDataObtained(ExecuteFunctionResult res)
@@ -331,6 +330,22 @@ namespace FirstLight.Game.Services
 
 			AddDataToService(data);
 			FLog.Verbose("Downloaded state from server");
+			
+			// TODO CHAIN TO AUTHENTICATE GAME NETWORK
+		}
+
+		public void AuthenticateGameNetwork(Action<LoginData> onSuccess, Action<PlayFabError> onError)
+		{
+			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
+			var appId = config.PhotonServerSettings.AppSettings.AppIdRealtime;
+			var request = new GetPhotonAuthenticationTokenRequest { PhotonApplicationId = appId };
+			PlayFabClientAPI.GetPhotonAuthenticationToken(request, OnAuthenticationSuccess, onError);
+
+			void OnAuthenticationSuccess(GetPhotonAuthenticationTokenResult result)
+			{
+				_networkService.QuantumClient.AuthValues.AddAuthParameter("token", result.PhotonCustomAuthenticationToken);
+				// TODO COMPLETE AUTHENTICATION
+			}
 		}
 		
 		public void AddDataToService(Dictionary<string, string> state)
@@ -344,27 +359,9 @@ namespace FirstLight.Game.Services
 				}
 				catch (Exception e)
 				{
-					FLog.Error("Error reading data type "+typeFullName);
+					FLog.Error("Error reading data type " + typeFullName);
 				}
 			}
-		}
-
-		public void AuthenticateGameNetwork(Action<LoginData> onSuccess, Action<PlayFabError> onError)
-		{
-			var config = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
-			var appId = config.PhotonServerSettings.AppSettings.AppIdRealtime;
-			var request = new GetPhotonAuthenticationTokenRequest { PhotonApplicationId = appId };
-			PlayFabClientAPI.GetPhotonAuthenticationToken(request, OnAuthenticationSuccess, OnCriticalPlayFabError);
-
-			void OnAuthenticationSuccess(GetPhotonAuthenticationTokenResult result)
-			{
-				_networkService.QuantumClient.AuthValues.AddAuthParameter("token", result.PhotonCustomAuthenticationToken);
-			}
-		}
-
-		public bool IsAccountDeleted(PlayerData playerData)
-		{
-			return playerData.Flags.HasFlag(PlayerFlags.Deleted);
 		}
 
 		/// <summary>

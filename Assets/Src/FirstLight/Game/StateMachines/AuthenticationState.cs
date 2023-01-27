@@ -138,10 +138,6 @@ namespace FirstLight.Game.StateMachines
 			return _services.GameBackendService.IsGameOutdated();
 		}
 
-		private void ShowAuthFailDialog(IWaitActivity activity)
-		{
-		}
-
 		private void SubscribeEvents()
 		{
 			_services.MessageBrokerService.Subscribe<ServerHttpErrorMessage>(OnConnectionError);
@@ -255,6 +251,11 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.GameBackendService.SetupBackendEnvironment();
 		}
+		
+		private void ShowAuthFailDialog(IWaitActivity activity)
+		{
+			
+		}
 
 		private void OpenAccountDeletedDialog(IWaitActivity activity)
 		{
@@ -282,8 +283,9 @@ namespace FirstLight.Game.StateMachines
 				Callback = OpenStore
 			};
 
-			var message = string.Format(ScriptLocalization.General.UpdateGame,
-										VersionUtils.VersionExternal, );
+
+			var message = string.Format(ScriptLocalization.General.UpdateGame, VersionUtils.VersionExternal, 
+										_services.GameBackendService.GetTitleVersion());
 
 			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.NewGameUpdate, message, confirmButton);
 

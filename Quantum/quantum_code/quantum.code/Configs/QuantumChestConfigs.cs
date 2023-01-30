@@ -92,8 +92,9 @@ namespace Quantum
 					return EquipmentRarity.Epic;
 				case ChestType.Legendary:
 					return EquipmentRarity.Legendary;
+				default:
+					return EquipmentRarity.Common;
 			}
-			return EquipmentRarity.Common;
 		}
 	}
 }

@@ -12,13 +12,12 @@ namespace Quantum
 		/// Initializes this Chest with all the necessary data
 		/// </summary>
 		internal void Init(Frame f, EntityRef e, FPVector3 position, FPQuaternion rotation,
-		                   QuantumChestConfig config, QListPtr<GameId> contentsOverride, bool makeCollectable = true)
+		                   QuantumChestConfig config, bool makeCollectable = true)
 		{
 			var transform = f.Unsafe.GetPointer<Transform3D>(e);
 
 			Id = config.Id;
 			ChestType = config.ChestType;
-			ContentsOverride = contentsOverride;
 
 			transform->Position = position;
 			transform->Rotation = rotation;
@@ -54,9 +53,11 @@ namespace Quantum
 			var chestItems = new List<ChestItemDropped>();
 			var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
 
-			if(ContentsOverride != new QListPtr<GameId>())
+			//if we have an override component to change what spawns within the chest
+			if(f.Unsafe.TryGetPointer<ChestOverride>(e, out var overrideComponent) && 
+				overrideComponent->ContentsOverride != new QList<GameId>())
 			{
-				foreach (var item in f.ResolveList(ContentsOverride))
+				foreach (var item in f.ResolveList(overrideComponent->ContentsOverride))
 				{
 					if(item.IsInGroup(GameIdGroup.Equipment))
 					{

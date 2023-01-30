@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using FirstLight.Game.Commands;
@@ -93,7 +94,8 @@ namespace FirstLight.Game.Services
 			{
 				GameMode = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode()),
 				Map = _services.ConfigsProvider.GetConfig<QuantumMapConfig>(GameId.BRGenesis.GetHashCode()),
-				RoomIdentifier = GameConstants.Tutorial.TUTORIAL_ROOM_NAME
+				RoomIdentifier = GameConstants.Tutorial.TUTORIAL_ROOM_NAME,
+				Mutators = Array.Empty<string>()
 			};
 			
 			_services.NetworkService.CreateRoom(roomSetup, false);

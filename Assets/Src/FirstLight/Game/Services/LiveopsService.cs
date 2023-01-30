@@ -65,13 +65,14 @@ namespace FirstLight.Game.Services
 			return result;
 		}
 
+		// TODO - ADD ERROR CALLBACK?
 		public void FetchSegments(Action<List<string>> onFetched=null)
 		{
 			_gameBackend.GetPlayerSegments(r =>
 			{
 				_segments = r.Select(s => s.Name.ToLower()).ToList();
 				onFetched?.Invoke(_segments);
-			});
+			}, null);
 		}
 
 		public bool IsInSegment(string segmentName)
@@ -96,5 +97,6 @@ namespace FirstLight.Game.Services
 				_actionHandler.TriggerAction(action);
 			}
 		}
+		
 	}
 }

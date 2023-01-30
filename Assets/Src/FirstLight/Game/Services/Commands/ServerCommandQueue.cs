@@ -31,8 +31,7 @@ namespace FirstLight.Game.Services
 		private IGameBackendService _gameBackend;
 		private Queue<ServerCommandQueueEntry> _queue;
 		private IGameServices _services;
-
-
+		
 		public ServerCommandQueue(IDataService data, IGameLogic logic, IGameBackendService gameBackend, IGameServices services)
 		{
 			_data = data;
@@ -149,7 +148,6 @@ namespace FirstLight.Game.Services
 #if UNITY_EDITOR
 			_queue.Clear(); // clear to make easier for testing
 #endif
-			_gameBackend.HandleError(error);
 		}
 
 
@@ -196,7 +194,7 @@ namespace FirstLight.Game.Services
 				configAdder.UpdateTo(serverVersion, updatedConfig.GetAllConfigs());
 				FLog.Info($"Updated game configs to version {serverVersion}");
 				RollbackToServerState(lastCommand);
-			});
+			}, null);
 		}
 
 		/// <summary>

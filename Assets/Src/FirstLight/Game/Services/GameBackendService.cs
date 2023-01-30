@@ -9,6 +9,7 @@ using FirstLight.Game.Data;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
+using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Utils;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Models;
@@ -45,60 +46,55 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Updates the user nickname in playfab.
 		/// </summary>
-		void UpdateDisplayName(string newNickname, Action<UpdateUserTitleDisplayNameResult> onSuccess = null, Action<PlayFabError> onError = null);
+		void UpdateDisplayName(string newNickname, Action<UpdateUserTitleDisplayNameResult> onSuccess, Action<PlayFabError> onError);
 
 		/// <summary>
 		/// Requests current top leaderboard entries
 		/// </summary>
-		void GetTopRankLeaderboard(int amountOfEntries, Action<GetLeaderboardResult> onSuccess = null,
-		                           Action<PlayFabError> onError = null);
+		void GetTopRankLeaderboard(int amountOfEntries, Action<GetLeaderboardResult> onSuccess,
+		                           Action<PlayFabError> onError);
 
 		/// <summary>
 		/// Requests leaderboard entries around player with ID <paramref name="playfabID"/>
 		/// </summary>
 		void GetNeighborRankLeaderboard(int amountOfEntries,
-		                                Action<GetLeaderboardAroundPlayerResult> onSuccess = null,
-		                                Action<PlayFabError> onError = null);
+		                                Action<GetLeaderboardAroundPlayerResult> onSuccess,
+		                                Action<PlayFabError> onError);
 
 		/// <summary>
 		/// Calls the given cloudscript function with the given arguments.
 		/// </summary>
-		void CallFunction(string functionName, Action<ExecuteFunctionResult> onSuccess = null,
-		                  Action<PlayFabError> onError = null, object parameter = null);
+		void CallFunction(string functionName, Action<ExecuteFunctionResult> onSuccess,
+		                  Action<PlayFabError> onError, object parameter = null);
 
 		/// <summary>
 		/// Reads the specific title data by the given key.
 		/// Throws an error if the key was not present.
 		/// </summary>
-		void GetTitleData(string key, Action<string> callback);
+		void GetTitleData(string key, Action<string> onSuccess, Action<PlayFabError> onError);
 
 		/// <summary>
 		/// Obtains the server state of the logged in player
 		/// </summary>
-		void FetchServerState(Action<ServerState> callback, Action<PlayFabError> onError);
-
-		/// <summary>
-		/// Handles when a request errors out on playfab.
-		/// </summary>
-		void HandleError(PlayFabError error);
+		void FetchServerState(Action<ServerState> onSuccess, Action<PlayFabError> onError);
 
 		/// <summary>
 		/// Compare server with client rewards to check if they match.
 		/// Introduced as a workaround due to requiring two synchronous commands
 		/// from two different services (Logic Service & Quantum Server)
 		/// </summary>
-		void CheckIfRewardsMatch(Action<bool> callback);
+		void CheckIfRewardsMatch(Action<bool> onSuccess, Action<PlayFabError> onError);
 
 		/// <summary>
 		/// Updates user contact email address
 		/// </summary>
-		void UpdateContactEmail(string newEmail, Action<AddOrUpdateContactEmailResult> callback = null);
+		void UpdateContactEmail(string newEmail, Action<AddOrUpdateContactEmailResult> onSuccess, Action<PlayFabError> onError);
 
 		/// <summary>
 		/// Obtains all segments the player is in.
 		/// Segments are group of players based on metrics which can be used for various things.
 		/// </summary>
-		void GetPlayerSegments(Action<List<GetSegmentResult>> callback);
+		void GetPlayerSegments(Action<List<GetSegmentResult>> onSuccess, Action<PlayFabError> onError);
 		
 		/// <summary>
 		/// Requests a data object with compiled info about the current backend environment
@@ -119,6 +115,11 @@ namespace FirstLight.Game.Services
 		/// Requests the title version downloaded at authentication time
 		/// </summary>
 		string GetTitleVersion();
+
+		/// <summary>
+		/// Handles an incoming error. Sends outgoing messages, analytics and calls back
+		/// </summary>
+		void HandleError(PlayFabError error, Action<PlayFabError> callback, AnalyticsCallsErrors.ErrorType errorType);
 	}
 
 	/// <inheritdoc cref="IGameBackendService" />
@@ -146,12 +147,15 @@ namespace FirstLight.Game.Services
 			_leaderboardLadderName = leaderboardLadderName;
 		}
 
-		public void GetPlayerSegments(Action<List<GetSegmentResult>> callback)
+		public void GetPlayerSegments(Action<List<GetSegmentResult>> onSuccess, Action<PlayFabError> onError)
 		{
 			PlayFabClientAPI.GetPlayerSegments(new GetPlayerSegmentsRequest(), r =>
 			{
-				callback(r.Segments);
-			}, HandleError);
+				onSuccess(r.Segments);
+			}, e =>
+			{
+				HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session);
+			});
 		}
 
 		public void SetupBackendEnvironment()
@@ -199,10 +203,13 @@ namespace FirstLight.Game.Services
 		}
 
 		/// <inheritdoc />
-		public void UpdateDisplayName(string newNickname, Action<UpdateUserTitleDisplayNameResult> onSuccess = null, Action<PlayFabError> onError = null)
+		public void UpdateDisplayName(string newNickname, Action<UpdateUserTitleDisplayNameResult> onSuccess, Action<PlayFabError> onError)
 		{
 			var request = new UpdateUserTitleDisplayNameRequest {DisplayName = newNickname};
-			PlayFabClientAPI.UpdateUserTitleDisplayName(request, OnSuccess, HandleError);
+			PlayFabClientAPI.UpdateUserTitleDisplayName(request, OnSuccess, e =>
+			{
+				HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session);
+			});
 
 			void OnSuccess(UpdateUserTitleDisplayNameResult result)
 			{
@@ -211,7 +218,7 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-		public void CheckIfRewardsMatch(Action<bool> callback) 
+		public void CheckIfRewardsMatch(Action<bool> onSuccess, Action<PlayFabError> onError) 
 		{
 			PlayFabClientAPI.GetUserReadOnlyData(new GetUserDataRequest()
 			{
@@ -230,13 +237,16 @@ namespace FirstLight.Game.Services
 					FLog.Error("Server Rewards: "+ModelSerializer.Serialize(serverState));
 				}
 #endif
-				callback(inSync);
-			}, HandleError);
+				onSuccess(inSync);
+			}, e =>
+			{
+				HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session);
+			});
 		}
 
 		/// <inheritdoc />
 		public void GetTopRankLeaderboard(int amountOfEntries,
-		                                  Action<GetLeaderboardResult> onSuccess, Action<PlayFabError> onError = null)
+		                                  Action<GetLeaderboardResult> onSuccess, Action<PlayFabError> onError)
 		{
 			var leaderboardRequest = new GetLeaderboardRequest()
 			{
@@ -245,17 +255,16 @@ namespace FirstLight.Game.Services
 				MaxResultsCount = amountOfEntries
 			};
 
-			PlayFabClientAPI.GetLeaderboard(leaderboardRequest, onSuccess, (error =>
-				                                                               {
-					                                                               onError?.Invoke(error);
-					                                                               HandleError(error);
-				                                                               }));
+			PlayFabClientAPI.GetLeaderboard(leaderboardRequest, onSuccess, e =>
+			{
+				HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session);
+			});
 		}
 
 		/// <inheritdoc />
 		public void GetNeighborRankLeaderboard(int amountOfEntries,
-		                                       Action<GetLeaderboardAroundPlayerResult> onSuccess = null,
-		                                       Action<PlayFabError> onError = null)
+		                                       Action<GetLeaderboardAroundPlayerResult> onSuccess,
+		                                       Action<PlayFabError> onError)
 		{
 			var neighborLeaderboardRequest = new GetLeaderboardAroundPlayerRequest()
 			{
@@ -263,16 +272,15 @@ namespace FirstLight.Game.Services
 				MaxResultsCount = amountOfEntries
 			};
 
-			PlayFabClientAPI.GetLeaderboardAroundPlayer(neighborLeaderboardRequest, onSuccess, (error =>
-					                                            {
-						                                            onError?.Invoke(error);
-						                                            HandleError(error);
-					                                            }));
+			PlayFabClientAPI.GetLeaderboardAroundPlayer(neighborLeaderboardRequest, onSuccess, e =>
+			{
+				HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session);
+			});
 		}
 
 		/// <inheritdoc />
-		public void CallFunction(string functionName, Action<ExecuteFunctionResult> onSuccess = null,
-		                         Action<PlayFabError> onError = null, object parameter = null)
+		public void CallFunction(string functionName, Action<ExecuteFunctionResult> onSuccess,
+		                         Action<PlayFabError> onError, object parameter = null)
 		{
 			var request = new ExecuteFunctionRequest
 			{
@@ -290,7 +298,10 @@ namespace FirstLight.Game.Services
 					throw exception;
 				}
 				onSuccess(res);
-			}, onError ?? HandleError);
+			}, e =>
+			{
+				HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session);
+			});
 		}
 
 		/// <summary>
@@ -306,27 +317,34 @@ namespace FirstLight.Game.Services
 			}
 			return null;
 		}
-
-		public void HandleError(PlayFabError error)
+		
+		public void HandleError(PlayFabError error, Action<PlayFabError> callback, AnalyticsCallsErrors.ErrorType errorType)
 		{
 			var descriptiveError = $"{error.HttpCode} - {error.ErrorMessage} - {JsonConvert.SerializeObject(error.ErrorDetails)}";
 			FLog.Error(descriptiveError);
 
+			_services.AnalyticsService.ErrorsCalls.ReportError(errorType, error.ErrorMessage);
+			
 			_services.MessageBrokerService?.Publish(new ServerHttpErrorMessage()
 			{
 				ErrorCode = (HttpStatusCode) error.HttpCode,
 				Message = descriptiveError
 			});
+			
+			callback?.Invoke(error);
 		}
 
-		public void UpdateContactEmail(string newEmail, Action<AddOrUpdateContactEmailResult> callback = null)
+		public void UpdateContactEmail(string newEmail, Action<AddOrUpdateContactEmailResult> onSuccess, Action<PlayFabError> onError)
 		{
 			FLog.Info("Updating user email to "+newEmail);
 			var emailUpdate = new AddOrUpdateContactEmailRequest()
 			{
 				EmailAddress = newEmail
 			};
-			PlayFabClientAPI.AddOrUpdateContactEmail(emailUpdate, callback, HandleError);
+			PlayFabClientAPI.AddOrUpdateContactEmail(emailUpdate, onSuccess, e =>
+			{
+				HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session);
+			});
 		}
 
 		public void FetchServerState(Action<ServerState> onSuccess, Action<PlayFabError> onError)
@@ -337,17 +355,16 @@ namespace FirstLight.Game.Services
 				                               .ToDictionary(entry => entry.Key,
 				                                             entry =>
 					                                             entry.Value.Value)));
-			}, (e) =>
+			}, e =>
 			{
-				HandleError(e);
-				onError?.Invoke(e);
+				HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session);
 			});
 		}
 
 		/// <summary>
 		/// Gets an specific internal title key data
 		/// </summary>
-		public void GetTitleData(string key, Action<string> callback)
+		public void GetTitleData(string key, Action<string> onSuccess, Action<PlayFabError> onError)
 		{
 			PlayFabClientAPI.GetTitleData(new GetTitleDataRequest() {Keys = new List<string>() {key}}, res =>
 			{
@@ -356,8 +373,11 @@ namespace FirstLight.Game.Services
 					data = null;
 				}
 
-				callback.Invoke(data);
-			}, HandleError);
+				onSuccess.Invoke(data);
+			}, e =>
+			{
+				HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session);
+			});
 		}
 
 		public bool IsGameInMaintenance()

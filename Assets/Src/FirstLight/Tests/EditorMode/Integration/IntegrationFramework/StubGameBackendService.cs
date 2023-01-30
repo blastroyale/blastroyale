@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using PlayFab;
@@ -17,7 +18,7 @@ namespace FirstLight.Tests.EditorMode
 	{
 		public List<string> FunctionsCalled = new();
 		public BackendEnvironmentData CurrentEnvironmentData { get; }
-		
+
 		public bool IsGameInMaintenance()
 		{
 			return false;
@@ -33,14 +34,29 @@ namespace FirstLight.Tests.EditorMode
 			return null;
 		}
 
-		public void SetupBackendEnvironment()
+		public void HandleError(PlayFabError error, Action<PlayFabError> callback, AnalyticsCallsErrors.ErrorType errorType)
 		{
 			
 		}
 
+		public void SetupBackendEnvironment()
+		{
+
+		}
+		
+		public void UpdateContactEmail(string newEmail, Action<AddOrUpdateContactEmailResult> onSuccess, Action<PlayFabError> onError)
+		{
+
+		}
+
+		public void GetPlayerSegments(Action<List<GetSegmentResult>> onSuccess, Action<PlayFabError> onError)
+		{
+
+		}
+
 		public void UpdateDisplayName(string newNickname, Action<UpdateUserTitleDisplayNameResult> onSuccess = null, Action<PlayFabError> onError = null)
 		{
-			
+
 		}
 
 		public void GetTopRankLeaderboard(int amountOfEntries, Action<GetLeaderboardResult> onSuccess = null, Action<PlayFabError> onError = null)
@@ -59,50 +75,19 @@ namespace FirstLight.Tests.EditorMode
 			onSuccess ?.Invoke(new ExecuteFunctionResult());
 		}
 
-		public void LinkDeviceID(Action successCallback = null, Action<PlayFabError> errorCallback = null)
-		{
-			
-		}
-
-		public void UnlinkDeviceID(Action successCallback = null, Action<PlayFabError> errorCallback = null)
+		public void GetTitleData(string key, Action<string> onSuccess, Action<PlayFabError> onError)
 		{
 
 		}
 
-		public void AttachLoginDataToAccount(string email, string username, string password, Action<AddUsernamePasswordResult> successCallback = null,
-		                                     Action<PlayFabError> errorCallback = null)
+		public void FetchServerState(Action<ServerState> onSuccess, Action<PlayFabError> onError)
 		{
 
 		}
 
-		public void GetTitleData(string key, Action<string> callback = null)
+		public void CheckIfRewardsMatch(Action<bool> onSuccess, Action<PlayFabError> onError)
 		{
-			
-		}
 
-		public void FetchServerState(Action<ServerState> callback, Action<PlayFabError> onError)
-		{
-			
-		}
-
-		public void HandleError(PlayFabError error)
-		{
-			
-		}
-
-		public void UpdateContactEmail(string newEmail, Action<AddOrUpdateContactEmailResult> callback = null)
-		{
-	
-		}
-
-		public void GetPlayerSegments(Action<List<GetSegmentResult>> callback)
-		{
-			
-		}
-
-		public void CheckIfRewardsMatch(Action<bool> callback)
-		{
-		
 		}
 	}
 

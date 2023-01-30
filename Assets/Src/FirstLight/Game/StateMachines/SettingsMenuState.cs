@@ -122,7 +122,7 @@ namespace FirstLight.Game.StateMachines
 				OnServerSelectClicked = () => _statechartTrigger(NetworkState.OpenServerSelectScreenEvent),
 				OnConnectIdClicked = () => _statechartTrigger(_connectIdClickedEvent),
 				OnDeleteAccountClicked = () =>
-					_services.GameBackendService.CallFunction("RemovePlayerData", OnAccountDeleted)
+					_services.GameBackendService.CallFunction("RemovePlayerData", OnAccountDeleted, null)
 			};
 
 			_uiService.OpenScreen<SettingsScreenPresenter, SettingsScreenPresenter.StateData>(data);
@@ -236,7 +236,7 @@ namespace FirstLight.Game.StateMachines
 
 			// Also update contact email after the Connect ID flow passes
 			// Doesn't matter if this fails - this request is also fired upon login if the contact email is not present
-			_services.GameBackendService.UpdateContactEmail(_appLogic.LastLoginEmail.Value);
+			_services.GameBackendService.UpdateContactEmail(_appLogic.LastLoginEmail.Value, null, null);
 		}
 
 		private void OnUpdateNicknameError(PlayFabError error)

@@ -104,7 +104,7 @@ namespace FirstLight.Game.Services
 			PlayFabMultiplayerAPI.CancelAllMatchmakingTicketsForPlayer(new CancelAllMatchmakingTicketsForPlayerRequest()
 			{
 				QueueName = QUEUE_NAME
-			},null, _gameBackend.HandleError);
+			},null, null);
 			FLog.Verbose("Left Matchmaking");
 		}
 
@@ -114,7 +114,7 @@ namespace FirstLight.Game.Services
 			{
 				QueueName = QUEUE_NAME,
 				TicketId = ticket
-			}, callback, _gameBackend.HandleError);
+			}, callback, null);
 		}
 
 		public void GetMyTickets(Action<ListMatchmakingTicketsForPlayerResult> callback)
@@ -122,8 +122,7 @@ namespace FirstLight.Game.Services
 			PlayFabMultiplayerAPI.ListMatchmakingTicketsForPlayer(new ListMatchmakingTicketsForPlayerRequest()
 				{
 					QueueName = QUEUE_NAME
-				}, callback, 
-				_gameBackend.HandleError);
+				}, callback, null);
 		}
 
 		public void JoinMatchmaking(MatchRoomSetup setup)
@@ -149,8 +148,7 @@ namespace FirstLight.Game.Services
 				}
 				_pooling = new MatchmakingPooling(r.TicketId, setup, this, _coroutines);
 				_pooling.Start();
-			},
-			_gameBackend.HandleError);
+			}, null);
 			
 		}
 
@@ -218,6 +216,8 @@ namespace FirstLight.Game.Services
 				yield return delay;
 			}
 		}
+		
+		// TODO - ADD PLAYFAB ERROR HANDLING IDENTIAL TO THE ONE IN GAME BACKEND NETWORK SERVICE
 	}
 }
 

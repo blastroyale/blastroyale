@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using ExitGames.Client.Photon;
 using FirstLight.FLogger;
@@ -12,10 +13,12 @@ using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Messages;
+using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
+using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
@@ -162,7 +165,10 @@ namespace FirstLight.Game.Services
 			var loginData = new LoginData() {IsGuest = true};
 
 			PlayFabClientAPI.LoginWithCustomID(login,
-				(res) => ProcessAuthentication(res, loginData, onSuccess, onError), onError);
+				(res) => ProcessAuthentication(res, loginData, onSuccess, onError),e =>
+				{
+					_services.GameBackendService.HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Login);
+				});
 		}
 
 		public void LoginWithDevice(Action<LoginData> onSuccess, Action<PlayFabError> onError)
@@ -181,7 +187,10 @@ namespace FirstLight.Game.Services
 			};
 
 			PlayFabClientAPI.LoginWithCustomID(login,
-				(res) => ProcessAuthentication(res, loginData, onSuccess, onError), onError);
+				(res) => ProcessAuthentication(res, loginData, onSuccess, onError),e =>
+				{
+					_services.GameBackendService.HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Login);
+				});
 #elif UNITY_ANDROID
 			var login = new LoginWithAndroidDeviceIDRequest()
 			{
@@ -192,7 +201,10 @@ namespace FirstLight.Game.Services
 				InfoRequestParameters = StandardLoginInfoRequestParams
 			};
 			
-			PlayFabClientAPI.LoginWithAndroidDeviceID(login, (res) => ProcessAuthentication(res, loginData, onSuccess, onError), onError);
+			PlayFabClientAPI.LoginWithAndroidDeviceID(login, (res) => ProcessAuthentication(res, loginData, onSuccess, onError),e =>
+				{
+					_services.GameBackendService.HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Login);
+				});
 #elif UNITY_IOS
 			var login = new LoginWithIOSDeviceIDRequest()
 			{
@@ -203,7 +215,10 @@ namespace FirstLight.Game.Services
 				InfoRequestParameters = StandardLoginInfoRequestParams
 			};
 
-			PlayFabClientAPI.LoginWithIOSDeviceID(login, (res) => ProcessAuthentication(res, loginData, onSuccess, onError), onError);
+			PlayFabClientAPI.LoginWithIOSDeviceID(login, (res) => ProcessAuthentication(res, loginData, onSuccess, onError),e =>
+				{
+					_services.GameBackendService.HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Login);
+				});
 #endif
 		}
 
@@ -220,7 +235,10 @@ namespace FirstLight.Game.Services
 			var loginData = new LoginData() {IsGuest = false};
 
 			PlayFabClientAPI.LoginWithEmailAddress(login,
-				(res) => ProcessAuthentication(res, loginData, onSuccess, onError), onError);
+				(res) => ProcessAuthentication(res, loginData, onSuccess, onError),e =>
+				{
+					_services.GameBackendService.HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Login);
+				});
 		}
 
 		public void Logout(Action onSuccess, Action<PlayFabError> onError)
@@ -228,7 +246,10 @@ namespace FirstLight.Game.Services
 			UnlinkDeviceID(() =>
 			{
 				_services.HelpdeskService.Logout();
-			}, onError);
+			},e =>
+			{
+				_services.GameBackendService.HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Login);
+			});
 		}
 
 		public void RegisterWithEmail(string email, string username, string displayName, string password,
@@ -251,7 +272,10 @@ namespace FirstLight.Game.Services
 				Password = password
 			};
 
-			PlayFabClientAPI.RegisterPlayFabUser(register, _ => onSuccess(loginData), onError);
+			PlayFabClientAPI.RegisterPlayFabUser(register, _ => onSuccess(loginData),e =>
+			{
+				_services.GameBackendService.HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Login);
+			});
 		}
 
 		public void ProcessAuthentication(LoginResult result, LoginData loginData, Action<LoginData> onSuccess,
@@ -274,7 +298,7 @@ namespace FirstLight.Game.Services
 
 			if (email != null && email.Contains("@") && isMissingContactEmail)
 			{
-				_services.GameBackendService.UpdateContactEmail(email);
+				_services.GameBackendService.UpdateContactEmail(email,null, null);
 			}
 
 			PlayFabSettings.staticPlayer.CopyFrom(result.AuthenticationContext);
@@ -341,7 +365,10 @@ namespace FirstLight.Game.Services
 		public void GetPlayerData(LoginData loginData, Action<LoginData> onSuccess, Action<PlayFabError> onError)
 		{
 			_services.GameBackendService.CallFunction("GetPlayerData",
-				(res) => { OnPlayerDataObtained(res, loginData, onSuccess, onError); }, onError);
+				(res) => { OnPlayerDataObtained(res, loginData, onSuccess, onError); },e =>
+				{
+					_services.GameBackendService.HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Login);
+				});
 		}
 
 		private void OnPlayerDataObtained(ExecuteFunctionResult res, LoginData loginData, Action<LoginData> onSuccess,
@@ -357,7 +384,7 @@ namespace FirstLight.Game.Services
 					FLog.Verbose("Downloaded state from playfab");
 					AddDataToService(state);
 					AuthenticateGameNetwork(loginData, onSuccess, onError);
-				}, error => { onError?.Invoke(error); });
+				}, onError);
 
 				return;
 			}
@@ -366,6 +393,7 @@ namespace FirstLight.Game.Services
 			AddDataToService(data);
 			AuthenticateGameNetwork(loginData, onSuccess, onError);
 		}
+		
 
 		public void AuthenticateGameNetwork(LoginData loginData, Action<LoginData> onSuccess,
 											Action<PlayFabError> onError)
@@ -496,6 +524,11 @@ namespace FirstLight.Game.Services
 			_dataProvider.AppDataProvider.DeviceID.Value = linked ? PlayFabSettings.DeviceUniqueIdentifier : "";
 			_dataService.SaveData<AppData>();
 		}
+		
+		public bool IsAccountDeleted()
+		{
+			return _dataService.GetData<PlayerData>().Flags.HasFlag(PlayerFlags.Deleted);
+		}
 
 		/// <summary>
 		/// To help pass apple approval submission tests hack.
@@ -518,11 +551,6 @@ namespace FirstLight.Game.Services
 			config.PhotonServerSettings.AppSettings.Protocol = connection;
 
 			_services.AssetResolverService.UnloadAsset(config);
-		}
-
-		public bool IsAccountDeleted()
-		{
-			return _dataService.GetData<PlayerData>().Flags.HasFlag(PlayerFlags.Deleted);
 		}
 	}
 }

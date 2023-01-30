@@ -47,7 +47,7 @@ public partial class SROptions
 		};
 
 		FLog.Verbose($"Wiping data for account {player.PlayFabId}");
-		PlayFabAdminAPI.UpdateUserReadOnlyData(update, Result, services.GameBackendService.HandleError);
+		PlayFabAdminAPI.UpdateUserReadOnlyData(update, Result, null);
 		PlayerPrefs.DeleteAll();
 
 		var deletionUrl =

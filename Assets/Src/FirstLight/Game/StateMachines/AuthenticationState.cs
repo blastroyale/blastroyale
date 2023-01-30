@@ -177,9 +177,6 @@ namespace FirstLight.Game.StateMachines
 			// If unauthorized/session ticket expired, try to re-log without moving the state machine
 			if ((HttpStatusCode) error.HttpCode == HttpStatusCode.Unauthorized)
 			{
-				_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Session,
-					"Invalid Session Ticket:" + error.ErrorMessage);
-				
 				LoginWithDevice();
 				return;
 			}
@@ -195,9 +192,7 @@ namespace FirstLight.Game.StateMachines
 			{
 				errorMessage = $"AutomaticLogin: {error.ErrorMessage}";
 			}
-
-			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Login, errorMessage);
-
+			
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.OK,

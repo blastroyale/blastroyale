@@ -199,7 +199,7 @@ namespace FirstLight.Game.Services
 				_store.ConfirmPendingPurchase(product);
 
 				SendAnalyticsEvent(product, reward);
-			}, _gameBackendService.HandleError, request);
+			}, null, request);
 		}
 
 		private void ValidateReceipt(Product product)
@@ -230,7 +230,7 @@ namespace FirstLight.Game.Services
 				Signature = (string) data["signature"]
 			};
 			
-			PlayFabClientAPI.ValidateGooglePlayPurchase(request, _ => PurchaseValidated(cacheProduct), _gameBackendService.HandleError);
+			PlayFabClientAPI.ValidateGooglePlayPurchase(request, _ => PurchaseValidated(cacheProduct), null);
 #endif
 		}
 
@@ -249,5 +249,6 @@ namespace FirstLight.Game.Services
 			float price = (float) catalogItem.googlePrice.value;
 			_analyticsService.EconomyCalls.Purchase(product, reward, price, NET_INCOME_MODIFIER);
 		}
+		// TODO - ADD PLAYFAB ERROR HANDLING IDENTIAL TO THE ONE IN GAME BACKEND NETWORK SERVICE
 	}
 }

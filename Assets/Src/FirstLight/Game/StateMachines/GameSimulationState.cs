@@ -171,9 +171,9 @@ namespace FirstLight.Game.StateMachines
 			return _services.NetworkService.LocalPlayer.IsSpectator();
 		}
 
-		private int GetTeamId()
+		private string GetPartyId()
 		{
-			return _services.NetworkService.LocalPlayer.GetTeamId();
+			return _services.NetworkService.LocalPlayer.GetPartyId();
 		}
 		
 		private bool IsCustomMatch()
@@ -350,7 +350,7 @@ namespace FirstLight.Game.StateMachines
 				NormalizedSpawnPosition = spawnPosition.ToFPVector2(),
 				Loadout = loadoutArray,
 				LoadoutMetadata = loadoutMetadata,
-				TeamId = GetTeamId()
+				PartyId = GetPartyId()
 			});
 		}
 	}

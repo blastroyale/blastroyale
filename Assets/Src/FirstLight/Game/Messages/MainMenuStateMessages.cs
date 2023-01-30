@@ -35,9 +35,4 @@ namespace FirstLight.Game.Messages
 		public CustomGameOptions CustomGameOptions;
 		public bool JoinIfExists;
 	}
-
-	public struct SetTeamIdMessage : IMessage
-	{
-		public int TeamId;
-	}
 }

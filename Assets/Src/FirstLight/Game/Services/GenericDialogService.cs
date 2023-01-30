@@ -1,10 +1,7 @@
 using System;
-using FirstLight.Game.Infos;
 using FirstLight.Game.Presenters;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using Assert = UnityEngine.Assertions.Assert;
 
 namespace FirstLight.Game.Services
 {

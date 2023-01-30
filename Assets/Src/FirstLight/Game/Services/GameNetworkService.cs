@@ -117,11 +117,6 @@ namespace FirstLight.Game.Services
 		void SetSpectatePlayerProperty(bool isSpectator);
 
 		/// <summary>
-		/// Sets the TeamID (for squads) in custom properties (-1 means solo).
-		/// </summary>
-		public void SetTeamIdPlayerProperty(int teamId);
-
-		/// <summary>
 		/// Sets the current room <see cref="Room.IsOpen"/> property, which sets whether it can be joined or not
 		/// </summary>
 		void SetCurrentRoomOpen(bool isOpen);
@@ -572,18 +567,6 @@ namespace FirstLight.Game.Services
 
 			SetPlayerCustomProperties(playerPropsUpdate);
 		}
-		
-		public void SetTeamIdPlayerProperty(int teamId)
-		{
-			var playerPropsUpdate = new Hashtable
-			{
-				{
-					GameConstants.Network.PLAYER_PROPS_TEAM_ID, teamId
-				}
-			};
-
-			SetPlayerCustomProperties(playerPropsUpdate);
-		}
 
 		private void SetUserId(string id)
 		{
@@ -614,7 +597,7 @@ namespace FirstLight.Game.Services
 				{GameConstants.Network.PLAYER_PROPS_CORE_LOADED, false},
 				{GameConstants.Network.PLAYER_PROPS_ALL_LOADED, false},
 				{GameConstants.Network.PLAYER_PROPS_SPECTATOR, false},
-				{GameConstants.Network.PLAYER_PROPS_TEAM_ID, -1}
+				{GameConstants.Network.PLAYER_PROPS_TEAM_ID, _services.PartyService.PartyCode.Value}
 			};
 
 			SetPlayerCustomProperties(playerProps);

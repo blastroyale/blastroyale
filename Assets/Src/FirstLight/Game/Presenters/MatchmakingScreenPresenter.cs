@@ -120,24 +120,25 @@ namespace FirstLight.Game.Presenters
 		protected override void OnOpened()
 		{
 			base.OnOpened();
-			RefreshSquadList();
+			RefreshPartyList();
 		}
 
-		private void RefreshSquadList()
+		private void RefreshPartyList()
 		{
-			var squadId = _services.NetworkService.CurrentRoom.Players.Values.First(p => p.IsLocal).GetTeamId();
+			// TODO: We might want to use PartyService here
+			var partyId = _services.NetworkService.CurrentRoom.Players.Values.First(p => p.IsLocal).GetPartyId();
 
-			if (squadId >= 0)
+			if (!string.IsNullOrEmpty(partyId))
 			{
 				_squadContainer.SetDisplay(true);
-				_squadMembers = _services.NetworkService.CurrentRoom.Players.Values.Where(p => p.GetTeamId() == squadId)
+				_squadMembers = _services.NetworkService.CurrentRoom.Players.Values.Where(p => p.GetPartyId() == partyId)
 					.ToList();
 
 				_squadMembersList.itemsSource = _squadMembers;
 				_squadMembersList.RefreshItems();
 
 				_squadLabel.text = Debug.isDebugBuild
-					? $"{ScriptLocalization.UITMatchmaking.squad} [{squadId}]"
+					? $"{ScriptLocalization.UITMatchmaking.squad} [{partyId}]"
 					: ScriptLocalization.UITMatchmaking.squad;
 			}
 			else
@@ -304,13 +305,13 @@ namespace FirstLight.Game.Presenters
 		public void OnPlayerEnteredRoom(Player newPlayer)
 		{
 			UpdatePlayerCount();
-			RefreshSquadList();
+			RefreshPartyList();
 		}
 
 		public void OnPlayerLeftRoom(Player otherPlayer)
 		{
 			UpdatePlayerCount();
-			RefreshSquadList();
+			RefreshPartyList();
 		}
 
 		private void OnStartedFinalPreloadMessage(StartedFinalPreloadMessage obj)
@@ -384,7 +385,7 @@ namespace FirstLight.Game.Presenters
 
 		public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
 		{
-			RefreshSquadList();
+			RefreshPartyList();
 		}
 
 		public void OnMasterClientSwitched(Player newMasterClient)

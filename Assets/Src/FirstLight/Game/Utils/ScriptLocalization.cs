@@ -808,6 +808,7 @@ namespace I2.Loc
 			public static string DisconnectedMatchEndInfo 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DisconnectedMatchEndInfo"); } }
 			public static string DragAndReleaseToFire 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DragAndReleaseToFire"); } }
 			public static string DragAndReleaseToFireDescription 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DragAndReleaseToFireDescription"); } }
+			public static string DynamicCameraSetting 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DynamicCameraSetting"); } }
 			public static string DynamicJoystickSetting 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/DynamicJoystickSetting"); } }
 			public static string EmailTitle 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/EmailTitle"); } }
 			public static string Enhance 		{ get{ return LocalizationManager.GetTranslation ("MainMenu/Enhance"); } }
@@ -1222,12 +1223,20 @@ namespace I2.Loc
 		public static class UITHomeScreen
 		{
 			public static string blast_pass 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/blast_pass"); } }
+			public static string create_party 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/create_party"); } }
 			public static string discord 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/discord"); } }
 			public static string enter_your_name 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/enter_your_name"); } }
 			public static string equipment 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/equipment"); } }
 			public static string heroes 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/heroes"); } }
+			public static string join 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/join"); } }
+			public static string join_party 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/join_party"); } }
 			public static string leaderboards 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/leaderboards"); } }
+			public static string leave_party 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/leave_party"); } }
 			public static string new_name_desc 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/new_name_desc"); } }
+			public static string party 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/party"); } }
+			public static string party_id 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/party_id"); } }
+			public static string party_id_desc 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/party_id_desc"); } }
+			public static string party_popup_desc 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/party_popup_desc"); } }
 			public static string play 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/play"); } }
 			public static string resource_pool_restock 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/resource_pool_restock"); } }
 			public static string resource_pool_restock_time 		{ get{ return LocalizationManager.GetTranslation ("UITHomeScreen/resource_pool_restock_time"); } }
@@ -1272,6 +1281,7 @@ namespace I2.Loc
 			public static string br_mode_desc 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/br_mode_desc"); } }
 			public static string current_player_amount 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/current_player_amount"); } }
 			public static string dm_mode_desc 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/dm_mode_desc"); } }
+			public static string loading_fail 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/loading_fail"); } }
 			public static string loading_status_starting 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/loading_status_starting"); } }
 			public static string loading_status_timer 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/loading_status_timer"); } }
 			public static string loading_status_waiting 		{ get{ return LocalizationManager.GetTranslation ("UITMatchmaking/loading_status_waiting"); } }
@@ -2164,6 +2174,7 @@ namespace I2.Loc
 		    public const string DisconnectedMatchEndInfo = "MainMenu/DisconnectedMatchEndInfo";
 		    public const string DragAndReleaseToFire = "MainMenu/DragAndReleaseToFire";
 		    public const string DragAndReleaseToFireDescription = "MainMenu/DragAndReleaseToFireDescription";
+		    public const string DynamicCameraSetting = "MainMenu/DynamicCameraSetting";
 		    public const string DynamicJoystickSetting = "MainMenu/DynamicJoystickSetting";
 		    public const string EmailTitle = "MainMenu/EmailTitle";
 		    public const string Enhance = "MainMenu/Enhance";
@@ -2578,12 +2589,20 @@ namespace I2.Loc
 		public static class UITHomeScreen
 		{
 		    public const string blast_pass = "UITHomeScreen/blast_pass";
+		    public const string create_party = "UITHomeScreen/create_party";
 		    public const string discord = "UITHomeScreen/discord";
 		    public const string enter_your_name = "UITHomeScreen/enter_your_name";
 		    public const string equipment = "UITHomeScreen/equipment";
 		    public const string heroes = "UITHomeScreen/heroes";
+		    public const string join = "UITHomeScreen/join";
+		    public const string join_party = "UITHomeScreen/join_party";
 		    public const string leaderboards = "UITHomeScreen/leaderboards";
+		    public const string leave_party = "UITHomeScreen/leave_party";
 		    public const string new_name_desc = "UITHomeScreen/new_name_desc";
+		    public const string party = "UITHomeScreen/party";
+		    public const string party_id = "UITHomeScreen/party_id";
+		    public const string party_id_desc = "UITHomeScreen/party_id_desc";
+		    public const string party_popup_desc = "UITHomeScreen/party_popup_desc";
 		    public const string play = "UITHomeScreen/play";
 		    public const string resource_pool_restock = "UITHomeScreen/resource_pool_restock";
 		    public const string resource_pool_restock_time = "UITHomeScreen/resource_pool_restock_time";
@@ -2628,6 +2647,7 @@ namespace I2.Loc
 		    public const string br_mode_desc = "UITMatchmaking/br_mode_desc";
 		    public const string current_player_amount = "UITMatchmaking/current_player_amount";
 		    public const string dm_mode_desc = "UITMatchmaking/dm_mode_desc";
+		    public const string loading_fail = "UITMatchmaking/loading_fail";
 		    public const string loading_status_starting = "UITMatchmaking/loading_status_starting";
 		    public const string loading_status_timer = "UITMatchmaking/loading_status_timer";
 		    public const string loading_status_waiting = "UITMatchmaking/loading_status_waiting";

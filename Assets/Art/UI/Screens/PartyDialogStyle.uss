@@ -1,0 +1,16 @@
+.background {
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.76);
+}
+
+.party-button {
+    margin-top: 20px;
+    margin-right: 150px;
+    margin-left: 150px;
+}
+
+.party-description {
+    font-size: 48px;
+    margin-bottom: 30px;
+}

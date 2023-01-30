@@ -1,13 +1,17 @@
 using System;
 using System.Collections;
+using System.Linq;
 using DG.Tweening;
+using FirstLight.FLogger;
 using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
 using FirstLight.Game.Services.AnalyticsHelpers;
+using FirstLight.Game.Services.Party;
 using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
+using FirstLight.Game.Views.UITK;
 using FirstLight.UiService;
 using I2.Loc;
 using Quantum;
@@ -76,6 +80,10 @@ namespace FirstLight.Game.Presenters
 		private Label _csPoolRestockAmountLabel;
 		private Label _csPoolAmountLabel;
 
+		private LocalizedButton _partyButton;
+		private VisualElement _partyContainer;
+		private HomePartyView _partyView;
+
 		private void Awake()
 		{
 			_dataProvider = MainInstaller.Resolve<IGameDataProvider>();
@@ -97,7 +105,6 @@ namespace FirstLight.Game.Presenters
 
 			_trophiesHolder = root.Q<VisualElement>("TrophiesHolder").Required();
 
-
 			_bppPoolContainer = root.Q<VisualElement>("BPPPoolContainer").Required();
 			_bppPoolAmountLabel = _bppPoolContainer.Q<Label>("AmountLabel").Required();
 			_bppPoolRestockTimeLabel = _bppPoolContainer.Q<Label>("RestockLabelTime").Required();
@@ -111,6 +118,8 @@ namespace FirstLight.Game.Presenters
 			_battlePassLevelLabel = root.Q<Label>("BattlePassLevelLabel").Required();
 			_battlePassProgressElement = root.Q<VisualElement>("BattlePassProgressElement").Required();
 			_battlePassCrownIcon = root.Q<VisualElement>("BattlePassCrownIcon").Required();
+
+			_partyContainer = root.Q("PartyContainer").Required().AttachView(this, out _partyView);
 
 			_playButton = root.Q<Button>("PlayButton");
 			_playButton.clicked += OnPlayButtonClicked;
@@ -126,6 +135,10 @@ namespace FirstLight.Game.Presenters
 			root.Q<Button>("HeroesButton").clicked += Data.OnHeroesButtonClicked;
 			root.Q<Button>("LeaderboardsButton").clicked += Data.OnLeaderboardClicked;
 
+			_partyButton = root.Q<LocalizedButton>("PartyButton").Required();
+			_partyButton.clicked += OnPartyClicked;
+			_services.PartyService.HasParty.InvokeObserve(OnHasPartyChanged);
+
 			var storeButton = root.Q<Button>("StoreButton");
 			storeButton.clicked += Data.OnStoreClicked;
 			storeButton.SetDisplay(FeatureFlags.STORE_ENABLED);
@@ -138,6 +151,52 @@ namespace FirstLight.Game.Presenters
 			};
 
 			root.SetupClicks(_services);
+		}
+
+		private void OnHasPartyChanged(bool _, bool hasParty)
+		{
+			_partyButton.Localize(hasParty ? ScriptTerms.UITHomeScreen.leave_party : ScriptTerms.UITHomeScreen.party);
+			_partyButton.EnableInClassList("button-with-icon--yellow", !hasParty);
+		}
+
+		private async void OnPartyClicked()
+		{
+			if (_services.PartyService.HasParty.Value)
+			{
+				await _services.PartyService.LeaveParty();
+			}
+			else
+			{
+				var data = new PartyDialogPresenter.StateData
+				{
+					JoinParty = OnJoinParty,
+					CreateParty = OnCreateParty
+				};
+				await _uiService.OpenUiAsync<PartyDialogPresenter, PartyDialogPresenter.StateData>(data);
+			}
+		}
+
+		private async void OnCreateParty()
+		{
+			FLog.Info("Creating party.");
+
+			await _services.PartyService.CreateParty();
+		}
+
+		private async void OnJoinParty(string partyId)
+		{
+			FLog.Info($"Joining party: {partyId}");
+
+			try
+			{
+				await _services.PartyService.JoinParty(partyId);
+			}
+			catch (PartyException pe)
+			{
+				_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, pe.Message, true,
+					new GenericDialogButton());
+				FLog.Warn("Error joining party.", pe);
+			}
 		}
 
 		protected override void OnOpened()
@@ -228,7 +287,7 @@ namespace FirstLight.Game.Presenters
 		}
 
 		private void OnPoolChanged(GameId id, ResourcePoolData previous, ResourcePoolData current,
-			ObservableUpdateType updateType)
+								   ObservableUpdateType updateType)
 		{
 			UpdatePoolLabels();
 		}
@@ -242,7 +301,7 @@ namespace FirstLight.Game.Presenters
 		}
 
 		private void UpdatePool(GameId id, string amountStringFormat, Label timeLabel, Label restockAmountLabel,
-			Label poolAmountLabel)
+								Label poolAmountLabel)
 		{
 			var poolInfo = _dataProvider.ResourceDataProvider.GetResourcePoolInfo(id);
 			var timeLeft = poolInfo.NextRestockTime - DateTime.UtcNow;
@@ -274,7 +333,7 @@ namespace FirstLight.Game.Presenters
 		private void OnBattlePassCurrentPointsChanged(uint previous, uint current)
 		{
 			if (_dataProvider.RewardDataProvider.IsCollecting ||
-			    DebugUtils.DebugFlags.OverrideCurrencyChangedIsCollecting)
+				DebugUtils.DebugFlags.OverrideCurrencyChangedIsCollecting)
 			{
 				StartCoroutine(AnimateBPP(GameId.BPP, previous, current));
 			}
@@ -295,7 +354,7 @@ namespace FirstLight.Game.Presenters
 			var pointsModifier = pointsDiff / pointsToAnimate;
 			for (int i = 0; i < pointsToAnimate; i++)
 			{
-				int points = (int)previous + Mathf.RoundToInt(i * pointsModifier) + 1;
+				int points = (int) previous + Mathf.RoundToInt(i * pointsModifier) + 1;
 				var predictedLevelAndPoints = _dataProvider.BattlePassDataProvider.GetPredictedLevelAndPoints(points);
 
 				_mainMenuServices.UiVfxService.PlayVfx(id,
@@ -321,10 +380,10 @@ namespace FirstLight.Game.Presenters
 		{
 			var hasRewards = _dataProvider.BattlePassDataProvider.IsRedeemable(pointsOverride);
 			var currentPointsPerLevel =
-				_dataProvider.BattlePassDataProvider.GetRequiredPointsForLevel((int)predictedLevel);
+				_dataProvider.BattlePassDataProvider.GetRequiredPointsForLevel((int) predictedLevel);
 
 			_battlePassProgressElement.style.flexGrow =
-				Mathf.Clamp01((float)predictedPoints / currentPointsPerLevel);
+				Mathf.Clamp01((float) predictedPoints / currentPointsPerLevel);
 			_battlePassCrownIcon.style.display = hasRewards ? DisplayStyle.Flex : DisplayStyle.None;
 
 			if (predictedLevel == _dataProvider.BattlePassDataProvider.MaxLevel)

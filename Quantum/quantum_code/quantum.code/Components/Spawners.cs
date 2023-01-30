@@ -124,14 +124,14 @@ namespace Quantum
 		public static EntityRef SpawnChest(Frame f, GameId id, FPVector3 position, EntityRef e)
 		{
 			var config = f.ChestConfigs.GetConfig(id);
-			var entity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.ChestPrototype.Id));
+			var chestEntity = f.Create(f.FindAsset<EntityPrototype>(f.AssetConfigs.ChestPrototype.Id));
 			if (f.Unsafe.TryGetPointer<ChestOverride>(e, out var overrideComponent))
 			{
-				overrideComponent->CopyComponent(f, entity, overrideComponent);
+				overrideComponent->CopyComponent(f, chestEntity, e, overrideComponent);
 			}
-			f.Unsafe.GetPointer<Chest>(entity)->Init(f, entity, position, FPQuaternion.Identity, config);
+			f.Unsafe.GetPointer<Chest>(chestEntity)->Init(f, chestEntity, position, FPQuaternion.Identity, config);
 
-			return entity;
+			return chestEntity;
 		}
 	}
 }

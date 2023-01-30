@@ -3,6 +3,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Services;
 using FirstLight.Game.Ids;
 using FirstLight.Game.Messages;
+using FirstLight.Game.Services.Party;
 using FirstLight.Game.Utils;
 using FirstLight.NotificationService;
 using FirstLight.SDK.Services;
@@ -96,6 +97,12 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc cref="IIAPService"/>
 		public IIAPService IAPService { get; }
 		
+		/// <inheritdoc cref="IPartyService"/>
+		public IPartyService PartyService { get; }
+		
+		/// <inheritdoc cref="IPartyService"/>
+		public IPlayfabPubSubService PlayfabPubSubService { get; }
+		
 		/// <summary>
 		/// Reason why the player quit the app
 		/// </summary>
@@ -137,6 +144,10 @@ namespace FirstLight.Game.Services
 		
 		public IMatchmakingService MatchmakingService { get; }
 		public IIAPService IAPService { get; }
+		
+		public IPartyService PartyService { get; }
+		
+		public IPlayfabPubSubService PlayfabPubSubService { get; }
 		public string QuitReason { get; set; }
 
 		public GameServices(IGameNetworkService networkService, IMessageBrokerService messageBrokerService,
@@ -170,6 +181,8 @@ namespace FirstLight.Game.Services
 			CoroutineService = new CoroutineService();
 			MatchmakingService = new PlayfabMatchmakingService(PlayfabService, CoroutineService);
 			PlayerInputService = new PlayerInputService();
+			PlayfabPubSubService = new PlayfabPubSubService();
+			PartyService = new PartyService(PlayfabPubSubService, gameLogic.PlayerLogic, gameLogic.AppDataProvider);
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			IAPService = new IAPService(CommandService, MessageBrokerService, PlayfabService, AnalyticsService, gameLogic);
 			NotificationService = new MobileNotificationService(

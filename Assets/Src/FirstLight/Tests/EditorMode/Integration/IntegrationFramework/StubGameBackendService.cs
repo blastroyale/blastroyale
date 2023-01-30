@@ -18,6 +18,21 @@ namespace FirstLight.Tests.EditorMode
 		public List<string> FunctionsCalled = new();
 		public BackendEnvironmentData CurrentEnvironmentData { get; }
 		
+		public bool IsGameInMaintenance()
+		{
+			return false;
+		}
+
+		public bool IsGameOutdated()
+		{
+			return false;
+		}
+
+		public string GetTitleVersion()
+		{
+			return null;
+		}
+
 		public void SetupBackendEnvironment()
 		{
 			
@@ -65,7 +80,7 @@ namespace FirstLight.Tests.EditorMode
 			
 		}
 
-		public void FetchServerState(Action<ServerState> callback = null)
+		public void FetchServerState(Action<ServerState> callback, Action<PlayFabError> onError)
 		{
 			
 		}

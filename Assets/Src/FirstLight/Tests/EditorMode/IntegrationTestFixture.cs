@@ -77,6 +77,7 @@ namespace FirstLight.Tests.EditorMode
 			TestServices = new StubGameServices(TestNetwork, messageBroker, TimeService, TestData,
 			                                    TestConfigs, TestLogic, TestData, genericDialogService,
 			                                    TestAssetResolver, TestTutorial, TestVfx, audioFxService, playerInputService, TestUI);
+			
 			TestLogic.Init();
 
 			TestStates = new GameStateMachine(TestLogic, TestServices, TestUI, TestNetwork, TestTutorial,

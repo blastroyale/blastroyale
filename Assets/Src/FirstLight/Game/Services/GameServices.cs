@@ -162,7 +162,7 @@ namespace FirstLight.Game.Services
 							IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService, IUiService uiService)
 		{
 			NetworkService = networkService;
-			AnalyticsService = new AnalyticsService(this, gameLogic, dataService, uiService);
+			AnalyticsService = new AnalyticsService(this, gameLogic, uiService);
 			MessageBrokerService = messageBrokerService;
 			TimeService = timeService;
 			DataSaver = dataService;

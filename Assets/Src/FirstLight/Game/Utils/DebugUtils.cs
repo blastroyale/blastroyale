@@ -50,7 +50,7 @@ namespace FirstLight.Game.Utils
 
 				FLog.Info($"Writing states to {states}");
 				doneCallback();
-			});
+			}, null);
 #else
 			doneCallback();
 #endif

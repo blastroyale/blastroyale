@@ -35,26 +35,15 @@ namespace FirstLight.Game.StateMachines
 	/// </summary>
 	public class AuthenticationState
 	{
-		private readonly IStatechartEvent _goToRegisterClickedEvent =
-			new StatechartEvent("Go To Register Clicked Event");
-
+		private readonly IStatechartEvent _goToRegisterClickedEvent = new StatechartEvent("Go To Register Clicked Event");
 		private readonly IStatechartEvent _loginAsGuestEvent = new StatechartEvent("Login as Guest Event");
 		private readonly IStatechartEvent _goToLoginClickedEvent = new StatechartEvent("Go To Login Clicked Event");
-
-		private readonly IStatechartEvent _loginRegisterTransitionEvent =
-			new StatechartEvent("Login Register Transition Clicked Event");
-
+		private readonly IStatechartEvent _loginRegisterTransitionEvent = new StatechartEvent("Login Register Transition Clicked Event");
 		private readonly IStatechartEvent _authSuccessEvent = new StatechartEvent("Authentication Success Event");
 		private readonly IStatechartEvent _authFailEvent = new StatechartEvent("Authentication Fail Generic Event");
-
-		private readonly IStatechartEvent _authFailMaintenanceEvent =
-			new StatechartEvent("Authentication Fail Account Deleted Event");
-
-		private readonly IStatechartEvent _authFailOutdatedVersionEvent =
-			new StatechartEvent("Authentication Fail Account Deleted Event");
-
-		private readonly IStatechartEvent _authFailAccountDeletedEvent =
-			new StatechartEvent("Authentication Fail Account Deleted Event");
+		private readonly IStatechartEvent _authFailMaintenanceEvent = new StatechartEvent("Authentication Fail Account Deleted Event");
+		private readonly IStatechartEvent _authFailOutdatedVersionEvent = new StatechartEvent("Authentication Fail Account Deleted Event");
+		private readonly IStatechartEvent _authFailAccountDeletedEvent = new StatechartEvent("Authentication Fail Account Deleted Event");
 
 		private readonly IGameDataProvider _dataProvider;
 		private readonly IGameServices _services;
@@ -102,11 +91,11 @@ namespace FirstLight.Game.StateMachines
 
 			authLoginGuest.OnEnter(SetupLoginGuest);
 			authLoginGuest.Event(_authSuccessEvent).Target(final);
-			authLoginGuest.Event(_authFailEvent).Target(authFail); // TODO - UNLINK DEVICE, SHOW LOGIN SCREEN?
+			authLoginGuest.Event(_authFailEvent).Target(authFail);
 
 			authLoginDevice.OnEnter(LoginWithDevice);
 			authLoginDevice.Event(_authSuccessEvent).Target(final);
-			authLoginDevice.Event(_authFailEvent).Target(authFail); // TODO - UNLINK DEVICE, SHOW LOGIN SCREEN?
+			authLoginDevice.Event(_authFailEvent).Target(authFail);
 			authLoginDevice.Event(_authFailAccountDeletedEvent).Target(authFail);
 
 			postAuthCheck.Transition().Condition(IsAccountDeleted).Target(accountDeleted);
@@ -155,7 +144,10 @@ namespace FirstLight.Game.StateMachines
 		/// </summary>
 		private void SetupLoginGuest()
 		{
-			_services.AuthenticationService.LoginSetupGuest(OnAuthSuccess, OnAuthFail);
+			_services.AuthenticationService.LoginSetupGuest(OnAuthSuccess, (error) =>
+			{
+				OnAuthFail(error, true);
+			});
 		}
 
 		private void OnAuthSuccess(LoginData data)
@@ -163,8 +155,10 @@ namespace FirstLight.Game.StateMachines
 			_statechartTrigger(_authSuccessEvent);
 		}
 
-		private void OnAuthFail(PlayFabError error)
+		private void OnAuthFail(PlayFabError error, bool automaticLogin)
 		{
+			_services.AuthenticationService.SetLinkedDevice(false);
+			OnPlayFabError(error, automaticLogin);
 			_statechartTrigger(_authFailEvent);
 		}
 
@@ -179,31 +173,18 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			LoginWithDevice();
-
-			_services.GameBackendService.CallFunction("GetPlayerData", res =>
-														  OnPlayerDataObtained(res, null), OnPlayFabError);
 		}
 
-		/// <summary>
-		/// Callback for game-stopping errors. Prompts user to close the game.
-		/// </summary>
-		private void OnCriticalPlayFabError(PlayFabError error)
+		private void OnPlayFabError(PlayFabError error, bool automaticLogin)
 		{
-			_services.AnalyticsService.CrashLog(error.ErrorMessage);
-			var button = new AlertButton
+			string errorMessage = error.ErrorMessage;
+			
+			if (automaticLogin)
 			{
-				Callback = () => { _services.QuitGame("Closing playfab critical error alert"); },
-				Style = AlertButtonStyle.Negative,
-				Text = ScriptLocalization.MainMenu.QuitGameButton
-			};
+				errorMessage = $"AutomaticLogin: {error.ErrorMessage}";
+			}
 
-			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.MainMenu.PlayfabError, error.ErrorMessage, button);
-		}
-
-		private void OnPlayFabError(PlayFabError error)
-		{
-			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Login,
-															   error.ErrorMessage);
+			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Login, errorMessage);
 
 			var confirmButton = new GenericDialogButton
 			{
@@ -216,25 +197,8 @@ namespace FirstLight.Game.StateMachines
 				FLog.Error("Authentication Fail - " + JsonConvert.SerializeObject(error.ErrorDetails));
 			}
 
-			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, error.ErrorMessage,
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, errorMessage,
 															false, confirmButton);
-		}
-
-		private void OnAuthenticationFail(PlayFabError error)
-		{
-			OnPlayFabError(error);
-			_uiService.OpenUiAsync<LoginScreenBackgroundPresenter>();
-			_statechartTrigger(_authFailEvent);
-		}
-
-		private void OnAutomaticAuthenticationFail(PlayFabError error)
-		{
-			_dataService.GetData<AppData>().DeviceId = null;
-			_dataService.SaveData<AppData>();
-			_uiService.OpenUiAsync<LoginScreenBackgroundPresenter>();
-			_statechartTrigger(_authFailEvent);
-			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Login,
-															   "AutomaticLogin:" + error.ErrorMessage);
 		}
 
 		private bool HasLinkedDevice()
@@ -242,9 +206,12 @@ namespace FirstLight.Game.StateMachines
 			return !string.IsNullOrWhiteSpace(_dataService.GetData<AppData>().DeviceId);
 		}
 
-		public void LoginWithDevice()
+		private void LoginWithDevice()
 		{
-			_services.AuthenticationService.LoginWithDevice(null, null);
+			_services.AuthenticationService.LoginWithDevice(OnAuthSuccess, (error) =>
+			{
+				OnAuthFail(error, true);
+			});
 		}
 
 		private void SetupBackendEnvironmentData()
@@ -320,7 +287,10 @@ namespace FirstLight.Game.StateMachines
 			{
 				_statechartTrigger(_loginRegisterTransitionEvent);
 
-				_services.AuthenticationService.LoginWithEmail(email, password, OnLoginSuccess, OnAuthenticationFail);
+				_services.AuthenticationService.LoginWithEmail(email, password, OnAuthSuccess, (error) =>
+				{
+					OnAuthFail(error, false);
+				});
 			}
 			else
 			{

@@ -193,13 +193,14 @@ namespace FirstLight.Game.StateMachines
 		private void TryConnectId(string email, string username, string password)
 		{
 			SetConnectIdDim(true);
-			_services.GameBackendService.AttachLoginDataToAccount(email, username, password, OnConnectIdComplete,
+			_services.AuthenticationService.AttachLoginDataToAccount(email, username, password, OnConnectIdComplete,
 				OnConnectIdError);
 		}
 
 		private void TryLogOut()
 		{
-			_services.GameBackendService.UnlinkDeviceID(OnUnlinkComplete);
+			// TODO - ADD LOGOUT FUNCTION TO AUTH STATE
+			//_services.AuthenticationService.UnlinkDeviceID(OnUnlinkComplete);
 		}
 
 		private void OnConnectIdComplete(AddUsernamePasswordResult result)
@@ -260,7 +261,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnUnlinkComplete()
 		{
-			_data.AppDataProvider.DeviceID.Value = null;
+			_data.AppDataProvider.DeviceID.Value = "";
 			_services.HelpdeskService.Logout();
 
 			var title = ScriptLocalization.UITShared.info;

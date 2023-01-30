@@ -215,7 +215,7 @@ namespace FirstLight.Game.Services
 
 				FLog.Verbose("Fetched user state from server");
 				OnServerExecutionFinished();
-			});
+			}, null);
 		}
 
 		/// <summary>

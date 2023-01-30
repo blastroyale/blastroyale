@@ -1,0 +1,468 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using FirstLight.Game.Logic;
+using FirstLight.Game.Utils;
+using I2.Loc;
+using PlayFab;
+using PlayFab.MultiplayerModels;
+using UnityEngine;
+using Random = UnityEngine.Random;
+
+namespace FirstLight.Game.Services.Party
+{
+	/// <summary>
+	/// Responsible for grouping players, to later join the same match as a Team
+	/// This service uses "code" to join parties, when a player <see cref="CreateParty"/> a code is generated.
+	/// This code is shared manually by the players, then his friends can call <see cref="JoinParty"/> using it.
+	/// After a player is inside a party, they can <see cref="LeaveParty"/> or if is the party leader can also <see cref="Kick"/>
+	///
+	/// External systems can observe changes with <see cref="HasParty"/> <see cref="PartyCode"/> <see cref="Members"/>  
+	/// </summary>
+	public interface IPartyService
+	{
+		/// <summary>
+		/// Create a new Party generating a code when done <seealso cref="PartyCode"/>
+		/// </summary>
+		/// <exception cref="PartyException">throws with exceptional cases like player already have party</exception>
+		Task CreateParty();
+
+		/// <summary>
+		/// Join a party by a previous generated <paramref name="code"/> with <see cref="CreateParty"/>
+		/// </summary>
+		/// <exception cref="PartyException">throws with exceptional cases like party not found</exception>
+		Task JoinParty(string code);
+
+		/// <summary>
+		/// Leave a previous joined/created party <see cref="CreateParty"/>
+		/// </summary>
+		/// <exception cref="PartyException">throws with exceptional cases like user not in a party</exception>
+		Task LeaveParty();
+
+		/// <summary>
+		/// Kick a player from the party <see cref="CreateParty"/> using their <paramref name="playfabID"/>
+		/// Must be the Party Leader to use this method
+		/// </summary>
+		/// <exception cref="PartyException">throws with exceptional cases like player not in party</exception>
+		Task Kick(string playfabID);
+
+		/// <summary>
+		/// HasParty observable, it changes when the local player join/leave a party
+		/// If this value change to false, it means the player left/got kicked from the party.
+		/// To distinct the two you should look at <see cref="Members"/>
+		/// </summary>
+		IObservableFieldReader<bool> HasParty { get; }
+
+		/// <summary>
+		/// PartyCode observable, it changes when the local player create/join/leave a party
+		/// It is used by <see cref="JoinParty"/>
+		/// </summary>
+		IObservableFieldReader<string> PartyCode { get; }
+
+		/// <summary>
+		/// The members of the local player party, it changes when any player join/leave the party
+		/// If the local player removed from this list and <see cref="HasParty"/> is true, means the player was kicked.
+		/// </summary>
+		IObservableListReader<PartyMember> Members { get; }
+	}
+
+
+	/// <inheritdoc/>
+	public partial class PartyService : IPartyService
+	{
+		/// <inheritdoc/>
+		IObservableListReader<PartyMember> IPartyService.Members => Members;
+
+		/// <inheritdoc/>
+		IObservableFieldReader<string> IPartyService.PartyCode => PartyCode;
+
+		/// <inheritdoc/>
+		IObservableFieldReader<bool> IPartyService.HasParty => HasParty;
+
+
+		// Services
+		private IPlayfabPubSubService _pubsub;
+		private IPlayerDataProvider _playerDataProvider;
+		private IAppDataProvider _appDataProvider;
+
+
+		// State
+		private Lobby _lobby;
+		private string _lobbyId;
+		private String _lobbyTopic;
+		private bool connecting;
+		private bool connected;
+
+		SemaphoreSlim accessSemaphore = new SemaphoreSlim(1, 1);
+
+		private IObservableField<bool> HasParty { get; }
+		private IObservableField<string> PartyCode { get; }
+		private IObservableList<PartyMember> Members { get; }
+
+		public PartyService(IPlayfabPubSubService pubsub, IPlayerDataProvider playerDataProvider, IAppDataProvider appDataProvider)
+		{
+			_playerDataProvider = playerDataProvider;
+			_appDataProvider = appDataProvider;
+			_pubsub = pubsub;
+			Members = new ObservableList<PartyMember>(new());
+			HasParty = new ObservableField<bool>(false);
+			PartyCode = new ObservableField<string>(null);
+		}
+
+		/// <inheritdoc/>
+		public async Task CreateParty()
+		{
+			try
+			{
+				await accessSemaphore.WaitAsync();
+				if (HasParty.Value)
+				{
+					throw new PartyException(PartyErrors.AlreadyInParty);
+				}
+
+				string code = GenerateCode();
+				// TODO Check if lobby doesn't exist with the generated code
+
+				CreateLobbyRequest req = new CreateLobbyRequest()
+				{
+					Owner = LocalEntityKey(),
+					AccessPolicy = AccessPolicy.Public,
+					MaxPlayers = MaxMembers,
+					OwnerMigrationPolicy = OwnerMigrationPolicy.Automatic,
+					SearchData = new Dictionary<string, string>()
+					{
+						{CodeSearchProperty, code},
+						{LobbyCommitProperty, VersionUtils.Commit != null ? VersionUtils.Commit : "editor"}
+					},
+					UseConnections = true,
+					Members = new List<Member> {CreateLocalMember()}
+				};
+				var result = await AsyncPlayfabMultiplayerAPI.CreateLobby(req);
+				_lobbyId = result.LobbyId;
+				await RefetchCachedParty();
+				// Don't wait for the websocket connection, it is slow to connect, and the player is already in the party.
+				ListenForLobbyUpdates();
+				PartyCode.Value = code;
+				HasParty.Value = true;
+			}
+			catch (Exception ex)
+			{
+				HandleException(ex);
+			}
+			finally
+			{
+				accessSemaphore.Release();
+			}
+		}
+
+		/// <inheritdoc/>
+		public async Task JoinParty(string code)
+		{
+			try
+			{
+				await accessSemaphore.WaitAsync();
+				if (HasParty.Value)
+				{
+					throw new PartyException(PartyErrors.AlreadyInParty);
+				}
+
+				var normalizedCode = NormalizeCode(code);
+				var filter = $"{CodeSearchProperty} eq '{normalizedCode}'";
+				if (FeatureFlags.COMMIT_VERSION_LOCK)
+				{
+					filter += $" and {LobbyCommitProperty} eq '{VersionUtils.Commit}'";
+				}
+
+				var req = new FindLobbiesRequest()
+				{
+					Filter = filter
+				};
+				var lobbiesResult = await AsyncPlayfabMultiplayerAPI.FindLobbies(req);
+				// TODO players can create any code they want(doing request manually curl),
+				// so it is possible to have multiple lobbies with the same code 
+
+				var lobby = lobbiesResult.Lobbies.FirstOrDefault();
+				if (lobby == null)
+				{
+					throw new PartyException(PartyErrors.PartyNotFound);
+				}
+
+				if (lobby.CurrentPlayers >= lobby.MaxPlayers)
+				{
+					throw new PartyException(PartyErrors.PartyFull);
+				}
+
+				var localMember = CreateLocalMember();
+				// Now join it
+				var joinRequest = new JoinLobbyRequest()
+				{
+					ConnectionString = lobby.ConnectionString,
+					MemberEntity = localMember.MemberEntity,
+					MemberData = localMember.MemberData
+				};
+				try
+				{
+					var result = await AsyncPlayfabMultiplayerAPI.JoinLobby(joinRequest);
+					_lobbyId = result.LobbyId;
+				}
+				catch (WrappedPlayFabException ex)
+				{
+					// If the player quit the games and try to join the same party will return this error
+					var error = ex.Error.Error;
+					if (error != PlayFabErrorCode.LobbyPlayerAlreadyJoined)
+					{
+						HandleException(ex);
+					}
+
+					_lobbyId = lobby.LobbyId;
+				}
+
+				await RefetchCachedParty();
+				// Dont wait for the websocket connection, it is slow to connect, and the player is already in the party.
+				ListenForLobbyUpdates();
+				HasParty.Value = true;
+				PartyCode.Value = normalizedCode;
+			}
+			catch (Exception ex)
+			{
+				HandleException(ex);
+			}
+			finally
+			{
+				accessSemaphore.Release();
+			}
+		}
+
+		/// <inheritdoc/>
+		public async Task Kick(string playfabID)
+		{
+			try
+			{
+				await accessSemaphore.WaitAsync();
+				if (!HasParty.Value)
+				{
+					throw new PartyException(PartyErrors.NoParty);
+				}
+
+				var localPartyMember = LocalPartyMember();
+				if (localPartyMember == null || !localPartyMember.Leader)
+				{
+					throw new PartyException(PartyErrors.NoPermission);
+				}
+
+				var req = new RemoveMemberFromLobbyRequest()
+				{
+					LobbyId = _lobbyId,
+					PreventRejoin = true,
+					MemberEntity = new EntityKey() {Id = playfabID, Type = "title_player_account"}
+				};
+				await AsyncPlayfabMultiplayerAPI.RemoveMember(req);
+			}
+			catch (Exception ex)
+			{
+				HandleException(ex);
+			}
+			finally
+			{
+				accessSemaphore.Release();
+			}
+		}
+
+		/// <inheritdoc/>
+		public async Task LeaveParty()
+		{
+			try
+			{
+				await accessSemaphore.WaitAsync();
+				if (!HasParty.Value)
+				{
+					throw new PartyException(PartyErrors.NoParty);
+				}
+
+				var req = new LeaveLobbyRequest()
+				{
+					LobbyId = _lobbyId,
+					MemberEntity = LocalEntityKey(),
+				};
+				// If the member counts is 0 the lobby will be disbanded and we will not need to unsubscribe
+				if (_lobby.Members.Count > 1)
+				{
+					await UnsubscribeToLobbyUpdates();
+				}
+
+				if (_lobbyTopic != null)
+				{
+					_pubsub.ClearListeners(_lobbyTopic);
+				}
+
+				await AsyncPlayfabMultiplayerAPI.LeaveLobby(req);
+				ResetState();
+			}
+			catch (Exception ex)
+			{
+				HandleException(ex);
+			}
+			finally
+			{
+				accessSemaphore.Release();
+			}
+		}
+
+
+		private async Task UnsubscribeToLobbyUpdates()
+		{
+			var connStr = await _pubsub.GetConnectionHandle();
+			var req = new UnsubscribeFromLobbyResourceRequest()
+			{
+				Type = SubscriptionType.LobbyChange,
+				EntityKey = LocalEntityKey(),
+				ResourceId = _lobbyId,
+				SubscriptionVersion = 1,
+				PubSubConnectionHandle = connStr
+			};
+			try
+			{
+				await AsyncPlayfabMultiplayerAPI.UnsubscribeFromLobbyResource(req);
+			}
+			catch (Exception ex)
+			{
+				// Ignore error because if the player is the last one in the lobby it will disband it and automatically unsubscribe from updates
+				Debug.LogException(ex);
+			}
+		}
+
+		private async Task ListenForLobbyUpdates()
+		{
+			try
+			{
+				if (connecting || connected) return;
+				connecting = true;
+				var connectionHandle = await _pubsub.GetConnectionHandle(true);
+				var subscribeReq = new SubscribeToLobbyResourceRequest()
+				{
+					Type = SubscriptionType.LobbyChange,
+					EntityKey = new EntityKey() {Type = PlayFabSettings.staticPlayer.EntityType, Id = PlayFabSettings.staticPlayer.EntityId},
+					PubSubConnectionHandle = connectionHandle,
+					SubscriptionVersion = 1,
+					ResourceId = _lobbyId
+				};
+				var result = await AsyncPlayfabMultiplayerAPI.SubscribeToLobbyResource(subscribeReq);
+				_lobbyTopic = result.Topic;
+				_pubsub.ListenTopic<LobbyPayloadMessage>(_lobbyTopic, LobbyMessageHandler);
+				_pubsub.ListenSubscriptionStatus(_lobbyTopic, SubscriptionChangeHandler);
+				connecting = false;
+				connected = true;
+			}
+			catch (Exception ex)
+			{
+				connected = false;
+				connecting = false;
+				// Since this function is never awaited lets log the exception
+				// TODO Proper handling of async exceptions
+				Debug.LogException(ex);
+			}
+		}
+
+		private void SubscriptionChangeHandler(IPlayfabPubSubService.SubscriptionChangeMessage obj)
+		{
+			if (obj.Status == "unsubscribeSuccess" && _memberRemovedReasons.Contains(obj.UnsubscribeReason))
+			{
+				Members.Remove(LocalPartyMember());
+				LocalPlayerKicked();
+				connected = false;
+				connecting = false;
+			}
+		}
+
+
+		/// <summary>
+		/// Handles when there is any change in the party
+		/// </summary>
+		/// <param name="obj"></param>
+		private void LobbyMessageHandler(LobbyPayloadMessage obj)
+		{
+			foreach (var change in obj.LobbyChanges)
+			{
+				if (_lobby.ChangeNumber < change.ChangeNumber)
+				{
+					RefetchCachedParty();
+					break;
+				}
+			}
+		}
+
+
+		private async Task RefetchCachedParty()
+		{
+			var req = new GetLobbyRequest()
+			{
+				LobbyId = _lobbyId
+			};
+
+			var result = await AsyncPlayfabMultiplayerAPI.GetLobby(req);
+			_lobby = result.Lobby;
+			_lobbyId = result.Lobby.LobbyId;
+			UpdateMembers();
+		}
+
+
+		private void UpdateMembers()
+		{
+			// Remove members from the list
+			foreach (var partyMember in Members.ToList())
+			{
+				bool exists = _lobby.Members.Exists(m => m.MemberEntity.Id == partyMember.PlayfabID);
+				if (!exists)
+				{
+					Members.Remove(partyMember);
+					if (partyMember.Local)
+					{
+						UnsubscribeToLobbyUpdates();
+						LocalPlayerKicked();
+						return;
+					}
+				}
+			}
+
+			// Update or Add members
+			foreach (var lobbyMember in _lobby.Members)
+			{
+				var generatedMember = ToPartyMember(_lobby, lobbyMember);
+				var mappedMember = Members.Where(m => m.PlayfabID == generatedMember.PlayfabID).ToArray();
+				// Member already in party
+				if (mappedMember.Any())
+				{
+					var alreadyCreatedMember = mappedMember.First();
+					if (!alreadyCreatedMember.Equals(generatedMember))
+					{
+						generatedMember.CopyPropertiesShallowTo(alreadyCreatedMember);
+					}
+				}
+				else
+				{
+					// ADD IT
+					Members.Add(generatedMember);
+				}
+			}
+		}
+
+		private void LocalPlayerKicked()
+		{
+			ResetState();
+		}
+
+
+		private void ResetState()
+		{
+			_lobby = null;
+			_lobbyId = null;
+			_lobbyTopic = null;
+			HasParty.Value = false;
+			PartyCode.Value = null;
+			Members.Clear();
+		}
+	}
+}

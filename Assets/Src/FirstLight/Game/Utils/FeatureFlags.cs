@@ -80,6 +80,11 @@ namespace FirstLight.Game.Utils
 		public static bool DESYNC_DETECTION = true;
 
 		/// <summary>
+		/// Flag to determine if we should use playfab matchmaking
+		/// </summary>
+		public static bool PLAYFAB_MATCHMAKING = false;
+		
+		/// <summary>
 		/// Parses the feature flags from a given input dictionary.
 		/// Keys of the dictionary will be matched as title feature flag keys referenced on the attributes.
 		/// Values will be converted to boolean ('true' or 'false)
@@ -119,6 +124,11 @@ namespace FirstLight.Game.Utils
 			if (TrySetFlag("DESYNC_DETECTION", overrideData, out var desyncDetection))
 			{
 				DESYNC_DETECTION = desyncDetection;
+			}
+			
+			if (TrySetFlag("PLAYFAB_MATCHMAKING", overrideData, out var pfmm))
+			{
+				PLAYFAB_MATCHMAKING = pfmm;
 			}
 		}
 

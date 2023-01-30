@@ -91,12 +91,18 @@ namespace FirstLight.Game
 			StartCoroutine(HeartbeatCoroutine());
 		}
 
+		private void OnApplicationFocus(bool hasFocus)
+		{
+			if (!hasFocus)
+			{
+				_services?.DataSaver?.SaveAllData();
+			}
+		}
+
 		private void OnApplicationPause(bool isPaused)
 		{
 			if (isPaused)
 			{
-				_services?.DataSaver?.SaveAllData();
-				
 				_pauseCoroutine = StartCoroutine(EndAppCoroutine());
 			}
 			else if (_pauseCoroutine != null)
@@ -111,7 +117,6 @@ namespace FirstLight.Game
 
 		private void OnApplicationQuit()
 		{
-			_services?.DataSaver?.SaveAllData();
 			_services?.AnalyticsService?.SessionCalls?.SessionEnd(_services?.QuitReason);
 		}
 

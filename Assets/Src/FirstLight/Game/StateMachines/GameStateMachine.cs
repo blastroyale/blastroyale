@@ -12,6 +12,7 @@ using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.NativeUi;
+using FirstLight.Server.SDK.Models;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using FirstLight.Statechart;
@@ -58,7 +59,24 @@ namespace FirstLight.Game.StateMachines
 			_tutorialState = new TutorialState(gameLogic, services, tutorialService, Trigger);
 			_coreLoopState = new CoreLoopState(services, gameLogic, dataService, networkService, uiService, gameLogic, assetAdderService, Trigger);
 			_statechart = new Statechart.Statechart(Setup);
+			
+#if DEVELOPMENT_BUILD
+			Statechart.Statechart.OnStateTimed += (state, millis) =>
+			{
+				FLog.Info($"[State Time] {state} took {millis}ms");
+				services.AnalyticsService.LogEvent("state-time", new AnalyticsData()
+				{
+					{"state", state},
+					{"milliseconds", millis},
+					{"device-memory-mb", SystemInfo.systemMemorySize },
+					{"device-model", SystemInfo.deviceModel },
+					{"device-name", SystemInfo.deviceName },
+					{"cpu", SystemInfo.processorType }
+				});
+			};
+#endif
 		}
+		
 
 		/// <inheritdoc cref="IStatechart.Run"/>
 		public void Run()
@@ -70,6 +88,8 @@ namespace FirstLight.Game.StateMachines
 		{
 			_statechart.Trigger(eventTrigger);
 		}
+		
+		
 
 		private void Setup(IStateFactory stateFactory)
 		{

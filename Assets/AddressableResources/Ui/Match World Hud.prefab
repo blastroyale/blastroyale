@@ -639,6 +639,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ebf4da47bcb4aaa9f5450d7079b45fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NormalNameColor: {r: 0.47058824, g: 0.8666667, b: 0.31764707, a: 1}
+  SquadNameColor: {r: 0, g: 0.69803923, b: 1, a: 1}
   NameText: {fileID: 4258667380705751891}
 --- !u!114 &3432621417546999984
 MonoBehaviour:
@@ -1360,6 +1362,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ebf4da47bcb4aaa9f5450d7079b45fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NormalNameColor: {r: 0, g: 0, b: 0, a: 0}
+  SquadNameColor: {r: 0, g: 0, b: 0, a: 0}
   NameText: {fileID: 5514375695281387132}
 --- !u!111 &2086717104393099285
 Animation:

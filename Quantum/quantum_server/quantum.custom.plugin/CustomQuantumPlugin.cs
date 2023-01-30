@@ -21,7 +21,6 @@ namespace Quantum
 		public readonly CustomQuantumServer CustomServer;
 		private MatchType _matchType = MatchType.Custom;
 		private QuantumCommandHandler _cmdHandler;
-		private string _roomName;
 
 		public CustomQuantumPlugin(Dictionary<String, String> config, IServer server) : base(server)
 		{
@@ -80,7 +79,6 @@ namespace Quantum
 				Log.Debug("No Custom Properties");
 				return;
 			}
-			_roomName = info.CreateOptions["Name"] as String;
 			var customProperties = propsObject as Hashtable;
 			if (customProperties == null)
 			{
@@ -105,7 +103,7 @@ namespace Quantum
 			base.OnCloseGame(info);
 		}
 
-		public string RoomName => _roomName;
+		public string MatchID => PluginHost.GameId;
 
 		public MatchType GetMatchType() => _matchType;
 	}

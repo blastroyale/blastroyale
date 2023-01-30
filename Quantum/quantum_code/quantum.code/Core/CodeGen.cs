@@ -36,6 +36,8 @@ namespace Quantum {
     BattleRoyale,
   }
   public enum BotBehaviourType : int {
+    Static,
+    Dumb,
     Balanced,
     Cautious,
     Aggressive,
@@ -65,6 +67,7 @@ namespace Quantum {
     Box = 2,
     BoxAndWeapon = 3,
     Consumables = 4,
+    Tutorial = 5,
   }
   [Flags()]
   public enum EWorldState : uint {
@@ -292,6 +295,12 @@ namespace Quantum {
   public enum RankSorter : int {
     BattleRoyale,
     Deathmatch,
+  }
+  public enum SpawnerType : int {
+    Any,
+    Player,
+    AnyBot,
+    BotOfType,
   }
   public enum SpecialType : int {
     Airstrike,
@@ -2764,44 +2773,46 @@ namespace Quantum {
     public Int32 BotNameIndex;
     [FieldOffset(0)]
     public Byte CollectedOwnedNfts;
-    [FieldOffset(20)]
-    public UInt32 CurrentKillStreak;
     [FieldOffset(24)]
-    public UInt32 CurrentMultiKill;
+    public UInt32 CurrentKillStreak;
     [FieldOffset(28)]
-    public UInt32 DamageDone;
+    public UInt32 CurrentMultiKill;
     [FieldOffset(32)]
-    public UInt32 DamageReceived;
+    public UInt32 DamageDone;
     [FieldOffset(36)]
+    public UInt32 DamageReceived;
+    [FieldOffset(40)]
     public UInt32 DeathCount;
     [FieldOffset(72)]
     public EntityRef Entity;
     [FieldOffset(80)]
     public FP FirstDeathTime;
-    [FieldOffset(40)]
-    public UInt32 HealingDone;
     [FieldOffset(44)]
+    public UInt32 HealingDone;
+    [FieldOffset(48)]
     public UInt32 HealingReceived;
     [FieldOffset(96)]
     public FPVector3 LastDeathPosition;
     [FieldOffset(88)]
     public FP MultiKillResetTime;
-    [FieldOffset(16)]
+    [FieldOffset(20)]
     public PlayerRef Player;
     [FieldOffset(4)]
     public GameId PlayerDeathMarker;
-    [FieldOffset(48)]
+    [FieldOffset(52)]
     public UInt32 PlayerLevel;
     [FieldOffset(8)]
     public GameId PlayerSkin;
-    [FieldOffset(52)]
-    public UInt32 PlayerTrophies;
     [FieldOffset(56)]
-    public UInt32 PlayersKilledCount;
+    public UInt32 PlayerTrophies;
     [FieldOffset(60)]
-    public UInt32 SpecialsUsedCount;
+    public UInt32 PlayersKilledCount;
     [FieldOffset(64)]
+    public UInt32 SpecialsUsedCount;
+    [FieldOffset(68)]
     public UInt32 SuicideCount;
+    [FieldOffset(16)]
+    public Int32 TeamId;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 331;
@@ -2826,6 +2837,7 @@ namespace Quantum {
         hash = hash * 31 + PlayersKilledCount.GetHashCode();
         hash = hash * 31 + SpecialsUsedCount.GetHashCode();
         hash = hash * 31 + SuicideCount.GetHashCode();
+        hash = hash * 31 + TeamId.GetHashCode();
         return hash;
       }
     }
@@ -2835,6 +2847,7 @@ namespace Quantum {
         serializer.Stream.Serialize((Int32*)&p->PlayerDeathMarker);
         serializer.Stream.Serialize((Int32*)&p->PlayerSkin);
         serializer.Stream.Serialize(&p->BotNameIndex);
+        serializer.Stream.Serialize(&p->TeamId);
         PlayerRef.Serialize(&p->Player, serializer);
         serializer.Stream.Serialize(&p->CurrentKillStreak);
         serializer.Stream.Serialize(&p->CurrentMultiKill);
@@ -4247,11 +4260,14 @@ namespace Quantum {
     public AssetRefHFSMRoot HfsmRootRef;
     [FieldOffset(24)]
     public AssetRefCharacterController3DConfig KccConfigRef;
-    [FieldOffset(8)]
+    [FieldOffset(12)]
     [HideInInspector()]
     public PlayerRef Player;
     [FieldOffset(40)]
     public FPVector3 ProjectileSpawnOffset;
+    [FieldOffset(8)]
+    [HideInInspector()]
+    public Int32 TeamId;
     [FieldOffset(424)]
     [HideInInspector()]
     [FramePrinter.FixedArrayAttribute(typeof(WeaponSlot), 3)]
@@ -4277,6 +4293,7 @@ namespace Quantum {
         hash = hash * 31 + KccConfigRef.GetHashCode();
         hash = hash * 31 + Player.GetHashCode();
         hash = hash * 31 + ProjectileSpawnOffset.GetHashCode();
+        hash = hash * 31 + TeamId.GetHashCode();
         hash = hash * 31 + HashCodeUtils.GetArrayHashCode(WeaponSlots);
         return hash;
       }
@@ -4285,6 +4302,7 @@ namespace Quantum {
         var p = (PlayerCharacter*)ptr;
         serializer.Stream.Serialize(&p->CurrentWeaponSlot);
         serializer.Stream.Serialize(&p->DroppedLoadoutFlags);
+        serializer.Stream.Serialize(&p->TeamId);
         PlayerRef.Serialize(&p->Player, serializer);
         Quantum.AssetRefAIBlackboard.Serialize(&p->BlackboardRef, serializer);
         AssetRefCharacterController3DConfig.Serialize(&p->KccConfigRef, serializer);
@@ -4330,20 +4348,32 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct PlayerSpawner : Quantum.IComponent {
-    public const Int32 SIZE = 8;
+    public const Int32 SIZE = 24;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(0)]
+    [FieldOffset(16)]
     [HideInInspector()]
     public FP ActivationTime;
+    [FieldOffset(0)]
+    public BotBehaviourType BehaviourType;
+    [FieldOffset(4)]
+    public QBoolean ForceStatic;
+    [FieldOffset(8)]
+    public SpawnerType SpawnerType;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 547;
         hash = hash * 31 + ActivationTime.GetHashCode();
+        hash = hash * 31 + (Int32)BehaviourType;
+        hash = hash * 31 + ForceStatic.GetHashCode();
+        hash = hash * 31 + (Int32)SpawnerType;
         return hash;
       }
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (PlayerSpawner*)ptr;
+        serializer.Stream.Serialize((Int32*)&p->BehaviourType);
+        QBoolean.Serialize(&p->ForceStatic, serializer);
+        serializer.Stream.Serialize((Int32*)&p->SpawnerType);
         FP.Serialize(&p->ActivationTime, serializer);
     }
   }
@@ -8871,6 +8901,7 @@ namespace Quantum {
       Register(typeof(Shape2D), Shape2D.SIZE);
       Register(typeof(Shape3D), Shape3D.SIZE);
       Register(typeof(Quantum.ShrinkingCircle), Quantum.ShrinkingCircle.SIZE);
+      Register(typeof(Quantum.SpawnerType), 4);
       Register(typeof(Quantum.Special), Quantum.Special.SIZE);
       Register(typeof(Quantum.SpecialType), 4);
       Register(typeof(Quantum.Spell), Quantum.Spell.SIZE);
@@ -8959,6 +8990,7 @@ namespace Quantum {
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.QuantumServerCommand>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.RankProcessor>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.RankSorter>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.SpawnerType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.SpecialType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.StatType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.StatusModifierType>();
@@ -9221,6 +9253,17 @@ namespace Quantum.Prototypes {
     }
     public static implicit operator RankSorter_Prototype(RankSorter value) {
         return new RankSorter_Prototype() { Value = (Int32)value };
+    }
+  }
+  [System.SerializableAttribute()]
+  [Prototype(typeof(SpawnerType))]
+  public unsafe partial struct SpawnerType_Prototype {
+    public Int32 Value;
+    public static implicit operator SpawnerType(SpawnerType_Prototype value) {
+        return (SpawnerType)value.Value;
+    }
+    public static implicit operator SpawnerType_Prototype(SpawnerType value) {
+        return new SpawnerType_Prototype() { Value = (Int32)value };
     }
   }
   [System.SerializableAttribute()]
@@ -10191,6 +10234,8 @@ namespace Quantum.Prototypes {
     [HideInInspector()]
     public PlayerRef Player;
     [HideInInspector()]
+    public Int32 TeamId;
+    [HideInInspector()]
     public Int32 CurrentWeaponSlot;
     [HideInInspector()]
     [ArrayLengthAttribute(3)]
@@ -10217,6 +10262,7 @@ namespace Quantum.Prototypes {
       result.KccConfigRef = this.KccConfigRef;
       result.Player = this.Player;
       result.ProjectileSpawnOffset = this.ProjectileSpawnOffset;
+      result.TeamId = this.TeamId;
       for (int i = 0, count = PrototypeValidator.CheckLength(WeaponSlots, 3, in context); i < count; ++i) {
         this.WeaponSlots[i].Materialize(frame, ref *result.WeaponSlots.GetPointer(i), in context);
       }
@@ -10259,6 +10305,7 @@ namespace Quantum.Prototypes {
     public MapEntityId Entity;
     public UInt32 PlayerLevel;
     public UInt32 PlayerTrophies;
+    public Int32 TeamId;
     public GameId_Prototype PlayerSkin;
     public GameId_Prototype PlayerDeathMarker;
     public Int32 BotNameIndex;
@@ -10299,6 +10346,7 @@ namespace Quantum.Prototypes {
       result.PlayersKilledCount = this.PlayersKilledCount;
       result.SpecialsUsedCount = this.SpecialsUsedCount;
       result.SuicideCount = this.SuicideCount;
+      result.TeamId = this.TeamId;
       MaterializeUser(frame, ref result, in context);
     }
   }
@@ -10307,6 +10355,9 @@ namespace Quantum.Prototypes {
   public sealed unsafe partial class PlayerSpawner_Prototype : ComponentPrototype<PlayerSpawner> {
     [HideInInspector()]
     public FP ActivationTime;
+    public SpawnerType_Prototype SpawnerType;
+    public BotBehaviourType_Prototype BehaviourType;
+    public QBoolean ForceStatic;
     partial void MaterializeUser(Frame frame, ref PlayerSpawner result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       PlayerSpawner component = default;
@@ -10315,6 +10366,9 @@ namespace Quantum.Prototypes {
     }
     public void Materialize(Frame frame, ref PlayerSpawner result, in PrototypeMaterializationContext context) {
       result.ActivationTime = this.ActivationTime;
+      result.BehaviourType = this.BehaviourType;
+      result.ForceStatic = this.ForceStatic;
+      result.SpawnerType = this.SpawnerType;
       MaterializeUser(frame, ref result, in context);
     }
     public override void Dispatch(ComponentPrototypeVisitorBase visitor) {

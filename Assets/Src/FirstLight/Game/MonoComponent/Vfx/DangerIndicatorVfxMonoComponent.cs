@@ -13,7 +13,7 @@ namespace FirstLight.Game.MonoComponent.Vfx
 		/// </summary>
 		public void Init(Vector3 spawnPosition, float lifetime, float indicationRadius)
 		{
-			var scale = indicationRadius * GameConstants.Visuals.RADIUS_TO_SCALE_CONVERSION_VALUE * Vector3.one;
+			var scale = indicationRadius * GameConstants.Visuals.RADIUS_TO_SCALE_CONVERSION_VALUE_NON_PLAIN_INDICATORS * Vector3.one;
 			var cacheTransform = transform;
 			
 			cacheTransform.localScale = scale;

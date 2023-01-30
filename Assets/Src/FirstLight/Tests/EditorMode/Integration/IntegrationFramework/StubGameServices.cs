@@ -1,6 +1,7 @@
 using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.Party;
 using FirstLight.NotificationService;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Models;
@@ -37,10 +38,12 @@ namespace FirstLight.Tests.EditorMode
 		public virtual IRemoteTextureService RemoteTextureService { get; }
 		public virtual IThreadService ThreadService { get; }
 		public virtual IHelpdeskService HelpdeskService { get; }
-		public virtual IGameModeService GameModeService { get; }
-		public virtual IMatchmakingService MatchmakingService { get; }
-		public virtual IIAPService IAPService { get; }
-		public virtual IGameLogic GameLogic { get; }
+		public IGameModeService GameModeService { get; }
+		public IMatchmakingService MatchmakingService { get; }
+		public IIAPService IAPService { get; }
+		public IPartyService PartyService { get; }
+		public IPlayfabPubSubService PlayfabPubSubService { get; }
+		public IGameLogic GameLogic { get; }
 		public string QuitReason { get; set; }
 
 		public void QuitGame(string reason)
@@ -52,7 +55,6 @@ namespace FirstLight.Tests.EditorMode
 		                        IGameLogic gameLogic, IDataProvider dataProvider,
 		                        IGenericDialogService genericDialogService,
 		                        IAssetResolverService assetResolverService,
-								ITutorialService tutorialService,
 		                        IVfxService<VfxId> vfxService, IAudioFxService<AudioId> audioFxService,
 		                        IPlayerInputService playerInputService, IUiService uiService)
 		{
@@ -68,7 +70,7 @@ namespace FirstLight.Tests.EditorMode
 			PlayerInputService = playerInputService;
 			VfxService = vfxService;
 			GameLogic = gameLogic;
-			TutorialService = tutorialService;
+
 			
 			ThreadService = new ThreadService();
 			HelpdeskService = new HelpdeskService();
@@ -82,8 +84,11 @@ namespace FirstLight.Tests.EditorMode
 			PoolService = new PoolService();
 			TickService = new StubTickService();
 			CoroutineService = new StubCoroutineService();
+			MatchmakingService = new PlayfabMatchmakingService(PlayfabService, CoroutineService);
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			NotificationService = Substitute.For<INotificationService>();
+			PlayfabPubSubService = Substitute.For<PlayfabPubSubService>();
+			PartyService = Substitute.For<PartyService>();
 		}
 	}
 }

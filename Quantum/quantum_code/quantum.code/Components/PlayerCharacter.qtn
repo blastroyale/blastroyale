@@ -42,6 +42,7 @@ component PlayerCharacter
 	AssetRefCharacterController3DConfig KccConfigRef;
 	FPVector3 ProjectileSpawnOffset;
 	[HideInInspector] player_ref Player;
+	[HideInInspector] Int32 TeamId;
 	[HideInInspector] Int32 CurrentWeaponSlot;
 	[HideInInspector] array<WeaponSlot>[MAX_WEAPONS] WeaponSlots;
 	[HideInInspector] array<Equipment>[MAX_GEAR] Gear;

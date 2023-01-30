@@ -74,7 +74,7 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		/// <param name="roomName">Name that the created room will have</param>
 		/// <returns>True if the operation was sent successfully</returns>
-		bool CreateRoom(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, List<string> mutators, string roomName, bool offlineMode);
+		bool CreateRoom(MatchRoomSetup setup, bool offlineMode);
 
 		/// <summary>
 		/// Joins a specific room with matching params if it exists, or creates a new one if it doesn't
@@ -83,13 +83,13 @@ namespace FirstLight.Game.Services
 		/// <returns>True if the operation was sent successfully</returns>
 		/// <remarks>Note, in order to join a room, the "entry params" that are generated, need to match a created room exactly
 		/// for the client to be able to enter. If there is even one param mismatching, join operation will fail.</remarks>
-		bool JoinOrCreateRoom(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, List<string> mutators, string roomName);
+		bool JoinOrCreateRoom(MatchRoomSetup setup);
 
 		/// <summary>
 		/// Joins a random room of matching parameters if it exists, or creates a new one if it doesn't
 		/// </summary>
 		/// <returns>True if the operation was sent successfully</returns>
-		bool JoinOrCreateRandomRoom(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, List<string> mutators);
+		bool JoinOrCreateRandomRoom(MatchRoomSetup setup);
 
 		/// <summary>
 		/// Leaves the current room that local player is in
@@ -115,6 +115,11 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		/// <param name="isSpectator">Is player the spectator</param>
 		void SetSpectatePlayerProperty(bool isSpectator);
+
+		/// <summary>
+		/// Sets the TeamID (for squads) in custom properties (-1 means solo).
+		/// </summary>
+		public void SetTeamIdPlayerProperty(int teamId);
 
 		/// <summary>
 		/// Sets the current room <see cref="Room.IsOpen"/> property, which sets whether it can be joined or not
@@ -439,11 +444,11 @@ namespace FirstLight.Game.Services
 			return QuantumClient.OpJoinRoom(enterParams);
 		}
 		
-		public bool CreateRoom(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, List<string> mutators, string roomName, bool offlineMode)
+		public bool CreateRoom(MatchRoomSetup setup, bool offlineMode)
 		{
 			if (InRoom) return false;
 			
-			var createParams = NetworkUtils.GetRoomCreateParams(gameModeConfig, mapConfig, NetworkUtils.GetRandomDropzonePosRot(), roomName, MatchType.Custom, mutators, false);
+			var createParams = NetworkUtils.GetRoomCreateParams(setup, NetworkUtils.GetRandomDropzonePosRot(), false);
 
 			QuantumRunnerConfigs.IsOfflineMode = offlineMode;
 			
@@ -455,11 +460,11 @@ namespace FirstLight.Game.Services
 			return QuantumClient.OpCreateRoom(createParams);
 		}
 
-		public bool JoinOrCreateRoom(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, List<string> mutators, string roomName)
+		public bool JoinOrCreateRoom(MatchRoomSetup setup)
 		{
 			if (InRoom) return false;
 			
-			var createParams = NetworkUtils.GetRoomCreateParams(gameModeConfig, mapConfig, NetworkUtils.GetRandomDropzonePosRot(), roomName, MatchType.Custom, mutators, false);
+			var createParams = NetworkUtils.GetRoomCreateParams(setup, NetworkUtils.GetRandomDropzonePosRot(), false);
 
 			QuantumRunnerConfigs.IsOfflineMode = false;
 
@@ -472,14 +477,12 @@ namespace FirstLight.Game.Services
 			return QuantumClient.OpJoinOrCreateRoom(createParams);
 		}
 
-		public bool JoinOrCreateRandomRoom(QuantumGameModeConfig gameModeConfig, QuantumMapConfig mapConfig, List<string> mutators)
+		public bool JoinOrCreateRandomRoom(MatchRoomSetup setup)
 		{
 			if (InRoom) return false;
 			
-			var matchType = _services.GameModeService.SelectedGameMode.Value.Entry.MatchType;
-			var gameHasBots = gameModeConfig.AllowBots;
-			var createParams = NetworkUtils.GetRoomCreateParams(gameModeConfig, mapConfig, NetworkUtils.GetRandomDropzonePosRot(), null, matchType, mutators, gameHasBots);
-			var joinRandomParams = NetworkUtils.GetJoinRandomRoomParams(gameModeConfig, mapConfig, matchType, mutators);
+			var createParams = NetworkUtils.GetRoomCreateParams(setup, NetworkUtils.GetRandomDropzonePosRot(), setup.GameMode.AllowBots);
+			var joinRandomParams = NetworkUtils.GetJoinRandomRoomParams(setup);
 
 			QuantumRunnerConfigs.IsOfflineMode = false;
 
@@ -569,6 +572,18 @@ namespace FirstLight.Game.Services
 
 			SetPlayerCustomProperties(playerPropsUpdate);
 		}
+		
+		public void SetTeamIdPlayerProperty(int teamId)
+		{
+			var playerPropsUpdate = new Hashtable
+			{
+				{
+					GameConstants.Network.PLAYER_PROPS_TEAM_ID, teamId
+				}
+			};
+
+			SetPlayerCustomProperties(playerPropsUpdate);
+		}
 
 		private void SetUserId(string id)
 		{
@@ -598,7 +613,8 @@ namespace FirstLight.Game.Services
 				{GameConstants.Network.PLAYER_PROPS_PRELOAD_IDS, preloadIds.ToArray()},
 				{GameConstants.Network.PLAYER_PROPS_CORE_LOADED, false},
 				{GameConstants.Network.PLAYER_PROPS_ALL_LOADED, false},
-				{GameConstants.Network.PLAYER_PROPS_SPECTATOR, false}
+				{GameConstants.Network.PLAYER_PROPS_SPECTATOR, false},
+				{GameConstants.Network.PLAYER_PROPS_TEAM_ID, -1}
 			};
 
 			SetPlayerCustomProperties(playerProps);

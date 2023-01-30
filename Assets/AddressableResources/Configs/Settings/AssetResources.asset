@@ -349,6 +349,11 @@ MonoBehaviour:
         Id:
           Value: 1466123722707053255
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[ShouldPerformSkydiveDecision_32]
+    - Path: AddressableResources/QuantumAssets/Spawners/PlayerSpawner|EntityView
+      AssetRef:
+        Id:
+          Value: 1469853357981699320
+      Address: QuantumAssets/Spawners/PlayerSpawner.prefab[PlayerSpawnerEntityView]
     - Path: AddressableResources/QuantumAssets/Characters/PlayerCharacter|EntityPrototype
       AssetRef:
         Id:
@@ -499,6 +504,11 @@ MonoBehaviour:
         Id:
           Value: 2190570854744983118
       Address: QuantumAssets/Characters/PlayerCharacter.prefab[PlayerCharacterEntityView]
+    - Path: AddressableResources/QuantumAssets/Spawners/PlayerSpawner|EntityPrototype
+      AssetRef:
+        Id:
+          Value: 2194276554936782103
+      Address: QuantumAssets/Spawners/PlayerSpawner.prefab[PlayerSpawnerEntityPrototype]
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|StatFunction_1
       AssetRef:
         Id:

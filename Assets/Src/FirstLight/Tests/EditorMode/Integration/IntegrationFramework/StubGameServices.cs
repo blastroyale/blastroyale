@@ -74,11 +74,12 @@ namespace FirstLight.Tests.EditorMode
 			IAPService = null;
 			GuidService = new GuidService();
 			PlayfabService = new StubPlayfabService();
-			MatchmakingService = new PlayfabMatchmakingService(PlayfabService);
+		
 			CommandService = new StubCommandService(gameLogic, dataProvider, this);
 			PoolService = new PoolService();
 			TickService = new StubTickService();
 			CoroutineService = new StubCoroutineService();
+			MatchmakingService = new PlayfabMatchmakingService(PlayfabService, CoroutineService);
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			NotificationService = Substitute.For<INotificationService>();
 		}

@@ -162,12 +162,13 @@ namespace FirstLight.Game.Services
 			GameModeService = new GameModeService(ConfigsProvider, ThreadService);
 			GuidService = new GuidService();
 			PlayfabService = new PlayfabService(gameLogic, messageBrokerService, GameConstants.Stats.LEADERBOARD_LADDER_NAME);
-			MatchmakingService = new PlayfabMatchmakingService(PlayfabService);
+		
 			LiveopsService = new LiveopsService(PlayfabService, ConfigsProvider, this, gameLogic.LiveopsLogic);
 			CommandService = new GameCommandService(PlayfabService, gameLogic, dataService, this);
 			PoolService = new PoolService();
 			TickService = new TickService();
 			CoroutineService = new CoroutineService();
+			MatchmakingService = new PlayfabMatchmakingService(PlayfabService, CoroutineService);
 			PlayerInputService = new PlayerInputService();
 			RemoteTextureService = new RemoteTextureService(CoroutineService, ThreadService);
 			IAPService = new IAPService(CommandService, MessageBrokerService, PlayfabService, AnalyticsService, gameLogic);

@@ -41,6 +41,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _loginRegisterTransitionEvent = new StatechartEvent("Login Register Transition Clicked Event");
 		private readonly IStatechartEvent _authSuccessEvent = new StatechartEvent("Authentication Success Event");
 		private readonly IStatechartEvent _authFailEvent = new StatechartEvent("Authentication Fail Generic Event");
+		private readonly IStatechartEvent _authFailContinueEvent = new StatechartEvent("Authentication Fail Continue Event");
 		private readonly IStatechartEvent _authFailMaintenanceEvent = new StatechartEvent("Authentication Fail Account Deleted Event");
 		private readonly IStatechartEvent _authFailOutdatedVersionEvent = new StatechartEvent("Authentication Fail Account Deleted Event");
 		private readonly IStatechartEvent _authFailAccountDeletedEvent = new StatechartEvent("Authentication Fail Account Deleted Event");
@@ -74,7 +75,7 @@ namespace FirstLight.Game.StateMachines
 			var authLoginGuest = stateFactory.State("Guest Login");
 			var autoAuthCheck = stateFactory.Choice("Auto Auth Check");
 			var authLoginDevice = stateFactory.State("Login Device Authentication");
-			var authFail = stateFactory.Wait("Authentication Fail Dialog");
+			var authFail = stateFactory.State("Authentication Fail Dialog");
 			var postAuthCheck = stateFactory.Choice("Post Authentication Checks");
 			var accountDeleted = stateFactory.Wait("Account Deleted Dialog");
 			var gameBlocked = stateFactory.State("Game Blocked Dialog");
@@ -87,7 +88,7 @@ namespace FirstLight.Game.StateMachines
 			autoAuthCheck.Transition().Condition(HasLinkedDevice).Target(authLoginDevice);
 			autoAuthCheck.Transition().Target(authLoginGuest);
 
-			authFail.WaitingFor(ShowAuthFailDialog).Target(autoAuthCheck);
+			authFail.Event(_authFailContinueEvent).Target(autoAuthCheck);
 
 			authLoginGuest.OnEnter(SetupLoginGuest);
 			authLoginGuest.Event(_authSuccessEvent).Target(final);
@@ -112,6 +113,16 @@ namespace FirstLight.Game.StateMachines
 			final.OnEnter(UnsubscribeEvents);
 		}
 
+		private void SubscribeEvents()
+		{
+			_services.MessageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuit);
+		}
+
+		private void UnsubscribeEvents()
+		{
+			_services.MessageBrokerService?.UnsubscribeAll(this);
+		}
+		
 		private bool IsAccountDeleted()
 		{
 			return _services.AuthenticationService.IsAccountDeleted();
@@ -126,22 +137,25 @@ namespace FirstLight.Game.StateMachines
 		{
 			return _services.GameBackendService.IsGameOutdated();
 		}
-
-		private void SubscribeEvents()
+		
+		private bool HasLinkedDevice()
 		{
-			_services.MessageBrokerService.Subscribe<ServerHttpErrorMessage>(OnConnectionError);
-			_services.MessageBrokerService.Subscribe<ApplicationQuitMessage>(OnApplicationQuit);
+			return !string.IsNullOrWhiteSpace(_dataService.GetData<AppData>().DeviceId);
 		}
-
-		private void UnsubscribeEvents()
+		
+		private void SetupBackendEnvironmentData()
 		{
-			_services.MessageBrokerService?.UnsubscribeAll(this);
+			_services.GameBackendService.SetupBackendEnvironment();
 		}
-
-		/// <summary>
-		/// Create a new account by a random customID
-		/// And links the current device to that account
-		/// </summary>
+		
+		private void LoginWithDevice()
+		{
+			_services.AuthenticationService.LoginWithDevice(OnAuthSuccess, error =>
+			{
+				OnAuthFail(error, true);
+			});
+		}
+		
 		private void SetupLoginGuest()
 		{
 			_services.AuthenticationService.LoginSetupGuest(OnAuthSuccess, (error) =>
@@ -159,20 +173,18 @@ namespace FirstLight.Game.StateMachines
 		{
 			_services.AuthenticationService.SetLinkedDevice(false);
 			OnPlayFabError(error, automaticLogin);
-			_statechartTrigger(_authFailEvent);
-		}
-
-		private void OnConnectionError(ServerHttpErrorMessage msg)
-		{
-			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Session,
-															   "Invalid Session Ticket:" + msg.Message);
-
-			if (msg.ErrorCode != HttpStatusCode.Unauthorized)
+			
+			// If unauthorized/session ticket expired, try to re-log without moving the state machine
+			if ((HttpStatusCode) error.HttpCode == HttpStatusCode.Unauthorized)
 			{
-				throw new PlayFabException(PlayFabExceptionCode.AuthContextRequired, msg.Message);
+				_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Session,
+					"Invalid Session Ticket:" + error.ErrorMessage);
+				
+				LoginWithDevice();
+				return;
 			}
-
-			LoginWithDevice();
+			
+			_statechartTrigger(_authFailEvent);
 		}
 
 		private void OnPlayFabError(PlayFabError error, bool automaticLogin)
@@ -189,7 +201,11 @@ namespace FirstLight.Game.StateMachines
 			var confirmButton = new GenericDialogButton
 			{
 				ButtonText = ScriptLocalization.General.OK,
-				ButtonOnClick = _services.GenericDialogService.CloseDialog
+				ButtonOnClick = () =>
+				{
+					_services.GenericDialogService.CloseDialog();
+					_statechartTrigger(_authFailContinueEvent);
+				}
 			};
 
 			if (error.ErrorDetails != null)
@@ -199,29 +215,6 @@ namespace FirstLight.Game.StateMachines
 
 			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, errorMessage,
 															false, confirmButton);
-		}
-
-		private bool HasLinkedDevice()
-		{
-			return !string.IsNullOrWhiteSpace(_dataService.GetData<AppData>().DeviceId);
-		}
-
-		private void LoginWithDevice()
-		{
-			_services.AuthenticationService.LoginWithDevice(OnAuthSuccess, (error) =>
-			{
-				OnAuthFail(error, true);
-			});
-		}
-
-		private void SetupBackendEnvironmentData()
-		{
-			_services.GameBackendService.SetupBackendEnvironment();
-		}
-		
-		private void ShowAuthFailDialog(IWaitActivity activity)
-		{
-			
 		}
 
 		private void OpenAccountDeletedDialog(IWaitActivity activity)

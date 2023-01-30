@@ -200,7 +200,7 @@ namespace FirstLight.Game.StateMachines
 		private void TryLogOut()
 		{
 			// TODO - ADD LOGOUT FUNCTION TO AUTH STATE
-			//_services.AuthenticationService.UnlinkDeviceID(OnUnlinkComplete);
+			_services.AuthenticationService.Logout(OnLogoutComplete, null);
 		}
 
 		private void OnConnectIdComplete(AddUsernamePasswordResult result)
@@ -259,11 +259,8 @@ namespace FirstLight.Game.StateMachines
 				confirmButton);
 		}
 
-		private void OnUnlinkComplete()
+		private void OnLogoutComplete()
 		{
-			_data.AppDataProvider.DeviceID.Value = "";
-			_services.HelpdeskService.Logout();
-
 			var title = ScriptLocalization.UITShared.info;
 			var desc = ScriptLocalization.UITSettings.logout_success_desc;
 

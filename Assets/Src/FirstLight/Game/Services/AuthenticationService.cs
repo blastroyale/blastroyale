@@ -56,7 +56,7 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Logs out of the current account. This includes unlinking the device, and logging out of other services
 		/// </summary>
-		void Logout(Action<LoginData> onSuccess, Action<PlayFabError> onError);
+		void Logout(Action onSuccess, Action<PlayFabError> onError);
 
 		/// <summary>
 		/// Registers the user on the backend with the provided credentials.
@@ -223,9 +223,12 @@ namespace FirstLight.Game.Services
 				(res) => ProcessAuthentication(res, loginData, onSuccess, onError), onError);
 		}
 
-		public void Logout(Action<LoginData> onSuccess, Action<PlayFabError> onError)
+		public void Logout(Action onSuccess, Action<PlayFabError> onError)
 		{
-			throw new NotImplementedException();
+			UnlinkDeviceID(() =>
+			{
+				_services.HelpdeskService.Logout();
+			}, onError);
 		}
 
 		public void RegisterWithEmail(string email, string username, string displayName, string password,

@@ -84,13 +84,13 @@ namespace FirstLight.Game.Services
 	public class PlayfabMatchmakingService : IMatchmakingService
 	{
 		private static string QUEUE_NAME = "flgranked"; // TODO: Drive from outside for multiple q 
-		private IPlayfabService _playfab;
+		private IGameBackendService _gameBackend;
 		private ICoroutineService _coroutines;
 		private MatchmakingPooling _pooling;
 		
-		public PlayfabMatchmakingService(IPlayfabService playfab, ICoroutineService coroutines)
+		public PlayfabMatchmakingService(IGameBackendService gameBackend, ICoroutineService coroutines)
 		{
-			_playfab = playfab;
+			_gameBackend = gameBackend;
 			_coroutines = coroutines;
 		}
 		
@@ -104,7 +104,7 @@ namespace FirstLight.Game.Services
 			PlayFabMultiplayerAPI.CancelAllMatchmakingTicketsForPlayer(new CancelAllMatchmakingTicketsForPlayerRequest()
 			{
 				QueueName = QUEUE_NAME
-			},null, _playfab.HandleError);
+			},null, _gameBackend.HandleError);
 			FLog.Verbose("Left Matchmaking");
 		}
 
@@ -114,7 +114,7 @@ namespace FirstLight.Game.Services
 			{
 				QueueName = QUEUE_NAME,
 				TicketId = ticket
-			}, callback, _playfab.HandleError);
+			}, callback, _gameBackend.HandleError);
 		}
 
 		public void GetMyTickets(Action<ListMatchmakingTicketsForPlayerResult> callback)
@@ -123,7 +123,7 @@ namespace FirstLight.Game.Services
 				{
 					QueueName = QUEUE_NAME
 				}, callback, 
-				_playfab.HandleError);
+				_gameBackend.HandleError);
 		}
 
 		public void JoinMatchmaking(MatchRoomSetup setup)
@@ -150,7 +150,7 @@ namespace FirstLight.Game.Services
 				_pooling = new MatchmakingPooling(r.TicketId, setup, this, _coroutines);
 				_pooling.Start();
 			},
-			_playfab.HandleError);
+			_gameBackend.HandleError);
 			
 		}
 

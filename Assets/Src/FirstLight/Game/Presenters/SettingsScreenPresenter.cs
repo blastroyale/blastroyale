@@ -37,6 +37,7 @@ namespace FirstLight.Game.Presenters
 		[SerializeField, Required] private UiToggleButtonView _dialogueToggle;
 		[SerializeField, Required] private UiToggleButtonView _hapticToggle;
 		[SerializeField, Required] private UiToggleButtonView _dynamicJoystickToggle;
+		[SerializeField, Required] private UiToggleButtonView _dynamicCameraToggle;
 		[SerializeField, Required] private UiToggleButtonView _highFpsToggle;
 		[SerializeField, Required] private DetailLevelToggleView _detailLevelView;
 		[SerializeField, Required] private Button _helpdesk;
@@ -67,6 +68,7 @@ namespace FirstLight.Game.Presenters
 			_dialogueToggle.onValueChanged.AddListener(OnDialogueChanged);
 			_hapticToggle.onValueChanged.AddListener(OnHapticChanged);
 			_dynamicJoystickToggle.onValueChanged.AddListener(OnDynamicJoystickChanged);
+			_dynamicCameraToggle.onValueChanged.AddListener(OnDynamicCameraChanged);
 			_highFpsToggle.onValueChanged.AddListener(OnHighFpsModeChanged);
 			_detailLevelView.ValueChanged += OnDetailLevelChanged;
 			_helpdesk.onClick.AddListener(OnHelpdeskButtonPressed);
@@ -87,6 +89,7 @@ namespace FirstLight.Game.Presenters
 			_dialogueToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsDialogueEnabled);
 			_hapticToggle.SetInitialValue(_gameDataProvider.AppDataProvider.IsHapticOn);
 			_dynamicJoystickToggle.SetInitialValue(_gameDataProvider.AppDataProvider.UseDynamicJoystick);
+			_dynamicCameraToggle.SetInitialValue(_gameDataProvider.AppDataProvider.UseDynamicCamera);
 			_highFpsToggle.SetInitialValue(_gameDataProvider.AppDataProvider.FpsTarget == GameConstants.Visuals.LOW_FPS_MODE_TARGET);
 			_detailLevelView.SetSelectedDetailLevel(_gameDataProvider.AppDataProvider.CurrentDetailLevel);
 			_logoutButton.gameObject.SetActive(FeatureFlags.EMAIL_AUTH);
@@ -179,7 +182,12 @@ namespace FirstLight.Game.Presenters
 		{
 			_gameDataProvider.AppDataProvider.UseDynamicJoystick = value;
 		}
-		
+
+		private void OnDynamicCameraChanged(bool value)
+		{
+			_gameDataProvider.AppDataProvider.UseDynamicCamera = value;
+		}
+
 		private void OnHighFpsModeChanged(bool value)
 		{
 			var targetFps = value

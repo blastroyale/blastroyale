@@ -100,7 +100,7 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc cref="IPartyService"/>
 		public IPartyService PartyService { get; }
 		
-		/// <inheritdoc cref="IPartyService"/>
+		/// <inheritdoc cref="IPlayfabPubSubService"/>
 		public IPlayfabPubSubService PlayfabPubSubService { get; }
 		
 		/// <summary>

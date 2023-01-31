@@ -61,7 +61,7 @@ MonoBehaviour:
       Id:
         Value: 0
     SourceCollider: {fileID: 0}
-    IsEnabled: 0
+    IsEnabled: 1
     Shape2D:
       ShapeType: 0
       PolygonCollider:

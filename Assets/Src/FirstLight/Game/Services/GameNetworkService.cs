@@ -7,8 +7,10 @@ using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
+using Photon.Deterministic;
 using Photon.Realtime;
 using Quantum;
+using UnityEngine;
 
 namespace FirstLight.Game.Services
 {
@@ -115,6 +117,11 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		/// <param name="isSpectator">Is player the spectator</param>
 		void SetSpectatePlayerProperty(bool isSpectator);
+		
+		/// <summary>
+		/// Sets the TeamID (for squads) in custom properties (-1 means solo).
+		/// </summary>
+		public void SetDropPosition(Vector2 dropPosition);
 
 		/// <summary>
 		/// Sets the current room <see cref="Room.IsOpen"/> property, which sets whether it can be joined or not
@@ -544,6 +551,18 @@ namespace FirstLight.Game.Services
 			{
 				QuantumClient.ReconnectToMaster();
 			}
+		}
+
+		public void SetDropPosition(Vector2 dropPosition)
+		{
+			var playerPropsUpdate = new Hashtable
+			{
+				{
+					GameConstants.Network.PLAYER_PROPS_DROP_POSITION, dropPosition
+				}
+			};
+
+			SetPlayerCustomProperties(playerPropsUpdate);
 		}
 
 		public void SetCurrentRoomOpen(bool isOpen)

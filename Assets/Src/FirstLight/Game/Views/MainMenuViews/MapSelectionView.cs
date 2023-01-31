@@ -130,7 +130,9 @@ namespace FirstLight.Game.Views.MainMenuViews
 			var localSize = _rectTransform.sizeDelta;
 			_selectedPoint.anchoredPosition = localPosition;
 			_selectedDropAreaText.text = mapGridConfigs.GetTranslation(gridConfig.AreaName);
-			_services.MatchmakingService.NormalizedMapSelectedPosition = new Vector2(localPosition.x / localSize.x, localPosition.y / localSize.y) * _dropSelectionSize;
+			var dropPosition = new Vector2(localPosition.x / localSize.x, localPosition.y / localSize.y) *
+				_dropSelectionSize;
+			_services.NetworkService.SetDropPosition(dropPosition);
 			_selectedDropAreaRoot.SetActive(gridConfig.IsValidNamedArea);
 		}
 

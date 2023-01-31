@@ -478,6 +478,19 @@ namespace FirstLight.Game.Utils
 		}
 		
 		/// <summary>
+		/// Requests the team id of the player (-1 for no team).
+		/// </summary>
+		public static Vector2 GetDropPosition(this Player player)
+		{
+			if (player.CustomProperties.TryGetValue(GameConstants.Network.PLAYER_PROPS_DROP_POSITION, out var dropPosition))
+			{
+				return (Vector2) dropPosition;
+			}
+
+			return Vector2.zero;
+		}
+		
+		/// <summary>
 		/// Requests to check if player has loaded core match assets
 		/// </summary>
 		public static bool LoadedCoreMatchAssets(this Player player)

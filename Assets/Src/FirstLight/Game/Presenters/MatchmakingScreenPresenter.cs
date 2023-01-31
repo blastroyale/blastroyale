@@ -45,6 +45,7 @@ namespace FirstLight.Game.Presenters
 		private VisualElement _mapImage;
 		private VisualElement _plane;
 		private VisualElement _squadContainer;
+		private VisualElement _partyMarkers;
 		private Label _squadLabel;
 		private ListView _squadMembersList;
 		private Label _mapMarkerTitle;
@@ -100,6 +101,7 @@ namespace FirstLight.Game.Presenters
 			_squadContainer = root.Q("SquadContainer").Required();
 			_squadLabel = root.Q<Label>("SquadLabel").Required();
 			_squadMembersList = root.Q<ListView>("SquadList").Required();
+			_partyMarkers = root.Q("PartyMarkers").Required();
 
 			_squadMembersList.DisableScrollbars();
 			_squadMembersList.makeItem = CreateSquadListEntry;
@@ -131,7 +133,8 @@ namespace FirstLight.Game.Presenters
 			if (!string.IsNullOrEmpty(partyId))
 			{
 				_squadContainer.SetDisplay(true);
-				_squadMembers = _services.NetworkService.CurrentRoom.Players.Values.Where(p => p.GetPartyId() == partyId)
+				_squadMembers = _services.NetworkService.CurrentRoom.Players.Values
+					.Where(p => p.GetPartyId() == partyId)
 					.ToList();
 
 				_squadMembersList.itemsSource = _squadMembers;
@@ -140,11 +143,32 @@ namespace FirstLight.Game.Presenters
 				_squadLabel.text = Debug.isDebugBuild
 					? $"{ScriptLocalization.UITMatchmaking.squad} [{partyId}]"
 					: ScriptLocalization.UITMatchmaking.squad;
+
+				RefreshPartyMarkers();
 			}
 			else
 			{
 				_squadContainer.SetDisplay(false);
 				_squadMembers.Clear();
+			}
+		}
+
+		private void RefreshPartyMarkers()
+		{
+			_partyMarkers.Clear();
+
+			foreach (var squadMember in _squadMembers)
+			{
+				if (squadMember.IsLocal) continue;
+				
+				var memberDropPosition = squadMember.GetDropPosition();
+				var marker = new VisualElement {name = "marker"};
+				marker.AddToClassList("map-marker-party");
+				var mapWidth = _mapImage.contentRect.width;
+				var markerPos = new Vector2(memberDropPosition.x * mapWidth, -memberDropPosition.y * mapWidth);
+
+				_partyMarkers.Add(marker);
+				marker.transform.position = markerPos;
 			}
 		}
 
@@ -197,7 +221,7 @@ namespace FirstLight.Game.Presenters
 
 			// Get normalized position for spawn positions in quantum, -0.5 to 0.5 range
 			var quantumSelectPos = new Vector2(localPos.x / mapWidth, -localPos.y / mapWidth);
-			_services.MatchmakingService.NormalizedMapSelectedPosition = quantumSelectPos;
+			_services.NetworkService.SetDropPosition(quantumSelectPos);
 
 			// Get normalized position for the whole map, 0-1 range, used for grid configs
 			var mapNormX = Mathf.InverseLerp(-mapWidthHalf, mapWidthHalf, localPos.x);

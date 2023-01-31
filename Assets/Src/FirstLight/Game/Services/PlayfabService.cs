@@ -14,6 +14,7 @@ using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using Newtonsoft.Json;
+using ParrelSync;
 using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
@@ -36,20 +37,20 @@ namespace FirstLight.Game.Services
 		/// Requests current top leaderboard entries
 		/// </summary>
 		void GetTopRankLeaderboard(int amountOfEntries, Action<GetLeaderboardResult> onSuccess = null,
-		                           Action<PlayFabError> onError = null);
+								   Action<PlayFabError> onError = null);
 
 		/// <summary>
 		/// Requests leaderboard entries around player with ID <paramref name="playfabID"/>
 		/// </summary>
 		void GetNeighborRankLeaderboard(int amountOfEntries,
-		                                Action<GetLeaderboardAroundPlayerResult> onSuccess = null,
-		                                Action<PlayFabError> onError = null);
+										Action<GetLeaderboardAroundPlayerResult> onSuccess = null,
+										Action<PlayFabError> onError = null);
 
 		/// <summary>
 		/// Calls the given cloudscript function with the given arguments.
 		/// </summary>
 		void CallFunction(string functionName, Action<ExecuteFunctionResult> onSuccess = null,
-		                  Action<PlayFabError> onError = null, object parameter = null);
+						  Action<PlayFabError> onError = null, object parameter = null);
 
 		/// <summary>
 		/// Unlinks this device current account
@@ -65,8 +66,8 @@ namespace FirstLight.Game.Services
 		/// Updates anonymous account with provided registration data
 		/// </summary>
 		void AttachLoginDataToAccount(string email, string username, string password,
-		                              Action<AddUsernamePasswordResult> successCallback = null,
-		                              Action<PlayFabError> errorCallback = null);
+									  Action<AddUsernamePasswordResult> successCallback = null,
+									  Action<PlayFabError> errorCallback = null);
 
 		/// <summary>
 		/// Reads the specific title data by the given key.
@@ -120,10 +121,7 @@ namespace FirstLight.Game.Services
 
 		public void GetPlayerSegments(Action<List<GetSegmentResult>> callback)
 		{
-			PlayFabClientAPI.GetPlayerSegments(new GetPlayerSegmentsRequest(), r =>
-			{
-				callback(r.Segments);
-			}, HandleError);
+			PlayFabClientAPI.GetPlayerSegments(new GetPlayerSegmentsRequest(), r => { callback(r.Segments); }, HandleError);
 		}
 
 		/// <inheritdoc />
@@ -139,11 +137,11 @@ namespace FirstLight.Game.Services
 			}
 		}
 
-		public void CheckIfRewardsMatch(Action<bool> callback) 
+		public void CheckIfRewardsMatch(Action<bool> callback)
 		{
 			PlayFabClientAPI.GetUserReadOnlyData(new GetUserDataRequest()
 			{
-				Keys = new List<string>() { typeof(PlayerData).FullName }
+				Keys = new List<string>() {typeof(PlayerData).FullName}
 			}, result =>
 			{
 				var modelJson = result.Data[typeof(PlayerData).FullName].Value;
@@ -154,8 +152,8 @@ namespace FirstLight.Game.Services
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
 				if (!inSync)
 				{
-					FLog.Error("Client Rewards: "+ModelSerializer.Serialize(clientState));
-					FLog.Error("Server Rewards: "+ModelSerializer.Serialize(serverState));
+					FLog.Error("Client Rewards: " + ModelSerializer.Serialize(clientState));
+					FLog.Error("Server Rewards: " + ModelSerializer.Serialize(serverState));
 				}
 #endif
 				callback(inSync);
@@ -164,7 +162,7 @@ namespace FirstLight.Game.Services
 
 		/// <inheritdoc />
 		public void GetTopRankLeaderboard(int amountOfEntries,
-		                                  Action<GetLeaderboardResult> onSuccess, Action<PlayFabError> onError = null)
+										  Action<GetLeaderboardResult> onSuccess, Action<PlayFabError> onError = null)
 		{
 			var leaderboardRequest = new GetLeaderboardRequest()
 			{
@@ -174,16 +172,16 @@ namespace FirstLight.Game.Services
 			};
 
 			PlayFabClientAPI.GetLeaderboard(leaderboardRequest, onSuccess, (error =>
-				                                                               {
-					                                                               onError?.Invoke(error);
-					                                                               HandleError(error);
-				                                                               }));
+			{
+				onError?.Invoke(error);
+				HandleError(error);
+			}));
 		}
 
 		/// <inheritdoc />
 		public void GetNeighborRankLeaderboard(int amountOfEntries,
-		                                       Action<GetLeaderboardAroundPlayerResult> onSuccess = null,
-		                                       Action<PlayFabError> onError = null)
+											   Action<GetLeaderboardAroundPlayerResult> onSuccess = null,
+											   Action<PlayFabError> onError = null)
 		{
 			var neighborLeaderboardRequest = new GetLeaderboardAroundPlayerRequest()
 			{
@@ -192,15 +190,15 @@ namespace FirstLight.Game.Services
 			};
 
 			PlayFabClientAPI.GetLeaderboardAroundPlayer(neighborLeaderboardRequest, onSuccess, (error =>
-					                                            {
-						                                            onError?.Invoke(error);
-						                                            HandleError(error);
-					                                            }));
+			{
+				onError?.Invoke(error);
+				HandleError(error);
+			}));
 		}
 
 		/// <inheritdoc />
 		public void CallFunction(string functionName, Action<ExecuteFunctionResult> onSuccess = null,
-		                         Action<PlayFabError> onError = null, object parameter = null)
+								 Action<PlayFabError> onError = null, object parameter = null)
 		{
 			var request = new ExecuteFunctionRequest
 			{
@@ -217,6 +215,7 @@ namespace FirstLight.Game.Services
 				{
 					throw exception;
 				}
+
 				onSuccess(res);
 			}, onError ?? HandleError);
 		}
@@ -232,6 +231,7 @@ namespace FirstLight.Game.Services
 			{
 				return new Exception(error.ToString());
 			}
+
 			return null;
 		}
 
@@ -249,7 +249,7 @@ namespace FirstLight.Game.Services
 
 		public void UpdateContactEmail(string newEmail, Action<AddOrUpdateContactEmailResult> callback = null)
 		{
-			FLog.Info("Updating user email to "+newEmail);
+			FLog.Info("Updating user email to " + newEmail);
 			var emailUpdate = new AddOrUpdateContactEmailRequest()
 			{
 				EmailAddress = newEmail
@@ -262,9 +262,9 @@ namespace FirstLight.Game.Services
 			PlayFabClientAPI.GetUserReadOnlyData(new GetUserDataRequest(), result =>
 			{
 				callback.Invoke(new ServerState(result.Data
-				                               .ToDictionary(entry => entry.Key,
-				                                             entry =>
-					                                             entry.Value.Value)));
+					.ToDictionary(entry => entry.Key,
+						entry =>
+							entry.Value.Value)));
 			}, HandleError);
 		}
 
@@ -287,10 +287,12 @@ namespace FirstLight.Game.Services
 		/// <inheritdoc />
 		public void LinkDeviceID(Action successCallback = null, Action<PlayFabError> errorCallback = null)
 		{
+			var deviceId = PlayFabSettings.DeviceUniqueIdentifier;
 #if UNITY_EDITOR
+			deviceId = UnityDeviceID();
 			var link = new LinkCustomIDRequest
 			{
-				CustomId = PlayFabSettings.DeviceUniqueIdentifier,
+				CustomId = deviceId,
 				ForceLink = true
 			};
 
@@ -319,7 +321,7 @@ namespace FirstLight.Game.Services
 #endif
 			void OnSuccess()
 			{
-				_dataProvider.AppDataProvider.DeviceID.Value = PlayFabSettings.DeviceUniqueIdentifier;
+				_dataProvider.AppDataProvider.DeviceID.Value = deviceId;
 				successCallback?.Invoke();
 			}
 		}
@@ -330,7 +332,7 @@ namespace FirstLight.Game.Services
 #if UNITY_EDITOR
 			var unlinkRequest = new UnlinkCustomIDRequest
 			{
-				CustomId = PlayFabSettings.DeviceUniqueIdentifier
+				CustomId = UnityDeviceID()
 			};
 
 			PlayFabClientAPI.UnlinkCustomID(unlinkRequest, _ => OnSuccess(), errorCallback);
@@ -358,8 +360,8 @@ namespace FirstLight.Game.Services
 
 		/// <inheritdoc />
 		public void AttachLoginDataToAccount(string email, string username, string password,
-		                                     Action<AddUsernamePasswordResult> successCallback = null,
-		                                     Action<PlayFabError> errorCallback = null)
+											 Action<AddUsernamePasswordResult> successCallback = null,
+											 Action<PlayFabError> errorCallback = null)
 		{
 			var addUsernamePasswordRequest = new AddUsernamePasswordRequest
 			{
@@ -367,7 +369,7 @@ namespace FirstLight.Game.Services
 				Username = username,
 				Password = password
 			};
-		
+
 
 			PlayFabClientAPI.AddUsernamePassword(addUsernamePasswordRequest, OnSuccess, errorCallback);
 
@@ -376,6 +378,17 @@ namespace FirstLight.Game.Services
 				_dataProvider.AppDataProvider.LastLoginEmail.Value = email;
 				successCallback?.Invoke(result);
 			}
+		}
+
+		private String UnityDeviceID()
+		{
+			var id = SystemInfo.deviceUniqueIdentifier;
+			if (ClonesManager.IsClone())
+			{
+				id += "_clone_" + ClonesManager.GetArgument();
+			}
+
+			return id;
 		}
 	}
 }

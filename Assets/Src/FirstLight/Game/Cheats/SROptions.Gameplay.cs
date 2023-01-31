@@ -110,16 +110,15 @@ public partial class SROptions
 	}
 
 	[Category("Gameplay")]
-	public void SendGlobalPingSelf()
+	public void SendTeamPingSelf()
 	{
-		QuantumRunner.Default.Game.SendCommand(new SquadPositionPingCommand()
+		QuantumRunner.Default.Game.SendCommand(new TeamPositionPingCommand()
 		{
 			Position = MainInstaller.Resolve<IMatchServices>().SpectateService.SpectatedPlayer.Value.Transform.position.ToFPVector3(),
-			TeamId = -1
+			Type = TeamPingType.General
 		});
 	}
-	
-	
+
 	[Category("Gameplay")]
 	public void CrashUnity()
 	{

@@ -116,14 +116,14 @@ namespace FirstLight.Game.Views.MatchHudViews
 			QuantumEvent.Subscribe<EventOnAirDropCollected>(this, OnAirDropCollected);
 			QuantumEvent.Subscribe<EventOnRadarUsed>(this, OnRadarUsed);
 			QuantumEvent.Subscribe<EventOnRadarUsed>(this, OnRadarUsed);
-			QuantumEvent.Subscribe<EventOnSquadPositionPing>(this, OnSquadPositionPing);
+			QuantumEvent.Subscribe<EventOnTeamPositionPing>(this, OnTeamPositionPing);
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
 
 			_button.onClick.AddListener(OnClick);
 			_fullScreenButton.onClick.AddListener(OnClick);
 		}
 
-		private void OnSquadPositionPing(EventOnSquadPositionPing e)
+		private void OnTeamPositionPing(EventOnTeamPositionPing e)
 		{
 			if (e.TeamId < 0 || _matchServices.SpectateService.SpectatedPlayer.Value.Team == e.TeamId)
 			{

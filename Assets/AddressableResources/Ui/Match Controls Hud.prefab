@@ -1300,7 +1300,7 @@ GameObject:
   - component: {fileID: 4612545893034230647}
   - component: {fileID: 9095209901730900834}
   - component: {fileID: 5648126086205139904}
-  - component: {fileID: 3288673869351344362}
+  - component: {fileID: 8804306511667697782}
   m_Layer: 5
   m_Name: PingButton
   m_TagString: Untagged
@@ -1425,7 +1425,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &3288673869351344362
+--- !u!114 &8804306511667697782
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1434,10 +1434,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6494548628775504461}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d54531977ecb194c95e2d3aa7a5d72a, type: 3}
+  m_Script: {fileID: 11500000, guid: aabdf877a1464429aef20f4e393c24c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ControlPath: <OnScreenControlsDevice>/SquadPositionPing
+  _controlPath: <OnScreenControlsDevice>/TeamPositionPing
 --- !u!1 &6796246772796758147
 GameObject:
   m_ObjectHideFlags: 0

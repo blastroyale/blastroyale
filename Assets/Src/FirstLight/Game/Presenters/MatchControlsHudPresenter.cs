@@ -13,8 +13,6 @@ using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Button = UnityEngine.UI.Button;
-using ExitGames.Client.Photon.StructWrapping;
 using FirstLight.Game.Views;
 
 namespace FirstLight.Game.Presenters
@@ -72,7 +70,7 @@ namespace FirstLight.Game.Presenters
 			QuantumEvent.Subscribe<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
 			QuantumCallback.Subscribe<CallbackUpdateView>(this, OnUpdateView);
 			QuantumCallback.Subscribe<CallbackPollInput>(this, PollInput);
-			
+
 			_pingButton.gameObject.SetActive(FeatureFlags.SQUAD_PINGS);
 		}
 
@@ -183,16 +181,38 @@ namespace FirstLight.Game.Presenters
 			QuantumRunner.Default.Game.SendCommand(new WeaponSlotSwitchCommand {WeaponSlotIndex = slotIndexToSwitch});
 		}
 
-		public void OnSquadPositionPing(InputAction.CallbackContext context)
+		public void OnTeamPositionPing(InputAction.CallbackContext context)
 		{
-			if (!_allowPing || !context.ReadValueAsButton()) return;
+			if (!_allowPing ||
+				(context.control.device is not OnScreenControlsDevice && context.ReadValueAsButton())) return;
 
-			var player = _matchServices.SpectateService.SpectatedPlayer.Value;
-			QuantumRunner.Default.Game.SendCommand(new SquadPositionPingCommand()
+			var command = new TeamPositionPingCommand();
+
+			if (context.control.device is OnScreenControlsDevice || !context.ReadValueAsButton())
 			{
-				Position = player.Transform.position.ToFPVector3(),
-				TeamId = player.Team
-			});
+				// OnScreen drag & drop
+				var screenPosition = context.ReadValue<Vector2>();
+				var ray = Camera.main.ScreenPointToRay(screenPosition);
+				if (Physics.Raycast(ray, out var hitInfo))
+				{
+					// TODO: Add types of pings here
+					command.Position = hitInfo.point.ToFPVector3();
+					command.Type = TeamPingType.General;
+				}
+				else
+				{
+					return;
+				}
+			}
+			else
+			{
+				// Controller
+				var player = _matchServices.SpectateService.SpectatedPlayer.Value;
+				command.Position = player.Transform.position.ToFPVector3();
+				command.Type = TeamPingType.General;
+			}
+
+			QuantumRunner.Default.Game.SendCommand(command);
 
 			_allowPing = false;
 			DOVirtual.DelayedCall(2f, () => _allowPing = true);

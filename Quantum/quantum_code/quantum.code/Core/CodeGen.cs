@@ -334,6 +334,12 @@ namespace Quantum {
     Nearest = 1,
     Furthest = 2,
   }
+  public enum TeamPingType : int {
+    General,
+    Chest,
+    Player,
+    Equipment,
+  }
   public enum TeamType : int {
     Player,
     Enemy,
@@ -5229,7 +5235,7 @@ namespace Quantum {
           case EventOnSpellHit.ID: return typeof(EventOnSpellHit);
           case EventOnSpellAdded.ID: return typeof(EventOnSpellAdded);
           case EventOnSpellRemoved.ID: return typeof(EventOnSpellRemoved);
-          case EventOnSquadPositionPing.ID: return typeof(EventOnSquadPositionPing);
+          case EventOnTeamPositionPing.ID: return typeof(EventOnTeamPositionPing);
           case EventOnHealthChanged.ID: return typeof(EventOnHealthChanged);
           case EventOnDamageBlocked.ID: return typeof(EventOnDamageBlocked);
           case EventOnShieldChanged.ID: return typeof(EventOnShieldChanged);
@@ -5526,12 +5532,13 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnSquadPositionPing OnSquadPositionPing(EntityRef Entity, Int32 TeamId, FPVector3 Position) {
+      public EventOnTeamPositionPing OnTeamPositionPing(EntityRef Entity, Int32 TeamId, FPVector3 Position, TeamPingType Type) {
         if (_f.IsPredicted) return null;
-        var ev = _f.Context.AcquireEvent<EventOnSquadPositionPing>(EventOnSquadPositionPing.ID);
+        var ev = _f.Context.AcquireEvent<EventOnTeamPositionPing>(EventOnTeamPositionPing.ID);
         ev.Entity = Entity;
         ev.TeamId = TeamId;
         ev.Position = Position;
+        ev.Type = Type;
         _f.AddEvent(ev);
         return ev;
       }
@@ -6948,15 +6955,16 @@ namespace Quantum {
       }
     }
   }
-  public unsafe partial class EventOnSquadPositionPing : EventBase {
+  public unsafe partial class EventOnTeamPositionPing : EventBase {
     public new const Int32 ID = 28;
     public EntityRef Entity;
     public Int32 TeamId;
     public FPVector3 Position;
-    protected EventOnSquadPositionPing(Int32 id, EventFlags flags) : 
+    public TeamPingType Type;
+    protected EventOnTeamPositionPing(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnSquadPositionPing() : 
+    public EventOnTeamPositionPing() : 
         base(28, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -6973,6 +6981,7 @@ namespace Quantum {
         hash = hash * 31 + Entity.GetHashCode();
         hash = hash * 31 + TeamId.GetHashCode();
         hash = hash * 31 + Position.GetHashCode();
+        hash = hash * 31 + Type.GetHashCode();
         return hash;
       }
     }
@@ -9009,6 +9018,7 @@ namespace Quantum {
       Register(typeof(Quantum.Stun), Quantum.Stun.SIZE);
       Register(typeof(Quantum.Targetable), Quantum.Targetable.SIZE);
       Register(typeof(Quantum.TargetingType), 4);
+      Register(typeof(Quantum.TeamPingType), 4);
       Register(typeof(Quantum.TeamType), 4);
       Register(typeof(Transform2D), Transform2D.SIZE);
       Register(typeof(Transform2DVertical), Transform2DVertical.SIZE);
@@ -9089,6 +9099,7 @@ namespace Quantum {
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.StatType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.StatusModifierType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.TargetingType>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.TeamPingType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.TeamType>();
     }
   }
@@ -9402,6 +9413,17 @@ namespace Quantum.Prototypes {
     }
     public static implicit operator TargetingType_Prototype(TargetingType value) {
         return new TargetingType_Prototype() { Value = (Int32)value };
+    }
+  }
+  [System.SerializableAttribute()]
+  [Prototype(typeof(TeamPingType))]
+  public unsafe partial struct TeamPingType_Prototype {
+    public Int32 Value;
+    public static implicit operator TeamPingType(TeamPingType_Prototype value) {
+        return (TeamPingType)value.Value;
+    }
+    public static implicit operator TeamPingType_Prototype(TeamPingType value) {
+        return new TeamPingType_Prototype() { Value = (Int32)value };
     }
   }
   [System.SerializableAttribute()]

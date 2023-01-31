@@ -200,7 +200,7 @@
     <Compile Include="Commands\PlayerQuitCommand.cs" />
     <Compile Include="Commands\PlayerRespawnCommand.cs" />
     <Compile Include="Commands\SpecialUsedCommand.cs" />
-    <Compile Include="Commands\SquadPositionPingCommand.cs" />
+    <Compile Include="Commands\TeamPositionPingCommand.cs" />
     <Compile Include="Commands\WeaponSlotSwitchCommand.cs" />
     <Compile Include="Components\AirDrop.cs" />
     <Compile Include="Components\ChestOverride.cs" />
@@ -333,7 +333,7 @@
     <Content Include="Components\PlayerCharacter.qtn" />
     <Content Include="Components\Specials.qtn" />
     <Content Include="Components\Spell.qtn" />
-    <Content Include="Components\Squad.qtn" />
+    <Content Include="Components\Team.qtn" />
     <Content Include="Components\Stats.qtn" />
     <Content Include="Components\StatusModifiers.qtn" />
     <Content Include="Components\Targetable.qtn" />

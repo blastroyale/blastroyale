@@ -21,7 +21,7 @@ namespace Quantum
 			factories.Add(new CheatCollectablePlatformSpawnCommand());
 			factories.Add(new CheatDummySpawnCommand());
 			factories.Add(new WeaponSlotSwitchCommand());
-			factories.Add(new SquadPositionPingCommand());
+			factories.Add(new TeamPositionPingCommand());
 		}
 	}
 }

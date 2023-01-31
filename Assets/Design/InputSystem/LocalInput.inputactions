@@ -78,10 +78,10 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SquadPositionPing",
-                    "type": "Button",
-                    "id": "c8594f4b-d139-4c04-938e-5205610d1afb",
-                    "expectedControlType": "Button",
+                    "name": "TeamPositionPing",
+                    "type": "PassThrough",
+                    "id": "f9fe89c8-02ab-4fb2-bda6-b97bc6a9a571",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -475,23 +475,23 @@
                 },
                 {
                     "name": "",
-                    "id": "f01bab48-e245-4e4e-9f2b-4c0b41bde323",
+                    "id": "9f700ac2-a6e2-4027-a518-c0f34d131569",
                     "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SquadPositionPing",
+                    "action": "TeamPositionPing",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "102bc41b-5ec8-446a-b3c6-ea43b0f00e51",
-                    "path": "<OnScreenControlsDevice>/SquadPositionPing",
+                    "id": "61d17494-6438-463e-94e8-ed01277c7322",
+                    "path": "<OnScreenControlsDevice>/TeamPositionPing",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SquadPositionPing",
+                    "action": "TeamPositionPing",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -168,45 +168,27 @@ namespace FirstLight.Game.StateMachines
 
 		private void OpenConnectIdUI()
 		{
-			var data = new ConnectIdScreenPresenter.StateData
+			var data = new ConnectFlgIdScreenPresenter.StateData
 			{
-				ConnectClicked = TryConnectId,
+				//AuthLoginSuccess = conne,
 				BackClicked = () => _statechartTrigger(_connectIdBackEvent)
 			};
 
-			_uiService.OpenUiAsync<ConnectIdScreenPresenter, ConnectIdScreenPresenter.StateData>(data);
+			_uiService.OpenUiAsync<ConnectFlgIdScreenPresenter, ConnectFlgIdScreenPresenter.StateData>(data);
 		}
 
 		private void CloseConnectUI()
 		{
-			_uiService.CloseUi<ConnectIdScreenPresenter>();
-		}
-
-		private void SetConnectIdDim(bool activateDim)
-		{
-			if (_uiService.HasUiPresenter<ConnectIdScreenPresenter>())
-			{
-				_uiService.GetUi<ConnectIdScreenPresenter>().SetFrontDimBlockerActive(activateDim);
-			}
-		}
-
-		private void TryConnectId(string email, string username, string password)
-		{
-			SetConnectIdDim(true);
-			_services.AuthenticationService.AttachLoginDataToAccount(email, username, password, OnConnectIdComplete,
-				OnConnectIdError);
+			_uiService.CloseUi<ConnectFlgIdScreenPresenter>();
 		}
 
 		private void TryLogOut()
 		{
-			// TODO - ADD LOGOUT FUNCTION TO AUTH STATE
 			_services.AuthenticationService.Logout(OnLogoutComplete, null);
 		}
 
 		private void OnConnectIdComplete(AddUsernamePasswordResult result)
 		{
-			_services.GameBackendService.UpdateDisplayName(result.Username, OnUpdateNicknameComplete,
-				OnUpdateNicknameError);
 			_statechartTrigger(_connectIdSuccessEvent);
 		}
 
@@ -225,12 +207,10 @@ namespace FirstLight.Game.StateMachines
 			};
 			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, error.ErrorMessage,
 				false, confirmButton);
-			SetConnectIdDim(false);
 		}
 
 		private void OnUpdateNicknameComplete(UpdateUserTitleDisplayNameResult result)
 		{
-			SetConnectIdDim(false);
 			_statechartTrigger(_connectIdBackEvent);
 			OpenFlgIdSuccessPopup();
 
@@ -241,7 +221,6 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnUpdateNicknameError(PlayFabError error)
 		{
-			SetConnectIdDim(false);
 			_statechartTrigger(_connectIdBackEvent);
 			OpenFlgIdSuccessPopup();
 		}

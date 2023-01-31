@@ -67,19 +67,24 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		void RegisterWithEmail(string email, string username, string displayName, string password,
 							   Action<LoginData> onSuccess, Action<PlayFabError> onError);
+		
+		/// <summary>
+		/// Updates anonymous account with provided registration data
+		/// </summary>
+		void AttachLoginDataToAccount(string email, string username, string password,
+									  Action<AddUsernamePasswordResult> onSuccess = null,
+									  Action<PlayFabError> onError = null);
 
+		/// <summary>
+		/// Sends account recovery email to the specified address. 
+		/// </summary>
+		void SendAccountRecoveryEmail(string email, Action onSuccess, Action<PlayFabError> onError);
+		
 		/// <summary>
 		/// Requests to check if the current authenticated account is flagged for deletion
 		/// </summary>
 		/// <returns></returns>
 		bool IsAccountDeleted();
-
-		/// <summary>
-		/// Updates anonymous account with provided registration data
-		/// </summary>
-		void AttachLoginDataToAccount(string email, string username, string password,
-									  Action<AddUsernamePasswordResult> successCallback = null,
-									  Action<PlayFabError> errorCallback = null);
 
 		/// <summary>
 		/// Sets linked device to the current device context.
@@ -500,8 +505,8 @@ namespace FirstLight.Game.Services
 		}
 
 		public void AttachLoginDataToAccount(string email, string username, string password,
-											 Action<AddUsernamePasswordResult> successCallback = null,
-											 Action<PlayFabError> errorCallback = null)
+											 Action<AddUsernamePasswordResult> onSuccess = null,
+											 Action<PlayFabError> onError = null)
 		{
 			var addUsernamePasswordRequest = new AddUsernamePasswordRequest
 			{
@@ -509,15 +514,29 @@ namespace FirstLight.Game.Services
 				Username = username,
 				Password = password
 			};
-
-
-			PlayFabClientAPI.AddUsernamePassword(addUsernamePasswordRequest, OnSuccess, errorCallback);
+			
+			PlayFabClientAPI.AddUsernamePassword(addUsernamePasswordRequest, OnSuccess, onError);
 
 			void OnSuccess(AddUsernamePasswordResult result)
 			{
 				_dataProvider.AppDataProvider.LastLoginEmail.Value = email;
-				successCallback?.Invoke(result);
+				_services.GameBackendService.UpdateDisplayName(result.Username, null, null);
+				
+				onSuccess?.Invoke(result);
 			}
+		}
+
+		public void SendAccountRecoveryEmail(string email, Action onSuccess, Action<PlayFabError> onError)
+		{
+			SendAccountRecoveryEmailRequest request = new SendAccountRecoveryEmailRequest()
+			{
+				TitleId = PlayFabSettings.TitleId,
+				Email = email,
+				EmailTemplateId = _services.GameBackendService.CurrentEnvironmentData.RecoveryEmailTemplateID,
+				AuthenticationContext = PlayFabSettings.staticPlayer
+			};
+
+			PlayFabClientAPI.SendAccountRecoveryEmail(request, _ => { onSuccess?.Invoke(); }, onError);
 		}
 
 		public void SetLinkedDevice(bool linked)

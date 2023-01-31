@@ -42,7 +42,7 @@
     <AllowedReferenceRelatedFileExtensions>.pdb</AllowedReferenceRelatedFileExtensions>
   </PropertyGroup>
   <ItemGroup>
-	  <PackageReference Include="NuGet.Build.Tasks.Pack" Version="5.2.0"/>
+	  <PackageReference Include="NuGet.Build.Tasks.Pack" Version="5.2.0" />
     <Reference Include="Sirenix.OdinInspector.Attributes">
       <HintPath>..\..\..\Assets\Libs\Odin\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Attributes.dll</HintPath>
     </Reference>
@@ -265,6 +265,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Systems\AiPreUpdateSystem.cs" />
     <Compile Include="Systems\AirDropSystem.cs" />
+    <Compile Include="Systems\GateSystem.cs" />
     <Compile Include="Systems\PlayerChargingSystem.cs" />
     <Compile Include="Systems\PreRaycastShotSytem.cs" />
     <Compile Include="Systems\RaycastShotsSystem.cs" />
@@ -313,6 +314,7 @@
     <Content Include="Components\AirDrop.qtn" />
     <Content Include="Components\Chest.qtn" />
     <Content Include="Components\DummyCharacter.qtn" />
+    <Content Include="Components\Gates.qtn" />
     <Content Include="Components\RaycastShots.qtn" />
     <Content Include="Components\ShrinkingCircle.qtn" />
     <Content Include="Components\BotCharacter.qtn" />

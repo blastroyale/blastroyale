@@ -1,0 +1,13 @@
+component Gate{
+	[HideInInspector] bool IsOpening;
+	[HideInInspector] FP TimeToOpen;
+	
+    FP OpeningTime;
+    int PlayersAlive;
+}
+
+synced event OnGateStartOpening
+{
+	entity_ref Entity;
+	FP OpeningTime;
+}

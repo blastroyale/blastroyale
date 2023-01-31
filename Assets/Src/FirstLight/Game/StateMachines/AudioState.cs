@@ -85,6 +85,7 @@ namespace FirstLight.Game.StateMachines
 			mainMenu.OnEnter(TransitionAudioMixerMain);
 			mainMenu.OnEnter(TryPlayMainMenuMusic);
 			mainMenu.Event(NetworkState.JoinedRoomEvent).Target(matchmaking);
+			mainMenu.Event(NetworkState.JoinedMatchmakingEvent).Target(matchmaking);
 
 			matchmaking.OnEnter(TryPlayLobbyMusic);
 			matchmaking.OnEnter(TransitionAudioMixerLobby);
@@ -134,6 +135,7 @@ namespace FirstLight.Game.StateMachines
 			disconnected.OnEnter(StopMusicInstant);
 			disconnected.Event(MainMenuState.MainMenuLoadedEvent).Target(mainMenu);
 			disconnected.Event(NetworkState.JoinedRoomEvent).Target(matchmaking);
+			disconnected.Event(NetworkState.JoinedMatchmakingEvent).Target(matchmaking);
 		}
 
 		private void SubscribeMessages()

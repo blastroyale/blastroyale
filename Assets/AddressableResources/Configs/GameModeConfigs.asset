@@ -35,6 +35,8 @@ MonoBehaviour:
       DescriptionLocalisationKey: MainMenu/BattleRoyaleDescription
       Lives: 1
       DropWeaponOnPickup: 1
+      AirdropNearPlayer: 0
+      ShrinkingCircleCenteredOnPlayer: 0
       SpawnWithGear: 0
       SpawnWithWeapon: 0
       SkydiveSpawn: 1
@@ -46,6 +48,7 @@ MonoBehaviour:
       BotSearchForCrates: 1
       BotRespawn: 0
       BotWeaponSearchStrategy: 1
+      BotsTeamOverride: 0
       GameSimulationStateMachine: 1
       AudioStateMachine: 1
       CompletionStrategy: 1
@@ -72,6 +75,8 @@ MonoBehaviour:
       DescriptionLocalisationKey: MainMenu/DeathmatchDescription
       Lives: 0
       DropWeaponOnPickup: 0
+      AirdropNearPlayer: 0
+      ShrinkingCircleCenteredOnPlayer: 0
       SpawnWithGear: 1
       SpawnWithWeapon: 0
       SkydiveSpawn: 0
@@ -83,6 +88,7 @@ MonoBehaviour:
       BotSearchForCrates: 0
       BotRespawn: 1
       BotWeaponSearchStrategy: 2
+      BotsTeamOverride: 0
       GameSimulationStateMachine: 0
       AudioStateMachine: 0
       CompletionStrategy: 2
@@ -107,6 +113,8 @@ MonoBehaviour:
       DescriptionLocalisationKey: 
       Lives: 1
       DropWeaponOnPickup: 1
+      AirdropNearPlayer: 0
+      ShrinkingCircleCenteredOnPlayer: 0
       SpawnWithGear: 0
       SpawnWithWeapon: 0
       SkydiveSpawn: 0
@@ -118,6 +126,7 @@ MonoBehaviour:
       BotSearchForCrates: 0
       BotRespawn: 0
       BotWeaponSearchStrategy: 1
+      BotsTeamOverride: 0
       GameSimulationStateMachine: 1
       AudioStateMachine: 1
       CompletionStrategy: 1
@@ -126,7 +135,7 @@ MonoBehaviour:
       IsDebugOnly: 1
       Systems: []
     - Id: Tutorial
-      MaxPlayers: 1
+      MaxPlayers: 8
       MinPlayers: 0
       Teams: 0
       MaxPlayersInTeam: 0
@@ -142,17 +151,20 @@ MonoBehaviour:
       DescriptionLocalisationKey: 
       Lives: 1
       DropWeaponOnPickup: 0
+      AirdropNearPlayer: 0
+      ShrinkingCircleCenteredOnPlayer: 0
       SpawnWithGear: 0
       SpawnWithWeapon: 0
-      SkydiveSpawn: 1
-      SpawnSelection: 1
+      SkydiveSpawn: 0
+      SpawnSelection: 0
       SpawnPattern: 0
-      DeathDropStrategy: 0
+      DeathDropStrategy: 5
       DeathMarker: 0
       AllowBots: 1
       BotSearchForCrates: 0
       BotRespawn: 0
       BotWeaponSearchStrategy: 1
+      BotsTeamOverride: 100
       GameSimulationStateMachine: 1
       AudioStateMachine: 1
       CompletionStrategy: 1

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using Sirenix.OdinInspector;
@@ -116,6 +117,9 @@ namespace Quantum
 		[FoldoutGroup("Bots"), ShowIf("AllowBots"), PropertyTooltip(DESC_BOT_WEAPON_SEARCH_STRATEGY)]
 		public BotWeaponSearchStrategy BotWeaponSearchStrategy;
 
+		[FoldoutGroup("Bots"), ShowIf("AllowBots"), PropertyTooltip(DESC_BOT_TEAM_OVERRIDE)]
+		public int BotsTeamOverride;
+
 #endregion
 
 #region State Machines
@@ -149,7 +153,7 @@ namespace Quantum
 		[ValueDropdown("GetOptionalSystems"), ListDrawerSettings(Expanded = true), PropertyTooltip(DESC_SYSTEMS)]
 		public List<string> Systems;
 
-#region Odin Helpers
+		#region Odin Helpers
 
 		private IEnumerable<string> GetOptionalSystems()
 		{
@@ -192,6 +196,7 @@ namespace Quantum
 		private const string DESC_ALLOW_BOTS = "If bots can be enabled for this game mode.";
 		private const string DESC_BOT_RESPAWN = "Allows bots to respawn when they get killed.";
 		private const string DESC_BOT_WEAPON_SEARCH_STRATEGY = "How should bots search for weapons on the map.";
+		private const string DESC_BOT_TEAM_OVERRIDE = "If >0 it will override all the bot's team number";
 		private const string DESC_RANK_SORTER = "How should we sort the players on the leaderboards.";
 		private const string DESC_RANK_PROCESSOR = "How should we modify the player's rank on the leaderboards.";
 		private const string DESC_ALLOWED_MAPS = "Which maps are allowed to be played with this game mode.";

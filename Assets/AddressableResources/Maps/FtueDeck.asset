@@ -1073,47 +1073,6 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
-          RawValue: 65535
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 74
-      Position:
-        X:
-          RawValue: -1311375
-        Y:
-          RawValue: 16115
-        Z:
-          RawValue: -425591
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 26127
-        Y:
-          RawValue: 33810
-        Z:
-          RawValue: 98304
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: barricade_concrete_High
-        Tag: Untagged
-        Layer: 0
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 25
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
           RawValue: -1
         Z:
           RawValue: 0
@@ -1148,7 +1107,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 26
+        ColliderIndex: 25
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1189,7 +1148,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 27
+        ColliderIndex: 26
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1230,7 +1189,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 28
+        ColliderIndex: 27
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1271,7 +1230,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 29
+        ColliderIndex: 28
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1312,7 +1271,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 30
+        ColliderIndex: 29
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1353,7 +1312,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 31
+        ColliderIndex: 30
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1394,7 +1353,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 32
+        ColliderIndex: 31
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1435,7 +1394,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 33
+        ColliderIndex: 32
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1476,7 +1435,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 34
+        ColliderIndex: 33
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1517,48 +1476,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 35
-        MutableMode: 0
-      MutableMode: 0
-    - Rotation:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 46314
-        Z:
-          RawValue: 0
-        W:
-          RawValue: 46367
-      Position:
-        X:
-          RawValue: -1050542
-        Y:
-          RawValue: -125173
-        Z:
-          RawValue: -412656
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      ShapeType: 2
-      SphereRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 137527
-        Y:
-          RawValue: 105834
-        Z:
-          RawValue: 245656
-      SmoothSphereMeshCollisions: 0
-      StaticData:
-        Name: Walkway07
-        Tag: Untagged
-        Layer: 7
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 0
-        ColliderIndex: 36
+        ColliderIndex: 34
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1599,7 +1517,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 37
+        ColliderIndex: 35
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1640,7 +1558,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 38
+        ColliderIndex: 36
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1681,7 +1599,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 39
+        ColliderIndex: 37
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1722,7 +1640,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 40
+        ColliderIndex: 38
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1763,7 +1681,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 41
+        ColliderIndex: 39
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1804,7 +1722,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 42
+        ColliderIndex: 40
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1845,7 +1763,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 43
+        ColliderIndex: 41
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1886,7 +1804,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 44
+        ColliderIndex: 42
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1927,7 +1845,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 45
+        ColliderIndex: 43
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -1968,7 +1886,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 46
+        ColliderIndex: 44
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -2009,7 +1927,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 47
+        ColliderIndex: 45
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -2050,7 +1968,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 48
+        ColliderIndex: 46
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -2091,7 +2009,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 49
+        ColliderIndex: 47
         MutableMode: 0
       MutableMode: 0
     - Rotation:
@@ -2132,7 +2050,7 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
-        ColliderIndex: 50
+        ColliderIndex: 48
         MutableMode: 0
       MutableMode: 0
     MapEntities: []
@@ -2144,6 +2062,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -2164,6 +2083,12 @@ MonoBehaviour:
     PlayerSpawner:
     - ActivationTime:
         RawValue: 0
+      SpawnerType:
+        Value: 1
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 0
     Projectile: []
     Rage: []
     RaycastShots: []
@@ -2214,6 +2139,319 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+      SpawnerType:
+        Value: 3
+      BehaviourType:
+        Value: 4
+      ForceStatic:
+        Value: 0
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 1495531
+        Y:
+          RawValue: -107479
+        Z:
+          RawValue: -456130
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    ChestOverride: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+      SpawnerType:
+        Value: 3
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 1
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -173146
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -289013
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    ChestOverride: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+      SpawnerType:
+        Value: 3
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 1
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: -173539
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -550371
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    ChestOverride: []
+    Collectable: []
+    CollectablePlatformSpawner: []
+    CompoundBTAgent: []
+    Consumable: []
+    DeadPlayerCharacter: []
+    Destructible: []
+    DummyCharacter: []
+    EntityDestroyer: []
+    EquipmentCollectable: []
+    GOAPAgent: []
+    GameContainer: []
+    HFSMAgent: []
+    Hazard: []
+    Immunity: []
+    Invisibility: []
+    PlayerCharacter: []
+    PlayerCharging: []
+    PlayerSpawner:
+    - ActivationTime:
+        RawValue: 0
+      SpawnerType:
+        Value: 3
+      BehaviourType:
+        Value: 0
+      ForceStatic:
+        Value: 1
+    Projectile: []
+    Rage: []
+    RaycastShots: []
+    Regeneration: []
+    ShrinkingCircle: []
+    Spell: []
+    Star: []
+    Stats: []
+    Stun: []
+    Targetable: []
+    UTAgent: []
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D: []
+    PhysicsBody3D: []
+    PhysicsCollider2D: []
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D: []
+    PhysicsCallbacks3D: []
+    Transform2D: []
+    Transform2DVertical: []
+    Transform3D:
+    - Position:
+        X:
+          RawValue: 6684
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: -410451
+      Rotation:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+        Z:
+          RawValue: 0
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []
+  - AIBlackboardComponent: []
+    AirDrop: []
+    AirDropSpawner: []
+    AlivePlayerCharacter: []
+    BTAgent: []
+    BotCharacter: []
+    Chest: []
+    ChestOverride:
+    - ContentsOverride:
+      - Value: 27
+      - Value: 43
+      - Value: 50
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -2292,6 +2530,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -2370,6 +2609,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -2448,6 +2688,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -2526,6 +2767,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner:
     - Collectable:
@@ -2604,15 +2846,24 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
-    CollectablePlatformSpawner: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 0
+      InitialSpawnDelayInSec: 2
+      GameId:
+        Value: 92
+      RarityModifier: 0
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
-    DummyCharacter:
-    - Health:
-        RawValue: 19660800
+    DummyCharacter: []
     EntityDestroyer: []
     EquipmentCollectable: []
     GOAPAgent: []
@@ -2644,60 +2895,24 @@ MonoBehaviour:
     PhysicsBody2D: []
     PhysicsBody3D: []
     PhysicsCollider2D: []
-    PhysicsCollider3D:
-    - ShapeConfig:
-        ShapeType: 2
-        SphereRadius:
-          RawValue: 32768
-        PositionOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 26214
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 26214
-        RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 9
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
+    PhysicsCollider3D: []
     PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
-    - CallbackFlags:
-        Value: 448
+    PhysicsCallbacks3D: []
     Transform2D: []
     Transform2DVertical: []
     Transform3D:
     - Position:
         X:
-          RawValue: -171593
+          RawValue: 1501429
         Y:
-          RawValue: -16056
+          RawValue: -128253
         Z:
-          RawValue: -291315
+          RawValue: -451608
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 11796480
+          RawValue: 0
         Z:
           RawValue: 0
     View: []
@@ -2710,15 +2925,24 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
-    CollectablePlatformSpawner: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 0
+      InitialSpawnDelayInSec: 2
+      GameId:
+        Value: 92
+      RarityModifier: 0
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
-    DummyCharacter:
-    - Health:
-        RawValue: 19660800
+    DummyCharacter: []
     EntityDestroyer: []
     EquipmentCollectable: []
     GOAPAgent: []
@@ -2750,60 +2974,24 @@ MonoBehaviour:
     PhysicsBody2D: []
     PhysicsBody3D: []
     PhysicsCollider2D: []
-    PhysicsCollider3D:
-    - ShapeConfig:
-        ShapeType: 2
-        SphereRadius:
-          RawValue: 32768
-        PositionOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 26214
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 26214
-        RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 9
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
+    PhysicsCollider3D: []
     PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
-    - CallbackFlags:
-        Value: 448
+    PhysicsCallbacks3D: []
     Transform2D: []
     Transform2DVertical: []
     Transform3D:
     - Position:
         X:
-          RawValue: -171659
+          RawValue: -172294
         Y:
-          RawValue: -16056
+          RawValue: -13565
         Z:
-          RawValue: -555884
+          RawValue: -553189
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 11796480
+          RawValue: 0
         Z:
           RawValue: 0
     View: []
@@ -2816,15 +3004,24 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
-    CollectablePlatformSpawner: []
+    CollectablePlatformSpawner:
+    - Collectable:
+        SceneIndexPlusOne: 0
+      NextSpawnTime:
+        RawValue: 0
+      SpawnCount: 0
+      RespawnTimeInSec: 0
+      InitialSpawnDelayInSec: 2
+      GameId:
+        Value: 92
+      RarityModifier: 0
     CompoundBTAgent: []
     Consumable: []
     DeadPlayerCharacter: []
     Destructible: []
-    DummyCharacter:
-    - Health:
-        RawValue: 65536
+    DummyCharacter: []
     EntityDestroyer: []
     EquipmentCollectable: []
     GOAPAgent: []
@@ -2856,60 +3053,24 @@ MonoBehaviour:
     PhysicsBody2D: []
     PhysicsBody3D: []
     PhysicsCollider2D: []
-    PhysicsCollider3D:
-    - ShapeConfig:
-        ShapeType: 2
-        SphereRadius:
-          RawValue: 32768
-        PositionOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 26214
-          Y:
-            RawValue: 49152
-          Z:
-            RawValue: 26214
-        RotationOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-          Z:
-            RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 9
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
+    PhysicsCollider3D: []
     PhysicsCallbacks2D: []
-    PhysicsCallbacks3D:
-    - CallbackFlags:
-        Value: 448
+    PhysicsCallbacks3D: []
     Transform2D: []
     Transform2DVertical: []
     Transform3D:
     - Position:
         X:
-          RawValue: 3321
+          RawValue: -172294
         Y:
-          RawValue: -1017
+          RawValue: -13565
         Z:
-          RawValue: -412032
+          RawValue: -291045
       Rotation:
         X:
           RawValue: 0
         Y:
-          RawValue: 11796480
+          RawValue: 0
         Z:
           RawValue: 0
     View: []
@@ -2922,6 +3083,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -3022,7 +3184,7 @@ MonoBehaviour:
         Y:
           RawValue: -8682
         Z:
-          RawValue: -508610
+          RawValue: -524994
       Rotation:
         X:
           RawValue: 0
@@ -3040,6 +3202,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -3140,7 +3303,7 @@ MonoBehaviour:
         Y:
           RawValue: -8682
         Z:
-          RawValue: -328386
+          RawValue: -312002
       Rotation:
         X:
           RawValue: 0
@@ -3158,6 +3321,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -3171,9 +3335,9 @@ MonoBehaviour:
       Health:
         RawValue: 6553600
       DamagePower:
-        RawValue: 6553600
+        RawValue: 3276800
       SplashRadius:
-        RawValue: 65536
+        RawValue: 327680
       DestructionLengthTime:
         RawValue: 65536
       GameId:
@@ -3276,6 +3440,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -3289,9 +3454,9 @@ MonoBehaviour:
       Health:
         RawValue: 6553600
       DamagePower:
-        RawValue: 6553600
+        RawValue: 3276800
       SplashRadius:
-        RawValue: 65536
+        RawValue: 327680
       DestructionLengthTime:
         RawValue: 65536
       GameId:
@@ -3394,6 +3559,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -3407,9 +3573,9 @@ MonoBehaviour:
       Health:
         RawValue: 6553600
       DamagePower:
-        RawValue: 6553600
+        RawValue: 3276800
       SplashRadius:
-        RawValue: 65536
+        RawValue: 327680
       DestructionLengthTime:
         RawValue: 65536
       GameId:
@@ -3512,6 +3678,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -3525,9 +3692,9 @@ MonoBehaviour:
       Health:
         RawValue: 6553600
       DamagePower:
-        RawValue: 6553600
+        RawValue: 3276800
       SplashRadius:
-        RawValue: 65536
+        RawValue: 327680
       DestructionLengthTime:
         RawValue: 65536
       GameId:
@@ -3630,6 +3797,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -3643,9 +3811,9 @@ MonoBehaviour:
       Health:
         RawValue: 6553600
       DamagePower:
-        RawValue: 6553600
+        RawValue: 3276800
       SplashRadius:
-        RawValue: 65536
+        RawValue: 327680
       DestructionLengthTime:
         RawValue: 65536
       GameId:
@@ -3748,6 +3916,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -3866,6 +4035,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -3984,6 +4154,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -4102,6 +4273,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -4220,6 +4392,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []
@@ -4338,6 +4511,7 @@ MonoBehaviour:
     BTAgent: []
     BotCharacter: []
     Chest: []
+    ChestOverride: []
     Collectable: []
     CollectablePlatformSpawner: []
     CompoundBTAgent: []

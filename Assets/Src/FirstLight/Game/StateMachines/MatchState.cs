@@ -399,7 +399,6 @@ namespace FirstLight.Game.StateMachines
 			// TODO - Remove this temporary try catch when cause and fix for issue BRG-1822 is found
 			try
 			{
-				throw new AggregateException("Memes are not allowed here");
 				var time = Time.realtimeSinceStartup;
 
 				var tasks = new List<Task>();
@@ -460,7 +459,7 @@ namespace FirstLight.Game.StateMachines
 			}
 			catch (Exception e)
 			{
-				_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Login, e.Message);
+				_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.MatchLoad, e.Message);
 				Debug.LogError(e);
 				throw;
 			}

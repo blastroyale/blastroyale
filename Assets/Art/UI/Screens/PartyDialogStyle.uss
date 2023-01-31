@@ -8,9 +8,11 @@
     margin-top: 20px;
     margin-right: 150px;
     margin-left: 150px;
+    width: 333px;
 }
 
 .party-description {
     font-size: 48px;
     margin-bottom: 30px;
+    color: rgb(122, 118, 167);
 }

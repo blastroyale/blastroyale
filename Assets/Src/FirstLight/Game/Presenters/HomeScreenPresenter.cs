@@ -156,7 +156,6 @@ namespace FirstLight.Game.Presenters
 		private void OnHasPartyChanged(bool _, bool hasParty)
 		{
 			_partyButton.Localize(hasParty ? ScriptTerms.UITHomeScreen.leave_party : ScriptTerms.UITHomeScreen.party);
-			_partyButton.EnableInClassList("button-with-icon--yellow", !hasParty);
 		}
 
 		private async void OnPartyClicked()

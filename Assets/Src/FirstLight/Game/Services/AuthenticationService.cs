@@ -289,6 +289,12 @@ namespace FirstLight.Game.Services
 			var emails = result.InfoResultPayload?.PlayerProfile?.ContactEmailAddresses;
 			var isMissingContactEmail = emails == null || !emails.Any(e => e != null && e.EmailAddress.Contains("@"));
 
+			if (!titleData.TryGetValue(GameConstants.PlayFab.VERSION_KEY, out var titleVersion))
+			{
+				onError?.Invoke(null);
+				throw new Exception($"{GameConstants.PlayFab.VERSION_KEY} not set in title data");
+			}
+			
 			_services.HelpdeskService.Login(userId, email, userName);
 
 			if (string.IsNullOrWhiteSpace(appData.DeviceId))
@@ -305,11 +311,6 @@ namespace FirstLight.Game.Services
 
 			FLog.Verbose($"Logged in. PlayfabId={result.PlayFabId}");
 			//AppleApprovalHack(result);
-
-			if (!titleData.TryGetValue(GameConstants.PlayFab.VERSION_KEY, out var titleVersion))
-			{
-				throw new Exception($"{GameConstants.PlayFab.VERSION_KEY} not set in title data");
-			}
 
 			FeatureFlags.ParseFlags(titleData);
 			FeatureFlags.ParseLocalFeatureFlags();

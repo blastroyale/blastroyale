@@ -248,7 +248,7 @@ namespace FirstLight.Game.Presenters
 				: quantumGameConfig.CasualMatchmakingTime.AsFloat;
 
 			_locationLabel.text = mapConfig.Map.GetLocalization();
-			_headerTitleLabel.text = gameMode.GetTranslationGameIdString().ToUpper();
+			_headerTitleLabel.text = gameMode.GetTranslationGameIdString()?.ToUpper();
 			_headerSubtitleLabel.text = matchType.GetLocalization().ToUpper();
 
 			_modeDescTopLabel.text = modeDesc[0];

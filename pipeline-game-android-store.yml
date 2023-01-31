@@ -1,5 +1,5 @@
 # Android build and release pipeline
-# This pipeline is respsonsible for building the Android APK, and uploading to Azure Storage.
+# This pipeline is respsonsible for building the Android OBB, and uploading to the google play store.
 
 name: $(Rev:r)
 
@@ -36,7 +36,7 @@ stages:
         submodules: true
       - template: pipelines/unity-build.yml@templates
         parameters:
-          configuration: Debug
+          configuration: Store
           unity_username: ian.moroney@firstlight.games
           unity_password: $(unity_password)
           unity_serial: $(unity_serial)

@@ -591,6 +591,17 @@ public partial class SROptions
 	}
 	
 	[Category("Progression")]
+	public void Add200Trophies()
+	{
+		var gameLogic = MainInstaller.Resolve<IGameDataProvider>() as IGameLogic;
+		var services = MainInstaller.Resolve<IGameServices>();
+
+		gameLogic.PlayerLogic.UpdateTrophies(200);
+
+		((GameCommandService) services.CommandService).ForceServerDataUpdate();
+	}
+	
+	[Category("Progression")]
 	public void Add10SecTime()
 	{
 		var services = MainInstaller.Resolve<IGameServices>();

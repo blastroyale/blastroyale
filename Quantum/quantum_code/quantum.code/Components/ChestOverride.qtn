@@ -1,0 +1,5 @@
+component ChestOverride
+{
+	list<GameId> ContentsOverride;
+}
+

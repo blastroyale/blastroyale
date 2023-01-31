@@ -42,7 +42,7 @@
     <AllowedReferenceRelatedFileExtensions>.pdb</AllowedReferenceRelatedFileExtensions>
   </PropertyGroup>
   <ItemGroup>
-	  <PackageReference Include="NuGet.Build.Tasks.Pack" Version="5.2.0"/>
+    <PackageReference Include="NuGet.Build.Tasks.Pack" Version="5.2.0" />
     <Reference Include="Sirenix.OdinInspector.Attributes">
       <HintPath>..\..\..\Assets\Libs\Odin\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Attributes.dll</HintPath>
     </Reference>
@@ -202,6 +202,7 @@
     <Compile Include="Commands\SpecialUsedCommand.cs" />
     <Compile Include="Commands\WeaponSlotSwitchCommand.cs" />
     <Compile Include="Components\AirDrop.cs" />
+    <Compile Include="Components\ChestOverride.cs" />
     <Compile Include="Components\Chest.cs" />
     <Compile Include="Components\Collectable.cs" />
     <Compile Include="Components\Destructible.cs" />
@@ -343,6 +344,9 @@
     <Content Include="Events\GameEvents.qtn" />
     <Content Include="Events\PlayerEvents.qtn" />
     <EmbeddedResource Include="db.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Components\ChestOverride.qtn" />
   </ItemGroup>
   <Target Name="SetNuspecProperties" BeforeTargets="GenerateNuspec">
     <PropertyGroup>

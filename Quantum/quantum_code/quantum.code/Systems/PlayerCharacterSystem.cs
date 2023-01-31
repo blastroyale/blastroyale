@@ -90,7 +90,8 @@ namespace Quantum.Systems
 				QuantumHelpers.TryFindPosOnNavMesh(f, dropPosition, Constants.DROP_OFFSET_RADIUS * FP._0_50, out dropPosition);
 				
 				dropBox = f.ChestConfigs.CheckItemRange(itemCount);
-				CollectablePlatformSpawner.SpawnChest(f, dropBox, dropPosition);
+				CollectablePlatformSpawner.SpawnChest(f, dropBox, dropPosition, entity);
+
 			}
 
 			if(gameModeConfig.DeathDropStrategy == DeathDropsStrategy.Consumables)

@@ -87,6 +87,9 @@ component BotCharacter
 	
 	// This setting multiplies the base movement speed
 	FP MovementSpeedMultiplier;
+	
+	// If teammate is further than this distance then I'll try to get closer
+	FP MaxDistanceToTeammateSquared;
 }
 
 synced event OnDummyCharacterKilled

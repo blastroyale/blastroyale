@@ -555,8 +555,7 @@ namespace Quantum.Systems
 			var teammatePosition = filter.BotCharacter->RandomTeammate.GetPosition(f);
 			var botPosition = filter.Transform->Position;
 			var vectorToTeammate = teammatePosition - botPosition;
-			// TODO: Move to bot config potentially
-			var maxDistanceSquared = FP._6 * FP._6;
+			var maxDistanceSquared = filter.BotCharacter->MaxDistanceToTeammateSquared;
 
 			if (vectorToTeammate.SqrMagnitude < maxDistanceSquared)
 			{
@@ -1151,7 +1150,8 @@ namespace Quantum.Systems
 					LoadoutGearNumber = botConfig.LoadoutGearNumber,
 					MaxAimingRange = botConfig.MaxAimingRange,
 					MovementSpeedMultiplier = botConfig.MovementSpeedMultiplier,
-					TeamSize = teamSize
+					TeamSize = teamSize,
+					MaxDistanceToTeammateSquared = botConfig.MaxDistanceToTeammateSquared
 				};
 
 				botNamesIndices.RemoveAt(listNamesIndex);

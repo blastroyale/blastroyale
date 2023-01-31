@@ -31,6 +31,7 @@ namespace Quantum
 		public uint LoadoutGearNumber;
 		public FP MaxAimingRange;
 		public FP MovementSpeedMultiplier;
+		public FP MaxDistanceToTeammateSquared;
 	}
 	
 	/// <summary>

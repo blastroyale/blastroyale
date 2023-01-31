@@ -3632,69 +3632,75 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct BotCharacter : Quantum.IComponent {
-    public const Int32 SIZE = 240;
+    public const Int32 SIZE = 264;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(16)]
+    [FieldOffset(20)]
     public UInt32 AccuracySpreadAngle;
     [FieldOffset(0)]
     public BotBehaviourType BehaviourType;
     [FieldOffset(12)]
     public Int32 BotNameIndex;
-    [FieldOffset(40)]
-    public FP ChanceToAbandonTarget;
-    [FieldOffset(48)]
-    public FP ChanceToSeekChests;
     [FieldOffset(56)]
-    public FP ChanceToSeekEnemies;
+    public FP ChanceToAbandonTarget;
     [FieldOffset(64)]
-    public FP ChanceToSeekRage;
+    public FP ChanceToSeekChests;
     [FieldOffset(72)]
-    public FP ChanceToSeekReplenishSpecials;
+    public FP ChanceToSeekEnemies;
     [FieldOffset(80)]
-    public FP ChanceToSeekWeapons;
+    public FP ChanceToSeekRage;
     [FieldOffset(88)]
-    public FP ChanceToUseSpecial;
+    public FP ChanceToSeekReplenishSpecials;
     [FieldOffset(96)]
-    public FP CloseFightIntolerance;
+    public FP ChanceToSeekWeapons;
     [FieldOffset(104)]
+    public FP ChanceToUseSpecial;
+    [FieldOffset(112)]
+    public FP CloseFightIntolerance;
+    [FieldOffset(120)]
     public FP CurrentEvasionStepEndTime;
     [FieldOffset(4)]
     public GameId DeathMarker;
-    [FieldOffset(112)]
-    public FP DecisionInterval;
-    [FieldOffset(20)]
-    public UInt32 LoadoutGearNumber;
-    [FieldOffset(120)]
-    public FP LookForTargetsToShootAtInterval;
     [FieldOffset(128)]
-    public FP LowAmmoSensitivity;
-    [FieldOffset(136)]
-    public FP LowArmourSensitivity;
-    [FieldOffset(144)]
-    public FP LowHealthSensitivity;
-    [FieldOffset(152)]
-    public FP MaxAimingRange;
+    public FP DecisionInterval;
     [FieldOffset(24)]
-    public EntityRef MoveTarget;
+    public UInt32 LoadoutGearNumber;
+    [FieldOffset(136)]
+    public FP LookForTargetsToShootAtInterval;
+    [FieldOffset(144)]
+    public FP LowAmmoSensitivity;
+    [FieldOffset(152)]
+    public FP LowArmourSensitivity;
     [FieldOffset(160)]
-    public FP MovementSpeedMultiplier;
+    public FP LowHealthSensitivity;
     [FieldOffset(168)]
-    public FP NextDecisionTime;
+    public FP MaxAimingRange;
     [FieldOffset(176)]
-    public FP NextLookForTargetsToShootAtTime;
+    public FP MaxDistanceToTeammateSquared;
+    [FieldOffset(32)]
+    public EntityRef MoveTarget;
     [FieldOffset(184)]
+    public FP MovementSpeedMultiplier;
+    [FieldOffset(192)]
+    public FP NextDecisionTime;
+    [FieldOffset(200)]
+    public FP NextLookForTargetsToShootAtTime;
+    [FieldOffset(40)]
+    public EntityRef RandomTeammate;
+    [FieldOffset(208)]
     public FP ShrinkingCircleRiskTolerance;
     [FieldOffset(8)]
     public GameId Skin;
-    [FieldOffset(192)]
-    public FP SpecialAimingDeviation;
     [FieldOffset(216)]
+    public FP SpecialAimingDeviation;
+    [FieldOffset(240)]
     public FPVector3 StuckDetectionPosition;
-    [FieldOffset(32)]
+    [FieldOffset(48)]
     public EntityRef Target;
-    [FieldOffset(200)]
+    [FieldOffset(16)]
+    public Int32 TeamSize;
+    [FieldOffset(224)]
     public FP VisionRangeSqr;
-    [FieldOffset(208)]
+    [FieldOffset(232)]
     public FP WanderRadius;
     public override Int32 GetHashCode() {
       unchecked { 
@@ -3719,15 +3725,18 @@ namespace Quantum {
         hash = hash * 31 + LowArmourSensitivity.GetHashCode();
         hash = hash * 31 + LowHealthSensitivity.GetHashCode();
         hash = hash * 31 + MaxAimingRange.GetHashCode();
+        hash = hash * 31 + MaxDistanceToTeammateSquared.GetHashCode();
         hash = hash * 31 + MoveTarget.GetHashCode();
         hash = hash * 31 + MovementSpeedMultiplier.GetHashCode();
         hash = hash * 31 + NextDecisionTime.GetHashCode();
         hash = hash * 31 + NextLookForTargetsToShootAtTime.GetHashCode();
+        hash = hash * 31 + RandomTeammate.GetHashCode();
         hash = hash * 31 + ShrinkingCircleRiskTolerance.GetHashCode();
         hash = hash * 31 + (Int32)Skin;
         hash = hash * 31 + SpecialAimingDeviation.GetHashCode();
         hash = hash * 31 + StuckDetectionPosition.GetHashCode();
         hash = hash * 31 + Target.GetHashCode();
+        hash = hash * 31 + TeamSize.GetHashCode();
         hash = hash * 31 + VisionRangeSqr.GetHashCode();
         hash = hash * 31 + WanderRadius.GetHashCode();
         return hash;
@@ -3739,9 +3748,11 @@ namespace Quantum {
         serializer.Stream.Serialize((Int32*)&p->DeathMarker);
         serializer.Stream.Serialize((Int32*)&p->Skin);
         serializer.Stream.Serialize(&p->BotNameIndex);
+        serializer.Stream.Serialize(&p->TeamSize);
         serializer.Stream.Serialize(&p->AccuracySpreadAngle);
         serializer.Stream.Serialize(&p->LoadoutGearNumber);
         EntityRef.Serialize(&p->MoveTarget, serializer);
+        EntityRef.Serialize(&p->RandomTeammate, serializer);
         EntityRef.Serialize(&p->Target, serializer);
         FP.Serialize(&p->ChanceToAbandonTarget, serializer);
         FP.Serialize(&p->ChanceToSeekChests, serializer);
@@ -3758,6 +3769,7 @@ namespace Quantum {
         FP.Serialize(&p->LowArmourSensitivity, serializer);
         FP.Serialize(&p->LowHealthSensitivity, serializer);
         FP.Serialize(&p->MaxAimingRange, serializer);
+        FP.Serialize(&p->MaxDistanceToTeammateSquared, serializer);
         FP.Serialize(&p->MovementSpeedMultiplier, serializer);
         FP.Serialize(&p->NextDecisionTime, serializer);
         FP.Serialize(&p->NextLookForTargetsToShootAtTime, serializer);
@@ -9662,6 +9674,8 @@ namespace Quantum.Prototypes {
     public MapEntityId MoveTarget;
     public FP CurrentEvasionStepEndTime;
     public FPVector3 StuckDetectionPosition;
+    public Int32 TeamSize;
+    public MapEntityId RandomTeammate;
     public FP VisionRangeSqr;
     public FP LowArmourSensitivity;
     public FP LowHealthSensitivity;
@@ -9681,6 +9695,7 @@ namespace Quantum.Prototypes {
     public UInt32 LoadoutGearNumber;
     public FP MaxAimingRange;
     public FP MovementSpeedMultiplier;
+    public FP MaxDistanceToTeammateSquared;
     partial void MaterializeUser(Frame frame, ref BotCharacter result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       BotCharacter component = default;
@@ -9708,15 +9723,18 @@ namespace Quantum.Prototypes {
       result.LowArmourSensitivity = this.LowArmourSensitivity;
       result.LowHealthSensitivity = this.LowHealthSensitivity;
       result.MaxAimingRange = this.MaxAimingRange;
+      result.MaxDistanceToTeammateSquared = this.MaxDistanceToTeammateSquared;
       PrototypeValidator.FindMapEntity(this.MoveTarget, in context, out result.MoveTarget);
       result.MovementSpeedMultiplier = this.MovementSpeedMultiplier;
       result.NextDecisionTime = this.NextDecisionTime;
       result.NextLookForTargetsToShootAtTime = this.NextLookForTargetsToShootAtTime;
+      PrototypeValidator.FindMapEntity(this.RandomTeammate, in context, out result.RandomTeammate);
       result.ShrinkingCircleRiskTolerance = this.ShrinkingCircleRiskTolerance;
       result.Skin = this.Skin;
       result.SpecialAimingDeviation = this.SpecialAimingDeviation;
       result.StuckDetectionPosition = this.StuckDetectionPosition;
       PrototypeValidator.FindMapEntity(this.Target, in context, out result.Target);
+      result.TeamSize = this.TeamSize;
       result.VisionRangeSqr = this.VisionRangeSqr;
       result.WanderRadius = this.WanderRadius;
       MaterializeUser(frame, ref result, in context);

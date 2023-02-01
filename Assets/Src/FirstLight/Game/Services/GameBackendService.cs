@@ -388,5 +388,17 @@ namespace FirstLight.Game.Services
 
 			return titleVersion;
 		}
+		
+		private String UnityDeviceID()
+		{
+			var id = SystemInfo.deviceUniqueIdentifier;
+#if UNITY_EDITOR
+			if (ParrelSync.ClonesManager.IsClone())
+			{
+				id += "_clone_" + ParrelSync.ClonesManager.GetArgument();
+			}
+#endif
+			return id;
+		}
 	}
 }

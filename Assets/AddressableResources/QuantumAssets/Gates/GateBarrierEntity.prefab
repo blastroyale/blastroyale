@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7789315522273332232}
   - component: {fileID: 7052828112530992372}
   - component: {fileID: 1167682403}
+  - component: {fileID: 8220017023680539567}
   m_Layer: 0
   m_Name: GateBarrierEntity
   m_TagString: Untagged
@@ -248,6 +249,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EntityView: {fileID: 7789315522273332232}
   _gateView: {fileID: 1167682405}
+--- !u!114 &8220017023680539567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 824022440529266229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b777c5f346eb48aaaa91d76eb7fbdfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prototype:
+    Target: {fileID: 1552848091830123702}
+    Data:
+      _field_used_: PLAYERSALIVETRIGGERDATA
+      PlayersAliveTriggerData:
+        PlayersAlive: 2
+      ChestOpenTriggerData:
+        _empty_prototype_dummy_field_: 0
 --- !u!1001 &166066626998595919
 PrefabInstance:
   m_ObjectHideFlags: 0

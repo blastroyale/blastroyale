@@ -3,7 +3,6 @@ component Gate{
 	[HideInInspector] FP TimeToOpen;
 	
     FP OpeningTime;
-    int PlayersAlive;
 }
 
 synced event OnGateStartOpening

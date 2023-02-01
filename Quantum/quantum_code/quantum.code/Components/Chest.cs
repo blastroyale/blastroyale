@@ -119,6 +119,7 @@ namespace Quantum
 									chestPosition, ref angleStep, chestItems);
 			}
 
+			f.Signals.ChestOpened(config.Id, chestPosition, playerRef, playerEntity);
 			f.Events.OnChestOpened(config.Id, chestPosition, playerRef, playerEntity, chestItems);
 		}
 

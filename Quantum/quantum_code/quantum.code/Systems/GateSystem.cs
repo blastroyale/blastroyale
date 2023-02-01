@@ -1,12 +1,10 @@
-using System.Collections.Generic;
-
 namespace Quantum.Systems
 {
 	/// <summary>
 	/// This system handles all the behaviour for the changes in a <see cref="Destructible"/> entity
 	/// </summary>
 	public unsafe class GateSystem : SystemMainThreadFilter<GateSystem.GateFilter>,
-									 ISignalPlayerDead
+									 ISignalTriggerActivated
 	{
 		public struct GateFilter
 		{
@@ -14,28 +12,7 @@ namespace Quantum.Systems
 			public Gate* Gate;
 			public PhysicsCollider3D* Collider;
 		}
-
-		public void PlayerDead(Frame f, PlayerRef playerDead, EntityRef entityDead)
-		{
-			var playersAlive = AlivePlayerCount(f);
-			foreach (var pair in f.Unsafe.GetComponentBlockIterator<Gate>())
-			{
-				var gate = pair.Component;
-				if (playersAlive <= gate->PlayersAlive)
-				{
-					f.Events.OnGateStartOpening(pair.Entity, gate->OpeningTime);
-					
-					gate->TimeToOpen = f.Time + gate->OpeningTime;
-					gate->IsOpening = true;
-				}
-			}
-		}
-
-		private int AlivePlayerCount(Frame f)
-		{
-			return f.ComponentCount<AlivePlayerCharacter>();
-		}
-
+		
 		public override void Update(Frame f, ref GateFilter filter)
 		{
 			if (!filter.Gate->IsOpening || f.Time < filter.Gate->TimeToOpen)
@@ -44,6 +21,22 @@ namespace Quantum.Systems
 			}
 			
 			filter.Collider->IsTrigger = true;
+		}
+
+		public void TriggerActivated(Frame f, EntityRef target, TriggerData triggerData)
+		{
+			foreach (var pair in f.Unsafe.GetComponentBlockIterator<Gate>())
+			{
+				var gate = pair.Component;
+				
+				if (pair.Entity == target)
+				{
+					f.Events.OnGateStartOpening(pair.Entity, gate->OpeningTime);
+					
+					gate->TimeToOpen = f.Time + gate->OpeningTime;
+					gate->IsOpening = true;
+				}
+			}
 		}
 	}
 }

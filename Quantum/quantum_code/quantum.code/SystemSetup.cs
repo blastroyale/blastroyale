@@ -46,6 +46,7 @@ namespace Quantum
 				new StatSystem(),
 				new SpellSystem(),
 				new GateSystem(),
+				new TriggerSystem(),
 				new DestructibleSystem(),
 				new TransformOutOfWorldSystem(), // TODO: Remove it when we update Quantum and have Y coordinate in Navmesh
 

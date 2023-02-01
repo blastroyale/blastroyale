@@ -5,3 +5,8 @@ synced event OnChestOpened
 	player_ref Player;
 	entity_ref Entity;
 }
+
+signal ChestOpened(GameId chestType, 
+                    FPVector3 chestPosition,
+                   	player_ref player,
+                   	entity_ref entity);

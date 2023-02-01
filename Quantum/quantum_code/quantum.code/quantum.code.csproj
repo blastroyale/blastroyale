@@ -293,6 +293,7 @@
     <Compile Include="Systems\CommandsSystem.cs" />
     <Compile Include="Systems\ProjectileSystem.cs" />
     <Compile Include="Systems\SystemInitializer.cs" />
+    <Compile Include="Systems\TriggerSystem.cs" />
     <Compile Include="Utils\BitUtil.cs" />
     <Compile Include="Utils\ListExtension.cs" />
     <Compile Include="Utils\OptionalSystemAttribute.cs" />
@@ -338,6 +339,7 @@
     <Content Include="Components\StatusModifiers.qtn" />
     <Content Include="Components\Targetable.qtn" />
     <Content Include="Components\EquipmentCollectable.qtn" />
+    <Content Include="Components\Triggers.qtn" />
     <Content Include="Components\WeaponDropPool.qtn" />
     <Content Include="Configs\Configs.qtn" />
     <Content Include="Configs\GameId.qtn" />

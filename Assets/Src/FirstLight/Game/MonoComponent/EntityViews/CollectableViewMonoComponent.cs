@@ -104,6 +104,8 @@ namespace FirstLight.Game.MonoComponent.EntityViews
 			QuantumEvent.UnsubscribeListener(this);
 			_matchServices.SpectateService.SpectatedPlayer.StopObserving(OnSpectatedPlayerChanged);
 
+			// Enabling the animation again because something is disabling it and we couldn't find what. For time sake we keep this quick fix.
+			_animation.enabled = true;
 			_animation.Play(CLIP_COLLECT, PlayMode.StopAll);
 
 			this.LateCoroutineCall(_collectClip.length, () => { Destroy(gameObject); });

@@ -27,9 +27,6 @@ namespace FirstLight.Game.Services
 	/// </summary>
 	public interface IMatchmakingService
 	{
-		// TODO: Move me 
-		Vector2 NormalizedMapSelectedPosition { get; set; }
-		
 		/// <summary>
 		/// Leaves all matchmaking tickets that are being waited
 		/// </summary>
@@ -93,12 +90,7 @@ namespace FirstLight.Game.Services
 			_playfab = playfab;
 			_coroutines = coroutines;
 		}
-		
-		/// <summary>
-		/// Returns the player's selected point on the map in a normalized state
-		/// </summary>
-		public Vector2 NormalizedMapSelectedPosition { get; set; }
-		
+
 		public void LeaveMatchmaking()
 		{
 			PlayFabMultiplayerAPI.CancelAllMatchmakingTicketsForPlayer(new CancelAllMatchmakingTicketsForPlayerRequest()

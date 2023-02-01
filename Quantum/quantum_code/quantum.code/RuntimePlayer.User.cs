@@ -13,7 +13,7 @@ namespace Quantum
 		public uint PlayerLevel;
 		public uint PlayerTrophies;
 		public FPVector2 NormalizedSpawnPosition;
-		public int TeamId = -1;
+		public string PartyId = string.Empty;
 		public Equipment Weapon;
 		public Equipment[] Loadout;
 		public EquipmentSimulationMetadata[] LoadoutMetadata;
@@ -31,7 +31,7 @@ namespace Quantum
 			stream.Serialize(ref PlayerLevel);
 			stream.Serialize(ref PlayerTrophies);
 			stream.Serialize(ref NormalizedSpawnPosition);
-			stream.Serialize(ref TeamId);
+			stream.Serialize(ref PartyId);
 			stream.SerializeArrayLength(ref Loadout);
 
 			for (var i = 0; i < Loadout.Length; i++)

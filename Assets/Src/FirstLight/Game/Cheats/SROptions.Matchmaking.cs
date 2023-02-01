@@ -24,12 +24,4 @@ public partial class SROptions
 					? new List<string>()
 					: Mutators.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList());
 	}
-
-	[Category("Squads")] public int TeamId { get; set; }
-
-	[Category("Squads")]
-	public void SetTeamId()
-	{
-		MainInstaller.Resolve<IGameServices>().MessageBrokerService.Publish(new SetTeamIdMessage(){TeamId = TeamId});
-	}
 }

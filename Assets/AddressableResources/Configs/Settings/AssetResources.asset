@@ -459,6 +459,11 @@ MonoBehaviour:
         Id:
           Value: 1838569179050410201
       Address: Maps/TinyTemple_NavMesh.asset
+    - Path: AddressableResources/QuantumAssets/Gates/GateBarrierEntity|EntityPrototype
+      AssetRef:
+        Id:
+          Value: 1861340466526697177
+      Address: QuantumAssets/Gates/GateBarrierEntity.prefab[GateBarrierEntityEntityPrototype]
     - Path: AddressableResources/QuantumAssets/CircuitExport/HFSM_Assets/Player|PlayerActivateAction_10
       AssetRef:
         Id:
@@ -922,6 +927,11 @@ MonoBehaviour:
         Id:
           Value: 4262575919214397651
       Address: QuantumAssets/CircuitExport/HFSM_Assets/Player.asset[TimerDecision_24]
+    - Path: AddressableResources/QuantumAssets/Gates/GateBarrierEntity|EntityView
+      AssetRef:
+        Id:
+          Value: 4298551067525067090
+      Address: QuantumAssets/Gates/GateBarrierEntity.prefab[GateBarrierEntityEntityView]
     - Path: AddressableResources/Maps/BRGenesis_mesh
       AssetRef:
         Id:

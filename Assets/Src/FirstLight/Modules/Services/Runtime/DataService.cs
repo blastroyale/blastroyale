@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using FirstLight.Server.SDK.Models;
 using Newtonsoft.Json;
-using ParrelSync;
 using UnityEngine;
 
 // ReSharper disable once CheckNamespace
@@ -170,9 +169,9 @@ namespace FirstLight.Services
 		private String ConvertKey(String key)
 		{
 #if UNITY_EDITOR
-			if (ClonesManager.IsClone())
+			if (ParrelSync.ClonesManager.IsClone())
 			{
-				return key + "_clone_" + ClonesManager.GetArgument();
+				return key + "_clone_" + ParrelSync.ClonesManager.GetArgument();
 			}
 #endif
 			return key;

@@ -14,7 +14,6 @@ using FirstLight.Server.SDK.Modules;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
 using FirstLight.Services;
 using Newtonsoft.Json;
-using ParrelSync;
 using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
@@ -383,11 +382,12 @@ namespace FirstLight.Game.Services
 		private String UnityDeviceID()
 		{
 			var id = SystemInfo.deviceUniqueIdentifier;
-			if (ClonesManager.IsClone())
+			#if UNITY_EDITOR
+			if (ParrelSync.ClonesManager.IsClone())
 			{
-				id += "_clone_" + ClonesManager.GetArgument();
+				id += "_clone_" + ParrelSync.ClonesManager.GetArgument();
 			}
-
+			#endif
 			return id;
 		}
 	}

@@ -52,7 +52,7 @@ namespace Quantum
 			for (var i = 0; i < LoadoutMetadata.Length; i++)
 			{
 				var metadata = LoadoutMetadata[i];
-				Equipment.Serialize(&metadata, serializer);
+				EquipmentSimulationMetadata.Serialize(&metadata, serializer);
 				LoadoutMetadata[i] = metadata;
 			}
 

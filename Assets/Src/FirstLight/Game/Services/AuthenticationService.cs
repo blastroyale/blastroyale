@@ -71,9 +71,8 @@ namespace FirstLight.Game.Services
 		/// <summary>
 		/// Updates anonymous account with provided registration data
 		/// </summary>
-		void AttachLoginDataToAccount(string email, string username, string password,
-									  Action<AddUsernamePasswordResult> onSuccess = null,
-									  Action<PlayFabError> onError = null);
+		void AttachLoginDataToAccount(string email, string username, string password, 
+									  Action<LoginData> onSuccess, Action<PlayFabError> onError);
 
 		/// <summary>
 		/// Sends account recovery email to the specified address. 
@@ -505,10 +504,17 @@ namespace FirstLight.Game.Services
 		}
 
 		public void AttachLoginDataToAccount(string email, string username, string password,
-											 Action<AddUsernamePasswordResult> onSuccess = null,
+											 Action<LoginData> onSuccess = null,
 											 Action<PlayFabError> onError = null)
 		{
 			var addUsernamePasswordRequest = new AddUsernamePasswordRequest
+			{
+				Email = email,
+				Username = username,
+				Password = password
+			};
+
+			var loginData = new LoginData()
 			{
 				Email = email,
 				Username = username,
@@ -521,8 +527,8 @@ namespace FirstLight.Game.Services
 			{
 				_dataProvider.AppDataProvider.LastLoginEmail.Value = email;
 				_services.GameBackendService.UpdateDisplayName(result.Username, null, null);
-				
-				onSuccess?.Invoke(result);
+				_services.GameBackendService.UpdateContactEmail(email, null, null);
+				onSuccess?.Invoke(loginData);
 			}
 		}
 

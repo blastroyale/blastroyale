@@ -22,8 +22,9 @@ namespace FirstLight.Game.Presenters
 		{
 			public Action AuthLoginSuccess;
 			public Action AuthRegisterSuccess;
-			public Action AuthFail;
-			public Action BackClicked;
+			public Action AuthLoginFail;
+			public Action AuthRegisterFail;
+			public Action CloseClicked;
 		}
 
 		private VisualElement _loginPopupRoot;
@@ -34,6 +35,7 @@ namespace FirstLight.Game.Presenters
 		private TextField _registerUsernameField;
 		private TextField _registerPasswordField;
 		private VisualElement _blockerElement;
+		private Button _closeButton;
 		private Button _loginButton;
 		private Button _registerButton;
 		private Button _goToLoginButton;
@@ -53,6 +55,7 @@ namespace FirstLight.Game.Presenters
 			_loginPopupRoot = root.Q("LoginPopup").Required();
 			_registerPopupRoot = root.Q("RegisterPopup").Required();
 			_loginButton = root.Q<Button>("LoginButton").Required();
+			_closeButton = root.Q<Button>("CloseButton").Required();
 			_registerButton = root.Q<Button>("RegisterButton").Required();
 			_goToLoginButton = root.Q<Button>("GoToLoginButton").Required();
 			_goToRegisterButton = root.Q<Button>("GoToRegisterButton").Required();
@@ -68,18 +71,11 @@ namespace FirstLight.Game.Presenters
 			_goToLoginButton.clicked += ShowLoginScreen;
 			_goToRegisterButton.clicked += ShowRegisterScreen;
 			_resetPasswordButton.clicked += OpenPasswordRecoveryPopup;
+			_closeButton.clicked += OnCloseClicked;
 
 			root.SetupClicks(_services);
 			
 			ShowLoginScreen();
-		}
-
-		/// <summary>
-		/// Sets the activity of the dimmed blocker image that covers the presenter
-		/// </summary>
-		public void SetFrontDimBlockerActive(bool active)
-		{
-			_blockerElement.EnableInClassList("blocker-hidden", !active);
 		}
 
 		private void ShowLoginScreen()
@@ -96,15 +92,12 @@ namespace FirstLight.Game.Presenters
 
 		private void LoginWithAccount()
 		{
-			//_services.AnalyticsService.UiCalls.ButtonAction(UIAnalyticsButtonsNames.Login);
-			//Data.LoginClicked(_emailField.text.Trim(), _passwordField.text.Trim());
+			LoginClicked(_loginEmailField.text.Trim(), _loginPasswordField.text.Trim());
 		}
 
 		private void RegisterAttachAccountDetails()
 		{
-			//_services.AnalyticsService.UiCalls.ButtonAction(UIAnalyticsButtonsNames.Login);
-
-			//Data.RegisterClicked(_emailField.text.Trim(), _usernameField.text.Trim(), _passwordField.text.Trim());
+			RegisterClicked(_registerEmailField.text.Trim(), _registerUsernameField.text.Trim(), _registerPasswordField.text.Trim());
 		}
 		
 		private void RegisterClicked(string email, string username, string password)
@@ -113,7 +106,8 @@ namespace FirstLight.Game.Presenters
 			    && AuthenticationUtils.IsEmailFieldValid(email)
 			    && AuthenticationUtils.IsPasswordFieldValid(password))
 			{
-				//_services.AuthenticationService.AttachLoginDataToAccount(email, username, password, OnConnectIdComplete, OnConnectIdError);
+				_uiService.OpenUi<LoadingSpinnerScreenPresenter>();
+				_services.AuthenticationService.AttachLoginDataToAccount(email, username, password, OnRegisterSuccess, OnRegisterFail);
 			}
 			else
 			{
@@ -129,6 +123,32 @@ namespace FirstLight.Game.Presenters
 						: $"#{"UITLoginRegister/invalid_input"}#";
 				_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, errorMessage, false,
 					confirmButton);
+			}
+
+			void OnRegisterSuccess(LoginData data)
+			{
+				var confirmButton = new GenericDialogButton
+				{
+					ButtonText = ScriptLocalization.General.OK,
+					ButtonOnClick = _services.GenericDialogService.CloseDialog
+				};
+				_services.GenericDialogService.OpenButtonDialog("Success", "Registration success.", false, confirmButton);
+				
+				_uiService.CloseUi<LoadingSpinnerScreenPresenter>();
+				Data.AuthRegisterSuccess();
+			}
+
+			void OnRegisterFail(PlayFabError error)
+			{
+				var confirmButton = new GenericDialogButton
+				{
+					ButtonText = ScriptLocalization.General.OK,
+					ButtonOnClick = _services.GenericDialogService.CloseDialog
+				};
+				_services.GenericDialogService.OpenButtonDialog("Fail", "Registration fail.", false, confirmButton);
+				
+				_uiService.CloseUi<LoadingSpinnerScreenPresenter>();
+				Data.AuthRegisterFail();
 			}
 		}
 		
@@ -136,7 +156,7 @@ namespace FirstLight.Game.Presenters
 		{
 			if (AuthenticationUtils.IsEmailFieldValid(email) && AuthenticationUtils.IsPasswordFieldValid(password))
 			{
-				//_services.AuthenticationService.LoginWithEmail(email, password, onSuccess, onError);
+				_services.AuthenticationService.LoginWithEmail(email, password, OnLoginSuccess, OnLoginFail);
 			}
 			else
 			{
@@ -153,13 +173,35 @@ namespace FirstLight.Game.Presenters
 				_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, errorMessage, false,
 					confirmButton);
 			}
+			
+			void OnLoginSuccess(LoginData data)
+			{
+				var confirmButton = new GenericDialogButton
+				{
+					ButtonText = ScriptLocalization.General.OK,
+					ButtonOnClick = _services.GenericDialogService.CloseDialog
+				};
+				_services.GenericDialogService.OpenButtonDialog("Success", "Login success.", false, confirmButton);
+				
+				_uiService.CloseUi<LoadingSpinnerScreenPresenter>();
+				Data.AuthLoginSuccess();
+			}
+
+			void OnLoginFail(PlayFabError error)
+			{
+				var confirmButton = new GenericDialogButton
+				{
+					ButtonText = ScriptLocalization.General.OK,
+					ButtonOnClick = _services.GenericDialogService.CloseDialog
+				};
+				_services.GenericDialogService.OpenButtonDialog("Fail", "Login fail.", false, confirmButton);
+				
+				_uiService.CloseUi<LoadingSpinnerScreenPresenter>();
+				Data.AuthLoginFail();
+			}
 		}
-		
-		private void ClosePresenter()
-		{
-		}
-		
-		public void OpenPasswordRecoveryPopup()
+
+		private void OpenPasswordRecoveryPopup()
 		{
 			var confirmButton = new GenericDialogButton<string>
 			{
@@ -173,6 +215,11 @@ namespace FirstLight.Game.Presenters
 			_services.GenericDialogService.OpenInputDialog(ScriptLocalization.UITShared.info,
 				ScriptLocalization.UITLoginRegister.send_password_recovery,
 				_loginEmailField.value, confirmButton, true);
+		}
+
+		private void OnCloseClicked()
+		{
+			Data.CloseClicked();
 		}
 		
 		private void OnRecoveryEmailSuccess()

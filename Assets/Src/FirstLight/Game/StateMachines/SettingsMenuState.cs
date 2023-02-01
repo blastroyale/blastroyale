@@ -25,7 +25,6 @@ namespace FirstLight.Game.StateMachines
 		private readonly IStatechartEvent _connectIdBackEvent = new StatechartEvent("Connect ID Back Event");
 		private readonly IStatechartEvent _connectIdSuccessEvent = new StatechartEvent("Connect ID success event");
 		private readonly IStatechartEvent _connectIdFailedEvent = new StatechartEvent("Connect ID failed event");
-		private readonly IStatechartEvent _connectIdFailedClickedOkEvent = new StatechartEvent("Connect ID failed Back Clicked Event");
 
 		private readonly MatchState _matchState;
 		private readonly MainMenuState _mainMenuState;
@@ -57,7 +56,6 @@ namespace FirstLight.Game.StateMachines
 			var final = stateFactory.Final("Final");
 			var settingsMenu = stateFactory.State("Settings Menu");
 			var connectId = stateFactory.State("Connect ID Screen");
-			var connectIdFailed = stateFactory.State("Connect ID Failed Screen");
 			var serverSelect = stateFactory.State("Server Select");
 			var logoutWait = stateFactory.State("Wait For Logout");
 
@@ -72,11 +70,8 @@ namespace FirstLight.Game.StateMachines
 
 			connectId.OnEnter(OpenConnectIdUI);
 			connectId.Event(_connectIdBackEvent).OnTransition(CloseConnectUI).Target(settingsMenu);
-			connectId.Event(_connectIdSuccessEvent).OnTransition(CloseConnectUI).OnTransition(UpdateAccountStatus)
-				.Target(settingsMenu);
-			connectId.Event(_connectIdFailedEvent).Target(connectIdFailed);
-
-			connectIdFailed.Event(_connectIdFailedClickedOkEvent).Target(settingsMenu);
+			connectId.Event(_connectIdSuccessEvent).OnTransition(CloseConnectUI).OnTransition(UpdateAccountStatus).Target(settingsMenu);
+			connectId.Event(_connectIdFailedEvent).OnTransition(CloseConnectUI).Target(settingsMenu);
 
 			serverSelect.OnEnter(OpenServerSelectUI);
 			serverSelect.Event(NetworkState.PhotonMasterConnectedEvent).Target(settingsMenu);
@@ -170,8 +165,11 @@ namespace FirstLight.Game.StateMachines
 		{
 			var data = new ConnectFlgIdScreenPresenter.StateData
 			{
-				//AuthLoginSuccess = conne,
-				BackClicked = () => _statechartTrigger(_connectIdBackEvent)
+				CloseClicked = () => _statechartTrigger(_connectIdBackEvent),
+				AuthLoginSuccess = () => _statechartTrigger(_connectIdSuccessEvent),
+				AuthLoginFail = () => _statechartTrigger(_connectIdFailedEvent),
+				AuthRegisterSuccess = () => _statechartTrigger(_connectIdSuccessEvent),
+				AuthRegisterFail = () => _statechartTrigger(_connectIdFailedEvent),
 			};
 
 			_uiService.OpenUiAsync<ConnectFlgIdScreenPresenter, ConnectFlgIdScreenPresenter.StateData>(data);
@@ -185,57 +183,6 @@ namespace FirstLight.Game.StateMachines
 		private void TryLogOut()
 		{
 			_services.AuthenticationService.Logout(OnLogoutComplete, null);
-		}
-
-		private void OnConnectIdComplete(AddUsernamePasswordResult result)
-		{
-			_statechartTrigger(_connectIdSuccessEvent);
-		}
-
-		private void OnConnectIdError(PlayFabError error)
-		{
-			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.LinkGuestAccount,
-				error.ErrorMessage);
-			var confirmButton = new GenericDialogButton
-			{
-				ButtonText = ScriptLocalization.General.OK,
-				ButtonOnClick = () =>
-				{
-					_services.GenericDialogService.CloseDialog();
-					_statechartTrigger(_connectIdFailedClickedOkEvent);
-				}
-			};
-			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, error.ErrorMessage,
-				false, confirmButton);
-		}
-
-		private void OnUpdateNicknameComplete(UpdateUserTitleDisplayNameResult result)
-		{
-			_statechartTrigger(_connectIdBackEvent);
-			OpenFlgIdSuccessPopup();
-
-			// Also update contact email after the Connect ID flow passes
-			// Doesn't matter if this fails - this request is also fired upon login if the contact email is not present
-			_services.GameBackendService.UpdateContactEmail(_appLogic.LastLoginEmail.Value, null, null);
-		}
-
-		private void OnUpdateNicknameError(PlayFabError error)
-		{
-			_statechartTrigger(_connectIdBackEvent);
-			OpenFlgIdSuccessPopup();
-		}
-
-		private void OpenFlgIdSuccessPopup()
-		{
-			var title = string.Format(ScriptLocalization.MainMenu.FirstLightIdConnectionSuccess);
-			var confirmButton = new GenericDialogButton
-			{
-				ButtonText = ScriptLocalization.General.OK,
-				ButtonOnClick = _services.GenericDialogService.CloseDialog
-			};
-
-			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.info, title, false,
-				confirmButton);
 		}
 
 		private void OnLogoutComplete()

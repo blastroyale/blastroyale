@@ -10,6 +10,7 @@ using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.MonoComponent.Match
 {
@@ -30,12 +31,14 @@ namespace FirstLight.Game.MonoComponent.Match
 		private IGameServices _services;
 		private IMatchServices _matchServices;
 		private IGameDataProvider _gameDataProvider;
+		private CinemachineImpulseSource _impulseSource;
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
 			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
+			_impulseSource = GetComponent<CinemachineImpulseSource>();
 
 			var input = _services.PlayerInputService.Input.Gameplay;
 
@@ -85,6 +88,34 @@ namespace FirstLight.Game.MonoComponent.Match
 				var playerPos = view.gameObject.transform.position;
 				_followObject.transform.position = Vector3.Lerp(_followObject.transform.position, playerPos + dir, Time.deltaTime / scalar);
 			}
+		}
+
+		public void StartScreenShake(CinemachineImpulseDefinition.ImpulseShapes Shape, float duration, float strength, Vector3 position = default)
+		{
+			if(!_cinemachineBrain.ActiveVirtualCamera.VirtualCameraGameObject.GetComponent<CinemachineImpulseListener>())
+			{
+				return;
+			}
+			var impulseListener = _cinemachineBrain.ActiveVirtualCamera.VirtualCameraGameObject.GetComponent<CinemachineImpulseListener>();
+			var newImpulse = new CinemachineImpulseDefinition
+			{
+				m_ImpulseType = CinemachineImpulseDefinition.ImpulseTypes.Uniform,
+				m_DissipationRate = 0.8f,
+				m_ImpulseShape = Shape,
+				m_ImpulseDuration = duration,
+				m_DissipationDistance = position == default ? 1 : 5,
+			};
+
+			var vel = Random.insideUnitCircle;
+			_impulseSource.m_ImpulseDefinition = newImpulse;
+			if(position == default)
+			{
+				position = _followObject.transform.position;
+			}
+			impulseListener.m_Gain = strength;
+
+			_impulseSource.GenerateImpulseAtPositionWithVelocity(position, vel * strength);
+			
 		}
 
 		private void OnDestroy()

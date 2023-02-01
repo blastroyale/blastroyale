@@ -2,6 +2,7 @@ using System;
 using FirstLight.FLogger;
 using FirstLight.Game.Services;
 using FirstLight.Game.Services.AnalyticsHelpers;
+using FirstLight.Game.UIElements;
 using FirstLight.Game.Utils;
 using FirstLight.UiService;
 using I2.Loc;
@@ -35,7 +36,7 @@ namespace FirstLight.Game.Presenters
 		private TextField _registerUsernameField;
 		private TextField _registerPasswordField;
 		private VisualElement _blockerElement;
-		private Button _closeButton;
+		private ImageButton _closeButton;
 		private Button _loginButton;
 		private Button _registerButton;
 		private Button _goToLoginButton;
@@ -51,11 +52,10 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements(VisualElement root)
 		{
-			_blockerElement = root.Q("Blocker");
 			_loginPopupRoot = root.Q("LoginPopup").Required();
 			_registerPopupRoot = root.Q("RegisterPopup").Required();
 			_loginButton = root.Q<Button>("LoginButton").Required();
-			_closeButton = root.Q<Button>("CloseButton").Required();
+			_closeButton = root.Q<ImageButton>("CloseButton").Required();
 			_registerButton = root.Q<Button>("RegisterButton").Required();
 			_goToLoginButton = root.Q<Button>("GoToLoginButton").Required();
 			_goToRegisterButton = root.Q<Button>("GoToRegisterButton").Required();
@@ -75,7 +75,9 @@ namespace FirstLight.Game.Presenters
 
 			root.SetupClicks(_services);
 			
-			ShowLoginScreen();
+			// TODO - CLEAR ALL TEXT FIELDS ON START UP
+			
+			ShowRegisterScreen();
 		}
 
 		private void ShowLoginScreen()

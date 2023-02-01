@@ -10,7 +10,7 @@
 }
 
 .loading-spinner {
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     background-image: url('project://database/Assets/Art/Textures/Ui/Loading/LoadingSpinnerThick.png?fileID=2800000&guid=baccbbd5ac3184df18f5aabbc6649ef8&type=3#LoadingSpinnerThick');
 }

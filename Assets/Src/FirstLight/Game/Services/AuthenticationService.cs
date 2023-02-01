@@ -527,7 +527,6 @@ namespace FirstLight.Game.Services
 			{
 				_dataProvider.AppDataProvider.LastLoginEmail.Value = email;
 				_services.GameBackendService.UpdateDisplayName(result.Username, null, null);
-				_services.GameBackendService.UpdateContactEmail(email, null, null);
 				onSuccess?.Invoke(loginData);
 			}
 		}

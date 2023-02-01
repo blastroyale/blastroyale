@@ -18,6 +18,7 @@ namespace FirstLight.Game.Timeline.UIToolkit
 			var position = new Vector2();
 			var rotation = 0f;
 			var scale = new Vector2(1f, 1f);
+			var opacity = 1f;
 			for (int i = 0; i < playable.GetInputCount(); i++)
 			{
 				var playableInput = (ScriptPlayable<UIDocumentBehaviour>) playable.GetInput(i);
@@ -39,12 +40,16 @@ namespace FirstLight.Game.Timeline.UIToolkit
 						var enable = playable.GetInputWeight(i) > 0f;
 						Element.EnableInClassList(cls.ClassName, enable);
 						break;
+					case UIDocumentOpacityBehaviour op:
+						opacity += op.Opacity * playable.GetInputWeight(i);
+						break;
 				}
 			}
 
 			Element.transform.position = position;
 			Element.transform.scale = Vector3.one * scale;
 			Element.transform.rotation = Quaternion.Euler(0, 0, rotation);
+			Element.style.opacity = opacity;
 		}
 	}
 }

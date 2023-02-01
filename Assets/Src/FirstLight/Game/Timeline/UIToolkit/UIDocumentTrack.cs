@@ -1,5 +1,4 @@
 using System;
-using FirstLight.Game.Utils;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
@@ -12,23 +11,35 @@ namespace FirstLight.Game.Timeline.UIToolkit
 	/// </summary>
 	[Serializable]
 	[TrackClipType(typeof(UIDocumentScaleClip)), TrackClipType(typeof(UIDocumentPositionClip)),
-	 TrackClipType(typeof(UIDocumentRotationClip)), TrackClipType(typeof(UIDocumentClassClip))]
+	 TrackClipType(typeof(UIDocumentRotationClip)), TrackClipType(typeof(UIDocumentClassClip)),
+	 TrackClipType(typeof(UIDocumentOpacityClip))]
 	[TrackColor(0.259f, 0.529f, 0.961f)]
 	public class UIDocumentTrack : TrackAsset, ILayerable
 	{
-		[SerializeField] private string _elementName;
-
 		public override Playable CreateTrackMixer(PlayableGraph graph, GameObject go, int inputCount)
 		{
 			var mixer = ScriptPlayable<UIDocumentMixerBehaviour>.Create(graph, inputCount);
-			// TODO: Not great, would be better if it got the document from the binding. But then it's less reusable. Not sure. Will leave like this for now
-			mixer.GetBehaviour().Element = go.GetComponent<UIDocument>().rootVisualElement.Q(_elementName).Required();
+			mixer.GetBehaviour().Element = GetQuoteUnquoteBoundElement(go);
 			return mixer;
 		}
 
 		public Playable CreateLayerMixer(PlayableGraph graph, GameObject go, int inputCount)
 		{
 			return Playable.Null;
+		}
+
+		private VisualElement GetQuoteUnquoteBoundElement(GameObject go)
+		{
+			var root = go.GetComponent<UIDocument>().rootVisualElement;
+			var path = name.Split('#');
+
+			var ve = root;
+			foreach (var elementName in path)
+			{
+				ve = ve.Q(elementName);
+			}
+
+			return ve;
 		}
 	}
 }

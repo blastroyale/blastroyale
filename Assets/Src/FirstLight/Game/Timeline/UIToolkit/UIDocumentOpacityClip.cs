@@ -6,20 +6,20 @@ using UnityEngine.Timeline;
 namespace FirstLight.Game.Timeline.UIToolkit
 {
 	/// <summary>
-	/// A UI Toolkit timeline clip to change the position.
+	/// A UI Toolkit timeline clip to change the opacity.
 	///
-	/// <see cref="UIDocumentPositionBehaviour"/>
+	/// <see cref="UIDocumentOpacityBehaviour"/>
 	/// </summary>
 	[Serializable]
-	public class UIDocumentPositionClip : PlayableAsset, ITimelineClipAsset
+	public class UIDocumentOpacityClip : PlayableAsset, ITimelineClipAsset
 	{
-		public UIDocumentPositionBehaviour _template = new();
+		public UIDocumentOpacityBehaviour _template = new();
 
 		public ClipCaps clipCaps => ClipCaps.All;
 
 		public override Playable CreatePlayable(PlayableGraph graph, GameObject owner)
 		{
-			return ScriptPlayable<UIDocumentPositionBehaviour>.Create(graph, _template);
+			return ScriptPlayable<UIDocumentOpacityBehaviour>.Create(graph, _template);
 		}
 	}
 }

@@ -1,6 +1,6 @@
 component Gate{
-	[HideInInspector] bool IsOpening;
-	[HideInInspector] FP TimeToOpen;
+    [HideInInspector] bool IsOpening;
+    [HideInInspector] FP TimeToOpen;
 	
     FP OpeningTime;
 }

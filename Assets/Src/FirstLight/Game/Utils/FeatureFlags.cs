@@ -120,6 +120,9 @@ namespace FirstLight.Game.Utils
 				DESYNC_DETECTION = desyncDetection;
 			}
 			
+#if LIVE_SERVER && !STORE_BUILD
+			STORE_ENABLED = false;
+#endif
 			ParseLocalFeatureFlags();
 		}
 

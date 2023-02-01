@@ -22,6 +22,7 @@ using FirstLight.Services;
 using FirstLight.Statechart;
 using I2.Loc;
 using Newtonsoft.Json;
+using ParrelSync;
 using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
@@ -822,7 +823,14 @@ namespace FirstLight.Game.StateMachines
 		
 		private void SetLinkedDevice(bool linked)
 		{
-			_dataProvider.AppDataProvider.DeviceID.Value = linked ? PlayFabSettings.DeviceUniqueIdentifier : "";
+			var uniqueId = PlayFabSettings.DeviceUniqueIdentifier;
+#if UNITY_EDITOR
+			if (ClonesManager.IsClone())
+			{
+				uniqueId = uniqueId + "_clone_" + ClonesManager.GetArgument();
+			}
+#endif
+			_dataProvider.AppDataProvider.DeviceID.Value = linked ? uniqueId : "";
 			_dataService.SaveData<AppData>();
 		}
 

@@ -110,12 +110,15 @@ public partial class SROptions
 	}
 
 	[Category("Gameplay")]
-	public void ShowPlayersOnMinimap()
+	public void SendTeamPingSelf()
 	{
-		Shader.EnableKeyword("MINIMAP_DRAW_PLAYERS");
+		QuantumRunner.Default.Game.SendCommand(new TeamPositionPingCommand()
+		{
+			Position = MainInstaller.Resolve<IMatchServices>().SpectateService.SpectatedPlayer.Value.Transform.position.ToFPVector3(),
+			Type = TeamPingType.General
+		});
 	}
-	
-	
+
 	[Category("Gameplay")]
 	public void CrashUnity()
 	{

@@ -66,6 +66,11 @@ namespace FirstLight.Game.Logic
 		bool UseDynamicCamera { get; set; }
 
 		/// <summary>
+		/// Requests the enable property for screenshake
+		/// </summary>
+		bool UseScreenShake { get; set; }
+
+		/// <summary>
 		/// Requests the current detail level of the game
 		/// </summary>
 		GraphicsConfig.DetailLevel CurrentDetailLevel { get; set; }
@@ -238,6 +243,13 @@ namespace FirstLight.Game.Logic
 		{
 			get => Data.UseDynamicCamera;
 			set => Data.UseDynamicCamera = value;
+		}
+
+		/// <inheritdoc />
+		public bool UseScreenShake
+		{
+			get => Data.UseScreenShake;
+			set => Data.UseScreenShake = value;
 		}
 
 		/// <inheritdoc />

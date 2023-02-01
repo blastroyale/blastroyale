@@ -92,10 +92,9 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		public void StartScreenShake(CinemachineImpulseDefinition.ImpulseShapes Shape, float duration, float strength, Vector3 position = default)
 		{
-			if(!_cinemachineBrain.ActiveVirtualCamera.VirtualCameraGameObject.GetComponent<CinemachineImpulseListener>())
-			{
+			if(!_gameDataProvider.AppDataProvider.UseScreenShake)
 				return;
-			}
+
 			var impulseListener = _cinemachineBrain.ActiveVirtualCamera.VirtualCameraGameObject.GetComponent<CinemachineImpulseListener>();
 			var newImpulse = new CinemachineImpulseDefinition
 			{

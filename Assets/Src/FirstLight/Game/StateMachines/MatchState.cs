@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Presenters;
 using FirstLight.Game.Services;
+using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.Commands;
 using FirstLight.Services;
@@ -64,7 +66,7 @@ namespace FirstLight.Game.StateMachines
 
 			_services.NetworkService.QuantumClient.AddCallbackTarget(this);
 			
-			_mainOverlayCamera = Camera.allCameras.First(go => go.CompareTag("MainOverlayCamera"));
+			_mainOverlayCamera = Camera.allCameras.FirstOrDefault(go => go.CompareTag("MainOverlayCamera"));
 		}
 
 		/// <summary>
@@ -145,6 +147,7 @@ namespace FirstLight.Game.StateMachines
 			gameResults.OnExit(OpenLoadingScreen);
 			
 			disconnected.OnEnter(OpenDisconnectedScreen);
+			disconnected.Event(NetworkState.JoinedMatchmakingEvent).Target(postDisconnectCheck);
 			disconnected.Event(NetworkState.JoinedRoomEvent).Target(postDisconnectCheck);
 			disconnected.Event(NetworkState.JoinRoomFailedEvent).Target(unloadToFinal);
 			disconnected.Event(NetworkState.DcScreenBackEvent).Target(unloadToFinal);
@@ -193,8 +196,10 @@ namespace FirstLight.Game.StateMachines
 
 			FLog.Verbose("Quantum Logic Command Received: " + ev.CommandType.ToString());
 			var command = QuantumLogicCommandFactory.BuildFromEvent(ev);
+			var room = _services.NetworkService.QuantumClient.CurrentRoom;
 			command.FromFrame(game.Frames.Verified, new QuantumValues()
 			{
+				MatchId = room.Name,
 				ExecutingPlayer = game.GetLocalPlayers()[0],
 				MatchType = _services.NetworkService.QuantumClient.CurrentRoom.GetMatchType()
 			});
@@ -376,59 +381,73 @@ namespace FirstLight.Game.StateMachines
 
 		private async Task LoadMatchAssets()
 		{
-			var time = Time.realtimeSinceStartup;
-			
-			var tasks = new List<Task>();
-			var config = _services.NetworkService.CurrentRoomMapConfig.Value;
-			var gameModeConfig = _services.NetworkService.CurrentRoomGameModeConfig.Value;
-			var mutatorIds = _services.NetworkService.CurrentRoomMutatorIds;
-			var map = config.Map.ToString();
-			var entityService = new GameObject(nameof(EntityViewUpdaterService)).AddComponent<EntityViewUpdaterService>();
-			_matchServices = new MatchServices(entityService, _services, _dataProvider, _dataService);
-			
-			MainInstaller.Bind<IMatchServices>(_matchServices);
-			
-			var runnerConfigs = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
-			var sceneTask = _services.AssetResolverService.LoadSceneAsync($"Scenes/{map}.unity", LoadSceneMode.Additive);
-			
-			_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<MatchAssetConfigs>());
-			runnerConfigs.SetRuntimeConfig(gameModeConfig, config, mutatorIds);
-
-			tasks.Add(sceneTask);
-			tasks.Add(_assetAdderService.LoadAllAssets<IndicatorVfxId, GameObject>());
-			tasks.Add(_assetAdderService.LoadAllAssets<EquipmentRarity, GameObject>());
-			tasks.AddRange(LoadQuantumAssets(map));
-			tasks.AddRange(PreloadGameAssets());
-			tasks.AddRange(_uiService.LoadUiSetAsync((int) UiSetId.MatchUi));
-			
-			// TODO: FIX THIS
-			switch (_services.NetworkService.CurrentRoomGameModeConfig.Value.Id)
+			// TODO - Remove this temporary try catch when cause and fix for issue BRG-1822 is found
+			try
 			{
-				case "Deathmatch" : tasks.AddRange(_uiService.LoadUiSetAsync((int) UiSetId.DeathMatchMatchUi));
-					break;
-				case "BattleRoyale" : tasks.AddRange(_uiService.LoadUiSetAsync((int) UiSetId.BattleRoyaleMatchUi));
-					break;
-			}
+				var time = Time.realtimeSinceStartup;
 
-			await Task.WhenAll(tasks);
+				var tasks = new List<Task>();
+				var config = _services.NetworkService.CurrentRoomMapConfig.Value;
+				var gameModeConfig = _services.NetworkService.CurrentRoomGameModeConfig.Value;
+				var mutatorIds = _services.NetworkService.CurrentRoomMutatorIds;
+				var map = config.Map.ToString();
+				var entityService = new GameObject(nameof(EntityViewUpdaterService))
+					.AddComponent<EntityViewUpdaterService>();
+				_matchServices = new MatchServices(entityService, _services, _dataProvider, _dataService);
 
-			SceneManager.SetActiveScene(sceneTask.Result);
+				MainInstaller.Bind<IMatchServices>(_matchServices);
 
-			await Task.WhenAll(PreloadMapAssets());
-			
-			PublishCoreAssetsLoadedMessage();
+				var runnerConfigs = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>();
+				var sceneTask =
+					_services.AssetResolverService.LoadSceneAsync($"Scenes/{map}.unity", LoadSceneMode.Additive);
+
+				_assetAdderService.AddConfigs(_services.ConfigsProvider.GetConfig<MatchAssetConfigs>());
+				runnerConfigs.SetRuntimeConfig(gameModeConfig, config, mutatorIds);
+
+				tasks.Add(sceneTask);
+				tasks.Add(_assetAdderService.LoadAllAssets<IndicatorVfxId, GameObject>());
+				tasks.Add(_assetAdderService.LoadAllAssets<EquipmentRarity, GameObject>());
+				tasks.AddRange(LoadQuantumAssets(map));
+				tasks.AddRange(PreloadGameAssets());
+				tasks.AddRange(_uiService.LoadUiSetAsync((int) UiSetId.MatchUi));
+
+				// TODO: FIX THIS
+				switch (_services.NetworkService.CurrentRoomGameModeConfig.Value.Id)
+				{
+					case "Deathmatch":
+						tasks.AddRange(_uiService.LoadUiSetAsync((int) UiSetId.DeathMatchMatchUi));
+						break;
+					case "BattleRoyale":
+						tasks.AddRange(_uiService.LoadUiSetAsync((int) UiSetId.BattleRoyaleMatchUi));
+						break;
+				}
+
+				await Task.WhenAll(tasks);
+
+				SceneManager.SetActiveScene(sceneTask.Result);
+
+				await Task.WhenAll(PreloadMapAssets());
+
+				PublishCoreAssetsLoadedMessage();
 
 #if UNITY_EDITOR
-			SetQuantumMultiClient(runnerConfigs, entityService);
+				SetQuantumMultiClient(runnerConfigs, entityService);
 #endif
-			var dic = new Dictionary<string, object>
+				var dic = new Dictionary<string, object>
+				{
+					{"client_version", VersionUtils.VersionInternal},
+					{"total_time", Time.realtimeSinceStartup - time},
+					{"vendor_id", SystemInfo.deviceUniqueIdentifier},
+					{"playfab_player_id", _dataProvider.AppDataProvider.PlayerId}
+				};
+				_services.AnalyticsService.LogEvent(AnalyticsEvents.LoadMatchAssetsComplete, dic);
+			}
+			catch (Exception e)
 			{
-				{"client_version", VersionUtils.VersionInternal},
-				{"total_time", Time.realtimeSinceStartup - time},
-				{"vendor_id", SystemInfo.deviceUniqueIdentifier},
-				{"playfab_player_id", _dataProvider.AppDataProvider.PlayerId}
-			};
-			_services.AnalyticsService.LogEvent(AnalyticsEvents.LoadMatchAssetsComplete, dic);
+				_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.MatchLoad, e.Message);
+				Debug.LogError(e);
+				throw;
+			}
 		}
 
 		private async Task UnloadAllMatchAssets()

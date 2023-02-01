@@ -127,6 +127,10 @@ MonoBehaviour:
     Layer: -1
     UiType: FirstLight.Game.Presenters.MatchmakingScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - AddressableAddress: Ui/PartyDialog.prefab
+    Layer: 0
+    UiType: FirstLight.Game.Presenters.PartyDialogPresenter, FirstLight.Game, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/PlayerSkinSelectScreen.prefab
     Layer: 0
     UiType: FirstLight.Game.Presenters.PlayerSkinScreenPresenter, FirstLight.Game,
@@ -175,10 +179,6 @@ MonoBehaviour:
     Layer: 0
     UiType: FirstLight.Game.Presenters.TrophiesScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - AddressableAddress: Ui/UiTooltipContainerScreen.prefab
-    Layer: 7
-    UiType: FirstLight.Game.Presenters.UiTooltipPresenter, FirstLight.Game, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   - AddressableAddress: Ui/UiVfxContainerScreen.prefab
     Layer: 7
     UiType: FirstLight.Game.Presenters.UiVfxPresenter, FirstLight.Game, Version=0.0.0.0,
@@ -209,8 +209,6 @@ MonoBehaviour:
     - FirstLight.Game.Presenters.UiVfxPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.HomeScreenPresenter, FirstLight.Game, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    - FirstLight.Game.Presenters.UiTooltipPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   - SetId: 2
     UiConfigsType:

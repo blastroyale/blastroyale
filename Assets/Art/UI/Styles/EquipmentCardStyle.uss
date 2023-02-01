@@ -198,15 +198,16 @@
 
 .equipment-card__badge-nft {
     background-image: var(--sprite-equipmentcard__card-badge-nft);
-    width: 74px;
-    height: 32px;
+    width: 66px;
+    height: 28px;
     position: relative;
+    margin: 2px;
 }
 
 .equipment-card__badge-loaned {
     background-image: none;
     -unity-text-align: middle-center;
-    font-size: 22px;
+    font-size: 24px;
     color: rgb(255, 255, 255);
     padding: 2px 15px 0;
     background-color: rgb(216, 75, 121);
@@ -219,11 +220,12 @@
     border-right-color: rgb(176, 60, 98);
     border-top-color: rgb(176, 60, 98);
     border-bottom-color: rgb(176, 60, 98);
+    margin: 2px;
 }
 
 .equipment-card__badge-equipped {
     -unity-text-align: middle-center;
-    font-size: 22px;
+    font-size: 24px;
     color: rgb(45, 41, 80);
     padding: 2px 15px 0;
     background-color: rgb(248, 199, 46);
@@ -236,6 +238,7 @@
     border-top-color: rgb(0, 0, 0);
     border-bottom-color: rgb(0, 0, 0);
     border-radius: 8px;
+    margin: 2px;
 }
 
 .equipment-card__notification {

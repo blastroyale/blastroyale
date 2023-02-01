@@ -50,6 +50,7 @@ MonoBehaviour:
     Tuning: 0
     Level: 1
     Generation: 0
+    Amount: 1
   - Id: 1
     GameId: 78
     EquipmentCategory:
@@ -86,6 +87,7 @@ MonoBehaviour:
     Tuning: 0
     Level: 1
     Generation: 0
+    Amount: 1
   - Id: 2
     GameId: 15
     EquipmentCategory:
@@ -134,6 +136,7 @@ MonoBehaviour:
     Tuning: 0
     Level: 1
     Generation: 0
+    Amount: 1
   - Id: 3
     GameId: 46
     EquipmentCategory:
@@ -185,6 +188,7 @@ MonoBehaviour:
     Tuning: 0
     Level: 1
     Generation: 0
+    Amount: 1
   - Id: 4
     GameId: 47
     EquipmentCategory:
@@ -236,6 +240,7 @@ MonoBehaviour:
     Tuning: 0
     Level: 1
     Generation: 0
+    Amount: 1
   - Id: 5
     GameId: 48
     EquipmentCategory:
@@ -288,6 +293,7 @@ MonoBehaviour:
     Tuning: 0
     Level: 1
     Generation: 0
+    Amount: 1
   - Id: 6
     GameId: 59
     EquipmentCategory:
@@ -338,6 +344,7 @@ MonoBehaviour:
     Tuning: 0
     Level: 1
     Generation: 0
+    Amount: 1
   - Id: 7
     GameId: 15
     EquipmentCategory:
@@ -377,6 +384,7 @@ MonoBehaviour:
     Tuning: 0
     Level: 1
     Generation: 0
+    Amount: 1
   - Id: 8
     GameId: 46
     EquipmentCategory:
@@ -416,6 +424,7 @@ MonoBehaviour:
     Tuning: 0
     Level: 1
     Generation: 0
+    Amount: 1
   - Id: 9
     GameId: 47
     EquipmentCategory:
@@ -454,3 +463,35 @@ MonoBehaviour:
     Tuning: 0
     Level: 1
     Generation: 0
+    Amount: 1
+  - Id: 10
+    GameId: 26
+    EquipmentCategory:
+      _keyData: 
+      _valueData: []
+    Edition:
+      _keyData: 
+      _valueData: []
+    Rarity:
+      _keyData: 
+      _valueData: []
+    Grade:
+      _keyData: 
+      _valueData: []
+    Faction:
+      _keyData: 
+      _valueData: []
+    Adjective:
+      _keyData: 
+      _valueData: []
+    Material:
+      _keyData: 
+      _valueData: []
+    MaxDurability:
+      Key: 0
+      Value: 0
+    InitialReplicationCounter: 0
+    Tuning: 0
+    Level: 0
+    Generation: 0
+    Amount: 500

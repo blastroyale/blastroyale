@@ -21,8 +21,10 @@ enum DeathDropsStrategy
 {
 	None = 0,
 	WeaponOnly = 1,
-	Box = 2
-	BoxAndWeapon = 3
+	Box = 2,
+	BoxAndWeapon = 3,
+	Consumables = 4,
+	Tutorial = 5
 }
 
 enum GameCompletionStrategy

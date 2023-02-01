@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Photon.Deterministic;
 
 namespace Quantum
 {
@@ -15,10 +14,10 @@ namespace Quantum
 		/// Add a PlayerMatchData to the container linked to a specific PlayerRef.
 		/// </summary>
 		internal void AddPlayer(Frame f, PlayerRef player, EntityRef playerEntity, uint playerLevel, GameId skin,
-		                        GameId deathMarker, uint playerTrophies)
+								GameId deathMarker, uint playerTrophies, int teamId)
 		{
 			var isBot = f.TryGet<BotCharacter>(playerEntity, out var bot);
-			
+
 			PlayersData[player] = new PlayerMatchData
 			{
 				Entity = playerEntity,
@@ -27,6 +26,7 @@ namespace Quantum
 				PlayerSkin = skin,
 				PlayerTrophies = playerTrophies,
 				PlayerDeathMarker = isBot ? bot.DeathMarker : deathMarker,
+				TeamId = teamId,
 				BotNameIndex = isBot ? bot.BotNameIndex : 0
 			};
 		}
@@ -66,15 +66,22 @@ namespace Quantum
 				f.Signals.GameEnded();
 			}
 		}
-		
+
 		/// <summary>
 		/// Tests the game completion strategy where everyone should be dead but a certain amount of people defined in the TargetProgress
 		/// </summary>
 		internal void TestEveryoneIsDead(Frame f)
 		{
-			var playersAlive = f.ComponentCount<AlivePlayerCharacter>();
+			var teamsAlive = new HashSet<int>();
+			foreach (var (entity, _) in f.Unsafe.GetComponentBlockIterator<AlivePlayerCharacter>())
+			{
+				if (f.Unsafe.TryGetPointer<PlayerCharacter>(entity, out var t))
+				{
+					teamsAlive.Add(t->TeamId);
+				}
+			}
 
-			CurrentProgress = (uint)( f.PlayerCount - playersAlive);
+			CurrentProgress = (uint) (TargetProgress - teamsAlive.Count + 1);
 
 			if (CurrentProgress >= TargetProgress)
 			{
@@ -124,15 +131,15 @@ namespace Quantum
 			return DropPool.WeaponPool[f.RNG->Next(0, DropPool.WeaponPool.Length)];
 		}
 
-#region Player Rank Sorters
-		
+		#region Player Rank Sorters
+
 		private static IRankSorter GetSorter(RankSorter sorter)
 		{
 			return sorter switch
 			{
 				RankSorter.BattleRoyale => new BattleRoyaleSorter(),
-				RankSorter.Deathmatch => new DeathmatchSorter(),
-				_ => throw new ArgumentOutOfRangeException(nameof(sorter), sorter, null)
+				RankSorter.Deathmatch   => new DeathmatchSorter(),
+				_                       => throw new ArgumentOutOfRangeException(nameof(sorter), sorter, null)
 			};
 		}
 
@@ -140,9 +147,9 @@ namespace Quantum
 		{
 			return processor switch
 			{
-				RankProcessor.General => new GeneralRankProcessor(),
+				RankProcessor.General    => new GeneralRankProcessor(),
 				RankProcessor.Deathmatch => new DeathMatchRankProcessor(),
-				_ => throw new ArgumentOutOfRangeException(nameof(processor), processor, null)
+				_                        => throw new ArgumentOutOfRangeException(nameof(processor), processor, null)
 			};
 		}
 
@@ -220,6 +227,6 @@ namespace Quantum
 			}
 		}
 
-#endregion
+		#endregion
 	}
 }

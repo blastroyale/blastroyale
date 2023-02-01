@@ -1,6 +1,6 @@
 using System.IO;
 using Backend;
-using GameLogicApp.Authentication;
+using ServerCommon.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.Extensions.DependencyInjection;

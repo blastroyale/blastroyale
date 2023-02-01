@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
+using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.Commands;
 using Quantum;
 
@@ -13,6 +14,7 @@ namespace FirstLight.Game.Commands
 	/// </summary>
 	public class EndOfGameCalculationsCommand : IQuantumCommand, IGameCommand
 	{
+		
 		public List<QuantumPlayerMatchData> PlayersMatchData;
 		public QuantumValues QuantumValues;
 		public bool ValidRewardsFromFrame = true;
@@ -40,6 +42,7 @@ namespace FirstLight.Game.Commands
 				DidPlayerQuit = false,
 				GamePlayerCount = matchData.Count
 			};
+			var playerMatchData = matchData[QuantumValues.ExecutingPlayer];
 			var rewards = ctx.Logic.RewardLogic().GiveMatchRewards(rewardSource, out var trophyChange);
 
 			ctx.Services.MessageBrokerService().Publish(new GameCompletedRewardsMessage

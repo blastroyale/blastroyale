@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Photon.Deterministic;
+using Quantum.Collections;
 
 namespace Quantum
 {
@@ -52,40 +53,73 @@ namespace Quantum
 			var chestItems = new List<ChestItemDropped>();
 			var gameContainer = f.Unsafe.GetPointerSingleton<GameContainer>();
 
-			// Empty primary slot and hasn't ever dropped a weapon => drop the one from loadout or a random one
-			// Empty primary slot and we dropped a weapon once => skip dropping a weapon here
-			// Busy primary slot => skip dropping a weapon here
-			// There are items in the pool to drop
-			if (playerCharacter->WeaponSlots[1].Weapon.GameId == GameId.Random && 
-				!playerCharacter->HasDroppedItemForSlot(Constants.GEAR_INDEX_WEAPON) && 
-				!gameContainer->DropPool.IsPoolEmpty && 
-				!isBot)
+			//if we have an override component to change what spawns within the chest
+			if(f.Unsafe.TryGetPointer<ChestOverride>(e, out var overrideComponent) && 
+				overrideComponent->ContentsOverride != new QList<GameId>())
 			{
-				var weaponItem = hasLoadoutWeapon ? loadoutWeapon : gameContainer->GenerateNextWeapon(f);
-				
-				ModifyEquipmentRarity(f, ref weaponItem, minimumRarity, gameContainer->DropPool.AverageRarity);
-				Collectable.DropEquipment(f, weaponItem, chestPosition, angleStep++);
-				playerCharacter->SetDroppedLoadoutItem(weaponItem);
-				
-				chestItems.Add(new ChestItemDropped()
+				foreach (var item in f.ResolveList(overrideComponent->ContentsOverride))
 				{
-					ChestType = config.Id,
-					ChestPosition = chestPosition,
-					Player = playerRef,
-					PlayerEntity = playerEntity,
-					ItemType = weaponItem.GameId,
-					Amount = 1,
-					AngleStepAroundChest = angleStep
-				});
+					if(item.IsInGroup(GameIdGroup.Equipment))
+					{
+						var equipment = Equipment.Create(item, f.ChestConfigs.GetChestRarity(config.ChestType), 1, f);
+						Collectable.DropEquipment(f, equipment, chestPosition, angleStep++);
+
+					} else if (item.IsInGroup(GameIdGroup.Consumable))
+					{
+						Collectable.DropConsumable(f, item, chestPosition, angleStep++, false);
+					} else
+					{
+						continue;
+					}
+					chestItems.Add(new ChestItemDropped()
+					{
+						ChestType = config.Id,
+						ChestPosition = chestPosition,
+						Player = playerRef,
+						PlayerEntity = playerEntity,
+						ItemType = item,
+						Amount = 1,
+						AngleStepAroundChest = angleStep
+					});
+				}
+			} else
+			{
+				// Empty primary slot and hasn't ever dropped a weapon => drop the one from loadout or a random one
+				// Empty primary slot and we dropped a weapon once => skip dropping a weapon here
+				// Busy primary slot => skip dropping a weapon here
+				// There are items in the pool to drop
+				if (playerCharacter->WeaponSlots[1].Weapon.GameId == GameId.Random &&
+					!playerCharacter->HasDroppedItemForSlot(Constants.GEAR_INDEX_WEAPON) &&
+					!gameContainer->DropPool.IsPoolEmpty &&
+					!isBot)
+				{
+					var weaponItem = hasLoadoutWeapon ? loadoutWeapon : gameContainer->GenerateNextWeapon(f);
+
+					ModifyEquipmentRarity(f, ref weaponItem, minimumRarity, gameContainer->DropPool.AverageRarity);
+					Collectable.DropEquipment(f, weaponItem, chestPosition, angleStep++);
+					playerCharacter->SetDroppedLoadoutItem(weaponItem);
+
+					chestItems.Add(new ChestItemDropped()
+					{
+						ChestType = config.Id,
+						ChestPosition = chestPosition,
+						Player = playerRef,
+						PlayerEntity = playerEntity,
+						ItemType = weaponItem.GameId,
+						Amount = 1,
+						AngleStepAroundChest = angleStep
+					});
+				}
+
+				DropPowerUps(f, playerEntity, config, playerCharacter, gameContainer, minimumRarity, loadoutWeapon,
+							 chestPosition, ref angleStep, chestItems, chestItems.Count);
+				DropSmallConsumable(f, playerEntity, playerRef, config, ammoCheck, shieldCheck, healthCheck,
+									chestPosition, ref angleStep, chestItems);
+				DropLargeConsumable(f, playerEntity, playerRef, config, ammoCheck, shieldCheck,
+									chestPosition, ref angleStep, chestItems);
 			}
 
-			DropPowerUps(f, playerEntity, config, playerCharacter, gameContainer, minimumRarity, loadoutWeapon,
-			             chestPosition, ref angleStep, chestItems, chestItems.Count);
-			DropSmallConsumable(f, playerEntity, playerRef, config, ammoCheck, shieldCheck, healthCheck,
-			                    chestPosition, ref angleStep, chestItems);
-			DropLargeConsumable(f, playerEntity, playerRef,config, ammoCheck, shieldCheck,
-			                    chestPosition, ref angleStep, chestItems);
-			
+			f.Signals.ChestOpened(config.Id, chestPosition, playerRef, playerEntity);
 			f.Events.OnChestOpened(config.Id, chestPosition, playerRef, playerEntity, chestItems);
 		}
 
@@ -209,19 +243,20 @@ namespace Quantum
 				var shieldsList = new List<GameId>(GameIdGroup.Shield.GetIds());
 				var armorsList = new List<GameId>(GameIdGroup.Armor.GetIds());
 				var amuletsList = new List<GameId>(GameIdGroup.Amulet.GetIds());
+
 				
-				botLoadout.Add(new Equipment{GameId = helmetsList[f.RNG->Next(0, helmetsList.Count)], Rarity = medianRarity });
+				botLoadout.Add(Equipment.Create(helmetsList[f.RNG->Next(0, helmetsList.Count)], medianRarity, 1, f));
 				if (botCharacter->LoadoutGearNumber > 1)
 				{
-					botLoadout.Add(new Equipment{GameId = shieldsList[f.RNG->Next(0, shieldsList.Count)], Rarity = medianRarity});
+					botLoadout.Add(Equipment.Create(shieldsList[f.RNG->Next(0, shieldsList.Count)], medianRarity, 1, f));
 				}
 				if (botCharacter->LoadoutGearNumber > 2)
 				{
-					botLoadout.Add(new Equipment{GameId = armorsList[f.RNG->Next(0, armorsList.Count)], Rarity = medianRarity});
+					botLoadout.Add(Equipment.Create(armorsList[f.RNG->Next(0, armorsList.Count)], medianRarity, 1, f));
 				}
 				if (botCharacter->LoadoutGearNumber > 3)
 				{
-					botLoadout.Add(new Equipment{GameId = amuletsList[f.RNG->Next(0, amuletsList.Count)], Rarity = medianRarity});
+					botLoadout.Add(Equipment.Create(amuletsList[f.RNG->Next(0, amuletsList.Count)], medianRarity, 1, f));
 				}
 			}
 			
@@ -308,14 +343,14 @@ namespace Quantum
 
 					// If we dropped all equipment from loadout, and capacity left to drop, chose randomly between either
 					// a capacity upgrade or an equipment upgrade
-					// chances are: 50% equipment, 25% big shields capacity, 25% small shields capacity
+					// chances are: 25% equipment, 25% big shields capacity, 50% small shields capacity
 					var furtherDrop = GameId.Random;
 					if (statsShields.StatValue < statsShields.BaseValue)
 					{
-						furtherDrop = QuantumHelpers.GetRandomItem(f, GameId.Random, GameId.Random, GameId.ShieldCapacityLarge, GameId.ShieldCapacitySmall);
+						furtherDrop = QuantumHelpers.GetRandomItem(f, GameId.Random, GameId.ShieldCapacityLarge, GameId.ShieldCapacitySmall, GameId.ShieldCapacitySmall);
 					}
 
-					// Drop equipment upgrades if you rolled it or had full shields capacity
+					// Drop equipment upgrades if you rolled it
 					if (furtherDrop == GameId.Random)
 					{
 						// In the edge case when we dropped all possible equipment
@@ -377,7 +412,6 @@ namespace Quantum
 				}
 			}
 		}
-
 		private void ModifyEquipmentRarity(Frame f, ref Equipment equipment, EquipmentRarity minimumRarity,
 		                                   EquipmentRarity medianRarity)
 		{

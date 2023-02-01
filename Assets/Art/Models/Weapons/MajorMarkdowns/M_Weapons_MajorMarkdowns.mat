@@ -103,7 +103,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - BrightenMainTexture: 0.25
+    - BrightenMainTexture: 1
     - Vector1_A3CA1DE4: 1
     - Vector1_FA9A29A7: 1
     - _AlphaClip: 0

@@ -13,123 +13,243 @@ MonoBehaviour:
   m_Name: MatchRewardConfigs
   m_EditorClassIdentifier: 
   _configs:
-  - Placement: 1
+  - MatchRewardId: -1467239176
+    Placement: 1
+    TeamSize: 1
     Rewards:
-      _keyData: 0c0000001a000000
-      _valueData: 6400000064000000
-  - Placement: 2
+      _keyData: 0c0000001a00000016000000
+      _valueData: 640000006400000014000000
+  - MatchRewardId: -1467239173
+    Placement: 2
+    TeamSize: 1
     Rewards:
-      _keyData: 0c0000001a000000
-      _valueData: 550000005f000000
-  - Placement: 3
+      _keyData: 0c0000001a00000016000000
+      _valueData: 550000005f0000000f000000
+  - MatchRewardId: -1467239174
+    Placement: 3
+    TeamSize: 1
     Rewards:
-      _keyData: 0c0000001a000000
-      _valueData: 460000005a000000
-  - Placement: 4
+      _keyData: 0c0000001a00000016000000
+      _valueData: 460000005a0000000d000000
+  - MatchRewardId: -1467239179
+    Placement: 4
+    TeamSize: 1
     Rewards:
-      _keyData: 0c0000001a000000
-      _valueData: 3c0000005a000000
-  - Placement: 5
+      _keyData: 0c0000001a00000016000000
+      _valueData: 3c0000005a0000000c000000
+  - MatchRewardId: -1467239180
+    Placement: 5
+    TeamSize: 1
     Rewards:
-      _keyData: 0c0000001a000000
-      _valueData: 340000005a000000
-  - Placement: 6
+      _keyData: 0c0000001a00000016000000
+      _valueData: 340000005a0000000b000000
+  - MatchRewardId: -1467239177
+    Placement: 6
+    TeamSize: 1
     Rewards:
-      _keyData: 0c0000001a000000
-      _valueData: 3000000055000000
-  - Placement: 7
+      _keyData: 0c0000001a00000016000000
+      _valueData: 30000000550000000a000000
+  - MatchRewardId: -1467239178
+    Placement: 7
+    TeamSize: 1
     Rewards:
-      _keyData: 0c0000001a000000
-      _valueData: 2c00000055000000
-  - Placement: 8
+      _keyData: 0c0000001a00000016000000
+      _valueData: 2c0000005500000009000000
+  - MatchRewardId: -1467239167
+    Placement: 8
+    TeamSize: 1
     Rewards:
-      _keyData: 0c0000001a000000
-      _valueData: 2800000055000000
-  - Placement: 9
+      _keyData: 0c0000001a00000016000000
+      _valueData: 280000005500000008000000
+  - MatchRewardId: -1467239168
+    Placement: 9
+    TeamSize: 1
     Rewards:
-      _keyData: 0c0000001a000000
-      _valueData: 2400000055000000
-  - Placement: 10
+      _keyData: 0c0000001a00000016000000
+      _valueData: 240000005500000007000000
+  - MatchRewardId: 104526574
+    Placement: 10
+    TeamSize: 1
     Rewards:
-      _keyData: 0c0000001a000000
-      _valueData: 2000000055000000
-  - Placement: 11
+      _keyData: 0c0000001a00000016000000
+      _valueData: 200000005500000006000000
+  - MatchRewardId: -1461557367
+    Placement: 11
+    TeamSize: 1
     Rewards:
-      _keyData: 0c0000001a000000
-      _valueData: 1c00000050000000
-  - Placement: 12
+      _keyData: 0c0000001a00000016000000
+      _valueData: 1c0000005000000005000000
+  - MatchRewardId: -1058272840
+    Placement: 12
+    TeamSize: 1
     Rewards:
-      _keyData: 0c0000001a000000
-      _valueData: 180000004b000000
-  - Placement: 13
+      _keyData: 0c0000001a00000016000000
+      _valueData: 180000004b00000004000000
+  - MatchRewardId: 1670610515
+    Placement: 13
+    TeamSize: 1
     Rewards:
-      _keyData: 0c0000001a000000
-      _valueData: 1500000046000000
-  - Placement: 14
+      _keyData: 0c0000001a00000016000000
+      _valueData: 150000004600000003000000
+  - MatchRewardId: -1864841894
+    Placement: 14
+    TeamSize: 1
     Rewards:
-      _keyData: 0c0000001a000000
-      _valueData: 1200000046000000
-  - Placement: 15
+      _keyData: 0c0000001a00000016000000
+      _valueData: 120000004600000002000000
+  - MatchRewardId: 864041461
+    Placement: 15
+    TeamSize: 1
     Rewards:
-      _keyData: 0c0000001a000000
-      _valueData: 0f00000041000000
-  - Placement: 16
+      _keyData: 0c0000001a00000016000000
+      _valueData: 0f0000004100000001000000
+  - MatchRewardId: 1267325988
+    Placement: 16
+    TeamSize: 1
     Rewards:
-      _keyData: 0c0000001a000000
-      _valueData: 0c00000041000000
-  - Placement: 17
+      _keyData: 0c0000001a00000016000000
+      _valueData: 0c00000041000000ffffffff
+  - MatchRewardId: -298757953
+    Placement: 17
+    TeamSize: 1
     Rewards:
-      _keyData: 0c0000001a000000
-      _valueData: 0900000041000000
-  - Placement: 18
+      _keyData: 0c0000001a00000016000000
+      _valueData: 0900000041000000feffffff
+  - MatchRewardId: -251703786
+    Placement: 18
+    TeamSize: 1
     Rewards:
-      _keyData: 0c0000001a000000
-      _valueData: 0600000041000000
-  - Placement: 19
+      _keyData: 0c0000001a00000016000000
+      _valueData: 0600000041000000fdffffff
+  - MatchRewardId: -1817787727
+    Placement: 19
+    TeamSize: 1
     Rewards:
-      _keyData: 0c0000001a000000
-      _valueData: 0400000041000000
-  - Placement: 20
+      _keyData: 0c0000001a00000016000000
+      _valueData: 0400000041000000fcffffff
+  - MatchRewardId: 104526607
+    Placement: 20
+    TeamSize: 1
     Rewards:
-      _keyData: 0c0000001a000000
-      _valueData: 020000003c000000
-  - Placement: 21
+      _keyData: 0c0000001a00000016000000
+      _valueData: 020000003c000000fbffffff
+  - MatchRewardId: -1461557334
+    Placement: 21
+    TeamSize: 1
     Rewards:
-      _keyData: 0c0000001a000000
-      _valueData: 0000000032000000
-  - Placement: 22
+      _keyData: 0c0000001a00000016000000
+      _valueData: 0000000032000000faffffff
+  - MatchRewardId: -1058272807
+    Placement: 22
+    TeamSize: 1
     Rewards:
-      _keyData: 0c0000001a000000
-      _valueData: 0000000023000000
-  - Placement: 23
+      _keyData: 0c0000001a00000016000000
+      _valueData: 0000000023000000f9ffffff
+  - MatchRewardId: 1670610548
+    Placement: 23
+    TeamSize: 1
     Rewards:
-      _keyData: 0c0000001a000000
-      _valueData: 0000000019000000
-  - Placement: 24
+      _keyData: 0c0000001a00000016000000
+      _valueData: 0000000019000000f8ffffff
+  - MatchRewardId: -1864841861
+    Placement: 24
+    TeamSize: 1
     Rewards:
-      _keyData: 0c0000001a000000
-      _valueData: 000000000f000000
-  - Placement: 25
+      _keyData: 0c0000001a00000016000000
+      _valueData: 000000000f000000f7ffffff
+  - MatchRewardId: 864041494
+    Placement: 25
+    TeamSize: 1
     Rewards:
-      _keyData: 0c0000001a000000
-      _valueData: 000000000a000000
-  - Placement: 26
+      _keyData: 0c0000001a00000016000000
+      _valueData: 000000000a000000f6ffffff
+  - MatchRewardId: 1267326021
+    Placement: 26
+    TeamSize: 1
     Rewards:
-      _keyData: 0c0000001a000000
-      _valueData: 0000000005000000
-  - Placement: 27
+      _keyData: 0c0000001a00000016000000
+      _valueData: 0000000005000000f4ffffff
+  - MatchRewardId: -298757920
+    Placement: 27
+    TeamSize: 1
     Rewards:
-      _keyData: 0c0000001a000000
-      _valueData: 0000000005000000
-  - Placement: 28
+      _keyData: 0c0000001a00000016000000
+      _valueData: 0000000005000000f2ffffff
+  - MatchRewardId: -251703753
+    Placement: 28
+    TeamSize: 1
     Rewards:
-      _keyData: 0c0000001a000000
-      _valueData: 0000000000000000
-  - Placement: 29
+      _keyData: 0c0000001a00000016000000
+      _valueData: 0000000000000000f0ffffff
+  - MatchRewardId: -1817787694
+    Placement: 29
+    TeamSize: 1
     Rewards:
-      _keyData: 0c0000001a000000
-      _valueData: 0000000000000000
-  - Placement: 30
+      _keyData: 0c0000001a00000016000000
+      _valueData: 0000000000000000eeffffff
+  - MatchRewardId: 104526640
+    Placement: 30
+    TeamSize: 1
     Rewards:
-      _keyData: 0c0000001a000000
-      _valueData: 0000000000000000
+      _keyData: 0c0000001a00000016000000
+      _valueData: 0000000000000000ecffffff
+  - MatchRewardId: 1664928706
+    Placement: 1
+    TeamSize: 3
+    Rewards:
+      _keyData: 0c0000001a00000016000000
+      _valueData: 640000006400000014000000
+  - MatchRewardId: 1664928709
+    Placement: 2
+    TeamSize: 3
+    Rewards:
+      _keyData: 0c0000001a00000016000000
+      _valueData: 460000005a0000000d000000
+  - MatchRewardId: 1664928708
+    Placement: 3
+    TeamSize: 3
+    Rewards:
+      _keyData: 0c0000001a00000016000000
+      _valueData: 30000000550000000a000000
+  - MatchRewardId: 1664928703
+    Placement: 4
+    TeamSize: 3
+    Rewards:
+      _keyData: 0c0000001a00000016000000
+      _valueData: 200000005500000006000000
+  - MatchRewardId: 1664928702
+    Placement: 5
+    TeamSize: 3
+    Rewards:
+      _keyData: 0c0000001a00000016000000
+      _valueData: 120000004600000002000000
+  - MatchRewardId: 1664928705
+    Placement: 6
+    TeamSize: 3
+    Rewards:
+      _keyData: 0c0000001a00000016000000
+      _valueData: 0600000041000000fdffffff
+  - MatchRewardId: 1664928704
+    Placement: 7
+    TeamSize: 3
+    Rewards:
+      _keyData: 0c0000001a00000016000000
+      _valueData: 0000000023000000f9ffffff
+  - MatchRewardId: 1664928715
+    Placement: 8
+    TeamSize: 3
+    Rewards:
+      _keyData: 0c0000001a00000016000000
+      _valueData: 0000000019000000f4ffffff
+  - MatchRewardId: 1664928714
+    Placement: 9
+    TeamSize: 3
+    Rewards:
+      _keyData: 0c0000001a00000016000000
+      _valueData: 000000000f000000f0ffffff
+  - MatchRewardId: 104526576
+    Placement: 10
+    TeamSize: 3
+    Rewards:
+      _keyData: 0c0000001a00000016000000
+      _valueData: 0000000005000000ecffffff

@@ -33,7 +33,8 @@ namespace FirstLight.Game.Data
 		public bool IsFirstSession;
 
 		public bool UseDynamicJoystick = true;
-		
+		public bool UseDynamicCamera = true;
+
 		public string Environment;
 		public string DeviceId;
 		public string LastLoginEmail;
@@ -46,6 +47,7 @@ namespace FirstLight.Game.Data
 		public bool SfxEnabled = true;
 		public bool BgmEnabled = true;
 		public bool HapticEnabled = true;
+		
 		public bool DialogueEnabled = true;
 		public int FpsTarget = 30;
 		public GraphicsConfig.DetailLevel CurrentDetailLevel = GraphicsConfig.DetailLevel.Medium;
@@ -67,6 +69,7 @@ namespace FirstLight.Game.Data
 				HapticEnabled = this.HapticEnabled,
 				CurrentDetailLevel = this.CurrentDetailLevel,
 				UseDynamicJoystick = this.UseDynamicJoystick,
+				UseDynamicCamera = this.UseDynamicCamera,
 				DialogueEnabled = this.DialogueEnabled,
 				ConnectionRegion = this.ConnectionRegion,
 				FpsTarget = this.FpsTarget

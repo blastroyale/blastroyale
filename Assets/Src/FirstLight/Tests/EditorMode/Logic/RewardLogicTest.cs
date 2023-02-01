@@ -30,6 +30,9 @@ namespace FirstLight.Tests.EditorMode.Logic
 		private const int RESOURCEINFO_CSS_STARTAMOUNT = 100;
 		private const int RESOURCEINFO_BPP_STARTAMOUNT = 100;
 
+		private const int PLACEMENT1_Trophies = 20;
+		private const int PLACEMENT2_Trophies = 15;
+		private const int PLACEMENT3_Trophies = 13;
 
 		private RewardLogic _rewardLogic;
 		private List<QuantumPlayerMatchData> _matchData;
@@ -62,6 +65,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			Assert.AreEqual(RESOURCEINFO_CSS_WINAMOUNT * PLACEMENT1_CS_PERCENTAGE / 100,
 				rewards.Find(data => data.RewardId == GameId.CS).Value);
 			Assert.AreEqual(PLACEMENT1_BPP, rewards.Find(data => data.RewardId == GameId.BPP).Value);
+			Assert.AreEqual(PLACEMENT1_Trophies, rewards.Find(data => data.RewardId == GameId.Trophies).Value);
 		}
 
 		[Test]
@@ -81,6 +85,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			Assert.AreEqual(RESOURCEINFO_CSS_WINAMOUNT * PLACEMENT3_CS_PERCENTAGE / 100,
 				rewards.Find(data => data.RewardId == GameId.CS).Value);
 			Assert.AreEqual(PLACEMENT3_BPP, rewards.Find(data => data.RewardId == GameId.BPP).Value);
+			Assert.AreEqual(PLACEMENT3_Trophies, rewards.Find(data => data.RewardId == GameId.Trophies).Value);
 		}
 
 		[Test]
@@ -100,6 +105,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			Assert.AreEqual(RESOURCEINFO_CSS_WINAMOUNT * PLACEMENT1_CS_PERCENTAGE / 100,
 				rewards.Find(data => data.RewardId == GameId.CS).Value);
 			Assert.AreEqual(PLACEMENT1_BPP, rewards.Find(data => data.RewardId == GameId.BPP).Value);
+			Assert.AreEqual(PLACEMENT1_Trophies, rewards.Find(data => data.RewardId == GameId.Trophies).Value);
 		}
 
 		[Test]
@@ -119,6 +125,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			Assert.AreEqual(RESOURCEINFO_CSS_WINAMOUNT * PLACEMENT3_CS_PERCENTAGE / 100,
 				rewards.Find(data => data.RewardId == GameId.CS).Value);
 			Assert.AreEqual(PLACEMENT3_BPP, rewards.Find(data => data.RewardId == GameId.BPP).Value);
+			Assert.AreEqual(PLACEMENT3_Trophies, rewards.Find(data => data.RewardId == GameId.Trophies).Value);
 		}
 
 		[Test]
@@ -250,26 +257,26 @@ namespace FirstLight.Tests.EditorMode.Logic
 
 			InitConfigData(new QuantumMapConfig {Map = (GameId) _matchData[_executingPlayer].MapId});
 
-			InitConfigData(new QuantumGameConfig {TrophyEloK = 4, TrophyEloRange = 400, TrophyMinChange = FP._0_05});
+			InitConfigData(new QuantumGameConfig {TrophiesPerKill = FP._1_50, TrophyEloK = 4, TrophyEloRange = 400, TrophyMinChange = FP._0_05});
 
 			InitConfigData(config => config.Placement,
 				new MatchRewardConfig
 				{
 					Placement = 1,
-					Rewards = new SerializedDictionary<GameId, uint>
-						{{GameId.CS, PLACEMENT1_CS_PERCENTAGE}, {GameId.BPP, PLACEMENT1_BPP}}
+					Rewards = new SerializedDictionary<GameId, int>
+						{{GameId.CS, PLACEMENT1_CS_PERCENTAGE}, {GameId.BPP, PLACEMENT1_BPP}, {GameId.Trophies, PLACEMENT1_Trophies}}
 				},
 				new MatchRewardConfig
 				{
 					Placement = 2,
-					Rewards = new SerializedDictionary<GameId, uint>
-						{{GameId.CS, PLACEMENT2_CS_PERCENTAGE}, {GameId.BPP, PLACEMENT2_BPP}}
+					Rewards = new SerializedDictionary<GameId, int>
+						{{GameId.CS, PLACEMENT2_CS_PERCENTAGE}, {GameId.BPP, PLACEMENT2_BPP}, {GameId.Trophies, PLACEMENT2_Trophies}}
 				},
 				new MatchRewardConfig
 				{
 					Placement = 3,
-					Rewards = new SerializedDictionary<GameId, uint>
-						{{GameId.CS, PLACEMENT3_CS_PERCENTAGE}, {GameId.BPP, PLACEMENT3_BPP}}
+					Rewards = new SerializedDictionary<GameId, int>
+						{{GameId.CS, PLACEMENT3_CS_PERCENTAGE}, {GameId.BPP, PLACEMENT3_BPP}, {GameId.Trophies, PLACEMENT3_Trophies}}
 				});
 		}
 
@@ -282,7 +289,7 @@ namespace FirstLight.Tests.EditorMode.Logic
 			ResourceLogic.GetResourcePoolInfo(GameId.BPP).Returns(resourceInfoBPP);
 		}
 
-		private void SetPlayerRank(int rank, int totalPlayers)
+		private void SetPlayerRank(int rank, int totalPlayers, byte collectedNfts = 5)
 		{
 			Debug.Assert(totalPlayers >= rank);
 			Debug.Assert(rank >= 1);
@@ -293,7 +300,11 @@ namespace FirstLight.Tests.EditorMode.Logic
 			{
 				_matchData.Add(new QuantumPlayerMatchData
 				{
-					PlayerRank = (uint) i
+					PlayerRank = (uint) i,
+					Data = new PlayerMatchData()
+					{
+						CollectedOwnedNfts = collectedNfts
+					}
 				});
 
 				_executingPlayer = rank - 1;

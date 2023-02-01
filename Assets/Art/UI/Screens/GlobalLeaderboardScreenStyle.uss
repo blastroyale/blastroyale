@@ -21,14 +21,12 @@
 }
 
 .header__label {
+    top: 15px;
     position: absolute;
-    justify-content: center;
-    height: 70px;
+    height: 35px;
     width: 900px;
     margin-right: 0;
-    -unity-font-definition: var(--font-italic);
     font-size: 35px;
-    -unity-font-style: normal;
     color: rgb(233, 226, 225);
     text-shadow: 2px 2px 0 rgb(0, 0, 0);
     -unity-text-outline-width: 2px;
@@ -36,11 +34,13 @@
 }
 
 .header__label--rank-number {
-    left: 60px;
+    left: 40px;
+    margin-top: 0px;
+    padding-top: 0px;
 }
 
 .header__label--player {
-    left: 140px;
+    left: 110px;
 }
 
 .header__label--trophies {
@@ -88,3 +88,13 @@
 .leaderboard-entries .unity-list-view__item:hover {
     background-color: rgba(0, 0, 0, 0);
 }
+
+.spinner {
+    background-image: var(--sprite-home__icon-spinner-thick);
+    width: 68px;
+    height: 68px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+

@@ -67,6 +67,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Switch Weapon Button",
+                    "type": "Button",
+                    "id": "c166894f-137f-4392-bf20-736ffba4167b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "TeamPositionPing",
+                    "type": "PassThrough",
+                    "id": "f9fe89c8-02ab-4fb2-bda6-b97bc6a9a571",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -430,6 +448,50 @@
                     "processors": "",
                     "groups": "",
                     "action": "Cancel Button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9308ede6-6c33-4c0c-b0cf-a863cd428f34",
+                    "path": "<OnScreenControlsDevice>/SwitchWeaponButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch Weapon Button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4dd83ab4-0b27-40cf-bde6-1bad07bb371b",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch Weapon Button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9f700ac2-a6e2-4027-a518-c0f34d131569",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TeamPositionPing",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "61d17494-6438-463e-94e8-ed01277c7322",
+                    "path": "<OnScreenControlsDevice>/TeamPositionPing",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TeamPositionPing",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

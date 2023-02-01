@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 
-namespace GameLogicApp.Authentication
+namespace ServerCommon.Authentication
 {
 	/// <summary>
 	/// Asp.Net middleware to require secret keys on specific endpoints.

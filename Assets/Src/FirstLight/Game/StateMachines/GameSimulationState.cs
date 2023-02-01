@@ -28,6 +28,7 @@ using Quantum.Task;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using PlayerMatchData = FirstLight.Game.Services.PlayerMatchData;
+using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.StateMachines
 {
@@ -167,12 +168,17 @@ namespace FirstLight.Game.StateMachines
 
 		private bool IsSpectator()
 		{
-			return _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator();
+			return _services.NetworkService.LocalPlayer.IsSpectator();
+		}
+
+		private string GetPartyId()
+		{
+			return _services.NetworkService.LocalPlayer.GetPartyId();
 		}
 		
 		private bool IsCustomMatch()
 		{
-			return _services.NetworkService.QuantumClient.CurrentRoom.GetMatchType() == MatchType.Custom;
+			return _services.NetworkService.CurrentRoom.GetMatchType() == MatchType.Custom;
 		}
 
 		private bool ShouldUseDeathmatchSM()
@@ -236,7 +242,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void QuitGameConfirmedClicked()
 		{
-			if (!_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator())
+			if (!_services.NetworkService.LocalPlayer.IsSpectator())
 			{
 				QuantumRunner.Default.Game.SendCommand(new PlayerQuitCommand());
 			}
@@ -305,7 +311,7 @@ namespace FirstLight.Game.StateMachines
 			var loadout = _gameDataProvider.EquipmentDataProvider.Loadout;
 			var inventory = _gameDataProvider.EquipmentDataProvider.Inventory;
 			var f = game.Frames.Verified;
-			var spawnPosition = _services.MatchmakingService.NormalizedMapSelectedPosition;
+			var spawnPosition = _services.NetworkService.LocalPlayer.GetDropPosition();
 			var spawnWithloadout = f.Context.GameModeConfig.SpawnWithGear || f.Context.GameModeConfig.SpawnWithWeapon;
 			var finalLoadOut = new List<Equipment>();
 			
@@ -324,6 +330,15 @@ namespace FirstLight.Game.StateMachines
 				finalLoadOut.Add(inventory[item.Id]);
 			}
 
+			var loadoutArray = spawnWithloadout
+				? finalLoadOut.ToArray()
+				: loadout.ReadOnlyDictionary.Values.Select(id => inventory[id]).ToArray();
+			
+			var nftLoadout = _gameDataProvider.EquipmentDataProvider.GetLoadoutEquipmentInfo(EquipmentFilter.NftOnly);
+			var loadoutMetadata = loadoutArray.Select(e => new EquipmentSimulationMetadata()
+			{
+				IsNft = nftLoadout.Any(nft => nft.Equipment.Equals(e))
+			}).ToArray();
 			game.SendPlayerData(game.GetLocalPlayerRef(), new RuntimePlayer
 			{
 				PlayerId = _gameDataProvider.AppDataProvider.PlayerId,
@@ -333,8 +348,9 @@ namespace FirstLight.Game.StateMachines
 				PlayerLevel = info.Level,
 				PlayerTrophies = info.TotalTrophies,
 				NormalizedSpawnPosition = spawnPosition.ToFPVector2(),
-				Loadout = spawnWithloadout ? 
-					          finalLoadOut.ToArray() : loadout.ReadOnlyDictionary.Values.Select(id => inventory[id]).ToArray()
+				Loadout = loadoutArray,
+				LoadoutMetadata = loadoutMetadata,
+				PartyId = GetPartyId()
 			});
 		}
 	}

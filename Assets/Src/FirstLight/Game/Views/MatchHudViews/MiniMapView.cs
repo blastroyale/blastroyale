@@ -1,7 +1,7 @@
 using System;
-using System.Collections.Generic;
 using DG.Tweening;
 using FirstLight.FLogger;
+using FirstLight.Game.Ids;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -10,7 +10,6 @@ using Photon.Deterministic;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
 
@@ -26,9 +25,14 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private static readonly int _dangerAreaOffsetPID = Shader.PropertyToID("_DangerAreaOffset");
 		private static readonly int _dangerAreaSizePID = Shader.PropertyToID("_DangerAreaSize");
 		private static readonly int _uvRectPID = Shader.PropertyToID("_UvRect");
-		private static readonly int _playersPID = Shader.PropertyToID("_Players");
-		private static readonly int _playersCountPID = Shader.PropertyToID("_PlayersCount");
-		private static readonly int _playersOpacityPID = Shader.PropertyToID("_PlayersOpacity");
+		private static readonly int _enemiesPID = Shader.PropertyToID("_Enemies");
+		private static readonly int _enemiesCountPID = Shader.PropertyToID("_EnemiesCount");
+		private static readonly int _friendliesPID = Shader.PropertyToID("_Friendlies");
+		private static readonly int _friendliesCountPID = Shader.PropertyToID("_FriendliesCount");
+		private static readonly int _EnemiesOpacityPID = Shader.PropertyToID("_EnemiesOpacity");
+
+		private static readonly int _pingPositionPID = Shader.PropertyToID("_PingPosition");
+		private static readonly int _pingProgressPID = Shader.PropertyToID("_PingProgress");
 
 		private readonly TimeSpan RADAR_UPDATE_FREQ = TimeSpan.FromSeconds(2);
 
@@ -47,6 +51,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		[SerializeField, Title("Animation")] private Ease _openCloseEase = Ease.OutSine;
 		[SerializeField, Required] private float _duration = 0.2f;
+		[SerializeField, Required] private float _pingDuration = 1f;
 
 		[SerializeField, Required, Title("Shrinking Circle")]
 		private RawImage _minimapImage;
@@ -58,6 +63,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 		[SerializeField, Required] private MinimapAirdropView _airdropIndicatorRef;
 		[SerializeField, Required] private RectTransform _safeAreaArrow;
+		[SerializeField, Required] private MinimapPingView _pingIndicatorRef;
 
 		private IGameServices _services;
 		private IMatchServices _matchServices;
@@ -72,14 +78,17 @@ namespace FirstLight.Game.Views.MatchHudViews
 		private Tweener _tweenerSize;
 		private Material _minimapMat;
 		private IObjectPool<MinimapAirdropView> _airdropPool;
-		private readonly Vector4[] _playerPositions = new Vector4[30];
+		private IObjectPool<MinimapPingView> _pingPool;
+		private readonly Vector4[] _enemyPositions = new Vector4[30];
+		private readonly Vector4[] _friendlyPositions = new Vector4[30];
+
+		private Tweener _pingTweener;
 
 		private bool _radarActive;
 		private DateTime _radarEndTime;
 		private float _radarRange;
 		private DateTime _radarStartTime;
 		private DateTime _radarLastUpdate;
-		private LocalKeyword _radarShaderEnable;
 
 		private void OnValidate()
 		{
@@ -99,18 +108,41 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_services = MainInstaller.Resolve<IGameServices>();
 			_airdropPool = new ObjectRefPool<MinimapAirdropView>(1, _airdropIndicatorRef,
 				GameObjectPool<MinimapAirdropView>.Instantiator);
-
-			// Cache the radar keyword
-			_radarShaderEnable = new LocalKeyword(_minimapImage.materialForRendering.shader, "MINIMAP_DRAW_PLAYERS");
+			_pingPool = new ObjectRefPool<MinimapPingView>(1, _pingIndicatorRef,
+				GameObjectPool<MinimapPingView>.Instantiator);
 
 			QuantumEvent.Subscribe<EventOnAirDropDropped>(this, OnAirDropDropped);
 			QuantumEvent.Subscribe<EventOnAirDropLanded>(this, OnAirDropLanded);
 			QuantumEvent.Subscribe<EventOnAirDropCollected>(this, OnAirDropCollected);
 			QuantumEvent.Subscribe<EventOnRadarUsed>(this, OnRadarUsed);
+			QuantumEvent.Subscribe<EventOnRadarUsed>(this, OnRadarUsed);
+			QuantumEvent.Subscribe<EventOnTeamPositionPing>(this, OnTeamPositionPing);
 			_services.MessageBrokerService.Subscribe<MatchStartedMessage>(OnMatchStartedMessage);
 
 			_button.onClick.AddListener(OnClick);
 			_fullScreenButton.onClick.AddListener(OnClick);
+		}
+
+		private void OnTeamPositionPing(EventOnTeamPositionPing e)
+		{
+			if (e.TeamId < 0 || _matchServices.SpectateService.SpectatedPlayer.Value.Team == e.TeamId)
+			{
+				var pingPosition = _minimapCamera.WorldToViewportPoint(e.Position.ToUnityVector3());
+
+				var ping = _pingPool.Spawn();
+				ping.ViewportPosition = pingPosition;
+				ping.LateCall(_pingDuration, () => _pingPool.Despawn(ping));
+
+				_minimapImage.materialForRendering.SetVector(_pingPositionPID, pingPosition - Vector3.one / 2f);
+
+				_pingTweener?.Kill();
+				_pingTweener = DOVirtual.Float(0f, 1f, 1f,
+					val => _minimapImage.materialForRendering.SetFloat(_pingProgressPID, val));
+				
+				// Maybe not the cleanest, that the Minimap spawns the VFX.
+				var pingVfx = _services.VfxService.Spawn(VfxId.Ping);
+				pingVfx.transform.position = e.Position.ToUnityVector3();
+			}
 		}
 
 		private void OnDestroy()
@@ -153,6 +185,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 			UpdatePlayerIndicator(playerViewportPoint, transform3D);
 			UpdateAirdropIndicators(playerViewportPoint, f.Time);
+			UpdatePingIndicators(playerViewportPoint);
 			UpdateMap(f, playerViewportPoint, transform3D);
 		}
 
@@ -215,25 +248,10 @@ namespace FirstLight.Game.Views.MatchHudViews
 				_viewportSize, _viewportSize);
 			_minimapImage.materialForRendering.SetVector(_uvRectPID, uvRect);
 
-			// Players
-			if (Shader.IsKeywordEnabled(GameConstants.Visuals.SHADER_MINIMAP_DRAW_PLAYERS))
-			{
-				int index = 0;
-				foreach (var (entity, _) in f.GetComponentIterator<AlivePlayerCharacter>())
-				{
-					var pos = f.Get<Transform3D>(entity).Position.ToUnityVector3();
-					var viewportPos = _minimapCamera.WorldToViewportPoint(pos) - Vector3.one / 2f;
-
-					_playerPositions[index++] = new Vector4(viewportPos.x, viewportPos.y, 0, 0);
-				}
-
-				_minimapImage.materialForRendering.SetVectorArray(_playersPID, _playerPositions);
-				_minimapImage.materialForRendering.SetInteger(_playersCountPID, index);
-			}
-
 			UpdateSafeAreaArrow(playerTransform3D, circle.TargetCircleCenter.ToUnityVector3(),
 				circle.TargetRadius.AsFloat);
 			UpdateRadar(f, playerTransform3D.Position.ToUnityVector3());
+			UpdateFriendlies(f);
 		}
 
 		private void UpdateRadar(Frame f, Vector3 playerPosition)
@@ -248,7 +266,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 				// Radar ran out
 				_radarActive = false;
-				_minimapImage.materialForRendering.SetKeyword(_radarShaderEnable, false);
 				return;
 			}
 
@@ -258,7 +275,7 @@ namespace FirstLight.Game.Views.MatchHudViews
 			var elapsedPing = (float) elapsedPingDuration / RADAR_UPDATE_FREQ.TotalSeconds;
 			var pingOpacity = _playersFade.Evaluate((float) elapsedPing);
 
-			_minimapImage.materialForRendering.SetFloat(_playersOpacityPID, pingOpacity);
+			_minimapImage.materialForRendering.SetFloat(_EnemiesOpacityPID, pingOpacity);
 
 			if (now > nextPing)
 			{
@@ -284,12 +301,36 @@ namespace FirstLight.Game.Views.MatchHudViews
 
 					var viewportPos = _minimapCamera.WorldToViewportPoint(pos) - Vector3.one / 2f;
 
-					_playerPositions[index++] = new Vector4(viewportPos.x, viewportPos.y, 0, 0);
+					_enemyPositions[index++] = new Vector4(viewportPos.x, viewportPos.y, 0, 0);
 				}
 
-				_minimapImage.materialForRendering.SetVectorArray(_playersPID, _playerPositions);
-				_minimapImage.materialForRendering.SetInteger(_playersCountPID, index);
+				_minimapImage.materialForRendering.SetVectorArray(_enemiesPID, _enemyPositions);
+				_minimapImage.materialForRendering.SetInteger(_enemiesCountPID, index);
 			}
+		}
+
+		private void UpdateFriendlies(Frame f)
+		{
+			int index = 0;
+			foreach (var (entity, t) in f.GetComponentIterator<Targetable>())
+			{
+				if (!IsFriendly(f, entity, t)) continue;
+
+				var pos = f.Get<Transform3D>(entity).Position.ToUnityVector3();
+				var viewportPos = _minimapCamera.WorldToViewportPoint(pos) - Vector3.one / 2f;
+
+				_friendlyPositions[index++] = new Vector4(viewportPos.x, viewportPos.y, 0, 0);
+			}
+
+			_minimapImage.materialForRendering.SetVectorArray(_friendliesPID, _friendlyPositions);
+			_minimapImage.materialForRendering.SetInteger(_friendliesCountPID, index);
+		}
+
+		private bool IsFriendly(Frame f, EntityRef entity, Targetable targetable)
+		{
+			var spectatePlayer = _matchServices.SpectateService.SpectatedPlayer.Value;
+			return !f.Context.IsLocalPlayer(f.Get<PlayerCharacter>(entity).Player) &&
+				targetable.Team == spectatePlayer.Team;
 		}
 
 		private void UpdateSafeAreaArrow(Transform3D playerTransform3D, Vector3 circleCenter, float circleRadius)
@@ -323,6 +364,15 @@ namespace FirstLight.Game.Views.MatchHudViews
 				var indicator = _airdropPool.SpawnedReadOnly[i];
 				indicator.SetPosition(ViewportToMinimapPosition(indicator.ViewportPosition, playerViewportPoint));
 				indicator.UpdateTime(time);
+			}
+		}
+		
+		private void UpdatePingIndicators(Vector3 playerViewportPoint)
+		{
+			for (var i = 0; i < _pingPool.SpawnedReadOnly.Count; i++)
+			{
+				var indicator = _pingPool.SpawnedReadOnly[i];
+				indicator.SetPosition(ViewportToMinimapPosition(indicator.ViewportPosition, playerViewportPoint));
 			}
 		}
 
@@ -420,7 +470,6 @@ namespace FirstLight.Game.Views.MatchHudViews
 			_radarStartTime = DateTime.Now;
 			_radarEndTime = _radarStartTime + RADAR_UPDATE_FREQ * callback.Duration.AsFloat;
 			_radarRange = callback.Range.AsFloat;
-			_minimapImage.materialForRendering.SetKeyword(_radarShaderEnable, true);
 		}
 
 		private void SpawnAirdrop(EntityRef entity, AirDrop airDrop)

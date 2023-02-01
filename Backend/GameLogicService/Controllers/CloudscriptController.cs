@@ -11,9 +11,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using PlayFab;
-using ServerShared.Authentication.ApiKey;
+using ServerCommon.Authentication.ApiKey;
 
-namespace GameLogicApp.Cloudscript
+namespace ServerCommon.Cloudscript
 {
 	/// <summary>
 	/// Controller that uses playfab signature API to communicate with playfab cloud script.

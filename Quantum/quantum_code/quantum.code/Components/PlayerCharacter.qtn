@@ -42,11 +42,11 @@ component PlayerCharacter
 	AssetRefCharacterController3DConfig KccConfigRef;
 	FPVector3 ProjectileSpawnOffset;
 	[HideInInspector] player_ref Player;
+	[HideInInspector] Int32 TeamId;
 	[HideInInspector] Int32 CurrentWeaponSlot;
 	[HideInInspector] array<WeaponSlot>[MAX_WEAPONS] WeaponSlots;
 	[HideInInspector] array<Equipment>[MAX_GEAR] Gear;
 	[HideInInspector] Int32 DroppedLoadoutFlags;
-
 }
 
 component PlayerCharging
@@ -60,3 +60,4 @@ component PlayerCharging
 
 signal PlayerDead(player_ref playerDead, entity_ref entityDead);
 signal PlayerKilledPlayer(player_ref playerDead, entity_ref entityDead, player_ref playerKiller, entity_ref entityKiller);
+signal PlayerColliderDisabled(entity_ref playerEntity);

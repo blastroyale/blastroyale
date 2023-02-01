@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using FirstLight.FLogger;
+using FirstLight.Game.Services;
 using FirstLight.Server.SDK.Modules;
 using PlayFab;
 using UnityEngine;
@@ -77,50 +78,68 @@ namespace FirstLight.Game.Utils
 		/// Will try to detect and raise any desyncs server/client finds.
 		/// </summary>
 		public static bool DESYNC_DETECTION = true;
+		
+		/// <summary>
+		/// Will try to detect and raise any desyncs server/client finds.
+		/// </summary>
+		public static bool SQUAD_PINGS = true;
 
+		/// <summary>
+		/// Flag to determine if we should use playfab matchmaking
+		/// </summary>
+		public static bool PLAYFAB_MATCHMAKING = false;
+		
 		/// <summary>
 		/// Parses the feature flags from a given input dictionary.
 		/// Keys of the dictionary will be matched as title feature flag keys referenced on the attributes.
 		/// Values will be converted to boolean ('true' or 'false)
 		/// </summary>
-		public static void ParseFlags(Dictionary<string, string> titleData)
+		public static void ParseFlags(Dictionary<string, string> overrideData)
 		{
-			if (TrySetFlag("QUANTUM_CUSTOM_SERVER", titleData, out var customServer))
+			if (TrySetFlag("QUANTUM_CUSTOM_SERVER", overrideData, out var customServer))
 			{
 				QUANTUM_CUSTOM_SERVER = customServer;
 			}
 
-			if (TrySetFlag("COMMIT_VERSION_LOCK", titleData, out var commitVersionLock))
+			if (TrySetFlag("COMMIT_VERSION_LOCK", overrideData, out var commitVersionLock))
 			{
 				COMMIT_VERSION_LOCK = commitVersionLock;
 			}
 			
-			if (TrySetFlag("REMOTE_CONFIGURATION", titleData, out var remoteConfig))
+			if (TrySetFlag("REMOTE_CONFIGURATION", overrideData, out var remoteConfig))
 			{
 				REMOTE_CONFIGURATION = remoteConfig;
 			}
 			
-			if (TrySetFlag("FORCE_RANKED", titleData, out var forceRanked))
+			if (TrySetFlag("FORCE_RANKED", overrideData, out var forceRanked))
 			{
 				FORCE_RANKED = forceRanked;
 			}
 			
-			if (TrySetFlag("ITEM_DURABILITY", titleData, out var itemDurability))
+			if (TrySetFlag("ITEM_DURABILITY", overrideData, out var itemDurability))
 			{
 				ITEM_DURABILITY = itemDurability;
 			}
 			
-			if (TrySetFlag("STORE_ENABLED", titleData, out var storeEnabled))
+			if (TrySetFlag("STORE_ENABLED", overrideData, out var storeEnabled))
 			{
 				STORE_ENABLED = storeEnabled;
 			}
 			
-			if (TrySetFlag("DESYNC_DETECTION", titleData, out var desyncDetection))
+			if (TrySetFlag("DESYNC_DETECTION", overrideData, out var desyncDetection))
 			{
 				DESYNC_DETECTION = desyncDetection;
 			}
 			
-			ParseLocalFeatureFlags();
+			if (TrySetFlag("PLAYFAB_MATCHMAKING", overrideData, out var pfmm))
+			{
+				PLAYFAB_MATCHMAKING = pfmm;
+			}
+
+			if (TrySetFlag("SQUAD_PINGS", overrideData, out var squadPings))
+			{
+				SQUAD_PINGS = squadPings;
+			}
 		}
 
 		/// <summary>

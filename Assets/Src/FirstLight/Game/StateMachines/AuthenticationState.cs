@@ -57,6 +57,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private IConfigsAdder _configsAdder;
 		private string _passwordRecoveryEmailTemplateId = "";
+		private string _lastUsedRecoveryEmail = "";
 
 		public AuthenticationState(IGameDataProvider dataProvider, IGameServices services, IGameUiServiceInit uiService,
 			IDataService dataService,
@@ -237,12 +238,14 @@ namespace FirstLight.Game.StateMachines
 		private void OnAuthenticationFail(PlayFabError error)
 		{
 			OnPlayFabError(error);
+			_uiService.OpenUiAsync<LoginScreenBackgroundPresenter>();
 			_statechartTrigger(_authenticationFailEvent);
 		}
 
 		private void OnAuthenticationRegisterFail(PlayFabError error)
 		{
 			OnPlayFabError(error);
+			_uiService.OpenUiAsync<LoginScreenBackgroundPresenter>();
 			_statechartTrigger(_authenticationRegisterFailEvent);
 		}
 
@@ -250,6 +253,7 @@ namespace FirstLight.Game.StateMachines
 		{
 			_dataService.GetData<AppData>().DeviceId = null;
 			_dataService.SaveData<AppData>();
+			_uiService.OpenUiAsync<LoginScreenBackgroundPresenter>();
 			_statechartTrigger(_authenticationFailEvent);
 			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Login,
 				"AutomaticLogin:" + error.ErrorMessage);
@@ -371,7 +375,13 @@ namespace FirstLight.Game.StateMachines
 			}
 
 			FeatureFlags.ParseFlags(titleData);
-
+			FeatureFlags.ParseLocalFeatureFlags();
+			_services.LiveopsService.FetchSegments(_ =>
+			{
+				var liveopsFeatureFlags = _services.LiveopsService.GetUserSegmentedFeatureFlags();
+				FeatureFlags.ParseFlags(liveopsFeatureFlags);
+			});
+			
 			if (titleData.TryGetValue("PHOTON_APP", out var photonAppId))
 			{
 				var quantumSettings = _services.ConfigsProvider.GetConfig<QuantumRunnerConfigs>().PhotonServerSettings;
@@ -464,10 +474,16 @@ namespace FirstLight.Game.StateMachines
 		{
 			foreach (var typeFullName in state.Keys)
 			{
-				var type = Assembly.GetExecutingAssembly().GetType(typeFullName);
+				try
+				{
+					var type = Assembly.GetExecutingAssembly().GetType(typeFullName);
 					_dataService.AddData(type, ModelSerializer.DeserializeFromData(type, state));
+				}
+				catch (Exception e)
+				{
+					FLog.Error("Error reading data type "+typeFullName);
+				}
 			}
-
 			activity?.Complete();
 		}
 
@@ -750,6 +766,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void SendRecoveryEmail(string email)
 		{
+			_lastUsedRecoveryEmail = email;
+			
 			SendAccountRecoveryEmailRequest request = new SendAccountRecoveryEmailRequest()
 			{
 				TitleId = PlayFabSettings.TitleId,
@@ -758,7 +776,7 @@ namespace FirstLight.Game.StateMachines
 				AuthenticationContext = PlayFabSettings.staticPlayer
 			};
 
-			PlayFabClientAPI.SendAccountRecoveryEmail(request, OnAccountRecoveryResult, OnPlayFabError);
+			PlayFabClientAPI.SendAccountRecoveryEmail(request, OnAccountRecoveryResult, OnPlayFabErrorSendRecoveryEmail);
 		}
 
 		private void OnAccountRecoveryResult(SendAccountRecoveryEmailResult result)
@@ -775,10 +793,43 @@ namespace FirstLight.Game.StateMachines
 				ScriptLocalization.MainMenu.SendPasswordEmailConfirm, false,
 				confirmButton);
 		}
+		
+		private void OnPlayFabErrorSendRecoveryEmail(PlayFabError error)
+		{
+			_services.AnalyticsService.ErrorsCalls.ReportError(AnalyticsCallsErrors.ErrorType.Login,
+					error.ErrorMessage);
 
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.General.OK,
+				ButtonOnClick = () =>
+				{
+					_services.GenericDialogService.CloseDialog();
+					_uiService.GetUi<LoginScreenPresenter>().OpenPasswordRecoveryPopup(_lastUsedRecoveryEmail);
+				}
+			};
+
+			if (error.ErrorDetails != null)
+			{
+				FLog.Error("Authentication Fail - " + JsonConvert.SerializeObject(error.ErrorDetails));
+			}
+
+			_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, error.ErrorMessage,
+				false, confirmButton);
+
+			DimLoginRegisterScreens(false);
+		}		
+		
 		private void SetLinkedDevice(bool linked)
 		{
-			_dataProvider.AppDataProvider.DeviceID.Value = linked ? PlayFabSettings.DeviceUniqueIdentifier : "";
+			var uniqueId = PlayFabSettings.DeviceUniqueIdentifier;
+#if UNITY_EDITOR
+			if (ParrelSync.ClonesManager.IsClone())
+			{
+				uniqueId = uniqueId + "_clone_" + ParrelSync.ClonesManager.GetArgument();
+			}
+#endif
+			_dataProvider.AppDataProvider.DeviceID.Value = linked ? uniqueId : "";
 			_dataService.SaveData<AppData>();
 		}
 

@@ -1,10 +1,7 @@
 using System;
-using FirstLight.Game.Infos;
 using FirstLight.Game.Presenters;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using Assert = UnityEngine.Assertions.Assert;
 
 namespace FirstLight.Game.Services
 {
@@ -58,11 +55,6 @@ namespace FirstLight.Game.Services
 		void CloseDialog();
 
 		/// <summary>
-		/// Opens up a tooltip dialog to show informative text.
-		/// </summary>
-		void OpenTooltipDialog(string locTag, Vector3 worldPos, TooltipArrowPosition tooltipArrowPosition);
-
-		/// <summary>
 		/// Opens up a Talking Head Dialog.
 		/// </summary>
 		void OpenTalkingHeadDialog(string title, Action closeCallback = null);
@@ -104,13 +96,6 @@ namespace FirstLight.Game.Services
 			_openDialogType = ui.GetType();
 
 			ui.SetInfo(title, desc, initialInputText, button, showCloseButton, closeCallback, keyboardType);
-		}
-
-		/// <inheritdoc />
-		public void OpenTooltipDialog(string locTag, Vector3 worldPos, TooltipArrowPosition tooltipArrowPosition)
-		{
-			var ui = _uiService.OpenUi<UiTooltipPresenter>();
-			ui.ShowTooltip(locTag, worldPos, tooltipArrowPosition);
 		}
 
 		/// <summary>

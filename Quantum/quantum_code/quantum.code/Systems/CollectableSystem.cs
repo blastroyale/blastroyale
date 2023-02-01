@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Photon.Deterministic;
 
 namespace Quantum.Systems
@@ -7,7 +8,8 @@ namespace Quantum.Systems
 	/// This system handles all the <see cref="Collectable"/> component collection interactions using triggers 
 	/// </summary>
 	public unsafe class CollectableSystem : SystemSignalsOnly, ISignalPlayerDead,
-	                                        ISignalOnTriggerEnter3D, ISignalOnTrigger3D, ISignalOnTriggerExit3D
+	                                        ISignalOnTriggerEnter3D, ISignalOnTrigger3D, ISignalOnTriggerExit3D,
+											ISignalPlayerColliderDisabled
 	{
 		public void OnTriggerEnter3D(Frame f, TriggerInfo3D info)
 		{
@@ -84,7 +86,7 @@ namespace Quantum.Systems
 						       stats.GetStatData(StatType.Shield).StatValue &&
 						       stats.CurrentShield == stats.GetStatData(StatType.Shield).StatValue;
 					case ConsumableType.Ammo:
-						return playerCharacter.GetAmmoAmountFilled(f, player) == 1;
+						return FPMath.CeilToInt(playerCharacter.GetAmmoAmountFilled(f, player) * 100) == 100;
 				}
 			}
 
@@ -125,6 +127,31 @@ namespace Quantum.Systems
 			if (f.Unsafe.TryGetPointer<EquipmentCollectable>(entity, out var equipment))
 			{
 				var playerCharacter = f.Unsafe.GetPointer<PlayerCharacter>(playerEntity);
+
+				if (!f.Has<BotCharacter>(playerEntity))
+				{
+					var loadoutMetadata = playerCharacter->GetLoadoutMetadata(f, equipment->Item);
+					
+					// We count how many NFTs from their loadout a player has collected to use later for CS earnings
+					if (loadoutMetadata != null && loadoutMetadata.Value.IsNft)
+					{
+						// TODO: Handle a situation when a player somehow collects not his Helmet first but then collects
+						// his NFT Helmet instead. Current logic will NOT do increment in this edge case
+						var slotIsEmpty = playerCharacter->Gear[PlayerCharacter.GetGearSlot(equipment->Item)].GameId == GameId.Random;
+						if (slotIsEmpty)
+						{
+							var playerData = f.Unsafe.GetPointerSingleton<GameContainer>()->PlayersData;
+							var matchData = playerData[player];
+							
+							// TODO: This code duplicates the struct every time we use it. Needs refactoring
+							matchData.CollectedOwnedNfts++;
+							
+							// We have to do reassign to store the updated value
+							playerData[player] = matchData;
+						}
+					}
+				}
+			
 				if (playerCharacter->HasBetterWeaponEquipped(equipment->Item))
 				{
 					gameId = GameId.AmmoSmall;
@@ -184,6 +211,19 @@ namespace Quantum.Systems
 			endTime = FPMath.Max(Constants.PICKUP_SPEED_MINIMUM, (FP._1 - (timeMod / FP._100)) * endTime);
 
 			return f.Time + endTime;
+		}
+
+		public void PlayerColliderDisabled(Frame f, EntityRef playerEntity)
+		{
+			if (!f.TryGet<PlayerCharacter>(playerEntity, out var player))
+			{
+				return;
+			}
+			
+			foreach (var collectable in f.Unsafe.GetComponentBlockIterator<Collectable>())
+			{
+				StopCollecting(f, collectable.Entity, playerEntity, player.Player, collectable.Component);
+			}
 		}
 	}
 }

@@ -30,6 +30,9 @@
                             <ui:VisualElement name="ShadowRight" class="dropzone__shadow" />
                         </ui:VisualElement>
                     </ui:VisualElement>
+                    <ui:VisualElement name="PartyMarkers" picking-mode="Ignore" class="fill-parent party-markers">
+                        <ui:VisualElement name="marker" class="map-marker-party" />
+                    </ui:VisualElement>
                     <ui:VisualElement name="MapMarker" picking-mode="Ignore" class="map-marker">
                         <ui:Label name="MapMarkerTitle" text="PLACE NAME" picking-mode="Ignore" class="map-marker__title" />
                         <ui:VisualElement name="MapMarkerIcon" picking-mode="Ignore" class="map-marker__icon" />
@@ -38,6 +41,10 @@
                         <FirstLight.Game.UIElements.LocalizedLabel text="DROPZONE/MAP NAME" name="Title" localization-key="UITMatchmaking/select_dropzone" class="map__title" />
                     </ui:VisualElement>
                 </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="SquadContainer" class="squad-container">
+                <ui:Label text="SQUAD [0]" name="SquadLabel" class="squad-container__label" />
+                <ui:ListView focusable="true" name="SquadList" show-bound-collection-size="false" selection-type="None" fixed-item-height="50" class="squad-container__list" />
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
     </ui:VisualElement>

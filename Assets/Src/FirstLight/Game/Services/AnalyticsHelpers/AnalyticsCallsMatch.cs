@@ -347,7 +347,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		
 		private bool IsSpectator()
 		{
-			return _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator();
+			return _services.NetworkService.LocalPlayer.IsSpectator();
 		}
 
 		private void TrackPlayerAttack(EventOnPlayerAttack callback)

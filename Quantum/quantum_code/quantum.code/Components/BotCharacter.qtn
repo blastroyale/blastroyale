@@ -1,5 +1,7 @@
 enum BotBehaviourType
 {
+    Static,
+    Dumb,
 	Balanced,
 	Cautious,
 	Aggressive,
@@ -21,6 +23,8 @@ component BotCharacter
 	entity_ref MoveTarget;
 	FP CurrentEvasionStepEndTime;
 	FPVector3 StuckDetectionPosition;
+	Int32 TeamSize;
+	entity_ref RandomTeammate;
 	
 	// How far the bot can see (square value)
 	// Set to -1 to allow a bot fully cheat and don't check range
@@ -83,6 +87,9 @@ component BotCharacter
 	
 	// This setting multiplies the base movement speed
 	FP MovementSpeedMultiplier;
+	
+	// If teammate is further than this distance then I'll try to get closer
+	FP MaxDistanceToTeammateSquared;
 }
 
 synced event OnDummyCharacterKilled

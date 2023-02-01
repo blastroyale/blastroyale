@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Cinemachine;
+using FirstLight.Game.Logic;
 using FirstLight.Game.Messages;
 using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
@@ -28,11 +29,13 @@ namespace FirstLight.Game.MonoComponent.Match
 
 		private IGameServices _services;
 		private IMatchServices _matchServices;
+		private IGameDataProvider _gameDataProvider;
 
 		private void Awake()
 		{
 			_services = MainInstaller.Resolve<IGameServices>();
 			_matchServices = MainInstaller.Resolve<IMatchServices>();
+			_gameDataProvider = MainInstaller.Resolve<IGameDataProvider>();
 
 			var input = _services.PlayerInputService.Input.Gameplay;
 
@@ -64,7 +67,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			if (!f.Unsafe.TryGetPointer<PlayerCharacter>(spectatedEntity, out var player)) return;
 
 			var playerInput = f.GetPlayerInput(player->Player);
-			var inputDir = playerInput->AimingDirection;
+			var inputDir = _gameDataProvider.AppDataProvider.UseDynamicCamera ? playerInput->AimingDirection : FPVector2.Zero;
 
 			var config = _services.ConfigsProvider.GetConfig<QuantumWeaponConfig>((int)player->CurrentWeapon.GameId);
 			var rangeModifer = QuantumHelpers.GetDynamicAimValue(f.Unsafe.GetPointer<CharacterController3D>(spectatedEntity),
@@ -107,13 +110,13 @@ namespace FirstLight.Game.MonoComponent.Match
 			if (!next.Entity.IsValid) return;
 
 			// If local player died and camera is in spawn mode, reset back to adventure (death upon landing fix)
-			if (!_services.NetworkService.IsSpectorPlayer && ReferenceEquals(_cinemachineBrain.ActiveVirtualCamera, _spawnCamera))
+			if (!_services.NetworkService.LocalPlayer.IsSpectator() && ReferenceEquals(_cinemachineBrain.ActiveVirtualCamera, _spawnCamera))
 			{
 				SetActiveCamera(_adventureCamera);
 			}
 
 			//when becoming a spectator, disable camera panning and set the follow target to the spectated player's transform
-			if (_services.NetworkService.IsSpectorPlayer)
+			if (_services.NetworkService.LocalPlayer.IsSpectator())
 			{
 				QuantumCallback.UnsubscribeListener(this);
 				_followObject = next.Transform.gameObject;

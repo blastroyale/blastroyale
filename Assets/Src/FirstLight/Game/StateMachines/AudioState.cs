@@ -85,6 +85,7 @@ namespace FirstLight.Game.StateMachines
 			mainMenu.OnEnter(TransitionAudioMixerMain);
 			mainMenu.OnEnter(TryPlayMainMenuMusic);
 			mainMenu.Event(NetworkState.JoinedRoomEvent).Target(matchmaking);
+			mainMenu.Event(NetworkState.JoinedMatchmakingEvent).Target(matchmaking);
 
 			matchmaking.OnEnter(TryPlayLobbyMusic);
 			matchmaking.OnEnter(TransitionAudioMixerLobby);
@@ -134,11 +135,13 @@ namespace FirstLight.Game.StateMachines
 			disconnected.OnEnter(StopMusicInstant);
 			disconnected.Event(MainMenuState.MainMenuLoadedEvent).Target(mainMenu);
 			disconnected.Event(NetworkState.JoinedRoomEvent).Target(matchmaking);
+			disconnected.Event(NetworkState.JoinedMatchmakingEvent).Target(matchmaking);
 		}
 
 		private void SubscribeMessages()
 		{
 			_services.MessageBrokerService.Subscribe<MatchCountdownStartedMessage>(OnMatchCountdownStarted);
+			_services.MessageBrokerService.Subscribe<ApplicationPausedMessage>(OnApplicationPausedMessage);
 		}
 		
 		private void SubscribeMatchEvents()
@@ -146,7 +149,7 @@ namespace FirstLight.Game.StateMachines
 			_matchServices.SpectateService.SpectatedPlayer.Observe(OnSpectatedPlayerChanged);
 			QuantumEvent.SubscribeManual<EventOnNewShrinkingCircle>(this, OnNewShrinkingCircle);
 			QuantumEvent.SubscribeManual<EventOnPlayerSkydiveDrop>(this, OnPlayerSkydiveDrop);
-			QuantumEvent.SubscribeManual<EventOnPlayerDamaged>(this, OnPlayerDamaged);
+			QuantumEvent.SubscribeManual<EventOnEntityDamaged>(this, OnEntityDamaged);
 			QuantumEvent.SubscribeManual<EventOnPlayerAttack>(this, OnPlayerAttack);
 			QuantumEvent.SubscribeManual<EventOnCollectableCollected>(this, OnCollectableCollected);
 			QuantumEvent.SubscribeManual<EventOnDamageBlocked>(this, OnDamageBlocked);
@@ -186,7 +189,7 @@ namespace FirstLight.Game.StateMachines
 
 		private bool IsSpectator()
 		{
-			return _services.NetworkService.QuantumClient.LocalPlayer.IsSpectator();
+			return _services.NetworkService.LocalPlayer.IsSpectator();
 		}
 
 		private bool ShouldUseDeathmatchSM()
@@ -235,7 +238,7 @@ namespace FirstLight.Game.StateMachines
 
 			var victoryStatusAudio = AudioId.MusicDefeatJingle;
 
-			if (_services.NetworkService.QuantumClient.LocalPlayer.IsSpectator() &&
+			if (_services.NetworkService.LocalPlayer.IsSpectator() &&
 			    _matchServices.SpectateService.SpectatedPlayer.Value.Player == leader)
 			{
 				victoryStatusAudio = AudioId.MusicVictoryJingle;
@@ -341,6 +344,14 @@ namespace FirstLight.Game.StateMachines
 		private void OnMatchCountdownStarted(MatchCountdownStartedMessage msg)
 		{
 			_services.CoroutineService.StartCoroutine(MatchCountdownCoroutine());
+		}
+		
+		private void OnApplicationPausedMessage(ApplicationPausedMessage message)
+		{
+			if (message.IsPaused)
+			{
+				StopAllSfx();
+			}
 		}
 
 		private IEnumerator MatchCountdownCoroutine()
@@ -865,9 +876,13 @@ namespace FirstLight.Game.StateMachines
 			_services.AudioFxService.PlayClip3D(audio, entityView.transform.position);
 		}
 
-		private void OnPlayerDamaged(EventOnPlayerDamaged callback)
+		private void OnEntityDamaged(EventOnEntityDamaged callback)
 		{
-			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView)) return;
+			if (!_matchServices.EntityViewUpdaterService.TryGetView(callback.Entity, out var entityView) || 
+				callback.Player == PlayerRef.None) // TODO: a sound for things that are not players.
+			{
+				return;
+			}
 
 			var audio = AudioId.None;
 			var damagedPlayerIsLocal = _matchServices.SpectateService.SpectatedPlayer.Value.Player == callback.Player;

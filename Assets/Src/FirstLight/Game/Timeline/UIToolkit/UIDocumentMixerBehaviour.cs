@@ -1,0 +1,50 @@
+using System;
+using UnityEngine;
+using UnityEngine.Playables;
+using UnityEngine.UIElements;
+
+namespace FirstLight.Game.Timeline.UIToolkit
+{
+	/// <summary>
+	/// A mixer for mixing / blending together UIT clips (behaviours).
+	/// </summary>
+	[Serializable]
+	public class UIDocumentMixerBehaviour : PlayableBehaviour
+	{
+		public VisualElement Element;
+
+		public override void ProcessFrame(Playable playable, FrameData info, object playerData)
+		{
+			var position = new Vector2();
+			var rotation = 0f;
+			var scale = new Vector2(1f, 1f);
+			for (int i = 0; i < playable.GetInputCount(); i++)
+			{
+				var playableInput = (ScriptPlayable<UIDocumentBehaviour>) playable.GetInput(i);
+				var behaviour = playableInput.GetBehaviour();
+
+				switch (behaviour)
+				{
+					case UIDocumentPositionBehaviour trs:
+						position += trs.Position * playable.GetInputWeight(i);
+						break;
+					case UIDocumentScaleBehaviour scl:
+						scale += scl.Scale * playable.GetInputWeight(i);
+						break;
+					case UIDocumentRotationBehaviour rot:
+						rotation += rot.Rotation * playable.GetInputWeight(i);
+						break;
+					case UIDocumentClassBehaviour cls:
+						// TODO: Bad! Called every frame!
+						var enable = playable.GetInputWeight(i) > 0f;
+						Element.EnableInClassList(cls.ClassName, enable);
+						break;
+				}
+			}
+
+			Element.transform.position = position;
+			Element.transform.scale = Vector3.one * scale;
+			Element.transform.rotation = Quaternion.Euler(0, 0, rotation);
+		}
+	}
+}

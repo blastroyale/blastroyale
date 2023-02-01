@@ -34,7 +34,12 @@ namespace FirstLight.Game.Presenters
 		private TextField _registerUsernameField;
 		private TextField _registerPasswordField;
 		private VisualElement _blockerElement;
-
+		private Button _loginButton;
+		private Button _registerButton;
+		private Button _goToLoginButton;
+		private Button _goToRegisterButton;
+		private Button _resetPasswordButton;
+		
 		private IGameServices _services;
 
 		private void Awake()
@@ -44,23 +49,25 @@ namespace FirstLight.Game.Presenters
 
 		protected override void QueryElements(VisualElement root)
 		{
+			_blockerElement = root.Q("Blocker");
 			_loginPopupRoot = root.Q("LoginPopup").Required();
 			_registerPopupRoot = root.Q("RegisterPopup").Required();
+			_loginButton = root.Q<Button>("LoginButton").Required();
+			_registerButton = root.Q<Button>("RegisterButton").Required();
+			_goToLoginButton = root.Q<Button>("GoToLoginButton").Required();
+			_goToRegisterButton = root.Q<Button>("GoToRegisterButton").Required();
+			_resetPasswordButton = root.Q<Button>("ResetPasswordButton").Required();
 			_loginEmailField = _loginPopupRoot.Q<TextField>("EmailTextField").Required();
 			_loginPasswordField = _loginPopupRoot.Q<TextField>("PasswordTextField").Required();
 			_registerEmailField = _registerPopupRoot.Q<TextField>("EmailTextField").Required();
 			_registerPasswordField = _registerPopupRoot.Q<TextField>("PasswordTextField").Required();
 			_registerUsernameField = _registerPopupRoot.Q<TextField>("UsernameTextField").Required();
-			_blockerElement = root.Q("Blocker");
 
-			root.Q<Button>("LoginButton").clicked += LoginWithAccount;
-			root.Q<Button>("RegisterButton").clicked += RegisterAttachAccountDetails;
-
-			root.Q<Button>("GoToLoginButton").clicked += ShowLoginScreen;
-			root.Q<Button>("GoToRegisterButton").clicked += ShowRegisterScreen;
-
-			root.Q<Button>("ResetPasswordButton").clicked += OpenPasswordRecoveryPopup;
-			root.Q<Button>("PlayAsGuestButton").clicked += ClosePresenter;
+			_loginButton.clicked += LoginWithAccount;
+			_registerButton.clicked += RegisterAttachAccountDetails;
+			_goToLoginButton.clicked += ShowLoginScreen;
+			_goToRegisterButton.clicked += ShowRegisterScreen;
+			_resetPasswordButton.clicked += OpenPasswordRecoveryPopup;
 
 			root.SetupClicks(_services);
 			

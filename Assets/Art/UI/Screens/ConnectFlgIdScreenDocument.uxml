@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/Art/UI/Screens/ConnectFlgIdScreenStyle.uss?fileID=7433441132597879392&amp;guid=62c1d9d88fd9646f987a3c9d8d48a713&amp;type=3#LoginScreenStyle" />
-    <ui:VisualElement name="root" class="background">
+    <Style src="project://database/Assets/Art/UI/Screens/ConnectFlgIdScreenStyle.uss?fileID=7433441132597879392&amp;guid=62c1d9d88fd9646f987a3c9d8d48a713&amp;type=3#ConnectFlgIdScreenStyle" />
+    <ui:VisualElement name="root" class="background" style="background-image: url(&apos;project://database/Assets/Art/Textures/Ui/Splashscreens%20&amp;%20Logos/LoadingBkNoLogo.png?fileID=2800000&amp;guid=20756f8f6e6857841a5b8bd4d761942a&amp;type=3#LoadingBkNoLogo&apos;); -unity-background-scale-mode: scale-and-crop;">
         <FirstLight.Game.UIElements.PopupElement title-localization-key="UITLoginRegister/login" name="LoginPopup" style="position: absolute;">
             <FirstLight.Game.UIElements.LocalizedTextField label-localization-key="UITLoginRegister/email" name="EmailTextField" class="input-field" />
             <FirstLight.Game.UIElements.PasswordFieldElement label-localization-key="UITLoginRegister/password" name="PasswordTextField" />
@@ -9,14 +9,12 @@
             </ui:VisualElement>
             <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITShared/or" class="container__or-text" />
             <ui:VisualElement class="button-flat-outline">
-                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITLoginRegister/register_fl_id" name="RegisterButton" class="button-flat button-flat--secondary register-button" />
+                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITLoginRegister/register_fl_id" name="GoToRegisterButton" class="button-flat button-flat--secondary register-button" />
             </ui:VisualElement>
             <ui:VisualElement class="reset_guest_container">
                 <ui:VisualElement class="button-flat-outline">
                     <FirstLight.Game.UIElements.LocalizedButton localization-key="UITLoginRegister/reset_password" name="ResetPasswordButton" class="button-flat button-flat--secondary" />
                 </ui:VisualElement>
-                <ui:VisualElement class="reset_guest_container__separator" />
-                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITLoginRegister/play_as_guest" name="PlayAsGuestButton" class="button-flat button-flat--secondary" />
             </ui:VisualElement>
         </FirstLight.Game.UIElements.PopupElement>
         <FirstLight.Game.UIElements.PopupElement title-localization-key="UITLoginRegister/register" name="RegisterPopup" style="position: absolute;">
@@ -28,8 +26,9 @@
             </ui:VisualElement>
             <FirstLight.Game.UIElements.LocalizedLabel localization-key="UITShared/or" class="container__or-text" />
             <ui:VisualElement class="button-flat-outline">
-                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITLoginRegister/login_with_fl_id" name="LoginFlgButton" class="button-flat button-flat--secondary container__login_button" />
+                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITLoginRegister/login_with_fl_id" name="GoToLoginButton" class="button-flat button-flat--secondary container__login_button" />
             </ui:VisualElement>
         </FirstLight.Game.UIElements.PopupElement>
     </ui:VisualElement>
+    <ui:VisualElement name="Blocker" class="background" style="-unity-background-image-tint-color: rgb(255, 255, 255); background-color: rgba(0, 0, 0, 0.71);" />
 </ui:UXML>

@@ -1,4 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" flg="FirstLight.Game.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/Art/UI/Screens/LoginScreenBackgroundStyle.uss?fileID=7433441132597879392&amp;guid=88a4653734945774f82cd082e5a02910&amp;type=3#LoginScreenBackgroundStyle" />
-    <ui:VisualElement name="root" class="background" />
-</ui:UXML>

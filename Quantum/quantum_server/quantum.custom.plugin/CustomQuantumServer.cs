@@ -326,6 +326,9 @@ namespace Quantum
 			var clientPlayer = RuntimePlayer.FromByteArray(clientPlayerData.Data);
 			_receivedPlayers[clientPlayer.PlayerId] = clientPlayerData;
 			_actorNrToIndex[client.ActorNr] = clientPlayerData.Index;
+			if(!IsGameIdsValid(clientPlayer)) {
+				return false;
+			};
 			Playfab.GetProfileReadOnlyData(clientPlayer.PlayerId, OnUserDataResponse);
 			if (FlgConfig.DebugMode)
 			{
@@ -333,6 +336,27 @@ namespace Quantum
 			}
 			return false; // denies adding player data to the bitstream when client sends it
 		}
+
+		/// <summary>
+		/// Checks if game ids sent to runtime player belongs to specific groups.
+		/// Does not check ownership
+		/// TODO: Check ownership when we implement player skins / tombstone unlocking.
+		/// </summary>
+		private bool IsGameIdsValid(RuntimePlayer player)
+		{
+			if(!player.Skin.IsInGroup(GameIdGroup.PlayerSkin))
+			{
+				Log.Error($"Player {player.PlayerId} is trying to hack skins");
+				return false;
+			}
+			if (!player.DeathMarker.IsInGroup(GameIdGroup.DeathMarker))
+			{
+				Log.Error($"Player {player.PlayerId} is trying to hack deathmarkers");
+				return false;
+			}
+			return true;
+		}
+
 
 		/// <summary>
 		/// Callback for receiving player data from playfab.

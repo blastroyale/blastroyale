@@ -27,7 +27,6 @@ namespace Quantum
 			int index = ev.Player;
 			if(_plugin.CustomServer.GetPlayFabIdByIndex(ev.Player) == null)
 			{
-				Log.Error("Could not ind playfab id for player " + ev.Player);
 				return;
 			}
 

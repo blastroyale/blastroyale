@@ -182,9 +182,9 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.GenericInputDialogPresenter, FirstLight.Game, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    - FirstLight.Game.Presenters.LoadingSpinnerScreenPresenter, FirstLight.Game,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     - FirstLight.Game.Presenters.EquipmentRewardDialogPresenter, FirstLight.Game,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    - FirstLight.Game.Presenters.LoadingSpinnerScreenPresenter, FirstLight.Game,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - SetId: 1
     UiConfigsType:

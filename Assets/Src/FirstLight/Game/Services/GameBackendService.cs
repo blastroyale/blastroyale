@@ -86,11 +86,6 @@ namespace FirstLight.Game.Services
 		void CheckIfRewardsMatch(Action<bool> onSuccess, Action<PlayFabError> onError);
 
 		/// <summary>
-		/// Updates user contact email address
-		/// </summary>
-		void UpdateContactEmail(string newEmail, Action<AddOrUpdateContactEmailResult> onSuccess, Action<PlayFabError> onError);
-
-		/// <summary>
 		/// Obtains all segments the player is in.
 		/// Segments are group of players based on metrics which can be used for various things.
 		/// </summary>
@@ -332,19 +327,6 @@ namespace FirstLight.Game.Services
 			});
 			
 			callback?.Invoke(error);
-		}
-
-		public void UpdateContactEmail(string newEmail, Action<AddOrUpdateContactEmailResult> onSuccess, Action<PlayFabError> onError)
-		{
-			FLog.Info("Updating user email to "+newEmail);
-			var emailUpdate = new AddOrUpdateContactEmailRequest()
-			{
-				EmailAddress = newEmail
-			};
-			PlayFabClientAPI.AddOrUpdateContactEmail(emailUpdate, onSuccess, e =>
-			{
-				HandleError(e, onError, AnalyticsCallsErrors.ErrorType.Session);
-			});
 		}
 
 		public void FetchServerState(Action<ServerState> onSuccess, Action<PlayFabError> onError)

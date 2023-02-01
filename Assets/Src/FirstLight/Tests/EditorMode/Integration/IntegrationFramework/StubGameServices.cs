@@ -78,7 +78,7 @@ namespace FirstLight.Tests.EditorMode
 			IAPService = null;
 			GuidService = new GuidService();
 			GameBackendService = new StubGameBackendService();
-			AuthenticationService = new PlayfabAuthenticationService(this, dataService, networkService, gameLogic, (IConfigsAdder)configsProvider);
+			AuthenticationService = new PlayfabAuthenticationService((IGameLogicInitializer)gameLogic, this, dataService, networkService, gameLogic, (IConfigsAdder)configsProvider);
 			MatchmakingService = new PlayfabMatchmakingService(GameBackendService, CoroutineService);
 			CommandService = new StubCommandService(gameLogic, dataProvider, this);
 			PoolService = new PoolService();

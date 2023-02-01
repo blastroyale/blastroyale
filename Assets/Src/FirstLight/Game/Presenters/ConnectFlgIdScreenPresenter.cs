@@ -126,38 +126,39 @@ namespace FirstLight.Game.Presenters
 				_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, errorMessage, false,
 					confirmButton);
 			}
-
-			void OnRegisterSuccess(LoginData data)
+		}
+		
+		private void OnRegisterSuccess(LoginData data)
+		{
+			var confirmButton = new GenericDialogButton
 			{
-				var confirmButton = new GenericDialogButton
-				{
-					ButtonText = ScriptLocalization.General.OK,
-					ButtonOnClick = _services.GenericDialogService.CloseDialog
-				};
-				_services.GenericDialogService.OpenButtonDialog("Success", "Registration success.", false, confirmButton);
+				ButtonText = ScriptLocalization.General.OK,
+				ButtonOnClick = _services.GenericDialogService.CloseDialog
+			};
+			_services.GenericDialogService.OpenButtonDialog("Success", "Registration success.", false, confirmButton);
 				
-				_uiService.CloseUi<LoadingSpinnerScreenPresenter>();
-				Data.AuthRegisterSuccess();
-			}
+			_uiService.CloseUi<LoadingSpinnerScreenPresenter>();
+			Data.AuthRegisterSuccess();
+		}
 
-			void OnRegisterFail(PlayFabError error)
+		void OnRegisterFail(PlayFabError error)
+		{
+			var confirmButton = new GenericDialogButton
 			{
-				var confirmButton = new GenericDialogButton
-				{
-					ButtonText = ScriptLocalization.General.OK,
-					ButtonOnClick = _services.GenericDialogService.CloseDialog
-				};
-				_services.GenericDialogService.OpenButtonDialog("Fail", "Registration fail.", false, confirmButton);
+				ButtonText = ScriptLocalization.General.OK,
+				ButtonOnClick = _services.GenericDialogService.CloseDialog
+			};
+			_services.GenericDialogService.OpenButtonDialog("Fail", error.ErrorMessage, false, confirmButton);
 				
-				_uiService.CloseUi<LoadingSpinnerScreenPresenter>();
-				Data.AuthRegisterFail();
-			}
+			_uiService.CloseUi<LoadingSpinnerScreenPresenter>();
+			Data.AuthRegisterFail();
 		}
 		
 		private void LoginClicked(string email, string password)
 		{
 			if (AuthenticationUtils.IsEmailFieldValid(email) && AuthenticationUtils.IsPasswordFieldValid(password))
 			{
+				_uiService.OpenUi<LoadingSpinnerScreenPresenter>();
 				_services.AuthenticationService.LoginWithEmail(email, password, OnLoginSuccess, OnLoginFail);
 			}
 			else
@@ -175,34 +176,34 @@ namespace FirstLight.Game.Presenters
 				_services.GenericDialogService.OpenButtonDialog(ScriptLocalization.UITShared.error, errorMessage, false,
 					confirmButton);
 			}
-			
-			void OnLoginSuccess(LoginData data)
+		}
+		
+		void OnLoginSuccess(LoginData data)
+		{
+			var confirmButton = new GenericDialogButton
 			{
-				var confirmButton = new GenericDialogButton
-				{
-					ButtonText = ScriptLocalization.General.OK,
-					ButtonOnClick = _services.GenericDialogService.CloseDialog
-				};
-				_services.GenericDialogService.OpenButtonDialog("Success", "Login success.", false, confirmButton);
+				ButtonText = ScriptLocalization.General.OK,
+				ButtonOnClick = _services.GenericDialogService.CloseDialog
+			};
+			_services.GenericDialogService.OpenButtonDialog("Success", "Login success.", false, confirmButton);
 				
-				_uiService.CloseUi<LoadingSpinnerScreenPresenter>();
-				Data.AuthLoginSuccess();
-			}
-
-			void OnLoginFail(PlayFabError error)
-			{
-				var confirmButton = new GenericDialogButton
-				{
-					ButtonText = ScriptLocalization.General.OK,
-					ButtonOnClick = _services.GenericDialogService.CloseDialog
-				};
-				_services.GenericDialogService.OpenButtonDialog("Fail", "Login fail.", false, confirmButton);
-				
-				_uiService.CloseUi<LoadingSpinnerScreenPresenter>();
-				Data.AuthLoginFail();
-			}
+			_uiService.CloseUi<LoadingSpinnerScreenPresenter>();
+			Data.AuthLoginSuccess();
 		}
 
+		void OnLoginFail(PlayFabError error)
+		{
+			var confirmButton = new GenericDialogButton
+			{
+				ButtonText = ScriptLocalization.General.OK,
+				ButtonOnClick = _services.GenericDialogService.CloseDialog
+			};
+			_services.GenericDialogService.OpenButtonDialog("Fail", error.ErrorMessage, false, confirmButton);
+				
+			_uiService.CloseUi<LoadingSpinnerScreenPresenter>();
+			Data.AuthLoginFail();
+		}
+		
 		private void OpenPasswordRecoveryPopup()
 		{
 			var confirmButton = new GenericDialogButton<string>

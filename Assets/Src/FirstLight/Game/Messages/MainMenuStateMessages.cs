@@ -40,4 +40,9 @@ namespace FirstLight.Game.Messages
 	{
 		public int TeamId;
 	}
+
+	public struct ReinitializeMenuViewsMessage : IMessage
+	{
+		
+	}
 }

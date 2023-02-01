@@ -178,7 +178,7 @@ namespace FirstLight.Game.Services
 			GameModeService = new GameModeService(ConfigsProvider, ThreadService);
 			GuidService = new GuidService();
 			GameBackendService = new GameBackendService(gameLogic, this, dataService, GameConstants.Stats.LEADERBOARD_LADDER_NAME);
-			AuthenticationService = new PlayfabAuthenticationService(this, dataService,networkService, gameLogic, configsProvider);
+			AuthenticationService = new PlayfabAuthenticationService((IGameLogicInitializer)gameLogic, this, dataService,networkService, gameLogic, configsProvider);
 			MatchmakingService = new PlayfabMatchmakingService(GameBackendService, CoroutineService);
 			LiveopsService = new LiveopsService(GameBackendService, ConfigsProvider, this, gameLogic.LiveopsLogic);
 			CommandService = new GameCommandService(GameBackendService, gameLogic, dataService, this);

@@ -36,11 +36,6 @@ namespace FirstLight.Game.Messages
 		public bool JoinIfExists;
 	}
 
-	public struct SetTeamIdMessage : IMessage
-	{
-		public int TeamId;
-	}
-
 	public struct ReinitializeMenuViewsMessage : IMessage
 	{
 		

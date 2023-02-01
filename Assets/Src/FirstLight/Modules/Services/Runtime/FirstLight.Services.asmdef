@@ -3,7 +3,8 @@
     "rootNamespace": "",
     "references": [
         "FirstLight.DataExtensions",
-        "FirstLight.FLogger"
+        "FirstLight.FLogger",
+        "ParrelSync"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

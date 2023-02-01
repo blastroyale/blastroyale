@@ -185,9 +185,9 @@ namespace FirstLight.Game.StateMachines
 			return _services.NetworkService.LocalPlayer.IsSpectator();
 		}
 
-		private int GetTeamId()
+		private string GetPartyId()
 		{
-			return _services.NetworkService.LocalPlayer.GetTeamId();
+			return _services.NetworkService.LocalPlayer.GetPartyId();
 		}
 		
 		private bool IsCustomMatch()
@@ -325,7 +325,7 @@ namespace FirstLight.Game.StateMachines
 			var loadout = _gameDataProvider.EquipmentDataProvider.Loadout;
 			var inventory = _gameDataProvider.EquipmentDataProvider.Inventory;
 			var f = game.Frames.Verified;
-			var spawnPosition = _services.MatchmakingService.NormalizedMapSelectedPosition;
+			var spawnPosition = _services.NetworkService.LocalPlayer.GetDropPosition();
 			var spawnWithloadout = f.Context.GameModeConfig.SpawnWithGear || f.Context.GameModeConfig.SpawnWithWeapon;
 			var finalLoadOut = new List<Equipment>();
 			
@@ -364,7 +364,7 @@ namespace FirstLight.Game.StateMachines
 				NormalizedSpawnPosition = spawnPosition.ToFPVector2(),
 				Loadout = loadoutArray,
 				LoadoutMetadata = loadoutMetadata,
-				TeamId = GetTeamId()
+				PartyId = GetPartyId()
 			});
 		}
 	}

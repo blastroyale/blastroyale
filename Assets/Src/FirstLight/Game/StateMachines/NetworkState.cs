@@ -141,7 +141,7 @@ namespace FirstLight.Game.StateMachines
 			_services.MessageBrokerService.Subscribe<RequestKickPlayerMessage>(OnRequestKickPlayerMessage);
 			_services.MessageBrokerService.Subscribe<NetworkActionWhileDisconnectedMessage>(OnNetworkActionWhileDisconnectedMessage);
 			_services.MessageBrokerService.Subscribe<AttemptManualReconnectionMessage>(OnAttemptManualReconnectionMessage);
-			_services.MessageBrokerService.Subscribe<SetTeamIdMessage>(OnSetTeamIdMessage);
+
 			if (FeatureFlags.PLAYFAB_MATCHMAKING)
 			{
 				_services.MatchmakingService.OnGameMatched += OnGameMatched;
@@ -572,11 +572,6 @@ namespace FirstLight.Game.StateMachines
 		private void OnSpectatorToggleMessage(SpectatorModeToggledMessage message)
 		{
 			_networkService.SetSpectatePlayerProperty(message.IsSpectator);
-		}
-
-		private void OnSetTeamIdMessage(SetTeamIdMessage message)
-		{
-			_networkService.SetTeamIdPlayerProperty(message.TeamId);
 		}
 
 		private void OnRequestKickPlayerMessage(RequestKickPlayerMessage msg)

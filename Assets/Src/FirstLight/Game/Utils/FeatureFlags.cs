@@ -72,6 +72,11 @@ namespace FirstLight.Game.Utils
 		/// Will try to detect and raise any desyncs server/client finds.
 		/// </summary>
 		public static bool DESYNC_DETECTION = true;
+		
+		/// <summary>
+		/// Will try to detect and raise any desyncs server/client finds.
+		/// </summary>
+		public static bool SQUAD_PINGS = true;
 
 		/// <summary>
 		/// Flag to determine if we should use playfab matchmaking
@@ -124,8 +129,12 @@ namespace FirstLight.Game.Utils
 			{
 				PLAYFAB_MATCHMAKING = pfmm;
 			}
-		}
 
+			if (TrySetFlag("SQUAD_PINGS", overrideData, out var squadPings))
+			{
+				SQUAD_PINGS = squadPings;
+			}
+		}
 
 		/// <summary>
 		/// Reads locally set feature flags to override feature flags or perform setup needed.

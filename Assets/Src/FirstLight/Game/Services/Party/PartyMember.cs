@@ -4,8 +4,8 @@ namespace FirstLight.Game.Services.Party
 {
 	public class PartyMember
 	{
-		public String PlayfabID { get; }
-		public String DisplayName { get; }
+		public string PlayfabID { get; }
+		public string DisplayName { get; }
 		public uint BPPLevel { get; }
 		public uint Trophies { get; }
 		public bool Leader { get; }
@@ -19,6 +19,11 @@ namespace FirstLight.Game.Services.Party
 			Trophies = trophies;
 			Leader = leader;
 			Local = local;
+		}
+
+		public override string ToString()
+		{
+			return $"PartyMember({nameof(PlayfabID)}: {PlayfabID}, {nameof(DisplayName)}: {DisplayName}, {nameof(BPPLevel)}: {BPPLevel}, {nameof(Trophies)}: {Trophies}, {nameof(Leader)}: {Leader}, {nameof(Local)}: {Local})";
 		}
 	}
 }

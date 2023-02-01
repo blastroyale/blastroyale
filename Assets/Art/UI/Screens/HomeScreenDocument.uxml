@@ -11,7 +11,10 @@
                 <ui:Button display-tooltip-when-elided="true" name="DiscordButton" class="discord-button sfx-click-forwards anim-delay-0 anim-translate anim-translate--left-s" />
             </ui:VisualElement>
             <ui:VisualElement picking-mode="Ignore" name="RightButtons" class="main-buttons main-buttons--right">
-                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/shop" name="StoreButton" class="sfx-click-forwards button-with-icon button-with-icon--shop anim-delay-2 anim-translate anim-translate--left-l">
+                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/party" name="PartyButton" class="sfx-click-forwards button-with-icon button-with-icon--party anim-delay-2 anim-translate anim-translate--left-l main-button-margin">
+                    <ui:VisualElement class="button-with-icon__icon" />
+                </FirstLight.Game.UIElements.LocalizedButton>
+                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/shop" name="StoreButton" class="sfx-click-forwards button-with-icon button-with-icon--shop anim-delay-2 anim-translate anim-translate--left-l main-button-margin">
                     <ui:VisualElement class="button-with-icon__icon" />
                 </FirstLight.Game.UIElements.LocalizedButton>
                 <FirstLight.Game.UIElements.ImageButton name="GameModeButton" class="sfx-click-forwards anim-delay-1 anim-translate anim-translate--left-l game-mode-button">
@@ -20,7 +23,7 @@
                         <ui:Label text="CASUAL" name="GameTypeLabel" class="game-mode-button__type" />
                     </ui:VisualElement>
                 </FirstLight.Game.UIElements.ImageButton>
-                <ui:VisualElement name="PlayButtonHolder" class="anim-delay-0 anim-translate anim-translate--left-l">
+                <ui:VisualElement name="PlayButtonHolder" class="anim-delay-0 anim-translate anim-translate--left-l button-with-pool">
                     <ui:VisualElement name="CSPoolContainer" class="resource-pool resource-pool--cs">
                         <ui:VisualElement name="Background" class="resource-pool__background" />
                         <ui:VisualElement name="Holder" class="resource-pool__holder">
@@ -35,17 +38,17 @@
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement picking-mode="Ignore" name="LeftButtons" class="main-buttons main-buttons--left">
-                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/equipment" name="EquipmentButton" class="sfx-click-forwards button-with-icon button-with-icon--equipment anim-delay-3 anim-translate anim-translate--right-xl">
+                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/equipment" name="EquipmentButton" class="sfx-click-forwards button-with-icon button-with-icon--equipment anim-delay-3 anim-translate anim-translate--right-xl main-button-margin">
                     <ui:VisualElement class="button-with-icon__icon" />
                     <ui:VisualElement name="EquipmentNotification" class="notification-icon button-with-icon__notification" />
                 </FirstLight.Game.UIElements.LocalizedButton>
-                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/heroes" name="HeroesButton" class="sfx-click-forwards button-with-icon button-with-icon--heroes anim-delay-2 anim-translate anim-translate--right-xl">
+                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/heroes" name="HeroesButton" class="sfx-click-forwards button-with-icon button-with-icon--heroes anim-delay-2 anim-translate anim-translate--right-xl main-button-margin">
                     <ui:VisualElement class="button-with-icon__icon" />
                 </FirstLight.Game.UIElements.LocalizedButton>
-                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/leaderboards" name="LeaderboardsButton" class="sfx-click-forwards button-with-icon button-with-icon--leaderboards anim-delay-1 anim-translate anim-translate--right-xl">
+                <FirstLight.Game.UIElements.LocalizedButton localization-key="UITHomeScreen/leaderboards" name="LeaderboardsButton" class="sfx-click-forwards button-with-icon button-with-icon--leaderboards anim-delay-1 anim-translate anim-translate--right-xl main-button-margin">
                     <ui:VisualElement class="button-with-icon__icon" />
                 </FirstLight.Game.UIElements.LocalizedButton>
-                <ui:VisualElement name="BattlePassButtonHolder" class="anim-delay-0 anim-translate anim-translate--right-xl">
+                <ui:VisualElement name="BattlePassButtonHolder" class="anim-delay-0 anim-translate anim-translate--right-xl button-with-pool">
                     <ui:VisualElement name="BPPPoolContainer" class="resource-pool resource-pool--bpp">
                         <ui:VisualElement name="Background" class="resource-pool__background" />
                         <ui:VisualElement name="Holder" class="resource-pool__holder">
@@ -70,6 +73,10 @@
                         </ui:VisualElement>
                     </FirstLight.Game.UIElements.ImageButton>
                 </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="PartyContainer" class="squad-container anim-delay-2 anim-translate anim-translate--left-xl">
+                <ui:Label text="PARTY [0]" name="PartyLabel" class="squad-container__label" />
+                <ui:ListView focusable="true" name="PartyList" show-bound-collection-size="false" selection-type="None" fixed-item-height="50" class="squad-container__list" />
             </ui:VisualElement>
         </FirstLight.Game.UIElements.SafeAreaElement>
         <FirstLight.Game.UIElements.ImageButton name="Header" class="player-header sfx-click-forwards">

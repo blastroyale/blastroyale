@@ -221,8 +221,10 @@ namespace FirstLight.Game.Services.Party
 				}
 
 				await RefetchCachedParty();
+#pragma warning disable CS4014
 				// Dont wait for the websocket connection, it is slow to connect, and the player is already in the party.
 				ListenForLobbyUpdates();
+#pragma warning restore CS4014
 				HasParty.Value = true;
 				PartyCode.Value = normalizedCode;
 			}
@@ -388,7 +390,9 @@ namespace FirstLight.Game.Services.Party
 			{
 				if (_lobby.ChangeNumber < change.ChangeNumber)
 				{
+#pragma warning disable CS4014
 					RefetchCachedParty();
+#pragma warning restore CS4014
 					break;
 				}
 			}
@@ -397,15 +401,24 @@ namespace FirstLight.Game.Services.Party
 
 		private async Task RefetchCachedParty()
 		{
-			var req = new GetLobbyRequest()
+			try
 			{
-				LobbyId = _lobbyId
-			};
-
-			var result = await AsyncPlayfabMultiplayerAPI.GetLobby(req);
-			_lobby = result.Lobby;
-			_lobbyId = result.Lobby.LobbyId;
-			UpdateMembers();
+				var req = new GetLobbyRequest()
+				{
+					LobbyId = _lobbyId
+				};
+				var result = await AsyncPlayfabMultiplayerAPI.GetLobby(req);
+				_lobby = result.Lobby;
+				_lobbyId = result.Lobby.LobbyId;
+				UpdateMembers();
+			}
+			catch (Exception ex)
+			{
+				// This function is triggered by websocket messages, there is no way to handle the errors
+				Debug.LogException(ex);
+				// Let's rethrow this exception if anyone is waiting
+				throw;
+			}
 		}
 
 
@@ -420,7 +433,10 @@ namespace FirstLight.Game.Services.Party
 					Members.Remove(partyMember);
 					if (partyMember.Local)
 					{
+#pragma warning disable CS4014
+						// We don't care about this result
 						UnsubscribeToLobbyUpdates();
+#pragma warning restore CS4014
 						LocalPlayerKicked();
 						return;
 					}

@@ -286,6 +286,12 @@ namespace FirstLight.Game.Utils
 
 		}
 
+		public static class Tutorial
+		{
+			public const string TUTORIAL_ROOM_NAME = "FirstGameTutorial";
+			public const int FIRST_MATCH_TRANSITION_CLOSE_DELAY = 1000;
+		}
+
 		public static class GameModeId
 		{
 			public static string FAKEGAMEMODE_CUSTOMGAME = "Custom Game";

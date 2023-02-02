@@ -33,6 +33,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly AuthenticationState _authenticationState;
 		private readonly AudioState _audioState;
 		private readonly NetworkState _networkState;
+		private readonly TutorialState _tutorialState;
 		private readonly GameLogic _gameLogic;
 		private readonly CoreLoopState _coreLoopState;
 		private readonly IGameServices _services;
@@ -41,7 +42,8 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameUiServiceInit _uiService;
 
 		public GameStateMachine(GameLogic gameLogic, IGameServices services, IGameUiServiceInit uiService,
-								IGameBackendNetworkService networkService, IConfigsAdder configsAdder,
+								IInternalGameNetworkService networkService, IInternalTutorialService tutorialService,
+								IConfigsAdder configsAdder,
 								IAssetAdderService assetAdderService, IDataService dataService,
 								IVfxInternalService<VfxId> vfxService)
 		{
@@ -51,10 +53,11 @@ namespace FirstLight.Game.StateMachines
 			_uiService = uiService;
 			_configsAdder = configsAdder;
 			_initialLoadingState = new InitialLoadingState(services, uiService, assetAdderService, configsAdder, vfxService, Trigger);
-			_authenticationState = new AuthenticationState(gameLogic, services, uiService, dataService, networkService, Trigger, _configsAdder);
+			_authenticationState = new AuthenticationState(gameLogic, services, uiService, dataService, Trigger);
 			_audioState = new AudioState(gameLogic, services, Trigger);
 			_networkState = new NetworkState(gameLogic, services, networkService, Trigger);
-			_coreLoopState = new CoreLoopState(services, dataService, networkService, uiService, gameLogic, assetAdderService, Trigger);
+			_tutorialState = new TutorialState(gameLogic, services, tutorialService, Trigger);
+			_coreLoopState = new CoreLoopState(services, gameLogic, dataService, networkService, uiService, gameLogic, assetAdderService, Trigger);
 			_statechart = new Statechart.Statechart(Setup);
 			
 #if DEVELOPMENT_BUILD
@@ -113,7 +116,7 @@ namespace FirstLight.Game.StateMachines
 			authentication.Nest(_authenticationState.Setup).Target(core);
 			authentication.OnExit(InitializeRemainingLogic);
 
-			core.Split(_audioState.Setup, _networkState.Setup, _coreLoopState.Setup).Target(final);
+			core.Split(_audioState.Setup, _networkState.Setup, _tutorialState.Setup, _coreLoopState.Setup).Target(final);
 
 			final.OnEnter(UnsubscribeEvents);
 		}

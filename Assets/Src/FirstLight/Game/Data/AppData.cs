@@ -7,7 +7,6 @@ using Quantum;
 
 namespace FirstLight.Game.Data
 {
-
 	/// <summary>
 	/// Represents user custom game preferences, set in last custom game played.
 	/// </summary>
@@ -54,6 +53,8 @@ namespace FirstLight.Game.Data
 		public GameModeRotationConfig.GameModeEntry LastGameMode;
 		public List<UnlockSystem> SystemsTagged = new ();
 		public CustomGameOptions LastCustomGameOptions = new();
+		
+		[NonSerialized] public Dictionary<string, string> TitleData;
 		
 		/// <summary>
 		/// Copies base values for when user logs in to a new environment.

@@ -58,14 +58,15 @@ namespace FirstLight.Game
 			var genericDialogService = new GenericDialogService(uiService);
 			var audioFxService = new GameAudioFxService(assetResolver);
 			var vfxService = new VfxService<VfxId>();
+			var tutorialService = new TutorialService(uiService);
 
 			var gameLogic = new GameLogic(messageBroker, timeService, dataService, configsProvider, audioFxService);
 			var gameServices = new GameServices(networkService, messageBroker, timeService, dataService,
-				configsProvider, gameLogic, genericDialogService,
-				assetResolver, vfxService, audioFxService, uiService);
+				configsProvider, gameLogic, genericDialogService, assetResolver, tutorialService, vfxService, audioFxService, uiService);
 			
 			networkService.BindServicesAndData(gameLogic, gameServices);
 			networkService.EnableQuantumUpdate(true);
+			tutorialService.BindServicesAndData(gameLogic, gameServices);
 			
 			MainInstaller.Bind<IGameDataProvider>(gameLogic);
 			MainInstaller.Bind<IGameServices>(gameServices);
@@ -74,7 +75,7 @@ namespace FirstLight.Game
 			_gameLogic = gameLogic;
 			_services = gameServices;
 			_notificationStateMachine = new NotificationStateMachine(gameLogic, gameServices);
-			_gameStateMachine = new GameStateMachine(gameLogic, gameServices, uiService, networkService,
+			_gameStateMachine = new GameStateMachine(gameLogic, gameServices, uiService, networkService, tutorialService,
 				configsProvider, assetResolver, dataService, vfxService);
 
 			FLog.Verbose($"Initialized client version {VersionUtils.VersionExternal}");

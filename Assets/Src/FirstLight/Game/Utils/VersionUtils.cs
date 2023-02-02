@@ -73,6 +73,36 @@ namespace FirstLight.Game.Utils
 			
 			Resources.UnloadAsset(textAsset);
 		}
+		
+		/// <summary>
+		/// Requests to check if the provided version is newer compared to the local app version
+		/// </summary>
+		public static bool IsOutdatedVersion(string version)
+		{
+			var appVersion = VersionExternal.Split('.');
+			var otherVersion = version.Split('.');
+			
+			var majorApp = int.Parse(appVersion[0]);
+			var majorOther = int.Parse(otherVersion[0]);
+			
+			var minorApp = int.Parse(appVersion[1]);
+			var minorOther = int.Parse(otherVersion[1]);
+			
+			var patchApp = int.Parse(appVersion[2]);
+			var patchOther = int.Parse(otherVersion[2]);
+
+			if (majorApp != majorOther)
+			{
+				return majorOther > majorApp;
+			}
+
+			if (minorApp != minorOther)
+			{
+				return minorOther > minorApp;
+			}
+
+			return patchOther > patchApp;
+		}
 
 		/// <summary>
 		/// Formats VersionData into the long internal version string for the app.

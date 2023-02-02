@@ -64,7 +64,7 @@ namespace FirstLight.Game.Presenters
 
 		private List<Player> _squadMembers = new();
 
-		private Room CurrentRoom => _services.NetworkService.QuantumClient.CurrentRoom;
+		private Room CurrentRoom => _services.NetworkService.CurrentRoom;
 		private bool RejoiningRoom => !_services.NetworkService.IsJoiningNewMatch;
 
 		private void Awake()

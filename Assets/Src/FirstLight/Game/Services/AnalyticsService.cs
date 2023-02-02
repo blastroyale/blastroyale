@@ -92,7 +92,6 @@ namespace FirstLight.Game.Services
 
 		public AnalyticsService(IGameServices services,
 		                        IGameDataProvider gameDataProvider,
-		                        IDataProvider dataProvider,
 								IUiService uiService)
 		{
 			SessionCalls = new AnalyticsCallsSession(this, services, gameDataProvider);

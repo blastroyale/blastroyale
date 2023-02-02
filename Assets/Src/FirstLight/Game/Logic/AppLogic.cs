@@ -172,7 +172,7 @@ namespace FirstLight.Game.Logic
 		public CustomGameOptions LastCustomGameOptions => Data.LastCustomGameOptions;
 
 		/// <inheritdoc />
-		public bool IsDeviceLinked => string.IsNullOrWhiteSpace(DeviceID.Value);
+		public bool IsDeviceLinked => !string.IsNullOrWhiteSpace(DeviceID.Value);
 
 		public bool IsGuest => string.IsNullOrEmpty(LastLoginEmail.Value);
 

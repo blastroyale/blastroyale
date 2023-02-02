@@ -458,7 +458,7 @@ namespace FirstLight.Game.Presenters
 		private void OnLockRoomClicked()
 		{
 			ReadyToPlay();
-			_services.MessageBrokerService.Publish(new RoomLockClickedMessage() {AddBots = _botsToggle.isOn});
+			_services.MessageBrokerService.Publish(new RoomLockClickedMessage() { AddBots = _botsToggle.isOn });
 		}
 
 		private void OnLeaveRoomClicked()

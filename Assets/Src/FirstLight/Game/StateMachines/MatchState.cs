@@ -43,7 +43,7 @@ namespace FirstLight.Game.StateMachines
 		private readonly GameSimulationState _gameSimulationState;
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _dataProvider;
-		private readonly IGameBackendNetworkService _networkService;
+		private readonly IInternalGameNetworkService _networkService;
 		private readonly IGameUiService _uiService;
 		private readonly IDataService _dataService;
 		private readonly IAssetAdderService _assetAdderService;
@@ -52,7 +52,7 @@ namespace FirstLight.Game.StateMachines
 		private Action<IStatechartEvent> _statechartTrigger;
 		private Camera _mainOverlayCamera;
 		
-		public MatchState(IGameServices services, IDataService dataService, IGameBackendNetworkService networkService, IGameUiService uiService, IGameDataProvider gameDataProvider, 
+		public MatchState(IGameServices services, IDataService dataService, IInternalGameNetworkService networkService, IGameUiService uiService, IGameDataProvider gameDataProvider, 
 		                  IAssetAdderService assetAdderService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_statechartTrigger = statechartTrigger;
@@ -285,7 +285,8 @@ namespace FirstLight.Game.StateMachines
 
 		private void CloseSwipeTransition()
 		{
-			if (_uiService.HasUiPresenter<SwipeScreenPresenter>())
+			// If a tutorial is running (first match tutorial) - the transition will be closed later, in game simulation state
+			if (_uiService.HasUiPresenter<SwipeScreenPresenter>() && !_services.TutorialService.IsTutorialRunning)
 			{
 				_uiService.CloseUi<SwipeScreenPresenter>(true);
 			}

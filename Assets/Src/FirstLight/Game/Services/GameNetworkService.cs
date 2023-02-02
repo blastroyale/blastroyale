@@ -229,7 +229,7 @@ namespace FirstLight.Game.Services
 	/// The goal for this interface separation is to allow <see cref="FirstLight.Game.StateMachines.NetworkState"/> to
 	/// update the network data.
 	/// </remarks>
-	public interface IGameBackendNetworkService : IGameNetworkService
+	public interface IInternalGameNetworkService : IGameNetworkService
 	{
 		/// <inheritdoc cref="IGameNetworkService.UserId" />
 		new IObservableField<string> UserId { get; }
@@ -248,7 +248,7 @@ namespace FirstLight.Game.Services
 	}
 
 	/// <inheritdoc cref="IGameNetworkService"/>
-	public class GameNetworkService : IGameBackendNetworkService
+	public class GameNetworkService : IInternalGameNetworkService
 	{
 		private const int LAG_RTT_THRESHOLD_MS = 280;
 		private const int STORE_RTT_AMOUNT = 10;

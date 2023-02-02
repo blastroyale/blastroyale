@@ -50,7 +50,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private readonly IGameServices _services;
 		private readonly IGameDataProvider _gameDataProvider;
-		private readonly IGameBackendNetworkService _networkService;
+		private readonly IInternalGameNetworkService _networkService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 
 		private Coroutine _criticalDisconnectCoroutine;
@@ -58,7 +58,7 @@ namespace FirstLight.Game.StateMachines
 		private bool _requiresManualRoomReconnection;
 
 		public NetworkState(IGameLogic gameLogic, IGameServices services,
-		                    IGameBackendNetworkService networkService, Action<IStatechartEvent> statechartTrigger)
+		                    IInternalGameNetworkService networkService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_services = services;
 			_gameDataProvider = gameLogic;
@@ -405,7 +405,7 @@ namespace FirstLight.Game.StateMachines
 				}
 			}
 
-			if (_networkService.QuantumRunnerConfigs.IsOfflineMode)
+			if (_networkService.QuantumRunnerConfigs.IsOfflineMode || _services.TutorialService.IsTutorialRunning)
 			{
 				LockRoom();
 			}
@@ -658,6 +658,7 @@ namespace FirstLight.Game.StateMachines
 
 		private void OnPlayCreateRoomClickedMessage(PlayCreateRoomClickedMessage msg)
 		{
+			// TODO - REMOVE THE GETTING OF CONFIG - DOES IT JUST WORK?
 			var gameModeId = msg.GameModeConfig.Id;
 			var gameModeConfig = _services.ConfigsProvider.GetConfig<QuantumGameModeConfig>(gameModeId.GetHashCode());
 			_gameDataProvider.AppDataProvider.SetLastCustomGameOptions(msg.CustomGameOptions);

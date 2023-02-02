@@ -46,11 +46,11 @@ namespace FirstLight.Game.StateMachines
 		private readonly IGameUiService _uiService;
 		private readonly Action<IStatechartEvent> _statechartTrigger;
 		private readonly IGameNetworkService _network;
-		private readonly IGameBackendNetworkService _networkService;
+		private readonly IInternalGameNetworkService _networkService;
 
 		private IMatchServices _matchServices; 
 
-		public GameSimulationState(IGameDataProvider gameDataProvider, IGameServices services, IGameBackendNetworkService networkService, 
+		public GameSimulationState(IGameDataProvider gameDataProvider, IGameServices services, IInternalGameNetworkService networkService, 
 								   IGameUiService uiService, Action<IStatechartEvent> statechartTrigger)
 		{
 			_gameDataProvider = gameDataProvider;
@@ -84,7 +84,8 @@ namespace FirstLight.Game.StateMachines
 			startSimulation.OnEnter(StartSimulation);
 			startSimulation.Event(SimulationStartedEvent).Target(modeCheck);
 			startSimulation.Event(NetworkState.LeftRoomEvent).Target(final);
-
+			startSimulation.OnExit(CloseSwipeTransitionTutorial);
+			
 			modeCheck.OnEnter(OpenAdventureWorldHud);
 			modeCheck.Transition().Condition(ShouldUseDeathmatchSM).Target(deathmatch);
 			modeCheck.Transition().Condition(ShouldUseBattleRoyaleSM).Target(battleRoyale);
@@ -104,6 +105,19 @@ namespace FirstLight.Game.StateMachines
 
 			final.OnEnter(UnloadSimulationUi);
 			final.OnEnter(UnsubscribeEvents);
+		}
+		
+		/// <summary>
+		/// For tutorial, we close the swipe transition when we actually get into the game, instead of
+		/// closing at matchmaking screen opening in matchState. This is to avoid visual glitches with MM screen
+		/// still persisting on screen for a second before game simulation
+		/// </summary>
+		private void CloseSwipeTransitionTutorial()
+		{
+			if (_uiService.HasUiPresenter<SwipeScreenPresenter>() && _services.TutorialService.IsTutorialRunning)
+			{
+				_uiService.CloseUi<SwipeScreenPresenter>(true);
+			}
 		}
 
 		private void SubscribeEvents()

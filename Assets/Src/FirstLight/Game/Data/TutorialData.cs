@@ -6,7 +6,7 @@ namespace FirstLight.Game.Data
 	[Flags]
 	public enum TutorialStep : ushort
 	{
-		None = 0,
+		NONE = 0,
 		PLAYED_MATCH = 1 << 1,
 		PLAYED_SECOND_MATCH = 1 << 2,
 		USED_BATTLE_PASS = 1 << 3,

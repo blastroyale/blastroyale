@@ -32,7 +32,7 @@
 
 .reset_guest_container__separator {
     height: 0;
-    width: 51px
+    width: 51px;
 }
 
 LocalizedTextField > Label {
@@ -48,4 +48,14 @@ LocalizedButton {
 #unity-text-input {
     flex-grow: 1;
     -unity-font-definition: var(--font-italic-dynamic);
+}
+
+.safe-area {
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
 }

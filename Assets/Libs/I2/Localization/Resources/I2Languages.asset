@@ -224,6 +224,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITHomeScreen/create_party
+      TermType: 0
+      Description: 
+      Languages:
+      - CREATE PARTY
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITHomeScreen/discord
       TermType: 0
       Description: 
@@ -260,6 +269,24 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITHomeScreen/join
+      TermType: 0
+      Description: 
+      Languages:
+      - JOIN
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/join_party
+      TermType: 0
+      Description: 
+      Languages:
+      - JOIN PARTY
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITHomeScreen/leaderboards
       TermType: 0
       Description: 
@@ -269,11 +296,56 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITHomeScreen/leave_party
+      TermType: 0
+      Description: 
+      Languages:
+      - LEAVE PARTY
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITHomeScreen/new_name_desc
       TermType: 0
       Description: 
       Languages:
       - What's your name Blaster?
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/party
+      TermType: 0
+      Description: 
+      Languages:
+      - PARTY
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/party_id
+      TermType: 0
+      Description: 
+      Languages:
+      - PARTY ID
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/party_id_desc
+      TermType: 0
+      Description: 
+      Languages:
+      - Input the party id you want to join.
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/party_popup_desc
+      TermType: 0
+      Description: 
+      Languages:
+      - Create or Join a party!
       - 
       - 
       Flags: 000000
@@ -328,78 +400,6 @@ MonoBehaviour:
       Description: 
       Languages:
       - Please wait
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITHomeScreen/party
-      TermType: 0
-      Description: 
-      Languages:
-      - PARTY
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITHomeScreen/create_party
-      TermType: 0
-      Description: 
-      Languages:
-      - CREATE PARTY
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITHomeScreen/join_party
-      TermType: 0
-      Description: 
-      Languages:
-      - JOIN PARTY
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITHomeScreen/party_popup_desc
-      TermType: 0
-      Description: 
-      Languages:
-      - Create or Join a party!
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITHomeScreen/join
-      TermType: 0
-      Description: 
-      Languages:
-      - JOIN
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITHomeScreen/party_id
-      TermType: 0
-      Description: 
-      Languages:
-      - PARTY ID
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITHomeScreen/party_id_desc
-      TermType: 0
-      Description: 
-      Languages:
-      - Input the party id you want to join.
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITHomeScreen/leave_party
-      TermType: 0
-      Description: 
-      Languages:
-      - LEAVE PARTY
       - 
       - 
       Flags: 000000
@@ -558,6 +558,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITEquipment/edition_genesis
+      TermType: 0
+      Description: 
+      Languages:
+      - GENESIS
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITEquipment/equip
       TermType: 0
       Description: 
@@ -594,6 +603,114 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITEquipment/faction_celestial
+      TermType: 0
+      Description: 
+      Languages:
+      - CELESTIAL
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/faction_chaos
+      TermType: 0
+      Description: 
+      Languages:
+      - CHAOS
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/faction_dark
+      TermType: 0
+      Description: 
+      Languages:
+      - DARK
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/faction_dimensional
+      TermType: 0
+      Description: 
+      Languages:
+      - DIMENSIONAL
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/faction_order
+      TermType: 0
+      Description: 
+      Languages:
+      - ORDER
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/faction_organic
+      TermType: 0
+      Description: 
+      Languages:
+      - ORGANIC
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/faction_shadow
+      TermType: 0
+      Description: 
+      Languages:
+      - SHADOW
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/grade_1
+      TermType: 0
+      Description: 
+      Languages:
+      - GRADE I
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/grade_2
+      TermType: 0
+      Description: 
+      Languages:
+      - GRADE II
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/grade_3
+      TermType: 0
+      Description: 
+      Languages:
+      - GRADE III
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/grade_4
+      TermType: 0
+      Description: 
+      Languages:
+      - GRADE IV
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/grade_5
+      TermType: 0
+      Description: 
+      Languages:
+      - GRADE V
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITEquipment/item_name_lvl
       TermType: 0
       Description: 
@@ -617,6 +734,123 @@ MonoBehaviour:
       Description: 
       Languages:
       - <size=65%>LV</size>{0}
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/manufacturer_animaltactics
+      TermType: 0
+      Description: 
+      Languages:
+      - ANIMAL TACTICS
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/manufacturer_apocalyptic
+      TermType: 0
+      Description: 
+      Languages:
+      - DEWE
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/manufacturer_bruteforce
+      TermType: 0
+      Description: 
+      Languages:
+      - BRUTE FORCE
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/manufacturer_futuristic
+      TermType: 0
+      Description: 
+      Languages:
+      - SORENSOL
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/manufacturer_lostandfound
+      TermType: 0
+      Description: 
+      Languages:
+      - LOST AND FOUND
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/manufacturer_military
+      TermType: 0
+      Description: 
+      Languages:
+      - MAJOR MARKDOWNS
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/manufacturer_runandriot
+      TermType: 0
+      Description: 
+      Languages:
+      - RUN AND RIOT
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/manufacturer_sportingchance
+      TermType: 0
+      Description: 
+      Languages:
+      - SPORTING CHANCE
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/material_bronze
+      TermType: 0
+      Description: 
+      Languages:
+      - BRONZE
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/material_carbon
+      TermType: 0
+      Description: 
+      Languages:
+      - CARBON
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/material_golden
+      TermType: 0
+      Description: 
+      Languages:
+      - GOLDEN
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/material_plastic
+      TermType: 0
+      Description: 
+      Languages:
+      - PLASTIC
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITEquipment/material_steel
+      TermType: 0
+      Description: 
+      Languages:
+      - STEEL
       - 
       - 
       Flags: 000000
@@ -970,240 +1204,6 @@ MonoBehaviour:
       Description: 
       Languages:
       - UPGRADE
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/grade_1
-      TermType: 0
-      Description: 
-      Languages:
-      - GRADE I
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/grade_2
-      TermType: 0
-      Description: 
-      Languages:
-      - GRADE II
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/grade_3
-      TermType: 0
-      Description: 
-      Languages:
-      - GRADE III
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/grade_4
-      TermType: 0
-      Description: 
-      Languages:
-      - GRADE IV
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/grade_5
-      TermType: 0
-      Description: 
-      Languages:
-      - GRADE V
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/manufacturer_military
-      TermType: 0
-      Description: 
-      Languages:
-      - MAJOR MARKDOWNS
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/manufacturer_futuristic
-      TermType: 0
-      Description: 
-      Languages:
-      - SORENSOL
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/manufacturer_apocalyptic
-      TermType: 0
-      Description: 
-      Languages:
-      - DEWE
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/manufacturer_runandriot
-      TermType: 0
-      Description: 
-      Languages:
-      - RUN AND RIOT
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/manufacturer_animaltactics
-      TermType: 0
-      Description: 
-      Languages:
-      - ANIMAL TACTICS
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/manufacturer_lostandfound
-      TermType: 0
-      Description: 
-      Languages:
-      - LOST AND FOUND
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/manufacturer_bruteforce
-      TermType: 0
-      Description: 
-      Languages:
-      - BRUTE FORCE
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/manufacturer_sportingchance
-      TermType: 0
-      Description: 
-      Languages:
-      - SPORTING CHANCE
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/edition_genesis
-      TermType: 0
-      Description: 
-      Languages:
-      - GENESIS
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/material_plastic
-      TermType: 0
-      Description: 
-      Languages:
-      - PLASTIC
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/material_steel
-      TermType: 0
-      Description: 
-      Languages:
-      - STEEL
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/material_bronze
-      TermType: 0
-      Description: 
-      Languages:
-      - BRONZE
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/material_carbon
-      TermType: 0
-      Description: 
-      Languages:
-      - CARBON
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/material_golden
-      TermType: 0
-      Description: 
-      Languages:
-      - GOLDEN
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/faction_order
-      TermType: 0
-      Description: 
-      Languages:
-      - ORDER
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/faction_chaos
-      TermType: 0
-      Description: 
-      Languages:
-      - CHAOS
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/faction_organic
-      TermType: 0
-      Description: 
-      Languages:
-      - ORGANIC
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/faction_dark
-      TermType: 0
-      Description: 
-      Languages:
-      - DARK
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/faction_shadow
-      TermType: 0
-      Description: 
-      Languages:
-      - SHADOW
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/faction_celestial
-      TermType: 0
-      Description: 
-      Languages:
-      - CELESTIAL
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITEquipment/faction_dimensional
-      TermType: 0
-      Description: 
-      Languages:
-      - DIMENSIONAL
       - 
       - 
       Flags: 000000
@@ -1583,6 +1583,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITMatchmaking/loading_fail
+      TermType: 0
+      Description: 
+      Languages:
+      - LOADING MATCH FAILED. PLEASE TRY AGAIN.
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITMatchmaking/loading_status_starting
       TermType: 0
       Description: 
@@ -1630,15 +1639,6 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITMatchmaking/wins_the_match
-      TermType: 0
-      Description: 
-      Languages:
-      - WINS THE MATCH
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
     - Term: UITMatchmaking/squad
       TermType: 0
       Description: 
@@ -1648,11 +1648,11 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: UITMatchmaking/loading_fail
+    - Term: UITMatchmaking/wins_the_match
       TermType: 0
       Description: 
       Languages:
-      - LOADING MATCH FAILED. PLEASE TRY AGAIN.
+      - WINS THE MATCH
       - 
       - 
       Flags: 000000
@@ -1928,6 +1928,15 @@ MonoBehaviour:
       Description: 
       Languages:
       - Ammo Capacity
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: General/AmmoCapacityBonus
+      TermType: 0
+      Description: 
+      Languages:
+      - Ammo Capacity Bonus
       - 
       - 
       Flags: 000000
@@ -2305,8 +2314,8 @@ MonoBehaviour:
       TermType: 0
       Description: 
       Languages:
-      - Game devs are running around like Bored Blast Apes in Royale Club fixing
-        {0}
+      - Game devs are doing magic to improve Blast Royale. Check out our Discord
+        in the meantime.
       - 
       - 
       Flags: 000000
@@ -2976,15 +2985,6 @@ MonoBehaviour:
       Description: 
       Languages:
       - character
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: General/AmmoCapacityBonus
-      TermType: 0
-      Description: 
-      Languages:
-      - Ammo Capacity Bonus
       - 
       - 
       Flags: 000000
@@ -4632,6 +4632,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: MainMenu/DynamicCameraSetting
+      TermType: 0
+      Description: 
+      Languages:
+      - Dynamic Aiming Camera
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: MainMenu/DynamicJoystickSetting
       TermType: 0
       Description: 
@@ -4641,11 +4650,11 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: MainMenu/DynamicCameraSetting
+    - Term: MainMenu/ScreenShakeSetting
       TermType: 0
       Description: 
       Languages:
-      - Dynamic Aiming Camera
+      - 
       - 
       - 
       Flags: 000000
@@ -9381,6 +9390,15 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: GameIds/FtueDeck
+      TermType: 0
+      Description: 
+      Languages:
+      - Gameplay Tutorial
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: GameIds/GoldenBoots
       TermType: 0
       Description: 
@@ -10811,15 +10829,6 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
-    - Term: GameIds/FtueDeck
-      TermType: 0
-      Description: 
-      Languages:
-      - Gameplay Tutorial
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
     - Term: Shop/ConfirmPurchase
       TermType: 0
       Description: 
@@ -11472,7 +11481,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1675090348794
+    Google_LastUpdatedVersion: 1675355862799
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

@@ -263,6 +263,10 @@
     color: rgb(146, 137, 162);
 }
 
+.game-mode-button__trios {
+     font-size: 42px !important;
+}
+
 .resource-pool {
     position: absolute;
     width: 428px;

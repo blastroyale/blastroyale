@@ -48,6 +48,10 @@ MonoBehaviour:
         Mutators:
         - QuickSpecials
     - Entries:
+      - GameModeId: BattleRoyaleTrios
+        MatchType: 1
+        Mutators: []
+    - Entries:
       - GameModeId: BattleRoyale
         MatchType: 2
         Mutators: []

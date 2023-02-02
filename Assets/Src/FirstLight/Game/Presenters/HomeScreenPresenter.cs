@@ -263,6 +263,17 @@ namespace FirstLight.Game.Presenters
 			_gameTypeLabel.text = current.Entry.MatchType.ToString().ToUpper();
 			_csPoolContainer.style.display =
 				current.Entry.MatchType == MatchType.Casual ? DisplayStyle.None : DisplayStyle.Flex;
+
+			// TODO: Remove this adhoc style change
+			if (_gameModeLabel.text == "BATTLEROYALETRIOS")
+			{
+				_gameModeLabel.AddToClassList("game-mode-button__trios");
+			}
+			else
+			{
+
+				_gameModeLabel.RemoveFromClassList("game-mode-button__trios");
+			}
 		}
 
 		private IEnumerator AnimateCurrency(GameId id, ulong previous, ulong current, Label label)

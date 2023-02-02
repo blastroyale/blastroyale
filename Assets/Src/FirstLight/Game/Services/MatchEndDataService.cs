@@ -19,6 +19,8 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		List<QuantumPlayerMatchData> QuantumPlayerMatchData { get; }
 		
+		Dictionary<PlayerRef, EquipmentEventData> PlayersFinalEquipment { get; }
+		
 		/// <summary>
 		/// Config value used to know if the match end leaderboard should show the extra info
 		/// </summary>
@@ -103,6 +105,9 @@ namespace FirstLight.Game.Services
 	{
 		/// <inheritdoc />
 		public List<QuantumPlayerMatchData> QuantumPlayerMatchData { get; private set; }
+
+		public Dictionary<PlayerRef, EquipmentEventData> PlayersFinalEquipment { get; private set; }
+
 		/// <inheritdoc />
 		public bool ShowUIStandingsExtraInfo { get; private set; }
 		/// <inheritdoc />
@@ -137,6 +142,7 @@ namespace FirstLight.Game.Services
 		{
 			_services = services;
 			_dataProvider = dataProvider;
+			PlayersFinalEquipment = new Dictionary<PlayerRef, EquipmentEventData>();
 			_services.MessageBrokerService.Subscribe<LeftBeforeMatchFinishedMessage>(OnLeftBeforeMatchFinishedMessage);
 		}
 		
@@ -149,11 +155,18 @@ namespace FirstLight.Game.Services
 			LocalPlayer = game.GetLocalPlayerRef();
 			PlayerMatchData = new Dictionary<PlayerRef, PlayerMatchData>();
 			LocalPlayerKiller = PlayerRef.None;
+			PlayersFinalEquipment.Clear();
 
+			QuantumEvent.SubscribeManual<EventOnPlayerDead>(this, OnPlayerDead);
 			QuantumEvent.SubscribeManual<EventOnLocalPlayerDead>(this, OnLocalPlayerDead);
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(this, OnPlayerKilledPlayer);
 		}
 
+		private void OnPlayerDead(EventOnPlayerDead callback)
+		{
+			PlayersFinalEquipment[callback.Player] = callback.EquipmentData;
+		}
+		
 		private void OnPlayerKilledPlayer(EventOnPlayerKilledPlayer callback)
 		{
 			LocalPlayerMatchData =
@@ -189,11 +202,24 @@ namespace FirstLight.Game.Services
 				{
 					return;
 				}
+
+				List<Equipment> gear = null;
+				Equipment weapon = Equipment.None;
+				if (PlayersFinalEquipment.ContainsKey(quantumPlayerData.Data.Player))
+				{
+					var equipmentData = PlayersFinalEquipment[quantumPlayerData.Data.Player];
+					gear = equipmentData.Gear.ToList().FindAll(equipment => equipment.IsValid());
+					weapon = equipmentData.CurrentWeapon;
+				}
+				else
+				{
+					var playerCharacter = frame.Get<PlayerCharacter>(quantumPlayerData.Data.Entity);
+					gear = playerCharacter.Gear.ToList().FindAll(equipment => equipment.IsValid());
+					weapon = playerCharacter.CurrentWeapon;
+				}
+				gear.Add(weapon);
 				
-				var playerRuntimeData = frame.GetPlayerData(quantumPlayerData.Data.Player);
-				var weapon = playerRuntimeData?.Weapon ?? default;
-				var loadout = playerRuntimeData?.Loadout.ToList() ?? new List<Equipment>();
-				var playerData = new PlayerMatchData(quantumPlayerData.Data.Player, quantumPlayerData, weapon, loadout);
+				var playerData = new PlayerMatchData(quantumPlayerData.Data.Player, quantumPlayerData, weapon, gear);
 
 				if (game.PlayerIsLocal(playerData.PlayerRef))
 				{

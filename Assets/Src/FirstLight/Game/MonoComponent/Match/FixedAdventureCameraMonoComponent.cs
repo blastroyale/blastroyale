@@ -99,13 +99,14 @@ namespace FirstLight.Game.MonoComponent.Match
 			var newImpulse = new CinemachineImpulseDefinition
 			{
 				m_ImpulseType = CinemachineImpulseDefinition.ImpulseTypes.Uniform,
-				m_DissipationRate = 0.8f,
+				m_DissipationRate = GameConstants.Screenshake.SCREENSHAKE_DISSAPATION_RATE_DEFAULT,
 				m_ImpulseShape = Shape,
 				m_ImpulseDuration = duration,
-				m_DissipationDistance = position == default ? 1 : 5,
+				m_DissipationDistance = GameConstants.Screenshake.SCREENSHAKE_DISSAPATION_DISTANCE_MAX,
+				m_ImpactRadius = GameConstants.Screenshake.SCREENSHAKE_DISSAPATION_DISTANCE_MIN,
 			};
 
-			var vel = Random.insideUnitCircle;
+			var vel = Random.insideUnitCircle.normalized;
 			_impulseSource.m_ImpulseDefinition = newImpulse;
 			if(position == default)
 			{
@@ -113,7 +114,7 @@ namespace FirstLight.Game.MonoComponent.Match
 			}
 			impulseListener.m_Gain = strength;
 
-			_impulseSource.GenerateImpulseAtPositionWithVelocity(position, vel * strength);
+			_impulseSource.GenerateImpulseAtPositionWithVelocity(position, new Vector3(vel.x, 0, vel.y) * strength);
 			
 		}
 

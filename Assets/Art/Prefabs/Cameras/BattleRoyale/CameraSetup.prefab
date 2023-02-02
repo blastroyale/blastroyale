@@ -185,8 +185,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 796701068084277160}
-  m_LocalRotation: {x: 0.7071068, y: 0.000000036603176, z: -0.000000036603176, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 30, z: -50}
+  m_LocalRotation: {x: -0.047557797, y: -0.5967341, z: 0.0049159075, w: 0.8010134}
+  m_LocalPosition: {x: 4.253, y: 0.839, z: -2.257}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -217,10 +217,10 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.1
-  far clip plane: 200
-  field of view: 50
+  far clip plane: 500
+  field of view: 30
   orthographic: 0
-  orthographic size: 10
+  orthographic size: 3128.598
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1170,7 +1170,7 @@ MonoBehaviour:
   m_Use2DDistance: 1
   m_UseCameraSpace: 0
   m_ReactionSettings:
-    m_SecondaryNoise: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+    m_SecondaryNoise: {fileID: 0}
     m_AmplitudeGain: 1
     m_FrequencyGain: 1
     m_Duration: 3

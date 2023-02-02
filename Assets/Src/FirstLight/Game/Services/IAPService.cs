@@ -8,6 +8,7 @@ using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Messages;
+using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Modules;
 using Newtonsoft.Json;
@@ -233,7 +234,11 @@ namespace FirstLight.Game.Services
 				Signature = (string) data["signature"]
 			};
 			
-			PlayFabClientAPI.ValidateGooglePlayPurchase(request, _ => PurchaseValidated(cacheProduct), null);
+			PlayFabClientAPI.ValidateGooglePlayPurchase(request, _ => PurchaseValidated(cacheProduct),
+				e =>
+				{
+					_gameBackendService.HandleError(e,null, AnalyticsCallsErrors.ErrorType.Session);
+				});
 #endif
 		}
 

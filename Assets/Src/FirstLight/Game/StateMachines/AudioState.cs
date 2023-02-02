@@ -680,8 +680,8 @@ namespace FirstLight.Game.StateMachines
 
 			// Kill SFX
 			_services.AudioFxService.PlayClip2D(killAudio);
-			_camera.StartScreenShake(Cinemachine.CinemachineImpulseDefinition.ImpulseShapes.Bump, shakeDuration = GameConstants.Screenshake.SCREENSHAKE_SMALL_DURATION;, shakePower);
-
+			_camera.StartScreenShake(Cinemachine.CinemachineImpulseDefinition.ImpulseShapes.Bump, 
+				GameConstants.Screenshake.SCREENSHAKE_SMALL_DURATION, shakePower);
 
 			// Multikill announcer
 			if (callback.CurrentMultiKill > 1)

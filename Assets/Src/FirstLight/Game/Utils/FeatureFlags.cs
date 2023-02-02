@@ -34,12 +34,6 @@ namespace FirstLight.Game.Utils
 	public static class FeatureFlags
 	{
 		private static LocalFeatureFlagConfig _localConfig = null;
-		
-		/// <summary>
-		/// If true will use email/pass authentication.
-		/// If false will only use device id authentication.
-		/// </summary>
-		public static bool EMAIL_AUTH = true;
 
 		/// <summary>
 		/// If true, rooms created/joined will be locked by commit
@@ -78,6 +72,11 @@ namespace FirstLight.Game.Utils
 		/// Will try to detect and raise any desyncs server/client finds.
 		/// </summary>
 		public static bool DESYNC_DETECTION = true;
+		
+		/// <summary>
+		/// Will try to detect and raise any desyncs server/client finds.
+		/// </summary>
+		public static bool SQUAD_PINGS = true;
 
 		/// <summary>
 		/// Flag to determine if we should use playfab matchmaking
@@ -130,8 +129,12 @@ namespace FirstLight.Game.Utils
 			{
 				PLAYFAB_MATCHMAKING = pfmm;
 			}
-		}
 
+			if (TrySetFlag("SQUAD_PINGS", overrideData, out var squadPings))
+			{
+				SQUAD_PINGS = squadPings;
+			}
+		}
 
 		/// <summary>
 		/// Reads locally set feature flags to override feature flags or perform setup needed.

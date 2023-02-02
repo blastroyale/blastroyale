@@ -7,8 +7,10 @@ using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
 using FirstLight.Server.SDK.Modules.GameConfiguration;
+using Photon.Deterministic;
 using Photon.Realtime;
 using Quantum;
+using UnityEngine;
 
 namespace FirstLight.Game.Services
 {
@@ -115,11 +117,11 @@ namespace FirstLight.Game.Services
 		/// </summary>
 		/// <param name="isSpectator">Is player the spectator</param>
 		void SetSpectatePlayerProperty(bool isSpectator);
-
+		
 		/// <summary>
 		/// Sets the TeamID (for squads) in custom properties (-1 means solo).
 		/// </summary>
-		public void SetTeamIdPlayerProperty(int teamId);
+		public void SetDropPosition(Vector2 dropPosition);
 
 		/// <summary>
 		/// Sets the current room <see cref="Room.IsOpen"/> property, which sets whether it can be joined or not
@@ -227,7 +229,7 @@ namespace FirstLight.Game.Services
 	/// The goal for this interface separation is to allow <see cref="FirstLight.Game.StateMachines.NetworkState"/> to
 	/// update the network data.
 	/// </remarks>
-	public interface IGameBackendNetworkService : IGameNetworkService
+	public interface IInternalGameNetworkService : IGameNetworkService
 	{
 		/// <inheritdoc cref="IGameNetworkService.UserId" />
 		new IObservableField<string> UserId { get; }
@@ -246,7 +248,7 @@ namespace FirstLight.Game.Services
 	}
 
 	/// <inheritdoc cref="IGameNetworkService"/>
-	public class GameNetworkService : IGameBackendNetworkService
+	public class GameNetworkService : IInternalGameNetworkService
 	{
 		private const int LAG_RTT_THRESHOLD_MS = 280;
 		private const int STORE_RTT_AMOUNT = 10;
@@ -551,6 +553,18 @@ namespace FirstLight.Game.Services
 			}
 		}
 
+		public void SetDropPosition(Vector2 dropPosition)
+		{
+			var playerPropsUpdate = new Hashtable
+			{
+				{
+					GameConstants.Network.PLAYER_PROPS_DROP_POSITION, dropPosition
+				}
+			};
+
+			SetPlayerCustomProperties(playerPropsUpdate);
+		}
+
 		public void SetCurrentRoomOpen(bool isOpen)
 		{
 			CurrentRoom.IsOpen = isOpen;
@@ -567,18 +581,6 @@ namespace FirstLight.Game.Services
 			{
 				{
 					GameConstants.Network.PLAYER_PROPS_SPECTATOR, isSpectator
-				}
-			};
-
-			SetPlayerCustomProperties(playerPropsUpdate);
-		}
-		
-		public void SetTeamIdPlayerProperty(int teamId)
-		{
-			var playerPropsUpdate = new Hashtable
-			{
-				{
-					GameConstants.Network.PLAYER_PROPS_TEAM_ID, teamId
 				}
 			};
 
@@ -614,7 +616,7 @@ namespace FirstLight.Game.Services
 				{GameConstants.Network.PLAYER_PROPS_CORE_LOADED, false},
 				{GameConstants.Network.PLAYER_PROPS_ALL_LOADED, false},
 				{GameConstants.Network.PLAYER_PROPS_SPECTATOR, false},
-				{GameConstants.Network.PLAYER_PROPS_TEAM_ID, -1}
+				{GameConstants.Network.PLAYER_PROPS_TEAM_ID, _services.PartyService.PartyCode.Value}
 			};
 
 			SetPlayerCustomProperties(playerProps);

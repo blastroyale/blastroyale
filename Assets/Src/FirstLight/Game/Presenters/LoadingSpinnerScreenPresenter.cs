@@ -1,31 +1,26 @@
-using System.Collections;
-using FirstLight.Game.Views;
+using System;
+using FirstLight.FLogger;
+using FirstLight.Game.Services;
+using FirstLight.Game.Services.AnalyticsHelpers;
+using FirstLight.Game.Utils;
 using FirstLight.UiService;
+using I2.Loc;
+using Newtonsoft.Json;
+using PlayFab;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UIElements;
 
 namespace FirstLight.Game.Presenters
 {
 	/// <summary>
-	/// Controls the rotation of the loading spinner
-	/// </summary>
-	public class LoadingSpinnerScreenPresenter : UiPresenter
+	/// This presenter handles showing generic loading spinner screen
+	/// </summary>	
+	[LoadSynchronously]
+	public class LoadingSpinnerScreenPresenter : UiToolkitPresenter
 	{
-		private const float MIN_DELAY_SHOW_TIME = 0.3f;
-
-		[SerializeField] private LoadingSpinnerView _spinnerView;
-
-		private void OnEnable()
+		protected override void QueryElements(VisualElement root)
 		{
-			StartCoroutine(ActivateSpinner());
-		}
-
-		private IEnumerator ActivateSpinner()
-		{
-			_spinnerView.gameObject.SetActive(false);
-
-			yield return new WaitForSeconds(MIN_DELAY_SHOW_TIME);
-
-			_spinnerView.gameObject.SetActive(true);
 		}
 	}
 }

@@ -174,6 +174,7 @@ namespace FirstLight.Game.Utils
 			public const string PLAYER_PROPS_PRELOAD_IDS = "preloadIds";
 			public const string PLAYER_PROPS_SPECTATOR = "isSpectator";
 			public const string PLAYER_PROPS_TEAM_ID = "teamId";
+			public const string PLAYER_PROPS_DROP_POSITION = "dropPosition";
 
 			// Room properties
 			public const string ROOM_NAME_PLAYTEST = "PLAYTEST";
@@ -283,6 +284,12 @@ namespace FirstLight.Game.Utils
 			public const float PLAYER_KILL_SHARPNESS = 1;
 
 
+		}
+
+		public static class Tutorial
+		{
+			public const string TUTORIAL_ROOM_NAME = "FirstGameTutorial";
+			public const int FIRST_MATCH_TRANSITION_CLOSE_DELAY = 1000;
 		}
 
 		public static class GameModeId

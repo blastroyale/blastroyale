@@ -64,7 +64,7 @@ namespace FirstLight.Game.Presenters
 		{
 			base.OnOpened();
 
-			_services.PlayfabService.GetTopRankLeaderboard(GameConstants.Network.LEADERBOARD_TOP_RANK_AMOUNT,
+			_services.GameBackendService.GetTopRankLeaderboard(GameConstants.Network.LEADERBOARD_TOP_RANK_AMOUNT,
 				OnLeaderboardTopRanksReceived, OnLeaderboardRequestError);
 		}
 
@@ -184,7 +184,7 @@ namespace FirstLight.Game.Presenters
 				return;
 			}
 
-			_services.PlayfabService.GetNeighborRankLeaderboard(GameConstants.Network.LEADERBOARD_NEIGHBOR_RANK_AMOUNT,
+			_services.GameBackendService.GetNeighborRankLeaderboard(GameConstants.Network.LEADERBOARD_NEIGHBOR_RANK_AMOUNT,
 				OnLeaderboardNeighborRanksReceived, OnLeaderboardRequestError);
 		}
 

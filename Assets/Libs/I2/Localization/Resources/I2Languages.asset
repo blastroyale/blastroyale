@@ -332,6 +332,78 @@ MonoBehaviour:
       - 
       Flags: 000000
       Languages_Touch: []
+    - Term: UITHomeScreen/party
+      TermType: 0
+      Description: 
+      Languages:
+      - PARTY
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/create_party
+      TermType: 0
+      Description: 
+      Languages:
+      - CREATE PARTY
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/join_party
+      TermType: 0
+      Description: 
+      Languages:
+      - JOIN PARTY
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/party_popup_desc
+      TermType: 0
+      Description: 
+      Languages:
+      - Create or Join a party!
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/join
+      TermType: 0
+      Description: 
+      Languages:
+      - JOIN
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/party_id
+      TermType: 0
+      Description: 
+      Languages:
+      - PARTY ID
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/party_id_desc
+      TermType: 0
+      Description: 
+      Languages:
+      - Input the party id you want to join.
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITHomeScreen/leave_party
+      TermType: 0
+      Description: 
+      Languages:
+      - LEAVE PARTY
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
     - Term: UITEquipment/adjective_cool
       TermType: 0
       Description: 
@@ -1572,6 +1644,15 @@ MonoBehaviour:
       Description: 
       Languages:
       - SQUAD
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: UITMatchmaking/loading_fail
+      TermType: 0
+      Description: 
+      Languages:
+      - LOADING MATCH FAILED. PLEASE TRY AGAIN.
       - 
       - 
       Flags: 000000
@@ -4556,6 +4637,15 @@ MonoBehaviour:
       Description: 
       Languages:
       - Dynamic Movement Joystick
+      - 
+      - 
+      Flags: 000000
+      Languages_Touch: []
+    - Term: MainMenu/DynamicCameraSetting
+      TermType: 0
+      Description: 
+      Languages:
+      - Dynamic Aiming Camera
       - 
       - 
       Flags: 000000
@@ -11364,51 +11454,6 @@ MonoBehaviour:
       - user.ts
       Flags: 000000
       Languages_Touch: []
-    - Term: UITMatchmaking/loading_fail
-      TermType: 0
-      Description: 
-      Languages:
-      - LOADING MATCH FAILED. PLEASE TRY AGAIN.
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: MainMenu/DynamicCameraSetting
-      TermType: 0
-      Description: 
-      Languages:
-      - Dynamic Aiming Camera
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITHomeScreen/party
-      TermType: 0
-      Description: 
-      Languages:
-      - PARTY
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITHomeScreen/create_party
-      TermType: 0
-      Description: 
-      Languages:
-      - CREATE PARTY
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
-    - Term: UITHomeScreen/join_party
-      TermType: 0
-      Description: 
-      Languages:
-      - JOIN PARTY
-      - 
-      - 
-      Flags: 000000
-      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
@@ -11427,7 +11472,7 @@ MonoBehaviour:
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbxY6jlQ-SK5frglqrELFVJ9jhwvl84M9Xos2EiFMJWlBjW68psp/exec
     Google_SpreadsheetKey: ***REMOVED***
     Google_SpreadsheetName: I2Loc Project Phoenix Localization
-    Google_LastUpdatedVersion: 1675072973979
+    Google_LastUpdatedVersion: 1675090348794
     Google_Password: change_this
     GoogleUpdateFrequency: 1
     GoogleInEditorCheckFrequency: 1

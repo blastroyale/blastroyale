@@ -1,14 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using FirstLight.Game.Logic;
-using FirstLight.Game.Presenters;
-using FirstLight.Game.Services;
 using FirstLight.Game.Utils;
 using FirstLight.Game.Views.MatchHudViews;
 using FirstLight.Services;
 using Photon.Realtime;
-using Quantum;
 using UnityEngine;
 
 namespace FirstLight.Game.Views.MainMenuViews
@@ -48,7 +44,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 			{
 				var newEntry = _playerNamePool.Spawn();
 				_activePlayerEntries.Add(newEntry);
-				newEntry.SetInfo(null, false, false, false, -1, _kickPlayerCallback);
+				newEntry.SetInfo(null, false, false, false, string.Empty, _kickPlayerCallback);
 			}
 
 			_nameEntryViewRef.gameObject.SetActive(false);
@@ -83,7 +79,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 			if (existingEntry != null)
 			{
-				existingEntry.SetInfo(player, player.IsLocal, player.IsMasterClient, isLoaded, player.GetTeamId(), _kickPlayerCallback);
+				existingEntry.SetInfo(player, player.IsLocal, player.IsMasterClient, isLoaded, player.GetPartyId(), _kickPlayerCallback);
 			}
 			else
 			{
@@ -91,7 +87,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 				if (emptyEntry != null)
 				{
-					emptyEntry.SetInfo(player, player.IsLocal, player.IsMasterClient, isLoaded, player.GetTeamId(), _kickPlayerCallback);
+					emptyEntry.SetInfo(player, player.IsLocal, player.IsMasterClient, isLoaded, player.GetPartyId(), _kickPlayerCallback);
 				}
 			}
 
@@ -110,7 +106,7 @@ namespace FirstLight.Game.Views.MainMenuViews
 
 			if (existingEntry != null)
 			{
-				existingEntry.SetInfo(null, false, false, false, -1, null);
+				existingEntry.SetInfo(null, false, false, false, string.Empty, null);
 
 				SortPlayerList();
 			}

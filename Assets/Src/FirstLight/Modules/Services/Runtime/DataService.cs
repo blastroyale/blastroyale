@@ -67,7 +67,7 @@ namespace FirstLight.Services
 
 			return ret;
 		}
-		
+
 		/// <inheritdoc />
 		public bool TryGetData(Type type, out object dat)
 		{
@@ -108,7 +108,7 @@ namespace FirstLight.Services
 			}
 
 			var jsonData = JsonConvert.SerializeObject(_data[type].Data);
-			PlayerPrefs.SetString(type.Name, jsonData);
+			PlayerPrefs.SetString(ConvertKey(type.Name), jsonData);
 			PlayerPrefs.Save();
 		}
 
@@ -122,7 +122,7 @@ namespace FirstLight.Services
 					continue;
 				}
 
-				PlayerPrefs.SetString(data.Key.Name, JsonConvert.SerializeObject(data.Value.Data));
+				PlayerPrefs.SetString(ConvertKey(data.Key.Name), JsonConvert.SerializeObject(data.Value.Data));
 			}
 
 			PlayerPrefs.Save();
@@ -131,7 +131,7 @@ namespace FirstLight.Services
 		/// <inheritdoc />
 		public T LoadData<T>() where T : class
 		{
-			var json = PlayerPrefs.GetString(typeof(T).Name, "");
+			var json = PlayerPrefs.GetString(ConvertKey(typeof(T).Name), "");
 			var instance = string.IsNullOrEmpty(json) ? Activator.CreateInstance<T>() : JsonConvert.DeserializeObject<T>(json);
 
 			AddData(instance, true);
@@ -142,13 +142,13 @@ namespace FirstLight.Services
 		/// <inheritdoc />
 		public void AddData<T>(T data, bool isLocal = false) where T : class
 		{
-			_data[typeof(T)] = new DataInfo { Data = data, IsLocal = isLocal };
+			_data[typeof(T)] = new DataInfo {Data = data, IsLocal = isLocal};
 		}
 
 		/// <inheritdoc />
 		public void AddData(Type type, object data, bool isLocal = false)
 		{
-			_data[type] = new DataInfo { Data = data, IsLocal = isLocal };
+			_data[type] = new DataInfo {Data = data, IsLocal = isLocal};
 		}
 
 		private T GetDataOrCreateIfNeeded<T>() where T : class
@@ -156,9 +156,25 @@ namespace FirstLight.Services
 			if (!TryGetData<T>(out var data))
 			{
 				data = Activator.CreateInstance<T>();
-				_data[typeof(T)] = new DataInfo { Data = data, IsLocal = false };;
+				_data[typeof(T)] = new DataInfo {Data = data, IsLocal = false};
+				;
 			}
+
 			return data;
+		}
+
+		/// <summary>
+		/// Convert a PlayerPref keys to take ParellSync Clones into account
+		/// </summary>
+		private String ConvertKey(String key)
+		{
+#if UNITY_EDITOR
+			if (ParrelSync.ClonesManager.IsClone())
+			{
+				return key + "_clone_" + ParrelSync.ClonesManager.GetArgument();
+			}
+#endif
+			return key;
 		}
 
 		private struct DataInfo

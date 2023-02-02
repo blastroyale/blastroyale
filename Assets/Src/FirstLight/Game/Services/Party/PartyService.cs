@@ -1,16 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
-using I2.Loc;
 using PlayFab;
 using PlayFab.MultiplayerModels;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace FirstLight.Game.Services.Party
 {
@@ -171,10 +168,6 @@ namespace FirstLight.Game.Services.Party
 
 				var normalizedCode = NormalizeCode(code);
 				var filter = $"{CodeSearchProperty} eq '{normalizedCode}'";
-				if (FeatureFlags.COMMIT_VERSION_LOCK)
-				{
-					filter += $" and {LobbyCommitProperty} eq '{VersionUtils.Commit}'";
-				}
 
 				var req = new FindLobbiesRequest()
 				{
@@ -188,6 +181,14 @@ namespace FirstLight.Game.Services.Party
 				if (lobby == null)
 				{
 					throw new PartyException(PartyErrors.PartyNotFound);
+				}
+
+				if (FeatureFlags.COMMIT_VERSION_LOCK && lobby.SearchData.TryGetValue(LobbyCommitProperty, out var lobbyCommit))
+				{
+					if (lobbyCommit != VersionUtils.Commit)
+					{
+						throw new PartyException(PartyErrors.DifferentGameVersion);
+					}
 				}
 
 				if (lobby.CurrentPlayers >= lobby.MaxPlayers)

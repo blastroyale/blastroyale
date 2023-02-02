@@ -47,7 +47,7 @@ public partial class SROptions
 		};
 
 		FLog.Verbose($"Wiping data for account {player.PlayFabId}");
-		PlayFabAdminAPI.UpdateUserReadOnlyData(update, Result, services.PlayfabService.HandleError);
+		PlayFabAdminAPI.UpdateUserReadOnlyData(update, Result, null);
 		PlayerPrefs.DeleteAll();
 
 		var deletionUrl =
@@ -492,7 +492,7 @@ public partial class SROptions
 
 		var data = new Dictionary<string, string>();
 		ModelSerializer.SerializeToData(data, dataProvider.GetData<PlayerData>());
-		services.PlayfabService.CallFunction("ExecuteCommand", null, null,new LogicRequest
+		services.GameBackendService.CallFunction("ExecuteCommand", null, null,new LogicRequest
 		{
 			Command = "CheatAddXpCommand",
 			Data = data

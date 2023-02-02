@@ -83,10 +83,10 @@
             <ui:VisualElement name="ProfileHolder" class="player-header__profile-holder">
                 <ui:Label text="PLAYER NAME" name="Name" class="player-header__name" />
             </ui:VisualElement>
-            <ui:VisualElement name="TrophiesHolder" class="player-header__trophies-holder">
+            <ui:Button name="TrophiesHolder" class="player-header__trophies-holder">
                 <ui:VisualElement name="TrophyIcon" class="player-header__trophy-icon" />
                 <ui:Label text="69420" name="TrophiesAmount" class="player-header__trophies_label" />
-            </ui:VisualElement>
+            </ui:Button>
         </FirstLight.Game.UIElements.ImageButton>
     </ui:VisualElement>
 </ui:UXML>

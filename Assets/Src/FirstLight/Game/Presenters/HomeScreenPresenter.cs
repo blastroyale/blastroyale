@@ -134,6 +134,7 @@ namespace FirstLight.Game.Presenters
 			root.Q<Button>("EquipmentButton").clicked += Data.OnLootButtonClicked;
 			root.Q<Button>("HeroesButton").clicked += Data.OnHeroesButtonClicked;
 			root.Q<Button>("LeaderboardsButton").clicked += Data.OnLeaderboardClicked;
+			root.Q<Button>("TrophiesHolder").clicked += Data.OnLeaderboardClicked;
 
 			_partyButton = root.Q<LocalizedButton>("PartyButton").Required();
 			_partyButton.clicked += OnPartyClicked;

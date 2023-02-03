@@ -175,7 +175,10 @@ namespace Quantum
 				f.Events.OnPlayerKilledPlayer(Player, killerPlayer.Player);
 			}
 
-			f.Events.OnPlayerDead(Player, e, attacker, f.Has<PlayerCharacter>(attacker));
+			var equipmentData = new EquipmentEventData();
+			equipmentData.Gear.CopyFixedArray(Gear);
+			equipmentData.CurrentWeapon = CurrentWeapon;
+			f.Events.OnPlayerDead(Player, e, attacker, f.Has<PlayerCharacter>(attacker), equipmentData);
 			f.Events.OnLocalPlayerDead(Player, killerPlayer.Player, attacker);
 			f.Signals.PlayerDead(Player, e);
 

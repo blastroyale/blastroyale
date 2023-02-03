@@ -67,11 +67,11 @@
 .player-header__trophies-holder {
     position: absolute;
     width: 340px;
-    height: 72px;
+    height: 150px;
     left: 321px;
     top: -6px;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .player-header__trophy-icon {
@@ -79,12 +79,12 @@
     width: 48px;
     height: 48px;
     margin-left: 23px;
-    margin-top: 40px;
+    margin-top: 30px;
 }
 
 .player-header__trophies_label {
     margin-left: -4px;
-    margin-top: 22px;
+    margin-top: 17px;
     color: rgb(255, 255, 255);
     font-size: 34px;
     -unity-text-align: middle-left;

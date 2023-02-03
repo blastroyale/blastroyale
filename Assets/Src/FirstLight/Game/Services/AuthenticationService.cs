@@ -473,7 +473,7 @@ namespace FirstLight.Game.Services
 #if UNITY_EDITOR
 			var link = new LinkCustomIDRequest
 			{
-				CustomId = PlayFabSettings.DeviceUniqueIdentifier,
+				CustomId = ParrelHelpers.DeviceID(),
 				ForceLink = true
 			};
 
@@ -512,7 +512,7 @@ namespace FirstLight.Game.Services
 #if UNITY_EDITOR
 			var unlinkRequest = new UnlinkCustomIDRequest
 			{
-				CustomId = PlayFabSettings.DeviceUniqueIdentifier
+				CustomId = ParrelHelpers.DeviceID()
 			};
 
 			PlayFabClientAPI.UnlinkCustomID(unlinkRequest, _ => OnSuccess(), errorCallback);
@@ -581,7 +581,7 @@ namespace FirstLight.Game.Services
 
 		public void SetLinkedDevice(bool linked)
 		{
-			_dataProvider.AppDataProvider.DeviceID.Value = linked ? PlayFabSettings.DeviceUniqueIdentifier : "";
+			_dataProvider.AppDataProvider.DeviceID.Value = linked ? ParrelHelpers.DeviceID() : "";
 			_dataService.SaveData<AppData>();
 		}
 		

@@ -117,14 +117,14 @@ namespace FirstLight.Game.Utils
 			public const float SCREENSHAKE_DISSAPATION_DISTANCE_MIN = 1;
 			public const float SCREENSHAKE_DISSAPATION_DISTANCE_MAX= 3;
 
-			public const float SCREENSHAKE_SMALL_STRENGTH = 0.3f;
-			public const float SCREENSHAKE_SMALL_DURATION = 0.15f;
+			public const float SCREENSHAKE_SMALL_STRENGTH = 0.4f;
+			public const float SCREENSHAKE_SMALL_DURATION = 0.2f;
 
-			public const float SCREENSHAKE_MEDIUM_STRENGTH = 0.6f;
-			public const float SCREENSHAKE_MEDIUM_DURATION = 0.3f;
+			public const float SCREENSHAKE_MEDIUM_STRENGTH = 0.8f;
+			public const float SCREENSHAKE_MEDIUM_DURATION = 0.4f;
 
-			public const float SCREENSHAKE_LARGE_STRENGTH = 1.2f;
-			public const float SCREENSHAKE_LARGE_DURATION = 0.6f;
+			public const float SCREENSHAKE_LARGE_STRENGTH = 1.6f;
+			public const float SCREENSHAKE_LARGE_DURATION = 0.8f;
 		}
 		public static class Notifications
 		{

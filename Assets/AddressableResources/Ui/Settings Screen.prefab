@@ -7049,7 +7049,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3351900311158343669, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
       propertyPath: mTerm
-      value: MainMenu/DynamicCameraSetting
+      value: MainMenu/ScreenShakeSetting
       objectReference: {fileID: 0}
     - target: {fileID: 3351900311158343669, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
       propertyPath: mLocalizeTarget
@@ -7073,7 +7073,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6685156910141101698, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
       propertyPath: m_text
-      value: Screenshake
+      value: Screen Shake
       objectReference: {fileID: 0}
     - target: {fileID: 6685156910141101698, guid: 3486b1413c8b4481f9f8b9ebe2335897, type: 3}
       propertyPath: m_fontSize

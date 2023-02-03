@@ -19,13 +19,14 @@ namespace Quantum.Systems
 		/// <inheritdoc />
 		public override void Update(Frame f, ref DestructibleFilter filter)
 		{
+
 			if (!filter.Destructible->IsDestructing || f.Time < filter.Destructible->TimeToDestroy)
 			{
 				return;
 			}
 			
 			var power = (uint) filter.Stats->GetStatData(StatType.Power).StatValue.AsInt;
-			var spell = Spell.CreateInstant(f, filter.Entity, filter.Entity, filter.Entity, power, 0,
+			var spell = Spell.CreateInstant(f, filter.Entity, filter.Destructible->Destroyer, filter.Destructible->Destroyer, power, 0,
 			                                filter.Transform->Position);
 
 			QuantumHelpers.ProcessAreaHit(f, filter.Destructible->SplashRadius, spell);

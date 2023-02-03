@@ -95,7 +95,6 @@ namespace FirstLight.Game.MonoComponent.Match
 			if(!_gameDataProvider.AppDataProvider.UseScreenShake)
 				return;
 
-			var impulseListener = _cinemachineBrain.ActiveVirtualCamera.VirtualCameraGameObject.GetComponent<CinemachineImpulseListener>();
 			var newImpulse = new CinemachineImpulseDefinition
 			{
 				m_ImpulseType = CinemachineImpulseDefinition.ImpulseTypes.Uniform,
@@ -112,10 +111,8 @@ namespace FirstLight.Game.MonoComponent.Match
 			{
 				position = _followObject.transform.position;
 			}
-			impulseListener.m_Gain = strength;
 
 			_impulseSource.GenerateImpulseAtPositionWithVelocity(position, new Vector3(vel.x, 0, vel.y) * strength);
-			
 		}
 
 		private void OnDestroy()

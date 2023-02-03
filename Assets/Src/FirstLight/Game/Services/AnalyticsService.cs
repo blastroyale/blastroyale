@@ -33,11 +33,12 @@ namespace FirstLight.Game.Services
 		public static readonly string MatchStart = "match_start";
 		public static readonly string MatchEnd = "match_end";
 		public static readonly string MatchEndBattleRoyalePlayerDead = "match_end_br_player_dead";
-		public static readonly string MatchKillAction = "match_kill_action";
+		public static readonly string MatchKillAction = "match_kill";
+		public static readonly string MatchDeadAction = "match_death";
 		public static readonly string MatchPickupAction = "match_pickup_action";
 		public static readonly string MatchChestOpenAction = "match_chest_open_action";
 		public static readonly string MatchChestItemDrop = "match_chest_item_drop";
-		public static readonly string Error = "error";
+		public static readonly string Error = "error_log";
 		public static readonly string Purchase = "purchase";
 		public static readonly string ItemEquipAction = "item_equip_action";
 		public static readonly string InitialLoadingComplete = "initial_loading_complete";

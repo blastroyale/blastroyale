@@ -263,7 +263,7 @@ namespace FirstLight.Game.StateMachines
 		
 		private void StartRandomMatchmaking(MatchRoomSetup setup)
 		{
-			if (FeatureFlags.PLAYFAB_MATCHMAKING)
+			if (FeatureFlags.PLAYFAB_MATCHMAKING || setup.GameMode.Teams)
 			{
 				_services.MatchmakingService.JoinMatchmaking(setup);
 				_statechartTrigger(JoinedMatchmakingEvent);

@@ -290,10 +290,12 @@ namespace Quantum {
   }
   public enum RankProcessor : int {
     General,
+    Squads,
     Deathmatch,
   }
   public enum RankSorter : int {
     BattleRoyale,
+    BattleRoyaleSquads,
     Deathmatch,
   }
   public enum SpawnerType : int {

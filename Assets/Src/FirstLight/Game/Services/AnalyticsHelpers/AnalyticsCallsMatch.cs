@@ -4,9 +4,7 @@ using FirstLight.Game.Ids;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Utils;
 using Newtonsoft.Json;
-using PlayFab;
 using Quantum;
-using UnityEngine;
 
 namespace FirstLight.Game.Services.AnalyticsHelpers
 {
@@ -54,6 +52,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 			_services = services;
 
 			QuantumEvent.SubscribeManual<EventOnPlayerKilledPlayer>(MatchKillAction);
+			QuantumEvent.SubscribeManual<EventOnLocalPlayerDead>(MatchDeadAction);
 			QuantumEvent.SubscribeManual<EventOnChestOpened>(this, MatchChestOpenAction);
 			QuantumEvent.SubscribeManual<EventOnCollectableCollected>(MatchPickupAction);
 			QuantumEvent.SubscribeManual<EventOnPlayerAttack>(TrackPlayerAttack);
@@ -63,7 +62,7 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				_gameIdsLookup.Add(gameId, gameId.ToString());
 			}
 		}
-
+		
 		/// <summary>
 		/// Logs when we entered the matchmaking room
 		/// </summary>
@@ -243,9 +242,9 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 		{
 			var killerData = playerKilledEvent.PlayersMatchData[playerKilledEvent.PlayerKiller];
 
-			// We cannot send this event for everyone every time so we only send if we are the killer or we were killed by a bot
-			if (!(playerKilledEvent.Game.PlayerIsLocal(playerKilledEvent.PlayerKiller) || 
-			    (killerData.IsBot && playerKilledEvent.Game.PlayerIsLocal(playerKilledEvent.PlayerDead))))
+			// We cannot send this event for everyone every time so we only send if we are the killer or its a suicide
+			if (!playerKilledEvent.Game.PlayerIsLocal(playerKilledEvent.PlayerKiller) || 
+					playerKilledEvent.Game.PlayerIsLocal(playerKilledEvent.PlayerDead))
 			{
 				return;
 			}
@@ -259,12 +258,45 @@ namespace FirstLight.Game.Services.AnalyticsHelpers
 				{"game_mode", _gameModeId},
 				{"mutators", _mutators},
 				{"killed_name", deadData.GetPlayerName()},
-				{"killed_reason", playerKilledEvent.EntityDead == playerKilledEvent.EntityKiller? "suicide":(killerData.IsBot?"bot":"player")},
-				{"killer_name", killerData.GetPlayerName()}
+				{"killed_reason", "player"},
+				{"player_name", killerData.GetPlayerName()}
 			};
 			
 			QueueEvent(AnalyticsEvents.MatchKillAction, data);
 		}
+		
+		/// <summary>
+		/// Logs when a player dies
+		/// </summary>
+		private void MatchDeadAction(EventOnLocalPlayerDead playerDeadEvent)
+		{
+			// We cannot send this event for everyone every time so we only send if we are the killer or we were killed by a bot
+			if (!playerDeadEvent.Game.PlayerIsLocal(playerDeadEvent.Player))
+			{
+				return;
+			}
+
+			var frame = playerDeadEvent.Game.Frames.Verified;
+			var container = frame.GetSingleton<GameContainer>();
+			var playerData = container.GetPlayersMatchData(frame, out _);
+			
+			var deadData = playerData[playerDeadEvent.Player];
+			var killerData = playerData[playerDeadEvent.PlayerKiller];
+
+			var data = new Dictionary<string, object>
+			{
+				{"match_id", _matchId},
+				{"match_type", _matchType},
+				{"game_mode", _gameModeId},
+				{"mutators", _mutators},
+				{"killed_name", deadData.GetPlayerName()},
+				{"killed_reason", playerDeadEvent.Entity == playerDeadEvent.EntityKiller? "suicide":(killerData.IsBot?"bot":"player")},
+				{"killer_name", killerData.GetPlayerName()}
+			};
+			
+			QueueEvent(AnalyticsEvents.MatchDeadAction, data);
+		}
+
 
 		/// <summary>
 		/// Logs when a chest is opened

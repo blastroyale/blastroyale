@@ -8,31 +8,29 @@ namespace FirstLight.Game.UIElements
 	public class HighlighterElement : VisualElement
 	{
 		private const string HighlightElement = "highlighter-element";
-
 		private const string HighlighterElementBlocker = "highlighter-element-blocker";
 
 		private VisualElement _rootReference;
 		private VisualElement _objElement;
 		private VisualElement _objElementParent;
-		
+
 		private VisualElement _blockerElementRight;
 		private VisualElement _blockerElementLeft;
 		private VisualElement _blockerElementBottom;
 		private VisualElement _blockerElementTop;
-		
+
 		private int _elementIndex;
-		
+
 		private VisualElement _highlightedElement;
-		
+
 		private StyleEnum<Position> _prevPositionType;
 		private StyleLength _prevLeft;
 		private StyleLength _prevTop;
-		
+
 		public HighlighterElement()
 		{
-			
 		}
-		
+
 		/// <summary>
 		/// Set the Element to highlight. Blocker/Dimmers will be generated around.
 		/// </summary>
@@ -52,7 +50,7 @@ namespace FirstLight.Game.UIElements
 		{
 			_rootReference.Remove(this);
 		}
-		
+
 		private void DoHighlight(GeometryChangedEvent evt)
 		{
 			_objElement.UnregisterCallback<GeometryChangedEvent>(DoHighlight);
@@ -65,7 +63,7 @@ namespace FirstLight.Game.UIElements
 			_rootReference = _objElement;
 			while (true)
 			{
-				if(_rootReference.hierarchy.parent==null)
+				if (_rootReference.hierarchy.parent == null)
 					break;
 				_rootReference = _rootReference.hierarchy.parent;
 			}
@@ -75,10 +73,10 @@ namespace FirstLight.Game.UIElements
 		{
 			_rootReference.hierarchy.Add(this);
 			pickingMode = PickingMode.Ignore;
-			
+
 			_blockerElementRight = new VisualElement();
 			_blockerElementRight.AddToClassList(HighlighterElementBlocker);
-			hierarchy.Add(_blockerElementRight);	
+			hierarchy.Add(_blockerElementRight);
 			SetBlockerValues(_blockerElementRight,
 				_rootReference.resolvedStyle.height * 2,
 				_rootReference.resolvedStyle.width,
@@ -95,16 +93,18 @@ namespace FirstLight.Game.UIElements
 				_objElement.worldBound.x - _rootReference.contentRect.width);
 
 			_blockerElementBottom = new VisualElement();
-			_blockerElementBottom.AddToClassList(HighlighterElementBlocker);	
+			_blockerElementBottom.AddToClassList(HighlighterElementBlocker);
 			hierarchy.Add(_blockerElementBottom);
-			SetBlockerValues(_blockerElementBottom, _rootReference.resolvedStyle.height, _objElement.resolvedStyle.width,
+			SetBlockerValues(_blockerElementBottom, _rootReference.resolvedStyle.height,
+				_objElement.resolvedStyle.width,
 				_objElement.worldBound.y + _objElement.contentRect.height,
 				_objElement.worldBound.x);
-			
+
 			_blockerElementTop = new VisualElement();
 			hierarchy.Add(_blockerElementTop);
 			_blockerElementTop.AddToClassList(HighlighterElementBlocker);
-			SetBlockerValues(_blockerElementTop, _rootReference.resolvedStyle.height,_objElement.resolvedStyle.width, _objElement.worldBound.y - _rootReference.resolvedStyle.height,_objElement.worldBound.x);
+			SetBlockerValues(_blockerElementTop, _rootReference.resolvedStyle.height, _objElement.resolvedStyle.width,
+				_objElement.worldBound.y - _rootReference.resolvedStyle.height, _objElement.worldBound.x);
 		}
 
 		void SetBlockerValues(VisualElement blocker, float height, float width, float top, float left)
@@ -114,16 +114,13 @@ namespace FirstLight.Game.UIElements
 			blocker.style.top = top;
 			blocker.style.left = left;
 		}
-
-
-
+		
 		public new class UxmlFactory : UxmlFactory<HighlighterElement, UxmlTraits>
 		{
 		}
 
 		public new class UxmlTraits : VisualElement.UxmlTraits
 		{
-
 		}
 	}
 }

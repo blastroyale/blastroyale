@@ -29,7 +29,7 @@ namespace Quantum.Systems
 			                                filter.Transform->Position);
 
 			QuantumHelpers.ProcessAreaHit(f, filter.Destructible->SplashRadius, spell);
-			
+			f.Events.OnHazardLand(filter.Destructible->GameId, filter.Transform->Position, filter.Destructible->Destroyer);
 			f.Add<EntityDestroyer>(filter.Entity);
 		}
 		
@@ -41,9 +41,9 @@ namespace Quantum.Systems
 				return;
 			}
 			
-			destructible->TimeToDestroy = f.Time + destructible->DestructionLengthTime;
+			destructible->TimeToDestroy = f.Time + f.RNG->NextInclusive(destructible->DestructionLengthTime[0], destructible->DestructionLengthTime[1]);
 			destructible->IsDestructing = true;
-			
+			destructible->Destroyer = attacker;
 			f.Events.OnDestructibleScheduled(entity, *destructible);
 		}
 

@@ -263,10 +263,8 @@ namespace FirstLight.Game.StateMachines
 				Callback = () => { _services.QuitGame("Closing game blocked dialog"); }
 			};
 
-			var message = string.Format(ScriptLocalization.General.MaintenanceDescription,
-										VersionUtils.VersionExternal);
-
-			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.Maintenance, message, confirmButton);
+			NativeUiService.ShowAlertPopUp(false, ScriptLocalization.General.Maintenance, 
+			                               ScriptLocalization.General.MaintenanceDescription, confirmButton);
 		}
 
 		private void OpenLoadingScreen()

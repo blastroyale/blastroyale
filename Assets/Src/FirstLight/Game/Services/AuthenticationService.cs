@@ -306,6 +306,7 @@ namespace FirstLight.Game.Services
 			var emails = result.InfoResultPayload.PlayerProfile?.ContactEmailAddresses;
 			var isMissingContactEmail = emails == null || !emails.Any(e => e != null && e.EmailAddress.Contains("@"));
 			var previouslyLoggedIn = false;
+			_networkService.UserId.Value = result.PlayFabId;
 			
 			//AppleApprovalHack(result);
 			

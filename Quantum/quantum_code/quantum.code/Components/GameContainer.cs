@@ -138,6 +138,7 @@ namespace Quantum
 			return sorter switch
 			{
 				RankSorter.BattleRoyale => new BattleRoyaleSorter(),
+				RankSorter.BattleRoyaleSquads => new BattleRoyaleSquadsSorter(),
 				RankSorter.Deathmatch   => new DeathmatchSorter(),
 				_                       => throw new ArgumentOutOfRangeException(nameof(sorter), sorter, null)
 			};
@@ -148,6 +149,7 @@ namespace Quantum
 			return processor switch
 			{
 				RankProcessor.General    => new GeneralRankProcessor(),
+				RankProcessor.Squads => new SquadsRankProcessor(),
 				RankProcessor.Deathmatch => new DeathMatchRankProcessor(),
 				_                        => throw new ArgumentOutOfRangeException(nameof(processor), processor, null)
 			};
@@ -185,6 +187,11 @@ namespace Quantum
 			}
 		}
 
+		private class SquadsRankProcessor : GeneralRankProcessor
+		{
+			// TODO: Add proper logic for the squads rank processor
+		}
+
 		private class BattleRoyaleSorter : IRankSorter
 		{
 			/// <inheritdoc />
@@ -209,6 +216,12 @@ namespace Quantum
 
 				return compare;
 			}
+		}
+
+		
+		private class BattleRoyaleSquadsSorter : BattleRoyaleSorter
+		{
+			// TODO: Add proper logic for squads ranking sort
 		}
 
 		private class DeathmatchSorter : IRankSorter

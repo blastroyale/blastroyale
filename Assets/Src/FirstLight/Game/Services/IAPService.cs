@@ -8,6 +8,7 @@ using FirstLight.Game.Data.DataTypes;
 using FirstLight.Game.Logic;
 using FirstLight.Game.Logic.RPC;
 using FirstLight.Game.Messages;
+using FirstLight.Game.Services.AnalyticsHelpers;
 using FirstLight.SDK.Services;
 using FirstLight.Server.SDK.Modules;
 using Newtonsoft.Json;
@@ -219,7 +220,10 @@ namespace FirstLight.Game.Services
 			};
 
 			PlayFabClientAPI.ValidateIOSReceipt(request, _ => PurchaseValidated(cacheProduct),
-				_gameBackendService.HandleError);
+				e =>
+				{
+					_gameBackendService.HandleError(e,null, AnalyticsCallsErrors.ErrorType.Session);
+				});
 #else
 			var data = JsonConvert.DeserializeObject<Dictionary<string, object>>(payload);
 			var request = new ValidateGooglePlayPurchaseRequest
@@ -230,7 +234,11 @@ namespace FirstLight.Game.Services
 				Signature = (string) data["signature"]
 			};
 			
-			PlayFabClientAPI.ValidateGooglePlayPurchase(request, _ => PurchaseValidated(cacheProduct), null);
+			PlayFabClientAPI.ValidateGooglePlayPurchase(request, _ => PurchaseValidated(cacheProduct),
+				e =>
+				{
+					_gameBackendService.HandleError(e,null, AnalyticsCallsErrors.ErrorType.Session);
+				});
 #endif
 		}
 

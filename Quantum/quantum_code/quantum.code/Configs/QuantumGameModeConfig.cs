@@ -25,10 +25,10 @@ namespace Quantum
 		[ToggleGroup("Matchmaking & Room/Teams"), DisableIf("@true"), PropertyTooltip(DESC_TEAMS)]
 		public bool Teams;
 
-		[ToggleGroup("Matchmaking & Room/Teams"), DisableIf("@true"), PropertyTooltip(DESC_MAX_PLAYERS_IN_TEAM)]
+		[ToggleGroup("Matchmaking & Room/Teams"), DisableIf("@false"), PropertyTooltip(DESC_MAX_PLAYERS_IN_TEAM)]
 		public uint MaxPlayersInTeam;
 
-		[ToggleGroup("Matchmaking & Room/Teams"), DisableIf("@true"), PropertyTooltip(DESC_MIN_PLAYERS_IN_TEAM)]
+		[ToggleGroup("Matchmaking & Room/Teams"), DisableIf("@false"), PropertyTooltip(DESC_MIN_PLAYERS_IN_TEAM)]
 		public uint MinPlayersInTeam;
 		
 		[PropertyTooltip(DESC_ALLOWED_MAPS)]

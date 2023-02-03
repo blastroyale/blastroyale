@@ -8,12 +8,14 @@ enum BotWeaponSearchStrategy
 enum RankSorter
 {
 	BattleRoyale,
+	BattleRoyaleSquads,
 	Deathmatch
 }
 
 enum RankProcessor
 {
 	General,
+	Squads,
 	Deathmatch
 }
 

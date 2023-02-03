@@ -81,7 +81,7 @@ namespace FirstLight.Game.UIElements
 				_rootReference.resolvedStyle.height * 2,
 				_rootReference.resolvedStyle.width,
 				_objElement.worldBound.y - _rootReference.resolvedStyle.height,
-				_objElement.worldBound.x + _objElement.contentRect.width);
+				_objElement.worldBound.x + _objElement.worldBound.width);
 
 			_blockerElementLeft = new VisualElement();
 			_blockerElementLeft.AddToClassList(HighlighterElementBlocker);
@@ -90,21 +90,21 @@ namespace FirstLight.Game.UIElements
 				_rootReference.resolvedStyle.height * 2,
 				_rootReference.resolvedStyle.width,
 				_objElement.worldBound.y - _rootReference.resolvedStyle.height,
-				_objElement.worldBound.x - _rootReference.contentRect.width);
+				_objElement.worldBound.x - _rootReference.worldBound.width);
 
 			_blockerElementBottom = new VisualElement();
 			_blockerElementBottom.AddToClassList(HighlighterElementBlocker);
 			hierarchy.Add(_blockerElementBottom);
 			SetBlockerValues(_blockerElementBottom, _rootReference.resolvedStyle.height,
 				_objElement.resolvedStyle.width,
-				_objElement.worldBound.y + _objElement.contentRect.height,
+				_objElement.worldBound.y + _objElement.worldBound.height,
 				_objElement.worldBound.x);
 
 			_blockerElementTop = new VisualElement();
 			hierarchy.Add(_blockerElementTop);
 			_blockerElementTop.AddToClassList(HighlighterElementBlocker);
 			SetBlockerValues(_blockerElementTop, _rootReference.resolvedStyle.height, _objElement.resolvedStyle.width,
-				_objElement.worldBound.y - _rootReference.resolvedStyle.height, _objElement.worldBound.x);
+				_objElement.worldBound.y - _rootReference.worldBound.height, _objElement.worldBound.x);
 		}
 
 		void SetBlockerValues(VisualElement blocker, float height, float width, float top, float left)

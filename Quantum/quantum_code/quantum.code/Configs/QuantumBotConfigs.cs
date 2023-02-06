@@ -32,6 +32,8 @@ namespace Quantum
 		public FP MaxAimingRange;
 		public FP MovementSpeedMultiplier;
 		public FP MaxDistanceToTeammateSquared;
+		public FP DamageTakenMultiplier;
+		public FP DamageDoneMultiplier;
 	}
 	
 	/// <summary>

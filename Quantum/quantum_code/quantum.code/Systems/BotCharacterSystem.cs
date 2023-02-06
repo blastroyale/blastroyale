@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO.MemoryMappedFiles;
 using System.Linq;
 using Photon.Deterministic;
 
@@ -1151,7 +1149,9 @@ namespace Quantum.Systems
 					MaxAimingRange = botConfig.MaxAimingRange,
 					MovementSpeedMultiplier = botConfig.MovementSpeedMultiplier,
 					TeamSize = teamSize,
-					MaxDistanceToTeammateSquared = botConfig.MaxDistanceToTeammateSquared
+					MaxDistanceToTeammateSquared = botConfig.MaxDistanceToTeammateSquared,
+					DamageTakenMultiplier = botConfig.DamageTakenMultiplier,
+					DamageDoneMultiplier = botConfig.DamageDoneMultiplier
 				};
 
 				botNamesIndices.RemoveAt(listNamesIndex);

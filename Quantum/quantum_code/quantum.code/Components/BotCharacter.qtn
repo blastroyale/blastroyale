@@ -90,6 +90,10 @@ component BotCharacter
 	
 	// If teammate is further than this distance then I'll try to get closer
 	FP MaxDistanceToTeammateSquared;
+	
+	FP DamageTakenMultiplier;
+    
+    FP DamageDoneMultiplier;
 }
 
 synced event OnDummyCharacterKilled

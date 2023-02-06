@@ -103,7 +103,7 @@ namespace FirstLight.Game.Services
 		
 		public bool HasCompletedTutorialSection(TutorialSection section)
 		{
-			return _dataProvider.PlayerDataProvider.HasTutorialStep(section);
+			return _dataProvider.PlayerDataProvider.HasTutorialSection(section);
 		}
 	}
 }

@@ -13,7 +13,6 @@ namespace FirstLight.Game.Commands
 	/// </summary>
 	public struct CompleteTutorialSectionCommand : IGameCommand
 	{
-
 		public TutorialSection Section;
 		
 		public CommandAccessLevel AccessLevel() => CommandAccessLevel.Player;
@@ -23,11 +22,11 @@ namespace FirstLight.Game.Commands
 		/// <inheritdoc />
 		public void Execute(CommandExecutionContext ctx)
 		{
-			if (ctx.Logic.PlayerLogic().HasTutorialStep(Section))
+			if (ctx.Logic.PlayerLogic().HasTutorialSection(Section))
 			{
-				throw new LogicException("Already completed tutorial step " + Section.ToString());
+				throw new LogicException("Already completed tutorial section " + Section);
 			}
-			ctx.Logic.PlayerLogic().MarkTutorialStepCompleted(Section);
+			ctx.Logic.PlayerLogic().MarkTutorialSectionCompleted(Section);
 			var rewardItems = ctx.Logic.RewardLogic().GetRewardsFromTutorial(Section);
 			ctx.Logic.RewardLogic().GiveItems(rewardItems);
 		}

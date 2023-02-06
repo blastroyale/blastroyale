@@ -70,14 +70,14 @@ namespace FirstLight.Tests.EditorMode.Integration
 		{
 			var tutorialRewards = TestConfigs.GetConfigsList<TutorialRewardConfig>().First();
 
-			Assert.False(TestLogic.PlayerLogic.HasTutorialStep(tutorialRewards._section));
+			Assert.False(TestLogic.PlayerLogic.HasTutorialSection(tutorialRewards._section));
 			
 			TestServices.CommandService.ExecuteCommand(new CompleteTutorialSectionCommand()
 			{
 				Section = tutorialRewards._section
 			});
 			
-			Assert.IsTrue(TestLogic.PlayerLogic.HasTutorialStep(tutorialRewards._section));
+			Assert.IsTrue(TestLogic.PlayerLogic.HasTutorialSection(tutorialRewards._section));
 		}
 	}
 }

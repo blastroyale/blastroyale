@@ -43,7 +43,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Checks if a given player has completed a given tutorial step
 		/// </summary>
-		bool HasTutorialStep(TutorialSection section);
+		bool HasTutorialSection(TutorialSection section);
 	}
 
 	/// <inheritdoc />
@@ -68,7 +68,7 @@ namespace FirstLight.Game.Logic
 		/// <summary>
 		/// Flags that the given tutorial step is completed
 		/// </summary>
-		void MarkTutorialStepCompleted(TutorialSection section);
+		void MarkTutorialSectionCompleted(TutorialSection section);
 	}
 	
 	/// <inheritdoc cref="IPlayerLogic"/>
@@ -210,12 +210,12 @@ namespace FirstLight.Game.Logic
 		}
 		
 		
-		public bool HasTutorialStep(TutorialSection section)
+		public bool HasTutorialSection(TutorialSection section)
 		{
 			return DataProvider.GetData<TutorialData>()._tutorialSections.HasFlag(section);
 		}
 		
-		public void MarkTutorialStepCompleted(TutorialSection section)
+		public void MarkTutorialSectionCompleted(TutorialSection section)
 		{
 			var data = DataProvider.GetData<TutorialData>();
 			data._tutorialSections |= section;

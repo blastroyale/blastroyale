@@ -9,8 +9,7 @@ namespace FirstLight.Game.Data
 		NONE = 0,
 		PLAYED_MATCH = 1 << 1,
 		PLAYED_SECOND_MATCH = 1 << 2,
-		USED_BATTLE_PASS = 1 << 3,
-		EQUIPPED_ITEM = 1 << 4
+		TUTORIAL_BP = 1 << 3,
 	}
 	
 	/// <summary>

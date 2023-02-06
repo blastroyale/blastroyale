@@ -1,4 +1,4 @@
-.highlighter-element {
+.blocker-element {
     display: flex;
     position: absolute;
     left: 0;
@@ -8,9 +8,8 @@
 }
 
 
-.highlighter-element-blocker {
+.blocker-element-blocker {
     display: flex;
-    background-color: rgba(0, 0, 0, 0.9);
     position: absolute;
 }
 

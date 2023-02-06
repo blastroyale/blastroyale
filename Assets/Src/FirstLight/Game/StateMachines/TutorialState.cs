@@ -56,7 +56,6 @@ namespace FirstLight.Game.StateMachines
 		
 		private void SendSectionCompleted(TutorialSection section)
 		{
-			Debug.LogError("WHY U COMPLETIN!!!!!!");
 			_tutorialService.CompleteTutorialSection(section);
 		}
 
